@@ -5,40 +5,53 @@
 
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
-Orchestra), somewhere in 1995 that Jan, one of the cranked violists told
-Han-Wen, one of the distorted french horn players, about the grand new
-project he was working on.  It was an automated system for printing
-music (to be precise, it was MPP, a preprocessor for MusiXTeX).  As it
-happened, Han-Wen accidentally wanted to print out some parts from a
-score, so he started looking at the software, and he quickly got hooked.
-It was soon decided that MPP was a dead end. After lots of
-philosophizing and heated e-mail exchanges Han-Wen started LilyPond in
-1996.  This time, Jan got sucked into Han-Wen's new project.
+Orchestra), somewhere in 1995 that Jan, one of the cranked violists
+told Han-Wen, one of the distorted french horn players, about the
+grand new project he was working on.  It was an automated system for
+printing music (to be precise, it was MPP, a preprocessor for
+MusiXTeX).  As it happened, Han-Wen accidentally wanted to print out
+some parts from a score, so he started looking at the software, and he
+quickly got hooked.  It was decided that MPP was a dead end. After
+lots of philosophizing and heated e-mail exchanges Han-Wen started
+LilyPond in 1996.  This time, Jan got sucked into Han-Wen's new
+project.
 
+In some ways, developing a computer program is like learning to play
+an instrument. In the beginning, discovering how it works is fun, and
+the things you can't do are challenging. After the initial excitement,
+you have to practice and practice. Scales and studies can be dull, and
+if you aren't motivated by others, be them teachers, conductors or
+audience, it is very tempting to give up. You continue, and gradually
+playing it becomes a part of your life. Some days it comes naturally,
+and it's wonderful, and on some days it just doesn't work, but you
+keep playing, day after day.
 
-[TODO some more here.]
+Like making music, working on LilyPond is can be dull work, and on
+some days it feels like [ploeteren, kan je dat eens opzoeken bij je
+huisgenoot] through a morass of bugs. Nevertheless, it has become a
+part of our life, and we keep doing it. Probably the most important
+motivation is that our program actually does something useful for
+people. When we browse around the net we find many people that use
+LilyPond, and use it to produce impressive pieces of sheet music.
+Seeing that still feels unreal, but in a very pleasant way.
 
-LilyPond would have been a far less useful program without the input
-of incountable number of individuals. We would like to thank all users
-that sent bugreports, gave suggestions or contributed code.  We would
-especially like to thank the following people: Jean-Baptiste Lamy for
-providing Tablature support, Mats Bengtsson for the incountable newbie
-questions that he answered on the mailing list.  Chris Jackson for
-various piano support code, Heikki Junes for taking care of the
-Emacs-mode, Glen Prideaux for implementing lyric-phrasing.  Juergen
-Reuter for the ancient notation support, Rune Zedeler for many code
-improvements All translators that helped translate the error messages.
-Jeremie Lumbroso, 
+Our users not only give us good vibes by using our program, many of
+them also help us by giving suggestions and sending bugreports. So,
+first and foremost, we would like to thank all users that sent us
+bugreports, gave suggestions or contributed in any other way to
+LilyPond.
 
-@ignore
-  should mention many more people, these are from AUTHORS
-@end ignore
+We would especially like to thank the following people: Mats Bengtsson
+for the incountable number of questions he answered on the mailing
+list, and Rune Zedeler for his energy in finding and fixing bugs.
+Nicola Bernardini for inviting us to his workshop on music publishing,
+which was truly a masterclass, and Heinz Stolba and James Ingram for
+teaching us there. [wie nog meer?]
 
-
-We always maintain that wrote this program to satisfy our curiosity,
-to have fun together, to help people, but ultimately, LilyPond is a
-way to express our deep love for music. May it help you create lots of
-beautiful music!
+Programming together is a lot of fun, and helping people is deeply
+satisfying, but ultimately, working on LilyPond is a way to express
+our deep love for music. May it help you create lots of beautiful
+music!
 
 Han-Wen and Jan
 
