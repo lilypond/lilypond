@@ -151,7 +151,8 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
 
-  Real slur_padding = 0.2;	// todo: slur property, script property?
+  Real slur_padding = robust_scm2double (me->get_property ("padding"),
+					 0.2);	// todo: slur property, script property?
   yext.widen (slur_padding);
   
   Interval bezext (curve.control_[0][X_AXIS],
