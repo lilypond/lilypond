@@ -441,6 +441,7 @@ ScoreContext = \translator {
 	majorSevenSymbol = #whiteTriangleMarkup
 	chordNameSeparator = #(make-simple-markup  "/")
 	chordNameExceptions = #ignatzekExceptions
+	chordNoteNamer = #'()
 	chordRootNamer = #note-name->markup
 	
 	%% tablature:

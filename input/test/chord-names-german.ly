@@ -1,5 +1,5 @@
 
-\version "1.7.16"
+\version "1.7.17"
 \header  {
 
     texidoc = "By setting @code{ChordNames.chordRootNamer}, the root
@@ -7,12 +7,14 @@
 
 }
 
-scm = \chords { c4 b bes } 
+scm = \chords { c4/c cis/cis cisis/cisis ces/ces ceses/ceses b/b bis/bis bes/bes beses/beses } 
 \score {
-
 <    \context ChordNames \chords <
-    \property ChordNames. chordRootNamer = #note-name->german-markup
+    % #t gives true german chord-names
+    % #f gives semi-german chord-names -
+    % - with Bb and below keeping the english names
+    \property ChordNames. chordRootNamer = #(chord-name->german-markup #f)
+    \property ChordNames. chordNoteNamer = #note-name->german-markup
     \scm >
     \context Voice \scm >
-\paper { raggedright = ##t }
 }

@@ -34,16 +34,37 @@
      (accidental->markup (ly:pitch-alteration pitch))))))
 
 
-(define-public (note-name->german-markup pitch)
-  "Return pitch markup for PITCH, using german note names."
-  (make-line-markup
-   (list
-    (make-simple-markup
-     (vector-ref #("C" "D" "E" "F" "G" "A" "H") (ly:pitch-notename pitch)))
-    (make-normal-size-super-markup
-     (accidental->markup (ly:pitch-alteration pitch))))))
+(define-public ((chord-name->german-markup B-instead-of-Bb) pitch)
+  "Return pitch markup for PITCH, using german note names.
+   If B-instead-of-Bb is set to #t real german names are returned.
+   Otherwise semi-german names (with Bb and below keeping the british names)
+"
+  (let* ((name (ly:pitch-notename pitch))
+         (alt (ly:pitch-alteration pitch))
+	 (n-a (if (member (cons name alt) '((6 . -1) (6 . -2)))
+		 (cons 7 (+ (if B-instead-of-Bb 1 0) alt))
+		 (cons name alt))))
+    (make-line-markup
+     (list
+      (make-simple-markup
+       (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a)))
+      (make-normal-size-super-markup
+       (accidental->markup (cdr n-a)))))))
 
 
+(define-public (note-name->german-markup  pitch)
+  (let* ((name (ly:pitch-notename pitch))
+	 (alt (ly:pitch-alteration pitch))
+	 (n-a (if (member (cons name alt) '((6 . -1) (6 . -2)))
+		  (cons 7 (+ 1 alt))
+		  (cons name alt))))
+    (make-line-markup
+     (list
+      (string-append
+       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
+       (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
+	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (cdr n-a)))
+	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -177,6 +198,12 @@
 	)
     )
   (define name-root (ly:get-context-property context 'chordRootNamer))
+  (define name-note 
+    (let ((nn (ly:get-context-property context 'chordNoteNamer)))
+      (if (eq? nn '())
+	  ; replacing the next line with name-root gives guile-error...? -rz
+	  (ly:get-context-property context 'chordRootNamer)
+	  nn)))
 
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p)  (ly:pitch-alteration p))
@@ -290,7 +317,7 @@ work than classifying the pitches."
 			       suffixes
 			       add-markups) sep))
 	 (base-stuff (if bass-pitch
-			 (list sep (name-root bass-pitch))
+			 (list sep (name-note bass-pitch))
 			 '()))
 	 )
 
