@@ -87,7 +87,6 @@ get_font_by_design_size (Output_def *layout, Real requested,
   Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector,
 							       i)));
   return find_scaled_font (layout, fm, requested / size, input_encoding);
-
 }
 
 Font_metric*

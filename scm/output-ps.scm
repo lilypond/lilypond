@@ -209,7 +209,7 @@
     (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-(define (text font s)
+(define (old-text font s)
   (let*
       
       ;; ugh, we should find a better way to
@@ -241,6 +241,31 @@
      (string-join (reverse commands)))
     ))
 
+(define (new-text font s)
+  (let*
+      ((space-length (cdar (ly:text-dimension font "t")))
+       (space-move (string-append (number->string space-length) " 0.0 rmoveto "))
+       
+       (input-enc (assoc-get 'input-name
+			     (ly:font-encoding-alist font)
+			     'latin1))
+       (out-vec (decode-byte-string input-enc s)))
+
+
+    (string-append
+     (ps-font-command font) " setfont "
+     (string-join
+      (vector->list
+       (vector-for-each
+	
+	(lambda (sym)
+	  (if (eq? sym 'space)
+	      space-move
+	      (string-append "/" (symbol->string sym) " glyphshow")))
+	out-vec)))
+     )))
+
+(define text old-text)
 
 (define (white-text scale s)
    (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-bold "

@@ -123,9 +123,17 @@ found."
       ))
  
 ;;;;;;;;;;;;;;;;
+;; vector
+(define-public (vector-for-each proc vec)
+  (do
+      ((i 0 (1+ i)))
+      ((>= i (vector-length vec)) vec)
+    
+    (vector-set! vec i
+		 (proc (vector-ref vec i)))))
+
+;;;;;;;;;;;;;;;;
 ;; hash
-
-
 
 (if (not (defined? 'hash-table?))	; guile 1.6 compat
     (begin

@@ -63,10 +63,10 @@ vector of symbols."
 (define (get-coding-from-file file-name)
   "Read FILE-NAME, return a list containing encoding vector and table"
    (let* ((coding (read-encoding-file file-name))
-	  (com (car coding))
-	  (vec (cdr coding))
-	  (tab (make-encoding-table vec)))
-    (list com vec tab)))
+	  (command (car coding))
+	  (vector (cdr coding))
+	  (table (make-encoding-table vector)))
+    (list command vector table)))
 
 ;; coding-alist maps NAME -> (list FILE-NAME COMMAND VECTOR TAB)
 (define coding-alist
@@ -130,3 +130,23 @@ vector of symbols."
 
 (define-public (get-coding-table coding-name)
   (cadddr (get-coding coding-name)))
+
+
+(define-public (decode-byte-string encoding-name str)
+  "Return vector of glyphname symbols that correspond to string,
+assuming that STR is byte-coded using ENCODING-NAME."
+  
+  (let*
+      ((coding-vector (get-coding-vector encoding-name))
+       (len (string-length str))
+       (output-vector (make-vector len '.notdef))
+       )
+
+
+    (do
+	((idx 0 (1+ idx)))
+	((>= idx len) output-vector)
+      (vector-set! output-vector idx
+		     (vector-ref coding-vector
+				 (char->integer (string-ref str idx))))
+      )))
