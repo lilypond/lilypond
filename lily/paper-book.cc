@@ -8,16 +8,15 @@
 
 #include <stdio.h>
 
+#include "input-file-results.hh"
+#include "ly-module.hh"
 #include "main.hh"
 #include "paper-book.hh"
-#include "paper-score.hh"
 #include "paper-def.hh"
-#include "stencil.hh"
 #include "paper-outputter.hh"
+#include "paper-score.hh"
+#include "stencil.hh"
 
-// -- this simply adds one Page per \score
-// #define ONE_SCORE_PER_PAGE
- 
 // WIP -- simplistic page interface
 // Do we need this at all?  SCM, smob?
 class Page
@@ -62,19 +61,12 @@ Page::Page (Paper_def *paper)
 void
 Page::output (Paper_outputter *out, bool is_last)
 {
-#if ONE_SCORE_PER_PAGE
-  int line_count = SCM_VECTOR_LENGTH ((SCM) lines_);
-  for (int i = 0; i < line_count; i++)
-    out->output_line (scm_vector_ref (lines_, scm_int2num (i)),
-		      is_last && i == line_count - 1);
-#else
   // TODO: header/footer etc
   out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
     out->output_line (ly_car (s), is_last && gh_pair_p (ly_cdr (s)));
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
 				  gh_bool2scm (is_last)));
-#endif
 }
 
 Real
@@ -96,16 +88,12 @@ Paper_book::Paper_book ()
 }
 
 void
-Paper_book::output ()
+Paper_book::output (String outname)
 {
-  Paper_outputter *out = paper_scores_[0]->outputter_;
-  
-  Paper_def *paper = paper_scores_[0]->paper_;
-  out->output_header (paper);
-  
-  if (paper_scores_[0]->book_title_)
-    out->output_expr (paper_scores_[0]->book_title_->get_expr (),
-		      Offset (0, 0));
+  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
+
+  out->output_metadata (get_scopes (0), papers_.top ());
+  out->output_header (papers_.top ());
 
   Link_array<Page> *pages = get_pages ();
   int page_count = pages->size ();
@@ -114,6 +102,32 @@ Paper_book::output ()
 
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
   progress_indication ("\n");
+}
+
+SCM
+Paper_book::get_scopes (int i)
+{
+  SCM scopes = SCM_EOL;
+  if (headers_[i])
+    scopes = scm_cons (headers_[i], scopes);
+  if (global_input_file->header_ && global_input_file->header_ != headers_[i])
+    scopes = scm_cons (global_input_file->header_, scopes);
+  return scopes;
+}
+
+Stencil*
+Paper_book::get_title (int i)
+{
+  SCM make_title = scm_primitive_eval (ly_symbol2scm ("make-title"));
+  SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
+	       : ly_symbol2scm ("scoreTitle"));
+
+  SCM s = ly_modules_lookup (get_scopes (i), field); 
+  if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
+    return unsmob_stencil (gh_call2 (make_title,
+				     papers_[i]->self_scm (),
+				     scm_variable_ref (s)));
+  return 0;
 }
 
 /*
@@ -133,58 +147,51 @@ Link_array<Page>*
 Paper_book::get_pages ()
 {
   Link_array<Page> *pages = new Link_array<Page>;
-  Paper_def *paper = paper_scores_[0]->paper_;
-  int score_count = paper_scores_.size ();
+  int score_count = scores_.size ();
 
   /* Calculate the full book height.  Hmm, can't we cache system
      heights while making stencils?  */
   Real book_height = 0;
   for (int i = 0; i < score_count; i++)
     {
-      Paper_score *pscore = paper_scores_[i];
-      Stencil *title = (i == 0 ? pscore->book_title_ : pscore->score_title_);
+      //SCM lines = scores_[i];
+      Stencil *title = get_title (i);
       if (title)
 	book_height += title->extent (Y_AXIS).length ();
 
-      int line_count = SCM_VECTOR_LENGTH ((SCM) pscore->lines_);
+      int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
       for (int j = 0; j < line_count; j++)
 	{
-	  SCM line = scm_vector_ref (pscore->lines_, scm_int2num (j));
+	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
 	  book_height += ly_scm2offset (ly_car (line))[Y_AXIS];
 	}
     }
 
-  Page *page = new Page (paper);
+  Page *page = new Page (papers_.top ());
   fprintf (stderr, "book_height: %f\n", book_height);
   fprintf (stderr, "vsize: %f\n", page->vsize_);
   fprintf (stderr, "pages: %f\n", book_height / page->text_height ());
 
-#if ONE_SCORE_PER_PAGE
-  for (int i = 0; i < score_count; i++)
-    {
-      page->lines_ = paper_scores_[i]->lines_;
-      pages->push (page);
-    }
-#else
   /* Simplistic page breaking.  */
   Real text_height = page->text_height ();
   for (int i = 0; i < score_count; i++)
     {
-      Paper_score *pscore = paper_scores_[i];
-      Stencil *title = (i == 0 ? pscore->book_title_ : pscore->score_title_);
+      Stencil *title = get_title (i);
+      if (title)
+	book_height += title->extent (Y_AXIS).length ();
       Real h = 0;
       if (title)
 	h = title->extent (Y_AXIS).length ();
 
-      int line_count = SCM_VECTOR_LENGTH ((SCM) pscore->lines_);
+      int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
       for (int j = 0; j < line_count; j++)
 	{
-	  SCM line = scm_vector_ref (pscore->lines_, scm_int2num (j));
+	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
 	  h += ly_scm2offset (ly_car (line))[Y_AXIS];
 	  if (page->height_ + h > text_height)
 	    {
 	      pages->push (page);
-	      page = new Page (paper);
+	      page = new Page (papers_.top ());
 	    }
 	  if (page->height_ + h <= text_height || page->height_ == 0)
 	    {
@@ -202,8 +209,25 @@ Paper_book::get_pages ()
 	    }
 	}
     }
-#endif
   
   pages->push (page);
   return pages;
+}
+
+void
+Paper_book::classic_output (String outname)
+{
+  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
+  int count = scores_.size ();
+  
+  out->output_metadata (get_scopes (count - 1), papers_.top ());
+  out->output_header (papers_.top ());
+
+  int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
+  for (int i = 0; i < line_count; i++)
+    out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),
+		      i == line_count - 1);
+  
+  out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
+  progress_indication ("\n");
 }

@@ -226,16 +226,14 @@ do_one_file (char const *file)
       return;
     }
 
-  static  SCM proc;
+  static SCM proc;
   if (!proc)
     proc = scm_c_eval_string ("dump-gc-protects");
 
-#ifdef PAGE_LAYOUT
   Paper_book book;
   paper_book = &book;
-#endif
   Input_file_results inp_file (init, in_file, out_file);
 #ifdef PAGE_LAYOUT
-  book.output ();
+  book.output (out_file);
 #endif
 }

@@ -35,12 +35,11 @@ Score_context::one_time_step ()
   s->one_time_step ();
 }
 
-
 Music_output*
 Score_context::get_output ()
 {
-  Translator*  t = unsmob_translator (implementation_);
-  Score_translator * s = dynamic_cast<Score_translator *> (t);
+  Translator *t = unsmob_translator (implementation_);
+  Score_translator *s = dynamic_cast<Score_translator *> (t);
   return s->get_output ();
 }
 

@@ -12,11 +12,9 @@
 #include "cons.hh"
 #include "music-output.hh"
 
-/** all stuff which goes onto midi. notes, signs, symbols in a score
-     #Performance# contains the items, the columns.
-    */
-
-class Performance : public Music_output {
+/* MIDI output.  */
+class Performance : public Music_output
+{
 public:
   Performance ();
   ~Performance ();
@@ -27,11 +25,11 @@ public:
   void output_header_track (Midi_stream& midi_stream_r);
 
   void print () const;
-  void process (String);
+  SCM process (String);
 
   Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_elem_p_list_;
-  Midi_def  * midi_;
+  Midi_def *midi_;
 };
 
-#endif // PERFORMANCE_HH
+#endif /* PERFORMANCE_HH */
