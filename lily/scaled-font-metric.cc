@@ -19,9 +19,11 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
   coding_vector_ = SCM_EOL;
   coding_permutation_ = SCM_EOL;
   coding_table_ = SCM_EOL;
-  coding_permutation_ = SCM_EOL;
+  coding_description_ = SCM_EOL;
+  
   coding_scheme_ = coding;
   magnification_ = magn;
+  
   SCM desc = m->description_;
 
   Real total_mag = magn * gh_scm2double (ly_cdr (desc));
@@ -130,7 +132,7 @@ Modified_font_metric::coding_scheme () const
 }
 
 void
-Modified_font_metric::derived_mark ()
+Modified_font_metric::derived_mark () const
 {
   scm_gc_mark (coding_vector_);
   scm_gc_mark (coding_description_);
