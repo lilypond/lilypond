@@ -18,9 +18,6 @@
     |
     <a href="#mailing-lists">Mailing lists</a>
     |
-    <a href="Documentation/programmer/out-www/regression-test.html">
-    Regression test</a>
-    |
     <a href="Documentation/out-www/CHANGES.txt">News</a>
 ]
 @end html
@@ -206,9 +203,6 @@ then please mail us!
     <a href="#music">Music archives</a>
     |
     <a href="#mailing-lists">Mailing lists</a>
-    |
-    <a href="Documentation/programmer/out-www/regression-test.html">
-    Regression test</a>
     |
     <a href="Documentation/out-www/CHANGES.txt">News</a>
 ]

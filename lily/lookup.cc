@@ -285,6 +285,8 @@ Lookup::text (String style, String text, Paper_def *paper_l)
       lines[i] = str;
     }
 
+  if (!lines.size())
+	return Molecule();
 
   SCM first = gh_list (ly_symbol2scm ("text"),
 			 ly_str02scm (lines[0].ch_C()),
