@@ -109,25 +109,20 @@ Paper_column::line_l() const
   return line_l_;
 }
 
-
-
-
 Paper_column*
 Paper_column::column_l () const
 {
   return (Paper_column*)(this);
 }
 
-
-
-
 Paper_column::Paper_column (Moment w)
 {
   SCM when = (new Moment (w))->smobify_self ();
   scm_unprotect_object (when);
   set_elt_property ("when", when);
-  
-  axis_group (this).set_axes (X_AXIS, X_AXIS);
+
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes (X_AXIS, X_AXIS);
 
   line_l_=0;
   rank_i_ = -1;
@@ -156,3 +151,4 @@ Paper_column::musical_b () const
     }
   return s != Moment(0);
 }
+

@@ -81,19 +81,6 @@ Score_element::~Score_element()
   delete dim_cache_[Y_AXIS];  
 }
 
-
-Real
-Score_element::get_real (String s) const
-{
-  return gh_scm2double (get_elt_property (s));
-}
-
-void
-Score_element::set_real (String s, Real r)
-{
-  set_elt_property (s, gh_double2scm (r));
-}
-
 // should also have one that takes SCM arg. 
 SCM
 Score_element::get_elt_property (String nm) const
@@ -569,6 +556,10 @@ Score_element::fixup_refpoint ()
 	{
 	  Score_element * newparent = parent->find_broken_piece (line_l ());
 	  set_parent (newparent, ax);
+	  if (!newparent)
+	    {
+	      programming_error ("Orphaned score-element.");
+	    }
 	}
 
       if (Item * i  = dynamic_cast<Item*> (this))
