@@ -161,3 +161,14 @@ Paper_def::lookup_l()
 }
 
 IMPLEMENT_IS_TYPE_B1(Paper_def, Music_output_def);
+
+String
+Paper_def::TeX_output_settings_str () const
+{
+  
+  String s("\n ");
+  s +=  lookup_p_->texsetting + "%(Tex id)\n";
+  for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++)
+    s += String ("\\def\\mudelapaper") + i.key () + "{" + i.val () + "}\n";
+  return s;
+}
