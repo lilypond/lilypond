@@ -65,6 +65,6 @@ what happens on the inside: a 3/4 time signature is combined with a
 		\repeat unfold 2 { c8-[  c-] }
 		|  c4. c4. \times 2/3 { c8 c c } c4  }
 	}
-	} >
+	>
 	\paper { raggedright = ##t }
 }

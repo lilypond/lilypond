@@ -6,7 +6,7 @@ OUTGIF_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.gif))
 OUTPNG_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.png))
 
 EXTRA_DIST_FILES= $(XPM_FILES)
-OUT_DIST_FILES = $(package-icon)
+# OUT_DIST_FILES = $(package-icon)
 
 include $(depth)/make/stepmake.make
 
