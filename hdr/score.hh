@@ -21,7 +21,7 @@
 struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_p_;
-    Mididef *midi_p_;
+    Midi_def *midi_p_;
     IPointerList<Staff*> staffs_;
     
     /// "runtime" fields for setting up spacing    
@@ -34,7 +34,7 @@ struct Score {
     /* *************************************************************** */
 
     /// construction
-    Score(Paperdef*);
+    Score();
     ~Score();    
     void add(Staff*);
 
@@ -44,11 +44,11 @@ struct Score {
     /// output to file
     void output(String fn);
 
-    /// do midi stuff
-    void midi();
-
+    
     ///
-    void set(Mididef* midi_p);
+    void set(Midi_def* midi_p);
+    ///
+    void set(Paperdef* midi_p);
 
     // standard
     void OK() const;
@@ -61,8 +61,15 @@ struct Score {
     Moment last() const;
 
 private:
+    void paper_output();
     void setup_music();
     void process_music();
+    /// do midi stuff
+    void midi();
+
+    /// do paper stuff
+    void paper();
+
     // utils:
     PCursor<Score_column*> create_cols(Moment);
 
