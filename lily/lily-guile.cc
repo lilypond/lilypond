@@ -368,6 +368,23 @@ ly_number2string (SCM s)
   return gh_str02scm (str);
 }
 
+// #define TEST_GC
+
+#ifdef TEST_GC
+#include <libguile/gc.h>
+
+static void *
+greet_sweep (void *dummy1, void *dummy2, void *dummy3)
+{
+   fprintf(stderr, "entering sweep\n");
+}
+
+static void *
+wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
+{
+   fprintf(stderr, "leaving sweep\n");
+}
+#endif
 
 static void
 init_functions ()
@@ -376,6 +393,13 @@ init_functions ()
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
   scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);
   scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)(...)) ly_number2string);
+
+
+#ifdef TEST_GC 
+  scm_c_hook_add (&scm_before_mark_c_hook, greet_sweep, 0, 0);
+  scm_c_hook_add (&scm_before_sweep_c_hook, wave_sweep_goodbye, 0, 0);
+#endif
+  
 }
 
 ADD_SCM_INIT_FUNC(funcs, init_functions);
