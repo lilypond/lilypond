@@ -61,6 +61,16 @@ formatting:
 	  { c () g }
 	>
 
+Q: and where do the beams come into this picture?
+
+A: Beams are voicegroup-wide, and may be entered in any part of the
+voicegroup:
+
+	< { [a () e] } { c () g } >
+	< { [a () e } { c () g] } >
+	< { [a () e] } { [c () g] } >
+
+These all give the same result.
 
 Q: Why are [] around the notes, and () inbetween?
 
@@ -76,6 +86,15 @@ A: You should do what you like, but at some time we will enable
 quoting of music ("Stichnoten"). Besides if you are going to type an
 orchestral score, then you'd probably want to enter most of the meter,
 repeat commands only once.
+
+Q: I want to insert some TeX commands
+
+A: You shouldn't: it's against LilyPond philosophy to have typesetting
+commands in the mudela source. Moreover, this would be difficult. The
+manner in which Request (the basic building blocks of mudela) are
+translated into printable items is complex: it is not always possible
+to associate one Request with one Item or Spanner.
+
 
 =head2 Miscellaneous
 

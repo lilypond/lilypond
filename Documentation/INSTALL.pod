@@ -74,12 +74,15 @@ to install GNU LilyPond, simply type:
 
 This will install the following files:
 
+	/usr/local/man/man1/mi2mu.1
+	/usr/local/man/man5/mudela.5
 	/usr/local/man/man1/lilypond.1
 	/usr/local/lib/libflower.{so,a}
 	/usr/local/bin/lilypond
 	/usr/local/bin/mi2mu
 	/usr/local/share/lilypond/*
 	/usr/lib/texmf/texmf/tex/lilypond/* 
+	/usr/lib/texmf/texmf/fonts/source/lilypond/* 
 
 The TeX include directory is detected dynamically, but it can be
 adjusted with B<--enable-tex-prefix> and B<--enable-tex-dir>. The
@@ -119,7 +122,7 @@ Make a shared library (linux, solaris (?) only )
 
 =item 	--enable-printing
 
-Enable debugging print routines (B<-d> option)
+Enable debugging print routines (lilypond B<-d> option)
 
 =item 	--enable-optimise
 
@@ -133,14 +136,13 @@ Compile with support for profiling
 
 Set the directory where texmf lives
 
-
 =item --enable-tex-dir
 
-Set then directory tex input is in
+Set then directory tex input is in (detected as a subdir of tex-prefix)
 
 =item --enable-mf-dir
 
-Set then directory tex input is in
+Set then directory tex input is in (idem)
 
 =back
 
