@@ -1898,6 +1898,21 @@ def conv (str):
 
 conversions.append (((2,1,24), conv, """music-list? -> ly:music-list?"""))
 
+def conv (str):
+	str = re.sub (r'ly:get-spanner-bound', 'ly:spanner-get-bound', str)
+	str = re.sub (r'ly:get-extent', 'ly:grob-extent', str)
+	str = re.sub (r'ly:get-system', 'ly:grob-system', str)
+	str = re.sub (r'ly:get-original', 'ly:grob-original', str)
+	str = re.sub (r'ly:get-parent', 'ly:grob-parent', str)
+	str = re.sub (r'ly:get-broken-into', 'ly:spanner-broken-into', str)
+	str = re.sub (r'Melisma_engraver', 'Melisma_translator', str)
+	if re.search ("ly:get-paper-variable", str):
+		sys.stderr.write ('use (ly:paper-lookup (ly:grob-paper ))')
+		raise FatalConversionError()
+	return str
+
+conversions.append (((2,1,25), conv, """Scheme grob function renaming"""))
+
 
 ################################
 #	END OF CONVERSIONS	

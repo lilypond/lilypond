@@ -56,8 +56,8 @@
   "Make a box of exactly the extents of the grob.  The box precisely
 encloses the contents.
 "
-  (let* ((xext (ly:get-extent grob grob 0))
-	 (yext (ly:get-extent grob grob 1))
+  (let* ((xext (ly:grob-extent grob grob 0))
+	 (yext (ly:grob-extent grob grob 1))
 	 (thick 0.1))
 
     (ly:stencil-add (make-filled-box-stencil xext (cons (- (car yext) thick) (car yext) ))

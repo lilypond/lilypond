@@ -8,17 +8,17 @@ this at home.  "
 
 }
 
-\version "2.1.24"
+\version "2.1.25"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 
    "Check if we're the system number COUNT, and if yes, set fixed distance to
 DISTANCE; then call the original callback.  "
    (let*
-       ((a (ly:get-parent grob axis))
-	(o (ly:get-original a))
+       ((a (ly:grob-parent grob axis))
+	(o (ly:grob-original a))
 	(bs (if (ly:grob? o)
-		(ly:get-broken-into o)
+		(ly:spanner-broken-into o)
 		#f))
 	)
 

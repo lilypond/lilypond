@@ -140,17 +140,22 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
    */
   *space = (base_space - increment) + *fixed ;
 
-  if (Item::breakable_b (right_col)
-      || right_col->original_)
+  if (!extents[RIGHT].is_empty ()
+      && (Item::breakable_b (right_col)
+	  || right_col->original_))
     {
       /*
 	This is for the situation
 
 	rest | 3/4 (eol)
-	
+
+	Since we only take half of the right-object space above, the
+	barline will bump into the notes preceding it, if the right
+	thing is big. We add the rest of the extents here:
        */
-      *space += -extents[RIGHT][LEFT];
-      *fixed += -extents[RIGHT][LEFT];
+      
+      *space += -extents[RIGHT][LEFT] / 2;
+      *fixed += -extents[RIGHT][LEFT] / 2;
     }
   
   stem_dir_correction (me, right_col, increment, space, fixed);

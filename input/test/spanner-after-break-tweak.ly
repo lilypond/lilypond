@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.25"
 
 \header { texidoc = "@cindex Spanner after break
 
@@ -11,8 +11,8 @@ after the line break is moved around. "
 
 #(define (my-callback grob)
   (let* (
-      (o (ly:get-original grob))
-      (b (if (ly:grob? o) (ly:get-broken-into o) '() ))
+      (o (ly:grob-original grob))
+      (b (if (ly:grob? o) (ly:spanner-broken-into o) '() ))
       )
 
     ;; Call the equivalent of Tie::after_line_breaking

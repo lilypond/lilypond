@@ -38,7 +38,7 @@ LY_DEFINE (ly_get_grob_property,
   return sc->internal_get_grob_property (sym);
 }
 
-LY_DEFINE (spanner_get_bound, "ly:get-spanner-bound", 2 , 0, 0,
+LY_DEFINE (spanner_get_bound, "ly:spanner-get-bound", 2 , 0, 0,
 	   (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")
@@ -47,19 +47,6 @@ LY_DEFINE (spanner_get_bound, "ly:get-spanner-bound", 2 , 0, 0,
   SCM_ASSERT_TYPE (sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
   SCM_ASSERT_TYPE (is_direction (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
   return sl->get_bound (to_dir (dir))->self_scm ();
-}
-
-/* TODO: make difference between scaled and unscalead variable in
-   calling (i.e different funcs.) */
-LY_DEFINE (ly_get_paper_var,"ly:get-paper-variable", 2, 0, 0,
-  (SCM grob, SCM sym),
-  "Get a variable from the \\paper block.")
-{
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
-
-  return sc->get_paper () ->lookup_variable (sym);
 }
 
 /* TODO: make difference between scaled and unscalead variable in
@@ -77,7 +64,7 @@ LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
 
 
 
-LY_DEFINE (ly_get_extent, "ly:get-extent", 3, 0, 0,
+LY_DEFINE (ly_get_extent, "ly:grob-extent", 3, 0, 0,
 	   (SCM grob, SCM refp, SCM axis),
 	   "Get the extent in @var{axis} direction of @var{grob} relative to "
 	   "the grob @var{refp}")
@@ -92,7 +79,7 @@ LY_DEFINE (ly_get_extent, "ly:get-extent", 3, 0, 0,
   return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
 }
 
-LY_DEFINE (ly_get_parent, "ly:get-parent", 2, 0, 0, (SCM grob, SCM axis),
+LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
 	   "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis, "
 	   "1 for the Y-axis.")
 {
@@ -105,7 +92,7 @@ LY_DEFINE (ly_get_parent, "ly:get-parent", 2, 0, 0, (SCM grob, SCM axis),
 }
 
 LY_DEFINE (ly_get_system,
-	   "ly:get-system",
+	   "ly:grob-system",
 	   1, 0, 0, (SCM grob),
 	   "Return the System Grob of @var{grob}.")
 {
@@ -119,7 +106,7 @@ LY_DEFINE (ly_get_system,
 }
 
 LY_DEFINE (ly_get_original,
-	   "ly:get-original",
+	   "ly:grob-original",
 	   1, 0, 0, (SCM grob),
 	   "Return the unbroken original Grob of @var{grob}.")
 {
@@ -134,7 +121,7 @@ LY_DEFINE (ly_get_original,
   logical for this list? */
 
 LY_DEFINE (get_broken_into,
-	  "ly:get-broken-into", 1, 0, 0, (SCM spanner),
+	  "ly:spanner-broken-into", 1, 0, 0, (SCM spanner),
 	   "Return broken-into list for @var{spanner}.")
 {
   ///  Spanner *me = unsmob_spanner (spanner);

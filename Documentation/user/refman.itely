@@ -2832,6 +2832,26 @@ down = \drums { bassdrum4 snare8 bd r bd sn4 }
 >> }
 @end lilypond
 
+The above example shows verbose polyphonic notation. The short
+polyphonic notation, described in @ref{Polyphony}, can also be used if
+the @internalsref{DrumVoices} are instantiated by hand first. For example, 
+
+@lilypond[fragment] 
+\drums \new DrumStaff <<
+  \context DrumVoice = "1" {  s1 *2 }
+  \context DrumVoice = "2" {  s1 *2 }
+  {
+    bd4 sn4 bd4 sn4
+    <<
+      { \repeat unfold 16 hh16 }
+      \\
+      { bd4 sn4 bd4 sn4 }
+    >>
+  }   
+>>
+@end lilypond
+
+
 There are also other layout possibilities. To use these, set the
 property @code{drumStyleTable} in context @internalsref{DrumVoice}.
 The following variables have been predefined:
@@ -3029,8 +3049,11 @@ Dynamics are not centered, but kludges do exist. See
 @cindex cross staff stem
 @cindex stem, cross staff
 
-
-@c fixme: should have hyperlinks as well.
+The distance between the two staves is normally fixed across the
+entire score. It is possible to tune this per system, but it does
+require arcane command incantations. See
+@inputfileref{input/test,piano-staff-distance.ly}.
+ 
 
 
 
@@ -4557,6 +4580,11 @@ in this example disappears in the second line:
 The first page shows all staffs in full. If they should be  removed
 from  the first page too, set @code{remove-first} to false
 in @internalsref{RemoveEmptyVerticalGroup}.
+
+Another application is making ossia sections, i.e. alternative
+melodies on a separate piece of staff, with help of a Frenched
+staff. See @inputfileref{input/test,ossia.ly} for an example.
+
 
 @node Different editions from one source
 @subsection Different editions from one source

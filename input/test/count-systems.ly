@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.25"
 \header{
     
     texidoc="@cindex Count Systems
@@ -9,9 +9,9 @@ specified number of lines.
 " }
 
 #(define (display-systemno smob)
-  (let* ((this-system (ly:get-system smob))
-	 (systems (ly:get-broken-into
-		   (ly:get-original this-system))))
+  (let* ((this-system (ly:grob-system smob))
+	 (systems (ly:spanner-broken-into
+		   (ly:grob-original this-system))))
     (display smob)
     (display (list-index systems this-system))
     (newline)))
@@ -19,9 +19,9 @@ specified number of lines.
 
 #(define (display-system-count smob)
   (display (length
-	    (ly:get-broken-into
-	     (ly:get-original
-	      (ly:get-system smob))))))
+	    (ly:spanner-broken-into
+	     (ly:grob-original
+	      (ly:grob-system smob))))))
 
   
   

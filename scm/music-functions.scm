@@ -507,6 +507,8 @@ Rest can contain a list of beat groupings
 
    voicify-list :: [ [Music ] ] -> number -> [Music]
    LST is a list music-lists.
+
+   NUMBER is 0-base, i.e. Voice=1 (upstems) has number 0.
 "
 
    (if (null? lst) '()
@@ -516,7 +518,7 @@ Rest can contain a list of beat groupings
 		(make-voice-props-set number)
 		(make-simultaneous-music (car lst))))
 
-	      'Voice  (number->string number))
+	      'Voice  (number->string (1+ number)))
 	      (voicify-list (cdr lst) (1+ number))
        ))
    )
@@ -530,7 +532,7 @@ Rest can contain a list of beat groupings
      ch
    ))
 
-(define (voicify-music m)
+(define-public (voicify-music m)
    "Recursively split chords that are separated with \\ "
    
    (if (not (ly:music? m))
