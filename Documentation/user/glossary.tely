@@ -157,11 +157,15 @@ the duration of the long a. is proportionate to that of the main note.
 
 \property Score.TextScript \set #'font-style = #'large
 <d4_"notation" a fis> r 
-{ \property Grace.Stem \override #'flag-style = #""
-  \grace g16 }
+{ \property Voice.Stem \override #'flag-style = #""
+  \grace g16
+  \property Voice.Stem \revert #'flag-style
+   }
 fis8 e16 fis 
-{ \property Grace.Stem \override #'flag-style = #""
-  \grace a16 }
+{ \property Voice.Stem \override #'flag-style = #""
+  \grace a16
+  \property Voice.Stem \revert #'flag-style
+  }
 g8 fis16 g | a4 \bar "||" }
 \notes\relative c'' {
 <d4_"performance" a fis> r g16 () fis e fis a () g fis g | a4 \bar "||" }

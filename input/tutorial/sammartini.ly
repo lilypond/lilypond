@@ -14,20 +14,22 @@ viola = \notes \relative c' \context Voice = viola {
 
 oboes = \notes \relative c'' \context Voice = oboe {
     \stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-    \grace <e8( g> <d4 f> <c2 e>
+    \grace { <e8( g> } <d4 f> <c2 e>
     \times 2/3 { <d8 \< f> <e g> <f a> }
     <
         { \times 2/3 { a8 g c } \! c2 }
         \context Voice = oboeTwo {
             \stemDown
             \grace {
-                \property Grace.Stem \override #'direction = #-1
-                [f,16 g] }
+                \property Voice.Stem \override #'direction = #-1
+                [f,16 g] 
+                \property Voice.Stem \revert #'direction
+	    }
                 f8 e e2
             }
     >
     \stemBoth
-    \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
+    \grace { <c,8( e> } <)b8. d8.-\trill> <c16 e> | 
     [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
     [<c16( e>  < )e8. g>] <c8 e,>
 }

@@ -25,7 +25,9 @@ not set.  Main note scripts don't end up on the grace note.
 	 \grace { [b32 ( c32] } ) c4
 	\grace  <c16 d16> [c8 c8]
 %	\grace  c16 [c8 c8]
-	\grace  { \property Grace.graceAlignPosition = \right c16} c4
+        %% broken?
+	%%\grace  { \property Grace.graceAlignPosition = \right c16} c4
+	c4 \grace  { c16 } c4
 }
 \paper {linewidth = -1.}
 \midi{ }
