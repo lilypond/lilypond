@@ -1,3 +1,10 @@
+2003-05-03  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Fix XEmacs: 
+	changed [S-iso-lefttab] to [(shift iso-lefttab)].
+	
+	* lilypond.words: Add few words from input/*/*.ly.
+
 2003-05-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: corrections

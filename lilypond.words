@@ -11,6 +11,7 @@ alto
 Ambitus_engraver
 \\apply
 \\applycontext
+\\applyoutput
 \\archiGroup
 \\arpeggio
 \\autoBeamOff
@@ -19,6 +20,9 @@ autoBeamSettings
 \\autochange
 \\bar
 baritone
+Bar
+Bar_engraver
+Bar_number_engraver
 BarLine 
 BarNumber
 \\BarNumberingContext
@@ -52,6 +56,7 @@ ChordNames
 \\circulus
 \\clef
 \\clipping
+Cluster
 \\cm
 \\coda
 \\column
@@ -85,6 +90,7 @@ Dots
 \\dynamicBoth
 \\dynamicDown
 DynamicText
+DynamicsLineSpanner
 \\dynamicUp
 \\EasyNotation
 \\eccentric
@@ -95,6 +101,7 @@ DynamicText
 \\endcresc
 \\endHorizScript
 \\endincipit
+Engraver_group_engraver
 \\ex
 \\extreme
 \\f
@@ -107,6 +114,7 @@ F
 \\ffff
 FiguredBass
 \\FiguredBassContext
+Fingering
 \\figures
 \\flageolet
 fold
@@ -152,6 +160,7 @@ InnerChoirStaff
 \\InnerStaffContext
 InnerStaffGroup
 \\InnerStaffGroupContext
+Instrument_name_engraver
 \\inversions
 \\invisible
 \\ionian
@@ -221,6 +230,7 @@ mezzosoprano
 \\noResetKey
 \\normalkey
 \\normalsize
+NoteColumn
 NoteHead
 \\notenames
 NoteNames
