@@ -4,7 +4,7 @@ cc=lgetopt.cc 	 string.cc dataf.cc textdb.cc unionfind.cc  \
 	matdebug.cc 
 
 templatecc=cursor.cc list.cc tsmat.cc plist.cc
-inl=findcurs.inl link.inl list.inl plist.inl cursor.inl 
+inl=findcurs.inl link.inl list.inl  cursor.inl plist.inl
 hh=cursor.hh pcursor.hh lgetopt.hh link.hh list.hh dstream.hh \
 	string.hh stringutil.hh vray.hh textdb.hh textstr.hh  assoc.hh\
 	findcurs.hh unionfind.hh compare.hh handle.hh matrix.hh\
