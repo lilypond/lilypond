@@ -2250,6 +2250,9 @@ markup:
 	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
 		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
 	}
+	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
+		$$ = scm_list_n ($1, $2, $3, SCM_UNDEFINED);
+	}
 	| MARKUP_IDENTIFIER {
 		$$ = $1;
 	}

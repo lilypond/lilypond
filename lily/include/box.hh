@@ -29,6 +29,7 @@ struct Box
   /// smallest box enclosing #b#
   void set_empty ();
   void add_point (Offset);
+  void widen (Real x, Real y);
   void scale (Real r);
   void unite (Box b);
   Box ();
