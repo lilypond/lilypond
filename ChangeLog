@@ -1,5 +1,9 @@
 2004-02-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/global-context.cc (Global_context): alway accept Score
+	(run_iterator_on_me): cast Context to Score_context, not
+	Context_def.
+
 	* Documentation/user/refman.itely: documentation patch by Edward
 	Sanford Sutton.
 
