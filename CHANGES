@@ -1,4 +1,31 @@
-1.3.99.jcn1
+--- ../lilypond-1.3.99/CHANGES	Wed Oct 25 07:03:07 2000
+++ b/CHANGES	Fri Oct 27 20:28:15 2000
+@@ -1,3 +1,25 @@
+1.3.99.lec1
+===========
+* fixes to abc2ly:
+
+	puts text above rather than below the staff.
+
+	interprets %%MIDI nobarlines (this is an esoteric change, but
+	I need it to use the program at all -- it assumes that
+	accidentals are not persistent.
+
+	Interprets the -8va tenor g clef.
+
+	Fix to previously claimed fix for setting L: before M:
+
+	Uses current rather than deprecated syntax for \property
+	Staff.TimeSignature
+
+	Allows a space between key letter and mode.
+
+	Fix to translation table for :|:
+
+	
+ 1.3.98.jcn2
+ ===========
+ 1.3.99.jcn1
 ===========
 
 * Made several font size and initialisation fixes.
