@@ -84,8 +84,9 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	cp -av lilypond-mode.el $(r)/usr/share/emacs/site-lisp/
-	dh_installdocs DEDICATION NEWS ROADMAP TODO *.txt \
+	cp -av lilypond-mode.el lilypond-font-lock.el \
+		$(r)/usr/share/emacs/site-lisp/
+	dh_installdocs DEDICATION NEWS ROADMAP *.txt \
 		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/*/out/[a-z]*.dvi \

@@ -1,3 +1,4 @@
+@c -*-texinfo-*-
 @c TODO: 
 @c - Reinsert subsection commands that were lost in the
 @c   ancient conversion from YODL!  /MB
@@ -6,41 +7,44 @@
 @c - Fix indexing (keyindex) so it doesn't add line breaks  /MB
 
 @node Reference Manual, ,  , Top
-@menu
-* Overview::                      Overview
-* Top level::                     Top level
-* notenames::                     notenames
-* Lexical conventions::           Lexical conventions
-* Other languages::                      notelang
-* modes::                         modes
-* Types::                         Types
-* Music expressions::             Music expressions
-* Atomic music expressions::      Atomic music expressions
-* Note specification::                      notedesc
-* barlines::                      barlines
-* Manual beams::                  Manual beam
-* stem tremolo::                       tremolo
-* Compound music expressions::    Compound music expressions
-* relative::                      relative
-* Repeats::                   	  Repeats	
-* transpose::                     transpose
-* Ambiguities::                   Ambiguities
-* Notation conversion specifics:: Notation conversion specifics
-* autobeam::                      autobeam
-* lyricprint::                    lyricprint
-* Notation Contexts::             Notation Contexts
-* Properties::                    Changing formatting
-* Notation output definitions::   Notation output definitions
-* paper::                         paper
-* Paper variables::                     papervars
-* contextdefs::                   contextdefs
-* engravers::                     engravers
-* Sound output::                  Sound output
-* midilist::                      midilist
-* Pre-defined Identifiers::       Pre-defined Identifiers
-@end menu
-
 @chapter Reference Manual
+
+@menu
+* Overview::                       Overview
+* Top level::                      Top level
+* notenames::                      notenames
+* Lexical conventions::            Lexical conventions
+* Other languages::                notelang
+* modes::                          modes
+* Types::                          Types
+* Music expressions::              Music expressions
+* Atomic music expressions::       Atomic music expressions
+* Note specification::             notedesc
+* barlines::                       barlines
+* Manual beams::                   Manual beam
+* stem tremolo::                   tremolo
+* Compound music expressions::     Compound music expressions
+* relative::                       relative
+* Repeats::                   	   Repeats	
+* transpose::                      transpose
+* Ambiguities::                    Ambiguities
+* Notation conversion specifics::  Notation conversion specifics
+* autobeam::                       autobeam
+* lyricprint::                     lyricprint
+* Notation Contexts::              Notation Contexts
+* Properties::                     Changing formatting
+* Notation output definitions::    Notation output definitions
+* paper::                          paper
+* Paper variables::                papervars
+* contextdefs::                    contextdefs
+* Sound output::                   Sound output
+* midilist::                       midilist
+* Pre-defined Identifiers::        Pre-defined Identifiers
+@c May be fragile.  Better make single link to generated doco?
+* Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
+* Engravers:(lilypond-internals)LilyPond engravers.
+* Backend:(lilypond-internals)LilyPond backend.
+@end menu
 
 
 

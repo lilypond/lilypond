@@ -57,9 +57,10 @@
     ((1 medium upright number feta-nummer 11) . "feta-nummer11")
     ((0 medium upright number feta-nummer 10) . "feta-nummer10")
     ((-1 medium upright number feta-nummer 8) . "feta-nummer8")
-    ((-2 medium upright number feta-nummer 6) . "feta-nummer6")
-    ((-3 medium upright number feta-nummer 5) . "feta-nummer5")
-    ((-4 medium upright number feta-nummer 4) . "feta-nummer4")
+    ((-2 medium upright number feta-nummer 7) . "feta-nummer7")
+    ((-3 medium upright number feta-nummer 6) . "feta-nummer6")
+    ((-4 medium upright number feta-nummer 5) . "feta-nummer5")
+    ((-5 medium upright number feta-nummer 4) . "feta-nummer4")
 
     ((4 medium upright roman cmr 20) . "cmr20")
     ((3 medium upright roman cmr 16) . "cmr16")
@@ -85,11 +86,14 @@
     ((0 bold upright roman cmbx 10) . "cmbx10")
     ((-1 bold upright roman cmbx 8) . "cmbx8")
     ((-2 bold upright roman cmbx 7) . "cmbx7")
+    
     ;; should use the same brace font every where and fix C++ code.
-
     ((2 medium upright braces feta-braces 26) . "feta-braces26")
     ((1 medium upright braces feta-braces 23) . "feta-braces23")
     ((0 medium upright braces feta-braces 20) . "feta-braces20")
+    ((-1 medium upright braces feta-braces 16) . "feta-braces16")
+    ((-2 medium upright braces feta-braces 13) . "feta-braces13")
+    ((-3 medium upright braces feta-braces 11) . "feta-braces11")
 
     ((3 bold italic dynamic feta-din 13) . "feta-din13")
     ((2 bold italic dynamic feta-din 13) . "feta-din13")
@@ -168,7 +172,9 @@
      . ((finger . ((font-family . number) (font-relative-size . -3)))
 	(volta . ((font-family . number) (font-relative-size . -2)))
 	(tuplet . ((font-family . roman) (font-shape . italic) (font-relative-size . -1)))
-	(timesig . ((font-family .  number) (font-relative-size . 0)))
+
+	(timesig . ((font-family . number) (font-relative-size . 0)))
+	(timesig-symbol . ((font-family . music) (font-relative-size . 0)))
 	
 	(mmrest . ((font-family . number) (font-relative-size . 1)))
 	(mmrest-symbol . ((font-family . music) (font-relative-size . 0)))

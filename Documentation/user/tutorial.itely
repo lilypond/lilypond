@@ -1,13 +1,14 @@
-@chapter Tutorial
-
+@c -*-texinfo-*-
 
 @node Tutorial, , , Top
+@chapter Tutorial
+
 @menu
-* Introduction::                  Introduction
-* The first tune::                The first tune
-* Lyrics and chords::             Lyrics and chords
-* Piano music::                   Piano music
-* end of tutorial::                       The end
+* Introduction::                   Introduction
+* The first tune::                 The first tune
+* Lyrics and chords::              Lyrics and chords
+* Piano music::                    Piano music
+* end of tutorial::                The end
 @end menu
 
 @node Introduction,  , , Tutorial

@@ -18,6 +18,8 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.
 
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
+INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
+
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
@@ -27,10 +29,11 @@ dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
-# urg
-default: 
+info: $(INFO_FILES)
 
-local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc
+default: info
+
+local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc-WWW
 	true
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
@@ -45,6 +48,9 @@ $(outdir)/%.bib: %.bib
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 
-#ugh. out/ hardcoded.
-backdoc:
-	(cd $(outdir); $(topdir)/lily/out/lilypond $(depth)/../ly/generate-documentation)
+backdoc-WWW: $(outdir)/lilypond-internals.html
+
+#ugh. lily/OUT/lilypond hardcoded.
+$(outdir)/lilypond-internals.texi:
+	(cd $(outdir); $(topdir)/lily/out/lilypond ../$(srcdir)/../ly/generate-documentation)
+

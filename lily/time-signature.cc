@@ -50,24 +50,36 @@ Time_signature::brew_molecule (SCM smob)
 Molecule
 Time_signature::special_time_signature (Score_element*me, String s, int n, int d)
 {
-  // First guess: s contains only the signature style
-  String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
+  /*
+    Randomly probing the font sucks?
+  */
+  
+  SCM alist_chain = Font_interface::font_alist_chain (me);
+  
+  SCM style_chain =
+    Font_interface::add_style (me, ly_symbol2scm ("timesig-symbol"),
+			       alist_chain);
+
+  Font_metric *feta = Font_interface::get_font (me, style_chain);
 
   /*
-     Randomly probing the font sucks?
-   */
+    First guess: s contains only the signature style, append fraction.
+  */
+  String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
-  Molecule m = Font_interface::get_default_font (me)->find_by_name (symbolname);
+  Molecule m = feta->find_by_name (symbolname);
   if (!m.empty_b()) 
     return m;
 
-  // Second guess: s contains the full signature name
-  m = Font_interface::get_default_font (me)->find_by_name ("timesig-"+s);
+  /*
+    Second guess: s contains the full signature name
+  */
+  m = feta->find_by_name ("timesig-" + s);
   if (!m.empty_b ()) 
     return m;
 
   // Resort to default layout with numbers
-  return time_signature (me, n,d);
+  return time_signature (me, n, d);
 }
 
 

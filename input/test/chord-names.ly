@@ -23,7 +23,7 @@ chord = \notes\transpose c''\chords{
     	linewidth = -1.0;
         	\translator { 
 			\ChordNamesContext
-			ChordNames \push #'word-space = #1 
+			ChordName \push #'word-space = #1 
 		}
     }
 }

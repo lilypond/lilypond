@@ -8,7 +8,7 @@
 ;;; Inspired on auctex
 
 
-(load-file "lilypond-font-lock.el")
+(load-library "lilypond-font-lock")
 
 (require 'easymenu)
 (require 'compile)
@@ -442,6 +442,6 @@ command."
   (interactive)
   (message "Using `LilyPond-mode' version %s" LilyPond-version))
 
-(provide 'LilyPond-mode)
-;;; LilyPond-mode.el ends here
+(provide 'lilypond-mode)
+;;; lilypond-mode.el ends here
 

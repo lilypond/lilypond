@@ -1,12 +1,12 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename lilypond.info
-@settitle LilyPond Reference Manual
+@settitle GNU LilyPond
 
 
 
 @titlepage
-@title LilyPond Reference Manual
-@subtitle The GNU Project Typesetter
+@title GNU LilyPond
+@subtitle The music typesetter
 @author Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
 
      Copyright @copyright{} 1999 by the authors
@@ -77,18 +77,23 @@ than the names being similar :-)"
 
 @end ignore
 
+@node Top, , , (dir)
+@chapter GNU LilyPond --- The music typesetter
+
 @contents
 
-@node Top, , , (dir)
-
 @menu
-* Tutorial::            a tutorial introduction to lilypond.
-* Invoking LilyPond::   Operation.
-* Reporting Bugs::      Where to report bugs.
-* Reference Manual::    Reference Manual.
-* More information::    Where to turn to for more help.
-* convert-mudela::      Upgrading input files.
-* Index::               Unified index.
+* Tutorial::                       A tutorial introduction to lilypond.
+* Invoking LilyPond::              Operation.
+* Reporting Bugs::                 Where to report bugs.
+* Reference Manual::               Reference Manual.
+@c Move to Reference Manual?
+* Internals:(lilypond-internals).  Auto generated detailed documentation.
+* More information::               Where to turn to for more help.
+* convert-mudela::                 Upgrading input files.
+@c Hmm, having the generated doco in a separate file,
+@c the index can't refer to that.
+* Index::                          Unified index.
 @end menu
 
 @macro keyindex {word}
