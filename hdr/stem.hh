@@ -1,5 +1,5 @@
 /*
-  stem.hh -- 
+  stem.hh -- declare Stem
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -10,8 +10,8 @@
 #include "varray.hh"
 #include "moment.hh"
 
-/// the rule attached to the ball
-/**
+
+/**the rule attached to the ball.
   takes care of:
 
   \begin{itemize}
@@ -22,11 +22,7 @@
   */
 
 struct Stem : Item {
-/*
-    /// rhythmical length
-    Moment note_length;
-    */  
-    // heads the stem encompasses (positions)
+    /// heads that the stem encompasses (positions)
     int minnote, maxnote;
 
     /// false if in beam
@@ -38,8 +34,8 @@ struct Stem : Item {
     /// needed for determining direction/length
     int staff_center;
 
-    // extent of the stem (positions)
-    /**
+
+    /**extent of the stem (positions).
       fractional, since Beam has to adapt them.
       */
 
@@ -49,8 +45,9 @@ struct Stem : Item {
     /// flagtype? 4 none, 8 8th flag, 0 = beam.
     int flag;
 
-    ///geen gedonder, jij gaat onder
+
     /**
+      geen gedonder, jij gaat onder.
        -1 stem points down, +1: stem points up
        */
 

@@ -6,8 +6,9 @@
 #include "plist.hh"
 #include "item.hh"
 
-/// stuff grouped vertically.
+
 /**
+   stuff grouped vertically.
     This is a class to address items vertically. It contains the data for:
     \begin{itemize}
     \item
@@ -17,13 +18,15 @@
     \item
     the linespacing problem
     \end{itemize}
-  */struct PCol {
+  */
+
+struct PCol {
     PointerList<const Item*> its;
     PointerList<const Spanner*> stoppers, starters;
     
 
-    /// prebreak is put before end of line.
-    /**
+
+    /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
     is put at end of line, owned by Col
     */
@@ -54,17 +57,17 @@
     void add(Item *i);
 
     /// Can this be broken? true eg. for bars. 
-    bool breakable()const;
+    bool breakable_b()const;
     
     Interval width() const;
     ~PCol();
     PCol(PCol * parent);
 
-    /// which col comes first?
     /**
+       which col comes first?.
     signed compare on columns.
 
-    return < 0 if c1 < c2.
+    @return < 0 if c1 < c2.
     */static int compare(const PCol &c1, const PCol &c2);
     
 

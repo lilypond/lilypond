@@ -11,10 +11,8 @@
 #include "directionalspanner.hh"
 #include "textdef.hh"
 
-/// a spanner which puts texts on top of other spanners.
-/**
-  Use for triplets, eentweetjes, ottava, etc.
-  */
+/** a spanner which puts texts on top of other spanners.  Use for
+  triplets, eentweetjes, ottava, etc.  */
 struct Text_spanner : Spanner {
     Text_def spec;
     Offset text_off_;
