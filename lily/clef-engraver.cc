@@ -96,12 +96,12 @@ Clef_engraver::set_type (String s)
 	return false;
 
       int c0_position = gh_scm2int (pos) + gh_scm2int (gh_cdr (found));
-      daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (c0_position));
+      daddy_trans_l_->set_property ("centralCPosition", gh_int2scm (c0_position));
     }
 
-  int c0_position = gh_scm2int (get_property ("clefCentralCPosition"));
+  int c0_position = gh_scm2int (get_property ("centralCPosition"));
   c0_position -= (int)octave_dir_ * 7;
-  daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (c0_position));
+  daddy_trans_l_->set_property ("centralCPosition", gh_int2scm (c0_position));
 
 
   SCM basic = ly_symbol2scm ("Clef");
@@ -135,7 +135,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 	  )
 	{
 	  int p = int (Staff_symbol_referencer::position_f (item))
-	    + gh_scm2int (get_property ("clefCentralCPosition"));
+	    + gh_scm2int (get_property ("centralCPosition"));
 	  Staff_symbol_referencer::set_position (item, p);
 	}
       else if (Key_item::has_interface (item))
@@ -146,7 +146,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 	    to know c0-pos for this.  (?)
 	  */
 
-	  item->set_elt_property ("c0-position", get_property ("clefCentralCPosition"));
+	  item->set_elt_property ("c0-position", get_property ("centralCPosition"));
 	}
     } 
 }
@@ -156,7 +156,7 @@ Clef_engraver::do_creation_processing ()
 {
   daddy_trans_l_->set_property ("clefPosition", gh_int2scm (0));
   daddy_trans_l_->set_property ("clefGlyph", SCM_EOL);
-  daddy_trans_l_->set_property ("clefCentralCPosition", gh_int2scm (0));
+  daddy_trans_l_->set_property ("centralCPosition", gh_int2scm (0));
 
   SCM def = get_property ("defaultClef");
   if (gh_string_p (def))

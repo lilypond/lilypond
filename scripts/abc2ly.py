@@ -44,9 +44,8 @@
 
 
 #TODO:
-# UNDEF -> None
- 
-  
+# - UNDEF -> None
+# - rewrite this to be like etf2ly.py
   
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -1070,8 +1069,6 @@ http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.
 
 def print_version ():
 	print r"""abc2ly (GNU lilypond) %s""" % version
-
-
 
 (options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
 out_filename = ''

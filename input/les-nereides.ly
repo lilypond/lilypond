@@ -10,7 +10,7 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
     enteredby =  "JCN";
     %piece =      "Allegretto scherzando";
     copyright =  "public domain";
-    description = "Natiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf";
+    description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf";
     comment =     "LilyPond (1.3.93) can't really do this yet, I guess";
 }
 
@@ -87,9 +87,13 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.TextSpanner \push #'edge-height = #'(0 . 1.5)
     \property Voice.TextSpanner \push #'edge-text = #'("8 " . "")
     % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
+
+	% no, see seq-mus-iter --hwn
     \property Staff."c0-position" = #-13
+
+
     % Get back
-    \context Voice 
+    %\context Voice 
     \outputproperty #(make-text-checker "m.g.")
 	    #'extra-offset = #'(-3 . -2)
     % currently, this can't be (small) italic, because in the paperblock
