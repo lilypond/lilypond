@@ -210,25 +210,6 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   return s.smobbed_copy ();
 }
 
-SCM
-fontify_atom (Font_metric const *met, SCM f)
-{
-  if (f == SCM_EOL)
-    return f;
-  else
-    return  scm_list_n (ly_symbol2scm ("fontify"),
-			met->self_scm (), f, SCM_UNDEFINED);
-}
-
-LY_DEFINE (ly_fontify_atom,"ly:fontify-atom",
-	   2, 0, 0, (SCM met, SCM f),
-	   "Add a font selection command for the font metric @var{met} "
-	   "to @var{f}.")
-{
-  SCM_ASSERT_TYPE (unsmob_metrics (met), met, SCM_ARG1, __FUNCTION__, "font metric");
-
-  return fontify_atom (unsmob_metrics (met), f);
-}
 
 LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
 	   3, 0, 0, (SCM stil, SCM axis, SCM dir),

@@ -164,12 +164,6 @@
 (define font-count 0)
 (define current-font "")
 
-(define (fontify x y name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
-		 (apply (eval (car exp) this-module)
-			(append (list x y) (cdr exp)))))
-;;		 (if (string? exp) exp "")))
-
 (define (define-fonts x) "")
 
 (define (font-def x)

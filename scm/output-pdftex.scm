@@ -116,9 +116,6 @@
 
 (define (repeat-slash w a t)
   (embedded-pdf (list 'repeat-slash w a t)))
-(define (fontify name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
-		 exp))
 
 
 (define (tex-encoded-fontswitch name-mag)

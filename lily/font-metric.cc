@@ -220,8 +220,9 @@ Font_metric::index_to_ascii (int i) const
 Stencil
 Font_metric::get_ascii_char_stencil (int code) const
 {
-  SCM at = scm_list_2 (ly_symbol2scm ("char"), scm_int2num (code));
-  at = fontify_atom (this, at);
+  SCM at = scm_list_3 (ly_symbol2scm ("char"),
+		       this->self_scm (),
+		       scm_int2num (code));
   Box b = get_ascii_char (code);
   return Stencil (b, at);
 }
@@ -229,8 +230,9 @@ Font_metric::get_ascii_char_stencil (int code) const
 Stencil
 Font_metric::get_indexed_char_stencil (int code) const
 {
-  SCM at = scm_list_2 (ly_symbol2scm ("char"), scm_int2num (code));
-  at = fontify_atom (this, at);
+  SCM at = scm_list_3 (ly_symbol2scm ("char"),
+		       self_scm (),
+		       scm_int2num (code));
   Box b = get_indexed_char (code);
   return Stencil (b, at);
 }
