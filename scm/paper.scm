@@ -9,7 +9,20 @@
   "Function to be called inside a \\paper{} block to set the staff size."
   (let* ((m (current-module))
 	 (ss (/ sz 4))
-	 (pt (eval 'pt m)) 
+	 (pt (eval 'pt m))
+
+	 
+	 ;; linear interpolation.
+	 (x1 (* 4.125 pt))
+	 (x0 (* 5 pt))
+	 (f1 (* 0.47 pt))
+	 (f0 (* 0.50 pt))
+	 (lt (/
+	      (+
+	       (* f1 (- ss x0))
+	       (* f0 (- x1 ss)))
+	      (- x1 x0)))
+	 
 	 (mm (eval 'mm m)))
 
     (module-define! m 'outputscale ss)
@@ -19,7 +32,7 @@
     (module-define! m 'staffspace ss)
 
     ;; !! synchronize with feta-params.mf
-    (module-define! m 'linethickness (+ (* 0.3 pt) (* 0.04 ss)))
+    (module-define! m 'linethickness lt)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
     (module-define! m 'interscoreline (* 4 mm))
