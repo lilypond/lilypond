@@ -143,6 +143,7 @@ struct Slur_score_state
   Drul_array<Real> get_y_attachment_range() const;
   Encompass_info get_encompass_info (Grob *col) const;
   Array<Extra_collision_info> get_extra_encompass_infos () const;
+  Real move_away_from_staffline (Real y, Grob *on_staff) const;
 };
 
 
