@@ -1,5 +1,9 @@
 2002-09-07  Rune Zedeler  <rune@zedeler.dk>
 
+	* input/sondag-morgen/*.ly: Tablature fixes
+
+	* ly/performer-init.ly: BUGFIX: add alias Timing to Score context
+	
 	* lily/parser.yy and lily/lexer.ll: Use E_UNSIGNED instead of E_DIGIT
 	
 	* lily/musical-request.cc (String_number_req): Added
@@ -12,7 +16,7 @@
 	
 	* scm/output-lib.scm (tablature-stem-attachment-function): Changed
 	(guitar-tunings): List added
-	((every-nth-bar-number-visible n) barnum): Instead of default-bar-number-visibility
+	((every-nth-bar-number-visible n) barnum): added
 
 	* scm/grob-description.scm (TabNoteHead): Extra-offset added (UGH!)
 	

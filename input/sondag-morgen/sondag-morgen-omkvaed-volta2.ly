@@ -127,16 +127,16 @@ pial = \notes {
 }
 guitar = \notes {
     \guitar
-    e8-2 e-2 < a-3 d'-4> e-2 e-2 < a-3 d'-4> e-2 < h-3 e'-4> |
-    e8-2 < d'-4 g'-5> e-2 e-2 < e'-4 a'-5> e-2 < d'-4 g'-5> e-2  |
-    e-2 e-2 < a-3 d'-4> e-2 e-2 e-2 < h-3 e'-4> e-2 |
+    e8\2 e\2 < a\3 d'\4> e\2 e\2 < a\3 d'\4> e\2 < h\3 e'\4> |
+    e8\2 < d'\4 g'\5> e\2 e\2 < e'\4 a'\5> e\2 < d'\4 g'\5> e\2  |
+    e\2 e\2 < a\3 d'\4> e\2 e\2 e\2 < h\3 e'\4> e\2 |
     s1*0_"FLANGE"
     \repeat unfold 2 {
-	r8 d'-4 <h'-6 g'-5> d'-4 a'-5 d'-4 e'-4 d'-4
-	r8 d'-4 <h'-6 fis'-5> d'-4 a'-5 d'-4 e'-4 d'-4
+	r8 d'\4 <h'\6 g'\5> d'\4 a'\5 d'\4 e'\4 d'\4
+	r8 d'\4 <h'\6 fis'\5> d'\4 a'\5 d'\4 e'\4 d'\4
     }
-    r8 d'-4 <h'-6 g'-5> d'-4 a'-5 d'-4 e'-4 d'-4
-    <h4-3_"NO FLANGE" dis'-4 a'-5 cisis''-6> r8 < a-3 d'-4> e-2 < ais-3 dis'-4> e-2 < h-3 e'-4> |
+    r8 d'\4 <h'\6 g'\5> d'\4 a'\5 d'\4 e'\4 d'\4
+    <h4\3_"NO FLANGE" dis'\4 a'\5 cisis''\6> r8 < a\3 d'\4> e\2 < ais\3 dis'\4> e\2 < h\3 e'\4> |
 }
 
 cello = \notes {

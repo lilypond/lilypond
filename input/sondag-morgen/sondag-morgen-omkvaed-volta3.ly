@@ -67,7 +67,7 @@ pial = \notes {
 }
 guitar = \notes {
     \guitar
-    e8-2 e-2 < a-3 d'-4> e-2 e-2 < a-3 d'-4> e-2 < h-3 e'-4> |
+    e8\2 e\2 < a\3 d'\4> e\2 e\2 < a\3 d'\4> e\2 < h\3 e'\4> |
 }
 
 cello = \notes {

@@ -15,6 +15,7 @@ sd = \translator Staff = down
     piece = "Score"
     tagline = "\\Large{Form: Intro Vers$_1$ Vers$_2$ Omkvæd Vers$_1$ Omkvæd Omkvæd Outro  }"
 }
+
 \score {
     \notes <
 	\property Score.automaticMelismata = ##t
@@ -78,6 +79,10 @@ sd = \translator Staff = down
 	    \context TabStaff=gui <
 		\property Staff.instrument = "Guitar    "
 		\property Staff.instr = "gt    "
+		\property TabStaff.stringOneTopmost = ##f
+		\property TabStaff.highStringOne = ##f
+		\property TabStaff.stringTunings = #(reverse guitar-tunings)
+
 		\context TabVoice \guitar
 	    >
 	    \context Staff = cello <

@@ -397,7 +397,7 @@ ScoreContext = \translator {
 	automaticMelismata = ##t
 	
 	defaultBarType = #"|"
-	barNumberVisibility = #(every-nth-bar-number-visible 1)
+	barNumberVisibility = #default-bar-number-visibility
 
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible

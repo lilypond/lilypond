@@ -106,6 +106,7 @@ ScoreContext = \translator {
 	\type "Score_performer"
 
 	\name Score
+	\alias Timing
 	instrument = #"bright acoustic"
 	\accepts Staff
 	\accepts GrandStaff

@@ -135,18 +135,18 @@ pial = \notes {
 guitar = \notes{
     \guitar
     \time 2/2
-    r2 <d'_"FLANGE"-4 g'-5 h'-6> |
+    r2 <d'_"FLANGE"\4 g'\5 h'\6> |
     \property Staff.Arpeggio \override #'arpeggio-direction = #1
-    a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-    <e1-\arpeggio-2 a-3 d'-4 g'-5 h'-6>
-    g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-    a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-    <e1-\arpeggio-2 a-3 d'-4 fis'-5 h'-6>
-    g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-    a8-3( d'-4 a'-5 a-3 d'-4 a'-5 a-3 )d'-4 |
-    <e1-\arpeggio-2 a-3 d'-4 g'-5 h'-6>
-    g'8-5 fis'4-5 d'8-4 r8 h4.-3 |
-    <e,1-\arpeggio-1 e-2 a-3 d'-4 g'-5 h'-6>
+    a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+    <e1-\arpeggio\2 a\3 d'\4 g'\5 h'\6>
+    g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+    a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+    <e1-\arpeggio\2 a\3 d'\4 fis'\5 h'\6>
+    g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+    a8\3( d'\4 a'\5 a\3 d'\4 a'\5 a\3 )d'\4 |
+    <e1-\arpeggio\2 a\3 d'\4 g'\5 h'\6>
+    g'8\5 fis'4\5 d'8\4 r8 h4.\3 |
+    <e,1-\arpeggio\1 e\2 a\3 d'\4 g'\5 h'\6>
 }
 
 cello = \notes {
