@@ -157,8 +157,11 @@ into one staff.")
  'chordNameFunction procedure?
  "The function that converts lists of pitches to chord names.")
 (translator-property-description
+ 'chordNoteNamer procedure?
+ "Function that converts from a pitch object to a text markup. Used for single pitches.")
+(translator-property-description
  'chordRootNamer procedure?
- "Function that converts from a pitch object to a text markup.")
+ "Function that converts from a pitch object to a text markup. Used for chords.")
 (translator-property-description
  'chordNameExceptions list?
  "Alist of chord exceptions. Contains (CHORD . MARKUP) entries.")

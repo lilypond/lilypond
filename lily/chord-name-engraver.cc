@@ -153,5 +153,5 @@ ENTER_DESCRIPTION(Chord_name_engraver,
 /* accepts */     "note-event",
 /* acks  */      "",
 /* reads */       "chordChanges chordNameExceptions chordNameFunction "
-"chordRootNamer chordNameExceptions majorSevenSymbol",
+"chordNoteNamer chordRootNamer chordNameExceptions majorSevenSymbol",
 /* write */       "");

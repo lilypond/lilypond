@@ -1,3 +1,13 @@
+2003-04-20  Rune Zedeler  <rune@zedeler.dk>
+
+	* input/test/chord-names-german.ly: modified.
+
+	* scm/chords-ignatzek.scm:
+	  chord-name->german-markup: Added
+	  note-name->german-markup: Changed (now producing lowercase notenames)
+
+	* lily/chord-name-engraver.cc: Reads property chordNoteNamer
+	
 2003-04-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/german-chords-init.ly: remove file
