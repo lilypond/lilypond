@@ -4,17 +4,18 @@
 % author: unknown. Copyright: none
 %
 
-cad = music { $
-	\duration { 8}
+cad = \music { 
+		\cadenza {1}
+		\grouping{1*4}\duration { 8}
 	\textstyle "italic"
 	\clef \violin 
-	'c4.\mf g8
+	c'4.mf g8
  	\textstyle  "roman" 
 
-	['e^"accel" ()'d 'c b]
-	[b()'c] g-\fermata
+	[e'^"accel" ()d' c' b]
+	[b()c'] g-\fermata
 		\bar \empty
-			c [c_"rubato" e g 'c]
+			c [c_"rubato" e g c']
 	\octave{'}
 	e4. e [g ()f_"rit" e d]
 
@@ -33,26 +34,23 @@ cad = music { $
 	\duration{16}	[d cis d e]
 	f4()[f e d c]
 	`b4
-	\octave{} ['d8 'c8 a8]2/3
+	\octave{} [d'8 c'8 a8]2/3
 	g2
 		\bar \empty 
-	[g c e g] ['c e g 'c]\octave{'} 
+	[g c e g] [c' e g c']\octave{'} 
 	[e `g c e] g4^\fermata %()% BUG!
 		\bar \empty 
-	[g8.(_"a tempo" e g8. )e]
+	[g8.(_"a \tempo" e g8. )e]
 	a4. g8 [f8 e8 d8 c8]
 	`g2 d2^"tr"
 	c4
-	$}
+	}
 
-score {
-	staff { melodic
-		music { cad }
+\score {
+	\staff { \melodic
+		\music { cad }
 	}
-	commands {
-		cadenza {1}
-		grouping{1*4}
-	}
-	paper {}
-	midi { tempo 4:80 }
+	
+	\paper {}
+	\midi { \tempo 4:90 }
 }
