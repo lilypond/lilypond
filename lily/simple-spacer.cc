@@ -253,7 +253,8 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 	  "are connected by @var{count-1} springs, and an arbitrary number of rods "
 	  "Springs have the format (ideal, hooke) and rods (idx1, idx2, distance) "
 	  "@var{length} is a number, @var{ragged} a boolean "
-	  "Return: a list containing the force (#f for non-satisfied constraints) "
+	  "Return: a list containing the force (positive for stretching, "
+	  "negative for compressing and #f for non-satisfied constraints) "
 	  "followed by the @var{spring-count}+1 positions of the objects. "
 	  )
 {
