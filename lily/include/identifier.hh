@@ -9,19 +9,19 @@
 
 #include "proto.hh"
 #include "string.hh"
+#include "input.hh"
 
 /* boolean argument to accesor is copy_b..*/
 #define IDACCESSOR( Input_staff, staff)\
     virtual Input_staff * staff(bool) { error(#Input_staff); return 0; }
 
 
-struct Identifier {
+struct Identifier : public Input {
     void *data;
     String name;
     bool init_b_;
     bool accessed_b_;
     int token_code_i_;
-    char const *defined_ch_C_;
     
     Identifier(String n, int code) ;
     virtual ~Identifier() {}
@@ -32,6 +32,8 @@ struct Identifier {
     IDACCESSOR(Input_staff, staff)
     IDACCESSOR(Input_music, music)
     IDACCESSOR(Music_voice, mvoice)
+    IDACCESSOR(Input_register, iregs)	
+	       
     IDACCESSOR(Script_def, script)
     IDACCESSOR(Symtables, symtables)
     IDACCESSOR(Music_general_chord, mchord)
@@ -43,7 +45,7 @@ struct Identifier {
 protected:
     virtual void do_print()const=0;
 private:
-    Identifier(Identifier const&){}
+    Identifier(Identifier const&);
 };
 
 #define declare_id_class(Idclass, Class, accessor)	\
@@ -66,5 +68,6 @@ declare_id_class(M_chord_id, Music_general_chord, mchord);
 declare_id_class(M_voice_id, Music_voice, mvoice);
 declare_id_class(Score_id, Input_score, score);
 declare_id_class(Request_id, Request, request);
+declare_id_class(Input_regs_id, Input_register, iregs);
 
 #endif // IDENTIFIER_
