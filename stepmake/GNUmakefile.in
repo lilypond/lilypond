@@ -50,7 +50,7 @@ stepmake/aclocal.m4:
 	-$(LN) aclocal.m4 $@
 
 ifeq ($(PACKAGE),STEPMAKE)
-INSTALLATION_DIR=$(datadir)
+INSTALLATION_DIR=$(package_datadir)
 INSTALLATION_FILES=$(DIST_FILES) $(NON_ESSENTIAL_DIST_FILES) GNUmakefile config.make config.status
 include $(stepdir)/install-targets.make
 endif
