@@ -6,6 +6,10 @@
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
+
+;;
+;; todo: this dispatch is totally LAME
+ 
 (define (tex-scm action-name)
   (define (unknown) 
     "%\n\\unknown%\n")
@@ -63,6 +67,8 @@
      (number->string (inexact->exact (* 1000  (cdr name-mag))))
      "\n"))
 
+  (define (ez-ball c l b)
+    (embedded-ps ((ps-scm 'ez-ball) c  l b)))
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
 
@@ -210,6 +216,7 @@
 	    (define font-switch ,font-switch)
 	    (define header-end ,header-end)
 	    (define lily-def ,lily-def)
+	    (define ez-ball ,ez-ball)
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
