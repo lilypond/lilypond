@@ -12,8 +12,7 @@ SUBDIRS = buildscripts scripts flower lily \
 	mf ly tex ps scm \
 	python po make intl \
 	debian $(builddir)/stepmake \
-	Documentation input \
-	mutopia 
+	Documentation input
 #
 
 SCRIPTS = configure aclocal.m4 autogen.sh

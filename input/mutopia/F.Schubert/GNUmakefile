@@ -1,8 +1,7 @@
-# 
+depth = ../../..
 
-depth = ../..
-
-examples=petite-ouverture-a-danser
+examples=standchen
+mutopia-examples=standchen
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 
 include $(depth)/make/stepmake.make
