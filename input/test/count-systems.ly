@@ -3,16 +3,16 @@
 \header{
     
     texidoc="@cindex Count Systems
-The function which controls the printing of the system number may be also
-overridden to print, for example, the number of systems or the system
-number of a grob.
+After a line break, some function may called by overriding 
+@code{after-line-breaking-callback}. This can be most useful to assertain 
+that a piece uses a specified number of lines; typically the number of
+lines (or systems) is not engraved, but it can be printed to console when 
+generating the output. The number of lines may be associated either
+to the number of systems or the system number of a grob.
 " }
 
-% Original comment has no sense? -HJJ:
-% This can be most useful to assertain that a piece uses a specified number of lines.
-
-%% What is the problem? -- jcn:
-%% See, eg, input/mutopia/J.S.Bach/baerenreiter-sarabande.ly for
+%% -- jcn:
+%% See, e.g., input/mutopia/J.S.Bach/baerenreiter-sarabande.ly for
 %% an application:
 
 %% We want this to perfectly match the Baerenreiter spacing.

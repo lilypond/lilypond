@@ -3,8 +3,8 @@
     
     texidoc = "@cindex Embedded scm
 
-You can embed scheme functions in your scores.  While processing this
-file, ``hello world'' is printed to the console.
+You can embed scheme functions in your scores.  While generating the
+output, ``hello world'' is printed to the console.
 "
      % see also: --safe-mode
 }
