@@ -2153,7 +2153,7 @@ conversions.append (((2, 3, 11), conv,
 		     '''\\setMmRestFermata -> ^\\fermataMarkup'''))
 
 def conv (str):
-	str = re.sub (r'\\newpage'. r'\\pageBreak', str)
+	str = re.sub (r'\\newpage', r'\\pageBreak', str)
 	return str
 
 conversions.append (((2, 3, 12), conv,
