@@ -343,14 +343,10 @@ SCM
 Score_element::handle_broken_smobs (SCM src, SCM criterion)
 {
  again:
-
-  
   Score_element *sc = unsmob_element (src);
   if (sc)
     {
-      if (criterion == SCM_UNDEFINED)
-	return SCM_UNDEFINED;
-      else if (gh_number_p (criterion))
+      if (gh_number_p (criterion))
 	{
 	  Item * i = dynamic_cast<Item*> (sc);
 	  Direction d = to_dir (criterion);
@@ -369,11 +365,10 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	      Score_element * br = sc->find_broken_piece (line);
 	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
 	    }
-	  if (!dep_line)
-	    return SCM_UNDEFINED;
-
-	  if (!sc->common_refpoint (line, X_AXIS)
-	      || !sc->common_refpoint (line, Y_AXIS))
+	  if (line
+	      &&  (!dep_line
+		   || !sc->common_refpoint (line, X_AXIS)
+		   || !sc->common_refpoint (line, Y_AXIS)))
 	    {
 	      return SCM_UNDEFINED;
 	    }
@@ -381,14 +376,15 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
     }
   else if (gh_pair_p (src))
     {
+      SCM oldcar =gh_car (src);
       /*
 	UGH! breaks on circular lists.
       */
-      SCM car = handle_broken_smobs (gh_car (src), criterion);
-      SCM cdr = gh_cdr (src);
+      SCM newcar = handle_broken_smobs (oldcar, criterion);
+      SCM oldcdr = gh_cdr (src);
       
-      if (car == SCM_UNDEFINED
-	  && (gh_pair_p (cdr) || cdr == SCM_EOL))
+      if (newcar == SCM_UNDEFINED
+	  && (gh_pair_p (oldcdr) || oldcdr == SCM_EOL))
 	{
 	  /*
 	    This is tail-recursion, ie. 
@@ -397,11 +393,12 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 
 	    We don't want to rely on the compiler to do this.  Without
 	    tail-recursion, this easily crashes with a stack overflow.  */
-	  src =  cdr;	
+	  src =  oldcdr;
 	  goto again;
 	}
 
-      return gh_cons (car, handle_broken_smobs (cdr, criterion));
+      SCM newcdr = handle_broken_smobs (oldcdr, criterion);
+      return gh_cons (newcar, newcdr);
     }
   else
     return src;
@@ -437,12 +434,16 @@ Score_element::handle_broken_dependencies()
 	= handle_broken_smobs (element_property_alist_,
 			       line ? line->self_scm_ : SCM_UNDEFINED);
     }
-  else
+  else if (!dynamic_cast <Line_of_score*> (this))
     {
       /*
-	This element is `invalid'; it has been removed from all dependencies, so
-	let's junk the element itself.
+	This element is `invalid'; it has been removed from all
+	dependencies, so let's junk the element itself.
+
+	do not do this for Line_of_score , since that would free
+	up originals of score-elts (a bad thing.)
       */
+      
       element_property_alist_ = SCM_EOL;
       set_extent_callback (0, Y_AXIS);
       set_extent_callback (0, X_AXIS);
@@ -631,6 +632,7 @@ Score_element::fixup_refpoint ()
 
 IMPLEMENT_UNSMOB(Score_element, element);
 IMPLEMENT_SMOBS(Score_element);
+
 SCM
 Score_element::mark_smob (SCM ses)
 {
