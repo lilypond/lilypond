@@ -54,7 +54,7 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
     = Pointer_group_interface__extract_elements (  me, (Score_element*) 0, "elements");
   for (int i=0; i < all_elts.size(); i++) 
     {
-      Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (me, a);
+      Interval y = all_elts[i]->extent(me, a);
       if (!y.empty_b())
 	{
 	  Score_element *e =dynamic_cast<Score_element*>(all_elts[i]);

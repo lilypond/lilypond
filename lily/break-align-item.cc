@@ -87,7 +87,7 @@ Break_align_interface::do_alignment (Score_element *me)
   
   for (int i=0; i < all_elems.size(); i++) 
     {
-      Interval y = all_elems[i]->extent(X_AXIS);
+      Interval y = all_elems[i]->extent(all_elems[i], X_AXIS);
       if (!y.empty_b())
 	elems.push (dynamic_cast<Score_element*> (all_elems[i]));
     }
@@ -175,13 +175,13 @@ Break_align_interface::do_alignment (Score_element *me)
 
   Real pre_space = elems[0]->relative_coordinate (column, X_AXIS);
 
-  Real xl = elems[0]->extent (X_AXIS)[LEFT];
+  Real xl = elems[0]->extent (elems[0],X_AXIS)[LEFT];
   if (!isinf (xl))
     pre_space += xl;
   else
     programming_error ("Infinity reached. ");
 
-  Real xr = elems.top ()->extent (X_AXIS)[RIGHT];
+  Real xr = elems.top ()->extent (elems.top (), X_AXIS)[RIGHT];
   Real spring_len = elems.top ()->relative_coordinate (column, X_AXIS);
   if (!isinf (xr))
     spring_len += xr;

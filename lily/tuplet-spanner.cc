@@ -66,7 +66,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
       Link_array<Score_element> column_arr=
 	Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
 	
-      Real ncw = column_arr.top ()->extent(X_AXIS).length ();
+      Real ncw = column_arr.top ()->extent(column_arr.top (), X_AXIS).length ();
       Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
 
       Real staff_space = me->paper_l ()->get_var ("staffspace");
@@ -143,8 +143,8 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   
   if (l < r)
     {
-      *dy = column_arr[r]->extent (Y_AXIS) [d] + column_arr[r]->relative_coordinate (commony, Y_AXIS)
-	- column_arr[l]->extent (Y_AXIS) [d] - column_arr[l]->relative_coordinate (commony, Y_AXIS);
+      *dy = column_arr[r]->extent (commony, Y_AXIS) [d]
+	- column_arr[l]->extent (commony, Y_AXIS) [d] ;
     }
   else
     * dy = 0;
@@ -162,8 +162,7 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
-      Real notey = column_arr[i]->extent (Y_AXIS)[d] 
-	+ column_arr[i]->relative_coordinate (commony, Y_AXIS)
+      Real notey = column_arr[i]->extent (commony, Y_AXIS)[d] 
 	- me->relative_coordinate (commony, Y_AXIS);
 
       Real x = column_arr[i]->relative_coordinate (commonx, X_AXIS) - x0;
@@ -182,10 +181,13 @@ Tuplet_spanner::calc_dy (Score_element*me,Real * dy)
 {
   Link_array<Score_element> column_arr=
     Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
- 
+
+  /*
+    ugh. refps.
+   */
   Direction d = Directional_element_interface::get (me);
-  *dy = column_arr.top ()->extent (Y_AXIS) [d]
-    - column_arr[0]->extent (Y_AXIS) [d];
+  *dy = column_arr.top ()->extent (column_arr.top (), Y_AXIS) [d]
+    - column_arr[0]->extent (column_arr[0], Y_AXIS) [d];
 }
 MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking,1);
 
@@ -263,15 +265,13 @@ void
 Tuplet_spanner::add_beam (Score_element*me, Score_element *b)
 {
   me->add_dependency (b);
-  Pointer_group_interface gi (me, "beams");
-  gi.add_element (b);
+  Pointer_group_interface::add_element (me, "beams",b);
 }
 
 void
 Tuplet_spanner::add_column (Score_element*me, Item*n)
 {
-  Pointer_group_interface gi (me, "columns");
-  gi.add_element (n);
+  Pointer_group_interface::add_element (me, "columns",n);
   me->add_dependency (n);
 
   add_bound_item (dynamic_cast<Spanner*> (me), n);

@@ -126,8 +126,11 @@ Stem_tremolo::brew_molecule (SCM smob)
       */
       Real whole_note_correction;
       if (Stem::invisible_b (stem ))
-	whole_note_correction = -Stem::get_direction (stem )
-	  * Stem::support_head (stem )->extent (X_AXIS).length () / 2;
+	{
+	  Score_element *hed = Stem::support_head (stem );
+	  whole_note_correction = -Stem::get_direction (stem )
+	    *hed->extent (hed, X_AXIS).length () / 2;
+	}
       else
 	whole_note_correction = 0;
 	 

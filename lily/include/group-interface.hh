@@ -25,28 +25,14 @@
 
 struct Group_interface
 {
-  Score_element * elt_l_;
-  String name_;
 public:
-  Group_interface (Score_element *);
-  Group_interface (Score_element *, String);
-  int count ();
-  void add_thing (SCM);
-  bool has_interface ();
-
+  static int count (Score_element*  , String);
+  static void add_thing (Score_element*, String nm, SCM);
 };
 
-struct Pointer_group_interface {
-  Score_element * elt_l_;
-  String name_;
+struct Pointer_group_interface : public Group_interface {
 public:
-  Pointer_group_interface (Score_element*);
-  Pointer_group_interface (Score_element*, String);
-  int count ();
-
-  static bool has_interface (Score_element*);
-  bool has_interface ();
-  void add_element (Score_element*);
+  static void add_element (Score_element*, String nm, Score_element*e);
 };
 /** 
   Put all score elements of ELT's property called NAME into an array,

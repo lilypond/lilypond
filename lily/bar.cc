@@ -7,6 +7,7 @@
 */
 #include <math.h>
 
+#include "paper-column.hh"
 #include "main.hh"
 #include "dimensions.hh"
 #include "score-element.hh"
@@ -150,15 +151,34 @@ Bar::before_line_breaking  (SCM smob)
   if (! gh_equal_p  (g, orig))
     me->set_elt_property ("glyph", g);
 
+  
+  /*
+    set a (pseudo) stem-direction, so we extra space is inserted
+    between stemup and barline.
 
+    TODO: should check if the barline is the leftmost object of the
+    break alignment.
+
+  */
+  if (gh_string_p (g))
+    {
+      Score_element * col = item->column_l ();
+      SCM dirlist = col->get_elt_property ("dir-list");
+      SCM scmdir = gh_int2scm (-1); 
+      if (scm_memq (scmdir, dirlist) == SCM_BOOL_F)
+	{
+	  dirlist = gh_cons (scmdir, dirlist);
+	  col->set_elt_property ("dir-list", dirlist);
+	}
+    }
+  
   return SCM_UNSPECIFIED;
 }
   
 void
 Bar::set_interface (Score_element*me)
 {
-  me->set_elt_property ("interfaces",
-			gh_cons (ly_symbol2scm ("bar-interface"), me->get_elt_property ("interfaces")));
+  me->set_interface (ly_symbol2scm ("bar-interface"));
 }
 
 bool

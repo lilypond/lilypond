@@ -126,9 +126,7 @@ Dot_column::add_head (Score_element * me, Score_element *rh)
     {
       Side_position::add_support (me,rh);
 
-      Pointer_group_interface gi (me, "dots");
-      gi.add_element (d);
-      
+      Pointer_group_interface ::add_element (me, "dots",d);
       d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);
       Axis_group_interface::add_element (me, d);
     }

@@ -9,44 +9,24 @@
 #include "group-interface.hh"
 #include "score-element.hh"
 
-/*
-  ugh: clean me, junk elt_l_ field
- */
-Group_interface::Group_interface (Score_element * e)
-{
-  elt_l_ = (Score_element*)e;
-  name_ = "elements";
-}
-
-
-Group_interface::Group_interface (Score_element  *e, String s)
-{
-  elt_l_ =(Score_element*)e;
-  name_ = s;
-} 
-bool
-Group_interface::has_interface () 
-{
-  SCM el = elt_l_->get_elt_property (name_.ch_C());
-
-  return el == SCM_EOL || gh_pair_p (el);
-}
-
-
 
 void
-Group_interface::add_thing (SCM s)
+Group_interface::add_thing (Score_element*me, String name, SCM s)
 {
-  elt_l_->set_elt_property (name_.ch_C (),
- 			    gh_cons (s, elt_l_->get_elt_property (name_.ch_C())));
+  me->set_elt_property (name.ch_C (),
+ 			    gh_cons (s, me->get_elt_property (name.ch_C())));
 }
 
 
 int
-Group_interface::count ()
+Group_interface::count (Score_element *me, String name)
 {
-  return scm_ilength (elt_l_->get_elt_property (name_.ch_C()));
+  return scm_ilength (me->get_elt_property (name.ch_C()));
 }
 
 
-
+void
+Pointer_group_interface::add_element (Score_element*me, String name, Score_element*p) 
+{
+  Group_interface::add_thing (me, name, p->self_scm());
+}

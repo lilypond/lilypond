@@ -100,8 +100,7 @@ Note_column::add_head (Score_element*me,Score_element *h)
     }
   else if (Note_head::has_interface (h))
     {
-      Pointer_group_interface gi (me, "note-heads");
-      gi.add_element (h);
+      Pointer_group_interface::add_element (me, "note-heads",h);
     }
   Axis_group_interface::add_element (me, h);
 }
@@ -132,7 +131,7 @@ Interval
 Note_column::rest_dim (Score_element*me) 
 {
   Score_element * r = unsmob_element (me->get_elt_property ("rest"));
-  return r->extent (Y_AXIS);
+  return r->extent (r, Y_AXIS);	// ??
 }
 
 Score_element*

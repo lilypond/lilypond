@@ -99,5 +99,5 @@ void
 Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
 {
   me->add_dependency (n);
-  Pointer_group_interface (me, "items-worth-living").add_element (n);
+  Pointer_group_interface::add_element (me, "items-worth-living",n);
 }

@@ -37,9 +37,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
   
   do
     {
-      Real  x = sp->get_bound (d)->relative_coordinate (common, X_AXIS);
-      Interval ext =  sp->get_bound (d)->extent (X_AXIS);
-      bounds[d] = (x + ext[-d]);
+      bounds[d] = sp->get_bound (d)->extent (common, X_AXIS)[-d];
     }
   while (flip (&d) != LEFT);
 

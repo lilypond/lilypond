@@ -40,7 +40,7 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
 	don't add as Axis_group_interface::add_element (delim_, ),
 	because that would set the parent as well */
 	  
-      Pointer_group_interface (delim_).add_element (inf.elem_l_);
+      Pointer_group_interface::add_element (delim_, "elements", inf.elem_l_);
     }
   else if (System_start_delimiter::has_interface (inf.elem_l_))
     {

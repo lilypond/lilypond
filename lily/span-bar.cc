@@ -20,8 +20,7 @@
 void
 Span_bar::add_bar (Score_element*me, Score_element*b)
 {
-  Pointer_group_interface gi (me);
-  gi.add_element (b);
+  Pointer_group_interface::add_element (me,"elements", b);
 
   me->add_dependency (b);
 }

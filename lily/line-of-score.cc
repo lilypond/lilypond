@@ -51,7 +51,7 @@ void
 Line_of_score::typeset_element (Score_element * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
-  Pointer_group_interface (this, "all-elements").add_element (elem_p);
+  Pointer_group_interface::add_element (this, "all-elements",elem_p);
   scm_unprotect_object (elem_p->self_scm ());
 }
 
@@ -287,7 +287,7 @@ Line_of_score::post_processing (bool last_line)
 				  ly_symbol2scm ("after-line-breaking-callback"));
     }
 
-  Interval i(extent(Y_AXIS));
+  Interval i(extent(this, Y_AXIS));
   if (i.empty_b())
     programming_error ("Huh?  Empty Line_of_score?");
   else

@@ -118,6 +118,13 @@ linked with (de)crescendi, they should be on the same line.
 
 @mudelafile{dyn-line.ly}
 
+
+Arpeggios are supported, both cross-staff and one-staff. 
+
+@mudelafile{arpeggio.ly}
+
+
+
 @section Chord names
 
 Chord names are generated from a list pitches, and are customisable

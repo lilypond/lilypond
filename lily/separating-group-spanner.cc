@@ -98,7 +98,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 void
 Separating_group_spanner::add_spacing_unit (Score_element* me ,Item*i)
 {
-  Pointer_group_interface (me, "elements").add_element (i);
+  Pointer_group_interface::add_element (me, "elements",i);
   me->add_dependency (i);
 }
 

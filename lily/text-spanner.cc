@@ -96,7 +96,8 @@ Text_spanner::brew_molecule (SCM smob)
 
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
-  width += spanner->get_bound (RIGHT)->extent (X_AXIS).length ();
+  Score_element *bnd = spanner->get_bound (RIGHT);
+  width += bnd->extent (bnd, X_AXIS).length ();
   width -= broken_left;
   width -= shorten[LEFT] + shorten[RIGHT];
   width -= edge[LEFT].extent (X_AXIS).length ()

@@ -49,8 +49,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
     {
       Item * col = sp->get_bound (d)->column_l ();
 
-      Interval coldim = col->extent (X_AXIS)
-	+ col->relative_coordinate (0, X_AXIS);
+      Interval coldim = col->extent (0, X_AXIS);
 
       sp_iv[d] = coldim[-d]  ;
     }
@@ -146,8 +145,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 void
 Multi_measure_rest::add_column (Score_element*me,Item* c)
 {
-  Pointer_group_interface gi (me, "columns");
-  gi.add_element (c);
+  Pointer_group_interface::add_element (me, "columns",c);
 
   add_bound_item (dynamic_cast<Spanner*> (me),c);
 }
@@ -189,7 +187,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	/*
 	  should do something more advanced.
 	 */
-      rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
+      rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ gh_scm2double (me->get_elt_property ("minimum-width")) * staff_space;
   
       rod.add_to_cols ();
