@@ -5578,12 +5578,11 @@ Many graphical objects provide a @code{style} property, see
 @item
 @ref{Ancient accidentals},
 @item
-@ref{Ancient
-rests},
+@ref{Ancient rests},
 @item
 @ref{Ancient clefs},
 @item
-@ref{Ancient flags}
+@ref{Ancient flags},
 @item
 @ref{Ancient time signatures}.
 @end itemize
@@ -5593,10 +5592,19 @@ the affected graphical objects can be accommodated for a specific
 notation flavor without need for introducing any new notational
 concept.
 
+In addition to the standard articulation signs described in section
+@ref{Articulations}, specific articulation signs for ancient notation
+are provided.
+
+@itemize @bullet
+@item
+@ref{Ancient articulations}
+@end itemize
+
 Other aspects of ancient notation can not that easily be expressed as
-in terms of just changing a style property of a graphical object.
-Therefore, some notational concepts are introduced specifically for
-ancient notation,
+in terms of just changing a style property of a graphical object or
+adding articulation signs.  Some notational concepts are introduced
+specifically for ancient notation,
 
 @itemize @bullet
 @item
@@ -5604,10 +5612,31 @@ ancient notation,
 @item
 @ref{Divisiones},
 @item
-@ref{Ligatures}, 
-@item
-@ref{Figured bass}.
+@ref{Ligatures}.
 @end itemize
+
+If this all is too much of documentation for you, and you just want to
+dive into typesetting without worrying too much about the details on
+how to customize a context, you may have a look at the predefined
+contexts.  Use them to set up predefined style-specific voice and
+staff contexts, and directly go ahead with the note entry,
+
+@itemize @bullet
+@item
+@ref{Gregorian Chant contexts},
+@item
+@ref{Mensural contexts}.
+@end itemize
+
+There is limited support for figured bass notation which came
+up during the baroque period.
+
+@itemize @bullet
+@item
+@ref{Figured bass}
+@end itemize
+
+Here are all suptopics at a glance:
 
 @menu
 * Ancient note heads::          
@@ -5616,19 +5645,15 @@ ancient notation,
 * Ancient clefs::               
 * Ancient flags::               
 * Ancient time signatures::     
+* Ancient articulations::       
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
-* Vaticana style contexts::     
+* Gregorian Chant contexts::    
+* Mensural contexts::           
 * Figured bass::                
 @end menu
 
-If this all is too much of documentation for you, and you just want to
-dive into typesetting without worrying too much about the details on
-how to customize a context, you may have a look at the predefined
-contexts (see @ref{Vaticana style contexts}).  Use them to set up
-predefined style-specific voice and staff contexts, and directly go
-ahead with the note entry.
 
 @node Ancient note heads
 @subsection Ancient note heads
@@ -5983,21 +6008,7 @@ c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 @end lilypond
 
 Note that the innermost flare of each mensural flag always is
-vertically aligned with a staff line.  If you do not like this
-behavior, you can set the @code{adjust-if-on-staffline} property of
-grob @internalsref{Stem} to @code{##f}.  Then, the vertical position
-of the end of each flare is different between notes on staff lines and
-notes between staff lines
-
-@lilypond[quote,fragment,raggedright]
-\override Stem #'flag-style = #'mensural
-\override Stem #'thickness = #1.0
-\override Stem #'adjust-if-on-staffline = ##f
-\override NoteHead #'style = #'mensural
-\autoBeamOff
-c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
-c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
-@end lilypond
+vertically aligned with a staff line.
 
 There is no particular flag style for neo-mensural notation.  Hence,
 when typesetting the incipit of a transcribed piece of mensural
@@ -6116,6 +6127,52 @@ This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note.
 
 The @code{old6/8alt} symbol (an alternate symbol for 6/8) is not
 addressable with @code{\time}.  Use a @code{\markup} instead
+
+@node Ancient articulations
+@subsection Ancient articulations
+
+@cindex articulations
+
+In addition to the standard articulation signs described in section
+@ref{Articulations}, articulation signs for ancient notation are
+provided.  These are specifically designed for use with notation in
+Editio Vaticana style.
+
+@lilypond[quote,raggedright,verbatim,noindent]
+\include "gregorian-init.ly"
+\score {
+  \context VaticanaVoice {
+    \override TextScript #'font-family = #'typewriter
+    \override TextScript #'font-shape = #'upright
+    \override Script #'padding = #-0.1
+    a4\ictus_"ictus" s1
+    a4\circulus_"circulus" s1
+    a4\semicirculus_"semicirculus" s1 s
+    a4\accentus_"accentus" s1
+    \[ a4_"episem" \episemInitium \pes b \flexa a \episemFinis \]
+  }
+  \paper {
+    \context {
+	\VaticanaVoice
+	% Prepare TextSpanner for \episem{Initium|Finis} use.
+	\override TextSpanner #'style = #'line
+	\override TextSpanner #'edge-height = #'(0 . 0)
+	\override TextSpanner #'padding = #0.5
+	\override TextSpanner #'enclose-bounds = #1
+	\override TextSpanner #'edge-text = #'("" . "")
+    }
+  }
+}
+@end lilypond
+
+@refbugs
+
+The line @code{\override Script #'padding = #-0.1} is required to
+force the articulation signs being placed vertically tightly to the
+correpsonding note heads.
+
+episem is currently broken due to a bug related with TextSpanner.
+
 
 @node Custodes
 @subsection Custodes
@@ -7196,8 +7253,8 @@ respectively.
 
 
 
-@node Vaticana style contexts
-@subsection Vaticana style contexts
+@node Gregorian Chant contexts
+@subsection Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -7230,6 +7287,40 @@ the following excerpt demonstrates
   >>
 }
 @end lilypond
+
+
+@node Mensural contexts
+@subsection Mensural contexts
+
+@cindex MensuralVoiceContext
+@cindex MensuralStaffContext
+
+The predefined @code{MensuralVoiceContext} and
+@code{MensuralStaffContext} can be used to engrave a piece in mensural
+style.  These contexts initialize all relevant context properties and
+grob properties to proper values, so you can immediately go ahead
+entering the chant, as the following excerpt demonstrates
+
+@lilypond[quote,raggedright,verbatim,noindent]
+\score {
+  <<
+    \context MensuralVoice = "discantus" \transpose c c' {
+      \override Score.BarNumber #'transparent = ##t {
+	c'1\melisma bes a g\melismaEnd
+	f\breve
+	\[ f1\melisma a c'\breve d'\melismaEnd \]
+	c'\longa
+	c'\breve\melisma a1 g1\melismaEnd
+	fis\longa^\signumcongruentiae
+      }
+    }
+    \lyricsto "discantus" \new Lyrics {
+      San -- ctus, San -- ctus, San -- ctus
+    }
+  >>
+}
+@end lilypond
+
 
 @node Figured bass
 @subsection Figured bass

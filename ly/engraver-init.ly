@@ -382,6 +382,7 @@ AncientRemoveEmptyStaffContext = \context {
     \RemoveEmptyStaffContext
     \accepts "VaticanaVoice"
     \accepts "GregorianTranscriptionVoice"
+    \accepts "MensuralVoice"
 }
 
 \context {
@@ -421,6 +422,7 @@ AncientRemoveEmptyStaffContext = \context {
     \accepts "TabStaff"
     \accepts "VaticanaStaff"
     \accepts "GregorianTranscriptionStaff"
+    \accepts "MensuralStaff"
     \accepts "StaffGroup"
     \accepts "RhythmicStaff"
     \accepts "DrumStaff"
@@ -755,4 +757,59 @@ EasyNotation = \context {	% TODO: why \context override?
   % not show up any more among other line breaking issues.
   % Instead, we make the grob transparent.
   \override BarLine #'transparent = ##t
+}
+
+\context {
+  \Voice
+  \name "MensuralVoice"
+  \alias "Voice"
+  \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting a piece in mensural style."
+
+  \remove "Slur_engraver"
+  \remove "Ligature_bracket_engraver"
+  \consists "Mensural_ligature_engraver"
+
+  % Set default head for notes outside of \[ \].
+  \override NoteHead #'style = #'mensural
+
+  % There are no beams in mensural notation.
+  autoBeaming = ##f
+}
+
+\context {
+  \Staff
+  \name "MensuralStaff"
+  \alias "Staff"
+  \denies "Voice"
+  \accepts "MensuralVoice"
+  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting a piece in mensural style."
+
+  \consists "Custos_engraver"
+
+  % We can not remove Bar_engraver; otherwise clefs and custodes will
+  % not show up any more among other line breaking issues.
+  % Instead, we make the grob transparent.
+  \override BarLine #'transparent = ##t
+
+  \override StaffSymbol #'thickness = #0.6
+
+  % FIXME: unit on StaffSymbol's width should be \linewidth.
+  % \override StaffSymbol #'width = #60.0
+
+  % Choose vaticana do clef on 3rd line as default.
+  clefGlyph = #"clefs-petrucci-g"
+  middleCPosition = #-6
+  clefPosition = #-2
+  clefOctavation = #0
+
+  % Select mensural style font.
+  \override TimeSignature #'style = #'mensural
+  \override KeySignature #'style = #'mensural
+  \override Accidental #'style = #'mensural
+  \override Custos #'style = #'mensural
+  \override Custos #'neutral-position = #3
+  \override Custos #'neutral-direction = #-1
+
+  % Score.timing = ##f
+  % Score.barAlways = ##t
 }
