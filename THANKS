@@ -1,9 +1,29 @@
 
+Release 2.0
+
 HEAD HACKERS
 
 Han-Wen Nienhuys
 Jan Nieuwenhuizen
 
+CONTRIBUTORS
+
+Heikki Junes
+Juergen Reuter
+
+BUG HUNTERS
+
+David Rayleigh Arnold
+Fabio dos Santos
+Antonio Palama
+
+
+Release 1.8
+
+HEAD HACKERS
+
+Han-Wen Nienhuys
+Jan Nieuwenhuizen
 
 CONTRIBUTORS
 
@@ -37,6 +57,7 @@ Koblinger Egmont
 Paul Scott
 Pedro Kroger
 Richard Shann
+Roland Stigge
 Ryan O'Neil
 Simon Bailey
 Simon Weatherill
