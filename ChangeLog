@@ -1,3 +1,7 @@
+2002-04-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (re_dict): remove all *? regexps.
+
 2002-04-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (re_dict): Fix for python 2.x.
@@ -1744,7 +1748,7 @@
 
 	* Rewrote new conditional guile >= 1.5 compilation switches, to keep
 	  code clean from conditionals and have a concentrated sets of
-	  compatitility fixes for old guile versions.
+	  compatibility fixes for old guile versions.
 
 	* Fixes for guile 1.4, including embedded ps.
 
