@@ -54,7 +54,7 @@ final-install:
 
 web-ext = gz html midi pdf png txt ly
 
-local-WWW-post:
+local-WWW-post: 
 	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
 	$(footify-all-command)
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
@@ -75,8 +75,6 @@ web-clean:
 	$(MAKE) out=www clean
 
 
-WWW:
-	$(LOOP)
 
 default: $(config_h) builddir-setup
 
