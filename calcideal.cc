@@ -3,7 +3,6 @@
 #include "pscore.hh"
 #include "staff.hh"
 #include "paper.hh"
-#include "misc.hh"
 #include "sccol.hh"
 #include "debug.hh"
 
@@ -50,7 +49,7 @@ Score::calc_idealspacing()
 	if (sc->musical)
 	    for (int i=0; i < sc->durations.sz(); i++) {
 		Real d = sc->durations[i];
-		Real dist = duration_to_idealspace(d, paper_->whole_width);
+		Real dist = paper_->duration_to_dist(d);
 		PCol * c2 = find_col(sc->when + d,true)->pcol;
 		connect_nonmus(sc->pcol, c2, dist);
 		c2 = find_col(sc->when + d,false)->pcol;
