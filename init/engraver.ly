@@ -24,12 +24,12 @@ Voice = \translator {
 	\consists "Dynamic_engraver";
  	\consists "Rest_engraver";
 	\consists "Stem_engraver";
+	\consists "Plet_engraver";
 	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Slur_engraver";
-	\consists "Plet_engraver";
 	\accepts "Thread";
 }
 

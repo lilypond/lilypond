@@ -28,8 +28,7 @@ Beam_engraver::do_try_request(Request*r)
   if (!mus_l)
     return false;
 
-  Beam_req * b = mus_l->beam();
-
+  Beam_req* b = mus_l->beam ();
   if (!b)
     return false;
 

@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.8"
+#define MUDELA_VERSION "0.1.9"
 
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -168,7 +168,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
 
 %type <i>	dots
-%token <i>	INT
+%token <i>	DIGIT
 %token <melreq>	NOTENAME_ID
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
@@ -188,6 +188,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <real>	REAL
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
+%token <i>	UNSIGNED
 %token <i> 	POST_QUOTES
 %token <i> 	PRE_QUOTES
 
@@ -199,7 +200,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	open_plet_parens close_plet_parens
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	abbrev_type
-%type <i>	int
+%type <i>	int unsigned
 %type <i>	script_dir
 %type <id>	identifier_init
 %type <duration> explicit_steno_duration notemode_duration
@@ -222,12 +223,13 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <real>	dim real
 %type <real>	unit
 %type <request> abbrev_command_req
-%type <request>	post_request command_req verbose_command_req
+%type <request>	post_request structured_post_request
+%type <request> command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
 %type <intarr>	shape_array
 %type <script>	script_definition script_body mudela_script gen_script_def
-%type <textdef> text_def
+%type <textdef> text_def finger
 %type <string>	script_abbreviation
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
@@ -323,6 +325,7 @@ add_declaration:
 	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
+
 identifier_init:
 	score_block {
 		$$ = new Score_id ($1, SCORE_IDENTIFIER);
@@ -354,11 +357,9 @@ identifier_init:
 	}
 	| int	{
 		$$ = new Int_id (new int ($1), INT_IDENTIFIER);
-
 	}
 	| post_request {
 		$$ = new Request_id ($1, POST_REQUEST_IDENTIFIER);
-
 	}
 	| melodic_request {
 		$$ = new Request_id ($1, MELODIC_REQUEST_IDENTIFIER);
@@ -541,7 +542,7 @@ midi_body: /* empty */ 		{
 	;
 
 tempo_request:
-	TEMPO entered_notemode_duration '=' int 	{
+	TEMPO entered_notemode_duration '=' unsigned	{
 		$$ = new Tempo_req;
 		$$->dur_ = *$2;
 		delete $2;
@@ -636,7 +637,7 @@ scalar:
 
 Chord:
 	'<' Chord_body '>'	{ $$  = $2; }
-	| MULTI INT Chord {
+	| MULTI unsigned Chord {
 		$$ = $3;
 		$$->multi_level_i_=$2;
 	}
@@ -709,7 +710,7 @@ verbose_command_req:
 		$$ = new Bar_req (*$2);
 		delete $2;
 	}
-	| METER int '/' int 	{
+	| METER unsigned '/' unsigned 	{
 		Meter_change_req *m = new Meter_change_req;
 		m->set ($2,$4);
 		$$ = m;
@@ -725,7 +726,7 @@ verbose_command_req:
 	| tempo_request {
 		$$ = $1;
 	}
-	| CADENZA int	{
+	| CADENZA unsigned	{
 		$$ = new Cadenza_req ($2);
 	}
 	| PARTIAL duration_length 	{
@@ -751,7 +752,7 @@ post_requests:
 	{
 		assert (THIS->post_reqs.empty ());
 	}
-	| post_requests post_request {
+	| post_requests structured_post_request {
 		$2->set_spot (THIS->here_input ());
 		THIS->post_reqs.push ($2);
 	}
@@ -764,13 +765,18 @@ post_requests:
 	}
 	;
 
+structured_post_request:
+	script_req
+	| post_request
+	;
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
 		$$ = (Request*)$1->request ();
 	}
-	| script_req
-	| dynamic_req
+	| dynamic_req {
+		$$ = $1;
+	}
 	| abbrev_type	{
 		Abbreviation_req* a = new Abbreviation_req;
 		a->type_i_ = $1;
@@ -819,7 +825,7 @@ melodic_request:
 	;
 
 explicit_duration:
-	DURATION '{' int int '}'	{
+	DURATION '{' int unsigned '}'	{
 		$$ = new Duration;
 		$$-> durlog_i_ = $3;
 		$$-> dots_i_ = $4;
@@ -827,7 +833,7 @@ explicit_duration:
 	;
 
 dynamic_req:
-	ABSDYNAMIC '{' int '}'	{
+	ABSDYNAMIC '{' unsigned '}'	{
 		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
 		ad_p ->loudness_ = (Dynamic_req::Loudness)$3;
 		$$ =ad_p;
@@ -841,7 +847,7 @@ dynamic_req:
 	;
 
 close_plet_parens:
-	']' INT '/' INT {
+	']' unsigned '/' unsigned {
 		$$ = MAEBTELP;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
@@ -855,7 +861,7 @@ close_plet_parens:
 		THIS->default_duration_.plet_.iso_i_ = 1;
 		THIS->default_duration_.plet_.type_i_ = 1;
 	}
-	| TELP INT '/' INT {
+	| TELP unsigned '/' unsigned {
 		$$ = TELP;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
@@ -885,10 +891,10 @@ close_request_parens:
 	;
 
 open_abbrev_parens:
-	'[' ':' INT {
+	'[' ':' unsigned {
 		$$ = '[';
 		if (!Duration::duration_type_b ($3))
-			THIS->parser_error ("Not a duration");
+			THIS->parser_error ("1:Not a duration");
 		else if ($3 < 8)
 			THIS->parser_error ("Can't abbreviate");
 		else
@@ -897,14 +903,14 @@ open_abbrev_parens:
 	;
 
 open_plet_parens:
-	'[' INT '/' INT {
+	'[' unsigned '/' unsigned {
 		$$ = BEAMPLET;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
 		THIS->default_duration_.plet_.type_i_ = $4;
 		THIS->default_duration_.plet_.iso_i_ = $2;
 	}
-	| PLET INT '/' INT {
+	| PLET unsigned '/' unsigned {
 		$$ = PLET;
 		THIS->plet_.type_i_ = $4;
 		THIS->plet_.iso_i_ = $2;
@@ -945,21 +951,28 @@ script_body:
 	;
 
 script_req:
-	script_dir gen_script_def		{
+	script_dir gen_script_def	{
 		Musical_script_req *m = new Musical_script_req;
 		$$ = m;
-		m-> scriptdef_p_ = $2;
-		m-> set_spot (THIS->here_input ());
-		m-> dir_  = $1;
+		m->scriptdef_p_ = $2;
+		m->set_spot (THIS->here_input ());
+		if (!m->dir_)
+		  m->dir_  = $1;
 	}
 	;
 
 gen_script_def:
-	text_def	{ $$ = $1;
+	text_def	{ 
+		$$ = $1;
 		((Text_def*) $$)->align_i_ = CENTER; /* UGH */
 	}
-	| mudela_script	{ $$ = $1;
+	| mudela_script	{ 
+		$$ = $1;
 		$$-> set_spot (THIS->here_input ());
+	}
+	| finger {
+		$$ = $1;
+		((Text_def*)$$)->align_i_ = CENTER;
 	}
 	;
 
@@ -970,6 +983,16 @@ text_def:
 		t->text_str_ = *$1;
 		delete $1;
 		t->style_str_ = THIS->textstyle_str_;
+		$$->set_spot (THIS->here_input ());
+	}
+	;
+
+finger:
+	 DIGIT {
+		Text_def* t  = new Text_def;
+		$$ = t;
+		t->text_str_ = String ($1);
+		t->style_str_ = "finger";
 		$$->set_spot (THIS->here_input ());
 	}
 	;
@@ -997,8 +1020,8 @@ mudela_script:
 
 script_dir:
 	'_'	{ $$ = -1; }
-	|'^'	{ $$ = 1; }
-	|'-'	{ $$ = 0; }
+	| '^'	{ $$ = 1; }
+	| '-'	{ $$ = 0; }
 	;
 
 pre_requests:
@@ -1077,10 +1100,10 @@ notemode_duration:
 	;
 
 explicit_steno_duration:
-	int		{
+	unsigned		{
 		$$ = new Duration;
 		if (!Duration::duration_type_b ($1))
-			THIS->parser_error ("Not a duration");
+			THIS->parser_error ("2:Not a duration");
 		else {
 			$$->durlog_i_ = Duration_convert::i2_type ($1);
 			$$->set_plet (THIS->default_duration_);
@@ -1092,10 +1115,10 @@ explicit_steno_duration:
 	| explicit_steno_duration '.' 	{
 		$$->dots_i_ ++;
 	}
-	| explicit_steno_duration '*' int  {
+	| explicit_steno_duration '*' unsigned  {
 		$$->plet_.iso_i_ = $3;
 	}
-	| explicit_steno_duration '/' int {
+	| explicit_steno_duration '/' unsigned {
 		$$->plet_.type_i_ = $3;
 	}
 	;
@@ -1105,9 +1128,9 @@ abbrev_type:
 	':'	{
 		$$ =0;
 	}
-	| ':' int {
+	| ':' unsigned {
 		if (!Duration::duration_type_b ($2))
-			THIS->parser_error ("Not a duration");
+			THIS->parser_error ("3:Not a duration");
 		else if ($2 < 8)
 			THIS->parser_error ("Can't abbreviate");
 		$$ = $2;
@@ -1149,9 +1172,20 @@ pitch_list:			{
 	}
 	;
 
-int:
-	INT			{
+unsigned:
+	UNSIGNED	{
 		$$ = $1;
+	}
+	| DIGIT {
+		$$ = $1;
+	};
+
+int:
+	unsigned {
+		$$ = $1;
+	}
+	| '-' unsigned {
+		$$ = -$2;
 	}
 	| INT_IDENTIFIER	{
 		int *i_p = $1->intid ();
@@ -1159,7 +1193,6 @@ int:
 		delete i_p;
 	}
 	;
-
 
 real:
 	REAL		{

@@ -10,6 +10,7 @@
 #include "general-script-def.hh"
 #include "debug.hh"
 #include "atom.hh"
+
 Direction
 General_script_def::staff_dir() const
 {

@@ -33,6 +33,8 @@ protected:
   
 private:
   Drul_array<Plet_req*> span_reqs_drul_;
+  Drul_array<Moment> beam_mom_drul_;
+  Drul_array<Moment> span_mom_drul_;
   Plet_spanner* plet_spanner_p_;
 };
 

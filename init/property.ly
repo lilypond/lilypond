@@ -12,6 +12,10 @@ name			value	effect			shorthand
 ydirection		-1	force stem down		\stemdown
 ydirection		0  	stem direction free	\stemboth
 ydirection		1	force stem up		\stemup
+pletvisibility		0	show nothing
+pletvisibility		1 	show number
+pletvisibility		2 	show number, and bracket-if-no-beam
+pletvisibility		4 	show number, and bracket
 
 [Score?]
 beamslopedamping	0	no damping		\beamslopeproportional	

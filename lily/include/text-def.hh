@@ -30,6 +30,7 @@ public:
     String style_str_;
     
     virtual void do_print() const;
+    virtual Direction staff_dir() const;
     virtual Atom get_atom (Paper_def* p, Direction dir_) const;
     virtual ~Text_def() {};
     virtual bool do_equal_b (const General_script_def*) const;

@@ -13,6 +13,14 @@
 #include "text-def.hh"
 #include "dimen.hh"
 
+Direction
+Text_def::staff_dir () const
+{
+  if (style_str_ == "finger")
+    return UP;
+  return DOWN;
+}
+
 Interval
 Text_def::width (Paper_def * p) const
 {
