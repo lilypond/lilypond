@@ -1,6 +1,8 @@
 2002-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* tex/lilyponddefs.tex: Uncommented feta character support.
+	* make/lilypond.redhat.spec.in (post): Also remove parmesan fonts.
+
+	* tex/lilyponddefs.tex: Uncomment feta character support.
 
 	* Documentation/user/refman.itely (Pitches): Add espanol.ly
 	description.
