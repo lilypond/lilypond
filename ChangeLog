@@ -4,8 +4,8 @@
 	Fixes symbol placement.
 
 	* lily/spanner.cc: 
-	* lily/stencil.cc: Use "libc-extention.hh" (WAS:
-	<libc-extention.hh>).
+	* lily/stencil.cc: Use "libc-extension.hh" (WAS:
+	<libc-extension.hh>).
 
 2005-03-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -171,8 +171,8 @@
 	to toplevel expressions.
 	(Multiple movements, Creating titles): Add markup blocks.
 
-	* lily/stencil-scheme.cc: Use "libc-extention.hh" (WAS:
-	<libc-extention.hh>).
+	* lily/stencil-scheme.cc: Use "libc-extension.hh" (WAS:
+	<libc-extension.hh>).
 
 	* lily/accidental.cc (accurate_boxes): Compile fix: 1.51 was broken.
 
