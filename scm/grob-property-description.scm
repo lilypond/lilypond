@@ -254,8 +254,8 @@ Scheme markup text.  It is defined as follows:
 @example
 
 TEXT : STRING | (MARKUP SENTENCE)
-MARKUP: PROPERTY | ABBREV
 SENTENCE: TEXT | SENTENCE TEXT
+MARKUP: PROPERTY | ABBREV
 PROPERTY: (key . value)
 ABBREV: rows lines roman music bold italic named super sub text, or any font-style
 

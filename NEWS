@@ -8,8 +8,7 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
  - More pervasive GUILE integration resulting in:
 
- - Improved speed (undone for now, by .73 + .74), 
-   with comparable memory footprint
+ - Improved speed with comparable memory footprint
 
  - More tweakability using less memory with the new `property push'
   mechanism.

@@ -1,5 +1,31 @@
-1.3.128.jcn2
+
+1.3.129.jcn2
 ============
+
+* Implemented Phrasing slurs, copied from slur.
+
+* More hooks for chord pitch name overrides, see
+input/tricks/german-chords.ly.
+
+1.3.129.hwn1
+============
+
+* Bugfix: bar lines in lyrics.
+
+* Bugfix: vertical positioning of isolated dynamics: absolute dynamics
+are only supported by the note they are on, in absence of crescendi.
+
+* Documentation of ancient clefs, custodes (Jurgen Reuter)
+
+* Small documentation fixes: rehearsal marks, -f option, markup, instrument names
+
+* Bugfix: rounding errors caused errouneous ledger lines for
+#'staff-space = 1.3
+
+* Subsubtitles, \bar "";  (Rune Zedeler)
+
+1.3.129
+=======
 
 * Small doco fixes.
 

@@ -1,3 +1,4 @@
+
 @c Note:
 @c
 @c A menu is needed before every deeper *section nesting of @nodes
@@ -12,10 +13,13 @@
    fix all FIXMEs
 
    Rhythm staff (clef, x-notehead)
-   \partcombine: ->  orchestral part-HOWTO.
+
    markup text
+
    postscript, scheme output?
+
    (links to?) using/existance of ly2dvi, lilypond-book
+
 @end ignore
 
 
@@ -31,7 +35,6 @@ has been revised for LilyPond 1.3.125
 
 @menu
 * Overview::                    
-* Modifying music::             
 * Repeats::                     
 * Note entry::                  
 * Music notation::              
@@ -41,6 +44,7 @@ has been revised for LilyPond 1.3.125
 * Lyrics::                      
 * Chords::                      
 * Writing parts::               
+* Custodes::                    
 * Page layout::                 
 * Sound::                       
 * Music entry::                 
@@ -98,7 +102,7 @@ design of the program.  This manual is ordered in terms of user
 tasks. With each concept will be explained to which of the three parts
 it belongs.
 
-LilyPond input can be classified  into three types:
+LilyPond input can be classified into three types:
 @itemize @bullet
   @item musical expressions: a musical expression is some combination of
 rest, notes, lyrics
@@ -111,57 +115,8 @@ can enter and edit them in manageable chunks.
 
 
 
-@c . {Modifying music}
-@node Modifying music
-@section Modifying music
-@cindex Modifying music
 
-FIXME: more verbose titling:
-music expressions?
-Repeat?
-Repeated music?
-Repeating music expressions?
-
-@menu
-* Apply::                       
-@end menu
-
-@c .  {Apply}
-@node Apply
-@subsection Apply
-@cindex Apply
-Apply allows a Scheme-function to operate directly on the internal
-representation of music.
-@example
-        \apply #@var{func} @var{music}
-@end example
-The function takes two arguments, being a function and an musical
-argument for that function. The function should return a music
-expression.
-
-This example replaces the text string of a script. It also shows a dump
-of the music it processes.
-@lilypond[verbatim]
-#(define (testfunc x)
-        (if (equal? (ly-get-mus-property x 'text) "foo")
-                (ly-set-mus-property x 'text "bar"))
-        ;; recurse
-        (ly-set-mus-property x 'elements
-          (map testfunc (ly-get-mus-property x 'elements)))
-        (display x)
-        x        
-)
-\score { \notes
-  \apply #testfunc { c4_"foo" }
-} 
-@end lilypond
-
-For more information on what is possible, see the @ref{Tricks} and the
-automatically generated documentation.
-
-
-
-@c .  {Repeat}
+@c .  {Repeats}
 @node Repeats
 @section Repeats
 
@@ -274,10 +229,12 @@ the specified number of repeats.
 
 
 As you can see, LilyPond doesn't remember the timing information, nor
-are slurs or ties repeated. We hope to fix this after 1.4.
+are slurs or ties repeated, so you have to reset timing information
+after a repeat, eg using bar-checks, @code{Score.measurePosition} or
+@code{\partial}. We hope to fix this after 1.4.
 
 It is possible to nest @code{\repeat}, although it probably is only
-meaningful for nested repeats.
+meaningful for unfolded repeats.
 
 @node Manual repeat commands
 @subsection Manual repeat commands
@@ -645,6 +602,9 @@ major key, e.g., @code{\minor} is defined as 3.  The standard mode names
 @code{\ionian}, @code{\locrian}, @code{\aeolian}, @code{\mixolydian},
 @code{\lydian}, @code{\phrygian}, and @code{\dorian} are also defined.
 
+This command sets @code{Staff.keySignature}. 
+
+@cindex @code{keySignature}
 
 @c .   {Clef changes}
 @subsubsection Clef changes
@@ -663,8 +623,48 @@ Short-cut for
 
 Supported clef-names include 
 
-[todo]
+@itemize @bullet
+@item treble, violin, G, G2: G clef on 2nd line
+@item french: G clef on 1st line
+@item soprano: C clef on 1st line
+@item mezzosoprano: C clef on 2nd line
+@item alto: C clef on 3rd line
+@item tenor: C clef on 4th line
+@item baritone: C clef on 5th line
+@item varbaritone: F clef on 3rd line
+@item bass, F: F clef on 4th line
+@item subbass: F clef on 5th line
+@item percussion: percussion clef
+@end itemize
 
+[todo: ancient clefs]
+
+Supported associated symbols (for Staff.clefGlyph) are:
+
+@itemize @bullet
+@item clefs-C: modern style C clef
+@item clefs-F: modern style F clef
+@item clefs-G: modern style G clef
+@item clefs-vaticana_do: Editio Vaticana style do clef
+@item clefs-vaticana_fa: Editio Vaticana style fa clef
+@item clefs-medicaea_do: Editio Medicaea style do clef
+@item clefs-medicaea_fa: Editio Medicaea style fa clef
+@item clefs-mensural1_c: modern style mensural C clef
+@item clefs-mensural2_c: historic style small mensural C clef
+@item clefs-mensural3_c: historic style big mensural C clef
+@item clefs-mensural1_f: historic style traditional mensural F clef
+@item clefs-mensural2_f: historic style new mensural F clef
+@item clefs-mensural_g: historic style mensural G clef
+@item clefs-hufnagel_do: historic style hufnagel do clef
+@item clefs-hufnagel_fa: historic style hufnagel fa clef
+@item clefs-hufnagel_do_fa: historic style hufnagel combined do/fa clef
+@item clefs-percussion: modern style percussion clef
+@end itemize
+
+@emph{Modern style} means "as is typeset in current editions".
+@emph{Historic style} means "as was typeset or written in contemporary
+historic editions".  @emph{Editio XXX style} means "as is/was printed in
+Editio XXX".
 
 @c .  {Time signature}
 @node Time signature
@@ -750,6 +750,7 @@ set different shift values.
 @menu
 * Beam::                        
 * Slur ::                       
+* Phrasing slur::               
 * Ornaments::                   
 * Grace notes::                 
 * Bar check::                   
@@ -872,19 +873,14 @@ FIXME
 
 @menu
 * Slur attachments::            
-* Tie::                         
-* Tuplets::                     
-* Text spanner::                
-* Ottava::                      
-* Span requests::               
 @end menu
 
-Slurs connects chords and try to avoid crossing stems.  A slur is
-started with @code{(} and stopped with @code{)}.  The
-starting @code{(} appears to the right of the first note in
-the slur.  The terminal @code{)} appears to the left of the
-first note in the slur.  This makes it possible to put a note in
-slurs from both sides:
+A slur connects chords and is used to indicate legato.  Slurs avoid
+crossing stems.  A slur is started with @code{(} and stopped with
+@code{)}.  The starting @code{(} appears to the right of the first note
+in the slur.  The terminal @code{)} appears to the left of the last note
+in the slur.  This makes it possible to put a note in slurs from both
+sides:
 
 @lilypond[fragment,verbatim,center]
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
@@ -985,7 +981,33 @@ increasing the @code{beautiful} value:
 
 
 
+@c .   {Phrasing slur}
+@node Phrasing slur
+@subsection Phrasing slur
+@cindex phrasing slur
+@cindex phrasing mark
+
+A phrasing slur (or phrasing mark) connects chords and is used to
+indicate a musical sentence.  Phrasing slurs avoid crossing stems.  A
+phrasing slur is started with @code{\(} and stopped with @code{\)}.  The
+starting @code{\(} appears to the right of the first note in the
+phrasing slur.  The terminal @code{\)} appears to the left of the last
+note in the phrasing slur.
+
+@lilypond[fragment,verbatim,center,relative]
+  \time 6/4; c''\((d)e f(e)\)d
+@end lilypond
+
+
 @c .   {Tie}
+@menu
+* Tie::                         
+* Tuplets::                     
+* Text spanner::                
+* Ottava::                      
+* Span requests::               
+@end menu
+
 @node Tie
 @subsubsection Tie
 
@@ -2177,6 +2199,7 @@ scheme = \chords {
 @c .  {Transpose}
 @menu
 * Rehearsal marks::             
+* Instrument names::            
 * Transpose::                   
 * Multi measure rests::         
 @end menu
@@ -2187,9 +2210,9 @@ partcombine
 
 rehearsal marks
 
-bar numbering 
-
 tranposing midi property.
+
+instrument names
 
 ] 
 
@@ -2199,16 +2222,49 @@ tranposing midi property.
 @cindex Rehearsal marks
 @cindex mark
 @cindex @code{\mark}
+@cindex @code{Mark_engraver}
 
 @example
   \mark @var{unsigned};
-@cindex @code{Mark_engraver}
   \mark @var{string};
+  \mark ; 
 @end example
 
-Prints a mark over or under the staff.  
+With this command, you can print a rehearsal mark above the system. You
+can provide a number, a string or a markup text as argument. If there is
+no argument, the property @code{rehearsalMark} is used and automatically
+incremented.
 
-[TODO: automatic increments]
+@lilypond[fragment,verbatim]
+\relative c'' {
+  c1 \mark "A2";
+  c1 \mark ; 
+  c1 \mark ; 
+  c1 \mark "12";
+  c1 \mark #'(music "scripts-segno") ;
+  c1
+}
+@end lilypond
+
+@node Instrument names
+@subsection Instrument names
+
+You can specify an instrument name for a staff by setting
+@code{Staff.instrument} and @code{Staff.instr}. This will print a string
+before the start of the staff. For the first start, @code{instrument} is
+used, for the next ones @code{instr} is used.
+
+@lilypond[verbatim]
+\score { \notes {
+  \property Staff.instrument = "instr " { c''4 } }
+  \paper { linewidth = -1.;
+    \translator { \StaffContext
+    \consists "Instrument_name_engraver"; } } }
+@end lilypond
+
+This requires  that you add the @code{Instrument_name_engraver} to the
+staff context.
+
 
 @node Transpose
 @subsection Transpose
@@ -2271,6 +2327,65 @@ multimeasure rest.
 
 @cindex condensing rests
 
+@c . {Custodes}
+@node Custodes
+@section Custodes
+@cindex Custos
+@cindex Custodes
+
+A @emph{custos} (plural: @emph{custodes}; latin word for "guard") is a
+staff context symbol that appears at the end of a staff line.  It
+anticipates the pitch of the first note(s) of the following line and
+thus helps the player or singer to manage line breaks during
+performance, thus enhancing readability of a score.
+
+@quotation
+@lilypond[verbatim]
+\score {
+  \notes { c'1 d' e' d' \break c' d' e' d' }
+  \paper {
+    \translator {
+      \StaffContext
+      \consists Custos_engraver;
+      Custos \override #'style = #'mensural;
+    }
+  }
+}
+@end lilypond
+@end quotation
+
+Custodes were frequently used in music notation until the 16th century.
+There were different appearences for different notation styles.
+Nowadays, they have survived only in special forms of musical notation
+such as via the editio vaticana dating back to the beginning of the 20th
+century.
+
+For typesetting custodes, just put a @code{Custos_engraver} into the
+@code{StaffContext} when declaring the @code{\paper} block.  In this
+block, you can also globally control the appearance of the custos symbol
+by setting the custos @code{style} property.  Currently supported styles
+are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
+@code{mensural}.
+
+@quotation
+\paper @{
+  \translator @{
+      \StaffContext
+      \consists Custos_engraver;
+      Custos \override #'style = #'mensural;
+  @}
+@}
+@end quotation
+
+The property can also be set locally, for example in a @code{\notes}
+block:
+
+@quotation
+\notes @{
+  \property Staff.Custos \override #'style = #'vaticana
+  c'1 d' e' d' \break c' d' e' d'
+@}
+@end quotation
 
 @c . {Page layout}
 @node Page layout
@@ -3046,6 +3161,7 @@ called @emph{performers}.
 * Top level::                   
 * Identifiers::                 
 * Music expressions::           
+* Manipulating music expressions::  
 * Assignments::                 
 * Lexical details::             
 * Lexical modes::               
@@ -3239,6 +3355,45 @@ In this case this is typically a Voice context
 If you use @code{\context Staff} you will get separate stems for each
 note head, leading to collisions, so don't use that.
 
+
+
+@c . {Manipulating music expressions}
+@node Manipulating music expressions
+@subsection  Manipulating music expressions
+
+The @code{\apply} mechanism gives you access to the internal
+representation of music. You can write Scheme-functions that operate
+directly on it. The syntax is 
+@example
+        \apply #@var{func} @var{music}
+@end example
+This means that @var{func} is applied to @var{music}.  The function
+@var{func} should return a music expression.
+
+This example replaces the text string of a script. It also shows a dump
+of the music it processes, which is useful if you want to know more
+about how music is stored.
+@lilypond[verbatim]
+#(define (testfunc x)
+        (if (equal? (ly-get-mus-property x 'text) "foo")
+                (ly-set-mus-property x 'text "bar"))
+        ;; recurse
+        (ly-set-mus-property x 'elements
+          (map testfunc (ly-get-mus-property x 'elements)))
+        (display x)
+        x        
+)
+\score { \notes
+  \apply #testfunc { c4_"foo" }
+} 
+@end lilypond
+
+For more information on what is possible, see the @ref{Tricks} and the
+automatically generated documentation.
+
+As always: directly accessing internal representations is dangerous: the
+implementation is subject to changes, so you should not use this if
+possible.
 
 
 @c .   {Assignments}
@@ -3595,15 +3750,15 @@ you need to know exactly how the backend works. Example:
 
 @lilypond[fragment,verbatim]
 \relative c'' { c4
-        \context Staff \outputproperty
-        	#(make-type-checker 'note-head-interface)
-        	#'extra-offset = #'(0.5 . 0.75)
-<c8 e g> }
+  \context Staff \outputproperty
+  #(make-type-checker 'note-head-interface)
+  #'extra-offset = #'(0.5 . 0.75)
+  <c8 e g> }
 @end lilypond
 
 This selects all note heads occurring at current staff level, and sets
-the @code{extra-offset} of those heads to @code{(0.5,0.75)}, shifting them
-up and right.
+the @code{extra-offset} of those heads to @code{(0.5,0.75)}, shifting
+them up and right.
 
 Use of this feature is entirely on your own risk: if you use this, the
 result will depend very heavily on the implementation of the backend,
@@ -3627,8 +3782,72 @@ Don't move the finger 2, only text "m.d." ...
 @end lilypond
 
 
+@menu
+* Text markup::                 
+@end menu
+
+@node Text markup
+@subsection Text markup
+
+LilyPond has an internal mechanism to typeset texts: you can
+form text markup expressions by composing scheme expressions
+in the following way:
+
+@lilypond[verbatim]
+\score { \notes \relative c' {
+  b-#"text"
+  c-#'(bold "text")
+  d-#'(lines "one" (bold "text"))
+  e-#'(music (named "noteheads-2" "flags-u3"))
+}
+\paper { linewidth = 10.\cm; } }
+@end lilypond
+
+Formally, Scheme markup text is defined as follows:
+
+@example
+text: string | (markup sentence)
+sentence: text | sentence text
+markup: property | abbrev | style
+property: (@var{key} . @var{value})
+abbrev: @code{rows lines roman music bold italic named super sub text}
+style: @var{fontstyle}
+@end example
+
+The @var{key}-@var{value} pair is a grob property. [Why is this
+useful?]  The following abbreviations are currently defined:
+
+@table @code
+@item rows
+horizontal mode: set all text on one line (default)
+@item lines
+ vertical mode: set every text on new line
+@item roman
+ select roman font
+@item music
+ select feta font
+@item bold
+ select bold series
+@item italic
+ select italic shape
+@item named
+ lookup by character name
+@item text
+ plain text lookup (by character value)
+@item super
+ superscript
+@item sub
+ subscript
+@end table
 
 
+@var{fontstyle} may be any of @code{finger volta timesig mmrest mark
+script large Large dynamic}
+
+
+[kern, raise ??]
+
+[I still think that the semantics are weird, but well]
 
 @c .{Local emacs vars}
 @c Local variables:
