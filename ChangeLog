@@ -1,9 +1,24 @@
+2002-07-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (knee_b): Fix to also work if some dirs are not
+	set.
+
+	* lily/beam.cc (set_stem_directions): For knees, set stems to
+	their natural direction.
+
+2002-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/stem.cc (calc_stem_info): Don't force stems of kneed beams
+	to reach middle staff line.
+
+	* lily/beam.cc (consider_auto_knees): Recalculate beam position
+	after deciding for a knee.
+
 2002-07-26  Han-Wen  <hanwen@cs.uu.nl>
 
 	* Documentation/user/internals.itely: move output-formats doco to
 	WikiWiki.
 	
-
 2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
 	
 	* po/fr.po: update from TP

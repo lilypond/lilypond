@@ -836,10 +836,12 @@ Stem::calc_stem_info (Grob*me)
     Although this (additional) rule is probably correct,
     I expect that highest beam (UP) should also never be lower
     than middle staffline, just as normal stems.
-	
+
+    Add: not for knees.  Not sure if that's is a good thing.
   */
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-  if (!grace_b && !no_extend_b)
+  bool knee_b = to_boolean (beam->get_grob_property ("knee"));
+  if (!grace_b && !no_extend_b && !knee_b)
     {
       /* highest beam of (UP) beam must never be lower than middle
 	 staffline
