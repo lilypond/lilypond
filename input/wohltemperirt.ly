@@ -4,15 +4,17 @@
 %
 %	Public Domain -- typed by by HWN
 %
-global=\music{\meter {4/4}
-		\grouping {2*2}
-		\key {bes es as}
+ global = \melodic{
+ 	\meter{ 4/4 }
+ 	\grouping{ 2*2 }
+ 	\key{ bes es as }
+  }
+  
+ dux = \melodic{ 
+ 	\clef\violin
+ 	\octave{ c }
+ 	\duration{ \last }
 
-}
-
-dux = \music { 
-	\clef \violin\octave{1}
-	\duration { \last }
 	\stem{-1}
 	 r8-"dux" 	
 	[c'16 b] [c'8 g] [as c'16 b] [c'8 d'] |
@@ -25,8 +27,9 @@ dux = \music {
 	r8 [as g f] [g f16 es] [f8 d] | 
 }
 
-comes = \music { 
-	\octave {2}\stem{1}
+comes = \melodic{ 
+	\octave{ c' }
+	\stem{1}
 	r1 |
 	r1 |
 	r8-"comes" [g16 fis] [g8 c] [es g16 f] [g8 a]|
@@ -38,9 +41,9 @@ comes = \music {
 	
 }
 
-bassdux = \music { 
+bassdux = \melodic{ 
 	\clef \bass
-	\octave {1}
+	\octave{ c }
 	r1 |
 	r |
 	r |
@@ -51,23 +54,14 @@ bassdux = \music {
 	[G c16 B] [c8 d] [F16 G] As4 [G16 F] | 
 }
 
-trebstaf = \staff { \melodic
-		% every "\music {} " in a \staff has its own "\voicegroup"
-		\music { dux }
-		\music { comes }
-	\music{global}	
-	}
+% every "melody" declared in a staff has its own "voicegroup"
+trebstaf = \staff{ global dux comes }	
 
-basstaf = \staff { \melodic
-	\music { bassdux }
-	\music{global}	
-}
-\score {
-	\staff { trebstaf }
-	\staff { basstaf }
-	
-	\paper {}
-	\midi {
+\score{
+	trebstaf
+	\staff{ bassdux global }
+	\paper{}
+	\midi{
 		\tempo 4:90
 	}
 }

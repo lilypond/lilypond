@@ -12,25 +12,23 @@
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
 
+%% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}
 % \metron{4=120}
 %
-% \meter{3/4}
 % \key\F		% \key is F ( f-major )
-% \clef\alto		% use alto \clef
-% \duration8		% default \duration is eight' note
 %
-% \verb{\no\barnumbers}	% issue MusiXTeX \co\mmand
-% \barnumbering0
 % \slope{30}		% Fool MusiXTeX into 30 / 10 steeper beam
 % \stemlength3		% shorter \stemlength
 %		% because piece is set very tightly
-%%1		% double co\mments are included in .tex file
-ii_menuetto = \music {
-	\clef"alto"\meter{3/4}
+
+ii_menuetto = \melodic{
+	\clef"alto"
+	\meter{3/4}
 	\key {bes}
-	\octave{1}
+	\octave{c}
+
 	\duration{8}
 	< a2 f2 d2 df > bes4-.  |
 %%2
@@ -95,17 +93,15 @@ ii_menuetto = \music {
 	
 }
 
-\score {
-	\staff { 
-		\melodic \music { $ii_menuetto }
-	}
-	\paper {
+\score{
+	\staff{ $ii_menuetto }
+	\paper{
 		\width 195\mm
 		\unitspace 9\mm  % to get lily to use only three lines
 		\geometric 1.4
 		\output "scsii-menuetto.out"
 	}
-	\midi { 
+	\midi{ 
 		\tempo 4:120
 		\output "scsii-menuetto.midi"
 	}
