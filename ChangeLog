@@ -1,3 +1,9 @@
+2005-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/help2man-targets.make:
+	* mf/GNUmakefile:
+	* tex/GNUmakefile: DESTDIR fixes (Matthias Kilian).
+
 2005-03-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* tex/GNUmakefile (latin1.enc): Fix for newer gs generating output
