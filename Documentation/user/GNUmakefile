@@ -153,3 +153,8 @@ $(outdir)/interfaces.itexi:
 endif
 
 
+local-clean: local-delete
+
+local-delete:
+	-rm -f $(outdir)/lily-1*
+	-rm -f $(outdir)/*
