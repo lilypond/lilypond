@@ -26,15 +26,27 @@
 void
 Tie_column::add_tie (Grob*me,Grob *s)
 {
-  if (!  Pointer_group_interface ::count (me, "ties"))
+  if (s->get_parent (Y_AXIS)
+      && Tie_column::has_interface (s->get_parent (Y_AXIS)))
+    return ;
+  
+  if (!  Pointer_group_interface::count (me, "ties"))
     {
       dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
       dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
     }
-  
+  s->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), s);
   s->add_dependency (me);
 }
+
+
+void
+Tie_column::set_directions (Grob*me)
+{
+  werner_directions (me);
+}
+  
 
 
 int
@@ -54,7 +66,7 @@ tie_compare (Grob* const & s1,
   Ross forgets about the tie that is *on* the middle staff line. We
   assume it goes UP. (TODO: make me settable) */
 void
-Tie_column::set_directions (Grob*me)
+Tie_column::old_directions (Grob*me)
 {
   Link_array<Grob> ties =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "ties");
@@ -103,11 +115,88 @@ Tie_column::set_directions (Grob*me)
   
 }
 
+/*
+  
+% . The algorithm to choose the direction of the ties doesn't work
+%   properly.  I suggest the following for applying ties sequentially
+%   from top to bottom:
+%
+%     + The topmost tie is always `up'.
+%
+%     + If there is a vertical gap to the last note above larger than
+%       or equal to a fifth (or sixth?), the tie is `up', otherwise it
+%       is `down'.
+%
+%     + The bottommost tie is always `down'.
+
+ */
+void
+Tie_column::werner_directions (Grob *me)
+{
+  Link_array<Grob> ties =
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "ties");
+
+  if (!ties.size ())
+    return ;
+  
+  ties.sort (tie_compare);
+
+  Direction d = get_grob_direction (me);
+  if (d)
+    {
+      for (int i = ties.size (); i--;)
+	{
+	  Grob *  t = ties[i];
+	  if (!get_grob_direction (t))
+	    set_grob_direction (t, d);
+	}
+      return ;
+    }
+  
+  if (ties.size () == 1)
+    {
+      Grob *  t = ties[0];      
+      set_grob_direction (t,Tie::get_default_dir (t));
+      return ;
+    }
+
+  Real last_down_pos = 10000;
+  if (!get_grob_direction (ties[0]))
+    set_grob_direction (ties[0], DOWN);
+  
+  for (int i = ties.size (); i--;)
+    {
+      Grob *t = ties[i];
+      
+      Direction d = get_grob_direction (t);
+      Real p  = Tie::get_position (t);
+      if (!d)
+	{
+	  if (last_down_pos - p  > 5)
+	    {
+	      d = UP;
+	    }
+	  else
+	    {
+	      d = DOWN;
+	    }
+
+	  set_grob_direction (t, d);
+	}
+
+      if (d == DOWN)
+	last_down_pos = p;
+    }
+
+  return ;
+}
+
+
 MAKE_SCHEME_CALLBACK (Tie_column,after_line_breaking,1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {
-  set_directions (unsmob_grob (smob));
+  werner_directions (unsmob_grob (smob));
   return SCM_UNSPECIFIED;
 }
 

@@ -22,6 +22,7 @@
 #include "bezier-bow.hh"
 #include "stem.hh"
 #include "note-head.hh"
+#include "tie-column.hh"
 
 /*
   tie: Connect two noteheads.
@@ -102,6 +103,19 @@ Tie::get_default_dir (Grob*me)
   return UP;
 }
 
+
+void
+Tie::set_direction (Grob*me)
+{
+  if (!get_grob_direction (me))
+    {
+      if (Tie_column::has_interface (me->get_parent (Y_AXIS)))
+	Tie_column::set_directions (me->get_parent (Y_AXIS));
+      else
+	set_grob_direction (me, Tie::get_default_dir (me));
+    }
+}
+
 /*
   TODO: we should also use thickness for computing the clearance
   between head and tie. Very thick ties will now touch the note head.
@@ -123,9 +137,8 @@ Tie::get_control_points (SCM smob)
       return SCM_UNSPECIFIED;
     }
 
-  
-  if (!get_grob_direction (me))
-    set_grob_direction (me, Tie::get_default_dir (me));
+  set_direction (me);
+
   Direction dir = get_grob_direction (me);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
