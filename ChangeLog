@@ -1,3 +1,16 @@
+2004-04-03  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/dedication.itely,
+	Documentation/user/preface.itely,
+	Documentation/user/introduction.itely: Revised.
+	Removing leading spaces which distorts output if info files are read
+	with stand-alone info.
+	Removing superfluous inter-word spaces which also distorts output
+	for stand-alone info.
+
+	* lily/grob-interface.cc: Adding copyright.
+	(check_interfaces_for_property): Improve format of warning message.
+
 2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* buildscripts/mf-to-table.py (base): add DesignSize comment.
