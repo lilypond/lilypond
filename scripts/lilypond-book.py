@@ -348,7 +348,7 @@ output_dict= {
 # should also support fragment in
 		  
 		  'output-all': r"""
-@include %(fn)s-doc.texi
+@include %(fn)s.texidoc
 @tex
 \catcode`\@=12
 \input lilyponddefs
@@ -840,28 +840,6 @@ def system (cmd):
 		error ('Error command exited with value %d\n' % st)
 	return st
 
-
-texidoc_re = re.compile (r'.*?\n\s*texidoc\s*=\s*"((([^"])|([^\\]\\"))*)".*', re.DOTALL)
-def extract_texidoc (lyfile):
-	"""
-	Extract the ``texidoc'' entry from the lyfile.ly, and write it to
-	lyfile-doc.texi.
-
-	Maybe this should be output by `lilypond --header=texidoc' or so?
-	"""
- 	outfile = os.path.basename (os.path.splitext (lyfile)[0]) + "-doc.texi"
-	sys.stderr.write ("Writing `%s'\n" % outfile)
-	f = open (lyfile)
-	s = f.read (-1)
-#	doc = re.sub (r'(.|\n)*?\n\s*texidoc\s*=\s*"((([^"])|([^\\]\\"))*)"(.|\n)*', '\\2', s) + '\n'
-	m = texidoc_re.match (s)
-	doc = ''
-	if m:
-		doc = m.group (1) + '\n'
-	f = open (outfile, 'w')
-	f.write (doc)
-	f.close ()
-
 def compile_all_files (chunks):
 	eps = []
 	tex = []
@@ -894,9 +872,7 @@ def compile_all_files (chunks):
 		incs =  map (incl_opt, include_path)
 		lilyopts = string.join (incs, ' ' )
 		texfiles = string.join (tex, ' ')
-		system ('lilypond %s %s' % (lilyopts, texfiles))
-		for i in tex:
-			extract_texidoc (i)
+		system ('lilypond --header=texidoc %s %s' % (lilyopts, texfiles))
 	for e in eps:
 		system(r"tex '\nonstopmode \input %s'" % e)
 		system(r"dvips -E -o %s %s" % (e + '.eps', e))

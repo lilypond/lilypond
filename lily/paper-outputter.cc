@@ -25,6 +25,8 @@
 #include "scope.hh"
 #include "identifier.hh"
 #include "lily-version.hh"
+#include "paper-def.hh"
+#include "file-results.hh"
 
 
 /*
@@ -159,6 +161,7 @@ Paper_outputter::dump_scheme (SCM s)
       free (c);
     }
 }
+
 void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
@@ -233,10 +236,49 @@ Paper_outputter::output_int_def (String k, int v)
   output_scheme (scm);
 }
 
-
-
 void
 Paper_outputter::output_string (SCM str)
 {
   *stream_p_ <<  ly_scm2string (str);
+}
+
+void
+Paper_outputter::output_score_header_field (String filename, String key, String value)
+{
+  if (filename != "-")
+    filename += String (".") + key;
+  progress_indication (_f ("writing header field %s to %s...",
+			   key,
+			   filename == "-" ? String ("<stdout>") : filename));
+  
+  ostream *os = open_file_stream (filename);
+  *os << value;
+  close_file_stream (os);
+  progress_indication ("\n");
+}
+
+void
+Paper_outputter::output_score_header_fields (Paper_def *paper)
+{
+  if (global_score_header_fields.size ())
+    {
+      SCM fields;
+#if 0 // ugh, how to reach current Score or Paper_score?
+      if (paper->header_l_)
+	fields = paper->header_l_->to_alist ();
+      else
+#endif
+	fields = header_global_p->to_alist ();
+      String base = paper->current_output_base_;
+      for (int i = 0; i < global_score_header_fields.size (); i++)
+	{
+	  String key = global_score_header_fields[i];
+	  //	  SCM val = gh_assoc (ly_str02scm (key.ch_C ()), fields);
+	  SCM val = gh_assoc (ly_symbol2scm (key.ch_C ()), fields);
+	  String s;
+	  if (gh_pair_p (val))
+	    s = ly_scm2string (gh_cdr (val));
+	  output_score_header_field (base, key, s);
+	}
+    }
 }

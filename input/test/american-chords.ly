@@ -50,7 +50,7 @@ c:m7.9    % Minor ninth
     {
         	\translator { 
 			\ChordNamesContext
-			ChordNames \override #'word-space = #1 
+			ChordName \override #'word-space = #1 
 		}
     }
 }

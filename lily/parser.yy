@@ -368,7 +368,7 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
-		THIS->lexer_p_-> scope_l_arr_.pop ();		
+		THIS->lexer_p_-> scope_l_arr_.pop ();
 	}
 	;
 

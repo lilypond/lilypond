@@ -56,6 +56,8 @@ public:
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
   static int default_count_i_;
+  String current_output_base_;
+  
   /*
     JUNKME
    */
