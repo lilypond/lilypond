@@ -201,7 +201,7 @@
      . ((rows . ((align . 0)))
 	(lines . ((align . 1)))
 	(roman . ((font-family . roman)))
-	(music . ((font-family . music) (font-shape . upright)))
+	(music . ((font-family . music) (font-shape . upright) (lookup . name)))
 	(finger . ((font-style . finger)))
 	(bold . ((font-series . bold)))
 	(italic . ((font-shape . italic)))
