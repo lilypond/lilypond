@@ -11,7 +11,16 @@
  stupid script to generate WWW site.  
 
  The WWW site is my test-suite for LilyPond, I usually don't
- distribute versions that fail to complete this script """
+ distribute versions that fail to complete this script 
+
+You should set the following environment vars:
+
+LILYPOND_SOURCEDIR
+TEXINPUTS
+MAILADDRESS
+
+
+ """
 
 import sys
 import os
@@ -19,8 +28,10 @@ import os
 lilypath =''
 try:
     lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
-except IndexError:
-    lilypath = os.environ['HOME'] + 'musix/current'
+except KeyError:
+    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
+    sys.exit(1)
+
 lilypath = lilypath + '/bin/'
 sys.path.append(lilypath)
  
