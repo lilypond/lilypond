@@ -13,7 +13,7 @@
 Lyric_item::Lyric_item(Lyric_req* lreq_l, int voice_count_i)
     : Text_item(lreq_l,0)
 {
-    pos_i_ = voice_count_i * -4 ;	// fontsize dependant. TODO
+    pos_i_ = -voice_count_i * 4 ;	// 4 fontsize dependant. TODO
     dir_i_ = -1;
 }
 
