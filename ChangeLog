@@ -1,3 +1,14 @@
+2004-11-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (conv): add warning about
+	set-global-staff-size.
+
+	* Doxyfile: add. 
+
+	* scripts/convert-ly.py (conv): add raggedlastbottom rule
+	(conv): warn for TextSpanner split.
+	(conv): warn for textheight.
+
 2004-11-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (install-WWW): Invoke install-info, so that when

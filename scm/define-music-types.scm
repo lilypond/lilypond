@@ -295,9 +295,7 @@ e.g. @code{\\mark \"A\"}.")
      . (
 	(description .	"Start or stop a melisma.
 
-
-
-Syntax:@code{c4\\melisma d\\melismaEnd}.")
+Syntax: @code{c4\\melisma d\\melismaEnd}.")
 	(internal-class-name . "Event")
 	(types . (general-music melisma-span-event event))
 	))
@@ -346,7 +344,6 @@ SYNTAX
 @code{\\propery Foo.Bar \\override} @var{SYMBOL} = @var{VALUE}
 
 ")
-
 	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	Push_property_iterator::constructor)
@@ -355,7 +352,6 @@ SYNTAX
      . (
 	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
-
 	(internal-class-name . "Simultaneous_music")
 	(types . (general-music part-combine-music))
 	(iterator-ctor . ,Part_combine_iterator::constructor)
