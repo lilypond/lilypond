@@ -50,7 +50,7 @@ class Targetdeps:
 	    return
 
 	self.depfiles.append(filename)
-_	lines = file.readlines()
+	lines = file.readlines()
 	file.close()
 	for line in lines:
 	    if input_re.match ( line) <> -1:

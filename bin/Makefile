@@ -5,13 +5,15 @@ include $(depth)/make/Include.make
 
 # list of distribution files:
 SCRIPTS = clearlily cpgento make-patch lily.efence \
-	make-version release conflily clean-fonts mf-deps.py
+	make-version release conflily clean-fonts
 PERL_SCRIPTS_IN = $(wildcard *.in)
 PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.in=))
-EXTRA_DISTFILES = $(SCRIPTS) $(PERL_SCRIPTS_IN)
+PYTHON_SCRIPTS_IN = $(wildcard *.py)
+PYTHON_SCRIPTS = $(addprefix $(outdir)/, $(PYTHON_SCRIPTS_IN:.py=))
+EXTRA_DISTFILES = $(SCRIPTS) $(PERL_SCRIPTS_IN) $(PYTHON_SCRIPTS_IN) 
 #
 
-all: $(PERL_SCRIPTS)
+all: $(PERL_SCRIPTS) $(PYTHON_SCRIPTS)
 
 $(outdir)/%: %.in
 #	cd .. && CONFIG_FILES=bin/$(notdir $@) CONFIG_HEADERS= ./config.status
@@ -20,8 +22,12 @@ $(outdir)/%: %.in
 	sed 's!@PERL@!$(PERL)!' < $< > $@
 	chmod 755 $@
 
+$(outdir)/%: %.py
+	sed 's!@PYTHON@!$(PYTHON)!' < $< > $@
+	chmod 755 $@
 
 EXECUTABLES=convert-mudela mudela-book
+
 localinstall: all
 	$(INSTALL) -d $(bindir)
 	$(INSTALL) -m 755 $(outdir)/convert-mudela $(bindir)

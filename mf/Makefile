@@ -27,7 +27,7 @@ TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 all: $(LYTABLES) $(TEXTABLES)
 
 localclean:
-	rm -f $(LYTABLES) $(TEXTABLES)
+	rm -f $(LYTABLES) $(TEXTABLES) $(outdir)/mfdeps
 
 $(outdir)/%.dvi: %.mf
 	mf $<
@@ -51,16 +51,16 @@ localuninstall:
 	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
 	-rmdir $(MFDIR)/lilypond/
 
-# dependencies:
-#
-include $(outdir)/mfdeps
-
-
-
 $(outdir)/mfdeps: $(FONT_FILES)
 # do something silly to avoid barfs if python not installed.
 	echo > $@
-	python $(depth)/bin/mf-deps.py  $^ >> $@
+	mf-deps  $^ >> $@
+
+# dependencies:
+#
+include $(outdir)/mfdeps
+#
+
 
 
 
