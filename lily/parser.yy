@@ -197,6 +197,7 @@ make_lyric_combine_music (SCM name, Music *music)
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
 
+%left NEWLYRICS
 
 %union {
 	Book *book;
@@ -274,7 +275,6 @@ or
 %token DEFAULT
 %token DENIES
 %token DESCRIPTION
-%token EOI
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
@@ -431,7 +431,6 @@ prec levels in different prods */
 %%
 
 lilypond:	/* empty */
-	| lilypond EOI
 	| lilypond toplevel_expression {
 	}
 	| lilypond assignment {
@@ -448,9 +447,8 @@ toplevel_expression:
 	lilypond_header {
 		THIS->header_ = $1;
 	}
-	| toplevel_music EOI {
-	 	Music_output_def *paper = get_paper (THIS);
-		//FIXME
+	| toplevel_music {
+		Music_output_def *paper = get_paper (THIS);
 		// delay?
 		// SCM proc = paper->get_scmvar ("toplevel-music-handler");
  		SCM proc = ly_scheme_function ("ly:parser-add-book-and-score");
@@ -1180,6 +1178,16 @@ relative_music:
 	}
 	;
 
+/*
+new_lyrics:
+	NEWLYRICS Music {
+	}
+	| new_lyrics NEWLYRICS Music {
+		
+	}
+	;
+*/
+
 re_rhythmed_music:
 	ADDLYRICS Music Music {
 		Music *m = MY_MAKE_MUSIC ("LyricCombineMusic");
@@ -1189,19 +1197,10 @@ re_rhythmed_music:
 		scm_gc_unprotect_object ($2->self_scm ());
 		$$ = m;
 	}
-	|
-/* Too many s/r r/r problems
-	Music
-*/
-	NEWLYRICS { THIS->lexer_->push_lyric_state (); }
-	/* cont */
-/* Too many s/r r/r problems
-	Composite_music_list
-*/
-	Music {
+/*	| Music new_lyrics {
 		THIS->lexer_->pop_state ();
 
-		Music *music = $3;
+		Music *music = $1;
 		SCM name = scm_makfrom0str ("");
 		Music *combined = make_lyric_combine_music (name, music);
 		SCM context = scm_makfrom0str ("Lyrics");
@@ -1209,6 +1208,7 @@ re_rhythmed_music:
 			SCM_EOL);
 		scm_gc_unprotect_object (music->self_scm ());
 	}
+*/
 	| LYRICSTO string Music {
 		Music *music = $3;
 		SCM name = $2;
