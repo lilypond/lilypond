@@ -15,7 +15,7 @@
 
 Includable_lexer::Includable_lexer()
 {
-    yy_current_buffer = 0;
+  yy_current_buffer = 0;
 }
 
 /** set the  new input to s, remember old file.
@@ -23,31 +23,28 @@ Includable_lexer::Includable_lexer()
 void
 Includable_lexer::new_input(String s, Sources  * global_sources)
 {
-    Source_file * sl = global_sources->get_file_l(s);
-    if (!sl) 
-      {
-	LexerError("Can't find file `" + s+ "'");
-	return; 
-      }
+  Source_file * sl = global_sources->get_file_l(s);
+  if (!sl) 
+    {
+      LexerError("Can't find file `" + s+ "'");
+      return; 
+    }
 
     
-    char_count_stack_.push(0);
-    if (yy_current_buffer) 
-	state_stack_.push(yy_current_buffer);
-    cout << "[" << s<<flush;
-    include_stack_.push(sl);    
+  char_count_stack_.push(0);
+  if (yy_current_buffer) 
+    state_stack_.push(yy_current_buffer);
+  cout << "[" << s<<flush;
+  include_stack_.push(sl);    
     
-    /*
-      ugh. We'd want to create a buffer from the bytes directly.
+  /*
+    ugh. We'd want to create a buffer from the bytes directly.
 
-      Whoops. The size argument to yy_create_buffer is not the
-      filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
+    Whoops. The size argument to yy_create_buffer is not the
+    filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
       
-      Maybe this is also the reason why LilyPond sometimes crashed
-      mysteriously in yy_create_buffer() with a libc-malloc error
-
-      */
-    yy_switch_to_buffer(yy_create_buffer( sl->istream_l(), YY_BUF_SIZE )); 
+    */
+  yy_switch_to_buffer(yy_create_buffer(sl->istream_l(), YY_BUF_SIZE)); 
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
@@ -55,14 +52,14 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
 bool
 Includable_lexer::close_input()
 {
-    include_stack_.pop();
-    char_count_stack_.pop();
-    cout << "]"<<flush;
-    yy_delete_buffer(yy_current_buffer );
-    yy_current_buffer = 0;
-    if (state_stack_.empty()) 
-      {
-	return false;
+  include_stack_.pop();
+  char_count_stack_.pop();
+  cout << "]"<<flush;
+  yy_delete_buffer(yy_current_buffer);
+  yy_current_buffer = 0;
+  if (state_stack_.empty()) 
+    {
+      return false;
     }else 
       {
 	yy_switch_to_buffer(state_stack_.pop());
@@ -73,17 +70,17 @@ Includable_lexer::close_input()
 char const*
 Includable_lexer::here_ch_C()
 {
-    if (include_stack_.empty())
-	return 0;
-    return include_stack_.top()->ch_C() + char_count_stack_.top();
+  if (include_stack_.empty())
+    return 0;
+  return include_stack_.top()->ch_C() + char_count_stack_.top();
 }
 
 Includable_lexer::~Includable_lexer()
 {
-    while (!include_stack_.empty()) 
-      {
-	close_input();
-    };
+  while (!include_stack_.empty()) 
+    {
+      close_input();
+    }
 }
 /** 
   Since we don't create the buffer state from the bytes directly, we
@@ -92,14 +89,14 @@ Includable_lexer::~Includable_lexer()
 void
 Includable_lexer::add_lexed_char(int count)
 {
-    char_count_stack_.top() += count;
+  char_count_stack_.top() += count;
 }
 
 Source_file*
-Includable_lexer::source_file_l()const
+Includable_lexer::source_file_l() const
 {
-    if (include_stack_.empty())
-	return 0;
-    else
-	return include_stack_.top();
+  if (include_stack_.empty())
+    return 0;
+  else
+    return include_stack_.top();
 }
