@@ -1,14 +1,8 @@
 \version "1.7.18"
-% TODO: move to regression or remove?
 
-\header{
-%texidoc = 	 "This file tests  slurs"
-texidoc = "DELETE, or possibly REGRESSION. "
+\header{ texidoc = "Broken parts of slurs should show the trend of the
+encompassed notes."
 }
-
-%% todo: this is very old, still talks about "feta embedded" slurs? 
-
-
 shortlong =  \notes{
 	c4(c-)( c c  |
 	c c c c |
@@ -18,29 +12,18 @@ shortlong =  \notes{
 }
 
 broken =  \notes\transpose c c'{
-
       c c c c(
-      c-) c c c(
       c c-) c c(
-      c c c-) c(
       a'-) a' a' a'()
-      a' a' a' a'()
-      c( c c c-) 
-      c( c c f,-)
-      f,( c c c-) 
-      f,( c c f,-)
+      a' a' a' a'(
 }
 
 \score{
 	\notes{ 
-%		\shortlong
 		\broken
 	}
 	\paper{ 
-	      indent = 0.0\pt
-		%for broken!
-		linewidth= 30.\mm
-
+	      raggedright = ##t
 	}
 }
 
