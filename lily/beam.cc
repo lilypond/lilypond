@@ -488,10 +488,13 @@ Beam::set_stem_directions (Grob *me, Direction d)
 	 natural direction. In any case, when knee, beam direction is
 	 foe.
 	 
-	 TODO: for x staff knees, set direction pointing to 'the other' staff, rather than natural.
+	 TODO: for x staff knees, set direction pointing to 'the
+	 other' staff, rather than natural.
       */
       if (knee_b(me))
-	Stem::get_direction (s); // this actually sets it, if necessary
+	{
+	  Stem::get_direction (s); // this actually sets it, if necessary
+	}
       else
 	{
 	  SCM force = s->remove_grob_property ("dir-forced");
@@ -1298,17 +1301,21 @@ Beam::knee_b (Grob*me)
   bool knee = false;
   int d = 0;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
-    if (d != Directional_element_interface::get (unsmob_grob (ly_car (s))))
-      {
-	knee = true;
-	break;
-      }
+    {
+      Direction dir = Directional_element_interface::get
+	(unsmob_grob (ly_car (s)));
+      if (d && d != dir)
+	{
+	  knee = true;
+	  break;
+	}
+      d = dir;
+    }
   
   me->set_grob_property ("knee", gh_bool2scm (knee));
 
   return knee;
 }
-
 
 ADD_INTERFACE (Beam, "beam-interface",
   "A beam.
