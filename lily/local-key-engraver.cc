@@ -98,40 +98,31 @@ Local_key_engraver::create_grobs ()
 	  bool different = !gh_equal_p(prev_acc , gh_int2scm(a));
 	  int p = gh_number_p(prev_acc) ? gh_scm2int(prev_acc) : 0;
 
-	  /*
-	    Find if we're
-	    a. at right end of a tie -> tie_changes := different
-	    b. at right end of broken tie -> tie_broken
-
-	    Ugh: we're never case b., even when tie should be broken,
-	    are we maybe called *before* line breaking?
-	   */
-	  bool tie_broken = false;
+	  Grob *tie_break_cautionary = 0;
 	  bool tie_changes = false;
 	  for (int i=0; i < tie_l_arr_.size (); i++)
 	    if (support_l == Tie::head (tie_l_arr_[i], RIGHT))
 	      {
 		tie_changes = different;
-		Spanner *sp = dynamic_cast<Spanner*> (tie_l_arr_[i]);
-		if (!Tie::head (tie_l_arr_[i], LEFT)
-		    || (sp && sp->broken_into_l_arr_.size ()
-			&& !Tie::head (sp->broken_into_l_arr_[0], LEFT)))
-		  tie_broken = true;
+#if 0
+		// don't do this, yet.  the accidentals can't be
+		// deleted, yet.
+		tie_break_cautionary = tie_l_arr_[i];
+#endif
 		break;
 	      }
 
-	  /*
-	    Some comment here.
-	    When do we want ties:
+	  /* When do we want accidentals:
 
-	      1. when property force-accidental is set, and not tie_changes
-	      2. when different and not tie-changes
-	      3. always after a line break -> why doesn't this work?
-	    */
+	     1. when property force-accidental is set, and not
+	     tie_changes
+	     2. when different and not tie-changes
+	     3. maybe when at end of a tie: we must later see if
+	     we're after a line break */
 	  if (((to_boolean (note_l->get_mus_property ("force-accidental"))
 		|| different)
 	       && !tie_changes)
-	      || tie_broken)
+	      || tie_break_cautionary)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -151,7 +142,8 @@ Local_key_engraver::create_grobs ()
 
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
-					 extra_natural);
+					 extra_natural,
+					 tie_break_cautionary);
 	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  

@@ -15,8 +15,9 @@ class Local_key_item
 {
   static Molecule parenthesize (Grob*me, Molecule) ;
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void add_pitch (Grob*me, Pitch, bool cautionary, bool natural);
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  static void add_pitch (Grob*me, Pitch, bool cautionary, bool natural, Grob *tie_break_cautionary);
   static bool has_interface (Grob*);
   static void set_interface (Grob*);  
 };
