@@ -114,7 +114,7 @@ Note_column::do_pre_processing()
     Item *support_l=top_head_l;
     int j;
     for (j = 0; j < 2; j++ ) {
-	for (int i=0; i < placed_l_arr_a[j].size(); j++) {
+	for (int i=0; i < placed_l_arr_a[j].size(); i++) {
 	    placed_l_arr_a[j][i]->add_support(support_l);
 	    support_l = placed_l_arr_a[j][i];
 	}

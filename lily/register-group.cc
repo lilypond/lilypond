@@ -58,7 +58,7 @@ void
 Register_group_register::acknowledge_element(Staff_elem_info info)
 {
     Request_register* origin = info.origin_reg_l_arr_[0];
-    if (!contains_b(origin) && !origin->contains_b(this))
+    if (!contains_b(origin) && !origin->contains_b(this)) // am i sure?
 	return;
     
     for (iter_top(reg_list_, i); i.ok(); i++) 
