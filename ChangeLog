@@ -1,3 +1,16 @@
+2002-06-23  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/tutorial/brahms-*.ly: new tutorial files.
+
+	* Documentation/user/tutorial.itely: fixes. Extend cheat sheet.
+
+	* scm/script.scm (default-script-alist): fermata is up.
+
+	* lily/dynamic-engraver.cc (stop_translation_timestep): stop
+	dynamic line spanner when there is no crescendo to connect.
+
+	* lily/tie.cc (get_control_points): add test to avoid flat ties.
+
 2002-06-22  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/note-collision.cc (check_meshing_chords): don't crash if no

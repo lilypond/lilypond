@@ -70,12 +70,10 @@ $\\flat$
 
 
 @iftex
-@macro separate
-
+@macro separate 
+@c I want some space over here,  not silly characters.
 @tex
-\medskip
 @end tex
-
 @end macro
 @end iftex
 
@@ -98,10 +96,6 @@ $\\flat$
 @end html
 @end macro
 @end ifhtml
-
-@c netscape 4.x doesn't handle html chars 4.0 :-(
-@c <p></p><center>&hearts;</center><br>
-@c <p></p><center><font size="-1">*</font><font size="0">*</font><font size="-1">*</font></center><br>
 
 @ignore
 

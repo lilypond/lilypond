@@ -23,7 +23,7 @@
 	("marcato" . ((feta . ("dmarcato" . "umarcato")) #f -1 0  0))
 	("staccatissimo" . ((feta . ("dstaccatissimo" . "ustaccatissimo")) #f  -1 0 0))
 	("portato" . ((feta . ("dportato" . "uportato")) #f -1 0 0))
-	("fermata" . ((feta . ("dfermata" . "ufermata")) #f 1 0 0))
+	("fermata" . ((feta . ("dfermata" . "ufermata")) #f 0 1 0))
 	("stopped" . ((feta . ("stopped" . "stopped")) #f 0 1 0))
 	("staccato" . ((feta . ("staccato" . "staccato")) #t -1 0 -100))
 	("tenuto" . ((feta . ("tenuto" . "tenuto")) #t -1 0 0))

@@ -116,9 +116,11 @@ Tie::get_control_points (SCM smob)
       me->suicide ();
       return SCM_UNSPECIFIED;
     }
+
   
   if (!Directional_element_interface::get (me))
     Directional_element_interface::set (me, Tie::get_default_dir (me));
+  Direction dir = Directional_element_interface::get (me);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -140,7 +142,17 @@ Tie::get_control_points (SCM smob)
   Real lambda = 0.9;		
   
   if (Note_head::has_interface (l))
-    left_x = l->extent (l, X_AXIS)[RIGHT] + x_gap_f;
+    {
+      Real where = RIGHT;
+
+      /*
+	This correction is due te the shape of the black note head.
+       */
+      if (Rhythmic_head::duration_log (l) == 2)
+	where += dir* 0.2;
+      left_x = l->extent (l, X_AXIS).linear_combination (where)
+	+ x_gap_f;
+    }
   else
     left_x = l->extent (l, X_AXIS).linear_combination (lambda);
   
@@ -166,7 +178,7 @@ Tie::get_control_points (SCM smob)
 	  - 2 * x_gap_f;
     }
   
-  Direction dir = Directional_element_interface::get (me);
+
 
   SCM details = me->get_grob_property ("details");
 
@@ -242,6 +254,18 @@ Tie::get_control_points (SCM smob)
 	{
 	  Real y1 = ry + clear;
 	  Real y2 = ry - clear;
+
+	  /*
+	    ugh, we shove the 0.5 out of our sleeves.
+
+	    Any way. This test is to make sure that staffline
+	    collision avoidance does not result in completely flat
+	    ties.
+	   */
+	  if (fabs (y1 - ypos) < 0.5)
+	    y1 = y2;
+	  else if (fabs (y2 - ypos) < 0.5)
+	    y2 = y1;
 	  
 	  newy = (fabs (y1 - y) < fabs (y2 - y)) ? y1 : y2;
 	  
