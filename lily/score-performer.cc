@@ -61,7 +61,12 @@ Score_performer::prepare (Moment m)
   recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, UP);
 }
 
-
+void
+Score_performer::finish ()
+{
+  recurse_down_translators (daddy_context_, &Translator::finalize, UP);
+}
+  
 void 
 Score_performer::one_time_step ()
 {

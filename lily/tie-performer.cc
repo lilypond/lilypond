@@ -25,7 +25,7 @@ class Tie_performer : public Performer
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void acknowledge_grob (Audio_element_info);
+  virtual void acknowledge_audio_element (Audio_element_info);
   virtual bool try_music (Music*);
   virtual void process_music ();
 public:
@@ -60,7 +60,7 @@ Tie_performer::process_music ()
 }
 
 void
-Tie_performer::acknowledge_grob (Audio_element_info inf)
+Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note * an = dynamic_cast<Audio_note *> (inf.elem_))
     {

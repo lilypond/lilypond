@@ -98,11 +98,11 @@ and explains how they are glued together in LilyPond with the embedded
 Scheme interpreter.
 
 @menu
-* Interpretation context::
-* Scheme integration::
-* Music storage format::
-* Lexical details::
-* Output details::
+* Interpretation context::      
+* Scheme integration::          
+* Music storage format::        
+* Lexical details::             
+* Output details::              
 @end menu
 
 
@@ -110,14 +110,14 @@ Scheme interpreter.
 @section Interpretation context
 
 @menu
-* Creating contexts::
-* Default contexts::
-* Context properties::
-* Context evaluation::
-* Defining contexts::
-* Changing contexts locally::
-* Engravers and performers::
-* Defining new contexts::
+* Creating contexts::           
+* Default contexts::            
+* Context properties::          
+* Context evaluation::          
+* Defining contexts::           
+* Changing contexts locally::   
+* Engravers and performers::    
+* Defining new contexts::       
 @end menu
 
 
@@ -514,10 +514,9 @@ When it is installed, the following link should take you to its manual
 @end ifinfo
 
 @menu
-* Inline Scheme::
-* Input variables and Scheme::
-* Scheme data types::
-* Assignments::
+* Inline Scheme::               
+* Input variables and Scheme::  
+* Assignments::                 
 @end menu
 
 @node Inline Scheme
@@ -602,53 +601,6 @@ written as
 
 
 
-@node Scheme data types
-@subsection Scheme data types
-
-Scheme is used to glue together different program modules. To aid this
-glue function, many LilyPond specific object types can be passed as
-Scheme value.
-
-The following list are all LilyPond specific types, that
-can exist during parsing:
-@table @code
-@item Duration
-@item Input
-@item Moment
-@item Music
-@item Event
-In C++ terms, an @code{Event} is a subtype of @code{Music}. However,
-both have different functions in the syntax.
-@item Music_output_def
-@item Pitch
-@item Score
-@item Translator_def
-@end table
-
-
-During a run, transient objects are also created and destroyed.
-
-@table @code
-@item Grob: short for `Graphical object'.
-@item Scheme_hash_table
-@item Music_iterator
-
-@item Stencil: Device-independent page output object,
-including dimensions.
-
-@item Spring_smob
-
-@item Translator: An object that produces audio objects or Grobs.
-It may be accessed with @code{\applyoutput}.
-
-@item Font_metric: An object representing a font.
-@end table
-
-Many functions are defined to manipulate these data structures. They
-are all listed and documented in the internals manual, see
-@internalsref{All scheme functions}.
-
-
 @node Assignments
 @subsection Assignments
 @cindex Assignments
@@ -707,9 +659,9 @@ through the Scheme interpreter, so music expressions may be
 manipulated using Scheme functions.
 
 @menu
-* Music expressions::
-* Internal music representation::
-* Manipulating music expressions::
+* Music expressions::           
+* Internal music representation::  
+* Manipulating music expressions::  
 @end menu
 
 @node Music expressions
@@ -761,7 +713,7 @@ In principle, the way in which you nest sequential and simultaneous to
 produce music is not relevant.  In the following example, three chords
 are expressed in two different ways:
 
-@lilypond[fragment,verbatim,center,quote]
+@lilypond[fragment,verbatim,center]
 \notes \context Voice {
   <<a c'>> <<b d'>> <<c' e'>>
   << { a b c' } { c' d' e' } >>
@@ -949,19 +901,16 @@ lyrics, notes and markups.  Strings can be concatenated with the
 @node Output details
 @section Output details
 
-LilyPond's default output format is @TeX{}.  Using the option @option{-f}
+The default output format is La@TeX{}, which should be run
+through La@TeX{}.  Using the option @option{-f}
 (or @option{--format}) other output formats can be selected also, but
 currently none of them work reliably.
 
-At the beginning of the output file, various global parameters are defined.
-It also contains a large @code{\special} call to define PostScript routines
-to draw items not representable with @TeX{}, mainly slurs and ties.  A DVI
-driver must be able to understand such embedded PostScript, or the output
-will be rendered incompletely.
-
-Then the file @file{lilyponddefs.tex} is loaded to define the macros used
-in the code which follows.  @file{lilyponddefs.tex} includes various other
-files, partially depending on the global parameters.
+At the beginning of the output file, various global parameters are
+defined.  Then the file @file{lilyponddefs.tex} is loaded to define
+the macros used in the code which follows.  @file{lilyponddefs.tex}
+includes various other files, partially depending on the global
+parameters.
 
 Now the music is output system by system (a `system' consists of all
 staves belonging together).  From @TeX{}'s point of view, a system is an
@@ -970,7 +919,6 @@ vertically on the baseline of the text.  Between systems,
 @code{\interscoreline} is inserted vertically to have stretchable space.
 The horizontal dimension of the @code{\hbox} is given by the
 @code{linewidth} parameter from LilyPond's @code{\paper} block.
-
 
 After the last system LilyPond emits a stronger variant of
 @code{\interscoreline} only if the macro
@@ -987,9 +935,6 @@ macro @code{\lilypondscoreshift}:
 
 @noindent
 where @code{\baselineskip} is the distance from one text line to the next.
-
-The code produced by LilyPond should be run through La@TeX{}, not
-plain @TeX{}.
 
 Here an example how to embed a small LilyPond file @code{foo.ly} into
 running La@TeX{} text without using the @code{lilypond-book} script
@@ -1012,11 +957,8 @@ right here.
 The file @file{foo.tex} has been simply produced with
 
 @example
-lilypond foo.ly
+  lilypond-bin foo.ly
 @end example
-
-It is important to set the @code{indent} parameter to zero in the
-@code{\paper} block of @file{foo.ly}.
 
 The call to @code{\lineskip} assures that there is enough vertical space
 between the LilyPond box and the surrounding text lines.

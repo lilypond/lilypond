@@ -1,3 +1,14 @@
+2004-03-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* GNUmakefile.in (EXTRA_DIST_FILES): remove VIM stuff.
+
+	* vim/GNUmakefile: flatten dirs, add GNUmakefile.
+
+	* Documentation/user/running.itely: new file.
+
+	* lily/include/audio-element.hh (class Audio_element): remove grace_b_
+
+	* lily/score-performer.cc (finish): call Translator::finalize ().
 2004-03-05  Heikki Junes <hjunes@cc.hut.fi>
 
         * GNUmakefile.in: update VIM_FILES.

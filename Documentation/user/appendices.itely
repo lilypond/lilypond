@@ -8,6 +8,7 @@
 * Scheme functions::
 * Layout property overview::
 * Context property overview::
+* Literature list::
 @end menu
 
 
@@ -85,4 +86,4 @@ accessed directly using text markup such as
 
 @include layout-properties.tely
 
-
+@include literature.itely
