@@ -19,10 +19,13 @@ class Span_bar_engraver : public Engraver
     Vertical_align_element * valign_l_;
 public:
     NAME_MEMBERS();
+    
+    Span_bar_engraver();
+protected:
+    
     virtual void acknowledge_element(Score_elem_info);
     virtual void do_pre_move_processing();
-    Span_bar_engraver();
-
+    virtual Span_bar* get_span_bar_p()const;
 };
 
 #endif // SPAN_BAR_GRAV_HH
