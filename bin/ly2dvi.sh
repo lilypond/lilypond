@@ -5,7 +5,7 @@
 # Written by Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>
 #  Sat Nov 22 22:26:43 CET 1997
 #
-# $Id: ly2dvi.sh,v 1.13 1998/05/12 09:19:50 fred Exp $
+# $Id: ly2dvi.sh,v 1.14 1998/05/12 10:27:51 fred Exp $
 #
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
@@ -742,6 +742,7 @@ $LLHF
 EOF
 mudelaDefs
 cat << EOF >> $LatF
+\cmrtwenty% ugh
 \makelilytitle
 EOF
 }
