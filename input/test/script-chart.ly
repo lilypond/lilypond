@@ -1,8 +1,13 @@
 \version "1.7.18"
-% FIXMEsoon: check if test/ is the best place.
+
+% this chart is used in the manual too.
+
 \header {
     texidoc ="@cindex Feta scripts
-A chart showing all feta scripts. "
+
+A chart showing all feta scripts.
+
+"
 }
 
 \score {

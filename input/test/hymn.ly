@@ -1,15 +1,12 @@
 \version "1.7.18"
-%  We have other examples of partcombine.  Candidate for delete.  -gp
-%  leave it for now; I need to check some things.
-% FIXMEsoon -gp
-%{
-Jan:
-> Why remove this?  Do we have another hymn with part-combiner?  Maybe
-> move to template?
-%}
 
-\header { texidoc = "@cindex Hymn
-You can combine two parts on the same staff. " }
+\header { texidoc = "
+
+You can combine two parts on the same staff using the part
+combiner. For vocal scores (hymns), there is no need to add solo/a2
+texts, so they should be switched off.
+
+" }
 
 \score{
 	\context Staff <

@@ -91,11 +91,8 @@ only have one stem. "
 			\accepts "StaffCombineStaff"
 			skipBars = ##t 
 
-			%%FIXME barScriptPadding = #2.0 % dimension \pt
 			RehearsalMark \override #'padding = #4
 			BarNumber \override #'padding = #3
-			%% URG: this changes dynamics too
-			%%textStyle = #"italic"
 			TimeSignature \override #'style = #'C
 			RestCollision \set #'maximum-rest-count = #1
 		}

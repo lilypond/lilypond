@@ -1,7 +1,13 @@
+
+% this chart is used in the manual too.
+
 \version "1.7.18"
-% FIXMEsoon: check if test/ is the right place.
 \header { texidoc = "@cindex Script Abbreviations
-Some scripts may be entered using an abbreviation. "
+
+Some scripts may be entered using an abbreviation.
+
+"
+	  
 }
 
 \score {

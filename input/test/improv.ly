@@ -1,9 +1,16 @@
 \version "1.7.18"
-\header { texidoc = "@cindex Improv
-Noteheads for improvisation have a different shape. " }
+\header {
 
-%{ TODO: the construct with separet SquashVoice context is a little
- gory. FIXME.  %}
+texidoc =
+
+
+"@cindex improvisation
+
+
+Noteheads for improvisation have a different shape.
+
+
+" }
 
 
 improOn = \notes {\translator Voice = impro }
@@ -29,20 +36,15 @@ global = \notes { s1*3 \bar "|." }
       \name SquashVoice
       \alias Voice
       \consists Pitch_squash_engraver
-      \consists "Accidental_engraver"
       squashedPosition = #0
       NoteHead \override #'style = #'slash
-      Accidental \override #'transparent = ##t
     }
+
     \translator {
       \VoiceContext
       \alias SquashVoice
-      \consists "Accidental_engraver"
     }
-    \translator {
-      \ScoreContext
-      \accepts SquashVoice
-    }
+    
     \translator {
       \StaffContext
       \remove "Accidental_engraver"
