@@ -11,6 +11,7 @@
 #define GLOBAL_TRANSLATOR_HH
 
 #include "translator-group.hh"
+#include "rational.hh"
 #include "pqueue.hh"
 
 class Global_translator : public virtual Translator_group{
