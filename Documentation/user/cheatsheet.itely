@@ -1,0 +1,204 @@
+@c -*-texinfo-*-
+
+@node Cheat sheet
+@appendix Cheat sheet
+
+
+@multitable @columnfractions  .3 .3 .4  
+
+@item @b{Syntax}
+@tab @b{Description}
+@tab @b{Example}
+
+@item @code{1 2 8 16}
+@tab durations 
+@tab
+@lilypond[relative 1, notime]
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+c1 c2 c8 c16
+@end lilypond
+
+@item @code{. ..}
+@tab augmentation dots
+@tab
+@lilypond[relative 1, notime]
+\property Staff.Clef = \turnOff
+c4. c4..  
+@end lilypond
+
+@item @code{c d e f g a b }
+@tab scale 
+@tab
+@lilypond[relative 1, notime]
+\property Staff.Clef = \turnOff
+c d e f g a b
+@end lilypond
+
+@item @code{\clef treble \clef bass }
+@tab clefs
+@tab
+@lilypond[notime]
+\clef treble
+s4_" "
+\clef bass
+s4_" "
+@end lilypond
+
+@item @code{\time 3/4 \time 4/4 }
+@tab time signature
+@tab
+@lilypond
+\property Staff.Clef \set #'transparent = ##t 
+\time 3/4
+s4_" "
+\time 4/4
+s16_" "
+@end lilypond
+
+
+@item @code{r4 r8}
+@tab rest 
+@tab
+@lilypond[relative 1, notime]
+\property Staff.Clef = \turnOff
+r4 r8
+@end lilypond
+
+@item @code{~}
+@tab tie
+@tab
+@lilypond[relative 1, notime]
+\property Score.timing = ##f
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+d ~ d
+@end lilypond
+
+@item @code{\key es \major }
+@tab key signature
+@tab
+@lilypond[notime]
+\clef treble
+\key es \major
+s4 
+@end lilypond
+
+@item @var{note}@code{'}
+@tab raise octave
+@tab
+@lilypond[relative 1, notime]
+\property Score.timing = ##f
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+a a'
+@end lilypond
+
+@item @var{note}@code{,}
+@tab lower octave
+@tab
+@lilypond[relative 1, notime]
+\property Score.timing = ##f
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+c c,
+@end lilypond
+
+
+@item @code{( )}
+@tab slur
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+c-( d e-)
+@end lilypond
+
+
+@item @code{\( \)}
+@tab phrasing slur
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+c-\(  c-( d-) e-\)
+@end lilypond
+
+
+@item @code{[ ]}
+@tab beam
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+a8-[ b-]
+@end lilypond
+
+
+@item @code{< \context Staff ... >}
+@tab more staffs
+@tab
+@lilypond[fragment]
+< \context Staff = SA { c'1 }
+  \context Staff = SB { c'1 } >
+@end lilypond
+
+  
+@item @code{-> -.}
+@tab articulations
+@tab
+@lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
+c-> c-.
+@end lilypond
+
+
+@item @code{-\mf -\sfz}
+@tab dynamics
+@tab
+@lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
+c-\mf c-\sfz
+@end lilypond
+
+
+@item @code{\< \!}
+@tab crescendo
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+a\< a \!a
+@end lilypond
+
+@item @code{\> \!}
+@tab decrescendo
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
+a-\> a a-\!
+@end lilypond
+
+
+@item @code{<< >>}
+@tab chord
+@tab
+@lilypond[fragment, relative 1]
+<<c e>> 
+@end lilypond
+
+@end multitable
+
