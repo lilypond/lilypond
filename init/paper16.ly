@@ -16,7 +16,7 @@ paper_sixteen = \paper {
 	quartwidth = 5.28\pt;
 	wholewidth = 7.92\pt;
 
-	basicspace = 4.\pt;
+
      	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;
 	texsetting = "\\input lilyponddefs \\musixsixteendefs ";

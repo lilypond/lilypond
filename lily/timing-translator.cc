@@ -115,7 +115,10 @@ Timing_translator::do_pre_move_processing()
     daddy_trans_l_->ancestor_l (100)->global_l (); // ugh 100.
 
 
+  /* allbars == ! skipbars */
   bool allbars = ! get_property ("SkipBars").to_bool ();
+
+
   if (!time_.cadenza_b_ && allbars)
     global_l->add_moment_to_process (time_.next_bar_moment ());
 }

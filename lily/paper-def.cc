@@ -99,8 +99,6 @@ Paper_def::linewidth_f () const
 Real
 Paper_def::duration_to_dist (Moment d,Real k) const
 {
-  if (get_var ("geometric"))
-    return geometric_spacing (d);
   return arithmetic_spacing (d,k);
 }
 
@@ -180,7 +178,7 @@ Paper_def::interbeam_f (int multiplicity_i) const
 Real
 Paper_def::internote_f () const
 {
-  return get_var ("internote");
+  return get_var ("interline") /2.0 ;
 }
 
 Real

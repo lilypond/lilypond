@@ -12,7 +12,7 @@ paper_thirteen = \paper {
 	quartwidth = 4.29\pt;
 	wholewidth = 6.44\pt;
 
-	basicspace = 3.\pt;
+
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;
 	

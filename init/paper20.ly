@@ -16,7 +16,7 @@ paper_twenty = \paper {
 	quartwidth =  6.61\pt
 	wholewidth = 9.90\pt
 
-	basicspace = 8.\pt;
+
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 6.\pt;
 	texsetting = "\\input lilyponddefs \\musixtwentydefs ";

@@ -39,7 +39,7 @@ fi
 distdir=/tmp/${name}
 
 rm -f ${srcdir}/config.cache
-${srcdir}/configure --prefix=${distdir} \
+PYTHON=${PYTHON:-python} ${srcdir}/configure --prefix=${distdir} \
     --srcdir=${srcdir} \
     --enable-tex-prefix=${distdir}/texmf \
     --enable-tex-dir=${distdir}/texmf/tex \
@@ -78,9 +78,11 @@ fi
 cp $CYGWIN_LIB $distdir/bin
 
 #
-# Rename ly2dvi32 to ly2dvi.py
+# Rename python files to <filename>.py
 #
 mv $distdir/bin/ly2dvi32 $distdir/bin/ly2dvi.py
+mv $distdir/bin/convert-mudela $distdir/bin/convert-mudela.py
+mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 
 #
 # copy man documentation to doc directory

@@ -51,9 +51,12 @@ void
 Key_engraver::acknowledge_element (Score_element_info info)
 {
   Command_req * r_l = info.req_l_->access_Command_req () ;
+
   if (r_l && r_l->access_Clef_change_req ()) 
     {
-      create_key ();
+      int i= get_property ("createKeyOnClefChange").length_i ();
+      if (i)
+	create_key ();
     }
   else if (info.elem_l_->is_type_b (Bar::static_name ())
 	   && accidental_idx_arr_.size ()) 

@@ -121,7 +121,7 @@ $denneboom_shape = \paper{
 %		\$denneboom_shape 
 	\paper_twenty
 	indent = 20. \mm;
-	\shape = 70. \mm 20. \mm
+	\shape = 70. \mm 50. \mm
 		 65. \mm 30. \mm
 		 57.5 \mm 45. \mm
 		 50. \mm 60. \mm
