@@ -206,8 +206,8 @@ All_font_metrics::find_font (String name)
   
   if (!f &&
       (name.left_string (4) == "feta"
-       || (name.left_string (8) == "parmesan")
-       || (name.left_string (2) == "lm")))
+       || name.left_string (8) == "parmesan"
+       || name.left_string (2) == "lm"))
     {
       f = find_afm (name);
       if (!f)

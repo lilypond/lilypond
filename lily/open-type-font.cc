@@ -10,12 +10,31 @@
 #include "warn.hh"
 #include "open-type-font.hh"
 
+#include <stdio.h>
+
+#if 0
+
+void
+enumerate_glyphs (FT_Face face)
+{
+  FT_UInt glyph_index;
+  FT_ULong char_code = FT_Get_First_Char (face, &glyph_index);
+  while (gindex != 0)                                       
+  {                                                                
+    // ... do something with (charcode,gindex) pair ...               
+    FT_Get
+    charcode = FT_Get_Next_Char( face, charcode, &gindex );        
+  }                                                                
+}
+
+#endif
+
 SCM
 Open_type_font::make_otf (String str)
 {
   Open_type_font * otf = new Open_type_font;
-  int error_code = FT_New_Face( freetype2_library, str.to_str0(),
-		       0, &(otf->face_));
+  int error_code = FT_New_Face(freetype2_library, str.to_str0(),
+			       0, &(otf->face_));
 
   //  int code = FT_Set_Charmap (otf->face_, );   
 
@@ -57,7 +76,13 @@ Open_type_font::get_indexed_char (int signed_idx)
 int
 Open_type_font::name_to_index (String nm)
 {
-  return 0;
+  FT_String * nm_str = nm.to_str0 ();
+  int idx = FT_Get_Name_Index (face_, nm_str);
+
+  if (idx == 0)
+    return -1;
+  else
+    return idx;
 }
 
 
