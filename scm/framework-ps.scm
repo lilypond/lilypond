@@ -42,7 +42,9 @@
      (if (not coding-command) "" (string-append "e" coding-command)))))
 
 (define (tex-font? fontname)
-  (equal? (substring fontname 0 2) "cm"))
+  (or
+   (equal? (substring fontname 0 2) "cm")
+   (equal? (substring fontname 0 2) "ec")))
 
 (define (load-fonts bookpaper)
   (let* ((fonts (ly:bookpaper-fonts bookpaper))
@@ -200,6 +202,7 @@
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (lines (ly:paper-book-lines book))
 	 (y 0.0)
+	 ;; What the F*** is 2.83463?
 	 (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
 	 (total-y
 	  (apply + (map (lambda (z) (ly:paper-system-extent z Y)) lines)))

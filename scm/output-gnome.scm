@@ -176,9 +176,24 @@ lilypond-bin -fgnome input/simple-song.ly
 
 (define font-paper #f)
 
+;;; output-scale and font-size fun
+;; This used to be:
+(define USED-TO-BE-OUTPUT-SCALE 2.83464566929134)
+;; However, it seems that we currently have:
+(define 2.3.4-OUTPUT-SCALE 1.75729901757299)
+;; to go from ly-units to <MM/points/whatever?>
+;; Hmm, is this the source of font size problems wrt titling's right margin?
+
+;;(define pixels-per-unit 1.0)
+;;(define ARBITRARY-OUTPUT-SCALE 5)
+
+;; Anyway, for on-screen this does not matter: 2 * 2.5 looks fine
 (define pixels-per-unit 2.0)
-(define OUTPUT-SCALE 2.83464566929134)
-(define output-scale (* OUTPUT-SCALE pixels-per-unit))
+(define ARBITRARY-OUTPUT-SCALE 2.5)
+
+;;(define output-scale (* OUTPUT-SCALE pixels-per-unit))
+(define output-scale (* ARBITRARY-OUTPUT-SCALE pixels-per-unit))
+
 
 ;; helper functions -- sort this out
 (define (stderr string . rest)
@@ -252,28 +267,38 @@ lilypond-bin -fgnome input/simple-song.ly
    ((equal? (ly:font-name font) "GNU-LilyPond-feta-20")
     "lilypond-feta, regular 32")
    (else
-    (ly:font-name font))))
+    "ecrm12")))
+    ;;(ly:font-name font))))
+    ;;(ly:font-filename font))))
 
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
 	 (magnification (* (ly:font-magnification font)))
 	 
-	 ;;(ops (ly:paper-lookup paper 'outputscale))
-	 ;;(ops (* pixels-per-unit OUTPUT-SCALE))
-	 ;;(ops (* pixels-per-unit pixels-per-unit))
-	 ;;(ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
-	 ;;(ops (* (/ 12 20) (* OUTPUT-SCALE pixels-per-unit)))
-
 	 ;; experimental sizing:
 	 ;; where does factor come from?
 	 ;;
 	 ;; 0.435 * (12 / 20) = 0.261
 	 ;; 2.8346456692913/ 0.261 = 10.86071137659501915708
-
-	 (ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
+	 ;;(ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
+	 ;; for size-points
+	 (ops 2.61)
 	 
 	 (scaling (* ops magnification designsize)))
+    (stderr "OPS:~S\n" ops)
+    (stderr "scaling:~S\n" scaling)
+    (stderr "magnification:~S\n" magnification)
+    (stderr "design:~S\n" designsize)
+    
     scaling))
+
+;;font-name: "GNU-LilyPond-feta-20"
+;;font-filename: "feta20"
+;;pango-font-name: "lilypond-feta, regular 32"
+;;OPS:2.61
+;;scaling:29.7046771653543
+;;magnification:0.569055118110236
+;;design:20.0
 
 (define (text font string)
   (stderr "font-name: ~S\n" (ly:font-name font))
@@ -299,7 +324,9 @@ lilypond-bin -fgnome input/simple-song.ly
       ;;#:x 0.015 #:y -3.71
       
       #:font (pango-font-name font)
+      
       #:size-points (pango-font-size font)
+      ;;#:size ...
       #:size-set #t
 
       ;;apparently no effect :-(
@@ -451,6 +478,8 @@ lilypond-bin -fgnome input/simple-song.ly
     ;; ughr: panels?
     (set! max-height (- max-height 80))
 
+    (stderr "bookpaper-outputscale:~S\n" (ly:bookpaper-outputscale paper))
+    
     ;; hmm?
     ;;(set! OUTPUT-SCALE (ly:bookpaper-outputscale paper))
     ;;(set! output-scale (* OUTPUT-SCALE pixels-per-unit))
@@ -468,7 +497,7 @@ lilypond-bin -fgnome input/simple-song.ly
 (define (new-canvas)
   (let* ((canvas (make <gnome-canvas>))
 	 (root (root canvas)))
-    
+
     (set-size-request canvas window-width window-height)
     (set-scroll-region canvas 0 0 canvas-width canvas-height)
     

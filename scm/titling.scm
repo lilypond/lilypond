@@ -118,6 +118,7 @@
       (make-column-markup
        (append
 	(if (has 'opus)
+	    ;; opus, again?
 	    (list (markup #:fill-line ("" (get 'opus))))
 	    '())
 	(if (has 'piece)
