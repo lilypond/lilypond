@@ -1,5 +1,10 @@
 2004-09-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm (default-page-make-stencil): whoops. Add
+	page header back.
+
+	* scm/documentation-generate.scm (top-node): move version  to top node.
+
 	* lily/ledger-line-spanner.cc: add ledgered-interface, with
 	property no-ledgers.
 

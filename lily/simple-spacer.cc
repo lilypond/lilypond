@@ -293,7 +293,7 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 	force_return  = scm_from_double ((spacer.line_len_ - len)
 					 * spacer.active_springs_stiffness ());
     }
-  else if (not isinf (spacer.force_)
+  else if (!isinf (spacer.force_)
 	   && spacer.is_active ())
     {
       force_return = scm_from_double (spacer.force_);
