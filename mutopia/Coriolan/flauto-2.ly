@@ -77,10 +77,10 @@ flauto2 = \notes \relative c {
 	R1*21|
 	f4\f r r r8 es|
 	des4 r r r8 c|
-	bes4 r8 bes bes4 r8 bes|
+	bes4 r8 bes' bes4 r8 bes|
 	bes4 r8 bes bes4 r8 bes|
 	R1*4|
-	as4\ff r8 des c4 r8 g|
+	as,4\ff r8 des c4 r8 g|
 	f4 r8 bes as4 r8 es|
 	des4 r8 g f4 r8 as'|
 	g4 r8 g g4 r8 g|
@@ -129,8 +129,8 @@ flauto2 = \notes \relative c {
 	bes\f~|
 	bes\p|
 	c1\f~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceTwo.crescendoText = "cresc."
+	\property VoiceTwo.crescendoSpanner = "dashed-line"
 	c\p\<~|
 	c~|
 	c~|
@@ -164,8 +164,8 @@ flauto2 = \notes \relative c {
 	R1|
 	c4-. g'-. r2|
 	as4-. e-. r2|
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property VoiceTwo.decrescendoText = "dim."
+	\property VoiceTwo.decrescendoSpanner = "dashed-line"
 	f4\> r f r|
 	R1|
 	\!es4\p r r2|

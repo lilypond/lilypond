@@ -43,6 +43,13 @@ Staff_group_bar_engraver::get_span_bar_p () const
   Span_bar *s= new Span_bar;
   s->set_empty (X_AXIS);
   s->set_elt_property ("glyph",  gh_str02scm ("bracket"));
+
+  SCM collapse = get_property ("bracketCollapseHeight");
+  if (gh_number_p (collapse))
+    s->set_elt_property ("collapse-height", collapse);
+  else
+    s->set_elt_property ("collapse-height", gh_double2scm (1));
+      
   return s;
 }
 

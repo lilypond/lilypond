@@ -54,10 +54,11 @@ Molecule
 Bar::staff_bracket (Real height) const 
 {
   Paper_def* p= paper_l ();
+  Real arc_height = p->get_var("bracket_arch_height");
   SCM at = gh_list (ly_symbol2scm ("bracket"),
 		    gh_double2scm (p->get_var("bracket_arch_angle")),
 		    gh_double2scm (p->get_var("bracket_arch_width")),
-		    gh_double2scm (p->get_var("bracket_arch_height")),
+		    gh_double2scm (arc_height),
 		    gh_double2scm (p->get_var("bracket_width")),
 		    gh_double2scm (height),
 		    gh_double2scm (p->get_var("bracket_arch_thick")),
@@ -65,7 +66,8 @@ Bar::staff_bracket (Real height) const
 		    SCM_UNDEFINED);
 
   Real staff_space = p->get_var ("interline");
-  Box b (Interval (0, 1.5 * staff_space), Interval (-height/2,height/2));
+  Real h = height + 2 * arc_height;
+  Box b (Interval (0, 1.5 * staff_space), Interval (-h/2, h/2));
   Molecule mol (b, at);
   
   mol.translate_axis (- mol.dim_[X_AXIS].length () / 2, X_AXIS);
@@ -165,8 +167,8 @@ Bar::staff_brace (Real y)  const
 
   at = fontify_atom (all_fonts_global_p->find_font (nm), at);
   
-  Box b ( Interval (-y/2,y/2),
-	   Interval (0,0));
+  Box b (Interval (0,0), Interval (-y/2, y/2));
+
   return Molecule(b, at);
 }
   

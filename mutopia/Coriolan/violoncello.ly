@@ -414,7 +414,7 @@ violoncello = \notes \relative c {
 	g,4. g'8 g2\sf |
 	g,4. g'8 g2\sf |
 	as,4. as'8 as2\sf |
-	a,4. a'8 a2\sf |
+	b,4. b'8 b2\sf |
 	
 	%270
 	[c,8-"sempre"\ff b c d][es\ff d es c]|

@@ -137,7 +137,7 @@ Translator::try_music (Music * r)
 }
 
 void
-Translator::process_requests ()
+Translator::process_music ()
 {
   if (status < PROCESSED_REQS)
     post_move_processing ();

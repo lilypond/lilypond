@@ -80,7 +80,7 @@ Score_engraver::do_removal_processing()
 void
 Score_engraver::process()
 {
-  process_requests();
+  process_music();
   do_announces();
   pre_move_processing();
   check_removal();

@@ -43,7 +43,7 @@ ottoni = \context StaffGroup = otonni_group <
 $timpani_g = \context StaffGroup = timpani_group <
 	\$timpani_staff
 	% Force a staff bracket (?)
-	\context Staff = timpany { \skip 1; }
+	\context Staff = timpany { \skip 1*314; }
 >
 
 violini = \context GrandStaff = violini_group <

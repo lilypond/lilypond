@@ -15,6 +15,9 @@ StaffContext=\translator {
 	\consists "Bar_engraver";
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
+
+	voltaPadding = #5  % urg, in \pt
+	voltaMinimumSpace = #25  % urg, in \pt
 	\consists "Repeat_engraver";
 
 
@@ -100,6 +103,8 @@ RhythmicStaffContext=\translator{
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
 
+	voltaPadding = #5  % urg, in \pt
+	voltaMinimumSpace = #15  % urg, in \pt
 	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
@@ -114,6 +119,8 @@ VoiceContext = \translator {
 	\name Voice;
 
 	dynamicPadding = #5  % urg, in \pt
+	dynamicMinimumSpace = #10  % urg, in \pt
+
 	Generic_property_list = #generic-voice-properties
 	\consists "Output_property_engraver";	
 
@@ -327,6 +334,7 @@ ScoreContext = \translator {
 	\consists "Timing_engraver";
 	\consists "Output_property_engraver";	
 
+	%bracketCollapseHeight = #10  % \pt
 	\consists "Span_score_bar_engraver";
 %	\consists "Score_priority_engraver";
 	\consists "Break_align_engraver";

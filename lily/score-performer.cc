@@ -71,7 +71,7 @@ Score_performer::prepare (Moment m)
 void 
 Score_performer::process()
 {
-  process_requests();
+  process_music();
   do_announces ();
   pre_move_processing();
   check_removal();

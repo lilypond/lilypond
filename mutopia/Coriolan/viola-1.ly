@@ -236,9 +236,9 @@ viola1 = \notes \relative c {
 	%155
 	f,1 ~ |
 	f |
-	d'2\sf [g,8-. bes-.][bes()as] |
+	d'2\sf [f,8-. as-.][as()g] |
 	
-	es'2\sf [g,8-. bes-.][bes()as] |
+	d'2\sf [f,8-. as-.][as()g] |
 	% ugh, should be quoted and transposed...
 	%160
 	[f8-.\p as-.][as()f][g-. c-.][c()b] |
@@ -247,7 +247,7 @@ viola1 = \notes \relative c {
 	g2\ff [es8-. g-.][g()f] |
 	g2\sf [es8-. g-.][g()f] |
 	%165
-	[e-. bes'-.][bes()as][g-. des'-.][des()c] |
+	[e-.\p bes'-.][bes()as][g-. des'-.][des()c] |
 	R1*2 |
 	r4 [e,8-.\ff g-.][g()f] r4 |
 	r4 [e8-. g-.][g()f] r4 |
@@ -318,21 +318,21 @@ viola1 = \notes \relative c {
 	g'2: g: |
 	
 	%214
-	b,2:16\ff b4: c: |
+	bes,2:16\ff bes4: c: |
 	g'2: g: |
 	
 	e2:16\ff e4: f: |
-	b,: c: b: c: |
+	bes,: c: bes: c: |
 	
 	e2:16\ff e4: f: |
 	b,: c: b: c: |
 	
 	%220
-	r4 r8 es8 es4\sf()fes |
-	r4 r8 es8 es4\sf()fes |
-	r4 r8 es8 es4\sf()fes |
-	r4 r8 es8 es4\sf()fes |
-	[des16 des f f]des4: [b16 b d d]b4: |
+	r4 r8 as as2|
+	r4 r8 as as2|
+	r4 r8 as as2|
+	r4 r8 as as2|
+	[des'16 des f f]des4: [b16 b d d]b4: |
 	%225
 	% check
 	[bes16 bes c c]bes4: [a16 a c c]a4: |

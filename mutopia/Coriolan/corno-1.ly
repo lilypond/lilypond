@@ -25,8 +25,8 @@ corno1 = \notes \relative c {
 	r4 g-.\f r2 |
 	R1*2 |
 	% `a 2
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceOne.crescendoText = "cresc."
+	\property VoiceOne.crescendoSpanner = "dashed-line"
 	r8 f\p\< f2 e4 |
 	r8 f f2 e4 |
 	f4. e8 f4. e8 |
@@ -172,8 +172,8 @@ corno1 = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceOne.crescendoText = "cresc."
+	\property VoiceOne.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e|

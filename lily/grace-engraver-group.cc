@@ -69,7 +69,7 @@ void
 Grace_engraver_group::process ()
 {
   calling_self_b_  = true;
-  process_requests ();
+  process_music ();
   do_announces();
   pre_move_processing();
   check_removal();

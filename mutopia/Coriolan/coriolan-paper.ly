@@ -8,6 +8,11 @@
 
 	\translator {
 		\VoiceContext
+		dynamicPadding = #3  % urg, in \pt
+		dynamicMinimumSpace = #6  % urg, in \pt
+	}
+	\translator {
+		\VoiceContext
 		\name "VoiceOne";
 
 		%%\consists "Line_number_engraver";
@@ -32,6 +37,11 @@
 		maximumRestCount = #1
 		\accepts "VoiceOne";
 		\accepts "VoiceTwo";
+	}
+	\translator { 
+		\ScoreContext 
+		textEmptyDimension = ##t
+		textStyle = #"italic"
 	}
 	\translator { \OrchestralScoreContext }
 }

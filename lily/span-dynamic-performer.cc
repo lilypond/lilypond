@@ -30,7 +30,7 @@ public:
 protected:
   virtual bool do_try_music (Music* req_l);
   virtual void acknowledge_element (Audio_element_info);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
 
@@ -68,7 +68,7 @@ Span_dynamic_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Span_dynamic_performer::do_process_requests ()
+Span_dynamic_performer::do_process_music ()
 {
   if (finished_dynamic_tuple_arr_.size () > 1
      && finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_)

@@ -24,6 +24,8 @@ public:
   static Real quantised_position (Dimension_cache const*);
   static Real centered_on_parent (Dimension_cache const*);
   void set_axis (Axis);
+  void set_minimum_space (Real);
+  void set_padding (Real);
   void set_quantised (Axis);
   Axis get_axis () const;
   

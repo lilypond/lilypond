@@ -53,21 +53,29 @@ void
 Span_bar::after_line_breaking ()
 {
   Bar::after_line_breaking ();
-  Interval i(get_spanned_interval ());
-
-  translate_axis (i.center (), Y_AXIS);
-}
-
-void
-Span_bar::evaluate_empty ()
-{ 
-  if (!gh_pair_p (get_elt_property ("elements"))) 
+  SCM s = get_elt_property ("collapse-height");
+  if (gh_number_p (s)
+      && get_spanned_interval ().length () < gh_scm2double (s))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS);
       set_empty (Y_AXIS);   
     }
 
+  Interval i (get_spanned_interval ());
+  translate_axis (i.center (), Y_AXIS);
+}
+
+void
+Span_bar::evaluate_empty ()
+{ 
+  if (!gh_pair_p (get_elt_property ("elements")))
+  {
+    set_elt_property ("transparent", SCM_BOOL_T);
+    set_empty (X_AXIS);
+    set_empty (Y_AXIS);   
+  }
+  
   SCM gl = get_elt_property ("glyph");
   if (!gh_string_p (gl))
     {

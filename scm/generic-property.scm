@@ -57,6 +57,7 @@
 		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
+		     (list 'dynamicMinimumSpace number? 'minimum-space) 
 		     )))
   
 (define generic-dynamic-line-spanner-properties
@@ -64,6 +65,14 @@
 		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
+		     (list 'dynamicMinimumSpace number? 'minimum-space) 
+		     )))
+  
+(define generic-volta-spanner-properties
+  (cons "Volta_spanner" (list
+		     (list 'voltaVerticalDirection dir? 'direction)
+		     (list 'voltaPadding number? 'padding) 
+		     (list 'voltaMinimumSpace number? 'minimum-space) 
 		     )))
   
 (define generic-bar-properties
@@ -179,6 +188,7 @@
    generic-clef-properties
    generic-collision-properties
    generic-rest-collision-properties
+   generic-volta-spanner-properties
 ;   generic-staff-symbol-properties
    generic-All-properties      
    )

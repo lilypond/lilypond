@@ -26,7 +26,6 @@ protected:
   VIRTUAL_COPY_CONS (Score_element);
 
   virtual void do_add_processing ();
-  static  Interval dim_callback (Dimension_cache const*);
   virtual void after_line_breaking ();
 };
 

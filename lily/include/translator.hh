@@ -54,7 +54,7 @@ public:
   void pre_move_processing();
   void add_processing ();
   void creation_processing ();
-  void process_requests();
+  void process_music();
   void post_move_processing();
   void removal_processing();
   /**
