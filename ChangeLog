@@ -1,3 +1,7 @@
+2002-08-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/grob-property-description.scm: more extent renaming.
+
 2002-08-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parse-scm.cc (protected_ly_parse_scm): compatibility with
@@ -7,7 +11,7 @@
 
 	* scripts/convert-ly.py: add extent rule.
 
-	* lily/grob.cc: chang extent-[XY] to [XY]-extent globally.
+	* lily/grob.cc: change extent-[XY] to [XY]-extent globally.
 
 2002-08-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 

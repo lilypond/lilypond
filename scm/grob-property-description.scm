@@ -174,10 +174,10 @@ mean centre distance weighted per note
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
 (grob-property-description 'elements grob-list? "list of grobs, type depending on the Grob where this is set in.")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
-(grob-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space.")
-(grob-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}.")
-(grob-property-description 'extent-X number-pair? "Store extent. internal use only. ")
-(grob-property-description 'extent-Y number-pair? "Store extent. internal use only. ")
+(grob-property-description 'extra-X-extent number-pair? "enlarge in X dimension by this much, measured in staff space.")
+(grob-property-description 'extra-Y-extent number-pair? "see @code{extra-extent-Y}.")
+(grob-property-description 'X-extent number-pair? "Store extent. internal use only. ")
+(grob-property-description 'Y-extent number-pair? "Store extent. internal use only. ")
 (grob-property-description 'extra-offset number-pair? "pair of reals
 (a cons) forcing an extra offset before outputting.
 @code{extra-offset} is added just before `printing' the grob, so the
@@ -287,8 +287,8 @@ The alist contains the following entries: name, interfaces.
 ")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
-(grob-property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space.")
-(grob-property-description 'minimum-extent-Y number-pair? "see @code{minimum-extent-Y}.")
+(grob-property-description 'minimum-X-extent number-pair? "minimum size in X dimension, measured in staff space.")
+(grob-property-description 'minimum-Y-extent number-pair? "see @code{minimum-X-extent}.")
 (grob-property-description 'minimum-length number? "try to make the
 Grob at least this long.
 
