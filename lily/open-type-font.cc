@@ -7,7 +7,6 @@
 
 */
 
-#if 0
 #include "warn.hh"
 #include "open-type-font.hh"
 
@@ -58,7 +57,7 @@ Open_type_font::get_indexed_char (int signed_idx)
 int
 Open_type_font::name_to_index (String nm)
 {
-  
+  return 0;
 }
 
 
@@ -67,4 +66,3 @@ Open_type_font::get_design_size () const
 {
   return 20.0;
 }
-#endif
