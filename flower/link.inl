@@ -7,12 +7,14 @@ inline
 void
 Link<T>::OK() const
 {
+#ifndef NDEBUG
     if (previous_) {
 	assert(previous_->next_ == this);
     }
     if (next_) {
 	assert(next_->previous_ == this);
     }
+#endif    
 }
 
 template<class T>
