@@ -101,7 +101,7 @@ My_lily_lexer::My_lily_lexer (Sources *sources)
 My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   : Includable_lexer ()
 {
-  keytable_ = new Keyword_table (*src.keytable_);
+  keytable_ =  (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   encoding_ = src.encoding_;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
