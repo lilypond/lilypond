@@ -12,14 +12,14 @@
 
 #include "spanner.hh"
 #include "align-element.hh"
+#include "axis-group-spanner.hh"
 
-class Vertical_align_spanner : public Align_element, public Spanner
+class Axis_align_spanner : public virtual Align_element,
+			   public virtual Axis_group_spanner
 {
 public:
-  
   VIRTUAL_COPY_CONS(Score_element);
-  Vertical_align_spanner ();
-  virtual void do_print() const ;
-    
+  Axis_align_spanner ();
+  virtual void do_print() const {}
 };
 #endif // VERTICAL_ALIGN_SPANNER_HH

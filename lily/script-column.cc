@@ -42,6 +42,12 @@ idx (bool inside, int dir)
   return j;
 }
 
+
+Script_column::Script_column ()
+{
+  set_axes (X_AXIS,X_AXIS);
+}
+
 void
 Script_column::do_pre_processing()
 {

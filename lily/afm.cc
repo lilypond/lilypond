@@ -122,9 +122,12 @@ Adobe_font_char_metric dummy_static_char_metric;
 Adobe_font_char_metric const &
 Adobe_font_metric::find_char (String nm, bool warn) const
 {
-  if (warn && !name_to_metric_dict_.elem_b (nm))
+  if (!name_to_metric_dict_.elem_b (nm))
     {
-      warning (_f ("can't find character called `%s'", nm.ch_C()));
+      if (warn)
+	{
+	  warning (_f ("can't find character called `%s'", nm.ch_C()));
+	}
       return dummy_static_char_metric;
     }
   

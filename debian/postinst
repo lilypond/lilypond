@@ -19,6 +19,10 @@ TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
 echo " Running /usr/bin/mktexlsr ..."
 /usr/bin/mktexlsr
 
+install-info --description='LilyPond, the GNU Project music typesetter' \
+	--section "Music" "Music" \
+	--quiet /usr/info/lilypond.info.gz
+
 #DEBHELPER#
 
 # If we are the last package to use the old /usr/lib/texmf/doc,

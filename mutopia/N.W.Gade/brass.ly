@@ -52,7 +52,7 @@ e,4. r8 |
 e'4. r8 |
 e r e r |
 e r e r |
-c4 \sfz r |
+c4 \fz r |
 R2*12 |
 r4 r8 g' ( |
 ) g,4. \f g8 ( |
@@ -72,8 +72,8 @@ r4 r8 e \f ( |
 R2*4 |
 d4. \f r8 |
 R2 |
-d4. \sfz r8 |
-d4. \sfz r8 |
+d4. \fz r8 |
+d4. \fz r8 |
 d4 d-> ~ |
 d4 d-> ~ |
 d g ( |
@@ -111,7 +111,7 @@ c r |
 e r |
 c8 r d r |
 es r d r |
-d \sfz r r4 |
+d \fz r r4 |
 R2*2 |
 d4 ( \p \< e |
 \! f g \> ~ |
@@ -172,7 +172,7 @@ g ~ |
 g ~ | 
 g | 
 R2*2 |
-d'2 \sfz \> ( |
+d'2 \fz \> ( |
 ) \! g, ~ |
 g \p ~ | 
 g | 
@@ -200,7 +200,7 @@ c4 r8 g ( |
 ) e'4 r8 g,8 ( |
 ) c4 r |
 R2 |
-e4 \sfz r^\fermata
+e4 \fz r^\fermata
 }
 
 corIhelp=\notes\relative c''' {
@@ -278,7 +278,7 @@ c,4. r8 |
 g'4. r8 |
 e r e r |
 e r e r |
-fis4 \sfz r |
+fis4 \fz r |
 R2*13 |
 r4 r8 g \f ( |
 ) g,4. r8 |
@@ -294,8 +294,8 @@ r4 r8 g' ( |
 R2*6 |
 d''4. \f r8 |
 R2 |
-c4. \sfz r8 |
-c4. \sfz r8 |
+c4. \fz r8 |
+c4. \fz r8 |
 g4 g,-> ~ |
 g g-> ~ |
 g g ~ |
@@ -331,7 +331,7 @@ c r |
 e r |
 c'8 r d r |
 es r d r |
-g, \sfz r r4 |
+g, \fz r r4 |
 R2*13 |
 c,4. \f c8 ( |
 )c,4. r8 |
@@ -350,7 +350,7 @@ c2:8 |
 c4.:8 e8 ( |
 ) g4. \f r8 |
 R2 |
-g4. \sfz r8 |
+g4. \fz r8 |
 g4. g8 ( |
 ) c r g4 ( |
 ) c8 r g4 ( |
@@ -378,7 +378,7 @@ g ~ |
 g ~ |
 g |
 R2*2 |
-g \sfz ~ |
+g \fz ~ |
 g ~ |
 g ~ |
 g |
@@ -406,7 +406,7 @@ e4 r8 g ( |
 ) c,4 r8 g'8 ( |
 ) e4 r |
 R2 |
-c'4-. \sfz r^\fermata
+c'4-. \fz r^\fermata
 }
 
 trpI=\notes\relative c'' {
@@ -463,7 +463,7 @@ e,4. r8 |
 e'4. r8 |
 e8 r e r |
 e r e r |
-d \sfz r r4 |
+d \fz r r4 |
 R2*13 |
 r4 g,8 \f r |
 [d'-. d16 ( e ] ) d8 r |
@@ -514,7 +514,7 @@ d-. r |
 d-. r |
 g, r |
 R2 |
-g4 \sfz r^\fermata
+g4 \fz r^\fermata
 }
 
 trpIhelp=\notes\relative c'' {
@@ -671,7 +671,7 @@ g-. r |
 g-. r |
 g r |
 R2 |
-g4 \sfz r^\fermata
+g4 \fz r^\fermata
 }
 
 timpani=\notes\relative c, {
@@ -748,7 +748,7 @@ f8 r r4 |
 R2 |
 f8 r r4 |
 R2*3 |
-c'4 \sfz r |
+c'4 \fz r |
 R2*12 |
 r4 r8 f, \p |
 [f \< f f \! f ] |
@@ -800,7 +800,7 @@ f2:32 ~ |
 f2:32 ~ |
 f8 r r4 |
 r2 |
-f4 \sfz r^\fermata 
+f4 \fz r^\fermata 
 }
 
 timphelp=\notes\relative c' {

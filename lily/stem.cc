@@ -26,14 +26,9 @@ Stem::~Stem ()
 Stem::Stem ()
 {
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
-  mult_i_ = 0;
-
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
   dir_ = CENTER;
-  stem_xdir_ = LEFT;
-
-  beam_gap_i_ = 0;
   beam_l_ = 0;
 }
 
@@ -173,7 +168,7 @@ Stem::set_default_stemlen ()
     set_default_dir ();
   /* 
     stems in unnatural (forced) direction should be shortened, 
-    accoding to [Roush & Gourlay]
+    according to [Roush & Gourlay]
    */
   if (((int)chord_start_f ())
       && (dir_ != get_default_dir ()))
@@ -198,19 +193,8 @@ Stem::set_default_extents ()
   if (!stem_length_f ())
     set_default_stemlen ();
 
-
-  if (dir_ == UP)
-    stem_xdir_ = RIGHT;
-  if (invisible_b ())
-    stem_xdir_ = CENTER;
 }
 
-/*
-  TODO
-
-  move into note_column.cc
-
-  */
 void
 Stem::set_noteheads ()
 {
@@ -220,10 +204,13 @@ Stem::set_noteheads ()
   if (dir_ < 0)
     head_l_arr_.reverse ();
 
-  head_l_arr_[0]->extremal_i_ = -1;
-  head_l_arr_.top ()->extremal_i_ = 1;
+  Note_head * beginhead =   head_l_arr_[0];
+  beginhead->set_elt_property (extremal_scm_sym, SCM_BOOL_T);
+  if  (beginhead !=   head_l_arr_.top ())
+    head_l_arr_.top ()->set_elt_property (extremal_scm_sym, SCM_BOOL_T);
+  
   int parity=1;
-  int lastpos = head_l_arr_[0]->position_i_;
+  int lastpos = beginhead->position_i_;
   for (int i=1; i < head_l_arr_.size (); i ++)
     {
       int dy =abs (lastpos- head_l_arr_[i]->position_i_);
@@ -231,7 +218,7 @@ Stem::set_noteheads ()
       if (dy <= 1)
 	{
 	  if (parity)
-	    head_l_arr_[i]->x_dir_ = (stem_xdir_ == LEFT) ? LEFT : RIGHT;
+	    head_l_arr_[i]->flip_around_stem (dir_);
 	  parity = !parity;
 	}
       else
@@ -316,10 +303,10 @@ Stem::note_delta_f () const
       Interval head_wid(0,  head_l_arr_[0]->extent (X_AXIS).length ());
       Real rule_thick(paper_l ()->rule_thickness ());
       Interval stem_wid(-rule_thick/2, rule_thick/2);
-      if (stem_xdir_ == CENTER)
+      if (dir_ == CENTER)
 	r = head_wid.center ();
       else
-	r = head_wid[stem_xdir_] - stem_wid[stem_xdir_];
+	r = head_wid[dir_] - stem_wid[dir_];
     }
   return r;
 }
@@ -330,29 +317,17 @@ Stem::hpos_f () const
   return note_delta_f () + Item::hpos_f ();
 }
 
-/*
-  TODO:  head_l_arr_/rest_l_arr_ in  
- */
 void
 Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (Note_head*h=dynamic_cast<Note_head*> (o))
-  head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
+    head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
   if (Rest *r=dynamic_cast<Rest*> (o))
     rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
   if (Beam* b = dynamic_cast<Beam*> (o))
     {
       if (b == beam_l_) 
-	{
-	  beam_l_ = dynamic_cast<Beam*> (n);
-	  if (!beam_l_)
-	    {
-	      beams_i_drul_[LEFT] = 0;
-	      beams_i_drul_[RIGHT] = 0;
-	      mult_i_ = 0;
-	    }
-	}
+	beam_l_ = dynamic_cast<Beam*> (n);
     }
   Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-      
 }

@@ -11,7 +11,7 @@
 #define SPAN_BAR_GRAV_HH
 
 #include "engraver.hh"
-
+class Axis_align_spanner;
 /** 
 
   Make bars that span multiple "staffs". Catch bars, and span a
@@ -22,7 +22,7 @@ class Base_span_bar_engraver : public Engraver
 {
   Span_bar * spanbar_p_;
   Array<Bar*> bar_l_arr_;
-  Vertical_align_spanner * valign_l_;
+  Axis_align_spanner * valign_l_;
 public:
   VIRTUAL_COPY_CONS(Translator);
   

@@ -179,16 +179,6 @@ Auto_beam_engraver::create_beam_p ()
   if (prop.isnum_b ()) 
     beam_p->quantisation_ = (Beam::Quantisation)(int)prop;
  
-  // must set minVerticalAlign = = maxVerticalAlign to get sane results
-  // see input/test/beam-interstaff.ly
-  prop = get_property ("minVerticalAlign", 0);
-  if (prop.isnum_b ())
-    beam_p->vertical_align_drul_[MIN] = prop;
-
-  prop = get_property ("maxVerticalAlign", 0);
-  if (prop.isnum_b ())
-    beam_p->vertical_align_drul_[MAX] = prop;
-
   announce_element (Score_element_info (beam_p, 0));
   return beam_p;
 }

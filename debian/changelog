@@ -1,3 +1,17 @@
+lilypond (1.1.36-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/rules]:
+      - Make and install info files.
+      - Removed "CC=egcc" because the default gcc on all platforms is
+        now the one from egcs.
+      - Install *.png instead of *.xpm.
+      - Minor clean-ups.
+  * Added debian/compress to make sure *.png are not compressed.
+  * Added debian/doc-base and postinst/prerm for the LilyPond info files.
+
+ -- Anthony Fok <foka@debian.org>  Sun, 21 Mar 1999 13:39:39 -0700
+
 lilypond (1.1.31-1) unstable; urgency=low
 
   * New upstream release.

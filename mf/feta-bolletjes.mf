@@ -84,7 +84,7 @@ set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
 	draw z1 .. z2;
 fet_endchar;
 
-fet_beginchar("Brevis notehead", "-1", "brevisball")
+fet_beginchar("Brevis notehead", "-1", "brevishead")
 	draw_brevis(brevis_wid#);
 fet_endchar;
 
@@ -92,7 +92,7 @@ fet_endchar;
 % Some sources (eg Musix/OpusTeX think that the appendage should be on
 % the right, my only other ref [Willemze], shows an appendage to the left
 %
-fet_beginchar("Longa notehead", "-2", "longaball");
+fet_beginchar("Longa notehead", "-2", "longahead");
 	draw_brevis(brevis_wid#);
 	save theta;
 	z7 = z5;
@@ -105,6 +105,8 @@ fet_beginchar("Longa notehead", "-2", "longaball");
 	penlabels(6,7);
 fet_endchar;
 
+
+% TODO: Document these!
 
 % setup user vars
 def setup_notehead_vars =
@@ -152,7 +154,7 @@ fi
 
 % whole note
 % Wanske, p.38
-fet_beginchar("Whole notehead", "0", "wholeball")
+fet_beginchar("Whole notehead", "0", "wholehead")
 	setup_notehead_vars;
 	
 	a_b:=1.80;
@@ -183,7 +185,7 @@ fet_endchar;
 % half note
 % Wanske, p.39
 fet_beginchar("Half notehead", "1", 
-	"halfball")
+	"halfhead")
 	setup_notehead_vars;
 		% a_b:=1.49; % after text
 	a_b:=1.50; % after drawing
@@ -211,7 +213,7 @@ fet_endchar;
 
 % quarter note
 % Wanske p.38
-fet_beginchar("Quart notehead", "2", "quartball")
+fet_beginchar("Quart notehead", "2", "quarthead")
 	setup_notehead_vars;
 	% a_b:=1.57; % after text
 	a_b:=1.54; % after drawing
@@ -233,81 +235,164 @@ fet_beginchar("Quart notehead", "2", "quartball")
 fet_endchar;
 
 
+% whole note
+% Wanske, p.38
+fet_beginchar("Whole diamondhead", "0diamond", "wholediamondhead")
+	setup_notehead_vars;
+	
+	a_b:=1.80;
+	err_y_a:=0; % no slant
+	tilt:=0;
+	superness:=0.495;
+	ai_a:=0.400;
+	% ai_bi:=1.23;
+	ai_bi:=1.30; % jcn
+	% err_y_ai:=0.0938;
+	% err_x_bi:=0;
+	err_y_ai:=0;
+	err_x_bi:=0.115;
+	% inner_tilt:=135;
+	inner_tilt:=125; % jcn
+	% inner_superness:=0.69;
+	inner_superness:=0.6; % jcn
+	b_h:=1; %no rotate-> no height correction
+	a_w:=1; % no rotate-> no width correction
+
+	notehead_calc;
+	whole_notehead_width# := wd#;
+	notehead_draw;
+fet_endchar;
 
 
+% half note
+% Wanske, p.39
+fet_beginchar("Half diamondhead", "1diamond", 
+	"halfdiamondhead")
+	setup_notehead_vars;
 
-%if test = 0:
-%else:
+	a_b := 1.50; % after drawing
+	err_y_a:=0.157;
+
+	tilt:=34;
+	superness:=0.49; % jcn
+	ai_a:=0.550; % jcn
+	ai_bi:=3.30; % jcn
+
+	err_y_ai:=0;
+	err_x_bi:=-0.12;
+	inner_tilt:=tilt;
+	inner_superness:=0.80;
+
+	b_h:= 1.03;
+	a_w:= 1.2;
+
+	notehead_calc;
+	half_notehead_width# := wd#;
+	notehead_draw;
+fet_endchar;
+
+
+% quarter note
+% Wanske p.38
+fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
+	set_char_box(0, black_notehead_width#, noteheight#/2, noteheight#/2);
+	save a_b,err_y_a,tilt,superness;
+	save b_h,a_w;
+	save a,beta,ai,bi, ht, wd;
+
+	a_b:= 1.8;
+	err_y_a:=-0.044;
+	b_h:=0.90;
+	a_w:=1.1;
+	tilt:=35;
+	superness:=0.495;
+
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+
+	define_pixels(a,beta);
+
+	black := distorted_ellipse(.72 noteheight, .45 noteheight, -.2 noteheight ,   0, superness)
+				
+%			beta,a*err_y_a,0,superness);
+
+	black:=black rotated tilt;
+	black:=black shifted (w/2,0);
+	fill black;
+
+fet_endchar;
+
+fet_beginchar("Crossed notehead", "2cross", "crossedhead")
+	set_char_box(0, black_notehead_width#, noteheight#/2, noteheight#/2);
+	pickup pencircle scaled 1.5 stafflinethickness;
+	lft x1 = 0;
+	bot y1 = -d;
+	top y2 = h;
+	rt x2 = w;
+
+	draw z1 .. z2;
+	draw (z1 .. z2) yscaled -1;
+fet_endchar
+
 def draw_harmonic_notehead(expr harmwid) =
 	save beamheight, head_width, head_char_width;
-	save holeheight, stem_width;
-	save serif_size, serif_protrude;
 	save stemthick;
 	save thin, thick;
-	save ht, schuif_op;
+	save ht;
 	
-%	setup_notehead_vars;
-	
-%	a_b:=1.54;
-%	ai_a:=0;
-%	ai_bi:=1;
-%	b_h:=0.85;
-%	a_w:=1.09;
-
-%	notehead_calc;
-	
-
 	head_width# = harmwid;
 
 	define_pixels(head_width);
 	
-%	ht# = noteheight#;
 	head_char_width = 1.54 noteheight;
 	head_char_width# := 1.54 ht#;
-	%schuif_op = head_char_width - head_width; %ugh
-	%schuif_op# := head_char_width# - head_width#;
-%	set_char_box(0, head_char_width#, noteheight#/2, noteheight#/2); 
+
+
 	set_char_box(0, head_width#, head_width#/2, head_width#/2);
-%	2 beamheight + holeheight = noteheight;
-	thin = stafflinethickness;
-	thick = 2.2 stafflinethickness;
-%	serif_size = (holeheight - stafflinethickness)/2;
-%	serif_protrude = 1.5 serif_size;
+
+	thin = stafflinethickness - blot_diameter/2;
+	thick = 2.2 stafflinethickness - blot_diameter/2;
 	penpos1(thick, 45);
 	penpos2(thin, 315);
 	penpos3(thin, 135);
-	penpos4(thick, 45);
+	penpos4(thick, 55);
 	penpos5(thick, 225);
 	penpos6(thin, 135);
 	penpos7(thin, 315);
-	penpos8(thick, 225);
+	penpos8(thick, 235);
 
-%	1.5 noteheight = head_width;
-	z1l = (0, 0);
-	z2l = z1l;
-%	z3l = (head_width/2,-head_width/2);
-	z3l = (head_width/2, -noteheight/2);
-	z4l = z3l;
-	z5l = (head_width, 0);
-	z6l = z5l;
-%	z7l = (head_width/2, head_width/2);
-	z7l = (head_width/2, noteheight/2);
-	z8l = z7l;
 	
-	pickup pencircle; %scaled stemthick;
+	pickup pencircle scaled blot_diameter;
+
+	lft x1l = 0;
+	y1l = 0;
+
+	z2l = z1l;
+
+	bot y3l =  -noteheight/2;
+	x3l = head_width/2;
+	z4l = z3l;
+	rt x5l = head_width;
+	y5l =  0;
+	z6l = z5l;
+
+	top y7l = noteheight/2;
+	x7l = (head_width/2); 
+	z8l = z7l;
+
+ 
 	penlabels(1,2,3,4,5,6,7,8);
 	test_grid;
-	fill z1l -- z2r -- z7r -- z7l -- cycle;
-	fill z1l -- z1r -- z4r -- z4l -- cycle;
-	fill z3r -- z3l -- z6l -- z6r -- cycle;
-	fill z5r -- z5l -- z8l -- z8r -- cycle;
+	filldraw z1l -- z2r -- z7r -- z7l -- cycle;
+	filldraw z1l -- z1r -- z4r -- z4l -- cycle;
+	filldraw z3r -- z3l -- z6l -- z6r -- cycle;
+	filldraw z5r -- z5l -- z8l -- z8r -- cycle;
 enddef;
 
-%save uitsteek;
-% uitsteek = .25;
 harmonic_wid# := interline#;
 
-fet_beginchar("Harmonic notehead","harmonic","harmonicball")
+fet_beginchar("Harmonic notehead","2harmonic","harmonichead")
 	draw_harmonic_notehead(harmonic_wid#)
 fet_endchar;
 

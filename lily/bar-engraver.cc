@@ -38,15 +38,7 @@ Bar_engraver::do_try_music (Music*r_l)
 
 }
 
-void
-Bar_engraver::acknowledge_element (Score_element_info i)
-{
-  if (Bar *b = dynamic_cast<Bar *> (i.elem_l_))
-    {
-      // only bar-engraver should create bars
-      assert (0);
-    }
-}
+
 
 void
 Bar_engraver::create_bar ()
@@ -69,7 +61,7 @@ Bar_engraver::create_bar ()
       Scalar prop = get_property ("barAtLineStart", 0);
       if (prop.to_bool ())
 	{
-	  bar_p_->at_line_start_b_ = true;
+	  bar_p_->set_elt_property (at_line_start_scm_sym, SCM_BOOL_T);
 	}
       announce_element (Score_element_info (bar_p_, bar_req_l_));
     }

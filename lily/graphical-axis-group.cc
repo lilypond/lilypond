@@ -5,6 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "interval.hh"
 #include "graphical-axis-group.hh"
 #include "axis-group-element.hh"
@@ -15,8 +16,8 @@
   Graphical_axis_group at one time.  */
 Graphical_axis_group::Graphical_axis_group (Graphical_axis_group const&s)
 {
-  axes_[0] = s.axes_[0];
-  axes_[1] = s.axes_[1];
+  axes_ = s.axes_;
+  ordered_b_ = s.ordered_b_;
 }
 
 bool 
@@ -42,6 +43,7 @@ Graphical_axis_group::add_element (Graphical_element*e)
   for (int i = 0; i < 2; i++)
     {
       Axis a = axes_[i];
+      assert (a>=0);
       Dimension_cache * &d = e->dim_cache_[a].parent_l_;
       assert (!d || d == &dim_cache_[a]);
       d = &dim_cache_[a];
@@ -57,7 +59,10 @@ void
 Graphical_axis_group::remove_element (Graphical_element*e)
 {
   assert (contains_b (e));
-  elem_l_arr_.unordered_substitute (e,0);
+  if (ordered_b_)
+    elem_l_arr_.substitute (e,0);
+  else
+    elem_l_arr_.unordered_substitute (e,0);
   
   for (int i=0; i<  2; i++)
     {
@@ -96,10 +101,16 @@ Graphical_axis_group::do_print() const
 #endif
 }
 
-Graphical_axis_group::Graphical_axis_group (Axis a1, Axis a2)
+Graphical_axis_group::Graphical_axis_group ()
 {
-  axes_[0] = a1;
-  axes_[1] = a2;
+  ordered_b_ = false;
+  axes_[0] = -1 ; 
+  axes_[1] = -1 ;
 }
 
-
+void
+Graphical_axis_group::set_axes (Axis a1, Axis a2)
+{
+  axes_[0] = a1 ; 
+  axes_[1] = a2 ;
+}

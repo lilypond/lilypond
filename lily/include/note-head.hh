@@ -17,20 +17,10 @@
 
 class Note_head : public Rhythmic_head {
 public:
-  
-  String note_head_type_str_;
-
-  /// position of top line (5 linestaff: 8)
   int position_i_;
 
-  /// -1 = lowest, 0 = inside, 1 = top
-  int extremal_i_;
-    
-  /// needed for the help-lines
-  int staff_size_i_;
-  Direction x_dir_;
-    
   Note_head ();
+  void flip_around_stem (Direction);
   static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
   virtual Interval do_width () const;

@@ -443,7 +443,7 @@ class Properties:
             this.__set('include', tmp, 'environment')    
 
 
-        t=''
+        t= os.pathsep
 	if os.environ.has_key ('TEXINPUTS'):
 		t = os.environ['TEXINPUTS'] + os.pathsep
         os.environ['TEXINPUTS'] = t + \

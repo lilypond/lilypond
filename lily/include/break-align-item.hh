@@ -10,16 +10,16 @@
 #ifndef BREAK_ALIGN_ITEM_HH
 #define BREAK_ALIGN_ITEM_HH
 
-#include "horizontal-align-item.hh"
+#include "axis-align-item.hh"
 
 /// align breakable items (clef, bar, etc.)
-class Break_align_item : public Horizontal_align_item {
+class Break_align_item : public Axis_align_item {
 
 protected:
-    virtual void do_pre_processing();
+  virtual void do_pre_processing();
 public:
-    
-    VIRTUAL_COPY_CONS(Score_element);
+  Break_align_item ();
+  VIRTUAL_COPY_CONS(Score_element);
 	
 };
 #endif // BREAK_ALIGN_ITEM_HH

@@ -36,6 +36,7 @@ Note_heads_engraver::do_process_requests()
   if (note_p_arr_.size ())
     return ;
   
+  String noteheadstyle = get_property ("noteHeadStyle", 0);
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Note_head *note_p  = new Note_head;
@@ -53,10 +54,14 @@ Note_heads_engraver::do_process_requests()
       //      note_p->steps_i_ = note_req_l->pitch_.steps ();
       note_p->position_i_ = note_req_l->pitch_.steps ();
 
-      String noteheadstyle = get_property ("noteheadStyle", 0);
-      if (noteheadstyle.length_i ())
-        note_p->note_head_type_str_ = noteheadstyle;
-  
+
+      if (noteheadstyle == "transparent")
+	note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      else 
+        note_p->set_elt_property (style_scm_sym,
+				  gh_str02scm (noteheadstyle.ch_C()));
+
+      
       Score_element_info itinf (note_p,note_req_l);
       announce_element (itinf);
       note_p_arr_.push (note_p);

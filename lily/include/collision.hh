@@ -10,7 +10,7 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 #include "lily-proto.hh"
-#include "horizontal-vertical-group-item.hh"
+#include "axis-group-item.hh"
 
 /**
   Resolve conflicts between various Note_columns (chords).
@@ -20,7 +20,7 @@
   multistaff support (see Chlapik: equal noteheads should be on the
   same hpos.)  
 */
-class Collision : public Horizontal_vertical_group_item {
+class Collision : public Axis_group_item {
 protected:
     virtual void do_substitute_element_pointer (Score_element*,Score_element*);
     virtual void do_pre_processing();

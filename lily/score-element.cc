@@ -61,6 +61,7 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
+  element_property_alist_ = SCM_EOL; // try to be nice to GC.
   delete output_p_; 
   assert (status_i_ >=0);
   status_i_  = -1;
@@ -169,7 +170,6 @@ Score_element::lookup_l () const
       int i = (sz != SCM_BOOL_F)
 	? gh_scm2int (SCM_CDR (sz))
 	: 0;
-
 
       me->lookup_l_ =  pscore_l_->paper_l_->lookup_l (i);
     }

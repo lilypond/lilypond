@@ -74,3 +74,6 @@ $(outdir)/%.html: %.bib
 
 #out/%: $(outdir)/%
 #	cp -f $< $@
+
+localclean:
+	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk

@@ -8,11 +8,10 @@
 
 
 #include <assert.h>
-
+#include "killing-cons.tcc"
 #include "binary-source-file.hh"
 #include "string.hh"
 #include "proto.hh"
-#include "plist.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "file-path.hh"
@@ -62,7 +61,7 @@ Sources::get_file_l (String &file_str) //UGH
 void
 Sources::add (Source_file* sourcefile_p)
 {
-  sourcefile_p_list_.bottom ().add (sourcefile_p);
+  sourcefile_p_list_ = new Killing_cons<Source_file> (sourcefile_p, sourcefile_p_list_);
 }
 
 /**
@@ -73,10 +72,10 @@ Sources::add (Source_file* sourcefile_p)
 Source_file*
 Sources::sourcefile_l (char const* ch_C)
 {
-  PCursor<Source_file*> sourcefile_l_pcur (sourcefile_p_list_.top ());
-  for (; sourcefile_l_pcur.ok (); sourcefile_l_pcur++)
-    if (sourcefile_l_pcur->in_b (ch_C))	
-      return *sourcefile_l_pcur;
+
+  for (Cons<Source_file> *i = sourcefile_p_list_; i; i = i->next_)
+    if (i->car_->in_b (ch_C))	
+      return i->car_;
   return 0;
 }
 

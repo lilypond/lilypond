@@ -88,7 +88,8 @@ Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 
   abeam_p_->multiple_i_ = s->flag_i_;
   if (s->type_i () != 1) // no abbrev gaps on half note
-    s->beam_gap_i_ = s->flag_i_ - ((s->type_i () >? 2) - 2);
+    s->set_elt_property (beam_gap_scm_sym,
+			 gh_int2scm(s->flag_i_ - ((s->type_i () >? 2) - 2)));
 
   abeam_p_->add_stem (s);
 }

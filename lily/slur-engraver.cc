@@ -76,15 +76,7 @@ Slur_engraver::do_process_requests()
 	  Slur * s_p =new Slur;
 	  Scalar prop = get_property ("slurdash", 0);
 	  if (prop.isnum_b ()) 
-	    s_p->dash_i_ = prop;
-
-	  prop = get_property ("minVerticalAlign", 0);
-	  if (prop.isnum_b ())
-	    s_p->vertical_align_drul_[MIN] = prop;
-
-	  prop = get_property ("maxVerticalAlign", 0);
-	  if (prop.isnum_b ())
-	    s_p->vertical_align_drul_[MAX] = prop;
+	    s_p->set_elt_property (dashed_scm_sym, gh_int2scm(prop));
 
 	  requests_arr_.push (slur_req_l);
 	  start_slur_l_arr_.push (s_p);

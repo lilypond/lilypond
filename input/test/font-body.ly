@@ -3,8 +3,8 @@
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
 		\time 4/4;
-		\type Staff  < { \stemup e'\longa a\breve | }
-		{ \stemdown
+		\type Staff  < \type Voice = VB { \stemup e'\longa a\breve | }
+		\type Voice = VA { \stemdown
 		c1 \clef "bass"; b,, \clef "violin"; c' a'
 		c2 \clef "alto"; g c' \clef "violin"; a'
 		} >
@@ -12,7 +12,7 @@ FontBody=	\notes\transpose c''{
 		c4 g c' a' \bar ":|";
 		a\ppp-\upbow a\pp-\downbow a\p^\turn a\mp^\fermata |
 		a\mf_\fermata a\f-\stopped a\ff-\open a\fff^\trill|
-		a\fp-\reverseturn a4.\sf a4.\sfz | % a\fz a\rf
+		a\fp-\reverseturn a4.\sf a4.\sfz |  a\fz % a\rf
 		[c8-\prall c-\mordent] [a'-\prallmordent a'-\prallprall]
 		[c-\upprall a'-\downprall] [a' c] |
 		[c \< d e f] [as' ges' f' e']
@@ -20,9 +20,9 @@ FontBody=	\notes\transpose c''{
 		\clef "bass";
 		  r\longa * 1/4 r\breve *1/2
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\type Staff < { \stemup r2 r2} {\stemdown c c }>
-		\type Staff < { \stemup c,,1 } {\stemdown r1}>		
-		\stemboth
+		\type Staff < \type Voice = VA { \stemup r2 c'2 c,,,1 }
+				\type Voice = VB {\stemdown r2 c2  r1 }>
+			\stemboth
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
@@ -31,8 +31,13 @@ FontBody=	\notes\transpose c''{
 		\transpose c'{
 			\time 4/4;
 			\property Voice . textstyle =  "finger"
-			c4^"1" d^"2" e^"3" f^"4" g^"5"
-
+			\property Voice . noteHeadStyle = "diamond"
+			c1^"1" d2^"2" e4^"3"
+			\property Voice . noteHeadStyle = "cross"
+						 f4^"4"
+			\property Voice . noteHeadStyle = "harmonic"
+						  g4^"5"
+			\property Voice . noteHeadStyle = ""
 			% Music to the Martians!
 			< bes4^"6" e_"7" c_"8" >
 			a^"0"_"9"

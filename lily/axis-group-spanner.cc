@@ -131,5 +131,8 @@ Axis_group_spanner::do_print() const
 }
 
 
-
-
+Interval
+Axis_group_spanner::do_width () const
+{
+  return Spanner::do_width ();
+}

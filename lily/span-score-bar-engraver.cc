@@ -16,7 +16,9 @@ Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
   s->type_str_ = "scorebar";
-    
+  s->set_elt_property (break_priority_scm_sym,
+		       gh_int2scm (-4));
+
   return s;
 }
 

@@ -23,13 +23,11 @@ public:
   Lookup ();
   Lookup (Lookup const&);
 
-
-  
-  Molecule special_ball (int, String) const;
   Molecule simple_bar (String s, Real w) const;
   Molecule accidental (int, bool cautionary) const;
   Molecule afm_find (String, bool warn=true) const;
-  Molecule ball (int) const;
+  Molecule notehead  (int, String) const;
+
   Molecule bar (String, Real height) const;
   Molecule beam (Real, Real, Real) const;
   Molecule clef (String) const;

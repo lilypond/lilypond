@@ -15,7 +15,7 @@ G_staff_side_item::G_staff_side_item ()
   dir_ = CENTER;
   to_position_l_ = 0;
   set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-  padding_f_ = 0;
+
   axis_ = Y_AXIS;
 }
 
@@ -86,8 +86,13 @@ G_staff_side_item::position_self ()
       common = dim_cache_[axis_].parent_l_;
     }
   Interval sym_dim = to_position_l_->extent (axis_);
-  Real off = dim_cache_[axis_].relative_coordinate (common) - padding_f_ * dir_;
-  
+  Real off = dim_cache_[axis_].relative_coordinate (common);
+
+  SCM pad =   remove_elt_property (padding_scm_sym);
+  if (pad != SCM_BOOL_F)
+    {
+      off -= gh_scm2double (SCM_CDR(pad)) * dir_;
+    }
   dim_cache_[axis_].set_offset (dim[dir_] - sym_dim[-dir_] - off);
 }
 

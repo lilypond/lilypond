@@ -24,7 +24,6 @@ protected:
 public:
   int no_dots_i_;
   int position_i_;
-
   
   Dots ();
 };

@@ -91,7 +91,7 @@ Text_engraver::do_process_requests ()
       Scalar padding = get_property ("textScriptPadding", 0);
       if (padding.length_i() && padding.isnum_b ())
 	{
-	  ss->padding_f_ = Real(padding);
+	  ss->set_elt_property (padding_scm_sym, gh_double2scm(Real(padding)));
 	}
 
       Scalar empty = get_property ("textEmptyDimension", 0);

@@ -10,18 +10,6 @@ longa = \duration { -2 0 }
 
 Gourlay = 1.0
 Wordwrap = 0.0
-
-papersize = "a4"
-
-\include "paper20.ly"
-
-\paper{
-	\paper_twenty
-}
-
-% ugh
-\include "midi.ly"
-
 % declarations for standard directions
 left = -1
 right = 1
@@ -39,6 +27,19 @@ nobreak = { \penalty = -10000; }
 
 major = 0
 minor = 3
+
+
+papersize = "a4"
+
+\include "paper20.ly"
+
+\paper{
+	\paper_twenty
+}
+
+% ugh
+\include "midi.ly"
+
 \include "dynamic.ly"
 
 \include "property.ly"

@@ -23,19 +23,24 @@ Key_item::Key_item ()
 {
   multi_octave_b_ = false;
   set_elt_property (breakable_scm_sym, SCM_BOOL_T);
-  default_b_ = false;
   set_c_position (0);
 }
+
+int
+Key_item::get_c_position () const
+{
+  // Find the c in the range -4 through 2
+  int from_bottom_pos = c0_position_ + 4;	
+  from_bottom_pos = from_bottom_pos%7;
+  from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
+  return from_bottom_pos - 4;
+}
+
 
 void 
 Key_item::set_c_position (int c0)
 {
-  c0_position = c0;
-  // Find the c in the range -4 through 2
-  int from_bottom_pos = c0 + 4;	
-  from_bottom_pos = from_bottom_pos%7;
-  from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
-  c_position  = from_bottom_pos - 4;
+  c0_position_ = c0;
 }
 
 
@@ -59,16 +64,16 @@ Key_item::calculate_position(int p, int a) const
 {
   if (multi_octave_b_) 
     {
-      return p + c0_position;
+      return p + c0_position_;
     }
   else {
-    if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c_position>4)) && (p+c_position>1)) 
+    if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+get_c_position ()>4)) && (p+get_c_position ()>1)) 
 	||
-	(a>0 && ((p>SHARP_TOP_PITCH) || (p+c_position>5)) && (p+c_position>2))) 
+	(a>0 && ((p>SHARP_TOP_PITCH) || (p+get_c_position ()>5)) && (p+get_c_position ()>2))) 
       {
 	p -= 7; /* Typeset below c_position */
       }
-    return p + c_position;
+    return p + get_c_position ();
   }
 }
 
@@ -133,15 +138,3 @@ Key_item::do_brew_molecule_p() const
 
 
 
-void 
-Key_item::do_pre_processing()
-{
-  if (default_b_) 
-    {
-      bool transparent = (break_status_dir() != RIGHT);
-      set_empty (transparent);
-
-      if (transparent)
-	set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-    }
-}

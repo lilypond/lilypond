@@ -14,9 +14,11 @@
 #define DECLARE_LY_SYMBOL(a) extern SCM a ## _scm_sym
 #endif
 
+DECLARE_LY_SYMBOL(at_line_start);
 DECLARE_LY_SYMBOL(beam);
 DECLARE_LY_SYMBOL(beam_thickness);
 DECLARE_LY_SYMBOL(beam_dir);
+DECLARE_LY_SYMBOL(beam_gap);
 DECLARE_LY_SYMBOL(bracket);
 DECLARE_LY_SYMBOL(break_helper_only);
 DECLARE_LY_SYMBOL(break_priority);
@@ -25,6 +27,7 @@ DECLARE_LY_SYMBOL(char);
 DECLARE_LY_SYMBOL(change);
 DECLARE_LY_SYMBOL(damping);
 DECLARE_LY_SYMBOL(dashed);
+DECLARE_LY_SYMBOL(extremal);
 DECLARE_LY_SYMBOL(dir_forced);
 DECLARE_LY_SYMBOL(extender_height);
 DECLARE_LY_SYMBOL(filledbox);
@@ -39,11 +42,13 @@ DECLARE_LY_SYMBOL(notewidth);
 DECLARE_LY_SYMBOL(non_default);
 DECLARE_LY_SYMBOL(octave_dir);
 DECLARE_LY_SYMBOL(output);
+DECLARE_LY_SYMBOL(padding);
 DECLARE_LY_SYMBOL(pianobrace);
 DECLARE_LY_SYMBOL(placebox);
 DECLARE_LY_SYMBOL(rulesym);
 DECLARE_LY_SYMBOL(rulethickness);
 DECLARE_LY_SYMBOL(staffheight);
+DECLARE_LY_SYMBOL(style);
 DECLARE_LY_SYMBOL(text);
 DECLARE_LY_SYMBOL(transparent);
 DECLARE_LY_SYMBOL(tuplet);

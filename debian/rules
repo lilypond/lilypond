@@ -14,19 +14,6 @@ SHELL = /bin/sh
 r = debian/tmp
 d = usr/doc/$(package)
 
-strayfiles := stepmake/bin/*.pyc \
-	stepmake/stepmake/stepmake \
-	stepmake/stepmake/bin \
-	stepmake/stepmake/aclocal.m4 \
-	stepmake/GNUmakefile \
-	GNUmakefile \
-	config.h \
-	wwwlist \
-	Documentation/tex/fonts.aux \
-	Documentation/tex/fonts.log \
-	Documentation/tex/feta*.tfm \
-	Documentation/tex/feta*.*pk
-
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
@@ -34,15 +21,18 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	CC=egcc ./configure --disable-checking --disable-debugging \
+	./configure --disable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --disable-optimise \
 		--enable-shared
 	$(MAKE) all
-	# $(MAKE) htmldoc
+	$(MAKE) -C Documentation/pictures pngs
 
 	# Remove the "-" and the "-k" once the \times segfault
 	# bug is fixed.  (lilypond-1.1.31, 1999-02-17)
 	-$(MAKE) -k -C Documentation/tex dvi
+	-$(MAKE) -C Documentation info
+
+	# $(MAKE) htmldoc
 
 	touch build-stamp
 
@@ -51,10 +41,8 @@ clean:
 	dh_testroot
 	rm -f build-stamp install-stamp
 	-$(MAKE) distclean
+	rm -f stepmake/stepmake/aclocal.m4
 	dh_clean
-
-	# Remove the following line once the *.make files are fixed
-	rm -f $(strayfiles)
 
 	# Correct the owner of the out/dummy.dep files when built with sudo.
 	if [ -n "$$SUDO_USER" -a -n "$$SUDO_GID" ]; then \
@@ -80,7 +68,7 @@ install-stamp: build-stamp
 	ln -s ../../../share/lilypond/tex $(r)/usr/lib/texmf/tex/lilypond
 	ln -s ../../../../../share/lilypond/mf $(r)/usr/lib/texmf/fonts/source/public/lilypond
 	ln -s ../../../../../share/lilypond/afm $(r)/usr/lib/texmf/fonts/afm/public/lilypond
-	ln -s ../../../../../share/lilypond/afm $(r)/usr/lib/texmf/fonts/tfm/public/lilypond
+	ln -s ../../../../../share/lilypond/tfm $(r)/usr/lib/texmf/fonts/tfm/public/lilypond
 
 	touch install-stamp
 
@@ -92,9 +80,9 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	cp -av mudela-mode.el $(r)/usr/lib/emacs/site-lisp
-	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 NEWS-* DEDICATION \
+	dh_installdocs ANNOUNCE* NEWS-* DEDICATION \
 		BUGS TODO *.txt \
-		Documentation/pictures/*.xpm \
+		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/tex/*.doc \
 		Documentation/tex/*.bib \
@@ -110,7 +98,7 @@ binary-arch: build install
 #	dh_installmanpages
 #	dh_undocumented
 	dh_installchangelogs -k NEWS
-#	dh_strip
+	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_suidregister

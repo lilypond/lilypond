@@ -17,19 +17,19 @@
 
 Key_engraver::Key_engraver ()
 {
-  kit_p_ = 0;
+  item_p_ = 0;
   do_post_move_processing ();
 }
 
 void
 Key_engraver::create_key ()
 {
-  if (!kit_p_) 
+  if (!item_p_) 
     {
-      kit_p_ = new Key_item;
-      kit_p_->set_elt_property (break_priority_scm_sym, gh_int2scm(-1)); // ugh
-      kit_p_->multi_octave_b_ = key_.multi_octave_b_;
-      announce_element (Score_element_info (kit_p_,keyreq_l_));
+      item_p_ = new Key_item;
+      item_p_->set_elt_property (break_priority_scm_sym, gh_int2scm(-1)); // ugh
+      item_p_->multi_octave_b_ = key_.multi_octave_b_;
+      announce_element (Score_element_info (item_p_,keyreq_l_));
       
 
       for (int i = 0; i < accidental_idx_arr_.size(); i++) 
@@ -37,9 +37,9 @@ Key_engraver::create_key ()
 	  Musical_pitch m_l =accidental_idx_arr_[i];
 	  int a =m_l.accidental_i_;      
 	  if (key_.multi_octave_b_)
-	    kit_p_->add (m_l.steps (), a);
+	    item_p_->add (m_l.steps (), a);
 	  else
-	    kit_p_->add (m_l.notename_i_, a);
+	    item_p_->add (m_l.notename_i_, a);
 	}
 
       for (int i = 0 ; i< old_accidental_idx_arr_.size(); i++) 
@@ -47,9 +47,9 @@ Key_engraver::create_key ()
 	  Musical_pitch m_l =old_accidental_idx_arr_[i];
 	  int a =m_l.accidental_i_;
 	  if (key_.multi_octave_b_)
-	    kit_p_->add_old (m_l.steps  (), a);
+	    item_p_->add_old (m_l.steps  (), a);
 	  else
-	    kit_p_->add_old (m_l.notename_i_, a);
+	    item_p_->add_old (m_l.notename_i_, a);
 	}
     }
 }      
@@ -81,9 +81,13 @@ Key_engraver::acknowledge_element (Score_element_info info)
   else if (dynamic_cast<Bar *> (info.elem_l_)
 	   && accidental_idx_arr_.size ()) 
     {
-      if (!keyreq_l_)
-	default_key_b_ = true;
+      bool def =  (!item_p_);
       create_key ();
+      if (def)
+	{
+	  item_p_->set_elt_property (visibility_lambda_scm_sym,
+				    gh_eval_str ("postbreak_only_visibility"));
+	}
     }
 
 }
@@ -100,11 +104,10 @@ Key_engraver::do_process_requests ()
 void
 Key_engraver::do_pre_move_processing ()
 { 
-  if (kit_p_) 
+  if (item_p_) 
     {
-      kit_p_->default_b_ = default_key_b_;
-      typeset_element (kit_p_);
-      kit_p_ = 0;
+      typeset_element (item_p_);
+      item_p_ = 0;
     }
 }
 
@@ -200,7 +203,6 @@ void
 Key_engraver::do_post_move_processing ()
 {
   keyreq_l_ = 0;
-  default_key_b_ = false;
   old_accidental_idx_arr_.clear ();
 }
 

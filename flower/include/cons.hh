@@ -55,6 +55,14 @@ Cons<T> *remove_cons (Cons<T> **pp)
   return knip;
 }
 
+/**
+
+   Invariants:
+
+   (*tail_) is either the head_ pointer, or a next_ pointer from the list.
+   
+   **tail_ == NULL
+ */
 
 template<class T>
 class Cons_list
@@ -71,6 +79,10 @@ public:
       while (*tail_)
 	tail_ = &(*tail_)->next_;
     }
+  /**
+     PRE: *pp should either be the head_ pointer, or the next_ pointer
+     from a list cell.
+  */
   Cons<T> *remove_cons (Cons<T> **pp)
     {
       if (&(*pp)->next_ == tail_)

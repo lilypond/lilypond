@@ -27,11 +27,11 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Key key_;
   Key_change_req * keyreq_l_;
-  Key_item * kit_p_;
+  Key_item * item_p_;
   Array<Musical_pitch> accidental_idx_arr_;
   Array<Musical_pitch> old_accidental_idx_arr_;
-  bool default_key_b_;
-  bool change_key_b_;
+
+
     
 protected:
   virtual bool do_try_music (Music *req_l);

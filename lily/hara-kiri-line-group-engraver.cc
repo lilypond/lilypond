@@ -16,7 +16,8 @@ ADD_THIS_TRANSLATOR (Hara_kiri_line_group_engraver);
 void
 Hara_kiri_line_group_engraver::create_line_spanner ()
 {
-  staffline_p_ = new Hara_kiri_vertical_group_spanner;
+  staffline_p_ = new Hara_kiri_group_spanner;
+  
 }
 
 void
@@ -24,7 +25,7 @@ Hara_kiri_line_group_engraver::typeset_element(Score_element * e)
 {
   if (Rhythmic_head *h = dynamic_cast<Rhythmic_head *> (e))
     {
-      dynamic_cast<Hara_kiri_vertical_group_spanner*> (staffline_p_)
+      dynamic_cast<Hara_kiri_group_spanner*> (staffline_p_)
 	->add_interesting_item (h);
     }
   Line_group_engraver_group::typeset_element (e);

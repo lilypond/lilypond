@@ -41,10 +41,10 @@ Paper_score::Paper_score (Paper_score const &s)
 
 Paper_score::~Paper_score ()
 {
-  for (int i=0; i < span_p_arr_.size (); i++)
+  /*  for (int i=0; i < span_p_arr_.size (); i++)
     delete span_p_arr_[i];
   for (int i=0; i < elem_p_arr_.size (); i++)
-    delete elem_p_arr_[i];
+  delete elem_p_arr_[i];*/
 }
 
 void
@@ -151,16 +151,17 @@ delete_array_contents (Link_array<Score_element> &to_remove, Dictionary<int> &ty
       Score_element * e = to_remove[i];
       String nm = e->name();
       if (type_stats.elem_b (nm))
-	   type_stats[nm] ++;
-	 else
-	   type_stats[nm] = 1;
+	type_stats[nm] ++;
+      else
+	type_stats[nm] = 1;
 
-	 if (dynamic_cast<Item*> (e))
-	   type_stats["Item"] ++;
-	 else if (dynamic_cast<Spanner*>(e))
-	   type_stats["Spanner"] ++;
-	 type_stats["Total"] ++;
-       }
+      if (dynamic_cast<Item*> (e))
+	type_stats["Item"] ++;
+      else if (dynamic_cast<Spanner*>(e))
+	type_stats["Spanner"] ++;
+      type_stats["Total"] ++;
+ //      delete e; //TODO!
+    }
 
   to_remove.clear ();
   to_remove.tighten_maxsize ();

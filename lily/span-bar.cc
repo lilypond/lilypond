@@ -31,6 +31,10 @@ void
 Span_bar::set_align (Align_element *a)
 {
   add_dependency (a);
+  Score_element * e = dynamic_cast<Score_element*>(a);
+  Item * i = dynamic_cast<Item*> (e);
+  e = dynamic_cast<Score_element*> (a);
+  i = dynamic_cast<Item*>(e);
 }
 
 Interval

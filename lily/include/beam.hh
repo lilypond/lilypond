@@ -51,13 +51,11 @@ public:
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 
-  /// vertical align distance between staffs
-  Drul_array<Real> vertical_align_drul_;
-
   Array<Stem_info> sinfo_;
   
   Beam();
   void add_stem (Stem*);
+  Stem_info get_stem_info (Stem*);
 
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_stemlens ();

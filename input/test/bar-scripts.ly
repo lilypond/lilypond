@@ -1,5 +1,5 @@
 
-	\version "1.0.14";
+\version "1.0.14";
 
 onestaff = \type Staff = foo\notes  {
 	\property Staff.instr = instr
@@ -29,4 +29,6 @@ stscore = \score { \onestaff \paper {
 }}
 
 %\score {\stscore}
-\score {\scscore}
+\score {\scscore
+\header { title = "bar scripts"; }
+}

@@ -13,6 +13,7 @@
 
 Collision::Collision()
 {
+  set_axes (X_AXIS, Y_AXIS);
 }
 
 void

@@ -120,12 +120,12 @@ Lookup::afm_find (String s, bool warn) const
 }
 
 Molecule
-Lookup::ball (int j) const
+Lookup::notehead (int j, String type) const
 {
   if (j > 2)
     j = 2;
 
-  return afm_find (String ("noteheads-") + to_str (j));
+  return afm_find (String ("noteheads-") + to_str (j) + type);
 }
 
 Molecule
@@ -161,6 +161,10 @@ Lookup::bar (String str, Real h) const
   if (str == "")
     {
       return fill (Box (Interval(0, 0), Interval (-h/2, h/2)));
+    }
+  if (str == "scorepostbreak")
+    {
+      return simple_bar ("score", h);
     }
   else if (str == "|")
     {
@@ -336,12 +340,12 @@ Lookup::special_time_signature (String s, int n, int d) const
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
   Molecule m = afm_find (symbolname, false);
-  if (!m.dim_[X_AXIS].empty_b ()) 
+  if (!m.empty_b()) 
     return m;
 
   // Second guess: s contains the full signature name
   m = afm_find ("timesig-"+s, false);
-  if (!m.dim_[X_AXIS].empty_b ()) 
+  if (!m.empty_b ()) 
     return m;
 
   // Resort to default layout with numbers
@@ -408,10 +412,7 @@ Lookup::text (String style, String text) const
   SCM l = gh_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {
-      int len ;
-      char * s = gh_scm2newstr(SCM_CDR (l), &len);
-      style = String (s) + to_str  ((int)font_h);
-      delete s;
+      style = ly_scm2string (SCM_CDR(l)) +to_str  ((int)font_h);
     }
 
   Real w = 0;
@@ -604,13 +605,4 @@ Lookup::volta (Real w, bool last_b) const
   return m;
 }
 
-
-Molecule
-Lookup::special_ball (int j, String kind_of_ball) const
-{
-  if (j > 2)
-    j = 2;
-
-  return afm_find (String ("noteheads-") + kind_of_ball);
-}
 

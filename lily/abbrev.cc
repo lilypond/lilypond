@@ -30,8 +30,16 @@ Abbreviation::do_print () const
 Molecule*
 Abbreviation::do_brew_molecule_p () const
 {
-  Real interbeam_f = paper_l ()->interbeam_f (stem_l_->mult_i_);
-  Real w = 1.5 * lookup_l ()->ball (2).dim_.x ().length ();
+  Beam * b = stem_l_->beam_l_;
+  int mult =0;
+  if (b)
+    {
+      Stem_info i = b->get_stem_info (stem_l_);
+      mult = i.mult_i_;
+    }
+  
+  Real interbeam_f = paper_l ()->interbeam_f (mult);
+  Real w = 1.5 * lookup_l ()->notehead (2, "").dim_.x ().length ();
   Real space = stem_l_->staff_line_leading_f ();
   Real internote_f = space/2;
   
