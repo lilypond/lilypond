@@ -17,20 +17,31 @@
 	     (lily))
 
 
-(define (define-fonts paper)
-   ;; UGH. FIXME.
-   (format "(globalscale ~a)\n" (ly:paper-outputscale paper)))
+(define (header filename)
+  (format  "% header
+\\input{lilypond-tex-metrics}
+\\documentclass{article}
+\\lilyglobalscale{1.0}
+\\lilymetricsfile{~a.lpm}
+\\begin{document}
+" filename))
+
+(define (footer)
+  "
+\\end{document}
+")
 
 
 (define-public (output-framework outputter book scopes fields basename )
   (let* ((paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 )
-    (ly:outputter-dump-string outputter (define-fonts paper))
+    (ly:outputter-dump-string outputter (header basename))
     (for-each
      (lambda (page)
        (ly:outputter-dump-stencil outputter page))
-     pages)))
+     pages)
+    (ly:outputter-dump-string outputter (footer))))
 
 
 

@@ -1,3 +1,11 @@
+2004-12-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-texstr.scm (text): use \lilygetmetrics
+
+	* scm/framework-texstr.scm (header): dump in new format.
+
+	* tex/lilypond-tex-metrics: new file.
+	
 2004-12-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/pango-font.cc (text_stencil): Quick try at glyph->charcode
@@ -22,6 +30,13 @@
 	{Music definitions}.
 
 2004-12-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/main.cc: use TeX as default output format.
+
+	* flower/file-path.cc (find): try to open directly as well, so we
+	find absolute path files. 
+
+	* lily/pango-select.cc: new file.
 
 	* scm/framework-ps.scm: remove all encoding code. 
 	load pfb/pfa for PangoFont too.
