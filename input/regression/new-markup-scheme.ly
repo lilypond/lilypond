@@ -2,7 +2,9 @@
 \header {
 
     texidoc = "There is a Scheme macro @code{markup} to produce markup
-    texts using a similar syntax as @code{\\markup}."
+    texts using a similar syntax as @code{\\markup}.
+
+"
 
     }
 \version "2.5.2"
@@ -16,9 +18,8 @@
 
             \bracket \column { baz bazr bla }
             \hspace #2.0
-            \override #'(font-family . music) {
+            \override #'(font-encoding . fetaMusic) {
                 \lookup #"noteheads-0"
-                \char #53
             }
             \musicglyph #"accidentals.-1"
             \combine "X" "+"   
@@ -39,8 +40,8 @@
               #:override '(baseline-skip . 4) 
               #:bracket #:column ( "baz" "bazr" "bla" )
               #:hspace 2.0
-              #:override '(font-family . music) #:line (#:lookup "noteheads-0" 
-                                                        #:char 53)
+              #:override '(font-encoding . fetaMusic) #:line (#:lookup "noteheads-0" 
+                                                       )
               #:musicglyph "accidentals.-1"
               #:combine "X" "+"   
               #:combine "o" "/"

@@ -80,29 +80,14 @@
 	     sub-fonts)))))
 
 (define (simple-font-load-command paper font)
-  (let* ((coding-alist (ly:font-encoding-alist font))
-	 (font-encoding (assoc-get 'output-name coding-alist)))
-    (string-append
-     "\\font\\lilypond" (tex-font-command font) "="
-     (if (or (equal? (ly:font-encoding font) "cork-lm")
-	     ;; FIXME: encoding: FontSpecific for cork-lm
-	     (string-prefix? "lm" (ly:font-file-name font)))
-	 "cork-" "")
-     (ly:font-file-name font)
-     " scaled "
-     (ly:number->string (inexact->exact
-			 (round (* 1000
-				   (ly:font-magnification font)
-				   (ly:paper-outputscale paper)))))
-     "\n"
-     "\\def\\" (tex-font-command font) "{%\n"
-     ;; UGH.  Should be handled via alist.
-     (if (or (equal? "Extended-TeX-Font-Encoding---Latin" font-encoding)
-	     (not font-encoding))
-	 "  \\lilypondfontencoding{T1}"
-	 "  ")
-     "\\lilypond" (tex-font-command font)
-     "}%\n")))
+   (format
+    "\\font\\~a=~a scaled ~a%\n"
+    (tex-font-command font)
+    (ly:font-file-name font)
+    (inexact->exact
+     (round (* 1000
+	       (ly:font-magnification font)
+	       (ly:paper-outputscale paper))))))
 
 (define (font-load-command paper font)
   (if (pair? (ly:font-sub-fonts font))

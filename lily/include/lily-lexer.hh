@@ -24,7 +24,6 @@ class Lily_lexer : public Includable_lexer
   DECLARE_SMOBS(Lily_lexer,);
 public:
   SCM scopes_;
-  SCM encoding_;
   
 private:
   int lookup_keyword (String);
@@ -72,8 +71,6 @@ public:
   void push_note_state (SCM tab);
   void pop_state ();
   void LexerError (char const *);
-  void set_encoding (String);
-  SCM encoding () const;
   void set_identifier (SCM name_string, SCM);
   bool is_note_state () const;
   bool is_chord_state () const;

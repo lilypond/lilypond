@@ -22,10 +22,11 @@
 #include "ly-module.hh"
 
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 4)
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3)
 SCM
 Text_interface::interpret_string (SCM layout_smob,
-				  SCM props, SCM input_encoding, SCM markup)
+				  SCM props,
+				  SCM markup)
 {
   Output_def *layout = unsmob_output_def (layout_smob);
   
@@ -45,20 +46,7 @@ Text_interface::interpret_string (SCM layout_smob,
     }
 #endif
   
-  SCM_ASSERT_TYPE (input_encoding == SCM_EOL || scm_is_symbol (input_encoding),
-		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
-
-  if (!scm_is_symbol (input_encoding))
-    {
-      SCM enc = layout->lookup_variable (ly_symbol2scm ("inputencoding"));
-      if (scm_is_string (enc))
-	input_encoding = scm_string_to_symbol (enc);
-      else if (scm_is_symbol (enc))
-	input_encoding = enc;
-    }
-  
-  Font_metric *fm = select_encoded_font (layout, props, input_encoding);
-
+  Font_metric *fm = select_encoded_font (layout, props);
   return fm->text_stencil (str).smobbed_copy();
 }
 
@@ -67,7 +55,7 @@ SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
-    return interpret_string (layout_smob, props, SCM_EOL, markup);
+    return interpret_string (layout_smob, props, markup);
   else if (scm_is_pair (markup))
     {
       SCM func = scm_car (markup);

@@ -1898,7 +1898,6 @@ variants of the base chords.
 %\override Score.LyricText #'font-style = #'large
 %\override Score.TextScript #'font-style = #'large
 \oldaddlyrics
-\encoding "TeX"
 \context Voice \relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }

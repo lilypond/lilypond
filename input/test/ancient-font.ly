@@ -100,7 +100,7 @@ upperStaff = \context GregorianStaff = "upperStaff" <<
 %	\break % 7 (8*1)
 
 	ges! fes!
-	\clef "hufnagel.do.fa"
+	\clef "hufnagel-do-fa"
 	\override NoteHead  #'style = #'hufnagel.punctum
 	es! des! ces! des! es! fes!
 	\bar "||"

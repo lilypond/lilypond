@@ -35,11 +35,10 @@ get_font_table (Output_def *def)
 
 /* TODO: should add nesting for Output_def here too. */
 Font_metric *
-find_scaled_font (Output_def *mod, Font_metric *f, Real m,
-		  SCM font_encoding, SCM input_encoding)
+find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 {
   if (mod->parent_)
-    return find_scaled_font (mod->parent_, f, m, font_encoding, input_encoding);
+    return find_scaled_font (mod->parent_, f, m);
   
   Real lookup_mag = m / output_scale (mod);
 
@@ -56,10 +55,8 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
   else
     sizes = SCM_EOL;
   
-  SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag,
-							   font_encoding,
-							   input_encoding);
-
+  SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
+  
   sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
   scm_gc_unprotect_object (val);
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
@@ -82,7 +79,7 @@ scale_output_def (Output_def *o, Real amount)
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 	   1, 0, 0,
 	   (SCM bp),
-	   "Return fonts scaled up BP")
+	   "Return fonts from the @code{\\paper} block @var{bp}.")
 {
   Output_def *b = unsmob_output_def (bp);
 

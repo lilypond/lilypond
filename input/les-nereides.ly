@@ -1,8 +1,7 @@
 \version "2.4.0"
-\encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
-    title = "LES NÉRÉIDES"
+    title = "LES NÃ‰RÃ‰IDES"
     subtitle = "THE NEREIDS"
     enteredby = "JCN"
     piece = "Allegretto scherzando"

@@ -28,11 +28,6 @@ Font_metric::design_size () const
   return 1.0 * point_constant;
 }
 
-String
-Font_metric::coding_scheme () const
-{
-  return "FontSpecific";
-}
 
 Stencil
 Font_metric::find_by_name (String s) const
@@ -310,19 +305,6 @@ Font_metric::get_indexed_char_stencil (int code) const
   return Stencil (b, at);
 }
 
-int
-/*Font_metric::*/
-get_encoded_index (Font_metric *m, String input_coding, int code)
-{
-  String font_coding = m->coding_scheme ();
-  if (font_coding == input_coding)
-    return code;
-  SCM s = scm_call_3 (ly_lily_module_constant ("encoded-index"),
-		      scm_makfrom0str (input_coding.to_str0 ()),
-		      scm_makfrom0str (font_coding.to_str0 ()),
-		      scm_int2num (code));
-  return scm_to_int (s);
-}
 
 Offset
 Font_metric::attachment_point (String) const

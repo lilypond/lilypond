@@ -178,11 +178,7 @@ Adobe_font_metric::design_size () const
   return design_size_;    
 }
 
-String
-Adobe_font_metric::coding_scheme () const
-{
-  return font_info_->gfi->encodingScheme;
-}
+
 
 String
 Adobe_font_metric::font_name () const

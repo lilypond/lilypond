@@ -116,12 +116,9 @@ get_first_context_id (SCM type, Music *m)
 }
 
 SCM
-make_simple_markup (SCM encoding, SCM a)
+make_simple_markup (SCM a)
 {
 	SCM simple = ly_lily_module_constant ("simple-markup");
-	if (scm_is_symbol (encoding))
-		return scm_list_3 (ly_lily_module_constant ("encoded-simple-markup"),
-			   encoding, a);
 	return scm_list_2 (simple, a);
 }
 
@@ -1968,7 +1965,7 @@ gen_text_def:
 	| string {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent");
 		t->set_property ("text",
-			make_simple_markup (THIS->lexer_->encoding (), $1));
+			make_simple_markup ($1));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	
@@ -2304,7 +2301,7 @@ lyric_element:
 		$$ = $1;
 	}
 	| LYRICS_STRING {
-		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
+		$$ = make_simple_markup ($1);
 	}
 	;
 
@@ -2547,7 +2544,7 @@ markup_head_1_list:
 
 simple_markup:
 	STRING {
-		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
+		$$ = make_simple_markup ($1);
 	}
 	| MARKUP_IDENTIFIER {
 		$$ = $1;
