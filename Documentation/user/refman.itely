@@ -7608,13 +7608,13 @@ music to be interpreted. @var{property-settings} may be any type of
 created with bigger spaces:
 
 @lilypond[relative=1,fragment]
-  \new Staff { c4 es4 g2 }
+<<  \new Staff { c4 es4 g2 }
   \new Staff \with {
         StaffSymbol \set #'staff-space = #(magstep 1.5)
-        fontSize = 1.5
+        fontSize = #1.5
   } {
         c4 es4 g2
-  }
+  } >>
 @end lilypond
 
 @refbugs
