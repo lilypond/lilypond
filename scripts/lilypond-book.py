@@ -156,9 +156,11 @@ snippet_res = {
 	'lilypond_block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
 	'lilypond_file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
 	'multiline_comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-	'singleline_comment': r"(?m)^.*?(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
-	'verb': r'''(?P<code>@code{.*?})''',
-	'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
+	'singleline_comment': r"(?m)^.*(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
+
+# don't do this: fucks up with @code{@{}
+#	'verb': r'''(?P<code>@code{.*?})''',
+	'verbatim': r'''(?s)(?P<code>@example\s.*?@end\s+example\s)''',
 	},
 	}
 
@@ -377,7 +379,8 @@ def split_options (option_string):
 class Chunk:
 	def replacement_text (self):
 		return ''
-
+	def is_outdated (self):
+		return 0
 
 class Substring (Chunk):
 	def __init__ (self, source, start, end):
@@ -386,8 +389,6 @@ class Substring (Chunk):
 		self.end = end
 	def replacement_text (self):
 		return self.source [self.start:self.end]
-	def outdated_p (self):
-		return 0
 	
 class Snippet (Chunk):
 	def __init__ (self, type, match, format):
@@ -396,6 +397,9 @@ class Snippet (Chunk):
 		self.hash = 0
 		self.options = []
 		self.format = format
+	def replacement_text (self):
+		return self.match.group (0)
+	
 	def substring (self, s):
 		return self.match.group (s)
 	def filter_code (self):
@@ -404,12 +408,15 @@ class Snippet (Chunk):
 		return  `self.__class__`  +  " type =  " + self.type
 
 class Include_snippet (Snippet):
+	def processed_filename (self):
+		f = self.substring ('filename')
+		return os.path.splitext (f)[0] + format2ext[format]
+		
 	def replacement_text (self):
 		s = self.match.group (0)
 		f = self.substring ('filename')
-		nf = os.path.splitext (f)[0] + format2ext[format]
-		
-		return re.sub (f, nf, s)
+	
+		return re.sub (f, self.processed_filename (), s)
 
 class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format):
@@ -446,7 +453,7 @@ class Lilypond_snippet (Snippet):
 		outf = open (self.basename () + '.ly', 'w')
 		outf.write (self.full_ly ())
 
-	def outdated_p (self):
+	def is_outdated (self):
 		base = self.basename ()
 		if os.path.exists (base + '.ly') \
 		   and os.path.exists (base + '.tex') \
@@ -691,6 +698,7 @@ format2ext = {
 	LATEX: '.tex',
 	}
 
+	
 def do_file (input_filename):
 	#ugh
 	global format
@@ -714,7 +722,7 @@ def do_file (input_filename):
 	ly.progress (_ ("Dissecting..."))
 	snippet_types = (
 		'lilypond_block',
-		'verb',
+#		'verb',
 		'verbatim',
 		'singleline_comment',
 		'multiline_comment',
@@ -760,7 +768,7 @@ def do_file (input_filename):
 	if filter_cmd:
 		pass # todo
 	elif process_cmd:
-		outdated = filter (lambda x: x.__class__ == Lilypond_snippet and x.outdated_p (),
+		outdated = filter (lambda x: x.__class__ == Lilypond_snippet and x.is_outdated (),
 				   chunks)
 		ly.progress (_ ("Writing snippets..."))
 		map (Lilypond_snippet.write_ly, outdated)
@@ -787,8 +795,23 @@ def do_file (input_filename):
 		
 	output_file.writelines ([s.replacement_text () for s in chunks])
 
-	## UGH. how do you do dynamic_cast/typecheck in Python?
+
+	included_files = []
+	def notice_include (target, snip):
+		included_files.append (snip.match.group ('filename'))
+		included_files.append (os.path.join (output_name, snip.processed_filename ()))
+
+	[notice_include (output_filename, x) for x in
+	 
+	 ## UGH. how do you do dynamic_cast/typecheck in Python?
+	 filter (lambda x: x.__class__ == Include_snippet, chunks)]
+
+	target = re.sub (r'^\./','', output_filename)
+	open (os.path.split (output_filename)[1] + '.dep', 'w').write ('%s: %s\n' % (target,
+										     string.join (included_files)))
+	
 	map (process_include, filter (lambda x: x.__class__ == Include_snippet, chunks))
+
 
 def do_options ():
 	global format, output_name
@@ -853,6 +876,5 @@ def main ():
 	ly.setup_environment ()
 	if files:
 		do_file (files[0])
-
 if __name__ == '__main__':
 	main ()

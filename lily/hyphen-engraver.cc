@@ -9,9 +9,9 @@
 */
 
 #include "warn.hh"
-#include "hyphen-spanner.hh"
 #include "item.hh"
 #include "engraver.hh"
+#include "spanner.hh"
 
 class Hyphen_engraver : public Engraver
 {

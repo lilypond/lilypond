@@ -491,7 +491,7 @@
 	(height . 0.42)
 	(dash-period . 10.0)
 	(length . 0.66)
-	(minimum-length .  0.5) 
+	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface

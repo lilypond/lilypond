@@ -12,7 +12,7 @@
 @node Chord name chart
 @section Chord name chart
 
-@lilypondfile[notexidoc]{chord-names-jazz.ly}
+@lilypondfile{chord-names-jazz.ly}
 
 @node MIDI instruments
 @section MIDI instruments

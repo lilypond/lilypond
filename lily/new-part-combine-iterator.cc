@@ -312,6 +312,7 @@ New_pc_iterator::construct_children ()
     "DynamicLineSpanner",
     "Tie",
     "Dots",
+    "Rest",
     "Slur",
     "TextScript",
     "Script",

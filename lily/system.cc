@@ -602,7 +602,7 @@ System::columns ()const
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!bfound || !Paper_column::used_b (acs[i]))
+      if (!bfound || !Paper_column::is_used (acs[i]))
 	acs.del (i);
     }
   return acs;
