@@ -17,6 +17,7 @@
 #include "all-font-metrics.hh"
 #include "afm.hh"
 
+
 /*
   text: string | (markup sentence)
   markup: markup-symbol | (markup-symbol . parameter)
@@ -157,19 +158,36 @@ Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
   SCM markup = gh_car (markup_sentence);
   SCM sentence = gh_cdr (markup_sentence);
   SCM f = get_elt_property (me, "markup-to-properties");
-  SCM p = gh_cons (gh_call1 (f, markup), properties);
+  SCM p = gh_append2 (gh_call1 (f, markup), properties);
 
   Axis align = X_AXIS;
   SCM a = scm_assoc (ly_symbol2scm ("align"), p);
   if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
     align = (Axis)gh_scm2int (gh_cdr (a));
 
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real kern = 0;
+  SCM k = scm_assoc (ly_symbol2scm ("kern"), p);
+  if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
+    kern = gh_scm2double (gh_cdr (k)) * staff_space;
+			     
+  Real raise = 0;
+  SCM r = scm_assoc (ly_symbol2scm ("raise"), p);
+  if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
+    raise = gh_scm2double (gh_cdr (r)) * staff_space;
+
+  Offset o (align == X_AXIS ? kern : 0,
+	    (align == Y_AXIS ? - kern : 0) + raise);
+
   Molecule mol;
   while (gh_pair_p (sentence))
     {
       Molecule m = text2molecule (me, gh_car (sentence), p);
       if (!m.empty_b ())
-	mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, 0);
+	{
+	  m.translate (o);
+	  mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, 0);
+	}
       sentence = gh_cdr (sentence);
     }
   return mol;

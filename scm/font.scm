@@ -98,38 +98,32 @@
 	      '(font-series font-shape font-family font-name font-point font-size)))))
     (font-regexp-to-font-name paper font-regexp)))
 
-(define markup-to-properties-alist
-  '(
-    (style . font-style)
-    (series . font-series)
-    (shape . font-shape)
-    (family . font-family)
-    (name . font-name)
-    (size . font-size)
-    (point . font-point)
-    (kern . kern)
-    ))
-    
 (define markup-abbrev-to-properties-alist
   (append
    '(
-     (rows . (align . 0))
-     (lines . (align . 1))
-     (roman . (font-family . "roman"))
-     (music . (font-family . "music"))
-     (bold . (font-series . "bold"))
-     (italic . (font-shape . "italic"))
-     (named . (lookup . name))
-     (text . (lookup . value))
-     ;; super needs some work
-     (super . (font-size . "-1")))
+     (rows . ((align . 0)))
+     (lines . ((align . 1)))
+     (roman . ((font-family . "roman")))
+     (music . ((font-family . "music")))
+     (bold . ((font-series . "bold")))
+     (italic . ((font-shape . "italic")))
+     (named . ((lookup . name)))
+     (super . ((raise . 1) (font-size . "-1")))
+     (sub . ((raise . -1) (font-size . "-1")))
+     (text . ((lookup . value)))
+     )
    (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
 	style-to-font-alist)))
   
 (define (markup-to-properties markup)
+  ;;  (display "markup: `")
+  ;;(display markup)
+  ;;(display "'\n")
   (if (pair? markup)
-      (cons (cdr (assoc (car markup) markup-to-properties-alist)) (cdr markup))
-      (cdr (assoc markup markup-abbrev-to-properties-alist))))
+      (list markup)
+      (let ((entry (assoc markup markup-abbrev-to-properties-alist)))
+	(if entry (cdr entry)
+	    (list (cons markup #t))))))
 	
 (define (style-to-font-name paper style)
   (let* ((entry (assoc style style-to-font-alist))

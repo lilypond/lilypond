@@ -87,8 +87,9 @@
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . ("7"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
-	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((family . "math") "N"))
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows (super "o") ((kern . -0.5) ((size . "-3") "/")) "7")) ; slashed o
+	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . "math") "N"))
+	 ;; slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-size . "-3") "/"))) "7")) ; slashed o
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" (music (named ("accidentals--1"))) "5"))
 	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . ("7sus4"))
@@ -120,8 +121,10 @@
 	       (list
 		(append '(named)
 			(list
-			 (string-append "accidentals-" 
-					(number->string (caddr pitch)))))))))))
+			  (append '((font-size . "-2"))
+				  (list
+				   (string-append "accidentals-" 
+						  (number->string (caddr pitch)))))))))))))
 
 
 (define (step->text pitch)

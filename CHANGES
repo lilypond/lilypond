@@ -1,5 +1,28 @@
-1.3.96.jcn10
-============
+1.3.98
+======
+
+* Backend documentation updates and related cleanups
+
+* Removed \property bracketCollapseHeight, systemStartDelimiterGlyph
+
+* Bugfix: instrument-name on grandstaffs, see
+input/test/instrument-name-grandstaff.ly
+
+* Bugfix for tie/staffline collision.
+
+* Bugfix: also send out end-repeat if there are no alternatives.
+
+* Small solo cello suite fixes.
+
+1.3.97.jcn1
+===========
+
+* Added some interface documentation.
+
+* Added raise and kern to markup.  This should make Chord names usable.
+
+1.3.97
+======
 
 * Made small fixes to basic properties: regression-test compiles.
 
@@ -41,9 +64,8 @@ inclusive) is now in Scheme.
 
 * Self-documenting backend using ly/generate-documentation.ly
 
-
-1.3.95.jcn5
-===========
+1.3.96
+======
 
 * Added friendly message for the clueless dvips user.
 
@@ -340,8 +362,6 @@ INCOMPATIBLE CHANGE)
 
 * added input/test/bagpipe.ly
 
-
-
 1.3.87
 ======
 
@@ -392,7 +412,6 @@ lists.
 
 * Separated definition and implementation of contexts (moved
 definition out of Translator_group into Translator_def)
- 
 
 * pmx2ly.py fixes: now handles text at beginning of block correctly.
 

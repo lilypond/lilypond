@@ -77,7 +77,7 @@
 
 ;; This list defines the offsets for each type of attachment.
 ;; The format of each element is
-;; (stem-dir * dir . slur-dir * dir)
+;; (attachment stem-dir*dir slur-dir*dir)
 ;; Different attachments have different default points:
 ;;
 ;; head: Default position is centered in X, on outer side of head Y
@@ -115,6 +115,6 @@
    (y-free . 0.75)
    (attachment-offset . ((0 . 0) . (0 . 0)))
    (slope-limit . 0.8)
-   (meta . ,(element-description "Slur" general-element-interface slur-interface))
+   (meta . ,(element-description "Slur" slur-interface))
    )
   )
