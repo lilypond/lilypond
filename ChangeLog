@@ -1,5 +1,23 @@
 2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/accidentals.ly (mel): shorten.
+
+	* input/regression/accidental-octave.ly (texidoc): shorten.
+
+	* input/regression/hairpin-dashed.ly (texidoc): docstring.
+
+	* input/regression/completion-heads-polyphony.ly: octave
+
+	* input/regression/beam-manual.ly: remove
+
+	* input/regression/beam-chord.ly: remove
+
+	* input/regression/grace-dynamic.ly: remove
+	
+	* input/regression/grace-volta-repeat.ly: octave fixes.
+
+	* input/regression/hairpin-dashed.ly (texidoc): doc string.
+
 	* lily/parser.yy (step_number): semitones for chord entry too.
 	(make_chord_step): more robust code, semitones. 
 

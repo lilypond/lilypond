@@ -2,11 +2,9 @@
 \version "1.9.8"
 
 \header{
-    texidoc="
-Text is set with empty horizontal dimensions.  The boolean property
-TextScript.no-spacing-rods is used to control the horizontal size of text.
-"
-}
+    texidoc=" Text is set with empty horizontal dimensions.  The
+boolean property @code{no-spacing-rods} in @code{TextScript} is used
+to control the horizontal size of text.  " }
 
 \score{
     \notes\relative c''{

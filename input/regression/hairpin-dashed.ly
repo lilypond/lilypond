@@ -1,3 +1,9 @@
+\version  "1.9.8"
+
+\header {
+texidoc ="Hairpin crescendi may be dashed. "
+
+}
 
 \score {
     \notes \relative c' {

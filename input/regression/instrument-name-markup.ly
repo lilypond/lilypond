@@ -1,7 +1,7 @@
 \header {
 
-texidoc = "Instrument names are set with Staff.instrument and
-Staff.instr. You can enter markup texts to create more funky names,
+texidoc = "Instrument names are set with @code{Staff.instrument} and
+@code{Staff.instr}. You can enter markup texts to create more funky names,
 including alterations. "
 
 }
@@ -11,6 +11,7 @@ including alterations. "
 
 
 textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
+
 \score {
   \notes \new Staff {
     \property Staff.instrument
@@ -21,7 +22,7 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
     { c''1 \break c'' }
 
   }
-  \paper { linewidth= 8.0\cm }
+  \paper { raggedright = ##t }
 }
 
 
