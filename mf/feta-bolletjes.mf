@@ -183,55 +183,85 @@ fet_beginchar("Quart notehead", "2", "quarthead")
 	black_notehead_width# := charwd;
 fet_endchar;
 
+%%%%%%%%%%%%%%%%
+
 fet_beginchar("Quart noteheadPQ", "2PQ", "quartheadPQ")
 	draw_outside_ellipse (1.0 - puff_up_factor / 2.0, 32, 0.707, 0);
 fet_endchar;
 
 fet_beginchar("Quart noteheadAA", "2AA", "quartheadAA")
-	draw_outside_ellipse (1.2 - puff_up_factor / 2.0, 32, 0.707, 0);
+	draw_outside_ellipse (1.35 - puff_up_factor / 2.0, 32, 0.707, 0);
 fet_endchar;
 
 fet_beginchar("Quart noteheadAB", "2AB", "quartheadAB")
-	draw_outside_ellipse (1.3 - puff_up_factor / 2.0, 32, 0.707, 0);
-	
-fet_endchar;
-fet_beginchar("Quart noteheadAC", "2AC", "quartheadAC")
 	draw_outside_ellipse (1.4 - puff_up_factor / 2.0, 32, 0.707, 0);
 	
 fet_endchar;
+fet_beginchar("Quart noteheadAC", "2AC", "quartheadAC")
+	draw_outside_ellipse (1.45 - puff_up_factor / 2.0, 32, 0.707, 0);
+fet_endchar;
+
 fet_beginchar("Quart noteheadAD", "2AD", "quartheadAD")
 	draw_outside_ellipse (1.5 - puff_up_factor / 2.0, 32, 0.707, 0);
-	
 fet_endchar;
+
+fet_beginchar("Quart noteheadAD", "2AE", "quartheadAD")
+	draw_outside_ellipse (1.55 - puff_up_factor / 2.0, 32, 0.707, 0);
+fet_endchar;
+
+fet_beginchar("Quart noteheadAD", "2AF", "quartheadAD")
+	draw_outside_ellipse (1.6 - puff_up_factor / 2.0, 32, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadAD", "2AG", "quartheadAD")
+	draw_outside_ellipse (1.65 - puff_up_factor / 2.0, 32, 0.707, 0);
+fet_endchar;
+
+
 fet_beginchar("Quart noteheadBA", "2BA", "quartheadBA")
-	draw_outside_ellipse (1.2 - puff_up_factor / 2.0, 35, 0.707, 0);
-	
+	draw_outside_ellipse (1.35 - puff_up_factor / 2.0, 35, 0.707, 0);
 fet_endchar;
 fet_beginchar("Quart noteheadBB", "2BB", "quartheadBB")
-	draw_outside_ellipse (1.3 - puff_up_factor / 2.0, 35, 0.707, 0);
+	draw_outside_ellipse (1.4 - puff_up_factor / 2.0, 35, 0.707, 0);
 	
 fet_endchar;
 fet_beginchar("Quart noteheadBC", "2BC", "quartheadBC")
-	draw_outside_ellipse (1.4 - puff_up_factor / 2.0, 35, 0.707, 0);
+	draw_outside_ellipse (1.45 - puff_up_factor / 2.0, 35, 0.707, 0);
 fet_endchar;
 fet_beginchar("Quart noteheadBD", "2BD", "quartheadBD")
 	draw_outside_ellipse (1.5 - puff_up_factor / 2.0, 35, 0.707, 0);
-	
 fet_endchar;
+fet_beginchar("Quart noteheadBD", "2BE", "quartheadBD")
+	draw_outside_ellipse (1.55 - puff_up_factor / 2.0, 35, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadBD", "2BF", "quartheadBD")
+	draw_outside_ellipse (1.6 - puff_up_factor / 2.0, 35, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadBD", "2BG", "quartheadBD")
+	draw_outside_ellipse (1.65 - puff_up_factor / 2.0, 35, 0.707, 0);
+fet_endchar;
+
+
+
 fet_beginchar("Quart noteheadCA", "2CA", "quartheadCA")
-	draw_outside_ellipse (1.2 - puff_up_factor / 2.0, 38, 0.707, 0);
-	
+	draw_outside_ellipse (1.35 - puff_up_factor / 2.0, 40, 0.707, 0);
 fet_endchar;
 fet_beginchar("Quart noteheadCB", "2CB", "quartheadCB")
-	draw_outside_ellipse (1.3 - puff_up_factor / 2.0, 38, 0.707, 0);
-	
+	draw_outside_ellipse (1.4 - puff_up_factor / 2.0, 40, 0.707, 0);
 fet_endchar;
 fet_beginchar("Quart noteheadCC", "2CC", "quartheadCC")
-	draw_outside_ellipse (1.4 - puff_up_factor / 2.0, 38, 0.707, 0);
-	
+	draw_outside_ellipse (1.45 - puff_up_factor / 2.0, 40, 0.707, 0);
 fet_endchar;
 fet_beginchar("Quart noteheadCD", "2CD", "quartheadCD")
-	draw_outside_ellipse (1.5 - puff_up_factor / 2.0, 38, 0.707, 0);
+	draw_outside_ellipse (1.5 - puff_up_factor / 2.0, 40, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadCD", "2CE", "quartheadCD")
+	draw_outside_ellipse (1.55 - puff_up_factor / 2.0, 40, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadCD", "2CF", "quartheadCD")
+	draw_outside_ellipse (1.6 - puff_up_factor / 2.0, 40, 0.707, 0);
+fet_endchar;
+fet_beginchar("Quart noteheadCD", "2CG", "quartheadCD")
+	draw_outside_ellipse (1.65 - puff_up_factor / 2.0, 40, 0.707, 0);
 fet_endchar;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

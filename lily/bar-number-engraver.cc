@@ -34,7 +34,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
   void create_items ();
-  TRANSLATOR_DECLARATIONS(  Bar_number_engraver );
+  TRANSLATOR_DECLARATIONS(Bar_number_engraver );
 };
 
 

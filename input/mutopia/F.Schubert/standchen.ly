@@ -115,48 +115,48 @@ vocalThrough =  \notes\relative c{
 	e2 r4 |
 }
 
-lyricVerseOne =  \lyrics{
+lyricVerseOne =  \lyrics {
 	Lei -- se fle -- hen mei -- ne Lie -- der
 	durch die Nacht zu dir;
 	in den stil -- len Hain her nie -- der,
 	Lieb -- chen, komm zu mir! 
 	
-	Fl\"us -- ternd schlan -- ke Wip -- fel rau -- schen
+	Flüs -- ternd schlan -- ke Wip -- fel rau -- schen
 	in des Mon -- des Licht,
 	in des Mon -- des Licht;
 
-	des Ver -- r\"a -- ters feind -- lich Lau -- schen
-	f\"urch -- te, Hol -- de, nicht,
-	f\"urch -- te, Hol -- de, nicht.
+	des Ver -- rä -- ters feind -- lich Lau -- schen
+	fürch -- te, Hol -- de, nicht,
+	fürch -- te, Hol -- de, nicht.
 }
 	
 lyricVerseTwo =  \lyrics{
-	H\"orst die Nach -- ti -- gal -- len schla -- gen?
+	Hörst die Nach -- ti -- gal -- len schla -- gen?
 	ach! sie fle -- hen dich, 
-	mit der T\"o -- ne s\"u -- "\ss en" Kla -- gen
-	fle -- hen sie f\"ur mich. 
+	mit der Tö -- ne sü -- "\ss en" Kla -- gen
+	fle -- hen sie für mich. 
 	
 	Sie -- ver -- "steh'n" des Bu -- sens Seh -- nen,
 	ken -- nen Lieb -- es -- schmerz,
 	ken -- nen Lieb -- es -- schmerz,
 
-	r\"uh -- ren mit den Sil -- ber -- t\"o -- nen
+	rüh -- ren mit den Sil -- ber -- tö -- nen
 	jed -- es wei -- che Herz,
 	jed -- es wei -- che Herz.
 }
 
 lyricThrough =  \lyrics{
 	La\ss auch dir die Brust be -- we -- gen 
-	Lieb -- chen, h\"o -- re mich! 
+	Lieb -- chen, hö -- re mich! 
 	be -- bend harr' ich dir ent -- ge -- gen! 
 	
-	komm, be -- gl\"uk -- ke mich!
-	komm, be -- gl\"uk -- ke mich, __ 
-	be -- gl\"uk -- ke mich!
+	komm, be -- glük -- ke mich!
+	komm, be -- glük -- ke mich, __ 
+	be -- glük -- ke mich!
 }
 
 trebleIntro =  \notes\relative c{
-	r8^"\bf M\\\"a\\ss ig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
+	r8^"\bf Mäßig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
 	r8 <as c>-. <c es>-. <as c>-. <c es>-. <as c>-. |
 	r8 <as c>-. <c d>-. <as c>-. <c d>-. <as c>-. |
 	r8 <g b>-. <b d>-. <g b>-. <b d>-. <g b>-. |
@@ -380,20 +380,15 @@ global =  \notes{
 	\bar "|."
 }
 
-allLyrics = \lyrics {
+allLyrics =  {
 	% maybe should be bigger by default, in grob-description.scm ?
-	\property Lyrics . LyricText \override #'font-size = #2
-	\property Lyrics . LyricHyphen \override #'maximum-length = #1.5
-	\context LyricsVoice = "leise-1"  { \lyricVerseOne
-	\lyricVerseTwo
-	\lyricThrough
+	\newaddlyrics "leise" \new LyricsVoice {
+	    \lyricVerseOne
+	    \lyricVerseTwo
+	    \lyricThrough 
 } }
 
-lyricStaff = \context Lyrics {
-	\allLyrics
-}
-		
-vocals = \context Voice \notes {
+vocals = \context Voice = leise \notes {
 	\clef treble
  	% certainly no auto-beaming for vocals
  	\autoBeamOff
@@ -408,82 +403,58 @@ vocals = \context Voice \notes {
 	R1 * 3/4 * 6
 }
 
-vocalStaff =  \context Staff = vocal<<
-	  \property Staff.midiInstrument = "synth voice"
-	\context Voice = "leise" << 	  \global
-	  \vocals >>
->>
-
-treble =  {
-	\clef treble
+trebleStaff =  \context Staff = treble<< 
+        \property Staff.midiInstrument = "acoustic grand"
+	\global
+	{\clef treble
 	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(ly:make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje
 	\trebleVerseOne 
-	\trebleThrough
-}
-
-trebleStaff =  \context Staff = treble<< 
-        \property Staff.midiInstrument = "acoustic grand"
-	\global
-	\treble
+	\trebleThrough }
 >>
-bass =  {
-	\clef bass
-	\bassIntro 
-	\bassVerseOne 
-	\bassEentje
-	\bassVerseOne 
-	\bassThrough
-}
 
 bassStaff =  \context Staff = bass<<
         \property Staff.midiInstrument = "acoustic grand"
 	\global
-	\bass
->>
-
-grandStaff =  \context PianoStaff <<
-
-	\trebleStaff
-	\bassStaff
+	\clef bass
+	{\bassIntro 
+	\bassVerseOne 
+	\bassEentje
+	\bassVerseOne 
+	\bassThrough}
 >>
 
 
 \score{
-	<<
-
-%{
-	Transpose as you like for your voice
-	Range untransposed is c' to f'' (for tenors and sopranos)
-	\transpose c' a gives a' to d'' (for basses, who sing an octave down)
-
-		\addlyrics 
-			\notes \transpose c' a \vocalStaff
-			\lyricStaff
-		\notes \transpose c' a \grandStaff
-%}
-
-		\addlyrics
-			\vocalStaff
-			\lyricStaff 
-		\grandStaff
+    <<
+	\new Staff <<
+	    \property Staff.midiInstrument = "synth voice"
+	    %% insert \transpose if necessary, depending on voice range.
+	    \global
+	    \vocals
 	>>
-	\paper {
-		% Use
-		%   textheight = 280.\mm
-		%   linewidth = 190.\mm
-		% to get this on 3 pages of a4.
-		
-		% Mandatory Mutopia settings yield 4 pages :(
-		textheight = 270.0\mm
-		linewidth = 180.0\mm
+	\allLyrics
+	\context PianoStaff <<
+	    \trebleStaff
+	    \bassStaff
+	>>
+    >>
+    \paper {
+				% Use
+				%   textheight = 280.\mm
+				%   linewidth = 190.\mm
+				% to get this on 3 pages of a4.
+	
+				% Mandatory Mutopia settings yield 4 pages :(
+	textheight = 270.0\mm
+	linewidth = 180.0\mm
 
-		\translator { \RemoveEmptyStaffContext }
-	}
-	\midi{
-		\tempo 4 = 54
-	}
+	\translator { \RemoveEmptyStaffContext }
+    }
+    \midi{
+	\tempo 4 = 54
+    }
 }
 

@@ -239,7 +239,7 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "@table @code\n"
 	       "@item (minimum-space . @var{spc}))\n"
 	       "  Pad space until the distance is @var{spc}\n"
-	       "@item (fixed-space} . @var{spc})\n"
+	       "@item (fixed-space . @var{spc})\n"
 	       "  Set a fixed space\n" 
 	       "@item (semi-fixed-space . @var{spc})\n"
 	       "  Set a space. Half of it is fixed and half is stretchable. \n"
