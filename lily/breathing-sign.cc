@@ -31,29 +31,6 @@
   
 
 /*
-  Simplistic caesura.
- */
-MAKE_SCHEME_CALLBACK (Breathing_sign,railtracks,1);
-SCM 
-Breathing_sign::railtracks (SCM smob)
-{
-  Grob * me = unsmob_grob (smob);
-  Real space = Staff_symbol_referencer::staff_space (me);
-  Real th = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM lt =  me->get_grob_property ("thickness");
-  if (gh_number_p (lt))
-    th *= gh_scm2double (lt);
-  
-  Offset x1 (0, -space);
-  Offset x2 (space / 3, space);
-  Molecule l1 (Lookup::line (th, x1, x2));
-  Molecule l2 (l1);
-  l2.translate_axis (space *0.6 , X_AXIS);
-  l1.add_molecule (l2);
-  return l1.smobbed_copy();
-}
-
-/*
   Gregorian chant divisio minima.  (Actually, this was the original
   breathing sign by Michael. -- jr)
  */

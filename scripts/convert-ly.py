@@ -1575,6 +1575,13 @@ conversions.append (((1,9,7), conv,
 remove \\outputproperty, move ly:verbose into ly:get-option'''))
 
 
+def conv (str):
+	if re.search ("dash-length",str):
+		sys.stderr.write ("""dash-length has been removed. Use dash-fraction instead.""")
+		raise FatalConversionError()
+	return str
+
+conversions.append (((1,9,8), conv, """dash-length -> dash-fraction""")
 
 ################################
 #	END OF CONVERSIONS	

@@ -33,6 +33,7 @@ struct Lookup
   static Molecule round_filled_box (Box b, Real blotdiameter);
   static Molecule repeat_slash (Real w, Real slope, Real th);
   static Molecule line (Real th, Offset from, Offset to);
+  static Molecule dashed_line (Real th, Offset from, Offset to, Real, Real);
   static Molecule horizontal_line (Interval w, Real th);
   static Molecule triangle (Interval, Real, Real);
 };

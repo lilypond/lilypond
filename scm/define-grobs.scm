@@ -1075,11 +1075,13 @@
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
-	(style . line)
+	(style . dashed-line)
 
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
 	(width-correct . -1)
+	(dash-fraction . 0.2)
+	(dash-period . 3.0)
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
@@ -1092,6 +1094,7 @@
 	(enclose-bounds . #t)
 	(width-correct . 0.0)
 	(style . dashed-line)
+	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.5))
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		

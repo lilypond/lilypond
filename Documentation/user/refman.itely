@@ -3557,18 +3557,19 @@ making or a music identifier @code{\foo} containing the syllable
 @subsection Ambitus
 @cindex ambitus
 
-The term @emph{ambitus} denotes a range of pitches for a given voice in
-a part of music.  It also may denote the pitch range that a musical
-instrument is capable of playing.  Most musical instruments have their
-ambitus standardized (or at least there is agreement upon the minimal
-ambitus of a particular type of instrument), such that a composer or
-arranger of a piece of music can easily meet the ambitus constraints of
-the targeted instrument.  However, the ambitus of the human voice
-depends on individual physiological state, including education and
-training of the voice.  Therefore, a singer potentially has to check for
-each piece of music if the ambitus of that piece meets his individual
-capabilities.  This is why the ambitus of a piece may be of particular
-value to vocal performers.
+The term @emph{ambitus} (plural: ambituses) denotes a range of pitches
+for a given voice in a part of music.  It also may denote the pitch
+range that a musical instrument is capable of playing.  Most musical
+instruments have their ambitus standardized (or at least there is
+agreement upon the minimal ambitus of a particular type of
+instrument), such that a composer or arranger of a piece of music can
+easily meet the ambitus constraints of the targeted instrument.
+However, the ambitus of the human voice depends on individual
+physiological state, including education and training of the voice.
+Therefore, a singer potentially has to check for each piece of music
+if the ambitus of that piece meets his individual capabilities.  This
+is why the ambitus of a piece may be of particular value to vocal
+performers.
 
 The ambitus is typically notated on a per-voice basis at the very
 beginning of a piece, e.g. nearby the initial clef or time signature of
@@ -3622,7 +3623,7 @@ ambitus per staff rather than per each voice, then add the
 @internalsref{Ambitus_engraver} to the @internalsref{Staff} context
 rather than to the @internalsref{Voice} context.
 
-It is possible to tune individual ambiti for multiple voices on a
+It is possible to tune individual ambituses for multiple voices on a
 single staff, for example by erasing or shifting them horizontally. An
 example is in @inputfileref{input/test,ambitus-mixed.ly}
 

@@ -65,28 +65,31 @@ Arpeggio::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
+  SCM ad = me->get_grob_property ("arpeggio-direction");
   Direction dir = CENTER;
-  if (ly_dir_p (me->get_grob_property ("arpeggio-direction")))
+  if (ly_dir_p (ad))
     {
-      dir = to_dir (me->get_grob_property ("arpeggio-direction"));
+      dir = to_dir (ad);
     }
   
   Molecule mol;
   Font_metric *fm =Font_interface::get_default_font (me);
   Molecule squiggle = fm->find_by_name ("scripts-arpeggio");
 
-  Real arrow_space = (dir) ? Staff_symbol_referencer::staff_space (me)  : 0.0;
-  
-  Real y = heads[LEFT];
-  while (y < heads[RIGHT] - arrow_space)
+  Molecule arrow ;  
+  if (dir)
     {
-      mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0, 0);
-      y+= squiggle. extent (Y_AXIS).length ();
+      arrow = fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir));
+      heads[dir] -= dir * arrow.extent (Y_AXIS).length();
     }
+  
+  for (Real  y= heads[LEFT] ; y < heads[RIGHT];
+       y+= squiggle. extent (Y_AXIS).length ())
+      mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0, 0);
+
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)
-    mol.add_at_edge (Y_AXIS, dir,
-		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir)), 0.0, 0);
+    mol.add_at_edge (Y_AXIS, dir,arrow, 0,0);
   
   return mol.smobbed_copy () ;
 }
@@ -125,13 +128,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Real dy = heads.length() + sp;
   Real x = 0.7;
 
-  Molecule l1     = Lookup::line (lt, Offset(0, 0),  Offset (0, dy));
-  Molecule bottom = Lookup::line (lt, Offset(0, 0),  Offset (x, 0));
-  Molecule top    = Lookup::line (lt, Offset(0, dy), Offset (x, dy));
-  Molecule mol;
-  mol.add_molecule (l1);
-  mol.add_molecule (bottom);
-  mol.add_molecule (top);
+  Molecule mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x));
   mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
   return mol.smobbed_copy();
 }

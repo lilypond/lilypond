@@ -1,3 +1,17 @@
+2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/hairpin-dashed.ly: new file.
+
+	* scripts/convert-ly.py (conv): warn about dash-length.
+
+	* lily/dynamic-engraver.cc (try_music): end (de)crescendo
+	automatically if we get a new one.
+
+	* lily/lookup.cc (dashed_line): new function
+
+	* lily/line-spanner.cc (dashed_line_molecule): cleanups. Use
+	dash-fraction.
+
 2003-09-18  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond.words.py: extract note names.
@@ -9,6 +23,14 @@
 	maxima to note a duration.
 
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/breathing-sign.cc: remove railtracks() function. 
+
+	* input/regression/arpeggio-bracket.ly (texidoc): add file.
+
+	* lily/arpeggio.cc (brew_chord_bracket): clean-up 
+	(brew_molecule): bugfix don't make arpeggio shorter when
+	arpeggio-direction is set.
 
 	*  debian/rules: small corrections in the (Pedro K)
 

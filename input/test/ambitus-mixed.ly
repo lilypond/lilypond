@@ -3,7 +3,7 @@
 texidoc = "Ambituses can be switched off or translated by using
 applyoutput.
 
-If you want to mix per-voice and per-staff ambiti, then you have to
+If you want to mix per-voice and per-staff ambituses, then you have to
 define you have to declare a new context type derived from the
 @code{Voice} context or @code{Staff} context.  The derived context
 must consist of the @code{Ambitus_engraver} and it must be accepted by
