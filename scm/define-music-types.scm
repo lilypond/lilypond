@@ -814,8 +814,7 @@ and values. E.g:
 	 (music-name (if (pair? handle)
 			 (cdr handle)
 			 (begin
-			   (ly:warn (string-append "Unknown repeat type `" name
-						   "'\nSee music-types.scm for supported repeats"))
+			   (ly:warn "Unknown repeat type `~S'\nSee music-types.scm for supported repeats" name)
 			   'VoltaRepeatedMusic))))
     (make-music music-name)))
 

@@ -37,11 +37,10 @@
 	  (display (object-type (car name-mag-pair)))
 	  (display (object-type (caaar font-name-alist)))
 
-	  (ly:warn (string-append
-		    "Programming error: No such font known "
-		    (car name-mag-pair) " "
+	  (ly:warn "Programming error: No such font known ~S ~S"
+		    (car name-mag-pair) 
 		    (ly:number->string (cdr name-mag-pair))
-		    ))
+		    )
 	  "") ; issue no command
 	(string-append "\\" (cddr c)))
     

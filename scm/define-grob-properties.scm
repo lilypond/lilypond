@@ -10,7 +10,7 @@
 (define (define-grob-property symbol type? description)
   (if (not (equal? (object-property symbol 'backend-doc) #f))
       (begin
-	(ly:warn-append "Redefining ~S" (symbol->string symbol))
+	(ly:warn-append "Redefining ~S" symbol)
 	(exit 2)
       ))
   

@@ -84,8 +84,8 @@
     
     (cond
      ((not is-bookpaper?)
-      (ly:warning "This is not a \\paper {} object:")
-      (display module))
+      (ly:warning "This is not a \\paper {} object, ~S"
+		   module))
      ((pair? entry)
       (set! entry (eval  (cdr entry) module))
 	  (set-paper-dimensions module (car entry) (cdr entry))
@@ -123,7 +123,7 @@
 			   (/ val scale))
 
 	   ;; spurious warnings, eg. for hsize, vsize. 
-;	   (ly:warn (format "not a number, ~S = ~S " v  val))
+;	   (ly:warn "not a number, ~S = ~S " v  val)
 	   ))
      
      dim-vars)

@@ -237,7 +237,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			)))
 
      (if (equal? result #f)
-	 (ly:warn (string-append "Unknown bar glyph: `" glyph "'"))
+	 (ly:warn "Unknown bar glyph: `~S'" glyph)
 	 (index-cell (cdr result) dir))
      ) )
      
