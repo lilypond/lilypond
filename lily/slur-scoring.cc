@@ -443,8 +443,18 @@ get_bound_info (Spanner* me, Grob **common)
 	  extremes[d].staff_space_ = Staff_symbol_referencer
 	    ::staff_space (extremes[d].stem_);
 	}
-      else
+      else if (d == RIGHT)
+	/*
+	  right side anticipates on the next note.
+	*/
 	extremes[d].neighbor_y_ = broken_trend_y (me, common, d);
+
+      else
+	{
+	  Link_array<Grob> columns
+	    = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
+	  extremes[d].neighbor_y_ = columns[0]->extent (common[Y_AXIS], Y_AXIS)[dir];
+	}
     }
   while (flip (&d) != LEFT);
   return extremes;

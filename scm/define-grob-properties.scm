@@ -42,6 +42,7 @@ called first.  The functions take a grob and axis argument. ")
      (Y-offset-callbacks ,list? "see @code{X-offset-callbacks}.")
 
      (accidentals ,list? "List of alteration numbers.")
+     (add-stem-support ,boolean? "If set, the Stem object is included in this script's support") 
     
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
 @code{0}: around center of width, @code{1}: right side.")
@@ -437,6 +438,8 @@ of flags/beams.")
 stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
+
+     
      (string-count ,integer? "The number of strings in a fret diagram.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      
