@@ -1,6 +1,9 @@
 \header {
-  title =       "Trip"
+  title =       "Trip test"
+  subtitle = "Make life very difficult for lilypond"
   copyright =   "public domain"
+  
+  footer ="This file tests as much features of lily as possible."
 }
 
 

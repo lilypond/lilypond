@@ -123,8 +123,8 @@ All_font_metrics::find_tfm (String name)
       
       if (path.empty_b ())
 	{
-	  char * p = ly_find_tfm (name.ch_C ());
-	  if (p)
+	  String p = ly_find_tfm (name.ch_C ());
+	  if (p.length_i ())
 	    path = p;
 	}
 

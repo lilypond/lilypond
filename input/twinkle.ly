@@ -25,7 +25,7 @@ Tested Features: lyrics, interleaving lyrics and staffs, repeats,
 
 melody =  \notes \relative c'' {
 	\clef violin
-	\property Staff.instrument = "alto sax"
+	\property Staff.midiInstrument = "alto sax"
 	
 	c4 c | g' g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 |

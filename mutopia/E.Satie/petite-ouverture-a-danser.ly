@@ -39,7 +39,7 @@ global =  \notes {
   
 i =  \context Staff \notes\relative c''{
   \context Voice=i
-  \stemUp
+  \voiceOne
 
   c8.( es16 bes4 ~ | )bes8 r c8.( bes16 | des4 c8. bes16 | c4 ~ ) c8 r |
   c4( f,8. as16 | bes4 ~ )bes8 r | f8.( es16 f4 | es )f |
@@ -67,7 +67,7 @@ i =  \context Staff \notes\relative c''{
 
 ii =  \context Staff \notes\relative c'{
   \context Voice=ii
-  \stemDown
+  \voiceTwo
 
   r8 <es as> r <des f> | r <es g> r <es as> | r <f as> r <f as> |
   r <es g> r <es g> | r <es as> r <as, des> | r <des f> r <des f> |
@@ -85,9 +85,9 @@ ii =  \context Staff \notes\relative c'{
   r <cis e> r <cis e> | r <b d> r <a d> | r <g b> r <a cis> |
   r <a cis> r <a cis> |
 
-  \translator Staff=bass\stemUp
+  \translator Staff=bass\voiceOne
   r <g b> r <fis a> r <fis a> | r <g bes>
-  \translator Staff=treble\stemDown
+  \translator Staff=treble\voiceTwo
   r <a c> r <a d> |
 
   r <bes d> r <bes d> | r <g c> r <bes d> | r <c es> r <d g> |
@@ -132,7 +132,7 @@ lower =  \context Staff \notes \relative c{
 }
 
 \score {
-    \context GrandStaff < 
+    \context GrandStaff <
       \context Staff = treble < 
         \global 
         \clef violin
@@ -151,6 +151,7 @@ lower =  \context Staff \notes \relative c{
     \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
+	    Slur \override #'attachment = #'(stem . stem)
 	    autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
 	    autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 1 4)
     }

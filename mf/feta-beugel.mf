@@ -50,7 +50,11 @@ enddef;
 
 
 % l is the increment.
-l := 0.2pt#;
+save stafflinethickness;
+save increment;
+
+stafflinethickness := 0.5pt#;
+increment := 0.5pt#;
 y := 10pt#;
 
 
@@ -60,18 +64,21 @@ for i := 0 step 1 until font_count:
   %% We can't store more than 64 (65?) height dimensions in a TFM
   %% file, so we make small files.
 
-  for j := 0 step 1 until 65:
+  for j := 0 step 1 until 63:
     % message "l: "&decimal l;
     % note: define_pixels (x) multiplies x by hppp,
     % must never get bigger than infinity
-    y := min (y + l / 2, infinity/hppp - 1);
+    y := min (y + increment, infinity/hppp - 1);
+
     % x should be about one staff space, taking brace to have
     % default height of 3 staffs, this yields height / 3 / 4
-    x := y / 12;
+    x := y / 15;
     % l should be about one stafflinethickness
-    l := x / 10;
+
+    increment := x / 10;
+    stafflinethickness :=  min (0.5pt#, y/120 );
     if i = font_count:
-      draw_brace (y, x, l);
+      draw_brace (y, x, stafflinethickness);
     fi
   endfor;
 endfor

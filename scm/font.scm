@@ -23,8 +23,12 @@
 	(else (ly-warning "unknown font field name"))
 	)
        ))
-  
-;;;;;;;;; TODO TODO . (should not use filtering?)
+
+
+
+;; most of these routines have been reimplemented in C++ 
+
+;; TODO TODO . (should not use filtering?)
 ;; this is bad, since we generate garbage every font-lookup.
 ;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
 

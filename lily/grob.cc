@@ -295,8 +295,6 @@ Grob::get_uncached_molecule ()const
 
       m = unsmob_molecule (mol);
     }
-
-
   
   /*
     transparent retains dimensions of element.
