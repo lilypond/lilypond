@@ -112,7 +112,7 @@
 	   )
 	  ((symbol . clefOctavation)
 		 (iterator-ctor . ,Property_iterator::constructor)
-		 (value . ,oct)
+		 (value . ,(- oct))
 	       )
 	  )
 	(begin
