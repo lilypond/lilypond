@@ -24,17 +24,17 @@ which substitutes some @AT_VARIABLES@ as well.
 
 <table cellpadding=5 width="100%">
   <tr align=left valign=bottom>
-    <td align=center valign=middle width="15%" bgcolor="#e8ffe8">
+    <td align=center valign=middle width="20%" bgcolor="#e8ffe8">
       <img src="@TOP@Documentation/pictures/out-www/lelie-icon.png" alt="[icon]">
      </td>
-    <td align=center valign=middle width="85%" bgcolor="#e8ffe8">
+    <td align=center valign=middle width="80%" bgcolor="#e8ffe8">
       <h1>GNU LilyPond</h1>
       <h2>Welcome to the home of the GNU Music Typesetter</h2>
     </td>
   </tr>
 
   <tr>
-    <td align=left valign=top width="15%" bgcolor="#e8ffe8">
+    <td align=left valign=top width="20%" bgcolor="#e8ffe8">
     <table align=left>
   
       <tr><td bgcolor="#e8e8ff">
@@ -76,12 +76,15 @@ which substitutes some @AT_VARIABLES@ as well.
         <a href="http://mail.gnu.org/mailman/listinfo/info-lilypond/">Announcements</a><br>
 	<br>
       </font></td></tr>
-    <tr><td bgcolor="#e8e8ff"><b>Sites</b></td></tr>
+    <tr><td bgcolor="#e8e8ff"><b>External sites</b></td></tr>
       <tr><td><font size="-1">
-        <a href="http://www.lilypond.org/">Website</a><br>
+        <a href="http://www.lilypond.org/development">Development version</a><br>
+        <a href="http://www.lilypond.org/stable">Stable version</a><br>
         <a href="http://www.lilypond.org/wiki/">WikiWiki</a><br>
         <a href="ftp://ftp.lilypond.org/pub">FTP site</a><br>
+        <a href="http://www.mutopiaproject.org/">Mutopia archive</a><br>
+
 	<br>
       </font></td></tr>
     </table>
-  <td align=left valign=top width="85%">
+  <td align=left valign=top width="80%">
