@@ -78,7 +78,7 @@
 		   (number->string (exact->inexact
 				    (ly:paper-outputscale paper))))
    (tex-string-def "lilypondpaper" 'papersize
-		   (eval 'papersize (ly:output-def-scope paper)))
+		   (eval 'papersizename (ly:output-def-scope paper)))
    ;; paper/layout?
    (tex-string-def "lilypondpaper" 'inputencoding
 		   (eval 'inputencoding (ly:output-def-scope paper)))
@@ -261,15 +261,14 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (size (ly:output-def-lookup defs 'papersize)))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
-    (postscript->pdf (if (string? size) size "a4")
+    (postscript->pdf (if (string? papersizename) papersizename "a4")
 		     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
-  (let*
-      ((defs (ly:paper-book-paper book))
-       (resolution (ly:output-def-lookup defs 'pngresolution)))
+  (let* ((defs (ly:paper-book-paper book))
+	 (resolution (ly:output-def-lookup defs 'pngresolution)))
 
     (postscript->png
      (if (number? resolution) resolution 90)
@@ -277,9 +276,9 @@
 
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
-	 (papersize (ly:output-def-lookup paper 'papersizename))
+	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
-	 (cmd (string-append "dvips -t " papersize
+	 (cmd (string-append "dvips -t " papersizename
 			     (if landscape? " -t landscape " " ") 
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
 			     (basename name ".tex"))))
@@ -289,10 +288,11 @@
     (system cmd)))
 
 (define-public (convert-to-dvi book name)
-  (let*
-      ((curr-extra-mem (string->number (regexp-substitute/global #f " *%.*\n?"
-								 (ly:kpathsea-expand-variable "$extra_mem_top")
-								 'pre "" 'post)))
+  (let* ((curr-extra-mem (string->number
+			  (regexp-substitute/global
+			   #f " *%.*\n?"
+			   (ly:kpathsea-expand-variable "$extra_mem_top")
+			   'pre "" 'post)))
        (cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
 
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))

@@ -1,3 +1,10 @@
+2004-10-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-ps.scm (page-header): Fix Layout renaming bug.
+
+	* scm/*.scm:
+	* ly/paper-defaults.ly: Use papersizename only.
+
 2004-10-11  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lyitem): Don't use \topalign to make

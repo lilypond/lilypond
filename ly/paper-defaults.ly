@@ -60,7 +60,7 @@
 
     %% ugh.  Should use /etc/papersize and set explicitely for
     %% documentation.
-    papersize = "a4"
+    papersizename = "a4"
 
     #(define font-defaults
       '((font-encoding . fetaMusic)))
