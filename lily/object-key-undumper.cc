@@ -40,20 +40,32 @@ Object_key_undumper::print_smob (SCM s, SCM port, scm_print_state*)
 }
 
 
-Object_key_undumper::Object_key_undumper (SCM s)
+Object_key_undumper::Object_key_undumper ()
 {
   smobify_self();
-  parse_contents (s);
 }
 
 
-LY_DEFINE(ly_make_undumper, "ly:make-undumper",
-	  1,0,0,
-	  (SCM contents),
-	  "Create a key undumper for @var{contents}. "
+LY_DEFINE(ly_undumper_read_keys, "ly:undumper-read-keys",
+	  2,0,0,
+	  (SCM undumper, SCM keys),
+	  "Read serialized @var{keys} into @var{undumper}."
 	  )
 {
-  Object_key_undumper *u = new Object_key_undumper (contents);
+  Object_key_undumper *u = unsmob_key_undumper (undumper);
+  SCM_ASSERT_TYPE(u, undumper, SCM_ARG1, __FUNCTION__, "Undumper");
+
+  u->parse_contents (keys);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE(ly_make_undumper, "ly:make-undumper",
+	  0, 0,0,
+	  (),
+	  "Create a key undumper. "
+	  )
+{
+  Object_key_undumper *u = new Object_key_undumper ();
   SCM x = u->self_scm();
   scm_gc_unprotect_object (x);
   return x;
