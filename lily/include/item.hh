@@ -12,6 +12,7 @@
 #include "boxes.hh"
 #include "string.hh"
 #include "score-elem.hh"
+#include "drul-array.hh"
 
 /**
   A horizontally fixed size element of the score.
@@ -25,31 +26,33 @@
 */
 class Item : public virtual Score_elem {
 public:
-    /// indirection to the column it is in
-    PCol * pcol_l_;
-    
-    Item * broken_to_a_[2];
+  Link_array<Spanner> attached_span_l_arr_;
+  Drul_array<Item*> broken_to_drul_;
 
-    /// should be put in a breakable col.
-    bool breakable_b_;
-    int break_status_i_;
-    /// nobreak = 0, pre = -1, post = 1
-    int break_status_i()const;
-    Item * find_prebroken_piece (PCol*)const;
-    Item * find_prebroken_piece (Line_of_score*)const;    
+  /// should be put in a breakable col.
+  bool breakable_b_;
+  int break_status_i_;
+  /// nobreak = 0, pre = -1, post = 1
+  int break_status_i() const;
+  Item * find_prebroken_piece (int) const;
+  Item * find_prebroken_piece (Line_of_score*) const;    
 
-    virtual Item *item() { return this; }
-    Item();
-    Real hpos_f() const;
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual Line_of_score * line_l() const;
+  virtual Item *item() { return this; }
+  Item();
+  Real hpos_f() const;
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  virtual Line_of_score * line_l() const;
     
+  static int left_right_compare (Item const *, Item const*);
 protected:
-    virtual void  do_breakable_col_processing();
-    virtual void handle_prebroken_dependencies();
-    virtual void do_print()const;
+  virtual void do_unlink ();
+  virtual void do_junk_links();
+  virtual void  do_breakable_col_processing();
+  virtual void handle_prebroken_dependencies();
+  virtual void do_print() const;
+  virtual bool linked_b() const;
 
-    void copy_breakable_items();
+  void copy_breakable_items();
 };
 
 
