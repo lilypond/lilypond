@@ -1,11 +1,10 @@
 # -*-python-*-
 
-Import ('env')
-sources = env['src_glob'] (env, '*.py')
-gens = map (env.AT_COPY, sources)
-dir = env['DESTDIR'] + env['bindir']
-env.Install (dir, gens)
-env.Alias ('install', env['bindir'])
+Import ('env', 'install', 'src_glob')
+sources = src_glob ('*.py')
+scripts = map (env.AT_COPY, sources)
+
+install (scripts, env['bindir'])
 
 po = env.Command ('lilypond.po', sources, env['pocommand'])
 env.Alias ('po-update', po)

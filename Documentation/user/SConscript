@@ -3,9 +3,9 @@
 import os
 import string
 
-Import ('env')
-telys = env['glob'] (env, '*.tely')
-pngs = env['glob'] (env, '*.png')
+Import ('env', 'base_glob')
+tely = base_glob ('*.tely')
+png = base_glob ('*.png')
 
 # We need lily and mf to build these.
 env.Depends ('lilypond.texi', ['#/lily', '#/mf'])
@@ -13,24 +13,27 @@ env.Depends ('music-glossary.texi', ['#/lily', '#/mf'])
 
 env.Depends ('lilypond.texi', 'lilypond-internals.texi')
 
-epss = map (env.Png2eps, pngs)
-env.Depends ('lilypond.texi', epss)
+eps = map (env.PNG2EPS, png)
+env.Depends ('lilypond.texi', eps)
 
 e = env.Copy (
-	LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"''',
+	LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin -I#/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"''',
 	__verbose = ' --verbose',
+	GENERATE_DOCUMENTATION = '$srcdir/ly/generate-documentation',
 	)
 
-e.Command ('lilypond-internals.texi', env['LILYPOND_BIN'],
-	     'cd ${TARGET.dir} \
-	     && LILYPONDPREFIX=$LILYPONDPREFIX $LILYPOND_BIN $__verbose \
-	     $srcdir/ly/generate-documentation')
+e.Command ('lilypond-internals.texi', ['#/lily', '#/mf'],
+	   'cd ${TARGET.dir} && $LILYPOND_BIN $GENERATE_DOCUMENTATION')
 
-texis = map (env.TEXI, telys)
-dvis = map (env.Texi2dvi, telys)
-pss = map (env.PostScript, map (lambda x: x + '.dvi', telys))
-pdfs = map (env.Dvi2pdf, telys)
-infos = map (env.INFO, telys)
+## FIXME: implicit steps from [TE]LY -> PDF
+texi = map (env.TEXI, tely)
+dvi = map (env.TEXIDVI, tely)
+ps = map (env.DVIPS, tely) ###map (lambda x: x + '.dvi', tely))
+dvipdf = map (env.DVIPDF, tely)
+pdf = map (env.PSPDF, dvipdf)
+
+# FIXME: install
+info = map (env.INFO, tely)
 
 def file_subst (file_name, find, subst):
 	s = open (file_name).read ()
@@ -47,6 +50,7 @@ def url_fixup (target, source, env):
 	file_subst (str (target[0]),
 		    '../lilypond-internals', 'lilypond-internals/')
 
+# fixme: see builder.py
 a = ['$MAKEINFO -I$usersrc -I${SOURCE.dir} --html \
      --css-include=$srcdir/Documentation/texinfo.css $__verbose \
      --output=${TARGET.dir} $SOURCE',
@@ -62,15 +66,13 @@ e.Command ('lilypond-internals/lilypond-internals.html',
 	   'lilypond-internals.texi', a)
 
 #Hmm -- why not just mv ./Documentation/{*,*/*} ./doc :-)
-env.Alias ('doc', texis)
-env.Alias ('doc', dvis)
-env.Alias ('doc', pss)
-env.Alias ('doc', pdfs)
+env.Alias ('doc', texi)
+env.Alias ('doc', dvi)
+env.Alias ('doc', ps)
+env.Alias ('doc', pdf)
 
 env.Alias ('doc', 'lilypond/lilypond.html')
 env.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
 
-#dir = env['DESTDIR'] + env['sharedir_doc_package'] + '/html'
-#env.Install (dir, 'lilypond')
-#env.Install (dir, 'lilypond-user')
-#env.Alias ('install', dir)
+# install ('lilypond/*', env['sharedir_doc_package'] + '/html')
+# install ('lilypond-user/*', env['sharedir_doc_package'] + '/html')

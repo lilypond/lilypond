@@ -1,11 +1,10 @@
 # -*-python-*-
 
-Import ('env')
-pos = env['glob'] (env, '*.po')
+Import ('env', 'base_glob', 'install')
+pos = base_glob ('*.po')
 mos = map (env.MO, pos)
-dir = env['DESTDIR'] + env['localedir']
-env.Install (dir, mos)
-env.Alias ('install', dir)
+
+install (mos, env['localedir'])
 
 env.Depends ('po', 'po-update')
 # map (lambda x: env.Depends (x + '.mo', x + '.pom'), pos)

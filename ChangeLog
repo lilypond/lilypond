@@ -1,3 +1,10 @@
+2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* More SCons cleanups.
+
+	* Documentation/bibliography/computer-notation.bib (note): Remove
+	extraneous closing brace.
+
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (Lilypond_snippet.is_outdated): fix
@@ -13,7 +20,7 @@
 2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (Lilypond_snippet.is_outdated): Check
-	for lilypondend.
+	for lilypondend.  Import stat (huh?).
 
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

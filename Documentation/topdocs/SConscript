@@ -1,13 +1,14 @@
 # -*-python-*-
 
-Import ('env')
-tely = env['glob'] (env, '*.tely')
-texi = env['glob'] (env, '*.texi') + map (env.TEXI, tely)
+Import ('env', 'src_glob', 'install')
+
+tely = src_glob ('*.tely')
+texi = src_glob ('*.texi')
+
 txt = map (env.TXT, texi)
 html = map (env.HTML, texi)
+
 env.Alias ('doc', txt)
 env.Alias ('doc', html)
 
-dir = env['DESTDIR'] + env['sharedir_doc_package']
-env.Install (dir, txt)
-env.Alias ('install', dir)
+install (txt, env['sharedir_doc_package'])

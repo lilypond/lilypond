@@ -1,4 +1,4 @@
 # -*-python-*-
 
-Import ('env')
-env['collate'] (title = 'LilyPond Tips and Tricks')
+Import ('env', 'collate')
+collate (title = 'LilyPond Tips and Tricks')

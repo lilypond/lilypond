@@ -40,6 +40,11 @@ bla:
 # 2. are not included with teTeX
 #
 
+foe:
+	echo $(MFINPUTS)
+	echo $(TEXMF)
+	kpsewhich exbase.mf
+
 
 ## use separate package sauter-fonts-mftraced.
 SAUTER_FONTS = ecb10
