@@ -180,7 +180,7 @@ violino2 = \notes \relative c {
 	       a'4 r8 es' d4 r8 a |
 	
 	%120
-	b4 r8 es des4 r8 bes |
+	bes4 r8 es des4 r8 bes |
 	as!4 r8 es' des4 r8 as |
 	g4 r r2 |
 	r4 r8 es' des4 r8 as |
