@@ -299,7 +299,11 @@
 ;; top-of-file, wtf?
 (define (top-of-file)
   (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
-          (strftime "%c" (localtime (current-time)))))
+          (strftime "%c" (localtime (current-time))))
+  ;;; ugh
+  (ps-string-def
+   "lilypond" 'tagline
+   (string-append "Engraved by LilyPond (" (lilpond-version) ")")))
 
 (define (output-paper-def pd)
   (apply
