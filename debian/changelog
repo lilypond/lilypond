@@ -1,3 +1,24 @@
+lilypond (1.9.9-jcn1) unstable; urgency=low
+
+  * Testing.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 23 Sep 2003 23:06:05 +0200
+
+lilypond (1.8.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Thanks to Jan Nieuwenhuizen for the following fixes:
+    debian/control (Build-Depends): Add flex-old as alternative to flex.
+                                    Deprecate bison 1.75.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 27 Aug 2003 00:24:20 +0800
+
+lilypond (1.8.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 13 Aug 2003 00:23:36 +0800
+
 lilypond (1.7.29-1) unstable; urgency=medium
 
   * New upstream release, preparing for lilypond-1.8.  :-)
@@ -765,7 +786,6 @@ lilypond (0.1.42-1) unstable; urgency=low
 
   * New upstream release.
   * Now places ly2dvi in /usr/bin.
-	
 
  -- Anthony Fok <foka@debian.org>  Thu, 29 Jan 1998 02:50:36 -0700
 
