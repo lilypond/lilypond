@@ -354,12 +354,12 @@ def draw_cross(expr thick) =
 	pair ne_dir;
 	save crz; path crz;
 
-	pent# := 1.2stafflinethickness#;
-	define_pixels (pent);
-	pickup pencircle scaled pent;
+	pen_thick# := 1.2stafflinethickness#;
+	define_pixels (pen_thick);
+	pickup pencircle scaled pen_thick;
 
 	top y3 = h;
-	ne_dir := unitvector ((1, (2 h -pent)/(w - pent)));
+	ne_dir := unitvector ((1, (2 h -pen_thick)/(w - pen_thick)));
 	rt x4 = w/2;
 	y5 = 0;
 	z4 - z5 = whatever * ne_dir;
@@ -369,8 +369,8 @@ def draw_cross(expr thick) =
 
 	z4 - z3 = whatever * (ne_dir) + (ne_dir rotated -90) * thick * stafflinethickness;
 
- 	x1 = charwd/2 - .5 pent#;
-	z1 = whatever * ne_dir + thick * stafflinethickness * (ne_dir rotated -90);
+ 	x1 = charwd/2 - .5 pen_thick#;
+	z1 = whatever * ne_dir + thick/2 * stafflinethickness# * (ne_dir rotated -90);
 
 	
 	labels (1,2,3,4,5,6);
@@ -384,6 +384,10 @@ def draw_cross(expr thick) =
 
 	charwx := charwd;
 	charwy := y1;
+		message (decimal charwx);
+		message (decimal charwy);
+	z12 = (charwx * hppp, y1 * vppp);
+	labels (12);
 enddef;
 
 fet_beginchar("Whole Crossed notehead", "0cross", "wholecrossedhead")
@@ -422,8 +426,11 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 	draw (-xpos+w/2,-ypos) -- (xpos+w/2,ypos);
 	draw (-xpos+w/2,ypos) -- (xpos+w/2,-ypos);
 
-	charwx := 3/4 charwd ; 
-	charwy := 1/4 charwd ; 
+	charwx := charwd ; 
+	charwy := 0 ;
+
+	z12 = (charwx * hppp , charwy * vppp );
+	labels (12);
 fet_endchar;
 
 

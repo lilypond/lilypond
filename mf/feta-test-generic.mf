@@ -4,7 +4,7 @@
 %
 %
 
-%input feta-bolletjes;	
+input feta-bolletjes;	
 %input feta-banier;
 %input feta-slag;
 input feta-eindelijk;
