@@ -15,7 +15,7 @@
 
 \version "0.1.9";
 
-\include "dutch.ly"                 % for correct parsing of note names
+\include "nederlands.ly"                 % for correct parsing of note names
 
 global = \melodic {
   \meter 4/4;
