@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
     texidoc = "partcombiner and grace notes can go together"
 }

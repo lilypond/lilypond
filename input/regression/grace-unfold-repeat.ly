@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
     texidoc = "Grace notes and unfolded repeats.
 Line breaks may happen before  grace  notes.

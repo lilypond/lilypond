@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this doesn't disrupt the flow of the notes."

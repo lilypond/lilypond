@@ -1,3 +1,4 @@
+\version "1.5.68"
 
 \header { 
 texidoc = "Accidentals in different staffs don't effect the

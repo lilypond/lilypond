@@ -624,12 +624,12 @@ To use it, you need the following software
 @itemize @bullet
 @item A dvi viewer that supports src specials.
 @itemize @bullet
-@item Plain Xdvi, version 22.36 or newer.  Available from
+@item Xdvi, version 22.36 or newer.  Available from
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
 
-  Note that most @TeX{} distributions ship with xdvik, which is a
-  different and less well maintained program. To find out which xdvi you
-  are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
+  Note that most @TeX{} distributions ship with xdvik, which is always
+  a few versions behind the official Xdvi. To find out which xdvi you
+  are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
 newer.  Enablle the menu Settings -> Inverse search. 
 @end itemize
@@ -641,7 +641,7 @@ column location.
 @item XEmacs. Xemacs is very similar to emacs.
 @item NEdit.  NEdit runs under Windows, and Unix.
   It is available from @uref{http://www.nedit.org}.
-@item GVim.  GVim is a lightweight GUI variant of VIM, the popular VI
+@item GVim.  GVim is a GUI variant of VIM, the popular VI
 clone.  It is available from @uref{http://www.vim.org}.
 @end itemize
 @end itemize
@@ -680,7 +680,7 @@ emacsclient --no-wait +%l %f
 If you use xemacs instead of emacs, you use @code{(gnuserve-start)} in
 your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}
 
-For using Vim, set @code{XEDITOR} to @code{gvim +%l %f}, or use this
+For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or use this
 argument with xdvi's @code{-editor} option.
 @cindex NEdit
 For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or

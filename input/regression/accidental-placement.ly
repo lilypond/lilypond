@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
     texidoc ="Accidentals are placed as closely as possible.
 Accidentals in corresponding octaves are aligned.

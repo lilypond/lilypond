@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
 texidoc = "Grace notes do tricky things with timing. If a measure

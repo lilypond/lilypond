@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
   title="Chord Taxomony of LilyPond -- jazz"
   subtitle="Amy's chord tests"

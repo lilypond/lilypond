@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
     texidoc = "Cue notes should be set in smaller type. Cue clefs are

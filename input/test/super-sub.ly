@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc="Test super/sub, raise and overstrike."
 }

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc="Manual hack for slur and staccato."
 }

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
     texidoc = "Relative placements of different script types can be controlled
 by overriding script-priority."

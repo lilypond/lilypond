@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc = "Bar line should come before the grace note."
 }

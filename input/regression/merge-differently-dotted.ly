@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
 texidoc = "If NoteCollision has merge-differently-dotted set, note

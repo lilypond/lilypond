@@ -1,3 +1,4 @@
+\version "1.5.68"
 
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1

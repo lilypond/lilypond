@@ -745,15 +745,14 @@ Beam::set_stem_shorten (Grob *me)
 
   int beam_count = get_beam_count (me);
 
-  SCM shorten = me->get_grob_property ("beamed-stem-shorten");
-  if (shorten == SCM_EOL)
+  SCM shorten_list = me->get_grob_property ("beamed-stem-shorten");
+  if (shorten_list == SCM_EOL)
     return;
 
-  int sz = scm_ilength (shorten);
-  
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  SCM shorten_elt = scm_list_ref (shorten,
-				  scm_int2num (beam_count <? (sz - 1)));
+  
+  SCM shorten_elt =
+    robust_list_ref (beam_count -1, shorten_list);
   Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
 
   /* your similar cute comment here */

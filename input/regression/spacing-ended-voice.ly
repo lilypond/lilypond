@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header { texidoc = "
 
 A voicelet (a very short voice to get polyphonic chords correct)

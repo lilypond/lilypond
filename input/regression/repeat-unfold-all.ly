@@ -1,3 +1,4 @@
+\version "1.5.68"
 
 \header {
     texidoc = "Repeats may be unfolded through the Scheme function @code{unfold-repeats}."

@@ -44,7 +44,23 @@ struct Break_node {
     line_ = 0;
     demerits_ = 0;
   }
+
+  void print () const
+  {
+    printf ("prev break %d, line %d, demerits %f\n",
+	    prev_break_, line_, demerits_);
+  }
 };
+
+void
+print_break_nodes (Array<Break_node> const & arr)
+{
+  for (int i =0; i < arr.size (); i++)
+    {
+      printf ( "node %d: ", i); 
+      arr[i].print ();
+    }      
+}
 
 /**
   This algorithms is adapted from the OSU Tech report on breaking lines.
@@ -153,7 +169,6 @@ Gourlay_breaking::do_solve () const
   if (breaks.size () % HAPPY_DOTS_I)
     progress_indication (String ("[") + to_string (breaks.size()) + "]");    
 
-
   progress_indication ("\n");
 
   Array<int> final_breaks;
@@ -213,18 +228,13 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 	  break_penalties += gh_scm2double (pen);
 	}
     }
-
-#if 1
   /*
     Q: do want globally non-cramped lines, or locally equally cramped lines. 
    */
-  Real demerit = abs (this_one.force_) + 0.1 *abs (prev.force_ - this_one.force_)
+  Real demerit = abs (this_one.force_) +  abs (prev.force_ - this_one.force_)
     + break_penalties;
-#else
-  Real demerit = abs (this_one.force_) + break_penalties;
-#endif
 
-   if (!this_one.satisfies_constraints_b_)
+  if (!this_one.satisfies_constraints_b_)
      {
        /*
 	 If it doesn't satisfy constraints, we make this one
