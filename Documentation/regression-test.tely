@@ -92,7 +92,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{grace-nest4.ly}
 
-@lilypondfile[printfilename]{grace-nest.ly}
+@lilypondfile[printfilename]{grace-nest5.ly}
+@lilypondfile[printfilename]{grace-nest1.ly}
 
 @lilypondfile[printfilename]{grace-start.ly}
 
@@ -212,13 +213,9 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{spacing-loose.ly}
 
-@lilypondfile[printfilename]{spacing-accidentals.ly}
+@lilypondfile[printfilename]{spacing-accidental.ly}
 
-@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
-
-@lilypondfile[printfilename]{spacing-accidentals.ly}
-
-@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
+@lilypondfile[printfilename]{spacing-accidental-staffs.ly}
 
 @lilypondfile[printfilename]{lyrics-bar.ly}
 

@@ -19,6 +19,7 @@ public:
   static void find_rods (Item*, SCM);
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
+  static void find_musical_sequences (Grob*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
 };
 

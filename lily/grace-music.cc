@@ -19,17 +19,18 @@ Grace_music::compress (Moment m)
 Moment
 Grace_music::length_mom () const
 {
-  Moment l = Music_wrapper::length_mom ();
-  Moment gl;
-  gl.grace_part_ = l.main_part_ + l.grace_part_ ;
-  return gl;
+  Moment m ;
+  return m;
 }
 
 
 Moment
 Grace_music::start_mom () const
 {
-  return - length_mom ();
+  Moment l = Music_wrapper::length_mom ();
+  Moment gl;
+  gl.grace_part_ = -(l.main_part_ + l.grace_part_ );
+  return gl;
 }
 
 Grace_music::Grace_music ()

@@ -97,8 +97,8 @@ get_grace_fixups (SCM cursor)
   for (; gh_pair_p (cursor); cursor = gh_cdr (cursor))
     {
       Music * mus = unsmob_music (gh_car (cursor));
-      Moment l =mus->length_mom ();
       Moment s = mus->start_mom ();
+      Moment l =mus->length_mom () - s;
 
       if (s.grace_part_)
 	{
@@ -154,7 +154,7 @@ Sequential_music_iterator::construct_children ()
 void
 Sequential_music_iterator::next_element ()
 {
-  Moment len =iter_p_->music_length_mom ();
+  Moment len =iter_p_->music_length_mom () - iter_p_->music_start_mom ();
   assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
   if (len.main_part_ && grace_fixups_ &&
@@ -245,8 +245,10 @@ Sequential_music_iterator::get_music (Moment until)const
       
       Moment m = 0;
       for (SCM i = nm; gh_pair_p (i); i = gh_cdr (i))
-	m = m >? unsmob_music (gh_car (i))->length_mom ();
-
+	{
+	  Music *mus=unsmob_music (gh_car (i));
+	  m = m >? (mus->length_mom () - mus->start_mom ());
+	}
       if (m > Moment (0))
 	break ;
       else
@@ -256,6 +258,8 @@ Sequential_music_iterator::get_music (Moment until)const
   
   return s;
 }
+
+
 /*
   Skip events till UNTIL. We don't do any other side effects such as
   descending to child iterator contexts, because they might depend on
@@ -291,9 +295,7 @@ Sequential_music_iterator::process (Moment until)
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  iter_p_->process (iter_p_->music_length_mom ()+ 
-			    iter_p_->music_start_mom ());
-
+	  iter_p_->process (iter_p_->music_length_mom ());
 	}
       else
 	iter_p_->process (until - here_mom_ + iter_p_->music_start_mom ());
