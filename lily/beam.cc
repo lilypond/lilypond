@@ -21,12 +21,10 @@
   * Rewrite stem_beams.
 
   * Use Number_pair i.s.o Interval to represent (yl, yr).
+
   
   */
 
-
-/* snapnie now also works */
-#define SNAPNIE
 
 #include <math.h> // tanh.
 
@@ -63,6 +61,7 @@ const int STEM_LENGTH_LIMIT_PENALTY = 5000;
 const int DAMPING_DIRECTIION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
+const int REGION_SIZE = 2;
 
 
 static Real
@@ -452,39 +451,26 @@ Beam::quanting (SCM smob)
       stem_infos.push (Stem::calc_stem_info (s));
       dirs_found[stem_infos.top ().dir_] = true;
 
-#ifdef SNAPNIE
       Real b = calc_stem_y (me, s, Interval (1,0), false);
       lbase_lengths.push (b);
 
       Real a = calc_stem_y (me, s, Interval (0,1), false);
       rbase_lengths.push (a);
-#endif      
     }
 
   Direction ldir = Direction (stem_infos[0].dir_);
   Direction rdir = Direction (stem_infos.top ().dir_);
   bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
 
-  /*
-    This
-    
-      \score {
-        \context Staff \notes {
-	  \stemDown [e'8 e e']
-	}
-      }
-      
-    breaks with REGION_SIZE < 4
-  */
-  int REGION_SIZE = 4;
 
+  int region_size = REGION_SIZE;
   /*
     Knees are harder, lets try some more possibilities for knees. 
    */
   if (knee_b)
-    REGION_SIZE += 2;
+    region_size += 2;
   
-  for (int i = -REGION_SIZE ; i < REGION_SIZE; i++)
+  for (int i = -region_size ; i < region_size; i++)
     for (int j = 0; j < num_quants; j++)
       {
 	quantsl.push (i + quants[j] + int (yl));
@@ -587,42 +573,14 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
   Real demerit_score = 0.0 ;
   Real pen = STEM_LENGTH_LIMIT_PENALTY;
   
-#if 0
-  if (knee)
-    pen = sqrt(pen);
-#endif
-  
-  Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
-  Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
-
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
       if (Stem::invisible_b (s))
 	continue;
 
-#ifdef SNAPNIE
-      /* for a two-stemmed, interstaff beam knee up/down:
-
-      \score {
-        \context PianoStaff \notes\relative c' <
-          \context Staff = lh {
-            \stemDown [c8 \translator Staff = rh \stemUp a'' ]
-          }
-          \context Staff = rh \relative c' s4
-        >
-      }
-
-	 with yl = -5.8 (about ideal)
-	 and yr = -1 (ridiculous pos)
-	 this yields current_y = -8.1 (about ideal) */
-
       Real current_y =
 	yl * left_factor[i] + right_factor[i]* yr;
-#else
-      Real f = (s->relative_coordinate (0, X_AXIS) - x0) / dx;
-      Real current_y = yl + f * (yr - yl);
-#endif      
 
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
@@ -781,6 +739,29 @@ Beam::least_squares (SCM smob)
 
   Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).ideal_y_,
 		  Stem::calc_stem_info (last_visible_stem (me)).ideal_y_);
+
+
+
+  Array<Real> x_posns ;
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+  Grob *common = stems[0];
+  for (int i=1; i < stems.size (); i++)
+    common = stems[i]->common_refpoint (common, X_AXIS);
+
+  Real x0 = first_visible_stem (me)->relative_coordinate (common, X_AXIS);
+  for (int i=0; i < stems.size (); i++)
+    {
+      Item* s = stems[i];
+
+      Real x = s->relative_coordinate (common, X_AXIS) - x0;
+      x_posns.push (x);
+    }
+  Real dx = last_visible_stem (me)->relative_coordinate (common, X_AXIS) - x0;
+
+  Real y =0;  
+  Real dydx = 0;
+  Real dy = 0;
   
   if (!ideal.delta ())
     {
@@ -789,11 +770,10 @@ Beam::least_squares (SCM smob)
 
 
       /*
-	TODO  : use scoring for this.
+	TODO -- use scoring for this.
 
 	complicated, because we take stem-info.ideal for determining
 	beam slopes.
-	
        */
       /* Make simple beam on middle line have small tilt */
       if (!ideal[LEFT] && chord.delta () && count == 2)
@@ -811,38 +791,117 @@ Beam::least_squares (SCM smob)
 	{
 	  pos = ideal;
 	}
+
+      y = pos[LEFT];
+      dy = pos[RIGHT]- y;
+      dydx = dy/dx;
     }
   else
     {
       Array<Offset> ideals;
-
-      // ugh -> use commonx
-      Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
-      Link_array<Item> stems=
-	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
-
       for (int i=0; i < stems.size (); i++)
 	{
 	  Item* s = stems[i];
 	  if (Stem::invisible_b (s))
 	    continue;
-	  ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0,
+	  ideals.push (Offset (x_posns[i],
 			       Stem::calc_stem_info (s).ideal_y_));
 	}
-      Real y; 
-      Real dydx;
       minimise_least_squares (&dydx, &y, ideals);
 
-      Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
-      Real dy = dydx * dx;
+      dy = dydx * dx;
       me->set_grob_property ("least-squares-dy", gh_double2scm (dy));
-
       pos = Interval (y, (y+dy));
     }
 
   me->set_grob_property ("positions", ly_interval2scm (pos));
+ 
   return SCM_UNSPECIFIED;
 }
+
+
+/*
+  We can't combine with previous function, since check concave and
+  slope damping comes first.
+ */
+MAKE_SCHEME_CALLBACK (Beam, shift_region_to_valid, 1);
+SCM
+Beam::shift_region_to_valid (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+  /*
+    Code dup.
+   */
+  Array<Real> x_posns ;
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+  Grob *common = stems[0];
+  for (int i=1; i < stems.size (); i++)
+    common = stems[i]->common_refpoint (common, X_AXIS);
+
+  Real x0 = first_visible_stem (me)->relative_coordinate (common, X_AXIS);
+  for (int i=0; i < stems.size (); i++)
+    {
+      Item* s = stems[i];
+
+      Real x = s->relative_coordinate (common, X_AXIS) - x0;
+      x_posns.push (x);
+    }
+  Real dx = last_visible_stem (me)->relative_coordinate (common, X_AXIS) - x0;
+
+  Interval pos = ly_scm2interval ( me->get_grob_property ("positions"));
+  Real dy = pos.delta();
+  Real y = pos[LEFT];
+  Real dydx =dy/dx;
+
+  
+  /*
+    Shift the positions so that we have a chance of finding good
+    quants (i.e. no short stem failures.)
+   */
+  Interval feasible_left_point;
+  feasible_left_point.set_full ();
+  for (int i=0; i < stems.size (); i++)
+    {
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
+	continue;
+
+
+      Direction d = Stem::get_direction (s);
+
+
+      /*
+	TODO: use real beam space function 
+      */
+      Real left_y = Stem::calc_stem_info (s).shortest_y_
+	- dydx * (x_posns [i] - x0);
+
+      Interval flp ;
+      flp.set_full ();
+      flp[-d] = left_y;
+
+      feasible_left_point.intersect (flp);
+    }
+      
+  if (feasible_left_point.empty_b())
+    {
+      warning (_("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
+    }
+  else if (!feasible_left_point.elem_b(y))
+    {
+      if (isinf (feasible_left_point[DOWN]))
+	y = feasible_left_point[UP] - REGION_SIZE;
+      else if (isinf (feasible_left_point[UP]))
+	y = feasible_left_point[DOWN]+ REGION_SIZE;
+      else
+	y = feasible_left_point.center ();
+    }
+  pos = Interval (y, (y+dy));
+  me->set_grob_property ("positions", ly_interval2scm (pos));
+  return SCM_UNSPECIFIED;
+}
+
 
 MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
 SCM
@@ -1005,6 +1064,9 @@ Beam::slope_damping (SCM smob)
   in POS, and for stem S.
 
   If CORRECT, correct for multiplicity of beam in case of knees.
+
+
+  TODO: junk CORRECT from this.
  */
 Real
 Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
@@ -1012,10 +1074,6 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
   int beam_multiplicity = get_multiplicity (me);
   int stem_multiplicity = (Stem::duration_log (s) - 2) >? 0;
   
-  int first_multiplicity = (Stem::duration_log (first_visible_stem (me))
-			    - 2) >? 0;
-  int last_multiplicity = (Stem::duration_log (last_visible_stem (me))
-			   - 2) >? 0;
 
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real interbeam = get_interbeam (me);

@@ -807,11 +807,11 @@ Stem::calc_stem_info (Grob*me)
   // to calculate where secondary, ternary beams will go.
   if (multiplicity && first_dir == mydir)
     ideal_y += thick + (multiplicity - 1) * interbeam_f;
-  
-  Real shortest_y = ideal_y; 
 
   ideal_y += stem_length;
-  shortest_y += minimum_length;
+
+  
+  Real shortest_y = ideal_y -stem_length + minimum_length; 
 
   /*
     lowest beam of (UP) beam must never be lower than second staffline
@@ -845,6 +845,16 @@ Stem::calc_stem_info (Grob*me)
     ideal_y -= gh_scm2double (s);
 
   Grob *common = me->common_refpoint (beam, Y_AXIS);
+
+  /*
+    UGH -> THIS CAUSES ASYMETRY: the same beam can start/end on
+    different staffs.
+
+    TODO: the beam calculation should probably also use
+    relative_coordinate() for the Y positions of all beams.
+
+    
+   */
   Real interstaff_f = mydir *
     (me->relative_coordinate (common, Y_AXIS)
      - beam->relative_coordinate (common, Y_AXIS));

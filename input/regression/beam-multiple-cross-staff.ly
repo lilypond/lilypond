@@ -18,7 +18,9 @@ to the last beam.
 	     \context Staff = SB \relative c' {
 \clef bass
 		 [b8 b16 \stemUp b,,16 ]
-		 [b8 b16 \stemDown b''16 b ]
+
+		 g'4\rest
+		 [b,8 b16 \stemDown b''16 b ]
 	     }	     
 	     
 	     >

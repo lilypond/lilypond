@@ -14,18 +14,34 @@ extreme = \notes\relative c'' {
   [c16 c'' a f]
   \stemUp 
   [c,,32 c'' a f]
-  r4
+
+  %%%%%%%
+  \stemBoth
+  \times 2/3{[d16 fis' d,]} \times 2/3{[cis g'' cis,,]}
+  a'16 cis a, g''' % Used to give a nice beam directed upwards.
+  \stemBoth
+
+  \transpose c' {
+	  \stemDown [e'8 e e']
+      }
 }
+
 \score {
   {
     % If we want to test extreme beams,
     % we should not have them auto-kneed
     \property Voice.Beam \override #'auto-knee-gap = ##f
     \extreme
+
+
+    %% what does this test? --hwn
+%{
     \property Voice.Beam \override #'slope-limit = #1000
     \extreme
+    %}
   }
   \paper{
-    linewidth=-1.
+%    raggedright = ##t
+    linewidth = -1
   }
 }

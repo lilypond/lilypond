@@ -35,6 +35,7 @@ public:
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
   DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
+  DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));  
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
   static Real score_slopes_dy (Grob*, Real,Real,Real,Real);
   static Real score_stem_lengths (Link_array<Grob>,
