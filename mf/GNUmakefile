@@ -50,9 +50,10 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
-SAUTER_FONTS = cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
-	cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17 cmtt6 cmbx6 cmbx5 cmbxti5 \
-	cmti6 cmti5  cmss5 cmss6 cmss7
+
+SAUTER_FONTS =  cmbxti5 cmbxti6 cmbxti7 cmbxti8 cmbxti12 \
+	cmcsc7 cmcsc8 cmcsc12 cmtt5 cmtt6 cmtt7 cmtt17 \
+	cmbx14 cmbx17 cmti5 cmti6 cmss5 cmss6 cmss7 cmss14
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 
