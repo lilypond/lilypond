@@ -257,7 +257,7 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  bool knee, 
 			  Real yl, Real yr)
 {
-  Real limit_pen = STEM_LENGTH_LIMIT_PENALTY;
+  Real limit_penalty = STEM_LENGTH_LIMIT_PENALTY;
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
   
@@ -271,16 +271,16 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Real dx = xr-xl;
       Real beam_y = yr *(x - xl)/dx + yl * ( xr - x)/dx;
       Real current_y = beam_y + base_stem_ys[i];
-      Real length_pen = STEM_LENGTH_LIMIT_PENALTY;
+      Real length_pen = STEM_LENGTH_DEMERIT_FACTOR;
       
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      score[d] += limit_pen * (0 >? (d * (info.shortest_y_ - current_y)));
+      score[d] += limit_penalty * (0 >? (d * (info.shortest_y_ - current_y)));
       
       Real ideal_diff = d * (current_y - info.ideal_y_);
       Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
-
+      
       /* We introduce a power, to make the scoring strictly
          convex. Otherwise a symmetric knee beam (up/down/up/down)
          does not have an optimum in the middle. */
