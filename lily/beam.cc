@@ -1158,7 +1158,7 @@ Beam::check_concave (SCM smob)
   if (is_concave1 || concaveness2 > r2)
     {
       Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
-      Real r = linear_combination (pos, 0);
+      Real r = linear_combination (pos, 0.0);
 
       r /= Staff_symbol_referencer::staff_space (me);
       me->set_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));

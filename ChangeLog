@@ -1,7 +1,4 @@
-2004-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* lily/slur-quanting.cc (score_extra_encompass): Bigger penalty
-	for and bigger y-padding for extra_encompass.  Fixes slur-script.ly.
+2004-07-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* po/nl.po: Update.
 
