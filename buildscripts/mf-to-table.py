@@ -82,6 +82,9 @@ def parse_logfile (fn):
 		elif tags[0] == 'font':
 			global_info['FontName'] = string.join (tags[1:])
 			global_info['FontFamily']=tags[1]
+			global_info['FontBBox'] = '0 0 1000 1000'
+			global_info['Ascender'] = '0'
+			global_info['Descender'] = '0'
 	
 	return (global_info, charmetrics, deps)
 

@@ -1,7 +1,32 @@
-1.5.19.jcn1
+1.5.19.jcn2
 ===========
 
-* Bugfix: sketch.scm: use primitive-eval.
+* Sketch output:
+
+  - mf-to-table: write dummy values in afm to make sketch happy.
+  - Fixes to glyphs: rectangles and beziers work now.
+  - Bugfix: sketch.scm: use primitive-eval.
+
+* Sketch and feta Type1 fonts (disabled in sketch output for now):
+  - textrace:
+     wget http://www.inf.bme.hu/~pts/textrace-latest.tar.gz
+     tar xzf textrace-latest.tar.gz
+     cd textrace-0.47
+     (cd autotrace-0.27ap; ./configure; make)
+     ./traceall.sh feta20 feta20.pfb $HOME/usr/src/lilypond/mf/out
+
+  - copy mf/out/feta20.afm to sketch/Resources/Fontmetrics
+
+  - append to sketch/Resources/Fontmetrics/std.sfd:
+      feta20,feta20,Roman,-gnu-feta20-medium-r-normal,iso8859-1,feta20
+
+  - Hmm, then find that
+
+    + Sketch accesses characters by name, ie, the
+      name characters have in default text fonts.  We'll have to fix
+      Sketch's font handling.
+    + textrace mangles font name by prepending `TeX-'.  Is this a
+      problem?
 
 * Remove modules directory (again?).
 

@@ -121,7 +121,11 @@ centered, X==1 is at the right, X == -1 is at the left."
 		(font-load-command (car x) (cdr x)))
 	      (map cdr font-name-alist))))
 
-(define (fontify name-mag-pair exp)
+;; urg, how can exp be #unspecified?  -- in sketch output
+(define (xfontify name-mag-pair exp)
   (string-append (select-font name-mag-pair)
 		 exp))
 
+(define (fontify name-mag-pair exp)
+  (string-append (select-font name-mag-pair)
+		 (if (string? exp) exp "")))

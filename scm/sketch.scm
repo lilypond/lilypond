@@ -1,36 +1,68 @@
 
 
+(use-modules (ice-9 format))
+
+(define (ascii->string i) (make-string 1 (integer->char i)))
+
+(define (control->list c)
+  (list (+ global-x (car c)) (+ global-y (cdr c))))
+
+(define (control-flip-y c)
+  (cons (car c) (* -1 (cdr c))))
+
 ;;; urg.
 (define (sk-numbers->string l)
   (string-append
    (number->string (car l))
    (if (null? (cdr l))
        ""
-       (string-append ","  (sk-numbers->string (cdr l)))
-       )
-   )
-  )
-
-
-;; hmm, global is global
-(define (filled-rectangle a b c d)
-  (string-append
-   (sk-numbers->string
-    (quote ,(map  mul-scale (list a 0 0 b c d))))
-   "\n"))
+       (string-append ","  (sk-numbers->string (cdr l))))))
 
 (define global-x 0.0)
 (define global-y 0.0)
+(define global-list '())
+(define global-font "")
 (define global-s "")
-(define breapth 0.0)
-(define width 0.0)
-(define depth 0.0)
-(define height 0.0)
+(define global-scale 1.0)
+(define (global-mul-scale  x) (* global-scale x))
 
-(define output-scale 1.0)
-(define (mul-scale  x) (* output-scale x))
+;; hmm, global is global
+(define (global-filledbox width dy dx height x y)
+  (string-append
+   "fp((0,0,0))\n"
+   "lw(0.5)\n"
+   "r("
+   (sk-numbers->string
+    (map global-mul-scale (list width dy dx height x y)))
+   ")\n"))
 
+(define (global-bezier l)
+  (let* ((c0 (car (list-tail l 3)))
+	 (c123 (list-head l 3))
+	 (start (control->list c0))
+	 (control (apply append (map control->list c123))))
+    (string-append
+     "bs(" (sk-numbers->string (map global-mul-scale start)) ",0)\n"
+     "bc(" (sk-numbers->string (map global-mul-scale control)) ",2)\n")))
+  
 
+(define (global-beziers l thick)
+  (let* (;;(burp (set! global-y (+ global-y (* 2 (cdar l)))))
+	 (first
+	  (list-tail l 4))
+	 (second
+	  (list-head l 4))
+		 )
+    (string-append
+     "fp((0,0,0))\n"
+     "lw(0.5)\n"
+     "b()\n"
+     (global-bezier first)
+     (global-bezier second)
+     ;;"b_()\n"
+     )))
+	 
+		 
 (define (sketch-scm action-name)
   
   ;; alist containing fontname -> fontcommand assoc (both strings)
@@ -38,50 +70,30 @@
   (define font-count 0)
   (define current-font "")
 
-  
+  (define (font-def x)
+  "")
+
   (define (cached-fontname i)
-    (string-append
-     "lilyfont"
-     (make-string 1 (integer->char (+ 65 i)))))
-    
-
-  (define (filled-rectangle a b c d)
-    (string-append
-     (sk-numbers->string
-      (map  mul-scale (map primitive-eval (list a 0 0 b c d))))
-     "\n"))
-
+    "")
+  
   (define (select-font name-mag-pair)
-    (let*
-	(
-	 (c (assoc name-mag-pair font-name-alist))
-	 )
-
-      (if (eq? c #f)
-	  (begin
-	    (display "FAILED\n")
-	    (display (object-type (car name-mag-pair)))
-	    (display (object-type (caaar font-name-alist)))
-
-	    (ly-warn (string-append
-		      "Programming error: No such font known "
-		      (car name-mag-pair) " "
-		      (ly-number->string (cdr name-mag-pair))
-		      ))
-	    
-	    "") ; issue no command
-	  "")
-;	  (string-append " " (cddr c) " "))
-      ))
-
-    (define (font-load-command name-mag command)
-      "")
+    (set! global-font (car name-mag-pair))
+    "")
+  
+  (define (font-load-command name-mag command)
+    "")
     
-;      "Fn(" command ")" )
-
   (define (beam width slope thick)
-    (string-append
-     (sk-numbers->string (list slope width thick)) " draw_beam" ))
+    (let ((s (list
+	      'global-filledbox
+	      width
+	      (* slope width)
+	      0
+	      thick
+	      'global-x
+	      'global-y)))
+      (set! global-s s))
+    "\n")
 
   (define (comment s)
     (string-append "% " s))
@@ -91,8 +103,21 @@
      (numbers->string (list arch_angle arch_width arch_height height arch_thick thick)) " draw_bracket" ))
 
   (define (char i)
-    (invoke-char " show" i))
-
+    (set! global-s
+;;	  `(string-append "txt(" ,(number->string i) ",("
+;;			  (sk-numbers->string (list global-x global-y))
+	  `(string-append
+	    "fp((0,0,0))\n"
+	    "le()\n"
+	    "lw(0.5)\n"
+;; urg, Sketch can't handle non-text fonts
+;;	    "Fn('" global-font "')\n"
+	    "Fn('Times-Roman')\n"
+	    "Fs(12)\n"
+	    "txt('" ,(ascii->string i) "',("
+	    (sk-numbers->string (list (* global-scale global-x)
+				      (* global-scale global-y)))
+	    "))\n")))
 
   (define (hairpin thick width starth endh )
     (string-append 
@@ -133,30 +158,19 @@ grid((0,0,20,20),0,(0,0,1),'Grid')\n")
   
   (define (experimental-on) "")
   
-  ;; obsolete?
-  (define (font-def i s)
-    (string-append
-     "\n/" (font i) " {/" 
-     (substring s 0 (- (string-length s) 4))
-     " findfont 12 scalefont setfont} bind def \n"))
-
   (define (font-switch i)
     "")
-;    (string-append (font i) " "))
 
   (define (header-end)
-    (string-append "")
-     
-    )
-  
+    "")
+    
   (define (lily-def key val)
     (if (equal? key "lilypondpaperoutputscale")
-	(set! output-scale (string->number val))
-)
+	(set! global-scale (string->number val)))
     "")
   
 
-  (define (header creator generate) 
+  (define (header creator generate)
     (string-append
      "##Sketch 1 2
 document()
@@ -171,42 +185,42 @@ layer('Layer 1',1,1,0,0,(0,0,0))
     (string-append
      (ly-number->string (* d  (/ 72.27 72))) " " s ))
 
-  ;;  urg?
+  ;;  urg
   (define (placebox x y s)
-    (display "placebox: ")
-    (display x)
-    (display ", ")
-    (display y)
-    (newline)
+;;    (format (current-error-port) "placebox: ~S, ~S, ~S\n" x y s)
     (set! global-x (+ x 0))
     (set! global-y (+ y 100))
-    (primitive-eval global-s))
+    (let ((s (primitive-eval global-s)))
+      (set! global-s "\n")
+      s))
 
   (define (bezier-sandwich l thick)
-    '(string-append 
-     (apply string-append (map control->string l))
-     (ly-number->string  thick)
-     " draw_bezier_sandwich"))
+    (let ((s (list
+	      'global-beziers
+	      'global-list
+	      thick)))
+      (set! global-s s)
+      (set! global-list l))
+    "\n")
 
 ; TODO: use HEIGHT argument
   (define (start-line height)
      "G()\n"
      )
   
+  ;;  r((520.305,0,0,98.0075,51.8863,10.089))
+  ;;  width, 0, 0, height, x, y
   (define (filledbox breapth width depth height)
-    
-    (set! global-s
-	  (list
-	   filled-rectangle
-	   (+ breapth width)
-	   (- (+ breapth depth))
-	   'global-x
-	   (+ 'global-y height))))
-  
-  ;  (set! breapth breapth)
-  ;  (set! width width)
-  ;  (set! depth depth)
-  ;  (set! height height))
+    (let ((s (list
+	      'global-filledbox
+	      (+ breapth width)
+	      0 0
+	      (+ depth height)
+	      `(- global-x ,breapth)
+	      `(- global-y ,depth))))
+;;      (format (current-error-port) "filledbox: ~S\n" s)
+      (set! global-s s))
+    "\n")
   
   (define (stem x y z w) (filledbox x y z w))
 
@@ -215,8 +229,10 @@ layer('Layer 1',1,1,0,0,(0,0,0))
       "G_()\n")
 
   (define (text s)
-    "")
-;    (string-append "(" s ") show  "))
+    (set! global-s
+	  `(string-append "txt('" ,s "',("
+			  (sk-numbers->string (list global-x global-y))
+			  "))\n")))
 
 
   (define (volta h w thick vert_start vert_end)
