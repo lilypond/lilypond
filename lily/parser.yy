@@ -275,8 +275,12 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>   REAL
 
 %token MARKUP
-%token <scm> MARKUP_HEAD_MARKUP0 MARKUP_HEAD_SCM0_MARKUP1 MARKUP_HEAD_MARKUP0_MARKUP1
-%token <scm> MARKUP_HEAD_SCM0 MARKUP_HEAD_SCM0_MARKUP1 MARKUP_HEAD_SCM0_SCM1_MARKUP2 MARKUP_HEAD_SCM0_SCM1 
+%token <scm> MARKUP_HEAD_MARKUP0
+%token <scm> MARKUP_HEAD_MARKUP0_MARKUP1
+%token <scm> MARKUP_HEAD_SCM0
+%token <scm> MARKUP_HEAD_SCM0_MARKUP1
+%token <scm> MARKUP_HEAD_SCM0_SCM1 
+%token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
 %type <scm> markup markup_line markup_list  markup_list_body full_markup 
