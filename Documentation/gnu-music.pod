@@ -40,6 +40,10 @@ arranging
 
 performing
 
+=item * 
+
+Metacomposing
+
 =back
 
 These systems should encourage laymen to take up composing, in the
@@ -228,3 +232,6 @@ This history note is probably biased in some way, because I wrote it.
 The rest of this document is also entirely mine, and is not meant to
 reflect anyone else's opinion.
 
+
+For metacomposing, see New Scientist, aug 9 1997, or
+http://art.ucsc.edu/faculty/cope/home
