@@ -20,6 +20,12 @@ extern "C" {
 }
 #endif
 
+#include <sys/types.h>
+#include <fcntl.h>
+#if HAVE_SYS_STAT_H 
+#include <sys/stat.h>
+#endif
+
 #include "kpath.hh"
 
 
@@ -52,16 +58,27 @@ ly_init_kpath (char *av0)
   kpse_maketex_option("tfm", TRUE);
 
   /*
-    UGH: should not use DIR_DATADIR, but /var,  
+    UGH: should not use DIR_DATADIR, but /var,
+
+    hmm, but where to get /var?
+    
    */
 
-  /*
-    ugh: apparently the program_args is non-functional.
-   */
-  kpse_format_info[kpse_tfm_format].program ="mktextfm --destdir " DIR_DATADIR "/tfm";
+  int fd;
+  struct stat stat_buf;
+  if (stat (DIR_DATADIR "/tfm", &stat_buf) == 0
+      && (S_ISDIR (stat_buf.st_mode) || S_ISLNK (stat_buf.st_mode))
+      // ugh, howto test if we can write there?
+      //      && (stat_buf.st_mode & S_IWUSR))
+      && ((fd = open (DIR_DATADIR "/tfm/lily", O_CREAT)) != -1))
+    {
+      close (fd);
+      unlink (DIR_DATADIR "/tfm/lily");
+      kpse_format_info[kpse_tfm_format].program ="mktextfm --destdir " DIR_DATADIR "/tfm";
 
-  kpse_format_info[kpse_tfm_format].client_path =
-    (DIR_DATADIR "/tfm" );
+      kpse_format_info[kpse_tfm_format].client_path =
+	(DIR_DATADIR "/tfm" );
+    }
   
 #endif
 }
