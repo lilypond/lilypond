@@ -747,7 +747,7 @@
 	(Y-extent-callback . ,Rest::extent_callback)		
 	(molecule-callback . ,Rest::brew_molecule)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
-	(minimum-beam-collision-distance . 0.75)
+	(minimum-distance . 0.25)
 	(meta . (
 		 (interfaces . (font-interface
 				rhythmic-head-interface

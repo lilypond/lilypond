@@ -21,6 +21,8 @@ struct Stem_info
   Direction dir_;
   Real ideal_y_;
   Real shortest_y_;
+  Stem_info();
+void  scale (Real);
 };
 
 #endif // STEM_INFO_HH

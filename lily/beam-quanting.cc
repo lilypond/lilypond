@@ -6,6 +6,8 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
   
+
+  
 */
 
 
@@ -93,10 +95,15 @@ Beam::quanting (SCM smob)
   Real yl = gh_scm2double (gh_car (s));
   Real yr = gh_scm2double (gh_cdr (s));
 
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thickness = gh_scm2double (me->get_grob_property ("thickness")) / ss;
-  Real slt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) / ss;
 
+  /*
+    Calculations are relative to a unit-scaled staff, i.e. the quants are
+    divided by the current staff_space.
+    
+   */
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real thickness = Beam::get_thickness (me) / ss ;
+  Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
   SCM sdy = me->get_grob_property ("least-squares-dy");
   Real dy_mus = gh_number_p (sdy) ? gh_scm2double (sdy) : 0.0;
@@ -153,14 +160,17 @@ Beam::quanting (SCM smob)
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
-      stem_infos.push (Stem::get_stem_info (s));
+
+      Stem_info si (Stem::get_stem_info (s));
+      si.scale (1 / ss);
+      stem_infos.push (si);
       dirs_found[stem_infos.top ().dir_] = true;
 
       bool f = to_boolean (s->get_grob_property ("french-beaming"))
 	 && s != lvs && s != fvs;
 
       base_lengths.push (calc_stem_y (me, s, common, xl, xr,
-				      Interval (0,0), f));
+				      Interval (0,0), f) / ss);
       stem_xposns.push (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
 
@@ -225,7 +235,7 @@ Beam::quanting (SCM smob)
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
   int beam_count = get_beam_count (me);
-  Real beam_translation = get_beam_translation (me);
+  Real beam_translation = get_beam_translation (me) / ss;
 
   Real reasonable_score = (knee_b) ? 200000 : 100;
   for (int i = qscores.size (); i--;)

@@ -8,7 +8,7 @@
  */
 
 #include "lily-proto.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "translator-group.hh"
 #include "warn.hh"
 #include "music-output-def.hh"

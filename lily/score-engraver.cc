@@ -18,7 +18,7 @@
 
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 #include "staff-spacing.hh"
 #include "note-spacing.hh"

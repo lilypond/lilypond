@@ -10,7 +10,7 @@
 #include "warn.hh"
 #include "simultaneous-music-iterator.hh"
 #include "music-list.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()

@@ -804,7 +804,7 @@ Rest can contain a list of beat groupings
   (set! part-combine-listener x))
 
 (define-public (notice-the-events-for-pc context lst)
-  (set! noticed (cons lst noticed)))
+  (set! noticed (acons (ly:context-id context) lst noticed)))
 
 (define-public (make-new-part-combine-music music-list)
   (let*
@@ -814,21 +814,23 @@ Rest can contain a list of beat groupings
       (props '((denies Thread)
 	       (consists Rest_engraver)
 	       (consists Note_heads_engraver)
-	       ))
-      )
-
+	       )))
     
     (ly:set-mus-property! m 'elements (list m1 m2))
     (ly:set-mus-property! m1 'property-operations props)
     (ly:set-mus-property! m2 'property-operations props)
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
+    (display noticed)
     (ly:set-mus-property! m 'split-list
-			 (determine-split-list (reverse (car noticed)) (reverse (cadr noticed))))
+			 (determine-split-list (reverse (cdr (assoc "one" noticed)))
+					       (reverse (cdr (assoc "two" noticed)))))
     (set! noticed '())
     
     m))
-		
+
+
+
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
   
@@ -884,7 +886,7 @@ Rest can contain a list of beat groupings
       (set-cdr! (vector-ref result (if (pair? index)
 				       (car index) ri)) x) )
 
-    (display (list ri i1 i2 active1 active2 "\n"))
+;    (display (list ri i1 i2 active1 active2 "\n"))
     (cond
      ((= ri (vector-length result)) '())
      ((= i1 (vector-length ev1)) (put 'apart))

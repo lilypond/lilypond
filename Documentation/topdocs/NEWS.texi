@@ -17,16 +17,21 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
-@item A new part combiner which is more cleanly constructed, more
-robust and less buggy. The
-part-combiner can be used with
+
+@item Many fixes for dimension scaling have been made,
+resulting in correct results for scores that mix staves in different
+sizes.
+
+@item Improved robustness when  layout properties are accidentally removed.  
+
+@item A  more cleanly constructed part combiner has been installed.
+It is more robust and less buggy. The part-combiner can be used with
 @example
   \newpartcombine @var{mus1} @var{mus2}
 @end example
 
 @noindent
-In this case, both musics are put into @code{Voice} contexts called
-@code{one} and @code{two} automatically. 
+See @file{input/regression/new-part-combine.ly} for an example.
 
 (This feature is still experimental.)
 

@@ -11,7 +11,7 @@
 #include "warn.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "main.hh"
 #include "file-path.hh"
 #include "lily-guile.hh"

@@ -58,7 +58,7 @@ TODO:
 
 
 #include "scm-option.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "lily-guile.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
