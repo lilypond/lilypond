@@ -13,8 +13,10 @@
 #include "spanner.hh"
 #include "axis-group-element.hh"
 
-/** An element which groups a line in a certain direction. The most
-  useful example of this is the Vertical_group_spanner */
+/**
+   An element which groups a line in a certain direction. The most
+   useful example of this is the Vertical_group_spanner
+*/
 class Axis_group_spanner : public virtual Axis_group_element,
 			   public virtual Spanner
 

@@ -32,38 +32,58 @@ Spanner::do_break_processing()
   if  (left == right)
     {
       warning (_ ("Left spanpoint is right spanpoint"));
-      return;
-    }
-  
-  Link_array<Item> break_points = pscore_l_->broken_col_range (left,right);
 
-  break_points.insert (left,0);
-  break_points.push (right);
-
-  for (int i=1; i < break_points.size(); i++) 
-    {
-      Drul_array<Item*> bounds;
-      bounds[LEFT] = break_points[i-1];
-      bounds[RIGHT] = break_points[i];
+      /*
+	FIXME: this is broken.
+       */
+      /*
+	If we have a spanner spanning one column, we must break it
+	anyway because it might provide a parent for another item.  */
       Direction d = LEFT;
       do
 	{
-	  Item *&pc_l = bounds[d] ;
-	  if (!pc_l->line_l())
-	    pc_l =  pc_l->find_broken_piece(- d);
-	  
-	  assert (pc_l);
+	  Item* bound = left->find_broken_piece (d);
+	  Spanner * span_p = dynamic_cast<Spanner*>( clone ());
+	  span_p->set_bound (LEFT, bound);
+	  span_p->set_bound (RIGHT, bound);
+
+	  assert (span_p->line_l ()); 
+	  pscore_l_->typeset_element (span_p);
+	  broken_into_l_arr_.push (span_p);
 	}
       while ((flip(&d))!= LEFT);
-
-      Spanner *span_p = dynamic_cast<Spanner*>(clone ());
-      span_p->set_bounds(LEFT,bounds[LEFT]);
-      span_p->set_bounds(RIGHT,bounds[RIGHT]);
-      
-      pscore_l_->typeset_element (span_p);
-      broken_into_l_arr_.push (span_p);
     }
+  else
+    {
+      Link_array<Item> break_points = pscore_l_->broken_col_range (left,right);
 
+      break_points.insert (left,0);
+      break_points.push (right);
+
+      for (int i=1; i < break_points.size(); i++) 
+	{
+	  Drul_array<Item*> bounds;
+	  bounds[LEFT] = break_points[i-1];
+	  bounds[RIGHT] = break_points[i];
+	  Direction d = LEFT;
+	  do
+	    {
+	      Item *&pc_l = bounds[d] ;
+	      if (!pc_l->line_l())
+		pc_l =  pc_l->find_broken_piece(- d);
+	  
+	      assert (pc_l);
+	    }
+	  while ((flip(&d))!= LEFT);
+
+	  Spanner *span_p = dynamic_cast<Spanner*>(clone ());
+	  span_p->set_bound(LEFT,bounds[LEFT]);
+	  span_p->set_bound(RIGHT,bounds[RIGHT]);
+      
+	  pscore_l_->typeset_element (span_p);
+	  broken_into_l_arr_.push (span_p);
+	}
+    }
   broken_into_l_arr_.sort (Spanner::compare);
 }
 
@@ -74,13 +94,20 @@ Spanner::set_my_columns()
   do 
     {
       if (!spanned_drul_[i]->line_l())
-	set_bounds(i,spanned_drul_[i]->find_broken_piece((Direction) -i));
+	set_bound(i,spanned_drul_[i]->find_broken_piece((Direction) -i));
     } 
   while (flip(&i) != LEFT);
 }       
 
+
+Item*
+Spanner::get_bound (Direction d) const
+{
+  return spanned_drul_ [d];
+}
+
 void
-Spanner::set_bounds(Direction d, Item*i)
+Spanner::set_bound(Direction d, Item*i)
 {
   spanned_drul_[d] =i;
   if (i)

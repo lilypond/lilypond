@@ -14,8 +14,10 @@
 #include "align-element.hh"
 #include "axis-group-spanner.hh"
 
-class Axis_align_spanner : public virtual Align_element,
-			   public virtual Axis_group_spanner
+/*
+  FIXME: multiple inheritance
+ */
+class Axis_align_spanner : public virtual Align_element, public virtual Axis_group_spanner
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);

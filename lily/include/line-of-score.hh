@@ -11,7 +11,7 @@
 #include "axis-group-spanner.hh"
 #include "super-element.hh"
 
-/// the columns of a score that form one line.
+/// the columns of a score that form one line. FIXME: multiple inheritance
 class Line_of_score : public Axis_group_spanner, public Super_element
 {
 public:
