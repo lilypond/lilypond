@@ -125,6 +125,7 @@ Key_item::do_brew_molecule_p() const
       m.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
       output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
+
   if (pitch_arr_.size()) 
     {
       Molecule m (lookup_l ()->fill (Box (

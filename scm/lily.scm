@@ -13,10 +13,18 @@
   (string-append 
    (map (lambda (n) (string-append (number->string n ) " ")) l)))
 
+(define (reduce operator list)
+      (if (null? (cdr list)) (car list)
+	  (operator (car list) (reduce operator (cdr list)))
+	  )
+      )
+
+
+(define (glue-2-strings a b) (string-append a " " b))
+
 (define
   (numbers->string l)
-  (apply string-append 
-	 (map (lambda (n) (string-append (number->string n) " ")) l)))
+  (reduce glue-2-strings (map number->string l)))
 
 (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
 
@@ -208,7 +216,7 @@
 
   (define (number->dim x)
     (string-append 
-     (number->string  (chop-decimal x)) "pt "))
+     (number->string  (chop-decimal x)) " pt "))
 
   (define (placebox x y s) 
     (string-append 
@@ -258,8 +266,8 @@
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))
   
-  (define (tuplet dx dy thick dir)
-    (embedded-ps ((ps-scm 'tuplet) dx dy thick dir)))
+  (define (tuplet ht dx dy thick dir)
+    (embedded-ps ((ps-scm 'tuplet) ht dx dy thick dir)))
 
   (define (volta w thick last)
     (embedded-ps ((ps-scm 'volta) w thick last)))
@@ -341,7 +349,7 @@
   
   (define (cached-fontname i)
     (string-append
-     "lilyfont"
+     " lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
 
   (define (select-font font-name)
@@ -368,15 +376,15 @@
      (numbers->string (list width slope thick)) " draw_beam " ))
 
   (define (bracket h)
-    (invoke-dim1 "draw_bracket" h))
+    (invoke-dim1 " draw_bracket" h))
 
   (define (char i)
-    (invoke-char "show" i))
+    (invoke-char " show" i))
 
   (define (crescendo w h cont)
     (string-append 
      (numbers->string (list w h (inexact->exact cont)))
-     "draw_crescendo"))
+     " draw_crescendo"))
 
   (define (dashed-slur thick dash l)
     (string-append 
@@ -390,7 +398,7 @@
   (define (decrescendo w h cont)
     (string-append 
      (numbers->string (list w h (inexact->exact cont)))
-     "draw_decrescendo"))
+     " draw_decrescendo"))
 
 
   (define (end-output)
@@ -400,7 +408,7 @@
   
   (define (filledbox breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   "draw_stem" ))
+		   " draw_box" ))
 
   ;; obsolete?
   (define (font-def i s)
@@ -444,21 +452,21 @@
     (string-append 
      (number->string x) " "
      (number->string y) " "
-     "rulesym"))
+     " rulesym"))
 
   (define (bezier-sandwich l)
     (string-append 
      (apply string-append (map control->string l)) 
      " draw_bezier_sandwich"))
 
-  (define (start-line)
+  (define (start-line height)
     (begin
       (clear-fontcache)
       "\nstart_line {\n"))
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   "draw_stem" ))
+		   " draw_box" ))
 
   (define (stop-line)
       "}\nstop_line\n")
@@ -470,12 +478,12 @@
   (define (volta w thick last)
     (string-append 
      (numbers->string (list w thick (inexact->exact last)))
-     "draw_volta"))
+     " draw_volta"))
 
-  (define (tuplet dx dy thick dir)
+  (define (tuplet ht dx dy thick dir)
     (string-append 
-     (numbers->string (list dx dy thick (inexact->exact dir)))
-     "draw_tuplet"))
+     (numbers->string (list ht dx dy thick (inexact->exact dir)))
+     " draw_tuplet"))
 
 
   (define (unknown) 

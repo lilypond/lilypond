@@ -43,7 +43,7 @@ Lyric_engraver::do_process_requests()
       text_p_=  new G_text_item;
       text_p_->text_str_ = req_l_->text_str_;
 
-      Scalar style = get_property ("textstyle", 0);
+      Scalar style = get_property ("textStyle", 0);
       if (style.length_i ())
 	text_p_->style_str_ = style;
       

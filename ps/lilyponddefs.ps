@@ -56,19 +56,27 @@
 
 /vrule % width depth height
 {
-	gsave
-	3 -1 roll setlinewidth
-	%neg 0 exch moveto
-	0 exch moveto
-	neg 0 exch lineto stroke
-	grestore
 } bind def
 
-/draw_stem % breapth width depth height
+
+%
+% FIXME.  translate to middle of box.
+%
+
+/draw_box % breapth width depth height
 {
 	gsave
-	4 -1 roll neg 0 translate
-	vrule
+	4 -1 roll
+	dup
+	neg 0 translate
+	4 -1 roll
+	add
+
+	setlinewidth
+
+	0 exch moveto
+	neg 0 exch lineto stroke
+
 	grestore
 } bind def
 

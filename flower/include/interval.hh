@@ -24,10 +24,6 @@ struct Interval_t : public Drul_array<T> {
     
   static T infinity() ;
   static String T_to_str (T arg);
-    
-  /*
-    ugh, egcs 1.02 ices on this
-  */
   T center() { return (elem (LEFT) + elem (RIGHT)) / T(2);}
   void translate (T t)
     {
@@ -35,13 +31,6 @@ struct Interval_t : public Drul_array<T> {
       elem (RIGHT) += t;
     }
   
-  /*
-    junk us
-   */
-  T &max() { return elem (RIGHT);}
-  T max() const { return elem (RIGHT);}
-  T min() const{ return elem (LEFT); }
-  T &min(){ return elem (LEFT); }
   /**
     PRE
     *this and h are comparable
@@ -91,10 +80,18 @@ struct Interval_t : public Drul_array<T> {
 
 
 /**
-  inclusion ordering. Crash if not comparable.
+  inclusion ordering. Crash if not  comparable.
   */
 template<class T>
 int Interval__compare (const Interval_t<T>&,Interval_t<T> const&);
+
+/**
+   Inclusion ordering.  return -2 if not comparable
+ */
+template<class T>
+int
+_Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b);
+
 
 /*
   INLINE

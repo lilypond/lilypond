@@ -61,7 +61,6 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  element_property_alist_ = SCM_EOL; // try to be nice to GC.
   delete output_p_; 
   assert (status_i_ >=0);
   status_i_  = -1;
@@ -78,8 +77,6 @@ Score_element::dependency_size () const
 {
   return dependency_arr_.size ();
 }
-
-
 
 SCM
 Score_element::get_elt_property (SCM sym) const
@@ -149,13 +146,11 @@ Score_element::print() const
 #endif
 }
 
-
 Paper_def*
 Score_element::paper_l ()  const
 {
  return pscore_l_->paper_l_;
 }
-
 
 Lookup const *
 Score_element::lookup_l () const
@@ -182,7 +177,6 @@ Score_element::add_processing()
   status_i_ ++;
   do_add_processing();
 }
-
 
 void
 Score_element::calculate_dependencies (int final, int busy,
@@ -227,14 +221,11 @@ Score_element::output_processing ()
   pscore_l_->schedule_for_delete (this);
 }
 
-
-
 /*
   
   VIRTUAL STUBS
 
  */
-
 void
 Score_element::do_break_processing()
 {

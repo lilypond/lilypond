@@ -55,6 +55,8 @@ Beam::add_stem (Stem*s)
 #endif
   stems_.push (s);
   s->add_dependency (this);
+
+  assert (!s->beam_l_);
   s->beam_l_ = this;
 
   if (!spanned_drul_[LEFT])
@@ -99,12 +101,6 @@ Beam::do_brew_molecule_p () const
   mol_p->translate_axis (x0 
     - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
 
-  // correct if last note (and therefore reference point of beam)
-  // is on different staff
-  Stem_info si = sinfo_.top ();
-  mol_p->translate_axis (-si.interstaff_f_ * si.stem_l_->staff_line_leading_f ()/2,
-			 Y_AXIS);
-
   return mol_p;
 }
 
@@ -122,7 +118,10 @@ void
 Beam::do_pre_processing ()
 {
   if (!dir_)
-    set_default_dir ();
+    dir_ = get_default_dir ();
+  
+  
+  set_direction (dir_);
 }
 
 void
@@ -162,15 +161,16 @@ Beam::do_width () const
 		   stems_.top ()->hpos_f ());
 }
 
-void
-Beam::set_default_dir ()
+Direction
+Beam::get_default_dir () const
 {
   Drul_array<int> total;
   total[UP]  = total[DOWN] = 0;
   Drul_array<int> count; 
   count[UP]  = count[DOWN] = 0;
   Direction d = DOWN;
-  
+
+  Direction beamdir;
   for (int i=0; i <stems_.size (); i++)
     do {
       Stem *s = stems_[i];
@@ -200,32 +200,38 @@ Beam::set_default_dir ()
   switch (a)
     {
     case MAJORITY:
-      dir_ = (count[UP] > count[DOWN]) ? UP : DOWN;
+      beamdir = (count[UP] > count[DOWN]) ? UP : DOWN;
       break;
     case MEAN:
       // mean centre distance
-      dir_ = (total[UP] > total[DOWN]) ? UP : DOWN;
+      beamdir = (total[UP] > total[DOWN]) ? UP : DOWN;
       break;
     default:
     case MEDIAN:
       // median centre distance
       if (!count[UP])
-	dir_ = DOWN;
+	beamdir = DOWN;
       else if (!count[DOWN])
-	dir_ = UP;
+	beamdir = UP;
       else
-	dir_ = (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
+	beamdir = (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
       break;
     }
+  return beamdir;
+}
 
+void
+Beam::set_direction (Direction d)
+{
+  dir_ = d;
   for (int i=0; i <stems_.size (); i++)
     {
       Stem *s = stems_[i];
-      s->set_elt_property (beam_dir_scm_sym, gh_int2scm (dir_));
+      s->set_elt_property (beam_dir_scm_sym, gh_int2scm (d));
 
       SCM force = s->remove_elt_property (dir_forced_scm_sym);
       if (force == SCM_BOOL_F)
-	s->dir_ = dir_;
+	s->dir_ = d;
     }
 }
 
@@ -247,6 +253,10 @@ Beam::solve_slope ()
   l.minimise (slope_f_, left_y_);
 }
 
+/*
+  ugh. Naming: this doesn't check, but sets as well.
+ */
+  
 Real
 Beam::check_stemlengths_f (bool set_b)
 {
@@ -431,9 +441,9 @@ Beam::quantise_dy ()
 
 
   Interval iv = quantise_iv (allowed_fraction, interline_f, dy_f);
-  quanty_f = (dy_f - iv.min () <= iv.max () - dy_f)
-    ? iv.min ()
-    : iv.max ();
+  quanty_f = (dy_f - iv[SMALLER] <= iv[BIGGER] - dy_f)
+    ? iv[SMALLER]
+    : iv[BIGGER];
 
 
   slope_f_ = (quanty_f / dx_f) / internote_f * sign (slope_f_);
@@ -548,9 +558,9 @@ Beam::quantise_left_y (bool extend_b)
 
   Interval iv = quantise_iv (allowed_position, space, dy_f);
 
-  Real quanty_f = dy_f - iv.min () <= iv.max () - dy_f ? iv.min () : iv.max ();
+  Real quanty_f = dy_f - iv[SMALLER] <= iv[BIGGER] - dy_f ? iv[SMALLER] : iv[BIGGER];
   if (extend_b)
-    quanty_f = iv.max ();
+    quanty_f = iv[BIGGER];
 
   // dim(left_y_) = internote
   left_y_ = dir_ * quanty_f / internote_f;
@@ -563,7 +573,6 @@ Beam::set_stemlens ()
   // enge floots
   Real epsilon_f = staffline_f / 8;
 
-  DOUT << "Beam::set_stemlens: \n";
   Real dy_f = check_stemlengths_f (false);
   for (int i = 0; i < 2; i++)
     { 
@@ -572,7 +581,6 @@ Beam::set_stemlens ()
       dy_f = check_stemlengths_f (true);
       if (abs (dy_f) <= epsilon_f)
         {
-	  DOUT << "Beam::set_stemlens: " << i << " iterations\n";
 	  break;
 	}
     }

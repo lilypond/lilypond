@@ -80,7 +80,7 @@ Interval
 get_bounds_iv (Array<Real> const& positions, Real x)
 {
   Slice slice = get_bounds_slice (positions, x);
-  return Interval (positions[slice.min ()], positions[slice.max ()]);
+  return Interval (positions[slice[SMALLER]], positions[slice[BIGGER]]);
 }
 
 // silly name
@@ -104,14 +104,14 @@ quantise_iv (Array<Real> const& positions, Real period, Real x)
     }
 
   Slice slice = get_bounds_slice (positions, frac);
-  Interval iv(positions[slice.min ()], positions[slice.max ()]);
+  Interval iv(positions[slice[SMALLER]], positions[slice[BIGGER]]);
 
-  if (slice.min () == slice.max ())
+  if (slice[SMALLER] == slice[BIGGER])
     {
-      if (slice.min () == 0)
-	iv.min () = - period + positions.top ();
+      if (slice[SMALLER] == 0)
+	iv[SMALLER] = - period + positions.top ();
       else
-	iv.max () = period + positions[0];
+	iv[BIGGER] = period + positions[0];
     }
 
   iv += period * n;

@@ -146,9 +146,9 @@ voicefour = {
 	\shifton
 }
 
-onestaff = { 	
+onestaff = 
 	\translator Staff=one
-}
+
 
 staffone = { 	
 	\translator Staff=one
@@ -181,39 +181,38 @@ normal=1
 traditional=2
 infinity=10000
 
-beamslopeproportional = {
+beamslopeproportional = 
 	\property Score.beamslopedamping = \none
-}
 
-beamslopedamped = {
+beamslopedamped = 
 	\property Score.beamslopedamping = \normal
-}
 
-beamslopezero = {
+
+beamslopezero = 
 	\property Score.beamslopedamping = \infinity
-}
+
 
 % this sucks, you'd want to pass an array, at least
 % (or embedded code: you still can't dictate the slope / stemlength)
-beamposfree = {
+beamposfree = 
 	\property Score.beamquantisation = \none
-}
 
-beamposnormal = {
+
+beamposnormal = 
 	\property Score.beamquantisation = \normal
-}
 
-beampostraditional = {
+
+beampostraditional = 
 	\property Score.beamquantisation = \traditional
-}
 
-slurnormal = {
-	\property Voice.slurdash = 0
-}
 
-slurdotted = {
+slurnormal = 
+	\property Voice.slurdash = ""
+
+
+slurdotted = 
 	\property Voice.slurdash = 1
-}
+
 
 %{
  for grace note hack, see input/test/grace.ly

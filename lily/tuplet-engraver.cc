@@ -11,20 +11,19 @@
 #include "command-request.hh"
 #include "tuplet-spanner.hh"
 #include "note-column.hh"
-#include "compressed-music.hh"
-
+#include "time-scaled-music.hh"
 #include "beam.hh"
 #include "music-list.hh"
 
 bool
 Tuplet_engraver::do_try_music (Music *r)
 {
-  if (Compressed_music * c = dynamic_cast<Compressed_music *> (r))
+  if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
     {
       Music *el = c->element_l ();
       if (!dynamic_cast<Request_chord*> (el))
 	{
-	  compressed_music_arr_.push (c);
+	  time_scaled_music_arr_.push (c);
 	  stop_moments_.push (now_mom () + c->length_mom ());
 	}
       return true;
@@ -36,12 +35,12 @@ void
 Tuplet_engraver::do_process_requests ()
 {
   for (int i= started_span_p_arr_.size ();
-       i < compressed_music_arr_.size (); i++)
+       i < time_scaled_music_arr_.size (); i++)
     {
       Tuplet_spanner* glep = new Tuplet_spanner;
       started_span_p_arr_.push (glep);
-      glep->number_str_ = to_str (compressed_music_arr_[i]->den_i_);
-      announce_element (Score_element_info (glep, compressed_music_arr_ [i]));
+      glep->number_str_ = to_str (time_scaled_music_arr_[i]->den_i_);
+      announce_element (Score_element_info (glep, time_scaled_music_arr_ [i]));
     }
 }
 
@@ -56,7 +55,7 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
   else if (Beam *b = dynamic_cast<Beam *> (i.elem_l_))
     {
       for (int j = 0; j < started_span_p_arr_.size (); j++)
-	started_span_p_arr_[j]->set_beam (b);
+	started_span_p_arr_[j]->add_beam (b);
     }
 }
 
@@ -71,7 +70,7 @@ Tuplet_engraver::do_post_move_processing ()
 	  typeset_element (started_span_p_arr_[i]);
 	  started_span_p_arr_.del (i);
 	  stop_moments_.del(i);
-	  compressed_music_arr_.del(i);
+	  time_scaled_music_arr_.del(i);
 	}
     }
 }

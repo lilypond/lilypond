@@ -17,22 +17,21 @@
   (chord) and scripts) as a single entity.  */
 class Note_column : public Axis_group_item {
 protected:
-
+  virtual void do_post_processing () ;
   virtual void do_print () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 public:
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,
-    but rests do not have stems.
 
-    JUNKME.v
+    JUNKME.
     */
   Direction dir () const;
   Stem* stem_l_;
 
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
-    
+
   Interval_t<int> head_positions_interval() const;
   //  Interval width () const;
 

@@ -128,6 +128,11 @@ To avoid that \LaTeX~places the music on a line of its one, there should
 be no empty lines between the normal text and the mudela
 environment. 
 
+You can also use \verb|mudelafile| (on a separate line, FIXME), to
+include another file.
+
+\mudelafile{testje.fly}
+
 \section{Fontsize options}
 You can use all lilypond fontsizes in mudela-book. 
 % LONG line just to test multiple \mudela on one line
@@ -347,8 +352,7 @@ Verbatim environments will also ignore the page margins. That is
 a feature of \LaTeX. (But you usually put things inside a verbatim
 environment when you don't want \LaTeX~to do any linebreaking)
 
+
+
+
 \end{document}
-
-\begin{verbatim}
-
-\end{verbatim}

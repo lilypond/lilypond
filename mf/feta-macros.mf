@@ -17,6 +17,14 @@ def treq =
 enddef;
 
 
+def draw_staff(expr first, last, offset)=
+	pickup pencircle scaled stafflinethickness;
+	for i:= first step 1 until last:
+		draw (- interline, (i + offset) * interline) .. (4 interline,( i+ offset)* interline);
+	endfor
+	enddef;
+
+
 %
 % Transforms
 %
@@ -161,7 +169,9 @@ def brush(expr a,w,b,v) =
 enddef;
 
 %
-%
+% Draw a (rest) crook, starting at thickness STEM in point A,
+% ending a ball W to the left, diameter BALLDIAM
+% ypart of the center of the ball is BALLDIAM/4 lower than ypart A
 %
 def balled_crook(expr a, w, balldiam, stem) =
 begingroup;

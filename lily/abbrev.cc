@@ -39,7 +39,7 @@ Abbreviation::do_brew_molecule_p () const
     }
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
-  Real w = 1.5 * lookup_l ()->notehead (2, "").dim_.x ().length ();
+  Real w = 1.5 * lookup_l ()->notehead (2, "").dim_[X_AXIS].length ();
   Real space = stem_l_->staff_line_leading_f ();
   Real internote_f = space/2;
   

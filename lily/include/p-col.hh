@@ -35,15 +35,6 @@ public:
   void preprocess ();
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);
-  
-  /** prebreak is put before end of line.
-    if broken here, then (*this) column is discarded, and prebreak
-    is put at end of line, owned by Col
-    */
-  Paper_column *prebreak_l() const;
-
-  /// postbreak at beginning of the new line
-  Paper_column *postbreak_l() const;
 
   virtual Paper_column * column_l () const;
   /// if lines are broken then this column is in #line#
@@ -59,13 +50,6 @@ public:
 
   Paper_column();
 
-  /**
-    which col comes first?.
-    signed compare on columns.
-
-    @return < 0 if c1 < c2.
-    */
-  static int compare (const Paper_column &c1, const Paper_column &c2);
   void set_rank (int);
 
   void OK() const;
@@ -81,8 +65,8 @@ private:
 };
 
 
-#include "compare.hh"
-INSTANTIATE_COMPARE(Paper_column &, Paper_column::compare);
+// #include "compare.hh"
+// INSTANTIATE_COMPARE(Paper_column &, Paper_column::compare);
      
 #endif // P_COL_HH
 

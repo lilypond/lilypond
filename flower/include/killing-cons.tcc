@@ -15,16 +15,16 @@
 template<class T>
 Killing_cons<T>::~Killing_cons ()
 {
-  delete car_p_;
+  delete car_;
 }
 
 template<class T>
 void 
 copy_killing_cons_list (Cons_list<T> &dest, Cons<T> *src) 
 {
-  for (; src; src  = src->next_cons_p_)
+  for (; src; src  = src->next_)
     {
-      T *t = new T(*src->car_p_);
+      T *t = new T(*src->car_);
       dest.append ( new Killing_cons<T> (t, 0));
     }
 }
@@ -33,9 +33,9 @@ template<class T>
 void
 clone_killing_cons_list (Cons_list<T> & dest, Cons<T> *src)
 {
-  for (; src; src  = src->next_cons_p_)
+  for (; src; src  = src->next_)
     {
-      T *t = src->car_p_->clone ();
+      T *t = src->car_->clone ();
       dest.append (new Killing_cons<T> (t, 0));      
     }
 }

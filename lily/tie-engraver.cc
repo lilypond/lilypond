@@ -129,6 +129,12 @@ Tie_engraver::process_acknowledged ()
 
 		}
 	    }
+
+	  if (!tie_p_arr_.size ())
+	    {
+	      req_l_->warning (_("No ties were created!"));
+	    }
+	  
 	}
     }
 }

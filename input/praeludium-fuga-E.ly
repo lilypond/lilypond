@@ -70,7 +70,8 @@ praeludium_left = \notes \relative c {
 
   % 13
   \type Staff <
-    \type VoiceOne { \stemup r4 dis' cis cis ~ |
+    \type VoiceTwo { r4 }
+    \type VoiceOne { \stemup s4 dis' cis cis ~ |
       [cis8 a d cis] [bis gis] cis4 |
       dis2 cis4 r8 cis }
     \type VoiceOne { \stemup bis2 }
@@ -108,8 +109,8 @@ fugaII_right = \notes   \relative c''   {
 
   %15
   \type Staff <
-    { \stemup [b8 fis8] b4 }
-    { \stemdown fis2 }
+    \type Voice = VA { \stemup [b8 fis8] b4 }
+    \type Voice = VB {  \stemdown fis2 }
   >
    %{ this chord is usually set like this:
         |
@@ -217,7 +218,8 @@ breakmusic = \notes {
      \accepts VoiceThree;
      \accepts VoiceTwo;
      \accepts VoiceOne;
-   } 
+   }
+%   \translator { \OrchestralScoreContext }
   }
 
   \midi {

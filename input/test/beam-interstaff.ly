@@ -2,7 +2,7 @@
 	\type GrandStaff <
 	\type Staff=one \notes\relative c'{
 		\stemup [c8 c \translator Staff=two \stemup c c]
-		r2
+		[c c c c]
 		\translator Staff=one
 		\stemdown [c8 c \translator Staff=two \stemup c c]
 		r2

@@ -7,6 +7,8 @@
 # 
 # (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
+# TODO: regex -> re.
+
 name = 'mup-to-ly'
 version = '0.1'
 

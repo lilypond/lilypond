@@ -8,6 +8,7 @@
 #
 # All non-english comments are NOT in swedish, they are norwegian!
 #  TODO:
+# * output various stuff either via sys.stderr or sys.stdout, not using print.
 # * center option (??)
 # * make mudela-book understand usepackage{geometry}
 # * check that linewidth set in \paper is not wider than actual linewidth?
@@ -67,6 +68,7 @@ import sys
 outdir = 'out'
 initfile = ''
 program_version = '0.5.3'
+include_path = ['.']
 
 out_files = []
 
@@ -89,6 +91,7 @@ begin_document_re = re.compile ('^ *\\\\begin{document}')
 documentclass_re = re.compile('\\\\documentclass')
 twocolumn_re = re.compile('\\\\twocolumn')
 onecolumn_re = re.compile('\\\\onecolumn')
+mudela_file_re = re.compile('\\\\mudelafile{([^}]+)}')
 preMudelaExample_re = re.compile('\\\\def\\\\preMudelaExample')
 postMudelaExample_re = re.compile('\\\\def\\\\postMudelaExample')
 boundingBox_re = re.compile('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)')
@@ -111,6 +114,17 @@ def ps_dimention(fname):
             break
     return (int(s.groups()[2])-int(s.groups()[0]), 
             int(s.groups()[3])-int(s.groups()[1]))
+
+
+def find_file (name):
+    for a in include_path:
+	try:
+	    nm = os.path.join (a, name)
+	    f = open (nm)
+	    return nm
+	except IOError:
+	    pass
+    return ''
 
 
 class CompileStatus:
@@ -291,8 +305,12 @@ class Mudela_output:
             status = os.system ('diff -q %s %s' % (self.temp_filename, inf))
         if status:
             os.rename (self.temp_filename, inf)
-        if need_recompile_b(inf, outf):
+
+	recompile_b =  need_recompile_b(inf, outf)
+	if recompile_b:
             out_files.append((self.graphic_type, inf))
+	return recompile_b
+
     def insert_me_string(self):
         "Returns a string that can be used directly in latex."
         if self.graphic_type == 'tex':
@@ -386,6 +404,7 @@ class Tex_input:
             except:
                 continue
         raise IOError
+
     def get_lines (self):
         lines = self.infile.readlines ()
         (retlines, retdeps) = ([],[self.filename])
@@ -429,6 +448,7 @@ class Tex_input:
                 # This code should be rewritten, it looks terrible
                 r_mud = defined_mudela_cmd_re.search(line)
                 if r_mud:
+		    # TODO document this
                     ss = "\\\\verb(?P<xx>[^a-zA-Z])\s*\\\\%s\s*(?P=xx)" \
                          % re.escape(r_mud.group()[1:])
                     # just append the line if the command is inside \verb|..|
@@ -531,6 +551,30 @@ class Main_tex_input(Tex_input):
                     self.mudtex.write ('\\def\\preMudelaExample{}\n')
                 if not postMudelaDef:
                     self.mudtex.write ('\\def\\postMudelaExample{}\n')
+
+            elif mudela_file_re.search(line):
+		r = mudela_file_re.search(line)
+
+		self.mudela = Mudela_output(self.gen_basename())
+		fn = r.groups ()[0]
+		full_path = find_file (fn)
+		if not full_path:
+		    print 'error: can\'t find file `%s\'.' % fn
+		    sys.exit (1)
+		
+		f = open (full_path, 'r')
+		lines =f.readlines ()
+		for x in lines:
+		    self.mudela.write (x)
+		stat =self.mudela.close ()
+		if stat:
+			print "(File %s needs recompiling)\n" % full_path
+                self.mudtex.write (self.mudela.insert_me_string())
+		self.deps.append (full_path)
+		del self.mudela
+                self.mudela = None
+                self.fine_count = self.fine_count + 1
+		continue
             elif begin_mudela_re.search (line) and not latex_verbatim:
                 Props.clear_for_new_block()
                 if __debug__:
@@ -578,6 +622,7 @@ class Main_tex_input(Tex_input):
                 self.mode = 'latex'
                 continue
 
+
             if self.mode == 'mudela':
                 self.mudela.write (line)
                 if self.verbatim:
@@ -601,6 +646,7 @@ Options:\n
   --force-mudela-fontsize=??pt   force fontsize for all inline mudela
   --force-verbatim               make all mudela verbatim\n
   --dependencies                 write dependencies
+  --include                      include path
   --init                         mudela-book initfile
   """
 		     )
@@ -608,11 +654,13 @@ Options:\n
 
 
 def write_deps (fn, out,  deps):
-	out_fn = outdir + '/' + fn
-	print '`writing `%s\'\n\'' % out_fn
+	out_fn = os.path.join (outdir, fn)
+	
+	print 'writing `%s\'\n' % out_fn
 	
 	f = open (out_fn, 'w')
-	f.write ('%s: %s\n'% (outdir + '/' + out + '.dvi',
+	target = re.sub (os.sep + os.sep, os.sep, os.path.join (outdir, out + '.latex'))
+	f.write ('%s: %s\n'% (target,
 			      reduce (lambda x,y: x + ' '+ y, deps)))
 	f.close ()
 
@@ -624,10 +672,10 @@ def main():
     outname = ''
     try:
         (options, files) = getopt.getopt(
-            sys.argv[1:], 'hd:o:', ['outdir=', 'outname=',
+            sys.argv[1:], 'hd:o:I:', ['outdir=', 'outname=',
                                     'default-mudela-fontsize=',
                                     'force-mudela-fontsize=',
-                                    'help', 'dependencies',
+                                    'help', 'dependencies', 'include=',
                                     'force-verbatim', 'init='])
     except getopt.error, msg:
         print "error:", msg
@@ -637,37 +685,40 @@ def main():
     for opt in options:    
 	o = opt[0]
 	a = opt[1]
-	if o == '--outname' or o == '-o':
+	if o == '--include' or o == '-I':
+	    include_path.append (a)
+	elif o == '--outname' or o == '-o':
             if len(files) > 1:
                 #HACK
                 print "Mudela-book is confused by --outname on multiple files"
                 sys.exit(1)
             outname = a
-        if o == '--outdir' or o == '-d':
+        elif o == '--outdir' or o == '-d':
             outdir = a
-        if o == '--help' or o == '-h':
+        elif o == '--help' or o == '-h':
             help ()
-	if o == '--dependencies':
+	elif o == '--dependencies':
             do_deps = 1
-        if o == '--default-mudela-fontsize':
+        elif o == '--default-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
                 print "Error: illegal fontsize:", a
                 print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
                 sys.exit()
             Props.setMudelaFontsize(fontsize_pt2i[a], 'init')
-	if o == '--force-mudela-fontsize':
+	elif o == '--force-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
                 print "Error: illegal fontsize:", a
                 print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
                 sys.exit()
             Props.force_mudela_fontsize = fontsize_pt2i[a]
-        if o == '--force-verbatim':
+        elif o == '--force-verbatim':
             Props.force_verbatim_b = 1
-        if o == '--init':
+        elif o == '--init':
             initfile =  a
     if outdir[-1:] != '/':
         outdir = outdir + '/'
 
+    # r""" ... """ means: leave escape seqs alone.
     defined_mudela_cmd = {'mudela': r"""
 \begin{mudela}[eps \fontoptions]
   \type Staff <
@@ -685,9 +736,9 @@ def main():
         for i in d.keys():
             defined_mudela_cmd[i] = d[i]
         del d
-    c = defined_mudela_cmd.keys()[0]
-    for x in defined_mudela_cmd.keys()[1:]:
-        c = c + '|'+x
+
+    c = string.join (defined_mudela_cmd.keys(), '|')
+
     defined_mudela_cmd_re = re.compile("\\\\(%s)(\[(\d*pt)\])*{([^}]*)}" %c)
 
     if not os.path.isdir(outdir):
@@ -702,7 +753,6 @@ def main():
         my_depname = my_outname + '.dep'        
         inp = Main_tex_input (input_filename, my_outname)
         inp.do_it ()
-#        os.system('latex %s/%s.latex' % (outdir, my_outname))
         if do_deps:
             write_deps (my_depname, my_outname, inp.deps)
 

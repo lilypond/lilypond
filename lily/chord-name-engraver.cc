@@ -83,7 +83,7 @@ Chord_name_engraver::do_process_requests ()
 
   item_p->text_str_ = chord.banter_str (inversion);
   
-  Scalar style = get_property ("textstyle", 0);
+  Scalar style = get_property ("textStyle", 0);
   if (style.length_i ())
     item_p->style_str_ = style;
   

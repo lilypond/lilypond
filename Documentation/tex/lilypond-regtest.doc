@@ -1,0 +1,82 @@
+% -*-LaTeX-*-
+\documentclass{article}
+
+\begin{document}
+\title{LilyPond feature test}
+\author{Han-Wen Nienhuys}
+\maketitle
+
+This document tries give an brief overview of LilyPond features. When
+the text correspond with  the shown notation, we consider LilyPond
+Officially BugFree (tm).
+
+\section{Notes and rests} 
+
+Rests.  Note that the dot of 8th, 16th and 32nd rests rest should be
+next to the top of the rest.  All rests except the whole rest are
+centered on the middle staff line.  
+
+\mudelafile{rest.fly}
+
+Note head shapes are settable.  The stem endings should be adjusted
+per note head
+
+\mudelafile{noteheadstyle.fly}
+
+
+\section{Beams, slurs and other spanners}
+
+%Beams should not interfere with various items on the staff (amongst
+%others repeat signs)
+%
+% \mud elafile{beam-repeat.ly}
+
+Beams can be typeset over fixed distance aligned staffs, beam
+beautification doesn't really work, but knees do. Beams should be
+behave well, whereever the switching point is.
+
+\mudelafile{beam-interstaff.ly}
+
+The same goes for slurs. They behave decently when broken across
+linebreak.
+
+\mudelafile{slur-interstaff.ly}
+
+Tuplets are indicated by a bracket with a number.  There should be no
+bracket if there is one beam that matches  the length of the tuplet.
+The bracket does not interfere with the stafflines, and the number is
+centered in the gap in the bracket.
+
+\mudelafile{tup.ly}
+
+\section{Multiple notes}
+
+Rests should not collide with beams, stems and noteheads.  Rests may
+be under beams.  Rests should be move by integral number of spaces
+inside the staff, and by half spaces outside.  Notice that the half
+and whole rests just outside the staff get ledger lines in different
+cases.
+
+
+\mudelafile{rest-collision.ly}
+
+Normal collisions. We have limited support for four voice polyphony,
+where the middle voices are horizontally shifted, sometimes.
+
+\mudelafile{collisions.ly}
+
+The number of stafflines of a staff can be set with the property
+numberOfStaffLines.  Ledger lines both on note heads and rests are adjusted.
+
+\mudelafile{number-staff-lines.fly}
+
+\section{Global stuff}
+
+Markings that are attached to (invisible) barlines are quite
+delicate: the are attached to the rest of the score without the score
+knowing it.  Consequently, they fall over quite often.
+
+\mudelafile{bar-scripts.ly}
+
+
+\end{document}

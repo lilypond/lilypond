@@ -20,6 +20,7 @@ struct Encompass_info
   Encompass_info (Note_column const*, Direction, Slur const *);
 
   Offset o_;
+  // junkme
   Real interstaff_f_;
 };
 

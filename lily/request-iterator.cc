@@ -63,17 +63,17 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 {
   if (first_b_)
     {
-      for (Cons<Music> *i = elt_l ()->music_p_list_p_->head_cons_p_; i; i = i->next_cons_p_)
+      for (Cons<Music> *i = elt_l ()->music_p_list_p_->head_; i; i = i->next_)
 	{
-	  if (Request * req_l = dynamic_cast<Request*> (i->car_p_))
+	  if (Request * req_l = dynamic_cast<Request*> (i->car_))
 	    {
 	      bool gotcha = report_to_l()->try_music (req_l);
 	      if (!gotcha)
 		req_l->warning (_f ("junking request: `%s\'", classname( req_l)));
 	    }
 	  else
-	    i->car_p_->warning (_f ("Huh? Not a Request: `%s\'",
-				   classname (i->car_p_)));
+	    i->car_->warning (_f ("Huh? Not a Request: `%s\'",
+				   classname (i->car_)));
 	}
       first_b_ = false;
     }

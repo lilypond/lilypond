@@ -1,5 +1,5 @@
 /*   
-  compressed-music.hh -- declare Compressed_music
+  compressed-music.hh -- declare Time_scaled_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,23 +7,23 @@
   
  */
 
-#ifndef COMPRESSED_MUSIC_HH
-#define COMPRESSED_MUSIC_HH
+#ifndef Time_scaled_music_HH
+#define Time_scaled_music_HH
 
 #include "music-wrapper.hh"
 /**
    Tempo expansion or compression.
  */
-class Compressed_music : public Music_wrapper
+class Time_scaled_music : public Music_wrapper
 {
 public:
   int num_i_;
   int den_i_;
 
-  Compressed_music (int, int, Music *);
+  Time_scaled_music (int, int, Music *);
   
   VIRTUAL_COPY_CONS(Music);
 };
 
-#endif /* COMPRESSED_MUSIC_HH */
+#endif /* Time_scaled_music_HH */
 

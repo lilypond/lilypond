@@ -193,15 +193,15 @@ Paper_def::interbeam_f (int multiplicity_i) const
 {
   if (multiplicity_i <= 3)
     return get_realvar (interbeam_scm_sym);
-      else
-	return get_realvar (interbeam4_scm_sym);
-      }
+  else
+    return get_realvar (interbeam4_scm_sym);
+}
 
 Real
 Paper_def::note_width () const
 {
   return get_realvar (notewidth_scm_sym);
-    }
+}
 
 void
 Paper_def::print () const

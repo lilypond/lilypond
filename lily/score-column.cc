@@ -11,58 +11,28 @@
 #include "score-column.hh"
 #include "command-request.hh"
 
-Score_column::Score_column (Moment w, bool musical_b)
+Score_column::Score_column (Moment w)
 {
   break_penalty_i_ = 0;
   when_ = w;
-  musical_b_ = musical_b;
 }
 
 void
 Score_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "mus "<< musical_b_ << " at " <<  when_ << '\n';
+  DOUT << " at " <<  when_ << '\n';
   if (break_penalty_i_ >= Break_req::FORCE)
     DOUT << "Break forced";
-      
-  DOUT << "durations: [";
-  for (int i=0; i < durations.size(); i++)
-    DOUT << durations[i] << " ";
-  DOUT << "]\n";
+
+  DOUT << "Shortest playing: " <<  shortest_playing_mom_ << " shortest starter: " << shortest_starter_mom_;
   Paper_column::do_print();
 #endif
 }
 
-int
-Moment_compare (Moment const &m1, Moment const &m2)
+
+bool
+Score_column::musical_b () const
 {
-  return sign (m1-m2);
+  return shortest_starter_mom_ != Moment(0);
 }
-
-void
-Score_column::preprocess()
-{
-  Paper_column ::preprocess ();
-  durations.sort (Moment_compare);
-}
-
-void
-Score_column::add_duration (Moment d)
-{
-  if (!d)
-    {
-      warning (_f ("ignoring zero duration added to column at %s",
-	       when_.str ()));
-      return;
-    }
-  
-  for (int i = 0; i< durations.size(); i++) 
-    {
-      if (d == durations[i])
-	return ;
-    }
-  durations.push (d);
-}
-
-

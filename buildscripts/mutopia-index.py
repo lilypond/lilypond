@@ -78,15 +78,17 @@ def gen_list(inputs, subdir, filename):
 	list.write ('</ul>')
 
     list.write('<h2>Contents of this directory</h2>\n');
-    list.write (
-    'These example files are taken from the LilyPond distribution. '
-    'LilyPond currently only outputs TeX and MIDI.  The pictures and '
-    'PostScript files were generated using TeX, Ghostscript and some '
-    'graphics tools.  The papersize used for these examples is A4. '
-    'As you know, <a href="http://www.gnu.org/philosophy/gif.html">no gifs due to patent problems</a>, '
-    'but the png images should be viewable with any current browser '
-    '(jpeg is inappropriate for music images).'
-    '\n');
+    list.write ("""
+These example files are taken from the LilyPond distribution. 
+LilyPond currently only outputs TeX and MIDI.  The pictures and 
+PostScript files were generated using TeX, Ghostscript and some 
+graphics tools.  The papersize used for these examples is A4. 
+As you know, <a href="http://www.gnu.org/philosophy/gif.html">no gifs due to patent problems</a>, 
+but the PNG images should be viewable with any current browser
+<p>
+If you want an accurate impression of the output quality please <em>print
+out</em> the samples first.
+    """);
 
 
     for ex in inputs:

@@ -181,6 +181,7 @@ inline String to_str (String s) { return s; }
 String to_str (char c, int n = 1);
 String to_str (int i, char const* format = 0);
 String to_str (double f , char const* format = 0);
+String to_str (long  b);
 String to_str (bool b);
 String to_str (char const* format, ... );
 

@@ -39,6 +39,8 @@ private:
   Array<Stem*>* stem_l_arr_p_;
   Moment last_add_mom_;
   Moment extend_mom_;
+  
+  // We act as if beam were created, and start a grouping anyway.
   Rhythmic_grouping*grouping_p_;
   Rhythmic_grouping*finished_grouping_p_;
 };

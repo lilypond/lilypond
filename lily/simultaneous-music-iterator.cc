@@ -27,9 +27,9 @@ Simultaneous_music_iterator::construct_children()
   int j = 0;
   Simultaneous_music const *sim = dynamic_cast<Simultaneous_music const*> (music_l_);
 
-  for (Cons<Music> *i = sim->music_p_list_p_->head_cons_p_; i;  i = i->next_cons_p_, j++)
+  for (Cons<Music> *i = sim->music_p_list_p_->head_; i;  i = i->next_, j++)
     {
-      Music_iterator * mi = get_iterator_p (i->car_p_);
+      Music_iterator * mi = get_iterator_p (i->car_);
       if (mi->ok()) 
 	{
 	  if  (sim->translator_type_str_.empty_b ())
@@ -46,25 +46,25 @@ void
 Simultaneous_music_iterator::do_print() const
 {
 #ifndef NPRINT
-  for (Cons<Music_iterator> *p = children_p_list_.head_cons_p_; p; p = p->next_cons_p_)
-    p->car_p_->print();
+  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
+    p->car_->print();
 #endif
 }
 
 void
 Simultaneous_music_iterator::do_process_and_next (Moment until)
 {
-  for (Cons<Music_iterator> **pp = &children_p_list_.head_cons_p_; *pp; )
+  for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp; )
     {
-      Music_iterator * i = (*pp)->car_p_;
+      Music_iterator * i = (*pp)->car_;
       if  (i->next_moment() == until) 
 	{
 	  i->process_and_next (until);
 	}
       if (!i->ok())
-	delete children_p_list_.remove_cons_p (pp);
+	delete children_p_list_.remove_cons (pp);
       else
-	pp = &(*pp)->next_cons_p_;
+	pp = &(*pp)->next_;
     }
   Music_iterator::do_process_and_next (until);
 }
@@ -78,8 +78,8 @@ Simultaneous_music_iterator::next_moment() const
   Moment next;
   next.set_infinite (1);
   
-  for (Cons<Music_iterator> *p = children_p_list_.head_cons_p_; p; p = p->next_cons_p_)
-    next = next <? p->car_p_->next_moment() ;
+  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
+    next = next <? p->car_->next_moment() ;
   return next;
 }
 
@@ -88,6 +88,6 @@ Simultaneous_music_iterator::next_moment() const
 bool
 Simultaneous_music_iterator::ok() const
 {
-  return children_p_list_.head_cons_p_;
+  return children_p_list_.head_;
 }
 

@@ -260,6 +260,7 @@ ScoreContext = \translator {
 
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
+	\consists "Spacing_engraver";
 	\consists "Vertical_align_engraver";
 	alignmentReference = \down;
 	defaultClef = treble;

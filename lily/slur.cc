@@ -44,18 +44,19 @@ Slur::add_column (Note_column*n)
   add_dependency (n);
 }
 
-void
-Slur::set_default_dir ()
+Direction
+Slur::get_default_dir () const
 {
-  dir_ = DOWN;
+  Direction d = DOWN;
   for (int i=0; i < encompass_arr_.size (); i ++) 
     {
       if (encompass_arr_[i]->dir () < 0) 
 	{
-	  dir_ = UP;
+	  d = UP;
 	  break;
 	}
     }
+  return d;
 }
 
 void
@@ -91,28 +92,42 @@ Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
   return Item::left_right_compare (n1, n2);
 }
 
-static bool
-broken_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+bool
+Slur::broken_edge_b ( Direction dir) const
 {
-  return extrema[dir] != s->spanned_drul_[dir];
+  return extrema ()[dir] != spanned_drul_[dir];
 }
 
-static bool
-normal_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+bool
+Slur::normal_edge_b ( Direction dir) const
 {
-  Note_column *n = extrema[dir];
-  return !broken_edge_b (s, extrema, dir)
+  Note_column *n = extrema ()[dir];
+  return !broken_edge_b ( dir)
     && n->stem_l_
     && n->stem_l_->get_elt_property (transparent_scm_sym) == SCM_BOOL_F
     && n->head_l_arr_.size ();
 }
 
+Drul_array<Note_column*>
+Slur::extrema ()const
+{
+  Drul_array<Note_column*> extrema;
+  extrema[LEFT] = encompass_arr_[0];
+  extrema[RIGHT] = encompass_arr_.top ();
+  return extrema;
+}
+
+/*
+  TODO.
+
+  Unhair this.
+ */
 void
 Slur::do_post_processing ()
 {
   encompass_arr_.sort (Note_column_compare);
   if (!dir_)
-    set_default_dir ();
+    dir_ = get_default_dir ();
 
   Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
   Real internote_f = interline_f / 2;
@@ -132,15 +147,12 @@ Slur::do_post_processing ()
   
   Real gap_f = paper_l ()->get_var ("slur_x_gap");
 
-  Drul_array<Note_column*> extrema;
-  extrema[LEFT] = encompass_arr_[0];
-  extrema[RIGHT] = encompass_arr_.top ();
 
   Direction d=LEFT;
  
   do 
     {
-      if (broken_edge_b (this, extrema, d))
+      if (broken_edge_b (d))
 	{
 	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
@@ -159,28 +171,28 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (normal_edge_b (this, extrema, d))
+      else if (normal_edge_b (d))
         {
-	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
-	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
+	  Real notewidth_f = extrema ()[d]->extent (X_AXIS).length ();
+	  dy_f_drul_[d] = (int)rint (extrema ()[d]->stem_l_-> extent (Y_AXIS)[dir_]);
 	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
-	  if (dir_ == extrema[d]->stem_l_->dir_)
+	  if (dir_ == extrema ()[d]->stem_l_->dir_)
 	    {
 	      if (dir_ == d)
-		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * notewidth_f;
+		dx_f_drul_[d] += 0.5 * dir_ * notewidth_f;
 	      else
-		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * notewidth_f;
+		dx_f_drul_[d] += 0.25 * dir_ * notewidth_f;
 	    }
 	}
 	else 
 	  {
-	    Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
-	    dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
+	    Real notewidth_f = extrema ()[d]->extent (X_AXIS).length ();
+	    dy_f_drul_[d] = (int)rint (extrema ()[d]->head_positions_interval ()
 				       [dir_]) * internote_f;
 	    dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	}
 	dy_f_drul_[d] += dir_ * interline_f;
-	if (extrema[d]->stem_l_ && (dir_ == extrema[d]->stem_l_->dir_))
+	if (extrema ()[d]->stem_l_ && (dir_ == extrema ()[d]->stem_l_->dir_))
 	  dy_f_drul_[d] -= dir_ * internote_f;
       }
   while (flip(&d) != LEFT);
@@ -188,7 +200,7 @@ Slur::do_post_processing ()
   // now that both are set, do dependent
   do 
     {
-      if (broken_edge_b (this, extrema, d))
+      if (broken_edge_b (d))
         {
 	  Direction u = d;
 	  flip(&u);
@@ -205,12 +217,12 @@ Slur::do_post_processing ()
   /*
     Slur should follow line of music
    */
-  if (normal_edge_b (this, extrema, LEFT)
-      && normal_edge_b (this, extrema, RIGHT)
-      && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
+  if (normal_edge_b (LEFT)
+      && normal_edge_b (RIGHT)
+      && (extrema ()[LEFT]->stem_l_ != extrema ()[RIGHT]->stem_l_))
     {
-      Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]
-	- extrema[LEFT]->stem_l_->head_positions ()[dir_];
+      Real note_dy = extrema ()[RIGHT]->stem_l_->head_positions ()[dir_]
+	- extrema ()[LEFT]->stem_l_->head_positions ()[dir_];
       Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
       /*
 	Should we always follow note-heads, (like a tie)?
@@ -227,14 +239,14 @@ Slur::do_post_processing ()
 	  /*
 	    adjust only if no beam gets in the way
 	   */
-	  if (!extrema[adjust_dir]->stem_l_->beam_l_
-	      || (adjust_dir == extrema[adjust_dir]->stem_l_->dir_)
-	      || (extrema[adjust_dir]->stem_l_->beams_i_drul_[-adjust_dir] < 1))
+	  if (!extrema ()[adjust_dir]->stem_l_->beam_l_
+	      || (adjust_dir == extrema ()[adjust_dir]->stem_l_->dir_)
+	      || (extrema ()[adjust_dir]->stem_l_->beams_i_drul_[-adjust_dir] < 1))
 	    {
 	      dy_f_drul_[adjust_dir] = dy_f_drul_[-adjust_dir]
 		+ 2 * adjust_dir * realdy;
 	      Real dx = notewidth_f / 2;
-	      if (adjust_dir != extrema[adjust_dir]->stem_l_->dir_)
+	      if (adjust_dir != extrema ()[adjust_dir]->stem_l_->dir_)
 		dx /= 2;
 	      dx_f_drul_[adjust_dir] -= adjust_dir * dx;
 	    }
@@ -261,8 +273,17 @@ Slur::get_encompass_offset_arr () const
   Real notewidth = paper_l ()->note_width () * 0.8;
   Real gap = paper_l ()->get_var ("slur_x_gap");
 
+  /*
+  urg.  Calcs done wrt the leftmost note.  Fixme.
+
+  Calcs ignore possibility of pre/postbreak.
+
+
+  */
+
   Offset left = Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
   left[X_AXIS] += encompass_arr_[0]->stem_l_->hpos_f ();
+
   Real internote = encompass_arr_[0]->stem_l_->staff_line_leading_f ()/2.0;
 
   /*
@@ -296,35 +317,29 @@ Slur::get_encompass_offset_arr () const
   int last = encompass_arr_.size () - 1;
 
   // prebreak
-  if (encompass_arr_.top () != spanned_drul_[RIGHT])
+  if (broken_edge_b (RIGHT))
     last++;
 
   // postbreak
-  if (encompass_arr_[0] != spanned_drul_[LEFT])
+  if (broken_edge_b (LEFT))
     first--;
 
   Array<Offset> notes;
   notes.push (Offset (0,0));
 
-  for (int i = first; i < last; i++)
+  Real dy =0.0;
+  for (int i = 0; i < last; i++)
     {
       Encompass_info info (encompass_arr_[i], dir_, this);
-      notes.push (info.o_ - left);
-    }
-  Encompass_info info (encompass_arr_.top (), dir_, this);
-  Real inter_staff = info.interstaff_f_;
-  
-  d[Y_AXIS] += inter_staff;
-
-  // prebreak
-  if (inter_staff && (encompass_arr_.top () != spanned_drul_[RIGHT]))
-    {
-      Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_, this);
-      d[Y_AXIS] -= info.o_[Y_AXIS] - inter_staff;
+      if (i >= first)
+	notes.push (info.o_ - left);
+      else
+	dy = info.interstaff_f_;
     }
 
+  notes[0][Y_AXIS] += dy;
   notes.push (d);
-
+  
   return notes;
 }
 

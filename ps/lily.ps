@@ -61,7 +61,7 @@
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
 
-/draw_tuplet % dx dy thick dir
+/draw_tuplet % height dx dy thick dir
 {
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
@@ -71,9 +71,10 @@
 	1 setlinejoin
 	/tuplet_dy exch def
 	/tuplet_dx exch def
+	/tuplet_h exch def
 	staffheight 2 div /tuplet_gapx exch def
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
-	staffheight 4 div dir mul /tuplet_h exch def
+
 
 	0 0 moveto
 	0 tuplet_h lineto 

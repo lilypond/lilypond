@@ -7,11 +7,12 @@
 */
 #include "dot-column.hh"
 #include "note-column.hh"
-
+#include "beam.hh"
 #include "note-head.hh"
 #include "stem.hh"
 #include "rest.hh"
 #include "debug.hh"
+#include "paper-def.hh"
 
 bool
 Note_column::rest_b () const
@@ -126,4 +127,50 @@ void
 Note_column::set_dotcol (Dot_column *d)
 {
   add_element (d);
+}
+
+  /*
+    [TODO]
+    handle rest under beam (do_post: beams are calculated now)
+    what about combination of collisions and rest under beam.
+
+    Should lookup
+    
+      rest -> stem -> beam -> interpolate_y_position ()
+    
+   */
+
+void
+Note_column::do_post_processing ()
+{
+  if (!stem_l_ || !rest_b ())
+    return;
+
+  Beam * b = stem_l_->beam_l_;
+  if (!b)
+    return;
+      
+      /* ugh. Should be done by beam. */
+  Real x = stem_l_->hpos_f ();
+  Direction d = stem_l_->get_dir ();
+  Real beamy = x * b->slope_f_ + b->left_y_;
+  Interval restdim = extent (Y_AXIS);
+
+  Real staff_space = rest_l_arr_[0]->staff_line_leading_f ();      
+  Real internote_f = staff_space/2;
+  Real minimum_dist
+    = paper_l ()->get_var ("restcollision_minimum_beamdist") * internote_f;
+  Real dist =
+    minimum_dist +  -d  * (beamy - restdim[d]) >? 0;
+
+  int stafflines = rest_l_arr_[0]->lines_i ();
+      
+  // move discretely by half spaces.
+  int discrete_dist = int (ceil (dist / (0.5 *staff_space)));
+
+  // move by whole spaces inside the staff.
+  if (discrete_dist < stafflines+1)
+    discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
+
+  translate_rests (-d *  discrete_dist);
 }

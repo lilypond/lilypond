@@ -28,7 +28,6 @@ struct Rod
   Real distance_f_;
   void add_to_cols ();
 
-  Rod (Single_malt_grouping_item*,Single_malt_grouping_item*);
   Rod ();
 };
 

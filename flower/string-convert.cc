@@ -336,3 +336,11 @@ String_convert::split_arr (String str, char c)
   return a;
 }
 
+
+String
+String_convert::long_str (long l)
+{
+  char s[STRING_BUFFER_LEN];
+  sprintf (s,"%ld", l);
+  return s;
+}

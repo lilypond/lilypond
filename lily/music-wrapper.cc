@@ -62,3 +62,9 @@ Music_wrapper::element_l () const
 {
   return element_p_;
 }
+
+void
+Music_wrapper::compress (Moment m)
+{
+  element_l ()->compress (m);
+}

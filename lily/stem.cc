@@ -160,11 +160,6 @@ Stem::get_dir () const
   return dir_;
 }
 
-void
-Stem::set_default_dir ()
-{
-  dir_ = get_default_dir ();
-}
 
 void
 Stem::set_default_stemlen ()
@@ -174,7 +169,8 @@ Stem::set_default_stemlen ()
   Real shorten_f = paper_l ()->get_var ("forced_stem_shorten0") / internote_f;
 
   if (!dir_)
-    set_default_dir ();
+    dir_ = get_default_dir ();
+
   /* 
     stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay]
@@ -242,7 +238,7 @@ Stem::do_pre_processing ()
   if (yextent_drul_[DOWN]== yextent_drul_[UP])
     set_default_extents ();
   set_noteheads ();
-  flag_i_ = flag_i_;
+
   if (invisible_b ())
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);

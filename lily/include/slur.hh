@@ -15,6 +15,10 @@
  */
 class Slur : public Bow
 {
+  bool broken_edge_b ( Direction dir) const;
+  bool normal_edge_b ( Direction dir) const;
+  Drul_array<Note_column*> extrema () const; 
+
 public:
   Slur ();
   VIRTUAL_COPY_CONS(Score_element);
@@ -26,7 +30,7 @@ public:
 protected:
   virtual Array<Offset> get_encompass_offset_arr () const;
 
-  virtual void set_default_dir ();
+  virtual Direction get_default_dir () const;
   virtual void do_post_processing ();
   virtual void do_add_processing ();
   virtual void do_pre_processing ();

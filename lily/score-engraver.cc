@@ -85,32 +85,16 @@ Score_engraver::announce_element (Score_element_info info)
   info.origin_grav_l_arr_.push (this);
 }
 
+/* All elements are propagated to the top upon announcement. If
+   something was created during one run of
+   Engraver_group_engraver::do_announces, then
+   announce_info_arr_.size() will be nonzero again
+*/
 void
 Score_engraver::do_announces()
 {
-  /* All elements are propagated to the top upon announcement. If
-     something was created during one run of
-     Engraver_group_engraver::do_announces, then
-     announce_info_arr_.size() will be nonzero again
-
-     */
   while (announce_info_arr_.size()) 
-    {
-      for (int i=0; i < announce_info_arr_.size(); i++)
-	/*
-	  TODO
-
-	  More subtle spacing
-	  */
-	if (announce_info_arr_[i].req_l_) 
-	  {
-	    if (Rhythmic_req *rq = dynamic_cast <Rhythmic_req *> (announce_info_arr_[i].req_l_))
-	      {
-		musical_column_l_->add_duration (rq->length_mom ());
-	      }
-	  }
-      Engraver_group_engraver::do_announces();
-    }
+    Engraver_group_engraver::do_announces();
 }
 
 
@@ -194,10 +178,8 @@ Score_engraver::set_columns (Score_column *new_command_l,
       command_column_l_ =0;
     }
   if (new_command_l) 
-    {
-      command_column_l_ = new_command_l;
-      command_column_l_->musical_b_ = false;
-    }
+    command_column_l_ = new_command_l;
+
   if (musical_column_l_ && musical_column_l_->linked_b()) 
     {
       pscore_p_->add_column (musical_column_l_);
@@ -212,7 +194,6 @@ Score_engraver::set_columns (Score_column *new_command_l,
   if (new_musical_l) 
     {
       musical_column_l_ = new_musical_l;
-      musical_column_l_->musical_b_ = true;
     }
 }
 

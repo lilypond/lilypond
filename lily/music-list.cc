@@ -17,8 +17,8 @@ Moment
 Simultaneous_music::length_mom () const
 {
   Moment dur = 0;
-  for (Cons<Music> *i = music_p_list_p_->head_cons_p_; i;  i = i->next_cons_p_)
-    dur = dur >? i->car_p_->length_mom ();
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    dur = dur >? i->car_->length_mom ();
 
   return dur;
 }
@@ -26,9 +26,8 @@ Simultaneous_music::length_mom () const
 void
 Music_sequence::compress (Moment m)
 {
-  
-  for (Cons<Music> *i = music_p_list_p_->head_cons_p_; i;  i = i->next_cons_p_)
-    i->car_p_->compress (m);
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    i->car_->compress (m);
 }
 
 Simultaneous_music::Simultaneous_music(Music_list *p)
@@ -46,9 +45,9 @@ Moment
 Sequential_music::length_mom () const
 {
   Moment last=0;
-  for (Cons<Music> *i = music_p_list_p_->head_cons_p_; i;  i = i->next_cons_p_)
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
     {
-      last += i->car_p_->length_mom ();
+      last += i->car_->length_mom ();
     }
   return  last;
 }
@@ -76,9 +75,9 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 {
   Musical_pitch retval;
   int count=0;
-  for (Cons<Music> *i = head_cons_p_; i ; i = i->next_cons_p_)
+  for (Cons<Music> *i = head_; i ; i = i->next_)
     {
-      last = i->car_p_->to_relative_octave (last);
+      last = i->car_->to_relative_octave (last);
       if (!count ++ )
 	retval = last;
     }
@@ -93,8 +92,8 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 Music_list::Music_list (Music_list const &s)
   : Cons_list<Music> (s)
 {
-  init ();
-  clone_killing_cons_list (*this, s.head_cons_p_);
+  init_list ();
+  clone_killing_cons_list (*this, s.head_);
 }
 
 
@@ -116,9 +115,9 @@ Request_chord::Request_chord()
 Musical_pitch
 Request_chord::to_relative_octave (Musical_pitch last)
 {
-  for (Cons<Music> *i = music_p_list_p_->head_cons_p_; i ; i = i->next_cons_p_)
+  for (Cons<Music> *i = music_p_list_p_->head_; i ; i = i->next_)
     {
-      if (Melodic_req *m= dynamic_cast <Melodic_req *> (i->car_p_))
+      if (Melodic_req *m= dynamic_cast <Melodic_req *> (i->car_))
 	{
 	  Musical_pitch &pit = m->pitch_;
 	  pit.to_relative_octave (last);

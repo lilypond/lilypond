@@ -18,6 +18,7 @@ struct Scalar : public String
 {
   Scalar (Real r) { *this = to_str (r); }
   Scalar (int i) { *this = to_str (i); }
+  Scalar (long l) { *this = to_str (l); }
   Scalar (char c) { *this = to_str (c); }
   Scalar (char const *c) : String (c) {}    
   Scalar (String s) : String (s) {}

@@ -1,5 +1,5 @@
 /*   
-  compressed-music-iterator.hh -- declare Compressed_music_iterator
+  compressed-music-iterator.hh -- declare Time_scaled_music_iterator
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,12 +7,12 @@
   
  */
 
-#ifndef COMPRESSED_MUSIC_ITERATOR_HH
-#define COMPRESSED_MUSIC_ITERATOR_HH
+#ifndef Time_scaled_music_ITERATOR_HH
+#define Time_scaled_music_ITERATOR_HH
 
 #include "music-wrapper-iterator.hh"
 
-class Compressed_music_iterator : public Music_wrapper_iterator
+class Time_scaled_music_iterator : public Music_wrapper_iterator
 {
 public:  
   // construction
@@ -21,5 +21,5 @@ protected:
 };
 
 
-#endif /* COMPRESSED_MUSIC_ITERATOR_HH */
+#endif /* Time_scaled_music_ITERATOR_HH */
 

@@ -11,6 +11,26 @@
 #include "single-malt-grouping-item.hh"
 #include "p-col.hh"
 #include "paper-def.hh"
+#include "dimensions.hh"
+
+static Rod
+make_rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
+{
+  Rod rod;
+  rod.item_l_drul_[LEFT] =l;
+  rod.item_l_drul_[RIGHT]=r;
+
+  Interval li (l->my_width ());
+  Interval ri (r->my_width ());
+  
+  if (li.empty_b () || ri.empty_b ())
+    rod.distance_f_ = 0;
+  else
+    rod.distance_f_ = li[RIGHT] - ri[LEFT];
+
+  return rod;
+}
+  
 
 Array<Rod>
 Separating_group_spanner::get_rods () const
@@ -26,22 +46,22 @@ Separating_group_spanner::get_rods () const
       Single_malt_grouping_item *rb
 	= dynamic_cast<Single_malt_grouping_item*>(r->find_prebroken_piece (LEFT));
       
-      a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
+      a.push (make_rod(spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
       if (lb)
 	{
-	  Rod rod(lb, r);
+	  Rod rod(make_rod (lb, r));
 	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
       
       if (rb)
 	{
-	  a.push (Rod (l, rb));
+	  a.push (make_rod (l, rb));
 	}
       
       if (lb && rb)
 	{
-	  Rod rod(lb, rb);
+	  Rod rod(make_rod (lb, rb));
 	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
@@ -58,7 +78,8 @@ Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 }
 
 void
-Separating_group_spanner::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Separating_group_spanner::do_substitute_element_pointer (Score_element*o,
+							 Score_element*n)
 {
   if (dynamic_cast<Single_malt_grouping_item *> (o))
     {

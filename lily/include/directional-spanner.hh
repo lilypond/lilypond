@@ -22,7 +22,7 @@ public:
     
   /// offset of "center" relative to left-column/0-pos of staff
   virtual Offset center() const;
-  virtual void set_default_dir();
+  virtual Direction get_default_dir() const;
 protected:
   virtual void do_pre_processing();
 };

@@ -73,9 +73,9 @@ Source_file*
 Sources::sourcefile_l (char const* ch_C)
 {
 
-  for (Cons<Source_file> *i = sourcefile_p_list_; i; i = i->next_cons_p_)
-    if (i->car_p_->in_b (ch_C))	
-      return i->car_p_;
+  for (Cons<Source_file> *i = sourcefile_p_list_; i; i = i->next_)
+    if (i->car_->in_b (ch_C))	
+      return i->car_;
   return 0;
 }
 

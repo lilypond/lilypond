@@ -26,6 +26,7 @@ it()url(Microsoft Windows instructions)(README-W32.html)
 nsubsect(Why: Background Information)
 
 itemize(
+it() url(Why?)(AIMS.html)
 it() url(Design criteria)(MANIFESTO.html)
 it()url(The GNU Music project)(gnu-music.html)
 it()url(Mutopia -- Music To the People)(mutopia.html)

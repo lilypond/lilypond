@@ -64,7 +64,7 @@ class Spring_spacer : public Line_spacer {
 
   /// make the energy function
   void make_matrices (Matrix &quad, Vector &lin,Real&) const;
-  void get_ruling_durations(Array<Moment>&, Array<Moment>&);
+  void get_ruling_durations(Array<Moment>&);
 
   /// generate the LP constraints
   void make_constraints (Mixed_qp& lp) const;

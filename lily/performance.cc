@@ -125,8 +125,8 @@ Performance::print() const
 #ifndef NPRINT
   DOUT << "Performance { ";
   DOUT << "Items: ";
-  for (Cons<Audio_element>* i =audio_elem_p_list_; i; i = i->next_cons_p_)
-    i->car_p_->print ();
+  for (Cons<Audio_element>* i =audio_elem_p_list_; i; i = i->next_)
+    i->car_->print ();
   DOUT << "}";
 #endif
 }

@@ -21,7 +21,7 @@
   The columns which contain data have a rhythmical
   position. Score_column is the type with a rhythmical time attached
   to it. The calculation of idealspacing is done with data in these
-  columns. (notably: the #durations# field)
+  columns.
 
   */
 
@@ -29,23 +29,20 @@ class Score_column : public Paper_column {
   friend class Score;
   friend class Score_engraver;
 
-  bool musical_b_;
   int break_penalty_i_;
   Moment when_;
-
 public:
+  Moment shortest_playing_mom_;
+  Moment shortest_starter_mom_;
+
   int break_penalty_i () { return break_penalty_i_; }
   
   VIRTUAL_COPY_CONS(Score_element);
-  /// length of notes/rests in this column
-  Array<Moment> durations;
-    
 
-  Moment when() {  return when_; }
-  Score_column (Moment when, bool musical_b=false);
-  void add_duration (Moment);
-  void preprocess();
-  bool musical_b() { return musical_b_; }
+  Moment when_mom() { return when_; }
+  Score_column (Moment when);
+
+  bool musical_b() const;
   void do_print() const;
 };
 
