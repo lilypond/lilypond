@@ -47,7 +47,7 @@ Paper_column::do_print() const
       DOUT <<'\n' << ((break_status_i_ == -1)? "prebreak" : "postbreak");
       DOUT << '\n';
     }
-  DOUT << "extent: " << width().str () << "\n";
+  // DOUT << "extent: " << width().str () << "\n";
 #endif 
 }
 
