@@ -1,3 +1,8 @@
+2005-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/introduction.itely (Engraving): Comment-out
+	non-existent file.
+
 2005-04-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties): add
