@@ -92,16 +92,10 @@ doc++:
 	(cd $(outdir); sh ../$(step-bindir)/tar-docxx.sh $(package)-$(TOPLEVEL_VERSION).tar.gz)
 
 
-
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
-#	echo topdir=$(topdir)
-#	echo distdir=$(distdir)
-#	echo locladir=$(localdir)
 	mkdir -p $(distdir)/$(localdir)
 	$(LN) $(DIST_FILES) $(distdir)/$(localdir)
 
-#UGH UGH . make ifdef doesn't mix with string substitution semantics (late expansion vs. early expansion)
-# 
 	case "$(NON_ESSENTIAL_DIST_FILES)x" in x) ;; *) \
 		$(LN) $(NON_ESSENTIAL_DIST_FILES) $(distdir)/$(localdir);; \
 	esac

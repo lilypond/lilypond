@@ -10,7 +10,6 @@ man: $(HELP2MAN_GROFFS)
 
 localuninstall: uninstall-help2man
 
-
 uninstall-help2man:
 	$(foreach a, $(notdir $(MANGROFFS)), rm -f $(a) && ) true
 
