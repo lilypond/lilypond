@@ -16,7 +16,13 @@
 	     (srfi srfi-13)
 	     (lily))
 
-(define-public (sanitize-tex-string s) ;; todo: rename
+;; FIXME: rename
+;; what is bla supposed to do?  It breaks the default output terribly:
+
+;; \def\lilypondpaperbla$\backslash${$\backslash$}{bla$\backslash${$\backslash$}}%
+;; \lyitem{089.5557}{-15.3109}{\hbox{\magfontUGQLomTVo{}bla$\backslash${$\backslash$}}}%
+;; --jcn
+(define-public (sanitize-tex-string s)
    (if (ly:get-option 'safe)
       (regexp-substitute/global #f "\\\\"
 				(regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
@@ -55,7 +61,8 @@
 
 (define (define-fonts bookpaper)
   (string-append
-   "\\def\\lilypondpaperunit{mm}" ;; UGH. FIXME.
+   ;; UGH. FIXME.   
+   "\\def\\lilypondpaperunit{mm}\n"
    (tex-number-def "lilypondpaper" 'outputscale
 		   (number->string (exact->inexact
 				    (ly:bookpaper-outputscale bookpaper))))
@@ -71,15 +78,15 @@
   (if (not (equal? "-" fn))
       (set! fn (string-append fn "." key)))
   (display
-   (format "Writing header field `~a' to `~a'..."
+   (format (_ "Writing header field `~a' to `~a'...")
 	   key
 	   (if (equal? "-" fn) "<stdout>" fn)
-	   )
+	   (current-error-port))
    (current-error-port))
   (if (equal? fn "-")
       (display val)
       (display val (open-file fn "w")))
-  (display "\n" (current-error-port))
+  (newline (current-error-port))
   "")
 
 (define (output-scopes  scopes fields basename)
@@ -112,6 +119,10 @@
      "% at " "time-stamp,FIXME" "\n"
      (if classic?
 	 (tex-string-def "lilypond" 'classic "1")
+	 "")
+
+     (if (ly:get-option 'safe)
+	 "\\nofiles\n"
 	 "")
 
      (tex-string-def
@@ -245,16 +256,24 @@
 
 (define-public (convert-to-ps book name)
   (let*
-      ((cmd (string-append "dvips -u+ec-mftrace.map -u+lilypond.map -Ppdf " (basename name ".tex"))))
+      ((cmd (string-append "dvips -u+ec-mftrace.map -u+lilypond.map -Ppdf "
+			   (basename name ".tex"))))
 
-    (display (format #f "invoking ~S" cmd))
+    (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+    (newline (current-error-port))
     (system cmd)))
 
 (define-public (convert-to-dvi book name)
   (let*
-      ((cmd (string-append "latex " name)))
+      ((cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
 
-    (display (format #f "invoking ~S\n" cmd))
+    (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+    (newline (current-error-port))
+
+    ;; fixme: set in environment?
+    (if (ly:get-option 'safe)
+	(set! cmd (string-append "openout_any=p " cmd)))
+    
     (system cmd)))
 
 (define-public (convert-to-tex book name)
