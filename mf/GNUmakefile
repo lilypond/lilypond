@@ -109,7 +109,7 @@ INSTALLATION_OUT_FILES4=$(CFF_PS_FILES)
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
 INSTALLATION_OUT_FILES5=$(PFA_FILES)
 
-INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
+INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/fonts/map
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
@@ -199,3 +199,12 @@ local-clean:
 
 $(outdir)/%.enc.in: %.enc
 	cp $< $@
+
+# teTeX-2.0.x compatibility.
+local-install:
+	-$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)/dvips
+	(cd $(DESTDIR)$(local_lilypond_datadir)/dvips && ln -sf ../fonts/map .)
+
+local-uninstall:
+	-rm -f $(DESTDIR)$(local_lilypond_datadir)/dvips/map
+	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
