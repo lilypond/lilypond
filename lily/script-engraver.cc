@@ -33,18 +33,11 @@ public:
   TRANSLATOR_DECLARATIONS(Script_engraver);
 protected:
   virtual bool try_music (Music*);
-  virtual void initialize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
-
-void
-Script_engraver::initialize ()
-{
-  scripts_.clear ();
-}
 
 bool
 Script_engraver::try_music (Music *r)

@@ -52,7 +52,6 @@ private:
   Link_array<Audio_tie> ties_;
   
 protected:
-  virtual void initialize ();
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
@@ -65,19 +64,13 @@ Tie_performer::Tie_performer ()
 {
   event_ = 0;
   ties_created_ = false;
+  prev_event_ = 0;
 }
 
 ENTER_DESCRIPTION (Tie_performer, "", "",
 		   "tie-event",
 		   "", "", "");
 
-
-void
-Tie_performer::initialize ()
-{
-  event_ = 0;
-  prev_event_ = 0;
-}
 
 
 bool
