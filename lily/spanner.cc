@@ -274,7 +274,7 @@ Spanner::get_broken_left_end_align () const
 
   // Relevant only if left span point is first column in line
   if (sc != NULL &&
-     sc->break_status_dir () == RIGHT)
+      sc->break_status_dir () == RIGHT)
     {
       /*
 	

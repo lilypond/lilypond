@@ -342,6 +342,10 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
       */
     }
 
+  /*
+    For raggedright, we must have a measure of music density: this is
+    to prevent lots of short lines (which all have force = 0).
+    */
   if (ragged && line_len_ > 0)
     {
       Real len = positions->config_.top ();
@@ -351,9 +355,7 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
 
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;
-  
   positions->satisfies_constraints_b_ = (line_len_ < 0) || active_b ();
-
 
   /*
     Check if breaking constraints are met.
