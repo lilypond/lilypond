@@ -6,21 +6,22 @@
 
 \version "2.3.16"
 
-%
-% todo: make the check-quant function throw an error for incorrect quants
-%
-
 \paper  {
     raggedright = ##t
     #(define debug-beam-quanting #t)
 
       }
 
-filler = \relative { e4 e }
+filler = \new Voice \relative  {
+    \hideNotes
+    e4 e
+}
 % 
 
-
+%%
+%% Ross p108--112
 primes = \relative {
+    \time 3/4 
     \assertBeamQuant #'(0 . 0)  #'(0 . 0)
     c8[ c]
     \filler
@@ -48,13 +49,30 @@ primes = \relative {
     a8[ a]
     \filler
       
+%{
     \once \override Beam #'inspect-quants = #'(2.2 . 2.2)
+    \assertBeamQuant 
     a8[ a]
     \filler
+    
+%}
+    
 }
 
+
 seconds = \relative {
-    \assertBeamQuant #'(0 . 1)  #'(0 . 1)
+    
+    \assertBeamQuant #'(0 . 0)  #'(0 . 1)
+    a8[ b]
+    \filler
+     
+
+    \assertBeamQuant #'(0 . 0)  #'(0 . 1)
+    b8[ c]
+    \filler
+     
+
+    \assertBeamQuant #'(0 . 0)  #'(0 . 1)
     c8[ d]
     \filler
      
@@ -82,6 +100,45 @@ seconds = \relative {
     \filler
 }
 
+filler = \new Voice \relative  {
+    \hideNotes
+    e4 e4.
+}
 
-{ \primes \seconds }
+% Ross, p122 
+primeSixteenths = \relative {
+    \stemUp
+    \assertBeamQuant #'(0 . -1)  #'(0 . -1)
+    g16[ g]
+    \filler
+    \assertBeamQuant #'(0 . -1)  #'(0 . -1)
+    a16[ a]
+    \filler
+    \assertBeamQuant #'(0 . -1)  #'(0 . -1)
+    b16[ b]
+    \filler
+    \assertBeamQuant #'(0 . 0)  #'(0 . 0)
+    c16[ c]
+    \filler
+    \assertBeamQuant #'(1 . -1)  #'(1 . -1)
+    d16[ d]
+    \filler
+    \assertBeamQuant #'(1 . 0)  #'(1 . 0)
+    e16[ e]
+    \filler
+    \assertBeamQuant #'(2 .  -1)  #'(2 . -1)
+    f16[ f]
+    \filler
+    \assertBeamQuant #'(2 . 0)  #'(2 . 0)
+    g16[ g]
+    \filler
+    \assertBeamQuant #'(3 . -1)  #'(3 . -1)
+    a16[ a]
+    \filler
+    \assertBeamQuant #'(3 . 0)  #'(3 . 0)
+    b16[ b]
+    \filler
+}
+
+{ \primes \seconds \primeSixteenths }
 

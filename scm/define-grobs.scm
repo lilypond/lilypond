@@ -1028,13 +1028,14 @@
 
 	;; FIXME this should come from 'lengths
 
-	(beamed-lengths . (3.26 3.26 1.5))
+	(beamed-lengths . (3.26 3.5 3.6))
 	
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
 	
 	;; The 'normal' minima
 	(beamed-minimum-free-lengths . (1.83 1.5 1.25))
+	;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
 	
 	;; The 'extreme case' minima
 	(beamed-extreme-minimum-free-lengths . (2.0 1.25))

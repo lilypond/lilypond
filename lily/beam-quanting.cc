@@ -106,14 +106,14 @@ Beam::quanting (SCM smob)
   Real thickness = Beam::get_thickness (me) / ss ;
   Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
-  SCM sdy = me->get_property ("least-squares-dy");
-  Real dy_mus = scm_is_number (sdy) ? scm_to_double (sdy) : 0.0;
-  
+  Real dy_mus = robust_scm2double (me->get_property ("least-squares-dy"), 0);
   Real straddle = 0.0;
   Real sit = (thickness - slt) / 2;
   Real inter = 0.5;
   Real hang = 1.0 - (thickness - slt) / 2;
   Real quants [] = {straddle, sit, inter, hang };
+
+
   
   int num_quants = int (sizeof (quants)/sizeof (Real));
   Array<Real> quantsl;
