@@ -101,6 +101,7 @@ Stem::get_direction () const
     {
        Stem * me = (Stem*) this;
        d = get_default_dir ();
+       // urg, AAARGH!
        directional_element (me).set (d);
     }
   return d ;

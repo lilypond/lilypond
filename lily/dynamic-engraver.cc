@@ -24,13 +24,6 @@
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
 
-/*
- Wat mij betreft wel DYN_LINE
- */
-#define DYN_LINE
-
-
-#ifdef DYN_LINE
 class Dynamic_line_spanner : public Spanner
 {
 public:
@@ -106,12 +99,6 @@ Dynamic_line_spanner::do_post_processing ()
   
 }
 
-#endif
-/*
-  TODO:
-    Baseline alignment / character metrics of dynamic symbols.
- */
-
 /**
    print text & hairpin dynamics.
  */
@@ -125,11 +112,7 @@ class Dynamic_engraver : public Engraver
   Span_req * span_start_req_l_;
   Drul_array<Span_req*> span_req_l_drul_;
 
-#ifdef DYN_LINE
   Dynamic_line_spanner* line_spanner_;
-#else
-  Spanner* line_spanner_;
-#endif
   Moment last_request_mom_;
   
   void  typeset_all ();
@@ -209,13 +192,8 @@ Dynamic_engraver::do_process_requests ()
 {
   if ((span_req_l_drul_[START] || text_req_l_) && !line_spanner_)
     {
-#ifdef DYN_LINE
       line_spanner_ = new Dynamic_line_spanner;
-#else
-      line_spanner_ = new Spanner;
-      line_spanner_->set_elt_property ("transparent", SCM_BOOL_T);
       side_position (line_spanner_).set_axis (Y_AXIS);
-#endif
       announce_element (Score_element_info
 			(line_spanner_,
 			 text_req_l_ ? text_req_l_ : span_req_l_drul_[START]));
@@ -224,34 +202,6 @@ Dynamic_engraver::do_process_requests ()
 	  
   if (span_req_l_drul_[START] || text_req_l_)
     last_request_mom_ = now_mom ();
-  
-#ifndef DYN_LINE
-  if (line_spanner_)
-    {
-      /*
-	Generic property will handle this for a Dynamic_line_spanner
-       */
-      Direction dir = DOWN;
-      SCM s = get_property ("dynamicDirection");
-      if (!isdir_b (s))
-	{
-	  s = get_property ("verticalDirection");
-	}
-      
-      if (isdir_b (s) && to_dir (s))
-	dir = to_dir (s);
-      
-      line_spanner_->set_elt_property ("direction", gh_int2scm ((int)dir));
-
-      s = get_property ("dynamicPadding");
-      Real padding;
-      if (gh_number_p (s))
-	padding = gh_scm2double (s);
-      else
-	padding = 2;
-      line_spanner_->set_elt_property ("padding", gh_double2scm (padding));
-    }
-#endif 
   
   if (text_req_l_)
     {
@@ -280,6 +230,7 @@ Dynamic_engraver::do_process_requests ()
 	{
 	  assert (!finished_cresc_p_);
 	  cresc_p_->set_bounds(RIGHT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  span_start_req_l_ = 0;
@@ -323,6 +274,7 @@ Dynamic_engraver::do_process_requests ()
 
 	  cresc_p_->set_bounds(LEFT, get_staff_info ().musical_pcol_l ());
 	  cresc_p_->set_bounds(RIGHT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
 
 	  // arrragh, brr, urg: we know how wide text is, no?
 	  if (text_p_)
@@ -336,6 +288,7 @@ Dynamic_engraver::do_process_requests ()
 
 	  assert (line_spanner_);
 	  cresc_p_->set_parent (line_spanner_, Y_AXIS);
+	  cresc_p_->add_dependency (line_spanner_);
 	  announce_element (Score_element_info (cresc_p_, span_req_l_drul_[START]));
 	}
     }
@@ -359,12 +312,6 @@ Dynamic_engraver::do_removal_processing ()
   typeset_all ();
   if (line_spanner_)
     {
-#ifndef DYN_LINE
-      Direction dir = directional_element (line_spanner_).get ();
-      Real staff_space = Staff_symbol_referencer_interface (line_spanner_).staff_space ();
-      SCM s = line_spanner_->get_elt_property ("padding");
-      line_spanner_->translate_axis (gh_scm2double (s) * staff_space * (int)dir, Y_AXIS);
-#endif
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }
@@ -376,7 +323,7 @@ Dynamic_engraver::typeset_all ()
 {  
   if (finished_cresc_p_)
     {
-      finished_cresc_p_->set_bounds (RIGHT, get_staff_info ().musical_pcol_l ());
+      //finished_cresc_p_->set_bounds (RIGHT, get_staff_info ().musical_pcol_l ());
       typeset_element (finished_cresc_p_);
       finished_cresc_p_ =0;
     }
@@ -395,12 +342,6 @@ Dynamic_engraver::typeset_all ()
    */
   if (line_spanner_ && last_request_mom_ < now_mom ())
     {
-#ifndef DYN_LINE
-      Direction dir = directional_element (line_spanner_).get ();
-      Real staff_space = Staff_symbol_referencer_interface (line_spanner_).staff_space ();
-      SCM s = line_spanner_->get_elt_property ("padding");
-      line_spanner_->translate_axis (gh_scm2double (s) * staff_space * (int)dir, Y_AXIS);
-#endif
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }
@@ -414,15 +355,7 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
       if (Note_column* n = dynamic_cast<Note_column*> (i.elem_l_))
 	{
 	  side_position (line_spanner_).add_support (n);
-#ifdef DYN_LINE
 	  line_spanner_->add_column (n);
-#else
-	  if (!line_spanner_->spanned_drul_[LEFT])
-	    line_spanner_->set_bounds (LEFT, n);
-	  line_spanner_->set_bounds (RIGHT, n);
-	  
-	  line_spanner_->add_dependency (n);
-#endif
 	}
     }
 }

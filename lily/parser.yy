@@ -225,7 +225,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
-%type <i>	abbrev_type
+%type <i>	tremolo_type
 %type <i>	int unsigned
 %type <i>	script_dir
 %type <i>	optional_modality 
@@ -252,7 +252,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music_list> Music_list
 %type <paper>	paper_block paper_def_body
 %type <real>	real real_with_dimension
-%type <request> abbrev_command_req
+%type <request> shorthand_command_req
 %type <request>	post_request 
 %type <request> command_req verbose_command_req
 %type <request>	extender_req
@@ -926,11 +926,11 @@ command_element:
 	;
 
 command_req:
-	abbrev_command_req
+	shorthand_command_req
 	| verbose_command_req semicolon	{ $$ = $1; }
 	;
 
-abbrev_command_req:
+shorthand_command_req:
 	extender_req {
 		$$ = $1;
 	}
@@ -952,18 +952,19 @@ abbrev_command_req:
 	| '[' ':' unsigned {
 		if (!is_duration_b ($3))
 		  THIS->parser_error (_f ("not a duration: %d", $3));
-		else if ($3 < 8)
-		  THIS->parser_error (_ ("Can't abbreviate"));
 		else
-		  THIS->set_abbrev_beam ($3);
+		  THIS->set_chord_tremolo ($3);
 
 		Chord_tremolo_req* a = new Chord_tremolo_req;
 		a->span_dir_ = START;
-		a->type_i_ = THIS->abbrev_beam_type_i_;
+	        // urg
+		a->type_i_ = THIS->chord_tremolo_type_i_;
 		$$=a;
 	}
 	| ']'		{
-		if (!THIS->abbrev_beam_type_i_)
+	        /* URG
+	         */
+		if (!THIS->chord_tremolo_type_i_)
 		  {
 		     Span_req*b= new Span_req;
 		     b->span_dir_ = STOP;
@@ -974,8 +975,8 @@ abbrev_command_req:
 		  {
 		    Chord_tremolo_req* a = new Chord_tremolo_req;
 		    a->span_dir_ = STOP;
-		    a->type_i_ = THIS->abbrev_beam_type_i_;
-		    THIS->set_abbrev_beam (0);
+		    a->type_i_ = THIS->chord_tremolo_type_i_;
+		    THIS->set_chord_tremolo (0);
 		    $$ = a;
 		  }
 	}
@@ -1114,7 +1115,7 @@ verbose_request:
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
-	| abbrev_type	{
+	| tremolo_type	{
 		Tremolo_req* a = new Tremolo_req;
 		a->set_spot (THIS->here_input ());
 		a->type_i_ = $1;
@@ -1384,15 +1385,13 @@ steno_duration:
 	;
 
 
-abbrev_type: 
+tremolo_type: 
 	':'	{
 		$$ =0;
 	}
 	| ':' unsigned {
 		if (!is_duration_b ($2))
 			THIS->parser_error (_f ("not a duration: %d", $2));
-		else if ($2 < 8)
-			THIS->parser_error (_ ("Can't abbreviate"));
 		$$ = $2;
 	}
 	;
@@ -1408,10 +1407,14 @@ simple_element:
 		
 		n->pitch_ = *$1;
 		n->duration_ = *$4;
-		if (THIS->abbrev_beam_type_i_)
+                /*
+	          URG
+                 */
+		if (THIS->chord_tremolo_type_i_)
 		  {
 		    if (n->duration_.plet_b ())
-		      THIS->parser_error (_ ("Can't abbreviate tuplet"));
+	              // urg, burp.  what nonsense / silly implementation
+		      THIS->parser_error (_ ("can't put stem tremolo on tuplet"));
 		    else
 		      n->duration_.set_plet (1, 2);
 		  }

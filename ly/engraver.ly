@@ -255,20 +255,22 @@ LyricsContext = \translator {
 };
 \translator { \LyricsContext }
 
-\translator{
+ChordNameVoiceContext = \translator {
 	\type "Engraver_group_engraver";
-	\consists "Output_property_engraver";	
-
-	\consistsend "Axis_group_engraver";
 	\name ChordNameVoice ;
+
+	\consists "Output_property_engraver";	
+	\consistsend "Axis_group_engraver";
 	\consists "Separating_line_group_engraver";
 	\consists "Chord_name_engraver";
-}
-
+};
+\translator {\ChordNameVoiceContext}
 
 ChordNameContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
+
+	\consists "Output_property_engraver";	
 	\accepts "ChordNameVoice";
 	\consistsend "Axis_group_engraver";
 	};

@@ -177,7 +177,7 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 /** 
- Start / stop an abbreviation beam. */
+ Start / stop a tremolo beam. */
 class Chord_tremolo_req : public Span_req  
 {
 public:
