@@ -1,4 +1,15 @@
+1.4.4.jcn2
+==========
 
+* Beam and stem fixes:
+ - Stems drawn in PostScript (should do all filledbox'es in PS?).
+ - Fixes for draw_box and draw_beam PostScript routines.
+ - Stems reach to top (or bottom) of beam.
+ - Beam uses correct stem thickness (only right beams, left TODO).
+ - testing code in effect: only outlines are drawn.
+
+1.4.4
+=====
 
 1.4.3.jcn2
 ==========
