@@ -9,7 +9,7 @@
   - add support for different stretch/shrink constants?
   
 */
-
+#include <stdio.h>
 #include <math.h>
 #include <libc-extension.hh>	// isinf
 
@@ -311,8 +311,21 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
     my_solve_linelen ();
 }
 
-#include <stdio.h>
+/*
+  
+  TODO: should a add penalty for widely varying spring forces (caused
+  by constraints, eg.
 
+
+         =====  
+         |   |
+  o|o|  x ##x
+
+
+  The ## forces the notes apart; we shouldn't allow the O's to touch
+  this closely.
+  
+ */
 void
 Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
 {
