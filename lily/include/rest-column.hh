@@ -24,8 +24,8 @@ public:
     void add(Note_head *);
     void add(Stem *);
     NAME_MEMBERS();
-    void translate_y(Real dy);
     Rest_column();
+    void translate_heads(int dy);
 protected:
     virtual void do_print() const;
     virtual void do_substitute_dependency(Score_elem*, Score_elem*);
