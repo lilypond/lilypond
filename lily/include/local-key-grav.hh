@@ -18,6 +18,7 @@ protected:
   virtual void do_process_requests();
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing();
+  virtual void do_creation_processing ();
 public:
   Key local_key_;
   Key const *key_C_;
