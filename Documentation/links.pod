@@ -95,7 +95,7 @@ subscribe: send mail with subject "subscribe" to
 info-gnu-music-request@gnu.org.  
 
 As this list is moderated, normal people should ask to drl@gnu.org or
-hanwen@stack.nl to forward announces instead of sending it to
+hanwen@cs.ruu.nl to forward announces instead of sending it to
 info-gnu-music@gnu.org
 
 =item help-gnu-music@gnu.org
@@ -134,6 +134,10 @@ The Number One Free Operating System Kernel: Linux
 =item http://www.bright.net/~dlphilp/linux_soundapps.html
 
 Dave Philips' Linux sound applications page
+
+=item http://www.home.fh-karlsruhe.de/~rost0001/web/musik/musik.html
+
+Stochastic composing using LilyPond 
 
 =item http://www.medieval.org/emfaq/scores/software.html
 

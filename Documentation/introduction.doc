@@ -18,6 +18,8 @@
 \author{Jan Nieuwenhuizen}
 \date{March 2, 1998}
 
+\def\file#1{\verb+#1+}
+
 % ugh: trick to get examples not generate par
 % these are for 16pt
 \def\mudelapaperlinewidth{-28.452756}%
@@ -35,6 +37,9 @@
 \def\mudelapaperinterbeam{3.140000}%
 \def\mudelapapergourlay_energybound{100000.000000}%
 \def\mudelapapergourlay_maxmeasures{14.000000}%
+% huh?
+% \def\exampleheight{2\mudelapaperbarsize pt}
+\def\exampleheight{2cm}
 
 % ful of pars, needs the above
 \input lilyponddefs
@@ -44,20 +49,18 @@
 % generates par
 \turnOnPostScript%
 \def\turnOnPostScript{}
+% generates par
+\def\interscoreline{}
 % 
 
 \begin{document}
 \maketitle
 
-\def\interexample{\hskip15mm$\Longrightarrow$\hskip15mm}
-\def\preexample{}
+%\def\interexample{\hskip15mm$\Longrightarrow$\hskip15mm}
+%\def\interexample{\hbox to10mm{\hfill\hbox to0pt{\hss\vbox to\exampleheight{\vss$\Longrightarrow$\vss}\hss}\hfill}}
+\def\interexample{}
+\def\preexample{\par}
 \def\postexample{\par\medskip}
-
-% ugh, howto?
-% \def\frag{\vbox to 2\mudelapaperbarsize pt{\vss}
-% \def\interexample{\vss}\hskip15mm$\Longrightarrow$\hskip15mm}
-% \def\preexample{\vbox to 2\mudelabarsize pt{\vss}
-% \def\postexample{\vss}\par\medskip}
 
 \def\file#1{{\texttt{#1}}}
 \setcounter{secnumdepth}{-1}
@@ -68,44 +71,77 @@
 This document should provide a gentle introduction to 
 LilyPond's input language, Mudela.
 For completeness and nifty features see 
-\verb+input/*.ly+
+\file{input/*.ly}
 and
-\verb+lily/parser.y, lily/lexer.l+.
+\file{lily/parser.y}, \file{lily/lexer.l}.
+By tradition, Mudela files have the extension \file{.ly}.
 
+Mudela is an ascii script language 
+that is especially designed 
+to be easy to read and write.
+In the following sections 
+the basic elements of Mudela are presented
+in a series of simple examples.
+Each example has
+a verbatim snippet of Mudela%
+% a snippet of Mudela as it's typed-in%
+\footnote{ 
+In an effort not to bore you too much with details,
+we leave-out some red tape
+that's needed for a valid piece of Mudela.
+Therefore, before you try-out any of the examples,
+be sure to read the section `A complete example'.}
+on the left
+and the resulting fragment of music on the right
+as it was produced by LilyPond.
 
-\section{Notes: pitches and durations}
+\section{Notes}
 
-\begin[fragment,verbatim]{mudela}
+Let's start with a single note, a quarter C
+
+\begin[fragment,verbatim,center]{mudela}
 c
 \end{mudela}
 
-\begin[fragment,verbatim]{mudela}
+Now that was easy and entering a scale is not much harder
+
+%\subsection{Pitches}
+
+\begin[fragment,verbatim,center]{mudela}
 c d e f g a b
 \end{mudela}
 
-Durations are entered as reciproce values
-\begin[fragment,verbatim]{mudela}
-a1 | a2 a | a4 a a a
-\end{mudela}
-and default to the last previously used duration.
+% \subsection{Durations}
 
-Now we can write a little tune
-\begin[fragment,verbatim]{mudela}
-c d e c | c d e c | e f g2 | e4 f g2
+However, having only quarter notes may get a bit dull.
+Durations are entered as their reciproce values
+% a1 a2 a4 a a8 a a16 a a32 a a64 a a a a
+\begin[fragment,verbatim,center]{mudela}
+a1 a2 a4 a a8 a a16 a32 a64
 \end{mudela}
-note the explicit duration change for 
-the quarter e in the last measure.
+note that you only have to specify
+the duration when it changes:
+Lily assumes a note has the same duration as the previous one.
 
-Same for notes with flags
-\begin[fragment,verbatim]{mudela}
-a8 a16 a32 a64 a128
+Now we can already write a little tune
+\begin[fragment,verbatim,center]{mudela}
+c d e c | c d e c | e f g2
 \end{mudela}
+As you'll probably have guessed,
+the vertical bar (pipe) \verb+|+ may be used to mark
+measures.
 
-\begin[fragment,verbatim]{mudela}
+In the scale shown above
+we left-out the last c note of the next octave.
+Postfixing the pitch with a quote \verb+'+
+produces a note by one octave higher
+\begin[fragment,verbatim,center]{mudela}
 c c' c''
 \end{mudela}
 
-\begin[fragment,verbatim]{mudela}
+Prefixing the pitch with a quote \verb+'+
+produces a note by one octave lower
+\begin[fragment,verbatim,center]{mudela}
 a 'a ''a
 \end{mudela}
 
@@ -113,79 +149,269 @@ a 'a ''a
 
 A tie connects two adjacent noteheads
 
-\begin[fragment,verbatim]{mudela}
-c' ~ c
+\begin[fragment,verbatim,center]{mudela}
+e' ~ e
 \end{mudela}
 
 Whereas a slur rather connects `chords', 
-and tries to avoid crossing stems.
+and tries to avoid crossing stems
 
-\begin[fragment,verbatim]{mudela}
-c'( )c
+\begin[fragment,verbatim,center]{mudela}
+e'( )e
 \end{mudela}
 
-A (legato) slur can span several notes
-\begin[fragment,verbatim]{mudela}
-c'( d e )c
+And of course, such a (legato) slur can span several notes
+\begin[fragment,verbatim,center]{mudela}
+c( d e )f
 \end{mudela}
 
-\section{Beams and plets}
+\section{Beams and Plets}
 
-\begin[fragment,verbatim]{mudela}
+A beam is 
+\begin[fragment,verbatim,center]{mudela}
 [a8 a] [a16 a a a]
 \end{mudela}
 
-% [2/3 a8 a a]1/1
-\begin[fragment,verbatim]{mudela}
+Here's a beamed triplet
+\begin[fragment,verbatim,center]{mudela}
 [/3 a8 a a]/1
 \end{mudela}
 
-\begin[fragment,verbatim]{mudela}
+a triplet without a beam
+\begin[fragment,verbatim,center]{mudela}
 \[/3 a4 a8\]
 \end{mudela}
 
+and a combination
+\begin[fragment,verbatim,center]{mudela}
+[/3 a8 a16 a] a8 \]
+\end{mudela}
+
+Abbreviations
+\begin[fragment,verbatim,center]{mudela}
+c1:16 [:16 e1 g]
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+c4:32 [:16 c8 d8]
+\end{mudela}
+
+\section{Notenames}
+
+Lily has predefined sets of notenames
+for various languages%
+\footnote{These are Dutch, English, German, Italian and Swedish.
+Simply include the language specific init file \file{<language.ly>}.}.
+The default set are the ones we like best are the Dutch notenames.
+
+A sharp is formed by adding \verb+is+
+\begin[fragment,verbatim,center]{mudela}
+cis dis eis fis gis ais bis
+\end{mudela}
+
+and a flat is formed by adding \verb+es+%
+%\footnote{Exceptions: \verb+es+ and \verb+as+.}
+\footnote{Exceptions: {\tt es} and {\tt as}.}
+\begin[fragment,verbatim,center]{mudela}
+ces des es fes ges as bes
+\end{mudela}
+
+With the obvious names for double sharps
+\begin[fragment,verbatim,center]{mudela}
+cisis disis eisis fisis gisis aisis bisis
+\end{mudela}
+
+and double flats
+\begin[fragment,verbatim,center]{mudela}
+ceses deses eses feses geses ases beses
+\end{mudela}
+See why we like-em?
+
+There are two special `notenames', the rest
+\begin[fragment,verbatim,center]{mudela}
+r16 [a a a]
+\end{mudela}
+
+and the space
+\begin[fragment,verbatim,center]{mudela}
+a2 s-"diminuendo" | a
+\end{mudela}
+
+
 \section{Commands}
 
-\begin[fragment,verbatim]{mudela}
+\begin[fragment,verbatim,center]{mudela}
 \clef "bass"; 'c
 \end{mudela}
 
-\begin[fragment,verbatim]{mudela}
+and a clef-change
+\begin[fragment,verbatim,center]{mudela}
+\clef "violin"; f' e' \clef "alto"; d' c'
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
 \meter 3/4; c g g |
 \end{mudela}
 
-\begin[fragment,verbatim]{mudela}
+\begin[fragment,verbatim,center]{mudela}
 \key fis cis;
 'g 'a 'b cis d e fis g'
 \end{mudela}
+Note how Mudela allows you to 
+convey a musical message
+rather than forces you to produce a list of typesetting commands.
+If the music a \verb+cis+, you type a \verb+cis+.
+Depending on the key and context of the note
+Lily will determine what accidentals to typeset.
 
-\section{Example}
+A reminder accidental can be forced by
+using an exclamation mark \verb+!+
+on a pitch a reminder accidental
+\begin[fragment,verbatim,center]{mudela}
+cis d e cis | c! d e c |
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+\meter 2/4;
+\bar "|:"; c c \bar ":|:"; c c \bar ":|"; c c \bar "|."; 
+\end{mudela}
+
+\section{Scripts}
+
+Staccato may be abbreviated
+\begin[fragment,verbatim,center]{mudela}
+a-\staccato a-.
+\end{mudela}
+
+Marcato
+\begin[fragment,verbatim,center]{mudela}
+a-\marcato a-|
+\end{mudela}
+
+Staccatissimo
+\begin[fragment,verbatim,center]{mudela}
+a-\staccatissimo a-^
+\end{mudela}
+
+Sforzato
+% duh?
+% a-\sforzato a->
+\begin[fragment,verbatim,center]{mudela}
+a-\accent a->
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+a-\fermata
+\end{mudela}
+
+\begin[fragment,verbatim,center]{mudela}
+a-\fermata
+\end{mudela}
+
+Dynamics from pianississimo upto mezzopiano
+\begin[fragment,verbatim,center]{mudela}
+a\ppp a\pp a\p a\mp
+\end{mudela}
+
+from fortississimo downto mezzoforte
+\begin[fragment,verbatim,center]{mudela}
+a\fff a\ff a\f a\mf
+\end{mudela}
+
+sforzando, sforzato and rinforzato
+% huh?
+% a\sfz a\sf a\rf
+\begin[fragment,verbatim,center]{mudela}
+a\sfz a\sf
+\end{mudela}
+
+Fingering
+\begin[fragment,verbatim,center]{mudela}
+[e8-1 c'-5 g-3 f-2] a''-\flageolet
+\end{mudela}
+
+Bowing
+\begin[fragment,verbatim,center]{mudela}
+c-\upbow d-\downbow
+\end{mudela}
+
+Footwork
+\begin[fragment,verbatim,center]{mudela}
+\clef "bass"; \octave c;
+  'b4.-\lheel [cis8-\ltoe dis8-\rtoe e8-\rheel]
+\end{mudela}
+
+\section{Chords and Voices}
+
+Here's a simple chord
+\begin[fragment,verbatim,center]{mudela}
+<c e g>
+\end{mudela}
+
+here are a few
+\begin[fragment,verbatim,center]{mudela}
+<
+	{ c()d()c }
+	{ e()f()e }
+	{ g()a()g }
+>
+\end{mudela}
+
+and similarly voices
+\begin[fragment,verbatim,center]{mudela}
+<
+	{ \voiceone c g c g }
+	{ \voicetwo 'c2 'g2 }
+>
+\end{mudela}
+
+
+\section{A complete example}
+%\label{se:complete}
 
 A Mudela file needs some red tape
 
-\begin[verbatim]{mudela}
+\begin[verbatim,center]{mudela}
 \score{
-	\melodic{
+	\melodic {
 		\octave c';
-		c d e c
+		c d e c |
+		c d e c |
+		e f g2 |
 	}
 }
 \end{mudela}
 
 \section{Lyrics}
 
-% this nesting syntax sucks
-\begin[verbatim]{mudela}
+\begin[verbatim,center]{mudela}
 \score{
 	< 
-		\melodic \type Staff = bla < \melodic{\octave c'; c d e c} >
-% huh?
-%		\lyric \type Lyrics = bli < \lyric{Fre- re Ja- que} >
-        >
+		\melodic{ 
+			\octave c'; 
+			c d e c | c d e c |
+			e f g2 | e4 f g2
+			\bar "|.";
+		}
+		\type Lyrics \lyric{ 
+			Fr\`e-4 re Ja- que
+			Fr\`e- re Ja- que
+			Dor- mez vous?2
+			Dor-4 mez vous?2
+		}
+	>
 }
 \end{mudela}
 
 \section{Variables}
+
+
+\section{Ly2dvi}
+Check-out this handy little script 
+that not only may save you quite some keystrokes,
+but produces titles and takes care of
+margins and (hopefully) papersizes.
+See \file{ly2dvi (1)}.
 
 \end{document}
 

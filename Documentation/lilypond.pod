@@ -136,7 +136,7 @@ information, and small contributions.
 
 =item *
 
-Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
+Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.stack.nl/~hanwen
 
 =item *
 
