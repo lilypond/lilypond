@@ -45,8 +45,8 @@
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-pdf (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
-(define (dashed-slur thick dash lst)
-  (embedded-pdf (list 'dashed-slur thick dash lst)))
+(define (dashed-slur thick on off lst)
+  (embedded-pdf (list 'dashed-slur thick on off lst)))
 
 (define (char i)
   (string-append "\\char" (ly:inexact->string i 10) " "))

@@ -90,8 +90,8 @@
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
-(define (dashed-slur thick dash lst)
-  (embedded-ps (list 'dashed-slur thick dash `(quote ,lst))))
+(define (dashed-slur thick on off lst)
+  (embedded-ps (list 'dashed-slur thick on off `(quote ,lst))))
 
 (define (named-glyph font name)
   (let* ((info (ly:otf-font-glyph-info font name))
