@@ -9,6 +9,7 @@
 
 #ifndef ACCEPTOR_HH
 #define ACCEPTOR_HH
+#error
 
 #include "string.hh"
 #include "lily-proto.hh"
