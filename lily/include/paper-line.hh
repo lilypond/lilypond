@@ -11,12 +11,12 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "offset.hh"
+#include "stencil.hh"
 
 class Paper_line
 {
   DECLARE_SMOBS (Paper_line, );
-  SCM stencils_;
-  Offset dim_;
+  Stencil stencil_;
   bool is_title_;
   int penalty_;
   

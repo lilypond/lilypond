@@ -100,6 +100,10 @@ ly_module_lookup (SCM module, SCM sym)
 #undef FUNC_NAME
 }
 
+/*
+  Lookup SYM in a list of modules, which do not have to be related.
+  Return the first instance.
+ */
 SCM
 ly_modules_lookup (SCM modules, SCM sym)
 {

@@ -379,8 +379,7 @@ System::get_line ()
   Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
 				   stencils, penalty);
 
-  scm_gc_unprotect_object (pl->self_scm ());
-  return pl->self_scm ();
+  return scm_gc_unprotect_object (pl->self_scm ());
 }
 
 Link_array<Item> 

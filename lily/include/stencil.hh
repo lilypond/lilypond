@@ -28,15 +28,18 @@
     SCHEME is a Scheme expression that --when eval'd-- produces the
     desired output.  
 
-
-    Because of the way that Stencil is implemented, it is the most
-    efficient to add "fresh" stencils to what you're going to build.
+    Notes:
     
-    Dimension behavior:
+    * Because of the way that Stencil is implemented, it is the most
+    efficient to add "fresh" stencils to what you're going to build.
 
-    Empty stencils have empty dimensions.  If add_at_edge is used to
+    * Do not create Stencil objects on the heap. That includes passing
+    around Stencil* which are produced by unsmob_stencil().
+    
+    * Empty stencils have empty dimensions.  If add_at_edge is used to
     init the stencil, we assume that
-    DIMENSIONS = (Interval (0,0),Interval (0,0)
+
+      DIMENSIONS = (Interval (0,0),Interval (0,0)
 */
 class Stencil
 {

@@ -2528,7 +2528,7 @@ markup:
  		Score *score = $1;
  		Book *book = new Book;
 		book->scores_.push (score);
-		extern Music_output_def* get_paper (My_lily_parser *parser);
+
 		Music_output_def *paper = get_paper (THIS);
 		SCM s = book->to_stencil (paper, THIS->header_);
  		scm_gc_unprotect_object (score->self_scm ());

@@ -215,10 +215,7 @@ LY_DEFINE (ly_score_bookify, "ly:score-bookify",
 	   (SCM score_smob),
 	   "Return SCORE encapsulated in a BOOK.")
 {
-#if 0
-  SCM_ASSERT_TYPE (ly_c_parser_p (parser_smob), parser_smobd, SCM_ARG1, __FUNCTION__, "parser_smob");
-  SCM_ASSERT_TYPE (ly_c_score_p (score_smob), score_smob, SCM_ARG1, __FUNCTION__, "score_smob");
-#endif
+  SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob, SCM_ARG1, __FUNCTION__, "score_smob");
   
   Score *score = unsmob_score (score_smob);
   Book *book = new Book;
