@@ -1,3 +1,4 @@
+mailto(gnu-music-discuss@gnu.org)
 COMMENT(-*-text-*-)
 
 redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
@@ -93,15 +94,15 @@ mudela(verbatim)(
 \score {
     \notes			
     \relative c'' {		
-        \key g;
-        \time 3/4;		
+	    \key g;
+	    \time 3/4;		
 
-        d4 [g,8 a b c] d4 g, g |
-        e'4 [c8 d e fis] g4 g, g |
-        c4 [d8( )c b a( ] )b4 [c8 b a g] |
-        a4 [b8 a g fis] g2.  |
-
-        \bar ":|";		
+	\repeat 2 {
+	    d4 [g,8 a b c] d4 g, g |
+	    e'4 [c8 d e fis] g4 g, g |
+	    c4 [d8( )c b a( ] )b4 [c8 b a g] |
+	    a4 [b8 a g fis] g2.  |
+	}
 
         b'4 [g8 a b g]
         a4 [d,8 e fis d] |
@@ -209,6 +210,12 @@ this command comes after the code(\time) command, in the
 output, the key comes before the time signature: LilyPond knows about
 music typesetting conventions.
 verb(
+	\repeat 2 {
+) COMMENT(
+
+) This command tells LilyPond that the enclosed piece of music must
+be played twice.
+verb(
         d4
 ) COMMENT(
 
@@ -220,7 +227,8 @@ designates the duration of the note (it is a quarter note). COMMENT(
         [g,8
 )COMMENT(
 
-)The open bracket starts a beam.  This bracket is connected to the
+)The open bracket starts a beam.  Lily can set beams automatically,
+but we want to specify them ourselves.  This bracket is connected to the
 following note, which is an eighth with pitch code(g') (remember
 relative mode for pitches!)
 COMMENT(
@@ -270,25 +278,18 @@ closing parenthesis respectively.  In the line shown above this is
 done for two slurs.  Note that parentheses (slur markers) are between
 the notes, and the brackets (beam markers) around the notes. As you
 can see, the brackets and parentheses do not have to nest.
-
 verb(
         a4 [b8 a g fis] g2.  |
 ) COMMENT(
 
 ) A duration that is to be augmented with a duration dot, is notated
 with a duration number followed by periods, as many as you want
-augmentation dots.COMMENT(
-
-)verb(
-        \bar ":|";		% a repeat sign
+augmentation dots.
+verb(
+	}
 ) COMMENT(
 
-)
-Lily can not detect where you want your music to be repeated, so you
-have to instruct her: a special bar symbol can be entered by the
-code(\bar) command followed by a string that signifies the bar symbol
-that you want.  Then comes a semicolon to separate the string from the
-rest of the notes, just like with code(\key) and code(\time).
+) The end of the repeated music.  LilyPond will typset a repeat bar.
 verb(
      cis'4 [b8 cis] a4 |
 ) COMMENT(
@@ -495,6 +496,7 @@ note following the other.  You can also use LilyPond to typeset
 chords.  You do this  by expressing in mudela simultaneous music,
 i.e.,   notes that are to be played concurrently. 
 
+subsect(Where the chords have no names)
 In Mudela you can form simultaneous music by enclosing notes in
 pointed parentheses, bind(i.e.)bind(langle())bind(and)rangle().  ASCII
 doesn't really have these delimiters, so Mudela uses the larger-than
@@ -541,6 +543,42 @@ that is covered in bind(Section)ref(sec:polyphonic).
 
 [Chords and relative mode]
 
+subsect(Chords with names)
+
+In the previous section we have been talking more about 'stacked notes'
+rather than 'chords'.
+If you need to enter a lot of chords that have proper names, you can use 
+the code(\chords) mode as an alternative:
+COMMENT(
+)mudela(verbatim,fragment,center)(
+    \chords\transpose c''{ c1 d e }
+) 
+COMMENT( URG?
+    \chords\relative c''{ c1 d e }
+)
+
+subsect(Names with chords)
+
+A more common problem is the typesetting of chord names.  LilyPond has
+a special kind of staff for this, the code(ChordNames) staff.  
+The code(ChordNames) staff accepts music just as a normal staff, 
+but typesets only the name of each chord:
+COMMENT(
+
+)mudela(verbatim,center)(
+\score{
+  \type ChordNames {
+    \chords
+      { c1 d-min e-maj5+.9 }
+    \notes\relative c
+      { <c1 es g> }
+  }
+  \paper{
+    linewidth=-1.0;
+  }
+}
+) Because the ChordNames staff accepts normal music, it can be transposed,
+and you may enter it any way you like, either as chords or as notes.
 
 sect(Adding nuances: articulation and dynamics)
 
@@ -1340,8 +1378,7 @@ listen, especially if they involve accidentals.
 The only information that you need to enter is the
 tempo (Unfortunately, at this time, this the only thing that can be
 tuned.).  The syntax for the tempo is code(\tempo )var(duration) =
-var(beatsperminute);), for example: COMMENT(
-
+var(beatsperminute);, for example: COMMENT(
 
 )verb(
 \score {
@@ -1592,8 +1629,35 @@ switch = \type Voice = voiceA \notes { s4 \translator Staff = staffB s4
 }
 )
 
-Don't try to switch staffs when you are in the middle of a slur or
-beam, though: the spanners won't switch along.
+If you want to switch staffs you are in the middle of a slur or a
+beam, you should take special precautions.  In the paper block,
+you must tell how far the staffs will be apart:
+mudela(verbatim,center)(
+\score{
+  \type GrandStaff <
+    \type Staff=one \notes{ s2 }
+    \type Staff=two \notes\relative c{
+      \time 4/8;
+      \clef "bass";
+      \stemup [c8( e
+	\translator Staff=one \stemup 
+      g )c]
+    }
+  >
+  \paper {
+    linewidth=-1.0;
+    % slur damping gets confused
+    slur_slope_damping = 100.0;
+    \translator{
+      % we're using a grand staff
+      \GrandStaffContext  
+      minVerticalAlign = 3.0*\staffheight;
+      maxVerticalAlign = 3.0*\staffheight;
+    }
+  }
+}
+)
+as LilyPond cannot determine the interstaff distance.
 
 sect(Tuplets)
 
@@ -1628,4 +1692,36 @@ the bracket, the bracket is omitted.
 
 sect(Repeats)
 
-[todo]
+A repeated piece of music can consist of two parts: one part to be 
+repeated, and optionally, a list of alternative endings:
+COMMENT(
+)mudela(verbatim,fragment,center)(
+    \relative c'{
+    	\time 2/4;
+    	g' a
+        \repeat 2 { b c }
+	\alternative { 
+	    { d c } { d e }
+	}
+	f g
+    }
+) The number code(repeat-count) defines how many times the piece should be 
+played.  You may leave out the code(\alternative) part.  There must not 
+be more alternative endings than the code(repeat-count).
+
+A somewhat less intuitive form may be needed for lyrics, when there are
+a couple alternatives, but nothing is repeated.  The code(\repeat) command
+must be present, but it may specify an empty music list:
+COMMENT(
+)mudela(verbatim,fragment,center)(
+    \type Lyrics \lyrics {
+	\repeat 2 { }
+	\alternative < 
+	    { Let's not sing 
+	      this twice } 
+	    { Rather sing 
+	      this in- stead } 
+	> 
+    }
+)
+

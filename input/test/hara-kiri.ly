@@ -77,11 +77,11 @@ zagers = \type GrandStaff <
 		>
 	>
 	\paper{
+		linewidth = 40.0\mm;
 		\translator { \HaraKiriStaffContext }
 %uh?
 %		\translator { \OrchestralScoreContext }
 %		\translator { \OrchestralPartStaffContext }
-		linewidth = 40.0\mm;
 	}
 }
 

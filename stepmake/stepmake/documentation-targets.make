@@ -25,7 +25,7 @@ local-WWW: readme-top_FILES-txt readme-top_FILES-html $(OUTHTML_FILES) $(OUTREAD
 doc: do-doc
 
 $(outdir)/$(package).info: $(outdir)/topinfo.texinfo $(OUTTEXINFO_FILES)
-	$(MAKEINFO) -o $@ $(outdir)/topinfo.texinfo
+	$(MAKEINFO) --force -o $@ $(outdir)/topinfo.texinfo
 
 # what to do here?
 ifneq ($(strip $(INFO_FILES)),)
