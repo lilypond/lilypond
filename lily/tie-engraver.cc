@@ -47,12 +47,12 @@ class Tie_engraver : public Engraver
   
   Spanner * tie_column_;
   
-  
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
+  virtual void process_music ();
   virtual void process_acknowledged_grobs ();
   void typeset_tie (Grob*);
 public:
@@ -78,6 +78,13 @@ Tie_engraver::try_music (Music *mus)
     }
   
   return true;
+}
+
+void
+Tie_engraver::process_music ()
+{
+  if (event_ && to_boolean (get_property ("automaticMelismata")))
+    daddy_trans_->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -131,8 +138,8 @@ void
 Tie_engraver::start_translation_timestep ()
 {
   if (to_boolean (get_property ("automaticMelismata")))
-      daddy_trans_->set_property ("tieMelismaBusy",
-				  gh_bool2scm (heads_to_tie_.size ()));
+    daddy_trans_->set_property ("tieMelismaBusy",
+				gh_bool2scm (heads_to_tie_.size ()));
       
 }
 

@@ -14,24 +14,34 @@
     not be in the PD - but I am assuming there are no notable ones in
     this small piece.
 
-    The original compresses the entire music onto a single page, in 4 systems."
+    The original compresses the entire music onto a single page, in 4
+    systems.  Lily does so too if you tune down spacing-increment, but
+    chooses line breaks differently.
+
+"
 
 }
 
 \version "2.1.3"
-
+manuscriptBreak = { \break }
 \paper  {
     staffheight = 6.0 \mm
     
     #(define fonts (scale-font-list (/ (* 6 mm) (* 20 pt)) ))
     
     \include "params-init.ly"
-    linewidth = #(* mm 159)
+    linewidth = #(* mm 160)
     indent = 8\mm
     }
 
+modernAccidentals = {
+  \property Staff.extraNatural = ##f
+  \property Staff.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (same-octave . 3))
+  \property Staff.autoCautionaries = #'()  
+}
 
-melody = \notes  \relative c'' \repeat volta 2 \context Voice = singer {
+
+melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
     \time 6/8
     \autoBeamOff
     s1*0^\markup { \bold \bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
@@ -57,9 +67,9 @@ melody = \notes  \relative c'' \repeat volta 2 \context Voice = singer {
 firstVerse = \lyrics {
     \property LyricsVoice . stanza = "1."
     
-    Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \break
-    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit \break
-    ge -- heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \break
+    Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \manuscriptBreak
+    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit \manuscriptBreak
+    ge -- heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak
     dei -- ne Ro -- sen -- pracht, grüß ich __ dei -- ne Ro -- sen -- pracht. 
     }
 
@@ -76,10 +86,11 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
-    \property Voice.DynamicLineSpanner \set #'padding =#3
-    r8_\> << { s8 s8-\! }  << { fis( g)\!} \\ { c,4 } >> >> r8 <e c g> <e c g> |
+    \once \property Voice.DynamicLineSpanner \set #'padding =#3
+    r8_\> << { s8 s8-\! }  << { fis( g)
+			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
-    e,16_" "_\markup { \italic cresc } g c g e g d gis b gis d g |
+    e,16_" "_\markup { \italic cresc } g c g e g d gis b gis d gis |
     c, e a e c e a,-\f d fis d a d |
     b d g  d b g r4\fermata \clef treble g''8 |
     as4.( g 4.) | fis4. r4 <d g>8 ( |
@@ -92,6 +103,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
 }
 
 pianoLH = \notes \relative c'' \repeat volta 2 {
+    
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r
     \clef treble r4 <bes' c>8( <a c>) r <f c'> |
@@ -114,12 +126,14 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 
     << \time 6/8
 	\addlyrics
-     \new Staff {  \melody }
+     \new Staff {
+	 \context Staff \modernAccidentals
+	 \melody }
      \new Lyrics <<
 	 \context  LyricsVoice = "singer-1" \firstVerse
 	 \context LyricsVoice = "singer-2" \secondVerse
 	 >>
-     \new PianoStaff <<
+     \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {
 	     \bold
 	     \huge "2.  " }
@@ -130,13 +144,14 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 
     \paper {
 	\translator {
-	    \LyricsContext
+	    \LyricsVoiceContext
 	    minimumVerticalExtent = ##f
-	    LyricText \set #'font-size = #1.5
+	    LyricText \set #'font-size = #1.0
 	}
 	\translator {
 	    \ScoreContext
-	    SpacingSpanner \set #'common-shortest-duration = #(ly:make-moment 1 8)
+	    Beam \override #'thickness = #0.6
+	    SpacingSpanner \set #'spacing-increment = #1.0
 	}
 	\translator {  \PianoStaffContext
 		VerticalAlignment \override #'forced-distance = #10

@@ -744,6 +744,7 @@ music_output_def_body:
 	}
 	| music_output_def_body translator_spec_block	{
 		$$->assign_translator ($2);
+
 	}
 	| music_output_def_body tempo_event  {
 		/*

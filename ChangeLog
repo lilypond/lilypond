@@ -1,3 +1,33 @@
+2004-01-01  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/accidental-engraver.cc (number_accidentals): remove
+	spurious warning about non-parent contexts.
+
+	* lily/music-output-def.cc (assign_translator): \translator { }
+	for a Foo context implicitly redefines \FooContext.
+
+	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): many layout
+	fixes.
+
+	* lily/slur.cc (brew_molecule): don't use stafflinethickness
+	doubly in slur weight. 
+
+	* input/regression/prefatory-spacing-matter.ly (TODO): add clef :|
+	combination.
+
+	* scm/define-grobs.scm (all-grob-descriptions): change clef -
+	staffbar distance.
+
+	* scripts/lilypond.py (global_latex_preamble): crank down size of
+	the margins. Now there is a 12 mm top and bottom margin, which
+	should correspond with the printable area of modern printers.
+
+	This enlarges the music height of the printable page a little.
+
+	* mf/feta-accordion.mf (accreg_pen): remove circled-R, BB and SB
+	signs. Use \markup instead.
+	(accreg_pen): tweak for accordeon asterisk.
+
 2003-12-31  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* lily/melisma-engraver.cc (try_music): use melisma_busy()

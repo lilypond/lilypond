@@ -228,7 +228,7 @@
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . ((ambitus . (extra-space . 2.0))
-			(staff-bar . (minimum-space .  3.7))
+			(staff-bar . (extra-space . 0.7))
 			(key-signature . (minimum-space . 4.0))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-space . 5.0))
