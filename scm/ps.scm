@@ -129,11 +129,11 @@
 
 (define (dashed-line thick on off dx dy)
   (string-append 
-   (ly-number->string dx)
+   (ly-number->string (* dx (/ 72 72.27)))
    " "
    (ly-number->string dy)
    " "
-   (ly-number->string thick) 
+   (ly-number->string (* thick (/ 72 72.27))) 
    " [ "
    (ly-number->string on)
    " "

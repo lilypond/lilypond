@@ -35,6 +35,10 @@ Text_spanner::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
+  if (spanner->has_interface (ly_symbol2scm ("piano-pedal-interface")) ) 
+    {
+      setup_pedal_bracket(spanner);
+    }
 
 
   /* Ugh, must be same as Hairpin::brew_molecule.  */
@@ -129,17 +133,21 @@ Text_spanner::brew_molecule (SCM smob)
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");
+  SCM ew = me->get_grob_property ("edge-width");
   if (gh_pair_p (s))
     {
       Direction d = LEFT;
       int dir = to_dir (me->get_grob_property ("direction"));
       do
 	{
+	  Real dx = ( gh_pair_p (ew)  ? 
+		      gh_scm2double (index_cell (ew, d)) * - dir  :  
+		      0 );
 	  Real dy = gh_scm2double (index_cell (s, d)) * - dir;
 	  if (dy)
 	    {
-	      SCM list = Line_spanner::line_atom (me, 0, dy);
-	      Box b (Interval (0, thick),
+	      SCM list = Line_spanner::line_atom (me, dx, dy);
+	      Box b (Interval (-thick, 0),
 		     dy > 0
 		     ? Interval (0, dy)
 		     : Interval (dy, 0));
@@ -161,9 +169,112 @@ Text_spanner::brew_molecule (SCM smob)
     m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], 0);
   if (!edge[RIGHT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
-  m.translate_axis (broken_left + extra_off[LEFT], X_AXIS);
+  m.translate_axis (broken_left + extra_off[LEFT] + shorten[LEFT], X_AXIS);
 
   return m.smobbed_copy ();
 }
 
 
+
+/* 
+   Piano pedal brackets are a special case of a text spanner.
+   Pedal up-down (restart) indicated by the angled right and left edges 
+   of consecutive pedals touching exactly to form an __/\__
+   Chris Jackson <chris@fluffhouse.org.uk>
+
+   TODO: Pedal line extending to the end of the note
+*/
+
+void 
+Text_spanner::setup_pedal_bracket(Spanner *s)
+{
+
+  Real thick = s->paper_l ()->get_var ("stafflinethickness");  
+  Real ss = Staff_symbol_referencer::staff_space (s);
+
+  Drul_array<bool> a, broken;
+  Drul_array<Real> height, width, shorten, r;
+
+  // Pedal has an angled left edge \__  or an angled right edge __/ 
+  a[LEFT] = a[RIGHT] = false;
+  SCM al = s->get_grob_property ("angle-left");
+  SCM ar = s->get_grob_property ("angle-right");
+  if (gh_boolean_p (al) )  
+    a[LEFT]   = to_boolean (al);
+  if (gh_boolean_p (ar) )  
+    a[RIGHT]  = to_boolean (ar);
+  
+  height[LEFT] = ( to_boolean (s->get_grob_property ("text-start")) ?
+		   0 :
+		   ss );
+  height[RIGHT] = ss;
+  
+  Direction d = LEFT;
+  Interval e;
+  Real padding = 0;
+  SCM pa = (s->get_grob_property ("if-text-padding"));
+  if (gh_number_p (pa) )
+    padding = gh_scm2double (pa);
+  do {
+    Item *b = s->get_bound (d);
+
+    e = b->extent (b, X_AXIS);
+    if (!e.empty_b ())
+      r[d] = d * (e[-d] + padding);
+
+    broken[d] = b->break_status_dir () != CENTER;
+    width[d]  = (a[d]  ? ss*d/2 :  0);
+    if (broken[d])
+      height[d] =  0;
+  }
+  while (flip (&d) != LEFT);
+  
+  shorten[RIGHT] =  shorten[LEFT]  =  0;
+  Real extra_short = 0;
+  // For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
+  // need to shorten by the extent of the text grob
+  if ( to_boolean (s->get_grob_property ("text-start")) )
+    {
+      Grob * textbit = s->get_parent(Y_AXIS);
+      extra_short = padding;
+      if (textbit->has_interface(ly_symbol2scm("piano-pedal-interface")))
+	// for pretty Ped. scripts. 
+	{
+	  e = textbit->extent(textbit, Y_AXIS);
+	  extra_short += e.length();
+	}
+      if (textbit->has_interface(ly_symbol2scm("text-interface"))) 
+	// for plain text, e.g., Sost. Ped.
+	{
+	  SCM text  =  textbit->get_grob_property("text"); 
+	  if (gh_string_p (text)) {
+	    SCM properties = Font_interface::font_alist_chain (s);
+	    Molecule mol = Text_item::text2molecule (s, text, properties);
+	    extra_short += mol.extent(X_AXIS).length() / 2;
+	  }
+	}
+      shorten[RIGHT] -= thick;
+    }
+
+  // Shorten a \____ on the left so that it will touch an adjoining ___/ 
+  shorten[LEFT] += abs(width[LEFT]) * 2   +  extra_short ;
+  
+  if (broken[LEFT]) {
+    shorten[LEFT] -= s->get_broken_left_end_align () ;
+    shorten[RIGHT] -= r[RIGHT];
+  }
+  else 
+    // Shorten bracket on the right so it ends just before the spanned note.
+    shorten[RIGHT]  +=  thick  -  (r[LEFT]  +  r[RIGHT]);
+
+  // Hmm. TODO: This should be set in grob-description.scm, but side-positioning
+  // of consecutive brackets only seems to work if direction is +1 within the engraver. 
+  s->set_grob_property ("direction", gh_int2scm(-1)); 
+
+  s->set_grob_property ("edge-height", gh_cons ( gh_double2scm ( height[LEFT] ) , 
+						 gh_double2scm ( height[RIGHT]) ) );
+  s->set_grob_property ("edge-width",  gh_cons ( gh_double2scm ( width[LEFT]  ), 
+						 gh_double2scm ( width[RIGHT] ) ));
+  s->set_grob_property ("shorten", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
+					     gh_double2scm ( shorten[RIGHT] ) ));
+}

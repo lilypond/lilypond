@@ -1946,15 +1946,33 @@ c''4 \spanrequest \stop "Sustain"
 @end lilypond
 
 The symbols that are printed can be modified by setting
-@code{pedal@var{X}Strings}, where @var{X} is one of the pedal
-types. Refer to the generated documentation of @rgrob{PianoPedal} for
-more information.
+@code{pedal@var{X}Strings}, where @var{X} is one of the pedal types:
+Sustain, Sostenuto or UnaCorda.  Refer to the generated documentation of
+@rgrob{PianoPedal} for more information.
 
-@refbugs
+Pedals can also be indicated by a sequence of brackets, by setting the 
+@code{pedal-type} property of SustainPedal grobs: 
 
+@lilypond[fragment,verbatim]
+\property Staff.SustainPedal \override #'pedal-type = #'bracket
+c''4 \sustainDown d''4 e''4 a'4 \sustainUp \sustainDown f'4 g'4 a'4 \sustainUp
+@end lilypond
 
-Currently, brackets are not supported, only text markings (i.e. `*Ped'
-style).
+A third style of pedal notation is a mixture of text and brackets,
+obtained by setting @code{pedal-type} to @code{mixed}:
+
+@lilypond[fragment,verbatim]
+\property Staff.SustainPedal \override #'pedal-type = #'mixed
+c''4 \sustainDown d''4 e''4 c'4 \sustainUp \sustainDown f'4 g'4 a'4 \sustainUp
+@end lilypond
+
+The default '*Ped' style for sustain and damper pedals corresponds to
+@code{\pedal-type = #'text}. However @code{mixed} is the default style
+for a sostenuto pedal:
+
+@lilypond[fragment,verbatim]
+c''4 \sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4 \sostenutoUp
+@end lilypond
 
 
 @c .   {Arpeggio}

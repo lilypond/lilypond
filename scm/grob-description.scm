@@ -97,31 +97,21 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-	;(molecule-callback . ,Beam::brew_molecule)
-	(molecule-callback . ,New_beam::brew_molecule)
+	(molecule-callback . ,Beam::brew_molecule)
 	(concaveness-threshold . 0.08)
-	(position . (#f . #f))
-	(y-dy-callbacks . (,Beam::least_squares
-			   ,Beam::check_concave
-			   ,Beam::slope_damping
-			   ,Beam::quantise_dy
-			   ,Beam::user_override
-			   ,Beam::do_quantise_y))
-
-	(position-callbacks . (,New_beam::least_squares
-			       ,New_beam::check_concave
-			       ,New_beam::slope_damping
-			       ,New_beam::quantise_position))
+	(positions . (#f . #f))
+	(position-callbacks . (,Beam::least_squares
+			       ,Beam::check_concave
+			       ,Beam::slope_damping
+			       ,Beam::quantise_position))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
-	;;(after-line-breaking-callback . ,Beam::after_line_breaking)
-	(after-line-breaking-callback . (,New_beam::after_line_breaking
-					 ,New_beam::end_after_line_breaking))
+	(after-line-breaking-callback . (,Beam::after_line_breaking
+					 ,Beam::end_after_line_breaking))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
-	(height-quant-function .  ,default-beam-dy-quants)
-	(vertical-position-quant-function . ,default-beam-y-quants)
+	(vertical-position-quant-function . ,default-beam-pos-quants)
 	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
@@ -567,6 +557,20 @@
 	(meta . ,(grob-description multi-measure-rest-interface  font-interface percent-repeat-interface))
 	))
 
+    (PianoPedalBracket   ;; an example of a text spanner
+     . (
+	(molecule-callback . ,Text_spanner::brew_molecule)
+	(font-family . roman)
+	(type . line)
+	(if-text-padding . 1.0)
+	(width-correct . 0)
+	(outer . #t)
+	(angle-left  . #f)
+	(angle-right . #f)
+	(text-start  . #f)
+	(meta . ,(grob-description text-spanner-interface piano-pedal-interface font-interface))
+	))
+
     (RepeatSlash
      . (
 	(molecule-callback . , Percent_repeat_item_interface::beat_slash)
@@ -710,17 +714,27 @@
     (SostenutoPedal
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(direction . -1)
+	(direction . 1)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(no-spacing-rods . #t)
+	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
+	(pedal-type . mixed)
+	(font-family . roman)
 	(font-shape . italic)
 	(self-alignment-X . 0)
 	(meta . ,(grob-description text-interface  font-interface))
 	))
 
+    (SostenutoPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
+	))
+	
     (Stem
      . (
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
@@ -773,13 +787,21 @@
 	(no-spacing-rods . #t)
 	(molecule-callback . ,Sustain_pedal::brew_molecule)
 	(self-alignment-X . 0)
-	(direction . -1)
+	(direction . 1)
+	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
+	(pedal-type . text)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
+	(meta . ,(grob-description piano-pedal-interface side-position-interface font-interface))
+	))
 
-	(meta . ,(grob-description sustain-pedal-interface side-position-interface font-interface))
+    (SustainPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
 	))
 
     (SystemStartBrace
@@ -832,7 +854,7 @@
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
-	(type . "line")
+	(type . line)
 
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
@@ -896,12 +918,21 @@
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
-	(direction . -1)
+	(direction . 1)
+	(pedal-type . text)
+	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
 	(meta . ,(grob-description text-interface font-interface))
+	))
+
+    (UnaCordaPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
 	))
 
     (VoltaBracket
