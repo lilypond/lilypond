@@ -37,7 +37,7 @@ Short Introduction to LaTeX} provides a introction to using La@TeX{}.
 
 @menu
 * Integrating Texinfo and music::  
-* Integrating La@TeX{} and music::  
+* Integrating LaTeX and music::  
 * Integrating HTML and music::  
 * Music fragment options::      
 * Invoking lilypond-book::      
@@ -111,11 +111,12 @@ When producing texinfo, lilypond-book also generates bitmaps of the
 music, so you can make a HTML document with embedded music.
 
 
-@node Integrating La@TeX{} and music
-@section Integrating La@TeX{} and music
+@c @TeX{} in node name seems to barf
+@node Integrating LaTeX and music
+@section Integrating LaTeX and music
 
 
-  You specify LilyPond code like this:
+You specify LilyPond code like this:
 
 @example
 \begin[options, go, here]@{lilypond@}
@@ -462,7 +463,6 @@ The size of a lilypond block is limited to 1.5 kb, due to technical
 problems with Python's regular expressions. For longer files, use
 @code{\lilypondfile}.  Using @code{\lilypondfile} also makes upgrading
 files (through convert-ly, see @ref{Invoking convert-ly}) easier.
-
 
 @command{lilypond-book} processes all music fragments in one big run.
 The state of the GUILE interpreter is not reset between fragments;

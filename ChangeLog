@@ -1,3 +1,8 @@
+2003-06-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
+	music): remove @TeX{} command.
+
 2003-06-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lilypond-indent.el (scan-sexps): Renamed to
@@ -14,11 +19,11 @@
 	
 2003-06-10  Graham Percival  <gperlist@shaw.ca>
 
-   * input/test/beam-abbrev.ly input/test/default-neutral-dir.ly
-   input/test/beam-dir.ly input/test/beam-position.ly    
-   input/test/beam-suspect.ly input/test/beam-trend.ly    
-   input/test/beams.ly input/test/crescendo-text.ly : deleted
-   * input/test/beam-chord.ly: moved to input/regression/beam-chord.ly
+	* input/test/beam-abbrev.ly input/test/default-neutral-dir.ly
+	input/test/beam-dir.ly input/test/beam-position.ly    
+	input/test/beam-suspect.ly input/test/beam-trend.ly    
+	input/test/beams.ly input/test/crescendo-text.ly : deleted
+	* input/test/beam-chord.ly: moved to input/regression/beam-chord.ly
 	* input/test/ beam-pos.ly beam-second.ly : moved to input/regression/
 	* input/test/default-bars.ly: moved to bar-always.ly
 	* input/test/ {many}: deleted old "renamed from foo to bar" comments.
