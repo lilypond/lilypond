@@ -78,19 +78,7 @@ fet_beginchar ("Pedal asterisk", "*");
 
 	pat := pat
 	       .. cycle;
-
-	% Uh, oh, there is a bug in metapost 0.641 which makes mf2pt1.mp's
-	% redefinion of `fill' fail for this particular path, using a
-	% wrong path orientation.
-	%
-	% Note that using `unfill' here makes the direct mpost output
-	% wrong, but the `mf2pt1' script fixes it for the Type 1 output.
-
-	if known bp_per_pixel:
-		unfill pat;
-	else:
-		fill pat;
-	fi;
+	fill pat;
 
 	pickup pencircle scaled (7/8 inner_r);
 

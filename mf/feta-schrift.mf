@@ -822,7 +822,6 @@ fet_beginchar ("Trill (`tr')", "trill");
 	     .. z4r{down}
 	     .. z3r{left}
 	     ..tension (1.5 + .7 slant).. z2r{up}
-	     .. z1r
 	     -- cycle;
 
 	z5' = point 1.1 of krul_p;
@@ -1155,15 +1154,15 @@ fet_beginchar ("Varied Coda", "varcoda");
 	set_char_box (codawidth# + thick#, codawidth# + thick#,
 		      codaheight# + thick#, codaheight# + thick#);
 
-	x1 = -codawidth;
+	x1 = -codawidth + .5 thick;
 	y1 = y2 - thin;
-	x2 = codawidth;
+	x2 = codawidth - .5 thick;
 	y2 = codaheight;
 	draw_block (z1, z2);
 
-	x3 = x1;
+	x3 = -codawidth;
 	y3 = -codaheight;
-	x4 = x1 + thick;
+	x4 = x3 + thick;
 	y4 = y2;
 	draw_block (z3, z4);
 
