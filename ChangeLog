@@ -1,5 +1,8 @@
 2003-07-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/polymetric.ly: rename from poly-metric
+	add example with disparate note value.
+
 	* scripts/ly2dvi.py (include_path): bugfix: use outbase
 	iso. outname.
 
