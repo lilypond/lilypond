@@ -1,5 +1,5 @@
 #include "misc.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "dimen.hh" 
 #include "debug.hh"
 #include "paper-def.hh"
@@ -9,7 +9,7 @@
 
 
 
-Notehead::Notehead(int ss)
+Note_head::Note_head(int ss)
 {
     x_dir_i_ = 0;
     staff_size_i_=ss;
@@ -21,16 +21,18 @@ Notehead::Notehead(int ss)
 }
 
 void
-Notehead::set_rhythmic(Rhythmic_req*r_req_l)
+Note_head::set_rhythmic(Rhythmic_req*r_req_l)
 {
     balltype_i_ = r_req_l->duration_.type_i_;
+    if (balltype_i_ > 4)
+	balltype_i_ = 4;
     dots_i_ = r_req_l->duration_.dots_i_;
 }
     
-IMPLEMENT_STATIC_NAME(Notehead);
+IMPLEMENT_STATIC_NAME(Note_head);
 
 void
-Notehead::do_print()const
+Note_head::do_print()const
 {
 #ifndef NPRINT
     if (rest_b_)
@@ -42,18 +44,18 @@ Notehead::do_print()const
 
 
 int
-Notehead::compare(Notehead *const  &a, Notehead * const &b)
+Note_head::compare(Note_head *const  &a, Note_head * const &b)
 {
     return a->position_i_ - b->position_i_;
 }
 
 Molecule*
-Notehead::brew_molecule_p() const 
+Note_head::brew_molecule_p() const 
 {
     Molecule*out = 0;
     Paper_def *p = paper();
 
-    Real dy = p->internote();
+    Real dy = p->internote_f();
     Symbol s;
     if (!rest_b_)
 	s = p->lookup_l()->ball(balltype_i_);

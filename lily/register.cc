@@ -1,7 +1,7 @@
 /*
   register.cc -- implement Request_register
 
-  Sourcefile of LilyPond musictypesetter
+  Sourcefile of GNU LilyPond musictypesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -9,10 +9,9 @@
 #include "voice.hh"
 #include "musical-request.hh"
 #include "register.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 #include "complex-walker.hh"
 #include "local-key-item.hh"
-#include "complex-staff.hh"
 #include "register-group.hh"
 #include "debug.hh"
 

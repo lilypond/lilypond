@@ -13,7 +13,7 @@
 #include "debug.hh"
 #include "key-item.hh"
 #include "tie.hh"
-#include "notehead.hh"
+#include "note-head.hh"
 
 Local_key_register::Local_key_register()
 {
