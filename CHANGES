@@ -1,3 +1,40 @@
+1.3.116.jcn4
+============
+
+* Bugfix: don't set beaming for outer half beams.  This fixes some
+slurs attached to stem end.
+
+* Bugfixes for (de)crescendo spanners and generic text spanners
+
+* Bugfix: Slur::set_interface (): don't overwrite, but copy attachment
+property.
+
+* Started documenting some new or not too wel documented features.
+
+* Bugfix: only assume making deep split html documentation when
+makeinfo --version 4.0.jcn2 is available.  Although the documentation
+should now build with plain makeinfo 4.0, some links will be broken.
+
+* Bugfix: lilypond-book: check for .texidoc files *after* running lilypond.
+
+1.3.116.mb1
+===========
+
+* Bugfix: convert-ly.py: Correct syntax for inserted \version, 
+  \push -> override happened in 1.3.111
+
+* Bugfix: corrected documentation of timeSignatureStyle, removed all
+  `unknown type' in the property documentation.
+
+* Added font family typewriter (cmtt).
+
+* Bugfix: some examples updated
+
+* Bugfix: beamed grace notes (reinstate process_music () call in
+Grace_engraver_group::process() )
+
+* Rename: Global_translator::process -> Global_translator::one_time_step (). 
+
 1.3.115.jcn2
 ============
 
