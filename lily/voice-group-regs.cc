@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "voice.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "musical-request.hh"
@@ -32,6 +32,7 @@ Voice_group_registers::Voice_group_registers(String id)
     if (id=="")			// UGH
 	id = __FUNCTION__ + String(temp_id_count++);
     group_id_str_ = id;
+    termination_mom_ = 0; 
 }
 
 bool
@@ -65,17 +66,21 @@ Voice_group_registers::terminate_register(Request_register*r_l)
 	for (int i=0; i <voice_regs_l_.size(); i++) {
 	    if (r_l == voice_regs_l_[i])
 		voice_regs_l_.del(i);
+	    mtor << "Terminating voice_reg " ;
 	    Register_group_register::terminate_register(r_l);
 	    return;
 	}
     }
     assert(false);
 }
+IMPLEMENT_STATIC_NAME(Voice_group_registers);
+
 void
 Voice_group_registers::do_print() const
 {
 #ifndef NPRINT
     mtor << "ID: " << group_id_str_<<"\n";
+    mtor << "stopping at " << termination_mom_ << "\n";
     Register_group_register::do_print();
 #endif
 }
@@ -83,6 +88,22 @@ void
 Voice_group_registers::add(Request_register*r_l)
 {
     Register_group_register::add(r_l);
-    if (r_l->name() == Voice_registers::static_name())
-	voice_regs_l_.push( (Voice_registers*)r_l );
+    if (r_l->name() == Voice_registers::static_name()) {
+	Voice_registers * vregs_l = (Voice_registers*)r_l;
+	voice_regs_l_.push( vregs_l );
+	Voice *v_l = vregs_l->voice_l_;
+	termination_mom_ = termination_mom_ >? v_l -> last();
+	mtor << "adding Voice_registers, now terminating at " << 
+	    termination_mom_<< "\n";
+    }
+}
+
+void
+Voice_group_registers::post_move_processing()
+{
+    if ( get_staff_info().time_C_ ->when_ > termination_mom_ ){
+	mtor << "Terminating voice_group\n";
+	daddy_reg_l_->terminate_register(this);
+    }
+    Register_group_register::post_move_processing();
 }

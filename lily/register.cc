@@ -13,7 +13,7 @@
 #include "complex-walker.hh"
 #include "local-key-item.hh"
 #include "complex-staff.hh"
-#include "registergroup.hh"
+#include "register-group.hh"
 #include "debug.hh"
 
 
@@ -81,6 +81,8 @@ Request_register::print() const
     mtor << "}\n";
 #endif
 }
+
+IMPLEMENT_STATIC_NAME(Request_register);
 
 void
 Request_register::do_print()const

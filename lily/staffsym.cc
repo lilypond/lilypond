@@ -17,6 +17,8 @@ Staff_symbol::Staff_symbol(int l)
     no_lines_i_ = l;
 }
 
+IMPLEMENT_STATIC_NAME(Staff_symbol);
+
 void
 Staff_symbol::do_print()const
 {

@@ -55,13 +55,17 @@ Voice_registers::try_request(Request*r_l)
 bool
 Voice_registers::acceptable_request_b(Request*r)
 {
-//    return (r->rest() || r->note() || r->slur() || r->groupchange());
-    return  r->groupchange()
+    Command_req *  c_l = r->command();
+    return  r->groupchange() || (c_l&&c_l->terminate())
 	|| Register_group_register::acceptable_request_b(r);
 }
+IMPLEMENT_STATIC_NAME(Voice_registers);
+
 void
 Voice_registers::do_print() const
 {
+#ifndef NPRINT
     mtor << "Voice= " << voice_l_<<'\n';
     Register_group_register::do_print();
+#endif
 }

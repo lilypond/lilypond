@@ -19,6 +19,8 @@ Text_spanner::Text_spanner()
     support = 0;
 }
 
+IMPLEMENT_STATIC_NAME(Text_spanner);
+
 void
 Text_spanner::do_print() const
 {
