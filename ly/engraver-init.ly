@@ -234,9 +234,7 @@
 
     \remove "Fingering_engraver"
 
-    \remove "Phrasing_slur_engraver"
     \remove "Cluster_spanner_engraver"
-    \remove "Slur_engraver"
     \consists "Tuplet_engraver"
 
     \consists "Skip_event_swallow_translator"
