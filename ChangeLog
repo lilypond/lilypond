@@ -1,3 +1,9 @@
+2005-03-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/GNUmakefile (deep-symlinks): remove outimages target.
+
+	* input/typography-demo.ly: new file.
+
 2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/stencil-scheme.cc: Use "libc-extention.hh" (WAS:

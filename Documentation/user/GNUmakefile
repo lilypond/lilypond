@@ -192,7 +192,7 @@ else
 # Links referred to by Documentation index
 LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
 
-local-WWW: outimages deep-symlinks
+local-WWW: deep-symlinks
 
 deep-symlinks:
 	mkdir -p $(outdir)/lilypond
