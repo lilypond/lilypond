@@ -154,6 +154,10 @@ some punctuation. It doesn't have any letters.  "
   "Set font shape to @code{caps}."
   (interpret-markup paper (prepend-alist-chain 'font-shape 'caps props) arg))
 
+(def-markup-command (latin-i paper props arg) (markup?)
+  "TEST latin1 encoding."
+  (interpret-markup paper (prepend-alist-chain 'font-shape 'latin1 props) arg))
+
 (def-markup-command (dynamic paper props arg) (markup?)
   "Use the dynamic font.  This font only contains s, f, m, z, p, and
 r.  When producing phrases, like ``piu f'', the normal words (like

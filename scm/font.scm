@@ -5,32 +5,26 @@
 ;;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-;; Should separate default sizes
-;; into separate list/alist ?
-
-
-"
-Each entry in this vector has the following format
-
-
- (cons
-  #(QUALIFIERS)
-  (cons DEFAULT-SIZE
-        #(SIZE-FONT-ENTRIES... ) ))
-
-where each SIZE-FONT-ENTRY is
-
-  (cons DESIGN-SIZE FONT-NAME)
-
-or
-
-  (cons DESIGN-SIZE (list FONT-NAME1 FONT-NAME2 .. )) 
-
-"
-
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))
 
+;; Should separate default sizes
+;; into separate list/alist ?
+
+;; FIXME docstring for paper20-font-vector 
+  """ Entries have the following format
+
+  ( #(SERIES SHAPE FAMILY)  .
+    (DEFAULT-SIZE . #(SIZE-FONT-ENTRY... ) ))
+
+where SIZE-FONT-ENTRY is
+
+  (DESIGN-SIZE FONT-NAME)
+
+or
+
+  (DESIGN-SIZE (FONT-NAME1 FONT-NAME2 ... ))"""
+  
 (define-public paper20-font-vector
   '((#(medium upright number) .
      (10 . #((10.0  . "feta-nummer10"))))
@@ -92,7 +86,11 @@ or
 		)))
     (#(* * math) .
      (10.0 . #((10.0 . "msam10"))))
-     ))
+    ;; testing ps-encoding
+    (#(medium latin1 roman) .
+     (10.0 . #((12.0 . "ecrm12"))))
+    (#(bold latin1 roman) .
+     (10.0 . #((14.0 . "ecbm14"))))))
 
 (define (scale-font-entry entry factor)
   (cons

@@ -133,7 +133,10 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
       return qname;
     }
 
-  warning (_ ("couldn't find any font size family satisfying "));
+  warning (_f ("cannot find font for: (%s %s %s)",
+	       ly_symbol2string (series).to_str0 (),
+	       ly_symbol2string (shape).to_str0 (),
+	       ly_symbol2string (family).to_str0 ()));
   
   scm_write (scm_list_n (shape, series , family, 
 			 SCM_UNDEFINED), scm_current_error_port ());

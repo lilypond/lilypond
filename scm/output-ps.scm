@@ -36,7 +36,7 @@
 
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 
-;;; Module entry
+;;; Output interface entry
 (define-public (ps-output-expression expr port)
   (display (expression->string expr) port))
 
@@ -61,34 +61,13 @@
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
 
-(define LATIN1-ENCODING-ALIST
-  '(("ö" . "oumlaut")
-    ("ò" . "ograve")
-    ("ó" . "oacute")
-    ("ô" . "ocircumflex")
-    ("õ" . "otilde")
-    ("ø" . "oslash")))
-
-(define LATIN1-ENCODING-COMMANDS
-  "/oumlaut { (o) show gsave -1 0 rmoveto (\\177) show grestore } bind def
-/ograve { (o) show gsave -1 0 rmoveto (\\022) show grestore } def
-/oacute { (o) show gsave -1 0 rmoveto (\\023) show grestore } def
-/ocircumflex { (o) show gsave -1 0 rmoveto (^) show grestore } def
-/otilde { (o) show gsave -1 0 rmoveto (~) show grestore } def
-/oslash { (o) show gsave -1 0 rmoveto (\\034) show grestore } def
-")
-
+;; WIP
+(define font-encoding-alist
+  '(("ecrm12" . "ISOLatin1Encoding")
+    ("ecmb12" . "ISOLatin1Encoding")))
+		 
 (define (ps-encoding text)
-  (let ((s (escape-parentheses text)))
-    (define (helper alist-list s)
-      (if (not (pair? alist-list))
-	  s
-	  (helper (cdr alist-list)
-		  (regexp-substitute/global
-		   #f (caar alist-list) s
-		   'pre (string-append ") show " (cdar alist-list) " (")
-		   'post))))
-    (helper LATIN1-ENCODING-ALIST s)))
+  (escape-parentheses text))
 
 ;; FIXME: lily-def
 (define (ps-string-def prefix key val)
@@ -104,8 +83,6 @@
 
 (define (tex-font? fontname)
   (equal? (substring fontname 0 2) "cm"))
-
-
 
 ;;; Output-interface functions
 (define (beam width slope thick blot)
@@ -162,6 +139,31 @@
   (define (fontname->designsize fontname)
     (let ((i (string-index fontname char-numeric?)))
       (string->number (substring fontname i))))
+  
+  (define (define-font command fontname scaling)
+    (string-append
+     "/" command " { /" fontname " findfont "
+     (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
+
+  (define (reencode-font raw encoding command)
+    (string-append
+     raw " " encoding " /" command " reencode-font\n"
+     "/" command "{ /" command " findfont 1 scalefont } bind def\n"))
+	  
+  ;; frobnicate NAME to jibe with external definitions.
+  (define (possibly-mangle-fontname fontname)
+    (cond
+     ((tex-font? fontname)
+      ;; FIXME: we need proper Fontmap for CM fonts, like so:
+      ;; /CMR10 (cmr10.pfb); 
+      ;; (string-upcase fontname)
+      (string-append fontname ".pfb"))
+     ((or (equal? (substring fontname 0 4) "feta")
+	  (equal? (substring fontname 0 4) "parm"))
+      (regexp-substitute/global
+       #f "(feta|parmesan)([a-z-]*)([0-9]+)"
+       fontname 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
+     (else fontname)))
 			 
   ;;  (define (font-load-command name-mag command)
   (define (font-load-command lst)
@@ -170,6 +172,8 @@
 	   (value-name-size (car value))
 	   (command (cdr value))
 	   (fontname (car value-name-size))
+	   (mangled (possibly-mangle-fontname fontname))
+	   (encoding (assoc-get fontname font-encoding-alist))
 	   (designsize (if (tex-font? fontname)
 			   (/ 12 (fontname->designsize fontname))
 			   ;; This is about 12/20 :-)
@@ -178,20 +182,6 @@
 	   (scaling (* 12 (/ fontsize designsize)))
 	   (scaling (/ fontsize (/ designsize 12))))
 
-      ;; frobnicate NAME to jibe with external definitions.
-      (define (possibly-mangle-fontname fontname)
-	(cond
-	 ((tex-font? fontname)
-	  ;; FIXME: we need proper Fontmap for CM fonts, like so:
-	  ;; /CMR10 (cmr10.pfb); 
-	  ;; (string-upcase fontname)
-	  (string-append fontname ".pfb"))
-	 ((or (equal? (substring fontname 0 4) "feta")
-	      (equal? (substring fontname 0 8) "parmesan"))
-	  (regexp-substitute/global
-	   #f "(feta|parmesan)([a-z-]*)([0-9]+)"
-	   fontname 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
-	 (else fontname)))
       (if
        #f
        (begin
@@ -202,15 +192,18 @@
 	 (format (current-error-port) "command ~S\n" command)
 	 (format (current-error-port) "designsize ~S\n" designsize)
 	 (format (current-error-port) "fontname ~S\n" fontname)
+	 (format (current-error-port) "mangled ~S\n" mangled)
 	 (format (current-error-port) "fontsize ~S\n" fontsize)
 	 (format (current-error-port) "scaling ~S\n" scaling)))
-	 
-      (string-append
-       "/" command
-       " { /" (possibly-mangle-fontname fontname) " findfont "
-       (ly:number->string scaling)
-       "output-scale div scalefont setfont } bind def \n")))
-    
+      
+      (if encoding
+	  ;; FIXME: should rather tag encoded font
+	  (let ((raw (string-append command "-raw")))
+	    (string-append
+	     (define-font raw mangled scaling)
+	     (reencode-font raw encoding command)))
+	  (define-font command mangled scaling))))
+  
   (define (ps-encoded-fontswitch name-mag-pair)
     (let* ((key (car name-mag-pair))
 	   (value (cdr name-mag-pair))
@@ -270,21 +263,10 @@
     (let ((c (assoc name-mag-pair font-name-alist)))
       
       (if c
-	  (string-append " " (cddr c) " ")
+	  (string-append " " (cddr c) " setfont ")
 	  (begin
 	    (ly:warn
 	     (format "Programming error: No such font: ~S" name-mag-pair))
-	    
-	    (display "FAILED\n" (current-error-port))
-	    (if #f ;(pair? name-mag-pair))
-		(display (object-type (car name-mag-pair)) (current-error-port))
-		(write name-mag-pair (current-error-port)))
-	    (if #f ;  (pair? font-name-alist)
-		(display
-		 (object-type (caaar font-name-alist)) (current-error-port))
-		(write font-name-alist (current-error-port)))
-
-	    ;; (format #f "\n%FAILED: (select-font ~S)\n" name-mag-pair))
 	    ""))))
   
   (string-append (select-font name-mag-pair) exp))
@@ -432,7 +414,6 @@
   (string-append
    (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
 	   (strftime "%c" (localtime (current-time))))
-   LATIN1-ENCODING-COMMANDS
   ;;; ugh
    (ps-string-def
     "lilypond" 'tagline
@@ -455,3 +436,9 @@
     " "
     (ly:number->string dy)
     " draw_zigzag_line "))
+
+(define (start-page)
+  "\n%start page\n")
+
+(define (stop-page last?)
+  "\n%showpage\n")

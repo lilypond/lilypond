@@ -34,6 +34,7 @@ spaceTest = \markup { "two space chars" }
     texidoc = "Make titles using markup (WIP)."
     
     %dedication = "För my dør Lily"
+    % ugh: encoding char-size
     dedication = "For my öòóôõø so dear Lily"
     title = "Title"
     subtitle = "(and (the) subtitle)"
@@ -66,7 +67,7 @@ spaceTest = \markup { "two space chars" }
 	\column <
 	    %\fill-line #linewidth < \huge \bigger \bold \title >
             \override #'(baseline-skip . 4) \column <
-	        \fill-line < \dedication >
+	        \fill-line < \latin-i \dedication >
 	        \fill-line < \huge\bigger\bigger\bigger\bigger \bold \title >
                 \override #'(baseline-skip . 3) \column <
                     \fill-line < \large\bigger\bigger \bold \subtitle >

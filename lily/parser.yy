@@ -454,7 +454,9 @@ toplevel_expression:
 	
 		   default_rendering (sc->music_, id->self_scm (), head, outname);
 						
+#ifndef PAGE_LAYOUT
 		   scm_gc_unprotect_object (id->self_scm ());
+#endif
 		}
 #ifndef PAGE_LAYOUT
 		scm_gc_unprotect_object (sc->self_scm ());
