@@ -1,3 +1,7 @@
+2004-09-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/auto-beam-engraver.cc (test_moment): robustify.
+
 2004-09-28  Werner Lemberg  <wl@gnu.org>
 
 	* scm/framework-tex.scm (font-load-command): Define proper font

@@ -154,10 +154,20 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     function = scm_list_n (ly_symbol2scm ("begin"), SCM_UNDEFINED);
   else
     function = scm_list_n (ly_symbol2scm ("end"), SCM_UNDEFINED);
-
-  Moment one_beat = *unsmob_moment (get_property ("beatLength"));
-  int num = int ((*unsmob_moment (get_property ("measureLength")) / one_beat).main_part_);
-  int den = one_beat.den ();
+  
+  Moment beat_length (1,4);
+  if (Moment * m = unsmob_moment (get_property ("beatLength")))
+    {
+      beat_length = *m;
+    }
+  Moment measure_length (1,1);
+  int num = 4;
+  if (Moment* m = unsmob_moment (get_property ("measureLength")))
+    {
+      num = int ((*m / beat_length).main_part_);
+    }
+  
+  int den = beat_length.den ();
   SCM time = scm_list_n (scm_int2num (num), scm_int2num (den), SCM_UNDEFINED);
 
   SCM type = scm_list_n (scm_int2num (test_mom.num ()),
@@ -212,10 +222,20 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 	 We may have to fix this elsewhere (timing translator)
 	r = unsmob_moment (get_property ("measurePosition"))->mod_rat (moment);
       */
-      Moment pos = * unsmob_moment (get_property ("measurePosition"));
+      Moment pos (0);
+      if (Moment  *m = unsmob_moment (get_property ("measurePosition")))
+	{
+	  pos = *m;
+	}
+	  
       if (pos < Moment (0))
 	{
-	  Moment length = * unsmob_moment (get_property ("measureLength"));
+	  Moment length(1);
+
+	  if ( Moment *m =  unsmob_moment (get_property ("measureLength")))
+	    {
+	      length = *m;
+	    }
 	  pos = length - pos;
 	}
       r = pos.main_part_.mod_rat (moment.main_part_);
