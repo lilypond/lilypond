@@ -29,7 +29,6 @@
   */
 class Stem : public Item {
 
-  Molecule abbrev_mol () const;
     
   Drul_array<Real> yextent_drul_;
     
@@ -51,8 +50,6 @@ class Stem : public Item {
   Link_array<Rest> rest_l_arr_;
     
 public:
-  /// abbrev flag? + count
-  int abbrev_flag_i_;
 
   /// how many abbrev beam don't reach stem?
   int beam_gap_i_;
@@ -79,7 +76,8 @@ public:
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 
-  Real hpos_f() const;
+  Real hpos_f () const;
+  Real chord_start_f () const;
   
   int type_i () const;
 
