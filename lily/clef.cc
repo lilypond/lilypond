@@ -16,15 +16,16 @@
 /*
  FIXME: should use symbol for #'style.
 */
-MAKE_SCHEME_CALLBACK (Clef,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Clef, before_line_breaking, 1);
 SCM
 Clef::before_line_breaking (SCM smob)
 {
   Item *s = unsmob_item (smob);
-
   SCM glyph = s->get_property ("glyph-name");
-  
-  if (scm_is_string (glyph))
+
+  if (!scm_is_string (glyph))
+    s->suicide ();
+  else
     {
       String str = ly_scm2string (glyph);
 
@@ -33,24 +34,16 @@ Clef::before_line_breaking (SCM smob)
 	  && !to_boolean (s->get_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	  
+	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	
 	}
-    }
-  else
-    {
-      s->suicide ();
-      return SCM_UNSPECIFIED;
     }
 
   return SCM_UNSPECIFIED;
 }
 
-
-
-
-MAKE_SCHEME_CALLBACK (Clef,print,1)
+MAKE_SCHEME_CALLBACK (Clef, print, 1)
 SCM
-Clef::print (SCM smob) 
+Clef::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   SCM glyph_scm = me->get_property ("glyph-name");
@@ -61,12 +54,9 @@ Clef::print (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())
-    {
-      me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));
-    }
+    me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));
   return out.smobbed_copy ();
 }
-
 
 ADD_INTERFACE (Clef, "clef-interface",
   "A clef sign",

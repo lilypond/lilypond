@@ -35,7 +35,9 @@ Font_metric::coding_scheme () const
 Stencil
 Font_metric::find_by_name (String s) const
 {
-  s = s.substituted ('-', "M"); 
+  // FIXME: past tense in func name?
+  // $23 = 0x865ba10 "clefsMG_change"
+  s = s.substituted ('-', "M");
   int idx = name_to_index (s);
   Box b;
   
