@@ -81,6 +81,7 @@ Change_iterator::process (Moment m)
       }
   else
     error (_ ("none of these in my family"));
+
   Simple_music_iterator::process (m);
 }
 

@@ -21,7 +21,7 @@ Apply_context_iterator::process (Moment m)
 
   scm_call_1 (proc, get_outlet ()->self_scm());
   
-  Simple_music_iterator::process(m);
+  Simple_music_iterator::process (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Apply_context_iterator);
