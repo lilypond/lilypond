@@ -30,7 +30,7 @@ Walker_registers::Walker_registers(Complex_walker *w)
 void
 Walker_registers::announce_element(Staff_elem_info info)
 {
-    if (info.elem_p_->name() == Bar::static_name()) {
+    if (info.elem_l_->name() == Bar::static_name()) {
 	walk_l_->allow_break();
     }
     announce_info_arr_.push(info);
@@ -48,6 +48,7 @@ Walker_registers::do_announces()
     Request dummy_req;
     for (int i = 0; i < announce_info_arr_.size(); i++){
 	Staff_elem_info info = announce_info_arr_[i];
+	mtor << "Announcing " << info.elem_l_->name()<<"\n";
 
 	if (!info.req_l_)
 	    info.req_l_ = &dummy_req;
