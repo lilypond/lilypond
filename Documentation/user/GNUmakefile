@@ -53,7 +53,7 @@ info: $(INFO_FILES)
 # The new pretest version of makeinfo, 4.0a splits html files into their own
 # directory.  Available from
 # ftp://texinfo.org/texinfo/pretests/texinfo-4.0a.tar.gz
-SPLITTING_MAKEINFO = $(shell makeinfo --version | egrep '4.0((.jcn[2,3])|a)')
+SPLITTING_MAKEINFO = $(shell makeinfo --version | egrep '4.0((.jcn[2,3])|a|b)')
 
 
 # Generic rule using % twice not possible?

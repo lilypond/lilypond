@@ -284,7 +284,7 @@ def system (cmd, ignore_error = 0):
 		cmd = "sh -c \'%s\'" % cmd
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd) >> 8
+	st = os.system (cmd)
 	if st:
 		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
 		msg = name + ': ' + _ ("command exited with value %d") % st

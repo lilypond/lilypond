@@ -368,7 +368,7 @@ If not set explicitly (by property or @code{\bar}), this is set
 according to values of @code{defaultBarType}, @code{barAlways},
 @code{barNonAuto} and @code{measurePosition}.
 
-Legal values are described in @ref{(lilypond-internals)bar-line-interface}.
+Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
 
 .")
 

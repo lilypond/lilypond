@@ -196,7 +196,7 @@ by issuing
  
 @end example 
 
-Building the website requires  some additional tools: 
+Building the website requires some additional tools: 
 
 @itemize @bullet
 @item xpmtoppm (from the netpbm package: the Portable Bitmap Utilities).
@@ -219,6 +219,12 @@ man2html can be had from @uref{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/N
 The website will build without bib converter utility, but you will not
 see our hypertextified bibliography.
 
+@item texinfo (a development release)
+The documentation will build with texinfo-4.0, but if you want split
+html pages, you're best off using the lates pretest version from
+@uref{ftp://texinfo.org/texinfo/pretests/texinfo-4.0b.tar.gz,
+texinfo-4.0b} or
+@uref{ftp://alpha.gnu.org/gnu/texinfo-4.0b.tar.gz,texinfo-4.0b}
 @end itemize
 
 @section Building  LilyPond

@@ -2,7 +2,6 @@
 
 @c TODO: LilyPond Lilypond lilypond
 
-
 @node Tutorial
 @chapter Tutorial
   
@@ -10,23 +9,19 @@ LilyPond prints music from a specification that you, the user, supply.
 You have to give that specification using a textual @emph{language}.  
 This chapter is a gentle introduction to that language.
 
+[rewrite]
+@c gentle?
+@c the first section is gentle
+@c the later sections get rather high-brow, deep, detailed, thorough
+
+
 This tutorial will demonstrate how to use Lilypond by presenting
 examples of input along with resulting output.  We will use English
 terms for notation.  In case you are not familiar with those, you may
 consult the glossary that is distributed with LilyPond.
 
-@cindex examples, tutorial
-
-The examples discussed are included in the distribution, in the
-subdirectory @file{input/tutorial/}@footnote{When we refer
-to filenames, they are relative to the top directory of the source
-package.  In binary installations you should look in your doc section,
-eg, @code{/usr/share/doc/lilypond1.3/examples/input/tutorial}
-@cindex file names
-}. We recommend that you experiment with writing Lilypond input
-yourself, to get a feel for how the program behaves.
-
 @menu
+* Music language of LilyPond::  
 * Running LilyPond::            Getting started
 * The first tune::              The first tune
 * Lyrics and chords::           Lyrics and chords
@@ -37,6 +32,98 @@ yourself, to get a feel for how the program behaves.
 * Integrating text and music::  
 * end of tutorial::             The end
 @end menu
+
+@node Music language of LilyPond
+@section Music language of LilyPond
+
+
+simple notes
+@lilypond[verbatim, relative 1]
+a b c
+@end lilypond
+
+alterations
+@lilypond[verbatim, relative 0]
+fis as cisis beses
+@end lilypond
+
+durations
+@lilypond[verbatim, relative 1]
+a1 a2 a8 a4 a16 a8. a16
+@end lilypond
+
+octaves: high quote, low quote (comma)
+@lilypond[verbatim, relative 1]
+c c, c''
+@end lilypond
+
+@c normal use of LilyPond is \relative note entry
+@c so let's just show/explain that and make smart
+@c people look for non-\relative
+
+lilypond chooses nearest note
+@lilypond[verbatim, relative 1]
+c f c g c
+@end lilypond
+
+to go other way: add octaviation quote
+@lilypond[verbatim, relative 1]
+c f, c' g, c' 
+@end lilypond
+
+rests and skips
+@lilypond[verbatim, relative 1]
+r2 s4 r4
+@end lilypond
+
+
+meter
+@c \time -> \meter ?
+@lilypond[verbatim, relative 1]
+\time 3/4 c c c | R1 * 3/4
+@end lilypond
+
+key
+@lilypond[verbatim, relative 0]
+\key f \major es as bes
+@end lilypond
+
+slur, tie, phrasing slur
+@lilypond[verbatim, relative 1]
+c\( ( ) d  ~ d \) c
+@end lilypond
+
+simple chords
+@lilypond[verbatim, relative 1]
+<a c> <b d> <c e>
+@end lilypond
+
+suddenly lilypond gets really difficult:
+[explain about score -> \score and \notes]
+
+long chords; simultaneous music
+@lilypond[verbatim]
+% huh?
+% \singleLine
+% \paper { \singleLine }
+\paper { linewidth = -1.0 }
+\score {
+  \context Staff \notes \relative c'' <
+    { a b c }
+    { c d e }
+  >
+}
+@end lilypond
+
+@lilypond[verbatim]
+\paper { linewidth = -1.0 }
+\score {
+  \context GrandStaff \notes \relative c' <
+    { a' b c }
+    { \clef bass c d e }
+  >
+}
+@end lilypond
 
 
 @node Running LilyPond
@@ -227,6 +314,19 @@ gsview32 /s test.ps
 
 @node The first tune
 @section The first tune
+
+
+@cindex examples, tutorial
+
+The examples discussed are included in the distribution, in the
+subdirectory @file{input/tutorial/}@footnote{When we refer
+to filenames, they are relative to the top directory of the source
+package.  In binary installations you should look in your doc section,
+eg, @code{/usr/share/doc/lilypond1.3/examples/input/tutorial}
+@cindex file names
+}. We recommend that you experiment with writing Lilypond input
+yourself, to get a feel for how the program behaves.
+
 
 
 To demonstrate what LilyPond input looks like, we start off with a

@@ -29,6 +29,7 @@ public:
   static void evaluate_empty (Grob*);
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (get_bar_size, (SCM ));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   DECLARE_SCHEME_CALLBACK (center_on_spanned_callback, (SCM element, SCM axis));
 };
