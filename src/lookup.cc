@@ -3,6 +3,7 @@
 #include "symtable.hh"
 #include "dimen.hh"
 #include "tex.hh"
+#include "scalar.hh"
 
 Real
 Lookup::internote()
@@ -126,7 +127,7 @@ Lookup::linestaff(int lines, Real wid)
 
 
 Symbol
-Lookup::meter(svec<String> a)
+Lookup::meter(svec<Scalar> a)
 {
     Symbol s;
     s.dim.x = Interval( convert_dimen(0,"pt"),
