@@ -1,3 +1,49 @@
+pl 61.hwn2
+	- revise / junk various input files.
+	- junk Music_list_iterator
+	- bf: declared paper + \shape
+	- bf: \shape and wordwrap
+	- Busy_playing_req ()
+	- Music_iterator::try_music_in_children (),
+so explicit \context Staff is often not needed for
+	  * tuplets
+	  * repeats
+	- automatic rest detection for \rhythm
+	- regtest tight-spacing.ly
+	- regtest lyric-combine.ly
+	- Melisma_playing_req, Melisma_engraver, Busy_playing_req:
+stuff  for syncing music & lyrics.
+	- simplify Extender_engraver, Hyphen_engraver.  Assume lyrics come in from only one voice.	
+	- docced ambiguities in grammar.
+	- mudela-book -I behavior, verbosity.
+	- state search path when file not found
+
+pl 61.hwn1
+	- bf: \scm with --safe
+	- (ly-gulp-file)
+	- no need to set GS_LIBDIR, .ps files are inlined and directly
+printable.
+	- bf: spacing engine
+	- fixed paper11/13/16/20/23/26.ly
+	- use (header-end) iso {ps,tex}setting
+	- bf: convert-mudela --output
+	- move \version check to lexer.ll
+	- moved repeated-music-iterator.cc to folded-repeat-iterator.cc
+	- bf: broken crescendi
+	- removed delayed Spanner breaking.
+	- new implementation of \rhythm:
+	  * Lyric_combine_music
+	  * Lyric_combine_music_iterator
+	  * \property melismaBusy sets melisma state.
+	  * (commented out in parser.yy -- solution is not good enough yet.)
+	- bf: record def spot of seq/sim music
+	- junk Music_iterator::next_music_l (), Music::to_rhythm () & friends.
+	- junk Re_rhythmed_music & friends
+	- mudela 1.1.62: \shape = -1 -2 -3; -> \shape -1, -2, -3; etc.
+	solves one ambiguity.
+	- grace notes at end of music don't crash Lily.
+
+*******
 pl 60.jcn2
 	- moved creation of $BUILDDIR/share/locale into set-lily.sh
 	- slur slope change constraints when snapping
@@ -5,7 +51,7 @@ pl 60.jcn2
 	- don't typeset unfinished (auto) beams
 
 pl 60.jbr1
-        - Documentation/ntweb/angels.y,Documentation/ntweb/guile.patch: added
+        - Documentation/ntweb/angels.ly, Documentation/ntweb/guile.patch: added
         - Documentation/ntweb/GNUmakefile: add above to EXTRA_DIST_FILES
 
 pl 59.mb2
