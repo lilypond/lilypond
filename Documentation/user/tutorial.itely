@@ -216,7 +216,7 @@ see @ref{Time signature}.
 @c
 @c We don't have enough space to explain either VIM
 @c or Emacs non-advanced users, and I fear that both editors will only
-@c confuse newbies. I vote for keeping the material in footnotes.
+@c confuse newbies.  I vote for keeping the material in footnotes.
 @c 
 @c --hwn 
 
@@ -524,7 +524,7 @@ previous one.  For example, @samp{c f} goes up while @samp{c g} goes
 down
 
 To use relative mode, add @code{\relative} before the piece of
-music. The first note is taken relative to the middle C
+music.  The first note is taken relative to the middle C
 @c no , for this sentence
 (i.e. @code{c'})
 
@@ -931,7 +931,7 @@ ignored while parsing, so it has no effect on the printed output.
 There are two types of comments.  The percent symbol @samp{%}
 introduces a line comment; after  @code{%} the rest of the line   is
 ignored.  A block comments marks a whole section of music
-input. Anything that is enclosed in @code{%@{} and @code{%@}} is
+input.  Anything that is enclosed in @code{%@{} and @code{%@}} is
 ignored.  The following fragment shows possible uses for comments
 
 @example
@@ -1279,9 +1279,9 @@ technical manual, in @ref{Input variables and Scheme}.
 @node An orchestral part
 @section An orchestral part
 
-In orchestral music, all notes are printed twice. Once in a part for
+In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Identifiers can
-be used to avoid double work. The music is entered once, and stored in
+be used to avoid double work.  The music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
 both the part and the score.
 
@@ -1320,7 +1320,7 @@ The line
 substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
-@code{\hornNotes}, should be transposed by a fifth downwards. Sounding
+@code{\hornNotes}, should be transposed by a fifth downwards.  Sounding
 @samp{f} is denoted by notated @code{c'}, which corresponds with
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output

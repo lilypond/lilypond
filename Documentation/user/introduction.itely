@@ -27,7 +27,7 @@ ink.  An image was formed by pressing paper to the plate.  The
 stamping and cutting was completely done by hand.  Making a correction
 was cumbersome, if possible at all, so the engraving had to be perfect
 in one go.  Engraving was a highly specialized skill, a craftsman had
-to complete around five years of training before he could
+to complete around five years of training before she could
 be a master engraver, and another five years of experience were
 necessary to become truly skilled.
 
@@ -110,13 +110,13 @@ spot which fragment is which?
 @cindex optical spacing
 @lilypond[quote,noindent,fragment]
 {
-    \override Staff.NoteSpacing #'stem-spacing-correction = #0.6
-    c'4 e''4 e'4 b'4 |
-    \stemDown b'4 e''4 a'4 e''4 | \bar "||"
-    \override Staff.NoteSpacing #'stem-spacing-correction = #0.0
-    \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
-    \stemBoth c'4 e''4 e'4 b'4 |
-    \stemDown b'4 e''4 a'4 e''4 |
+   \override Staff.NoteSpacing #'stem-spacing-correction = #0.6
+   c'4 e''4 e'4 b'4 |
+   \stemDown b'4 e''4 a'4 e''4 | \bar "||"
+   \override Staff.NoteSpacing #'stem-spacing-correction = #0.0
+   \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
+   \stemBoth c'4 e''4 e'4 b'4 |
+   \stemDown b'4 e''4 a'4 e''4 |
 }
 @end lilypond
 
@@ -142,9 +142,8 @@ may seem academical.  But it is not.  In larger pieces with monotonous
 rhythms, spacing corrections lead to subtle variations in the layout
 of every line, giving each one a distinct visual signature.  Without
 this signature all lines would look the same, and they become like a
-labyrinth.  If the musician looks away once or has a lapse in his
-concentration, he will be lost on the page.
-@c he/she
+labyrinth.  If the musician looks away once or has a lapse in her
+concentration, she will have lost her place on the page.
 
 Similarly, the strong visual look of bold symbols on heavy staff lines
 stands out better when music is far away from reader, for example, if
@@ -154,7 +153,7 @@ result minimizes the number of page turns, which is a great advantage.
 
 This is a common characteristic of typography.  Layout should be
 pretty, not only for its own sake, but especially because it helps the
-reader in his task.  For performance material like sheet music, this is
+reader in her task.  For performance material like sheet music, this is
 of double importance: musicians have a limited amount of attention.  The
 less attention they need for reading, the more they can focus on
 playing itself.  In other words, better typography translates to better
@@ -227,41 +226,39 @@ directions up (right).
 
 @lilypond[quote,raggedright,relative=1,fragment]
 \new Score \with {
-  \override SpacingSpanner #'spacing-increment = #3
-  \override TimeSignature #'transparent = ##t
-  } {
-  \stemDown <e g b>4_>-\arpeggio
-  \override Arpeggio #'direction = #RIGHT
-  \stemUp <e g b>4^>-\arpeggio
+   \override SpacingSpanner #'spacing-increment = #3
+   \override TimeSignature #'transparent = ##t
+} {
+   \stemDown <e g b>4_>-\arpeggio
+   \override Arpeggio #'direction = #RIGHT
+   \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
 
 @noindent
 The process of formatting a score consists of reading and writing the
-variables of graphical objects.
-
-Some variables have a preset value.  For example, the thickness of
-many lines---a characteristic of typographical style---are not fixed.
-They are variables, and altering them gives a different typographical
-impression.
+variables of graphical objects.  Some variables have a preset value.  For
+example, the thickness of many lines -- a characteristic of typographical
+style -- is a variable with a preset value.  You are free to alter this
+value, giving your score a different typographical impression.
 
 @lilypond[quote,raggedright]
-fragment =  {
-  \clef bass f8 as8
-  c'4-~ c'16 as g f e16 g bes c' des'4
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
 }
-
-  <<
-    \new Staff \fragment
-    \new Staff \with {
+<<
+   \new Staff \fragment
+   \new Staff \with {
       \override Beam #'thickness = #0.3
       \override Stem #'thickness = #0.5
       \override Bar #'thickness = #3.6
       \override Tie #'thickness = #2.2
       \override StaffSymbol #'thickness = #3.0
       \override Tie #'extra-offset = #'(0 .  0.3)
-   } \fragment
-   >>
+      }
+      \fragment
+>>
 @end lilypond
 
 Formatting rules are also preset variables: each object has variables
@@ -290,22 +287,22 @@ fragment.
 	      ((-2) (make-smaller-markup (make-bold-markup "2")))
 	      (else (make-simple-markup "bla")))))))))
 
- \context Voice \relative  c' {
-    \stemUp
-    \set autoBeaming = ##f
-    \time 2/4
-    <d f g>4
-    \once \override NoteHead #'print-function = #Note_head::brew_ez_stencil
-    <d f g>
-    \once \override NoteHead #'style = #'cross
-    <d f g>
-    \applyoutput #mc-squared
-    <d f g>
-    <<
+\new Voice \relative c' {
+   \stemUp
+   \set autoBeaming = ##f
+   \time 2/4
+   <d f g>4
+   \once \override NoteHead #'print-function = #Note_head::brew_ez_stencil
+   <d f g>
+   \once \override NoteHead #'style = #'cross
+   <d f g>
+   \applyoutput #mc-squared
+   <d f g>
+   <<
       { d8[ es-( fis^^ g] fis2-) }
       \repeat unfold 5 { \applyoutput #mc-squared s8 }
-    >>
-  }
+   >>
+}
 @end lilypond
 
 
@@ -344,9 +341,9 @@ note heads, the @code{Note_heads_engraver}.
 \include "engraver-example.lyinc"
 
 \score {
-  \topVoice
-  \paper {
-    \context {
+   \topVoice
+   \paper {
+   \context {
       \Voice
       \remove "Stem_engraver"
       \remove "Phrasing_slur_engraver"
@@ -354,8 +351,8 @@ note heads, the @code{Note_heads_engraver}.
       \remove "Script_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
-    }
-    \context {
+   }
+   \context {
       \Staff
       \remove "Accidental_engraver"
       \remove "Key_engraver"
@@ -364,8 +361,8 @@ note heads, the @code{Note_heads_engraver}.
       \remove "Time_signature_engraver"
       \remove "Staff_symbol_engraver"
       \consists "Pitch_squash_engraver"
-    }
-  }
+   }
+}
 }
 @end lilypond
 
@@ -459,8 +456,8 @@ and the @code{Stem_engraver} adds stems.
 
 The @code{Stem_engraver} is notified of any note head coming along.
 Every time one (or more, for a chord) note head is seen, a stem
-object is created and connected to the note head.
-By adding engravers for beams, slurs, accents, accidentals, bar lines,
+object is created and connected to the note head.  By adding
+engravers for beams, slurs, accents, accidentals, bar lines,
 time signature, and key signature, we get a complete piece of
 notation.
 
@@ -474,7 +471,7 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 
 @lilypond[quote,raggedright]
 \include "engraver-example.lyinc"
-\context Staff << \topVoice \\ \botVoice >> 
+\new Staff << \topVoice \\ \botVoice >> 
 @end lilypond
 
 In this situation, the accidentals and staff are shared, but the
@@ -489,10 +486,10 @@ Similarly, more Staff contexts can be put into a single Score context.
 @lilypond[quote,raggedright]
 \include "engraver-example.lyinc"
 \score {
-  <<
-    \new Staff << \topVoice \\ \botVoice >>
-    \new Staff << \pah \\ \hoom >>
-  >>
+   <<
+      \new Staff << \topVoice \\ \botVoice >>
+      \new Staff << \pah \\ \hoom >>
+   >>
 }
 @end lilypond
 
@@ -538,7 +535,7 @@ Chords can be constructed with @code{<<} and @code{>>} enclosing the notes
 
 @c < > is not a music expression, 
 @c so we use <<>> iso. <> to drive home the point of
-@c expressions. Don't change this back --hwn.
+@c expressions.  Don't change this back --hwn.
 @example
 <<c4 d4 e4>>
 @end example
@@ -603,11 +600,11 @@ simplest application is printing notes.
 By adding chord names and lyrics we obtain a lead sheet.
 
 @lilypond[quote,raggedright]
-  <<
-    \context ChordNames \chords  { c2 c f2 c }
-    \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-    \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 }
-  >>
+<<
+   \new ChordNames \chords  { c2 c f2 c }
+   \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
+   \new Lyrics \lyrics  { twin4 kle twin kle lit tle star2 }
+>>
 @end lilypond
 
 Polyphonic notation and piano music can also be printed.  The following
@@ -642,8 +639,8 @@ The manual is divided into the following chapters:
 The
 @end ifhtml
 @emph{@ref{Tutorial}}
-gives a gentle introduction to typesetting music.
-First time users should start here.
+gives a gentle introduction to typesetting music.  First time
+users should start here.
 
 @item
 @ifhtml
@@ -680,7 +677,7 @@ programs.
 The
 @end ifhtml
 @emph{@ref{Integrating text and music}}
-explains  the details behind creating documents with in-line music
+explains the details behind creating documents with in-line music
 examples (like this manual).
 
 @item
@@ -690,7 +687,7 @@ The chapter
 @emph{@ref{Converting from other formats}}
 explains how to run the conversion programs.  These programs
 are supplied with the LilyPond package, and convert a variety of music
-formats to the @code{.ly}  format.  In addition, this section explains
+formats to the @code{.ly} format.  In addition, this section explains
 how to upgrade input files from previous versions of LilyPond.
 
 @item
@@ -699,7 +696,7 @@ The
 @end ifhtml
 @emph{@ref{Literature list}}
 contains a set of useful reference books for those who wish to know
-more  on notation and engraving.
+more on notation and engraving.
 @end itemize
 
 Once you are an experienced user, you can use the manual as reference:
@@ -795,7 +792,7 @@ vary from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
 example, @file{input/test/bla.ly} may refer to the file
-@file{lilypond-1.7.19/input/test/bla.ly}.  On binary packages for the
+@file{lilypond-2.3.14/input/test/bla.ly}.  On binary packages for the
 Unix platform, the documentation and examples can typically be found
 somewhere below @file{/usr/share/doc/lilypond/}.  Initialization files,
 for example @file{scm/lily.scm}, or @file{ly/engraver-init.ly}, are

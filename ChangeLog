@@ -2,6 +2,10 @@
 
 	* Documentation/topdocs/AUTHORS.texi, THANKS: add/modify my name and summary.
 
+	* Documentation/user/{first couple of chapters}: the big "Graham's moved to
+	a new city, his friends haven't arrived, and he has no internet access" patch.
+	Numerous editorial and stylistic changes to the manual.
+
 2004-09-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (output-framework): handle landscape settings.
