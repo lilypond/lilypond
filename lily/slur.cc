@@ -49,9 +49,6 @@ Slur::set_interface (Grob*me)
 void
 Slur::add_column (Grob*me, Grob*n)
 {
-  if (!gh_pair_p (n->get_grob_property ("note-heads")))
-    me->warning (_ ("Putting slur over rest."));
-
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
   me->add_dependency (n);
 
@@ -421,7 +418,7 @@ Slur::encompass_offset (Grob*me,
   
   if (!stem)
     {
-      me->warning (_ ("Slur over rest?"));
+      programming_error ("No stem for note column?");
       o[X_AXIS] = col->relative_coordinate (common[X_AXIS], X_AXIS);
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
       return o;  

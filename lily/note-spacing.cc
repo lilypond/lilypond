@@ -108,7 +108,20 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     FIXED also includes the left part of the right object.
   */
   *fixed =
-    (left_head_wid.empty_b () ? increment : left_head_wid[RIGHT])
+    (left_head_wid.empty_b () ? increment :
+     /*
+       Size of the head:
+      */
+     (left_head_wid[RIGHT]+
+
+      /*
+       What's sticking out of the head, eg. a flag: 
+      */
+      (extents[LEFT][RIGHT] - left_head_wid[RIGHT])/2))
+
+    /*
+      What is sticking out of the right note:
+     */
     + (extents[RIGHT].empty_b() ?  0.0 : - extents[RIGHT][LEFT] / 2);
 
   /*
