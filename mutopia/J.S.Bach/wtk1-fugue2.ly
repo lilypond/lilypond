@@ -1,11 +1,12 @@
 \header {
   filename =    "wtk1-fugue2.ly";
-  title =       "Fuga a 3";
+  title =       "Fuga II";
+  subtitle =    "\\`a 3 voci";
   description = "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
   opus =        "BWV 847-Fuga";
   source =      "Henle's Urtext";
   composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "HWN, WL";
+  enteredby =   "hwn, wl, jcn";
   copyright =   "Public Domain";
 }
 
@@ -123,7 +124,6 @@ comes = \type Voice=one \notes \relative c'' {
   f,16 g as4 g16 f e2 |
 }
 
-
 bassdux = \type Voice=three \notes \relative c' {
   \clef bass;
   R1 |
@@ -164,8 +164,8 @@ bassdux = \type Voice=three \notes \relative c' {
   d c g' g, 
 %%30
   \type Staff=bass <
-  {\voicethree c2 ~ | c1 ~ | c1 }
-  {\voicefour c,2 ~ | c1 ~ | c1 }
+    {\stemup c2 ~ | c1 ~ | c1 }
+    \type Voice=four {\stemdown c,2 ~ | c1 ~ | c1 }
   >
 }
 

@@ -65,20 +65,23 @@ beam_steep_slope = 0.2 / 1.0;
 
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
-slur_x_minimum = 2.0 * \interline;
-slur_slope_damping = 0.5;
+slur_x_minimum = 3.0 * \interline;
+
+% slope damping: keep dy/dx < slur_slope_damping
+slur_slope_damping = 0.6;
+
 tie_x_minimum = \slur_x_minimum;
 tie_x_gap = \slur_x_gap;
-tie_slope_damping = 0.3;
+tie_slope_damping = 0.8;
 
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 % slur_thickness = 1.8 * \staffline;
 slur_thickness = 1.4 * \staffline;
 slur_height_limit = \staffheight;
 
-% mmm, try bit flatter slurs
-% slur_ratio = 1.0 / 3.0;
-slur_ratio = 0.3;
+% slur_ratio = 0.3;
+% try bit flatter slurs
+slur_ratio = 0.25;
 slur_clip_ratio = 1.2;
 slur_clip_height = 3.0 * \staffheight;
 slur_clip_angle = 100.0;

@@ -15,5 +15,8 @@ AR_COMMAND = $(AR) $(ARFLAGS) $@
 RANLIB_COMMAND=$(RANLIB) $@ || $(AR) ts $@ || true
 
 # linker:
+# urg, i don't like this name, it's not what you'd expect
 LIBRARY = $(outdir)/library.a
-SHAREDLIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so
+
+INSTALL_LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
+SHARED_LIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so

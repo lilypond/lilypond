@@ -1,12 +1,7 @@
-# intl/Makefile
+# intl/GNUmakefile
 
 depth = ..
-
 NAME = intl
-
-
-# MODULE_CXXFLAGS += -D_REENTRANT
-MAINTARGET = $(LIBRARY)# huh?
 
 SED_FILES = $(wildcard *.sed)
 
@@ -16,19 +11,18 @@ EXTRA_CFLAGS = -I. $(URG_DEFINES)
 
 EXTRA_DIST_FILES = Makefile.in.dist cat-compat.c.dist ChangeLog libintl.inst $(SED_FILES)
 
+STEPMAKE_TEMPLATES=c library
 
+$(outdir)/library.a:
+	@echo "*** To install libintl type 'make lib; make install-lib' ***"
 
-STEPMAKE_TEMPLATES=c
 include $(depth)/make/stepmake.make
-
-default:
-	@echo "to install libintl type 'make lib; make install-lib'"
 
 lib:  $(LIBRARY)
 LIBINTL = $(LIBRARY)
 
-install-lib: $(LIBINTL)
 # localinstall: $(LIBINTL)
+install-lib: $(LIBINTL)
 	$(INSTALL) -d $(includedir)
 #	$(INSTALL) libintl.h $(includedir)
 	$(INSTALL) libintl.inst $(includedir)/libintl.h
@@ -39,12 +33,10 @@ ifeq ($(LIB_SUFFIX),.so)
 	ln -s $(LIB_PREFIX)intl$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)intl$(LIB_SUFFIX)
 else
 	$(INSTALL) -d $(libdir)
-	echo libintl: $(LIBINTL)
-	echo libdir: $(libdir)
-	$(INSTALL) $(LIBINTL) $(libdir)
+	$(INSTALL) $(LIBINTL) $(libdir)/$(INSTALL_LIBRARY)
 endif
 
 localuninstall:
-	rm -f $(inludedir)/libintl.h
+	rm -f $(includedir)/libintl.h
 	rm -f $(libdir)/libintl.{so*,a}
 

@@ -44,10 +44,10 @@ protected:
   virtual bool do_try_music (Music*);
   virtual void do_process_requests ();
   virtual void process_acknowledged ();
+
 public:
   VIRTUAL_COPY_CONS(Translator);
   Tie_engraver();
-  
 };
 
 #endif /* CTIE_ENGRAVER_HH */

@@ -93,10 +93,20 @@ Tie_engraver::do_pre_move_processing ()
     {
       past_notes_pq_.insert (now_heads_[i]);
     }
-  now_heads_.clear( );
+  now_heads_.clear ();
+
+  Scalar dir (get_property ("tieydirection", 0));
+  Scalar dir2 (get_property ("ydirection", 0));
+
+  Direction tie_dir = CENTER;
+  if (dir.length_i () && dir.isnum_b ())
+    tie_dir = (Direction) sign (int(dir));
+  else if (dir2.length_i () && dir2.isnum_b ())
+    tie_dir = (Direction) sign (int (dir2));
   
   for (int i=0; i<  tie_p_arr_.size (); i++)
-    {
+   {
+      tie_p_arr_[i]->dir_ = tie_dir;
       typeset_element (tie_p_arr_[i]);
     }
   tie_p_arr_.clear ();
@@ -110,8 +120,6 @@ Tie_engraver::do_post_move_processing ()
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
 }
-
-
 
 ADD_THIS_TRANSLATOR(Tie_engraver);
 
