@@ -160,9 +160,9 @@ where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
 
 Notes can be hidden and unhidden with the following commands:
 
-@cindex @code{\hideNotes }
+@cindex @code{\hideNotes}
 @code{\hideNotes}, 
-@cindex @code{\unHideNotes }
+@cindex @code{\unHideNotes}
 @code{\unHideNotes}.
 
 
@@ -350,9 +350,9 @@ Dots are normally moved up to avoid staff lines, except in polyphonic
 situations. The following commands may be used to force a particular
 direction manually:
 
-@cindex @code{\dotsUp }
+@cindex @code{\dotsUp}
 @code{\dotsUp}, 
-@cindex @code{\dotsDown }
+@cindex @code{\dotsDown}
 @code{\dotsDown}, 
 @cindex @code{\dotsBoth}
 @code{\dotsBoth}.
@@ -415,13 +415,13 @@ note splitting (See @ref{Automatic note splitting}).
 @refcommands
 
 
-@cindex @code{\tieUp }
+@cindex @code{\tieUp}
 @code{\tieUp}, 
-@cindex @code{\tieDown }
+@cindex @code{\tieDown}
 @code{\tieDown}, 
-@cindex @code{\tieBoth }
+@cindex @code{\tieBoth}
 @code{\tieBoth}, 
-@cindex @code{\tieDotted }
+@cindex @code{\tieDotted}
 @code{\tieDotted}, 
 @cindex @code{\tieSolid}
 @code{\tieSolid}.
@@ -497,9 +497,9 @@ instead.
 
 @refcommands
 
-@cindex @code{\tupletUp  }
+@cindex @code{\tupletUp}
 @code{\tupletUp}, 
-@cindex @code{\tupletDown }
+@cindex @code{\tupletDown}
 @code{\tupletDown}, 
 @cindex @code{\tupletBoth}
 @code{\tupletBoth}.
@@ -1023,9 +1023,9 @@ off.
 
 @refcommands
 
-@cindex @code{\cadenzaOn }
+@cindex @code{\cadenzaOn}
 @code{\cadenzaOn}, 
-@cindex @code{\cadenzaOff }
+@cindex @code{\cadenzaOff}
 @code{\cadenzaOff}.
 
 @node Bar lines
@@ -1173,15 +1173,15 @@ LilyPond also vertically shifts rests that are opposite of a stem:
 
 
 
-@cindex @code{\oneVoice }
+@cindex @code{\oneVoice}
 @code{\oneVoice}, 
-@cindex @code{\voiceOne }
+@cindex @code{\voiceOne}
 @code{\voiceOne}, 
-@cindex @code{\voiceTwo }
+@cindex @code{\voiceTwo}
 @code{\voiceTwo}, 
-@cindex @code{\voiceThree }
+@cindex @code{\voiceThree}
 @code{\voiceThree}, 
-@cindex @code{\voiceFour }
+@cindex @code{\voiceFour}
 @code{\voiceFour}.
 
 The following commands specify in what chords of the current voice
@@ -1409,9 +1409,9 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 
 @refcommands
 
-@cindex @code{\autoBeamOff }
+@cindex @code{\autoBeamOff}
 @code{\autoBeamOff}, 
-@cindex @code{\autoBeamOn }
+@cindex @code{\autoBeamOn}
 @code{\autoBeamOn}.
 
 
@@ -1627,25 +1627,25 @@ voices in the same staff share accidentals, but staves do not.
 
 @refcommands
 
-@cindex @code{\defaultAccidentals }
+@cindex @code{\defaultAccidentals}
 @code{\defaultAccidentals}, 
-@cindex @code{\voiceAccidentals }
+@cindex @code{\voiceAccidentals}
 @code{\voiceAccidentals}, 
-@cindex @code{\modernAccidentals }
+@cindex @code{\modernAccidentals}
 @code{\modernAccidentals}, 
-@cindex @code{\modernCautionaries }
+@cindex @code{\modernCautionaries}
 @code{\modernCautionaries}, 
-@cindex @code{\modernVoiceAccidentals }
+@cindex @code{\modernVoiceAccidentals}
 @code{\modernVoiceAccidentals}, 
-@cindex @code{\modernVoiceCautionaries }
+@cindex @code{\modernVoiceCautionaries}
 @code{\modernVoiceCautionaries}, 
-@cindex @code{\pianoAccidentals }
+@cindex @code{\pianoAccidentals}
 @code{\pianoAccidentals}, 
-@cindex @code{\pianoCautionaries }
+@cindex @code{\pianoCautionaries}
 @code{\pianoCautionaries}, 
-@cindex @code{\noResetKey }
+@cindex @code{\noResetKey}
 @code{\noResetKey}, 
-@cindex @code{\forgetAccidentals }
+@cindex @code{\forgetAccidentals}
 @code{\forgetAccidentals}.
 
 @seealso
@@ -1739,15 +1739,15 @@ stems might look better:
 @refcommands
 
 
-@cindex @code{\slurUp   }
+@cindex @code{\slurUp}
 @code{\slurUp}, 
-@cindex @code{\slurDown }
+@cindex @code{\slurDown}
 @code{\slurDown}, 
-@cindex @code{\slurBoth }
+@cindex @code{\slurBoth}
 @code{\slurBoth}, 
-@cindex @code{\slurDotted }
+@cindex @code{\slurDotted}
 @code{\slurDotted}, 
-@cindex @code{\slurSolid }
+@cindex @code{\slurSolid}
 @code{\slurSolid}.
 
 @seealso
@@ -1789,11 +1789,11 @@ will only affect normal slurs and not phrasing slurs.
 
 @refcommands
 
-@cindex @code{\phrasingSlurUp   }
+@cindex @code{\phrasingSlurUp}
 @code{\phrasingSlurUp}, 
-@cindex @code{\phrasingSlurDown }
+@cindex @code{\phrasingSlurDown}
 @code{\phrasingSlurDown}, 
-@cindex @code{\phrasingSlurBoth }
+@cindex @code{\phrasingSlurBoth}
 @code{\phrasingSlurBoth}, 
 
 @seealso
@@ -1978,9 +1978,9 @@ can be forced up or down using @code{^} and @code{_}:
 
 @refcommands
 
-@cindex @code{\scriptUp  }
+@cindex @code{\scriptUp}
 @code{\scriptUp}, 
-@cindex @code{\scriptDown }
+@cindex @code{\scriptDown}
 @code{\scriptDown}, 
 @cindex @code{\scriptBoth}
 @code{\scriptBoth}.
@@ -2330,11 +2330,11 @@ You can also supply your own texts:
 
 @refcommands
 
-@cindex @code{\dynamicUp  }
+@cindex @code{\dynamicUp}
 @code{\dynamicUp}, 
-@cindex @code{\dynamicDown }
+@cindex @code{\dynamicDown}
 @code{\dynamicDown}, 
-@cindex @code{\dynamicBoth }
+@cindex @code{\dynamicBoth}
 @code{\dynamicBoth}.
 
 @cindex direction, of dynamics
@@ -3126,7 +3126,7 @@ arpeggiate the chord. To draw these brackets, set the
 
 @refcommands
 
-@cindex @code{\arpeggioBracket }
+@cindex @code{\arpeggioBracket}
 @code{\arpeggioBracket}, 
 @cindex @code{\arpeggio}
 @code{\arpeggio}.
@@ -3172,9 +3172,9 @@ The associated object is @internalsref{VoiceFollower}.
 
 @refcommands
 
-@cindex @code{\showStaffSwitch }
+@cindex @code{\showStaffSwitch}
 @code{\showStaffSwitch}, 
-@cindex @code{\hideStaffSwitch }
+@cindex @code{\hideStaffSwitch}
 @code{\hideStaffSwitch}.
 
 
@@ -3867,9 +3867,9 @@ chart}.  Turning on these styles is described in the input file
 
 @refcommands
 
-@cindex @code{\germanChords }
+@cindex @code{\germanChords}
 @code{\germanChords}, 
-@cindex @code{\semiGermanChords }
+@cindex @code{\semiGermanChords}
 @code{\semiGermanChords}.
 
 
