@@ -8,6 +8,8 @@
 */
 
 #include "font-metric.hh"
+#include "pango-font.hh"
+#include "modified-font-metric.hh"
 #include "output-def.hh"
 #include "ly-module.hh"
 #include "context-def.hh"
@@ -120,4 +122,37 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
   SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
 		   __FUNCTION__, "layout definition");
   return scm_make_real (layout->get_dimension (name));
+}
+
+LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
+	   1, 0, 0,
+	   (SCM bp),
+	   "Return fonts from the @code{\\paper} block @var{bp}.")
+{
+  Output_def *b = unsmob_output_def (bp);
+
+  SCM font_table = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
+  
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
+
+  SCM ell = SCM_EOL;
+  if (scm_hash_table_p (font_table) == SCM_BOOL_T)
+    {
+      SCM func = ly_lily_module_constant ("hash-table->alist");
+
+      for (SCM s = scm_call_1 (func, font_table); scm_is_pair (s);
+	   s = scm_cdr (s))
+	{
+	  SCM entry = scm_car (s);
+	  for (SCM t = scm_cdr (entry); scm_is_pair (t); t = scm_cdr (t))
+	    {
+	      Font_metric *fm = unsmob_metrics (scm_cdar (t));
+
+	      if (dynamic_cast<Modified_font_metric*> (fm)
+		  || dynamic_cast<Pango_font*> (fm))
+		ell = scm_cons (fm->self_scm (), ell);
+	    }
+	}
+    }
+  return ell;
 }
