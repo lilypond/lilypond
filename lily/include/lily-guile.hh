@@ -134,7 +134,7 @@ SCM my_gh_symbol2scm (const char* x);
 */
 #define ly_symbol2scm(x) ({ static SCM cached;  \
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
- if ( get___builtin_constant ((x)))\
+ if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
      value = cached =  scm_gc_protect_object (my_gh_symbol2scm((x)));\
  } else\
