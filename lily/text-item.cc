@@ -70,12 +70,17 @@ Text_item::brew_molecule_p () const
   if (!fat_b_)
     a.dim_[X_AXIS] = Interval (0,0);
   Molecule* mol_p = new Molecule (a);
-
+#if 0
   if (dir_<0)		// should do something better anyway.
     mol_p->translate_axis (mol_p->extent ().y ().left , Y_AXIS);
+#endif 
+  
   mol_p->translate_axis (coordinate_offset_f_, Y_AXIS);
+
+#if 0
   // fine for one lyric, urg for lyric chord
   mol_p->translate_axis (a.dim_.y ().length (), Y_AXIS);
+#endif
 
   return mol_p;
 }
