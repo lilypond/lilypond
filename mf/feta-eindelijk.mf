@@ -305,7 +305,7 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush := 2.5 stafflinethickness;
+	lower_brush := 1.5 stafflinethickness;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
 	set_char_box (0, width#,
@@ -324,7 +324,7 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	
 
 	draw_rest_bulb(0.5 staff_space , y2r , pat , 0.98);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.12)*staff_space , pat , 1.02);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.2)*staff_space , pat , 1.02);
 	penlabels (1, 2);
 	labels(9);
 
@@ -345,7 +345,7 @@ fet_beginchar("32th rest","5","thirtysecondrest");
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush := 2.5 stafflinethickness;
+	lower_brush := 1.5 stafflinethickness;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
 	set_char_box (0, width#,
@@ -364,8 +364,8 @@ fet_beginchar("32th rest","5","thirtysecondrest");
 	
 
 	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.96);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.12)*staff_space , pat , 1.00);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.13)*staff_space , pat , 1.04);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.2)*staff_space , pat , 1.00);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.21)*staff_space , pat , 1.04);
 	penlabels (1, 2);
 	labels(9);
 
@@ -386,7 +386,7 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush := 2.5 stafflinethickness;
+	lower_brush := 1.5 stafflinethickness;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
 	set_char_box (0, width#,
@@ -405,9 +405,9 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	
 
 	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.94);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.12)*staff_space , pat , 0.98);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.13)*staff_space , pat , 1.02);
-	draw_rest_bulb(-1.5 staff_space , (-1.5+0.14)*staff_space , pat , 1.06);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.20)*staff_space , pat , 0.98);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.21)*staff_space , pat , 1.02);
+	draw_rest_bulb(-1.5 staff_space , (-1.5+0.22)*staff_space , pat , 1.06);
 	penlabels (1, 2);
 	labels(9);
 
@@ -428,7 +428,7 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush := 2.5 stafflinethickness;
+	lower_brush := 1.5 stafflinethickness;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
 	set_char_box (0, width#,
@@ -447,10 +447,10 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	
 
 	draw_rest_bulb(2.5 staff_space , y2r , pat , 0.92);
-	draw_rest_bulb(1.5 staff_space , (1.5+0.12)*staff_space , pat , 0.96);
-	draw_rest_bulb(0.5 staff_space , (0.5+0.13)*staff_space , pat , 1.0);
-	draw_rest_bulb(-0.5 staff_space , (-0.5+0.14)*staff_space , pat , 1.04);
-	draw_rest_bulb(-1.5 staff_space , (-1.5+0.15)*staff_space , pat , 1.08);
+	draw_rest_bulb(1.5 staff_space , (1.5+0.20)*staff_space , pat , 0.96);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.21)*staff_space , pat , 1.0);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.22)*staff_space , pat , 1.04);
+	draw_rest_bulb(-1.5 staff_space , (-1.5+0.23)*staff_space , pat , 1.08);
 	penlabels (1, 2);
 	labels(9);
 
