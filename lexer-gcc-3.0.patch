@@ -1,3 +1,7 @@
+# Patch file documenting fix for flex-2.5.4 and gcc-3.x
+#
+# For usage of this patch, see INSTALL.txt
+
 --- ./lily/out-gcc-3.0/lexer.cc~	Tue Jun 26 13:12:26 2001
 +++ ./lily/out-gcc-3.0/lexer.cc	Tue Jun 26 13:11:56 2001
 @@ -21,7 +21,7 @@
@@ -5,7 +9,7 @@
  
  #include <stdlib.h>
 -class istream;
-+#include <iostream.h>
++#include <iostream>
  #include <unistd.h>
  
  /* Use prototypes in function declarations. */

@@ -204,8 +204,8 @@ Moment::operator - () const
 
 
 #ifdef STREAM_SUPPORT
-ostream &
-operator << (ostream &os, Moment const &m)
+std::ostream &
+operator << (std::ostream &os, Moment const &m)
 {
   os << m.str ();
   return os;

@@ -9,7 +9,7 @@
 
 
 #include <assert.h>
-#include <strstream.h>
+#include <sstream>
 
 #include "string.hh"
 #include "flower-proto.hh"
@@ -34,7 +34,7 @@ Source_file::Source_file (String name_str, String data_str)
   pos_ch_C_ = ch_C ();
 }
 
-istream*
+std::istream*
 Source_file::istream_l ()
 {
   /*
@@ -45,11 +45,11 @@ Source_file::istream_l ()
   if (!istream_p_)
     {
       if (length_i ()) // can-t this be done without such a hack?
-	istream_p_ = new istrstream (ch_C (), length_i ());
+	istream_p_ = new std::stringstream (ch_C ());
       else
 	{
-	  istream_p_ = new istrstream ("", 0);
-	  istream_p_->setstate (ios::eofbit);
+	  istream_p_ = new std::istringstream ("");
+	  istream_p_->setstate (std::ios::eofbit);
 	  //	  istream_p_->set (ios::eofbit);
 	}
     }

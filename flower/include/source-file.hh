@@ -6,7 +6,7 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
-#include <iostream.h>
+#include <iostream>
 
 #include "flower-proto.hh"
 #include "string.hh"
@@ -32,7 +32,7 @@ public:
 
   char const* ch_C () const;
   virtual String error_str (char const* pos_ch_C ) const;
-  istream * istream_l ();
+  std::istream * istream_l ();
   bool in_b (char const* pos_ch_C ) const;
   int length_i () const;
   virtual int line_i (char const* pos_ch_C ) const;
@@ -59,7 +59,7 @@ public:
 
 private:
   String name_str_;
-  istream* istream_p_;
+  std::istream* istream_p_;
   File_storage * storage_p_;
 };
 

@@ -12,10 +12,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <iostream.h>
 #include <assert.h>
 #include <string.h>
 #include <stdarg.h>
+
+#include <iostream>
 
 #include "string.hh"
 #include "libc-extension.hh"

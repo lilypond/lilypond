@@ -6,7 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <strstream.h>
+#include <sstream>
 
 
 #include "file-path.hh"

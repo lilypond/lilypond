@@ -63,7 +63,7 @@ INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
 
 #ifdef STREAM_SUPPORT
-ostream & operator << ( ostream &,Moment const &);
+std::ostream & operator << (std::ostream &, Moment const &);
 #endif
 
 #endif /* MOMENT_HH */

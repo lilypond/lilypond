@@ -6,8 +6,9 @@
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
 #endif
-#include <iostream.h>
-#include <fstream.h>
+
+#include <iostream>
+#include <fstream>
 
 #include "stream.hh"
 #include "file-path.hh"
@@ -15,23 +16,23 @@
 #include "main.hh"
 
 #if __GNUC__ > 2
-ostream *
+std::ostream *
 open_file_stream (String filename, std::ios_base::openmode mode)
 #else
-ostream *
+std::ostream *
 open_file_stream (String filename, int mode)
 #endif
 {
-  ostream *os;
+  std::ostream *os;
   if ((filename == "-"))
-    os = &cout;
+    os = &std::cout;
   else
     {
       Path p = split_path (filename);
       if (!p.dir.empty_b ())
         if (mkdir (p.dir.ch_C (), 0777) == -1 && errno != EEXIST)
           error (_f ("can't create directory: `%s'", p.dir));
-      os = new ofstream (filename.ch_C (), mode);
+      os = new std::ofstream (filename.ch_C (), mode);
     }
   if (!*os)
     error (_f ("can't open file: `%s'", filename));
@@ -39,15 +40,15 @@ open_file_stream (String filename, int mode)
 }
 
 void
-close_file_stream (ostream *os)
+close_file_stream (std::ostream *os)
 {
-  *os << flush;
+  *os << std::flush;
   if (!*os)
     {
       warning (_ ("Error syncing file (disk full?)"));
       exit_status_global = 1;
     }
-  if (os != &cout)
+  if (os != &std::cout)
     delete os;
   os = 0;
 }  
