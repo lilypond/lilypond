@@ -1125,7 +1125,7 @@ Prefix_composite_music:
 	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
 		$$ = context_spec_music ($1, get_next_unique_context (),
 					 $3, $2);
-		if ($1 == ly_symbol2scm ("ChordNames"))
+		if ($1 == ly_symbol2scm ("FiguredBass"))
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
 		  chm->set_property ("element", $$->self_scm ());
