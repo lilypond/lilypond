@@ -32,8 +32,6 @@ class Graphical_element
   bool cached_valid_b_a_[NO_AXES];
 public:
 
-  // suck me plenty
-  virtual Score_element* access_Score_element () { return 0; }
   void set_empty (bool);
 
   bool empty_b () const;

@@ -52,16 +52,6 @@ public:
     */
   void add_dependency (Score_element*);    
 
-  /*
-    virtual accessors
-    */
-
-  virtual Spanner* access_Spanner ()  { return 0; }
-  virtual Span_bar* access_Span_bar ()  { return 0; }
-  virtual Axis_group_element * access_Axis_group_element () { return 0; }
-  virtual Score_element* access_Score_element () { return this; }
-  
-  virtual Item * access_Item () { return 0; }
   virtual Line_of_score * line_l () const;
   virtual bool linked_b () const;
   SCORE_ELEMENT_CLONE (Score_element);
