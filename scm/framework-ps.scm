@@ -157,7 +157,6 @@
 
   (string-append
    "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter
-lily-output-units lily-output-units scale
 "
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
