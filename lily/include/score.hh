@@ -24,7 +24,8 @@ class Score : public Input
 public:
   Link_array<Output_def> defs_;
   SCM header_;
-
+  bool error_found_;
+  
   SCM get_music () const;
   void set_music (SCM music, SCM parser);
   Score ();

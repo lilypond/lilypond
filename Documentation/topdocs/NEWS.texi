@@ -8,6 +8,12 @@
 
 @itemize @bullet
 
+@item LilyPond does not try to produce output for files that
+have a parse error.
+
+@item @code{lilypond-book} will now remove any output  files that
+contain failed music snippets.
+
 @item The mode changing commands  (@code{\chords}, @code{\lyrics}, etc.)
 have been renamed to @code{\chordmode}, @code{\lyricmode}, etc. The
 command @code{\chords} is an abbreviation for

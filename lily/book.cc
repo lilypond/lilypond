@@ -64,6 +64,13 @@ Book::print_smob (SCM, SCM p, scm_print_state*)
 Paper_book *
 Book::process (String outname, Output_def *default_def)
 {
+  bool error = false;
+  for (int i = 0; i < scores_.size(); i++)
+    error |= scores_[i]->error_found_;
+
+  if (error)
+    return 0;
+    
   Paper_book *paper_book = new Paper_book ();
   Real scale = scm_to_double (bookpaper_->c_variable ("outputscale"));
   

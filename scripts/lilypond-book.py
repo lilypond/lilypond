@@ -839,8 +839,14 @@ def process_snippets (cmd, ly_snippets, png_snippets):
 	
 	status = 0
 	if ly_names:
-		status = ly.system (string.join ([cmd] + ly_names), progress_p = 1)
+		status = ly.system (string.join ([cmd] + ly_names),
+				    ignore_error = 1, progress_p = 1)
 
+
+	if status:
+		ly.error( 'Process %s exited unsuccessfully.' % cmd )
+		raise Compile_error
+		
 	if format == HTML or format == TEXINFO:
 		for i in png_names:
 			if not os.path.exists (i + '.eps') and os.path.exists (i + '.tex'):
@@ -903,6 +909,27 @@ format2ext = {
 	LATEX: '.tex',
 	}
 	
+class Compile_error:
+	pass
+
+def do_process_cmd (chunks):
+	ly_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
+			   and x.ly_is_outdated (), chunks)
+	png_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
+			   and x.png_is_outdated (), chunks)
+
+	ly.progress (_ ("Writing snippets..."))
+	map (Lilypond_snippet.write_ly, ly_outdated)
+	ly.progress ('\n')
+
+	if ly_outdated:
+		ly.progress (_ ("Processing..."))
+		process_snippets (process_cmd, ly_outdated, png_outdated)
+	else:
+		ly.progress (_ ("All snippets are up to date..."))
+	ly.progress ('\n')
+
+
 def do_file (input_filename):
 	#ugh
 	global format
@@ -914,7 +941,8 @@ def do_file (input_filename):
 		else:
 			ly.error (_ ("cannot determine format for: %s" \
 				     % input_filename))
-
+			ly.exit (1) 
+		
 	if not input_filename or input_filename == '-':
 		in_handle = sys.stdin
 		input_fullname = '<stdin>'
@@ -954,82 +982,75 @@ def do_file (input_filename):
 		    os.path.exists (output_filename) and 
 		    os.path.samefile (output_filename, input_fullname)):
 			ly.error (_("Output would overwrite input file; use --output."))
-			sys.exit (2)
+			ly.exit (2)
 
 		output_file = open (output_filename, 'w')
 		if output_name:
 			os.chdir (output_name)
-
-	ly.progress (_ ("Reading %s...") % input_fullname)
-	source = in_handle.read ()
-	ly.progress ('\n')
-
-	# FIXME: containing blocks must be first, see find_toplevel_snippets
-	snippet_types = (
-		'multiline_comment',
-		'verbatim',
-		'lilypond_block',
-#		'verb',
-		'singleline_comment',
-		'lilypond_file',
-		'include',
-		'lilypond', )
-	ly.progress (_ ("Dissecting..."))
-	chunks = find_toplevel_snippets (source, snippet_types)
-	ly.progress ('\n')
-
-	global default_ly_options
-	textwidth = 0
-	if not default_ly_options.has_key (LINEWIDTH):
-		if format == LATEX:
-			textwidth = get_latex_textwidth (source)
-			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' \
-							% textwidth
-		elif format == TEXINFO:
-			for (k, v) in texinfo_linewidths.items ():
-				# FIXME: @paper is usually not in chunk #0:
-				#        \input texinfo @c -*-texinfo-*-
-				# bluntly search first K of source
-				# s = chunks[0].replacement_text ()
-				if re.search (k, source[:1024]):
-					default_ly_options[LINEWIDTH] = v
-					break
-
-	if filter_cmd:
-		output_file.writelines ([c.filter_text () for c in chunks])
-		
-		
-	elif process_cmd:
-		ly_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
-				   and x.ly_is_outdated (), chunks)
-		png_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
-				   and x.png_is_outdated (), chunks)
-		
-		ly.progress (_ ("Writing snippets..."))
-		map (Lilypond_snippet.write_ly, ly_outdated)
+	try:
+		ly.progress (_ ("Reading %s...") % input_fullname)
+		source = in_handle.read ()
 		ly.progress ('\n')
 
-		if ly_outdated:
-			ly.progress (_ ("Processing..."))
-			process_snippets (process_cmd, ly_outdated, png_outdated)
-		else:
-			ly.progress (_ ("All snippets are up to date..."))
+		# FIXME: containing blocks must be first, see find_toplevel_snippets
+		snippet_types = (
+			'multiline_comment',
+			'verbatim',
+			'lilypond_block',
+	#		'verb',
+			'singleline_comment',
+			'lilypond_file',
+			'include',
+			'lilypond', )
+		ly.progress (_ ("Dissecting..."))
+		chunks = find_toplevel_snippets (source, snippet_types)
 		ly.progress ('\n')
 
-		ly.progress (_ ("Compiling %s...") % output_filename)
-		output_file.writelines ([s.replacement_text () \
-					 for s in chunks])
-		ly.progress ('\n')
+		global default_ly_options
+		textwidth = 0
+		if not default_ly_options.has_key (LINEWIDTH):
+			if format == LATEX:
+				textwidth = get_latex_textwidth (source)
+				default_ly_options[LINEWIDTH] = '''%.0f\\pt''' \
+								% textwidth
+			elif format == TEXINFO:
+				for (k, v) in texinfo_linewidths.items ():
+					# FIXME: @paper is usually not in chunk #0:
+					#        \input texinfo @c -*-texinfo-*-
+					# bluntly search first K of source
+					# s = chunks[0].replacement_text ()
+					if re.search (k, source[:1024]):
+						default_ly_options[LINEWIDTH] = v
+						break
 
-	def process_include (snippet):
+		if filter_cmd:
+			output_file.writelines ([c.filter_text () for c in chunks])
+
+
+		elif process_cmd:
+			do_process_cmd (chunks)
+			ly.progress (_ ("Compiling %s...") % output_filename)
+			output_file.writelines ([s.replacement_text () \
+						 for s in chunks])
+			ly.progress ('\n')
+
+		def process_include (snippet):
+			os.chdir (original_dir)
+			name = snippet.substring ('filename')
+			ly.progress (_ ('Processing include: %s') % name)
+			ly.progress ('\n')
+			do_file (name)
+
+		map (process_include,
+		     filter (lambda x: is_derived_class (x.__class__, Include_snippet), chunks))
+	except Compile_error:
 		os.chdir (original_dir)
-		name = snippet.substring ('filename')
-		ly.progress (_ ('Processing include: %s') % name)
+		ly.progress (_('Removing `%s\'') % output_filename)
 		ly.progress ('\n')
-		do_file (name)
 		
-	map (process_include,
-	     filter (lambda x: is_derived_class (x.__class__, Include_snippet), chunks))
+		os.unlink (output_filename)
+		raise Compile_error
+	
 
 def do_options ():
 	global format, output_name
@@ -1095,7 +1116,10 @@ def main ():
 	ly.identify (sys.stderr)
 	ly.setup_environment ()
 	if files:
-		do_file (files[0])
-
+		try:
+			do_file (files[0])
+		except Compile_error:
+			ly.exit (1)
+			
 if __name__ == '__main__':
 	main ()

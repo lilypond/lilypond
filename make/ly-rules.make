@@ -2,31 +2,24 @@
 
 
 $(outdir)/%.latex: %.doc
-	if [ -f $@ ]; then chmod a+w $@; fi
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --verbose $(LILYPOND_BOOK_FLAGS) $<
-	chmod -w $@
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
-	if [ -f $@ ]; then chmod a+w $@; fi
 	rm -f $$(grep -LF '\lilypondend' $(outdir)/lily-*.tex 2>/dev/null)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
-	chmod -w $@
 
 $(outdir)/%.texi: $(outdir)/%.tely
-	if [ -f $@ ]; then chmod a+w $@; fi
 	rm -f $$(grep -LF '\lilypondend' $(outdir)/lily-*.tex 2>/dev/null)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<
-	chmod -w $@
 
 # nexi: n[o-lilypond t]exi
 # for plain info doco: don't run lilypond
 $(outdir)/%.nexi: %.tely
-	if [ -f $@ ]; then chmod a+w $@; fi
 	rm -f $(outdir)/$*.texi
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) --process='true' $<
 	mv $(outdir)/$*.texinfo $@ 2>/dev/null || mv $(outdir)/$*.texi $@
@@ -35,7 +28,6 @@ $(outdir)/%.nexi: %.tely
 		(cd $(outdir) && \
 		ls -1 lily-*.ly | sed 's/.ly$$/.txt/' | xargs touch) || true; \
 	fi
-	chmod -w $@
 
 $(outdir)/%.info: $(outdir)/%.nexi
 	$(MAKEINFO) -I $(outdir) --output=$(outdir)/$(*F).info $<

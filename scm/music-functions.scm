@@ -623,11 +623,26 @@ Syntax:
       (set-debug-cell-accesses! 15000))
   m)
 
+(define (music-check-error music)
+  (define found #f)
+  (define (signal m)
+    (if (and (ly:music? m)
+	     (eq? (ly:music-property m 'error-found) #t))
+	(set! found #t)))
+  
+  (for-each signal (ly:music-property music 'elements))
+  (signal (ly:music-property music 'element))
+
+  (if found
+      (set! (ly:music-property music 'error-found) #t))
+  music)
+
 (define-public toplevel-music-functions
   (list
    ;; check-start-chords ; ; no longer needed with chord syntax. 
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map glue-mm-rest-texts x))
+   (lambda (x parser) (music-map music-check-error x))
    (lambda (music parser)
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
