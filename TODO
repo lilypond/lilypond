@@ -12,7 +12,12 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * use hash tabs iso. alist_ for elt property?
 . * fix tremolos.
 . * internationalize GUILE msgs.
+gg 
 . * unbroken marks.
+. * write smobifying howto.
+. * tuplet spanner dir
+. * \property autoBeamOverRest (boolean). Don't stop for rests when autobeaming.
+?
 . * put property test files in refman.
 . * fix slurdotted!
 . * alignment within @itemize

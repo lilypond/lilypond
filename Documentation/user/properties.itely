@@ -330,14 +330,35 @@ c4^"foo"  \emptyText c4^"foo" c4
     @code{\down} to force them below the staff, @code{\up} to force
     them above, or @code{\free} to let LilyPond decide.
 
-  @item @code{tupletVisibility}@indexcode{tupletVisibility} @propertytype{number}
-    [deprecate this, FIXME]
-    Determines whether tuplets of notes are labeled.  Setting
-    to 0 shows nothing; setting to 1 shows a number;
-    setting to 2 shows a number and a bracket if there is no
-    beam; setting to 3 shows a number, and if there is no beam
-    it adds a bracket; setting to 4 shows both a number and a
-    bracket unconditionally.
+  @item  @code{tupletBracketVisibility}@indexcode{tupletBracketVisibility} @propertytype{boolean} or @propertytype{symbol}
+  @item @code{tupletNumberVisibility}@indexcode{tupletNumberVisibility} @propertytype{boolean} or @propertytype{symbol}
+
+	These properties the visibility of the tuplet bracket and its
+number respectively. Setting it to false will prevent printing of the
+associated element. Setting the property to 'if-no-beam will make it
+print only if there is no beam associated with this tuplet bracket.
+
+[fixme examples]
+
+  @item @code{tupletInvisible}@indexcode{tupletInvisible} @propertytype{boolean}
+
+    If set to true, tuplet bracket creation is switched off
+entirely. This has the same effect as setting both
+@code{tupletNumberVisibility} and @code{tupletBracketVisibility} to
+@code{#f}, but as this does not even create elements, this setting
+uses less memory and time.
+
+
+@item @code{tupletSpannerDuration} @indexcode{tupletSpannerDuration}
+@propertytype{moment}
+
+Normally a tuplet bracket is as wide as the
+@code{\times} expression that gave rise to it. By setting this
+property, you can make brackets last shorter. Example
+
+@mudela[verbatim,fragment]
+\context Voice \times 2/3 { \property  Voice.tupletSpannerDuration = #(make-moment 1 4) [c8 c c] [c c c] }
+@end mudela
 
 @end table
 

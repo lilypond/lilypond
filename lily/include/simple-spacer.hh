@@ -25,6 +25,7 @@ struct Spring_description
   Real length (Real force) const;
   Spring_description ();
   Real energy_f (Real) const;
+  bool sane_b () const;
 };
 
 /**

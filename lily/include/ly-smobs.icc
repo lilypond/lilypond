@@ -10,6 +10,17 @@
 #ifndef LY_SMOBS_ICC
 #define LY_SMOBS_ICC
 
+#define IMPLEMENT_UNSMOB(CL, name)		\
+CL *						\
+unsmob_ ## name ( SCM s)			\
+{						\
+  if (SMOB_IS_TYPE_B(CL, s))			\
+    return SMOB_TO_TYPE(CL, s);			\
+  else						\
+    return 0;					\
+}
+
+
 #define IMPLEMENT_SMOBS(CL)\
 long CL::smob_tag_;\
 static scm_smobfuns CL ## _funs = {					\

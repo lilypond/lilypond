@@ -169,10 +169,10 @@
   "Run LilyPond on buffer."
   (interactive)
   (let ((buffer (buffer-name)))
-    (if buffer-file-name
+    (if (buffer-file-name)
 	(progn
 	  (lily-save-buffer)
-	  (lily-compile-file lily-command lily-parameters buffer))
+	  (lily-compile-file lily-command lily-parameters (buffer-file-name)))
       (progn
 	(error "Buffer %s is not associated with a file" buffer)
 	(lily-eval-region (min-point) (max-point))))))

@@ -1,5 +1,5 @@
 /*   
-  auto-plet-engraver.cc --  implement Auto_plet_engraver
+  plet-engraver.cc --  implement Tuplet_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,13 +7,36 @@
   
  */
 
-#include "tuplet-engraver.hh"
+
 #include "command-request.hh"
 #include "tuplet-spanner.hh"
 #include "note-column.hh"
 #include "time-scaled-music.hh"
 #include "beam.hh"
 #include "music-list.hh"
+#include "engraver.hh"
+
+class Tuplet_engraver : public Engraver
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+
+protected:
+  Link_array<Time_scaled_music> time_scaled_music_arr_;
+  /// when does the scaled music stop? Array order is synced with time_scaled_music_arr_
+  Array<Moment> stop_moments_;
+  /// when does the current spanner stop? Array order is synced with time_scaled_music_arr_
+  Array<Moment> span_stop_moments_;
+  
+  /// The spanners. Array order is synced with time_scaled_music_arr_
+  Link_array<Tuplet_spanner> started_span_p_arr_;
+
+  virtual void do_removal_processing ();
+  virtual void acknowledge_element (Score_element_info);
+  virtual bool do_try_music (Music*r);
+  virtual void do_process_requests ();
+  virtual void do_post_move_processing ();
+};
 
 bool
 Tuplet_engraver::do_try_music (Music *r)
@@ -24,7 +47,14 @@ Tuplet_engraver::do_try_music (Music *r)
       if (!dynamic_cast<Request_chord*> (el))
 	{
 	  time_scaled_music_arr_.push (c);
-	  stop_moments_.push (now_mom () + c->length_mom ());
+	  Moment m = now_mom () + c->length_mom ();
+	  stop_moments_.push (m);
+
+	  SCM s = get_property ("tupletSpannerDuration",0);
+	  if (SMOB_IS_TYPE_B(Moment, s))
+	    m = m <? (now_mom () + *SMOB_TO_TYPE(Moment,s));
+	  
+	  span_stop_moments_.push (m);
 	}
       return true;
     }
@@ -34,27 +64,24 @@ Tuplet_engraver::do_try_music (Music *r)
 void
 Tuplet_engraver::do_process_requests ()
 {
-  int dir = 0;
-  SCM prop = get_property ("tupletDirection", 0);
-  if (isdir_b (prop))
-    dir = to_dir (prop);
-  int visibility = 3;
-  prop = get_property ("tupletVisibility", 0);
-  if (gh_number_p(prop))
-    visibility = gh_scm2int (prop);	// bool ?
+  SCM v = get_property ("tupletInvisible", 0);
+  if (to_boolean (v))
+    return;
 
-  for (int i= started_span_p_arr_.size ();
-       i < time_scaled_music_arr_.size (); i++)
+  for (int i= 0; i < time_scaled_music_arr_.size (); i++)
     {
+      if (i < started_span_p_arr_.size () && started_span_p_arr_[i])
+	continue;
+
       Tuplet_spanner* glep = new Tuplet_spanner;
-      started_span_p_arr_.push (glep);
+      if (i >= started_span_p_arr_.size ())
+	started_span_p_arr_.push (glep);
+      else
+	started_span_p_arr_[i] = glep;
+      
       glep->set_elt_property ("text",
 			      ly_str02scm (to_str (time_scaled_music_arr_[i]->den_i_).ch_C()));
       
-      glep->set_elt_property("tuplet-visibility",
-                             gh_int2scm (visibility));
-      if (dir != 0)
-	glep->set_elt_property("dir-forced", gh_int2scm (dir));
       announce_element (Score_element_info (glep, time_scaled_music_arr_ [i]));
     }
 }
@@ -71,12 +98,14 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
   if (Note_column *nc = dynamic_cast<Note_column *> (i.elem_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
-	started_span_p_arr_[j]->add_column (nc);
+	if (started_span_p_arr_[j]) 
+	  started_span_p_arr_[j]->add_column (nc);
     }
   else if (Beam *b = dynamic_cast<Beam *> (i.elem_l_))
     {
       for (int j = 0; j < started_span_p_arr_.size (); j++)
-	started_span_p_arr_[j]->add_beam (b);
+	if (started_span_p_arr_[j]) 
+	  started_span_p_arr_[j]->add_beam (b);
     }
 }
 
@@ -84,13 +113,31 @@ void
 Tuplet_engraver::do_post_move_processing ()
 {
   Moment now = now_mom ();
+
+  Moment tsd;
+  SCM s = get_property ("tupletSpannerDuration",0);
+  if (SMOB_IS_TYPE_B(Moment, s))
+    tsd = *SMOB_TO_TYPE(Moment,s);
+
   for (int i= started_span_p_arr_.size (); i--; )
     {
+      if (now >= span_stop_moments_[i])
+	{
+	  if (started_span_p_arr_[i])
+	    {
+	      typeset_element (started_span_p_arr_[i]);
+	      started_span_p_arr_[i] =0;
+	    }
+	  
+	  if (tsd)
+	    span_stop_moments_[i] += tsd;
+	}
+
       if (now >= stop_moments_[i])
 	{
-	  typeset_element (started_span_p_arr_[i]);
 	  started_span_p_arr_.del (i);
 	  stop_moments_.del(i);
+	  span_stop_moments_.del (i);
 	  time_scaled_music_arr_.del(i);
 	}
     }
@@ -101,7 +148,8 @@ Tuplet_engraver::do_removal_processing ()
 {
   for (int i=0; i < started_span_p_arr_.size (); i++)
     {
-      typeset_element (started_span_p_arr_[i]);
+      if (started_span_p_arr_[i])
+	typeset_element (started_span_p_arr_[i]);
     }  
 }
 

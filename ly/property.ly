@@ -117,7 +117,7 @@ endincipit = \notes{
     \nobreak \bar "";
 }
 
-autoBeamOff = \property Voice.noAutoBeaming = #t
+autoBeamOff = \property Voice.noAutoBeaming = ##t
 autoBeamOn = \property Voice.noAutoBeaming = ##f
 
 

@@ -491,48 +491,7 @@ Score_element::find_broken_piece (Line_of_score*) const
   return 0;
 }
 
-SCM
-Score_element::mark_smob (SCM ses)
-{
-  void * mp = (void*) gh_cdr(ses);
-  Score_element * s = (Score_element*) mp;
 
-  if (s->self_scm_ != ses)
-    {
-      programming_error ("SMOB marking gone awry");
-      return SCM_EOL;
-    }
-  return s->element_property_alist_;
-}
-
-
-int
-Score_element::print_smob (SCM s, SCM port, scm_print_state *)
-{
-  Score_element *sc = (Score_element *) gh_cdr (s);
-     
-  scm_puts ("#<Score_element ", port);
-  scm_puts ((char *)sc->name (), port);
-
-  // scm_puts (" properties = ", port);
-  // scm_display (sc->element_property_alist_, port);
-  scm_puts (" >", port);
-  return 1;
-}
-
-void
-Score_element::do_smobify_self ()
-{
-  scm_unprotect_object (element_property_alist_); // ugh
-}
-#include "ly-smobs.icc"
-IMPLEMENT_SMOBS(Score_element);
-
-SCM
-Score_element::equal_p (SCM a, SCM b)
-{
-  return gh_cdr(a) == gh_cdr(b) ? SCM_BOOL_T : SCM_BOOL_F;
-}
 
 void
 Score_element::translate_axis (Real y, Axis a)
@@ -571,15 +530,6 @@ Score_element::extent (Axis a) const
   Dimension_cache const * d = dim_cache_[a];
 
   return d->get_dim ();
-}
-
-Score_element*
-unsmob_element (SCM s)
-{
-  if (SMOB_IS_TYPE_B (Score_element, s))
-    return SMOB_TO_TYPE(Score_element,s);
-  else
-    return 0;
 }
 
 
@@ -647,4 +597,53 @@ Score_element::fixup_refpoint ()
 	    }
 	}
     }
+}
+
+
+
+/****************************************************
+  SMOB funcs
+ ****************************************************/
+
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_SMOBS(Score_element);
+IMPLEMENT_UNSMOB(Score_element, element);
+SCM
+Score_element::mark_smob (SCM ses)
+{
+  Score_element * s = SMOB_TO_TYPE (Score_element, ses);
+  if (s->self_scm_ != ses)
+    {
+      programming_error ("SMOB marking gone awry");
+      return SCM_EOL;
+    }
+  return s->element_property_alist_;
+}
+
+int
+Score_element::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Score_element *sc = (Score_element *) gh_cdr (s);
+     
+  scm_puts ("#<Score_element ", port);
+  scm_puts ((char *)sc->name (), port);
+
+  // scm_puts (" properties = ", port);
+  // scm_display (sc->element_property_alist_, port);
+  scm_puts (" >", port);
+  return 1;
+}
+
+void
+Score_element::do_smobify_self ()
+{
+  scm_unprotect_object (element_property_alist_); // ugh
+}
+
+SCM
+Score_element::equal_p (SCM a, SCM b)
+{
+  return gh_cdr(a) == gh_cdr(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }

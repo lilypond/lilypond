@@ -13,6 +13,7 @@
 #include "axes.hh"
 #include "direction.hh"
 #include "cons.hh"
+#include "protected-scm.hh"
 
 //#define ATOM_SMOB
 
@@ -27,12 +28,8 @@
 
 */
 class Molecule {
-#ifdef ATOM_SMOB
-  SCM atom_list_;
-#else
-  //  Protected_scm atom_list_;	// change to List<Atom>?
-  Cons<Atom> *atom_list_;
-#endif
+  Protected_scm atom_list_;
+
   friend class Paper_outputter;
 
 public:
@@ -44,9 +41,12 @@ public:
   /**
      Set dimensions to empty, or to (Interval(0,0),Interval(0,0) */
   void set_empty (bool);
-  
   void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding);
-  void add_atom (Atom const *a);    
+
+  /**
+     Add an atom.  The molecule assumes responsibility for cleaning.
+   */
+  void add_atom (SCM as);    
   void add_molecule (Molecule const &m);
   void translate (Offset);
   
@@ -67,8 +67,9 @@ public:
   Interval extent (Axis) const;
 
   Molecule (const Molecule&s);
-  void print() const;
+
   void operator=(const Molecule&);  
   bool empty_b() const;
+  void print ()const;
 };
 #endif

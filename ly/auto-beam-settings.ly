@@ -35,57 +35,54 @@ autoBeamSettings = (list
 
 %}
 
-
-
-
-
-
-
-
-
-
 time3_2beamAutoEnd = #(make-moment 1 2)
 %time3_2beamAutoEnd_16 = #(make-moment 1 4)
 time3_2beamAutoEnd_16 = #(make-moment 1 4)
-time3_2beamAutoEnd_32 = #(begin (make-moment 1 8))
+time3_2beamAutoEnd_32 = #(make-moment 1 8)
 
-time3_4beamAutoBegin_8 = #(begin (make-moment 1 4))
-time3_4beamAutoEnd = #(begin (make-moment 3 4))
-time3_4beamAutoBegin_16 = #(begin (make-moment 1 16))
-time3_4beamAutoEnd_16 = #(begin (make-moment 1 4))
-%time3_4beamAutoBegin_32 = #(begin (make-moment 1 8))
-time3_4beamAutoEnd_32 = #(begin (make-moment 1 8))
+time3_4beamAutoBegin_8 = #(make-moment 1 4)
+time3_4beamAutoEnd = #(make-moment 3 4)
+time3_4beamAutoBegin_16 = #(make-moment 1 16)
+time3_4beamAutoEnd_16 = #(make-moment 1 4)
+%time3_4beamAutoBegin_32 = #(make-moment 1 8)
+time3_4beamAutoEnd_32 = #(make-moment 1 8)
 
-time3_8beamAutoBegin = #(begin (make-moment 1 8))
-time3_8beamAutoEnd = #(begin (make-moment 3 8))
+time3_8beamAutoBegin = #(make-moment 1 8)
+time3_8beamAutoEnd = #(make-moment 3 8)
 
 % in common time:
 %   end beams each 1/2 note
 %   end beams with 32th notes each 1/8 note
 %   end beams with 1/8 triplets each 1/4 note
 
-time4_4beamAutoEnd = #(begin (make-moment 1 2))
-time4_4beamAutoEnd_12 = #(begin (make-moment 1 4))
-time4_4beamAutoEnd_16 = #(begin (make-moment 1 4))
-time4_4beamAutoEnd_32 = #(begin (make-moment 1 8))
+time4_4beamAutoEnd = #(make-moment 1 2)
+time4_4beamAutoEnd_12 = #(make-moment 1 4)
+time4_4beamAutoEnd_16 = #(make-moment 1 4)
+time4_4beamAutoEnd_32 = #(make-moment 1 8)
 
-time4_8beamAutoEnd = #(begin (make-moment 1 4))
-time4_8beamAutoEnd_16 = #(begin (make-moment 1 4))
-time4_8beamAutoEnd_32 = #(begin (make-moment 1 8))
+time2_4beamAutoEnd = #(make-moment 1 4)
+time2_4beamAutoEnd_12 = #(make-moment 1 4)
+time2_4beamAutoEnd_16 = #(make-moment 1 4)
+time2_4beamAutoEnd_32 = #(make-moment 1 8)
 
-time4_16beamAutoEnd = #(begin (make-moment 1 8))
 
-time6_8beamAutoEnd = #(begin (make-moment 3 8))
-time6_8beamAutoEnd_16 = #(begin (make-moment 3 8))
-time6_8beamAutoEnd_32 = #(begin (make-moment 1 8))
+time4_8beamAutoEnd = #(make-moment 1 4)
+time4_8beamAutoEnd_16 = #(make-moment 1 4)
+time4_8beamAutoEnd_32 = #(make-moment 1 8)
 
-time9_8beamAutoEnd = #(begin (make-moment 3 8))
-time9_8beamAutoEnd_16 = #(begin (make-moment 3 8))
-time9_8beamAutoEnd_32 = #(begin (make-moment 1 8))
+time4_16beamAutoEnd = #(make-moment 1 8)
 
-time12_8beamAutoEnd = #(begin (make-moment 3 8))
-time12_8beamAutoEnd_16 = #(begin (make-moment 3 8))
-time12_8beamAutoEnd_32 = #(begin (make-moment 1 8))
+time6_8beamAutoEnd = #(make-moment 3 8)
+time6_8beamAutoEnd_16 = #(make-moment 3 8)
+time6_8beamAutoEnd_32 = #(make-moment 1 8)
+
+time9_8beamAutoEnd = #(make-moment 3 8)
+time9_8beamAutoEnd_16 = #(make-moment 3 8)
+time9_8beamAutoEnd_32 = #(make-moment 1 8)
+
+time12_8beamAutoEnd = #(make-moment 3 8)
+time12_8beamAutoEnd_16 = #(make-moment 3 8)
+time12_8beamAutoEnd_32 = #(make-moment 1 8)
 
 
 

@@ -78,19 +78,19 @@ Crescendo * me = (Crescendo*)this;
   Real thick = paper_l ()->get_var ("crescendo_thickness");
 
   const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
-  Atom at  (gh_list (ly_symbol2scm (hairpin),
+  Molecule * m
+    = new Molecule;
+  m->dim_.x () = Interval (0, width);
+  m->dim_.y () = Interval (-2*height, 2*height);
+
+  Atom *a = new Atom(gh_list (ly_symbol2scm (hairpin),
 		     gh_double2scm (thick),
 		     gh_double2scm (width),
 		     gh_double2scm (height),
 		     gh_double2scm (continued ? height/2 : 0.0),
 		     SCM_UNDEFINED));
-  Molecule * m
-    = new Molecule;
-  
-  m->dim_.x () = Interval (0, width);
-  m->dim_.y () = Interval (-2*height, 2*height);
-  m->add_atom (&at);
-  
+
+  m->add_atom (a->self_scm_);
   m->translate_axis (extra_left, X_AXIS);
   return m;
 }

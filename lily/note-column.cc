@@ -153,7 +153,7 @@ Note_column::do_post_processing ()
     return;
 
   Beam * b = stem_l ()->beam_l ();
-  if (!b || !b->stem_count ())
+  if (!b || !b->visible_stem_count ())
     return;
   
   /* ugh. Should be done by beam.
@@ -171,6 +171,7 @@ Note_column::do_post_processing ()
   if (gh_number_p (s))
     beam_y = gh_scm2double (s);
 
+  
   Real x0 = b->first_visible_stem ()->hpos_f ();
   Real dx = b->last_visible_stem ()->hpos_f () - x0;
   Real dydx = beam_dy && dx ? beam_dy/dx : 0;

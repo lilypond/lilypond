@@ -40,25 +40,22 @@ Tuplet_spanner::do_brew_molecule_p () const
   bool par_beam = to_boolean (get_elt_property ("parallel-beam"));
   bool bracket_visibility = !par_beam;
   bool number_visibility = true;
-  SCM visibility_sym =get_elt_property ("tuplet-visibility");
-  if (gh_number_p (visibility_sym))
+
+  SCM bracket = get_elt_property ("tuplet-bracket-visibility");
+  if (gh_boolean_p (bracket))
     {
-      /*
-	ARG. Fixme.
-       */
-      
-      /* Property values:
-	 0       show nothing
-	 1       show number
-	 2       show (number and bracket)-if-no-beam
-	 3       show number, and bracket-if-no-beam
-	 4       show number, and bracket
-      */
-      int value = gh_scm2int ((visibility_sym));
-      bracket_visibility = (value == 4 || (value > 1 && !par_beam));
-      number_visibility = (value > 2 || value == 1 || 
-			   (value == 2 && !par_beam));
+      bracket_visibility = gh_scm2bool (bracket);
     }
+  else if (bracket == ly_symbol2scm ("if-no-beam"))
+    bracket_visibility = !par_beam;
+
+  SCM numb = get_elt_property ("tuplet-number-visibility");  
+  if (gh_boolean_p (numb))
+    {
+      number_visibility = gh_scm2bool (numb);
+    }
+  else if (bracket == ly_symbol2scm ("if-no-beam"))
+    number_visibility = !par_beam;
   
   if (gh_pair_p (get_elt_property ("columns")))
     {
@@ -73,9 +70,8 @@ Tuplet_spanner::do_brew_molecule_p () const
       Direction dir = directional_element (this).get ();
       Real dy = gh_scm2double (get_elt_property ("delta-y"));
       SCM number = get_elt_property ("text");
-      if (gh_string_p (number))
+      if (gh_string_p (number) && number_visibility)
 	{
-
 	  Molecule
 	    num (lookup_l ()->text ("italic",
 				    ly_scm2string (number), paper_l ()));
@@ -124,7 +120,7 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
 
-  
+ 
   Direction d = directional_element (this).get ();
   *dy = column_arr.top ()->extent (Y_AXIS) [d]
     - column_arr[0]->extent (Y_AXIS) [d];
@@ -133,11 +129,14 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
   
   Real x0 = column_arr[0]->hpos_f ();
   Real x1 = column_arr.top ()->hpos_f ();
+  
+  Real factor = column_arr.size () > 1 ? 1/(x1 - x0) : 1.0;
+  
   for (int i = 0; i < column_arr.size ();  i++)
     {
       Real notey = column_arr[i]->extent (Y_AXIS)[d];
       Real x = column_arr[i]->hpos_f () - x0;
-      Real tuplety =  *dy * x / (x1 -x0);
+      Real tuplety =  *dy * x * factor;
 
       if (notey * d > (*offset + tuplety) * d)
 	*offset = notey - tuplety; 
@@ -188,6 +187,8 @@ Tuplet_spanner::do_post_processing ()
 Direction
 Tuplet_spanner::get_default_dir () const
 {
+  assert (false);
+  
   Direction d = UP;
   SCM dir_sym =get_elt_property ("dir-forced");
   if (gh_number_p (dir_sym))

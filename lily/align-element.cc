@@ -34,7 +34,7 @@ Align_element::do_side_processing ()
 
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elts (elem_l_arr ());
-  for (int i=0; i < elem_l_arr ().size(); i++) 
+  for (int i=0; i < all_elts.size(); i++) 
     {
       Interval y = all_elts[i]->extent(axis ()) + all_elts[i]->relative_coordinate (this, axis ());
       if (!y.empty_b())

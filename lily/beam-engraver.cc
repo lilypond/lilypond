@@ -180,13 +180,18 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  rhythmic_req->warning (_ ("Stem doesn't fit in beam"));
 	  prev_start_req_->warning (_ ("Beam was started here"));
-	  return;
+	  /*
+	    don't return, since
+
+	    [r4 c8] can just as well be modern notation.
+	   */
 	}
 
       stem_l->set_elt_property ("duration-log",
 				gh_int2scm (rhythmic_req->duration_.durlog_i_));
       Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
-      beam_info_p_->add_stem (stem_location, rhythmic_req->duration_.durlog_i_ - 2);
+      beam_info_p_->add_stem (stem_location,
+			      (rhythmic_req->duration_.durlog_i_ - 2) >? 1);
       beam_p_->add_stem (stem_l);
     }
 }

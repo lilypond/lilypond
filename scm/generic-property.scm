@@ -127,11 +127,23 @@
 	(list
 	 (list 'timeSignatureStyle string? 'style))))
 
+(define (symbol-or-boolean? s)
+  (or (boolean? s) (symbol? s)))
+
+(define generic-tuplet-spanner-properties
+  (cons "Tuplet_spanner"
+	(list
+	 (list 'tupletNumberVisibility symbol-or-boolean? 'tuplet-number-visibility)
+	 (list 'tupletBracketVisibility symbol-or-boolean? 'tuplet-bracket-visibility)
+	))
+)
+ 
 (define generic-voice-properties
   (list
    generic-stem-properties
    generic-breathing-sign-properties
    generic-tie-properties
+   generic-tuplet-spanner-properties
    generic-rest-properties
    generic-slur-properties
    generic-beam-properties

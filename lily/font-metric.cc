@@ -10,6 +10,7 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "ly-smobs.icc"
 #include "font-metric.hh"
 
 Box
@@ -124,11 +125,4 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
   return 1;
 }
 
-Font_metric *
-unsmob_metrics( SCM s)
-{
-  if (SMOB_IS_TYPE_B(Font_metric, s))
-    return SMOB_TO_TYPE(Font_metric, s);
-  else
-    return 0;
-}
+IMPLEMENT_UNSMOB(Font_metric, metrics);
