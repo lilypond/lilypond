@@ -288,8 +288,9 @@
    (ly:gulp-file "lilyponddefs.ps")
    (ly:gulp-file "music-drawing-routines.ps")))
 
+;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
-  (draw-line th x1  0 x2 0))
+  (draw-line th x1 0 x2 0))
 
 (define (lily-def key val)
   (let ((prefix "lilypondpaper"))

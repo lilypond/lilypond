@@ -69,6 +69,8 @@ def parse_logfile (fn):
 		tags = string.split(l, '@:')
 		if tags[0] == 'group':
 			group = tags[1]
+		elif tags[0] == 'puorg':
+			group = ''
 		elif tags[0] == 'char':
 			name = tags[9]
 			if group:
