@@ -62,6 +62,9 @@ Windows}.  (Or just @uref{http://cygwin.com/setup.exe, Install Lily Now}).
 @c direct links into first steps and running lily?
 @itemize @bullet
 @item @uref{../user/out-www/lilypond/Tutorial.html,Learn} how to use LilyPond.
+@item
+ @uref{../../input/template/out-www/template.html, Templates}, for
+different music styles.  Add notes, and done!
 @end itemize
 
 @end quotation
@@ -239,7 +242,7 @@ changes)
 Windows installer
 @end itemize
 
-These pages were entirely created from a @strong{development snapshot}
+These pages were entirely created from a @strong{stable version}
 of the LilyPond package.  The version of this webpage is printed at the
 bottom.
 
