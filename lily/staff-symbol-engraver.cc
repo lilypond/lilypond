@@ -18,11 +18,12 @@
   Manage the staff symbol.
  */
 class Staff_symbol_engraver : public Engraver { 
-  Spanner *span_;
 public:
   TRANSLATOR_DECLARATIONS(Staff_symbol_engraver);
   
 protected:
+  Spanner *span_;
+  
   virtual ~Staff_symbol_engraver ();
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
@@ -77,10 +78,47 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 
 
 ENTER_DESCRIPTION(Staff_symbol_engraver,
-/* descr */       "create the constellation of five (default) "
+/* descr */       "Create the constellation of five (default) "
 "staff lines.",
 /* creats*/       "StaffSymbol",
 /* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "",
+/* write */       "");
+
+/****************************************************************/
+
+
+class Tab_staff_symbol_engraver : public Staff_symbol_engraver
+{
+public:
+  TRANSLATOR_DECLARATIONS(Tab_staff_symbol_engraver);
+protected:
+  virtual void process_music ();
+};
+
+void
+Tab_staff_symbol_engraver::process_music ()
+{
+  bool init = !span_;
+  Staff_symbol_engraver::process_music();
+  if (init)
+    {
+      int k = scm_ilength (get_property ("stringTunings"));
+      if (k>=0)
+	span_->set_grob_property ("line-count", gh_int2scm (k));
+    }
+}
+
+Tab_staff_symbol_engraver::Tab_staff_symbol_engraver()
+{
+}
+
+ENTER_DESCRIPTION(Tab_staff_symbol_engraver,
+/* descr */       "Create a staff-symbol, but look at stringTunings for the number of lines."
+"staff lines.",
+/* creats*/       "StaffSymbol",
+/* accepts */     "",
+/* acks  */      "grob-interface",
+/* reads */       "stringTunings",
 /* write */       "");

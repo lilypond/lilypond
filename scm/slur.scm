@@ -8,79 +8,41 @@
 
 (define (attached-to-stem slur dir)
   (let* ((note-columns (ly:get-grob-property slur 'note-columns))
-	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
+	 (col (if (= dir 1) (car note-columns) (car (last-pair note-columns))))
 	 (stem (ly:get-grob-property col 'stem)))
     (and
      (eq? col (ly:get-spanner-bound slur dir))
-     stem
+     (ly:grob? stem)
      (ly:get-grob-property stem 'heads))))
 
 
-;; Slur-extremity-rules is a list of rules.  Each rule is a pair 
-;; (fuction . attachment), where function takes two arguments,
-;; the slur and the direction of the attachment.
-;;
-;; The rules are tried starting from the car of this list.  If the
-;; function part (car) evaluates to #t, the corresponding
-;; attachment (cdr) is used for the slur's dir.  Otherwise, the next
-;; rule is tried.
 ;;
 ;; Currently, we have attachments:
 ;;
 ;;    'head 'along-side-stem 'stem 'loose-end
 ;;
+(define (calc-slur-extremity slur dir)
+  (let* ((note-columns (ly:get-grob-property slur 'note-columns))
+	 (col (car (if (= dir 1) note-columns (reverse note-columns))))
+	 (stem (ly:get-grob-property col 'stem)))
 
-(define default-slur-extremity-rules
-  (list
 
-   ;; (cons (lambda (slur dir) (begin (display "before sanity check") (newline))#f) #f)
-
-   ;; urg: don't crash on a slur without note-columns
-   (cons (lambda (slur dir)
-	   (< (length (ly:get-grob-property slur 'note-columns)) 1)) 'head)
-
-   ;; (cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
-   (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
-
-   ;; (cons (lambda (slur dir) (begin (display "before head") (newline))#f) #f)
-
-   (cons (lambda (slur dir)
-	   ;; urg, code dup
-	   (let* ((note-columns (ly:get-grob-property slur 'note-columns))
-		  (col (car (if (= dir 1) note-columns (reverse note-columns))))
-		  (stem (ly:get-grob-property col 'stem)))
-	     
-	     (and stem
-		  (not (equal? (ly:get-grob-property slur 'direction) 
-			       (ly:get-grob-property stem 'direction))))))  'head)
-
-   ;; (cons (lambda (slur dir) (begin (display "before stem") (newline))#f) #f)
-
-   (cons (lambda (slur dir)
-	   ;; if attached-to-stem
-	   (and (attached-to-stem slur dir)
-		;; and got beam
-		;; urg, code dup
-		(let* ((note-columns (ly:get-grob-property slur 'note-columns))
-		       (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		       (stem (ly:get-grob-property col 'stem)))
-		  (and stem
-		       (ly:get-grob-property stem 'beam)
-		       ;; and beam on same side as slur
-		       (let ((beaming (ly:get-grob-property stem 'beaming)))
-			 ;; (display "beaming (") (display dir) (display "): ") (write beaming) (newline)
-			 (if (pair? beaming)
-			     (>= (length (if (= dir -1) (cdr beaming) (car beaming)))
-				1)
-			     #f))))))
-	 'stem)
-
-   ;; (cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
-   (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
-   ;; (cons (lambda (slur dir) (begin (display "after loose-end") (newline))#f) #f)
-
-   ;; default case, attach to head
-   (cons (lambda (x y) #t)  'head)
+   (cond
+    ((< (length note-columns) 1) 'head)
+    ((not (attached-to-stem slur dir)) 'loose-end)
+    ((and stem
+	  (not (equal? (ly:get-grob-property slur 'direction) 
+		       (ly:get-grob-property stem 'direction))))  'head)
+    ((and (attached-to-stem slur dir)
+	  (ly:grob? stem)
+	  (ly:grob? (ly:get-grob-property stem 'beam))
+	  ;; and beam on same side as slur
+	  (equal?
+	   (ly:get-grob-property stem 'direction)
+	   (ly:get-grob-property slur 'direction)))
+     'stem)
+    ((not (attached-to-stem slur dir))  'loose-end)
+    (else 'head))
    ))
 
 

@@ -28,14 +28,15 @@
      (apply define-grob-property x))
 
    `(
-     (X-extent-callback ,procedure? "Procedure taking a grob and axis
-argument, returning a number-pair. The return value is the extent of
-the grob. If this value is set to @code{#f}, the object is empty in
-the X direction.")
+     (X-extent-callback ,procedure? "Procedure that calculates the
+extent of this object. If this value is set to @code{#f}, the object
+is empty in the X direction.  The procedure takes a grob and axis
+argument, and returns a a number-pair.
+")
 
-     (X-offset-callbacks ,list? "list of functions, each taking an grob and
-axis argument. The function determine the position relative to this
-grob's parent. The last one in the list is called first.")
+     (X-offset-callbacks ,list? "A list of functions determining this
+objects' position relative to its parent. The last one in the list is
+called first.  The functions take a grob and axis argument. ")
 
      (Y-extent-callback ,procedure? "see @code{X-extent-callback}.")
      (Y-offset-callbacks ,list? "see @code{X-offset-callbacks}.")
@@ -91,8 +92,8 @@ documentation here].")
      (prefix-set ,number? "")
      (stropha ,boolean? "is this neume a stropha?")
      (virga ,boolean? "is this neume a virga?")
-
-
+     (x-offset ,ly:dimension? "extra horizontal offset for ligature heads.")
+     
      ;; end ancient notation
      
 
@@ -123,32 +124,44 @@ original stencil drawer to draw the balloon around.")
      (beamed-minimum-free-lengths ,list? "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.")
      (beamed-extreme-minimum-free-lengths ,list? "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.")
 
-     (beamed-stem-shorten ,list? "shorten beamed stems in forced direction.")
+     (beamed-stem-shorten ,list? " How much to shorten beamed stems,
+when their direction is forced. It is a  list, since the value is different
+depending on the number flags/beams.")
      (beaming ,pair?
-	      "Pair of number lists. Each number list
-specifies which beams to make. 0 is the central beam, 1 is the next
-beam toward the note etc. This information is used to determine how to
-connect the beaming patterns from stem to stem inside a beam.")
+	      "Pair of number lists. Each number list specifies which
+beams to make. 0 is the central beam, 1 is the next beam toward the
+note etc. This information is used to determine how to connect the
+beaming patterns from stem to stem inside a beam.")
 
 
      (beautiful ,number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
-     (before-line-breaking-callback ,procedure? "Procedure taking grob as argument.
-This procedure is called (using dependency resolution) before line breaking, but after generating discretionary items. Return value is ignored.")
+     (before-line-breaking-callback ,procedure? "This procedure is
+called before line breaking, but after splitting breakable items at
+potential line breaks.")
      (between-cols ,pair? "Where to attach a loose column to")
      (between-system-string ,string? "string
  to dump between two systems. Useful for forcing pagebreaks.")
      (bracket-thick ,number? "width of a system start bracket.")
-     (break-align-symbol ,symbol? "the index in the spacing table (symbol) of the to be aligned item.")
-     (break-glyph-function ,procedure? "function taking glyph and break-direction, returning the glyph at a line break.")
-     (breakable ,boolean? "Is this is a breakable item (e.g. clef, barline)?")
+     (break-align-symbol ,symbol? "This key is used for aligning and
+spacing breakable items.")
+     (break-glyph-function ,procedure? "This function determines the
+appearance of a barline at the line break.  It takes a glyph and
+break-direction and returns the glyph at a line break.")
+     (breakable ,boolean? "Can this object appear at a line break,
+like clefs and barlines?")
      (c0-position ,integer? "integer indicating the position of central C.")
-     (cautionary-style ,symbol? "style  of cautionary accidentals. Choices are 'smaller (one size smaller) or 'parentheses.")
+     (cautionary-style ,symbol? "How to print cautionary
+accidentals. Choices are @code{smaller} (one size smaller) or
+@code{parentheses}.")
      (cautionary ,boolean? "is this a cautionary accidentals.?")
-     (concaveness-gap ,ly:dimension? "A beam is
-considered to be concave if the distance of an inner notehead to the
-line between two outer noteheads is bigger than this gap.")
-     (concaveness-threshold ,number? "A beam is
-considered to be concave is concaveness is bigger than this threshold.
+     (concaveness-gap ,ly:dimension? "A beam is printed horizontally
+if its gap is larger  than this value.
+
+The gap is the distance of an inner notehead to the line between two
+outer noteheads is bigger than this gap. ")
+     (concaveness-threshold ,number? "A beam is printed horizontally
+if its concaveness is bigger than this threshold.
+
 Concaveness is calculated as the sum of the vertical distances of
 inner noteheads that fall outside the interval of the two outer
 noteheads, to the vertically nearest outer notehead, divided by the
@@ -159,7 +172,8 @@ square of the inner notes involved.")
 
      (control-points ,list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 
-     (damping ,integer? "Amount of beam slope damping. 0: no, 1: yes, 100000: horizontal beams .")
+     (damping ,integer? "Amount of beam slope damping. 0: no, 1: yes,
+100000: horizontal beams.")
      (dash-period ,number? "the length of one dash + white space. If
 negative, no line is drawn at all.")
      
@@ -169,9 +183,8 @@ line).")
 
      ;; [FIXME: use dash-period/dash length; see text-spanner]
      (dashed ,number? " number representing the length of the dashes.")
-     
-     (neutral-direction ,ly:dir? "Where to go if we're on the neutral
-position of the staff.")
+     (neutral-direction ,ly:dir? "Which direction to take in the
+center of the staff.")
 
      ;; todo: why is this tunable?
      (neutral-position ,number? "Position (in half staff spaces) where
@@ -182,304 +195,322 @@ Use property neutral-direction to control the behaviour of stems on
 the neutral position itself.  (Note: currently, neutral-position is
 supported only for custodes; for stems of note heads, neutral-position
 is currently fixed to 0, i.e. the middle of the staff.)")
-     (dir-function ,procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.
+     (dir-function ,procedure? "The function to determine the
+direction of a beam. Choices include: 
 
-The ways to calculate the direction of a beam work as follows:
 @table @code
-@item majority
+@item  beam-dir-majority
 number count of up or down notes
-@item mean
+@item beam-dir-mean
 mean center distance of all notes
-@item median
-mean centre distance weighted per note
+@item  beam-dir-median.
+mean center distance weighted per note
 @end table
 
 ")
+     
      (direction ,ly:dir? "Up or down, left or right?")
-     (dot-count ,integer? "number of dots.")
-     (duration-log ,integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
-     (edge-height ,pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
-     (bracket-flare ,number-pair? "a pair that specifies how much
-edges of brackets should slant outward.  Value 0.0 means straight
+     (dot-count ,integer? "The number of dots.")
+     (duration-log ,integer? "The 2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
+     (edge-height ,pair? "A pair of number specifying the heights of
+the vertical edges '(@var{left-height} . @var{right-height}).")
+     (bracket-flare ,number-pair? "A pair of numbers specifying how
+much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
 
-     (edge-text ,pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
+     (edge-text ,pair? "a cons that specifies the texts to be set at the edges '(@var{left-text} . @var{right-text}).")
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
 
      ;; remove me? 
-     (extra-X-extent ,number-pair? "enlarge in X dimension by this much, measured in staff space.")
+     (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
+by this much.")
      (extra-Y-extent ,number-pair? "see @code{extra-Y-extent}.")
-
      
-     (X-extent ,number-pair? "Store extent. internal use only. ")
-     (Y-extent ,number-pair? "Store extent. internal use only. ")
+     (X-extent ,number-pair? "Hard coded extent in X direction. ")
+     (Y-extent ,number-pair? "Hard coded extent in Y direction. ")
 
      (extra-offset ,number-pair? "A pair representing an offset. This
-offset is added just before `printing' the grob, so the typesetting
+offset is added just before outputting the symbol, so the typesetting
 engine is completely oblivious to it.")
 
-     (extremity-offset-alist ,list? "an alist (attachment stem-dir*dir
-slur-dir*dir) -> offset.  The offset adds to the centre of the
-notehead, or stem.")
+      ;; docme.
+     (extremity-offset-alist ,list? "The offset adds to the centre of
+the notehead, or stem.
 
-     (extremity-rules ,list? "an alist (procedure
-slur dir) -> attachment to determine the attachment (see above).  If
-procedure returns #t, attachment is used.  Otherwise, the next
-procedure is tried.")
-     
+Format: alist (attachment stem-dir*dir slur-dir*dir) -> offset.
+")
+
+     ;;
+     (extremity-function ,procedure? "A function that calculates the
+attachment of  a slur-end. The function takes a slur and direction argument and returns a symbol.")     
      (flag-style ,symbol?
-		 "a string determining what style of glyph is typeset on a Stem. Valid
-options include undefined and mensural.  Additionally, @code{no-flag}
-switches off the flag.")
+		 "a string determining what style of flag-glyph is
+typeset on a Stem. Valid options include @code{()} and
+@code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
+flag.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
-     (font-family ,symbol? "partial font
-definition: music roman braces dynamic math ..")
-     (font-name ,string? "file name for the font to load.
-Overrides all other font-X qualifiers.")
-     (font-magnification ,number? "Magnification
-  of the font. If undefined, the default is @code{1.0}.")
+     (font-family ,symbol? "The font family is the broadest category for selecting a font. Options include: @code{music}, @code{roman}, etc... ")
+     (font-name ,string? "Specifies a file name (without extension) of
+the font to load.  This setting override selection using
+@code{font-family},@code{font-series} and @code{font-shape}.")
+     (font-magnification ,number? "Magnification of the font, when it
+is selected with @code{font-name}.")
 
-     (font-size ,number? "font definition: the relative size compared
-the `normal' size.  0 is style-sheet's normal size, -1 is smaller, +1
-is bigger.  Each step of 1 is approximately 12% larger, 6 steps are
-exactly a factor 2 larger. Fractional values are allowed.")
+     (font-size ,number? "The font size, compared the `normal'
+size.  0 is style-sheet's normal size, -1 is smaller, +1 is bigger.
+Each step of 1 is approximately 12% larger, 6 steps are exactly a
+factor 2 larger. Fractional values are allowed.")
 
-     (font-series ,symbol? "partial font definition: medium, bold.")
-     (font-shape ,symbol? "partial font definition: upright or italic.")
+     (font-series ,symbol? "Select the series of a font. Choices
+include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
+     (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
+@code{italic}, @code{caps}.")
 
-     (force-hshift ,number? "amount of collision_note_width that
-overides automatic collision settings. This is used by
-@internalsref{note-collision-interface}.")
+     (force-hshift ,number? "This specifies a manual shift for notes
+in collisions. The unit is the note head width of the first voice
+note.  This is used by @internalsref{note-collision-interface}.")
 
-     (fraction ,number-pair? "fraction of a time signature.")
-     (french-beaming ,boolean? "Use French
-beaming style: stems stop at innermost beams.")
-     (full-size-change ,boolean? "if set, don't make a change clef smaller.")
+     (fraction ,number-pair? "Numerator and denominator of a time
+signature object.")
+     (french-beaming ,boolean? "Use French beaming style for this
+stem. The stem will stop at the innermost beams.")
+
+     ;; ugh: double, change.
+     (full-size-change ,boolean? "Don't make a change clef smaller.")
+     (non-default ,boolean? "Set for manually specified clefs.")
+
 
      (glyph ,string? "a string determining what (style) of glyph is
 typeset. Valid choices depend on the function that is reading this
 property.")
-
      (glyph-name ,string? "a name of character within font.")
-     (glyph-name-procedure ,procedure? "Return
-name of character within font.")
+     (glyph-name-procedure ,procedure? "Return the name of a character
+within font, to use for printing a symbol.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
-     (grace-space-factor ,number? "space grace at this fraction of the increment.")
+     (grace-space-factor ,number? "Space grace notes at this fraction
+of the @code{spacing-increment}.")
 
      (grow-direction ,ly:dir? "crescendo or decrescendo?")
-     (hair-thickness ,number? "thickness, measured in linethickness.")
-     (height ,ly:dimension? "in staffspace.")
-
+     (hair-thickness ,number? "thickness of the thin line in a barline.")
+     (height ,ly:dimension? "height of an object in staffspace.")
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
 slur, the closer it is to this height.")
 
-     (horizontal-shift ,integer? "integer that identifies ranking of
-note-column for horizontal shifting. This is used by
+     (horizontal-shift ,integer? "An integer that identifies ranking
+of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
-     (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
-     (kern ,ly:dimension? "amount of extra white
-space to add. For barline, space after a thick line.")
-     (knee ,boolean? "Is this beam a knee?")
-     (knee-spacing-correction ,number? "optical correction amount for knees. 0: no correction; 1: full correction.")
-     (layer ,number? "The output layer [0..2].  The default is 1.")
-
+     (kern ,ly:dimension? "amount of extra white space to add. For
+barline, this is the amount of space after a thick line.")
+     (knee ,boolean? "Is this beam kneed?")
+     (knee-spacing-correction ,number? "Factor for the optical
+correction amount for knees. Set between 0 for no correction and 1 for
+full correction.")
+     (layer ,number? "The output layer [0..2]: layers define the order
+of printing objects. Objects in lower layers are overprinted by
+objects in higher layers.")
      (ledger-line-thickness ,number-pair?
 			    "The thickness of ledger lines: it is the
-sum of 2 numbers.  The car is the factor for linethickness, and the
-cdr for staff space. Both contributions are added.")
-     
-     (left-position ,number? "position of left part of spanner.")
-     (left-padding ,ly:dimension? "space left of accs.")
-
-     (length ,ly:dimension? "Stem length for unbeamed stems, only for user override.")
-     (lengths ,list? "Stem length given
-multiplicity of flag.  The Nth element of the list gives the stem
-length of a note with N flags.
-")
-     (line-count ,integer? "Number of staff
-lines.  If you want to override this for staffs individually, you must
-use @code{\\outputproperty}. @code{\\property .. \\override} will not
-work: @code{\\override} is processed after the StaffSymbol is created,
-and will have no effect.
-")
-     (maximum-rest-count ,integer? "kill off rests so we don't more than this number left.")
+sum of 2 numbers.  The first is the factor for linethickness, and the
+second for staff space. Both contributions are added.")
+     (left-position ,number? "Vertical position of left part of spanner.")
+     (left-padding ,ly:dimension? "The amount space that is put left
+to a group of accidentals.")
+     (length ,ly:dimension? "User override for the stem length of
+unbeamed stems.")
+     (lengths ,list? "Default stem lengths. The list gives a length
+for each flag-count.")
+     (line-count ,integer? "The number of staff lines.")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")
-     (measure-count ,integer? "number of measures for a multimeasure rest.")
 
+     (measure-count ,integer? "number of measures for a multimeasure rest.")
      (merge-differently-headed ,boolean? "Merge
 noteheads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
 @internalsref{note-collision-interface} .")
 
-     (merge-differently-dotted ,boolean? " Merge
-noteheads in collisions, even if they have a different number of
-dots. This normal notation for some types of polyphonic music. The
-value of this setting is used by @internalsref{note-collision-interface} .")
+     (merge-differently-dotted ,boolean? "Merge noteheads in
+collisions, even if they have a different number of dots. This normal
+notation for some types of polyphonic music. The value of this setting
+is used by @internalsref{note-collision-interface} .")
 
-     (minimum-distance ,ly:dimension? "Minimum distance between rest and notes or beam.")
-     (minimum-X-extent ,number-pair? "minimum size in X dimension, measured in staff space.")
-     (minimum-Y-extent ,number-pair? "see @code{minimum-Y-extent}.")
-     (minimum-length ,ly:dimension? "try to make a spanner at least
-this long. This requires a routine setting rods in @code{spacing-procedure} property.")
-     (minimum-space ,ly:dimension? "minimum distance that the victim should move (after padding).")
+     (minimum-distance ,ly:dimension? "Minimum distance between rest
+and notes or beam.")
+     (minimum-X-extent ,number-pair? "Minimum size of an object in X
+dimension, measured in staff space.")
+     (minimum-Y-extent ,number-pair? "See @code{minimum-Y-extent}.")
+     (minimum-length ,ly:dimension? "Try to make a spanner at least
+this long. This requires an appropriate routine for the
+@code{spacing-procedure} property.")
+     (minimum-space ,ly:dimension? "Minimum distance that the victim
+should move (after padding).")
      (print-function ,procedure? "Function taking grob as argument,
-returning a Molecule object.")
-
-     (new-accidentals ,list? "list of (pitch, accidental) pairs.")
+returning a @code{Stencil} object.")
+     (new-accidentals ,list? "list of @code{(@var{pitch}
+. @var{accidental})} pairs.")
      (no-spacing-rods ,boolean? "Items with this property do not cause
 spacing constraints.")
-     (no-stem-extend ,boolean? "prevent stem from extending to middle
-staff line?")
-     (non-default ,boolean? "set for manually specified clefs.")
-     (old-accidentals ,list? "list of (pitch, accidental) pairs.")
+     (no-stem-extend ,boolean? "If set, notes with ledger lines do not
+get stems extending to the middle staff line.")
+
+     (old-accidentals ,list? "list of @code{(@var{pitch} . @var{accidental})
+pairs.}")
 
      (enclose-bounds ,number?
 		     "How much of the bound a spanner should enclose:
 +1 = completely, 0 = center, -1 not at all.")
 
-     (padding ,ly:dimension? "add this much extra space between
+     (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
      (penalty ,number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions
 as a real penalty.")
+     
      (pitch-max ,ly:pitch? "FIXME, JUNKME")
      (pitch-min ,ly:pitch? "FIXME, JUNKME")
-     (positions ,pair?
 
-		"cons of staff coordinates (@var{left} . @var{right}),
-where both @var{left} and @var{right} are in the staff-space unit of
-the current staff.")
+     (positions ,pair?
+		"Pair of staff coordinates @code{(@var{left}
+. @var{right})}, where both @var{left} and @var{right} are in the
+staff-space unit of the current staff.")
 
      (ratio ,number? "Parameter for slur shape. The higher this number, the
 quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
-     (right-padding ,ly:dimension? "space right of accs.")
-     (right-position ,number? "position of right part of spanner.")
+     (right-padding ,ly:dimension? "Space to insert between note and
+accidentals.")
+     (right-position ,number? "Vertical position of right part of spanner.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
 
-     ;; TODO: revise typing
-     (self-alignment-X ,number-or-grob? "real number: -1 =
-left aligned, 0 = center, 1 right-aligned in X direction.
+     (self-alignment-X ,number? "Specify alignment of an object.  The
+value -1 means left aligned, 0 centered, and 1 right-aligned in X
+direction. Values in between may also be specified.")
+     (self-alignment-Y ,number? "like @code{self-alignment-X} but for
+Y axis.")
 
- Set to an grob pointer, if you want that grob to be the center.
-In this case, the center grob should have this object as a
-reference point.
-
-.")
-     (self-alignment-Y ,number? "like self-alignment-X but for Y axis.")
-
-     ;; DOCME
-     (shorten ,ly:dimension? "the amount of space that a stem should be shortened ")
-     (shorten-pair ,number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
+     (shorten-pair ,number-pair? "The lengths to shorten a
+text-spanner on both sides, for example a pedal bracket")
      (common-shortest-duration ,ly:moment?
 			       "The most common shortest note length.
 This is used in spacing. Making this larger will make the score tighter.")
-     (shortest-duration-space ,ly:dimension? "Start
-with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
+     (shortest-duration-space ,ly:dimension? "Start with this much
+space for the shortest duration. This is explessed in
+@code{spacing-increment} as unit. See also
 @internalsref{spacing-spanner-interface}.")
-     (shortest-playing-duration ,ly:moment? "duration of the shortest playing in that column.")
-     (shortest-starter-duration ,ly:moment? "duration of the shortest notes that starts exactly in this column.")
-     (side-relative-direction ,ly:dir? "if set: get the direction from a different object, and multiply by this.")
-     (slope ,number? "some kind of slope")
-     (slope-limit ,number? "set slope to zero if slope is running away steeper than this.")
+     (shortest-playing-duration ,ly:moment? "The duration of the shortest playing here.")
+     (shortest-starter-duration ,ly:moment? "The duration of the shortest
+note that starts here.")
+     (side-relative-direction ,ly:dir?
+			      "Multiply direction of
+@code{direction-source} to get the direction of this object.")
+     (slope ,number? "The slope of this object.")
+     (slope-limit ,number? "Set slope to zero if slope is running away
+steeper than this.")
 
-     (space-alist ,list? "Alist of break align
-spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be
-minimum-space or extra-space.")
-     (space-function ,procedure? "return interbeam space given Beam grob and multiplicity.")
+     (space-alist ,list? "A table that specifies distances between
+prefatory itmes, like clef and time-signature. The format is an alist
+of spacing tuples: @code{(@var{break-align-symbol} @var{type}
+. @var{distance})}, where @var{type} can be the symbols
+@code{minimum-space} or @code{extra-space}.")
+     (space-function ,procedure? "Calculate the vertical space between
+two beams. This function takes a beam grob and the maximum number of
+beams.")
 
      (spacing-increment ,number? "Add this much space for a doubled
 duration. Typically, the width of a note head. See also
 @internalsref{spacing-spanner-interface}.")
 
-     (spacing-procedure ,procedure? "procedure taking grob as
-argument. This is called after before-line-breaking-callback, but
-before the actual line breaking itself.  Return value is ignored.")
-     
-     (stacking-dir ,ly:dir? "stack contents of grobs in which direction ?")
-     (staff-space ,ly:dimension? "Amount of line leading relative to global staffspace.")
-     (staff-position ,number? "vertical position in staff spaces, counted from the middle line.")
+     (spacing-procedure ,procedure? "Procedure for calculating spacing
+parameters.  The routine is called after
+@code{before-line-breaking-callback}.")
+     (stacking-dir ,ly:dir? "Stack objects in which direction?")
+     (staff-space ,ly:dimension? "Amount of space between staff lines,
+expressed global staffspace.")
+     (staff-position ,number? "Vertical position, measured in half
+staff spaces, counted from the middle line.")
+     (staffline-clearance ,ly:dimension? "How far away ties keep from
+staff lines.")
 
-     (staffline-clearance ,ly:dimension? "don't get closer than this to stafflines.")
-
-     (stem-attachment-function ,procedure? "Where
-does the stem attach to the ,notehead? Function takes grob and axis as
-arguments. It returns a (X . Y) pair, specifying location in terms of
-note head bounding box.")
+     (stem-attachment-function ,procedure? "A function that calculates
+where a stem attaches to the notehead? This is a fallback when this
+information is not specified in the font.  The function takes a grob
+and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
+location in terms of note head bounding box.")
 
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
 
-     (stem-shorten ,list? "shorten stems in forced directions given flag multiplicity:
-the Nth element of the list gives the amount stem shortening of a note with N flags.
-")
-     ;;[TODO: doco]
-     (stem-spacing-correction ,number? "optical correction amount.   ")
-     (style ,symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property.")
-     (text-repeat-if-broken ,boolean?
-			    "Repeat text on broken ,text-spanner?")
-     (text ,markup? "Text markup.  See the
-notation manual for more information.")
-     (thick-thickness ,number? "thickness, measured in linethickness.")
-     (thickness ,number? "thickness, measured in linethickness.")
-     (thin-kern ,number? "space after a hair-line.")
-     (forced-distance ,ly:dimension? "forced distance for an alignment.")
+     (stem-shorten ,list? "How much a stem in a forced direction
+should be shortened. The list gives an amount depending on the number
+of flags/beams.")
 
-     (threshold ,number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace.")
-     (transparent ,boolean? "This is almost the
-same as setting print-function to #f, but this retains the
-dimensions of this grob, which means that you can erase grobs
-individually.")
-     (bracket-visibility ,boolean-or-symbol? " This controls the
+     ;;[TODO: doco]
+     (stem-spacing-correction ,number? "Optical correction amount for
+stems that are placed in tight configurations. For opposite
+directions, this amount is the amount of correction when two normal
+sized stems overlap completely.")
+     (style ,symbol? "This setting determines in what style a grob is
+typeset. Valid choices depend on the @code{print-function} that is
+reading this property.")
+     (text ,markup? "Text markup.  See @usermanref{Text markup}.")
+     (thick-thickness ,number? "Bar line thickness, measured in
+@code{linethickness}.")
+     (thickness ,number? "Bar line thickness, measured in
+@code{linethickness}.")
+     (thin-kern ,number? "The space after a hair-line in a bar line.")
+     (forced-distance ,ly:dimension? "A fixed distance between object
+reference points in an alignment.")
+
+     (threshold ,number-pair? "(@var{min} . @var{max}), where
+@var{min} and @var{max} are dimensions in staff space.")
+     (transparent ,boolean? "This is almost the same as setting
+@code{print-function} to @code{#f}, but this retains the dimensions of
+this grob, which means that grobs can be erased individually.")
+     (bracket-visibility ,boolean-or-symbol? "This controls the
 visibility of the tuplet bracket.  Setting it to false will prevent
-printing of the bracket. Setting the property to #'if-no-beam will
-make it print only if there is no beam associated with this tuplet
-bracket.")
-     
-     (number-visibility ,boolean-or-symbol? " Like
+printing of the bracket. Setting the property to @code{'if-no-beam}
+will make it print only if there is no beam associated with this
+tuplet bracket.")
+     (number-visibility ,boolean-or-symbol? "Like
 @code{bracket-visibility}, but for the number.")
 
      ;; FIXME.
-     (break-visibility ,procedure? "a function that takes the break
+     (break-visibility ,procedure? "A function that takes the break
 direction and returns a cons of booleans containing (@var{transparent}
 . @var{empty}).  The following variables are predefined:
 @code{all-visible}, @code{begin-of-line-visible},
 @code{end-of-line-visible}, @code{begin-of-line-invisible},
-@code{end-of-line-invisible}, @code{all-invisible}.
-")
-     (flag-count ,number? "Number of tremolo beams.")
+@code{end-of-line-invisible}, @code{all-invisible}.")
+     (flag-count ,number? "The number of tremolo beams.")
 
-     (when ,ly:moment? "when does this column happen?")
+     (when ,ly:moment? "Global time step associated with this column
+happen?")
      (word-space ,ly:dimension? "space to insert between lyrics or
 words in texts.")
-     (width ,ly:dimension? "width of a grob measured in staff space.")
-     (x-gap ,ly:dimension? "horizontal gap between notehead and tie.")
-     (x-offset ,ly:dimension? "extra horizontal offset for ligature heads.")
-     (y-free ,ly:dimension? "minimal vertical gap between slur and noteheads or stems.")
-     (y-offset ,ly:dimension? "extra vertical offset
-for ties away from the center line.")
-     (zigzag-length ,ly:dimension? "The length of the
-lines of a zigzag - relative to zigzag-width. a value of 1
-gives 60-degree zigzags.")
-     (zigzag-width ,ly:dimension? "the width of one
-zigzag-squiggle, measured in staff space. The width will be adjusted
-so that the line can be constructed from a whole number of squiggles.")
+     (width ,ly:dimension? "The width of a grob measured in staff space.")
+     (x-gap ,ly:dimension? "The horizontal gap between notehead and tie.")
+     (y-free ,ly:dimension? "The minimal vertical gap between slur and
+noteheads or stems.")
+     (y-offset ,ly:dimension? "Extra vertical offset for ties away
+from the center line.")
+     (zigzag-length ,ly:dimension? "The length of the lines of a
+zigzag, relative to @code{zigzag-width}. A value of 1 gives 60-degree
+zigzags.")
+     (zigzag-width ,ly:dimension? "The width of one
+zigzag-squiggle. This number will be adjusted slightly so that the
+line can be constructed from a whole number of squiggles.")
 
-
-     (avoid-note-head ,boolean? "if set, the stem of a chord does not pass through all note head, but start at the last note head. Used by tablature.")
+     (avoid-note-head ,boolean? "If set, the stem of a chord does not
+pass through all note heads, but starts at the last note head. ")
      (staff-padding ,ly:dimension?
 		    "Maintain this much space between reference points
-and the staff.  Its effect is to align objects of differing sizes (like the dynamic @b{p} and @b{f})  on their baselines.")
-     (use-breve-rest ,boolean? "boolean that tells multi-measure-rest
-to use a breve rest to represent the duration of 1 measure instead of
-whole rest.  It defaults to false.  It is set to true when the
-duration of a measure is a breve or longer.")
+and the staff.  Its effect is to align objects of differing
+sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
 
      )))
 
@@ -501,7 +532,7 @@ duration of a measure is a breve or longer.")
      (apply define-internal-grob-property x))
    
    `(
-     (accidental-grobs ,list? "Alis with (NOTENAME . GROBLIST) entries")
+     (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
      (all-elements ,grob-list? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
@@ -592,7 +623,12 @@ empirical.")
      (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
      (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
 
+     (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
+     (shorten ,ly:dimension? "The amount of space that a
+stem. Internally used to distribute beam shortening over stems. ")
 
+     (use-breve-rest ,boolean? "Use breve rests for measures longer
+than a whole rest.")
      
      )))
 

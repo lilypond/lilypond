@@ -249,5 +249,5 @@ Rest_collision::do_shift (Grob *me)
 ADD_INTERFACE (Rest_collision,"rest-collision-interface",
   "Move around ordinary rests (not multi-measure-rests) to avoid "
 "conflicts.",
-  "maximum-rest-count minimum-distance positioning-done elements");
+  "minimum-distance positioning-done elements");
 

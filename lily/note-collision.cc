@@ -255,8 +255,6 @@ Note_collision_interface::do_shifts (Grob* me)
 
   SCM autos (automatic_shift (me, cg));
   SCM hand (forced_shift (me));
-
-  
   
   Direction d = UP;
   Real wid = 0.0;
@@ -265,12 +263,10 @@ Note_collision_interface::do_shifts (Grob* me)
       if(cg[d].size())
 	{
 	  Grob  *h = cg[d][0];
-	  wid = Note_column::first_head(h)->extent(h,X_AXIS).length() ;
+	  wid = Note_column::first_head (h)->extent (h,X_AXIS).length() ;
 	}
     }
-  
   while (flip (&d) != UP);
-
   
   Link_array<Grob> done;
   for (; gh_pair_p (hand); hand =ly_cdr (hand))
@@ -447,8 +443,11 @@ Note_collision_interface::add_column (Grob*me,Grob* ncol)
 
 
 ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
-  "An object that handles collisions between notes with different stem " 
-"directions and horizontal shifts. Most of the interesting properties "
-"are to be set in @ref{note-column-interface}: these are "
-"@code{force-hshift} and @code{horizontal-shift}. ",
-  "merge-differently-dotted merge-differently-headed positioning-done");
+	       "An object that handles collisions between notes with different stem " 
+	       "directions and horizontal shifts. Most of the interesting properties "
+	       "are to be set in @ref{note-column-interface}: these are "
+	       "@code{force-hshift} and @code{horizontal-shift}."
+
+	       ,
+	       
+	       "merge-differently-dotted merge-differently-headed positioning-done");

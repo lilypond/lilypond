@@ -231,6 +231,11 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       
       int cur = gh_scm2int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
+
+      /*
+	We can't plug a markup directly into the grob, since the
+	measure-count determines the formatting of the mmrest.
+      */
       last_rest_->set_grob_property ("measure-count", gh_int2scm (num));
 
       SCM sml = get_property ("measureLength");

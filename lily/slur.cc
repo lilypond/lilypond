@@ -195,18 +195,14 @@ Slur::set_extremities (Grob *me)
     
       if (!gh_symbol_p (index_get_cell (att, dir)))
 	{
-	  for (SCM s = me->get_grob_property ("extremity-rules");
-	       s != SCM_EOL; s = ly_cdr (s))
-	    {
-	      SCM r = gh_call2 (ly_caar (s), me->self_scm (),
-				 gh_int2scm ((int)dir));
-	      if (r != SCM_BOOL_F)
-		{
-		  index_set_cell (att, dir,
-				  ly_cdar (s));
-		  break;
-		}
-	    }
+	  SCM p = me->get_grob_property ("extremity-function");
+	  SCM res = ly_symbol2scm ("head");
+	  
+	  if (gh_procedure_p (p))
+	    res =  gh_call2 (p, me->self_scm (), gh_int2scm (dir));
+
+	  if (gh_symbol_p (res))
+	    index_set_cell (att, dir, res);
 	}
     }
   while (flip (&dir) != LEFT);
@@ -697,5 +693,5 @@ Slur::get_curve (Grob*me)
 
 ADD_INTERFACE (Slur,"slur-interface",
   "A slur",
-  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-rules extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free");
+  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-function extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free");
 

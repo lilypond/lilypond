@@ -100,10 +100,6 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
 	  return gh_double2scm (- ext.linear_combination (gh_scm2double (align)));
 	}
     }
-  else if (unsmob_grob (align))
-    {
-      return gh_double2scm (- unsmob_grob (align)->relative_coordinate (me,  a));
-    }
   return gh_double2scm (0.0);
 }
 

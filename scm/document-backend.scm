@@ -21,11 +21,19 @@
 
        (string-append
 	desc
-	"\n\n@unnumberedsubsubsec User settable properties:\n"
-	(description-list->texi user-propdocs)
 
-	"\n\n@unnumberedsubsubsec Internal properties: \n"
-	(description-list->texi internal-propdocs)
+	(if (pair? uprops)
+	    (string-append
+	    "\n\n@unnumberedsubsubsec User settable properties:\n"
+	    (description-list->texi user-propdocs))
+	    "")
+
+	(if (pair? iprops)
+	    (string-append
+	     "\n\n@unnumberedsubsubsec Internal properties: \n"
+	     (description-list->texi internal-propdocs)
+	     )
+	    "")
 	)
     ))
 
