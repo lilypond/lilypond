@@ -107,7 +107,7 @@ two = \context Staff \notes\relative c
 	>
 	\translator Staff=lower
 	\stemUp\tieUp
-	g fis g a  g b a g ~ |
+	g16 fis g a  g b a g ~ |
 	g g fis e fis4 ~ fis2
 	\bar "|."
 }

@@ -1,4 +1,13 @@
+2003-08-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/simultaneous-music.cc (to_relative_octave): undo relative
+	meaning for now.
+
 2003-08-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/mutopia/J.S.Bach/wtk1-fugue1.ly: updates
+
+	* input/mutopia/J.S.Bach/wtk1-prelude1.ly: remove file
 
 	* input/mutopia/F.Schubert/standchen.ly (trebleThrough): fixes
 
