@@ -535,11 +535,16 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		first = 0
 
 	s = s + r'''
-% I do not see why we want to clobber the footer here
-\vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
-%\makeatletter
-%\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-%\makeatother
+%% I do not see why we want to clobber the footer here
+%% \vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
+%% Well, maybe you don't submit music to mutopia?
+%% I would not object to this kind of change, but I don't know how
+%% to get the last mutopia tagline right (ie: no footer on last page)
+%% Please check that mutopia footers and endfooter are OK before changing
+%% this again. -- jcn
+\makeatletter
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\makelilypondtagline}}%
+\makeatother
 '''
 	s = s + '\\end{document}'
 

@@ -25,6 +25,8 @@ URL: http://www.lilypond.org/
 # rpm: 4.0: broken for -ta builds: rpm doesn't look in tarball for xpm
 # Icon: lilypond-icon.xpm
 BuildRoot: /tmp/lilypond-install
+# add lots of Buildreq: tetex-kpath, te_mpost, bison
+# better prereqs: tetex-latex, python, (mpost?) etc.
 Prereq: tetex python
 
 # use keywords: music notation software

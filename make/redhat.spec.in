@@ -12,6 +12,8 @@ URL: http://www.cs.uu.nl/~hanwen/lilypond
 # rpm: 4.0: broken for -ta builds: rpm doesn't look in tarball for xpm
 # Icon: @package@-icon.xpm
 BuildRoot: /tmp/lilypond-install
+# add lots of Buildreq: flex, bison, tetex, tetex-devel, tetex-latex, texinfo
+# better prereqs: tetex-latex, python, (mpost?) etc.
 Prereq: tetex
 
 # use keywords: music notation software

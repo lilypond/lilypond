@@ -1,3 +1,14 @@
+1.3.150.jcn3
+============
+
+* ly2dvi: reverted footer change that broke mutopia endfooter.
+
+* Standchen revision (found four new bugs).
+
+* Allow multiple multiply for durations, eg: 'R1 * 3/4 * 10'.
+
+* Bugfix for direct PostScript output.
+
 1.3.150.jcn2
 ============
 
