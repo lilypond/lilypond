@@ -29,6 +29,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   default_duration_.durlog_i_ = 2;
   default_abbrev_i_ = 0;
   error_level_i_ = 0;
+  extender_req = 0;
   fatal_error_i_ = 0;
   default_header_p_ =0;
 }

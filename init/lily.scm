@@ -159,6 +159,10 @@
 (define
   (experimental-on-tex) "\\turnOnExperimentalFeatures")
 
+(define 
+  (extender o h)
+  ((invoke-output o "invoke-dim1") "extender" h))
+
 (define
   (fatdoublebar o h)
   ((invoke-output o "invoke-dim1") "fatdoublebar" h))

@@ -46,7 +46,9 @@
    \def\filedef#1#2{%#1=command name, #2=file name 
            \openin\defin=#2\relax\def#1{} 
            \ifeof\defin
-                   \message{***************** CAN NOT OPEN #2 ********************}
+                   \message{***************************************}
+                   \message{lily-ps-defs.tex: can't open `#2'}
+                   \message{***************************************}
                    \end
            \fi 
            \loop\ifnot{\ifeof\defin}\read\defin to\tempfiledef

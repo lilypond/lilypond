@@ -75,6 +75,8 @@ struct Dynamic_req;
 struct Element_group;
 struct Element_group_item;
 struct Engraver_group_engraver;
+struct Extender;
+struct Extender_req;
 struct General_script_def;
 struct Graphical_element;
 

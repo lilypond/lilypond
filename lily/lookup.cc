@@ -204,6 +204,18 @@ Lookup::dynamic (String st) const
 }
 
 Atom
+Lookup::extender (Real width) const
+{
+  Atom a = (*symtables_p_) ("param")->lookup ("extender");
+  Array<Real> arr;
+  arr.push (width);
+  a.lambda_ = (lambda_scm (a.str_, arr));
+  a.str_ = "extender";
+  a.font_ = font_;
+  return a;
+}
+
+Atom
 Lookup::fill (Box b) const
 {
   Atom a;

@@ -174,13 +174,20 @@ public:
 
 };
 
-/// a plet (bracket with) number
+/// a tuplet (bracket with) number
 class Plet_req : public Musical_span_req  {
 public:
   int plet_i_;
 
   REQUESTMETHODS(Plet_req);
   Plet_req ();
+};
+
+/// an extender line
+class Extender_req : public Musical_span_req  {
+public:
+  REQUESTMETHODS(Extender_req);
+  Extender_req ();
 };
 
 class Musical_script_req : public Musical_req,  public Script_req {

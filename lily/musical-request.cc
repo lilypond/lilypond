@@ -263,6 +263,17 @@ Plet_req::do_print () const
 {
 }
 
+IMPLEMENT_IS_TYPE_B1 (Extender_req,Span_req);
+
+Extender_req::Extender_req ()
+{
+}
+
+void
+Extender_req::do_print () const
+{
+}
+
 
 bool
 Span_req::do_equal_b (Request*r) const

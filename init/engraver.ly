@@ -135,6 +135,7 @@ GrandStaffContext=\translator{
 	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
+	\consists "Extender_engraver";
 	\consists "Beam_req_swallow_translator";
 	\consists "Plet_swallow_engraver";
 }
@@ -217,6 +218,7 @@ HaraKiriStaffContext = \translator {
 	\accepts "Voice";
 };
 
+% huh, Score should do HaraKiri, not Part yes?
 OrchestralPartStaffContext = \translator {
 	\HaraKiriStaffContext
 	barColumnPriority = "0";

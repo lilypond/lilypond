@@ -12,8 +12,6 @@ BUGS:
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
-	* acc placement: \score { \notes \key G; \transpose\notes { a b c } }
-
 	* --safe:  disallow backslashes, disallow \include.
 
 	* msgfmt -o check?
@@ -87,8 +85,6 @@ BUGS:
 	* strip EXEs before installing
 
 	* zip target for binary windows dist (JBR)
-
-	* text continuations
 
 	* revise documentation
 

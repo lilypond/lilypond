@@ -46,7 +46,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.7");
-Mudela_version version ("1.0.8");
+Mudela_version version ("1.0.9");
 
 
 // needed for bison.simple's malloc() and free()
@@ -166,6 +166,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CONSISTS
 %token DURATION
 %token END
+%token EXTENDER
 %token FONT
 %token GROUPING
 %token HEADER
@@ -273,7 +274,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request>	post_request structured_post_request
 %type <pair>	plet_fraction
 %type <request> command_req verbose_command_req
-%type <request>	script_req  dynamic_req
+%type <request>	script_req  dynamic_req extender_req
 %type <string>	string
 %type <score>	score_block score_body
 %type <intarr>	shape_array
@@ -973,6 +974,9 @@ post_request:
 		a->type_i_ = $1;
 		$$ = a;
 	}
+	| extender_req {
+		$$ = $1;
+	}
 	;
 
 optional_modality:
@@ -1061,6 +1065,16 @@ explicit_duration:
 		delete &a;		
 	}
 	;
+
+extender_req:
+	EXTENDER {
+		if (!THIS->lexer_p_->lyric_state_b ())
+			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
+		Extender_req * e_p = new Extender_req;
+		e_p->spantype = Span_req::START;
+		$$ = e_p;
+		THIS->extender_req = e_p;
+	};
 
 dynamic_req:
 	ABSDYNAMIC '{' unsigned '}'	{
@@ -1260,8 +1274,17 @@ script_dir:
 
 pre_requests:
 	{
+		if (THIS->extender_req)
+		  {
+		    Extender_req * e_p = new Extender_req;
+		    e_p->spantype = Span_req::STOP;
+		    THIS->pre_reqs.push (e_p);
+		    THIS->extender_req = 0;
+		  }
+			
 	}
 	| pre_requests open_request_parens {
+
 		Array<Request*>& r = *THIS->get_parens_request ($2);
 		for (int i = 0; i < r.size (); i++ )
 			r[i]->set_spot (THIS->here_input ());

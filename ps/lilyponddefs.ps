@@ -5,7 +5,7 @@
 
 /xoffset 30 def
 /yoffset 700 def
-/staffrulethickness 1 def
+/stafflinethickness 1 def
 /staffheight 20 def
 
 /placebox
@@ -65,6 +65,15 @@
 	gsave
 	4 -1 roll neg 0 translate
 	vrule
+	grestore
+} bind def
+
+/extender % width
+{
+	gsave
+	0 0 moveto
+	stafflinethickness 0.8 mul setlinewidth
+	0 lineto stroke
 	grestore
 } bind def
 
