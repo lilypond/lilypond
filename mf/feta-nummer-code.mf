@@ -584,7 +584,6 @@ fet_endchar;
 
 fet_endgroup("number")
 
-ligtable "3" : "3" kern 0.1 space#; 
-ligtable "3" : "0" kern 0.1 space#; 
+ligtable "3" : "3" kern 0.1 space#,  "0" kern 0.1 space#; 
 ligtable "2" : "7" kern 0.15 space#;
 
