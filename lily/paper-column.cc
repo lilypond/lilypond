@@ -16,15 +16,15 @@ Paper_column::add_rod (Paper_column * p, Real d)
 {
   Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
   
-  if (!dir)
+  if (dir != RIGHT)
     {
-      programming_error ("Must set minimum distance between differing columns.");
+      programming_error ("Must set minimum distance LTOR.");
       return;
     }
   
-  for (int i=0; i < minimal_dists_arr_drul_[dir].size (); i++)
+  for (int i=0; i < minimal_dists_.size (); i++)
     {
-      Column_rod &rod = minimal_dists_arr_drul_[dir][i];
+      Column_rod &rod = minimal_dists_[i];
       if (rod.other_l_ == p)
 	{
 	  rod.distance_f_ = rod.distance_f_ >? d;
@@ -36,7 +36,7 @@ Paper_column::add_rod (Paper_column * p, Real d)
   cr.distance_f_ = d;
   cr.other_l_ = p;
 
-  minimal_dists_arr_drul_[dir].push (cr);
+  minimal_dists_.push (cr);
 }
 
 void
@@ -44,15 +44,15 @@ Paper_column::add_spring (Paper_column * p, Real d, Real s)
 {
   Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
   
-  if (!dir)
+  if (dir != RIGHT)
     {
-      warning (_ ("Must set spring between differing columns"));
+      programming_error ("Must set springs LTOR");
       return;
     }
   
-  for (int i=0; i < spring_arr_drul_[dir].size (); i++)
+  for (int i=0; i < springs_.size (); i++)
     {
-      Column_spring &spring = spring_arr_drul_[dir][i];
+      Column_spring &spring = springs_[i];
       if (spring.other_l_ == p)
 	{
 	  spring.distance_f_ = spring.distance_f_ >? d;
@@ -65,7 +65,7 @@ Paper_column::add_spring (Paper_column * p, Real d, Real s)
   cr.strength_f_ = s;  
   cr.other_l_ = p;
 
-  spring_arr_drul_[dir].push (cr);
+  springs_.push (cr);
 }
 
 int
@@ -80,28 +80,7 @@ Paper_column::set_rank (int i)
   rank_i_ = i;
 }
 
-void
-Paper_column::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "rank: " << rank_i_ << '\n';
-  Direction d = LEFT;
-  do
-    {
-      for (int i=0; i < minimal_dists_arr_drul_[d].size (); i++)
-	{
-	  minimal_dists_arr_drul_[d][i].print ();
-	}
-      for (int i=0; i < spring_arr_drul_[d].size (); i++)
-	{
-	  spring_arr_drul_[d][i].print ();
-	}
-      
-    }
-  while ((flip (&d))!=LEFT);
-  Item::do_print ();
-#endif 
-}
+
 
 Line_of_score*
 Paper_column::line_l() const

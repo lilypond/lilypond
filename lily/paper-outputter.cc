@@ -32,10 +32,40 @@
   Ugh, this is messy.
  */
 
-Paper_outputter::Paper_outputter ()
+Paper_outputter::Paper_outputter (Paper_stream  * ps )
 {
+#if 0 
   molecules_ = gh_cons (SCM_EOL, SCM_EOL);
   last_cons_ = molecules_;
+#endif
+
+ /*
+   lilypond -f scm x.ly
+   guile -s x.scm
+  */
+  verbatim_scheme_b_ =  output_global_ch == String ("scm");
+
+  if (verbatim_scheme_b_)
+    {
+	*ps << ""
+	  ";;; Usage: guile -s x.scm > x.tex\n"
+	  "(primitive-load-path 'lily.scm)\n"
+	  "(scm-tex-output)\n"
+	  ";(scm-ps-output)\n"
+	  "(map (lambda (x) (display (eval x))) '(\n"
+	;
+    }
+
+  stream_p_ = ps;
+}
+
+Paper_outputter::~Paper_outputter ()
+{
+  if (verbatim_scheme_b_)
+    {
+      *stream_p_ << "))";
+    }
+  delete stream_p_;
 }
 
 
@@ -94,89 +124,47 @@ Paper_outputter::output_comment (String str)
 void
 Paper_outputter::output_scheme (SCM scm)
 {
+#if 0
   SCM c = gh_cons (scm,gh_cdr (last_cons_));
   gh_set_cdr_x(last_cons_, c);
   last_cons_ = c;
+#endif
+
+  dump_scheme (scm);
 }
 
+
+#if 0
+void
+Paper_outputter::dump ()
+{
+
+  for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
+    {
+      dump_scheme (gh_car (s));
+    }
+}
+#endif
 
 void
-Paper_outputter::dump_onto (Paper_stream *ps)
+Paper_outputter::dump_scheme (SCM s)
 {
-  if (String (output_global_ch) == "scm")
-#if 1  // both are fine
+  if  (verbatim_scheme_b_)
     {
-      /*
-        default to stdin
-       */
-      int fd = 1;
-      if (ofstream* of = dynamic_cast<ofstream*> (ps->os))
-	fd = of->rdbuf ()->fd ();
-      SCM port = scm_fdes_to_port (fd, "a", SCM_EOL);
-
-      /*
-	 lilypond -f scm x.ly
-	 guile -s x.scm
-       */
-      scm_display (gh_str02scm (
-	";;; Usage: guile -s x.scm > x.tex\n"
-	"(primitive-load-path 'lily.scm)\n"
-	"(scm-as-output)\n"
-	";(scm-tex-output)\n"
-	";(scm-ps-output)\n"
-	"(map (lambda (x) (display (eval x))) '(\n"
-	), port);
-
-      SCM newline = gh_str02scm ("\n");
-      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
-        {
-	  scm_write (gh_car (s), port);
-	  scm_display (newline, port);
-	  scm_flush (port);
-	}
-      scm_display (gh_str02scm ("))"), port);
-      scm_display (newline, port);
-      scm_flush (port);
-      scm_close_port (port);
-    }
-#else
-    {
-      /*
-	 lilypond -f scm x.ly
-	 guile -s x.scm
-       */
-      if (output_global_ch == String ("scm"))
-	*ps << ""
-	  ";;; Usage: guile -s x.scm > x.tex\n"
-	  "(primitive-load-path 'lily.scm)\n"
-	  "(scm-tex-output)\n"
-	  ";(scm-ps-output)\n"
-	  "(map (lambda (x) (display (eval x))) '(\n"
-	;
-      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
-	{
-	  SCM result =  scm_eval (scm_listify (ly_symbol2scm ("scm->string"),
-					       ly_quote_scm (gh_car (s)), SCM_UNDEFINED));
+      SCM result =  scm_eval (scm_listify (ly_symbol2scm ("scm->string"),
+					   ly_quote_scm (gh_car (s)), SCM_UNDEFINED));
 	  
-	  *ps << ly_scm2string (result);
-	}
-      *ps << "))";
+      *stream_p_ << ly_scm2string (result);
     }
-#endif
-  
   else
     {
-      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
-	{
-	  SCM result = scm_eval (gh_car (s));
-	  char *c=gh_scm2newstr (result, NULL);
-	  
-	  *ps << c;
-	  free (c);
-	}
-  }
+      SCM result = scm_eval (s);
+      char *c=gh_scm2newstr (result, NULL);
+  
+      *stream_p_ << c;
+      free (c);
+    }
 }
-
 void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
@@ -238,8 +226,6 @@ Paper_outputter::output_Real_def (String k, Real v)
 		     ly_str02scm (to_str(v).ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
-
-  //  gh_define (k.ch_l (), gh_double2scm (v));
 }
 
 void
@@ -251,8 +237,6 @@ Paper_outputter::output_String_def (String k, String v)
 		     ly_str02scm (v.ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
-
-  // gh_define (k.ch_l (), ly_str02scm (v.ch_l ()));
 }
 
 void
@@ -263,8 +247,6 @@ Paper_outputter::output_int_def (String k, int v)
 		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
-
-  // gh_define (k.ch_l (), gh_int2scm (v));
 }
 
 

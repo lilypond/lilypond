@@ -87,8 +87,6 @@ Key_item::calculate_position(SCM pair) const
   TODO
   - space the `natural' signs wider
 
-  
-  
  */
 
 Molecule 

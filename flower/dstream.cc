@@ -201,9 +201,10 @@ Dstream::~Dstream()
 void
 Dstream::clear_silence()
 {
-  for (Dictionary_iter<bool> i (*silent_dict_p_); i.ok(); i++)
+  for (map<String,bool>::iterator ki(silent_dict_p_->begin ());
+       silent_dict_p_->end () != ki; ki++)
     {
-      i.val_ref() = false;
+      (*ki).second = false;
     }
 }
 

@@ -25,6 +25,9 @@ Spanner::do_break_processing ()
   //break_into_pieces
   Item * left = spanned_drul_[LEFT];
   Item * right = spanned_drul_[RIGHT];
+
+  if (!left || !right)
+    return;
   
   if  (left == right)
     {
@@ -92,13 +95,16 @@ Spanner::do_break_processing ()
 	  Direction d = LEFT;
 	  do
 	    {
-	      Item *&pc_l = bounds[d] ;
-	      if (!pc_l->line_l())
-		pc_l =  pc_l->find_prebroken_piece(- d);
-	  
-	      assert (pc_l);
+	      if (!bounds[d]->line_l())
+		bounds[d] = bounds[d]->find_prebroken_piece(- d);
 	    }
 	  while ((flip(&d))!= LEFT);
+
+  	  if (!bounds[LEFT] ||  ! bounds[RIGHT])
+	    {
+	      programming_error ("bounds of this piece aren't breakable. ");
+	      continue; 
+	    }
 
 	  Spanner *span_p = dynamic_cast<Spanner*>(clone ());
 	  span_p->set_bound(LEFT,bounds[LEFT]);
@@ -159,8 +165,8 @@ Spanner::set_bound(Direction d, Item*i)
     }
 
   /**
-     Prevent the column -> line_of_score -> column -> line_of_score -> etc situation
-  */
+     We check for Line_of_score to prevent the column -> line_of_score
+     -> column -> line_of_score -> etc situation */
   if (d== LEFT && !dynamic_cast<Line_of_score*> (this))
     {
       set_parent (i, X_AXIS);

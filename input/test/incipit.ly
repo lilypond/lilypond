@@ -12,6 +12,10 @@ incipit = \notes\relative c'{
   <b1 fis' b d>
 }
 
+emptyincipit = \notes{
+ s1
+}
+
 violin = \notes\relative c''{
   \specialkey \keysignature f' fis'' g' gis'';
   \time 2/2;
@@ -33,17 +37,18 @@ BC  = \notes\relative c{
 }
 
 \score{
-  \notes{
-    \context Staff=violin
-    \property Staff.clefStyle = "transparent" 
-      \incipit 
-    < \context Staff=violin { 
-      \bar ".|"; \endincipit
-      \violin}
-      \context Staff=cb { \property Staff.clefStyle = "transparent" 
-      \bar ".|";  \endincipit 
-      \BC}>
-  }
+  <
+    \context Staff = violin {\notes{
+      \property Staff.clefStyle = "transparent" 
+      \incipit \bar ".|"; \endincipit
+      \violin
+    }}
+    \context Staff = BC{\notes{
+      \property Staff.clefStyle = "transparent" 
+      \emptyincipit \bar ".|"; \endincipit
+      \BC
+    }}
+  >
   \paper{
     \translator{\StaffContext
       timeSignatureStyle = "C";

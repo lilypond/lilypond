@@ -69,8 +69,11 @@ Music_output_def::find_translator_l (String name) const
   if (translator_p_dict_p_->elem_b (name))
     return translator_p_dict_p_->elem (name)->access_content_Translator_group (false);
 
-  if (global_translator_dict_p->elem_b (name))
-    return global_translator_dict_p->elem(name);
+  map<String, Translator*>::const_iterator ki
+    =global_translator_dict_p->find (name);
+
+  if (ki != global_translator_dict_p->end ())
+    return (*ki).second ;
 
   return 0;
 }

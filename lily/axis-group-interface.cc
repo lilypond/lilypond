@@ -137,10 +137,11 @@ Axis_group_interface::get_children ()
 bool
 Axis_group_interface::has_interface_b ()
 {
-  SCM memq = scm_memq (ly_symbol2scm ("Axis_group"),
-		       elt_l_->get_elt_property ("interfaces"));
-  
-  return (memq != SCM_BOOL_F);
+  SCM ifs = elt_l_->get_elt_property ("interfaces");
+
+  if (!gh_pair_p (ifs ))
+    return false;
+  return scm_memq (ly_symbol2scm ("Axis_group"),ifs)  != SCM_BOOL_F;
 }
 
 

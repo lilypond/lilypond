@@ -13,6 +13,8 @@
 #include "string.hh"
 #include "array.hh"
 
+#include <map>
+
 #include "hash-table.hh"
 
 
@@ -28,25 +30,28 @@ struct Dict_initialiser
 
 
 /*
-  DEPRECATED. Use either SCM (preferred) or STL 
+  interface to STL function.
  */
 template<class V>
-class Dictionary : public Hash_table<String, V>
+class Dictionary : public map<String, V>
 {
 public:
   Dictionary ()
     {
-      hash_func_ = string_hash;
     }
   Dictionary (Dict_initialiser<V> *p)
     {
       hash_func_ = string_hash;
       for (Dict_initialiser<V> *q = p; q->key_; q++)
-	elem (q->key_) = q->value_;
+	(*this) [q->key_] = q->value_;
 	  
     }
-
-  friend class Dictionary_iter<V>;
+  bool elem_b (String s)
+  {
+    map<String,V>::const_iterator ki (find (s));
+    return ki != end ();
+  }
+  
 };
 
 

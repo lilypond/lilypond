@@ -21,6 +21,7 @@
 #include "debug.hh"
 #include "direction.hh"
 #include "offset.hh"
+#include "interval.hh"
 
 SCM
 ly_str02scm (char const*c)
@@ -263,7 +264,19 @@ to_dir (SCM s)
   return (Direction) gh_scm2int (s);
 }
 
+Interval
+ly_scm2interval (SCM p)
+{
+  return  Interval (gh_scm2double (gh_car (p)),
+		    gh_scm2double (gh_cdr (p)));
+}
 
+SCM
+ly_interval2scm (Interval i)
+{
+  return gh_cons (gh_double2scm (i[LEFT]),
+		  gh_double2scm (i[RIGHT]));
+}
 
 
 bool

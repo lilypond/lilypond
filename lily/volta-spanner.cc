@@ -36,7 +36,9 @@ Volta_spanner::Volta_spanner ()
 
   --
 
-  Should look for system_start_delim to find left edge of staff.
+  * Should look for system_start_delim to find left edge of staff.
+  
+  
 */
 Molecule 
 Volta_spanner::do_brew_molecule () const
@@ -66,7 +68,9 @@ Volta_spanner::do_brew_molecule () const
   Real staff_space = paper_l ()->get_var ("interline");
   Real half_space = staff_space / 2;
 
-  Real w = spanner_length () - get_broken_left_end_align () - half_space;
+  Real w = spanner_length ()
+  - get_broken_left_end_align ()
+    - half_space;
   Real h = paper_l()->get_var ("volta_spanner_height");
   Real t = paper_l ()->get_var ("volta_thick");
 
@@ -77,7 +81,7 @@ Volta_spanner::do_brew_molecule () const
 		     gh_int2scm (no_vertical_start),
 		     gh_int2scm (no_vertical_end),
 		     SCM_UNDEFINED));
-  //Box b (Interval (0, w), Interval (- h/2, h/2));
+
   Box b (Interval (0, w), Interval (0, h));
   Molecule volta (b, at);
   mol.add_molecule (volta);

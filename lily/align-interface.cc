@@ -179,9 +179,10 @@ Align_interface::set_axis (Axis a)
 bool
 Align_interface::has_interface_b ()
 {
-  SCM memq = scm_memq (ly_symbol2scm ("Alignment"),
-	      elt_l_->get_elt_property ("interfaces"));
+  SCM ifs  = elt_l_->get_elt_property ("interfaces");
+  if (!gh_pair_p (ifs))
+    return false;
   
-  return (memq != SCM_BOOL_F);
+  return scm_memq (ly_symbol2scm ("Alignment"), ifs) != SCM_BOOL_F;
 }
 

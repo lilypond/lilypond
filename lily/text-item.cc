@@ -26,9 +26,12 @@ Text_item::do_brew_molecule () const
 
   SCM s = get_elt_property ("word-space");
   if (gh_number_p (s))
-    mol.dim_.interval_a_[X_AXIS][RIGHT] += gh_scm2double (s)
-      * staff_symbol_referencer (this).staff_space ();
- 
+    {
+      Molecule m;
+      m.set_empty (false);
+      mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (s)*
+		       staff_symbol_referencer (this).staff_space ());
+    }
   return mol; 
 }
 

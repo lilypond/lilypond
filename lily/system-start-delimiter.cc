@@ -34,8 +34,7 @@ System_start_delimiter::staff_bracket (Real height) const
   Real h = height + 2 * arc_height;
   Box b (Interval (0, 1.5 * staff_space), Interval (-h/2, h/2));
   Molecule mol (b, at);
-  
-  mol.translate_axis (- mol.dim_[X_AXIS].length () / 2, X_AXIS);
+  mol.align_to (X_AXIS, CENTER);
   return mol;
 }
 

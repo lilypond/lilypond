@@ -156,8 +156,10 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	    stretch_dist += right_dist;
 
 	  if (s.distance_f_ <0)
-	    programming_error("negative dist");
-	  
+	    {
+	      programming_error("Negative dist, setting to 1.0 PT");
+	      s.distance_f_ = 1.0;
+	    }
 	  if (stretch_dist == 0.0)
 	    {
 	      /*
@@ -313,22 +315,27 @@ Array<Spring>
 Spacing_spanner::get_springs () const
 {
   Array<Spring> springs;
-  
-  SCM last_col = pscore_l_->line_l_->get_elt_property ("columns");
-  Link_array<Paper_column> measure;
-  for (SCM s = last_col; gh_pair_p (s); s = gh_cdr (s))
+
+  Link_array<Paper_column> all (pscore_l_->line_l_->column_l_arr ()) ;
+
+  int j = 0;
+
+  for (int i = 1; i < all.size (); i++)
     {
-      Score_element * elt = unsmob_element (gh_car (s));
-      Paper_column* sc = dynamic_cast<Paper_column*> (elt);
-      measure.push (sc);
+      Paper_column* sc = dynamic_cast<Paper_column*> (all[i]);
       if (sc->breakable_b ())
         {
-	  measure.reverse ();
+	  Link_array<Paper_column> measure (all.slice (j, i+1));	  
           springs.concat (do_measure (measure));
-	  measure.clear ();
-	  measure.push (sc);
+	  j = i;
         }
     }
+
+  /*
+    farewell, cruel world
+   */
+  ((Spacing_spanner*)this)->suicide ();
+  
   return springs;
 }
 

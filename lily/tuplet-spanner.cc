@@ -135,7 +135,9 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
 
- 
+
+  Score_element * common = common_refpoint (get_elt_property ("columns"), Y_AXIS);
+  
   Direction d = directional_element (this).get ();
 
   /*
@@ -151,8 +153,8 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
   
   if (l < r)
     {
-      *dy = column_arr[r]->extent (Y_AXIS) [d]
-	- column_arr[l]->extent (Y_AXIS) [d];
+      *dy = column_arr[r]->extent (Y_AXIS) [d] + column_arr[r]->relative_coordinate (common, Y_AXIS)
+	- column_arr[l]->extent (Y_AXIS) [d] - column_arr[l]->relative_coordinate (common, Y_AXIS);
     }
   else
     * dy = 0;
@@ -167,7 +169,9 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
-      Real notey = column_arr[i]->extent (Y_AXIS)[d];
+      Real notey = column_arr[i]->extent (Y_AXIS)[d] +
+	column_arr[i]->relative_coordinate (common, Y_AXIS)
+	;
       Real x = column_arr[i]->relative_coordinate (0, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 

@@ -44,10 +44,10 @@ Molecule
 Dots::do_brew_molecule () const
 {
   Molecule mol (lookup_l ()->blank (Box (Interval (0,0),
-					  Interval (0,0))));
+					 Interval (0,0))));
   Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
-  Real dw = d.dim_[X_AXIS].length ();
+  Real dw = d.extent (X_AXIS).length ();
   d.translate_axis (-dw, X_AXIS);
 
 

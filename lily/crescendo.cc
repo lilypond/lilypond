@@ -91,7 +91,7 @@ Crescendo::do_brew_molecule () const
 
       pad = paper_l ()->get_var ("interline") / 2;
 
-      width -= start_text.extent ()[X_AXIS].length ();
+      width -= start_text.extent (X_AXIS).length ();
       width -= pad;
       width = width >? 0;
     }

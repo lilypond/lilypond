@@ -21,12 +21,22 @@
  */
 class Paper_outputter
 {
-public:
+#if 0
   Protected_scm molecules_;
   SCM last_cons_;
-  Paper_outputter ();
+#endif
+  
+  bool verbatim_scheme_b_;
+  Paper_stream * stream_p_;
+public:
+  /**
+     Assumes responsibility for deletion of P
+   */
+  Paper_outputter (Paper_stream*p);
+  ~Paper_outputter ();
+  
+  void dump_scheme (SCM);
 
-  void dump_onto (Paper_stream *);
   void output_int_def (String k, int v);
   void output_Real_def (String k, Real v);
   void output_String_def (String k, String v);

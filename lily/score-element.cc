@@ -82,9 +82,6 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  assert (status_i_ >=0);
-  status_i_  = -1;
-
   delete dim_cache_[X_AXIS];
   delete dim_cache_[Y_AXIS];  
 }
@@ -139,7 +136,7 @@ Score_element::molecule_extent (Dimension_cache const *c)
 {
   Score_element *s = dynamic_cast<Score_element*>(c->element_l());
   Molecule m = s->do_brew_molecule();
-  return m.extent()[c->axis ()];
+  return m.extent(c->axis ());
 }
 
 Interval
@@ -240,25 +237,15 @@ Score_element::calculate_dependencies (int final, int busy,
   status_i_= final;
 }
 
-void
-Score_element::output_processing () 
+Molecule
+Score_element::get_molecule ()  const
 {
   if (to_boolean (get_elt_property ("transparent")))
-    return;
+    return Molecule ();
 
-  Molecule m (do_brew_molecule ());
-  Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
-
-  SCM s = get_elt_property ("extra-offset");
-  if (gh_pair_p (s))
-    {
-      Real il = paper_l ()->get_var ("interline");
-      o[X_AXIS] += il * gh_scm2double (gh_car (s));
-      o[Y_AXIS] += il * gh_scm2double (gh_cdr (s));      
-    }
-  
-  line_l ()->output_molecule (m.expr_, o);
+  return do_brew_molecule ();
 }
+
 
 /*
   
@@ -358,20 +345,26 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	}
       else
 	{
-	  Line_of_score * line = dynamic_cast<Line_of_score*> (unsmob_element ( criterion));
-	  Line_of_score * dep_line = sc->line_l ();
-	  if (dep_line != line)
+	  Line_of_score * line
+	    = dynamic_cast<Line_of_score*> (unsmob_element (criterion));
+	  if (sc->line_l () != line)
 	    {
-	      Score_element * br = sc->find_broken_piece (line);
-	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
+	      sc = sc->find_broken_piece (line);
+
 	    }
-	  if (line
-	      &&  (!dep_line
-		   || !sc->common_refpoint (line, X_AXIS)
-		   || !sc->common_refpoint (line, Y_AXIS)))
+
+	  /* now: !sc || (sc && sc->line_l () == line) */
+	  if (!sc)
+	    return SCM_UNDEFINED;
+
+	  /* now: sc && sc->line_l () == line */
+	  if (!line
+	      || (sc->common_refpoint (line, X_AXIS)
+		  && sc->common_refpoint (line, Y_AXIS)))
 	    {
-	      return SCM_UNDEFINED;
+	      return sc->self_scm_;
 	    }
+	  return SCM_UNDEFINED;
 	}
     }
   else if (gh_pair_p (src))
@@ -434,21 +427,38 @@ Score_element::handle_broken_dependencies()
 	= handle_broken_smobs (element_property_alist_,
 			       line ? line->self_scm_ : SCM_UNDEFINED);
     }
-  else if (!dynamic_cast <Line_of_score*> (this))
+  else if (dynamic_cast <Line_of_score*> (this))
+    {
+      element_property_alist_ = handle_broken_smobs (element_property_alist_,
+						     SCM_UNDEFINED);
+    }
+  else
     {
       /*
 	This element is `invalid'; it has been removed from all
 	dependencies, so let's junk the element itself.
 
-	do not do this for Line_of_score , since that would free
-	up originals of score-elts (a bad thing.)
+	do not do this for Line_of_score, since that would remove
+	references to the originals of score-elts, which get then GC'd
+	(a bad thing.)
       */
-      
-      element_property_alist_ = SCM_EOL;
-      set_extent_callback (0, Y_AXIS);
-      set_extent_callback (0, X_AXIS);
+      suicide();
     }
 }
+
+/*
+ Note that we still want references to this element to be
+ rearranged, and not silently thrown away, so we keep pointers
+ like {broken_into_{drul,array}, original}
+*/
+void
+Score_element::suicide ()
+{
+  element_property_alist_ = SCM_EOL;
+  set_extent_callback (0, Y_AXIS);
+  set_extent_callback (0, X_AXIS);
+}
+
 
 void
 Score_element::handle_prebroken_dependencies()
@@ -483,13 +493,6 @@ Real
 Score_element::relative_coordinate (Score_element const*e, Axis a) const
 {
   return dim_cache_[a]->relative_coordinate (e ? e->dim_cache_[a] : 0);
-}
-
-Score_element * 
-Score_element::common_refpoint (Score_element const* s, Axis a) const
-{
-  Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
-  return  dim ? dim->element_l () : 0;
 }
 
 bool
@@ -540,16 +543,26 @@ Score_element::parent_l (Axis a) const
   return d ? d->elt_l_ : 0;
 }
 
-Score_element *
-Score_element::common_refpoint (Link_array<Score_element> gs, Axis a) const
+Score_element * 
+Score_element::common_refpoint (Score_element const* s, Axis a) const
 {
-  Dimension_cache * common = dim_cache_[a];
-  for (int i=0; i < gs.size (); i++)
+  Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
+  return dim ? dim->element_l () : 0;
+}
+
+
+Score_element *
+Score_element::common_refpoint (SCM elist, Axis a) const
+{
+  Score_element * common = (Score_element*) this;
+  for (; gh_pair_p (elist); elist = gh_cdr (elist))
     {
-      common = common->common_refpoint (gs[i]->dim_cache_[a]);
+      Score_element * s = unsmob_element (gh_car (elist));
+      if (s)
+	common = common->common_refpoint (s, a);
     }
 
-  return common->element_l ();
+  return common;
 }
 
 char const *

@@ -20,7 +20,6 @@ struct Column_spring {
   
   Column_spring ();
   static int compare (const Column_spring &r1, const Column_spring &r2);
-  void print () const;
 };
 
 struct Spring{

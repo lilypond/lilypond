@@ -34,10 +34,16 @@ public:
 
   /*
     ugh.
+
+    TODO:
+    
+    * junk these after spacing is done.
+
+    * Put these in Scheme.
    */
   
-  Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;
-  Drul_array<Array<Column_spring> > spring_arr_drul_;
+  Array<Column_rod>  minimal_dists_;
+  Array<Column_spring > springs_;
 
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);
@@ -58,7 +64,6 @@ public:
   bool musical_b () const;
 
   void set_rank (int);
-  virtual void do_print() const;
 private:
     
   /**

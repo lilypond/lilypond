@@ -82,9 +82,9 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
   line_l_->break_into_pieces (breaking);
 
-  SCM lines =   line_l_->output_lines ();
   
-  outputter_l_ = new Paper_outputter ;
+  outputter_l_ = new Paper_outputter (paper_l_->paper_stream_p ());
+;
   outputter_l_->output_header ();
   outputter_l_->output_version();
   
@@ -108,24 +108,14 @@ Paper_score::process ()
   scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
   
-  SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());  
-  outputter_l_->output_scheme (gh_list (ly_symbol2scm ("define-fonts"),
-					font_names,
-					SCM_UNDEFINED));
-  
-  for (SCM i = lines ; gh_pair_p (i); i = gh_cdr (i))
-    for (SCM j = gh_car (i) ; gh_pair_p (j); j = gh_cdr (j))
-      outputter_l_->output_scheme (gh_car (j));
+  line_l_->output_lines ();
+
 
   scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
-  
-  Paper_stream* psp = paper_l_->paper_stream_p ();
-  outputter_l_->dump_onto (psp);
 
   // huh?
   delete outputter_l_;
   outputter_l_ = 0;
-  delete psp;
 }
