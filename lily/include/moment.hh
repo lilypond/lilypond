@@ -27,7 +27,7 @@ struct Moment : public Rational
   DECLARE_SMOBS;
 };
 
-
+SCM smobify (Moment*);
 Moment * unsmob_moment (SCM);
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );

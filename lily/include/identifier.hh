@@ -99,6 +99,7 @@ DECLARE_ID_CLASS(Paper_def);
 DECLARE_ID_CLASS(Midi_def);
 
 Identifier * unsmob_identifier (SCM);
+SCM smobify (Identifier*);
 
 #endif // IDENTIFIER_HH
 

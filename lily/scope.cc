@@ -62,8 +62,7 @@ Scope::elem (String s)const
 void
 Scope::set (String s, Identifier * id) 
 {
-  return id_dict_->set (ly_symbol2scm (s.ch_C()),
-			id->smobify_self());
+  return id_dict_->set (ly_symbol2scm (s.ch_C()), smobify (id));
 }
 
 SCM

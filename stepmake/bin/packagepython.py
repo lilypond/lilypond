@@ -121,10 +121,9 @@ def version_tuple_to_str(tup):
 
 def version_str_to_tuple(str):
 	t = string.split(str, '.')
-	try:
-		mypatch = t[3]
-	except IndexError:
-		mypatch = ''
+	mypatch = ''
+	if len (t) >= 4:
+		mypatch = string.join (t[3:], '.')
 	return (string.atoi(t[0]), string.atoi(t[1]), string.atoi(t[2]), mypatch)
 
 def version_compare (tupl, tupr):

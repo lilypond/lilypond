@@ -97,7 +97,6 @@ void
 Scheme_hash_table::set (SCM k, SCM v)
 {
   (*this)[k] = v;
-  scm_unprotect_object (v);
 }
 
 // UGH. 
