@@ -15,7 +15,7 @@ melody = \notes \relative c' {
 
 accompaniment =\chords  \sequential {
 	r8
-	c2-min f-min 7 
+	c2:min f:min 7 
 }
 
 \score {

@@ -187,7 +187,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token VERSION
 
 /* escaped */
-%token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR CHORD_MINUS CHORD_CARET 
+%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER 
+%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions
 %token <i>	DIGIT
@@ -236,7 +237,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch_arr>	pitch_list
 %type <music>	chord
 %type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
-%type <pitch>	chord_note chord_inversion
+%type <pitch>	chord_note chord_inversion chord_bass
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
@@ -1455,15 +1456,15 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion {
-                $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
+	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
+                $$ = THIS->get_chord (*$1, $3, $4, $5, $6, *$2);
         };
 
 chord_additions: 
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| CHORD_MINUS chord_notes {
+	| CHORD_COLON chord_notes {
 		$$ = $2;
 	}
 	;
@@ -1493,7 +1494,18 @@ chord_inversion:
 		$$ = 0;
 	}
 	| '/' steno_tonic_pitch {
-		$$ = $2
+		$$ = $2;
+		$$->set_spot (THIS->here_input ());
+	}
+	;
+
+chord_bass:
+	{
+		$$ = 0;
+	}
+	| CHORD_BASS steno_tonic_pitch {
+		$$ = $2;
+		$$->set_spot (THIS->here_input ());
 	}
 	;
 

@@ -1475,7 +1475,7 @@ Chord mode (see section XREF-modes [FIXME]).
 
 @example
 
-  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}].
+  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}][@code{/+}@var{bass}].
 @end example
 
 @var{tonic} should be the tonic note of the chord, and @var{duration}
@@ -1493,15 +1493,15 @@ must be separated by a dot (`@code{.}').
 @mudela[fragment,verbatim]
 \transpose c'' {
   \chords {
-    c1  c-3-       c-7     c-8
-    c-9 c-9-.5+.7+ c-3-.5- c-4.6.8
+    c1  c:3-       c:7     c:8
+    c:9 c:9-.5+.7+ c:3-.5- c:4.6.8
   }
 }
 
 @end mudela
 @end quotation
 
-The second type of modifier that may appear after the `@code{-}' is a
+The second type of modifier that may appear after the `@code{:}' is a
 named modifier.  Named modifiers are listed in the file
 @file{chord-modifiers.ly}.  The available modifiers are `@code{m}' and
 `@code{min}' which lower the 3rd half a step, `@code{aug}@indexcode{aug}' which
@@ -1514,7 +1514,7 @@ which replaces the 5th with a 4th.
 @mudela[fragment,verbatim]
 \transpose c'' {
   \chords {
-    c1-m c-min7 c-maj c-aug c-dim c-sus
+    c1:m c:min7 c:maj c:aug c:dim c:sus
   }
 }
 
@@ -1529,7 +1529,7 @@ separated by dots.
 @mudela[fragment,verbatim,center]
   \transpose c'' {
     \chords {
-      c1^3 c-7^5.3 c-8^7
+      c1^3 c:7^5.3 c:8^7
     }
   }
 @end mudela 
@@ -1543,7 +1543,21 @@ warning will be printed.
 @mudela[fragment,verbatim,center]
   \transpose c''' {
     \chords {
-      c1 c/e c/g c-7/e
+      c1 c/e c/g c:7/e
+    }
+  }
+
+@end mudela 
+
+Bass notes can be added by `@code{/+}@indexcode{/+}' and
+the name of a single note to a chord.  This has the effect of
+adding the specified note to the chord, lowered by an octave,
+so it becomes the lowest note in the chord.
+
+@mudela[fragment,verbatim,center]
+  \transpose c''' {
+    \chords {
+      c1 c/+c c/+g c:7/+b
     }
   }
 

@@ -21,7 +21,8 @@ ADD_THIS_TRANSLATOR (Chord_name_engraver);
 Chord_name_engraver::Chord_name_engraver ()
 {
   tonic_req_ = 0;
-  //  bass_req_ = 0;
+  inversion_req_ = 0;
+  bass_req_ = 0;
 }
 
 void
@@ -44,14 +45,16 @@ Chord_name_engraver::do_try_music (Music* m)
       tonic_req_ = t;
       return true;
     }
-#if 0
+  if (Inversion_req* i = dynamic_cast<Inversion_req*> (m))
+    {
+      inversion_req_ = i;
+      return true;
+    }
   if (Bass_req* b = dynamic_cast<Bass_req*> (m))
     {
       bass_req_ = b;
       return true;
     }
-#endif
-  
   return false;
 }
 
@@ -63,20 +66,13 @@ Chord_name_engraver::do_process_requests ()
   if (!pitch_arr_.size ())
     return;
 
-  Chord chord (pitch_arr_);
-  Musical_pitch* inversion = 0;
+  bool find_inversion_b = false;
   SCM chord_inversion = get_property ("chordInversion", 0);
-  if (gh_boolean_p (chord_inversion) && gh_scm2bool (chord_inversion))
-    {
-      int tonic_i = tonic_req_
-	? chord.find_notename_i (tonic_req_->pitch_) : chord.find_tonic_i ();
-	
-      if (tonic_i)
-	{
-	  inversion = &pitch_arr_[0];
-	  chord.rebuild_insert_inversion (tonic_i);
-	}
-    }
+  if (gh_boolean_p (chord_inversion))
+    find_inversion_b = gh_scm2bool (chord_inversion);
+
+  Chord chord = to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, 
+    find_inversion_b);
     
   Text_item* item_p =  new Text_item;
 
@@ -90,7 +86,7 @@ Chord_name_engraver::do_process_requests ()
     item_p->text_str_ = chord.banter_str (inversion);
    */
 
-  item_p->text_str_ = chord.banter_str (inversion);
+  item_p->text_str_ = chord.banter_str ();
   
   text_p_arr_.push (item_p);
   announce_element (Score_element_info (item_p, 0));
@@ -106,4 +102,7 @@ Chord_name_engraver::do_pre_move_processing ()
   text_p_arr_.clear ();
   pitch_arr_.clear ();
   tonic_req_ = 0;
+  inversion_req_ = 0;
+  bass_req_ = 0;
 }
+

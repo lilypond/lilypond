@@ -67,7 +67,7 @@ private:
   String init_str_;
 
   Simultaneous_music * get_note_element (Note_req * ,Duration *);
-  Simultaneous_music * get_chord (Musical_pitch, Array<Musical_pitch>*, Array<Musical_pitch>*, Musical_pitch*, Duration);
+  Simultaneous_music * get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p, Duration d);
   Simultaneous_music* get_rest_element (String, Duration *);
   Simultaneous_music* get_word_element (String, Duration*);
   String notename_str (Melodic_req* melodic);

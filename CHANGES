@@ -1,3 +1,12 @@
+pl 2.jcn1
+	- chord fixes: 
+	   * inversion request: no inversion guessing for chord entry
+	   * bass request: c/+b to add bass note not part of chord
+	   * -dim modifier works on all thirds
+	   * colon iso dash as tonic/modifier-additions separator
+	   * C:m5- displays as "Cdim"
+	   * C:m5-7- displays as "Co"
+
 pl 3.jcn1
 	- moved bracket vars to params
 	- reverted broken lilypond-devel

@@ -31,18 +31,17 @@ of a certain tune (Jazz, Real Book, for example), like
 
 \score{
 	\context ChordNames \chords{
-		\property Score.chordInversion = 1
 		\property Score.barAtLineStart = 1
 		\repeat semi 2 {
-			f1-maj f-maj f-7 bes-7
-			c-maj c-maj es es
-			d-7 g-7 b2-7/fis e-7 a1-7\break
-			d-7 d-7 d-7 g2-7 ges-7
+			f1:maj f:maj f:7 bes:7
+			c:maj c:maj es es
+			d:7 g:7 b2:7/fis e:7 a1:7\break
+			d:7 d:7 d:7 g2:7 ges:7
 
-			f1-maj f1-maj f-7 bes-7
-			c-maj c-maj es es
-			d-7 g-7 b2-7/fis e-7 a1-7\break
-			d-7 d2-7 g-7 c1-6 g2-7 c-7
+			f1:maj f1:maj f:7 bes:7
+			c:maj c:maj es es
+			d:7 g:7 b2:7/fis e:7 a1:7\break
+			d:7 d2:7 g:7 c1:6 g2:7 c:7
 		}
 	}
 	\paper{

@@ -97,7 +97,19 @@ protected:
 /// specify tonic of a chord
 struct Tonic_req : public Melodic_req
 {
-  VIRTUAL_COPY_CONS(Music);
+  VIRTUAL_COPY_CONS (Music);
+};
+
+/// specify inversion of a chord
+struct Inversion_req : public Melodic_req
+{
+  VIRTUAL_COPY_CONS (Music);
+};
+
+/// specify bass of a chord
+struct Bass_req : public Melodic_req
+{
+  VIRTUAL_COPY_CONS (Music);
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.

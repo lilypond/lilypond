@@ -29,6 +29,14 @@ Note_heads_engraver::do_try_music (Music *m)
     {
       return true;
     }
+  else if (Inversion_req* i = dynamic_cast<Inversion_req*> (m))
+    {
+      return true;
+    }
+  else if (Bass_req* b = dynamic_cast<Bass_req*> (m))
+    {
+      return true;
+    }
   else if (Busy_playing_req * p = dynamic_cast<Busy_playing_req*> (m))
     {
       return notes_end_pq_.size ();

@@ -36,28 +36,6 @@ John
 . * fix or replace feta-accordion.mf
 . * script engraver
 . * bracket pdf hack
-. * Chords:
-.  * Bass/inversion pitch when not part of Chord
-Sometimes a series of changing chords will be blocked out over a static tone
-in the bass, usually this was referred to as a pedal tone (and it's been
-continued to be used, even in contemporary music).  Another less frequently
-used practice is putting a non-chordal tone in the bass (that is not acting
-as a pedal tone) in order to create tension or make a more colorful sound.
-There are examples of this in the classsical literature, but its use is much
-more prevalent today.  For example, the chord sequence Dm7 - Dm7/G is such a
-sequence, and the Dm7/G defies easy classification.  Is it a G7(no 3rd)add
-9/11?  Or is it a G7(no 3rd)add2/4?  Or perhaps Dm7 add11?  It's a heck of a
-lot easier to read to just leave it as Dm7/G!
-.  * Diminished does not mean 5-
-When speaking of a chord, dimished can mean one of two things:  A diminished
-triad or a dimished seventh chord (which is distinctly different from what's
-known as the 'half-diminished' chord).  The triad is a root with a flat
-third and flat fifth, and is notated (at least in America, someone else will
-have to fill me in on other countries) as (using C as the root) Cdim, or Co.
-The diminished seventh has a root with a flat third, flat fifth, and a
-doubly flatted seventh (which is enharmonically equivalent to a sixth, and
-from which comes tons of confusion).  It is usually notated as (again, using
-C as the root) Cdim7 or Co7.
 
 . * Mondrup:
 - I would like the possibility of forcing clef- and key- changes to be
