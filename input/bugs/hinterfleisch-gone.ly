@@ -3,7 +3,7 @@
 \score {
 	\notes \relative c'' {
 	\time 2/4;
-	\property Voice.noAutoBeaming=1
+	\property Voice.noAutoBeaming=##t
 	a4 a8
 	a32 a a a
 }

@@ -6,10 +6,10 @@
 \translator{\VoiceContext
   %% huh?
   %%beamAutoBegin=0;
-  AutoBeam \push #'(end 1 8 * *) = #(make-moment 3 8)
-  AutoBeam \push #'(end 1 16 * *) = #(make-moment 3 8)
-  AutoBeam \push #'(end 1 24 * *) = #(make-moment 1 8)
-  AutoBeam \push #'(end 1 32 * *) = #(make-moment 1 8)
+  autoBeamSettings \push #'(end 1 8 * *) = #(make-moment 3 8)
+  autoBeamSettings \push #'(end 1 16 * *) = #(make-moment 3 8)
+  autoBeamSettings \push #'(end 1 24 * *) = #(make-moment 1 8)
+  autoBeamSettings \push #'(end 1 32 * *) = #(make-moment 1 8)
 }
 }
 

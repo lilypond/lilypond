@@ -78,13 +78,13 @@
      ((end * * 12 8) . ,(make-moment 3 8))
      ((end 1 16 12 8) . ,(make-moment 3 8))
      ((end 1 32 12 8) . ,(make-moment 1 8))
-     (meta . ,(element-description  "AutoBeam"))
+     (meta . ,(element-description  "autoBeamSettings"))
      ))
 
 ;;; Users may override in most cases, simply by issuing
 ;;;
 ;;;    % from here on consider ending beam every 1 4 note
-;;;    \property Voice.AutoBeam \push #'(end * * * *) = #(make-moment 1 4)
+;;;    \property Voice.autoBeamSettings \push #'(end * * * *) = #(make-moment 1 4)
 ;;;
 ;;;    % no autobeaming
 ;;;    \property Voice.beamAuto = ##f  
@@ -95,7 +95,7 @@
 ;;;        \translator{
 ;;;            \VoiceContext
 ;;;            % consider ending beam at every 1 2 note
-;;;            AutoBeam \push #'(end * * * *) = #(make-moment 1 2)
+;;;            autoBeamSettings \push #'(end * * * *) = #(make-moment 1 2)
 ;;;        }
 ;;;    }
 ;;;

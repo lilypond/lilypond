@@ -85,11 +85,14 @@
     ((0 bold upright roman cmbx 10) . "cmbx10")
     ((-1 bold upright roman cmbx 8) . "cmbx8")
     ((-2 bold upright roman cmbx 7) . "cmbx7")
+    
     ;; should use the same brace font every where and fix C++ code.
-
     ((2 medium upright braces feta-braces 26) . "feta-braces26")
     ((1 medium upright braces feta-braces 23) . "feta-braces23")
     ((0 medium upright braces feta-braces 20) . "feta-braces20")
+    ((-1 medium upright braces feta-braces 16) . "feta-braces16")
+    ((-2 medium upright braces feta-braces 13) . "feta-braces13")
+    ((-3 medium upright braces feta-braces 11) . "feta-braces11")
 
     ((3 bold italic dynamic feta-din 13) . "feta-din13")
     ((2 bold italic dynamic feta-din 13) . "feta-din13")

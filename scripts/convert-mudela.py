@@ -552,15 +552,15 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('beamAutoEnd_([0-9]*) *= *(#\\([^)]*\\))', 'AutoBeam \\push #\'(end 1 \\1 * *) = \\2', str)
-		str = re.sub ('beamAutoBegin_([0-9]*) *= *(#\\([^)]*\))', 'AutoBeam \\push #\'(begin 1 \\1 * *) = \\2', str)
-		str = re.sub ('beamAutoEnd *= *(#\\([^)]*\\))', 'AutoBeam \\push #\'(end * * * *) = \\1', str)
-		str = re.sub ('beamAutoBegin *= *(#\\([^)]*\\))', 'AutoBeam \\push #\'(begin * * * *) = \\1', str)
+		str = re.sub ('beamAutoEnd_([0-9]*) *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
+		str = re.sub ('beamAutoBegin_([0-9]*) *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
+		str = re.sub ('beamAutoEnd *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
+		str = re.sub ('beamAutoBegin *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(begin * * * *) = \\1', str)
 
 
 		return str
 	
-	conversions.append ((1,3,102), conv, 'beamAutoEnd -> AutoBeam \\push (end * * * *)')
+	conversions.append ((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 
 ############################
 	

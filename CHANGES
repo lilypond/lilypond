@@ -1,3 +1,12 @@
+1.3.103.jcn2
+============
+
+* Fixed default font settings for text items, text-item now uses
+font-interface's alist-chain.
+
+* Renamed property AutoBeam to autoBeamSettings to avoid confusion
+about non-existing AutoBeam element.
+
 1.3.103.jcn1
 ============
 

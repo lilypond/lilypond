@@ -97,7 +97,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   SCM type = gh_list (gh_int2scm (test_mom.num_i ()),
 		      gh_int2scm (test_mom.den_i ()), SCM_UNDEFINED);
 
-  SCM settings = get_property ("AutoBeam");
+  SCM settings = get_property ("autoBeamSettings");
   
   /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
