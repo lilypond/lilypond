@@ -37,8 +37,9 @@
 void
 Slur::set_interface (Grob*me)
 {
-  me->set_grob_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
-  me->set_interface (ly_symbol2scm ("slur-interface"));
+  /* Ugh, junked this function, but if we don't do this, we somehow
+     won't be able to write to it */
+  me->set_grob_property ("attachment", me->get_grob_property ("attachment"));
 }
 
 void

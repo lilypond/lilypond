@@ -47,6 +47,7 @@ Timing_engraver::start_translation_timestep( )
       if (!measure_position ()
 	  || (to_boolean (always)))
 	{
+	  /* should this work, or be junked?  See input/bugs/no-bars.ly */
 	  which=get_property ("defaultBarType" );
 	}
     }

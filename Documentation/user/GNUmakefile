@@ -52,12 +52,17 @@ SPLITTING_MAKEINFO = $(shell makeinfo --version | grep 4.0.jcn2)
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
-# we want footers even if website builds (or is built) partly
+	-mv -f $(outdir)/*.png $(outdir)/lilypond
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
-# we want footers even if website builds (or is built) partly
+	-mv -f $(outdir)/*.png $(outdir)/lilypond-internals
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+$(outdir)/features/features.html: $(outdir)/features.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+	-mv -f $(outdir)/*.png $(outdir)/features
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 ifneq ($(SPLITTING_MAKEINFO),)
@@ -74,10 +79,7 @@ endif
 local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
-	-mkdir $(outdir)/lilypond 
-	cp -f $(outdir)/*.png $(outdir)/lilypond
 	$(MAKE) deep-footify
-
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 #	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \

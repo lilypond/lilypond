@@ -1,6 +1,13 @@
+\header{
+texidoc="
+Slurs can be forced to always attach to note heads.
+";
+}
+
+
 \score{
 	\notes \relative c''{
-		\property Voice.slurVerticalDirection = #1
+		\property Voice.VerticalDirection = #1
 		\property Voice.slurBeginAttachment = #'head
 		\property Voice.slurEndAttachment = #'head
 		g16()g()g()g()d'()d()d()d

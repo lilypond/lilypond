@@ -117,19 +117,12 @@ Text_spanner_engraver::create_grobs ()
 	{
 	  current_req_ = req_drul_[START];
 	  span_  = new Spanner (get_property ("TextSpanner"));
-	  
-	  /* Don't remove me without testing.
 
-	     Urg.  It seems that a padding property with empty cdr
-	     ``(padding)'' is set somewhere, overriding the default
-	     TextSpanner properties.  Also, my gdb won't print *span_
-	     or span_->mutable_property_alis_ here */
-	  if (1)//!gh_number_p (span_->get_grob_property ("padding")))
-	    {
-	      span_->remove_grob_property ("padding");
-	      span_->set_grob_property ("padding", gh_double2scm (0));
-	    }
-	    
+	  /* Ugh.  Reset (de)cresc. specific properties */
+	  span_->set_grob_property ("outer", SCM_BOOL_T);
+	  span_->set_grob_property ("if-text-padding", gh_double2scm (0));
+	  span_->set_grob_property ("width-correct", gh_double2scm (0));
+	  	    
 	  Side_position::set_axis (span_, Y_AXIS);
 	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
