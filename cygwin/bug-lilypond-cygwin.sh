@@ -22,7 +22,8 @@ fi
 
 docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@-1
 [ ! -d $docdir ] && docdir=@prefix@/doc/lilypond-@TOPLEVEL_VERSION@-1
-[ ! -d $docdir ] && docdir=$(echo /usr/doc/lilypond-[0-9]*)
+[ ! -d $docdir ] && docdir=$(echo @prefix@/share/doc/lilypond-[.-0-9]*)
+[ ! -d $docdir ] && docdir=$(echo @prefix@/doc/lilypond-[.-0-9]*)
 
 echo
 echo Availability of executables

@@ -1,3 +1,9 @@
+lilypond (1.8.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Wed, 17 Sep 2003 18:46:53 +0200
+
 lilypond (1.8.1-12) unstable; urgency=low
 
   * Cygwin build fix: add cygwin-specific profile and postinstall scripts.
