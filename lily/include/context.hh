@@ -89,6 +89,8 @@ public:
 
   Context *find_create_context (SCM context_name,
 				String id, SCM ops);
+  Context *create_unique_context (SCM context_name,
+				   SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
 						  Output_def*) const;
 

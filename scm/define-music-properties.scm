@@ -86,6 +86,7 @@ For chord inversions, this is negative.")
      (predicate ,procedure? "the predicate of a \\outputproperty.")
      (quoted-events ,vector? "A vector of with moment/event-list entries.")
      (quoted-music-name ,string? "The name of the voice to quote.")
+     (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem or down-stem?")
      (quoted-context-type ,symbol? "The name of the context to direct quotes to, eg., @code{Voice}.")
      (quoted-context-id ,string? "The id of the context to direct quotes to, eg., @code{cue}.")
 

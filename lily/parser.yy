@@ -54,7 +54,8 @@ TODO:
 
 Music *property_op_to_music (SCM op);
 Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops);
-SCM get_next_unique_context ();
+SCM get_next_unique_context_id ();
+SCM get_next_unique_lyrics_context_id ();
 
 #define YYERROR_VERBOSE 1
 
@@ -1131,7 +1132,7 @@ Prefix_composite_music:
 		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
 	}
 	| NEWCONTEXT simple_string optional_context_mod Music {
-		$$ = context_spec_music ($2, get_next_unique_context (), $4,
+		$$ = context_spec_music ($2, get_next_unique_context_id (), $4,
 			$3);
 	}
 
@@ -1181,7 +1182,7 @@ Prefix_composite_music:
 		THIS->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
-		$$ = context_spec_music ($1, get_next_unique_context (),
+		$$ = context_spec_music ($1, get_next_unique_context_id (),
 					 $3, $2);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
@@ -1299,7 +1300,7 @@ re_rhythmed_music:
 		SCM name = get_first_context_id (scm_makfrom0str ("Voice"), voice); 
 		if (!scm_is_string (name))
 		{
-			name = get_next_unique_context ();
+			name = get_next_unique_lyrics_context_id ();
 			voice = context_spec_music (scm_makfrom0str ("Voice"),
 						    name,
 						    voice, SCM_EOL);
@@ -1314,7 +1315,7 @@ re_rhythmed_music:
 			Music *music = unsmob_music (scm_car (s));
 			Music *com = make_lyric_combine_music (name, music);
 			Music *csm = context_spec_music (context,
-				get_next_unique_context (), com, SCM_EOL);
+				get_next_unique_context_id (), com, SCM_EOL);
 			lst = scm_cons (csm->self_scm (), lst);
 		}
 		all->set_property ("elements", scm_cons (voice->self_scm (),
@@ -2713,15 +2714,18 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	return csm;
 }
 
-/*
-FIXME: this should be postponed until the music hits \Score
-*/
 SCM
-get_next_unique_context ()
+get_next_unique_context_id ()
+{
+	return scm_makfrom0str ("$uniqueContextId");
+}
+
+
+SCM
+get_next_unique_lyrics_context_id ()
 {
 	static int new_context_count;
-	char s[1024];
+	char s[128];
 	snprintf (s, 1024, "uniqueContext%d", new_context_count++);
 	return scm_makfrom0str (s);
 }
-
