@@ -7,13 +7,45 @@
 # (not finished.)
 # ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
 # 
+# Enhancements  (Roy R. Rankin)
+#
+# Header section moved to top of lilypond file
+# handle treble, treble-8, alto, and bass clef
+# Handle voices (V: headers) with clef and part names, multiple voices
+# Handle w: lyrics with multiple verses
+# Handle key mode names for minor, major, phrygian, ionian, locrian, aeolian,
+#     mixolydian, lydian, dorian
+# Handle part names from V: header
+# Tuplets handling fixed up
+# Lines starting with |: not discarded as header lines
+# Multiple T: and C: header entries handled
+# Accidental maintained until next bar check
+# Silent rests supported
+# articulations fermata, upbow, downbow, ltoe, accent, tenuto supported
+# Chord strings([-^]"string") can contain a '#'
+# Header fields enclosed by [] in notes string processed
+# W: words output after tune as abc2ps does it (they failed before)
+#
+# Limitations
+#
+# Multiple tunes in single file not supported
+# Blank T: header lines should write score and open a new score
+# Not all header fields supported
+# Beaming not preserved between ABC and lilypond
+# ABC line breaks are ignored
+# Block comments generate error and are ignored
+# Postscript commands are ignored
+# lyrics not resynchronized by line breaks (lyrics must fully match notes)
+# ???
 
 
+  
+  
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '1.2.6'		# uGUHGUHGHGUGH
-
+	version = '1.2.9'		# uGUHGUHGHGUGH
+  
 import __main__
 import getopt
 import sys
@@ -22,65 +54,103 @@ import string
 import os
 
 
-
+UNDEF = 255
+state = UNDEF
 voice_idx_dict = {}
 header = {}
 lyrics = []
+slyrics = []
 voices = []
+state_list = []
 current_voice_idx = -1
 current_lyric_idx = -1
-
-def select_voice (name):
-	if not voice_idx_dict.has_key (name):
-		voices.append ('')		
-		voice_idx_dict[name] = len (voices) -1
-	__main__.current_voice_idx =  voice_idx_dict[name]
-	
-#	assert 0
-# current_voice_idx >= 0
-
+lyric_idx = -1
+part_names = 0
 default_len = 8
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
 HSPACE=' \t'
 
-def gcd (a, b):
-	while  a % b:
-		a,b = b, a % b
-	return b
 	
-class Rational:
-	def __init__ (self, n, d = 1):
-		self.num = n
-		self.den = d
+def check_clef(s):
+      if not s:
+              return ''
+      if re.match('^treble', s):
+              s = s[6:]
+              if re.match ('^-8', s):
+                      s = s[2:]
+                      state.base_octave = -2
+                      voices_append("\\clef \"G_8\";\n")
+              else:
+                      state.base_octave = 0
+                      voices_append("\\clef treble;\n")
+      elif re.match('^alto', s):
+              s = s[4:]
+              state.base_octave = -1
+              voices_append ("\\clef alto;\n" )
+      elif re.match('^bass',s ):
+              s = s[4:]
+              state.base_octave = -2
+              voices_append ("\\clef bass;\n" )
+      return s
 
-	def simplify (self):
-		g = gcd (self.num, self.den)
-		self.num = self.num /  g
-		self.den = self.den /g
-		if self.den < 0:
-			self.den = - self.den
-			self.num = - self.num
+def select_voice (name, rol):
+	if not voice_idx_dict.has_key (name):
+	      state_list.append(Parser_state())
+	      voices.append ('')
+	      slyrics.append ([])
+	      voice_idx_dict[name] = len (voices) -1
+	__main__.current_voice_idx =  voice_idx_dict[name]
+	__main__.state = state_list[current_voice_idx]
+	while rol != '':
+	      m = re.match ('^([^ \t=]*)=(.*)$', rol) # find keywork
+	      if m:
+		      keyword = m.group(1)
+		      rol = m.group (2)
+		      a = re.match ('^("[^"]*"|[^ \t]*) *(.*)$', rol)
+		      if a:
+			      value = a.group (1)
+			      rol = a.group ( 2)
+			      if keyword == 'clef':
+				      check_clef(value)
+			      elif keyword == "name":
+				      value = re.sub ('\\\\','\\\\\\\\', value)
+				      voices_append ("\\property Staff.instrument = %s\n" % value )
+				      __main__.part_names = 1
+			      elif keyword == "sname" or keyword == "snm":
+				      voices_append ("\\property Staff.instr = %s\n" % value )
 
-	def __sub__ (self, other):
-		pass
-	
+	      else:
+		      break
+
+	return
 
 
 def dump_header (outf,hdr):
-	outf.write ('\\header {')
+	outf.write ('\\header {\n')
 	ks = hdr.keys ()
 	ks.sort ()
 	for k in ks:
-		outf.write ('\n%s = "%s";\n'% (k,hdr[k]))
+		outf.write ('\t%s = "%s";\n'% (k,hdr[k]))
  	outf.write ('}')
 
 def dump_lyrics (outf):
-	for i in range (len (lyrics)):
-		outf.write ("\nverse%s = \\lyrics {" % names [i])
-		outf.write ("\n" + lyrics [i])
-		outf.write ("\n}")
+	if (len(lyrics)):
+		outf.write("\n\\score\n{\n    \\context Lyrics\n    <\n")
+		for i in range (len (lyrics)):
+			outf.write ( lyrics [i])
+			outf.write ("\n")
+		outf.write("    >\n    \\paper{}\n}\n")
+
+def dump_slyrics (outf):
+	ks = voice_idx_dict.keys()
+	ks.sort ()
+	for k in ks:
+		for i in range (len(slyrics[voice_idx_dict[k]])):
+			outf.write ("\nwords%sV%d = \\lyrics  {" % (k, i))
+			outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
+			outf.write ("\n}")
 
 def dump_voices (outf):
 	ks = voice_idx_dict.keys()
@@ -98,19 +168,30 @@ def dump_score (outf):
 	ks  = voice_idx_dict.keys ();
 	ks.sort ()
 	for k in  ks:
-		outf.write ("\n        \\context Staff=\"%s\" \\$voice%s " % (k,k))# ugh
-	for i in range (len (lyrics)):
-		j = i
-		if j >= len (voices):
-			j = len (voices) - 1
-		outf.write ("\n        \\context Lyrics=\"%s\" \\addlyrics \\$voice%s \\$verse%s " % 
-			(names [i], names [j], names [i]))
+		if k == 'default' and len (voice_idx_dict) > 1:
+			break
+		if len ( slyrics [voice_idx_dict[k]] ):
+			outf.write ("\n        \\addlyrics")
+		outf.write ("\n\t\\context Staff=\"%s\"\n\t{\n" %k ) 
+		if k != 'default':
+			outf.write ("\t    \\$voicedefault\n")
+		outf.write ("\t    \\$voice%s " % k)
+		outf.write ("\n\t}\n")
+		if len ( slyrics [voice_idx_dict[k]] ):
+			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<\t" % k)
+			for i in range (len(slyrics[voice_idx_dict[k]])):
+				outf.write("\n\t  { \\$words%sV%d }" % ( k, i) )
+			outf.write ( "\n\t>\n" )
 	outf.write ("\n    >")
-	dump_header (outf ,header)
-	outf.write (r"""
-\paper {}
-\midi {}
-}""")
+	outf.write ("\n\t\\paper {\n")
+	if part_names:
+		outf.write ("\t    \\translator \n\t    {\n")
+		outf.write ("\t\t\\StaffContext\n")
+		outf.write ("\t\t\\consists Staff_margin_engraver;\n")
+		outf.write ("\t    }\n")
+	outf.write ("\t}\n\t\\midi {}\n}\n")
+
+
 
 def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
@@ -123,9 +204,9 @@ def set_default_len_from_time_sig (s):
 		n = string.atoi (m.group (1))
 		d = string.atoi (m.group (2))
 		if (n * 1.0 )/(d * 1.0) <  0.75:
-			default_len =  16
+			__main__.default_len =  16
 		else:
-			default_len = 8
+			__main__.default_len = 8
 
 def gulp_file(f):
 	try:
@@ -201,7 +282,64 @@ def quart_above_pitch (tup):
 	
 	return (n,a)
 
+key_lookup = { 	# abc to lilypond key mode names
+	'm'   : 'minor',
+	'min' : 'minor',
+	'maj' : 'major',
+	'phr' : 'phrygian',
+	'ion' : 'ionian',
+	'loc' : 'locrian',
+	'aeo' : 'aeolian',
+	'mix' : 'mixolydian',
+	'lyd' : 'lydian',
+	'dor' : 'dorian'
+}
 
+def lily_key (k):
+	k = string.lower (k)
+	key = k[0]
+	k = k[1:]
+	if k and k[0] == '#':
+		key = key + 'is'
+		k = k[1:]
+	elif k and k[0] == 'b':
+		key = key + 'es'
+		k = k[1:]
+	if not k:
+		return(key)
+
+	type = k[0:3]
+	if key_lookup.has_key(type):
+		return("%s \\%s" % ( key, key_lookup[type]))
+	sys.stderr.write("Unknown key type %s ignored\n" % type)
+	return key
+
+def shift_key (note, acc , shift):
+        s = semitone_pitch((note, acc))
+        s = (s + shift + 12) % 12
+        if s <= 4:
+                n = s / 2
+                a = s % 2
+        else:
+                n = (s + 1) / 2
+                a = (s + 1) % 2
+        if a:
+                n = n + 1
+                a = -1
+        return (n,a)
+
+key_shift = { # semitone shifts for key mode names
+	'm'   : 3,
+	'min' : 3,
+	'maj' : 0,
+	'phr' : -4,
+	'ion' : 0,
+	'loc' : 1,
+	'aeo' : 3,
+	'mix' : 5,
+	'lyd' : -5,
+	'dor' :	-2
+}
 def compute_key (k):
 	k = string.lower (k)
 	intkey = (ord (k[0]) - ord('a') + 5) % 7
@@ -214,7 +352,9 @@ def compute_key (k):
 	elif  k and k[0] == '#':
 		intkeyacc = 1
 		k = k[1:]
-
+	k = k[0:3]
+	if k and key_shift.has_key(k):
+		(intkey, intkeyacc) = shift_key(intkey, intkeyacc, key_shift[k])
 	keytup = (intkey, intkeyacc)
 	
 	sharp_key_seq = sharp_keys ()
@@ -237,7 +377,6 @@ def compute_key (k):
 	key_table = [0] * 7
 	for a in accseq:
 		 key_table[a] = key_table[a] + accsign
-		
 
 	return key_table
 
@@ -253,10 +392,10 @@ tup_lookup = {
 
 
 def try_parse_tuplet_begin (str, state):
-	if re.match ('\([0-9]', str):
+	if re.match ('\([2-9]', str):
 		dig = str[1]
 		str = str[2:]
-		state.parsing_tuplet = 1
+		state.parsing_tuplet = string.atoi (dig[0])
 		
 		voices_append ("\\times %s {" % tup_lookup[dig])
 	return str
@@ -264,9 +403,6 @@ def try_parse_tuplet_begin (str, state):
 def  try_parse_group_end (str, state):
 	if str and str[0] in HSPACE:
 		str = str[1:]
-		if state.parsing_tuplet:
-			state.parsing_tuplet = 0
-			voices_append ("}")
 	return str
 
 def header_append (key, a):
@@ -275,89 +411,159 @@ def header_append (key, a):
 		s = header[key] + "\n"
 	header [key] = s + a
 
-def stuff_append (stuff, idx, a):
-	if not stuff:
-		stuff.append ('')
-
-	v = stuff[idx]
-
-	#wordwrap
+def wordwrap(a, v):
 	linelen = len (v) - string.rfind(v, '\n')
 	if linelen + len (a) > 80:
 		v = v + '\n'
-	v = v + a + ' '
-	stuff [idx] = v
+	return v + a + ' '
+
+def stuff_append (stuff, idx, a):
+	if not stuff:
+		stuff.append (a)
+	else:
+		stuff [idx] = wordwrap(a, stuff[idx])
 
 
 
 def voices_append(a):
 	if current_voice_idx < 0:
-		select_voice ('default')
+		select_voice ('default', '')
 
 	stuff_append (voices, current_voice_idx, a)
 
 def lyrics_append(a):
+	a = re.sub ( '#', '\\#', a)	# latex does not like naked #'s
+	a = re.sub ( '"', '\\"', a)	# latex does not like naked "'s
+	a = '\t{ \\lyrics "' + a + '" }\n'
 	stuff_append (lyrics, current_lyric_idx, a)
 
+# break lyrics to words and put "'s around words containing numbers and '"'s
+def fix_lyric(str):
+	ret = ''
 
-def try_parse_header_line (ln):
-	m = re.match ('^(.): *(.*)$', ln)
+	while str != '':
+		m = re.match('[ \t]*([^ \t]*)[ \t]*(.*$)', str)
+		if m:
+			word = m.group(1)
+			str = m.group(2)
+			word = re.sub('"', '\\"', word) # escape "
+			if re.match('.*[0-9"]', word):
+				word = re.sub('_', ' ', word) # _ causes probs inside ""
+				ret = ret + '\"' + word + '\" '
+			else:
+				ret = ret + word + ' '
+		else:
+			return (ret)
+	return (ret)
+
+def slyrics_append(a):
+	a = re.sub ( '_', ' _ ', a)	# _ to ' _ '
+	a = re.sub ( '-', '- ', a)	# split words with -
+	a = re.sub ( '\\\\- ', '-', a) 	# unless \-
+	a = re.sub ( '~', '_', a)	# ~ to space('_')
+	a = re.sub ( '\*', '_ ', a)	# * to to space
+	a = re.sub ( '#', '\\#', a)	# latex does not like naked #'s
+	if re.match('.*[0-9"]', a):	# put numbers and " into quoted string
+		a = fix_lyric(a)
+	a = re.sub ( '$', ' ', a)	# insure space between lines
+	__main__.lyric_idx = lyric_idx + 1
+	if len(slyrics[current_voice_idx]) <= lyric_idx:
+		slyrics[current_voice_idx].append(a)
+	else:
+		v = slyrics[current_voice_idx][lyric_idx]
+		slyrics[current_voice_idx][lyric_idx] = wordwrap(a, slyrics[current_voice_idx][lyric_idx])
+
+
+def try_parse_header_line (ln, state):
+	m = re.match ('^([A-Za-z]): *(.*)$', ln)
 
 	if m:
 		g =m.group (1)
 		a = m.group (2)
-		a = re.sub ('"', '\\"', a)
-		if g == 'T':
-			header['title'] =  a
-		if g == 'M':
+		if g == 'T':	#title
+			a = re.sub('[ \t]*$','', a)	#strip trailing blanks
+			if header.has_key('title'):
+				if a:
+					header['title'] = header['title'] + '\\\\\\\\' + a
+			else:
+				header['title'] =  a
+		if g == 'M':	# Meter
 			if a == 'C':
+				if not state.common_time:
+					state.common_time = 1
+					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
 				a = '4/4'
+			if a == 'C|':
+				if not state.common_time:
+					state.common_time = 1
+					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
+				a = '2/2'
 #			global_voice_stuff.append ('\\time %s;' % a)
 			set_default_len_from_time_sig (a)
 			voices_append ('\\time %s;' % a)
-		if g == 'K':
-			__main__.global_key  =compute_key (a)# ugh.
-			voices_append ('\\key %s;' % a)
-
-		if g == 'O': 
+			state.next_bar = ''
+		if g == 'K': # KEY
+			a = check_clef(a)
+			if a:
+				__main__.global_key  =compute_key (a)# ugh.
+				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
+				if m:
+					voices_append ('\\key %s;' % lily_key(m.group(1)))
+					check_clef(m.group(2))
+				else:
+					voices_append ('\\key %s;' % lily_key(a))
+		if g == 'O': # Origin
 			header ['origin'] = a
-		if g == 'X': 
+		if g == 'X': # Reference Number
 			header ['crossRefNumber'] = a
-		if g == 'A':
+		if g == 'A': #	Area
 			header ['area'] = a
-		if g == 'H':
+		if g == 'H':	# History
 			header_append ('history', a)
-		if g == 'B':
+		if g == 'B':	# Book
 			header ['book'] = a
-		if g == 'C':
-			header ['composer'] = a
+		if g == 'C':	# Composer
+			if header.has_key('composer'):
+				if a:
+					header['composer'] = header['composer'] + '\\\\\\\\' + a
+			else:
+				header['composer'] =  a
 		if g == 'S':
 			header ['subtitle'] = a
-		if g == 'L':
+		if g == 'L':	# Default note length
 			set_default_length (ln)
-		if g == 'V':
-			a = re.sub (' .*$', '', a)
-			select_voice (a)
-		if g == 'W':
-			if not len (a):
-				lyrics.append ('')
-			else:
-				lyrics_append (a);
+		if g == 'V':	# Voice 
+			voice = re.sub (' .*$', '', a)
+			rest = re.sub ('^[^ \t]*  *', '', a)
+			if state.next_bar:
+				voices_append(state.next_bar)
+				state.next_bar = ''
+			select_voice (voice, rest)
+		if g == 'W':	# Words
+			lyrics_append(a);
+		if g == 'w':	# vocals
+			slyrics_append (a);
 
 		return ''
 	return ln
 
-def pitch_to_mudela_name (name, acc):
+# we use in this order specified accidental, active accidental for bar,
+# active accidental for key
+def pitch_to_mudela_name (name, acc, bar_acc, key):
 	s = ''
-	if acc < 0:
+	if acc == UNDEF:
+		acc = bar_acc
+	if acc == UNDEF:
+		acc = key
+	if acc == -1:
 		s = 'es'
-		acc = -acc
-	elif acc > 0:
-		s = 'is'
-
+	elif acc == 1:
+		s =  'is'
+	
 	if name > 4:
 		name = name -7
-	return chr (name  + ord('c'))  + s * acc
+	return(chr (name  + ord('c')) + s)
+
 
 def octave_to_mudela_quotes (o):
 	o = o + 2
@@ -394,10 +600,15 @@ def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
 
 class Parser_state:
 	def __init__ (self):
+		self.in_acc = {}
 		self.next_articulation = ''
+		self.next_bar = ''
 		self.next_dots = 0
 		self.next_den = 1
 		self.parsing_tuplet = 0
+		self.plus_chord = 0
+		self.base_octave = 0
+		self.common_time = 0
 
 
 
@@ -424,19 +635,18 @@ def parse_duration (str, parser_state):
 	
 	current_dots = parser_state.next_dots
 	parser_state.next_dots = 0
-
-	while str[0] == ' ':
-	    str = str [1:]
-	
-	while str[0] == '>':
-		str = str [1:]
-		current_dots = current_dots + 1;
-		parser_state.next_den = parser_state.next_den * 2
-
-	while str[0] == '<':
-		str = str [1:]
-		den = den * 2
-		parser_state.next_dots = parser_state.next_dots + 1
+	if re.match ('[ \t]*[<>]', str):
+		while str[0] in HSPACE:
+			str = str[1:]
+		while str[0] == '>':
+			str = str [1:]
+			current_dots = current_dots + 1;
+			parser_state.next_den = parser_state.next_den * 2
+		
+		while str[0] == '<':
+			str = str [1:]
+			den = den * 2
+			parser_state.next_dots = parser_state.next_dots + 1
 
 
 
@@ -453,30 +663,54 @@ def parse_duration (str, parser_state):
 
 
 def try_parse_rest (str, parser_state):
-	if not str or str[0] <> 'z':
+	if not str or str[0] <> 'z' and str[0] <> 'x':
 		return str
 
+	__main__.lyric_idx = -1
+
+	if parser_state.next_bar:
+		voices_append(parser_state.next_bar)
+		parser_state.next_bar = ''
+
+	if str[0] == 'z':
+		rest = 'r'
+	else:
+		rest = 's'
 	str = str[1:]
 
 	(str, num,den,d) = parse_duration (str, parser_state)
-	voices_append ('r%s' % duration_to_mudela_duration ((num,den), default_len, d))
+	voices_append ('%s%s' % (rest, duration_to_mudela_duration ((num,den), default_len, d)))
+	if parser_state.next_articulation:
+		voices_append (parser_state.next_articulation)
+		parser_state.next_articulation = ''
 
 	return str
 
+artic_tbl = {
+	'.'  : '-.',
+	 'T' : '^\\trill',
+	 'H' : '^\\fermata',
+	 'u' : '^\\upbow',
+	 'K' : '^\\ltoe',
+	 'k' : '^\\accent',
+	 'M' : '^\\tenuto',
+	 '~' : '^"~" ',
+	 'J' : '',		# ignore slide
+	 'R' : '',		# ignore roll
+	 'v' : '^\\downbow'
+}
+	
 def try_parse_articulation (str, state):
 	
-	if str[:1] =='.':
-		state.next_articulation = state.next_articulation + '-.'
+	while str and  artic_tbl.has_key(str[:1]):
+		state.next_articulation = state.next_articulation + artic_tbl[str[:1]]
+		if not artic_tbl[str[:1]]:
+			sys.stderr.write("Warning: ignoring %s\n" % str[:1] )
+
 		str = str[1:]
 
-	if str[:1] =='~':
-		state.next_articulation = state.next_articulation + '-\\trill'
-		str = str[1:]
+	
 		
-	if str[:1] =='H':
-		state.next_articulation = state.next_articulation + '-\\fermata'
-		str = str[1:]
-
 	# s7m2 input doesnt care about spaces
 	if re.match('[ \t]*\(', str):
 		str = string.lstrip (str)
@@ -489,6 +723,29 @@ def try_parse_articulation (str, state):
 
 	return str
 		
+#
+# remember accidental for rest of bar
+#
+def set_bar_acc(note, octave, acc, state):
+	if acc == UNDEF:
+		return
+	n_oct = note + octave * 7
+	state.in_acc[n_oct] = acc
+
+# get accidental set in this bar or UNDEF if not set
+def get_bar_acc(note, octave, state):
+	n_oct = note + octave * 7
+	if state.in_acc.has_key(n_oct):
+		return(state.in_acc[n_oct])
+	else:
+		return(UNDEF)
+
+def clear_bar_acc(state):
+	for k in state.in_acc.keys():
+		del state.in_acc[k]
+	
+
+		
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
 def try_parse_note (str, parser_state):
 	mud = ''
@@ -498,7 +755,7 @@ def try_parse_note (str, parser_state):
 		return str
 
 	articulation =''
-	acc = 0
+	acc = UNDEF
 	if str[0] in '^=_':
 		c = str[0]
 		str = str[1:]
@@ -509,10 +766,10 @@ def try_parse_note (str, parser_state):
 		if c == '_':
 			acc = -1
 
-        octave = 0;
+        octave = parser_state.base_octave
 	if str[0] in "ABCDEFG":
 		str = string.lower (str[0]) + str[1:]
-		octave = -1
+		octave = octave - 1
 
 
 	notename = 0
@@ -521,6 +778,13 @@ def try_parse_note (str, parser_state):
 		str = str[1:]
 	else:
 		return str		# failed; not a note!
+
+	
+	__main__.lyric_idx = -1
+
+	if parser_state.next_bar:
+		voices_append(parser_state.next_bar)
+		parser_state.next_bar = ''
 
 	while str[0] == ',':
 		 octave = octave - 1
@@ -543,15 +807,29 @@ def try_parse_note (str, parser_state):
 	
 	if slur_end:
 		voices_append ('%s' % ')' *slur_end )
-	voices_append ("%s%s%s" %
-		(pitch_to_mudela_name (notename, acc + global_key[notename]),
-					octave_to_mudela_quotes (octave),
+
+	bar_acc = get_bar_acc(notename, octave, parser_state)
+	pit = pitch_to_mudela_name(notename, acc, bar_acc, global_key[notename])
+	oct = octave_to_mudela_quotes (octave)
+	if acc != UNDEF and (acc == global_key[notename] or acc == bar_acc):
+		mod='!'
+	else:
+		mod = ''
+	voices_append ("%s%s%s%s" %
+		(pit, oct, mod,
 	 	 duration_to_mudela_duration ((num,den), default_len, current_dots)))
+	
+	set_bar_acc(notename, octave, acc, parser_state)
 	if parser_state.next_articulation:
 		articulation = articulation + parser_state.next_articulation
 		parser_state.next_articulation = ''
 
 	voices_append (articulation)
+
+	if parser_state.parsing_tuplet:
+		parser_state.parsing_tuplet = parser_state.parsing_tuplet - 1
+		if not parser_state.parsing_tuplet:
+			voices_append ("}")
 	if slur_begin:
 		voices_append ('%s' % '(' * slur_begin )
 
@@ -575,8 +853,8 @@ def try_parse_guitar_chord (str, state):
 			
 		if str:
 			str = str[1:]
-
-		state.next_articulation = "-\"%s\"" % gc
+		gc = re.sub('#', '\\#', gc)	# escape '#'s
+		state.next_articulation = ("-\"%s\"" % gc) + state.next_articulation
 	return str
 
 def try_parse_escape (str):
@@ -586,7 +864,6 @@ def try_parse_escape (str):
 	str = str[1:]
 	if str[:1] =='K':
 		key_table = compute_key ()
-
 	return str
 
 #
@@ -627,14 +904,17 @@ def try_parse_bar (str,state):
 			break
 
 	if str[:1] == '|':
-		bs = '|\n'
+		state.next_bar = '|\n'
 		str = str[1:]
+		clear_bar_acc(state)
 	
-	if bs <> None:
+	if bs <> None or state.next_bar != '':
 		if state.parsing_tuplet:
 			state.parsing_tuplet =0
 			voices_append ('} ')
 		
+	if bs <> None:
+		clear_bar_acc(state)
 		voices_append (bs)
 
 	return str
@@ -645,10 +925,35 @@ def try_parse_tie (str):
 		voices_append (' ~ ')
 	return str
 
-def try_parse_chord_delims (str):
+def bracket_escape (str, state):
+	m = re.match ( '^([^\]]*)] *(.*)$', str)
+	if m:
+		cmd = m.group (1)
+		str = m.group (2)
+		try_parse_header_line (cmd, state)
+	return str
+
+def try_parse_chord_delims (str, state):
 	if str[:1] =='[':
 		str = str[1:]
+		if re.match('[A-Z]:', str):	# bracket escape
+			return bracket_escape(str, state)
+		if state.next_bar:
+			voices_append(state.next_bar)
+			state.next_bar = ''
 		voices_append ('<')
+
+	if str[:1] == '+':
+		str = str[1:]
+		if state.plus_chord:
+			voices_append ('>')
+			state.plus_chord = 0
+		else:
+			if state.next_bar:
+				voices_append(state.next_bar)
+				state.next_bar = ''
+			voices_append ('<')
+			state.plus_chord = 1
 
 	ch = ''
 	if str[:1] ==']':
@@ -665,8 +970,11 @@ def try_parse_chord_delims (str):
 	voices_append (ch)
 	return str
 
-def try_parse_grace_delims (str):
+def try_parse_grace_delims (str, state):
 	if str[:1] =='{':
+		if state.next_bar:
+			voices_append(state.next_bar)
+			state.next_bar = ''
 		str = str[1:]
 		voices_append ('\\grace { ')
 
@@ -682,10 +990,11 @@ def parse_file (fn):
 	f = open (fn)
 	ls = f.readlines ()
 
-	state = Parser_state ()
+	select_voice('default', '')
 	lineno = 0
 	sys.stderr.write ("Line ... ")
 	sys.stderr.flush ()
+	__main__.state = state_list[current_voice_idx]
 	
 	for ln in ls:
 		lineno = lineno + 1
@@ -693,22 +1002,21 @@ def parse_file (fn):
 		if not (lineno % happy_count):
 			sys.stderr.write ('[%d]'% lineno)
 			sys.stderr.flush ()
-		if re.match ('^[\t ]*(%.*)?$', ln):
-			continue
-		m = re.match  ('^(.*?)%(.*)$',ln)
+		m = re.match  ('^([^%]*)%(.*)$',ln)  # add comments to current voice
 		if m:
-			voices_append ('%% %s\n' % m.group(2))
+			if m.group(2):
+				voices_append ('%% %s\n' % m.group(2))
 			ln = m.group (1)
 
 		orig_ln = ln
 		
-		ln = try_parse_header_line (ln)
+		ln = try_parse_header_line (ln, state)
 
 		# Try nibbling characters off until the line doesn't change.
 		prev_ln = ''
 		while ln != prev_ln:
 			prev_ln = ln
-			ln = try_parse_chord_delims (ln)
+			ln = try_parse_chord_delims (ln, state)
 			ln = try_parse_rest (ln, state)
 			ln = try_parse_articulation (ln,state)
 			ln = try_parse_note  (ln, state)
@@ -718,7 +1026,7 @@ def parse_file (fn):
 			ln = try_parse_guitar_chord (ln, state)
 			ln = try_parse_tuplet_begin (ln, state)
 			ln = try_parse_group_end (ln, state)
-			ln = try_parse_grace_delims (ln)
+			ln = try_parse_grace_delims (ln, state)
 			ln = junk_space (ln)
 
 		if ln:
@@ -784,8 +1092,10 @@ for f in files:
 	outf = open (out_filename, 'w')
 
 #	dump_global (outf)
-	dump_lyrics (outf)
+	dump_header (outf ,header)
+	dump_slyrics (outf)
 	dump_voices (outf)
 	dump_score (outf)
+	dump_lyrics (outf)
 	sys.stderr.write ('\n')
 	

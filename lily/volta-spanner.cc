@@ -87,10 +87,16 @@ Interval
 Volta_spanner::do_height () const
 {
   /*
-    in most cases, it's a lot better not no have height...
+    Originally the following comment existed here
+    "in most cases, it's a lot better not no have height...",
+    but problems existed with collision between volta spanner
+    and above staff or lyrics for multi-staff music, so the proper
+    height is now being returned. Additional space should still
+    be added elsewhere so lyrics from above staff do not sit on
+    volta spanner. (Roy R. Rankin)
   */
-  Interval i;
-  return i;
+  Real h = paper_l()->get_var ("volta_spanner_height") * 2.;
+  return Interval (0., h);
 }
 
 void
