@@ -29,11 +29,11 @@ c8
 
 	\duration {4}
 	{
-		\music { c () `bes c}
-		\music { 'fis ()'gisis fis }
-		\music { d () d dis }
-		\music {  a  () bes eis }
-		\music { fis () g gis }
+		\music { c () `bes [c8 c8] }
+		\music { 'fis ()'gisis fis8 fis8 }
+		\music { d () d dis8 dis8 }
+		\music {  a  () bes eis8 eis8 }
+		\music { fis () g gis8 gis8 }
 	}
 	{ c4 'c4 }
 
