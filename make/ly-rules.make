@@ -23,11 +23,6 @@ $(outdir)/%.nexi: %.tely
 	rm -f $(outdir)/$*.texi
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) --process='true' $<
 	mv $(outdir)/$*.texinfo $@ 2>/dev/null || mv $(outdir)/$*.texi $@
-# makeinfo <= 4.6 image bug workaround
-	if [ $(MAKEINFO_VERSION) -le 4006000 ]; then \
-		(cd $(outdir) && \
-		ls -1 lily-*.ly | sed 's/.ly$$/.txt/' | xargs touch) || true; \
-	fi
 
 $(outdir)/%.info: $(outdir)/%.nexi
 	$(MAKEINFO) -I $(outdir) --output=$(outdir)/$(*F).info $<

@@ -97,8 +97,6 @@ STEPMAKE_PROGS(MFTRACE, mftrace, OPTIONAL, 1.1.1)
 
 # new makeinfo for multi-page website docs
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
-AC_SUBST(MAKEINFO_VERSION)
-
 
 if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"

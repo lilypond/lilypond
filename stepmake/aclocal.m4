@@ -840,35 +840,12 @@ AC_DEFUN(STEPMAKE_LOCALE, [
     if test "$lang" = "unknown" ; then
 	STEPMAKE_WARN($language not supported; available are: $ALL_LINGUAS)
     fi
-
 ])
 
 
 AC_DEFUN(STEPMAKE_MAKEINFO, [
     STEPMAKE_PROGS(MAKEINFO, makeinfo, $1)
-    if test "$MAKEINFO" = "makeinfo"; then
-	AC_MSG_CHECKING(whether makeinfo can split html by @node)
-	mkdir -p out
-	makeinfo --html --output=out/split <<EOF
-\input texinfo
-\input texinfo @c -*-texinfo-*-
-@setfilename split.info
-@settitle split.info
-@bye
-EOF
-	if test -d out/split; then
-	    SPLITTING_MAKEINFO=yes
-	    AC_MSG_RESULT(yes)
-	    rm -rf out/split
-	else
-	    AC_MSG_RESULT(no)
-	    STEPMAKE_WARN(your html documentation will be one large file)
-	    rm -rf out/split
-	fi
-    fi
-    AC_SUBST(SPLITTING_MAKEINFO)
 ])
-
 
 
 AC_DEFUN(STEPMAKE_MAN, [
