@@ -27,7 +27,7 @@ gigueViolaScripts =  \notes{
 }
 
 gigueViolaStaff =  \context Staff <
-	\notes \transpose c' \gigue
+	\notes \transpose c'' \gigue
 	\gigueViolaGlobal
 	\gigueViolaScripts
 >

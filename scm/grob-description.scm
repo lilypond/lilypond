@@ -70,6 +70,7 @@
 		 (flag-width-function . ,default-beam-flag-width-function)
 		 (space-function . ,default-beam-space-function)
 		 (damping . 1)
+		 (auto-knee-gap . 7)
 		 (meta . ,(grob-description "Beam" beam-interface))
 		 ))
 	 
@@ -533,7 +534,9 @@
 	(SystemStartDelimiter . (
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
-		(collapse-height . 1.0)
+		;; ugh, in practice, brace has height of 4.1 staff-spaces
+		(brace-collapse-height . 4.1)
+		(bracket-collapse-height . 1)
 		(thickness . 1.6)
 		(arch-height . 1.5)
 		(arch-angle . 50.0)

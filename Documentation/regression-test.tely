@@ -184,6 +184,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{break.ly}
 
+@lilypondfile[printfilename]{bar-number.ly}
+
 @lilypondfile[printfilename]{bar-scripts.ly}
 
 @lilypondfile[printfilename]{staff-margin.ly}

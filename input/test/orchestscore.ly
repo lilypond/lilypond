@@ -77,7 +77,8 @@ c1 | c2 c | c c | R1*5
       \m
     >
     \context Staff = vlc <
-      \property Staff.instrument = "Violoncello"
+      %% \property Staff.instrument = "Violoncello"
+      \property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
       \property Staff.instr = "Vlc"
       \m
     >
@@ -93,8 +94,12 @@ c1 | c2 c | c c | R1*5
     linewidth = 185.\mm;
     textheight = 260.\mm;
     \translator {
-	\OrchestralScoreContext
-%	barNumberScriptPadding = 10;
+      \OrchestralScoreContext
+      skipBars = ##t 
+      markScriptPadding = #4.0
+      BarNumber \override $'padding = #3
+      RestCollision \override #'maximum-rest-count = #1
+      marginScriptHorizontalAlignment = #1
     }
     \translator { \HaraKiriStaffContext
     }

@@ -187,11 +187,20 @@ Beam::consider_auto_knees (Grob *me)
       
       Grob *common = me->common_refpoint (stems[0], Y_AXIS);
       for (int i=1; i < stems.size (); i++)
-	common = common->common_refpoint (stems[i], Y_AXIS);
-      
+	if (!Stem::invisible_b (stems[i]))
+	  common = common->common_refpoint (stems[i], Y_AXIS);
+
+      int l = 0;
       for (int i=1; i < stems.size (); i++)
         {
-	  Real left = Stem::extremal_heads (stems[i-1])[d]
+	  if (!Stem::invisible_b (stems[i-1]))
+	    l = i - 1;
+	  if (Stem::invisible_b (stems[l]))
+	    continue;
+	  if (Stem::invisible_b (stems[i]))
+	    continue;
+	  
+	  Real left = Stem::extremal_heads (stems[l])[d]
 	    ->relative_coordinate (common, Y_AXIS);
 	  Real right = Stem::extremal_heads (stems[i])[d]
 	    ->relative_coordinate (common, Y_AXIS);
@@ -210,6 +219,8 @@ Beam::consider_auto_knees (Grob *me)
 	{
 	  for (int i=0; i < stems.size (); i++)
 	    {
+	      if (Stem::invisible_b (stems[i]))
+		continue;
 	      Item *s = stems[i];	  
 	      Real y = Stem::extremal_heads (stems[i])[d]
 		->relative_coordinate (common, Y_AXIS);
@@ -530,7 +541,8 @@ Beam::set_stem_length (Grob*me,Real y, Real dy)
   
   Grob *common = me->common_refpoint (stems[0], Y_AXIS);
   for (int i=1; i < stems.size (); i++)
-    common = common->common_refpoint (stems[i], Y_AXIS);
+    if (!Stem::invisible_b (stems[i]))
+      common = common->common_refpoint (stems[i], Y_AXIS);
 
   for (int i=0; i < stems.size (); i++)
     {

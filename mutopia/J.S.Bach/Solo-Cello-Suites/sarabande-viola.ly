@@ -17,7 +17,7 @@ sarabandeViolaScripts =  \notes{
 }
 
 sarabandeViolaStaff =  \context Staff <
-	\notes \transpose c' \sarabande
+	\notes \transpose c'' \sarabande
 	\sarabandeViolaGlobal
 	\sarabandeViolaScripts
 >
