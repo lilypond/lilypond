@@ -13,6 +13,20 @@
 #include <stdlib.h>
 #include <math.h>   /* isinf */
 #include <string.h> /* strdup, strchr */
+
+
+#include "lily-proto.hh"
+
+/* macosx fix:
+
+
+ source-file.hh includes cmath which undefines isinf and isnan
+*/
+inline int my_isinf(Real r) { return isinf(r); }
+inline int my_isnan(Real r) { return isnan(r); }
+
+
+
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
@@ -23,14 +37,6 @@
 #include "interval.hh"
 #include "pitch.hh"
 #include "dimensions.hh"
-
-/* macosx fix:
-
- source-file.hh includes cmath which undefines isinf and isnan
-*/
-inline int (isinf)(Real r) { return isinf(r); }
-inline int (isnan)(Real r) { return isnan(r); }
-
 #include "source-file.hh"
 
 // #define TEST_GC
@@ -320,7 +326,7 @@ leaves a space at the end.
     {
       Real r (gh_scm2double (s));
 
-      if (isinf (r) || isnan (r))
+      if (my_isinf (r) || my_isnan (r))
 	{
 	  programming_error ("Infinity or NaN encountered while converting Real number; setting to zero.");
 	  r = 0.0;

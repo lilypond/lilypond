@@ -35,6 +35,7 @@
 	corrections. Thanks to Karl Berry
 
 2000-08-30  Heikki Junes <hjunes@cc.hut.fi>
+	
         * make/lilypond.mandrake.spec.in: Mandrake adaptations from
         redhat spec and rpm-skeleton found in Mandrake's home page.
 
