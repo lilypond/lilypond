@@ -30,6 +30,3 @@ Parametric_symbol::eval(String args1,String arg2)const
     return eval(a);
 }
 
-Parametric_symbol::~Parametric_symbol()
-{
-}
