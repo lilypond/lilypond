@@ -49,9 +49,18 @@ SCM
 Accidental_interface::brew_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
+  bool smaller = false;
+  bool parens = false;
+  
+  bool caut  = to_boolean (me->get_grob_property ("cautionary"));
+  if (caut)
+    {
+      SCM cstyle = me->get_grob_property ("cautionary-style");
+      parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      smaller = gh_equal_p (cstyle, ly_symbol2scm ("smaller"));
+    }
+  
   SCM scm_style = me->get_grob_property ("style");
- 
   String style;
   if (gh_symbol_p (scm_style))
     {
@@ -65,7 +74,20 @@ Accidental_interface::brew_molecule (SCM smob)
       style = "";
     }
 
-  
+
+  Font_metric *fm = 0;
+  if (smaller)
+    {
+      SCM ac = Font_interface::font_alist_chain (me);
+      ac = gh_cons (gh_cons (gh_cons
+			     (ly_symbol2scm ("font-relative-size"),
+			      gh_int2scm (-1)), SCM_EOL),
+		    ac);
+      fm = Font_interface::get_font (me, ac);
+    }
+  else
+    fm = Font_interface::get_default_font (me);
+
   Molecule mol;
   for (SCM s = me->get_grob_property ("accidentals");
        gh_pair_p (s);  s= gh_cdr (s))
@@ -73,19 +95,16 @@ Accidental_interface::brew_molecule (SCM smob)
       SCM entry  = gh_car (s);
       
       
-      Molecule acc (Font_interface::get_default_font (me)->
-		    find_by_name (String ("accidentals-") +
-				  style +
-				  to_str (gh_scm2int(entry))));
+      Molecule acc (fm->find_by_name (String ("accidentals-") +
+				      style +
+				      to_str (gh_scm2int(entry))));
       
       mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
     }
 
-#if 0
-  // TODO.
-  if (to_boolean (me->get_grob_property ("parenthesize")))
+  if (parens)
     mol = parenthesize (me, mol); 
-#endif
+
   return mol.smobbed_copy();
 }
 

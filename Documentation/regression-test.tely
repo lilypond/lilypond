@@ -55,6 +55,8 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{accidental.ly}
 
+@lilypondfile[printfilename]{accidental-cautionary.ly}
+
 @lilypondfile[printfilename]{accidental-placement.ly}
 
 @lilypondfile[printfilename]{accidental-single-double.ly}

@@ -30,6 +30,7 @@
      . (
 	(molecule-callback . ,Accidental_interface::brew_molecule)
 	(font-family . music)
+	(cautionary-style . smaller)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (accidental-interface font-interface))))
 	))
     (AccidentalPlacement
