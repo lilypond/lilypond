@@ -6,12 +6,12 @@
   (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <ctype.h>
 #include "debug.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "text-def.hh"
-#include <ctype.h>
 
 Direction
 Text_def::staff_dir () const
@@ -24,17 +24,7 @@ Text_def::staff_dir () const
 Real
 Text_def::guess_width_f(Atom& a) const
 {
-  // Count each TeX command as one character, ugh
-  int index, length=0;
-  int total_length=text_str_.length_i();
-  const char* str=text_str_.ch_C();
-  for (index=0;index<total_length;index++) {
-    length++;
-    if (str[index]=='\\')
-      for (index++;(index < total_length) && isalpha(str[index]);index++)
-	;
-  }
-  return length * a.dim_.x ().length (); // ugh
+  return a.dim_.x ().length ();
 }
 
 Interval
@@ -42,9 +32,8 @@ Text_def::width (Paper_def * p) const
 {
   Atom a = get_atom (p,CENTER);
 
-
-  Interval i (0, guess_width_f(a));
-  i += - (align_dir_ + 1)* i.center();
+  Interval i (0, guess_width_f (a));
+  i += - (align_dir_ + 1)* i.center ();
   return i;
 }
 

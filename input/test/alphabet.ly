@@ -1,0 +1,64 @@
+\score{
+	<
+	\type Staff \notes{ c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c }
+	\type Lyrics \lyrics{ 
+aaaaaaaaaaaaaaaaaaa
+bbbbbbbbbbbbbbbbbbb
+ccccccccccccccccccc
+ddddddddddddddddddd
+eeeeeeeeeeeeeeeeeee
+fffffffffffffffffff
+ggggggggggggggggggg
+hhhhhhhhhhhhhhhhhhh
+iiiiiiiiiiiiiiiiiii
+jjjjjjjjjjjjjjjjjjj
+kkkkkkkkkkkkkkkkkkk
+lllllllllllllllllll
+mmmmmmmmmmmmmmmmmmm
+nnnnnnnnnnnnnnnnnnn
+ooooooooooooooooooo
+ppppppppppppppppppp
+qqqqqqqqqqqqqqqqqqq
+rrrrrrrrrrrrrrrrrrr
+sssssssssssssssssss
+ttttttttttttttttttt
+uuuuuuuuuuuuuuuuuuu
+vvvvvvvvvvvvvvvvvvv
+wwwwwwwwwwwwwwwwwww
+xxxxxxxxxxxxxxxxxxx
+yyyyyyyyyyyyyyyyyyy
+zzzzzzzzzzzzzzzzzzz
+...................
+AAAAAAAAAAAAAAAAAAA
+BBBBBBBBBBBBBBBBBBB
+CCCCCCCCCCCCCCCCCCC
+DDDDDDDDDDDDDDDDDDD
+EEEEEEEEEEEEEEEEEEE
+FFFFFFFFFFFFFFFFFFF
+GGGGGGGGGGGGGGGGGGG
+HHHHHHHHHHHHHHHHHHH
+IIIIIIIIIIIIIIIIIII
+JJJJJJJJJJJJJJJJJJJ
+KKKKKKKKKKKKKKKKKKK
+LLLLLLLLLLLLLLLLLLL
+MMMMMMMMMMMMMMMMMMM
+NNNNNNNNNNNNNNNNNNN
+OOOOOOOOOOOOOOOOOOO
+PPPPPPPPPPPPPPPPPPP
+QQQQQQQQQQQQQQQQQQQ
+RRRRRRRRRRRRRRRRRRR
+SSSSSSSSSSSSSSSSSSS
+TTTTTTTTTTTTTTTTTTT
+UUUUUUUUUUUUUUUUUUU
+VVVVVVVVVVVVVVVVVVV
+WWWWWWWWWWWWWWWWWWW
+XXXXXXXXXXXXXXXXXXX
+YYYYYYYYYYYYYYYYYYY
+ZZZZZZZZZZZZZZZZZZZ
+aaaaaaaaaaaaaaaaaaa
+	}
+	>
+	\paper {
+               castingalgorithm = \Wordwrap;
+	}
+}
