@@ -3,14 +3,14 @@
 ;; Copyright (C) 1992,1993,1994  Tim Peters
 
 ;; Author: 2001: Heikki Junes
-;;  * Emacs-mode: new keywords, reserved words, notenames and brackets are
-;;    font-lock-keywords; implementation encourages spacing/indenting.
+;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
+;;    some dynamics and brackets are font-lock-keywords
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
 ;; Version:       0.0
-;; Last Modified: 1SEP2001
+;; Last Modified: 14SEP2001
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -31,45 +31,80 @@
 (defconst LilyPond-font-lock-keywords
   (let* ((keywords '( ; need special order due to over[lapping] of words
 
-"accepts" "addlyrics" "alternative" "apply" "arpeggio" "autoBeamOff"
-"autoBeamOn" "autochange" "bar" "BarNumberingStaffContext" "break"
-"breathe" "breve" "cadenzaOn" "cadenzaOff" "char" "chord" "chordmodifiers"
-"ChordNamesContext" "chordstest" "chords" "clef" "cm" "commandspanrequest"
-"consistsend" "consists" "context" "default" "denies" "different"
-"dotsBoth" "dotsDown" "dotsUp" "duration" "dynamicscript" "dynamicUp"
-"dynamicDown" "dynamicBoth" "EasyNotation" "elementdescriptions"
-"emptyText" "extreme" "ex" "fatText" "fermata" "fff" "ff" "f" "font" "foo"
-"glissando" "gliss" "grace" "grstaff" "hairyChord" "HaraKiriStaffContext"
-"header" "hideStaffSwitch" "include" "in" "key" "linebreak" "longa"
-"lyrics" "LyricsContext" "LyricsVoiceContext" "major" "mark" "melismaEnd"
-"melisma" "midi" "minor" "mm" "musicalpitch" "m" "name" "newpage"
-"noBreak" "noisebeat" "noise" "normalkey" "normalsize" "notenames" "notes"
-"n" "onestaff" "oneVoice" "one" "OrchestralScoreContext" "outputproperty"
-"override" "paperTwentysix" "paper" "partcombine" "partial" "penalty"
-"PianoStaffContext" "pp" "property" "pt" "p" "relative" "remove" "repeat"
-"restsII" "rests" "revert" "rhythm" "right" "scales" "scale" "scheme"
-"score" "ScoreContext" "scpaper" "scriptBoth" "scriptDown" "scriptUp"
-"script" "scscore" "sd" "sequential" "settings" "set" "sfz" "shitfOnnn"
-"shitfOnn" "shitfOn" "shitfOff" "showStaffSwitch" "simultaneous" "skip"
-"slurBoth" "slurDown" "slurUp" "slurDotted" "slurSolid" "small"
-"spanrequest" "specialKey" "staccato" "StaffContext" "staffspace"
-"stemBoth" "stemDown" "stemUp" "stpaper" "stscore" "stylesheet" "su"
-"tempo" "tenuto" "textII" "textI" "textscript" "thenotes" "ThreadContext"
-"threevoice" "tieBoth" "tieDown" "tieDotted" "tieSolid" "tieUp" "times"
-"time" "tiny" "touch" "translator" "transpose" "tupletBoth" "tupletDown"
-"tupletUp" "twovoicesteminvert" "twovoice" "two" "turnOff" "type" "t"
-"unset" "version" "voiceB" "VoiceContext" "voiceC" "voiceD" "voiceE"
-"voiceOne" "voiceTwo" "voiceThree" "voiceFour" "zagers" "zager" "zoger"
+;; all letters are lowercase
+"accepts" "accompany" "addlyrics" "aeolian" "alias" "alternative"
+"apply" "arpeggio" "autochange" "bar" "break" "breathe" "breve"
+"beamintervals" "broken" "blend" "bcincipit" "char" "ch" "cg"
+"chord\\(s\\|stest\\|chordmodifiers\\)?"
+"clef \\(bass\\|treble\\|violin\\|tenor\\)?"
+"clipping" "cm" "coda" "complex" "commandspanrequest" "consists\\(end\\)?"
+"context" "contrabasso" "decr" "default" "denies" "different" "dirs"
+"down\\(bow\\|prall\\)?" "dorian" "duration" "dynamicscript"
+"eccentric" "eg" "embeddedps" "endincipit" "elementdescriptions"
+"ex\\(treme\\)?" "fermata" "f+" "font" "flageolet" "fp" "fragment" "fz"
+"gliss\\(ando\\)?" "global" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
+"header" "hsize" "in\\(clude\\|versions\\|visible\\)?" "ionian"
+"key\\(s\\(ignature\\)?\\)?" "lag" "lheel" "line\\(break\\|prall\\)"
+"locrian" "longa" "lower" "ltoe" "lydian" "lyrics"
+"maintainer" "mark" "maxima" "mel\\(isma\\|ody\\)?" "midi" "major"
+"minor" "mixolydian" "mordent" "monstrous" "multipart" "music"
+"musicalpitch" "m\\(p\\|f\\|m\\)?" "name" "newpage" "noise\\(beat\\)?"
+"normal\\(key\\|size\\)" "note\\(name\\)?s" "nt?"
+"one\\(staff\\)?" "open" "outputproperty" "over\\(ride\\)?"
+"paper" "partcombine" "partial" "penalty" "phrygian" "pitch" "p+"
+"property" "pt" "prall\\(mordent\\|prall\\|up\\)?" "quickmeasure"
+"relative" "remove" "repeat" "rever\\(t\\|seturn\\)" "rf" "rheel" "rhythm"
+"right" "rtoe" "scales?" "scheme" "score" "scpaper" "script" "scscore" "sd"
+"segno" "sequential" "set\\(tings\\)?" "sf\\(f\\|z\\)?" "shortlong"
+"simultaneous" "singlepart" "skip" "small" "smarttranspose" "spanrequest"
+"staccato" "staff\\(height\\|space\\)" "start" "stop\\(ped\\)?"
+"st\\(paper\\|score\\)" "stuff" "stylesheet" "su" "tab" "tempo" "tenuto" 
+"textscript" "thenotes" "thrd" "threevoice" "thumb" "tilt\\(down\\|up\\)" 
+"timb" "times?" "timpani" "tiny" "toeters" "touch" "trans\\(lator\\|pose\\)" 
+"trill" "trombe" "turn" "type" "t\\(wo\\(voice\\(steminvert\\)?\\)?\\)?" 
+"un\\(der\\|set\\)" "up\\(bow\\|per\\|prall\\)?" "version" 
+"viol\\(a\\|in\\(incipit\\)?\\|oncello\\)" "visible" "voicedefault" "vsize"
+"x" "zagers?" "z\\(eu\\|o\\)ger"
 
 		      ))
 
+  (identifiers '( 
+
+;; in principle, have one or more uppercase letters
+"\\(\\(BarNumbering\\|Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|Grace\\|Lyrics\\|StaffGroup\\|Thread\\)Context" ; *Context
+"\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
+"\\(slur\\|tie\\)\\(Dotted\\|Solid\\)" ; *(Dotted/Solid)
+"\\(autoBeam\\|cadenza\\|impro\\|turn\\)\\(Off\\|On\\)" ; *(On/Off)
+"\\(empty\\|fat\\)Text" ; *Text
+"shift\\(On+\\|Off\\|I\\|II\\|III\\|IV\\|V\\)" ; shift*
+"EasyNotation"
+"\\(hide\\|show\\)StaffSwitch"
+"\\(lower\\|upper\\)Voice"
+"voice\\(One\\|Two\\|Three\\|Four\\|B\\|C\\|D\\|E\\)" ; voice*
+"paper\\(Eleven\\|Sixteen\\|Thirteen\\|TwentySix\\)" ; paper*
+"\\(lower\\|upper\\)\\(Octave\\|One\\)" ; (lower/upper)*
+"hairyChord"
+"\\(Piano\\|Rhythmic\\)\\(Staff\\)?"
+"\\(clarinetti\\|fagotti\\|flauti\\|melodic\\|oboi\\|\\(quite\\|rather\\|somewhat\\)LongLyrics\\|violinoII?\\)?\\(Staff\\)?" ; *Staff
+"\\(archi\\|bassi\\|legni\\|ottoni\\|timpani\\|viole\\|violini\\)\\(Group\\)" ; *Group
+"melisma\\(End\\)?" "staff\\(One\\|Two\\)?" "rests\\(II\\)?" "specialKey"
+"noBreak" "paperTwentysix" "endHorizScript" "FontBody" "text(I)+"
+
+                      ))
+
   (reservedwords '(
 
-"bass" "treble" "PianoStaff"
+;; Other words which look nicer when colored
+"Accidentals" "autoBeamSettings" "BarLine" "Beam"
+"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "Grace\\(.[a-zA-Z]*\\)?"
+"\\(Grand\\|Piano\\)Staff" "Lyrics\\(.[a-zA-Z]*\\)?" "NoteHead" 
+"Score\\(.[a-zA-Z]*\\)" "Stem" "Staff\\(Symbol\\)?" "TextScript" 
+"TimeSignature" "Voice\\(.[a-zA-Z]*\\)?"
 
 		      ))
 
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|"))
+       (iregex (mapconcat (lambda (x) (concat "\\\\" x))  identifiers "\\|"))
        (rwregex (mapconcat (lambda (x) (concat "" x))  reservedwords "\\|"))
 )
 
@@ -78,32 +113,30 @@
 ;; font-lock- comment / string / keyword / builtin / function-name / 
 ;;            variable-name / type / constant / warning -face
 
-;; Using extra spaces was both easier to parse and looks better!
-;; highlight note grouping brackets; space around these { [ < brackets > ] }
-;;   make the text look {less[<messyand>]erronous}
-      '("\\([<{[]\\)[ \t]" 1 font-lock-warning-face)
-      '("\\([\]}>]\\)[ \t]" 1 font-lock-warning-face)
-      '("^\\([<{[]\\)[ \t]" 1 font-lock-warning-face)
-      '("^\\([\]}>]\\)[ \t]" 1 font-lock-warning-face)
-      '("\\([<{[]\\)$" 1 font-lock-warning-face)
-      '("\\([\]}>]\\)$" 1 font-lock-warning-face)
-
-;; highlight keywords; space after[ ]these commands /increases/readability
-      (concat "\\([_^]?\\(" kwregex "\\)\\)[ \t(]")
-      (concat "\\([_^]?\\(" kwregex "\\)\\)$")
       '("\\([_^]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
-      '("\\([a-zA-Z][_a-zA-Z]*\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
-      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)[ \t(]" 1 font-lock-variable-name-face)
-      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)$" 1 font-lock-variable-name-face)
+      '("\\(\\(#'\\)?[a-zA-Z][_a-zA-Z.\-]*[ \t]*=[ \t]*#\\)" 1 font-lock-variable-name-face)
+      '("\\([a-zA-Z][_a-zA-Z.\-]*\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
+      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)" 1 font-lock-variable-name-face)
+
 
 ;; other reserved words
-      (cons (concat "\\(" rwregex "\\) ") 'font-lock-variable-name-face)
-      (cons (concat "\\(" rwregex "\\)$") 'font-lock-variable-name-face)
+      (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("[ )\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(b\\|bb\\|d\\|dd\\|s\\|ss\\)?\\)\\|\\([a-hsr]\\(f\\|ff\\|s\\|ss\\|flat\\|flatflat\\|sharp\\|sharpsharp\\|is[s]?\\|is[s]?is[s]?\\|es[s]?\\|es[s]?es[s]?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(ses\\)?\\)\\|\\(bb\\)\\)[,']*\\(64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsr]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*\\(64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
 
-      '("\\([(~)]\\)" 1 font-lock-builtin-face)
+;; highlight identifiers
+      (cons (concat "\\([_^]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-function-name-face t))
+
+;; highlight keywords
+      (cons (concat "\\([_^]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-keyword-face t))
+
+      '("\\([][><}{]\\)" 0 font-lock-warning-face t)
+
+      '("\\([(~)]\\|\\\\<\\|\\\\!\\|\\\\>\\)" 0 font-lock-builtin-face t)
+
+;; highlight comments (again)
+      '("\\(%.*\\)" 0 font-lock-comment-face t)
 
       )
     )
