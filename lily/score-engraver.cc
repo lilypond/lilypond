@@ -12,7 +12,7 @@
 #include "score-engraver.hh"
 #include "paper-score.hh"
 #include "musical-request.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
 
@@ -29,7 +29,7 @@ void
 Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
-  set_columns (new Score_column (w),  new Score_column (w));
+  set_columns (new Paper_column (w),  new Paper_column (w));
 
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
   post_move_processing();
@@ -171,8 +171,8 @@ Score_engraver::do_pre_move_processing()
 }
 
 void
-Score_engraver::set_columns (Score_column *new_command_l, 
-			     Score_column *new_musical_l)
+Score_engraver::set_columns (Paper_column *new_command_l, 
+			     Paper_column *new_musical_l)
 {
   if (command_column_l_ && command_column_l_->linked_b()) 
     {

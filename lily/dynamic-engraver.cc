@@ -10,7 +10,7 @@
 #include "musical-request.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "staff-symbol.hh"
 #include "note-column.hh"
 #include "text-item.hh"

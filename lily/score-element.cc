@@ -476,7 +476,11 @@ Score_element::mark_smob (SCM ses)
   void * mp = (void*) gh_cdr(ses);
   Score_element * s = (Score_element*) mp;
 
-  assert (s->self_scm_ == ses);
+  if (s->self_scm_ != ses)
+    {
+      programming_error ("SMOB marking gone awry");
+      return SCM_EOL;
+    }
   return s->element_property_alist_;
 }
 

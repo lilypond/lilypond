@@ -8,7 +8,7 @@
  */
 
 #include "musical-request.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "spacing-engraver.hh"
 #include "spacing-spanner.hh"
 
@@ -92,11 +92,12 @@ Spacing_engraver::do_pre_move_processing ()
   
   shortest_playing = shortest_playing <? starter;
   
-  Score_column * sc
-    = dynamic_cast<Score_column*> (get_staff_info ().musical_pcol_l ());
+  Paper_column * sc
+    = dynamic_cast<Paper_column*> (get_staff_info ().musical_pcol_l ());
 
-  sc->shortest_playing_mom_ = shortest_playing;
-  sc->shortest_starter_mom_ = starter;
+  sc->set_elt_property ("shortest-playing",  (new Moment (shortest_playing))->smobify_self ());
+  
+  sc->set_elt_property ("shortest-starter", (new Moment (starter))->smobify_self ());
 }
 
 void

@@ -81,13 +81,6 @@ Slur::do_pre_processing ()
 }
 
 
-static int 
-Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
-{
-  return Item::left_right_compare (n1, n2);
-}
-
-
 Offset
 Slur::encompass_offset (Note_column const* col) const
 {
@@ -135,10 +128,10 @@ Slur::encompass_offset (Note_column const* col) const
 void
 Slur::do_post_processing ()
 {
-    Link_array<Note_column> encompass_arr =
+  Link_array<Note_column> encompass_arr =
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
-  encompass_arr.sort (Note_column_compare);
+
   if (!get_direction ())
     set_direction (get_default_dir ());
 

@@ -9,7 +9,7 @@
 #include "proto.hh"
 
 #include "staff-info.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 
 Staff_info::Staff_info()
 {

@@ -14,11 +14,6 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-SCM
-pitch2scm (Musical_pitch p)
-{
-  return gh_cons (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_));
-}
 
 /*
   construct from parser output
@@ -201,26 +196,40 @@ to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* i
   return Chord (pitch_arr, inversion_p, bass_p);
 }
 
+Chord::Chord ()
+{
+  inversion_b_ = false;
+  bass_b_ = false;
+}
+
 Chord::Chord (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion_p, Musical_pitch* bass_p)
 {
   pitch_arr_ = pitch_arr;
-  inversion_p_ = inversion_p;
-  bass_p_ = bass_p;
+  inversion_b_ = false;
+  bass_b_ = false;
+  if (inversion_p)
+    {
+      inversion_pitch_ = *inversion_p;
+      inversion_b_ = true;
+      delete inversion_p;
+    }
+  if (bass_p)
+    {
+      bass_pitch_ = *bass_p;
+      bass_b_ = true;
+      delete bass_p;
+    }
 }
-
+  
 Chord::Chord (Chord const& chord)
-  : Item (chord)
 {
   pitch_arr_ = chord.pitch_arr_;
-  inversion_p_ = chord.inversion_p_ ? new Musical_pitch (*chord.inversion_p_) : 0;
-  bass_p_ = chord.bass_p_ ? new Musical_pitch (*chord.bass_p_) : 0;
+  inversion_b_ = chord.inversion_b_;
+  inversion_pitch_ = chord.inversion_pitch_;
+  bass_b_ = chord.bass_b_;
+  bass_pitch_ = chord.bass_pitch_;
 }
-
-Chord::~Chord ()
-{
-  delete inversion_p_;
-  delete bass_p_;
-}
+  
 
 Array<Musical_pitch>
 Chord::base_arr (Musical_pitch p)
@@ -342,34 +351,34 @@ Array<Musical_pitch>
 Chord::to_pitch_arr () const
 {
   Array<Musical_pitch> pitch_arr = pitch_arr_;
-  if (inversion_p_)
+  if (inversion_b_)
     {
       int i = 0;
       for (; i < pitch_arr.size (); i++)
 	{
-	  if ((pitch_arr[i].notename_i_ == inversion_p_->notename_i_)
-	      && (pitch_arr[i].accidental_i_ == inversion_p_->accidental_i_))
+	  if ((pitch_arr[i].notename_i_ == inversion_pitch_.notename_i_)
+	      && (pitch_arr[i].accidental_i_ == inversion_pitch_.accidental_i_))
 	    break;
 	}
       if (i == pitch_arr.size ())
 	{
 	  warning (_f ("invalid inversion pitch: not part of chord: %s",
-		       inversion_p_->str ()));
+		       inversion_pitch_.str ()));
 	}
       else
 	rebuild_with_bass (&pitch_arr, i);
     }
 
-  if (bass_p_)
+  if (bass_b_)
     {
-      pitch_arr.insert (*bass_p_, 0);
+      pitch_arr.insert (bass_pitch_, 0);
       rebuild_with_bass (&pitch_arr, 0);
     }
   return pitch_arr;
 }
 
 void
-Chord::find_additions_and_subtractions (Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p) const
+Chord::find_additions_and_subtractions (Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p)
 {
   Musical_pitch tonic = pitch_arr[0];
   /*
@@ -437,195 +446,6 @@ Chord::find_additions_and_subtractions (Array<Musical_pitch> pitch_arr, Array<Mu
     add_arr_p->push (pitch_arr.top ());
 }
 
-
-/*
-  word is roman text or styled text:
-   "text"
-   ("style" . "text")
- */
-Molecule
-Chord::ly_word2molecule (SCM scm) const
-{
-  String style;
-  if (gh_pair_p (scm))
-    {
-      style = ly_scm2string (gh_car (scm));
-      scm = gh_cdr (scm);
-    }
-  String text = ly_scm2string (scm);
-  return lookup_l ()->text (style, text, paper_l ());
-}
-
-/*
- scm is word or list of words:
-   word
-   (word word)
- */
-Molecule
-Chord::ly_text2molecule (SCM scm) const
-{
-  Molecule mol;
-  if (gh_list_p (scm))
-    {
-      while (gh_cdr (scm) != SCM_EOL)
-        {
-	  mol.add_at_edge (X_AXIS, RIGHT, 
-            ly_word2molecule (gh_car (scm)), 0);
-	  scm = gh_cdr (scm);
-	}
-      scm = gh_car (scm);
-    }  
-  mol.add_at_edge (X_AXIS, RIGHT, 
-    ly_word2molecule (scm), 0);
-  return mol;
-}
-
-Molecule
-Chord::pitch2molecule (Musical_pitch p) const
-{
-  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"), ly_quote_scm (pitch2scm (p)), SCM_UNDEFINED));
-
-  if (name != SCM_UNSPECIFIED)
-    {
-      return ly_text2molecule (name);
-    }
-
-  Molecule mol = lookup_l ()->text ("", p.str ().left_str (1).upper_str (), paper_l ());
-
-  /*
-    We want the smaller size, even if we're big ourselves.
-   */
-  if (p.accidental_i_)
-    mol.add_at_edge (X_AXIS, RIGHT, 
-		     
-		     paper_l ()->lookup_l (-2)->afm_find (String ("accidentals-") + to_str (p.accidental_i_)), 0.0);
-  return mol;
-}
-
-Musical_pitch
-diff_pitch (Musical_pitch tonic, Musical_pitch  p)
-{
-  Musical_pitch diff (p.notename_i_ - tonic.notename_i_, 
-    p.accidental_i_ - tonic.accidental_i_, 
-    p.octave_i_ - tonic.octave_i_);
-
-  while  (diff.notename_i_ >= 7)
-    {
-      diff.notename_i_ -= 7;
-      diff.octave_i_ ++;
-    }
-  while  (diff.notename_i_ < 0)
-    {
-      diff.notename_i_ += 7;
-      diff.octave_i_ --;
-    }
-
-  diff.accidental_i_ -= (tonic.semitone_pitch () + diff.semitone_pitch ())
-    - p.semitone_pitch ();
-
-  return diff;
-}
-
-bool
-Chord::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
-{
-  SCM chord = SCM_EOL;
-  Array<Musical_pitch> chord_type = pitch_arr;
-  rebuild_transpose (&chord_type, diff_pitch (pitch_arr[0], Musical_pitch (0)), false);
-
-  for (int i= chord_type.size (); i--; )
-    chord = gh_cons (pitch2scm (chord_type[i]), chord);
-
-  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
-  if (gh_pair_p (name))
-    {
-      name_p->modifier_mol = ly_text2molecule (gh_car (name));
-      name_p->addition_mol = ly_text2molecule (gh_cdr (name));
-      return true;
-    }
-  return false;
-}
-
-void
-Chord::banter (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
-{
-  Array<Musical_pitch> add_arr;
-  Array<Musical_pitch> sub_arr;
-  find_additions_and_subtractions (pitch_arr, &add_arr, &sub_arr);
-			   
-  Array<Musical_pitch> scale;
-  for (int i=0; i < 7; i++)
-    scale.push (Musical_pitch (i));
-
-  Musical_pitch tonic = pitch_arr[0];
-  rebuild_transpose (&scale, tonic, true);
-  
-  /*
-    Does chord include this step?  -1 if flat
-   */
-  int has[16];
-  for (int i=0; i<16; i++)
-    has[i] = 0;
-
-  String mod_str;
-  String add_str;
-  String sep_str;
-  for (int i = 0; i < add_arr.size (); i++)
-    {
-      Musical_pitch p = add_arr[i];
-      int step = step_i (tonic, p);
-      int accidental = p.accidental_i_ - scale[(step - 1) % 7].accidental_i_;
-      if ((step < 16) && (has[step] != -1))
-        has[step] = accidental == -1 ? -1 : 1;
-      // only from guile table ?
-      if ((step == 3) && (accidental == -1))
-	{
-	  mod_str = "m";
-	}
-      else if (accidental
-	       || (!(step % 2) 
-	       || ((i == add_arr.size () - 1) && (step > 5))))
-        {
-	  add_str += sep_str;
-	  sep_str = "/";
-          if ((step == 7) && (accidental == 1))
-	    {
-              add_str += "maj7";
-	    }
-	  else
-	    {
-	      add_str += to_str (step);
-	      if (accidental)
-		add_str += accidental < 0 ? "-" : "+";
-	    }
-	}
-    }
-
-  for (int i = 0; i < sub_arr.size (); i++)
-    {
-      Musical_pitch p = sub_arr[i];
-      int step = step_i (tonic, p);
-      /*
-	if additions include 2 or 4, assume sus2/4 and don't display 'no3'
-      */
-      if (!((step == 3) && (has[2] || has[4])))
-	{
-	  add_str += sep_str + "no" + to_str (step);
-	  sep_str = "/";
-	}
-    }
-
-  if (mod_str.length_i ())
-    name_p->modifier_mol.add_at_edge (X_AXIS, RIGHT, 
-      lookup_l ()->text ("roman", mod_str, paper_l ()), 0);
-  if (add_str.length_i ())
-    {
-      if (!name_p->addition_mol.empty_b ())
-        add_str = "/" + add_str;
-      name_p->addition_mol.add_at_edge (X_AXIS, RIGHT,
-       lookup_l ()->text ("script", add_str, paper_l ()), 0);
-    }
-}
 
 /*
   This routine tries to guess tonic in a possibly inversed chord, ie
@@ -743,82 +563,3 @@ Chord::rebuild_with_bass (Array<Musical_pitch>* pitch_arr_p, int bass_i)
   pitch_arr_p->insert (bass, 0);
 }
 
-Molecule*
-Chord::do_brew_molecule_p () const
-{
-  Musical_pitch tonic = pitch_arr_[0];
-  
-  Chord_name name;
-  name.tonic_mol = pitch2molecule (tonic);
-
-  /*
-    if user has explicitely listed chord name, use that
-    
-    TODO
-    urg
-    maybe we should check all sub-lists of pitches, not
-    just full list and base triad?
-   */
-  if (!user_chord_name (pitch_arr_, &name))
-    {
-      /*
-        else, check if user has listed base triad
-	use user base name and add banter for remaining part
-       */
-      if ((pitch_arr_.size () > 2)
-	  && user_chord_name (pitch_arr_.slice (0, 3), &name))
-        {
-	  Array<Musical_pitch> base = base_arr (tonic);
-	  base.concat (pitch_arr_.slice (3, pitch_arr_.size ()));
-	  banter (base, &name);
-	}
-      /*
-        else, use pure banter
-       */
-      else
-	{
-	  banter (pitch_arr_, &name);
-	}
-    }
-
-  if (inversion_p_)
-    {
-      name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
-      // zucht  const&
-      Molecule mol = pitch2molecule (*inversion_p_);
-      name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
-    }
-
-  if (bass_p_)
-    {
-      name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
-      Molecule mol = pitch2molecule (*bass_p_);
-      name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
-    }
-
-  // urg, howto get a good superscript_y?
-  Real super_y = lookup_l ()->text ("", "x", paper_l ()).dim_.y ().length ()/2;
-  if (!name.addition_mol.empty_b ())
-    name.addition_mol.translate (Offset (0, super_y));
-
-  Molecule* mol_p = new Molecule;
-  mol_p->add_at_edge (X_AXIS, RIGHT, name.tonic_mol, 0);
-  // huh?
-  if (!name.modifier_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.modifier_mol, 0);
-  if (!name.addition_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.addition_mol, 0);
-  if (!name.inversion_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.inversion_mol, 0);
-  if (!name.bass_mol.empty_b ())
-    mol_p->add_at_edge (X_AXIS, RIGHT, name.bass_mol, 0);
-  return mol_p;
-}
-
-void
-Chord::do_print () const
-{
-#ifndef NPRINT
-  //DEBUG_OUT <<  "chord = " ...
-#endif
-}

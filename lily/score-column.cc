@@ -1,34 +1,7 @@
 /*
-  score-column.cc -- implement Score_column
+  score-column.cc -- implement Paper_column
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
-#include "debug.hh"
-#include "paper-column.hh"
-#include "score-column.hh"
-#include "command-request.hh"
-
-Score_column::Score_column (Moment w)
-{
-  when_ = w;
-}
-
-void
-Score_column::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << " at " <<  when_ << '\n';
-  DEBUG_OUT << "Shortest playing: " <<  shortest_playing_mom_ << " shortest starter: " << shortest_starter_mom_;
-  Paper_column::do_print();
-#endif
-}
-
-
-bool
-Score_column::musical_b () const
-{
-  return shortest_starter_mom_ != Moment(0);
-}

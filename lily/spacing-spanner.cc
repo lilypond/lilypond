@@ -8,7 +8,7 @@
  */
 
 #include "spacing-spanner.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "warn.hh"
@@ -38,21 +38,17 @@ Spacing_spanner::Spacing_spanner ()
   
  */
 Array<Spring>
-Spacing_spanner::do_measure (Link_array<Score_column> cols) const
+Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 {
-  for (int i =0 ; i < cols.size (); i++)
-    {
-      cols[i]->preprocess ();
-      cols[i]->print ();
-    }
-
   Moment shortest;
   shortest.set_infinite (1);
   for (int i =0 ; i < cols.size (); i++)  
     {
       if (cols[i]->musical_b ())
 	{
-	  shortest = shortest <? cols[i]->shortest_starter_mom_;
+	  SCM  st = cols[i]->get_elt_property ("shortest-starter");
+	  
+	  shortest = shortest <? (*SMOB_TO_TYPE(Moment, st));
 	}
     }
 
@@ -70,8 +66,8 @@ Spacing_spanner::do_measure (Link_array<Score_column> cols) const
 
       for (int j=0; j < 4; j++)
 	{
-	  Score_column * lc = dynamic_cast<Score_column*> (combinations[j][0]);
-	  Score_column *rc = dynamic_cast<Score_column*> (combinations[j][1]);
+	  Paper_column * lc = dynamic_cast<Paper_column*> (combinations[j][0]);
+	  Paper_column *rc = dynamic_cast<Paper_column*> (combinations[j][1]);
 	  if (!lc || !rc)
 	    continue;
 
@@ -176,7 +172,7 @@ Spacing_spanner::do_measure (Link_array<Score_column> cols) const
    Do something if breakable column has no spacing hints set.
  */
 Real
-Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc,
+Spacing_spanner::default_bar_spacing (Paper_column *lc, Paper_column *rc,
 				      Moment shortest) const
 {
   Real symbol_distance = lc->extent (X_AXIS)[RIGHT] ;
@@ -197,9 +193,14 @@ Spacing_spanner::default_bar_spacing (Score_column *lc, Score_column *rc,
 
 
 Real
-Spacing_spanner::note_spacing (Score_column *lc, Score_column *rc, Moment shortest) const
+Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shortest) const
 {
-  Moment shortest_playing_len = lc->shortest_playing_mom_;
+  Moment shortest_playing_len = 0;
+  SCM s = lc->get_elt_property ("shortest-playing");
+  if (SMOB_IS_TYPE_B(Moment, s))
+    shortest_playing_len = *SMOB_TO_TYPE (Moment, s);
+
+  
   if (! shortest_playing_len)
     {
       programming_error ("Can't find a ruling note at " + lc->when_mom ().str ());
@@ -237,7 +238,7 @@ Spacing_spanner::note_spacing (Score_column *lc, Score_column *rc, Moment shorte
    This routine reads the DIR_LIST property of both its L and R arguments.
 */
 Real
-Spacing_spanner::stem_dir_correction (Score_column*l, Score_column*r) const
+Spacing_spanner::stem_dir_correction (Paper_column*l, Paper_column*r) const
 {
   SCM dl = l->get_elt_property ("dir-list");
   SCM dr = r->get_elt_property ("dir-list");
@@ -288,11 +289,11 @@ Spacing_spanner::get_springs () const
   Array<Spring> springs;
   
   SCM last_col = pscore_l_->line_l_->get_elt_property ("columns");
-  Link_array<Score_column> measure;
+  Link_array<Paper_column> measure;
   for (SCM s = last_col; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * elt = unsmob_element (gh_car (s));
-      Score_column* sc = dynamic_cast<Score_column*> (elt);
+      Paper_column* sc = dynamic_cast<Paper_column*> (elt);
       measure.push (sc);
       if (sc->breakable_b ())
         {

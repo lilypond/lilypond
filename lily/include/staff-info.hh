@@ -17,8 +17,8 @@
     JUNKME.
  */
 struct Staff_info {
-  Score_column *musical_l_;
-  Score_column *command_l_;
+  Paper_column *musical_l_;
+  Paper_column *command_l_;
 
   Paper_column * command_pcol_l();
   Paper_column * musical_pcol_l();

@@ -329,7 +329,7 @@ Stem::do_pre_processing ()
 /**
    set stem directions for hinting the optical spacing correction.
 
-   Modifies DIR_LIST property of the Stem's Score_column
+   Modifies DIR_LIST property of the Stem's Paper_column
 
    TODO: more advanced: supply height of noteheads as well, for more advanced spacing possibilities
  */

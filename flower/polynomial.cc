@@ -51,6 +51,7 @@ Polynomial::differentiate()
     {
       coefs_[i-1] = coefs_[i] * i;
     }
+  coefs_.pop ();
 }
 
 Polynomial
@@ -76,7 +77,7 @@ Polynomial::power(int exponent, const Polynomial & src)
   return  dest;
 }
 
-const Real FUDGE = 1e-8;
+static Real const FUDGE = 1e-8;
 
 void
 Polynomial::clean()

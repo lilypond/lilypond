@@ -35,6 +35,8 @@ public:
   Polynomial polynomial (Axis)const;
   Offset curve_point (Real t) const;
 
+  void reverse ();
+
   static const int CONTROL_COUNT = 4;
   Offset control_[CONTROL_COUNT];
 };

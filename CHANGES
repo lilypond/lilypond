@@ -1,3 +1,17 @@
+pl 13.hwn2
+	- paper/score column cleanups. Junk Score_column type
+
+pl 13.hwn1
+	- Bezier_bow/Bezier cleanups
+	- bf: rest under beam.
+	
+pl 13.jcn2
+	- untangled Chord_name (item) and Chord (list-of-pitches)
+	
+pl 13.jcn1
+	- bezier-bow fix
+
+***********
 pl 12.hwn1
 	- polynomial.hh
 	- bf: generic properties
@@ -7,6 +21,7 @@ pl 12.hwn1
 	- use smobs for font metric tables/hashes.
 	- nl.po bf
 
+************
 
 pl 11.jcn3
 	- small beam fixes (interstaff knees still broken)

@@ -24,10 +24,10 @@ class Score_engraver :
 
   Link_array<Score_element> elem_p_arr_;
     
-  Score_column* command_column_l_;
-  Score_column* musical_column_l_;
+  Paper_column* command_column_l_;
+  Paper_column* musical_column_l_;
     
-  void set_columns (Score_column*,Score_column*);
+  void set_columns (Paper_column*,Paper_column*);
   void typeset_all();
     
 public:

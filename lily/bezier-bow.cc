@@ -39,192 +39,61 @@ translate (Array<Offset> &c, Offset o)
 }
 
 
-Bezier_bow::Bezier_bow (Paper_def* paper_l)
+Bezier_bow::Bezier_bow (Paper_def* paper_l,
+			Array<Offset> points, Direction dir)
 {
   paper_l_ = paper_l;
+  dir_ = dir;
+  encompass_ = points;
+  to_canonic_form ();
+  
+  calc_default (0.0);
+  if (fit_factor () > 1.0)
+    {
+      calc_tangent_controls ();
+      blow_fit ();
+    }
 }
 
 void
 Bezier_bow::blow_fit ()
 {
-  Real x1 = encompass_[0][X_AXIS];
-  Real x2 = encompass_.top ()[X_AXIS];
-
-  Real factor = 1.0;
-  for (int i=1; i < encompass_.size ()-1; i++)
-    {
-      if (encompass_[i][X_AXIS] > x1 && encompass_[i][X_AXIS] < x2)
-	{
-	 Real y = curve_.get_other_coordinate (X_AXIS, encompass_[i][X_AXIS]);
-	 if (y>0)
-	   {
-	     Real f = encompass_[i][Y_AXIS] / y;
-	     factor = factor >? f;
-	   }
-	}
-    }
-
-  curve_.control_[1][Y_AXIS] *= factor;
-  curve_.control_[2][Y_AXIS] *= factor;  
-  return_.control_[1][Y_AXIS] *= factor;
-  return_.control_[2][Y_AXIS] *= factor;
+  Real f = fit_factor ();
+  
+  curve_.control_[1][Y_AXIS] *= f;
+  curve_.control_[2][Y_AXIS] *= f;  
 
   curve_.check_sanity ();
 }
 
-Real
-Bezier_bow::calc_f (Real height)
+
+
+
+
+
+Bezier
+Bezier_bow::get_curve ()const
 {
-  transform ();
-  calc_default (height);
 
-  Real dy = check_fit_f ();
-  calc_return (0, 0);
-
-  transform_back ();
-  return dy;
-}
-
-void
-Bezier_bow::calc ()
-{
-  transform ();
-  calc_controls ();
-  transform_back ();
-}
-
-
-
-/*
-  [TODO]
-    * see if it works
-    * document in Documentation/fonts.tex
- */
-
-/*
-  Clipping
-
-  This function tries to address two issues:
-    * the tangents of the slur should always point inwards 
-      in the actual slur, i.e.  *after rotating back*.
-
-    * slurs shouldn't be too high 
-      let's try : h <= 1.2 b && h <= 3 staffheight?
-
-  We could calculate the tangent of the bezier curve from
-  both ends going inward, and clip the slur at the point
-  where the tangent (after rotation) points up (or inward
-  with a certain maximum angle).
-  
-  However, we assume that real clipping is not the best
-  answer.  We expect that moving the outer control point up 
-  if the slur becomes too high will result in a nicer slur 
-  after recalculation.
-
-  Knowing that the tangent is the line through the first
-  two control points, we'll clip (move the outer control
-  point upwards) too if the tangent points outwards.
- */
-
-bool
-Bezier_bow::calc_clipping ()
-{
-  Real clip_height = paper_l_->get_var ("slur_clip_height");
-  Real clip_ratio = paper_l_->get_var ("slur_clip_ratio");
-  Real clip_angle = paper_l_->get_var ("slur_clip_angle");
-
-  Real b = curve_.control_[3][X_AXIS] - curve_.control_[0][X_AXIS];
-  Real clip_h = clip_ratio * b <? clip_height;
-  Real begin_h = curve_.control_[1][Y_AXIS] - curve_.control_[0][Y_AXIS];
-  Real end_h = curve_.control_[2][Y_AXIS] - curve_.control_[3][Y_AXIS];
-  Real begin_dy = 0 >? begin_h - clip_h;
-  Real end_dy = 0 >? end_h - clip_h;
-  
-  Real pi = M_PI;
-  Real begin_alpha = (curve_.control_[1] - curve_.control_[0]).arg () + dir_ * alpha_;
-  Real end_alpha = pi -  (curve_.control_[2] - curve_.control_[3]).arg () - dir_  * alpha_;
-
-  Real max_alpha = clip_angle / 90 * pi / 2;
-  if ((begin_dy < 0) && (end_dy < 0)
-    && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
-    return false;
-
-  transform_back ();
-
-  bool again = true;
-
-  if ((begin_dy > 0) || (end_dy > 0))
+  Bezier rv = curve_;
+  if (dir_ == DOWN)
     {
-      Real dy = (begin_dy + end_dy) / 4;
-      dy *= cos (alpha_);
-      encompass_[0][Y_AXIS] += dir_ * dy;
-      encompass_.top ()[Y_AXIS] += dir_ * dy;
-    }
-  else
-    {
-      //ugh
-      Real c = 0.4;
-      if (begin_alpha >= max_alpha)
-	begin_dy = 0 >? c * begin_alpha / max_alpha * begin_h;
-      if (end_alpha >= max_alpha)
-	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
-
-      encompass_[0][Y_AXIS] += dir_ * begin_dy;
-      encompass_.top ()[Y_AXIS] += dir_ * end_dy;
-
-      Offset delta = encompass_.top () - encompass_[0];
-      alpha_ = delta.arg ();
+      rv.flip (Y_AXIS);
     }
 
-  transform ();
-
-  return again;
+  rv.rotate (alpha_);
+  rv.translate (origin_);
+  return rv;
 }
 
-void
-Bezier_bow::calc_controls ()
-{
-  for (int i = 0; i < 3; i++)
-    {
-      
-      if (i && !calc_clipping ())
-	return;
-
-      /*
-	why do we always recalc from 0?
-	shouldn't calc_f () be used (too), rather than blow_fit () (only)?
-       */
-      calc_default (0);
-      curve_.check_sanity ();
-      if (check_fit_f () > 0)
-        {
-	  calc_tangent_controls ();
-	  blow_fit ();
-	}
-      else
-	{
-	  calc_return (0, 0);
-	  return;
-	}
-    }
-}
-
-void
-Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
-{
-  Real thick = paper_l_->get_var ("slur_thickness");
-
-  return_.control_[0] = curve_.control_[3];
-  return_.control_[3] = curve_.control_[0];
-
-  return_.control_[1] = curve_.control_[2] - thick * complex_exp (Offset (0, 90 + end_alpha));
-  return_.control_[2] = curve_.control_[1] - thick * complex_exp (Offset (0, 90 - begin_alpha));  
-}
+static Real const FUDGE = 1e-8;
 
 /*
-This function calculates 2 center control points, based on 
+  This function calculates 2 center control points,
+  based on lines through c_0 --> left disturbing
+  and c_3--> right disturbing encompass points.
   
- See Documentation/fonts.tex
+  See Documentation/fonts.tex
  */
 void
 Bezier_bow::calc_tangent_controls ()
@@ -275,19 +144,23 @@ Bezier_bow::calc_tangent_controls ()
   Direction d = LEFT;
   do
     {
-      maxtan[d] *= rc_correct;
-      angles[d] = atan (-d * maxtan[d]);
+      maxtan[d] *= -d * rc_correct;
+      angles[d] = atan (maxtan[d]);
     }
   while (flip(&d) != LEFT);
 
   Real rc3 = 0.0;
 
-  // if we have two disturbing points, have line through those...
-  if (disturb[LEFT][Y_AXIS] != disturb[RIGHT][Y_AXIS])
+  /* 
+    if we have two disturbing points, have line through those...
+    in order to get a sane line, make sure points are reasonably far apart
+    X distance must be reasonably(!) big (division)
+   */
+  if (abs (disturb[LEFT][X_AXIS] - disturb[RIGHT][X_AXIS]) > FUDGE)
     rc3 = (disturb[RIGHT][Y_AXIS] - disturb[LEFT][Y_AXIS]) / (disturb[RIGHT][X_AXIS] - disturb[LEFT][X_AXIS]);
 
   else
-    rc3 = tan ((angles[RIGHT] - angles[LEFT]) / 2);
+    rc3 = tan ((angles[LEFT] - angles[RIGHT]) / 2);
 
 
   // ugh: be less steep
@@ -310,38 +183,40 @@ Bezier_bow::calc_tangent_controls ()
 
 
   curve_.check_sanity();
-  
-  calc_return (angles[LEFT], angles[RIGHT]);
 }
 
 /*
   The maximum amount that the encompass points stick out above the bezier curve.
  */
 Real
-Bezier_bow::check_fit_f () const
+Bezier_bow::fit_factor () const
 {
-  Real dy = 0;
   Real x1 = encompass_[0][X_AXIS];
   Real x2 = encompass_.top ()[X_AXIS];
-  for (int i = 1; i < encompass_.size () - 1; i++)
+
+  Real factor = 1.0;
+  for (int i=1; i < encompass_.size ()-1; i++)
     {
-      Real x = encompass_[i][X_AXIS];
-      if (x1< x&& x < x2)
-	dy = dy >? (encompass_[i][Y_AXIS] - curve_.get_other_coordinate (X_AXIS, x));
+      if (encompass_[i][X_AXIS] > x1 && encompass_[i][X_AXIS] < x2)
+	{
+	 Real y = curve_.get_other_coordinate (X_AXIS, encompass_[i][X_AXIS]);
+	 if (y>0)
+	   {
+	     Real f = encompass_[i][Y_AXIS] / y;
+	     factor = factor >? f;
+	   }
+	}
     }
-  return dy;
+
+
+  return factor;
 }
 
 
-void
-Bezier_bow::set (Array<Offset> points, Direction dir)
-{
-  dir_ = dir;
-  encompass_ = points;
-}
+
 
 void
-Bezier_bow::transform ()
+Bezier_bow::to_canonic_form ()
 {
   origin_ = encompass_[0];
   translate (encompass_,-origin_);
@@ -350,30 +225,13 @@ Bezier_bow::transform ()
   alpha_ = delta.arg ();
 
   rotate (encompass_, -alpha_);
-
-  if (dir_ == DOWN)
-    flipy (encompass_);
-}
-
-void
-Bezier_bow::transform_back ()
-{
   if (dir_ == DOWN)
     {
-      curve_.flip (Y_AXIS);
-      return_.flip (Y_AXIS);
       flipy (encompass_);
     }
-
-  curve_.rotate (alpha_);
-  curve_.translate (origin_);
- 
-  return_.rotate (alpha_);
-  return_.translate (origin_);
- 
-  rotate (encompass_,alpha_);
-  translate (encompass_,origin_);
 }
+
+
 
 /*
  See Documentation/fonts.tex

@@ -11,9 +11,7 @@
 #include "string.hh"
 #include "moment.hh"
 #include "real.hh"
-
 #include "interval.tcc"
-
 #include "compare.hh"
 
 Rational
