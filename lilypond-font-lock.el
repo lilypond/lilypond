@@ -152,7 +152,10 @@
 	    ( ?\$ . "." ) ( ?\& . "." )
 	    ( ?\* . "." ) ( ?\+ . "." ) ( ?\/ . "." )  ( ?\= . "." )
 	    ( ?\| . "." )      ; bar line
-	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." ) ; accent positioners
+	    ;; In LilyPond the following chars serve as escape chars, 
+	    ;; e.g., c^> d-) e_( , but they are set to punctuation chars, 
+	    ;; since inside strings they should not act as escape chars
+	    ( ?\- . "\\" ) ( ?\_ . "." ) ( ?\^ . "." )
 	    ))
   )
 
