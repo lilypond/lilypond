@@ -283,6 +283,7 @@ yylex (YYSTYPE *s,  void * v)
 %token PAPER
 %token PARTCOMBINE
 %token PARTIAL
+%token QUOTE
 %token RELATIVE
 %token REMOVE
 %token REPEAT
@@ -1346,6 +1347,13 @@ command_element:
 		skip->set_mus_property ("duration", $2);
 
 		$$ = skip;
+	}
+	| QUOTE duration_length STRING {
+		Music * quote = MY_MAKE_MUSIC("QuoteMusic");
+		quote->set_mus_property ("duration", $2);
+		quote->set_mus_property ("quoted-name", $3);
+		quote->set_spot (THIS->here_input ());
+		$$ = quote; 
 	}
 	| OCTAVE { THIS->push_spot (); }
  	  pitch {

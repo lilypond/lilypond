@@ -321,9 +321,8 @@ as separate voices.")
 
 	(internal-class-name . "Simultaneous_music")
 	(types . (general-music part-combine-music))
-	(iterator-ctor . ,New_pc_iterator::constructor)
+	(iterator-ctor . ,Part_combine_iterator::constructor)
 	))
-    
     (PhrasingSlurEvent
      . (
 	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
@@ -362,6 +361,14 @@ goes down).")
 	(types . (general-music pes-or-flexa-event event))
 	))
 
+    (QuoteMusic
+     . (
+	(description . "Quote preprocessed snippets of music. ")
+	(internal-class-name . "Event") ;;  so we get Event::get_length ().
+	(iterator-ctor . ,Quote_iterator::constructor)
+	(types . (general-music))
+	))
+    
     (RelativeOctaveCheck
      . ((description . "Check if a pitch is in the correct octave.")
 	(internal-class-name . "Relative_octave_check")
