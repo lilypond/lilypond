@@ -43,6 +43,8 @@
 	    round-filled-box
 	    text
 	    white-text
+	    setcolor
+	    resetcolor
 	    polygon
 	    draw-line
 	    no-origin
@@ -169,6 +171,19 @@
 
 (define (white-text scale s)
   (embedded-ps (list 'white-text scale s)))
+
+(define (setcolor r g b)
+  (string-append "\\color[rgb]{"
+  (number->string r) ", "
+  (number->string g) ", "
+  (number->string b) "}"))
+
+;; FIXME
+;; The PostScript backend saves the current color
+;; during setcolor and restores it during resetcolor.
+;; We don't do that here.
+(define (resetcolor)
+  (string-append "\\color[rgb]{0,0,0}"))
 
 (define (polygon points blotdiameter)
   (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
