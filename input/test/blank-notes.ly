@@ -1,5 +1,5 @@
 \version "1.7.18"
-% rename to invis-notes.ly
+% possible rename to invis-notes.ly
 % check if other documents call this "blank notes", though.  I think
 % invisible notes sounds better, but whatever it is, it should be
 % consistent.
