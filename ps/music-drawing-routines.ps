@@ -76,7 +76,7 @@
 	stroke 
 } bind def 
 
-/difficult_draw_ez_ball % ch letter_col ball_col font
+/draw_ez_ball % ch letter_col ball_col font
 {
 	% font
 	findfont 0.7 scalefont setfont 
@@ -100,10 +100,12 @@
 } bind def
 
 % Simple, but does it work everywhere?
+% Han-Wen reports that one printer (brand?) at cs.uu.nl chokes on this,
+% reverted for now -- jcn
+%
 % The filled circles are drawn by setting the linewidth
-% to 2*radius and drawing a point.  Is that (defined to be)
-% a nice filled circle?
-/draw_ez_ball % ch letter_col ball_col font
+% to 2*radius and drawing a point.
+/simple_draw_ez_ball % ch letter_col ball_col font
 {
 	% font
 	findfont 0.85 scalefont setfont

@@ -178,11 +178,11 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	      don't understand this comment.
 		      --hwn.
 	   */
-	  SCM d = s->get_grob_property ("direction");
+ 	  SCM d = s->get_grob_property ("direction");
 	  if (Stem::type_i (s) != 1)
 	    {
 	      int gap_i =Stem::flag_i (s) - ((Stem::type_i (s) >? 2) - 2);
-	      beam_p_->set_grob_property ("beam-gap", gh_int2scm (gap_i));
+	      beam_p_->set_grob_property ("gap", gh_int2scm (gap_i));
 	    }
 	  s->set_grob_property ("direction", d);
 
