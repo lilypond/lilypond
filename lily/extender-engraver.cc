@@ -111,8 +111,8 @@ Extender_engraver::do_process_music ()
 	  return;
 	}
       
-      extender_p_ = new Spanner (get_property ("basicLyricExtenderProperties"));
-      extender_p_->set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);
+      extender_p_ = new Spanner (get_property ("LyricExtender"));
+
 
       Lyric_extender (extender_p_).set_textitem  (LEFT, last_lyric_l_);
       announce_element (extender_p_, req_l_);

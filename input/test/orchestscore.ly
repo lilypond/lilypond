@@ -1,4 +1,4 @@
-\version "1.3.59";
+\version "1.3.93";
 
 m = \notes \relative c''{
 
@@ -42,14 +42,14 @@ c1 | c2 c | c c | R1*5
     \context Staff = cor <
       \property Staff.instrument = "2 Corni in F"
       \property Staff.instr = "Cor."
-      \context Voice = corI { \stemup \M }
-      \context Voice = corII { \stemdown \M }
+      \context Voice = corI { \stemUp \M }
+      \context Voice = corII { \stemDown \M }
     >
     \context Staff = trp <
       \property Staff.instrument = "2 Trp. in B\\textflat  "
       \property Staff.instr = "Trp."
-      \context Voice = trpI { \stemup \M }
-      \context Voice = trpII { \stemdown \M }
+      \context Voice = trpI { \stemUp \M }
+      \context Voice = trpII { \stemDown \M }
     >
   >
     \context StaffGroup = percussion <\context Staff = timpani <

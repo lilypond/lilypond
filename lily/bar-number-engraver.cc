@@ -111,7 +111,7 @@ Bar_number_engraver::create_items ()
   if (text_p_)
     return;
 
-  SCM b = get_property ("basicBarNumberProperties");
+  SCM b = get_property ("BarNumber");
   text_p_ = new Item (b);
   Side_position::set_axis(text_p_,Y_AXIS);
 

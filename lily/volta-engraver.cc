@@ -72,7 +72,11 @@ Volta_engraver::do_process_music ()
   bool early_stop = volta_span_p_ &&    unsmob_moment (l)
     &&*unsmob_moment (l) <= now - started_mom_;
 
-  if (end || early_stop)
+  if (end && !volta_span_p_)
+    {
+      warning (_("No volta spanner to end")); // fixme: be more verbose.
+    }
+  else if (end || early_stop)
     {
       end_volta_span_p_ = volta_span_p_;
       volta_span_p_ =0;
@@ -105,7 +109,7 @@ Volta_engraver::do_process_music ()
 	  volta_span_p_ = 0;
 	}
 
-      volta_span_p_ = new Spanner (get_property ("basicVoltaBracketProperties"));
+      volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
       Volta_spanner::set_interface (volta_span_p_);
       announce_element (volta_span_p_,0);
       volta_span_p_->set_elt_property ("text", str);

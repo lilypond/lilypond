@@ -156,7 +156,7 @@ Slur_engraver::do_process_music ()
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
-	  Score_element* slur = new Spanner (get_property ("basicSlurProperties"));
+	  Score_element* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur);
 	  SCM s = get_property ("slurBeginAttachment");
 	  if (gh_symbol_p (s))

@@ -102,7 +102,7 @@ Mark_engraver::create_items (Request *rq)
   if (text_p_)
     return;
 
-  SCM s = get_property ("basicMarkProperties");
+  SCM s = get_property ("RehearsalMark");
   text_p_ = new Item (s);
 
 

@@ -10,7 +10,7 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.3.59";
+\version "1.3.93";
 
 global = \notes{
 	\time 2/4;
@@ -264,7 +264,7 @@ vTwo = \context Voice = voiceTwo \notes\relative c{
 	c4 b8 |
 }
 vThree = \context Voice = voiceThree \notes\relative c{
-	\stemdown
+	\stemDown
 	c4 r8 c |
 	d4 r |
 	r8 [es f g] |
@@ -389,91 +389,91 @@ vThree = \context Voice = voiceThree \notes\relative c{
 vOneSwitch = \context Voice = voiceOne \notes{
 	s2*4
 %5
-	\stemup	s2*17
+	\stemUp	s2*17
 %22
-	\stemdown s16*1
-	\stemboth s16*7
+	\stemDown s16*1
+	\stemBoth s16*7
 %23
 	s2*12 
 %35
-	s4 \stemup s4 
+	s4 \stemUp s4 
 	s2*3
 %39
-	\stemboth s2*2
+	\stemBoth s2*2
 %41
-	\stemup s2*8
+	\stemUp s2*8
 %49
-	\stemboth s2*3
+	\stemBoth s2*3
 %52
-	\stemup s2*8
+	\stemUp s2*8
 %60
-	\stemboth s2
+	\stemBoth s2
 %61
-	\stemup s2*35
+	\stemUp s2*35
 %96
-	\stemboth
+	\stemBoth
 }
 
 vTwoSwitch = \context Voice = voiceTwo \notes{
-	\stemup	s2*4 
+	\stemUp	s2*4 
 %5
-	\stemdown \translator Staff = treble s2*17
+	\stemDown \translator Staff = treble s2*17
 %22
-	\stemup
+	\stemUp
 	s2*6
 %28
 	\translator Staff = bass s2*7
 %35
-	s4 \translator Staff = treble \stemdown s4
+	s4 \translator Staff = treble \stemDown s4
 	s2*3
 %39	
-	\translator Staff = bass \stemup s2*2
+	\translator Staff = bass \stemUp s2*2
 %41
-	s4 \translator Staff = treble \stemdown s4
+	s4 \translator Staff = treble \stemDown s4
 %42
-	s8 \translator Staff = bass \stemup s8*3 
+	s8 \translator Staff = bass \stemUp s8*3 
 %43
-	s4 \translator Staff = treble \stemdown s4
+	s4 \translator Staff = treble \stemDown s4
 %44
-	s8 \translator Staff = bass \stemup s8*3
+	s8 \translator Staff = bass \stemUp s8*3
 %45
-	\translator Staff = treble \stemdown s2*4
+	\translator Staff = treble \stemDown s2*4
 %49
-	\stemup \translator Staff = bass s2*3
+	\stemUp \translator Staff = bass s2*3
 %52
-	s8*1 \stemdown \translator Staff = treble \stemdown s8*3
+	s8*1 \stemDown \translator Staff = treble \stemDown s8*3
 	s2*7
 %60
-	\stemup \translator Staff = bass s2
+	\stemUp \translator Staff = bass s2
 %61
-	\translator Staff = treble \stemdown s2*35
+	\translator Staff = treble \stemDown s2*35
 }
 
 vThreeSwitch = \context Voice = voiceThree \notes{
-	\stemdown s2*6
+	\stemDown s2*6
 %7
-	\stemboth s2*21
+	\stemBoth s2*21
 %28
-	\stemdown s2*7
+	\stemDown s2*7
 %35
-	s4 \stemboth s4
+	s4 \stemBoth s4
 %36
 	s2*3
 %39
-	\stemdown s2*7
+	\stemDown s2*7
 %46
-	\stemboth s2*3
+	\stemBoth s2*3
 %49
-	\stemdown s2*3
+	\stemDown s2*3
 %52
-	s4 \stemboth s4
+	s4 \stemBoth s4
 	s2
 %54
 	s2*2 %HACK evt endre her, sammenlikne med Henle	
 %56
 	s2*4
 %60
-	\stemdown 
+	\stemDown 
 }
 
 \score{

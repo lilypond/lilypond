@@ -57,7 +57,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	{
-	  spanbar_p_ = new Item (get_property ("basicSpanBarProperties"));
+	  spanbar_p_ = new Item (get_property ("SpanBar"));
 	  Span_bar::set_interface (spanbar_p_);
 		
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);

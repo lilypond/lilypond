@@ -66,7 +66,7 @@ Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
-      rest_p_ = new Item (get_property ("basicRestProperties"));
+      rest_p_ = new Item (get_property ("Rest"));
       Rhythmic_head::set_interface (rest_p_);
       Staff_symbol_referencer::set_interface (rest_p_);
 
@@ -76,12 +76,10 @@ Rest_engraver::do_process_music ()
       
       if (rest_req_l_->duration_.dots_i_)
 	{
-	  dot_p_ = new Item (get_property ("basicDotsProperties"));
+	  dot_p_ = new Item (get_property ("Dots"));
 
-	  Staff_symbol_referencer::set_interface (dot_p_);
 	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
-	  dot_p_->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
 	  dot_p_->set_elt_property ("dot-count",
 				    gh_int2scm (rest_req_l_->duration_.dots_i_));
 	  announce_element (dot_p_,0);

@@ -1,6 +1,6 @@
 % paper26.ly
 
-\version "1.3.59";
+\version "1.3.93";
 
 paper_twentysix = \paper {
 	staffheight = 26.0\pt;

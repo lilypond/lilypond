@@ -12,25 +12,12 @@
 #include "staff-symbol.hh"
 #include "paper-def.hh"
 
-
-
-
-void
-Staff_symbol_referencer::set_interface (Score_element * e)
-{
-  if (!gh_number_p (e->get_elt_property ("staff-position")))
-      e->set_elt_property ("staff-position", gh_double2scm (0.0));
-      
-  e->add_offset_callback (callback, Y_AXIS);
-}
-
 bool
 Staff_symbol_referencer::has_interface (Score_element*e)
 {
   return unsmob_element (e->get_elt_property ("staff-symbol"))
     || gh_number_p (e->get_elt_property ("staff-position"));
 }
-
 
 int
 Staff_symbol_referencer::line_count (Score_element*me) 
@@ -100,28 +87,30 @@ Staff_symbol_referencer::position_f (Score_element*me)
 /*
   should use offset callback!
  */
-Real
-Staff_symbol_referencer::callback (Score_element * sc,Axis )
+MAKE_SCHEME_CALLBACK(Staff_symbol_referencer,callback,2);
+SCM
+Staff_symbol_referencer::callback (SCM element_smob, SCM )
 {
-  Score_element* me = (Score_element*)sc; // UGH.
+  Score_element *me = unsmob_element (element_smob);
+
   
-  SCM pos = sc->get_elt_property ("staff-position");
+  SCM pos = me->get_elt_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
     {
-      Real space = Staff_symbol_referencer::staff_space (sc);
+      Real space = Staff_symbol_referencer::staff_space (me);
       off = gh_scm2double (pos) * space/2.0;
     }
 
   me->set_elt_property ("staff-position", gh_double2scm (0.0));
 
-  return off;
+  return gh_double2scm (off);
 }
 
-/*
+ /*
   
   This sets the position relative to the center of the staff symbol.
-
+ 
   The function is hairy, because it can be callled in two situations:
 
   1.  There is no staff yet; we must set staff-position
@@ -145,14 +134,14 @@ Staff_symbol_referencer::set_position (Score_element*me,Real p)
   else
     {
       me->set_elt_property ("staff-position",
-				gh_double2scm (p));
+			    gh_double2scm (p));
 
     }
 
-  if (me->has_offset_callback_b (callback, Y_AXIS))
+  if (me->has_offset_callback_b (Staff_symbol_referencer::callback_proc, Y_AXIS))
     return ; 
 
-  me->add_offset_callback (callback, Y_AXIS);
+  me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }
 
 /*
@@ -171,3 +160,14 @@ compare_position (Score_element *const  &a, Score_element * const &b)
   return sign (Staff_symbol_referencer::position_f((Score_element*)a) - 
     Staff_symbol_referencer::position_f((Score_element*)b));
 }
+
+
+void
+Staff_symbol_referencer::set_interface (Score_element * e)
+{
+  if (!gh_number_p (e->get_elt_property ("staff-position")))
+      e->set_elt_property ("staff-position", gh_double2scm (0.0));
+
+  e->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
+}
+

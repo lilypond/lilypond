@@ -52,7 +52,7 @@ Rhythmic_column_engraver::process_acknowledged ()
     {
       if (!ncol_p_)
 	{
-	  ncol_p_ = new Item (get_property("basicNoteColumnProperties"));
+	  ncol_p_ = new Item (get_property("NoteColumn"));
 	  Note_column::set_interface (ncol_p_);
 	  announce_element (ncol_p_, 0);
 	}

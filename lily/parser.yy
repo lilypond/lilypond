@@ -164,7 +164,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PARTIAL
 %token PENALTY
 %token PROPERTY
-%token PUSHPROPERTY POPPROPERTY
 %token PUSH POP 
 %token PT_T
 %token RELATIVE
@@ -697,18 +696,6 @@ Simple_music:
 	}
 	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
 	| property_def
-/*	| PUSHPROPERTY embedded_scm embedded_scm embedded_scm {
-		$$ = new Push_translation_property;
-		$$->set_mus_property ("symbols", $2);
-		$$->set_mus_property ("element-property", $3);
-		$$->set_mus_property ("element-value", $4);
-	}
-	| POPPROPERTY embedded_scm embedded_scm {
-		$$ = new Pop_translation_property;
-		$$->set_mus_property ("symbols", $2);
-		$$->set_mus_property ("element-property", $3);
-	}
-*/
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
 		$$ = $1;
@@ -851,10 +838,17 @@ property_def:
 
 		csm-> translator_type_str_ = ly_scm2string ($2);
 	}
-	| PROPERTY STRING POP embedded_scm {
-		$$ = new Pop_translation_property;
-		$$->set_mus_property ("symbols", scm_string_to_symbol ($2));
-		$$->set_mus_property ("element-property", $4);
+	| PROPERTY STRING '.' STRING POP embedded_scm {
+		Pop_translation_property *t = new Pop_translation_property;
+
+		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("element-property", $6);
+
+		Context_specced_music *csm = new Context_specced_music (t);
+		$$ = csm;
+		$$->set_spot (THIS->here_input ());
+
+		csm-> translator_type_str_ = ly_scm2string ($2);
 	}
 	;
 

@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.59";
+\version "1.3.93";
 
 \include "menuetto-urtext.ly";
 
@@ -14,7 +14,7 @@ menuetto_i_cello_global = \notes{
 	}
 	\repeat "volta" 2 {
 		\skip 2.*1;
-		\slurdotted
+		\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Fine"
@@ -71,7 +71,7 @@ menuetto_ii_cello_global = \notes{
 	}
 	\repeat  "volta" 2 {
 		\skip 2.*1;
-		\slurdotted
+		\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Menuetto I da Capo"

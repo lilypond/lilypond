@@ -212,14 +212,14 @@ the notes. In this case the chords are just simple notes.
 @mudela[singleline,verbatim]
 \score {
         \notes \context Staff <
-        	\context Voice  = VA { \stemup f''4^"0" }
-        	\context Voice  = VB {\stemup
+        	\context Voice  = VA { \stemUp f''4^"0" }
+        	\context Voice  = VB {\stemUp
 		\property Voice.horizontalNoteShift = 1 d''4^" 1" }
-        	\context Voice  = VC { \stemup \property
+        	\context Voice  = VC { \stemUp \property
 Voice.horizontalNoteShift = 2 b'4^"  2" }
-        	\context Voice  = VD { \stemdown \property
+        	\context Voice  = VD { \stemDown \property
 Voice.horizontalNoteShift = 1 g'4_"1 " }
-        	\context Voice  = VE { \stemdown e'4_"0" }
+        	\context Voice  = VE { \stemDown e'4_"0" }
         >
 }
 @end mudela
@@ -283,21 +283,8 @@ r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
     Set to @code{\free} for free choice of slur direction, set to
     @code{\up} to force slurs up, set to @code{\down} to force slurs
     down.  The shorthands @code{\slurup}@keyindex{slurup},
-    @code{\slurdown}@keyindex{slurdown}, and
-    @code{\slurboth}@keyindex{slurboth} are available.
-
-  @item @code{slurDash}@indexcode{slurDash} @propertytype{number}
-    Set to NIL for normal slurs, 1 for dotted slurs, and a
-    larger value for dashed slurs.  Identifiers
-    @code{\slurnormal}@keyindex{slurnormal} and
-    @code{\slurdotted}@keyindex{slurdotted} are predefined to set the
-    first two settings.
-
-@mudela[verbatim]
-		c4( )d
-		\property Voice.slurDash = 3
-		c ( )e
-@end mudela		
+    @code{\slurDown}@keyindex{slurDown}, and
+    @code{\slurBoth}@keyindex{slurBoth} are available.
 
 @item @code{stemLength}@indexcode{stemLength}  
     Set length of stems.  Unit is `@code{staffspace}/2', so
@@ -350,8 +337,8 @@ c4^"foo"  \emptyText c4^"foo" c4
     ties.  Set to @code{\down} to force them down, @code{\up} to force
     them up, or @code{\free} to let LilyPond decide.  This can be used
     to distinguish between voices on the same staff.  The
-    @code{\stemdown}@keyindex{stemdown}, @code{\stemup}@keyindex{stemup},
-    and @code{\stemboth}@keyindex{stemboth} identifiers set this
+    @code{\stemDown}@keyindex{stemDown}, @code{\stemUp}@keyindex{stemUp},
+    and @code{\stemBoth}@keyindex{stemBoth} identifiers set this
     property.
     
 

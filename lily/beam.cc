@@ -72,7 +72,7 @@ Beam::get_multiplicity (Score_element*me)
   [Alternatively, stems could set its own directions, according to
    their beam, during 'final-pre-processing'.]
  */
-MAKE_SCHEME_CALLBACK(Beam,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Beam,before_line_breaking,1);
 SCM
 Beam::before_line_breaking (SCM smob)
 {
@@ -271,7 +271,7 @@ Beam::set_stem_shorten (Score_element*m)
   Set elt properties height and y-position if not set.
   Adjust stem lengths to reach beam.
  */
-MAKE_SCHEME_CALLBACK(Beam,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Beam,after_line_breaking,1);
 SCM
 Beam::after_line_breaking (SCM smob)
 {
@@ -767,7 +767,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
   return leftbeams;
 }
 
-MAKE_SCHEME_CALLBACK(Beam,brew_molecule);
+MAKE_SCHEME_CALLBACK(Beam,brew_molecule,1);
 SCM
 Beam::brew_molecule (SCM smob)
 {
@@ -891,18 +891,22 @@ Beam::last_visible_stem(Score_element*me)
     
     rest -> stem -> beam -> interpolate_y_position ()
 */
-Real
-Beam::rest_collision_callback (Score_element *rest, Axis a )
+MAKE_SCHEME_CALLBACK(Beam,rest_collision_callback,2);
+SCM
+Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
+  Score_element *rest = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+  
   assert (a == Y_AXIS);
 
   Score_element * st = unsmob_element (rest->get_elt_property ("stem"));
   Score_element * stem = st;
   if (!stem)
-    return 0.0;
+    return gh_double2scm (0.0);
   Score_element * beam = unsmob_element (stem->get_elt_property ("beam"));
   if (!beam || !Beam::has_interface (beam) || !Beam::visible_stem_count (beam))
-    return 0.0;
+    return gh_double2scm (0.0);
 
   // make callback for rest from this.
   Real beam_dy = 0;
@@ -943,7 +947,7 @@ Beam::rest_collision_callback (Score_element *rest, Axis a )
   if (discrete_dist < stafflines+1)
     discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
 
-  return  (-d *  discrete_dist);
+  return gh_double2scm  (-d *  discrete_dist);
 }
 
 
@@ -956,9 +960,6 @@ Beam::has_interface (Score_element*me)
 void
 Beam::set_interface (Score_element*me)
 {
-  Pointer_group_interface g (me, "stems");
-  g.set_interface ();
-
   /*
     why the init? No way to tell difference between default and user
     override.  */

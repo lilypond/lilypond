@@ -41,18 +41,18 @@ Lyric_engraver::do_process_music()
 {
   if (req_l_)
     {
-      text_p_=  new Item (get_property ("basicLyricTextProperties"));
+      text_p_=  new Item (get_property ("LyricText"));
       
       text_p_->set_elt_property ("text",
 // 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));
  				 ly_str02scm   ((req_l_->text_str_).ch_C ()));
 
-      text_p_->add_offset_callback (&Side_position::aligned_on_self,X_AXIS);
+
       /*
 	We can't reach the notehead where we're centered from here. So
 	we kludge.
 
-	(UGH UGH, pulled amount of space out of thin air value )
+	(UGH UGH, pulled amount of space out of thin air)
       */
       
       text_p_->translate_axis (paper_l()->get_var ("staffspace")*0.66, X_AXIS);

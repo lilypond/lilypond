@@ -171,8 +171,8 @@ An appoggiatura may have more notes preceding the main note.
   \grace { [as16 ( bes] } < ) c4 as > 
   \grace { [as16 ( bes] } < ) c4 as > \bar "||";
   \grace { bes16 } as8_"performance" as16 bes as8 g |
-  < \context Voice = va { \stemup as32 bes c8. as32 bes c8. }
-    \context Voice = vb { \stemdown as16 ~ as8. as16 ~ as8. } >
+  < \context Voice = va { \stemUp as32 bes c8. as32 bes c8. }
+    \context Voice = vb { \stemDown as16 ~ as8. as16 ~ as8. } >
   \bar "||";
 }
 @end mudela
@@ -193,11 +193,11 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
   \notes\relative c' {
     \clef bass; 
     < \context Voice = va { 
-        \stemup 
+        \stemUp 
         r16 e8. () e4 r16 e8. () e4 |
         r16 d8. () d4 r16 d8. () d4 }
       \context Voice = vb { 
-        \stemdown 
+        \stemDown 
         c2 c | c c } >
   }
 >
@@ -550,13 +550,13 @@ composition methods.
     \time 4/4;
     \clef treble; 
     < \context Voice = rha {
-        \stemup
+        \stemUp
         r1 | r2 r8 g'8 bes d, | 
         cis4 d r8 e!16 f g8 f16 e |
         f8 g16 a bes8 a16 g a8 
       }
       \context Voice = rhb { 
-        \stemdown
+        \stemDown
         r1 | r | r | r2 s8
       }
     >
@@ -565,13 +565,13 @@ composition methods.
     \clef bass; 
     \key bes \major;
     < \context Voice = lha {
-        \stemup
+        \stemUp
         r8 d es g, fis4 g | r8 a16 bes c8 bes16 a bes4 g |
         r8 a16 g f8 g16 a bes8 g e! cis' |
         d4. e!8 f 
       }
       \context Voice = lhb { 
-        \stemdown 
+        \stemDown 
         r1 | r | r | r2 s8
       } >
   }
@@ -2427,10 +2427,10 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
     \key es \major;
     \clef treble; 
     < \context Voice = rha { 
-        \stemup
+        \stemUp
         es4 d c bes | bes } 
       \context Voice = rhb { 
-        \stemdown
+        \stemDown
         < bes8 g > as < as f > g < g es > f < d f > es | < g4 es > } 
     >
   }

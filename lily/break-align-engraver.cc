@@ -103,12 +103,12 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
       if (!align_l_)
 	{
-	  align_l_ = new Item (get_property ("basicBreakAlignProperties"));
+	  align_l_ = new Item (get_property ("BreakAlignment"));
 	  Break_align_interface::set_interface (align_l_);
 	  announce_element (align_l_,0);
 
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
-	  Item * edge = new Item (get_property ("leftEdgeBasicProperties"));
+	  Item * edge = new Item (get_property ("LeftEdge"));
 
 	  /*
 	    We must have left-edge in the middle.  Instrument-names
@@ -123,7 +123,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
 	    TODO: switch off ignoring empty stuff?
 	  */
-	  edge->set_extent_callback (Score_element::point_dimension_callback,X_AXIS);
+	  edge->set_extent_callback (Score_element::point_dimension_callback_proc, X_AXIS);
 	  
 	  align_l_->set_elt_property ("group-center-element", edge->self_scm ());
 
@@ -142,7 +142,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	}
       else
 	{
-	  group = new Item (get_property ("basicBreakAlignGroupProperties"));
+	  group = new Item (get_property ("BreakAlignGroup"));
 
 	  Axis_group_interface::set_interface (group);
 	  Axis_group_interface::set_axes (group, X_AXIS,X_AXIS);

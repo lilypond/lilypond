@@ -52,15 +52,15 @@ Note_heads_engraver::do_try_music (Music *m)
       
       return true;
     }
-  else if (Tonic_req* t = dynamic_cast<Tonic_req*> (m))
+  else if ( dynamic_cast<Tonic_req*> (m))
     {
       return true;
     }
-  else if (Inversion_req* i = dynamic_cast<Inversion_req*> (m))
+  else if ( dynamic_cast<Inversion_req*> (m))
     {
       return true;
     }
-  else if (Bass_req* b = dynamic_cast<Bass_req*> (m))
+  else if (dynamic_cast<Bass_req*> (m))
     {
       return true;
     }
@@ -80,7 +80,7 @@ Note_heads_engraver::do_process_music()
   
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
-      Item *note_p  = new Item (get_property ("basicNoteHeadProperties"));
+      Item *note_p  = new Item (get_property ("NoteHead"));
       
       Staff_symbol_referencer::set_interface (note_p);
 
@@ -93,10 +93,7 @@ Note_heads_engraver::do_process_music()
 
       if (note_req_l->duration_.dots_i_)
 	{
-	  Item * d = new Item (get_property ("basicDotsProperties"));
-
-	  Staff_symbol_referencer::set_interface (d);
-	  
+	  Item * d = new Item (get_property ("Dots"));
 	  Rhythmic_head::set_dots (note_p, d);
 	  
 	  if (note_req_l->duration_.dots_i_
@@ -104,7 +101,6 @@ Note_heads_engraver::do_process_music()
 	    d->set_elt_property ("dot-count", gh_int2scm (note_req_l->duration_.dots_i_));
 
 	  d->set_parent (note_p, Y_AXIS);
-	  d->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
 	  announce_element (d,0);
 	  dot_p_arr_.push (d);
 	}

@@ -56,7 +56,7 @@ Axis_group_engraver::do_creation_processing ()
 Spanner*
 Axis_group_engraver::get_spanner_p () const
 {
-  return new Spanner (get_property ("basicVerticalAxisGroupProperties"));
+  return new Spanner (get_property ("VerticalAxisGroup"));
 }
 
 void
@@ -68,7 +68,7 @@ Axis_group_engraver::do_removal_processing ()
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     {
-      staffline_p_->set_extent_callback (&Score_element::preset_extent, Y_AXIS);
+      staffline_p_->set_extent_callback (Score_element::preset_extent_proc, Y_AXIS);
       staffline_p_->set_elt_property ("extent-Y", dims);
     }
 
@@ -148,7 +148,7 @@ Hara_kiri_engraver::add_element (Score_element*e)
 Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
-  Spanner * sp = new Spanner (get_property ("basicHaraKiriVerticalGroupspannerProperties"));
+  Spanner * sp = new Spanner (get_property ("HaraKiriVerticalGroup"));
   Hara_kiri_group_spanner::set_interface (sp);
   return sp;
 }

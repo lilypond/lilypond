@@ -93,7 +93,7 @@ Chord_tremolo_engraver::do_process_music ()
 {
   if (repeat_ && !beam_p_)
     {
-      beam_p_ = new Spanner (get_property ("basicBeamProperties"));
+      beam_p_ = new Spanner (get_property ("Beam"));
       Beam::set_interface (beam_p_);
       beam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
 
@@ -165,11 +165,9 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    }
 	  s->set_elt_property ("direction", d);
 
-	  if (Rhythmic_req* r = dynamic_cast <Rhythmic_req *> (info.req_l_))
+	  if (dynamic_cast <Rhythmic_req *> (info.req_l_))
 	    {
 	      Beam::add_stem (beam_p_, s);
-	      Moment stem_location = now_mom () -
-		start_mom_ + beam_start_location_;
 	    }
 	  else
 	    {

@@ -12,7 +12,7 @@
  Tested Features:
 %}
 
-\version "1.3.59";
+\version "1.3.93";
 
 \include "nederlands.ly"
 
@@ -39,7 +39,7 @@ global = \notes {
   
 i = \context Staff \notes\relative c''{
   \context Voice=i
-  \stemup
+  \stemUp
 
   c8.( es16 bes4 ~ | )bes8 r c8.( bes16 | des4 c8. bes16 | c4 ~ ) c8 r |
   c4( f,8. as16 | bes4 ~ )bes8 r | f8.( es16 f4 | es )f |
@@ -67,7 +67,7 @@ i = \context Staff \notes\relative c''{
 
 ii = \context Staff \notes\relative c'{
   \context Voice=ii
-  \stemdown
+  \stemDown
 
   r8 <es as> r <des f> | r <es g> r <es as> | r <f as> r <f as> |
   r <es g> r <es g> | r <es as> r <as, des> | r <des f> r <des f> |
@@ -85,9 +85,9 @@ ii = \context Staff \notes\relative c'{
   r <cis e> r <cis e> | r <b d> r <a d> | r <g b> r <a cis> |
   r <a cis> r <a cis> |
 
-  \translator Staff=bass\stemup
+  \translator Staff=bass\stemUp
   r <g b> r <fis a> r <fis a> | r <g bes>
-  \translator Staff=treble\stemdown
+  \translator Staff=treble\stemDown
   r <a c> r <a d> |
 
   r <bes d> r <bes d> | r <g c> r <bes d> | r <c es> r <d g> |

@@ -13,35 +13,19 @@
 #include "debug.hh"
 #include "item.hh"
 
-void
-Hara_kiri_group_spanner::set_interface (Score_element*me)
-{
-  me->add_offset_callback (force_hara_kiri_callback, Y_AXIS);
-  me->set_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
-  me->set_extent_callback (Hara_kiri_group_spanner::y_extent, Y_AXIS);
-}
 
-Interval
-Hara_kiri_group_spanner::y_extent(Score_element*me, Axis a)
+MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,y_extent,2);
+SCM
+Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+
   assert (a == Y_AXIS);
   consider_suicide (me);
-  return  Axis_group_interface::group_extent_callback (me, a);
+  return  Axis_group_interface::group_extent_callback (me->self_scm (), scm_axis);
 }
 
-
-bool
-Hara_kiri_group_spanner::has_interface (Score_element*me)
-{
-  return me->has_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
-}
-
-void 
-Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
-{
-  me->add_dependency (n);
-  Pointer_group_interface (me, "items-worth-living").add_element (n);
-}
 
 void
 Hara_kiri_group_spanner::consider_suicide(Score_element*me)
@@ -67,21 +51,27 @@ Hara_kiri_group_spanner::consider_suicide(Score_element*me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-Real
-Hara_kiri_group_spanner::force_hara_kiri_callback (Score_element *elt, Axis a)
+MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_callback,2);
+SCM
+Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  consider_suicide (elt);
-  return 0.0;
+  consider_suicide (me);
+  return gh_double2scm (0.0);
 }
 
 
-Real
-Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (Score_element*daughter, Axis a)
+MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,2);
+SCM
+Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
+  Score_element *daughter = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  force_hara_kiri_callback (daughter->parent_l (a), Y_AXIS);
-  return 0.0;
+  force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);
+  return gh_double2scm ( 0.0);
 }
 
 void
@@ -89,4 +79,25 @@ Hara_kiri_group_spanner::add_element (Score_element * me, Score_element *e)
 {
   //  e->add_offset_callback (force_hara_kiri_in_parent_callback, Y_AXIS);
   Axis_group_interface::add_element (me, e);
+}
+
+
+void
+Hara_kiri_group_spanner::set_interface (Score_element*me)
+{
+  me->set_interface (ly_symbol2scm ("hara-kiri-group-interface"));
+}
+
+
+bool
+Hara_kiri_group_spanner::has_interface (Score_element*me)
+{
+  return me->has_interface (ly_symbol2scm ("hara-kiri-group-interface"));
+}
+
+void 
+Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
+{
+  me->add_dependency (n);
+  Pointer_group_interface (me, "items-worth-living").add_element (n);
 }

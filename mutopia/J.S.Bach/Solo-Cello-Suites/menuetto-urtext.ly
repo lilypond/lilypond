@@ -42,14 +42,14 @@ menuetto_i_a = \context Staff \notes \relative c {
 
 menuetto_i_b = \context Staff \notes \relative c {
 	\context Voice = ii
-	\stemdown
+	\stemDown
 	\skip 2.*1; |
 	<e8 c> \skip 8*5; |
 	\skip 2.*1; |
 	a,8 \skip 8*5; |
 	\skip 2.*1; |
 	e'8 \skip 8*5; |
-	\stemboth
+	\stemBoth
 	s2.*2 |
 	s2.
 	g8 \skip 8*5; |
@@ -71,24 +71,24 @@ menuetto_i_b = \context Staff \notes \relative c {
 % UGH, fix this like in sarabande
 menuetto_i_a_voice_urg = \notes{
 	\context Voice = i
-	\skip 2.*1; \stemup
-	\skip 2.*1; \stemboth
-	\skip 2.*1; \stemup
-	\skip 2.*1; \stemboth
-	\skip 2.*1; \stemup
-	\skip 2.*1; \stemboth
-	\skip 2.*3; \stemup
-	\skip 2.*1; \stemup
+	\skip 2.*1; \stemUp
+	\skip 2.*1; \stemBoth
+	\skip 2.*1; \stemUp
+	\skip 2.*1; \stemBoth
+	\skip 2.*1; \stemUp
+	\skip 2.*1; \stemBoth
+	\skip 2.*3; \stemUp
+	\skip 2.*1; \stemUp
 	\skip 2.*3;
-	\skip 4*2; \stemboth
-	\skip 4*2; \stemup
-	\skip2.*1; \stemup
-	\skip 4*2; \stemboth
-	\skip2.*1; \stemup
-	\skip 2.*1; \stemboth
-	\skip 2*1; \stemup
+	\skip 4*2; \stemBoth
+	\skip 4*2; \stemUp
+	\skip2.*1; \stemUp
+	\skip 4*2; \stemBoth
+	\skip2.*1; \stemUp
+	\skip 2.*1; \stemBoth
+	\skip 2*1; \stemUp
 	\skip 4*1;
-	\skip 2.*4; \stemboth
+	\skip 2.*4; \stemBoth
 	\skip 2.*1;
 }
 
@@ -99,9 +99,9 @@ menuetto_i_a_voice_urg_urg = \notes<
 
 menuetto_i_b_voice_urg = \notes{
 	\context Voice=ii
-	\stemdown
+	\stemDown
 	% urg urg, huh?
-	\skip 2.*8; \stemdown
+	\skip 2.*8; \stemDown
 }
 
 menuetto_i_b_voice_urg_urg = \notes<
@@ -122,12 +122,12 @@ menuetto_ii = \context Staff\notes \relative c {
 	d8( cis )b cis a g |
 	% ugh, forcing knee
 	% Lily's not yet smart enough to decide for herself.
-	\stemup fis \stemboth d''( cis b a )g |
+	\stemUp fis \stemBoth d''( cis b a )g |
 	b( a g fis e )d |
 	%7
 	cis d g4 fis8( g16 )a |
-	<\stemdown a,2. \stemup e'> |
-	\stemboth
+	<\stemDown a,2. \stemUp e'> |
+	\stemBoth
 	cis4^\prall e8( d cis )b |
 	cis4 g, cis' |
 	fis,8()a d4 fis |
@@ -148,4 +148,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	d2.
 }
 
-\version "1.3.59";
+\version "1.3.93";

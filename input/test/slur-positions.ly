@@ -1,12 +1,12 @@
 \score{
 	\notes\relative c''{
-		\slurup
+		\slurUp
 		a2 () a\break
-		\slurdown
+		\slurDown
 		a2 () a\break
-		\slurup
+		\slurUp
 		c2 () c\break
-		\slurdown
+		\slurDown
 		c2 () c\break
 
 	}

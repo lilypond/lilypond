@@ -31,7 +31,7 @@ c4 c2 c8  c16 c16  c1 c\breve c\longa
    c4 c4 }
 \context Thread = TB {
   \property Thread.noteHeadStyle = #'mensural
-  c'4 \stemdown c
+  c'4 \stemDown c
 } >
 
 }
@@ -40,4 +40,4 @@ c4 c2 c8  c16 c16  c1 c\breve c\longa
        
     }
 }
-\version "1.3.59"; 
+\version "1.3.93"; 

@@ -32,7 +32,7 @@ Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
 
-  SCM props = get_property (ly_symbol2scm ("basicPaperColumnProperties"));
+  SCM props = get_property (ly_symbol2scm ("PaperColumn"));
   set_columns (new Paper_column (props),  new Paper_column (props));
   
   command_column_l_->set_elt_property ("when", w.make_scm());
@@ -132,8 +132,6 @@ Score_engraver::typeset_all()
   for  (int i =0; i < elem_p_arr_.size(); i++) 
     {
       Score_element * elem_p = elem_p_arr_[i];
-      elem_p->add_processing ();
-
       
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
@@ -269,7 +267,7 @@ Score_engraver::do_add_processing ()
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
 
-  SCM props = get_property (ly_symbol2scm ("basicLineOfScoreProperties"));
+  SCM props = get_property (ly_symbol2scm ("LineOfScore"));
 
   pscore_p_->typeset_line (new Line_of_score (props));
 }

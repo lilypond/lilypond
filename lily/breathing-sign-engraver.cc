@@ -62,7 +62,7 @@ Breathing_sign_engraver::do_process_music()
 {
   if(breathing_sign_req_l_)
     {
-      SCM b = get_property ("basicBreathingSignProperties");
+      SCM b = get_property ("BreathingSign");
       breathing_sign_p_ = new Item (b);
 
       Breathing_sign::set_interface (breathing_sign_p_);

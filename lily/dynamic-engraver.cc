@@ -126,7 +126,7 @@ Dynamic_engraver::do_process_music ()
     {
       if (!line_spanner_)
 	{
-	  line_spanner_ = new Spanner (get_property ("basicDynamicLineSpannerProperties"));
+	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
 
 	  Side_position::set_axis (line_spanner_, Y_AXIS);
 	  Axis_group_interface::set_interface (line_spanner_);
@@ -183,15 +183,13 @@ Dynamic_engraver::do_process_music ()
     {
       String loud = text_req_l_->text_str_;
 
-      text_p_ = new Item (get_property ("basicDynamicTextProperties"));
+      text_p_ = new Item (get_property ("DynamicText"));
       text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
       if (Direction d=text_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, text_p_);
 
-      text_p_->add_offset_callback (Side_position::aligned_on_self,
-				    Y_AXIS);
       announce_element (text_p_, text_req_l_);
     }
 
@@ -227,7 +225,7 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  current_cresc_req_ = accepted_spanreqs_drul_[START];
-	  cresc_p_  = new Spanner (get_property ("basicCrescendoProperties"));
+	  cresc_p_  = new Spanner (get_property ("Crescendo"));
 	  Crescendo::set_interface (cresc_p_);
 	  cresc_p_->set_elt_property
 	    ("grow-direction",
@@ -288,9 +286,6 @@ Dynamic_engraver::do_process_music ()
 	    }
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
-	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
-	  cresc_p_->add_offset_callback
-	    (Side_position::aligned_on_self, Y_AXIS);
 	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }

@@ -239,7 +239,7 @@ Auto_beam_engraver::begin_beam ()
 Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
-  Spanner* beam_p = new Spanner (get_property ("basicBeamProperties"));
+  Spanner* beam_p = new Spanner (get_property ("Beam"));
   Beam::set_interface (beam_p);
 
   for (int i = 0; i < stem_l_arr_p_->size (); i++)

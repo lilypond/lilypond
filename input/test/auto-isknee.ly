@@ -1,13 +1,13 @@
-
+\version "1.3.93";
 \score {
 	\notes \context PianoStaff <
 		\context Staff = "up" {
 			\autochange Staff \relative c' { 
 				[c8 e'] [c' c,,]
-				\stemdown
+				\stemDown
 				c'8 c c g,
 				g8 d' d d 
-				\stemup
+				\stemUp
 				b8 c d e
 			}
 		}

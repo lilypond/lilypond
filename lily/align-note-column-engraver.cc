@@ -46,7 +46,7 @@ Align_note_column_engraver::Align_note_column_engraver()
 void
 Align_note_column_engraver::do_creation_processing ()
 {
-  align_item_p_ = new Item (get_property ("basicGraceAlignItemProperties"));
+  align_item_p_ = new Item (get_property ("GraceAlignment"));
   Grace_align_item::set_interface (align_item_p_);
   Side_position::set_axis (align_item_p_, X_AXIS);
   Side_position::set_direction (align_item_p_, LEFT);

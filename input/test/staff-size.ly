@@ -4,7 +4,7 @@
 	\property Staff.fontSize = #-1
 	\property Voice.fontSize = #-1
 	
-	\property Voice . dynamicDirection = \up \stemdown
+	\property Voice . dynamicDirection = \up \stemDown
 %\key gis \major;
 	c8 d [e f g a] b c \ff
   }
@@ -14,4 +14,4 @@
 >
 \paper { linewidth = -1.; }
 }
-\version "1.3.59"; 
+\version "1.3.93"; 

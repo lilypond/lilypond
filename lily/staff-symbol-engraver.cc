@@ -44,7 +44,7 @@ Staff_symbol_engraver::Staff_symbol_engraver()
 void
 Staff_symbol_engraver::do_creation_processing()
 {
-  span_p_ = new Spanner (get_property ("basicStaffSymbolProperties"));
+  span_p_ = new Spanner (get_property ("StaffSymbol"));
   
   span_p_->set_bound(LEFT, unsmob_element (get_property ("currentCommandColumn")));
 

@@ -13,7 +13,7 @@ copyright =	 "public domain";
 %% Hopefully, this can be junked when part-combiner+midi+dynamics work ok.
 %%
 
-\version "1.3.88";
+\version "1.3.93";
 
 \include "global.ly"
 

@@ -4,7 +4,7 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
-\version "1.3.59";
+\version "1.3.93";
 
 % TODO: 
 %
@@ -139,12 +139,12 @@ text = \lyrics {
 			\clef treble;
 			\property Staff.automaticMelismata = ##t
 			\context Voice = one \transpose c'' {
-				\stemup
+				\stemUp
 				\$staff1_voice_1
 				\bar "|.";
 			} 
 			\context Voice = two \transpose c'' {
-				\stemdown
+				\stemDown
 				\$staff1_voice_2
 			}
 		>
@@ -154,11 +154,11 @@ text = \lyrics {
 			\clef bass;
 			\property Staff.noVoltaBraces = ##t
 			\context Voice = three {
-				\stemup
+				\stemUp
 				\$staff2_voice_1
 			} 
 			\context Voice = four {
-				\stemdown
+				\stemDown
 				\$staff2_voice_2
 			} 
 		>

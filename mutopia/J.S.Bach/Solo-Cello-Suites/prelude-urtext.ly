@@ -71,7 +71,7 @@ prelude_notes = \notes \relative c {
 	e cis b cis a b cis d e d e cis |
 	%47
 	d b a b f gis b cis d cis d b |
-	\stemup <cis4^\fermata e,> \stemboth r r |
+	\stemUp <cis4^\fermata e,> \stemBoth r r |
 	bes16 g fis g es g d g es g bes d, |
 	cis-- e! g a bes8. a16 g fis g e' |
 	%51
@@ -79,18 +79,18 @@ prelude_notes = \notes \relative c {
 	d bes a g fis-- a c! es d c bes a |
 	bes g fis g es g d g es g bes d, |
 	%54
-	\stemup g'8. f16 
-	e!16 d cis b a g f e \stemboth |
+	\stemUp g'8. f16 
+	e!16 d cis b a g f e \stemBoth |
 	d-- a' d e f e d c! bes! a g f |
 	e-- a cis e g f e d cis b a g |
 	f a d f a d, f a d bes! c! a |
 	g, d' g a bes g fis g es' g, d' g, |
-	\stemup <cis2. g> | <d f,> | <d e,> | <cis e,> | <d f,>
+	\stemUp <cis2. g> | <d f,> | <d e,> | <cis e,> | <d f,>
 }
 
 prelude_b = \notes \relative c {
 	\context Voice=ii
-	\stemdown
+	\stemDown
 	s2.*47
 	%48
 	g4 s2 |
@@ -194,4 +194,4 @@ prelude = \context Staff \notes<
 	\$prelude_b
 >
 
-\version "1.3.59";
+\version "1.3.93";

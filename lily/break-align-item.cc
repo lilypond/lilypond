@@ -21,7 +21,7 @@
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Break_align_interface,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Break_align_interface,before_line_breaking,1);
 
 SCM
 Break_align_interface::before_line_breaking (SCM smob)
@@ -30,24 +30,31 @@ Break_align_interface::before_line_breaking (SCM smob)
   do_alignment (me);
   return SCM_UNSPECIFIED;
 }
+MAKE_SCHEME_CALLBACK(Break_align_interface,alignment_callback,2);
 
-Real
-Break_align_interface::alignment_callback (Score_element*c, Axis a)
+SCM
+Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+
   assert (a == X_AXIS);
-  Score_element *par = c->parent_l (a);
+  Score_element *par = me->parent_l (a);
   if (par && !to_boolean (par->get_elt_property ("break-alignment-done")))\
     {
       par->set_elt_property ("break-alignment-done", SCM_BOOL_T);
       Break_align_interface::do_alignment (par);
     }
     
-  return 0.0;
+  return gh_double2scm (0);
 }
 
-Real
-Break_align_interface::self_align_callback (Score_element *me, Axis a)
+MAKE_SCHEME_CALLBACK(Break_align_interface,self_align_callback,2);
+SCM
+Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   
   Item* item = dynamic_cast<Item*> (me);
@@ -57,13 +64,12 @@ Break_align_interface::self_align_callback (Score_element *me, Axis a)
       me->set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
     }
 
-  return Side_position::aligned_on_self (me, a);  
+  return Side_position::aligned_on_self (element_smob, axis);  
 }
 
 void
 Break_align_interface::add_element (Score_element*me, Score_element *toadd)
 {
-  toadd->add_offset_callback (alignment_callback, X_AXIS);
   Axis_group_interface::add_element (me, toadd);
 }
 
@@ -218,5 +224,5 @@ Break_align_interface::set_interface (Score_element*me)
   Align_interface::set_interface (me); 
   Align_interface::set_axis (me,X_AXIS);
 
-  me->add_offset_callback (Break_align_interface::self_align_callback, X_AXIS);
+
 }

@@ -34,12 +34,7 @@ Vertical_align_engraver::Vertical_align_engraver()
 void
 Vertical_align_engraver::do_creation_processing()
 {
-  valign_p_ =new Spanner (get_property ("basicVerticalAlignmentProperties"));
-  Align_interface::set_interface (valign_p_);
-  Align_interface::set_axis (valign_p_,Y_AXIS);
-  valign_p_->set_elt_property ("stacking-dir",
-			       gh_int2scm (DOWN));
-  
+  valign_p_ =new Spanner (get_property ("VerticalAlignment"));
   valign_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
   announce_element (valign_p_ , 0);
 }

@@ -1,16 +1,16 @@
 \score { 
   \context Voice \notes\relative c {
     % this used to work:
-	% <{\voiceone e}
-	% {\voicetwo c}>
+	% <{\voiceOne e}
+	% {\voiceTwo c}>
 	
 	% now we need:
 	\context Staff
-	<{\voiceone e}
-	{\voicetwo c}>
+	<{\voiceOne e}
+	{\voiceTwo c}>
 	
 	
-	\version "1.3.59"; 
+	\version "1.3.93"; 
 	
   }
   \paper { }  

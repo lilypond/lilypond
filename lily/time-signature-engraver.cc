@@ -45,7 +45,7 @@ Time_signature_engraver::do_process_music()
   if (last_time_fraction_ != fr)
     {
       last_time_fraction_ = fr; 
-      time_signature_p_ = new Item (get_property ("basicTimeSignatureProperties"));
+      time_signature_p_ = new Item (get_property ("TimeSignature"));
       time_signature_p_->set_elt_property ("fraction",fr);
     }
   

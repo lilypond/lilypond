@@ -36,7 +36,7 @@ Collision_engraver::process_acknowledged ()
     return ;
   if (!col_p_) 
     {
-      col_p_ = new Item (get_property ("basicCollisionProperties"));
+      col_p_ = new Item (get_property ("NoteCollision"));
       Axis_group_interface::set_interface (col_p_);
       Axis_group_interface::set_axes (col_p_, X_AXIS, Y_AXIS);
 

@@ -1,15 +1,15 @@
 \score{
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
-		\stemup [c8 c \translator Staff=two \stemup c c]
+		\stemUp [c8 c \translator Staff=two \stemUp c c]
 		[c c c c]
 		\translator Staff=one
-		\stemdown [c8 c \translator Staff=two \stemup c c]
+		\stemDown [c8 c \translator Staff=two \stemUp c c]
 		r2
-		\stemdown [c8 c \translator Staff=one \stemdown c c]
+		\stemDown [c8 c \translator Staff=one \stemDown c c]
 		r2
 		\translator Staff=two
-		\stemup [c8 c \translator Staff=one \stemdown c c]
+		\stemUp [c8 c \translator Staff=one \stemDown c c]
 		r2
 	}
 	\context Staff=two \notes\relative c'{
@@ -22,4 +22,4 @@
 	>
 }
 
-\version "1.3.59"; 
+\version "1.3.93"; 

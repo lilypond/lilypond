@@ -6,7 +6,7 @@
 	\context Staff=two \notes\relative c'{
 		\clef bass;
 % no knee
-		\stemup [c8 \translator Staff=one \stemdown g'16 f]
+		\stemUp [c8 \translator Staff=one \stemDown g'16 f]
 		s8
 		s2
 	}
@@ -16,4 +16,4 @@
 	}
 }
 
-\version "1.3.59"; 
+\version "1.3.93"; 

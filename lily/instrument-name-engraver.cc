@@ -42,9 +42,6 @@ Instrument_name_engraver::do_pre_move_processing ()
 {
   if (text_)
     {
-      text_->add_offset_callback (Side_position::centered_on_parent,
-				  Y_AXIS);
-
       typeset_element (text_);
       text_ = 0;
     }
@@ -55,7 +52,7 @@ Instrument_name_engraver::create_text (SCM txt)
 {
   if(!text_)
     {
-      text_ = new Item (get_property ("basicInstrumentNameProperties"));
+      text_ = new Item (get_property ("InstrumentName"));
       text_->set_elt_property ("text", txt);
 
       /*

@@ -12,7 +12,6 @@
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
-
 #include "staff-symbol-referencer.hh"
 #include "group-interface.hh"
 
@@ -52,17 +51,20 @@ Side_position::get_direction (Score_element*me)
    Callback that does the aligning. Puts the element next to the support
  */
 
-Real
-Side_position::side_position (Score_element *cme, Axis axis)
+MAKE_SCHEME_CALLBACK(Side_position,side_position,2);
+SCM
+Side_position::side_position (SCM element_smob, SCM axis)
 {
-  Score_element* me = (Score_element*)cme;
-  Score_element *common = me->parent_l (axis);
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+
+  Score_element *common = me->parent_l (a);
   SCM support = me->get_elt_property ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
       Score_element * e  = unsmob_element (gh_car (s));
       if (e)
-	common = common->common_refpoint (e, axis);
+	common = common->common_refpoint (e, a);
     }
   
   Interval dim;
@@ -72,9 +74,9 @@ Side_position::side_position (Score_element *cme, Axis axis)
       Score_element * e  = unsmob_element ( gh_car (s));
       if (e)
 	{
-	  Real coord = e->relative_coordinate (common, axis);
+	  Real coord = e->relative_coordinate (common, a);
 
-	  dim.unite (coord + e->extent (axis));
+	  dim.unite (coord + e->extent (a));
 	}
     }
 
@@ -85,7 +87,7 @@ Side_position::side_position (Score_element *cme, Axis axis)
 
   Direction dir = Side_position::get_direction (me);
     
-  Real off =  me->parent_l (axis)->relative_coordinate (common, axis);
+  Real off =  me->parent_l (a)->relative_coordinate (common, a);
   SCM minimum = me->remove_elt_property ("minimum-space");
 
   Real total_off = dim[dir] + off;
@@ -101,40 +103,43 @@ Side_position::side_position (Score_element *cme, Axis axis)
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
 
-  return total_off;
+  return gh_double2scm (total_off);
 }
 
 /**
   callback that centers the element on itself
  */
-Real
-Side_position::aligned_on_self (Score_element *me, Axis ax)
+MAKE_SCHEME_CALLBACK(Side_position,aligned_on_self,2);
+SCM
+Side_position::aligned_on_self (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   String s ("self-alignment-");
 
-  s +=  (ax == X_AXIS) ? "X" : "Y";
+  s +=  (a == X_AXIS) ? "X" : "Y";
 
   SCM align (me->get_elt_property (s.ch_C()));
   if (gh_number_p (align))
     {
-      Interval ext(me->extent (ax));
+      Interval ext(me->extent (a));
 
       if (ext.empty_b ())
 	{
 	  programming_error ("I'm empty. Can't align on self");
-	  return 0.0;
+	  return gh_double2scm (0.0);
 	}
       else
 	{
 	  Real lambda = (0.5 - gh_scm2double (align) / 2.0);
-	  return - (lambda * ext[LEFT] + (1 - lambda) * ext[RIGHT]);
+	  return gh_double2scm (- (lambda * ext[LEFT] + (1 - lambda) * ext[RIGHT]));
 	}
     }
   else if (unsmob_element (align))
     {
-      return - unsmob_element (align)->relative_coordinate (me,  ax);
+      return gh_double2scm (- unsmob_element (align)->relative_coordinate (me,  a));
     }
-    return 0.0;
+    return gh_double2scm (0.0);
 }
 
 
@@ -154,9 +159,13 @@ directed_round (Real f, Direction d)
 
   Only rounds when we're inside the staff, as determined by
   Staff_symbol_referencer::staff_radius() */
-Real
-Side_position::quantised_position (Score_element *me, Axis )
+MAKE_SCHEME_CALLBACK(Side_position,quantised_position,2);
+SCM
+Side_position::quantised_position (SCM element_smob, SCM )
 {
+  Score_element *me = unsmob_element (element_smob);
+  
+  
   Direction d = Side_position::get_direction (me);
 
   if (Staff_symbol_referencer::has_interface (me))
@@ -172,22 +181,25 @@ Side_position::quantised_position (Score_element *me, Axis )
 	  rp += d;
 	}
 
-      return (rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0;
+      return gh_double2scm ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
     }
-  return 0.0;
+  return gh_double2scm (0.0);
 }
 
 /*
   Position next to support, taking into account my own dimensions and padding.
  */
-Real
-Side_position::aligned_side (Score_element *me, Axis ax)
+MAKE_SCHEME_CALLBACK(Side_position,aligned_side,2);
+SCM
+Side_position::aligned_side (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   
-  Direction d = Side_position ::get_direction (me);
-  Real o = side_position (me,ax);
+  Direction d = Side_position::get_direction (me);
+  Real o = gh_scm2double (side_position (element_smob,axis));
 
-  Interval iv =  me->extent (ax);
+  Interval iv =  me->extent (a);
 
   if (!iv.empty_b ())
     {
@@ -197,18 +209,21 @@ Side_position::aligned_side (Score_element *me, Axis ax)
       if (gh_number_p (pad))
 	o += d *gh_scm2double (pad) ; 
     }
-  return o;
+  return gh_double2scm (o);
 }
 
 /*
   Position centered on parent.
  */
-Real
-Side_position::centered_on_parent (Score_element * me, Axis a)
+MAKE_SCHEME_CALLBACK(Side_position,centered_on_parent,2);
+SCM
+Side_position::centered_on_parent (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   Score_element *him = me->parent_l (a);
 
-  return him->extent (a).center ();  
+  return gh_double2scm (him->extent (a).center ());  
 }
 
 
@@ -225,18 +240,17 @@ Side_position::add_staff_support (Score_element*me)
 void
 Side_position::set_axis (Score_element*me, Axis a)
 {
-  if (!me->has_offset_callback_b (aligned_side, a))
-    me->add_offset_callback (aligned_side, a);
+  me->add_offset_callback (Side_position::aligned_side_proc, a);
 }
 
 
 
-
+// ugh. doesn't cactch all variants. 
 Axis
 Side_position::get_axis (Score_element*me)
 {
-  if (me->has_offset_callback_b (&side_position, X_AXIS)
-      || me->has_offset_callback_b (&aligned_side , X_AXIS))
+  if (me->has_offset_callback_b (Side_position::aligned_side_proc, X_AXIS)
+      || me->has_offset_callback_b (Side_position::aligned_side_proc , X_AXIS))
     return X_AXIS;
 
   

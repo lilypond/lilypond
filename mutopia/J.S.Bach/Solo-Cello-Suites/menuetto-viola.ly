@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.59";
+\version "1.3.93";
 
 \include "menuetto-urtext.ly";
 
@@ -14,7 +14,7 @@ menuetto_i_viola_global = \notes{
 		\clef violin;
 		\skip 2.*1;
 	} \repeat "volta" 2 {
-		\slurdotted
+		\slurDotted
 		\skip 2.*3;
 		\clef alto;
 		\skip 2.*11;
@@ -70,7 +70,7 @@ menuetto_ii_viola_global = \notes{
 		\skip 2.*8;
 	} \repeat "volta" 2 {
 		\skip 2.*1;
-		\slurdotted
+		\slurDotted
 		\skip 2.*14;
 		\emptyText
 		s2._"Menuetto I da Capo"

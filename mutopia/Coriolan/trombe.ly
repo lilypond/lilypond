@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.88";
+\version "1.3.93";
 
 \include "trombo-1.ly"
 \include "trombo-2.ly"

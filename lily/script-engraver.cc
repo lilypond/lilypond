@@ -67,11 +67,7 @@ Script_engraver::do_process_music()
 	  continue;
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
-      Score_element *p =new Item (get_property ("basicScriptProperties"));
-      Script::set_interface (p);
-
-      p->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
-      
+      Score_element *p =new Item (get_property ("Script"));
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
 			   gh_car (list));
@@ -79,21 +75,24 @@ Script_engraver::do_process_music()
       list = gh_cdr(list);
       bool follow_staff = gh_scm2bool (gh_car (list));
       list = gh_cdr(list);
-      int relative_stem_dir = gh_scm2int (gh_car (list));
+      SCM relative_stem_dir = gh_car (list);
       list = gh_cdr(list);
-      int force_dir =gh_scm2int (gh_car (list));
+
+      SCM force_dir = l->get_mus_property ("direction");
+      if (!isdir_b (force_dir))
+	force_dir = gh_car (list);
       list = gh_cdr(list);
       SCM priority = gh_car (list);
 
       
-      if (relative_stem_dir)
-	  p->set_elt_property ("side-relative-direction", gh_int2scm (relative_stem_dir));
+      if (to_dir (relative_stem_dir))
+	p->set_elt_property ("side-relative-direction", relative_stem_dir);
       else
-	Side_position::set_direction (p,(Direction)force_dir);
+	p->set_elt_property ("direction", force_dir);
 
-      if (l->get_direction ())
-	Side_position::set_direction (p, l->get_direction ());
-
+      /*
+	FIXME: should figure this out in relation with basic props! 
+       */
       SCM axisprop = get_property ("scriptHorizontal");
       bool xaxis = to_boolean (axisprop);
       Side_position::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
@@ -102,7 +101,7 @@ Script_engraver::do_process_music()
 	p->set_elt_property ("staff-support", SCM_BOOL_T);
 
       if (!xaxis && follow_staff)
-	p->add_offset_callback (Side_position::quantised_position, Y_AXIS);
+	p->add_offset_callback (Side_position::quantised_position_proc, Y_AXIS);
       
       
       p->set_elt_property ("script-priority", priority);

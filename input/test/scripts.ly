@@ -1,5 +1,5 @@
 	
-\version "1.3.59";
+\version "1.3.93";
 
 
 blah = 	\notes{ \transpose c'' {
@@ -34,15 +34,15 @@ blah = 	\notes{ \transpose c'' {
 	d' _>_._\fermata _"text"
 	d'' _>_._\fermata _"text"
 			
-	\stemup
+	\stemUp
 	b,-. c-. d-. e-. f-. g-. a-. b-. c'-.
-	\stemdown
+	\stemDown
 	a-. b-. c'-. d'-. e'-. f'-. g'-. a'-. b'-.
-	\stemup
+	\stemUp
 	b,-> c-> d-> e-> f-> g-> a-> b-> c'->
-	\stemup
+	\stemUp
 	b,---. c---. d---. e---. f---. g---. a---. b---. c'---.
-	\stemboth
+	\stemBoth
       \time 4/4;
 	[c8 \< d e \! f][d' \> e' f' \! g'] 
 	[c-> \< d-> e-> \! f->][d'-> \> e'-> f'-> \! g'->] 

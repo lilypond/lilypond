@@ -15,7 +15,7 @@ enteredby =	 "Shay Rojansky";
   lastupdated = "1999/Oct/14";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 % should do programmable input.
 soprane =
@@ -26,7 +26,7 @@ soprane =
 	\time 4/4;
         \clef "violin";
 
-	\stemup
+	\stemUp
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
 	r8 [a16 d'] [f' a d' f'] r8 [a16 d'] [f' a d' f'] |
 	r8 [g16 d'] [f' g d' f'] r8 [g16 d'] [f' g d' f'] |
@@ -37,7 +37,7 @@ soprane =
 	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] |
 	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] }
 	% Tenor
-	\context Voice = dVoice {\stemdown
+	\context Voice = dVoice {\stemDown
 	r16 e8. ~ e4 r16 e8. ~ e4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
@@ -84,7 +84,7 @@ bass =
         \clef "bass";
 
 
-	\stemdown
+	\stemDown
 	c'2 c' |
 	c' c' |
 	b b |
@@ -97,7 +97,7 @@ bass =
 %% 10
 	\context Staff <
 	\context Voice =  Alt
-	{\stemup
+	{\stemUp
 	r16 a8. ~ a4 r16 a8. ~ a4 |
 	r16 b8. ~ b4 r16 b8. ~ b4 |
 	r16 bes8. ~ bes4 r16 bes8. ~ bes4 |
@@ -129,7 +129,7 @@ bass =
 	c1 ||}
 
 	\context Voice = Bass
-	{\stemdown
+	{\stemDown
 	d2 d |
 	g g |
 	g g |

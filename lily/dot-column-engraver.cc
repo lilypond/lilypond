@@ -51,7 +51,7 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
     {
       if (!dotcol_p_)
 	{
-	  dotcol_p_ = new Item(get_property ("basicDotColumnProperties"));
+	  dotcol_p_ = new Item(get_property ("DotColumn"));
 
 	  Dot_column::set_interface (dotcol_p_);
 	  Side_position::set_axis (dotcol_p_, X_AXIS);

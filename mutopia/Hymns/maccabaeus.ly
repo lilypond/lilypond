@@ -7,7 +7,7 @@ title = "Maccabaeus";
 metre = "10 11. 11 11. and refrain";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 sop=\notes \relative c'' {
 	b2 gis4. a8  |b2 e,2 |
@@ -85,8 +85,8 @@ $upper_staff = \context Staff = upper {
 	\global
 	\clef "treble";
 	\context Staff <
-	      {\voiceone \sop }
-	      {\voicetwo \alt }
+	      {\voiceOne \sop }
+	      {\voiceTwo \alt }
 	>
 }
 
@@ -94,8 +94,8 @@ $lower_staff = \context Staff = lower {
 	\global
 	\clef "bass";
 	\context Staff <
-	    {\voiceone \ten }
-	    {\voicetwo \bass }
+	    {\voiceOne \ten }
+	    {\voiceTwo \bass }
 	>
 }
 

@@ -1,6 +1,6 @@
 % paper-as5.ly
 
-\version "1.3.59";
+\version "1.3.93";
 
 paper_as_five = \paper {
 	staffheight = 5.\char;

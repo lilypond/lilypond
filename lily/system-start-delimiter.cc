@@ -44,8 +44,7 @@ System_start_delimiter::staff_bracket (Score_element*me,Real height)
 void
 System_start_delimiter::set_interface (Score_element*me)
 {
-  me->set_extent_callback (0, Y_AXIS);
-  Pointer_group_interface (me).set_interface();
+  me->set_extent_callback (SCM_EOL, Y_AXIS);
   me->set_interface (ly_symbol2scm ("system-start-delimiter-interface"));
 }
 
@@ -63,7 +62,7 @@ System_start_delimiter::simple_bar (Score_element*me,Real h)
   return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);
 
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
@@ -85,13 +84,13 @@ System_start_delimiter::try_collapse (Score_element*me)
 }
 
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule,1);
 
 SCM
 System_start_delimiter::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
-  Interval ext = Axis_group_interface::group_extent_callback (me, Y_AXIS);
+  Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS)));
   Real l = ext.length (); 
   Molecule m;
 

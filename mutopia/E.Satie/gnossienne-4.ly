@@ -11,7 +11,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.3.59";
+\version "1.3.93";
 
 global = \notes {
 	\key a \minor;
@@ -104,8 +104,8 @@ accompany = \notes \relative c {
 		\context Staff=up < 
 			\global
 			\context Voice=foo {
-			\stemup
-			\property Voice.basicScriptProperties \push #'direction = #1
+			\stemUp
+			\property Voice.Script \push #'direction = #1
 			
 			\melody 
 			}

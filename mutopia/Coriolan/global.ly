@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.88";
+\version "1.3.93";
 
 global = \notes {
 	\time 4/4;

@@ -1,3 +1,4 @@
+\version "1.3.93";
 \score { 
   \context Voice \notes\relative c'' {
     \time 6/8;
@@ -7,8 +8,8 @@
 	
 	
 	\context Staff <
-		\context Voice = VA {  \stemup   f''  <b c> r4.  }
-		\context Voice = VB {  \stemdown b, <a b> r4. }
+		\context Voice = VA {  \stemUp   f''  <b c> r4.  }
+		\context Voice = VB {  \stemDown b, <a b> r4. }
 	>
 	
 	

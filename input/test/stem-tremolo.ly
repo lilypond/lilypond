@@ -1,5 +1,5 @@
 
-\version "1.3.59";
+\version "1.3.93";
 \score{
 	\context Voice\notes \relative c''{
 		%%?
@@ -9,11 +9,11 @@
 		a1:4^":4" a:8^":8" c:16^":16" a:32^":32" a^"x" a:^":"
 		a4:4 c:8 a:16 c:32 a a: a2:
 		\break
-		\stemup
+		\stemUp
 		a4:32 a'4:64 
-		\stemdown
+		\stemDown
 		c,4:32 c,4:64
-		\stemboth
+		\stemBoth
 		c'8:16 c c c
 		a': a a: a
 		c,16:32 c: c c a16:32 a: a a

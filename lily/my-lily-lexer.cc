@@ -58,8 +58,6 @@ static Keyword_ent the_key_tab[]={
   {"notenames", NOTENAMES},
   {"notes", NOTES},
   {"outputproperty", OUTPUTPROPERTY},
-  {"pushproperty", PUSHPROPERTY},
-  {"popproperty", POPPROPERTY},
   {"push", PUSH},
   {"pop", POP},
   {"partial", PARTIAL},

@@ -103,7 +103,7 @@ Local_key_engraver::process_acknowledged ()
 	    {
 	      if (!key_item_p_) 
 		{
-		  key_item_p_ = new Item(get_property ("basicLocalKeyProperties"));
+		  key_item_p_ = new Item(get_property ("Accidentals"));
 		  Local_key_item::set_interface (key_item_p_);
 		  Side_position::set_axis (key_item_p_, X_AXIS);
 		  Side_position::set_direction (key_item_p_, LEFT);

@@ -105,7 +105,7 @@ Clef_engraver::set_type (String s)
 
   c0_position_i_ -= (int) octave_dir_ * 7;
 
-  SCM basic = ly_symbol2scm ("basicClefItemProperties");
+  SCM basic = ly_symbol2scm ("Clef");
   SCM c0 = ly_symbol2scm ("c0-position");
   SCM gl = ly_symbol2scm ("glyph");
   daddy_trans_l_->execute_single_pushpop_property (basic, gl, SCM_UNDEFINED);
@@ -136,7 +136,6 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 	{
 	  int p = int (Staff_symbol_referencer::position_f (item)) + c0_position_i_;
 	  Staff_symbol_referencer::set_position (item,p);
-					
 	}
       else if (Key_item::has_interface (item))
 	{
@@ -176,7 +175,7 @@ Clef_engraver::create_clef()
 {
   if (!clef_p_)
     {
-      Item *c= new Item (get_property ("basicClefItemProperties"));
+      Item *c= new Item (get_property ("Clef"));
       announce_element (c, clef_req_l_);
 
       Staff_symbol_referencer::set_interface (c);
@@ -186,14 +185,13 @@ Clef_engraver::create_clef()
   Staff_symbol_referencer::set_position(clef_p_, clef_position_i_);
   if (octave_dir_)
     {
-      Item * g = new Item (get_property ("basicOctavateEightProperties"));
-      Side_position::set_axis (g,Y_AXIS);
+      Item * g = new Item (get_property ("OctavateEight"));
+
       Side_position::add_support (g,clef_p_);      
 
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);
-      g->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-      g->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+
       g->set_elt_property ("direction", gh_int2scm (octave_dir_));
       octavate_p_ = g;
       announce_element (octavate_p_, clef_req_l_);

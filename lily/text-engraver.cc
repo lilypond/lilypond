@@ -85,17 +85,20 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
-      String basic =  "basicTextScriptProperties";
+      String basic =  "TextScript";
 
 				// separate engraver?
       if (r->style_str_== "finger")
 	{
-	  basic = "basicFingeringProperties";
+	  basic = "Fingering";
 	}
       Item *text = new Item (get_property (basic.ch_C()));
 
-
+      /*
+	FIXME -> need to use basic props.
+       */
       SCM axisprop = get_property ("scriptHorizontal");
+      
       Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
       Side_position::set_axis (text, ax);
 
@@ -104,8 +107,8 @@ Text_engraver::do_process_music ()
 	  /*
 	    nicely center the scripts.
 	   */ 
-	  text->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-	  text->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+	  text->add_offset_callback (Side_position::aligned_on_self_proc, X_AXIS);
+	  text->add_offset_callback (Side_position::centered_on_parent_proc, X_AXIS);
 	}
       
 

@@ -75,7 +75,7 @@ Spacing_engraver::Spacing_engraver()
 void
 Spacing_engraver::do_creation_processing ()
 {
-  spacing_p_  =new Spanner (get_property ("basicSpacingSpannerProperties"));
+  spacing_p_  =new Spanner (get_property ("SpacingSpanner"));
   Spacing_spanner::set_interface (spacing_p_);
   spacing_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));  
   announce_element (spacing_p_, 0);

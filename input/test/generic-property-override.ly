@@ -1,9 +1,10 @@
+\version "1.3.93";
 
 \score {
  \notes \relative c'' \context Voice {
-	\stemup
+	\stemUp
 	c'4 () c4 
-	\slurdown
+	\slurDown
 	c4 ( )c4 
  }
  \paper { linewidth = -1.0; }

@@ -19,14 +19,14 @@ enteredby =	 "Shay Rojansky";
 %{
 TODO: use autobeaming.	
 %}
-\version "1.3.59";
+\version "1.3.93";
 
 
 tenor =
 	\context Voice  = tenor  \notes \relative c' {
 	\clef "violin";
 
-	\stemdown
+	\stemDown
 	r8 [c8 d e] [f8. g32 f] [e8 a] |
 	[d, g] ~ [g16 a g f] [e f e d] [c d c b ] |
 	[a 8 fis'] g4 ~ [g8 fis16 e] [f8 d] |
@@ -42,20 +42,20 @@ tenor =
 	[e fis] [g8.   a32 g] [fis8 b e, a] ~ |
 	[a16 b a gis] [fis8 f!] [e d] ~ [d16 e fis gis] |
 	[a gis a b] [gis fis gis a] b8 r8 r4 |
-	r8 [c,8 d e] \stemup [f8.  g32 f] [e8 a] |
+	r8 [c,8 d e] \stemUp [f8.  g32 f] [e8 a] |
 %% 15
-	[d, g] ~ [g16 a g f] e8 \stemdown [e fis g] ~ |
+	[d, g] ~ [g16 a g f] e8 \stemDown [e fis g] ~ |
 	[g8 fis] [gis8 a] ~ [a g! a b] |
-	\stemboth
+	\stemBoth
 	[c8.    d32 c ] [b8 e ] [a, d ] ~ [d 16 e  d  c ] |
 	[b8 g'  cis,  d ] [e  cis  d  e  ] |
-	\stemdown a,8 r8 r e [fis g] \stemboth [a8.  b32 a] |
+	\stemDown a,8 r8 r e [fis g] \stemBoth [a8.  b32 a] |
 %% 20
-	[g8 c  fis, b] ~ [b16 c  b a] \stemdown [g fis e d] \stemboth |
-	e4 \stemdown d ~ [d16 a' g f!] [e g f! a] |
+	[g8 c  fis, b] ~ [b16 c  b a] \stemDown [g fis e d] \stemBoth |
+	e4 \stemDown d ~ [d16 a' g f!] [e g f! a] |
 	g4 ~ [g16 a bes8] c 4 [d 8 g,] |
-	\stemboth g4. f8 ~ [f e] d4 |
-	\stemdown e8 a4 g8 ~ [g8 f g a] |
+	\stemBoth g4. f8 ~ [f e] d4 |
+	\stemDown e8 a4 g8 ~ [g8 f g a] |
 %% 25
 	[bes8.  c32 b] [a8 d ] [g, c ] ~ [c 16 d  c  bes] |
 	[a bes a g] [f g f e] d4 ~ [d8. g16] |
@@ -66,7 +66,7 @@ tenor =
 soprane =
 	\context Voice = sop \notes \relative c' {
 
-	\stemup
+	\stemUp
 	r1 |
 	r2 r8 [g'8 a b] |
 	[c8.  d32 c ] [b8 e ] [a, d ] ~ [d 16 e  d  c ] |
@@ -106,7 +106,7 @@ alt =
 	\clef "bass";
 
 	
-	\stemup
+	\stemUp
 	r1 |
 	r |
 	r |
@@ -146,7 +146,7 @@ bass =\context Voice = bassvoice
 	\clef "bass";
 
 
-	\stemdown
+	\stemDown
 	r1 |
 	r |
 	r |

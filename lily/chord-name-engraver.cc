@@ -116,7 +116,7 @@ void
 Chord_name_engraver::create_chord_name ()
 {
   assert (chord_p_);
-  chord_name_p_ = new Item (get_property ("basicChordNameProperties"));
+  chord_name_p_ = new Item (get_property ("ChordName"));
   /*
     Hmm, why not represent complete chord as list?
     ((tonic third fifth) (inversion bass))

@@ -1,6 +1,6 @@
 % Toplevel AsciiScript initialisation file. 
 
-\version "1.3.42";
+\version "1.3.93";
 
 \include "declarations-as.ly"
 

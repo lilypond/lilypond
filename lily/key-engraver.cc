@@ -64,7 +64,7 @@ Key_engraver::create_key (bool def)
 {
   if (!item_p_) 
     {
-      item_p_ = new Item ( get_property ("basicKeyProperties"));
+      item_p_ = new Item ( get_property ("KeySignature"));
 
       item_p_->set_elt_property ("c0-position", gh_int2scm (0));
 
