@@ -8,6 +8,8 @@
 ;;; TODO:
 ;;;    * emulate show-paren-mode 
 ;;;    * separate '('- and ')'-slurs from '\('- and '\)'-slurs.
+;;;    * include '['- and ']'-slurs from syntax table 
+;;;      in order to match also '\['- and '\]'-slurs in ligatures
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")

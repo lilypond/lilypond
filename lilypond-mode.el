@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.12"
+(defconst LilyPond-version "1.7.18"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -501,7 +501,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
 )
 
-;; FIXME, does not find commend ender
+;;; Refer to syntax-table (in lilypond-font-lock.el) for comment characters.
 (defun LilyPond-un-comment-region (start end level)
   "Remove up to LEVEL comment characters from each line in the region."
   (interactive "*r\np") 

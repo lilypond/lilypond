@@ -10,8 +10,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.12
-;; Last Modified: 26DEC2003
+;; Version:       1.7.18
+;; Last Modified: 6MAY2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -88,7 +88,8 @@
 ;; "on top", ... horizontal grouping:
 ;;               - brackets '{[]}'
 ;;               - ties '~'
-      '("\\([][~}{]\\)" 0 font-lock-warning-face t)
+;;               - ligatures \[, \]
+      '("\\([][~}{]\\|\\\\[][]\\)" 0 font-lock-warning-face t)
 
 ;; "on top", ... vertical grouping:
 ;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
@@ -129,21 +130,28 @@
   (mapcar (function
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
-	  '(( ?\( . "." ) ( ?\) . "." ) 
-	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ; all the other paren characters are now handled by          
-	    ( ?\{  .  ". 2" )             ; lily-specific indenting/matching code in lilypond-indent.el 
-	    ( ?\}  .  ". 4" ) 
+	  '(
+	    ;; also '['- and ']'-slurs should be handled by lilypond-indent.el
+	    ;; in order to match also '\['- and '\]'-slurs in ligatures
+	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ; handled by the syntax table
+	    ;; all the other paren characters are now handled by   
+	    ;; lily-specific indenting/matching code in lilypond-indent.el 
+	    ( ?\( . "." ) ( ?\) . "." ) 
 	    ( ?\< . "." )( ?\> . ".") 
+	    ( ?\{  .  ". 2" )  ; also 2nd char in begin of block-comment
+	    ( ?\}  .  ". 4" )  ; also 2nd char in end of block-comment
+	    ( ?\%  .  "< 13" ) ; comment starter, 1st char in block-comments
+	    ( ?\n . ">")       ; newline: comment ender
+	    ( ?\r . ">")       ; formfeed: comment ender
+	    ( ?\\ . "\\" )     ; escape characters (as '\n' in strings)
+	    ( ?\" . "\"" )     ; string quote characters
+	    ;; word constituents (e.g., belonging to a note)
+	    ( ?\' . "w") ( ?\, . "w") ; transposing octaves
+	    ;; punctuation characters (separate symbols from another)
 	    ( ?\$ . "." ) ( ?\& . "." )
-	    ( ?\* . "." ) ( ?\+ . "." )
-	    ( ?\/ . "." )  ( ?\= . "." )
-	    ( ?\| . "." ) (?\\ . "\\" )
-	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." ) ; accent positioners: puctuation characters
-	    ( ?\' . "w") ( ?\, . "w") ; transposing octaves, parts of words (notes)
-	    ( ?\" . "\"" ) ; string quote characters 
-	    ( ?\%  .  "< 13" ) ; (block-)comment starter (or ender)
-	    ( ?\n . ">") ; newline: comment ender
-	    ( ?\r . ">") ; formfeed: comment ender
+	    ( ?\* . "." ) ( ?\+ . "." ) ( ?\/ . "." )  ( ?\= . "." )
+	    ( ?\| . "." )      ; bar line
+	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." ) ; accent positioners
 	    ))
   )
 
