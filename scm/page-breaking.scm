@@ -19,7 +19,6 @@
   (prev #:init-value '() #:accessor node-prev #:init-keyword #:prev)
   (page #:init-value 0 #:accessor node-page-number #:init-keyword #:pageno)
   (penalty #:init-value 0 #:accessor node-penalty #:init-keyword #:penalty)
-  (height #:init-value 0 #:accessor node-height #:init-keyword #:height)
   (lines #:init-value 0 #:accessor node-lines #:init-keyword #:lines))
 
 (define-method (display (node <optimally-broken-page-node>) port)
