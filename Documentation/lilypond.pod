@@ -244,6 +244,13 @@ http://www.stack.nl/~hanwen/lilypond/index.html. This webpage contains
 the MIDI, GIF and PS files for some standard music files. It also has
 the complete LilyPond documentation
 
+A mailing list for GNU LilyPond has been setup, it's at
+lilypond@gnu.ai.mit.edu. To subscribe, send mail to
+lilypond-request@gnu.ai.mit.edu.
+
+For discussions concerning the GNU Music project, 
+gnu-music-discuss@vanderbilt. .edu
+
 =head1  REMARKS
 
 GNU LilyPond has no connection with the music package Rosegarden, other
