@@ -2,6 +2,9 @@
 -\[ - _ -\] -
 -\\\( - _ -\\\) -
 \\\[ - _ \\\] -
+-\\\< - _ -\\\! -
+-\\\> - _ -\\\! -
+\\accacciatura
 \\accent
 \\accentus
 \\accepts
@@ -16,6 +19,7 @@ Ambitus_engraver
 \\apply
 \\applycontext
 \\applyoutput
+\\appoggiatura
 \\archiGroup
 \\arpeggio
 \\autoBeamOff
@@ -130,6 +134,7 @@ fold
 \\fontsize
 \\forgetAccidentals
 \\fp
+\\fraction
 \\fragment
 \\fz
 G
@@ -234,6 +239,7 @@ mezzosoprano
 \\n
 \\name
 \\names
+\\new
 \\newcontext
 \\newpage
 \\noBreak
@@ -421,7 +427,7 @@ Stem
 \\sub
 \\super
 \\sustainBoth
-\\sustainDown
+\\sustainDown - _ \\sustainUp -
 \\sustainUp
 System
 SystemStartDelimiter

@@ -1,3 +1,9 @@
+2003-08-28  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond.words: add \new and new graces. Add dynamics to menus
+	keeping 1.8.x compatibility; after all the engraving relating to 
+	notes becomes postfixed `-' marks will be removed.
+
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* GNUmakefile.in (EXTRA_DIST_FILES): dist lilypond.vim too.
