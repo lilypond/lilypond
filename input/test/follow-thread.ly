@@ -1,3 +1,9 @@
+\header{
+texidoc="
+Theads can be traced automagically when they switch staffs by setting
+property @code{followThread}.
+";
+}
 % followThread: connect note heads with line when thread switches staff 
 
 \score{

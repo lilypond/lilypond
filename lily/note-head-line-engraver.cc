@@ -128,10 +128,13 @@ Note_head_line_engraver::create_grobs ()
 	  
 	  announce_grob (line_, last_req_);
 	}
+
+      last_head_ = 0;
+      if (!follow_ && !req_)
+	head_ = 0;
       
       last_req_ = 0;
       follow_ = false;
-      last_head_ = 0;
     }
 }
 

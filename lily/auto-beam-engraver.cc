@@ -56,7 +56,7 @@ private:
   Link_array<Item>* stem_l_arr_p_;
 
 
-  bool count_i_;
+  int count_i_;
   Moment last_add_mom_;
 
   /*
@@ -193,7 +193,7 @@ Auto_beam_engraver::consider_begin (Moment test_mom)
 void
 Auto_beam_engraver::consider_end (Moment test_mom)
 {
-  if (stem_l_arr_p_ && stem_l_arr_p_->size () > 1)
+  if (stem_l_arr_p_)
     {
       /* Allow already started autobeam to end:
 	 don't check for noAutoBeaming */
@@ -396,7 +396,6 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 
 	but the code didn't match: */
 #if 1
-      
       consider_end (dur);
       consider_begin (dur);
 
