@@ -562,6 +562,21 @@ possibly turned off."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
+(define-public (ly:system command)
+  (let*
+      ((status 0))
+    
+    (if (ly:get-option 'verbose)
+	(display (format (_ "Invoking `~a'...\n") command) (current-error-port)))
+    
+    (set! status (system command))
+
+
+    (if (> status 0)
+	(display (format (_ "Error invoking `~a'. Return value ~a")
+			 command status)))
+    ))
+
 (define-public (postscript->pdf papersizename name)
   (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersizename " " name))
 	 (output-name
@@ -570,12 +585,8 @@ possibly turned off."
     (newline (current-error-port))
     (display (format (_ "Converting to `~a'...") output-name)
 	     (current-error-port))
-    (newline (current-error-port))
-    
-    (if (ly:get-option 'verbose)
-	(display (format (_"Invoking `~a'...") cmd) (current-error-port)))
 
-  (system cmd)))
+    (ly:system cmd)))
 
 (define-public (postscript->png resolution name)
   (let
@@ -588,11 +599,7 @@ possibly turned off."
 	       "--verbose "
 	       " ")
 	   name)))
-    (if (ly:get-option 'verbose)
-	(begin
-	  (display (format (_ "Invoking `~a'...") cmd) (current-error-port))
-	  (newline (current-error-port))))
-    (system cmd)))
+    (ly:system cmd)))
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
