@@ -171,5 +171,9 @@ do_one_file (String init, String in_file, String out_file)
       return;
     }
 
+  static  SCM proc;
+  if (!proc)
+    proc = scm_c_eval_string ("dump-gc-protects");
+
   Input_file_results inp_file (init, in_file, out_file);
 }

@@ -1,3 +1,7 @@
+2004-02-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (conv): 
+
 2004-02-29  Heikki Junes <hjunes@cc.hut.fi>
 
 	* ly/property-init: new functions: \arpeggioUp, \arpeggioDown,

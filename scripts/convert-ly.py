@@ -1972,10 +1972,13 @@ def conv (str):
 conversions.append (((2,1,27), conv, """property transposing -> tuning"""))
 
 def conv (str):
+	str = re.sub (r'make-music-by-name', 'make-music', str)
 	str = re.sub (r"\\override\s+.*Arpeggio\s+#.print-function\s+=\s+\\arpeggioBracket", r"\\arpeggioBracket", str)
 	return str
 
-conversions.append (((2,1,28), conv, """new syntax for setting \\arpeggioBracket"""))
+conversions.append (((2,1,28), conv,
+		     """make-music-by-name -> make-music,
+new syntax for setting \\arpeggioBracket"""))
 
 ################################
 #	END OF CONVERSIONS	
