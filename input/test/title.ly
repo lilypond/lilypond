@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 % MERGE with lilypond-
 \header {
   filename = "title.ly"
@@ -22,7 +22,7 @@
 }
 
 \score {
-  \context Staff \notes \relative c' {
+  \context Staff  \relative c' {
      \repeat unfold 10 {
        c d e f f e d c \break
        c d e f f e d c
@@ -35,7 +35,7 @@
 }
 
 \score {
-  \notes \relative c' {
+   \relative c' {
      f e d c c d e f \break
      f e d c c d e f
   }

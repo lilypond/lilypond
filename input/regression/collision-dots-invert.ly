@@ -4,9 +4,9 @@
     dots: notes with dots should go to the right, if there could be
     confusion to which notes the dots belong."
 }
-\version "2.2.0"
+\version "2.3.4"
 \score { 
-  \notes \relative c'' { 
+   \relative c'' { 
     << <a c>2\\ { <b d>4 <b d>4 }   >>
     << { <a c>2 } \\ { <b d>4. <b e>8 } >> 
   }

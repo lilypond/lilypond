@@ -6,10 +6,10 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score  {
-    \notes \new TabStaff {
+     \new TabStaff {
 	\set TabStaff.stringTunings = #'(5  10 15 20)
 	\relative c''  { c4 d e f }
        }

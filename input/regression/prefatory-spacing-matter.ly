@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "Distances between prefatory items (e.g. clef, bar,
@@ -10,7 +10,7 @@ bar-line is different from the start of line.
 
 }
 
-\score { \notes \relative c'' {
+\score {  \relative c'' {
 	\set Staff.instrument = "fobar"
 	\bar "||:"
 	\key cis \major

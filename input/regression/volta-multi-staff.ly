@@ -4,14 +4,14 @@
     on more staves in a score."
 
 }
-\version "2.2.0"
+\version "2.3.4"
 
 
-vmus = \notes { \repeat volta 2 c1 \alternative { d e } } 
+vmus =  { \repeat volta 2 c1 \alternative { d e } } 
 
 \score  {
 
-    \notes \relative c'' <<
+     \relative c'' <<
 	\new StaffGroup <<
 	    \context Staff \vmus
 	    \new Staff \vmus

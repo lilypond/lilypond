@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -9,7 +9,7 @@
 At a line-break, there are no vertical endings.  " }
 
 \score {
-    \notes \relative c'' {
+     \relative c'' {
         \set Staff.pedalSustainStyle = #'bracket
 
         c4 d e \sustainDown b c c, \sustainUp \sustainDown  d8[ c]  e8[ 

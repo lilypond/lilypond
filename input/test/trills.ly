@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
   texidoc="@cindex Trills
@@ -25,7 +25,7 @@ visible = \revert NoteHead #'transparent
 \score {
   <<
     \context GrandStaff <<
-      \new Staff \notes\relative c'' {
+      \new Staff \relative c'' {
 	\time 1/4
 	c4\prall
 	\time 3/8
@@ -91,7 +91,7 @@ visible = \revert NoteHead #'transparent
 	"de suite"1
 %}
       }
-      \new Staff \notes\relative c'' {
+      \new Staff \relative c'' {
         % autobeamer has som problems here
 	d32[  \repeat unfold 3 { c d } c]
 	d8 ~  d32[\repeat unfold 3 { c32 d  } c]

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "@cindex Scheme Interactions
 Using @code{ly:export}, the result of Scheme expressions can be passed
 as LilyPond input.  Within a Scheme expression, you can use, define or 
@@ -8,12 +8,12 @@ generated using scheme functions, and between there are manually
 
 " }
 
-foo = \notes \transpose c c { d''4-. }
-bra = \notes \transpose c c { e'4-. }
+foo =  \transpose c c { d''4-. }
+bra =  \transpose c c { e'4-. }
 
 
 \score { 
-  \context Voice \notes\relative c' {
+  \context Voice \relative c' {
       c4
       #(ly:export (make-sequential-music (list foo foo foo )))
       #(begin (define baz (make-simultaneous-music (list foo bra)))

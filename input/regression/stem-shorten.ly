@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
     
@@ -10,7 +10,7 @@
 }
 
 \score {
-    \notes \relative c'' {
+     \relative c'' {
 	\stemDown d c b a g f e
 	\stemBoth
 	\stemUp a b c d e f g a

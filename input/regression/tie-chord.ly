@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 When tying chords, the outer slurs point outwards, the inner slurs
@@ -9,10 +9,10 @@ by setting explicitly the @code{direction} of a @code{TieColumn}.
 }
 
 
-t = \notes \relative c' {   <c e g> ~ <c e g> }
+t =  \relative c' {   <c e g> ~ <c e g> }
 
 	\score { 
-\notes \context Voice {
+ \context Voice {
    \t
    \transpose c g \t
 

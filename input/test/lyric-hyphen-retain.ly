@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -17,7 +17,7 @@ the @code{LyricHyphen} grob.
 }
 
 \score {
-<<    \notes \new Staff \relative c'' { \time 1/4 c16[ c c  c]
+<<     \new Staff \relative c'' { \time 1/4 c16[ c c  c]
 \time 1/4
 c16[ c c c]
 \time 1/4

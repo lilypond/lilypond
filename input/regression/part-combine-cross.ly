@@ -4,10 +4,10 @@
 "
     }
 
-\version "2.2.0"
+\version "2.3.4"
 
-vone = \notes \relative a' { g4 g f f e e d d }
-vtwo = \notes \relative a' { e4 e f f g g a a }
+vone =  \relative a' { g4 g f f e e d d }
+vtwo =  \relative a' { e4 e f f g g a a }
 
 \score {
    \partcombine \vone \vtwo

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 
@@ -10,7 +10,7 @@ lengths are between 2 and 1.5."
 }
 
 \score{
-	\notes\relative c' { 
+	\relative c' { 
 		 c8[ c]  a''[ a]
 		 a,[ a]  c[ c]
 		 d,8[ d]  g'[ g]

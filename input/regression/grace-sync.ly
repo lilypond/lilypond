@@ -1,9 +1,9 @@
-\version "2.2.0"
+\version "2.3.4"
 \header  {
   texidoc = "Grace notes in different voices/staves are synchronized."
 }
 
-\score  {\notes\relative c'' << \context Staff  { c2
+\score  {\relative c'' << \context Staff  { c2
 	 \grace  c8
   c4 c4 }
 		\new Staff { c2 \clef bass

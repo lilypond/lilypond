@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % possible rename.  -gp
 
 \header { texidoc="@cindex Seperate Staccato
@@ -8,9 +8,9 @@ them into one thread.  In this example, a repead series of staccato dots
 is attached to the notes."
 } 
 
-staccatos = \notes { s4-. s-. s-. s s }
+staccatos =  { s4-. s-. s-. s s }
 
-music = \notes\relative c' { c4 d e f g  a b c d e }
+music = \relative c' { c4 d e f g  a b c d e }
 
 \score {
    \context Voice <<

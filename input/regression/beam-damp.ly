@@ -1,10 +1,10 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "@cindex Beam Damp
 Beams are less steep than the notes they encompass. " }
 
 \score{
-	\notes\relative c''{
+	\relative c''{
 %		\stemUp
 %		 a16[ b b c]
 %		 c[ b b a]

@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -24,7 +24,7 @@ raisedFlat = \markup { \raise #0.4 \smaller \smaller \flat  }
 
 
 
-flauti = \notes \relative c' {
+flauti =  \relative c' {
   \set Staff.instrument = #"2 Flauti"
   \set Staff.instr = #"Fl."
   \time 4/4
@@ -35,66 +35,66 @@ flauti = \notes \relative c' {
   \bar"|."
 }
 
-oboi = \notes \relative c' {
+oboi =  \relative c' {
   \set Staff.instrument = #"2 Oboi"
   \set Staff.instr = #"Ob."
   c1 c
 }
 
-clarinetti = \notes \relative c' {
+clarinetti =  \relative c' {
     \set Staff.instrument = \markup { \column < "Clarinetti" { "in B" \raisedFlat } > }
     \set Staff.instr = \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
 }
 
-fagotti = \notes \relative c' {
+fagotti =  \relative c' {
   \set Staff.instrument = #"2 Fagotti"
   \set Staff.instr = #"Fg."
   c1 c
 }
 
-corni = \notes \relative c' {
+corni =  \relative c' {
     \set Staff.instrument = \markup { \column < "Corni" { "in E" \raisedFlat } > }
     \set Staff.instr = \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c
 }
 
-trombe = \notes \relative c' {
+trombe =  \relative c' {
   \set Staff.instrument = \markup \column < "2 Trombe" "(C)" >
   \set Staff.instr = \markup \column <  "Tbe." "(C)" >
 
   c1 c
 }
 
-timpani = \notes \relative c' {
+timpani =  \relative c' {
   \set Staff.instrument = \markup \column < "Timpani" "(C-G)" >
   \set Staff.instr = #"Timp."
 
   c1 c
 }
 
-violinoI = \notes \relative c' {
+violinoI =  \relative c' {
   \set Staff.instrument = #"Violino I  "
   \set Staff.instr = #"Vl. I  "
   c1 c
 }
 
-violinoII = \notes \relative c' {
+violinoII =  \relative c' {
   \set Staff.instrument = #"Violino II  "
   \set Staff.instr = #"Vl. II  "
   c1 c
 }
 
-viola = \notes \relative c' {
+viola =  \relative c' {
   \set Staff.instrument = #"Viola"
   \set Staff.instr = #"Vla."
   c1 c 
   %c
 }
 
-violoncello = \notes \relative c' {
+violoncello =  \relative c' {
   \set Staff.instrument = \markup \column < "Violoncello" "e" "Contrabasso" >
   \set Staff.instr = \markup \column <  "Vc." "Cb." >
   c1 c

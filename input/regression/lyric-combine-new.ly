@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
@@ -9,7 +9,7 @@
 
 \score {
 <<
-    \notes \context Voice = "bla" \relative c'' {
+     \context Voice = "bla" \relative c'' {
 	\autoBeamOff
 	c2( d4) e8[ c b c] f4
     }

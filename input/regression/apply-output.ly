@@ -1,5 +1,5 @@
 
-\version "2.3.1" 
+\version "2.3.4" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to
@@ -35,7 +35,7 @@ position.
 
 \score {
 
-\notes \context Voice \relative  c' {
+ \context Voice \relative  c' {
 				      \stemUp
 				      \set autoBeaming =  ##f
    { <d f g b>8

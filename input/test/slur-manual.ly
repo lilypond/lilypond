@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 
@@ -11,7 +11,7 @@
     }
 
 \score {
-    \notes \new PianoStaff
+     \new PianoStaff
     <<
 	\context Staff = up {
 	    \clef bass

@@ -8,7 +8,7 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 wipeNote = {
     \once \override NoteHead #'transparent = ##t
@@ -17,7 +17,7 @@ wipeNote = {
 
 
 \score {
-    \notes \relative c'' {
+     \relative c'' {
 	<< {
 	    c8[~
 	    \wipeNote

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -17,7 +17,7 @@ notes as well.)
 }
 
 \score { 
-  \context Voice \notes\relative c' {
+  \context Voice \relative c' {
 	\time 4/4
 	\repeat "tremolo" 16 { d32 e }
 	\repeat "tremolo" 8 { d16 e }

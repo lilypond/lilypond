@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{ texidoc = "@cindex Transposition
 Transposing has also an effect key signature, if it is given using
@@ -10,7 +10,7 @@ the key signature is not transposed."
 
 % should the explicitly set key signature transpose also? -HJJ
 
-vOne = \notes \relative c''{
+vOne =  \relative c''{
         \clef"violin"
         \key d \major
         \time 2/4 
@@ -21,9 +21,9 @@ vOne = \notes \relative c''{
         c4 c |
 }
 
-vTwo = \notes \transpose c d { \vOne }
+vTwo =  \transpose c d { \vOne }
 
-vThree = \notes \relative c''{
+vThree =  \relative c''{
         \clef"violin"
 %        keysignature fis cis
 	\set Staff.keySignature = #'((0 . 2)(3 . 2))
@@ -38,7 +38,7 @@ vThree = \notes \relative c''{
 }
 
 
-vFour = \notes \transpose c d \vThree
+vFour =  \transpose c d \vThree
 
 \score {
   \context StaffGroup <<

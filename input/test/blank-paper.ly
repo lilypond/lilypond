@@ -1,4 +1,4 @@
-\version "2.3.0"
+\version "2.3.4"
 \header {
   texidoc="@cindex Blank Paper
 

@@ -1,7 +1,7 @@
 
 % this chart is used in the manual too.
 
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "@cindex Script Abbreviations
 
 Some articulations may be entered using an abbreviation.
@@ -11,7 +11,7 @@ Some articulations may be entered using an abbreviation.
 }
 
 \score {
-    \notes \context Voice {
+     \context Voice {
       \override TextScript  #'font-family = #'typewriter
       \override TextScript  #'font-shape = #'upright
       c''4-._"c-."      s4

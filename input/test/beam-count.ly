@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -8,7 +8,7 @@ two sets of four 32nds are joined, as if they were 8th notes.
 
 " }
 
-fragment = \notes {
+fragment =  {
   #(override-auto-beam-setting '(end * * * *)  1 4)
   f32 g a b b a g f
 
@@ -20,7 +20,7 @@ fragment = \notes {
 
 
 \score {
-  \notes\relative c \fragment
+  \relative c \fragment
   \paper { raggedright = ##t}  
 }
 

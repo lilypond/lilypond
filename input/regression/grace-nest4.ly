@@ -1,9 +1,9 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Also in the nested syntax here, grace notes appear rightly."
 }
 
-\score { \notes \context Voice \relative c'' {
+\score {  \context Voice \relative c'' {
 
     <<
      { \grace  g32 f4 }

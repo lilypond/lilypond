@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 
@@ -9,8 +9,8 @@ produced with explicit staff switches)."
      }
 
 \score {
-  \notes \context PianoStaff <<
-    \context Staff = "up" \notes\relative c''{
+   \context PianoStaff <<
+    \context Staff = "up" \relative c''{
       b8[ \change Staff="down" d,, ]
       c[ \change Staff="up" c'' ]
       b,[ \change Staff="down" d^"no knee" ]

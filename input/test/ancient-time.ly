@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 % TODO: move stuff from ancient-font into here?  See comment
 % for ancient-font.ly
 \header {
@@ -8,7 +8,7 @@ Time signatures may also be engraved in an old style.
 }
 
 \score {
-  \notes { 
+   { 
     \override Staff.TimeSignature  #'style = #'neo_mensural
     s1 
   }

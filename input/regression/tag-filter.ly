@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a
@@ -14,7 +14,7 @@ notes and fingerings, but the score has not."
 \paper { raggedright= ##t }
 
 common =
-\notes \relative c''  {
+ \relative c''  {
 
     c1
     \relative c' <<
@@ -31,7 +31,7 @@ common =
 
 
 \score {
-    \notes \simultaneous { 
+     \simultaneous { 
     \new Staff {
 	\set Staff.instrument = #"both"
 	\common

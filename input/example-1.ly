@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 % A simple scale in LilyPond
 %
@@ -14,7 +14,7 @@
 %% 
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     c' d e f g a b c
   }
   \paper {  }  

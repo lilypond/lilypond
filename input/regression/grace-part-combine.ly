@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Grace notes may be put in a @code{partcombine}r."
 }
@@ -9,10 +9,10 @@
 \score {
     \new Staff
 	    \partcombine 
-	     \notes \relative c'' {
+	      \relative c'' {
 		c4 d e f  \grace f16 g1
 	    }
-	     \notes \relative c' {
+	      \relative c' {
 		c4 d e2  g1
 	    }
 	

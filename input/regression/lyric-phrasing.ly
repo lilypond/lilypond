@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "
@@ -11,7 +11,7 @@ texidoc = "
 
 \score{
     <<
-	\notes \relative c' \context Voice = "bla" {
+	 \relative c' \context Voice = "bla" {
 	    \autoBeamOff
 	    c4( c16 d c b)  c4
 	    d16[ e f g]

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -9,7 +9,7 @@
 
 }
 
-mus = \notes 	\relative c' {
+mus =  	\relative c' {
     f1~
     f2~f4 % ~ f8
     fis8  gis8 ~
@@ -18,7 +18,7 @@ mus = \notes 	\relative c' {
 }
 
 \score {
-    \notes <<
+     <<
 	\new NoteNames \mus
 	\new Voice { \key g \major \mus }
     >>

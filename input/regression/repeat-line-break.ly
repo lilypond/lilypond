@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ bracket should be equal.
     \paper { raggedright= ##t }
 
 \score  {
-\notes
+
 \context Staff\relative c''  {
 	\repeat "volta" 2 { c1 \break } \alternative { d e }
 	c1

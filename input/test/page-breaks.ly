@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -26,7 +26,7 @@ texidoc = "Stress optimal page breaking.  This should look
 pattern =  { a b c d \break }
 \book {    
     \score {
-	\context Staff \notes \relative c' {
+	\context Staff  \relative c' {
 	    %% 16: ideally cramped
 	    %% 17: very bad without density
 				%	\repeat unfold 17 { a b c d \break }

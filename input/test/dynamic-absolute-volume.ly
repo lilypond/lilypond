@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have an effect on MIDI files.
@@ -8,7 +8,7 @@ Absolute dynamics have an effect on MIDI files.
 
 
 \score{
-\notes\relative c''{
+\relative c''{
 %segfault in engraver
 a1\ppp 
 a1\pp

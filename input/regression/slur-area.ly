@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     
     texidoc = "The area underneath an (up) slur is minimised to improve the shape. "
@@ -7,7 +7,7 @@
 }
 
 \score{
-\notes\relative c''{
+\relative c''{
 
 \slurUp
 \stemDown

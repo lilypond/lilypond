@@ -7,11 +7,11 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.3.2"
+\version "2.3.4"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.
-\score { \notes
+\score { 
 \context Staff
 	 \relative c' {
 	     #(set-time-signature 2 4) 

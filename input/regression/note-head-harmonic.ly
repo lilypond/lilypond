@@ -6,10 +6,10 @@
   Harmonic heads do not get  dots. If @code{harmonicAccidentals} is unset, they also don't get accidentals."
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
- \notes {
+  {
     < c'' f''\harmonic >4
     \stemUp
     < c'' f''\harmonic >4.

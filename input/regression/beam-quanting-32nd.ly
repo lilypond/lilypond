@@ -8,10 +8,10 @@ texidoc = "Stem lengths take precedence over beam quants: `forbidden'
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-    \notes \relative c''{ 
+     \relative c''{ 
 \time 3/8
 a'16[ b] g[ b]
 a32[ b] g[ b] 

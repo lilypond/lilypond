@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ whole rest are centered on the middle staff line.
 }
 
 
-	\score { \notes {
+	\score {  {
 	\time 4/4
 r \longa * 1/4  r\breve * 1/2 
 r1 r2 r4 r8 r16 r32 r64 r128 r128

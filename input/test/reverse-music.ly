@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Symmetric, or palindromical music can be produced, first, by printing
@@ -8,7 +8,7 @@ function to reverse the syntax.
 "
 }
 
-music = \notes \relative c'' { c4 d4( e4 f4 }
+music =  \relative c'' { c4 d4( e4 f4 }
 
 #(define (reverse-music music)
   (let* ((elements (ly:music-property music 'elements))

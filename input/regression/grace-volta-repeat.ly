@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -8,7 +8,7 @@
 }
 
 \score{
-   \notes\relative c''{\key a \minor \time 2/4
+   \relative c''{\key a \minor \time 2/4
      \repeat "volta" 2 {
      \grace {  a16[ b] }  c4 c4  |
      \grace {  d16[ b] } c4 c4 |

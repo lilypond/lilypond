@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 % MERGED: stuff from follow-break.ly to follow-thread.ly
 
 % followVoice: connect note heads with line when thread switches staff 
@@ -8,7 +8,7 @@ Voices can be traced automatically when they switch staves by setting
 
 
 \score {
-	\notes\relative c {
+	\relative c {
 	\new PianoStaff <<
 		\set PianoStaff.followVoice = ##t
 		\context Staff=one \context Voice {

@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 	texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and works only if
 two chords have no common head-positions range."
 }
 
-\score { \notes \relative c'' {
+\score {  \relative c'' {
 \stemDown
 \time 12/4
   f8[

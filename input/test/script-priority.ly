@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Script Priority
 Relative placements of different script types can be controlled
@@ -13,7 +13,7 @@ script symbols.
 
 
 \score{
-    \context Staff \notes \relative g''{
+    \context Staff  \relative g''{
 	
  	\override Score.TextScript  #'script-priority = #-100
 	a4^\prall^\markup { \sharp }

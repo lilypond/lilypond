@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header{ texidoc="@cindex Time Signature Multiple
 
@@ -17,7 +17,7 @@ lines seem to distort the regular spacing.
 %% Should print bar lines according to the time signature of each staff. -HJJ
 
 \score{
-    \notes \relative c'  <<
+     \relative c'  <<
     	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |

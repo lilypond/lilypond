@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Slurs behave decently when broken across a linebreak.
@@ -9,7 +9,7 @@ Slurs behave decently when broken across a linebreak.
 	
 \score{
 	\context PianoStaff <<
-	\context Staff=one \notes\relative c'{
+	\context Staff=one \relative c'{
 		\stemUp \slurUp
 		 c4( c \change Staff=two c  c) |
 		\change Staff=one
@@ -39,7 +39,7 @@ Slurs behave decently when broken across a linebreak.
 		 c4( \change Staff=one c c \change Staff=two  c)
 		r1
 	}
-	\context Staff=two \notes\relative c'{
+	\context Staff=two \relative c'{
 		\clef bass
 		s1 s1 s1 s1 s1 s1 s1 s1 s1 s1
 	}

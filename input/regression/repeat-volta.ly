@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ If they don't barlines should still be shown.
 
 %  no alts.
 \score {
-  \notes \context Voice \relative c'' {
+   \context Voice \relative c'' {
     % repeat non aligning with barlines.
     \repeat volta 3 { c^"3$\\times$ 0alt" d e }
     % less alts than body

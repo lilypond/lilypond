@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -18,7 +18,7 @@ analysis brackets start and end.
 
 
 \score {
-    \notes\relative c''
+    \relative c''
     {
 	c4\startGroup\startGroup\startGroup
 	c4\stopGroup

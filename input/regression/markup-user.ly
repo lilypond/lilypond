@@ -7,14 +7,14 @@
 
       }
 
-\version "2.2.0" % to be updated
+\version "2.3.4" % to be updated
 
 #(def-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
    (interpret-markup paper props (make-simple-markup (string-upcase str))))
 
 \score { 
-    \notes { 
+     { 
         c''-\markup \upcase #"hello world"
         % produces a "HELLO WORLD" markup
     }

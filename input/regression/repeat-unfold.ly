@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -17,7 +17,7 @@ Unfolded behavior:
 
 \score {
 
-  \context Voice \notes\relative c'' {
+  \context Voice \relative c'' {
 \repeat unfold 3 { c^"3x 0a" d }
 % less alts than body
 \repeat unfold 4 { c^"4x 0a" d } \alternative { e f }

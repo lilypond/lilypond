@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="No auto beams will be put over (manual) repeat bars."
 }
 
 \score {
-    \notes {
+     {
         \time 3/4
         a'4 b' c''8 \bar ":|:" d''8
     }

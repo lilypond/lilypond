@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{ texidoc = "@cindex Tabulature
 Tablature is internally done by overriding the note-head formatting function
@@ -12,7 +12,7 @@ possible, according to @code{minimumFret}.
 "
 }
 
-partition = \notes {
+partition =  {
     \key e \major
     e8\5 fis\5 gis\5 a\5 b\5 cis'\5 dis'\5 e'\5
     e8\4 fis\4 gis\4 a\4 b\4 cis'\4 dis'\4 e'\4

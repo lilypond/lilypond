@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % possible rename to invis-notes.ly
 % check if other documents call this "blank notes", though.  I think
 % invisible notes sounds better, but whatever it is, it should be
@@ -18,7 +18,7 @@ unblanknotes = { \revert NoteHead #'transparent
 
 
 \score {
-    \notes \relative c'' { c4 d4 
+     \relative c'' { c4 d4 
     \blanknotes e4 f4   \unblanknotes
 	     g4 a 
 	     }

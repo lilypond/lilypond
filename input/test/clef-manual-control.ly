@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{ texidoc = "
 
 @cindex Clef Manual Control
@@ -9,7 +9,7 @@ are central C."
 
 }
 
-\score { \notes {
+\score {  {
   \set Staff.clefGlyph = #"clefs-F"
   \set Staff.clefPosition = #2
   c'4

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     
     texidoc = "If collision resolution finds dotted note head must
@@ -9,7 +9,7 @@
 \paper { raggedright = ##t }
 
 \score {
-  \notes \relative c {
+   \relative c {
     \key d \minor
     \clef bass
     << <cis a' cis>4 \\ { g'8. bes16} >>

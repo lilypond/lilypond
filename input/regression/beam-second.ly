@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
   texidoc="
 Engraving second intervals is tricky.  We used to have problems with seconds 
@@ -8,7 +8,7 @@ seconds, you'll spot something fishy very quickly.
  
 " }
 \score{
-    \notes\relative c''{
+    \relative c''{
 	\stemUp
 	 b8[ c]
 	 b16[ c]

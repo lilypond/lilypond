@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -20,7 +20,7 @@ what you would expect.)
 
 
 \score  {
-    \notes \relative c'' <<
+     \relative c'' <<
  	\new StaffContainer {
 
 	    %% need << >>, otherwise we descend to the voice inside SA  

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
@@ -10,7 +10,7 @@ line. Isolated dynamics may be forced up or down.
 
 
 \score{
-\notes\relative c''{
+\relative c''{
 a1^\sfz
 a1\fff\> c,,\!\pp a'' a\p
 

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
 
     texidoc = "The size of every system is correctly determined; this 
@@ -6,7 +6,7 @@
 
     }
 	  
-\score { \notes
+\score { 
 \context Voice
 { \unset Staff.minimumVerticalExtent 
     \slurDown c4 ( g4  c''4)

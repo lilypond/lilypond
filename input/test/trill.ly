@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc="@cindex Trill
 The extended trill may be produced using @code{TextSpanner} with @code{trill} 
@@ -8,7 +8,7 @@ spanner style.
 
 
 \score {
-  \context RhythmicStaff \notes {
+  \context RhythmicStaff  {
     \stemDown
     \override Stem  #'transparent = ##t
     \override TextSpanner  #'dash-fraction = #0.0

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "
@@ -8,7 +8,7 @@ Vertical extents may increased by setting @code{minimumVerticalExtent},
 " }
 
 \score {
-  \notes  <<
+    <<
     \new Staff {
       \set Staff.verticalExtent = #'(-15.0 . 0.0)
       \clef alto

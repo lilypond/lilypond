@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "@cindex Auto Beaming Override
@@ -23,7 +23,7 @@ The @code{autoBeaming} can also be turned off.
 %% TODO: check doc string. -hw
 
 \score{
-    \notes \relative c''{
+     \relative c''{
         #(override-auto-beam-setting '(end * * * *)  1 2)
     	\time 2/4
 	% one beam per measure

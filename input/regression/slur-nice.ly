@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Slurs should look nice and symmetric.  The curvature may increase
@@ -9,7 +9,7 @@ run through noteheads or stems.
 }
 
 \score{
-	\notes\relative c''{
+	\relative c''{
 		\time 3/4
 		\slurUp
 		\stemBoth a ( \stemDown a \stemBoth  a) a( c  a) a( e'  a,) a( g'  a,)

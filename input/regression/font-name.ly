@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -19,7 +19,7 @@ available through (La)TeX.
 %}
 
 \score {
-    \notes {
+     {
 	\override Staff.TimeSignature  #'font-name = #"cmr17"
 	\set Score.skipBars = ##t
 

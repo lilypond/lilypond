@@ -2,11 +2,11 @@
 texidoc = "With the new markup syntax, text may be written in various manners."
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 
 \score {
-  \notes
+  
    {
     f'-\markup {
 		foo

@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Automatic beaming works also in ternary time sigs."
 }
 
 \score {
-   \notes \relative c'' {
+    \relative c'' {
 \time 6/8
  c8.[ c16 c16 c16] 
 }

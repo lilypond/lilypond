@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "For knees, the spacing correction is such that the
@@ -6,7 +6,7 @@ stems are put at regular distances. This effect takes into account the
 width of the note heads and the thickness of the stem.
 "
     }
-\score { \notes
+\score { 
 {
  g''8[ g g'' g''] 
 

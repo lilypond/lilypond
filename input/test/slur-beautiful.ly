@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc ="@cindex Slur Beautiful
 The curvature of a slur is adjusted to stay away from note heads and 
@@ -11,7 +11,7 @@ keep slurs more curved.
 "
 }
 
-\score { \notes {\relative c' {
+\score {  {\relative c' {
   \stemDown \slurUp
   c16( a' f' a a f a, c,)
   c( a' f' a a f d, c)

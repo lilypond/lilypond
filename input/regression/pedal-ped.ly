@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header
 {
     texidoc = "The standard piano pedals style comes with Ped symbols.
@@ -8,7 +8,7 @@ at the end of the melody."
 }
 
 \score{
-    \context Staff \notes\relative c'{
+    \context Staff \relative c'{
         c4 d e f g
         \sustainDown b c
         c, d16[  c  c c]  e[ e \sustainUp \sustainDown e e ] f4 \sustainUp 

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header
 {
   texidoc = "The multimeasure rest is centered exactly between bar lines."
@@ -6,7 +6,7 @@
 }
 
 \score {
-    \notes
+    
     {
 	\set Score.skipBars = ##t
 	\override Staff.BarLine  #'hair-thickness = #7.5

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc =
 
@@ -13,7 +13,7 @@ if the black note heads are from 8th or shorter notes.
 
 
 \score {
-    \context Staff \notes \relative c'' <<
+    \context Staff  \relative c'' <<
 	{
 	    c2 c8 c4.
 	    

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex text spanner
 Text spanners can be used in the similar manner than markings for pedals
@@ -8,7 +8,7 @@ or octavation.
 }
 
 \score{
-    \notes\relative c''{
+    \relative c''{
         \override TextSpanner  #'edge-text = #'("bla" . "blu")
         a \startTextSpan
 	b c 

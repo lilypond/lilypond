@@ -11,9 +11,9 @@ voices.
   
 "
     }
-\version "2.2.0"
+\version "2.3.4"
 
-vone =\notes
+vone =
 
 %%%%%%%%%%%%%%  0   1   2   3  
 \relative c'' {
@@ -22,7 +22,7 @@ vone =\notes
     a8[ a]  a8[ a]
 }
 
-vtwo =\notes
+vtwo =
 \relative c' {
     \time 2/4
     f8[ f]~ f8[ f] |

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -26,7 +26,7 @@
   (prepend-grob-property grob-name 'space-alist
    (cons entry (cons 'extra-space value))))
 
-noclefs = \notes {
+noclefs =  {
   s1
   \override Staff.Clef #'break-visibility = #(lambda (dir) (cons #t #t))
 }
@@ -61,7 +61,7 @@ myBreak = { \bar "" \break }
   textheight = 270.0\mm
 }
 
-voice = \notes \relative c' {
+voice =  \relative c' {
   \clef violin
   \key g \major
   d4 | g g a a b | a8 \myBreak
@@ -92,7 +92,7 @@ voice = \notes \relative c' {
   \bar "|."
 }
 
-stich = \notes \relative c'' {
+stich =  \relative c'' {
   \override Staff.NoteCollision #'merge-differently-dotted = ##t
   \set fontSize = #-3
   %% broken?

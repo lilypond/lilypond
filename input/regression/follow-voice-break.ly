@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
        texidoc = "
 The line-spanners connects to the Y position of the note  on the next line.
@@ -12,7 +12,7 @@ printed.
 \score{
         \context PianoStaff <<
 	    \set PianoStaff.followVoice = ##t	    
-                \context Staff=one \notes\relative c''{
+                \context Staff=one \relative c''{
 		    a1 \break
 		    \change Staff=two
 		    a,

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % MERGE with title.ly -gp
 
 %{
@@ -26,11 +26,11 @@ texidoc = "In the generated output for printing, there are several titles which 
 
 
 \score {
- \notes \relative c'' { c1 c1 c1 c1 }
+  \relative c'' { c1 c1 c1 c1 }
 }
 
 \score {
-	\notes \relative c'' { c1 c1 c1 c1 }
+	 \relative c'' { c1 c1 c1 c1 }
 	
 	\header {
 

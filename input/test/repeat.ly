@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 % possible rename to lyric-repeat or repeat-lyric.
 
@@ -11,7 +11,7 @@ Alternate lyrics can be used, as well as alternate notes for repeats. "
 
 \score{
 	<<
-		  \context Staff \notes\relative c'{ 
+		  \context Staff \relative c'{ 
 			  c d e f
 			  \repeat "volta" 2 { g a b c }
 			  \alternative { { c b a g } { f e d c } }

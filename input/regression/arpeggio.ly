@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
@@ -9,7 +9,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 
 
 \score{
-    \context PianoStaff\notes << 
+    \context PianoStaff << 
 	 \new Staff \relative c''{
 	     <fis,  d a>\arpeggio
 	    \override Staff.Arpeggio  #'arpeggio-direction = #1 

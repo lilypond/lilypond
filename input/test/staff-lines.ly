@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -11,11 +11,11 @@ in the properties of @code{StaffSymbol}.
 }
 
 
-upper = \notes\relative c'' {
+upper = \relative c'' {
   c1 d e f
 }
 
-lower = \notes\relative c {
+lower = \relative c {
   c1 b a g
 }
 

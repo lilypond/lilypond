@@ -175,8 +175,13 @@ Paper_book::classic_output (String outname)
       String format = output_formats[i];
       String func_nm = format;
       func_nm = "output-classic-framework-" + func_nm;
+      String mod_nm = "scm framework-" + format;
       
-      SCM func = ly_scheme_function (func_nm.to_str0 ());
+      SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+      SCM func = scm_c_module_lookup (mod, func_nm.to_str0 ());
+
+      func = scm_variable_ref (func);
+      
       Paper_outputter *out = get_paper_outputter (outname + "." + format,
 						  format);
 

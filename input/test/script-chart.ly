@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 % this chart is used in the manual too.
 
@@ -14,7 +14,7 @@ This chart shows all articulations, or scripts, that feta font contains.
     <<
       \override Score.LyricText  #'font-family = #'typewriter
       \override Score.LyricText  #'font-shape = #'upright
-      \context Staff \notes {
+      \context Staff  {
 	\set Score.timing = ##f
 	\set Score.barAlways = ##t
 	\override Staff.BarLine  #'transparent = ##t

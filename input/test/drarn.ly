@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{texidoc="@cindex Drarn
 You can attach slurs and ties to noteheads.
 " }
 
 \score {
-  \context Staff \notes <<
+  \context Staff  <<
     
      \relative c'' {
 \time 3/8	 

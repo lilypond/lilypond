@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
 
 \paper { raggedright= ##t }
 \score{
-\notes \relative c'	<<
+ \relative c'	<<
 	\context Voice = melody {
 	    c8[ ( d] )
 	    r4 f4 }

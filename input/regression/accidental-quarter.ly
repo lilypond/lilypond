@@ -3,10 +3,10 @@
     texidoc = "Quarter tone notation is supported, including
     threequarters flat."
     }
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-    \notes \relative c'' {
+     \relative c'' {
 	\time 12/4 
 	ceses4
 	ceseh

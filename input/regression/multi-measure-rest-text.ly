@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header  {
 
@@ -10,7 +10,7 @@ Texts may be added to the multi-measure rests.
 
 }
 
-\score { \notes {
+\score {  {
   \time 3/4
   \set Score.skipBars = ##t
   R2._\markup { \center-align < \musicglyph  #"scripts-dfermata" \roman "Ad lib"  >  }

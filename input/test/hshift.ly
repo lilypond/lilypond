@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "@cindex Horizontal Shift
 Notes may be manually horizontally shifted. " }
 
@@ -9,7 +9,7 @@ shiftIV = \override NoteColumn  #'horizontal-shift = #3
 shiftV = \override NoteColumn  #'horizontal-shift = #4
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     
 	\context Staff <<
 		\new Voice  {\stemUp \shiftI g'' }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc ="Polyphonic rhythms and rests do not disturb
@@ -7,7 +7,7 @@ texidoc ="Polyphonic rhythms and rests do not disturb
 }
 
 \score {
-    \notes {
+     {
        \clef violin
        \time 8/8
        \key des \major

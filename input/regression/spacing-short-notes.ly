@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     
 texidoc = "Notes that are shorter than the common shortest note get a
@@ -10,7 +10,7 @@ eighth note. "
 
 }
 
-\score { \notes \relative c''
+\score {  \relative c''
 {
     \time 2/4 
     c16 c c c c4 c4

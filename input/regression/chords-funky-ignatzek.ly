@@ -1,11 +1,11 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header {
 texidoc = "Jazz chords may have unusual combinations."
 }
 
-chs = \notes 
+chs =  
 {
 <c d  f g>1
 <c d  e f g>1
@@ -25,6 +25,6 @@ chs = \notes
 %	#(set-chord-name-style 'ignatzek)
 	\chs
     }
-	\context Staff \notes \transpose c c' { \chs }
+	\context Staff  \transpose c c' { \chs }
     >>
 }

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ Beams should look the same.
 
     
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
 			 d''8[ d d]  d[ g d]
 			c c
   }

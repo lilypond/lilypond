@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header {
@@ -7,7 +7,7 @@
     "Beaming can be overidden for individual stems."
 }
 \score {
-    \notes \relative c'' {
+     \relative c'' {
 	c32[ c
 
 	     %% WARNING: #'beaming is written, so this

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "Upstem notes before a barline are printed with some extra
@@ -10,7 +10,7 @@ space. This is an optical correction similar to juxtaposed stems.
 
 sd = \override Stem  #'direction = #-1
 su = \override Stem  #'direction = #1
-\score { \notes\relative e'
+\score { \relative e'
 {
 
 %\override Staff.StaffSpacing  #'stem-spacing-correction = #0.5

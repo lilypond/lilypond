@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "By setting @code{Staff.keySignature} directly,
 key signatures can be set invidually per pitch.
 "
 
 }
-\score { \notes
+\score { 
 \relative c'
 \context Staff {
   \set Staff.keySignature = #'(((1 .  2) . 1) ((0 . 3) . -1))

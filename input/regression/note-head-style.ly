@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Note head shapes may be set from several choices.  
@@ -11,7 +11,7 @@ dimensions.
 "
 }
 
-pattern = \notes <<
+pattern =  <<
       \new Voice {
         \override Stem  #'direction = #UP
         e'4
@@ -24,7 +24,7 @@ pattern = \notes <<
     >>
 
 \score {
-  \notes \transpose c c {
+   \transpose c c {
     \clef C
 
     \override Staff.NoteHead  #'style = #'default

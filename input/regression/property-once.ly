@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Once properties take effect during a single time step only."
 }
 
 \score {
-      \notes \relative c' {
+       \relative c' {
 	  c4
 	  \once \set Stem = #'()
 	  c4

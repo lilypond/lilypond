@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.2"
+\version "2.3.4"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -32,7 +32,7 @@ possibly more impressive to render without tweaks?
   (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 
 
-treble = \new Voice \notes\relative c''{
+treble = \new Voice \relative c''{
     \key a \major
     r2
     | %2
@@ -97,7 +97,7 @@ treble = \new Voice \notes\relative c''{
     \bar "||"
 }
 
-trebleTwo = \new Voice \notes\relative c''{
+trebleTwo = \new Voice \relative c''{
     \stemDown
     \slurDown
     % \fingerDown
@@ -122,7 +122,7 @@ trebleTwo = \new Voice \notes\relative c''{
     <a cis,>)]
 }
 
-bass = \new Voice \notes\relative c{
+bass = \new Voice \relative c{
     \partial 2
     \key a \major
     
@@ -223,7 +223,7 @@ bass = \new Voice \notes\relative c{
     a)]
 }
 
-bassTwo = \new Voice \notes\relative c{
+bassTwo = \new Voice \relative c{
     \skip 2
     \skip 1*2
     \skip 2
@@ -234,7 +234,7 @@ bassTwo = \new Voice \notes\relative c{
     cis'4( bis)
 }
 
-middleDynamics = \notes{
+middleDynamics = {
     \override Dynamics.TextScript  #'padding = #-1 %tweak
     s2
     s1*2

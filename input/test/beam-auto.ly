@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 	texidoc = "@cindex Beaming Presets
 There are presets for the @code{auto-beam} engraver in the case of common
 time signatures. " }
 \score{
-    \notes \relative c''{
+     \relative c''{
 
     	\time 1/2
     	c8 c c c

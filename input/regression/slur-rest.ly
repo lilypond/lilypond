@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
@@ -7,7 +7,7 @@ the rest.
 
 "
 }
-\score{ \notes  { \stemDown c'4 ( r4  c'2)
+\score{   { \stemDown c'4 ( r4  c'2)
 
 		  \relative c'' { 
 	% Finish with F if played separately 

@@ -2,15 +2,15 @@
     texidoc = "Rests under beams are only moved if necessary."
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
-fig =  \notes \relative c' {
+fig =   \relative c' {
     <a c e>8[ r <c e a> r <e a c> r <a c e>]  r |
 }
 
 			 
 \score {
-  \notes \relative c' \new Staff {
+   \relative c' \new Staff {
      \fig 
       \transpose c c,  \fig
       \new Voice { \stemUp \transpose c f  \fig }

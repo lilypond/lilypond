@@ -6,9 +6,9 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 \score {
-  \notes \relative c'' {
+   \relative c'' {
       <<
 	  { \grace e8 d2 }
 	  \\ { a2 } >>

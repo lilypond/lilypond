@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
     texidoc="
 
@@ -14,7 +14,7 @@ bracket can be shortened.
 
 \score {
     <<
-	\context Staff \notes\relative c''{
+	\context Staff \relative c''{
 	    c c c c
 				% coda-klugde: let volta span only one bar
 	    \set Staff.voltaSpannerDuration = #(ly:make-moment 1 1)

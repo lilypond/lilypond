@@ -1,9 +1,9 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Ties should not collide with dots."
 }
 
-\score{\notes{\time 9/8 \key f \major\clef bass
+\score{{\time 9/8 \key f \major\clef bass
   g4 d8 bes4.  ~    bes4    a8    \bar "|"
   a8    gis8    d8 f4.    gis,4.    \bar "|"
   a,4.   ~    a,4    r8   r4   r8   \bar "|"

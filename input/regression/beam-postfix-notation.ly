@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "Beams and ties may be entered in postfix notation, separating the
@@ -11,7 +11,7 @@ texidoc = "Beams and ties may be entered in postfix notation, separating the
 
 \score
 {
- \notes\relative c''
+ \relative c''
    {
        c8[~ c]
    }

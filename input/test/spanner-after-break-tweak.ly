@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Spanner after break
 
@@ -25,7 +25,7 @@ after the line break in this example is moved around. "
 
 #(debug-enable 'backtrace)
 
-\score {\notes \relative c'' { 
+\score { \relative c'' { 
     \override Tie  #'after-line-breaking-callback =
        #my-callback
     c1 ~ \break c2 ~ c

@@ -6,10 +6,10 @@ are collected here.
 "
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     \time 3/4
 	\override Staff.Accidental  #'style = #'default
 	cisis''^"Accidental style = \#'default" cisis! cisis? |

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
 
     texidoc = "Completion heads are broken across bar lines. This was
@@ -9,7 +9,7 @@ Completion heads are not fooled by polyphony with a different rhythm.
 }
 
 \score{ 
-	\context Staff \notes \relative c'' << 
+	\context Staff  \relative c'' << 
 	    { c2. c bes2 } \\
 	    { c2. a8 g4 f4. g4 f  }
 	>>

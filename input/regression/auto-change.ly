@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -12,7 +12,7 @@ note. When central C is reached, staff is not yet switched (by default).
     \paper { raggedright= ##t }
 
 \score {
-	\notes \context PianoStaff <<
+	 \context PianoStaff <<
 	\context Staff = "up" {
 		\autochange  \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
 	}

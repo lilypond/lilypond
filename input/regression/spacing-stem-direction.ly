@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 
@@ -12,7 +12,7 @@ much to correct."
 }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
   % make sure neutral is down.
     \override Stem  #'neutral-direction = #-1
 	\time 16/4  c''4 c c,  c' d, c' e, c' f, c' g c a c b c

@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.4"
 
 \header{ texidoc="
 
@@ -29,7 +29,7 @@ multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
 
 
 \score {
-    \notes \relative c'  <<
+     \relative c'  <<
     	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |

@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
     }
 
 \score{
-    \notes\relative c'{
+    \relative c'{
 	\override Beam  #'position-callbacks =
 	 #`(,Beam::least_squares
 	 ,Beam::check_concave

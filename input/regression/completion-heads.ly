@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -13,7 +13,7 @@ If the @code{Note_heads_engraver} is replaced by the @code{Completion_heads_engr
 
 
 \score{
-  \notes\relative c'{
+  \relative c'{
   \time 2/4
 
   c2. c8 d4 e f g a b c2.. b8 a g16 f4 e d c8. c2 

@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Within a bar, beat repeats denote that a music snippet should be
 played again."
 }
 
-\score { \notes \relative c'
+\score {  \relative c'
 	 \context Voice { \time 4/4
    \repeat "percent" 2 { c2 }
 

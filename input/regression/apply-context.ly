@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 
 
 \header {
@@ -17,7 +17,7 @@ This example prints a bar-number during processing on stdout.
     \paper { raggedright= ##t }
 
 
-\score { \notes \relative c'' {
+\score {  \relative c'' {
     c1 c1
 
     %% todo: should put something interesting in the .tex output.

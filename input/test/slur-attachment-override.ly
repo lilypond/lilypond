@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="@cindex Slur Attachment Override
@@ -12,7 +12,7 @@ by hand. "
 %% except that both slurs are stem <<-> stem.
 %%
 
-fragment = \notes {
+fragment =  {
   \set autoBeaming = ##f
   \override Stem  #'direction = #1
   \override Slur  #'direction = #1
@@ -23,7 +23,7 @@ fragment = \notes {
 
 
 \score {
-	\notes\relative c \fragment
+	\relative c \fragment
 	\paper { raggedright = ##t} 
 }
 

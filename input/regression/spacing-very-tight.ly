@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "
  When tightly spaced, the spaces between elements (hinterfleisch?) 
@@ -14,7 +14,7 @@ texidoc = "
  
  }
 \score {
-	\notes \relative c''{ 
+	 \relative c''{ 
 		r1 e4 f, e' f,
 	}
 	\paper { 

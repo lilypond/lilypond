@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -64,10 +64,10 @@ In that manner, the most natural enharmonic notes are chosen in this example.
 
     music))
 
-music = \notes \relative c' { c4 d  e f g a b  c }
+music =  \relative c' { c4 d  e f g a b  c }
 
 \score {
-  \notes \context Staff {
+   \context Staff {
     \transpose c ais \music
     \applymusic #naturalise \transpose c ais \music
     \transpose c deses \music

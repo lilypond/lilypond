@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
@@ -8,7 +8,7 @@ are resolved."
 
 
 \score {
-  \context Staff \notes \transpose c c' {
+  \context Staff  \transpose c c' {
      \time 3/4
      % Here's what I was trying to do:
      <<          {

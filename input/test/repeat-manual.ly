@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "@cindex Repeat Manual
 By controlling manually the signs and numbers in repeats, an unusual 
 output can be produced. "
 }
 
-\score { \notes \relative c'' {
+\score {  \relative c'' {
 % First a normal looking repeat:
  c2 c
     \set Score.repeatCommands = #'((volta "1."))

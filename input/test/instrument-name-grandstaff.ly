@@ -1,11 +1,11 @@
-\version "2.3.2"
+\version "2.3.4"
 \header { texidoc = "@cindex Instrument Name Grandstaff
 You can have a name for the whole @code{GrandStaff} in addition to 
 individual @code{Staff}s. " }
 
 \score {
-  \notes
-  \notes \context GrandStaff <<
+  
+   \context GrandStaff <<
     \context Staff = treble    {
       \set GrandStaff.instrument = "Violini  "
       \set Staff.instrument = " vn I" { c''4 }}

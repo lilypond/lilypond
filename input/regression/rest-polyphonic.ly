@@ -7,10 +7,10 @@ even if there is no opposite note or rest. The amount is two
     }
 
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-  \new Staff \notes \relative c' {
+  \new Staff  \relative c' {
      << { r8 g''4 g8 r g4 g8 } \\
             { d,4    r   d   r   } >>
   }

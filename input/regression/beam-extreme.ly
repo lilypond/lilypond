@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -9,7 +9,7 @@ under normal circumstances, these beams would get knees here
 "
 }
 
-extreme = \notes\relative c'' {
+extreme = \relative c'' {
   \stemBoth
    g8[ c c,]
    c16[ c'' a f]

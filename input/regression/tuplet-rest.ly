@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "Tuplets may contain rests. "
@@ -7,7 +7,7 @@
 }
 
 \score {
-  \context Voice \notes \relative c'' {
+  \context Voice  \relative c'' {
     \time 2/4
     \times 2/3 { r c,,, c''' }
     \times 2/3 { r c c }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -10,7 +10,7 @@ and only if the accidental is horizontally close to the head.  "
 
 
 \score {
-    \notes
+    
 	\relative c {
 	    disis
 	    dis

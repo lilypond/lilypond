@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, an notes
@@ -7,7 +7,7 @@ calligraphic notes. "
 
 \include "gregorian-init.ly"
 
-cantus = \context VaticanaVoice = "cantus" \notes {
+cantus = \context VaticanaVoice = "cantus"  {
   \clef "vaticana_fa2"
   \[ f\melisma \quilisma g \auctum \descendens a\melismaEnd \]
   \[ \virga a\melisma g \pes a \inclinatum f \inclinatum d

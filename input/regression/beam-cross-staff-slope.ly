@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }
 
 \score {
-    \notes\context PianoStaff <<
+    \context PianoStaff <<
     \context Staff = up
     \relative c'' <<
         {

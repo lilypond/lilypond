@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -10,7 +10,7 @@ the break alignment."
 
 \paper { raggedright= ##t }
 
-\score{ \notes {
+\score{  {
 a a a a \break
 \mark A
 a a a a}}

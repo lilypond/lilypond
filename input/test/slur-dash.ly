@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {texidoc = "@cindex Slur, dotted
 The appearance of slurs may be changed from solid to dotted or dashed.
 "
 } 
 \score{
-	\notes\relative c'{
+	\relative c'{
 		c( d e  c) |
 		\slurDotted
 		c( d e  c) |

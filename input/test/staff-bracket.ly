@@ -1,4 +1,4 @@
-\version "2.2.0" 
+\version "2.3.4" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 Staffs can be nested in various combinations. Here, @code{StaffGroup}
@@ -9,7 +9,7 @@ and @code{InnerChoirStaff}, the brackets are shifted leftwards.
 "
 }
 
-\score { \notes
+\score { 
 <<
   \new StaffGroup << 
   \new Staff {c' d' e' f'}

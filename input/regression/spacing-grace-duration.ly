@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "Spacing uses the duration of the notes, but disregards
@@ -9,7 +9,7 @@
 "
 }
 
-\score { \notes \relative c''
+\score {  \relative c''
 	 \context Voice 
 {
      c8[  c8]

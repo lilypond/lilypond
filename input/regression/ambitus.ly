@@ -52,9 +52,9 @@ paper block:
 
 
  %}
-\version "2.3.2"
+\version "2.3.4"
 
-upper = \notes \relative c {
+upper =  \relative c {
 	\clef "treble"
 	\key c \minor
 	as'' c e bes f cis d e f g f e d f d e
@@ -62,7 +62,7 @@ upper = \notes \relative c {
 	f d e e d f d e e d f d e e d f d e
 }
 
-lower = \notes \relative c {
+lower =  \relative c {
 	\clef "treble"
 	\key e \major
 	e'2 b4 g a c es fis a cis b a g f e d

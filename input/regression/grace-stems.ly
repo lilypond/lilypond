@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc = "Here @code{startGraceMusic} should set @code{no-stem-extend} to 
 true; the two grace beams should be the same here.
@@ -8,7 +8,7 @@ true; the two grace beams should be the same here.
 
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     \grace { 
        f8[ e8] 
       \override Stem  #'no-stem-extend = ##t

@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 Objects, like text, can be moved around by using some Scheme code.
@@ -9,7 +9,7 @@ Objects, like text, can be moved around by using some Scheme code.
    (lambda (grob) (equal? text (ly:grob-property grob 'text))))
 
 \score {
-  \notes\relative c''' {
+  \relative c''' {
     \override Stem  #'direction = #1
     \applyoutput #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
       'extra-offset '(-3.5 . -4.5))

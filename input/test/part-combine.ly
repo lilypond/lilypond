@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{ texidoc="@cindex Part Combine
 In orchestral scores and hymns, voices are traditionally combined into
@@ -10,7 +10,7 @@ places. "
 }
 
 \score{
-   \notes \context Staff = flauti <<
+    \context Staff = flauti <<
     \time 4/4
     \partcombine
     \relative c'' {

@@ -4,10 +4,10 @@
     @code{RemoveEmptyStaffContext} take out the unused parts.
 " }
 
-\version "2.3.2"
+\version "2.3.4"
 
 \score {
-    \notes\relative c''
+    \relative c''
     \new StaffGroup \with {
 	\remove "System_start_delimiter_engraver"
 	\override SpanBar #'glyph = #":"

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 #(if (not (defined? 'pieceTagLine))
@@ -18,7 +18,7 @@ however, the tagline is not printed to the collated webpage snippets.
 " 
 }
 
-\score{ \notes{ c'4 }
+\score{ { c'4 }
 \paper {raggedright=##t}
 }
 

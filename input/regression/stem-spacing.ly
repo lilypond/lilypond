@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ In this example, space for opposite pointed stems is adjusted.
 }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     
 	\time 12/4  c''4 c c c  a f' f, a 
 	
@@ -21,7 +21,7 @@ In this example, space for opposite pointed stems is adjusted.
 }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     
 	\time 12/4  c''4 c c c  a f' f, a 
 	

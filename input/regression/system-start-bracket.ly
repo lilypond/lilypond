@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc =
 "
@@ -7,7 +7,7 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 }
 
 
-\score { \notes  {
+\score {   {
     \context StaffGroup <<
 	c4
 	\context PianoStaff <<

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -15,7 +15,7 @@ notes, and up for low notes.
 
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     b''4 ~ b8(b8) e4 e,
 	
   }

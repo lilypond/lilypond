@@ -121,7 +121,7 @@ protected:\
 	virtual ~CL ();\
 	SCM unprotected_smobify_self ();\
 private: \
-	SCM smobify_self ();					\
+	void smobify_self ();					\
 	SCM self_scm_; \
 public: \
 	SCM self_scm () const { return self_scm_; } \

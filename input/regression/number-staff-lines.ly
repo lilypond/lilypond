@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header{
 texidoc=" The number of stafflines of a staff can be set.  Ledger
@@ -8,7 +8,7 @@ adjusted accordingly.  "
 }
 
 \score { 
-\context Voice \notes\relative c {
+\context Voice \relative c {
 	c' c c c | g' g g g 	\bar ":|"
   }
   \paper {

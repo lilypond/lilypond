@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.4"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -9,7 +9,7 @@ copyright = 	 "public domain"
 }
 
 
-melodie = \notes\relative c'' {
+melodie = \relative c'' {
         \clef "violin"
         \time 2/4 
 

@@ -1,5 +1,14 @@
 2004-06-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): remove \notes.
+	apply to input examples.
+	
+	* lily/paper-outputter.cc (output_stencil): don't use
+	smobify_self() but self_scm() (ouch).
+
+	* lily/include/ly-smobs.icc (IMPLEMENT_SMOBS): don't return SCM
+	from smobify_self().
+
 	* lily/paper-book.cc (output): load framework module
 	scm_c_resolve_module().
 

@@ -5,10 +5,10 @@ Bar numbers can also be printed inside boxes.
 
 " }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-    \context Staff \notes \transpose  c c' {
+    \context Staff  \transpose  c c' {
 	\override Score.BarNumber  #'break-visibility = #end-of-line-invisible
 	\set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
 	\override Score.BarNumber  #'print-function =

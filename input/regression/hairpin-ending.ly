@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -11,7 +11,7 @@ into them."
 
 
 \score {
-\notes \relative c'' { c4 \> c4 c4\! c4_\ff \> c4 c4\!\p }
+ \relative c'' { c4 \> c4 c4\! c4_\ff \> c4 c4\!\p }
 \paper { raggedright = ##t} 
 }
 

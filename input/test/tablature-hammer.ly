@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {texidoc = "@cindex Tablature hammer
 A hammer in tablature can be faked with slurs. "
 } 
 
 \score{
   \context TabStaff <<
-	\notes\relative c''{
+	\relative c''{
 		c(d)
 		d(d)
 		d(c)

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ with beams.
 "
 }
 \score{
-	\notes \relative c''{
+	 \relative c''{
 	        \override Slur  #'direction = #1
 	        a8( a a4)
 		a4( a8 a)

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 texidoc ="Broken volta spanners behave correctly at their left edge in all cases."
@@ -39,7 +39,7 @@ Bar 23	Perfect
 
 %}
 
-voiceB = \notes {
+voiceB =  {
     \clef bass
      \set Staff.instrument = "Bass"
      \set Staff.instr = "B"
@@ -61,7 +61,7 @@ voiceB = \notes {
 	}
     }
 }
-voiceC = \notes {
+voiceC =  {
     \repeat volta 2
     {
 f f 
@@ -74,7 +74,7 @@ f f
     }
 }
 
-voiceD = \notes {
+voiceD =  {
     \repeat volta 2
     {
 f f 
@@ -88,7 +88,7 @@ f f
         }
     }
 }
-voiceE = \notes {
+voiceE =  {
     \repeat volta 2
     {
 f f\break
@@ -105,7 +105,7 @@ f f\break
     }
 }
 \score{
-        \notes <<
+         <<
 
 
 	\new Staff

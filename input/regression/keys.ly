@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Key signatures may appear on key changes, even without a barline.  
@@ -12,7 +12,7 @@ are created also on a clef change.
 
 
 \score {
-  \notes \relative c''
+   \relative c''
   {
 	\set Staff.createKeyOnClefChange = ##t  
     \key bes \major c2

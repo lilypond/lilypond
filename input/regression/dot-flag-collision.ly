@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Dots move to the right when a collision with the (up)flag happens."
 }
 
 \score {
-    \notes\relative c''
+    \relative c''
     {
 	\time 8/4
 	\set Staff.autoBeaming = ##f

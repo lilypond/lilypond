@@ -3,13 +3,13 @@
   texidoc = "Frets are supported as markup commands."
 }
 
-\version "2.3.1"
+\version "2.3.4"
 
 \score {
     <<
        \new ChordNames \chords {c2. f d s bes}
        
-    \notes \context Voice=mel {
+     \context Voice=mel {
 %    c'2. c' c' c' c'
         c'2.^\markup \override #'(staff-padding . 4.0) {\fret-diagram #1 #"f:2;6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"}
         f'^\markup {\fret-diagram #1 #"c:6-1-1;p:0.5;6-1;5-3;4-3;3-2;2-1;1-1;"}

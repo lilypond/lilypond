@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Beams can be typeset over fixed distance aligned staves, beam
@@ -9,7 +9,7 @@ behave well, wherever the switching point is.
 }
 \score{
 	\context PianoStaff <<
-	\context Staff=one \notes\relative c'{
+	\context Staff=one \relative c'{
 		\stemUp  c8[ c \change Staff=two \stemUp c c]
 		 c[ c c c]
 		\change Staff=one
@@ -21,7 +21,7 @@ behave well, wherever the switching point is.
 		\stemUp  c8[ c \change Staff=one \stemDown c c]
 		r2
 	}
-	\context Staff=two \notes\relative c'{
+	\context Staff=two \relative c'{
 		\clef bass
 		s1
 		s1

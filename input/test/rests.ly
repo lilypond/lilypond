@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "@cindex Rests
 
@@ -13,7 +13,7 @@ Rests may be used in various styles.
 % happen, since there are no notes/stems in this example.
 
 \score {
-    \context Staff \notes\relative c {
+    \context Staff \relative c {
 	\set Score.timing = ##f
 	\override Staff.Rest  #'style = #'mensural
 	r\maxima^"Rest style = \#'mensural"

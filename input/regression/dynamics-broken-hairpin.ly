@@ -1,10 +1,10 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc = "Broken crescendi should be open on one side."
 }
 
-\score { \notes \relative c'' { 
+\score {  \relative c'' { 
     c1 \< \break c1\!  \> \break c1\!
   }
   \paper {

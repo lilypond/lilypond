@@ -7,9 +7,9 @@
 
    }
 
-\version "2.2.0"
+\version "2.3.4"
 
-cadenza = \notes \relative c' {
+cadenza =  \relative c' {
     c4 d8 << { e f g } \\ { d4. } >>
     g4 f2 g4 g
 }
@@ -40,7 +40,7 @@ cadenza = \notes \relative c' {
 
 
 \score {
-    \notes
+    
     \relative c' \new GrandStaff <<
 	\new Staff { \cadenza c4 \bar "|." }
 	\new Staff {

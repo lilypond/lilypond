@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
 
     texidoc =
@@ -14,24 +14,24 @@ improvisation is active.
 }
 
 
-improOn = \notes {
+improOn =  {
     \set squashedPosition = #0
     \override NoteHead  #'style = #'slash
 }
 
-improOff = \notes {
+improOff =  {
     \unset squashedPosition 
     \revert NoteHead #'style
 }
 
-global = \notes { s1*3 \bar "|." }
+global =  { s1*3 \bar "|." }
 
 \score {
     <<
 	\context ChordNames \chords {
 	    e8*7:m7 a2.:m7 bes4:m7 b1:m7 e8:m
 	}
-	\notes <<
+	 <<
 	    \context Voice = melo \transpose c c' {
 		e8 e g a a16(bes)(a8) g \improOn
 		e8

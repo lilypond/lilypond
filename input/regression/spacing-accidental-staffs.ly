@@ -1,11 +1,11 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { 
 texidoc = "Accidentals in different staves do not affect the
 spacing of the quarter notes here."
 }
 
-\score { \notes \relative c'' << \new Staff { \time 4/4
+\score {  \relative c'' << \new Staff { \time 4/4
 
  c8[ c8 cis8 cis8]
  cis8[ cis8 cis8 cis]

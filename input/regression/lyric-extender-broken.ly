@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header
 {
 
@@ -10,7 +10,7 @@ of the melisma."
 
 \score {
     << 
-	\context Voice=A \notes {
+	\context Voice=A  {
 	    a1 ( a1 \break
 	    a) a2( b) \break
 	    a2 

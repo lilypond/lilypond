@@ -8,7 +8,7 @@ Currently, this is for testing purposes.  "
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 
@@ -32,7 +32,7 @@ DISTANCE; then call the original callback.  "
      (Align_interface::fixed_distance_alignment_callback grob axis)) )
 
 \score {
-    \notes \relative c''  \context PianoStaff
+     \relative c''  \context PianoStaff
     \with {
 	verticalAlignmentChildCallback = #(futz-alignment-callback 20 1)
 

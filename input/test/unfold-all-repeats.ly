@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.4"
 % regression.  -gp
 
 \header { 
@@ -7,7 +7,7 @@ recursively all repeats for a correct MIDI output."
 }
 
 
-mel = \notes \context Staff {
+mel =  \context Staff {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }
   \repeat volta 2 {c'4 d' e' f'} 
@@ -18,7 +18,7 @@ mel = \notes \context Staff {
   \bar "|."
 }
 
-\score { \notes {
+\score {  {
   \mel \break
   \applymusic #unfold-repeats \mel 
  }

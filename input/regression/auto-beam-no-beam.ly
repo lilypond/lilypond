@@ -5,8 +5,8 @@
 
 
     }
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-    \notes { c8 c-\noBeam c c }
+     { c8 c-\noBeam c c }
     }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 
@@ -8,7 +8,7 @@
 
 
 \score {
-\context Staff \notes {
+\context Staff  {
 \relative c''  <<
   {
       \once \override Stem  #'transparent = ##t
