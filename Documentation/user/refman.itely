@@ -46,7 +46,6 @@ encouraged to study the tutorial first.
 * Ancient notation ::           
 * Tuning output::               
 * Global layout::               
-* Output formats::              
 * Sound::                       
 @end menu
 
@@ -460,6 +459,7 @@ produce the correct result.
 @section Easier music entry
 @cindex Music entry
 @menu
+* Graphical interfaces::        
 * Relative octaves::            
 * Bar check::                   
 * Point and click::             
@@ -469,6 +469,39 @@ produce the correct result.
 When entering music with LilyPond, it is easy to introduce errors. This
 section deals with tricks and features that help you enter music, and
 find and correct mistakes.
+
+@node Graphical interfaces
+@subsection Graphical interfaces
+
+@cindex GUI
+@cindex graphical interface
+@cindex sequencer
+@cindex RoseGarden
+@cindex Denemo
+@cindex NoteEdit
+@cindex MIDI
+
+One way to avoid entering notes using the keyboard, is to use  a
+graphical user interface.  The following programs are known to have
+a lilypond export option:
+
+@itemize @bullet
+@item
+@uref{http://denemo.sourceforge.net/, Denemo}, was once intended as
+LilyPond graphical user interface.  It run on Gnome/GTK.
+@item
+@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html,noteedit}
+NoteEdit is a graphical score editor that runs under KDE/Qt.
+@item
+@uref{http://rosegarden.sf.net/,RoseGarden}
+once was an inspiration for naming LilyPond. Nowadays, it has been
+rewritten from scratch, and supports LilyPond export as of version
+0.1.6.
+@end itemize
+
+Another option is to enter the music using your favorite MIDI
+sequencer, and then import it using midi2ly. midi2ly is described in
+@ref{Importing MIDI}.
 
 @c .  {Relative}
 @node Relative octaves
@@ -578,7 +611,6 @@ the Xdvi window. This makes it very easy to find input that causes some
 error in the sheet music.
 
 To use it, you need the following software
-
 @itemize @bullet
 @item A dvi viewer that supports src specials.
 @itemize @bullet
@@ -588,19 +620,21 @@ To use it, you need the following software
   Note that most @TeX{} distributions ship with xdvik, which is a
   different and less well maintained program. To find out which xdvi you
   are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
-@item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or newer.
+@item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
+newer.  Enablle the menu Settings -> Inverse search. 
 @end itemize
 @item An editor with a client/server interface (or a lightweight GUI editor).
 @itemize @bullet
 @item Emacs. Emacs is an extensible text-editor.  It is available from
 @uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
 column location.
+@item NEdit.  NEdit runs under Windows, and Unix.
+  It is available from @uref{http://www.nedit.org}.
 @item GVim.  GVim is a lightweight GUI variant of VIM, the popular VI
 clone.  It is available from @uref{http://www.vim.org}.
-@item NEdit.  NEdit is a somewhat Windows like editor, that has recently
-become Free Software.  It is available from @uref{http://www.nedit.org}.
 @end itemize
 @end itemize
+
 
 Xdvi must be configured to find the @TeX{} fonts and music
 fonts. Refer to the Xdvi documentation for more information.
@@ -620,9 +654,9 @@ If you correct large files with point-and-click, be sure to start
 correcting at the end of the file. When you start at the top, and
 insert one line, all following locations will be off by a line.
 
-@subsubsection Emacs
 @cindex Emacs
-In your emacs startup file (usually @file{~/.emacs}), add the following
+For using point-and-click with emacs,  add the following
+In your emacs startup file (usually @file{~/.emacs}), 
 @example
 (server-start)
 @end example
@@ -631,30 +665,24 @@ Make sure that the environment variable @var{XEDITOR} is set to
 @example
 emacsclient --no-wait +%l %f
 @end example
-use this argument with xdvi's @code{-editor} option.
 @cindex @var{XEDITOR}
+For using Vim, set @var{XEDITOR} to @code{gvim +%l %f}, or use this
+argument with xdvi's @code{-editor} option.
+@cindex NEdit
+For using NEdit, set @var{XEDITOR} to @code{nc -noask +%l %f}, or
+use this argument with xdvi's @code{-editor} option.
 
-If you use Emacs version 21, you can make emacs jump to the exact spot
-(and not just the line) on a click.  To use this feature, you must
-enable column positioning.  At the top of the @code{ly} file, replace
-the @code{set!} line with the following line
+If can also make your editor jump to the exact location of the note
+you clicked. This is only supported on Emacs. Users of version 20 must
+apply the patch @file{emacsclient.patch}. Users of version 21 must
+apply @file{server.el.patch} (version 21.2 and earlier).  At the top
+of the @code{ly} file, replace the @code{set!} line with the following
+line,
 @example
 #(set! point-and-click line-column-location)
 @end example
 @cindex line-colomn-location
-Set @var{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}, or
-use this argument with xdvi's @file{-editor} option.
-
-@subsubsection GVim
-@cindex GVIM
-Set @var{XEDITOR} to @code{gvim +%l %f}, or
-use this argument with xdvi's @code{-editor} option.
-
-@subsubsection NEdit
-@cindex NEdit
-Set @var{XEDITOR} to @code{nc -noask +%l %f}, or
-use this argument with xdvi's @code{-editor} option.
-
+and set @var{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.
 
 @refbugs
 
@@ -4076,7 +4104,7 @@ syntax and semantics are slated for a rewrite.
 @section Global layout
 
 The global layout determined by three factors: the page layout, the
-line breaks and the spacing. These all influence each other: The
+iline breaks and the spacing. These all influence each other: The
 choice of spacing determines how densely each system of music is set,
 whree line breaks breaks are chosen, and thus ultimately how many
 pages a piece of music takes. In this section we will explain how the
@@ -4091,14 +4119,65 @@ is processed by @TeX{}, page are filled with systems, and page breaks
 are chosen whenever the page gets full.
 
 @menu
-* Spacing::                     
+* Vertical spacing::            
+* Horizontal spacing::          
 * Font Size::                   
 * Line breaking::               
 * Page layout::                 
 @end menu
 
-@node Spacing
-@subsection Spacing
+
+@node Vertical spacing
+@subsection Vertical spacing
+
+@cindex vertical spacing
+@cindex distance between staffs
+@cindex staff distance
+@cindex between staves, distance
+
+The height of each system is determined automatically by lilypond, to
+keep systems from bumping into each other, some minimum distances are
+set.  By changing these, you can put staffs closer together, and thus
+put more  systems onto one page.
+
+Normally staves are stacked vertically. To make
+staves maintain a distance, their vertical size is padded. This is
+done with the property @code{minimumVerticalExtent}. It takes a pair
+of numbers, so if you want to make it smaller from its, then you could
+set
+@example
+  \property Staff.minimumVerticalExtent = #'(-4 . 4)
+@end example
+This sets the vertical size of the current staff to 4 staff-space on
+either side of the center staff line.  The argument of
+@code{minimumVerticalExtent} is interpreted as an interval, where the
+center line is the 0, so the first number is generally negative.  you
+could also make the staff larger at the bottom by setting it to
+@code{(-6 . 4)}. The default value is @code{(-6 . 6)}.
+
+Vertical aligment of staves is handled by the
+@internalsref{VerticalAlignment} grob, which lives at
+@internalsref{Score} level.
+
+The piano staffs are handled a little differently: to make cross-staff
+beaming work correctly, it necessary that the distance between staves
+is fixed.  This is also done with a @internalsref{VerticalAlignment}
+grob, created in @internalsref{PianoStaff}, but a forced distance is
+set. This is done with the grob property #'forced-distance. If you
+want to override this, use a @code{\translator} block as follows:
+@example
+  \translator @{
+    \PianoStaffContext
+    VerticalAlignment \override #'forced-distance = #9
+  @}
+@end example
+This would bring the staffs together at a distance of 9 staff spaces,
+and again this is measured from the center line of each staff.
+
+
+
+@node Horizontal spacing
+@subsection Horizontal Spacing
 
 The spacing engine translates differences in durations into
 stretchable distances (``springs'') of differing lengths. Longer

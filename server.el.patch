@@ -1,0 +1,163 @@
+From: Jan Nieuwenhuizen <janneke@gnu.org>
+To: bug-gnu-emacs@gnu.org
+Cc: Han-Wen <hanwen@cs.uu.nl>
+Subject: Bugfix and feature for server.el
+Date: Sun, 21 Jul 2002 00:44:32 +0200
+
+
+Hi,
+
+Find the following fix attached.  We had a problem with our
+application that uses emaclient --no-wait to edit input files.
+
+Emacs21 wants to revert buffers whenever they have been edited, which
+is annoying.  And when it does revert the buffer, it does not use the
+column argument of emacsclient; fixed.
+
+
+Greeting,
+Han-Wen and Jan.
+
+
+ChangeLog:
+2002-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* server.el (server-process-filter): Cleanup stray if.  Add
+	'no-revert to file list entry when emacsclient was invoked with
+	'--no-wait'.
+	(server-visit-files): New function goto-line-column.  Accept
+	'no-revert option.  Bugfix: also goto column when reverting
+	buffer.
+
+--- server.el.~1.78.~	Tue Dec 18 17:42:38 2001
++++ server.el	Sun Jul 21 00:30:29 2002
+@@ -251,40 +251,43 @@ Prefix arg means just kill any existing 
+ 		       (substring request (match-beginning 0) (1- (match-end 0))))
+ 		      (pos 0))
+ 		  (setq request (substring request (match-end 0)))
+-		  (if (string-match "\\`-nowait" arg)
+-		      (setq nowait t)
+-		    (cond
+-    			;; ARG is a line number option.
+-		     ((string-match "\\`\\+[0-9]+\\'" arg)
++		  (cond
++		   ((string-match "\\`-nowait" arg)
++		    (setq nowait t))
++		   ;; ARG is a line number option.
++		   ((string-match "\\`\\+[0-9]+\\'" arg)
+ 		      (setq lineno (string-to-int (substring arg 1))))
+-		     ;; ARG is line number:column option. 
+-		     ((string-match "\\`+\\([0-9]+\\):\\([0-9]+\\)\\'" arg)
+-		      (setq lineno (string-to-int (match-string 1 arg))
+-			    columnno (string-to-int (match-string 2 arg))))
+-		     (t
+-		      ;; ARG is a file name.
+-		      ;; Collapse multiple slashes to single slashes.
+-		      (setq arg (command-line-normalize-file-name arg))
+-		      ;; Undo the quoting that emacsclient does
+-		      ;; for certain special characters.
+-		      (while (string-match "&." arg pos)
+-			(setq pos (1+ (match-beginning 0)))
+-			(let ((nextchar (aref arg pos)))
+-			  (cond ((= nextchar ?&)
+-				 (setq arg (replace-match "&" t t arg)))
+-				((= nextchar ?-)
+-				 (setq arg (replace-match "-" t t arg)))
+-				(t
+-				 (setq arg (replace-match " " t t arg))))))
+-		      ;; Now decode the file name if necessary.
+-		      (if coding-system
+-			  (setq arg (decode-coding-string arg coding-system)))
+-		      (setq files
+-			    (cons (list arg lineno columnno)
+-				  files))
+-		      (setq lineno 1)
+-		      (setq columnno 0))))))
+-	      (run-hooks 'pre-command-hook)
++		   ;; ARG is line number:column option. 
++		   ((string-match "\\`+\\([0-9]+\\):\\([0-9]+\\)\\'" arg)
++		    (setq lineno (string-to-int (match-string 1 arg))
++			  columnno (string-to-int (match-string 2 arg))))
++		   (t
++		    ;; ARG is a file name.
++		    ;; Collapse multiple slashes to single slashes.
++		    (setq arg (command-line-normalize-file-name arg))
++		    ;; Undo the quoting that emacsclient does
++		    ;; for certain special characters.
++		    (while (string-match "&." arg pos)
++		      (setq pos (1+ (match-beginning 0)))
++		      (let ((nextchar (aref arg pos)))
++			(cond ((= nextchar ?&)
++			       (setq arg (replace-match "&" t t arg)))
++			      ((= nextchar ?-)
++			       (setq arg (replace-match "-" t t arg)))
++			      (t
++			       (setq arg (replace-match " " t t arg))))))
++		    ;; Now decode the file name if necessary.
++		    (if coding-system
++			(setq arg (decode-coding-string arg coding-system)))
++		    (setq files
++			  ;; When invoking emacsclient with --no-wait, we are
++			  ;; typically `moving around' and editing the same file;
++			  ;; and do not want to revert.  Should make --no-revert
++			  ;; option for emacsclient?
++			  (cons (list arg lineno columnno (if nowait 'no-revert nil))
++				files))
++		    (setq lineno 1)
++		    (setq columnno 0)))))
+ 	      (server-visit-files files client nowait)
+ 	      (run-hooks 'post-command-hook)
+ 	      ;; CLIENT is now a list (CLIENTNUM BUFFERS...)
+@@ -309,6 +312,13 @@ Prefix arg means just kill any existing 
+ FILES is an alist whose elements are (FILENAME LINENUMBER COLUMNNUMBER).
+ NOWAIT non-nil means this client is not waiting for the results,
+ so don't mark these buffers specially, just visit them normally."
++
++  (defun goto-line-column (file-line-col)
++    (goto-line (nth 1 file-line-col))
++    (let ((column-number (nth 2 file-line-col)))
++      (if (> column-number 0)
++	  (move-to-column (1- column-number)))))
++  
+   ;; Bind last-nonmenu-event to force use of keyboard, not mouse, for queries.
+   (let (client-record (last-nonmenu-event t) (obuf (current-buffer)))
+     ;; Restore the current buffer afterward, but not using save-excursion,
+@@ -322,7 +332,8 @@ so don't mark these buffers specially, j
+ 	  (let* ((filen (car (car files)))
+ 		 (obuf (get-file-buffer filen)))
+ 	    (push filen file-name-history)
+-	    (if (and obuf (set-buffer obuf))
++	    (if (and obuf (set-buffer obuf)
++		     (not (memq 'no-revert (car files))))
+ 		(progn
+ 		  (cond ((file-exists-p filen)
+ 			 (if (or (not (verify-visited-file-modtime obuf))
+@@ -335,12 +346,9 @@ so don't mark these buffers specially, j
+ 				      ", write buffer to file? "))
+ 			     (write-file filen))))
+ 		  (setq server-existing-buffer t)
+-		  (goto-line (nth 1 (car files))))
++		  (goto-line-column (car files)))
+ 	      (set-buffer (find-file-noselect filen))
+-	      (goto-line (nth 1 (car files)))
+-	      (let ((column-number (nth 2 (car files))))
+-		(when (> column-number 0)
+-		  (move-to-column (1- column-number))))
++	      (goto-line-column (car files))
+ 	      (run-hooks 'server-visit-hook)))
+ 	  (if (not nowait)
+ 	      (setq server-buffer-clients
+@@ -404,8 +412,9 @@ or nil.  KILLED is t if we killed BUFFER
+ 	    (unless for-killing
+ 	      (when (and (not killed)
+ 			 server-kill-new-buffers
+-			 (with-current-buffer buffer
+-			   (not server-existing-buffer)))
++			 (save-excursion
++			   (set-buffer buffer)
++			   server-existing-buffer))
+ 		(setq killed t)
+ 		(bury-buffer buffer)
+ 		(kill-buffer buffer))
+        
+
