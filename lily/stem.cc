@@ -378,7 +378,7 @@ Stem::before_line_breaking (SCM smob)
     }
   
   set_spacing_hints (me);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 

@@ -1,3 +1,21 @@
+* Robustness fix for minimise_least_squares ()
+
+* cleanups of Slur_bezier_bow, removed Bezier_bow.
+
+* cleanup of Tie. Changed Tie into interface. Made ties flatter by default.
+
+* changed SCM_UNDEFINED to SCM_UNSPECIFIED for return values that go
+back into Scheme.
+
+* changed SCM_UNSPECIFIED to SCM_EOL for undefined element
+properties. This makes initializing list properties redundant.
+
+* removed idiotic code for including tfm.[1-5] into search path.
+
+* fixed problem with tuplet placement for cross staff tuplets.
+
+1.3.71
+======
 * Small cleanups to bring down  compile time and binary ensmallment.
 
 * Made Lookup into a smob, and use guile alist iso. an STL map.

@@ -13,6 +13,7 @@
 #include "musical-request.hh"
 #include "tie.hh"
 #include "translator-group.hh"
+#include "spanner.hh"
 #include "tie-column.hh"
 #include "pqueue.hh"
 #include "engraver.hh"
@@ -50,7 +51,7 @@ class Tie_engraver : public Engraver
   Tie_req *req_l_;
   Array<CHead_melodic_tuple> now_heads_;
   Array<CHead_melodic_tuple> stopped_heads_;
-  Link_array<Tie> tie_p_arr_;
+  Link_array<Score_element> tie_p_arr_;
 
   Spanner * tie_column_p_;
   
@@ -178,7 +179,7 @@ Tie_engraver::process_acknowledged ()
 	  
 	  SCM pair = gh_list_ref (head_list, gh_int2scm (i/2));
 	  
-	  Tie * p = new Tie (basic);
+	  Spanner * p = new Spanner (basic);
 	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_element (gh_car (pair))));
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
 	  
@@ -187,7 +188,7 @@ Tie_engraver::process_acknowledged ()
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Tie * p = new Tie (basic);
+	  Score_element * p = new Spanner (basic);
 	  Tie::set_interface (p);
 	  
 	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));

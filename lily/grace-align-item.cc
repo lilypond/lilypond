@@ -29,7 +29,7 @@ Grace_align_item::before_line_breaking (SCM smob)
 			     gh_double2scm (infinity_f)));
   dynamic_cast<Item*>(me)->column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 void

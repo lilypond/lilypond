@@ -23,7 +23,7 @@ class Bezier
 {
 public:
   void assert_sanity () const;
-  void flip (Axis);
+  void scale (Real x,Real y);
   void reverse ();
   void rotate (Real);
   void translate (Offset);
@@ -46,7 +46,7 @@ public:
   Offset control_[4];
 };
 
-void flip (Array<Offset>* arr_p, Axis a);
+void scale (Array<Offset>* arr_p, Real xscale, Real yscale);
 void rotate (Array<Offset>* arr_p, Real phi);
 void translate (Array<Offset>* arr_p, Offset o);
 

@@ -11,7 +11,7 @@
 #define CROSS_STAFF_HH
 #include "lily-proto.hh"
 Real
-calc_interstaff_dist (Item const *item, Spanner const *span);
+calc_interstaff_dist (Item  *item, Spanner  *span);
 
 #endif /* CROSS_STAFF_HH */
 

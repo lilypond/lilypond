@@ -132,20 +132,13 @@ bezier_area_steps = 1.0;
   Tie parameters
 %}
 
-tie_height_limit_factor = \slur_height_limit_factor;
+tie_height_limit_factor = 1.0 ; 
 tie_ratio = \slur_ratio;
-tie_thickness = \slur_thickness;
 
-tie_x_minimum = \staffspace + \slur_x_minimum;
 % OSU: tie gap == slur gap
 tie_x_gap = \slur_x_gap;
-tie_y_gap = 0.25 * \staffspace;
-% length of a tie that's a staffspace high
-tie_staffspace_length = 4.0 * \staffspace;
 
-tie_staffline_clearance = 2.0 *\tie_thickness;
-
-
+tie_staffline_clearance = 2.0 *\slur_thickness;
 
 
 % ugh

@@ -73,7 +73,7 @@ Axis_group_interface::set_axes (Score_element*me,Axis a1, Axis a2)
 
   SCM prop = me->get_elt_property ("axes");
   
-  if (prop == SCM_UNDEFINED
+  if (!gh_pair_p (prop)
       || scm_memq (sa1, prop) == SCM_BOOL_F
       || scm_memq (sa2, prop) == SCM_BOOL_F)
     {

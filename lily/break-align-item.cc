@@ -28,7 +28,7 @@ Break_align_item::before_line_breaking (SCM smob)
 {
   Score_element* me = unsmob_element (smob);
   do_alignment (me);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 Real
@@ -97,9 +97,9 @@ Break_align_item::do_alignment (Score_element *me)
 	{
 	  next_origin = next_elt->get_elt_property ("break-align-symbol");
 	  next_origin =
-	    (next_origin == SCM_UNDEFINED)
-	    ? ly_symbol2scm ("none")
-	    : next_origin;
+	    gh_symbol_p (next_origin)? 
+	    next_origin : ly_symbol2scm ("none")
+;
 	}
       else
 	next_origin = ly_symbol2scm ("begin-of-note");

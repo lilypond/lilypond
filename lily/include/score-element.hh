@@ -60,18 +60,9 @@ class Score_element  {
    */
   Lookup * lookup_l_;
 
-  /**
-     properties specific for this element. Destructor will not call
-     scm_unprotect, so as to allow more flexible GC arrangements.  The
-     real alist is in (cdr element_property_alist_), to reduce the
-     need for more scm_protect calls.
-
-  */
-public:				// ugh.
+public:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
-
-public:
   Score_element *original_l_;
 
   /**

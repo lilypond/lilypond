@@ -11,10 +11,65 @@
 #include "slur-bezier-bow.hh"
 #include "main.hh"
 
-Slur_bezier_bow::Slur_bezier_bow (Array<Offset> encompass, Direction dir)
-  : Bezier_bow (encompass, dir)
+Slur_bezier_bow::Slur_bezier_bow (Array<Offset> encompass, Direction dir,
+				  Real h_inf, Real r_0)
 {
+  h_inf_ = h_inf;
+  r_0_ = r_0;
+  alpha_ = 0;
+  dir_ = dir;
+  encompass_ = encompass;
+  to_canonical_form ();
+
+  Real w = encompass_.top ()[X_AXIS] - encompass_[0][X_AXIS];
+  curve_ = slur_shape (w, h_inf, r_0);
 }
+
+Bezier
+Slur_bezier_bow::get_bezier () const
+{
+  Bezier rv = curve_;
+  if (dir_ == DOWN)
+    {
+      rv.scale (1, -1);
+    }
+
+  rv.rotate (alpha_);
+  rv.translate (origin_);
+  
+  return rv;
+}
+
+void
+Slur_bezier_bow::to_canonical_form ()
+{
+  origin_ = encompass_[0];
+  translate (&encompass_, -origin_);
+
+  Offset delta = encompass_.top () - encompass_[0];
+  alpha_ = delta.arg ();
+
+  rotate (&encompass_, -alpha_);
+  if (dir_ == DOWN)
+    {
+      scale (&encompass_, 1, -1);
+    }
+
+  while (encompass_.size () > 1 && encompass_[1][X_AXIS] <= 0.0)
+    {
+      programming_error ("Degenerate bow: infinite steepness reqd");
+      encompass_.del (1);
+    }
+
+  Real l = encompass_.top ()[X_AXIS];
+  while (encompass_.size () > 1 && encompass_.top (1)[X_AXIS] >= l)
+    {
+      programming_error ("Degenerate bow: infinite steepness reqd");
+      encompass_.del (encompass_.size ()-2);
+    }
+}
+
+
 
 void
 Slur_bezier_bow::blow_fit ()
@@ -84,17 +139,21 @@ Slur_bezier_bow::area_x_gradients_array (Real area)
   return da;
 }
 
+/*
+  ugh, should have another look, and use a regular optimization
+  algorithm, instead of this homebrew.
+*/
 void
-Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l,
-					 Real default_height)
+Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l)
 {
   Real length = curve_.control_[3][X_AXIS]; 
+
   Real sb = paper_l->get_var ("slur_beautiful");
-  Real beautiful = length * default_height * sb;
+  Real beautiful = sb * length * slur_height (length, h_inf_, r_0_);
 
   DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
   DEBUG_OUT << to_str ("Length: %f\n", length);
-  DEBUG_OUT << to_str ("D-height: %f\n", default_height);
+  //  DEBUG_OUT << to_str ("D-height: %f\n", default_height);
   DEBUG_OUT << to_str ("FitFac: %f\n", fit_factor ());
 
   if (fit_factor () > 1.0)

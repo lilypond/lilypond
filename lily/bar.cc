@@ -146,7 +146,7 @@ Bar::before_line_breaking  (SCM smob)
     }
   else
     {
-      g = SCM_UNDEFINED;
+      g = SCM_EOL;
     }
   
   if (!gh_string_p (g))
@@ -159,7 +159,7 @@ Bar::before_line_breaking  (SCM smob)
     me->set_elt_property ("glyph", g);
 
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
   
 void

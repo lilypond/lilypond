@@ -7,6 +7,7 @@
   
  */
 
+#include "spanner.hh"
 #include "tie-column.hh"
 #include "group-interface.hh"
 #include "tie.hh"
@@ -18,7 +19,6 @@
 void
 Tie_column::set_interface (Score_element*me)
 {
-  me-> set_elt_property ("ties", SCM_EOL);
   me->set_interface (ly_symbol2scm ("tie-column"));
   me->set_extent_callback (0, X_AXIS);
   me->set_extent_callback (0, Y_AXIS);  
@@ -31,7 +31,7 @@ Tie_column::has_interface (Score_element*me)
 }
 
 void
-Tie_column::add_tie (Score_element*me,Tie *s)
+Tie_column::add_tie (Score_element*me,Score_element *s)
 {
   Pointer_group_interface g (me, "ties");
   if (!g.count ())
@@ -46,8 +46,8 @@ Tie_column::add_tie (Score_element*me,Tie *s)
 
 
 int
-tie_compare (Tie* const & s1,
-	     Tie* const & s2)
+tie_compare (Score_element* const & s1,
+	     Score_element* const & s2)
 {
   return sign (Tie::position_f (s1) - Tie::position_f(s2));
 }
@@ -64,8 +64,8 @@ tie_compare (Tie* const & s1,
 void
 Tie_column::set_directions (Score_element*me)
 {
-  Link_array<Tie> ties =
-    Pointer_group_interface__extract_elements (me, (Tie*)0, "ties");
+  Link_array<Score_element> ties =
+    Pointer_group_interface__extract_elements (me, (Score_element*)0, "ties");
 
 
   Direction d = Directional_element_interface (me).get ();
@@ -74,7 +74,7 @@ Tie_column::set_directions (Score_element*me)
     {
       for (int i = ties.size (); i--;)
 	{
-	  Tie * t = ties[i];
+	  Score_element *  t = ties[i];
 	  Directional_element_interface (t).set (d);
 	}
       return;
@@ -82,7 +82,7 @@ Tie_column::set_directions (Score_element*me)
   
   if (ties.size () == 1)
     {
-      Tie * t = ties[0];      
+      Score_element *  t = ties[0];      
       Directional_element_interface (t).set (Tie::get_default_dir (t));
       return;
     }
@@ -97,7 +97,7 @@ Tie_column::set_directions (Score_element*me)
 
   for (int i=ties.size(); i--; )
     {
-      Tie * t = ties[i];
+      Score_element *  t = ties[i];
       Real p = Tie::position_f (t);
       Direction d = (Direction) sign (p);
       if (!d)
@@ -112,5 +112,5 @@ SCM
 Tie_column::after_line_breaking (SCM smob)
 {
   set_directions (unsmob_element (smob));
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }

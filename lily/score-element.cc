@@ -102,7 +102,7 @@ Score_element::get_elt_property (SCM sym) const
     return gh_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+  return (s == SCM_BOOL_F) ? SCM_EOL : gh_cdr (s); 
 }
 
 /*
@@ -114,8 +114,8 @@ SCM
 Score_element::remove_elt_property (const char* key)
 {
   SCM val = get_elt_property (key);
-  if (val != SCM_UNDEFINED)
-    set_elt_property (key, SCM_UNDEFINED);
+  if (val != SCM_EOL)
+    set_elt_property (key, SCM_EOL);
   return val;
 }
 
@@ -762,7 +762,7 @@ ly_set_elt_property (SCM elt, SCM sym, SCM val)
     {
       error ("Not a symbol");
       ly_display_scm (sym);
-      return SCM_UNDEFINED;
+      return SCM_UNSPECIFIED;
     }
 
   if (sc)
@@ -775,7 +775,7 @@ ly_set_elt_property (SCM elt, SCM sym, SCM val)
       ly_display_scm (elt);
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 
@@ -793,7 +793,7 @@ ly_get_elt_property (SCM elt, SCM sym)
       error ("Not a score element");
       ly_display_scm (elt);
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 

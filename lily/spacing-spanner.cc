@@ -327,7 +327,7 @@ Spacing_spanner::set_springs (SCM smob)
     farewell, cruel world
    */
   me->suicide ();
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 

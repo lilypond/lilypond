@@ -11,15 +11,35 @@
 
 #include "bezier-bow.hh"
 
-class Slur_bezier_bow : public Bezier_bow
+class Slur_bezier_bow
 {
+
+protected:
+  Array<Offset> encompass_;
+
+private:
+  void to_canonical_form ();
+  Direction dir_;
+  Real alpha_;
+  Offset origin_;
+  Real h_inf_, r_0_;
 public:
-  Slur_bezier_bow (Array<Offset> encompass, Direction dir);
-  Array<Real> area_x_gradients_array (Real area);
+  /**
+     The canonical bezier.
+   */
+  Bezier curve_;
+
+
+  Slur_bezier_bow (Array<Offset> encompass, Direction dir,
+		   Real hinf, Real r0);
+  Bezier get_bezier () const;
+
+  void minimise_enclosed_area (Paper_def* paper_l);
+  Real fit_factor () const;
   void blow_fit ();
   Real enclosed_area_f () const;
-  Real fit_factor () const;
-  void minimise_enclosed_area (Paper_def* paper_l, Real default_height);
+private:
+  Array<Real> area_x_gradients_array (Real area);
 };
  
 #endif /* SLUR_BEZIER_BOW_HH */

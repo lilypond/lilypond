@@ -66,11 +66,13 @@ Note_head::brew_molecule (SCM smob)
     : (abs((int)p) - sz) /2;
 
   SCM style  = me->get_elt_property ("style");
-  if (style == SCM_UNDEFINED)
+  if (!gh_symbol_p (style))
     {
       style = ly_symbol2scm("default");
     }
   
+
+  // ugh: use gh_call ()
   Molecule out = me->lookup_l()->afm_find (String ("noteheads-") + 
 		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("find-notehead-symbol"),
 						  me->get_elt_property ("duration-log"),

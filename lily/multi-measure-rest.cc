@@ -158,7 +158,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-      return SCM_UNDEFINED;
+      return SCM_UNSPECIFIED;
     }
 
   Item * l = sp->get_bound (LEFT)->column_l ();
@@ -187,6 +187,6 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   
       rod.add_to_cols ();
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 

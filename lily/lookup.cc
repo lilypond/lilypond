@@ -111,6 +111,7 @@ Lookup::afm_find (String s, bool warn) const
 		    gh_int2scm (cm->code),
 		    SCM_UNDEFINED));
 
+
   at= fontify_atom (afm_l_,at);
   return Molecule ( afm_bbox_to_box (cm->charBBox), at);
 }

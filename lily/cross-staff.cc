@@ -8,7 +8,7 @@
   JUNKME
  */
 Real
-calc_interstaff_dist (Item const *item, Spanner const *span)
+calc_interstaff_dist (Item  *item, Spanner  *span)
 {
   Real interstaff = 0.0; 
   Score_element *common = item->common_refpoint (span, Y_AXIS);
@@ -25,18 +25,18 @@ calc_interstaff_dist (Item const *item, Spanner const *span)
       if (gh_pair_p (threshold))
 	interstaff =  gh_scm2double (gh_car (threshold));
 
-      Score_element const * span_refpoint = span;
+      Score_element  * span_refpoint = span;
       while (span_refpoint->parent_l  (Y_AXIS) != common)
 	span_refpoint = span_refpoint->parent_l (Y_AXIS);
 
-      Score_element const * note_refpoint = item;
+      Score_element  * note_refpoint = item;
       while (note_refpoint->parent_l (Y_AXIS) != common)
 	note_refpoint = note_refpoint->parent_l (Y_AXIS);
 
       int span_prio =
-	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element const*> (span_refpoint));
+	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element *> (span_refpoint));
       int item_prio =
-	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element  const *> (note_refpoint));
+	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element   *> (note_refpoint));
 
       /*
 	our staff is lower -> interstaff *= -1

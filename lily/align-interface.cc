@@ -21,7 +21,7 @@ Real
 Align_interface::alignment_callback (Score_element *sc, Axis ax)
 {
   Score_element * par = sc->parent_l (ax);
-  if (par && par->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
+  if (par && !to_boolean (par->get_elt_property ("alignment-done")))
     {
       Align_interface::do_side_processing (par, ax);
     }

@@ -14,7 +14,7 @@
     * less hairy code
     * move paper vars to scm
 
-    remove *-hs variables.
+  remove *-hs variables, and do all y-position stuff in staff-space.
 */
 
 
@@ -284,7 +284,7 @@ Beam::after_line_breaking (SCM smob)
 
   /* first, calculate y, dy */
   Real y, dy;
-calc_default_position_and_height (me, &y, &dy);
+  calc_default_position_and_height (me, &y, &dy);
   if (visible_stem_count (me))
     {
       if (suspect_slope_b (me, y, dy))
@@ -305,6 +305,10 @@ calc_default_position_and_height (me, &y, &dy);
 
   Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
 
+  /* weird: why do we do calc_position_and_height () ? regardless of
+     this setting?
+
+  */
   /* check for user-override of dy */
   SCM s = me->remove_elt_property ("height-hs");
   if (gh_number_p (s))
@@ -347,7 +351,7 @@ calc_default_position_and_height (me, &y, &dy);
   set_stem_length (me, y, dy);
   me->set_elt_property ("y-position", gh_double2scm (y));
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 /*
@@ -370,6 +374,8 @@ Beam::calc_default_position_and_height (Score_element*me,Real* y, Real* dy)
     }
 
   Array<Offset> ideals;
+
+  // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
@@ -401,6 +407,7 @@ Beam::suspect_slope_b (Score_element*me, Real y, Real dy)
   Real lengthened = me->paper_l ()->get_var ("beam_lengthened");
   Real steep = me->paper_l ()->get_var ("beam_steep_slope");
 
+  // ugh -> use commonx
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS);
   Real dydx = dy && dx ? dy/dx : 0;
 
@@ -425,6 +432,7 @@ Beam::calc_slope_damping_f (Score_element*me,Real dy)
 
   if (damping)
     {
+  // ugh -> use commonx
       Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS)
 	- first_visible_stem (me)->relative_coordinate (0, X_AXIS);
       Real dydx = dy && dx ? dy/dx : 0;
@@ -444,6 +452,7 @@ Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy)
   int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
 
   Real interbeam_f = me->paper_l ()->interbeam_f (beam_multiplicity);
+  // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
   Real stem_y = (dy && dx ? (s->relative_coordinate (0, X_AXIS) - x0) / dx * dy : 0) + y;
@@ -624,6 +633,7 @@ Beam::set_beaming (Score_element*me,Beaming_info_list *beaming)
 Molecule
 Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev) 
 {
+  // ugh -> use commonx
   if ((next && !(next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
       (prev && !(prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
       programming_error ("Beams are not left-to-right");
@@ -639,6 +649,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 
+    // ugh -> use commonx
   Real dx = visible_stem_count (me) ?
     last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS)
     : 0.0;
@@ -756,6 +767,7 @@ Beam::brew_molecule (SCM smob)
     Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");  
   if (visible_stem_count (me))
     {
+  // ugh -> use commonx
       x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
       dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
     }
@@ -892,6 +904,7 @@ Beam::rest_collision_callback (Score_element *rest, Axis a )
   if (gh_number_p (s))
     beam_y = gh_scm2double (s);
   
+  // ugh -> use commonx
   Real x0 = first_visible_stem(beam)->relative_coordinate (0, X_AXIS);
   Real dx = last_visible_stem(beam)->relative_coordinate (0, X_AXIS) - x0;
   Real dydx = beam_dy && dx ? beam_dy/dx : 0;
@@ -932,6 +945,9 @@ Beam::set_interface (Score_element*me)
   Pointer_group_interface g (me, "stems");
   g.set_interface ();
 
+  /*
+    why the init? No way to tell difference between default and user
+    override.  */
   me->set_elt_property ("height", gh_int2scm (0)); // ugh.
   me->set_elt_property ("y-position" ,gh_int2scm (0));
   me->set_interface (ly_symbol2scm("beam-interface"));

@@ -128,7 +128,8 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
     Pointer_group_interface__extract_elements (me, (Score_element*)0, "columns");
 
 
-  Score_element * common = me->common_refpoint (me->get_elt_property ("columns"), Y_AXIS);
+  Score_element * commony = me->common_refpoint (me->get_elt_property ("columns"), Y_AXIS);
+  Score_element * commonx = me->common_refpoint (me->get_elt_property ("columns"), X_AXIS);  
   
   Direction d = Directional_element_interface (me).get ();
 
@@ -145,8 +146,8 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   
   if (l < r)
     {
-      *dy = column_arr[r]->extent (Y_AXIS) [d] + column_arr[r]->relative_coordinate (common, Y_AXIS)
-	- column_arr[l]->extent (Y_AXIS) [d] - column_arr[l]->relative_coordinate (common, Y_AXIS);
+      *dy = column_arr[r]->extent (Y_AXIS) [d] + column_arr[r]->relative_coordinate (commony, Y_AXIS)
+	- column_arr[l]->extent (Y_AXIS) [d] - column_arr[l]->relative_coordinate (commony, Y_AXIS);
     }
   else
     * dy = 0;
@@ -157,17 +158,18 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
   if (!column_arr.size ())
     return;
   
-  Real x0 = column_arr[0]->relative_coordinate (0, X_AXIS);
-  Real x1 = column_arr.top ()->relative_coordinate (0, X_AXIS);
+  Real x0 = column_arr[0]->relative_coordinate (commonx, X_AXIS);
+  Real x1 = column_arr.top ()->relative_coordinate (commonx, X_AXIS);
   
   Real factor = column_arr.size () > 1 ? 1/(x1 - x0) : 1.0;
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
-      Real notey = column_arr[i]->extent (Y_AXIS)[d] +
-	column_arr[i]->relative_coordinate (common, Y_AXIS)
-	;
-      Real x = column_arr[i]->relative_coordinate (0, X_AXIS) - x0;
+      Real notey = column_arr[i]->extent (Y_AXIS)[d] 
+	+ column_arr[i]->relative_coordinate (commony, Y_AXIS)
+	- me->relative_coordinate (commony, Y_AXIS);
+
+      Real x = column_arr[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
       if (notey * d > (*offset + tuplety) * d)
@@ -202,7 +204,7 @@ Tuplet_spanner::after_line_breaking (SCM smob)
   if (!column_arr.size ())
     {
       me->suicide ();
-      return SCM_UNDEFINED;
+      return SCM_UNSPECIFIED;
     }
 
   Direction d = Directional_element_interface (me).get ();
@@ -230,7 +232,7 @@ Tuplet_spanner::after_line_breaking (SCM smob)
 	  && sp->get_bound (RIGHT)->column_l () == beam_l->get_bound (RIGHT)->column_l ())
 	me->set_elt_property ("parallel-beam", SCM_BOOL_T);
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 

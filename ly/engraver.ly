@@ -598,7 +598,9 @@ ScoreContext = \translator {
 	)
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::brew_molecule)
-		(spacing-procedure . ,Slur::set_spacing_rods)		
+		(thickness . 1.2)		
+		(spacing-procedure . ,Slur::set_spacing_rods)		e
+		(minimum-length . 1.5)
 		(after-line-breaking-callback . ,Slur::after_line_breaking) 
 	)
 	basicSpacingSpannerProperties =#`(
@@ -662,8 +664,9 @@ ScoreContext = \translator {
 	)
 	basicTieProperties = #`(
 		(molecule-callback . ,Tie::brew_molecule)
-		(after-line-breaking-callback . ,Tie::after_line_breaking)
-		(spacing-procedure . ,Tie::set_spacing_rods)				
+		(spacing-procedure . ,Tie::set_spacing_rods)
+		(thickness . 1.2)
+		(minimum-length  . 2.5)
 		(interfaces . (tie-interface))
 	)
 	basicTieColumnProperties = #`(
