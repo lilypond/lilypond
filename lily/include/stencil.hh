@@ -71,12 +71,7 @@ public:
   
   Interval extent (Axis) const;
   Box extent_box () const;
-  /**
-     codify THIS into a Scheme expression.
-   */
-  SCM create_scheme () const;
   bool is_empty () const;
-
 
   static SCM ly_get_stencil_extent (SCM mol, SCM axis);
   static SCM ly_set_stencil_extent_x (SCM,SCM,SCM);

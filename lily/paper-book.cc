@@ -14,6 +14,7 @@
 #include "paper-book.hh"
 #include "paper-def.hh"
 #include "paper-outputter.hh"
+#include "paper-line.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
 
@@ -21,23 +22,15 @@ static Real const MIN_COVERAGE = 0.66;
 static Real const MAX_CRAMP = 0.05;
 
 static SCM
-stencil2line (Stencil* stil)
+stencil2line (Stencil* stil, bool is_title = false)
 {
   static SCM z;
   if (!z)
     z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
   Offset dim = Offset (stil->extent (X_AXIS).length (),
 		       stil->extent (Y_AXIS).length ());
-  return scm_cons (ly_offset2scm (dim),
-		   scm_list_1 (scm_cons (z, stil->smobbed_copy ())));
-}
-
-static SCM
-title2line (Stencil* stil)
-{
-  SCM s = stencil2line (stil);
-  /* whugh, add marker recognise titles.  */
-  return scm_cons (scm_cons (ly_symbol2scm ("title"), ly_car (s)), ly_cdr (s));
+  Paper_line pl (dim, stil->smobbed_copy (), is_title);
+  return pl.smobbed_copy ();
 }
 
 /* Simplistic page interface */
@@ -143,20 +136,13 @@ Page::output (Paper_outputter *out, bool is_last)
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM line = ly_car (s);
-      SCM offset = ly_car (line);
-      if (ly_car (offset) == ly_symbol2scm ("title"))
-	line = scm_cons (ly_cdr (offset), ly_cdr (line));
       out->output_line (line, &o,
 			is_last && gh_pair_p (ly_cdr (s)) && !get_copyright ()
 			&& !get_tagline () && !get_footer ());
-      if (gh_pair_p (ly_cdr (s)) && ly_car (offset) != ly_symbol2scm ("title"))
+      if (gh_pair_p (ly_cdr (s)) && unsmob_paper_line (line)->is_title ())
 	o[Y_AXIS] += vfill; 
     }
 
-#if 0
-  if (get_copyright () || get_tagline () || get_footer ())
-    o[Y_AXIS] += foot_sep_;
-#else
   o[Y_AXIS] = vsize_ - bottom_margin_;
   if (get_copyright ())
     o[Y_AXIS] -= get_copyright ()->extent (Y_AXIS).length ();
@@ -164,7 +150,6 @@ Page::output (Paper_outputter *out, bool is_last)
     o[Y_AXIS] -= get_tagline ()->extent (Y_AXIS).length ();
   if (get_footer ())
     o[Y_AXIS] -= get_footer ()->extent (Y_AXIS).length ();
-#endif
 
   if (get_copyright ())
     out->output_line (stencil2line (get_copyright ()), &o,
@@ -290,8 +275,8 @@ Paper_book::init ()
       int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
       for (int j = 0; j < line_count; j++)
 	{
-	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
-	  height_ += ly_scm2offset (ly_car (line))[Y_AXIS];
+	  SCM s = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
+	  height_ += unsmob_paper_line (s)->dim ()[Y_AXIS];
 	}
     }
 
@@ -409,7 +394,7 @@ Paper_book::fill_pages (Page *page, int page_count, Real fudge)
       for (int j = 0; j < line_count; j++)
 	{
 	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
-	  h += ly_scm2offset (ly_car (line))[Y_AXIS];
+	  h += unsmob_paper_line (line)->dim ()[Y_AXIS];
 	  Real fill = (page->height_ - text_height) / text_height;
 	  // Real fill_h = (page->height_ + h - text_height) / text_height;
 	  Real fudged_fill = (page->height_ - (text_height + fudge))
@@ -429,7 +414,7 @@ Paper_book::fill_pages (Page *page, int page_count, Real fudge)
 	      text_height = page->text_height ();
 	    }
 	  if (j == 0 && title)
-	    page->lines_ = ly_snoc (title2line (title), page->lines_);
+	    page->lines_ = ly_snoc (stencil2line (title, true), page->lines_);
 	  page->lines_ = ly_snoc (line, page->lines_);
 	  page->line_count_++;
 	  page->height_ += h;

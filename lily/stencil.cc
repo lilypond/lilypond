@@ -65,8 +65,8 @@ Stencil::translate (Offset o)
     }
 
   expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
-		   ly_offset2scm (o),
-		   expr_, SCM_UNDEFINED);
+		      ly_offset2scm (o),
+		      expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
   origin_ += o;

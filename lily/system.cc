@@ -21,6 +21,7 @@
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "paper-book.hh"
+#include "paper-line.hh"
 
 System::System (SCM s)
   : Spanner (s)
@@ -384,22 +385,13 @@ System::post_processing ()
     }
 }
 
-/* Return line:
-   ((HEIGHT . WIDTH) . LINE)
-   LINE: list of ((OFFSET-X . OFFSET-Y) . STENCIL)
-
-   or (!PAGE_LAYOUT):
-     ('between-system-string . STENCIL)
-   
-   Maybe make clas/smob?  */
 SCM
 System::get_line ()
 {  
   static int const LAYER_COUNT = 3;
-  SCM line = SCM_EOL;
+  SCM stencils = SCM_EOL;
   if (Stencil *me = get_stencil ())
-    line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
-			       me->smobbed_copy ()), line);
+    stencils = scm_cons (me->smobbed_copy (), stencils);
 
   /* Output stencils in three layers: 0, 1, 2.  The default layer is
      1.  */
@@ -413,15 +405,16 @@ System::get_line ()
 	if (!stil
 	    || robust_scm2int (g->get_property ("layer"), 1) != i)
 	  continue;
-	
+
 	Offset o (g->relative_coordinate (this, X_AXIS),
 		  g->relative_coordinate (this, Y_AXIS));
-	
+
 	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
 					  Offset (0, 0))
 	  * Staff_symbol_referencer::staff_space (g);
-	line = scm_cons (scm_cons (ly_offset2scm (o + extra),
-				   stil->smobbed_copy ()), line);
+	/* FIXME: 0.5 */
+	stil->translate ((o + extra) * 0.5);
+	stencils = scm_cons (stil->smobbed_copy (), stencils);
       }
 
   if (output_format_global != PAGE_LAYOUT)
@@ -432,15 +425,13 @@ System::get_line ()
       SCM between = ly_symbol2scm ("between-system-string");
       SCM inter = g->internal_get_property (between);
       if (gh_string_p (inter))
-	{
-	  Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
-	  line = scm_cons (scm_cons (between, stil->smobbed_copy ()), line);
-	}
+	stencils = scm_cons (scm_cons (between, inter), stencils);
     }
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
-  return scm_cons (ly_offset2scm (Offset (x.length (), y.length ())), line);
+  Paper_line pl (Offset (x.length (), y.length ()), stencils);
+  return pl.smobbed_copy ();
 }
 
 Link_array<Item> 
@@ -454,10 +445,10 @@ System::broken_col_range (Item const*l, Item const*r) const
 
   while (gh_pair_p (s) && ly_car (s) != r->self_scm ())
     s = ly_cdr (s);
-    
+
   if (gh_pair_p (s))
     s = ly_cdr (s);
-  
+
   while (gh_pair_p (s) && ly_car (s) != l->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
