@@ -640,7 +640,8 @@ strip_trailing_white (String&s)
 
 
 
-Lilypond_version oldest_version ("1.4.0");
+/* 1.3.146 == removal of ; */ 
+Lilypond_version oldest_version ("1.3.146");
 
 
 bool

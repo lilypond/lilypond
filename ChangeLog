@@ -19,6 +19,9 @@
 
 2002-05-16  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/score-engraver.cc (typeset_all): sanity check for items
+	that are Y parent to spanner. 
+
 	* lily/piano-pedal-engraver.cc (create_bracket_grobs): fix broken
 	pedal spanners.
 
