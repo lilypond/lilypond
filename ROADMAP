@@ -35,3 +35,4 @@ source files.
    scripts/			End-user scripts
    stepmake/			Generic make subroutine files
 test
+test
