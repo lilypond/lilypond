@@ -42,7 +42,7 @@
   \input lilypond-plaintex
 
 %% make plain work ok Out Of The Box
-  \ifnum0<\lilypondpaperlinewidth
+  \ifdim0pt<\lilypondpaperlinewidth\lilypondpaperunit
   \hsize=\lilypondpaperlinewidth\lilypondpaperunit
   \fi
 \else
