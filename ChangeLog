@@ -1,3 +1,9 @@
+2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/volta.ly: remove file
+
+	* input/regression/volta-broken-left-edge.ly: simplify file
+
 2003-07-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely (Constructing a tweak): new
