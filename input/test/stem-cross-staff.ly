@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 \header { texidoc = "@cindex Stem Cross Staff
 The chords which exceptionally cross staves may be produced by increasing 

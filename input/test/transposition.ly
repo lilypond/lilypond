@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 
 \header{ texidoc = "@cindex Transposition
 Transposing has also an effect key signature, if it is given using

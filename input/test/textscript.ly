@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 
 \header { texidoc = "@cindex Textscript
 There are different fonts and glyphs to be used with @code{\markup} command. "

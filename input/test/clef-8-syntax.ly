@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 \header {
     texidoc = "@cindex Chord Octavation
 Appending @code{_8} or @code{^8} to a clef name will

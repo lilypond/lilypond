@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 \header {
 
@@ -47,7 +47,7 @@ what you would expect.)
 	    \consists Clef_engraver
 	    \consists Time_signature_engraver
 	    \consists Separating_line_group_engraver
-	    \consistsend "Axis_group_engraver"
+	    \consists "Axis_group_engraver"
 	    \accepts "Staff"
 	    
 	    \name StaffContainer

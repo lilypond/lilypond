@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 % possible rename to scheme- something.  -gp
 \header { texidoc = "@cindex Scheme Music Creation

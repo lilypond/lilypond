@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 
 \header{ texidoc="@cindex Part Combine
 In orchestral scores and hymns, voices are traditionally combined into

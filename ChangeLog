@@ -1,5 +1,8 @@
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/gregorian-init.ly (neumeDemoPaper): remove duplication from
+	manual.
+
 	* Documentation/user/tutorial.itely (Integrating text and music):
 	remove \score and \notes from manual.
 
@@ -33,7 +36,7 @@
 	* lily/lyric-engraver.cc (try_music): remove superfluous check.
 
 	* lily/book-paper-def.cc (find_scaled_font): remove default
-	encoding. This messes up font loading for feta and
+	encoding, because it messes up font loading for feta and
 	parmesan. Encoding should only be specified for running texts.
 
 	* lily/modified-font-metric.cc (text_dimension): support coding
@@ -62,7 +65,8 @@
 2004-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{stanza-number,volta-multi-staff}.ly: fix docs.
-
+m
+ 
 2004-07-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/include/lily-guile.hh (scm_is_int): compat glue.

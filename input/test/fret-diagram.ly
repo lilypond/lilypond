@@ -3,7 +3,7 @@
   texidoc = "Frets are supported as markup commands."
 }
 
-\version "2.3.4"
+\version "2.3.8"
 
 \score {
     <<

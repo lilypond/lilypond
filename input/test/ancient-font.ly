@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {

@@ -138,10 +138,10 @@ This required a small change in the syntax. Mode changing commands,
 such as @code{\chords} and @code{\figures} now be directly followed by
 delimeters. The following example demonstrates the new behavior,
 
-@example
+@verbatim
   \figures \context Figures { .. } % wrong
   \context Figures \figures { .. } % right
-@end example 
+@end verbatim 
 
 
 @item Start pitch for @code{relative} music is optional for music lists.

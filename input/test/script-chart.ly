@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 % this chart is used in the manual too.
 

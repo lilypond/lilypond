@@ -13,7 +13,7 @@ in the same score (not demonstrated in this file).
 "
 }
 
-\version "2.3.4"
+\version "2.3.8"
 
 #(define (kill-ambitus grob grob-context apply-context)
   (if (memq 'ambitus-interface (ly:grob-property grob 'interfaces))

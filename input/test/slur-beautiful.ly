@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 
 \header { texidoc ="@cindex Slur Beautiful
 The curvature of a slur is adjusted to stay away from note heads and 

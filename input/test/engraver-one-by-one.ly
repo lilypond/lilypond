@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -53,7 +53,7 @@ MyStaff =\context {
 	\consists "Instrument_name_engraver"
 	\consists "Grob_pq_engraver"
 	\consists "Forbid_line_break_engraver"
-	\consistsend "Axis_group_engraver"
+	\consists "Axis_group_engraver"
 \consists "Pitch_squash_engraver"
 
 	minimumVerticalExtent = #'(-6 . 6)

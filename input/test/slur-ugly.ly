@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 
 \header { texidoc="@cindex Slur Ugly
 Strange slurs can be produced by setting properties by hand. "
