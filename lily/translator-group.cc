@@ -372,13 +372,13 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 void
 Translator_group::stop_translation_timestep ()
 {
-  each (&Translator::pre_move_processing);
+  each (&Translator::stop_translation_timestep);
 }
 
 void
 Translator_group::start_translation_timestep ()
 {
-  each (&Translator::post_move_processing);
+  each (&Translator::start_translation_timestep);
 }
 
 void

@@ -1,4 +1,17 @@
-1.3.141.jcn3
+--- ../lilypond-1.3.141.hwn2/CHANGES	Sun Mar 25 00:23:24 2001
+++ b/CHANGES	Sun Mar 25 13:30:43 2001
+@@ -1,6 +1,11 @@
+ 1.3.141.hwn2
+ ============
+ 
+* property silencedNotes 
+
+1.3.141.hwn2
+============
+
+ * Fix: instrument names on piano staffs.
+ 
+ * Bugfix: don't left-align absolute dynamics.1.3.141.jcn3
 ============
 
 * some mup2ly progress.

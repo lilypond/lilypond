@@ -60,7 +60,7 @@ Score_performer::prepare (Moment m)
   Global_translator::prepare (m);
   audio_column_l_ = new Audio_column (m);
   play_element (audio_column_l_);
-  post_move_processing ();
+  start_translation_timestep ();
 }
 
 
@@ -70,7 +70,7 @@ Score_performer::one_time_step ()
   // fixme: put this back.
   // process_music ();
   announces ();
-  pre_move_processing ();
+  stop_translation_timestep ();
   check_removal ();
 }
 
