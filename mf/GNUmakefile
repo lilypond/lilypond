@@ -15,7 +15,7 @@ TEST_FILES = $(wildcard *test*.mf)
 FET_FILES = $(filter-out $(TEST_FILES),$(wildcard feta[0-9]*.mf))
 FONT_FILES = $(filter-out $(TEST_FILES),$(wildcard feta*[0-9].mf))
 
-XPM_FONTS = feta20 feta-nummer10 feta-braces20
+XPM_FONTS = feta20 feta-nummer10
 #CM_AFM_FILES = cmr10
 
 $(outdir)/cmr10.afm:

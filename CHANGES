@@ -1,5 +1,7 @@
-1.5.22.jcn2
+1.5.22.jcn3
 ===========
+
+* Bugfix: prepend DATADIR to %loadpath too.
 
 * Resurrected experimental sketch output, now with dispatch.
 

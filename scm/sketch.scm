@@ -160,7 +160,9 @@
    "Fs(20)\n"
    ;; chars > 128 don't work yet
    (format #f "txt('\\~o',(" (modulo i 128))
-   ;;	    "char(" ,(number->string i)  ",("
+;;   (format #f "txt('\\~o',(" i)
+;;   "txt('" (ascii->string i) "',("
+;;	    "char(" ,(number->string i)  ",("
    (sketch-numbers->string (map mul-scale (list x y)))
    "))\n"))
 

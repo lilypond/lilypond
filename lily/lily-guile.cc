@@ -261,6 +261,11 @@ prepend_load_path (String p )
 void
 init_lily_guile (String p )
 {
+  // very very ugh: LILYPONDPREFIX (a hack), if set, overrules DATADIR.
+  // DATADIR (the default) should work too!
+  prepend_load_path (DIR_DATADIR);
+  prepend_load_path (DIR_DATADIR "/scm");
+
   prepend_load_path (p);
 
   // todo: junk this. We should make real modules iso. just loading files.
