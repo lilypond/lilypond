@@ -1,3 +1,9 @@
+pl 63.lu2
+	- very tight: hinterfleisch -> 0 : input/bugs/spacing-very-tight.ly
+	- bfs: neutral beam and tie directions (daar was ik al bang voor:-)
+	- bf: abe: may beam over skip, as long as note present too
+	- bf: scsii-prelude: added slurs using skips
+
 pl 63.uu1
 	- mutopia updates  courtesy Peter Chubb
 	- Don't make Time_scaled_music for c4*2/3 entry, only do the

@@ -59,6 +59,10 @@ notes, and up for low notes.
 
 \mudelafile{stem-direction.sly}
 
+Similarly, if \verb+stem_default_neutral_direction+ is set to \verb+-1+.
+
+\mudelafile{stem-direction-down.ly}
+
 \section{Grace notes}
 
 Grace notes are typeset as an encapsulated piece of music. You can

@@ -39,11 +39,13 @@ Tie::get_default_dir () const
 {
   int m = (head_l_drul_[LEFT]->position_i_ 
 	  + head_l_drul_[RIGHT]->position_i_) /2;
+
   /*
     If dir is not determined: inverse of stem: down
     (see stem::get_default_dir ())
    */
-  return (m <= 0)? DOWN : UP;
+  Direction neutral_dir = (int)paper_l ()->get_var ("stem_default_neutral_direction");
+  return (m == 0) ? other_dir (neutral_dir) : (m < 0) ? DOWN : UP;
 }
 
 void

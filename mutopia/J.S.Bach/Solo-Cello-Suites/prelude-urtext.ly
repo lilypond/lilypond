@@ -186,8 +186,7 @@ prelude_slurs = \notes{
 
 prelude_a = \notes<
 	\$prelude_notes
-	% Han-Wen: help:  adding slurs breaks auto-beaming??
-	%\$prelude_slurs
+	\$prelude_slurs
 >
 
 prelude = \context Staff \notes<

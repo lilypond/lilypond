@@ -37,18 +37,8 @@ Auto_beam_engraver::do_creation_processing ()
 }
 
 bool
-Auto_beam_engraver::do_try_music (Music* m) 
+Auto_beam_engraver::do_try_music (Music*) 
 {
-  /*
-    Mag dit?  Nu word-i toch maar geswallowed, en
-    komt er dus ook geen announce...
-   */
-  if (Skip_req* s = dynamic_cast <Skip_req*> (m))
-    {
-      if (stem_l_arr_p_)
-	end_beam ();
-      return true;
-    }
   return false;
 } 
 
@@ -248,6 +238,17 @@ Auto_beam_engraver::typeset_beam ()
 void
 Auto_beam_engraver::do_post_move_processing ()
 {
+  /*
+    don't beam over skips
+   */
+  if (stem_l_arr_p_)
+    {
+      Moment now = now_mom ();
+      if (extend_mom_ < now)
+	{
+	  end_beam ();
+	}
+    }
 }
 
 void
@@ -305,30 +306,15 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
       
-#if 0
       /*
-	Don't (start) auto-beam over empty stems.
-	ugly check for rests!
-	--> doesn't even work: stem-dir is not set
-
-	../flower/include/drul-array.hh:26: Real & Drul_array<double>::elem<Real>(enum Direction): Assertion `d==1 || d== -1' failed.
-/home/fred/root/usr/scripts/src/out/Linux/li: line 8: 14641 Aborted                 (core dumped) lilypond $opts
-
-      */
-      if (stem_l->extent (Y_AXIS).empty_b ())
-	{
-	  if (stem_l_arr_p_)
-	    end_beam ();
-	  return;
-	}
-#else
+	Don't (start) auto-beam over empty stems; skips or rests
+	*/
       if (!stem_l->head_l_arr_.size ())
 	{
 	  if (stem_l_arr_p_)
 	    end_beam ();
 	  return;
 	}
-#endif
 
       if (stem_l->beam_l_)
 	{
@@ -337,11 +323,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	  return ;
 	}
 	      
-      /*
-	now that we have last_add_mom_, perhaps we can (should) do away
-	with these individual junk_beams
-      */
-      
       int durlog  =rhythmic_req->duration_.durlog_i_;
       if (durlog <= 2)
 	{
@@ -371,7 +352,8 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	}
       Moment now = now_mom ();
       
-      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_, durlog - 2);
+      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_,
+			     durlog - 2);
       stem_l_arr_p_->push (stem_l);
       last_add_mom_ = now;
       extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();

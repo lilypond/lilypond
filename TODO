@@ -14,7 +14,6 @@ Grep for TODO and ugh/ugr/urg.
 . * warning if feta-nummer.tfm not found
 . * broken examples:
 input/star-spangled-banner.ly: hw?
-mutopia/J.S.Bach/Solo-Cello-Suites/prelude-cello.ly: hw: slurs + autobeamer ?
 mutopia/Coriolan/*
 . * spacing of accidentals
 . * key restorations & repeats
