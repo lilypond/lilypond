@@ -51,7 +51,7 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
     i->preprocess();
 
 
-    if (c->daddy && c == c->daddy->prebreak) { // makeshift.
+    if (0 && c->daddy && c == c->daddy->prebreak) { // makeshift.
 	
 	Interval iv (i->width());
 	if (!iv.empty()) {
