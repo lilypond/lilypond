@@ -1,7 +1,7 @@
 # class name		silence?
 Dstream			1
 
-My_lily_lexer		0
+My_lily_lexer		1
 PCol			1
 Score_column		1
 Ineq_constrained_qp 	1
@@ -13,9 +13,9 @@ Idealspacing		1
 
 # yydebug
 InitParser		1
-Parser			0
+Parser			1
 InitDeclarations	1
-Declarations		0
+Declarations		1
 # FlexLexer debug
 InitLexer		1
 Lexer			1
