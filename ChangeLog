@@ -1,3 +1,21 @@
+2004-12-22  Werner Lemberg  <wl@gnu.org>
+
+	Prepare glyph shapes for mf2pt1 conversion.
+
+	* mf/feta-macros.mf, mf_feta-eindelijk.mf: Some formatting.
+
+	* mf/feta-toevallig.mf: Formatting.
+	(draw_meta_sharp): Modify path to replace `filldraw' with `fill'.
+	("Natural"): Fix paths to allow better postprocessing.
+	(draw_meta_flat): Use `z3l' as additional point in path to get
+	better conversion with mf2pt1.
+	Other minor cleanups.
+	("3/4 Flat"): Add auxiliary points and modify path to replace
+	`draw' with `fill'.
+	("Double Sharp"): Mirror path segments instead of picture elements
+	to get a single outline.
+	Modify path to replace `filldraw' with `fill'.
+
 2004-12-22  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/unfold-all-repeats.ly: added file back.
