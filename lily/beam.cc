@@ -71,33 +71,6 @@ shrink_extra_weight (Real x)
   return fabs (x) * ((x < 0) ? 1.5 : 1.0);
 }
 
-// move to somewhree?
-Slice
-int_list_to_slice (SCM l)
-{
-  Slice s;
-  s.set_empty ();
-  for (; gh_pair_p (l); l = gh_cdr (l))
-    {
-      if (gh_number_p (gh_car (l)))
-	s.add_point (gh_scm2int (gh_car (l))); 
-    }
-
-  return s;
-}
-
-// move to stem?
-Slice
-stem_beam_multiplicity (Grob *stem)
-{
-  SCM beaming= stem->get_grob_property ("beaming");
-  Slice l = int_list_to_slice (gh_car (beaming));
-  Slice r = int_list_to_slice (gh_cdr (beaming));
-  l.unite (r);
-
-  return l;
-}
-
 void
 Beam::add_stem (Grob *me, Grob *s)
 {
@@ -130,7 +103,7 @@ Beam::get_beam_count (Grob *me)
     {
       Grob *sc = unsmob_grob (ly_car (s));
       
-      m = m >? (stem_beam_multiplicity (sc).length () + 1);
+      m = m >? (Stem::beam_multiplicity (sc).length () + 1);
     }
   return m;
 }
@@ -306,7 +279,9 @@ Beam::brew_molecule (SCM grob)
   SCM last_beaming = SCM_EOL;;
   Real last_xposn = -1;
   Real last_width = -1 ;
-  
+
+
+  SCM gap = me->get_grob_property ("gap");
   Molecule the_beam;
   Real lt = me->paper_l ()->get_var ("linethickness");
   for (int i = 0; i< stems.size(); i++)
@@ -362,6 +337,13 @@ Beam::brew_molecule (SCM grob)
 	  if (i == stems.size() -1)
 	    {
 	      width_corr += stem_width/2;
+	    }
+
+	  if (gh_number_p (gap))
+	    {
+	      Real g = gh_scm2double (gap);
+	      stem_offset += g;
+	      width_corr -= 2*g; 
 	    }
 	  
 	  Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
@@ -1388,7 +1370,7 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french)
     }
   else
     {
-      stem_y += (stem_beam_multiplicity(s)[my_dir]) * beam_space;
+      stem_y += (Stem::beam_multiplicity(s)[my_dir]) * beam_space;
     }
 
   return stem_y;

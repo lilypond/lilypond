@@ -1,5 +1,7 @@
 2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/stem-tremolo.cc (brew_molecule): add code for stem tremolos.
+
 	* lily/auto-beam-engraver.cc (create_beam_p): remember Beam
 	settings at the start of a potential auto beam.
 
