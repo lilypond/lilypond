@@ -1,5 +1,14 @@
+1.4.0.jcn2
+==========
+
+* Bugfix: trend of broken slurs with user-overridden stem attachments.
+
+* Further Timmification of tutorial.
+
 1.4.0.jcn1
 ==========
+
+* Bugfix redhat.spec: use root attributes on files.
 
 * Bugfix: typo in update-lily, re-set download url to /development.
 

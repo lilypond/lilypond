@@ -9,7 +9,6 @@
 
 /*
   [TODO]
-    * fix broken interstaff slurs
     * should avoid stafflines with horizontal part.
     * begin and end should be treated as a/acknowledge Scripts.
     * smart changing of endings
@@ -316,27 +315,21 @@ Slur::get_attachment (Grob *me, Direction dir,
 	    }
 	}
     }
-  else if (str == "loose-end")
+  /*
+    If we're not a note_column, we can't be anything but a loose-end.
+    But if user has set (attachment . (stem . stem)), our string is
+    stem, not loose-end.
+
+    Hmm, maybe after-line-breaking should set this to loose-end?  */
+  else // if (str == "loose-end")
     {
       SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
       if (ly_symbol2string (other_a) != "loose-end")
-	{
-#if 0
-	  /*
-	    The braindead way: horizontal
-	  */
-	  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
-#else
-	  o = broken_trend_offset (me, dir);
-#endif
-
-	  
-	}
-	
+	o = broken_trend_offset (me, dir);
     }
 
   SCM alist = me->get_grob_property ("extremity-offset-alist");
-int stemdir = stem ? Stem::get_direction (stem) : 1;
+  int stemdir = stem ? Stem::get_direction (stem) : 1;
   int slurdir = gh_scm2int (me->get_grob_property ("direction"));
   SCM l = scm_assoc
  (scm_listify (a,

@@ -119,6 +119,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{slur-attachment-override.ly}
 
+@lilypondfile[printfilename]{slur-stem-broken.ly}
+
 @lilypondfile[printfilename]{drarn-slurs.ly}
 
 @lilypondfile[printfilename]{phrasing-slur.ly}
