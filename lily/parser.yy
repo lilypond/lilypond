@@ -242,8 +242,8 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <scm>	identifier_init 
 
-%type <scm> steno_duration optional_notemode_duration
-%type <scm> entered_notemode_duration explicit_duration
+%type <scm> steno_duration optional_notemode_duration multiplied_duration
+%type <scm>  explicit_duration
 	
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
@@ -755,14 +755,6 @@ Simple_music:
 	}
 	| property_def
 	| translator_change
-	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
-		$$ = $1;
-		$$->compress (Moment ($3, $5 ));
-	}
-	| Simple_music '*' bare_unsigned		 {
-		$$ = $1;
-		$$->compress (Moment ($3, 1));
-	}
 	;
 
 
@@ -1530,31 +1522,19 @@ absolute_pitch:
 	;
 
 duration_length:
-	steno_duration {
+	multiplied_duration {
 		$$ = $1;
 	}
 	| explicit_duration {
 		$$ = $1;
 	}	
-	| duration_length '*' bare_unsigned {
-		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
-	}
-	| duration_length '/' bare_unsigned {
-		$$ = unsmob_duration ($$)->compressed (Moment (1,$3)).smobbed_copy ();
-	}
-	;
-
-entered_notemode_duration:
-	steno_duration	{
-		THIS->set_last_duration (unsmob_duration ($1));
-	}
 	;
 
 optional_notemode_duration:
 	{
 		$$ = THIS->default_duration_.smobbed_copy ();
 	}
-	| entered_notemode_duration {
+	| multiplied_duration	{
 		$$ = $1;
 	}
 	| explicit_duration {
@@ -1571,11 +1551,30 @@ steno_duration:
 			l =  intlog2 ($1);
 
 		$$ = Duration (l, $2).smobbed_copy ();
+
+		THIS->set_last_duration (unsmob_duration ($$));
 	}
 	| DURATION_IDENTIFIER dots	{
 		Duration *d =unsmob_duration ($1);
 		Duration k (d->duration_log (),d->dot_count () + $2);
-		$$ = k.smobbed_copy ();		
+		$$ = k.smobbed_copy ();
+
+		THIS->set_last_duration (unsmob_duration ($$));
+	}
+	;
+
+
+
+
+multiplied_duration:
+	steno_duration {
+		$$ = $1;
+	}
+	| multiplied_duration '*' bare_unsigned {
+		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
+	}
+	| multiplied_duration '/' bare_unsigned {
+		$$ = unsmob_duration ($$)->compressed (Moment (1,$3)).smobbed_copy ();
 	}
 	;
 

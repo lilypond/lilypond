@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -15,12 +17,11 @@ AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
 
 AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
-    OPTIMIZE=""
     CFLAGS=${CFLAGS:-""}
     CXXFLAGS=${CXXFLAGS:-$CFLAGS}
     LDFLAGS=${LDFLAGS:-""}
     checking_b=yes
-    optimise_b=no
+    optimise_b=yes
     profile_b=no
     debug_b=yes
 
@@ -32,19 +33,10 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     [  --enable-debugging      compile with debugging info.  Default: on],
     [debug_b=$enableval])
 
-    AC_ARG_ENABLE(optimise,
-    [  --enable-optimise       use maximal speed optimisations.  Default: off],
-    [optimise_b=$enableval])
-    
     AC_ARG_ENABLE(profiling, 
     [  --enable-profiling      compile with gprof support.  Default: off],
     [profile_b=$enableval])
     
-    AC_ARG_ENABLE(mingw-prefix,
-    [  --enable-mingw-prefix=DIR
-                          set the mingw32 directory (standalone windows32 exes)],
-    [MINGWPREFIX=$enableval],
-    [MINGWPREFIX=no])
 
     if test "$checking_b" = no; then
 	# ugh
@@ -56,9 +48,6 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
 	OPTIMIZE="-O2 -finline-functions"
     fi
 
-    if test "$optimise_b" = no; then
-	OPTIMIZE=""
-    fi
 
     if test $profile_b = yes; then
 	EXTRA_LIBES="-pg"
@@ -69,11 +58,6 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
 	OPTIMIZE="$OPTIMIZE -g"
     fi
 
-    # however, C++ support in mingw32 v 0.1.4 is still flaky
-    if test x$MINGWPREFIX != xno; then 
-	ICFLAGS="-I$MINGWPREFIX/include"
-	ILDFLAGS="-$MINGWPREFIX/lib"
-    fi
 
     AC_PROG_CC
     LD='$(CC)'
@@ -434,16 +418,13 @@ AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
     [  --with-kpathsea         use kpathsea lib.  Default: on],
     [kpathsea_b=$enableval])
 
-    if test $kpathsea_b = yes; then	
+    if test "$kpathsea_b" = "yes"; then	
 	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
-	# urg: kpse_find_tfm is a #define, how to check for this?
-	# AC_CHECK_LIB(kpathsea, kpse_find_tfm)
-	# AC_CHECK_FUNCS(kpse_find_file kpse_find_tfm,, AC_STEPMAKE_WARN(Cannot find kpathsea functions.  You may have to create TFM files manually.))
-	AC_CHECK_FUNCS(kpse_find_file,, AC_STEPMAKE_WARN(Cannot find kpathsea functions.  You may have to create TFM files manually.) kpathsea_b=no)
+	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  Rerun with --without-kpathsea.) )
     fi
     AC_MSG_CHECKING(whether to use kpathsea)
-    if test $kpathsea_b = yes; then
+    if test "$kpathsea_b" = yes; then
         AC_MSG_RESULT(yes)
 	KPATHSEA=1
     else
