@@ -7,10 +7,21 @@ copyright =	 "public domain";
 %{
 Tested Features: \multi
 
+
+WARNING: the \multi construct is not very intuitive.  You better try
+the
+
+	\type Grandstaff <
+		\type Staff = treble {.. }
+		\type Staff = bass {.. }
+	>		
+
+construct to get multiple staffs, it's cleaner
+
 %}
 
 
-\version "0.1.8";
+\version "0.1.9";
 
 \score{
 	\melodic 
