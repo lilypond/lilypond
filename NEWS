@@ -1,3 +1,24 @@
+pl 48
+	- Pitch_squash_engraver makes Rhythmic_staff possible.
+	- some fixes to buildscripts for sgi irix
+	- misc. patches (WL)
+	- move away from libg++: rolled own Rational class..
+	- don't make gif files Documentation/ by default 
+	- ly2dvi manpage (JAF)
+	- ly2dvi 0.7 (JAF)
+	- more clefs. (MB)
+
+pl 47.jcn2
+	- bf: interbeams and beam-stemlengths for size != 16
+	- bf's: preludes
+	- more introduction
+
+pl 47.jcn1
+	- voice{one,two,three} defines
+	- preludes-*: fixes, junked multi, broke-down score-block
+	- mudela-book: added center option
+
+******
 pl 47
 	- Abbreviation now a separate item.
 	- bf'd some gcc 2.8 warnings.
@@ -6,7 +27,9 @@ pl 47
 
 pl 46.jcn1
 	- start mudela introduction
-	- plet-fraction abbrev by guessing; /3 -> 2/3 etc.
+
+
+pl 46.jcn2
 	- bf's: preludes-*
 
 *******
