@@ -9,23 +9,25 @@
 
 #include "proto.hh"
 #include "string.hh"
+#define IDACCESSOR( Input_staff, staff)\
+    virtual Input_staff * staff(bool = false) { error(#Input_staff); return 0; }
 
-struct Identifier
-{
+struct Identifier {
     void *data;
     String name;
     
     Identifier(String n) : name(n) { }
     virtual ~Identifier() {}
     virtual const char*classname() { return "new Identifier"; }
-    void error();
-    virtual Input_staff * staff(bool = false) { error(); return 0; }
-    virtual Input_music *music(bool = false) { error(); return 0; }
-    virtual Music_voice *mvoice(bool = false) { error(); return 0; }
-    virtual Symtables *symtables(bool = false) { error(); return 0; }
-    virtual Music_general_chord *mchord(bool = false) { error(); return 0; }
-    virtual Lookup*lookup(bool = false) { error(); return 0; }
-    virtual Notename_tab*notename_tab(bool = false) { error(); return 0; }
+    void error(String);
+    IDACCESSOR(Input_staff, staff)
+    IDACCESSOR(Input_music, music)
+    IDACCESSOR(Music_voice, mvoice)
+    IDACCESSOR(Script_def, script)	
+    IDACCESSOR(Symtables, symtables)
+    IDACCESSOR(Music_general_chord, mchord)
+    IDACCESSOR(Lookup,lookup)
+    IDACCESSOR(Notename_tab, notename_tab)
 };
 #endif // IDENTPARENT_HH
 
