@@ -51,6 +51,7 @@
 	 ("lheel" .
 	  ((script-molecule . (feta . ("upedalheel" . "upedalheel")))
 	   (direction .  -1))
+	  )
 	 ("rheel" .
 	  ((script-molecule . (feta . ("dpedalheel" . "dpedalheel")))
 	   (direction  . 1) ))

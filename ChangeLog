@@ -1,5 +1,10 @@
 2002-11-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/chord-scripts.ly (texidoc): new file
+
+	* lily/new-fingering-engraver.cc (acknowledge_grob):  also handle
+	script-events.
+
 	* scm/script.scm (default-script-alist): cleanup.
 
 	* lily/script-engraver.cc (make_script_from_event): cleanup.
