@@ -1,0 +1,6 @@
+TOPLEVEL_MAJOR_VERSION = 0
+TOPLEVEL_MINOR_VERSION = 0
+TOPLEVEL_PATCH_LEVEL = 39
+# use to send patches, always empty for released version:
+TOPLEVEL_MY_PATCH_LEVEL = -1# include separator: "-1" or ".a"
+#

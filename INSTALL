@@ -1,0 +1,50 @@
+IMPORTANT:
+
+    if you have downloaded a
+
+	    *.pre*
+
+    version, then this is version is *not* meant for producing nice output
+    (but to keep your patchsets up to date).  It might not even compile.
+
+
+INSTALL:
+
+    to make LilyPond, simply type:
+
+	    sh configure
+	    make           
+	    
+    assuming you have the gnu development tools, and your make is gnu make, 
+    else try something like:
+    
+	    MAKE=gmake configure
+	    MAKE=gmake gmake
+
+    \begin{masochist}
+    Windows NT:
+
+    you need the cygnus win32 gnu port development stuff; have a look
+    at http://www.cygnus.com/gnu-win32.
+
+    to make LilyPond under, brr, aargh, well, simply type:
+
+	    bash bin/configure
+	    make win32
+    \end{masochist}
+
+
+SUPPORT
+
+    LilyPond (pl 0.0.39) is known to compile on the following platforms:
+
+    	* linux 2.0.28, g++ 2.7.2[.1]
+	* aix 4.1, g++ 2.7.2
+	* windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
+    	* linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2)
+
+Have fun!
+
+    hanwen@stack.nl
+    jan@digicash.com
+
