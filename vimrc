@@ -5,6 +5,15 @@ set tags=$LILYPOND_SOURCEDIR/flower/tags,$LILYPOND_SOURCEDIR/flower/include/tags
 "
 " some handy key mappings
 "
+" F4  save & make and play midi
+map <F4> :w:se makeprg=ly2dvi\ -m\ %<:make:!timidity %<.midi
+"
+" F5  save & make dvi, midi, ps
+map <F5> :w:se makeprg=ly2dvi\ -P\ %<:make
+"
+" F6  view ps
+map <F6> :!gv -watch %<.ps &
+"
 " F7  prev error
 map [18~ :cp
 "
