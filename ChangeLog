@@ -1,5 +1,12 @@
 2002-10-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/include/midi-stream.hh: use stdio.h iso. iostream.h
+
+	* lily/parser.yy: remove \dynamicscript.
+
+	* ly/dynamic-scripts-init.ly: redo the dynamic scripts
+	definitions. 
+
 	* python/midi.c (midi_error): take two arguments.
 
 	* Merge 1.6.5 changes:

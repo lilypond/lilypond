@@ -13,11 +13,10 @@
 
 /*
   TODO:
+  
     handle multiple events
- */
 
-/**
-   perform absolute (text) dynamics
+    perform absolute (text) dynamics
  */
 class Dynamic_performer : public Performer
 {
@@ -32,8 +31,6 @@ private:
   Music* script_req_;
   Audio_dynamic* audio_;
 };
-
-
 
 Dynamic_performer::Dynamic_performer ()
 {
@@ -124,7 +121,7 @@ Dynamic_performer::try_music (Music* r)
 {
   if (!script_req_)
     {
-      if (r->is_mus_type ("dynamic-event")) // fixme.
+      if (r->is_mus_type ("absolute-dynamic-event")) // fixme.
 	{
 	  script_req_ = r;
 	  return true;
@@ -136,7 +133,7 @@ Dynamic_performer::try_music (Music* r)
 ENTER_DESCRIPTION(Dynamic_performer,
 		  /*descr*/		  "",
 		  /* creats*/ "",
-		  /* accepts */     "note-column-interface script-interface",
+		  /* accepts */     "absolute-dynamic-event",
 		  /* acks */ "",
 		  /*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
 		  /*writes*/"");

@@ -8,6 +8,12 @@
 	(span-type . "abort")
 	(types . (general-music event abort-event))
 	))
+    (AbsoluteDynamicEvent
+     . (
+	(description . "")
+	(internal-class-name . "Event")
+	(types . (general-music event dynamic-event absolute-dynamic-event))
+	))
     (ArpeggioEvent 
      . (
 	(description .  "Make an arpeggio on this note. Syntax:
@@ -95,7 +101,8 @@
 
 	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
-	)) 
+	))
+ 
     (ExtenderEvent
      . (
 	(description .  "")

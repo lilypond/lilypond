@@ -173,7 +173,8 @@ Span_dynamic_performer::start_translation_timestep ()
 bool
 Span_dynamic_performer::try_music (Music* r)
 {
-  if (r->is_mus_type ("dynamic-event"))	// fixme.
+  if (r->is_mus_type ("crescendo-event")
+      || r->is_mus_type ("decrescendo-event"))
     {
       Direction d = to_dir (r->get_mus_property ("span-direction"));
       span_req_l_drul_[d] = r;
@@ -183,5 +184,5 @@ Span_dynamic_performer::try_music (Music* r)
 }
 ENTER_DESCRIPTION (Span_dynamic_performer,
 		   "", "",
-		   "dynamic-event", 
+		   "crescendo-event decrescendo-event", 
 		   "", "", "");

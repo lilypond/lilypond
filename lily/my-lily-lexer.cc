@@ -7,7 +7,6 @@
 */
 
 #include <ctype.h>
-
 #include <sstream>
 
 #include "lily-proto.hh"
@@ -50,7 +49,6 @@ static Keyword_ent the_key_tab[]={
   {"default", DEFAULT},
   {"denies", DENIES},
   {"duration", DURATION},
-  {"dynamicscript", DYNAMICSCRIPT},
   {"grobdescriptions", GROBDESCRIPTIONS},
   {"figures",FIGURES},
   {"grace", GRACE},

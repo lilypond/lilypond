@@ -39,6 +39,20 @@ Music::internal_is_music_type (SCM k)const
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
 
+String
+Music::name ()const
+{
+  SCM nm = get_mus_property ("name");
+  if (gh_string_p (nm))
+    {
+      return ly_scm2string (nm);
+    }
+  else
+    {
+      return classname (this);
+    }
+}
+
 void
 Music::transpose (Pitch)
 {

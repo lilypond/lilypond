@@ -95,11 +95,11 @@ Dynamic_engraver::start_translation_timestep ()
 bool
 Dynamic_engraver::try_music (Music * m)
 {
-  if (m->is_mus_type ("dynamic-event"))
+  if (m->is_mus_type ("absolute-dynamic-event"))
     {
-  /*
-    TODO: probably broken.
-   */
+      /*
+	TODO: probably broken.
+      */
       script_req_ = m;
       return true;
     }
@@ -440,7 +440,7 @@ which takes care of vertical positioning.
 ",
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-/* accepts */     "text-script-event crescendo-event decrescendo-event",
+/* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",
 /* acks  */      "note-column-interface script-interface",
 /* reads */       "",
 /* write */       "");
