@@ -64,7 +64,9 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
   if (Rhythmic_head::has_interface (inf.grob_))
     {
       Music * note_ev =inf.music_cause ();
-
+      if (!note_ev)
+	return;
+      
       SCM arts = note_ev->get_property ("articulations");
 
       for (SCM s = arts; ly_c_pair_p (s); s = ly_cdr  (s))

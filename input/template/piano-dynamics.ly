@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.
@@ -55,7 +55,7 @@ pedal =  {
 
       \consists "Skip_event_swallow_translator"
 
-      \consistsend "Axis_group_engraver"
+      \consists "Axis_group_engraver"
     }
     \context {
       \PianoStaff

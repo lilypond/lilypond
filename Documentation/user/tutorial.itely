@@ -278,8 +278,7 @@ printing.
 @cindex DVI driver
 } which you can print or with the standard facilities of your
 operating system.@footnote{If your system does not have any tools
-installed, you can try @uref{Ghostscript,
-http://www.cs.wisc.edu/~ghost/}, a freely available package for
+installed, you can try @uref{http://www.cs.wisc.edu/~ghost/,Ghostscript}, a freely available package for
 viewing and printing PDF and PostScript files.}
 
 On Windows, start up a text-editor@footnote{Any simple or

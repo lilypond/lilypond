@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 \header {
 
 texidoc ="Polyphonic rhythms and rests do not disturb
@@ -12,7 +12,7 @@ texidoc ="Polyphonic rhythms and rests do not disturb
        \time 8/8
        \key des \major
        <<
-	 \lyricsto "one" \new Lyrics \lyrics {
+	 \lyricsto "one"  \new Lyrics  {
 	     Do mi nus ex
 	 }
 	   \context Voice = one {
@@ -24,7 +24,7 @@ texidoc ="Polyphonic rhythms and rests do not disturb
 	      \voiceTwo
 	      ees'8 r8 r8 r8 ees' r8 r8 r8 
           }
-          \lyricsto "two" \new Lyrics \lyrics {
+          \lyricsto "two"  \new Lyrics  {
 	      Do na
          }
        >>

@@ -2119,11 +2119,30 @@ conversions.append (((2, 3, 4), conv,
 
 def conv (str):
 	str = re.sub (r'\\consistsend', '\\consists', str)
+	str = re.sub (r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
+		      r'\\lyricsto \1 \2', str)
 	return str
 
 conversions.append (((2, 3, 8), conv,
-		     '''remove \\consistsend'''))
+		     '''remove \\consistsend, strip \\lyrics from \\lyricsto.'''))
 
+
+def conv_mode_experiment (str):
+	str = re.sub (r'\\chords\b', r'\\chordmode', str)
+	str = re.sub (r'\\lyrics\b', r'\\lyricmode', str)
+	str = re.sub (r'\\figures\b', r'\\figuremode', str)
+	str = re.sub (r'\\drums\b', r'\\drummode', str)
+	str = re.sub (r'\\chordmode\s*\\new ChordNames', r'\\chords', str)
+	str = re.sub (r'\\new ChordNames\s*\\chordmode', r'\\chords', str)
+	str = re.sub (r'\\new FiguredBass\s*\\figuremode', r'\\figures', str)
+	str = re.sub (r'\\figuremode\s*\new FiguredBass', r'\\figures', str)
+	str = re.sub (r'\\new DrumStaff\s*\\drummode', r'\\drums', str)
+	str = re.sub (r'\\drummode\s*\\new DrumStaff', r'\\drums', str)
+
+	return str
+
+#conversions.append (((2, 3, 9), conv,
+#		     '''fold \new FooContext \foomode into \foo.'''))
 
 ################################
 #	END OF CONVERSIONS	
