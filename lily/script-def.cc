@@ -75,8 +75,8 @@ Atom
 Script_def::get_atom (Paper_def *p , Direction d) const
 {
   String preidx_str ="";
-  if (invertsym_b_&& d < 0) 
-    preidx_str = "-";
+  if (invertsym_b_)
+    preidx_str = (d < 0)? "d" : "u";
 
   return p->lookup_l()->script (preidx_str + symidx_str_);
 }
