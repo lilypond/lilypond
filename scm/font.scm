@@ -61,7 +61,7 @@ or
 	       (12.0 . "cmtt12")
 	       )))
     (#(bold italic roman) .
-     (10.0 . #((8.0 . "cmbxti7")
+     (10.0 . #((8.0 . "cmbxti8")
 	       (10.0 . "cmbxti10")
 	       (14.0 . "cmbxti14")
 	       )))
@@ -75,6 +75,9 @@ or
 	       (8.0 . "cmbx8")
 	       (10.0 . "cmbx10")
 	       (12.0 . "cmbx12")
+	       )))
+    (#(bold-narrow upright roman) .
+     (10.0 . #((10.0 . "cmb10")
 	       )))
     (#(medium caps roman) .
      (10.0 . #((10.0 . "cmcsc10"))))

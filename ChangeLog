@@ -1,4 +1,20 @@
+2004-01-05  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* scm/font.scm (paper20-font-vector): add bold-narrow series (only
+	cmb10).
+
+	* lily/lyric-extender.cc (brew_molecule): add little space before
+	extender line.
+
+	* lily/beam-quanting.cc (score_forbidden_quants): check if
+	outer stafflines fall in any beam gaps.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use bold-narrow
+	for lyric texts.
+
 2004-01-04  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* VERSION: 2.1.6 released.
 
 	* lily/beam-quanting.cc (quanting): add inspect-quants property:
 	this shows the demerits of a user-defined beam position pair.

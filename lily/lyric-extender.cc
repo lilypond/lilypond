@@ -37,10 +37,15 @@ Lyric_extender::brew_molecule (SCM smob)
    */
   Real right_point = r->extent (common, X_AXIS)
     [(Note_head::has_interface (r)) ? RIGHT : LEFT];
-  
-  Real w = right_point - left_point;
 
   Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
+
+  right_point += h;
+
+  Real w = right_point - left_point;
+
+  if (w < 0)
+    return SCM_EOL;
   
   Molecule  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),
 					   0.8 * h));

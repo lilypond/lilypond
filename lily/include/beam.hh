@@ -74,6 +74,7 @@ private:
 
 const int REGION_SIZE = 2;
 
+#define DEBUG_QUANTING 1
 
 #endif /* BEAM_HH */
 

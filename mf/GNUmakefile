@@ -51,7 +51,7 @@ INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
 
-SAUTER_FONTS = cmbxti7 
+SAUTER_FONTS = cmbxti8
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 

@@ -44,7 +44,6 @@ Notes:
 #include "warn.hh"
 
 
-#define DEBUG_QUANTING 1
 
 bool debug_beam_quanting_flag;
 
@@ -487,8 +486,11 @@ Beam::brew_molecule (SCM grob)
   the_beam.translate_axis (pos[LEFT], Y_AXIS);
 
 #if (DEBUG_QUANTING)
-  if (debug_beam_quanting_flag)
+  SCM quant_score = me->get_grob_property ("quant-score");
+  if (debug_beam_quanting_flag
+      && gh_string_p (quant_score))
     {
+      
       /*
 	This code prints the demerits for each beam. Perhaps this
 	should be switchable for those who want to twiddle with the
@@ -498,7 +500,7 @@ Beam::brew_molecule (SCM grob)
       SCM properties = Font_interface::font_alist_chain (me);
 
       Molecule tm = *unsmob_molecule (Text_item::interpret_markup
-	(me->get_paper ()->self_scm (), properties, me->get_grob_property ("quant-score")));
+	(me->get_paper ()->self_scm (), properties, quant_score));
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
     }
 #endif

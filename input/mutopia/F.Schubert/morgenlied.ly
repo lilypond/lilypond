@@ -92,7 +92,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     r8_\> << { s8 s8-\! }  << { fis( g)
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
-    e,16_" "_\markup { \italic cresc } g c g e g d gis b gis d gis |
+    e,16_" "_\markup { \bold\italic cresc } g c g e g d gis b gis d gis |
     c, e a e c e a,-\f d fis d a d |
     b d g  d b g r4\fermata \clef treble g''8 |
     as4.( g 4.) | fis4. r4 <d g>8 ( |
@@ -148,12 +148,12 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	\translator {
 	    \LyricsVoiceContext
 	    minimumVerticalExtent = #'(-1.0 . 0)
-	    LyricText \set #'font-size = #1.0
 	}
 	\translator {
 	    \ScoreContext
 	    Beam \override #'thickness = #0.6
 	    SpacingSpanner \set #'spacing-increment = #1.0
+	    Slur \set #'height-limit = #1.0
 	}
 	\translator {  \PianoStaffContext
 		VerticalAlignment \override #'forced-distance = #10
