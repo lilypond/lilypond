@@ -24,11 +24,11 @@ This chapter details the technicalities of running LilyPond.
 The LilyPond system consists of two parts: a binary executable, which
 is responsible for the formatting functionality, and support scripts,
 which post-process the resulting output. Normally, the support scripts
-are called, which in turn invoke the @code{lilypond} binary. However,
-@code{lilypond} may be called directly as follows.
+are called, which in turn invoke the @code{lilypond-bin} binary. However,
+@code{lilypond-bin} may be called directly as follows.
 
 @example
-        lilypond [@var{option}]@dots{} @var{file}@dots{}
+        lilypond-bin [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 

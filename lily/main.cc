@@ -156,10 +156,8 @@ usage ()
   printf ("\n\n");
   printf (_ ("Typeset music and/or produce MIDI from FILE.").to_str0 ());
   printf ("\n\n");
-  printf(_ (
-"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
-"using a high level description file as input.  LilyPond is part of \n"
-"the GNU Project.\n"
+  printf(_ ("LilyPond produces beautiful music notation.\n"
+	    "For more information, see http://lilypond.org/"
 ).to_str0 ());
 
   printf ("\n");
@@ -167,8 +165,6 @@ usage ()
   printf ("\n");
   printf (Long_option_init::table_string (options_static).to_str0 ());
   printf ("\n");
-  printf ("\n");
-
   printf (_f ("Report bugs to %s.", "bug-lilypond@gnu.org").to_str0 ());
   printf ("\n");
   printf ("\n");
