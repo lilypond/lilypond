@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 % test staff margin with partial measure.
 
 
@@ -9,3 +9,4 @@
     \translator { \StaffContext \consists Instrument_name_engraver }
   }
 }
+%% new-chords-done %%

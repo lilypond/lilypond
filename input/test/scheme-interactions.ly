@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 \header {
 
@@ -23,3 +23,4 @@ bra = \notes \transpose c c { e'4-. }
       c4
   }
 }
+%% new-chords-done %%

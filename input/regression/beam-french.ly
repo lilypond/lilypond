@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
     texidoc = "French style beaming. In french beaming, the stems do not go to the outer beams."

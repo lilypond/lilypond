@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "You can move around Bar_engraver and
@@ -35,3 +35,4 @@ Span_bar_engraver if you want bar lines on lyrics."  }
   \remove "Span_bar_engraver"
 }
 }}
+%% new-chords-done %%

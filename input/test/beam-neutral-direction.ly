@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 fragment = \notes {
@@ -13,3 +13,4 @@ fragment = \notes {
   \notes\relative c \fragment
   \paper { }  
 }
+%% new-chords-done %%

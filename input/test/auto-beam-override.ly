@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 %{
   Currently (1.1.27.jcn3), the auto-beam engraver will only engrave
@@ -38,3 +38,4 @@
 	}
     }
 }
+%% new-chords-done %%

@@ -14,4 +14,4 @@ piuf = #'(columns (italic "pi\\`u") " " (dynamic "f"))
 	
 	c2\< \! c2
 	}
-    }
+    }%% new-chords-done %%

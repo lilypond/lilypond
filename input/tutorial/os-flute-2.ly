@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \include "os-music.ly"
 \include "paper16.ly"

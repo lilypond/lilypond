@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \include  "mozart-hrn3-defs.ly"
 
 allegro =
@@ -49,12 +49,12 @@ allegro =
 	[a( \< b c \!cis\> ]  d4 \! )c
 	[ais8() b] r8 \cresc b [b()c] r c
 	[cis ()d] r4 r2
-	\endcresc g,1\f ~ g2 ~ [g8 a16 b] [c()d e c]
+	\endcresc g,1-\f ~ g2 ~ [g8 a16 b] [c()d e c]
 	%% 64
 	f4-. d-. b-. g-.
 	R1
 
-	c,2\p e4 g c \cresc e g4. e8 |
+	c,2-\p e4 g c \cresc e g4. e8 |
 	\endcresc d4.-\f [e16 fis] [g () fis e d] [c() b a g]
 
 	< a1(-\trill
@@ -122,7 +122,7 @@ allegro =
 	[c8-. c-.] r c-. [cis()d] r\cresc d-. |
 	[dis()e] r e-. [e()f] r f-. |
 	g4-.-\f\endcresc  e-. c-. bes-. |
-	g-.\ff e-. c-. r |
+	g-.-\ff e-. c-. r |
 	a'2 ~ [a8_""_#`(,italic-bf "sempre " (dynamic "f")) b16 c] [d( e d )e]
 
 	
@@ -141,7 +141,7 @@ allegro =
 	  \times 2/3 { [ c d e] } \times 2/3 { [ f e d] }|
 	c4 \times 2/3 {  r8 [g'()e]} c4 \times 2/3 {  r8 [e () c]} |
 	g4 \times 2/3 {  r8 [c8() g] } \times 2/3 { [ e ()g e-. ] } \times 2/3 { [c () e c-.] }|
-	g4 r8 g'\f [a b c d]|
+	g4 r8 g'-\f [a b c d]|
 
 	< d1(-\trill
 	  { s2 \grace { [c16 d] } }  >
@@ -165,3 +165,4 @@ allegro =
 	\header { piece = "allegro" opus = "" }	
 	\midi{ \tempo 4=90 }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 %
 % test file to get a4 paper really filled,
@@ -37,3 +37,4 @@ tagline="Ligly"
 		}
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 %{
 Converted from star.mup with the aid of mup2ly.py
 http://www.arkkra.com/doc/star.html

@@ -1,4 +1,4 @@
-\version "1.7.4"
+\version "1.7.6"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -228,7 +228,7 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
 }
 
 middleDynamics =  \context Dynamics=middle \notes{
-    s8 s16 s\f s4
+    s8 s16 s-\f s4
     s1*2
     %4
     s2
@@ -241,15 +241,15 @@ middleDynamics =  \context Dynamics=middle \notes{
 
     \outputproperty #(make-type-checker 'dynamic-interface) 
 	    #'extra-offset = #'(0 . 4)
-    %s1\mf-"a tempo"
-%%    s2\mf-"a tempo" s4
-    s2\mf-"a tempo" s8
+    %s1-\mf-"a tempo"
+%%    s2-\mf-"a tempo" s4
+    s2-\mf-"a tempo" s8
 %%    s\> \!s8
     s16 s32 s64 \> s s8  s \!s8
     \outputproperty #(make-type-checker 'dynamic-interface) 
 	    #'extra-offset = #'(-1 . 4)
-%%    s8\mf s4 s4 s8\> s32 s s \!s
-    s8\mf s4 s8 s16 s32 s64 \> s s16 s8 s32 s s s\! s128
+%%    s8-\mf s4 s4 s8\> s32 s s \!s
+    s8-\mf s4 s8 s16 s32 s64 \> s s16 s8 s32 s s s\! s128
 }
 
 lowerDynamics =  \context Dynamics=lower \notes{

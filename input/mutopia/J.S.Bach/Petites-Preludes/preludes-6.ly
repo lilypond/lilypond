@@ -3,7 +3,7 @@
 opus = "BWV 940"
 piece = "6"
 
-\version "1.7.3"
+\version "1.7.6"
 
 
 
@@ -89,7 +89,7 @@ four =  \context Staff \notes\relative c{
 	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |
-	gis2 < g8 cis,> <f d> e4 |
+	gis2 << g cis,>>8 <<f d>> e4 |
 	d4. fis16 g r16 bes8. ~ bes4 |
 	%10
 	\stemDown
@@ -127,3 +127,4 @@ global =  \notes{
 	}
 }
 
+%% new-chords-done %%

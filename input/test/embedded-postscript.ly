@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
   texidoc = "By inserting the @TeX{} command \embeddedps, you can
 insert postscript directly into the output.
@@ -17,3 +17,4 @@ TODO: make molecule-callback to do this.
   }
   \paper { linewidth = 70 * \staffspace }
 }
+%% new-chords-done %%

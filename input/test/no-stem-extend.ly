@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
  texidoc = "Don't extend stems to cetner line."
 }
@@ -22,3 +22,4 @@
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

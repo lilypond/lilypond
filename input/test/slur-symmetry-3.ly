@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 % should look the same
@@ -15,3 +15,4 @@ title="symmetry"
 		linewidth = 50.0\mm
 	}
 }
+%% new-chords-done %%

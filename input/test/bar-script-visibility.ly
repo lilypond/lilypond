@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
     texidoc="Second line has bar-numbers on start of every measure."
 }
@@ -13,3 +13,4 @@
     }
 }
 
+%% new-chords-done %%

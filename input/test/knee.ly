@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score{
 	\notes\relative c'{
@@ -8,3 +8,4 @@
 		\stemUp [g c' \stemBoth a'' d']
 	}
 }
+%% new-chords-done %%

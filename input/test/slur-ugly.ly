@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header {
 texidoc="You can get ugly slurs, if you want.
@@ -35,3 +35,4 @@ baseWalk = \notes \relative c {
   }
 }
 
+%% new-chords-done %%

@@ -18,7 +18,7 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.7.3"
+\version "1.7.6"
 
 
 lowstaff =  \translator "Staff" = "lower"
@@ -48,7 +48,7 @@ upper =  \context Staff=upper \notes\relative c {
 	r a, c g' r a, c f! |
 	
 	% ugh arpeggio FIXME: is that so?
-	<f4 d b4>
+	<<f d b>>4
 	r4
 	
 	\stemBoth
@@ -87,7 +87,7 @@ upper =  \context Staff=upper \notes\relative c {
 		\context Voice=ii { \stemDown  d,8 f }
 	>
 	\stemBoth |
-	<c1 g e>
+	<<c g e>>1
 	\bar "|."
 }
 
@@ -108,7 +108,7 @@ lower =  \context Staff=lower \notes\relative c{
 		{ \stemUp\tieUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
 		\context Voice=ii { \stemDown\tieDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
-	<c,1 c,>
+	<<c, c,>>1
 	\bar "|."
 }
 
@@ -136,3 +136,4 @@ global =  \notes{
 		piece = \piece
 	}
 }
+%% new-chords-done %%

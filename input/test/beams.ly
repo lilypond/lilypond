@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 filename = 	 "beams.ly"
 composer = 	 "heu"
@@ -71,3 +71,4 @@ TestedFeatures = 	 "beams and beamflags"
 	}
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 
 
@@ -28,3 +28,4 @@
   }
 }
     
+%% new-chords-done %%

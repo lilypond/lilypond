@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 lyr = \lyrics {
     \context LyricsVoice = va {
 	Nu er det søn -- dag,

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 %{
 
 Please don't use this Scheme hacking unless you have a good reason.
@@ -28,3 +28,4 @@ Please don't use this Scheme hacking unless you have a good reason.
 		}
 	}
 }
+%% new-chords-done %%

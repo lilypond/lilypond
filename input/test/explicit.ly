@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header{
 texidoc="Explicit pitches and durations."
@@ -10,3 +10,4 @@ texidoc="Explicit pitches and durations."
 
   }
 }
+%% new-chords-done %%

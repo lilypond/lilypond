@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 %{
  Header for Petites Preludes.
 
@@ -39,3 +39,4 @@ instrument = "Piano"
  tagline = \mutopiapublicdomain
  footer = "pre-Mutopia-200y/mm/dd-nr"
 }
+%% new-chords-done %%

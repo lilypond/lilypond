@@ -6,7 +6,7 @@ longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.7.3"
+\version "1.7.6"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 
@@ -76,3 +76,4 @@ stopGraceMusic= \sequential {
     linewidth = 189. \mm
 
 }
+%% new-chords-done %%

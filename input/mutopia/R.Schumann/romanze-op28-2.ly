@@ -5,7 +5,7 @@
 
 %% 19 is broken --hwn.
 %\include "paper19.ly"
-\version "1.7.5"
+\version "1.7.6"
 
 \header {
   title = "Romanzen"
@@ -54,12 +54,12 @@ righta = \notes \transpose c cis' {
   \m g,( \u c g c \m f, \u h,^2 g h, \m e, \u c^2 g )c] |
  }
  \stemUp \slurUp \tieUp \break
- b4^5( <a8 g>~<a g> a g^4 |
+ b4^5( <<a g>>8~<<a g>> a g^4 |
  f4^5 e8^5~e )d4^4 |
- as4^4( <g8 f>~<g f> g^5 f^4 |
+ as4^4( <<g f>>8~<<g f>> g^5 f^4 |
  es4^5 d8^5~d )c4^4 |
- c^4( es8^5~<es as,_1> d^3 )f |
- e4^4( g8^5~<g ces_4> f^3 )as |
+ c^4( es8^5~<<es as,_1>> d^3 )f |
+ e4^4( g8^5~<<g ces_4>> f^3 )as |
  g4^4 b8^5~b a c'^5~ |
  c' b^4 ges^5 des^3 b,^5 \d [ges,16^4 f,] |
  e,^2^#'(large "ritard...") cis,^1 \u r8 r r4 r16 \d gis,^2^"R.H." |
@@ -76,11 +76,11 @@ righta = \notes \transpose c cis' {
  as' des'^1 c'8^#'(finger "2-3") h~h )c'16 \clef F [e,16(^2 f, g,] |
  \break
 
- [as,^5 )h,,^2] \clef G [<c8 a^3(> <c16 g^2> c'] <c4. es ges c'^5>~
- <)c8 es ges c'> s4 s8 r16 h^2( c' d' | 
+ [as,^5 )h,,^2] \clef G [<<c a^3(>>8 <<c g^2>>16 c'] <<c es ges c'^5>>4.~
+ <<c es ges c'>>8-) s4 s8 r16 h^2( c' d' | 
  es' ges-1 f-2 a-1 c'-2 f'-4 \stemUp \tieUp e'-5 d' c' b-4 a^\prall^#'(finger "2-4-3") g |
- )f f'-5( e'-5 d'-4 c'-3 )f'-5 <f4^4 a^5(> <e8^3 g^5> |
- <a,4 f^4> <g,8 e^3> f16^4 d'^5~[d'8. c'16^4] |
+ )f f'-5( e'-5 d'-4 c'-3 )f'-5 <<f^4 a^5(>>4 <<e^3 g^5>>8 |
+ <<a, f^4>>4 <<g, e^3>>8 f16^4 d'^5~[d'8. c'16^4] |
  \break 
  <)f8^3 \context Voice = another { \m a,16^\pp \u c8 c16] } > \m g, \u c_3 \m b,^#'(finger "2-1") \u c8 c16 \m a, \u c]~ | \stemBoth
  c16 c8_4 c c16~c c8_2 c c16~ |
@@ -133,12 +133,12 @@ rightb = \notes \transpose c cis' {
   s2. s
  \u s4. \grace {f8(} )f4 e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
- \tieDown c4.~<f,16 c \< > \tieBoth <f h>~[< \! f8^3 h \> > < \! e b^2>] |
+ \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~[<< f^3 h \> >>8 -\! << e b^2>> -\!] |
  \translator Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
-  f8..^1 f32^1 g8^2 )a8..   \slurUp <f32 f'^3(> <g8 g'^4> |
-  <)a8.. a'^5> <f32 f'^3(> <g8 g'^4> <)a4. a'^5 \> > ~ |
+  f8..^1 f32^1 g8^2 )a8..   \slurUp <<f f'^3(>>32 <<g g'^4>>8 |
+  <<a a'^5>>8..-) <<f f'^3(>>32 <<g g'^4>>8 <<a a'^5 \> >>4.-) ~ |
   a~ \! a^\fermata \bar "|."
  }
 }
@@ -161,14 +161,14 @@ lefta = \notes \transpose c cis {
   g4 a8~a f g | a4 g8~g f e |
   d4 g8~g es f | g4 f8~f es d |
   c4 r8 f4 as8~ | as g b as4 ces'8~ |
-  ces' b des' c'4 \context Voice=another { \stemUp \tieUp <es'8 es>~ |
+  ces' b des' c'4 \context Voice=another { \stemUp \tieUp <<es' es>>8~ |
   es' des'4^1~ \stemDown [des'8. c'16] }
  }
  \transpose c' c, {
   g4(-4 a8-3~a f-5 g-4 | a4-3 g8-#'(finger "4-3") ~g f-4 e-5 |
   )d4-#'(finger "4-5")( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
   )c4 r8 f4-4( as8-5~ | as g-4 )b-5 as4-5( ces'8-4~ |
-  ces' b des'-4 )c'4-5( <es'8-4 es''8> |
+  ces' b des'-4 )c'4-5( <<es'-4 es''>>8 |
   \stemDown \tieDown )des'4._5~des'~ |
   \property Voice.NoteColumn \override #'horizontal-shift = #-1 des' s
  }
@@ -184,7 +184,7 @@ lefta = \notes \transpose c cis {
  s2.*2
  s8 r16 h\( c' d' es' as g8-\arpeggio )fis(
  )\)ges f16-2( a-1 c'-3 )f'-1 \grace {\stemDown \slurUp [b,( f] \stemUp } )e'-1( d' c' b-1 a-2-\prall g 
- )f16-4 f' <c' e'> d'-1 c'-2 h-1 s4.
+ )f16-4 f' <<c' e'>> d'-1 c'-2 h-1 s4.
  s2.
  f4^1( e8 g4 f8 |
  d8..^1 d32-2 e8^1 )f8.. d32^2( e8^1 |
@@ -214,11 +214,11 @@ leftb = \notes \transpose c cis {
  fis^1 d d, d [a d_2] g, d g d_3 [b,_5( g_2] |
  ) a c_3 f, c [c' f_2] b, f b f_3 d' as |
  h, as d' as h, as() f'4.^\fermata-\arpeggio_2 ~
- \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c c' {[e16_4( f g] [as des_3] [c8_4 <h, d f d'>]~ |
- <h, d f d'>} \clef F [<c_3( f_1> <b,_4 e^2>] <)a,8._5 eis^1> h,16_4( c d |
+ \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c c' {[e16_4( f g] [as des_3] [c8_4 <<h, d f d'>>]~ |
+ <<h, d f d'>>} \clef F [<<c_3( f_1>> <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |
- gis, <a,16 c> r16 r8 r4 cis8( |
+ gis, <<a, c>>16 r16 r8 r4 cis8( |
  )d e( f16_4 d_5 )c4._ #'(finger "4-3")~ |
  \oneVoice
  c16( h,_4 c_3 cis_1 d_2 b,_3 a,_4 as,_1 g,8 ) )c,8 |
@@ -272,3 +272,4 @@ leftb = \notes \transpose c cis {
   }
   \midi { \tempo 8=100 }
 }
+%% new-chords-done %%

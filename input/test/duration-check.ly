@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 #(define (duration-check music)
   "Check all rest durations in MUSIC"
 
@@ -35,10 +35,11 @@
   \apply #duration-check
   <
       \notes\relative c'' {
-	  a b8 c16 <d e4.>
+	  a b8 c16 <<d e>>4.
       }
       \notes\relative c'' {
 	  a b8 c16 d a2 r
       }
   >
 }
+%% new-chords-done %%

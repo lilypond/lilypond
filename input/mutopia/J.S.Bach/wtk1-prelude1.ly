@@ -15,7 +15,7 @@ enteredby = 	 "Shay Rojansky"
   lastupdated = "1999/Oct/14"
 }
 
-\version "1.7.5"
+\version "1.7.6"
 
 % should do programmable input.
 soprane = 
@@ -76,7 +76,7 @@ soprane =
 
 	r8 [f,16 a,] [c f c a,] [c a, f, a,] [f, d, f, d,] |
 	r8 [g16 b] [d' f' d' b] [d' b g b] [d f e d] |
-	<e1 g c'> \bar "|."
+	<<e g c'>>1 \bar "|."
     }
 
 bass = 
@@ -174,3 +174,4 @@ bass =
 
 % EOF
 	
+%% new-chords-done %%

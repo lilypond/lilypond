@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 %
 % TODO: what's this?
 %
@@ -73,3 +73,4 @@ accompany =  \notes \relative c{
 	}
 }
 
+%% new-chords-done %%

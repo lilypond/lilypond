@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 
 
@@ -66,3 +66,4 @@ scheme = \chords {
     }
   }
 }
+%% new-chords-done %%

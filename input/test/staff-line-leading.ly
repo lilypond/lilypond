@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 
     texidoc ="Setting staff space on a staff "
@@ -7,7 +7,7 @@
   \notes \relative c'' \context GrandStaff <
 	\context Staff = up { c4 c4  }
 	\context Staff = down {  c4
-	  [<c8 d f g>
+	  [<<c d f g>>8
 	   e]
 	  [f c']
 	 }
@@ -17,3 +17,4 @@
       StaffSymbol \set #'staff-space = #5.5
       }}
 }
+%% new-chords-done %%

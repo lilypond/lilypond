@@ -22,7 +22,7 @@ using Scheme functions to save typing work.
 }
 
 \include "deutsch.ly"
-\version "1.7.5"
+\version "1.7.6"
 
 #(define (transform music)
   (let* ((es (ly:get-mus-property music 'elements))
@@ -79,7 +79,7 @@ using Scheme functions to save typing work.
 
 
 
-\version "1.7.5"
+\version "1.7.6"
 
 pat = \notes \transpose c c' \repeat unfold 2 {
   < { \context Staff=up {r8 e16 f g e f g } }
@@ -92,7 +92,7 @@ pat = \notes \transpose c c' \repeat unfold 2 {
 
 enda = \notes { r8 f,16 a, c f c a, \stemUp c \translator Staff = down
       a, f, a, f, d, f, d, \translator Staff = up \stemBoth
-      r8 g16 h d' f' d' h d' h g h d f e-\prall d <e1 g c'^\fermata> \bar "|."
+      r8 g16 h d' f' d' h d' h g h d f e-\prall d <<e g c'>>1^\fermata \bar "|."
 }
 endb = \notes {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."}
 endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
@@ -151,3 +151,4 @@ endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
       \tempo 4 = 80
   }
 }
+%% new-chords-done %%

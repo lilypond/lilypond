@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 filename =	 "opus-130.ly"
 title =	 "Quartett"
@@ -17,8 +17,8 @@ tempi = \notes {
 }
 
 dynamics = \notes {
-	s8\p\< \!s8.\> \!s16 | s4.\p | s8\< s8. \!s16 | s4.\p |
-	s8\p\< \!s8.\> \!s16 | s4.\p | s8\< s8. \!s16 | s4.\p |
+	s8-\p\< \!s8.\> \!s16 | s4.-\p | s8\< s8. \!s16 | s4.-\p |
+	s8-\p\< \!s8.\> \!s16 | s4.-\p | s8\< s8. \!s16 | s4.-\p |
 }
 
 global = \notes {

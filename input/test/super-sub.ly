@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="Test super/sub, raise and overstrike."
 }
@@ -29,4 +29,4 @@ texidoc="Test super/sub, raise and overstrike."
     c^#`(columns (lines "" ";" "") (lines "1" ((bold) "2") "3"))
     c^#`(columns (lines "" ";" "") (lines "1" (columns (bold "2")) "3"))
   }
-}
+}%% new-chords-done %%

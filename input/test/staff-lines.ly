@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="staff symbol property set workaround"
 }
@@ -29,4 +29,4 @@ lower = \notes\relative c {
   >
   \paper { }  
   \midi { }  
-}
+}%% new-chords-done %%

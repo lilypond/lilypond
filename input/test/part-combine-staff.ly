@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \score{
 	\context PianoStaff <
@@ -107,3 +107,4 @@
 		}
 	}
 }
+%% new-chords-done %%

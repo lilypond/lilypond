@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 \score {
@@ -11,3 +11,4 @@ linewidth=-1.0
 \translator { \StaffContext \consists "Instrument_name_engraver" }
 }}
 
+%% new-chords-done %%

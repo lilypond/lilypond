@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
     texidoc="Beamed stems have standard lengths if possible."

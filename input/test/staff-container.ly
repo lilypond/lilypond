@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 \header {
@@ -38,3 +38,4 @@ interesting things. You can also drop the \consistsend feature."
 }
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{ texidoc="Automatic kneeing. A knee is made when a horizontal
 beam fits in a gap between note heads that is larger than a predefined

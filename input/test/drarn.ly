@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score {
   \context Staff \notes <
@@ -20,3 +20,4 @@
   >
   \paper { linewidth = 40*\staffspace } 
 }
+%% new-chords-done %%

@@ -19,7 +19,7 @@ enteredby = 	 "Shay Rojansky"
 %{
 TODO: use autobeaming.	
 %}
-\version "1.7.3"
+\version "1.7.6"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -98,7 +98,7 @@ soprane =
 %% 25
 	[d8 e] f4 ~ [f16 a g f] [e f e d] |
 	c2 r16 [g32 a  b !16 c] [d e f8] ~ |
-	[f32 c d e f16 g] [a8. b16] <g2 c 2> |
+	[f32 c d e f16 g] [a8. b16] <<g c >>2 |
 	}
 
 alt = 
@@ -196,3 +196,4 @@ bass = \context Voice = bassvoice
 
 	\midi { \tempo 4 = 84 }
 }
+%% new-chords-done %%

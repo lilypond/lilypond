@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
   
 #(define (voicify-list lst number)
    "Make a list of Musics.
@@ -63,3 +63,4 @@
 }
 
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 filename = 	"chord-table.ly"
 copyright =  	"public domain"
@@ -45,3 +45,4 @@ tab =  \notes\transpose c c''\chords{
 }
 
 
+%% new-chords-done %%

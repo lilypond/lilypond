@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header { 
 texidoc = "The standard function unfold-repeats will recursively unfold
@@ -24,3 +24,4 @@ mel = \notes \context Staff {
 }
 
 
+%% new-chords-done %%

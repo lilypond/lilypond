@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
   title= "Stems and Beams"
   subtitle =  "proofsheet" 
@@ -65,3 +65,4 @@ beamintervals = \notes{
 %%% Local variables:
 %%% LilyPond-indent-level:2
 %%% End:
+%% new-chords-done %%

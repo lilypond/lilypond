@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 %{
@@ -25,3 +25,4 @@ Test clef engraver by setting \property directly. \clef is merely a front-end  t
   c'4
 
 }}
+%% new-chords-done %%

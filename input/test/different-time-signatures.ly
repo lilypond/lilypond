@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 % barline spacing  disrupts visual rhythm.
@@ -37,3 +37,4 @@
 	}
     }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score{
 	\notes \relative c''{
@@ -13,3 +13,4 @@
 		linewidth = 60.0\mm
 	}
 }
+%% new-chords-done %%

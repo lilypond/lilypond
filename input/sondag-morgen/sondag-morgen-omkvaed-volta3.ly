@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \include "deutsch.ly"
 
 marks = \lyrics {
@@ -59,8 +59,8 @@ piar = \notes {
 	r8 <g,4 a h d e> <a8 h cis e> r8 <d4 a' d> <e8 h' e> |
     }
 }
-U = \sustainUp
-D = \sustainDown
+U = -\sustainUp
+D = -\sustainDown
 pial = \notes {
     \pial
     \stemBoth a,,8 a, e, <h,,8 h,> r <d,,4 d,> e,8 | 

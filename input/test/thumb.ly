@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 	title="CELLO-THUMBS"
 	enteredby="Maarten Storm"
@@ -11,8 +11,8 @@
 
 
 \score { \notes \relative c'' {
-		[<a8_\thumb a'8-3(> <)b_\thumb b'-3>
-		<c_\thumb c'-3(> <)d_\thumb d'-3>]
+		[<<a a'-3(>>8_\thumb <<b b'-3>>-)_\thumb
+		<<c c'-3(>>_\thumb <<d d'-3>>-)_\thumb]
 	}
 	\paper{ 
 		linewidth = 80.\mm 
@@ -21,3 +21,4 @@
 }
 
 	
+%% new-chords-done %%

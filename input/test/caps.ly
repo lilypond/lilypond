@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc =  " Small caps is available as font-shape caps.
 
@@ -12,3 +12,4 @@ shapeSC   = \property Lyrics.LyricText \override #'font-shape = #'caps
   what4 is4 \shapeSC Bud8 -- dha?8 }>
 \paper { linewidth = -1.}
   }
+%% new-chords-done %%

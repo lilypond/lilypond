@@ -4,7 +4,7 @@ files lists all of them."
 
 }
 
-\version "1.5.68"
+\version "1.7.6"
 
 \score { 
   \context Voice \notes\relative c {
@@ -52,3 +52,4 @@ files lists all of them."
   \paper { }  
   \midi { }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score
 {
@@ -23,3 +23,4 @@
     }
   }
 }
+%% new-chords-done %%

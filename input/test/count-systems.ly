@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
     
     texidoc="Display the number of systems, or the system number of a
@@ -8,9 +8,9 @@
 }
 
 #(define (display-systemno smob)
-  (let* ((this-system (ly:get-system smob))
-	 (systems (ly:get-broken-into
-		   (ly:get-original this-system))))
+  (let* ((this-system (ly:ly:get-system smob))
+	 (systems (ly:ly:get-broken-into
+		   (ly:ly:get-original this-system))))
     (display smob)
     (display (list-index systems this-system))
     (newline)))
@@ -18,9 +18,9 @@
 
 #(define (display-system-count smob)
   (display (length
-	    (ly:get-broken-into
-	     (ly:get-original
-	      (ly:get-system smob))))))
+	    (ly:ly:get-broken-into
+	     (ly:ly:get-original
+	      (ly:ly:get-system smob))))))
 
   
   
@@ -36,3 +36,4 @@
 	    linewidth = 10.0\mm
 	}
 }
+%% new-chords-done %%

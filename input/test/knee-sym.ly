@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \score{
     \notes\relative c'{
 	[a8 b'' a,, b'']
@@ -8,4 +8,4 @@
     \paper{
 	linewidth = 0.0
     }
-}
+}%% new-chords-done %%

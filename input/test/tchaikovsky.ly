@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 filename = 	"tchaikovsky.ly"
 title = 		"Extracts from 6th symphony"
@@ -18,8 +18,8 @@ instrument=	"Violoncello"
 	  \relative c{
 	 	\clef "bass"
 		\key d \major
-		<a2\ppp\cr d> <gis\rc\p\decr d'> | <a2\rced d> ~ <a8 d> r8 r4 |
-		a2\ppp\cr a2\rc\p\decr | <a2\rced d> ~ <a8 d> r8 r4 |
+		<<a\cr d>>2-\ppp <<gis\rc\decr d'>>-\p | <<a\rced d>>2 ~ <<a d>>8 r8 r4 |
+		a2-\ppp\cr a2\rc-\p\decr | <<a\rced d>>2 ~ <<a d>>8 r8 r4 |
 		a2\pppp ~ a8 r8 r4 | a2\ppppp ~ a8 r8 r4 | r4 a8_"pizz"
 		r8 r2^\fermata     
 	}
@@ -34,11 +34,12 @@ instrument=	"Violoncello"
 	\relative c{
 		\clef "bass"
 		\key c \major
-		<e1\sff cis'^\downbow> | <cis\sff a'^\downbow> | 
-		<d,\ffff\decr g> | ~ <d2 g> ~ <d8\p\rced g> 
+		<<e\sff cis'>>1^\downbow | <<cis\sff a'>>^\downbow | 
+		<<d,\ffff\decr g>> | ~ <<d g>>2 ~ <<d\rced g>>8-\p 
 	}
 	\header{ 
 	piece="example 2"
 	}
 }
 
+%% new-chords-done %%

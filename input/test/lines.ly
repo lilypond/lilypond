@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc="
@@ -21,3 +21,4 @@ Draw abritrary lines.  This brings LilyPond on par with Mup.
     linewidth = 70.0*\staffspace
   }
 }
+%% new-chords-done %%

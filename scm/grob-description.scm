@@ -398,7 +398,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.2)
 	(direction . -1)
-	(meta . ((interfaces . (horizontal-bracket-interface spanner-interface))))
+	(meta . ((interfaces . (horizontal-bracket-interface side-position-interface spanner-interface))))
 	))
     (InstrumentName
      . (
@@ -576,7 +576,7 @@
 	(direction . 1)
 	(padding . 2)
 	(font-family . number)
-	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface))))
+	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
 
 

@@ -1,12 +1,12 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score{
 \notes\relative c''{
-a1\fff\> \!a\pp
+a1\fff\> \!a-\pp
 a\< \!a
 \property Voice.crescendoText = "cresc."
 \property Voice.crescendoSpanner = #'dashed-line
-a\mf\< a \!a 
+a-\mf\< a \!a 
 a\< \!a
 }
 \paper{
@@ -15,3 +15,4 @@ a\< \!a
 \tempo 1 = 60
 }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header {
 texidoc="
@@ -36,3 +36,4 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
   \paper { linewidth = -1. }
 }
 
+%% new-chords-done %%

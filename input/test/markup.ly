@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
   texidoc ="Test font selection and scm text markup"
@@ -77,3 +77,4 @@
 %%% Local variables:
 %%% LilyPond-indent-level:2
 %%% End:
+%% new-chords-done %%

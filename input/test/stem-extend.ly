@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header { texidoc = "
 Conventionally, stems and beams extend to the middle staff line.  This
 extension can be controlled through @code{Voice.Stem}'s grob-property
@@ -11,3 +11,4 @@ extension can be controlled through @code{Voice.Stem}'s grob-property
   \property Voice.Stem \set #'no-stem-extend = ##t
   \grace g8 g4 [g8 g]
 }}
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -63,19 +63,19 @@ sarabandeA =  \context Voice \notes \relative c {
   < { d'8. e16 f4.-\trill d16 e |
       f4. [d8 e f] }
     \\
-    { <a,4 f> a2 <a4. d,4.>  } > |
+    { <<a, f>>4 a2 <<a d,>>4.  } > |
 
   %%7
   g8 bes16()a c()bes a()g d'8 f, |
   <  e4.-\trill
-  \\ <c,4 g'> >
+  \\ <<c, g'>>4 >
   [d8 c bes]
 
   %%9
   < { f'8 g16()a a4. g16()f  |
       g8 a16()bes bes4. c16()d }
     \\
-    { a,4 <bes4. d4. > r8 bes4 <g2 f'2>  }
+    { a,4 <<bes d >>4. r8 bes4 <<g f'>>2  }
   > |
   \forcedBreak
 
@@ -93,7 +93,7 @@ sarabandeA =  \context Voice \notes \relative c {
   \forcedBreak
   
   %%16
-  < bes4.-\trill d, g, > [a8 g f!] |
+  << bes d, g, >>4.-\trill [a8 g f!] |
   e bes a f' g a |
   d, as g es' f g |
   [cis, bes'] [a g16 f] [e!8 f16 d] |
@@ -105,8 +105,8 @@ sarabandeA =  \context Voice \notes \relative c {
       e8 f16()g g4. a16()bes |
       a8 cis16 d d,8 e16 f32 g f8-\trill e16()d } \\
     { bes4 g2 |
-      g4 <bes4. cis,> s8 |
-      <d8 a f> r r g, a4 } >
+      g4 <<bes cis,>>4. s8 |
+      <<d a f>>8 r r g, a4 } >
   |
   \stemUp
   d4 d,16 a'( b cis d e f )g |
@@ -117,7 +117,7 @@ sarabandeA =  \context Voice \notes \relative c {
       b cis d cis d4. e16()f | }
     \\
     { f,4 fis4. s8 |
-      <d4 g,> gis4.   } >
+      <<d g,>>4 gis4.   } >
   \voiceOne
   d16(cis)d f,
   [a,8 e']
@@ -196,3 +196,4 @@ baerPaper = \paper {
 %%% Local variables:
 %%% LilyPond-indent-level:2
 %%% End:
+%% new-chords-done %%

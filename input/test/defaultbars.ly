@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 \header {
@@ -14,3 +14,4 @@
 		\property Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }
 }
+%% new-chords-done %%

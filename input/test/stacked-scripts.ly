@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score {
 	\notes {
@@ -7,3 +7,4 @@
 	 }
 	\paper { linewidth = -1.  }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 %{
  Test of how to make an ``incipit'' to indicate scordatora 
  tuning of a violin part, using the clefStyle property.
@@ -14,7 +14,7 @@ violinincipit =  \notes\relative c''{
   \time 2/2
   \property Staff.TimeSignature \override #'style = #'old
   a4. b8 c4 fis |
-%  <b1 fis' b d>
+%  <<b fis' b d>>1
   \property Staff.TimeSignature \override #'style = #'C
 }
 
@@ -66,3 +66,4 @@ BC  = \notes\relative c{
   >
 }  
 
+%% new-chords-done %%

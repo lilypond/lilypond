@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \include "deutsch.ly"
 
 marks = \lyrics {
@@ -100,8 +100,8 @@ piar = \notes \relative c' {
     }
 
 }
-U = \sustainUp
-D = \sustainDown
+U = -\sustainUp
+D = -\sustainDown
 pial = \notes {
     \clef "F"
     \property Staff.SustainPedal \override #'pedal-type = #'mixed

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
     texidoc = "Cue notes should be set in smaller type. Cue clefs are
@@ -39,4 +39,4 @@ usually not restored explicitly."
    eis'4 fis'4
  }
  \paper { linewidth = -1 }
-}
+}%% new-chords-done %%

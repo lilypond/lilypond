@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py (experimental, 1.5.17) should be minimal"
 }
@@ -102,3 +102,4 @@ scales = \notes \relative c {
   \paper { }
   \midi { }
 }
+%% new-chords-done %%

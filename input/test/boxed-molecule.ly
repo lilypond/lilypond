@@ -1,4 +1,4 @@
-\version "1.6.1"
+\version "1.7.6"
 \header {
 
 texidoc = "overriding the molecule callback can also be used to draw a
@@ -28,3 +28,4 @@ texidoc = "overriding the molecule callback can also be used to draw a
 
       c4. c4 \mark "F" c1 
    }}
+%% new-chords-done %%

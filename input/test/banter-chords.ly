@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 
 
 \header{
@@ -81,3 +81,4 @@ chord =  \notes\transpose c' c''\chords{
 	>
 }
 
+%% new-chords-done %%

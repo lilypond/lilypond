@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \score{
 	\context Staff = one <
@@ -19,3 +19,4 @@
 		linewidth = 100.\mm
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -42,3 +42,4 @@ textIII =   \lyrics  { la -- da __ doo dah dargh la dargh loo.  }
   }
 
 }
+%% new-chords-done %%

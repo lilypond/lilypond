@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="sketch output supported features"
 }
@@ -13,3 +13,4 @@ texidoc="sketch output supported features"
     \slurDown d16( c b )a
   }
 }
+%% new-chords-done %%

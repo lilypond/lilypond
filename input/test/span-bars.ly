@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 nt =  \notes { c1 \break c1 c1 } 
@@ -22,3 +22,4 @@ stuff =  \notes \relative c'' <
 }
 
 
+%% new-chords-done %%

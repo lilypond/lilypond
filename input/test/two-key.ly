@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "If you specify two different key sigs at one point, a
@@ -12,3 +12,4 @@ texidoc = "If you specify two different key sigs at one point, a
  { \key cis \major fis4 \key es \major g4 }  
 >
 }
+%% new-chords-done %%

@@ -14,7 +14,7 @@ note, some have dotted half notes.
 This file was partly generated using m4.
 %}
 
-\version "1.7.5"
+\version "1.7.6"
 
 
 upper =   \notes \transpose c c' {
@@ -65,7 +65,7 @@ upper =   \notes \transpose c c' {
 	r16 [g, b, d] [b, g, b, d] [es c a, fis] |
 
 
-	<g4 d b>	
+	<<g d b>>4	
 	\bar "|."
 }
 
@@ -156,3 +156,4 @@ global  = \notes{
 		piece = \piece
 	}
 }
+%% new-chords-done %%

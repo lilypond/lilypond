@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc ="
   template that puts dynamics on a separate line, so it is neatly
@@ -16,11 +16,11 @@ lower = \notes\relative c {
 
 dynamics = \notes {
   s2\fff\> s4
-  \!s\pp
+  \!s-\pp
 }
 
 pedal = \notes {
- s2\sustainDown s2\sustainUp
+ s2-\sustainDown s2-\sustainUp
 }
 
 \score {

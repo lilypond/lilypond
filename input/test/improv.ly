@@ -6,7 +6,7 @@ texidoc = "note heads for improvisation have a different shape. "
 %{ TODO: the construct with separet SquashVoice context is a little
  gory. FIXME.  %}
 
-\version "1.7.5"
+\version "1.7.6"
 
 improOn = \notes {\translator Voice = impro }
 improOff = \notes {\translator SquashVoice = melo }
@@ -53,3 +53,4 @@ global = \notes { s1*3 \bar "|." }
     linewidth = -1
   }
 }
+%% new-chords-done %%

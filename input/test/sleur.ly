@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "public domain"
@@ -185,3 +185,4 @@ clipping =  \notes\transpose c c{
 	}
 }
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 \header {
 
 	 texidoc= "Positions of accidentals may be manually set. This
@@ -36,3 +36,4 @@ involves some scheme code."
     linewidth = -1
   }
 }
+%% new-chords-done %%

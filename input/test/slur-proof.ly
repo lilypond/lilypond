@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 
 x = {
@@ -46,3 +46,4 @@ x = {
     }
   }
 }
+%% new-chords-done %%

@@ -1,14 +1,14 @@
-\version "1.7.3"
+\version "1.7.6"
 %{
 (Message vers:9)
-To: Adrian Mariano <adrian@cam.cornell.edu>
+To: Adrian Mariano <<adrian@camcornelledu>>.
 cc: gnu-music-discuss@gnu.org
 Subject: Re: Switching from one staff to two staves 
 Reply-To: janneke@gnu.org
 In-reply-to: Your message of "Tue, 19 Jan 1999 12:27:10 EST."
-             <199901191727.MAA29757@avalanche.cam.cornell.edu> 
+             <<199901191727.MAA29757@avalanchecamcornelledu>>. 
 Date: Wed, 20 Jan 1999 09:39:22 +0100
-From: Jan Nieuwenhuizen <jan@beavis-nt>
+From: Jan Nieuwenhuizen <<jan@beavis-nt>>
 
 On Tuesday, 19 January 1999, Adrian Mariano writes:
 
@@ -44,3 +44,4 @@ extra-staff.ly:
 
 
 
+%% new-chords-done %%

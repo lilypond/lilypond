@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
   filename =    "praeludium-fuga-E.ly"
   title =       "praeludium and fuga in E-major"

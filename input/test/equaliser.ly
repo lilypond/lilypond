@@ -2,7 +2,7 @@
 \header {
 texidoc = "The full orchestra plays a notes, where groups stop one after another. USe this to tune equalizer settings. "
 }
-\version "1.5.68"
+\version "1.7.6"
 
 flauti = \notes \relative c' {
   \property Staff.midiInstrument = #"flute"
@@ -150,3 +150,4 @@ violoncello = \notes \relative c' {
   }
 }
 
+%% new-chords-done %%

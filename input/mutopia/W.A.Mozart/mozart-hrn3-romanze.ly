@@ -1,5 +1,5 @@
 
-\version "1.7.5"
+\version "1.7.6"
 \include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
@@ -19,7 +19,7 @@ romanze = \notes \relative c' {
 	c r e r f r r4
 	\mark "A"
 	R1*8
-	g4.\mf f8  [e d c bes]
+	g4.-\mf f8  [e d c bes]
 	% 18
 	[bes( a d )c] c4 r
 	R1*2
@@ -28,12 +28,12 @@ romanze = \notes \relative c' {
 	R1
 	% 25
 	[c16 ( d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
-	[c16\p () d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
+	[c16-\p () d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
 	[c8 \< c, c c] [c c c \! c ]
 	\mark "B"
-	c1\f
+	c1-\f
 	R1*9
-	f'4.(\p )d8 b4 r8 g
+	f'4.(-\p )d8 b4 r8 g
 	g'4.() e8 c4 r8 cis |
 	% 39
 	d4(~ [d16 e d )e] [f8 () d f() d]
@@ -91,3 +91,4 @@ romanze = \notes \relative c' {
 	\midi{ \tempo 4 = 70  }
 	\paper{}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
     texidoc = "Chord names in american styles, according to one of our users."
 }
@@ -51,3 +51,4 @@ scheme = \chords {
     }
   }
 }
+%% new-chords-done %%

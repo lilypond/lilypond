@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
     texidoc = "Relative placements of different script types can be controlled
 by overriding script-priority."
@@ -17,3 +17,4 @@ by overriding script-priority."
 	a4^\prall^#'((music (font-relative-size . -2)) "accidentals-1")
     }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.4"
+\version "1.7.6"
 \header {
     texidoc = "Clusters are a device to denote that a complete range of
 notes is to be played."

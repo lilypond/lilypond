@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="Should use old style."
 }
@@ -9,3 +9,4 @@ texidoc="Should use old style."
     s1 
   }
 }
+%% new-chords-done %%

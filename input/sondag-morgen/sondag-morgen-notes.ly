@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \include "deutsch.ly"
 
 marks = \lyrics {
@@ -549,8 +549,8 @@ piar = \notes \relative c' {
     \property PianoStaff.connectArpeggios = ##t
     <h1-\arpeggio fis' d' g a d> 
 }
-U = \sustainUp
-D = \sustainDown
+U = -\sustainUp
+D = -\sustainDown
 pial = \notes {
     \pial
     \context Voice
