@@ -1,6 +1,6 @@
 \version "1.7.3"
 
-#(ly:set-point-and-click! 'line-column)
+% #(ly:set-point-and-click 'line-column)
 
 forcedBreak = \notes { }
 %%forcedBreak = \notes { \break }

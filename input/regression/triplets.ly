@@ -2,13 +2,14 @@
 
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110
+
+DOCME ! what is this. 
+
 "
   title = "Gammes Chromatiques"
   composer = ""
   filename = "gammes_chromatiques.ly"
 }
-
-linebreak = \penalty #-1000
 
 ex = \notes \relative c' {
   \repeat "volta" 2 {
@@ -23,7 +24,7 @@ ex = \notes \relative c' {
     \times 2/3 {c b bes} \times 2/3 {a aes g}
     \times 2/3 {fis f e} \times 2/3 {ees d )des}
   }
-  c1 || \linebreak
+  c1 
 }
 
 \score { \context Staff { \notes { \ex } } }
