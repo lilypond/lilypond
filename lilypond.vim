@@ -29,8 +29,8 @@ syn region lilyComment	start="%{" skip="%$" end="%}"
 syn region lilyComment	start="%\([^{]\|$\)" end="$"
 
 syn match lilyStatement	"[-_^]\?\\\a\+"
-syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\)[.]*\)\?\)\(\A\|\n\)"me=e-1
-syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\)[.]*\)\?\)$"
+syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\)[.]*\)\?\)\(\A\|\n\)"me=e-1
+syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\)[.]*\)\?\)$"
 syn match lilyNumber	"[-_^.]\?\d\+[.]\?"
 syn match lilyEquation	"\(#['`]\)\?\(\a*[-]\)*\a*\s*=\s*\(#[#'`]\?\)\?\a*"
 syn match lilySlur	"[(~)]"

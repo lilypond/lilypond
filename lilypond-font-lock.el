@@ -62,7 +62,7 @@
       (cons (concat "\\(\\([_^-]?\\(" kwregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-keyword-face))
 
 ;; ... keyword-type constructs, e.g., ^\abracadabra; not \breve (= a duration)
-      '("\\([_^-]?\\\\\\([^b]\\|b[^r]\\|br[^e]\\|bre[^v]\\|brev[^e]\\|breve[a-zA-Z]\\)[a-zA-Z]*\\)" 1 font-lock-constant-face)
+      '("\\([_^-]?\\\\\\(longa[a-zA-Z]\\|long[^a]\\|lon[^g]\\|lo[^n]\\|l[^o]\\|[^lb]\\|b[^r]\\|br[^e]\\|bre[^v]\\|brev[^e]\\|breve[a-zA-Z]\\)[a-zA-Z]*\\)" 1 font-lock-constant-face)
 
 ;; ... the left side of '=' -mark
       '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
@@ -74,7 +74,7 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; ... notes and rests, accidentals and duration (multiplied), e.g., b,?16.*3/4
-      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\breve\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\)" 2 font-lock-type-face)
+      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\breve\\|\\\\longa\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\)" 2 font-lock-type-face)
 
 ;; "on top", ... '{[]}'-brackets
       '("\\([][}{]\\)" 0 font-lock-warning-face t)
