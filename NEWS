@@ -1,3 +1,9 @@
+pl 36.jcn1
+	- mf numerals:
+	  * small numerals wider and fatter
+	  * bf: no thinner lines than blot_diameter
+	  * several bf's: dims and parameterisations
+
 pl 36
 	- bf: notehead collisions
 	- bf: dot y-position
