@@ -224,6 +224,34 @@ contrabasso = \notes\relative c {
     \paperSixteen
     linewidth = 80 * \staffspace;
     textheight = 200 * \staffspace;
+    \translator{
+      \ThreadContext
+      \consists "Rest_engraver";
+    }
+    \translator{
+      \VoiceContext
+      \remove "Rest_engraver";    
+      soloText = #"I."
+      soloIIText = #"II."
+      soloADue = ##f
+      % We must override the settings for Staff level
+      % with the default values, here.
+      aDueText = #"\\`a2"
+      splitInterval = #'(0 . 1)
+      changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
+    }
+    \translator{
+      \HaraKiriStaffContext
+      \consists "Mark_engraver";
+      soloADue = ##t
+      soloText = #""
+      soloIIText = #""
+      % This is non-conventional, but currently it is
+      % the only way to tell the difference.
+      aDueText = #"\\`a2"
+      splitInterval = #'(1 . 0)
+      changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+    }
     \translator {
       \OrchestralScoreContext
       skipBars = ##t

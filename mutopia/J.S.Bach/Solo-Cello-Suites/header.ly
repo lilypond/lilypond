@@ -37,4 +37,5 @@ information is taken to the extreme.
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it!}";
  tagline = \mutopiapublicdomain;
+ footer = "Mutopia-2001/01/31-2";
 }

@@ -100,7 +100,7 @@ key signatures after the bar lines:
 @end example
 ")
 (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
-(translator-property-description 'changeMoment moment? "duration that voices are examined for differences, when part-combining.  Usually unset or zero when combining threads into one voice, and 1 (or the duration of one measure) when combining voices into one staff.")
+(translator-property-description 'changeMoment moment-pair? "duration that voices are examined for differences, when part-combining.  Usually unset or zero when combining threads into one voice, and 1 (or the duration of one measure) when combining voices into one staff.")
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
@@ -116,6 +116,7 @@ arpeggios that cross staffs.
 (translator-property-description 'crescendoText string? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'disableDevNullThread boolean? "temp hack: turn off thread-devnull-engraver")
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.

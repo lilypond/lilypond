@@ -16,3 +16,6 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 $(outdir)/%.ps: $(outdir)/%.dvi
 	dvips -ta4 -o $@ $<
 
+$(outdir)-$(PAPERSIZE)/%.ps: $(outdir)-$(PAPERSIZE)/%.dvi
+	dvips -t$(PAPERSIZE) -o $@ $<
+

@@ -2,30 +2,30 @@
 \version "1.3.120";
 
 timpani =  \notes \relative c {
-	R1*2 |
-	c4-.\ff r r2 |
-	R1*3 |
-	c4-. r r2 |
-	R1*3 |
-	c4-. r r2 |
-	R1 |
-	g4-. r r2 |
-	g4-. r r2 |
-	R1*5 |
-	r2 r4 g4-. |
-	R1*6 |
-	r4 c-.\f r2 |
-	R1*2 |
+	R1*2|
+	c4-.\ff r r2|
+	R1*3|
+	c4-. r r2|
+	R1*3|
+	c4-. r r2|
+	R1|
+	g4-. r r2|
+	g4-. r r2|
+	R1*5|
+	r2 r4 g4-.|
+	R1*6|
+	r4 c-.\f r2|
+	R1*2|
 	\property Voice.crescendoText = #"cresc."
 	\property Voice.crescendoSpanner = #'dashed-line
-	r2 c4-.\p\< r |
-	r2 c4-. r |
-	r2 c4-. r |
-	c r c r |
-	\!c1\ff-\trill |
+	r2 c4-.\p\< r|
+	r2 c4-. r|
+	r2 c4-. r|
+	c r c r|
+	\!c1\ff-\trill|
 	c8 r g r g r g r|
 	g4 r g r|
-	g r c r |
+	g r c r|
 	c r c r|
 	c r c r|
 	c\sf r r2|
@@ -85,9 +85,9 @@ timpani =  \notes \relative c {
 	g2:16\ff g4 g|
 	g c g c|
 	c2:16 c4 c|
-	c c c c |
+	c c c c|
 	c2:16 c4 c|
-	c c c c |
+	c c c c|
 	R1*8|
 	g4 r c r|
 	c r g r|

@@ -2,32 +2,32 @@
 \version "1.3.120";
 
 tromboI =  \notes \relative c {
-	R1*2 |
-	c''4-.\ff r r2 |
-	R1*3 |
-	c4-. r r2 |
-	R1*3 |
-	c4-. r r2 |
-	R1 |
-	g4-. r r2 |
-	g4-. r r2 |
-	R1*5 |
-	r2 r4 g4-.\f |
-	R1*6 |
-	r4 c-.\f r2 |
-	R1*2 |
+	R1*2|
+	c''4-.\ff r r2|
+	R1*3|
+	c4-. r r2|
+	R1*3|
+	c4-. r r2|
+	R1|
+	g4-. r r2|
+	g4-. r r2|
+	R1*5|
+	r2 r4 g4-.\f|
+	R1*6|
+	r4 c-.\f r2|
+	R1*2|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	r2 c4\p\< r |
-	r2 c4 r |
-	r2 c4 r |
-	c r c r |
-	\!c1\ff ~ |
+	r2 c4\p\< r|
+	r2 c4 r|
+	r2 c4 r|
+	c r c r|
+	\!c1\ff ~|
 	c8 r g r g r g r|
 	g4. r8 g4. r8|
 	g4. r8 c4. r8|
-	c4. r8 c4. r8 |
-	c4. r8 c4. r8 |
+	c4. r8 c4. r8|
+	c4. r8 c4. r8|
 	c2\sf r|
 	c2\sf r|
 	R1*3|
@@ -98,7 +98,7 @@ tromboI =  \notes \relative c {
 	g4 r c r|
 	c r g r|
 	R1|
-	r2 r4 r8 g\f |
+	r2 r4 r8 g\f|
 	c4 r r2|
 	r r4 r8 g\f|
 	c4 r r2|
@@ -124,7 +124,7 @@ tromboI =  \notes \relative c {
 	g r r2|
 	c4 r c r|
 	g r r2|
-	c4 r c r |
+	c4 r c r|
 	c r c r|
 	%a deux|
 	c,1~|
@@ -146,9 +146,9 @@ tromboI =  \notes \relative c {
 	c4\> r g r|
 	R1|
 	\!g4\p r r2|
-	R1 |
+	R1|
 	g4 r r2|
-	R1 |
+	R1|
 	c,4\pp r r2|
 	R1*18|
 }

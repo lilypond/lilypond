@@ -11,3 +11,6 @@ include $(depth)/make/stepmake.make
 
 tarball=solo-cello-suite-ii
 
+mutopia:
+	$(MAKE) examples="scsii-cello scsii-viola" PAPERSIZE=letter local-WWW out-letter/scsii-cello.ps.gz out-letter/scsii-viola.ps.gz
+

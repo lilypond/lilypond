@@ -2,28 +2,28 @@
 \version "1.3.120";
 
 cornoII =  \notes \relative c {
-	R1*2 |
-	d''4-.\ff r r2 |
-	R1*3 |
-	d4-. r r2 |
-	R1*3 |
-	c4-. r r2 |
-	R1 |
-	e,4-. r r2 |
-	e4-. r r2 |
-	R1*5 |
-	r2 r4 e4-.\f |
-	R1*6 |
-	r4 g-.\f r2 |
-	R1*2 |
+	R1*2|
+	d''4-.\ff r r2|
+	R1*3|
+	d4-. r r2|
+	R1*3|
+	c4-. r r2|
+	R1|
+	e,4-. r r2|
+	e4-. r r2|
+	R1*5|
+	r2 r4 e4-.\f|
+	R1*6|
+	r4 g-.\f r2|
+	R1*2|
 	% `a 2
 	% urg, yes this is a-deux, but lily doesn't know about I. / a2 yet.
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	r8 f'\p\< f2 e4 |
-	r8 f f2 e4 |
-	f4. e8 f4. e8 |
-	f4. e8 f4. e8 |
+	r8 f'\p\< f2 e4|
+	r8 f f2 e4|
+	f4. e8 f4. e8|
+	f4. e8 f4. e8|
 	\!d1\ff ~|
 	d4(e d)c|
 	d4. r8 c4. r8|
@@ -192,19 +192,19 @@ cornoII =  \notes \relative c {
 	d\f|
 	e\p|
 	e\f|
-	d4\p r r2  |
+	d4\p r r2|
 	R1*3|
 	%a deux; urg: copied corno|
-	d\ff||
-	d||
-	e||
-	e||
-	f||
-	e||
-	e4.-"sempre"\ff e8 e4. e8||
-	e4. e8 e4. e8||
-	e4. e8 e4. e8||
-	e4. e8 e4. e8||
+	d\ff|
+	d|
+	e|
+	e|
+	f|
+	e|
+	e4.-"sempre"\ff e8 e4. e8|
+	e4. e8 e4. e8|
+	e4. e8 e4. e8|
+	e4. e8 e4. e8|
 	e4 r8 e, e4 r8 e|
 	e4 r8 e e4 r8 e|
 	R1*2|
@@ -215,5 +215,5 @@ cornoII =  \notes \relative c {
 	%a deux|
 	e4-. e-. r2|
 	d4-. e-. r2|
-	R1*25||
+	R1*25|
 }

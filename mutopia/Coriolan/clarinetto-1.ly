@@ -2,22 +2,22 @@
 \version "1.3.120";
 
 clarinettoI =  \notes \relative c {
-	R1 *2 |
-	d''4-.\ff r r2 |
-	R1 *3 |
-	e4-. r r2 |
-	R1 *3 |
-	f4-. r r2 |
-	R1 |
-	f4-. r r2 |
-	e4-. r r2 |
-	R1 *4 |
+	R1 *2|
+	d''4-.\ff r r2|
+	R1 *3|
+	e4-. r r2|
+	R1 *3|
+	f4-. r r2|
+	R1|
+	f4-. r r2|
+	e4-. r r2|
+	R1 *4|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	bes2\p\< ( a |
-	)gis2. \!a4-.\f |
-	R1*13 |
-	d1\ff ~ |
+	bes2\p\< ( a|
+	)gis2. \!a4-.\f|
+	R1*13|
+	d1\ff ~|
 	d4(f, bes)a|
 	a'4. r8 a4. r8|
 	g4. r8 d4. r8|
@@ -91,7 +91,7 @@ clarinettoI =  \notes \relative c {
 	e4 r8 e e4 r8 e|
 	e4\p r r2|
 	R1*3|
-	r4 r8 es d4 r8 a |
+	r4 r8 es d4 r8 a|
 	bes4 r r2|
 	r4 r8 es d4 r8 a|
 	fis4 r r2|
@@ -175,7 +175,7 @@ clarinettoI =  \notes \relative c {
 	cis d|
 	e d|
 	cis4 r bes r|
-	g r a r |
+	g r a r|
 	d,\p r r2|
 	r r4 r8 a'\f|
 	a4 r r2|

@@ -2,18 +2,18 @@
 \version "1.3.120";
 
 clarinettoII =  \notes \relative c { 
-	R1*2 bes''4-.\ff r r2 |
-	R1*3 |
-	cis4-. r r2 |
-	R1 *3 |
-	d4-. r r2 |
-	R1 |
-	d4-. r r2 |
-	cis4-. r r2 |
-	R1 *5 |
-	r2 r4 cis,4-. |
-	R1*13 |
-	g'1\ff ~ |
+	R1*2 bes''4-.\ff r r2|
+	R1*3|
+	cis4-. r r2|
+	R1 *3|
+	d4-. r r2|
+	R1|
+	d4-. r r2|
+	cis4-. r r2|
+	R1 *5|
+	r2 r4 cis,4-.|
+	R1*13|
+	g'1\ff ~|
 	g4( f g)f|
 	a4. r8 a4. r8|
 	e'4. r8 a,4. r8|
@@ -63,7 +63,7 @@ clarinettoII =  \notes \relative c {
 	g f|
 	b a|
 	gis4 r f r|
-	d r e r |
+	d r e r|
 	a,\p r r2|
 	r r4 r8 b'\f|
 	c4 r r2|
@@ -72,7 +72,7 @@ clarinettoII =  \notes \relative c {
 	R1*3|
 	%a deux; urg|
 	c4\f r b r|
-	a r g r |
+	a r g r|
 	f r a r8 a|
 	a4 r8 e e4 r8 e|
 	c'1~|
@@ -174,10 +174,10 @@ clarinettoII =  \notes \relative c {
 	r4 r8 fis a4.\sf()g8|
 	r4 r8 g bes4.\sf()a8|
 	%a deux; urg copied clarinetto-1(270,273)|
-	f'4.-"sempre"\ff cis8 d4. bes8||
-	a4. bes8 a4. g'8||
-	f4. cis8 d4. bes8||
-	a4. bes8 a4. g'8||
+	f'4.-"sempre"\ff cis8 d4. bes8|
+	a4. bes8 a4. g'8|
+	f4. cis8 d4. bes8|
+	a4. bes8 a4. g'8|
 	f4 r8 cis d4 r8 e,|
 	f4 r8 e f4 r8 e|
 	d1~|

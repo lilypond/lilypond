@@ -11,6 +11,10 @@
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 
+(define (moment-pair?  x)
+  (and (pair? x)
+       (moment? (car x)) (moment? (cdr x))))
+
 (define (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
