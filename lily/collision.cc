@@ -76,7 +76,6 @@ Collision::do_pre_processing()
     Note_column * col_l_a[4];
     Real x_off [4];
     int y_off[4];
-    bool rest_b_a[4];
     
     for (int j =0 ; j < 4; j++) {
 	if (clash_group_arr_a[j].size()) 
@@ -88,7 +87,7 @@ Collision::do_pre_processing()
 	    y_extent[j] = col_l_a[j]->head_positions_interval();
 	}
 
-	rest_b_a[j] = (col_l_a[j]) ? col_l_a[j]->rest_b_ : false;	
+
 	x_off [j] = 0.0;
 	y_off[j] = 0;
     }
@@ -97,28 +96,8 @@ Collision::do_pre_processing()
 	x_off[idx(d, true)] = d*0.5;
     } while ((d *= -1) != 1);
 
-   do {
-	int i1 = idx(d, false);
-	int i2 = idx(d,true);
-	if (!intersection(y_extent[i1] , 
-			  y_extent[i2]).empty_b()) {
-	    if (rest_b_a[i1]) {
-		y_off[i1] = -y_extent[i1][-d] + y_extent[1][d] + d*4; // ugh
-		y_extent[i1] += y_off[i1];
-	    }
-	}
-    } while ((d *= -1) != 1);
+  
 
-    do {
-	int i1 = idx(d, false);
-	int i2 = idx(-d,false);
-	
-	if (d*(y_extent[i1][-d] - y_extent[i2][d] )< 0&& rest_b_a[i1]) {
-	    y_off[i1] = -y_extent[i1][-d] + y_extent[i2][d] +d* 4; // ugh
-	    y_extent[i1] += y_off[i1];
-	}
-    } while ((d *= -1) != 1);
-    
     Interval_t<int> middle( y_extent[0].min(), y_extent[3].max());
     Interval_t<int> open_middle( y_extent[3].max()+1, y_extent[0].min()-1);
     do{
@@ -127,12 +106,10 @@ Collision::do_pre_processing()
     } while ((d *= -1) != 1);
    
     if (!middle.empty_b() && 
-	middle.length() <= 1 && col_l_a[idx(1,0)] && col_l_a[idx(-1,0)]
-	&& !rest_b_a[idx(1,0)] && !rest_b_a[idx(-1,0)]) {
-	
+	middle.length() <= 1 && col_l_a[idx(1,0)] && col_l_a[idx(-1,0)]) {	
 	Notehead * nu_l= col_l_a[idx(1,0)]->head_l_arr_[idx(1,0)];
 	Notehead * nd_l = col_l_a[idx(-1,0)]->head_l_arr_[idx(1,0)];
-	if (! (nu_l->balltype == nd_l->balltype && nu_l->dots == nd_l->dots)) {
+	if (! (nu_l->balltype_i_ == nd_l->balltype_i_ && nu_l->dots_i_ == nd_l->dots_i_)) {
 	    x_off[idx(1,0)] -= 0.5;
 	    x_off[1] -= 0.5;
 	    x_off[2] += 0.5;
