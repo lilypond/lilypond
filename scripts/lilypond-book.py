@@ -1270,7 +1270,7 @@ def write_file_map (lys, name):
 #(ly:add-file-name-alist '(
 """)
 	for ly in lys:
-		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n' \
+		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n'
 				   % (ly.basename (),
 				      name,
 				      ly.line_number,

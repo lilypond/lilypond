@@ -35,7 +35,8 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
 	dvips $(DVIPS_FLAGS)  -o $@.pdfps -t $(DVIPS_PAPERSIZE)  $<
-	ps2pdf -sPAPERSIZE=$(DVIPS_PAPERSIZE) $@.pdfps $@
+# without -dSAFER
+	gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $@.pdfps
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)
