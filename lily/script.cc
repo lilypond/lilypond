@@ -7,6 +7,7 @@
   
  */
 
+#include "directional-element-interface.hh"
 #include "warn.hh"
 #include "script.hh"
 #include "font-interface.hh"
