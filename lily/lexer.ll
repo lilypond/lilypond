@@ -457,6 +457,8 @@ HYPHEN		--
 	return E_OPEN;
     case ')':
 	return E_CLOSE;
+    case '~':
+	return E_TILDE;
     default:
 	return E_CHAR;
     }

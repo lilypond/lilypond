@@ -80,7 +80,6 @@ static Keyword_ent the_key_tab[]={
   {"repeat", REPEAT},
   {"addlyrics", ADDLYRICS},
   {"partcombine", PARTCOMBINE},
-  {"porrectus", PORRECTUS},
   {"score", SCORE},
   {"script", SCRIPT},
   {"stylesheet", STYLESHEET},

@@ -44,7 +44,7 @@ upperVoice =  \context Staff = upperVoice <
 	a! b!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 	\property Voice.NoteHead \override #'style = #'vaticana_virga
-	ces' b! ces'! \porrectus ges! \porrectus fes!
+	ces' b! ces'! \~ ges! \~ fes!
 	\breathe
 	\clef "vaticana_fa1"
 	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
@@ -128,28 +128,30 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Voice.Porrectus \override #'solid = ##f
 	\property Voice.Porrectus \override #'add-stem = ##t
 	\property Voice.Porrectus \override #'stem-direction = #1
+	\property Voice.Porrectus \override #'line-thickness = #0.7
+	% \property Voice.Porrectus \override #'porrectus-width = #3.0
 	\key a \major
 
 	% IMPORTANT NOTE:
 	%
-	% The porrectus syntax is subject to change.  For proper
-	% use, it may eventually change into something like this:
+	% The porrectus syntax is definitely subject to change.  For
+	% proper use, it may eventually change into something like this:
 	%
-	% \ligature { e \porrectus c }
+	% \startLigature e \~ c \endLigature
 	%
 	% The reason is that there needs to be some enclosing instance
 	% for correct handling of line breaking, alignment with
 	% adjacent note heads, and placement of accidentals.
 
 	\clef "neo_mensural_c2"
-	cis' e' \porrectus d' gis' \porrectus e'
+	cis' e' \~ d' gis' \~ e'
 	\property Staff.forceClef = ##t
 	\clef "neo_mensural_c2"
 
-	fis' \porrectus b cis''
-	b \porrectus a a \porrectus fis
+	fis' \~ b cis''
+	b \~ a a \~ fis
 	\clef "petrucci_c2"
-	cis \porrectus fis ces1 % \bar "|"
+	cis \~ fis ces1 % \bar "|"
 
 	\clef "petrucci_c2"
 	r\longa
@@ -189,8 +191,8 @@ lowerVoice =  \context Staff = lowerNotes <
 	% porrectus grobs.  Is this an initialization bug in the line
 	% breaking algorithm?
 
-	bes'! \porrectus as'! \porrectus cis''!
-	bes'! \porrectus fis'! as'! \porrectus ges'!
+	bes'! \~ as'! \~ cis''!
+	bes'! \~ fis'! as'! \~ ges'!
 	\property Staff.forceClef = ##t
 	\clef "mensural_g"
 	e' d' c'1 \bar "|"

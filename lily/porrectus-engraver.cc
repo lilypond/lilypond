@@ -11,33 +11,34 @@
  * moment of the second note.  Actually, it should take the moment of
  * the first note.
  *
- * TODO: Introduce "\~" as alternative syntax for "\porrectus"?
+ * FIXME: Turn off typesetting of stems, flags, dots, etc.
  *
  * TODO: Hufnagel support.
  *
- * TODO: Fine-tuning of porrectus shape.  In particular, the mensural
- * non-solid shape could either be slightly bigger in height, or the
- * extrem points could be slightly vertically shifted apart.
+ * TODO: Fine-tuning of vaticana-style porrectus shape; in particular,
+ * ensure solidity if solid is set to #t and thickness is very small.
  *
  * TODO: For white mensural (i.e. #'style=#'mensural, #'solid=##f)
  * porrectus grobs, it is possible to automatically determine all
  * porrectus specific properties (add-stem, stem-direction) solely
  * from the duration of the contributing notes and time-signature.
  * Introduce a boolean grob property called auto-config, so that, if
- * turned on, lily automatically sets the remaining properties
- * properly.
+ * turned on, lily automatically sets the properties add-stem and
+ * stem-direction properly.
  *
- * TODO: The following issues are not (and should not be) handled by
- * this engraver: (1) accidentals placement, (2) avoiding line
- * breaking inbetween porrectus, (3) spacing.  For example, currently
- * only the accidental for the second note (cp. the above FIXME) is
- * printed.  These issues should be resolved by some sort of ligature
- * context that encloses use of this engraver, using syntax like:
- * \ligature { e \porrectus c }.
+ * TODO: The following issues are currently not handled by this
+ * engraver: (1) accidentals placement, (2) avoiding line breaking
+ * inbetween porrectus, (3) spacing.  (Han-Wen says: for (2), look at
+ * beam engraver.)  For example, currently only the accidental for the
+ * second note (cp. the above FIXME) is printed.  These issues should
+ * be resolved by some sort of ligature context that encloses use of
+ * this engraver, using syntax like: \ligature { e \~ c }.
  *
  * TODO: Do not allow a series of adjacent porrectus requests, as in:
- * e \porrectus d \porrectus c.
- */
+ * e \~ d \~ c.
+ *
+ * TODO: Junk duplicate (or rather triple) implementation of
+ * create_ledger_line in porrectus.cc, custos.cc and note-head.cc.  */
 
 #include "staff-symbol-referencer.hh"
 #include "porrectus.hh"
@@ -112,9 +113,9 @@ Porrectus_engraver::acknowledge_grob (Grob_info info_l_)
       Note_req *note_req_l_ = dynamic_cast <Note_req *> (info_l_.req_l_);
       if (!note_req_l_)
 	return;
-      left_heads_.push (PHead_melodic_tuple (info_l_.elem_l_, note_req_l_,
-					     now_mom () +
-					     note_req_l_->length_mom ()));
+      right_heads_.push (PHead_melodic_tuple (info_l_.elem_l_, note_req_l_,
+					      now_mom () +
+					      note_req_l_->length_mom ()));
     }
 }
 
@@ -125,41 +126,27 @@ Porrectus_engraver::create_grobs ()
     {
       left_heads_.sort (PHead_melodic_tuple::pitch_compare);
       right_heads_.sort (PHead_melodic_tuple::pitch_compare);
-
-      SCM head_list = SCM_EOL;
-      
       int i = left_heads_.size () - 1;
       int j = right_heads_.size () - 1;
 
       while ((i >= 0) && (j >= 0))
 	{
-	  head_list =
-	    gh_cons (gh_cons (right_heads_[j].head_l_->self_scm (),
-			      left_heads_[i].head_l_->self_scm ()),
-		     head_list);
-
-	  past_notes_pq_. insert (left_heads_[i]);
-	  left_heads_.del (i);
-	  right_heads_.del (j);
-	  i--;
-	  j--;
-	}
-
-      for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
-	{
-	  SCM caar = gh_caar (s);
-	  SCM cdar = gh_cdar (s);
-
-	  Item *left_head = dynamic_cast<Item*> (unsmob_grob (caar));
-	  Item *right_head = dynamic_cast<Item*> (unsmob_grob (cdar));
+	  Item *left_head = dynamic_cast<Item*> (left_heads_[i].head_l_);
+	  Item *right_head = dynamic_cast<Item*> (right_heads_[j].head_l_);
 	  left_head->set_grob_property("transparent", gh_bool2scm(true));
 	  right_head->set_grob_property("transparent", gh_bool2scm(true));
 
 	  Grob *porrectus_p_ = new Item (get_property ("Porrectus"));
-	  Porrectus::set_left_head(porrectus_p_, caar);
-	  Porrectus::set_right_head(porrectus_p_, cdar);
+	  Porrectus::set_left_head(porrectus_p_, left_head);
+	  Porrectus::set_right_head(porrectus_p_, right_head);
 	  porrectus_p_arr_.push (porrectus_p_);
-	  announce_grob (porrectus_p_, 0);
+	  announce_grob (porrectus_p_, porrectus_req_l_);
+
+	  past_notes_pq_. insert (right_heads_[i]);
+	  left_heads_.del (i);
+	  right_heads_.del (j);
+	  i--;
+	  j--;
 	}
     }
 }
@@ -167,11 +154,11 @@ Porrectus_engraver::create_grobs ()
 void
 Porrectus_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < left_heads_.size (); i++)
+  for (int i = 0; i < right_heads_.size (); i++)
     {
-      past_notes_pq_.insert (left_heads_[i]);
+      past_notes_pq_.insert (right_heads_[i]);
     }
-  left_heads_.clear ();
+  right_heads_.clear ();
 
   for (int i = 0; i < porrectus_p_arr_.size (); i++)
     {
@@ -188,10 +175,10 @@ Porrectus_engraver::start_translation_timestep ()
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
 
-  right_heads_.clear ();
+  left_heads_.clear ();
   while (past_notes_pq_.size () &&
 	 (past_notes_pq_.front ().end_ == now))
-    right_heads_.push (past_notes_pq_.get ());
+    left_heads_.push (past_notes_pq_.get ());
 }
 
 ADD_THIS_TRANSLATOR (Porrectus_engraver);
