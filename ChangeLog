@@ -1,5 +1,10 @@
 2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PACKAGE_NAME): release 1.9.0
+
+	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
+	note about dvips. (Should backport.)
+
 	* scripts/convert-ly.py
 	(FatalConversionError.articulation_substitute): add
 	convert-new-chords code. Remove convert-new-chords.py
