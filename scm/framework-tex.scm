@@ -191,7 +191,7 @@
       (header bookpaper (length pages) #f)
       (define-fonts bookpaper)
       (header-end)))
-    (ly:outputter-dump-string outputter "\\nopagebreak")
+    (ly:outputter-dump-string outputter "\\lilypondnopagebreak")
     (for-each
      (lambda (page) (dump-page outputter page (eq? last-page page) with-extents))
      pages)
