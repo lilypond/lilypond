@@ -1,3 +1,8 @@
+2002-07-30  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/parse-scm.cc (parse_handler): add better error message,
+	return a sensible number of nchars
+
 2002-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parse-scm.cc (protected_ly_parse_scm): catch GUILE errors
