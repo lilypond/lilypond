@@ -569,6 +569,8 @@
 	(print-function . ,Ledger_line_spanner::print)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
+	(minimum-length-fraction . 0.15)
+	(length-fraction . 0.25)
 	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
 	(print-function . ,Ledger_line_spanner::print)
 	(layer . 0)
