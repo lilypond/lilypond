@@ -3877,7 +3877,8 @@ you must put @code{\transpose} outside of @code{\relative}, since
 
 @node  Multi measure rests
 @subsection Multi measure rests
-@cindex Multi measure rests
+@cindex multi measure rests
+@cindex Rests, multi measure
 
 @cindex @code{R}
 
@@ -3917,7 +3918,7 @@ two whole notes), regardless of the time signature.
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax.  In this case, the number is
+@var{note}-@code{markup} syntax (see @ref{Text markup}) .  In this case, the number is
 replaced. If you need both texts and the number, you must add the
 number by hand. A variable (@code{\fermataMarkup}) is provided for
 adding fermatas.
@@ -3937,7 +3938,7 @@ adding fermatas.
 @internalsref{MultiMeasureRestEvent},
 @internalsref{MultiMeasureTextEvent},
 @internalsref{MultiMeasureRestMusicGroup},
-@internalsref{MultiMeasureRest}.
+@internalsref{MultiMeasureRest}, 
 
 The graphical object @internalsref{MultiMeasureRestNumber} is for the
 default number, and @internalsref{MultiMeasureRestText} for user

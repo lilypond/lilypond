@@ -1,5 +1,8 @@
 2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Multi measure rests): more
+	index/cross-referencing.
+
 	* lily/line-spanner.cc (line_molecule): bugfix for trill style.
 
 	* scm/font.scm: remove properties-to-font-name code.
