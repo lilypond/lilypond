@@ -6,7 +6,6 @@
      (c) 2004 Han-Wen Nienhuys
 */
 
-#include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
 #include "event.hh"
 #include "music-sequence.hh"

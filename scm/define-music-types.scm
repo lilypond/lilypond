@@ -301,17 +301,7 @@ SYNTAX
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	Push_property_iterator::constructor)
 	))
-
     (PartCombineMusic
-     . (
-	(description .  "Combine two parts on a staff, either merged or
-as separate voices.")
-
-	(internal-class-name . "Simultaneous_music")
-	(types . (general-music part-combine-music))
-	(iterator-ctor . ,Part_combine_music_iterator::constructor)
-	))
-    (NewPartCombineMusic
      . (
 	(description .  "Combine two parts on a staff, either merged or
 as separate voices.")

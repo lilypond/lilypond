@@ -150,13 +150,6 @@ the central C, measured in half staffspaces.  Usually determined by
 looking at clefPosition and clefGlyph.")
 
 (translator-property-description
- 'changeMoment moment-pair?
- "duration that voices are examined for differences, when
-part-combining.  Usually unset or zero when combining threads into one
-voice, and 1 (or the duration of one measure) when combining voices
-into one staff.")
-
-(translator-property-description
  'chordNameFunction procedure?
  "The function that converts lists of pitches to chord names.")
 (translator-property-description
@@ -189,7 +182,6 @@ stafflines, the value 0 puts the clef on the middle staffline; a
 positive value shifts it up, a negative value shifts it down.  The
 unit of this distance is the half staff space.")
 
-(translator-property-description 'combineParts boolean? "try to combine parts?")
 (translator-property-description 'connectArpeggios boolean? " If
 set, connect all arpeggios that are found.  In this way, you can make
 arpeggios that cross staves.
@@ -209,26 +201,7 @@ This variable is typically read at Score level, so overriding
 Staff.defaultBarType will have no effect.
 
 ")
-(translator-property-description 'devNullThread symbol? "User control of Thread_devnull_engraver: one of
-@table @samp
-@item (), or unset
-Behave in normal way: remove one set of grobs when in unisolo.
-@item always:
-Remove any grob that comes along.
-@item never:
-Do nothing.
-@end table
-")
-(translator-property-description 'devNullVoice symbol? "User control of Voice_devnull_engraver: one of
-@table @samp
-@item (), or unset
-Behave in normal way: remove spanners when in unisolo.
-@item always:
-Remove any spanners that come along.
-@item never:
-Do nothing.
-@end table
-")
+
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 
 (translator-property-description 'dynamicAbsoluteVolumeFunction procedure? "
@@ -348,7 +321,6 @@ this function is called with current context and a list of music
 objects.  The list of contains entries with start times, music objects
 and whether they're processed in this context.")
 
-(translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description
  'originalCentralCPosition integer?
  "Used for temporary overriding central C in octavation brackets. ")
@@ -403,8 +375,6 @@ help with debugging large scores.")
 (translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining.")
 (translator-property-description 'soloText string? "text for begin of solo when part-combining.")
 (translator-property-description 'sparseTies boolean? "only create one tie per chord.")
-(translator-property-description 'splitInterval number-pair? "part-combiner will separate its two voices (or threads) when interval between the two voices is contained in this range.")
-(translator-property-description 'split-interval boolean? "set if part-combiner separated voices based on splitInterval.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'stringOneTopmost boolean? "Whether the 1st string is printed on the
@@ -463,9 +433,6 @@ context Voice 	imes 2/3 @{
 @@end lilypond
 @end example
 .")
-(translator-property-description 'unirhythm boolean? "set if unirhythm is detected by the part combiner.")
-(translator-property-description 'unisilence boolean? "set if unisilence is detected by the part combiner.")
-(translator-property-description 'unison boolean? "set if unisono is detected  by the part combiner. .")
 (translator-property-description 'verticalAlignmentChildCallback
 procedure? "what callback to add to children of a vertical alignment.
 It determines what alignment procedure is used on the alignment

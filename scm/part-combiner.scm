@@ -257,7 +257,7 @@ Voice-state objects
 
 (define-public (make-new-part-combine-music music-list)
   (let*
-     ((m (make-music-by-name 'NewPartCombineMusic))
+     ((m (make-music-by-name 'PartCombineMusic))
       (m1 (context-spec-music (car music-list) 'Voice "one"))
       (m2 (context-spec-music (cadr music-list) 'Voice "two"))
       (props '((denies Thread)
