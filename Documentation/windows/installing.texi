@@ -29,7 +29,8 @@ Download and run
 to install LilyPond.
 
 This will install the minimal set of cygwin tools needed to run
-LilyPond.
+LilyPond.  Make sure to install in the default place, @file{c:/cygwin},
+and install everything.
 
 As of version 1.3.150, you also have the option to install MiKTeX,
 Python and GSView from this installer, which is recommended.  If you
@@ -49,11 +50,16 @@ Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
 If you're lucky, after running @file{setup.exe} you're all set up.
 
 Open a LilyPond shell (or any bash shell), and type
+
+@quotation
 @example
 lilypond --help
 @end example
+@end quotation
 
 If you don't see something similar to
+
+@quotation
 @example
 Usage: lilypond [OPTION]... [FILE]...
 
@@ -67,15 +73,24 @@ Options:
   -h,--help             this help
 [..]
 @end example
+@end quotation
 
 you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
 do:
+
+@quotation
 @example
-PATH=/usr/lilypond-1.3.147/bin:$PATH
+PATH=/usr/lilypond-1.4.2/bin:$PATH
 @end example
+@end quotation
 
 and try again.
 
+
+@subsection Trouble
+
+For problems and solutions see
+@uref{Troubleshooting Windows,http://lilypond.org/TroubleshootingWindows}.
 
 
 @subsection Additional software
@@ -139,14 +154,9 @@ We have not tried using newer versions than 1.5.2.
 * emacs-mode installation, figure out and describe proper
 emacs-on-cygwin setup.
 
-* talk about /etc/profile.d/lilypond-profile.sh
-
-* GUILE errors, simple guile test
-
-* (La)TEX errors, simple tex test
-
-
 ]
+
+
 @ignore 
 
   guile -v
