@@ -130,13 +130,13 @@
    ))
 
 (define-public (set-paper-size name . rest)
-  (if (module-defined? (current-module) 'is-paper)
+  (if (module-defined? (current-module) 'is-bookpaper)
       (internal-set-paper-size (current-module) name
 			       (memq 'landscape rest))
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
-      (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))
+      (ly:warn "Must use #(set-paper-size .. ) within \\bookpaper { ... }")))
 
 (define-public (scale-paper pap scale)
   (let*
