@@ -164,7 +164,7 @@ Beam_engraver::process_music ()
       beam_ = 0;
     }
 
-  if (beam_ && to_boolean (get_property ("forbidBeamBreak")))
+  if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
     {
       top_engraver ()->forbid_breaks ();
     }
@@ -375,6 +375,6 @@ ENTER_DESCRIPTION(Grace_beam_engraver,
 /* creats*/       "Beam",
 /* accepts */     "beam-event abort-event new-beam-event",
 /* acks  */      "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy beatLength forbidBeamBreak subdivideBeams",
+/* reads */       "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
 /* write */       "");
 

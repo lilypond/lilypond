@@ -315,7 +315,7 @@ and set OTTAVATION to `8va', or whatever appropriate.
 	     (oc0 (ly:get-context-property context 'originalCentralCPosition))
 
 	     )
-	  
+
 	  (ly:set-context-property context 'centralCPosition oc0)
 	  (ly:unset-context-property where 'originalCentralCPosition)
 	  (ly:unset-context-property where 'ottavation)
@@ -333,14 +333,14 @@ and set OTTAVATION to `8va', or whatever appropriate.
 					  (-2 . "15ma bassa")))))
 	     )
 
-	  (ly:set-context-property where 'centralCPosition new-c0)
-	  (ly:set-context-property where 'originalCentralCPosition c0)
-	  (ly:set-context-property where 'ottavation string)
+	  (ly:set-context-property context 'centralCPosition new-c0)
+	  (ly:set-context-property context 'originalCentralCPosition c0)
+	  (ly:set-context-property context 'ottavation string)
 	  
 	  )))
 
   (ly:set-mus-property! m 'procedure  ottava-modify)
-  m
+  (context-spec-music m "Staff" )
   ))
 
 (define-public (set-octavation ottavation)

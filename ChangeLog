@@ -1,3 +1,8 @@
+2003-05-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (make-ottava-set): bugfixes: also
+	process 2nd ottava correctly.
+
 2003-05-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: allow strings in LilyPond-parens-alist.
