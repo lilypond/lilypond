@@ -23,21 +23,20 @@ public:
  static SCM brew_molecule (SCM);
   
   SCM member_brew_molecule () const;
-  virtual Array<Offset> get_encompass_offset_arr () const;
+  Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
-  virtual Direction get_default_dir () const;
+  Direction get_default_dir () const;
   SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  virtual void do_add_processing ();
   Array<Rod> get_rods () const;
-  Offset get_attachment (Direction dir) const;
+  Offset get_attachment (Direction dir, Score_element**common) const;
 
 private:  
   void de_uglyfy (Slur_bezier_bow* bb, Real default_height);
   void set_extremities ();
   void set_control_points ();
-  Offset encompass_offset (Note_column const* )const;
+  Offset encompass_offset (Score_element *col,Score_element**common)const;
 };
 
 #endif // SLUR_HH
