@@ -28,6 +28,25 @@
 	(meta . ((interfaces . (accidental-placement-interface))))
 	))
 
+    (Ambitus
+     . (
+       (breakable . #t)
+       (break-align-symbol . ambitus)
+       (molecule-callback . ,Ambitus::brew_molecule)
+       (font-family . music)
+       (note-head-style . "noteheads-2")
+       (visibility-lambda . ,begin-of-line-visible)
+       (join-heads . #t)
+       (space-alist . (
+		       (clef . (extra-space . 0.0))
+		       (key-signature . (extra-space . 0.0))
+		       (staff-bar . (extra-space . 0.0))
+		       (time-signature . (extra-space . 0.0)) 
+		       (first-note . (extra-space . 0.0))
+		       ))
+       (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface break-aligned-interface font-interface))))
+       ))
+
     (Arpeggio
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
@@ -155,6 +174,7 @@
 	(break-align-symbol . breathing-sign)
 	(breakable . #t)
 	(space-alist . (
+			(ambitus . (extra-space . 2.0))
 			(key-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
@@ -178,6 +198,7 @@
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . (
+			(ambitus . (extra-space . 2.0))
 			(staff-bar . (minimum-space .  3.7))
 			(key-signature . (minimum-space . 4.0))
 			(time-signature . (minimum-space . 4.2))
@@ -282,6 +303,7 @@
 	(X-extent-callback . ,Grob::point_dimension_callback)
 	(breakable . #t)
 	(space-alist . (
+			(ambitus . (extra-space . 2.0))
 			(time-signature . (extra-space . 0.0)) 
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space  . 0.0))

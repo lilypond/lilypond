@@ -191,6 +191,7 @@ is used by @ref{note-collision-interface}.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
 (grob-property-description 'items-worth-living grob-list? "list of interesting items. If empty in a particular system, clear that system.")
+(grob-property-description 'join-heads boolean? "Whether to join the noteheads of an ambitus grob with a vertical line.")
 (grob-property-description 'kern number? "amount of extra white space to add.
 
 For text,  this is `relative'(?) to the current alignment.
@@ -262,6 +263,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
 (grob-property-description 'no-stem-extend boolean? "should stem not be extended to middle staff line?.")
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
+(grob-property-description 'note-head-style string? "name of the font character to be used as note heads in the ambitus grob.")
 (grob-property-description 'note-heads grob-list? "List of note head grobs")
 (grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measure rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
