@@ -571,10 +571,10 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	maxlw = max (extra['linewidth'] + [-1])
 	if maxlw < 0:
 	        # who the hell is 597 ?
-		linewidth = '597'
+		linewidth = '597pt'
 	else:
 		linewidth = maxlw
-	s = s + '\geometry{width=%spt%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{width=%smm%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'

@@ -53,8 +53,8 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 # making pfas takes a lot of CPU time. Let's skip it for now.
 #MAKE_PFA_FILES=1
 
-ifdef MAKE_PFA_FILES
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+ifdef MAKE_PFA_FILES
 ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map
 INSTALLATION_OUT_DIR4=$(datadir)/fonts/type1
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
@@ -62,7 +62,6 @@ INSTALLATION_OUT_FILES4=$(PFA_FILES)
 INSTALLATION_OUT_DIR5=$(datadir)/dvips/
 INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 
-pfa: $(PFA_FILES) 
 endif
 
 export MFINPUTS:=.:$(MFINPUTS)
@@ -70,7 +69,8 @@ export MFINPUTS:=.:$(MFINPUTS)
 default: $(ALL_GEN_FILES)
 
 $(outdir)/lilypond.map: 
-	echo $(FONT_FILES:.mf=) | awk -v RS=' ' '{print $$1 " TeX-" $$1 " <" $$1 ".pfa"}' > $@
+	echo $(FONT_FILES:.mf=) | tr ' ' '\n' | \
+		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
 
 ##
 ## todo: this also depends on .tfm, FIXME.
@@ -81,4 +81,5 @@ local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
 
+pfa: $(PFA_FILES) 
 
