@@ -12,3 +12,4 @@ beams even if they're auto generated."
 	[f8 f f ][f8 f f ] f f f f f f 
  }
 }}
+%% new-chords-done %%

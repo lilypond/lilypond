@@ -3,6 +3,9 @@
 import re
 import string
 import sys
+import getopt
+import os
+
 
 def sub_chord (m):
 	str = m.group(1)
@@ -129,5 +132,22 @@ def sub_chords (str):
 	str= re.sub (r'@ACCENT@', '>', str)
 	return str
 
+(opts, files)= getopt.getopt( sys.argv[1:], 'e',['edit'])
+edit = 0
+for (o,a) in opts:
+	if o == '-e' or o == '--edit':
+		edit = 1
 
-print sub_chords (open (sys.argv[1]).read())  + marker_str 
+for a in files:
+	str = open (a).read()
+	if re.search (str, marker_str):
+		continue
+	
+	str = sub_chords (str)  + marker_str
+
+	if edit:
+		open (a + '.NEW', 'w').write (str)
+		os.rename (a, a + '~')
+		os.rename (a + '.NEW', a)
+	else:
+		print str
