@@ -17,31 +17,34 @@
 
 struct Font_metric
 {
-  Font_metric ();
   SCM name_;
   virtual SCM description () const;
   virtual Box get_char (int ascii, bool warn) const;
   virtual ~Font_metric ();
   virtual Box text_dimension (String) const;
 
-  DECLARE_SMOBS;
+  DECLARE_SIMPLE_SMOBS(Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
+protected:
+  Font_metric ();
 };
 
 
 struct Scaled_font_metric : public Font_metric
 {
+  virtual SCM description () const;
+  virtual Box text_dimension (String) const;
+
+  static SCM make_scaled_font_metric (Font_metric*, int);
+protected:
   Font_metric *orig_l_;
   int magstep_i_;
   
-  Scaled_font_metric (Font_metric*, int);
-  virtual SCM description () const;
-  virtual Box text_dimension (String) const;
+  Scaled_font_metric (Font_metric*,int);
 };
 
 Font_metric * unsmob_metrics (SCM s);
-
 
 #endif /* FONT_METRIC_HH */
 

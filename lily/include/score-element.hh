@@ -141,11 +141,6 @@ public:
   static Interval molecule_extent (Score_element *,Axis);
 
 protected:
-  /**
-    Junk score element. This is protected because this is supposed to
-    be handled by GUILE gc.  */
-  virtual ~Score_element ();
-  
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
   static Interval dim_cache_callback (Dimension_cache const*);
@@ -163,7 +158,7 @@ public:
   virtual void handle_prebroken_dependencies ();
 
 
-  DECLARE_SMOBS;
+  DECLARE_SMOBS(Score_element,foo);
 
   void init ();
 

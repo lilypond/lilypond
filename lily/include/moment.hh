@@ -17,18 +17,22 @@
    Rationals with glue for Guilification;
 
    FIXME: remove self_scm_ and then remove this class */
-struct Moment : public Rational
+class Moment : public Rational
 {
-  Moment () { self_scm_ = SCM_EOL; }
-  Moment (int m) : Rational (m) {self_scm_ = SCM_EOL; }
-  Moment (int m, int n) : Rational (m,n) {self_scm_ = SCM_EOL; }
-  Moment (Rational m) : Rational (m) {self_scm_ = SCM_EOL; }
-  ~Moment ();
-  
-  DECLARE_SMOBS;
+  DECLARE_SIMPLE_SMOBS(Moment,);
+public:
+  Moment () { }
+  Moment (int m) : Rational (m) { }
+  Moment (int m, int n) : Rational (m,n) { }
+  Moment (Rational m) : Rational (m) { }
+
+  /*
+    Deliver a copy of THIS as a smobified SCM
+   */
+  SCM make_scm () const; 
 };
 
-SCM smobify (Moment*);
+
 Moment * unsmob_moment (SCM);
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );

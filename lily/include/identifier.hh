@@ -33,14 +33,11 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
    */
 struct Identifier : public Input {
 
-  DECLARE_SMOBS;
   bool init_b_;
   bool accessed_b_;
   int token_code_i_;
   Identifier (Identifier const&);    
   Identifier (int code) ;
-  virtual ~Identifier() ;
-  
 
   void print() const;
   
@@ -52,6 +49,7 @@ struct Identifier : public Input {
   IDACCESSOR(Duration)
   VIRTUAL_COPY_CONS(Identifier);
 
+  DECLARE_SMOBS(Identifier, foo);
 protected:
   virtual void do_print () const;
   virtual String do_str () const;
