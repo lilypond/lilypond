@@ -1,3 +1,48 @@
+1.4.6.mb1
+=========
+
+* Allow for duplicated articulation scripts with different direction.
+
+* Added new ornaments: \upmordent, \downmordent, \pralldown, \prallup,
+  \lineprall, \thumb, \comma (to be used with scriptHorizontal = ##t),
+  see also input/test/trill.ly. [WARNING: FONT UPDATE!]
+
+* Bug fix: staccato dot placement.
+
+1.5.5.jr1
+=========
+
+* recent ancient-font.ly development branches manually merged and
+  updated;
+
+* added enhanced mensural minima/fusa noteheads (30 degrees rhomb
+  style); the former 45 degrees quadratic shapes are now available
+  under notehead style "neo_mensural"; [WARNING: FONT UPDATE] 
+
+* minor ancient font corrections (in particular, enhanced set_char_box()
+  arguments).
+
+
+1.5.5.jcn2
+==========
+
+* input/bugs:
+  - Autogenerate bugs document from all .ly's.
+  - Add texidoc to lots of examples.
+  - Junk or move fixed examples to regression test.
+  - Move examples that crash lilypond to input/no-notation.
+  - Update examples.
+
+1.5.5.hwn1
+==========
+
+* Grace property fixes.
+
+* More grace nesting bugfixes.
+
+1.5.5
+=====
+
 1.5.4.jcn2
 ==========
 
