@@ -1,6 +1,6 @@
-	* PointerList<T>:List<T> -> PointerList<T>:List<T*>
-
 	* PCursor -> Pointer_cursor / PointerCursor ?
+
+	* remove List::List(element)
 
 	* efficient copy cons for List
 
