@@ -51,9 +51,9 @@ Music_sequence::append_music (Music *m)
   scm_unprotect_object (m->self_scm ());
 }
 
-Music_sequence::Music_sequence(SCM h)
+Music_sequence::Music_sequence(SCM l)
+  : Music (l)
 {
-  set_mus_property ("elements", h);
 }
 
 void

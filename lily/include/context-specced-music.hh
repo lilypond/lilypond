@@ -15,7 +15,7 @@
 class Context_specced_music : public Music_wrapper
 {
 public:  
-  Context_specced_music (Music*);
+  Context_specced_music (SCM);
   VIRTUAL_COPY_CONS(Music);
 };
 #endif /* CONTEXT_SPECCED_MUSIC_HH */

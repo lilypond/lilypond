@@ -22,7 +22,7 @@
 class Music_wrapper : public Music
 {
 public:
-  Music_wrapper (Music*);
+  Music_wrapper (SCM);
   Music * element () const;
   virtual void transpose (Pitch);
 

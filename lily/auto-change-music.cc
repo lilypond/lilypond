@@ -10,7 +10,7 @@
 #include "auto-change-music.hh"
 #include "auto-change-iterator.hh"
 
-Auto_change_music::Auto_change_music (Music * m)
+Auto_change_music::Auto_change_music (SCM m)
   : Music_wrapper (m)
 {
   set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_cxx_function);

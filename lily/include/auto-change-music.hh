@@ -16,7 +16,7 @@
 class Auto_change_music : public Music_wrapper
 {
 public:
-  Auto_change_music (Music *);
+  Auto_change_music (SCM);
 
 };
 
