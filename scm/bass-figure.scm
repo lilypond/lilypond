@@ -44,6 +44,7 @@
 		     (ly:get-paper-variable grob 'linethickness)
 		     (ly:get-grob-property grob 'thickness))
 		    )
+	 (dir (ly:get-grob-property grob 'direction))
 	 )
 
     (define (brew-complete-figure grob figs mol)
@@ -62,24 +63,24 @@
 		       (lambda (x) (brew-one-figure grob x))
 		       (reverse! (car gather-todo) '())))
 		     (br-mol (bracketify-molecule
-			      (stack-molecules Y UP kerning unbr-mols)
+			      (stack-molecules Y dir kerning unbr-mols)
 			      Y thickness (* 2 padding) padding))
 		     )
 		(brew-complete-figure
 		 grob (cdr gather-todo)
-		 (ly:combine-molecule-at-edge mol Y UP br-mol kerning)
+		 (ly:combine-molecule-at-edge mol Y dir br-mol kerning)
 		 )
 		)
 	      (brew-complete-figure
 	       grob (cdr figs)
-	       (ly:combine-molecule-at-edge mol Y UP (brew-one-figure grob (car figs))
+	       (ly:combine-molecule-at-edge mol Y dir (brew-one-figure grob (car figs))
 					    kerning))
 	      )
 	  ))
 
     
     (set! mol (brew-complete-figure grob (reverse figs) mol))
-    (ly:align-to! mol Y DOWN)
+    (ly:align-to! mol Y (- dir))
     mol
     ))
 
@@ -87,4 +88,4 @@
 (ly:add-interface
 'bass-figure-interface
  "A bass figure, including bracket"
- '(padding thickness ))
+ '(padding thickness direction))
