@@ -6,6 +6,9 @@
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+
+#include <errno.h>
+
 #include "midi-stream.hh"
 
 #include "stream.hh"
