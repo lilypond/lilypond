@@ -48,6 +48,7 @@ Paper_column::do_break_processing ()
   Item::do_break_processing ();
 }
 
+
 int
 Paper_column::rank_i (Grob*me) 
 {
@@ -132,3 +133,37 @@ Paper_column::brew_molecule (SCM p)
   return t.smobbed_copy ();						
 }
 
+/*
+  This is all too hairy. We use bounded-by-me to make sure that some
+  columns are kept "alive". Unfortunately, when spanners are suicided,
+  this falls apart again. (sigh.)
+
+  THIS IS BROKEN KLUDGE. WE SHOULD INVENT SOMETHING BETTER. 
+ */
+MAKE_SCHEME_CALLBACK(Paper_column,before_line_breaking,1);
+SCM
+Paper_column::before_line_breaking (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  SCM c = me->get_grob_property ("bounded-by-me");
+  SCM *ptrptr = &c;
+
+  while (gh_pair_p (c))
+    {
+      Grob * g = unsmob_grob (gh_car (c));
+
+      if (!g || !g->live ())
+	{
+	  *ptrptr = gh_cdr (c);
+	}
+      else
+	{
+	  ptrptr = SCM_CDRLOC (c);
+	}
+      
+      c = gh_cdr (c);
+    }
+
+  me->set_grob_property ("bounded-by-me", c);
+}

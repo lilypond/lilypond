@@ -577,6 +577,7 @@
     (PaperColumn
      . (
 	(axes . (0))
+	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
 ;	        (molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8") (Y-extent-callback . #f)
@@ -610,7 +611,7 @@
      . (
 	(axes . (0))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
-
+	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
 	;; debugging stuff: print column number.
 ;	(molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")	(Y-extent-callback . #f)
 

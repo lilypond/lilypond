@@ -73,7 +73,7 @@ System::output_lines ()
 	    }
 	  g->suicide ();
 	}
-      else
+      else if (g->live ())
 	g->do_break_processing ();
     }
 
