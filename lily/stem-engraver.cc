@@ -53,15 +53,17 @@ Stem_engraver::acknowledge_grob (Grob_info i)
     {
       if (Rhythmic_head::stem_l (h))
 	return;
-      
-      int duration_log  = unsmob_duration (i.req_l_->get_mus_property ("duration"))-> duration_log ();
-	    
+
+      /*
+	We take the duration-log of the head; this is because
+	auto-tieing does strange things with the rhythmics.
+       */
+      int duration_log  =gh_scm2int (h->get_grob_property ("duration-log"));
       if (!stem_p_) 
 	{
 	  stem_p_ = new Item (get_property ("Stem"));
 	  Stem::set_interface (stem_p_);
 	  Staff_symbol_referencer::set_interface (stem_p_);
-
 	  
 	  stem_p_->set_grob_property ("duration-log", gh_int2scm (duration_log));
 

@@ -40,7 +40,6 @@ private:
   int dots_i_;
 
   Rational factor_;
-
 };
 
 #include "compare.hh"

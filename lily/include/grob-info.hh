@@ -22,10 +22,11 @@ struct Grob_info {
   Translator * origin_trans_l_;
   friend class Engraver;
 public:
-  Link_array<Translator> origin_trans_l_arr (Translator*) const; 
+  Link_array<Translator> origin_trans_l_arr (Translator*) const;
+
   Grob * grob_l_;
   Music *req_l_;
-
+  
   Grob_info (Grob*, Music*);
   Grob_info ();
 };

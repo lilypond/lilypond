@@ -1,3 +1,28 @@
+
+1.5.21.hwn1
+===========
+
+* Crop EPS files before rendering in lilypond book. This makes make web
+a lot faster.
+
+* Added links to internals documentation
+
+* Small dimcache (darn gcc-2.95) bugfixes.
+
+* Implemented Engraver::top_engraver ().
+
+* Completion_heads_engraver: engrave tied notes across bar lines
+automatically. Related changes:
+
+  - duration-log of Note head can be larger than 2
+
+  - make public class Grob_pitch_tuple
+
+* Make old spacing engine default again. The new one is still rather
+sucky.
+
+1.5.21
+======
 1.5.20.jcn1
 ===========
 

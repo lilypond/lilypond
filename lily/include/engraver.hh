@@ -48,6 +48,8 @@ protected:
   virtual void announce_grob (Grob*, Music*);
   virtual void announce_grob (Grob_info);
   virtual void process_music ();
+
+  Score_engraver * top_engraver () const;
 public:
   Engraver_group_engraver * daddy_grav_l () const;
   /**

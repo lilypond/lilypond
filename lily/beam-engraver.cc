@@ -135,17 +135,7 @@ Beam_engraver::process_music ()
 
   if (beam_p_)
     {
-      Score_engraver * e = 0;
-      Translator * t  =  daddy_grav_l ();
-      for (; !e && t;  t = t->daddy_trans_l_)
-	{
-	  e = dynamic_cast<Score_engraver*> (t);
-	}
-      
-      if (!e)
-	programming_error ("No score engraver!");
-      else
-	e->forbid_breaks ();
+      top_engraver ()->forbid_breaks ();
     }
 }
 

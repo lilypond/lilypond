@@ -73,7 +73,7 @@ Rest_engraver::create_grobs ()
       int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();
       
       rest_p_->set_grob_property ("duration-log",
-				 gh_int2scm (durlog));
+				  gh_int2scm (durlog));
 
       int dots =unsmob_duration (rest_req_l_->get_mus_property ("duration"))->dot_count ();
       

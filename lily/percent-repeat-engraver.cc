@@ -166,17 +166,8 @@ Percent_repeat_engraver::process_music ()
       /*
 	forbid breaks on a % line. Should forbid all breaks, really.
        */
-	  Score_engraver * e = 0;
-	  Translator * t  =  daddy_grav_l ();
-	  for (; !e && t;  t = t->daddy_trans_l_)
-	    {
-	      e = dynamic_cast<Score_engraver*> (t);
-	    }
 
-	  if (!e)
-	    programming_error ("No score engraver!");
-	  else
-	    e->forbid_breaks ();	// guh. Use properties!      
+	    top_engraver()->forbid_breaks ();	// guh. Use properties!      
 	}
       next_moment_ = next_moment_ + body_length_;
     }
