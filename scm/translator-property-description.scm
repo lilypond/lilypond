@@ -410,7 +410,6 @@ brackets in the situation where one alternative is very large.  It may
 have odd effects if the specified duration is longer than the music
 given in an @code{\\alternative}.
 .")
-(translator-property-description 'weAreGraceContext boolean? ".")
 (translator-property-description 'whichBar string?
 				 "This property is read to determine what type of barline to create.
 
