@@ -1672,7 +1672,7 @@ msgid ""
 "the GNU Project.\n"
 msgstr ""
 "LilyPond on musiikin ladontaohjelma. Se tuottaa kaunista nuottikuvaa\n"
-"käyttäen korkean tason kuvaus kieltä syötteenä.  LilyPond on osa\n"
+"käyttäen korkean tason kuvauskieltä syötteenä.  LilyPond on osa\n"
 "GNU Projektia.\n"
 
 #: main.cc:182
