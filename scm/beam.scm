@@ -120,5 +120,5 @@
 
 ;; TODO
 ;;  - take #forced stems into account (now done in C++)?
-;;  - take y-position of chord or beam into account
+;;  - take staff-position of chord or beam into account
 

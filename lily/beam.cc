@@ -10,12 +10,10 @@
 
 /*
   [TODO]
-  * shorter! (now +- 1000 lines)
-    * less hairy code
-    * move paper vars to scm
 
-  remove *-hs variables, and do all y-position stuff in staff-space.
-*/
+  * shorter! (now +- 1000 lines)
+  * less hairy code
+  */
 
 
 #include <math.h> // tanh.
@@ -202,7 +200,7 @@ Beam::consider_auto_knees (Grob *me)
 	  
 	  Real left = Stem::extremal_heads (stems[l])[d]
 	    ->relative_coordinate (common, Y_AXIS);
-	  Real right = Stem::extremal_heads (stems[i])[d]
+	  Real right = Stem::extremal_heads (stems[i])[-d]
 	    ->relative_coordinate (common, Y_AXIS);
 
 	  Real dy = right - left;
@@ -277,141 +275,109 @@ Beam::set_stem_shorten (Grob*m)
 }
 
 /*
-  Set elt properties height and y-position if not set.
-  Adjust stem lengths to reach beam.
+  Call list of y-dy-callbacks, that handle setting of
+  grob-properties y, dy.
+
+  User may set grob-properties: y-position-hs and height-hs
+  (to be fixed) that override the calculated y and dy.
+
+  Because y and dy cannot be calculated and quanted separately, we
+  always calculate both, then check for user override.
  */
-MAKE_SCHEME_CALLBACK(Beam,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Beam, after_line_breaking, 1);
 SCM
 Beam::after_line_breaking (SCM smob)
 {
   Grob * me =  unsmob_grob (smob);
-
-  /* first, calculate y, dy */
-  Real y, dy;
-  calc_default_position_and_height (me, &y, &dy);
-  if (visible_stem_count (me))
-    {
-      if (suspect_slope_b (me, y, dy))
-	dy = 0;
-
-      Real damped_dy = calc_slope_damping_f (me, dy);
-      Real quantised_dy = quantise_dy_f (me, damped_dy);
-
-      y += (dy - quantised_dy) / 2;
-      dy = quantised_dy;
-    }
-  /*
-    until here, we used only stem_info, which acts as if dir=up
-   */
-  y *= Directional_element_interface::get (me);
-  dy *= Directional_element_interface::get (me);
-
-
-  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
-
-  /* weird: why do we do calc_position_and_height () ? regardless of
-     this setting?
-
-     If the user sets height, we still need to calculate the y-position.
-     If the user sets height-hs, we still need to calculate and
-     quantise y-position.
-
-     We use least squares to calculate y-position and height, so we
-     inherently always calculate both.  */
   
-  /* check for user-override of dy */
-  SCM s = me->remove_grob_property ("height-hs");
-  if (gh_number_p (s))
-    {
-      dy = gh_scm2double (s) * half_space;
-    }
-  me->set_grob_property ("height", gh_double2scm (dy));
+  me->set_grob_property ("y", gh_double2scm (0));
+  me->set_grob_property ("dy", gh_double2scm (0));
 
-  /* check for user-override of y */
-  s = me->remove_grob_property ("y-position-hs");
-  if (gh_number_p (s))
-    {
-      y = gh_scm2double (s) * half_space;
-    }
-  else
-    { 
-      /* we can modify y, so we should quantise y */
-      Real y_shift = check_stem_length_f (me, y, dy);
-      y += y_shift;
-      y = quantise_y_f (me,y, dy, 0);
-      set_stem_length (me, y, dy);
-      y_shift = check_stem_length_f (me, y, dy);
+  /* Hmm, callbacks should be called by, a eh, callback mechanism
+    somewhere(?), I guess, not by looping here. */
+  
+  SCM list = me->get_grob_property ("y-dy-callbacks");
+  for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
+    gh_call1 (gh_car (i), smob);
 
-      if (y_shift > half_space / 4)
-	{
-	  y += y_shift;
-
-	  /*
-	    for significantly lengthened or shortened stems,
-	    request quanting the other way.
-	  */
-	  int quant_dir = 0;
-	  if (abs (y_shift) > half_space / 2)
-	    quant_dir = sign (y_shift) * Directional_element_interface::get (me);
-	  y = quantise_y_f (me, y, dy, quant_dir);
-	}
-    }
   // UGH. Y is not in staff position unit?
   // Ik dacht datwe daar juist van weg wilden?
-  set_stem_length (me, y, dy);
-  me->set_grob_property ("y-position", gh_double2scm (y));
+  
+  // Hmm, nu hebben we 3 dimensies, want inmiddels zijn we daar
+  // weer terug, maar dan / 2
+  // (staff-space iso staff-position)
+  
+  set_stem_lengths (me);
 
   return SCM_UNSPECIFIED;
 }
 
-/*
-  See Documentation/tex/fonts.doc
- */
-void
-Beam::calc_default_position_and_height (Grob*me,Real* y, Real* dy) 
-{
-  *y = 0;
-  *dy = 0;  
-  if (visible_stem_count (me) <= 1)
-    return;
 
+MAKE_SCHEME_CALLBACK (Beam, least_squares, 1);
+SCM
+Beam::least_squares (SCM smob)
+{
+ Grob *me = unsmob_grob (smob);
+
+ if (visible_stem_count (me) <= 1)
+   return SCM_UNSPECIFIED;
+
+  Real y = 0;
+  Real dy = 0;
+
+  /* Stem_info, and thus y,dy in this function are corrected for beam-dir */
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   if (first_ideal == Stem::calc_stem_info (last_visible_stem (me)).idealy_f_)
     {
-      *dy = 0;
-      *y = first_ideal;
-      return;
+      y = first_ideal;
+      dy = 0;
     }
-
-  Array<Offset> ideals;
-
-  // ugh -> use commonx
-  Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
-  Link_array<Item> stems=
-    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
-
-  for (int i=0; i < stems.size (); i++)
+  else
     {
-      Item* s = stems[i];
-      if (Stem::invisible_b (s))
-        continue;
-      ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0, 
-			   Stem::calc_stem_info (s).idealy_f_));
-    }
-  Real dydx;
-  minimise_least_squares (&dydx, y, ideals); // duh, takes references
+      Array<Offset> ideals;
 
-  Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
-  *dy = dydx * dx;
+      // ugh -> use commonx
+      Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
+      Link_array<Item> stems=
+	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+
+      for (int i=0; i < stems.size (); i++)
+	{
+	  Item* s = stems[i];
+	  if (Stem::invisible_b (s))
+	    continue;
+	  ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0, 
+			       Stem::calc_stem_info (s).idealy_f_));
+	}
+      Real dydx;
+      minimise_least_squares (&dydx, &y, ideals);
+
+      Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
+      dy = dydx * dx;
+    }
+
+  /* Store true, not dir-corrected values */
+  Direction dir = Directional_element_interface::get (me);
+  me->set_grob_property ("y", gh_double2scm (y * dir));
+  me->set_grob_property ("dy", gh_double2scm (dy * dir));
+  return SCM_UNSPECIFIED;
 }
 
-bool
-Beam::suspect_slope_b (Grob*me, Real y, Real dy) 
+MAKE_SCHEME_CALLBACK (Beam, cancel_suspect_slope, 1);
+SCM
+Beam::cancel_suspect_slope (SCM smob)
 {
-  /* first, calculate y, dy */
-  /*
-    steep slope running against lengthened stem is suspect
-  */
+  Grob *me = unsmob_grob (smob);
+  
+  if (visible_stem_count (me) <= 1)
+    return SCM_UNSPECIFIED;
+  
+  /* Stem_info, and thus y,dy in this function are corrected for beam-dir */
+  Direction dir = Directional_element_interface::get (me);
+  Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+  Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
+  
+ /* steep slope running against lengthened stem is suspect */
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   Real last_ideal = Stem::calc_stem_info (last_visible_stem (me)).idealy_f_;
   Real lengthened = gh_scm2double (me->get_grob_property ("outer-stem-length-limit"));
@@ -424,9 +390,12 @@ Beam::suspect_slope_b (Grob*me, Real y, Real dy)
   if (((y - first_ideal > lengthened) && (dydx > steep))
       || ((y + dy - last_ideal > lengthened) && (dydx < -steep)))
     {
-      return true;
+      Real adjusted_y = y + dy / 2;
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
+      me->set_grob_property ("dy", gh_double2scm (0)); 
     }
-  return false;
+  return SCM_UNSPECIFIED;
 }
 
 /*
@@ -434,23 +403,167 @@ Beam::suspect_slope_b (Grob*me, Real y, Real dy)
   damped = tanh (slope)
   corresponds with some tables in [Wanske]
 */
-Real
-Beam::calc_slope_damping_f (Grob*me,Real dy) 
+MAKE_SCHEME_CALLBACK (Beam, slope_damping, 1);
+SCM
+Beam::slope_damping (SCM smob)
 {
-  SCM damp = me->get_grob_property ("damping"); 
-  int damping = gh_scm2int (damp);
+  Grob *me = unsmob_grob (smob);
+
+  if (visible_stem_count (me) <= 1)
+    return SCM_UNSPECIFIED;
+
+  SCM s = me->get_grob_property ("damping"); 
+  int damping = gh_scm2int (s);
 
   if (damping)
     {
-  // ugh -> use commonx
+      /* y,dy in this function are corrected for beam-dir */
+      Direction dir = Directional_element_interface::get (me);
+      Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+      Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
+      
+      // ugh -> use commonx
       Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS)
 	- first_visible_stem (me)->relative_coordinate (0, X_AXIS);
       Real dydx = dy && dx ? dy/dx : 0;
       dydx = 0.6 * tanh (dydx) / damping;
-      return dydx * dx;
+
+      Real damped_dy = dydx * dx;
+      Real adjusted_y = y + (dy - damped_dy) / 2;
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
+      me->set_grob_property ("dy", gh_double2scm (damped_dy * dir));
     }
-  return dy;
+    return SCM_UNSPECIFIED;
 }
+
+/*
+  Quantise dy (height) of beam.
+  Generalisation of [Ross].
+  */
+MAKE_SCHEME_CALLBACK (Beam, quantise_dy, 1);
+SCM
+Beam::quantise_dy (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  if (visible_stem_count (me) <= 1)
+    return SCM_UNSPECIFIED;
+
+  Array<Real> a;
+  SCM proc = me->get_grob_property ("height-quants");
+  SCM quants = gh_call2 (proc, me->self_scm (),
+			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
+					/ 1.0));
+  
+  for (SCM s = quants; gh_pair_p (s); s = gh_cdr (s))
+    a.push (gh_scm2double (gh_car (s)));
+  
+  if (a.size () > 1)
+    {
+      /* y,dy in this function are corrected for beam-dir */
+      Direction dir = Directional_element_interface::get (me);
+      Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+      Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
+
+      Real staff_space = Staff_symbol_referencer::staff_space (me);
+      
+      Interval iv = quantise_iv (a, abs (dy)/staff_space) * staff_space;
+      Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
+	? iv[SMALLER]
+	: iv[BIGGER];
+      
+      Real quantised_dy = q * sign (dy);
+      Real adjusted_y = y + (dy - quantised_dy) / 2;
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
+      me->set_grob_property ("dy", gh_double2scm (quantised_dy * dir));
+    }
+  return SCM_UNSPECIFIED;
+}
+
+/* It's tricky to have the user override y,dy directly, so we use this
+   translation func.  Also, if our staff_space != 1 (smaller staff, eg),
+   user will expect staff-position to be discrete values. */
+MAKE_SCHEME_CALLBACK (Beam, user_override, 1);
+SCM
+Beam::user_override (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  SCM s = me->get_grob_property ("staff-position");
+  if (gh_number_p (s))
+    {
+      Real y = gh_scm2double (s) * staff_space;
+      me->set_grob_property ("y", gh_double2scm (y));
+    }
+
+  /* Name suggestions? Tilt, slope, vertical-* ? */
+  s = me->get_grob_property ("height");
+  if (gh_number_p (s))
+    {
+      Real dy = gh_scm2double (s) * staff_space;
+      me->set_grob_property ("dy", gh_double2scm (dy));
+    }
+  
+  return SCM_UNSPECIFIED;
+}
+
+/*
+  Ugh, this must be last, after user_override
+  Assumes directionised y/dy.
+ */
+MAKE_SCHEME_CALLBACK (Beam, do_quantise_y, 1);
+SCM
+Beam::do_quantise_y (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  /*
+    If the user set y-position, we shouldn't do quanting.
+   */
+  if (gh_number_p (me->get_grob_property ("y-position-hs")))
+    return SCM_UNSPECIFIED;
+
+  Real y = gh_scm2double (me->get_grob_property ("y"));
+  Real dy = gh_scm2double (me->get_grob_property ("dy"));
+      
+  /* we can modify y, so we should quantise y */
+  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
+  Real y_shift = check_stem_length_f (me, y, dy);
+  y += y_shift;
+  y = quantise_y_f (me, y, dy, 0);
+
+  /*
+    Hmm, this is a bit keyhole operation: we're passing `this' as a
+    parameter, and member vars as SCM properties.  We should decide on
+    SCM/C/C++ boundary */
+  me->set_grob_property ("y", gh_double2scm (y));
+  set_stem_lengths (me);
+  y = gh_scm2double (me->get_grob_property ("y"));
+  
+  y_shift = check_stem_length_f (me, y, dy);
+
+  if (y_shift > half_space / 4)
+    {
+      y += y_shift;
+
+      /*
+	for significantly lengthened or shortened stems,
+	request quanting the other way.
+      */
+      int quant_dir = 0;
+      if (abs (y_shift) > half_space / 2)
+	quant_dir = sign (y_shift) * Directional_element_interface::get (me);
+      y = quantise_y_f (me, y, dy, quant_dir);
+    }
+  
+  me->set_grob_property ("y", gh_double2scm (y));
+  // me->set_grob_property ("dy", gh_double2scm (dy));
+  return SCM_UNSPECIFIED;
+}
+
 
 Real
 Beam::calc_stem_y_f (Grob*me,Item* s, Real y, Real dy) 
@@ -530,15 +643,18 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
   stem directions and length should set to relative to the chord's
   position of the beam.  */
 void
-Beam::set_stem_length (Grob*me,Real y, Real dy)
+Beam::set_stem_lengths (Grob *me)
 {
+  if (visible_stem_count (me) <= 1)
+    return;
+  
+  Real y = gh_scm2double (me->get_grob_property ("y"));
+  Real dy = gh_scm2double (me->get_grob_property ("dy"));
+
   Real half_space = Staff_symbol_referencer::staff_space (me)/2;
   Link_array<Item> stems=
     Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
-  if (stems.size () < 1)
-    return;
-  
   Grob *common = me->common_refpoint (stems[0], Y_AXIS);
   for (int i=1; i < stems.size (); i++)
     if (!Stem::invisible_b (stems[i]))
@@ -560,45 +676,9 @@ Beam::set_stem_length (Grob*me,Real y, Real dy)
 }
 
 /*
-  [Ross] (simplification of)
-  Set dy complying with:
-    - zero
-    - thick / 2 + staffline_f / 2
-    - thick + staffline_f
-  + n * staff_space
-*/
-Real
-Beam::quantise_dy_f (Grob*me,Real dy) 
-{
-  Array<Real> a;
-
-  SCM proc = me->get_grob_property ("height-quants");
-  SCM quants = gh_call2 (proc, me->self_scm (),
-			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
-					/ 1.0));
-  
-  
-  for (SCM s = quants; gh_pair_p (s); s = gh_cdr (s))
-    a.push (gh_scm2double (gh_car (s)));
-  
-  if (a.size () <= 1)
-    return dy;
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  
-  Interval iv = quantise_iv (a, abs (dy)/staff_space) * staff_space;
-  Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
-    ? iv[SMALLER]
-    : iv[BIGGER];
-  
-  return q * sign (dy);
-}
-
-/*
   Prevent interference from stafflines and beams.
-  See Documentation/tex/fonts.doc
 
-  We only need to quantise the (left) y-position of the beam,
+  We only need to quantise the (left) y of the beam,
   since dy is quantised too.
   if extend_b then stems must *not* get shorter
  */
@@ -694,7 +774,7 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
   Real dx = visible_stem_count (me) ?
     last_visible_stem (me)->relative_coordinate (0, X_AXIS) - first_visible_stem (me)->relative_coordinate (0, X_AXIS)
     : 0.0;
-  Real dy = gh_scm2double (me->get_grob_property ("height"));
+  Real dy = gh_scm2double (me->get_grob_property ("dy"));
   Real dydx = dy && dx ? dy/dx : 0;
 
   Molecule leftbeams;
@@ -794,10 +874,6 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
   return leftbeams;
 }
 
-/*
-  TODO: it would be nice to introduce y-position via callbacks.
- */
-
 MAKE_SCHEME_CALLBACK(Beam,brew_molecule,1);
 SCM
 Beam::brew_molecule (SCM smob)
@@ -823,9 +899,9 @@ Beam::brew_molecule (SCM smob)
     }
   
   
-  Real dy = gh_scm2double (me->get_grob_property ("height"));
+  Real dy = gh_scm2double (me->get_grob_property ("dy"));
   Real dydx = dy && dx ? dy/dx : 0;
-  Real y = gh_scm2double (me->get_grob_property ("y-position"));
+  Real y = gh_scm2double (me->get_grob_property ("y"));
 
 
   for (int j=0; j <stems.size  (); j++)
@@ -945,11 +1021,11 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 
 
   // todo: make sure this calced already.
-  SCM s = beam->get_grob_property ("height");
+  SCM s = beam->get_grob_property ("dy");
   if (gh_number_p (s))
     beam_dy = gh_scm2double (s);
   
-  s = beam->get_grob_property ("y-position");
+  s = beam->get_grob_property ("y");
   if (gh_number_p (s))
     beam_y = gh_scm2double (s);
   
@@ -993,10 +1069,12 @@ Beam::has_interface (Grob*me)
 void
 Beam::set_interface (Grob*me)
 {
+#if 0
   /*
     why the init? No way to tell difference between default and user
     override.  */
-  me->set_grob_property ("height", gh_int2scm (0)); // ugh.
-  me->set_grob_property ("y-position" ,gh_int2scm (0));
+  me->set_grob_property ("y" ,gh_double2scm (0));
+  me->set_grob_property ("dy", gh_double2scm (0));
   me->set_interface (ly_symbol2scm("beam-interface"));
+#endif
 }
