@@ -1,3 +1,9 @@
+2004-03-02  Heikki Junes <hjunes@cc.hut.fi>
+
+	* vim/ftplugin/lilypond.vim:
+	* vim/syntax/lilypond.vim: use only local settings with setlocal.
+	show matching paren in insert mode.
+
 2004-03-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (make-title, output-scopes): Further

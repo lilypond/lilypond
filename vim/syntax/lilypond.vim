@@ -27,7 +27,7 @@ else
 endif
 
 " Match also parethesis of angle type
-set mps+=<:>
+setlocal mps+=<:>
 
 " Case matters
 syn case match

@@ -11,8 +11,8 @@ endif
 " Don't load another plugin for this buffer
 let b:did_ftplugin = 1
 
-set autoindent
-set shiftwidth=2
+setlocal autoindent
+setlocal shiftwidth=2
 "
 " some handy key mappings
 "
@@ -38,11 +38,11 @@ map <buffer> <F8> :cn<Return>
 map <buffer> <F9> :w<Return>:se makeprg=make\ -k<Return>:make<Return>
 "
 " <F10> menu
-:source $VIMRUNTIME/menu.vim
-:set wildmenu
-:set cpo-=<
-:set wcm=<C-Z>
-:map <buffer> <F10> :emenu <C-Z>
+source $VIMRUNTIME/menu.vim
+setlocal wildmenu
+setlocal cpo-=<
+setlocal wcm=<C-Z>
+map <buffer> <F10> :emenu <C-Z>
 "
 " <F12> comment region
 map <buffer> <F12> :g!/%.*/normal 0i%<Return>
@@ -51,6 +51,7 @@ map <buffer> <F12> :g!/%.*/normal 0i%<Return>
 map <buffer> <S-F12> :g/%.*/normal 0x<Return>
 "
 " Completions in Insert/Replace-mode with <Ctrl-N>
-set dictionary-=~/.vim/syntax/lilypond.words.el dictionary+=~/.vim/syntax/lilypond.words.el
-set complete-=k complete+=k
-
+setlocal dictionary-=~/.vim/syntax/lilypond.words.el dictionary+=~/.vim/syntax/lilypond.words.el
+setlocal complete-=k complete+=k
+"
+setlocal showmatch
