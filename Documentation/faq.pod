@@ -35,13 +35,13 @@ Q: I can type
 to make a few chords, but why do I have to type
 
 
-	< { a() e } { c () g } >
+	< { a~ e } { c ~ g } >
 
 instead of
 
-	<a( c(> <)e )g>
+	<a~ c~> <e g>
 
-to generate slurs between the chords?
+to generate ties between the chords?
 
 A: When you type 
 
@@ -51,14 +51,14 @@ this is shorthand for
 
 	< { a } { c } > < { e } { g } >
 
-Slurs have to be confined to `voices', and the a and the e are in
+Ties have to be confined to `voices', and the a and the e are in
 different {} blocks, so they are in different voices. You should view
 the desired construct as a "generalised chord" (two voices stacked
 vertically). It might help you visualise this by using the following
 formatting:
 
-	< { a () e }
-	  { c () g }
+	< { a ~ e }
+	  { c ~ g }
 	>
 
 Q: and where do the beams come into this picture?
@@ -66,9 +66,9 @@ Q: and where do the beams come into this picture?
 A: Beams are voicegroup-wide, and may be entered in any part of the
 voicegroup:
 
-	< { [a () e] } { c () g } >
-	< { [a () e } { c () g] } >
-	< { [a () e] } { [c () g] } >
+	< { [a ~ e] } { c ~ g } >
+	< { [a ~ e } { c ~ g] } >
+	< { [a ~ e] } { [c ~ g] } >
 
 These all give the same result.
 

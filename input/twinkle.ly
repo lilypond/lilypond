@@ -1,11 +1,20 @@
-%  "Ah, vous dirais-je, maman" 
-%  "Altijd is Kortjakje ziek"
-%  "Twinkle twinkle little star"
-% 
-% Copyright: none
-\version "0.0.56";
+%{MudelaHeader
 
-\version "0.0.55";
+ filename: twinkle.ly
+ title: twinkle twinkle little star
+ description: 
+  "Ah, vous dirais-je, maman" 
+  "Altijd is Kortjakje ziek"
+  "Twinkle twinkle little star"
+
+ composers: ?
+ entered-by: HWN & JCN
+ copyright: public domain
+
+ Tested Features: lyrics
+EndMudelaHeader
+%}
+\version "0.0.57";
 
 melody = \melodic{
 	\clef\violin;

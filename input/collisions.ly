@@ -1,12 +1,24 @@
-% test the Collision resolution 
-\version "0.0.56";
+%{MudelaHeader
+
+ filename: collisions.ly
+ title:
+ description: 
+ composer(s): HWN
+ entered-by: HWN
+ copyright: public domain
+
+ Tested Features:%test the Collision resolution 
+EndMudelaHeader
+%}
+\version "0.0.57";
+
 
 two_voice_steminvert = \melodic { 
 	< \multivoice 
 	  {	\octave c'; \stem 1;
-		c d e f() g2 g a }
+		c d e f~  g2 g a }
 	  { \stem -1;
-		g f e g ()g2 g2 } 
+		g f e g ~ g2 g2 } 
 
 	>
 }	
@@ -14,9 +26,9 @@ two_voice_steminvert = \melodic {
 two_voice = \melodic { 
 	< \multivoice 
 	  {	\octave c'; \stem -1;
-		c d e f g2() g a }
+		c d e f g2~  g a }
 	  { \stem 1;
-		g f e g ()g2 g2 } 
+		g f e g ~ g2 g2 } 
 
 	>
 }	

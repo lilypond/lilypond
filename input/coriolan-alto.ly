@@ -1,16 +1,22 @@
-% Ludwig van Beethoven (1770-1792)
-%
-% Opus 62
-% Ouverture zu Collins Trauerspiel "Coriolan"
-%
-% a 5 bar fragment of the alto part
-%
-% Copyright (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+%{MudelaHeader
+
+ filename: coriolan-alto.ly
+ title:Ouverture zu Collins Trauerspiel "Coriolan" Opus 62
+ description:  a 5 bar fragment of the alto part
+ composer(s): Ludwig van Beethoven (1770-1792)
+ entered-by: JCN
+ copyright: public domain
+
+ Tested Features:
+EndMudelaHeader
+%}
+
 %
 % when lily can handle this, i-ll type the other 304 bars 
 % (maybe even sooner :-)
 %
-\version "0.0.56";
+
+\version "0.0.57";
 
 alto = \melodic{ 
 	
