@@ -136,7 +136,7 @@ o    Python   (version   1.5   or   newer).     Check    out
 
 
 o    Yodl.   All  documentation  will  be in Yodl. (1.30.17)
-     ftp://pcnov095.win.tue.nl/pub/yodl
+     ftp://ftp.lilypond.org/pub/yodl
      http://www.cs.uu.nl/~hanwen/yodl
 
 

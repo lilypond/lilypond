@@ -31,14 +31,6 @@ Beam_engraver::do_try_music (Music *m)
     {
       Direction d =c->spantype_;
 
-      /*
-	Perhaps not print warnings ?
-       */
-      if (d == START && beam_p_)
-	{
-	  m->warning ("Already have a Beam");
-	  return false;
-	}
       if (d == STOP && !beam_p_)
 	{
 	  m->warning ("No Beam to end");
@@ -67,6 +59,12 @@ Beam_engraver::do_process_requests ()
   
   if (reqs_drul_[START])
     {
+      if (beam_p_)
+	{
+	  reqs_drul_[START]->warning ("Already have a Beam");
+	  return;
+	}
+
       beam_p_ = new Beam;
       grouping_p_ = new Rhythmic_grouping;
 
