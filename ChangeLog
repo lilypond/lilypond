@@ -1,5 +1,10 @@
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/mutopia/J.S.Bach/bwv940.ly: add 1 petite prelude
+
+	* input/mutopia/J.S.Bach/GNUmakefile (EXTRA_DIST_FILES): remove
+	Petites-Preludes 
+
 	* input/test/partial-blank.ly (quickmeasure): syntax
 
 	* lily/slur.cc (get_attachment): bugfix: don't crash on non-cons

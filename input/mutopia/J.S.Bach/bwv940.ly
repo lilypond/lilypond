@@ -1,14 +1,46 @@
-%#(ly:set-point-and-click 'line-column)
+\version "1.8.0"
 
-opus = "BWV 940"
-piece = "6"
+%{
+ Header for Petites Preludes.
 
-\version "1.7.18"
+ Six Petits Preludes,
+ Collection Johann Peter Kellner
+ ca 1703 - 1707
+
+ Kellner was a student of Bach's that copied some 90 works of his master.
+%}
 
 
+\header{
+  title =	 "Praeludium"
+  composer =	 "Johann Sebastian Bach (1685-1750)"
+  enteredby =	 "JCN,HWN"
+  opus= "BWV 940"
 
-one =  \context Staff \notes\relative c{
-	\context Voice=i
+
+  % mutopia headers.
+  mutopiacomposer = "J.S.Bach (1685-1750)"
+  mutopiaopus = "BWV940"
+
+  mutopiainstrument = "Harpsichord,Clavichord"
+  date = "1700s"
+  source = "Ed. Henry Lemoine Urtext"
+  style = "Baroque"
+  copyright = "Public Domain"
+  maintainer = "Jan Nieuwenhuizen"
+  maintainerEmail = "janneke@gnu.org"
+  lastupdated =	 "2003/Aug/22"
+  mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
+    \\\\This music is part of the Mutopia project,
+    \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
+    and placed in the public domain by " + \maintainer +
+    ".\\\\Unrestricted modification and redistribution is permitted
+    and encouraged---copy this music and share it.}"
+ tagline = \mutopiapublicdomain
+ footer = "Mutopia-2003/08/22-nr"
+}
+
+one =   \notes\relative c{
 	\skip 1 |
 	\stemUp
 	r4 d''2 cis4 |
@@ -29,8 +61,7 @@ one =  \context Staff \notes\relative c{
 	\bar "|."
 }
 
-two =  \context Staff \notes\relative c{
-	\context Voice=ii
+two =   \notes\relative c{
 	r16 d'' c bes  a bes f g 
 	a8.-\mordent bes16  g8.-\prall f16 |
 	\stemDown
@@ -41,7 +72,7 @@ two =  \context Staff \notes\relative c{
 	r16 b' a g  f8. f16 e2 ~ |
 	%5
 	e2 ~ e4 ~ e16 e f! d |
-	s4 e32 d e8.~ e4 d4 ~ |
+	s4 e4_\mordent-~ e4 d4 ~ |
 	d4. cis16 d cis4 d ~ |
 	d8 r r16 e f d r16 e f d r d e cis |
 	r16 e d c!  bes! d8. s4 r16 bes' a g |
@@ -49,8 +80,7 @@ two =  \context Staff \notes\relative c{
 	fis1
 }
 
-three =  \context Staff \notes\relative c{
-	\context Voice=iii
+three = \notes\relative c{
 	\stemUp
 	f2 e |
 	\stemBoth
@@ -61,10 +91,11 @@ three =  \context Staff \notes\relative c{
 	a2 ~ a16 a g f  e f c d |
 	%5
 	e8.-\mordent f16  d8.-\prall c16 \stemBoth c4. d8 |
-	\stemDown
+	\stemDown	\tieDown
+
 	e4 ~ e16 f e d  cis a b cis  d e f d |
 	\property Voice.TextScript \set #'font-style = #'finger
-	bes!2 a ~ |
+	bes2 a ~ |
 	a a |
 	d, cis' |
 	%10
@@ -72,8 +103,7 @@ three =  \context Staff \notes\relative c{
 	\bar "|."
 }
 
-four =  \context Staff \notes\relative c{
-	\context Voice=iv
+four =   \notes\relative c{
 	\stemDown 
 	d2 cis |
 	\skip 1*2 |
@@ -93,7 +123,9 @@ four =  \context Staff \notes\relative c{
 	d4. fis16 g r16 bes8. ~ bes4 |
 	%10
 	\stemDown
-	d,1
+	< d,1  { \fatText s4^\markup { \hspace #20 }
+		 s4^\markup { \hspace #1 }  s4 }
+	     >
 }
 
 global =  \notes{
@@ -106,25 +138,24 @@ global =  \notes{
 	\context PianoStaff <
 		\context Staff = upper <
 			\global
-			\one
-			\two
+			\context Voice = i\one
+			\context Voice = ii \two
 		>
 		\context Staff = lower <
 			\global
 			\clef "bass"
-			\three
-			\four
+			\context Voice= iii \three
+			\context Voice = iv \four
 		>
 	>
 	\paper{
-		linewidth = 18.0 \cm  
-
+		linewidth = 17.0 \cm  
+		\translator {
+		    \ScoreContext
+		    SpacingSpanner \set #'spacing-increment = #2.0
+		}
 	}
 	\midi{ \tempo 4 = 40 }
-	\header{
-		piece = \piece
-		opus = \opus
-	}
 }
 
 
