@@ -2,12 +2,15 @@
 
 ;; Copyright (C) 1992,1993,1994  Tim Peters
 
+;; Author: 2001: Heikki Junes
+;;  * Emacs-mode: new keywords, reserved words, notenames and brackets are
+;;    font-lock-keywords; implementation encourages spacing/indenting.
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
 ;; Version:       0.0
-;; Last Modified: 12SEP97
+;; Last Modified: 1SEP2001
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -19,35 +22,91 @@
 ;; This started out as a cannabalised version of python-mode.el, by hwn
 ;; For changes see the LilyPond ChangeLog
 ;;
+
 ;; TODO:
 ;;   - should handle block comments too.
 ;;   - handle lexer modes (\header, \melodic, \lyric) etc.
 ;;   - indentation
-;;   - notenames?
-;;   - fontlock: \melodic \melodic
 
 (defconst LilyPond-font-lock-keywords
-  (let* ((keywords '(
+  (let* ((keywords '( ; need special order due to over[lapping] of words
 
-"apply" "arpeggio" "autochange" "spanrequest" "commandspanrequest"
-"simultaneous" "sequential" "accepts" "alternative" "bar" "breathe"
-"char" "chordmodifiers" "chords" "clef" "cm" "consists" "consistsend"
-"context" "denies" "duration" "dynamicscript" "elementdescriptions"
-"font" "grace" "header" "in" "lyrics" "key" "mark" "musicalpitch"
-"time" "times" "midi" "mm" "name" "notenames" "notes" "outputproperty"
-"override" "set" "revert" "partial" "paper" "penalty" "property" "pt"
-"relative" "remove" "repeat" "addlyrics" "partcombine" "score"
-"script" "stylesheet" "skip" "textscript" "tempo" "translator"
-"transpose" "type" "unset" 
+"accepts" "addlyrics" "alternative" "apply" "arpeggio" "autoBeamOff"
+"autoBeamOn" "autochange" "bar" "BarNumberingStaffContext" "break"
+"breathe" "breve" "cadenzaOn" "cadenzaOff" "char" "chord" "chordmodifiers"
+"ChordNamesContext" "chordstest" "chords" "clef" "cm" "commandspanrequest"
+"consistsend" "consists" "context" "default" "denies" "different"
+"dotsBoth" "dotsDown" "dotsUp" "duration" "dynamicscript" "dynamicUp"
+"dynamicDown" "dynamicBoth" "EasyNotation" "elementdescriptions"
+"emptyText" "extreme" "ex" "fatText" "fermata" "fff" "ff" "f" "font" "foo"
+"glissando" "gliss" "grace" "grstaff" "hairyChord" "HaraKiriStaffContext"
+"header" "hideStaffSwitch" "include" "in" "key" "linebreak" "longa"
+"lyrics" "LyricsContext" "LyricsVoiceContext" "major" "mark" "melismaEnd"
+"melisma" "midi" "minor" "mm" "musicalpitch" "m" "name" "newpage"
+"noBreak" "noisebeat" "noise" "normalkey" "normalsize" "notenames" "notes"
+"n" "onestaff" "oneVoice" "one" "OrchestralScoreContext" "outputproperty"
+"override" "paperTwentysix" "paper" "partcombine" "partial" "penalty"
+"PianoStaffContext" "pp" "property" "pt" "p" "relative" "remove" "repeat"
+"restsII" "rests" "revert" "rhythm" "right" "scales" "scale" "scheme"
+"score" "ScoreContext" "scpaper" "scriptBoth" "scriptDown" "scriptUp"
+"script" "scscore" "sd" "sequential" "settings" "set" "sfz" "shitfOnnn"
+"shitfOnn" "shitfOn" "shitfOff" "showStaffSwitch" "simultaneous" "skip"
+"slurBoth" "slurDown" "slurUp" "slurDotted" "slurSolid" "small"
+"spanrequest" "specialKey" "staccato" "StaffContext" "staffspace"
+"stemBoth" "stemDown" "stemUp" "stpaper" "stscore" "stylesheet" "su"
+"tempo" "tenuto" "textII" "textI" "textscript" "thenotes" "ThreadContext"
+"threevoice" "tieBoth" "tieDown" "tieDotted" "tieSolid" "tieUp" "times"
+"time" "tiny" "touch" "translator" "transpose" "tupletBoth" "tupletDown"
+"tupletUp" "twovoicesteminvert" "twovoice" "two" "turnOff" "type" "t"
+"unset" "version" "voiceB" "VoiceContext" "voiceC" "voiceD" "voiceE"
+"voiceOne" "voiceTwo" "voiceThree" "voiceFour" "zagers" "zager" "zoger"
+
 		      ))
-       (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
+
+  (reservedwords '(
+
+"bass" "treble" "PianoStaff"
+
+		      ))
+
+       (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|"))
+       (rwregex (mapconcat (lambda (x) (concat "" x))  reservedwords "\\|"))
+)
 
     (list 
-      (concat ".\\(" kwregex "\\)[^a-zA-Z]")
-      (concat "^\\(" kwregex "\\)[^a-zA-Z]")
-      '(".\\(\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-variable-name-face)
-      '("^[\t ]*\\([a-zA-Z][_a-zA-Z]*\\) *=" 1 font-lock-variable-name-face)     
-    ))
+;; Fonts in use (from GNU Emacs Lisp Reference Manual, elisp.ps):
+;; font-lock- comment / string / keyword / builtin / function-name / 
+;;            variable-name / type / constant / warning -face
+
+;; Using extra spaces was both easier to parse and looks better!
+;; highlight note grouping brackets; space around these { [ < brackets > ] }
+;;   make the text look {less[<messyand>]erronous}
+      '("\\([<{[]\\)[ \t]" 1 font-lock-warning-face)
+      '("\\([\]}>]\\)[ \t]" 1 font-lock-warning-face)
+      '("^\\([<{[]\\)[ \t]" 1 font-lock-warning-face)
+      '("^\\([\]}>]\\)[ \t]" 1 font-lock-warning-face)
+      '("\\([<{[]\\)$" 1 font-lock-warning-face)
+      '("\\([\]}>]\\)$" 1 font-lock-warning-face)
+
+;; highlight keywords; space after[ ]these commands /increases/readability
+      (concat "\\([_^]?\\(" kwregex "\\)\\)[ \t(]")
+      (concat "\\([_^]?\\(" kwregex "\\)\\)$")
+      '("\\([_^]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
+      '("\\([a-zA-Z][_a-zA-Z]*\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
+      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)[ \t(]" 1 font-lock-variable-name-face)
+      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)$" 1 font-lock-variable-name-face)
+
+;; other reserved words
+      (cons (concat "\\(" rwregex "\\) ") 'font-lock-variable-name-face)
+      (cons (concat "\\(" rwregex "\\)$") 'font-lock-variable-name-face)
+
+;; highlight note names; separate notes from (other than ')'-type) brackets
+      '("[ )\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(b\\|bb\\|d\\|dd\\|s\\|ss\\)?\\)\\|\\([a-hsr]\\(f\\|ff\\|s\\|ss\\|flat\\|flatflat\\|sharp\\|sharpsharp\\|is[s]?\\|is[s]?is[s]?\\|es[s]?\\|es[s]?es[s]?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(ses\\)?\\)\\|\\(bb\\)\\)[,']*\\(64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+
+      '("\\([(~)]\\)" 1 font-lock-builtin-face)
+
+      )
+    )
   "Additional expressions to highlight in LilyPond mode.")
 
 ;; define a mode-specific abbrev table for those who use such things

@@ -36,7 +36,7 @@ list is alphabetically ordered.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     parts of Documentation/Vocab*
 @item @email{heikki.junes@@hut.fi, Heikki Junes}. 
-    Finnish note names
+    Finnish note names, updates to Emacs-mode
 @item Donald Ervin Knuth,  @uref{http://www-cs-staff.stanford.edu/~knuth/}
     mf/ital-*.mf (these were taken from the CM fonts)
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
