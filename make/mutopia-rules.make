@@ -19,22 +19,13 @@ $(outdir)/%.ly.txt: %.abc
 $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
-$(outdir)/%.dvi: $(outdir)/%.ly
+$(outdir)/%.ps: $(outdir)/%.ly
 	$(PYTHON) $(LY2DVI) --output=$@ $<  
 
-# don't junk intermediate .dvi files.  They're easier to view than
-# .ps or .png
-.PRECIOUS: $(outdir)/%.dvi
+$(outdir)/%.ps: %.ly
+	$(PYTHON) $(LY2DVI) --output=$@ $<  
 
-$(outdir)/%.dvi: %.ly
-	$(PYTHON) $(LY2DVI) --output=$@ $< 
-
-
-$(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) -o $@.pdfps $<
-	ps2pdf -sPAPERSIZE=$(DVIPS_PAPERSIZE) $@.pdfps $@
-
-$(outdir)-$(PAPERSIZE)/%.dvi: %.ly
-	$(PYTHON) $(LY2DVI) --output=$@ --set=papersize=$(PAPERSIZE) $< 
+$(outdir)/%.pdf: $(outdir)/%.ps
+	ps2pdf -sPAPERSIZE=a4 $< $@
 
 
