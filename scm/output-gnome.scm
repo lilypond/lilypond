@@ -4,10 +4,8 @@
 ;;;; 
 ;;;; (c) 2004--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;; TODO:
-;;;
-;;;  * font selection: name, size, design size
-;;;  * font scaling
+;;;; TODO:
+;;;;
 ;;;;  * .cff MUST NOT be in fc's fontpath.
 ;;;;    - workaround: remove mf/out from ~/.fonts.conf,
 ;;;;      instead add ~/.fonts and symlink all /mf/out/*otf there.
@@ -108,9 +106,6 @@ lilypond -fgnome input/simple-song.ly
   (apply format (cons (current-error-port) (cons string rest)))
   (force-output (current-error-port)))
 
-(define (debugf string . rest)
-  (if #f
-      (apply stderr (cons string rest))))
 
 (define (utf8 i)
   (cond
@@ -144,23 +139,19 @@ lilypond -fgnome input/simple-song.ly
     (string=? (substring family 0 (min (string-length family) 10))
 	      "emmentaler")))
 
+;;; FONT may be font smob, or pango font string
 (define (pango-font-name font)
-  (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
-  (debugf (apply format (append '(#f "PANGO-NAME:~a, ~a\n") (font-name-style font))))
-  (apply format (append '(#f "~a, ~a") (font-name-style font))))
+  (if (string? font)
+      (list font "Regular")
+      (apply format (append '(#f "~a, ~a") (font-name-style font)))))
 
-(define (pango-font-size font)
-  (let* ((designsize (ly:font-design-size font))
-	 (magnification (* (ly:font-magnification font)))
-	 ;; FIXME
-	 ;;(scaling (* output-scale magnification designsize)))
-	 (scaling (* 1.4 output-scale magnification designsize)))
-    ;;(debugf "OPS:~S\n" ops)
-    (debugf "scaling:~S\n" scaling)
-    (debugf "magnification:~S\n" magnification)
-    (debugf "design:~S\n" designsize)
-    
-    scaling))
+;;; FONT may be font smob, or pango font string
+(define (canvas-font-size font)
+  ;; FIXME: 1.85?
+  (* 1.85
+     (if (string? font)
+	 12
+	 (* output-scale (font-size font)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA
@@ -329,10 +320,11 @@ lilypond -fgnome input/simple-song.ly
      (placebox (car x) (cadr x)
 	       (make <gnome-canvas-text>
 		 #:parent (canvas-root)
+		 ;;#:x 0.0 #:y (if (music-font? font) 0.15 0.69)
 		 #:x 0.0 #:y 0.0
 		 #:anchor 'west
 		 #:font (pango-font-name font)
-		 #:size-points 12
+		 #:size-points (canvas-font-size font)
 		 #:size-set #t
 		 #:text
 		 (integer->utf8-string
@@ -389,20 +381,12 @@ lilypond -fgnome input/simple-song.ly
       #:join-style 'round)))
 
 (define (text font s)
-  (debugf "FONT:~S\n" font)
-  (debugf "FONT:~S\n" (pango-font-name font))
-
   (make <gnome-canvas-text>
     #:parent (canvas-root)
-    ;; ugh, experimental placement corections
-    ;; #:x 0.0 #:y 0.0
-    #:x 0.0 #:y (if (music-font? font) 0.15 0.69)
+    #:x 0.0 #:y 0.0
     #:anchor (if (music-font? font) 'west 'south-west)
     #:font (pango-font-name font)
-    ;; FIXME: points
-    #:size-points (pango-font-size font)
-    ;;  or pixels?
-;;    #:size (inexact->exact (round (pango-font-size font)))
+    #:size-points (canvas-font-size font)
     #:size-set #t
     #:text (if (integer? s)
 	       (integer->utf8-string s)
@@ -414,6 +398,6 @@ lilypond -fgnome input/simple-song.ly
     #:x 0.0 #:y 0.0
     #:anchor 'west
     #:font pango-font-description
-    #:size-points 12
+    #:size-points (canvas-font-size pango-font-description)
     #:size-set #t
     #:text string))

@@ -269,6 +269,10 @@ possibly turned off."
   (apply format (cons (current-error-port) (cons string rest)))
   (force-output (current-error-port)))
 
+(define-public (debugf string . rest)
+  (if #f
+      (apply stderr (cons string rest))))
+
 (define (index-cell cell dir)
   (if (equal? dir 1)
       (cdr cell)
@@ -305,20 +309,28 @@ possibly turned off."
    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
    (else (error "unknown unit" (ly:unit)))))
 
-;;; font
+;;; FONT may be font smob, or pango font string...
 (define-public (font-name-style font)
-  ;; FIXME: ughr, (ly:font-name) sometimes also has Style appended.
-  (let* ((font-name (ly:font-name font))
-	 (full-name (if font-name font-name (ly:font-file-name font)))
-	 (name-style (string-split full-name #\-)))
-    ;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
-    (if (string-prefix? "feta-alphabet" full-name)
-	(list "emmentaler"
-	      (substring  full-name (string-length "feta-alphabet")))
-	(if (not (null? (cdr name-style)))
+      ;; FIXME: ughr, (ly:font-name) sometimes also has Style appended.
+      (let* ((font-name (ly:font-name font))
+	     (full-name (if font-name font-name (ly:font-file-name font)))
+	     (name-style (string-split full-name #\-)))
+	;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
+	(if (string-prefix? "feta-alphabet" full-name)
+	    (list "emmentaler"
+		  (substring  full-name (string-length "feta-alphabet")))
+	    (if (not (null? (cdr name-style)))
 	    name-style
 	    (append name-style '("Regular"))))))
 
+(define-public (font-size font)
+  (let* ((designsize (ly:font-design-size font))
+	 (magnification (* (ly:font-magnification font)))
+	 (scaling (* magnification designsize)))
+    (debugf "scaling:~S\n" scaling)
+    (debugf "magnification:~S\n" magnification)
+    (debugf "design:~S\n" designsize)
+    scaling))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
