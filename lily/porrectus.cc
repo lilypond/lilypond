@@ -362,7 +362,7 @@ Porrectus::brew_vaticana_molecule (Item *me,
   if (solid)
     {
       Molecule solid_head =
-	brew_bezier_sandwich (top_curve, bottom_curve);
+	Lookup::bezier_sandwich (top_curve, bottom_curve);
       molecule.add_molecule (solid_head);
     }
   else // outline
@@ -370,13 +370,13 @@ Porrectus::brew_vaticana_molecule (Item *me,
       Bezier inner_top_curve = top_curve;
       inner_top_curve.translate (Offset (0.0, -thickness));
       Molecule top_edge =
-	brew_bezier_sandwich (top_curve, inner_top_curve);
+	Lookup::bezier_sandwich (top_curve, inner_top_curve);
       molecule.add_molecule(top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
       inner_bottom_curve.translate (Offset (0.0, +thickness));
       Molecule bottom_edge =
-	brew_bezier_sandwich (bottom_curve, inner_bottom_curve);
+	Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve);
       molecule.add_molecule(bottom_edge);
 
       // TODO: Use horizontal slope with proper slope value rather
@@ -452,117 +452,31 @@ Porrectus::brew_mensural_molecule (Item *me,
   if (solid)
     {
       Molecule solid_head =
-	brew_horizontal_slope (width, corrected_slope, height);
+	Lookup::horizontal_slope (width, corrected_slope, height);
       molecule.add_molecule (solid_head);
     }
   else // outline
     {
       Molecule left_edge =
-	  brew_horizontal_slope (thickness, corrected_slope, height);
+	Lookup::horizontal_slope (thickness, corrected_slope, height);
       molecule.add_molecule(left_edge);
 
       Molecule right_edge =
-	  brew_horizontal_slope (thickness, corrected_slope, height);
+	Lookup::horizontal_slope (thickness, corrected_slope, height);
       right_edge.translate_axis (width-thickness, X_AXIS);
       right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
       molecule.add_molecule(right_edge);
 
       Molecule bottom_edge =
-	  brew_horizontal_slope (width, corrected_slope, thickness);
+	Lookup::horizontal_slope (width, corrected_slope, thickness);
       bottom_edge.translate_axis (-0.5*height, Y_AXIS);
       molecule.add_molecule (bottom_edge);
 
       Molecule top_edge =
-	  brew_horizontal_slope (width, corrected_slope, thickness);
+	Lookup::horizontal_slope (width, corrected_slope, thickness);
       top_edge.translate_axis (+0.5*height, Y_AXIS);
       molecule.add_molecule (top_edge);
     }
   molecule.translate_axis (ypos_correction, Y_AXIS);
   return molecule;
-}
-
-/*
- * Bezier Sandwich:
- *
- *                               .|
- *                        .       |
- *              top .             |
- *              . curve           |
- *          .                     |
- *       .                        |
- *     .                          |
- *    |                           |
- *    |                          .|
- *    |                     .
- *    |         bottom .
- *    |            . curve
- *    |         .
- *    |      .
- *    |   .
- *    | .
- *    |.
- *    |
- *
- */
-// TODO: Move this to class Lookup?
-Molecule
-Porrectus::brew_bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
-{
-  /*
-    Need the weird order b.o. the way PS want its arguments  
-   */
-  SCM list = SCM_EOL;
-  list = gh_cons (ly_offset2scm (bottom_curve.control_[3]), list);
-  list = gh_cons (ly_offset2scm (bottom_curve.control_[0]), list);
-  list = gh_cons (ly_offset2scm (bottom_curve.control_[1]), list);
-  list = gh_cons (ly_offset2scm (bottom_curve.control_[2]), list);
-  list = gh_cons (ly_offset2scm (top_curve.control_[0]), list);
-  list = gh_cons (ly_offset2scm (top_curve.control_[3]), list);
-  list = gh_cons (ly_offset2scm (top_curve.control_[2]), list);
-  list = gh_cons (ly_offset2scm (top_curve.control_[1]), list);
-
-  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
-				    ly_quote_scm (list),
-				    gh_double2scm (0.0),
-				    SCM_UNDEFINED);
-
-  Interval x_extent = top_curve.extent (X_AXIS);
-  x_extent.unite (bottom_curve.extent (X_AXIS));
-  Interval y_extent = top_curve.extent (Y_AXIS);
-  y_extent.unite (bottom_curve.extent (Y_AXIS));
-  Box b (x_extent, y_extent);
-
-  return Molecule (b, horizontal_bend);
-}
-
-/*
- * Horizontal Slope:
- *
- *            /|   ^
- *           / |   |
- *          /  |   | height
- *         /   |   |
- *        /    |   v
- *       |    /
- *       |   /
- * (0,0) x  /slope=dy/dx
- *       | /
- *       |/
- *
- *       <----->
- *        width
- */
-// TODO: Move this to class Lookup?
-Molecule
-Porrectus::brew_horizontal_slope (Real width, Real slope, Real height)
-{
-  SCM width_scm = gh_double2scm (width);
-  SCM slope_scm = gh_double2scm (slope);
-  SCM height_scm = gh_double2scm (height);
-  SCM horizontal_slope = scm_list_n (ly_symbol2scm ("beam"),
-				     width_scm, slope_scm,
-				     height_scm, SCM_UNDEFINED);
-  Box b (Interval (0, width),
-	 Interval (-height/2, height/2 + width*slope));
-  return Molecule (b, horizontal_slope);
 }

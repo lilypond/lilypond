@@ -161,6 +161,90 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 }
 
 /*
+ * Bezier Sandwich:
+ *
+ *                               .|
+ *                        .       |
+ *              top .             |
+ *              . curve           |
+ *          .                     |
+ *       .                        |
+ *     .                          |
+ *    |                           |
+ *    |                          .|
+ *    |                     .
+ *    |         bottom .
+ *    |            . curve
+ *    |         .
+ *    |      .
+ *    |   .
+ *    | .
+ *    |.
+ *    |
+ *
+ */
+Molecule
+Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
+{
+  /*
+    Need the weird order b.o. the way PS want its arguments  
+   */
+  SCM list = SCM_EOL;
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[3]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[0]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[1]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[2]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[0]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[3]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[2]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[1]), list);
+
+  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
+				    ly_quote_scm (list),
+				    gh_double2scm (0.0),
+				    SCM_UNDEFINED);
+
+  Interval x_extent = top_curve.extent (X_AXIS);
+  x_extent.unite (bottom_curve.extent (X_AXIS));
+  Interval y_extent = top_curve.extent (Y_AXIS);
+  y_extent.unite (bottom_curve.extent (Y_AXIS));
+  Box b (x_extent, y_extent);
+
+  return Molecule (b, horizontal_bend);
+}
+
+/*
+ * Horizontal Slope:
+ *
+ *            /|   ^
+ *           / |   |
+ *          /  |   | height
+ *         /   |   |
+ *        /    |   v
+ *       |    /
+ *       |   /
+ * (0,0) x  /slope=dy/dx
+ *       | /
+ *       |/
+ *
+ *       <----->
+ *        width
+ */
+Molecule
+Lookup::horizontal_slope (Real width, Real slope, Real height)
+{
+  SCM width_scm = gh_double2scm (width);
+  SCM slope_scm = gh_double2scm (slope);
+  SCM height_scm = gh_double2scm (height);
+  SCM horizontal_slope = scm_list_n (ly_symbol2scm ("beam"),
+				     width_scm, slope_scm,
+				     height_scm, SCM_UNDEFINED);
+  Box b (Interval (0, width),
+	 Interval (-height/2, height/2 + width*slope));
+  return Molecule (b, horizontal_slope);
+}
+
+/*
   TODO: junk me.
  */
 Molecule

@@ -18,7 +18,7 @@ fet_begingroup("rests")
 %
 %
 
-pen_width# = 2/5 staff_space#;
+pen_width# = 0.3 staff_space#;
 pen_height# = 0;
 pen_rotation = 30;
 slight_pen_rotation = 15;
@@ -29,8 +29,18 @@ mens_half_block_rest_y# = 5/8 staff_space#;
 define_pixels(mens_block_rest_y, mens_half_block_rest_y,
 	      pen_width, pen_height);
 
+fet_beginchar("Mensural maxima rest", "-3mensural", "mensmaximarest");
+	set_char_box(0.7pen_width#, 0.7pen_width#,
+		     mens_block_rest_y#, 2mens_block_rest_y#);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated slight_pen_rotation;
+	draw (0, -mens_block_rest_y) -- (0, 2 mens_block_rest_y);
+fet_endchar;
+
 fet_beginchar("Mensural longa rest", "-2mensural", "menslongarest");
-	set_char_box(pen_width#/2, pen_width#/2,
+	set_char_box(0.7pen_width#, 0.7pen_width#,
 		     mens_block_rest_y#, mens_block_rest_y#);
 	pickup pencircle
 		xscaled pen_width
@@ -40,7 +50,7 @@ fet_beginchar("Mensural longa rest", "-2mensural", "menslongarest");
 fet_endchar;
 
 fet_beginchar("Mensural breve rest", "-1mensural", "mensbreverest");
-	set_char_box(pen_width#/2, pen_width#/2,
+	set_char_box(0.7pen_width#, 0.7pen_width#,
 		     0, mens_block_rest_y#);
 	pickup pencircle
 		xscaled pen_width
@@ -50,7 +60,7 @@ fet_beginchar("Mensural breve rest", "-1mensural", "mensbreverest");
 fet_endchar;
 
 fet_beginchar("Mensural whole rest", "0mensural", "menssemibrevisrest");
-	set_char_box(pen_width#/2, pen_width#/2,
+	set_char_box(0.7pen_width#, 0.7pen_width#,
 		     mens_half_block_rest_y#, 0);
 	pickup pencircle
 		xscaled pen_width
@@ -60,7 +70,7 @@ fet_beginchar("Mensural whole rest", "0mensural", "menssemibrevisrest");
 fet_endchar;
 
 fet_beginchar("Mensural half rest", "1mensural", "mensminimahalfrest");
-	set_char_box(pen_width#/2, pen_width#/2,
+	set_char_box(0.7pen_width#, 0.7pen_width#,
 		     0, mens_half_block_rest_y#);
 	pickup pencircle
 		xscaled pen_width
