@@ -1,3 +1,7 @@
+2002-08-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-bolletjes.mf: use resolution independent variables.
+
 2002-08-19  janneke  <janneke@blauw.xs4all.nl>
 
 	* regular-spacing-engraver.cc:
