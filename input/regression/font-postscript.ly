@@ -36,5 +36,12 @@
 {
     \key a \major
     \time 6/8
-    cis''8.^"test!"  d''16 cis''8 e''4 e''8
+    cis''8.
+
+%% uncomment to test postscript fonts. 
+% ^"test!"
+
+    
+    
+    d''16 cis''8 e''4 e''8
 }
