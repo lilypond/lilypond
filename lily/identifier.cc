@@ -11,7 +11,7 @@
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-
+#include "input-register.hh"
 #include "input-score.hh" 
 #include "symtable.hh"
 #include "input-staff.hh"
@@ -19,6 +19,7 @@
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
+#include "input-register.hh"
 
 void
 Identifier::error(String expect)
@@ -29,13 +30,12 @@ Identifier::error(String expect)
 }
 
 Identifier::Identifier(String n, int code)
-    : name(n) 
+    :  name(n) 
 {
     token_code_i_ = code; 
     data = 0;
     accessed_b_ = 0;
     init_b_ = 0;
-    defined_ch_C_ = 0;
 }
 
 void
@@ -61,6 +61,8 @@ DEFAULT_PRINT(M_chord_id, Music_general_chord, mchord);
 DEFAULT_PRINT(M_voice_id, Music_voice, mvoice);
 DEFAULT_PRINT(Request_id, Request, request);
 DEFAULT_PRINT(Score_id, Input_score, score);
+DEFAULT_PRINT(Input_regs_id, Input_register, iregs);
+
 void
 Real_id::do_print() const
 {
@@ -85,12 +87,18 @@ Idclass::~Idclass() { delete accessor(false); }\
 Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
 
 
-implement_id_class(Real_id, Real, real)
-implement_id_class(Script_id, Script_def, script)
-implement_id_class(Lookup_id, Lookup, lookup)
-implement_id_class(Symtables_id, Symtables, symtables)
-implement_id_class(Staff_id, Input_staff, staff)
-implement_id_class(M_chord_id, Music_general_chord, mchord)
-implement_id_class(M_voice_id, Music_voice, mvoice)
-implement_id_class(Score_id, Input_score, score)
-implement_id_class(Request_id, Request, request)
+implement_id_class(Real_id, Real, real);
+implement_id_class(Script_id, Script_def, script);
+implement_id_class(Lookup_id, Lookup, lookup);
+implement_id_class(Symtables_id, Symtables, symtables);
+implement_id_class(Staff_id, Input_staff, staff);
+implement_id_class(M_chord_id, Music_general_chord, mchord);
+implement_id_class(M_voice_id, Music_voice, mvoice);
+implement_id_class(Score_id, Input_score, score);
+implement_id_class(Request_id, Request, request);
+implement_id_class(Input_regs_id, Input_register, iregs);
+
+Identifier::Identifier(Identifier const&)
+{
+    assert(false);
+}

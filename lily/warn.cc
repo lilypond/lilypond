@@ -1,3 +1,11 @@
+/*
+  warn.cc -- implement warning and error messages. Needs cleanup.
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "proto.hh"
 #include "plist.hh"
 #include "debug.hh"
@@ -7,16 +15,11 @@
 #include "source-file.hh"
 #include "source.hh"
 #include "main.hh"
+#include "input.hh"
 
 ostream &warnout (cerr);
 ostream *mlog(&cerr);
-/*
-void
-warning(String s)
-{
-    WARN << s;
-}
-*/
+
 
 void
 error(String s)
@@ -44,7 +47,7 @@ error_t(String const & s, Time_description const &t_tdes)
 void
 message( String message_str, char const* context_ch_C )
 {
-    String str = "";		//"lilypond: ";// GNU format messages!
+    String str = "";
     Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_C );
     if ( sourcefile_l ) {
 	str += sourcefile_l->file_line_no_str(context_ch_C) + String(": ");
@@ -75,4 +78,17 @@ error( String message_str, char const* context_ch_C )
 /*    if ( lexer )
         lexer->errorlevel_i_ |= 1;*/
 //    exit( 1 );
+}
+
+
+void
+warning(String m)
+{
+    warning(m, (char*)0);
+}
+
+void
+message(String m)
+{
+    error(m, (char*)0);
 }

@@ -143,7 +143,7 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 			tor( NORMAL_ver ) << '[' << flush; 
 
 		if ( bars_i > bar_i ) { 
-		 	Moment into_bar_mom = now_mom - ( bars_i - 1 ) * bar_mom;
+		 	Moment into_bar_mom = now_mom - Moment( bars_i - 1 ) * bar_mom;
 			if ( bars_i > 1 ) {
 				if ( !into_bar_mom )
 					lily_stream_r << "|";

@@ -11,7 +11,9 @@
 static String
 make_vbox(Interval i)
 {
-    Real r = (i.empty()) ? 0.0 : i.length();
+    if (i.empty_b()) 
+	i = Interval(0,0);
+    Real r = i.length();
     String s("\\vbox to ");
     s += print_dimen(r);
     s += "{\\vskip "+print_dimen(i.right)+" ";
@@ -64,8 +66,8 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     PCol *linestop = sc->cols.bottom();
     
     for (iter_top(pstaff_l_->spans,i); i.ok(); i++) {
-	PCol *brokenstart = &max(*linestart, *i->left);
-	PCol *brokenstop = &min(*linestop, *i->right);
+	PCol *brokenstart = &max(*linestart, *i->left_col_l_);
+	PCol *brokenstop = &min(*linestop, *i->right_col_l_);
 	if ( *brokenstart < *brokenstop) {
 	    Spanner*span_p =i->broken_at(brokenstart,brokenstop);
 	    line_of_score_l_->pscore_l_-> // higghl

@@ -9,14 +9,13 @@
 
 #include "string.hh"
 #include "proto.hh"
+#include "input.hh"
 
-struct Text_def  {
+struct Text_def : Input {
     int align_i_;
     String text_str_;
     String style_str_;
-    char const* defined_ch_C_;
-  
-
+    
     /* *************** */
     virtual ~Text_def() {};
     bool compare(const Text_def&);

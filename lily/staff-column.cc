@@ -121,6 +121,9 @@ align_items(Array<Item*> item_l_arr)
     Interval wid(0,0);
     for  (int i =0; i < item_l_arr.size(); i++) {
 	Interval item_width= item_l_arr[i]->width();
+	if (item_width.empty_b()) {
+	    item_width = Interval(0,0);
+	}
 	Real dx =wid.right - item_width.left;
 	item_width += dx;
 	item_l_arr[i]->translate(Offset(dx ,0));

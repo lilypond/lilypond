@@ -5,18 +5,12 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
-#include "musical-request.hh"
 #include "staff-column.hh"
 #include "voice.hh"
 #include "p-score.hh"
 #include "complex-staff.hh"
 #include "debug.hh"
-#include "voice-group-regs.hh"
-#include "voice-regs.hh"
 #include "complex-walker.hh"
-//#include "misc.hh"
-#include "command-request.hh"
 #include "walk-regs.hh"
 
 void
@@ -37,16 +31,15 @@ Complex_walker::do_announces()
     walk_regs_p_->do_announces();
 }
 
-bool
-Complex_walker::try_command_request(Command_req *req_l)
-{
-    return walk_regs_p_->try_request(req_l);
-}
 
 void
 Complex_walker::try_request(Request*req)
 {
-    walk_regs_p_->try_request(req);
+    bool b =walk_regs_p_->try_request(req);
+    if (!b)
+	
+	req->warning("junking request: "  + String(req->name()));
+    
 }
 
 void

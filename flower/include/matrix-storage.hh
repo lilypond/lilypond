@@ -1,8 +1,22 @@
-#ifndef VSMAT_HH
-#define VSMAT_HH
+/*
+  matrix-storage.hh -- declare Matrix_storage
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef MATRIX_STORAGE_HH
+#define MATRIX_STORAGE_HH
+
 #include "varray.hh"
 #include "real.hh"
-/** base class for interface with matrix storageclasses.  There are no
+#include "class-name.hh"
+
+/** 
+
+    base class for interface with matrix storageclasses.  There are no
     iterators for matrixclasses, since matrices are (like arrays)
     explicitly int-indexed.
 
@@ -13,7 +27,7 @@
     determine type of product matrix.
 
 */
-class virtual_smat {
+class Matrix_storage {
     
 
 public:
@@ -31,7 +45,7 @@ public:
       PRE
       i >=0, j>=0
     */
-    virtual void set_size(int i, int j) = 0;
+    virtual void set_size(int rows, int cols) = 0;
  
     /**set the size to square dimen. contents lost
       PRE
@@ -46,7 +60,7 @@ public:
       i>=0, j>=0
     
     */
-    virtual void resize(int i, int j) = 0;
+    virtual void resize(int rows, int cols ) = 0;
  
   /**    
     set the size to square dimen. contents kept
@@ -70,10 +84,8 @@ public:
     /// access a element, no modify
     virtual Real const & elem(int i, int j) const = 0;
 
-#if 1
     virtual Array<Real> row(int i) const = 0;
     virtual Array<Real> column(int j) const = 0;
-#endif
 
     
     /**
@@ -93,8 +105,8 @@ public:
     */
     virtual void delete_row(int k)=0;
         virtual void delete_column(int k)=0;
-    virtual ~virtual_smat() { }
-    virtual virtual_smat *clone()=0;
+    virtual ~Matrix_storage() { }
+    virtual Matrix_storage *clone()=0;
 
 
     
@@ -133,9 +145,24 @@ public:
 
     virtual void trans_next(int &i, int &j) const  = 0;
     /// generate a "Full_storage" matrix    
-    static virtual_smat *get_full(int n, int m);
-
-};
+    static Matrix_storage *get_full(int n, int m);
     
 
-#endif
+    virtual bool try_right_multiply(Matrix_storage *dest, 
+				    const Matrix_storage *fact) ;
+    /**
+      RTTI.
+     */
+    NAME_MEMBERS(Matrix_storage);
+};
+
+
+
+inline bool
+Matrix_storage::try_right_multiply(Matrix_storage *, 
+				    const Matrix_storage *)
+{
+    return false;
+}
+#endif // MATRIX_STORAGE_HH
+

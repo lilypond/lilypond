@@ -43,7 +43,7 @@ struct String_data;
 struct String_handle;
 struct String_convert;
 struct String;
-struct virtual_smat;
+struct Matrix_storage;
 struct Vector ;
 struct Text_stream;
 struct Data_file;

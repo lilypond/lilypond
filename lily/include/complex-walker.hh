@@ -22,7 +22,6 @@ class Complex_walker: public Staff_walker {
 
     
 public:
-    int c0_position_i_;    
     Walker_registers *walk_regs_p_;
     
     /* *************** */

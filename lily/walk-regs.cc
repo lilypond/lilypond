@@ -5,32 +5,26 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
 #include "debug.hh"
-#include "clef-reg.hh"
-#include "local-key-reg.hh"
-#include "key-reg.hh"
-#include "meter-reg.hh"
-#include "bar-reg.hh"
-#include "bar.hh"
 #include "walk-regs.hh"
+#include "staff-regs.hh"
 #include "staff-elem.hh"
 #include "staff.hh"
 #include "complex-walker.hh"
 #include "staff-column.hh"
-#include "voice-group-regs.hh"
-#include "voice-regs.hh"
-#include "command-request.hh"
 #include "score-walker.hh"
+#include "bar.hh"		// needed for Bar::static_name
+#include "input-register.hh"
 
 Walker_registers::Walker_registers(Complex_walker *w)
 {
     walk_l_ = w;
-    add( new Bar_register);
-    add( new Clef_register);
-    add( new Key_register);
-    add( new Meter_register);
-    add( new Local_key_register);
+    Input_register * ireg_l = w->staff_l_->ireg_p_;
+    if (ireg_l->name_str_ == "Staff_registers") 
+	add(new Staff_registers(ireg_l));
+    else {
+	add(ireg_l->get_nongroup_p_arr());
+    }
 }
 
 void
@@ -101,70 +95,12 @@ Walker_registers::post_move_processing()
     Register_group_register::post_move_processing();
 }
 
-void
-Walker_registers::change_group(Group_change_req * greq_l,
-			       Voice_registers *voice_regs_l,
-			       Voice_group_registers * old_group)
-{
-    Voice_registers *regs_p = (old_group)
-	? (Voice_registers*) old_group->get_register_p(voice_regs_l)
-	: new Voice_registers(greq_l->voice_l());
-    Voice_group_registers * new_group_l = get_group(greq_l->newgroup_str_);
-    new_group_l->add(regs_p);
-    
-    mtor << "processed change request";
-    print();
-}
-
-Voice_group_registers *
-Walker_registers::get_group(String id)
-{
-    for (int i=0; i < group_l_arr_.size(); i++) {
-	if (group_l_arr_[i]->group_id_str_ == id)
-	    return group_l_arr_[i];
-    }
-    Voice_group_registers *group_p = new Voice_group_registers(id);
-    group_l_arr_.push(group_p);
-    add(group_p);
-    return group_p;
-}
-
-void
-Walker_registers::terminate_register(Request_register * reg)
-{
-    for (int i=0; i < group_l_arr_.size(); i++) {
-	if (group_l_arr_[i] == reg) {
-	    group_l_arr_.del(i);
-	    Register_group_register::terminate_register(reg);
-	    return;
-	}
-    }
-    assert(false);
-}
-
-bool
-Walker_registers::try_request(Request * r)
-{
-    bool b = Register_group_register::try_request(r);
-    if (!b) {
-	Command_req * cr_l = r->command() ;
-	
-	if (cr_l && cr_l->groupchange()) {
-	    change_group(cr_l->groupchange(), 0, 0);
-	} else 
-	    warning("junking request: "  + String(r->name()),
-		    r->defined_ch_C_);
-    }
-    return b;
-}
-
 
 Staff_info
 Walker_registers::get_staff_info() return inf;
 {
     if (walk_l_->score_walk_l_)	// we get called ctors
 	inf.break_allowed_b_ = walk_l_->score_walk_l_->break_allowed_b();
-    inf.c0_position_i_ = &walk_l_->c0_position_i_;
     inf.walk_l_ = walk_l_;
     inf.time_C_ = &walk_l_->time_;
     inf.rhythmic_C_ = walk_l_->default_grouping;

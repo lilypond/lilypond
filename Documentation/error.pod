@@ -10,4 +10,8 @@ A correctly parsed F<input.ly> does not guarantuee output. A lot
 (most) of the checking is done B<after> parsing (some checks even are
 done after the break calc!); I'm sorry.
 
+Most errors come with a context of the Mudela element that originated
+it. This context may be slightly wrong: the parser sometimes reads a
+few tokens ahead to determine the syntax.
+
 [yep.. has to be written..]

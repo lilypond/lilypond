@@ -33,6 +33,7 @@ struct Time_description {
     void OK() const;
     Time_description();
     void add(Moment dt);
+    bool allow_meter_change_b();
     String str()const;
     void print() const;
     void setpartial(Moment p);

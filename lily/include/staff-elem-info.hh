@@ -25,17 +25,6 @@ struct Staff_elem_info {
     Staff_elem_info();
 };
 
-/// struct to pass staff info along a Request_register hierarchy.
-struct Staff_info {
-    int *c0_position_i_;
-    Staff_walker *walk_l_;
-
-    /// when is now?
-    Time_description const *time_C_;
-    Rhythmic_grouping const *rhythmic_C_;
-    bool break_allowed_b_;
-};
-
 
 struct Features {
     bool initialiser_b_;

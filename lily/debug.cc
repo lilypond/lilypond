@@ -55,6 +55,7 @@ void
 set_debug(bool b)
 {
     check_debug =b;
-}
+    set_flower_debug(*monitor, check_debug);
+  }
 
 

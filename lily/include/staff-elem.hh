@@ -18,14 +18,27 @@
   Stem. So the Beam has to be calculated *before* Stem. This is
   accomplished with the dependencies field of struct Staff_elem.
 
+  (elem)
   */
-struct Staff_elem {
+class Staff_elem {
+
+    /// member: the symbols
+    Molecule *output;		// should scrap, and use temp var?
+
+
+    /**
+      This is  needed, because #output# may still be
+      NULL.
+      */
+    Offset offset_;
+    Array<Staff_elem*> dependancy_l_arr_;
+public:
     enum Status {
 	ORPHAN,			// not yet added to pstaff
 	VIRGIN,			// added to pstaff
 	PRECALCING,
 	PRECALCED,		// calcs before spacing done
-	POSTCALCING,
+	POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
 	POSTCALCED,		// after spacing calcs done
 	OUTPUT,			// molecule has been output
     } status;
@@ -68,19 +81,8 @@ protected:
     /// do calculations after determining horizontal spacing
     virtual void do_post_processing();
 
-    Array<Staff_elem*> dependants;
+    Array<Staff_elem*> dependant_l_arr_;
 
-private:
-    /// member: the symbols
-    Molecule *output;		// should scrap, and use temp var?
-
-
-    /**
-      This is  needed, because #output# may still be
-      NULL.
-      */
-    Offset offset_;
-    Array<Staff_elem*> dependencies;
 };
 
 

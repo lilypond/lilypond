@@ -1,5 +1,5 @@
-% \midi.ly
-% test source for lilypond-s \midi \output
+% midi.ly
+% test source for lilypond-s midi output
 
 melodie = \melodic{
 	\clef\violin

@@ -36,7 +36,7 @@ Clef_register::set_type(String s)
 	c0_position_i_= 10;
     }else 
 	return false;
-    *get_staff_info().c0_position_i_ = c0_position_i_;
+    *get_staff_info().c0_position_i_l_ = c0_position_i_;
     
     return true;
 }
@@ -45,7 +45,7 @@ void
 Clef_register::read_req(Clef_change_req*c_l)
 {
     if (!set_type(c_l->clef_str_))
-	error("unknown clef type ", c_l->defined_ch_C_);
+	c_l->error("unknown clef type ");
 }
 
 bool
@@ -106,3 +106,4 @@ Clef_register::post_move_processing()
     }
 }
 IMPLEMENT_STATIC_NAME(Clef_register);
+ADD_THIS_REGISTER(Clef_register);

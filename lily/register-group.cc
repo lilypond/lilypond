@@ -12,7 +12,7 @@
 #include "register.hh"
 
 bool
-Register_group_register::acceptable_request_b(Request* r)
+Register_group_register::acceptable_request_b(Request* r)const
 {
     for (iter_top(reg_list_, i); i.ok(); i++) {
 	if (i->acceptable_request_b(r))
@@ -65,7 +65,7 @@ Register_group_register::acknowledge_element(Staff_elem_info info)
 }
 
 bool
-Register_group_register::contains_b(Request_register* reg_l)
+Register_group_register::contains_b(Request_register* reg_l)const
 {
     bool parent_b = Request_register::contains_b(reg_l);
     
@@ -92,6 +92,12 @@ Register_group_register::try_request(Request*req_l)
 	    return true;
     }
     return false;
+}
+void
+Register_group_register::add(Array<Request_register*> p_arr)
+{
+    for (int i =0; i<p_arr.size(); i++)
+	add(p_arr[i]);
 }
 
 void
@@ -122,6 +128,7 @@ Register_group_register::terminate_register(Request_register*r_l)
 }
 
 IMPLEMENT_STATIC_NAME(Register_group_register);
+ADD_THIS_REGISTER(Register_group_register);
 
 void
 Register_group_register::do_print()const

@@ -91,7 +91,7 @@ template<class T>
 String
 Interval_t<T>::str() const
 {
-    if (empty())
+    if (empty_b())
 	return "[empty]";
     String s("[");
  
@@ -100,7 +100,7 @@ Interval_t<T>::str() const
 
 template<class T>
 bool
-Interval_t<T>::elt_q(T r)
+Interval_t<T>::elt_b(T r)
 {
     return r >= left && r <= right;
 }

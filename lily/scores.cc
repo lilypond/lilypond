@@ -14,8 +14,7 @@ do_scores()
     for (int i=0; i < score_array_global.size(); i++) {
 	Input_score* &is_p = score_array_global[i];
 	if (is_p->errorlevel_i_) {
-	    warning("Score contains errors. Will not process it. ",
-		    is_p->defined_ch_C_);
+	    is_p->warning("Score contains errors. Will not process it. ");
 	    delete is_p;
 	    continue;
 	} 

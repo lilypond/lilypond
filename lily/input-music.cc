@@ -12,7 +12,7 @@ Input_music::check_plet(Voice_element* velt_l)
 	if ( i->plet() ) {
 	    Moment start_moment = 0;
 	    if ( !find_plet_start_b( i->plet()->type_c_, start_moment ) ) {
-		error( "begin of plet not found", i->defined_ch_C_ );
+		i ->error( "begin of plet not found");
 	        break;
 	    }
 	    Moment moment = 0;

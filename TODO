@@ -1,10 +1,9 @@
 before 0.1
-	
+	* update 20 pt table
+
 	* remove spurious/outdated comments in .ly, debug .ly
 
 	* pushgroup, popgroup.
-
-	* basic dynamics
 
 	* decent TeX page layout
 
@@ -21,8 +20,6 @@ PARSER
 MAKE-STUFF
 
 	* flower config: separate optiflags.
-
-	* sort out headers, see m2m
 
 	* do platform stuff: configure, header(s), targets, build (out?)
 	
@@ -42,8 +39,6 @@ BUGS
 
 SEVERELY LACKING:
 
-	* hairpins
-
 	* grace notes
 
 FURTHER FOR ORCHESTRAL SCORE:
@@ -56,7 +51,7 @@ FURTHER FOR ORCHESTRAL SCORE:
 
 INPUTLANGUAGE
 
-	* read ENV for include /init path 
+	* unix style paths for LILYINCLUDE ENV
 
 	* configure pitch_byte
 
@@ -68,10 +63,19 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
+	* Raw request syntax
+
 	* uniformate: \clef\violin, \clef"violin", \geometric 1.4, 
 	  \meter{ 2/4 }, etc.
 
+	* subtime with Subtle_reqs
+
 SMALLISH PROJECTS
+
+	* bugreport to doc++ devel: struct not in class hier; public
+	virtual baseclasses
+
+	* indentable stream for TeX stream, lily stream, Dstream.
 
 	* key transposition
 	
@@ -118,7 +122,6 @@ SMALLISH PROJECTS
 
 	* caching of Register_group_register hierarchies.
 
-
 	* use (char *) iso. String for communication between lexer and
 	parser.
 
@@ -155,6 +158,8 @@ FUTURE
 	* glissando
 
 	* guitar chord
+
+	* Junk Staff_column, and find the requests while walking the Voices.?
 
 	* better beamslope calculation:	QLP for beams?
 

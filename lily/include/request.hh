@@ -14,16 +14,16 @@
 #include "string.hh"
 #include "moment.hh"
 #include "class-name.hh"
+#include "input.hh"
 
 /**
  a voice element wants something printed.
  Hungarian postfix: req
  @see lilygut manpage
  */
-class Request {
+class Request : public Input {
 public:
     Voice_element*elt_l_;
-    char const* defined_ch_C_;
     
     /* *************** */
     Voice  * voice_l();
@@ -54,10 +54,7 @@ public:
     virtual Rhythmic_req*rhythmic() { return 0; }
     virtual Lyric_req* lreq_l() { return 0; }
     virtual Melodic_req *melodic() { return 0; }
-    virtual Terminate_voice_req *terminate() {return 0;}
-    virtual Group_change_req * groupchange() { return 0;}
-    virtual Group_feature_req * groupfeature() { return 0; }
-    virtual Spacing_req * spacing() { return 0; }
+     virtual Spacing_req * spacing() { return 0; }
     virtual Blank_req * blank() { return 0; }
     virtual Musical_req *musical() { return 0; }
     virtual Command_req * command() { return 0; }

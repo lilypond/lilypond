@@ -15,13 +15,13 @@ to make a few chords, but why do I have to type
 
 	< { a() e } { c () g } >
 
-in stead of
+instead of
 
 	<a( c(> <)e )g>
 
-to generate  slurs between the chords?
+to generate slurs between the chords?
 
-A: When you type 
+A L1: When you type 
 
 	<a c> <e g>
 
@@ -40,57 +40,42 @@ formatting:
 	>
 
 
-Q: Why are [] around the notes, and () inbetween?
+Q L2: Why are [] around the notes, and () inbetween?
 
-A: [] designate beams, a note can only be in one beam at the same
+A L2: [] designate beams, a note can only be in one beam at the same
 time. () is a slur, which connects notes.  You need to be able to 
 specify
 
 	a()a()a
 
+Q L3: Why shouldn't I put all commands (\clef, \meter) inside the music?
 
-Q: I want a DOS/NT/W95 port.
-
-A0: Reconsider.  Try Linux.  It's fun!
-
-A1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
-and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
-I (JCN) only had to make a minor workaround for missing library calls.  
-Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
-C<make $OSTYPE>. (I am not promising to maintain this platform, it is just 
-that when having to use doze, i-m sometimes too lazy to reboot.)
-
-A2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
-libg++, mind you) to DOS/win (in rpm, please :).
-
-
-Q: Why GPL?
-
-A: Yes.
-
-Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
-
-A: You should do what you like, but at some time we will enable
+A L3: You should do what you like, but at some time we will enable
 quoting of music ("Stichnoten"). Besides if you are going to type an
 orchestral score, then you'd probably want to enter most of the meter,
 repeat commands only once.
 
+=head2 MISCELLANEOUS
 
-Q: Could you implement feature XXXX? It is really easy, just extend
+Q M1: Why GPL?
+
+A M1: Yes.
+
+Q M2: Could you implement feature XXXX? It is really easy, just extend
 the syntax to allow YYYY!
 
-A: If it is reasonable, I'll add XXXX to the TODO list. In general
+A M2: If it is reasonable, I'll add XXXX to the TODO list. In general
 finding a cute syntax (such as YYYY) isn't very hard. The complicated
 issue how to adapt the internals to do XXXX. The parser is really  a
 simple front end to the complicated internals. 
 
-Q: Why do I need g++ >= 2.7?
+Q M3: Why do I need g++ >= 2.7?
 
-A: By using g++ LilyPond is portable to all platforms which support
+A M3: By using g++ LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
-saves us a I<lot> of trouble. LilyPond & FlowerLib uses:
+saves us a I<lot> of trouble. LilyPond and FlowerLib use:
 
-=over 6
+=over 4
 
 =item *
 builtin bool
@@ -114,4 +99,56 @@ class Rational (libg++)
 named return values
 
 =back
+
+=head2 DOZE
+
+Q D1: I want a DOS/NT/W95 port.
+
+A D1.0: Reconsider.  Try Linux.  It's fun!
+
+A D1.1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
+and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
+I (JCN) only had to make a minor workaround for missing library calls.  
+Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
+C<make $OSTYPE>. (I am not promising to maintain this platform, it is just 
+that when having to use doze, i-m sometimes too lazy to reboot.)
+
+A D1.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
+libg++, mind you) to DOS/win (in rpm, please :).
+
+
+Q D2: I-m dozed enough to run the (sometimes bit stale) .exe-s you distribute. 
+Why do i need cygwin.dll?
+
+A D2: It-s all in this cut-n-paste:
+
+Minimalist GNU-Win32 Readme                   
+version 0.1.3                           
+March 20, 1997                       
+Colin Peters <colin@bird.fu.is.saga-u.ac.jp>
+
+[...]
+
+0.3 Fixes and Improvements          
+
+[...]
+In the "coming soon" category I have a version of the GNU Standard C++
+library ported to Mingw32. This means you can use iostreams, complex
+numbers and all those neat STL (Standard Template Library) things
+without needing the Cygwin DLL. I hope to put this port up for
+downloading soon (along with the source of course).
+       
+[...] 
+
+3.2 C++ Support                                                         
+
+To add C++ Support to the above the following extra files are required: 
+
+In C:\cygnus\H-i386-cygwin32\lib\gcc-lib\i386-cygwin32\cygnus-2.7.2-    
+961023:                                                                         
+	cc1plus.exe                                                   
+
+Note that this does not include support for the standard C++ libraries
+(only the C run time libraries) or for iostreams. That support is still
+only available with the Cygwin32 API.
 

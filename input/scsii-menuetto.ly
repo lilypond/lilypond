@@ -94,7 +94,7 @@ ii_menuetto = \melodic{
 }
 
 \score{
-	\staff{ $ii_menuetto }
+	\staff{ melodicregs $ii_menuetto }
 	\paper{
 		\width 195\mm
 		\unitspace 9\mm  % to get lily to use only three lines

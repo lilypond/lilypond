@@ -65,12 +65,11 @@ Span_req::do_print() const
 Request::Request()
 {
     elt_l_ = 0;
-    defined_ch_C_ = 0;
 }
 Request::Request(Request const&src)
+    :Input(src)
 {
     elt_l_ = 0;
-    defined_ch_C_ = src.defined_ch_C_;
 }
 /* *************** */
 Spacing_req::Spacing_req()
@@ -115,8 +114,7 @@ Melodic_req::transpose(Melodic_req const & delta)
     }
     accidental_i_ += delta.accidental_i_;
     if (abs(accidental_i_) > 2) {
-	warning("transposition makes accidental larger than 2", 
-		delta.defined_ch_C_);
+	delta.warning("transposition makes accidental larger than 2");
     }
 }
 
@@ -363,7 +361,7 @@ Request::voice_l()
     if (!elt_l_)
 	return 0;
     else
-	return (Voice*)elt_l_->voice_l_;
+	return (Voice*)elt_l_->voice_C_;
 }
 /* *************** */
 

@@ -7,6 +7,7 @@
 #ifndef SCRIPTDEF_HH
 #define SCRIPTDEF_HH
 #include "string.hh"
+
 struct Script_def{
     int stemdir;
     int staffdir;

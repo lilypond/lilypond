@@ -83,12 +83,15 @@ Midi_output::header()
     str += ",\n";
     Midi_text generate( Midi_text::TEXT, str );
     midi_track.add( Moment( 0 ), &generate );
+
+#if 0 // TODO!
     Source_file* sourcefile_l = source_l_g->sourcefile_l( score_l_->defined_ch_C_ );
     if ( sourcefile_l ) {
-	str = "from musical definition: " 
+	str += "from musical definition: " 
 	    + sourcefile_l->file_line_no_str(score_l_->defined_ch_C_);
 
     }
+#endif
     Midi_text from( Midi_text::TEXT, str );
     midi_track.add( Moment( 0 ), &from );
 

@@ -65,7 +65,7 @@ Voice::Voice()
 void
 Voice::add(Voice_element*v)
 {
-    v->voice_l_ = this;
+    v->voice_C_ = this;
     elts.bottom().add(v);
 }
 

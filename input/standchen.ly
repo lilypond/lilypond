@@ -447,10 +447,11 @@ tekstII = \lyric{
 }
 
 \score{
-	\staff{ lyric % this sux el grandioso. What about \lyricstaff, \melodicstaff etc. 
+	\staff{ lyricregs
+		
 		tekstI tekstII }
-	\staff{ melodie }
-	\staff{ begeleiding }
+	\staff{ melodicregs melodie }
+	\staff{ melodicregs begeleiding }
 	\paper{
 		\width 195\mm
 

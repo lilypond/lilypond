@@ -5,16 +5,17 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "dimen.hh"
 #include "crescendo.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
-
+#include "debug.hh"
 Crescendo::Crescendo(int s)
 {
     staff_size_i_ = s;
     grow_dir_i_ =0;
     dir_i_ = -1 ;
+    left_dyn_b_ = right_dyn_b_ =false;
 }
 
 Spanner*
@@ -27,9 +28,24 @@ Crescendo::do_break_at(PCol*, PCol*)const
 Molecule*
 Crescendo::brew_molecule_p() const return m_p ;
 {
+    Real x_off_dim=0.0;
+    Real absdyn_dim = 10 PT;	// UGR
+    
     m_p = new Molecule;
-    Real w_f = width().length();
-    Symbol s( paper()->lookup_l()->hairpin(w_f, grow_dir_i_ < 0) );
+    Real w_dim = width().length();
+    if ( left_dyn_b_ ) {
+	w_dim -= absdyn_dim;
+	x_off_dim += absdyn_dim;
+    }
+    if ( right_dyn_b_ ) {
+	w_dim -= absdyn_dim;
+    }
+    
+    if (w_dim < 0) {
+	error("Crescendo too small");
+	w_dim = 0;
+    }
+    Symbol s( paper()->lookup_l()->hairpin(w_dim, grow_dir_i_ < 0) );
     m_p->add(Atom(s));
     int pos = (dir_i_ >0) ? staff_size_i_ + 4 : - 4 ;
     m_p->translate(Offset(0,pos * paper()->internote()));

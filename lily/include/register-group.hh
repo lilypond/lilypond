@@ -40,7 +40,7 @@ public:
      */
     Request_register * get_register_p(Request_register*reg_l);
     virtual void set_feature(Features i);
-    virtual bool acceptable_request_b(Request*);
+    virtual bool acceptable_request_b(Request*)const;
     virtual void pre_move_processing();
     virtual void post_move_processing();
     virtual void acknowledge_element(Staff_elem_info info);
@@ -48,7 +48,8 @@ public:
     virtual void process_requests();
     virtual ~Register_group_register();
     virtual void add(Request_register* reg_p);
-    virtual bool contains_b(Request_register*);
+    void add(Array<Request_register*> reg_p_arr);
+    virtual bool contains_b(Request_register*)const;
 };
 
 #endif // REGISTERGROUP_HH

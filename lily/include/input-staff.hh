@@ -11,19 +11,19 @@
 #include "plist.hh"
 #include "varray.hh"
 #include "proto.hh"
+#include "input.hh"
 
-struct Input_staff {
-    
-    char const * defined_ch_C_;
-    String type;
+class Input_staff:public Input {
+public:
     
     IPointerList<Input_music*> music_;
+    Input_register * ireg_p_;
     
     /* *************** */
     ~Input_staff();
     void add(Input_music*m);
     Input_staff(Input_staff const&);
-    Input_staff(String);
+    Input_staff();
     Staff* parse(Score*);
     void print() const;
 };

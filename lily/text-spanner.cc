@@ -55,9 +55,9 @@ Text_spanner::brew_molecule_p() const
 void
 Text_spanner::do_pre_processing()
 {
-    right = support->right;
-    left = support->left;
-    assert(left && right);
+    right_col_l_ = support->right_col_l_;
+    left_col_l_ = support->left_col_l_;
+    assert(left_col_l_ && right_col_l_);
 }
 
 Interval

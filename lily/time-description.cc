@@ -85,7 +85,11 @@ Time_description::set_meter(int l, int o)
     if(whole_in_measure_)
 	error_t("Meterchange should be at start of measure", *this);
 }
-
+bool
+Time_description::allow_meter_change_b()
+{
+    return!(whole_in_measure_);
+}
 void
 Time_description::setpartial(Moment p)
 {

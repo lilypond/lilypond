@@ -2,13 +2,33 @@
 
 LilyPond -- the Webpage
 
-=head1 DESCRIPTION
-
 Excuse me for this poor page. I don't really have time for doing this..
 
-[and yes, i write webpages in POD :-]
+=head1 DESCRIPTION
+
+Technically LilyPond is a preprocessor which generates TeX
+(or LaTeX) output which contains information to typeset a musical
+score. Practically it is a typesetter, which only uses TeX as an
+output medium. (this is handy because there exist music fonts for TeX)
+
+As a bonus, you can also output a MIDI file of what you typed.
+
+It translates script files (mudela files or F<*.ly>'s) into TeX input.
+Typesetting music is a complex task, whereas the message that printed
+music conveys is usually a simple one. LilyPond is a try at providing
+a simple interface for setting music.
 
 =head1 DOCUMENTATION
+
+=item *
+<a href=INSTALL.html
+>
+The installation instructions.
+</a
+>
+
+
+
 
 =item *
 <a href=lilypond.html
@@ -46,7 +66,7 @@ errors
 >
 
 =item *
-<a href=lelieblond.png
+<a href=lelieblond.gif
 >
 The lilypond logo (Big)
 </a
@@ -55,36 +75,42 @@ The lilypond logo (Big)
 =item *
 <a href=lelie_logo.gif
 >
-The lilypond logo (in gif format)
-</a
->
-
-
-=item *
-<a href=wohltemperirt.ly.txt
->
-An example inputfile: from Bach's WTK: c-minor fugue
+The lilypond logo (in gif format, medium size)
 </a
 >
 
 =item *
-<a href=wohltemperirt.gif
+<a href=example_output.html
 >
-A Gif file of the example
+examples: MIDI, PS, GIF and input.
 </a
 >
 
 =item *
-<a href=wohltemperirt.ps
+<a href=examples.html
 >
-PS output
+info on examples
 </a
 >
 
 =item *
-<a href=wohltemperirt.midi
+<a href=TODO.txt
 >
-MIDI output
+The TODO list.
+</a
+>
+
+=item *
+<a href=NEWS.txt
+>
+The Change log
+</a
+>
+
+=item *
+<a href=CodingStyle.html
+>
+The coding standards of the lilypond project.
 </a
 >
 
@@ -100,9 +126,18 @@ The DOC++ documentation of the C++ sources.
 Get it at ftp://pcnov095.win.tue.nl/pub/lilypond !
 =cut
 niet veranderen in expliciete URL. pod2* doet dit automaties.
+
+Should generate auto from POD sources.
+
 =pod
 
 
 =head1 AUTHOR
 
 Han-Wen Nienhuys <hanwen@stack.nl>, for this page
+
+<a href=sconstat/stats.html
+>
+Stats on this page.
+</a
+>

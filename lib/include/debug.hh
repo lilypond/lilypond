@@ -1,3 +1,7 @@
+/*
+  Argh! this sux! implementation not liblily
+ */
+
 #ifndef DEBUG_HH
 #define DEBUG_HH
 
@@ -9,7 +13,10 @@
 
 void message( String message_str, char const* context_ch_c_l );
 void warning( String message_str, char const* context_ch_c_l );
+void warning( String message_str  );
 void error( String message_str, char const* context_ch_c_l );
+
+void error( String message_str);
 void error(String s);		// errors
 void error_t(const String& s, Time_description const &  t_tdes);
 void error_t(String const &s, const Moment &when);

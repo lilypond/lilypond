@@ -105,6 +105,7 @@ if test FIND = error; then
    AC_MSG_WARN(Couldn't find \`find'.  Please use --enable-texprefix)
 else 
     
+AC_SUBST(CXX)
 AC_SUBST(DEFINES)
 AC_SUBST(COMPILEINFO)
 AC_SUBST(AUTOHEADER)

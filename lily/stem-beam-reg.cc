@@ -88,8 +88,8 @@ Stem_beam_register::process_requests()
 
 	if (beam_p_) {
 	    if (stem_req_l_->duration_.type_i_<= 4)
-		warning( "stem doesn't fit in Beam",
-			 stem_req_l_->defined_ch_C_);
+		
+			 stem_req_l_->warning( "stem doesn't fit in Beam");
 	    else
 		beam_p_->add(stem_p_);
 	    stem_p_->print_flag = false;
@@ -146,7 +146,7 @@ Stem_beam_register::post_move_processing()
 Stem_beam_register::~Stem_beam_register()
 {
     if (beam_p_)
-	warning("unterminated beam", start_req_l_->defined_ch_C_);
+	start_req_l_->warning("unterminated beam");
 }
 
 void
@@ -156,3 +156,4 @@ Stem_beam_register::set_feature(Features i)
 }
 
 IMPLEMENT_STATIC_NAME(Stem_beam_register);
+ADD_THIS_REGISTER(Stem_beam_register);

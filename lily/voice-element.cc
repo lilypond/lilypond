@@ -50,22 +50,21 @@ Voice_element::add(Request*r)
 
 Voice_element::Voice_element()
 {
-    voice_l_ = 0;
+    voice_C_ = 0;
     duration_ = 0;
-    defined_ch_C_ = 0;
 }
 
 Voice_element::Voice_element(Voice_element const&src)
+    : Input(src)
 {
-    defined_ch_C_ = src.defined_ch_C_;
-
-    voice_l_=0;
+  
+    voice_C_=0;
     for (iter_top(src.reqs, i); i.ok(); i++)
 	add(i->clone());
 
 }
 bool
-Voice_element::find_plet_start_b(char c, Moment& moment_r)
+Voice_element::find_plet_start_b(char c, Moment& moment_r)// b unused?
 {
     assert( c == ']' );
     moment_r += duration_;
@@ -80,7 +79,7 @@ void
 Voice_element::set_default_group(String s)
 {
     for (iter_top(reqs, i); i.ok(); i++)
-	if (i->groupchange())
+	if (i->command() &&i->command()->groupchange())
 	    return ;
     Group_change_req *greq = new Group_change_req;
     greq->newgroup_str_ = s;

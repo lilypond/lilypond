@@ -33,6 +33,21 @@ this is to rewrite the program.
 
 -- Geoffrey James, "The Tao of Programming"
 
+=head2 FILES
+
+Definitions of classes that are only accessed via pointers
+(*) or references (&) shall not be included as include files.
+
+Include files in C++ always have the file name extension ".hh".
+
+Implementation files in C++ always have the file name
+extension ".cc".
+
+Inline definition files always have the file name extension ".icc".
+
+Template include files always have the file name extension ".tcc".
+
+
 =head2 INDENTATION
 
 in emacs:
@@ -58,7 +73,7 @@ in emacs:
 	Class::member()
 	Type Class::member_type_
 
-the C<type> is a Hungarian notation postfix for $C<Type>$. See below
+the C<type> is a Hungarian notation postfix for C<Type>. See below
 
 
 =head2 COMMENTS
@@ -176,7 +191,7 @@ existed. I feel so stupid and ashamed!
 
 =head2 Disadvantages
 
-=over 5
+=over 4
 
 =item *
 
@@ -216,7 +231,7 @@ remains an issue.
 
 =head2 Proposal
 
-=over 5
+=over 4
 
 =item *
 
@@ -241,7 +256,7 @@ with the parts of the names separated by underscores.
 
 =head2 Types
 
-=over 5
+=over 4
 
 =item C<byte>
 
@@ -297,7 +312,7 @@ unsigned integer
 The following types modify the meaning of the prefix. 
 These are precede the prefixes:
 
-=over 5
+=over 4
 
 =item C<a>
 
@@ -331,7 +346,7 @@ reference
 
 =back
 
-=over 5
+=over 4
 
 =item C<loop_i>
 
@@ -362,6 +377,3 @@ Variable foo: an C<Int*> that you must delete
 Variable bar: an C<Int*> that you must not delete
 
 =back
-
-
-

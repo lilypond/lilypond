@@ -12,15 +12,12 @@
 #include "input-staff.hh"
 #include "staff.hh"
 #include "complex-staff.hh"
-#include "lyric-staff.hh"
-
 #include "my-lily-lexer.hh"
+#include "input-register.hh"
 
-
-Input_staff::Input_staff(String s)
+Input_staff::Input_staff()
 {
-    type= s;
-    defined_ch_C_ = 0;
+    ireg_p_ =0;
 }
 
 void
@@ -32,18 +29,10 @@ Input_staff::add(Input_music*m)
 Staff*
 Input_staff::parse(Score*score_l)
 {
-    Staff *p=0;
-    if (type == "melodic")
-	p = new Complex_staff;
-    else if (type == "lyric")
-    	p = new Lyric_staff;
-    else {
- 	error( "Unknown staff-type `" + type +"\'", defined_ch_C_ );
-	exit( 1 );
-    }
-
+    Staff *p=new Complex_staff;
+   
     p->score_l_ = score_l;
-    
+    p->ireg_p_ = (ireg_p_)? new Input_register(*ireg_p_):0;
     for (iter_top(music_,i); i.ok(); i++) {
 	Voice_list vl = i->convert();
 	p->add(vl);
@@ -52,11 +41,12 @@ Input_staff::parse(Score*score_l)
 }
 
 Input_staff::Input_staff(Input_staff const&s)
+    : Input(s)
 {    
     for (iter_top(s.music_,i); i.ok(); i++)
 	add(i->clone());
-    defined_ch_C_ = s.defined_ch_C_;
-    type = s.type;
+
+    ireg_p_ = (s.ireg_p_)? new Input_register(*s.ireg_p_):0;
 }
 
 void
@@ -66,9 +56,11 @@ Input_staff::print() const
     mtor << "Input_staff {\n";
     for (iter_top(music_,i); i.ok(); i++)
 	i->print();
+    ireg_p_->print();
     mtor << "}\n";
 #endif
 }
 Input_staff::~Input_staff()
 {
+    delete ireg_p_;
 }

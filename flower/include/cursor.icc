@@ -1,4 +1,4 @@
- // cursor.inl -*-c++-*-
+ // cursor.icc -*-c++-*-
 #ifndef CURSOR_INL
 #define CURSOR_INL
 #include <assert.h>

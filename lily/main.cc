@@ -21,7 +21,6 @@
 
 Sources* source_l_g = 0;
 bool only_midi = false;
-extern void parse_file(String,String);
 
 
 void
@@ -96,33 +95,35 @@ notice()
 	"USA.\n";
 }
 
-static File_path * path =0;
-struct Main_init {
-    Main_init() {
-	path = new File_path(String(DIR_DATADIR)+"/init/");
-	path->push(DIR_DATADIR );
-	debug_init();
-    }
-    ~Main_init() {
-	delete path;
-    }
-} main_init;
+static File_path * path_l =0;
 
 void
 do_one_file(String init_str, String file_str)
 {
-    source_l_g = new Sources;
-    source_l_g->set_path(path);
-    My_lily_parser parser(source_l_g);
-    parser.parse_file(init_str, file_str);
+    Sources sources;
+    source_l_g = &sources; 
+    source_l_g->set_path(path_l);
+    {
+	My_lily_parser parser(source_l_g);
+	parser.parse_file(init_str, file_str);
+    }
     do_scores();
-    delete source_l_g;
     source_l_g = 0;
 }
 
 int
 main (int argc, char **argv)
 {    
+    debug_init();		// should be first
+    File_path path(String(DIR_DATADIR)+"/init/") ;
+    path_l = & path;
+    path_l->push(DIR_DATADIR );
+
+    char const * env_l=getenv("LILYINCLUDE");
+    if (env_l) {
+	path.add(env_l);
+    }
+    
     Getopt_long oparser(argc, argv,theopts);
     cout << get_version_str() << endl;
     String init_str("symbol.ini");
@@ -137,7 +138,7 @@ main (int argc, char **argv)
 	    exit(0);
 	    break;
 	case 'I':
-	    path->push(oparser.optarg);
+	    path.push(oparser.optarg);
 	    break;
 	case 'i':
 	    init_str = oparser.optarg;
@@ -171,11 +172,6 @@ main (int argc, char **argv)
     }
 
     return 0;
-}
-String
-find_file(String f)
-{
-    return path->find(f);
 }
 
 /// make input file name: add default extension. "" is stdin.

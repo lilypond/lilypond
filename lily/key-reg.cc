@@ -39,7 +39,7 @@ Key_register::acknowledge_element(Staff_elem_info info)
 {
     Command_req * r_l = info.req_l_->command() ;
     if (r_l && r_l->clefchange() && !kit_p_) {
-	int c0_i= *get_staff_info().c0_position_i_;
+	int c0_i= *get_staff_info().c0_position_i_l_;
 	 kit_p_ = new Key_item(c0_i);
 	 kit_p_->read(*this);
 	 announce_element(Staff_elem_info(kit_p_, keyreq_l_));
@@ -57,7 +57,7 @@ Key_register::process_requests()
     }
 
      if ( default_key_b_ || keyreq_l_) {
-	 int c0_i= *get_staff_info().c0_position_i_;
+	 int c0_i= *get_staff_info().c0_position_i_l_;
 	 kit_p_ = new Key_item(c0_i);
 	 kit_p_->read(*this);
 	 announce_element(Staff_elem_info(kit_p_, keyreq_l_));
@@ -98,3 +98,4 @@ Key_register::post_move_processing()
     kit_p_ = 0;
 }
 IMPLEMENT_STATIC_NAME(Key_register);
+ADD_THIS_REGISTER(Key_register);

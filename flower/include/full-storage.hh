@@ -1,28 +1,39 @@
-#ifndef SMAT_HH
-#define SMAT_HH
+/*
+  full-storage.hh -- declare Full_storage
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef FULL_STORAGE_HH
+#define FULL_STORAGE_HH
+
 #include "varray.hh"
-#include "vsmat.hh"
+#include "matrix-storage.hh"
 #include "real.hh"
 /// simplest matrix storage. refer to its baseclass for the doco.
-class Full_storage : public virtual_smat
+class Full_storage : public Matrix_storage
 {
     /// height, width
-    int h,w;
+    int height_i_,width_i_;
     /// maxima.
-    int maxh, maxw;
+    int max_height_i_, max_width_i_;
     
     /// the storage
-    Real** els;
+    Real** els_p_p_;
+
     void
     init() {
-	els=0;
-	h=w=maxh=maxw=0;
+	els_p_p_=0;
+	height_i_=width_i_=max_height_i_=max_width_i_=0;
 
     }
     
     bool valid(int i, int j) const {
-	return (i>=0 && i < h)
-	    && (j < w && j >=0);
+	return (i>=0 && i < height_i_)
+	    && (j < width_i_ && j >=0);
     }
     
 
@@ -31,10 +42,10 @@ class Full_storage : public virtual_smat
 
 public:
     virtual int rows() const {
-	return h;
+	return height_i_;
     }
     virtual int cols() const {
-	return w;
+	return width_i_;
     }
     
     
@@ -53,11 +64,11 @@ public:
     
     virtual Real& elem(int i,int j) {
 	assert(valid(i,j));
-	return els[i][j];
+	return els_p_p_[i][j];
     }
     virtual Real const & elem(int i, int j) const {
 	assert(valid(i,j));
-	return els[i][j];
+	return els_p_p_[i][j];
     }
     virtual Array<Real> row(int i) const;
     virtual Array<Real> column(int j) const;
@@ -87,7 +98,9 @@ public:
     virtual void mult_next(int &i, int &j) const ;
     virtual bool trans_ok(int i, int j) const;
     virtual void trans_next(int &i, int &j) const;
-    virtual virtual_smat * clone();
+    virtual Matrix_storage * clone();
+    NAME_MEMBERS(Full_storage);
+    virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * );
 };
 
-#endif
+#endif // FULL_STORAGE_HH

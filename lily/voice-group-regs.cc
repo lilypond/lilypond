@@ -12,23 +12,18 @@
 #include "voice-regs.hh"
 #include "voice-group-regs.hh"
 #include "register.hh"
-#include "text-reg.hh"
-#include "stem-beam-reg.hh"
-#include "script-reg.hh"
 #include "complex-walker.hh"
 #include "command-request.hh"
 #include "debug.hh"
-#include "dynamic-reg.hh"
+#include "input-register.hh"
 
 static int temp_id_count;
 
-Voice_group_registers::Voice_group_registers(String id)
+Voice_group_registers::Voice_group_registers(String id,
+					     Input_register const *ireg_C)
 {
-    add(new Dynamic_register);
-    add(new Text_register);
-    add(new Stem_beam_register);
-    add(new Script_register);
-    
+    ireg_C_ =ireg_C;
+    Register_group_register::add(ireg_C->get_nongroup_p_arr());
     if (id=="")			// UGH
 	id = __FUNCTION__ + String(temp_id_count++);
     group_id_str_ = id;
@@ -44,35 +39,15 @@ Voice_group_registers::try_request(Request*r_l)
     }
     return false;
 gotcha:
-    if (r_l->groupfeature()) {
-	set_feature(Features::dir(r_l->groupfeature()->stemdir_i_));
+    Command_req* c_l = r_l->command();
+    if (c_l&& c_l->groupfeature()) {
+	set_feature(Features::dir(c_l->groupfeature()->stemdir_i_));
 	return true;
     }
     return Register_group_register::try_request(r_l);
 }
 
 
-bool
-Voice_group_registers::static_acceptable_request_b(Request*r)
-{
-    return (r->stem() || r->beam() || r->text() || r->script() ||
-	    r->groupfeature());
-}
-
-void
-Voice_group_registers::terminate_register(Request_register*r_l)
-{
-    if (r_l->name() == Voice_registers::static_name()) {
-	for (int i=0; i <voice_regs_l_.size(); i++) {
-	    if (r_l == voice_regs_l_[i])
-		voice_regs_l_.del(i);
-	    mtor << "Terminating voice_reg " ;
-	    Register_group_register::terminate_register(r_l);
-	    return;
-	}
-    }
-    assert(false);
-}
 IMPLEMENT_STATIC_NAME(Voice_group_registers);
 
 void
@@ -106,4 +81,16 @@ Voice_group_registers::post_move_processing()
 	daddy_reg_l_->terminate_register(this);
     }
     Register_group_register::post_move_processing();
+}
+
+Request_register *
+Voice_group_registers::get_register_p(Request_register *reg_l)
+{
+     if (reg_l->name() == Voice_registers::static_name()) {
+	for (int i=0; i <voice_regs_l_.size(); i++) {
+	    if (reg_l == voice_regs_l_[i])
+		voice_regs_l_.del(i);
+	}
+     }
+     return Register_group_register::get_register_p(reg_l);
 }

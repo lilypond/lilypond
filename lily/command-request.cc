@@ -72,7 +72,9 @@ IMPLEMENT_STATIC_NAME(Clef_change_req);
 void
 Clef_change_req::do_print() const
 {
+#ifndef NPRINT
     mtor << clef_str_ ;
+#endif
 }
 
 Clef_change_req::Clef_change_req(String s)
@@ -85,7 +87,9 @@ IMPLEMENT_STATIC_NAME(Group_feature_req);
 void
 Group_feature_req::do_print() const
 {
+#ifndef NPRINT
     mtor << "stemdir " << stemdir_i_;
+#endif
 }
 
 Group_feature_req::Group_feature_req()
@@ -98,7 +102,9 @@ IMPLEMENT_STATIC_NAME(Group_change_req);
 void
 Group_change_req::do_print()const
 {
+#ifndef NPRINT
     mtor << "id : " << newgroup_str_;
+#endif
 }
 /* *************** */
 IMPLEMENT_STATIC_NAME(Terminate_voice_req);

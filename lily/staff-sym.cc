@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "staffsym.hh"
+#include "staff-sym.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "debug.hh"
@@ -43,6 +43,6 @@ void
 Staff_symbol::set_extent(PCol*p1, PCol*p2)
 {
     assert(p1&&p2);
-    left = p1;
-    right = p2;
+    left_col_l_ = p1;
+    right_col_l_ = p2;
 }

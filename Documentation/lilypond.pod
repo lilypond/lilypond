@@ -90,6 +90,7 @@ multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
 
 beams, slurs, chords, super/subscripts (accents and text), triplets,
 general n-plet (triplet, quadruplets, etc.), lyrics, transposition
+dynamics (both absolute and hairpin style)
 
 =item *
 
@@ -208,7 +209,8 @@ quality. If you're not discouraged; this is what I type in my xterm:
 This is what the output looks like over here:
 
 	LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
-	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
+	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini]
+	[./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
 	Setting up music ...Processing music ............
 	Preprocessing ...
 	Calculating column positions ... [3][6][9]
@@ -265,10 +267,18 @@ includes files from the directory F<init/>.
 
 =back
 
+=head1 ENVIRONMENT
+
+B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
+
 =head1 SEE ALSO
 
+mudela(5)
+
 There are some documentation files  in the subdirectory F<Documentation/>,
-among others: lilygut, lilyinput, error, faq,
+among others: lilygut,  error, faq,
+
+http://www.stack.nl/~hanwen/lilypond/index.html
 
 =head1  REMARKS
 

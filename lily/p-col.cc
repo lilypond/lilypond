@@ -1,3 +1,11 @@
+/*
+  p-col.cc -- implement PCol
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "p-col.hh"
 #include "p-score.hh"
 #include "p-staff.hh"
@@ -10,7 +18,7 @@ PCol::width() const
 
     for (iter_top(its,i); i.ok(); i++)
 	w.unite(i->width());
-    if (w.empty())
+    if (w.empty_b())
 	w.unite(Interval(0,0));
     return w;
 }
@@ -18,15 +26,6 @@ PCol::width() const
 int
 PCol::rank() const
 {
-#if 0
-    if(!pscore_l_)
-	return -1;
-    PCursor<PCol*> me=pscore_l_->find_col( (PCol*)this);
-    if (!me.ok())
-	return -1;
-    PCursor<PCol*> bot(pscore_l_->cols.top());
-    return me - bot;
-#endif
     assert(rank_i_ != -1);
     return rank_i_;
 }
@@ -47,8 +46,7 @@ PCol::print() const
 #ifndef NPRINT
     mtor << "PCol {";
 
-    if (rank() >= 0)
-	mtor << "rank: " << rank_i_ << '\n';
+    mtor << "rank: " << rank_i_ << '\n';
 
     mtor << "# symbols: " << its.size() ;
     if (breakable_b()){

@@ -220,10 +220,10 @@ PScore::find_col(PCol const *c)const
 void
 PScore::add_broken(Spanner*s)
 {
-    assert(s->left->line_l_ == s->right->line_l_);
+    assert(s->left_col_l_->line_l_ == s->right_col_l_->line_l_);
     broken_spans.bottom().add(s);
-    s->left->starters.bottom().add (s);
-    s->right->stoppers.bottom().add (s);
+    s->left_col_l_->starters.bottom().add (s);
+    s->right_col_l_->stoppers.bottom().add (s);
 }
 
 void

@@ -5,20 +5,17 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "input-register.hh"
 #include "proto.hh"
-#include "plist.hh"
 #include "staff.hh"
 #include "score.hh"
 #include "voice.hh"
-#include "staff-walker.hh"
 #include "staff-column.hh"
 #include "score-column.hh"
 #include "voice-element.hh"
 #include "debug.hh"
 #include "musical-request.hh"
 #include "command-request.hh" // todo
-#include "midi-stream.hh"
 #include "pqueue.hh"
 
 
@@ -163,12 +160,14 @@ Staff::print() const
     for (iter_top(voice_list_,i); i.ok(); i++) {
 	i->print();	
     }
+    ireg_p_->print();
     mtor <<"}\n";
 #endif
 }
 
 Staff::Staff()
 {    
+    ireg_p_ =0;
     score_l_ =0;
     pscore_l_ =0;
     pstaff_l_ =0;

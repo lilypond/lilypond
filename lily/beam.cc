@@ -180,8 +180,8 @@ Beam::do_break_at( PCol *, PCol *) const
 void
 Beam::do_pre_processing()
 {
-    left  = (*stems.top())   ->pcol_l_;
-    right = (*stems.bottom())->pcol_l_;    
+    left_col_l_ = (*stems.top())   ->pcol_l_;
+    right_col_l_ = (*stems.bottom())->pcol_l_;    
     assert(stems.size()>1);
     if (!dir_i_)
 	set_default_dir();
@@ -278,7 +278,7 @@ Beam::brew_molecule_p() const return out;
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
 	out->add(sb);
     }
-    out->translate(Offset(x0 - left->hpos,0));
+    out->translate(Offset(x0 - left_col_l_->hpos,0));
 }
 
 IMPLEMENT_STATIC_NAME(Beam);

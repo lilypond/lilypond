@@ -55,7 +55,7 @@ struct Interval_t {
 
     T length() const;
     void set_empty() ;
-    bool empty() const { return left > right; }
+    bool empty_b() const { return left > right; }
     Interval_t() {
 	set_empty();
     }
@@ -69,7 +69,7 @@ struct Interval_t {
 	return *this;
     }
     String str() const;    
-    bool elt_q(T r);
+    bool elt_b(T r);
 };
 
 

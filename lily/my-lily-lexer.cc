@@ -26,9 +26,11 @@ static Keyword_ent the_key_tab[]={
     "clef", CLEF,
     "cm", CM_T,
     "duration", DURATIONCOMMAND,
-    "dynamic", DYNAMIC,
+    "absdynamic", ABSDYNAMIC,
+    "group", GROUP,
     "geometric", GEOMETRIC,
     "in", IN_T,
+    "inputregister", INPUT_REGS,
     "lyric", LYRIC,
     "key", KEY,
     "melodic" , MELODIC,
@@ -51,6 +53,7 @@ static Keyword_ent the_key_tab[]={
     "start", START_T,
     "stem", STEM,
     "table", TABLE,
+    "spandynamic", SPANDYNAMIC, 
     "symboltables", SYMBOLTABLES,
     "tempo", TEMPO,
     "texid", TEXID,
@@ -103,7 +106,7 @@ My_lily_lexer::~My_lily_lexer()
 	mtor << "deleting: " << ai.key()<<'\n';
 	Identifier *i_p = ai.val();
 	if (!i_p->accessed_b_ && !i_p->init_b_)
-	    warning("Variable not used", i_p->defined_ch_C_);
+	    i_p->warning("Variable not used");
 	
 	delete ai.val();
     }
