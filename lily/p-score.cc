@@ -18,9 +18,11 @@
 #include "header.hh"
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
+#include "outputter.hh"
 
 Paper_score::Paper_score ()
 {
+  outputter_l_ =0;
   super_elem_l_   = new Super_elem;
   typeset_element (super_elem_l_);
 }
@@ -54,7 +56,6 @@ Paper_score::typeset_unbroken_spanner (Spanner*span_p)
   span_p_list_.bottom ().add (span_p);
   span_p->pscore_l_=this;
 
-  
   // do not init start/stop fields. These are for broken spans only.
   span_p->add_processing ();
 }
@@ -81,15 +82,6 @@ Paper_score::add_column (Paper_column *p)
 
 
 void
-Paper_score::OK () const
-{
-#ifndef NDEBUG
-  for (PCursor<Score_elem*> i (elem_p_list_.top ()); i.ok  (); i++) 
-    i->OK ();
-#endif
-}
-
-void
 Paper_score::print () const
 {    
 #ifndef NPRINT
@@ -105,20 +97,6 @@ Paper_score::print () const
   
   DOUT << "}\n";
 #endif 
-}
-
-void
-Paper_score::preprocess ()
-{
-  super_elem_l_->breakable_col_processing ();
-  super_elem_l_->pre_processing ();
-}
-
-void
-Paper_score::postprocess ()
-{
-  super_elem_l_->post_processing ();
-  super_elem_l_->molecule_processing ();
 }
 
 PCursor<Paper_column *>
@@ -197,12 +175,19 @@ Paper_score::process ()
   clean_cols ();
   print ();
   *mlog << "Preprocessing elements... " <<flush;
-  preprocess ();
+  super_elem_l_->breakable_col_processing ();
+  super_elem_l_->pre_processing ();
   *mlog << "\nCalculating column positions ... " <<flush;
   calc_breaking ();
   *mlog << "\nPostprocessing elements..." << endl;
-  postprocess ();
+  super_elem_l_->post_processing ();
+  tex_output ();
+}
 
+
+void
+Paper_score::tex_output ()
+{
   // output
   String outname = paper_l_->outfile_str_ ;
   if (!outname)
@@ -210,17 +195,21 @@ Paper_score::process ()
   
   *mlog << "TeX output to " <<  outname << " ...\n";
   
-  Tex_stream the_output (outname);
+  Tex_stream tex_out (outname);
+  Tex_outputter interfees (&tex_out);
+
+  outputter_l_ = &interfees;
   
-  the_output << "% outputting Score, defined at: " << origin_str_ << "\n";
+  tex_out << "% outputting Score, defined at: " << origin_str_ << "\n";
   if (header_l_) 
     {
-      the_output << header_l_->TeX_string();
+      tex_out << header_l_->TeX_string();
     }
   
-  the_output << "\n "<<  paper_l_->lookup_l ()->texsetting << "%(Tex id)\n";
-  the_output<< super_elem_l_->TeX_output_str ();
-  the_output << "\n\\EndLilyPondOutput";
+  tex_out << "\n "<<  paper_l_->lookup_l ()->texsetting << "%(Tex id)\n";
+  super_elem_l_->output_all ();
+  tex_out << "\n\\EndLilyPondOutput";
+  outputter_l_ = 0;
 }
 
 /** Get all breakable columns between l and r, (not counting l and r).  */
