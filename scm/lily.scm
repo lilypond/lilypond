@@ -12,14 +12,7 @@
 (use-modules (ice-9 regex))
 
 ;; do nothing in .scm output
-(define (comment s)
-  ""
-  )
-
-(define
-  (xnumbers->string l)
-  (string-append 
-   (map (lambda (n) (string-append (number->string n ) " ")) l)))
+(define (comment s) "")
 
 (define (mm-to-pt x)
   (* (/ 72.27 25.40) x)
@@ -34,11 +27,10 @@
 	  )
       )
 
+(define (glue-2-strings a b) 
+  (string-append a " " b))
 
-(define (glue-2-strings a b) (string-append a " " b))
-
-(define
-  (numbers->string l)
+(define (numbers->string l)
   (reduce glue-2-strings (map number->string l)))
 
 (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
@@ -150,6 +142,7 @@
 ;; roman-0, roman-1 roman+1 ?
 (define cmr-alist 
   '(("bold" . "cmbx") 
+    ("brace" . "feta-braces")
     ("dynamic" . "feta-din") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 
@@ -309,7 +302,7 @@
 
   (define (header creator generate) 
     (string-append
-     "%created by: " creator generate))
+     "%created by: " creator generate "\n"))
 
   (define (invoke-char s i)
     (string-append 
@@ -350,9 +343,8 @@
     (embedded-ps ((ps-scm 'bezier-sandwich) l thick)))
 
   (define (start-line ht)
-    (begin
       (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
-    )
+
   (define (stop-line) 
     "}\\vss}\\interscoreline")
   (define (stop-last-line)
@@ -582,8 +574,7 @@
      " draw_bezier_sandwich"))
 
   (define (start-line height)
-    (begin
-      "\nstart_line {\n"))
+	  "\nstart_line {\n")
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
@@ -659,6 +650,164 @@
   )
 
 
+(define (arg->string arg)
+  (cond ((number? arg) (inexact->string arg 10))
+	((string? arg) (string-append "\"" arg "\""))
+	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
+
+(define (func name . args)
+  (string-append 
+   "(" name 
+   (if (null? args) 
+       ""
+       (apply string-append 
+	      (map (lambda (x) (string-append " " (arg->string x))) args)))
+   ")\n"))
+
+
+;;;; AsciiScript as
+(define (as-scm action-name)
+
+  (define (beam width slope thick)
+	  (string-append
+	   (func "set-line-char" "#")
+	   (func "rline-to" width (* width slope))
+	   ))
+
+  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
+	  (string-append
+	   (func "rmove-to" (+ width 1) (- (/ height -2) 1))
+	   (func "put" "\\\\")
+	   (func "set-line-char" "|")
+	   (func "rmove-to" 0 1)
+	   (func "v-line" (+ height 1))
+	   (func "rmove-to" 0 (+ height 1))
+	   (func "put" "/")
+	   ))
+
+  (define (char i)
+    (func "char" i))
+
+  (define (end-output) 
+    (func "end-output"))
+  
+  (define (experimental-on)
+	  "")
+
+  (define (filledbox breapth width depth height)
+	  (let ((dx (+ width breapth))
+		(dy (+ depth height)))
+	       (string-append 
+		(func "rmove-to" (* -1 breapth) (* -1 depth))
+		(if (< dx dy)
+		    (string-append
+		     (func "set-line-char" 
+			   (if (<= dx 1) "|" "#"))
+		     (func "v-line" dy))
+		    (string-append
+		     (func "set-line-char" 
+			   (if (<= dy 1) "-" "="))
+		    (func "h-line" dx))))))
+
+  (define (font-load-command name-mag command)
+    (func "load-font" (car name-mag) (magstep (cdr name-mag))))
+
+  (define (header creator generate) 
+    (func "header" creator generate))
+
+  (define (header-end) 
+    (func "header-end"))
+
+  (define (lily-def key val)
+	  (string-append "(define " key " " (arg->string val) ")\n"))
+
+  (define (placebox x y s) 
+    (string-append (func "move-to" x y) s))
+
+  (define (select-font font-name-symbol)
+    (let* ((c (assoc font-name-symbol font-name-alist)))
+      (if (eq? c #f)
+	  (begin
+	    (ly-warn 
+	     (string-append 
+	      "Programming error: No such font known " 
+	      (car font-name-symbol)))
+	    "")				; issue no command
+	  (func "select-font" (car font-name-symbol)))))
+
+  (define (start-line height)
+	  (func "start-line" height))
+
+  (define (stop-line)
+	  (func "stop-line"))
+
+  (define (text s)
+	  (func "text" s))
+
+;  (define (volta h w thick vert_start vert_end)
+;     (func "draw-volta" h w thick vert_start vert_end))
+
+  (define (volta h w thick vert-start vert-end)
+	  (string-append
+	   (if #t  ;(= 0 vert-start)
+	       ""
+	      (func "v-line" h))
+	   ""
+	   ;(func "rmove-to" 0 h)
+	   ;(func "h-line" w)
+	   (if #t ;(= 0 vert-end)
+	       ""
+	       (string-append
+		(func "rmove-to" w 0)
+		(func "v-line" (* -1 h))))))
+
+  (cond ((eq? action-name 'all-definitions)
+	 `(begin
+	    (define beam ,beam)
+	    (define bracket ,bracket)
+	    (define char ,char)
+	    ;;(define crescendo ,crescendo)
+	    ;(define bezier-sandwich ,bezier-sandwich)
+	    ;;(define dashed-slur ,dashed-slur) 
+	    ;;(define decrescendo ,decrescendo) 
+	    (define end-output ,end-output)
+	    (define experimental-on ,experimental-on)
+	    (define filledbox ,filledbox)
+	    ;;(define font-def ,font-def)
+	    (define font-load-command ,font-load-command)
+	    ;;(define font-switch ,font-switch)
+	    (define header ,header) 
+	    (define header-end ,header-end)
+	    (define lily-def ,lily-def)
+	    ;;(define invoke-char ,invoke-char) 
+	    ;;(define invoke-dim1 ,invoke-dim1)
+	    (define placebox ,placebox)
+	    (define select-font ,select-font)
+	    (define start-line ,start-line)
+	    ;;(define stem ,stem)
+	    (define stop-line ,stop-line)
+	    (define stop-last-line ,stop-line)
+	    (define text ,text)
+	    ;;(define tuplet ,tuplet)
+	    (define volta ,volta)
+	    ))
+	;;((eq? action-name 'tuplet) tuplet)
+	;;((eq? action-name 'beam) beam)
+	;;((eq? action-name 'bezier-sandwich) bezier-sandwich)
+	;;((eq? action-name 'bracket) bracket)
+	((eq? action-name 'char) char)
+	;;((eq? action-name 'crescendo) crescendo)
+	;;((eq? action-name 'dashed-slur) dashed-slur) 
+	;;((eq? action-name 'decrescendo) decrescendo)
+	;;((eq? action-name 'experimental-on) experimental-on)
+	((eq? action-name 'filledbox) filledbox)
+	((eq? action-name 'select-font) select-font)
+	;;((eq? action-name 'volta) volta)
+	(else (error "unknown tag -- MUSA-SCM " action-name))
+	)
+  )
+
+
 (define (gulp-file name)
   (let* ((port (open-file name "r"))
 	 (content (let loop ((text ""))
@@ -685,6 +834,8 @@
 (define (scm-ps-output)
   (eval (ps-scm 'all-definitions)))
 
+(define (scm-as-output)
+  (eval (as-scm 'all-definitions)))
 				
 ; Russ McManus, <mcmanus@IDT.NET>  
 ; 
@@ -709,37 +860,11 @@
       (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
 
 
-;; guile-1.3.4 has list->string
-(define (scmlist->string exp)
-  (list->string exp))
-
-;; obsolete, maybe handy for testing
-;; print a SCM expression.  Isn't this part of the std lib?
-(define (xxscmlist->string exp)
-  (cond
-   ((null? (car exp)) (begin (display ("urg:") (newline))))
-   ((pair? (cdr exp)) (string-append (scm->string (car exp)) " " (scmlist->string (cdr exp))))
-   ((eq? '() (cdr exp)) (string-append (scm->string (car exp)) ")"))
-   ;; howto check for quote?
-   (else (string-append (scm->string (car exp)) " . " (scm->string (cdr exp)) ")"))
-   ))
-
-(define (scm->string exp)
-  (cond
-   ((pair? exp) (string-append "(" (scmlist->string exp)))
-   ((number? exp) (number->string exp))
-   ((symbol? exp) (symbol->string exp))
-   ((string? exp) (string-append "\"" exp "\""))
-   ;; probably: #@quote
-   (else (begin (display "programming error: scm->string: ") (newline) "'"))
-   ))
 
 (define (index-cell cell dir)
   (if (equal? dir 1)
       (cdr cell)
-      (car cell))
-  )
-
+      (car cell)))
 
 ;
 ; How should a  bar line behave at a break? 

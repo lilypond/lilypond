@@ -1,5 +1,52 @@
-1.3.23.uu1
-==========
+1.3.24.jcn4
+===========
+
+* as2text: catch missing font/character errors, added default font, set text.
+
+1.3.24.jcn3
+===========
+
+* New ascii fonts: as5 as-numeral4 as-braces9
+
+* Fixes to as2text.scm
+
+* Added lots of ascii glyphs
+
+1.3.24.jcn2
+===========
+
+* Ascii output, minimal support:
+  - AsciiScript Fonts: mf/*.af
+  - Init files: ly/*-as.*ly 
+  - AsciiScript translation to text: scripts/as2text.scm
+  - input/test/as.fly input/test/as1.fly
+  - Output support: lily/lily.scm
+  - Try:
+      lilypond -f as -i init-as.fly input/test/as.fly
+      as2text as.as
+
+1.3.24.hwn1
+===========
+
+* The horizontal part of ties will avoid collision with staff lines.
+
+* Plugged memory leak: don't protect Atom function.
+
+* Lookup cleanups. Made lots of functions static. Moved some code out
+of Lookup.
+
+
+
+1.3.24.hwn1
+===========
+
+* Bugfix: ly2dvi.py exits succesfully when encountering --help and
+does not delete any of the file_ly*.tex.
+
+* Added header and footer support in ly2dvi.py
+
+1.3.24
+======
 
 * Added a ROADMAP file explaining the source directory layout.
 
