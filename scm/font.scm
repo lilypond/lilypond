@@ -289,39 +289,9 @@ and warn if the selected font is not unique.
   ))
 
 
-(define (chain-assoc x alist-list)
-  (if (null? alist-list)
-      #f
-      (let* ((handle (assoc x (car alist-list))))
-	(if (pair? handle)
-	    handle
-	    (chain-assoc x (cdr alist-list))))))
+; there used to be a Scheme  properties-to-font-name function,
+; but that is  superseeded by the C++ version  out of speed concerns.
 
-;; TODO
-;; the C++ version  in font-interface.cc is usually used.
-;;
-;; FIXME: this has silently been broken by the introduction
-;;        of wildcards in the font list.    
-(define (properties-to-font-name fonts properties-alist-list)
-  (let*  (
-	  ;; change order to change priorities of qualifiers.
-	  (q-order '(font-family font-series font-shape
-			       font-design-size font-relative-size))
-	  (rawqualifiers (map (lambda (x)
-				(chain-assoc x properties-alist-list))
-			      q-order))
-	  (qualifiers (filter-list pair? rawqualifiers))
-	  (selected (find-first-font qualifiers fonts))
-	  (err (current-error-port)))
-
-    (if (equal? selected "")
-	(begin
-	  (display "\ncouldn't find any font satisfying " err)
-	  (write qualifiers err)
-	  "cmr10"
-	  )
-	selected)	; return the topmost.
-    ))
 
 (define-public (markup-to-properties abbrev-alist style-alist markup)
   "DOCME."

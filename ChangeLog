@@ -1,5 +1,9 @@
 2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/line-spanner.cc (line_molecule): bugfix for trill style.
+
+	* scm/font.scm: remove properties-to-font-name code.
+
 	* scm/define-grob-properties.scm: remove 'type
 
 	* scripts/convert-ly.py (FatalConversionError.conv): type -> style

@@ -148,14 +148,13 @@ Line_spanner::line_molecule (Grob *me, Real thick, Real dx, Real dy)
 	   && type == ly_symbol2scm ("trill"))
     {
       SCM alist_chain = Font_interface::font_alist_chain (me);
-      SCM style_chain = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
-					  ly_symbol2scm ("music")),
-				 SCM_UNDEFINED);
+      SCM style_alist = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
+					     ly_symbol2scm ("music")),
+				    SCM_UNDEFINED);
       
       Font_metric *fm = Font_interface::get_font (me,
-						  scm_list_n (style_chain,
-							   alist_chain,
-							   SCM_UNDEFINED));
+						  gh_cons (style_alist,
+							   alist_chain));
       Molecule m = fm->find_by_name ("scripts-trill-element");
       do
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);

@@ -90,6 +90,16 @@
   (string<? (symbol->string (car x))
 	    (symbol->string (car y))))
 
+
+
+(define (chain-assoc x alist-list)
+  (if (null? alist-list)
+      #f
+      (let* ((handle (assoc x (car alist-list))))
+	(if (pair? handle)
+	    handle
+	    (chain-assoc x (cdr alist-list))))))
+
 ;;;;;;;;;;;;;;;;
 ; list
 (define (tail lst)
