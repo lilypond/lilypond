@@ -2,6 +2,8 @@
 #include <iostream.h>
 
 #include "lookup.hh"
+
+#include "misc.hh"
 #include "lexer.hh"
 #include "paper.hh"
 #include "inputstaff.hh"
@@ -35,8 +37,7 @@ Paperdef*default_paper();
     String *string;
     const char *consstr;
     Paperdef *paper;
-    Horizontal_music *horizontal;
-    Vertical_music *vertical;
+    Input_music *music;
     Music_general_chord *chord;
     Music_voice *mvoice; 
     int i;
@@ -71,15 +72,17 @@ Paperdef*default_paper();
 %token <ii> NOTENAME 
 %token <real> REAL
 %token <string> STRING
-%token <i> OPEN_REQUEST_PARENS CLOSE_REQUEST_PARENS
+%token <c> OPEN_REQUEST_PARENS CLOSE_REQUEST_PARENS
 %token <i> DOTS INT
 %type <consstr> unit
 %type <intvec> pitch_list
 
-%type <id> declaration 
+%type <id> declaration
+%type <string> declarable_identifier
 %type <paper> paper_block paper_body
 %type <real> dim
 %type <ii> duration
+%type <real> duration_length
 %type <el> voice_elt full_element
 %type <command> score_command staff_command skipcommand
 %type <score> score_block score_body
@@ -90,9 +93,9 @@ Paperdef*default_paper();
 %type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request
 %type <string> clef_id pitchmod
-%type <vertical> vertical_music  
+%type <music> music 
 %type <chord> music_chord music_chord_body
-%type <horizontal>  horizontal_music
+
 %type <mvoice>  music_voice_body music_voice
 
 %type <interval> dinterval
@@ -113,35 +116,40 @@ mudela:	/* empty */
 	;
 
 mudela_command:
-	notename_tab			{ set_notename_tab($1); }
+	notename_tab			{ lexer->set($1); }
 	;
 
 /*
 	DECLARATIONS
 */
 add_declaration: declaration	{
-		add_identifier($1);
+		lexer->add_identifier($1);
 	}
 	;
 
+declarable_identifier:
+	NEWIDENTIFIER { $$ = $1; }
+	| IDENTIFIER { $$ = new String($1->name); }
+	;
+
 declaration:
-	NEWIDENTIFIER '=' staff_block  {
+	declarable_identifier '=' staff_block  {
 		$$ = new Staff_id(*$1, $3);
 		delete $1; // this sux
 	}
-	| NEWIDENTIFIER '=' music_voice {
+	| declarable_identifier '=' music_voice {
 		$$ = new M_voice_id(*$1, $3);
 		delete $1;
 	}
-	| NEWIDENTIFIER '=' music_chord  {
+	| declarable_identifier '=' music_chord  {
 		$$ = new M_chord_id(*$1, $3);
 		delete $1;
 	}
-	| NEWIDENTIFIER '=' symtables {
+	| declarable_identifier '=' symtables {
 		$$ = new Lookup_id(*$1, $3);
 		delete $1;
 	}
-	| NEWIDENTIFIER '=' notename_tab {
+	| declarable_identifier '=' notename_tab {
 		$$ = new Notetab_id(*$1, $3);
 		delete $1;
 	}
@@ -216,8 +224,14 @@ staff_command:
 	}
 	;
 
+duration_length:	
+	 duration		{
+		$$ = wholes($1[0], $1[1]);
+	}
+	;
+
 skipcommand:
-	SKIP int ':' REAL		{
+	SKIP int ':' duration_length		{
 		$$ = get_skip_command($2, $4);
 	}
 
@@ -226,7 +240,7 @@ score_command:
 	| METER  int int		{
 		$$ = get_meterchange_command($2, $3);
 	}
-	| PARTIAL REAL			{
+	| PARTIAL duration_length		{
 		$$ = get_partial_command($2);
 	}
 	| GROUPING int_list		{
@@ -278,7 +292,7 @@ staff_init:
 
 staff_body:
 	staff_init
-	| staff_body		horizontal_music	{
+	| staff_body music	{
 		$$->add($2);
 	}
 	| staff_body staff_commands_block {
@@ -290,15 +304,12 @@ staff_body:
 /*
 	MUSIC
 */
-horizontal_music:
+music:
 	music_voice	{ $$ = $1; }
+	| music_chord	{ $$ = $1; }
 	;
 
-vertical_music:
-	music_chord	{ $$ = $1; }
-	;
-
-music_voice: MUSIC '{' music_voice_body '}'	{ $$ = $3; }
+music_voice:  MUSIC '{' music_voice_body '}'	{ $$ = $3; }
 	;
 
 music_voice_body:			{
@@ -308,27 +319,30 @@ music_voice_body:			{
 		$$->concatenate($2->mvoice());
 	}
 	| music_voice_body full_element {
-		$$->add($2);
+		$$->add_elt($2);
 	}
 	| music_voice_body voice_command {
 	}
-	| music_voice_body vertical_music	{
+	| music_voice_body music	{
 		$$->add($2);
 	}
 	;
 
 
-music_chord: CHORD '{' music_chord_body '}'	{ $$ = $3; }
+music_chord:  '{' music_chord_body '}'	{ $$ = $2; }
 	;
 
 music_chord_body:		{
 		$$ = new Music_general_chord;
 	}
-	| music_voice_body IDENTIFIER {
+	| music_chord_body IDENTIFIER {
 		$$->concatenate($2->mchord());
 	}
-	| music_chord_body horizontal_music {
+	| music_chord_body music {
 		$$ -> add($2);
+	}
+	| music_chord_body full_element {
+		$$ ->add_elt($2);
 	}
 	;
 
@@ -424,7 +438,7 @@ int:
 	REAL			{
 		$$ = int($1);
 		if (ABS($1-Real(int($$))) > 1e-8)
-			yyerror("expecting integer number");
+			error("expecting integer number");
 	}
 	| INT
 	;
@@ -491,10 +505,15 @@ symtable_body:
 	;
 
 symboldef:
-	STRING	box		{
+	STRING 	box		{
 		$$ = new Symbol(*$1, *$2);
 		delete $1;
 		delete $2;
+	}
+	| STRING {
+		Box b;
+		$$ = new Symbol(*$1, b);
+		delete $1;
 	}
 	;
 
@@ -522,18 +541,16 @@ parse_file(String s)
    yydebug = !monitor.silence("Parser") && check_debug;
 #endif
 
-   new_input("symbol.ini");
+   set_lexer();
+   lexer->new_input("symbol.ini");
    yyparse();
-   new_input(s);
+   lexer->new_input(s);
    yyparse();
-
-   delete_identifiers();
    kill_lexer();
-   *mlog << "\n";
 }
 
 Paperdef*
 default_paper()
 {
-	return new Paperdef(lookup_identifier("default_table")->lookup(true));
+	return new Paperdef(lexer->lookup_identifier("default_table")->lookup(true));
 }

@@ -67,6 +67,7 @@ Active_constraints::add(int k)
     // update of matrices
     Vector Ha = H*a;
     Real aHa = a*Ha;
+    Vector addrow(Ha.dim());
     if (ABS(aHa) > EPS) {
 	/*
 	  a != 0, so if Ha = O(EPS), then
@@ -74,13 +75,14 @@ Active_constraints::add(int k)
 
 	  if H*a == 0, the constraints are dependent.
 	  */
-	H -= Matrix(Ha , Ha)/(aHa);
+	H -= Matrix(Ha/aHa , Ha);
     
 
 	/*
 	  sorry, don't know how to justify this. ..
 	  */
-	Vector addrow(Ha/(aHa));
+	addrow=Ha;
+        addrow/= aHa;
 	A -= Matrix(A*a, addrow);
 	A.insert_row(addrow,A.rows());
     }else
@@ -103,12 +105,16 @@ Active_constraints::drop(int k)
 	/*
 	 
 	 */
-	H += Matrix(a,a)/(a*opt->quad*a);
-	A -= A*opt->quad*Matrix(a,a)/(a*opt->quad*a);
+        Real q = a*opt->quad*a;
+	H += Matrix(a,a/q);
+	A -= A*opt->quad*Matrix(a,a/q);
     }else
 	WARN << "degenerate constraints";
+   #ifndef NDEBUG
     Vector rem_row(A.row(q));
-    assert(rem_row.norm() < EPS);    
+    assert(rem_row.norm() < EPS);
+   #endif
+     
     A.delete_row(q);
 }
 
