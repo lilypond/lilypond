@@ -1,3 +1,10 @@
+2005-03-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.5.16
+
+	* make/ly-vars.make (DVIPS_FLAGS): include lilypond.map path
+	explicitly.
+
 2005-03-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-tex.scm (convert-to-dvi): Barf if NAME contains
