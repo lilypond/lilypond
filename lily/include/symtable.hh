@@ -10,8 +10,8 @@
 struct  Symtable : public Assoc<String, Symbol> {
     String id_str;
     
-    Symbol lookup (String)const;
-    void print()const;
+    Symbol lookup (String) const;
+    void print() const;
 };
 
 
@@ -22,7 +22,7 @@ struct Symtables : private Assoc<String, Symtable*> {
     Symtables();
     Symtables (Symtables const&);
     void add (String, Symtable*);
-    void print()const;
+    void print() const;
 };
 
 

@@ -10,7 +10,7 @@
 #include "varray.hh"
 #include "lily-proto.hh"
 
-typedef Array<PCol*>  Line_of_cols;
+typedef Array<Paper_column*>  Line_of_cols;
 
 struct Col_hpositions {
     Line_spacer * spacer_l_;
@@ -22,7 +22,7 @@ struct Col_hpositions {
     bool satisfies_constraints_b_;
 
     /* ************** */
-    void OK()const;
+    void OK() const;
     ~Col_hpositions();
     void solve_line();
     void approximate_solve_line();
@@ -30,7 +30,7 @@ struct Col_hpositions {
       constraints.  should always work */
     void stupid_solution();
     Col_hpositions();
-    void add (PCol*c);
+    void add (Paper_column*c);
     void print() const;
 };
 

@@ -35,7 +35,7 @@ public:
     bool contains_b (Directed_graph_node const*) const;
 
     Directed_graph_node (Directed_graph_node const &);
-    void OK()const;
+    void OK() const;
     Directed_graph_node();
 
     ~Directed_graph_node();

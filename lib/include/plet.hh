@@ -18,8 +18,8 @@
  */
 struct Plet {
   Plet();
-  Moment mom()const;
-  bool unit_b()const;
+  Moment mom() const;
+  bool unit_b() const;
   int iso_i_;  // 2/3; 2 is not duration, maar of count!
   int type_i_; 
 };

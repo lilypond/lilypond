@@ -109,7 +109,7 @@ public:
     virtual void delete_row (int k)=0;
         virtual void delete_column (int k)=0;
     virtual ~Matrix_storage() { }
-    virtual Matrix_storage *clone()const=0;
+    virtual Matrix_storage *clone() const=0;
 
 
     
@@ -153,7 +153,7 @@ public:
     static void set_band (Matrix_storage*&, int band);
     static void set_full (Matrix_storage*&);
     virtual bool try_right_multiply (Matrix_storage *dest, 
-				    const Matrix_storage *fact)const ;
+				    const Matrix_storage *fact) const ;
     /**
       RTTI.
      */

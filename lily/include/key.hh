@@ -18,7 +18,7 @@ public:
  
     Octave_key();
     void set (int i, int acc);
-    int acc (int i)const { return accidental_i_arr_[i]; }
+    int acc (int i) const { return accidental_i_arr_[i]; }
 };
 
 /// administration of accidentals

@@ -92,7 +92,7 @@ Matrix_storage::get_full (int n, int m)
 
  bool
 Matrix_storage::try_right_multiply (Matrix_storage *, 
-				   const Matrix_storage *)const
+				   const Matrix_storage *) const
 {
   return false;
 }

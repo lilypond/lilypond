@@ -24,7 +24,7 @@ struct Col_stats
 
     Col_stats(); 
     void add (Line_of_cols const&l);
-    String str()const;
+    String str() const;
 };
 
 /** Class representation of an algorithm which decides where to put
@@ -43,7 +43,7 @@ protected:
     Line_of_cols find_breaks() const;
 
     Line_of_cols all_cols() const;
-    Array<int> find_break_indices()const;
+    Array<int> find_break_indices() const;
     
 
     /// helper: solve for the columns in #curline#.
@@ -53,13 +53,13 @@ protected:
     void approximate_solve_line (Col_hpositions*) const;
 
     /// does curline fit on the paper?    
-    bool feasible (Line_of_cols)const;
+    bool feasible (Line_of_cols) const;
     
 
-    Line_spacer* generate_spacing_problem (Line_of_cols)const;
+    Line_spacer* generate_spacing_problem (Line_of_cols) const;
 
-    virtual Array<Col_hpositions> do_solve()const=0;
-    void print_stats()const;
+    virtual Array<Col_hpositions> do_solve() const=0;
+    void print_stats() const;
 
     virtual void do_set_pscore();
 public:
@@ -72,9 +72,9 @@ public:
     void set_pscore (Paper_score*);
 
     /// check if the spacing/breaking problem is well-stated
-    void problem_OK()const;
-    void OK()const;
-    Array<Col_hpositions> solve()const;
+    void problem_OK() const;
+    void OK() const;
+    Array<Col_hpositions> solve() const;
 };
 
 #endif // BREAK_HH

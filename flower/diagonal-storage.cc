@@ -19,7 +19,7 @@
 #include "full-storage.icc"
 
 int
-Diagonal_storage::dim()const
+Diagonal_storage::dim() const
 {
   return band_.rows();
 }
@@ -41,7 +41,7 @@ Diagonal_storage::cols() const
 }
 
 int
-Diagonal_storage::band_size_i()const
+Diagonal_storage::band_size_i() const
 {
   return (band_.cols()-1)/2;
 }
@@ -104,13 +104,13 @@ Diagonal_storage::~Diagonal_storage()
 
 
 bool
-Diagonal_storage::band_elt_b (int i,int j)const
+Diagonal_storage::band_elt_b (int i,int j) const
 {
   return abs (i-j) <= band_size_i();
 }
 
 void
-Diagonal_storage::assert_valid (int i,int j)const
+Diagonal_storage::assert_valid (int i,int j) const
 {
   assert (band_elt_b (i,j));
   assert (i >=0 && j >=0 && i < dim() && j < dim ());
@@ -133,13 +133,13 @@ Diagonal_storage::resize_dim (int d)
 
 
 bool
-Diagonal_storage::mult_ok (int i,int)const
+Diagonal_storage::mult_ok (int i,int) const
 {
   return i < dim();
 }
 
 void
-Diagonal_storage::mult_next (int &i, int &j)const
+Diagonal_storage::mult_next (int &i, int &j) const
 {
   j++;
   if ( j < i - band_size_i()) 
@@ -152,13 +152,13 @@ Diagonal_storage::mult_next (int &i, int &j)const
 }
 
 bool
-Diagonal_storage::trans_ok (int ,int j)const
+Diagonal_storage::trans_ok (int ,int j) const
 {
   return j < dim();
 }
 
 void
-Diagonal_storage::trans_next (int &i, int& j)const
+Diagonal_storage::trans_next (int &i, int& j) const
 {
   i++;
   if ( i < j - band_size_i())
@@ -174,7 +174,7 @@ Diagonal_storage::trans_next (int &i, int& j)const
 static Real nul_entry=0.0;
 
 Real 
-Diagonal_storage::elem (int i, int j)const
+Diagonal_storage::elem (int i, int j) const
 {
   if (abs ( i-j) > band_size_i())
 	return 0;
@@ -202,7 +202,7 @@ Diagonal_storage::elem (int i, int j)
 
 bool
 Diagonal_storage::try_right_multiply (Matrix_storage*dest,
-				     const Matrix_storage*right)const
+				     const Matrix_storage*right) const
 {
   if ( right->name() != Diagonal_storage::static_name ()) 
 	return false;

@@ -26,10 +26,10 @@ class Diagonal_storage : public Matrix_storage {
 
 public:
      void set_band_size (int b);
-   int band_size_i()const;
+   int band_size_i() const;
     
     void assert_valid (int i, int j) const;
-    bool band_elt_b (int,int)const;
+    bool band_elt_b (int,int) const;
     void resize_dim (int);
     
     virtual void resize_rows (int d) { resize_dim (d); }
@@ -54,12 +54,12 @@ public:
     virtual void delete_column (int k);
     
     ~Diagonal_storage();
-    virtual bool mult_ok (int i, int j)const;
+    virtual bool mult_ok (int i, int j) const;
     virtual void mult_next (int &i, int &j) const ;
     virtual bool trans_ok (int i, int j) const;
     virtual void trans_next (int &i, int &j) const;
     DECLARE_VIRTUAL_COPY_CONS(Diagonal_storage, Matrix_storage);
     DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual bool try_right_multiply (Matrix_storage * dest, Matrix_storage const *)const;
+    virtual bool try_right_multiply (Matrix_storage * dest, Matrix_storage const *) const;
 };
 #endif // DIAGONAL_STORAGE_HH

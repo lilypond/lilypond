@@ -31,7 +31,7 @@ protected:
     
     virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
-    virtual Span_bar* get_span_bar_p()const;
+    virtual Span_bar* get_span_bar_p() const;
 };
 
 #endif // SPAN_BAR_GRAV_HH

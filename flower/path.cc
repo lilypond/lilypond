@@ -54,7 +54,7 @@ split_path (String path,
   in any other added path, in this order.
   */
 String
-File_path::find (String nm)const
+File_path::find (String nm) const
 
 {
   fdebug << "looking for " << nm << ": ";

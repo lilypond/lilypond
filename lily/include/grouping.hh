@@ -21,7 +21,7 @@ struct Rhythmic_grouping {
     /* *************** */
 
     Array<MInterval> intervals();
-    MInterval interval()const;
+    MInterval interval() const;
     Moment length() const;
     void intersect (MInterval);
     

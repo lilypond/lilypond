@@ -51,7 +51,7 @@ class Spring_spacer : public Line_spacer {
   /// mark column #i# as being loose.
   void loosen_column (int i);
   /// the index of #c# in #cols#
-  int col_id (PCol const *c) const;
+  int col_id (Paper_column const *c) const;
 
   /// generate an (nonoptimal) solution
   Vector find_initial_solution() const;
@@ -60,7 +60,7 @@ class Spring_spacer : public Line_spacer {
   bool check_feasible() const;
 
   /// does #this# contain the column #w#? 
-  bool contains (PCol const *w);
+  bool contains (Paper_column const *w);
 
   /// make the energy function
   void make_matrices (Matrix &quad, Vector &lin,Real&) const;
@@ -82,17 +82,17 @@ class Spring_spacer : public Line_spacer {
   void add_ideal (Idealspacing const *i);
   Vector try_initial_solution() const;
   void calc_idealspacing();
-  void set_fixed_cols (Mixed_qp&)const;
+  void set_fixed_cols (Mixed_qp&) const;
 
   Score_column* scol_l (int);
   void connect (int i,int j, Real,Real);
-  Line_of_cols error_pcol_l_arr()const;
+  Line_of_cols error_pcol_l_arr() const;
 public:
   static Line_spacer *constructor();
 
   virtual void solve (Col_hpositions*) const;
   virtual void lower_bound_solution (Col_hpositions*) const;
-  virtual void add_column (PCol  *, bool fixed=false, Real fixpos=0.0);
+  virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
  
 
   virtual Vector default_solution() const;

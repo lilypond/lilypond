@@ -67,7 +67,7 @@ public:
 		return i;
 	return -1;
     }
-    T *find_l (T const *t)const
+    T *find_l (T const *t) const
     {
 	int i = find_i (t);
 	if (i >= 0)

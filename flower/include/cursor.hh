@@ -53,13 +53,13 @@ class Cursor
     Cursor<T> operator --( int); 
 
     /// point to link?
-    bool ok()const;
+    bool ok() const;
 
     /// ++ items left?
-    bool forward()const;		
+    bool forward() const;		
 
     /// -- items left?
-    bool backward()const;
+    bool backward() const;
 
     /**  put (copy) after me in List. 
       analogously to editor. ok() interpreted as at end

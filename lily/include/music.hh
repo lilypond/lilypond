@@ -42,7 +42,7 @@ public:
     /// what name (or look for this name)
     String id_str_;    
 
-    virtual MInterval time_int()const;
+    virtual MInterval time_int() const;
     virtual ~Music(){}
     void print() const;
     virtual void transpose (Melodic_req const *);

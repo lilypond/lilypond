@@ -21,14 +21,14 @@ public:
     Source_file( String filename_str_r );
     virtual ~Source_file();
 
-    char const* ch_C()const;
-    virtual String error_str( char const* pos_ch_c_l )const;
+    char const* ch_C() const;
+    virtual String error_str( char const* pos_ch_c_l ) const;
     istream * istream_l();
-    bool in_b( char const* pos_ch_c_l )const;
-    int length_i()const;
-    virtual int line_i( char const* pos_ch_c_l )const;
-    String name_str()const;
-    String file_line_no_str( char const* ch_c_l )const;
+    bool in_b( char const* pos_ch_c_l ) const;
+    int length_i() const;
+    virtual int line_i( char const* pos_ch_c_l ) const;
+    String name_str() const;
+    String file_line_no_str( char const* ch_c_l ) const;
 
 private:
     String name_str_;

@@ -90,21 +90,21 @@ Cursor<T>::pointer()
 
 template<class T>
 inline bool
-Cursor<T>::backward()const
+Cursor<T>::backward() const
 {
   return ( pointer_ != 0);
 }
 
 template<class T>
 inline bool
-Cursor<T>::forward()const
+Cursor<T>::forward() const
 {
   return ( pointer_ != 0);
 }
 
 template<class T>
 inline bool
-Cursor<T>::ok()const
+Cursor<T>::ok() const
 {
   return ( pointer_ != 0);
 }

@@ -16,7 +16,7 @@
 
 /// helper struct for #Spacing_problem#
 struct Colinfo {
-    PCol *pcol_l_;
+    Paper_column *pcol_l_;
     P<Real> fixpos_p_;
     Interval width;
     int rank_i_;
@@ -24,11 +24,11 @@ struct Colinfo {
     bool ugh_b_;		
     /* *************** */
     Colinfo();
-    Colinfo (PCol *,Real const *);
+    Colinfo (Paper_column *,Real const *);
 
     void print() const;
     bool fixed() const { return fixpos_p_.get_C();}
-    Real fixed_position()const { return *fixpos_p_; }
+    Real fixed_position() const { return *fixpos_p_; }
     Real minright() const { return width.right; }
     Real minleft() const { return -width.left; }
 };

@@ -13,7 +13,7 @@ const Real EPS = 1e-7;		// so sue me. Hard coded
 //#define PARANOID
 
 void
-Choleski_decomposition::full_matrix_solve (Vector &out, Vector const &rhs)const
+Choleski_decomposition::full_matrix_solve (Vector &out, Vector const &rhs) const
 {
   int n= rhs.dim();
   assert (n == L.dim());
@@ -45,7 +45,7 @@ Choleski_decomposition::full_matrix_solve (Vector &out, Vector const &rhs)const
 }
 
 void
-Choleski_decomposition::band_matrix_solve (Vector &out, Vector const &rhs)const
+Choleski_decomposition::band_matrix_solve (Vector &out, Vector const &rhs) const
 {
   int n= rhs.dim();
   int b = L.band_i();
@@ -79,7 +79,7 @@ Choleski_decomposition::band_matrix_solve (Vector &out, Vector const &rhs)const
 }
 
 void
-Choleski_decomposition::solve (Vector &x, Vector const &rhs)const
+Choleski_decomposition::solve (Vector &x, Vector const &rhs) const
 {
   if (L.band_b()) 
     {
@@ -90,7 +90,7 @@ Choleski_decomposition::solve (Vector &x, Vector const &rhs)const
 }
 
 Vector
-Choleski_decomposition::solve (Vector rhs)const
+Choleski_decomposition::solve (Vector rhs) const
 {
   Vector r;
   solve (r, rhs);

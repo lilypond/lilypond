@@ -43,7 +43,7 @@ public:
 protected:
     virtual void do_pre_processing();    
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);
-    virtual Molecule* brew_molecule_p()const;
+    virtual Molecule* brew_molecule_p() const;
 };
 #endif // LOCALKEYITEM_HH
 

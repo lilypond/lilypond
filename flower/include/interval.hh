@@ -46,8 +46,8 @@ struct Interval_t {
 	return ((Interval_t<T> *)this)->idx (j);
     }
     T &max() { return right;}
-    T max()const { return right;}
-    T min()const{ return left; }
+    T max() const { return right;}
+    T min() const{ return left; }
     T &min(){ return left; }
     /**
       PRE

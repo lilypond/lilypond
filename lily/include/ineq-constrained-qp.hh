@@ -31,7 +31,7 @@ public:
       */
     void assert_solution (Vector sol) const;
     /// solve the problem using a projected gradient method
-    Vector constraint_solve (Vector)const;
+    Vector constraint_solve (Vector) const;
     /**
       Solve it. First try it the easy way.
      */
@@ -65,7 +65,7 @@ public:
     Real eval (Vector v);
 
     void eliminate_var (int idx, Real value);
-    void OK()const;
+    void OK() const;
     void print() const;
 
 };

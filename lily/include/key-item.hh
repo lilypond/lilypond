@@ -28,7 +28,7 @@ struct Key_item : Item {
     void set_c_position (int);
 protected:
     virtual void do_pre_processing();
-    Molecule* brew_molecule_p()const;
+    Molecule* brew_molecule_p() const;
 };
 
 #endif // KEYITEM_HH

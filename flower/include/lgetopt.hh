@@ -14,7 +14,7 @@ struct Long_option_init {
     char const * longname;
     char        shortname;
 
-    void printon (ostream &errorout)const ;
+    void printon (ostream &errorout) const ;
 };
 
 
@@ -68,7 +68,7 @@ public:
     void next();
     const Long_option_init *parselong();
     const Long_option_init *parseshort();
-    void OK()const;
+    void OK() const;
     bool ok() const;
 
     /// report an error and abort

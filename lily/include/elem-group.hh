@@ -22,7 +22,7 @@
 class Horizontal_group_element : public virtual Axis_group_element {
 protected:
     virtual void remove_all();
-    virtual Interval do_width()const;
+    virtual Interval do_width() const;
 
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
@@ -35,7 +35,7 @@ public:
  */
 class Vertical_group_element : public virtual Axis_group_element {
 protected:
-    virtual Interval do_height()const;
+    virtual Interval do_height() const;
     virtual void remove_all();
 
 public:

@@ -31,7 +31,7 @@ struct Duration {
   Duration();
   /// is the "plet factor" of this note != 1 ?
   bool plet_b();
-  String str()const;
+  String str() const;
   void set_plet(int,int );
   void set_plet(Duration );
   static bool duration_type_b(int t);

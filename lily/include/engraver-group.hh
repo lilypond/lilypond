@@ -30,10 +30,10 @@ protected:
     
     Array<Score_elem_info> announce_info_arr_;
     
-    virtual void do_print()const;
-    virtual bool removable_b()const;
+    virtual void do_print() const;
+    virtual bool removable_b() const;
 public:
-    Engraver*get_simple_engraver (char const*typeinfo)const;
+    Engraver*get_simple_engraver (char const*typeinfo) const;
     virtual void print() const ;
 
     Input_translator * itrans_l_;
@@ -68,13 +68,13 @@ public:
     virtual bool try_request (Request*);
     virtual void do_process_requests();
 
-    virtual Staff_info get_staff_info()const;
+    virtual Staff_info get_staff_info() const;
     
     virtual Engraver_group_engraver * find_engraver_l (String name,String id);
     virtual void do_announces();    
     virtual void announce_element (Score_elem_info);
     virtual void add (Engraver* grav_p);
-    virtual bool contains_b (Engraver*)const;
+    virtual bool contains_b (Engraver*) const;
 
     virtual Translator* find_get_translator_l (String name, String id);
     virtual Translator * get_default_interpreter();

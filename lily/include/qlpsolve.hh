@@ -35,7 +35,7 @@ class Active_constraints {
     Ineq_constrained_qp const *opt;
 
 public:
-    String status()const;
+    String status() const;
     
     Vector vec (int k) const { return opt->cons[k]; }
     Real rhs (int k) const { return opt->consrhs[k]; }

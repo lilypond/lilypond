@@ -43,7 +43,7 @@ protected:
 
     bool is_bottom_performer_b() const;
     virtual Performer_group_performer* find_performer_l (String name, String id);
-    virtual void do_print()const;
+    virtual void do_print() const;
 
 private:
     Pointer_list<Performer*> perf_p_list_;
