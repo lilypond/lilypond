@@ -235,12 +235,13 @@ $(LIBLILY): dummy
 #
 rpm: check-rpm-doc-deps
 	-cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
-	-cp $< $(rpm-sources)
+#	-cp $(wildcard $(depth)/Documentation/*.xpm) $(rpm-sources)
+	-cp $(wildcard $(depth)/Documentation/$(outdir)/*.gif) $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec
 
 check-rpm-doc-deps: 
-	$(MAKE) -C $(depth)/Documentation/ xpms
+	$(MAKE) -C $(depth)/Documentation gifs
 
 
 installexe:

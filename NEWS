@@ -1,3 +1,7 @@
+pl 22.jcn1
+	- redo of quarter rest 
+	- fixes of 8-128 rests
+
 pl 22
 	- bf: lyric 's- Zondags
 	- bf: colliding accidentals: renamed translate(Real,Axis) to translate_axis()

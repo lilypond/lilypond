@@ -4,12 +4,11 @@
 % source file of the Feta (Font-En-Tja) pretty-but-neat music font
 % 
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+%          Jan Nieuwenhuizen <jan@digicash.com>
 % 
 % these macros help create ascii logging output
 % to automate generation of lily tables and tex backend
 % The output should be parsed by the mf-to-table script
-
-
 
 % font or database?
 def fet_beginfont(expr name,size) =
