@@ -70,7 +70,7 @@ cd ../..
 ## 4.  get guile-gnome
 tla register-archive guile-gnome-devel@gnu.org--2004 http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
 rm -rf guile-gnome
-tla guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
+tla get guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
 cd guile-gnome
 tla build-config -r configs/gnu.org/dev
 cd src
@@ -83,6 +83,9 @@ export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
+# cp srfi-34.scm from CVS head ?  --hwn
+
+
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
 G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
@@ -91,7 +94,7 @@ G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
-guile -s ../src/libgnoecanvas/examples/canvas.scm
+guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 
 "
