@@ -34,6 +34,14 @@ they match the layout of your document.
 It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
 on using lilypond-book is in @ref{integrating text and music}.
 
+@menu
+* Integrating Texinfo and music::  
+* Integrating La@TeX{} and music::  
+* Integrating HTML and music::  
+* Music fragment options::      
+* Invoking lilypond-book::      
+@end menu
+
 
 @cindex texinfo
 @cindex latex

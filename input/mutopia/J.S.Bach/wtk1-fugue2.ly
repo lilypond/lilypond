@@ -59,18 +59,20 @@ dux =  \context Voice=two \notes \relative c''{
   g4 r8 b c c16 b c8 g |
 %%10 
   as4 r8 a bes bes16 a bes8 f |
-  g4 r8 g as as g f |
-  r8 
+  g4 r8 g as as g
   \translator Staff = bass \stemUp 
+  f |
+  r8 
   as, bes c r8 as16 g as8 f8 |
   bes8 c bes as bes g f es |
   f des' c bes c as g f |
 %%15
   g8
+ \translator Staff = treble
+   \stemDown
+
   g'16 fis g8 c, 
-  es \translator Staff = treble
-  \stemBoth
-  \stemDown
+  es
   g16 fis! g8 a |
   d, g16 fis g8 a! c,16 d es4 d16 c |  % forced accident!
   bes8 r8 r16 d e fis g a bes8 ~ bes16 e, f g |
@@ -79,8 +81,9 @@ dux =  \context Voice=two \notes \relative c''{
   as f'16 es f8 a,8 bes g'16 f g8 b, |
 %%20
   c16 f es d
+   c
   \translator Staff = bass
-   c bes! as g 
+   bes! as g 
   f8 \translator Staff = treble
   as' g f |
   es d es f b, c d b |
