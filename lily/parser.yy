@@ -23,6 +23,7 @@ this.
 
 */
 
+#include <iostream.h>
 #include <ctype.h>
 
 #include "translator-def.hh"

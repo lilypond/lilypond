@@ -1,13 +1,17 @@
 2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/kpath.cc: 
+	* lily/lily-guile.cc: macosx fixes.
+
 	* lily/script-column.cc (before_line_breaking): use stable sorting
 	algorithm to preserve script ordering.
 	(grob_script_priority_less): new function
 
 	* lily/script-engraver.cc (process_music): 
-	* lily/text-engraver.cc (process_acknowledged_grobs): 
+	* lily/text-engraver.cc (process_acknowledged_grobs):
 	* lily/fingering-engraver.cc (make_script): don't use direction
-	for script-priority.
+	for script-priority. This fixes orderings for multiple down
+	script/fingering.
 
 	* scripts/ly2dvi.py (run_lilypond): don't exit if LilyPond fails,
 	but try to assemble the files anyway.
