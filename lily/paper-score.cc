@@ -125,7 +125,11 @@ Paper_score::process ()
   scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
+  progress_indication ("\n");
   // huh?
   delete outputter_l_;
   outputter_l_ = 0;
+
+  if (verbose_global_b)
+    ly_display_scm (scm_gc_stats ()); 
 }

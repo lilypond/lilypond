@@ -58,7 +58,8 @@ Script_engraver::do_process_music()
       Articulation_req* l=script_req_l_arr_[i];
 
       SCM list = scm_assoc (ly_str02scm (l->articulation_str_.ch_C ()),
-			    scm_eval (ly_symbol2scm ("script-alist")));
+			    scm_eval2 (ly_symbol2scm ("script-alist"),
+				       SCM_EOL));
       
       if (list == SCM_BOOL_F)
 	{

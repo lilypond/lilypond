@@ -281,11 +281,13 @@ void
 Dynamic_engraver::do_removal_processing ()
 {
   typeset_all ();
-  
+
+#if 0  
   if (cresc_p_)
     {
       typeset_element (cresc_p_ );
       finished_cresc_p_ = cresc_p_;
+
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
     }
   if (line_spanner_)
@@ -293,6 +295,17 @@ Dynamic_engraver::do_removal_processing ()
       finished_line_spanner_ = line_spanner_;
     }
   typeset_all ();
+#else
+  if (cresc_p_)
+    {
+      current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
+      cresc_p_->suicide ();
+    }
+  if (line_spanner_)
+    {
+      line_spanner_->suicide ();
+    }
+#endif
 }
 
 void

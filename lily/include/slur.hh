@@ -24,6 +24,8 @@ public:
   static SCM after_line_breaking (SCM);
   static SCM set_spacing_rods (SCM);
 private:  
+  static Real get_first_notecolumn_y (Score_element *me, Direction dir);
+  static Offset broken_trend_offset (Score_element *me, Direction dir);
   static Offset get_attachment (Score_element*me,Direction dir, Score_element**common) ;
   static void de_uglyfy (Score_element*me,Slur_bezier_bow* bb, Real default_height);
   static void set_extremities (Score_element*me);

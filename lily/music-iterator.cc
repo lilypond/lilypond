@@ -142,6 +142,10 @@ Music_iterator::static_get_iterator_p (Music  *m)
     p = new Property_iterator;
   else if (dynamic_cast<Change_translator   *> (m))
     p = new Change_iterator;
+  else if (dynamic_cast<Push_translation_property*>(m))
+    p = new Push_property_iterator;
+  else if (dynamic_cast<Pop_translation_property*>(m))
+    p = new Pop_property_iterator;
   else if (dynamic_cast<Time_scaled_music   *> (m))
     p = new Time_scaled_music_iterator;
   else if (dynamic_cast<Grace_music *> (m))

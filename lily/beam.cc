@@ -125,12 +125,13 @@ Beam::get_default_dir (Score_element*me)
     } while (flip(&d) != DOWN);
   
 
-  SCM s = scm_eval (gh_list (ly_symbol2scm ("beam-dir-algorithm"),
+  SCM s = scm_eval2 (gh_list (ly_symbol2scm ("beam-dir-algorithm"),
 			     ly_quote_scm (gh_cons (gh_int2scm (count[UP]),
 						    gh_int2scm (count[DOWN]))),
 			     ly_quote_scm (gh_cons (gh_int2scm (total[UP]),
 						    gh_int2scm (total[DOWN]))),
-			     SCM_UNDEFINED));
+			     SCM_UNDEFINED),
+		     SCM_EOL);
   if (gh_number_p (s) && gh_scm2int (s))
     return to_dir (s);
   
@@ -244,7 +245,7 @@ Beam::set_stem_shorten (Score_element*m)
   int multiplicity = get_multiplicity (me);
 
   // grace stems?
-  SCM shorten = scm_eval (ly_symbol2scm ("beamed-stem-shorten"));
+  SCM shorten = scm_eval2 (ly_symbol2scm ("beamed-stem-shorten"), SCM_EOL);
 
   if (shorten == SCM_EOL)
     return;
@@ -550,7 +551,8 @@ Real
 Beam::quantise_dy_f (Score_element*me,Real dy) 
 {
   Array<Real> a;
-  for (SCM s = scm_eval (ly_symbol2scm ("beam-height-quants")); s !=SCM_EOL; s = gh_cdr (s))
+  for (SCM s = scm_eval2 (ly_symbol2scm ("beam-height-quants"), SCM_EOL);
+       s !=SCM_EOL; s = gh_cdr (s))
     a.push (gh_scm2double (gh_car (s)));
   
   if (a.size () <= 1)
@@ -580,10 +582,11 @@ Beam::quantise_y_f (Score_element*me,Real y, Real dy, int quant_dir)
   int multiplicity = get_multiplicity (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  SCM quants = scm_eval (gh_list (ly_symbol2scm ("beam-vertical-position-quants"),
+  SCM quants = scm_eval2 (gh_list (ly_symbol2scm ("beam-vertical-position-quants"),
 				  gh_int2scm (multiplicity),
 				  gh_double2scm (dy/staff_space),
-				  SCM_UNDEFINED));
+				  SCM_UNDEFINED),
+			  SCM_EOL);
 
   Array<Real> a;
 

@@ -328,9 +328,9 @@
   ;(display "b&i:") (display  base-and-inversion) (newline)
   (let ((diff (pitch::diff '(0 0 0) (car pitches)))
 	(name-func 
-	  (eval (string->symbol (string-append "chord::name-" style))))
+	  (ly-eval (string->symbol (string-append "chord::name-" style))))
   	(names-alist 
-	  (eval (string->symbol (string-append "chord::names-alist-" style)))))
+	  (ly-eval (string->symbol (string-append "chord::names-alist-" style)))))
   (let loop ((note-names (reverse pitches))
 	     (chord '())
 	     (user-name #f))

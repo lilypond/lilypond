@@ -30,6 +30,14 @@ directly.
 
 Note: relative paths are meant to be relative to the source directory
 
+@subsubsection I've got a simple question, but this FAQ doesn't help!
+
+Please have a look in the searchable mail achives of
+@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org/,
+gnu-music-discuss} and
+@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org/, help-gnu-music}.
+Your question may well have been answered before.
+
 @node Installing,, ,top
 @section Installing
 
@@ -434,6 +442,21 @@ Upgrade/downgrade to 4.17.
 
 @node Running,, ,top
 @section Running
+
+@subsubsection LilyPond takes ages to run, what am I doing wrong?
+
+LilyPond uses a lot CPU time, and insane amounts of memory. The amount
+of memory it requires is proportional to the size of the score, in other
+words. For a moderately complex piano scores of 5 pages, the footprint
+can easily become 20 megs. (Our favorite test is the coriolan:
+approx. 100 megs for a 50 page  orchestral). If your system has not got
+enough memory, it can easily start swapping.
+
+A part of the memory is used as temporary storage, and is reclaimed
+through GUILE's garbage collection.  A way to trade in CPU time for
+storage is by decreasing the environment variable
+@var{GUILE_MAX_SEGMENT_SIZE} (default 8388608, which is 8 megs).
+
 
 @subsubsection Correcting errors is so tedious. Is there a better way?
 

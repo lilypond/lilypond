@@ -2,6 +2,7 @@
 @setfilename internals.info
 @settitle LilyPond internals
 
+
 @node Top, LilyPond internals, (dir), (dir)
 @top
 
@@ -11,17 +12,14 @@
 * Overview::
 * mudela::                      
 * Request_engraver::            
-* Graphic elements::
-* Score elements::
-* Items::
-* Spanners::
-* Future work::
+* Backend::
 * Coding standards::
 * Making patches::
 * Localisation::
 @end menu
 
 @node LilyPond internals,  , Top, Top
+
 @menu
 * Overview::                      Overview
 * mudela::                        mudela
@@ -63,13 +61,6 @@ There are lots of possibilities of improving the program itself. There are
 both small projects and big ones. Most of them are listed in the TODO
 file.  A interesting and very big project is writing a GUI frontend to
 LilyPond.
-
-
-@unnumberedsubsec Website designers
-
-The current website for LilyPond is neat and simple, but it is not very
-pretty.  We would like to have a website with pretty pictures, one that
-looks appealing to new users.
 
 
 @chapter LilyPond internals
@@ -160,6 +151,8 @@ staffs.
 
 @node mudela, Request_engraver, Overview, Top
 @section mudela
+
+[FIXME: implementation has been generalised, so this is out of date]
 
 Most information is stored in the form of a request.  In music
 typesetting, the user might want to cram a lot more symbols on the
@@ -259,11 +252,28 @@ will add the @code{Notehead} to the @code{Stem} it just created.
 To decide on merging, several engravers have been grouped. Please
 check @file{init/engraver.ly}.
 
+@node Backend, , , Top
 
 
-@node Graphic elements, , , Top 
-@section Graphic elements
 
+@section The backend of  LilyPond
+
+
+
+blah blah blah
+
+@menu
+* Graphic elements:: blah
+* Position and width Callbacks:: blah 
+* Score_element properties:: blah 
+* Score elements:: blah 
+* Items:: blah 
+* Spanners:: blah 
+* Future work:: blah 
+@end menu
+
+
+@node Graphic elements, , , Backend 
 
 Music notation is composed of a sets of interrelated glyphs.  In
 Lilypond every glyph usually is represented by one object, a so-called
@@ -286,10 +296,9 @@ means that the staccato will always maintain a fixed offset wrt to the
 note head, whereever the head is moved to.
 
 In the same vein, all notes on a staff have their Y positions stored
-relative to an abstract object called Axis_group_spanner.  If the
-Axis_group_spanner of one staff is moved, the absolute Y positions of
-all objects in that spanner change along, in effect causing the staff
-and all its contents to move as a whole.
+relative to an object that groups the staff.  If that object is moved,
+the absolute Y positions of all objects in that spanner change along, in
+effect causing the staff and all its contents to move as a whole.
 
 Each graphic object stores a pointer and an relative offset for each
 direction: one for the X-axis, one for the Y-axis.  For example, the X
@@ -323,7 +332,124 @@ Graphical_axis_groups are special graphic objects, that are designed to
 function as a parent.  The size of a Graphical_axis_groups group is the
 union of its children.
 
-@node Score elements, ,  , Top
+@node Position and width Callbacks, , , Backend
+
+The positions are, as explained relative to a parent reference
+point. Most positions are not known when an object is created, so these
+are calculated as needed. This is done by adding a callback for a
+specific direction, eg
+
+@example
+        Real
+        my_translate (Score_element * ptr, Axis a)
+        @{
+                return 5.0 PT;
+        @}
+
+        [..]
+        my_element->add_offset_callback (my_translate, Y_AXIS) 
+@end example
+
+When a call is made to @code{my_element->relative_position (obj,
+Y_AXIS)}, @code{my_translate} will be called. The result is that
+my_element will be translated up by 5 pt.  There are numerous callbacks,
+for example
+@itemize @bullet
+@item to offset element by staff-spaces (See class
+@code{Staff_symbol_referencer}).
+@item to align elements next to other groups of elements (See class
+@code{Side_position_interface})
+@item to 
+@end itemize
+
+Offset callbacks can be stacked. The callbacks will be executed in the
+order that they were added.
+
+Width and height are similarly implemted using extent callbacks. There
+can be only one callback for each axis. No callback (the 0 ptr) means:
+"empty in this direction".
+
+@node Score_element properties, , , Backend
+
+Score elements can have other properties besides positioning, for
+example, text strings (for text objects) style settings, glyphs, padding
+settings (for scripts). These settings are stored in element properties.
+
+Properties are stored as GUILE association lists, with symbols as keys.
+Element properties can be accessed using the C++ functions
+
+@example
+  SCM  get_elt_property (SCM) const;
+  void set_elt_property (const char * , SCM val);
+  void set_immutable_elt_property (const char * , SCM val);
+  void set_immutable_elt_property (SCM key, SCM val);  
+  void set_elt_property (SCM , SCM val);  
+  void set_elt_pointer (const char*, SCM val);
+  SCM  remove_elt_property (const char* nm);
+@end example
+
+All lookup functions identify undefined properties with GUILE
+end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+
+Implementation wise, there are two kinds of properties:
+
+@itemize @bullet
+@item mutable properties:
+element properties that change from object to object. The storage of
+these are private to a Score element. Typically this is used to store
+lists of pointers to other objects
+
+@item immutable properties:
+element properties that are shared across objects. The storage is
+shared, and hence is read-only. Typically, this is used to store
+function callbacks, and values for shared element properties are read
+from @file{ly/engraver.ly}.
+
+
+
+The following is from lily 1.3.80, and it shows the settings for the bar
+numbers: Bar numbers are  breakable, and visible at the beginning of the
+line. The setting for @code{molecule-callback} indicates that Bar_number
+is implemented as a text.
+@example
+	basicBarNumberProperties = #`(
+		(molecule-callback . ,Text_item::brew_molecule)
+		(breakable . #t)
+		(visibility-lambda . ,begin-of-line-visible)
+	)
+@end example
+@end itemize
+
+
+In 1.3.81 an music expression was added to add to the immutable property
+list, eg. like this:
+
+@example
+        \pushproperty #'(basicBarNumberProperties)
+		#'visibility-lambda #end-of-line-visible
+@end example
+
+This will add the entry @code{`(visibility-lambda .
+,end-of-line-visible)} to the immutable property list for bar numbers,
+in effect overriding the setting from @file{ly/engraver.ly}. This can be
+undone as follows
+
+@example
+        \popproperty #'(basicBarNumberProperties)
+		#'visibility-lambda
+@end example
+
+Note that you must accompany these statements with a proper context
+selection in most cases.
+
+
+
+
+
+
+@node Score elements, ,  , Backend
+
+[FIXME: we want to get rid of dependencies in the implementation.]
 
 Besides relative positions there are lots of other relations between
 elements. Lilypond does not contain other specialized relation
@@ -360,7 +486,7 @@ notes, the second on the last three.
 The major derived classes of Score_element are Item and  Spanner.
 An item has one horizontal position.  A spanner hangs on two  items.
 
-@node Items, , , Top
+@node Items, , , Backend
 @section Items
 
 
@@ -394,7 +520,7 @@ other pointers) are substituted such that all dependencies point at the
 active items: either they point at the original, or they point at left
 and right.
 
-@node Spanners, , , Top
+@node Spanners, , , Backend
 @section Spanners
 
 Spanners are symbols that are of variable shape, eg. Slurs, beams, etc.
@@ -405,30 +531,25 @@ All spanners are spanned on two items, called the left and right
 boundary item.  The X reference point is the left boundary item.
 
 
-@node Future work, , , Top
+@node Future work, , , Backend
 @section Future work
 
 There are plans to unify Spanner and Item, so there will no longer be
 such a clear distinction between the two.  Right now, Score_elements are
 always either Item or either Spanner.
 
-Most of the properties of a graphic object are now member variables of
-the classes involved.  To offer configurability, we want to move these
-variables to scheme (GUILE) variables, and no longer use C++ code to
-calculate them, but use Scheme functions.
-
 @node Coding standards,  , , Top
 
-@chapter CodingStyle - standards while programming for GNU
-LilyPond
+@chapter CodingStyle - standards while programming for GNU LilyPond
 
-Functions and methods do not return errorcodes.
+Functions and methods do not return errorcodes: they never crash, but
+report a programming_error and try to carry on.q 
 
 
 @unnumberedsubsec Languages
 
-C++ and Python are preferred.  Perl is not.  Python code should use an
-indent of 8, using TAB characters.
+C++ and Python are preferred.  Perl is forbidden.  Python code should
+use an indent of 8, using TAB characters.
 
 @unnumberedsubsec Filenames
 
@@ -694,10 +815,7 @@ Use them.
 @node Making patches,  , , Top
 
 
-@unnumberedsec name
-    
-
-PATCHES - track and distribute your code changes
+@unnumberedsec  Track and distribute your code changes
 
 This page documents how to distribute your changes to GNU lilypond
     

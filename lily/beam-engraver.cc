@@ -200,9 +200,14 @@ Beam_engraver::do_removal_processing ()
   if (beam_p_)
     {
       prev_start_req_->origin ()->warning (_ ("unterminated beam"));
+#if 0
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
       typeset_beam ();
+#else
+      beam_p_->suicide ();
+      delete beam_info_p_;
+#endif
     }
 }
 

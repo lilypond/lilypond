@@ -135,7 +135,7 @@ System_start_delimiter::staff_brace (Score_element*me,Real y)
   idx = idx >? 0;
 
   SCM l = scm_assoc (ly_str02scm ("brace"),
-		     scm_eval (ly_symbol2scm ("cmr-alist")));
+		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
   
   String nm = "feta-braces";
   if (l != SCM_BOOL_F)

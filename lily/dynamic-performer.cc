@@ -66,12 +66,13 @@ Dynamic_performer::do_process_music ()
   if (text_script_req_l_)
     {
       
-      SCM s = scm_eval
+      SCM s = scm_eval2
 	(gh_list
 	 (ly_symbol2scm ("dynamic-absolute-volume"),
 	  ly_quote_scm (ly_str02scm (text_script_req_l_->text_str_.ch_C ())),
-	  SCM_UNDEFINED));
-      Real volume = gh_scm2double (scm_eval (ly_symbol2scm ("dynamic-default-volume")));
+	  SCM_UNDEFINED),
+	 SCM_EOL);
+      Real volume = gh_scm2double (scm_eval2 (ly_symbol2scm ("dynamic-default-volume"), SCM_EOL));
       if (gh_number_p (s))
 	volume = gh_scm2double (s);
       
@@ -103,8 +104,9 @@ Dynamic_performer::do_process_music ()
 	    s = ly_str02scm ("piano");
 	  
 	  
-	  s = scm_eval (gh_list (ly_symbol2scm ("instrument-equaliser"),
-				 s, SCM_UNDEFINED));
+	  s = scm_eval2 (gh_list (ly_symbol2scm ("instrument-equaliser"),
+				 s, SCM_UNDEFINED),
+			 SCM_EOL);
 	  if (gh_pair_p (s))
 	    {
 	      Interval iv;

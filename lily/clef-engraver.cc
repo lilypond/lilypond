@@ -222,7 +222,7 @@ Clef_engraver::do_pre_move_processing()
       if(to_boolean (clef_p_->get_elt_property("non-default")))
 	{
 	  vis = ly_symbol2scm ("all-visible");
-	  vis = scm_eval (vis);
+	  vis = scm_eval2 (vis, SCM_EOL);
 	}
 
       if (vis)

@@ -165,6 +165,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PARTIAL
 %token PENALTY
 %token PROPERTY
+%token PUSHPROPERTY POPPROPERTY
 %token PT_T
 %token RELATIVE
 %token REMOVE
@@ -681,6 +682,17 @@ Simple_music:
 	}
 	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
 	| property_def
+	| PUSHPROPERTY embedded_scm embedded_scm embedded_scm {
+		$$ = new Push_translation_property;
+		$$->set_mus_property ("symbols", $2);
+		$$->set_mus_property ("element-property", $3);
+		$$->set_mus_property ("element-value", $4);
+	}
+	| POPPROPERTY  embedded_scm embedded_scm {
+		$$ = new Pop_translation_property;
+		$$->set_mus_property ("symbols", $2);
+		$$->set_mus_property ("element-property", $3);
+	}
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
 		$$ = $1;
