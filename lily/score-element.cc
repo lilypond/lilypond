@@ -510,8 +510,34 @@ Interval
 Score_element::extent (Axis a) const
 {
   Dimension_cache const * d = dim_cache_[a];
+  Interval ext = d->get_dim ();
 
-  return d->get_dim ();
+  
+  SCM extra = get_elt_property (a == X_AXIS ? "extra-extent-X"
+				: "extra-extent-Y");
+
+
+  /*
+    signs ?
+   */
+  Real s = paper_l ()->get_var ("staffspace");
+  if (gh_pair_p (extra))
+    {
+      ext[BIGGER] +=  s * gh_scm2double (gh_cdr (extra));
+      ext[SMALLER] +=  s * gh_scm2double (gh_car (extra));
+    }
+  
+  extra = get_elt_property (a == X_AXIS
+				? "minimum-extent-X"
+				: "minimum-extent-Y");
+  if (gh_pair_p (extra))
+    {
+      ext.unite (Interval (s * gh_scm2double (gh_car (extra)),
+			   s * gh_scm2double (gh_cdr (extra))));
+
+    }
+  
+  return ext;
 }
 
 

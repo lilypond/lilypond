@@ -37,8 +37,8 @@ Axis_group_engraver::get_spanner_p () const
 void
 Axis_group_engraver::do_removal_processing ()
 {
-  String name   = daddy_grav_l ()->type_str_ + "VerticalExtent";
-  SCM dims = get_property (name);
+  String type = daddy_grav_l ()->type_str_ ;
+  SCM dims = get_property (type  + "VerticalExtent");
   
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
@@ -46,6 +46,17 @@ Axis_group_engraver::do_removal_processing ()
       staffline_p_->dim_cache_[Y_AXIS]->set_extent_callback (&Score_element::preset_extent);
       staffline_p_->set_elt_property ("extent-Y", dims);
     }
+
+  dims = get_property (type + "MinimumVerticalExtent");
+  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
+      && gh_number_p (gh_cdr (dims)))
+    staffline_p_->set_elt_property ("minimum-extent-Y", dims);
+
+  dims = get_property (type + "ExtraVerticalExtent");
+  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
+      && gh_number_p (gh_cdr (dims)))
+    staffline_p_->set_elt_property ("extra-extent-Y", dims);
+
   
   staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (staffline_p_);
