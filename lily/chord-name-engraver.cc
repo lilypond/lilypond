@@ -52,7 +52,6 @@ Chord_name_engraver::do_process_requests ()
    TODO:
      - move this stuff to new Item class Chord_name
      - switch on property, add american (?) chordNameStyle
-     - jazz inversions
 
   Scalar chordNameStyle = get_property ("chordNameStyle");
   if (chordNameStyle == "Banter")
@@ -69,6 +68,73 @@ Chord_name_engraver::do_process_requests ()
   if (alignment.isnum_b())
     text_p->align_dir_= (Direction)(int)alignment;
 
+
+  /*
+    find tonic: after longest line of triads
+   */
+
+  int tonic_i = 0;
+  Scalar chord_inversions = get_property ("chordInversion");
+  if (chord_inversions.to_bool ())
+    {
+      int longest_i = 0;
+      for (int i = 0; i < pitch_arr_.size (); i++)
+	for (int j = 0; j < pitch_arr_.size (); j++)
+	  {
+	    int gap = pitch_arr_[(i + j + 1) % pitch_arr_.size ()].notename_i_
+	      - pitch_arr_[(i + j) % pitch_arr_.size ()].notename_i_;
+	    while (gap < 0)
+	      gap += 7;
+	    gap %= 7;
+	    if (gap != 2)
+	      {
+		if (j > longest_i)
+		  {
+		    longest_i = j;
+		    tonic_i = i;
+		  }
+		break;
+	      }
+	  }
+
+      int biggest_i = 0;
+      if (!longest_i)
+	for (int i = 0; i < pitch_arr_.size (); i++)
+	  {
+	    int gap = pitch_arr_[i].notename_i_
+	      - pitch_arr_[(i - 1 + pitch_arr_.size ()) 
+	      % pitch_arr_.size ()].notename_i_;
+	    while (gap < 0)
+	      gap += 7;
+	    gap %= 7;
+	    if (gap > biggest_i)
+	      {
+		biggest_i = gap;
+		tonic_i = i;
+	      }
+	  }
+    }
+
+  Musical_pitch inversion = pitch_arr_[0];
+  if (tonic_i)
+    {
+      Musical_pitch last (0, 0, -5);
+      Array<Musical_pitch> pitches;
+      for (int i = 0; i < pitch_arr_.size (); i++)
+	{
+	  Musical_pitch p = pitch_arr_[(tonic_i + i) % pitch_arr_.size ()];
+	  if (p < last)
+	    {
+	      p.octave_i_ = last.octave_i_;
+	      if (p < last)
+		p.octave_i_++;
+	    }
+	  pitches.push (p);
+	  last = p;
+	}
+      pitch_arr_ = pitches;
+    }
+
   Musical_pitch tonic = pitch_arr_[0];
 
   Array<Musical_pitch> scale;
@@ -80,6 +146,7 @@ Chord_name_engraver::do_process_requests ()
   scale.push (Musical_pitch (5)); // a
   // 7 always means 7-...
   scale.push (Musical_pitch (6, -1)); // b
+
 
   for (int i = 0; i < scale.size (); i++)
     scale[i].transpose (tonic);
@@ -115,7 +182,15 @@ Chord_name_engraver::do_process_requests ()
 	}
     }
 
-  text_p->text_str_ = tonic_str + "$^{" + add_str + "}$";
+  String inversion_str;
+  if (tonic_i)
+    {
+      inversion_str = inversion.str ();
+      inversion_str = "/" + inversion_str.left_str (1).upper_str ()
+	+ acc[tonic.accidental_i_ + 2];
+
+    }
+  text_p->text_str_ = tonic_str + "$^{" + add_str + "}$" + inversion_str;
   Text_item* item_p =  new Text_item (text_p);
   item_p->dir_ = DOWN;
   item_p->fat_b_ = true;

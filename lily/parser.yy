@@ -251,7 +251,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch_arr>	pitch_list
 %type <music>	chord notemode_chord
 %type <pitch_arr>	chord_additions chord_subtractions
-%type <pitch>	chord_addsub chord_note
+%type <pitch>	chord_addsub chord_note chord_inversion notemode_chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
@@ -523,7 +523,6 @@ translator_spec_body:
 */
 score_block:
 	SCORE { THIS->remember_spot ();
-		THIS->error_level_i_ =0;
 	}
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
@@ -531,9 +530,6 @@ score_block:
 		if (!$$->def_p_arr_.size ())
 			$$->add_output (THIS->default_paper_p ());
 
-		/* handle error levels. */
-		$$->errorlevel_i_ = THIS->error_level_i_;
-		THIS->error_level_i_ = 0;
 	}
 	;
 
@@ -1407,13 +1403,13 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch notemode_duration chord_additions chord_subtractions {
-                $$ = THIS->get_chord (*$1, $3, $4, *$2);
+	steno_tonic_pitch notemode_duration chord_additions chord_subtractions chord_inversion {
+                $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
 notemode_chord:
-	steno_musical_pitch notemode_duration chord_additions chord_subtractions {
-                $$ = THIS->get_chord (*$1, $3, $4, *$2);
+	steno_musical_pitch notemode_duration chord_additions chord_subtractions notemode_chord_inversion {
+                $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
 chord_additions: 
@@ -1432,6 +1428,24 @@ chord_additions:
 chord_addsub:
 	chord_note optional_dot
 	| CHORDMODIFIER_PITCH optional_dot
+	;
+
+chord_inversion:
+	{
+		$$ = 0;
+	}
+	| '/' steno_tonic_pitch {
+		$$ = $2
+	}
+	;
+
+notemode_chord_inversion:
+	{
+		$$ = 0;
+	}
+	| '/' steno_musical_pitch {
+		$$ = $2
+	}
 	;
 
 chord_note:

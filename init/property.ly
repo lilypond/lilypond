@@ -57,9 +57,11 @@ timeSignatureStyle	Cn/m	Set symbol explicitly, n/m=2/2 or 4/4
 timeSignatureStyle	oldn/m	Set symbol explicitly,
 				n/m=2/2,3/2,3/4,4/4,6/4	or 9/4.
 
-
 [Staff?]
 instrument		ascii	midi instrument table lookup
+
+[Score]
+chordInversion		0/1	Find and display chord with inversion?
 
 
 1) after beam slope damping table suggested in [Wanske]
