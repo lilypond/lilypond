@@ -39,6 +39,14 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
 
 /*
   TODO: make callback of this.
+
+  TODO:
+
+  note-width is hardcoded, making it difficult to handle all note
+  heads sanely. We should really look at the widths of the colliding
+  columns, and have a separate setting for "align stems".
+
+  
  */
 void
 Collision::do_shifts (Grob* me)
@@ -47,7 +55,8 @@ Collision::do_shifts (Grob* me)
   SCM hand (forced_shift (me));
   
   Link_array<Grob> done;
-  
+
+
   Real wid
     = gh_scm2double (me->get_grob_property ("note-width"));
   

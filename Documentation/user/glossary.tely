@@ -673,10 +673,10 @@ also to some extent in newer jazz music.
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
-\property Voice.TextScript \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
+\property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\notes\relative c' { 
+ \context Staff \notes\relative c' { 
   c1 d
   \property Voice.TextScript \set #'padding = #-10
   e^"~~ S" f g a 
@@ -1094,8 +1094,9 @@ ES: corchete,
 I: coda (uncinata), bandiera, F: crochet, D: Fahne, F@"ahnchen, NL: vlaggetje,
 DK: fane, S: flagga, N: .
 
-Ornament at the end of the stem of a note used for notes with values less than
-a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
+Ornament at the end of the stem of a note used for notes with values
+less than a quarter note. The number of flags determines the
+@w{@ar{}@strong{note value}}.
 
 
 @lilypond[13pt,eps]

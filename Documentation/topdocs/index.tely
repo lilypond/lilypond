@@ -13,7 +13,7 @@ i\input texinfo @c -*-texinfo-*-
 
 @unnumberedsec What is LilyPond? What can it do for you?
 
-LilyPond prints music notation.  It produces beautiful sheet music from
+LilyPond prints beautiful sheet music.  It produces music notation from
 a description file. It excels at typesetting classical music, but you
 can also print pop-songs.
 

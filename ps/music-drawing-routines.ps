@@ -65,18 +65,18 @@
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def 
 
 
-	0 0 moveto 
-	0 tuplet_h dir mul lineto  
+	0 tuplet_h neg dir mul moveto 
+	0 0 lineto  
 	tuplet_dx tuplet_gapx sub 2 div  
-		tuplet_dy tuplet_gapy sub 2 div tuplet_h dir mul add lineto 
+		tuplet_dy tuplet_gapy sub 2 div  lineto 
 	tuplet_dx tuplet_gapx add 2 div  
-		tuplet_dy tuplet_gapy add 2 div tuplet_h dir mul add moveto 
-	tuplet_dx tuplet_dy tuplet_h dir mul add lineto 
+		tuplet_dy tuplet_gapy add 2 div  moveto 
 	tuplet_dx tuplet_dy lineto 
+	tuplet_dx tuplet_dy tuplet_h dir neg mul add lineto 
 	stroke 
 } bind def 
 
-/difficult_draw_ez_ball % ch letter_col ball_col font
+/draw_ez_ball % ch letter_col ball_col font
 {
 	% font
 	findfont 0.7 scalefont setfont 
@@ -100,10 +100,12 @@
 } bind def
 
 % Simple, but does it work everywhere?
+% Han-Wen reports that one printer (brand?) at cs.uu.nl chokes on this,
+% reverted for now -- jcn
+%
 % The filled circles are drawn by setting the linewidth
-% to 2*radius and drawing a point.  Is that (defined to be)
-% a nice filled circle?
-/draw_ez_ball % ch letter_col ball_col font
+% to 2*radius and drawing a point.
+/simple_draw_ez_ball % ch letter_col ball_col font
 {
 	% font
 	findfont 0.85 scalefont setfont

@@ -88,8 +88,8 @@
     (if (equal? "8" (substring cl (- l 1) l))
 	(begin
 	(if (equal? "^" (substring cl (- l 2) (- l 1)))
-	    (set! oct 7)
-	    (set! oct -7))
+	    (set! oct -7)
+	    (set! oct 7))
 	
 	(set! cl (substring cl 0 (- l 2)))))
 

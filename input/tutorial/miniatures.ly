@@ -1,5 +1,8 @@
 \version "1.3.138"
-\header { title = "Two miniatures" }
+\header {
+  title = "Two miniatures"
+  tagline = "Small is beatiful"
+}
 
 #(set! point-and-click line-column-location)
 

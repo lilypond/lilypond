@@ -118,12 +118,10 @@ test.ps}
 @node First steps
 @section First steps
 
-Let's try to explain this example:
-
-The basics of any piece of music are notes.Notes are entered 
-with letters @code{a} to @code{g} followed by a
+The basics of any piece of music are notes.  Notes are entered 
+with letters @code{a} to @code{g}, followed by a
 number that represents the duration: a @code{2} is a half note, a
-@code{4} is a quarter note. A period is used for augmentation dots, so
+@code{4} is a quarter note. A period adds a dot to the note, so
 entering @code{2.} gives a dotted half note. 
 @example
      c2 e4 g2.
@@ -154,7 +152,7 @@ and the clef with @code{\clef} as follows:
 @lilypond[fragment]
         \time 3/4
         \clef bass
-        s2._" "
+        s2_" "
 @end lilypond
 
 The commands together with the notes are combined to form a snippet of
@@ -170,8 +168,9 @@ music. They are combined by enclosing them with @code{\notes @{ @}}.
 
 This snippet is ready to be printed. This is done by combining the music
 with a printing command. The printing command is the so-called
-@code{\paper} block.  The music and paper block are combined by
-enclosing them in @code{\score}.
+@code{\paper} block.  You will see later that the \paper block is
+necessary to customize all kinds of printing specifics.  The music and
+paper block are combined by enclosing them in @code{\score}.
 
 @lilypond[verbatim]
 \score {
@@ -251,8 +250,6 @@ There is one interesting point to note in this example: accidentals
 don't have to be marked explicitly. You just enter the pitch, and
 LilyPond determines wether or not to print an accidental.
 
-Managing larger pieces. 
-
 If you look at the last piece, it is already apparent that entering
 octaves using quotes is not very convenient. A score written in high
 register will be encoded using lots quotes. This makes the input file
@@ -262,22 +259,24 @@ This problem is solved by relative octave mode. In this mode, the quotes
 are used to mark large jumps in the melody. Without any quotes or
 commas, the interval between a note and its predecessor is assumed to be
 a fourth or less. Quotes and commas add octaves in up and down
-direction.  Relative octaves are introduced by @code{\relative} followed
-by a starting pitch
+direction.
 @lilypond[fragment,verbatim]
 \relative c'' { c4 d4 b4 e4 a,4 f'4 g,4 a'4 }
 @end lilypond
+You can enter a piece in relative mode, by putting @code{\relative} in
+front. You also have to enter a starting pitch, in this case @code{c''}.
+
 
 Slurs (not to be confused with ties) are entered with parentheses. You
 mark the starting note and ending note with a @code{(} and a
 @code{)} respectively.
 
-@lilypond[fragment,relative 2, verbatim]
+@lilypond[fragment,relative 1, verbatim]
 c8( cis d ) e 
 @end lilypond
 
 If you need two slurs at the same time (one for articulation, one for
-phrasing), you can also make phrasing slurs with @code{\(} and
+phrasing), you can also make a phrasing slur with @code{\(} and
 @code{\)}.
 
 @c lousy example
@@ -301,9 +300,9 @@ snippets of music, and combining those snippets in @code{<} and
   \context Staff = staffB { \clef bass c }
 >
 @end lilypond
-Here, @code{staffA} and @code{staffB} are names that you give to the
-staff. For now, it doesn't matter what names you give, as long as they
-are different.
+Here, @code{staffA} and @code{staffB} are names that you give them to
+the staff. For now, it doesn't matter what names you give them, as long
+as they are different.
 
 We can typeset a melody with two staffs now:
 
@@ -329,24 +328,78 @@ Notice that the time signature is specified in one melody staff only
 (the top staff), but is printed on both. LilyPond knows that the time
 signature should be the same for all staffs.
 
+Dynamic signs are made by adding the markings after the note
+@lilypond[verbatim,relative 1]
+c-\ff c-\mf
+@end lilypond
+
+Crescendi are started with the commands @code{\<}  and @code{\>}. The
+command @code{\!} finishes a crescendo on the following.
+@lilypond[verbatim,relative 1]
+c2  \< \! c2-\ff \> c2  \! c2
+@end lilypond
+
+Chords can be made by surrounding notes with @code{<} and @code{>}:
+@lilypond[relative 0, fragment,verbatim]
+  r4  <c e g> <c f a> 
+@end lilypond
+
+@c te diepzinnig?
+
+In general, @code{ < @var{stuff} > } is used when @var{stuff} all
+happens at the same time, like in chords, or (like in the two-staff
+example above) in a bunch of stacked staffs.
+
+Of course, you can combine beams and ties with chords:
+@lilypond[relative 0, fragment,verbatim]
+ r4  [<c8 e g>   <c8 f a>] ~ <c8 f a>
+@end lilypond
+
+When you want to combine chords with slurs and dynamics, an annoying
+technical detail crops up: you have type these commands next to the
+notes, which means that they have to be inside the @code{< >}:
+
+@lilypond[relative 0, fragment,verbatim]
+ r4     <c8 e g \> ( > <c e g> <c e g>  < ) \! c8 f a>
+@end lilypond
+
+A nasty technical detail also crops up when you start a score with a
+chord:
+@lilypond[verbatim,singleline]
+\score { \notes <c'1 e'1> }
+@end lilypond
+The program can not guess that you want the notes on only one staff. To
+force the chord on a staff, add @code{\context Staff} like this:
+@lilypond[verbatim,singleline]
+\score { \notes \context Staff <c'1 e'1> }
+@end lilypond
+
+
+
+
+@ignore
 [TODO add some more here
 
+* lyrics, chords (?)
 
 * \header
-
-* dynamics , articulation
-
-* <chords>
 
 * identifiers?
 
 ]
+@end ignore
 
-This is the end of the simple tutorial. What follows is also a manual in
-tutorial-style, but it is much more in-depth, and alas more
-intimidating.  You should read it if you want to know about the more
-advanced features of lilypond, such as producing orchestral scores and
-parts, fine tuning output, writing polyphonic music, etc.
+This is the end of the simple tutorial. You know the basic ingredients
+of a music file, so this is the right moment to try your at hand at
+doing it yourself: try to type some simple examples, and experiment a
+little.
+
+When you're comfortable with the basics, then you might want to read the
+rest of this chapter. It also a manual in tutorial-style, but it is much
+more in-depth. It will also be very intimidating if you're not familiar
+with the basics.  It deals with some of the more advanced features of
+lilypond. Topics include lyrics, chords, orchestral scores and parts,
+fine tuning output, polyphonic music, and integrating text and music.
 
 
 
@@ -362,7 +415,6 @@ consult the glossary that is distributed with LilyPond.
 The examples discussed are included in the distribution, in the
 subdirectory @file{input/tutorial/}@footnote{When we refer to filenames,
 they are relative to the top directory of the source package. }
-
 
 To demonstrate what LilyPond input looks like, we start off with a
 full-fledged, yet simple example. It is a convoluted version
@@ -409,9 +461,10 @@ We will analyse the input, line by line.
         % all text after a percent sign is a comment
         % and is ignored by Lilypond
 @end example 
-The percent sign, @code{%}, introduces a line comment.  You can also
-comment out a block of several lines, by enclosing them in
-@code{%@{} and @code{%@}}.
+Percent signs introduce comments: everything after a percent sign is
+ignored. You can use this to write down mental notes to yourself.  You
+can also make longer comments by enclosing text in @code{%@{} and
+@code{%@}}.
 @cindex comment
 @cindex block comment
 @cindex line comment
@@ -424,11 +477,10 @@ comment out a block of several lines, by enclosing them in
 @cindex @code{\include}
 @cindex point, printer's
 @cindex staff size setting 
-By default, LilyPond will typeset the music in a size such that each 
-staff is 20 point@footnote{A point is the standard measure of length for
-printing; one point is 1/72.27 inch.} high.  We want smaller
-output (16 point staff height), so we must import the settings for that
-size, which is done here.
+By default, LilyPond will typeset the music in a size such that each
+staff is 20 point (0.7 cm, or 0.27 inch) high.  We want smaller output
+(16 point staff height), so we must import the settings for that size,
+which is done here.
 @separate
 @example 
 
@@ -603,8 +655,8 @@ you want beamed.
  
 @end example
 @cindex augmentation dot
-@cindex dot
-A period adds an augmentation dot to the note.
+@cindex dotted note
+A period adds a dot to the note.
 @separate
 @example 
 
@@ -1138,7 +1190,10 @@ For example,  the following file (@file{miniatures.ly})
 
 @example
 \version "1.3.124"
-\header @{ title = "Two miniatures"  @}
+\header @{
+  title = "Two miniatures"
+  tagline = "small is beautiful"
+@}
 
 #(set! point-and-click line-column-location)
 
@@ -1188,39 +1243,11 @@ Opus 2.
 @end lilypond
 
 This file is produced by ly2dvi in a few stages, with the help of text
-formatting tools. LilyPond produces two output files, @file{miniatures.tex}
-and @file{miniatures-1.tex}.  They both look like this:
-
-@example
-        ...
-  \placebox@{-5  \outputscale @}%
-  @{  8.7229  \outputscale @}%
-  @{\magfontWXGEomMMBo\char90 @}%
-  
-  \placebox@{-4  \outputscale @}%
-  @{ 81.0647  \outputscale @}%
-        ...
-@end example
-
-@file{ly2dvi} looks at what output LilyPond produces, and generates a
-file called @file{ly2dvi.out.tex}. This file contains formatting
-instructions for the title and page layout.  A fragment might look like
-
-@example
-
-        \def\lilypondopus@{Opus 1.@}
-        \def\lilypondpiece@{Up@}
-        \def\mustmakelilypondtitle@{@}
-        \input miniatures.tex
-        \def\lilypondtitle@{Two miniatures@}
-
-@end example
-
-@file{ly2dvi} runs it through LaTeX. LaTeX is a text-formatting system
-built on top of @TeX{}. It's very popular in the academic world. If LaTeX
-is successful, this will produce a @file{.dvi} file, containing both the
-titling and the actual music.  @code{ly2dvi} completes its task by
-deleting the two temporary files, leaving only @file{miniatures.dvi}.
+formatting tools. LilyPond produces two output files,
+@file{miniatures.tex} and @file{miniatures-1.tex}.  Both files contain
+only graphical music notation. @file{ly2dvi} looks at what output
+LilyPond produces, and adds page layout and titling to those files.  The
+result is a DVI file called @file{miniatures.dvi}.
 
 Next, now we'll look at the example line by line to explain new things.
 
@@ -1240,10 +1267,19 @@ version.
 
 @separate
 @example
-  \header @{ title = "Two miniatures"  @}
+  \header @{
+    title = "Two miniatures"  @}
 @end example
 This sets the titling information for the entire file.
-
+@separate
+@example
+    tagline = "small is beautiful" 
+@end example
+A signature line is printed at the bottom of the last page.
+ This signature is produced from the @code{tagline} field of
+@code{\header}.  Many people find the default "Lily was here,
+@var{version number}" too droll. If that is the case,  assign
+something else to @code{tagline}, as shown above.
 @separate
 @example
         #(set! point-and-click line-column-location)
@@ -1257,7 +1293,7 @@ Editing input files can be quite complicated if you're working with
 large files: if you're digitizing existing music, you have to
 synchronize the .ly file, the sheet music on your lap and the sheet
 music on the screen.  The point-and-click mechanism makes it easy to
-find the origin of an error in the .ly file: when you view the file with
+find the origin of an error in the LY file: when you view the file with
 Xdvi and click on a note, your editor will jump to the spot where that
 note was entered.  For more information, see @ref{Point and click}.
 
@@ -1300,8 +1336,8 @@ get @code{c} @code{c,} @code{c,,} etc.  Going up, you get @code{c''}
 
 When you're copying music from existing sheet music, relative octaves
 are probably the easiest to use: it's less typing work and errors are
-easily spotted. However, if you write LilyPond input, either by hand
-(ie. composing) or by computer, absolute octaves are probably less work.
+easily spotted. However, if you write LilyPond input directly, either by
+hand (i.e. composing) or by computer, absolute octaves are easier to use.
 
 
 @separate
@@ -2306,8 +2342,8 @@ The @code{printfilename} option adds the file name to the output.
 That's all folks.  From here, you can either try fiddling with input
 files, or you can read the reference manual.  You can find more example
 files in @file{input} and @file{input/test}.  You can also look at some
-real music.  Have a look at the @uref{Mutopia project,
-http://www.mutopiaproject.org}.
+real music.  The website @uref{http://www.mutopiaproject.org} has many
+examples of real music typeset by LilyPond.
 
 
 

@@ -291,8 +291,33 @@ Stem::get_default_stem_end_position (Grob*me)
       && (get_direction (me) != get_default_dir (me)))
     length_f -= shorten_f;
 
+  Interval hp = head_positions (me);  
+  Real st = hp[dir] + dir * length_f;
+  
+  /*
+    Make a little room if we have a flag and there is a dot.
 
-   Real st = head_positions (me)[dir] + dir * length_f;
+    TODO:
+
+    maybe  we should consider moving the dot to the right?
+  */
+
+  if (!beam_l (me)
+      && flag_i (me))
+    {
+      Grob * closest_to_flag = extremal_heads (me)[dir];
+      Grob * dots = closest_to_flag
+	? Rhythmic_head::dots_l (closest_to_flag ) : 0;
+
+      if (dots)
+	{
+	  Real dp = Staff_symbol_referencer::position_f  (dots);
+	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2; // should divide by staffspace
+	  
+	  if (dir * (st + flagy -  dp) < 0) 
+	    st += (fabs (st + flagy -  dp) + 1.0) *dir;
+	}
+    }
   
    bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
    if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
@@ -485,7 +510,6 @@ Stem::brew_molecule (SCM smob)
       y_attach = head_height.linear_combination (y_attach);
       stem_y[Direction (-d)] += d * 2*y_attach;
     }
-
   
   if (!invisible_b (me))
     {
