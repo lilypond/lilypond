@@ -67,7 +67,7 @@ You need the following packages to compile LilyPond:
 
 @itemize
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.0 or
 newer),
 
   You will need to install some additional packages to get mftrace to

@@ -1,5 +1,10 @@
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in: mftrace 1.1.
+
+	* stepmake/stepmake/metafont-rules.make ($(outdir)/%.pfb): mftrace
+	option change.
+
 	* stepmake/bin/add-html-footer.py (do_file): remove wiki links. 
 
 2004-10-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
