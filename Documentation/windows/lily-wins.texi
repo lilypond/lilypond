@@ -1,0 +1,85 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename lily-wins.info
+@settitle LilyPond for Windows.
+
+@node Top
+@top
+
+@chapter Lily Wins on Windows
+
+
+@subsubsection ---FOR-IMMEDIATE-RELEASE---
+
+
+Until now, installing LilyPond on Windows was
+@uref{http://mail.gnu.org/pipermail/help-gnu-music/2001-April/000620.html,
+almost} a dull process that could easily be @uref{
+ftp://appel.lilypond.org/pub/gnu-windows/cygwin-1.1.7/bin/tar/lily-install-0.6-i686-cygwin.bin.tar.gz,
+automated} and scripted.  This meant that you would have more time left
+for actual work, and we all know that's not what computers were designed
+for.
+
+Well, that kind of scary automating is no longer necessary!
+Also, it's no longer needed to @uref{http://www.gnu.org/software/wget,
+download}
+@uref{http://appel.lilypond.org/gnu-windows/tar/lilypond/lilypond-1.3.147-1.tar.gz,tarballs}
+or move @uref{http://www.gnu.org/software/guile, all sorts of files}
+@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org/msg04380.html,
+around}.  Sometimes, the @uref{http://www.winzip.com,automagical
+breaking while unpacking} process would even install flawlessly, and you
+had to
+@uref{http://mail.gnu.org/pipermail/gnu-music-discuss/2000-October/000517.html,
+break it yourself by flattening} the
+@uref{http://www.lilypond.org,LilyPond} tarball.
+
+Our specially formed Windows support task force has, after thoroughly
+investigating your particular needs as an individual user, formuled the
+revolutionary new concept of one-size-fits-all software, and delivered
+@uref{http://www.mail-archive.com/gnu-music-discuss%40gnu.org/msg03647.html,
+way before schedule}.
+
+With the upcoming @uref{
+http://mail.gnu.org/pipermail/info-gnu-music/2001-April/000060.html,
+LilyPond-1.4} release, we have innovated agressively, by copying and
+@uref{
+http://appel.lilypond.org/lilypond/gnu-windows/cygwin-installer.patch,
+mutilating } @uref{http://sources.redhat.com/cygwin,Cygwin}'s
+@uref{
+ftp://ftp.franken.de/pub/win32/develop/gnuwin32/cygwin/mirrors/cygnus/snapshots/cygwin-src-20010410.tar.bz2,
+Windows installer}.
+No
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/tar/lilypond/md5.sum,
+difficult checksums} or signatures.  Enjoy the the thrills of running
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/setup.exe,
+untrusted binaries} with adminstrator rights, on your painfully
+firewalled intranet.
+
+We proudly present our @emph{Gourmet-click-de-luxe} install: offering at
+least @uref{babysit.html, 32 totally unnecessary clicks}, before you can
+actually run LilyPond.  This includes a nice and warm welcome click:
+@example
+GNU LilyPond Setup
+
+   Version x.y
+   (C) Red Hat and us
+
+       [N]ext->
+@end example
+and of course, especially for all people with an exceptionally fine
+developed Windows taste, the maybe even more hollow message that tells
+us there's nothing to be told, really:
+@example
+GNU LilyPond Setup
+
+   Installation completed.
+
+       [O]k
+@end example
+Yes, that's right.  Farewell @uref{http://www.lilypond.org/auto, smooth
+nightly upgrades}.  Even a click at the @emph{very end} is required, so
+that you actually feel very useful babysitting the whole process.  Try
+it.  You will agree that with this new innovative installer we have
+truly reached the holy grail of user friendliness.
+
+
+@bye

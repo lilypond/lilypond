@@ -1,0 +1,64 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename babysit.info
+@settitle Babysit Windows Install Wizard
+
+@node Top
+@top
+
+@chapter Babysit Windows Install Wizard
+
+If, after installing LilyPond, it doesn't run: don't panic -- don't
+complain.  Our Q+A team has devised an easy and well tested solution.
+We advise you to reinstall Windows, and this time follow the
+instructions of the wizard minutely.  You can't go wrong.  Good luck!
+
+@example
+Desktop
+  :Netscape(1) :Netscape(2)
+Netscape
+  :Bookmarks(3) :www.lilypond.org(4)
+  :Windows Unstable(5)
+  :setup.exe(6)
+Netscape download
+  Unknown file type
+    :Save file(7)
+Save as
+  :Drop-down(8) :Select Desktop(9)@footnote{
+You could save the file where the dialog box suggests, ie,
+the almost at random place wherever you happened to save some
+previous file, but we're not in the business of saving clicks,
+and chances are you can't find it lateron, so we don't do that.}
+Save as
+  :Save(10)
+Save as 
+  C:\WINDOWS\Desktop\setup.exe already exist
+  Do you want to replace it? :Yes(11)
+Desktop
+  :setup.exe(12) :setup.exe(13)
+GNU LilyPond Setup
+  Setup.exe version 2.40 :Next(14)
+  :X(15) Install from internet :Next(16)
+  Local Package Directory
+    :Browse(17) :C:\tmp(18) :Ok(19)@footnote{
+You could download everything on the desktop, but that will
+clutter it to a degree that your helpdesk will
+probably tell you that you need to reinstall windows, so
+we don't do that.} :Next(20)
+  Select install root directory
+    C:/cygwin :Next(21)
+  :X Direct internet connection(22) :Next(23)
+  Select Download Site
+    :http://appel.lilypond.org(24) :Next(25)
+  Select Packages to install (all) :Next(26)@footnote{
+You can get a lot of @emph{additional free clicks} here,
+by deselecting  some packages, but the installation would
+be broken if you don't install everything, so we don't do that.}
+  :X Create Desktop Icon(27)
+  :X Add to Start Menu(28) :Next(29)
+  Installation Complete :Ok(30)
+Desktop
+  :GNU LilyPond(31):GNU LilyPond(32)
+@end example
+
+
+@bye

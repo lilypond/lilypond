@@ -22,12 +22,14 @@ You need the following packages to compile Lilypond on Windows.
 @table @code
 @item The GNU + Cygnus tools, 1.1.7 or newer.
 Check out the @uref{http://sources.redhat.com/cygwin,Cygwin webpage}.
-@item GUILE 1.4, or newer.
-Check out the @uref{http://www.gnu.org/software/guile.html,GUILE webpage}
-@end table
-
 You can get the latest version of the GNU + Cygnus tools from cygnus
 @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
+Install everything, including tetex.
+@item GUILE 1.4, or newer.
+Check out the @uref{http://www.gnu.org/software/guile.html,GUILE
+webpage}.  You may need the patch @file{guile-1.4-gnu-windows.patch}
+included in LilyPond's source distribution.
+@end table
 
 @section Windows precompiled binaries
 
@@ -39,8 +41,10 @@ LilyPond on Windows}.
 
 This will install the minimal set of cygwin tools needed to run
 LilyPond.  If you already have cygwin installed, don't worry: nothing
-will be installed twice.
-
+will be installed twice.  To expand on this minimal set, click
+@uref{http://sources.redhat.com/cygwin/setup.exe,here},
+or visit a Cygwin
+@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
 @end table
 
 Note that none of the developers uses Windows, of course.  In fact, we
@@ -50,7 +54,7 @@ users trying to compile LilyPond themselves.
 
 These binaries are cross compiled for Windows on a GNU/Linux box.  You
 may want to check out the
-@uref{http://appel.lilypond.org/lilypond/gnu-windows/cross.tar.gz,cross
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/cross-1.1.8.tar.gz,cross
 compilation scripts}.
 
 @section Windows running requirements
@@ -62,14 +66,44 @@ following software
 @item GUILE
 Included in binary installation.
 @item TeX
-A full TeX installation.  See /usr/share/doc/tetex-beta for details.
-@item GSView
-Click  @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} to
-install GSView (GhostView for Windows), or visit
+A full TeX installation.
+Click
+@uref{http://prdownloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,here}
+to install basic MiKTeX commands, 
+or visit @uref{http://www.miktex.org,www.miktex.org}.
+@c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
+@item PostScript tools
+@table @code
+@item GSView-2.6, or
+This old package has two advantages.  It has gsview and ghostscript
+bundeled, and it doesn't popup @emph{Register Now|Cancel} windows all
+the time.  It doesn't work together with Yap to display PostScript
+specials.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
+install GSView-2.6 (GhostView for Windows), or visit
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+
+@item GSView-3.6 and GhostScript-6.50
+If you install both these packages, Yap will display PostScript
+specials.  You get annoying @emph{Register Now|Cancel} popups, though.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
+GSview and 
+Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
+,here} for GhostScript.
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+or visit the
+@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+@end table
+
 @item Python
 Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
-install Python-1.5.2, or visit @uref{http://www.python.org,www.python.org}.
+install Python-1.5.2, or visit
+@uref{http://www.python.org,www.python.org}.
+
+Python > 1.5.2 has ugly licensing issues, so we only used and tested
+1.5.2.
 @end table
 
 
@@ -97,7 +131,8 @@ Options:
 [..]
 @end example
 
-you should try adding @file{/usr/lilypond-x.y.z/bin} to your path, do:
+you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
+do:
 @example
 PATH=/usr/lilypond-1.3.147/bin:$PATH
 @end example
@@ -106,11 +141,17 @@ and try again.
 
 [TODO:
 
+* politely ask windows users not to complain but rather send instructive
+bug reports along with patches.
+
+* emacs-mode installation, figure out and describe proper
+emacs-on-cygwin setup.
+
 * talk about /etc/profile.d/lilypond-profile.sh
 
-* GUILE errors
+* GUILE errors, simple guile test
 
-* TEX errors
+* TEX errors, simple tex test
 
 ]
 
