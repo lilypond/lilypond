@@ -1,5 +1,4 @@
 \version "1.7.18"
-% renamed from defaultbars.ly to bars-always.ly
 \header {
 
     texidoc = "@cindex Bars Always

@@ -1,5 +1,4 @@
 \version "1.7.18"
-% renamed from blank.ly to blank-paper.ly
 \header {
   texidoc="@cindex Blank Paper
 Blank music paper with clefs.
