@@ -4529,7 +4529,7 @@ those will be ignored.
 
 In orchestral scores, staff lines that only have rests are usually
 removed.  This saves some space. This style is called `French Score'.
-For @internalsref{Lyrics}, @internalsref{Lyrics},
+For @internalsref{Lyrics}, 
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default.  When these line of these contexts turn out
 empty after the line-breaking process, they are removed.

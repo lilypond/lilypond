@@ -1,3 +1,14 @@
+2004-02-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* make/lilypond.redhat.spec.in (Group): add/delete music-glossary too. 
+
+	* ly/engraver-init.ly: move \grobdescriptions to Global. This
+	fixes problems with system defaults being reverted with \override
+	on Score level.
+
+	* lily/global-context.cc (Global_context): apply property-ops to
+	Global_context too. 
+
 2004-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (stencil->string): Rewrite.
