@@ -265,7 +265,7 @@ is_axis (SCM s)
 Direction
 to_dir (SCM s)
 {
-  return SCM_INUMP (s) ? (Direction) ly_scm2int (s) : CENTER;
+  return scm_is_integer (s) ? (Direction) ly_scm2int (s) : CENTER;
 }
 
 Interval

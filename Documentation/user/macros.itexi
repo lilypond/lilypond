@@ -69,7 +69,8 @@ b
 @ifhtml
 @macro internalsref{NAME}
 @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
-@cindex \NAME\@c
+@c should we do this? 
+@cindex @code{\NAME\}
 @end macro
 
 

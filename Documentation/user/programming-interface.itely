@@ -109,8 +109,10 @@ expressions}.
 
 @item
   `type' or interface: Each music name has several `types' or interface,
-  for example, a note is an @code{event}, but it is also a @code{note-event},
-  a @code{rhythmic-event} and a @code{melodic-event}.
+  for example, a note is an @code{event},
+  but it is also a @code{note-event},
+  a @code{rhythmic-event} and
+   a @code{melodic-event}.
 
   All classes of music are listed in the internals manual, under
   @internalsref{Music classes}.
