@@ -14,6 +14,7 @@ flats in a sixth should be staggered.  "
 \score {
      \context Voice \relative c'
     {
+	<d e! bes'!>4
 	cis4
 	c4
 	\transpose c c' {
@@ -30,6 +31,7 @@ flats in a sixth should be staggered.  "
 	<c! es ges beses>
 	<bes! c d f >    
 	<bes,! c d f >
+
     }
     \layout {
 	raggedright = ##t

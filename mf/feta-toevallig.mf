@@ -243,8 +243,8 @@ fet_beginchar ("Natural", "0");
 	pair ne;
 	path pat_top, pat_bottom;
 
-	top_stem_thick# = stafflinethickness# + .09 staff_space#;
-	stemwidth# = 0.08 staff_space# + .5 stafflinethickness#;
+	top_stem_thick# = stafflinethickness# + .10 staff_space#;
+	stemwidth# = 0.09 staff_space# + .5 stafflinethickness#;
 	define_whole_blacker_pixels (top_stem_thick, stemwidth);
 
 	set_char_box (0, 2/3 staff_space#,

@@ -71,7 +71,9 @@ Accidental_interface::accurate_boxes (Grob *a, Grob**common)
       && !parens
       && scm_ilength (accs) == 1)
     {
-      if (scm_to_int (scm_car (accs)) == FLAT)
+      switch (scm_to_int (scm_car (accs))
+      {
+      case FLAT:
 	{
 	  Box stem = b;
 	  Box bulb = b;
@@ -91,9 +93,28 @@ Accidental_interface::accurate_boxes (Grob *a, Grob**common)
 	  boxes.push (bulb);
 	  boxes.push (stem);
 	}
-      
+	break;
+      case NATURAL:
+	{
+	  Box lstem = b;
+	  Box rstem = b;
+	  Box belly = b;
+
+	  lstem[Y_AXIS] *= 1.1;
+	  rstem[Y_AXIS] *= 1.1;
+	  
+	  belly[Y_AXIS] *= 0.75;
+	  lstem[X_AXIS][RIGHT] *= .5;
+	  rstem[X_AXIS][LEFT] = lstem[X_AXIS][RIGHT];
+	  lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
+	  rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
+	  boxes.push (belly);
+	  boxes.push (lstem);
+	  boxes.push (rstem);
+	}
+	break;
       /*
-	TODO: add support for natural, double flat.
+	TODO: add support for, double flat.
        */
     }
 

@@ -4,7 +4,7 @@
 %
 
 %input feta-eindelijk;
-%input feta-toevallig;
+input feta-toevallig;
 %input feta-puntje;
 %input feta-bolletjes;	
 %input feta-schrift;
