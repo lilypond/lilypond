@@ -77,14 +77,15 @@ Spring_spacer::handle_loose_cols()
     connected.connect (fixed[i-1], fixed[i]);
 
   /*
-    connect unconnected columns with distances of 1.0; 
+    If columns do not have spacing information set, we need to supply our own.
    */
+  Real d = paper_l ()->get_var ("loose_column_distance");
   for (int i = cols_.size(); i--;)
     {
       if (! connected.equiv (fixed[0], i))
 	{
 	  connected.connect (i-1, i);
-	  connect (i-1, i, 1.0, 1.0);
+	  connect (i-1, i, d, 1.0);
 	}
     }
 }
