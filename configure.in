@@ -28,14 +28,22 @@ STEPMAKE_GETTEXT
 STEPMAKE_MSGFMT(REQUIRED)
 STEPMAKE_TEXMF
 STEPMAKE_TEXMF_DIRS
-STEPMAKE_GUILE(OPTIONAL)
 STEPMAKE_GUILE_DEVEL(REQUIRED, 1.3.4)
 STEPMAKE_KPATHSEA
 STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
-##need perl for help2man.
+
+## Optional tools for building documentation, website, extra fonts.
+
+# guile executable for some scripts
+STEPMAKE_GUILE(OPTIONAL)
+# perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
+# pktrace for generating pfa's, pfb's
+STEPMAKE_PROGS(PKTRACE, pktrace, OPTIONAL, 1.0.3)
+# new makeinfo for multi-page website docs
+STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.1)
 
 
 if test "$optimise_b" = yes; then
@@ -51,7 +59,9 @@ AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext isinf)
 AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
+# Gather requirements and generate output.
 STEPMAKE_END
+
 
 test -n "$CONFIGURATION" && mc=" conf=$CONFIGURATION" || mc=""
 
