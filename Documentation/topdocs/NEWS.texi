@@ -7,6 +7,18 @@
 @unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
+@item Grace notes are correctly quoted and formatted when using cue notes.
+
+@item Cue notes can now be created with
+
+@example
+\cueDuring #@var{voice-name} #@var{direction} @{ @var{music} @}
+@end example
+
+@noindent
+This will set stem directions and put the cue notes in the @code{cue}
+@code{Voice}
+
 @item Stemlets, short stems over beamed rests, have been added.
 
 @end itemize
