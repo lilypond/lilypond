@@ -5,6 +5,8 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
+NAME_METHOD(Text_item);
+
 Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 {
     staffsize_i_ = staffsize_i;

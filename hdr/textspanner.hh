@@ -16,14 +16,18 @@ struct Text_spanner : Spanner {
     Text_def spec;
     Offset tpos;
     Directional_spanner*support;
+
     /****************/
+
+    const char * name() const;
     virtual    void do_pre_processing();
     virtual    void do_post_processing();
     Molecule* brew_molecule_p()const;
     virtual    Interval height() const ;
-    void print() const;
+    void do_print() const;
     virtual Spanner* do_break_at(PCol*,PCol*)const;
-    Text_spanner(Directional_spanner*);
+    Text_spanner();
+    void set_support(Directional_spanner*);
 };
 /**
   Use for triplets, eentweetjes, ottava, etc.
