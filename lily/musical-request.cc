@@ -14,6 +14,7 @@
 #include "voice.hh"
 #include "voice-element.hh"
 
+IMPLEMENT_STATIC_NAME(Stem_req);
 void
 Stem_req::do_print() const
 {
@@ -29,7 +30,12 @@ Stem_req::Stem_req()
 }
 
 /* ************** */
-void Musical_req::do_print()const{}
+IMPLEMENT_STATIC_NAME(Musical_req);
+void
+Musical_req::do_print()const{}
+
+IMPLEMENT_STATIC_NAME(Request);
+
 void Request::do_print() const{}
 
 /* *************** */
@@ -45,6 +51,8 @@ Request::print() const
 }
      
 
+
+IMPLEMENT_STATIC_NAME(Span_req);
 
 void
 Span_req::do_print() const    
@@ -71,6 +79,8 @@ Spacing_req::Spacing_req()
     distance = 0;
     strength = 0;
 }
+IMPLEMENT_STATIC_NAME(Spacing_req);
+
 void
 Spacing_req::do_print()const
 {
@@ -78,6 +88,8 @@ Spacing_req::do_print()const
     mtor << "next " << next << "dist " << distance << "strength\n";
 #endif
 }
+
+IMPLEMENT_STATIC_NAME(Blank_req);
 
 void
 Blank_req::do_print()const
@@ -107,6 +119,8 @@ Melodic_req::transpose(Melodic_req const & delta)
 		delta.defined_ch_C_);
     }
 }
+
+IMPLEMENT_STATIC_NAME(Melodic_req);
 
 void
 Melodic_req::do_print() const
@@ -140,6 +154,8 @@ Plet_req::Plet_req()
     type_i_ = 1;
 }
 
+IMPLEMENT_STATIC_NAME(Plet_req);
+
 void
 Plet_req::do_print() const
 {
@@ -165,11 +181,13 @@ Rhythmic_req::Rhythmic_req()
 {
 }
 
+IMPLEMENT_STATIC_NAME(Rhythmic_req);
+
 void
 Rhythmic_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << duration_.str();
+    mtor << "duration { " <<duration_.str() << "}";
 #endif
 }
 
@@ -187,6 +205,8 @@ Lyric_req::Lyric_req(Text_def* def_p)
     dir_i_ = -1;		// lyrics below (invisible) staff
 }
 
+IMPLEMENT_STATIC_NAME(Lyric_req);
+
 void
 Lyric_req::do_print() const
 {    
@@ -199,16 +219,22 @@ Note_req::Note_req()
 {
     forceacc_b_ = false;
 }
+IMPLEMENT_STATIC_NAME(Note_req);
+
 void
 Note_req::do_print() const
 {
 #ifndef NPRINT
     Melodic_req::do_print();
-    mtor << " forceacc_b_ " << forceacc_b_ << '\n';
+    if (forceacc_b_) {
+	mtor << " force accidental\n";
+    }
     Rhythmic_req::do_print();
 #endif
 }
 /* *************** */
+IMPLEMENT_STATIC_NAME(Rest_req);
+
 void
 Rest_req::do_print() const
 {
@@ -220,10 +246,13 @@ Beam_req::Beam_req()
 {
     nplet = 0;
 }
-
-void Beam_req::do_print()const{}
+IMPLEMENT_STATIC_NAME(Beam_req);
+void
+Beam_req::do_print()const{}
 /* *************** */
-void Slur_req::do_print()const{}
+IMPLEMENT_STATIC_NAME(Slur_req);
+void
+Slur_req::do_print()const{}
 /* *************** */
 int
 Span_req:: compare(Span_req const &r1, Span_req const &r2)
@@ -256,6 +285,8 @@ Script_req::Script_req(Script_req const &s)
     dir_i_ = s.dir_i_;
     scriptdef_p_ = new Script_def(*s.scriptdef_p_);
 }
+
+IMPLEMENT_STATIC_NAME(Script_req);
 
 void
 Script_req::do_print() const
@@ -295,6 +326,8 @@ Text_req::Text_req(int dir_i, Text_def* tdef_p)
     tdef_p_ = tdef_p;
 }
 
+IMPLEMENT_STATIC_NAME(Text_req);
+
 void
 Text_req::do_print() const
 {
@@ -312,6 +345,8 @@ Skip_req::duration() const
 {
     return duration_;
 }
+
+IMPLEMENT_STATIC_NAME(Skip_req);
 
 void
 Skip_req::do_print() const
@@ -332,6 +367,8 @@ Request::voice_l()
 }
 /* *************** */
 
+IMPLEMENT_STATIC_NAME(Subtle_req);
+
 void
 Subtle_req::do_print() const
 {
@@ -340,17 +377,21 @@ Subtle_req::do_print() const
 #endif
 }
 
+IMPLEMENT_STATIC_NAME(Dynamic_req);
+
 void
 Dynamic_req::do_print() const
 {
     Subtle_req::do_print();
 }
 
+IMPLEMENT_STATIC_NAME(Absolute_dynamic_req);
+
 void
 Absolute_dynamic_req::do_print() const
 {
     Dynamic_req::do_print();
-    mtor << " loudness_" <<loudness_;
+    mtor << " loudness " <<loudness_;
 }
 
 String
@@ -380,6 +421,8 @@ Span_dynamic_req::Span_dynamic_req()
 {
     dynamic_dir_i_  = 0;
 }
+
+IMPLEMENT_STATIC_NAME(Span_dynamic_req);
 
 void
 Span_dynamic_req::do_print()const

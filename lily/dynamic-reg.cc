@@ -77,3 +77,5 @@ Dynamic_register::set_feature(Features i)
 {
     dir_i_ = i.direction_i_;
 }
+
+IMPLEMENT_STATIC_NAME(Dynamic_register);
