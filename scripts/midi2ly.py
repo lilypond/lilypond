@@ -7,8 +7,10 @@ import string
 LINE_BELL = 60
 scale_steps = [0,2,4,5,7,9,11]
 
-whole_clocks = 1536
-quart_clocks = 0
+clocks_per_1 = 1536
+
+
+program_name = 'midi2ly.py [experimental]'
 
 def split_track (track):
 	chs = {}
@@ -28,16 +30,20 @@ def split_track (track):
 		if chs[i] == []:
 			del chs[i]
 
-	whatarewes = []
+	threads = []
 	for v in chs.values ():
-		ns = notes_on_channel (v)
-		dinges = unthread_notes (ns)
-		if len (dinges):
-			whatarewes.append (dinges)
-	return whatarewes
+		events = events_on_channel (v)
+		thread = unthread_notes (events)
+		if len (thread):
+			threads.append (thread)
+	return threads
 
 
 class Note:
+	names = (0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6)
+	accidentals = (0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0)
+	acc_name = ('eses', 'es', 'BUG', 'is' , 'isis')
+	
 	def __init__ (self, clocks, pitch, velocity):
 		self.velocity = velocity
 		self.pitch = pitch
@@ -52,63 +58,172 @@ class Note:
 			return 0
 
 	def dump (self):
-		return dump_note (self)
+		# major scale: do-do
+		# minor scale: la-la  (= + 5) '''
+	
+		n = self.names[self.pitch % 12]
+		a = self.accidentals[(key.minor * 5 + self.pitch) % 12]
+		if a and key.flats:
+			a = -a
+			n = (n + 1) % 7
+
+		name = chr ((n + 2)  % 7 + ord ('a'))
+
+		if a:
+			name = name + self.acc_name[a + 2]
+
+		#  By tradition, all scales now consist of a sequence
+		#  of 7 notes each with a distinct name, from amongst
+		#  a b c d e f g.  But, minor scales have a wide
+		#  second interval at the top - the 'leading note' is
+		#  sharped. (Why? it just works that way! Anything
+		#  else doesn't sound as good and isn't as flexible at
+		#  saying things. In medieval times, scales only had 6
+		#  notes to avoid this problem - the hexachords.)
+
+		#  So, the d minor scale is d e f g a b-flat c-sharp d
+		#  - using d-flat for the leading note would skip the
+		#  name c and duplicate the name d.  Why isn't c-sharp
+		#  put in the key signature? Tradition. (It's also
+		#  supposedly based on the Pythagorean theory of the
+		#  cycle of fifths, but that really only applies to
+		#  major scales...)  Anyway, g minor is g a b-flat c d
+		#  e-flat f-sharp g, and all the other flat minor keys
+		#  end up with a natural leading note. And there you
+		#  have it.
+
+		#  John Sankey <bf250@freenet.carleton.ca>
+		#
+		#  Let's also do a-minor: a b c d e f gis a
+		#
+		#  --jcn
+
+		if key.minor:
+			if key.sharps == 0 and key.flats == 0 and name == 'as':
+				name = 'gis'
+       			elif key.flats == 1 and name == 'des':
+				name = 'cis'
+			elif key.flats == 2 and name == 'ges':
+				name = 'fis'
+			elif key.sharps == 5 and name == 'g':
+				name = 'fisis'
+			elif key.sharps == 6 and name == 'd':
+				name = 'cisis'
+			elif key.sharps == 7 and name == 'a':
+				name = 'gisis'
+				
+			if key.flats >= 6 and name == 'b':
+				name = 'ces'
+			if key.sharps >= 7 and name == 'e':
+				name = 'fes'
+
+                s = name
+		
+		o = self.pitch / 12 - 4
+		if o > 0:
+			s = s + "'" * o
+		elif o < 0:
+			s = s + "," * -o
+
+		return s + dump_duration (self.clocks) + ' '
+
 
 class Time:
-	def __init__ (self, t, num, den):
-		self.skip = t
+	def __init__ (self, num, den):
+		self.clocks = 0
 		self.num = num
 		self.den = den
-		self.clocks = 0
-		
+
 	def dump (self):
-		s = ''
-		if self.skip:
-			s = dump_skip (self.skip)
-		s = s + '\n  '
-		return s  + '\\time %d/%d ' % (self.num, self.den) + '\n  '
+		return '\n  ' + '\\time %d/%d ' % (self.num, self.den) + '\n  '
+
+class Tempo:
+	def __init__ (self, seconds_per_1):
+		self.clocks = 0
+		self.seconds_per_1 = seconds_per_1
+
+	def dump (self):
+		# return '\n  ' + '\\tempo 1 = %d ' % (60 / self.seconds_per_1) + '\n  '
+		return '\n  ' + '\\tempo 4 = %d ' % (4 * 60 / self.seconds_per_1) + '\n  '
 
 class Key:
 	key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
 	key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
 
-	def __init__ (self, t, sharps, flats, minor):
-		self.skip = t
+	def __init__ (self, sharps, flats, minor):
+		self.clocks = 0
 		self.flats = flats
 		self.sharps = sharps
 		self.minor = minor
-		self.clocks = 0
-		
+
 	def dump (self):
+		global key
+		key = self
+
 		s = ''
-		if self.skip:
-			s = dump_skip (self.skip)
-		s = s + '\n  '
 		if self.sharps and self.flats:
 			s = '\\keysignature %s ' % 'TODO'
-		elif self.sharps:
-			s = '\\notes\\key %s \major' % self.key_sharps[self.sharps]
-		elif self.flats:
-			s = '\\notes\\key %s \major' % self.key_flats[self.flats]
-		return s + '\n  '
+		else:
+			
+			if self.flats:
+				k = (ord ('cfbeadg'[self.flats % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
+			else:
+				k = (ord ('cgdaebf'[self.sharps % 7]) - ord ('a') - 2 -2 * self.minor + 7) % 7
+  
+			if not self.minor:
+				name = chr ((k + 2) % 7 + ord ('a'))
+			else:
+				name = chr ((k + 2) % 7 + ord ('a'))
+
+			# fis cis gis dis ais eis bis
+			sharps = (2, 4, 6, 1, 3, 5, 7)
+			# bes es as des ges ces fes
+			flats = (6, 4, 2, 7, 5, 3, 1)
+			a = 0
+			if self.flats:
+				if flats[k] <= self.flats:
+					a = -1
+			else:
+				if sharps[k] <= self.sharps:
+					a = 1
+
+			if a:
+				name = name + Note.acc_name[a + 2]
+
+			s = '\\key ' + name
+			if self.minor:
+				s = s + ' \\minor'
+			else:
+				s = s + ' \\major'
+
+		return '\n\n  ' + s + '\n  '
 
 
+# TODO: really handle lyrics
 class Text:
-	def __init__ (self, t, text):
-		self.skip = t
-		self.text = text
+	text_types = (
+		'SEQUENCE_NUMBER',
+		'TEXT_EVENT',
+		'COPYRIGHT_NOTICE',
+		'SEQUENCE_TRACK_NAME',
+		'INSTRUMENT_NAME',
+		'LYRIC',
+		'MARKER',
+		'CUE_POINT',)
+	
+	def __init__ (self, type, text):
 		self.clocks = 0
+		self.type = type
+		self.text = text
 
 	def dump (self):
-		s = ''
-		if self.skip:
-			s = dump_skip (self.skip)
-		return s + dump_text (self)
+		return '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
 
-def notes_on_channel (channel):
+def events_on_channel (channel):
 	pitches = {}
 
-	nch = []
+	notes = []
+	events = []
 	for e in channel:
 		t = e[0]
 
@@ -119,34 +234,58 @@ def notes_on_channel (channel):
 			try:
 				(lt, vel) = pitches[e[1][1]]
 				del pitches[e[1][1]]
-				
-				nch.append ((lt, Note (t-lt, e[1][1], vel)))
-				
+
+				i = len (notes) - 1 
+				while i > 0:
+					if notes[i][0] > lt:
+						i = i -1
+					else:
+						break
+				notes.insert (i + 1,
+					    (lt, Note (t-lt, e[1][1], vel)))
+
 			except KeyError:
 				pass
 		elif e[1][0] == midi.META_EVENT:
-			if e[1][1] == midi.TIME_SIGNATURE:
-				(num, den, clocks4, count32) = map (ord, e[1][2])
-				nch.append ((t, Time (t, num, den)))
+			if e[1][1] == midi.SET_TEMPO:
+				(u0, u1, u2) = map (ord, e[1][2])
+				us_per_4 = u2 + 256 * (u1 + 256 * u0)
+				seconds_per_1 = us_per_4 * 4 / 1e6
+				events.append ((t, Tempo (seconds_per_1)))
+			elif e[1][1] == midi.TIME_SIGNATURE:
+				(num, dur, clocks4, count32) = map (ord, e[1][2])
+				den = 2 ** dur 
+				events.append ((t, Time (num, den)))
 			elif e[1][1] == midi.KEY_SIGNATURE:
-				(accidentals, minor) = map (ord, e[1][2])
+				if len (e[1][2]) != 2:
+					# circumvent lilypond bug
+					(accidentals, minor) = (0,0)
+				else:	
+					(accidentals, minor) = map (ord, e[1][2])
 				sharps = 0
 				flats = 0
 				if accidentals < 127:
 					sharps = accidentals
 				else:
 					flats = 256 - accidentals
-				nch.append ((t, Key (t, sharps, flats, minor)))
-			elif e[1][1] == midi.TEXT_EVENT:
-				nch.append ((t, Text (t, e[1][2])))
+				events.append ((t, Key (sharps, flats, minor)))
+			elif e[1][1] >= midi.SEQUENCE_NUMBER and e[1][1] <= midi.CUE_POINT:
+				events.append ((t, Text (e[1][1], e[1][2])))
 			else:
 				sys.stderr.write ("SKIP: %s\n" % `e`)
 				pass
 		else:
 			sys.stderr.write ("SKIP: %s\n" % `e`)
 			pass
-	
-	return nch
+
+	i = 0
+	while len (notes):
+		if i < len (events) and notes[0][0] >= events[i][0]:
+			i = i + 1
+		else:
+			events.insert (i, notes[0])
+			del notes[0]
+	return events
 
 def unthread_notes (channel):
 	threads = []
@@ -162,7 +301,7 @@ def unthread_notes (channel):
 				thread.append (e)
 				start_busy_t = t
 				end_busy_t = t + e[1].clocks
-			elif e[1].__class__ == Time or e[1].__class__ == Key or e[1].__class__ == Text:
+			elif e[1].__class__ == Time or e[1].__class__ == Key or e[1].__class__ == Text or e[1].__class__ == Tempo:
 				thread.append (e)
 			else:
 				todo.append (e)
@@ -185,8 +324,8 @@ def dump_skip (clocks):
 	return 's' + dump_duration (clocks) + ' '
 
 def dump_duration (clocks):
-	g = gcd (clocks, whole_clocks)
-	(d, n) = (whole_clocks/ g, clocks / g)
+	g = gcd (clocks, clocks_per_1)
+	(d, n) = (clocks_per_1/ g, clocks / g)
 	if n == 1:
 		s = '%d' % d
 	elif n == 3 and d != 1:
@@ -195,40 +334,28 @@ def dump_duration (clocks):
 		s = '%d*%d' % (d, n)
 	return s
 	
-def dump_note (note):
-	p = note.pitch
-	oct = p / 12
-	step = p % 12
-
-	i = 0
-	while  i < len (scale_steps):
-		if scale_steps[i] > step:
-			break
-		i = i+1
-		
-	i = i-1
-	str = chr ((i + 2)  % 7 + ord ('a'))
-	if scale_steps[i] <> step:
-		str = str + 'is'
-
-	return str + dump_duration (note.clocks) + ' '
-
 def dump (self):
 	return self.dump ()
 
-def dump_text (text):
-	return '\n  % ' + text.text + '\n  '
-
 def dump_chord (ch):
 	s = ''
-	if len(ch) == 1:
-		s = dump (ch[0])
-	else:
-		s = '<' + string.join (map (dump, ch)) + '>'
+	notes = []
+	for i in ch:
+		if i.__class__ == Note:
+			notes.append (i)
+		else:
+			s = s + i.dump ()
+	if len (notes) == 1:
+		s = s + dump (notes[0])
+	elif len (notes) > 1:
+		s = s + '<' + string.join (map (dump, notes)) + '>'
 	return s
 
 # thread?
 def dump_channel (thread):
+	global key
+
+	key = Key (0, 0, 0)
 	last_e = None
 	chs = []
 	ch = []
@@ -260,21 +387,14 @@ def dump_channel (thread):
 			
 		lines[-1] = lines[-1] + dump_chord (ch[1])
 
-		last_t = t + ch[1][0].clocks
+		clocks = 0
+		for i in ch[1]:
+			if i.clocks > clocks:
+				clocks = i.clocks
+				
+		last_t = t + clocks
 
 	return string.join (lines, '\n  ') + '\n'
-
-def dump_notes (channel):
-	on_hold = []
-	s = ''
-	for e in channel:
-		if e[0] <> last_t:
-			s = s + dump_chord (on_hold)
-			on_hold = []
-			last_t = e[0]
-
-		on_hold.append (e)
-	return s
 
 def track_name (i):
 	return 'track%c' % (i + ord ('A'))
@@ -301,19 +421,21 @@ def dump_track (channels, n):
 			
 	
 def convert_midi (f):
-	global whole_clocks, quart_clocks
+	global clocks_per_1
 
 	str = open (f).read ()
 	midi_dump = midi.parse (str)
 
-	whole_clocks = midi_dump[0][1]
-	quart_clocks = whole_clocks / 4
+	clocks_per_1 = midi_dump[0][1]
 
 	tracks = []
 	for t in midi_dump[1]:
 		tracks.append (split_track (t))
 
+	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
+
 	s = ''
+	s = tag + '\n\n'
 	for i in range (len (tracks)):
 		s = s + dump_track (tracks[i], i)
 
