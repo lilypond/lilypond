@@ -111,7 +111,8 @@
 					 ,Beam::end_after_line_breaking))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
-	(vertical-position-quant-function . ,default-beam-pos-quants)
+	(left-position-quant-function . ,default-left-beam-pos-quants)
+	(right-position-quant-function . ,default-right-beam-pos-quants)
 	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
@@ -706,7 +707,7 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(staff-space . 1.0)
-	(line-count . 5)
+	(line-count . 15)
 	(layer . 0)
 	(meta . ,(grob-description staff-symbol-interface ))
 	))

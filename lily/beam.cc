@@ -368,6 +368,8 @@ Beam::least_squares (SCM smob)
 
       Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
       Real dy = dydx * dx;
+      me->set_grob_property ("least-squares-dy", gh_double2scm (dy * dir));
+
       pos = Interval (y*dir, (y+dy) * dir);
     }
 
@@ -428,6 +430,7 @@ Beam::check_concave (SCM smob)
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
       Real r = pos.linear_combination (0);
       me->set_grob_property ("positions", ly_interval2scm (Interval (r, r)));
+      me->remove_grob_property ("least-squares-dy");
     }
 
   return SCM_UNSPECIFIED;
@@ -477,36 +480,38 @@ Beam::quantise_interval (Grob *me, Interval pos, Direction quant_dir)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thick = me->paper_l ()->get_var ("stafflinethickness");
-
-  /* TODO:
-
-     - left and right should be different, depending on direction and
-     multiplicity
-
-     -use different left-position-quant-function,
-     right-position-quant-function for handier slope quanting? */
-  SCM proc = me->get_grob_property ("vertical-position-quant-function");
-  SCM quants = scm_apply (proc,
-			  me->self_scm (),
-			  scm_list_n (gh_int2scm (multiplicity),
-				      gh_double2scm (1), /* junkme */
-				      gh_double2scm (thick / staff_space),
-				      /* HUH? */
-				      SCM_EOL,
-				      SCM_UNDEFINED));
-  
-  Array<Real> a;
-  for (SCM i = quants; gh_pair_p (i); i = ly_cdr (i))
-    a.push (gh_scm2double (ly_car (i)));
-  
-  if (a.size () <= 1)
-    return pos;
-
   Direction dir = Directional_element_interface::get (me);
-  Interval left = quantise_iv (a, pos[LEFT]*dir/staff_space) * staff_space;
-  Interval right = quantise_iv (a, pos[RIGHT]*dir/staff_space) * staff_space;
-  
   Real dy = pos.delta ();
+
+  Drul_array<Interval> bounds;
+  Direction d = LEFT;
+  do
+    {
+      SCM proc = d == LEFT
+	? me->get_grob_property ("left-position-quant-function")
+	: me->get_grob_property ("right-position-quant-function");
+      
+      SCM quants = scm_apply (proc,
+			      me->self_scm (),
+			      scm_list_n (gh_int2scm (multiplicity),
+					  gh_double2scm (dir),
+					  gh_double2scm (dy),
+					  gh_double2scm (thick / staff_space),
+					  /* HUH? */
+					  SCM_EOL,
+					  SCM_UNDEFINED));
+      
+      Array<Real> a;
+      for (SCM i = quants; gh_pair_p (i); i = ly_cdr (i))
+	a.push (gh_scm2double (ly_car (i)));
+      
+      if (a.size () <= 1)
+	return pos;
+      
+      bounds[d] = quantise_iv (a, pos[d]*dir/staff_space) * staff_space;
+    }
+  while (flip (&d) != LEFT);
+  
   Real ady = abs (dy);
 
   // quant direction hints disabled for now
@@ -518,18 +523,28 @@ Beam::quantise_interval (Grob *me, Interval pos, Direction quant_dir)
      (save that value?)
      Slope should never be reduced to zero.
    */
-  Interval qpos (0, 20.0 *sign (dy));
+  SCM s = me->get_grob_property ("least-squares-dy");
+  Real lsdy = gh_number_p (s) ? gh_scm2double (s) : 0;
+    
+  //  Interval qpos (0, 1000 * sign (dy));
+  Interval qpos;
+  Real epsilon = staff_space / 10;
   Direction ldir = LEFT;
   do
     {
       Direction rdir = LEFT;
       do
 	{
-	  Interval i (left[ldir]*dir, right[rdir]*dir);
-	  if ((abs (abs (i.delta ()) - ady) <= abs (abs (qpos.delta ()) - ady)
-       && sign (i.delta ()) == sign (pos.delta ())
-       && (!q
-	   || (i[LEFT]*q >= pos[LEFT]*q && i[RIGHT]*q >= pos[RIGHT]*q))))
+	  Interval i (bounds[LEFT][ldir]*dir, bounds[RIGHT][rdir]*dir);
+	  if ((!lsdy
+	       || (abs (i.delta ()) <= abs (lsdy) + epsilon
+		   && sign (i.delta ()) == sign (lsdy)))
+	      && (abs (abs (i.delta ()) - ady)
+		  <= abs (abs (qpos.delta ()) - ady))
+	      && sign (i.delta ()) == sign (pos.delta ())
+	      && (!q
+		  || (i[LEFT]*q >= pos[LEFT]*q && i[RIGHT]*q
+		      >= pos[RIGHT]*q)))
 	    qpos = i;
 	}
       while (flip (&rdir) != LEFT);
@@ -551,11 +566,30 @@ Beam::quantise_position (SCM smob)
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real y_shift = check_stem_length_f (me, pos);
   pos += y_shift;
-  pos = quantise_interval (me, pos, CENTER);
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  Direction dir = Directional_element_interface::get (me);
+  for (int i = 0; i < 10; i++)
+    {
+      Interval qpos = quantise_interval (me, pos, CENTER);
+      // how to check for uninitised interval,  (inf, -inf)?
+      if (qpos[LEFT] < 1000)
+	{
+	  y_shift = check_stem_length_f (me, qpos);
+	  if (y_shift * dir < staff_space / 2)
+	    {
+	      pos = qpos;
+	      break;
+	    }
+	}
+      pos += ((i + 1) * ((i % 2) * -2 + 1)) *  dir * staff_space / 4;
+    }
+      
   
   me->set_grob_property ("positions", ly_interval2scm (pos));
   set_stem_lengths (me);
 
+#if 0  
   pos = ly_scm2interval (me->get_grob_property ("positions"));
   
   y_shift = check_stem_length_f (me, pos);
@@ -575,7 +609,8 @@ Beam::quantise_position (SCM smob)
     }
   
   me->set_grob_property ("positions", ly_interval2scm (pos));
-
+#endif
+  
   return SCM_UNSPECIFIED;
 }
 
@@ -668,13 +703,23 @@ Beam::check_stem_length_f (Grob *me, Interval pos)
 
       if (info.idealy_f_ - stem_y > 0)
 	{
+#if 0	  
 	  ideal_lengthen += info.idealy_f_ - stem_y;
 	  ideal_lengthen_count++;
+#else
+	  ideal_lengthen = ideal_lengthen >? info.idealy_f_ - stem_y;
+	  ideal_lengthen_count = 1;
+#endif	  
 	}
       else if (info.idealy_f_ - stem_y < 0)
 	{
+#if 0	  
 	  ideal_shorten += info.idealy_f_ - stem_y;
 	  ideal_shorten_count++;
+#else
+	  ideal_shorten = ideal_shorten <? info.idealy_f_ - stem_y;
+	  ideal_shorten_count = 1;
+#endif	  
 	}
     }
   
