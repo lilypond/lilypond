@@ -20,6 +20,8 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
   checksum_ = 0;
   font_inf_ = fi;
 
+  design_size_ = 1.0;
+  
   for (int i= 256  >? fi->numOfChars; i--;)
     ascii_to_metric_idx_.push (-1);
   
@@ -40,10 +42,13 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
 
 
 SCM
-Adobe_font_metric::make_afm (AFM_Font_info *fi, unsigned int checksum)
+Adobe_font_metric::make_afm (AFM_Font_info *fi,
+			     unsigned int checksum,
+			     Real design_size)
 {
   Adobe_font_metric * fm = new Adobe_font_metric (fi);
   fm->checksum_ = checksum;
+  fm->design_size_ = design_size;
   return fm->self_scm ();    
 }
 
@@ -118,12 +123,13 @@ SCM
 read_afm_file (String nm)
 {
   FILE *f = fopen (nm.to_str0 () , "r");
-  char s[2048];
+  char s[2048] = "";
   char *check_key = "Comment TfmCheckSum";
+  char *size_key = "Comment DesignSize";
 
   unsigned int cs = 0;
-
-  s[0] = 0;
+  Real ds = 1.0;
+  
   /* Assume check_key in first 10 lines */
   for (int i = 0; i < 10; i++)
     {
@@ -131,7 +137,10 @@ read_afm_file (String nm)
       if (strncmp (s, check_key, strlen (check_key)) == 0)
 	{
 	  sscanf (s + strlen (check_key), "%ud", &cs);
-	  break;
+	}
+      else if (strncmp (s, size_key, strlen (size_key)) == 0)
+	{
+	  sscanf (s + strlen (size_key), "%lf", &ds);
 	}
     }
   
@@ -147,7 +156,7 @@ read_afm_file (String nm)
     }
   fclose (f);
 
-  return Adobe_font_metric::make_afm (fi, cs);
+  return Adobe_font_metric::make_afm (fi, cs, ds);
 }
 
 

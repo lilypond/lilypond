@@ -34,9 +34,10 @@ struct Adobe_font_metric : Font_metric
 
   String to_string () const;
   ~Adobe_font_metric ();
-  static SCM make_afm (AFM_Font_info*, unsigned);
+  static SCM make_afm (AFM_Font_info*, unsigned, Real);
 
   unsigned int checksum_;
+  Real design_size_;
 protected:
   Array<int> ascii_to_metric_idx_;
   std::map<String,int> name_to_metric_dict_;

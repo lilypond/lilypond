@@ -92,6 +92,8 @@ def parse_logfile (fn):
 			if 0: #testing
 				tags.append ('Regular')
 			name = tags[1:]
+			global_info['DesignSize'] = string.atof (tags[4])
+			
 			global_info['FontName'] = string.join (name,'-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
@@ -275,6 +277,10 @@ for filenm in files:
 
 	write_afm_header (afm)
 	afm.write ("Comment TfmCheckSum %d\n" % cs)
+	afm.write ("Comment DesignSize %.2f\n" % g['DesignSize'])
+
+	del g['DesignSize']
+	
 	write_afm_metric (afm, g, m)
 	
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
