@@ -26,8 +26,7 @@ involved process, so if possible, download a precompiled binary from
 Download source tarballs from here:
 @itemize @bullet
 @item Download development releases from
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
-@uref{http://www.lilypond.org/ftp/} by HTTP.
+@uref{http://www.lilypond.org/download/} by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
 

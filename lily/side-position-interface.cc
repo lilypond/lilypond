@@ -15,14 +15,13 @@
 #include "staff-symbol-referencer.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 void
 Side_position_interface::add_support (Grob*me, Grob*e)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
-
-
 
 Direction
 Side_position_interface::get_direction (Grob*me)
@@ -67,17 +66,7 @@ Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 SCM
 Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
 {
-
-
-  /*
-    As this is only used as a callback, this is called only once. We
-    could wipe SIDE-SUPPORT-ELEMENTS after we retrieve it to conserve
-    memory; however -- we should look more into benefits of such actions?
-
-    The benefit is small, it seems: total GC times taken don't
-    differ. Would this also hamper Generational GC ?
-    
-  */
+  Real ss = Staff_symbol_referencer::staff_space (me);
   SCM support = me->get_grob_property ("side-support-elements");
   Grob *common = common_refpoint_of_list (support, me->get_parent (a), a);
   
@@ -103,16 +92,16 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Direction dir = Side_position_interface::get_direction (me);
     
   Real off =  me->get_parent (a)->relative_coordinate (common, a);
-  SCM minimum = me->get_grob_property ("minimum-space");
+  Real  minimum_space = ss * robust_scm2double (me->get_grob_property ("minimum-space"),  -1);
 
   Real total_off = dim.linear_combination (dir) - off;
-  total_off += dir * robust_scm2double (me->get_grob_property ("padding"), 0);
+  total_off += dir * ss * robust_scm2double (me->get_grob_property ("padding"), 0);
 
-  if (gh_number_p (minimum) 
+  if (minimum_space >= 0
       && dir
-      && total_off * dir < gh_scm2double (minimum))
+      && total_off * dir < minimum_space)
     {
-      total_off = gh_scm2double (minimum) * dir;
+      total_off = minimum_space * dir;
     }
 
   if (fabs (total_off) > 100 CM)
@@ -131,7 +120,7 @@ Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
   Grob *me = unsmob_grob (smob);
   Axis a = (Axis) gh_scm2int (axis);
 
-  return  general_side_position (me, a, false); 
+  return general_side_position (me, a, false); 
 }
 
 
@@ -224,7 +213,9 @@ Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
   if (!st)
     return gh_int2scm (0);
 
-  Real padding= robust_scm2double ( me->get_grob_property ("staff-padding"), 0);
+  Real padding=
+    Staff_symbol_referencer::staff_space (me)
+    * robust_scm2double (me->get_grob_property ("staff-padding"), 0);
   
   Grob *common = me->common_refpoint (st, Y_AXIS);
   Direction d = Side_position_interface::get_direction (me);
