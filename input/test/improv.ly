@@ -6,7 +6,7 @@ texidoc = "note heads for improvisation have a different shape. "
 %{ TODO: the construct with separet SquashVoice context is a little
  gory. FIXME.  %}
 
-\version "1.7.6"
+\version "1.7.10"
 
 improOn = \notes {\translator Voice = impro }
 improOff = \notes {\translator SquashVoice = melo }
