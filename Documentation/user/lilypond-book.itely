@@ -59,18 +59,18 @@ Short Introduction to LaTeX} provides a introction to using La@TeX{}.
 Music is specified like this:
 
 @example
-@@lilypond[options, go, here]
+@@lilypond[options,go,here]
   YOUR LILYPOND CODE
 @@end lilypond
-@@lilypond[options, go, here]@{ YOUR LILYPOND CODE @}
-@@lilypondfile[options, go, here]@{@var{filename}@}
+@@lilypond[options,go,here]@{ YOUR LILYPOND CODE @}
+@@lilypondfile[options,go,here]@{@var{filename}@}
 @end example
 
 When lilypond-book is run on it, this results in a texinfo file. We
 show two simple examples here.  First a complete block:
 
 @example
-@@lilypond[26pt]
+@@lilypond[staffsize=26]
   c' d' e' f' g'2 g'
 @@end lilypond
 @end example
@@ -85,30 +85,16 @@ produces
 Then the short version:
 
 @example
-@@lilypond[11pt]@{<c' e' g'>@}
+@@lilypond[staffsize=11]@{<c' e' g'>@}
 @end example
 
 @noindent
 produces
 
-@lilypond[11pt]{ <c' e' g'> }
-
-@command{lilypond-book} knows the default margins and a few paper
-sizes.  One of these commands should be in the beginning of the document:
-
-@itemize @bullet
-@item @code{@@afourpaper}
-@item @code{@@afourlatex}
-@item @code{@@afourwide}
-@item @code{@@smallbook}
-@end itemize
-
-@noindent
-@code{@@pagesizes} are not yet supported.
+@lilypond[staffsize=11]{ <c' e' g'> }
 
 When producing texinfo, lilypond-book also generates bitmaps of the
 music, so you can make a HTML document with embedded music.
-
 
 @c @TeX{} in node name seems to barf
 @node Integrating LaTeX and music
@@ -118,13 +104,13 @@ music, so you can make a HTML document with embedded music.
 For La@TeX{}, music is entered using
 
 @example
-\begin[options, go, here]@{lilypond@}
+\begin[options,go,here]@{lilypond@}
   YOUR LILYPOND CODE
 \end@{lilypond@}
 @end example
 
 @example
-\lilypondfile[options, go,here]@{@var{filename}@}
+\lilypondfile[options,go,here]@{@var{filename}@}
 @end example
 
 @noindent
@@ -141,7 +127,7 @@ La@TeX{}.
 We show some examples here:
 
 @example
-\begin[26pt]@{lilypond@}
+\begin[staffsize=26]@{lilypond@}
   c' d' e' f' g'2 g'2
 \end@{lilypond@}
 @end example
@@ -149,20 +135,20 @@ We show some examples here:
 @noindent
 produces
 
-@lilypond[26pt]
+@lilypond[staffsize=26]
   c' d' e' f' g'2 g'2
 @end lilypond
 
 Then the short version:
 
 @example
-\lilypond[11pt]@{<c' e' g'>@}
+\lilypond[staffsize=11]@{<c' e' g'>@}
 @end example
 
 @noindent
 produces
 
-@lilypond[11pt]{<c' e' g'>}
+@lilypond[staffsize=11]{<c' e' g'>}
 
 The linewidth of the music will be adjust by examining the commands in
 the document preamble, the part of the document before
@@ -171,9 +157,12 @@ La@TeX{} to find out how wide the text is. The line width variable for
 the music fragments are adjusted to the text width.
 
 After @code{\begin@{document@}}, the column changing commands
-@code{\onecolumn} , @code{\twocolumn} commands and the
-@code{multicols} environment from the multicol package are also
-interpreted.
+@code{\onecolumn}, @code{\twocolumn} commands
+@ignore 
+and the
+@code{multicols} environment from the multicol package
+@end ignore
+are also interpreted.
 
 The titling from the @code{\header} section of the fragments can be
 imported by adding the following to the top of the La@TeX{} file:
@@ -219,7 +208,7 @@ PDF can then be produced with @code{ps2pdf}.
 Music is entered using
 
 @example
-<lilypond relative1 verbatim>
+<lilypond relative=1 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 </lilypond>
 @end example
@@ -229,12 +218,12 @@ of which lilypond-book will produce a HTML with appropriate image tags for the
 music fragments:
  
 @example
-<lilypond relative1 verbatim>
+<lilypond relative=1 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 </lilypond>
 @end example
 
-@lilypond[relative1]
+@lilypond[relative=1]
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
@@ -272,51 +261,15 @@ the short version of the music blocks:
 
 @code{ @@lilypond@{ CONTENTS @} } and @code{ \lilypond@{ CONTENTS @} }
 
-@item smallverbatim
-works like @code{verbatim}, but in a smaller font.
-
-@item intertext="@var{text}"
-is used in conjunction with @code{verbatim} option: This puts
-@var{text} between the code and the music (without indentation).
-
 @item filename=@var{filename}
 name the file (for @code{printfilename} option). The argument should
 be unquoted. 
 
-@item 11pt
-@lilypond[11pt]
+@item staffsize=POINTS
+@lilypond[staffsize=31.41592658]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
   d16[ g, a b] c[ a b g] d'8[ g f\prall g]
-}
-@end lilypond
-
-@item 13pt
-@lilypond[13pt]
-\relative c' {
-  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
-  d16[ g, a b] c[ a b g] d'8[ g f\prall g]
-}
-@end lilypond
-
-@item 16pt
-@lilypond[16pt]
-\relative c' {
-  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
-}
-@end lilypond
-
-@item 20pt
-@lilypond[20pt]
-\relative c' {
-  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
-}
-@end lilypond
-
-@item 26pt
-@lilypond[26pt]
-\relative c' {
-  r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
@@ -324,10 +277,7 @@ be unquoted.
 produces naturally spaced lines (i.e., @code{raggedright = ##t}); this
 works well for small music fragments.
 
-@item multiline
-is the opposite of @code{singleline}: it justifies and breaks lines.
-
-@item linewidth=@var{size}@var{unit}
+@item linewidth=@var{size}\\@var{unit}
 sets linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
 This option affects LilyPond output, not the text layout.
 
@@ -335,11 +285,11 @@ This option affects LilyPond output, not the text layout.
 prevents printing time signature.
 
 @item fragment
-@itemx nofragment
+@item nofragment
 overrides @command{lilypond-book} auto detection of what type of code is
 in the LilyPond block, voice contents or complete code.
 
-@item indent=@var{size}@var{unit}
+@item indent=@var{size}\\@var{unit}
 sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
 not the text layout.  For single-line fragments the default is to
@@ -347,7 +297,7 @@ use no indentation.
 
 For example
 @example
-  \begin[indent=5cm,raggedright]@{lilypond@}
+  \begin[indent=\\5cm,raggedright]@{lilypond@}
   ...
   \end@{lilypond@}
 @end example
@@ -371,15 +321,7 @@ documents are composed from small @file{.ly} files in this way:
   \score @{ \notes @{ c'4 @} @} 
 @end example
 
-@item quote
-instructs @command{lilypond-book} to put La@TeX{} and Texinfo output
-into a quotation block.
-
-@item printfilename
-prints the file name before the music example.  Useful in conjunction
-with @code{\lilypondfile}.
-
-@item relative, relative @var{N}
+@item relative, relative=@var{N}
 uses relative octave mode.  By default, notes are specified relative
 central C.  The optional integer argument specifies the octave of the
 starting note, where the default @code{1} is central C.
@@ -398,12 +340,12 @@ cd out && lilypond-book ../yourfile.tex
 @end example
 
 @noindent
-or to use the @option{--outdir} command line option, and change to
+or to use the @option{--output} command line option, and change to
 that director before running La@TeX{} or @file{makeinfo}:
 
 @example
-lilypond-book --outdir=out yourfile.tex
-cd out  && latex yourfile.latex
+lilypond-book --output=out yourfile.lytex
+cd out && latex yourfile.tex
 @end example
 
 
@@ -420,45 +362,33 @@ fragments in the DVI output only. For getting images in the HTML
 version,  the format 
 @code{texi-html} must be used.
 
-@item @option{--default-music-fontsize=@var{sz}pt}
-Set the music font size to use if no fontsize is given as option.
+@item @option{-F @var{filter}}, @option{--filter=@var{filter}}
+Pipe snippets through @var{filter}.
 
-@item @option{--force-music-fontsize=@var{sz}pt}
-Force all music to use this fontsize, overriding options given to
-@code{\begin@{lilypond@}}.
+For example:
+@example
+    lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+@end example
+
+@item @option{--help}
+Print a short help message.
 
 @item @option{-I @var{dir}}, @option{--include=@var{dir}}
 Add @var{DIR} to the include path.
 
-@item @option{-M}, @option{--dependencies}
-Write dependencies to @file{filename.dep}.
-
-@item @option{--dep-prefix=@var{pref}}
-Prepend @var{pref} before each @option{-M} dependency.
-
-@item @option{-n}, @option{--no-lily}
-Generate the @code{.ly} files, but do not process them.
-
-@item @option{--no-music}
-Strip all music from the input file.
-
-@item @option{--no-pictures}
-Do not generate pictures when processing Texinfo.
-
-@item @option{--outname=@var{file}}
-The name of La@TeX{} file to output.  If this option is not given,
-the output name is derived from the input name.
-
-@item @option{--outdir=@var{dir}}
+@item @option{-o @var{dir}}, @option{--output=@var{dir}}
 Place generated files in @var{dir}.
+
+@item @option{-P @var{process}}, @option{--process=@var{COMMAND}}
+Process lilypond snippets using @var{command}.  The default command is
+@var{lilypon-bin}.
+
+@item @option{--verbose}
+Be verbose.
 
 @item @option{--version}
 Print version information.
-
-@item @option{--help}
-Print a short help message.
 @end table
-
 
 For La@TeX{} input, the file to give to La@TeX{} has extension
 @file{.latex}.  Texinfo input will be written to a file with extension
@@ -475,11 +405,10 @@ La@TeX{} commands that change margins and line widths are ignored.
 
 Only the first @code{\score} of a LilyPond block is processed.
 
+@c CHECKME--FIXME
 The size of a music block is limited to 1.5 kb, due to technical
-problems with the Python regular expression engine. For longer files,
-use @code{\lilypondfile}.  Using @code{\lilypondfile} also makes
-upgrading files (through convert-ly, see @ref{Invoking convert-ly})
-easier.
+problems with the Python regular expression engine.  For longer files,
+use @code{\lilypondfile}.
 
 @command{lilypond-book} processes all music fragments in one big run.
 The state of the GUILE interpreter is not reset between fragments;

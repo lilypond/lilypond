@@ -1,6 +1,5 @@
 @c -*-texinfo-*-
 
-
 @c Reference GLOSsary
 @macro rglos {NAME}
 @ifhtml
@@ -157,3 +156,4 @@ internals document,  @internalsref{\NAME\}
 @heading Syntax
 
 @end macro
+

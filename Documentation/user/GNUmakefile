@@ -29,14 +29,9 @@ STEPMAKE_TEMPLATES=tex texinfo omf documentation
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
+LILYPOND_BOOK_FLAGS = --process="lilypond-bin -I $(srcdir)/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"
 
 include $(depth)/make/stepmake.make 
-
-# Ugh,ugh.
-# emacs cannot fix the menu structure when @mbinclude is used
-# lilypond.tely uses mbinclude
-TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
 
 dvi: $(DVI_FILES)
 
@@ -67,14 +62,14 @@ extra-local-help:
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
-	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
+	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --html $<
+	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
 	-ln -f $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --html $<
-	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
+	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 

@@ -24,8 +24,12 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 @ifhtml
 For example, consider the following input:
-@c TODO: intertext fixme
-@lilypond[relative 1,singleline,verbatim,intertext="with the following output:"]
+@example
+  c'^\markup @{ \bold \huge @{ Click on this image! @} @}
+@end example
+@c @lily pond[relative=1,raggedright,with the following output:]
+with the following output:
+@lilypond[relative=1,raggedright]
   c'^\markup { \bold \huge { Click on this image! } }
 @end lilypond
 
@@ -85,7 +89,7 @@ then the result looks like this:
 @c \transpose c c' { c d e f g a b }
 @c @lily pond[notime]
 @c \property Score.timing = ##f
-@lilypond[notime, relative=2]
+@lilypond[notime,relative=2]
 c d e f g a b
 @end lilypond
 
@@ -190,7 +194,7 @@ s4_" "
 s16_" "
 @end lilypond
 
-Notes and commands like @code{\clef} and @code{\time} , are enclosed
+Notes and commands like @code{\clef} and @code{\time}, are enclosed
 in @code{\notes @{@dots{}@}}.  This indicates that music (as opposed
 to @rglos{lyrics}) follows:
 
@@ -464,7 +468,7 @@ different rules.
 A tie is created by adding a tilde ``@code{~}'' to the first note
 being tied:
 @quotation
-@lilypond[fragment,verbatim,relative 2]
+@lilypond[fragment,verbatim,relative=2]
 g4~ g a2~ a4
 @end lilypond
 @end quotation
@@ -518,7 +522,7 @@ Beams are drawn automatically, but if you do not like where they are
 put, they can be entered by hand. Mark the first note to be beamed
 with @code{[} and the last one with @code{]}:
 @quotation
-@lilypond[fragment,relative 1, verbatim]
+@lilypond[fragment,relative=1,verbatim]
 a8[ ais] d[ es r d]
 @end lilypond
 @end quotation
@@ -571,7 +575,7 @@ c'4 c'' c''' \clef bass c c,
 @separate
 
 An example of the use of quotes is in the following Mozart fragment:
-@lilypond[singleline,fragment,verbatim]
+@lilypond[raggedright,fragment,verbatim]
   \key a \major
   \time 6/8
   cis''8. d''16 cis''8 e''4 e''8
@@ -584,9 +588,9 @@ solution is to use ``relative octave'' mode.  In practice, this is the
 most convenient way to copy existing music.  To use relative mode, add
 @code{\relative} before the piece of music.  You must also give a note
 from which relative starts, in this case @code{c''}.  If you do not
-use octavation quotes (i.e. do not add ' or , after a note), relative
-mode chooses the note that is closest to the previous one.
-For example, @code{c f} goes up while @code{c g} goes down:
+use octavation quotes (i.e. do not add @code{'} or @code{,} after a
+note), relative mode chooses the note that is closest to the previous
+one.  For example, @code{c f} goes up while @code{c g} goes down:
 
 @quotation
 @example
@@ -610,7 +614,7 @@ Since most music has small intervals, pieces can be written almost
 without octavation quotes in relative mode.  The previous example is
 entered as
 @c
-@lilypond[singleline,fragment,verbatim]
+@lilypond[raggedright,fragment,verbatim]
 \relative c'' {
   \key a \major
   \time 6/8
@@ -742,7 +746,7 @@ the context indicated.
 We can now typeset a melody with two staves:
 
 @quotation
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,raggedright]
 \score {
   \notes 
   << \new Staff {
@@ -794,7 +798,7 @@ it to a music expression yields a new expression.
 
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, e.g.
-@lilypond[verbatim,relative 1] 
+@lilypond[verbatim,relative=1] 
   { c <<c e>>
       << { e f } { c <<b d>> }
       >>
@@ -836,7 +840,7 @@ in @ref{Interpretation context}.
 Common accents can be added to a note using a dash (`@code{-}') and a
 single character:
 @quotation
-@lilypond[verbatim,relative 1]
+@lilypond[verbatim,relative=1]
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 @end quotation
@@ -846,14 +850,14 @@ c-. c-- c-> c-^ c-+ c-_
 Similarly, fingering indications can be added to a note using a dash
 (`@code{-}') and the digit to be printed:
 @c
-@lilypond[verbatim,relative 1]
+@lilypond[verbatim,relative=1]
   c-3 e-5 b-2 a-1
 @end lilypond
 
 
 Dynamic signs are made by adding the markings to the note:
 @quotation
-@lilypond[verbatim,relative 1]
+@lilypond[verbatim,relative=1]
 c\ff c\mf
 @end lilypond
 @end quotation
@@ -867,7 +871,7 @@ Crescendi and decrescendi are started with the commands @code{\<} and
 @code{\>}. The command @code{\!} finishes a crescendo on the note it
 is attached to:
 @quotation
-@lilypond[verbatim,relative 1]
+@lilypond[verbatim,relative=1]
 c2\<  c2\!\ff\>  c2  c2\!
 @end lilypond
 @end quotation
@@ -882,7 +886,7 @@ A slur is drawn across many notes, and indicates bound articulation
 ``@code{(}'' and a ``@code{)}'' respectively:
 
 @quotation
-@lilypond[fragment,relative 1, verbatim]
+@lilypond[fragment,relative=1,verbatim]
 d4( c16)( cis d e c cis d e)( d4)
 @end lilypond
 @end quotation
@@ -894,7 +898,7 @@ notes with the same pitch. Slurs indicate the articulations of notes,
 and can be used on larger groups of notes. Slurs and ties are also
 nested in practice:
 @c
-@lilypond[fragment, relative=1]
+@lilypond[fragment,relative=1]
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
@@ -904,7 +908,7 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 @code{\)}.
 
 @quotation
-@lilypond[fragment,relative 1, verbatim]
+@lilypond[fragment,relative=1,verbatim]
 a8(\( ais b  c) cis2 b'2 a4 cis,  c\)
 @end lilypond
 @end quotation
@@ -932,7 +936,7 @@ For more information on
 Chords can be made by
 surrounding pitches with @code{<} and @code{>}:
 @quotation
-@lilypond[relative 0, fragment,verbatim]
+@lilypond[,fragment,verbatim]
 r4 <c e g>4 <c f a>8
 @end lilypond
 @end quotation
@@ -942,7 +946,7 @@ r4 <c e g>4 <c f a>8
 You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
 @quotation
-@lilypond[relative 0, fragment,verbatim]
+@lilypond[,fragment,verbatim]
 r4 <c e g>8[ <c f a>]~ <c f a>
 @end lilypond
 @end quotation
@@ -951,7 +955,7 @@ r4 <c e g>8[ <c f a>]~ <c f a>
 @example
 r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end example
-@lilypond[relative 0, fragment]
+@lilypond[,fragment]
 \slurUp
 r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end lilypond
@@ -975,7 +979,7 @@ r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 A pickup (or upstep) is entered with the keyword @code{\partial}. It
 is followed by a duration: @code{\partial 4} is a quarter note upstep
 and @code{\partial 8} an eighth note:
-@lilypond[relative 1,verbatim,fragment]
+@lilypond[relative=1,verbatim,fragment]
   \partial 8
   f8 c2 d e
 @end lilypond
@@ -987,7 +991,7 @@ arguments: a fraction and a piece of music.  The duration of the piece
 of music is multiplied by the fraction.  Triplets make notes occupy
 2/3 of their notated duration, so  a triplet has  2/3 as its fraction:
 @c
-@lilypond[relative 0,verbatim,fragment]
+@lilypond[,verbatim,fragment]
   \times 2/3 { f8 g a }
   \times 2/3 { c r c }
 @end lilypond 
@@ -1000,7 +1004,7 @@ and @code{\acciaccatura}
 @cindex appoggiatura
 @cindex acciaccatura
       
-@lilypond[relative 1, verbatim,fragment]
+@lilypond[relative=1,verbatim,fragment]
   c4 \appoggiatura b16 c4
   c4 \acciaccatura b16 c4
 @end lilypond
@@ -1085,7 +1089,7 @@ aligned. In this case, there is only one melody, so we can leave it
 empty.
 
 The final result is 
-@lilypond[verbatim,linewidth=6.0cm]
+@lilypond[verbatim,linewidth=6.0\cm]
 \score  {
  \notes <<
    \relative c' \new Voice {
@@ -1126,7 +1130,7 @@ resulting in a centered hyphen between two syllables:
 @example
   Twin -- kle twin -- kle
 @end example
-@lilypond[singleline]
+@lilypond[raggedright]
 \score {
   << \notes \relative f' { \time 2/4
     f4 f c' c' }
@@ -1322,7 +1326,7 @@ voices with @code{\\}:
   << @{ a4 g2 f4~ f4 @} \\
     @{ r4 g4 f2 f4 @} >>
 @end example
-@lilypond[relative 1]
+@lilypond[relative=1]
 \context Staff   << { a4 g2 f4~ f4 } \\
     { r4 g4 f2 f4 } >>
 @end lilypond
@@ -1334,7 +1338,7 @@ temporarily do not play:
   << @{ a4 g2 f4~ f4 @} \\
     @{ s4 g4 f2 f4 @} >>
 @end example
-@lilypond[relative 1]
+@lilypond[relative=1]
 \context Staff  << { a4 g2 f4~ f4 } \\
     { s4 g4 f2 f4 } >>
 @end lilypond
@@ -1381,7 +1385,7 @@ but now this entire expression must be interpreted as a
 
 Here is a full-fledged example:
 
-@lilypond[relative 0,fragment]
+@lilypond[,fragment]
 \new PianoStaff
  << \new Staff { \time 2/4
      c4 c g' g  }
@@ -1410,7 +1414,7 @@ It sets the property named @code{autoBeaming} in the current staff at
 this point in the music to @code{##f}, which means `false'. This
 property controls whether beams are printed automatically:
 @c
-@lilypond[relative 1,fragment,verbatim]
+@lilypond[relative=1,fragment,verbatim]
   c8 c c c
   \property Staff.autoBeaming = ##f
   c8 c c c  
@@ -1488,7 +1492,7 @@ object.  These layout objects also carry variables, which we call
 @emph{layout properties}. By changing these variables from their
 values, we can alter the look of a formatted score:
 
-@lilypond[verbatim,relative 0]
+@lilypond[verbatim,]
   c4
   \property Voice.Stem \override #'thickness = #3.0
   c4 c4 c4 
@@ -1508,7 +1512,7 @@ changed. This can be achieved by prefixing @code{\once} to the
  \once \property Voice.Stem \set #'thickness = #3.0
 @end example
 
-@lilypond[relative 0]
+@lilypond[relative]
   c4
   \once \property Voice.Stem \set #'thickness = #3.0
   c4 c4 c4 
@@ -1540,12 +1544,12 @@ offsets are staff-spaces.  The @code{extra-offset} property is a
 low-level feature: the formatting engine is completely oblivious to
 these offsets.
 
-In the following example example, the second fingering is moved a
-little to the left, and 1.8 staff space downwards:
+In the following example, the second fingering is moved a little to
+the left, and 1.8 staff space downwards:
 
 @cindex setting object properties
 
-@lilypond[relative 1,verbatim]
+@lilypond[relative=1,verbatim]
 \stemUp
 f-5
 \once \property Voice.Fingering
@@ -1567,7 +1571,7 @@ using ties. Normally ties only happen between notes of the same
 voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices:
 
-@lilypond[fragment,relative 1,verbatim]
+@lilypond[fragment,relative=1,verbatim]
   c4 << {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8
@@ -1584,7 +1588,7 @@ symbols that are printed above or below notes. We only give an
 example; a more elaborate explanation is in @ref{Constructing a
 tweak}:
 
-@lilypond[relative 1,verbatim]
+@lilypond[relative=1,verbatim]
   c2\fermata
   \property Voice.Script \set #'padding = #3
   b2\fermata
@@ -1617,7 +1621,7 @@ later by preceding the name with a backslash, i.e. @code{\namedMusic}.
 In the next example, a two note motive is repeated two times by using
 variable substitution:
 
-@lilypond[singleline,verbatim]
+@lilypond[raggedright,verbatim]
 seufzer  = \notes {
   dis'8 e'8
 }
@@ -1690,7 +1694,7 @@ downwards: sounding @code{f} is denoted by notated @code{c'}, which
 corresponds with tuning of a normal French Horn in F. The
 transposition can be seen in the following output:
 
-@lilypond[singleline]
+@lilypond[raggedright]
 \score {
   \notes \transpose f c' \notes \relative c {
   \time 2/4
@@ -1718,7 +1722,7 @@ rests:
 Prepending the rest and the property setting above, leads to the
 following result:
 
-@lilypond[singleline]
+@lilypond[raggedright]
 \score {\notes { \transpose f c' \relative c { \time 2/4
 \property Score.skipBars = ##t 
         R2*3
@@ -1741,7 +1745,7 @@ file @file{bassoon-music.ly}:
 
 This would lead to the simple score depicted below:
 
-@lilypond[singleline]
+@lilypond[raggedright]
 \score {
   \notes \relative c \simultaneous {
     \new Staff { \time 2/4
@@ -1800,7 +1804,7 @@ In the example you see here, two things happened: a
 \verb+\score+ block was added, and the line width was set to natural
 length. You can specify  options by putting them in brackets:
 
-\begin[26pt,verbatim]@{lilypond@}
+\begin[staffsize=26,verbatim]@{lilypond@}
   c'4 f16
 \end@{lilypond@}
 
@@ -1816,23 +1820,23 @@ Under Unix, you can view the results as follows:
 @example
 $ cd input/tutorial
 $ mkdir -p out/
-$ lilypond-book --outdir=out/ lilbook.tex
-lilypond-book (GNU LilyPond) 1.7.23
-Reading `input/tutorial/lilbook.tex'
+$ lilypond-book --output=out/ lilybook.tex
+lilypond-book (GNU LilyPond) 2.1.19
+Reading `input/tutorial/lilybook.tex'
 Reading `input/screech-boink6.ly'
 @var{lots of stuff deleted}
-Writing `out/lilbook.latex'
+Writing `out/lilybook.latex'
 $ cd out
-$ latex lilbook.latex
+$ latex lilybook.latex
 @var{lots of stuff deleted}
-$ xdvi lilbook 
+$ xdvi lilybook 
 @end example
 
 To convert the file into a nice PDF document, run the following
 commands:
 @example
-$ dvips -Ppdf -u +lilypond lilbook
-$ ps2pdf lilbook.ps
+$ dvips -Ppdf -u +lilypond lilybook
+$ ps2pdf lilybook.ps
 @end example
 
 
@@ -1867,9 +1871,9 @@ If you have no @code{\score} block in the fragment,
 
 In the example you see here, two things happened: a
 @code{score} block was added, and the line width was set to natural
-length. You can specify  options by putting them in brackets:
+length.  You can specify options by putting them in brackets:
 
-@lilypond[26pt,verbatim]
+@lilypond[staffsize=26,verbatim]
   c'4 f16
 @end lilypond
 

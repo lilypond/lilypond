@@ -17,6 +17,16 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+
+@item The lilypond-book script has been rewritten.  It now supports
+running convert-ly on the lilypond snippets like so:
+@example
+    lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+@end example
+It is also twice as short and thrice as fast.  The special construct
+@code{mbinclude} has been removed, plain @code{@@include} or
+@code{\\input} can be used now.
+
 @item The @code{Lyrics} context has been removed. Lyrics should only
 be constructed in @code{LyricsVoice}.
 

@@ -168,7 +168,7 @@ This means that @var{musicexpr} should be interpreted within a context
 of type @var{contexttype} (with name @var{contextname} if specified).
 If no such context exists, it will be created:
 
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,raggedright]
 \score {
   \notes \relative c'' {
     c4 <<d4 \context Staff = "another" e4>> f
@@ -213,7 +213,7 @@ the following example, only the sequential expression has an explicit
 context. The notes contained therein inherit the @code{goUp} context
 from the enclosing music expression.
 
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,raggedright]
   \notes \context Voice = goUp { c'4 d' e' }
 @end lilypond
 
@@ -221,7 +221,7 @@ from the enclosing music expression.
 Second, contexts are created automatically to be able to interpret the
 music expressions.  Consider the following example:
 
-@lilypond[verbatim, singleline]
+@lilypond[verbatim,raggedright]
   \score { \notes { c'4-( d' e'-) } }
 @end lilypond
 
@@ -439,7 +439,7 @@ system. In the following example, the @code{Clef_engraver} is removed
 from the Staff context. The result is a staff without a clef, where
 the central C is at its default position, the center line:
 
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,raggedright]
 \score {
   \notes {
     c'4 f'4
@@ -887,7 +887,7 @@ properties using the functions @code{ly:get-mus-property} and
 
 An example is a function that reverses the order of elements in
 its argument:
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,raggedright]
   #(define (rev-music-1 m)
      (ly:set-mus-property! m 'elements (reverse
        (ly:get-mus-property m 'elements)))
