@@ -579,7 +579,7 @@ class Staff:
 				if 'stop' in g.repeats:
 					k = k + ' \\bar ":|" '
 				
-		k = '%sglobal = \\notes  { %s }\n\n ' % (self.staffid (), k)
+		k = '%sglobal = { %s }\n\n ' % (self.staffid (), k)
 		return k
 	
 	def dump (self):
@@ -618,7 +618,7 @@ class Staff:
 							% (self.number, m.number))
 			if first_frame:
 				l = self.layerid (x)
-				laystr = '%s =  \\notes { { %s } }\n\n' % (l, laystr)
+				laystr = '%s = { { %s } }\n\n' % (l, laystr)
 				str = str  + laystr
 				layerids.append (l)
 
