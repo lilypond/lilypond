@@ -10,7 +10,6 @@ copyright =	 "public domain";
 \version "1.1.52";
 
 viola1 = \notes \relative c {
-	\context Voice=one
 	c'1\ff ~ | c | f,4-. r r2 | r1 |
 	% copied 3 bars from three back...
 	%5

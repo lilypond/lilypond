@@ -95,7 +95,7 @@ VoiceContext = \translator {
 	beamAuto = "1";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
-%	\consists "Abbreviation_beam_engraver";
+	\consists "Abbreviation_beam_engraver";
 %	\consists "Multi_measure_rest_engraver";
 
 	% ugh.  Order matters here.

@@ -19,9 +19,6 @@ class Lyric_combine_music_iterator : public Music_iterator
   Music_iterator * lyric_iter_p_;
   
 protected:
-  bool melisma_started_b_;
-
-  
   virtual void construct_children ();
   virtual Moment next_moment () const;
   virtual void do_process_and_next (Moment);

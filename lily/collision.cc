@@ -10,6 +10,7 @@
 #include "note-column.hh"
 #include "note-head.hh"
 #include "paper-def.hh"
+#include "ly-symbols.hh"
 
 Collision::Collision()
 {
@@ -135,7 +136,20 @@ Collision::do_pre_processing()
 	  }
 	  while ((flip (&d))!= UP);
     }
-
+  do
+    {
+      for (int i=0; i < clash_groups[d].size (); i++)
+	{
+	  SCM force =  clash_groups[d][i]->remove_elt_property (force_hshift_scm_sym);
+	  if (force != SCM_BOOL_F)
+	    {
+	      force = SCM_CDR (force);
+	      offsets[d][i] = gh_scm2double (force);
+	    }
+	}
+    }
+  while ((flip (&d))!= UP);
+  
   Real wid_f = paper_l ()->note_width ();
   do
     {

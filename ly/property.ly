@@ -95,11 +95,11 @@ beampostraditional =
 
 
 slurnormal = 
-	\property Voice.slurdash = ""
+	\property Voice.slurDash = ""
 
 
 slurdotted = 
-	\property Voice.slurdash = 1
+	\property Voice.slurDash = 1
 
 
 tupletoff = {

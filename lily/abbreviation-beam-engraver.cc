@@ -1,5 +1,3 @@
-#if 0
-
 /*
   abbreviation-beam-engraver.cc -- implement Abbreviation_beam_engraver
 
@@ -16,84 +14,151 @@
 #include "abbreviation-beam.hh"
 #include "musical-request.hh"
 #include "misc.hh"
+#include "warn.hh"
+#include "score-engraver.hh"
 
-
-ADD_THIS_TRANSLATOR(Abbreviation_beam_engraver);
+ADD_THIS_TRANSLATOR (Abbreviation_beam_engraver);
 
 Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 {
-  span_reqs_drul_[LEFT] = span_reqs_drul_[RIGHT] = 0;
+  reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
   abeam_p_ = 0;
+  finished_abeam_p_ = 0;
+  prev_start_req_ = 0;
 }
 
 bool
-Abbreviation_beam_engraver::do_try_music (Music*r)
+Abbreviation_beam_engraver::do_try_music (Music* m)
 {
-  Abbreviation_beam_req * b = dynamic_cast <Abbreviation_beam_req *> (r);
+  if (Abbreviation_beam_req* b = dynamic_cast <Abbreviation_beam_req *> (m))
+    {
+      Direction d = b->span_dir_;
+      if (reqs_drul_[d] && !reqs_drul_[d]->equal_b (b))
+	return false;
 
-  if (!b)
-    return false;
+      if ((d == STOP) && !abeam_p_)
+	{
+	  m->warning (_ ("No abbreviation beam to end"));
+	  return false;
+	}
 
-  if (bool (abeam_p_) == bool (b->span_dir_ == START))
-    return false;
+      reqs_drul_[d] = b;
+      return true;
+    }
 
-  Direction d = (!abeam_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (b))
-    return false;
-
-  span_reqs_drul_[d] = b;
-  return true;
+  return false;
 }
 
 void
 Abbreviation_beam_engraver::do_process_requests ()
 {
-  if (!abeam_p_ && span_reqs_drul_[LEFT]) {
-    abeam_p_ = new Abbreviation_beam;
-    announce_element (Score_element_info (abeam_p_, span_reqs_drul_[LEFT]));
+  if (reqs_drul_[STOP])
+    {
+      if (!abeam_p_)
+	reqs_drul_[STOP]->warning (_("No abbreviation beam to end"));
+      prev_start_req_ = 0;
+      finished_abeam_p_ = abeam_p_;
+      abeam_p_ = 0;
+    }
+
+  if (abeam_p_)
+    {
+      Score_engraver * e = 0;
+      Translator * t  =  daddy_grav_l ();
+      for (; !e && t;  t = t->daddy_trans_l_)
+	{
+	  e = dynamic_cast<Score_engraver*> (t);
+	}
+      
+      if (!e)
+	programming_error ("No score engraver!");
+      else
+	e->forbid_breaks ();
+    }
+
+  if (reqs_drul_[START])
+    {
+      if (abeam_p_)
+	{
+	  reqs_drul_[START]->warning (_ ("Already have an abbreviation beam"));
+	  return;
+	}
+
+      prev_start_req_ = reqs_drul_[START];
+
+      abeam_p_ = new Abbreviation_beam;
+      announce_element (Score_element_info (abeam_p_, reqs_drul_[LEFT]));
   }
+}
+
+void
+Abbreviation_beam_engraver::do_post_move_processing ()
+{
+  reqs_drul_ [START] = 0;
 }
 
 void
 Abbreviation_beam_engraver::do_pre_move_processing ()
 {
-  if (abeam_p_ && span_reqs_drul_[RIGHT]) {
-    typeset_element (abeam_p_);
-    abeam_p_ = 0;
+  typeset_beam ();
+}
 
-    span_reqs_drul_[RIGHT] =
-      span_reqs_drul_[LEFT] = 0;
-  }
+void
+Abbreviation_beam_engraver::typeset_beam ()
+{
+  if (finished_abeam_p_)
+    {
+      typeset_element (finished_abeam_p_);
+      finished_abeam_p_ = 0;
+
+      reqs_drul_[STOP] = 0;
+    }
 }
 
 void
 Abbreviation_beam_engraver::do_removal_processing ()
 {
+  typeset_beam ();
   if (abeam_p_)
     {
-      span_reqs_drul_[LEFT]->warning (_("unterminated beam"));
-      typeset_element (abeam_p_);
-      abeam_p_ = 0;
+      prev_start_req_->warning (_ ("Unfinished abbreviation beam"));
+      finished_abeam_p_ = abeam_p_;
+      typeset_beam ();
     }
 }
 
 void
 Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 {
-  Stem* s = dynamic_cast<Stem *> (i.elem_l_);
-  if (!abeam_p_ || !s)
-    return;
+  if (abeam_p_)
+    {
+      if (Stem* s = dynamic_cast<Stem *> (i.elem_l_))
+	{
+	  int type_i = prev_start_req_->type_i_;
+	  s->flag_i_ = intlog2 (type_i) - 2;
 
-  int type_i = span_reqs_drul_[LEFT]->type_i_;
-  s->flag_i_ = intlog2 (type_i) - 2;
-  s->beams_i_drul_[(span_reqs_drul_[RIGHT]) ? LEFT: RIGHT] = s->flag_i_;
-
-  abeam_p_->multiple_i_ = s->flag_i_;
-  if (s->type_i () != 1) // no abbrev gaps on half note
-    s->set_elt_property (beam_gap_scm_sym,
-			 gh_int2scm(s->flag_i_ - ((s->type_i () >? 2) - 2)));
-
-  abeam_p_->add_stem (s);
-}
-
+	  s->beams_i_drul_[LEFT] = s->flag_i_;
+	  s->beams_i_drul_[RIGHT] = s->flag_i_;
+	  
+	  abeam_p_->multiple_i_ = s->flag_i_;
+	  /*
+	    abbrev gaps on all but half note
+	  */
+#if 0
+	  if (s->type_i () != 1)
+	    {
+	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
+	      s->set_elt_property (beam_gap_scm_sym, gh_int2scm(gap_i));
+	    }
+#else
+	  if (s->type_i () != 1)
+	    {
+	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
+	      abeam_p_->set_elt_property (beam_gap_scm_sym, gh_int2scm(gap_i));
+	    }
 #endif
+	  
+	  abeam_p_->add_stem (s);
+	}
+    }
+}

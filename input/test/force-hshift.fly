@@ -1,0 +1,15 @@
+
+\context Staff <
+	\context Voice = VA {
+		\property Voice.forceHorizontalShift = "0.1"
+		\stemup \shifton
+		<g' d'>
+	}	
+
+	\context Voice = VB {
+		\stemdown
+		\shifton
+		\property Voice.forceHorizontalShift = "-0.1"
+		<bes f'>
+	}
+>

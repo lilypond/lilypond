@@ -42,6 +42,7 @@ DECLARE_LY_SYMBOL(hyphen_height);
 DECLARE_LY_SYMBOL(hyphen_minimum_length);
 DECLARE_LY_SYMBOL(filledbox);
 DECLARE_LY_SYMBOL(fontsize);
+DECLARE_LY_SYMBOL(force_hshift);
 DECLARE_LY_SYMBOL(grace);
 DECLARE_LY_SYMBOL(header);
 DECLARE_LY_SYMBOL(horizontal_shift);

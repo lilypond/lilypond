@@ -1,11 +1,11 @@
 Begin3
 Title: LilyPond
-Version: 1.1.64
-Entered-date: 21JUL99
+Version: 1.1.65
+Entered-date: 22JUL99
 Description: 
 LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  It is part of the GNU
-project.
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
 
 
 Keywords: music notation typesetting midi fonts engraving
@@ -13,8 +13,8 @@ Author: hanwen@cs.uu.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	1000k lilypond-1.1.64.tar.gz 
+	1000k lilypond-1.1.65.tar.gz 
 Original-site: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
-	1000k lilypond-1.1.64.tar.gz 
+	1000k lilypond-1.1.65.tar.gz 
 Copying-policy: GPL
 End

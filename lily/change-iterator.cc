@@ -50,7 +50,12 @@ Change_iterator::do_process_and_next (Moment m)
       last = current;
       current = current->daddy_trans_l_;
     }
-  
+
+  if (current && current->id_str_ == to_id)
+    {
+      String msg;
+      msg += "Cannot switch  translators, I'm there already.";
+    }
   
   if (current) 
     if (last)

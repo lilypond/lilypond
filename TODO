@@ -17,14 +17,12 @@ input/star-spangled-banner.ly: hw?
 mutopia/Coriolan/*
 . * spacing of accidentals
 . * key restorations & repeats
-. * spanners from grace to  normal ctxt
 . * rename \paper?
 . * Grace_slur_engraver.
 . * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
 . * input/star-spangled-banner.ly: fold for lyrics?
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * account for accidentals in spacing.
-. * \shape 1st dim skipped? 
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.
 
@@ -36,7 +34,8 @@ mutopia/Coriolan/*
 . * mudela-book.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
-. * Y dimension units: staffspace vs. Point
+. * String[String.length] doesn't trap.
+. * y dimension units: staffspace vs. Point
 . * Beam
 . * Stem
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
@@ -56,6 +55,7 @@ mutopia/Coriolan/*
 > >
 
 .* STUFF
+. * auto melismaBusy for beams.
 . *In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
 ends on a pair of grace notes.  Standard practice is to mark this with
 a slur starting on the main note and ending on the grace note, so a
@@ -71,6 +71,8 @@ one of the spacing bugs mentioned in the TODO.
         grace note.  This is usually wrong, but is sometimes right.
 . * decimal point in \paper {}
 . * tie-direction
+. * repeats and partial measures.
+. * rhythmic staff & accidentals.
 . * use melismaBusy in Lyric context to typeset melismata correctly.  
 . * ly2dvi/lilypond logfile.
 . * hang Item on Spanner

@@ -11,6 +11,7 @@
 #include "musical-request.hh"
 #include "bar.hh"
 #include "beam.hh"
+#include "abbreviation-beam.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
@@ -187,8 +188,18 @@ Auto_beam_engraver::create_beam_p ()
   Beam* beam_p = new Beam;
 
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
-    beam_p->add_stem ((*stem_l_arr_p_)[i]);
-
+    {
+      /*
+	watch out for stem tremolos and abbreviation beams
+       */
+      if ((*stem_l_arr_p_)[i]->beam_l_)
+	{
+	  delete beam_p;
+	  return 0;
+	}
+      beam_p->add_stem ((*stem_l_arr_p_)[i]);
+    }
+  
   /* urg, copied from Beam_engraver */
   Scalar prop = get_property ("beamslopedamping", 0);
   if (prop.isnum_b ()) 
@@ -212,7 +223,8 @@ Auto_beam_engraver::end_beam ()
   else
     {
       finished_beam_p_ = create_beam_p ();
-      finished_grouping_p_ = grouping_p_;
+      if (finished_beam_p_)
+	finished_grouping_p_ = grouping_p_;
       delete stem_l_arr_p_;
       stem_l_arr_p_ = 0;
       grouping_p_ = 0;
@@ -284,6 +296,10 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
   if (stem_l_arr_p_)
     {
       if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
+	{
+	  junk_beam ();
+	}
+      else if (Abbreviation_beam *b = dynamic_cast<Abbreviation_beam*> (info.elem_l_))
 	{
 	  junk_beam ();
 	}

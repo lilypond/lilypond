@@ -341,8 +341,11 @@ Beam::set_steminfo ()
   for (int i=0; i < stems_.size (); i++)
     {
       Stem *s = stems_[i];
+#if 0
+      // abbreviation beam needs to beam over invisible stems of wholes
       if (s->invisible_b ())
 	continue;
+#endif
 
       Stem_info info (s, multiple_i_);
       if (leftx == 0)
@@ -663,7 +666,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Molecule rightbeams;
 
   // UGH
-  Real nw_f = paper_l ()->note_width () * 0.8;
+  Real nw_f;
+  if (here->type_i ()== 1)
+    nw_f = paper_l ()->get_var ("wholewidth");
+  else if (here->type_i () == 2)
+    nw_f = paper_l ()->note_width () * 0.8;
+  else
+    nw_f = paper_l ()->get_var ("quartwidth");
 
   /* half beams extending to the left. */
   if (prev)
@@ -702,7 +711,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       SCM gap = get_elt_property (beam_gap_scm_sym);
       if (gap != SCM_BOOL_F)
 	{
-	  int gap_i = gh_scm2int (gap);
+	  int gap_i = gh_scm2int (SCM_CDR (gap));
 	  int nogap = rwholebeams - gap_i;
 	  
 	  for (; j  < nogap; j++)
@@ -720,7 +729,10 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  b.translate (Offset (gap_f, -dir_ * dy * j));
+	  if (!here->invisible_b ())
+	    b.translate (Offset (gap_f, -dir_ * dy * j));
+	  else
+	    b.translate (Offset (0, -dir_ * dy * j));
 	  rightbeams.add_molecule (b);
 	}
 

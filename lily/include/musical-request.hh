@@ -166,6 +166,19 @@ class Melisma_req : public Span_req
 public:
   VIRTUAL_COPY_CONS(Music);
 };
+/** 
+ Start / stop an abbreviation beam. */
+class Abbreviation_beam_req : public Span_req  
+{
+public:
+  VIRTUAL_COPY_CONS (Music);
+
+  Abbreviation_beam_req ();
+
+  virtual void do_print () const;
+
+  int type_i_;
+};
 
 /**
    Helping req to signal start of a melisma from within a context, and

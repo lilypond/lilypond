@@ -159,6 +159,18 @@ Span_req::Span_req ()
   span_dir_ = CENTER;
 }
 
+Abbreviation_beam_req::Abbreviation_beam_req ()
+{
+  type_i_ = 0;
+}
+
+void
+Abbreviation_beam_req::do_print () const
+{
+#ifndef NPRINT
+  DOUT << type_i_;
+#endif
+}
 
 void
 Text_script_req::do_print () const

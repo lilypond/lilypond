@@ -41,6 +41,9 @@ Simultaneous_music_iterator::construct_children()
 						    to_str (j))
 	: report_to_l ();
 
+      if (!t)
+	t = report_to_l ();
+
       mi->init_translator (i->car_, t);
       mi->construct_children ();
       

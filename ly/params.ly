@@ -22,13 +22,26 @@ interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 % poor man's array size
 stem_max = 3.0;
 
-% stem stuff measured in staff positions.
+%{ Specify length of stems for notes in the staff
+that don't have beams. 
+ Measured in staff positions.
+%}
 stem_length0 = 7.;
 stem_length1 = 5.;
 stem_length2 = 4.;
 stem_length3 = 3.;
 
-%
+%{
+The space taken by a note is determined by the formula 
+
+arithmetic_multiplier * ( c + log2 (time) ))
+
+where code(time) is the amount of time a note occupies.  The value
+of code(c) is chosen such that the smallest space within a measure is
+arithmetic_basicspace.  The smallest space is the one following the
+shortest note in the measure.  Typically arithmetic_basicspace is set
+to the width of a quarter note head.
+%}
 arithmetic_basicspace = 2.;
 arithmetic_multiplier = 0.9 * \quartwidth ;
 
@@ -54,10 +67,12 @@ grace_minimum_stem_length1 = \minimum_stem_length1 * \grace_factor;
 grace_minimum_stem_length2 = \minimum_stem_length2 * \grace_factor;
 grace_minimum_stem_length3 = \minimum_stem_length3 * \grace_factor;
 
-% stems in unnatural (forced) direction should be shortened,
-% according to [Roush & Gourlay].  Their suggestion to knock off
-% a whole staffspace seems a bit drastical: we'll do half.
-%
+%{
+  stems in unnatural (forced) direction should be shortened,
+  according to [Roush & Gourlay].  Their suggestion to knock off
+  a whole staffspace seems a bit drastical: we'll do half.
+%}
+
 forced_stem_shorten0 = 1.0;
 forced_stem_shorten1 = \forced_stem_shorten0;
 forced_stem_shorten2 = \forced_stem_shorten1;
@@ -82,6 +97,15 @@ UP = 1.0;
 MAJORITY = 2.0;
 MEAN = 3.0;
 MEDIAN = 4.0;
+
+%{
+dit(code(beam_dir_algorithm)) Specify algorithm for determining
+whether beams go up or down.  It is real valued.  If set to 2.0 then
+majority selection is used.  If set to 3.0, then mean selection is
+used based on the mean center distance.  If set to 4.0 then median
+selection is used, based on the median center distance.
+%}
+
 % [Ross]: majority
 beam_dir_algorithm = \MAJORITY;
 
@@ -91,12 +115,21 @@ beam_lengthened = 0.2 * \interline;
 % and slope is running away steeper than
 beam_steep_slope = 0.2 / 1.0;
 
+%{
+dit(code(slur_x_gap)) Horizontal space between note and slur.  Set to
+code(\interline / 5) by default.  
+
+%}
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
 slur_y_gap = 0.25 * \interline;
 slur_y_free = 0.75 * \interline;
 slur_x_minimum = 3.0 * \interline;
 
+%{
+Like beams, slurs often aren't as steep as the notes they encompass.
+This sets the amount of damping.
+%}
 % slope damping: keep dy/dx < slur_slope_damping
 slur_slope_damping = 0.3;
 slur_interstaff_slope_damping = 0.6;
@@ -122,9 +155,17 @@ tie_staffspace_length = 4.0 * \interline;
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 % slur_thickness = 1.8 * \staffline;
 slur_thickness = 1.4 * \staffline;
+
+%{
+ Specifies the maximum height of slurs.
+%}
 slur_height_limit = \staffheight;
 
 
+%{
+Specifes the ratio of slur hight to slur width
+to aim for.  Default value is 0.3. 
+%}
 
 % slur_ratio = 0.3;
 % try bit flatter slurs
@@ -142,8 +183,8 @@ rulethickness = \staffline;
 
 gourlay_energybound = 100000.;
 %{
-The following bounds the number of measures
-on a line.  Decreasing it greatly reduces computation time
+Maximum number of measures per line to try when using Gourlay
+method. Decreasing this greatly reduces computation time.  
 %}
 gourlay_maxmeasures = 10.;
 castingalgorithm = \Gourlay;

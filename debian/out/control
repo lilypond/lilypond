@@ -11,8 +11,8 @@ Recommends: python-base (>= 1.5.1), python-misc (>= 1.5.1), tetex-base (>= 0.9.9
 Conflicts: musixtex-fonts, tetex-base (<< 0.9)
 Description: The GNU Project music typesetter.
  LilyPond is a music typesetter.  It produces beautiful sheet music
- using a high level description file as input.  It is part of the GNU
- project.
+ using a high level description file as input.  LilyPond is part of 
+ the GNU Project.
  
  
  .

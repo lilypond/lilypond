@@ -30,8 +30,8 @@ Collision_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_column * c = dynamic_cast<Note_column *> (i.elem_l_))
     {
-      if (c->rest_b () || c->dim_cache_[X_AXIS]->parent_l_
-	  || c->dim_cache_[X_AXIS]->parent_l_)
+      /*should check Y axis? */
+      if (c->rest_b () || c->dim_cache_[X_AXIS]->parent_l_)
 	return ;
 
       note_column_l_arr_.push (c);

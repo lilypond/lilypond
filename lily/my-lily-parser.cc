@@ -27,6 +27,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   first_b_ = true;
   source_l_ = source_l;
   lexer_p_ = 0;
+  abbrev_beam_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
   default_pitch_ = Musical_pitch (5*7, 0);
   error_level_i_ = 0;
@@ -100,6 +101,12 @@ void
 My_lily_parser::set_last_duration (Duration const *d)
 {
   default_duration_ = *d;
+}
+
+void
+My_lily_parser::set_abbrev_beam (int type_i)
+{
+  abbrev_beam_type_i_ = type_i;
 }
 
 void
@@ -189,8 +196,7 @@ My_lily_parser::pop_spot()
 Input
 My_lily_parser::here_input() const
 {
-  Source_file * f_l= lexer_p_->source_file_l();
-  return Input (f_l, here_ch_C());
+  return  lexer_p_->here_input ();
 }
 
 Paper_def*

@@ -13,8 +13,9 @@ viola2 = \notes \relative c {
 	% starts on (actualy, most part is on) same staff as viola1
 	%urg, parse error
 %urg	\translator Staff=viola1
+	\context Thread
 	\translator Staff=violai
-	\context Voice=one
+	\translator Voice=one
 	c1 ~ | c | s1*2 |
 	% copied 3 bars from three back...
 	c ~ | c | s1*2 % |
@@ -36,9 +37,10 @@ $viola2_staff = \context Staff = violaii <
 	\property Staff.instrument = "Viola II"
 	\property Staff.instr = "Vla. II"
 	\clef "alto";
-	\notes \context Voice=one< 
+	% notes must go to Staff context: we want to switch Staff translators
+	%\notes \context Voice=one< 
 		\global
 		\$viola2
-	>
+	%>
 >
 

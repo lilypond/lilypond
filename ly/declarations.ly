@@ -48,7 +48,8 @@ papersize = "a4"
 % ugh
 \include "midi.ly"
 
-\include "dynamic.ly"
+\include "textscripts.ly"
+\include "spanners.ly"
 
 \include "property.ly"
 

@@ -23,7 +23,6 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   melisma_start_req.span_dir_ = START;
   melisma_stop_req.span_dir_ = STOP;
   
-  melisma_started_b_ = false;
   music_iter_p_ =0;
   lyric_iter_p_ =0;
 }
@@ -70,20 +69,21 @@ Lyric_combine_music_iterator::do_process_and_next (Moment m)
   if (busy)
     {
       bool melisma_b = try_music (&melisma_playing_req);
-      if (!melisma_started_b_ || !melisma_b)
+      if (!melisma_b)
 	{
 	  if (lyric_iter_p_->ok ())
 	    {
+#if 0				// devise a new way for this
 	      if (melisma_b && !melisma_started_b_)
 		lyric_iter_p_->try_music (&melisma_start_req);
 	      else if (melisma_started_b_)
 		lyric_iter_p_->try_music (&melisma_stop_req);
-	  
+#endif
+	      
 	      Moment m= lyric_iter_p_->next_moment ();
 	      lyric_iter_p_->process_and_next (m);
 	    }
 	}
-      melisma_started_b_ = melisma_b;
     }
   
 

@@ -300,6 +300,11 @@ HYPHEN		--
 			*(s.ch_l () + i + 1) = 'c';
 			s = s.left_str (i+2) + " " + s.right_str (s.length_i ()-i-2);
 			}
+
+		char c = s[s.length_i () - 1];
+		if (c == '{' &&  c == '}') // brace open is for not confusing dumb tools.
+			here_input ().warning (
+				"Brace found at end of lyric. Did you forget a space?");
 		yylval.string = new String (s);
 		DOUT << "lyric : `" << s << "'\n";
 		return STRING;
