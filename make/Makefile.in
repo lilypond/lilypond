@@ -10,7 +10,10 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Generated automatically by wild-perl 0.1# project  LilyPond -- the musical typesetter
+# Automatically generated from ./make/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# project  LilyPond -- the musical typesetter
 # title	   zucht
 # file	   make/Makefile.am.dist
 #
@@ -66,7 +69,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -101,6 +104,7 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 IN_FILES = Configure_variables.make.in Makefile.in Toplevel.make.in lelievijver.lsm.in lilypond.lsm.in lilypond.spec.in
 MAKE_FILES = Files.make Include.make Initial.make Rules.make Targets.make Template.make User.make Variables.make Version.make

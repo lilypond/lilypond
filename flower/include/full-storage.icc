@@ -89,7 +89,7 @@ Full_storage::Full_storage (int i)
   set_size (i);
 }
  
-INLINE
-IMPLEMENT_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
+//INLINE
+//IMPLEMENT_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
 
 #endif // FULL_STORAGE_ICC

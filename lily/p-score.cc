@@ -13,6 +13,9 @@
 #include "spanner.hh"
 #include "paper-def.hh"
 #include "scoreline.hh"
+#include "pcursor.hh"
+#include "plist.hh"
+#include "p-col.hh"
 #include "p-score.hh"
 #include "tex-stream.hh"
 #include "p-col.hh"
@@ -20,6 +23,10 @@
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "outputter.hh"
+
+// sucking Cygnus egcs - w32
+#include "plist.tcc"
+#include "pcursor.tcc"
 
 Paper_score::Paper_score ()
 {

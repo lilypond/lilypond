@@ -13,11 +13,18 @@ bin_PROGRAMS = mi2mu
 mi2mu_SOURCES = $(wildcard *.cc)
 
 # ugh -lfl bo lib/FlexLexer stuff
-mi2mu_LDADD = -llily -lflower -lfl
+#mi2mu_LDADD = -llily -lflower -lfl
 
-mi2mu_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
+# mi2mu_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
+mi2mu_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower.la @LEXLIB@
+ 
 
 INCLUDES = -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include
 
-EXTRA_DIST = Makefile.am.wild VERSION TODO
+EXTRA_DIST = Makefile.am.wild GNUmakefile VERSION TODO
 
+# override default target for all-am: to get an extra dependency
+all-am: Makefile $(PROGRAMS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:

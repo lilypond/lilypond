@@ -10,7 +10,10 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Generated automatically by wild-perl 0.1# tex/Makefile.am.wild
+# Automatically generated from ./tex/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# tex/Makefile.am.wild
 
 
 SHELL = /bin/sh
@@ -59,7 +62,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -94,6 +97,7 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 TEXFILES = dyndefs.tex eglerdefs.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
 EXTRA_DIST = Makefile.am.wild $(TEXFILES)

@@ -1,0 +1,22 @@
+/* config.hh.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define if lex declares yytext as a char * by default, not a char[].  */
+#undef YYTEXT_POINTER
+
+/* autoheader really wants this */
+#define PACKAGE
+
+/* undef to get lots of debugging stuff (see .dstream) */
+#define NPRINT
+
+/* undef to do checking */
+#undef NDEBUG
+
+/* define to inline string funcs */
+#undef STRINGS_UTILS_INLINED
+
+/* default lilypond init and input dir */
+#define  DIR_DATADIR "/home/fred/lelie/current"
+
+/* the toplevel version string */
+#define TOPLEVEL_VERSION "0"

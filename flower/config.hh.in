@@ -1,9 +1,28 @@
-/* define if you have memmem */
-#define HAVE_MEMMEM 0
+/* config.hh.in.  Generated automatically from configure.in by autoheader.  */
 
-/* define if you have snprintf */
-#define HAVE_SNPRINTF 0
+/* Define if you don't have vprintf but do have _doprnt.  */
+#undef HAVE_DOPRNT
+
+/* Define if you have the vprintf function.  */
+#undef HAVE_VPRINTF
+
+/* autoheader really wants this */
+#define PACKAGE
 
 /* the version string of the flower lib */
 #define MODULE_VERSION "0.0.0"
 
+/* undef to get lots of debugging stuff (see .dstream) */
+#define NPRINT
+
+/* undef to do checking */
+#undef NDEBUG
+
+/* define to inline string funcs */
+#undef STRINGS_UTILS_INLINED
+
+/* Define if you have the memmem function.  */
+#undef HAVE_MEMMEM
+
+/* Define if you have the snprintf function.  */
+#undef HAVE_SNPRINTF

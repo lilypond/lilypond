@@ -357,6 +357,12 @@ LD_LIBRARY_PATH to a directory containing F<libflower.so>
 
 =head2 DOZE
 
+Q: I downloaded the W95 port, and it doesn't match the website!
+
+A: The website is usually made from the latest snapshots.  The W95
+binaries are only made every once in a while.  They can lag several
+versions behind the latest version. 
+
 Q: I want a DOS/NT/W95 port.
 
 A.0: Reconsider.  Try Linux.  It's fun!

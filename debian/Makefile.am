@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1# debian/Makefile.am.wild
+# Automatically generated from ./debian/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# debian/Makefile.am.wild
 
 EXTRA_DIST = Makefile.am.wild README.Debian TODO changelog control copyright \
 	postinst postinst.old.sh postrm preinst rules watch

@@ -65,10 +65,12 @@ public:
   void typeset_unbroken_spanner (Spanner*);
  
     
+  virtual ~Paper_score();
 protected:
     /* MAIN ROUTINES */
   virtual void process();
-  virtual ~Paper_score();
+// can't instantiate template with cygnus' gcc...
+//  virtual ~Paper_score();
 
 private:
   /// before calc_breaking

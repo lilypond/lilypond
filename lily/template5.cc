@@ -17,6 +17,8 @@
 template INTERVAL__INSTANTIATE(Rational);
 template INTERVAL__INSTANTIATE(int);
 
+#include "compare.hh"
+
 Rational
 Interval_t<Rational>::infinity()
 {

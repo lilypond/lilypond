@@ -66,7 +66,7 @@ progname=`$echo "X$0" | $Xsed -e 's%^.*/%%'`
 # Constants:
 PROGRAM=ltconfig
 PACKAGE=libtool
-VERSION=1.1.1
+VERSION=1.2
 ac_compile='${CC-cc} -c $CFLAGS $CPPFLAGS conftest.c 1>&5'
 ac_link='${CC-cc} -o conftest $CFLAGS $CPPFLAGS $LDFLAGS conftest.c $LIBS 1>&5'
 rm="rm -f"
@@ -466,15 +466,7 @@ if test "$with_gcc" = yes; then
     pic_flag='-m68020 -resident32 -malways-restore-a4'
     ;;
   *)
-    case $host_cpu in
-    m68*)
-      # This generates more efficient code.
-      pic_flag=-fpic
-      ;;
-    *)
-      pic_flag='-fPIC'
-      ;;
-    esac
+    pic_flag='-fPIC'
     ;;
   esac
 else
@@ -552,8 +544,8 @@ if test -n "$pic_flag"; then
   echo > conftest.c
   save_CFLAGS="$CFLAGS"
   CFLAGS="$CFLAGS $pic_flag -DPIC"
-  echo "$progname:555: checking if $compiler PIC flag $pic_flag works" >&5
-  if { (eval echo $progname:556: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>conftest.err; } && test -s conftest.o; then
+  echo "$progname:547: checking if $compiler PIC flag $pic_flag works" >&5
+  if { (eval echo $progname:548: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>conftest.err; } && test -s conftest.o; then
     # Append any warnings to the config.log.
     cat conftest.err 1>&5
 
@@ -596,8 +588,8 @@ $rm conftest*
 echo 'main(){return(0);}' > conftest.c
 save_LDFLAGS="$LDFLAGS"
 LDFLAGS="$LDFLAGS $link_static_flag"
-echo "$progname:599: checking if $compiler static flag $link_static_flag works" >&5
-if { (eval echo $progname:600: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+echo "$progname:591: checking if $compiler static flag $link_static_flag works" >&5
+if { (eval echo $progname:592: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   echo "$ac_t$link_static_flag" 1>&6
 else
   echo "$ac_t"none 1>&6
@@ -629,7 +621,7 @@ if test -z "$LD"; then
   if test "$with_gcc" = yes; then
     # Check if gcc -print-prog-name=ld gives a path.
     echo $ac_n "checking for ld used by GCC... $ac_c" 1>&6
-    echo "$progname:632: checking for ld used by GCC" >&5
+    echo "$progname:624: checking for ld used by GCC" >&5
     ac_prog=`($CC -print-prog-name=ld) 2>&5`
     case "$ac_prog" in
     # Accept absolute paths.
@@ -647,10 +639,10 @@ if test -z "$LD"; then
     esac
   elif test "$with_gnu_ld" = yes; then
     echo $ac_n "checking for GNU ld... $ac_c" 1>&6
-    echo "$progname:650: checking for GNU ld" >&5
+    echo "$progname:642: checking for GNU ld" >&5
   else
     echo $ac_n "checking for non-GNU ld""... $ac_c" 1>&6
-    echo "$progname:653: checking for non-GNU ld" >&5
+    echo "$progname:645: checking for non-GNU ld" >&5
   fi
 
   if test -z "$LD"; then
@@ -976,11 +968,11 @@ void nm_test_func(){}
 main(){nm_test_var='a';nm_test_func();return(0);}
 EOF
 
-echo "$progname:979: checking if global_symbol_pipe works" >&5
-if { (eval echo $progname:980: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; } && test -s conftest.o; then
+echo "$progname:971: checking if global_symbol_pipe works" >&5
+if { (eval echo $progname:972: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; } && test -s conftest.o; then
   # Now try to grab the symbols.
   nlist=conftest.nm
-  if { echo "$progname:983: eval \"$NM conftest.o | $global_symbol_pipe > $nlist\"" >&5; eval "$NM conftest.o | $global_symbol_pipe > $nlist 2>&5"; } && test -s "$nlist"; then
+  if { echo "$progname:975: eval \"$NM conftest.o | $global_symbol_pipe > $nlist\"" >&5; eval "$NM conftest.o | $global_symbol_pipe > $nlist 2>&5"; } && test -s "$nlist"; then
 
     # Try sorting and uniquifying the output.
     if sort "$nlist" | uniq > "$nlist"T; then
@@ -1038,7 +1030,7 @@ EOF
 	save_CFLAGS="$CFLAGS"
         LIBS='conftestm.o'
 	CFLAGS="$CFLAGS$no_builtin_flag"
-        if { (eval echo $progname:1041: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+        if { (eval echo $progname:1033: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
           pipe_works=yes
         else
           echo "$progname: failed program was:" >&5

@@ -6,4 +6,21 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-// empty. Yes I know.
+#include "proto.hh"
+#include "pcursor.hh"
+#include "plist.hh"
+#include "audio-item.hh"
+#include "audio-staff.hh"
+#include "p-col.hh"
+#include "p-score.hh"
+#include "cursor.tcc"
+#include "list.tcc"
+#include "pcursor.tcc"
+#include "plist.tcc"
+
+/*
+POINTERLIST_INSTANTIATE(Audio_item);
+POINTERLIST_INSTANTIATE(Audio_staff);
+POINTERLIST_INSTANTIATE(Paper_column);
+POINTERLIST_INSTANTIATE(Paper_score);
+*/

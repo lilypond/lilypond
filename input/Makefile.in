@@ -10,7 +10,10 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Generated automatically by wild-perl 0.1# input/Makefile.am.wild
+# Automatically generated from ./input/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# input/Makefile.am.wild
 
 
 SHELL = /bin/sh
@@ -59,7 +62,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -94,8 +97,9 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
-LYFILES = beam-bug.ly beams.ly cadenza.ly collisions.ly coriolan-alto.ly denneboom.ly font-body.ly font.ly font11.ly font13.ly font16.ly font20.ly font26.ly gourlay.ly keys.ly kortjakje.ly multi.ly pedal.ly praeludium-fuga-E.ly rhythm.ly scales.ly scripts.ly sleur.ly slurs.ly spacing.ly stem.ly twinkle-pop.ly twinkle.ly
+LYFILES = beam-bug.ly beams.ly cadenza.ly collisions.ly coriolan-alto.ly denneboom.ly font-body.ly font.ly font11.ly font13.ly font16.ly font20.ly font26.ly gourlay.ly keys.ly kortjakje.ly multi.ly pedal.ly praeludium-fuga-E.ly rhythm.ly scales.ly scripts.ly sleur.ly slurs.ly spacing.ly stem.ly tril.ly twinkle-pop.ly twinkle.ly
 TEXFILES = dummy.tex
 M4FILES = dummy.m4
 EXTRA_DIST = Makefile.am.wild TODO $(LYFILES) $(TEXFILES) $(M4FILES)

@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1# Documentation/Makefile.am.wild
+# Automatically generated from ./Documentation/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# Documentation/Makefile.am.wild
 
 DOCFILES = introduction.doc mudela-course.doc mudela-man.doc
 PODFILES = AUTHORS.pod CodingStyle.pod INSTALL.pod MANIFESTO.pod PATCHES.pod convert-mudela.pod faq.pod gnu-music.pod index.pod internals.pod language.pod lilypond.pod links.pod literature.pod ly2dvi.pod mi2mu.pod mudela-book.pod mutopia.pod other-packages.pod
@@ -18,6 +21,9 @@ MAN1GROFF = $(addsuffix .1,$(MAN1FILES))
 
 default: all $(TEXTFILES)
 
+%.1: %.pod
+	$(POD2MAN) --section=1 $*.pod > $@
+
 outdir = .
 
 install-data-hook: $(MAN1GROFF)
@@ -32,5 +38,6 @@ html: $(HTMLFILES)
 clean-hook:
 	rm $(TEXTFILES) $(MAN1GROFF)
 
+include $(top_srcdir)/Documentation/Rules.make
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

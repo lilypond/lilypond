@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1# mutopia/J.S.Bach/Makefile.am.wild
+# Automatically generated from ./mutopia/J.S.Bach/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# mutopia/J.S.Bach/Makefile.am.wild
 
 LYFILES = preludes-1.ly preludes-2.ly preludes-4.ly preludes-5.ly preludes-6.ly scsii-menuetto.ly wtk1-fugue1.ly wtk1-fugue2.ly wtk1-prelude1.ly
 TEXFILES = preludes.tex

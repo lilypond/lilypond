@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1# project  LilyPond -- the musical typesetter
+# Automatically generated from ./make/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# project  LilyPond -- the musical typesetter
 # title	   zucht
 # file	   make/Makefile.am.dist
 #

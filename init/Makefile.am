@@ -1,6 +1,9 @@
-# Generated automatically by wild-perl 0.1# init/Makefile.am.wild
+# Automatically generated from ./init/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# init/Makefile.am.wild
 
-INIFILES = dutch.ly dynamic.ly engraver.ly german.ly italian.ly lily-init.ly midi.ly paper11.ly paper13.ly paper16.ly paper20.ly paper26.ly performer.ly property.ly script.ly simple-init.ly swedish.ly table11.ly table13.ly table16.ly table20.ly table26.ly
+INIFILES = deutsch.ly dynamic.ly engraver.ly italiano.ly lily-init.ly midi.ly nederlands.ly norsk.ly paper11.ly paper13.ly paper16.ly paper20.ly paper26.ly performer.ly property.ly script.ly simple-init.ly svenska.ly table11.ly table13.ly table16.ly table20.ly table26.ly
 EXTRA_DIST = Makefile.am.wild $(INIFILES)
 
 CLEANFILES = 

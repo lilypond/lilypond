@@ -10,6 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+# Automatically generated from ./flower/Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  FlowerSoft C++ library
 # title	   top level makefile for FlowerLib
@@ -90,7 +92,7 @@ SUBDIRS = include test
 lib_LTLIBRARIES = libflower.la
 
 README_FILES = ONEWS NEWS README TODO VERSION
-EXTRA_DIST = Makefile.am.wild aclocal.m4 configure config.hh.in configure.in $(README_FILES)
+EXTRA_DIST = Makefile.am.wild aclocal.m4 configure configure.in $(README_FILES)
 
 libflower_la_SOURCES = choleski.cc cpu-timer.cc data-file.cc diagonal-storage.cc dictionary.cc directed-graph.cc dstream.cc flower-debug.cc flower-version.cc full-storage.cc interval.cc lgetopt.cc libc-extension.cc matrix-debug.cc matrix-storage.cc matrix.cc nscalar.cc path.cc rational.cc scalar.cc string-convert.cc string.cc stringutil.cc text-db.cc text-stream.cc unionfind.cc vector.cc
 
@@ -121,8 +123,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
-Makefile.in NEWS TODO aclocal.m4 config.hh.in configure configure.in \
-missing mkinstalldirs stamp-h.in
+Makefile.in NEWS TODO acconfig.h aclocal.m4 config.hh.in configure \
+configure.in missing mkinstalldirs stamp-h.in
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -159,7 +161,7 @@ stamp-h: $(srcdir)/config.hh.in $(top_builddir)/config.status
 	     $(SHELL) ./config.status
 	@echo timestamp > stamp-h
 $(srcdir)/config.hh.in: $(srcdir)/stamp-h.in
-$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
 	cd $(top_srcdir) && $(AUTOHEADER)
 	@echo timestamp > $(srcdir)/stamp-h.in
 
@@ -370,7 +372,7 @@ data-file.lo data-file.o: data-file.cc include/international.hh \
 diagonal-storage.lo diagonal-storage.o: diagonal-storage.cc \
 	include/diagonal-storage.hh include/full-storage.hh \
 	include/varray.hh include/matrix-storage.hh include/real.hh \
-	include/virtual-methods.hh include/full-storage.icc
+	include/virtual-methods.hh
 dictionary.lo dictionary.o: dictionary.cc
 directed-graph.lo directed-graph.o: directed-graph.cc \
 	include/directed-graph.hh include/parray.hh include/varray.hh

@@ -1,3 +1,5 @@
+# Automatically generated from ./mf/Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # mf/Makefile.am.wild
 

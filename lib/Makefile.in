@@ -10,6 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+# Automatically generated from ./lib/Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for micro-lily-lib
@@ -67,7 +69,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -102,6 +104,7 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 SUBDIRS = include
 
@@ -111,7 +114,7 @@ liblily_la_SOURCES = binary-source-file.cc duration-convert.cc duration.cc inclu
 
 INCLUDES = -Iinclude -I../flower/include
 
-EXTRA_DIST = Makefile.am.wild config.hh.in
+EXTRA_DIST = Makefile.am.wild
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.hh
 CONFIG_CLEAN_FILES = 
@@ -130,7 +133,7 @@ template.lo warn.lo windhoos-suck-suck-suck-thank-you-cygnus.lo
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
-DIST_COMMON =  Makefile.am Makefile.in config.hh.in stamp-h.in
+DIST_COMMON =  Makefile.am Makefile.in
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -150,27 +153,6 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-
-config.hh: stamp-h
-	@:
-stamp-h: $(srcdir)/config.hh.in $(top_builddir)/config.status
-	cd $(top_builddir) \
-	  && CONFIG_FILES= CONFIG_HEADERS=lib/config.hh:lib/config.hh.in \
-	     $(SHELL) ./config.status
-	@echo timestamp > stamp-h
-$(srcdir)/config.hh.in: $(srcdir)/stamp-h.in
-$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOHEADER)
-	@echo timestamp > $(srcdir)/stamp-h.in
-
-mostlyclean-hdr:
-
-clean-hdr:
-
-distclean-hdr:
-	-rm -f config.hh
-
-maintainer-clean-hdr:
 
 mostlyclean-libLTLIBRARIES:
 
@@ -285,7 +267,7 @@ ID: $(HEADERS) $(SOURCES) $(LISP)
 	here=`pwd` && cd $(srcdir) \
 	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES) $(LISP)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
@@ -295,8 +277,8 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES) $(L
 	unique=`for i in $$list; do echo $$i; done | \
 	  awk '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)config.hh.in$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags config.hh.in $$unique $(LISP) -o $$here/TAGS)
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
 
 mostlyclean-tags:
 
@@ -505,19 +487,18 @@ distclean-generic:
 maintainer-clean-generic:
 	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
-		mostlyclean-compile mostlyclean-libtool \
-		mostlyclean-tags mostlyclean-generic
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags \
+		mostlyclean-generic
 
-clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
-		clean-tags clean-generic mostlyclean-am
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-tags \
+		clean-generic mostlyclean-am
 
-distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
 		distclean-libtool distclean-tags distclean-generic \
 		clean-am
 
-maintainer-clean-am:  maintainer-clean-hdr \
-		maintainer-clean-libLTLIBRARIES \
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
 		maintainer-clean-compile maintainer-clean-libtool \
 		maintainer-clean-tags maintainer-clean-generic \
 		distclean-am
@@ -534,14 +515,13 @@ maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
 
-.PHONY: default mostlyclean-hdr distclean-hdr clean-hdr \
-maintainer-clean-hdr mostlyclean-libLTLIBRARIES \
-distclean-libLTLIBRARIES clean-libLTLIBRARIES \
-maintainer-clean-libLTLIBRARIES uninstall-libLTLIBRARIES \
-install-libLTLIBRARIES mostlyclean-compile distclean-compile \
-clean-compile maintainer-clean-compile mostlyclean-libtool \
-distclean-libtool clean-libtool maintainer-clean-libtool \
-install-data-recursive uninstall-data-recursive install-exec-recursive \
+.PHONY: default mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool install-data-recursive \
+uninstall-data-recursive install-exec-recursive \
 uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
 all-recursive check-recursive installcheck-recursive info-recursive \
 dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \

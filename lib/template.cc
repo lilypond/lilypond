@@ -12,5 +12,17 @@
 #include "cursor.tcc"
 #include "list.tcc"
 
-template LIST_INSTANTIATE (void *);
-template POINTERLIST_INSTANTIATE (Source_file);
+#if 0
+LIST_INSTANTIATE (void *);
+
+#else
+
+    static void force_list_members ()
+    {
+    List<void*> bla;
+    bla.top().add ((void*)0);
+    }
+
+#endif
+
+POINTERLIST_INSTANTIATE (Source_file);
