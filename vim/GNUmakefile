@@ -25,6 +25,13 @@ local-install:
 	mkdir -p $(vimdir)/syntax
 	$(INSTALL) lilypond-syntax.vim $(vimdir)/syntax/lilypond.vim
 
+local-uninstall:
+	rm $(vimdir)/compiler/lilypond.vim
+	rm $(vimdir)/ftdetect/lilypond.vim
+	rm $(vimdir)/ftplugin/lilypond.vim
+	rm $(vimdir)/indent/lilypond.vim
+	rm $(vimdir)/syntax/lilypond.vim
+
 EXTRA_DIST_FILES=filetype.vim
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
