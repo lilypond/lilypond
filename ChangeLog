@@ -17,8 +17,6 @@
 	Fix Cygwin detection, drop '32' suffix.  Hoping this is not too
 	fancy for some older systems.
 
-	* config.make.in USER_CFLAGS: Include CPPFLAGS too.
-
 2002-05-16  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/piano-pedal-engraver.cc (create_bracket_grobs): fix broken
