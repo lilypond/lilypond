@@ -24,15 +24,6 @@ Ross\cite{ross} quite some of their insights were used.  Although it
 is a matter of taste, I'd say that B\"arenreiter has the finest
 typography of all.
 
-%
-% stupid test to check convert-mudela.py.
-%
-% (so sue me)
-% well, mudela-book:fragment is a bit broken
-\begin{mudela}[fragment,center]
-  \notes {\clef bass; c1 \clef alto; c'2  \clef treble; c''4}
-\end{mudela}
-
 
 \section{Bezier curves for slurs}
 
