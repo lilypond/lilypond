@@ -20,8 +20,7 @@
 	* lily/paper-book.cc (pages): Do not use `paper' as variable name
 	for a Bookpaper.
 
-	* tex/latin1.enc: Replace /minus with /hyphen.  WL says that's the
-	latin1 name.
+	* tex/latin1.enc: Replace /minus with /hyphen.
 
 	* scm/encoding.scm: For latin1 (input-)encoding, use
 	latin1.  (Cork.enc is NOT latin1 -- see man latin1).
