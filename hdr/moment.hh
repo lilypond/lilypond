@@ -8,7 +8,7 @@
 #include "rational.hh"
 class String;
 typedef Rational Moment;
-void error_t(String const &s, Moment when);
+
 
 #endif // 
 
