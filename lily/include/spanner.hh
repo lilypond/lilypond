@@ -53,14 +53,7 @@ public:
 protected:
   void set_my_columns ();
   VIRTUAL_COPY_CONS(Score_element);
-
-  /**
-    this is virtual; for instance, Line_of_score overrides it.
-    */
-  virtual void break_into_pieces ();
   Real get_broken_left_end_align () const;
-
-  friend Axis_group_spanner; // UGH
 
   virtual void do_space_processing ();
   virtual void do_break_processing ();

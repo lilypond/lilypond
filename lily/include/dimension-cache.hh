@@ -55,9 +55,6 @@ public:
 
   Score_element *element_l () const { return elt_l_; }
 
-  void invalidate ();
-  void invalidate_dependencies ();
-  
   Dimension_cache(Dimension_cache const&);
   Dimension_cache ();
 
@@ -73,9 +70,6 @@ public:
   Dimension_cache*common_refpoint (Link_array<Dimension_cache> caches) const;
   void set_empty (bool);
   void translate (Real);
-
-  // junkme.
-  void set_offset (Real);
 
   bool valid_b () const { return valid_b_; }
   bool empty_b() const;

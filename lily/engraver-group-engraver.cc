@@ -26,19 +26,14 @@ Engraver_group_engraver::announce_element (Score_element_info info)
 void
 Engraver_group_engraver::do_announces()
 {
-  Link_array<Translator_group> groups = group_l_arr ();
-  for (int i=0; i < groups.size(); i++) 
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      Engraver_group_engraver * group = dynamic_cast<Engraver_group_engraver*> (groups[i]);
-      if (group)
-	{
-	  group->do_announces();
-	}
+      if (Engraver_group_engraver *trg =  dynamic_cast <Engraver_group_engraver *> (p->car_))
+	trg->do_announces ();
     }
-  
+
   Request dummy_req;
 
-  Link_array<Translator> nongroups = nongroup_l_arr ();
   while (announce_info_arr_.size ())
     {
       for (int j =0; j < announce_info_arr_.size(); j++)
@@ -47,21 +42,28 @@ Engraver_group_engraver::do_announces()
 	  
 	  if (!info.req_l_)
 	    info.req_l_ = &dummy_req;
-	  for (int i=0; i < nongroups.size(); i++) 
-	    {	// Is this good enough?
-	      Engraver * eng = dynamic_cast<Engraver*> (nongroups[i]);
-	      if (eng && eng!= info.origin_trans_l_arr_[0])
-		eng->acknowledge_element (info);
+
+	  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+	    {
+	      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
+		{
+		  Engraver * eng = dynamic_cast<Engraver*> (p->car_);
+		  if (eng && eng!= info.origin_trans_l_arr_[0])
+		    eng->acknowledge_element (info);
+		}		  
 	    }
 	}
+      
       announce_info_arr_.clear ();
-      for (int i=0; i < nongroups.size(); i++)
+      for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
 	{
-	  Engraver * eng = dynamic_cast<Engraver*> (nongroups[i]);
-	  if (eng)
-	    eng->process_acknowledged ();
+	  if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
+	    {
+	      Engraver * eng = dynamic_cast<Engraver*> (p->car_);
+	      if (eng)
+		eng->process_acknowledged ();
+	    }
 	}
-
     }
 }
 
@@ -71,12 +73,14 @@ Engraver_group_engraver::get_staff_info() const
 {
   Staff_info inf = Engraver::get_staff_info();
 
-  Link_array<Translator> simple_translators = nongroup_l_arr (); 
-  for (int i=0; i < simple_translators.size(); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-    Engraver * eng = dynamic_cast<Engraver*> (simple_translators[i]);
-    if (eng)
-      eng->fill_staff_info (inf);
+      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
+	{
+	  Engraver * eng = dynamic_cast<Engraver*> (p->car_);
+	  if (eng)
+	    eng->fill_staff_info (inf);
+	}
     }
   return inf;
 }

@@ -31,7 +31,6 @@ void
 Dimension_cache::init()
 {
   callback_l_ =0;
-
   basic_offset_ =0.0;
   extra_offset_ =0.0;
   
@@ -42,27 +41,6 @@ Dimension_cache::init()
   off_valid_b_ = false;
 }
 
-
-void
-Dimension_cache::invalidate ()
-{
-  /*  off_valid_b_ =false;
-      valid_b_ = false;*/
-}
-
-
-void
-Dimension_cache::set_offset (Real x)
-{
-  // ugh!
-  /*
-
-    UGH ! UGH !
-    
-   */
-  
-  extra_offset_ = x;
-}
 
 void
 Dimension_cache::translate (Real x)
@@ -141,7 +119,6 @@ Dimension_cache::get_dim () const
     }
   else if (!valid_b_)
     {
-
       nc->dim_= (*callback_l_ ) (nc);
       nc->valid_b_ = true;
     }

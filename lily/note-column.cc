@@ -116,8 +116,6 @@ Note_column::add_head (Rhythmic_head *h)
 void
 Note_column::translate_rests (int dy_i)
 {
-  //  invalidate_cache (Y_AXIS);
-
   SCM s = get_elt_property ("rests");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
@@ -219,5 +217,4 @@ Note_column::first_head () const
 {
   Stem * st = stem_l ();
   return st?  st->first_head (): 0; 
-
 }

@@ -816,7 +816,7 @@ msgstr "Negatieve afstand, zet op 10 mm"
 #: stem-engraver.cc:80
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
-msgstr "Voeg noot bolletje toe aan onverenigbare stok (type = %s)"
+msgstr "Voeg noot bolletje toe aan onverenigbare stok (type = %d)"
 
 #: stem.cc:26
 msgid "stem direction set already!"

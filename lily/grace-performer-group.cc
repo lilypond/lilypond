@@ -100,13 +100,6 @@ Grace_performer_group::each (Const_method_pointer method) const
 bool
 Grace_performer_group::do_try_music (Music *m)
 {
-  bool hebbes_b =false;
-
-  Link_array<Translator> nongroups (nongroup_l_arr ());
-  
-  for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
-    hebbes_b =nongroups[i]->try_music (m);
-
-  return hebbes_b;
+  return try_music_on_nongroup_children (m);
 }
 

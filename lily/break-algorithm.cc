@@ -24,7 +24,7 @@
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Line_of_cols all (pscore_l_->col_l_arr_);
+  Link_array<Paper_column> all (pscore_l_->col_l_arr_);
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
@@ -39,11 +39,11 @@ Break_algorithm::find_break_indices () const
 }
 
 
-Line_of_cols
+Link_array<Paper_column>
 Break_algorithm::find_breaks () const
 {
-  Line_of_cols all (pscore_l_->col_l_arr_);
-  Line_of_cols retval;
+  Link_array<Paper_column> all (pscore_l_->col_l_arr_);
+  Link_array<Paper_column> retval;
 
   for (int i=0; i < all.size (); i++)
     if (all[i]->breakable_b ())
@@ -58,7 +58,7 @@ Break_algorithm::find_breaks () const
 
 
 Simple_spacer*
-Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
+Break_algorithm::generate_spacing_problem (Link_array<Paper_column> curline, Interval line) const
 {
   Simple_spacer * sp =  new Simple_spacer;
   Paper_def * d = pscore_l_->paper_l_;

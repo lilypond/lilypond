@@ -65,8 +65,6 @@ public:
   Item (Item const &);
 protected:
   virtual void do_breakable_col_processing();
-  virtual void handle_prebroken_dependencies();
-  //virtual void handle_prebroken_dependents ();
 
   void copy_breakable_items();
 };

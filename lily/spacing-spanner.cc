@@ -148,7 +148,7 @@ Spacing_spanner::do_measure (Link_array<Score_column> cols) const
 	  
 	  if (next_stretch_hint != SCM_UNDEFINED)
 	    // see regtest spacing-tight
-	    stretch_dist += - gh_scm2double (SCM_CAR (next_stretch_hint));
+	    stretch_dist += - gh_scm2double (gh_car  (next_stretch_hint));
 	  else
 	    stretch_dist += right_dist;
 
@@ -248,8 +248,8 @@ Spacing_spanner::stem_dir_correction (Score_column*l, Score_column*r) const
   if (scm_ilength (dl) != 1 && scm_ilength (dr) != 1)
     return 0.;
 
-  dl = SCM_CAR(dl);
-  dr = SCM_CAR(dr);
+  dl = gh_car (dl);
+  dr = gh_car (dr);
 
   assert (gh_number_p (dl) && gh_number_p(dr));
   int d1 = gh_scm2int (dl);

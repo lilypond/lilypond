@@ -36,7 +36,6 @@ Note_head::do_pre_processing ()
 
   if (Dots *d = dots_l ())
     { // move into Rhythmic_head?
-
       Staff_symbol_referencer_interface si (d);
       Staff_symbol_referencer_interface me (this);      
       

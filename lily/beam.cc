@@ -10,13 +10,10 @@
 
 /*
   [TODO]
-    * center beam symbol
     * less hairy code
     * move paper vars to scm
 
-    */
-
-//#include <math.h>
+*/
 
 #include "beaming.hh"
 #include "dimensions.hh"
@@ -87,7 +84,7 @@ Beam::do_pre_processing ()
     }
 
   if (!get_direction ())
-    set_direction (calc_default_dir ());
+    set_direction (get_default_dir ());
 
   auto_knees ();
   set_stem_directions ();
@@ -99,7 +96,7 @@ Beam::do_pre_processing ()
  FIXME
  */
 Direction
-Beam::calc_default_dir () const
+Beam::get_default_dir () const
 {
   Drul_array<int> total;
   total[UP]  = total[DOWN] = 0;
@@ -529,7 +526,8 @@ Beam::quantise_dy_f (Real dy) const
   allowed_fraction[1] = (beam_f / 2 + staffline_f / 2);
   allowed_fraction[2] = (beam_f + staffline_f);
 
-  Interval iv = quantise_iv (allowed_fraction, interline_f, abs (dy));
+  allowed_fraction.push (interline_f);
+  Interval iv = quantise_iv (allowed_fraction,  abs (dy));
   Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
     ? iv[SMALLER]
     : iv[BIGGER];
@@ -607,8 +605,9 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
 	allowed_position.push (hang);
     }
 
+  allowed_position.push (space);
   Real up_y = get_direction () * y;
-  Interval iv = quantise_iv (allowed_position, space, up_y);
+  Interval iv = quantise_iv (allowed_position, up_y);
 
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
     ? iv[SMALLER] : iv[BIGGER];

@@ -32,7 +32,7 @@ Dots::do_post_processing ()
 	set_direction (UP);
 
       Staff_symbol_referencer_interface si (this);
-      int p = si.position_f ();
+      int p = int (si.position_f ());
       if (!(p % 2))
 	si.set_position (p  + get_direction ());
     }

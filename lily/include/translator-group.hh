@@ -35,6 +35,7 @@ class Translator_group : public virtual Translator {
   int iterator_count_;
   friend class Interpretation_context_handle;
 
+protected:
   Cons_list<Translator> trans_p_list_;
 
 public:
@@ -54,11 +55,6 @@ public:
   Translator_group();
   void add_translator (Translator *trans_p);
   
-  Link_array<Translator> nongroup_l_arr () const;
-  Link_array<Translator_group> group_l_arr () const;
-  
-  virtual Global_translator *global_l() { return 0; }
-  
   /// Score_register = 0, Staff_registers = 1, etc)
   Translator_group* ancestor_l (int l=1);
   int depth_i() const;
@@ -67,8 +63,6 @@ public:
   void terminate_translator (Translator*r_l);
   Translator *remove_translator_p (Translator*trans_l);
   void check_removal ();
-
-
 
   Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);

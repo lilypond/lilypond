@@ -102,8 +102,8 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 	
       SCM box_scm
 	= gh_list (ly_symbol2scm ("placebox"),
-		   gh_double2scm (a_off.x ()),
-		   gh_double2scm (a_off.y ()),
+		   gh_double2scm (a_off[X_AXIS]),
+		   gh_double2scm (a_off[Y_AXIS]),
 		   SCM(i->func_),
 		   SCM_UNDEFINED);
 

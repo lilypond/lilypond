@@ -49,8 +49,8 @@ Paper_score::typeset_element (Score_element * elem_p)
 {
   elem_p->pscore_l_ = this;
 
-  SCM_CDR(element_smob_list_) = gh_cons (elem_p->self_scm_,
-					 SCM_CDR (element_smob_list_));
+  gh_set_cdr_x(element_smob_list_,
+	       gh_cons (elem_p->self_scm_, gh_cdr (element_smob_list_)));
   elem_p->set_elt_property ("full-name",
 			    gh_str02scm((char*)elem_p->name()));
   
@@ -75,10 +75,10 @@ Paper_score::print () const
   DEBUG_OUT << "Paper_score { ";
   DEBUG_OUT << "\n elements: ";
 
-  for (SCM p = SCM_CDR (element_smob_list_);
+  for (SCM p = gh_cdr (element_smob_list_);
        p != SCM_EOL;
-       p = SCM_CDR(p))
-    gh_display (SCM_CAR(p));
+       p = gh_cdr(p))
+    gh_display (gh_car (p));
   DEBUG_OUT << "}\n";
 #endif
 }

@@ -40,13 +40,16 @@ Translator_group::Translator_group()
 void
 Translator_group::check_removal()
 {
-  Link_array<Translator_group> groups (group_l_arr ());
-  
-  for (int i =0; i < groups.size(); i++)
+  Cons<Translator> *next =0;
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = next)
     {
-      groups[i]->check_removal();
-      if (groups[i]->removable_b())
-	terminate_translator (groups[i]);
+      next = p->next_;
+      if (Translator_group *trg =  dynamic_cast <Translator_group *> (p->car_))
+	{
+	  trg->check_removal ();
+	  if (trg->removable_b())
+	    terminate_translator (trg);
+	}
     }
 }
 
@@ -126,11 +129,12 @@ Translator_group::find_existing_translator_l (String n, String id)
   if (is_alias_b (n) && (id_str_ == id || id.empty_b ()))
     return this;
 
-  Link_array<Translator_group> groups (group_l_arr ());
+
   Translator_group* r = 0;
-  for (int i =0; !r && i < groups.size(); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      r = groups[i]->find_existing_translator_l (n,id);
+      if (Translator_group *trg =  dynamic_cast <Translator_group *> (p->car_))
+	r = trg->find_existing_translator_l (n, id);
     }
 
   return r;
@@ -215,10 +219,13 @@ Translator_group::try_music_on_nongroup_children (Music *m)
 {
   bool hebbes_b =false;
 
-  Link_array<Translator> nongroups (nongroup_l_arr ());
-  
-  for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
-    hebbes_b =nongroups[i]->try_music (m);
+  for (Cons<Translator> *p = trans_p_list_.head_; !hebbes_b && p; p = p->next_)
+    {
+      if (!dynamic_cast <Translator_group *> (p->car_))
+	{
+	  hebbes_b = p->car_->try_music (m);
+	}
+    }
   return hebbes_b;
 }
 
@@ -247,32 +254,9 @@ Translator_group::ancestor_l (int level)
   return daddy_trans_l_->ancestor_l (level-1);
 }
 
-Link_array<Translator_group>
-Translator_group::group_l_arr () const
-{
-  Link_array<Translator_group> groups;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    {
-      if (dynamic_cast <Translator_group *> (p->car_))
-	groups.push (dynamic_cast <Translator_group *> (p->car_));
-    }
-  return groups;
-}
 
-Link_array<Translator>
-Translator_group::nongroup_l_arr () const
-{
-  Link_array<Translator> groups;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    {
-      if (!dynamic_cast <Translator_group *> (p->car_))
-	groups.push (p->car_);
-    }
-  return groups;
-}
-/**
-   End translator: call "destructor", remove from hierarchy, and delete
- */
+
+
 
 void
 Translator_group::terminate_translator (Translator*r_l)
@@ -310,11 +294,10 @@ Translator_group::remove_translator_p (Translator*trans_l)
 Translator*
 Translator_group::get_simple_translator (String type) const
 {
-  Link_array<Translator> nongroups (nongroup_l_arr ());
-  for (int i=0; i < nongroups.size(); i++)
+  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
     {
-      if (classname (nongroups[i]) == type)
-	return nongroups[i];
+      if (classname (p->car_) == type)
+	return p->car_;
     }
   if (daddy_trans_l_)
     return daddy_trans_l_->get_simple_translator (type);

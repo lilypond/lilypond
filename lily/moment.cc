@@ -27,7 +27,7 @@ Moment::~Moment()
 int
 Moment::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Moment  *r = (Moment *) SCM_CDR (s);
+  Moment  *r = (Moment *) gh_cdr (s);
      
   scm_puts ("#<Mom ", port);
   String str(r->str());

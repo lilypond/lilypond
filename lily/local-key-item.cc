@@ -95,8 +95,8 @@ Local_key_item::do_brew_molecule_p() const
 	* note_distance;
       
       Molecule m (accidental (p.accidental_i_,
-	                          accidental_arr_[i].cautionary_b_,
-	                          accidental_arr_[i].natural_b_));
+			      accidental_arr_[i].cautionary_b_,
+			      accidental_arr_[i].natural_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);

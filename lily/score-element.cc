@@ -121,7 +121,7 @@ Score_element::get_elt_property (String nm) const
   SCM s = scm_assq(sym, element_property_alist_);
 
   if (s != SCM_BOOL_F)
-    return SCM_CDR (s); 
+    return gh_cdr (s); 
   
   if (pscore_l_)
     {
@@ -415,36 +415,13 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
     }
   return s;
 }
-#if 0
-void
-Score_element::recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)())
-{
-  Score_element * sc = unsmob_element ( s);
-  if (sc)
-    {
-      (sc->*meth_ptr) ();
-    }
-  else if (gh_pair_p (s))
-    {
-      recurse_into_smobs (gh_car (s), meth_ptr);
-      recurse_into_smobs (gh_cdr (s), meth_ptr);      
-    }
-}
-#endif
 
 void
 Score_element::handle_broken_dependencies()
 {
   Line_of_score *line  = line_l();
-  
-  SCM rec = get_elt_property ("handle-broken-deps");
-  if (gh_boolean_p (rec) && gh_scm2bool (rec))
-    return;
-  
-  set_elt_property ("handle-broken-deps", SCM_BOOL_T);
   element_property_alist_ = handle_broken_smobs (element_property_alist_,
 						 line ? line->self_scm_ : SCM_UNDEFINED);
-
 
   if (!line)
     return;
@@ -496,7 +473,7 @@ Score_element::find_broken_piece (Line_of_score*) const
 SCM
 Score_element::mark_smob (SCM ses)
 {
-  void * mp = (void*) SCM_CDR(ses);
+  void * mp = (void*) gh_cdr(ses);
   Score_element * s = (Score_element*) mp;
 
   assert (s->self_scm_ == ses);
@@ -507,7 +484,7 @@ Score_element::mark_smob (SCM ses)
 int
 Score_element::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Score_element *sc = (Score_element *) SCM_CDR (s);
+  Score_element *sc = (Score_element *) gh_cdr (s);
      
   scm_puts ("#<Score_element ", port);
   scm_puts ((char *)sc->name (), port);
@@ -529,7 +506,7 @@ IMPLEMENT_SMOBS(Score_element);
 SCM
 Score_element::equal_p (SCM a, SCM b)
 {
-  return SCM_CDR(a) == SCM_CDR(b) ? SCM_BOOL_T : SCM_BOOL_F;
+  return gh_cdr(a) == gh_cdr(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 void
@@ -582,15 +559,6 @@ unsmob_element (SCM s)
     return 0;
 }
 
-
-/*
-  JUNKME
- */
-void
-Score_element::invalidate_cache (Axis a)
-{
-  //  dim_cache_[a]->invalidate ();
-}
 
 Score_element*
 Score_element::parent_l (Axis a) const

@@ -34,7 +34,6 @@ public:
   Molecule ledger_line (Interval) const;
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
-  Molecule hairpin (Real width, Real height, Real thick, bool decresc, bool continued) const;
   Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real height, Direction dir) const;
   Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Array<Offset> controls, Real thick) const;

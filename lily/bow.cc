@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "lookup.hh"
-#include "bezier.hh"
+#include "bezier-bow.hh"
 #include "main.hh"
 
 Bow::Bow ()
@@ -65,13 +65,13 @@ Bow::dim_callback (Dimension_cache const* c)
   return iv;
 }
 
-Drul_array<Interval>
-Bow::curve_extent_drul () const
+Interval
+Bow::curve_extent (Axis a) const
 {
   Bezier_bow b (paper_l ());
   b.set (get_encompass_offset_arr (), get_direction ());
   b.calc ();
-  return b.curve_extent_drul_;
+  return b.curve_.extent (a);
 }
 
 Array<Offset>
@@ -81,11 +81,10 @@ Bow::get_controls () const
   b.set (get_encompass_offset_arr (), get_direction ());
   b.calc ();
   Array<Offset> controls;
-  controls.set_size (8);
   for (int i = 0; i < 4; i++)
-    controls[i] = b.control_[i];
+    controls.push (b.curve_.control_[i]);
   for (int i = 0; i < 4; i++)
-    controls[i + 4] = b.return_[i];
+    controls.push (b.return_.control_[i]);
   return controls;
 }
 
