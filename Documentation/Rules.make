@@ -3,6 +3,9 @@
 
 .SUFFIXES: .pod .txt .1  .html
 
+pod2html=pod2html
+pod2groff=pod2man --center="LilyPond documentation" --section="0"\
+	--release="LilyPond $(VERSION)" $< > $@
 
 $(outdir)/%.gif: %.xpm
 	xpmtoppm $< | ppmtogif > $@
@@ -24,10 +27,10 @@ $(outdir)/%.txt: $(outdir)/%.1
 $(depth)/%.txt: $(outdir)/%.txt
 	cp $< $@
 
-do_pod2html=$(pod2html) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@
+#do_pod2html=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@
 # do this for perl 5.003
-# 	do_pod2html=$(pod2html) $<
-# 	mv $(notdir $@) $(outdir)/
+
+do_pod2html=$(POD2HTML) $< ; mv $(notdir $@) $(outdir)/
 
 
 # do this for perl 5.004
