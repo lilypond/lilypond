@@ -1,5 +1,5 @@
 % st\"andchen.lily
-% Franz Schubert
+% Franz Schubert (? - ?)
 %
 % comments with # note missing stuff
 % heu, make that %#%
@@ -146,6 +146,7 @@ melodie = music { $
 	[ b8._"f" 'cis16 ] 'd4^> b r
 %%44
 %#%	[^ { > b8. fis2 } 'cis16 ] 'd4^> b >! r
+% typo?
 	[ b8. 'cis16 ] 'd4^> b r
 %%45
 %#%	'cis\grace\stemup
@@ -228,7 +229,7 @@ begeleiding = music { $
 %%12 == 6
 %#%	{ `d ``bes2 } `e `g `e { `g r4 } `e
 	[ `d `e `g `e `g `e ]
-%%13
+%13
 %#%	{ `e ``bes2 } `e `g `e { `g r4 } `e
 	[ `e `e `g `e `g `e ]
 %%14
@@ -343,25 +344,163 @@ begeleiding = music { $
 	{ `d2.^\fermata ``d2. }
 $ }
 
+tekst1 = music {
+ 	@
+ 	\duration{4}
+ 	_ _ _
+ 	_ _ _
+ 	_ _ _
+ 	_ _ _
+ % 5
+ 	\plet{ 2/3 } Lei- se8 \plet{ 1/1 } fleh-4. en8 
+ 	\plet{ 2/3 } mei- ne8 \plet{ 1/1 } Lie- der8 _8
+ 	Durch4. die8 \plet{ 2/3 } Nacht zu8 \plet{ 1/1 } 
+ 	dir;2 _        
+ 	_ _ _ 
+ 	_ _ _
+ % 11
+ 	\plet{ 2/3 } In den8 \plet{ 1/1 } stil-4. len8 
+ 	\plet{ 2/3 } Hain her-8 \plet{ 1/1 } nie-4. der,8
+ 	Lieb4. chen,8 \plet{ 2/3 } komm zu8 \plet{ 1/1 } 
+ 	mir!2 _
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % 17
+ 	Fl\"us-8. ternd16 schlan-4. ke8 
+ 	Wip-8. fel16 rau-4. schen8
+ 	\plet{ 2/3 } In des8 \plet{ 1/1 } Mon-4. des8 
+ 	Licht;2.
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % 23
+ 	Des8. Ver-16 r\"a-4. ters8 
+ 	feind-8. lich16 Lau-4. schen8
+ 	\plet{ 2/3 } F\"urch- te,8 \plet{ 1/1 } Hol-4. de,8 
+ 	nicht.2.
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % volta 1
+ % 29
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 
+ % volta 2
+ % 37
+ 	La\ss8. auch16 dir8. die16 Brust8. be-16
+ 	we- gen, _
+ 	Lieb-4. chen,8  h\"o-8. re16 
+ 	mich!2 _
+ 	_ _ _ 
+ 	_ _ _
+ 	Be-8. bend16 harr' ich8 _8
+ 	dir8. ent-16 ge- gen!8 _8
+ 	\plet{ 2/3 } Komm, be-8 \plet{ 1/1 } gl\"u4. cke8 
+ 	mich!2.
+ % 47
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ % 57
+ 	_ _ _ _ _ _ 
+ 	@
+ }
+ 
+ tekst2 = music {
+         @
+ 	\duration{4}
+ 	_ _ _
+ 	_ _ _
+ 	_ _ _
+ 	_ _ _
+ % 5
+ 	\plet{ 2/3 } H\"orst die8 \plet{ 1/1 } Nach-4. ti-8 
+ 	\plet{ 2/3 } gal- len8 \plet{ 1/1 } schla- gen?8 _8
+ 	Ach!4. sie8 \plet{ 2/3 } fleh- en8 \plet{ 1/1 } 
+ 	dich,2 _
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % 11
+ 	\plet{ 2/3 } Mit der8 \plet{ 1/1 } T\"o-4. ne8
+ 	\plet{ 2/3 } s\"u\ss- en8 \plet{ 1/1 } Kla-4. gen8
+ 	Fleh-4. en8 \plet{ 2/3 } sie f\"ur8 \plet{ 1/1 }
+ 	mich.2 _
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % 17 ok tot hier
+ 	Sie-8. ver-16 stehn4. des8
+ 	Bus-8. ens16 Seh-4. nen,8
+ 	\plet{ 2/3 } Ken- nen8 \plet{ 1/1 } Lieb-4. es-8 
+ 	schmerz,2.
+ 	_ _ _ 
+ 	_ _ _
+ 
+ % 23
+ 	R\"uh-8. ren16 mit4. den8 
+ 	Sil-8. ber-16 t\"o-4. nen8
+ 	\plet{ 2/3 } Jed- es8 \plet{ 1/1 } wei-4. che8 
+ 	Herz.2.
+ 	_ _ _ 
+ 	_ _ _
+ 	  
+ % volta 1
+ % 29
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 	_ _ _ _ _ _
+ 
+ % volta 2
+ % 37
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _ 
+ %	_ _ _ _ _ _
+ % 47
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ %	_ _ _ _ _ _
+ % 57
+ %	_ _ _ _ _ _ 
+ 	@
+ }
+  
 score {
 	paper {
 		symboltables { table_sixteen }
 		output "standchen.uit"
 		unitspace 2.4 cm
-		geometric 1.4
+ %		unitspace 4.0 cm % leaves all text stand free
+geometric 1.4
 	}
 	staff { 
 	 	melodic music { melodie }
 		commands {
 			key $bes$
-			clef violin
+			clef "violin"
 		}
 	}
+  	staff { 
+ 		lyric 
+ 		music { tekst1 }
+ 		music { tekst2 }
+  	}
 	staff { 
 		melodic music { begeleiding }
 		commands {
 			key $bes$
-			clef bass 
+			clef "bass" 
 		}
 	}
 	commands { 
@@ -371,5 +510,6 @@ score {
 		skip 32:0
 		bar ":|"
 		skip 22:0
+ 		bar "||"
 	}
 }

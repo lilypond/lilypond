@@ -13,7 +13,7 @@ Idealspacing		1
 
 # yydebug
 InitParser		1
-Parser			1
+Parser			0
 
 
 # FlexLexer debug
@@ -38,3 +38,4 @@ Input_cursor		1
 Commands_at		0
 Input_command		0
 Time_description	0
+Melodic_req		1
