@@ -1,3 +1,8 @@
+2004-09-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/framework-tex.scm (dump-page): put stencil height in dumped
+	page.
+
 2004-09-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/notation.itely (Multi measure rests):
