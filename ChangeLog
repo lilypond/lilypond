@@ -1,5 +1,7 @@
 2002-06-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/grob.cc (mark_smob): don't mark parents, explain why.
+
 	* tex/lilyponddefs.tex: Define outputscale only once.
 
 2002-06-29  Jan Nieuwenhuizen  <janneke@gnu.org>
@@ -68,7 +70,7 @@
 	lists of grobs. This should fix the problems of lily in
 	combination with pthreads/qthreads.
 
-	* lily/grob.cc (mark_smob): bugfix: mark X parent too.
+	* lily/grob.cc (mark_smob): bugfix: mark other parent too.
 
 2002-06-23  Chris Jackson  <chris@fluffhouse.org.uk>
 
