@@ -38,14 +38,16 @@ Staff_side::read_staff_sym()
 
 
 Interval
-Staff_side::support_height() const return r;
+Staff_side::support_height() const
 {
+    Interval r;
     
     for (int i=0; i < support_l_arr_.size(); i++)
 	r.unite(support_l_arr_[i]->height());
     if (r.empty_b()) {
 	r = Interval(0,0);
     }
+    return r;
 }
 
 void

@@ -19,8 +19,9 @@ Pulk_voice::Pulk_voice(Voice*voice_l, int idx)
 }
 
 Array<Request*>
-Pulk_voice::get_req_l_arr() return req_l_arr;
+Pulk_voice::get_req_l_arr() 
 {
+    Array<Request*> req_l_arr;
     Moment w = when();
     do {
 	Moment sub = subtle_moment_priorities_[subtle_idx_];
@@ -36,6 +37,7 @@ Pulk_voice::get_req_l_arr() return req_l_arr;
 	}
 	next();
     } while ( ok() && when () == w);
+    return req_l_arr;
 }
 
 void

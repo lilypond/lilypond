@@ -100,25 +100,28 @@ saves us a I<lot> of trouble. GNU LilyPond and FlowerLib use:
 =over 4
 
 =item *
+
 builtin bool
 
 =item *
+
 64 bit integral type long long
 
 =item *
+
 typeof
 
 =item *
+
 operator <?, operator >?
 
 =item *
+
 the new for-scope
 
 =item	 *
-class Rational (libg++)
 
-=item *
-named return values
+class Rational (libg++)
 
 =back
 

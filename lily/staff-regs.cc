@@ -15,11 +15,13 @@
 #include "input-register.hh"
 
 Staff_info
-Staff_registers::get_staff_info() return inf;
+Staff_registers::get_staff_info() 
 {
+    Staff_info inf;
     inf = Request_register::get_staff_info();
     inf.staff_sym_l_=staff_sym_l_;
     inf.c0_position_i_l_ = &c0_position_i_;
+    return inf;
 }
 
 Staff_registers::Staff_registers(Input_register const*ireg_C)
