@@ -1,19 +1,25 @@
+# Does info really work?
+%define info yes
+
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
 %define release 1mdk
 
-Name: %{name}
-Summary: A program for printing sheet music.
-Version: %{version}
-Release: %{release}
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
+Summary:	A program for printing sheet music.
+Name:		%{name}
+Version:	%{version}
+Release:	%{release}
+License:	GPL
+Group:		Publishing
+URL:		http://www.lilypond.org/
+Source0:	ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
 ## Patch0: lilypond-GNUmakefile.in.patch.bz2
-License: GPL
-Group: Publishing
-URL: http://www.lilypond.org/
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: guile guile-devel
-Requires: tetex
+Source1:	%name-16x16.png.tar.bz2
+Source2:	%name-32x32.png.tar.bz2
+Source3:	%name-48x48.png.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	guile guile-devel
+Requires:	tetex
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
@@ -29,22 +35,23 @@ http://www.mutopiaproject.org for details).
 If you are new to lilypond, you will almost certainly want to install the
 "lilypond-extras" package in addition to the "lilypond" package.
  
-You may also wish to investigate the "denemo" package, which provides a
-graphical front end to lilypond.
+## You may also wish to investigate the "denemo" package, which provides a
+## graphical front end to lilypond.
+## 
+## See the file README.first for more information.
 
-See the file README.first for more information.
-
-
-%package extras
+%package documentation
 Summary: LilyPond documentation, examples and Mutopia files.
 Group: Publishing
 Requires: lilypond
 
-%description extras
+%description documentation
 The documentation of LilyPond, both in HTML and PostScript, along with
 example input files and the files from the Mutopia project.
 
 %prep
+rm -rf $RPM_BUILD_ROOT
+
 %setup -a 1
 ## % patch0 -b .orig
 
@@ -52,9 +59,16 @@ example input files and the files from the Mutopia project.
 # DO NOT use % { configure } , it hardcodes all paths, runs libtool,
 # so we can't do make prefix=/tmp/ install.
 # -- not sure what this comment means; it's a relic from the PPC spec file -- mbrown@fensystems.co.uk
-./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
-make
-make web-doc
+##./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
+## Add options if needed
+./configure --disable-checking --prefix=%{_prefix} --enable-optimise
+make MAKE_PFA_FILES=1 all
+
+# make info
+make -C Documentation
+
+# make  html
+make web-doc top-web 
 
 %install
 
@@ -64,83 +78,146 @@ RPM_DOC_ROOT=$RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 rm -rf $RPM_DOC_ROOT
 mkdir -p $RPM_DOC_ROOT
 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
-%{find_lang} %{name}
+strip lily/out/lilypond 
+make prefix="$RPM_BUILD_ROOT%{_prefix}" MAKE_PFA_FILES=1 all install
+# %{find_lang} %{name}
+
+%if info=="yes"
+gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*
+%endif
 
 # Move info and man files into correct locations
-mv $RPM_BUILD_ROOT/usr/info $RPM_BUILD_ROOT%{_infodir}
-mv $RPM_BUILD_ROOT/usr/man $RPM_BUILD_ROOT%{_mandir}
+# mv $RPM_BUILD_ROOT/usr/info $RPM_BUILD_ROOT%{_infodir}
+# mv $RPM_BUILD_ROOT/usr/man $RPM_BUILD_ROOT%{_mandir}
 
-# Move TeX font files into system TeX tree locations
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/texmf/fonts/{afm,source,tfm}
-mv $RPM_BUILD_ROOT%{_datadir}/lilypond/afm $RPM_BUILD_ROOT%{_datadir}/texmf/fonts/afm/lilypond
-mv $RPM_BUILD_ROOT%{_datadir}/lilypond/mf $RPM_BUILD_ROOT%{_datadir}/texmf/fonts/source/lilypond
-mv $RPM_BUILD_ROOT%{_datadir}/lilypond/tfm $RPM_BUILD_ROOT%{_datadir}/texmf/fonts/tfm/lilypond
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/texmf/tex
-mv $RPM_BUILD_ROOT%{_datadir}/lilypond/tex $RPM_BUILD_ROOT%{_datadir}/texmf/tex/lilypond
+mkdir -p $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
+install -m 644 lilypond-init.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
 
-# Copy emacs mode files into %{_datadir}/lilypond/emacs
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/lilypond/emacs
-cp *.el $RPM_BUILD_ROOT%{_datadir}/lilypond/emacs/
+gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/*
+
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
+
+
+# again, make sure that main package installs even if doco fails
+mkdir -p web/out
+tar -C web -xzf out/web.tar.gz 
 
 # Create documentation tree in %{_docdir}
-mkdir -p $RPM_DOC_ROOT/HTML
-tar -C $RPM_DOC_ROOT/HTML -xzf out/web.tar.gz
-ln -s HTML/input $RPM_DOC_ROOT/Examples
-ln -s HTML/input/test $RPM_DOC_ROOT/Tricks
+## mkdir -p $RPM_DOC_ROOT/HTML
+## tar -C $RPM_DOC_ROOT/HTML -xzf out/web.tar.gz
+## ln -s HTML/input $RPM_DOC_ROOT/Examples
+## ln -s HTML/input/test $RPM_DOC_ROOT/Tricks
 
-mkdir -p $RPM_DOC_ROOT/Printable
-ln -s ../HTML/Documentation/user/out-www/lilypond.ps.gz $RPM_DOC_ROOT/Printable/Manual.ps.gz
-ln -s ../HTML/Documentation/user/out-www/glossary.ps.gz $RPM_DOC_ROOT/Printable/Glossary.ps.gz
-cp AUTHORS.txt CHANGES COPYING DEDICATION FAQ.txt NEWS README.txt VERSION README.mandrake $RPM_DOC_ROOT/README.first
+## mkdir -p $RPM_DOC_ROOT/Printable
+## ln -s ../HTML/Documentation/user/out-www/lilypond.ps.gz $RPM_DOC_ROOT/Printable/Manual.ps.gz
+## ln -s ../HTML/Documentation/user/out-www/glossary.ps.gz $RPM_DOC_ROOT/Printable/Glossary.ps.gz
+## cp AUTHORS.txt COPYING DEDICATION NEWS README.txt VERSION $RPM_DOC_ROOT/README.first
+
+# Menu
+# Every entry must be changed according package specifications
+# Pay attention to "section" "command" and "longtitle"
+
+mkdir -p $RPM_BUILD_ROOT%{_menudir}
+cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
+?package(%name): command="%{_bindir}/%{name}" needs="X11" \
+icon="%{name}.png" section="Publishing" \
+title="%{name}" longtitle="%{name}"
+EOF
+  
+# icon
+install -d $RPM_BUILD_ROOT/%{_miconsdir}
+install -d $RPM_BUILD_ROOT/%{_iconsdir}
+install -d $RPM_BUILD_ROOT/%{_liconsdir}
+bzcat %{SOURCE1} > $RPM_BUILD_ROOT/%{_miconsdir}/%{name}.png
+bzcat %{SOURCE2} > $RPM_BUILD_ROOT/%{_iconsdir}/%{name}.png
+bzcat %{SOURCE3} > $RPM_BUILD_ROOT/%{_liconsdir}/%{name}png
 
 %post
+%{update_menus}
+
 touch /tmp/.lilypond-install
-rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print'` /tmp/.lilypond-install
-/usr/bin/mktexlsr
-%_install_info lilypond.info
-%_install_info lilypond-internals.info
+rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
 
-echo 'Please logout first before using LilyPond.'
-
+%if info=="yes"
+/sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
+%endif
 
 %preun
-%_remove_install_info lilypond.info
-%_remove_install_info lilypond-internals.info
+
+%if info=="yes"
+if [ $1 = 0 ]; then
+    /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
+fi
+%endif
+
+rm -f /usr/share/lilypond/%{version}/fonts/type1/fonts.dir
+chkfontpath --remove=/usr/share/lilypond/%{version}/fonts/type1/
 
 %postun
-/usr/bin/mktexlsr
+%{clean_menus}
 
+%clean
+## This section is meant to clean the build directory tree, $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}.lang
-%defattr(-,root,root,0755)
-%{_bindir}/*
-%{_datadir}/lilypond/
-%{_datadir}/texmf/fonts/afm/lilypond
-%{_datadir}/texmf/fonts/source/lilypond
-%{_datadir}/texmf/fonts/tfm/lilypond
-%{_datadir}/texmf/tex/lilypond
+## %files -f %{name}.lang
+%files
+# The special tag %doc designates files being part of the documentation of the
+# package. The files so-called will be placed in /usr/doc/lilypond-%{version}/
+%doc COPYING README.txt INSTALL.txt DEDICATION NEWS AUTHORS.txt
+%{_datadir}/emacs/site-lisp/lilypond-*
+# is the following really started during startup of emacs?
+%{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
 
-%doc %{_infodir}/*
-%doc %{_mandir}/man1/*
-%doc %{_docdir}/%{name}-%{version}/AUTHORS.txt
-%doc %{_docdir}/%{name}-%{version}/CHANGES
-%doc %{_docdir}/%{name}-%{version}/COPYING
-%doc %{_docdir}/%{name}-%{version}/DEDICATION
-%doc %{_docdir}/%{name}-%{version}/FAQ.txt
-%doc %{_docdir}/%{name}-%{version}/NEWS
-%doc %{_docdir}/%{name}-%{version}/README.txt
-%doc %{_docdir}/%{name}-%{version}/VERSION
-%doc %{_docdir}/%{name}-%{version}/README.first
+%{_prefix}/bin/abc2ly
+%{_prefix}/bin/as2text
+%{_prefix}/bin/convert-ly
+%{_prefix}/bin/etf2ly
+%{_prefix}/bin/lilypond
+%{_prefix}/bin/ly2dvi
+%{_prefix}/bin/midi2ly
+%{_prefix}/bin/lilypond-book
+%{_prefix}/bin/mup2ly
+%{_prefix}/bin/musedata2ly
+%{_prefix}/bin/pmx2ly
 
-%files extras
-%defattr(-,root,root,0755)
-%doc %{_docdir}/%{name}-%{version}/HTML
-%doc %{_docdir}/%{name}-%{version}/Mutopia
-%doc %{_docdir}/%{name}-%{version}/Printable
-%doc %{_docdir}/%{name}-%{version}/Tricks
-%doc %{_docdir}/%{name}-%{version}/Examples
+%if info=="yes"
+%{_prefix}/info/lilypond.info.gz
+%{_prefix}/info/lilypond-internals.info.gz
+%endif
 
+%{_prefix}/man/man1/abc2ly.1.bz2
+%{_prefix}/man/man1/as2text.1.bz2
+%{_prefix}/man/man1/convert-ly.1.bz2
+%{_prefix}/man/man1/etf2ly.1.bz2
+%{_prefix}/man/man1/lilypond.1.bz2
+%{_prefix}/man/man1/ly2dvi.1.bz2
+%{_prefix}/man/man1/midi2ly.1.bz2
+%{_prefix}/man/man1/lilypond-book.1.bz2
+%{_prefix}/man/man1/musedata2ly.1.bz2
+%{_prefix}/man/man1/mup2ly.1.bz2
+%{_prefix}/man/man1/pmx2ly.1.bz2
+
+%{_prefix}/share/%{name}/%{version}/
+%{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
+%{_prefix}/../etc/profile.d/lilypond.*
+%_bindir/*
+%_menudir/*
+%_miconsdir/*
+%_iconsdir/*
+%_liconsdir/*
+
+%files documentation
+
+%doc web/
+
+%changelog
+* Fri Aug 30 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.6.0-1mdk
+- Adapted from lilypond.redhat.skel and skeleton found in Mandrake's RPM-docs.
+- TODO: info (?) and dependencies.
 
 %changelog
 * Fri Jun 01 2001 Lenny Cartier <lenny@mandrakesoft.com> 1.4.2-1mdk
