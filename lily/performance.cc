@@ -55,7 +55,7 @@ Performance::output (Midi_stream& midi_stream)
 	MIDI players tend to ignore instrument settings on
 	channel 10, the percussion channel by default.
        */
-      if (channel == 10)
+      if (channel == 9)
 	channel++;
       s->output (midi_stream, channel++);
     }
