@@ -20,7 +20,7 @@ LY2DVI = $(script-dir)/ly2dvi.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/
 PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
-PS_TO_PNGS = $(buildscript-dir)/ps-to-pgns.sh
+PS_TO_PNGS = $(buildscript-dir)/ps-to-pngs.sh
 
 else
 
@@ -32,7 +32,7 @@ CONVERT_LY = $(shell $(SHELL) -c 'type -p convert-ly')
 LILYPOND_BOOK = $(shell $(SHELL) -c 'type -p lilypond-book')
 LILYPOND_BOOK_INCLUDES = -I. -I.. -I$(outdir)
 PS_TO_GIFS = $(shell $(SHELL) -c 'type -p ps-to-gifs')
-PS_TO_PNGS = $(shell $(SHELL) -c 'type -p ps-to-pgns')
+PS_TO_PNGS = $(shell $(SHELL) -c 'type -p ps-to-pngs')
 
 endif
 

@@ -23,7 +23,7 @@
 const int MAXLINELEN = 200;
 
 ostream *
-open_file_stream (String filename)
+open_file_stream (String filename, int mode)
 {
   ostream *os;
   if ((filename == "-"))
@@ -34,7 +34,7 @@ open_file_stream (String filename)
       if (!p.dir.empty_b ())
 	if (mkdir (p.dir.ch_C (), 0777) == -1 && errno != EEXIST)
 	  error (_f ("can't create directory: `%s'", p.dir));
-      os = new ofstream (filename.ch_C ());
+      os = new ofstream (filename.ch_C (), mode);
     }
   if (!*os)
     error (_f ("can't open file: `%s'", filename));
@@ -51,6 +51,7 @@ close_file_stream (ostream *os)
       exit_status_global = 1;
     }
   delete os;
+  os = 0;
 }  
 
 Paper_stream::Paper_stream (String filename)

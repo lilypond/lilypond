@@ -56,3 +56,12 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 #
 %: $(outdir)/%.ps
 	@echo Making $@ from $<
+
+#
+# Also clean hand-compiled stuff in cwd
+#
+localclean: local-auto-gen-clean
+
+local-auto-gen-clean:
+	rm -f `grep -l 'Generated automacially by'  *`
+	rm -f *.dvi *.png

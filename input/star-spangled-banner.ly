@@ -122,7 +122,7 @@ text =  \lyrics {
 			\clef treble;
 			\property Staff.automaticMelismata = ##t
 			\context Voice = one \transpose c'' {
-				\voicOne
+				\voiceOne
 				\staffBVoiceB
 				\bar "|.";
 			} 

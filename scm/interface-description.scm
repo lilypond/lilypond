@@ -679,7 +679,8 @@ If you want to space your music wider, use something like:
 position 0."
    '(
     staff-space 
-    line-count 
+    line-count
+    invisible-staff
     )))
 
 (define stem-tremolo-interface

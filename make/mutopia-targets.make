@@ -16,15 +16,6 @@ convert-ly: local-convert-ly
 local-convert-ly:
 	$(PYTHON) $(CONVERT_LY) -e *ly
 
-#
-# Also clean hand-compiled stuff in cwd
-#
-localclean: local-auto-gen-clean
-
-local-auto-gen-clean:
-	rm -f `grep -l 'Generated automacially by'  *`
-	rm -f *.dvi *.png
-
 tar:
 	mkdir -p $(outdir)/$(tarball)
 	cp -p *.ly $(outdir)/$(tarball)
