@@ -97,7 +97,7 @@ Completion_heads_engraver::try_music (Music *m)
     }
   else if  (m->is_mus_type ("busy-playing-event"))
     {
-      return note_reqs_.size ();
+      return note_reqs_.size() && is_first_;
     }
   
   return false;
