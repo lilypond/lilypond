@@ -1,3 +1,34 @@
+1.3.150.jcn3
+============
+
+* ly2dvi: reverted footer change that broke mutopia endfooter.
+
+* Standchen revision (found four new bugs).
+
+* Allow multiple multiply for durations, eg: 'R1 * 3/4 * 10'.
+
+* Bugfix for direct PostScript output.
+
+* Compilation fix.
+
+* Windows: possibly ly2dvi fix, tex install, minor doco fixes, fixed
+some urls.
+
+
+1.3.150.hwn1
+============
+
+* RedHat .spec
+
+* SUSE .spec
+
+* website cleanups.
+
+* don't keep remaking lilypond-internals.texi
+
+* ly2dvi bugfix: use the maximum linewidth specified.
+
+ 
 1.3.149.jcn3
 ============
 
