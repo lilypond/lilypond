@@ -20,16 +20,11 @@
   a like. A "parindent", caching of breakpoints
   
   */
-struct Break_algorithm {
+class Break_algorithm {
+    void generate_spacing_problem(Line_of_cols,Spacing_problem&)const;
+protected:
     PScore &pscore_;
     Real linelength;
-
-    /* *************** */
-
-    Break_algorithm(PScore&);
-
-    /// check if the spacing/breaking problem is well-stated
-    void problem_OK()const;
 
     /// search all pcols which are breakable.
     Line_of_cols find_breaks() const;
@@ -40,16 +35,23 @@ struct Break_algorithm {
     /// does curline fit on the paper?    
     bool feasible(Line_of_cols)const;
     
-    virtual Array<Col_hpositions> solve()=0;
 
     /** generate a solution with no regard to idealspacings or
       constraints.  should always work */
     Col_hpositions stupid_solution(Line_of_cols) const;
+    virtual Array<Col_hpositions> do_solve()const=0;
+public:
+    Break_algorithm(PScore&);
+
+    /// check if the spacing/breaking problem is well-stated
+    void problem_OK()const;
+
+    Array<Col_hpositions> solve()const;
 };
 
 /// wordwrap type algorithm: move to next line if current is optimal.
 struct Word_wrap : Break_algorithm {
-    virtual Array<Col_hpositions> solve();
+    virtual Array<Col_hpositions> do_solve()const;
     Word_wrap(PScore&);
 };
 #endif // BREAK_HH
