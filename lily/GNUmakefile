@@ -6,12 +6,15 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
-MODULE_LIBS=$(depth)/lib $(depth)/flower
+MODULE_LIBS=$(depth)/lib $(depth)/flower 
+MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include 
 
-EXTRA_LIBES=-lguile		#ugh
-BLA_LIBES=-lguile		#ugh
+STEPMAKE_TEMPLATES= c++ executable
 
-STEPMAKE_TEMPLATES= c++ executable 
+MODULE_LIBES=-lguile 
+
+# for the RedHat GUILE 1.3 RPM 
+MODULE_LIBES+= -lreadline -ldl 
 
 include $(depth)/make/stepmake.make 
 
