@@ -26,6 +26,7 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 CFF_FILES = $(OTF_FILES:%.otf=%.cff)
+CFF_PS_FILES = $(OTF_FILES:%.otf=%.cff.ps)
 
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
@@ -60,6 +61,9 @@ foe:
 $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
+$(CFF_PS_FILES): $(CFF_FILES)
+	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose $(abs-srcdir)/ly/generate-embedded-cff
+
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
 	cat $< \
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
@@ -79,7 +83,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES) $(CFF_PS_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -171,6 +175,9 @@ fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.s
 
 $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
+	for i in $(STAFF_SIZES); \
+		do echo "emmentaler$$i emmentaler-$$i <emmentaler$$i.cff.ps" ; done \
+	>> $@
 
 
 local-clean:

@@ -49,33 +49,6 @@
 %%EndResource"
     font-name body)))
 
-(define (ps-embed-cff body font-set-name version)
-  (let* ((binary-data
-	  (string-append
-	   (format "/~a ~s StartData " font-set-name (string-length body))
-	   body)))
-
-    (string-append
-     (format
-      "%%BeginResource: font ~a
-%!PS-Adobe-3.0 Resource-FontSet
-%%DocumentNeededResources: ProcSet (FontSetInit)
-%%Title: (FontSet/~a)
-%%Version: ~s
-%%EndComments
-%%IncludeResource: ProcSet (FontSetInit)
-%%BeginResource: FontSet (~a)
-/FontSetInit /ProcSet findresource begin
-%%BeginData: ~s Binary Bytes
-"
-      font-set-name font-set-name version font-set-name
-      (string-length binary-data))
-     binary-data
-     "\n%%EndData
-%%EndResource
-%%EOF
-%%EndResource
-")))
 
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
@@ -265,7 +238,6 @@
    (setup paper)))
 
 (define-public (output-framework basename book scopes fields)
-;  (display (gc-live-object-stats))
   (let* ((filename (format "~a.ps" basename))
 	 (outputter  (ly:make-paper-outputter filename
 					      (ly:output-backend)))
@@ -399,13 +371,13 @@
 	  )))
 
   (let* ((lines (ly:paper-book-systems book))
-	 (tex-port (open-output-file (format "~a.tex" basename)))
-	 (last-line (car (last-pair lines))))
+	 (tex-system-port (open-output-file (format "~a-systems.tex" basename)))
+g	 (last-line (car (last-pair lines))))
 
     (dump-lines lines 1)
     (for-each (lambda (c)
-		(display (format "\\includegraphics{~a-~a.eps}%\n"
-				 basename (1+ c)) tex-port))
+		(display (format "\\lilypondEpsGraphics{~a-~a.eps}%\n"
+				 basename (1+ c)) tex-system-port))
 	      (iota (length lines))
 	      )))
 

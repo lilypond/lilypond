@@ -312,3 +312,37 @@ possibly turned off."
 	(if (not (null? (cdr name-style)))
 	    name-style
 	    (append name-style '("Regular"))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (ps-embed-cff body font-set-name version)
+  (let* ((binary-data
+	  (string-append
+	   (format "/~a ~s StartData " font-set-name (string-length body))
+	   body))
+
+	 (header
+	  (format
+	   "%%BeginResource: font ~a
+%!PS-Adobe-3.0 Resource-FontSet
+%%DocumentNeededResources: ProcSet (FontSetInit)
+%%Title: (FontSet/~a)
+%%Version: ~s
+%%EndComments
+%%IncludeResource: ProcSet (FontSetInit)
+%%BeginResource: FontSet (~a)
+/FontSetInit /ProcSet findresource begin
+%%BeginData: ~s Binary Bytes
+"
+	   font-set-name font-set-name version font-set-name
+	   (string-length binary-data)))
+	 (footer "\n%%EndData
+%%EndResource
+%%EOF
+%%EndResource"))
+
+    (string-append
+     header
+     binary-data
+     footer)))
