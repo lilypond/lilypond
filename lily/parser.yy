@@ -1207,8 +1207,10 @@ music_property_def:
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| ONCE music_property_def {
+		SCM e = $2->get_mus_property ("element");
+                unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
 		$$ = $2;
-		$$->set_mus_property ("once", SCM_BOOL_T);
+        
 	}
 	;
 

@@ -28,9 +28,9 @@
      (span-type ,string? "What kind of spanner should be created?
 
 TODO: consider making type into symbol") 
-     (absolute-octave integer?
+     (absolute-octave ,integer?
 		      "The absolute octave for a octave check note.")
-     (articulations music-list?
+     (articulations ,music-list?
 		    "Articulation events specifically for this note.")
      (articulation-type ,string? "key for script definitions alist.
 
@@ -76,20 +76,18 @@ For chord inversions, this is negative.")
      (pitch ,ly:pitch? "the pitch of this note")
      (pitch-alist ,list? "list of pitches jointly forming the scale of a key signature")
      (pop-first ,boolean? "Do a revert before we try to do a override on some grob property.")
-     (procedure procedure?
+     (procedure ,procedure?
 		"The function to run with \\applycontext. It must take a single argument, being the context.")
-     (property-operations list?
+     (property-operations ,list?
 			  "Do these operations for instantiating the context.")
      (predicate ,procedure? "the predicate of a \\outputproperty")
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music
 object; determines by what engraver this music expression is
 processed.")
-
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (split-list ,list? "splitting moments for part combiner.")
-
      (start-moment-function ,procedure? "Function to compute the negative length of
 starting grace notes.")
      (string-number ,integer? "The number of the string in a String_number_req")
@@ -100,7 +98,7 @@ starting grace notes.")
      (value ,scheme? "Assignment value for a
 translation property")
      (what ,symbol? "What to change for auto-change. FIXME, naming")
-     (part-combine-status symbol?
+     (part-combine-status ,symbol?
 			  "Change to what kind of state? Options are
 solo1, solo2 and unisono")
 
