@@ -4,14 +4,18 @@
 ; 
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;; graphical lisp element
-(define (add-column p) (display "adding column (in guile): ") (display p) (newline))
+; TODO
+;   - naming
+;   - ready ps code (draw_bracket) vs tex/ps macros/calls (pianobrace),
+;     all preparations from ps,tex to scm
 
 ;;; library funtions
 (define
   (numbers->string l)
   (apply string-append 
   (map (lambda (n) (string-append (number->string n) " ")) l)))
+
+(define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
@@ -29,13 +33,37 @@
 (define 
   (number->dim-tex x)
   (string-append 
-   (number->string x) "pt "))
+   (number->string (chop-decimal x)) "pt "))
 
 (define
   (control->string c)
   (string-append
     (string-append (number->string (car c)) " ")
     (string-append (number->string (cadr c)) " ")))
+
+(define 
+  (embedded-ps-tex s)
+  (string-append "\\embeddedps{" s "}"))
+
+(define 
+  (invoke-char-ps s i)
+  (string-append 
+   "(\\" (inexact->string i 8) ") " s " " ))
+
+(define 
+  (invoke-char-tex s i)
+  (string-append 
+   "\n\\" s "{" (inexact->string i 10) "}" ))
+
+(define 
+  (invoke-dim1-ps s d) 
+  (string-append
+   (number->string d) " " s ))
+
+(define 
+  (invoke-dim1-tex s d)
+  (string-append
+   "\n\\" s "{" (number->dim-tex d) "}"))
 
 (define
   (invoke-output o s)
@@ -54,27 +82,23 @@
 
 (define 
   (beam-tex width slope thick)
-  (string-append 
-    "\\embeddedps{"
-    (beam-ps width slope thick)
-   "}"))
+  (embedded-ps-tex (beam-ps width slope thick)))
 
 (define 
-  (bracket o h) (empty o))
+  (bracket o h)
+  ((invoke-output o "bracket") h))
+
+(define 
+  (bracket-ps h)
+  (invoke-dim1-ps "draw_bracket" h))
+
+(define 
+  (bracket-tex h)
+  (embedded-ps-tex (bracket-ps h)))
 
 (define 
   (char o n) 
-  ((invoke-output o "char") n))
-
-(define 
-  (char-ps n) 
-  (string-append 
-   "(\\" (inexact->string n 8) ") show"))
-
-(define 
-  (char-tex n) 
-  (string-append 
-   "\\char" (inexact->string n 10)))
+  ((invoke-output o "invoke-char") "show" n))
 
 (define 
   (dashed-slur o thick dash l) 
@@ -92,10 +116,11 @@
 
 (define 
   (dashed-slur-tex thick dash l)
-  (string-append 
-    "\\embeddedps{"
-    (dashed-slur-ps thick dash l)
-   "}"))
+  (embedded-ps-tex (dashed-slur-ps thick dash l)))
+
+(define 
+  (doublebar o h)
+  ((invoke-output o "invoke-dim1") "doublebar" h))
 
 (define 
   (empty o) 
@@ -108,6 +133,9 @@
 (define 
   (empty-tex) 
   "%\n\\empty%\n")
+
+(define 
+  (emptybar o h) (empty o))
 
 (define 
   (end-output o) 
@@ -132,7 +160,12 @@
   (experimental-on-tex) "\\turnOnExperimentalFeatures")
 
 (define
-  (finishbar o h) (empty o))
+  (fatdoublebar o h)
+  ((invoke-output o "invoke-dim1") "fatdoublebar" h))
+
+(define
+  (finishbar o h)
+  ((invoke-output o "invoke-dim1") "finishbar" h))
 
 (define
   (font i)
@@ -143,8 +176,8 @@
 
 (define 
   (font-def o i s) 
-  (empty o))
-;  ((invoke-output o "font-def") i s))
+  ((invoke-output o "font-def") i s))
+;  (empty o))
 
 (define 
   (font-def-ps i s)
@@ -225,20 +258,11 @@
 
 (define 
   (maatstreep o h) 
-  ((invoke-output o "maatstreep") h))
+  ((invoke-output o "invoke-dim1") "maatstreep" h))
 
 (define 
-  (maatstreep-ps h)
-  (string-append
-   (number->string h) " maatstreep " ))
-
-(define 
-  (maatstreep-tex h)
-  (string-append
-   "\n\\maatstreep{" (number->dim-tex h) "}"))
-
-(define 
-  (pianobrace o h) (empty o))
+  (pianobrace o i)
+  ((invoke-output o "invoke-char") "pianobrace" i))
 
 (define 
   (placebox o x y b) 
@@ -256,7 +280,12 @@
    (number->dim-tex y) "}{" (number->dim-tex x) "}{" s "}"))
 
 (define
-  (repeatbar o h) (empty o))
+  (repeatbar o h)
+  ((invoke-output o "invoke-dim1") "repeatbar" h))
+
+(define
+  (repeatbarstartrepeat o h)
+  ((invoke-output o "invoke-dim1") "repeatbarstartrepeat" h))
 
 (define 
   (rulesym o x y) 
@@ -302,8 +331,16 @@
   ((invoke-output o "text") "Large" s))
 
 (define 
+  (setnumber o s) 
+  ((invoke-output o "text") "number" s))
+
+(define 
   (settext o s) 
   ((invoke-output o "text") "text" s))
+
+(define 
+  (settypewriter o s) 
+  ((invoke-output o "text") "typewriter" s))
 
 (define 
   (slur o l) 
@@ -317,10 +354,7 @@
 
 (define 
   (slur-tex l)
-  (string-append 
-   "\\embeddedps{"
-   (slur-ps l)
-   "}"))
+  (embedded-ps-tex (slur-ps l)))
 
 (define 
   (stem o kern width height depth) 
@@ -356,7 +390,8 @@
    "\\hbox{%\n"))
 
 (define
-  (startrepeat o h) (empty o))
+  (startrepeat o h)
+  ((invoke-output o "invoke-dim1") "startrepeat" h))
 
 (define 
   (stop-line o) 
@@ -371,7 +406,8 @@
   "}\\interscoreline")
 
 (define
-  (stoprepeat o h) (empty o))
+  (stoprepeat o h)
+  ((invoke-output o "invoke-dim1") "stoprepeat" h))
 
 (define
   (text-ps f s)

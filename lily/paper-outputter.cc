@@ -132,13 +132,7 @@ void
 Paper_outputter::output_scheme (SCM scm)
 {
   String o = String ("\'") + output_global_ch;
-#ifndef NPRINT
-  if (check_debug && !monitor->silent_b ("Guile"))
-    {
-      gh_display (scm); gh_newline ();
-    }
-#endif
-  // urg; temporary hack to debug scheme error #unknown
+
   if (String (output_global_ch) == "scm")
     {
       static SCM port = 0;
@@ -153,31 +147,23 @@ Paper_outputter::output_scheme (SCM scm)
 	  port = scm_standard_stream_to_port (file, "a", "");
 	  scm_display (gh_str02scm ("(load 'lily.scm)\n"), port);
 	}
-#if 0
-      *outstream_l_ << "(display ((eval ";
-      scm_write (scm, port);
-      *outstream_l_ << ") 'tex))\n";
-#else
+
       scm_display (gh_str02scm ("(display ((eval "), port);
       scm_write (scm, port);
       scm_display (gh_str02scm (") 'tex))\n"), port);
       scm_newline (port);
       scm_fflush (port);
-#endif
+
       return;
     }
-  SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));
-  char* c = gh_scm2newstr (str_scm, NULL);
-#ifndef NPRINT
-  if (check_debug && !monitor->silent_b ("Guile"))
+  else
     {
-      gh_display (str_scm); gh_newline ();
+      SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));
+      char* c = gh_scm2newstr (str_scm, NULL);
+      *outstream_l_ << c;
+      free (c);
     }
-#endif
-  *outstream_l_ << c;
-  free (c);
 }
-
 void
 Paper_outputter::output_string (String str)
 {
@@ -214,8 +200,8 @@ void
 Paper_outputter::start_line ()
 {
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("start-line"), SCM_EOL)));
+    gh_append2 (ly_lambda_o (),
+		gh_list (ly_func_o ("start-line"), SCM_UNDEFINED));;
 
   output_scheme (scm);
 }

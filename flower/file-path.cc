@@ -113,3 +113,16 @@ File_path::add (String s)
 {
    push (s); 
 }
+
+String
+File_path::str () const
+{
+  String s;
+  for (int i=0; i< size (); i++)
+    {
+      s = s + elem (i);
+      if (i < size () -1 )
+	s += ":";
+    }
+  return s;
+}

@@ -17,7 +17,7 @@
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
-  Clef_item *clef_p_;
+  Link_array<Clef_item> clef_p_arr_;
   Clef_change_req * clef_req_l_;
   void create_clef();
   void read_req (Clef_change_req*);
