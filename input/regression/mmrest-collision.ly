@@ -1,6 +1,6 @@
 \version "1.7.18"
-% candidate for regression.  -gp
-\header { texidoc = "" }
+\header { texidoc = "Tests a collision between multimeasure rests in
+different voices. " }
 \score {
   \context Staff \notes <
     \context Voice=i {
