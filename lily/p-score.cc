@@ -3,16 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "main.hh"
-#include "super-elem.hh"
+#include "super-element.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "spanner.hh"
 #include "paper-def.hh"
-#include "scoreline.hh"
+#include "line-of-score.hh"
 #include "pcursor.hh"
 #include "plist.hh"
 #include "p-col.hh"
@@ -22,8 +22,10 @@
 #include "header.hh"
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
-#include "outputter.hh"
+#include "tex-outputter.hh"
 #include "file-results.hh"
+#include "misc.hh"
+
 // sucking Cygnus egcs - w32
 #include "list.tcc"
 #include "cursor.tcc"
@@ -38,12 +40,12 @@ Paper_score::Paper_score ()
 Paper_score::~Paper_score ()
 {
   super_elem_l_->unlink_all ();
-  for (PCursor<Score_elem*> i(elem_p_list_.top()); i.ok(); i++)
+  for (PCursor<Score_element*> i(elem_p_list_.top()); i.ok(); i++)
     assert(!i->linked_b());
 }
 
 void
-Paper_score::typeset_element (Score_elem * elem_p)
+Paper_score::typeset_element (Score_element * elem_p)
 {
   elem_p_list_.bottom ().add (elem_p);
   elem_p->pscore_l_ = this;
@@ -117,31 +119,41 @@ Paper_score::find_col (Paper_column const *c) const
 
 
 void
-Paper_score::set_breaking (Array<Col_hpositions> const &breaking)
+Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
 {
   super_elem_l_->line_of_score_l_->set_breaking (breaking);
   super_elem_l_->break_processing ();
 
-
   for (iter (span_p_list_.top (),i); i.ok  ();)
     {
       Spanner *span_p = i.remove_p ();
-      if (span_p->broken_b ())
+      if (span_p->broken_b ()
+	  || !((Score_element*)span_p)->line_l ())
 	{
 	  span_p->unlink ();
+#if 0
+	  int sz = span_p->class_size();
+	  set_frobnify (span_p,sz);
+#endif
 	  delete span_p;
-	}else
-	  {
-	    typeset_broken_spanner (span_p);
-	  }
+	}
+      else 
+	{
+	  typeset_broken_spanner (span_p);
+	}
     }
   for (iter (elem_p_list_.top (),i); i.ok  () ;)
     {
-      Item *i_l =i->item ();
+      Item *i_l =i->access_Item ();
       if (i_l && !i_l->line_l ())
 	{
 	  i_l->unlink ();
-	  delete i.remove_p ();
+	  Score_element * item_p= i.remove_p ();
+#if 0
+	  int sz = item_p->class_size ();
+	  set_frobnify (item_p, sz);
+#endif
+	  delete item_p;
 	}
       else
 	i++;
@@ -152,7 +164,7 @@ void
 Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm_p=0;
-  Array<Col_hpositions> sol;
+  Array<Column_x_positions> sol;
   bool try_wrap = ! paper_l_->get_var ("castingalgorithm");
 
   if (!try_wrap)
@@ -163,7 +175,7 @@ Paper_score::calc_breaking ()
       delete algorithm_p;
       if (! sol.size ())
 	{
-	  warning (_("Can not solve this casting problem exactly; revert to Word_wrap"));
+	  warning (_ ("Can't solve this casting problem exactly; revert to Word_wrap"));
 	  try_wrap = true;
 	}
     }
@@ -182,14 +194,15 @@ Paper_score::process ()
 {
   clean_cols ();
   print ();
-  *mlog << _("Preprocessing elements... ") <<flush;
+  *mlog << _ ("Preprocessing elements...") << " " << flush;
   super_elem_l_->breakable_col_processing ();
   super_elem_l_->pre_processing ();
   
-  *mlog << _("\nCalculating column positions ... ") <<flush;
+  *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
   super_elem_l_->space_processing ();
   calc_breaking ();
-  *mlog << _("\nPostprocessing elements...") << endl;
+  print ();
+  *mlog << _ ("Postprocessing elements...") << " " << endl;
   super_elem_l_->post_processing ();
   tex_output ();
 }
@@ -206,22 +219,31 @@ Paper_score::tex_output ()
       int def = paper_l_->get_next_default_count ();
       if (def)
 	{
-	  base_outname += "-" + String(def);
+	  base_outname += "-" + to_str (def);
 	}
     }
 
-  String outname = base_outname + ".tex";
+  String outname = base_outname;
+  if (outname != "-")
+     outname += ".tex";
   target_str_global_array.push (outname);
 
-  
-  *mlog << _("TeX output to ") <<  outname << " ...\n";
+  *mlog << _f ("TeX output to %s...", 
+    outname == "-" ? String ("<stdout>") : outname ) << endl;
 
   Tex_stream tex_out (outname);
   Tex_outputter interfees (&tex_out);
 
   outputter_l_ = &interfees;
 
-  tex_out << _("% outputting Score, defined at: ") << origin_str_ << "\n";
+  if (header_global_p)
+    {
+      tex_out << header_global_p->TeX_string ();
+    }
+    
+  
+  tex_out << _ ("% outputting Score, defined at: ") << origin_str_ << '\n';
+
   if (header_l_)
     {
       tex_out << header_l_->TeX_string();
@@ -231,6 +253,7 @@ Paper_score::tex_output ()
 
   if (experimental_features_global_b)
     tex_out << "\\turnOnExperimentalFeatures%\n";
+
   tex_out << "\\turnOnPostScript%\n";
   super_elem_l_->output_all ();
   tex_out << "\n\\EndLilyPondOutput";
@@ -239,7 +262,7 @@ Paper_score::tex_output ()
 
 /** Get all breakable columns between l and r, (not counting l and r).  */
 Link_array<Paper_column>
-Paper_score::breakable_col_range (Paper_column*l,Paper_column*r) const
+Paper_score::breakable_col_range (Paper_column*l, Paper_column*r) const
 {
   Link_array<Paper_column> ret;
 
@@ -258,6 +281,8 @@ Paper_score::breakable_col_range (Paper_column*l,Paper_column*r) const
 
   return ret;
 }
+
+
 Link_array<Paper_column>
 Paper_score::col_range (Paper_column*l, Paper_column*r) const
 {
@@ -284,10 +309,10 @@ Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
   Item const*r=r_item_l;
 
   while (! l->is_type_b(Paper_column::static_name ()))
-    l = l->axis_group_l_a_[X_AXIS]->item ();
+    l = l->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
 
   while (! r->is_type_b(Paper_column::static_name ()))
-    r = r->axis_group_l_a_[X_AXIS]->item ();
+    r = r->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
 
   PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());
   PCursor<Paper_column*> stop (r ? find_col ((Paper_column*)r) : col_p_list_.bottom ());

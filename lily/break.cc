@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "score-column.hh"
@@ -11,7 +11,7 @@
 #include "paper-def.hh"
 #include "spring-spacer.hh"
 #include "debug.hh"
-#include "scoreline.hh"
+#include "line-of-score.hh"
 #include "p-score.hh"
 #include "p-col.hh"
 #include "cpu-timer.hh"
@@ -20,11 +20,14 @@
 String
 Col_stats::str () const
 {
-  String s (count_i_);
-  s += _ (" lines");
-  if  (count_i_)
-    s += String (Real (cols_i_)/count_i_, _(", (with an average of %.1f columns)"));
-
+  String s;
+  if (!count_i_)
+    s = _ ("0 lines");
+  else if (count_i_ == 1)
+    s = _f ("1 line (of %.0f columns)", (Real)cols_i_/count_i_);
+  else
+    s = _f ("%d lines (with an average of %.1f columns)", 
+      count_i_, (Real)cols_i_/count_i_);
   return s;
 }
 
@@ -103,7 +106,7 @@ Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) 
   Spring_spacer * sp= (Spring_spacer*) (*get_line_spacer) (); // ugh
 
   sp->paper_l_ = pscore_l_->paper_l_;
-  sp->add_column (curline[0], true, line.min ());
+  sp->add_column (curline[0], true, line[LEFT]);
   for (int i=1; i< curline.size ()-1; i++)
     sp->add_column (curline[i]);
 
@@ -153,7 +156,7 @@ void
 Break_algorithm::problem_OK () const
 {
   if (!pscore_l_->col_p_list_.size ())
-    error (_("Score does not have any columns"));
+    error (_("score does not have any columns"));
   OK ();
 }
 
@@ -169,18 +172,18 @@ Break_algorithm::OK () const
 #endif
 }
 
-Array<Col_hpositions>
+Array<Column_x_positions>
 Break_algorithm::solve () const
 {
   Cpu_timer timer;
 
-  Array<Col_hpositions> h= do_solve ();
+  Array<Column_x_positions> h= do_solve ();
 
   if (approx_stats_.count_i_)
-    *mlog << _ ("\n(Approximated: ") << approx_stats_.str () << ")\n";
+    *mlog << '\n' << _f ("approximated: %s", approx_stats_.str ()) << endl;
   if (exact_stats_.count_i_)
-    *mlog << _ ("(Calculated exactly: ") << exact_stats_.str () << ")\n";
-  *mlog << _ ("Time: ") << String (timer.read (), "%.2f") << _ (" seconds\n");
+    *mlog << _f ("calculated exactly: %s", exact_stats_.str ()) << endl;
+  *mlog << _f ("time: %.2f seconds",  timer.read ()) << endl;
 
   return h;
 }
