@@ -6,6 +6,7 @@
 %
 \def\thetitle{}
 \def\thesubtitle{}
+\def\thesubsubtitle{}
 \def\thecomposer{}
 \def\thearranger{}
 \def\theinstrument{}
@@ -20,6 +21,7 @@
 % duh.  LaTeX has a \title too.
 \renewcommand*{\title}[1]{\def\thetitle{#1}}
 \newcommand*{\subtitle}[1]{\def\thesubtitle{#1}}
+\newcommand*{\subsubtitle}[1]{\def\thesubsubtitle{#1}}
 \newcommand*{\composer}[1]{\def\thecomposer{#1}}
 \newcommand*{\arranger}[1]{\def\thearranger{#1}}
 \newcommand*{\instrument}[1]{\def\theinstrument{#1}}
@@ -30,6 +32,7 @@
 %
 \newcommand*{\lilypondtitle}[1]{\def\thetitle{#1}}
 \newcommand*{\lilypondsubtitle}[1]{\def\thesubtitle{#1}}
+\newcommand*{\lilypondsubsubtitle}[1]{\def\thesubsubtitle{#1}}
 \newcommand*{\lilypondfooter}[1]{\def\thefooter{#1}}
 \newcommand*{\lilypondhead}[1]{\def\theheader{#1}}
 \newcommand*{\lilypondcomposer}[1]{\def\thecomposer{#1}}
@@ -49,6 +52,7 @@
         \bfseries
         \ifx\lilypondnull\thetitle\else{\huge\thetitle}\\ \fi
         \ifx\lilypondnull\thesubtitle\else{\Large\thesubtitle}\\ \fi
+        \ifx\lilypondnull\thesubsubtitle\else{\large\thesubsubtitle}\\ \fi
   \end{center}
   \bigskip
   % urg
