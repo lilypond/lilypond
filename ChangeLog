@@ -1,5 +1,10 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/auto-beam-engraver.cc (process_music): end/junk beam if
+	special (repeat) bar comes along.
+
+	* input/regression/auto-beam-bar.ly: update.
+
 	* scripts/lilypond-book.py (output_dict): remove support for the
 	EPS option.
 

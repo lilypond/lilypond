@@ -31,6 +31,7 @@ class Auto_beam_engraver : public Engraver
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
+  virtual void process_music ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -73,6 +74,15 @@ private:
   Beaming_info_list*finished_grouping_;
 };
 
+void
+Auto_beam_engraver::process_music ()
+{
+  if (gh_string_p (get_property ("whichBar")))
+    {
+      consider_end (shortest_mom_);
+      junk_beam ();
+    }
+}
 
 
 Auto_beam_engraver::Auto_beam_engraver ()
@@ -256,9 +266,13 @@ Auto_beam_engraver::create_beam ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  assert (!stems_);
+  if (stems_ || grouping_ )
+    {
+      programming_error ("already have autobeam");
+      return; 
+    }
+  
   stems_ = new Link_array<Item>;
-  assert (!grouping_);
   grouping_ = new Beaming_info_list;
   beam_settings_ = get_property ("Beam");
   
@@ -271,7 +285,8 @@ Auto_beam_engraver::begin_beam ()
 void
 Auto_beam_engraver::junk_beam () 
 {
-  assert (stems_);
+  if (!stems_)
+    return ;
   
   delete stems_;
   stems_ = 0;
