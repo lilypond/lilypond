@@ -22,7 +22,6 @@ class Event : public Music
 public:
   Event (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
-  virtual void compress (Moment);
   DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
   virtual Pitch to_relative_octave (Pitch);
 };
