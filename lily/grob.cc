@@ -69,10 +69,10 @@ Grob::Grob (SCM basicprops,
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
 
       /* Switch off interface checks for the moment.  */
-      bool itc = internal_type_checking_global_b;
-      internal_type_checking_global_b = false;
+      bool itc = do_internal_type_checking_global;
+      do_internal_type_checking_global = false;
       internal_set_property (ly_symbol2scm ("interfaces"), scm_cdr (ifs));
-      internal_type_checking_global_b = itc;
+      do_internal_type_checking_global = itc;
     }
 
   /* TODO:

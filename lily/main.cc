@@ -41,22 +41,23 @@ Array<String> dump_header_fieldnames_global;
 String init_name_global;
 
 /* Do not calculate and write layout output? */
-bool no_layout_global_b = false;
+bool skip_layout_global = false;
 
 /* Selected output format.
    One of tex, ps, scm, as.
 */
 String output_backend_global = "ps";
 String output_format_global = "pdf";
+bool is_pango_format_global;
 
 /* Current output name. */
 String output_name_global;
 
 /* Run in safe mode? */
-bool safe_global_b = false;
+bool be_safe_global = false;
 
 /* Verbose progress indication? */
-bool verbose_global_b = false;
+bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init
    This is where -e arguments are appended to.
@@ -263,7 +264,7 @@ main_with_guile (void *, int, char **)
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     dir_info (stderr);
 
   ly_c_init_guile ();
@@ -377,6 +378,8 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'b':
 	  output_backend_global = option_parser->optional_argument_str0_;
+	  is_pango_format_global = (output_backend_global != "tex"
+				    &&output_backend_global != "texstr");
 	  break;
 
 	case 'f':
@@ -397,13 +400,13 @@ parse_argv (int argc, char **argv)
 	  help_b = true;
 	  break;
 	case 'V':
-	  verbose_global_b = true;
+	  be_verbose_global = true;
 	  break;
 	case 's':
-	  safe_global_b = true;
+	  be_safe_global = true;
 	  break;
 	case 'm':
-	  no_layout_global_b = true;
+	  skip_layout_global = true;
 	  break;
 	case 'p':
 	  make_preview = true;
@@ -420,7 +423,7 @@ parse_argv (int argc, char **argv)
     {
       identify (stdout);
       usage ();
-      if (verbose_global_b)
+      if (be_verbose_global)
 	dir_info (stdout);
       exit (0);
     }

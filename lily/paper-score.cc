@@ -62,7 +62,7 @@ Paper_score::calc_breaking ()
 SCM
 Paper_score::process (String)
 {
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (_f ("Element count %d (spanners %d) ",
 			     system_->element_count (),
 			     system_->spanner_count ()));

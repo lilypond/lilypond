@@ -47,7 +47,7 @@ bool lily_1_8_compatibility_used = false;
 /*
   crash if internally the wrong type is used for a grob property.
  */
-bool internal_type_checking_global_b;
+bool do_internal_type_checking_global;
 
 
 /*
@@ -118,7 +118,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   else if (var == ly_symbol2scm ("parse-protect" ))
     parse_protect_global = to_boolean (val);
   else if (var == ly_symbol2scm ("internal-type-checking"))
-    internal_type_checking_global_b = to_boolean (val);
+    do_internal_type_checking_global = to_boolean (val);
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = true;
@@ -156,13 +156,13 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
   SCM o = SCM_UNSPECIFIED;
   
   if (var == ly_symbol2scm ("safe")) // heavily used; put in front. 
-    o = ly_bool2scm (safe_global_b);
+    o = ly_bool2scm (be_safe_global);
   else  if (var == ly_symbol2scm ("old-relative-used"))
     o = ly_bool2scm (lily_1_8_compatibility_used);
   else if (var == ly_symbol2scm ("old-relative"))
     o = ly_bool2scm (lily_1_8_relative);
   else if (var == ly_symbol2scm ("verbose"))
-    o = ly_bool2scm (verbose_global_b);
+    o = ly_bool2scm (be_verbose_global);
   else if ( var == ly_symbol2scm ("resolution"))
     o = scm_from_int (preview_resolution_global);
   else

@@ -530,7 +530,7 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		$$ = ly_make_anonymous_module (safe_global_b);
+		$$ = ly_make_anonymous_module (be_safe_global);
 		THIS->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
@@ -2716,15 +2716,15 @@ property_op_to_music (SCM op)
 
 	if (grob_sym != SCM_UNDEFINED)
 		{
-		bool itc = internal_type_checking_global_b;
+		bool itc = do_internal_type_checking_global;
 		/* UGH.
 		*/
 		bool autobeam = ly_c_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
 		if (autobeam)
-			internal_type_checking_global_b = false;
+			do_internal_type_checking_global = false;
 		m->set_property ("grob-property", grob_sym);
 		if (autobeam)
-			internal_type_checking_global_b = itc;
+			do_internal_type_checking_global = itc;
 		}
 
 	if (tag == ly_symbol2scm ("poppush"))

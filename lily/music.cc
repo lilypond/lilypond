@@ -214,7 +214,7 @@ Music::internal_get_property (SCM sym) const
 void
 Music::internal_set_property (SCM s, SCM v)
 {
-  if (internal_type_checking_global_b)
+  if (do_internal_type_checking_global)
     if (!type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
       abort ();
 

@@ -24,7 +24,7 @@
 /*
   junkme?
  */
-bool store_locations_global_b;
+bool store_locations_global;
 
 /* Do not append `!' suffix, since 1st argument is not modified. */
 LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
@@ -42,7 +42,7 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
 
   scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"),
 		     val);
-  store_locations_global_b = ly_c_procedure_p (val);
+  store_locations_global = ly_c_procedure_p (val);
   return SCM_UNSPECIFIED;
 }
 

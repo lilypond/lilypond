@@ -382,7 +382,7 @@ Spacing_spanner::set_springs (SCM smob)
   else
     {
       global_shortest = find_shortest (me, all);
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication (_f ("Global shortest duration is %s", global_shortest.to_string ()) + "\n");
     }
   prune_loose_columns (me, &all, global_shortest);

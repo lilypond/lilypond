@@ -96,7 +96,7 @@ gulp_file_to_string (String fn, bool must_exist)
       return s;
     }
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("[" + s);
 
   int n;
@@ -104,7 +104,7 @@ gulp_file_to_string (String fn, bool must_exist)
   String result ((Byte*) str, n);
   delete[] str;
   
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("]");
 
   return result;
@@ -191,7 +191,7 @@ ly_init_ly_module (void *)
   for (int i = scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("\n");
   
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
@@ -481,7 +481,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 		 + "  " + _ ("Perhaps you made a typing error?"));
 
 	/* Be strict when being anal :) */
-	if (internal_type_checking_global_b)
+	if (do_internal_type_checking_global)
 	  abort ();
 	
 	warning (_ ("Doing assignment anyway."));

@@ -71,7 +71,7 @@ Grob::internal_set_property (SCM s, SCM v)
   if (!is_live ())
     return;
 
-  if (internal_type_checking_global_b)
+  if (do_internal_type_checking_global)
     {
       if (!type_check_assignment (s, v, ly_symbol2scm ("backend-type?")))
 	abort ();
@@ -91,7 +91,7 @@ Grob::internal_get_property (SCM sym) const
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
   
-  if (internal_type_checking_global_b && scm_is_pair (s))
+  if (do_internal_type_checking_global && scm_is_pair (s))
     {
       if (!type_check_assignment (sym, scm_cdr (s),
 				  ly_symbol2scm ("backend-type?")))

@@ -14,6 +14,7 @@
 #include "font-interface.hh"
 #include "warn.hh"
 #include "pango-font.hh"
+#include "main.hh"
 
 
 bool
@@ -117,7 +118,8 @@ select_encoded_font (Output_def *layout, SCM chain)
   else
     name = scm_cdr (name);
 
-  if (scm_is_string (name))
+  if (scm_is_string (name)
+      && is_pango_format_global)
     {
       SCM mag = ly_chain_assoc (ly_symbol2scm ("font-magnification"), chain);
       Real rmag = (scm_is_pair (mag)
