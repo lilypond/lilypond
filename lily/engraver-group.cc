@@ -174,6 +174,8 @@ void
 Engraver_group_engraver::do_print()const
 {
 #ifndef NPRINT
+    if ( !check_debug)
+	return ;
     mtor << "ID: " << id_str_ << "\n";
     for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
 	i->print();

@@ -167,6 +167,8 @@ void
 Performer_group_performer::do_print()const
 {
 #ifndef NPRINT
+    if ( !check_debug)
+	return ;
     for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
 	i->print();
 #endif
