@@ -1,6 +1,6 @@
 % test staff margin with partial measure.
 
-\version "1.3.42";
+\version "1.3.59";
 
 \score {
 \notes { \property Staff.instrument = "foo" \partial 4; c4 c1 }

@@ -1,8 +1,8 @@
-\version "1.3.42";
+\version "1.3.59";
 
 \score {
   \notes \relative c' {
-    \key es; \time 3/4;
+    \key es \major; \time 3/4;
     < \context Voice = two { \stemdown es4 bes es }
       \context Voice = one { \stemup g4 as g }
     > |

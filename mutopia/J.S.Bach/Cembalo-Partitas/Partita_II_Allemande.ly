@@ -4,12 +4,12 @@
 	piece = "Allemande";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 global = \notes{
 	\time 4/4;
 	\partial 8*3;
-	\key es;
+	\key es \major;
 	\skip 1*15;
 	\skip 4*3;
 	\skip 16*4;

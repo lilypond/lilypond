@@ -25,17 +25,7 @@ center=0
 
 break =  \penalty  -1000000; 
 nobreak =  \penalty 1000000; 
-
-major = 0
-minor = 3
-
-ionian = 0
-locrian = 1
-aeolian = 3
-mixolydian = 5
-lydian = 7
-phrygian = 8
-dorian = 10
+\include "scales.ly"
 
 melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f

@@ -98,25 +98,50 @@ Tempo_req::do_equal_b (Request const *r) const
   return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
 }
 
+
+
+
+bool
+Key_change_req::do_equal_b (Request const * req) const
+{
+  Key_change_req const * k = dynamic_cast<Key_change_req const*> (req);
+  return k && scm_equal_p (pitch_alist_, k->pitch_alist_);
+}
+
+
+
 void
-Key_change_req::do_print () const
+Key_change_req::transpose (Musical_pitch p)
 {
-}
+  SCM newlist = SCM_EOL;
+  for (SCM s = pitch_alist_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM k = gh_caar (s);
 
-Key_change_req::Key_change_req ()
-{
-  key_ = 0;
-}
+      if (gh_pair_p (k))
+	{
+	  Musical_pitch orig (gh_list (gh_car (k), gh_cdr (k), gh_cdr (s), SCM_UNDEFINED));
 
-Key_change_req::Key_change_req (Key_change_req const&s)
-  : Request (s)
-{
-  key_ = s.key_ ?  new Newkey_def (*s.key_) : 0;
-}
+	  orig.transpose (p);
 
-Key_change_req::~Key_change_req ()
-{
-  delete key_;
+	  SCM key = gh_cons (gh_int2scm (orig.octave_i_),
+			     gh_int2scm (orig.notename_i_));
+
+	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.accidental_i_)),
+			     newlist);
+	}
+      else if (gh_number_p (k))
+	{
+	  Musical_pitch orig (gh_list (gh_int2scm (0), k, gh_cdar (s), SCM_UNDEFINED));
+	  orig.transpose (p);
+
+	  SCM key =gh_int2scm (orig.notename_i_);
+	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.accidental_i_)),
+			     newlist);
+	}
+    }
+
+  pitch_alist_ = newlist;
 }
 
 Break_req::Break_req ()
@@ -131,10 +156,3 @@ Mark_req::do_equal_b (Request const * r) const
   Mark_req const * other = dynamic_cast<Mark_req const*> (r);
   return other && scm_equal_p (other->mark_label_,  mark_label_);
 }
-
-void
-Key_change_req::transpose (Musical_pitch p)
-{
-  key_->transpose (p);
-}
-

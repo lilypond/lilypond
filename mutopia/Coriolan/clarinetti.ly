@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "clarinetto-1.ly"
 \include "clarinetto-2.ly"
@@ -24,7 +24,7 @@ $clarinetti_staff = \context Staff = clarinetti <
 	%\notes \context Voice=clarinetti < 
 	\notes \context Staff=clarinetti < 
 		\time 4/4;
-		\key f;
+		\key f \major;
 		\skip 1*341; \bar "|.";
 		\context VoiceOne=clarinettoi
 			\$clarinetto1

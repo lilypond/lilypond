@@ -144,7 +144,7 @@ the duration of the long a. is proportionate to that of the main note.
 %\property Voice.textEmptyDimension = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
-\key d;
+\key d \major;
 \time 4/4;
 <d4_"notation" a fis> r 
 { \property Grace.stemStyle = ""
@@ -165,7 +165,7 @@ An appoggiatura may have more notes preceding the main note.
 \emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' {
-  \key as;
+  \key as \major;
   \time 2/4;
   \grace { bes16 } as8_"notation" as16 bes as8 g |
   \grace { [as16 ( bes] } < ) c4 as > 
@@ -296,7 +296,7 @@ start of the music.
 @
 
 @mudela[13pt,eps]
-\key g;
+\key g \major;
 \time 4/4;
 \notes\relative c'' { g4 c b a | g1 \bar "||";}
 \time 3/8;
@@ -512,7 +512,7 @@ Melody moving in the narrow steps of the scale;
 @
 
 @mudela[13pt,eps] 
-\key g; \time 4/4;
+\key g \major; \time 4/4;
 \notes\relative c'' { g4 g g a | b2 a | g4 b a a | g1 \bar "||"; }
 @end mudela
 
@@ -546,7 +546,7 @@ composition methods.
 \property Score.timeSignatureStyle = "C2/2"
 \context GrandStaff <
   \notes\relative c' { 
-    \key bes;
+    \key bes \major;
     \time 4/4;
     \clef treble; 
     < \context Voice = rha {
@@ -563,7 +563,7 @@ composition methods.
   }
   \notes\relative c' {
     \clef bass; 
-    \key bes;
+    \key bes \major;
     < \context Voice = lha {
         \stemup
         r8 d es g, fis4 g | r8 a16 bes c8 bes16 a bes4 g |
@@ -601,7 +601,7 @@ abbreviation "cresc.".
 @
 
 @mudela[13pt,eps] 
-\key g; \time 4/4;
+\key g \major; \time 4/4;
 \notes\relative c'' { g4 \< a b c | \! d1 \bar "|."; }
 @end mudela
 
@@ -633,7 +633,7 @@ frequently near the beginning marked by a sign:
 
 @mudela[13pt,eps] 
 \property Voice.textStyle = "large"
-\key g; \time 4/4;
+\key g \major; \time 4/4;
 \notes\relative c'' { d1 | g,4^\segno  a b c | b a g2_"d.s." \bar "|."; }
 @end mudela
 
@@ -647,7 +647,7 @@ or the abbreviation "decresc.".
 @
 
 @mudela[13pt,eps] 
-\key g; \time 4/4;
+\key g \major; \time 4/4;
 \notes\relative c'' { d4 \> c b a | \! g1 \bar "|."; }
 @end mudela
 
@@ -860,7 +860,7 @@ scale. Opposite of @ar{}@strong{conjunct movement}.
 @
 
 @mudela[13pt,eps]
-\key a;
+\key a \major;
 \time 4/4;
 \notes\relative c' { 
   \partial 8; e8 | a4. gis8 b a e cis |
@@ -1582,14 +1582,14 @@ one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8) or
 @mudela[13pt,eps]
 \notes\relative c'' { 
   \time 3/4;
-  \key f;
+  \key f \major;
   c es d | c bes8 a bes4 | c es d | c2 \bar "||";}
 @end mudela
 
 @mudela[13pt,eps]
 \notes\relative c' { 
   \time 6/8;
-  \key f;
+  \key f \major;
   f8 f f f a16 g a f | 
   c'8 c c c e16 d e c \bar "||";}
 @end mudela
@@ -1597,7 +1597,7 @@ one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8) or
 @mudela[13pt,eps]
 \notes\relative c'' { 
   \time 5/4;
-  \key g;
+  \key g \major;
   d4 b8 g b d d c a4 | 
   g8 g16 g g8 g16 g g8 fis16 g a8 fis16 e d4 \bar "||";}
 @end mudela
@@ -1686,7 +1686,7 @@ subject.
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   \time 4/4;
-  \key g; 
+  \key g \major; 
   \partial 8; g16_"------" fis |
   g8 d16_"------" c d8 g16 fis g8 b,16 a b8 g'16 fis |
   g8 g,16 a b8 cis d16 s 
@@ -2012,10 +2012,10 @@ the same @w{@ar{}@strong{signature}}.
 \property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
 \notes\relative c' { 
-  \key es;
+  \key es \major;
   es1_"e flat major" f g as bes c d es 
   \bar "||"; s16 
-  \key es;
+  \key es \major;
   c,1_"c minor" d es f g a! b! c \bar "||";
 }
 @end mudela
@@ -2027,7 +2027,7 @@ gen@-ta@-gel@-se, S: repris, N: .
 @
 
 @mudela[13pt,eps]
-\key g;
+\key g \major;
 \time 4/4;
 \notes\relative c'' { 
   \repeat volta 2 {g4 g d' d | e e d2 | c4 c b b | a a g2 }
@@ -2239,7 +2239,7 @@ notehead.
 @
 
 @mudela[13pt,eps]
-\key d;
+\key d \major;
 \time 4/4;
 \notes\relative c'' { 
   \partial 8; a8 | 
@@ -2430,7 +2430,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
 \context GrandStaff <
   \notes\relative c'' { 
     \time 4/4;
-    \key es;
+    \key es \major;
     \clef treble; 
     < \context Voice = rha { 
         \stemup
@@ -2446,7 +2446,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
   \addlyrics
     \notes\relative c' { 
     \clef bass;
-    \key es;
+    \key es \major;
     es8 c () c bes () bes as () as g16 f | es4 
   }
   \context Lyrics \lyrics { 
@@ -2503,10 +2503,10 @@ Shifting a melody up or down in pitch, while keeping the same relative pitches.
 \context Staff {
   \time 3/4;
   \notes\relative c'' {
-    \key g;
+    \key g \major;
     d4 g,8 a b c | d4 g, g | e' c8 d e fis | g4 g, g \bar "|."; }
   \transpose bes\relative c'' {
-    \key g;
+    \key g \major;
     d4 g,8 a b c | d4 g, g | e' c8 d e fis | g4 g, g \bar "|."; }
 }
 @end mudela
@@ -2599,7 +2599,7 @@ line. @w{@ar{}@strong{measure}} @w{@ar{}@strong{meter}}
 @
 
 @mudela[13pt,eps]
-\key f;
+\key f \major;
 \time 4/4;
 \notes\relative c' { 
   \partial 4; f4 | bes4. a8 bes4 c | 

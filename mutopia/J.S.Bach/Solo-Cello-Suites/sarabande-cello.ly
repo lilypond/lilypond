@@ -1,13 +1,13 @@
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "sarabande-urtext.ly";
 
 sarabande_cello_global = \notes{
 	\time 3/4;
-	\key f;
+	\key f \major;
 	\clef bass;
 	\repeat "volta" 2 {
 		s2.*12

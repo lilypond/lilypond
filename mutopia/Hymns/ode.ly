@@ -7,7 +7,7 @@
   metre = "8 7 8 7 D";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 |
@@ -41,7 +41,7 @@ bass= \notes \relative c' {
 global=\notes{
 	\time 4/4;
 	\property Staff.timeSignatureStyle="C"
-	\key g;
+	\key g \major;
 	\skip 1*4; \bar "||";
 	\skip 1*4; \bar "||";
 	\skip 1*4; \bar "||";

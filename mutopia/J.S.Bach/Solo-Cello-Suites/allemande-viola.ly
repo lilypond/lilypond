@@ -1,11 +1,11 @@
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "allemande-urtext.ly";
 
 allemande_viola_global = \notes{
 	\time 4/4;
-	\key f;
+	\key f \major;
 	\clef alto;
 	\repeat "volta" 2 {
 		\partial 16;

@@ -22,16 +22,16 @@ copyright =	 "public domain";
 }
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 vOne = \notes \relative c''{
         \clef"violin";
-        \key d;
+        \key d \major;
         \time 2/4 ;
         d4 d |       
-        \key fis;
+        \key fis \major;
         fis4 fis |         
-        \key es;
+        \key es \major;
         c4 c |
 }
 

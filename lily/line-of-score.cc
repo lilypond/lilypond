@@ -36,10 +36,6 @@ Line_of_score::element_count () const
   return scm_ilength ( get_elt_pointer ("all-elements"));
 }
 
-
-/*
-  Ugh.  this is grossly hairy.
- */
 void
 Line_of_score::typeset_element (Score_element * elem_p)
 {

@@ -10,11 +10,11 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.3.42";
+\version "1.3.59";
 
 global = \notes{
 	\time 2/4;
-	\key es;
+	\key es \major;
 	s2*48
 	\bar ":|:";
 	s2*48

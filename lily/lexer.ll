@@ -188,18 +188,12 @@ HYPHEN		--
 	if (s.length_i () && (s[s.length_i () - 1] == ';'))
 	  s = s.left_str (s.length_i () - 1);
 	DEBUG_OUT << "#include `\\" << s << "'\n";
-	Identifier * id = lookup_identifier (s);
-	if (id) 
-	  {
-	    String* s_l = id->access_content_String (false);
-	    DEBUG_OUT << "#include `" << *s_l << "'\n";
-	    new_input (*s_l, source_global_l);
-
-	    yy_pop_state ();
-	  }
-	else
-	  {
-	    String msg (_f ("undefined identifier: `%s'", s ));	
+	SCM sid = lookup_identifier (s);
+	if (gh_string_p (sid)) {
+		new_input (ly_scm2string (sid), source_global_l);
+		yy_pop_state ();
+	} else { 
+	    String msg (_f ("wrong or undefined identifier: `%s'", s ));	
 	    LexerError (msg.ch_C ());
 	  }
 }
@@ -475,11 +469,21 @@ My_lily_lexer::scan_escaped_word (String str)
 	if (l != -1) {
 		return l;
 	}
-	Identifier * id = lookup_identifier (str);
+	SCM sid = lookup_identifier (str);
+	if (gh_string_p (sid)) {
+		yylval.scm = sid; 
+		return STRING_IDENTIFIER;
+	}
+
+	Identifier * id = unsmob_identifier (sid);
 	if (id) {
 		yylval.id = id;
 		return id->token_code_i_;
+	} else if (sid != SCM_UNDEFINED) {
+		yylval.scm = sid;
+		return SCM_IDENTIFIER;
 	}
+
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {
 		SCM pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F);
 		

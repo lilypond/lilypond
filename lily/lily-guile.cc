@@ -373,7 +373,11 @@ ly_number2string (SCM s)
   return gh_str02scm (str);
 }
 
-#define TEST_GC
+/*
+  Undef this to see if GUILE GC is causing too many swaps.
+ */
+
+// #define TEST_GC
 
 #ifdef TEST_GC
 #include <libguile/gc.h>

@@ -41,7 +41,7 @@ multiple \paper{}s in one \score
 Note: Original key f.
 %}
 
-\version "1.3.42";
+\version "1.3.59";
 
 vocalVerse = \notes\relative c''{
 	\property Voice.dynamicDirection=\up
@@ -328,7 +328,7 @@ bassThrough = \notes\relative c{
 		
 global = \notes{
 	\time 3/4; 
-	\key es;
+	\key es \major;
 	\skip 4 * 12;
 	\break
 	\skip 4 * 234;

@@ -1,10 +1,10 @@
-\version "1.3.42";
+\version "1.3.59";
 
 \include "sarabande-urtext.ly";
 
 sarabande_viola_global = \notes{
 	\time 3/4;
-	\key f;
+	\key f \major;
 	\clef alto;
 	\repeat "volta" 2 {
 		s2.*12

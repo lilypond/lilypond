@@ -4,7 +4,7 @@ composer = "Parry";
 metre = "10 10 . 11 11";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 sop = \notes \transpose c''{
 	f4 | d' bes c' | f2 \bar "||";
@@ -53,7 +53,7 @@ bass = \notes \transpose c'{
 global = \notes {
 	\time 3/4;
 	\partial 4;
-	\key bes;
+	\key bes \major;
 }
 
 \score {

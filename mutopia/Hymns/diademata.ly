@@ -7,7 +7,7 @@
   metre = "6 6. 8 6. D";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 sop=\notes \transpose c''{
 	ees2  ees4 ees4 g2 g2 |  c'1.
@@ -57,7 +57,7 @@ bass=\notes \transpose c' {
 
 global = \notes{
 	\time 4/2;
-	\key ees;
+	\key ees \major;
 	\skip 2*4; \skip 1.; \bar "||";
 	\skip 2; \skip 2*4; \skip 1.; \bar "||";\break
 	\skip 2; \skip 2*12;\skip 1.; \bar "||";\break

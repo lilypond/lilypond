@@ -93,9 +93,10 @@ Music_output_def::get_default_output () const
 {
   if (safe_global_b || !scope_p_->elem_b ("output"))
     return "";
-  Identifier * id = scope_p_->elem ("output");
+  SCM s =  scope_p_->scm_elem ("output");
 
-  String *p = id->access_content_String (false);
-  return p ? *p : String ("");
+  
+  
+  return gh_string_p (s) ? ly_scm2string (s) : String ("");
 }
 

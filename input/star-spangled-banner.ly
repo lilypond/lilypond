@@ -4,7 +4,7 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
-\version "1.3.42";
+\version "1.3.59";
 
 % TODO: 
 %
@@ -35,7 +35,7 @@ http://www.Arkkra.com/doc/star.ps
 
 global = \notes {
   \time 3/4; 
-  \key d;
+  \key d \major;
   \partial 4;
 }
 

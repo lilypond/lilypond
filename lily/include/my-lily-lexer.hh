@@ -53,13 +53,14 @@ public:
   void start_main_input ();
   void set_chordmodifier_table (Notename_table*tab_p);
   void set_notename_table (Notename_table*tab_p);
-  Identifier*lookup_identifier (String s);
+
+  SCM lookup_identifier (String s);
   void push_note_state();
   void push_chord_state();
   void push_lyric_state();
   void pop_state();
   void LexerError (char const *);
-  void set_identifier (String str, Identifier* i, bool unique_b = true);
+  void set_identifier (String str, SCM);
   bool note_state_b() const;
   bool chord_state_b() const;
   bool lyric_state_b() const;

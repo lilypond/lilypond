@@ -1,13 +1,13 @@
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "prelude-urtext.ly";
 
 prelude_viola_global = \notes{
 	\time 3/4;
-	\key f;
+	\key f \major;
 	\clef alto;
 	\skip 2.*63;
 	\bar "|.";

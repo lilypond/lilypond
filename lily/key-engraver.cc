@@ -6,7 +6,6 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
 
-
 #include "key-item.hh"
 #include "command-request.hh"
 #include "musical-request.hh"
@@ -139,10 +138,10 @@ Key_engraver::do_pre_move_processing ()
 void
 Key_engraver::read_req (Key_change_req const * r)
 {
-  if (!r->key_)
+  if (r->pitch_alist_ == SCM_UNDEFINED)
     return;
 
-  SCM n = scm_list_copy (r->key_->pitch_alist_);
+  SCM n = scm_list_copy (r->pitch_alist_);
   SCM accs = SCM_EOL;
   for (SCM s = get_property ("keyAccidentalOrder");
        gh_pair_p (s); s = gh_cdr (s))

@@ -21,26 +21,18 @@ public:
   bool elem_b (String ) const;
   bool elem_b (SCM s) const;
   Identifier *elem (String) const;
-  Identifier *elem (SCM) const;  
+  Identifier *elem (SCM) const;
+
+  SCM scm_elem (String) const;
+  SCM scm_elem (SCM) const;
+
   void set (String, Identifier *);
+  void set (String, SCM);  
   Scope ();
   
   Scope (Scope const &);
   ~Scope ();
   friend class Scope_iter;
 };
-#if 0
-class Scope_iter {
-  Hash_table_iter<Protected_scm,Identifier*> * iter_;
-public:
-  void operator ++(int);
-  bool ok ()const;
-  Scope_iter(Scope const&);
-  String key () const;
-  Identifier* val () const;
-  SCM scm_key () const;
-};
-
-#endif
 #endif /* SCOPE_HH */
 

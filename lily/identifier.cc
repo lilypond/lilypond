@@ -116,7 +116,6 @@ Class ## _identifier::do_print () const\
 STRING_PRINT(Duration);
 STRING_PRINT(Real);
 STRING_PRINT(int);
-STRING_PRINT(String);
   
 #define DEFAULT_STR(Class) \
 String \
@@ -127,7 +126,7 @@ Class ## _identifier::do_str () const\
 
 DEFAULT_STR(int);
 DEFAULT_STR(Real);
-DEFAULT_STR(String);
+
   
 
 /*
@@ -166,7 +165,6 @@ IMPLEMENT_ID_CLASS(Duration);
 IMPLEMENT_ID_CLASS(Translator_group);
 IMPLEMENT_ID_CLASS(int);
 IMPLEMENT_ID_CLASS(Real);
-IMPLEMENT_ID_CLASS(String);
 IMPLEMENT_ID_CLASS(Music);
 IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Request);
@@ -178,7 +176,6 @@ VIRTUAL_ACCESSOR(Translator_group);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);
 DEFAULT_ACCESSOR(Real);
-DEFAULT_ACCESSOR(String);
 DEFAULT_ACCESSOR(Score);
 DEFAULT_ACCESSOR(Midi_def);
 DEFAULT_ACCESSOR(Paper_def);

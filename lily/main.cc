@@ -303,6 +303,12 @@ main (int argc, char **argv)
   debug_init ();		// should be first
   setup_paths ();
 
+  /*
+    prepare guile for heavy mem usage. 
+   */
+  setenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", 0);
+  setenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", 0);
+
   oparser_global_p = new Getopt_long(argc, argv,theopts);
   while (Long_option_init const * opt = (*oparser_global_p)())
     {

@@ -1,5 +1,5 @@
 
-\version "1.3.42";
+\version "1.3.59";
 nt = \notes { c1 \break c1 c1 } 
 stuff = \notes \relative c'' <
   \context Staff = stone  { \nt }

@@ -153,17 +153,17 @@ Paper_outputter::output_scope (Scope *scope, String prefix)
     {
       SCM k = gh_caar (s);
       SCM v = gh_cdar (s);
-
-      Identifier * id = unsmob_identifier (v);
       String s = ly_symbol2string (k);
 
-      if (dynamic_cast<String_identifier*> (id))
+      
+      if (gh_string_p (v))
 	{
-	  String val = *id->access_content_String (false);
-	  
-	  output_String_def (prefix + s, val);
+	  output_String_def (prefix + s, ly_scm2string (v));
 	}
-      else if(dynamic_cast<Real_identifier*> (id))
+      
+      Identifier * id = unsmob_identifier (v);
+      
+      if(dynamic_cast<Real_identifier*> (id))
 	{
 	  Real val  = *id->access_content_Real (false);
 

@@ -1,12 +1,12 @@
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "allemande-urtext.ly";
 
 allemande_cello_global = \notes{
 	\time 4/4;
-	\key f;
+	\key f \major;
 	\clef bass;
 	\repeat "volta" 2 {
 		\partial 16;

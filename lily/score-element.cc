@@ -90,8 +90,11 @@ Score_element::Score_element (Score_element const&s)
 Score_element::~Score_element()
 {
   // this goes awry when score-elements are copied...
-  // real weird Paper_column::~Paper_column () -> infinity_mom
-  //  unsmobify_self ();
+
+  /*
+     Kijk goed naar hoe smobify en unsmobify werken.  unsmobify_self
+    is te gebruiken wanneer C++ geheugen beheer weer overneemt van
+    GUILE. --hwn */
 }
 
 

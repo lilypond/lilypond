@@ -1798,10 +1798,10 @@ will print flats.
 @mudela[fragment,verbatim]
 \context Staff {
   \clef "F";
-  { \key e; c d e f }
+  { \key e \major; c d e f }
   \clef "G";
-  \transpose des'' { \key e; c d e f }
-  \transpose cis'' { \key e; c d e f }
+  \transpose des'' { \key e \major; c d e f }
+  \transpose cis'' { \key e \major; c d e f }
 }
 
 @end mudela

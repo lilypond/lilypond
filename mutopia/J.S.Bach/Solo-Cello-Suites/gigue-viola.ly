@@ -1,12 +1,12 @@
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "gigue-urtext.ly";
 
 gigue_viola_global = \notes{
 	\time 3/8;
-	\key f;
+	\key f \major;
 	\clef alto;
 	\repeat "volta" 2 {
 		\partial 8;

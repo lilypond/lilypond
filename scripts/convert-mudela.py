@@ -473,6 +473,13 @@ if 1:
 	conversions.append ((1,3,49), conv,
 			    'noteHeadStyle value: string -> symbol')
 
+if 1:
+	def conv (str):
+		str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
+		return str
+	conversions.append ((1,3,59), conv,
+			    '\key X ; -> \key X major; ') 
+
 ############################
 	
 

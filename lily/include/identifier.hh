@@ -24,7 +24,6 @@ class Midi_def_identifier;
 class Paper_def_identifier;
 class Real_identifier;
 class int_identifier;
-class String_identifier;
 class Request_identifier;
 class Score_identifier;
 class Duration_identifier;
@@ -60,7 +59,6 @@ struct Identifier : public Input {
   IDACCESSOR(Midi_def)
   IDACCESSOR(Paper_def)
   IDACCESSOR(Real)
-  IDACCESSOR(String)
   IDACCESSOR(Request)
   IDACCESSOR(Score)
   IDACCESSOR(int)
@@ -89,7 +87,6 @@ struct Class ## _identifier : Identifier {\
 DECLARE_ID_CLASS(Translator_group);
 DECLARE_ID_CLASS(Duration);
 DECLARE_ID_CLASS(Real);
-DECLARE_ID_CLASS(String);
 DECLARE_ID_CLASS(General_script_def);
 DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(int);

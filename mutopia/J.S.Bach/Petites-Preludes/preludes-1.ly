@@ -44,7 +44,7 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 
 lowstaff = \translator "Staff" = "lower"
