@@ -444,7 +444,8 @@ the mark when there are no spanners active."
     (set! result (map
 		  (lambda (x) (cons (when x) (configuration x)))
 		  (vector->list result)))
-    ;; (if pc-debug (display result))
+    (if #f ;; pc-debug
+	 (display result))
     result))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -188,7 +188,7 @@ Part_combine_iterator::solo1 ()
 
 void
 Part_combine_iterator::substitute_both (Context * to1,
-				  Context * to2)
+					Context * to2)
 {
   Context *tos[]  = {to1,to2};
   Music_iterator *mis[] = {first_iter_, second_iter_}; 
@@ -224,9 +224,19 @@ Part_combine_iterator::unisono (bool silent)
     return; 
   else
     {
-      substitute_both (shared_.get_outlet (), null_.get_outlet ());
+      /*
+	If we're coming from SOLO2 state, we might have kill mmrests
+	in the 1st voice, so in that case, we use the second voice 
+	as a basis for events.
+       */
+      Context *c1 = (state_ == SOLO2) ? null_.get_outlet() : shared_.get_outlet();
+      Context *c2 = (state_ == SOLO2) ? shared_.get_outlet() : null_.get_outlet();
+      
+      substitute_both (c1, c2);
 
-      kill_mmrest (two_.get_outlet ());
+      
+      kill_mmrest ((state_ == SOLO2)
+		   ? one_.get_outlet () : two_.get_outlet ());
       kill_mmrest (shared_.get_outlet ());
 
       if (playing_state_ != UNISONO
@@ -236,7 +246,8 @@ Part_combine_iterator::unisono (bool silent)
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
 
-	  first_iter_-> try_music_in_children (event);      
+	  (state_ == SOLO2 ? second_iter_ : first_iter_)
+	    ->try_music_in_children (event);      
 	  playing_state_ = UNISONO;
 	}
       state_ = newstate;
