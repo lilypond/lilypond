@@ -84,7 +84,7 @@ if files:
 		
 		s += "@lilypondfile[printfilename]{%s}" % n
 		return s
-
+	files.sort ()
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")
 	s = s + '\n@bye\n'
 	f = "%s/%s.tely" % (dir, name)

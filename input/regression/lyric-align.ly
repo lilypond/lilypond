@@ -1,10 +1,13 @@
 \version "1.7.18"
 \header{
-  texidoc="Lyric alignment
+  texidoc="
 
-  Lyric alignment is adjustable both interms of alignment between stanzas and on notehead.
+  Lyric alignment is adjustable both in terms of alignment between
+  stanzas and on notehead.
 
-  If the property alignment is not set, there is automatic determination of alignment type based on punctuation. (ee lyric-phrasing.ly)
+  If the property alignment is not set, there is automatic
+  determination of alignment type based on punctuation. (see
+  lyric-phrasing.ly)
 
 "
 }

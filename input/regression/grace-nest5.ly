@@ -1,9 +1,11 @@
 \version "1.7.18"
 
 \score
-{ \notes {
+{ \notes \relative c'' {
      s2 <<f>>4
     \grace g e4
 }
+
+  \paper { raggedright = ##t }
 }
 %% new-chords-done %%
