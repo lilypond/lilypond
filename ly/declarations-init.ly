@@ -54,8 +54,8 @@ parenthesisCloseSymbol = #(make-span-event 'SlurEvent STOP)
 escapedExclamationSymbol = #(make-span-event 'CrescendoEvent STOP)
 escapedParenthesisOpenSymbol = #(make-span-event 'PhrasingSlurEvent START)
 escapedParenthesisCloseSymbol = #(make-span-event 'PhrasingSlurEvent STOP)
-escapedBiggerSymbol = #(make-span-event 'CrescendoEvent START)
-escapedSmallerSymbol = #(make-span-event 'DecrescendoEvent START)
+escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
+escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 
 

@@ -3,6 +3,9 @@
 	* ly/engraver-init.ly <Score> [quotedEventTypes]: Add tuplets and
 	ties.
 
+	* ly/declarations-init.ly (escapedBiggerSymbol,
+	escapedSmallerSymbol): Fix typos.
+
 	* scripts/convert-ly.py: s/removeTag/removeWithTag/.
 
 2004-09-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
