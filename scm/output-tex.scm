@@ -170,8 +170,8 @@
 			s))
 		   "}")))
 
-(define (white-text s)
-   (embedded-ps (list 'white-text s)))
+(define (white-text scale s)
+   (embedded-ps (list 'white-text scale s)))
    
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))

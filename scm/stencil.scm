@@ -81,8 +81,8 @@ encloses the contents.
     (ly:make-stencil
      `(text ,font-metric ,text) (car b) (cdr b))))
      
-(define-public (fontify-text-white font-metric text)
-  "Set TEXT with font FONT-METRIC, in color white, returning a stencil."
+(define-public (fontify-text-white scale font-metric text)
+  "Set TEXT with scale factor s"
   (let* ((b  (ly:text-dimension font-metric text))
-         (c  `(white-text ,text)))
+         (c  `(white-text ,(* 2 scale) ,text))) ;urg -- workaround for using ps font
     (ly:make-stencil c  (car b) (cdr b))))  ;urg -- extent is not from ps font, but we hope it's close

@@ -153,12 +153,15 @@
 } bind def
 
 
-/draw_white_text % text font
+/draw_white_text  % text scale font
 {
   %font
-  findfont 0.8 scalefont setfont
+  findfont
+  %scale
+  exch scalefont setfont
   1 setgray
   0 0 moveto
+  %-0.05 -0.05 moveto
   % text
   show
 } bind def
