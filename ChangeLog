@@ -1,5 +1,11 @@
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/spacing-spanner.cc: bound shortest_playing_len by
+	measure_length
+
+	* lily/spacing-engraver.cc (acknowledge_grob): ignore
+	multi-measure events for spacing computation.
+
 	* mf/feta-bolletjes.mf (overdone_heads): make note heads more
 	elliptical, to 1.49.
 

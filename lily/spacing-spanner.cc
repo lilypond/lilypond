@@ -505,7 +505,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   (different time sigs) than others, and should be spaced differently.
  */
 void
-Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols) 
+Spacing_spanner::do_measure (Rational global_shortest, Grob*me, Link_array<Grob> *cols) 
 {
 
   Real headwid = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
@@ -519,7 +519,7 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 
       if (!Paper_column::is_musical (l))
 	{
-	  breakable_column_spacing (me, l, r, shortest);
+	  breakable_column_spacing (me, l, r, global_shortest);
 
 	  /*
 	    
@@ -532,20 +532,20 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 	  Item *rb = r->find_prebroken_piece (LEFT);
 	  
 	  if (lb)
-	    breakable_column_spacing (me, lb,r, shortest);
+	    breakable_column_spacing (me, lb,r, global_shortest);
 
 	  if (rb)
-	    breakable_column_spacing (me, l, rb, shortest);
+	    breakable_column_spacing (me, l, rb, global_shortest);
 	  if (lb && rb)
-	    breakable_column_spacing (me, lb, rb, shortest);
+	    breakable_column_spacing (me, lb, rb, global_shortest);
 	  
 	  continue ; 
 	}
 
 
-      musical_column_spacing (me, lc, rc, headwid, shortest);
+      musical_column_spacing (me, lc, rc, headwid, global_shortest);
       if (Item *rb = r->find_prebroken_piece (LEFT))
-	musical_column_spacing (me, lc, rb, headwid, shortest);
+	musical_column_spacing (me, lc, rb, headwid, global_shortest);
     }    
 }
 
@@ -555,10 +555,10 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
   spacing parameters INCR and SHORTEST.
  */
 void
-Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational shortest)
+Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational global_shortest)
 {
   bool expand_only = false;
-  Real base_note_space = note_spacing (me, lc, rc, shortest, &expand_only);
+  Real base_note_space = note_spacing (me, lc, rc, global_shortest, &expand_only);
 
   Real compound_note_space = 0.0;
   Real compound_fixed_note_space = 0.0;
@@ -873,38 +873,25 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Moment rwhen =  Paper_column::when_mom (rc);
 
   Moment delta_t = rwhen - lwhen;
-  if (!Paper_column::is_musical (rc ))
+  if (!Paper_column::is_musical (rc))
     {
       /*
 	when toying with mmrests, it is possible to have musical
 	column on the left and non-musical on the right, spanning
 	several measures.
-
-	In 2.0.1, this still fucks up in an interesting way:
-
-	
-\score {
-{	\property Score.skipBars = ##t
-	\context Staff = clarinet
-	    { 
-		\notes {
-		\time 3/4 \mark "72"
-<< s1*0^"all"		R4*3*11 >>
-		\mark "73"
-		R4*3*11 \mark "74"
-	d2 r4
-
-
-		}}}
-    \paper { raggedright = ##t }
-}
-
-	
        */
       
       Moment *dt = unsmob_moment (rc->get_grob_property ("measure-length"));
       if (dt)
-	delta_t = delta_t <? *dt; 
+	{
+	  delta_t = delta_t <? *dt;
+
+	  /*
+	    The following is an extra safety measure, such that
+	    the length of a mmrest event doesn't cause havoc.
+	   */
+	  shortest_playing_len = shortest_playing_len <? *dt;
+	}
     }
   Real dist = 0.0;
 
