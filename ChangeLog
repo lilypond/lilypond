@@ -1,3 +1,9 @@
+2002-04-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lilypond-mode.el (LilyPond-xdvi-command): Default to plain xdvi.
+
+	* input/mozart-hrn3-allegro.ly: Bugfix: include defs.
+
 2002-04-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-schrift.mf: lighter staccato.
