@@ -68,7 +68,7 @@ GNU make.
 
 =item *
 
-Flex (version 2.5.1 or newer). 
+Flex (version 2.5.4 or newer). 
 
 =item *
 
