@@ -7,6 +7,8 @@
 
 }
 
+\version "2.1.25"
+
 wipeNote = {
     \once \override NoteHead #'transparent = ##t
     \once \override Stem #'transparent = ##t 

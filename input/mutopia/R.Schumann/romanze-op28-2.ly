@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.1.23"
+\version "2.1.25"
 
 \header {
   title = "Romanzen"
@@ -238,7 +238,7 @@ leftb = \notes \transpose c cis {
 
 \score { \notes
   \context PianoStaff <<
-    \pianoCautionaries
+    #(set-accidental-style 'piano-cautionary)
     \override PianoStaff.NoteCollision   #'merge-differently-dotted = ##t
     \set PianoStaff.connectArpeggios = ##t
     \override PianoStaff.Arpeggio   #'print-function = \arpeggioBracket

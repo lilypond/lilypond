@@ -1597,7 +1597,7 @@ instead.
      @code{default}) are typeset as cautionary accidentals.
      They are printed in reduced size or with parentheses:
 @lilypond[raggedright,fragment,verbatim]
-      modern-cautionary
+      #(set-accidental-style 'modern-cautionary)
       cis' c'' cis'2 | c'' c'
 @end lilypond
 
@@ -1650,7 +1650,7 @@ some of them are typeset as cautionaries.
 @end table
 
 @node Customized accidental rules
-@subsection  Customized accidental rules
+@subsection Customized accidental rules
 
 For determining when to print an accidental, several different rules
 are tried.  The rule that gives the highest number of accidentals is
