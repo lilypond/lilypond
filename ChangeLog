@@ -1,9 +1,5 @@
 2002-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* stepmake/GNUmakefile.in: Don't install stepmake.  This breaks
-	the use of make/ly.make for use as an external makefile.  Probably
-	noone except for myself ever used this anyway.
-
 	* stepmake/stepmake/GNUmakefile (INSTALLATION_DIR): Bugfix: Adapt
 	to new $datadir convention (<package>/<version>).
 
