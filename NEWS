@@ -1,5 +1,33 @@
+pl 45
+	- Removing unused Voice_regs & Voice_groups
+	- -O2 bugfix
+
+pl 44.jcn1
+	- merged 42.3 42.jcn4 code trees (see stuff below)
+	- moving towards Mudela 0.1 (again)
+	    * keyword "music" dropped for horizontal music
+	    * keywords "\lyric" "\melodic" introduced, e.g.:
+		melody = \melodic { c c | g g }
+	    * removed level of indirection:
+	        - staff initialisable with music identifier list: 
+	            \staff{ global melody }
+	        - \score and staffs alike
+	- gnu standard(?) help texts
+	- configure "creates" toplevel Makefile from make/Toplevel.make
+
+Bugfix
+	- fixed mi2mu
+	- write meter to track0 too...
+	- default octave
+	- new Sources in My_midi_lexer: sourcefile_p_ = get_file_l(): oeps.
+	  (ain-t hungarian grand?)
+
+Examples
+	- updated for mudela 0.1
+
 ******
 pl 44
+	- naming: _c_l -> _C
 	- pure parser, My_lily_parser
 	- ''a iso ``a
 	- Includable_lexer
@@ -18,13 +46,27 @@ pl 43
 	- declaration used check.
 	-
 
+pl 42.jcn4
+	- lily writes midi meter/key changes from requests
+	- mi2mu: 
+	  + write mudela 0.1
+	  + write bar change requests
+	  + more tunable quantisation
+
+Examples
+	- half-new-menuetto.ly converted to mudela -almost- 0.1
+	- new mi2mu of bach's wtk pre1/fugue1
+
+pl 42.3 (jcn version)
+        - oeps, branched source tree
+
 pl 42.hwn3
 	- const naming change (T const <-> const T)
 	- Mudela 0.1 (roughly the same as below..)
 
 pl 42.3
 	- moving towards Mudela 0.1:
-	    * (almost) all keywords must be preceded by backslash '\'
+	    * all keywords must be preceded by backslash '\'
 	    * explicit lexer switches '$' and '@' dropped
 	    * keyword "music" dropped for horizontal music
 	    * keywords "\lyric" " introduced, e.g.:

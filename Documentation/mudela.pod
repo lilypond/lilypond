@@ -6,7 +6,7 @@ Mudela -  LilyPond input format 0.1
 
 This document describes the the LilyPond input format, which is an
 effective language for definining music.  We call this language
-(rather arrogantly) The Musical Definition Language (S<Mudela 2>).
+(rather arrogantly) The Musical Definition Language (S<Mudela 0.1>).
 
 The first aim of Mudela is to define a piece of music, 
 being complete from both from a musical typesetting, 
@@ -127,12 +127,18 @@ Identifiers in their normal form consist start with a alpha character,
 followed by alpha-numerics. Identifiers can contain any characters
 (except whitespace, C<$> and C<%>), if you use this construct:
 
-	$Id_with###@weird92chars = 
+	$i'm_a_weird###identifier
+
+(which is the identifier with the name
+C<i'm_a_weird###identifier> ). C<$> Takes any sequence of
+characters which are not whitespace, C<$> and C<%>.
+
+	\$i'm_a_weird###escaped_word
 
 =head2 Nesting characters
 
 Mudela uses the brace (C<{> and C<}>) for hierarchical structures. To
-aid the eye in reading, for chords the C<<> and the C<>> are used as
+aid the eye in reading, for chords the < and the > are used as
 nesting braces.
 
 =head2 Identifiers
@@ -154,7 +160,7 @@ at top level. Currently declarations can only be done at top level)
 
 Most instantiations that use an IDENTIFIER are specified as follows:
 
-	\TYPE { IDENTIFIER [...] }
+	\TYPE{ IDENTIFIER [...] }
 
 Some exceptions on this rule have been made to prevent inputting
 Mudela becoming tedious
@@ -424,7 +430,127 @@ Examples are included with the LilyPond distribution. For the sake of
 maintenance no long examples are included in this document.
 
 
+=head1 INTERNALS
+
+This chapter deals with the internals of Mudela. In the end Mudela
+converted to Voice, which contain Voice_elements which (in turn)
+contain Requests. The former 2 types are basically containers.
+Consider the following simple mudela
+
+	\music { c4 <e4 g4> }
+
+After the parsing, this is converted to: (from the debug output)
+
+	Voice { start: 0
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 0 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+	Voice { start: 1/4
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 2 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+	Voice { start: 1/4
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 4 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+
 =head2 Requests
+
+As you can see, most information is stored in the form of a request. 
+In music typesetting, the user might want to cram a lot more symbols
+on the paper than actually fits. To reflect this idea (the user asks
+more than we can do), the container for this data is called Request.
+
+A request is done to
+the C<Staff> which contains the C<Voice_element>. The staff decides
+whether to to honor the request, ignore it, or merge it with other
+requests. Merging of requests is preferably done with other requests
+done by members of the same voicegroups (beams, brackets, stems)
+
+Please refer to the documentation of the Child classes of
+C<Request> for explanation of each request type.
+
+The result of a request will be an C<Item> or a C<Spanner>, which
+will be put on a C<PStaff>. Note that the C<PStaff> and the original
+C<Staff> need not have anything in common. For example, the
+``double'' piano Staff could interpret commands which juggle
+melodies across the left and right hand, and may put the result in
+two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
+signs and any lyric.
+
+The class C<Staff> should be thought as a container for the
+C<Voice>s, and an interpreter for C<Request>s and C<Command>s.
+Different staffs can produce different outputs; a melodious voice
+which is put into a percussion-Staff, will be typeset as the rythm of
+that voice.
+
+After C<Staff> made up her mind, the resultant items and
+spanners are put on the PScore.
+
+=over 5
+
+=item C<Barcheck_req>
+
+Checks during music processing if start of this voice element
+coincides with the start of a measure. Handy to check if you left out
+some voice elts.
+
+=item C<Note_req>
+
+Staff has to decide if the ball should be hanging left or right. This
+influences the horizontal dimensions of a column, and this  is why
+request processing should be done before horizontal spacing.
+
+Other voices' frivolities may cause the need for accidentals, so this
+is also for the  C<Staff> to decide. The  C<Staff> can decide on positioning
+based on ottava commands and the appropriate clef.
+
+=item C<Rest_req>
+
+Why a request? It might be a good idea to not typeset the rest, if the
+paper is too crowded.
+
+=item C<Span_req>
+
+This type of request typically results in the creation of a C<Spanner>
+
+=item C<Beam_req>
+
+Staff has to combine this request with the stem_request, since the
+number of flags that a stem wants to carry will determine the
+number of beams.
+
+=item  C<Dynamic>
+
+Each dynamic is bound to one note (a crescendo spanning multiple
+notes is thought to be made of two "dynamics": a start and a stop).
+Dynamic changes can occur in a smaller time than the length of its
+note, therefore fore each  C<Dynamic> request carries a time, measured
+from the start of its note.
 
 =head2 Voice
 

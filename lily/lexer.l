@@ -86,7 +86,7 @@ include           {
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<INITIAL,lyrics,notes>\$\\{BLACK}*{WHITE}	{
+<INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText() + 2;
 	s=s.left_str(s.length_i() - 1);
 	return scan_escaped_word(s);
