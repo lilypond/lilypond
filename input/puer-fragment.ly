@@ -48,9 +48,9 @@ cantus = \notes \transpose c c {
   \[ d'
     (		%%% no-
     \flexa c' e' \flexa
-    d'
-    d'-)          %%% bis,
+    d'-)
   \]
+  d'            %%% bis,
   \divisioMaior
   \[ g
     (		%%% et
