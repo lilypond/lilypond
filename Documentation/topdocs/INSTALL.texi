@@ -240,12 +240,24 @@ to your @var{load-path}. Append the following line (modified) to your
 
 @c lilypond.words.el for vim auto-completion?
 A Vim mode for entering music and running LilyPond is contained in
-the source archive. Copy recursively the file structure in @file{vim/} as 
-your @file{~/.vim/} to get shortcuts. Install (generated) files
-@file{lilypond.words.el} and @file{lilypond.words.vim} to 
-@file{~/.vim/syntax/} in order to get auto-completion and syntax 
-highlighting.
-
+the source archive. The LilyPond file type is detected if your file
+@file{~/.vim/filetype.vim} has the following content:
+@example
+	if exists("did_load_filetypes")
+  	  finish
+	endif
+	augroup filetypedetect
+  	  au! BufNewFile,BufRead *.ly           setf lilypond
+	augroup END
+@end example
+In addition, LilyPond's vim-mode files which are installed to 
+@file{/usr/share/lilypond/vim/} have to be placed in a path specified
+in your @code{$VIMRUNTIME} environment variable. You can add this path 
+to @code{$VIMRUNTIME} by appending the following line to your 
+@file{~/.vimrc}:
+@example
+	set runtimepath+=/usr/share/lilypond/vim/
+@end example
 
 @section Problems
 
