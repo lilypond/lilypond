@@ -1,5 +1,8 @@
 2005-03-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/lexer.ll (Lily_lexer):
+	* lily/parser.yy: Junk lyric_markup state.
+
 	* Documentation/topdocs/NEWS.tely (Top): Mention markup text feature.
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): toplevel-music-handler:

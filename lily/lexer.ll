@@ -107,7 +107,6 @@ SCM (* scm_parse_error_handler) (void *);
 %x figures
 %x incl
 %x lyrics
-%x lyric_markup
 %x lyric_quote
 %x longcomment
 %x markup
@@ -150,7 +149,7 @@ HYPHEN		--
 	// windows-suck-suck-suck
 }
 
-<INITIAL,chords,figures,incl,lyrics,lyric_markup,markup,notes>{
+<INITIAL,chords,figures,incl,lyrics,markup,notes>{
   "%{"	{
 	yy_push_state (longcomment);
   }
@@ -275,7 +274,7 @@ HYPHEN		--
 <chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
-<INITIAL,chords,figures,lyrics,lyric_markup,markup,notes>#	{ //embedded scm
+<INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
 	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
@@ -475,7 +474,7 @@ HYPHEN		--
 }
 
 
-<markup,lyric_markup>{
+<markup>{
 	\" {
 		start_quote ();
 	}
@@ -650,12 +649,6 @@ void
 Lily_lexer::push_markup_state ()
 {
 	yy_push_state (markup);
-}
-
-void
-Lily_lexer::push_lyric_markup_state ()
-{
-	yy_push_state (lyric_markup);
 }
 
 void

@@ -2434,7 +2434,7 @@ lyric_markup:
 		$$ = $1;
 	}
 	| LYRIC_MARKUP
-		{ THIS->lexer_->push_lyric_markup_state (); }
+		{ THIS->lexer_->push_markup_state (); }
 	markup_top {
 		$$ = $3;
 		THIS->lexer_->pop_state ();
