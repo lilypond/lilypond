@@ -20,9 +20,6 @@ Measure_grouping::print (SCM grob)
 {
   Spanner * me = dynamic_cast<Spanner*> (unsmob_grob (grob));
 
-  /*
-    TODO: robustify.
-   */
   SCM which = me->get_property ("style");
   Real height = robust_scm2double (me->get_property ("height"), 1);
 
@@ -30,15 +27,15 @@ Measure_grouping::print (SCM grob)
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 
-  Interval rext = me->get_bound (RIGHT)->extent (common, X_AXIS);
-  Real w =robust_relative_extent (me->get_bound (RIGHT),
-				  common, X_AXIS).linear_combination (CENTER);
-    - me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
+  Real right_point = robust_relative_extent (me->get_bound (RIGHT),
+					     common, X_AXIS).linear_combination (CENTER);
+  Real left_point = me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
-  Interval iv (0,w);
 
+  
+  Interval iv (left_point, right_point);
   Stencil m;
-
+  
   /*
     TODO: use line interface
    */
@@ -52,11 +49,12 @@ Measure_grouping::print (SCM grob)
     }
 
   m.align_to (Y_AXIS, DOWN);
+  m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
 
 ADD_INTERFACE (Measure_grouping,"measure-grouping-interface",
-	       "This objectt indicates groups of beats. "
+	       "This object indicates groups of beats. "
 	       "Valid choices for @code{style} are @code{bracket} and @code{triangle}.",
 	       "thickness style height");
 

@@ -695,7 +695,9 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 		      scm_make_real (iv.length ()), 
 		      scm_make_real (protude), SCM_UNDEFINED);
 
-  return Stencil (b, s);
+  Stencil stc (b, s);
+  stc.translate_axis (iv[LEFT], X_AXIS);
+  return stc;  
 }
 
 
