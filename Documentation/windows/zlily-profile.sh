@@ -28,7 +28,16 @@ GS_LIB="$WINDOWS_GS_LIB"
 PATH="/usr/lilypond/bin:$PATH"
 PATH="@prefix@/bin:$PATH"
 
-# PATH="/usr/lilypond/wrappers:$PATH"
-# PATH="@prefix@/wrappers:$PATH"
+cat <<EOF
+Congratulations and welcome to GNU LilyPond.
 
+To get started, visit:
+    http://www.lilypond.org/Documentation/windows/out-www/installing.html
 
+If you encounter any problems, visit:
+    http://www.lilypond.org/wiki?TroubleshootingWindows
+
+When it all works, head straight to the tutorial:
+    http://www.lilypond.org/Documentation/user/out-www/lilypond/Tutorial.html
+    
+EOF

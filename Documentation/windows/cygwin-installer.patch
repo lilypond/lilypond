@@ -1,39 +1,38 @@
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/ChangeLog ./ChangeLog
---- ../cinstall.orig/ChangeLog	Sat Dec  1 00:36:20 2001
-+++ ./ChangeLog	Sun Dec  2 17:21:40 2001
+diff -purN --exclude=*~ ../cinstall.orig/ChangeLog ./ChangeLog
+--- ../cinstall.orig/ChangeLog	Wed Dec  5 15:50:02 2001
++++ ./ChangeLog	Sat Dec  8 12:52:17 2001
 @@ -1,3 +1,22 @@
 +2001-12-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 +
-+	* configure.in (CXXFLAGS): bugfix.
++	* configure.in (CXXFLAGS): Bugfix.
 +
 +	* mklink2.c: Compile fix.
 +
-+	* Forward ported patch to cvs -D20011202.
++	* Forward port patch to cvs -D20011208.
 +	
-+	* Makefile.in: Fixed realclean target.
++	* Makefile.in: Fix realclean target.
 +
-+	* desktop.cc: Removed spurious line breaks from etc_profile.
++	* desktop.cc: Remove spurious line breaks from etc_profile.
 +	(make_lily_bat): New function.
-+	(save_icon): Parametrized.
-+	(do_desktop_setup): LilyPond support; disabled Cygwin support.
++	(save_icon): Parametrize.
++	(do_desktop_setup): LilyPond support; disable Cygwin support.
 +
 +	* res.rc: Adapted for LilyPond.
 +
 +	* ini.cc (fprintf): Cygwin -> GNU LilyPond
 +
- 2001-12-01  Robert Collins  <rbtcollins@hotmail.com>
+ 2001-12-06  Robert Collins  <rbtcollins@hotmail.com>
  
- 	* package_source.cc (packagesource::set_canonical): Filename was out by one.
-@@ -2336,4 +2355,4 @@ Sat Apr  1 20:48:09 2000  Christopher Fa
+ 	* README: Wishlist updates.
+@@ -2458,4 +2477,4 @@ Sat Apr  1 20:48:09 2000  Christopher Fa
  	* zlib/Makefile.in: Regenerate from Makefile.am
  
- %%% $Id: ChangeLog,v 2.155 2001/11/30 23:36:20 rbcollins Exp $
--$Revision: 2.155 $
-+$Revision: 2.155.jcn1 $
-Binary files ../cinstall.orig/LilyPond.ico and ./LilyPond.ico differ
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/Makefile.in ./Makefile.in
---- ../cinstall.orig/Makefile.in	Fri Nov 30 13:25:00 2001
-+++ ./Makefile.in	Sun Dec  2 17:38:37 2001
+ %%% $Id: ChangeLog,v 2.159 2001/12/05 14:50:02 rbcollins Exp $
+-$Revision: 2.159 $
++$Revision: 2.159.jcn1 $
+diff -purN --exclude=*~ ../cinstall.orig/Makefile.in ./Makefile.in
+--- ../cinstall.orig/Makefile.in	Mon Dec  3 23:22:08 2001
++++ ./Makefile.in	Sat Dec  8 12:11:00 2001
 @@ -35,7 +35,7 @@ CC		:= @CC@
  CC_FOR_TARGET	:= $(CC)
  CXX		:= @CXX@
@@ -42,8 +41,8 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/Makefile.in ./Makef
 +CFLAGS		:= @CFLAGS@ -Winline -Wall -Wpointer-arith -Wcast-align\
  	-Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes \
  	-Wmissing-declarations -Wcomments
- CXXFLAGS	:= @CXXFLAGS@ $(CFLAGS) -fno-exceptions -fno-rtti
-@@ -167,7 +167,9 @@ clean:
+ CXXFLAGS	:= @CXXFLAGS@ $(CFLAGS) -fno-rtti
+@@ -169,7 +169,9 @@ clean:
  	$(MAKE) -C zlib clean
  
  realclean: clean
@@ -54,9 +53,9 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/Makefile.in ./Makef
  
  install: all
  	$(SHELL) $(updir1)/mkinstalldirs $(bindir) $(etcdir)
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/configure.in ./configure.in
+diff -purN --exclude=*~ ../cinstall.orig/configure.in ./configure.in
 --- ../cinstall.orig/configure.in	Mon Dec 11 01:07:56 2000
-+++ ./configure.in	Sun Dec  2 17:23:33 2001
++++ ./configure.in	Sat Dec  8 12:11:00 2001
 @@ -64,7 +64,7 @@ if test -z "$CXX"; then
    test -z "$CC" && AC_MSG_ERROR([no acceptable cc found in \$PATH])
  fi
@@ -66,9 +65,9 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/configure.in ./conf
  ])
  
  AC_CANONICAL_SYSTEM
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./desktop.cc
+diff -purN --exclude=*~ ../cinstall.orig/desktop.cc ./desktop.cc
 --- ../cinstall.orig/desktop.cc	Thu Nov 29 10:52:32 2001
-+++ ./desktop.cc	Sun Dec  2 17:00:31 2001
++++ ./desktop.cc	Sat Dec  8 12:47:59 2001
 @@ -81,9 +81,7 @@ static const char *etc_profile[] = {
    "done",
    "",
@@ -80,7 +79,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
    "",
    "cd \"$HOME\"",
    "",
-@@ -204,6 +202,34 @@ make_cygwin_bat ()
+@@ -204,6 +202,35 @@ make_cygwin_bat ()
  }
  
  static void
@@ -102,20 +101,21 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
 +  fprintf (bat, "chdir %s\n\n",
 +	   backslash (concat (get_root_dir () + 2, "/bin", 0)));
 +
-+  /* fprintf (bat, "bash --rcfile /bin/lilypond-profile\n"); */
-+  fprintf (bat, "bash --login -i\n");
++  if (_access (cygpath ("/usr/bin/rxvt"), 0) == 0)
++    fprintf (bat, "rxtv -e /bin/bash --login -i \n");
++  else
++    /* fprintf (bat, "bash --rcfile /bin/lilypond-profile\n"); */
++    fprintf (bat, "bash --login -i\n");
 +
 +  fclose (bat);
 +
-+  if (_access ("/usr/bin/rxvt", 0) == 0)
-+    batname = backslash (concat (get_root_dir (), "/usr/bin/rxvt", 0));
 +}
 +
 +static void
  make_etc_profile ()
  {
    char *fname = cygpath ("/etc/profile", 0);
-@@ -301,11 +327,11 @@ out:
+@@ -301,11 +328,11 @@ out:
  }
  
  static void
@@ -131,7 +131,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
    if (rsrc == NULL)
      {
        fatal ("FindResource failed");
-@@ -325,12 +351,13 @@ save_icon ()
+@@ -325,12 +352,13 @@ save_icon ()
  static void
  do_desktop_setup ()
  {
@@ -146,7 +146,7 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
    if (root_menu)
      {
        start_menu ("Cygwin Bash Shell", batname);
-@@ -339,6 +366,20 @@ do_desktop_setup ()
+@@ -339,6 +367,20 @@ do_desktop_setup ()
    if (root_desktop)
      {
        desktop_icon ("Cygwin", batname);
@@ -167,21 +167,21 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/desktop.cc ./deskto
      }
  }
  
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/ini.cc ./ini.cc
---- ../cinstall.orig/ini.cc	Thu Nov 29 10:52:32 2001
-+++ ./ini.cc	Sun Dec  2 16:11:25 2001
-@@ -187,7 +187,7 @@ fprintf (FILE * f, const char *fmt, ...)
+diff -purN --exclude=*~ ../cinstall.orig/ini.cc ./ini.cc
+--- ../cinstall.orig/ini.cc	Mon Dec  3 23:22:09 2001
++++ ./ini.cc	Sat Dec  8 12:49:35 2001
+@@ -252,7 +252,7 @@ fprintf (FILE * f, const char *fmt, ...)
  	{
  	  *nl = 0;
  	  /*OutputDebugString (stderrbuf); */
 -	  MessageBox (0, buf, "Cygwin Setup", 0);
-+ 	  MessageBox (0, buf, "GNU LilyPond Cygwin Setup", 0);
++ 	  MessageBox (0, buf, "GNU LilyPond Setup", 0);
  	  stderrbuf[0] = 0;
  	}
  
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/mklink2.c ./mklink2.c
+diff -purN --exclude=*~ ../cinstall.orig/mklink2.c ./mklink2.c
 --- ../cinstall.orig/mklink2.c	Tue Nov 13 02:49:32 2001
-+++ ./mklink2.c	Sun Dec  2 17:09:31 2001
++++ ./mklink2.c	Sat Dec  8 12:11:00 2001
 @@ -1,5 +1,5 @@
 -#include <stdlib.h>
  #include "win32.h"
@@ -189,21 +189,21 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/mklink2.c ./mklink2
  #include "shlobj.h"
  #include "mklink2.h"
  
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/msg.cc ./msg.cc
+diff -purN --exclude=*~ ../cinstall.orig/msg.cc ./msg.cc
 --- ../cinstall.orig/msg.cc	Tue Nov 13 02:49:32 2001
-+++ ./msg.cc	Sun Dec  2 15:42:13 2001
++++ ./msg.cc	Sat Dec  8 12:49:59 2001
 @@ -47,7 +47,7 @@ mbox (const char *name, int type, int id
  
    vsprintf (buf, fmt, args);
    log (0, "mbox %s: %s", name, buf);
 -  return MessageBox (0, buf, "Cygwin Setup", type | MB_TOPMOST);
-+  return MessageBox (0, buf, "GNU LilyPond Cygwin Setup", type | MB_TOPMOST);
++  return MessageBox (0, buf, "GNU LilyPond Setup", type | MB_TOPMOST);
  }
  
  void
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
---- ../cinstall.orig/res.rc	Wed Nov 14 01:11:35 2001
-+++ ./res.rc	Sun Dec  2 15:50:36 2001
+diff -purN --exclude=*~ ../cinstall.orig/res.rc ./res.rc
+--- ../cinstall.orig/res.rc	Mon Dec  3 23:22:09 2001
++++ ./res.rc	Sat Dec  8 12:53:34 2001
 @@ -30,10 +30,10 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_U
  
  IDD_SOURCE DIALOG DISCARDABLE  0, 0, 215, 95
@@ -253,9 +253,9 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
  BEGIN
 -    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
 +    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     LTEXT           "Select Download &Site",IDC_STATIC,55,5,135,11
+     LTEXT           "Select Download &Sites",IDC_STATIC,55,5,135,11
      LISTBOX         IDC_URL_LIST,55,20,160,155,LBS_NOINTEGRALHEIGHT | 
-                     WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+     		    LBS_EXTENDEDSEL | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
 @@ -98,10 +98,10 @@ END
  
  IDD_OTHER_URL DIALOG DISCARDABLE  0, 0, 215, 95
@@ -413,19 +413,30 @@ diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/res.rc ./res.rc
  CYGWIN.ICON             FILE    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -383,7 +382,8 @@ STRINGTABLE DISCARDABLE 
+@@ -383,7 +382,9 @@ STRINGTABLE DISCARDABLE 
  BEGIN
      IDS_ROOT_SLASH          "Warning: we recommend you do NOT use the root of your hard drive as the cygwin root.  Proceed anyway?"
      IDS_ROOT_SPACE          "You should not choose a root path that include spaces in directory names.  Proceed anyway?"
 -    IDS_MIRROR_LST          "http://sources.redhat.com/cygwin/mirrors.lst"
 +    // IDS_MIRROR_LST          "http://appel.lilypond.org/lilypond/gnu-windows/mirrors.lst"
-+    IDS_MIRROR_LST          "http://www.lilypond.org/gnu-windows/mirrors.lst"
++    // IDS_MIRROR_LST          "http://www.lilypond.org/gnu-windows/mirrors.lst"
++    IDS_MIRROR_LST          "http://www.lilypond.org/gnu-windows/testing/mirrors.lst"
      IDS_DIALOG_FAILED       "Unable to create Dialog Box"
      IDS_CYGWIN_FUNC_MISSING "Error: unable to find function `%s' in %s"
      IDS_DOWNLOAD_SHORT      "Download error: %s too short (%d, wanted %d)"
-diff -purN --exclude=*~ --exclude=configure ../cinstall.orig/resource.h ./resource.h
+@@ -392,7 +393,8 @@ BEGIN
+     IDS_OLD_SETUPINI        "This setup.ini is older than the one you used last time you installed cygwin.  Proceed anyway?"
+     IDS_ERR_RENAME          "Can't rename %s to %s: %s"
+     IDS_NOTHING_INSTALLED   "Nothing needed to be installed"
+-    IDS_INSTALL_COMPLETE    "Installation Complete"
++    // IDS_INSTALL_COMPLETE    "Installation Complete.  See http://www.lilypond.org/gnu-windows/"
++    IDS_INSTALL_COMPLETE    "Installation Complete.  See http://www.lilypond.org/gnu-windows/testing for support."
+ END
+ 
+ STRINGTABLE DISCARDABLE 
+diff -purN --exclude=*~ ../cinstall.orig/resource.h ./resource.h
 --- ../cinstall.orig/resource.h	Sat Jun 30 03:37:55 2001
-+++ ./resource.h	Sun Dec  2 15:45:18 2001
++++ ./resource.h	Sat Dec  8 12:11:00 2001
 @@ -47,12 +47,13 @@
  #define IDB_SPIN                        118
  #define IDB_RTARROW                     119
