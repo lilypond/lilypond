@@ -1,7 +1,7 @@
 #ifndef MISC_HH
 #define MISC_HH
-#include "mtime.hh"
+#include "real.hh"
 int intlog2(int d);
-Real duration_to_idealspace(Mtime d,Real w);
+Real duration_to_idealspace(Real d,Real w);
 
 #endif

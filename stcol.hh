@@ -17,7 +17,7 @@ struct Staff_column {
     svec<Command *> s_commands;
     
     Staff_column(Score_column*s); 
-    bool mus() const ;
+    bool mus() const;
     Real when() const;
     void add(Voice_element*ve);
     /****************************************************************

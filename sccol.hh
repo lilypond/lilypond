@@ -7,19 +7,18 @@
 #ifndef SCCOL_HH
 #define SCCOL_HH
 #include "pcol.hh"
-#include "mtime.hh"
 
 
 struct Score_column {
     PCol * pcol;
-    svec<Mtime> durations;
-    Mtime when;
+    svec<Real> durations;
+    Real when;
 
     /// 
     bool musical;
     
 
-    Score_column(Mtime when);
+    Score_column(Real when);
 
     static int compare(Score_column & c1, Score_column &c2) {
 	return sgn(c1.when - c2.when);
