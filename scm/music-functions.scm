@@ -127,9 +127,8 @@ This function replaces all repeats  with unfold repeats. "
   (let ((es (ly:music-property music 'elements))
 	(e  (ly:music-property music 'element))
 	(n  (ly:music-name music)))
-    (if (equal? n "Repeated_music")
+    (if (memq 'repeated-music (ly:music-property music 'types))
 	(begin
-	  
 	  (if (equal? (ly:music-property music 'iterator-ctor)
 		      Chord_tremolo_iterator::constructor)
 	      (let* ((seq-arg? (memq 'sequential-music
@@ -147,9 +146,9 @@ This function replaces all repeats  with unfold repeats. "
 		(if seq-arg?
 		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))))
 	  
-	  (set! (ly:music-property music 'length)
+	  (set! (ly:music-property music 'length-callback)
 		Repeated_music::unfolded_music_length)
-	  (set! (ly:music-property music 'start-moment-function)
+	  (set! (ly:music-property music 'start-callback)
 		Repeated_music::first_start)
 	  (set! (ly:music-property music 'iterator-ctor)
 		Unfolded_repeat_iterator::constructor)))
