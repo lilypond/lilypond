@@ -1,5 +1,8 @@
 2004-07-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* tex/GNUmakefile (TEX_FILES): don't dist
+	music-drawing-routines.ps, latin1.enc 
+
 	* scripts/lilypond.py (include_path): remove --no-lily, --no-ps ,
 	--no-pdf, --pdftex
 	(copyright): add --latex option
