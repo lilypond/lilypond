@@ -19,27 +19,28 @@ NAME = flower
 MODULE_NAME = flower
 #
 # edit .version only
-include ./$(depth)/flower/.version
 include ./$(depth)/.version
-build = ./$(depth)/flower/$(outdir)/.build
-#
+include ./$(depth)/flower/.version
 
 # generic variables:
 #
-include ./$(depth)/make/Variables.make 
-#
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
 
+#
+CXXFLAGS+=-O2
 # descent order into subdirectories:
 #
-SUBDIRS = lib test
+SUBDIRS = include test 
 #
 
 # list of distribution files:
 #
 SCRIPTS = 
 README_FILES = NEWS README TODO
-DISTFILES= configure config.hh.in configure.in Makefile .version $(README_FILES) $(SCRIPTS)
+EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(SCRIPTS)
 #
+
 
 # generic targets and rules:
 #
