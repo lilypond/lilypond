@@ -159,8 +159,6 @@
     (map ly-load
 					; load-from-path
 	 '("output-lib.scm"
-	   "pdf.scm"
-	   "pdftex.scm"
       	   "c++.scm"
 	   "molecule.scm"
 	   "bass-figure.scm"
