@@ -316,6 +316,8 @@ generate titling:
     Name of the arranger, right flushed below the opus.
 @item instrument
     Name of the instrument, centered below the arranger
+@item dedication
+      [docme]    
 @item piece
     Name of the piece, left flushed below the instrument
 @item head

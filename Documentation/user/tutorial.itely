@@ -246,7 +246,7 @@ LilyPond source file looks like:
 
 In the last section we explained what kind of things you could enter
 in a lilypond file.  In this section we explain how to run LilyPond 
-and how view or print the output.  If you have not used LilyPond
+and how to view or print the output.  If you have not used LilyPond
 before, want to test your setup of LilyPond, or want to run an example
 file yourself, read this section.   The instructions that follow
 are for running LilyPond on Unix-like systems.  Some additional

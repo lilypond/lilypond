@@ -21,10 +21,11 @@ Simultaneous_music_iterator::Simultaneous_music_iterator ()
 Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_iterator const& src)
   : Music_iterator (src)
 {
-  separate_contexts_b_ = src.separate_contexts_b_;
+  separate_contexts_b_
+    = src.separate_contexts_b_;
   
   SCM children_list = SCM_EOL;
-  SCM *tail  = &children_list_; 
+  SCM *tail  = &children_list; 
   for (SCM s = src.children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
       Music_iterator *i = unsmob_iterator (gh_car (s));

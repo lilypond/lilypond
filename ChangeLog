@@ -1,5 +1,8 @@
 2002-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/simultaneous-music-iterator.cc
+	(Simultaneous_music_iterator): protection bugfix.
+
 	* debian/: debian patches by Anthony Fok.
 	
 	* lily/clef-engraver.cc (create_clef): bugfix for octavate clef

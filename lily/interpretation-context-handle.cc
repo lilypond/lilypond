@@ -59,14 +59,16 @@ void
 Interpretation_context_handle::quit ()
 {
   if (report_to_)
-    report_to_->iterator_count_ --;
+    {
+      report_to_->iterator_count_ --;
+      report_to_ = 0;
+    }
 }
-
 
 bool
 Interpretation_context_handle::try_music (Music *m)
 {
-  return  report_to_->try_music (m);
+  return report_to_->try_music (m);
 }
 
 void
