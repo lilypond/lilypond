@@ -121,14 +121,8 @@ Tie_performer::do_pre_move_processing ()
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
      //play_element (tie_p_arr_[i]);
-     /*
-       urg.
-       doesn't work for c ~ c ~ c
-      */
-     tie_p_arr_[i]->note_l_drul_[LEFT]->length_mom_ +=
-       tie_p_arr_[i]->note_l_drul_[RIGHT]->length_mom_;
-     tie_p_arr_[i]->note_l_drul_[RIGHT]->length_mom_ = 0;
-    }
+     tie_p_arr_[i]->note_l_drul_[RIGHT]->tie_to (tie_p_arr_[i]->note_l_drul_[LEFT]);
+   }
   tie_p_arr_.clear ();
 }
 

@@ -15,6 +15,7 @@
 #include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "duration.hh"
+#include "musical-pitch.hh"
 #include "string.hh"
 #include "array.hh"
 #include "input.hh"
@@ -36,6 +37,7 @@ public:
 
 public:
   Duration default_duration_;
+  Musical_pitch default_pitch_;
   Scope *default_header_p_;
   bool first_b_;
   int fatal_error_i_;
@@ -69,6 +71,7 @@ private:
   Simultaneous_music* get_word_element (String, Duration*);
   String notename_str (Melodic_req* melodic);
   void set_last_duration (Duration const *);
+  void set_last_pitch (Musical_pitch const *);
   friend int yyparse (void*);
 };
 

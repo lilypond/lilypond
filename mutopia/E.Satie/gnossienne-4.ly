@@ -26,6 +26,7 @@ global = \notes {
 melody = \notes\relative c''{
   \clef violin;
   \property Voice.verticalDirection = 1
+  \property Voice.graceFraction = "1/4"
   r2 r r 
   r2 r r
   r4 a'8--(\< a--  a-- a-- c-- \!b-- a--\> gis f \!e 
@@ -112,9 +113,9 @@ accompany = \notes \relative c{
         \property Voice.verticalDirection = 1
         \property Voice.scriptVerticalDirection = 1
         \melody 
-	}
+      }
       \context AutoSwitchContext \accompany
-      >
+    >
   }
   \paper {
     gourlay_maxmeasures = 4.;
@@ -138,8 +139,8 @@ accompany = \notes \relative c{
     }
     \translator { 
       \ScoreContext
-      \accepts AutoSwitchGrandStaff;
-      }
+      \accepts "AutoSwitchGrandStaff";
+    }
     \translator{
       \type "Engraver_group_engraver";
       \name AutoSwitchGrandStaff;
@@ -158,14 +159,31 @@ accompany = \notes \relative c{
       slurVerticalDirection = 1;
       verticalDirection = -1;
       beamAutoEnd = "1/2";
-      }
+    }
     \translator {
       \type "Engraver_group_engraver";
-      \name "AutoSwitchContext";
+      \name AutoSwitchContext;
       \consists "Staff_switching_translator";
-      }
     }
+  }
   \midi {
     \tempo 4 = 54;
+    \translator {
+      \ScoreContext
+      \accepts "AutoSwitchGrandStaff";
+    }
+    \translator {
+      \type "Performer_group_performer";
+      \name AutoSwitchGrandStaff;
+      \accepts "AutoSwitchContext";
+      \accepts "Staff";
+    }
+    \translator {
+      \type "Staff_performer";
+      \name AutoSwitchContext;
+      \accepts "Voice";
+      \consists "Key_performer";
+      \consists "Time_signature_performer";
+    }
   }
 }

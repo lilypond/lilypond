@@ -134,12 +134,11 @@ public:
 /**
   Turn a note off 
  */
-class Midi_note_off : public Midi_item
+class Midi_note_off : public Midi_note
 {
 public:
   Midi_note_off (Midi_note*); 
 
-  int pitch_i () const;
   virtual String str () const;
 
   Midi_note* on_l_;

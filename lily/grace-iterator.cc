@@ -11,6 +11,11 @@
 #include "global-translator.hh"
 #include "warn.hh"
 
+Grace_iterator::~Grace_iterator () 
+{
+  //  child_iter_p_ = 0;
+}
+
 void
 Grace_iterator::construct_children () 
 {
@@ -41,7 +46,13 @@ Grace_iterator::do_process_and_next (Moment m)
 }
 
 Moment
-Grace_iterator::next_moment ()  const
+Grace_iterator::next_moment () const
+{
+  return 0;
+}
+
+Music*
+Grace_iterator::next_music_l ()
 {
   return 0;
 }

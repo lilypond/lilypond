@@ -311,6 +311,8 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 		    {
 		      shortest_mom_ = mom;
 		      consider_end_and_begin ();
+		      if (!stem_l_arr_p_)
+			return;
 		    }
 		  shortest_mom_ = mom;
 		}

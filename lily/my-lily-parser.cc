@@ -28,6 +28,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   source_l_ = source_l;
   lexer_p_ = 0;
   default_duration_.durlog_i_ = 2;
+  default_pitch_ = Musical_pitch (5*7, 0);
   error_level_i_ = 0;
 
   fatal_error_i_ = 0;
@@ -95,12 +96,16 @@ My_lily_parser::parser_error (String s)
   exit_status_i_ = 1;
 }
 
-
-
 void
 My_lily_parser::set_last_duration (Duration const *d)
 {
   default_duration_ = *d;
+}
+
+void
+My_lily_parser::set_last_pitch (Musical_pitch const* p)
+{
+  default_pitch_ = *p;
 }
 
 // junk me

@@ -23,9 +23,12 @@ except:
 
 
 header = {}
+lyrics = []
+voices = []
 global_voice_stuff = []
 default_len = 4
 global_key = [0] * 7			# UGH
+names = ["One", "Two", "Three"]
 DIGITS='0123456789'
 HSPACE=' \t'
 
@@ -51,12 +54,48 @@ class Rational:
 		pass
 	
 
+def dump_global ():
+	print ("global = \\notes{")
+	for i in global_voice_stuff:
+		print (i);
+	print ("}")
+
 
 def dump_header (hdr):
 	print '\\header {'
 	for k in hdr.keys ():
 		print '%s = "%s";\n'% (k,hdr[k])
  	print '}'
+
+def dump_lyrics ():
+	for i in range (len (lyrics)):
+		print ("verse%s = \\lyrics {" % names [i])
+		print (lyrics [i])
+		print ("}")
+
+def dump_voices ():
+	for i in range (len (voices)):
+		print ("voice%s = \\notes {" % names [i])
+		print (voices [i])
+		print ("}")
+	
+def dump_score ():
+	print ("\\score{")
+	print ("        \\notes<")
+	print ("                \\global")
+	for i in range (len (voices)):
+		print ("        \\context Staff=%s \\voice%s" %
+			(names [i], names [i]))
+	for i in range (len (lyrics)):
+		j = i
+		if j >= len (voices):
+			j = len (voices) - 1
+		print ("        \\context Lyrics=%s \\rhythm \\voice%s \\verse%s" % 
+			(names [i], names [j], names [i]))
+	print ("    >")
+	dump_header (header)
+	#print "%%%s" % global_voice_stuff, 1
+	print ("}")
 
 def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
@@ -70,11 +109,11 @@ def gulp_file(f):
 		n = i.tell ()
 		i.seek (0,0)
 	except:
-		print 'can\'t open file: ' + f + '\n'
+		sys.stderr.write ("can't open file: %s\n" % f)
 		return ''
 	s = i.read (n)
 	if len (s) <= 0:
-		print 'gulped empty file: ' + f + '\n'
+		sys.stderr.write ("gulped emty file: %s\n" % f)
 	i.close ()
 	return s
 
@@ -191,7 +230,7 @@ def try_parse_tuplet_begin (str, state):
 		str = str[1:]
 		state.parsing_tuplet = 1
 		
-		print '\\times %s {' % tup_lookup[dig]
+		voices_append ("\\times %s {" % tup_lookup[dig])
 	return str
 
 def  try_parse_group_end (str, state):
@@ -199,14 +238,30 @@ def  try_parse_group_end (str, state):
 		str = str[1:]
 		if state.parsing_tuplet:
 			state.parsing_tuplet = 0
-			print '}'
+			voices_append ("}")
 	return str
 
 def header_append (key, a):
 	s = ''
 	if header.has_key (key):
 		s = header[key] + "\n"
-	header [key ] = s + a
+	header [key] = s + a
+
+def lyrics_append (a):
+	i = len (lyrics) - 1
+	if i < 0:
+		i = 0
+	if len (lyrics) <= i:
+		lyrics.append ('')
+	lyrics [i] = lyrics [i] + a + "\n"
+
+def voices_append (a):
+	i = len (voices) - 1
+	if i < 0:
+		i = 0
+	if len (voices) <= i:
+		voices.append ('')
+	voices [i] = voices [i] + a + "\n"
 
 def try_parse_header_line (ln):
 	m = re.match ('^(.): *(.*)$', ln)
@@ -239,8 +294,11 @@ def try_parse_header_line (ln):
 			header ['subtitle'] = a
 		if g == 'L':
 			set_default_length (ln)
-	
-
+		if g == 'W':
+			if not len (a):
+				lyrics.append ('')
+			else:
+				lyrics_append (a);
 	return m
 
 def pitch_to_mudela_name (name, acc):
@@ -369,9 +427,10 @@ def try_parse_note (str, parser_state):
 	
 		
 	
-	print '%s%s%s' %  (pitch_to_mudela_name(notename, acc + global_key[notename]) , octave_to_mudela_quotes (octave),
-			   duration_to_mudela_duration ((num,den), default_len, current_dots))
-
+	voices_append ("%s%s%s" %
+		(pitch_to_mudela_name (notename, acc + global_key[notename]),
+					octave_to_mudela_quotes (octave),
+	 	 duration_to_mudela_duration ((num,den), default_len, current_dots)))
 	slur_end =0
 	if str[0] == ')':
 		slur_begin = 1
@@ -434,22 +493,22 @@ def try_parse_bar (str):
 				sys.stderr.write ("warning: repeat kludge\n")
 				bs = '|:'
 		if bs:
-			print '\\bar "%s";' % bs
+			voices_append ('\\bar "%s";' % bs)
 			str = str[1:]
 
 	if str and str[:2] == '[|':
 		sys.stderr.write ("warning: thick-thin bar kludge\n")
-		print '\\bar "||";'
+		voices_append ('\\bar "||";')
 		str = str[2:]
 
 	if str and str[:2] == ':|':
 		sys.stderr.write ("warning: repeat kludge\n")
-		print '\\bar ":|:";'
+		voices_append ('\\bar ":|:";')
 		str = str[2:]
 
 	if str and str[:2] == '::':
 		sys.stderr.write ("warning: repeat kludge\n")
-		print '\\bar ":|:";'
+		voices_append ('\\bar ":|:";')
 		str = str[2:]
 
 	return str
@@ -458,11 +517,11 @@ def try_parse_bar (str):
 def try_parse_chord_delims (str):
 	if str and str[0] == '[':
 		str = str[1:]
-		print '<'
+		voices_append ('<')
 
 	if str and str[0] == ']':
 		str = str[1:]
-		print '>'
+		voices_append ('>')
 
 	return str
 
@@ -470,11 +529,11 @@ def try_parse_chord_delims (str):
 def try_parse_grace_delims (str):
 	if str and str[0] == '{':
 		str = str[1:]
-		print '\\grace { '
+		voices_append ('\\grace { ')
 
 	if str and str[0] == '}':
 		str = str[1:]
-		print '}'
+		voices_append ('}')
 
 	return str
 
@@ -548,14 +607,11 @@ for opt in options:
 for f in files:
 	if f == '-':
 		f = ''
-	
-	print ("\\score{")
-	print ("    <")
-	print ("        \\context Staff=one \\notes {")
 	parse_file (f)
-	print ("        }")
-	print ("    >")
-	dump_header (header)
-	print "%%%s" % global_voice_stuff, 1
-	print ("}")
+
+	dump_global ()
+	dump_lyrics ()
+	dump_voices ()
+	dump_score ()
+	
 	

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--1999, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "chord-name-engraver.hh"

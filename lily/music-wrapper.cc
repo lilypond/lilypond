@@ -50,11 +50,16 @@ Music_wrapper::length_mom () const
   return element_p_->length_mom ();
 }
 
-
 Musical_pitch
 Music_wrapper::to_relative_octave (Musical_pitch p)
 {
   return element_p_->to_relative_octave (p);
+}
+
+Music_iterator*
+Music_wrapper::to_rhythm (Music_iterator* r)
+{
+  return element_p_->to_rhythm (r);
 }
 
 Music*

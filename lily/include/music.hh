@@ -33,6 +33,7 @@ public:
     
 
   virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Music_iterator* to_rhythm (Music_iterator*);
 
   /// The duration of this piece of music
   virtual Moment length_mom () const;

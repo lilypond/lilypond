@@ -71,7 +71,7 @@ it()url(FAQ)(DOEXPAND(docdir)/DOEXPAND(outdir)/faq.html)
 it()url(Mailing Lists)(DOEXPAND(docdir)/DOEXPAND(outdir)/mail.html)
 it()url(All of the LilyPond documentation)(DOEXPAND(docdir)/DOEXPAND(outdir)/index.html)
 it()url(The DOC++ documentation of the C++ sources.)(DOEXPAND(depth)/docxx/index.html)
-it()url(The installation instructions)(DOEXPAND(tops)/INSTALL.html)
+it()url(The installation instructions)(INSTALL.html)
 )
 
 nsect(Sites)

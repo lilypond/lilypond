@@ -38,6 +38,12 @@ Music_list_iterator::next_moment () const
   return 0;
 }
 
+Music*
+Music_list_iterator::next_music_l ()
+{
+  return 0;
+}
+
 bool
 Music_list_iterator::ok () const
 {

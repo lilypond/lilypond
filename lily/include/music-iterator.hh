@@ -74,6 +74,9 @@ public:
   ///  Find the next interesting point in time.
   virtual Moment next_moment() const;
 
+  ///  Return next Music item
+  virtual Music* next_music_l ();
+
   ///Are we finished with this piece of music?
   virtual bool ok() const;
 

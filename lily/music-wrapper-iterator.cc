@@ -56,3 +56,9 @@ Music_wrapper_iterator::next_moment () const
   return child_iter_p_->next_moment ();
 }
 
+Music*
+Music_wrapper_iterator::next_music_l ()
+{
+  return child_iter_p_->next_music_l ();
+}
+

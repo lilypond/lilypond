@@ -45,13 +45,14 @@ Grace_performer_group::do_removal_processing ()
 }
 
 void
-Grace_performer_group::announce_element (Audio_element_info inf)
+Grace_performer_group::announce_element (Audio_element_info info)
 {
-  announce_info_arr_.push (inf);
+  announce_info_arr_.push (info);
   // do not propagate to top
-  announce_to_top_.push (inf);
+  announce_to_top_.push (info);
 
   //inf.elem_l_->set_elt_property (grace_scm_sym, SCM_BOOL_T);
+  info.elem_l_->grace_b_ = true;
 }
 
 void
