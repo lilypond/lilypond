@@ -39,6 +39,7 @@ staff {
 		\music {  a  () bes eis8 eis8 }
 		\music { fis () g gis8 gis8 }
 	}
+	\clef\tenor
 	{ c4 'c4 }
 
 	[d8 e8 'f8 g8]  d8 e8 f8 g8
