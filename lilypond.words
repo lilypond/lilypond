@@ -24,6 +24,7 @@ bass
 Beam
 \\beamintervals
 \\blend
+\\bold
 \\break
 \\breathe
 \\broken
@@ -48,6 +49,8 @@ ChordName
 \\clipping
 \\cm
 \\coda
+\\column
+\\combine
 \\commandspanrequest
 \\complex
 \\consists
@@ -73,6 +76,7 @@ Dots
 \\downmordent
 \\downprall
 \\duration
+\\dynamic
 \\dynamicBoth
 \\dynamicDown
 DynamicText
@@ -106,6 +110,7 @@ FiguredBass
 fold
 \\font
 \\FontBody
+\\fontsize
 \\forgetAccidentals
 \\fp
 \\fragment
@@ -129,6 +134,8 @@ Hairpin
 \\HaraKiriStaffContext
 \\header
 \\hideStaffSwitch
+\\huge
+\\Huge
 \\hsize
 \\improOff
 \\improOn
@@ -142,10 +149,13 @@ InnerChoirStaff
 \\inversions
 \\invisible
 \\ionian
+\\italic
 \\key
 \\keys
 \\keysignature
 \\lag
+\\large
+\\Large
 \\legato
 \\legniGroup
 \\lheel
@@ -164,8 +174,10 @@ Lyrics
 \\LyricsContext
 \\LyricsVoiceContext
 \\major
+\\magnify
 \\marcato
 \\mark
+\\markup
 \\maxima
 \\melisma
 \\melisma
@@ -190,6 +202,7 @@ mezzosoprano
 \\multipart
 \\music
 \\musicalpitch
+\\musicglyph
 \\n
 \\name
 \\names
@@ -256,6 +269,7 @@ PianoStaff
 \\quickmeasure
 \\quiteLongLyrics
 \\quiteLongLyricsStaff
+\\raise
 \\ratherLongLyrics
 \\ratherLongLyricsStaff
 \\rc
@@ -361,6 +375,8 @@ Stem
 \\stscore
 \\stuff
 \\su
+\\sub
+\\super
 \\sustainBoth
 \\sustainDown
 \\sustainUp
@@ -368,6 +384,7 @@ System
 SystemStartDelimiter
 \\tab
 TabStaff
+\\teeny
 \\tempo
 tenor
 \\tenuto
