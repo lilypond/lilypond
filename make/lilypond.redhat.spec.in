@@ -95,12 +95,16 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 
 chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
-scrollkeeper-update
-
 echo 'Please logout first before using LilyPond.'
 
 %preun
+
+%post documentation
 scrollkeeper-update
+
+%preun documentation
+scrollkeeper-update
+
 
 %if %{info}
 if [ $1 = 0 ]; then
@@ -146,15 +150,15 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 %{_datadir}/lilypond/@TOPLEVEL_VERSION@/
 %{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
 
-%{docdir}/lilypond/@TOPLEVEL_VERSION@
-%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
 
 /etc/profile.d/lilypond.*
 
 
-# % files documentation
+%files documentation
 
-# % defattr(-, root, root)
+%defattr(-, root, root)
 
+%{docdir}/lilypond/@TOPLEVEL_VERSION@
+%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
 
 

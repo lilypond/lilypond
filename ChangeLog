@@ -1,3 +1,8 @@
+2003-03-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/converters.itely (Invoking midi2ly): add
+	track/channel notice.
+
 2003-03-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* stepmake/stepmake/omf-targets.make (omf-local-install): bugfixes
