@@ -1,3 +1,9 @@
+2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/rhythmic-column-engraver.cc (acknowledge_grob): don't make
+	note column for notes/stems/dots that already have parents. Fixes
+	nested grace contexts.
+
 2002-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/mozart-hrn-3.ly: Tweak Slur.beautiful, so that we don't
@@ -11,6 +17,11 @@
 	* lily/beam.cc (get_interbeam): Bugfix: don't look in empty list.
 
 2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/regression/spacing-grace-duration.ly: new file
+
+	* lily/spacing-engraver.cc (acknowledge_grob): ignore grace notes
+	for shortest durations.
 
 	* lily/multi-measure-rest.cc (set_spacing_rods): tune rods to the
 	extent of the mm rest. 

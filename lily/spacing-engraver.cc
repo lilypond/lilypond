@@ -43,7 +43,7 @@ class Spacing_engraver : public Engraver
   PQueue<Rhythmic_tuple> playing_durations_;
   Array<Rhythmic_tuple> now_durations_;
   Array<Rhythmic_tuple> stopped_durations_;
-
+  Moment now_;
   Spanner * spacing_p_;
   
   TRANSLATOR_DECLARATIONS(Spacing_engraver);
@@ -100,11 +100,18 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
   
   if (to_boolean (i.grob_l_->get_grob_property ("non-rhythmic")))
     return;
-  
-  if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.music_cause ()))
+
+  /*
+    only pay attention to durations that are not grace notes. 
+   */
+  if (!now_.grace_part_)
     {
-      Rhythmic_tuple t (i, now_mom () + r->length_mom ());
-      now_durations_.push (t);
+      if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.music_cause ()))
+	{
+	  Moment len = r->length_mom ();
+	  Rhythmic_tuple t (i, now_mom () + len);
+	  now_durations_.push (t);
+	}
     }
 }
 
@@ -116,10 +123,7 @@ Spacing_engraver::stop_translation_timestep ()
   for (int i=0; i < playing_durations_.size (); i++)
     {
       Moment m = (playing_durations_[i].info_.music_cause ())->length_mom ();
-      if (m.to_bool ())
-	{
-	  shortest_playing = shortest_playing <? m;
-	}
+      shortest_playing = shortest_playing <? m;
     }
   
   Moment starter;
@@ -152,11 +156,11 @@ Spacing_engraver::stop_translation_timestep ()
 void
 Spacing_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom ();
+  now_ = now_mom ();
   stopped_durations_.clear ();
-  while (playing_durations_.size () && playing_durations_.front ().end_ < now)
+  while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
     playing_durations_.delmin ();
-  while (playing_durations_.size () && playing_durations_.front ().end_ == now)
+  while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
     stopped_durations_.push (playing_durations_.get ());
 }
 
