@@ -10,7 +10,7 @@
 
 #include "audio-element-info.hh"
 #include "array.hh"
-#include "request.hh"
+#include "event.hh"
 #include "grob-info.hh"
 #include "translator.hh"
 

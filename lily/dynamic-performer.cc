@@ -8,12 +8,12 @@
 
 #include "performer.hh"
 
-#include "request.hh"
+#include "event.hh"
 #include "audio-item.hh"
 
 /*
   TODO:
-    handle multiple requests
+    handle multiple events
  */
 
 /**

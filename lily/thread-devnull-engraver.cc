@@ -8,7 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "request.hh"
+#include "event.hh"
 #include "translator-group.hh"
 
 class Thread_devnull_engraver : public Engraver

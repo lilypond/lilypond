@@ -8,7 +8,7 @@
 
 #include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
-#include "request.hh"
+#include "event.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
 #include "warn.hh"

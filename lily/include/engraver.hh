@@ -12,13 +12,13 @@
 
 #include "lily-proto.hh"
 #include "array.hh"
-#include "request.hh"
+#include "event.hh"
 #include "grob-info.hh"
 #include "translator.hh"
 
 
 /**
-  a struct which processes requests, and creates the #Grob#s.
+  a struct which processes events, and creates the #Grob#s.
   It may use derived classes. 
   */
 class Engraver : public virtual Translator {

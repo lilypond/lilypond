@@ -10,7 +10,7 @@
 
 /**
   This engraver swallows everything given to it silently. The purpose of
-  this is to prevent spurious "request junked" warnings.
+  this is to prevent spurious "event junked" warnings.
  */
 class Swallow_engraver : public Engraver
 {

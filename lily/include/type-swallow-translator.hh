@@ -12,7 +12,7 @@
 
 #include "translator.hh"
 
-/** eat a certain type of request.
+/** eat a certain type of event
  (Duh, it's good for your skin)
  */
 class Type_swallow_translator : public virtual Translator
@@ -24,7 +24,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 };
 
-#define DECLARE_REQUEST_SWALLOWER(TYPE)					\
+#define DECLARE_EVENT_SWALLOWER(TYPE)					\
 struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
   TRANSLATOR_DECLARATIONS (TYPE ## _swallow_translator);  \
 };									\
@@ -32,7 +32,7 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
       swallow_string_ =  #TYPE;						\
   }									\
 ENTER_DESCRIPTION(TYPE ## _swallow_translator,				\
-		  "Swallow requests of " #TYPE " type.",		\
+		  "Swallow events of " #TYPE " type.",		\
 		  "",							\
 	"general-music",\
 		  "",							\

@@ -7,11 +7,11 @@
 */
 
 #include "chord.hh"
-#include "request.hh"
+#include "event.hh"
 #include "warn.hh"
 
 #include "music-list.hh"
-#include "request.hh"
+#include "event.hh"
 
 
 SCM
@@ -363,7 +363,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       scm_gc_unprotect_object (n->self_scm ());
     }
 
-  Music * v = make_music_by_name(ly_symbol2scm ("RequestChord"));
+  Music * v = make_music_by_name(ly_symbol2scm ("EventChord"));
   v->set_mus_property ("elements", list);
 
   return v;

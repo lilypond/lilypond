@@ -6,7 +6,7 @@
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "request.hh"
+#include "event.hh"
 #include "audio-item.hh"
 #include "lily-proto.hh"
 #include "performer.hh"

@@ -4,7 +4,7 @@
     (AbortEvent
      . (
 	(description .  "Abort currently running spanners.")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(span-type . "abort")
 	(types . (general-music event abort-event))
 	))
@@ -12,7 +12,7 @@
      . (
 	(description .  "Make an arpeggio on this note. Syntax:
 @var{note}-@code{\\arpeggio}")
-	(internal-class-name .  "Request")
+	(internal-class-name .  "Event")
 	(types . (general-music arpeggio-event event))
 	))
 
@@ -22,7 +22,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event articulation-event script-event))
 	)) 
     (AutoChangeMusic
@@ -44,35 +44,35 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event bass-figure-event))
 	))
     (BeamEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event beam-event span-event))
 	))
     (BreakEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music break-event event))
 	))
     (BreathingSignEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event breathing-event))
 	)) 
     (BusyPlayingEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	)) 
     (ContextSpeccedMusic
@@ -86,28 +86,28 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music dynamic-event crescendo-event event))
 	)) 
     (DecrescendoEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
 	)) 
     (ExtenderEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
 	))   
     (GlissandoEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music glissando-event event))
 	)) 
     (GraceMusic
@@ -122,7 +122,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music hyphen-event event))
 	))   
     (KeyChangeEvent
@@ -146,14 +146,14 @@
 	(description .  "A lyric syllable. Must be entered in lyrics mode, i.e.
 @code{\\lyrics @{ twinkle4 twinkle4 @} } .")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music rhythmic-event lyric-event event))
 	))
     (LigatureEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(span-type . ligature)
 	(types . (general-music event span-event ligature-event))
 	))
@@ -161,28 +161,28 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music mark-event event))
 	))  
     (MelismaEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music span-event melisma-playing-event event))
 	)) 
     (MelismaPlayingEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event))
 	))
     (MultiMeasureRestEvent
      . (
 	(description . "Rests that may be compressed into Multi rests. Syntax
 @code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event multi-measure-rest-event))
 	))
     (Music
@@ -196,7 +196,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
     (OverrideProperty
@@ -219,7 +219,7 @@
     (PhrasingSlurEvent
      . (
 	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music span-event phrasing-slur-event slur-event))
 	))
     (PropertySet
@@ -243,7 +243,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music porrectus-event event))
 	))
     (RepeatedMusic
@@ -253,18 +253,18 @@
 	(type .  repeated-music)
 	(types . (general-music repeated-music))
 	))
-    (Request
+    (Event
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event))
 	)) 
     (RestEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (SequentialMusic
@@ -287,7 +287,7 @@
     (SlurEvent
      . (
 	(description . "Start or end slur. Syntax NOTE(  and )NOTE")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music span-event slur-event))
 	))
 
@@ -312,7 +312,7 @@
     (TextSpanEvent
      . (
 	(description . "Start a text spanner like 8va.....|")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music span-event text-span-event))
 	))
     (TranslatorChange
@@ -362,13 +362,13 @@
 	))
 
     
-    (RequestChord
+    (EventChord
      . (
 	(description .  "")
 
-	(internal-class-name . "Request_chord")
-	(iterator-ctor . ,Request_chord_iterator::constructor)
-	(types . (general-music request-chord simultaneous-music))
+	(internal-class-name . "Event_chord")
+	(iterator-ctor . ,Event_chord_iterator::constructor)
+	(types . (general-music event-chord simultaneous-music))
 	)
      )
     
@@ -376,71 +376,71 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event))
 	)) 
     (SkipEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event skip-event))
 	)) 
     (SpanEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event))
 	)) 
     (SustainPedalEvent
      . (
 	(description . "")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music pedal-event sustain-pedal-event))
 	))
     (SostenutoEvent
      . (
 	(description . "")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music pedal-event sostenuto-pedal-event))
 	))
     (UnaCordaEvent
      . (
 	(description . "")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music pedal-event una-corda-pedal-event))
 	))
     (StringNumberEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music string-number-event event))
 	)) 
     (TempoEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music tempo-event event))
 	)) 
     (TextScriptEvent
      . (
 	(description .  "")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music script-event text-script-event event))
 	)) 
     (TieEvent
      . (
 	(description .  "A tie. Entered as ~.")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))
     (TremoloEvent
      . (
 	(description . "Un measured tremolo.")
-	(internal-class-name . "Request")
+	(internal-class-name . "Event")
 	(types . (general-music event tremolo-event))
 	))
     (VoiceSeparator
@@ -545,7 +545,7 @@
     ))
 
 
-(define-public (old-span-request->event name)
+(define-public (old-span-event->event name)
   (let
       (
        (entry   (assoc

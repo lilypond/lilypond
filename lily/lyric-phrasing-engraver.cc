@@ -237,7 +237,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
      This has the effect of finishing the extender under the last note
      of the melisma, instead of extending it to the next lyric.
      
-     Problem: the extender request is thrown at the same moment as the next lyric,
+     Problem: the extender event is thrown at the same moment as the next lyric,
      by which time we have already passed the last note of the melisma.
      However, the Lyric_phrasing_engraver remembers the last note, so just 
      attach it to that, provided it was melismatic. If it was not melismatic, 

@@ -10,7 +10,7 @@
 #include "item.hh"
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
-#include "request.hh"
+#include "event.hh"
 #include "pitch.hh"
 
 /*
@@ -45,13 +45,13 @@
  *
  * - If a piece consists of several loosely coupled sections, should
  * there be multiple ambitus grobs allowed, one for each section?
- * Then there probably should be some "\ambitus" request added to
+ * Then there probably should be some "\ambitus" event added to
  * mudela, stating where an ambitus grob should be placed.  This
  * ambitus grob should then represent the ambitus in the range of time
- * between this "\ambitus" request and the next one (or the end of the
- * piece, if there is no more such request).  To be compliant with the
+ * between this "\ambitus" event and the next one (or the end of the
+ * piece, if there is no more such event).  To be compliant with the
  * current implementation, we might implicitly assume an "\ambitus"
- * request at the beginning of the piece, but then the question where
+ * event at the beginning of the piece, but then the question where
  * to put this first ambitus grob (before/after the clef?) becomes
  * even more urgent.
  *

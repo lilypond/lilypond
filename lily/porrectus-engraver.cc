@@ -22,7 +22,7 @@
  * ligature context that encloses use of this engraver, using syntax
  * like: \ligature { e \~ c }.
  *
- * TODO: Do not allow a series of adjacent porrectus requests, as in:
+ * TODO: Do not allow a series of adjacent porrectus events, as in:
  * e \~ d \~ c.
  *
  * TODO: Junk duplicate (or rather triple) implementation of
@@ -31,7 +31,7 @@
 
 #include "staff-symbol-referencer.hh"
 #include "porrectus.hh"
-#include "request.hh"
+#include "event.hh"
 
 #include "rhythmic-head.hh"
 #include "item.hh"

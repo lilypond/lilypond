@@ -7,7 +7,7 @@
 */
 
 #include "flower-proto.hh"
-#include "request.hh"
+#include "event.hh"
 #include "lyric-extender.hh"
 #include "paper-column.hh"
 #include "item.hh"
@@ -23,7 +23,7 @@
   gap between syllables.
 
   We remember the last Item that come across. When we get a
-  request, we create the spanner, and attach the left point to the
+  event, we create the spanner, and attach the left point to the
   last lyrics, and the right point to any lyrics we receive by
   then.  */
 class Extender_engraver : public Engraver
@@ -101,7 +101,7 @@ Extender_engraver::process_music ()
     {
       if (!last_lyric_)
 	{
-	  req_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
+	  req_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender event."));
 	  return;
 	}
       

@@ -184,7 +184,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 }
 
 ENTER_DESCRIPTION (Ligature_engraver,
-/* descr */       "Abstract class; a concrete subclass handles Ligature_requests by engraving Ligatures in a concrete style.",
+/* descr */       "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 /* creats*/       "Ligature",
 /* accepts */     "ligature-event abort-event",
 /* acks  */      "ligature-head-interface rest-interface",

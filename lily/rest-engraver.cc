@@ -7,7 +7,7 @@
 */
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
-#include "request.hh"
+#include "event.hh"
 #include "dots.hh"
 #include "rhythmic-head.hh"
 #include "engraver.hh"

@@ -5,7 +5,7 @@
   Modified 2001-2002 by Rune Zedeler <rz@daimi.au.dk>
 */
 
-#include "request.hh"
+#include "event.hh"
 
 #include "item.hh"
 #include "tie.hh"

@@ -33,7 +33,7 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 }
 
 ENTER_DESCRIPTION(Ligature_bracket_engraver,
-/* descr */       "Handles Ligature_requests by engraving Ligature brackets.",
+/* descr */       "Handles Ligature_events by engraving Ligature brackets.",
 /* creats*/       "LigatureBracket",
 /* accepts */     "",
 /* acks  */      "ligature-head-interface rest-interface",

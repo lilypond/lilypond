@@ -9,7 +9,7 @@
 #include "staff-symbol-referencer.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
-#include "request.hh"
+#include "event.hh"
 #include "misc.hh"
 #include "stem-tremolo.hh"
 #include "item.hh"
@@ -72,21 +72,21 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	    {
 	      /*
 		Stem tremolo is never applied to a note by default,
-		is must me requested.  But there is a default for the
+		is must me evented.  But there is a default for the
 		tremolo value:
 
 		   c4:8 c c:
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int requested_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
+	      int evented_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
-	      if (!requested_type && gh_number_p (f))
-		requested_type = gh_scm2int (f);
+	      if (!evented_type && gh_number_p (f))
+		evented_type = gh_scm2int (f);
 	      else
-		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
+		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (evented_type));
 
-	      int tremolo_flags = intlog2 (requested_type) - 2
+	      int tremolo_flags = intlog2 (evented_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
 	      if (tremolo_flags <= 0)
 		{

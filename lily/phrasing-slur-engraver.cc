@@ -4,7 +4,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "request.hh"
+#include "event.hh"
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
@@ -14,7 +14,7 @@
 
 class Phrasing_slur_engraver : public Engraver
 {
-  Link_array<Music> requestses_;
+  Link_array<Music> eventses_;
   Link_array<Music> new_phrasing_slur_reqs_;
   Link_array<Grob> phrasing_slur_l_stack_;
   Link_array<Grob> end_phrasing_slurs_;
@@ -53,7 +53,7 @@ Phrasing_slur_engraver::try_music (Music *req)
 	      end_phrasing_slurs_[i]->suicide ();
 	    }
 	  end_phrasing_slurs_.clear ();
-	  requestses_.clear ();
+	  eventses_.clear ();
 	  new_phrasing_slur_reqs_.clear ();
     }
   else if (req->is_mus_type ("phrasing-slur-event"))
@@ -111,9 +111,9 @@ Phrasing_slur_engraver::finalize ()
     }
   phrasing_slur_l_stack_.clear ();
 
-    for (int i=0; i < requestses_.size (); i++)
+    for (int i=0; i < eventses_.size (); i++)
       {
-	requestses_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
+	eventses_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
       }
 }
 
@@ -136,7 +136,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	    {
 	      Grob* phrasing_slur = phrasing_slur_l_stack_.pop ();
 	      end_phrasing_slurs_.push (phrasing_slur);
-	      requestses_.pop ();
+	      eventses_.pop ();
 	    }
 	}
       else if (d == START)
@@ -146,7 +146,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
 	  Slur::set_interface (phrasing_slur); // can't remove.
 	  start_phrasing_slurs.push (phrasing_slur);
-	  requestses_.push (phrasing_slur_req);
+	  eventses_.push (phrasing_slur_req);
 	  announce_grob(phrasing_slur, phrasing_slur_req->self_scm());
 	}
     }

@@ -40,7 +40,7 @@
 #include "parser.hh"
 #include "warn.hh"
 #include "main.hh"
-#include "request.hh"
+#include "event.hh"
 #include "version.hh"
 #include "lilypond-input-version.hh"
 #include "translator-def.hh"
@@ -549,7 +549,7 @@ My_lily_lexer::identifier_type(SCM sid)
 	} else if (Music * mus =unsmob_music (sid)) {
 		yylval.scm = sid;
 		
-		return dynamic_cast<Request*> (mus) ? REQUEST_IDENTIFIER : MUSIC_IDENTIFIER;
+		return dynamic_cast<Event*> (mus) ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
 	} else if (unsmob_duration (sid)) {
 		yylval.scm = sid;
 		return DURATION_IDENTIFIER;
