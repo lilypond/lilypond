@@ -24,17 +24,213 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "box.hh"
-#include "bezier.hh"
 #include "bezier-bow.hh"
 #include "main.hh"
 #include "cross-staff.hh"
 #include "group-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "lily-guile.icc"
+
+
+class Slur_bezier_bow : public Bezier_bow
+{
+public:
+  Slur_bezier_bow (Array<Offset> encompass, Direction dir);
+  Array<Real> area_x_gradients_array (Real area);
+  void blow_fit ();
+  Real enclosed_area_f () const;
+  Real fit_factor () const;
+  void minimise_enclosed_area (Paper_def* paper_l, Real default_height);
+};
+
+Slur_bezier_bow::Slur_bezier_bow (Array<Offset> encompass, Direction dir)
+  : Bezier_bow (encompass, dir)
+{
+}
+
+void
+Slur_bezier_bow::blow_fit ()
+{
+  Real len = curve_.control_[3][X_AXIS]; 
+  Real h = curve_.control_[1][Y_AXIS] * fit_factor () / len;
+  curve_.control_[1][Y_AXIS] = h * len;
+  curve_.control_[2][Y_AXIS] = h * len;  
+  curve_.assert_sanity ();
+}
+
+
+Real
+Slur_bezier_bow::enclosed_area_f () const
+{
+  Real a = 0;
+  for (int i=0; i < encompass_.size (); i++)
+    {
+      Interval x;
+      Interval y;
+      if (i == 0)
+	{
+	  x = Interval (0, encompass_[1][X_AXIS] / 2);
+	  y = Interval (0,
+			curve_.get_other_coordinate (X_AXIS,
+						     encompass_[1][X_AXIS]
+						     / 2));
+	}
+      else if (i == encompass_.size () - 1)
+	{
+	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS])/2, 
+			encompass_[i][X_AXIS]);
+	  y = Interval (0,
+			(curve_.get_other_coordinate (X_AXIS,
+						      (x[MIN] + x[MAX]) / 2)));
+	}
+      else
+	{
+	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS]) / 2, 
+			(encompass_[i][X_AXIS] + encompass_[i+1][X_AXIS]) / 2);
+	  y = Interval (encompass_[i][Y_AXIS],
+			(curve_.get_other_coordinate (X_AXIS, x[MIN])
+			 + curve_.get_other_coordinate (X_AXIS,
+							(x[MIN] + x[MAX]) / 2)
+			 + curve_.get_other_coordinate (X_AXIS, x[MAX])) / 3);
+	}
+      
+      Real da = x.length () * y.length ();
+      a += da;
+    }
+  return a;
+}
+
+Array<Real>
+Slur_bezier_bow::area_x_gradients_array (Real area)
+{
+  Real len = curve_.control_[3][X_AXIS]; 
+  Real grow = len / 10.0;
+  Array<Real> da (2);
+  for (int i=0; i < 2; i++)
+    {
+      Real r = curve_.control_[i+1][X_AXIS];
+      curve_.control_[i+1][X_AXIS] += grow;
+      da[i] = (enclosed_area_f () - area) / grow;
+      curve_.control_[i+1][X_AXIS] = r; 
+    }
+  return da;
+}
+
+void
+Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l,
+					 Real default_height)
+{
+  Real length = curve_.control_[3][X_AXIS]; 
+  Real bbc = paper_l->get_var ("bezier_beautiful");
+  Real beautiful = length * default_height / bbc;
+
+  DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
+  DEBUG_OUT << to_str ("Length: %f\n", length);
+  DEBUG_OUT << to_str ("D-height: %f\n", default_height);
+  DEBUG_OUT << to_str ("FitFac: %f\n", fit_factor ());
+
+  if (fit_factor () > 1.0)
+    blow_fit ();
+  
+  Real pct_c0 = paper_l->get_var ("bezier_pct_c0");
+  Real pct_c3 = paper_l->get_var ("bezier_pct_c3");
+  Real pct_in_max = paper_l->get_var ("bezier_pct_in_max");
+  Real pct_out_max = paper_l->get_var ("bezier_pct_out_max");
+  Real steps = paper_l->get_var ("bezier_area_steps");
+
+  for (int i=0; i < steps; i++)
+    {
+      Real area = enclosed_area_f ();
+      if (!i)
+	DEBUG_OUT << to_str ("Init area: %f\n", area);
+
+      if (area <= beautiful)
+	break;
+
+      Array<Real> da = area_x_gradients_array (area);
+
+      // urg
+      Real pct = pct_c0 + pct_c3 * length * length * length;
+      pct *= (steps - i) / steps;
+      if (da[0] > 0 || da[1] < 0)
+	pct = pct <? pct_out_max;
+      else
+	pct = pct <? pct_in_max;
+
+      Real u = (abs (curve_.control_[1][X_AXIS] / da[0])
+		<? abs ((curve_.control_[3][X_AXIS]
+			 - curve_.control_[2][X_AXIS]) / da[1]));
+
+      DEBUG_OUT << to_str ("pct: %f\n", pct);
+      DEBUG_OUT << to_str ("u: %f\n", u);
+
+      DEBUG_OUT << to_str ("da: (%f, %f)\n", da[0], da[1]);
+      DEBUG_OUT << to_str ("da*u: (%f, %f)\n", da[0]*u*pct, da[1]*u*pct);
+      DEBUG_OUT << to_str ("cx: (%f, %f)\n", curve_.control_[1][X_AXIS],
+			   curve_.control_[2][X_AXIS]);
+
+      curve_.control_[1][X_AXIS] -= da[0] * u * pct;
+      curve_.control_[2][X_AXIS] -= da[1] * u * pct;
+    }
+
+  Real area = enclosed_area_f ();
+  DEBUG_OUT << to_str ("Exarea: %f\n", area);
+}
+
+
+
+/*
+  max ( encompass.y / curve.y )
+  
+ */
+Real
+Slur_bezier_bow::fit_factor () const
+{
+  Real x1 = encompass_[0][X_AXIS];
+  Real x2 = encompass_.top ()[X_AXIS];
+
+  Real factor = 0.0;
+  for (int i=1; i < encompass_.size ()-1; i++)
+    {
+      if (encompass_[i][X_AXIS] > x1 && encompass_[i][X_AXIS] < x2)
+	{
+	 Real y = curve_.get_other_coordinate (X_AXIS, encompass_[i][X_AXIS]);
+	 if (y>0)
+	   {
+	     Real f = encompass_[i][Y_AXIS] / y;
+	     factor = factor >? f;
+	   }
+	}
+    }
+
+
+  return factor;
+}
+
+
+
+
+
+/*
+  Slur
+*/
 
 Slur::Slur ()
 {
+  // URG
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
+
   set_elt_property ("note-columns", SCM_EOL);
+  set_elt_property ("control-points", SCM_EOL);
+
+#if 0
+  /*
+    I still don't understand the merits of this Group_interface.
+   */
+  Group_interface c (this, "control-points");
+  c.set_interface ();
+#endif
 }
 
 void
@@ -48,6 +244,36 @@ Slur::add_column (Note_column*n)
       gi.add_element (n);
       add_dependency (n);
     }
+}
+
+void
+Slur::de_uglyfy (Slur_bezier_bow* bb, Real default_height)
+{
+  Real length = bb->curve_.control_[3][X_AXIS] ; 
+  Real ff = bb->fit_factor ();
+  for (int i = 1; i < 3; i++)
+    {
+      Real ind = abs (bb->curve_.control_[(i-1)*3][X_AXIS]
+		      - bb->curve_.control_[i][X_AXIS]) / length;
+      Real h = bb->curve_.control_[i][Y_AXIS] * ff / length;
+
+      Real f = default_height / length;
+      Real c1 = paper_l ()->get_var ("bezier_control1");
+      Real c2 = paper_l ()->get_var ("bezier_control2");
+      Real c3 = paper_l ()->get_var ("bezier_control3");
+      if (h > c1 * f)
+	{
+	  h = c1 * f; 
+	}
+      else if (h > c2 + c3 * ind)
+	{
+	  h = c2 + c3 * ind; 
+	}
+      
+      bb->curve_.control_[i][Y_AXIS] = h * length;
+    } 
+
+  bb->curve_.assert_sanity ();
 }
 
 Direction
@@ -94,7 +320,7 @@ Slur::encompass_offset (Note_column const* col) const
   if (!stem_l)
     {
       warning (_ ("Slur over rest?"));
-      o[X_AXIS] = col->hpos_f ();
+     o[X_AXIS] = col->hpos_f ();
       o[Y_AXIS] = col->extent (Y_AXIS)[dir];
       return o;  
     }
@@ -125,13 +351,19 @@ Slur::encompass_offset (Note_column const* col) const
   return o;
 }
 
-/*
-  ARGRARGRARGRARGAR!
-
-  Fixme
- */
 void
 Slur::do_post_processing ()
+{
+  set_extremities ();
+  set_control_points ();
+} 
+
+/*
+  urg
+  FIXME
+ */
+void
+Slur::set_extremities ()
 {
   Link_array<Note_column> encompass_arr =
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
@@ -287,158 +519,6 @@ Slur::do_post_processing ()
 	
   if (!fix_broken_b)
     dy_f_drul_[RIGHT] += interstaff_f;
-
-
-
-  return; 
-
-  /*
-    Now we've got a fine slur
-    Catch and correct some ugly cases
-   */
-  String infix = interstaff_b ? "interstaff_" : "";
-  Real height_damp_f = paper_l ()->get_var ("slur_"+infix +"height_damping");
-  Real slope_damp_f = paper_l ()->get_var ("slur_"+infix +"slope_damping");
-  Real snap_f = paper_l ()->get_var ("slur_"+infix +"snap_to_stem");
-  Real snap_max_dy_f = paper_l ()->get_var ("slur_"+infix +"snap_max_slope_change");
-
-  Real dx_f = spanner_length ()+ dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
-  Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-  if (!fix_broken_b)
-    dy_f -= interstaff_f;
-
-  /*
-    Avoid too steep slurs.
-   */
-  Real slope_ratio_f = abs (dy_f / dx_f);
-  if (slope_ratio_f > slope_damp_f)
-    {
-      Direction d = (Direction)(- my_dir * (sign (dy_f)));
-      if (!d)
-	d = LEFT;
-      Real damp_f = (slope_ratio_f - slope_damp_f) * dx_f;
-      /*
-	must never change sign of dy
-       */
-      damp_f = damp_f <? abs (dy_f);
-      dy_f_drul_[d] += my_dir * damp_f;
-    }
-
-  /*
-   Avoid too high slurs 
-
-   Wierd slurs may look a lot better after they have been
-   adjusted a bit.
-   So, we'll do this in 3 steps
-   */
-  for (int i = 0; i < 3; i++)
-    {
-      Bezier c (get_curve ());
-      
-      Offset size (c.extent (X_AXIS).length (),
-		   c.extent (Y_AXIS).length ());
-
-      dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-      if (!fix_broken_b)
-	dy_f -= interstaff_f;
-
-      Real height_ratio_f = abs (size[Y_AXIS] / size[X_AXIS]);
-      if (height_ratio_f > height_damp_f)
-	{
-	  Direction d = (Direction)(- my_dir * (sign (dy_f)));
-	  if (!d)
-	    d = LEFT;
-	  /* take third step */
-	  Real damp_f = (height_ratio_f - height_damp_f) * size[X_AXIS] / 3;
-	  /*
-	    if y positions at about the same height, correct both ends
-	  */
-	  if (abs (dy_f / dx_f ) < slope_damp_f)
-	    {
-	      dy_f_drul_[-d] += my_dir * damp_f;
-	      dy_f_drul_[d] += my_dir * damp_f;
-	    }
-	  /*
-	    don't change slope too much, would have been catched by slope damping
-	  */
-	  else
-	    {
-	      damp_f = damp_f <? abs (dy_f/2);
-	      dy_f_drul_[d] += my_dir * damp_f;
-	    }
-	}
-    }
-
-  /*
-    If, after correcting, we're close to stem-end...
-  */
-  Drul_array<Real> snapy_f_drul;
-  snapy_f_drul[LEFT] = snapy_f_drul[RIGHT] = 0;
-  Drul_array<Real> snapx_f_drul;
-  snapx_f_drul[LEFT] = snapx_f_drul[RIGHT] = 0;
-  Drul_array<bool> snapped_b_drul;
-  snapped_b_drul[LEFT] = snapped_b_drul[RIGHT] = false;
-  do
-    {
-      Note_column * nc = note_column_drul[d];
-      if (nc == spanned_drul_[d]
-	  && nc->stem_l ()
-	  && nc->stem_l ()->get_direction () == my_dir
-	  && abs (nc->stem_l ()->extent (Y_AXIS)[my_dir]
-		  - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
-	      <= snap_f)
-	{
-	  /*
-	    prepare to attach to stem-end
-	  */
-	  snapx_f_drul[d] = nc->stem_l ()->hpos_f ()
-	    - spanned_drul_[d]->relative_coordinate (0, X_AXIS);
-
-	  snapy_f_drul[d] = nc->stem_l ()->extent (Y_AXIS)[my_dir]
-	    + interstaff_interval[d]
-	    + my_dir * 2 * y_gap_f;
-	  
-	  snapped_b_drul[d] = true;
-	}
-    }
-  while (flip (&d) != LEFT);
-
-  /*
-    only use snapped positions if sign (dy) will not change
-    and dy doesn't change too much
-    */
-  if (!fix_broken_b)
-    dy_f += interstaff_f;
-
-
-  /*
-    (sigh)
-
-    More refactoring could be done.
-   */
-  Real maxsnap = abs (dy_f * snap_max_dy_f);
-  if (snapped_b_drul[LEFT] && snapped_b_drul[RIGHT]
-      && ((sign (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT] - dy_f)
-		    < maxsnap)))
-    {
-      dy_f_drul_ = snapy_f_drul;
-      dx_f_drul_ = snapx_f_drul;
-    }
-  else
-    do
-      {
-	Direction od = (Direction)-d;
-	if (snapped_b_drul[d]
-	    && d * sign (snapy_f_drul[d] - dy_f_drul_[od]) == sign (dy_f)
-	    && (!dy_f || (abs (snapy_f_drul[d] - dy_f_drul_[od]  - d * dy_f)
-			  < maxsnap)))
-	  {
-	    dy_f_drul_[d] = snapy_f_drul[d];
-	    dx_f_drul_[d] = snapx_f_drul[d];
-	  }
-      }
-    while (flip (&d) != LEFT);
 }
 
 
@@ -560,8 +640,8 @@ ugly_scm (Bezier  b)
 /*
   Ugh should have dash-length + dash-period
  */
-Molecule*
-Slur::do_brew_molecule_p () const
+Molecule
+Slur::do_brew_molecule () const
 {
   Real thick = paper_l ()->get_var ("slur_thickness");
   Bezier one = get_curve ();
@@ -586,26 +666,60 @@ Slur::do_brew_molecule_p () const
       a.add_molecule (mark);
     }
 #endif
-  return new Molecule (a); 
+  return a;
 }
 
+void
+Slur::set_control_points ()
+{
+  Slur_bezier_bow bb (get_encompass_offset_arr (),
+		      directional_element (this).get ());
 
+  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
+  Real h_inf = paper_l ()->get_var ("slur_height_limit_factor") * staff_space;
+  Real r_0 = paper_l ()->get_var ("slur_ratio");
 
+  bb.set_default_bezier (h_inf, r_0);
+
+  if (bb.fit_factor () > 1.0)
+    {
+      Real length = bb.curve_.control_[3][X_AXIS]; 
+      Real default_height = bb.get_default_height (h_inf, r_0, length);
+      bb.minimise_enclosed_area (paper_l(), default_height);
+      
+      Real bff = paper_l ()->get_var ("slur_force_blowfit");
+      bb.curve_.control_[1][Y_AXIS] *= bff;
+      bb.curve_.control_[2][Y_AXIS] *= bff;
+      bb.blow_fit ();
+
+      Real sb = paper_l ()->get_var ("slur_beautiful");
+      Real beautiful = length * default_height * sb;
+      Real area = bb.enclosed_area_f ();
+      
+      /*
+	Slurs that fit beautifully are not ugly
+      */
+      if (area > beautiful)
+	de_uglyfy (&bb, default_height);
+    }
+
+  Bezier b = bb.get_bezier ();
+  SCM controls = array_to_scm (b.control_);
+  set_elt_property ("control-points", controls);
+}
+  
+  
 Bezier
 Slur::get_curve () const
 {
+  Bezier b;
+  Array<Offset> controls (4);
+  scm_to_array (get_elt_property ("control-points"), &controls);
+  b.control_ = controls;
+  
   Array<Offset> enc (get_encompass_offset_arr ());
-  Direction dir =  directional_element (this).get ();
-  Bezier_bow b (enc,dir);
-
-  b.ratio_ = paper_l ()->get_var ("slur_ratio");
-  b.height_limit_ = paper_l ()->get_var ("slur_height_limit");
-  b.rc_factor_ = paper_l ()->get_var ("slur_rc_factor");
-
-  b.calculate ();
-
-  Bezier  curve =  b.get_curve ();
-
+  Direction dir = directional_element (this).get ();
+  
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];
   
@@ -615,12 +729,11 @@ Slur::get_curve () const
       Real x = enc[i][X_AXIS];
       if (x > x1 && x <x2)
 	{
-	  Real y = curve.get_other_coordinate (X_AXIS, x);
+	  Real y = b.get_other_coordinate (X_AXIS, x);
 	  off = off >? dir *  (enc[i][Y_AXIS] - y);
 	}
     }
-  curve.translate (Offset (0, dir * off));
-  return curve;
+  b.translate (Offset (0, dir * off));
+  return b;
 }
 
-	

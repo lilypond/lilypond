@@ -106,8 +106,8 @@ Tie::do_post_processing()
   if (!directional_element (this).get ())
     directional_element (this).set (get_default_dir ());
   
-  Real staff_space = paper_l ()->get_var ("interline");
-  Real half_staff_space = staff_space / 2;
+  Real staff_space = staff_symbol_referencer (this).staff_space ();
+  Real half_space = staff_space / 2;
   Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
   Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
 
@@ -150,7 +150,7 @@ Tie::do_post_processing()
 
   Real ypos = position_f ();
 
-  Real y_f = half_staff_space * ypos; 
+  Real y_f = half_space * ypos; 
   int ypos_i = int (ypos);
  
   Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
@@ -158,14 +158,14 @@ Tie::do_post_processing()
   if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
     {
       if (abs (ypos_i) % 2)
-	y_f += dir * half_staff_space;
+	y_f += dir * half_space;
       y_f += dir * y_gap_f;
     }
   else
     {
       if (! (abs (ypos_i) % 2))
-	y_f += dir * half_staff_space;
-      y_f += dir * half_staff_space;
+	y_f += dir * half_space;
+      y_f += dir * half_space;
       y_f -= dir * y_gap_f;
     }
   
@@ -188,8 +188,8 @@ Tie::get_rods () const
 
 
 
-Molecule*
-Tie::do_brew_molecule_p () const
+Molecule 
+Tie::do_brew_molecule () const
 {
   Real thick = paper_l ()->get_var ("tie_thickness");
   Bezier one = get_curve ();
@@ -201,7 +201,7 @@ Tie::do_brew_molecule_p () const
   else
     a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
   
-  return new Molecule (a); 
+  return a; 
 }
 
 
@@ -212,12 +212,12 @@ Tie::get_curve () const
   Direction d (directional_element (this).get ());
   Bezier_bow b (get_encompass_offset_arr (), d);
 
-  b.ratio_ = paper_l ()->get_var ("slur_ratio");
-  b.height_limit_ = paper_l ()->get_var ("slur_height_limit");
-  b.rc_factor_ = paper_l ()->get_var ("slur_rc_factor");
+  Real staff_space = staff_symbol_referencer (this).staff_space ();
+  Real h_inf = paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
+  Real r_0 = paper_l ()->get_var ("tie_ratio");
 
-  b.calculate ();
-  Bezier c (b.get_curve ());
+  b.set_default_bezier (h_inf, r_0);
+  Bezier c = b.get_bezier ();
 
   /* should do this for slurs as well. */
   Array<Real> horizontal (c.solve_derivative (Offset (1,0)));
@@ -227,15 +227,14 @@ Tie::get_curve () const
       /*
 	ugh. Doesnt work for non-horizontal curves.
        */
-      Real space = staff_symbol_referencer (this).staff_space ();
       Real y = c.curve_point (horizontal[0])[Y_AXIS];
 
-      Real ry = rint (y/space) * space;
+      Real ry = rint (y/staff_space) * staff_space;
       Real diff = ry - y;
       Real newy = y;
       if (fabs (diff) < paper_l ()->get_var ("tie_staffline_clearance"))
 	{
-	  newy = ry - 0.5 * space * sign (diff) ;
+	  newy = ry - 0.5 * staff_space * sign (diff) ;
 	}
 
       Real y0 = c.control_ [0][Y_AXIS];

@@ -328,13 +328,13 @@ appendable_list_append (SCM l, SCM elt)
 
 
 SCM
-ly_offset2scm (Offset o)
+to_scm (Offset o)
 {
   return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]));
 }
 
 Offset
-ly_scm2offset (SCM s)
+scm_to (SCM s, Offset*)
 {
   return Offset (gh_scm2double (gh_car (s)),
 		 gh_scm2double (gh_cdr (s)));

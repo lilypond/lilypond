@@ -24,10 +24,12 @@ class Bezier
 public:
   Bezier ();
 
+  void assert_sanity () const;
+  void flip (Axis);
+  void reverse ();
   void rotate (Real);
   void translate (Offset);
-  void flip (Axis);
-  void check_sanity () const;
+
   Real get_other_coordinate (Axis a, Real x) const;
   Array<Real> solve_point (Axis, Real coordinate) const;
   Array<Real> solve_derivative (Offset) const;
@@ -35,12 +37,13 @@ public:
   Polynomial polynomial (Axis)const;
   Offset curve_point (Real t) const;
 
-  void reverse ();
-
   static const int CONTROL_COUNT = 4;
-  Offset control_[CONTROL_COUNT];
+  Array<Offset> control_;
 };
 
+void flip (Array<Offset>* arr_p, Axis a);
+void rotate (Array<Offset>* arr_p, Real phi);
+void translate (Array<Offset>* arr_p, Offset o);
 
 #endif // BEZIER_HH
 

@@ -29,7 +29,7 @@ SCM
 translate_atom (Offset o, SCM func)
 {
   return gh_list (ly_symbol2scm ("translate-atom"),
-		  ly_quote_scm (ly_offset2scm (o)),
+		  ly_quote_scm (to_scm (o)),
 		  func,
 		  SCM_UNDEFINED);
 }
@@ -41,7 +41,7 @@ translate_atom_axis (Real r, Axis a, SCM func)
   Offset o ;
   o[a] = r;
   return gh_list (ly_symbol2scm ("translate-atom"),
-		  ly_quote_scm (ly_offset2scm (o)),
+		  ly_quote_scm (to_scm (o)),
 		  func,
 		  SCM_UNDEFINED);
 }
