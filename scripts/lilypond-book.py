@@ -40,8 +40,6 @@
 import os
 import stat
 import string
-
-
 import getopt
 import sys
 import __main__
@@ -71,6 +69,8 @@ except:
 
 errorport = sys.stderr
 verbose_p = 0
+
+
 
 try:
 	import gettext
@@ -143,6 +143,7 @@ g_force_lilypond_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
 g_num_cols = 1
+g_do_music = 1
 
 format = ''
 g_run_lilypond = 1
@@ -441,6 +442,7 @@ option_definitions = [
 	('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
 	('', 'n', 'no-lily', 'don\'t run lilypond'),
 	('', '', 'no-pictures', "don\'t generate pictures"),
+	('', '', 'no-music', "strip all lilypond blocks from output"),	
 	('', '', 'read-lys', "don't write ly files."),
 	('FILE', 'o', 'outname', 'filename main output file'),
 	('FILE', '', 'outdir', "where to place generated files"),
@@ -825,7 +827,7 @@ def scan_latex_preamble(chunks):
 					paperguru.m_fontsize = int(m.group(1))
 		break
 	
-	while chunks[idx][0] != 'preamble-end':
+	while idx < len(chunks) and chunks[idx][0] != 'preamble-end':
 		if chunks[idx] == 'ignore':
 			idx = idx + 1
 			continue
@@ -871,19 +873,25 @@ def completize_preamble (chunks):
 			m = get_re('def-post-re').search(chunk[1])
 			if m:
 				post_b = 1
+				
 		if chunk[0] == 'input':
 			m = get_re('usepackage-graphics').search(chunk[1])
 			if m:
 				graphics_b = 1
 	x = 0
-	while chunks[x][0] != 'preamble-end':
+	while x < len (chunks) and   chunks[x][0] != 'preamble-end':
 		x = x + 1
+
+	if x == len(chunks):
+		return chunks
+	
 	if not pre_b:
 		chunks.insert(x, ('input', get_output ('output-default-pre')))
 	if not post_b:
 		chunks.insert(x, ('input', get_output ('output-default-post')))
 	if not graphics_b:
 		chunks.insert(x, ('input', get_output ('usepackage-graphics')))
+
 	return chunks
 
 
@@ -959,6 +967,9 @@ def make_lilypond_file(m):
 			(options, content))]
 
 def make_lilypond_block(m):
+	if not g_do_music:
+		return []
+	
 	if m.group('options'):
 		options = get_re('option-sep').split (m.group('options'))
 	else:
@@ -1131,7 +1142,7 @@ def schedule_lilypond_block (chunk):
 	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
 
-def process_lilypond_blocks(outname, chunks):#ugh rename
+def process_lilypond_blocks(chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
@@ -1151,6 +1162,12 @@ def system (cmd):
 		error ('Error command exited with value %d\n' % st)
 	return st
 
+def quiet_system (cmd, name):
+	if not verbose_p:
+		progress ( _("Running %s...") % name)
+		cmd = cmd + ' 1> /dev/null 2> /dev/null'
+
+	return system (cmd)
 
 def get_bbox (filename):
 	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
@@ -1178,10 +1195,8 @@ def make_pixmap (name):
 	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
 	
 	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
-	if not verbose_p:
-		progress ( _("Running %s...") % 'gs')
-		cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		
+	quiet_system (cmd, 'gs')
+
 	try:
 		status = system (cmd)
 	except:
@@ -1227,10 +1242,7 @@ def compile_all_files (chunks):
 		texfiles = string.join (tex, ' ')
 		cmd = 'lilypond --header=texidoc %s %s %s' \
 		      % (lilyopts, g_extra_opts, texfiles)
-		if not verbose_p:
-			progress ( _("Running %s...") % 'LilyPond')
-			cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		system (cmd)
+		quiet_system (cmd, 'LilyPond')
 
 		#
 		# Ugh, fixing up dependencies for .tex generation
@@ -1248,16 +1260,10 @@ def compile_all_files (chunks):
 
 	for e in eps:
 		cmd = r"tex '\nonstopmode \input %s'" % e
-		if not verbose_p:
-			progress ( _("Running %s...") % 'TeX')
-			cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		system (cmd)
+		quiet_system (cmd, 'TeX')
 		
 		cmd = r"dvips -E -o %s %s" % (e + '.eps', e)
-		if not verbose_p:
-			progress ( _("Running %s...") % 'dvips')
-			cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		system (cmd) 
+		quiet_system (cmd, 'dvips')
 		
 	for g in png:
 		make_pixmap (g)
@@ -1439,6 +1445,7 @@ def fix_epswidth (chunks):
 	return newchunks
 
 
+##docme: why global?
 foutn=""
 def do_file(input_filename):
 	global foutn
@@ -1448,7 +1455,7 @@ def do_file(input_filename):
 	elif input_filename == '-' or input_filename == "/dev/stdin":
 		my_outname = '-'
 	else:
-		my_outname = os.path.basename (os.path.splitext(input_filename)[0])
+		my_outname = os.path.basename (os.path.splitext(input_filename)[0]) + '.' + format
 	my_depname = my_outname + '.dep'		
 
 	chunks = read_doc_file(input_filename)
@@ -1462,7 +1469,7 @@ def do_file(input_filename):
 	#for c in chunks: print "c:", c;
 	#sys.exit()
 	scan_preamble(chunks)
-	chunks = process_lilypond_blocks(my_outname, chunks)
+	chunks = process_lilypond_blocks(chunks)
 
 	# Do It.
 	if __main__.g_run_lilypond:
@@ -1479,9 +1486,7 @@ def do_file(input_filename):
 		foutn = "<stdout>"
 		__main__.do_deps = 0
 	else:
-		## ugh, ugh.
-		foutn = os.path.join (g_outdir, my_outname + '.' + format)
-		## foutn = os.path.join (g_outdir, my_outname)
+		foutn = os.path.join (g_outdir, my_outname)
 		sys.stderr.write ("Writing `%s'\n" % foutn)
 		fout = open (foutn, 'w')
 	for c in chunks:
@@ -1543,6 +1548,8 @@ for opt in options:
 		g_dep_prefix = a
 	elif o == '--no-pictures':
 		g_do_pictures = 0
+	elif o == '--no-music':
+		g_do_music = 0
 	elif o == '--read-lys':
 		g_read_lys = 1
 	elif o == '--outdir':

@@ -6,6 +6,8 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
+#include <iostream.h>
+
 #include "flower-proto.hh"
 #include "string.hh"
 #include "interval.hh"
