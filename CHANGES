@@ -1,3 +1,38 @@
+1.5.10.jcn3
+===========
+
+* include python midi parser.
+
+* stepmake updates.
+
+* add .cvsignore patterns for making patches the standard, manual way.
+
+* midi2ly: support chords, duration conversion rewrite.
+
+* parser.yy: Guile > 1.4 compilation fix; scm_unprotect_object is deprecated.
+
+1.5.10.hwn1
+===========
+
+* Rational bugfix.
+
+* Cleaned up definitions of SystemStartDelimiter
+
+* WTK fix.
+
+* Porrectus patch (Juergen Reuter):
+
+- Syntax change: \porrectus -> \~
+- New porrectus properties: porrectus-width, line-thickness.
+- Bugfix: left<->right confusion in porrectus-engraver.cc.
+- Bugfix: Box dimensions for horizontal slope molecule in porrectus.cc.
+- Enhanced mensural style porrectus shape, considering optical
+  illusion in vertical endings due to slope.  Simplified drawing.
+- Code clean-up.
+
+1.5.10
+======
+
 1.5.9.hjj2
 ==========
 * Emacs-mode: Keyboard shortcuts, separated identifiers from keywords
@@ -11,7 +46,6 @@ where @WEB-TITLE@ is not defined.
 
 * Bugfix: stepmake: don't go building executables all over the place,
 if NAME is set in environment.  Some cleanups. 
- 
  
 * add-html-footer.py: remove href to self.  Substitute @at-variables@
 defined in html comments.  Any occurrence of

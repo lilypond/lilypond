@@ -144,12 +144,7 @@ Rational::compare (Rational const &r, Rational const &s)
     return 0;
   else
     {
-      /*
-	TODO: fix this code; (r-s).sign() is too expensive.
-	
-	return r.sign_ * ::sign  (r.num_ * s.den_ - s.num_ * r.den_);
-      */
-      return (r - s).sign ();
+      return r.sign_ * ::sign  (int (r.num_ * s.den_) - int (s.num_ * r.den_));
     }
 }
 
@@ -298,6 +293,12 @@ Rational::str () const
   if (den () != 1 && num ())
     s += "/" + to_str (den ());
   return s;
+}
+
+int
+Rational::to_int () const
+{
+  return num () / den ();
 }
 
 int

@@ -323,7 +323,10 @@
 	
 	(Porrectus . (
 		(style . mensural)
+		(auto-properties . #t)
 		(solid . #f)
+		(porrectus-width . 2.4)
+		(line-thickness . 1.0)
 		(add-stem . #t)
 		(stem-direction . 1)
 		(molecule-callback . ,Porrectus::brew_molecule)
@@ -644,28 +647,34 @@
 	))
 
 	;; TODO: should split in 3
-	(SystemStartDelimiter . (
+	(SystemStartBrace . (
+		(glyph . brace)
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
-		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
-		;; really 4.0, but 5 to be on safe side.
-		(brace-collapse-height . 5.0)
-		(bracket-collapse-height . 1)
-		(thickness . 1.6)
+		(collapse-height . 5.0)
+		(font-family . braces)
+		(Y-extent-callback . #f)
+		(meta . ,(grob-description "SystemStartBrace" system-start-delimiter-interface font-interface))
+		))
+	(SystemStartBracket . (
+		(Y-extent-callback . #f)
+		(molecule-callback . ,System_start_delimiter::brew_molecule)
+		(glyph . bracket)
 		(arch-height . 1.5)
 		(arch-angle . 50.0)
 		(arch-thick . 0.25)
-		(glyph . bar-line)
 		(arch-width . 1.5)
-		(bracket-thick . 0.25)
+		(thickness . 0.25)
+		(meta . ,(grob-description "SystemStartBracket" system-start-delimiter-interface ))
+		(bracket-collapse-height . 1)
+	))
+	(SystemStartBar . (
 		(Y-extent-callback . #f)
-		(font-family . braces)
-		;; if you want to set point-size, you cannot set
-		;; relative-size, as no font will be found for other
-		;; sheets than 20
-		;;(font-design-size . 20)
-		;;(font-relative-size . #f)
-		(meta . ,(grob-description "SystemStartDelimiter" system-start-delimiter-interface font-interface))
-		))
+		(molecule-callback . ,System_start_delimiter::brew_molecule)
+		(glyph . bar-line)
+		(thickness . 1.6)
+		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
+		(meta . ,(grob-description "SystemStartBar" system-start-delimiter-interface ))
+	))
 
 	(TextScript . (
 		(molecule-callback . ,Text_item::brew_molecule)
