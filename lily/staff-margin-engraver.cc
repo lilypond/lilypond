@@ -6,71 +6,146 @@
   (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "staff-margin-engraver.hh"
+#include "translator.hh"
+#include "engraver.hh"
 #include "bar.hh"
+#include "dimension-cache.hh"
 #include "timing-translator.hh"
 #include "text-item.hh"
 #include "side-position-interface.hh"
+#include "bar-script-engraver.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
+
+/*
+  TODO:
+
+    * padding
+    * merge with/derive from/add functionality to Bar_script_engraver
+ */
+
+/**
+   Hang on left edge of staff to provide suppor for simple items.
+ */
+class Left_edge_item : public Item
+{
+public:
+  VIRTUAL_COPY_CONS (Score_element);
+};
+
+/**
+  put (instrument) text to left of line
+ */
+class Staff_margin_engraver : public Engraver
+{
+public:
+  VIRTUAL_COPY_CONS (Translator);
+  Staff_margin_engraver ();
+
+protected:
+  virtual void do_pre_move_processing ();
+  virtual void acknowledge_element (Score_element_info);
+
+private:
+  String type_;
+  Text_item* text_p_;
+  Left_edge_item* left_edge_p_;
+  void create_text (SCM);
+};
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 
+
 Staff_margin_engraver::Staff_margin_engraver ()
 {
-  axis_ = X_AXIS;
   type_ = "margin";
+  text_p_ = 0;
+  left_edge_p_ = 0;
 }
 
-
-/*
-    TODO
-
-    should be able to set whole paragraph (multiple lines, center) to
-    left (right?) of staff, e.g.:
-                    ______
-                   |_______
-      2 Clarinetti |________
-         (Bb)      |___________
-	           |______________
-*/
 void
-Staff_margin_engraver::acknowledge_element (Score_element_info inf)
+Staff_margin_engraver::acknowledge_element (Score_element_info info)
 {
-  Item *i = cast_to_interesting_item (inf.elem_l_);
-  if (!i || inf.origin_trans_l_arr (this).size() != 1)
-    return;
-
-
-  SCM long_name = get_property ("instrument");
-  SCM short_name = get_property ("instr");
-
+  SCM s = get_property ("instrument");
+  
   if (now_mom () > Moment (0))
-    long_name = short_name;
+    s = get_property ("instr");
 
-  if (gh_string_p (long_name))
+  //s = ly_str02scm ("HALLO");
+  
+  if (dynamic_cast<Bar*> (info.elem_l_) && gh_string_p (s))
+    create_text (s);
+}
+
+void
+Staff_margin_engraver::create_text (SCM text)
+{
+  if (!text_p_)
     {
-      create_items (0);
-      text_p_->set_elt_property ("text", long_name);
-      text_p_->set_elt_property ("direction", gh_int2scm (LEFT));
-      Bar_script_engraver::attach_script_to_item (i);
+      assert (!left_edge_p_);
+      Left_edge_item* l = new Left_edge_item;
+      
+      l->set_elt_property ("breakable", SCM_BOOL_T);
+      l->set_elt_property ("break-aligned", SCM_BOOL_T);
+
+      announce_element (Score_element_info (l, 0));
+
+      Staff_symbol_referencer_interface sl (l);
+      sl.set_interface ();
+      left_edge_p_ = l;
+      
+      Text_item* t = new Text_item;
+
+      t->set_elt_property ("self-alignment-Y", gh_int2scm (0));
+      t->add_offset_callback (Side_position_interface::aligned_on_self, Y_AXIS);
+
+      t->set_parent (l, X_AXIS);
+      t->set_parent (l, Y_AXIS);
+
+      // 'just to be sure': see Clef_item::do_add_processing
+      l->add_dependency (t);
+
+      announce_element (Score_element_info (t, 0));
 
       /*
-    UGH. ignores font size settings.
-   */
-      Interval iv(text_p_->extent (Y_AXIS));
-      text_p_->translate_axis (- iv.center (),  Y_AXIS);
-
-      Real staff_space = Staff_symbol_referencer_interface (text_p_).staff_space ();
-      SCM s = get_property ("staffMarginHorizontalPadding");
+	Hmm.
+	In almost every score that uses "instrument" and "instr"
+	we need two different paddings.
+	Let's try one of those first:
+	   instrumentScriptPadding/instrScriptPadding
+       */
+      SCM s = get_property (String (now_mom () ? "instr" : "instrument")
+			    + "ScriptPadding");
+      if (!gh_number_p (s))
+	s = get_property (type_ + "ScriptPadding");
       if (gh_number_p (s))
 	{
-	  text_p_->translate_axis (gh_scm2double (s) * staff_space, X_AXIS);
+	  //t->set_elt_property ("padding", s);
+	  t->translate_axis (-gh_scm2double (s), X_AXIS);
 	}
-      s = get_property ("staffMarginVerticalPadding");
-      if (gh_number_p (s))
-	{
-	  text_p_->translate_axis (gh_scm2double (s) * staff_space, Y_AXIS);
-	}
+      text_p_ = t;
     }
+  //text_p_->set_elt_property ("style", s);
+  //text_p_->set_elt_property ("direction", gh_int2scm (RIGHT));
+  text_p_->set_elt_property ("text", text);
 }
 
+void
+Staff_margin_engraver::do_pre_move_processing ()
+{
+  if (text_p_)
+    {
+      /*
+	Let's not allow user settings for visibility function (yet).
+	Although end-of-line would work, to some extent, we should
+	make a properly ordered Right_edge_item, if that need arises.
+       */
+      text_p_->set_elt_property("visibility-lambda",
+      			      ly_eval_str ("begin-of-line-visible"));
+      typeset_element (text_p_);
+      text_p_ = 0;
+      assert (left_edge_p_);
+      typeset_element (left_edge_p_);
+      left_edge_p_ = 0;
+    }
+}
