@@ -168,14 +168,14 @@ Text_spanner::brew_molecule (SCM smob)
     m = edge[LEFT];
 
   if (!edge_line[LEFT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0);
+    m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0,0);
   if (!line.empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, line,
-		   edge_line[LEFT].empty_b () ? 0 : -thick/2);
+		   edge_line[LEFT].empty_b () ? 0 : -thick/2, 0);
   if (!edge_line[RIGHT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], -thick/2);
+    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], -thick/2, 0);
   if (!edge[RIGHT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
+    m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0, 0);
   m.translate_axis (broken_left + extra_off[LEFT] + shorten[LEFT], X_AXIS);
 
   return m.smobbed_copy ();

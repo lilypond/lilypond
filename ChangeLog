@@ -1,3 +1,16 @@
+2002-12-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/molecule-scheme.cc: move scheme functions to separate file.
+
+	* lily/font-metric.cc  (ly_get_glyph): new function. 
+	
+	* scm/new-markup.scm (column-markup): use baseline-skip for columns.
+	(italic-markup, dynamic-markup): new functions
+	(font-markup): new function
+
+	* lily/molecule.cc (ly_molecule_combined_at_edge): optional
+	padding and minimum
+
 2002-12-07  Rune Zedeler  <rz@daimi.au.dk>
 
 	* lily/accidental-engraver.cc:
@@ -22,6 +35,8 @@
 	it was edited with an another editor.
 
 2002-12-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/molecule.cc (ly_translate_molecule): new function
 
 	* python/GNUmakefile (INSTALLATION_DIR1): install Python module
 	into libdir

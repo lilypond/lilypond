@@ -189,8 +189,8 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Molecule m =  Lookup::filledbox (b);
   Molecule yb = Lookup::filledbox (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)));
 
-  m.add_at_edge (X_AXIS, RIGHT, yb, 0);
-  m.add_at_edge (X_AXIS, LEFT, yb, 0);
+  m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
+  m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);
 
   m.align_to (X_AXIS, LEFT);
   
@@ -278,7 +278,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
   Molecule mol; 
   for (SCM  s = mols; gh_pair_p (s); s = gh_cdr(s))
     {
-      mol.add_at_edge (X_AXIS, LEFT, *unsmob_molecule (gh_car (s)), inner_padding);
+      mol.add_at_edge (X_AXIS, LEFT, *unsmob_molecule (gh_car (s)), inner_padding, 0);
     }
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor *  inner_padding, X_AXIS);

@@ -19,13 +19,22 @@
 (define-public (combine-markup grob props . rest)
    (combine-molecule-list (map (lambda (x) (interpret-markup grob props x)) (car rest))))
 
-(define-public (bold-markup grob props . rest)
-   (interpret-markup grob (cons (cons '(font-series . bold) (car props)) (cdr props)) (car rest))
-  )
+(define (font-markup qualifier value)
+  (lambda (grob props . rest)
+    (interpret-markup grob (cons (cons `(,qualifier . ,value) (car props)) (cdr props)) (car rest))
+  
+  ))
+
+(define-public bold-markup
+  (font-markup 'font-series 'bold))
+(define-public dynamic-markup
+  (font-markup 'font-family 'dynamic))
+(define-public italic-markup
+  (font-markup 'font-shape 'italic))
 
 (define-public (column-markup grob props . rest)
-  (stack-molecules
-   Y -1 0.0 
+  (stack-lines
+   -1 0.0 (cdr (chain-assoc 'baseline-skip props))
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
 
@@ -40,6 +49,20 @@
   (ly:find-glyph-by-name
    (ly:get-font grob props)
    (car rest))
+  )
+
+(define-public (char-markup grob props . rest)
+  (ly:get-glyph  (ly:get-font grob props) (car rest))
+		 
+  )
+(define-public (raise-markup grob props  . rest)
+  (ly:molecule-translate-axis (interpret-markup grob props (cadr rest))
+			      (car rest) Y)
+  )
+
+;; this is too simplistic: doesn't do backup for negative dimensions.
+(define (hspace-markup grob props . rest)
+  (ly:make-molecule "" (cons 0 (car rest)) '(-1 . 1) )
   )
 
 (define-public (override-markup grob props . rest)
@@ -58,7 +81,14 @@
 	   (cons music-markup 'scm0)
 	   (cons override-markup 'scm0-markup1)
 	   (cons lookup-markup 'scm0)
+	   (cons raise-markup 'scm0-markup1)
+	   (cons italic-markup 'markup0)
+	   (cons dynamic-markup 'markup0)
+	   (cons char-markup 'scm0)
+	   (cons hspace-markup 'scm0)
+	   
 	   ))
+
 
 (define markup-module (current-module))
 

@@ -81,6 +81,9 @@
     
     ))
 
+(define (blank)
+  "")
+
 (define (dot x y radius)
   (embedded-ps (list 'dot x y radius)))
 

@@ -58,7 +58,7 @@ Sustain_pedal::brew_molecule (SCM smob)
 	idx += String (&text.to_bytes ()[i], 1);
       Molecule m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.empty_b ())
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
     }
     
   return mol.smobbed_copy ();

@@ -141,7 +141,7 @@ Key_signature_interface::brew_molecule (SCM smob)
 	  SCM what = ly_caar (s);
 	  int pos = alteration_pos (what, alteration, c0p);
 	  acc.translate_axis (pos * inter, Y_AXIS);
-	  mol.add_at_edge (X_AXIS, LEFT, acc, 0);
+	  mol.add_at_edge (X_AXIS, LEFT, acc, 0, 0);
 	}
     }
 
@@ -158,7 +158,7 @@ Key_signature_interface::brew_molecule (SCM smob)
       Interval x (0, inter);
       Interval y (0,0);
 
-      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)),0);
+      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)), 0, 0);
 
       Molecule natural;
       if (gh_pair_p (old))
@@ -184,7 +184,7 @@ Key_signature_interface::brew_molecule (SCM smob)
 		needed to prevent collisions.
 	       */
 	      Real padding = 0.1 ;
-	      mol.add_at_edge (X_AXIS, LEFT, m, padding);
+	      mol.add_at_edge (X_AXIS, LEFT, m, padding, 0);
             }
         }
     }

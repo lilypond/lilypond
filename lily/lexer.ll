@@ -135,7 +135,7 @@ HYPHEN		--
 	// windows-suck-suck-suck
 }
 
-<INITIAL,chords,incl,lyrics,notes,figures>{
+<INITIAL,chords,incl,markup,lyrics,notes,figures>{
   "%{"	{
 	yy_push_state (longcomment);
   }
@@ -445,7 +445,7 @@ HYPHEN		--
 		String str (YYText() + 1);
 		SCM s = lookup_markup_command (str);
 
-		if (gh_pair_p (s)) {
+		if (gh_pair_p (s) && gh_symbol_p (gh_cdr (s)) ) {
 			yylval.scm = gh_car(s);
 			SCM tag = gh_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))

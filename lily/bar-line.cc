@@ -84,47 +84,46 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
     }
   else if (str == "|." || (h == 0 && str == ":|"))
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0);      
-      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);      
+      m.add_at_edge (X_AXIS, LEFT, thin, kern,0 );
     }
   else if (str == ".|" || (h == 0 && str == "|:"))
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern, 0);
     }
   else if (str == ":|")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0);
-      m.add_at_edge (X_AXIS, LEFT, thin, kern);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
+      m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern, 0);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern, 0);      
     }
   else if (str == "|:")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern, 0);      
     }
   else if (str == ":|:")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern, 0);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern, 0);      
     }
   else if (str == ".|.")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);      
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern, 0);
     }
   else if (str == "||")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);      
+      m.add_at_edge (X_AXIS, RIGHT, thin, 0, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern, 0);
     }
 
   return m;
 }
-
 
 Molecule
 Bar_line::simple_barline (Grob*,Real w, Real h) 

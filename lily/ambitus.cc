@@ -108,7 +108,7 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
 					 accidentals_style +
 					 to_string (pitch->alteration_)));
       accidental.translate_axis (yoffs, Y_AXIS);
-      head->add_at_edge (X_AXIS,  LEFT, accidental, 0.1);
+      head->add_at_edge (X_AXIS,  LEFT, accidental, 0.1, 0);
     }
   if (num_acc == 2)
     {
@@ -117,7 +117,7 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
 				      accidentals_style +
 				      to_string ("0")));
       natural.translate_axis (yoffs, Y_AXIS);
-      head->add_at_edge (X_AXIS,  LEFT, natural, 0.1);
+      head->add_at_edge (X_AXIS,  LEFT, natural, 0.1, 0);
     }
 }
 

@@ -78,13 +78,13 @@ Arpeggio::brew_molecule (SCM smob)
   Real y = heads[LEFT];
   while (y < heads[RIGHT] - arrow_space)
     {
-      mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0);
+      mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0, 0);
       y+= squiggle. extent (Y_AXIS).length ();
     }
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)
     mol.add_at_edge (Y_AXIS, dir,
-		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir)), 0.0);
+		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir)), 0.0, 0);
   
   return mol.smobbed_copy () ;
 }

@@ -123,7 +123,7 @@ Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
 							   SCM_UNDEFINED));
       Molecule m = fm->find_by_name ("scripts-trill-element");
       do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
 	     + m.extent (X_AXIS).length () < dx);
