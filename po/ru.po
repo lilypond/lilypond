@@ -1096,11 +1096,6 @@ msgstr ""
 msgid "define macro NAME [optional expansion EXP]"
 msgstr ""
 
-#: mup2ly.py:76 main.cc:117
-#, fuzzy
-msgid "write output to FILE"
-msgstr "записывать вывод в ОСНОВА[-x].расширение"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr ""

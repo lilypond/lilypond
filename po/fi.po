@@ -1097,10 +1097,6 @@ msgstr "testaa"
 msgid "define macro NAME [optional expansion EXP]"
 msgstr "m‰‰rittele makro NAME [vaihtoehtoinen laajennus EXP]"
 
-#: mup2ly.py:76 main.cc:117
-msgid "write output to FILE"
-msgstr "tulostetaan tiedostoon TIEDOSTO"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr "vain esiprosessointi"

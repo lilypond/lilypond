@@ -1109,10 +1109,6 @@ msgstr "fejlsøgningsuddata"
 msgid "define macro NAME [optional expansion EXP]"
 msgstr "definér makro NAVN [valfri makroudvidelse EXP]"
 
-#: mup2ly.py:76 main.cc:117
-msgid "write output to FILE"
-msgstr "skriv uddata til FIL"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr "kun forbehandling"
