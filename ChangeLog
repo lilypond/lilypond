@@ -11,6 +11,9 @@
 
 2002-08-19  janneke  <janneke@blauw.xs4all.nl>
 
+	* Documentation/index.texi (Top): Templates url fix, small url
+	name changes.
+
 	* regular-spacing-engraver.cc:
 	* scm/grob-property-description.scm: Remove regular-distance-to.
 
