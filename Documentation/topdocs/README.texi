@@ -76,16 +76,16 @@ list.
 
 @item
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
-  For discussions about developing lilypond, in particular the unstable series.
+  for discussions about developing lilypond, in particular the unstable series.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
-  For discussions about using lilypond, in particular the stable series.
+  for discussions about using lilypond, in particular the stable series.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
-If you have bugreports, you should send them to this list.
+for bugrepots; if you have one, you should send it to this list.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
-  Commit messages for CVS development. This is a high-volume moderated
+  for commit messages in CVS development. This is a high-volume moderated
   list.
 @end itemize
 
@@ -97,10 +97,10 @@ You can search the lists from the following page:
 If you have installed a previous version, be sure to remove old font
 files, e.g.,
 @example 
-rm `find /var/lib/texmf/fonts -name 'feta*'` 
+	rm `find /var/lib/texmf/fonts -name 'feta*'` 
 @end example 
 a script to do this for you is left
-@file{buildscripts/out/clean-fonts}
+@file{buildscripts/out/clean-fonts}.
 
 @section Bugs
 
