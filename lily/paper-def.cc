@@ -13,7 +13,7 @@
 #include "misc.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-#include "font-metric.hh"
+#include "scaled-font-metric.hh"
 #include "main.hh"
 #include "scope.hh"
 #include "file-results.hh" // urg? header_global_p

@@ -31,22 +31,6 @@ protected:
   Font_metric ();
 };
 
-
-/*
-  Perhaps junk this, and move iface to paper_def? 
- */
-struct Scaled_font_metric : public Font_metric
-{
-  virtual Box text_dimension (String) const;
-  virtual Molecule find_by_name (String) const;
-  static SCM make_scaled_font_metric (Font_metric*, Real);
-protected:
-  Font_metric *orig_l_;
-  Real magnification_f_;
-  
-  Scaled_font_metric (Font_metric*,Real);
-};
-
 Font_metric * unsmob_metrics (SCM s);
 
 #endif /* FONT_METRIC_HH */

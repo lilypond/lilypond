@@ -1,4 +1,13 @@
-#include "font-metric.hh"
+/*   
+     scaled-font-metric.cc -- declare Scaled_font_metric
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  
+ */
+
+#include "scaled-font-metric.hh"
 #include "string.hh"
 #include "molecule.hh"
 
@@ -29,4 +38,21 @@ Scaled_font_metric::find_by_name (String s) const
   Molecule q(b,fontify_atom ((Font_metric*) this, m.get_expr ()));
 
   return q ;
+}
+
+Box 
+Scaled_font_metric::get_char (int i) const
+{
+  Box b = orig_l_->get_char (i);
+  b.scale (magnification_f_);
+  return b;  
+}
+
+Box
+Scaled_font_metric::text_dimension (String t) const
+{
+  Box b (orig_l_->text_dimension (t));
+
+  b.scale (magnification_f_);
+  return b;
 }

@@ -21,7 +21,7 @@
 
 
 void
-Volta_spanner::set_interface (Score_element*me)
+Volta_spanner::set_interface (Score_element*)
 {
 }
 

@@ -11,8 +11,9 @@ def draw_brace( expr height_sharp, width_sharp) =
 	height# := height_sharp;
 	width#  := width_sharp;
 
-	beginchar(incr code, width#, height#/2, height#/2);
- 
+	beginchar(code, width#, height#/2, height#/2);
+	code := incr code;
+	  
 	define_pixels (height, width);
 	thin = 2 stafflinethickness;
 	thick = .5 staff_space;
