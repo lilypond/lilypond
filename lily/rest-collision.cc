@@ -64,7 +64,6 @@ Rest_collision::do_post_processing()
     if (!(stem_l->beams_left_i_ || stem_l->beams_right_i_))
     	return;
 
-    Real inter_f = paper()->internote_f();
     int dir_i = rest_l_arr_[0]->dir_i_;
     int midpos = 4;
 #if 1
@@ -75,8 +74,7 @@ Rest_collision::do_post_processing()
 #else // nogo: stem_start not set for rests?
     int pos = (stem_l->stem_start_f() - midpos) + dir_i * 2;
 #endif
-    Real dy = pos * inter_f;
-    rest_l_arr_[0]->translate_y(dy);	
+    rest_l_arr_[0]->translate_heads(pos);	
 }
 
 void
@@ -97,39 +95,41 @@ Rest_collision::do_pre_processing()
     if (rest_l_arr_.size() + ncol_l_arr_.size() < 2 )
 	return;
 
-    Real inter_f = paper()->internote_f();
-
     // meisjes met meisjes
     if (!ncol_l_arr_.size()) {
-	Real dy = rest_l_arr_.size() > 2 ? 6 * inter_f : 4 * inter_f;
-	rest_l_arr_[0]->translate_y(dy);	
+	int dy = rest_l_arr_.size() > 2 ? 6 : 4;
+	rest_l_arr_[0]->translate_heads(dy);	
 	// top is last element...
-	rest_l_arr_.top()->translate_y(-dy);	
+	rest_l_arr_.top()->translate_heads(-dy);	
     }
     // meisjes met jongetjes
     else {
 #if 0 // breendet: rests go always under
 	// geen gemug, trug op je rug
 	int dir_i = -1;
-	rest_l_arr_[0]->translate_y(dir_i * 3 * inter_f);	
+	rest_l_arr_[0]->translate_heads(dir_i * 3 );	
 #else
 	// int dir_i = - ncol_l_arr_[0]->dir_i_;
 	int dir_i = rest_l_arr_[0]->dir_i_;
 	// hope it's 4: if it works->doco
 	int midpos = 4;
-	// minimum move
+	
+        // minimum move
 	int minpos = 4;
+	
 	// quart rest height
+	// UGH Should get dims from table!
 	int size_i = 6;
+	
 	int sep_i = 3 + size_i / 2;
 	for (int i = 0; i < ncol_l_arr_.size(); i++) {
 	    // how to know whether to sort?
 	    ncol_l_arr_[i]->sort();
 	    for ( int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++ )
-		minpos = minpos >? dir_i * ( ncol_l_arr_[i]->head_l_arr_[j]->position_i_ - midpos ) + sep_i;
+		minpos = minpos >? dir_i * 
+		    (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos ) + sep_i;
 	}
-	Real dy = dir_i * minpos * inter_f;
-	rest_l_arr_[0]->translate_y(dy);	
+	rest_l_arr_[0]->translate_heads(dir_i * minpos );	
 #endif
     }
 }

@@ -12,6 +12,7 @@
 
 #include "lily-proto.hh"
 #include "plist.hh"
+#include "varray.hh"
 #include "moment.hh"
 
 class Music_iterator {
@@ -22,11 +23,17 @@ protected:
 public:
     Music_iterator *daddy_iter_l_;
     NAME_MEMBERS();
-    Translator *report_to_l_;
+    Array<Translator *>report_to_l_arr_;
+
+    Translator *report_to_l()const;
     
     static Music_iterator* static_get_iterator_p(Music*,Translator*);
     Music_iterator* get_iterator_p(Music*)const;
     void set_translator(Translator*);
+    void push_translator(Translator*);
+    void pop_translator();
+
+    
     Music_iterator();
     
     virtual void process_and_next(Moment until);
