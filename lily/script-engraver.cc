@@ -11,7 +11,7 @@
 #include "rhythmic-head.hh"
 #include "engraver.hh"
 #include "note-column.hh"
-
+#include "translator-group.hh"
 
 struct Script_tuple
 {
@@ -60,66 +60,80 @@ Script_engraver::try_music (Music *r)
 }
 
 void
+copy_property (Grob * g , SCM sym, SCM alist)
+{
+  if (g->internal_get_grob_property (sym) == SCM_EOL)
+    {
+      SCM entry = scm_assoc (sym,alist);
+      if (gh_pair_p (entry))
+	{
+	  g->internal_set_grob_property (sym, gh_cdr (entry));
+	}
+    }
+}
+
+
+/*
+  We add the properties, one by one for each Script. We could save a
+  little space by tacking the props onto the Script grob (i.e. make
+  ScriptStaccato , ScriptMarcato, etc. )
+ */
+Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
+			      int index)
+{
+  SCM alist = tg->get_property ("scriptDefinitions");
+  SCM art = scm_assoc (event->get_mus_property ("articulation-type"), alist);
+
+  if (art == SCM_BOOL_F)
+    {
+      String a = ly_scm2string (event->get_mus_property ("articulation-type"));
+      event->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.to_str0 ()));
+      return 0 ;
+    }
+
+  art = gh_cdr (art);
+    
+  Grob *p =new Item (tg->get_property ("Script"));
+  *descr = art;  
+
+  SCM force_dir = event->get_mus_property ("direction");
+  if (ly_dir_p (force_dir) && to_dir (force_dir))
+    p->set_grob_property ("direction", force_dir);
+
+  copy_property (p, ly_symbol2scm ("script-molecule"), art);
+  copy_property (p, ly_symbol2scm ("direction"), art);
+  copy_property (p, ly_symbol2scm ("side-relative-direction"), art);
+
+  int prio =0;
+  SCM sprio = scm_assoc (ly_symbol2scm ("script-priority"), art);
+  if (gh_pair_p (sprio))
+    prio = gh_scm2int (gh_cdr (sprio));
+
+
+  /*
+    Make sure they're in order of user input by adding index i.
+    Don't use the direction in this priority. Smaller means closer
+    to the head.
+  */
+  prio += index;
+
+  Side_position_interface::set_axis (p, Y_AXIS);
+  p->set_grob_property ("script-priority", gh_int2scm (prio));
+  return p;
+}
+
+void
 Script_engraver::process_music ()
 {
   for (int i=0; i < scripts_.size (); i++)
     {
       Music* l=scripts_[i].event_;
 
-      SCM alist = get_property ("scriptDefinitions");
-      SCM art = scm_assoc (l->get_mus_property ("articulation-type"), alist);
+      Grob * p = make_script_from_event (&scripts_[i].description_, daddy_trans_, l, i);
 
-      if (art == SCM_BOOL_F)
-	{
-	  String a = ly_scm2string (l->get_mus_property ("articulation-type"));
-	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.to_str0 ()));
-			
-	  continue;
-	}
-      
-      // todo -> use result of articulation-to-scriptdef directly as basic prop list.
-      Grob *p =new Item (get_property ("Script"));
       scripts_[i].script_ = p;
-      art = ly_cdr (art);
-
-      scripts_[i].description_ = art;
-      
-      p->set_grob_property ("script-molecule", ly_car (art));
-
-      art = ly_cdr (art);
-      art = ly_cdr (art);
-      SCM relative_stem_dir = ly_car (art);
-      art = ly_cdr (art);
-
-      SCM force_dir = l->get_mus_property ("direction");
-      if (ly_dir_p (force_dir) && !to_dir (force_dir))
-	force_dir = ly_car (art);
-      
-      art = ly_cdr (art);
-      int priority = gh_scm2int (ly_car (art));
-
-      SCM s = p->get_grob_property ("script-priority");
-      if (gh_number_p (s))
-	priority = gh_scm2int (s);
-
-      /*
-	Make sure they're in order of user input by adding index i.
-	Don't use the direction in this priority. Smaller means closer
-	to the head.
-      */
-      priority += i;
-
-      if (ly_dir_p (force_dir) && to_dir (force_dir))
-	p->set_grob_property ("direction", force_dir);
-      else if (to_dir (relative_stem_dir))
-	p->set_grob_property ("side-relative-direction", relative_stem_dir);
-
-
-      Side_position_interface::set_axis (p, Y_AXIS);
-      p->set_grob_property ("script-priority", gh_int2scm (priority));
-
-      
-      announce_grob (p, l->self_scm());
+      if (p)
+	announce_grob (p, l->self_scm());
     }
 }
 
@@ -132,7 +146,12 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  Grob*e = scripts_[i].script_;
 
-	  e->set_grob_property ("direction-source", inf.grob_->self_scm ());
+	  if (to_dir (e->get_grob_property ("side-relative-direction")))
+	    e->set_grob_property ("direction-source", inf.grob_->self_scm ());
+
+	  /*
+	    add dep ? 
+	   */
 	  e->add_dependency (inf.grob_);
 	  Side_position_interface::add_support (e, inf.grob_);
 	}
@@ -185,8 +204,10 @@ Script_engraver::stop_translation_timestep ()
 	continue;
       
       Grob * sc = scripts_[i].script_;
-      if (to_boolean (gh_cadr (scripts_[i].description_)))
-	sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
+
+      SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), scripts_[i].description_);
+      if (gh_pair_p (follow) && to_boolean (gh_cdr (follow)))
+	sc->add_offset_callback (Side_position_interface::quntised_position_proc, Y_AXIS);
       else
 	Side_position_interface::add_staff_support (sc);
       typeset_grob (sc);
