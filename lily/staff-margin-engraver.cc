@@ -18,7 +18,6 @@ Staff_margin_engraver::Staff_margin_engraver ()
 {
   axis_ = X_AXIS;
   type_ = "margin";
-  visibility_lambda_ = ly_eval_str ("postbreak-only-visibility");
 }
 
 

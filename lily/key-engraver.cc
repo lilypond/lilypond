@@ -99,7 +99,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
       if (!def)
 	{
 	  item_p_->set_elt_property ("visibility-lambda",
-				    ly_eval_str ("all-visibility"));
+				    ly_eval_str ("all-visible"));
 	}
     }
 

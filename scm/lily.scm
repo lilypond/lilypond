@@ -71,21 +71,21 @@
 
 
 ;; See documentation of Item::visibility_lambda_
-(define (postbreak-only-visibility d) (if (= d 1) '(#f . #f) '(#t . #t)))
-(define (spanbar-non-postbreak-visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
-(define (all-visibility d) '(#f . #f))
-(define (non-postbreak-visibility d) (if (= d 1) '(#t . #t) '(#f . #f)))
-(define (non-prebreak-visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (all-visible d) '(#f . #f))
+(define (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
-(define Span_bar_engraver-visibility non-postbreak-visibility)
-(define Base_span_bar_engraver-visibility non-postbreak-visibility)
-(define mark-visibility non-prebreak-visibility)
-(define Span_score_bar_engraver-visibility postbreak-only-visibility)
-(define Piano_bar_engraver-visibility postbreak-only-visibility)
-(define Staff_group_bar_engraver-visibility postbreak-only-visibility)
+(define Span_bar_engraver-visibility begin-of-line-invisible)
+(define Base_span_bar_engraver-visibility begin-of-line-invisible)
+(define mark-visibility end-of-line-invisible)
+(define Span_score_bar_engraver-visibility begin-of-line-visible)
+(define Piano_bar_engraver-visibility begin-of-line-visible)
+(define Staff_group_bar_engraver-visibility begin-of-line-visible)
 
 ;; Spacing constants for prefatory matter.
 ;;
@@ -240,8 +240,8 @@
 
 ;;;;;;;;;;;;;;;;;;; generic output
 
-(define (translate-atom offset exp)
-  exp)
+(define (translate-molecule offset)
+  "")
 
 
 ;;;;;;;;;;;;;;;;;;; TeX output
