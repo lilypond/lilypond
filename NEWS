@@ -1,3 +1,4 @@
+
 * Finale (.etf), PMX (.pmx) and musedata import tools.
 
 * Point and click functionality using emacs and Xdvi.
@@ -19,7 +20,7 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
 * Medieval notation features: clefs, custodes
 
-* Piano pedal support, Arpeggios, Custodes
+* Piano pedal support, Arpeggios, Glissandi
 
 * MIDI: dynamics, tempo changes
 
