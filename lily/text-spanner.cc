@@ -1,4 +1,5 @@
 /*
+
   text-spanner.cc -- implement Text_spanner
 
   source file of the GNU LilyPond music typesetter
@@ -47,6 +48,7 @@ Text_spanner::brew_molecule (SCM smob)
   Direction d = LEFT;
   do
     {
+      extra_off [d]=0;
       Item *b = spanner->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
 

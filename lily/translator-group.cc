@@ -459,7 +459,7 @@ void
 add_trans_scm_funcs ()
 {
   scm_make_gsubr ("ly-get-trans-property", 2, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
-  scm_make_gsubr ("ly-get-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
+  scm_make_gsubr ("ly-set-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_set_trans_property);
 }
 
 ADD_SCM_INIT_FUNC(trans_scm, add_trans_scm_funcs);
