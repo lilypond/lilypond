@@ -43,7 +43,7 @@
 	  ""
 	  (string-append
 	   "This engraver creates the following grobs: \n "
-	   (human-listify (map ref-ify  objs))
+	   (human-listify (map ref-ify (uniq-list (sort  objs string<? ))))
 	   ".")
 	  )
 
@@ -110,7 +110,7 @@
     (string-append 
      desc
      "\n\nThis context creates the following grobs: \n\n"
-     (apply string-append (map (lambda (x) (string-append " " x "  ")) grob-refs))
+     (human-listify (uniq-list (sort grob-refs string<? )))
      "."
      
      (if (null? accepts)

@@ -95,7 +95,8 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 
       w = sneaky_insert_extra_moment (w);
       prepare (w);
-      iter->process (w);
+      if (iter->ok ())
+	iter->process (w);
       
       one_time_step ();
     }

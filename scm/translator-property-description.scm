@@ -127,7 +127,9 @@ This variable is typically read at Score level, so overriding
 Staff.defaultBarType will have no effect.
 
 ")
-(translator-property-description 'drarnChords boolean? "")
+(translator-property-description 'chordChanges boolean? "Only generate chords
+if they change.
+")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 (translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
 (translator-property-description 'followThread boolean?

@@ -13,6 +13,15 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)
   ))))
 
+(define (uniq-list list)
+  (if (null? list) '()
+      (if (null? (cdr list))
+	  list
+	  (if (equal? (car list) (cadr list))
+	      (uniq-list (cdr list))
+	      (cons (car list) (uniq-list (cdr list)))
+  
+  ))))
 
 (define (alist<? x y)
   (string<? (symbol->string (car x))
@@ -148,6 +157,8 @@ Add a ref if REF is set
   (string-append "@ref{" x "}"))
 
 (define (human-listify l)
+  "Produce a textual enumeration from L, a list of strings"
+  
   (cond
    ((null? l) "none")
    ((null? (cdr l)) (car l))

@@ -711,9 +711,8 @@ Calc dimensions for the Separating_group_spanner; this has to be
   (lily-interface
    'system-start-delimiter-interface
    "#'style can be bar-line, bracket or brace"
-   '(bar-line-collapse-height brace-collapse-height bracket-collapse-height
-			      thickness arch-height arch-angle arch-thick
-			      arch-width bracket-thick glyph )))
+   '(thickness arch-height arch-angle arch-thick
+		     arch-width bracket-thick glyph )))
 
 (define text-spanner-interface
   (lily-interface

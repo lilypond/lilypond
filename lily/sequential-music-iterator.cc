@@ -99,10 +99,18 @@ void
 Sequential_music_iterator::descend_to_child ()
 {
   Translator_group  * child_report = child_report = iter_p_->report_to_l ();
+  Translator_group * me_report = report_to_l ();
+
   if (dynamic_cast<Grace_iterator*> (iter_p_))
     child_report = child_report->daddy_trans_l_;
-    
-  if (report_to_l()->depth_i () < child_report->depth_i ())
+
+  Translator_group * c = child_report;
+  while (c && c != me_report)
+    {
+      c= c->daddy_trans_l_;
+    }
+  
+  if (c == me_report)
     set_translator (child_report);
 }
 

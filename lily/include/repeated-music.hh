@@ -58,6 +58,7 @@ public:
 
   Moment body_length_mom () const;
   Moment alternatives_length_mom (bool fold) const;
+  Moment alternatives_volta_length_mom () const;  
 
   DECLARE_SCHEME_CALLBACK(unfolded_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK(volta_music_length, (SCM));

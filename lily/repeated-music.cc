@@ -89,6 +89,23 @@ Repeated_music::alternatives_length_mom (bool fold) const
   return m;
 }
 
+/*
+  Sum all duration of all available alternatives. This is for the case
+  of volta repeats, where the alternatives are iterated just as they
+  were entered.  */
+Moment
+Repeated_music::alternatives_volta_length_mom () const
+{
+  SCM p = alternatives ()->music_list ();
+  Moment m;
+  while (gh_pair_p (p))
+    {
+      m = m + unsmob_music (gh_car (p))->length_mom ();
+      p = gh_cdr (p);
+    }
+  return m;
+}
+
 Moment
 Repeated_music::body_length_mom () const
 {
@@ -133,6 +150,6 @@ SCM
 Repeated_music::volta_music_length (SCM m)
 {
   Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
-  Moment l =  r->body_length_mom () + r->alternatives_length_mom (false);
+  Moment l =  r->body_length_mom () + r->alternatives_volta_length_mom ();
   return l.smobbed_copy ();
 }
