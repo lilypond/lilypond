@@ -148,7 +148,7 @@
 	 (list 'tupletBracketVisibility symbol-or-boolean? 'tuplet-bracket-visibility)
 	))
 )
- 
+
 (define generic-voice-properties
   (list
    generic-stem-properties

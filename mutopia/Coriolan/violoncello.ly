@@ -19,7 +19,7 @@ violoncello = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	\property Staff.instr = #"Vc. \& Cb."
+	\property Staff.instr = #"Vc.\nCb."
 	r1 |
 	c'1\ff ~ |
 	c |
@@ -486,7 +486,7 @@ violoncello = \notes \relative c {
 
 $violoncello_staff = \context Staff = violoncello <
 	\property Staff.midiInstrument = #"cello"
-	\property Staff.instrument = #"Violoncello"
+	\property Staff.instrument = #"Violoncello\ne\nContrabasso"
 	\property Staff.instr = #"Vc."
 	\clef "bass";
 	\notes \context Voice=one< 

@@ -159,7 +159,7 @@
 %6 
 	0 0 
 %5a 
-	arch_thick arch_height add half_height bracket_thick sub arch_width add 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
 	arch_angle arch_height -0.15 mul bracket_traject 
 %5b 
 	1 half_height 
@@ -167,17 +167,17 @@
 %5c 
 	0 half_height 
 %4a 
-	arch_thick half_height bracket_thick sub 
+	bracket_thick half_height arch_thick sub 
 	0 arch_height 0.4 mul bracket_traject 
 %4b 
-	arch_thick arch_height add half_height bracket_thick sub arch_width add 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
 	arch_angle arch_height -0.25 mul bracket_traject 
 %4c 
-	arch_thick arch_height add half_height bracket_thick sub arch_width add 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
 %3 
-	arch_thick half_height bracket_thick sub 
+	bracket_thick half_height arch_thick sub 
 %2 
-	arch_thick 0 
+	bracket_thick 0 
 %1 
 	0 0 
 } bind def 
@@ -205,7 +205,7 @@
 	/arch_width exch def
 	/arch_angle exch def
 %
-	bracket_height 2 div arch_thick add /half_height exch def 
+	bracket_height 2 div bracket_thick add /half_height exch def 
 % urg: the only Level-2 PS, check effect in print 
 %	true setstrokeadjust 
 	1 setlinecap 

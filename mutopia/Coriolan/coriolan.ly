@@ -1,7 +1,8 @@
 \header{
 filename =	 "coriolan.ly";
-% %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
+title =	 "Ouverture"; 
+subtitle = "Coriolan";
+opus = "Op. 62";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
@@ -41,20 +42,21 @@ ottoni = \context StaffGroup = otonni_group <
 
 $timpani_g = \context StaffGroup = timpani_group <
 	\$timpani_staff
+	% HaraKiri mustn't work on first page
 	\context Staff = urgtimpany \notes{ \skip 1*34; }
 >
 
-$violini = \context GrandStaff = violini_group <
+violini = \context GrandStaff = violini_group <
 	\$violino1_staff
 	\$violino2_staff
 >
 
-$violi = \context GrandStaff = violi_group <
+violi = \context GrandStaff = violi_group <
 	\$viola1_staff
 	\$viola2_staff
 >
 
-$bassi = \context GrandStaff = bassi_group <
+bassi = \context GrandStaff = bassi_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >
@@ -68,12 +70,19 @@ archi = \context StaffGroup = archi_group <
 
 \score{
 	<
-		%%? \property Score . textStyle =  "italic"
-		\$legni
-		\$ottoni
+		\legni
+		\ottoni
 		\$timpani_g
-		\$archi
+		\archi
 	>
+	\header{
+		title = "Coriolan";
+		subtitle = "Ouverture"; 
+		opus = "Opus 62";
+		composer = "Ludwig van Beethoven (1770-1827)";
+		enteredby = "JCN";
+		copyright = "public domain";
+	}
 	\include "coriolan-paper.ly"
 	\include "coriolan-midi.ly"
 }

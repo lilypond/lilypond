@@ -12,10 +12,10 @@
 */
 #include <math.h>
 #include <ctype.h>
+
 #include "lookup.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-
 #include "bezier.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
@@ -75,98 +75,8 @@ Lookup::afm_find (String s, bool warn) const
   return Molecule ( afm_bbox_to_box (cm->charBBox), at);
 }
 
-Molecule
-Lookup::simple_bar (String type, Real h, Paper_def* paper_l) const
-{
-  SCM thick = ly_symbol2scm (("barthick_" + type).ch_C());
-  Real w = 0.0;
   
-  if (paper_l->scope_p_->elem_b (thick))
-    {
-      w = paper_l->get_realvar (thick);
-    }
-  else
-    {
-      programming_error ("No bar thickness set ! ");
-      w = 1 PT;
-    }
-  return filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
-}
 
-  
-Molecule
-Lookup::bar (String str, Real h, Paper_def *paper_l) const
-{
-  if (str == "bracket")
-    return staff_bracket (h, paper_l);
-  else if (str == "brace")
-    {
-      Real staffht  = paper_l->get_var ("staffheight");
-      return staff_brace (h,staffht);
-    }
-  Real kern = paper_l->get_var ("bar_kern");
-  Real thinkern = paper_l->get_var ("bar_thinkern");
-
-  Molecule thin = simple_bar ("thin", h, paper_l);
-  Molecule thick = simple_bar ("thick", h, paper_l);
-  Molecule colon = afm_find ("dots-repeatcolon", paper_l);  
-
-  Molecule m;
-  
-  if (str == "")
-    {
-      return fill (Box (Interval(0, 0), Interval (-h/2, h/2)));
-    }
-  if (str == "scorepostbreak")
-    {
-      return simple_bar ("score", h, paper_l);
-    }
-  else if (str == "|")
-    {
-      return thin;
-    }
-  else if (str == "|.")
-    {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0);      
-      m.add_at_edge (X_AXIS, LEFT, thin, kern);
-    }
-  else if (str == ".|")
-    {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-    }
-  else if (str == ":|")
-    {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0);
-      m.add_at_edge (X_AXIS, LEFT, thin, kern);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
-    }
-  else if (str == "|:")
-    {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
-    }
-  else if (str == ":|:")
-    {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
-    }
-  else if (str == ".|.")
-    {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);      
-    }
-  else if (str == "||")
-    {
-      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);      
-    }
-
-  return m;
-}
 
 Molecule 
 Lookup::beam (Real slope, Real width, Real thick) 
@@ -215,7 +125,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 
 
 Molecule
-Lookup::fill (Box b) 
+Lookup::blank (Box b) 
 {
   Molecule m;
   m.dim_ = b;
@@ -264,8 +174,11 @@ Lookup::frame (Box b, Real thick)
 
 
 /*
-   TODO: THIS IS UGLY.  Since the user has direct access to TeX
-   strings, we try some halfbaked attempt to detect TeX trickery.
+   TODO: THIS IS UGLY.
+   Since the user has direct access to TeX marcos,
+   that currently provide the  only way to do
+   font selection, accents etc,
+   we try some halfbaked attempt to detect this TeX trickery.
  */
 String
 sanitise_TeX_string (String text)
@@ -349,48 +262,45 @@ Lookup::text (String style, String text, Paper_def *paper_l)
     metric_l = all_fonts_global_p->find_font (style);
   
   
-  if (output_global_ch == "tex")
-    text = sanitise_TeX_string  (text);
-  else if (output_global_ch == "ps")
-    text = sanitise_PS_string (text);
     
 
+  int i = text.index_i ("\\n");
+  while (i >=0 )
+    {
+      text = text.left_str (i) + "\n" + text.right_str (text.length_i () - i - 2);
+      i = text.index_i ("\\n");
+    }
   
-  SCM at = (gh_list (ly_symbol2scm ("text"),
-		     ly_str02scm (text.ch_C()),
-		     SCM_UNDEFINED));
-  at = fontify_atom (metric_l,at);
-  return Molecule ( metric_l->text_dimension (text),
-		    at);
+  Array<String> lines = String_convert::split_arr (text, '\n');
+  
+  Molecule mol;
+  
+  Real kern = paper_l->get_var ("line_kern");
+  
+  for (i = 0; i< lines.size (); i++)
+    {
+      /*
+	Huh?  This way we'll still see \foo sequences in ps output.
+       */
+      String str = lines[i];
+      if (output_global_ch == "tex")
+	str = sanitise_TeX_string  (str);
+      else if (output_global_ch == "ps")
+	str = sanitise_PS_string (str);
+
+      SCM line = (gh_list (ly_symbol2scm ("text"),
+			   ly_str02scm (str.ch_C ()),
+			   SCM_UNDEFINED));
+      line = fontify_atom (metric_l, line);
+      mol.add_at_edge (Y_AXIS, DOWN,
+		       Molecule (metric_l->text_dimension (str), line),
+		       kern);
+    }
+
+  return mol;
 }
   
 
-
-Molecule
-Lookup::staff_brace (Real y, int staff_size) 
-{
-  // URG
-  Real step  = 1.0;
-  int minht  = 2 * staff_size;
-  int maxht = 7 *  minht;
-  int idx = int (((maxht - step) <? y - minht) / step);
-  idx = idx >? 0;
-
-  SCM l = ly_eval_str ("(style-to-cmr \"brace\")");
-  String nm = "feta-braces";
-  if (l != SCM_BOOL_F)
-    nm = ly_scm2string (gh_cdr (l));
-  nm += to_str (staff_size);
-  SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
-  SCM at = (e);
-
-  at = fontify_atom (all_fonts_global_p->find_font (nm), at);
-  
-  Box b ( Interval (-y/2,y/2),
-	   Interval (0,0));
-  return Molecule(b, at);
-}
- 
 
 /*
   Make a smooth curve along the points 
@@ -431,27 +341,6 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   Box b ( curve.extent (X_AXIS), curve.extent (Y_AXIS));
   return Molecule (b, at);
 }
-
-Molecule
-Lookup::staff_bracket (Real height, Paper_def* paper_l)
-{
-  SCM at = ( gh_list (ly_symbol2scm ("bracket"),
-		      gh_double2scm (paper_l->get_var("bracket_arch_angle")),
-		      gh_double2scm (paper_l->get_var("bracket_arch_width")),
-		      gh_double2scm (paper_l->get_var("bracket_arch_height")),
-		      gh_double2scm (paper_l->get_var("bracket_width")),
-		      gh_double2scm (height),
-		      gh_double2scm (paper_l->get_var("bracket_arch_thick")),
-		      gh_double2scm (paper_l->get_var("bracket_thick")),
-  		      SCM_UNDEFINED));
-
-  Box b ( Interval (-height/2,height/2), Interval (0,4 PT));
-  Molecule m (b, at);
-
-  m.translate_axis (- 4. / 3. * m.dim_[X_AXIS].length (), X_AXIS);
-  return m;
-}
-
 
 Molecule
 Lookup::accordion (SCM s, Real staff_space) const
