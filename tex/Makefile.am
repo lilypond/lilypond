@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1# tex/Makefile.am.wild
+# Automatically generated from ./tex/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# tex/Makefile.am.wild
 
 TEXFILES = dyndefs.tex eglerdefs.tex fetdefs.tex lily-mf-defs.tex lily-ps-defs.tex lilyponddefs.tex ltest.tex taupindefs.tex titledefs.tex
 EXTRA_DIST = Makefile.am.wild $(TEXFILES)

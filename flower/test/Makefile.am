@@ -1,4 +1,7 @@
-# Generated automatically by wild-perl 0.1#
+# Automatically generated from ./flower/test/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+#
 # project  LilyPond -- the musical typesetter
 # title	   makefile for flowertest
 # file	   flower/test/Makefile.am.wild

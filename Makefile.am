@@ -1,3 +1,5 @@
+# Automatically generated from ./Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # title	   top level makefile for LilyPond  
 # file	   Makefile.am.wild
@@ -23,8 +25,6 @@ AUTHORS:
 PATCHES:
 	rm -f PATCHES
 	ln `$(FIND) ./ -name PATCHES.txt -print | head -1` $@
-
-
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
