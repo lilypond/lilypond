@@ -298,7 +298,7 @@ sys.stdout.write (r""">
 	\translator {
 	    \StaffContext 
 	    StaffSymbol \override #'line-count  = #3
-            minimumVerticalExtent = '(-3 . 3)
+            minimumVerticalExtent = #'(-3 . 3)
 	}
     }
 }
