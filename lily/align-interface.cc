@@ -45,6 +45,9 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
   return gh_double2scm (0.0);
 }
 
+/*
+  merge with align-to-extents? 
+ */
 void
 Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 {
@@ -68,18 +71,44 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   
   Link_array<Grob> elems
     = Pointer_group_interface__extract_elements (me, (Grob*) 0, "elements");
+
   Real where_f=0;
+
+  Interval v;
+  v.set_empty ();
+  Array<Real> translates;
+  
   for (int j=0 ;  j < elems.size (); j++) 
     {
       where_f += stacking_dir * dy;
-      elems[j]->translate_axis (where_f, a);
+      translates.push (where_f);
+      v.unite (Interval (where_f, where_f));
+    }
+
+  /*
+    TODO: support self-alignment-{Y,X}
+   */
+  for (int i = 0; i < translates.size (); i++)
+    {
+      elems[i]->translate_axis (translates[i] - v.center (), a);
     }
 }
 
 /*
   Hairy function to put elements where they should be. Can be tweaked
   from the outside by setting minimum-space and extra-space in its
-  children */
+  children
+
+  We assume that the children the refpoints of the children are still
+  found at 0.0 -- we will fuck up with thresholds if children's
+  extents are already moved to locations such as (-16, -8), since the
+  dy needed to put things in a row doesn't relate to the distances
+  between original refpoints.
+
+  TODO: maybe we should rethink and throw out thresholding altogether.
+  The original function has been taken over by
+  align_to_fixed_distance().
+*/
 void
 Align_interface::align_elements_to_extents (Grob * me, Axis a)
 {
@@ -158,11 +187,15 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   
   for (int j=0 ;  j < elems.size (); j++) 
     {
-      Real dy = 0.0;
-      dy = - stacking_dir * dims[j][-stacking_dir];
+      Real dy = -  dims[j][-stacking_dir];
       if (j)
-	dy += stacking_dir * dims[j-1][stacking_dir];
+	dy += dims[j-1][stacking_dir];
 
+
+      /*
+	we want dy to be > 0
+       */
+      dy *= stacking_dir; 
       if (j)
 	{
 	  dy = (dy >? threshold[SMALLER])
@@ -175,7 +208,6 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
     }
 
   
-
   Grob * align_center = unsmob_grob (align);
   Real center_offset = 0.0;
   
@@ -200,10 +232,15 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	  j++;
 	}
 
-      if (isdir_b (align))
-	{
-	  center_offset = total.linear_combination (gh_scm2double (align));
-	}
+
+      /*
+	FIXME: uncommenting freaks out the Y-alignment of
+	line-of-score.
+       */
+      // Real align_param = isdir_b (align)  ? gh_scm2double (align) : 0.0;
+      
+      if (gh_number_p (align))
+	center_offset = total.linear_combination (gh_scm2double (align));
 
       for (int j = 0 ;  j < all_grobs.size (); j++)
 	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
