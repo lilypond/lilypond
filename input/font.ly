@@ -15,7 +15,7 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\multi 2  < { \stemup e'\longa a\breve | }
 		{ \stemdown
 		c1 \clef "bass"; ''b \clef "violin"; c' a'
-		c2 g c' a'
+		c2 \clef "alto"; g c' \clef "violin"; a'
 		} >
 		\stemboth
 		c4 g c' a' \bar ":|";
