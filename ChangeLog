@@ -1,5 +1,10 @@
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/identifier-smob.cc (unpack_identifier): new file.
+
+	* lily/lexer.ll (identifier_type): new function.  use ly-id to
+	pass off scheme expressions as music identifiers.
+
 	* scm/lily.scm: reorganisation, cleanups.
 
 	* lily/main.cc: small cleanups.

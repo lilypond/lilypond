@@ -437,6 +437,7 @@
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(font-family . ancient)
 	(style . mensural)
+	(glyph-name-procedure . ,find-notehead-symbol)
 	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface
 							font-interface
 							note-head-interface staff-symbol-referencer-interface))))
