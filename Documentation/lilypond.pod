@@ -263,7 +263,7 @@ If you have bugreports, you should send them to this list.  If you want
 to read all bugreports, you should subscribe to this list.  To
 subscribe: send mail with subject "subscribe" to
 bug-gnu-music-request@vuse.vanderbilt.edu
-	
+
 =item gnu-music-discuss@vuse.vanderbilt.edu,
 
 For discussions concerning the GNU Music project, to subscribe: send
