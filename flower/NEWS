@@ -1,3 +1,6 @@
+pl 37
+	- various String/File_path mucking
+
 pl 36
 	- memmem fix: bugfree and *really* conforming to /usr/include/string.h
 
