@@ -7,7 +7,7 @@
 \header {
     texidoc = "@cindex Invisible Notes
 @cindex Blank Notes
-Invisible (or transparent) can be useful, when wierd tricks are needed; 
+Invisible (or transparent) notes can be useful, when weird tricks are needed; 
 especially, a slur cannot be attach to a rest or spacer rest.
 " }
 
