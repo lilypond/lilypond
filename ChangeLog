@@ -1,5 +1,8 @@
 2005-02-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/regression/stanza-number.ly:
+	* input/regression/utf8.ly (hebrew): Use addlyrics.  Update.
+
 	* lily/tie-engraver.cc (acknowledge_grob): Compile fix.
 
 2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
