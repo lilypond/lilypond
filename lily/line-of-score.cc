@@ -21,6 +21,7 @@
 #include "all-font-metrics.hh"
 
 Line_of_score::Line_of_score()
+  : Spanner (SCM_EOL)
 {
   set_elt_pointer ("columns", SCM_EOL);
   set_elt_pointer ("all-elements", SCM_EOL);

@@ -25,9 +25,10 @@ public:
   VIRTUAL_COPY_CONS (Score_element);
   Molecule ly_word2molecule (SCM scm) const;
   Molecule ly_text2molecule (SCM scm) const;
-
+  Chord_name(SCM s);
 protected:
   virtual Molecule do_brew_molecule () const;
+
 };
 
 #endif // CHORD_NAME_HH

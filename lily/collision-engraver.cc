@@ -35,7 +35,7 @@ Collision_engraver::process_acknowledged ()
     return ;
   if (!col_p_) 
     {
-      col_p_ = new Collision;
+      col_p_ = new Collision (get_property ("basicCollisionProperties"));
       announce_element (Score_element_info (col_p_,0));
     }
   for (int i=0; i< note_column_l_arr_.size (); i++)

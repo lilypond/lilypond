@@ -15,7 +15,9 @@
 #include "lily-guile.hh"
 #include "line-of-score.hh"
 
-Item::Item ()
+Item::Item (SCM s)
+  : Score_element (s)
+
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }

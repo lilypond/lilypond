@@ -17,6 +17,8 @@
   Universal key definition (Should rename class Key to 'Accidentals'?)
 
   FIXME: merge key.hh and key-def.hh classes.
+
+  FIXME: use Scheme data structs for this.
  */
 class Key_def
 {

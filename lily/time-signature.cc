@@ -13,7 +13,8 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-Time_signature::Time_signature ()
+Time_signature::Time_signature (SCM s)
+  :  Item (s)
 {
 
 }

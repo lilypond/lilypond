@@ -19,6 +19,7 @@ class Text_item : public Item
 {
 public:
   VIRTUAL_COPY_CONS (Score_element);
+  Text_item (SCM s);
 protected:
   virtual Molecule do_brew_molecule () const;
 };

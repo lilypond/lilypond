@@ -40,7 +40,7 @@ class Item : public Score_element
 
 public:
   VIRTUAL_COPY_CONS(Score_element);
-  Item();
+  Item (SCM);
   Item (Item const &);
 
   bool breakable_b () const;

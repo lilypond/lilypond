@@ -30,7 +30,7 @@
 class Extender_spanner : public Spanner
 {
 public:
-  Extender_spanner ();
+  Extender_spanner (SCM);
   void set_textitem (Direction, Item*);
 
 protected:

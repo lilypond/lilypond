@@ -16,7 +16,8 @@
 #include "line-of-score.hh"
 #include "misc.hh"
 
-Spacing_spanner::Spacing_spanner ()
+Spacing_spanner::Spacing_spanner (SCM s)
+  : Spanner (s)
 {
   set_extent_callback (0, X_AXIS);
   set_extent_callback (0, Y_AXIS);  

@@ -20,7 +20,8 @@
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 
-Multi_measure_rest::Multi_measure_rest ()
+Multi_measure_rest::Multi_measure_rest (SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("columns", SCM_EOL);
 }

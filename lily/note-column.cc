@@ -38,7 +38,8 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
   return h1 - h2;
 }
 
-Note_column::Note_column()
+Note_column::Note_column( SCM s)
+  : Item (s)
 {
   set_elt_pointer ("rests", SCM_EOL);
   set_elt_pointer ("note-heads", SCM_EOL);  

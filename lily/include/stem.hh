@@ -57,7 +57,7 @@ public:
   Drul_array<Note_head*> extremal_heads () const;
 
   Score_element * support_head () const;
-  Stem ();
+  Stem (SCM);
 
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);

@@ -13,7 +13,8 @@
 #include "debug.hh"
 #include "item.hh"
 
-Hara_kiri_group_spanner::Hara_kiri_group_spanner()
+Hara_kiri_group_spanner::Hara_kiri_group_spanner(SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("items-worth-living", SCM_EOL);
 }

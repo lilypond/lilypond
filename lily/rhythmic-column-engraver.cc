@@ -30,7 +30,7 @@ Rhythmic_column_engraver::process_acknowledged ()
     {
       if (!ncol_p_)
 	{
-	  ncol_p_ = new Note_column;
+	  ncol_p_ = new Note_column (SCM_EOL);
 	  announce_element (Score_element_info (ncol_p_, 0));
 	}
 

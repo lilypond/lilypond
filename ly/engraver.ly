@@ -23,31 +23,6 @@ StaffContext=\translator {
 
 	\consists "Repeat_engraver";
 
-	staffSymbolBasicProperties = #'(
-	 (staff-space . 1.0 )
-	 (line-count . 5 )
-	 )
-	 basicTimeSignatureProperties = #`(
-	  (break-align-symbol . Time_signature)
-	  (visibility-lambda . ,all-visible)
-	  (breakable . #t)
-	 )
-	 basicBarlineProperties = #`(
-	   (break-align-symbol . Staff_bar)
-	   (visibility-lambda . `begin-of-line-invisible)
-	   (breakable . #t)
-	   )
-
-	 basicKeyProperties = #`(
-	  (break-align-symbol . Key_item)
-	  (visibility-lambda . ,begin-of-line-visible)
-	  (breakable . #t)
-	  )	 
-	 basicClefItemProperties = #`(
-	   (breakable . #t)
-	   (break-align-symbol . Clef_item)
-	   (visibility-lambda . ,begin-of-line-visible) 
-	 )
 
 	%  name, glyph id, c0 position
 	supportedClefTypes = #'(
@@ -169,6 +144,7 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
+
 
 	startSustain = #"Ped."
 	stopSustain = #"*"
@@ -403,6 +379,101 @@ ScoreContext = \translator {
 	defaultBarType = #"|"
        systemStartDelimiterGlyph = #'bar-line
 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% default settings, mainly for breakable items
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	basicBarNumberProperties = #`(
+	  (breakable . #t)
+	  (visibility-lambda . ,begin-of-line-visible)
+	)
+	basicMarkProperties = #'(
+	  (breakable . #t)
+	  (visibility-lambda . end-of-line-invisible)
+	)
+	leftEdgeBasicProperties = #'(
+	  (break-align-symbol . Left_edge_item)
+	  (breakable . #t)
+	)
+
+	staffSymbolBasicProperties = #'(
+	 (staff-space . 1.0 )
+	 (line-count . 5 )
+	 )
+	 basicTimeSignatureProperties = #`(
+	  (break-align-symbol . Time_signature)
+	  (visibility-lambda . ,all-visible)
+	  (breakable . #t)
+	 )
+	 basicBarlineProperties = #`(
+	   (break-align-symbol . Staff_bar)
+	   (visibility-lambda . ,begin-of-line-invisible)
+	   (breakable . #t)
+	   )
+	basicSystemStartDelimiterProperties = #'(
+	  (collapse-height . 1.0)
+	)
+	 basicKeyProperties = #`(
+	  (break-align-symbol . Key_item)
+	  (visibility-lambda . ,begin-of-line-visible)
+	  (breakable . #t)
+	  )	 
+	 basicClefItemProperties = #`(
+	   (breakable . #t)
+	   (break-align-symbol . Clef_item)
+	   (visibility-lambda . ,begin-of-line-visible) 
+	 )
+
+	basicBeamProperties = #`(
+		(beam-thickness . 0.42) ; interline!
+	)
+	basicStemTremoloProperties = #'(
+		(beam-width . 4.0) ; interline!
+	)
+
+   	basicBreathingSignProperties = #'(
+		(break-align-symbol . Breathing_sign)
+		(breakable . #t )
+		(visibility-lambda . ,begin-of-line-invisible)
+	)
+	basicOctavateEightProperties  = #'(
+		(self-alignment-X . 0)
+		(text . "8")
+		(style . "italic")
+	)
+	basicDynamicLineSpannerProperties = #`(
+		(transparent . #t)
+	)
+	basicDynamicTextProperties	 = # `(
+		(style . "dynamic")
+		(script-priority . 100)
+		(self-alignment-Y . 0)
+	)
+	basicLyricTextProperties = #`(
+		(non-rhythmic . #t)
+	)
+	basicRestCollisionProperties = #`(
+		(transparent .  #t)
+	)
+	basicCollisionProperties = #`(
+		(transparent .  #t)
+		(axes 0 1)
+	)
+	basicSingleMaltGroupingItemProperties = #'(
+		(transparent . #t)
+	)
+	basicBreakAlignProperties = #'(
+		(breakable . #t)
+	)
+	basicInstrumentNameProperties = #`(
+		(breakable . #t)
+		(break-align-symbol . Instrument_name)
+		(visibility-lambda . ,begin-of-line-visible)
+	)
+	basicLocalKeyProperties = #`(
+	  (left-padding . 0.2)
+	  (right-padding . 0.4)
+	)
+
 	\accepts "Staff";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	
@@ -415,7 +486,6 @@ ScoreContext = \translator {
 
 
 	markVisibilityFunction = #end-of-line-invisible
-	barNumberVisibilityFunction = #begin-of-line-visible
 };
 
 \translator { \ScoreContext }

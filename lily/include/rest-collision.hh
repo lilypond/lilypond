@@ -18,7 +18,7 @@ public:
   void add_column (Note_column*);
   Interval rest_dim () const;
     
-  Rest_collision();
+  Rest_collision(SCM);
 protected:
   virtual void before_line_breaking ();
 };

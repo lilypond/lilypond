@@ -28,7 +28,7 @@ class Key_item :public  Item
 
 public:
   VIRTUAL_COPY_CONS(Score_element);
-  Key_item ();
+  Key_item (SCM);
   void add (int pitch, int acc);
   void add_old (int pitch, int acc);
 

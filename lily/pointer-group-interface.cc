@@ -33,9 +33,6 @@ Pointer_group_interface::has_interface_b ()
 void
 Pointer_group_interface::add_element (Score_element*p) 
 {
-  p->used_b_ =  true;
-  elt_l_->used_b_ = true;
-
   elt_l_->set_elt_pointer (name_.ch_C(),
 			   gh_cons (p->self_scm_,
 				    elt_l_->get_elt_pointer (name_.ch_C())));

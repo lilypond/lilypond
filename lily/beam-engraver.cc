@@ -87,7 +87,7 @@ Beam_engraver::do_process_music ()
 	}
 
       prev_start_req_ = reqs_drul_[START];
-      beam_p_ = new Beam;
+      beam_p_ = new Beam (get_property ("basicBeamProperties"));
 
       SCM smp = get_property ("measurePosition");
       Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);

@@ -67,3 +67,7 @@ Rhythmic_head::add_dots (Dots *dot_l)
 }
 
 
+Rhythmic_head::Rhythmic_head (SCM s)
+  : Item (s)
+{
+}

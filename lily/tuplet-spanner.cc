@@ -22,7 +22,8 @@
 #include "directional-element-interface.hh"
 
 
-Tuplet_spanner::Tuplet_spanner ()
+Tuplet_spanner::Tuplet_spanner (SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("beams", SCM_EOL);
   set_elt_pointer ("columns", SCM_EOL);

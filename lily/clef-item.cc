@@ -12,6 +12,10 @@
 #include "molecule.hh"
 #include "text-item.hh"
 
+Clef_item::Clef_item (SCM s)
+  : Item (s)
+{}
+
 void
 Clef_item::before_line_breaking ()
 {
@@ -21,10 +25,17 @@ Clef_item::before_line_breaking ()
     style = ly_scm2string (style_sym);
 
   SCM glyph = get_elt_property ("glyph");
+  
+  /*
+    FIXME: should use symbol.
+   */
   if (gh_string_p (glyph))
     {
       String s = ly_scm2string (glyph);
-	
+
+      /*
+	FIXME: should use fontsize property to set clef changes.
+       */
       if (break_status_dir() != RIGHT && style != "fullSizeChanges")
 	{
 	  s += "_change";

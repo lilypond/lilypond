@@ -15,7 +15,7 @@
 class Spacing_spanner : public Spanner
 {
 public:
-  Spacing_spanner ();
+  Spacing_spanner (SCM);
 
   VIRTUAL_COPY_CONS(Score_element);
   Array<Spring> do_measure (Link_array<Paper_column>) const;

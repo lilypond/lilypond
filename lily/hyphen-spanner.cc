@@ -22,8 +22,8 @@
 #include "hyphen-spanner.hh"
 #include "dimension-cache.hh"
 
-Hyphen_spanner::Hyphen_spanner ()
-  : Spanner ()
+Hyphen_spanner::Hyphen_spanner (SCM s)
+  : Spanner (s)
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 

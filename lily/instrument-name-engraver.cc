@@ -55,17 +55,12 @@ Instrument_name_engraver::create_text (SCM txt)
 {
   if(!text_)
     {
-      text_ = new Text_item;
+      text_ = new Text_item (get_property ("basicInstrumentNameProperties"));
       text_->set_elt_property ("text", txt);
-      text_->set_elt_property ("breakable", SCM_BOOL_T);
 
       /*
 	TODO: use more lispish names for break-align-symbols
        */
-      text_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Instrument_name"));
-      text_->set_elt_property ("visibility-lambda",
-			       scm_eval (ly_symbol2scm ("begin-of-line-visible")));
-
       if (delim_)
 	text_->set_parent (delim_, Y_AXIS);
 

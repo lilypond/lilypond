@@ -22,7 +22,8 @@
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 
-Volta_spanner::Volta_spanner ()
+Volta_spanner::Volta_spanner (SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("bars", SCM_EOL);
   Side_position_interface (this).set_axis (Y_AXIS);

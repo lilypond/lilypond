@@ -36,6 +36,7 @@ public:
   int dot_count () const;
 protected:
   virtual void after_line_breaking ();
+  Rhythmic_head (SCM s);
 };
 
 #endif // RHYTHMIC_HEAD_HH

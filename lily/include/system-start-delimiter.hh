@@ -18,7 +18,7 @@
 class System_start_delimiter : public Spanner
 {
 public:
-  System_start_delimiter ();
+  System_start_delimiter (SCM);
   VIRTUAL_COPY_CONS (Score_element);
 protected:
   virtual void after_line_breaking();

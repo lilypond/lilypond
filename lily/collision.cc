@@ -13,7 +13,8 @@
 #include "axis-group-interface.hh"
 
 
-Collision::Collision()
+Collision::Collision(SCM s )
+  : Item (s)
 {
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);

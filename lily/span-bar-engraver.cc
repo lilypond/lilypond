@@ -31,7 +31,7 @@ public:
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
-  virtual Span_bar* get_span_bar_p() const;
+  virtual Span_bar* get_span_bar_p(SCM) const;
 };
 
 
@@ -41,9 +41,9 @@ Span_bar_engraver::Span_bar_engraver()
 }
 
 Span_bar*
-Span_bar_engraver::get_span_bar_p() const
+Span_bar_engraver::get_span_bar_p(SCM s) const
 {
-  Span_bar * sp= new Span_bar;
+  Span_bar * sp= new Span_bar (s);
   return sp;
 }
 
@@ -59,8 +59,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	{
-	  spanbar_p_ = get_span_bar_p();
-	  spanbar_p_-> property_alist_ = bar_l_arr_[0]->property_alist_;
+	  spanbar_p_ = get_span_bar_p( bar_l_arr_[0]->property_alist_);
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 

@@ -184,8 +184,7 @@ Clef_engraver::create_clef()
 {
   if (!clef_p_)
     {
-      Clef_item *c= new Clef_item;
-      c-> property_alist_ = current_settings_;
+      Clef_item *c= new Clef_item ( current_settings_);
       announce_element (Score_element_info (c, clef_req_l_));
 
       Staff_symbol_referencer_interface si(c);
@@ -198,16 +197,12 @@ Clef_engraver::create_clef()
   si.set_position (clef_position_i_);
   if (octave_dir_)
     {
-      Text_item * g = new Text_item;
+      Text_item * g = new Text_item (get_property ("basicOctavateEightProperties"));
       Side_position_interface spi (g);
       spi.set_axis (Y_AXIS);
       spi.add_support (clef_p_);
-      g->set_elt_property ("text", ly_str02scm ( "8"));
-      g->set_elt_property ("style", gh_str02scm ("italic"));
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);
-	  
-      g->set_elt_property ("self-alignment-X", gh_int2scm (0));
       g->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
       g->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
       g->set_elt_property ("direction", gh_int2scm (octave_dir_));

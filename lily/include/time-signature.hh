@@ -26,7 +26,7 @@ class Time_signature: public Item
 protected:
   virtual Molecule do_brew_molecule() const;
 public:
-  Time_signature () ;
+  Time_signature (SCM);
 
   /*
     TODO: make this SCM!

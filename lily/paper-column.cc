@@ -95,6 +95,7 @@ Paper_column::column_l () const
 }
 
 Paper_column::Paper_column (Moment w)
+  : Item (SCM_EOL)
 {
   SCM when = (new Moment (w))->smobify_self ();
   scm_unprotect_object (when);

@@ -24,5 +24,7 @@ class  Rest : public Rhythmic_head
 protected:
   virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;
+public:
+  Rest (SCM s);
 };
 #endif // REST_HH

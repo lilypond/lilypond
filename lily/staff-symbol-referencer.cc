@@ -91,6 +91,8 @@ Staff_symbol_referencer_interface::position_f () const
 Real
 Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
 {
+  Score_element* me = (Score_element*)sc; // UGH.
+  
   SCM pos = sc->get_elt_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
@@ -98,8 +100,8 @@ Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
       Real space = staff_symbol_referencer (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
-  Score_element* urg = (Score_element*)sc;
-  urg->set_elt_property ("staff-position", gh_double2scm (0.0));
+
+  me->set_elt_property ("staff-position", gh_double2scm (0.0));
 
   return off;
 }

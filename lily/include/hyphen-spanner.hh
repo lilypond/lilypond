@@ -21,7 +21,7 @@
 class Hyphen_spanner : public Spanner
 {
 public:
-Hyphen_spanner ();
+  Hyphen_spanner (SCM);
   void set_textitem (Direction, Item*);
 
 protected:

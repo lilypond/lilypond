@@ -30,7 +30,8 @@ Tie::set_head (Direction d, Item * head_l)
   add_dependency (head_l);
 }
 
-Tie::Tie()
+Tie::Tie(SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("heads", gh_cons (SCM_EOL, SCM_EOL));
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;

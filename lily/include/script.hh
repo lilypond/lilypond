@@ -22,6 +22,7 @@ class Script : public Item
 {
   Molecule get_molecule (Direction d) const;
 public:
+  Script (SCM);
   
 protected:
   virtual void before_line_breaking ();

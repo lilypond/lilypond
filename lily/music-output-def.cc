@@ -39,7 +39,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 {
   scope_p_ = new Scope (*s.scope_p_);
   translator_p_dict_p_ = new Scope (*s.translator_p_dict_p_);
-  default_properties_ = s.default_properties_;
+  //  default_properties_ = s.default_properties_;
   
   for (Scope_iter i (*translator_p_dict_p_);  i.ok (); i++)
     {

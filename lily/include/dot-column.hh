@@ -23,7 +23,7 @@ class Dot_column : public Item
 public:
   VIRTUAL_COPY_CONS (Score_element);
   void add_head (Rhythmic_head*);
-  Dot_column ();
+  Dot_column (SCM);
 
 protected:
   virtual void after_line_breaking ();

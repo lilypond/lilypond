@@ -40,11 +40,11 @@ Lyric_engraver::do_process_music()
 {
   if (req_l_)
     {
-      text_p_=  new Text_item;
+      text_p_=  new Text_item (get_property ("basicLyricTextProperties"));
       
       text_p_->set_elt_property ("text",
 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));
-      text_p_->set_elt_property ("non-rhythmic", SCM_BOOL_T);
+
       announce_element (Score_element_info (text_p_, req_l_));
     }
 }

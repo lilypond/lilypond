@@ -14,6 +14,12 @@
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 
+Text_item::Text_item (SCM s)
+  : Item (s)
+{
+  
+}
+
 Molecule 
 Text_item::do_brew_molecule () const
 {

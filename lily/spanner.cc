@@ -159,10 +159,6 @@ void
 Spanner::set_bound(Direction d, Item*i)
 {
   spanned_drul_[d] =i;
-  if (i)
-    {
-      i->used_b_ = true;
-    }
 
   /**
      We check for Line_of_score to prevent the column -> line_of_score
@@ -179,7 +175,8 @@ Spanner::set_bound(Direction d, Item*i)
 }
 
 
-Spanner::Spanner ()
+Spanner::Spanner (SCM s)
+  : Score_element (s)
 {
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;

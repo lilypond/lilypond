@@ -16,7 +16,7 @@ class Separating_group_spanner : public Spanner
 {
 public:
   void add_spacing_unit (Single_malt_grouping_item*);
-  Separating_group_spanner();
+  Separating_group_spanner(SCM);
 protected:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Array<Rod> get_rods () const;

@@ -136,3 +136,8 @@ Local_key_item::do_brew_molecule() const
   return mol;
 }
 
+Local_key_item::Local_key_item (SCM s)
+  : Item (s)
+{
+  
+}

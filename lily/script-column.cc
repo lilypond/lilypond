@@ -25,9 +25,10 @@ Script_column::add_staff_sided (Item *i)
   add_dependency (i);
 }
 
-Script_column::Script_column ()
+Script_column::Script_column (SCM s)
+  : Item (s)
 {
-  set_elt_property ("scripts", SCM_EOL);  
+  set_elt_pointer ("scripts", SCM_EOL);  
 }
 
 static int

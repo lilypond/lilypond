@@ -78,36 +78,17 @@ Paper_def::get_realvar (SCM s) const
   return *p;
 }
 
-
+/*
+  FIXME. This is broken until we have a generic way of
+  putting lists inside the \paper block.
+ */
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  SCM s = default_properties_.get (ly_symbol2scm ("margin-shape"));
-  if (!gh_pair_p (s))
-    {
-      Real lw =  get_var ("linewidth");
-      Real ind = n? 0.0:get_var ("indent");
+  Real lw =  get_var ("linewidth");
+  Real ind = n? 0.0:get_var ("indent");
 
-      return Interval (ind, lw);
-    }
-
- 
-  SCM last = SCM_EOL;
-  while (gh_pair_p (s) && n --)
-    {
-      last = s;
-      s = gh_cdr (s);
-    }
-
-  if (s == SCM_EOL)
-    {
-      s = last;
-    }
-
-  SCM pair = gh_car (s);
-  
-  return Interval (gh_scm2double (gh_car (pair)),
-		   gh_scm2double (gh_cdr (pair)));
+  return Interval (ind, lw);
 }
 
 void

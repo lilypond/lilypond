@@ -34,7 +34,7 @@ public:
   Stem* first_visible_stem () const;
   Stem* last_visible_stem () const;
 
-  Beam ();
+  Beam (SCM);
   void add_stem (Stem*);
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_beaming (Beaming_info_list *);

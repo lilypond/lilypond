@@ -15,7 +15,7 @@
 class Script_column : public Item
 {
 public:
-  Script_column();
+  Script_column(SCM);
   void add_staff_sided (Item*);
 protected:
   virtual void before_line_breaking ();

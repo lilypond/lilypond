@@ -18,11 +18,10 @@ class Tie_column : public Spanner
 public:
   VIRTUAL_COPY_CONS (Score_element);
   void add_tie (Tie*);
-  Tie_column ();
+  Tie_column (SCM s);
 protected:
   virtual void after_line_breaking ();
   void set_directions ();
-  
 };
 
 #endif /* TIE_COLUMN_HH */

@@ -48,7 +48,8 @@ Dot_column::compare (Dots * const &d1, Dots * const &d2)
 }
 
 
-Dot_column::Dot_column ()
+Dot_column::Dot_column (SCM s)
+  : Item (s)
 {
   Pointer_group_interface gi (this, "dots");
   gi.set_interface ();

@@ -162,3 +162,8 @@ Chord_name::do_brew_molecule () const
 
   return ly_text2molecule (text);
 }
+
+Chord_name::Chord_name (SCM s)
+  : Item (s)
+{
+}

@@ -106,7 +106,8 @@ Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 }
 
 
-Separating_group_spanner::Separating_group_spanner ()
+Separating_group_spanner::Separating_group_spanner (SCM s)
+  : Spanner (s)  
 {
   set_elt_pointer ("elements", SCM_EOL);
 }

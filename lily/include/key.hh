@@ -10,6 +10,10 @@
 #include "array.hh"
 #include "lily-proto.hh"
 
+/*
+  JUNKME JUNKME JUNKME
+ */
+
 /// administration of current key in one octave.
 class Octave_key {
 

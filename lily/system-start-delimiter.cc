@@ -38,7 +38,8 @@ System_start_delimiter::staff_bracket (Real height) const
   return mol;
 }
 
-System_start_delimiter::System_start_delimiter ()
+System_start_delimiter::System_start_delimiter (SCM s)
+  : Spanner (s)
 {
   set_extent_callback (0, Y_AXIS);
   Pointer_group_interface (this).set_interface();

@@ -144,7 +144,7 @@ Score_engraver::typeset_all()
 	{
 	  if (!elem_p->parent_l (X_AXIS))
 	    {
-	      bool br = to_boolean (elem_p->remove_elt_property ("breakable"));
+	      bool br = to_boolean (elem_p->get_elt_property ("breakable"));
 	      Axis_group_interface gi ((br) ? command_column_l_ : musical_column_l_) ;
 	      gi.add_element(elem_p);
 	    }
@@ -182,7 +182,7 @@ Score_engraver::set_columns (Paper_column *new_command_l,
       if (*current[i])
 	{
 	  if ((*current[i])->used_b())
-	  //	  if ((*current[i])->linked_b()) 	  
+
 	    {
 	      scoreline_l_->add_column ((*current[i]));
 	    }

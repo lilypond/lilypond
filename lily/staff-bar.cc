@@ -23,3 +23,9 @@ Staff_bar::get_bar_size () const
     }
 }
 
+
+Staff_bar::Staff_bar (SCM s)
+  : Bar (s)
+{
+
+}

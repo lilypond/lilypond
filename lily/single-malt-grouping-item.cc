@@ -12,9 +12,9 @@
 #include "debug.hh"
 #include "group-interface.hh"
 
-Single_malt_grouping_item ::Single_malt_grouping_item()
+Single_malt_grouping_item ::Single_malt_grouping_item(SCM s)
+  : Item (s)
 {
-  set_elt_property ("transparent", SCM_BOOL_T);
   set_elt_pointer ("elements", SCM_EOL);
 
   // this is weird! , but needed!

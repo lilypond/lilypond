@@ -60,3 +60,7 @@ Sustain_pedal::do_brew_molecule () const
 }
 
 
+
+Sustain_pedal ::Sustain_pedal(SCM s )
+  : Item (s)
+{}

@@ -70,7 +70,8 @@ Script_engraver::do_process_music()
 			l->articulation_str_.ch_C ()));
 	  continue;
 	}
-      Script *p =new Script;
+      // todo -> use result of articulation-to-scriptdef directly as basic prop list.
+      Script *p =new Script (SCM_EOL);
       Side_position_interface stafy (p);
       
       

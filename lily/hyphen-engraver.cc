@@ -73,7 +73,7 @@ Hyphen_engraver::do_process_music ()
 	  return;
 	}
       
-      hyphen_spanner_p_ = new Hyphen_spanner;
+      hyphen_spanner_p_ = new Hyphen_spanner (SCM_EOL);
       hyphen_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
       announce_element (Score_element_info (hyphen_spanner_p_, req_l_));
     }

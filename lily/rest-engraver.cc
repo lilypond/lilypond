@@ -46,7 +46,7 @@ Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
-      rest_p_ = new Rest;
+      rest_p_ = new Rest (SCM_EOL);
       Staff_symbol_referencer_interface si (rest_p_);
       si.set_interface ();
       
@@ -55,7 +55,7 @@ Rest_engraver::do_process_music ()
       
       if (rest_req_l_->duration_.dots_i_)
 	{
-	  dot_p_ = new Dots;
+	  dot_p_ = new Dots (SCM_EOL);
 
 	  Staff_symbol_referencer_interface si (dot_p_);
 	  si.set_interface ();

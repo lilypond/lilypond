@@ -27,7 +27,7 @@
 class Hara_kiri_group_spanner : public Spanner
 {
 public:
-  Hara_kiri_group_spanner ();
+  Hara_kiri_group_spanner (SCM);
   virtual void after_line_breaking ();
   void add_interesting_item (Item* n);
 protected:

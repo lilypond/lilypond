@@ -1,38 +1,34 @@
---- ../lilypond-1.3.54.hwn1/CHANGES	Thu May 25 19:52:28 2000
-++ b/CHANGES	Fri May 26 01:15:04 2000
-@@ -1,5 +1,4 @@
--1.3.1.3.54.hwn1
--===========
-* Experimental property collapse for clef and staff-symbol.
- 
- * Massive search replace patch: store pointers and properties
- separately, in preparation of property collapse.--- ../lilypond-1.3.54/CHANGES	Thu May 25 00:20:46 2000
-++ b/CHANGES	Thu May 25 23:22:02 2000
-@@ -1,3 +1,11 @@
-1.3.54.jcn1
+1.3.54.hwn2
 ===========
 
-* Fixed compile bug.
+* Experimental property collapse for most score-elements.  (notable
+exceptions: Scripts, pedals). Change all Score_element constructors to
+take a basic-property list. The suffix of a property list may be
+shared by several score-elements, for instance all default G-clefs in
+a score share the following settings
+  
+	   (breakable . #t)
+	   (break-align-symbol . Clef_item)
+	   (visibility-lambda . ,begin-of-line-visible) 
 
-* Added scripts/linux-time.py: simple utility to monitor memory (and later
-  maybe other) resource usage from Linux's proc fs.
+This should reduce memory usage further. 
 
- 1.3.53.uu1
- ==========
- 1.3.1.3.54.hwn1
-===========
+* Magically fixed the disappearing Lyrics problem.
 
-* Massive search replace patch: store pointers and properties
+* Removed used_b_ field from Score_element.  
+
+* Massive search-replace patch: store pointers and properties
 separately, in preparation of property collapse.
 
-1.3.53.uu1
-==========
+
+1.3.54
+======
 
 * Bugfix: don't crash on tuplet spanners that don't contain any notes.
 
-* Small cleanup of Dimension_cache: removed a few redundant
-fields. Slightly lower memory usage. Dimension_cache is now a `dumb'
-struct again.
+* Cleanup of Dimension_cache: removed a few redundant
+fields. Slightly lower memory usage (32 bytes per
+score-element). Dimension_cache is now a `dumb' struct again.
 
 * Add array index to priority field of text scripts to ensure that
 order is unique, and sensible.

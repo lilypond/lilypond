@@ -17,6 +17,8 @@
 typedef Interval (*Extent_callback)(Score_element const *,Axis);
 typedef Real (*Offset_callback)(Score_element const *,Axis);
 
+#define READONLY_PROPS		// FIXME.
+
 
 /**
     for administration of what was done already
@@ -69,6 +71,9 @@ class Score_element  {
 public:				// ugh.
   SCM property_alist_;
   SCM pointer_alist_;
+#ifndef READONLY_PROPS
+  SCM basic_property_list_;
+#endif
 public:
   Score_element *original_l_;
 
@@ -79,13 +84,6 @@ public:
     0 means ORPHAN,
    */
   char status_i_;
-  /**
-     Set this if anyone points to me, or if I point to anyone.
-
-     JUNKME.
-   */
-  bool used_b_;
-  
   char const * name () const;
 
   /*
@@ -95,7 +93,7 @@ public:
    */
   Paper_score *pscore_l_;
 
-  Score_element ();
+  Score_element (SCM basic_props);
   Score_element (Score_element const&);
 
   /*

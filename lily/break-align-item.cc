@@ -157,7 +157,8 @@ Break_align_item::before_line_breaking ()
 				 
 }
 
-Break_align_item::Break_align_item ()
+Break_align_item::Break_align_item (SCM s)
+  : Item (s)
 {
   set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
 

@@ -214,7 +214,8 @@ Stem::add_head (Rhythmic_head *n)
   gi.add_element (n);
 }
 
-Stem::Stem ()
+Stem::Stem (SCM s)
+  : Item (s)
 {
   set_elt_pointer ("heads", SCM_EOL);
   set_elt_pointer ("rests", SCM_EOL);

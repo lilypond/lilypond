@@ -205,7 +205,7 @@ Auto_beam_engraver::begin_beam ()
 Beam*
 Auto_beam_engraver::create_beam_p ()
 {
-  Beam* beam_p = new Beam;
+  Beam* beam_p = new Beam (get_property ("basicBeamProperties"));
 
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
     {

@@ -188,11 +188,11 @@ Rest_collision::before_line_breaking ()
 }
 
 
-Rest_collision::Rest_collision()
+Rest_collision::Rest_collision(SCM s)
+  : Item (s)
 {
   set_elt_pointer ("rests", SCM_EOL);
   set_elt_pointer ("notes", SCM_EOL);
-  set_elt_property ("transparent", SCM_BOOL_T);
   set_extent_callback (0, X_AXIS);
   set_extent_callback (0, Y_AXIS);
 }

@@ -173,7 +173,7 @@ Tie_engraver::process_acknowledged ()
 	  
 	  SCM pair = gh_list_ref (head_list, gh_int2scm (i/2));
 	  
-	  Tie * p = new Tie;
+	  Tie * p = new Tie (SCM_EOL);
 	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_car (pair))));
 	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
 	  
@@ -182,7 +182,7 @@ Tie_engraver::process_acknowledged ()
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Tie * p = new Tie;
+	  Tie * p = new Tie (SCM_EOL);
 	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));
 	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
 	  
@@ -196,7 +196,7 @@ Tie_engraver::process_acknowledged ()
 	}
       else if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
-	  tie_column_p_ = new Tie_column;
+	  tie_column_p_ = new Tie_column (SCM_EOL);
 	  for (int i = tie_p_arr_.size (); i--; )
 	    tie_column_p_->add_tie (tie_p_arr_ [i]);
 	  announce_element (Score_element_info (tie_column_p_, 0));

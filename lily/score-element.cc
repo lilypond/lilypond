@@ -37,20 +37,22 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
   subclass.
 */
 
-Score_element::Score_element()
+
+
+Score_element::Score_element(SCM basicprops)
 {
-  // junkme.
-  used_b_ = false;
   set_extent_callback (molecule_extent, X_AXIS);
   set_extent_callback (molecule_extent, Y_AXIS);    
 
-  used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
   status_i_ = 0;
   self_scm_ = SCM_EOL;
   original_l_ = 0;
-  property_alist_ = SCM_EOL;
+#ifndef READONLY_PROPS
+  basic_property_list_ = basicprops;
+#endif READONLY_PROPS
+  property_alist_ = basicprops;
   pointer_alist_ = SCM_EOL;
   
   smobify_self ();
@@ -63,9 +65,19 @@ Score_element::Score_element (Score_element const&s)
    : dim_cache_ (s.dim_cache_)
 {
   self_scm_ = SCM_EOL;
-  used_b_ = true;
   original_l_ =(Score_element*) &s;
-  property_alist_ = s.property_alist_; 
+  property_alist_ = s.property_alist_;
+#ifndef READONLY_PROPS
+  basic_property_list_ = s.basic_property_list_;
+  /*
+    TODO: should copy the private part of the list.
+   */
+  SCM y ;
+  for (SCM *sp = &s.property_alist_;  *sp != basic_property_list_; sp = &SCM_CDR(*sp))
+    {
+      *sp = gh_cons (      
+    }
+#endif
   pointer_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
@@ -79,6 +91,16 @@ Score_element::~Score_element()
 {
 }
 
+
+SCM
+Score_element::get_elt_pointer (const char *nm) const
+{
+  SCM sym =  ly_symbol2scm (nm);
+  SCM s = scm_assq(sym, pointer_alist_);
+
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
 // should also have one that takes SCM arg. 
 SCM
 Score_element::get_elt_property (String nm) const
@@ -89,52 +111,48 @@ Score_element::get_elt_property (String nm) const
   if (s != SCM_BOOL_F)
     return gh_cdr (s); 
 
-  /*
-    JUNKME
-   */
-  if (pscore_l_)
-    {
-      SCM sym2 = ly_symbol2scm ((name () + ("::" + nm)).ch_C());
-      SCM val;
-      
-      // should probably check for Type::sym as well.
-      Paper_def * p= pscore_l_->paper_l_;
-      if (p->default_properties_.try_retrieve (sym2, &val))
-	return val;
-      else if (p->default_properties_.try_retrieve (sym, &val))
-	return val;
-    }
-  
   return SCM_UNDEFINED;
 }
 
-SCM
-Score_element::get_elt_pointer (const char *nm) const
-{
-  SCM sym =  ly_symbol2scm (nm);
-  SCM s = scm_assq(sym, pointer_alist_);
-
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED :  gh_cdr (s); 
-}
-
+/*
+  Remove the value associated with KEY, and return it. The result is
+  that a next call will yield SCM_UNDEFINED (and not the underlying
+  `basic' property.
+*/
 SCM
 Score_element::remove_elt_property (const char* key)
 {
-  SCM s = get_elt_property (key); 
-  SCM sym = ly_symbol2scm (key);
-  
-  property_alist_ = gh_cons (gh_cons (sym, SCM_UNDEFINED), property_alist_);
-
-  return s;
+  SCM val = get_elt_property (key);
+  if (val != SCM_UNDEFINED)
+    set_elt_property (key, SCM_UNDEFINED);
+  return val;
 }
 
 void
-Score_element::set_elt_property (String k, SCM v)
+Score_element::set_elt_property (String k, SCM val)
 {
-  SCM s = ly_symbol2scm (k.ch_C ());
-  // non destructive
-  property_alist_ = gh_cons (gh_cons (s, v),property_alist_);
+  SCM sym = ly_symbol2scm (k.ch_C ());
+#ifndef READONLY_PROPS
+  /*
+    destructive if found in my part of the list.
+   */
+  for (SCM s = property_alist_; s != basic_property_list_; s =gh_cdr (s))
+    {
+      if (gh_caar (s)== sym)
+	{
+	  gh_set_cdr_x (gh_car (s), val);
+	  return;
+	}
+    }
+/*
+    not found in private list. Override in private list.
+   */
+  
+#endif
+  
+  property_alist_ = gh_cons (gh_cons (sym, val), property_alist_);
 }
+
 
 void
 Score_element::set_elt_pointer (const char* k, SCM v)
@@ -461,12 +479,6 @@ Score_element::handle_prebroken_dependencies()
 {
 }
 
-
-bool
-Score_element::linked_b() const
-{
-  return used_b_;
-}
 
 Score_element*
 Score_element::find_broken_piece (Line_of_score*) const

@@ -215,7 +215,8 @@ Slur_bezier_bow::fit_factor () const
   Slur
 */
 
-Slur::Slur ()
+Slur::Slur (SCM s)
+  : Spanner (s)
 {
   // URG
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;

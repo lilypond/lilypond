@@ -266,13 +266,6 @@ Wordwrap =0.0;
 \include "engraver.ly";
 
 
-#'margin-shape = #'()
-#'Local_key_item::left-padding = #'0.2
-#'Local_key_item::right-padding = #'0.4
 
-#'staff-height = \staffheight;
-#'beam-thickness = \beam_thickness;  %% UGR
-#'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
 
-#'Breathing_sign::visibility-lambda = #begin-of-line-invisible
-#'Left_edge_item::visibility-lambda = #begin-of-line-visible
+

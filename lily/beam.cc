@@ -32,7 +32,8 @@
 #include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
 
-Beam::Beam ()
+Beam::Beam (SCM s)
+  : Spanner (s)
 {
   Pointer_group_interface g (this, "stems");
   g.set_interface ();
@@ -422,6 +423,8 @@ Real
 Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
 {
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
+  thick *= paper_l ()->get_var ("staffspace");
+  
   int beam_multiplicity = get_multiplicity ();
   int stem_multiplicity = (s->flag_i () - 2) >? 0;
 
@@ -603,12 +606,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       programming_error ("Beams are not left-to-right");
 
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  int   multiplicity = get_multiplicity ();
+  int multiplicity = get_multiplicity ();
 
 
   Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
-
+  thick *= paper_l ()->get_var ("staffspace");
+    
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 

@@ -37,7 +37,7 @@ Vertical_align_engraver::Vertical_align_engraver()
 void
 Vertical_align_engraver::do_creation_processing()
 {
-  valign_p_ =new Spanner; //Axis_align_spanner
+  valign_p_ =new Spanner (SCM_EOL); // todo -> basic props
   Align_interface (valign_p_).set_interface ();
   Align_interface (valign_p_).set_axis (Y_AXIS);
   valign_p_->set_elt_property ("stacking-dir",

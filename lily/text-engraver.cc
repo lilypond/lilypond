@@ -78,7 +78,7 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
-      Text_item *text = new Text_item;
+      Text_item *text = new Text_item (SCM_EOL);
       Side_position_interface stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal");

@@ -13,7 +13,8 @@
 #include "directional-element-interface.hh"
 #include "note-head.hh"
 
-Tie_column::Tie_column ()
+Tie_column::Tie_column (SCM s)
+  : Spanner (s)
 {
   set_elt_pointer ("ties", SCM_EOL);
   set_extent_callback (0, X_AXIS);
