@@ -527,7 +527,7 @@
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
-	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
+	(meta . ((interfaces . (break-aligned-interface text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
 	))
      (MetronomeMark
      . (
