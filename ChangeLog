@@ -17,6 +17,7 @@
 	* vim/ftplugin/lilypond.vim: new, renamed file (see prev).
 
 	* vim/ftplugin/lilypond.vim: change dir for dictionary.
+	add header. apply bindings only locally.
 
 	* Documentation/topdocs/INSTALL.texi: give easier orders.
 
