@@ -730,11 +730,11 @@ CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
 @file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
 is.  Please run configure like:
 @example
-        /bin/ksh -c ./configure
+        CONFIG_SHELL=/bin/ksh ksh -c ./configure
 @end example
 or
 @example
-        bash -c ./configure
+        CONFIG_SHELL=/bin/bash bash -c ./configure
 @end example
 
 @item Sparc64/Solaris 2.6, GNU make-3.77

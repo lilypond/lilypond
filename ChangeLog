@@ -1,3 +1,7 @@
+2002-10-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi: Correction for broken /bin/sh.
+
 2002-10-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/music-glossary.tely: fix links.
@@ -11,6 +15,9 @@
 	* ps/music-drawing-routines.ps (skeel): Removed.
 
 2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Changed 6 instances of $( ) to ` `, for
+	Solaris7, as we don't use nested $( ) constructs.
 
 	* Documentation/topdocs/INSTALL.texi: Add note about using ksh for
 	as workaround for /bin/sh problems on Solaris7.
