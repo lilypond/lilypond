@@ -36,7 +36,7 @@ SUBDIRS = flower lib lily mf mi2mu \
 SCRIPTS = configure configure.in install-sh aclocal.m4
 README_FILES = BUGS DEDICATION ANNOUNCE COPYING ONEWS NEWS README TODO \
 	INSTALL.text AUTHORS.text
-EXTRA_DISTFILES = .dstreamrc VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
+EXTRA_DISTFILES = .dstreamrc mudela-mode.el VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)
 DISTFILES:=$(EXTRA_DISTFILES)# Makefile $(ALL_SOURCES)
