@@ -133,7 +133,7 @@ mean centre distance weighted per note
 (grob-property-description 'dot-count integer? "number of dots.")
 (grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
-(grob-property-description 'edge-width pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
+(grob-property-description 'edge-widen pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
 (grob-property-description 'elements list? "list of grobs, type depending on the Grob where this is set in.")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
@@ -204,7 +204,7 @@ For barline, space after a thick line.")
 (grob-property-description 'right-head ly-grob? "")
 (grob-property-description 'left-head ly-grob? "")
 
-(grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-width.")
+(grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-widen.")
 
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
@@ -278,7 +278,7 @@ as a real penalty.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")
-(grob-property-description 'right-widen boolean? "Whether the right edge of a piano pedal bracket should be widened by the second element of edge-width")
+(grob-property-description 'right-widen boolean? "Whether the right edge of a piano pedal bracket should be widened by the second element of edge-widen")
 (grob-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts.")
 (grob-property-description 'self-alignment-X number-or-grob? "real number: -1 =
 left aligned, 0 = center, 1 right-aligned in X direction.

@@ -32,10 +32,9 @@ public:
 
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   static Molecule make_bracket (Axis protusion_axis,
-				Real dx, Real dy, Real thick, Real left_height,
-				Real right_height, Real gap, Real left_widen,
-				Real right_widen, Real left_shorten, 
-				Real right_shorten);
+				Real dx, Real dy, Real thick, Drul_array<Real> height,
+				Real gap, Drul_array<Real> widen,
+				Drul_array<Real> shorten);
   static Direction get_default_dir (Grob*);
 };
 

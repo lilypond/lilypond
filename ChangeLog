@@ -1,3 +1,14 @@
+2002-06-17  Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lily/tuplet-bracket.cc:
+	* lily/text-spanner.cc: 
+	* lily/piano-pedal-engraver.cc: 
+	* scm/grob-description.scm: 
+	* scm/grob-property-description.scm: Changed the
+	edge-width property of brackets to edge-widen. Changed the sign of
+	the left element of edge-widen so a pair of equal numbers produces
+	a symmetrical bracket.
+
 2002-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/espanol.ly: added.

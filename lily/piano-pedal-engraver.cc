@@ -72,7 +72,7 @@ private:
 
   /*
     Left and right flare widths of a \___/, as specified by the grob
-    property edge-width.
+    property edge-widen.
    */
   Drul_array<SCM> edge_width_drul_;
   
@@ -310,9 +310,9 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 	Set properties so that the molecule-creating function will
 	know whether the right edge should be flared ___/
        */
-      SCM eleft = ly_car (p->bracket_p_->get_grob_property ("edge-width"));
+      SCM eleft = ly_car (p->bracket_p_->get_grob_property ("edge-widen"));
       SCM eright = (p->req_l_drul_[START]  ? edge_width_drul_[RIGHT] : gh_double2scm (0));
-      p->bracket_p_->set_grob_property ("edge-width", gh_cons (eleft, eright));
+      p->bracket_p_->set_grob_property ("edge-widen", gh_cons (eleft, eright));
       
       p->finished_bracket_p_ = p->bracket_p_;
       p->bracket_p_ = 0;
@@ -332,7 +332,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 	know whether the left edge should be flared \___
       */
 
-      SCM ew = p->bracket_p_->get_grob_property ("edge-width");
+      SCM ew = p->bracket_p_->get_grob_property ("edge-widen");
       edge_width_drul_[LEFT] =  ly_car (ew);
       edge_width_drul_[RIGHT] = ly_cdr (ew);
       
@@ -340,7 +340,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 		    edge_width_drul_[LEFT]  :
 		    gh_double2scm (0));
       SCM eright = gh_double2scm (0);
-      p->bracket_p_->set_grob_property ("edge-width", gh_cons (eleft, eright));
+      p->bracket_p_->set_grob_property ("edge-widen", gh_cons (eleft, eright));
 
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,  
         so the molecule function will shorten the ____ line by the length of the Ped. text.
