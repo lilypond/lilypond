@@ -21,7 +21,6 @@
 	     (srfi srfi-1)  ; lists
 	     (srfi srfi-13)) ; strings
 
-
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
 
 ;;; General settings
