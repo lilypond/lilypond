@@ -219,7 +219,7 @@ AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
 
 AC_DEFUN(STEPMAKE_DATADIR, [
     if test "$datadir" = "\${prefix}/share"; then
-	    datadir='${prefix}/share/'$package
+	    datadir='${prefix}/share/'$package/$FULL_VERSION
     fi
     DIR_DATADIR=${datadir}
     presome=${prefix}
@@ -230,12 +230,9 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 
     AC_SUBST(datadir)
     AC_SUBST(DIR_DATADIR)
-    
-    dnl yeah, so fuck me gently with a cactus: this doesnt belong here
-    dnl Please take the person responsible for inventing shell-scripts out
-    dnl and shoot him. On behalf of the sane world, thank you.
-    dnl DIR_SHAREDSTATEDIR="foobar"
-    dnl AC_SUBST(DIR_SHAREDSTATEDIR)
+
+    # we used to set DIR_SHAREDSTATEDIR here,
+    but apparently that broke something
     
     AC_DEFINE_UNQUOTED(DIR_DATADIR, "${DIR_DATADIR}")
 ])
