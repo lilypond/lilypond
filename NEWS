@@ -1,3 +1,31 @@
+pl 30 (feb 15)
+
+pl 29.uu1
+	- typewriter font
+	- star-spangled-banner bf (slur.cc).
+
+
+pl 29.jcn3
+	- fix: slur-case3.ly 
+	- init.sly: .fly with linewidt=-1
+
+pl 29.jcn2
+	- resurrected ps output
+
+pl 29.hwn1
+	- bf: coord relative to self.
+	- bf: error msg if no AFM found
+	- bf: hang script on bar in other axis too (fixes staff-side-slur bug)
+	- hang on scripts on clef as well (more to left for single staffs)
+
+
+pl 29.jcn1
+ 	- bf: volta sizes
+ 	- GNU stuff on home page
+
+*******
+pl 29
+
 pl 28.hwn1
 	- bf: mid measure clefs (breakable  items in non-breakable columns.)
 	- spanner.cc assert changed to warning
