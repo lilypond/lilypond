@@ -1,0 +1,21 @@
+\documentclass{article}         %UGH
+\usepackage{a4}
+\oddsidemargin-1in\advance\oddsidemargin7.5mm
+\evensidemargin\oddsidemargin
+\hsize210mm\vsize297mm % so what does a4 do, anyway?
+\textwidth\hsize\advance\textwidth-15mm
+\topmargin-1in\advance\topmargin10mm
+\textheight\vsize\advance\textheight-35mm
+\pagestyle{empty}
+\begin{document}
+\input lilyponddefs
+\input titledefs
+\def\interscoreline{\vskip3mm}
+\title{St\"andchen\normalsize\\[2ex](Serenade)}
+\composer{Franz Schubert (1797-1828)}
+\instrument{M\"a\ss ig} % heu
+%#%\tempo{M\"a\ss ig}
+\maketit
+\input standchen.out
+%\input lelie.tex
+\end{document}
