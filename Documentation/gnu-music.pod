@@ -142,7 +142,7 @@ of use and power.
 
 =back
 
-=head1 TASKS (LONGTERM)
+=head1 COMPONENTS
 
 =over 4
 
@@ -202,6 +202,10 @@ automatic accompaniment, etc.
 
 
 =back
+
+=head1 PLAN
+
+
 
 =head1 PROGRAMS
 
