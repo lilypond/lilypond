@@ -52,22 +52,23 @@ list, _not_ to us personally.
 
    We have the following mailing lists:
 
-   * info-gnu-music@gnu.org
-     (http://mail.gnu.org/mailman/listinfo/info-gnu-music) is a
+   * info-lilypond@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/info-lilypond) is a
      low-volume list for information on the GNU Music project.
      This list is moderated; ask     David R. Linn <drl@gnu.org> or
      Han-Wen <hanwen@cs.uu.nl> to send announcements for this list.
 
-   * gnu-music-discuss@gnu.org
-     (http://mail.gnu.org/mailman/listinfo/gnu-music-discuss)   For
-     general discussions concerning LilyPond.
+   * lilypond-devel@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/lilypond-devel)   For
+     discussions about developing lilypond, in particular the unstable
+     series.
 
-   * help-gnu-music@gnu.org
-     (http://mail.gnu.org/mailman/listinfo/help-gnu-music)     For help
-     with using LilyPond.
+   * help-lilypond@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/help-lilypond)   For
+     discussions about using lilypond, in particular the stable series.
 
-   * bug-gnu-music@gnu.org
-     (http://mail.gnu.org/mailman/listinfo/bug-gnu-music) If you have
+   * bug-lilypond@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/bug-lilypond) If you have
      bugreports, you should send them to this list.
 
 Windows 32
@@ -90,8 +91,8 @@ files, eg.,
 Bugs
 ====
 
-   Send bug reports to <bug-gnu-music@gnu.org>.  For help and questions
-use <help-gnu-music@gnu.org> and <gnu-music-discuss@gnu.org>.  Please
+   Send bug reports to <bug-lilypond@gnu.org>.  For help and questions
+use <help-lilypond@gnu.org> and <lilypond-discuss@gnu.org>.  Please
 consult the FAQ and installation instructions before mailing your
 problems.
 

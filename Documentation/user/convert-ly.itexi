@@ -53,6 +53,6 @@ work.
 
 @code{convert-ly} is written in @uref{http://www.python.org,Python}. It
 was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}. Report bugs
-to @code{bug-gnu-music@@gnu.org}
+to @code{bug-lilypond@@gnu.org}
 
 

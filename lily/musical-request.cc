@@ -61,7 +61,7 @@ Rhythmic_req::compress (Moment m)
 {
   Duration *d =  unsmob_duration (get_mus_property ("duration"));
 
-  set_mus_property ("duration", d ->compressed (m).smobbed_copy ());
+  set_mus_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
 }
 
 bool

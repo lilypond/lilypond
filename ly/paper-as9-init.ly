@@ -1,4 +1,4 @@
-% paper-as9.ly
+% paper-as9-init.ly
 
 \version "1.3.146"
 
@@ -9,7 +9,7 @@ paperAsNine = \paper {
 
 	\stylesheet #(as-make-style-sheet 'as9)
 
-	\include "params-as.ly"
+	\include "params-as-init.ly"
 	
 }
 

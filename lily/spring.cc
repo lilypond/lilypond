@@ -10,7 +10,7 @@
 #include "spring.hh"
 #include "debug.hh"
 #include "item.hh"
-#include "spaceable-element.hh"
+#include "spaceable-grob.hh"
 #include "paper-column.hh"
 
 Spring::Spring ()

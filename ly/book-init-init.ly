@@ -3,8 +3,8 @@
 \version "1.3.146"
 
 
-\include "declarations.ly"
-\include "paper16.ly"
+\include "declarations-init.ly"
+\include "paper16-init.ly"
 
  \paper{
 	\paperSixteen

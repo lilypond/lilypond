@@ -119,11 +119,11 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 
   Moment one_beat = *unsmob_moment (get_property ("beatLength"));
   int num = *unsmob_moment (get_property ("measureLength")) / one_beat;
-  int den = one_beat.den_i ();
+  int den = one_beat.den ();
   SCM time = gh_list (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
 
-  SCM type = gh_list (gh_int2scm (test_mom.num_i ()),
-		      gh_int2scm (test_mom.den_i ()), SCM_UNDEFINED);
+  SCM type = gh_list (gh_int2scm (test_mom.num ()),
+		      gh_int2scm (test_mom.den ()), SCM_UNDEFINED);
 
   SCM settings = get_property ("autoBeamSettings");
   
@@ -176,7 +176,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 	  Moment length = * unsmob_moment (get_property ("measureLength"));
 	  pos = length - pos;
 	}
-      r = pos.mod_rat (moment);
+      r = pos.main_part_.mod_rat (moment.main_part_);
     }
   else
     {
@@ -440,7 +440,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 			     durlog - 2);
       stem_l_arr_p_->push (stem_l);
       last_add_mom_ = now;
-      extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
+      extend_mom_ = (extend_mom_ >? now) + rhythmic_req->length_mom ();
     }
 }
 

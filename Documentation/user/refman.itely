@@ -544,6 +544,7 @@ Shortcut for
 @example
   \property Staff.clefGlyph = @var{glyph associated with clefname} 
   \property Staff.clefPosition = @var{clef Y-position for clefname}
+  \property Staff.centralCPosition = @var{position for central C} 
   \property Staff.clefOctavation = @var{extra transposition of clefname}
 @end example
 
@@ -3505,6 +3506,7 @@ pstops ...
 
 
 @refbugs
+
 There is no mechanism to select magnification of particular fonts,
 meaning that you don't have access to continuously scaled fonts.
 

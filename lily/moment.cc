@@ -83,3 +83,109 @@ Moment::equal_p (SCM a, SCM b)
   return (*m1 == *m2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
+/****************************************************************/
+
+int
+compare (Moment const &a, Moment const &b)
+{
+  return Moment::compare (a,b);
+}
+
+int
+Moment::compare (Moment const &a, Moment const &b)
+{
+  int c = Rational::compare (a.main_part_,b.main_part_);
+  if (c)
+    return c;
+
+  return Rational::compare (a.grace_mom_, b.grace_mom_);
+}
+
+Moment::Moment ()
+{
+
+}
+
+Moment::Moment (int m)
+{
+  main_part_ = Rational(m);
+  grace_mom_  = Rational( 0);
+}
+
+Moment::Moment (int m, int n)
+{
+  main_part_ = Rational (m,n);
+  grace_mom_  = Rational (0);
+}
+
+Moment::Moment (Rational m)
+{
+  main_part_ = m;
+  grace_mom_  = Rational (0);
+}
+
+void
+Moment::operator += (Moment const &src)
+{
+  main_part_ +=src.main_part_ ;
+  grace_mom_ += src.grace_mom_;
+}
+void
+Moment::operator -= (Moment const &src)
+{
+  main_part_ -= src.main_part_ ;
+  grace_mom_ -= src.grace_mom_;
+}
+
+/*
+  only take the main part of SRC for multiplication.
+ */
+void
+Moment::operator *= (Moment const &src)
+{
+  main_part_ *= src.main_part_ ;
+  grace_mom_ *= src.main_part_;
+}
+
+/*
+  only take the main part of SRC for multiplication.
+ */
+void
+Moment::operator /= (Moment const &src)
+{
+  main_part_ /= src.main_part_ ;
+  grace_mom_ /= src.main_part_;
+}
+
+
+#if 0
+Moment::operator Rational()
+{
+  return main_part_;
+}
+#endif
+
+int
+Moment::den () const { return main_part_.den (); }
+
+int
+Moment::num () const { return main_part_.num (); }
+
+
+Moment::operator bool ()
+{
+  return main_part_ || grace_mom_;
+}
+
+void
+Moment::set_infinite (int k)
+{
+  main_part_.set_infinite (k);
+}
+
+
+String
+Moment::str () const
+{
+  return main_part_.str ();
+}

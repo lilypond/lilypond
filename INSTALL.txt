@@ -463,10 +463,9 @@ interfere with your build, you may want to do this before the build too:
 Problems
 ========
 
-   For help and questions use <help-gnu-music@gnu.org> and
-<gnu-music-discuss@gnu.org>.  Please consult the FAQ before mailing
-your problems.  If you find bugs, please send bug reports to
-<bug-gnu-music@gnu.org>.
+   For help and questions use <lilypond-user@gnu.org>.  Please consult
+the FAQ before mailing your problems.  If you find bugs, please send
+bug reports to <bug-lilypond@gnu.org>.
 
    Bugs that are not fault of LilyPond are documented here.
 

@@ -26,7 +26,7 @@ class Score_engraver :
     
   Paper_column* command_column_l_;
   Paper_column* musical_column_l_;
-  void make_columns (Moment);
+  void make_columns ();
   void set_columns (Paper_column*,Paper_column*);
   void typeset_all ();
     

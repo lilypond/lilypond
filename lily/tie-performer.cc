@@ -231,5 +231,5 @@ int
 CNote_melodic_tuple::time_compare (CNote_melodic_tuple const&h1,
 				   CNote_melodic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_).sign ();
+  return (h1.end_ - h2.end_).main_part_.sign ();
 }

@@ -12,6 +12,7 @@
 #include "music-list.hh"
 #include "killing-cons.tcc"
 
+
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   separate_contexts_b_ = false;
@@ -48,7 +49,7 @@ void
 Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
-  Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l_);
+  Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l ());
 
   SCM i = sim->music_list ();
   for (; gh_pair_p (i); i = gh_cdr (i), j++)

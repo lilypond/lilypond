@@ -31,6 +31,9 @@ public:
   int length_i () const;
   Moment cumulative_length () const;
   Moment maximum_length () const;
+
+  Moment first_start () const;
+  Moment minimum_start () const;
   
 protected:
   virtual Pitch to_relative_octave (Pitch);

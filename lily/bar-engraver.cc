@@ -65,8 +65,8 @@ Bar_engraver::finalize ()
 }
 
 /*
-  Bar_engraver should come *after* any engravers that expect bars to
-  modify whichBar in  deprecated_process_music () be typeset
+  Bar_engraver should come *after* any engravers that  
+  modify whichBar
 */
 void
 Bar_engraver::create_grobs ()

@@ -10,7 +10,7 @@
 #include "paper-column.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "spaceable-element.hh"
+#include "spaceable-grob.hh"
 
 Rod::Rod ()
 {

@@ -64,7 +64,7 @@ int
 Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
 			      Rhythmic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_).sign ();
+  return (h1.end_ - h2.end_).main_part_.sign ();
 }
 
 Spacing_engraver::Spacing_engraver ()

@@ -9,12 +9,11 @@ StaffContext=\translator {
 	\name Staff 
 	\consists "Output_property_engraver"	
 	Generic_property_list = #generic-staff-properties
-	\consists "Property_engraver"
 	
 	\consists "Bar_engraver"
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
-
+	\consists "Font_size_engraver"
 
 %	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
@@ -85,7 +84,6 @@ ChoirStaffContext = \translator {
 RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver"
 	
-	\consists "Property_engraver"
 	\consists "Output_property_engraver"	
 
 	Generic_property_list = #generic-staff-properties
@@ -118,14 +116,14 @@ VoiceContext = \translator {
 	\name Voice
 
 	Generic_property_list = #generic-voice-properties
-
+	\consists "Font_size_engraver"
+	
 	% must come before all
 	\consists "Voice_devnull_engraver"
 	\consists "Output_property_engraver"	
 	\consists "Arpeggio_engraver"
 	\consists "Multi_measure_rest_engraver"
 	\consists "Text_spanner_engraver"
-	\consists "Property_engraver"
 	
 	\consists "Breathing_sign_engraver"
  	% \consists "Rest_engraver"
@@ -152,72 +150,23 @@ VoiceContext = \translator {
 	\consists "Slur_engraver"
 	\consists "Tie_engraver"
 	\consists "Tuplet_engraver"
-	\consists "Grace_position_engraver"
 	\consists "A2_engraver"
 
 	\consists "Skip_req_swallow_translator"
 	\accepts Thread % bug if you leave out this!
-	\accepts Grace
-}
-
-GraceContext=\translator {
-	\type "Grace_engraver_group"
-	\name "Grace"
-	\consists "Output_property_engraver"	
-
-	Generic_property_list = #generic-grace-properties
-	
-	\consists "Note_heads_engraver"
-	\consists "Local_key_engraver"
-	\consists "Stem_engraver"
-	\consists "Beam_engraver"
-	\consists "Slur_engraver"
-
-	\consists "Auto_beam_engraver"
-	\consists "Align_note_column_engraver"
-
-	\consists "Rhythmic_column_engraver"
-
-	\consists "Dynamic_engraver"% in Grace ???
-	\consists "Text_engraver" % in Grace ???
-
-	\consists "Property_engraver"
-
-	Stem \override  #'flag-style = #"grace"
-	Stem \override  #'stem-length = #6.0
-	Stem \override  #'direction = #1
-
-	NoteHead \override #'font-relative-size = #-1
-	Stem \override #'font-relative-size = #-1
-	Stem \override #'stem-shorten = #'(0)
-	Beam \override #'font-relative-size = #-1
-	TextScript \override #'font-relative-size = #-1
-	Slur \override #'font-relative-size = #-1
-	Accidentals \override #'font-relative-size = #-1
-	Beam \override #'thickness = #0.3
-	Beam \override #'space-function = #(lambda (x) 0.5)
-
-	Stem \override #'lengths = #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
-	Stem \override #'beamed-lengths =
-		#'(0.0 2.5 2.0 1.5)
-	Stem \override #'beamed-minimum-lengths
-		 = #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
-
-	weAreGraceContext = ##t   
-	graceAccidentalSpace= #1.5  % in staff space
 }
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver
 	\name Thread
-	
+
+	\consists "Font_size_engraver"	
 	\consists "Thread_devnull_engraver"
 	\consists "Note_heads_engraver"
 	\consists "Rest_engraver"
 	\consists "Note_head_line_engraver"
 	\consists "Output_property_engraver"	
 	Generic_property_list = #generic-thread-properties
-	\consists "Property_engraver"
 }
 
 GrandStaffContext=\translator{
@@ -228,7 +177,6 @@ GrandStaffContext=\translator{
 	\consists "System_start_delimiter_engraver"
 	SystemStartDelimiter \override #'glyph = #'brace
 	
-	\consists "Property_engraver"	
 	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff"
 }
@@ -311,7 +259,7 @@ LyricsContext = \translator {
 	\name Lyrics
 	\consists Vertical_align_engraver %need this for getting folded repeats right.
 	Generic_property_list = #generic-lyrics-properties
-	\consists "Property_engraver"
+
 	\consistsend "Axis_group_engraver"
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
@@ -327,7 +275,7 @@ ChordNamesContext = \translator {
 
 	Generic_property_list = #generic-chord-staff-properties
 
-	\consists "Property_engraver"	
+
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
 	\consists "Chord_name_engraver"
@@ -459,3 +407,7 @@ EasyNotation =  \translator {
 	easyPlay = ##t
 }
 
+% retain for compatibility reasons.
+GraceContext = \translator {
+	\type "Engraver_group_engraver"
+}

@@ -52,11 +52,12 @@ class Music_iterator
 {
 protected:
   Moment music_length_;
-
+  Moment start_mom_;
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
 
   Moment music_length_mom () const;
+  Moment music_start_mom () const;
   Music_iterator ();
   Music_iterator (Music_iterator const&);
   virtual ~Music_iterator ();
@@ -93,9 +94,6 @@ public:
   virtual void construct_children ();
   static SCM constructor_cxx_function;
   
-protected:
-  Music  * music_l_;
-
   /**
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
@@ -103,8 +101,10 @@ protected:
 
   virtual Music_iterator* try_music_in_children (Music *) const;
 
+  Music * music_l () const;
 private:
   Interpretation_context_handle handle_;
+  Music  * music_l_;
 };
 
 

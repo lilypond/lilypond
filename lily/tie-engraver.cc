@@ -310,5 +310,5 @@ int
 CHead_melodic_tuple::time_compare (CHead_melodic_tuple const&h1,
 				   CHead_melodic_tuple const &h2)
 {
-  return (h1.end_ - h2.end_).sign ();
+  return Moment::compare(h1.end_,  h2.end_);
 }

@@ -150,7 +150,7 @@ selects the language for the warning messages of Ly2dvi and LilyPond.
 @unnumberedsubsec  Bugs
 
 Cannot generate @TeX{} or @code{PostScript} only.  Send bugreports to to
-@email{bug-gnu-music@@gnu.org}.
+@email{bug-lilypond@@gnu.org}.
 
 @unnumberedsubsec  Authors
 

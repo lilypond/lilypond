@@ -90,7 +90,8 @@ and try again.
 @subsection Trouble
 
 For problems and solutions see
-@uref{Troubleshooting Windows,http://lilypond.org/TroubleshootingWindows}.
+@uref{http://lilypond.org/wiki?TroubleshootingWindows,Troubleshooting
+Windows}
 
 
 @subsection Additional software

@@ -1,4 +1,4 @@
-% property.ly
+% property-init.ly
 
 \version "1.3.146"
 

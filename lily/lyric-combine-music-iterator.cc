@@ -53,7 +53,7 @@ Lyric_combine_music_iterator::ok () const
 void
 Lyric_combine_music_iterator::construct_children ()
 {
-  Lyric_combine_music const * m = dynamic_cast<Lyric_combine_music const*> (music_l_);
+  Lyric_combine_music const * m = dynamic_cast<Lyric_combine_music const*> (music_l ());
   
   music_iter_p_ = get_iterator_p (m->music_l ());
   lyric_iter_p_ = get_iterator_p (m->lyrics_l ());

@@ -19,7 +19,7 @@
 @subsection I'm stuck, HELP!
 
 Please read the
-@uref{http://appel.lilypond.org/wiki?LilyPondFaqs, full online
+@uref{http://lilypond.org/wiki?LilyPondFaqs, full online
 FAQs}.  Also, please look in the searchable mailinglist archives:
 
 @itemize @bullet

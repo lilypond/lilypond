@@ -58,3 +58,9 @@ Music_wrapper::Music_wrapper ()
 {
   
 }
+
+Moment
+Music_wrapper::start_mom () const
+{
+  return element ()->start_mom ();
+}

@@ -201,12 +201,12 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature* a)
 String
 Midi_time_signature::str () const
 {
-  int num_i = audio_l_->beats_i_;
-  int den_i = audio_l_->one_beat_i_;
+  int num = audio_l_->beats_i_;
+  int den = audio_l_->one_beat_i_;
 
   String str = "ff5804";
-  str += String_convert::i2hex_str (num_i, 2, '0');
-  str += String_convert::i2hex_str (intlog2 (den_i) , 2, '0');
+  str += String_convert::i2hex_str (num, 2, '0');
+  str += String_convert::i2hex_str (intlog2 (den) , 2, '0');
   str += String_convert::i2hex_str (clocks_per_1_i_, 2, '0');
   str += String_convert::i2hex_str (8, 2, '0');
   return String_convert::hex2bin_str (str);

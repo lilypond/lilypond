@@ -1,5 +1,5 @@
 /*   
-  spaceable-element.cc --  implement Spaceable_grob
+  spaceable-grob.cc --  implement Spaceable_grob
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,7 +7,7 @@
   
  */
 
-#include "spaceable-element.hh"
+#include "spaceable-grob.hh"
 #include "grob.hh"
 #include "warn.hh"
 
@@ -42,7 +42,7 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 void
 Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
 {
-  SCM mins = get_ideal_distances (me);
+  SCM mins = me->get_grob_property ("ideal-distances");
   SCM newdist= gh_double2scm (d);
   for (SCM s = mins; gh_pair_p (s); s = gh_cdr (s))
     {
@@ -59,11 +59,6 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
   me->set_grob_property ("ideal-distances", mins);
 }
 
-SCM
-Spaceable_grob::get_ideal_distances (Grob*me)
-{
-  return me->get_grob_property ("ideal-distances");
-}
 
 
 void
@@ -78,5 +73,5 @@ Spaceable_grob::remove_interface (Grob*me)
 void
 Spaceable_grob::set_interface (Grob*me)
 {
-  me->set_interface (ly_symbol2scm ("spaceable-element-interface"));
+  me->set_interface (ly_symbol2scm ("spaceable-grob-interface"));
 }

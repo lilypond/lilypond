@@ -1,4 +1,4 @@
-% paper13.ly
+% paper13-init.ly
 
 \version "1.3.146"
 
@@ -7,7 +7,7 @@ paperThirteen = \paper {
 
 	\stylesheet #(make-style-sheet 'paper13)
 	
-	\include "params.ly"
+	\include "params-init.ly"
 }
 
 \paper { \paperThirteen }

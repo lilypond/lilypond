@@ -5,8 +5,8 @@ longa = \duration #(make-duration -2 0 )
 maxima = \duration #(make-duration -3 0)
 
 \include "nederlands.ly"		% dutch
-\include "chord-modifiers.ly"
-\include "script.ly"
+\include "chord-modifiers-init.ly"
+\include "script-init.ly"
 
 % declarations for standard directions
 left = -1
@@ -21,30 +21,31 @@ center=0
 
 break =  \penalty  #-10000
 noBreak =  \penalty #10000
-\include "scale-definitions.ly"
+\include "scale-definitions-init.ly"
 
 melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f
 
 
-\include "engraver.ly"
+\include "engraver-init.ly"
+\include "grace-init.ly"
 
 singleLine = \paper { linewidth = 1. }
 
 % ugh
-\include "midi.ly"
+\include "midi-init.ly"
 
 papersize = "a4"
-paperfile = \papersize + ".ly"
+paperfile = \papersize + "-init.ly"
 
-\include "generic-paper.ly"
-\include "paper20.ly"
+\include "generic-paper-init.ly"
+\include "paper20-init.ly"
 
 
-\include "dynamic-scripts.ly"
-\include "spanners.ly"
+\include "dynamic-scripts-init.ly"
+\include "spanners-init.ly"
 
-\include "property.ly"
+\include "property-init.ly"
 
 
 

@@ -1,5 +1,5 @@
 \version "1.3.146"
-% params-as.ly
+% params-as-init.ly
 % generic paper parameters
 
 outputscale = \staffheight / 4.0

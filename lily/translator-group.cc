@@ -12,7 +12,6 @@
 #include "debug.hh"
 #include "moment.hh"
 #include "scm-hash.hh"
-#include "killing-cons.tcc"
 #include "translator-def.hh"
 
 Translator_group::Translator_group (Translator_group const&s)

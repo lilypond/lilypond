@@ -18,11 +18,11 @@ Time_scaled_music_iterator::process (Moment m)
 {
   if (!m)
     {
-      Music_iterator *yeah = try_music (music_l_);
+      Music_iterator *yeah = try_music (music_l ());
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->origin ()->warning (_ ("no one to print a tuplet start bracket"));
+	music_l ()->origin ()->warning (_ ("no one to print a tuplet start bracket"));
     }
 
   Music_wrapper_iterator::process (m);

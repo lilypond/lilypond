@@ -670,6 +670,9 @@ Beam::set_stem_lengths (Grob *me)
 
       Real stem_y = calc_stem_y_f (me, s, y, dy);
 
+      stem_y += Stem::get_direction (s)
+	* gh_scm2double (me->get_grob_property ("thickness")) / 2;
+
       /* caution: stem measures in staff-positions */
       Real id = me->relative_coordinate (common, Y_AXIS)
 	- stems[i]->relative_coordinate (common, Y_AXIS);
@@ -762,7 +765,6 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
  (prev && ! (prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
       programming_error ("Beams are not left-to-right");
 
-  Real staffline_f = me->paper_l ()->get_var ("stafflinethickness");
   int multiplicity = get_multiplicity (me);
 
   SCM space_proc = me->get_grob_property ("space-function");
@@ -772,8 +774,7 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
   Real interbeam_f = gh_scm2double (space) ;
     
   Real bdy = interbeam_f;
-  Real stemdx = staffline_f;
-
+  
 #if 0
     // ugh -> use commonx
   Real dx = visible_stem_count (me) ?
@@ -811,12 +812,20 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
        */
-      Real w = here->relative_coordinate (0, X_AXIS) - prev->relative_coordinate (0, X_AXIS);
+
+      // FIXME: TODO (check) stem width / sloped beams
+      Real w = here->relative_coordinate (0, X_AXIS)
+	- prev->relative_coordinate (0, X_AXIS);
+      Real stem_w = gh_scm2double (prev->get_grob_property ("thickness"))
+	// URG
+	* me->paper_l ()->get_var ("stafflinethickness");
+
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
-	a =  Lookup::beam (dydx, w, thick);
+	a =  Lookup::beam (dydx, w + stem_w, thick);
       a.translate (Offset (-w, -w * dydx));
+      //a.translate_axis (stem_w/2, X_AXIS);
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
@@ -827,15 +836,23 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
 
   if (next)
     {
-      int rhalfs  = Stem::beam_count (here,RIGHT) - Stem::beam_count (next,LEFT);
-      int rwholebeams= Stem::beam_count (here,RIGHT) <? Stem::beam_count (next,LEFT) ;
+      int rhalfs  = Stem::beam_count (here,RIGHT)
+	- Stem::beam_count (next,LEFT);
+      int rwholebeams= Stem::beam_count (here,RIGHT)
+	<? Stem::beam_count (next,LEFT) ;
 
-      Real w = next->relative_coordinate (0, X_AXIS) - here->relative_coordinate (0, X_AXIS);
-      Molecule a = Lookup::beam (dydx, w + stemdx, thick);
-      a.translate_axis (- stemdx/2, X_AXIS);
+      Real w = next->relative_coordinate (0, X_AXIS)
+	- here->relative_coordinate (0, X_AXIS);
+
+      Real stem_w = gh_scm2double (next->get_grob_property ("thickness"))
+	// URG
+	* me->paper_l ()->get_var ("stafflinethickness");
+
+      Molecule a = Lookup::beam (dydx, w + stem_w, thick);
+      a.translate_axis (- stem_w/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
-
+      
       SCM gap = me->get_grob_property ("gap");
       if (gh_number_p (gap))
 	{
@@ -853,7 +870,7 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
 	  else
 	    gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
-	  a = Lookup::beam (dydx, w + stemdx, thick);
+	  a = Lookup::beam (dydx, w + stem_w, thick);
 	}
 
       for (; j  < rwholebeams; j++)

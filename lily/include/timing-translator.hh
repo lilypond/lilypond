@@ -31,7 +31,6 @@ protected:
 
 public:
   Moment measure_position () const;
-  Moment measure_length () const;  
-
+  Rational measure_length () const;  
 };
 #endif // TIMING_TRANSLATOR_HH

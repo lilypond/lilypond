@@ -1,5 +1,5 @@
 \version "1.3.146"
-% paper.ly
+% paper-init.ly
 
 %% Why som complicated?  /MB
 %linewidth20 = \hsize - 2.5 * \staffheight

@@ -34,7 +34,7 @@ void
 Music_wrapper_iterator::construct_children ()
 {
   child_iter_p_ =
-    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element ());
+    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l ())->element ());
 }
 
 bool

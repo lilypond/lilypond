@@ -1,4 +1,4 @@
-% paper-as5.ly
+% paper-as5-init.ly
 
 \version "1.3.146"
 
@@ -11,7 +11,7 @@ paperAsFive = \paper {
 
 	% no beam-slope
 	%\translator { \VoiceContext beamHeight = #0 }
-	\include "params-as.ly"
+	\include "params-as-init.ly"
 }
 
 \paper { \paperAsFive }

@@ -23,7 +23,7 @@ public:
   Simultaneous_music (SCM);
   virtual Pitch to_relative_octave (Pitch);
   virtual Moment length_mom () const;
-
+  virtual Moment start_mom () const;
   Simultaneous_music ();
 };
 
@@ -36,6 +36,7 @@ class Request_chord : public Simultaneous_music
 public:
   VIRTUAL_COPY_CONS (Music);
   virtual Pitch to_relative_octave (Pitch);
+  virtual Moment start_mom () const;
   Request_chord (SCM list);
 
   Request_chord ();
@@ -50,7 +51,8 @@ public:
   VIRTUAL_COPY_CONS (Music);
   Sequential_music (SCM);
   virtual Moment length_mom () const;
-
+  virtual Moment start_mom () const;
+  
   Sequential_music ();
 };
 

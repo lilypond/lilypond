@@ -89,6 +89,13 @@ Music::length_mom () const
   return 0;
 }
 
+Moment
+Music::start_mom () const
+{
+  Moment m ;
+  return m;
+}
+
 void
 print_alist (SCM a, SCM port)
 {

@@ -35,7 +35,7 @@ Percent_repeat_iterator::ok () const
 void
 Percent_repeat_iterator::construct_children ()
 {
-  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l_);
+  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l ());
   finish_mom_ = mus->length_mom ();
   child_iter_p_ = get_iterator_p (mus->body ());
 }
@@ -46,11 +46,11 @@ Percent_repeat_iterator::process (Moment m)
 {
   if (!m)
     {
-      Music_iterator *yeah = try_music (music_l_);
+      Music_iterator *yeah = try_music (music_l ());
       if (yeah)
 	set_translator (yeah->report_to_l ());
       else
-	music_l_->origin ()->warning ( _ ("no one to print a percent"));
+	music_l ()->origin ()->warning ( _ ("no one to print a percent"));
     }
   
   if (child_iter_p_->ok ())

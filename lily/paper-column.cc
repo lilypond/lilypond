@@ -10,7 +10,7 @@
 #include "paper-score.hh"
 #include "debug.hh"
 #include "axis-group-interface.hh"
-#include "spaceable-element.hh"
+#include "spaceable-grob.hh"
 
 void
 Paper_column::do_break_processing ()

@@ -1,176 +1,45 @@
-
-
-1.4.3.jcn2
-==========
-
-* Included documentatioon and post-flex lexer.cc patch for
-Debian/unstable gcc-3.0.
-
-* Enhanced gcc autoconf and make messages.
-
-* Added -mieee to CFLAGS for alpha.
-
-* Fixed help and documentation of new LilyPond command line.
-
-* Redirected SuSE download to ftp.lilypond.org (where mirror script runs).
-
-1.4.3
+1.5.0
 =====
 
-1.4.2.jcn4
+* experimental grace notes:
+  - add grace timing to Moment
+  - hack to Sequential_music_iterator to use the correct timing for
+the note before a grace
+  - change the implementation of \grace construct
+  - property set/unset (eg. font size) is done through startGraceMusic
+and stopGraceMusic
+  - various engraver fixes to deal with the fact that the
+main-time-moment may remain the same during several steps.
+  - Change column creation logic in score-engraver. 
+
+* Bugfix: don't crash when \name not set in \translator block.
+
+* rename ly/*.ly to ly/*-init.ly (except language files) to avoid
+name clashes
+
+* deprecate Property_engraver, add Font_size_engraver to Staff, Voice
+and Thread.
+
+* Change mailing list address: *gnu-music*@gnu.org becomes
+*lilypond*@gnu.org
+
+* Put span-bar lines only between the other barlines, not on top of
+them (thanks to Juergen Reuter)
+
+1.4.4.jcn3
 ==========
-
-* Windows: bugfix for tex-wrappers, added tex wrapper for dvips.
-LilyPond (read: ly2dvi) should now work right out of the box.
-
-Amazing; it seems that ly2dvi won't generate PK files without this
-dvips wrapper.  We had over 200 downloads of setup.exe, yet only one
-`call for help'.  Did all the others give up, or did none of them
-bother to share their fix/file a bug report?  Urg.
-
-* Included mktexnam.patch (again?).
-
-* Documentation fix (Mark Hindley).
-
-* Debian patch and bashism fix (Anthony).
-
-* Bugfix: local-install should depend on $(INSTALLATION_FILES).  This fixes
-./configure; make install in buildscripts/ (Michael Vanier).
-
-* Removed les-nereides from short-examples, as it is tweaked a lot,
-contrary to what the webpage claims (didn't know that).
-
-1.4.2.mb1
-==========
-
-* ly2dvi, titledefs.tex: Typeset copyright notice at the bottom of the
-first page. Make separate page styles for first and last page.
-
-* Bugfix: Default RehearsalMark font-family changed to roman (only
-affects Scheme text markups).
-
-1.4.2.hwn1
-==========
-
-* Added support for Q: statement to abc2ly. (Laura Conrad)
-
-* Tie shape bugfix (Mark Hindley).
-
-* Bugfix: lilypond-book LatexPaper.__setattr__()
-
-* Bugfix: make Hyphen_spanner::brew_molecule() more robust.
-
-* Don't use stdin when no argument specified.
-
-* Naming smobs -> grobs 
-
-* Bugfix: ledger lines on easy-notation note heads.
-
-1.4.2
-=====
-
-* Glossary fixes (Thanks Jean-Pierre Coulon).
-
-1.4.1.jcn3
-==========
-
-* Updated les-nereides.
-
-* Added \newpage command.
-
-* Doco fixes.
-
-* Debian make fix.
-
-* Fix for index, small doco fixes.
-
-* Bugfix: use roman font (instead of feta) for unacorda pedal.
-
-* Don't use cyclic symlinks for web doc.
-
-* Don't create `empty pngs' with touch, make symlinks instead.
-
-* Added extra header titling fields to ly2dvi too.
-
-1.4.1.mb2
-=========
-
-* documentation fixes
-
-* Add make rule to avoid problems building dvi documentation
-
-* Documentation fixes
-
-* Bugfix: tuplet-number-visibility
-
-1.4.1.hwn1
-==========
-
-* Do not lengthen the stem in case of a collision with the flag, but
-move dots to the right.
-
-* Debian patches (Thanks, Anthony!)
-
-1.4.1
-=====
-
-1.4.0.jcn7
-==========
-
-* Added \tupletUp, \tupletDown, \tupletBoth.
-
-* Bugfix convert-ly: treCorde.
-
-* Slur attachment and extremity offsets taken relative to slur
-direction; so that
-
-   Slur \override #'attachment-offset = #'((0 . 1) . (0 . 1))
-
-will always make the slur move away from the note head.
-
-* Bugfix: slurs on dotted or flagged notes.
-
-* Added @reng, @rgrob, and @rint macros for referencing engravers,
-grobs and interfaces in documentation.
-
-* Bugfix for configure.
-
-* text2html: use python script, use <pre> instead of <xmp>.
-
-* Fixed pa.ly.
-
-* Bugfix: lilypond mode: make view messages scroll by.
-
-* configure: check for splitting makeinfo; small fixes for
-non-splitting makeinfo doc.
-
-* Added some missing titling (dedication, translator) and fixed ps titling
-(Thanks David Arnold).
-
-* More doco fixes.  Added a small legend.
-
-* Bugfix: trend of broken slurs with user-overridden stem attachments.
-
-* Bugfix redhat.spec: use root attributes on files.
-
-* Bugfix: typo in update-lily, re-set download url to /development.
-
-* Removed some empty files.
-
-* Merged tutorials. Simplified the text.
-
-* Small doco fixes.
-
-1.4.0.uu1
-=========
-
-* Bugfix: percussion clef
-
-* Bugfix: multiple scripts.
-
-* Bugfix: read TeX's afm files. Metrics are still messed up (too small), but no
-crash.
-
-* Bugfix: fixed the problem where dots clash with other notes (Timothy S.
-Nelson)
+  
+TODO: look at other filledbox'es (stafflines and barlines don't match up).
+
+* Testing code off by default.  On: -e "(define ps-testing 1)" -fps
+
+* Output via TeX/dvips still gives problems.  Use direct postscript
+output for real testing.
+
+* Beam and stem fixes:
+ - Stems drawn in PostScript (should do all filledbox'es in PS?).
+ - Fixes for draw_box and draw_beam PostScript routines.
+ - Stems reach to top (or bottom) of beam.
+ - Beam uses correct stem thickness (only right beams, left TODO).
+ - testing code in effect: only outlines are drawn.
 

@@ -52,10 +52,9 @@
        "lilypondpaperoutputscale div scalefont setfont } bind def "
        "\n"))
 
-
   (define (beam width slope thick)
     (string-append
-     (numbers->string (list width slope thick)) " draw_beam" ))
+     (numbers->string (list slope width thick)) " draw_beam" ))
 
   (define (comment s)
     (string-append "% " s))
@@ -108,7 +107,7 @@
   
   (define (filledbox breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw-box" ))
+		   " draw_box" ))
 
   ;; obsolete?
   (define (font-def i s)
@@ -127,6 +126,7 @@
      " {exch pop //systemdict /run get exec} "
      (ly-gulp-file "music-drawing-routines.ps")
      "{ exch pop //systemdict /run get exec } "
+     (if (defined? 'ps-testing) "\n /testing true def" "")
     ))
   
   (define (lily-def key val)
@@ -171,7 +171,7 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))
-		   " draw-box" ))
+		   " draw_box" ))
 
   (define (stop-line)
       "}\nstop-line\n")

@@ -123,7 +123,7 @@ Auto_change_iterator::process (Moment m)
 	{
 	  where_dir_ = s;
 	  String to_id = (s >= 0) ?  "up" : "down";
-	  String wh = ly_scm2string (music_l_->get_mus_property ("what"));
+	  String wh = ly_scm2string (music_l ()->get_mus_property ("what"));
 	  change_to (child_iter_p_, wh, to_id);	  
 	}
     }

@@ -11,12 +11,12 @@ papersize = \papersize
 % direct PostScript line height for single line staffs
 lineheight = 14
 
-paperfile = \papersize + ".ly"
+paperfile = \papersize + "-init.ly"
 
-% paperfile = "a4.ly"
+% paperfile = "a4-init.ly"
 
 \include \paperfile
-\include "paper.ly"
+\include "paper-init.ly"
 
 staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
@@ -26,7 +26,7 @@ outputscale = \staffheight / 4.0
 \translator { \ScoreContext }
 \translator { \ChoirStaffContext}
 \translator { \InnerChoirStaffContext}
-\translator { \GraceContext}
+
 \translator { \RhythmicStaffContext}
 \translator { \StaffContext }
 \translator { \VoiceContext}

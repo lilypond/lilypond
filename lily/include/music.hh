@@ -50,7 +50,7 @@ public:
 
   /// The duration of this piece of music
   virtual Moment length_mom () const;
-
+  virtual Moment start_mom () const;
   void print () const;
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);

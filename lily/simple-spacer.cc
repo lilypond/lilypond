@@ -19,7 +19,7 @@
 #include "rod.hh"
 #include "warn.hh"
 #include "column-x-positions.hh"
-#include "spaceable-element.hh"
+#include "spaceable-grob.hh"
 #include "dimensions.hh"
 
 Simple_spacer::Simple_spacer ()
@@ -170,7 +170,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
   for (int i=0; i < cols.size () - 1; i++)
     {
       SCM spring_params = SCM_UNDEFINED;
-      for (SCM s = Spaceable_grob::get_ideal_distances (cols[i]);
+      for (SCM s = cols[i]->get_grob_property ("ideal-distances");
 	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
 	   s = gh_cdr (s))
 	{

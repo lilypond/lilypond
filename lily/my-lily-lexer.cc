@@ -52,6 +52,7 @@ static Keyword_ent the_key_tab[]={
   {"elementdescriptions", ELEMENTDESCRIPTIONS},
   {"font", FONT},
   {"grace", GRACE},
+  {"ngrace", NGRACE},
   {"glissando", GLISSANDO},
   {"header", HEADER},
   {"in", IN_T},

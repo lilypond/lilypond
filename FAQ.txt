@@ -8,8 +8,8 @@ I'm stuck, HELP!
 ----------------
 
    Please read the full online FAQs
-(http://appel.lilypond.org/wiki?LilyPondFaqs).  Also, please look in
-the searchable mailinglist archives:
+(http://lilypond.org/wiki?LilyPondFaqs).  Also, please look in the
+searchable mailinglist archives:
 
    * help-gnu-music (http://www.mail-archive.com/help-gnu-music@gnu.org)
 
