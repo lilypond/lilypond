@@ -34,7 +34,7 @@ demangle_classname (std::type_info const &);
   virtual Base *clone () const					\
   {								\
     /* return new name (*this); */				\
-    Base *urg = (base*) this;					\
+    Base *urg = (Base*) this;					\
     return urg->clone_const_helper ();				\
   }
 
