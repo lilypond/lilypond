@@ -1,3 +1,8 @@
+2004-02-05  Jan Nieuwenhuizen  <janneke@gnua.org>
+
+	* scripts/filter-lilypond-book.py (find_toplevel_snippets): Do not
+	discard valid matches.
+
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION: release 2.1.18.

@@ -517,31 +517,27 @@ def find_toplevel_snippets (s, types):
 	for i in types:
 		res[i] = ly.re.compile (snippet_res[format][i])
 
-	length = len (s)
 	snippets = []
 	index = 0
-	endex = 1000
+	found = {}.fromkeys (types)
 	while 1:
-		matches = {}
 		first = 0
+		endex = 1 << 30
 		for i in types:
-			matches[i] = res[i].search (s[index:index+endex])
-			if matches[i]:
-				start = matches[i].start (0)
-				if start < endex:
-					endex = start
-				if not first \
-				       or start < matches[first].start (0):
-					first = i
-		if first:
-			snippets.append (Snippet (first, s, index,
-						  matches[first]))
-			index = index + matches[first].end (0)
-			endex = 1000
-		elif index + endex < length:
-			endex *= 2
-		else:
+			if not found[i] or found[i].start (0) < index:
+				found[i] = 0
+				m = res[i].search (s[index:endex])
+				if m:
+					found[i] = Snippet (i, s, index, m)
+			if found[i] \
+			       and (not first \
+				    or found[i].start (0) < found[first].start (0)):
+				first = i
+				endex = found[first].start (0)
+		if not first:
 			break
+		snippets.append (found[first])
+		index = found[first].end (0)
 		
 	return snippets
 
@@ -641,23 +637,6 @@ format2ext = {
 	LATEX: '.tex',
 	}
 
-def find_lilypond_block (a, b):
-	return find_toplevel_snippets (a, b)
-def find_verb (a, b):
-	return find_toplevel_snippets (a, b)
-def find_verbatim (a, b):
-	return find_toplevel_snippets (a, b)
-def find_singleline (a, b):
-	return find_toplevel_snippets (a, b)
-def find_multiline (a, b):
-	return find_toplevel_snippets (a, b)
-def find_lilypond_file (a, b):
-	return find_toplevel_snippets (a, b)
-def find_include (a, b):
-	return find_toplevel_snippets (a, b)
-def find_lilypond (a, b):
-	return find_toplevel_snippets (a, b)
-	
 def do_file (input_filename):
 	#ugh
 	global format
@@ -682,7 +661,7 @@ def do_file (input_filename):
 	#snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
 	snippet_types = (
 		'lilypond-block',
-		#'verb',
+		'verb',
 		'verbatim',
 		'singleline-comment',
 		'multiline-comment',
