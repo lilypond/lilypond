@@ -241,6 +241,7 @@ beaming style: stems stop at innermost beams.")
 name of character within font.")
 
 (grob-property-description 'gap ly:dimension? "Size of a gap in a variable symbol.")
+(grob-property-description 'gap-count integer? "Number of gapped beams for tremolo.")
 
 (grob-property-description 'grow-direction ly:dir? "crescendo or decrescendo?.")
 (grob-property-description 'hair-thickness number? "thickness, measured in stafflinethickness.")

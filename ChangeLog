@@ -1,3 +1,9 @@
+2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/define-grob-properties.scm (gap-count): add gap-count
+
+	* make/lilypond-vars.make: add /lilypond to LILYPONDPREFIX
+
 2003-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/mknetrel.doc: Typo.
