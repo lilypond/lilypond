@@ -17,6 +17,7 @@ class Ligature_bracket
 public:
   Ligature_bracket (SCM);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  static bool has_interface (Grob*);
 
 private:
 };
