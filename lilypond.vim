@@ -2,7 +2,7 @@
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
 " Created:      Oct 17, 2002
-" Last Change:	Nov 13, 2002
+" Last Change:	Sep 20, 2003
 " Version:	6.1-1
 " Latest:
 " http://savannah.gnu.org/cgi-bin/viewcvs/lilypond/lilypond/lilypond.vim
@@ -28,7 +28,7 @@ syn region lilyString	start=/"/ end=/"/ skip=/\\"/
 syn region lilyComment	start="%{" skip="%$" end="%}"
 syn region lilyComment	start="%\([^{]\|$\)" end="$"
 
-syn match lilyStatement	"[-_^]\?\\\a\+"
+syn match lilyStatement	"[-_^]\?\\\(\a[-]\?\)\+"
 syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\)[.]*\)\?\)\(\A\|\n\)"me=e-1
 syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\|\\longa\)[.]*\)\?\)$"
 syn match lilyNumber	"[-_^.]\?\d\+[.]\?"
