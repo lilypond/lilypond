@@ -285,6 +285,8 @@
   (let*
       ((cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
 
+    (if (not (string? (getenv "extra_mem_top")))
+	(setenv "extra_mem_top" "1000000"))
     (newline (current-error-port))
     (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
     (newline (current-error-port))
