@@ -92,9 +92,9 @@ struct Text_script
 
 ADD_INTERFACE (Text_script,"text-script-interface",
   "An object that is put above or below a note",
-  "script-priority inside-slur");
+  "slur script-priority inside-slur");
 
 ADD_INTERFACE (Script_interface, "script-interface",
   "An object that is put above or below a note",
-  "script-priority script-stencil inside-slur");
+  "slur script-priority script-stencil inside-slur");
 
