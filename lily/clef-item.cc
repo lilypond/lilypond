@@ -24,14 +24,14 @@ Clef_item::Clef_item()
 void
 Clef_item::read(String t)
 {
-    type = t;
-    if (type == "violin")
+    type_= t;
+    if (type_ == "violin")
 	y_off = 2;
-    if (type == "alto")
+    if (type_ == "alto")
 	y_off = 4;
-    if (type == "tenor")
+    if (type_ == "tenor")
 	y_off = 6;
-    if (type == "bass")
+    if (type_ == "bass")
 	y_off = 6;
 }
 void
@@ -43,7 +43,7 @@ Clef_item::read(Clef_register const &k)
 Molecule*
 Clef_item::brew_molecule_p()const
 {
-    String t = type;
+    String t = type_;
     if  (change)
 	t += "_change";
     Symbol s = paper()->lookup_l()->clef(t);

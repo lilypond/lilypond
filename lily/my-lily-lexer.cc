@@ -30,6 +30,7 @@ static Keyword_ent the_key_tab[]={
     {"absdynamic", ABSDYNAMIC},
     {"group", GROUP},
     {"geometric", GEOMETRIC},
+    {"hshift", HSHIFT},
     {"in", IN_T},
     {"inputregister", INPUT_REGS},
     {"lyric", LYRIC},

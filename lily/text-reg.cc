@@ -11,7 +11,7 @@
 Text_register::Text_register()
 {
     text_p_ = 0;
-    set_feature(Features::dir(0));
+    dir_i_ =0;
     post_move_processing();
 }
 
@@ -56,9 +56,10 @@ Text_register::pre_move_processing()
     }
 }
 void
-Text_register::set_feature(Features i)
+Text_register::set_feature(Feature i)
 {
-    dir_i_ = i.direction_i_;
+    if (i.type_ == "vdir")	
+	dir_i_ = i.value_;
 }
 void
 Text_register::post_move_processing()
