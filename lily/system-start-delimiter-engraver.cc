@@ -43,17 +43,17 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
     }
   else if (System_start_delimiter::has_interface (inf.grob_l_))
     {
-      SCM gl = scm_string_to_symbol (inf.grob_l_->get_grob_property ("glyph"));
-      SCM my_gl = scm_string_to_symbol (delim_->get_grob_property ("glyph"));
+      SCM gl = inf.grob_l_->get_grob_property ("glyph");
+      SCM my_gl = delim_->get_grob_property ("glyph");
 
       /*
 	UGH UGH
        */
-      if (gh_string_p (gl) && gh_equal_p (gl, ly_symbol2scm ("brace"))
-	  && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_symbol2scm ("bracket")))
+      if (gh_string_p (gl) && gh_equal_p (gl, gh_str02scm  ("brace"))
+	  && gh_string_p (my_gl) && gh_equal_p (my_gl, gh_str02scm  ("bracket")))
 	inf.grob_l_->translate_axis (-0.8, X_AXIS); // ugh
-      else if (gh_string_p (gl) && gh_equal_p (gl, ly_symbol2scm ("bracket"))
-	       && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_symbol2scm ("bracket")))
+      else if (gh_string_p (gl) && gh_equal_p (gl, gh_str02scm  ("bracket"))
+	       && gh_string_p (my_gl) && gh_equal_p (my_gl, gh_str02scm  ("bracket")))
        {
          inf.grob_l_->translate_axis ( -0.8, X_AXIS); // ugh
          inf.grob_l_->set_grob_property ("arch-height",
