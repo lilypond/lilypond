@@ -57,7 +57,8 @@
 const int INTER_QUANT_PENALTY = 1000; 
 const int SECONDARY_BEAM_DEMERIT  = 15;
 const int STEM_LENGTH_DEMERIT_FACTOR = 5;
-const int STEM_LENGTH_LIMIT_PENALTY = 500;
+// possibly ridiculous, but too short stems just won't do
+const int STEM_LENGTH_LIMIT_PENALTY = 5000;
 const int DAMPING_DIRECTIION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
@@ -447,15 +448,16 @@ Beam::quanting (SCM smob)
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
-      stem_infos.push( Stem::calc_stem_info (s));
+      stem_infos.push (Stem::calc_stem_info (s));
+      dirs_found[stem_infos.top ().dir_] = true;
 
+#ifdef SNAPNIE
       Real b = calc_stem_y (me, s, Interval (1,0));
       lbase_lengths.push (b);
 
-      b = calc_stem_y (me, s, Interval (0,1));
-      rbase_lengths.push (b);
-
-      dirs_found [stem_infos.top().dir_] = true;
+      Real a = calc_stem_y (me, s, Interval (0,1));
+      rbase_lengths.push (a);
+#endif      
     }
 
   Direction ldir = Direction (stem_infos[0].dir_);
@@ -469,7 +471,7 @@ Beam::quanting (SCM smob)
     Knees are harder, lets try some more possibilities for knees. 
    */
   if (knee_b)
-    REGION_SIZE += 2 ;
+    REGION_SIZE += 2;
   
   for (int i = -REGION_SIZE ; i < REGION_SIZE; i++)
     for (int j = 0; j < num_quants; j++)
@@ -573,8 +575,14 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 {
   Real demerit_score = 0.0 ;
   Real pen = STEM_LENGTH_LIMIT_PENALTY;
+  
+#if 0
   if (knee)
     pen = sqrt(pen);
+#endif
+  
+  Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
+  Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
 
   for (int i=0; i < stems.size (); i++)
     {
@@ -582,8 +590,28 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       if (Stem::invisible_b (s))
 	continue;
 
+#ifdef SNAPNIE
+      /* for a two-stemmed, interstaff beam knee up/down:
+
+      \score {
+        \context PianoStaff \notes\relative c' <
+          \context Staff = lh {
+            \stemDown [c8 \translator Staff = rh \stemUp a'' ]
+          }
+          \context Staff = rh \relative c' s4
+        >
+      }
+
+	 with yl = -5.8 (about ideal)
+	 and yr = -1 (ridiculous pos)
+	 this yields current_y = -8.1 (about ideal) */
+
       Real current_y =
 	yl * left_factor[i] + right_factor[i]* yr;
+#else
+      Real f = (s->relative_coordinate (0, X_AXIS) - x0) / dx;
+      Real current_y = yl + f * (yr - yl);
+#endif      
 
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
@@ -976,13 +1004,13 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
 
   // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
+  Real r = s->relative_coordinate (0, X_AXIS) - x0;
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
   Real dy = pos.delta ();
   Real stem_y = (dy && dx
-		 ? (s->relative_coordinate (0, X_AXIS) - x0) / dx
+		 ? r / dx //(s->relative_coordinate (0, X_AXIS) - x0) / dx
 		 * dy
 		 : 0) + pos[LEFT];
-
 
   Direction first_dir = Directional_element_interface::get (first_visible_stem (me));
   Direction my_dir = Directional_element_interface::get (s);
