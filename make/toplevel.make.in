@@ -26,7 +26,7 @@ STEPMAKE_TEMPLATES=toplevel yolily-toplevel po
 include $(depth)/make/stepmake.make 
 #
 
-website: fonts htmldoc examples doc++ footify
+website: fonts htmldoc examples  footify
 
 footify:
 	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
@@ -50,19 +50,20 @@ htmldoc:
 examples:
 	$(MAKE) out='www' -C input WWW
 	$(MAKE) out='www' -C mutopia WWW
-	# arg, should not break concept of recursive make;
-	# this breaks links (and dependencies, see above)
+# arg, should not break concept of recursive make;
+# this breaks links (and dependencies, see above)
+
+# don't understand this comment --hwn
+
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
-	#$(footify-all-command)
+#$(footify-all-command)
 	$(footify) --index=./ `$(FIND) . -name '*.html' -print`
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
 
 
-my_tfm_path=$(TFM_PATH) /tmp /tmp  /tmp /tmp  /tmp /tmp 
 localinstall:
 	mkdir -p $(datadir)
-	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
 
 local-WWW-clean:
 	$(SHELL) $(depth)/buildscripts/clean-fonts.sh
