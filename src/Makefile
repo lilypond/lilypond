@@ -9,7 +9,7 @@ dist:
 	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
 TAGS: $(allcc)
-	etags -CT $(allcc) 
+	$(TAGSACTION) $^
 
 clean:
 	rm -f $(gencc)
