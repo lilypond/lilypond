@@ -102,7 +102,7 @@ Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 (1.0.6 is known to work).  You may need to install a tetex-devel (or
 tetex-dev or libkpathsea-dev) package too.
 
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.2 or newer).
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.6 or newer).
 
 @item The
 @uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,geometry
@@ -151,7 +151,7 @@ documentation is built by issuing:
 Building the website requires some additional tools: 
 
 @itemize @bullet
-@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} see 
+@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} 
 @item ImageMagick
 @end itemize
 
@@ -175,29 +175,14 @@ make install
 sh buildscripts/clean-fonts.sh      
 @end example 
 
-If, in addition, you want to generate PDF files of your scores and have 
-installed mftrace, type
-@example 
-make pfa-fonts
-make install-pfa-fonts
-texhash
-@end example 
-
-PFA versions of the fonts for the latest LilyPond version can also be
-obtained from the internet: download the .deb file that corresponds to
-your version, eg.  
+The most time-consuming part of compiling LilyPond is tracing the
+Type1 fonts. You can shortcut this operation by issuing
+one of the following commands:
 
 @example
-wget http://ftp.us.debian.org/debian/pool/main/l/lilypond/lilypond_1.8.0-1_i386.deb
-@c ar p lilypond_1.8.0-1_i386.deb data.tar.gz | tar -C / -zxf - '.*.pfa' '.*.map'
-ar x lilypond_1.8.0-1_i386.deb data.tar.gz
-tar -C / -zxf data.tar.gz /usr/share/lilypond/1.8.0/fonts/type1/
-tar -C / -zxf data.tar.gz /usr/share/lilypond/1.8.0/dvips/
-texhash
+  make -C mf get-pfa                # requires rpm2cpio
+  make -C mf get-debian-pfa         # may not be up to date   
 @end example
-If you are installing LilyPond somewhere else, unpack the appropriate
-files as shown, and move them to the appropriate paths. Of course, the
-.deb version number should correspond to what you are installing.
 
 If you are doing an upgrade, you should remove all @file{feta}
 @code{.pk} and @code{.tfm} files.  A script has been provided to do the
@@ -224,7 +209,7 @@ option of configure.  You should use @samp{make conf=CONF} to generate
 the output in @file{out-CONF}.  Example: Suppose I want to build with
 and without profiling.  Then I'd use the following for the normal
 build:
-@c prefix=~ ?
+
 @example 
 	./configure --prefix=$HOME/usr/ --enable-checking
 	make
