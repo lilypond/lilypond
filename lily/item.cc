@@ -1,7 +1,7 @@
 /*
   item.cc -- implement Item
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -31,6 +31,8 @@ Item::hpos_f()const
 {
     return pcol_l_->hpos + offset().x;
 }
+
+
 
 Line_of_score *
 Item::line_l()const
