@@ -41,8 +41,8 @@ class Tie_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS(Tie_performer);
 private:
-  bool done_;
-  
+
+  bool ties_created_;
   Array<CNote_melodic_tuple> now_notes_;
   Array<CNote_melodic_tuple> tied_notes_;
 
@@ -64,7 +64,7 @@ protected:
 Tie_performer::Tie_performer ()
 {
   event_ = 0;
-  done_ = false;
+  ties_created_ = false;
 }
 
 ENTER_DESCRIPTION (Tie_performer, "", "",
@@ -129,6 +129,7 @@ Tie_performer::create_audio_elements ()
 		  p->set_note (RIGHT, now_notes_[j].note_);
 		  ties_.push (p);
 		  announce_element (Audio_element_info (p, event_));
+		  ties_created_ = true;
 
 		  tied_notes_.del (i);
 		  break ; 
@@ -142,21 +143,22 @@ Tie_performer::create_audio_elements ()
 void
 Tie_performer::stop_translation_timestep ()
 {
-  if (prev_event_ && tied_notes_.size () && !ties_.size ())
+  if (prev_event_ && tied_notes_.size () && !ties_.size ()
+      && now_notes_.size ())
     {
       prev_event_->origin ()->warning (_ ("No ties were performed."));
     }
-  else
-    prev_event_ = 0;
+
+  if (ties_created_)
+    {
+      prev_event_ = 0;
+      tied_notes_.clear();
+    }
   
   if (event_)
     {
       tied_notes_ = now_notes_ ;
       prev_event_ = event_;
-    }
-  else
-    {
-      tied_notes_.clear (); 
     }
 
   event_ = 0;
@@ -174,7 +176,7 @@ void
 Tie_performer::start_translation_timestep ()
 {
   event_ =0;
-  done_ = false;
+  ties_created_ = false;
   Moment now = now_mom ();
   for (int i= tied_notes_.size (); i-- ;)
     {
