@@ -7,13 +7,18 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
-	* abbrevs
+
+	* check for groff / troff/ nroff et
 
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
 	
 	* forced breakpoints
+
+	* nicen examples:
+	- remove all \multi
+	- break-up heavily-nested score blocks
 
 	* --metafont
 
@@ -32,6 +37,7 @@ grep for TODO and ugh/ugr
 	* fix stdin input
 
 	* documentation
+	- introduction?
 	- info?
 	- LaTeX?
 	- more manpages?
@@ -44,19 +50,19 @@ grep for TODO and ugh/ugr
 
 	* spanner that is not spanned gives assert ().
 
-* the warning about the negative slur/tie length appears twice
-which is irritating.
+	* the warning about the negative slur/tie length appears twice
+	which is irritating.
 
-* The `3' in the meter key is a one or two pixels too thin (at 600dpi)
-in the middle:
- 
-* better hshift (dots, distance, head dependent)
+	* The `3' in the meter key is a one or two pixels too thin (at 600dpi)
+	in the middle:
 
-* tie/slur dir & curvature
+	* better hshift (dots, distance, head dependent)
 
-* stem len adjustable
+	* tie/slur dir & curvature
 
-* mindist for spanners
+	* stem len adjustable
+
+	* mindist for spanners
 
 	
 
@@ -101,7 +107,7 @@ STUFF
 
 	* gdb on RedHat 5
 
-	* xdvi: PS magnifying glass.
+	* xdvi: PS in magnifying glass.
 
 	* Rational infty(HUGE_VAL) on glibc / w32
 
