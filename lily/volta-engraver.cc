@@ -14,6 +14,7 @@
 #include "note-column.hh"
 #include "bar-line.hh"
 #include "side-position-interface.hh"
+#include "warn.hh"
 #include "staff-symbol.hh"
 
 /*
