@@ -71,7 +71,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	      String repstr = to_str (done_count_ + 1);
 	      if (do_repcommands)
 		add_repeat_command (gh_list (ly_symbol2scm ("volta"),
-					     gh_str02scm (repstr.ch_C()), SCM_UNDEFINED));
+					     ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
 	    }	  
 	}
       else if (done_count_ <  repmus->repeats_i_ && !repmus->volta_fold_b_) 
@@ -125,7 +125,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	    {
 	      String repstr = to_str (done_count_ + 1);
 	      add_repeat_command (gh_list (ly_symbol2scm ("volta"),
-					   gh_str02scm (repstr.ch_C()), SCM_UNDEFINED));
+					   ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
 	      add_repeat_command (ly_symbol2scm ("end-repeat"));
 	    }
 
