@@ -215,8 +215,7 @@ STRIPDEBUG=true
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
-pod2html=pod2html
-pod2groff=pod2man --center="LilyPond documentation" --section="0"\
+pod2groff=$(POD2MAN) --center="LilyPond documentation" --section="0"\
 	--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
 
 

@@ -1,6 +1,29 @@
 dnl -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script.-
+
 AC_INIT(choleski.cc)
+
+. ./VERSION
+FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+if test x$MY_PATCH_LEVEL != x; then
+	FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
+fi
+AM_INIT_AUTOMAKE(flower, $FULL_VERSION)
+
+AC_PROG_CC
+
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_RANLIB
+
+missing_dir=`cd $ac_aux_dir && pwd`
+
+AM_MISSING_PROG(ACLOCAL, aclocal, $missing_dir)
+AM_MISSING_PROG(AUTOCONF, autoconf, $missing_dir)
+AM_MISSING_PROG(AUTOMAKE, automake, $missing_dir)
+AM_MISSING_PROG(AUTOHEADER, autoheader, $missing_dir)
+# AM_MISSING_PROG(MAKEINFO, makeinfo, $missing_dir)
+
 AC_LANG_CPLUSPLUS
 
 optimise_b=yes
@@ -8,19 +31,6 @@ shared_b=no
 LIB_SUFFIX=.a
 MODULE_CXXFLAGS="$MODULE_CXXFLAGS -D_REENTRANT"
 
-if test x$host = xNONE; then
-    OUTDIR_NAME=${OUTDIR_NAME-"out"}
-else
-    OUTDIR_NAME=${OUTDIR_NAME-"out-$host"}
-fi
-
-for a in `find -type d -and -not -name 'out'`; do
-	if test ! -d  $a/$OUTDIR_NAME; then
-		mkdir $a/$OUTDIR_NAME;
-	fi
-done
-
-    
 AC_ARG_ENABLE(shared,
     [  enable-shared       shared flower library],
     [shared_b=$enableval])
@@ -28,11 +38,6 @@ AC_ARG_ENABLE(shared,
 AC_ARG_ENABLE(optimise,
     [  disable-optimise    optimisations off],
     [optimise_b=$enableval])
-
-AC_ARG_ENABLE(out-dir,
-    [  out-dir			set the directory for machine generated files. Default out or out-HOST],
-    [OUTDIR_NAME=$enableval]
-    [])
 
 if test $shared_b = yes; then
 	MODULE_CXXFLAGS="$MODULE_CXXFLAGS -fPIC -DPIC"
@@ -53,10 +58,9 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(memmem snprintf )
 
-if test ! -d $OUTDIR_NAME ; then
-    mkdir $OUTDIR_NAME
-fi
+AC_DEFINE_UNQUOTED(MODULE_VERSION, "${FULL_VERSION}")
 
-AC_CONFIG_HEADER($OUTDIR_NAME/config.hh:config.hh.in)
-AC_OUTPUT($OUTDIR_NAME/Flower-flags.make:Flower-flags.make.in)
+touch stamp-h.in
+AM_CONFIG_HEADER(config.hh:config.hh.in)
+AC_OUTPUT(Makefile include/Makefile test/Makefile)
 

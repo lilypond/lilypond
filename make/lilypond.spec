@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.1.48
+Version: 
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.48.tar.gz
+Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -31,8 +31,8 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/ANNOUNCE.txt Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/DEDICATION.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/NEWS.txt Documentation/out/TODO.txt Documentation/out/convert-mudela.txt Documentation/out/faq.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/lilypond.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/ly2dvi.txt Documentation/out/mi2mu.txt Documentation/out/mudela-book.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
-%doc input/beam-bug.ly input/beams.ly input/cadenza.ly input/collisions.ly input/coriolan-alto.ly input/denneboom.ly input/font-body.ly input/font.ly input/font11.ly input/font13.ly input/font16.ly input/font20.ly input/font26.ly input/gourlay.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/praeludium-fuga-E.ly input/rhythm.ly input/scales.ly input/scripts.ly input/sleur.ly input/slurs.ly input/spacing.ly input/stem.ly input/twinkle-pop.ly input/twinkle.ly Documentation/introduction.doc Documentation/mudela-course.doc Documentation/mudela-man.doc 
+%doc  BUGS TODO NEWS DEDICATION ANNOUNCE README
+%doc input/beam-bug.ly input/beams.ly input/cadenza.ly input/collisions.ly input/coriolan-alto.ly input/denneboom.ly input/dummy.tex input/font-body.ly input/font.ly input/font11.ly input/font13.ly input/font16.ly input/font20.ly input/font26.ly input/gourlay.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/praeludium-fuga-E.ly input/rhythm.ly input/scales.ly input/scripts.ly input/sleur.ly input/slurs.ly input/spacing.ly input/stem.ly input/twinkle-pop.ly input/twinkle.ly Documentation/introduction.doc Documentation/mudela-course.doc Documentation/mudela-man.doc 
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book

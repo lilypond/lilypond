@@ -1,0 +1,20 @@
+# init/Makefile.am.wild
+
+INIFILES = $(wildcard *.ly)
+EXTRA_DIST = Makefile.am.wild $(INIFILES)
+
+CLEANFILES = $(wildcard feta*.ly)
+
+FONT_FILES = $(wildcard ../mf/*[0-9].mf)
+TABLES = $(patsubst ../mf/%.mf,%.ly,$(FONT_FILES))
+
+# localclean:
+# 	rm -f $(TABLES)
+
+install-data:
+	$(INSTALL) -d $(datadir)/lilypond/init
+	$(INSTALL) -m 644 $(INIFILES) $(datadir)/lilypond/init
+
+uninstall-data:
+	for i in $(INIFILES) ; do rm -f $(datadir)/lilypond/init/$$i; done
+	-rmdir $(datadir)/lilypond/init $(datadir)/lilypond/

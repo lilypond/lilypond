@@ -1,0 +1,209 @@
+# Makefile.in generated automatically by automake 1.2 from Makefile.am
+
+# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy, distribute and modify it.
+
+# Automatically generated from ./make/Makefile.am.wild by bin/autowild
+# Do not edit
+# project  LilyPond -- the musical typesetter
+# title	   zucht
+# file	   make/Makefile.am.dist
+#
+# Copyright (c) 1997 by    
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#		...your sort order here, or how to comment-out a comment
+
+
+SHELL = /bin/sh
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = true
+PRE_INSTALL = true
+POST_INSTALL = true
+NORMAL_UNINSTALL = true
+PRE_UNINSTALL = true
+POST_UNINSTALL = true
+AUTOHEADER = @AUTOHEADER@
+BISON = @BISON@
+CC = @CC@
+COMPILEINFO = @COMPILEINFO@
+CPPFLAGS = @CPPFLAGS@
+CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+DEFINES = @DEFINES@
+DIR_DATADIR = @DIR_DATADIR@
+EXTRA_LIBES = @EXTRA_LIBES@
+FIND = @FIND@
+FLEX = @FLEX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
+LEX = @LEX@
+LN = @LN@
+MAKE = @MAKE@
+MAKEINFO = @MAKEINFO@
+MFDIR = @MFDIR@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+POD2HTML = @POD2HTML@
+POD2MAN = @POD2MAN@
+PYTHON = @PYTHON@
+RANLIB = @RANLIB@
+TAR = @TAR@
+TEXDIR = @TEXDIR@
+TEXPREFIX = @TEXPREFIX@
+VERSION = @VERSION@
+YACC = @YACC@
+ZIP = @ZIP@
+
+IN_FILES = Configure_variables.make.in Makefile.in Toplevel.make.in lelievijver.lsm.in lilypond.lsm.in lilypond.spec.in
+MAKE_FILES = Files.make Include.make Initial.make Rules.make Targets.make Template.make User.make Variables.make Version.make
+EXTRA_DIST = Makefile.am.wild $(IN_FILES) $(MAKE_FILES) lilypond.spec lilypond.lsm lelievijver.lsm
+
+rpmdocs = $(addprefix Documentation/, $(notdir $(shell ls ../Documentation/$(outdir)/*.txt)))\
+	BUGS TODO NEWS DEDICATION ANNOUNCE README
+rpmmudocs = $(addprefix Documentation/, $(notdir $(shell ls ../Documentation/*.doc)))
+rpmdvis = $(rpmmudocs:.doc=.dvi)
+rpmexamples = $(addprefix input/, $(notdir $(shell ls ../input/*.{ly,tex})))
+
+date = $(shell date '+%d%b%y'|tr a-z A-Z)
+
+SED_VERSION= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
+SED_DATE=sed 's!@DATE@!${date}!g'
+SED_EXAMPLES = sed 's!@EXAMPLE_LYS@!${rpmexamples} ${rpmmudocs}!g'
+SED_DOCS=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../lib/config.hh
+CONFIG_CLEAN_FILES = 
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+GZIP = --best
+default: all
+
+.SUFFIXES:
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps make/Makefile
+
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+tags: TAGS
+TAGS:
+
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = make
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  test -f $(distdir)/$$file \
+	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	  || cp -p $$d/$$file $(distdir)/$$file; \
+	done
+info:
+dvi:
+check: all
+	$(MAKE)
+installcheck:
+install-exec: 
+	@$(NORMAL_INSTALL)
+
+install-data: 
+	@$(NORMAL_INSTALL)
+
+install: install-exec install-data all
+	@:
+
+uninstall: 
+
+all: Makefile
+
+install-strip:
+	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
+installdirs:
+
+
+mostlyclean-generic:
+	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+
+clean-generic:
+	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+
+distclean-generic:
+	rm -f Makefile $(DISTCLEANFILES)
+	rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+
+maintainer-clean-generic:
+	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+mostlyclean:  mostlyclean-generic
+
+clean:  clean-generic mostlyclean
+
+distclean:  distclean-generic clean
+	rm -f config.status
+
+maintainer-clean:  maintainer-clean-generic distclean
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+.PHONY: default tags distdir info dvi installcheck install-exec \
+install-data install uninstall all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+spec: $(outdir)/lilypond.spec
+
+lilypond.spec: lilypond.spec.in ../VERSION
+	cat $< | $(SED_VERSION) | $(SED_DOCS) | $(SED_EXAMPLES) > $@
+
+%.lsm: %.lsm.in ../VERSION
+	cat $< | $(SED_VERSION) | $(SED_DATE) > $@
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

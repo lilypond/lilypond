@@ -23,6 +23,7 @@
 static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
   {"bar", BAR},
+  {"break", BREAK},
   {"cadenza", CADENZA},
   {"clear", CLEAR},
   {"clef", CLEF},

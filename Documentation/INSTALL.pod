@@ -32,7 +32,7 @@ work in Windows NT/95, but we don't promise to support it.
 
 =item *
 
-GNU C++ v2.7 or better.
+GNU C++ version 2.7 or newer (yes, 2.8 is fine).
 
 =item *
 
@@ -40,11 +40,11 @@ GNU make.
 
 =item *
 
-Flex (2.5.1 or better). 
+Flex (version 2.5.1 or newer). 
 
 =item *
 
-Bison. (Version 1.25 or better)
+Bison (version 1.25 or newer).
 
 =back
 
@@ -321,7 +321,7 @@ installation instructions for those deprecated fonts.
 [obsolete] I use the MusixTeX fonts those found in MusixTeX
 T.73. Beware, the clef symbol seems to have changed its position in
 some versions, (notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts
-are included in MusixTeX (T73 or better), which can be had from any
+are included in MusixTeX (T73 or newer), which can be had from any
 CTAN site, e.g. at
 
 =over 4

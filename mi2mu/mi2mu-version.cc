@@ -4,13 +4,16 @@
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include <stdio.h>
-#include "version.hh"
+#include "config.hh"
 
 
-static char *s = "mi2mu " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
+// static char *s = "mi2mu " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
+//urg
+static char *s = "mi2mu " TOPLEVEL_VERSION " #%d";
 
 static const int build=
-#include ".build"
+//#include ".build"
+0
 ;
 
 const char * 

@@ -252,7 +252,15 @@ Key_change_req::Key_change_req()
   multi_octave_b_= false;
 }
 
+void
+Break_force_req::do_print () const
+{
+}
+
+IMPLEMENT_IS_TYPE_B1(Break_force_req, Command_req);
+
 Key_change_req::Key_change_req (Key_change_req const&c)
+  : Command_req (c)
 {
   for (int i=0; i < c.melodic_p_arr_.size(); i++)
     melodic_p_arr_.push (c.melodic_p_arr_[i]->clone()->musical ()->melodic ());

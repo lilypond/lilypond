@@ -19,6 +19,9 @@ class Simple_file_storage  : public File_storage
 {
   char * data_p_;
   int len_i_;
+
+  void load_stdin ();
+  void load_file (String);
 protected:    
   virtual char const*ch_C () const;
   virtual int length_i () const;

@@ -9,6 +9,14 @@ are meant to be relative to the source directory)
 
 =head2 Installing
 
+Q: Wow, the webpages look really neat, but if I install the .exe file
+on my windows 3.11 machine, it doesn't work.
+
+A: The dos port is done with the cygnus W32 port of the GNU utils. It
+does I<not> work with windows 3.x; you need NT or w95 (this is not a
+recommendation, btw.  We recommend you use Unix, in particular, use
+GNU/Linux)
+
 Q: I get all kinds of errors while  compiling F<parser.cc>
 
 A: LilyPond uses features of bison version 1.25. Please confirm that

@@ -74,6 +74,7 @@ struct Dynamic;
 struct Dynamic_req;
 struct Element_group;
 struct Element_group_item;
+struct Break_force_req;
 struct General_script_def;
 struct Graphical_element;
 struct Music_output;

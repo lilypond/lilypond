@@ -13,28 +13,28 @@
 #include "string.hh"
 #include "warn.hh"
 
-/**
-  Stupid but foolproof way of opening files.
-
-  TODO
-  Should check IO status
-
-  This is of course a build it yourself version of mmap, so we should
-  have been using that... (see Mapped_file_storage) But we noticed
-  some problems with this (unexplained lexer crashes)
-
-  [Some versions later] The crashes aren't caused by the mmap
-  code. But no reason to take it out, is there?  */
-
-Simple_file_storage::Simple_file_storage (String s)
+void
+Simple_file_storage::load_stdin ()
 {
-  data_p_ =0;
+  int data_len = 0;
+  len_i_ = 0;
 
+  int c;
+  Array<char> ch_arr;
+  while ((c = fgetc (stdin)) != EOF)
+    ch_arr.push (c);
+  len_i_ = ch_arr.size ();
+  data_p_ = ch_arr.remove_array_p ();
+}
+
+void
+Simple_file_storage::load_file (String s)
+{
   /*
     let's hope that "b" opens anything binary, and does not apply
     CR/LF translation
     */
-  FILE * f =  (s.length_i ()) ?  fopen (s.ch_C (), "rb") : stdin;
+  FILE * f =  fopen (s.ch_C (), "rb");
 
   if (!f)
     {
@@ -49,13 +49,37 @@ Simple_file_storage::Simple_file_storage (String s)
   data_p_[len_i_] = 0;
   ret = fread (data_p_, sizeof (char), len_i_, f);
 
-
   if  (ret!=len_i_)
     warning (_ ("Huh? got ") + String (ret) + _ (", expected ")
 	     + String (len_i_) + _ (" characters"));
 
-  if (f != stdin)
-    fclose (f);
+  fclose (f);
+}
+
+/**
+  Stupid but foolproof way of opening files.
+
+  TODO
+  Should check IO status
+
+  This is of course a build it yourself version of mmap, so we should
+  have been using that... (see Mapped_file_storage) But we noticed
+  some problems with this (unexplained lexer crashes)
+
+  [Some versions later] The crashes aren't caused by the mmap
+  code. But no reason to take it out, is there?  mmap ()
+
+*/
+
+Simple_file_storage::Simple_file_storage (String s)
+{
+  data_p_ = 0;
+  len_i_ = 0;
+
+  if (!s.length_i ())
+    load_stdin ();
+  else
+    load_file (s);
 }
 
 char const*

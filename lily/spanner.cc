@@ -85,9 +85,9 @@ Spanner::set_bounds(Direction d, Item*i)
   if (i)
     i->attached_span_l_arr_.push(this);
 
-  assert (!spanned_drul_[d] ||
-	  spanned_drul_[Direction(-d)] != spanned_drul_[d]);
-
+  if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
+       && i)
+    warning ("Spanner (" + String (name ()) + ") with equal left and right spanpoints.");
 }
 
 void

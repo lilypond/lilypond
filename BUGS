@@ -16,16 +16,6 @@ lilypond: parser.y:765: int yyparse(void *): Assertion `((My_lily_parser *) my_l
 Aborted (core dumped)
 
 
-[gcc 2.8.x/libstdc++ 2.8.x/libg++ 2.8.0]
-
-The latest gcc release causes lily to crash just after Interpreting
-music:
-
-stacktrace looks something like:
-
-      __DTOR_END__ ()
-      __malloc ()
-
 [GNU libc]
 
 The GNU extension memmem() is known to be buggy on linux libc 5.0.9

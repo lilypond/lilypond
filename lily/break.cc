@@ -6,7 +6,7 @@
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-
+#include "score-column.hh"
 #include "break.hh"
 #include "paper-def.hh"
 #include "line-spacer.hh"
@@ -137,7 +137,13 @@ Break_algorithm::feasible (Line_of_cols curline) const
 
   Real l =0;
   for (int i=0; i < curline.size (); i++)
-    l +=curline[i]->width ().length ();
+    {
+      if (i && i < curline.size () -1
+	  && ((Score_column*)curline[i])->forced_break_b ())
+	return false;
+      
+      l +=curline[i]->width ().length ();
+    }
   return l < linelength;
 }
 

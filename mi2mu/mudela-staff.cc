@@ -49,9 +49,9 @@ Mudela_staff::eat_voice (Link_list<Mudela_item*>& items)
 
   for  (PCursor<Mudela_item*> i (items); i.ok();)
     {
-      LOGOUT(DEBUG_ver) << "At: " << String (i->at_mom()) << "; ";
-      LOGOUT(DEBUG_ver) << "dur: " << String (i->duration_mom()) << "; ";
-      LOGOUT(DEBUG_ver) << "mom: " << String (mom) << " -> ";
+      LOGOUT(DEBUG_ver) << "At: " << i->at_mom ().str () << "; ";
+      LOGOUT(DEBUG_ver) << "dur: " << i->duration_mom ().str () << "; ";
+      LOGOUT(DEBUG_ver) << "mom: " << mom.str () << " -> ";
       if  (i->at_mom() > mom)
 	{
 	  Moment dur = i->at_mom() - mom;
@@ -68,7 +68,7 @@ Mudela_staff::eat_voice (Link_list<Mudela_item*>& items)
 	}
       else if  (i.ok())
 	i++;
-      LOGOUT(DEBUG_ver) << "mom: " << String (mom) << "\n";
+      LOGOUT(DEBUG_ver) << "mom: " << mom.str () << "\n";
     }
 }
 

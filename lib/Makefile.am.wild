@@ -1,0 +1,22 @@
+# project  LilyPond -- the musical typesetter
+# title	   makefile for micro-lily-lib
+# file	   lib/Makefile 
+#
+# Copyright (c) 1997 by
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#
+
+SUBDIRS = include
+
+lib_LIBRARIES = liblily.a
+# lib_LIBRARIES = liblily.la
+
+EXTRA_DIST = Makefile.am.wild config.hh.in
+
+MODULE_CXXFLAGS += -D_REENTRANT
+
+liblily_a_SOURCES = $(wildcard *.cc)
+
+INCLUDES = -Iinclude -I../flower/include
+

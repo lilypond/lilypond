@@ -14,8 +14,6 @@ grep for TODO and ugh/ugr
 	- configure.in 
 	- clean-fonts.sh
 	
-	* forced breakpoints
-
 	* nicen examples:
 	- remove all \multi
 	- break-up heavily-nested score blocks
@@ -34,8 +32,6 @@ grep for TODO and ugh/ugr
 
 	* add a screenshot to the website. :)
 
-	* fix stdin input
-
 	* documentation
 	- introduction?
 	- info?
@@ -47,8 +43,6 @@ grep for TODO and ugh/ugr
 	* versioning for Feta
 
 	* bf: abbrevs over whole note
-
-	* spanner that is not spanned gives assert ().
 
 	* the warning about the negative slur/tie length appears twice
 	which is irritating.
@@ -109,13 +103,7 @@ STUFF
 
 	* xdvi: PS in magnifying glass.
 
-	* Rational infty(HUGE_VAL) on glibc / w32
-
 	* Fix profiling. gprof bugreport?
-
-	* GS: /undefined in draw_beam after XDVI magnification.
-
-	* Rational global static var.
 
 PROJECTS
 
@@ -136,11 +124,8 @@ PROJECTS
 
 
 	* Makefile stuff:
-	- Use Automake
 	- shared lib on Solaris too.
 	- check libtool
-	- generate stuff in out/default, out/sun5-irix etc iso out/ 
-	and out-sun5/
 
 	* Add mudela-output to Rosegarden.
 
@@ -270,7 +255,6 @@ languages:
 	- allowing users to set them.
 	- penalties
 	- specify number of lines
-	- set linelength per line
 
 	* Rhythmic staff.
 
@@ -434,8 +418,6 @@ Mudela.
 
 	* naming of Voice_group/Voice
 
-	* benchmark band_matrices.
-
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* a real convert-mudela
@@ -444,13 +426,11 @@ Mudela.
 
 	* use String iso Text_def for lyrics.
 
-	* use position 0 for center of staff iso bottom.
-
 	* Klavarskribo?
 
 	* lyrics in chords still fuck up.
 
-	- rewire acknowledge_element() logic with a process_acknowledged()
+	* rewire acknowledge_element() logic with a process_acknowledged()
 
 	* pushgroup/popgroup
 

@@ -241,8 +241,18 @@ bool
 Score_engraver::do_try_request (Request*r)
 {
   bool gotcha = Engraver_group_engraver::do_try_request (r);  
-  if (!gotcha && r->command() && r->command ()->disallowbreak ())
-    disallow_break_b_ = true;
+
+  if (!gotcha && r->command())
+    {
+      Command_req * c = r->command ();
+      if (c->disallowbreak ())
+	disallow_break_b_ = true;
+      else if (c->forcebreak ())
+	{
+	  command_column_l_->forced_break_b_ = true;
+	  gotcha = true;
+	}
+    }
   return gotcha;
 }
 
