@@ -60,7 +60,7 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
   g4.~ g8-\fermata g8 g |
   as4 as8 g4 g8 |
   fis4 fis8 r8 g g  |
-  a4 a8 g4 g8 |
+  a!4 a8 g4 g8 |
   fis4 fis8 d'16[ c b a] g[ f] |
   e4 g8 d4 g8 e4 r8 b'16[ c d b] g[ f] |
   e4 g8 d4 a'16[ g] |
@@ -111,7 +111,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
 }
 
 pianoLH = \notes \relative c'' \repeat volta 2 {
-    
+    \modernAccidentals
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r
     \clef treble r4 <bes' c>8([ <a c>)] r <f c'> |
@@ -148,7 +148,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {
 	     \bold
-	     \bigger\bigger \huge "2.  " }
+	     \bigger\bigger\bigger\bigger \huge "2.  " }
 	 \new Staff \pianoRH
 	 \new Staff \pianoLH
 	>> 
