@@ -50,7 +50,7 @@ protected:
 void
 Key_engraver::do_removal_processing ()
 {
-  old_accs_ = SCM_EOL;		// unprotect can be called from dtor.
+  old_accs_ = SCM_EOL;		// unprotect can not  be called from dtor.
 }
 
 Key_engraver::Key_engraver ()
