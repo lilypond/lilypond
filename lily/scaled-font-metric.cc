@@ -43,9 +43,17 @@ Scaled_font_metric::find_by_name (String s) const
 }
 
 Box 
-Scaled_font_metric::get_char (int i) const
+Scaled_font_metric::get_indexed_char (int i) const
 {
-  Box b = orig_->get_char (i);
+  Box b = orig_->get_indexed_char (i);
+  b.scale (magnification_);
+  return b;  
+}
+
+Box 
+Scaled_font_metric::get_ascii_char (int i) const
+{
+  Box b = orig_->get_ascii_char (i);
   b.scale (magnification_);
   return b;  
 }
@@ -63,4 +71,17 @@ int
 Scaled_font_metric::count () const
 {
   return orig_->count ();
+}
+
+Offset
+Scaled_font_metric::get_indexed_wxwy (int k) const
+{
+  Offset o = orig_->get_indexed_wxwy (k);
+  return o * magnification_;
+}
+
+int
+Scaled_font_metric::name_to_index (String s)const
+{
+  return orig_->name_to_index (s);
 }

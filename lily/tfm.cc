@@ -101,12 +101,11 @@ Tex_font_metric::count () const
 }
 
 Box
-Tex_font_metric::get_char (int a) const
+Tex_font_metric::get_ascii_char (int a) const
 {
   Box b = find_ascii (a)->dimensions () ;
   return b;
 }
-
 
 String
 Tex_font_metric::to_string () const

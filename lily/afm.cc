@@ -7,13 +7,11 @@
   
  */
 
-#ifndef _GNU_SOURCE // we want memmem
-#define _GNU_SOURCE
-#endif
 #include <string.h>
+
+#include "warn.hh"		// error()
 #include "libc-extension.hh"
 #include "afm.hh"
-#include "warn.hh"
 #include "molecule.hh"
 #include "dimensions.hh"
 
@@ -51,7 +49,7 @@ Adobe_font_metric::make_afm (AFM_Font_info *fi, unsigned int checksum)
 
 
 AFM_CharMetricInfo const *
-Adobe_font_metric::find_ascii_metric (int a , bool warn) const
+Adobe_font_metric::find_ascii_metric (int a) const
 {
   if (ascii_to_metric_idx_[a] >=0)
     {
@@ -61,29 +59,31 @@ Adobe_font_metric::find_ascii_metric (int a , bool warn) const
 	  return font_inf_->cmi + code;
 	}
     }
-  else if (warn)
-    {
-      warning (_f ("can't find character number: %d", a));
-    }
 
   return 0;
 }
 
+
+
 AFM_CharMetricInfo const *
-Adobe_font_metric::find_char_metric (String nm, bool warn) const
+Adobe_font_metric::find_char_metric (String nm) const
+{
+  int idx = name_to_index (nm);
+  if (idx >= 0)
+    return font_inf_->cmi+ idx;
+  else
+    return 0;
+}
+
+int
+Adobe_font_metric::name_to_index (String nm)const 
 {
   std::map<String,int>::const_iterator ai = name_to_metric_dict_.find (nm);
   
   if (ai == name_to_metric_dict_.end ())
-    {
-      if (warn)
-	{
-	  warning (_f ("can't find character called: `%s'", nm.to_str0 ()));
-	}
-      return 0;
-    }
+    return -1;
   else
-    return font_inf_->cmi + (*ai).second;
+    return (*ai).second; 
 }
 
 int
@@ -93,15 +93,25 @@ Adobe_font_metric::count () const
 }
 
 Box
-Adobe_font_metric::get_char (int code) const
+Adobe_font_metric::get_ascii_char (int code) const
 {
   AFM_CharMetricInfo const
-    * c =  find_ascii_metric (code,false);
+    * c =  find_ascii_metric (code);
   Box b (Interval (0,0),Interval (0,0));
   if (c)
     b = afm_bbox_to_box (c->charBBox);			
 
   return b;
+}
+
+
+Box
+Adobe_font_metric::get_indexed_char (int code) const
+{
+  if (code>= 0)
+    return afm_bbox_to_box (font_inf_->cmi[code].charBBox);
+  else
+    return   Box (Interval (0,0),Interval (0,0));
 }
 
 SCM
@@ -113,12 +123,6 @@ read_afm_file (String nm)
 
   unsigned int cs = 0;
 
-#if 0
-  fread (s, sizeof (s), sizeof (*s), f);
-  if (char const* p = (char const *)
-      memmem (s, sizeof (s), check_key, strlen (check_key)))
-    sscanf (p + strlen (check_key), "%ud", &cs);
-#else
   s[0] = 0;
   /* Assume check_key in first 10 lines */
   for (int i = 0; i < 10; i++)
@@ -130,7 +134,6 @@ read_afm_file (String nm)
 	  break;
 	}
     }
-#endif
   
   rewind (f);
     
@@ -159,7 +162,15 @@ afm_bbox_to_box (AFM_BBox bb)
 	      Interval (bb.lly, bb.ury)* (1/1000.0) PT);
 
 }
-  
+
+Offset
+Adobe_font_metric::get_indexed_wxwy (int k)const
+{
+  AFM_CharMetricInfo const *mi = font_inf_->cmi+ k;
+  return 1/1000.0 PT * Offset (mi->wx, mi->wy); 
+}
+
+
 
 Adobe_font_metric::~Adobe_font_metric ()
 {
@@ -172,7 +183,7 @@ Adobe_font_metric::~Adobe_font_metric ()
 Molecule
 Adobe_font_metric::find_by_name (String s) const
 {
-  AFM_CharMetricInfo const *cm = find_char_metric (s, false);
+  AFM_CharMetricInfo const *cm = find_char_metric (s);
 
   if (!cm)
     {

@@ -164,7 +164,7 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
   do
     {
       int cmp = (lo + hi) / 2;
-      b = fm->get_char (cmp);
+      b = fm->get_indexed_char (cmp);
       if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
 	hi = cmp;
       else
@@ -172,7 +172,7 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
     }
   while (hi - lo > 1);
       
-  Molecule m (fm->get_char_molecule (lo));
+  Molecule m (fm->get_indexed_char_molecule (lo)); // ugh.  ascii?
   b=m.extent_box();
   b[X_AXIS] = Interval (0,0);
 

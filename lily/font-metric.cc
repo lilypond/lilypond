@@ -11,6 +11,7 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "virtual-methods.hh"
 #include "warn.hh"
 #include "molecule.hh"
 #include "ly-smobs.icc"
@@ -56,11 +57,11 @@ Font_metric::text_dimension (String text) const
 	  break;
 	
 	default: 
-	  Box b = get_char ((unsigned char)text[i]);
+	  Box b = get_ascii_char ((unsigned char)text[i]);
 	  
 	  // Ugh, use the width of 'x' for unknown characters
 	  if (b[X_AXIS].length () == 0) 
-	    b = get_char ((unsigned char)'x');
+	    b = get_ascii_char ((unsigned char)'x');
 	  
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]);
@@ -97,19 +98,35 @@ Font_metric::count () const
 }
 
 Box 
-Font_metric::get_char (int)const
+Font_metric::get_ascii_char (int) const
 {
   return Box (Interval (0,0),Interval (0,0));
 }
 
+Box 
+Font_metric::get_indexed_char (int k) const
+{
+  return get_ascii_char(k);
+}
+
+
+int
+Font_metric::name_to_index (String) const
+{
+  return -1;
+}
+
+Offset
+Font_metric::get_indexed_wxwy (int )const
+{
+  return Offset (0,0);
+}
 
 void
 Font_metric::derived_mark ()const
 {
   
 }
-
-  
 
 SCM
 Font_metric::mark_smob (SCM s)
@@ -124,7 +141,9 @@ int
 Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Font_metric *m = unsmob_metrics (s);
-  scm_puts ("#<Font_metric ", port);
+  scm_puts ("#<", port);
+  scm_puts (classname (m), port);
+  scm_puts (" ", port);
   scm_write (m->description_, port);
   scm_puts (">", port);
   return 1;
@@ -171,7 +190,7 @@ LY_DEFINE(ly_get_glyph, "ly:get-glyph", 2 , 0, 0,
   SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE(gh_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
 
-  return fm->get_char_molecule (gh_scm2int (index)).smobbed_copy ();
+  return fm->get_ascii_char_molecule (gh_scm2int (index)).smobbed_copy ();
 }
 
 LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
@@ -191,11 +210,21 @@ LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
 }
 
 Molecule
-Font_metric::get_char_molecule (int code)  const
+Font_metric::get_ascii_char_molecule (int code)  const
 {
   SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
 		       SCM_UNDEFINED);
   at = fontify_atom (this, at);
-  Box b = get_char (code);
+  Box b = get_ascii_char (code);
+  return Molecule (b, at);
+}
+
+Molecule
+Font_metric::get_indexed_char_molecule (int code)  const
+{
+  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
+		       SCM_UNDEFINED);
+  at = fontify_atom (this, at);
+  Box b = get_indexed_char (code);
   return Molecule (b, at);
 }

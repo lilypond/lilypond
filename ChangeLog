@@ -1,5 +1,24 @@
 2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* scm/output-lib.scm (note-head-style->attachment-coordinates):
+	change calling convention of stem-attachment function. 
+
+	* buildscripts/mf-to-table.py: read and dump WX/WY fields
+
+	* mf/feta-autometric.mf: dump WX/WY fields too
+	
+	* mf/parmesan-heads.mf: idem.
+
+	* mf/feta-bolletjes.mf (slash_slope): set WX/WY fields for
+	attachment coordinates.
+
+	* lily/note-head.cc (stem_attachment_coordinate): read stem
+	attachment from the notehead glyphs WX/WY fields.
+
+	* lily/include/font-metric.hh (struct Font_metric): add methods
+	get_indexed_wxwy (), make a distinction between looking up by
+	index and ASCII  
+
 	* mf/feta-bolletjes.mf: rewrite note head MF code.
 	(test_outlines): make heads more rotund for smaller sizes. 
 

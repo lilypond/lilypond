@@ -31,6 +31,7 @@ noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 
 def draw_outside_ellipse (expr ellipsidity, tilt, superness,
 			slant) =
+	save attachment_y;
 	save p;
 	path p;
 
@@ -53,6 +54,10 @@ def draw_outside_ellipse (expr ellipsidity, tilt, superness,
 	define_pixels (width, scaling);
 	
 	set_char_box (0, width#, noteheight#/2, noteheight#/2);
+
+	% attachment Y
+	charwy := ypart (right_point) * scaling#;
+	charwx := xpart (right_point) * scaling#;
 
 	p := p scaled scaling shifted (width/2, 0) ;
 	if test_outlines = 1:
@@ -304,6 +309,9 @@ def draw_slash(expr hwid_hash) =
 			staff_space#/2 + stafflinethickness#/2,
 			staff_space#/2 + stafflinethickness#/2);
 
+	charwx := charwd;
+	charwy := charht;
+
 	clearxy;
 	pickup pencircle scaled blot_diameter;
 
@@ -358,29 +366,48 @@ fet_endchar;
 
 % thick is the distance between the two parallel lines in the cross (distance between centres of lines)
 def draw_cross(expr thick) =
-	pent := 1.2stafflinethickness;
-	pickup pencircle scaled pent;
-	% alfa is the slant of the lines (i.e. 1 means 45 degrees)
-	alfa := (2h-pent)/(w-pent);
-	% llen is the length of the little outer lines
-	% llen = thick / sin(2atan(alfa))
-	llen := thick/(ypart(dir(2angle(1,alfa))));
-	xa := llen/sqrt(1+alfa**2);
-	ya := xa*alfa;
-	xl := w/2-xa-pent/2;
-	yl := h-ya-pent/2;
+	save pent, slant, ne_dir;
+	pair ne_dir;
 	save crz; path crz;
-	crz = (xa,0) -- (xa+xl,yl) -- (xl,yl+ya) -- (0,ya);
+
+	pent# := 1.2stafflinethickness#;
+	define_pixels (pent);
+	pickup pencircle scaled pent;
+
+	top y3 = h;
+	ne_dir := (1, (2 h -pent)/(w - pent));
+	rt x4 = w/2;
+	y5 = 0;
+	z4 - z5 = whatever * ne_dir;
+	x6 = 0;
+	z6 - z3 = whatever * ne_dir;
+	z3 - z4 = whatever * (ne_dir yscaled -1);
+
+	z1 = (0, charht - 1.5 pent#);
+	y2 = 0;
+	z2 = z1 + whatever * (ne_dir yscaled -1);
+	z7 = z2 + whatever * ne_dir;
+	x7 = charwd/2 - .5 pent#;
+	top y6 = h - pent;
+
+	
+	labels (1,2,3,4,5,6);
+
+	crz = (z6 -- z3 -- z4 -- z5) ;
 	draw crz shifted(w/2,0);
 	draw crz xscaled -1 shifted(w/2,0);
 	draw crz yscaled -1 shifted(w/2,0);
 	draw crz scaled -1 shifted(w/2,0);
+
+	charwx := charwd;
+	charwy := y7;
 enddef;
 
 fet_beginchar("Whole Crossed notehead", "0cross", "wholecrossedhead")
 	wid# := black_notehead_width#+4stafflinethickness#;
 	hei# := noteheight#+stafflinethickness#;
 	set_char_box(0, wid#,hei#/2,hei#/2);
+	
 	draw_cross(3.75stafflinethickness);
 fet_endchar;
 
@@ -411,6 +438,9 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 	ypos := cyr/sqrt2;
 	draw (-xpos+w/2,-ypos) -- (xpos+w/2,ypos);
 	draw (-xpos+w/2,ypos) -- (xpos+w/2,-ypos);
+
+	charwx := 3/4 charwd ; 
+	charwy := 1/4 charwd ; 
 fet_endchar;
 
 

@@ -8,8 +8,8 @@
 @chapter Toplevel README
 
 
-LilyPond  is a music  typesetter.  It  produces beautiful  sheet music
-using  a description  file as  input.   LilyPond  is  part of  the  GNU
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a description file as input.  LilyPond is part of the GNU
 Project.
 
 @section Versioning
@@ -21,7 +21,7 @@ For development versions 'y' is odd.
 @section Downloading
 
 The primary download site for sourcecode is
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/}.
+@uref{http://lilypond.org/download/}.
 
 If you have a slow connection, then you are advised to use
 @uref{http://sourceforge.net/projects/xdelta/,xdelta} for patching
@@ -33,7 +33,7 @@ For compiling and running LilyPond see the installation instructions.
 These instructions can be found when you unpack lilypond, as
 @file{lilypond-x.y.z/INSTALL.txt}. They are also available on the web
 at
-@uref{http://lilypond.org/Documentation/topdocs/out-www/INSTALL.html}.
+@uref{http://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/INSTALL.html}.
 
 NOTE: If you downloaded a binary (@file{.rpm}) or use the Cygwin
 @file{setup.exe} program, then you don't have to compile LilyPond.
@@ -42,7 +42,7 @@ NOTE: If you downloaded a binary (@file{.rpm}) or use the Cygwin
 @section Documentation
 
 The documentation is available online at
-@uref{http://www.lilypond.org/doc/v1.9/Documentation/out-www/}.
+@uref{http://www.lilypond.org/doc/}.
 
 You can also build it locally: follow the instructions under `Building
 documentation' in the installation instructions.
