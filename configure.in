@@ -51,7 +51,7 @@ ac_cv_prog_lex_root=lex.yy
 OPTIMIZE="-O"
 printing_b=no
 checking_b=yes
-optimise_b=no
+optimise_b=tja
 profile_b=no
 CONFIGSUFFIX=
 debug_b=yes
@@ -121,6 +121,10 @@ if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -finline-functions -DSTRING_UTILS_INLINED"
     OPTIMIZE="-O2"
     AC_DEFINE(STRINGS_UTILS_INLINED)
+fi
+
+if test "$optimise_b" = no; then
+    OPTIMIZE=""
 fi
 
 if test $profile_b = yes; then

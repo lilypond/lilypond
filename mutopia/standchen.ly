@@ -13,7 +13,7 @@ multiple \paper{}s in one \score
 %}
 
 \include "paper20.ly"
-\version "0.1.9";
+\version "0.1.10";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -478,7 +478,7 @@ $bass_staff = \type Staff = bass<
 	\begeleiding
 >
  
-$grand_staff = \type Grandstaff<
+$grand_staff = \type Grand_staff<
 	\$treble_staff
 	\$bass_staff
 >

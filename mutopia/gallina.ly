@@ -43,7 +43,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "0.1.9";
+\version "0.1.10";
 
 vi1=\melodic{
   \meter 4/4;

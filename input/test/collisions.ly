@@ -5,7 +5,7 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "0.1.9";
+\version "0.1.10";
 
 
 

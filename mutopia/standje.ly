@@ -13,7 +13,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.9";
+\version "0.1.10";
 
 $vocal_verse1 = \melodic{
 	\octave c';
@@ -413,7 +413,7 @@ $bass_staff = \type Staff = bass<
 	\bass
 >
 
-$grand_staff = \type Grandstaff<
+$grand_staff = \type Grand_staff<
 	\$treble_staff
 	\$bass_staff
 >

@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features: example file with comments
 
 %}
-\version "0.1.9";
+\version "0.1.10";
 
 
 % the % is a comment.
@@ -59,7 +59,7 @@ begeleiding = \melodic{
 }
 
 \score{
-	\melodic \type Grandstaff <
+	\melodic \type Grand_staff <
 		\melodie
 		\begeleiding 
 	>

@@ -13,7 +13,7 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.9";
+\version "0.1.10";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -166,7 +166,7 @@ bassdux = \melodic {
         
 \score {
   \melodic {
-    \type Grandstaff < 
+    \type Grand_staff < 
       \type Staff = treble < 
         \global 
         \dux

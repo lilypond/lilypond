@@ -15,7 +15,7 @@ copyright =	 "public domain";
  Tested Features:breaking algorithm, chords, multivoice, accents
 %}
 
-\version "0.1.9";
+\version "0.1.10";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}

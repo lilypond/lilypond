@@ -8,7 +8,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 description = "A schubert song in 20 pt";
 } 
-\version "0.1.9";
+\version "0.1.10";
 
 % fool make-website
 % \include "standchen.ly";

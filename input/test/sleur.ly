@@ -5,7 +5,7 @@ TestedFeatures =	 "This file tests Feta embedded slurs"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "0.1.9";
+\version "0.1.10";
 
 shortlong = \melodic{
 	c4()c( c c  |

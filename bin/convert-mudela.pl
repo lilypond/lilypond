@@ -165,6 +165,11 @@ sub convert_0_1_8_to_0_1_9
 #  print "introduced plet and finger shorthands...\n";
 }
 
+sub convert_0_1_9_to_0_1_10
+{
+    s/Grandstaff/Grand_staff/;    
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -214,6 +219,7 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 ,"0.1.7" => \&convert_0_1_6_to_0_1_7
 			 ,"0.1.8" => \&convert_0_1_7_to_0_1_8
 			 ,"0.1.9" => \&convert_0_1_8_to_0_1_9
+			 ,"0.1.10" => \&convert_0_1_9_to_0_1_10
 			 );
 
  

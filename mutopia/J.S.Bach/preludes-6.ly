@@ -109,7 +109,7 @@ bass_staff = \type Staff = bass <
 	\four
 >
 
-grand_staff = \type Grandstaff <
+grand_staff = \type Grand_staff <
 	\treble_staff
 	\bass_staff
 >

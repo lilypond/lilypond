@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.9";
+\version "0.1.10";
 
 \include "global.ly"
 
@@ -42,12 +42,12 @@ $timpani_g = \type Staff_group = timpani_group <
 	\$timpani_staff
 >
 
-$violini = \type Grandstaff = violini_group <
+$violini = \type Grand_staff = violini_group <
 	\$violino1_staff
 	\$violino2_staff
 >
 
-$bassi = \type Grandstaff = violine_group <
+$bassi = \type Grand_staff = violine_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >
