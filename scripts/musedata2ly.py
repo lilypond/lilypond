@@ -531,9 +531,9 @@ def help ():
 Convert musedata to LilyPond.
 
 Options:
-  -h,--help          this help
+  -h,--help          print this help
   -o,--output=FILE   set output filename to FILE
-  -v,--version       version information
+  -v,--version       show version information
   -r,--ref=REF       read background information from ref-file REF     
 
 Musedata (http://www.ccarh.org/musedata/) is an electronic library of

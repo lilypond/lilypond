@@ -1118,9 +1118,9 @@ def help ():
 Convert ETF to LilyPond.
 
 Options:
-  -h,--help          this help
+  -h,--help          print this help
   -o,--output=FILE   set output filename to FILE
-  -v,--version       version information
+  -v,--version       show version information
 
 Enigma Transport Format is a format used by Coda Music Technology's
 Finale product. This program will convert a subset of ETF to a
