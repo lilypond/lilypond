@@ -90,6 +90,12 @@
     ((-1 bold upright roman cmbx 8) . "cmbx8")
     ((-2 bold upright roman cmbx 7) . "cmbx7")
     
+    ((2 bold italic roman cmbxti 12) . "cmbxti12")
+    ((1 bold italic roman cmbxti 12) . "cmbxti12")
+    ((0 bold italic roman cmbxti 10) . "cmbxti10")
+    ((-1 bold italic roman cmbxti 8) . "cmbxti8")
+    ((-2 bold italic roman cmbxti 7) . "cmbxti7")
+    
     ((4 medium upright typewriter cmtt 17) . "cmtt17")
     ((3 medium upright typewriter cmtt 17) . "cmtt17")
     ((2 medium upright typewriter cmtt 12) . "cmtt12")
@@ -199,8 +205,8 @@
 	(mark . ((font-family . number) (font-relative-size . 1)))
 	(script . ((font-family . roman) (font-relative-size . -1)))
 	(large . ((font-family . roman) (font-relative-size . 1)))
-	(Large . ((font-series . bold) (font-shape . upright) 
-		  (font-family . roman) (font-relative-size . 2)))
+	(Large . ((font-series . bold) (font-family . roman)
+		  (font-relative-size . 2)))
 	(dynamic . ((font-family . dynamic) (font-relative-size . 0)))
 	))
     (properties-to-font .

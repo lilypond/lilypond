@@ -269,10 +269,10 @@ Scheme markup text.  It is defined as follows:
 @example
 text: string | (head? text+)
 head: markup | (markup+)
-markup-item: property | abbrev | @var{fontstyle}
+markup-item: property | abbrev
 property: (@var{key} . @var{value})
 abbrev: @code{rows lines roman music bold italic named super sub text}
-
+        @code{finger volta timesig mmrest mark script large Large dynamic}
 @end example
 
 
@@ -298,8 +298,24 @@ horizontal mode: set all text on one line (default)
  superscript
 @item sub
  subscript
-@item any font-style
- finger volta timesig mmrest mark script large Large dynamic
+@item finger
+ select fingering number fontstyle
+@item volta
+ select volta number fontstyle
+@item timesig
+ select time signature number fontstyle
+@item mmrest
+ select multi measure rest number fontstyle
+@item mark
+ select mark number fontstyle
+@item script
+ select scriptsize roman fontstyle
+@item large
+ select large roman fontstyle
+@item Large
+ select Large roman fontstyle
+@item dynamic
+ select dynamics fontstyle
 @end table
 .")
 (grob-property-description 'thick number? "thickness, in stafflinethickness.")

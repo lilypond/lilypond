@@ -133,7 +133,7 @@ The verbose syntax for pitch specification is
 @example
   \pitch @var{scmpitch}
 @end example
-9
+
 @var{scmpitch} is a pitch scheme object, see @ref{Pitch data type}.
 
 In Note and Chord mode, pitches may be designated by names.  The default
@@ -350,8 +350,7 @@ If you dislike the amount of ties created for a chord, you set
 @code{Voice.sparseTies} to true, resulting in  a smaller number of
 ties:
 @lilypond[fragment,verbatim,center]
-%oops: core dump
-%  \property Voice.sparseTies = ##t
+  \property Voice.sparseTies = ##t
   <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
@@ -464,6 +463,7 @@ numbers in this mode.
 
 @menu
 * Key signature::               
+* Clef::                        
 * Time signature::              
 * Unmetered music::             
 * Bar lines::                   
@@ -507,13 +507,14 @@ This command sets context property @code{Staff.keySignature}.
 @cindex @code{keySignature}
 
 @c .  {Clef}
-@subsection Clef changes
+@node Clef
+@subsection Clef
 @cindex @code{\clef}
 @example
   \clef @var{clefname} @code{;}
 @end example
 
-Short-cut for
+Shortcut for
 
 @example
   \property Staff.clefGlyph = @var{glyph associated with clefname} 
@@ -580,7 +581,7 @@ The time signature is changed by the @code{\time} command. Syntax:
 @example
   \time @var{numerator}@code{/}@var{denominator} @code{;}
 @end example
-Internally, this is a short-cut for doing
+Internally, this is a shortcut for doing
 @example
      \property Score.timeSignatureFraction = #'(@var{numerator} . @var{denominator})
 @end example
@@ -602,7 +603,7 @@ Partial measures are entered using the @code{\partial} command:
   \partial @var{duration} @code{;}
 @end example
 
-Internally,  this is a short cut for 
+Internally,  this is a shortcut for 
 
 @example
   \property Score.measurePosition = -@var{length of duration}
@@ -643,7 +644,7 @@ achieve the same effect.
   \bar @var{bartype};
 @end example
 
-This is a short-cut for doing
+This is a shortcut for doing
 @example
   \property Score.whichBar = @var{bartype} 
 @end example
@@ -2796,16 +2797,16 @@ LilyPond has an internal mechanism to typeset texts. You can
 form text markup expressions by composing scheme expressions
 in the following way.
 
-
-[BUG]
-
 @lilypond[verbatim, singleline]
  \relative c' {
-    b_#"italic"
-    c^#'(upright "upright")
-    c_#'((bold upright) "bold")
-    d^#'(lines "one" ((bold upright) "two"))
-    e_#'(music (named "noteheads-2" "flags-u3"))
+    \fatText
+    a^#"upright"
+    b_#'(bold "bold")
+    c^#'(italic "italic")
+    d_#'((bold italic) "ff")
+    e^#'(dynamic "ff")
+    f_#'(lines "one" (bold "two"))
+    g^#'(music "noteheads-2" "flags-u3")
   }
 @end lilypond
 
@@ -2815,17 +2816,17 @@ of a grob.  Formally, it is defined as follows:
 @example
 text: string | (head? text+)
 head: markup | (markup+)
-markup-item: property | abbrev | @var{fontstyle}
+markup-item: property | abbrev
 property: (@var{key} . @var{value})
 abbrev: @code{rows lines roman music bold italic named super sub text}
+        @code{finger volta timesig mmrest mark script large Large dynamic}
 @end example
 
 The markup is broken down and converted into a list of grob properties,
 which are prepended to the property list.  The @var{key}-@var{value}
 pair is a grob property.
 
-The following abbreviations are currently
-defined:
+The following abbreviations are currently defined:
 
 @table @code
 @item rows
@@ -2848,13 +2849,25 @@ horizontal mode: set all text on one line (default)
  superscript
 @item sub
  subscript
+@item finger
+ select fingering number fontstyle
+@item volta
+ select volta number fontstyle
+@item timesig
+ select time signature number fontstyle
+@item mmrest
+ select multi measure rest number fontstyle
+@item mark
+ select mark number fontstyle
+@item script
+ select scriptsize roman fontstyle
+@item large
+ select large roman fontstyle
+@item Large
+ select Large roman fontstyle
+@item dynamic
+ select dynamics fontstyle
 @end table
-
-@var{fontstyle} may be any of @code{finger volta timesig mmrest mark
-script large Large dynamic}
-
-[wat is het verschil tussen fontstyle en abbrev?  ]
-
 
 It is possible to use @TeX{} commands in the strings, but this should be
 avoided because this makes it impossible for LilyPond to compute the
@@ -3297,7 +3310,7 @@ package) to @file{emacsclient.c} and @file{server.el} from the emacs
 source code. Recompile and stick the recompiled emacsclient into a bin
 directory, and put @file{server.el} into a elisp directory
 (eg. @file{~/usr/share/emacs/}). Add the following to your @file{.emacs}
-init file, beifore invoking server-start.
+init file, before invoking server-start.
 
 @example
  (setq load-path (cons "~/usr/share/emacs" load-path))

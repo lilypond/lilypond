@@ -620,12 +620,10 @@
 		(padding . 0.5)
 		(baseline-skip . 2)
 		(font-family . roman)
-		(font-shape . italic)
 		(meta . ,(grob-description "TextScript" text-script-interface text-interface side-position-interface font-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
-                (font-shape . italic)
 		(font-family . roman)
 		(type . "line")
 		
