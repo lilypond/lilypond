@@ -1,13 +1,12 @@
 \version "1.7.18"
 \header {
-texidoc = "Test figured bass.
+texidoc = "@cindex Figured Bass
+%Test figured bass.
 
 Figured bass is created by the FiguredBass context which eats
 note-requests and rest-requests.  You can enter these either using
 standard @code{<< >>} notation, or using the special @code{\figures @{ @}}
-mode, which allows you to type numbers, like @code{<<4 6+>>}.
- 
-" }
+mode, which allows you to type numbers, like @code{<<4 6+>>}. " }
 
 \score { \notes  <
 \context FiguredBass \transpose c c' {

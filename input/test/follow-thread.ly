@@ -1,13 +1,10 @@
-
-\header{
-texidoc="
-Theads can be traced automagically when they switch staves by setting
-property @code{followVoice}.
-"
-}
-
 \version "1.7.18"
+
 % followVoice: connect note heads with line when thread switches staff 
+\header{ texidoc="@cindex followVoice Thread
+Theads can be traced automagically when they switch staves by setting
+property @code{followVoice}. " }
+
 
 fragment = \notes {
   \context PianoStaff <

@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header {
-    texidoc="Force hshift to override collisions"
-    }
+    texidoc="@cindex Force hshift
+Force hshift to override collisions. " }
 
 \score { 
   \context Voice \notes\relative c {
@@ -24,6 +24,5 @@
   \paper {
     raggedright = ##t
   }  
-  \midi { }
 }
 %% new-chords-done %%

@@ -1,6 +1,8 @@
 \version "1.7.18"
+%possible rename to paper-fill-a4.ly -gp
+% candidate for regression -gp
 
-%
+
 % test file to get a4 paper really filled,
 % without having to resort to the ever-ugly oversizing hack:
 %
@@ -9,8 +11,9 @@
 % process this file with ly2dvi, and make sure footskip/headsep are set
 % at a reasonably (small) value.  -- jcn
 %
-\header{
-tagline="Ligly"
+\header{ texidoc="@cindex Paper a4 Fill
+This should fill a4 paper. "
+%tagline="Ligly"
 }
 \include "paper13.ly"
 \score{

@@ -1,8 +1,8 @@
 \version "1.7.18"
-% TODO: check if this is the best filename.  Look for other
-% followvoice examples in input/test
+% renamed from broken-thread-line.ly to follow-break.ly  -gp
+% possible merge with follow-thread, or regression, or delete.  -gp
 \header{
-	texidoc = "@cindex Piano followVoice
+	texidoc = "@cindex followVoice Break
 followVoice: connect note heads with line when thread switches staff.
 " }
 \score{
