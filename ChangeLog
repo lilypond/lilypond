@@ -1,5 +1,25 @@
 2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): put ledger lines
+	in layer 0 too.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add tieWaitForNote
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	Tie_column::before_line_breaking
+
+	* lily/tie.cc (get_column_rank): new function
+
+	* lily/tie-column.cc (before_line_breaking): new function.
+	(werner_directions): take into account ties that start on
+	different columns.  
+
+	* lily/score-engraver.cc (set_columns): move add_column() so we
+	have column rank available.
+
+	* lily/tie.cc (get_column_rank): new function.
+
 	* input/regression/utf8.ly (japanese): add japanese lyrics.
 
 	* lily/pfb.cc (LY_DEFINE): ly:ttf->pfa, new function.

@@ -504,7 +504,7 @@ def make_ps_images (ps_name, resolution = 90):
 		if y == 0:
 			y = 1
 
-		cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c showpage -c quit ''' % \
+		cmd = r'''gs -g%dx%d -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c showpage -c quit ''' % \
 		      (x, y, output_file, resolution, trans_ps, ps_name)
 
 		rms = glob.glob (base + '-page*.png')
@@ -516,7 +516,7 @@ def make_ps_images (ps_name, resolution = 90):
 		if os.path.isfile (rmfile):
 			os.unlink (rmfile)
 		
-		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
+		cmd = r'''gs -s  -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
 																      resolution, ps_name)
 
 	status = system (cmd)
