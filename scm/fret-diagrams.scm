@@ -277,20 +277,29 @@
   "Make a fret diagram containing the symbols indicated in @var{marking-list}
   Syntax: \\fret-diagram   marking-list
   For example,
-  @verbatim
+@verbatim
    \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4) (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
-  @end verbatim 
+@end verbatim 
   will produce a standard D chord diagram without fingering indications.
     Possible elements in @var{marking-list}:
-     (mute string-number) -- place a small 'x' at the top of string @var{string-number}
-     (open string-number) -- place a small 'o' at the top of string @var{string-number}
-     (barre start-string end-string fret-number) -- place a barre indicator (much like a tie) from string @var{start-string}
+
+@table @code
+@item (mute string-number)
+place a small 'x' at the top of string @var{string-number}
+@item     (open string-number)
+ place a small 'o' at the top of string @var{string-number}
+@item     (barre start-string end-string fret-number)
+ place a barre indicator (much like a tie) from string @var{start-string}
             to string @var{end-string} at fret @var{fret-number}
-     (place-fret string-number fret-number finger-value) -- place a fret playing indication
+@item     (place-fret string-number fret-number finger-value)
+ place a fret playing indication
             on string @var{string-number} at fret @var{fret-number} with an optional fingering label @var{finger-value}
             By default, the fret playing indicator is a solid dot.  If the @var{finger} part of the place-fret element is present,
               @var{finger-value} will be displayed according to the setting of the variable @var{finger-code}
-  There is no limit to the number of fret indications per string."
+  There is no limit to the number of fret indications per string.
+
+@end table
+"
    (make-fret-diagram paper props marking-list))
    
 (define (make-fret-diagram paper props marking-list)
@@ -342,20 +351,33 @@
     for fret spacing 3/4 of staff space, D chord diagram
     Syntax rules for @var{definition-string}:
       Diagram items are separated by semicolons.
+
       Possible items:
-      t:number -- set the line thickness (in staff spaces).  Default 0.05
-      h:number -- set the height of the diagram in frets.  Default 4
-      w:number -- set the width of the diagram in strings.  Default 6
-      f:number -- set fingering label type 
+@table @code
+@item      t:number 
+ set the line thickness (in staff spaces).  Default 0.05
+@item      h:number 
+ set the height of the diagram in frets.  Default 4
+@item      w:number 
+ set the width of the diagram in strings.  Default 6
+@item      f:number 
+ set fingering label type 
                   (0 = none, 1 = in circle on string, 2 = below string)  Default 0
-      d:number -- set radius of dot, in terms of fret spacing.  Default 0.25
-      p:number -- set the position of the dot in the fret space. 0.5 is centered; 1 is on lower fret bar,
+@item      d:number 
+ set radius of dot, in terms of fret spacing.  Default 0.25
+@item      p:number 
+ set the position of the dot in the fret space. 0.5 is centered; 1 is on lower fret bar,
                   0 is on upper fret bar.  Default 0.6 
-      c:string1-string2-fret -- include a barre mark from string1 to string2 on fret
-      string-fret -- place a dot on string at fret.  If fret is o, string is identified
+   @item   c:string1-string2-fret 
+ include a barre mark from string1 to string2 on fret
+  @item    string-fret 
+ place a dot on string at fret.  If fret is o, string is identified
                      as open.  If fret is x, string is identified as muted.
-      string-fret-fingering -- place a dot on string at fret, and label with fingering as 
+@item     string-fret-fingering 
+ place a dot on string at fret, and label with fingering as 
                                defined by f: code.
+@end table
+
     Note:  There is no limit to the number of fret indications per string."
        (set! props (acons 'size size props))
        (let ((definition-list (parse-definition-string props definition-string)))
