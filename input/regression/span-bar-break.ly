@@ -1,13 +1,15 @@
-\version "2.2.0"
+\version "2.3.2"
 
-\header { texidoc = "At the beginning of a system,
-the @code{|:} repeat barline is drawn between the staves,
-but the @code{:|} is not."
-" }
+\header {
+
+    texidoc = "At the beginning of a system, the @code{|:} repeat
+barline is drawn between the staves, but the @code{:|} is not."
+
+      }
 
 \score {
-  \notes \new PianoStaff <<
-    \context Staff=up   {
+ \new PianoStaff <<
+    \context Staff = up {
 	\bar "|:" r1
 	\bar ":|" \break r1
     }

@@ -22,8 +22,7 @@
 	      (lambda (x)
 		(ly:kpathsea-gulp-file (string-append x ".pfa")))
 	      
-	      (filter string? font-names)))
-       )
+	      (filter string? font-names))) )
 
     (string-join pfas "\n")))
 
@@ -165,6 +164,7 @@
     (output-variables bookpaper)
     (ly:gulp-file "music-drawing-routines.ps")
     (ly:gulp-file "lilyponddefs.ps")
+    (load-fonts bookpaper)
     (define-fonts bookpaper)
     ))
 
@@ -208,21 +208,29 @@
 
     (define (to-pt x)
       (inexact->exact (round (* scale x))))
+    
+    (define (bbox llx lly urx ury) 
+      (string-append
+       "%%BoundingBox: "
+       (ly:number->string (to-pt llx)) " "
+       (ly:number->string (to-pt lly)) " " 
+       (ly:number->string (to-pt urx)) " "
+       (ly:number->string (to-pt ury)) "\n"))
+
     (for-each (lambda (l)
 		(set! x-ext (interval-union x-ext (cons 0.0 (ly:paper-line-extent l X))))
 		)
 		lines)
+
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
    (list
     "%!PS-Adobe-2.0 EPSF-2.0\n"
     "%%Creator: LilyPond \n"
-    "%%BoundingBox: "
-    (ly:number->string (to-pt (car x-ext))) " "
-    (ly:number->string (to-pt 0)) " " 
-    (ly:number->string (to-pt (cdr x-ext))) " "
-    (ly:number->string (to-pt total-y)) "\n"
+
+;;    (bbox (car x-ext) 0 (cdr x-ext) total-y)    ; doesn't work well
+
     "%%EndComments\n"
     (output-variables bookpaper)
     (ly:gulp-file "music-drawing-routines.ps")

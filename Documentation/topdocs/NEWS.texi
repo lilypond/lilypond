@@ -48,7 +48,7 @@ produces a rendered markup of the music.  An example is in
 @item LilyPond expressions can be embedded into Scheme. The syntax for
 this is @code{#@{ ... #@}}. Within such a block, Scheme forms can be
 introduced using a @code{$} character (@code{$$} results in a single
-`$' character).  These forms are then printed in the pattern.
+`$' character).  These forms are then inserted in the pattern.
 
 @example
 #(define (textoffset dx dy)
@@ -74,7 +74,7 @@ result is that
 @{ a b c @}
 @end example
 
-is the same as
+is interpreted as
 
 @example
 \header @{ title = "The Title" @}
@@ -85,21 +85,11 @@ is the same as
 @}    
 @end example
 
-Actually, a toplevel music list is now handled quite flexibly by
-@code{default-toplevel-music-handler}.  Similarly, a @code{\score}
-block at toplevel is handled by @code{default-toplevel-score-handler}
-and a @code{book} at toplevel is handled by
-@code{default-toplevel-book-handler}.  The default behavior of these
-handlers produces the results described above.
-
-@ignore
-
-@c FIXME: un-geekify
-These default handlers have the following effect.  A Music list at
-toplevel is encapsulated in a @code{score} block, and a @code{score}
-block at toplevel is encapsulated in a @code{book} block.  A
-@code{book} block at toplevel generates printed output.
-@end ignore
+This is handled by the function defined in
+@code{toplevel-music-handler}.  Similarly, @code{\score} and
+@code{\book} are handled by @code{toplevel-score-handler} and a
+@code{toplevel-book-handler}.  By changing these variables, different
+results can be obtained.
 
 
 @item Start pitch for @code{relative} music is optional for music lists.
@@ -141,24 +131,26 @@ package installed to function properly.
 @code{\encoding}. The strings for markup texts are translated
 automatically.
 
-@item The toplevel block @code{book} introduces page layout.
-A @code{book} groups @code{score} blocks into one page layout entity.
-Page layout consists of markup titles, headers and footers, and page
-breaking.  Two page breaking algorithms are available, the classic
-ragged pages (the default), and optimal page breaking
+@item The toplevel block @code{\book} introduces page layout.
+A @code{\book} groups @code{\score} blocks into one page layout
+entity. For example, two scores are combined in one book with   
 
 @example
-\paper @{
-    %% Select page breaking function.
-    %% #(define page-breaking ly:ragged-page-breaks)
-    #(define page-breaking ly:optimal-page-breaks)
-@}
 \book @{
      \score @{ ... @}
      \score @{ ... @}
 @}
 @end example
 
+Titling and page breaks are handled by LilyPond.  For automatic page
+breaking, two algorithms are available, the classic ragged pages (the
+default), and optimal page breaking.  
+Page  breaks may be inserted manually with
+@example
+  \pageBreak
+@end example
+
+@item
 The @code{lilypond} program does not generate La@TeX{} titles or page
 layout.  If you need La@TeX{} titles, you can use the
 @code{lilypond-book} program.
