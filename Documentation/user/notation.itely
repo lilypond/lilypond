@@ -5206,7 +5206,7 @@ first part (with context called @code{one}) always gets up stems, and
 `Solo II'.
 
 If you just want the merging parts, and not the textual markings, you
-may set the property @code{soloADue} to false
+may set the property @code{printPartCombineTexts} to false
 
 @lilypond[quote,verbatim,raggedright,fragment,relative=2]
 \new Staff <<
@@ -6044,7 +6044,7 @@ be made by hand, by setting
 @example
   breveTP = #(ly:make-duration -1 0 3 2)
   @dots{}
-  { c\breveTP f1 }
+  @{ c\breveTP f1 @}
 @end example
 
 @noindent
@@ -7259,7 +7259,7 @@ support for contemporary notation in LilyPond is limited.
 @menu
 * Polymetric notation::         
 * Clusters::                    
-* Fermatas::                    
+* Special fermatas::            
 * Feathered beams::             
 @end menu
 

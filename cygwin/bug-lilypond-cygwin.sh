@@ -20,7 +20,7 @@ Please source this script, ie do:
 EOF
 fi
 
-docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@-1
+docdir=@prefix@/share/doc/lilypond-@TOPLEVEL_VERSION@
 [ ! -d $docdir ] && docdir=@prefix@/doc/lilypond-@TOPLEVEL_VERSION@-1
 [ ! -d $docdir ] && docdir=$(echo @prefix@/share/doc/lilypond-[.-0-9]*)
 [ ! -d $docdir ] && docdir=$(echo @prefix@/doc/lilypond-[.-0-9]*)
