@@ -16,16 +16,8 @@ struct Duration_iterator {
   /// start at shortest: 128:2/3
   Duration_iterator ();
 
-  // **** what about these three here ?
   /// return forward_dur ();
   Duration operator ++(int); 
-
-  /// return ok ()
-  operator bool (); 
-
-  /// return dur ()
-  Duration operator ()(); 
-
 
   /// return current dur
   Duration dur ();

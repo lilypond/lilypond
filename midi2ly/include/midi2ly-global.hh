@@ -30,6 +30,7 @@ void error (String message_str); //, char const* context_ch_C);
 
 String midi2ly_version_str();
 extern bool no_timestamps_b_g;;
+extern bool no_rests_b_g;;
 
 #endif // MIDI2LY_GLOBAL_HH
 

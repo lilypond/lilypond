@@ -25,17 +25,6 @@ Duration_iterator::operator ++(int)
 }
 
 Duration
-Duration_iterator::operator ()()
-{
-  return dur ();
-}
-
-Duration_iterator::operator bool ()
-{
-  return ok ();
-}
-
-Duration
 Duration_iterator::dur ()
 {
   return cursor_dur_;
@@ -57,8 +46,6 @@ Duration_iterator::forward_dur ()
 		
      */
   assert (ok ());
-
-  Duration dur = cursor_dur_;
 
   if (!cursor_dur_.dots_i_ && !cursor_dur_.plet_b ()) 
     {
@@ -88,27 +75,27 @@ Duration_iterator::forward_dur ()
       cursor_dur_.durlog_i_ -= 1;
     }
 		
-  if (Duration_convert::no_triplets_b_s
+  if (Duration_convert::no_tuplets_b_s
       && cursor_dur_.plet_b () && ok ())
-    forward_dur ();
+    return forward_dur ();
   if (Duration_convert::no_double_dots_b_s 
       && (cursor_dur_.dots_i_ == 2) && ok ())
-    forward_dur ();
+    return forward_dur ();
   if (Duration_convert::no_smaller_than_i_s
       && (cursor_dur_.durlog_i_ > Duration_convert::no_smaller_than_i_s) && ok ())
-    forward_dur ();
+    return forward_dur ();
   if (Duration_convert::no_smaller_than_i_s
       && cursor_dur_.dots_i_
       && (cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s)
       && ok ())
-    forward_dur ();
+    return forward_dur ();
   if (Duration_convert::no_smaller_than_i_s
       && (cursor_dur_.dots_i_ == 2)
       && (cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s / 2)
       && ok ())
-    forward_dur ();
+    return forward_dur ();
 
-  return dur;
+  return dur ();
 }
 
 bool

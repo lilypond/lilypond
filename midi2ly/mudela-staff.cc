@@ -42,8 +42,11 @@ Mudela_staff::add_item (Mudela_item* mudela_item_p)
 /**
    Walk ITEMS and find voices.  Remove categorised items.
 
-   TODO: collect all channels into separate voices. Use chords for sim
-   notes on same channel.
+   TODO: 
+   
+     * collect all channels into separate voices. Use chords for sim
+       notes on same channel.
+     * assume voices/assume chords modes.
    
  */
 void
@@ -60,10 +63,23 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
       Cons<Mudela_item>* i = *pp;
       if (i->car_->at_mom () > mom)
 	{
-	  Rational dur = i->car_->at_mom () - mom;
-	  // ugh, need score
-	  Mudela_column* start = mudela_score_l_g->find_column_l (mom);
-	  voice_p->add_item (new Mudela_skip (start, dur));
+	  if (no_rests_b_g && voice_p->last_note_l_)
+	    {
+	      voice_p->last_note_l_->end_column_l_ = i->car_->mudela_column_l_;
+	    }
+	  else
+	    {
+	      /* uh, what about quantisation?  This should probably
+	         use  mom2standardised_dur ()
+		 arg, urg: skip should get duration from start/end columns!
+	   	*/
+
+	      Rational r = i->car_->at_mom () - mom;
+	      // ugh, need score
+	      Mudela_column* start = mudela_score_l_g->find_column_l (mom);
+	      voice_p->add_item (new Mudela_skip (start, r));
+	    }
+
 	  mom = i->car_->at_mom ();
 	  continue;		// unnecessary
 	}
@@ -72,7 +88,22 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
       for (Cons<Mudela_item> *cp = i; cp && cp->car_->at_mom () == mom; cp = cp->next_)
 	now_items.push (i->car_);
 
+#if 0
+      /*
+        Why don't we use <note>, if voice has:
+
+	  <note> <key-change>
+
+        we'd get last_item == key_change -> last_note == 0;
+	*/
       Mudela_note * last_note = dynamic_cast<Mudela_note*> (voice_p->last_item_l_);
+#else
+      /*
+        Not sure, is this better?
+       */
+      Mudela_note * last_note = voice_p->last_note_l_;
+#endif
+
       Link_array<Mudela_item> candidates; 
 
       for (int i=0; last_note && i < now_items.size (); i++)

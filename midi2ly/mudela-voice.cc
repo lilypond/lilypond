@@ -18,12 +18,17 @@ Mudela_voice::Mudela_voice (Mudela_staff* mudela_staff_l)
 {
   mudela_staff_l_ = mudela_staff_l;
   last_item_l_ =0;
+  last_note_l_ =0;
 }
 
 void
 Mudela_voice::add_item (Mudela_item* mudela_item_l)
 {
   last_item_l_  = mudela_item_l;
+  if (Mudela_note* n = dynamic_cast<Mudela_note*> (mudela_item_l))
+    {
+      last_note_l_  = n;
+    }
   mudela_item_l_list_.append (new Cons<Mudela_item> (mudela_item_l, 0));
 }
 

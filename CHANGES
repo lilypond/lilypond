@@ -1,4 +1,20 @@
---- ../lilypond-1.3.76/CHANGES	Fri Aug  4 02:29:02 2000
+--- ../lilypond-1.3.76/CHANGES	Thu Aug  3 20:29:02 2000
+++ b/CHANGES	Tue Aug  8 13:56:35 2000
+@@ -1,3 +1,14 @@
+1.3.76.jcn1
+===========
+
+* Midi2ly bugfix: don't correct quantised durations, don't use tuplets, 
+  double dots etc. when user doesn't want them.  It probably used to
+  work like this, a long time ago.  For some unknown reason, all
+  corrections made by Duration_convert were junked if the corrected
+  duration != exact duration.  Duh.
+
+* Midi2ly: added a new option: --no-rests.
+
+ 1.3.76
+ ======
+ --- ../lilypond-1.3.76/CHANGES	Fri Aug  4 02:29:02 2000
 ++ b/CHANGES	Mon Aug  7 00:19:35 2000
 @@ -1,3 +1,12 @@
 1.3.76.gp1
