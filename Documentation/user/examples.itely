@@ -10,16 +10,20 @@ beautiful printed scores!
 @end menu
 
 @c   more sections to come soon.
+@c  make a note about the \score{} stuff?  It might make more sense
+@c  to note that in the tutorial, and reserve this section purely
+@c  for templates.  -GP
 
 
 @node Single staff
 @section Single staff
+@subsection Notes only
 
 The first example gives you a staff with notes, suitable for a solo
 instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
-@lilypond[verbatim]
+@lilypond[verbatim,raggedright]
 
 melody = \relative c' {
 \clef treble
@@ -37,7 +41,7 @@ melody = \relative c' {
 
 @end lilypond
 
-@*
+@subsection Notes and lyrics
 
 The next example demonstrates a simple melody with lyrics.  Cut and
 paste, add notes, then words for the lyrics.  This example turns off
@@ -45,7 +49,7 @@ automatic beaming, which is common for vocal parts.  If you want to use
 automatic beaming, you'll have to change or comment out the relevant
 line.
 
-@lilypond[verbatim]
+@lilypond[verbatim,raggedright]
 
 melody = \relative c' {
 \clef treble
@@ -62,7 +66,7 @@ text = \lyrics {
 \score{
   <<
     \context Voice = one {
-      \set Staff.autoBeaming = ##f
+      \autoBeamOff
       \melody
       }
     \lyricsto "one" \new Lyrics \text
@@ -73,7 +77,79 @@ text = \lyrics {
 
 @end lilypond
 
+@subsection Notes and chords
 
+Want to prepare a lead sheet with a melody and chords?  Look no farther!
+
+@lilypond[verbatim,raggedright]
+
+melody =  \relative c' {
+\clef treble
+\key c \major
+\time 4/4
+
+  f4 e8[ c] d4 g |
+  a2 ~ a2 |
+}
+
+harmonies = \chords {
+  c4:m f:min7 g:maj c:aug d2:dim b:sus
+}
+
+\score {
+   <<
+    \context ChordNames {
+        \set chordChanges = ##t
+        \harmonies
+    }
+    \context Staff = one \melody
+  >>
+
+  \paper{ }
+  \midi  { \tempo 4=60}
+}
+
+@end lilypond
+
+@subsection Notes, lyrics, and chords.
+
+This template allows you to prepare a song with melody, words, and chords.
+
+@lilypond[verbatim,raggedright]
+
+melody =  \relative c' {
+\clef treble
+\key c \major
+\time 4/4
+
+    a b c d
+}
+
+text = \lyrics {
+    Aaa Bee Cee Dee
+}
+
+harmonies = \chords {
+    a2 c2
+}
+
+\score {
+  <<
+    \context ChordNames {
+        \set chordChanges = ##t
+        \harmonies
+    }
+    \context Voice = one {
+	\autoBeamOff
+        \melody
+    }
+    \lyricsto "one" \new Lyrics \text
+  >>
+  \paper { }
+  \midi  { \tempo 4=60}
+}
+
+@end lilypond
 
 
 
