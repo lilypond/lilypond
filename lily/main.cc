@@ -10,6 +10,7 @@
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
+#include <stdio.h>
 
 #include "config.h"
 
@@ -211,12 +212,14 @@ notice ()
 	     "USA.\n");
 }
 
+String prefix_directory;
+
 void
 setup_paths ()
 {
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
-  String prefix_directory;
+
   if (env_lily)
     prefix_directory = env_lily;
 
@@ -266,6 +269,21 @@ setup_paths ()
 	i++;
 #endif
     }
+
+  char const * glp = getenv ("GUILE_LOAD_PATH");
+  
+  String new_glp (glp? glp : "") ;
+  if (glp)
+    new_glp = ":" + new_glp;
+  new_glp = prefix_directory + new_glp;
+
+  /*
+    Yes , so setenv is not posix.
+
+    I say, fuckem'all.
+   */
+
+  setenv ("GUILE_LOAD_PATH", new_glp.ch_C(), 1);
 }
 
 /**
@@ -309,15 +327,12 @@ format_to_ext (String format)
 }
 
 void
-main_prog (void * closure, int, char**)
+main_prog (void * , int, char**)
 {
   /*
     need to do this first. Engravers use lily.scm contents.
    */
   init_lily_guile ();
-  if (verbose_global_b)
-    progress_indication ("\n");
-  read_lily_scm_file ("lily.scm");
   cout << endl;
 
   call_constructors ();

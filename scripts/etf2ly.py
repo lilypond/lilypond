@@ -256,7 +256,8 @@ class Global_measure:
 	def set_timesig (self, finale):
 		(beats, fdur) = finale
 		(log, dots) = EDU_to_duration (fdur)
-		assert dots == 0
+		if dots <> 0:
+			sys.stderr.write ("\nHuh? Beat duration has a dot? (EDU Duration = %d)" % fdur) 
 		self.timesig = (beats, log)
 
 	def length (self):
@@ -992,8 +993,11 @@ class Etf_file:
 				
 				frame_obj_list = [None]
 				for frno in m.frames:
-					fr = self.frames[frno]
-					frame_obj_list.append (fr)
+					try:
+						fr = self.frames[frno]
+						frame_obj_list.append (fr)
+					except IndexError:
+						sys.stderr.write ("\nNon-existent frame %d"  % frno)
 
 				m.frames = frame_obj_list
 				for fr in frame_obj_list[1:]:

@@ -245,14 +245,23 @@ void add_scm_init_func (void (*f) ())
 
   scm_init_funcs_->push (f);
 }
+
 extern  void init_cxx_function_smobs ();
 
 void
 init_lily_guile ()
 {
+  SCM last_mod = scm_current_module ();
+  scm_set_current_module (scm_c_resolve_module ("guile"));
+
   init_cxx_function_smobs ();
   for (int i=scm_init_funcs_->size () ; i--;)
- (scm_init_funcs_->elem (i)) ();
+    (scm_init_funcs_->elem (i)) ();
+
+  if (verbose_global_b)
+    progress_indication ("\n");
+  read_lily_scm_file ("lily.scm");
+  scm_set_current_module (last_mod);
 }
 
 unsigned int ly_scm_hash (SCM s)
@@ -545,5 +554,5 @@ ly_truncate_list (int k, SCM l )
 
 SCM my_gh_symbol2scm (const char* x)
 {
-  return gh_symbol2scm (x);
+  return gh_symbol2scm ((char*)x);
 }

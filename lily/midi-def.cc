@@ -22,8 +22,20 @@ Midi_def::Midi_def ()
 int
 Midi_def::get_tempo_i (Moment one_beat_mom)
 {
-  Moment w = *unsmob_moment (scope_p_->scm_elem ("whole-in-seconds"));
-  Moment wholes_per_min = Moment (60) /w;
+  SCM wis  = ly_symbol2scm ("whole-in-seconds");
+  Moment *w = unsmob_moment (scope_p_->scm_elem (wis));
+
+  Moment wholes_per_min = Moment (60);
+  if (!w)
+    {
+      programming_error  ("wholes-in-seconds not set.");
+      wholes_per_min /= 4;
+    }
+  else
+    {
+      wholes_per_min /= *w; 
+    }
+  
   int beats_per_min =  int ((wholes_per_min / one_beat_mom).main_part_);
   return int (beats_per_min);
 }

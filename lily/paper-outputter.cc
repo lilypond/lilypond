@@ -8,14 +8,13 @@
 */
 
 #include <time.h>
-#include <fstream.h>
+
 #include <math.h>
-#include <iostream.h>
+
 
 #include "dimensions.hh"
 #include "virtual-methods.hh"
 #include "paper-outputter.hh"
-#include "paper-stream.hh"
 #include "molecule.hh"
 #include "array.hh"
 #include "string-convert.hh"
@@ -32,56 +31,32 @@
 /*
   Ugh, this is messy.
  */
-
 Paper_outputter::Paper_outputter (String name)
 {
-  stream_p_ =  new Paper_stream (name);
-
- /*
-   lilypond -f scm x.ly
-   guile -s x.scm
-  */
-  verbatim_scheme_b_ = output_format_global == "scm";
-
-  if (verbatim_scheme_b_)
+  if (safe_global_b)
     {
-	*stream_p_ << ""
-	  ";;; Usage: guile -s x.scm > x.tex\n"
-	  " (primitive-load-path 'standalone.scm)\n"
-	  "; (scm-tex-output)\n"
-	  " (scm-ps-output)\n"
-	  " (map (lambda (x) (display (ly-eval x))) ' (\n"
-	;
+      gh_define ("security-paranoia", SCM_BOOL_T);      
     }
+  
+  file_ = scm_open_file (ly_str02scm (name.ch_C()),
+			    ly_str02scm ("w"));
+  
+  SCM exp = scm_list_n (ly_symbol2scm ("find-dumper"),
+			ly_str02scm (output_format_global.ch_C()),
+			SCM_UNDEFINED);
 
+  output_func_  = scm_primitive_eval (exp);
 }
 
 Paper_outputter::~Paper_outputter ()
 {
-  if (verbatim_scheme_b_)
-    {
-      *stream_p_ << "))";
-    }
-  delete stream_p_;
+  
 }
 
 
 void
 Paper_outputter::output_header ()
 {
-  if (safe_global_b)
-    {
-      gh_define ("security-paranoia", SCM_BOOL_T);      
-    }
-
-  SCM exp = scm_list_n (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
-		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
-		     SCM_UNDEFINED);
-  exp = scm_primitive_eval (exp);
-  scm_primitive_eval (exp);
-  
-  String creator = gnu_lilypond_version_str ();
-  
   String       generate = _ (", at ");
   time_t t (time (0));
   generate += ctime (&t);
@@ -91,13 +66,14 @@ Paper_outputter::output_header ()
     Make fixed length time stamps
    */
   generate = generate + to_str (' ' * (120 - generate.length_i ())>? 0)  ;
+  String creator = "lelie";
   
-  SCM args_scm = 
-    scm_list_n (ly_str02scm (creator.ch_l ()),
-	     ly_str02scm (generate.ch_l ()), SCM_UNDEFINED);
+  SCM args_scm = scm_list_n (ly_str02scm (creator.ch_C ()),
+			     ly_str02scm (generate.ch_C ()), SCM_UNDEFINED);
 
 
   SCM scm = gh_cons (ly_symbol2scm ("header"), args_scm);
+
   output_scheme (scm);
 }
 
@@ -112,49 +88,10 @@ Paper_outputter::output_comment (String str)
 		 );
 }
 
-
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-  /*
-    we don't rename dump_scheme, because we might in the future want
-    to remember Scheme. We don't now, because it sucks up a lot of memory.
-  */
-  dump_scheme (scm);
-}
-
-void flatten_write (SCM x, Paper_stream*ps)
-{
-  if (ly_pair_p (x))
-    {
-      flatten_write (ly_car (x),ps);
-      flatten_write (ly_cdr (x),ps);
-    }
-  else if (gh_string_p (x))
-    {
-      *ps  << String ( SCM_STRING_CHARS(x)) ;
-    }
-}
-
-
-/*
-  UGH.
-
-  Should probably change interface to do less eval (symbol), and more
-  apply (procedure, args)
- */
-void
-Paper_outputter::dump_scheme (SCM s)
-{
-  if (verbatim_scheme_b_)
-    {
-      *stream_p_ << ly_scm2string (ly_write2scm (s));
-    }
-  else
-    {
-      SCM result = scm_primitive_eval (s);
-      flatten_write (result, stream_p_);
-    }
+  scm_apply_2 (output_func_, scm, file_, SCM_EOL);
 }
 
 void
@@ -166,7 +103,6 @@ Paper_outputter::output_scope (Scope *scope, String prefix)
       SCM k = ly_caar (s);
       SCM v = ly_cdar (s);
       String s = ly_symbol2string (k);
-
       
       if (gh_string_p (v))
 	{
@@ -229,24 +165,12 @@ Paper_outputter::output_int_def (String k, int v)
 }
 
 void
-Paper_outputter::output_string (SCM str)
+Paper_outputter::write_header_field_to_file (String filename, SCM key, SCM value)
 {
-  *stream_p_ <<  ly_scm2string (str);
-}
-
-void
-Paper_outputter::write_header_field_to_file (String filename, String key, String value)
-{
-  if (filename != "-")
-    filename += String (".") + key;
-  progress_indication (_f ("writing header field `%s' to `%s'...",
-			   key,
-			   filename == "-" ? String ("<stdout>") : filename));
-  
-  ostream *os = open_file_stream (filename);
-  *os << value;
-  close_file_stream (os);
-  progress_indication ("\n");
+  output_scheme (scm_list_n (ly_symbol2scm ("header-to-file"),
+			     ly_str02scm (filename.ch_C()),
+			     ly_quote_scm (key), value,
+			     SCM_UNDEFINED));
 }
 
 void
@@ -265,7 +189,7 @@ Paper_outputter::write_header_fields_to_file (Scope * header)
 	    {
 	      s = ly_scm2string (ly_cdr (val));
 	      /* Always write header field file, even if string is empty ... */
-	      write_header_field_to_file (basename_, key, s);
+	      write_header_field_to_file (basename_ , ly_car (val), ly_cdr (val));
 	    }
 	}
     }

@@ -114,10 +114,14 @@ Line_of_score::output_lines ()
 	{
 	  SCM lastcol =  ly_car (line_l->get_grob_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
-	  SCM inter = e->get_grob_property ("between-system-string");
+
+	  SCM between = ly_symbol2scm ("between-system-string");
+	  SCM inter = e->internal_get_grob_property (between);
 	  if (gh_string_p (inter))
 	    {
-	      pscore_l_->outputter_l_->output_string (inter);	      
+	      pscore_l_->outputter_l_
+		->output_scheme (scm_list_n (between, 
+					     inter, SCM_UNDEFINED));	      
 	    }
 	}
     }
@@ -371,8 +375,8 @@ Line_of_score::post_processing (bool last_line)
    */
   SCM font_names = ly_quote_scm (paper_l ()->font_descriptions ());  
   output_scheme (scm_list_n (ly_symbol2scm ("define-fonts"),
-					font_names,
-					SCM_UNDEFINED));
+			     font_names,
+			     SCM_UNDEFINED));
 
   /*
     line preamble.

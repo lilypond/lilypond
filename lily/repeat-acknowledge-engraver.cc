@@ -92,14 +92,23 @@ Repeat_acknowledge_engraver::process_music ()
     s = ":|";
 
   /*
-    TODO: line breaks might be allowed if we set whichBar to "". 
+    TODO: line breaks might be allowed if we set whichBar to "".
    */
-  if (s != "" || (volta_found && !gh_string_p (get_property ("whichBar"))))
+
+  /*
+    We only set the barline if we wouldn't overwrite a previously set
+    barline.
+   */
+  SCM wb = get_property ("whichBar");
+  SCM db  = get_property ("defaultBarType");
+  if (!gh_string_p (wb) || gh_equal_p (db, wb))
     {
-      daddy_trans_l_->set_property ("whichBar", ly_str02scm (s.ch_C ()));
+      if (s != "" || (volta_found && !gh_string_p (wb)))
+	{
+	  daddy_trans_l_->set_property ("whichBar", ly_str02scm (s.ch_C ()));
+	}
     }
 }
-
 
 ENTER_DESCRIPTION(Repeat_acknowledge_engraver,
 /* descr */       "Acknowledge repeated music, and convert the contents of

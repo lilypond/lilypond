@@ -32,7 +32,8 @@
 # the default placement for text in abc is above the staff.
 # %%LY now supported.
 # \breve and \longa supported.
-			
+# M:none doesn't crash lily.
+
 # Limitations
 #
 # Multiple tunes in single file not supported
@@ -163,6 +164,7 @@ def dump_header (outf,hdr):
 	ks = hdr.keys ()
 	ks.sort ()
 	for k in ks:
+ 		hdr[k] = re.sub('"', '\\"', hdr[k])		
 		outf.write ('\t%s = "%s"\n'% (k,hdr[k]))
  	outf.write ('}')
 
@@ -225,7 +227,7 @@ def try_parse_q(a):
 		array2=string.split(array[1],'=')
 		denominator=array2[0]
 		perminute=array2[1]
-		duration=str(string.atof(denominator)/string.atoi(numerator))
+		duration=str(string.atoi(denominator)/string.atoi(numerator))
 		midi_specs=string.join(["\\tempo", duration, "=", perminute])
 	else:
 		sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
@@ -489,8 +491,10 @@ def try_parse_tuplet_begin (str, state):
 	if re.match ('\([2-9]', str):
 		dig = str[1]
 		str = str[2:]
-		state.parsing_tuplet = string.atoi (dig[0])
-		
+ 		prev_tuplet_state = state.parsing_tuplet
+  		state.parsing_tuplet = string.atoi (dig[0])
+ 		if prev_tuplet_state:
+ 			voices_append ("}")		
 		voices_append ("\\times %s {" % tup_lookup[dig])
 	return str
 
@@ -585,7 +589,10 @@ def try_parse_header_line (ln, state):
 			a = re.sub('[ \t]*$','', a)	#strip trailing blanks
 			if header.has_key('title'):
 				if a:
-					header['title'] = header['title'] + '\\\\\\\\' + a
+ 					if len(header['title']):
+ 						header['title'] = header['title'] + '\\\\\\\\' + a
+ 					else:
+ 						header['subtitle'] = a
 			else:
 				header['title'] =  a
 		if g == 'M':	# Meter
@@ -603,7 +610,8 @@ def try_parse_header_line (ln, state):
 				set_default_len_from_time_sig (a)
 			else:
 				length_specified = 0
-			voices_append ('\\time %s' % a)
+			if not a == 'none':
+				voices_append ('\\time %s' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
 			a = check_clef(a)
@@ -712,6 +720,9 @@ def duration_to_lilypond_duration  (multiply_tup, defaultlen, dots):
 	if base == 1:
 		if (multiply_tup[0] / multiply_tup[1])  == 2:
 			base = '\\breve'
+ 		if (multiply_tup[0] / multiply_tup[1]) == 3:
+ 			base = '\\breve'
+ 			dots = 1
 		if (multiply_tup[0] / multiply_tup[1]) == 4:
 			base = '\longa'
 	return '%s%s' % ( base, '.'* dots)

@@ -289,7 +289,7 @@ void
 Unfolded_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = report_to_l ()->get_property (reps);
+  SCM current_reps = report_to_l ()->internal_get_property (reps);
 
   Translator_group * where = report_to_l ()->where_defined (reps);
   if (where

@@ -101,31 +101,6 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (string-encode-integer (quotient i 26))))))
 
 
-(define (tex-encoded-fontswitch name-mag)
-  (let* ((iname-mag (car name-mag))
-	 (ename-mag (cdr name-mag)))
-    (cons iname-mag
-	  (cons ename-mag
-		(string-append  "magfont"
-			  (string-encode-integer
-			   (hashq (car ename-mag) 1000000))
-			  "m"
-			  (string-encode-integer
-			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
 
-(define (define-fonts internal-external-name-mag-pairs)
-  (set! font-name-alist (map tex-encoded-fontswitch
-			     internal-external-name-mag-pairs))
-  (apply string-append
-	 (map (lambda (x)
-		(font-load-command (car x) (cdr x)))
-	      (map cdr font-name-alist))))
 
-;; urg, how can exp be #unspecified?  -- in sketch output
-(define (xfontify name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
-		 exp))
 
-(define (fontify name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
-		 (if (string? exp) exp "")))

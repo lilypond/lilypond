@@ -2,6 +2,8 @@ depth = ..
 
 STEPMAKE_TEMPLATES=metafont metapost install install-out
 LOCALSTEPMAKE_TEMPLATES=asciifont
+
+
 include $(depth)/make/stepmake.make 
 
 AF_FILES = $(wildcard *.af) 
@@ -24,7 +26,10 @@ LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
+PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+PFB_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfb))
+
+pfb: $(PFB_FILES) 
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
@@ -52,7 +57,7 @@ INSTALLATION_OUT_FILES4=$(PFA_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: $(ALL_GEN_FILES)
+default: $(PFA_FILES) $(ALL_GEN_FILES)
 
 ##
 ## todo: this also depends on .tfm, FIXME.

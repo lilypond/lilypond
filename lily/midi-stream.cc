@@ -6,8 +6,8 @@
   (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <fstream.h>
-#include "paper-stream.hh"
+
+#include "stream.hh"
 #include "string.hh"
 #include "string-convert.hh"
 #include "main.hh"

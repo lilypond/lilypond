@@ -155,14 +155,6 @@ It is available at
 FTP directory for @code{geometry}}. This package is normally included
 with the @TeX{} distribution.
 
-@item MetaPost, needed for generating PostScript fonts. Please
-note that tetex-0.4pl8 (included with Red Hat 5.x) does not include
-@file{mfplain.mp}, which is needed for producing the scalable font
-files.
-
-If you don't have MetaPost and don't want to use PostScript output, then
-edit @file{mf/GNUmakefile}, removing the line saying @code{PFA_FILES=}.
-
 @item kpathsea, a library for searching (@TeX{}) files.  @code{kpathsea} is
 usually included with your installation of @TeX{}.  You may need to install
 a tetex-devel or tetex-dev package too.
@@ -176,6 +168,25 @@ configure something like:
 @example
 ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 @end example
+
+
+@item pktrace, [OPTIONAL], needed for generating PostScript Type1
+fonts. Get it from
+ @uref{http://www.cs.uu.nl/~hanwen/public/software/pktrace-0.1.tar.gz}
+
+@item autotrace-0.27a, [OPTIONAL], needed for generating PostScript Type1
+fonts. You must apply the patch included pktrace-0.1 first.
+@uref{http://autotrace.sourceforge.net}.
+ 
+@item MetaPost [OPTIONAL] needed for generating PostScript Type3 fonts. Please
+note that tetex-0.4pl8 (included with Red Hat 5.x) does not include
+@file{mfplain.mp}, which is needed for producing the scalable font
+files.
+
+If you don't have MetaPost and don't want to use PostScript output, then
+edit @file{mf/GNUmakefile}, removing the line saying @code{PFA_FILES=}.
+
+
 
 @end itemize
 

@@ -23,5 +23,5 @@ void
 call_constructors ()
 {
   for (int i=0; i < ctor_global_static_arr_p_->size (); i++)
- (ctor_global_static_arr_p_->elem (i)) ();
+    (ctor_global_static_arr_p_->elem (i)) ();
 }

@@ -13,6 +13,9 @@
 
 ;;; General settings
 
+
+
+
 (debug-enable 'backtrace)
 
 
@@ -110,25 +113,49 @@
 	    (symbol->string (car y))))
 
 
-(map (lambda (x) (eval-string (ly-gulp-file x)))
-     '("output-lib.scm"
-       "tex.scm"
-       "ps.scm"
-       "sketch.scm"
-       "pdf.scm"
-       "pdftex.scm"
-       "ascii-script.scm"
-       ))
-
-(define ctor list)
-
-
 (define (ly-load x) (eval-string (ly-gulp-file x)))
+
+(ly-load "output-lib.scm")
+
+
+
+(use-modules (scm tex)
+	     (scm ps)
+	     (scm pysk)
+	     (scm ascii-script)
+	     )
+
+(define output-alist
+  `(
+    ("tex" . ,tex-output-expression)
+    ("ps" . ,ps-output-expression)
+    ("scm" . ,write)
+    ("as" . ,as-output-expression)
+    ("pysk" . ,pysk-output-expression)
+))
+
+
+
+
+(define (find-dumper format )
+  (let*
+      ((d (assoc format output-alist)))
+    
+    (if (pair?  d)
+		(cdr d)
+	     scm-output-expression)
+	    ))
+
 
 (if (not standalone)
     (map ly-load
 					; load-from-path
-	 '("c++.scm"
+	 '("output-lib.scm"
+	   "sketch.scm"
+	   "pdf.scm"
+	   "pdftex.scm"
+	   "ascii-script.scm"
+      	   "c++.scm"
 	   "grob-property-description.scm"
 	   "translator-property-description.scm"
 	   "context-description.scm"

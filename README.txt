@@ -86,7 +86,7 @@ Caveats
 files, eg.,
      rm `find /var/lib/texmf/fonts -name 'feta*'`
 
-   a script to do this for you is in `buildscripts/clean-fonts.sh'
+   a script to do this for you is in `buildscripts/out/clean-fonts'
 
 Bugs
 ====

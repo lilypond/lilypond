@@ -1,5 +1,5 @@
 %define name lilypond
-%define version 1.5.20
+%define version 1.5.21
 %define release 1mdk
 
 Name: %{name}
@@ -100,6 +100,9 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 /usr/bin/mktexlsr
 %_install_info lilypond.info
 %_install_info lilypond-internals.info
+
+echo 'Please logout first before using LilyPond.'
+
 
 %preun
 %_remove_install_info lilypond.info
