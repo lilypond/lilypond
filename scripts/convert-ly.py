@@ -1607,6 +1607,9 @@ def conv (str):
 		return "#'font-size = #%d" % (2*string.atoi (match.group (1))) 
 		
 	str =re.sub (r"#'font-relative-size\s*=\s*#([0-9-]+)", func, str)
+	str =re.sub (r"#'font-family\s*=\s*#'ancient",
+		     r"#'font-family = #'music", str)
+	
 	return str
 
 conversions.append (((2,1,1), conv, """font-relative-size -> font-size"""))

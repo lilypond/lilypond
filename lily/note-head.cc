@@ -278,14 +278,18 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
       SCM scm_font_char = scm_call_2 (proc, log, style);
       String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
-      int k = fm->name_to_index (font_char);
-      Box b = fm->get_indexed_char (k);
-      Offset wxwy = fm->get_indexed_wxwy (k);
-      Interval v = b[a];
-      if (!v.empty_b ())
-	return 2 * (wxwy[a] - v.center()) / v.length ();
-    }
+      int k = fm->name_to_index (font_char) ;
 
+      if (k >= 0)
+	{
+	  Box b = fm->get_indexed_char (k);
+	  Offset wxwy = fm->get_indexed_wxwy (k);
+	  Interval v = b[a];
+	  if (!v.empty_b ())
+	    return 2 * (wxwy[a] - v.center()) / v.length ();
+	}
+    }
+  
   /*
     Fallback
    */

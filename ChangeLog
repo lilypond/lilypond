@@ -1,5 +1,8 @@
 2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.func): add rule for
+	deprecated #'ancient font family
+
 	* lily/mark-engraver.cc (process_music): only set rehearsalMark if
 	it is a string or number.
 
