@@ -1,8 +1,8 @@
 \version "2.1.26"
-% possible rename to ancient-something.
 
-\header { texidoc	= "Ancient Vaticana
-Vaticana ligature test. "
+\header { texidoc	= "@cindex Ancient Vaticana
+Vaticana ligature uses four staff lines, special clef, an notes
+calligraphic notes. "
 }
 
 \include "gregorian-init.ly"
