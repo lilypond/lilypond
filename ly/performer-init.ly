@@ -21,21 +21,22 @@ StaffContext = \translator {
 VoiceContext = \translator {
 	\type "Performer_group_performer"
 	\name Voice
-% All notes fall to Grace if you leave Thread out (huh?)
 	\consists "Dynamic_performer"
 	\consists "Span_dynamic_performer"
 	\consists "Piano_pedal_performer"
-	\consists "Note_performer"
-	\consists "Tie_performer"
+	\accepts "Thread"
 }
 \translator { \VoiceContext }
 
 ThreadContext = \translator {
 	\type "Performer_group_performer"
 	\name Thread
+	\consists "Note_performer"
+	\consists "Tie_performer"
 }
 \translator { \ThreadContext }
 
+% retain for compatibility reasons (FIXME: convert-ly)
 \translator {
 	\type "Performer_group_performer"
 	\name Grace
