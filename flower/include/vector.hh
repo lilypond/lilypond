@@ -23,6 +23,11 @@ public:
 	dat.set_size(n);
 	fill(0);
     }
+    void set_dim(int i)
+    {
+	dat.set_size(i);
+    }
+	
     void insert(Real v, int i) {
 	dat.insert(v,i);
     }
