@@ -1,8 +1,3 @@
-ifneq ($(outdir),./out)
-$(outdir)/%.1: out/%.1
-	cp $< $@
-endif
-
 # We must invoke the generated $(outdir)/help2man script instead of
 # the help2man.pl source, which means that the buildscripts directory
 # must be built first.
@@ -22,16 +17,19 @@ endif
 
 HELP2MAN_COMMAND = $(PERL) $(builddir)/buildscripts/$(outbase)/help2man $< > $@
 
-ifeq ($(cross),)
+ifeq ($(CROSS),)
 $(outdir)/%.1: $(outdir)/%
 	$(HELP2MAN_COMMAND)
 else
-# When cross building, some manpages will not build because the executable
-# does not run.  We don not want to disable building manpages, because
-# the cross build process may generate them using a native executable.
-$(outdir)/%.1: $(outdir)/%
-	$(HELP2MAN_COMMAND) || \
-	(echo ""; echo "Apparently the man pages failed to build. This is";\
-        echo "no problem, since they don't contain any information anyway.";\
-        echo "Please run make again, and be prepared for NO manual pages.")
+# When cross building, some manpages will not build because the
+# executable does not run.  We assume the manpages to be generated
+# during a previous compile for the build host, with config=for-build,
+# in the directory $(outdir)-for-build.
+$(outdir)/%.1: $(outdir:%=%-for-build)/%.1
+	cp $< $@
+endif
+
+ifneq ($(outdir),./out)
+$(outdir)/%.1: out/%.1
+	cp $< $@
 endif

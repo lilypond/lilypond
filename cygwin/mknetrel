@@ -104,13 +104,18 @@ prebuild () {
 	mkdir -p $inst-$i || exit 1
     done
     
-    # Build for build, generating doc
+    # Build for build-host, generating doc
     cd $build || exit 1
-    
-    #PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc || exit 1
-    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc web || exit 1
-    for i in $(find . -path "out-for-build/*.1"); do
-	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
+
+    PATH=/bin:/usr/bin:$PATH \
+	PYTHONPATH=$build/python/out-for-build:$PYTHONPATH \
+	make conf=for-build all doc web || exit 1
+
+    # as of 1.9.9, this should no longer be necessary:
+    for i in $(find . -path ".*out-for-build/*.1"); do
+	o=$(dirname $(dirname $i))/out
+	mkdir -p $o
+	cp -pv $i $o/$(basename $i)
     done
 
     mkdir -p mf/out
