@@ -1,5 +1,7 @@
 2003-03-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/beam-manual-beaming.ly (texidoc): new file.
+
 	* lily/sequential-iterator.cc (descend_to_child): call
 	descend_to_child() for all types of music.
 
