@@ -563,7 +563,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     #
     # For now let people define these in their environments
     #
-    : ${MFPLAIN_MP='/usr/share/texmf/metapost/base/mfplain.mp'}
+    : ${MFPLAIN_MP=`kpsewhich mfplain.mp`}
     : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
 
     rm -f mfput.*

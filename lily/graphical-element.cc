@@ -50,7 +50,10 @@ Graphical_element::relative_coordinate (Graphical_element const*e, Axis a) const
 Graphical_element * 
 Graphical_element::common_refpoint (Graphical_element const* s, Axis a) const
 {
-  return  (dim_cache_[a]->common_refpoint (s->dim_cache_[a])) ->element_l ();
+  Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
+  if (!dim)
+    programming_error ("No  common reference point");
+  return  dim ? dim->element_l () : 0;
 }
 
 void
