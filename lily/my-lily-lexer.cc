@@ -92,15 +92,15 @@ My_lily_lexer::lookup_keyword (String s)
   return keytable_p_->lookup (s.ch_C ());
 }
 
-Identifier*
+SCM
 My_lily_lexer::lookup_identifier (String s)
 {
   SCM sym = ly_symbol2scm (s.ch_C());
   
   for (int i = scope_l_arr_.size (); i--; )
     if (scope_l_arr_[i]->elem_b (sym))
-      return scope_l_arr_[i]->elem(sym);
-  return 0;
+      return scope_l_arr_[i]->scm_elem(sym);
+  return SCM_UNDEFINED;
 }
 
 void
@@ -111,23 +111,14 @@ My_lily_lexer::start_main_input ()
 }
 
 void
-My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
+My_lily_lexer::set_identifier (String name_str, SCM s)
 {
-  Identifier *old =0;
-  if (scope_l_arr_.top ()->elem_b (name_str))
-    old = scope_l_arr_.top ()->elem(name_str);
- 
-   
-  if  (old)
-    {
-      delete old;
-    }
   if (lookup_keyword (name_str) >= 0)
     {
       warning (  _f ("Identifier name is a keyword: `%s'", name_str));
     }
   
-  scope_l_arr_.top ()->elem (name_str) = i;
+  scope_l_arr_.top ()->set (name_str, s);
 }
 
 My_lily_lexer::~My_lily_lexer()
