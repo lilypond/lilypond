@@ -86,7 +86,7 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);
 extern SCM pitch_less_proc;
-Pitch interval (Pitch const & from , Pitch const & to );
+Pitch pitch_interval (Pitch const & from , Pitch const & to );
 
 #endif /* MUSICAL_PITCH_HH */
 

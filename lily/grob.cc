@@ -617,7 +617,7 @@ Grob::mark_smob (SCM ses)
 int
 Grob::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Grob *sc = (Grob *) ly_cdr (s);
+  Grob *sc = (Grob *) SCM_CELL_WORD_1 (s);
 
   scm_puts ("#<Grob ", port);
   scm_puts ((char *) sc->name ().to_str0 (), port);

@@ -227,7 +227,9 @@ the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "
 Function taking a string (instrument name), and returning a (@var{min} . @var{max}) pair of numbers for the loudness range of the instrument.
 ")
-     (instrumentTransposition ,ly:pitch? "Define the transposition of the instrument. This is used to transpose the MIDI output, and @code{\\quote}s.")
+     (instrumentTransposition ,ly:pitch? "Defines the transposition of
+the instrument. Its value is the pitch that sounds like middle C. This
+is used to transpose the MIDI output, and @code{\\quote}s.")
 
      (keyAccidentalOrder ,list? " Alist that defines in what order
 alterations should be printed.  The format is (@var{name}

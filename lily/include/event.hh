@@ -26,7 +26,6 @@ public:
   Event ();
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
   virtual void compress (Moment);
-  virtual void transpose (Pitch);
   virtual Moment get_length () const;
   virtual Pitch to_relative_octave (Pitch);
 };

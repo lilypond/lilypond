@@ -193,6 +193,8 @@ Voice-state objects
   (set! part-combine-listener x))
 
 (define-public (notice-the-events-for-pc context lst)
+  "add CONTEXT-ID, EVENT list to NOTICED variable."
+  
   (set! noticed (acons (ly:context-id context) lst noticed)))
 
 (define-public (make-part-combine-music music-list)
@@ -508,9 +510,11 @@ the mark when there are no spanners active."
   (let* ((tab (eval 'musicQuotes (current-module) ))
 	 (context (ly:run-translator (context-spec-music mus 'Voice)
 				     part-combine-listener))
-	 (evs (last-pair noticed)))
-    (if (pair? evs)
+	 (first-voice-handle (last-pair noticed)))
+
+    (if (pair? first-voice-handle)
 	(hash-set! tab name
 		   ;; cdr : skip name string
-		   (list->vector (reverse! (cdar evs) '()))))))
+		   (list->vector (reverse! (cdar first-voice-handle)
+					   '()))))))
 

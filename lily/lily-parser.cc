@@ -74,7 +74,7 @@ int
 Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
   scm_puts ("#<my_lily_parser ", port);
-  Lily_parser *parser = (Lily_parser*) ly_cdr (s);
+  Lily_parser *parser = (Lily_parser*) SCM_CELL_WORD_1 (s);
   (void) parser;
   scm_puts (" >", port);
   return 1;

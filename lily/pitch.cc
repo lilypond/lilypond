@@ -149,7 +149,7 @@ Pitch::transpose (Pitch delta)
 }
 
 Pitch
-interval (Pitch const & from , Pitch const & to )
+pitch_interval (Pitch const & from , Pitch const & to )
 {
   int sound = to.quartertone_pitch ()  - from.quartertone_pitch ();
   Pitch pt (to.get_octave () - from.get_octave (),
@@ -257,7 +257,7 @@ IMPLEMENT_SIMPLE_SMOBS (Pitch);
 int
 Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Pitch *r = (Pitch *) ly_cdr (s);
+  Pitch *r = (Pitch *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Pitch ", port);
   scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
   scm_puts (" >", port);
@@ -267,8 +267,8 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 Pitch::equal_p (SCM a , SCM b)
 {
-  Pitch *p = (Pitch *) ly_cdr (a);
-  Pitch *q = (Pitch *) ly_cdr (b);
+  Pitch *p = (Pitch *) SCM_CELL_WORD_1 (a);
+  Pitch *q = (Pitch *) SCM_CELL_WORD_1 (b);
 
   bool eq = p->notename_ == q->notename_
     && p->octave_ == q->octave_
@@ -394,7 +394,7 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
   SCM_ASSERT_TYPE (p, pitch, SCM_ARG1, __FUNCTION__, "Pitch");
   SCM_ASSERT_TYPE (r, root, SCM_ARG2, __FUNCTION__, "Pitch");
 
-  return interval (*r, *p).smobbed_copy ();
+  return pitch_interval (*r, *p).smobbed_copy ();
 }
 
 int

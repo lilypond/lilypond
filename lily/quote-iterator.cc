@@ -164,6 +164,10 @@ Quote_iterator::process (Moment m)
   if (scm_is_pair (entry))
     {
       Pitch * quote_pitch = unsmob_pitch (ly_cdar (entry));
+
+      /*
+	The pitch that sounds like central C
+       */
       Pitch * me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
       
       for (SCM s = ly_cdr (entry); scm_is_pair (s); s = ly_cdr (s))
@@ -183,7 +187,7 @@ Quote_iterator::process (Moment m)
 		  if (me_pitch)
 		    mp = *me_pitch;
 
-		  Pitch diff = interval (mp, qp);
+		  Pitch diff = pitch_interval (qp, mp);
 
 		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
 		  mus = unsmob_music (copy);

@@ -43,7 +43,7 @@ Paper_system::mark_smob (SCM smob)
 int
 Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Paper_system *p = (Paper_system*) ly_cdr (smob);
+  Paper_system *p = (Paper_system*) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
   scm_puts (" ", port);

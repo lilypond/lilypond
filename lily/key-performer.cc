@@ -57,7 +57,7 @@ Key_performer::create_audio_elements ()
 		  
       SCM c_pitchlist
 	= ly_transpose_key_alist (pitchlist,
-				  interval (key_do, c_do).smobbed_copy ());
+				  pitch_interval (key_do, c_do).smobbed_copy ());
 
       /* MIDI keys are too limited for lilypond scales.
 	 We check for minor scale and assume major otherwise.  */

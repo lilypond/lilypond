@@ -298,6 +298,12 @@ saving keystrokes (@inputfileref{input/test,music-box.ly}) and
 exporting LilyPond input to other formats
 (@inputfileref{input/test,to-xml.ly})
 
+@cindex internal storage
+@cindex @code{\displayMusic}
+When writing a music function, it is often instructive to inspect how
+a music expression is stored internally. This can be done with the
+music function @code{\displayMusic}
+
 @seealso
 
 @file{scm/music-functions.scm}, @file{scm/music-types.scm},
