@@ -20,7 +20,7 @@ class Paper_line
   bool is_title_;
   
 public:
-  int penalty_;
+  Real penalty_;
   int number_;
 
   Paper_line (Stencil, bool);

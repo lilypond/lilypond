@@ -13,13 +13,10 @@
 ;;; This is not optimal page breaking, this is optimal distribution of
 ;;; lines over pages; line breaks are a given.
 
-;;; TODO:
-;;;    - user tweaking:
-;;;       + \pagebreak, \nopagebreak
-;;;       + #pages?
-;;;    - short circut SCORE=-1 (dismiss path)
-;;;    - density scoring
-
+; TODO:
+;
+; - density scoring
+;
 
 (define-class <optimally-broken-page-node> ()
   (prev #:init-value '() #:accessor node-prev #:init-keyword #:prev)
@@ -64,13 +61,15 @@ unused, at the moment."
     ;; FIXME, simplistic
     (let* ((left (- available used))
 	   ;; scale-independent
-	   (relative-empty (/ left available)))
+	   (relative (abs (/ left available))))
       (if (negative? left)
-	  ;; too full
-	  MAXPENALTY
+
+	  ;; too full, penalise more
+	  (* 10 (1+ relative) relative)
+	  
 	  ;; Convexity: two half-empty pages is better than 1 completely
 	  ;; empty page
-	  (* (1+ relative-empty) relative-empty))))
+	  (* (1+ relative) relative))))
 
   (define (page-height page-number last?)
     (let ((h text-height))
@@ -90,10 +89,8 @@ is what have collected so far, and has ascending page numbers."
 	(get-path (node-prev node) (cons node done))
 	done))
 
-  (define (add-penalties . lst)
-    (if (find negative? lst) ;; todo: rm support for this
-	-1
-	(apply + lst)))
+  (define (combine-penalties user page prev)
+    (+ prev page user))
 
   (define (walk-paths done-lines best-paths current-lines  last? current-best)
     "Return the best optimal-page-break-node that contains
@@ -113,7 +110,7 @@ CURRENT-BEST is the best result sofar, or #f."
 	   (space-used (cumulative-height current-lines))
 	   (this-page-penalty (height-penalty  page-height space-used))
 	   (user-penalty (ly:paper-line-break-penalty (car current-lines)))
-	   (total-penalty (add-penalties
+	   (total-penalty (combine-penalties
 			   user-penalty this-page-penalty prev-penalty))
 	   (better? (or
 		     (not current-best)
@@ -163,15 +160,12 @@ DONE."
 
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))
-	 (break-lines (map node-lines break-nodes))
-	 (break-numbers (map line-number break-nodes)))
+	 (break-lines (map node-lines break-nodes)))
 
     (if (ly:get-option 'verbose)
 	(begin
-	  (format (current-error-port) "breaks: ~S\n" break-numbers)
+	  (format (current-error-port) "breaks: ~S\n" (map line-number break-nodes))
 	  (force-output (current-error-port))))
 
-    ;; TODO: if solution is bad return no breaks and revert to
-    ;;       ragged bottom
     break-lines))
 

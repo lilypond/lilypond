@@ -7,6 +7,15 @@
 
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/mutopia/W.A.Mozart/mozart-hrn3-rondo.ly (rondo):
+	octavation compatibility fixes. Backportme. 
+
+	* scm/page-breaking.scm (ly:optimal-page-breaks): allow overfull
+	pages.
+	(ly:optimal-page-breaks): combine-penalties: no shortcut for
+	negative. Now we handle negative penalties (ie. \pageBreak)
+	correctly.
+
 	* lily/system.cc (get_line): extract page-penalty from the left
 	bound.
 

@@ -39,7 +39,7 @@ rondo = \notes 	\relative c'
 	\rondotheme
 	
 	R2.*13 |
-	r8 r^\fermata d  d[ e f]
+	r8 r^\fermata d'  d[ e f]
 	 g[ ( e) c-.]  d[( e) d-.]
 	c4 c8  d[ e f]
 	 g[( e) c-.]  d[( e) d-.]
@@ -76,7 +76,7 @@ rondo = \notes 	\relative c'
 	 d[( g)] r r4 r8
 	R2.*1
 	\lipbreaker
-	c4 r8  c'[ d e]
+	c,,4 r8  c'[ d e]
 	d4( g8)  c,[ d e]
 	d4 r8 r4 r8
 	R2. |
@@ -123,7 +123,7 @@ rondo = \notes 	\relative c'
 	\mark "E"
 	R2.*9  |
 	\lipbreaker 
-	c8[ c' c] c4.~
+	c,8[ c' c] c4.~
 	c8[ c d]  e[ e fis] 
 	g4 r8 r4 r8
 	R2.
