@@ -1,3 +1,7 @@
+2003-09-17  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: allow `-' for keywords and identifiers.
+
 2003-09-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lilypond-mode.el (LilyPond-command-alist): invoke lilypond
