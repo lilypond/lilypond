@@ -1,3 +1,14 @@
+2003-09-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in: Require g++ > 3.0.4.
+
+	* mf/GNUmakefile: Bugfix: Add list.ly target.
+	
+	* Documentation/user/GNUmakefile: Bugfix: list.ly target.
+
+	* stepmake/stepmake/omf-targets.make (omf-local-install): Buxfix:
+	make omf directory, add uninstall targets.
+
 2003-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in: move site-start back to /usr/share.
