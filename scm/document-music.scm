@@ -90,7 +90,7 @@
      "\n\nProperties: \n"
      (description-list->texi
       (map
-       (lambda (x) (document-property x 'music props))
+       (lambda (x) (property->texi 'music  x props))
        (map car props)))
      
      )

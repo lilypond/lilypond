@@ -89,6 +89,6 @@ Balloon_interface::print (SCM smob)
 }
 
 ADD_INTERFACE (Balloon_interface,"text-balloon-interface",
-	       "comic books.",
+	       "A collection of routines to put text balloons around an object.",
 	       "balloon-padding balloon-text-props balloon-text-offset balloon-text balloon-original-callback");
 

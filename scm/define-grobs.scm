@@ -40,7 +40,7 @@
        (print-function . ,Ambitus::print)
        (font-family . music)
        (note-head-style . "noteheads-2")
-       (visibility-lambda . ,begin-of-line-visible)
+       (break-visibility . ,begin-of-line-visible)
        (join-heads . #t)
        (space-alist . (
 		       (clef . (extra-space . 0.0))
@@ -171,7 +171,6 @@
 	;; sadly possibly breaking patterns with high order beams.
 	(beamed-stem-shorten . (1.0 0.5 0.25))
 	
-	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
 	(flag-width-function . ,beam-flag-width-function)
 	(damping . 1)
@@ -400,7 +399,6 @@
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 2.0)
 	(if-text-padding . 1.0)
-	(dash-length . 4.0)
 	(self-alignment-Y . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(meta . ((interfaces . (hairpin-interface line-interface self-alignment-interface dynamic-interface spanner-interface))))
@@ -609,8 +607,6 @@
  (NoteCollision
      . (
 	(axes . (0 1))
-	;; Ugh, should not be hard-coded. 
-	(note-width . 1.321)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
 	(meta . ((interfaces . (note-collision-interface axis-group-interface item-interface ))))
@@ -737,7 +733,6 @@
 	(print-function . ,Multi_measure_rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
-	(minimum-width . 12.5) ; staffspace
 	(font-family . music)
 	(meta . ((interfaces . (multi-measure-rest-interface  spanner-interface font-interface percent-repeat-interface))))
 	))
@@ -1057,7 +1052,7 @@
 	(arch-angle . 50.0)
 	(arch-thick . 0.25)
 	(arch-width . 1.5)
-	(bracket-collapse-height . 1)
+	(collapse-height . 1)
 	(thickness . 0.25)
 	(meta . ((interfaces . (system-start-delimiter-interface spanner-interface))))
 	))

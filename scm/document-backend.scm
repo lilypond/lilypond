@@ -34,13 +34,21 @@ Interfaces:
        (desc (cadr interface))
        (props (sort (caddr interface) symbol<?))
        (docfunc (lambda (pr)
-		  (document-property
-		   pr 'backend grob-description)))
-       (propdocs (map docfunc props)))
-    (string-append
-     desc
-     "\n\n"
-     (description-list->texi propdocs))
+		  (property->texi
+		    'backend pr grob-description)))
+       (iprops (filter (lambda (x) (object-property x 'backend-internal) ) props))
+       (uprops (filter (lambda (x) (not (object-property x 'backend-internal)) ) props))
+       (user-propdocs (map docfunc uprops))
+       (internal-propdocs (map docfunc iprops)))
+
+       (string-append
+	desc
+	"\n\n@unnumberedsubsubsec User settable properties:\n"
+	(description-list->texi user-propdocs)
+
+	"\n\n@unnumberedsubsubsec Internal properties: \n"
+	(description-list->texi internal-propdocs)
+	)
     ))
 
 
@@ -71,7 +79,7 @@ Interfaces:
     (make <texi-node>
       #:name name
       #:text (string-append
-	      (interface-doc-string (cdr interface) #f)
+	      (interface-doc-string (cdr interface) '())
 	      "\n\n"
 	      "This grob interface is used in the following graphical objects: "
 
@@ -82,6 +90,17 @@ Interfaces:
 
       )))
 
+(define (grob-alist->texi alist)
+  (let*
+      ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))
+		       (map car alist))))
+
+    (description-list->texi
+     (map (lambda (y) (property->texi 'backend y alist))
+	  uprops)
+     )))
+
+
 (define (grob-doc description)
   "Given a property alist DESCRIPTION, make a documentation
 node."
@@ -89,18 +108,12 @@ node."
   (let*
       (
        (metah (assoc 'meta description))
-       
        (meta (cdr metah))
        (name (cdr (assoc 'name meta)))
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
        (ifacedoc (map (lambda (iface)
-			(string-append
-"
-@subsubheading "
-(ref-ify (symbol->string (car iface)))
-
-"\n\n"
-			(interface-doc-string iface description)))
+			(ref-ify (symbol->string (car iface)))
+			)
 		      (reverse ifaces)))
        (engravers (filter
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
@@ -115,7 +128,10 @@ node."
        namestr " grobs are created by: "
        (human-listify (map ref-ify
 			   (map engraver-name engraver-names)))
-       (apply string-append ifacedoc)
+       "\n\nStandard settings: \n\n"
+       (grob-alist->texi description)
+       "\n\nThis object supports the following interfaces: \n"
+       (human-listify ifacedoc)
        ))
     ))
 
@@ -153,7 +169,7 @@ node."
 
 (define (lookup-interface name)
   (let*  (
-	  (entry  (hashq-ref (ly:all-grob-interfaces) name #f))
+	  (entry  (hashq-ref (ly:all-grob-interfaces) name '() ))
 	  )
 
     (if (equal? entry #f)
@@ -175,7 +191,7 @@ node."
       (
        (ps (sort (map symbol->string lst) string<?))
        (descs (map (lambda (prop)
-		     (document-property (string->symbol prop) 'backend #f))
+		     (property->texi 'backend (string->symbol prop)  '()))
 		   ps))
        (texi (description-list->texi descs))
        )

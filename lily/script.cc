@@ -106,10 +106,10 @@ struct Skript
 };
 
 ADD_INTERFACE (Text_script,"text-script-interface",
-  "Any text script",
+  "An object that is put above or below a note",
   "script-priority");
 
 ADD_INTERFACE (Script_interface, "script-interface",
-  "",
+  "An object that is put above or below a note",
   "script-priority script-stencil");
 

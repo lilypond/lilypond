@@ -456,6 +456,7 @@ L1 is copied, L2 not.
    (,ly:music? . "music")
    (,ly:pitch? . "pitch")
    (,ly:translator? . "translator")
+   (,ly:font-metric? . "font metric")
    (,markup-list? . "list of markups")
    (,markup? . "markup")
    (,music-list? . "list of music")

@@ -173,8 +173,8 @@ compare_position (Grob *const  &a, Grob * const &b)
 }
 
 ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
-  "Object whose Y position is meaning with reference to a staff "
-"symbol. Objects that have this interface should include "
-"Staff_symbol_referencer::callback in their Y-offset-callback. "
-,
-  "staff-position");
+	       "Object whose Y position is meant relative to a staff "
+	       "symbol. These objects usually have "
+	       "Staff_symbol_referencer::callback in their Y-offset-callback. "
+	       ,
+	       "staff-position");

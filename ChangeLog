@@ -1,3 +1,10 @@
+2004-02-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/document-backend.scm (interface-doc): prune Grob
+	documentation: don't duplicate interface information.
+
+	* lily/*.cc: lots of updates of doc strings.
+
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/test/ac-extra-voice.ly (accompany): remove file.

@@ -970,7 +970,12 @@ Stem::beam_multiplicity (Grob *stem)
   these are too many props.
  */
 ADD_INTERFACE (Stem,"stem-interface",
-	       "A stem",
+	       "The stem represent the graphical  stem. "
+	       "  In addition, it internally connects note heads, beams, tremolos. Rests "
+	       " and whole notes have invisible stems."
+
+,
+	       
 	       "tremolo-flag french-beaming "
 	       "avoid-note-head adjust-if-on-staffline thickness "
 	       "stem-info beamed-lengths beamed-minimum-free-lengths "
