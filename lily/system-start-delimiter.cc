@@ -149,7 +149,6 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
      fonts. */
   SCM br = ly_symbol2scm ("braces");
   SCM fam = gh_cons (ly_symbol2scm ("font-family"), br);
-  SCM sz = gh_cons (ly_symbol2scm ("font-relative-size"), ly_symbol2scm ("*"));
   
   SCM alist = scm_list_n (fam, sz, SCM_UNDEFINED);
   fm = select_font (me->get_paper (), scm_list_n (alist, SCM_UNDEFINED));
