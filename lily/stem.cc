@@ -139,7 +139,7 @@ Stem::get_center_distance_from_top ()
   if (dir_)
     return (dir_ > 0) ? 0 : 1;
 
-  int staff_center = staff_size_i_ / 2;
+  int staff_center = 0;
   int max = max_head_i () - staff_center;
   return max >? 0;
 }
@@ -151,7 +151,7 @@ Stem::get_center_distance_from_bottom ()
   if (dir_)
     return (dir_ > 0) ? 1 : 0;
 
-  int staff_center = staff_size_i_ / 2;
+  int staff_center = 0;
   int min = staff_center - min_head_i ();
   return min >? 0;
 }
@@ -179,24 +179,22 @@ Stem::set_default_stemlen ()
   if (!dir_)
     set_default_dir ();
 
-  // ugh... how about non 5-line staffs?
-  bool on_ledger_line_b = ((max_head_i () < -2 && dir_ == 1)
-			   //    || (min_head_i () > staff_size_i_ && dir_ == -1));
-			   || (min_head_i () > staff_size_i_ + 3 && dir_ == -1));
-  if (on_ledger_line_b)
+   
+  Real dy = paper ()->interbeam_f ();
+  Real len = STEMLEN;
+  // ugh, should get nice *rule* for this
+  if (abbrev_flag_i_ > 1)
+    len += (abbrev_flag_i_ - 1)* dy / 2;
+  set_stemend ((dir_ > 0) ? max_head_i () + len :
+	       min_head_i () - len);
+  
+
+  if (dir_ * stem_end_f () < 0)
     {
-      set_stemend (staff_size_i_ / 2 - 1);
+      set_stemend (0);
     }
-  else 
-    {
-      Real dy = paper ()->interbeam_f ();
-      Real len = STEMLEN;
-      // ugh, should get nice *rule* for this
-      if (abbrev_flag_i_ > 1)
-	len += (abbrev_flag_i_ - 1)* dy / 2;
-      set_stemend ((dir_ > 0) ? max_head_i () + len :
-		   min_head_i () - len);
-    }
+ 
+  
 }
 
 void
@@ -305,14 +303,14 @@ Stem::abbrev_mol () const
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
   // ugh
     if (!beams_i)
-      a.translate (dy + beamdy - dir_ * dy, Y_AXIS);
+      a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
     else
-      a.translate (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
+      a.translate_axis (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
   
   for (int i = 0; i < abbrev_flag_i_; i++) 
     {
       Atom b (a);
-      b.translate (-dir_ * dy * (beams_i + i), Y_AXIS);
+      b.translate_axis (-dir_ * dy * (beams_i + i), Y_AXIS);
       beams.add (b);
     }
   
@@ -350,7 +348,7 @@ Stem::brew_molecule_p () const
 
   if (head_l_arr_.size())
     {
-      mol_p->translate (note_delta_f (), X_AXIS);
+      mol_p->translate_axis (note_delta_f (), X_AXIS);
     }
   return mol_p;
 }
