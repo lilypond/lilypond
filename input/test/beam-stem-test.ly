@@ -1,4 +1,6 @@
 \version "1.7.18"
+%  I'm not certain this is useful.  Candidate for
+%  future remove-ing.
 \header {
   texidoc="@cindex Beam Stem Test
 Beam-stem attachment test.  Helper file for ps/dvips problems.

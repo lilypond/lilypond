@@ -1,8 +1,8 @@
 \version "1.7.18"
-% TODO: rethink name and whole file -- possible deletion or major
+% TODO: rethink name and whole file -- possible remove or major
 % changes.
 \header{
-	texinfo="@cindex Coda Kludge"
+	texidoc="@cindex Coda Kludge"
 }
 %{
 Hi,

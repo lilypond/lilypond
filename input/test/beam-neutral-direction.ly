@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header{
-	texinfo="@cindex Beam Neutral Direction
+	texidoc="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, Lilypond normally
 prints the beam pointing down.  However, this behaviour can be
 altered if desired.

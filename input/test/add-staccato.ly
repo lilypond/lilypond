@@ -1,12 +1,12 @@
 \version "1.7.18"  %% or actually: 1.7.1 ...
-% TODO: doesn't work with 1.7.19.  Check with more recent version.
+% FIXME: doesn't work with 1.7.19.  Check with more recent version.
 \header {
 
 texidoc= "@cindex Add Stacato
 Using make-music, you can add various stuff to notes. Here
 is an example how to add staccato dots.  Note: for this simple case
-one would not use scm constructs.  See separate-staccato.ly first."
-
+one would not use scm constructs.  See separate-staccato.ly first.
+"
 } 
 
 #(define (make-script x)

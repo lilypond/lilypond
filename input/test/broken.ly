@@ -1,5 +1,5 @@
 \version "1.7.18"
-% TODO: move to regression or delete?
+% TODO: move to regression or remove?
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "PD"

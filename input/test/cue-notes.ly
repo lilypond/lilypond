@@ -32,8 +32,10 @@ usually not restored explicitly.
 	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
 	r8^"Bsn." c'8  f'8-[ f'8]
-       \property Staff.fontSize\unset
-       \property Staff . Clef = \turnOff
+% FIXME: check to see if clef should be cancelled from the cue.  IIRC
+% it should be, but I could be wrong.
+%       \property Staff.fontSize\unset
+%       \property Staff . Clef = \turnOff
        \clef treble
      } >
    c'8^"Horn" cis'
