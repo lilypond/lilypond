@@ -46,6 +46,18 @@ Score_engraver::make_columns ()
   
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
+
+      Grob_info i1 (command_column_l_);
+      i1.origin_trans_l_ = this;
+  
+      Grob_info i2 (musical_column_l_);
+      i2.origin_trans_l_ = this;
+
+  
+      announce_grob (i1);
+      announce_grob (i2);
+
+      
     }
 }
 
@@ -58,16 +70,6 @@ Score_engraver::prepare (Moment w)
 
   command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
   musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
-  
-  Grob_info i1 (command_column_l_);
-  i1.origin_trans_l_ = this;
-  
-  Grob_info i2 (musical_column_l_);
-  i2.origin_trans_l_ = this;
-
-  
-  announce_grob (i1);
-  announce_grob (i2);
 
   Translator_group::start_translation_timestep();
 }
