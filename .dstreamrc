@@ -7,13 +7,13 @@ Dstream			1
 InitParser		1
 Parser			1
 InitDeclarations	1
-Declarations		1
+Declarations		0
 # FlexLexer debug
 InitLexer		1
 Lexer			1
 
 
-walking		1
+walking		0
 
 # flower lib
 File_path		1
