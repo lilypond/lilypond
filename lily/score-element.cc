@@ -97,11 +97,11 @@ Score_element::get_elt_property (const char *nm) const
 SCM
 Score_element::get_elt_property (SCM sym) const
 {
-  SCM s = scm_assq(sym, mutable_property_alist_);
+  SCM s = scm_sloppy_assq(sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
     return gh_cdr (s);
 
-  s = scm_assq (sym, immutable_property_alist_);
+  s = scm_sloppy_assq (sym, immutable_property_alist_);
   return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
 }
 
