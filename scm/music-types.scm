@@ -538,11 +538,11 @@ For example, transposed music.")
 	(types . (general-music string-number-event event))
 	)) 
 
-    (TempoEvent
+    (MetronomeChangeEvent
      . (
 	(description .  "Change tempo setting (in beats per minute).")
 	(internal-class-name . "Event")
-	(types . (general-music tempo-event event))
+	(types . (general-music metronome-change-event tempo-event event))
 	))
     
     (TextScriptEvent

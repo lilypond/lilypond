@@ -1345,6 +1345,8 @@ def write_deps (fn, target, chunks):
 	read_files = []
 
 def check_texidoc (chunks):
+	## TODO: put file name in front of texidoc. 
+	##
 	n = []
         for c in chunks:
 	        if c[0] == 'lilypond':

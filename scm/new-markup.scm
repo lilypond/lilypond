@@ -201,26 +201,77 @@ for the reader.
   (let*
       (
        (log (car rest))
-       (dots (cadr rest))
+       (dot-count (cadr rest))
        (dir (caddr rest))
-       (font (ly:get-font grob props))
+       (font (ly:get-font grob (cons '((font-family .  music)) props)))
+       (stemlen (max 3 (- log 1)))
        (headgl
-	(ly:find-glyph-by-name font (string-append "noteheads-" (number->string log))))
-       (flaggl (if (> log 2)
-		   (ly:find-glyph-by-name
-		    font
-		    (string-append "flags-" (number->string log)
-				   (if (dir > 0) "u" "d"))) #f))
+	(ly:find-glyph-by-name font (string-append "noteheads-" (number->string (min log 2)))))
+
        (stemth 0.13)
-       (stemgl (ly:round-filled-box (cons
-				     (cons 0.0 stemth)
-				     (cons 0.0 (+ 3.0 0.75)))))
-       )
+       (stemy (* dir stemlen))
+       (attachx (if (> dir 0) (- (cdr (ly:molecule-get-extent headgl X)) stemth)
+		    0))
+       (attachy (* dir 0.28))
+       (stemgl (if (> log 0)
+		   (ly:round-filled-box (cons
+				     (cons attachx (+ attachx  stemth))
+				     (cons (min stemy attachy)
+					   (max stemy attachy)))
+				    (/ stemth 3)
+				    ) #f))
+       (dot (ly:find-glyph-by-name font "dots-dot"))
+       (dotwid  (interval-length (ly:molecule-get-extent dot X)))
+       (dots (if (> dot-count 0)
+		 (reduce
+		  (lambda (x y)
+		    (ly:molecule-add x y))
+		  (map (lambda (x)
+			 (ly:molecule-translate-axis
+			  dot  (* (+ 1 (* 2 x)) dotwid) X) )
+		       (range dot-count 1)))
+		 #f
+		 ))
+       
+       (flaggl (if (> log 2)
+		   (ly:molecule-translate
+		    (ly:find-glyph-by-name
+		     font
+		     (string-append "flags-"
+				    (if (> dir 0) "u" "d")
+				    (number->string log)
+				    ))
+		    (cons (+ attachx (/ stemth 2)) stemy))
 
+		    #f)))
+    
+    (if flaggl
+	(set! stemgl (ly:molecule-add flaggl stemgl)))
 
+    (if (ly:molecule? stemgl)
+	(set! stemgl (ly:molecule-add stemgl headgl))
+        (set! stemgl headgl)
+	)
+    
+    (if (ly:molecule? dots)
+	(set! stemgl
+	      (ly:molecule-add
+	       (ly:molecule-translate-axis
+		dots
+		(+
+		 (if (and (> dir 0) (> log 2))
+		     (* 1.5 dotwid) 0)
+		 ;; huh ? why not necessary?
+		;(cdr (ly:molecule-get-extent headgl X))
+		      dotwid
+		 )
+		X)
+	       stemgl 
+	       )
+	      ))
 
-    #f
-  ))
+    stemgl
+    ))
 
 (define-public (normal-size-super-markup grob props . rest)
   (ly:molecule-translate-axis (interpret-markup

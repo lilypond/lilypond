@@ -308,6 +308,7 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm> MARKUP_HEAD_SCM0
 %token <scm> MARKUP_HEAD_SCM0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0_SCM1 
+%token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2 
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
@@ -707,7 +708,7 @@ music_output_def_body:
 
 tempo_event:
 	TEMPO steno_duration '=' bare_unsigned	{
-		$$ = MY_MAKE_MUSIC("TempoEvent");
+		$$ = MY_MAKE_MUSIC("MetronomeChangeEvent");
 		$$->set_mus_property ("tempo-unit", $2);
 		$$->set_mus_property ("metronome-count", gh_int2scm ( $4));
 	}
@@ -2179,7 +2180,11 @@ full_markup:
 		  THIS->lexer_->pop_state ();
 		}
 	;
-	
+
+
+/*
+This should be done more dynamically if possible.
+*/ 
 markup:
 	STRING {
 		$$ = make_simple_markup ($1);
@@ -2203,6 +2208,9 @@ markup:
 		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
 	}
 	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm markup {
+		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
 		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
 	}
 	| MARKUP_IDENTIFIER {

@@ -226,6 +226,21 @@ L1 is copied, L2 not.
 )
 
 
+(define-public (range x y)
+  "Produce a list of integers starting at Y with X elements."
+  (if (<= x 0)
+      '()
+      (cons y (range (- x 1)  (+ y 1)))
+
+      )
+  )
+
+(define-public (interval-length x)
+  "Length of the number-pair X, when an interval"
+  (max 0 (- (cdr x) (car x)))
+  )
+  
+
 (define (other-axis a)
   (remainder (+ a 1) 2))
   
