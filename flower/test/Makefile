@@ -36,7 +36,7 @@ EXTRA_DISTFILES = result
 #
 
 MODULE_LIBDEPS=check-flower-deps
-MODULE_LIBES = -lflower
+MODULE_LIBES = -lflower 
 #
 
 

@@ -44,6 +44,7 @@ struct Directed_graph_node;
 struct Getopt_long;
 struct Matrix;
 struct String_data;
+struct FlowerString;
 struct String_handle;
 struct String_convert;
 struct String;
