@@ -97,7 +97,7 @@ Font_metric::get_indexed_wxwy (int )const
 }
 
 void
-Font_metric::derived_mark ()const
+Font_metric::derived_mark () const
 {
 }
 

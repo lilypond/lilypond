@@ -35,7 +35,7 @@ protected:
   friend SCM ly_font_encoding(SCM);
     
   virtual Real design_size () const;
-  virtual void derived_mark (); 
+  virtual void derived_mark () const; 
   virtual Box get_indexed_char (int) const;
   virtual int index_to_ascii (int) const;
   virtual Box get_ascii_char (int) const;
