@@ -322,7 +322,7 @@ Durations can also be produced through GUILE extension mechanism.
 
 Dot placement for chords is not perfect.  In some cases, dots overlap:
 @lilypond[]
- \context Voice { <f,4. c'' d e f> }
+ <<f, c'' d e f>>4.
 @end lilypond
 
 
@@ -339,7 +339,7 @@ slurs, which indicate articulation, or phrasing slurs, which indicate
 musical phrasing.  A tie is entered using the tilde symbol `@code{~}'.
 
 @lilypond[fragment,verbatim,center]
-  e' ~ e' <c' e' g'> ~ <c' e' g'>
+  e' ~ e' <<c' e' g'>> ~ <<c' e' g'>>
 @end lilypond
 
 When a tie is applied to a chord, all note heads (whose pitches match) are
@@ -351,7 +351,7 @@ If you want less ties created for a chord, you can set
 for every tied chord.
 @lilypond[fragment,verbatim,center]
   \property Voice.sparseTies = ##t
-  <c' e' g'> ~ <c' e' g'>
+  <<c' e' g'>> ~ <<c' e' g'>>
 @end lilypond
 
 In its meaning a tie is just a way of extending a note duration, similar
@@ -599,9 +599,9 @@ preceding note.
 
 @lilypond[fragment,verbatim,center]
   \relative c' {
-    c <c e g> 
-    <c' e g>
-    <c, e' g>
+    c <<c e g>> 
+    <<c' e g>>
+    <<c, e' g>>
   }
 @end lilypond 
 @cindex @code{\notes}
@@ -1635,7 +1635,7 @@ input file:
 
 @lilypond[singleline,fragment,verbatim]
 \property Staff.autoAccidentals = #'( Staff (any-octave . 0) )
-cis'4 <c'' c'> r2 | cis'4 <c' c''> r2 | <cis' c''> r | <c'' cis'> r | 
+cis'4 <<c'' c'>> r2 | cis'4 <<c' c''>> r2 | <<cis' c''>> r | <<c'' cis'>> r | 
 @end lilypond
 
 The only solution is to manually insert the problematic
@@ -2916,11 +2916,11 @@ f'4 g'4 a'4 \sostenutoUp
 @cindex @code{\arpeggio}
 
 You can specify an arpeggio sign on a chord by attaching an
-@code{\arpeggio} to a note of the chord.
+@code{\arpeggio} to a chord.
 
 
 @lilypond[fragment,relative,verbatim]
-  \context Voice <c\arpeggio e g c>
+  <<c e g c>>-\arpeggio
 @end lilypond
 
 When an arpeggio crosses staves in piano music, you attach an arpeggio
@@ -2930,8 +2930,8 @@ to the chords in both staves, and set
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \context Voice = one  { <c'\arpeggio e g c> }
-    \context Voice = other { \clef bass  <c,,\arpeggio e g>}
+    \context Voice = one  { <<c' e g c>>-\arpeggio }
+    \context Voice = other { \clef bass  <<c,, e g>>-\arpeggio}
   >  
 @end lilypond
 
@@ -2945,9 +2945,9 @@ arpeggio, you should set the arpeggio object property
 @lilypond[fragment,relative,verbatim]
   \context Voice {
      \property Voice.Arpeggio \set #'arpeggio-direction = #1
-     <c\arpeggio e g c>
+     <<c e g c>>-\arpeggio
      \property Voice.Arpeggio \set #'arpeggio-direction = #-1
-     <c\arpeggio e g c>
+     <<c e g c>>-\arpeggio
   }
 @end lilypond
 
@@ -2962,8 +2962,8 @@ arpeggiate the chord. To draw these brackets, set the
     \property PianoStaff.connectArpeggios = ##t
     \property PianoStaff.Arpeggio \override
         #'molecule-callback = \arpeggioBracket
-    \context Voice = one  { <c'\arpeggio e g c> }
-    \context Voice = other { \clef bass  <c,,\arpeggio e g>}
+    \context Voice = one  { <<c' e g c>>-\arpeggio }
+    \context Voice = other { \clef bass  <<c,, e g>>-\arpeggio }
   >  
 @end lilypond
 
@@ -3095,7 +3095,6 @@ middle C, in string order: thus the notes are e, a, d & g)
     \notes {
       a,4 c' a e' e c' a e'
     }
-
   > 
 @end lilypond
 
@@ -3154,9 +3153,9 @@ twoWays = \notes \transpose c c' {
   \chords {
     c1 f:sus4 bes/f
   }
-  <c e g>
-  <f bes c'>
-  <f bes d'>
+  <<c e g>>
+  <<f bes c'>>
+  <<f bes d'>>
   }
 
 \score {
@@ -3302,7 +3301,7 @@ directly using simultaneous music.
 
 @lilypond[verbatim,singleline]
 scheme = \notes {
-  \chords {a1 b c} <d f g>  <e g b>
+  \chords {a1 b c} <<d f g>>  <<e g b>>
 }
 \score {
   \notes<
@@ -3339,9 +3338,9 @@ are entered as a list of pitches:
 
 @lilypond[verbatim,center,singleline]
 scheme = \notes {
-  <c'1 e' g'>
-  <e' g' c''>
-  <e e' g' c''>
+  <<c' e' g'>>1
+  <<e' g' c''>>
+  <<e e' g' c''>>
 }
 
 \score {
@@ -4441,7 +4440,7 @@ property.
   \context Staff \outputproperty
   #(make-type-checker 'note-head-interface)
   #'extra-offset = #'(0.5 . 0.75)
-  <c8 e g> }
+  <<c e g>>8 }
 @end lilypond
 
 @cindex @code{extra-offset}
@@ -4874,7 +4873,7 @@ kneed stems.
 \score {
      \context PianoStaff \notes \transpose c c'' <
      \context Staff = up { s1 }
-     \context Staff = down { [c8 c \translator Staff=up <c d> c 
+     \context Staff = down { [c8 c \translator Staff=up <<c d>> c 
 \translator Staff=down c c c] }
      >
      \paper { linewidth = -1 }

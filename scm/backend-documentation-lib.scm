@@ -152,7 +152,7 @@ node."
 
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
-      (error  "\ngrob-property-description.scm: Can't find property:" prop)))
+      (error  "\ngrob-property-description.scm: Can't find interface for property:" prop)))
 
 (map check-dangling-properties all-backend-properties)
 

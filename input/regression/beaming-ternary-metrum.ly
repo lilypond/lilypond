@@ -10,3 +10,4 @@ texidoc = "automatic beaming also works in ternary time sigs."
 }
 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

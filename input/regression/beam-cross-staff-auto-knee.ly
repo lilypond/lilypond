@@ -23,3 +23,4 @@ with explicit staff switches)."
     linewidth = -1.0
   }
 }
+%% new-chords-done %%

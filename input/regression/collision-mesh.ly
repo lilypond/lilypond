@@ -9,9 +9,9 @@ are resolved."
      \time 3/4
      % Here's what I was trying to do:
      < \context Voice  = VI {\stemDown
-       <g4 b g'>
-       <g4. b g'>       
-       <g4 b d'>
+       <<g b g'>>4
+       <<g b g'>>4.       
+       <<g b d'>>4
        d'4
        d'4.       
        }
@@ -19,9 +19,9 @@ are resolved."
        \context Voice=VII {\stemUp
          d'4
          d'4.	 
-	 <a4 c'>
-	 <g4 b g'>
-	 <g4. b g'>	 	 
+	 <<a c'>>4
+	 <<g b g'>>4
+	 <<g b g'>>4.	 	 
 	   } >
 
   }
@@ -31,3 +31,4 @@ are resolved."
 
 
 
+%% new-chords-done %%

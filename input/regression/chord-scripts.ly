@@ -18,3 +18,5 @@ texidoc = "Scripts can also be attached to chord elements."
     }
 
 }
+%% new-chords-done %%
+%% new-chords-done %%

@@ -818,13 +818,6 @@ r4 <<c e g>>4 <<c f a>>8
 @end quotation
 @separate
 
-@ignore
-@c te diepzinnig?
-@c hmm, te losjes, iig
-In general, @code{ < @var{stuff} > } is used when @var{stuff} all
-happens at the same time, like in chords, or (like in the two-staff
-example above) in a bunch of stacked staves.
-@end ignore
 
 You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
@@ -834,11 +827,12 @@ r4 <<c e g>>8-[ <<c f a>>-]-~ <<c f a>>
 @end lilypond
 @end quotation
 
+@ignore
 When you want to combine chords with slurs and dynamics, technical
 detail crops up: you have type these commands next to the notes, which
 means that they have to be inside the @code{< >}.  Don't get confused
 by the chord @code{< >} and the dynamic @code{\< \>}!
-
+@end ignore
 
 @quotation
 @example
@@ -1726,16 +1720,14 @@ precisely one @code{Voice} context, so we give it a unique name
 
 @separate
 @example 
-<c4-\arpeggio g' c>
+<<c g' c>>4-\arpeggio
 @end example 
-The delimiters @code{<} and @code{>} are shorthands for
-@code{\simultaneous @{} and @code{@}}. The expression enclosed in
-@code{<} and @code{>} is a chord.
+The delimiters @code{<<} and @code{>>} enclose the pitches of a chord.
+@code{\arpeggio} typesets an arpeggio sign (a wavy vertical line)
+before the chord.
 
 @cindex arpeggio
 
-@code{\arpeggio} typesets an arpeggio sign (a wavy vertical line) before
-the chord.
 
 @separate
 @example 
@@ -1777,7 +1769,7 @@ these notes are indeed processed by precisely one context with
 @code{\context}.
 @separate
 @example 
-\voiceOne s4  g8. b,16 c8 r <e'8. g> <f16 a> 
+\voiceOne s4  g8. b,16 c8 r <<e' g>>8. <<f a>>16
 @end example
 
 The oboes should have stems up to keep them from interfering with
@@ -1785,7 +1777,7 @@ the staff-jumping bass figure.  To do that, we use @code{\voiceOne}.
 
 @separate
 @example 
-\grace <e8( g> < d4 )f> <c2 e> 
+\grace <<e g>>-( <<d f>>4-) <<c e>>2 
 @end example
 @cindex @code{\grace}
 @cindex ornaments
@@ -1806,7 +1798,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy 2/3
 of their notated duration, so in this case the fraction is 2/3.
 @separate
 @example 
-@{ <d8 f> <e g> <f a> @} 
+@{ <<d f>>8 <<e g>> <<f a>> @} 
 @end example 
 The piece of music to be `tripletted' is sequential music containing
 three chords.
@@ -1847,7 +1839,7 @@ This ends the two-part section.
 @separate
 @example 
 \stemBoth
-\grace <c,8( e> <)b8. d8.-\trill> <c16 e> |  
+\grace <<c, e>>8-( <<b d>>8.-\trill <<c e>>16 |  
 @end example
 @cindex trill
 @cindex stemBoth

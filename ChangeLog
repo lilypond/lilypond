@@ -1,3 +1,9 @@
+2002-11-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/*.tely: new chord syntax.
+
+	* input/regression/[bc]*.ly (texidoc): syntax updates.
+	
 2002-11-13  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.words: add vocabulary to be used in auto-completion

@@ -33,3 +33,4 @@ stems.
   }  
   \midi { }
 }
+%% new-chords-done %%

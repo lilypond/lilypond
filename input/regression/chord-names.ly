@@ -36,3 +36,4 @@ chord =  \notes\transpose c c'\chords{
     }
 }
 
+%% new-chords-done %%

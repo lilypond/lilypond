@@ -18,3 +18,4 @@ should be pointing to the note head.
   \paper { linewidth = -1 }
 }
 	  
+%% new-chords-done %%

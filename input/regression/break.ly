@@ -17,3 +17,4 @@ Breaks can be encouraged and discouraged using @code{\\break} and
 	    indent = 0.0
 	    linewidth = 4.0\cm}
 }
+%% new-chords-done %%

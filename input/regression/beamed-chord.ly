@@ -12,6 +12,7 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
     %\stemUp
     \clef alto
     \time 3/4
-    r8 <d ( bes > ) bes' d <e-> g, c, c,> r |
+    r8 <<d  bes >>-( ) bes' d <<e g, c, c,>>-> r |
   }
 }
+%% new-chords-done %%
