@@ -161,6 +161,18 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
   return fm->get_ascii_char_stencil (scm_to_int (index)).smobbed_copy ();
 }
 
+LY_DEFINE (ly_font_get_glyph_index, "ly:font-get-glyph-index",
+	   2, 0, 0,
+	  (SCM font, SCM name),
+	   "Return the index for @{name} in @var{font}.")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG2, __FUNCTION__, "string");
+
+  return scm_from_int (fm->name_to_index (ly_scm2string (name)));
+}
+
 LY_DEFINE (ly_text_dimension,"ly:text-dimension",
 	   2, 0, 0,
 	  (SCM font, SCM text),
