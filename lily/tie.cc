@@ -59,7 +59,7 @@ Tie::head (Grob*me, Direction d)
 {
   SCM c = me->get_grob_property ("head-pair");
 
-  if (gh_pair_p)
+  if (gh_pair_p (c))
     return unsmob_grob (index_get_cell (c, d));
   else
     return 0;

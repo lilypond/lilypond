@@ -89,7 +89,9 @@ void
 Translator_group::add_fresh_group_translator (Translator*t)
 {
   Translator_group*tg = dynamic_cast<Translator_group*> (t);
-  trans_group_list_ = add_translator (trans_group_list_,t); 
+  trans_group_list_ = add_translator (trans_group_list_,t);
+  scm_gc_unprotect_object (t->self_scm ());
+
   Context_def * td = unsmob_context_def (tg->definition_);
 
   /*
@@ -253,7 +255,6 @@ Translator_group::get_default_interpreter ()
 	}
       Translator_group *tg = t->instantiate (output_def_, SCM_EOL);
       add_fresh_group_translator (tg);
-
       if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();
       else

@@ -190,11 +190,10 @@ Dynamic_engraver::process_music ()
     {
       if (current_cresc_ev_)
 	{
-	  Direction sd = to_dir (current_cresc_ev_->get_mus_property ("span-direction"));
-	  String msg = sd == 1
-	    ? _ ("already have a crescendo")
-	    : _ ("already have a decrescendo");
-      
+	  String msg = _ ("already have a decrescendo");
+	  if (current_cresc_ev_->is_mus_type ("decrescendo-event"))
+	    msg = _ ("already have a crescendo");
+
 	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
 	  current_cresc_ev_->origin ()->warning (_("Cresc started here"));
 	}

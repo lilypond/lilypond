@@ -19,3 +19,11 @@
   (ly:warn (string-append
 	    "\n"
 	    input-file-name ": old relative compatibility was not used.")))
+
+
+#(if (ly:get-option 'verbose)
+  (begin
+   (gc)
+   (write (gc-stats) (current-error-port))
+   (flush-all-ports)))
+

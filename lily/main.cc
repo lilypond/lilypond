@@ -363,6 +363,18 @@ main_prog (void *, int, char **)
 	init = "init.ly";
 	
       do_one_file (init, inpath.to_string (), outpath.to_string ());
+
+#if 0
+      /*
+	Code to debug memory leaks. Cannot call from within .ly since
+	then we get the protects from the parser state too.
+       */
+      static SCM proc ;
+      if (!proc)
+	proc = scm_c_eval_string ("dump-gc-protects");
+      scm_gc ();
+      scm_call_0 (proc);
+#endif
       
       p++;
     } while ((arg  = oparser_p_static->get_next_arg ()));

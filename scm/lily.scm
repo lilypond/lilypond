@@ -474,3 +474,33 @@ L1 is copied, L2 not.
    ))
 
 
+;; debug mem leaks
+
+(define gc-protect-stat-count 0)
+(define-public (dump-gc-protects)
+  (set! gc-protect-stat-count (1+ gc-protect-stat-count) )
+  
+  (display 
+   (map (lambda (y)
+	  (let
+	      ((x (car y))
+	       (c (cdr y)))
+
+	    (string-append
+	     (string-join
+	      (map object->string (list (object-address x) c x))
+	      " ")
+	     "\n")))
+
+	  (sort
+	   (hash-table->alist (ly:protects))
+	   (lambda (a b)
+	     (< (object-address (car a))
+		(object-address (car b)))))
+	  
+	  )
+      (open-file (string-append
+	       "gcstat-" (number->string gc-protect-stat-count)
+	       ".scm"
+	       ) "w")))
+

@@ -83,11 +83,12 @@ Paper_score::process (String outname)
   /*
     Be sure to set breakability on first & last column.
    */
-  Link_array<Grob> pc (system_->columns ());
+  {
+    Link_array<Grob> pc (system_->columns ());
   
-  pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
-  pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
-
+    pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
+    pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
+  }
   system_->pre_processing ();
  
   Array<Column_x_positions> breaking = calc_breaking ();
@@ -126,10 +127,4 @@ Paper_score::process (String outname)
   // huh?
   delete outputter_;
   outputter_ = 0;
-  
-  if (verbose_global_b)
-    {
-      scm_write (scm_gc_stats (), scm_current_error_port ());
-      scm_flush (scm_current_error_port ());
-    }
 }

@@ -429,7 +429,8 @@ class Lilypond_snippet (Snippet):
 	def ly (self):
 		if self.type == 'lilypond_file':
 			name = self.substring ('filename')
-			return open (find_file (name)).read ()
+			return '\\renameinput \"%s\"\n' % name\
+			       + open (find_file (name)).read ()
 		else:
 			return self.substring ('code')
 		

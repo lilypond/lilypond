@@ -57,7 +57,7 @@ public:
    */
   char const* pos_str0_;
 
-  SCM get_port()const { return str_port_; }
+  SCM get_port () const { return str_port_; }
   String name_;
 
 private:
@@ -69,7 +69,6 @@ private:
   void init_port ();
   
   Protected_scm str_port_;
-  
 };
 
 char * gulp_file (String fn, int *len);

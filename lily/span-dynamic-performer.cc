@@ -11,6 +11,11 @@
 #include "event.hh"
 #include "audio-item.hh"
 
+/*
+  TODO: fold this into 1 engraver: \< and \> should also stop when
+  absdyn is encountered.
+ */
+
 struct Audio_dynamic_tuple
 {
   Audio_dynamic* audio_;
@@ -34,8 +39,8 @@ protected:
 private:
   Audio_dynamic* audio_;
   Real last_volume_;
-  Music* span_start_req_;
-  Drul_array<Music*> span_req_l_drul_;
+  Music* span_start_event_;
+  Drul_array<Music*> span_events_;
   Array<Audio_dynamic_tuple> dynamic_tuples_;
   Array<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
@@ -44,9 +49,9 @@ private:
 
 Span_dynamic_performer::Span_dynamic_performer ()
 {
-  span_req_l_drul_[START] = 0;
-  span_req_l_drul_[STOP] = 0;
-  span_start_req_ = 0;
+  span_events_[START] = 0;
+  span_events_[STOP] = 0;
+  span_start_event_ = 0;
   audio_ = 0;
   last_volume_ = 0;
 }
@@ -63,23 +68,23 @@ Span_dynamic_performer::acknowledge_audio_element (Audio_element_info i)
 void
 Span_dynamic_performer::process_music ()
 {
-  if (span_start_req_ || span_req_l_drul_[START])
+  if (span_start_event_ || span_events_[START])
     {
       audio_ = new Audio_dynamic (0);
-      Audio_element_info info (audio_, span_req_l_drul_[START]
-			       ? span_req_l_drul_[START]
-			       : span_req_l_drul_[STOP]);
+      Audio_element_info info (audio_, span_events_[START]
+			       ? span_events_[START]
+			       : span_events_[STOP]);
       announce_element (info);
       Audio_dynamic_tuple a = { audio_, now_mom () };
       dynamic_tuples_.push (a);
     }
   
-  if (span_req_l_drul_[STOP])
+  if (span_events_[STOP])
     {
-      if (!span_start_req_)
+      if (!span_start_event_)
 	{
-	  span_req_l_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
-	  span_req_l_drul_[STOP] = 0;
+	  span_events_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
+	  span_events_[STOP] = 0;
 	}
       else
 	{
@@ -87,14 +92,14 @@ Span_dynamic_performer::process_music ()
 	  finished_dynamic_tuples_ = dynamic_tuples_;
 	}
       dynamic_tuples_.clear ();
-      span_start_req_ = 0;
+      span_start_event_ = 0;
     }
 
-  if (span_req_l_drul_[START])
+  if (span_events_[START])
     {
-      String t = ly_scm2string (span_req_l_drul_[START]->get_mus_property ("span-type"));
-      dir_ = (t == "crescendo")	? RIGHT : LEFT;
-      span_start_req_ = span_req_l_drul_[START];
+      dir_ =  (span_events_[START]->is_mus_type ("crescendo-event"))
+	? RIGHT : LEFT;
+      span_start_event_ = span_events_[START];
       
       dynamic_tuples_.clear ();
       Audio_dynamic_tuple a = { audio_, now_mom () };
@@ -102,18 +107,18 @@ Span_dynamic_performer::process_music ()
     }
 
 
-  if (span_req_l_drul_[STOP])
+  if (span_events_[STOP])
     { 
       finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
     }
   
-  if (span_req_l_drul_[START])
+  if (span_events_[START])
     {
       dynamic_tuples_[0].audio_->volume_ = last_volume_;
     }
-  span_start_req_ = 0;
-  span_req_l_drul_[START] = 0;
-  span_req_l_drul_[STOP] = 0;
+  span_start_event_ = 0;
+  span_events_[START] = 0;
+  span_events_[STOP] = 0;
 }
 
 void
@@ -161,8 +166,8 @@ Span_dynamic_performer::stop_translation_timestep ()
       audio_ = 0;
     }
 
-  span_req_l_drul_[STOP] = 0;
-  span_req_l_drul_[START] = 0;
+  span_events_[STOP] = 0;
+  span_events_[START] = 0;
 
 }
 
@@ -173,7 +178,7 @@ Span_dynamic_performer::try_music (Music* r)
       || r->is_mus_type ("decrescendo-event"))
     {
       Direction d = to_dir (r->get_mus_property ("span-direction"));
-      span_req_l_drul_[d] = r;
+      span_events_[d] = r;
       return true;
     }
   return false;

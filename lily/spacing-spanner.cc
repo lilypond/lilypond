@@ -121,8 +121,8 @@ loose_column (Grob *l, Grob *c, Grob *r)
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if(!  ((Paper_column::musical_b (l_neighbor) || Item::breakable_b (l_neighbor))
-	 && (Paper_column::musical_b (r_neighbor) || Item::breakable_b (r_neighbor))) )
+  if(!  ((Paper_column::is_musical (l_neighbor) || Item::breakable_b (l_neighbor))
+	 && (Paper_column::is_musical (r_neighbor) || Item::breakable_b (r_neighbor))) )
     {
       return false;
     }
@@ -167,7 +167,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
   Real increment = robust_scm2double (me->get_grob_property ("spacing-increment"), 1.2);
   for (int i=0; i < cols->size ();  i++)
     {
-      if (Item::breakable_b (cols->elem(i)) || Paper_column::musical_b (cols->elem (i)))
+      if (Item::breakable_b (cols->elem(i)) || Paper_column::is_musical (cols->elem (i)))
 	{
 	  newcols.push (cols->elem(i));
 	  continue;
@@ -339,7 +339,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
   for (int i = 0; i < cols.size (); i++)
     {
       Item * it = dynamic_cast<Item*>(cols[i]);
-      if (!Item::breakable_b (it) && !Paper_column::musical_b (it))
+      if (!Item::breakable_b (it) && !Paper_column::is_musical (it))
 	continue;
 
       // it->breakable || it->musical
@@ -430,7 +430,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   
   for (int i =0 ; i < cols.size (); i++)  
     {
-      if (Paper_column::musical_b (cols[i]))
+      if (Paper_column::is_musical (cols[i]))
 	{
 	  Moment *when = unsmob_moment (cols[i]->get_grob_property  ("when"));
 
@@ -517,7 +517,7 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
       Paper_column * lc = dynamic_cast<Paper_column*> (l);
       Paper_column * rc = dynamic_cast<Paper_column*> (r);
 
-      if (!Paper_column::musical_b (l))
+      if (!Paper_column::is_musical (l))
 	{
 	  breakable_column_spacing (me, l, r, shortest);
 
@@ -674,7 +674,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
   
   do
     {
-      if (!Paper_column::musical_b (cols[d]))
+      if (!Paper_column::is_musical (cols[d]))
 	{
 	  /*
 	    Tied accidentals over barlines cause problems, so lets see
@@ -873,7 +873,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Moment rwhen =  Paper_column::when_mom (rc);
 
   Moment delta_t = rwhen - lwhen;
-  if (!Paper_column::musical_b (rc ))
+  if (!Paper_column::is_musical (rc ))
     {
       /*
 	when toying with mmrests, it is possible to have musical

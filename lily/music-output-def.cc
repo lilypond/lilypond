@@ -30,8 +30,6 @@ Music_output_def::Music_output_def ()
   scope_ =   ly_make_anonymous_module();
 }
 
-
-
 Music_output_def::~Music_output_def ()
 {
 }

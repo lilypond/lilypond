@@ -95,7 +95,6 @@ Paper_column::is_musical (Grob *me)
       s = *unsmob_moment (m);
     }
   return s != Moment (0);
-  
 }
   
 

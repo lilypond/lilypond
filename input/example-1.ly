@@ -1,4 +1,5 @@
 \version "2.1.7"
+
 % A simple scale in LilyPond
 %
 % Type:
