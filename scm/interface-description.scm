@@ -26,6 +26,12 @@
  )
 
 (ly-add-interface
+ 'ligature-interface
+ "A ligature"
+ '()
+ )
+
+(ly-add-interface
  'mark-interface
  "a rehearsal mark"
  '(

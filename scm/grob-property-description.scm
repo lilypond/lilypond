@@ -155,6 +155,7 @@ procedure returns #t, attachment is used.  Otherwise, the next
 procedure is tried.")
 (grob-property-description 'flag-style string? "turn stroke through stem on/off.")
 (grob-property-description 'flag-width-function procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
+(grob-property-description 'flexa-width number? "width of a flexa shape in a ligature grob.")
 (grob-property-description 'font-family symbol? "partial font
 definition: music roman braces dynamic math ...")
 (grob-property-description 'font-name string? "file name for the font to load.

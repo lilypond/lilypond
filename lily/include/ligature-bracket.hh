@@ -12,14 +12,10 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-class Ligature_bracket
+struct Ligature_bracket
 {
-public:
-  Ligature_bracket (SCM);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static bool has_interface (Grob*);
-
-private:
 };
 
 #endif /* LIGATURE_BRACKET_HH */

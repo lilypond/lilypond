@@ -1,3 +1,19 @@
+2002-05-18  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-heads.mf, scm/grob-description.scm,
+	scm/grob-property-description.scm, scm/interface-description,
+	lily/include/my-lily-parser.hh, lily/include/ligature-head.hh,
+	lily/include/mensural-ligature.hh, lily/include/lily-proto.hh,
+	lily/include/ligature-engraver.hh,
+	lily/include/ligature-bracket.hh, lily/parser.yy,
+	lily/ligature-bracket-engraver.cc, lily/mensural-ligature.cc,
+	lily/mensural-ligature-engraver.cc, lily/note-heads-engraver.cc,
+	lily/ligature-head.cc, lily/ligature-engraver.cc,
+	lily/ligature-bracket.cc, input/test/mensural-ligatures.ly:
+	implemented white mensural ligatures (still with a big list of
+	TODOs)
+
+
 2002-05-19  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/*.cc: use LY_DEFINE everywhere. Move doc strings from

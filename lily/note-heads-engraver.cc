@@ -34,11 +34,14 @@ protected:
   virtual void process_music ();
 
   virtual void stop_translation_timestep ();
-};
 
+private:
+  bool in_ligature;
+};
 
 Note_heads_engraver::Note_heads_engraver()
 {
+  in_ligature = 0;
 }
 
 bool
@@ -53,6 +56,19 @@ Note_heads_engraver::try_music (Music *m)
     {
       return note_req_l_arr_.size ();
     }
+  else if (Span_req *req_ = dynamic_cast<Span_req*> (m))
+    {
+      if (scm_equal_p (req_->get_mus_property ("span-type"),
+		       ly_str02scm ("abort")) == SCM_BOOL_T)
+	{
+	  in_ligature = 0;
+	}
+      else if (scm_equal_p (req_->get_mus_property ("span-type"),
+			    ly_str02scm ("ligature")) == SCM_BOOL_T)
+	{
+	  in_ligature = (req_->get_span_dir () == START);
+	}
+    }
   
   return false;
 }
@@ -63,8 +79,9 @@ Note_heads_engraver::process_music ()
 {
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
-      Item *note_p  = new Item (get_property ("NoteHead"));
-      
+      Item *note_p =
+	new Item (get_property ((in_ligature) ? "LigatureHead" : "NoteHead"));
+
       Music * req = note_req_l_arr_[i];
       
       Duration dur = *unsmob_duration (req->get_mus_property ("duration"));

@@ -373,12 +373,30 @@
 	(meta . ((interfaces . (key-signature-interface  font-interface  break-aligned-interface))))
 	))
 
+    (Ligature
+     . (
+	(molecule-callback . ,Ligature_bracket::brew_molecule)
+	(meta . ((interfaces . (ligature-interface))))
+	))
+
     (LigatureBracket
      . (
 	(width . 0.75)
 	(height . 0.5)
+	(ligature-primitive-callback . ,Note_head::brew_molecule)
 	(molecule-callback . ,Ligature_bracket::brew_molecule)
 	(meta . ((interfaces . (ligature-bracket-interface))))
+	))
+
+    (LigatureHead
+     . (
+	(ligature-primitive-callback . ,Note_head::brew_molecule)
+	(molecule-callback . ,Ligature_head::brew_molecule)
+	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(stem-attachment-function . ,note-head-style->attachment-coordinates)
+	(font-family . ancient)
+	(style . mensural)
+	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface note-head-interface staff-symbol-referencer-interface))))
 	))
 
     (LyricHyphen
@@ -414,6 +432,16 @@
 	(font-shape . upright)
 	;; duh, side-position-interface?
 	(meta . ((interfaces . (lyric-syllable-interface self-alignment-interface text-interface font-interface))))
+	))
+
+    (MensuralLigature
+     . (
+	(thickness . 1.4)
+	(flexa-width . 2.0)
+	(ligature-primitive-callback . ,Mensural_ligature::brew_ligature_primitive)
+	(molecule-callback . ,Mensural_ligature::brew_molecule)
+	(font-family . ancient)
+	(meta . ((interfaces . (mensural-ligature-interface))))
 	))
 
     (Porrectus

@@ -25,7 +25,7 @@ define_pixels(noteheight);
 %
 brevis_wid# := 2 staff_space#;
 
-def draw_brevis(expr brevwid) =
+def draw_neo_brevis(expr brevwid) =
 	save beamheight, head_width;
 	save holeheight, stem_width;
 	save serif_size, serif_protrude;
@@ -66,12 +66,26 @@ def draw_brevis(expr brevwid) =
 enddef;
 
 
+def draw_neo_left_stemmed_head (expr wid) =
+	draw_neo_brevis(wid);
+
+	x6 = x7 = head_width - stem_width/2;
+	y6 = y5;
+	y7 = y5 - 2.25staff_space;
+	pickup pencircle scaled stem_width;
+	draw z6 .. z7;
+enddef;
+
+fet_beginchar("Left stemmed notehead", "lneo_mensural", "mensuralleftstemmedhead");
+	draw_neo_left_stemmed_head (brevis_wid#)
+fet_endchar;
+
 %
 % Some sources (eg Musix/OpusTeX think that the appendage should be on
 % the left, some say right. Right wins democratically.
 %
 def draw_neo_longa (expr wid) =
-	draw_brevis(wid);
+	draw_neo_brevis(wid);
 	save theta;
 
 	x7r = head_width;
@@ -100,7 +114,7 @@ fet_beginchar("Longa notehead", "-2neo_mensural", "mensurallongahead");
 fet_endchar;
 
 fet_beginchar("Brevis notehead", "-1neo_mensural", "mensuralbrevishead")
-	draw_brevis(brevis_wid#);
+	draw_neo_brevis(brevis_wid#);
 fet_endchar;
 
 def draw_neo_mensural_black_head (expr wid) =
@@ -156,9 +170,28 @@ fet_endchar;
 
 brevis_wid# := 1 staff_space#;
 
-def draw_longa (expr wid) =
+def draw_brevis (expr wid) =
+	% TODO.  For the moment, fall back to draw_neo_brevis.
+	draw_neo_brevis(wid);
+enddef;
+
+def draw_left_stemmed_head (expr wid) =
 	draw_brevis(wid);
 	save theta;
+
+	x6 = x7 = stem_width/2;
+	y6 = y5;
+	y7 = y5 - 2.25staff_space;
+	pickup pencircle scaled stem_width;
+	draw z6 .. z7;
+enddef;
+
+fet_beginchar("Left stemmed notehead", "lmensural", "mensuralleftstemmedhead");
+	draw_left_stemmed_head (brevis_wid#)
+fet_endchar;
+
+def draw_longa (expr wid) =
+	draw_brevis(wid);
 
 	x6 = x7 = head_width - stem_width/2;
 	y6 = y5;
