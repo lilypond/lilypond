@@ -493,6 +493,7 @@
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
                 (font-family . number)
+                (font-relative-size . 0)
                 (meta . ,(element-description "TimeSignature" time-signature-interface  font-interface))
 	))
 
