@@ -1,6 +1,7 @@
 #include "stcol.hh"
 #include "sccol.hh"
 #include "voice.hh"
+#include "moment.hh"
 
 bool
 Staff_column::mus() const
@@ -25,7 +26,14 @@ Staff_column::add(Voice_element*ve)
     v_elts.add(ve);
 }
 
-Staff_column::Staff_column(Score_column*s) {
+Staff_column::Staff_column(Score_column*s)
+{
     score_column = s;
+    s_commands = 0;
+    moment_ = 0;
 }
 
+Staff_column::~Staff_column()
+{
+    delete moment_;
+}
