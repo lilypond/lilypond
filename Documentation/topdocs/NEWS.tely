@@ -40,11 +40,23 @@ engraving conventions.
 Markup texts can be appended to a @code{\score} block or toplevel
 music expression, for example,
 
-@lilypond[verbatim,relative=1,raggedright]
-\relative { c' d e }
-\markup { first text }
-\markup { second text }
+@example
+\relative @{ c' d e @}
+\markup @{ first text @}
+\markup @{ second text @}
+@end example
+@c FIXME, cannot use toplevel music examples in lilypond-book,
+@c but it works at toplevel too, as shown.
+@lilypond[quote,raggedright]
+\book {
+  \score {
+    \relative { c' d e }
+  }
+  \markup { first text }
+  \markup { second text }
+}
 @end lilypond
+
 
 See @inputfileref{input/regression,score-text.ly}.
 
