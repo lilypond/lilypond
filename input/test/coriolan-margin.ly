@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -134,7 +134,7 @@ violoncello = \notes \relative c' {
   	indent=100.0\mm
   	linewidth=150.0\mm
     \translator {
-      \HaraKiriStaffContext
+      \RemoveEmptyStaffContext
     }
     \translator {
       \OrchestralScoreContext

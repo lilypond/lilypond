@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 \header{
   latexpackages="graphicx"
 }
@@ -108,7 +108,7 @@ c1 | c2 c | c c | R1*5
       RestCollision \override #'maximum-rest-count = #1
       %% FIXME marginScriptHorizontalAlignment = #1
     }
-    \translator { \HaraKiriStaffContext
+    \translator { \RemoveEmptyStaffContext
     }
   }
 }

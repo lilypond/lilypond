@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.19"
 
 \header {
 texidoc = "Hara kiri staves disappear when empty "
@@ -90,7 +90,7 @@ zagers =  \context GrandStaff <
 	>
 	\paper{
 		linewidth = 100.0\mm
-		\translator { \HaraKiriStaffContext }
+		\translator { \RemoveEmptyStaffContext }
 %uh?
 		\translator { \OrchestralScoreContext }
 %		\translator { \OrchestralPartStaffContext }
