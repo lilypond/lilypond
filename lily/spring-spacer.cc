@@ -440,20 +440,22 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
       scol_l (i)->print ();
     }
   int start_context_i=0;
-  Moment context_shortest = infinity_mom;
+  Moment context_shortest;
+  context_shortest.set_infinite (1);
   context_shortest_arr.set_size(cols.size());
 
   for (int i=0; i < cols.size(); i++)
     {
       Moment now = scol_l (i)->when();
-      Moment shortest_playing = infinity_mom;
+      Moment shortest_playing;
+      shortest_playing.set_infinite (1);
 
       if (scol_l (i)->breakable_b_)
 	{
 	  for (int ji=i; ji >= start_context_i; ji--)
 	    context_shortest_arr[ji] = context_shortest;
 	  start_context_i = i;
-	  context_shortest = infinity_mom;
+	  context_shortest.set_infinite (1);
 	}
       if (scol_l (i)->durations.size())
 	{
@@ -559,13 +561,13 @@ Spring_spacer::calc_idealspacing()
 	  if (! shortest_playing_len)
 	    {
 	      warning (_("Can't find a ruling note at ")
-		       +String (scol_l (i)->when()));
+		       +scol_l (i)->when().str ());
 	      shortest_playing_len = 1;
 	    }
 	  if (! context_shortest)
 	    {
 	      warning(_("No minimum in measure at ")
-		      + String (scol_l (i)->when()));
+		      + scol_l (i)->when().str ());
 	      context_shortest = 1;
 	    }
 	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();

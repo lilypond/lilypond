@@ -16,7 +16,7 @@ $(outdir)/%.dvi: $(outdir)/%.mudtex
 	mv $(notdir $@) $(outdir)
 
 $(outdir)/%.mudtex: %.doc
-	$(binout)/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
+	$(binout)/mudela-book --noindex --outdir=$(outdir)/ --outname=$(notdir $@) $<
 
 $(outdir)/%.txt: $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
@@ -24,7 +24,7 @@ $(outdir)/%.txt: $(outdir)/%.1
 $(depth)/%.txt: $(outdir)/%.txt
 	cp $< $@
 
-do_pod2html=$(pod2html) --infile $< --outfile=$@
+do_pod2html=$(pod2html) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@
 # do this for perl 5.003
 # 	do_pod2html=$(pod2html) $<
 # 	mv $(notdir $@) $(outdir)/
