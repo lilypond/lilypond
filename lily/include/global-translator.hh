@@ -14,28 +14,26 @@
 #include "pqueue.hh"
 
 class Global_translator : public virtual Translator {
-    PQueue<Moment> extra_mom_pq_;
-    Moment last_mom_;
+  PQueue<Moment> extra_mom_pq_;
 public:
-    Score *score_l_;
-    
-    Global_translator();
-    int moments_left_i()const;
-    void modify_next (Moment&);
-    void add_moment_to_process (Moment);
+  Moment last_mom_;
+  Global_translator();
+  int moments_left_i() const;
+  void modify_next (Moment&);
+  void add_moment_to_process (Moment);
 
-    virtual void set_score (Score*);
-    virtual void prepare (Moment);
-    virtual void process() {}
-    virtual void finish() {}
-    virtual void start() {}
+  virtual Music_output *get_output_p ();     
+  virtual void prepare (Moment);
+  virtual void process() {}
+  virtual void finish() {}
+  virtual void start() {}
     
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     
-    virtual Global_translator *global_l() { return this; }
-    virtual int depth_i() const;
-    virtual Translator *ancestor_l (int);
+  virtual Global_translator *global_l() { return this; }
+  virtual int depth_i() const;
+  virtual Translator *ancestor_l (int);
 };
 
 
