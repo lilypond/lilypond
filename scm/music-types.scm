@@ -45,7 +45,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	)) 
     (AutoChangeMusic
      . (
-	(description .  "")
+	(description .  "Used for making voices that switch between piano staves automatically.")
 
 	(internal-class-name . "Music_wrapper")
 	(iterator-ctor . ,Auto_change_iterator::constructor)
@@ -53,14 +53,15 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	))
     (BarCheck
      . (
-	(description .  "")
+	(description .
+		     "Check whether this music coincides with the start of the measure.")
 	(internal-class-name . "Music")
 	(types . (general-music bar-check))
 	(iterator-ctor . ,Bar_check_iterator::constructor)
 	))
     (BassFigureEvent
      . (
-	(description .  "")
+	(description .  "Print a bass-figure text")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event bass-figure-event))
@@ -97,7 +98,7 @@ c8-[ c c-] c8")
 	)) 
     (BusyPlayingEvent
      . (
-	(description .  "")
+	(description .  "Used internally to signal beginning and ending of notes.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
@@ -110,7 +111,7 @@ c8-[ c c-] c8")
 	)) 
     (ContextSpeccedMusic
      . (
-	(description .  "")
+	(description .  "Interpret the argument music within a specific context.")
 	(iterator-ctor . ,Context_specced_music_iterator::constructor)
 	(internal-class-name . "Music_wrapper")
 	(types . (context-specification general-music music-wrapper-music))
@@ -126,7 +127,7 @@ c8-[ c c-] c8")
 	)) 
     (DecrescendoEvent
      . (
-	(description .  "")
+	(description .  "See @ref{CrescendoEvent}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
@@ -134,27 +135,27 @@ c8-[ c c-] c8")
  
     (ExtenderEvent
      . (
-	(description .  "")
+	(description .  "Extend lyrics.")
 
 	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
 	))
     (FingerEvent
      . (
-	(description . "")
+	(description . "Specify what finger to use for this note.")
 	(internal-class-name . "Event")
 	(types . (general-music fingering-event event))
 	))
     (GlissandoEvent
      . (
-	(description .  "")
-
+	(description .  "Start  a glissando on this note.")
 	(internal-class-name . "Event")
 	(types . (general-music glissando-event event))
-	)) 
+	))
+    
     (GraceMusic
      . (
-	(description .  "")
+	(description .  "Interpret the argument as grace notes. ")
 
 	(internal-class-name . "Grace_music")
 	(iterator-ctor . ,Grace_iterator::constructor)
@@ -168,29 +169,32 @@ c8-[ c c-] c8")
 	))
     (HyphenEvent
      . (
-	(description .  "")
+	(description .  "A hyphen between lyric syllables.")
 
 	(internal-class-name . "Event")
 	(types . (general-music hyphen-event event))
-	))   
+	))
+    
     (KeyChangeEvent
      . (
-	(description .  "")
+	(description .  "Change the key signature. Syntax: @code{\\key } @var{name} @var{scale}.")
 
 	(internal-class-name . "Key_change_ev")
 	(types . (general-music key-change-event event))
 	)) 
     (LigatureEvent
      . (
-	(description .  "")
+	(description .  "(docme).")
 
 	(internal-class-name . "Event")
 	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
+    
     (LyricCombineMusic
      . (
-	(description .  "")
+	(description .  "Align lyrics to the start of notes.
+Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 
 	(internal-class-name . "Lyric_combine_music")
 	(types . (general-music lyric-combine-music))
@@ -207,17 +211,19 @@ c8-[ c c-] c8")
 	))
     (MarkEvent
      . (
-	(description .  "")
+	(description .  "Insert a rehearsal mark. Syntax: @code{\mark} @var{marker},
+e.g. @code{\\mark \"A\"}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music mark-event event))
 	))
     (MelismaPlayingEvent
      . (
-	(description .  "")
+	(description .  "Used internally to signal melismas")
 	(internal-class-name . "Event")
 	(types . (general-music melisma-playing-event event))
 	))
+    
     (MultiMeasureRestEvent
      . (
 	(description . "Rests that may be compressed into Multi rests. Syntax
@@ -227,21 +233,22 @@ c8-[ c c-] c8")
 	))
     (Music
      . (
-	(description .  "")
+	(description .  "Generic type for music expressions.")
 
 	(internal-class-name . "Music")
 	(types . (general-music)) 
 	))
     (NoteEvent
      . (
-	(description .  "")
+	(description .  "A note.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
+    
     (OverrideProperty
      . (
-	(description .  "")
+	(description .  "Extend the definition of a graphical object")
 
 	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
@@ -250,59 +257,69 @@ c8-[ c c-] c8")
 
     (PartCombineMusic
      . (
-	(description .  "")
+	(description .  "Combine two parts on a staff, either merged or
+as separate voices.")
 
 	(internal-class-name . "Simultaneous_music")
 	(types . (general-music part-combine-music))
 	(iterator-ctor . ,Part_combine_music_iterator::constructor)
 	))
+    
     (PhrasingSlurEvent
      . (
 	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
 	(internal-class-name . "Event")
 	(types . (general-music span-event phrasing-slur-event))
 	))
+    
     (PropertySet
      . (
-	(description .  "")
+	(description .  "Set a context property.
+
+Syntax: @code{\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_iterator::constructor)
 	)
      )
+    
     (PropertyUnset
      . (
-	(description .  "")
+	(description .  "Remove the definition of a context @code{\property}.")
 
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_unset_iterator::constructor)
 	)
      )
+    
     (PorrectusEvent
      . (
-	(description .  "")
+	(description .  "(docme)")
 
 	(internal-class-name . "Event")
 	(types . (general-music porrectus-event event))
 	))
+
     (RepeatedMusic
      . (
-	(description .  "")
+	(description .  "Repeat music in different ways")
 
 	(type .  repeated-music)
 	(types . (general-music repeated-music))
 	))
+    
     (Event
      . (
-	(description .  "")
+	(description .  "Atomic music event.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
-	)) 
+	))
+    
     (RestEvent
      . (
-	(description .  "")
+	(description .  "A Rest. Syntax @code{r4} for a quarter rest. ")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
@@ -333,16 +350,20 @@ c8-[ c c-] c8")
 
     (RevertProperty
      . (
-	(description .  "")
+	(description .  "The opposite of @ref{OverrideProperty}: remove a
+previously added property from a graphical object definition
+ ")
 
 	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	Pop_property_iterator::constructor)
 	))
-    
+
     (OutputPropertySetMusic
      . (
-	(description .  "")
+	(description .  "Set grob properties in objects
+individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
+= @var{val}}.")
 
 	(internal-class-name . "Music")
 	(iterator-ctor . ,Output_property_music_iterator::constructor)
@@ -355,9 +376,10 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music span-event text-span-event))
 	))
+    
     (TranslatorChange
      . (
-	(description .  "")
+	(description .  "Change staffs in Piano staff. Syntax @code{\\translator Staff = @var{new-id}}.")
 	(internal-class-name . "Music")
 	(iterator-ctor . , Change_iterator::constructor)
 	(types . (general-music translator-change-instruction))
@@ -365,7 +387,10 @@ c8-[ c c-] c8")
     
     (TimeScaledMusic
      . (
-	(description .  "")
+	(description .  "Multiply durations, as in tuplets. Syntax @code{\\times @var{fraction} @var{music}}, e.g.
+@code{\\times 2/3 { ... }} for triplets.
+
+ ")
 	(internal-class-name . "Time_scaled_music")
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
@@ -373,14 +398,14 @@ c8-[ c c-] c8")
     
     (TransposedMusic
      . (
-	(description .  "")
+	(description .  "Music that has been transposed.")
 	(internal-class-name . "Transposed_music")
 	(types . (music-wrapper-music general-music transposed-music))
 	))
 
     (UntransposableMusic
      . (
-	(description .  "")
+	(description .  "Music that can not be transposed.")
 
 	(internal-class-name . "Untransposable_music")
 	(types . (music-wrapper-music general-music untransposable-music)) 
@@ -388,23 +413,23 @@ c8-[ c c-] c8")
 
     (UnrelativableMusic
      . (
-	(description .  "")
+	(description .  "Music that can not be converted from relative to absolute notation.
+For example, transposed music.")
 	(internal-class-name . "Un_relativable_music")
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
 
     (RelativeOctaveMusic
      . (
-	(description .  "")
+	(description .  "Music that was entered in relative octave notation.")
 
 	(internal-class-name . "Relative_octave_music")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
-
     
     (EventChord
      . (
-	(description .  "")
+	(description .  "Internally used to group a set of events.")
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
@@ -414,56 +439,64 @@ c8-[ c c-] c8")
     
     (ScriptEvent
      . (
-	(description .  "")
+	(description .  "Add an articulation mark to a note. ")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
-	)) 
+	))
+    
     (SkipEvent
      . (
-	(description .  "")
+	(description .  "Filler that takes up duration, but does not print anything.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event skip-event))
-	)) 
+	))
+    
     (SpanEvent
      . (
-	(description .  "")
+	(description .  "Event for anything that is started at a different time than stopped.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
-	)) 
+	))
+    
     (SustainEvent
      . (
-	(description . "")
+	(description . "Depress or release sustain pedal. ")
 	(internal-class-name . "Event")
 	(types . (general-music pedal-event sustain-pedal-event))
 	))
+    
     (SostenutoEvent
      . (
-	(description . "")
+	(description . "Depress or release sostenuto pedal. ")
 	(internal-class-name . "Event")
 	(types . (general-music pedal-event sostenuto-pedal-event))
 	))
+    
     (UnaCordaEvent
      . (
-	(description . "")
+	(description . "Depress or release una-corda pedal.")
 	(internal-class-name . "Event")
 	(types . (general-music pedal-event una-corda-pedal-event))
 	))
+    
     (StringNumberEvent
      . (
-	(description .  "")
+	(description .  "Specify on which string to play this note. Syntax: @code{\\@var{number}}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music string-number-event event))
 	)) 
+
     (TempoEvent
      . (
-	(description .  "")
+	(description .  "Change tempo setting (in beats per minute).")
 	(internal-class-name . "Event")
 	(types . (general-music tempo-event event))
-	)) 
+	))
+    
     (TextScriptEvent
      . (
 	(description .  "")
@@ -472,7 +505,7 @@ c8-[ c c-] c8")
 	)) 
     (TieEvent
      . (
-	(description .  "A tie.  Entered as ~.")
+	(description .  "A tie.  Entered as @code{~}.")
 	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))
@@ -488,9 +521,10 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event tremolo-event))
 	))
+    
     (VoiceSeparator
      . (
-	(description .  "")
+	(description .  "Separate polyphonic voices in simultaneous music. Syntax: @code{\\\\}")
 
 	(internal-class-name . "Music")
 	(types . (separator general-music))
@@ -518,7 +552,7 @@ c8-[ c c-] c8")
     (PercentRepeatedMusic
      . (
 	(internal-class-name . "Repeated_music")
-	(description .  "")
+	(description .  "Repeats encoded by percents.")
 	(iterator-ctor . ,Percent_repeat_iterator::constructor)
 	(start-moment-function .  ,Repeated_music::first_start)
 	(length . ,Repeated_music::unfolded_music_length)
@@ -528,7 +562,7 @@ c8-[ c c-] c8")
     (TremoloRepeteadMusic
      . (
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
-	(description .  "")
+	(description .  "Repeated notes denoted by tremolo beams.")
 	(internal-class-name . "Repeated_music")
 	(start-moment-function .  ,Repeated_music::first_start)
 
@@ -537,10 +571,11 @@ c8-[ c c-] c8")
 	(types . (general-music repeated-music tremolo-repeated-music))
 	
 	))
+    
     (FoldedRepeatedMusic
      . (
 	(internal-class-name . "Repeated_music")
-	(description .  "")
+	(description .  "Repeats with alternatives placed in parallel. ")
 	(iterator-ctor  . ,Folded_repeat_iterator::constructor)
 	(start-moment-function .  ,Repeated_music::minimum_start)
 	(length . ,Repeated_music::folded_music_length)
