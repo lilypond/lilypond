@@ -2,6 +2,7 @@
 #include "identifier.hh"
 #include "staff.hh"
 #include "lexer.hh"
+#include "inputmusic.hh"
 
 
 Identifier::Identifier(String n)
@@ -20,7 +21,8 @@ Staff_id::~Staff_id()
     delete staff();
 }
 
-Voice_id::~Voice_id()
+Voices_id::~Voices_id()
 {
-    delete voice();
+    voices()->junk();
+    delete voices();
 }

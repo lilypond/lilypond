@@ -7,6 +7,7 @@
 
 Clef_item::Clef_item()
 {
+    change = true;
     read("violin");
 }
 void
@@ -27,7 +28,10 @@ Clef_item::read(Clef k)
 void
 Clef_item::preprocess()
 {
-    Symbol s = paper()->lookup_->clef(type);
+    String t = type;
+    if  (change)
+	t += "_change";
+    Symbol s = paper()->lookup_->clef(t);
     output = new Molecule(Atom(s));
     output->translate(Offset(0, paper()->interline()/2 * y_off));
 }

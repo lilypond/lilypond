@@ -34,16 +34,11 @@ parse_duration(const char *a, int &j, int &intdur, int &dots)
 }
 
 
-
-void 
-parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
-	     int & large, int & small)
-{
-    // octave
-    oct =default_octave;
-    
+void
+parse_octave (const char *a, int &j, int &oct)
+{    
     while (1) 
-	{	
+    {	
 	if (a[j] == '\'')
 	    oct ++;
 	else if (a[j] == '`')
@@ -51,10 +46,18 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	else
 	    break;
 	j++;
-	
-	}
+    }
+}
 
-	mtor << "oct " << oct;
+void 
+parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
+	     int & large, int & small)
+{
+    // octave
+    oct =default_octave;
+    parse_octave(a,j,oct);
+
+    mtor << "oct " << oct;
 	
     // accidental
     overide_acc = false;
@@ -152,9 +155,8 @@ void
 set_default_pitch(String d)
 {
     int i=0;
-    bool b;
-    int l,s;
-    parse_pitch(d, i, default_octave, b, l,s);
+    default_octave=0;
+    parse_octave(d, i, default_octave);
 }
 
 Request*

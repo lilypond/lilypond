@@ -215,6 +215,8 @@ PScore::postprocess()
     for (PCursor<Item*> ic(its); ic.ok(); ic++){
 	ic->postprocess();
     }
+    for (PCursor<Line_of_score*> i(lines); i.ok(); i++)
+	i->process();
 }
 
 PCursor<PCol *>

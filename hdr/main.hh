@@ -3,6 +3,7 @@
 #include "proto.hh"
 
 void debug_init();
+void set_debug(bool);
 void do_scores();
 void add_score(Score * s);
 void set_default_output(String s);

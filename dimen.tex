@@ -1,7 +1,9 @@
 \font\musicfnt=musix20
-%\def\mb#1{{\musicfnt\musicfnt\char#1}}
-\font\slurfont=xslhz20
-\def\mb#1{{\musicfnt\slurfont\char#1}}
+\font\slurfont=xslhu20
+\def\thefont{\musicfnt}
+
+\def\mb#1{{\thefont\char#1}}
+
 \newdimen\wid
 \newdimen\inc
 \newdimen\here

@@ -1,5 +1,7 @@
-#include "scommands.hh"
+#include "staffcommands.hh"
 #include "tstream.hh"
+#include "getcommand.hh"
+#include "inputcommands.hh"
 #include "score.hh"
 #include "sccol.hh"
 #include "pscore.hh"
@@ -8,36 +10,12 @@
 #include "paper.hh"
 
 void
-Score::set(Paperdef*p)
-{
-    delete paper_;
-    paper_ = p;
-}
-
-void
-Score::output(String s)
-{
-    OK();
-    if (paper_->outfile=="")
-	paper_->outfile = s;
-    
-    *mlog << "output to " << paper_->outfile << "...\n";
-    Tex_stream the_output(paper_->outfile);    
-    pscore_->output(the_output);
-}
-
-
-void
 Score::process()
 {
     *mlog << "Processing ... ";
-    set(commands_->parse(last()));
-    commands_->print();
     
     if (!paper_)
 	paper_ = new Paperdef;
-    
-    commands_->clean(last());
     
     /// distribute commands to disciples
     distribute_commands();
@@ -51,23 +29,23 @@ Score::process()
     // do this after processing, staffs first have to generate PCols.
     do_pcols();
     calc_idealspacing();
-    clean_cols();
+    clean_cols();		// ugh. Would want to clean the columns before anything else.
+
+
     OK();
-    //    print();
 
     pscore_->preprocess();
     *mlog << "Calculating ... ";
     pscore_->calc_breaking();
+    *mlog << "Postprocessing ... ";
     pscore_->postprocess();
 
-    // TODO: calculate vertical structs
-    // TODO: calculate mixed structs.
+    // TODO: calculate vertical structs?
+    // TODO: calculate mixed structs.?
     *mlog << "\n";
 }
 
-// remove empty cols with no spacing attached.
-/* should rethink ownership of cols
-    */
+// remove empty cols.
 void
 Score::clean_cols()
 {    
@@ -85,9 +63,10 @@ Score::clean_cols()
     
     pscore_->clean_cols();
 }
-/* this sux.  We should have Score_column create the appropriate PCol.
-    Unfortunately, PCols don't know about their position.    
-    */
+/*
+  this sux.  We should have Score_column create the appropriate PCol.
+  Unfortunately, PCols don't know about their position.    
+  */
 // todo
 PCursor<Score_column*>
 Score::create_cols(Real w)
@@ -119,7 +98,7 @@ Score::create_cols(Real w)
     return scc;
 }
 
-Score_column*
+PCursor<Score_column*>
 Score::find_col(Real w,bool mus)
 {
     PCursor<Score_column*> scc(cols_);
@@ -136,10 +115,10 @@ Score::find_col(Real w,bool mus)
 }
 
 void
-Score::distribute_commands(void)
+Score::distribute_commands()
 {
     for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->add_commands(*commands_);
+	sc->process_input_commands(input_commands_, last());
     }
 }
 void
@@ -181,7 +160,6 @@ Score::OK() const
     for (PCursor<Score_column*> cc(cols_); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when <= (cc+1)->when);
     }
-    commands_->OK();
 #endif    
 }
 
@@ -197,7 +175,6 @@ Score::print() const
     for (PCursor<Score_column*> sc(cols_); sc.ok(); sc++) {
 	sc->print();
     }
-    commands_->print();
     mtor << "}\n";
 #endif
 }
@@ -206,19 +183,39 @@ Score::Score()
 {
     pscore_=0;
     paper_ = 0;
-    commands_ = new Score_commands;
 }
 
 Score::~Score()
 {
     delete pscore_;
-    delete commands_;
+    for (int i=0; i<input_commands_.sz(); i++)
+	delete input_commands_[i];    
     delete paper_;
+}
+void
+Score::set(Paperdef*p)
+{
+    delete paper_;
+    paper_ = p;
 }
 
 void
-Score::set(Score_commands*c)
+Score::output(String s)
 {
-    delete commands_;
-    commands_ = c;
+    OK();
+    if (paper_->outfile=="")
+	paper_->outfile = s;
+    
+    *mlog << "output to " << paper_->outfile << "...\n";
+    Tex_stream the_output(paper_->outfile);    
+    pscore_->output(the_output);
 }
+
+
+void
+Score::add(svec<Command*> &s)
+{
+    input_commands_.add(get_reset_command());
+    input_commands_.concat(s);
+}
+

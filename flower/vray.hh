@@ -156,21 +156,4 @@ public:
 
   */
 
-/// A simple stack based on svec.
-template<class T>
-class sstack : svec<T> {
- public:
-    T top() { return last(); }
-    T pop() {
-	assert(!empty());
-	T l = last();
-        svec<T>::pop();
-	return l;
-    }
-    void push(T l) { add(l); }
-    bool empty() { return svec<T>::empty(); } 
-};
-/**
-  Same as for #svec# goes here.
-*/
 #endif

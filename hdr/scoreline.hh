@@ -20,7 +20,7 @@ Line_of_score {
     PScore * pscore_;	// needed to generate staffs
 
     /****************/
-    
+    void process() ;
     Line_of_score(svec<const PCol *> sv,  PScore *);
 
     String TeXstring() const;

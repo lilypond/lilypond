@@ -39,7 +39,7 @@ slope_index(Real &s)
     if (s>0)
 	return 6*i +122;
     else
-	return -6 * i+ 188;
+	return -6 * i+ 186;
 }
 
 Symbol

@@ -1,4 +1,5 @@
 #include "request.hh"
+#include "voice.hh"
 #include "swalker.hh"
 #include "debug.hh"
 #include "clef.hh"

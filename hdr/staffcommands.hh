@@ -1,8 +1,8 @@
 /*
   lilypond, (c) 1996 Han-Wen Nienhuys
 */
-#ifndef SCOMMANDS_HH
-#define SCOMMANDS_HH
+#ifndef SCORECOMMANDS_HH
+#define SCORECOMMANDS_HH
 
 #include "proto.hh"
 #include "command.hh"
@@ -10,10 +10,8 @@
 #include "plist.hh"
 
 /// the list of commands in Score
-struct Score_commands : public IPointerList<Command*> {
+struct Staff_commands : public IPointerList<Command*> {
     void process_add(Command);
-    Score_commands*parse(Real last)const;
-    void parser_add(Command*);
     void add_seq(svec<Command>,bool);
     void clean(Real last);
     void set_breakable(Real when);

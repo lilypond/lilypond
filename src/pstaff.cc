@@ -1,4 +1,9 @@
 #include "pstaff.hh"
+#include "molecule.hh"
+PStaff::~PStaff()
+{
+    delete stafsym;
+}
 
 PStaff::PStaff(PScore*ps)
 {

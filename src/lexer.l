@@ -80,17 +80,21 @@ REAL		[0-9]+(\.[0-9]*)?
 }
 <notes>[ \t\n]+		{
 }
-<notes>%.*		{
+<notes>%.*$		{
 
 }
 <notes>\$	{
 	BEGIN(INITIAL); return '$';
 }
-<notes>[\[{)]	{ /* parens () are NO mistake */
+<notes>[{}]	{
+	return YYText()[0];
+	
+}
+<notes>[\[)]	{ /* parens () are NO mistake */
 	yylval.c = YYText()[0];
 	return OPEN_REQUEST_PARENS;
 }
-<notes>[\]}(]	{ /* parens () are NO mistake */
+<notes>[\](]	{ /* parens () are NO mistake */
 	yylval.c = YYText()[0];
 	return CLOSE_REQUEST_PARENS;
 }
@@ -166,6 +170,12 @@ REAL		[0-9]+(\.[0-9]*)?
 
 yyFlexLexer *lexer=0;
 
+bool
+busy_parsing()
+{
+    return lexer;	
+}
+
 // set the  new input to s, remember old file.
 void
 new_input(String s)
@@ -226,4 +236,5 @@ void
 kill_lexer()
 {
 	delete lexer;
+	lexer = 0;
 }

@@ -13,8 +13,10 @@ LilyPond is updated very frequently, the latest version is always available at:
 
 PREREQUISITES
 
-TeX, the MusixTeX fonts, g++ > v2.7. The "flower" library, which should be
-available from the same source you got this from.
+TeX, the MusixTeX fonts, g++ > v2.7. The "flower" library, which
+should be available from the same source you got this from. The
+Makefile uses perl for trivial operation, but you could tinker with it
+to use sed or awk.
 
 COMPILING
 
@@ -70,7 +72,7 @@ stacktrace of the crash.
 HOW DOES IT WORK
 
 * Use The Source, Luke. If you don't know C++, you can try editing
-.dstreamrc for copious debugging output.
+.dstreamrc for copious debugging output. (use -d)
 
 * the subdir Documentation/ contains some in depth matter on LilyPond
 algorithms

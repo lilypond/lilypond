@@ -2,6 +2,24 @@
 #include "parseconstruct.hh"
 #include "command.hh"
 
+Command*
+get_partial_command(Real u)
+{
+    Command*c = new Command;
+    c->code = INTERPRET;    
+    c->args.add("PARTIAL");
+    c->args.add(u);
+    return c;
+}
+
+Command*
+get_reset_command()
+{
+    Command*c = new Command;
+    c->code = INTERPRET;    
+    c->args.add("RESET");
+    return c;
+}
 
 Command*
 get_key_interpret_command(svec<String> which)

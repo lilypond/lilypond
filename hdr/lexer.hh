@@ -7,7 +7,7 @@ void new_input(String s);
 bool close_input();
 int yylex();
 void yyerror(const char *s);
-
+bool busy_parsing();
 int lookup_keyword(String s);
 
 Identifier* lookup_identifier(String s);

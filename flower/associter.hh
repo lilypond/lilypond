@@ -14,9 +14,9 @@ template<class K, class V>
 struct Assoc_iter {
     int i;
     Assoc<K,V> &assoc_;
-    
-    Assoc_iter(Assoc<K,V> &a) :
-	assoc_(a)
+    /// we don't want to be bothered by const correctness
+    Assoc_iter(const Assoc<K,V> &a) :
+	assoc_((Assoc<K,V> &)a)
     {	
 	i= next(0);
     }

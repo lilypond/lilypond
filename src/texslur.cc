@@ -140,7 +140,7 @@ Lookup::slur (int dy , Real &dx, int dir)
 	if (dx >= convert_dimen(4*54, "pt"))
 	    error("slur too wide");
 	idx = widx;
-	if (dir > 0)
+	if (dir < 0)
 	    idx += 54;		
     }
     
@@ -158,7 +158,6 @@ Symbol
 Lookup::big_slur(int dy , Real &dx, int dir)
 {
     assert(dx >= convert_dimen(24,"pt"));
-
     Real slur_extra =ABS(dy)  /2.0 + 2; 
     int l_dy = Real (dy)/2 + slur_extra*dir;
     int r_dy =  dy - l_dy;
@@ -169,6 +168,7 @@ Lookup::big_slur(int dy , Real &dx, int dir)
     Atom l = half_slur(l_dy, left_wid, dir, -1);
     Atom r = half_slur(r_dy, right_wid, dir, 1);
     Real mid_wid = dx - left_wid - right_wid;
+
     Atom m = half_slur(0, mid_wid, dir, 0);
 
     Molecule mol;
@@ -177,7 +177,7 @@ Lookup::big_slur(int dy , Real &dx, int dir)
     a.translate(Offset(0,slur_extra * internote()));
     mol.add_right(m);
     mol.add_right(r);
-    mol.translate(Offset(l_dy * internote(), 0));
+    mol.translate(Offset(0, l_dy * internote()));
     Symbol s;
     s.tex = mol.TeXstring();
     s.dim = mol.extent();

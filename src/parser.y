@@ -7,11 +7,12 @@
 #include "score.hh"
 #include "main.hh"
 #include "keyword.hh"
-#include "scommands.hh"
+#include "getcommand.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
 #include "dimen.hh"
 #include "identifier.hh"
+#include "inputmusic.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -25,7 +26,6 @@ svec<Request*> pre_reqs, post_reqs;
     Real real;
     Command *command;
     Identifier *id;    
-    Score_commands *scommands;
     Voice *voice;    
     Voice_element *el;	
     Staff *staff;    
@@ -34,15 +34,23 @@ svec<Request*> pre_reqs, post_reqs;
     const char *consstr;
     Paperdef *paper;
     Request* request;
+    Horizontal_music *horizontal;
+    Vertical_music *vertical;
+    Music_general_chord *chord;
+    Music_voice *mvoice; 
     int i;
     char c;
+
     svec<String> * strvec;
+    svec<Command*> *commandvec;
+    Voice_list *voicelist;
 }
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
 %token MELODICSTAFF GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
-%token KEY CLEF VIOLIN BASS
+%token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
+%token PARTIAL
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -57,17 +65,24 @@ svec<Request*> pre_reqs, post_reqs;
 %type <id> declaration 
 %type <paper> paper_block paper_body
 %type <real> dim
-%type <voice> voice_block voice_body voice_elts voice_elts_dollar
-%type <el> voice_elt
-%type <command> score_command
+
+%type <el> voice_elt full_element
+%type <command> score_command staff_command skipcommand
 %type <score> score_block score_body
 %type <staff> staff_block  rhythmstaff_block rhythmstaff_body
 %type <staff> melodicstaff_block melodicstaff_body staffdecl
 %type <i> int
-%type <scommands> score_commands_block score_commands_body
+%type <commandvec> score_commands_block score_commands_body
+%type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request
 %type <strvec> pitch_list
 %type <string> clef_id
+%type <vertical> vertical_music  
+%type <chord> music_chord music_chord_body
+%type <horizontal>  horizontal_music
+%type <mvoice>  music_voice_body music_voice
+%type <voicelist> voices
+
 %%
 
 mudela:	/* empty */
@@ -76,7 +91,9 @@ mudela:	/* empty */
 	}
 	| mudela add_declaration {	}
 	;
-
+/*
+	DECLARATIONS
+*/
 add_declaration: declaration	{
 		add_identifier($1);
 	}
@@ -87,31 +104,82 @@ declaration:
 		$$ = new Staff_id(*$1, $3);
 		delete $1; // this sux
 	}
-	| NEWIDENTIFIER '=' voice_block {
-		$$ = new Voice_id(*$1, $3);
+	| NEWIDENTIFIER '=' voices {
+		$$ = new Voices_id(*$1, $3);
 		delete $1;
 	}
 	;
 
 
+/*
+	SCORE
+*/
 score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
 	;
 
 score_body:		{ $$ = new Score; } 
 	| score_body staff_block	{ $$->add($2); }
-	| score_body score_commands_block 	{ $$->set($2); }
+	| score_body score_commands_block 	{
+		$$->add(*$2);
+		delete $2;
+	}
 	| score_body paper_block		{ $$->set($2);	}
 	;
+/*
+	COMMANDS
+*/
 score_commands_block:
 	COMMANDS '{' score_commands_body '}' { $$ =$3;}
 	;
 
-score_commands_body:			{ $$ = new Score_commands; }
+score_commands_body:			{ $$ = new svec<Command*>; }
 	| score_commands_body score_command		{
-		$$->parser_add($2);
+		$$->add($2);
 	}
 	;
 
+staff_commands_block: COMMANDS '{' staff_commands_body '}'	{
+		$$ = $3; }
+	;
+
+staff_commands_body:
+	/* empty */			{ $$ = new svec<Command*>; }
+	| staff_commands_body staff_command	{
+		$$->add($2);
+	}
+	;
+
+staff_command:
+	skipcommand
+	| KEY '$' pitch_list '$'	{/*UGH*/
+		$$ = get_key_interpret_command(*$3);
+		delete $3;
+	}
+	| CLEF clef_id			{
+		$$ = get_clef_interpret_command(*$2);
+		delete $2;
+	}
+	;
+
+skipcommand:
+	SKIP int ':' REAL		{
+		$$ = get_skip_command($2, $4);
+	}
+
+score_command:
+	skipcommand
+	| METER  int int		{
+		$$ = get_meterchange_command($2, $3);
+	}
+	| PARTIAL REAL			{
+		$$ = get_partial_command($2);
+	}
+	;
+	
+
+/*
+	PAPER
+*/
 paper_block:
 	PAPER '{' paper_body '}' 	{ $$ = $3; }
 	;
@@ -125,20 +193,8 @@ paper_body:
 	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
 	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
 	;
-
-dim:
-	REAL unit	{ $$ = convert_dimen($1,$2); }
-	;
-
-
-unit:	CM		{ $$ = "cm"; }
-	|IN		{ $$ = "in"; }
-	|MM		{ $$ = "mm"; }
-	|PT		{ $$ = "pt"; }
-	;
-	
 /*
-	staff
+	STAFFs
 */
 staff_block:
 	staffdecl
@@ -155,7 +211,13 @@ rhythmstaff_block:
 
 rhythmstaff_body:
 	/* empty */			{ $$ = get_new_rhythmstaff(); }
-	| rhythmstaff_body voice_block 	{ $$->add_voice($2); } 	
+	| rhythmstaff_body voices	{ $$->add(*$2);
+		delete $2;
+	}
+	| rhythmstaff_body staff_commands_block {
+		$$->add(*$2);
+		delete $2;
+	}
 	;
 
 melodicstaff_block:
@@ -164,41 +226,73 @@ melodicstaff_block:
 
 melodicstaff_body:
 	/* empty */			{ $$ = get_new_melodicstaff(); }
-	| melodicstaff_body voice_block 	{ $$->add_voice($2); } 	
+	| melodicstaff_body voices	{
+		$$->add(*$2);
+		delete $2;
+	}	
+	| melodicstaff_body staff_commands_block {
+		$$->input_commands_.add(get_reset_command());
+		$$->add(*$2);
+		delete $2;
+	} 	
 	;
+
+voices:
+	'$' music_voice_body '$'  {
+		$$ = new Voice_list($2->convert());
+	}
+	| VOICES '{' IDENTIFIER '}' 	{
+		$$ = new Voice_list(*$3->voices());
+	}
+	;
+
+
+horizontal_music:
+	music_voice	{ $$ = $1; }
+	;
+
+vertical_music:
+	music_chord	{ $$ = $1; }
+	;
+
+music_voice: VOICE '{' music_voice_body '}'	{ $$ = $3; }
+	;
+
+music_voice_body:			{
+		$$ = new Music_voice;
+	}
+	| music_voice_body full_element {
+		$$->add($2);
+	}
+	| music_voice_body voice_command {
+	}
+	| music_voice_body vertical_music	{
+		$$->add($2);
+	}
+	;
+
+
+music_chord: CHORD '{' music_chord_body '}'	{ $$ = $3; }
+	;
+
+music_chord_body:		{
+		$$ = new Music_general_chord;
+	}
+	| music_chord_body horizontal_music {
+		$$ -> add($2);
+	}
+	;
+
+
 
 /*
-	voice
+	VOICE ELEMENTS
 */
-voice_block:
-	VOICE '{' voice_body '}'	{ $$ = $3; }
-	;
-
-
-voice_body:
-	IDENTIFIER		{ $$ = new Voice(*$1->voice()); }
-	| voice_elts_dollar	{ $$ = $1; }
-	| voice_body START_T REAL { $$->start = $3; }
-	;
-
-
-	
-
-voice_elts_dollar:
-	'$' voice_elts '$'  { $$ = $2; }
- 	;
-
-voice_elts:
-	/* empty */		{
-            $$ = new Voice;
-        }
-        | voice_elts pre_requests voice_elt post_requests {
-		add_requests($3, pre_reqs);
-		add_requests($3, post_reqs);
-		$$->add($3);
-        }
-
-	| voice_elts voice_command { }
+full_element:	pre_requests voice_elt post_requests {
+		add_requests($2, pre_reqs);
+		add_requests($2, post_reqs);
+		$$ = $2;
+	}
 	;
 
 post_requests:
@@ -223,16 +317,15 @@ pre_requests:
 pre_request: 
 	OPEN_REQUEST_PARENS		{ $$ = get_request($1); }
 	;
-/*
-*/
+
 voice_command:
-	DURATIONCOMMAND DURATION	{
-		set_default_duration(*$2);
-		delete $2;
+	DURATIONCOMMAND '{' DURATION '}'	{
+		set_default_duration(*$3);
+		delete $3;
 	}
-	| OCTAVECOMMAND PITCH	{
-		set_default_pitch(*$2);
-		delete $2;
+	| OCTAVECOMMAND '{' PITCH '}'	{
+		set_default_pitch(*$3);
+		delete $3;
 	}
 	;
 
@@ -254,7 +347,9 @@ voice_elt:
 		delete $1;
 	}
 	;
-
+/*
+	UTILITIES
+*/
 pitch_list:			{
 		$$ = new svec<String>;
 	}
@@ -263,30 +358,6 @@ pitch_list:			{
 		delete $2;		
 	}
 
-score_command:
-	SKIP int ':' REAL		{
-		$$ = get_skip_command($2, $4);
-	}
-	| METER  int int		{
-		$$ = get_meterchange_command($2, $3);
-	}
-	| KEY '$' pitch_list '$'	{/*UGH*/
-		$$ = get_key_interpret_command(*$3);
-		delete $3;
-	}
-	| CLEF clef_id			{
-		$$ = get_clef_interpret_command(*$2);
-		delete $2;
-	}
-/*	| PARTIALMEASURE REAL		{
-		$$ = get_partial_command($2);
-	}*/
-	;
-	
-clef_id:
-	VIOLIN		{ $$ = new String("violin"); }
-	| BASS		{ $$ = new String("bass"); }
-	;
 int:
 	REAL			{
 		$$ = int($1);
@@ -296,18 +367,37 @@ int:
 	}
 	;
 
+
+dim:
+	REAL unit	{ $$ = convert_dimen($1,$2); }
+	;
+
+
+unit:	CM		{ $$ = "cm"; }
+	|IN		{ $$ = "in"; }
+	|MM		{ $$ = "mm"; }
+	|PT		{ $$ = "pt"; }
+	;
+	
+clef_id:
+	VIOLIN		{ $$ = new String("violin"); }
+	| BASS		{ $$ = new String("bass"); }
+	;
 %%
 
 void
 parse_file(String s)
 {
    *mlog << "Parsing ... ";
+
 #ifdef YYDEBUG
-   yydebug = !monitor.silence("Parser");
+   yydebug = !monitor.silence("Parser") & check_debug;
 #endif
+
    new_input(s);
    yyparse();
    delete_identifiers();
    kill_lexer();
    *mlog << "\n";
 }
+

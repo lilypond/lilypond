@@ -1,9 +1,7 @@
 #ifndef STAFF_HH
 #define STAFF_HH
 
-#include "score.hh"
-#include "voice.hh"
-#include "command.hh"
+#include "staffcommands.hh"
 
 
 /// base class for a collection of voices.
@@ -12,8 +10,8 @@ struct Staff {
     IPointerList<Voice*> voices;
 
     /// commands in chronological order
-    IPointerList<Command *> commands;
-
+    Staff_commands *staff_commands_;
+    
     /// runtime field
     IPointerList<Staff_column*> cols;
 
@@ -21,7 +19,13 @@ struct Staff {
     Score *score_;
     PScore *pscore_;
 
+    svec<Command*> input_commands_;
+        
     /****************************************************************/
+    void add(svec<Command*> &s);
+    void add(PointerList<Voice*> &s);
+    void process_input_commands(svec<Command*> &s, Real l);
+    
     Staff(const Staff&src);
     void add_voice(Voice *v);
     void add_staff_column(Staff_column *sp);
@@ -39,14 +43,6 @@ struct Staff {
     Real last() const;
     void clean_cols() ;
     Staff_column * get_col(Real,bool);
-
-    void add_commands(PointerList<Command* >const & sv);
-    /**
-    add all commands from sv.
-
-    PRE
-    sv is time-ordered.
-    */
 
     Staff();
     /**

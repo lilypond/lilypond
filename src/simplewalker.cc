@@ -1,4 +1,5 @@
 #include "request.hh"
+#include "voice.hh"
 #include "clef.hh"
 #include "beam.hh"
 #include "pscore.hh"
@@ -35,7 +36,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
 	s.del(0);
 	clef_.read(s);
     } else {
-	WARN << " ignoring INTERPRET command: " << com->args[0];
+	WARN << " ignoring INTERPRET command: " << com->args[0]<< '\n';
     }
 }
 
@@ -50,11 +51,10 @@ Simple_walker::do_TYPESET_command(Command*com)
 	else
 	    com->args[0] = "KEY"; 
     
-    if (com->args[0] == "CURRENTCLEF")
-	if (processed_clef) {	    
+    if (com->args[0] == "CURRENTCLEF") {
+	if (processed_clef) 
 	    return;
-	} else
-	    com->args[0] = "CLEF";
+    }
     
 
     Item* i = staff()->get_TYPESET_item(com);
@@ -71,9 +71,11 @@ Simple_walker::do_TYPESET_command(Command*com)
 	((Keyitem*) i)->read(typesetkey); // ugh	
     }
 
-    if (com->args[0] == "CLEF") {
+    if (com->args[0] == "CLEF"||com->args[0] == "CURRENTCLEF") {
 	processed_clef =true;
-	((Clef_item*)i)->read(clef_);	
+	Clef_item*c=(Clef_item*)i;
+	c->read(clef_);
+	c->change = (break_status != BREAK_POST - BREAK_PRE);
     }
     col()->typeset_item_directional(i, 1, break_status);
 }
@@ -84,6 +86,7 @@ Simple_walker::do_local_key(Note_req*n)
     if ( local_key_.oct(n->octave).acc(n->name) != n->accidental) {
 	if (!local_key_item_) {
 	    local_key_item_ = staff()->get_local_key_item();
+	    local_key_item_->c0_position = clef_.c0_pos;
 	}
 	
 	local_key_item_->add(n->octave, n->name, n->accidental);	
@@ -125,7 +128,8 @@ Simple_walker::process_requests()
     Simple_staff *s = staff();
     if (c->beam_&& c->beam_->spantype == Span_req::START) {
 	if (beam_)
-	    error("Too many beams");
+	    error("Too many beams (t = "
+			  +String(c->when())+")");
 	beam_ = new Beam;
     }
     for (int i=0; i < c->slurs.sz(); i++) {
@@ -148,13 +152,17 @@ Simple_walker::process_requests()
     }
     
     if (beam_) {
+	if (!stem_)
+	    error("beamed note should have a stem (t = " 
+		  +String(c->when())+")");
 	beam_->add(stem_);
     }
     if (stem_) {
 	c->typeset_item(stem_);
 	/* needed, otherwise placement of
 	   local_key fucks up */
-	stem_->set_default_extents();
+//	stem_->set_default_extents();
+	// can somebody explain myself?
     }
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
 	pscore_->typeset_spanner(beam_, s->theline);

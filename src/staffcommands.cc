@@ -1,4 +1,4 @@
-#include "scommands.hh"
+#include "staffcommands.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
 
@@ -10,7 +10,7 @@
   maybe it's time for a "narrowing" cursor?
   */
 PCursor<Command*>
-Score_commands::first(Real w)
+Staff_commands::first(Real w)
 {
     PCursor<Command*> pc(*this);    
     while (pc.ok() && pc->when < w)
@@ -31,7 +31,7 @@ Score_commands::first(Real w)
  */
 
 PCursor<Command*>
-Score_commands::last_insertion(Real w)
+Staff_commands::last_insertion(Real w)
 {    
     PCursor<Command*> pc(first(w)), next(pc);    
     while (next.ok() && next->when == w) {
@@ -51,7 +51,7 @@ Score_commands::last_insertion(Real w)
 /*
  */
 void
-Score_commands::add_seq(svec<Command> com, bool checkbreak)
+Staff_commands::add_seq(svec<Command> com, bool checkbreak)
 {
     if (!com.sz())
 	return;
@@ -74,7 +74,7 @@ Score_commands::add_seq(svec<Command> com, bool checkbreak)
 }
 
 void
-Score_commands::set_breakable(Real when)
+Staff_commands::set_breakable(Real when)
 {
     bool found_typeset(false);
     PCursor<Command*> cc = first(when);
@@ -106,7 +106,7 @@ Score_commands::set_breakable(Real when)
 }
 
 bool
-Score_commands::is_breakable(Real w)
+Staff_commands::is_breakable(Real w)
 {
     PCursor<Command*> cc = first(w);
     for (; cc.ok() && cc->when == w; cc++) {
@@ -117,7 +117,7 @@ Score_commands::is_breakable(Real w)
 }
 
 void
-Score_commands::insert_between(Command victim, PCursor<Command*> firstc,
+Staff_commands::insert_between(Command victim, PCursor<Command*> firstc,
 			       PCursor<Command*> last)
 {
     PCursor<Command*> c(firstc+1);
@@ -134,7 +134,7 @@ Score_commands::insert_between(Command victim, PCursor<Command*> firstc,
 }
 
 void
-Score_commands::add_command_to_break(Command pre, Command mid, Command post)
+Staff_commands::add_command_to_break(Command pre, Command mid, Command post)
 {
     Real w = pre.when;
     assert(w >= 0);
@@ -163,13 +163,7 @@ Score_commands::add_command_to_break(Command pre, Command mid, Command post)
 }
 
 void
-Score_commands::parser_add(Command *c)
-{
-    bottom().add(c);
-}
-
-void
-Score_commands::process_add(Command c)
+Staff_commands::process_add(Command c)
 {
     bool encapsulate =false;
     Real w = c.when;
@@ -199,6 +193,13 @@ Score_commands::process_add(Command c)
 	    typeset.args=c.args;
 	    typeset.priority = 90;
 	    process_add(typeset);
+	} else if (c.args[0] == "METER") {
+	    Command typeset(w);
+	    typeset.code = TYPESET;
+	    typeset.args=c.args;
+	    typeset.priority = 40;
+	    process_add(typeset);
+	    return;
 	}
     }
 
@@ -266,7 +267,7 @@ Score_commands::process_add(Command c)
     Remove any command past the last musical column.
     */
 void
-Score_commands::clean(Real l)
+Staff_commands::clean(Real l)
 {
     assert(l>0);
     if (!is_breakable(0.0)) {
@@ -297,7 +298,7 @@ Score_commands::clean(Real l)
 }
 
 void
-Score_commands::OK() const
+Staff_commands::OK() const
 {
     for (PCursor<Command*> cc(*this); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when <= (cc+1)->when);
@@ -307,61 +308,11 @@ Score_commands::OK() const
 }
 
 void
-Score_commands::print() const
+Staff_commands::print() const
 {
+#ifndef NPRINT
     for (PCursor<Command*> cc(*this); cc.ok() ; cc++) {
 	cc->print();
     }
-}
-
-/*
-  TODO
-  */
-Score_commands*
-Score_commands::parse(Real l) const
-{
-    Score_commands*nc = new Score_commands;
-    int beats_per_meas=4;
-    Real measlen = 1.0; // 4/4 by default
-    
-    Real inbar=0.0;
-    int barcount=0;
-    Real wholes=0.0;
-    Real stoppos=0.0;
-
-    {   /* all pieces should start with a breakable. */
-	Command c(0.0);
-	c.code = INTERPRET;
-	c.args.add("BAR");
-	c.args.add("empty");
-	nc->process_add(c);
-    }
-    for (PCursor<Command*> cc(*this); cc.ok() && cc->when <= l; cc++) {
-	assert (cc->code==INTERPRET);
-	if (cc->args[0] == "METER") {
-	    beats_per_meas = cc->args[1].value();
-	    int one_beat = cc->args[2].value();
-	    measlen = beats_per_meas/Real(one_beat);
-	    nc->process_add(*get_meter_command(wholes, beats_per_meas, one_beat));
-	}
-	if (cc->args[0] == "KEY"||cc->args[0] == "CLEF") {
-	    cc->when = wholes;
-	    nc->process_add(**cc);
-	}
-	if (cc->args[0] == "SKIP") {
-	    stoppos = wholes + cc->args[1].value() * measlen +
-		cc->args[2].fvalue();
-	    wholes += (measlen-inbar); // skip at least 1 measure
-	    barcount++;
-	    while (wholes <= stoppos) {
-		nc->process_add(*get_bar_command(wholes)); // liek
-		wholes += measlen;
-		barcount ++;		
-	    }
-	    wholes = stoppos;
-	    //something
-	}
-    }
-    
-    return nc;
+#endif
 }
