@@ -1,3 +1,13 @@
+2002-11-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/music-map.ly (texidoc): new file.
+
+	* scm/music-functions.scm (music-map): new function
+
+2002-11-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/ligature-engraver.cc (create_ligature_spanner): fix fixes.
+
 2002-11-28  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/test/to-xml.ly:
