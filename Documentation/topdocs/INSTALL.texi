@@ -4,6 +4,8 @@
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
+@comment  FIXME -- this information is getting rather stale
+
 @contents
 
 @chapter Compiling and installing on Unix
@@ -18,7 +20,7 @@
 Even numbered versions are `stable' (2.0, 1.8 etc), while odd version
 are development releases (2.1, 1.9, etc).  Building LilyPond is an
 involved process, so if possible, download a precompiled binary from
-@uref{http://www.lilypond.org/,the lilypond site}.
+@uref{http://lilypond.org/,the lilypond site}.
 
 
 @subsection Source code
@@ -26,7 +28,7 @@ involved process, so if possible, download a precompiled binary from
 Download source tarballs from here:
 @itemize @bullet
 @item Download development releases from
-@uref{http://www.lilypond.org/download/} by HTTP.
+@uref{http://lilypond.org/download/} by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
 
@@ -119,6 +121,9 @@ GNU LilyPond does use a lot of resources. For operation you need the
 following software:
 
 @itemize @bullet
+@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
+@item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.
 @item Xdvi and Ghostscript.
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} 1.6.0, or newer.
@@ -132,16 +137,17 @@ files. After compiling, scripts to do this can be found in
 @subsection Building documentation
 
 You can view the documentation online at
-@uref{http://www.lilypond.org/doc/}, but you can also build it
+@uref{http://lilypond.org/doc/}, but you can also build it
 locally. This process requires a successful compile of lilypond. The
 documentation is built by issuing:
 @example 
 	make web
 @end example 
 
-Building the website requires some additional tools: 
+Building the website requires some additional tools and packages:
 
 @itemize @bullet
+@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} 
 @item ImageMagick
 @end itemize
