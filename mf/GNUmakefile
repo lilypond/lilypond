@@ -214,12 +214,11 @@ local-clean:
 #pfb: afm $(PFB_FILES) fontdir
 #
 #
-## stupid trick to have separate rules for each PFA font ;
-## otherwise building PFAs is all-or-nothing.
-#
-#
-#$(outdir)/%.pfa $(outdir)/%.svg: $(outdir)/%.bla
-#	$(MFTRACE) -I $(outdir)/ --formats=pfa,svg --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
+# stupid trick to have separate rules for each PFA font ;
+# otherwise building PFAs is all-or-nothing.
+
+#$(outdir)/%.pfa: $(outdir)/%.bla
+#	$(MFTRACE) -I $(outdir)/ --formats=pfa,pfb,svg --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.enc.in: %.enc
 	cp $< $@

@@ -31,7 +31,8 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
 	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg --simplify $(basename $(@F))
-	mv $(basename $(@F)).pfa $(outdir)
+	mv $(basename $(@F)).{pfa,pfb,svg} $(outdir)
+
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
 #	mv $@ $@.in

@@ -13,6 +13,8 @@ LilyPond now uses FreeType read the Feta font as an OpenType
 font. This is cleaner design and more robust.  A recent version of
 FontForge (11122004 or newer) and Freetype is required.
 
+As a result, the SVG backend is now a fully functional backend.
+
 @item
 A new script, @code{\espressivo} has been added, for a combination of
 crescendo and decrescendo on a single note.
