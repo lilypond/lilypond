@@ -63,12 +63,11 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     line_of_score_=sc;
     pstaff_=st;
 
-    
     PCol *linestart = sc->cols.top();
     PCol *linestop = sc->cols.bottom();
-
     
     for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
+
 	PCol *brokenstart = &MAX(*linestart, *sp->left);
 	PCol *brokenstop = &MIN(*linestop, *sp->right);
 	if ( *brokenstart < *brokenstop) {
