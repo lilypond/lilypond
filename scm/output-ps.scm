@@ -205,14 +205,14 @@
 	   (fontname (ly:font-name font))
 	   (mangled (possibly-mangle-fontname fontname))
 	   (coding (ly:font-encoding font))
-	   (encoding (vector-ref coding 2)) 
+	   (encoding (vector-ref coding 2))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:paper-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
       (if
-       #f
+       #t
        (begin
 	 (newline)
 	 (format (current-error-port) "fontname ~S\n" fontname)

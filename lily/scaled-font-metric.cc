@@ -53,18 +53,41 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
 					 coding_vector_,
 					 coding_table_);
 
-      coding_description_= scm_list_5 (scm_makfrom0str (coding_scheme_.to_str0 ()),
-				       coding_vector_,
-				       scm_makfrom0str (orig_->coding_scheme ().to_str0 ()),
-				       coding_table_,
-				       coding_permutation_);
+      coding_description_= SCM_EOL;
 
-      /*
-	TODO: use alist
-       */
-      coding_description_ = scm_vector (coding_description_);
+      coding_description_ = scm_acons (ly_symbol2scm ("input-name"),
+				       scm_makfrom0str (coding_scheme_.to_str0 ()),
+				       coding_description_);
+
+      coding_description_ = scm_acons (ly_symbol2scm ("input-vector"),
+				       coding_vector_, coding_description_);
+      coding_description_ = scm_acons (ly_symbol2scm ("output-name"),
+				       scm_makfrom0str (orig_->coding_scheme ().to_str0 ()),
+				       coding_description_);
+      coding_description_ = scm_acons (ly_symbol2scm ("output-table"),
+				       coding_table_,
+				       coding_description_);
+      
+      coding_description_ = scm_acons (ly_symbol2scm ("coding-permutation"),
+				       coding_permutation_,
+				       coding_description_);
     } 
+}
+
+
+
+LY_DEFINE (ly_font_encoding, "ly:font-encoding-alist",
+	   1, 0, 0,
+	   (SCM font),
+	   "Given the Modified_font_metric @var{font}, return an "
+	   "alist. Keys are input-name, input-vector, "
+	   "output-name, output-table, permutation.")
+{
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
   
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  return fm->coding_description_;
 }
 
 SCM
@@ -265,30 +288,4 @@ Modified_font_metric::text_dimension (String text)
   
   b.scale (magnification_);
   return b;
-}
-
-LY_DEFINE (ly_font_encoding, "ly:font-encoding",
-	   1, 0, 0,
-	   (SCM font),
-	   "Given the Modified_font_metric @var{font}, return a "
-	   "vector containing (input-coding-name, input-coding, "
-	   "output-coding-name, output-coding, permutation).")
-{
-  Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
-  
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
-  return fm->coding_description_;
-}
-
-LY_DEFINE (ly_font_coding_name, "ly:font-coding-name",
-	   1, 0, 0,
-	   (SCM font),
-	   "Return the CODING-NAME of the Modified_font_metric @var{font}.")
-{
-  Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
-  
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
-  return scm_makfrom0str (fm->coding_scheme ().to_str0 ());
 }
