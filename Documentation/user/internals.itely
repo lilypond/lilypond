@@ -285,6 +285,30 @@ contained contexts.  This means that a property valid for the
 @internalsref{Voice} context can be set in the @internalsref{Score} context (for
 example) and thus take effect in all @internalsref{Voice} contexts.
 
+@cindex @code{Current}
+If you don't wish to specify the name of the context in the
+@code{\property}-expression
+itself, you can refer to the abstract context name,
+@code{Current}. The @code{Current} context is the latest
+used context. This will typically mean the @internalsref{Thread}
+context, but you can force another context with the
+@code{\property}-command. Hence the expressions
+
+@example
+  \property @var{contextname}.@var{propname} = @var{value}
+@end example
+
+and
+
+@example
+  \context @var{contextname}
+  \property Current.@var{propname} = @var{value}
+@end example
+
+do the same thing.
+The main use for this is in macros - allowing the specification of a
+property-setting without restriction to a specific context.
+
 Properties can be unset using the following expression:
 @example
   \property @var{contextname}.@var{propname} \unset
