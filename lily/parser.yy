@@ -404,7 +404,6 @@ notenames_body:
 		else
 			scm_hashq_set_x (tab, ly_caar (s), pt);
 	  }
-
 	  $$ = tab;
 	}
 	;

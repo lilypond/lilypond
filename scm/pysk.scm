@@ -49,21 +49,6 @@
   (string-append "(" (pythonify (car  q)) "," (pythonify (cdr q)) ")")
   )
 
-(define (reduce-list list between)
-  "Create new list, inserting BETWEEN between elements of LIST"
-  (if (null? list)
-      '()
-      (if (null? (cdr list))
-	  list
-	  (cons (car list)
-		(cons between (reduce-list (cdr list) between)))
-  
-  )))
-
-(define (string-join str-list sep)
-  (apply string-append (reduce-list str-list sep))
-  )
-
 (define (my-map f l)
   (if (null? l)
       '()

@@ -43,7 +43,11 @@ for the reader.
 
  
 
-"
+" ; " 
+
+;; debugging.
+
+(define (mydisplay x) (display x) (newline) x)
 
 (define-public (simple-markup grob props . rest)
   (Text_item::text_to_molecule grob props (car rest))
@@ -238,54 +242,179 @@ for the reader.
    (car rest))
   ))
 
-(map (lambda (x)
-       (set-object-property! (car x) 'markup-signature (cdr x))
-       )
-     (list
+(define (markup-signature-to-keyword sig)
+  " (A B C) -> a0-b1-c2 "
+  
+  (let* ((count  0))
+    (string->symbol (string-join
+     
+     (map
+     (lambda (func)
+       (set! count (+ count 1))
+       (string-append
 
-      ;; abs size
-      (cons teeny-markup 'markup0)
-      (cons tiny-markup 'markup0)
-      (cons small-markup 'markup0)
-      (cons dynamic-markup 'markup0)
-      (cons large-markup 'markup0) 
-      (cons huge-markup 'markup0)
+	;; for reasons I don't get,
+	;; (case func ((markup?) .. )
+	;; doesn't work.
+	(cond 
+	  ((eq? func markup?) "markup")
+	  ((eq? func markup-list?) "markup-list")
+	  (else "scheme")
+	  )
+	(number->string (- count 1))
+	))
+     
+     sig)
+     "-"))
 
-      ;; size
-      (cons smaller-markup 'markup0)
-      (cons bigger-markup 'markup0)
+  ))
 
-      ;; 
-      (cons sub-markup 'markup0)
-      (cons super-markup 'markup0)
-      
-      (cons bold-markup 'markup0)
-      (cons italic-markup 'markup0)
-      
-      (cons number-markup 'markup0)
-      
-      (cons column-markup 'markup-list0)
-      (cons line-markup  'markup-list0)
 
-      (cons combine-markup 'markup0-markup1)
-      (cons simple-markup 'scm0)
-      (cons musicglyph-markup 'scm0)
-      
-      (cons translate-markup 'scm0-markup1)
-      (cons override-markup 'scm0-markup1)
-      (cons char-markup 'scm0)
-      (cons lookup-markup 'scm0)
-      
-      
-      (cons hspace-markup 'scm0)
+(define (markup-function? x)
+  (object-property x 'markup-signature)
+  )
 
-      (cons raise-markup 'scm0-markup1)
-      (cons magnify-markup 'scm0-markup1)
-      (cons fontsize-markup 'scm0-markup1)
-      (cons translate-markup 'scm0-markup1)
-      ))
+(define (markup-list? arg)
+  (define (markup-list-inner? l)
+    (if (null? l)
+	#t
+	(and (markup? (car l)) (markup-list-inner? (cdr l)))
+    )
+  )
+  (and (list? arg) (markup-list-inner? arg)))
+
+
+(define (markup-argument-list? signature arguments)
+  (if (and (pair? signature) (pair? arguments))
+      (and ((car signature) (car arguments))
+	   (markup-argument-list? (cdr signature) (cdr arguments)))
+      (and (null? signature) (null? arguments)))
+  )
+
+;;
+;; full recursive typecheck.
+;;
+(define (markup-typecheck? arg)
+  (and (pair? arg)
+       (markup-function? (car arg))
+       (markup-argument-list?
+	(object-property (car arg) 'markup-signature)
+	(cdr arg))
+  ))
+
+;; 
+;; typecheck, and throw an error when something amiss.
+;; 
+(define (markup-thrower-typecheck arg)
+  (cond
+   ((not (pair? arg))
+    (throw 'markup-format "Not a pair" arg)
+    )
+   ((not (markup-function? (car arg)))
+    (throw 'markup-format "Not a markup function " (car arg)))
+   
+  
+   ((not (markup-argument-list? 
+	  (object-property (car arg) 'markup-signature)
+	  (cdr arg)))
+    (throw 'markup-format "Arguments failed  typecheck for " arg)))
+   #t
+  )
+
+(define (cheap-markup? x)
+  (and (pair? x)
+       (markup-function? (car x)))
+)
+
+;;
+;; replace by markup-thrower-typecheck for more detailed diagnostics.
+;; 
+(define markup?  cheap-markup?)
+
+
+(define markup-function-list
+  (list
+
+   ;; abs size
+   (cons teeny-markup (list markup?))
+   (cons tiny-markup (list markup?))
+   (cons small-markup (list markup?))
+   (cons dynamic-markup (list markup?))
+   (cons large-markup (list markup?)) 
+   
+   (cons huge-markup (list markup?))
+
+   ;; size
+   (cons smaller-markup (list markup?))
+   (cons bigger-markup (list markup?))
+
+   ;; 
+   (cons sub-markup (list markup?))
+   (cons super-markup (list markup?))
+   
+   (cons bold-markup (list markup?))
+   (cons italic-markup (list markup?))
+   
+   (cons number-markup (list markup?))
+   
+   (cons column-markup (list markup-list?))
+   (cons line-markup  (list markup-list?))
+
+   (cons combine-markup (list markup? markup?))
+   (cons simple-markup (list string?))
+   (cons musicglyph-markup (list scheme?))
+   
+   (cons translate-markup (list number-pair? markup?))
+   (cons override-markup (list pair? markup?))
+   (cons char-markup (list integer?))
+   (cons lookup-markup (list string?))
+   
+   (cons hspace-markup (list number?))
+
+   (cons raise-markup (list number? markup?))
+   (cons magnify-markup (list number? markup?))
+   (cons fontsize-markup (list number? markup?))
+   )
+  )
+
 
 (define markup-module (current-module))
+
+(map (lambda (x)
+       (set-object-property! (car x) 'markup-signature (cdr x))
+       (set-object-property! (car x) 'markup-keyword (markup-signature-to-keyword (cdr x)))
+       )
+     markup-function-list)
+
+
+;; construct a
+;;
+;; make-FOO-markup function that typechecks its arguments.
+;;
+;; TODO: should construct a message says
+;; Invalid argument 4 : expecting a BLADIBLA, found: (list-ref 4 args)
+;;
+;; right now, you get the entire argument list.
+(define (make-markup-maker  entry)
+  (let*
+	((foo-markup (car entry))
+	 (signature (cons 'list (cdr entry)))
+	 (name (symbol->string (procedure-name foo-markup)))
+	 (make-name  (string-append "make-" name))
+	 )
+      
+      `(define (,(string->symbol make-name) . args)
+	 (if (markup-argument-list? ,signature args)
+	     (cons ,foo-markup args)
+	     (scm-error 'markup-format ,make-name "Invalid argument list: ~A." (list args) #f)
+	     )))
+    )
+
+
+(eval
+ (cons 'begin (map make-markup-maker markup-function-list))
+ markup-module
+ )
 
 (define-public (lookup-markup-command code)
   (let*
@@ -294,7 +423,7 @@ for the reader.
 	)
     (if (eq? var #f)
 	#f   
-	(cons (variable-ref var) (object-property  (variable-ref var) 'markup-signature))
+	(cons (variable-ref var) (object-property  (variable-ref var) 'markup-keyword))
     )
   ))
 
@@ -319,11 +448,48 @@ for the reader.
     ))
 
 
-(define (new-markup? x)
-	(markup-function? (car x))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; test make-foo-markup functions
+(if #f
+(begin
+  (make-line-markup (make-simple-markup "FOO")
+		    (make-simple-markup "foo")
+		    )
+
+  (make-teeny-markup (make-simple-markup 1)))
 )
 
-(define (markup-function? x)
-	(object-property 'markup-signature? x))
+;;
+;; test typecheckers. Not wholly useful, because errors are detected
+;; in other places than they're made.
+;;
+(if #f
+ (begin
 
+   ;; To get error messages, see above to install the alternate
+   ;; typecheck routine for markup?.
+   
+   (define (typecheck-with-error x)
+     (catch
+      'markup-format
+      (lambda () (markup? x))
+      (lambda (key message arg)
+	(display "\nERROR: markup format error: \n")
+	(display message)
+	(newline)
+	(write arg (current-output-port))
+	)
+      ))
 
+   (display (typecheck-with-error `(,simple-markup "foobar")))
+   (display (typecheck-with-error `(,simple-markup "foobar")))
+   (display (typecheck-with-error `(,simple-markup 1)))
+   (display
+    (typecheck-with-error  `(,line-markup ((,simple-markup "foobar"))
+					  (,simple-markup 1))))
+   (display
+    (typecheck-with-error  `(,line-markup (,simple-markup "foobar")
+					 (,simple-markup "bla"))))
+   
+   ))
