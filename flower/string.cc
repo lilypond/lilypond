@@ -108,7 +108,8 @@ String::String( const int i, const int n, const char c )
     // String convd to const char *
 }
 
-String::operator const char *() const
+ const char*
+String::ptr() const
 {
     return data;
 }
@@ -141,6 +142,7 @@ String::operator >( const Sortable& test ) const
     return strcmp( data, s->data ) > 0;
 }
 #endif
+
 // signed comparison,  analogous to strcmp;
 int
 String::compare( const char* test ) const
@@ -377,4 +379,17 @@ String::reversed() const
     char  *s = retval.data.array_for_modify();
     strrev(s);
     return retval;    
+}
+bool
+String::to_bool() const
+{
+    if (!len())
+	return false;
+    if (*this == "0")
+	return false;
+    String u (*this);
+    u.upper();
+    if (u== "FALSE")
+	return false;
+    return true;
 }
