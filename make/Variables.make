@@ -14,41 +14,57 @@
 
 # toplevel version info, might be handy?
 #
-include ./$(depth)/.version
+include $(depth)/VERSION
 #
-include ./$(depth)/make/out/Configure_variables.make
-
 ifeq (0,${MAKELEVEL})
 MAKE:=$(MAKE) --no-builtin-rules
 endif
 
 # directory names:
-#
-outdir = out
-lily_bindir = ./$(depth)/bin
-distdir = ./$(depth)/$(DIST_NAME)
-module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
+
+
+ifdef buildprefix
+top-directory := $(shell  cd $(depth); pwd)
+abs-sub-directory := $(shell pwd)
+relative-sub-directory := $(subst $(top-directory),,$(abs-sub-directory))
+outdir=$(buildprefix)/$(relative-sub-directory)/out/
+else
+buildprefix=$(depth)
+outdir=out
+endif
+
+# derived names
+lily_bindir = $(depth)/bin
+distdir = $(depth)/$(DIST_NAME)
+module-distdir = $(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
-flowerout = ./$(depth)/flower/$(outdir)
-libout = ./$(depth)/lib/$(outdir)
-lilyout = ./$(depth)/lily/$(outdir)
-mi2muout = ./$(depth)/mi2mu/$(outdir)
-makeout = ./$(depth)/make/$(outdir)
-doc-dir = ./$(depth)/Documentation
-flower-dir = ./$(depth)/flower
-lib-dir = ./$(depth)/lib
-lily-dir = ./$(depth)/lily
-mi2mu-dir = ./$(depth)/mi2mu
-make-dir = ./$(depth)/make
-include-lib = ./$(depth)/lib/include
-include-flower = ./$(depth)/flower/include
-#
+
+flowerout = $(buildprefix)/flower/out
+libout = $(buildprefix)/lib/out
+lilyout = $(buildprefix)/lily/out
+mi2muout = $(buildprefix)/mi2mu/out
+makeout = $(buildprefix)/make/out
+docout = $(buildprefix)/Documentation/out
+binout = $(buildprefix)/bin/out
+
+doc-dir = $(depth)/Documentation
+flower-dir = $(depth)/flower
+lib-dir = $(depth)/lib
+lily-dir = $(depth)/lily
+mi2mu-dir = $(depth)/mi2mu
+make-dir = $(depth)/make
+include-lib = $(depth)/lib/include
+include-flower = $(depth)/flower/include
+
+
 rpm-sources = ${HOME}/rpms/SOURCES
 #
 
+include $(makeout)/Configure_variables.make
+
 # user settings:
 #
-include ./$(depth)/make/User.make
+include $(depth)/make/User.make
 #
 #
 # need to be defined in local Makefiles:
@@ -96,11 +112,6 @@ DUMMYDEPS=\
 ERROR_LOG = 2> /dev/null
 SILENT_LOG = 2>&1 >  /dev/null
 date = $(shell date +%x)
-allhh := $(shell $(FIND) ./ -name "*.hh" $(ERROR_LOG))
-allcc := $(shell $(FIND)  ./ -name "*.cc" $(ERROR_LOG))
-allobs := $(shell $(FIND) ./  $(outdir) -name "*.o" $(ERROR_LOG))
-
-alldeps := $(shell $(FIND)  ./ $(outdir) -name "*.dep" $(ERROR_LOG))
 
 # version stuff:
 #
@@ -157,7 +168,7 @@ LD_COMMAND = $(LD) $(LDFLAGS) -o $@
 
 # dependencies:
 #
-depfile = ./$(depdir)/$(subst .o,.dep,$(notdir $@)) 
+depfile = $(depdir)/$(subst .o,.dep,$(notdir $@)) 
 DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 #
 
@@ -187,8 +198,8 @@ DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
-# take some trouble to vauto ignore sources and obsolete stuff.
-progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v 'obsolete/|out/') $(shell $(FIND) ./ -name '*.cc'|egrep -v 'out/|obsolete/')
+# take some trouble to auto ignore sources and obsolete stuff.
+progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v 'out/') $(shell $(FIND) ./ -name '*.cc'|egrep -v 'out/')
 
 
 pod2html=pod2html
@@ -201,6 +212,6 @@ ifdef stablecc
  STABLEOBS=$(addprefix $(outdir)/,$(stablecc:.cc=.o))
 endif
 
-# substitute $(STRIP) if you want stripping
+# substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
 

@@ -16,7 +16,7 @@ depth = .
 # identify module:
 #
 NAME = lilypond
-include .version
+include VERSION
 include ./$(depth)/make/Version.make
 
 # generic variables:
@@ -34,7 +34,7 @@ SUBDIRS = flower lib lily mi2mu \
 #
 SCRIPTS = configure configure.in install-sh
 README_FILES = BUGS DEDICATION ANNOUNCE COPYING NEWS README TODO INSTALL.text AUTHORS.text
-EXTRA_DISTFILES=  .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
+EXTRA_DISTFILES=  .dstreamrc VERSION $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 
 # do not dist ./Makefile (is copied from make/Toplevel.make)
 DISTFILES:=$(EXTRA_DISTFILES)# Makefile $(ALL_SOURCES)
@@ -53,8 +53,12 @@ INSTALL.text: check-doc-deps
 	rm -f INSTALL.text
 	ln `$(FIND) ./ -name INSTALL.text|head -1` .
 
-localdistclean:
-	rm -rf Makefile $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen) config.cache config.status
+# all machine generated junk resides in out/
+distclean: 
+	set -e; for i in `find -type d -name 'out'`; do \
+		rm -f $$i/*; done		
+	rm -rf *-build-dir
+	rm -f Makefile config.cache config.status config.log
 
 
 

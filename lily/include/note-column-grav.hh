@@ -32,6 +32,6 @@ protected:
     virtual void do_post_move_processing();
 public:
     Note_column_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // NOTE_COLUMN_GRAV_HH

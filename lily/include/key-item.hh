@@ -20,7 +20,7 @@ struct Key_item : Item {
 
     
     /* *************** */
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Key_item);
 
     Key_item(int cposition);

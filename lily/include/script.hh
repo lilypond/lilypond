@@ -34,7 +34,7 @@ public:
     static int compare(Script  *const&, Script *const&) ;
     Script();
     void set_stem(Stem*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
 };
 

@@ -14,7 +14,7 @@
   The static_name() can *not* be inlined (this might have the effect that 
   s->name() != S::static_name(). Overlapping strings need not be merged in C++
  */
-#define NAME_MEMBERS()	\
+#define DECLARE_MY_RUNTIME_TYPEINFO	\
 static char const *static_name();\
 static bool static_is_type_b(const char*s);\
 virtual bool is_type_b(const char *s)const { return static_is_type_b(s); } \

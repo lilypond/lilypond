@@ -26,7 +26,7 @@ public:
 
     Text_item(General_script_def*,int dir=0);
     virtual ~Text_item();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
 protected:
     General_script_def * tdef_p_;

@@ -18,7 +18,7 @@ class Script_engraver : public Engraver {
     /* *************** */
     bool acceptable_elem_b(Score_elem*);
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Script_engraver();
 protected:
     virtual bool do_try_request(Request*);

@@ -1,4 +1,8 @@
 % -*-LaTeX-*-
+% this document should be run through the mudela-book script after lilypond
+% has been installed.
+
+
 \documentclass{article}
 \usepackage{a4wide}
 \title{Mudela and LilyPond crash course}
@@ -33,10 +37,10 @@ chords by \verb+<+ and \verb+>+.
 
 \begin[verbatim]{mudela}
 \score {
-        \melodic {      % { means voice
-        c'4 g'4         % 4 means quaver, 1 beat in 4/4 meter
+        \melodic {      % {...} is a voice
+        c'4 g'4         % c and g are pitches, 4 is the duration (quaver)
         c''4 ''c4       % c' is 1 octave up, 'c 1 down.
-        <c'4 g'4>       % <> means a chord
+        <c'4 g'4>       % <...> is a chord
         }
 } 
 \end{mudela}

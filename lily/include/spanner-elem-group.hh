@@ -20,6 +20,6 @@ protected:
     virtual void do_print() const;
     SCORE_ELEM_CLONE(Spanner_elem_group);
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // SPANNER_ELEM_GROUP_HH

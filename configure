@@ -14,19 +14,19 @@ ac_default_prefix=/usr/local
 ac_help="$ac_help
   enable-printing         turn on debug printing"
 ac_help="$ac_help
-  disable-checking        set runtime checks (assert calls)"
+  enable-checking        set runtime checks (assert calls). Default: on"
 ac_help="$ac_help
-  disable-debugging       set debug info "
+  enable-debugging       set debug info. Default: on"
 ac_help="$ac_help
-  enable-optimise         use maximal speed optimisations"
+  enable-optimise         use maximal speed optimisations. Default: off"
 ac_help="$ac_help
-  enable-profiling        compile with gprof support"
+  enable-profiling        compile with gprof support. Default: off"
 ac_help="$ac_help
   mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)"
 ac_help="$ac_help
   tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)"
 ac_help="$ac_help
-  tex-dir=DIR             set the directory to put LilyPond  TeX files in. "
+  tex-dir=DIR             set the directory to put LilyPond TeX files in. "
 ac_help="$ac_help
   mf-dir=DIR              set the directory to put LilyPond MetaFont files in."
 
@@ -539,12 +539,21 @@ fi
 
 
 # if given here, these vars are initted at the checking point.
+if test x$host = xNONE; then
+    buildprefix=.
+else
+    buildprefix="$host-build-dir"
+    mkdir $buildprefix;
+    for a in `find -type d -and -not -name '*-build-dir'`; do
+	mkdir $buildprefix/$a;
+    done
+fi
 printing_b=no
 checking_b=yes
 debug_b=yes
 optimise_b=no
 profile_b=no
-    
+warn_b=no    
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
 ac_cpp='$CXXCPP $CPPFLAGS'
@@ -660,7 +669,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:664: checking for $ac_word" >&5
+echo "configure:673: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CXX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -691,7 +700,7 @@ test -n "$CXX" || CXX="gcc"
 
 
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works""... $ac_c" 1>&6
-echo "configure:695: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
+echo "configure:704: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
 
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
@@ -701,11 +710,11 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
 
 cat > conftest.$ac_ext <<EOF
-#line 705 "configure"
+#line 714 "configure"
 #include "confdefs.h"
 main(){return(0);}
 EOF
-if { (eval echo configure:709: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:718: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   ac_cv_prog_cxx_works=yes
   # If we can't run a trivial program, we are probably using a cross compiler.
   if (./conftest; exit) 2>/dev/null; then
@@ -725,12 +734,12 @@ if test $ac_cv_prog_cxx_works = no; then
   { echo "configure: error: installation or configuration problem: C++ compiler cannot create executables." 1>&2; exit 1; }
 fi
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
-echo "configure:729: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
+echo "configure:738: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
 echo "$ac_t""$ac_cv_prog_cxx_cross" 1>&6
 cross_compiling=$ac_cv_prog_cxx_cross
 
 echo $ac_n "checking whether we are using GNU C++""... $ac_c" 1>&6
-echo "configure:734: checking whether we are using GNU C++" >&5
+echo "configure:743: checking whether we are using GNU C++" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_gxx'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -739,7 +748,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:743: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:752: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gxx=yes
 else
   ac_cv_prog_gxx=no
@@ -754,7 +763,7 @@ if test $ac_cv_prog_gxx = yes; then
   ac_save_CXXFLAGS="$CXXFLAGS"
   CXXFLAGS=
   echo $ac_n "checking whether ${CXX-g++} accepts -g""... $ac_c" 1>&6
-echo "configure:758: checking whether ${CXX-g++} accepts -g" >&5
+echo "configure:767: checking whether ${CXX-g++} accepts -g" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_cxx_g'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -784,7 +793,7 @@ fi
 # Extract the first word of "ranlib", so it can be a program name with args.
 set dummy ranlib; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:788: checking for $ac_word" >&5
+echo "configure:797: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_RANLIB'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -840,7 +849,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
 # ./install, which can be erroneously created by make from ./install.sh.
 echo $ac_n "checking for a BSD compatible install""... $ac_c" 1>&6
-echo "configure:844: checking for a BSD compatible install" >&5
+echo "configure:853: checking for a BSD compatible install" >&5
 if test -z "$INSTALL"; then
 if eval "test \"`echo '$''{'ac_cv_path_install'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -894,7 +903,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:898: checking for $ac_word" >&5
+echo "configure:907: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -928,7 +937,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:932: checking for $ac_word" >&5
+echo "configure:941: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -959,9 +968,13 @@ test -n "$FIND" || FIND="error"
 
 
 if test FIND = error; then
-   echo "configure: warning: Couldn't find \`find'.  Please use --enable-tex-dir" 1>&2
+   
+    echo "configure: warning: Couldn't find \`find'.  Please use --enable-tex-dir" 1>&2
+    warn_b=yes
+
 fi
     
+
 
 
 
@@ -982,7 +995,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:986: checking for $ac_word" >&5
+echo "configure:999: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_BISON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1016,7 +1029,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1020: checking for $ac_word" >&5
+echo "configure:1033: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FLEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1050,7 +1063,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1054: checking for $ac_word" >&5
+echo "configure:1067: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1079,12 +1092,44 @@ test -n "$MAKE" && break
 done
 test -n "$MAKE" || MAKE="error"
 
+# Extract the first word of "perl", so it can be a program name with args.
+set dummy perl; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:1099: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_path_PERL'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  case "$PERL" in
+  /*)
+  ac_cv_path_PERL="$PERL" # Let the user override the test with a path.
+  ;;
+  *)
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS="${IFS}:"
+  for ac_dir in $PATH; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_path_PERL="$ac_dir/$ac_word"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="error"
+  ;;
+esac
+fi
+PERL="$ac_cv_path_PERL"
+if test -n "$PERL"; then
+  echo "$ac_t""$PERL" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
 for ac_prog in pod2man
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1088: checking for $ac_word" >&5
+echo "configure:1133: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_PODMAN'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1114,13 +1159,13 @@ done
 test -n "$PODMAN" || PODMAN="error"
 
 
-    
+
 if test "x$TEXPREFIX" = xauto ; then
     
     
 
     echo $ac_n "checking TeX/MF root dir directory""... $ac_c" 1>&6
-echo "configure:1124: checking TeX/MF root dir directory" >&5    
+echo "configure:1169: checking TeX/MF root dir directory" >&5    
 
     find_root_prefix="$prefix"
     
@@ -1137,7 +1182,10 @@ echo "configure:1124: checking TeX/MF root dir directory" >&5
     
     if test "x$find_texpostfix" = x; then
 	find_texpostfix='/lib/texmf/tex'
-	echo "configure: warning: Cannot determine the TeX-directory. Please use --enable-tex-prefix" 1>&2
+	
+    echo "configure: warning: Cannot determine the TeX-directory. Please use --enable-tex-prefix" 1>&2
+    warn_b=yes
+
     fi
 
     find_texprefix="$find_root_prefix/$find_texpostfix"
@@ -1158,14 +1206,17 @@ if test "x$TEXDIR" = xauto ; then
     
     
     echo $ac_n "checking TeX input directory""... $ac_c" 1>&6
-echo "configure:1162: checking TeX input directory" >&5    
+echo "configure:1210: checking TeX input directory" >&5    
     find_dirdir=`(cd $find_texprefix; 
       $FIND ./ -type d -a -name tex -print |sort|head -1|sed 's#^\./##')`
     
 
     if test "x$find_dirdir" = x; then
        find_dirdir="/tex";
-       echo "configure: warning: Cannot determine TeX input subdirectory. Please set from command-line" 1>&2
+       
+    echo "configure: warning: Cannot determine TeX input subdirectory. Please set from command-line" 1>&2
+    warn_b=yes
+
 	true
     fi
     TEXDIR=$find_dirdir
@@ -1175,27 +1226,6 @@ echo "configure:1162: checking TeX input directory" >&5
 
 fi
 
-if test "x$MFDIR" = xauto; then
-    
-    
-    
-    echo $ac_n "checking MF input directory""... $ac_c" 1>&6
-echo "configure:1184: checking MF input directory" >&5    
-    find_dirdir=`(cd $find_texprefix; 
-      $FIND ./ -type d -a -name source -print |sort|head -1|sed 's#^\./##')`
-    
-
-    if test "x$find_dirdir" = x; then
-       find_dirdir="/source";
-       echo "configure: warning: Cannot determine MF input subdirectory. Please set from command-line" 1>&2
-	true
-    fi
-    MFDIR=$find_dirdir
-    echo "$ac_t""$find_texprefix/$find_dirdir" 1>&6
-
-    MFDIR="$TEXPREFIX/$MFDIR"
-
-fi
     
 if test $MAKE = "error" 
 then
@@ -1204,39 +1234,66 @@ else
 	$MAKE -v| grep GNU > /dev/null
 	if test "$?" = 1
 	then
-	    echo "configure: warning: Please install *GNU* make" 1>&2 
+	    
+    echo "configure: warning: Please install *GNU* make" 1>&2
+    warn_b=yes
+ 
     fi 
 fi 
     
 if test $BISON = "error" 
 then
-	echo "configure: warning: can't find bison. Please install Bison (1.25 or better)" 1>&2
+	
+    echo "configure: warning: can't find bison. Please install Bison (1.25 or better)" 1>&2
+    warn_b=yes
+
 else
     bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
     if test $bison_version -lt 25; then
-	echo "configure: warning: Your bison is too old (1.$bison_version). Please install 1.25" 1>&2
+	
+    echo "configure: warning: Your bison is too old (1.$bison_version). Please install 1.25" 1>&2
+    warn_b=yes
+
     fi	
+fi
+
+if test $PERL = "error" 
+then
+	
+    echo "configure: warning: can't find perl. You should install Perl (version 5 or better)" 1>&2
+    warn_b=yes
+
+	PERL=/usr/bin/perl
 fi
 
 if test $PODMAN = "error" 
 then
-	echo "configure: warning: can't find pod. You should install Perl (version 5 or better)" 1>&2
+	
+    echo "configure: warning: can't find pod. You should install Perl (version 5 or better)" 1>&2
+    warn_b=yes
+
 fi
 
 if test $FLEX = "error" 
 then
-	echo "configure: warning: can't find flex. Please install Flex (2.5 or better)" 1>&2
+	
+    echo "configure: warning: can't find flex. Please install Flex (2.5 or better)" 1>&2
+    warn_b=yes
+
 fi
 
 if $CXX --version | grep '2\.7' > /dev/null
 then
 	true
 else
-	echo "configure: warning: can't find g++ 2.7" 1>&2
+	
+    echo "configure: warning: can't find g++ 2.7" 1>&2
+    warn_b=yes
+
 fi
 
 echo $ac_n "checking how to run the C++ preprocessor""... $ac_c" 1>&6
-echo "configure:1240: checking how to run the C++ preprocessor" >&5
+echo "configure:1297: checking how to run the C++ preprocessor" >&5
 if test -z "$CXXCPP"; then
 if eval "test \"`echo '$''{'ac_cv_prog_CXXCPP'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -1249,12 +1306,12 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
   CXXCPP="${CXX-g++} -E"
   cat > conftest.$ac_ext <<EOF
-#line 1253 "configure"
+#line 1310 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1258: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1315: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   :
@@ -1274,17 +1331,17 @@ echo "$ac_t""$CXXCPP" 1>&6
 
 ac_safe=`echo "FlexLexer.h" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for FlexLexer.h""... $ac_c" 1>&6
-echo "configure:1278: checking for FlexLexer.h" >&5
+echo "configure:1335: checking for FlexLexer.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1283 "configure"
+#line 1340 "configure"
 #include "confdefs.h"
 #include <FlexLexer.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1288: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1345: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1303,8 +1360,12 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   true
 else
   echo "$ac_t""no" 1>&6
-echo "configure: warning: can't find flex header. Please install Flex headers correctly" 1>&2
+
+    echo "configure: warning: can't find flex header. Please install Flex headers correctly" 1>&2
+    warn_b=yes
+
 fi
+
 
 subdirs="flower"
 
@@ -1421,7 +1482,7 @@ done
 ac_given_srcdir=$srcdir
 ac_given_INSTALL="$INSTALL"
 
-trap 'rm -fr `echo "make/out/Configure_variables.make:make/Configure_variables.make.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
+trap 'rm -fr `echo "$buildprefix/make/out/Configure_variables.make:make/Configure_variables.make.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
 EOF
 cat >> $CONFIG_STATUS <<EOF
 
@@ -1464,6 +1525,7 @@ s%@COMPILEINFO@%$COMPILEINFO%g
 s%@AUTOHEADER@%$AUTOHEADER%g
 s%@BISON@%$BISON%g
 s%@FLEX@%$FLEX%g
+s%@PERL@%$PERL%g
 s%@TEXPREFIX@%$TEXPREFIX%g
 s%@TEXDIR@%$TEXDIR%g
 s%@MFDIR@%$MFDIR%g
@@ -1513,7 +1575,7 @@ EOF
 
 cat >> $CONFIG_STATUS <<EOF
 
-CONFIG_FILES=\${CONFIG_FILES-"make/out/Configure_variables.make:make/Configure_variables.make.in"}
+CONFIG_FILES=\${CONFIG_FILES-"$buildprefix/make/out/Configure_variables.make:make/Configure_variables.make.in"}
 EOF
 cat >> $CONFIG_STATUS <<\EOF
 for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
@@ -1687,9 +1749,9 @@ fi
 eval "DIR_DATADIR=$datadir"
 DIR_DATADIR="$DIR_DATADIR/lilypond"
 echo $ac_n "checking ""... $ac_c" 1>&6
-echo "configure:1691: checking " >&5
+echo "configure:1753: checking " >&5
 
-cat << EOF > lib/out/config.hh
+cat << EOF > $buildprefix/lib/out/config.hh
 
 /* automatically generated by configure */
 /* include this file only once! */
@@ -1698,28 +1760,45 @@ cat << EOF > lib/out/config.hh
 
 EOF
 
-CXX="$ac_cv_prog_CXX" bin/make-version >> lib/out/config.hh
+CXX="$ac_cv_prog_CXX" bin/make-version >> $buildprefix/lib/out/config.hh
 
-touch make/out/Site.make
+touch $buildprefix/make/out/Site.make
 
 # ugr
-(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
+(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make-version > ../$buildprefix/mi2mu/out/version.hh
+
 )
-# rgu
-sed 's/TOPLEVEL_//g' <  .version >  lily/.version
-(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
+(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make-version > ../$buildprefix/lily/out/version.hh
 )
 
-echo '# WARNING : Automatically generated from make/Toplevel.make.in' | cat -  make/Toplevel.make.in > Makefile
+echo '# WARNING : Automatically generated from make/Toplevel.make.in' \
+    | cat - make/Toplevel.make.in > Makefile
+
 
 cat << END
 For making everything, do:
 
     make		# GNU make
 
+or if you used --host=SunUltraWitteReus
+
+    make buildprefix=SunUltraWitteReus-build-dir
+    
 If you want to make site-wide extensions to the makefiles, please use
 
     make/out/Site.make
     
 END
 
+if test $warn_b = "yes" ; then
+cat <<EOF
+    
+    *******************************
+    Warning: configure found errors. 
+    Please resolve these and rerun configure
+    before sending any bugreports.
+    *******************************
+    
+EOF
+fi
+        

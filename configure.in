@@ -4,6 +4,10 @@ dnl  Process this file with autoconf to produce a configure script.
 dnl should cache result.
 dnl should  look in $prefix first.
 
+AC_DEFUN(AC_LILY_WARN, [
+    AC_MSG_WARN($1)
+    warn_b=yes
+])
 AC_DEFUN(AC_TEX_PREFIX, [
     
 
@@ -24,7 +28,7 @@ AC_DEFUN(AC_TEX_PREFIX, [
     
     if test "x$find_texpostfix" = x; then
 	find_texpostfix='/lib/texmf/tex'
-	AC_MSG_WARN(Cannot determine the TeX-directory. Please use --enable-tex-prefix)
+	AC_LILY_WARN(Cannot determine the TeX-directory. Please use --enable-tex-prefix)
     fi
 
     find_texprefix="$find_root_prefix/$find_texpostfix"
@@ -52,7 +56,7 @@ AC_DEFUN(AC_FIND_DIR_IN_PREFIX, [
 
     if test "x$find_dirdir" = x; then
        find_dirdir="/$3";
-       AC_MSG_WARN(Cannot determine $4 subdirectory. Please set from command-line)
+       AC_LILY_WARN(Cannot determine $4 subdirectory. Please set from command-line)
 	true
     fi
     $2=$find_dirdir
@@ -75,12 +79,21 @@ AC_INIT(flower/choleski.cc)
 
 
 # if given here, these vars are initted at the checking point.
+if test x$host = xNONE; then
+    buildprefix=.
+else
+    buildprefix="$host-build-dir"
+    mkdir $buildprefix;
+    for a in `find -type d -and -not -name '*-build-dir'`; do
+	mkdir $buildprefix/$a;
+    done
+fi
 printing_b=no
 checking_b=yes
 debug_b=yes
 optimise_b=no
 profile_b=no
-    
+warn_b=no    
 AC_LANG_CPLUSPLUS
 
 AC_ARG_ENABLE(printing,
@@ -89,19 +102,19 @@ AC_ARG_ENABLE(printing,
 
 	
 AC_ARG_ENABLE(checking,
-    [  disable-checking        set runtime checks (assert calls)],
+    [  enable-checking        set runtime checks (assert calls). Default: on],
     [checking_b=$enableval] )
 
 AC_ARG_ENABLE(debugging,
-    [  disable-debugging       set debug info ],
+    [  enable-debugging       set debug info. Default: on],
     [debug_b=$enableval])
 
 AC_ARG_ENABLE(optimise,
-    [  enable-optimise         use maximal speed optimisations],
+    [  enable-optimise         use maximal speed optimisations. Default: off],
     [optimise_b=$enableval])
     
 AC_ARG_ENABLE(profiling, 
-    [  enable-profiling        compile with gprof support],
+    [  enable-profiling        compile with gprof support. Default: off],
     [profile_b=$enableval])
     
 AC_ARG_ENABLE(mingw-prefix,
@@ -115,7 +128,7 @@ AC_ARG_ENABLE(tex-prefix,
     [TEXPREFIX=auto] )
     
 AC_ARG_ENABLE(tex-dir,
-    [  tex-dir=DIR             set the directory to put LilyPond  TeX files in. ],
+    [  tex-dir=DIR             set the directory to put LilyPond TeX files in. ],
     [TEXDIR=$enableval],
     [TEXDIR=auto] )
 
@@ -163,7 +176,7 @@ AC_CHECK_PROGS(FIND, find, error)
 
 dnl should check out -print
 if test FIND = error; then
-   AC_MSG_WARN(Couldn't find \`find'.  Please use --enable-tex-dir)
+   AC_LILY_WARN(Couldn't find \`find'.  Please use --enable-tex-dir)
 fi
     
 AC_SUBST(CXXFLAGS)
@@ -176,6 +189,7 @@ AC_SUBST(COMPILEINFO)
 AC_SUBST(AUTOHEADER)
 AC_SUBST(BISON)
 AC_SUBST(FLEX)
+AC_SUBST(PERL)
 AC_SUBST(TEXPREFIX)
 AC_SUBST(TEXDIR)
 AC_SUBST(MFDIR)
@@ -184,9 +198,10 @@ AC_SUBST(EXTRA_LIBES)
 AC_CHECK_PROGS(BISON, bison, error)
 AC_CHECK_PROGS(FLEX, flex, error)
 AC_CHECK_PROGS(MAKE, make, error)
+AC_PATH_PROG(PERL, perl, error)
 AC_CHECK_PROGS(PODMAN, pod2man, error)
 
-    
+
 if test "x$TEXPREFIX" = xauto ; then
     AC_TEX_PREFIX(TEXPREFIX)
 else
@@ -197,9 +212,9 @@ if test "x$TEXDIR" = xauto ; then
     AC_TEX_SUBDIR(TEXDIR)
 fi
 
-if test "x$MFDIR" = xauto; then
-    AC_MF_SUBDIR(MFDIR)
-fi
+dnl if test "x$MFDIR" = xauto; then
+dnl     AC_MF_SUBDIR(MFDIR)
+dnl fi
     
 if test $MAKE = "error" 
 then
@@ -208,41 +223,48 @@ else
 	$MAKE -v| grep GNU > /dev/null
 	if test "$?" = 1
 	then
-	    AC_MSG_WARN(Please install *GNU* make) 
+	    AC_LILY_WARN(Please install *GNU* make) 
     fi 
 fi 
     
 if test $BISON = "error" 
 then
-	AC_MSG_WARN(can't find bison. Please install Bison (1.25 or better))
+	AC_LILY_WARN(can't find bison. Please install Bison (1.25 or better))
 else
     bison_version=`$BISON --version| sed 's/^.*version 1.//g' `
     if test $bison_version -lt 25; then
-	AC_MSG_WARN(Your bison is too old (1.$bison_version). Please install 1.25)
+	AC_LILY_WARN(Your bison is too old (1.$bison_version). Please install 1.25)
     fi	
+fi
+
+if test $PERL = "error" 
+then
+	AC_LILY_WARN(can't find perl. You should install Perl (version 5 or better))
+	PERL=/usr/bin/perl
 fi
 
 if test $PODMAN = "error" 
 then
-	AC_MSG_WARN(can't find pod. You should install Perl (version 5 or better))
+	AC_LILY_WARN(can't find pod. You should install Perl (version 5 or better))
 fi
 
 if test $FLEX = "error" 
 then
-	AC_MSG_WARN(can't find flex. Please install Flex (2.5 or better))
+	AC_LILY_WARN(can't find flex. Please install Flex (2.5 or better))
 fi
 
 if $CXX --version | grep '2\.7' > /dev/null
 then
 	true
 else
-	AC_MSG_WARN(can't find g++ 2.7)
+	AC_LILY_WARN(can't find g++ 2.7)
 fi
 
 AC_CHECK_HEADER(FlexLexer.h, true,
-	AC_MSG_WARN(can't find flex header. Please install Flex headers correctly))
+	AC_LILY_WARN(can't find flex header. Please install Flex headers correctly))
+
 AC_CONFIG_SUBDIRS(flower)
-AC_OUTPUT(make/out/Configure_variables.make:make/Configure_variables.make.in)
+AC_OUTPUT($buildprefix/make/out/Configure_variables.make:make/Configure_variables.make.in)
 
 
 
@@ -251,7 +273,7 @@ eval "DIR_DATADIR=$datadir"
 DIR_DATADIR="$DIR_DATADIR/lilypond"
 AC_MSG_CHECKING
 
-cat << EOF > lib/out/config.hh
+cat << EOF > $buildprefix/lib/out/config.hh
 
 /* automatically generated by configure */
 /* include this file only once! */
@@ -260,29 +282,45 @@ cat << EOF > lib/out/config.hh
 
 EOF
 
-CXX="$ac_cv_prog_CXX" bin/make-version >> lib/out/config.hh
+CXX="$ac_cv_prog_CXX" bin/make-version >> $buildprefix/lib/out/config.hh
 
-touch make/out/Site.make
+touch $buildprefix/make/out/Site.make
 
 # ugr
-(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
-dnl    echo 0 > out/.build
+(cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make-version > ../$buildprefix/mi2mu/out/version.hh
+
 )
-# rgu
-sed 's/TOPLEVEL_//g' <  .version >  lily/.version
-(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
+(cd lily; CXX="$ac_cv_prog_CXX" ../bin/make-version > ../$buildprefix/lily/out/version.hh
 )
 
-echo '# WARNING : Automatically generated from make/Toplevel.make.in' | cat -  make/Toplevel.make.in > Makefile
+echo '# WARNING : Automatically generated from make/Toplevel.make.in' \
+    | cat - make/Toplevel.make.in > Makefile
+
 
 cat << END
 For making everything, do:
 
     make		# GNU make
 
+or if you used --host=SunUltraWitteReus
+
+    make buildprefix=SunUltraWitteReus-build-dir
+    
 If you want to make site-wide extensions to the makefiles, please use
 
     make/out/Site.make
     
 END
 
+if test $warn_b = "yes" ; then
+cat <<EOF
+    
+    *******************************
+    Warning: configure found errors. 
+    Please resolve these and rerun configure
+    before sending any bugreports.
+    *******************************
+    
+EOF
+fi
+        

@@ -234,7 +234,7 @@ mudela:	/* empty */
 
 check_version:
 	VERSION STRING ';'		{
-		if (*$2 != MUDELA_VERSION) {
+		if ( String( *$2 ) != MUDELA_VERSION) {
 			if (THIS->ignore_version_b_) {
 				THIS->here_input().error("Incorrect mudela version");
 			} else {
@@ -961,6 +961,7 @@ music_elt:
 
 lyrics_elt:
 	text_def notemode_duration 			{
+	/* this sux! text-def should be feature of lyric-engraver. */
 		if (!THIS->lexer_p_->lyric_state_b())
 			THIS->parser_error("Have to be in Lyric mode for lyrics");
 		$$ = THIS->get_word_element($1, $2);

@@ -20,7 +20,7 @@ public:
     void add(Note_column*);
     void add(Rest_column*);
     void add(Collision*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Rest_collision();
 protected:
     virtual void do_post_processing();

@@ -40,9 +40,8 @@ endif
 	$(LD_COMMAND) $(OFILES) $(LOADLIBES)
 
 exe: $(EXECUTABLE)
-#
 
-$(build): $(depth)/.version
+$(build): $(depth)/VERSION
 	echo 0 > $@
 
 # dependency list of library:
@@ -63,7 +62,6 @@ $(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
 #
 lib: $(LIBRARY)
 #
-TOCLEAN= $(allobs) $(alldeps)
 
 # be careful about deletion.
 clean: localclean
@@ -71,23 +69,15 @@ clean: localclean
 ifdef EXECUTABLE
 	rm -f $(EXECUTABLE)
 endif
-ifdef allobs
-	rm -f $(allobs)
+ifdef OFILES
+	rm -f $(OFILES)
 endif
-ifdef alldeps
-	rm -f $(alldeps)
+ifdef DEPFILES
+	rm -f $(DEPFILES)
 endif
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
-
-distclean: localdistclean 
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i localdistclean; done
-endif
-
-localdistclean:
-
 
 # configure:
 #
@@ -135,6 +125,7 @@ doc:
 doc++: $(progdocs)	
 	doc++ -k -p -d $(DOCDIR) $^
 
+# ugh. should generate in out/
 dist:
 	-mkdir $(distdir)
 	$(MAKE) localdist
@@ -179,7 +170,7 @@ endif
 # version stuff:
 #
 
-$(outdir)/version.hh: .version
+$(outdir)/version.hh: VERSION
 	./$(lily_bindir)/make-version > $@
 
 
@@ -220,7 +211,7 @@ check-doc-deps:
 
 $(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
-#
+
 
 # RedHat rpm package:
 #
@@ -229,7 +220,7 @@ rpm: check-rpm-doc-deps
 	-cp $< $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec
-#
+
 check-rpm-doc-deps: 
 	$(MAKE) -C $(depth)/Documentation/ xpms
 

@@ -17,7 +17,7 @@ class Span_bar : public Bar
     Link_array<Bar> spanning_l_arr_;
 
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Span_bar);
     void add(Bar* );
     void set( Vertical_align_element *);

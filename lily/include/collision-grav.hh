@@ -20,6 +20,6 @@ protected:
     virtual void do_pre_move_processing();
 public:
     Collision_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // COLLISION_GRAV_HH

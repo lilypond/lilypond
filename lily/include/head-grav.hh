@@ -19,7 +19,7 @@ struct Note_head_engraver : Engraver {
     virtual void do_process_requests();
     virtual void do_pre_move_processing();
     virtual void do_post_move_processing();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 

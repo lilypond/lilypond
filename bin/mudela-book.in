@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!@PERL@ -w
 my $mudcount = 0;
 my $mudela_b = 0;
 my $outdir = "";

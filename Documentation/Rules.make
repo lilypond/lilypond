@@ -15,8 +15,7 @@ $(outdir)/%.dvi: $(outdir)/%.mudtex
 	mv $(notdir $@) $(outdir)
 
 $(outdir)/%.mudtex: %.doc
-	$(depth)/bin/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
-
+	$(binout)/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
 
 $(outdir)/%.text: $(outdir)/%.1
 	groff -man -Tascii $< > $@

@@ -34,7 +34,7 @@ public:
     virtual void transpose(Melodic_req const *);
     virtual void translate(Moment dt);
     VIRTUAL_COPY_CONS(Music,Music);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Music();
 protected:
     virtual void do_print() const;

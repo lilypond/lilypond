@@ -27,7 +27,7 @@ protected:
     virtual void do_post_move_processing();
 public:
     Slur_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // SLURGRAV_HH

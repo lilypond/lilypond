@@ -23,7 +23,7 @@ public:
 
 
     void set_extent(PCol* p1, PCol* p2);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Staff_symbol(int lines);
     Real inter_note_f()const;
     int steps_i()const;

@@ -42,7 +42,7 @@ public:
   
     Staff_side();
     void add_support(Score_elem*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     
 protected:
     virtual Interval symbol_height() const;

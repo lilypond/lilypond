@@ -14,7 +14,7 @@
 
 class Meter_performer : public Performer {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Meter_performer();
     ~Meter_performer();
 

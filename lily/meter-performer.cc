@@ -10,8 +10,6 @@
 #include "command-request.hh"
 #include "midi-item.hh"
 
-
-
 IMPLEMENT_IS_TYPE_B1(Meter_performer,Performer);
 ADD_THIS_PERFORMER(Meter_performer);
 

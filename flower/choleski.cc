@@ -9,6 +9,9 @@
 #include "choleski.hh"
 const Real EPS = 1e-7;		// so sue me. Hard coded
 
+// for testing new Matrix_storage.
+//#define PARANOID
+
 Vector
 Choleski_decomposition::solve(Vector rhs)const
 {
@@ -37,20 +40,11 @@ Choleski_decomposition::solve(Vector rhs)const
     return x;
 }
 
-/*
-  Standard matrix algorithm.
-  Should add support for banded matrices
-  */
-
-Choleski_decomposition::Choleski_decomposition(Matrix P)
-    : L(P.dim()), D(P.dim())
+void
+Choleski_decomposition::full_matrix_decompose(Matrix const & P)
 {
-    int n = P.dim();
-
-#ifdef PARANOID
-    assert((P-P.transposed()).norm()/P.norm() < EPS);
-#endif
-    
+ 
+   int n = P.dim();
     L.unit();
     for (int k= 0; k < n; k++) {
 	for (int j = 0; j < k; j++){
@@ -66,6 +60,52 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
 	Real d = P(k,k) - sum;
 	D(k) = d;
     }
+
+}
+
+void
+Choleski_decomposition::band_matrix_decompose(Matrix const &P)
+{
+    int n = P.dim();
+    int b = P.band_i();
+    L.unit();
+    
+    for (int i= 0; i < n; i++) {
+	for (int j = 0 >? i - b; j < i; j++){
+	    Real sum(0.0);
+	    for (int l=0 >? i - b; l < j; l++)
+		sum += L(i,l)*L(j,l)*D(l);
+	    L(i,j) = (P(i,j) - sum)/D(j);
+	}
+	Real sum=0.0;
+	
+	for (int l=0 >? i - b; l < i; l++)
+	    sum += sqr(L(i,l))*D(l);
+	Real d = P(i,i) - sum;
+	D(i) = d;
+    }
+    L.try_set_band();
+    assert ( L.band_i() == P.band_i());
+}
+
+
+
+
+/*
+  Standard matrix algorithm.
+   */
+
+Choleski_decomposition::Choleski_decomposition(Matrix const & P)
+   : L(P.dim()), D(P.dim())
+{ 
+#ifdef PARANOID
+    assert((P-P.transposed()).norm()/P.norm() < EPS);
+#endif
+    if  (P.band_b()) 
+	band_matrix_decompose(P);
+    else
+	full_matrix_decompose(P);
+ 
 
 #ifdef PARANOID
     assert((original()-P).norm() / P.norm() < EPS);

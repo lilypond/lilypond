@@ -34,7 +34,7 @@ protected:
     virtual void set_feature(Feature);
 public:
     Tie_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // TIE_GRAV_HH

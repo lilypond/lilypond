@@ -13,7 +13,7 @@
 class Staff_performer : public Performer_group_performer 
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     Staff_performer();
     ~Staff_performer();

@@ -2,15 +2,15 @@
 
 # script to automate releases
 
-grep -q  '^TOP' .version
+grep -q  '^TOP' VERSION
     res=$?
-if test ! -f .version  || test $res != 0; then
+if test ! -f VERSION  || test $res != 0; then
     echo not in topleveldir
     exit 1
 fi    
 
 function setversion() {
-eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' .version`
+eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' VERSION`
 
 MJ=$TOPLEVEL_MAJOR_VERSION
 MI=$TOPLEVEL_MINOR_VERSION

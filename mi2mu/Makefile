@@ -23,7 +23,7 @@ include ./$(depth)/make/Files.make
 #
 NAME = mi2mu
 MODULE_NAME = mi2mu
-include $(mi2mu-dir)/.version
+include $(mi2mu-dir)/VERSION
 build = $(mi2mu-dir)/$(outdir)/.build
 #
 
@@ -40,7 +40,7 @@ VERSION_DEPENDENCY = $(mi2mu-version)
 
 # list of distribution files:
 #
-EXTRA_DISTFILES = .version TODO
+EXTRA_DISTFILES = VERSION TODO
 #
 
 # list of custom libraries:

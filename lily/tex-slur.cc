@@ -62,6 +62,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir) const
     if (dir < 0)
 	idx += 128;
 
+    assert (idx < 256);
 
     f+=String( "{" ) + String( idx ) + "}";
     s.tex = f;
@@ -107,12 +108,12 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart) const
 	hidx = -hidx;
     hidx --;
     int idx =-1;
-    
 
     idx = widx * 16 + hidx;
     if (xpart < 0)
 	idx += 128;
     
+    assert (idx < 256);
     f+=String( "{" ) + String( idx ) + "}";
 
     
@@ -127,7 +128,7 @@ Lookup::slur (int dy , Real &dx, int dir) const
     assert(dx >=0 && abs(dir) <= 1);
     int y_sign = sign(dy);
 
-    bool large = dy > 16;
+    bool large = abs(dy) > 8;
 
     if (y_sign) {
 	large |= dx>= 4*16 PT;
@@ -150,7 +151,7 @@ Lookup::slur (int dy , Real &dx, int dir) const
     if (hidx <0)
 	hidx = -hidx;
     hidx --; 
-    if (hidx > 16) {
+    if (hidx > 8) {
 	WARN<<"slur to steep: " << dy << " shrinking (ugh)\n";
     }
     
@@ -176,6 +177,7 @@ Lookup::slur (int dy , Real &dx, int dir) const
 	    idx += 54;		
     }
     
+    assert (idx < 256);
     f+=String( "{" ) + String( idx ) + "}";
     s.tex = f;
 

@@ -22,7 +22,7 @@ protected:
     
 public:
     Music_iterator *daddy_iter_l_;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Array<Translator *>report_to_l_arr_;
 
     Translator *report_to_l()const;
@@ -48,7 +48,7 @@ public:
 class Change_iterator : public Music_iterator {
     Change_reg * change_l_;
 public:
-     NAME_MEMBERS();
+     DECLARE_MY_RUNTIME_TYPEINFO;
     virtual void process_and_next(Moment);
     Change_iterator(Change_reg*);
 };
@@ -60,7 +60,7 @@ class Chord_iterator : public Music_iterator
 public:
     ~Chord_iterator();
     Chord_iterator(Chord const*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void do_print()const;
     virtual void construct_children();
@@ -75,7 +75,7 @@ class Request_chord_iterator : public Music_iterator {
     bool last_b_;
 public:
     Request_chord_iterator(Request_chord*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
 protected:
     virtual void process_and_next(Moment);
@@ -94,7 +94,7 @@ class Voice_iterator :  private PCursor<Music*>, public Music_iterator
     void next_element();
 public:
     Voice_iterator(Voice const*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void do_print()const;
     virtual void construct_children();

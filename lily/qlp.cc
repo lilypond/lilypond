@@ -1,7 +1,16 @@
+/*
+  qlp.cc -- implement Mixed_qp
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "debug.hh"
 #include "const.hh"
 #include "qlp.hh"
 #include "choleski.hh"
+
 
 void
 Mixed_qp::add_equality_cons(Vector , double )
@@ -16,36 +25,6 @@ Mixed_qp::add_fixed_var(int i, Real r)
     eq_consrhs.push(r);
 }
 
-void
-Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
-{
-    cons.push(c);
-    consrhs.push(r);
-}
-
-Ineq_constrained_qp::Ineq_constrained_qp(int novars):
-    quad(novars),
-    lin(novars),
-    const_term (0.0)
-{
-}
-
-void
-Ineq_constrained_qp::OK() const
-{
-#ifndef NDEBUG    
-    assert(cons.size() == consrhs.size());
-    Matrix Qdif= quad - quad.transposed();
-    assert(Qdif.norm()/quad.norm() < EPS);
-#endif    
-}
-     
-
-Real
-Ineq_constrained_qp::eval (Vector v)
-{
-    return v * quad * v + lin * v + const_term;
-}
 
 /**
     eliminate appropriate variables, until we have a Ineq_constrained_qp
@@ -73,32 +52,6 @@ Mixed_qp::solve(Vector start) const
     }
     return sol;
 }
-
-/*
-    assume x(idx) == value, and adjust constraints, lin and quad accordingly
-
-    TODO: add const_term
-    */
-void
-Ineq_constrained_qp::eliminate_var(int idx, Real value)
-{
-    Vector row(quad.row(idx));
-    row*= value;
-
-    quad.delete_row(idx);
-
-    quad.delete_column(idx);
-
-    lin.del(idx);
-    row.del(idx);
-    lin +=row ;
-
-   for (int i=0; i < cons.size(); i++) {
-      consrhs[i] -= cons[i](idx) *value;
-      cons[i].del(idx);
-   }
-}
-
 
 
 void
@@ -128,8 +81,6 @@ Ineq_constrained_qp::print() const
     }
 #endif
 }
-
-/* *************** */
 
 Mixed_qp::Mixed_qp(int n)
     : Ineq_constrained_qp(n)

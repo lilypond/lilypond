@@ -16,7 +16,7 @@ My_midi_lexer* midi_lexer_l_g = 0;
 My_midi_lexer::My_midi_lexer( String &filename_str, Sources * sources )
 {
     source_file_l_ =sources->get_file_l(filename_str);
-    switch_streams( source_file_l_->istream_l() );
+    switch_streams( source_file_l_->istream_l() ,0 );
     errorlevel_i_ = 0;
     char_count_ = 0;
     running_status_i_ = 0;

@@ -29,7 +29,7 @@ protected:
     SCORE_ELEM_CLONE(Crescendo);
     virtual Molecule*brew_molecule_p()const;
     virtual Interval symbol_height()const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     
 private:
     Symbol get_symbol()const;

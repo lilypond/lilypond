@@ -8,7 +8,7 @@ depth = ../..
 # generic stuff/Makefile
 #
 include ./$(depth)/make/Include.make
-include ./$(depth)/flower/.version
+include ./$(depth)/flower/VERSION
 
 # identify module:
 #

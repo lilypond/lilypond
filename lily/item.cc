@@ -78,7 +78,7 @@ Item*
 Item::find_prebroken_piece(Line_of_score*l) const
 {
     if (line_l() == l) 
-	return this;
+	return (Item*)this;
     else if (broken_to_a_[0] && broken_to_a_[0]->line_l() == l)
 	return broken_to_a_[0];
     else if (broken_to_a_[1] && broken_to_a_[1]->line_l() == l)

@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!@PERL@ -w
 
 # generate the standard header of a LilyPond source file.
 my $fn;

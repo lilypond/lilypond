@@ -20,7 +20,7 @@ public:
     const char* type_ch_C_;
     int priority_i_;
     Score_align_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void acknowledge_element(Score_elem_info);
     virtual void do_pre_move_processing();

@@ -97,6 +97,9 @@ If you like using font-lock, you can also add this to your F<.emacs>:
 
 the C<type> is a Hungarian notation postfix for C<Type>. See below
 
+=head2 MACROS
+
+
 
 =head2 BROKEN CODE
 

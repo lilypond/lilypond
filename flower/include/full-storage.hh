@@ -13,6 +13,7 @@
 #include "varray.hh"
 #include "matrix-storage.hh"
 #include "real.hh"
+
 /// simplest matrix storage. refer to its baseclass for the doco.
 class Full_storage : public Matrix_storage
 {
@@ -49,14 +50,6 @@ public:
     }
     
     
-    virtual void set_size(int i, int j)
-    {
-	resize(i,j); //this could be more efficient.
-    }
-    
-    virtual void set_size(int i) {
-	set_size(i,i);
-    }
     virtual void resize(int i, int j);
     virtual void resize(int i) {
 	resize(i,i);
@@ -66,13 +59,12 @@ public:
 	assert(valid(i,j));
 	return els_p_p_[i][j];
     }
-    virtual Real const & elem(int i, int j) const {
+    virtual Real elem(int i, int j) const {
 	assert(valid(i,j));
 	return els_p_p_[i][j];
     }
-    virtual Array<Real> row(int i) const;
-    virtual Array<Real> column(int j) const;
-
+    int dim()const;
+    Full_storage(Matrix_storage*);
     Full_storage() {
 	init();
     }
@@ -80,7 +72,7 @@ public:
 	init();
 	set_size(i,j);
     }
-    Full_storage(Full_storage&);
+    Full_storage(Full_storage const&);
     Full_storage(int i) {
 	init();
 	set_size(i);
@@ -91,16 +83,15 @@ public:
     virtual void insert_row(int k);
     virtual void delete_row(int k);
     virtual void delete_column(int k);
-
     
     ~Full_storage();
     virtual bool mult_ok(int i, int j)const;
     virtual void mult_next(int &i, int &j) const ;
     virtual bool trans_ok(int i, int j) const;
     virtual void trans_next(int &i, int &j) const;
-    virtual Matrix_storage * clone();
-    NAME_MEMBERS();
-    virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * );
+    VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
+    DECLARE_MY_RUNTIME_TYPEINFO;
+    virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * )const;
 };
 
 #endif // FULL_STORAGE_HH

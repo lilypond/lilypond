@@ -44,7 +44,6 @@ Crescendo::get_symbol()const
 	warning("Crescendo too small");
 	w_dim = 0;
     }
-//    Real lookup_wid = w_dim * 0.9; // make it slightly smaller.
 
     return Symbol( paper()->lookup_l()->hairpin( w_dim, grow_dir_i_ < 0) );
 }

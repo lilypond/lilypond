@@ -24,7 +24,7 @@ public:
     
     Interval_t<int> head_positions_interval()const;
         
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Note_column();
     virtual void set(Stem *);
     void sort();

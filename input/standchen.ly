@@ -152,8 +152,8 @@ melodie = \melodic{
 %%48
 	\textstyle "italic";
 	< 
-	{ fis2.~  \group "+1"; \stem -1; f2. }
-	{ d'2. ~ \stem 1; d'4 r4_"decresc." d'4 } 
+	{ fis2.~  \group "+1"; \stem \down; f2. }
+	{ d'2. ~ \stem \up; d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
 %%50
@@ -199,13 +199,13 @@ begeleiding = \melodic{
 	''a r4 |
 %%5
 \duration 8;
- 	< \multi 2; { \stem 1;	
+ 	< \multi 2; { \stem \up;	
 		[ 'f 'a d 'a d 'a ] 
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'cis 'e 'g 'e 'g e ]
 		[ 'd 'a d 'a d 'a ]
 		}
-	{ \stem -1; 
+	{ \stem \down; 
 		'd2 r4 
 		 ''bes2 r4 
 		 ''a2 r4
@@ -217,12 +217,12 @@ begeleiding = \melodic{
 	[ 'd 'a d 'a d 'a ] |
 %%11
 	< \multi 2; 	
-	{ \stem 1;
+	{ \stem \up;
 		[ 'f 'a d 'a d 'a ]
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'e 'g 'bes 'g 'bes 'g ] 
 		[ 'a c f c f c ]
-	} { \stem -1; 
+	} { \stem \down; 
 		'd2 r4 
 		 ''bes2 r4
 		 'c2 r4 
@@ -233,10 +233,10 @@ begeleiding = \melodic{
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
 	< \multi 2;
-	{ \stem 1; 
+	{ \stem \up; 
 		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
 		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
-	{ \stem -1; 
+	{ \stem \down; 
 		''a2 r4
 		'd2 r4 
 		''bes2 r4 
@@ -247,13 +247,13 @@ begeleiding = \melodic{
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
 	< \multi 2; {
-		\stem 1;
+		\stem \up;
 		[ ''a 'e 'g 'e 'g 'e ] 
 		[ 'd 'fis 'a 'fis 'a 'fis ] 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	}
-	{\stem -1;
+	{\stem \down;
 		''a2 r4 
 		'd2 r4 
 		''g2 r4 
@@ -298,11 +298,11 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multi 2; { \stem 1; 
+	< \multi 2; { \stem \up; 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	} {
-		\stem -1;
+		\stem \down;
 		''g2 r4
 		'd2 r4 
 	} >

@@ -16,7 +16,7 @@ class Vertical_align_engraver : public Engraver {
     Vertical_align_spanner * valign_p_;
     
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Vertical_align_engraver();
 protected:
    virtual void acknowledge_element(Score_elem_info);

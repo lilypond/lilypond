@@ -1,5 +1,5 @@
 /*
-  flower-debug.hh -- declare 
+  flower-debug.hh -- declare global constants relating to debug dumps
 
   source file of the Flower Library
 

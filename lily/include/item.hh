@@ -38,7 +38,7 @@ public:
     virtual Item *item() { return this; }
     Item();
     Real hpos_f() const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     virtual Line_of_score * line_l() const;
 protected:
     virtual void  do_breakable_col_processing();

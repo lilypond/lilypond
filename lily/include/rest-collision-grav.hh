@@ -22,6 +22,6 @@ protected:
     virtual void do_pre_move_processing();
 public:
     Rest_collision_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // REST_COLLISION_GRAV_HH

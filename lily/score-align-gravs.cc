@@ -16,7 +16,7 @@
 class C ## _align_engraver : public Score_align_engraver		\
 {									\
 public:									\
-    NAME_MEMBERS();							\
+    DECLARE_MY_RUNTIME_TYPEINFO;					\
     C ## _align_engraver() : Score_align_engraver() \
     { type_ch_C_ = T::static_name();\
     priority_i_ = p;}	\

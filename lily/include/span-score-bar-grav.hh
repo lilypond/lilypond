@@ -15,7 +15,7 @@
 class Span_score_bar_engraver : public Span_bar_engraver 
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     virtual Span_bar* get_span_bar_p()const;
 };
 
@@ -25,7 +25,7 @@ public:
 class Piano_bar_engraver :  public Span_score_bar_engraver
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     virtual Span_bar * get_span_bar_p() const;
 };
 

@@ -48,11 +48,18 @@ Staff_performer::header()
     Midi_text track_name( Midi_text::TRACK_NAME, instrument_str());
     midi_track_p_->add( Moment( 0 ), &track_name );
 
-    // set instrument :-)
+    // set instrument description
     Midi_text instrument_name( Midi_text::INSTRUMENT_NAME, instrument_str() );
     midi_track_p_->add( Moment( 0 ), &instrument_name );
 
-    
+    // set instrument :-)
+    // lieve wendy, nu heb je mijn track_i_ / get_staff_i weggehaald...
+    // zie ook note-performer: ugh
+    // ugh, need to know channel (===track===staff) too
+    int channel_i = 0;
+    Midi_instrument instrument( channel_i, instrument_str() );
+    midi_track_p_->add( Moment( 0 ), &instrument );
+
     Midi_tempo midi_tempo( get_tempo_i(  ) );
     midi_track_p_->add( Moment( 0 ), &midi_tempo );
 }

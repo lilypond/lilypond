@@ -25,7 +25,7 @@ class Stem_beam_engraver : public Engraver {
     int default_dir_i_;
 public:
     /* *************** */
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Stem_beam_engraver();
 
 protected:

@@ -32,7 +32,7 @@ class Score_engraver :
     void typeset_all();
     
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     Score_engraver();
 

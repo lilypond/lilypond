@@ -13,7 +13,7 @@
 class Score_horizontal_align_engraver : public Engraver {
     Break_align_item * halign_p_;
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Score_horizontal_align_engraver();
 protected:
     virtual void acknowledge_element(Score_elem_info);

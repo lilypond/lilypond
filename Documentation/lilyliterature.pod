@@ -41,6 +41,9 @@ New York.
 [This is as close to the ``standard'' reference work for music
 notation issues as one is likely to get. MB]
 
+K. Hader. ``Aus der Werkstatt eines Notenstechers'' Waldheim--Eberle
+Verlag, Vienna 1948
+
 MPA. Standard music notation specifications for computer programming.
 December 1996
 

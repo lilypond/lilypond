@@ -14,7 +14,7 @@ struct Line_of_staff : public Spanner_elem_group{
 
     SCORE_ELEM_CLONE(Line_of_staff);
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     /* *************** */
     /** 

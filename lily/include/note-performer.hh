@@ -15,7 +15,7 @@
 
 class Note_performer : public Performer {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     Note_performer();
     ~Note_performer();

@@ -70,7 +70,7 @@ public:
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Note_head*n);
 
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     Real hpos_f()const;
     

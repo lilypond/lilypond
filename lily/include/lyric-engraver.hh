@@ -23,7 +23,7 @@ protected:
     virtual void do_process_requests();
     virtual void do_post_move_processing();
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Lyric_engraver();
 };
 #endif // LYRIC_ENGRAVER_HH

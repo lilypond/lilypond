@@ -27,7 +27,7 @@ public:
     bool default_b_;
 
     /* *************** */
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Clef_item);
     Clef_item();
     void read(Clef_engraver const&);

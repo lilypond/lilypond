@@ -19,7 +19,7 @@ class Staff_sym_engraver : public Engraver {
     Staff_symbol *span_p_;
 public:
     Staff_sym_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual ~Staff_sym_engraver();
     virtual void do_process_requests();

@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!@PERL@ -w
 # stupid script to generate WWW site.
 
 use FileHandle;
@@ -14,7 +14,7 @@ my $MAKE="make";
 sub get_version
 {
     my ($vstr)=("");
-    open V, "$depth/.version";
+    open V, "$depth/VERSION";
     while (<V>) {
 	s/#.*$//g;
 	next if (/^ *$/);

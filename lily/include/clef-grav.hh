@@ -34,7 +34,7 @@ public:
     /* ************** */
    
     Clef_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
    
 };
 #endif // CLEF_HH

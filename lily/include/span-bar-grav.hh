@@ -18,7 +18,7 @@ class Span_bar_engraver : public Engraver
     Array<Bar*> bar_l_arr_;
     Vertical_align_element * valign_l_;
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     
     Span_bar_engraver();
 protected:

@@ -23,7 +23,7 @@ struct Local_acc {
   update item if Items are removed
  */
 struct Local_key_item : Item {
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Array<Local_acc> accs;
     Link_array<Item> support_items_;
     int c0_position;

@@ -20,7 +20,7 @@
 
 class Performer_group_performer : public Performer, public virtual Translator {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Input_translator* itrans_l_;
 
     Performer_group_performer();

@@ -27,7 +27,7 @@ struct Key_engraver : Engraver {
     virtual void do_post_move_processing();
     virtual void acknowledge_element(Score_elem_info);
     Key_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 private:
     void create_key();
     

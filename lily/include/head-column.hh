@@ -30,7 +30,7 @@ public:
     void add(Script*s) { Script_column::add(s) ; }
     virtual void set(Stem*);
     Head_column();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
 
 

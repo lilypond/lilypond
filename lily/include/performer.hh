@@ -17,7 +17,7 @@
 class Performer {
     bool init_b_;
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Performer_group_performer* daddy_perf_l_;
 
     Performer();

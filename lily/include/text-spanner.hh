@@ -18,7 +18,7 @@ public:
     Directional_spanner * support_span_l_;
     General_script_def * spec_p_;
     Offset text_off_;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     void set_support(Directional_spanner*);
     Text_spanner();

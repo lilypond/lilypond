@@ -29,8 +29,8 @@ EndMudelaHeader
 		  { e ~ f }
 		>
 	< \multi 2;
-	{ \stem 1; c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
-	{ \stem -1; c (e g )c'~( [b a g )d]   	r2 } 
+	{ \stem \up; c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
+	{ \stem \down; c (e g )c'~( [b a g )d]   	r2 } 
 	>
 
 	}

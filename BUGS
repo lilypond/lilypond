@@ -1,7 +1,14 @@
 
 [document reintroduced deficiencies.]
 
-midi instrument?
+wrong instrument:
+
+cad = \melodic { \id "Staff" "fr horn"; c4 }
+
+\score { 
+	\melodic {\cad}
+}
+
 *******************
  '.' -> lilypond: lexer.l:258: int My_lily_lexer::yylex(): Assertion `cnv == 1' failed.
 

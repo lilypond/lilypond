@@ -16,7 +16,7 @@ depth = ..
 #
 include Stable.make
 include ./$(depth)/make/Variables.make
-include .version
+include VERSION
 #
 
 # identify module:
@@ -33,7 +33,7 @@ SUBDIRS = include
 
 # list of distribution files:
 #
-EXTRA_DISTFILES = .version 
+EXTRA_DISTFILES = VERSION 
 #
 
 # list of custom libraries:

@@ -39,7 +39,8 @@ Midi_key::mudela_str( bool command_mode_bo )
 		str += String( (char)( ( key_i_ + 2 ) % 7 + 'A'  ) );
 	else // heu, -2: should be - 1 1/2: A -> fis
 		str += String( (char)( ( key_i_ + 2 - 2 ) % 7 + 'a'  ) );
-	str = String( "% " ) + '"' + str + '"' + "; % not supported yet\n"; 
+	str = String( "% \"" ) + str
+	    + String('"') + "; % not supported yet\n"; 
 	return str;
 }
 

@@ -28,7 +28,7 @@ struct Identifier : public Input {
     virtual ~Identifier() ;
 
     void print()const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     void error(String);
     IDACCESSOR(Input_translator, input_translator)
     IDACCESSOR(Music, music)
@@ -50,7 +50,7 @@ private:
 
 #define declare_id_class(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
-        NAME_MEMBERS(); 			    \
+        DECLARE_MY_RUNTIME_TYPEINFO; 			    \
 	Idclass(String s, Class*st, int code);\
 	virtual Class* accessor(bool copy);\
 	~Idclass();\

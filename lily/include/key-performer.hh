@@ -14,7 +14,7 @@
 
 class Key_performer : public Performer {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Key_performer();
     ~Key_performer();
 

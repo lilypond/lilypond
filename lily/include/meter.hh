@@ -23,7 +23,7 @@ protected:
     Molecule*brew_molecule_p() const;
 public:
     Meter(Array<Scalar> args) ;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Meter);
 };
 #endif // METER_HH

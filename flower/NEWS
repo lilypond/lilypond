@@ -1,8 +1,14 @@
 version 1.1:
 
+pl 24 
+	- Diagonal_storage for band matrices.
+	- matrix hackings: support for other Matrix_storage
+	- NAME_MEMBERS(); -> DECLARE_MY_RUNTIME_TYPEINFO;
+	- Matrix::band_i()
+
 pl 23:
 	- virtual-methods : static_is_type_b
-	- Choleski checks no if PARANOID
+	- Choleski checks off if not PARANOID
 pl 22:
 	- ACursor and PACursor to give array a List like interface.
 

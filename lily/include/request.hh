@@ -29,7 +29,7 @@ public:
 
     virtual ~Request(){}
 
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Request,Music);
     
     virtual MInterval time_int() const;
@@ -52,7 +52,7 @@ protected:
 
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
-NAME_MEMBERS();\
+DECLARE_MY_RUNTIME_TYPEINFO;\
 VIRTUAL_COPY_CONS(T, Request);\
 virtual void do_print() const
 
