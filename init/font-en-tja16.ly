@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Mon Oct 27 02:45:17 1997
+% on Tue Oct 28 12:14:59 1997
 % Do not edit
 % input from out/font-en-tja16.log
 % name=\symboltables {
@@ -27,10 +27,15 @@
         }
     "balls"	 = \table {
         "-1"	"\\brevisball"	-0.00\pt	8.00\pt	-2.20\pt	2.20\pt	
+        "-1l"	"\\brevisledger"	-2.00\pt	10.00\pt	-0.40\pt	0.40\pt	
         "-2"	"\\longaball"	-0.00\pt	8.00\pt	-2.20\pt	2.20\pt	
+        "-2l"	"\\longaledger"	-2.00\pt	10.00\pt	-0.40\pt	0.40\pt	
         "0"	"\\wholeball"	-0.00\pt	7.92\pt	-2.20\pt	2.20\pt	
+        "0l"	"\\wholeledger"	-1.98\pt	9.90\pt	-0.40\pt	0.40\pt	
         "1"	"\\halfball"	-0.00\pt	5.51\pt	-2.20\pt	2.20\pt	
+        "1l"	"\\halfledger"	-1.38\pt	6.89\pt	-0.40\pt	0.40\pt	
         "2"	"\\quartball"	-0.00\pt	5.28\pt	-2.20\pt	2.20\pt	
+        "2l"	"\\quartledger"	-1.32\pt	6.61\pt	-0.40\pt	0.40\pt	
         }
     "scripts"	 = \table {
         "ufermata"	"\\ufermata"	-5.30\pt	5.30\pt	-0.30\pt	5.80\pt	

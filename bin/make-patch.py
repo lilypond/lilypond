@@ -21,14 +21,21 @@ def help():
 	'  --to=TO, -t TO          to version TO\n'  
 	
 	)
-    sys.exit();
 
 
 
 def untar(fn):
+    # os.system('pwd');
     sys.stderr.write('untarring ' + fn)
-    os.system ('tar xzf ' + fn)
-    sys.stderr.write('\n')
+# can't seem to fix errors:
+# gzip: stdout: Broken pipe
+# tar: Child returned status 1
+#   os.system ('tar xzf ' + fn)
+#   sys.stderr.write('\n')
+# ugh, even this does not work, but one error message less :-)
+    os.system ('gzip -dc ' + fn + '| tar xf - ')
+# so print soothing message:
+    sys.stderr.write('make-patch:ugh: Please ignore error: gzip: stdout: Broken pipe\n');
     sys.stderr.flush()
 
 
@@ -130,6 +137,7 @@ def main():
 	    options.to_version = version_str_to_tuple(a)
 	elif o== '--help' or o == '-h':
 	    help()
+	    return 0;
 	elif o == '--output' or o == '-o':
 	    outfn = os.path.join(os.getcwd(), a)
 	else:
