@@ -38,12 +38,9 @@ List<T>::OK() const
 template<class T>
 List<T>::~List()
 {
-    Cursor<T> next(*this);
-    for ( Cursor<T> c( *this ); c.ok(); c = next ) {
-	next = c;
-	next++;
-	remove( c );
-    }
+    Cursor<T> c(*this);
+    while (c.ok())
+	c.del();
 }
 
 template<class T>
