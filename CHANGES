@@ -1,3 +1,39 @@
+1.3.136
+=======
+
+* Bugfix: set dependency for direction-source in script-engraver. This
+fixes core-dump problem when stacking multiple scripts containing
+staccato dots.
+
+* Put TFM files under $VARTEXFONTS (/var/lib/texmf,
+typically). PK files are put in the right spot
+automatically, and dirs are also created automatically.
+
+A change to mktexnam is still required -- add  
+
+	MT_DESTROOT=foobar
+ 
+before line 161.
+
+1.3.135.jcn3
+============
+
+* Internationalised ly2dvi.py (thanks to GNU Solfege), and nl.po update.
+
+* Coriolan fixes.
+
+* Bugfix: (first and also) write global header fields; this fixes
+`latexpackages' and ly2dvi.
+
+* Bugfix: website build.
+
+* Fixed titling: cleaned out titledefs.tex for use by ly2dvi.
+
+1.3.134.mb1
+===========
+
+* minor documentation fix.
+
 1.3.134.jcn2
 ============
 
@@ -64,7 +100,7 @@ interface-description.scm
 ============
 
 * Tied notes at a linebreak repeat their accidental.
-
+F
 * Removed some cruft from lily/include/.
 
 * Bugfix: tied notes in chords sometimes got stuck in MIDI output
