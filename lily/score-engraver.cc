@@ -195,7 +195,7 @@ Score_engraver::set_columns (Paper_column *new_command_l,
       if (*current[i])
 	{
 	  scoreline_l_->add_column ((*current[i]));
-	  if (!(*current[i])->used_b())
+	  if (!Paper_column::used_b (*current[i]))
 	    {
 	      (*current[i])->suicide ();
 	      *current[i]  =0;

@@ -10,8 +10,7 @@
 #include "paper-column.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "separation-item.hh"
-
+#include "spaceable-element.hh"
 
 Rod::Rod ()
 {
@@ -20,11 +19,6 @@ Rod::Rod ()
 }
 
 
-Column_rod::Column_rod ()
-{
-  distance_f_ = 0;
-  other_l_ = 0;
-}
 
 void
 Rod::columnize ()
@@ -43,7 +37,8 @@ Rod::add_to_cols ()
 {
   columnize();
   if (item_l_drul_[LEFT] != item_l_drul_[RIGHT])
-    dynamic_cast<Paper_column*> (item_l_drul_[LEFT])->
-      add_rod(dynamic_cast<Paper_column*>(item_l_drul_[RIGHT]), distance_f_ );
+    Spaceable_element::add_rod (item_l_drul_[LEFT],
+				item_l_drul_[RIGHT],
+				distance_f_ );
 }
 

@@ -60,7 +60,7 @@ Script_column_engraver::acknowledge_element( Score_element_info inf)
     {
       Item *thing = dynamic_cast<Item*> (inf.elem_l_);
       if (thing
-	  && !thing->breakable_b ()
+	  && !Item::breakable_b (thing)
 	  && Side_position::get_axis (inf.elem_l_) == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);

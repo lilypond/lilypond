@@ -47,16 +47,11 @@ public:
   Real spanner_length () const;
 
   static int compare (Spanner * const &,Spanner * const &);
-  virtual Array<Rod> get_rods () const;
-  virtual Array<Spring> get_springs () const;  
   virtual Score_element* find_broken_piece (Line_of_score*) const;
   virtual void do_derived_mark ();
 protected:
   void set_my_columns ();
   VIRTUAL_COPY_CONS(Score_element);
-
-
-  virtual void do_space_processing ();
   virtual void do_break_processing ();
   virtual Line_of_score*line_l () const;
 };

@@ -15,16 +15,14 @@
 #include "spring.hh"
 
 /**
-   stuff grouped vertically.
-    This is a class to address items vertically. It contains the data for:
-    \begin{itemize}
-    \item
-    unbroken score
-    \item
-    broken score
-    \item
-    the linespacing problem
-    \end{itemize}
+   bounded-by-me -- list of elts.
+
+   shortest-starter-duration -- rational signifying shortest moment that starts here
+
+
+   Interfaces:
+
+   axis-group, spaceable-element.
   */
 
 class Paper_column : public Item
@@ -33,28 +31,10 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
   /*
-    ugh.
-
-    TODO:
-    
-    * junk these after spacing is done.
-
-    * Put these in Scheme.
-   */
-
-
-  Array<Column_rod>  minimal_dists_;
-  Array<Column_spring > springs_;
-
-
-  /*
     Not (yet) in scm, because of messy effects when a column commits suicide.
    */
   int  rank_i_;
-  /// set a minimum distance
-  void add_rod (Paper_column * to, Real distance);
-  void add_spring (Paper_column * to, Real dist, Real strength);
-
+  virtual void do_break_processing ();
   virtual Paper_column *column_l () const;
   virtual Line_of_score *line_l () const;
 
@@ -65,10 +45,10 @@ public:
   static int rank_i(Score_element*);
 
   Paper_column (SCM);
-  Moment when_mom ()const;
-
   bool musical_b () const;
-  bool used_b () const;
+  static Moment when_mom (Score_element*);
+
+  static bool used_b (Score_element*) ;
   void set_rank (int);
 };
      

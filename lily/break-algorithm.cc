@@ -22,13 +22,11 @@
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Paper_column> all = pscore_l_->line_l_->column_l_arr ();
-  
-					 
+  Link_array<Score_element> all = pscore_l_->line_l_->column_l_arr ();
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
-    if (all[i]->breakable_b ())
+    if (Item::breakable_b (all[i]))
       retval.push (i);
 
   if (linewidth_f_ <=0)
@@ -39,15 +37,14 @@ Break_algorithm::find_break_indices () const
 }
 
 
-Link_array<Paper_column>
+Link_array<Score_element>
 Break_algorithm::find_breaks () const
 {
-  Link_array<Paper_column> all = pscore_l_->line_l_->column_l_arr ();
-    
-  Link_array<Paper_column> retval;
+  Link_array<Score_element> all = pscore_l_->line_l_->column_l_arr ();
+  Link_array<Score_element> retval;
 
   for (int i=0; i < all.size (); i++)
-    if (all[i]->breakable_b ())
+    if (Item::breakable_b (all[i]))
       retval.push (all[i]);
 
   if (linewidth_f_ <=0)
@@ -59,7 +56,7 @@ Break_algorithm::find_breaks () const
 
 
 Simple_spacer*
-Break_algorithm::generate_spacing_problem (Link_array<Paper_column> curline, Interval line) const
+Break_algorithm::generate_spacing_problem (Link_array<Score_element> curline, Interval line) const
 {
   Simple_spacer * sp =  new Simple_spacer;
   Paper_def * d = pscore_l_->paper_l_;

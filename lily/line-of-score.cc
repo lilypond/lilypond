@@ -133,7 +133,7 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone());
       line_l->rank_i_ = i;
       //      line_l->set_immutable_elt_property ("rank", gh_int2scm( i));
-      Link_array<Paper_column> c (breaking[i].cols_);
+      Link_array<Score_element> c (breaking[i].cols_);
       pscore_l_->typeset_line (line_l);
       
       line_l->set_bound(LEFT,c[0]);
@@ -141,7 +141,7 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       for (int j=0; j < c.size(); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
-	  c[j]->line_l_ = line_l;
+	  dynamic_cast<Paper_column*> (c[j])->line_l_ = line_l;
 	}
       
       broken_into_l_arr_.push (line_l);
@@ -233,7 +233,12 @@ Line_of_score::pre_processing ()
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->do_space_processing ();
+    {
+      Score_element * e = unsmob_element (gh_car (s));
+      SCM proc = e->get_elt_property ("spacing-procedure");
+      if (gh_procedure_p (proc))
+	gh_call1 (proc, e->self_scm_);
+    }
 }
 
 void
@@ -325,9 +330,8 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   
   while (gh_pair_p (s) && gh_car (s) != l->self_scm_)
     {
-      Paper_column *c
-	= dynamic_cast<Paper_column*> (unsmob_element (gh_car (s)));
-      if (c->breakable_b () && !c->line_l_)
+      Paper_column*c = dynamic_cast<Paper_column*> ( unsmob_element (gh_car (s)));
+      if (Item::breakable_b (c) && !c->line_l_)
 	ret.push (c);
 
       s = gh_cdr  (s);
@@ -341,15 +345,15 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
    Return all columns, but filter out any unused columns , since they might
    disrupt the spacing problem.
  */
-Link_array<Paper_column>
+Link_array<Score_element>
 Line_of_score::column_l_arr ()const
 {
-  Link_array<Paper_column> acs
-    = Pointer_group_interface__extract_elements (this, (Paper_column*) 0, "columns");
+  Link_array<Score_element> acs
+    = Pointer_group_interface__extract_elements (this, (Score_element*) 0, "columns");
   bool bfound = false;
   for (int i= acs.size (); i -- ; )
     {
-      bool brb = acs[i]->breakable_b();
+      bool brb = Item::breakable_b (acs[i]);
       bfound = bfound || brb;
 
       /*
@@ -357,7 +361,7 @@ Line_of_score::column_l_arr ()const
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!bfound || !acs[i]->used_b ())
+      if (!bfound || !Paper_column::used_b (acs[i]))
 	acs.del (i);
     }
   return acs;

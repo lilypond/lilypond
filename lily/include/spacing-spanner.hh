@@ -12,21 +12,17 @@
 
 #include "spanner.hh"
 
-class Spacing_spanner : public Spanner
+class Spacing_spanner
 {
 public:
-  Spacing_spanner (SCM);
+  static void set_interface (Score_element*);
+  static void do_measure (Score_element*,Link_array<Score_element>) ;
 
-  VIRTUAL_COPY_CONS(Score_element);
-  Array<Spring> do_measure (Link_array<Paper_column>) const;
-
-protected:
-  virtual  Array<Spring> get_springs () const;
-
-  Real stem_dir_correction (Paper_column*,Paper_column*)  const;
-  Real default_bar_spacing (Paper_column*,Paper_column*,Moment)  const;
-  Real note_spacing (Paper_column*,Paper_column*,Moment)  const;
-  Real get_duration_space (Moment dur, Moment shortest) const;
+  static SCM set_springs (SCM);
+  static Real stem_dir_correction (Score_element*,Score_element*,Score_element*)  ;
+  static Real default_bar_spacing (Score_element*,Score_element*,Score_element*,Moment)  ;
+  static Real note_spacing (Score_element*,Score_element*,Score_element*,Moment)  ;
+  static Real get_duration_space (Score_element*,Moment dur, Moment shortest) ;
 };
 
 #endif /* SPACING_SPANNER_HH */

@@ -43,7 +43,7 @@ public:
   Item (SCM);
   Item (Item const &);
 
-  bool breakable_b () const;
+  static bool breakable_b (Score_element*me);
   bool broken_b () const;
   
   Direction break_status_dir () const;

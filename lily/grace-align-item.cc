@@ -13,15 +13,6 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
-void
-Grace_align_item::set_interface (Score_element*me)
-{
-  me->set_interface (ly_symbol2scm ("grace-align-interface"));
-  me->set_elt_property ("stacking-dir", gh_int2scm (RIGHT));
-  Align_interface::set_interface(me);
-  Align_interface::set_axis (me,X_AXIS);
-}
-
 /*
   TODO: cfg-able
  */
@@ -40,6 +31,17 @@ Grace_align_item::before_line_breaking (SCM smob)
 
   return SCM_UNDEFINED;
 }
+
+void
+Grace_align_item::set_interface (Score_element*me)
+{
+  me->set_interface (ly_symbol2scm ("grace-align-interface"));
+  me->set_elt_property ("stacking-dir", gh_int2scm (RIGHT));
+  Align_interface::set_interface(me);
+  Align_interface::set_axis (me,X_AXIS);
+}
+
+
 
 bool
 Grace_align_item::has_interface (Score_element*m)
