@@ -41,7 +41,7 @@
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-                (font-family . roman)
+                (font-family . "roman")
 		(meta . ,(element-description "BarNumber"
 			text-interface general-element-interface break-aligned-interface))
 	))
@@ -202,7 +202,7 @@
  		(properties-to-font-name . ,properties-to-font-name)
  		(style-to-font-name . ,style-to-font-name)
  		(markup-to-properties . ,markup-to-properties)
- 		(font-family . roman)
+ 		(font-family . "roman")
 		(meta . ,(element-description "InstrumentName" general-element-interface text-interface break-aligned-interface))
 	))
 	
@@ -246,7 +246,7 @@
 		(properties-to-font-name . ,properties-to-font-name)
 		(style-to-font-name . ,style-to-font-name)
 		(markup-to-properties . ,markup-to-properties)
-		(font-family . roman)
+		(font-family . "roman")
                 
 		(meta . ,(element-description "LyricText" lyric-syllable-interface text-interface))
 	))
@@ -270,7 +270,11 @@
 		(expand-limit . 10)
 		(padding . 2.0) ; staffspace
 		(minimum-width . 12.5) ; staffspace
-		(meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface general-element-interface))
+		(properties-to-font-name . ,properties-to-font-name)
+		(style-to-font-name . ,style-to-font-name)
+		(markup-to-properties . ,markup-to-properties)
+		(font-family . "number")
+                (meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface general-element-interface))
 	))
 	
 	(NoteColumn . (
@@ -285,6 +289,19 @@
 		(meta . ,(element-description  "NoteHead"
 			rhythmic-head-interface
 			note-head-interface general-element-interface))
+	))
+
+	(NoteName . (
+		(style . default)
+		(molecule-callback . ,Text_item::brew_molecule)
+                (properties-to-font-name . ,properties-to-font-name)
+                (style-to-font-name . ,style-to-font-name)
+                (markup-to-properties . ,markup-to-properties)
+		(font-family . "roman")
+		(font-size . "0")
+		(meta . ,(element-description  "NoteName"
+			note-name-interface
+			general-element-interface))
 	))
 
 	(OctavateEight . (
@@ -374,7 +391,11 @@
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
-		(meta . ,(element-description "StanzaNumber" break-aligned-interface text-interface))
+		(properties-to-font-name . ,properties-to-font-name)
+                (style-to-font-name . ,style-to-font-name)
+                (markup-to-properties . ,markup-to-properties)
+		(font-family . "roman")
+(meta . ,(element-description "StanzaNumber" break-aligned-interface text-interface))
 	))
 
 	(StaffSymbol . (
@@ -464,6 +485,10 @@
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(padding . 0.5)
+		(properties-to-font-name . ,properties-to-font-name)
+                (style-to-font-name . ,style-to-font-name)
+                (markup-to-properties . ,markup-to-properties)
+		(font-family . "roman")
 		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface general-element-interface))
 	))
 	(TextSpanner . (

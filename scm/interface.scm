@@ -175,6 +175,15 @@ more than this (in staffspace)")
     )
    ))
 
+(define note-name-interface
+  (lily-interface
+   'note-name-interface
+   "Note naem"
+   (list
+    (property-description 'style symbol? "symbol that sets note name style")
+    )
+   ))
+
 
 (define rhythmic-head-interface
   (lily-interface
