@@ -65,27 +65,40 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 {
   Real next_distance = distance;
   if (primitive)
-    {
-      // determine width of previous head and x-offset
+    { // determine width of previous head and x-offset
       Real head_width;
       Real x_offset;
       bool is_stacked;
+
+      // upper head of pes is stacked upon lower head of pes ...
       is_stacked = context_info & PES_UPPER;
+
+      // ... unless this note starts a flexa
       if (context_info & FLEXA_LEFT)
 	is_stacked = false;
-      if (!String::compare (glyph_name, "vaticana_cephalicus") &&
-	  !(context_info & PES_LOWER))
-	is_stacked = true;
+
+      // auctum head is never stacked upon preceding note
       if (context_info & AUCTUM)
 	is_stacked = false;
+
+      // semivocalis head of epiphonus or cephalicus is stacked upon
+      // preceding head
+      if (!String::compare (glyph_name, "vaticana_plica"))
+	is_stacked = true; // semivocalis head of epiphonus
+      if (!String::compare (glyph_name, "vaticana_reverse_plica"))
+	if (context_info & PES_LOWER)
+	  {} // initio debilis => not stacked
+	else
+	  is_stacked = true; // semivocalis head of cephalicus
+
       if (is_stacked)
 	{
 	  /*
-	   * This head is stacked upon another one; hence, it does not
-	   * contribute to the total width of the ligature, hence its
-	   * width is assumed to be 0.0.  Moreover, it is shifted to
-	   * the left by its width such that the right side of this
-	   * and the other head are horizontally aligned.
+	   * This head is stacked upon the previous one; hence, it
+	   * does not contribute to the total width of the ligature,
+	   * and its width is assumed to be 0.0.  Moreover, it is
+	   * shifted to the left by its width such that the right side
+	   * of this and the other head are horizontally aligned.
 	   */
 	  head_width = 0.0;
 	  x_offset = join_thickness -
@@ -237,10 +250,6 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       if (prefix_set & AUCTUM)
 	glyph_name = "solesmes_stropha_aucta";
       else glyph_name = "solesmes_stropha";
-    else if (prefix_set & SEMIVOCALIS)
-      if (pitch > prev_pitch)
-	glyph_name = "vaticana_epiphonus";
-      else glyph_name = "vaticana_cephalicus";
     else if (prefix_set & INCLINATUM)
       if (prefix_set & AUCTUM)
 	glyph_name = "solesmes_incl_auctum";
@@ -248,6 +257,17 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	glyph_name = "solesmes_incl_parvum";
       else
 	glyph_name = "vaticana_inclinatum";
+    else if (prefix_set & DEMINUTUM)
+      if (pitch > prev_pitch)
+	{
+	  prev_glyph_name = "vaticana_epiphonus";
+	  glyph_name = "vaticana_plica";
+	}
+      else
+	{
+	  prev_glyph_name = "vaticana_cephalicus";
+	  glyph_name = "vaticana_reverse_plica";
+	}
     else if (prefix_set & (CAVUM | LINEA))
       if ((prefix_set & CAVUM) && (prefix_set & LINEA))
 	glyph_name = "vaticana_linea_punctum_cavum";
@@ -260,8 +280,6 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	glyph_name = "solesmes_auct_asc";
       else
 	glyph_name = "solesmes_auct_desc";
-    else if (prefix_set & DEMINUTUM)
-      glyph_name = "vaticana_plica";
     else if ((prefix_set & PES_OR_FLEXA) &&
 	     (context_info & PES_LOWER) &&
 	     (context_info & FLEXA_RIGHT))

@@ -1,3 +1,13 @@
+2003-05-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/gregorian-ligature-engraver.cc,
+	lily/vaticana-ligature-engraver.cc,
+	lily/include/gregorian-ligature.hh, ly/gregorian-init.ly,
+	mf/parmesan-heads.mf: various semivocalis related bugfixes
+
+	* input/bugs/ligatures.ly: new file demonstrating problems with
+	ligatures
+	
 2003-05-21  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el,

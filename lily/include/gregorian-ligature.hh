@@ -27,7 +27,6 @@
 #define ORISCUS      0x0040 // attribute "\oriscus"
 #define QUILISMA     0x0080 // attribute "\quilisma"
 #define DEMINUTUM    0x0100 // attribute "\deminutum"
-#define SEMIVOCALIS  0x0100 // attribute "\semivocalis"
 #define CAVUM        0x0200 // attribute "\cavum"
 #define LINEA        0x0400 // attribute "\linea"
 #define PES_OR_FLEXA 0x0800 // operator "\~"

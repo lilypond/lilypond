@@ -25,12 +25,12 @@ pes =
   \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
 flexa =
   \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
-semivocalis =
-  \once \property Voice.NoteHead \override #'semivocalis = ##t
 oriscus =
   \once \property Voice.NoteHead \override #'oriscus = ##t
 quilisma =
   \once \property Voice.NoteHead \override #'quilisma = ##t
+semivocalis =
+  \once \property Voice.NoteHead \override #'deminutum = ##t
 deminutum =
   \once \property Voice.NoteHead \override #'deminutum = ##t
 
