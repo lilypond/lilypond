@@ -69,11 +69,9 @@ voice = \notes \relative c' {
 
   %% Hack for better left tekst margin
   %% b8[ c] | d2 e4 d2 c4 | b a8 \myBreak
-  %%\override melismaBusyProperties = #'()
   \set melismaBusyProperties = #'()
   b8[ c] |
-  %%\revert melismaBusyProperties
-  \set melismaBusyProperties = #default-melisma-properties
+  \unset melismaBusyProperties
   d2 e4 d2 c4 b | a8 \myBreak
   b8 | c4 b a g | a2. \myBreak
 
