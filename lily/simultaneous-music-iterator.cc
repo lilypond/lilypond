@@ -69,7 +69,7 @@ Simultaneous_music_iterator::construct_children ()
 	  tail = SCM_CDRLOC (*tail);
 	}
       else
-	mi->set_translator (0);
+	mi->set_context (0);
     }
 }
 

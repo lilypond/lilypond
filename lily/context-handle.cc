@@ -67,11 +67,11 @@ Interpretation_context_handle::try_music (Music *m)
 void
 Interpretation_context_handle::operator = (Interpretation_context_handle const &s)
 {
-  set_translator (s.outlet_);
+  set_context (s.outlet_);
 }
 
 void
-Interpretation_context_handle::set_translator (Context *trans)
+Interpretation_context_handle::set_context (Context *trans)
 {
   if (outlet_ ==trans)
     return;

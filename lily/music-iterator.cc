@@ -42,9 +42,9 @@ Music_iterator::get_outlet () const
 }
 
 void
-Music_iterator::set_translator (Context *trans)
+Music_iterator::set_context (Context *trans)
 {
-  handle_.set_translator (trans);
+  handle_.set_context (trans);
 }
 
 void
@@ -121,14 +121,14 @@ Music_iterator::init_translator (Music *m, Context *report)
   music_ = m;
   assert (m);
   if (! get_outlet ())
-    set_translator (report);
+    set_context (report);
 }
 
 void
 Music_iterator::substitute_outlet (Context *f, Context *t)
 {
   if (get_outlet () == f)
-    set_translator (t);
+    set_context (t);
   derived_substitute (f,t);
 }
 
@@ -258,5 +258,5 @@ Music_iterator::descend_to_child (Context * child_report)
 {
   Context * me_report = get_outlet ();
   if (is_child_context (me_report, child_report))
-    set_translator (child_report);
+    set_context (child_report);
 }

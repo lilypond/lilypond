@@ -1063,28 +1063,26 @@ Generic_prefix_music:
 		Input *loc = unsmob_input (scm_cadr ($1));
 		SCM args = scm_cddr ($1);
 		SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
-		int k = 0;
-		bool ok  = true; 
-		for (SCM s = sig, t = args;
-			ok && scm_is_pair (s) && scm_is_pair (t);
-			s = scm_cdr (s), t = scm_cdr (t)) {
-			k++;
-			if (scm_call_1 (scm_car (s), scm_car (t)) != SCM_BOOL_T)
-			{
-				loc->error (_f ("Argument %d failed typecheck", k));
-				THIS->error_level_ = 1;
-				ok = false;
-			}
+
+		SCM type_check_proc = ly_scheme_function ("type-check-list");
+		bool ok  = true;
+
+		if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr ($1), sig, args)))
+		{
+			THIS->error_level_ = 1;
+			ok = false;
 		}
+
 		SCM m = SCM_EOL;
-		if (ok)
+  		if (ok)
 			m = scm_apply_0 (func, scm_cdr ($1));
+
 		if (unsmob_music (m))
 			{
 			$$ = unsmob_music (m);
 			scm_gc_protect_object (m);
 			}
-		else 
+		else
 			{
 			if (ok)
  				loc->error (_ ("Music head function should return Music object.")); 

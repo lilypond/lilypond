@@ -88,11 +88,11 @@ Part_combine_iterator::do_quit ()
   if (second_iter_)
     second_iter_->quit ();
 
-  null_.set_translator (0);
-  one_ .set_translator (0);
-  two_.set_translator (0);
-  shared_.set_translator (0);
-  solo_.set_translator (0);
+  null_.set_context (0);
+  one_ .set_context (0);
+  two_.set_context (0);
+  shared_.set_context (0);
+  solo_.set_context (0);
 
 }
 
@@ -323,18 +323,18 @@ Part_combine_iterator::construct_children ()
     =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
-  shared_.set_translator (tr);
+  shared_.set_context (tr);
 
   /*
     If we don't, we get a new staff for every Voice.
    */
-  set_translator (tr);
+  set_context (tr);
 
   Context *solo_tr
     =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
 					      "solo",props);
 
-  solo_ .set_translator (solo_tr);
+  solo_ .set_context (solo_tr);
 
   Context *null
     =  get_outlet ()->find_create_context (ly_symbol2scm ("Devnull"),
@@ -343,25 +343,25 @@ Part_combine_iterator::construct_children ()
   if (!null)
     programming_error ("No Devnull found?");
   
-  null_.set_translator (null);
+  null_.set_context (null);
 
   Context *one = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "one", props);
 
-  one_.set_translator (one);
+  one_.set_context (one);
 
-  set_translator (one);
+  set_context (one);
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
 
 
   Context *two = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "two", props);
-  two_.set_translator (two);
-  set_translator (two);
+  two_.set_context (two);
+  set_context (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
 
 
-  set_translator (tr);
+  set_context (tr);
 
 
   char const * syms[] = {
