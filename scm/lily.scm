@@ -7,7 +7,8 @@
 
 ;;; Library functions
 
-(set-debug-cell-accesses! #t)
+(if (defined? 'set-debug-cell-accesses!)
+    (set-debug-cell-accesses! #t))
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
 	     (oop goops)
@@ -372,8 +373,8 @@ L1 is copied, L2 not.
 	     (scm output-pdftex))
 
 
-(define output-tex-module
-  (make-module 1021 (list (resolve-interface '(scm new-output-tex)))))
+;;(define output-tex-module
+;;  (make-module 1021 (list (resolve-interface '(scm new-output-tex)))))
 
 (define (new-tex-output-expression expr port)
   (display (eval expr output-tex-module) port))
@@ -381,7 +382,7 @@ L1 is copied, L2 not.
 (define output-alist
   `(
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
-    ("safetex" . ("TeX output. The default output form." ,new-tex-output-expression))
+;;    ("safetex" . ("TeX output. The default output form." ,new-tex-output-expression))
     ("scm" . ("Scheme dump: debug scheme stencil expressions" ,write))
     ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
     ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))

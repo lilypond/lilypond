@@ -8,6 +8,9 @@
 
 #include "paper-line.hh"
 #include "ly-smobs.icc"
+#include "string.hh" // to_string
+
+#define TITLE_PENALTY -1
 
 Paper_line::Paper_line (Offset o, SCM stencils, bool is_title)
 {
@@ -15,6 +18,33 @@ Paper_line::Paper_line (Offset o, SCM stencils, bool is_title)
   stencils_ = stencils;
   is_title_ = is_title;
   smobify_self ();
+}
+
+Paper_line::~Paper_line ()
+{
+}
+
+IMPLEMENT_SMOBS (Paper_line);
+IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
+IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
+
+SCM
+Paper_line::mark_smob (SCM s)
+{
+  Paper_line *line = (Paper_line*) ly_cdr (s);
+  return line->stencils_;
+}
+
+int
+Paper_line::print_smob (SCM s, SCM port, scm_print_state*)
+{
+  scm_puts ("#<Paper_line ", port);
+  Paper_line *line = (Paper_line*) ly_cdr (s);
+  scm_puts (to_string (line->number_).to_str0 (), port);
+  if (line->is_title ())
+    scm_puts (" t", port);
+  scm_puts (" >", port);
+  return 1;
 }
 
 Offset
@@ -35,25 +65,29 @@ Paper_line::stencils () const
   return stencils_;
 }
 
-SCM
-Paper_line::mark_smob (SCM s)
+LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",
+	   1, 0, 0, (SCM line),
+	   "Return the height of @var{line}.")
 {
-  Paper_line *line = (Paper_line*) ly_cdr (s);
-  return line->stencils_;
+  Paper_line *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  return gh_double2scm (pl->dim ()[Y_AXIS]);
 }
 
-int
-Paper_line::print_smob (SCM, SCM port, scm_print_state*)
+LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
+	   1, 0, 0, (SCM line),
+	   "Return the number of @var{line}.")
 {
-  scm_puts ("#<Paper_line ", port);
-  scm_puts (" >", port);
-  return 1;
+  Paper_line *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  return gh_int2scm (pl->number_);
 }
 
-Paper_line::~Paper_line ()
+LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
+	   1, 0, 0, (SCM line),
+	   "Return the score for breaking after @var{line}.")
 {
+  Paper_line *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  return gh_int2scm (int (pl->is_title ()) * TITLE_PENALTY);
 }
-
-IMPLEMENT_SMOBS (Paper_line);
-IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
-IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);

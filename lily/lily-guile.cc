@@ -201,7 +201,7 @@ ly_init_ly_module (void *)
 }
 
 
-SCM lily_module ;
+SCM lily_module;
 
 void
 ly_init_guile ()

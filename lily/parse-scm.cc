@@ -110,19 +110,16 @@ protected_ly_parse_scm (Parse_start *ps, bool safe)
   return scm_internal_catch (ly_symbol2scm (READ_ERROR),
 			     (safe ? &safe_catch_protected_parse_body
 			      : catch_protected_parse_body),
-			     (void*)ps,
-			     &parse_handler, (void*)ps);
+			     (void*) ps,
+			     &parse_handler, (void*) ps);
 }
 
-bool  parse_protect_global  = true; 
+bool parse_protect_global = true; 
 
-/*
-  Try parsing. If failure, then return SCM_UNDEFINED.
- */
+/* Try parsing.  Upon failure return SCM_UNDEFINED. */
 SCM
 ly_parse_scm (char const* s, int *n, Input i, bool safe)
 {
-  
   Parse_start ps ;
   ps.str = s;
   ps.start_location_ = i;
