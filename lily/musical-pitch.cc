@@ -10,6 +10,21 @@
 #include "debug.hh"
 #include "main.hh"
 
+int
+compare (Array<Musical_pitch>* left, Array<Musical_pitch>* right)
+{
+  assert (left);
+  assert (right);
+  
+  if (left->size () == right->size ())
+    {
+      for (int i = 0; i < left->size (); i++)
+	if ((*left)[i] != (*right)[i])
+	  return 1;
+    }
+  return 0;
+}
+
 SCM
 Musical_pitch::to_scm ()const
 {

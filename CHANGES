@@ -1,3 +1,13 @@
+1.3.78.jcn1
+===========
+
+* Fixed a2-devnull-engraver, a2-engraver.
+
+* Renamed part combiner music names to "one", "two".
+
+* Cleaned up property setting of part combiner, renamed to "solo"/"unison"
+
+
 1.3.77.jcn5
 ===========
 
