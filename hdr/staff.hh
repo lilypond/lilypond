@@ -19,13 +19,10 @@ struct Staff {
     Score *score_;
     PScore *pscore_;
 
-    svec<Command*> input_commands_;
-        
     /****************************************************************/
-    void add(svec<Command*> &s);
     void add(PointerList<Voice*> &s);
-    void process_input_commands(svec<Command*> &s, Real l);
-    
+    void process_commands(Real l);
+
     Staff(const Staff&src);
     void add_voice(Voice *v);
     void add_staff_column(Staff_column *sp);
@@ -45,13 +42,11 @@ struct Staff {
     Staff_column * get_col(Real,bool);
 
     Staff();
-    /**
-      Should construct with Score as arg, but this isn't known during parsing.      
-      */
+
     /****************************************************************
       VIRTUALS
     ****************************************************************/
-    virtual Staff*clone()const=0;    
+
     virtual void set_output(PScore * destination)=0;
     virtual void walk()=0;    
     virtual Staff_column * create_col(Score_column * )=0;
