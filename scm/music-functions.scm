@@ -60,7 +60,7 @@ written by Rune Zedeler. "
 	  (if (equal?
 	       (ly-get-mus-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)))
+	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)) 0)
 	      )
           (ly-set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
