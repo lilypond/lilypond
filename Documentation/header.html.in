@@ -37,6 +37,7 @@ which substitutes some @AT_VARIABLES@ as well.
     <table align=left>
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
+        <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
         <a href="http://appel.dyndns.org/lilypond">Hacking</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
@@ -47,7 +48,7 @@ which substitutes some @AT_VARIABLES@ as well.
     	<a href="@TOP@Documentation/out-www/index.html"><b>Documentation</b></a>
       </td></tr>
       <tr><td><font size=-1>
-    	<a href="@TOP@Documentation/out-www/CHANGES.html">News</a><br>
+    	<a href="@TOP@Documentation/out-www/CHANGES.html">NEWS</a><br>
     	<a href="@TOP@Documentation/out-www/faq.html">FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
