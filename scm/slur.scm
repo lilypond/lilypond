@@ -29,9 +29,6 @@
    ;; (cons (lambda (slur dir) (begin (display "before head") (newline))#f) #f)
 
    (cons (lambda (slur dir)
-	   (< (length (ly-get-elt-property slur 'note-columns)) 2)) 'head)
-
-   (cons (lambda (slur dir)
 	   ;; urg, code dup
 	   (let* ((note-columns (ly-get-elt-property slur 'note-columns))
 		  (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))

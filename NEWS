@@ -1,3 +1,6 @@
+* Finale (.etf) import program. 
+
+* Point and click functionality using emacs and Xdvi.
 
 * Improved design and implementation: Complete rewrite of the
 internals: LilyPond is smaller, cleaner, more flexible, etc.

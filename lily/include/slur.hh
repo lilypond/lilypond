@@ -21,7 +21,6 @@ public:
   static Array<Offset> get_encompass_offset_arr (Score_element*me) ;
   static Bezier get_curve (Score_element*me) ;
   static Direction get_default_dir (Score_element*me) ;
-  static SCM before_line_breaking (SCM);
   static SCM after_line_breaking (SCM);
   static SCM set_spacing_rods (SCM);
 private:  

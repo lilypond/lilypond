@@ -615,7 +615,7 @@ ScoreContext = \translator {
 	)
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::brew_molecule)
-		(interface . (script-interface))
+		(interfaces . (script-interface))
 	)
 	basicScriptColumnProperties = #`(
 		(before-line-breaking-callback . ,Script_column::before_line_breaking)
@@ -625,7 +625,6 @@ ScoreContext = \translator {
 		(thickness . 1.2)		
 		(spacing-procedure . ,Slur::set_spacing_rods)		e
 		(minimum-length . 1.5)
-		(before-line-breaking-callback . ,Slur::before_line_breaking) 
 		(after-line-breaking-callback . ,Slur::after_line_breaking) 
 	)
 	basicSpacingSpannerProperties =#`(
@@ -671,7 +670,7 @@ ScoreContext = \translator {
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
-		(interface . (sustain-pedal-interface))
+		(interfaces . (sustain-pedal-interface))
 	)	
 	staffSymbolBasicProperties = #`(
 		(molecule-callback . ,Staff_symbol::brew_molecule)
