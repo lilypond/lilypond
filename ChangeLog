@@ -1,3 +1,11 @@
+2002-09-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): recommend binary
+	packages.
+
+	* Documentation/topdocs/README.texi (Top): building documentation
+	(not website.)
+
 2002-09-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/refman.itely: 
