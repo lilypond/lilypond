@@ -21,7 +21,6 @@ struct Column_x_positions {
   Real energy_f_;
   bool satisfies_constraints_b_;
 
-  /* ************** */
   void OK() const;
   ~Column_x_positions();
   void solve_line();

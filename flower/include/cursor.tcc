@@ -5,23 +5,23 @@
 #include <assert.h>
 
 template<class T>
- void
+void
 Cursor<T>::backspace()
 {
   Cursor<T> c (*this);
   if (c.ok())
-	c--;        
-  list_.remove (*this);
+    c--;        
+  list_l_->remove (*this);
 }
 
 template<class T>
- void
+void
 Cursor<T>::del()
 {
   Cursor<T> c (*this);
   if (c.ok())
-	c++;
-  list_.remove (*this);    
+    c++;
+  list_l_->remove (*this);    
   *this = c;
 }
 
@@ -31,7 +31,7 @@ Cursor<T>
 Cursor<T>::operator -=(int j)    
 {
   while (j--)
-	(*this)--;
+    (*this)--;
   return *this;
 }
 template<class T>
@@ -39,7 +39,7 @@ Cursor<T>
 Cursor<T>::operator +=(int j)    
 {
   while (j++)
-	(*this)++;
+    (*this)++;
   return *this;
 }
 
@@ -50,10 +50,10 @@ Cursor<T>::operator +(int i) const
   Cursor<T> r = *this;
 
   if (i<0)
-	return r -(-i);
+    return r -(-i);
 
   while (i--)
-	r++;
+    r++;
 
   return r;
 }
@@ -64,10 +64,10 @@ Cursor<T>::operator -(int i) const
 {
   Cursor<T> r = *this;
   if (i<0)
-	return r +(-i);
+    return r +(-i);
 
   while (i--)
-	r--;
+    r--;
   
   return r;
 }
@@ -79,31 +79,31 @@ template<class T>
 int
 Cursor<T>::operator-(Cursor<T> rhs) const
 {
-  assert (&rhs.list_ == &list_);
+  assert (rhs.list_l_ == list_l_);
   int dif = 0;
 
   // search from *this on further up (positive difference)
   Cursor<T> c (*this);
   while (c.ok() && c.pointer_ != rhs.pointer_) 
     {
-	c--;
-	dif++;
+      c--;
+      dif++;
     }
   
   if (c.ok())
-	goto gotcha;		// so, sue me.
+    goto gotcha;		// so, sue me.
 
   // search in direction of bottom. (negative diff)
   dif =0;
   c=*this;    
   while (c.ok() && c.pointer_ !=rhs.pointer_) 
     {
-	dif --;
-	c++;
+      dif --;
+      c++;
     }
   assert (c.ok());
 
-gotcha:
+ gotcha:
   assert ((*this - dif).pointer_ == c.pointer_);
   return dif;
 }

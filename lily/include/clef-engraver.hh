@@ -37,7 +37,6 @@ public:
   Direction octave_dir_;
   String clef_type_str_;
 
-  /* ************** */
    
   Clef_engraver();
   DECLARE_MY_RUNTIME_TYPEINFO;

@@ -40,10 +40,12 @@ class Paper_def : public Music_output_def
   static int default_count_i_;
   bool ps_b_;
 
+protected:
+  VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
+
 public:    
   virtual ~Paper_def ();
   DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS (Paper_def,Music_output_def);
 
   Array<Interval> shape_int_a_;
 
@@ -82,12 +84,6 @@ public:
 
   Lookup const * lookup_l (int sz) const;	// TODO naming
 
-  virtual Paper_def* paper_l ();
-  virtual String dimension_str (Real r) const;
-  virtual Lookup* lookup_p (Lookup const&) const;
-  virtual Lookup* lookup_p (Symtables const&) const;
-  virtual String unknown_str () const;
-
   /** convert a duration to an idealspacing
     influence using the geometric_ and  paratime_signatures.
     */
@@ -96,10 +92,12 @@ public:
   Real arithmetic_constant (Moment minimal_mom) const;
   Real arithmetic_spacing (Moment mom,Real constant) const;
   virtual int get_next_default_count () const;
-  virtual String output_settings_str () const;
+  //urg
+  String tex_output_settings_str () const;
+  String ps_output_settings_str () const;
   // urg
   friend int yyparse (void*);
 };
 
-#endif // PAPER_DEF_HH
+#endif // Paper_def_HH
 

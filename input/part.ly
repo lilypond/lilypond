@@ -1,4 +1,4 @@
-\version "1.0.6";
+\version "1.0.7";
 part = \notes {
 	c-1 c c c
 	r1*3

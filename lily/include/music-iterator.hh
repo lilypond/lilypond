@@ -21,25 +21,26 @@ class Music_iterator {
   void push_translator (Translator_group*);
   void pop_translator();
 protected:
+  Music const * music_l_;
   bool first_b_;
   virtual void do_print() const;
     
   virtual Translator_group* get_req_translator_l();
-  Music_iterator* get_iterator_p (Music*) const;
+  Music_iterator* get_iterator_p (Music const*) const;
   void set_translator (Translator_group*);
-  Music_iterator *daddy_iter_l_;
-    
+  virtual void do_process_and_next (Moment until);
+  void inherit_info (Music_iterator const *parent);
 public:
   Translator_group*report_to_l() const;
   DECLARE_MY_RUNTIME_TYPEINFO;
  
-  static Music_iterator* static_get_iterator_p (Music*,Translator_group*);
+  static Music_iterator* static_get_iterator_p (Music const*,Translator_group*);
   Music_iterator();
     
-  virtual void process_and_next (Moment until);
   virtual Moment next_moment() const;
   virtual bool ok() const;
   virtual ~Music_iterator();
+  void process_and_next (Moment until);
 
   /**
     Construct sub-iterators, and set the translator to 

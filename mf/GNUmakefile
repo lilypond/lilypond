@@ -29,9 +29,9 @@ $(outdir)/%.afm $(outdir)/%.ly $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 
 
 
-TEXINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(TEXDIR)/lilypond depth=.. INSTALLATION_OUT_FILES="$(TEXTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
+TEXINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(datadir)/tex/ depth=.. INSTALLATION_OUT_FILES="$(TEXTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
 
-AFMINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir) INSTALLATION_OUT_FILES="$(AFM_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
+AFMINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir)/ INSTALLATION_OUT_FILES="$(AFM_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
 
 LYINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir) INSTALLATION_OUT_FILES="$(LYTABLES)" -f $(stepdir)/install-outfiles.sub.make $@
 
@@ -45,7 +45,7 @@ localuninstall:
 	$(LYINSTALL)
 	$(AFMINSTALL)
 
-INSTALLATION_DIR=$(MFDIR)/public/lilypond
+INSTALLATION_DIR=$(datadir)/mf/
 INSTALLATION_FILES=$(MF_FILES)
 
 include $(stepdir)/installfiles.make

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.6";
+\version "1.0.7";
 
 \include "corno-1.ly"
 \include "corno-2.ly"

@@ -25,7 +25,6 @@ extern bool find_quarts_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern Lookup* global_lookup_l;
-extern Paper_def* global_paper_l;
 extern bool dependency_global_b;
 extern bool version_ignore_global_b;
 

@@ -21,7 +21,6 @@ public:
     /// do I have width?
     bool fat_b_;
     
-    /* ***************/
 
     Text_item (General_script_def* ,Direction dir=CENTER);
     virtual ~Text_item ();

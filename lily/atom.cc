@@ -13,7 +13,7 @@
 #include "array.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "paper-def.hh"
+#include "lookup.hh"
 #include "main.hh"
 
 inline bool
@@ -29,7 +29,7 @@ Atom::check_infinity_b ()const
       if (abs (off_[ax]) >= 100 CM)
 	{
 	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
-		   dimension_str (off_[ax])));
+		   global_lookup_l->print_dimen (off_[ax])));
 	  
 	  if (experimental_features_global_b)
 	    assert (false);
@@ -76,7 +76,7 @@ Atom::Atom ()
     But Atom is used as a simple type *everywhere*,
     and we don't have virtual contructors.
    */
-  str_ = global_paper_l->unknown_str ();
+  str_ = global_lookup_l->unknown_str ();
 }
 
 Atom::Atom (String s, Box b)

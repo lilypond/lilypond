@@ -39,12 +39,7 @@ public:
   Line_of_score * line_l_;
   
   Paper_score ();
-    
-  virtual ~Paper_score();
 
-  String base_output_str () const;
-  virtual Paper_outputter* paper_outputter_p (Paper_stream*) const = 0;
-  virtual Paper_stream* paper_stream_p () const = 0;
 
   /// add to bottom of pcols
   void add_column (Paper_column*);
@@ -67,6 +62,8 @@ public:
   /// add a Spanner
   void typeset_unbroken_spanner (Spanner*);
  
+    
+  virtual ~Paper_score();
 protected:
 
   

@@ -19,7 +19,6 @@
 struct Molecule {
   Pointer_list<Atom*> atoms_;	// change to List<Atom>? 
 
-  /* *************** */
     
   Molecule() { }
   Molecule (Atom const &a);

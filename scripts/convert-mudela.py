@@ -101,7 +101,7 @@ if 1:					# need new a namespace
 				found = 1
 				break
 		if found:
-			sys.stderr.write ('\nNot smart enough to convert \\octave\n')
+			sys.stderr.write ('\nNot smart enough to convert \\octave')
 			raise FatalConversionError()
 		return lines
 		
@@ -139,7 +139,7 @@ if 1:					# need new a namespace
 
 	conversions.append (
 		((0,1,21), conv, '\\musical_pitch -> \\musicalpitch, '+
-		 '\\meter -> \\time\n'))
+		 '\\meter -> \\time'))
 
 if 1:					# need new a namespace
 	def conv (lines):
@@ -165,7 +165,7 @@ if 1:					# need new a namespace
 
 	conversions.append (
 		((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
-		 'specialaccidentals -> keyoctaviation\n'))
+		 'specialaccidentals -> keyoctaviation'))
 
 if 1:
 	def conv(lines):
@@ -175,10 +175,10 @@ if 1:
 				found = 1
 				break
 		if found:
-			sys.stderr.write ('\nNot smart enough to convert to new \\header format\n')
+			sys.stderr.write ('\nNot smart enough to convert to new \\header format')
 		return lines
 	
-	conversions.append ((1,0,2), conv, '\header { key = concat + with + operator }\n')
+	conversions.append ((1,0,2), conv, '\\header { key = concat + with + operator }')
 
 if 1:
 	def conv(lines):
@@ -188,7 +188,8 @@ if 1:
 			newlines.append (x)
 		return newlines
 	
-	conversions.append ((1,0,3), conv, '\melodic -> \notes\n')
+	conversions.append ((1,0,3), conv, '\\melodic -> \\notes')
+
 if 1:
 	def conv(lines):
 		newlines =[]
@@ -198,7 +199,7 @@ if 1:
 			newlines.append (x)
 		return newlines
 	
-	conversions.append ((1,0,4), conv, 'default_{paper,midi}\n')
+	conversions.append ((1,0,4), conv, 'default_{paper,midi}')
 
 if 1:
 	def conv(lines):
@@ -209,7 +210,7 @@ if 1:
 			newlines.append (x)
 		return newlines
 	
-	conversions.append ((1,0,5), conv, 'ChoireStaff -> ChoirStaff\n')
+	conversions.append ((1,0,5), conv, 'ChoireStaff -> ChoirStaff')
 
 if 1:
 	def conv(lines):
@@ -220,12 +221,26 @@ if 1:
 			newlines.append (x)
 			if found: break
 		if found:
-			sys.stderr.write ('\nNot smart enough to \\translator syntax\n')
+			sys.stderr.write ('\nNot smart enough to \\translator syntax')
 			raise FatalConversionError()
 		return newlines
 	
-	conversions.append ((1,0,6), conv, 'foo = \\translator {\type .. } ->\translator {\type ..; foo; }\n')
+	conversions.append ((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  regsub.gsub ('\\\\lyric', '\\\\lyrics',x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,7), conv, '\\lyric -> \\lyrics')
+
+
 ############################
+	
 
 def get_conversions (from_version, to_version):
 	def version_b (v, f = from_version, t = to_version):

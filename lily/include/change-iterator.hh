@@ -15,15 +15,13 @@
 
 class Change_iterator : public Music_iterator
 {
-  Change_translator *change_l_;
-
+  Change_translator *change_l ();
   void  error (String);
   
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
-  Change_iterator (Change_translator* prop_l);
 protected:
-  virtual void process_and_next (Moment);
+  virtual void do_process_and_next (Moment);
 };
 
 #endif

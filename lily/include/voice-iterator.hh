@@ -14,23 +14,24 @@
 #include "music-iterator.hh"
 #include "pcursor.hh"
 
-class Sequential_music_iterator :  private PCursor<Music*>, public Music_iterator
+class Sequential_music_iterator :  public Music_iterator
 {
   Moment here_mom_;
-  const Sequential_music * sequential_music_C_;
+  PCursor<Music*> *cursor_p_;
   Music_iterator * iter_p_;
   void start_next_element();
   void leave_element();
   void set_Sequential_music_translator();
-    
+protected:
+  Sequential_music * sequential_music_l() const;
 public:
-  Sequential_music_iterator (Sequential_music const*);
+  Sequential_music_iterator ();
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
   virtual void do_print() const;
   virtual void construct_children();
   ~Sequential_music_iterator();    
-  virtual void process_and_next (Moment);
+  virtual void do_process_and_next (Moment);
   virtual Moment next_moment() const;
   virtual bool ok() const;
 };

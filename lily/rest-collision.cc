@@ -53,14 +53,16 @@ Rest_collision::do_post_processing()
 
   int dir_i = rest_l_arr_[0]->dir_;
   int midpos = 4;
-#if 1
   // ugh
   int stem_length_i = 7 - 2;
   // ugh, Stem::stem_start vs Stem::stem_end
   int pos = (int)(stem_l->stem_end_f() - midpos) - dir_i * stem_length_i;
-#else // nogo: stem_start not set for rests?
+  /*
+    nogo: stem_start not set for rests?
   int pos = (stem_l->stem_begin_f() - midpos) + dir_i * 2;
-#endif
+
+  WHY IS THIS STILL HERE? --hwn
+  */
   rest_l_arr_[0]->translate_rests (pos);	
 }
 

@@ -21,8 +21,6 @@
 #include "config.hh"
 #include "file-results.hh"
 #include "debug.hh"
-#include "ps-def.hh"
-#include "tex-def.hh"
 #include "ps-lookup.hh"
 #include "tex-lookup.hh"
 
@@ -42,10 +40,6 @@ File_path global_path;
 Ps_lookup ps_lookup;
 Tex_lookup tex_lookup;
 Lookup* global_lookup_l = &tex_lookup;
-
-Ps_def ps_def;
-Tex_def tex_def;
-Paper_def* global_paper_l = &tex_def;
 
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
@@ -247,7 +241,6 @@ main (int argc, char **argv)
 	case 't':
 	  experimental_features_global_b = true;
 	  global_lookup_l = &ps_lookup;
-	  global_paper_l = &ps_def;
 	  break;
 	case 'o':
 	  outname_str = oparser.optional_argument_ch_C_;

@@ -20,7 +20,7 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "1.0.6";
+\version "1.0.7";
 
 melody = \notes \relative c'' {
 	\clef violin;
@@ -54,7 +54,7 @@ global = \notes {
 	\bar ":|";
 }
 
-tekst = \lyric{ 
+tekst = \lyrics{ 
  	Al-4 tijd is Kort- jak- je ziek,2
 	midden4 in_de week maar s,_zon- dags niet.2
 % ugly hack: insertion of  empty syllables creates columns on extra 
@@ -74,7 +74,7 @@ Ja inderdaad. Dit is geen educatieve danwel muzikaal verantwoorde
 tekst. Mogen wij ook af en toe ergens op afgeven?
 %}
 
-hegedraagjetekst = \lyric{ 
+hegedraagjetekst = \lyrics{ 
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
 	s,_Zon-4 dags gaat het door een raam,2
@@ -83,7 +83,7 @@ hegedraagjetekst = \lyric{
 	"\TeX"4 is slecht- ser dan mu- ziek.2
 }
 
-texte = \lyric{ 
+texte = \lyrics{ 
 	\property Lyrics . textstyle" =  "italic" 
 %	\property Lyrics . textstyle" =  "roman" 
  	Ah!4 vous dir- ai_- je ma- man2
@@ -94,7 +94,7 @@ texte = \lyric{
 	Va-4 lent mieux que la rai- son2
 }
 
-texti = \lyric{
+texti = \lyrics{
 	\property "Lyrics"."textstyle" =  "roman"
 	Twin-4 kle, twin- kle, lit- tle star,2
 	How4 I won- der what you are.2
@@ -104,7 +104,7 @@ texti = \lyric{
 	How4 I won- der what you are!2
 }
 
-textii = \lyric{
+textii = \lyrics{
 	When4 the bla- zing sun is gone,2
 	When4 he no- thing shines up- on,2
 	Then4 you show your lit- tle light,2
@@ -114,7 +114,7 @@ textii = \lyric{
 	
 }
 
-textiii = \lyric{
+textiii = \lyrics{
 	Then4 the tra- veler in the dark2
 	Thanks4 you for your ti- ny spark;2
 	He_could4 not see which way to go,2

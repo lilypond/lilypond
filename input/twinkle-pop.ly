@@ -12,7 +12,7 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.6";
+\version "1.0.7";
 
 melodie = \notes\relative c {
         \clef"violin";
@@ -26,7 +26,7 @@ melodie = \notes\relative c {
         f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
 }
 
-text = \lyric{ 
+text = \lyrics{ 
         \property Lyrics . textstyle =  "italic"
 
         Ah!4 vous dir- ai_- je ma man2
@@ -40,7 +40,7 @@ text = \lyric{
 
 \score {
         <  \notes \type Staff \melodie
-           \lyric   \type Lyrics \text
+           \lyrics   \type Lyrics \text
         >
         \paper {  }
 }

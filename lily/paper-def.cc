@@ -23,28 +23,12 @@
 #include "scope.hh"
 #include "assoc.hh"
 #include "assoc-iter.hh"
-#include "dimensions.hh"
-
-IMPLEMENT_IS_TYPE_B1 (Paper_def, Music_output_def);
-
-int Paper_def::default_count_i_ = 0;
 
 Paper_def::Paper_def ()
 {
   lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
 }
 
-Paper_def::Paper_def (Paper_def const&s)
-  : Music_output_def (s)
-{
-  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
-  for (Assoc_iter<int, Lookup*> ai(*s.lookup_p_assoc_p_); ai.ok (); ai++)
-    {
-      Lookup * l = lookup_p (*ai.val ());
-      l->paper_l_ = this;
-      set_lookup (ai.key(), l);
-    }
-}
 
 Paper_def::~Paper_def ()
 {
@@ -56,43 +40,16 @@ Paper_def::~Paper_def ()
   delete lookup_p_assoc_p_;
 }
 
-/**
-  Get the measure wide constant for arithmetic.
-
-  @see
-  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
-  OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
-  The Ohio State University, 1987.
-
-  */
-Real
-Paper_def::arithmetic_constant (Moment d) const
+Paper_def::Paper_def (Paper_def const&s)
+  : Music_output_def (s)
 {
-  return get_var ("arithmetic_basicspace") - log_2 (Moment (1,8) <? d);
-}
-
-Real
-Paper_def::arithmetic_spacing (Moment d ,Real k) const
-{
-  return (log_2 (d) + k)* get_var ("arithmetic_multiplier");
-}
-
-Real
-Paper_def::beam_thickness_f () const
-{
-  return get_var ("beam_thickness");
-}
-
-Real
-Paper_def::duration_to_dist (Moment d,Real k) const
-{
-  return arithmetic_spacing (d,k);
-}
-
-int
-Paper_def::get_next_default_count () const
-{
-  return default_count_i_ ++;
+  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
+  for (Assoc_iter<int, Lookup*> ai(*s.lookup_p_assoc_p_); ai.ok (); ai++)
+    {
+      Lookup * l = global_lookup_l->lookup_p (*ai.val ());
+      l->paper_l_ = this;
+      set_lookup (ai.key(), l);
+    }
 }
 
 Real
@@ -126,16 +83,9 @@ Paper_def::line_dimensions_int (int n) const
 }
 
 Real
-Paper_def::geometric_spacing (Moment d) const
+Paper_def::beam_thickness_f () const
 {
-  Real dur_f = (d) ?pow (get_var ("geometric"), log_2 (d)) : 0;
-  return get_var ("basicspace") + get_var ("unitspace")  * dur_f;
-}
-
-Real
-Paper_def::interline_f () const
-{
-  return get_var ("interline");
+  return get_var ("beam_thickness");
 }
 
 Real
@@ -145,9 +95,73 @@ Paper_def::linewidth_f () const
 }
 
 Real
+Paper_def::duration_to_dist (Moment d,Real k) const
+{
+  return arithmetic_spacing (d,k);
+}
+
+
+/**
+  Get the measure wide constant for arithmetic.
+
+  @see
+  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
+  OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
+  The Ohio State University, 1987.
+
+  */
+Real
+Paper_def::arithmetic_constant (Moment d) const
+{
+  return get_var ("arithmetic_basicspace") - log_2 (Moment (1,8) <? d);
+}
+
+Real
+Paper_def::arithmetic_spacing (Moment d ,Real k) const
+{
+  return (log_2 (d) + k)* get_var ("arithmetic_multiplier");
+}
+
+Real
+Paper_def::geometric_spacing (Moment d) const
+{
+  Real dur_f = (d) ?pow (get_var ("geometric"), log_2 (d)) : 0;
+  return get_var ("basicspace") + get_var ("unitspace")  * dur_f;
+}
+
+void
+Paper_def::set_lookup (int i, Lookup*l)
+{
+  if (lookup_p_assoc_p_->elem_b (i))
+    {
+      delete lookup_p_assoc_p_->elem (i);
+    }
+  l ->paper_l_ = this;
+  (*lookup_p_assoc_p_)[i] = l;
+}
+
+Real
+Paper_def::interline_f () const
+{
+  return get_var ("interline");
+}
+
+Real
 Paper_def::rule_thickness () const
 {
   return get_var ("rulethickness");
+}
+
+Real
+Paper_def::staffline_f () const
+{
+  return get_var ("rulethickness");
+}
+
+Real
+Paper_def::staffheight_f () const
+{
+  return get_var ("staffheight");
 }
 
 Real
@@ -165,41 +179,10 @@ Paper_def::internote_f () const
   return get_var ("interline") /2.0 ;
 }
 
-// urg, how c++ sucks
-// virtual_copy_cons wants these...
-
-// aarg, its even worse, Paper_def gets constructed via Identifier,
-// another input->output hardlink.
-Lookup*
-Paper_def::lookup_p (Lookup const& l) const
-{
-  //  return 0;
-  return global_paper_l->lookup_p (l);
-}
-
-Lookup*
-Paper_def::lookup_p (Symtables const& s) const
-{
-  //  return 0;
-  return global_paper_l->lookup_p (s);
-}
-
-String
-Paper_def::output_settings_str () const
-{
-  return "";
-}
-
 Real
 Paper_def::note_width () const
 {
   return get_var ("notewidth");
-}
-
-Paper_def*
-Paper_def::paper_l ()
-{
-  return this;
 }
 
 void
@@ -219,44 +202,43 @@ Paper_def::print () const
 #endif
 }
 
-String
-Paper_def::dimension_str (Real r) const
-{
-  return ::dimension_str (r);
-}
-
 Lookup const *
 Paper_def::lookup_l (int i) const
 {
   return (*lookup_p_assoc_p_)[i];
 }
 
-void
-Paper_def::set_lookup (int i, Lookup*l)
-{
-  if (lookup_p_assoc_p_->elem_b (i))
-    {
-      delete lookup_p_assoc_p_->elem (i);
-    }
-  l ->paper_l_ = this;
-  (*lookup_p_assoc_p_)[i] = l;
-}
+IMPLEMENT_IS_TYPE_B1 (Paper_def, Music_output_def);
 
-Real
-Paper_def::staffline_f () const
+String
+Paper_def::ps_output_settings_str () const
 {
-  return get_var ("rulethickness");
-}
-
-Real
-Paper_def::staffheight_f () const
-{
-  return get_var ("staffheight");
+  String s ("\n ");
+  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
+    s += String ("/mudelapaper") + i.key () 
+      + "{" + i.val ()->str () + "} bind def\n";
+  s +=  *scope_p_->elem ("pssetting")->access_String ();
+  return s;
 }
 
 String
-Paper_def::unknown_str () const
+Paper_def::tex_output_settings_str () const
 {
-  return "";
+  String s ("\n ");
+  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
+    s += String ("\\def\\mudelapaper") + i.key () 
+      + "{" + i.val ()->str () + "}\n";
+  s +=  *scope_p_->elem ("texsetting")->access_String ();
+  return s;
 }
+
+int Paper_def::default_count_i_ = 0;
+
+int
+Paper_def::get_next_default_count () const
+{
+  return default_count_i_ ++;
+}
+
+
 

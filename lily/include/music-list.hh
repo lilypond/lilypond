@@ -29,17 +29,17 @@ public:
  */
 class Music_sequence : public Music
 {
-    
 public:
   int multi_level_i_;
   Music_list * music_p_list_p_;
-  
+
   Music_sequence (Music_sequence const&);
   Music_sequence (Music_list *l_p);
   DECLARE_MY_RUNTIME_TYPEINFO;
   VIRTUAL_COPY_CONS(Music_sequence,Music);
 
   virtual void transpose (Musical_pitch );
+  virtual void compress (Moment);
   void add_music (Music *music_p);
 protected:
   virtual void do_print() const;
@@ -51,13 +51,12 @@ protected:
 class Simultaneous_music : public Music_sequence
 {
 public:
-  Simultaneous_music(Music_list *);
   DECLARE_MY_RUNTIME_TYPEINFO;
   VIRTUAL_COPY_CONS(Simultaneous_music,Music);
   
+  Simultaneous_music(Music_list *);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual void translate (Moment dt);
-  virtual MInterval time_int() const;
+  virtual Moment duration () const;
 };
 
 /**
@@ -67,24 +66,22 @@ public:
 class Request_chord : public Simultaneous_music
 {
 public:
+  VIRTUAL_COPY_CONS(Request_chord, Music);
   DECLARE_MY_RUNTIME_TYPEINFO;
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   Request_chord();
-  VIRTUAL_COPY_CONS(Request_chord, Music);
 };
 /**
   Sequential_music is a list of music-elements which are placed behind each other.
  */
 class Sequential_music : public Music_sequence
 {
-    
 public:
-  Moment offset_mom_;
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
-  Sequential_music(Music_list*);
   DECLARE_MY_RUNTIME_TYPEINFO;
   VIRTUAL_COPY_CONS(Sequential_music, Music);
-  virtual void translate (Moment dt);
-  virtual MInterval time_int() const;
+
+  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  Sequential_music(Music_list*);
+  virtual Moment duration () const;
 };
 #endif // Music_sequence_HH

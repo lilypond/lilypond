@@ -21,10 +21,6 @@ public:
   /** create cursor, set at top. The const part isn't true, actually, #list#
     surely isn't const, but I get tired of the warning messages.  */
   Cursor (const List<T>& list, Link<T>* pointer = 0);
-  /**
-    Create an invalid cursor (pointing to nothing, associated with   no list.)
-    */
-  Cursor();
   Cursor (const Cursor<T>& cursor);
 
   T& thing();
@@ -94,12 +90,14 @@ public:
   void del();
     
   /// access the list this came from
-  List<T>& list() const ;
+  List<T>* list_l() const ;
   Link<T>* pointer();
   static   int compare (Cursor<T> a,Cursor<T>b) { return a-b; }
+
 private:
-  List<T>& list_;
+  
   Link<T>* pointer_;
+  List<T>* list_l_;
 };
 
 

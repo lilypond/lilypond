@@ -7,9 +7,9 @@ TestedFeatures = "This file tests silly line shapes";
 
 \include "paper20.ly"
 
-\version "1.0.6";
+\version "1.0.7";
 
-oden = \lyric{ 
+oden = \lyrics{ 
 	O8 |
 	den-8. ne-16 boom,4. o8 | 
 	den-8. ne-16 boom.4.  Wat8 |
@@ -17,7 +17,7 @@ oden = \lyric{
 	won-8. der-16 schoon4 _8
 }
 
-ikheb = \lyric{
+ikheb = \lyrics{
 	Ik8 | 
 	heb u laatst4. in_'t8 |
 	bos8. zien16 staan4 _8 toen8 |
@@ -25,7 +25,7 @@ ikheb = \lyric{
 	kaars-8. jes16 aan.4 _8
 }
 
-ugloeit = \lyric{
+ugloeit = \lyrics{
 	U8 |
 	gloeit in bar-4. re8 | 
 	win-8. ter-16 tijd,4 r8 als8 |

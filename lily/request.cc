@@ -17,11 +17,7 @@ Request::do_print() const
 {
 }
 
-MInterval
-Request::time_int() const
-{
-  return MInterval (0, duration());
-}
+
 
 
 bool

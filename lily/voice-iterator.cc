@@ -19,18 +19,25 @@ Sequential_music_iterator::do_print() const
     iter_p_->print();
 }
 
-Sequential_music_iterator::Sequential_music_iterator (Sequential_music const*v)
-  : PCursor<Music*> (*v->music_p_list_p_)
+Sequential_music_iterator::Sequential_music_iterator ()
 {
-  here_mom_ = v->offset_mom_;
-  sequential_music_C_ = v;
+  cursor_p_ = 0;
+  here_mom_ = 0;
   iter_p_ =0;
+}
+
+Sequential_music*
+Sequential_music_iterator::sequential_music_l () const
+{
+  return (Sequential_music *)music_l_;
 }
 
 void
 Sequential_music_iterator::construct_children()
 {
-  while (PCursor<Music*>::ok()) 
+  cursor_p_ = new PCursor<Music*> (sequential_music_l ()->music_p_list_p_->top ());
+  
+  while (cursor_p_->ok()) 
     {
       start_next_element();
       if (!iter_p_->ok()) 
@@ -50,17 +57,16 @@ Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
-  MInterval elt_time = ptr()->time_int ();
-  if (!elt_time.empty_b())
-    here_mom_ += elt_time.length();
-  PCursor<Music*>::next();
+  Moment elt_time = cursor_p_->ptr()->duration ();
+  here_mom_ += elt_time;
+  cursor_p_->next();
 }
 
 void
 Sequential_music_iterator::start_next_element()
 {
   assert (!iter_p_);
-  iter_p_ = get_iterator_p (ptr());
+  iter_p_ = get_iterator_p ( cursor_p_->ptr());
 }
 
 void
@@ -72,6 +78,7 @@ Sequential_music_iterator::set_Sequential_music_translator()
 
 Sequential_music_iterator::~Sequential_music_iterator()
 {
+  delete cursor_p_;
   assert (! iter_p_);
 }
 
@@ -79,7 +86,7 @@ Sequential_music_iterator::~Sequential_music_iterator()
 IMPLEMENT_IS_TYPE_B1(Sequential_music_iterator,Music_iterator);
 
 void
-Sequential_music_iterator::process_and_next (Moment until)
+Sequential_music_iterator::do_process_and_next (Moment until)
 {
   while (1) 
     {
@@ -97,7 +104,7 @@ Sequential_music_iterator::process_and_next (Moment until)
 	{
 	  leave_element();
 	  
-	  if (PCursor<Music*>::ok()) 
+	  if (cursor_p_->ok()) 
 	    {
 	      start_next_element();
 	      set_Sequential_music_translator();
@@ -111,7 +118,7 @@ Sequential_music_iterator::process_and_next (Moment until)
 
 loopexit:
 
-  Music_iterator::process_and_next (until);
+  Music_iterator::do_process_and_next (until);
 }
 
 Moment
@@ -125,5 +132,4 @@ Sequential_music_iterator::ok() const
 {
   return iter_p_;
 }
-
 

@@ -8,7 +8,7 @@ ATVARIABLES = \
   BASH\
   DATE\
   date\
-  DIR_DATADIR\
+  datadir\
   PACKAGE\
   package\
   PATHSEP\

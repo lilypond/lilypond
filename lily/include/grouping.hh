@@ -18,7 +18,6 @@ struct Rhythmic_grouping {
     Array<Rhythmic_grouping*> children;
     MInterval *interval_;
     
-    /* *************** */
 
     Array<MInterval> intervals();
     MInterval interval() const;

@@ -23,9 +23,10 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   VIRTUAL_COPY_CONS (Music_wrapper, Music);
   Music_wrapper (Music_wrapper const&);
-  virtual MInterval time_int () const;
+  virtual Moment  duration () const;
   virtual ~Music_wrapper ();
 };
+
 
 
 

@@ -17,7 +17,7 @@
 #include "p-col.hh"
 #include "p-score.hh"
 #include "p-col.hh"
-#include "header.hh"
+#include "scope.hh"
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "paper-stream.hh"
@@ -56,22 +56,6 @@ Paper_score::~Paper_score ()
       assert (! i->linked_b ());
     }
 #endif
-}
-
-String
-Paper_score::base_output_str () const
-{
-  assert (paper_l_);
-  String str = paper_l_->get_default_output ();
-
-  if (str.empty_b ())
-    {
-      str = default_outname_base_global;
-      int def = paper_l_->get_next_default_count ();
-      if (def)
-	str += "-" + to_str (def);
-    }
-  return str;
 }
 
 void
@@ -210,6 +194,8 @@ Paper_score::calc_breaking ()
   return sol;
 }
 
+
+
 void
 Paper_score::process ()
 {
@@ -224,8 +210,8 @@ Paper_score::process ()
 
   Array<Column_x_positions> breaking = calc_breaking ();
 
-  Paper_stream* pstream_p = paper_stream_p ();
-  outputter_l_ = paper_outputter_p (pstream_p);
+  Paper_stream* paper_stream_p = global_lookup_l->paper_stream_p ();
+  outputter_l_ = global_lookup_l->paper_outputter_p (paper_stream_p, paper_l_, header_l_, origin_str_);
 
   Link_array<Line_of_score> lines;
   for (int i=0; i < breaking.size (); i++)
@@ -249,13 +235,14 @@ Paper_score::process ()
       line_l->output_all ();
 	*mlog << ']' << flush;
       remove_line (line_l);
-	
     }
-
+  
   // huh?
   delete outputter_l_;
-  delete pstream_p;
+  delete paper_stream_p;
   outputter_l_ = 0;
+
+  *mlog << '\n' << flush;
 }
 
 void

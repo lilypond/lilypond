@@ -12,10 +12,10 @@
 #include "debug.hh"
 #include "musical-pitch.hh"
 
-MInterval
-Music::time_int() const
+Moment
+Music::duration () const
 {
-  return MInterval (0,0);
+  return 0;
 }
 
 void
@@ -39,11 +39,6 @@ Music::transpose (Musical_pitch )
 }
 
 void
-Music::translate (Moment)
-{
-}
-
-void
 Music::do_print() const
 {
 }
@@ -64,4 +59,7 @@ Music::to_relative_octave (Musical_pitch m)
   return m;
 }
 
-     
+void    
+Music::compress (Moment)
+{
+}

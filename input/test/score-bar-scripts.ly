@@ -1,7 +1,7 @@
 
 
 
-\version "1.0.6";
+\version "1.0.7";
 
 onestaff =	\type Staff = foo\notes  {
 		\property Staff.instr = instr

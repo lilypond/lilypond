@@ -1,4 +1,4 @@
-\version "1.0.6";
+\version "1.0.7";
 
 % bug
 % excentric slur can't handle this ...

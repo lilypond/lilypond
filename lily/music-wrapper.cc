@@ -44,8 +44,8 @@ Music_wrapper::Music_wrapper(Music*p)
 
 IMPLEMENT_IS_TYPE_B1 (Music_wrapper, Music);
 
-MInterval
-Music_wrapper::time_int () const
+Moment
+Music_wrapper::duration () const
 {
-  return element_p_->time_int ();
+  return element_p_->duration ();
 }

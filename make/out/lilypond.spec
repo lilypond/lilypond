@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.0.14
+Version: 1.0.15
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.0.14.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.0.15.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -23,7 +23,7 @@ a nice font of musical symbols.
 %prep
 %setup
 %build
-./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared --enable-tex-dir='${prefix}/lib/texmf/texmf/tex/generic' --enable-mf-dir='${prefix}/lib/texmf/texmf/fonts/source/'
+./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
 make all
 make -C Documentation info || true
 make htmldoc
@@ -35,6 +35,8 @@ tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
 
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
+
 %files
 
 %doc /tmp/lilypond-rpm-doc
@@ -63,6 +65,7 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/lib/texmf/texmf/fonts/source/public/lilypond
 /usr/share/lilypond/
 /usr/share/locale/*/LC_MESSAGES/lilypond.mo
+/etc/profile.d/lilypond.sh
 %post
 
 ## ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty

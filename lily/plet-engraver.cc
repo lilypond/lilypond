@@ -48,6 +48,10 @@ Plet_engraver::do_try_request (Request* req_l)
   if (!mus_l)
     return false;
 
+  /*
+    UGH! This is incorrect!
+    Beam_req might not reach the Plet_engraver if ordering is wrong!
+   */
   Beam_req* b = mus_l->access_Beam_req ();
   if (b)
     {

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.6";
+\version "1.0.7";
 
 corno2 = \notes \relative c {
 	R1 *2 | d''4-.\ff r r2 | R1 *3 | d4-. r r2 | R1 *3 |
