@@ -1,3 +1,8 @@
+2004-07-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/builder.py:
+	* Documentation/SConscript (outdir): New file.
+
 2004-07-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct: Add Tar target (incomplete), fix install issues, fix

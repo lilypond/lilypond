@@ -21,10 +21,14 @@ os.chdir (here)
 
 Import ('env')
 MFMODE = env['MFMODE']
-def add_log_enc_ly_tex_target (target, source, env):
+def add_log_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
-	et = (map (lambda x: base + x, ['.log', '.enc', '.ly', '.tex']))
-	return (target + et, source)
+	return (target + [base + '.log'], source)
+
+def add_enc_ly_tex_target (target, source, env):
+	base = os.path.splitext (str (target[0]))[0]
+	return (target + [base + '.enc', base + '.tex', base + 'list.ly']
+		, source)
 
 outdir = os.path.join (env['build'], reldir, env['out'])
 tfm = Builder (action = ('(cd ' + outdir + ' && ' \
@@ -34,18 +38,19 @@ tfm = Builder (action = ('(cd ' + outdir + ' && ' \
 			 + ' | grep -v "@\|>>")') % vars (),
 	       suffix = '.tfm',
 	       src_suffix = '.mf',
-	       emitter = add_log_enc_ly_tex_target)
+	       emitter = add_log_target)
 
-afm = Builder (action = (sys.executable
+afm = Builder (action = (sys.executable \
 			 + ' buildscripts/mf-to-table.py ' \
-			 + ' --package=. --outdir=%(outdir)s '\
-			 + ' --afm %(outdir)s/$$(basename $TARGET .afm).afm' \
-			 + ' --enc %(outdir)s/$$(basename $TARGET .afm).enc' \
-			 + ' --tex %(outdir)s/$$(basename $TARGET .afm).tex' \
-			 + ' --ly %(outdir)s/$$(basename $TARGET .afm).ly'\
+			 + ' --outdir=%(outdir)s '\
+			 + ' --afm=%(outdir)s/$$(basename $TARGET .afm).afm' \
+			 + ' --enc=%(outdir)s/$$(basename $TARGET .afm).enc' \
+			 + ' --tex=%(outdir)s/$$(basename $TARGET .afm).tex' \
+			 + ' --ly=%(outdir)s/$$(basename $TARGET .afm)list.ly'\
 			 + ' %(outdir)s/$$(basename $SOURCE)') % vars (),
 	       suffix = '.afm',
-	       src_suffix = '.log')
+	       src_suffix = '.log',
+	       emitter = add_enc_ly_tex_target)
 
 def add_enc_src (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
