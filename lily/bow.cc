@@ -67,7 +67,7 @@ Drul_array<Interval>
 Bow::curve_extent_drul () const
 {
   Bezier_bow b (paper_l ());
-  b.set (get_encompass_offset_arr (), dir_);
+  b.set (get_encompass_offset_arr (), get_direction ());
   b.calc ();
   return b.curve_extent_drul_;
 }
@@ -76,7 +76,7 @@ Array<Offset>
 Bow::get_controls () const
 {
   Bezier_bow b (paper_l ());
-  b.set (get_encompass_offset_arr (), dir_);
+  b.set (get_encompass_offset_arr (), get_direction ());
   b.calc ();
   Array<Offset> controls;
   controls.set_size (8);

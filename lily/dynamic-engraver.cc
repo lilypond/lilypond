@@ -114,6 +114,7 @@ Dynamic_engraver::do_process_requests()
 
 	  text_p_ = new Text_item;
 	  text_p_->text_str_ =  loud; // ugh
+	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
 
 	  staff_side_p_ = new Staff_side_item;
 	  staff_side_p_->set_elt_property ("script-priority",
@@ -121,23 +122,23 @@ Dynamic_engraver::do_process_requests()
 					   
 	  staff_side_p_->set_victim (text_p_);
 	  staff_side_p_->axis_ = Y_AXIS;
-	  staff_side_p_->dir_ = DOWN;
+	  staff_side_p_->set_direction (DOWN);
 
 	  
 	  SCM prop = get_property ("verticalDirection", 0);
 	  if (isdir_b (prop))
 	    {
-	      staff_side_p_->dir_ = to_dir (prop);
+	      staff_side_p_->set_direction (to_dir (prop));
 	    }
 
 	  prop = get_property ("dynamicDirection", 0);
 	  if (gh_number_p(prop))
 	    {
-	      staff_side_p_->dir_ = to_dir (prop);
+	      staff_side_p_->set_direction (to_dir (prop));
 	    }
-	  if (absd->dir_)
+	  if (absd->get_direction ())
 	    {
-	      staff_side_p_->dir_ = absd->dir_;
+	      staff_side_p_->set_direction (absd->get_direction ());
 	    }
 
 	  prop = get_property ("dynamicPadding", 0);
@@ -172,12 +173,12 @@ Dynamic_engraver::do_process_requests()
 		  SCM prop = get_property ("verticalDirection", 0);
 		  if (isdir_b (prop))
 		    {
-		      to_end_ss_span_p_->dir_ = to_dir (prop);
+		      to_end_ss_span_p_->set_direction (to_dir (prop));
 		    }
 		  prop = get_property ("dynamicDirection", 0);
 		  if (isdir_b (prop))
 		    {
-		      to_end_ss_span_p_->dir_ = to_dir (prop);
+		      to_end_ss_span_p_->set_direction (to_dir (prop));
 		    }
 		  prop = get_property ("dynamicPadding", 0);
 		  if (gh_number_p(prop))

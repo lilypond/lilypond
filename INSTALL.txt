@@ -76,10 +76,12 @@ Prerequisites
      (ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
      or at mirror site ftp://ftp.dante.de (ftp://ftp.dante.de)
 
-   * MetaPost, if you want to use direct PostScript output. Please note
-     that  tetex-0.4pl8 (included with Redhat 5.x) does not include
-     `mfplain.mp', which is needed  for producing the scaleable font
+   * MetaPost, needed for generating PostScript fonts. Please note that
+     tetex-0.4pl8 (included with Redhat 5.x) does not include
+     `mfplain.mp', which is needed for producing the scalable font
      files.
+
+     If you do not want to use PostScript output, edit `mf/GNUmakefile'.
 
 
 Running

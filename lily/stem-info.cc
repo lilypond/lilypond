@@ -31,7 +31,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   mult_i_ =mult;
   stem_l_ = s;
   x_ = stem_l_->hpos_f ();
-  dir_ = stem_l_->dir_;
+  set_direction (stem_l_->get_direction ());
   SCM bd = stem_l_->remove_elt_property ("beam-dir");
   
   beam_dir_ = gh_scm2int (bd);
@@ -62,7 +62,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   Real stem_f = paper_l->get_var (type_str + "stem_length"
 				  + to_str (mult_i_ <? stem_max))* internote_f;
 
-  if (!beam_dir_ || (beam_dir_ == dir_))
+  if (!beam_dir_ || (beam_dir_ == get_direction ()))
     /* normal beamed stem */
     {
       if (mult_i_)

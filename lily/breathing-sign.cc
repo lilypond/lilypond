@@ -21,7 +21,7 @@ TODO: --> see breathing-sign-engraver.cc
 
 Breathing_sign::Breathing_sign ()
 {
-  dir_ = UP;
+  set_direction (UP);
   set_elt_property ("breakable", SCM_BOOL_T);
   set_elt_property ("visibility-lambda",
 		    ly_ch_C_eval_scm ("non_postbreak_visibility"));
@@ -33,7 +33,7 @@ Breathing_sign::set_vertical_position (Direction updown)
   assert(updown >= -1 && updown <= +1);
 
   if(updown != 0)
-    dir_ = updown;
+    set_direction (updown);
 }
 
 Molecule*
@@ -53,6 +53,6 @@ Breathing_sign::do_post_processing()
 {
   Real dl = staff_line_leading_f();
 
-  translate_axis(2.0 * dl * dir_, Y_AXIS);
+  translate_axis(2.0 * dl * get_direction (), Y_AXIS);
 }
 

@@ -94,7 +94,7 @@ Text_engraver::do_process_requests ()
       ss->set_elt_property ("script-priority",
 			    gh_int2scm (200));
 
-      ss->dir_ = r->dir_;
+      ss->set_direction (r->get_direction ());
 
       text->text_str_ = r->text_str_;
       

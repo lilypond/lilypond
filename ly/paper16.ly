@@ -14,8 +14,6 @@ paper_sixteen = \paper {
 	font_large = 12.;
 	font_Large = 10.;
 	font_normal = 8.;
-	font_script = 7.;
-
 	magnification_dynamic = 1.0;
 	font_finger = 4.;
 	font_volta = 5.;
@@ -27,10 +25,6 @@ paper_sixteen = \paper {
 	-1 = \font "feta13"
 	-2 = \font "feta11"
 	
-	"font_feta-2" = 11.;
-	"font_feta-1" = 13.;
-	"font_feta" = 16.;
-
 	\include "params.ly";
 }
 

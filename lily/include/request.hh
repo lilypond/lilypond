@@ -40,6 +40,9 @@ class Script_req : public virtual Request
 {
 public:
   Direction dir_;
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+
   VIRTUAL_COPY_CONS(Music);
   Script_req ();
 };

@@ -147,7 +147,7 @@ Tie_engraver::do_pre_move_processing ()
   
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
-      tie_p_arr_[i]->dir_ = tie_dir;
+      tie_p_arr_[i]->set_direction (tie_dir);
       typeset_element (tie_p_arr_[i]);
     }
   tie_p_arr_.clear ();

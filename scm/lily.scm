@@ -132,19 +132,13 @@
 
 ;;;;;;;; TeX
 
-;; this is silly, can't we use something like
-;; roman-0, roman-1 roman+1 ?
 (define cmr-alist 
   '(("bold" . "cmbx") 
     ("dynamic" . "feta-din") 
-    ("feta" . "feta") 
-    ("feta-1" . "feta") 
-    ("feta-2" . "feta") 
     ("finger" . "feta-nummer") 
     ("typewriter" . "cmtt") 
     ("italic" . "cmti") 
     ("roman" . "cmr") 
-    ("script" . "cmr") 
     ("large" . "cmbx") 
     ("Large" . "cmbx") 
     ("mark" . "feta-nummer") 

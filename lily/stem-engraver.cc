@@ -99,7 +99,7 @@ Stem_engraver::do_pre_move_processing()
       SCM prop = get_property ("verticalDirection", 0);
       if (gh_number_p(prop))
 	{
-	  stem_p_->dir_ = to_dir (prop);
+	  stem_p_->set_direction (to_dir (prop));
 	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
 

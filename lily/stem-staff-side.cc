@@ -41,7 +41,7 @@ Stem_staff_side_item::set_stem (Stem*s)
 Direction
 Stem_staff_side_item::get_default_direction () const
 {
-  return (Direction)(relative_dir_ * stem_l_->dir_);
+  return (Direction)(relative_dir_ * stem_l_->get_direction ());
 }
 
 void
@@ -86,13 +86,13 @@ Stem_staff_side_item::do_post_processing ()
       Real self_coord = relative_coordinate (c, Y_AXIS);
       Real now_coord = self_coord - staff_coord;
       
-      Real desired_coord = ceil (dir_ * 2.0 *  now_coord / staff_line_leading_f ());
+      Real desired_coord = ceil (get_direction () * 2.0 *  now_coord / staff_line_leading_f ());
       if (! (int (desired_coord) % 2))
 	{
 	  desired_coord ++;
 	}
 
-      translate_axis (desired_coord * dir_ *  staff_line_leading_f () / 2.0  - now_coord, Y_AXIS);
+      translate_axis (desired_coord * get_direction () *  staff_line_leading_f () / 2.0  - now_coord, Y_AXIS);
     }
 }
 

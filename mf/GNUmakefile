@@ -33,6 +33,8 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(datadir)/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
+# comment these out if you don't want pfa's to be generated
+# or you don't have metapost.
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
 

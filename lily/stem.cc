@@ -22,7 +22,7 @@
 void
 Stem::set_direction (Direction d)
 {
-  if  (!dir_)
+  if  (!get_direction ())
     warning (_ ("stem direction set already!"));
 
   dir_ = d;
@@ -37,7 +37,7 @@ Stem::Stem ()
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
-  dir_ = CENTER;
+  set_direction (CENTER);
   beam_l_ = 0;
 }
 
@@ -83,31 +83,31 @@ Stem::stem_length_f () const
 Real
 Stem::stem_begin_f () const
 {
-  return yextent_drul_[Direction(-dir_)];
+  return yextent_drul_[Direction(-get_direction ())];
 }
 
 Real
 Stem::chord_start_f () const
 {
-  return head_positions()[dir_] * staff_line_leading_f ()/2.0;
+  return head_positions()[get_direction ()] * staff_line_leading_f ()/2.0;
 }
 
 Real
 Stem::stem_end_f () const
 {
-  return yextent_drul_[dir_];
+  return yextent_drul_[get_direction ()];
 }
 
 void
 Stem::set_stemend (Real se)
 {
   // todo: margins
-  if (dir_ && dir_ * head_positions()[dir_] >= se*dir_)
+  if (get_direction () && get_direction () * head_positions()[get_direction ()] >= se*get_direction ())
     warning (_ ("Weird stem size; check for narrow beams"));
 
   
-  yextent_drul_[dir_]  =  se;
-  yextent_drul_[Direction(-dir_)] = head_positions()[-dir_];
+  yextent_drul_[get_direction ()]  =  se;
+  yextent_drul_[Direction(-get_direction ())] = head_positions()[-get_direction ()];
 }
 
 int
@@ -158,11 +158,6 @@ Stem::get_default_dir () const
   return Direction (int(paper_l ()->get_var ("stem_default_neutral_direction")));
 }
 
-Direction
-Stem::get_dir () const
-{
-  return dir_;
-}
 
 
 void
@@ -182,15 +177,15 @@ Stem::set_default_stemlen ()
 
   Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten0");
 
-  if (!dir_)
-    dir_ = get_default_dir ();
+  if (!get_direction ())
+    set_direction (get_default_dir ());
 
   /* 
     stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay]
    */
   if (((int)chord_start_f ())
-      && (dir_ != get_default_dir ()))
+      && (get_direction () != get_default_dir ()))
     length_f -= shorten_f;
 
   if (flag_i_ >= 5)
@@ -198,11 +193,11 @@ Stem::set_default_stemlen ()
   if (flag_i_ >= 6)
     length_f += 1.0;
   
-  set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + length_f:
+  set_stemend ((get_direction () > 0) ? head_positions()[BIGGER] + length_f:
 	       head_positions()[SMALLER] - length_f);
 
   bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
-  if (!grace_b && !no_extend_b && (dir_ * stem_end_f () < 0))
+  if (!grace_b && !no_extend_b && (get_direction () * stem_end_f () < 0))
     set_stemend (0);
 }
 
@@ -221,7 +216,7 @@ Stem::set_noteheads ()
   if (!head_l_arr_.size ())
     return;
   head_l_arr_.sort (Note_head::compare);
-  if (dir_ < 0)
+  if (get_direction () < 0)
     head_l_arr_.reverse ();
 
   Note_head * beginhead =   head_l_arr_[0];
@@ -238,7 +233,7 @@ Stem::set_noteheads ()
       if (dy <= 1)
 	{
 	  if (parity)
-	    head_l_arr_[i]->flip_around_stem (dir_);
+	    head_l_arr_[i]->flip_around_stem (get_direction ());
 	  parity = !parity;
 	}
       else
@@ -277,7 +272,7 @@ Stem::set_spacing_hints ()
 {
   if (!invisible_b ())
     {
-      SCM scmdir  = gh_int2scm (dir_);
+      SCM scmdir  = gh_int2scm (get_direction ());
       SCM dirlist = column_l ()->get_elt_property ("dir-list");
       if (dirlist == SCM_UNDEFINED)
 	dirlist = SCM_EOL;
@@ -300,7 +295,7 @@ Stem::flag () const
       style = ly_scm2string (st);
     }
 
-  char c = (dir_ == UP) ? 'u' : 'd';
+  char c = (get_direction () == UP) ? 'u' : 'd';
   Molecule m = lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
 				      to_str (flag_i_));
   if (!style.empty_b ())
@@ -337,7 +332,7 @@ Stem::do_brew_molecule_p () const
   Real head_wid = 0;
   if (head_l_arr_.size ())
     head_wid = head_l_arr_[0]->extent (X_AXIS).length ();
-  stem_y[Direction(-dir_)] += dir_ * head_wid * tan(ANGLE)/(2*dy);
+  stem_y[Direction(-get_direction ())] += get_direction () * head_wid * tan(ANGLE)/(2*dy);
   
   if (!invisible_b ())
     {
@@ -350,7 +345,7 @@ Stem::do_brew_molecule_p () const
   if (!beam_l_ && abs (flag_i_) > 2)
     {
       Molecule fl = flag ();
-      fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
+      fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
       mol_p->add_molecule (fl);
     }
 
@@ -371,10 +366,10 @@ Stem::note_delta_f () const
          Real rule_thick = paper_l ()->get_var ("stemthickness");
 
       Interval stem_wid(-rule_thick/2, rule_thick/2);
-      if (dir_ == CENTER)
+      if (get_direction () == CENTER)
 	r = head_wid.center ();
       else
-	r = head_wid[dir_] - stem_wid[dir_];
+	r = head_wid[get_direction ()] - stem_wid[get_direction ()];
     }
   return r;
 }

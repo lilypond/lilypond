@@ -48,7 +48,13 @@ class Stem : public Item, public Staff_symbol_referencer {
     */
   Drul_array<Real> yextent_drul_;
 
+  /// direction stem (that's me)
+  Direction dir_;
+
 public:
+  void set_direction (Direction d);
+  Direction get_direction () const { return dir_; }
+
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
     
@@ -62,12 +68,6 @@ public:
   Beam* beam_l_;
 
   Drul_array<int> beams_i_drul_;
-
-  void set_direction (Direction d);
-  /// direction stem (that's me)
-  Direction dir_;
-
-
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#
@@ -81,7 +81,6 @@ public:
   void do_print() const;
   void set_stemend (Real);
   Direction get_default_dir() const;
-  Direction get_dir () const;
 
   int get_center_distance(Direction) const;
 

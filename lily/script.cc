@@ -69,7 +69,7 @@ Script::do_pre_processing ()
 void
 Script::do_post_processing ()
 {
-  Direction d =  staff_side_l_->dir_;
+  Direction d =  staff_side_l_->get_direction ();
   Molecule m (get_molecule(d));
 
   /*
@@ -90,7 +90,7 @@ Script::set_staff_side (Staff_side_item*g)
 Molecule*
 Script::do_brew_molecule_p () const
 {
-  return new Molecule (get_molecule (staff_side_l_->dir_));
+  return new Molecule (get_molecule (staff_side_l_->get_direction ()));
 }
 
 void

@@ -64,13 +64,16 @@ public:
   bool check_fit_bo ();
   Real check_fit_f ();
   void print () const;
-  void set (Array<Offset> points, int dir);
+  void set (Array<Offset> points, Direction dir);
   void transform ();
   void transform_back ();
 
   Paper_def* paper_l_;
   Curve encompass_;
-  int dir_;
+  Direction dir_;
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+
   Real alpha_;
   Offset origin_;
   Curve return_;

@@ -28,10 +28,14 @@
 class Staff_side_element :  public Staff_symbol_referencer
 {
   void position_self ();
-
+  Direction dir_;
 public:
   Score_element * to_position_l_;
-  Direction dir_;
+  
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+  
+
   Link_array<Score_element> support_l_arr_;
   Axis axis_;
   //junkme.

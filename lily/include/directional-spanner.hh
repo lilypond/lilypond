@@ -14,12 +14,15 @@
     JUNKME?
  */
 class Directional_spanner : public Spanner{
-public:
-    
   /// -1 below heads, +1 above heads.
   Direction dir_;
+
+public:
   Directional_spanner();
-    
+
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+  
   /// offset of "center" relative to left-column/0-pos of staff
   virtual Offset center() const;
   virtual Direction get_default_dir() const;

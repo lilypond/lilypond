@@ -16,7 +16,7 @@
 
 Staff_side_element::Staff_side_element ()
 {
-  dir_ = CENTER;
+  set_direction (CENTER);
   to_position_l_ = 0;
   set_elt_property ("transparent", SCM_BOOL_T);
   axis_ = Y_AXIS;
@@ -25,8 +25,8 @@ Staff_side_element::Staff_side_element ()
 void
 Staff_side_element::do_pre_processing ()
 {
-  if (!dir_)
-    dir_ = get_default_direction ();
+  if (!get_direction ())
+    set_direction (get_default_direction ());
 
   if (axis_ == X_AXIS)
     position_self ();
@@ -117,15 +117,15 @@ Staff_side_element::position_self ()
   SCM pad = remove_elt_property ("padding");
   if (pad != SCM_UNDEFINED)
     {
-      off += gh_scm2double (pad) * dir_;
+      off += gh_scm2double (pad) * get_direction ();
     }
-  Real total_off = dim[dir_] + off;
+  Real total_off = dim[get_direction ()] + off;
 
   /*
     "no-staff-support" is ugh bugfix to get staccato dots right.
    */
   if (to_position_l_ && to_position_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED)
-     total_off += - sym_dim[-dir_];
+     total_off += - sym_dim[-get_direction ()];
   
   dim_cache_[axis_]->set_offset (total_off);
   if (fabs (total_off) > 100 CM)
@@ -167,7 +167,7 @@ Staff_side_element::do_print () const
     DEBUG_OUT << "positioning " << to_position_l_->name();
 
   DEBUG_OUT << "axis == " << axis_name_str (axis_)
-       << ", dir == " << to_str ((int)dir_ );
+       << ", dir == " << to_str ((int)get_direction () );
 #endif
 }
 

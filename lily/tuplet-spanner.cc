@@ -63,10 +63,10 @@ Tuplet_spanner::do_brew_molecule_p () const
     num.align_to (X_AXIS, CENTER);
     num.translate_axis (w/2, X_AXIS);
     Real interline = paper_l ()->get_var ("interline");
-    Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
-      - column_arr_[0]->extent (Y_AXIS) [dir_];
+    Real dy = column_arr_.top ()->extent (Y_AXIS) [get_direction ()]
+      - column_arr_[0]->extent (Y_AXIS) [get_direction ()];
     num.align_to (Y_AXIS, CENTER);
-    num.translate_axis (dir_ * interline, Y_AXIS);
+    num.translate_axis (get_direction () * interline, Y_AXIS);
 	
     num.translate_axis (dy/2, Y_AXIS);
     
@@ -75,14 +75,14 @@ Tuplet_spanner::do_brew_molecule_p () const
       {
 	Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
 	
-	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, dir_));
+	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, get_direction ()));
       }
 
     if (number_visibility)
       {
 	mol_p->add_molecule (num);
       }
-    mol_p->translate_axis (dir_ * interline, Y_AXIS);
+    mol_p->translate_axis (get_direction () * interline, Y_AXIS);
   }
   return mol_p;
 }
@@ -101,7 +101,7 @@ void
 Tuplet_spanner::do_post_processing ()
 {
   if (column_arr_.size())
-    translate_axis (column_arr_[0]->extent (Y_AXIS)[dir_], Y_AXIS);
+    translate_axis (column_arr_[0]->extent (Y_AXIS)[get_direction ()], Y_AXIS);
 
   if (beam_l_arr_.size () == 1)
     {

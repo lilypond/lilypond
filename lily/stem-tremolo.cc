@@ -84,20 +84,20 @@ Stem_tremolo::do_brew_molecule_p () const
         {
 	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (),
 	    stem_l_->stem_end_f () * internote_f - 
-	    stem_l_->beam_l_->dir_ * beams_i * interbeam_f));
+	    stem_l_->beam_l_->get_direction () * beams_i * interbeam_f));
 	}
       else
 	{  
 	  /*
 	    Beams should intersect one beamthickness below staff end
 	   */
-	  Real dy = - beams->extent ()[Y_AXIS].length () / 2 * stem_l_->dir_;
+	  Real dy = - beams->extent ()[Y_AXIS].length () / 2 * stem_l_->get_direction ();
 
 	  /*
 	    uhg.  Should use relative coords and placement
 	  */
 	  Real whole_note_correction = (stem_l_ && stem_l_->invisible_b( ))
-	    ? -stem_l_->get_dir () * stem_l_->note_delta_f ()/2
+	    ? -stem_l_->get_direction () * stem_l_->note_delta_f ()/2
 	    : 0.0;
 
 	  /*
