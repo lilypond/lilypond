@@ -99,7 +99,10 @@ the C<type> is a Hungarian notation postfix for C<Type>. See below
 
 =head2 MACROS
 
+The code should not be compilable if proper macro declarations are not
+included. 
 
+Don't laugh. It took us a whole figure out one of these bugs.
 
 =head2 BROKEN CODE
 
