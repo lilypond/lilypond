@@ -179,10 +179,16 @@
   (apply
    string-append
    (map (lambda  (item)
-	  (format #f " ~a ~a rmoveto /~a glyphshow "
-		  (car item)
-		  (cadr item)
-		  (caddr item)))
+	  (let
+	      ((x (car item))
+		(y (cadr item))
+		(g (caddr item)))
+
+	    (if (and (= 0.0 x)
+		     (= 0.0 y))
+		(format #f " /~a glyphshow " g)
+		(format #f " ~a ~a rmoveto /~a glyphshow "
+			x y g))))
 	x-y-named-glyphs))
   ))
 
