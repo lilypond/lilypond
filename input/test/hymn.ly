@@ -1,6 +1,7 @@
 \version "1.7.18"
 %  We have other examples of partcombine.  Candidate for delete.  -gp
 %  leave it for now; I need to check some things.
+% FIXMEsoon -gp
 %{
 Jan:
 > Why remove this?  Do we have another hymn with part-combiner?  Maybe
