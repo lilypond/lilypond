@@ -128,33 +128,36 @@ Beam::do_width() const
 void
 Beam::set_default_dir()
 {
-  int up = 0, down = 0;
-  int up_count = 0, down_count = 0;
-
+  Drul_array<int> total;
+  total[UP]  = total[DOWN] = 0;
+  Drul_array<int> count; 
+  count[UP]  = count[DOWN] = 0;
+  Direction d = DOWN;
+  
   for (int i=0; i <stems.size(); i++)
-    {
-      Stem *sl = stems[i];
-      int cur_down = sl->get_center_distance_from_top();
-      int cur_up = sl->get_center_distance_from_bottom();
-      if (cur_down)
-	{
-	  down += cur_down;
-	  down_count++;
-	}
-      if (cur_up)
-	{
-	  up += cur_up;
-	  up_count++;
-	}
-    }
-  if (!down)
-    down_count = 1;
-  if (!up)
-    up_count = 1;
+    do {
+      Stem *s = stems[i];
+      int current = s->dir_ 
+	? (1 + d * s->dir_)/2
+	: s->get_center_distance(Direction(-d));
 
-  // the following relation is equal to
-  //        up / up_count > down / down_count
-  dir_ = (up * down_count > down * up_count) ? UP : DOWN;
+      if (current)
+	{
+	  total[d] += current;
+	  count[d] ++;
+	}
+
+    } while ((d *= -1) != DOWN);
+  
+   do {
+    if (!total[d])
+      count[d] = 1;
+  } while ((d *= -1) != DOWN);
+  
+  /* the following relation is equal to
+          up / up_count > down / down_count
+	  */
+  dir_ = (total[UP] * count[DOWN] > total[DOWN] * count[UP]) ? UP : DOWN;
 
   for (int i=0; i <stems.size(); i++)
     {
