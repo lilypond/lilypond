@@ -4,6 +4,12 @@
 	inserts try-completion and shows all-completions.
 
 	* lilypond.words: '\' -> '\\'
+
+	* lilypond-mode.el: load libraries in the end, lilypond.words defines
+	LilyPond-keywords, LilyPond-identifiers and LilyPond-reserved-words.
+	
+	* lilypond-font-lock.el: Use LilyPond-keywords, LilyPond-identifiers
+	and LilyPond-reserved-words.
 	
 2002-11-22  Heikki Junes <hjunes@cc.hut.fi>
 

@@ -2,15 +2,16 @@
 
 ;; Copyright (C) 1992,1993,1994  Tim Peters
 
-;; Author: 2001: Heikki Junes
+;; Author: 2001-2002: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
+;;  * File lilypond.words gives keywords, identifiers and reserved words
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.5.52
-;; Last Modified: 13APR2002
+;; Version:       1.7.8
+;; Last Modified: 23NOV2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -27,89 +28,9 @@
 ;;   - handle lexer modes (\header, \melodic, \lyric) etc.
 
 (defconst LilyPond-font-lock-keywords
-  (let* ((keywords '( ; need special order due to over[lapping] of words
-
-;; all letters are lowercase
-"accent" "accepts" "accompany" "\\(add\\)?lyrics" 
-"\\(aeol\\|dor\\|ion\\|locr\\|\\(mixo\\)?lyd\\|phryg\\)ian" 
-"alias" "\\(altern\\|rel\\)ative" "apply" "arpeggio" "autochange" "bar" "break"
-"breathe" "beamintervals" "broken" "blend" "\\(bc\\|end\\)incipit" 
-"ch\\(ar\\)?" "cg" "chord\\(s\\|stest\\|\\(chord\\)?modifiers\\)?"
-"clef[ \t]*\"?\\(F\\|G\\|alto\\|baritone\\|bass\\|\\(mezzo\\)?soprano\\|treble\\|violin\\|tenor\\)?\"?"
-"clipping" "[cm]m" "coda" "complex" 
-"\\(command\\)?spanrequest" "consists\\(end\\)?"
-"context" "contrabasso" "\\(de\\)?cr" "default" "denies" "different" "dirs"
-"down\\(bow\\|prall\\)?" "duration" "\\(text\\)?script"
-"eccentric" "eg" "embeddedps" "elementdescriptions" "\\(end\\)?cresc"
-"ex\\(treme\\)?" "fermata" "f+" "figures" "font" "flageolet" "fp" "fragment" 
-"s?fz" "gliss\\(ando\\)?" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
-"header" "\\(h\\|v\\)size" "in\\(clude\\|versions\\|visible\\)?" 
-"key\\(s\\(ignature\\)?\\)?" "lag" "\\(l\\|r\\)heel" "line\\(break\\|prall\\)"
-"longa" "lower" "\\(l\\|r\\)toe"
-"mark" "marcato" "maxima" "mel\\(isma\\|ody\\)?" "midi" "m\\(aj\\|in\\)or"
-"\\(up\\|down\\)?mordent" "monstrous" "multipart" "music"
-"\\(musical\\)?pitch" "m\\(p\\|f\\|m\\)?" "name" "newpage" "noise\\(beat\\)?"
-"normal\\(key\\|size\\)" "\\(note\\|pitch\\)?names" "notes" "nt?"
-"one\\(staff\\)?" "open" "\\(output\\)?property" "over\\(ride\\)?"
-"part\\(combine\\|ial\\)" "penalty" "p+" "pt" 
-"prall\\(down\\|mordent\\|prall\\|up\\)?" "quickmeasure" "rc\\(ed\\)?" "remove"
-"repeat[ \t]*\\(\\(un\\)?fold\\|percent\\|\\|tremolo\\|volta\\)?" "rest"
-"revert" "\\(reverse\\)?turn" "rfz?" "rhythm"
-"right" "scales?" "scheme" "\\(sc\\)?paper" "\\(sc\\)?score" "sd"
-"segno" "sequential" "set\\(tings\\)?" "shortlong"
-"simultaneous" "singlepart" "skip" "small" "\\(smart\\)?transpose"
-"s[pf]+" "staccat\\(issim\\)?o" "staff\\(height\\|space\\)" "start" 
-"stop\\(ped\\)?"
-"st\\(paper\\|score\\)" "stuff" "su" "tab" "tempo" "tenuto" 
-"thenotes" "thrd" "threevoice" "thumb" "tilt\\(down\\|up\\)" 
-"timb" "times?" "tiny" "toeters" "touch" "translator" 
-"trill" "type" "t\\(wo\\(voice\\(steminvert\\)?\\)?\\)?" 
-"un\\(der\\|set\\)" "up\\(bow\\|per\\|prall\\)?" "version" 
-"visible" "voicedefault" "x"
-
-		      ))
-
-  (identifiers '( 
-
-;; in principle, have one or more uppercase letters
-"\\(\\(BarNumbering\\|\\(Inner\\)?Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)?Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|FiguredBass\\|Grace\\|Lyrics\\|NoteNames\\|\\(Inner\\)?Staff\\(Group\\|Container\\)?\\|Thread\\)Context" ; *Context
-"\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|sostenuto\\|unaCorda\\|treCorde\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
-"\\(slur\\|tie\\)\\(Dotted\\|Solid\\)" ; *(Dotted/Solid)
-"\\(autoBeam\\|cadenza\\|impro\\|turn\\)\\(Off\\|On\\)" ; *(On/Off)
-"\\(empty\\|fat\\)Text" ; *Text
-"shift\\(On+\\|Off\\|I\\|II\\|III\\|IV\\|V\\)" ; shift*
-"EasyNotation"
-"\\(hide\\|show\\)StaffSwitch"
-"\\(lower\\|upper\\)Voice"
-"voice\\(One\\|Two\\|Three\\|Four\\|B\\|C\\|D\\|E\\)" ; voice*
-"paper\\(Eleven\\|Sixteen\\|Thirteen\\|TwentySix\\)" ; paper*
-"\\(lower\\|upper\\)\\(Octave\\|One\\)" ; (lower/upper)*
-"hairyChord" "\\(Piano\\|Rhythmic\\)\\(Staff\\)?"
-"\\(clarinetti\\|fagotti\\|flauti\\|melodic\\|oboi\\|\\(quite\\|rather\\|somewhat\\)LongLyrics\\|violinoII?\\)?\\(Staff\\)?" ; *Staff
-"\\(archi\\|bassi\\|legni\\|ottoni\\|timpani\\|viole\\|violini\\)\\(Group\\)" ; *Group
-"melisma\\(End\\)?" "staff\\(One\\|Two\\)?" "rests\\(II\\)?" "specialKey"
-"noBreak" "paperTwentysix" "endHorizScript" "FontBody" "text(I)+"
-"\\(modern\\|forget\\)Accidental" ; *Accidentals
-"noResetKey" "modern\\(Voice\\)?Cautionaries" "unaCorda" "treCorde"
-
-                      ))
-
-  (reservedwords '(
-
-;; Other words which look nicer when colored
-"Accidental" "autoBeamSettings" "BarLine" "Beam"
-"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "Dots" "DynamicText"
-"FiguredBass" "Hairpin" "\\(\\(Inner\\)?Choir\\|Grand\\|Piano\\|Tab\\)Staff"
-"Slur" "Stem" "SpacingSpanner" "System\\(StartDelimiter\\)?"
-"\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)\\(.[a-zA-Z]*\\)?" ; combine below, if possible
-"\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)[ \t]*\\(.[ \t]*[a-zA-Z]*\\)?" 
-"TextScript" "TimeSignature" "VerticalAlignment"
-
-		      ))
-
-       (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|"))
-       (iregex (mapconcat (lambda (x) (concat "\\\\" x))  identifiers "\\|"))
-       (rwregex (mapconcat (lambda (x) (concat "" x))  reservedwords "\\|"))
+  (let* ((kwregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-keywords "\\|"))
+	 (iregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-identifiers "\\|"))
+	 (rwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-reserved-words "\\|"))
 )
 
     (list 
