@@ -2,9 +2,8 @@
 \version "2.1.26"
 \header{
 	texidoc="@cindex Beam Neutral Direction
-When a beam falls in the middle of the staff, LilyPond normally
-prints the beam pointing down.  However, this behaviour can be
-altered if desired.
+When a beam falls in the middle of the staff, the beams point normally 
+down.  However, this behaviour can be altered, if desired.
 " }
 
 fragment = \notes {

@@ -4,18 +4,17 @@
 
     texidoc = "@cindex Auto Beaming Override
 
-This shows how auto-beaming settings can be overridden.
-
-The auto-beamer will only engrave beams that end when:
+The auto-beamer, which can be overridden, will only engrave beams 
+that end before encountering of 
 @itemize @bullet
-@item  a rest is encountered
+@item  a rest,
 @item
- another beam (entered manually) is encountered
+ an other, manually entered beam, or
 @item
- there's a 'gap' in the beam note's durations
+ a bar line. 
 @end itemize
 
-The beam will be ended also when now % beamAutoEnd = 0.
+The @code{autoBeaming} can also be turned off.
 
 "
 

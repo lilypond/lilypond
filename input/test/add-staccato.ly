@@ -4,9 +4,9 @@
 \header {
 
 texidoc= "@cindex Add Stacato
-Using make-music, you can add various stuff to notes. Here
-is an example how to add staccato dots.  Note: for this simple case
-one would not use scm constructs.  See separate-staccato.ly first.
+Using @code{make-music}, you can add various stuff to notes. In this
+example staccato dots are added to the notes.  For this simple case,
+it is not necessary to use scm constructs (see @code{separate-staccato.ly}).
 "
 } 
 

@@ -2,7 +2,7 @@
 \version "2.1.26"
 \header{
 	texidoc="@cindex Beam Isknee
-LilyPond can beam across a Piano Staff.
+Beams can be placed across a \code{PianoStaff}.
 " }
 \score{
 	\context PianoStaff <<

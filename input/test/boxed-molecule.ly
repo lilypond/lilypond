@@ -3,7 +3,8 @@
 \header {
 texidoc = "@cindex Boxed Stencil
 
-You can override the print-function to draw a box around arbitrary grobs. " }
+The @code{print-function} can be overridden to draw a box around an arbitrary 
+grob. " }
 
 
  \score { \notes \relative c''  {

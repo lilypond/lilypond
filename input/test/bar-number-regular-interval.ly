@@ -1,7 +1,7 @@
 \header {
     texidoc = "
 
-Bar numbers can also be printed at regular intervals.
+Bar numbers can also be printed inside boxes.
 
 " }
 

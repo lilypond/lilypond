@@ -2,7 +2,8 @@
 \header {
   texidoc="@cindex Blank Paper
 
-Blank music paper with clefs. Change the repeat count to get more staves.
+A blank music paper can be produced also by using invisible notes, and removing
+@code{Bar_number_engraver}.
 
 " }
 \score {

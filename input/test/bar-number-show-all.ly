@@ -2,7 +2,8 @@
 \version "2.1.26"
 \header{
     texidoc="@cindex Bar Number Show All
-Second line has bar numbers on start of every measure.
+By default, bar numbers are printed only in the first measure.  This 
+setting can be overridden, so that bar numbers on start of every measure.
 " }
 
 \score{

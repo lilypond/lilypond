@@ -3,7 +3,7 @@
 
 \header{
 texidoc="@cindex Beam Over Rests
-Beams over rests.
+Beams may be forced to be over rests.
 " }
 
 \score{

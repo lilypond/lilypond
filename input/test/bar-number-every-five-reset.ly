@@ -3,10 +3,11 @@
 \header {
     texidoc = "@cindex Bar Number Every Fifth Reset
 If you would like the bar numbers to appear at regular intervals, but
-not starting from measure zero, you can use the context function,
-@code{set-bar-number-visibility}, to automatically set
-@code{barNumberVisibility} so that the bar numbers appear at regular
-intervals, starting from the @code{\applycontext}.
+not starting from measure zero, you can use a context function,
+@code{set-bar-number-visibility}, to set automatically
+@code{barNumberVisibility}, so that the bar numbers appear at regular
+intervals, starting from the measure in which 
+@code{set-bar-number-visibility} is set using @code{\applycontext}.
 "
 
 }

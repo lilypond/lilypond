@@ -1,9 +1,10 @@
 
 \header {
 
-    texidoc = "Meshing eighths beams, connected by ties. This occurs
-    in (for example) in the cello suites. See also
-    @file{tie-cross-voice.ly}."
+    texidoc = "The eighth notes may be seemingly attached to different
+    beams, and the corresponding notes connected by ties (see also
+    @file{tie-cross-voice.ly}). 
+    Such a situation may occur, for example, in the cello suites."
 
 }
 

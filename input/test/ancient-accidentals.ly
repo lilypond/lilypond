@@ -1,8 +1,8 @@
 
 \header {
 texidoc = "@cindex Ancient Accidentals
-Accidentals are available in different ancient styles. This
-file lists all of them.
+Accidentals are available in different ancient styles, which all
+are collected here.
 "
 }
 

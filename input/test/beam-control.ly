@@ -3,7 +3,7 @@
 \header{
     texidoc="@cindex Beam Position Control
 
-Beam positions may be controlled manually, by setting @code{positions} in the @code{Beam} grob.
+Beam positions may be controlled manually, by overriding the @code{positions} setting of the @code{Beam} grob.
 
 " }
 \score { 

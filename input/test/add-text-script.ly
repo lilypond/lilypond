@@ -2,11 +2,11 @@
 
 \header {
 texidoc= "@cindex make-music Fingering
-You can add various stuff to notes using make-music.
-Here is an example of how to add an extra fingering. 
+You can add various stuff to notes using @code{make-music}.
+In this example, an extra fingering is attached to a note. 
 
-In general, first do a display of the music you want to
-create, then write a function that will build the structure for you.
+In general, first do a @code{display} of the music you want to
+create, then write a function that will structure the music for you.
 "
 } 
 

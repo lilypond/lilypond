@@ -2,7 +2,7 @@
 
 \header {
  texidoc = "@cindex Bagpipe Music
-Here's an example of bagpipe music.
+Bagpipe music may contain a lot of grace notes.
 "
 }
 

@@ -3,21 +3,21 @@
 \header {
   texidoc = "@cindex Beam Dir Functions
 
-There are several ways to calculate the direction of a beam:
+The direction of a beam may be calculated in several ways. As shown in
+the example, the beam are be below the notes if:
 @table @code
 @item majority
-number count of up or down notes
+of (individual) notes would have down stems,
 @item mean
-mean center distance of all notes
+of note pitches is on the center line or below it, or
 @item median
-mean centre distance weighted per note
+of note pithes (i.e. the centermost element of ordered pitches) is 
+on the center line or below it.
 @end table
 
-You can spot the differences of these settings from these simple
-examples:
-
-These beam direction functions are defined in @file{scm/beam.scm}.  If
-your favourite algorithm isn't one of these, you can hook up your own.
+If your favourite algorithm is not one of these, you can hook up your 
+own one. 
+(These beam direction functions are defined in @file{scm/beam.scm}.)  
 "
 }
 
