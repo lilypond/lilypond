@@ -235,6 +235,31 @@ Each snippet calls @code{\preLilyPondExample} before and
 @code{\postLilyPondExample} after the music if those macros have been
 defined by the user.
 
+@cindex Latex, feta symbols
+@cindex fetachar
+
+To include feta symbols (such as flat, segno, etc) in a LaTeX
+document, use @code{\input{titledefs}
+
+@example
+\documentclass[a4paper]{article}
+
+\input{titledefs}
+
+\begin{document}
+
+\fetachar\fetasharp
+
+\end{document}
+@end example
+
+The font symbol names are defined in the file feta20.tex; to find
+the location of this file, use the command
+
+@example
+kpsewhich feta20.tex
+@end example
+
 @cindex outline fonts
 @cindex type1 fonts
 @cindex dvips
