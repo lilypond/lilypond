@@ -1,0 +1,43 @@
+How are slur fonts organised?
+
+xhslu20: see xslhu20
+
+xslhu20: half slurs, pointing up
+	right
+		width in steps of 12pt (12pt-96pt)
+			height in 16 steps
+	left
+		idem
+	
+xslhd20: half slurs, pointing down, idem
+
+xslu20: whole slurs, ascending
+	pointing up
+		height (dy) in 8 steps
+			width in 16 steps of 4pt (8 pt - 64pt)
+	pointing down
+		height (dy) in 8 steps
+			width in steps of 4pt (8 pt - 64pt)
+	
+xsld20: whole slurs, descending	
+	pointing up
+		height (dy) in 8 steps
+			width in steps of 4pt (8 pt - 60pt)
+	pointing down
+		height (dy) in 8 steps
+			width in steps of 4pt (8 pt - 60pt)
+	
+
+xslhz: middlepieces for half-slurs
+	pointing up
+		width in 100 steps of 4 pt (4 pt to 400pt)
+	pointing down
+		idem
+
+xslz:	horizontal slurs
+	pointing up
+		width in 54 steps of 4pt
+	pointing down
+		idem
+
+xtie: same as xslhz.
