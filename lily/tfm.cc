@@ -55,8 +55,6 @@ Tex_font_metric::Tex_font_metric ()
   encoding_table_ = SCM_EOL;
 }
 
-
-
 void
 Tex_font_metric::derived_mark () const
 {

@@ -7,10 +7,11 @@
 
 */
 
+#include <stdio.h>
+
 #include "warn.hh"
 #include "open-type-font.hh"
-
-#include <stdio.h>
+#include "dimensions.hh"
 
 SCM
 Open_type_font::make_otf (String str)
@@ -42,15 +43,19 @@ Open_type_font::get_indexed_char (int signed_idx) const
 {
   FT_UInt idx = signed_idx;
   FT_Load_Glyph (face_,
-		   idx,
-		   FT_LOAD_NO_SCALE);
+		 idx,
+		 FT_LOAD_NO_SCALE);
 
   FT_Glyph_Metrics m = face_->glyph->metrics;
   int hb = m.horiBearingX;
   int vb = m.horiBearingY;
   Box b (Interval (-hb, m.width - hb),
 	 Interval (-vb, m.height - vb));
+
+  Real point_constant = 1 PT;
   
+
+  b.scale (design_size() * Real (point_constant) / face_->units_per_EM);
   return b;
 }
 
