@@ -31,6 +31,7 @@ webpage}.  You may need the patch @file{guile-1.4-gnu-windows.patch}
 included in LilyPond's source distribution.
 @end table
 
+
 @section Windows precompiled binaries
 
 @table @code
@@ -59,7 +60,7 @@ compilation scripts}.
 
 @section Windows running requirements
 
-GNU LilyPond does use a lot of resources. For operation you need the
+GNU LilyPond does use a lot of resources.  For operation you need the
 following software
 
 @table @code
@@ -91,8 +92,7 @@ specials.  You get annoying @emph{Register Now|Cancel} popups, though.
 Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
 GSview and 
 Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
-,here} for GhostScript.
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+,here} for GhostScript,
 or visit the
 @uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
 @end table
@@ -105,7 +105,6 @@ install Python-1.5.2, or visit
 Python > 1.5.2 has ugly licensing issues, so we only used and tested
 1.5.2.
 @end table
-
 
 @section Windows running setup
 
@@ -185,6 +184,24 @@ your DOS window. Run the commands
 This one you should get a single page document with some text
 in each corner.
 ]
+
+
+emacs
+
+http://cygwin.com/ml/cygwin/2000-08/msg01049.html
+http://www.cs.unc.edu/~juliano/my_emacs_files/cygwin32-mount.el
+http://cygwin.com/ml/cygwin/2000-02/msg00109.html
+http://sources.redhat.com/ml/cygwin/2001-01/msg00878/cygwin32-mount.el
+
+  ;; setup Bash shell
+  (setq exec-path (cons "C:/cygwin/bin" exec-path))
+  (setenv "PATH" (concat "C:\\cygwin\\bin;" (getenv "PATH")))
+  (setq process-coding-system-alist '(("bash" . undecided-unix)))
+  (setq w32-quote-process-args ?\")
+  (setq shell-file-name "bash")
+  (setenv "SHELL" shell-file-name) 
+  (setq explicit-shell-file-name shell-file-name) 
+  (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
 
 @end ignore
 
