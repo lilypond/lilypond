@@ -14,7 +14,7 @@ paper_sixteen = \paper {
 	font_large = 12.;
 	font_Large = 10.;
 	font_normal = 8.;
-
+	magnification_dynamic = 1.0;
 	font_finger = 4.;
 	font_volta = 5.;
 	font_number = 8.;

@@ -1,3 +1,17 @@
+pl 68.jcn2,3
+
+pl 68.hwn1
+	- more tutorial stuff.
+	- note^\dynamic scriptdir.
+	- dynamics listen to verticalDirection as well.
+	- \property automaticMelismas -> \property automaticMelismata
+	- dynamic padding for crescendi.
+
+pl 68.jcn1
+	- small tutorial fixes
+
+*********
+
 pl 67.hwn1
 	- tutorial updates
 	- \property beamAuto -> noAutoBeaming

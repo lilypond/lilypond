@@ -406,7 +406,7 @@ if 1:
 		return newlines
 
 	conversions.append ((1,1,67), conv,
-			    'beamAuto -> noAutoBeaming')
+			    'beamAuto -> noAutoBeaming, automaticMelismas -> automaticMelismata',)
 
 
 ############################

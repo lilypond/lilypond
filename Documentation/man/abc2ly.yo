@@ -30,7 +30,7 @@ description(
 dit(-h, --help,)
     Show a summary of usage.
 dit(-o, --output=file(FILE),)
-    Set file(FILE) as default output.  If nothing specified, output to stdoutt.
+    Set file(FILE) as default output.
 )
 
 manpagesection(DISCLAIMER)

@@ -16,8 +16,17 @@ $(outdir)/%.ly.txt: %.ly
 $(outdir)/%.fly.txt: %.fly
 	ln -f $< $@
 
+$(outdir)/%.ly.txt: %.abc
+#which file to show here -- abc seems more cute?
+	ln -f $< $@
 
+$(outdir)/%.ly: %.abc
+	$(PYTHON) $(depth)/scripts/abc2ly.py -o $@ $< 
 
+$(outdir)/%.dvi: $(outdir)/%.ly
+	$(PYTHON) $(depth)/scripts/ly2dvi.py -o $(outdir)  $< 
+	-mv $(basename $(<F)).midi $(outdir)
+	
 # don't junk intermediate .dvi files.  They're easier to view than
 # .ps or .gif
 .PRECIOUS: $(outdir)/%.dvi

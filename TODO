@@ -10,7 +10,11 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO before 1.2
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * chord names.
+. * chord names. -- what about?
+. * Melismas(*) --> Melismata (at least in doco)
+. * ?  -Q, --find-old-relative show all changes in relative syntax
+What's old about absolute to relative conversion?  Could maybe use for
+abc2ly, midi2ly?
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
@@ -34,10 +38,11 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
+. * staffside spanner (crescendo!) along with staffswitch.
 . * 
 > \context Staff <
->   {\voiceone c''4. r8}
->   {\voicetwo c,4 r4}
+>   {\voiceone''4. r8}
+>  \voicetwo c,4 r4}
 > >
 
 .* STUFF

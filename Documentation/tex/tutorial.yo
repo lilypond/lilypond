@@ -4,15 +4,30 @@ COMMENT(-*-text-*-)
 redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
 
+COMMENT(urg)
+DEFINEMACRO(Large)(1)(\
+    whenlatex(latexcommand(\Large{)ARG1+latexcommand(}))\
+    whentexinfo(texinfocommand(@strong{)ARG1+texinfocommand(}))\
+    whenhtml(htmlcommand(<font size=+2>)ARG1+htmlcommand(</font>))\
+    whentxt(ARG1))
+
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
 
 TODO
 
-pipethrough(date) sucks.
+    * pipethrough(date) sucks.
+    * paragraphs have too much space.
+    * fix the amount of spaces (urg:tabs) at the start of verb() blocks
+      or even better: do verb and description side-by side
+      (TeX: use minipage construct):
 
-paragraphs have too much space.
+      \foo                  This does the
+                            foo construct
 
+      The explaining texts are right in between examples.
+      Constructs like 'This shows' and 'The next line' are esp.
+      confusing, here.
 )
 
 COMMENT(
@@ -63,16 +78,17 @@ latexcommand(\parindent2pc)
 LilyPond prints music from a specification that you, the user, supply.
 You have to give that specification using a em(language).  This
 document is a gentle introduction to that language, which is called
-Mudela, an abbreviation for Music Definition Language.
+Mudela, an acronym of Music Definition Language.
 
 This tutorial will demonstrate how to use Mudela by presenting
 examples of input along with resulting output.  We will use English
-terms for notation, so if you are not familiar with those, you should
+terms for notation.  In case you are not familiar with those, you may
 consult the glossary that is distributed with LilyPond.
 
 The examples discussed are included in the distribution, in the
 subdirectory file(input/tutorial/).  It is recommended that you
-experiment  with input yourself, to get a feel for how LilyPond behaves.
+experiment with writing Mudela input yourself, to get a feel for
+how LilyPond behaves.
 
 sect(The first tune)
 label(sec:firsttune)
@@ -81,13 +97,14 @@ To demonstrate what LilyPond input looks like, we start off with a
 full fledged, yet simple example. It is a convoluted version
 of the famous menuet in bind(J.)bind(S.)Bach's em(Klavierbuechlein).
 
+COMMENT(urg: the fermata sign is placed below the note by default)
 mudela(verbatim)(% lines preceded by a percent are comments.
 \include "paper16.ly"
 \score {
-    \notes			
-    \relative c'' {		
+    \notes                        
+    \relative c'' {                
             \key g;
-            \time 3/4;		
+            \time 3/4;                
 
         \repeat "volta" 2 {
             d4 g,8 a b c d4 g, g |
@@ -106,106 +123,118 @@ mudela(verbatim)(% lines preceded by a percent are comments.
         \bar "|.";
     }
     \paper {
-       linewidth = 14.0 \cm; % standard settings are too wide for a book
+       % standard settings are too wide for a book
+       linewidth = 14.0 \cm;
    }
 })
 
-Enter it (or copy it, the filename is file(menuet.ly)), and compile it
+Enter it (or copy it, the filename is file(menuet.ly)), compile it
 with LilyPond and view the output.  Details of this procedure may vary
-from system to system.  To create the output, one would issue
-code(ly2dvi menuet).  file(ly2dvi) is a program that does the job of
-calling LilyPond and TeX() and adjusting page margins.
+from system to system.  To create the output, one would issue the
+command `code(ly2dvi menuet)'.  file(ly2dvi) is a program that does
+the job of running LilyPond and TeX(), handling of titles and
+adjusting of page margins.
 
-If all goes well, this will create the  file file(menuet.dvi).
-To view this output, issue the command code(xdvi menuet).
+If all goes well, the file file(menuet.dvi) will be created.
+To view this output, issue the command `code(xdvi menuet)'.
 
-Now that we are familiar with the procedure to produce output, we will
-analyse the input itself, line by line.
+Now that we are familiar with the procedure of producing output, we
+will analyse the input, line by line.COMMENT(
 
-verb(% lines preceded by a percent are comments.)COMMENT(
+)verb(
+        % lines preceded by a percent are comments.
+)COMMENT(
 
 )The percent sign, `code(%)', introduces a line comment.  If you want to
 make larger comments, you can use block comments. These are delimited
 by `code(%{)' and `code(%})'COMMENT(
 
-)verb(\input "paper16.ly")COMMENT(
+)verb(
+        \input "paper16.ly"
+)COMMENT(
 
-)By default, LilyPond will use definitions for a staff of 20
+)By default, LilyPond will use definitions for a 20
 nop(point)footnote(A point is the standard measure of length for
-printing.  One point is 1/72.27 inch.)  high.  We want smaller output
-(16 point staff height), you have to import the settings for that
-size, which is done.COMMENT(
+printing.  One point is 1/72.27 inch.) high staff.  We want smaller
+output (16 point staff height), so we must import the settings for
+that size, which is done.COMMENT(
 
-)verb(\score {) COMMENT(
+)verb(
+        \score {
+) COMMENT(
 
 ) A mudela file combines music with directions for outputting that
 music.  The music is combined with the output directions by putting
 them into a code(\score) block.
 verb(
-   \notes		
+        \notes                
 ) COMMENT( 
 
 )This makes LilyPond ready for accepting notes.
 verb(
-    \relative c''
+        \relative c''
 )COMMENT(
 
 ) As we will see, pitches are combinations of octave, note name and
 chromatic alteration.  In this scheme, the octave is indicated by
 using raised quotes (`code(')') and ``lowered'' quotes (commas:
 `code(,)').  The central C is denoted by code(c').  The C one octave
-higher is code(c'').  One and two octaves below central C is denoted
-by code(c) and code(c,) respectively.
+higher is code(c'').  One and two octaves below the central C is
+denoted by code(c) and code(c,) respectively.
 
 For pitches in a long piece you might have to type many quotes.  To
 remedy this, LilyPond has a ``relative'' octave entry mode.  In this
 mode, octaves of notes without quotes are chosen such that a note is
-as close as possible to the the preceding note.  If you add a
-high-quote an extra octave is added.  The lowered quote (a comma) will
-subtract an extra octave.  Because the first note has no predecessor,
-you have to give the (absolute) pitch of the note to start with.
-COMMENT(
+as close as possible (graphically, on the staff) to the the preceding
+note.  If you add a high-quote an extra octave is added.  The lowered
+quote (a comma) will substract an extra octave.  Because the first note
+has no predecessor, you have to give the (absolute) pitch of the note
+to start with.COMMENT(
 
 )verb(
-       \sequential {
+        \sequential {
 )COMMENT(
 
 )  What follows is sequential music, i.e.,
-notes that are to be played and printed after each other.
-COMMENT(
+notes that are to be played and printed after each other.COMMENT(
 
 )verb(
         \time 3/4;
 ) COMMENT(
 
 ) This command changes the time signature of the current piece: a 3/4
-sign is printed.  This commond is also used to generate bar lines
-in the right spots.COMMENT(
+sign is printed.  This command is also used to generate bar lines in
+the right spots.COMMENT(
 
 )verb(
         \key g;
-) COMMENT(
+)COMMENT(
 
 ) This command changes the current key to G-major.  Although this
 command comes after the code(\time) command, in the output, the key
 signature comes before the time signature: LilyPond knows about music
 typesetting conventions. COMMENT(
 
-)verb( \repeat "volta" 2  ) COMMENT(
+)verb(
+        \repeat "volta" 2
+) COMMENT(
 
 ) This command tells LilyPond that the following piece of music must
 be played twice; code("volta") volta brackets should be used for
 alternatives---if there were any.
 COMMENT(
 
-)verb( { ) COMMENT(
+)verb(
+        {
+)COMMENT(
 
-)The subject of the repeat are again sequential notes.   Since
-code(\sequential) is such a common construct, a abbreviation is
-provided: just leave off code(\sequential), and the result is the
-same. COMMENT(
+)The subject of the repeat is again sequential music.  Since
+code(\sequential) is such a common construct, a shorthand is provided:
+just leave off code(\sequential), and the result is the same. COMMENT(
 
-)verb(d4) COMMENT(
+)verb(
+        d4
+)COMMENT(
 
 ) This is a note with pitch code(d) (determined up to octaves).  The
 relative music was started with a code(c''), so the real pitch of this
@@ -221,12 +250,12 @@ duration is the same as the code(g), there is no need to enter the
 duration (You may enter it anyway, eg. code(a4 b4)) COMMENT(
 
 )verb(
-          d4 g, g |
-) COMMENT(
+        d4 g, g |
+)COMMENT(
 
-) Three more notes.  The `code(|)' character is a `barcheck'.  When processing the
-music, LilyPond will check  that barchecks are found at the start of
-a measure.  This can help you track down errors.
+) Three more notes.  The `code(|)' character is a `barcheck'.  When
+processing the music, LilyPond will verify that barchecks are found at
+the start of a measure.  This can help you track down errors.
 COMMENT(
 
 )verb(
@@ -240,7 +269,9 @@ sharp sign in the output. The program keeps track of key signatures,
 and will only print accidentals if they are needed.
 COMMENT(
 
-)verb(c8 d e fis)COMMENT(
+)verb(
+        c8 d e fis
+)COMMENT(
 
 )LilyPond guesses were beams can be added to eighth and shorter notes.
 In this case, a beam over 4 eighths is added.
@@ -262,7 +293,9 @@ the notes.COMMENT(
 )Automatic beaming can be overridden by inserting beam marks
 (brackets).  Brackets are put around notes you want beamed.COMMENT(
 
-)verb(g2.  |)COMMENT(
+)verb(
+        g2.  |
+)COMMENT(
 
 )A duration with augmentation dot  is notated
 with the duration number followed by a period.COMMENT(
@@ -270,57 +303,62 @@ with the duration number followed by a period.COMMENT(
         }
 ) COMMENT(
 
-) This ends the sequential music to be repeated.  LilyPond will typset
+) This ends the sequential music to be repeated.  LilyPond will typeset
 a repeat bar.  COMMENT(
 
 )verb(
-     cis'4 b8 cis a4 |
+        cis'4 b8 cis a4 |
 ) COMMENT(
 
 )This line shows that Lily will print an accidental if that is
 needed: the first C sharp will be printed with an accidental, the
 second one without.  COMMENT(
 
-)verb( a8-. b-. cis-. d-. e-. fis-. )COMMENT(
+)verb(
+        a8-. b-. cis-. d-. e-. fis-.
+)COMMENT(
 
-)You can enter articulation signs either in a verbose or in an
-abbreviated form.  Here we demonstrate the abbreviated form: it is
-formed by a dash and the the character for the articulation to use,
-e.g. code(-.) for staccato as shown above.  COMMENT(
+)You can enter articulation signs either in a verbose form using a
+shorthand.  Here we demonstrate the shorthand: it is formed by a dash
+and the the character for the articulation to use, e.g. `code(-.)' for
+staccato as shown above.  COMMENT(
 
 )verb(
-        fis a,  r8 cis8
+        fis a, r8 cis8
 ) COMMENT(
 
 )
-Rests are denoted by the special notename code(r).  You can also enter
-an invisible rest by using the special notename code(s).
+Rests are denoted by the special notename `code(r)'.  You can also enter
+an invisible rest by using the special notename `code(s)'.
 verb(
         d2.-\fermata
 ) COMMENT(
 
 )All articulations have a verbose form, like code(\fermata).  The
-`command'  code(\fermata) is not part of the
-core of the language (most of the other discussed elements are), but
-it is an abbreviation of a more complicated description of a fermata.
-code(\fermata) names that description and is therefore called an
-em(identifier). COMMENT(
+command `code(\fermata)' is not part of the core of the language (most
+of the other discussed elements are), but it is a shorthand for a more
+complicated description of a fermata.  code(\fermata) names that
+description and is therefore called an em(identifier). COMMENT(
 
-)verb( } ) COMMENT(
+)verb(
+        }
+) COMMENT(
 
 )
 Here the music ends.
 COMMENT(
 
-)verb(\paper {
-            linewidth = 14.0\cm;
-})COMMENT(
+)verb(
+        \paper {
+                linewidth = 14.0\cm;
+        }
+)COMMENT(
 
 )This specifies a conversion from music to notation output.  Most of
 the details of this conversions (font sizes, dimensions, etc.) have
 been taken care of, but  to fit the output  in this document, it has
-to be smaller.  We do this by setting the line width to 10 centimeters
-(approximately 4 inches).
+to be smaller.  We do this by setting the line width to 14 centimeters
+(approximately 6 inches).
 COMMENT(
 
 )verb(
@@ -336,7 +374,7 @@ notation.  Therefore Second, the format tries to be em(context-free):
 a note will sound the same regardless of the current time signature,
 the key, etc.
 
-The purpose of LilyPond informally is explained by the term `music
+The purpose of LilyPond is explained informally by the term `music
 typesetter'.  This is not a fully correct name: not only does the
 program print musical symbols, it also makes esthetic decisions.  All
 symbols and their placement is em(generated) from a high-level musical
@@ -346,62 +384,13 @@ described by `music compiler' or `music to notation compiler'.
 
 sect(Lyrics and chords)
 
-In this section we show how to typeset a song of (unknown
-origin).footnote(The author would welcome information about the origin
-of this song.)
+In this section we show how to typeset a song of unknown
+origin.footnote(The author would welcome information about the origin
+of this song.).
 
 verb(\header {
         title = "The river is flowing";
-        composer = "Traditonal (?)";
-}
-\include "paper16.ly"
-melody = \notes \relative c' {
-        \partial 8;
-        g8 |
-        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
-        c4 c8 d [es () d] c4 | d4 es8 d c4.
-        \bar "|.";
-}
-
-text = \lyrics {
-        The ri -- ver is flo- __ wing, flo -- wing and gro -- wing, the
-        ri -- ver is flo -- wing down to the sea.
-}
-
-accompaniment =\chords {
-        r8
-        c2-3- f-3-.7 d-min es4 c8-min r8
-        c2-min f-min7 g-7^3.5 c-min }
-
-\score {
-        \simultaneous {
-%	  \accompaniment
-          \context ChordNames \accompaniment
-
-          \addlyrics
-             \context Staff = mel
-             {	\property Staff.noAutoBeaming = "1"
-        	\property Staff.automaticMelismas = "1"
-          	\melody }
-             \context Lyrics \text
-        }
-        \midi  { }
-        \paper { linewidth = 10.0\cm; }
-})
-
-
-The result would look this.footnote(The titling and font size shown
-may differ, since the titling in this document is not generated by
-file(ly2dvi))
-
-center(bf(The river is flowing)
-
-var(Traditonal (?))
-)
-
-mudela()(\header {
-        title = "The river is flowing";
-        composer = "Traditonal (?)";
+        composer = "Traditional (?)";
 }
 \include "paper16.ly"
 melody = \notes \relative c' {
@@ -428,11 +417,62 @@ accompaniment =\chords {
           \context ChordNames \accompaniment
 
           \addlyrics
-             \context Staff = mel
-             {	\property Staff.noAutoBeaming = "1"
-                \property Staff.automaticMelismas = "1"
-                \melody }
-             \context Lyrics \text
+            \context Staff = mel {        
+              \property Staff.noAutoBeaming = "1"
+              \property Staff.automaticMelismata = "1"
+              \melody 
+            }
+            \context Lyrics \text
+        }
+        \midi  { }
+        \paper { linewidth = 10.0\cm; }
+})
+
+
+The result would look nop(this)footnote(The titling and font size shown
+may differ, since the titling in this document is not generated by
+file(ly2dvi).).
+
+center(bf(Large(The river is flowing))
+
+var(Traditional (?))
+)
+
+mudela(center)(\header {
+        title = "The river is flowing";
+        composer = "Traditional (?)";
+}
+\include "paper16.ly"
+melody = \notes \relative c' {
+        \partial 8;
+        g8 |
+        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
+        c4 c8 d [es () d] c4 | d4 es8 d c4.
+        \bar "|.";
+}
+
+text = \lyrics {
+        The ri -- ver is flo- __ wing, flo -- wing and gro -- wing, the
+        ri -- ver is flo -- wing down to the sea.
+}
+
+accompaniment =\chords {
+        r8
+        c2-3- f-3-.7 d-min es4 c8-min r8
+        c2-min f-min7 g-7^3.5 c-min }
+
+\score {
+        \simultaneous {
+%         \accompaniment
+          \context ChordNames \accompaniment
+
+          \addlyrics
+            \context Staff = mel {
+              \property Staff.noAutoBeaming = "1"
+              \property Staff.automaticMelismata = "1"
+              \melody 
+            }
+            \context Lyrics \text
         }
         \midi  { }
         \paper { linewidth = 10.0\cm; }
@@ -440,7 +480,9 @@ accompaniment =\chords {
 
 Again, we will dissect the file line by line.COMMENT(
 
-)verb(\header {)COMMENT(
+)verb(
+        \header {
+)COMMENT(
 
 )Information about the music you are about to typeset goes into a
 code(\header) block.  The information in this block is not used by
@@ -448,187 +490,514 @@ LilyPond, but it is included in the output.  file(ly2dvi) uses this
 information to print titles above the music.
 verb(
         title = "The river is flowing";
-        composer = "Traditonal (?)";)COMMENT(
+        composer = "Traditional (?)";)COMMENT(
 
-)the code(\header) contains block assignments.  An assignment starts
+)the code(\header) block contains assignments.  An assignment starts
 with a string.  (which is unquoted, in this case). Then comes the
 equal sign `code(=)'.  After the equal sign comes the expression you
 want to store.  In this case, you want to put in strings.  The
-information have to be quoted, because they contain spaces. The
+information has to be quoted here, because it contains spaces. The
 assignment is finished with a semicolon.COMMENT(
 
-)code(\include "paper16.ly")COMMENT(
+)verb(
+        \include "paper16.ly"
+)COMMENT(
 
 )Smaller size for inclusion in a book.COMMENT(
 
-)verb(melody = \notes \relative c' {)COMMENT(
+)verb(
+        melody = \notes \relative c' {
+)COMMENT(
 
 )The structure of the file will be the same as the previous one, a
 code(\score) block with music in it.  To keep things readable, we will
 give the different parts of music names, and use names to construct
 music within the score block.
 
-verb(\partial 8;)
+verb(
+        \partial 8;
+)
 
 The piece starts an anacrusis of one eighth.  COMMENT(
 
-)verb(c4 c8 d [es () d] c4  | f4 f8 g [es() d] c g |
-c4 c8 d [es () d] c4 | d4 es8 d c4.
-\bar "|.";
+)verb(
+        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
+        c4 c8 d [es () d] c4 | d4 es8 d c4.
+        \bar "|.";
 )COMMENT(
 
-)We use explicit beaming.  Since this is a song,  we turn automatic
+)We use explicit beaming.  Since this is a song,  we will turn automatic
 beams off, and use explicit beaming where needed.COMMENT(
 
-)verb(})COMMENT(
+)verb(
+        }
+)COMMENT(
 
 )This ends the definition of code(melody).  Note that there are no
-semicolons after declarations at top level.COMMENT( 
+semicolons after assignments at top level.COMMENT( 
 
-)verb(text = \lyrics {)COMMENT(
+)verb(
+        text = \lyrics {
+)COMMENT(
 
 )Another identifier assignment.  This one is for the lyrics. 
 Lyrics are formed by syllables that have duration, and not by
 notes. To make LilyPond parse words as syllables,  switch it  into
-lyrics mode with code(\lyrics).   The brace after code(\lyrics) again
-is an abbreviation of code(\sequential {). COMMENT(
+lyrics mode with code(\lyrics).  Again, the brace after code(\lyrics)
+is a shorthand for code(\sequential {). COMMENT(
 
-)code(The4 ri -- ver is flo- __ wing,  flo -- wing and gro -- wing, the
-    ri- ver is flo- __ wing down to the sea.
-    })COMMENT(
+)verb(
+        The4 ri -- ver is flo- __ wing,  flo -- wing and gro -- wing, the
+        ri- ver is flo- __ wing down to the sea.
+        }
+)COMMENT(
 
-)The syllables themselves.  They are separated by spaces.  You can get
-syllable extenders by entering code(__), and centered hyphens with
-code(--).  We enter the syllables as if they are all quarter notes in
-length (hence the code(4)), and use a feature to align  the syllables
-to the music, which isn't all quarter notes.
+)The syllables  themselves are  separated by spaces.  You can get syllable
+extenders by entering `code(__)', and centered hyphens with
+`code(-)code(-)'.  We enter the syllables as if they are all quarter notes
+in length (hence the code(4)), and use a feature to align the
+syllables to the music (which obviously isn't all quarter notes.)
 COMMENT(
 
 )verb(
-accompaniment =\chords {
+        accompaniment =\chords {
 )COMMENT(
 
 )We'll put chords over the music.  There is a special mode (analogous
 to code(\lyrics) and code(\notes) mode) where you can give the names
-of the chords you want, in stead of the notes comprising the chord.
+of the chords you want, instead of the notes comprising the chord.
 COMMENT(
 
-)verb(r8)COMMENT(
+)verb(
+        r8
+)COMMENT(
 
 )There is no accompaniment during the anacrusis.COMMENT(
 
-)verb(c2-3- f-3-.7
-)A chords is started by a note that is the tonic of the chord. The
+)verb(
+        c2-3- f-3-.7
+)A chord is started by  the tonic of the chord. The
 first one lasts a half note.  An unadorned note creates a major
 triad, while a minor triad is wanted.  code(3-) modifies the third to
 be small. code(7) modifies (adds) a seventh, which is small by default
-to create the code(f a c es) chord.   Multiple modifiers must be
-separated by  a dot.
-COMMENT(
+to create the code(f a c es) chord.  Multiple modifiers must be
+separated by a dot.COMMENT(
 
-)verb(d-min es4 c8-min r8)COMMENT(
+)verb(
+        d-min es4 c8-min r8
+)COMMENT(
 
 )Some modifiers have predefined names, eg. code(min) is  the same as
 code(3-), so code(d-min) is a minor code(d) chord.COMMENT(
 
-)verb(c2-min f-min7 g-7^3.5 c-min })COMMENT(
+)verb(
+        c2-min f-min7 g-7^3.5 c-min }
+)COMMENT(
 
-)You may leave out the dot between a named modifier code(min) and a
-normal modifier code(7).  Tones from a chord are removed with chord
+)A named modifier code(min) and a normal modifier code(7) do not have
+to be separated by a dot.  Tones from a chord are removed with chord
 substractions.  Substractions are started with a caret, and they are
 also separated by dots.  In this example, code(g-7^3.5) produces a
 minor seventh.  The brace ends the sequential music. COMMENT(
 
-)verb(\score {
-        \simultaneous {)COMMENT(
+)verb(
+        \score {
+                \simultaneous {
+)COMMENT(
 
-)We put the music together in score block.  Melody, lyrics and
+)We assemble the music in the code(\score) block.  Melody, lyrics and
 accompaniment have to sound at the same time, so they should be
 code(\simultaneous).COMMENT(
 
-)verb(	%	  \accompaniment)COMMENT(
+)verb(
+        %\accompaniment
+)COMMENT(
 
-)Chords mode generates notes grouped in code(\simultaneous) music.  If
-want to see the chords in normal notation, you can remove the comment
-sign.  The chords are then printed on a staff with noteheads. COMMENT(
+)Chord mode generates notes grouped in code(\simultaneous) music.  If
+you remove the comment sign, you can see the chords in normal
+notation: they will be printed as note heads on a separate
+staff. COMMENT(
 
-)verb(\context ChordNames \accompaniment)COMMENT(
+)verb(
+        \context ChordNames \accompaniment
+)COMMENT(
 
-)Normally, the notes that you enter are transformed into noteheads.
+)Normally, the notes that you enter are transformed into note heads.
 The note heads alone make no sense, they need surrounding information:
-a key signature, a clef, staff lines, etc.  They need em(context).
-This context also is a thing that has to be created. This is done by
-code(\context). It takes two arguments. The first is the name of a
-em(notation) or em(interpration context).  The name is a string, it
-can be quoted with code(") quotes).  The second argument is the music
-that should be interpreted in this context.
+a key signature, a clef, staff lines, etc.  They need em(context).  In
+LilyPond, these symbols are created by objects called `interpretation
+context'.  Interpretation contexts only exist during a run of
+LilyPond.  Interpretation contexts that are for printing music (as
+opposed to playing music) are called `notation context'.
 
-By default, LilyPond will create a Staff context for you.  If you
-would remove the code(%) sign in the previous line, you see that
-mechanism in action.  For the previous line, we could have written
-code(\context Staff \accompaniment), and get the same effect.COMMENT(
+By default, LilyPond will create a Staff contexts for you.  If you
+would remove the code(%) sign in the previous line, you can see that
+mechanism in action.
 
-)verb(\addlyrics)COMMENT(
+
+We don't want default contexts here, because we want names, not note
+heads.  An interpretation context can also created upon explicit
+request. The keyword for such a request is code(\context).  It takes
+two arguments.  The first is the name of a interpretation context.
+The name is a string, it can be quoted with double quotes).  The
+second argument is the music that should be interpreted in this
+context.  For the previous line, we could have written code(\context
+Staff \accompaniment), and get the same effect.COMMENT(
+
+)verb(
+        \addlyrics
+)COMMENT(
         
 )The lyrics need to be aligned with the melody.  This is done by
 combining both with code(\addlyrics).  code(\addlyrics) takes two
 pieces of music (usually a melody and lyrics, in that order) and
-aligns the lyrics syllables of the second piece under the notes of the
+aligns the syllables of the second piece under the notes of the
 first piece.  If you would reverse the order, the notes would be
 aligned on the lyrics, which is not very useful. (Besides, it looks
-silly).COMMENT(
+silly.)COMMENT(
 
-)verb(     \context Staff = mel {)COMMENT(
+)verb(
+        \context Staff = mel {
+)COMMENT(
 
-)This is first piece of music.  We instantiate a code(Staff) context
-explicitly: should you chose to remove comment before the ``note
-heads'' version of the accompaniment, the accompaniment will be on a
-nameless staff.  In that case, the melody has to be on a different
-staff as the accompaniment.  This is accomplished by giving the melody
-staff a different name.COMMENT(
+)This is the argument of code(\addlyrics).  We instantiate a
+code(Staff) context explicitly: should you chose to remove comment
+before the ``note heads'' version of the accompaniment, the
+accompaniment will be on a nameless staff.  The melody has to be on a
+different staff as the accompaniment.  This is accomplished by giving
+the melody staff a different name.COMMENT(
 
-)verb({ \property Staff.noAutoBeaming = "1")COMMENT(
+)verb(
+        \property Staff.noAutoBeaming = "1"
+)COMMENT(
 
-)An interpretation context has variables that tune its behavior.  One
+)An interpretation context has variables that tune its behaviour.  One
 of the variables is code(noAutoBeaming).  If set and non-zero (i.e.,
-true) LilyPond will not try to automatic beaming on the current
+true) LilyPond will not try to put automatic beaming on the current
 staff.COMMENT(
 
-)verb(  \property Staff.automaticMelismas = "1")COMMENT(
+)verb(
+        \property Staff.automaticMelismata = "1"
+)COMMENT(
 
-)Similarly, we want do not want to put a lyric syllable when there is
+)Similarly, we  don't want to print a  syllable when there is
 a slur. This sets up the Staff context to signal slurs while
 code(\addlyrics) is processed. COMMENT(
 
-)verb(	  	\melody })COMMENT(
+)verb(
+          \melody
+        }
+)COMMENT(
 
-)Finally, we put the melody on the current. Note that the
+)Finally, we put the melody on the current staff.  Note that the
 code(\property) directives and code(\melody) are grouped in sequential
-music.  So the property settings are done before the melody is
+music,  so the property settings are done before the melody is
 processed.  COMMENT(
 
-)verb(	     \context Lyrics \text)COMMENT(
+)verb(
+        \context Lyrics \text
+)COMMENT(
 
-)The second argument of code(\addlyrics) is the text.   Text also
-should  land on a  Staff, but on a context for syllables,
-extenders, hyphens etc.  This context is called Lyrics.COMMENT(
+)The second argument of code(\addlyrics) is the text. The text also
+should not land on a Staff, but on a interpretation context for
+syllables, extenders, hyphens etc.  This context is called
+Lyrics.COMMENT(
 
-)verb(  })COMMENT(
+)verb(
+        }
+)COMMENT(
 
 )This ends code(\simultaneous).COMMENT(
 
-)verb(	\midi  { })COMMENT(
+)verb(
+        \midi  { }
+)COMMENT(
 
-)This makes the music go to a MIDI file as well.  MIDI is great for
-checking music you enter.  You listen to the MIDI file, if you hear
-something weird, its probably a typing error. code(\midi) is a `output
-definition', a declaration that specifies how to output music
+)This makes the music go to a MIDI file.  MIDI is great for
+checking music you enter.  You listen to the MIDI file: if you hear
+something unexpected, it's probably a typing error.  code(\midi) is an
+`output definition', a declaration that specifies how to output music
 analogous to code(\paper { }).COMMENT(
 
-)verb(  \paper { linewidth = 10.0\cm; })COMMENT(
+)verb(
+        \paper { linewidth = 10.0\cm; }
+)COMMENT(
 
-)We also want notation output.COMMENT(
+)We also want notation output.  The linewidth is short so the piece
+will be set in two lines. COMMENT(
 
-)verb(})COMMENT(
+)verb(
+        }
+)COMMENT(
 
 )End the score block.
+
+sect(Piano music)
+
+Our third subject is a piece piano music.  The fragment in the input
+file is a piano reduction of the G major Sinfonia by Giovanni Battista
+Sammartini.  It was composed around 1740. COMMENT(Sesam atlas vd
+Muziek. Deel II, blz 414)
+
+mudela(verbatim)(
+\include "paper16.ly";
+
+viola = \notes \relative c' \context Voice = viola {
+        <c4-\f g' c>
+        \property Voice.verticalDirection = \down g'8. b,16
+        s1 s2. r4
+        g
+}
+
+oboes = \notes \relative c'' \context Voice = oboe {
+        \stemup s4  g8. b,16 c8 r <e'8.-\p g> <f16 a>
+        \grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
+        <
+          { \times 2/3 { a8 g c } \! c2 }
+          \context Voice = oboeTwo {
+                \stemdown
+                \grace {
+                    \property Grace.verticalDirection = \down
+                    [f,16 g] }
+                f8 e e2
+        } >
+        \stemboth
+        \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
+        [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
+        [<c16( e>  < )e8. g>] <c8 e,>
+}
+
+hoomPah  = \notes \transpose c' {
+    c8 \translator Staff = top \stemdown 
+    c'8 \translator Staff = bottom \stemup }
+
+hoomPahHoomPah = { [\hoomPah \hoomPah] }
+
+bassvoices = \notes \relative c' {
+        c4 g8. b,16
+        \hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah
+        \stemdown [c8 c'8] r4
+        <g d'> r4
+        < {\stemup r2 <e4 c'> <c8 g'> }
+          \context Voice = reallyLow  {\stemdown g2 ~ | g4 c8 } >
+}
+
+\score {
+        \context PianoStaff \notes <
+                \context Staff = top < \time 2/2;
+                        \context Voice = viola \viola
+                        \oboes
+                >
+                \context Staff = bottom < \time 2/2; \clef bass;
+                        \bassvoices
+                >
+        >
+        \midi { }
+        \paper {
+          indent = 0.0;
+          linewidth = 14.5 \cm; }
+})
+
+If it looks like incomprehensible gibberish to you... Then you are
+right.  The author has doctored this example to have as many quirks in
+one system as possible.COMMENT(
+
+)verb(viola = \notes \relative c'  \context Voice = viola {)COMMENT(
+
+)In this example, you can see multiple parts on a staff.  Each part is
+associated with one notation context.  This notation context handles
+stems and dynamics (among others).  The name of this context is
+code(Voice).  For each part we have to make sure that there is
+precisely one Voice nop(context)footnote(If code(\context) would not
+have been specified explicitly, three code(Voice) contexts would be
+created: one for each note  in the first chord.).COMMENT(
+
+)verb(<c4-\f g' c>)COMMENT(
+
+)code(<) and code(>) are short hands for code(\simultaneous {) and
+code(}). So the expression enclosed in code(<) and code(>) is a
+chord.  code(\f) places a forte symbol  under the chord.COMMENT(
+
+)verb(\property Voice.verticalDirection = \down)COMMENT(
+
+)code(verticalDirection) is a property of the voice context. It
+controls the directions of stems, articulations marks and other
+symbols.
+  If code(verticalDirection) is set to code(\down)
+(identifier for the integer -1) the stems go down
+code(\up) (identifier for the integer 1) makes the stems go up.COMMENT(
+
+)verb(        g'8. b,16)COMMENT(
+
+)Relative octaves work a little differently with chords.  The starting
+point for the note following a chord is the first note of the chord.  So
+the code(g) gets an octave up quote: it is a fifth above the starting
+note of the previous chord (the central C).
+
+verb(s1 s2. r4)COMMENT(
+
+)code(s) is a `spacer' rest.  It does not print anything,  but it does
+have duration of a rest.   COMMENT(
+
+)verb(oboes = \notes \relative c'' \context Voice = oboe {)COMMENT(
+
+)Now comes a part for two oboes.  They play homophonically, so we
+print the notes as one voice that makes chords. Again, we insure that
+these notes are indeed processed by precisely one context with
+code(\context).COMMENT(
+
+)verb(\stemup s4  g8. b,16 c8 r <e'8.-\p g> <f16 a>)COMMENT(
+
+)code(\stemup) is an identifier reference.  It is shorthand for
+code(\property Voice.verticalDirection = \up).  If possible, you
+should use predefined identifiers like these for setting properties.
+Your input will be less dependent upon the implementation of LilyPond.
+COMMENT(
+
+)verb(\grace <e8( g> < )d4 f> <c2 e>)COMMENT(
+
+)code(\grace) introduces grace notes.  It takes one argument, in this
+case a chord.  The slur started on the code(e) of the chord
+will be attached to the next nop(note.)footnote(LilyPond will squirm
+about unended Slurs.  In this case, you can ignore the warning).
+COMMENT(
+
+)verb(\times 2/3)COMMENT(
+
+)Tuplets are made with the code(\times) keyword.  It takes two
+arguments: a fraction and a piece of music.  The duration of the
+second argument is multiplied by the first argument.  Triplets make
+notes occupy 2/3 of their notated duration, so in this case the
+fraction is 2/3. COMMENT(
+
+)verb({ <d8 \< f> <e g> <f a> })COMMENT(
+
+)The piece of music to be `tripletted' is sequential music containing
+three notes.  On the first chord (the code(d)), a crescendo is started
+with code(\<).COMMENT(
+
+)verb(<)COMMENT(
+
+)At this point, the homophonic music splits into two rhythmically
+different parts.  We can't use a sequence of chords to enter this, so
+we make a `chord' of sequences to do it.  We start with the upper
+voice, which continues with upward stems: COMMENT(
+
+)verb( { \times 2/3 { a8 g c } \! c2 })COMMENT(
+
+)The crescendo is ended at the half note by the escaped exclamation
+mark `code(\!)'.  COMMENT(
+         
+)verb(\context Voice = oboeTwo {
+\stemdown)COMMENT(
+
+)We can't share stems with the other voice, so we have to create a new
+code(Voice) context.  We give it the name code(oboeTwo) to distinguish
+it from the other context.  Stems go down in this voice. COMMENT(
+
+)verb(\grace { )COMMENT(
+
+)When a grace section is processed, a code(Grace) context is
+created. This context acts like a miniature score of its own.  It has
+its own time bookkeeping, and you can make notes, beams, slurs
+etc. Here fiddle with a property and make a beam.  The argument of
+code(\grace) is sequential music.COMMENT(
+
+)verb(\property Grace.verticalDirection = \down
+[f,16 g] })COMMENT(
+
+)Normally, grace notes are always stem up, but in this case, the upper
+voice interferes. We set the stems down here.
+
+As far as relative mode is concerned, the previous note is the
+code(c'''2) of the upper voice, so we have to go an octave down for
+the code(f).
+COMMENT(
+
+)verb(
+  f8 e e2
+} >)COMMENT(
+
+)This ends the two-part section. COMMENT(
+
+)verb(\stemboth
+\grace <c,8( e> <)b8. d8.-\trill> <c16 e> | )COMMENT(
+
+)code(\stemboth) ends the forced stem directions. From here, stems are
+positioned as if it were single part music.
+
+The bass has a little hoom-pah melody to demonstrate parts switching
+between staffs.  Since it is repetitive, we use identifiers:COMMENT(
+
+)verb(hoomPah  = \notes \transpose c' {)COMMENT(
+
+)Transposing can be done with code(\transpose).  It takes two
+arguments; the first specifies what central C should be transposed to.
+The second is the to-be-transposed music.  As you can see, in this
+case, the transposition is a no-op.  Central C is transposed to
+central C.
+
+The purpose of this no-op is circumventing relative mode.  Relative
+mode can not be used in conjunction with transposition, so relative
+mode will leave the contents of code(\hoomPah) alone.  We can use it
+without having to worry about getting the motive in a wrong
+nop(octave)footnote(code(hoomPah = \relative ...) would be more
+intuitive to use, but that would not let me plug code(\transpose)
+:-CHAR(41).).COMMENT(
+
+)verb(c8 \translator Staff = top \stemdown )COMMENT(
+
+)We assume that the first note will be put in the lower staff.  After
+that note we switch to the upper staff with code(\translator).  To be
+precise, this code(\translator) entry switches the current voice to a
+code(Staff) named code(top). So we have to name the upper staff
+`code(top)'.  Stem directions are set to avoid interfering with the
+oboe voices.  COMMENT(
+
+)verb(c'8 \translator Staff = bottom \stemup })COMMENT(
+
+)Then a note is put on the upper staff, and we switch again.  We have
+to name the lower staff `code(bottom)'. COMMENT(
+
+)verb(hoomPahHoomPah = { [\hoomPah \hoomPah] })COMMENT(
+
+)Put two of these fragments in sequence, and beam them.COMMENT(
+
+)verb(bassvoices = \notes \relative c' {
+c4 g8. b,16
+\hoomPahHoomPah \hoomPahHoomPah \hoomPahHoomPah
+\hoomPahHoomPah)COMMENT(
+
+)Entering the bass part is easy: the hoomPahHoomPah variable is
+referenced four times.COMMENT(
+
+)verb(\context Voice = reallyLow  {\stemdown g2 ~ | g4 c8 } >)COMMENT(
+
+)After skipping some lines, we see code(~).  This mark makes ties.COMMENT(
+
+)verb(\context PianoStaff)COMMENT(
+
+)For piano music, a special context is needed to get cross staff
+beaming right.  It is called code(PianoStaff).COMMENT(
+
+)verb(\context Staff = bottom < \time 2/2; \clef bass;)COMMENT(
+
+)The bottom staff must have a different clef.COMMENT(
+
+)verb(indent = 0.0;)COMMENT(
+
+)To make some more room on the line, the first (in this case the only)
+line is not indented.
+
+This example shows a lot of features, but the organisation isn't
+perfect.  For example, it would be less confusing to use a chord
+containing sequential music than a sequence of chords for the oboe
+parts.
+
+[TODO: demonstrate Hara-Kiri with scores and  part extraction.]
+
+sect(The end)        
+         
+That's all folks.  From here, you can either try fiddling with input
+files, or you can read the reference manual.
+

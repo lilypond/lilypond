@@ -127,10 +127,21 @@ Dynamic_engraver::do_process_requests()
 	  staff_side_p_->axis_ = Y_AXIS;
 	  
 
+	  
+	  prop = get_property ("verticalDirection", 0);
+	  if (prop.isdir_b())
+	    {
+	      staff_side_p_->dir_ = Direction (int (prop));
+	    }
+
 	  prop = get_property ("dynamicDir", 0);
 	  if (prop.isnum_b ())
 	    {
 	      staff_side_p_->dir_ = (Direction) (int) prop;
+	    }
+	  if (absd->dir_)
+	    {
+	      staff_side_p_->dir_ = absd->dir_;
 	    }
 
 	  prop = get_property ("dynamicPadding", 0);
@@ -159,12 +170,26 @@ Dynamic_engraver::do_process_requests()
 		  
 		  cresc_p_ = 0;
 		  ss_span_p_ =0;
-		  Scalar prop = get_property ("dynamicDir", 0);
-		  if (prop.isnum_b ())
+
+
+
+		  
+		  Scalar prop = get_property ("verticalDirection", 0);
+		  if (prop.isdir_b())
+		    {
+		      to_end_ss_span_p_->dir_ = Direction (int (prop));
+		    }
+		  prop = get_property ("dynamicDir", 0);
+		  if (prop.isdir_b ())
 		    {
 		      to_end_ss_span_p_->dir_ = (Direction) (int) prop;
 		    }
-		  
+		  prop = get_property ("dynamicPadding", 0);
+		  if (prop.isnum_b ())
+		    {
+		      to_end_ss_span_p_->set_elt_property (padding_scm_sym, 
+							   gh_double2scm(Real(prop)));
+		    }
 		}
 	    }
 	  else if (span_l->span_dir_ == START)
