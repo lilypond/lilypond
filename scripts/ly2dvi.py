@@ -263,7 +263,7 @@ class TeXOutput:
 %%\headheight9pt
 %%\headsep0pt
 %% Maybe this is too drastic, but let us give it a try.
-\geometry{width=%spt, height=%spt,headheight=2mm,headsep=0pt,footskip=2mm} 
+\geometry{width=%spt, textheight=%spt,headheight=2mm,headsep=0pt,footskip=2mm} 
 \input{lilyponddefs}
 \input{titledefs}
 %s
