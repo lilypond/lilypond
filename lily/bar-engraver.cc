@@ -28,7 +28,7 @@ public:
 protected:
   virtual void finalize ();
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 
 private:
   void typeset_bar ();
@@ -48,7 +48,6 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Item (get_property ("BarLine"));
-
       SCM gl = get_property ("whichBar");
       if (scm_equal_p (gl, bar_p_->get_grob_property ("glyph")) != SCM_BOOL_T)
 	  bar_p_->set_grob_property ("glyph", gl);
@@ -66,9 +65,17 @@ Bar_engraver::finalize ()
 /*
   Bar_engraver should come *after* any engravers that  
   modify whichBar
+
+  This is a little hairy : whichBar may be set by
+  Repeat_acknowledge_engraver::process_music, which is at score
+  context. This means that grobs could should be created after
+  process_music. We do stuff process_acknowledged_grobs(), just to be
+  on the safe side.
+     
 */
+
 void
-Bar_engraver::create_grobs ()
+Bar_engraver::process_acknowledged_grobs ()
 {
   if (!bar_p_ && gh_string_p (get_property ("whichBar")))
     {

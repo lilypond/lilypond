@@ -23,7 +23,7 @@ R1*7 |
 R1*8 |
 R1*9 |
 R1*10 |
-R1*11 |
+R1*11 | 
 }
 
 \score { < \context Staff \thenotes

@@ -47,7 +47,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   void typeset_tie (Grob*);
 public:
   TRANSLATOR_DECLARATIONS(Tie_engraver);
@@ -108,7 +108,7 @@ head_pitch_compare (Grob  *const&a,Grob  *const&b)
 }
 
 void
-Tie_engraver::create_grobs ()
+Tie_engraver::process_acknowledged_grobs ()
 {
   if (req_l_)
     {

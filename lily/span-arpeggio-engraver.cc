@@ -26,7 +26,7 @@ public:
   
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 
 private:
@@ -51,7 +51,7 @@ Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Span_arpeggio_engraver::create_grobs ()
+Span_arpeggio_engraver::process_acknowledged_grobs ()
 {
   /*
     connectArpeggios is slightly brusque; we should really read a elt

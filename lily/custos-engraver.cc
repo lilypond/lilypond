@@ -26,7 +26,7 @@ public:
 TRANSLATOR_DECLARATIONS(  Custos_engraver);
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void finalize ();
 
@@ -93,7 +93,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Custos_engraver::create_grobs ()
+Custos_engraver::process_acknowledged_grobs ()
 {
   if (gh_string_p (get_property ("whichBar")))
     custos_permitted = true;

@@ -32,7 +32,7 @@ protected:
   virtual void start_translation_timestep ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 
 private:
   bool test_moment (Direction, Moment);
@@ -442,7 +442,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Auto_beam_engraver::create_grobs ()
+Auto_beam_engraver::process_acknowledged_grobs ()
 {
   if (!count_i_)
     {

@@ -31,7 +31,7 @@ protected:
   virtual void finalize ();
   virtual void stop_translation_timestep ();
   virtual void process_music ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   
   Moment started_mom_;
   Spanner *volta_span_p_;
@@ -133,7 +133,7 @@ Volta_engraver::process_music ()
   this could just as well be done in process_music (), but what the hack.
  */
 void
-Volta_engraver::create_grobs ()
+Volta_engraver::process_acknowledged_grobs ()
 {
   if (!volta_span_p_ && gh_string_p (start_str_))
     {

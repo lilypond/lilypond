@@ -27,7 +27,7 @@ class Chord_name_engraver : public Engraver
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info i);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual bool try_music (Music *);
 
 private:
@@ -85,7 +85,7 @@ Chord_name_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Chord_name_engraver::create_grobs ()
+Chord_name_engraver::process_acknowledged_grobs ()
 {
   if (!chord_name_p_ && ly_car (chord_) != SCM_EOL)
     {

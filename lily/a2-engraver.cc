@@ -23,7 +23,7 @@ class A2_engraver : public Engraver
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 private:
   Item* text_p_;
@@ -39,7 +39,7 @@ A2_engraver::A2_engraver ()
 }
 
 void
-A2_engraver::create_grobs ()
+A2_engraver::process_acknowledged_grobs ()
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;

@@ -39,7 +39,7 @@ public:
   virtual void process_music ();
 private:
   virtual void acknowledge_grobs ();
-  virtual void create_grobs_in_simple_children ();
+  virtual void process_acknowledged_grobs_in_simple_children ();
 };
 
 #endif // ENGRAVERGROUP_HH

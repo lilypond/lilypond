@@ -24,7 +24,7 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual Spanner* get_spanner_p () const;
   virtual void add_element (Grob*) ;
 public:  
@@ -99,7 +99,7 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
   cyclic parent relationship if we have two Axis_group_engravers in
   the context.  */
 void
-Axis_group_engraver::create_grobs ()
+Axis_group_engraver::process_acknowledged_grobs ()
 {
   /* UGH UGH UGH */
   for (int i=0; i < elts_.size (); i++)

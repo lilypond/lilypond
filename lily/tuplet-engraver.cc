@@ -36,7 +36,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*r);
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 };
 
 bool
@@ -63,7 +63,7 @@ Tuplet_engraver::try_music (Music *r)
 }
 
 void
-Tuplet_engraver::create_grobs ()
+Tuplet_engraver::process_acknowledged_grobs ()
 {
   SCM v = get_property ("tupletInvisible");
   if (to_boolean (v))

@@ -24,7 +24,7 @@ public:
   TRANSLATOR_DECLARATIONS(Script_column_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 };
@@ -67,7 +67,7 @@ Script_column_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-Script_column_engraver::create_grobs ()
+Script_column_engraver::process_acknowledged_grobs ()
 {
   if (!scol_p_ && script_l_arr_.size () > 1)
     {

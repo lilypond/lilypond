@@ -48,7 +48,7 @@ public:
 protected:
   virtual bool try_music (Music *req_l);
   virtual void process_music ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
@@ -102,7 +102,7 @@ Porrectus_engraver::acknowledge_grob (Grob_info info_l_)
 }
 
 void
-Porrectus_engraver::create_grobs ()
+Porrectus_engraver::process_acknowledged_grobs ()
 {
   if (porrectus_req_l_)
     {
