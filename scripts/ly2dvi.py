@@ -925,7 +925,7 @@ def writeLilylog(file,contents):
 def getTeXFile(contents):
     texfiles=[]
     for line in string.split(contents,'\n'):
-        m = re.search('^paper output to (.+)\.\.\.', line)
+        m = re.search('paper output to (.+)\.\.\.', line)
         if m:
             texfiles.append(m.group(1))
 
