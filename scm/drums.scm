@@ -1,4 +1,4 @@
-;;;; drum-"hack". See input/tricks/drums.ly and ly/drumpitch.ly
+;;;; drum-"hack". See input/test/drums.ly and ly/drumpitch.ly
 ;;;; 2001/03/25 Rune Zedeler <rune@zedeler.dk>
 
 ;;;; changed eval to ly-eval for guile 1.4/1.4.1 compatibility --jcn

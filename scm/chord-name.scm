@@ -60,21 +60,15 @@
 ;;;;;;;;;;
 
 
-(define (accidental->text acc)
+(define (accidental->textp acc pos)
   (if (= acc 0)
       '()
-       (list '(music (font-relative-size . -2))
-	     (string-append "accidentals-" (number->string acc)))))
+       (list (list '(music (font-relative-size . -2))
+	     `(,pos ,(string-append "accidentals-" (number->string acc)))))))
 
-(define (accidental->text-super acc)
-  (if (= acc 0)
-      '()
-      (cons 'super (list (accidental->text acc)))))
-
-(define (accidental->text-sub acc)
-  (if (= acc 0)
-      '()
-      (cons sub (list accidental->text acc))))
+(define (accidental->text acc) (accidental->textp acc 'rows))
+(define (accidental->text-super acc) (accidental->textp acc 'super))
+(define (accidental->text-sub acc) (accidental->textp acc 'sub))
 
 
 (define (pitch->note-name pitch)
@@ -87,7 +81,7 @@
 
 
 ;;; Hooks to override chord names and note names, 
-;;; see input/tricks/german-chords.ly
+;;; see ly/german-chords.ly
 
 (define (pitch->text-banter pitch)
   (pitch->text pitch))

@@ -9,32 +9,33 @@
 
 #(define german-Bb #f)
 
-#(define (pitch->chord-name-text-banter pitch)
-   (if (equal? (cdr pitch) '(6 -1))
-     (if german-Bb
-       (cons "B" (accidental->text -1))
-       '("B")
-     )
+#(define (pitch->chord-name-text-banter pitch steps)
+   (let ((dopitch (if (member (cdr pitch) '((6 -1) (6 -2)))
+		      (list 7 (+ (if german-Bb 0 1) (caddr pitch)))
+		      (cdr pitch)
+		 )))
      (cons
-       (list-ref '("C" "D" "E" "F" "G" "A" "H") (cadr pitch))
-       (accidental->text (caddr pitch))
+       (list-ref '("C" "D" "E" "F" "G" "A" "H" "B") (car dopitch))
+       (accidental->text-super (cadr dopitch))
      )
    )
  )   
 
 
 #(define (pitch->note-name-text-banter pitch)
-   (if (equal? (cdr pitch) '(6 -1))
-     '("b")
-     (cons
+   (let ((dopitch (if (member (cdr pitch) '((6 -1) (6 -2)))
+		     (list 7 (+ 1 (caddr pitch)))
+		     (cdr pitch)
+		 )))
+     (list
        (string-append
-	  (list-ref '("c" "d" "e" "f" "g" "a" "h") (cadr pitch))
-	  (if (or (equal? (cadr pitch) 2) (equal? (cadr pitch) 5))
-	    (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (caddr pitch)))
-	    (list-ref '("eses" "es" "" "is" "isis") (+ 2 (caddr pitch)))
+	  (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car dopitch))
+	  (if (or (equal? (car dopitch) 2) (equal? (car dopitch) 5))
+	    (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (cadr dopitch)))
+	    (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cadr dopitch)))
 	  )
        )
-       '()
      )
    )
  )
+
