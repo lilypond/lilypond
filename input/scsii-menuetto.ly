@@ -63,6 +63,7 @@ IImenuetto = \melodic{
 	\multi 2 <  
 		{\stemup a4~  d'4 cis'4-. }
 		{ \stemdown f2 e4 } > |
+	\stemboth
 %%12
 	< [ g'8^"4" d8 > f' e' f' d'^"3"~   c' ] |
 %%13
@@ -71,6 +72,7 @@ IImenuetto = \melodic{
 		 { \stemup bes2 c'4 }
 		 { \stemdown g4~  f4 e4 }% ugh
 	> |
+	\stemboth
 %%14
 	< [ a8 f8 > g8 a8 f8 ] < d'4-\upbow e4 'bes4 > |
 %%15
@@ -90,6 +92,7 @@ IImenuetto = \melodic{
 		{\stemup  d'4( \stemup )cis'4 d'4 }  
 		{ \stemdown g2 f4 }
 	> |
+	\stemboth
 %%22
 	< { [ g8 ~  f8 g8 e8 ] }  cis8  > < f4 d4 > |
 %%23
