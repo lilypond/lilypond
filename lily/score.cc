@@ -166,7 +166,7 @@ Score::add_output (Music_output_def *pap_p)
 
 IMPLEMENT_SMOBS (Score);
 IMPLEMENT_DEFAULT_EQUAL_P (Score);
-IMPLEMENT_UNSMOB (Score, score);
+
 
 SCM
 Score::mark_smob (SCM s)

@@ -1,3 +1,32 @@
+1.5.16.hjj2
+===========
+
+* Emacs-mode: Inserting tags
+
+* Enable python2.1/Python.h
+
+1.5.16.hwn1
+===========
+
+* Add unfold-repeats function (Rune Zedeler!) to standard init SCM file.
+
+* Bugfix: spacing is no longer confused by coupled clefs, where one of the
+clefs is loose, and the other not.
+
+* Robustness fix for Slur. Don't crash if attachment not set.
+
+* Arpeggios can now have arrows on the top or bottom to determine
+their direction. (MF code by Chris Jackson)
+
+* Symbol cache bugfix in system-start-delimiter.cc -- may switch
+symbol cache off for gcc 2.96?
+
+* MikTeX PDF detection bugfix (Mats Bengtsson)
+
+* Some more random hacking at midi2ly.py. (jcn1)
+
+* Inline unsmob_XXX functions.  Speedup of 6% on wtk1-fugue2.
+
 1.5.15.jcn1
 ===========
 

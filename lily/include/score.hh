@@ -37,5 +37,5 @@ public:
 private:
   void run_translator (Music_output_def*);
 };
-Score * unsmob_score (SCM); 
+DECLARE_UNSMOB(Score,score); 
 #endif

@@ -153,7 +153,7 @@ Scheme_hash_table::to_alist () const
 
 
 
-IMPLEMENT_UNSMOB (Scheme_hash_table,scheme_hash);
+
 IMPLEMENT_SMOBS (Scheme_hash_table);
 IMPLEMENT_DEFAULT_EQUAL_P (Scheme_hash_table);
 

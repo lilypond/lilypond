@@ -7,6 +7,9 @@ import string
 LINE_BELL = 60
 scale_steps = [0,2,4,5,7,9,11]
 
+whole_clocks = 1536
+quart_clocks = 0
+
 def split_track (track):
 	chs = {}
 	for i in range(16):
@@ -35,15 +38,15 @@ def split_track (track):
 
 
 class Note:
-	def __init__ (self, duration, pitch, velocity):
+	def __init__ (self, clocks, pitch, velocity):
 		self.velocity = velocity
 		self.pitch = pitch
-		self.duration = duration
+		self.clocks = clocks
 
-	def duration_compare (a, b):
-		if a.duration < b.duration:
+	def clocks_compare (a, b):
+		if a.clocks < b.clocks:
 			return -1
-		elif a.duration > b.duration:
+		elif a.clocks > b.clocks:
 			return 1
 		else:
 			return 0
@@ -53,40 +56,54 @@ class Note:
 
 class Time:
 	def __init__ (self, t, num, den):
-		self.duration = t
+		self.skip = t
 		self.num = num
 		self.den = den
+		self.clocks = 0
 		
 	def dump (self):
-		return dump_skip (self.duration) + '\\time %d/%d ' % (self.num, self.den)
+		s = ''
+		if self.skip:
+			s = dump_skip (self.skip)
+		s = s + '\n  '
+		return s  + '\\time %d/%d ' % (self.num, self.den) + '\n  '
 
 class Key:
 	key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
 	key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
 
 	def __init__ (self, t, sharps, flats, minor):
-		self.duration = t
+		self.skip = t
 		self.flats = flats
 		self.sharps = sharps
 		self.minor = minor
+		self.clocks = 0
 		
 	def dump (self):
+		s = ''
+		if self.skip:
+			s = dump_skip (self.skip)
+		s = s + '\n  '
 		if self.sharps and self.flats:
 			s = '\\keysignature %s ' % 'TODO'
 		elif self.sharps:
-			s = '\\notes\\key %s \major' % key_sharps[self.sharps]
+			s = '\\notes\\key %s \major' % self.key_sharps[self.sharps]
 		elif self.flats:
-			s = '\\notes\\key %s \major' % key_flats[self.flats]
-		return dump_skip (self.duration) + s
+			s = '\\notes\\key %s \major' % self.key_flats[self.flats]
+		return s + '\n  '
 
 
 class Text:
-	def __init__ (self, text):
+	def __init__ (self, t, text):
+		self.skip = t
 		self.text = text
-		self.duration = 0
-		
+		self.clocks = 0
+
 	def dump (self):
-		return dump_text (self)
+		s = ''
+		if self.skip:
+			s = dump_skip (self.skip)
+		return s + dump_text (self)
 
 def notes_on_channel (channel):
 	pitches = {}
@@ -103,7 +120,7 @@ def notes_on_channel (channel):
 				(lt, vel) = pitches[e[1][1]]
 				del pitches[e[1][1]]
 				
-				nch.append ((t, Note (t-lt, e[1][1], vel)))
+				nch.append ((lt, Note (t-lt, e[1][1], vel)))
 				
 			except KeyError:
 				pass
@@ -121,7 +138,7 @@ def notes_on_channel (channel):
 					flats = 256 - accidentals
 				nch.append ((t, Key (t, sharps, flats, minor)))
 			elif e[1][1] == midi.TEXT_EVENT:
-				nch.append ((t, Text (e[1][2])))
+				nch.append ((t, Text (t, e[1][2])))
 			else:
 				sys.stderr.write ("SKIP: %s\n" % `e`)
 				pass
@@ -140,11 +157,11 @@ def unthread_notes (channel):
 		todo = []
 		for e in channel:
 			t = e[0]
-			if e[1].__class__ == Note and ((t == start_busy_t and e[1].duration + t == end_busy_t) \
+			if e[1].__class__ == Note and ((t == start_busy_t and e[1].clocks + t == end_busy_t) \
 			    or t >= end_busy_t):
 				thread.append (e)
 				start_busy_t = t
-				end_busy_t = t + e[1].duration
+				end_busy_t = t + e[1].clocks
 			elif e[1].__class__ == Time or e[1].__class__ == Key or e[1].__class__ == Text:
 				thread.append (e)
 			else:
@@ -164,20 +181,18 @@ def gcd (a,b):
 		b = c
 	return a
 	
-def dump_skip (dt):
-	return 's' + dump_duration (dt)
+def dump_skip (clocks):
+	return 's' + dump_duration (clocks) + ' '
 
-def dump_duration (dur):
-	g = gcd (dur, 384)
-	s = '4'
-	(p,q) = (dur / g, 384 / g)
-	if (p == 1 and q == 1) :
-		pass
+def dump_duration (clocks):
+	g = gcd (clocks, whole_clocks)
+	(d, n) = (whole_clocks/ g, clocks / g)
+	if n == 1:
+		s = '%d' % d
+	elif n == 3 and d != 1:
+		s = '%d.' % (d / 2)
 	else:
-		if p <> 1:	
-			s = s + '*%d'% p
-		if q <> 1:
-			s = s + '*%d'% q
+		s = '%d*%d' % (d, n)
 	return s
 	
 def dump_note (note):
@@ -196,7 +211,7 @@ def dump_note (note):
 	if scale_steps[i] <> step:
 		str = str + 'is'
 
-	return ' %s' % str + dump_duration (note.duration)
+	return str + dump_duration (note.clocks) + ' '
 
 def dump (self):
 	return self.dump ()
@@ -245,7 +260,7 @@ def dump_channel (thread):
 			
 		lines[-1] = lines[-1] + dump_chord (ch[1])
 
-		last_t = t + ch[1][0].duration
+		last_t = t + ch[1][0].clocks
 
 	return string.join (lines, '\n  ') + '\n'
 
@@ -286,9 +301,13 @@ def dump_track (channels, n):
 			
 	
 def convert_midi (f):
+	global whole_clocks, quart_clocks
+
 	str = open (f).read ()
 	midi_dump = midi.parse (str)
 
+	whole_clocks = midi_dump[0][1]
+	quart_clocks = whole_clocks / 4
 
 	tracks = []
 	for t in midi_dump[1]:

@@ -68,7 +68,7 @@ protected:
 };
 
 
-Music * unsmob_music (SCM);
+DECLARE_UNSMOB(Music,music);
 #endif // MUSIC_HH
 
 

@@ -141,7 +141,7 @@ Grob::get_grob_property (SCM sym) const
 
 /*
   Remove the value associated with KEY, and return it. The result is
-  that a next call will yield SCM_UNDEFINED (and not the underlying
+  that a next call will yield SCM_EOL (and not the underlying
   `basic' property.
 */
 SCM
@@ -768,7 +768,7 @@ Grob::fixup_refpoint (SCM smob)
  ****************************************************/
 
 
-IMPLEMENT_UNSMOB (Grob, grob);
+
 IMPLEMENT_SMOBS (Grob);
 IMPLEMENT_DEFAULT_EQUAL_P (Grob);
 

@@ -64,7 +64,7 @@ private:
 
 };
 
-Translator_def* unsmob_translator_def (SCM);
+DECLARE_UNSMOB(Translator_def,translator_def);
 
 
 #endif /* TRANSLATOR_DEF_HH */

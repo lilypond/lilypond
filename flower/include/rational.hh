@@ -59,8 +59,10 @@ public:
   Rational (int, int);
   Rational (double);
   Rational (Rational const&r) {   copy (r);}
+  Rational &operator = (Rational const &r) {
+    copy (r); return *this;
+  }
 
-  Rational &operator = (Rational const &);
   Rational &operator *= (Rational);
   Rational &operator /= (Rational);  
   Rational &operator += (Rational);

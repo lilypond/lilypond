@@ -80,7 +80,6 @@ Duration::str () const
 
 
 IMPLEMENT_TYPE_P (Duration, "duration?");
-IMPLEMENT_UNSMOB (Duration, duration);
 
 SCM
 Duration::mark_smob (SCM)

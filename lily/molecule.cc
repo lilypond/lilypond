@@ -268,4 +268,4 @@ Molecule::mark_smob (SCM s)
 
 IMPLEMENT_TYPE_P (Molecule, "molecule?");
 IMPLEMENT_DEFAULT_EQUAL_P (Molecule);
-IMPLEMENT_UNSMOB (Molecule, molecule);
+

@@ -110,7 +110,12 @@ private:\
 	static int print_smob (SCM s, SCM p, scm_print_state*);	\
 public: \
 	static SCM equal_p (SCM a, SCM b);\
-	static CL * unsmob (SCM);\
+	static CL * unsmob (SCM s){\
+  if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
+    return (CL*) SCM_CELL_WORD_1 (s);				\
+  else								\
+    return 0;							\
+}								\
 	static SCM smob_p (SCM);\
 	static void init_smobs ();				\
 private:
@@ -127,6 +132,14 @@ private: \
 public: \
 	SCM self_scm () const { return self_scm_; } \
 private:
+
+#define DECLARE_UNSMOB(CL,name) \
+inline CL *						\
+unsmob_ ## name (SCM s)			\
+{						\
+return  CL::unsmob (s);				\
+}
+
 
 
 #endif /* SMOBS_HH */

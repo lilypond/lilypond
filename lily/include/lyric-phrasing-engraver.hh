@@ -118,7 +118,7 @@ private:
   DECLARE_SIMPLE_SMOBS (Syllable_group,);
 } ;
 
-Syllable_group * unsmob_voice_entry (SCM);
+DECLARE_UNSMOB(Syllable_group,voice_entry);
 
 
 #endif // LYRIC_PHRASING_ENGRAVER_HH

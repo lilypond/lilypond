@@ -13,13 +13,6 @@
 #include "smobs.hh"
 
 
-#define IMPLEMENT_UNSMOB(CL, name)		\
-CL *						\
-unsmob_ ## name ( SCM s)			\
-{						\
-return  CL::unsmob (s);				\
-}
-
 #define IMPLEMENT_TYPE_P(CL, FUNCNAME)\
 void init_type_p_ ## CL ()\
 {\
@@ -63,14 +56,6 @@ SCM CL::smobbed_self () const					\
   scm_done_malloc (sizeof (CL));				\
 								\
   return s;							\
-}								\
-CL *								\
-CL::unsmob (SCM s)						\
-{								\
-  if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
-    return (CL*) SCM_CELL_WORD_1 (s);				\
-  else								\
-    return 0;							\
 }								\
 size_t  							\
 CL::free_smob (SCM ses)						\

@@ -207,6 +207,6 @@ Translator::static_translator_description ()const
   return SCM_EOL;
 }
 
-IMPLEMENT_UNSMOB (Translator, translator);
+
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);

@@ -174,7 +174,7 @@ public:
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 
-Grob * unsmob_grob (SCM);
+DECLARE_UNSMOB(Grob,grob);
 
 #endif // STAFFELEM_HH
 

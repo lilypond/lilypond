@@ -58,7 +58,7 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
 ostream & operator << ( ostream &,Moment const &);
 
-Moment * unsmob_moment (SCM);
+DECLARE_UNSMOB(Moment,moment);
 int compare (Moment const&,Moment const&);
 INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
