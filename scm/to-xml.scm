@@ -1,6 +1,33 @@
+(use-modules (ice-9 regex))
+"
 
-# as computed from input/trip.ly, by
-# http://www.pault.com/pault/dtdgenerator/
+
+Todo: this is a quick hack; it makes more sense to define a GOOPS
+class of a documentnode (similar to how
+; the documentation is generated.)
+
+That is much cleaner: building the document, and dumping it to output
+is then separated.
+
+"
+
+
+(define (dtd-header)
+  (string-append
+   "<?xml version=\"1.0\"?>
+<!DOCTYPE MUSIC ["
+   preliminary-dtd
+   "
+]>
+
+"))
+  
+ 
+;; as computed from input/trip.ly, by
+;; http://www.pault.com/pault/dtdgenerator/
+
+;; must recompute with larger, more serious piece, and probably
+;; manually add stuff
 (define preliminary-dtd
   "
 <!ELEMENT duration EMPTY >
@@ -43,18 +70,6 @@
 
 
 
-(use-modules (ice-9 regex))
-"
-
-
-Todo: this is a quick hack; it makes more sense to define a GOOPS
-class of a documentnode (similar to how
-; the documentation is generated.)
-
-That is much cleaner: building the document, and dumping it to output
-is then separated.
-
-"
 
 (define (dump-duration d port)
  (display (open-tag 'duration
@@ -159,6 +174,7 @@ is then separated.
    
 (define-public (music-to-xml music port)
   "Dump XML-ish stuff to PORT."
+  (display (dtd-header) port)
   (display (open-tag 'music '((type . score)) '()) port)
   (music-to-xml-helper music port)
   (display (close-tag 'music) port))

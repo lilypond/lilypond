@@ -1,7 +1,7 @@
 2002-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/to-xml.scm: Fixes.  input/trip.ly now parses as xml (without
-	dtd).
+	dtd).  Add preliminary dtd.
 
 2002-09-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
