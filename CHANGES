@@ -1,9 +1,58 @@
-1.3.142.hwn2
+1.3.143.jcn3
 ============
+
+* LilyPond-mode: show what's going on (font building) in *view* buffer.
+
+* Added environment settings to ly2dvi and lilypond-book.
+
+* Bugfix: make diff links diff into patch-dir, like make release.
+
+* Bugfix: make diff/release for different configs.
+
+* Bugfix: convert-ly: don't change item name ChordName to ChordNames.
+
+* Added flag (LilyPond-kick-xdvi) to LilyPond emacs mode to allow
+simultaneous view processes.
+
+* Small doco fixes.
+
+* Cosmetic bugfixes to chord names.
+
+* Fixed order of piano pedal strings (Amelie).
+
+* Changed embarrassing 'chorda' to corda (Thanks, Amelie).
+
+* Bugfixes: ly2dvi: empty tagline, don't fail if gettext.py can't be
+imported, check for linewidth before indexing, copy midi output.
+
+1.3.142.rz1
+===========
+
+* Added "hacky" drum notation/midi. See input/tricks/drums.ly and
+  ly/drumpitch.ly. Moved midi-instruments to scm.
+
+* Added temporary nested staffgroups/choirstaffs support
+  use Context InnerStaffGroup / InnerChoirStaff.
+
+1.3.143.uu1
+===========
+
+* Bugfix: hairpin that hangs on otherwise empty column should not
+collapse into flat line. Inserted sanity check in Interval::center().
+
+* Programmable stem-attachments for note heads.
+
+* Set default empty instrument name for Staff, to avoid weird effects for
+named grand staffs.
+
+* remove various entries from mutopia/
+
+1.3.143
+=======
 
 * Glossary bugfixes for lilypond code.
 
-* Bugfix: don't crash if dy or y not set.
+* Bugfix: don't crash if dy or y not set in Beam.
 
 * Doco updates: moved contents of tricks chapter to input/tricks,
 inserted lilypond-book tutorial, added polyphony section.
@@ -64,7 +113,7 @@ from the font (WARNING: FONT CHANGED).
 
 * Cleanups in (de)crescendo code, fixed continued (de)crescendi.
 
-* German chords (Rune Zedler)
+* German chords (Rune Zedeler)
 
 1.3.141
 =======
@@ -132,6 +181,8 @@ Slur::set_spacing_rods into Spanner::set_spacing_rods
 
 1.3.140
 =======
+ 
+
 
 1.3.139.jcn5
 ============

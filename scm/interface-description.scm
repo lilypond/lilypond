@@ -124,7 +124,6 @@
    thickness 
    beamed-lengths 
    beamed-minimum-lengths 
-   stem-centered 
    lengths 
    beam 
    stem-shorten 
@@ -216,17 +215,13 @@ object."
 (lily-interface
  'note-head-interface
  "Note head"
- '(
-   style attachment-slope note-character
-	 ))
+ '( style stem-attachment-function note-character ))
 
 
 (lily-interface
  'note-name-interface
  "Note name"
- '(
-   style 
-      ))
+ '( style ))
 
 
 

@@ -820,9 +820,11 @@ note they contain. For a beam ending rule that only applies to beams
 with 32nd notes (and no shorter notes), you would use @code{(end * * 1
 32)}.
 
-[say something about irregular meters. eg 5/8 = 2+3/8, 3+2/8] 
+@c not true
+@c Automatic beams can not be put on the last note in a score.
 
-Automatic beams can not be put on the last note in a score.
+If a score ends while an automatic beam has not been ended and is still
+accepting notes, this last beam will not be typeset at all.
 
 @cindex automatic beam generation
 @cindex autobeam
@@ -834,15 +836,19 @@ a melody that goes with lyrics.
 
 @refbugs
 
-It is not possible to specify beaming for beams with mixed durations,
-that differs from the beaming of all separate durations, ie, you'll
-have to specify manual beams to get:
+It is not possible to specify beaming parameters for beams with mixed
+durations, that differ from the beaming parameters of all separate
+durations, ie, you'll have to specify manual beams to get:
 @lilypond[fragment,singleline,relative]
   \property Voice.autoBeamSettings
-    \override #'(end * * * *) = #(make-moment 3 8)
-  \time 12/8; c'8 c c  c16 c c c c c  [c c c c] c8 c  c4
+  \override #'(end * * * *) = #(make-moment 3 8)
+  \time 12/8; c'8 c c c16 c c c c c [c c c c] c8 c c4
 @end lilypond
 
+It is not possible to specify beaming parameters that act differently in
+different parts of a measure, eg, in irregular meters such as @code{5/8}
+that breaks down to @code{2/8 +3/8} or @code{3/8 + 2/8}, automatic beams
+won't act according to the broken down parts @code{2/8} and @code{3/8}.
 
 @c .    {Manual beams}
 @cindex Automatic beams
@@ -1379,13 +1385,6 @@ is an example how to do it:
 @end lilypond
 
 
-@refbugs
-
-When using spacer notes to subdivide note dynamics and @code{linewidth =
--1}, starting a hairpin on the first spacer note (the one coinciding
-with the real note) exposes an embarassing bug.
-
-
 
 @c .  {Repeats}
 @node Repeats
@@ -1695,11 +1694,11 @@ context which is a direct child of the a context of type
 @cindex Pedals
 
 Piano pedal instruction can be expressed using 
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaChorda},
-@code{\treChorde}, @code{\sostenutoDown} and @code{\sostenutoUp}.
+@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
+@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp}.
 
 These identifiers are shorthands for spanner commands of the types
-@code{Sustain}, @code{UnaChorda} and @code{Sostenuto}:
+@code{Sustain}, @code{UnaCorda} and @code{Sostenuto}:
 
 @lilypond[fragment,verbatim]
 c''4 \spanrequest \start "Sustain" c''4 c''4 \spanrequest \stop "Sustain"
@@ -2159,10 +2158,8 @@ scheme = \chords {
 
 LilyPond examines chords specified as lists of notes to determine a name
 to give the chord. LilyPond will not try to identify chord inversions or
-added base, which may result in strange chord names when chords are
-entered as a list of pitches:
-
-[base vs. bass ?]
+an added bass note, which may result in strange chord names when chords
+are entered as a list of pitches:
 
 @lilypond[verbatim,center,singleline]
 scheme = \notes {
@@ -2189,9 +2186,33 @@ chordnames.
 
 Routines that determine the names to be printed are written in Scheme,
 and may be customized by the user.  The code can be found in
-@file{scm/chord-name.scm}.
+@file{scm/chord-name.scm}.  Here's an example showing the differences in
+chord name styles:
 
-[3 short examples showing differences between american, banter and jazz]
+@c too long?
+@c maybe just junk verbatim option?
+@lilypond[verbatim,singleline]
+scheme = \chords {
+  c1 c:5^3 c:4^3 c:5+
+  c:m7+ c:m5-.7
+  c:5-.7 c:5+.7
+  c:9^7
+}
+
+\score {
+  \notes <
+    \context ChordNames = banter \scheme
+    \context ChordNames = american {
+      \property ChordNames.ChordName \override
+        #'style = #'american \scheme }
+    \context ChordNames = jazz {
+      \property ChordNames.ChordName \override
+        #'style = #'jazz \scheme }
+    \context Staff \transpose c'' \scheme
+  >
+}
+@end lilypond
+
 
 @node Writing parts
 @section Writing parts
@@ -2272,7 +2293,8 @@ used, for the next ones @code{instr} is used.
 @end lilypond
 
 This requires  that you add the @code{Instrument_name_engraver} to the
-staff context. You can also  use markup texts:
+staff context. You can also  use markup texts to construct more
+complicated instrument names:
 
 
 @lilypond[verbatim,singleline]
@@ -2288,6 +2310,14 @@ staff context. You can also  use markup texts:
     \consists "Instrument_name_engraver"; } } }
 @end lilypond
 
+
+@refbugs
+
+When you put a name on a grand staff or piano staff (By adding an
+@code{Instrument_name_engraver} to that context and setting
+e.g. @code{\property GrandStaff.instrument}), the width of the brace is
+not taken into account. You must add extra spaces to the end of the name
+to avoid a collision.
 
 @node Transpose
 @subsection Transpose
@@ -2381,10 +2411,8 @@ The syntax for part combining is
 @end example
 
 where the pieces of music @var{musicexpr1} and @var{musicexpr2} will be
-combined into one context @var{context}.  The names of the music
+combined into one context @var{context}.  The context names of the music
 expressions must start with the prefixes @code{one} and @code{two}.
-
-[Name of music expressions?  is that context name? ]
 
 The most useful function of the part combiner to combining threads into
 one voice, as common for wind parts in orchestral scores:
@@ -2567,6 +2595,7 @@ grob property.
 * What to tune?::               
 * Font selection::              
 * Text markup::                 
+* Embedded @TeX{}::             
 @end menu
 
 @node Tuning groups of grobs 
@@ -2948,6 +2977,42 @@ marking:
 }
 @end lilypond
 
+@node Embedded @TeX{}
+@subsection Embeded @TeX{}
+@cindex embedded tex
+@cindex embedded tex
+
+You can use @TeX{} commands in text scripts, but this should be avoided
+because this makes it impossible for LilyPond to compute the exact
+length of the string, which may lead to collisions.  Also, @TeX{}
+commands won't work with direct PostScript output.
+
+@lilypond[fragment,relative,verbatim]
+  a''^"3 $\\times$ \\`a deux"
+@end lilypond
+
+@subsection Embedded PostScript
+@cindex embedded postscript
+@cindex embedded postscript
+
+You can also use raw PostScript commands embedded in text scripts.  This
+offers ultimate flexibitily, but you'll have to learn the arcane
+PostScript language.  Currently, embedded PostScript will @strong{not}
+work with direct PostScript output.  Note that all dimensions that you
+use are in @code{staff-space}s.
+
+@lilypond[verbatim]
+\score {
+  \notes \relative c'' {
+    a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"
+    -#"\\embeddedps{ [ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke}"
+    b-#"\\embeddedps{3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke}"
+    s2
+    a'1
+  }
+  \paper { linewidth = 70 * \staffspace; }
+}
+@end lilypond
 
 
 @c . {Page layout}
@@ -3175,13 +3240,25 @@ details, see the example file @file{input/test/between-systems.ly}
 @cindex Sound
 
 LilyPond can produce MIDI output.  The performance lacks lots of
-interesting effects, such as swing, articulation, slurring, tieing,
-etc., but it is good enough for proof-hearing the music you enter.
+interesting effects, such as swing, articulation, slurring, etc., but it
+is good enough for proof-hearing the music you have entered.  Ties,
+dynamics and tempo changes are interpreted.
 
-Dynamics and tempo changes are interpreted.
+The MIDI volume is composed of two elements: the current dynamics of the
+voice and the type of musical instrument.
 
-[TODO: mention volume control/Instrument Equaliser]
+Dynamic marks, crescendi and decrescendi translate into MIDI volume
+levels.  Dynamic marks translate to a fixed fraction of the available
+MIDI volume range, crescendi and decrescendi make the the volume vary
+linearly between their two extremities.  The fractions be adjusted by
+overriding the @code{absolute-volume-alist} defined in
+@file{scm/midi.scm}.
 
+For each type of musical instrument (that MIDI supports), a volume range
+can be defined.  This gives you basic equaliser control, which can
+enhance the quality of the MIDI output remarkably.  You can add
+instruments and ranges or change the default settings by overriding
+the @code{instrument-equaliser-alist} defined in @file{scm/midi.scm}.
 
 @refbugs
 
@@ -3363,7 +3440,6 @@ Xdvi} version 22.36 or newer.
   are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
 @item emacs
 @end itemize
-
 
 Add one these lines to the top of your .ly file. The first one is for
 line location only. The second one is more convenient, but requires

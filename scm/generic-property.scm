@@ -39,7 +39,6 @@
 	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'stemLength number? 'length)
 	 (list 'flagStyle string? 'flag-style)
-	 (list 'stemCentered boolean? 'stem-centered)
 	 (list 'noStemExtend boolean? 'no-stem-extend)
 	 (list 'stemShorten number? 'shorten)
 	 ))

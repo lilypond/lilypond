@@ -23,7 +23,9 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{rest-ledger.ly}
 
-@lilypondfile[printfilename]{noteheadstyle.ly}
+@lilypondfile[printfilename]{note-head-style.ly}
+
+@lilypondfile[printfilename]{mensural.ly}
 
 @lilypondfile[printfilename]{easy-notation.ly}
 
@@ -157,6 +159,8 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{lyric-combine.ly}
 
 @lilypondfile[printfilename]{lyrics-multi-stanza.ly}
+
+@lilypondfile[printfilename]{lyric-phrasing.ly}
 
 
 
