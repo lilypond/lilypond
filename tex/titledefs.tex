@@ -14,7 +14,7 @@
 \def\theinstrument{}
 \def\theopus{}
 \def\thepiece{}
-\def\themetre{}
+\def\themeter{}
 \def\thepoet{}
 %
 % duh.  LaTeX has a \title too.
@@ -25,7 +25,7 @@
 \newcommand*{\instrument}[1]{\def\theinstrument{#1}}
 \newcommand*{\opus}[1]{\def\theopus{#1}}
 \newcommand*{\piece}[1]{\def\thepiece{#1}}
-\newcommand*{\metre}[1]{\def\themetre{#1}}
+\newcommand*{\meter}[1]{\def\themeter{#1}}
 \newcommand*{\poet}[1]{\def\thepoet{#1}}
 %
 \newcommand*{\mudelatitle}[1]{\def\thetitle{#1}}
@@ -35,8 +35,8 @@
 \newcommand*{\mudelainstrument}[1]{\def\theinstrument{#1}}
 \newcommand*{\mudelaopus}[1]{\def\theopus{#1}}
 \newcommand*{\mudelapiece}[1]{\def\thepiece{#1}}
-\newcommand*{\mudelametre}[1]{\def\themetre{#1}}
-\newcommand*{\mudelameter}[1]{\def\themetre{#1}}
+\newcommand*{\mudelametre}[1]{\def\themeter{#1}}
+\newcommand*{\mudelameter}[1]{\def\themeter{#1}}
 \newcommand*{\mudelapoet}[1]{\def\thepoet{#1}}
 %
 %
@@ -53,7 +53,7 @@
   \edef\saveparskip{\parskip}\parskip-5mm
   \begin{minipage}[t]{0.45\textwidth}
         \ifx\mudelanull\thepoet\else{\thepoet}\\ \fi
-        \ifx\mudelanull\themetre\else{\themetre}\\ \fi
+        \ifx\mudelanull\themeter\else{\themeter}\\ \fi
   \end{minipage}\hspace*{\fill}
   \begin{minipage}[t]{0.45\textwidth}
       \begin{flushright}
