@@ -170,7 +170,7 @@ String::index_last_i (char const c) const
     return -1;
 
   char const* me = strh_.ch_C();
-  char const* p = memrchr (me, length_i(), c);
+  char const* p = memrchr ((Byte*)me, length_i(), c);
   if (p)
     return p - me;
   return -1;
@@ -216,7 +216,7 @@ String::index_i (char c) const
 }
 
 /**
-  find the substring.
+  find a substring.
 
   @return
 1  index of leftmost occurrence of #searchfor#
@@ -225,8 +225,9 @@ int
 String::index_i (String searchfor) const
 {
   char const* me = strh_.ch_C();
-  char const* p = (char const *) memmem (
-					 me, length_i(), searchfor.ch_C(), searchfor.length_i ());
+
+  char const* p =     (char const *) 
+    memmem (me, length_i(), searchfor.ch_C(), searchfor.length_i ());
   
   if (p)
     return p - me;
@@ -368,5 +369,4 @@ String::value_f() const
 {
   return String_convert::dec2_f (*this);
 }
-
 
