@@ -109,7 +109,7 @@ static Long_option_init options_static[] = {
   {_i ("EXPR"), "evaluate", 'e',_i ("Scheme options: try -e \"(set-lily-option 'help 0)\" for more help.")},
   /* another bug in option parser: --output=foe is taken as an abbreviation
      for --output-format */
-  {_i ("EXT"), "format", 'f',  _i ("use output format EXT (tex [default], pdftex, ps, scm or as)")},
+  {_i ("EXT"), "format", 'f',  _i ("use output format EXT")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -462,7 +462,14 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'f':
-	    output_format_global = oparser_p_static->optional_argument_ch_C_;
+	  if (output_name_global == "help")
+	    {
+	      cout << \
+		"See http://lilypond.org/wiki?OutputFormats for more information.\n"\
+		"This option is for developers only.\n";
+	      exit (0);
+	    }
+	  output_format_global = oparser_p_static->optional_argument_ch_C_;
 	  break;
 	case 'P':
 	    dependency_prefix_global = oparser_p_static->optional_argument_ch_C_;

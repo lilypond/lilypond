@@ -119,9 +119,6 @@ Add a ref if REF is set
    (texi-menu items-alist)))
 
 
-(define (pad-string-to str wid)
-  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
-  )
 
 (define (texi-file-head name file-name top items-alist)
 

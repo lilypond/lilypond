@@ -128,26 +128,33 @@
 
 (define output-alist
   `(
-    ("tex" . ,tex-output-expression)
-    ("ps" . ,ps-output-expression)
-    ("scm" . ,write)
-    ("as" . ,as-output-expression)
-;    ("pysk" . ,pysk-output-expression)
-    ("sketch" . ,sketch-output-expression)
-    ("pdftex" . ,pdftex-output-expression)
-))
+    ("tex" . ("TeX output. The default output form." ,tex-output-expression))
+    ("ps" . ("Direct postscript. Requires setting GS_LIB and GS_FONTPATH" ,ps-output-expression))
+    ("scm" . ("Scheme dump: debug scheme molecule expressions" ,write))
+    ("as" . ("Asci-script. Postprocess with as2txt to get ascii art"  ,as-output-expression))
+    ("sketch" . ("Bare bones Sketch output. Requires sketch 0.7" ,sketch-output-expression))
+    ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))
+    ))
 
+(define (pad-string-to str wid)
+  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
+  )
+
+(define (document-format-dumpers)
+  (map
+   (lambda (x)
+     (display (string-append  (pad-string-to 5 (car x)) (cadr x) "\n"))
+     output-alist)
+   ))
 
 (define (find-dumper format )
   (let*
       ((d (assoc format output-alist)))
     
-    (if (pair?  d)
-		(cdr d)
-	     scm-output-expression)
-	    ))
-
-
+    (if (pair? d)
+	(caddr d)
+	(scm-error "Could not find dumper for format ~s" format))
+    ))
 
 (define X 0)
 (define Y 1)

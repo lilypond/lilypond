@@ -1,4 +1,12 @@
+2002-07-26  Han-Wen  <hanwen@cs.uu.nl>
+
+	* Documentation/user/internals.itely: move output-formats doco to
+	WikiWiki.
+	
+
 2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
+	
+	* po/fr.po: update from TP
 
 	* input/template/GNUmakefile (TITLE): add lysdoc target for the
 	templates

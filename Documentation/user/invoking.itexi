@@ -58,6 +58,11 @@ output, to be processed with plain @TeX{}, or through ly2dvi),
 @code{scm} (for a Scheme dump), @code{sk} (for Sketch) and @code{as}
 (for ASCII-art).
 
+@strong{This option is only for developers}. Only the @TeX{} output of
+these is usable for real work. More information can be found at
+@uref{http://lilypond.org/wiki?OutputFormats}.
+
+
 @cindex output format, setting
 @cindex Sketch output
 @cindex ASCII-art output
@@ -65,8 +70,6 @@ output, to be processed with plain @TeX{}, or through ly2dvi),
 @cindex PostScript output
 @cindex Scheme dump
 
-Unless you have special requirements, you should use @TeX{}
-output. All other options are experimental.
 @item -h,--help
 Show a summary of usage.
 @item --include, -I=@var{directory}
