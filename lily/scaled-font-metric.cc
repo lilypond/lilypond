@@ -60,7 +60,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       /*
 	TODO: use alist
        */
-      coding_permutation_ = scm_vector (coding_description_);
+      coding_description_ = scm_vector (coding_description_);
     } 
   
 }
