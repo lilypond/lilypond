@@ -16,6 +16,11 @@ if you have downloaded a
 
 version, then this is version is *not* meant for producing nice output
 (but to keep your patchsets up to date).  It might not even compile.
+The same goes for a version with a 4th version number, eg
+
+	1.2.3.mypatch2
+
+It will be safer if you download 1.2.3 or wait for 1.2.4.
 
 2: REQUIREMENTS
 
@@ -61,7 +66,7 @@ and not to us personally.  See Documentation/links.yo for more info.
 If you have received this file as part of a DOS/Window32 distribution
 (lilypond-*.zip), then it is advisable to also download the source
 package, since it might contain more documentation
-ftp://pcnov095.win.tue.nl/pub/lilypond/
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
 
 If you decide to build LilyPond from source, please read the INSTALL.txt
 document first, especially the Windows NT/95 section.

@@ -1,22 +1,15 @@
 Begin3
 Titel: LilyPond
-Versie: 1.0.3
-Inschrijf datum: 19AUG98
-Beschrijving: 
-LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt
-prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan
-het een mechanische uitvoering afspelen naar een MIDI bestand.
-Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten,
-sleutels, toonaarden, zangteksten, krachtige invoer taal, cadensa,
-balken, boogjes, triolen, partituren, en uittreksels voor individuele 
-partijen.  Een fraaie set muziektekens is inbegrepen.
+Versie: 1.0.4
+Inschrijf datum: 24AUG98
+Beschrijving: @FLAPTEKST@
 Trefwoorden: muziek typezetten midi notatie
 Auteur: hanwen@stack.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Onderhouden door: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Voornaamste plek: sunsite.unc.edu /pub/Linux/apps
-	770k lilypond-1.0.3.tar.gz 
+	770k lilypond-1.0.4.tar.gz 
 Oorspronkelijke plek: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
-	770k lilypond-1.0.3.tar.gz 
+	770k lilypond-1.0.4.tar.gz 
 Copi-eer voorwaarden: GPL
 End

@@ -1,0 +1,127 @@
+mailto(daboys@bga.com)
+article(LilyPond Windows NT 4.0 Distribution)(nemail(Jeffrey B. Reed)(daboys@bga.com))(label(contents))
+sect(Windows NT Distribution)
+
+subsect(Introduction) label(introduction)
+
+This web page is dedicated to the distrubution of LilyPond for Windows
+NT 4.0. This package is covered under the GNU General Public License
+and all of the source and documentation are available on the official
+url(LilyPond
+Homepage)(http://www.cs.ruu.nl/people/hanwen/lilypond/index.html).
+
+LilyPond is the GNU Project music typesetter. This program can print
+beautiful sheet music from a music definition file. It can also play
+mechanical performances to a MIDI file. Features include multiple
+staffs, meters, clefs, keys, lyrics, versatile input language,
+cadenzas, beams, slurs, triplets, formatting scores, part
+extraction. It includes a nice font of musical symbols.
+
+link(Back to top)(contents)
+clearpage()
+
+
+subsect(NEWS) label(news)
+
+Version 1.0.3 is available
+
+link(Back to top)(contents)
+clearpage()
+
+
+subsect(Required packages) label(packages)
+
+LilyPond uses the code(TeX) package as its rendering engine. code(TeX)
+represents the state-of-the-art in computer typesetting. It is used to
+generate documentation, article, and book quality output. It is an
+assume tool to have in your toolbox.
+
+LilyPond uses a code(Python) script named code(ly2dvi) to render a
+professional quality music score. code(Python) is an interpreted,
+interactive, object-oriented programming language.  It is often
+compared to code(Tcl), code(Perl), code(Scheme) or code(Java).
+
+itemize(
+    it()url(code(MiKTeX))(http://www.snafu.de/~cschenk/miktex/)
+    it()url(code(Python))(http://www.python.org)
+)
+
+link(Back to top)(contents)
+clearpage()
+
+
+subsect(Download) label(download)
+
+itemize(
+    it()lurl(lilypond-1.0.3.zip)
+)
+
+link(Back to top)(contents)
+clearpage()
+
+
+subsect(Installation) label(installation)
+
+itemize(
+  it()link(Download)(download) the distribution.
+  it()unzip
+  it()Set your path variable for lilypond and TeX 
+  description(
+    dit(batch file)
+      In a batch file you can add the following entry: nl()
+      bf(set path=%path%em(LilyPond-dir)\bin;em(MiKTeX-dir)\miktex\bin)
+    dit(Windows Environment)
+      In the Windows environment you can select
+      properties menu of the My Computer icon. Click on
+      the environment tag and add the following to the user
+      variables path entry. nl()
+      bf(em(LilyPond-dir)\bin;em(MiKTeX-dir)\miktex\bin)
+   ) nl()
+   it() The first installation of LilyPond also requires these
+        additional steps:
+     description(
+       dit(LaTeX geometry package)
+       itemize(
+         it()url(download)(ftp://ctan.tug.org/tex-archive/macros/latex/contrib/supported/geometry.zip) the zip file to code(\Temp).
+         it()Extract the zip file into the LaTeX package area of
+             code(MiKTeX). This will be bf(em(MiKTeX-dir)\tex\latex)
+         it()From a Command Prompt change directory into geometry
+             directory that was just extracted.
+         it()In the geometry directory type bf(latex geometry.ins)
+       ) nl()
+       dit(Miscellaneous fonts)
+       itemize(
+         it()In your favorite editor create a file named
+             code(cmbx14.mf). Add the following lines: nl()
+             bf(design_size=14.4; ) nl()
+             bf(input b-cmbx;)
+         it()From a Command Prompt copy cmbx14.mf to the public font
+             area of MiKTeX: nl()
+             bf(copy cmbx14.mf em(MiKTeX-dir)\fonts\source\public\cm\base)
+        )
+      ) nl()
+  it()See the link(Running)(running) instructions below
+)
+
+link(Back to top)(contents)
+clearpage()
+
+
+subsect(Running LilyPond) label(running)
+link(Back to top)(contents)
+clearpage()
+
+subsect(LilyPond resources) label(resources)
+
+itemize(
+  it()url(LilyPond Homepage)
+	(http://www.cs.ruu.nl/people/hanwen/lilypond/index.html)
+  it()url(LilyPond Ftp Site)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/)
+  it()url(gnu-music-discuss mail archive)
+	(http://jab.org/mail/gnu-music-discuss@gnu.org/)
+  it()Please feel free to mail us at url(gnu-music-discuss)
+	(mailto:gnu-music-discuss@gnu.org)
+)
+
+link(Back to top)(contents)
+clearpage()

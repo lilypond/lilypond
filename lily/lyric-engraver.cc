@@ -44,6 +44,11 @@ Lyric_engraver::do_process_requests()
 	{
 	  td_p->style_str_ = style;
 	}
+      Scalar alignment = get_property ("textalignment");
+      if (alignment.isnum_b())
+	{
+	  td_p->align_dir_= (Direction)(int)alignment;
+	}
       
       lyric_item_p_ =  new Text_item (td_p);
 

@@ -130,7 +130,7 @@ AC_DEFUN(AC_STEPMAKE_END, [
     AC_OUTPUT($CONFIGFILE.make:config.make.in)
 
     rm -f Makefile
-    cp make/Toplevel.make.in ./Makefile
+    cp make/toplevel.make.in ./Makefile
     chmod 444 Makefile
 ])
 
@@ -143,7 +143,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     then
 	    true
     else
-	    AC_STEPMAKE_WARN(can't find g++ 2.7, 2.8 or egcs)
+	    AC_STEPMAKE_WARN(can\'t find g++ 2.7, 2.8 or egcs)
     fi
 ])
 

@@ -2,7 +2,7 @@
 filename =	 "allemande-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-%piece = "Allemande";
+piece = "Allemande";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -45,6 +45,5 @@ allemande_cello_staff = \type Staff <
 	\$allemande_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 45; }
-	\header{ piece = "Allemande"; }
 }
 

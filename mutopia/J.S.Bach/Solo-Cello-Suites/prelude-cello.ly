@@ -2,7 +2,7 @@
 filename =	 "prelude-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-%piece = "Pr\\'elude";		% duh
+piece = "Pr\\'elude";		% duh
 opus =	 "BWV 1008";
 % opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -40,6 +40,5 @@ prelude_cello_staff = \type Staff <
 	\$prelude_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
-	\header{ piece = "Pr\\'elude"; }	
 }
 

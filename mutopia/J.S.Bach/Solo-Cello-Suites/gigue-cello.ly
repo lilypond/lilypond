@@ -2,7 +2,7 @@
 filename =	 "gigue-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-% piece = "Gigue";
+piece = "Pr\\'elude";		% duh
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -45,6 +45,5 @@ gigue_cello_staff = \type Staff <
 	\$gigue_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 60; }
-	\header{ piece = "Gigue"; }
 }
 

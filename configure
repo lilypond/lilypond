@@ -1427,7 +1427,7 @@ fi
 	    true
     else
 	    
-    echo "configure: warning: can't find g++ 2.7" 1>&2
+    echo "configure: warning: can\'t find g++ 2.7" 1>&2
     warn_b=yes
 
     fi
@@ -2626,7 +2626,7 @@ done
 
 ac_given_srcdir=$srcdir
 
-trap 'rm -fr `echo "$CONFIGFILE.make:config.make.in $CONFIGFILE.hh:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
+trap 'rm -fr `echo "$CONFIGFILE.make:config.make.in $CONFIGFILE.h:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
 EOF
 cat >> $CONFIG_STATUS <<EOF
 
@@ -2824,7 +2824,7 @@ ac_eD='%g'
 if test "${CONFIG_HEADERS+set}" != set; then
 EOF
 cat >> $CONFIG_STATUS <<EOF
-  CONFIG_HEADERS="$CONFIGFILE.hh:config.hh.in"
+  CONFIG_HEADERS="$CONFIGFILE.h:config.hh.in"
 EOF
 cat >> $CONFIG_STATUS <<\EOF
 fi
@@ -3016,7 +3016,7 @@ fi
 
 
     rm -f Makefile
-    cp make/Toplevel.make.in ./Makefile
+    cp make/toplevel.make.in ./Makefile
     chmod 444 Makefile
 
 

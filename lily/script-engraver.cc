@@ -69,6 +69,11 @@ Script_engraver::do_pre_move_processing()
 	    {
 	      td_l->style_str_= style;
 	    }
+	  Scalar alignment = get_property ("textalignment");
+	  if (alignment.isnum_b())
+	    {
+	      td_l->align_dir_= (Direction)(int)alignment;
+	    }
 	}
       typeset_element (script_p);
     }

@@ -36,6 +36,8 @@ public:
   Text_def();
   virtual void print() const;
   virtual Interval width (Paper_def*) const;
+private:
+  Real guess_width_f(Atom&) const;
 };
 
 #endif // TEXT_DEF_HH

@@ -29,6 +29,10 @@ slurydirection		-1	force stem down		\slurdown
 slurydirection		0  	stem direction free	\slurboth
 slurydirection		1	force stem up		\slurup
 
+textalignment		-1	left alignment of text
+textalignment		0	center alignment of text
+textalignment		1	right alignment of text
+
 [Score?]
 beamslopedamping	0	no damping		\beamslopeproportional	
 beamslopedamping	1	damping1)		\beamslopedamped

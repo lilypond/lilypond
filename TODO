@@ -7,6 +7,13 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+	* add ex-dimension to feta-params.
+
+
+	* strip EXEs before installing
+
+	* text continuationss
+
 	* fix plain tex footer line.
 
 	* portable libs for flowerlib/lilylib
@@ -22,8 +29,6 @@ grep for TODO and ugh/ugr/urg
 	* include MIDI list 
 
 	* make separate translation property list.
-
-	* key undo.
 
 	* make GNU style webpages.
 
