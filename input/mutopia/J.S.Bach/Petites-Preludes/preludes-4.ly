@@ -8,13 +8,9 @@ piece = "4"
 
 one = \context Staff \notes\relative c {
 	\context Voice=i
-	\property Voice.TextScript \set #'font-style = #'italic
-%	r16_"legato" 
 	r16
-	\property Voice.TextScript \set #'font-style = #'finger
 	d' fis d  a' b cis a 
 	d cis d e  d fis e d |
-	\property Voice.TextScript \set #'font-style = #'finger
 	\stemUp\tieUp 
 	cis4 fis ~ fis8 fis e4 ~ | 
 	e16 \stemBoth\tieBoth a,16 cis a  d e fis d 
@@ -26,13 +22,8 @@ one = \context Staff \notes\relative c {
 	<<a e>>4 <<fis d>> << g! d>>16 fis g a 
 	\stemBoth
 	g b a g |
-	\property Voice.TextScript \set #'font-style = #'italic
-
 	fis e fis g  fis a g fis 
-	\property Voice.TextScript \set #'font-style = #'finger
-%	e4-"2\\_5" ~ e16 e, fis g  |
 	e4 ~ e16 e, fis g  |
-	\property Voice.TextScript \set #'font-style = #'italic
 
 	a g a b  a c b a 
 	g fis g a  g b a g |
@@ -40,14 +31,8 @@ one = \context Staff \notes\relative c {
 	fis4 
 	\skip 4*7 |
 	%10
-	\property Voice.TextScript \set #'font-style = #'finger
-%	d'4. cis8-"4\\_5" ~ cis b4 a8-"4\\_5" ~ |
 	d'4. cis8 ~ cis b4 a8 ~ |
-	\property Voice.TextScript \set #'font-style = #'italic
-
 	a g4 fis8 ~ fis16 fis e d 
-	\property Voice.TextScript \set #'font-style = #'finger
-%	e4-"3\\_5" ~ |
 	e4 ~ |
 	e16 e d cis d4 ~ d16 d cis b cis4 |
 	\stemBoth
@@ -65,10 +50,11 @@ one = \context Staff \notes\relative c {
 	\bar "|."
 }
 
-two = \context Staff \notes\relative c{
+two = \context Staff \notes\relative c
 	\context Voice=ii
+{
+
 	\stemUp
-	\property Voice.TextScript \set #'font-style = #'finger
 	fis4 e8 a4 a4 gis8 | 
 	 a8
 	\translator Staff=upper \stemDown\tieDown
@@ -110,15 +96,13 @@ two = \context Staff \notes\relative c{
 	a g~  g16 e fis8~  fis16 d8.~  d8. cis!16 |
 %	\translator Staff=lower \stemUp
 	\context Staff <
-%		\context Voice=i { \stemUp\tieU  d8 a~ a4 }
-%		\context Voice=ii { \stemDown a8 g  fis16 e fis d }
-		\context Voice=ii {
-		        \translator Staff = upper
-		        \stemDown\tieDown d8 a~ a4
-		}
-		\context Voice=iii {
+		 {
 		        \translator Staff = lower
-		        \stemUp a8 g fis16 e fis d
+		  a8 g fis16 e fis d
+		}\\
+		 {
+		        \translator Staff = upper
+		  d8 a~ a4
 		}
 	>
 	\translator Staff=lower
@@ -128,8 +112,8 @@ two = \context Staff \notes\relative c{
 	\bar "|."
 }
 
-three = \notes\relative c{
-   	\context Voice=iii
+three = \notes\relative c    	\context Voice=iii
+{
 	\stemDown 
 	d4 cis b e |
 	a16 a, cis a  d e fis d 

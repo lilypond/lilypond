@@ -1,3 +1,13 @@
+2003-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/mutopia/J.S.Bach/Petites-Preludes/*.ly (opus): update
+	to postfix syntax
+	
+	* input/mutopia/W.A.Mozart/mozart-hrn3-romanze.ly (romanze): new
+	syntax.
+
+	* VERSION: release 1.7.22
+
 2003-06-18  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/[h-k]*.ly: added texidoc index.
