@@ -1,3 +1,11 @@
+IMPORTANT: if you have downloaded a
+
+	*.pre*
+
+version, then this is version is *not* meant for producing nice output
+(but to keep your patchsets up to date)
+
+====================
 Please refer to the directory Documentation/, Documentation/README.*
 
 To generate the pretty-printed docs, do this:
@@ -17,3 +25,6 @@ criticism, comments, bugreports, patches, etc. Please send e-mail to
 	hanwen@stack.urc.tue.nl
 
 Have fun!
+
+======================
+
