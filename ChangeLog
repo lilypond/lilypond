@@ -43,6 +43,13 @@
 
 	* vim/GNUmakefile: add local-uninstall target.
 
+	* Documentation/topdocs/INSTALL.texi: give even more detailed orders.
+	
+	* vim/vimrc: add a one-liner file.
+
+	* vim/GNUmakefile: try to remove empty dirs during uninstalling, put
+	vimrc in EXTRA_DIST_FILES.
+
 2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
 
         * config.make.in: add vimdir.
