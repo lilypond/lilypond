@@ -16,6 +16,8 @@ beam_thickness = 0.52 * (\interline - \stafflinethickness);
 interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
+
+
 % stems and beams
 %
 % poor man's array size
@@ -89,16 +91,9 @@ grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 % * MEAN     : mean centre distance of all notes
 % * MEDIAN   : mean centre distance weighted per note
 %
-% enum Dir_algorithm { DOWN=-1, UP=1, MAJORITY=2, MEAN, MEDIAN };
-%
-DOWN = -1.0;
-UP = 1.0;
-MAJORITY = 2.0;
-MEAN = 3.0;
-MEDIAN = 4.0;
 
-#'beam_dir_algorithm = #'majority
-#'slope_quantisation = #'normal
+#'slope-quantisation = #'normal
+#'beam-dir-algorithm = #'majority	%urg.
 
 
 %{
@@ -109,8 +104,6 @@ used based on the mean center distance.  If set to 4.0 then median
 selection is used, based on the median center distance.
 %}
 
-% [Ross]: majority
-beam_dir_algorithm = \MAJORITY;
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
@@ -205,6 +198,13 @@ bar_thinkern = 3.0 * \stafflinethickness;
 barthick_thick = 6.0* \stafflinethickness;
 barthick_thin = 1.6*\stafflinethickness;
 barthick_score = 1.6*\stafflinethickness;
+
+bracket_arch_thick = \interline / 3.0;
+bracket_width = 2.0 * \interline;
+bracket_thick = 2.0 * \stafflinethickness;
+bracket_arch_height = 1.5 * \interline;
+bracket_arch_width = \bracket_arch_height;
+bracket_arch_angle = 50.0;
 
 tuplet_spanner_gap = 2.0 * \interline;
 tuplet_thick = 1.0*\stafflinethickness;

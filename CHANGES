@@ -1,4 +1,26 @@
-pl 3.hwn2,1
+pl 3.jcn1
+	- moved bracket vars to params
+	- reverted broken lilypond-devel
+
+pl 1.uu1
+	- David's patches:
+	* mfplain.mp detection
+	* Graphical_element::common_refpoint() robuster.
+	* fixes for mudela-mode.el
+	- Dirk's patches:
+	* key signature placement,
+	* tied accidentals.
+
+pl 1.hwn2
+	- extra-offset elt property.
+	- junked Chord_tremolo
+
+pl 1.hwn1
+	- changed calling convention for {get,set,remove}_elt_property()
+	- rm'd some mutopia examples.
+
+*******
+pl 0.hwn2,1
       - Generic properties and Property_engraver. Moved most of the
 properties.
 

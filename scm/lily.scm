@@ -90,34 +90,34 @@
 
 (define space-alist
  '(
-   (("" "Clef_item") . (minimum_space 1.0))
-   (("" "Staff_bar") . (minimum_space 0.0))
-   (("" "Clef_item") . (minimum_space 1.0))
-   (("" "Key_item") . (minimum_space 0.5))
-   (("" "Span_bar") . (extra_space 0.0))
-   (("" "Time_signature") . (extra_space 0.0))
-   (("" "begin-of-note") . (minimum_space 1.5))
-   (("Clef_item" "Key_item") . (minimum_space 4.0))
-   (("Key_item" "Time_signature") . (extra_space 1.0))
-   (("Clef_item"  "Time_signature") . (minimum_space 3.5))
-   (("Staff_bar" "Clef_item") .   (minimum_space 1.0))
-   (("Clef_item"  "Staff_bar") .  (minimum_space 3.7))
-   (("Time_signature" "Staff_bar") .  (minimum_space 2.0))
-   (("Key_item"  "Staff_bar") .  (extra_space 1.0))
-   (("Span_bar" "Clef_item") .   (extra_space 1.0))
-   (("Clef_item"  "Span_bar") . (minimum_space 3.7))
-   (("Time_signature" "Span_bar") . (minimum_space 2.0))
-   (("Key_item"  "Span_bar") . (minimum_space 2.5))
-   (("Staff_bar" "Time_signature") . (minimum_space 1.5)) ;double check this.
-   (("Time_signature" "begin-of-note") . (extra_space 2.0)) ;double check this.
-   (("Key_item" "begin-of-note") . (extra_space 2.5))
-   (("Staff_bar" "begin-of-note") . (extra_space 1.0))
-   (("Clef_item" "begin-of-note") . (minimum_space 5.0))
-   (("" "Breathing_sign") . (minimum_space 0.0))
-   (("Breathing_sign" "Key_item") . (minimum_space 1.5))
-   (("Breathing_sign" "begin-of-note") . (minimum_space 1.0))
-   (("Breathing_sign" "Staff_bar") . (minimum_space 1.5))
-   (("Breathing_sign" "Clef_item") . (minimum_space 2.0))
+   (("" "Clef_item") . (minimum-space 1.0))
+   (("" "Staff_bar") . (minimum-space 0.0))
+   (("" "Clef_item") . (minimum-space 1.0))
+   (("" "Key_item") . (minimum-space 0.5))
+   (("" "Span_bar") . (extra-space 0.0))
+   (("" "Time_signature") . (extra-space 0.0))
+   (("" "begin-of-note") . (minimum-space 1.5))
+   (("Clef_item" "Key_item") . (minimum-space 4.0))
+   (("Key_item" "Time_signature") . (extra-space 1.0))
+   (("Clef_item"  "Time_signature") . (minimum-space 3.5))
+   (("Staff_bar" "Clef_item") .   (minimum-space 1.0))
+   (("Clef_item"  "Staff_bar") .  (minimum-space 3.7))
+   (("Time_signature" "Staff_bar") .  (minimum-space 2.0))
+   (("Key_item"  "Staff_bar") .  (extra-space 1.0))
+   (("Span_bar" "Clef_item") .   (extra-space 1.0))
+   (("Clef_item"  "Span_bar") . (minimum-space 3.7))
+   (("Time_signature" "Span_bar") . (minimum-space 2.0))
+   (("Key_item"  "Span_bar") . (minimum-space 2.5))
+   (("Staff_bar" "Time_signature") . (minimum-space 1.5)) ;double check this.
+   (("Time_signature" "begin-of-note") . (extra-space 2.0)) ;double check this.
+   (("Key_item" "begin-of-note") . (extra-space 2.5))
+   (("Staff_bar" "begin-of-note") . (extra-space 1.0))
+   (("Clef_item" "begin-of-note") . (minimum-space 5.0))
+   (("" "Breathing_sign") . (minimum-space 0.0))
+   (("Breathing_sign" "Key_item") . (minimum-space 1.5))
+   (("Breathing_sign" "begin-of-note") . (minimum-space 1.0))
+   (("Breathing_sign" "Staff_bar") . (minimum-space 1.5))
+   (("Breathing_sign" "Clef_item") . (minimum-space 2.0))
    )
 )
  
@@ -126,7 +126,7 @@
     (if entry
 	(cdr entry)
 	(begin (ly-warn (string-append "Unknown spacing pair `" this "', `" next "'"))
-	       '(minimum_space 0.0)))))
+	       '(minimum-space 0.0)))))
   
 	
 
@@ -201,8 +201,8 @@
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
 
-  (define (bracket h)
-    (embedded-ps ((ps-scm 'bracket) h)))
+  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
+    (embedded-ps ((ps-scm 'bracket) arch_angle arch_width arch_height width height arch_thick thick)))
 
   (define (dashed-slur thick dash l)
     (embedded-ps ((ps-scm 'dashed-slur)  thick dash l)))
@@ -267,7 +267,6 @@
 	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
 	  s))
       
-
   (define (lily-def key val)
     (string-append
      "\\def\\"
@@ -439,8 +438,9 @@
     (string-append
      (numbers->string (list width slope thick)) " draw_beam" ))
 
-  (define (bracket h)
-    (invoke-dim1 " draw_bracket" h))
+  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
+    (string-append
+     (numbers->string (list arch_angle arch_width arch_height width height arch_thick thick)) " draw_bracket" ))
 
   (define (char i)
     (invoke-char " show" i))
