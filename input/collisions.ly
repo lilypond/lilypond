@@ -1,15 +1,10 @@
-%{MudelaHeader
-
- filename: collisions.ly
- title:
- description:  random counterpoint to test collisions
- composer(s): 
- entered-by: HWN,JCN
- copyright: public domain
-
- Tested Features:test the Collision resolution 
-EndMudelaHeader
-%}
+\header{
+filename	collisions.ly
+description	random counterpoint to test collisions
+enteredby	HWN,JCN
+copyright	public domain
+Tested		test the Collision resolution 
+}
 \version "0.1.6";
 
 
@@ -60,30 +55,34 @@ rests = \melodic
 restsII = \melodic {
 	\octave c'; 
 	\multi 2 < 
-				{ \stemup  g' f' e' d' c' b a g f e d c }
-				{ \stemdown r  r  r  r  r  r r r r r r r }
-			>
+		{ \stemup  g' f' e' d' c' b a g f e d c }
+		{ \stemdown r  r  r  r  r  r r r r r r r }
+	>
 	\multi 2 <
-				{ \stemup  r r r r r r r r  r  r  r  r }
-				{ \stemdown c d e f g a b c' d' e' f' g' }
-			>
-			r8 r4
-			\multi 2 <  r8 r8 >
-			\multi 2 <  r8 r8 r8 >
-			\multi 2 <  r8 r8 r8 r8 >
-			\multi 2 <  r r >
-			\multi 2 <  r r r >
-			\stemup
-			[c''8 r8 c''8 c''8]
-			[c8 r8 c8 c8]
-			\stemdown
-			[c8 r8 c8 c8]
-			[c''8 r8 c''8 c''8]
+		{ \stemup  r r r r r r r r  r  r  r  r }
+		{ \stemdown c d e f g a b c' d' e' f' g' }
+	>
+	r8 r4
+	\multi 2 <  r8 r8 >
+	\multi 2 <  r8 r8 r8 >
+	\multi 2 <  r8 r8 r8 r8 >
+	\multi 2 <  r r >
+	\multi 2 <  r r r >
+	\stemup
+	[c''8 r8 c''8 c''8]
+	[c8 r8 c8 c8]
+	\stemdown
+	[c8 r8 c8 c8]
+	[c''8 r8 c''8 c''8]
 }
 
 \score{
-	{  \two_voice  \two_voice_steminvert 
-			\three_voice  \rests \restsII }
+	{  \two_voice  
+	\two_voice_steminvert 
+	\three_voice  
+	\rests 
+	%\restsII 
+	}
 	
 
 	
