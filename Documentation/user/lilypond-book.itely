@@ -408,8 +408,7 @@ without @code{\layout}, @code{\score} or other red tape.
 @item indent=@var{size}\@var{unit}
 sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
-not the text layout.  For single-line fragments, the default is to
-use no indentation.
+not the text layout.  The default is to use no indentation.
 
 For example
 @example

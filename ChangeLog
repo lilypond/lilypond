@@ -1,3 +1,10 @@
+2004-11-13  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely: add small warning about
+	noindent default in lilypond-book.
+
+	* Documentation/user/converters.itely: add examples for convert-ly.
+
 2004-11-12  Karl Hammar  <karl@aspodata.se>
 
 	* GNUmakefile.in (local-WWW-post): `find ...` overflows the
