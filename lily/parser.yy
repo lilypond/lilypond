@@ -81,14 +81,6 @@ tag_music (Music *m, SCM tag, Input ip)
 	m->set_property ("tags", tags);
 }
 
-Music_output_def*
-get_paper (My_lily_parser *parser)
-{
-	SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
-	Music_output_def *paper = unsmob_music_output_def (id);
-	return paper ? paper->clone () : new Paper_def;
-}
-
 bool
 is_regular_identifier (SCM id)
 {
@@ -265,8 +257,8 @@ or
 %token CHANGE
 %token CHORDMODIFIERS
 %token CHORDS
-%token LESSLESS
-%token MOREMORE
+%token DOUBLE_ANGLE_OPEN
+%token DOUBLE_ANGLE_CLOSE
 %token CLEF
 %token COMMANDSPANREQUEST
 %token CONSISTS
@@ -330,15 +322,6 @@ or
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
 
-%type <book>	book_block book_body
-%type <i>	exclamations questions dots optional_rest
-%type <i>  	 bass_mod
-%type <scm> 	grace_head
-%type <scm> 	oct_check
-%type <scm> 	context_mod_list
-%type <scm>  	lyric_element
-%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
-%type <music>	new_lyrics
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -374,6 +357,15 @@ or
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
+%type <book>	book_block book_body
+%type <i>	exclamations questions dots optional_rest
+%type <i>  	 bass_mod
+%type <scm> 	grace_head
+%type <scm> 	oct_check
+%type <scm> 	context_mod_list
+%type <scm>  	lyric_element
+%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
+%type <scm>	new_lyrics
 %type <outputdef> output_def
 %type <scm>	lilypond_header lilypond_header_body
 %type <music>	open_event close_event
@@ -450,58 +442,27 @@ toplevel_expression:
 	lilypond_header {
 		THIS->header_ = $1;
 	}
-	| toplevel_music {
-		Music_output_def *paper = get_paper (THIS);
-		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-music-handler");
-		if (proc == SCM_UNDEFINED)
-			proc = ly_scheme_function ("ly:parser-add-book-and-score");
-		scm_call_2 (proc, THIS->self_scm (), $1->self_scm ());
- 		scm_gc_unprotect_object (paper->self_scm ());
-	}
 	| add_quote {
 	
 	}
 	| book_block {
 		Book *book = $1;
-		SCM header = THIS->header_;
-		Path outname = split_path (THIS->output_basename_);
-		int *c = &THIS->book_count_;
-		if (*c)
- 			outname.base += "-" + to_string (*c);
-		(*c)++;
- 		Music_output_def *paper = get_paper (THIS);
- 		book->process (outname.to_string (), paper, header);
+		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-book-handler");
+		scm_call_2 (proc, THIS->self_scm (), book->self_scm ());
  		scm_gc_unprotect_object (book->self_scm ());
- 		scm_gc_unprotect_object (paper->self_scm ());
 	}
 	| score_block {
-	  	/* TODO: implicit book, depending on --no-book/--no-page-layout
-		   option? */
 		Score *score = $1;
-		SCM head = is_module (score->header_) ? score->header_
-			: THIS->header_.to_SCM ();
-
-		Path p = split_path (THIS->output_basename_);
-		int *c = &THIS->score_count_;
-		if (*c)
-			p.base += "-" + to_string (*c);
-
-		(*c)++;
-		SCM outname = scm_makfrom0str (p.to_string ().to_str0());
-
-		for (int i = 0; i < score->defs_.size (); i++)
-			default_rendering (score->music_,
-					   score->defs_[i]->self_scm (), head,
-					   outname);
-
-		if (score->defs_.is_empty ())
-		{
-		   Music_output_def *paper = get_paper (THIS);
-		   default_rendering (score->music_, paper->self_scm (), head,
- 			outname);
- 		   scm_gc_unprotect_object (paper->self_scm ());
-		}
+		
+		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-score-handler");
+		scm_call_2 (proc, THIS->self_scm (), score->self_scm ());
  		scm_gc_unprotect_object (score->self_scm ());
+	}
+	| toplevel_music {
+		Music *music = $1;
+		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-music-handler");
+		scm_call_2 (proc, THIS->self_scm (), music->self_scm ());
+ 		scm_gc_unprotect_object (music->self_scm ());
 	}
 	| output_def {
 		SCM id = SCM_EOL;
@@ -814,6 +775,8 @@ Music_list:
 			scm_set_car_x (s, c); /* set first cons */
 		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
+	| Music_list embedded_scm {
+	}
 	| Music_list error {
 	}
 	;
@@ -1052,8 +1015,8 @@ basic music objects too, since the meaning is different.
 		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
 	}
 	| NEWCONTEXT string optional_context_mod Music {
-		$$ = context_spec_music ($2, get_next_unique_context (),
-					 $4, $3);
+		$$ = context_spec_music ($2, get_next_unique_context (), $4,
+			$3);
 	}
 
 	| TIMES {
@@ -1186,20 +1149,17 @@ new_lyrics:
            \repeat \alternative */
 		THIS->lexer_->pop_state ();
 #if 0
-		$$ = $3;
-#else
 		Music *music = MY_MAKE_MUSIC ("SimultaneousMusic");
 		music->set_property ("elements", scm_list_1 ($3->self_scm ()));
 		$$ = music;
+#else
+		$$ = scm_cons ($3->self_scm (), SCM_EOL);
 #endif
 	}
 	| new_lyrics NEWLYRICS { THIS->lexer_->push_lyric_state (); }
 	Grouped_music_list {
 		THIS->lexer_->pop_state ();
-		Music *music = MY_MAKE_MUSIC ("SimultaneousMusic");
-		music->set_property ("elements", scm_cons ($4->self_scm (),
-			$1->get_property ("elements")));
-		$$ = music;
+		$$ = scm_cons ($4->self_scm (), $1);
 	}
 	;
 
@@ -1214,35 +1174,30 @@ re_rhythmed_music:
 	}
 	| Grouped_music_list new_lyrics {
 
-		/* TODO: loop over simultaneous lyric musics? */
+		/* FIXME: should find out uniqueXXX name from music */
+		SCM name = $1->get_property ("context-id");
+		//if (name == SCM_EOL)
+		if (!ly_c_string_p (name))
+			name = scm_makfrom0str ("");
 
-		Music *music = $2;
-		SCM name = scm_makfrom0str ("");
 		SCM context = scm_makfrom0str ("Lyrics");
 		Music *all = MY_MAKE_MUSIC ("SimultaneousMusic");
-#if 0 // simple only
-		Music *combined = make_lyric_combine_music (name, music);
-		Music *csm = context_spec_music (context, SCM_UNDEFINED,
-			combined, SCM_EOL);
-		all->set_property ("elements", scm_listify ($1->self_scm (),
-			csm->self_scm (), SCM_UNDEFINED));
-#else
+
 		SCM lst = SCM_EOL;
-		for (SCM s = music->get_property ("elements"); ly_c_pair_p (s);
-			s = ly_cdr (s))
+		for (SCM s = $2; ly_c_pair_p (s); s = ly_cdr (s))
 		{
+			Music *music = unsmob_music (ly_car (s));
 			Music *com = make_lyric_combine_music (name, music);
 			Music *csm = context_spec_music (context,
-				SCM_UNDEFINED, com, SCM_EOL);
-			//lst = ly_snoc (csm->self_scm (), lst);
+				get_next_unique_context (), com, SCM_EOL);
 			lst = scm_cons (csm->self_scm (), lst);
 		}
-#endif
+		/* FIXME: only first lyric music is accepted,
+			  the rest is junked */
 		all->set_property ("elements", scm_cons ($1->self_scm (),
 			lst));
 		$$ = all;
 		scm_gc_unprotect_object ($1->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| LYRICSTO string Music {
 		Music *music = $3;
@@ -1426,10 +1381,10 @@ chord_open: '<'
 chord_close: '>'
 	;
 
-simul_open: LESSLESS
+simul_open: DOUBLE_ANGLE_OPEN
 	;
 
-simul_close: MOREMORE
+simul_close: DOUBLE_ANGLE_CLOSE
 	;
 
 chord_body:
@@ -2658,15 +2613,12 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	return csm;
 }
 
-
 SCM
 get_next_unique_context ()
 {
 	static int new_context_count;
-
 	char s[1024];
-	snprintf (s, 1024, "uniqueContext%d", new_context_count ++);
-		
+	snprintf (s, 1024, "uniqueContext%d", new_context_count++);
 	return scm_makfrom0str (s);
 }
 

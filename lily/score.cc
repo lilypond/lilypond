@@ -8,23 +8,22 @@
 
 #include <stdio.h>
 
+#include "book.hh"
+#include "cpu-timer.hh"
+#include "global-context.hh"
+#include "ly-module.hh"
 #include "ly-smobs.icc"
-
-#include "score.hh"
-#include "warn.hh"
+#include "main.hh"
+#include "music-iterator.hh"
 #include "music-output-def.hh"
 #include "music-output.hh"
-#include "music-iterator.hh"
 #include "music.hh"
-#include "global-context.hh"
-#include "scm-hash.hh"
-#include "cpu-timer.hh"
-#include "main.hh"
-#include "paper-def.hh"
-#include "ly-module.hh"
 #include "paper-book.hh"
+#include "paper-def.hh"
 #include "paper-score.hh"
-
+#include "scm-hash.hh"
+#include "score.hh"
+#include "warn.hh"
 
 /*
   TODO: junkme.
@@ -208,4 +207,21 @@ Score::book_rendering (String outname, Music_output_def *default_def,
 	}
     }
   return systems;
+}
+
+LY_DEFINE (ly_score_bookify, "ly:score-bookify",
+	   1, 0, 0,
+	   (SCM score_smob),
+	   "Return SCORE encapsulated in a BOOK.")
+{
+#if 0
+  SCM_ASSERT_TYPE (ly_c_parser_p (parser_smob), parser_smobd, SCM_ARG1, __FUNCTION__, "parser_smob");
+  SCM_ASSERT_TYPE (ly_c_score_p (score_smob), score_smob, SCM_ARG1, __FUNCTION__, "score_smob");
+#endif
+  
+  Score *score = unsmob_score (score_smob);
+  Book *book = new Book;
+  book->scores_.push (score);
+  scm_gc_unprotect_object (book->self_scm ());
+  return book->self_scm ();
 }

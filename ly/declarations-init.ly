@@ -146,4 +146,6 @@ unusedEntry = \notes { c4 }
 #(define musicQuotes (make-hash-table 29))
 
 %%#(define-public toplevel-music-handler ly:parser-add-book-and-score)
+#(define toplevel-book-handler default-toplevel-book-handler)
 #(define toplevel-music-handler default-toplevel-music-handler)
+#(define toplevel-score-handler default-toplevel-score-handler)

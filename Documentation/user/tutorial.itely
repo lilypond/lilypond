@@ -1091,7 +1091,7 @@ Twin -- kle twin -- kle
       \time 2/4
       f4 f c' c
     }
-    \new Lyrics \lyrics \lyricsto "bla" { Twin -- kle twin -- kle }
+    \new Lyrics \lyricsto "bla" \lyrics { Twin -- kle twin -- kle }
   >>
 }
 @end lilypond

@@ -3595,7 +3595,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.
 <<
   \context Voice = duet {
     \time 3/4 g2 e4 a2 f4 g2. }
-   \lyrics \lyricsto "duet" \new Lyrics {
+    \lyricsto "duet" \new Lyrics \lyrics {
      \set stanza = "1. "
      Hi, my name is Bert. }
 >>

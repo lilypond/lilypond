@@ -67,9 +67,6 @@ gulp_file (String filename, int *filesize)
   return str;
 }
 
-/*
-  Unused.
- */
 Source_file::Source_file (String filename, String data)
 {
   name_ = filename;
@@ -103,12 +100,9 @@ Source_file::Source_file (String filename_string)
 void
 Source_file::init_port ()
 {
-  SCM str =scm_makfrom0str (contents_str0_);
-  
-  str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
-			     __FUNCTION__);
-  scm_set_port_filename_x (str_port_,
-			   scm_makfrom0str (name_.get_str0()));
+  SCM str = scm_makfrom0str (contents_str0_);
+  str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
+  scm_set_port_filename_x (str_port_, scm_makfrom0str (name_.get_str0 ()));
 }
 
 int

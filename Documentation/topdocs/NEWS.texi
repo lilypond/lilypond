@@ -8,6 +8,53 @@
 
 @itemize @bullet
 
+@c FIXME: un-geekify
+@item Music lists are allowed at toplevel, and are handled by
+@code{default-toplevel-music-handler}.  Similarly, a @code{score} block
+at toplevel is handled by @code{default-toplevel-score-handler} an a
+@code{book} at toplevel is handled by @code{default-toplevel-book-handler}.
+
+These default handlers have the following effect.  A Music list at
+toplevel is encapsulated in a @code{score} block, and a @code{score}
+block at toplevel is encapsulated in a @code{book} block.  A
+@code{book} block at toplevel generates printed output.
+
+@example
+\header @{ title = "The Title" @}
+\notes @{ a b c @}
+@end example
+
+is the same as
+
+@example
+\header @{ title = "The Title" @}
+\book @{
+  \score @{
+    \notes @{ a b c @}
+  @}
+@}    
+@end example
+
+@item Start pitch for @code{relative} music is optional for music lists.
+The default value is one octave below middle C.
+
+@c update-me?  formal definition of newaddlyrics, once it works
+@item Combining lyrics with music can be @code{newaddlyrics}
+
+@example
+<<
+    \relative @{
+	\clef bass
+	d2 d c4 bes a2 \break
+	c2 c d4 f g2
+    @}
+    \newlyrics @{
+	My first Li -- ly song,
+	Not much can go wrong!
+    @}
+>>
+@end example
+
 @item The parser is encapsulated in a Scheme function
 @code{ly:parse-file}, so the following fragment processes two files
 

@@ -6,14 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "main.hh"
 #include "input-smob.hh"
-#include "music.hh"
-#include "music-list.hh"
-#include "warn.hh"
-#include "pitch.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
+#include "music-list.hh"
+#include "music.hh"
+#include "pitch.hh"
+#include "score.hh"
+#include "warn.hh"
 
 
 bool
@@ -215,6 +215,18 @@ Music::origin () const
   return ip ? ip : & dummy_input_global;
 }
 
+
+Music*
+make_music_by_name (SCM sym)
+{
+  SCM make_music_proc = ly_scheme_function ("make-music");
+  SCM rv = scm_call_1 (make_music_proc, sym);
+
+  /* UGH. */
+  scm_gc_protect_object (rv);
+  return unsmob_music (rv);
+}
+
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),
 	  "Get the length of music expression @var{mus}, and return as a @code{Moment} object.")
@@ -359,14 +371,24 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
   return sc->self_scm ();
 }
 
-Music*
-make_music_by_name (SCM sym)
-{
-  SCM make_music_proc = ly_scheme_function ("make-music");
-  SCM rv = scm_call_1 (make_music_proc, sym);
 
-  /* UGH. */
-  scm_gc_protect_object (rv);
-  return unsmob_music (rv);
+LY_DEFINE (ly_music_scorify, "ly:music-scorify",
+	   1, 0, 0,
+	   (SCM music),
+	   "Return MUSIC encapsulated in SCORE.")
+{
+#if 0
+  SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
+#endif
+  Score *score = new Score;
+  
+  /* URG? */
+  SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
+  for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
+    music = scm_call_1 (ly_car (check_funcs), music);
+  
+  score->music_ = music;
+  scm_gc_unprotect_object (score->self_scm ());
+  return score->self_scm ();
 }
 
