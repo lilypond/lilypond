@@ -574,8 +574,12 @@ in XEmacs' paren-highlight."
 ;;; From Emacs' paren.el, with minimal changes (see "LilyPond"-lines)
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
-(defun show-paren-function ()
-;;(defun LilyPond-show-paren-function () ; make show-paren-function local ??
+; (defun show-paren-function ()
+
+
+;;  don't redefine emacs functions. It breaks other modes.
+
+(defun LilyPond-show-paren-function () ; make show-paren-function local ??
   (if show-paren-mode
       (let (pos dir mismatch face (oldpos (point)))
 	(cond ((eq (char-syntax (preceding-char)) ?\))
@@ -682,8 +686,8 @@ in XEmacs' paren-highlight."
 ;; and show it until input arrives.
 (if (string-match "XEmacs\\|Lucid" emacs-version)
     (paren-set-mode 'paren)) ; works if this is set here (, right place?)
-(defun paren-highlight ()
-;;(defun LilyPond-paren-highlight () ; make paren-highlight local ??
+;(defun paren-highlight ()
+(defun LilyPond-paren-highlight () ; make paren-highlight local ??
   "This highlights matching parentheses.
 
 See the variables:
