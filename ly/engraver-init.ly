@@ -454,6 +454,10 @@ TabVoiceContext =   \translator {
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)
       Beam \override #'damping = #100000
       Stem \override #'up-to-staff = ##t
+      
+      % No accidental in tablature !
+      \remove Accidental_engraver
+      Accidental  = \turnOff 
 }
 
 TabStaffContext = \translator {
@@ -479,9 +483,10 @@ TabStaffContext = \translator {
       Stem \override #'avoid-note-head = ##t
       
       % No accidental in tablature !
+      \remove Accidental_engraver
       Accidental  = \turnOff 
       
-      stringTunings = #'(-8 -3 2 7 11 16)
+      stringTunings = #'(4 9 14 19 23 28)
       tablatureFormat = #fret-number-tablature-format
 }
    

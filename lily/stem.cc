@@ -281,7 +281,7 @@ Stem::get_default_stem_end_position (Grob*me)
     
       Direction dir = get_direction (me);
     
-      return dir*  (line_count + 1.5);
+      return dir*  (line_count + 3.5);
     }
   
   bool grace_b = to_boolean (me->get_grob_property ("grace"));
