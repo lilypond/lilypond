@@ -53,7 +53,7 @@ Score_engraver::do_creation_processing ()
 {
   scoreline_l_ = pscore_p_->line_l_;
 
-  scoreline_l_->set_bounds(LEFT, command_column_l_);
+  scoreline_l_->set_bound(LEFT, command_column_l_);
   
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
 
@@ -65,10 +65,15 @@ void
 Score_engraver::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing();
-  scoreline_l_->set_bounds(RIGHT,command_column_l_);
+  scoreline_l_->set_bound(RIGHT,command_column_l_);
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
 
+  
   typeset_all ();
+
+
+  if (musical_column_l_->linked_b ())
+    programming_error ("Last column in score should be non-musical");
   set_columns (0,0);
 }
 
@@ -128,9 +133,9 @@ Score_engraver::typeset_all()
 	   */
 	  Direction d = LEFT;
 	  do {
-	    if (!s->spanned_drul_[d])
+	    if (!s->get_bound (d))
 	      {
-		s->set_bounds(d, command_column_l_);
+		s->set_bound(d, command_column_l_);
 		::warning (_f ("unbound spanner `%s'", classname(s)));
 	      }
 	  } while (flip(&d) != LEFT);
@@ -189,7 +194,11 @@ Score_engraver::set_columns (Paper_column *new_command_l,
 		We're forgetting about this column. Dump it, and make SCM
 		forget it.
 
-		(UGH.)  */
+		FIXME: we should have another way of not putting this
+		column into the spacing problem. Maybe we shouldn't
+		even prevent this.
+
+	      */
 	      scm_unprotect_object ((*current[i])->self_scm_);
 	      *current[i]  =0;
 	    }

@@ -72,7 +72,7 @@ Crescendo::do_brew_molecule () const
   Direction d = LEFT;
   do
     {
-      Paper_column* s = dynamic_cast<Paper_column*>(spanned_drul_[d]); // UGH
+      Paper_column* s = dynamic_cast<Paper_column*>(get_bound (d)); // UGH
       broken[d] = (!s->musical_b ());
     }
   while (flip (&d) != LEFT);

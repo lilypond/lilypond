@@ -19,12 +19,12 @@ Molecule
 Staff_symbol::do_brew_molecule() const
 {
   Score_element * common
-    = spanned_drul_[LEFT]->common_refpoint (spanned_drul_[RIGHT], X_AXIS);
+    = get_bound (LEFT)->common_refpoint (get_bound (RIGHT), X_AXIS);
   
   Real width =
     // right_shift     - left_shift
-    + spanned_drul_[RIGHT]->relative_coordinate (common , X_AXIS)
-    - spanned_drul_[LEFT]->relative_coordinate (common, X_AXIS)
+    + get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
+    - get_bound (LEFT)->relative_coordinate (common, X_AXIS)
     ;
 
   Real t = paper_l ()->get_var ("stafflinethickness");

@@ -34,7 +34,7 @@ Line_group_engraver_group::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing ();
 
-  staffline_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
+  staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   Engraver_group_engraver::typeset_element (staffline_p_);
   staffline_p_ = 0;
 }
@@ -43,7 +43,7 @@ void
 Line_group_engraver_group::do_creation_processing()
 {
   create_line_spanner ();
-  staffline_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
+  staffline_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
   
   Engraver::announce_element (Score_element_info (staffline_p_,0));
 }
