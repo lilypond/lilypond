@@ -5,7 +5,7 @@
 % Copyright: none
 
 melodie = music {
-	$
+	$\clef\violin
 	c c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 
@@ -19,7 +19,7 @@ melodie = music {
 }
 
 begeleiding = music {
-	$
+	$\clef \bass
 	\octave{`}
 	c 'c | 'e 'c | 'f 'c | 'e 'c | 
 	'd b | 'c a | f g | c2 | 
@@ -106,13 +106,11 @@ text3 = music {
 mstaf = staff {
 	melodic
 	music { melodie }
-	commands { clef "violin" }
 }
 
 bass_staf = staff {
 	melodic	
 	music { begeleiding }
-	commands { clef "bass" }
 }
 
 
@@ -151,8 +149,8 @@ score {
 		unitspace 2.5cm
 	}
 	commands {
-		meter 2 * 4
-		skip 24:0
+		meter {2 * 4}
+		skip 24*2
 		bar "||"
 	}
 }

@@ -10,9 +10,9 @@
 
 const int STEMLEN=7;
 NAME_METHOD(Stem);
+
 Stem::Stem(int c) //, Moment len)
 {
-//    note_length = len;
     beams_left = 0;
     beams_right = 0;
     minnote = 1000;		// invalid values
@@ -188,7 +188,7 @@ Stem::brew_molecule_p()const return out;
 Real
 Stem::hpos()const
 {
-    return pcol_l_->hpos + stem_xoffset;
+    return pcol_l_->hpos + stem_xoffset; // hmm.  + offset_.x;
 }
 
 
