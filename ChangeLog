@@ -1,3 +1,8 @@
+2003-08-04  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/all-font-metrics.cc (find_font): bugfix: apply Han-Wen's last
+	fix also on parmesan font.
+
 2003-08-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION 1.7.30 released
