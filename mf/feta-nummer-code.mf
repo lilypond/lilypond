@@ -317,6 +317,11 @@ fet_beginchar("Numeral 2", "2", "two")
 
 fet_endchar;
 
+
+%%
+% TODO: should widen a bit. The right edge of the 3 bumps into next glyph in
+% combinations 
+%
 fet_beginchar("Numeral 3", "3", "three")
 	set_char_box(0, 2/3height#*widen, 0, height#);
 	message "w:"&decimal w;
@@ -578,4 +583,8 @@ fet_beginchar("Numeral 9", "9", "nine")
 fet_endchar;
 
 fet_endgroup("number")
+
+ligtable "3" : "3" kern 0.1 space#; 
+ligtable "3" : "0" kern 0.1 space#; 
+ligtable "2" : "7" kern 0.15 space#;
 
