@@ -15,10 +15,11 @@
 /** a struct for treating a group of noteheads (noteheads, stem
   (chord) and scripts ) as a single entity.  */
 class Note_column : public Script_column {
-    /// link to the stem. For setting default direction
-    Stem * stem_l_;
     void do_pre_processing();
 public:
+        /// link to the stem. For setting default direction
+    Stem * stem_l_;
+
     bool h_shift_b_;
     
     Array<Notehead*> head_l_arr_;
