@@ -54,7 +54,7 @@ cantus = \notes \transpose c c {
   \divisioMaior
   \[ g
     (		%%% et
-    \pes
+    \pes \deminutum
     d'-)
   \]
   \[ d'
