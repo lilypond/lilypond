@@ -301,7 +301,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	chord_note chord_inversion chord_bass
 %type <scm>	duration_length fraction
 
-%type <scm>  embedded_scm 
+%type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
 %type <music>	property_def translator_change
@@ -1038,7 +1038,7 @@ translator_change:
 	;
 
 property_def:
-	PROPERTY STRING '.' STRING '='  embedded_scm {
+	PROPERTY STRING '.' STRING '='  scalar {
 		
 		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1116,6 +1116,14 @@ property_def:
 		csm-> set_mus_property ("context-type", $2);
 	}
 	;
+
+
+scalar:
+        string          { $$ = $1; }
+        | bare_int      { $$ = gh_int2scm ($1); }
+        | embedded_scm  { $$ = $1; }
+        ;
+
 
 request_chord:
 	pre_requests {
