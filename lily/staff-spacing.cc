@@ -180,7 +180,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
        */
       
       /*
-	we used to have a warning here, but itgenerates a lot of
+	we used to have a warning here, but it generates a lot of
 	spurious error messages.
       */
       return ;

@@ -647,13 +647,13 @@ Stem::print (SCM smob)
   Grob *lh =
     to_boolean (me->get_property ("avoid-note-head"))
     ? last_head (me)
-    : lh = first_head (me);
+    : first_head (me);
   Grob *beam = get_beam (me);
 
   if (!lh && !stemlet)
     return SCM_EOL;
 
-  if (stemlet && !beam)
+  if (!lh && stemlet && !beam)
     return SCM_EOL;
     
   if (is_invisible (me))
