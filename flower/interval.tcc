@@ -34,7 +34,7 @@ Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
 #ifdef AIX
 const Real INFTY = 1e8;	// ARGh. AIX sucks
 #else
-const Real INFTY = HUGE;
+const Real INFTY = HUGE_VAL;
 #endif
 
 template<class T>

@@ -28,6 +28,7 @@ public:
       if rcfile == 0, then do not read any rc file
       */
       
+    virtual ~Dstream();
     Dstream &identify_as(String s);
     
     Dstream &operator << (String s);

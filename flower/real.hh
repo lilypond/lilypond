@@ -4,7 +4,7 @@
 
 #include <builtin.h>
 #include <minmax.h>
-#include <std/cmath.h>
+#include <math.h>
 
 typedef double Real;
 

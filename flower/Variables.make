@@ -1,10 +1,10 @@
 MAJVER=1
 MINVER=0
-PATCHLEVEL=22
+PATCHLEVEL=23
 PACKAGENAME=flower
 
 #PROFILEFLAG=-pg
-DEBUGFLAG=-g -O2 -DNDEBUG
+DEBUGFLAG= -O2 -DNDEBUG # -g
 OPTIFLAG=-DNDEBUG -DNPRINT -O2
 
 #########################################
@@ -35,3 +35,4 @@ ALLSOURCES=$(hh) $(cc) $(inl) $(templatecc)
 DFILES=$(ALLSOURCES) Makefile Variables.make make_version\
 	Sources.make TODO README NEWS
 DDIR=$(DNAME)
+

@@ -47,7 +47,7 @@ String::String(Rational r)
     *this = n;
     if (r.denominator() != 1) {
 	char * d = Itoa(r.denominator());
-	*this +=  '/' + String(d);
+	*this +=  String( '/' ) + String(d);
 	//delete d;
     }
 /*    delete n;
