@@ -6,26 +6,87 @@
 @String{CitH = {Computing and the Humanities}}
 @String{CMJ = {Computer Music Journal}}
 
-@TechReport{roush88,
-  year = {1988},
-  title = {Music Formatting Guidelines},
-  author = {D. Roush},
-  number = {OSU-CISRC-3/88-TR10}, 
-  institution = {Department of Computer and Information Science, The Ohio State University},
 
-  note = {Rules on formatting music formulated for use in
-  computers. Mainly distilled from [Ross] HWN},
 
+@Book {smith73,
+  year =  {1973},
+  title = {Editing and Printing Music by Computer},
+  author = {Leland Smith},
+  totalentry = {Journal of Music Theory},
+  volume={17},
+  pages ={292-309},
+
+  note = {Gourlay\cite{gourlay86} writes: A discussion of Smith's
+music-printing system SCORE}
 
 }
 
+@Article {byrd74,
+  year =  {1974},
+  title = {A System for Music Printing by Computer},
+  author = {Donald Byrd},
+  journal = {Computers and the Humanities},
+  volume ={8},
+  pages ={161-72},
+}
 
 
-@InProceedings{assayaag86,
-  author = 	 {G. Assayaag and D. Timis},
-  title = 	 {A Toolbox for music notation},
-  booktitle = 	 {Proceedings of the 1986 International Computer Music Conference},
-  year =	1986
+@Article{ericson75,
+  author = 	 {R. F. Ericson},
+  title = 	 {The DARMS Project: A status report},
+  journal = 	 {Computing in the humanities},
+  year = 	 1975,
+  volume =	 9,
+  number =	 6,
+  pages =	 {291--298},
+  note = {Gourlay\cite{gourlay86} writes: A discussion of the design
+  and potential uses of the DARMS music-description language.}
+}
+
+% Gomberg
+@PhdThesis {gomber75,
+  year =  {1975},
+  title = {A Computer-Oriented System for Music Printing},
+  author = {David A. Gomberg},
+  school = {Washington University},
+}
+
+@Book {gomberg,
+  title = {A Computer-oriented System for Music Printing},
+  author = {David A.  Gomberg},
+  journal  = CitH,
+  volume={11},
+  month = {march},
+  year = {1977},
+  pages = {63-80},
+
+  note = {Gourlay \cite{gourlay86} writes: "A discussion of the
+  problems of representing the conventions of musical notation in
+  computer algorithms."}
+}
+
+
+@TechReport{Ornstein83,
+  author={Ornstein, Severo M. and John Turner Maxwell III},
+  title={Mockingbird: A Composer's Amanuensis},
+  institution={Xerox Palo Alto Research Center},
+  address={3333 Coyote Hill Road, Palo Alto, CA, 94304},
+  number={CSL-83-2},
+  month={January},
+  year={1983}
+}
+
+@Article{Ornstein84,
+  author={Ornstein, Severo M. and John Turner Maxwell III},
+  title={Mockingbird: A Composer's Amanuensis},
+  journal= {Byte},
+  volume= 9,
+  month = {January},
+  year= { 1984},
+
+  note={A discussion of an interactive and graphical computer system
+for music composition}
+
 }
 
 % byrd
@@ -39,16 +100,25 @@ note = {Describes the SMUT (sic) system for automated music printout.}
 
 }
 
-
-
-@Article {byrd74,
-  year =  {1974},
-  title = {A System for Music Printing by Computer},
-  author = {Donald Byrd},
-  journal = {Computers and the Humanities},
-  volume ={8},
-  pages ={161-72},
+@InProceedings{assayaag86,
+  author = 	 {G. Assayaag and D. Timis},
+  title = 	 {A Toolbox for music notation},
+  booktitle = 	 {Proceedings of the 1986 International Computer Music Conference},
+  year =	1986
 }
+
+@TechReport{roush88,
+  year = {1988},
+  title = {Music Formatting Guidelines},
+  author = {D. Roush},
+  number = {OSU-CISRC-3/88-TR10}, 
+  institution = {Department of Computer and Information Science, The Ohio State University},
+
+  note = {Rules on formatting music formulated for use in
+  computers. Mainly distilled from [Ross] HWN},
+
+}
+
 
 @Article{byrd94,
   author = 	 {Donald Byrd},
@@ -65,20 +135,6 @@ exhibit intelligent behaviour. HWN}
 }
 
 
-
-@Article{ericson75,
-  author = 	 {R. F. Ericson},
-  title = 	 {The DARMS Project: A status report},
-  journal = 	 {Computing in the humanities},
-  year = 	 1975,
-  volume =	 9,
-  number =	 6,
-  pages =	 {291--298},
-  note = {Gourlay\cite{gourlay86} writes: A discussion of the design
-  and potential uses of the DARMS music-description language.}
-}
-
-
 @Article{field-richards93,
   author = 	 {H.S. Field-Richards},
   title = 	 {Cadenza: A Music Description Language},
@@ -92,8 +148,6 @@ Apparently it has no formal semantics.  There is also no
 implementation of notation convertor. HWN}
 
 }
-
-
 
 @Article{bielawa93,
   author = 	 {Herbert Bielawa},
@@ -176,20 +230,6 @@ representation. HWN},
 
 }
 
-@Book {smith73,
-  year =  {1973},
-  title = {Editing and Printing Music by Computer},
-  author = {Leland Smith},
-  totalentry = {Journal of Music Theory},
-  volume={17},
-  pages ={292-309},
-
-  note = {Gourlay\cite{gourlay86} writes: A discussion of Smith's
-music-printing system SCORE}
-
-}
-
-
 @InProceedings{montel97,
   author = 	 {Dominique Montel},
   title = 	 {La gravure de la musique, lisibilit\'e esth\'etique, respect de l'oevre},
@@ -199,29 +239,6 @@ music-printing system SCORE}
   editors ={Genevois \& Orlarey}
 }
 
-
-% Gomberg
-@PhdThesis {gomber75,
-  year =  {1975},
-  title = {A Computer-Oriented System for Music Printing},
-  author = {David A. Gomberg},
-  school = {Washington University},
-}
-
-@Book {gomberg,
-  title = {A Computer-oriented System for Music Printing},
-  author = {David A.  Gomberg},
-  journal  = CitH,
-  volume={11},
-  month = {march},
-  year = {1977},
-  pages = {63-80},
-
-  note = {Gourlay \cite{gourlay86} writes: "A discussion of the
-  problems of representing the conventions of musical notation in
-  computer algorithms."}
-
-}
 
 
 
@@ -234,23 +251,13 @@ music-printing system SCORE}
 
 
 @Book{selfridge-field97:_beyon_midi,
+  title = 	 {Beyond MIDI: the handbook of musical codes},
   editor =	 {Eleanor Selfridge-Field},
-  title = 	 {Beyond MIDI},
   publisher = 	 {MIT Press},
   year = 	 1997,
 
   note = {A description of various music interchange formats.}
 }
-
-
-@Book{hewlett01:_virtual_score,
-  editor =	 {Walter B. Hewlett and Eleanor Selfridge-Field},
-  title = 	 {The Virtual Score; representation, retrieval and restoration},
-  publisher = 	 {MIT Press},
-series = {Computing in Musicology},
-  year = 	 2001
-}
-
 
 
 @InProceedings{hoos98:_guido_music_notat_format,
@@ -261,30 +268,6 @@ booktitle = {Proceedings of International Computer Music Conference},
 year = 1998,
 pages = {451--454},
 }
-
-% LIME
-@Article {haken93,
-  note = {A description of Lime internals (which resemble older (before 0.0.68pre) LilyPond data structures) HWN},
-  year =  {1993},
-  title = {The Tilia Music Representation: Extensibility, Abstraction, and Notation Contexts for the Lime Music Editor},
-  author = {Lippold Haken and Dorothea Blostein},
-  journal = {Computer Music Journal},
-  volume= {17},
-  number={3},
-  pages = {43--58},
-}
-
-@InProceedings{haken95,
-  year =  {1995},
-  title = {A New Algorithm for Horizontal Spacing of Printed Music},
-  author = {Lippold Haken and Dorothea Blostein},
-  booktitle = {International Computer Music Conference},
-  address={Banff},
-  month={Sept},
-  pages = {118-119},
-
-  note = {This describes an algorithm which uses springs between
-adjacent columns. }, }
 
 @Article {blostein91,
 
@@ -302,6 +285,16 @@ adjacent columns. }, }
 }
 
 
+@Article {haken93,
+  note = {A description of Lime internals (which resemble older (before 0.0.68pre) LilyPond data structures) HWN},
+  year =  {1993},
+  title = {The Tilia Music Representation: Extensibility, Abstraction, and Notation Contexts for the Lime Music Editor},
+  author = {Lippold Haken and Dorothea Blostein},
+  journal = {Computer Music Journal},
+  volume= {17},
+  number={3},
+  pages = {43--58},
+}
 @Article{blostein94,
   author = 	 {Dorothea Blostein and Lippold Haken},
   title = 	 {The Lime Music Editor: A Diagram Editor Involving Complex
@@ -318,6 +311,21 @@ relating to this interactive editor HWN},
 
 }
 
+
+
+@InProceedings{haken95,
+  year =  {1995},
+  title = {A New Algorithm for Horizontal Spacing of Printed Music},
+  author = {Lippold Haken and Dorothea Blostein},
+  booktitle = {International Computer Music Conference},
+  address={Banff},
+  month={Sept},
+  pages = {118-119},
+
+  note = {This describes an algorithm which uses springs between
+adjacent columns. }, }
+
+
 @InProceedings{bouzaiene98:_une,
   author = 	 {Nabil Bouzaiene and Lo\"ic Le Gall and Emmanuel Saint-James},
   title = 	 {Une biblioth\`eque pour la notation  musicale baroque},
@@ -331,12 +339,6 @@ relating to this interactive editor HWN},
 
 
 
-@MastersThesis{gall97:_creat,
-  author = 	 {Lo\"ic Le Gall},
-  title = 	 {Cr\'eation d'une police adapt\'ee \`a la notation musicale baroque},
-school = {\'Ecole Estienne},
-year = 1997,
-}
 
 @InProceedings{balaban88,
   author = 	 {M. Balaban},
@@ -415,8 +417,6 @@ objects.
 }
 
 
-
-
 @TechReport {hegazy87-breaking-tr,
 
 annote = {This generalizes \TeX's breaking algorithm to music. It also
@@ -433,10 +433,8 @@ appeared in Document Manipulation and Typography, J.C. van Vliet (ed)
 
 @InProceedings{hegazy88:_optim,
   author = {Wael A. Hegazy and John S. Gourlay},
-year =  1988,
 booktitle = {Proceedings of the International Conference on
-Electronic Publishing, Document Manipulation and Typography. Nice (France)
-},
+Electronic Publishing, Document Manipulation and Typography. Nice (France)},
 month = {April},
 year =1988,
 editor={J. C. van Vliet},
@@ -481,19 +479,6 @@ note = {This note discusses
 }
 
 
-@TechReport {sola87-beams,
-
-institution={Department of Computer and Information Science, The Ohio
-State University},
-
-  note = {Calculating beam slopes HWN},
-  year =  {1987},
-  title = {Design of Musical Beams,},
-  author = {F. Sola and D. Roush},
-  number = {OSU-CISRC-10/87-TR30},
-}
-
-
 @Article {gourlay86,
   note = {This paper describes the {MusiCopy} musicsetting system and an input language to go with it.},
 
@@ -507,24 +492,17 @@ State University},
 }
 
 
+@TechReport {sola87-beams,
 
-@Article {rader96,
+institution={Department of Computer and Information Science, The Ohio
+State University},
 
-  note = {Describes a system called MusicEase, and explains that it
-  uses "constraints" (which go unexplained) to automatically position
-  various elements. },
-
-  year =  {1996},
-  title = {Creating Printed Music Automatically},
-  author = {Gary M. Rader},
-  journal = {Computer},
-  volume={29},
-  number={6},
-  month={June},
-  pages = {61--69},
+  note = {Calculating beam slopes HWN},
+  year =  {1987},
+  title = {Design of Musical Beams,},
+  author = {F. Sola and D. Roush},
+  number = {OSU-CISRC-10/87-TR30},
 }
-
-
 
 
 @PhdThesis {page88,
@@ -533,162 +511,6 @@ State University},
   title = {Computer Tools for Music Information Retrieval},
   author = {Stephen Dowland Page},
   school ={Dissertation University of Oxford},
-}
-
-@MastersThesis{roelofs91,
-
-note = {This dutch thesis describes a monophonic typesetting system,
-  and focuses on the breaking algorithm, which is taken from Hegazy &
-  Gourlay },
-
-  year =  {1991},
-  title = {Een Geautomatiseerd Systeem voor het Afdrukken van Muziek},
-  author = {Ren\'e Roelofs},
-  school={Erasmus Universiteit Rotterdam},
-  number={45327},
-  translation = {``An automated system for printing music'' Master's Thesis Managerial Computer Science.},
-}
-
-
-@Article {filgueiras93,
-  year =  {1993},
-  title = {Representation and manipulation of music documents in SceX},
-  author = {Miguel Filgueiras and Jos\'e Paulo Leal},
-  journal= {Electronic Publishing},
-  volume={6},
-  number={4}, pages = {507--518},
-  url={http://citeseer.nj.nec.com/512957.html},
-}
-
-
-@Article {foxley87,
-
-note = {A paper on a simple TROFF preprocessor to typeset music. },
-
-  year =  {1987},
-  title = {Music --- A language for typesetting music scores},
-  author = {Eric Foxley},
-  journal = {Software --- Practice and Experience},
-  volume = {17},
-  number = {8},
-  pages = {485-502},
-}
-
-
-@Book {filgueiras96,
-  year = {1996},
-  title = {Implementing a Symbolic Music Processing System},
-  author = {Miguel Filgueiras},
-  totalentry = {LIACC, Universidade do Porto, 1996; submitted},
-}
-
-@Book {filgueiras?,
-  title = {Some Music Typesetting Algorithms},
-  author = {Miguel Filgueiras},
-  totalentry = {Miguel Filgueiras. ``Some Music Typesetting Algorithms''. LIACC, Universidade do Porto, forthcoming},
-}
-
-
-@Article {colorado-web,
-  author ={Alyssa Lamb},
-
-  note = {Webpages about engraving (designed with finale
-users in mind) (sic) HWN},
-
-  institution = {The University of Colorado},
-  title ={The University of Colorado Music Engraving page.},
-  HTML={http://www.cc.colorado.edu/Dept/MU/Musicpress/},
-  year={1996}
-}
-
-
-
-
-@Article {Langston90,
-
-  note = {This paper deals with some command-line
-  tools for music editing and playback. },
-
-  year =  {1990},
-  title = {Unix music tools at Bellcore},
-  author = {Peter S. Langston},
-  journal={Software --- Practice and Experience},
-  volume={20},
-  number={S1},
-  pages={47--61},
-}
-
-@Article {tablature-web,
-  note = {FAQ (with answers) about TAB, the ASCII variant of Tablature. HWN},
-  title = {how to read and write tab: a guide to tab notation},
-  author = {Howard Wright},
-  email={Howard.Wright@ed.ac.uk},
-  url={http://www.guitartabs.cc/tabfaq.shtml},
-}
-
-@Article {niff-web,
-
-  note = {Specs for NIFF, a reasonably comprehensive but binary
-  format for notation HWN},
-
-  year =  {1995},
-  title = {NIFF6a Notation Interchange File Format},
-  author = {Cindy Grande},
-  publisher={Grande Software Inc.},
-  HTML= {http://www.jtauber.com/music/encoding/niff/},
-  ftp = {ftp://blackbox.cartah.washington.edu}
-}
-
-@Article {smdl-web,
-  author={unknown},
-  title = {SMDL, Standard Musical Description Language},
-  pdf= {ftp://ftp.ornl.gov/pub/sgml/wg8/smdl/10743.pdf},
-  note={ISO/IEC DIS 10743
-
-SGML instance for describing music.  Very comprehensive in music
-definition, but no support for notation / performance whatsoever (They
-basically say: "You can embed a NIFF or MIDI file")}
-
-},
-}
-
-@TechReport{Ornstein83,
-  author={Ornstein, Severo M. and John Turner Maxwell III},
-  title={Mockingbird: A Composer's Amanuensis},
-  institution={Xerox Palo Alto Research Center},
-  address={3333 Coyote Hill Road, Palo Alto, CA, 94304},
-  number={CSL-83-2},
-  month={January},
-  year={1983}
-}
-
-
-
-@Article{Ornstein84,
-  author={Ornstein, Severo M. and John Turner Maxwell III},
-  title={Mockingbird: A Composer's Amanuensis},
-  journal= {Byte},
-  volume= 9,
-  month = {January},
-  year= { 1984},
-
-  note={A discussion of an interactive and graphical computer system
-for music composition}
-
-}
-
-@PhdThesis{mueller90:_inter_bearb_musik,
-  author = 	 {Giovanni M\"uller},
-  title = 	 {Interaktive Bearbeitung konventioneller Musiknotation},
-  school = 	 {Eidgen\"ossischen Technischen Hochschule Z\"urich},
-  year = 	 1990,
-
-note = {This is about engraver-quality typesetting with computers.  It
-accepts the axiom that notation is too difficult to generate
-automatically.  The result is that a notation program should be a
-WYSIWYG editor that allows one to tweak everything.
-}
-
 }
 
 
@@ -736,6 +558,168 @@ general rules, similar to\cite{parrish87-simultaneities}},
 note = {Placement of accidentals crystallised in an enormous set of
 rules.  Same remarks as for \cite{grover89-twovoices} applies} }
 
+
+@PhdThesis{mueller90:_inter_bearb_musik,
+  author = 	 {Giovanni M\"uller},
+  title = 	 {Interaktive Bearbeitung konventioneller Musiknotation},
+  school = 	 {Eidgen\"ossischen Technischen Hochschule Z\"urich},
+  year = 	 1990,
+
+note = {This is about engraver-quality typesetting with computers.  It
+accepts the axiom that notation is too difficult to generate
+automatically.  The result is that a notation program should be a
+WYSIWYG editor that allows one to tweak everything.
+}
+
+}
+
+
+
+
+
+@MastersThesis{roelofs91,
+
+note = {This dutch thesis describes a monophonic typesetting system,
+  and focuses on the breaking algorithm, which is taken from Hegazy &
+  Gourlay },
+
+  year =  {1991},
+  title = {Een Geautomatiseerd Systeem voor het Afdrukken van Muziek},
+  author = {Ren\'e Roelofs},
+  school={Erasmus Universiteit Rotterdam},
+  number={45327},
+  translation = {``An automated system for printing music'' Master's Thesis Managerial Computer Science.},
+}
+
+
+@Article {filgueiras93,
+  year =  {1993},
+  title = {Representation and manipulation of music documents in SceX},
+  author = {Miguel Filgueiras and Jos\'e Paulo Leal},
+  journal= {Electronic Publishing},
+  volume={6},
+  number={4}, pages = {507--518},
+  url={http://citeseer.nj.nec.com/512957.html},
+}
+
+
+@Article {foxley87,
+
+note = {A paper on a simple TROFF preprocessor to typeset music. },
+
+  year =  {1987},
+  title = {Music --- A language for typesetting music scores},
+  author = {Eric Foxley},
+  journal = {Software --- Practice and Experience},
+  volume = {17},
+  number = {8},
+  pages = {485-502},
+}
+
+@Article {Langston90,
+
+  note = {This paper deals with some command-line
+  tools for music editing and playback. },
+
+  year =  {1990},
+  title = {Unix music tools at Bellcore},
+  author = {Peter S. Langston},
+  journal={Software --- Practice and Experience},
+  volume={20},
+  number={S1},
+  pages={47--61},
+}
+
+
+@Book {filgueiras96,
+  year = {1996},
+  title = {Implementing a Symbolic Music Processing System},
+  author = {Miguel Filgueiras},
+  totalentry = {LIACC, Universidade do Porto, 1996; submitted},
+}
+
+@Book {filgueiras?,
+  title = {Some Music Typesetting Algorithms},
+  author = {Miguel Filgueiras},
+  totalentry = {Miguel Filgueiras. ``Some Music Typesetting Algorithms''. LIACC, Universidade do Porto, forthcoming},
+}
+
+
+@Article {colorado-web,
+  author ={Alyssa Lamb},
+
+  note = {Webpages about engraving (designed with finale
+users in mind) (sic) HWN},
+
+  institution = {The University of Colorado},
+  title ={The University of Colorado Music Engraving page.},
+  HTML={http://www.cc.colorado.edu/Dept/MU/Musicpress/},
+  year={1996}
+}
+
+
+
+
+
+@Article {tablature-web,
+  note = {FAQ (with answers) about TAB, the ASCII variant of Tablature. HWN},
+  title = {how to read and write tab: a guide to tab notation},
+  author = {Howard Wright},
+  email={Howard.Wright@ed.ac.uk},
+  url={http://www.guitartabs.cc/tabfaq.shtml},
+}
+
+@Article {niff-web,
+
+  note = {Specs for NIFF, a reasonably comprehensive but binary
+  format for notation HWN},
+
+  year =  {1995},
+  title = {NIFF6a Notation Interchange File Format},
+  author = {Cindy Grande},
+  publisher={Grande Software Inc.},
+  HTML= {http://www.jtauber.com/music/encoding/niff/},
+  ftp = {ftp://blackbox.cartah.washington.edu}
+}
+
+@Article {smdl-web,
+  author={unknown},
+  title = {SMDL, Standard Musical Description Language},
+  pdf= {ftp://ftp.ornl.gov/pub/sgml/wg8/smdl/10743.pdf},
+  note={ISO/IEC DIS 10743
+
+SGML instance for describing music.  Very comprehensive in music
+definition, but no support for notation / performance whatsoever (They
+basically say: "You can embed a NIFF or MIDI file")}
+
+},
+}
+
+
+@Article {rader96,
+
+  note = {Describes a system called MusicEase, and explains that it
+  uses "constraints" (which go unexplained) to automatically position
+  various elements. },
+
+  year =  {1996},
+  title = {Creating Printed Music Automatically},
+  author = {Gary M. Rader},
+  journal = {Computer},
+  volume={29},
+  number={6},
+  month={June},
+  pages = {61--69},
+}
+
+
+@MastersThesis{gall97:_creat,
+  author = 	 {Lo\"ic Le Gall},
+  title = 	 {Cr\'eation d'une police adapt\'ee \`a la notation musicale baroque},
+  school = {\'Ecole Estienne},
+  year = 1997,
+}
+
 @TechReport{droettboom00:_study_notat_descr_languag,
   author = 	 {Michael Droettboom},
   title = 	 {Study of music Notation Description Languages},
@@ -745,6 +729,33 @@ rules.  Same remarks as for \cite{grover89-twovoices} applies} }
   note ={GUIDO and lilypond compared. LilyPond wins on practical
 issues as usability and availability of tools, GUIDO wins on
 implementation simplicity.}  }
+
+@PhdThesis{gieseking01:_code_gener_noten,
+  author = 	 {Martin Gieseking},
+  title = 	 {Code-basierte Generierung interaktiver Notengraphik
+
+},
+  school = 	 {Universit\"at Osnabr\"uck},
+  year = 	 2001,
+  isbn = {ISBN 3-923486-30-8}
+}
+
+@Book{hewlett01:_virtual_score,
+  editor =	 {Walter B. Hewlett and Eleanor Selfridge-Field},
+  title = 	 {The Virtual Score; representation, retrieval and restoration},
+  publisher = 	 {MIT Press},
+series = {Computing in Musicology},
+  year = 	 2001
+}
+
+
+
+@PhdThesis{renz02:_algor_guido,
+  author = 	 {Kai Renz},
+  title = 	 {Algorithms and data structures for a music notation system based on GUIDO music notation},
+  school = 	 {Universit\"at Darmstadt},
+  year = 	 2002
+}
 
 @InBook{powell02:_music,
   author =	 {Steven Powell},
@@ -756,21 +767,13 @@ implementation simplicity.}  }
 }
 
 
-@PhdThesis{gieseking01:_code_gener_noten,
-  author = 	 {Martin Gieseking},
-  title = 	 {Code-basierte Generierung interaktiver Notengraphik
-
-},
-  school = 	 {Universit\"at Osnabr\"uck},
-  year = 	 2001,
-isbn = {ISBN 3-923486-30-8}
-}
-
-
-@PhdThesis{renz02:_algor_guido,
-  author = 	 {Kai Renz},
-  title = 	 {Algorithms and data structures for a music notation system based on GUIDO music notation},
-  school = 	 {Universit\"at Darmstadt},
-  year = 	 2002
+@InProceedings{nienhuys03:_lilyp,
+  author = 	 {Han-Wen Nienhuys and Jan Nieuwenhuizen},
+  title = 	 {LilyPond, a system for automated music engraving},
+  booktitle =	 {XIV Colloquium on Musical Informatics},
+  year =	 2003,
+  pages = {167--172},
+  address =	 {Firenze},
+  month =	 {May}
 }
 
