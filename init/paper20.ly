@@ -20,7 +20,8 @@ paper_twenty = \paper {
 	texsetting = "\\input lilyponddefs \\musixtwentydefs ";
 	pssetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
 	% urg, debugging only
-	scmsetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
+	scmsetting = "(display \"(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\");\n";
+	scmsetting = "(display \"\\\\input lilyponddefs \\\\musixtwentydefs\");\n";
 
 	-2 = \symboltables { \table_thirteen }	
 	-1 = \symboltables { \table_sixteen }

@@ -9,7 +9,7 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
-	* disallow backslashes
+	* --safe:  disallow backslashes, disallow \include.
 
 	* \breathmark TeX macro 
 
@@ -269,8 +269,6 @@ ydirection and hshift preset
 
 	* integrate midi-elts from mi2mu and lily?
 
-	* cautionary accidental
-
 	* score-bar-scripts
 	FMR: Free memory read:
 	  * This is occurring while in:
@@ -487,7 +485,6 @@ PROJECTS
 
 	* Keys:
 	- merge key{item} & localkey{item}?
-	- Major/Minor
 	- spacing, national styles?
 
 	* Support for TAB

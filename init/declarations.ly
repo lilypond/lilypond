@@ -33,6 +33,9 @@ center=0
 break = { \penalty = 10000; }
 nobreak = { \penalty = -10000; }
 
+major = 0
+minor = 3
+
 \include "property.ly"
 
 \include "scm.ly"

@@ -26,7 +26,7 @@ Time_signature::brew_molecule_p () const
     {
       if (time_sig_type_str_[0]=='1')
 	{
-	  Array<Real> tmparr = args_;
+	  Array<int> tmparr = args_;
 	  tmparr[1]= 0;
 	  s = lookup_l ()->time_signature (tmparr);
 	}

@@ -6,8 +6,8 @@ test key itemv breaking
 \score {
   \notes
   {
-    \key bes; c1 \key c;  c1
+    \key bes; c1 \key c \minor;  c1
     \break
-    \key bes; c1 \key d;\break c1
+    \key bes \major; c1 \key d;\break c1
   }
 }

@@ -41,9 +41,8 @@ Clef_item		1
 Clef_change_req		1
 Col_configuration	1
 Col_hpositions		1
-Colinfo			1
-Colinfo			1
 Collision		1
+Column_info		1
 Column_rod		1
 Duration_identifier	1
 Engraver		0
@@ -92,7 +91,7 @@ Rhythmic_req		1
 Scope			1
 Score			0
 Score_column		0
-Score_elem		0
+Score_element		0
 Score_engraver		0
 Score_performer		1
 Script_column		1

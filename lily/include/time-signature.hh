@@ -26,7 +26,7 @@ protected:
   virtual Molecule*brew_molecule_p() const;
 public:
   Time_signature () ;
-  Array<Real> args_;
+  Array<int> args_;
   String time_sig_type_str_;
   
   DECLARE_MY_RUNTIME_TYPEINFO;

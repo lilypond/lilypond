@@ -269,8 +269,11 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
   Paper_outputter* p = new Paper_outputter (os_p);
 
   output_header (p, header_global_p);
+#if 0
+  // for now; breaks -fscm output
   p->output_comment (_ ("outputting Score, defined at: "));
   p->output_comment (origin_str);
+#endif
 
   output_header (p, header_l);
 

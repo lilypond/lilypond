@@ -114,8 +114,7 @@ Key_engraver::read_req (Key_change_req const * r)
       else
 	{
 	  p = r->pitch_arr_[0].semitone_pitch ();
-	  if (r->minor_b ())
-	    p += 3;
+	  p += r->modality_i_;
 	}
       /* Solve the equation 7*no_of_acc mod 12 = p, -6 <= no_of_acc <= 5 */
       int no_of_acc = (7*p) % 12;

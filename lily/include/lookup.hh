@@ -11,6 +11,7 @@
 #define LOOKUP_HH
 
 #include "atom.hh"
+#include "molecule.hh"
 #include "fproto.hh"
 #include "scalar.hh"
 #include "direction.hh"
@@ -29,9 +30,9 @@ public:
   Lookup (Symtables const&);
   ~Lookup ();
   
-  Atom accidental (int) const;
+  Molecule accidental (int, bool cautionary) const;
   void add (String, Symtable*);
-  Atom afm_find (String) const;
+  Atom afm_find (String, bool warn=true) const;
   Atom ball (int) const;
   Atom bar (String, Real height) const;
   Atom beam (Real, Real, Real) const;
@@ -53,8 +54,8 @@ public:
   Atom text (String style, String text) const;
   Atom vbrace (Real &dy) const;
   Atom vbracket (Real &dy) const;
-  Atom special_time_signature (String, Array<Real>) const;
-  Atom time_signature (Array<Real>) const;
+  Atom special_time_signature (String, Array<int>) const;
+  Atom time_signature (Array<int>) const;
 
   Paper_def * paper_l_;
   Symtables *symtables_p_;

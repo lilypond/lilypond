@@ -347,7 +347,7 @@ label(notedesc)
 subsect(Basic Note Specification)
 
 A note specification has the form 
-var(pitch)[var(octavespec)][code(!)][var(duration)].
+var(pitch)[var(octavespec)][code(!)][code(?)][var(duration)].
 The pitch of the note is specified by the note's name.  
 
 LilyPond has predefined note names for various languages.  The default
@@ -395,9 +395,11 @@ will determine what accidentals to  typeset  depending on the  key and
 context.   
 A reminder accidental can be forced by
 using the  optional exclamation mark `code(!)'
-on a pitch.
+on the pitch.
+A cautionary accidental, i.e., an accidental within paranthesis
+can be obtained using the optional question mark `code(?)' on the pitch.
 mudela(fragment,verbatim,center)(
-cis' d' e' cis'  c'! d' e' c' 
+cis' d' e' cis'  c'? d' e' c'!  
 )
 
 
@@ -951,8 +953,14 @@ argument var(file) is a string.  The full filename including the
 file(.ly) extension must be given, and the filename must be quoted.
 (An unquoted string will not work here.)
 
-dit(code(\key) var(pitch)code(;)) Change key signature to that of
-var(pitch)-major.
+dit(code(\key) var(pitch) var(type) code(;)) Change the key signature. 
+var(type) should be code(\major) or code(\minor) to get
+var(pitch)-major or var(pitch)-minor, respectively. The second
+argument is optional, the default is major keys. 
+The var(\type) argument can also be given as an integer, which tells
+the number of semitones that should be added to the pitch given in the
+subsequent code(\key) commands to get the corresponding major key,
+e.g. code(\minor) is defined as 3.
 
 dit(code(\keysignature) var(pitchseq)code(;))
 Specify an arbitrary key signature.  The pitches from var(pitch) will
@@ -1295,9 +1303,6 @@ dit(code(barAlways)) If set to 1 a bar line is drawn after each note.
 dit(code(defaultBarType)) Sets the default type of bar line.  See
 code(\bar) keyword.
 
-
-
-
 dit(code(keyoctaviation)) If set to 1, then keys are the same in all
 octaves.  If set to 0 then the key signature for different octaves can
 be different and is specified independently: code(\keysignature bes
@@ -1323,16 +1328,16 @@ default) if you do not want key signatures printed.
 dit(code(timeSignatureStyle)) Changes the default two-digit layout
    for time signatures. The following values are recognized:
    description(
-      dit(code(C)): 4/4 and 2/2 are typeset as C and struck C,
+      dit(code(C)) 4/4 and 2/2 are typeset as C and struck C,
       respectively. All other time signatures are written with two digits.
-      dit(code(old)): 2/2, 3/2, 3/4, 4/4, 6/4 and 9/4 are typeset with
+      dit(code(old)) 2/2, 3/2, 3/4, 4/4, 6/4 and 9/4 are typeset with
       old-style mensuration marks. All other time signatures are 
       written with two digits.
-      dit(code(1)): All time signatures are typeset with a single
+      dit(code(1)) All time signatures are typeset with a single
       digit, e.g. 3/2 is written as 3.
       dit(code(C2/2), code(C4/4), code(old2/2), code(old3/2),
       code(old3/4), code(old4/4), code(old6/4) or
-      code(old9/4)): Tells Lilypond to use a specific symbol as time
+      code(old9/4)) Tells Lilypond to use a specific symbol as time
       signature.
    )
 The different time signature characters are shown below with
@@ -1439,6 +1444,10 @@ code(castingalgorithm).  Is equal to 1.0.
 dit(code(\infinity)) Used for setting the Score.beamslopedamping
 property.  Is actually equal to 10000.  
 dit(code(\left)) Used for setting textalignment property.  Is equal to -1.
+dit(code(\major)) Used as the second argument of the code(\key)
+command to get a major key.
+dit(code(\minor)) Used as the second argument of the code(\key)
+command to get a minor key.
 dit(code(\mf)) Print mezzoforte symbol on preceeding note. 
 dit(code(\mp)) Print mezzopiano symbol on preceeding note. 
 dit(code(\nobreak)) Prevent a line break in music by using a large

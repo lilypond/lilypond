@@ -111,7 +111,7 @@ Midi_walker::process()
     return;
   p->channel_i_ = track_l_->number_i_;
   
-  if (Midi_item *mi = dynamic_cast<Midi_note*>(p))
+  if (Midi_note *mi = dynamic_cast<Midi_note*>(p))
     do_start_note (mi);
   else
     output_event (ptr()->audio_column_l_->at_mom (), p);

@@ -3,7 +3,8 @@
 depth = ..
 
 INI_FILES = $(FLY_FILES) $(LY_FILES)
-# DIST_FILES = Makefile $(INI_FILES)
+SCM_FILES = $(wildcard *.scm)
+EXTRA_DIST_FILES = $(SCM_FILES)
 
 INSTALLATION_DIR=$(datadir)/ly/
 INSTALLATION_FILES=$(INI_FILES)

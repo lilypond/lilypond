@@ -110,6 +110,8 @@ public:
     
   /// force/supress printing of accidental.
   bool forceacc_b_;
+  /// Cautionary, i.e. parenthesized accidental.
+  bool cautionary_b_;
   Note_req();
   bool do_equal_b (Request*) const;
   REQUESTMETHODS(Note_req);
