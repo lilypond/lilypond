@@ -127,7 +127,6 @@
 
       (define (number-pair?  x)
 	(and (pair? x) (number? (car x)) (number? (cdr x))))
-      
       (define (ly-grob? x) #f)
       (define (ly-input-location? x) #f)
       (define (dir? x) #f)
