@@ -54,7 +54,7 @@ def number_flare_path(expr pos,alpha,beta,line,flare,
 
 	penpos2(flare, alpha );
 	penpos3(flare, alpha +  beta);
-	penlabels(1,2,3,4, 5);
+	penlabels(1, 2, 3, 4, 5);
 	pickup pencircle;
 
 	save p;
