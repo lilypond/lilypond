@@ -10,7 +10,7 @@
 
 	* po/fi.po: fixes.
 
-	* Documentation/topdocs/INSTALL.texi: update links.
+	* Documentation/topdocs/{README.texi,INSTALL.texi}: update links.
 
 	* buildscripts/mutopia-index.py: polish.
 
