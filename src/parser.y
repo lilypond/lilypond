@@ -63,7 +63,7 @@ Paperdef*default_paper();
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
-%token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
+o%token KEY CLEF MULTI TABLE CHORD VOICES
 %token PARTIAL RHYTHMIC MELODIC MUSIC LYRIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 %token MARK GOTO
@@ -94,7 +94,7 @@ Paperdef*default_paper();
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request 
-%type <string> clef_id pitchmod
+%type <string> pitchmod
 %type <music> music 
 %type <chord> music_chord music_chord_body
 
@@ -238,7 +238,7 @@ staff_command:
 		$$ = get_key_interpret_command(*$2);
 		delete $2;
 	}
-	| CLEF clef_id			{
+	| CLEF STRING			{
 		$$ = get_clef_interpret_command(*$2);
 		delete $2;
 	}
@@ -588,10 +588,6 @@ unit:	CM		{ $$ = "cm"; }
 	|PT		{ $$ = "pt"; }
 	;
 	
-clef_id:
-	VIOLIN		{ $$ = new String("violin"); }
-	| BASS		{ $$ = new String("bass"); }
-	;
 /*
 	symbol tables
 */
