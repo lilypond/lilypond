@@ -108,12 +108,12 @@ gsave /ecrm10 findfont
 			(/ (- line-width text-width)
 			   (if (= word-count 1) 2 (- word-count 1)))))
 	(line-stencils (if (= word-count 1)
-			   (map (lambda (x) (interpret-markup layout props x))
-				(list (make-simple-markup "")
-				      (make-stencil-markup (car stencils))
-				      (make-simple-markup "")))
-				stencils)))
-    (stack-stencil-line fill-space line-stencils)))
+			   (list
+			    (ly:make-stencil '() '(0 . 0) '(0 . 0))  
+			    (car stencils)
+			    (ly:make-stencil '() '(0 . 0) '(0 . 0))  )
+			   stencils)))
+    (stack-stencils X RIGHT fill-space line-stencils)))
   
 (define (font-markup qualifier value)
   (lambda (layout props arg)
@@ -298,7 +298,7 @@ of the @code{#'direction} layout property."
   "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
-    (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) mols)))
+    (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
 (def-markup-command (vcenter layout props arg) (markup?)
   "Align @code{arg} to its center. "
