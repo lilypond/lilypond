@@ -34,7 +34,7 @@
 #include "string.hh"
 #include "string-convert.hh"
 #include "my-lily-lexer.hh"
-#include "array.hh"
+#include "file-results.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "parser.hh"
@@ -199,7 +199,7 @@ HYPHEN		--
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('"'));
 
-	new_input (s,source_global);
+	new_input (s, &global_input_file->sources_ );
 	yy_pop_state ();
 }
 <incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
@@ -210,7 +210,7 @@ HYPHEN		--
 
 	SCM sid = lookup_identifier (s);
 	if (gh_string_p (sid)) {
-		new_input (ly_scm2string (sid), source_global);
+		new_input (ly_scm2string (sid), &global_input_file->sources_);
 		yy_pop_state ();
 	} else { 
 	    String msg (_f ("wrong or undefined identifier: `%s'", s ));

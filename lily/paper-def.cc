@@ -122,7 +122,7 @@ Paper_def::get_paper_outputter ()
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
-  target_string_globals.push (outname);
+  global_input_file->target_strings_.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
   p.ext = "";

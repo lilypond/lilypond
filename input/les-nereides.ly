@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.5.72"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -10,6 +10,7 @@
     description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
 }
 
+#(set-point-and-click! 'line-column)
 #(set! point-and-click line-column-location)
 
 #(define (make-text-checker text)

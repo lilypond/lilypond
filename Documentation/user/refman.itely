@@ -632,14 +632,20 @@ To use it, you need the following software
   a few versions behind the official Xdvi. To find out which xdvi you
   are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
-newer.  Enablle the menu Settings -> Inverse search. 
+newer.  Enable option @emph{Inverse search} in the menu @emph{Settings}.
 
 @cindex Xdvi
 @cindex KDVI
 @cindex KDE
 
+
+
 @end itemize
-@item An editor with a client/server interface (or a lightweight GUI editor).
+@item An editor with a client/server interface (or a lightweight GUI
+editor).
+
+@cindex editor
+
 @itemize @bullet
 @item Emacs. Emacs is an extensible text-editor.  It is available from
 @uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
@@ -682,7 +688,7 @@ fonts. Refer to the Xdvi documentation for more information.
 To use point-and-click, add one of these lines to the top of your .ly
 file.
 @example
-#(set! point-and-click line-location)
+#(set-point-and-click! 'line)
 @end example
 @cindex line-location
 
@@ -722,7 +728,7 @@ apply @file{server.el.patch} (version 21.2 and earlier).  At the top
 of the @code{ly} file, replace the @code{set!} line with the following
 line,
 @example
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 @end example
 @cindex line-colomn-location
 and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.

@@ -1,4 +1,4 @@
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 
 opus = "BWV 924"
 piece = "1"
@@ -18,7 +18,7 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.5.68"
+\version "1.5.72"
 
 
 lowstaff =  \translator "Staff" = "lower"

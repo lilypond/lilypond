@@ -1573,7 +1573,7 @@ Opus 2.
 For example, consider the following file (@file{miniatures.ly}) 
 
 @example
-\version "1.5.60"
+\version "1.5.72"
 \header @{
   title = "Two miniatures"
   composer = "F. Bar Baz" 
@@ -1706,7 +1706,7 @@ will be at the left.
 
 
 @example
-\version "1.5.60"
+\version "1.5.72"
 \header @{
   title = "Two miniatures"
   composer = "F. Bar Baz" 
@@ -1731,7 +1731,7 @@ will be at the left.
 
 @separate
 @example 
-\version "1.6.0"
+\version "1.5.72"
 @end example 
 Lilypond and its language are still under development, and
 occasionally, details of the syntax are changed. This fragment
@@ -2383,7 +2383,7 @@ conductor's score.
 \include "os-music.ly"
 \include "paper13.ly"
 
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 #(define text-flat '((font-relative-size . -2)
          (music "accidentals--1")))
 
@@ -2468,12 +2468,12 @@ First, we need to include the music definitions we made in
 
 @separate
 @example
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 @end example
 
-This piece of Scheme code sets the Scheme variable
-@code{point-and-click} to the value @var{line-column-location} (which
-itself is a Scheme procedure).
+This piece of Scheme code executes the function
+@code{set-point-and-click!}, with the argument @code{line-column}, a
+symbol).
 
 Editing input files can be complicated if you're working with large
 files: if you're digitizing existing music, you have to synchronize

@@ -167,7 +167,8 @@ Performance::process ()
   
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));
-  target_string_globals.push (out);
+
+  global_input_file->target_strings_.push (out);
 
   output (midi_stream);
   progress_indication ("\n");

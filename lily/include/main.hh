@@ -42,6 +42,5 @@ extern All_font_metrics *all_fonts_global;
 extern int exit_status_global;
 extern File_path global_path;
 extern int score_count_global;
-extern Sources* source_global;
 
 #endif /* MAIN_HH */

@@ -1,12 +1,12 @@
 
 
-% #(set! point-and-click line-column-location)
+% #(set-point-and-click! 'line-column)
 
 longgrace = \property Voice.Stem \override #'flag-style = #'()
 endlonggrace = \property Voice.Stem \revert #'flag-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.5.68"
+\version "1.5.72"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 

@@ -1,10 +1,10 @@
-\version "1.5.68"
+\version "1.5.72"
 \header {
   title = "Two miniatures"
   tagline = "Small is beatiful"
 }
 
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 
 \paper { linewidth = -1.0 }
 

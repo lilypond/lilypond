@@ -290,7 +290,6 @@ System::output_molecule (SCM expr, Offset o)
 	{
 	  Input * ip = unsmob_input (head);
       
-
 	  pscore_->outputter_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
 							   scm_makfrom0str (ip->file_string ().to_str0 ()),
 							   gh_int2scm (ip->line_number ()),

@@ -19,9 +19,9 @@ enteredby = 	 "Shay Rojansky"
 %{
 TODO: use autobeaming.	
 %}
-\version "1.5.68"
+\version "1.5.72"
 
-% #(set! point-and-click line-column-location)
+% #(set-point-and-click! 'line-column)
 
 tenor = 
 	\context Voice  = tenor  \notes \relative c' {

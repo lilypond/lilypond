@@ -1,5 +1,5 @@
 
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 
 instrument = "Piano"
 
@@ -41,7 +41,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.5.68"
+\version "1.5.72"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction

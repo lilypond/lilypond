@@ -260,14 +260,15 @@ Grob::get_uncached_molecule ()const
     {
       SCM origin = ly_symbol2scm ("no-origin");
       
-      if (store_locations_global_b){
-	SCM cause = get_grob_property ("cause");
-	if (Music*m = unsmob_music (cause))
-	  {
-	    SCM music_origin = m->get_mus_property ("origin");
-	    if (unsmob_input (music_origin))
-	      origin = music_origin;
-	  }
+      if (store_locations_global_b)
+	{
+	  SCM cause = get_grob_property ("cause");
+	  if (Music*m = unsmob_music (cause))
+	    {
+	      SCM music_origin = m->get_mus_property ("origin");
+	      if (unsmob_input (music_origin))
+		origin = music_origin;
+	    }
       }
 
       // ugr.

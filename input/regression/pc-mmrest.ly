@@ -1,10 +1,10 @@
-\version "1.5.68"
+\version "1.5.72"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }
 
 
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 one = \notes\relative c'' {
 
 	f4 \!e-.\f r2|

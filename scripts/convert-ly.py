@@ -953,6 +953,19 @@ if 1:
 	conversions.append (((1,5,71), conv, 'extent-[XY] -> [XY]-extent'))
 
 
+if 1:
+	def conv (str):
+		str = re.sub ("""#\(set! +point-and-click +line-column-location\)""",
+			      """#(set-point-and-click! \'line-column)""", str)
+		str = re.sub ("""#\(set![ \t]+point-and-click +line-location\)""",
+			      '#(set-point-and-click! \'line)', str)
+		str = re.sub ('#\(set! +point-and-click +#f\)',
+			      '#(set-point-and-click! \'none)', str)
+		return str
+	
+	conversions.append (((1,5,72), conv, 'set! point-and-click -> set-point-and-click!'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################
