@@ -11,7 +11,7 @@ void error(String s);		// errors
 void error_t(const String& s, Time_description const &  t_tdes);
 void error_t(String const &s, const Moment &when);
 // warnings
-void warning(String s);
+//void warning(String s);
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
 extern ostream &warnout ;
 
