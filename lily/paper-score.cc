@@ -16,7 +16,6 @@
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "scope.hh"
-#include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "paper-stream.hh"
 #include "paper-outputter.hh"
@@ -118,27 +117,12 @@ Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm_p=0;
   Array<Column_x_positions> sol;
-  bool try_wrap = !paper_l_->get_var ("castingalgorithm");
 
-  if (!try_wrap)
-    {
-      algorithm_p = new Gourlay_breaking ;
-      algorithm_p->set_pscore (this);
-      sol = algorithm_p->solve ();
-      delete algorithm_p;
-      if (! sol.size ())
-	{
-	  warning (_ ("Can't solve this casting problem exactly; reverting to Word_wrap"));
-	  try_wrap = true;
-	}
-    }
-  if  (try_wrap)
-    {
-      algorithm_p = new Word_wrap;
-      algorithm_p->set_pscore (this);
-      sol = algorithm_p->solve ();
-      delete algorithm_p;
-    }
+  algorithm_p = new Gourlay_breaking ;
+  algorithm_p->set_pscore (this);
+  sol = algorithm_p->solve ();
+  delete algorithm_p;
+
   return sol;
 }
 
