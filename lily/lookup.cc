@@ -101,9 +101,14 @@ Lookup::accidental(int j) const
 
 
 Symbol
-Lookup::bar(String s) const
+Lookup::bar(String s, Real h) const
 {
-    return (*symtables_)("bars")->lookup(s);
+    Array<String> a;
+    a.push(print_dimen( h));
+    Symbol ret=(*symtables_)("bars")->lookup(s);;
+    ret.tex = substitute_args(ret.tex, a);
+    ret.dim.y = Interval( 0, h);
+    return ret;
 }
 
 Symbol
