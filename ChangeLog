@@ -2,6 +2,8 @@
 
 	* buildscripts/lilypond.words.py: take filename (also) from an arg.
 
+	* GNUmakefile.in (README_FILES): put lilypond.words to $(outdir).
+
 2003-09-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/topdocs/README.texi (Top): clarifications.
