@@ -1,5 +1,51 @@
-1.3.140.jcn6
+1.3.141.jcn3
 ============
+
+* some mup2ly progress.
+
+* Bugfix: ly2dvi: don't include empty set fo latexheaders, don't use
+python-1.5.2 abspath func.
+
+* Setup for new mup converter, based on pmx2ly.
+
+* Bugfix: lilypond-book: accept \documentclass{article}.
+
+* scripts/update-lily.py: fancy source rebuild update tool that we're
+probably not going to use on www.lilypond.org.  Check it out!
+
+* Bugfix: building of topdocs.
+
+1.3.141.hwn2
+============
+
+* Fix: instrument names on piano staffs.
+
+* Bugfix: don't left-align absolute dynamics.
+
+* Bugfix: don't make spacing rods for absolute dynamics.
+
+* Various bugfixes for examples (thanks Laura!).
+
+* Bugfix: clean up of hairpin ending logic. Crescendi start under
+notes now.
+
+* Don't substitute  '\ ' for  '\_' in lyrics. (Suggestion by Roy Rankin)
+
+* In computing text lengths handle the following cases \['`"^_]. (the same)
+
+* Made directories input/no-notation, input/ascii-art
+
+* Doco fixes.
+
+* Beat repeats, double measure repeats; removed repeat sign character
+from the font (WARNING: FONT CHANGED).
+
+* Cleanups in (de)crescendo code, fixed continued (de)crescendi.
+
+* German chords (Rune Zedler)
+
+1.3.141
+=======
 
 * po update.
 

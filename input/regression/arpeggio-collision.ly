@@ -1,8 +1,8 @@
 
-header = {
+\header  {
 texidoc = "arpeggio stays clear of accidentals and flipped note heads.
-Since Arpeggio engraver is Voice, it does nothing for voice collisions."
-};
+Since Arpeggio engraver is Voice, it does nothing for voice collisions.";
+}
 
 hairyChord = \context Staff \notes\relative c' <
     \context Voice=one {

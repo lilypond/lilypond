@@ -38,7 +38,6 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{accidental-single-double.ly}
 
 
-
 @section Stems
 
 @lilypondfile[printfilename]{stem-tremolo.ly}
@@ -55,13 +54,17 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{staccato-pos.ly}
 
-@lilypondfile[printfilename]{dynamics-line.ly}
-
 @lilypondfile[printfilename]{arpeggio.ly}
 
 @lilypondfile[printfilename]{glissando.ly}
 
-@lilypondfile[printfilename]{follow-thread.ly}
+@section Dynamics
+
+@lilypondfile[printfilename]{dynamics-line.ly}
+
+@lilypondfile[printfilename]{hairpin-ending.ly}
+
+@lilypondfile[printfilename]{dynamics-broken-hairpin.ly}
 
 
 
@@ -78,7 +81,7 @@ and documenting bugfixes.
 
 
 
-@section Beams, slurs and other spanners
+@section Beams
 
 @lilypondfile[printfilename]{beaming.ly}
 
@@ -100,9 +103,12 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{triplets.ly}
 
+@section  Slurs 
 
 @lilypondfile[printfilename]{slur-nice.ly}
+
 @lilypondfile[printfilename]{slur-symmetry.ly}
+
 @lilypondfile[printfilename]{slur-symmetry-1.ly}
 
 @lilypondfile[printfilename]{slur-broken-trend.ly}
@@ -115,15 +121,14 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{phrasing-slur.ly}
 
+@section Ties
+
 @lilypondfile[printfilename]{tie.ly}
 
 @lilypondfile[printfilename]{tie-chord.ly}
 
 @lilypondfile[printfilename]{tie-accidental.ly}
 
-@lilypondfile[printfilename]{beam-cross-staff.ly}
-
-@lilypondfile[printfilename]{slur-cross-staff.ly}
 
 @lilypondfile[printfilename]{tup.ly}
 
@@ -145,9 +150,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{repeat-line-break.ly}
 
-@lilypondfile[printfilename]{auto-change.ly}
-
-
+@lilypondfile[printfilename]{volta-broken-left-edge.ly}
 
 @section Lyrics
 
@@ -184,6 +187,14 @@ and documenting bugfixes.
 
 
 @section PianoStaff
+
+@lilypondfile[printfilename]{beam-cross-staff.ly}
+
+@lilypondfile[printfilename]{slur-cross-staff.ly}
+
+@lilypondfile[printfilename]{auto-change.ly}
+
+@lilypondfile[printfilename]{follow-thread.ly}
 
 
 
@@ -223,24 +234,6 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{clefs.ly}
 
 @lilypondfile[printfilename]{keys.ly}
-
-
-@ignore
-@c the input file is too long and does not test for specific bugs
-
-By default, time signatures are written with two numbers. With style
-``C'', 4/4 and 2/2 are written with their corresponding symbols and
-with style ``old'', 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
-9/8 are typeset with symbols, all other signatures retain the default
-layout. The style ``1'', gives single number signatures for all
-signatures. 
-%
-\mu delafile{time.ly}
-@end ignore
-
-
-
-
 
 @section Hacks and Features
 

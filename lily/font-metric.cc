@@ -29,6 +29,22 @@ Font_metric::text_dimension (String text) const
       switch (text[i]) 
 	{
 	case '\\':
+  // accent marks use width of base letter
+         if (i +1 < text.length_i ())
+	   {
+	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"' ||
+		 text[i+1]=='^')
+	       {
+		 i++;
+		 break;
+	       }
+	     // for string width \\ is a \ and \_ is a _.
+	     if (text[i+1]=='\\' || text[i+1]=='_')        
+	       {
+		 break;
+	       }
+	   }
+	  
 	  for (i++; (i < text.length_i ()) && !isspace (text[i]) 
 		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;

@@ -1122,6 +1122,11 @@ command_element:
 		scm_unprotect_object (p->self_scm ());
 
 		$$ = sp;
+
+/*
+ TODO: should make alias TimingContext for Score
+*/
+
 		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
 	}
 	;

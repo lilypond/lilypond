@@ -17,7 +17,7 @@ description = "This file tests the Feta music font, 11pt";
 	\paper{
 	    \paperEleven
 	    linewidth = 17.5 \cm;
-	    gourlay_maxmeasures =5.;
+
 	}
 }
 

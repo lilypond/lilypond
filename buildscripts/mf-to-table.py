@@ -44,6 +44,7 @@ class Char_metric:
 
 
 def tfm_checksum (fn):
+	sys.stderr.write ("Reading checksum from `%s'\n" % fn) 
 	s = open (fn).read ()
 	s = s[ 12 * 2 : ]
 	cs_bytes = s[:4]

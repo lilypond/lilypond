@@ -1,4 +1,10 @@
 
+\header {
+texidoc = "Hara kiri staffs disappear when empty ";
+}
+
+
+% todo: use partcombine?, junk?
 
 toeterI =  \notes\relative c <{
 		\property Staff.instrument = #"Toeters"
@@ -29,8 +35,8 @@ toeterIi =  \notes \relative c \context Voice = together {
 }
 
 toeters =  \context Staff = toeters <
-	\toeter_i
-	\toeter_ii
+	\toeterI
+	\toeterIi
 >
  
 zager =  \context Staff = zager \notes \relative c'' {

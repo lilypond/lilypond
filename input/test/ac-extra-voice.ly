@@ -1,4 +1,6 @@
-
+%
+% TODO: what's this?
+%
 
 
 global =  \notes {
@@ -39,17 +41,13 @@ accompany =  \notes \relative c{
 		\context Staff=down <
 			\global
 			\clef bass;
-			\autochange Staff \accompany
+			\autochange Staff \context Voice \accompany
 		>
 	>
 
 	\paper {
-		gourlay_maxmeasures = 4.;
 		indent = 8.\mm;
 		textheight = 295.\mm;
-
-		% ugly is beautiful
-		slur_beautiful = 5.0;
 
 		\translator{ 
 			\PianoStaffContext
@@ -63,8 +61,9 @@ accompany =  \notes \relative c{
 			defaultBarType = #"" 
 			\remove "Time_signature_engraver";
 
-			slurVerticalDirection = #1
-			verticalDirection = -1
+			Slur \override #'direction = #1
+
+			
 			autoBeamSettings \override #'(end * * * *)  = #(make-moment 1 2)
 		}
 	}

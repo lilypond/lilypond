@@ -91,6 +91,6 @@ singlepart =  \notes{
     }
     \paper {
 %    linewidth= 18.\cm;
-%	gourlay_maxmeasures = 4.0
+
     }
 }

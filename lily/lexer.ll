@@ -49,6 +49,7 @@ RH 7 fix (?)
 
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
+String lyric_fudge (String s);
 
 
 bool
@@ -321,14 +322,7 @@ HYPHEN		--
 			return yylval.i = EXTENDER;
 		if (s == "--")
 			return yylval.i = HYPHEN;
-		int i = 0;
-               	while ((i=s.index_i ("_")) != -1) // change word binding "_" to " "
-			* (s.ch_l () + i) = ' ';
-		if ((i=s.index_i ("\\,")) != -1)   // change "\," to TeX's "\c "
-			{
-			* (s.ch_l () + i + 1) = 'c';
-			s = s.left_str (i+2) + " " + s.right_str (s.length_i ()-i-2);
-			}
+		s = lyric_fudge (s);
 
 		char c = s[s.length_i () - 1];
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
@@ -607,3 +601,27 @@ valid_version_b (String s)
   return true;
 }
 	
+
+String
+lyric_fudge (String s)
+{
+  char  * chars  =s.copy_ch_p ();
+
+  for (char * p = chars; *p ; p++)
+    {
+      if (*p == '_' && (p == chars || *(p-1) != '\\'))
+	*p = ' ';
+    }
+  
+  s = String (chars);
+  delete[] chars;
+
+  int i =0;	
+  if ((i=s.index_i ("\\,")) != -1)   // change "\," to TeX's "\c "
+    {
+      * (s.ch_l () + i + 1) = 'c';
+      s = s.left_str (i+2) + " " + s.right_str (s.length_i ()-i-2);
+    }
+
+  return s;
+}

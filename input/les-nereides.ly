@@ -1,6 +1,16 @@
 %{
+
+You should preprocess this file with the C preprocessor.  The one with
+FAKE_GRACE looks best.
+
+1.
+
 cpp -P -traditional -o l.ly les-nereides.ly
+
+2.
+
 cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
+
 %}
 
 

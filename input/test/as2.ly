@@ -1,4 +1,5 @@
 
+% test for ascii-art output
 
 \include "paper-as9.ly"
 

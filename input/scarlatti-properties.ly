@@ -1,7 +1,4 @@
-
-
-
-
+%  include file for scarlatti-test
 
 rh=\property Thread.NoteHead \override #'style = #'default
 lh=\property Thread.NoteHead \override #'style = #'diamond

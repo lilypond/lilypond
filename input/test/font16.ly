@@ -9,16 +9,10 @@ description =  "This file tests the Feta music font";
 
 
 \include "paper16.ly"
-\include "font-body.ly"
-
-\score{
-	\FontBody
 	\paper{ 
 	    % don't change this.
 	    % otherwise 16pt and 20pt layouts differ.
-	    \paperSixteen
-	    linewidth = 12.5 \cm;
-	    gourlay_maxmeasures =5.;
-	}
-}
-
+	    
+	    linewidth = 12.5 \cm;}
+	    
+	    \include "font-body.ly"

@@ -8,14 +8,10 @@ TestedFeatures =
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\include "font-body.ly"
-
-\score{
-	\context Staff { \FontBody}
 	\paper{
 	    linewidth = 17.5 \cm;
-	    gourlay_maxmeasures =5.;
 	}
-}
+
+\include "font-body.ly"
 
 
