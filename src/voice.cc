@@ -27,17 +27,20 @@ Voice::print() const
 {
 #ifndef NPRINT
     mtor << "start: "<< start<<eol;
-    for (iter_top(elts,vec); vec.ok(); vec++)
-	vec->print();
+    for (iter_top(elts,i); i.ok(); i++)
+	i->print();
 #endif
 }
 
 Moment
 Voice::last() const
 {
-    Moment l =start;
-    for (iter_top(elts,vec); vec.ok(); vec++)
-	l  += vec->duration;
+    Moment l =0;
+    if (elts.size())
+	l = start;
+    
+    for (iter_top(elts,i); i.ok(); i++)
+	l  += i->duration;
     return l;
 }
 /****************************************************************/
