@@ -12,17 +12,15 @@
 
 /// administration of current key
 class Key {
-    Array<int> accidentals;
+    Array<int> accidental_i_arr_;
 
     /* *************** */
 
 public:
-    Array<int> read(Array<Scalar> );
-    Array<int> oldkey_undo(Array<Scalar>);
-
+ 
     Key();
     void set(int i, int acc);
-    int acc(int i) { return accidentals[i]; }
+    int acc(int i)const { return accidental_i_arr_[i]; }
 };
 
 /// administration of accidentals
