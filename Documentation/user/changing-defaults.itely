@@ -1918,24 +1918,31 @@ No work-around exists for decreasing the amount of space.
 @cindex @code{indent}
 @cindex @code{linewidth}
 
+@c Although linewidth can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
 The most basic settings influencing the spacing are @code{indent} and
-@code{linewidth}. They are set in the @code{\layout} block. They
+@code{linewidth}.  They are set in the @code{\layout} block.  They
 control the indentation of the first line of music, and the lengths of
 the lines.
 
-If  @code{raggedright} is set to true in the @code{\layout}
-block, then the lines are justified at their natural length. This
-useful for short fragments, and for checking how tight the natural
-spacing is.
+If @code{raggedright} is set to true in the @code{\layout} block, then
+the lines are justified at their natural length.  This useful for
+short fragments, and for checking how tight the natural spacing is.
 
 @cindex page layout
 @cindex vertical spacing
 
 The option @code{raggedlast} is similar to @code{raggedright}, but
-only affects the last line of the piece. No restrictions are put on
-that line. The result is similar to formatting text paragraphs. In a
+only affects the last line of the piece.  No restrictions are put on
+that line.  The result is similar to formatting text paragraphs.  In a
 paragraph, the last line simply takes its natural length.
-
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
 
 @node Line breaking
 @subsection Line breaking
@@ -2229,9 +2236,9 @@ The default layout responds to the following settings in the
 @item bottommargin
  Margin between footer and bottom of the page
 @item leftmargin
- Margin between the left side of the page and the beginning  of the music.
+ Margin between the left side of the page and the beginning  of the music
 @item linewidth
- The length of the systems.
+ The length of the systems
 @item headsep
  Distance between top-most music system and the page header
 @item footsep

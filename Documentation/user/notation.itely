@@ -7689,7 +7689,7 @@ teaching tools in addition to great musical scores.
 
 @menu
 * Balloon help::                
-* Blank music layout::           
+* blank music sheet::           
 * Hidden notes::     
 * Easy Notation note heads::    
 @end menu
@@ -7729,10 +7729,10 @@ Examples: @inputfileref{input/regression,balloon.ly}.
 
 
 
-@node Blank music layout
-@subsection Blank music layout
+@node blank music sheet
+@subsection blank music sheet
 
-A blank music layout can be produced also by using invisible notes, and
+A blank music sheet can be produced also by using invisible notes, and
 removing @code{Bar_number_engraver}.
 
 
