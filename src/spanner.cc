@@ -50,8 +50,11 @@ void
 Spanner::print()const
 {
 #ifndef NPRINT
-    mtor << "Spanner { Output ";
-    output->print();
+    mtor << "Spanner { ";
+    if (output) {
+	mtor << "Output ";
+	output->print();
+    }
     
     mtor << "}\n";
 #endif

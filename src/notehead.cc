@@ -17,8 +17,10 @@ Notehead::Notehead(int ss)
 void
 Notehead::print()const
 {
+#ifndef NPRINT
     mtor << "Head "<<balltype<<", position = "<< position << "dots " << dots;
     Item::print();
+#endif
 }
 
 void
