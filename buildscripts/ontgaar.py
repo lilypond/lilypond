@@ -185,6 +185,7 @@ for f in files:
 	s = re.sub (r'split_array', 'split', s)
 	s = re.sub (r'custos_array', 'custodes', s)
 	s = re.sub (r'primitives_array', 'primitives', s)
+	s = re.sub (r'span_array', 'spanners', s)
 	s = re.sub (r'(Pointer|Link|Drul|get|heap|_of|remove)_array',
 		    r'\1_Xarray', s)
 	s = re.sub (r'([a-rt-zA-RT-Z])_array', r'\1s', s)
