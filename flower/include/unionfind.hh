@@ -2,7 +2,7 @@
 #define UNIONFIND_HH
 #include "array.hh"
 
-/*
+/**
     which points of a graph are connected?.
     Union find, a standard algorithm:
 
@@ -19,7 +19,9 @@ struct Union_find {
     Union_find (int sz);
 
 private:
-    Array<int> classes;
-
+  /**
+     This array provides the representing point for each node in the graph.
+   */
+  Array<int> classes_;
 };
 #endif
