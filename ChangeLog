@@ -25,7 +25,6 @@
 	not a BreakAlignGroup. Do not use
 	Break_align_interface::alignment_callback
 
-
 2002-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (LatexPaper.find_latex_dims): give more
@@ -35,9 +34,14 @@
 	corrections. Thanks to Karl Berry
 
 2000-08-30  Heikki Junes <hjunes@cc.hut.fi>
-	
+
         * make/lilypond.mandrake.spec.in: Mandrake adaptations from
         redhat spec and rpm-skeleton found in Mandrake's home page.
+
+2002-08-29 Graham Percival  <gperciva@sfu.ca>
+
+	* Documentation/user/tutorial.itely:  editorial changes (spelling,
+	grammar, etc) of the "Fine tuning" section.
 
 2002-08-29  Juergen Reuter  <reuter@ipd.uka.de>
 
@@ -45,7 +49,6 @@
 	scm/output-lib.scm, lily/note-head.cc: bugfix: make neume note
 	heads accessible
  
-
 2002-08-29  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scm/music-functions.scm (unfold-repeats): Call new

@@ -154,7 +154,7 @@
 	(cons (string-append (number->string duration) "neo_mensural") "ancient")
 	(cons (number->string duration) "music")))
    (else
-    (if (string-match "vaticana*|hufnagel*|medicaea*" style)
+    (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
 	(cons (symbol->string style) "ancient")
 	(cons (string-append (number->string (max 0 duration))
 			     (symbol->string style))
