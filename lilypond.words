@@ -433,6 +433,7 @@ treble
 tremolo
 \\trill
 \\tupletBoth
+TupletBracket
 \\tupletDown
 \\tupletUp
 \\turn
