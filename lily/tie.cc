@@ -38,9 +38,9 @@
 
 
 void
-Tie::set_head (Grob*me,Direction d, Grob * h)
+Tie::set_head (Grob*me, Direction d, Grob * h)
 {
-  assert (!head (me,d));
+  assert (!head (me, d));
   index_set_cell (me->get_property ("head-pair"), d, h->self_scm ());
   
   dynamic_cast<Spanner*> (me)->set_bound (d, h);
@@ -68,8 +68,8 @@ Tie::head (Grob*me, Direction d)
 Real
 Tie::get_position (Grob*me) 
 {
-  Direction d = head (me,LEFT) ? LEFT:RIGHT;
-  return Staff_symbol_referencer::get_position (head (me,d));
+  Direction d = head (me, LEFT) ? LEFT:RIGHT;
+  return Staff_symbol_referencer::get_position (head (me, d));
 }
 
 
@@ -87,8 +87,8 @@ Tie::get_position (Grob*me)
 Direction
 Tie::get_default_dir (Grob*me) 
 {
-  Item * sl =  head (me,LEFT) ? Rhythmic_head::get_stem (head (me,LEFT)) :0;
-  Item * sr =  head (me,RIGHT) ? Rhythmic_head::get_stem (head (me,RIGHT)) :0;  
+  Item * sl =  head (me, LEFT) ? Rhythmic_head::get_stem (head (me, LEFT)) :0;
+  Item * sr =  head (me, RIGHT) ? Rhythmic_head::get_stem (head (me, RIGHT)) :0;  
   if (sl && sr)
     {
       if (get_grob_direction (sl) == UP
@@ -128,9 +128,9 @@ Tie::get_control_points (SCM smob)
 {  
   Spanner*me = unsmob_spanner (smob);
   Direction headdir = CENTER; 
-  if (head (me,LEFT))
+  if (head (me, LEFT))
     headdir = LEFT;
-  else if (head (me,RIGHT))
+  else if (head (me, RIGHT))
     headdir = RIGHT;
   else
     {
@@ -182,7 +182,7 @@ Tie::get_control_points (SCM smob)
   if (Note_head::has_interface (l) && Note_head::has_interface (r))
     {
       width = 
-	+ r->extent (commonx,X_AXIS)[LEFT]
+	+ r->extent (commonx, X_AXIS)[LEFT]
 	- l->extent (commonx, X_AXIS)[RIGHT]
 	-2 * x_gap_f;
     }
@@ -204,10 +204,10 @@ Tie::get_control_points (SCM smob)
   SCM details = me->get_property ("details");
 
   SCM lim // groetjes aan de chirurgendochter.
-    = scm_assq (ly_symbol2scm ("height-limit"),details);
+    = scm_assq (ly_symbol2scm ("height-limit"), details);
   
   Real h_inf = scm_to_double (scm_cdr (lim)) *  staff_space;
-  Real r_0 = scm_to_double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
+  Real r_0 = scm_to_double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"), details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -242,7 +242,7 @@ Tie::get_control_points (SCM smob)
     todo: tie / stem collision
    */
 
-  b = slur_shape (width,h_inf, r_0);
+  b = slur_shape (width, h_inf, r_0);
   b.scale (1, dir);
   b.translate (Offset (left_x, ypos));
   
@@ -256,7 +256,7 @@ Tie::get_control_points (SCM smob)
 
     TODO: doesn't work when on staff with even number of lines.
    */
-  Array<Real> horizontal (b.solve_derivative (Offset (1,0)));
+  Array<Real> horizontal (b.solve_derivative (Offset (1, 0)));
   if (horizontal.size ())
     {
       /*
@@ -319,7 +319,7 @@ Tie::get_control_points (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Tie,print,1);
+MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
 Tie::print (SCM smob) 
 {
@@ -354,7 +354,7 @@ Tie::print (SCM smob)
 
 
 
-ADD_INTERFACE (Tie,"tie-interface",
+ADD_INTERFACE (Tie, "tie-interface",
 	       "A tie connecting two noteheads.\n"
 	       ,
   "y-offset staffline-clearance control-points head-pair details thickness x-gap direction minimum-length");

@@ -157,7 +157,7 @@ pitch_interval (Pitch const & from , Pitch const & to )
 
 	    to.get_alteration () - from.get_alteration ());
 
-  return pt.transposed (Pitch (0,0,sound - pt.quartertone_pitch ()));
+  return pt.transposed (Pitch (0, 0, sound - pt.quartertone_pitch ()));
 }
 
 
@@ -184,7 +184,7 @@ Pitch::to_string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += ::to_string (',');
+	s += ::to_string (', ');
     }
 
   return s;

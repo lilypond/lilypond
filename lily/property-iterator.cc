@@ -44,7 +44,7 @@ Property_unset_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK (Property_iterator,once_finalization, 2);
+MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 2);
 SCM
 Property_iterator::once_finalization (SCM translator, SCM music )
 {
@@ -115,7 +115,7 @@ Push_property_iterator::process (Moment m)
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK (Push_property_iterator,once_finalization, 2);
+MAKE_SCHEME_CALLBACK (Push_property_iterator, once_finalization, 2);
 SCM
 Push_property_iterator::once_finalization (SCM trans, SCM music)
 {

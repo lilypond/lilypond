@@ -116,7 +116,7 @@ LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
 }
 
 LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
-	   2 ,0, 0, (SCM pitch, SCM  root),
+	   2 , 0, 0, (SCM pitch, SCM  root),
 	   "Return pitch @var{delta} such that @code{pitch} transposed by "
 	   "@var{delta} equals @var{root}" )
 {

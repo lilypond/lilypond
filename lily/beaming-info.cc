@@ -27,7 +27,7 @@ const int infinity_i = INT_MAX;	// guh.
 const int at_beat = 1<<15;
 
 int
-Beaming_info_list::best_splitpoint_index (Moment &beat_length,bool subdivide) const
+Beaming_info_list::best_splitpoint_index (Moment &beat_length, bool subdivide) const
 {
   int minden = infinity_i;
   int minidx = -1;
@@ -62,22 +62,22 @@ Beaming_info_list::beam_extend_count (Direction d) const
 }
 
 void
-Beaming_info_list::beamify (Moment &beat_length,bool subdivide)
+Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
 {
   if (infos_.size () <= 1)
     return;
       
   Drul_array<Beaming_info_list> splits;
-  int m = best_splitpoint_index (beat_length,subdivide);
+  int m = best_splitpoint_index (beat_length, subdivide);
   bool split = subdivide && (m & at_beat);  m = m & ~at_beat;
-  splits[LEFT].infos_ = infos_.slice (0,m);
+  splits[LEFT].infos_ = infos_.slice (0, m);
   splits[RIGHT].infos_ = infos_.slice (m, infos_.size ());
 
   Direction d = LEFT;
  
   do
     {
-      splits[d].beamify (beat_length,subdivide);
+      splits[d].beamify (beat_length, subdivide);
     }
   while (flip (&d) != LEFT);
 

@@ -88,7 +88,7 @@ struct Text_script
   static bool has_interface (Grob*);
 };
 
-ADD_INTERFACE (Text_script,"text-script-interface",
+ADD_INTERFACE (Text_script, "text-script-interface",
   "An object that is put above or below a note",
   "add-stem-support slur script-priority inside-slur");
 

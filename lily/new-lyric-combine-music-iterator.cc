@@ -26,7 +26,7 @@ protected:
   virtual bool run_always ()const;
   virtual bool ok () const;
   virtual void derived_mark () const;
-  virtual void derived_substitute (Context *,Context *);
+  virtual void derived_substitute (Context *, Context *);
 private:
   bool start_new_syllable () ;
   void find_voice ();
@@ -127,7 +127,7 @@ void
 New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (lyric_iter_)
-    lyric_iter_->substitute_outlet (f,t);
+    lyric_iter_->substitute_outlet (f, t);
   if (lyrics_context_ && lyrics_context_ == f)
     lyrics_context_ = t;
   if (music_context_ && music_context_ == f)

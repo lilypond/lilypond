@@ -20,7 +20,7 @@
 #include "lookup.hh"
 
 Stencil
-System_start_delimiter::staff_bracket (Grob*me,Real height)
+System_start_delimiter::staff_bracket (Grob*me, Real height)
 {
   Real arc_height = scm_to_double (me->get_property ("arch-height")) ;
 
@@ -61,22 +61,22 @@ Will not fix it since I'm not sure.
 
 
 Stencil
-System_start_delimiter::simple_bar (Grob*me,Real h) 
+System_start_delimiter::simple_bar (Grob*me, Real h) 
 {
   Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness")) ;
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
-  return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
+  return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h/2, h/2)),
 				   lt);
 }
 
-MAKE_SCHEME_CALLBACK (System_start_delimiter,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (System_start_delimiter, after_line_breaking, 1);
 
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_property ("glyph");
-  if (ly_c_equal_p (gl,scm_makfrom0str ("bar-line")))
+  if (ly_c_equal_p (gl, scm_makfrom0str ("bar-line")))
     {
       int count = 0;
 
@@ -196,7 +196,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 }
 
 
-ADD_INTERFACE (System_start_delimiter,"system-start-delimiter-interface",
+ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       "The brace, bracket or bar in front of the system. "
 	       "It is implemented as a spanner."
 	       ,

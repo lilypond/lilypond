@@ -17,7 +17,7 @@
 #include "directional-element-interface.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK (Rest,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Rest, after_line_breaking, 1);
 SCM
 Rest::after_line_breaking (SCM smob)
 {
@@ -113,7 +113,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 }
 
 
-MAKE_SCHEME_CALLBACK (Rest,print,1);
+MAKE_SCHEME_CALLBACK (Rest, print, 1);
 
 SCM
 Rest::brew_internal_stencil (SCM smob, bool ledgered)
@@ -145,7 +145,7 @@ Rest::print (SCM smob)
 {
   return brew_internal_stencil (smob, true);
 }
-MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
+MAKE_SCHEME_CALLBACK (Rest, extent_callback, 2);
 /*
   We need the callback. The real stencil has ledgers depending on
   Y-position. The Y-position is known only after line breaking.  */
@@ -166,7 +166,7 @@ Rest::extent_callback (SCM smob, SCM ax)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
-MAKE_SCHEME_CALLBACK (Rest,polyphonic_offset_callback,2);
+MAKE_SCHEME_CALLBACK (Rest, polyphonic_offset_callback, 2);
 SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
@@ -181,7 +181,7 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
   return scm_make_real (off);
 }
 
-ADD_INTERFACE (Rest,"rest-interface",
+ADD_INTERFACE (Rest, "rest-interface",
   "A rest symbol.",
   "style direction minimum-distance");
 

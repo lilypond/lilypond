@@ -14,25 +14,25 @@ source file of the GNU LilyPond music typesetter
 
 struct Piano_pedal_bracket
 {
-  DECLARE_SCHEME_CALLBACK (print,(SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
 };
 
 
-MAKE_SCHEME_CALLBACK (Piano_pedal_bracket,print,1);
+MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
   Spanner *orig = dynamic_cast<Spanner*> (me->original_); 
   
-  Drul_array<bool> broken (false,false);
+  Drul_array<bool> broken (false, false);
   Drul_array<Real> height = robust_scm2drul
-    (me->get_property ("edge-height"), Interval (0,0));
+    (me->get_property ("edge-height"), Interval (0, 0));
   Drul_array<Real> shorten = robust_scm2drul
-    (me->get_property ("shorten-pair"), Interval (0,0));
+    (me->get_property ("shorten-pair"), Interval (0, 0));
   Drul_array<Real> flare = robust_scm2drul
-    (me->get_property ("bracket-flare"), Interval (0,0));
+    (me->get_property ("bracket-flare"), Interval (0, 0));
 
   Grob *common = me->get_bound (LEFT)
     ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
@@ -41,7 +41,7 @@ Piano_pedal_bracket::print (SCM smob)
   if (textbit)
     common = common->common_refpoint (textbit, X_AXIS);
 
-  Interval span_points (0,0);
+  Interval span_points (0, 0);
   Direction d = LEFT;
   do
     {
@@ -93,7 +93,7 @@ Piano_pedal_bracket::print (SCM smob)
 
 
 
-ADD_INTERFACE (Piano_pedal_bracket,"piano-pedal-bracket-interface",
+ADD_INTERFACE (Piano_pedal_bracket, "piano-pedal-bracket-interface",
 	       "The bracket of the piano pedal.  It can be tuned through the regular "
 	       "bracket properties.",
 	       "bound-padding edge-height shorten-pair bracket-flare pedal-text");

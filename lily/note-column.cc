@@ -61,7 +61,7 @@ Note_column::head_positions_interval (Grob *me)
       Grob *se = unsmob_grob (scm_car (h));
       
       int j = Staff_symbol_referencer::get_rounded_position (se);
-      iv.unite (Slice (j,j));
+      iv.unite (Slice (j, j));
     }
   return iv;
 }
@@ -81,7 +81,7 @@ Note_column::dir (Grob*  me)
 
 
 void
-Note_column::set_stem (Grob*me,Grob * stem)
+Note_column::set_stem (Grob*me, Grob * stem)
 {
   me->set_property ("stem", stem->self_scm ());
   me->add_dependency (stem);
@@ -96,7 +96,7 @@ Note_column::get_rest (Grob*me)
 }
   
 void
-Note_column::add_head (Grob*me,Grob *h)
+Note_column::add_head (Grob*me, Grob *h)
 {
   bool both = false;
   if (Rest::has_interface (h))
@@ -110,7 +110,7 @@ Note_column::add_head (Grob*me,Grob *h)
     {
       if (unsmob_grob (me->get_property ("rest")))
 	both = true;
-      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"),h);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), h);
     }
 
   if (both)
@@ -135,7 +135,7 @@ Note_column::translate_rests (Grob*me, int dy)
 
 
 void
-Note_column::set_dotcol (Grob*me,Grob *d)
+Note_column::set_dotcol (Grob*me, Grob *d)
 {
   Axis_group_interface::add_element (me, d);
 }
@@ -179,7 +179,7 @@ Note_column::accidentals (Grob *me)
 
 
 
-ADD_INTERFACE (Note_column,"note-column-interface",
+ADD_INTERFACE (Note_column, "note-column-interface",
   "Stem and noteheads combined",
   "arpeggio note-heads rest-collision rest horizontal-shift stem accidentals force-hshift");
 

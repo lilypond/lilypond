@@ -143,9 +143,9 @@ void
 Folded_repeat_iterator::derived_substitute (Context *f, Context *t) 
 {
   if (main_iter_)
-    main_iter_->substitute_outlet (f,t);
+    main_iter_->substitute_outlet (f, t);
   if (alternative_iter_)
-    alternative_iter_->substitute_outlet (f,t);
+    alternative_iter_->substitute_outlet (f, t);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Folded_repeat_iterator);

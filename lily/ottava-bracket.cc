@@ -76,7 +76,7 @@ Ottava_bracket::print (SCM smob)
 
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-						  Interval (0,0));
+						  Interval (0, 0));
 
 
   /*
@@ -138,7 +138,7 @@ Ottava_bracket::print (SCM smob)
 
   
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-						Interval (0,0));
+						Interval (0, 0));
 
 
 
@@ -172,7 +172,7 @@ Ottava_bracket::print (SCM smob)
   */
   
   b = Stencil (Box (b.extent (X_AXIS),
-		     Interval (0.1,0.1)),
+		     Interval (0.1, 0.1)),
 		b.expr ());
   
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);

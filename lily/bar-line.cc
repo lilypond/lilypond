@@ -17,7 +17,7 @@
 #include "all-font-metrics.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK (Bar_line,print,1);
+MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
 
 SCM 
 Bar_line::print (SCM smob) 
@@ -66,9 +66,9 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
        ? 1
        : (staff_space < 2 ? 2 : .5) ) * staff_space;
   Stencil colon (dot);
-  colon.translate_axis (dist,Y_AXIS);
+  colon.translate_axis (dist, Y_AXIS);
   colon.add_stencil (dot);
-  colon.translate_axis (-dist/2,Y_AXIS);
+  colon.translate_axis (-dist/2, Y_AXIS);
 
   Stencil m;
   if (str == "||:")
@@ -85,7 +85,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);      
-      m.add_at_edge (X_AXIS, LEFT, thin, kern,0 );
+      m.add_at_edge (X_AXIS, LEFT, thin, kern, 0 );
     }
   else if (str == ".|" || (h == 0 && str == "|:"))
     {
@@ -134,7 +134,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 	  Real y = (- (c-1.0) / 2 + 0.5  +   i * staff_space);
 	  Stencil d (dot);
 
-	  d. translate_axis (y,Y_AXIS);
+	  d. translate_axis (y, Y_AXIS);
 	  m.add_stencil (d);
 	}
     }
@@ -148,10 +148,10 @@ Bar_line::simple_barline (Grob *me,
 {
   Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
   
-  return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)), blot);
+  return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h/2, h/2)), blot);
 }
 
-MAKE_SCHEME_CALLBACK (Bar_line,before_line_breaking ,1);
+MAKE_SCHEME_CALLBACK (Bar_line, before_line_breaking , 1);
 
 SCM
 Bar_line::before_line_breaking (SCM smob)
@@ -184,7 +184,7 @@ Bar_line::before_line_breaking (SCM smob)
 
 
 
-MAKE_SCHEME_CALLBACK (Bar_line,get_staff_bar_size,1);
+MAKE_SCHEME_CALLBACK (Bar_line, get_staff_bar_size, 1);
 SCM
 Bar_line::get_staff_bar_size (SCM smob) 
 {
@@ -216,7 +216,7 @@ ADD_INTERFACE (Bar_line, "bar-line-interface",
 "Print a special bar symbol. It replaces the \n"
 "regular bar symbol with a special\n"
 "symbol.  The argument @var{bartype} is a string which specifies the\n"
-"kind of bar to print.  Options are @code{:|},\n"
+"kind of bar to print.  Options are @code{:|}, \n"
 "@code{|:}, @code{:|:},\n"
 "@code{||}, @code{|.},\n"
 "@code{.|}, and @code{.|.}. \n"

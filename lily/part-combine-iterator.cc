@@ -124,7 +124,7 @@ Part_combine_iterator::derived_substitute (Context *f,
 				     Context *t)
 {
   if (first_iter_)
-    first_iter_->substitute_outlet (f,t);
+    first_iter_->substitute_outlet (f, t);
 
 }
 
@@ -205,7 +205,7 @@ void
 Part_combine_iterator::substitute_both (Context * to1,
 					Context * to2)
 {
-  Context *tos[]  = {to1,to2};
+  Context *tos[]  = {to1, to2};
   Music_iterator *mis[] = {first_iter_, second_iter_}; 
   Interpretation_context_handle *hs[] = {
     &null_,
@@ -320,7 +320,7 @@ Part_combine_iterator::construct_children ()
 
   Context *tr
     =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
-					     "shared",props);
+					     "shared", props);
 
   shared_.set_context (tr);
 
@@ -331,7 +331,7 @@ Part_combine_iterator::construct_children ()
 
   Context *solo_tr
     =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
-					      "solo",props);
+					      "solo", props);
 
   solo_ .set_context (solo_tr);
 

@@ -48,8 +48,8 @@ Ambitus_engraver::derived_mark () const
 void
 Ambitus_engraver::create_ambitus ()
 {
-  ambitus_ = make_item ("AmbitusLine",SCM_EOL);
-  group_ = make_item ("Ambitus",SCM_EOL);
+  ambitus_ = make_item ("AmbitusLine", SCM_EOL);
+  group_ = make_item ("Ambitus", SCM_EOL);
   Direction d = DOWN;
   do
     {

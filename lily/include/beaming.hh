@@ -32,8 +32,8 @@ struct Beaming_info_list
   Array<Beaming_info> infos_;
 
   int beam_extend_count (Direction) const;
-  int best_splitpoint_index (Moment &beat_length,bool subdivide) const;
-  void beamify (Moment &beat_length,bool subdivide);
+  int best_splitpoint_index (Moment &beat_length, bool subdivide) const;
+  void beamify (Moment &beat_length, bool subdivide);
   void add_stem (Moment d, int beams);
 };
 

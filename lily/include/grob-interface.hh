@@ -14,13 +14,13 @@
 
 
 
-#define ADD_INTERFACE(cl,a,b,c) \
+#define ADD_INTERFACE(cl, a, b, c) \
 bool cl::has_interface(Grob*me)\
 {\
   return me->internal_has_interface (ly_symbol2scm (a));\
 }\
 void cl ## _init_ifaces() {\
-  add_interface(a,b,c);\
+  add_interface(a, b, c);\
 }\
 ADD_SCM_INIT_FUNC(cl ## ifaces, cl ## _init_ifaces);\
 

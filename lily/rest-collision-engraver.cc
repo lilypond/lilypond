@@ -44,7 +44,7 @@ Rest_collision_engraver::process_acknowledged_grobs ()
 
   
   for (int i = 0; i < note_columns_.size (); i++)
-    Rest_collision::add_column (rest_collision_,note_columns_[i]);
+    Rest_collision::add_column (rest_collision_, note_columns_[i]);
 }
 
 void

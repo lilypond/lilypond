@@ -105,7 +105,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
-	  bar_size = Interval (-1,1);
+	  bar_size = Interval (-1, 1);
 	  bar_size *= robust_scm2double (sz, 1)
 	    / Staff_symbol_referencer::staff_space (bar_grob);
 	}
@@ -241,7 +241,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 }
 
 
-ADD_INTERFACE (Staff_spacing,"staff-spacing-interface",
+ADD_INTERFACE (Staff_spacing, "staff-spacing-interface",
 	       "This object calculates spacing details from a "
 	       " breakable symbol (left) to another object. For example, it takes care "
 	       " of  optical spacing from  a bar lines to a note.",

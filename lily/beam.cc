@@ -333,7 +333,7 @@ Beam::print (SCM grob)
   if (!is_number_pair (posns))
     {
       programming_error ("No beam posns");
-      pos = Interval (0,0);
+      pos = Interval (0, 0);
     }
   else
     pos = ly_scm2realdrul (posns);
@@ -907,7 +907,7 @@ Beam::least_squares (SCM smob)
 
       dy = slope * dx;
 
-      set_minimum_dy (me,&dy);
+      set_minimum_dy (me, &dy);
       me->set_property ("least-squares-dy", scm_make_real (dy));
       pos = Interval (y, (y+dy));
     }

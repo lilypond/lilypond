@@ -71,7 +71,7 @@ Quote_iterator::Quote_iterator ()
 
 
 int
-binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
+binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a, SCM b))
 {
   int lo = 0;
   int hi = scm_c_vector_length (vec);

@@ -15,10 +15,10 @@
 #include "accidental-placement.hh"
 
 void
-Separation_item::add_item (Grob*s,Item* i)
+Separation_item::add_item (Grob*s, Item* i)
 {
   assert (i);
-  Pointer_group_interface::add_grob (s, ly_symbol2scm ("elements"),i);
+  Pointer_group_interface::add_grob (s, ly_symbol2scm ("elements"), i);
   s->add_dependency (i);
 }
 
@@ -167,7 +167,7 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
 
 
 
-ADD_INTERFACE (Separation_item,"separation-item-interface",
+ADD_INTERFACE (Separation_item, "separation-item-interface",
 	       "Item that computes widths to generate spacing rods. "
 	       "This is done in concert with @ref{separation-spanner-interface}."
 	       

@@ -51,8 +51,8 @@ public:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  void add_fingering (Grob*, Music*,Music*);
-  void add_script  (Grob*, Music*,Music*);
+  void add_fingering (Grob*, Music*, Music*);
+  void add_script  (Grob*, Music*, Music*);
   void position_scripts ();
 };
 
@@ -219,7 +219,7 @@ New_fingering_engraver::position_scripts ()
   else if (up_p && down_p)
     {
       int center = fingerings_.size () / 2;
-      down.concat (fingerings_.slice (0,center));
+      down.concat (fingerings_.slice (0, center));
       up.concat (fingerings_.slice (center, fingerings_.size ()));
     }
   else if (up_p)

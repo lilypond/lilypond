@@ -20,7 +20,7 @@ struct Spring_smob
   bool expand_only_b_;
   Real strength_;
   
-  DECLARE_SIMPLE_SMOBS(Spring_smob,dummy);
+  DECLARE_SIMPLE_SMOBS(Spring_smob, dummy);
 public:
   Spring_smob();
 };

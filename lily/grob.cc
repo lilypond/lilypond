@@ -36,7 +36,7 @@ Grob::clone (int count) const
 
 /* TODO:
 
-  - remove dynamic_cast<Spanner,Item> and put this code into respective
+  - remove dynamic_cast<Spanner, Item> and put this code into respective
     subclass.  */
 
 #define HASH_SIZE 3
@@ -238,7 +238,7 @@ Grob::get_uncached_stencil () const
 	{
 	  SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm(),
 				 m->expr ());
-	  stil = Stencil (m->extent_box (),expr). smobbed_copy ();
+	  stil = Stencil (m->extent_box (), expr). smobbed_copy ();
 	}
      }
 
@@ -535,7 +535,7 @@ Grob::set_parent (Grob *g, Axis a)
   dim_cache_[a].parent_ = g;
 }
 
-MAKE_SCHEME_CALLBACK (Grob,fixup_refpoint,1);
+MAKE_SCHEME_CALLBACK (Grob, fixup_refpoint, 1);
 SCM
 Grob::fixup_refpoint (SCM smob)
 {

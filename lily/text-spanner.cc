@@ -119,7 +119,7 @@ Text_spanner::print (SCM smob)
 
 	  Real dy = - dir * edge_height[d] ;
 	  if (dy)
-	    edge_line[d] = Line_spanner::line_stencil (me, Offset (0,0), Offset (dx, dy));
+	    edge_line[d] = Line_spanner::line_stencil (me, Offset (0, 0), Offset (dx, dy));
 	}
       while (flip (&d) != LEFT);
     }
@@ -156,7 +156,7 @@ Text_spanner::print (SCM smob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Text_spanner,"text-spanner-interface",
+ADD_INTERFACE (Text_spanner, "text-spanner-interface",
 	       "generic text spanner",
 	       "dash-period dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
 

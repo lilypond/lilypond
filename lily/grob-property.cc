@@ -31,7 +31,7 @@ Grob::get_property_alist_chain (SCM def) const
 /*
   This special add_thing routine is slightly more efficient than
 
-    set_prop (name,cons (thing, get_prop (name)))
+    set_prop (name, cons (thing, get_prop (name)))
 
   since it can reuse the handle returned by scm_assq ().
 */

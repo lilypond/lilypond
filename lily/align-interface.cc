@@ -13,7 +13,7 @@
 #include "hara-kiri-group-spanner.hh"
 #include "output-def.hh"
 
-MAKE_SCHEME_CALLBACK (Align_interface,alignment_callback,2);
+MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
@@ -27,7 +27,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   return scm_make_real (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Align_interface,fixed_distance_alignment_callback,2);
+MAKE_SCHEME_CALLBACK (Align_interface, fixed_distance_alignment_callback, 2);
 SCM
 Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 {
@@ -55,7 +55,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   if (!stacking_dir)
     stacking_dir = DOWN;
 
-  Real dy = robust_scm2double (me->get_property ("forced-distance"),0.0);
+  Real dy = robust_scm2double (me->get_property ("forced-distance"), 0.0);
   
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
@@ -93,7 +93,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
     }
 
   /*
-    TODO: support self-alignment-{Y,X}
+    TODO: support self-alignment-{Y, X}
    */
   for (int i = 0; i < translates.size (); i++)
     {
@@ -230,16 +230,16 @@ Align_interface::axis (Grob*me)
 }
 
 void
-Align_interface::add_element (Grob*me,Grob* s, SCM cb)
+Align_interface::add_element (Grob*me, Grob* s, SCM cb)
 {
   s->add_offset_callback (cb, Align_interface::axis (me));
   Axis_group_interface::add_element (me, s);
 }
 
 void
-Align_interface::set_axis (Grob*me,Axis a)
+Align_interface::set_axis (Grob*me, Axis a)
 {
-  Axis_group_interface::set_axes (me, a,a);
+  Axis_group_interface::set_axes (me, a, a);
 }
 
 

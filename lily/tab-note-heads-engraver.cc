@@ -137,7 +137,7 @@ Tab_note_heads_engraver::process_music ()
       while (!string_found)
 	{
 	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
-	    - scm_to_int (scm_list_ref (stringTunings,scm_int2num (tab_string-1)));
+	    - scm_to_int (scm_list_ref (stringTunings, scm_int2num (tab_string-1)));
 	  if (fret<min_fret)
 	    tab_string += high_string_one ? 1 : -1;
 	  else

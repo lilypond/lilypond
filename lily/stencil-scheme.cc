@@ -309,7 +309,7 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
 
 
 
-LY_DEFINE (ly_bracket ,"ly:bracket",
+LY_DEFINE (ly_bracket , "ly:bracket",
 	  4, 0, 0,
 	  (SCM a, SCM iv, SCM t, SCM p),
 	  "Make a bracket in direction @var{a}. The extent of the bracket is " 
@@ -330,7 +330,7 @@ LY_DEFINE (ly_bracket ,"ly:bracket",
 
 
 
-LY_DEFINE (ly_filled_box ,"ly:round-filled-box",
+LY_DEFINE (ly_filled_box , "ly:round-filled-box",
 	  3, 0, 0,
 	  (SCM xext, SCM yext, SCM blot),
 	  "Make a @code{Stencil} "

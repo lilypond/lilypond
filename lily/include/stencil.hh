@@ -41,7 +41,7 @@
     * Empty stencils have empty dimensions.  If add_at_edge is used to
     init the stencil, we assume that
 
-      DIMENSIONS = (Interval (0,0),Interval (0,0)
+      DIMENSIONS = (Interval (0, 0), Interval (0, 0)
 */
 class Stencil
 {
@@ -56,7 +56,7 @@ class Stencil
   Box dim_;
   SCM expr_;
   
-  DECLARE_SIMPLE_SMOBS (Stencil,);  
+  DECLARE_SIMPLE_SMOBS (Stencil, );  
 public:
   Stencil (Box, SCM s);
   Stencil ();
@@ -65,7 +65,7 @@ public:
   SCM expr () const;
 
   /**
-     Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */
+     Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
   Stencil moved_to_edge (Axis a, Direction d, const Stencil &m, Real padding,
 			 Real minimum) const;
@@ -75,19 +75,19 @@ public:
   void add_stencil (Stencil const &m);
   void translate (Offset);
   void align_to (Axis a, Real x);
-  void translate_axis (Real,Axis);
+  void translate_axis (Real, Axis);
   
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
 
   static SCM ly_get_stencil_extent (SCM mol, SCM axis);
-  static SCM ly_set_stencil_extent_x (SCM,SCM,SCM);
-  static SCM ly_stencil_combined_at_edge (SCM,SCM,SCM,SCM,SCM);
+  static SCM ly_set_stencil_extent_x (SCM, SCM, SCM);
+  static SCM ly_stencil_combined_at_edge (SCM, SCM, SCM, SCM, SCM);
 };
 
 
-DECLARE_UNSMOB(Stencil,stencil);
+DECLARE_UNSMOB(Stencil, stencil);
 SCM fontify_atom (Font_metric const*, SCM atom);
 
 void interpret_stencil_expression (SCM expr,

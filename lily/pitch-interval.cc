@@ -20,8 +20,8 @@ Pitch_interval::Pitch_interval (Pitch p1, Pitch p2)
 
 Pitch_interval::Pitch_interval ()
 {
-  elem_ref(LEFT) =  Pitch (100,0,0);
-  elem_ref(RIGHT) =  Pitch (-100,0,0);
+  elem_ref(LEFT) =  Pitch (100, 0, 0);
+  elem_ref(RIGHT) =  Pitch (-100, 0, 0);
 }
 
 

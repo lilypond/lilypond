@@ -36,7 +36,7 @@ Rhythmic_head::dot_count (Grob*me)
 }
 
 void
-Rhythmic_head::set_dots (Grob*me,Item *dot)
+Rhythmic_head::set_dots (Grob*me, Item *dot)
 {
   me->set_property ("dot", dot->self_scm ());
 }
@@ -48,7 +48,7 @@ Rhythmic_head::duration_log (Grob*me)
   return scm_is_number (s) ? scm_to_int (s) : 0;
 }
 
-ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",
+ADD_INTERFACE (Rhythmic_head, "rhythmic-head-interface",
   "Note head or rest",
   "dot stem duration-log");
 

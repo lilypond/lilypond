@@ -55,7 +55,7 @@ LY_DEFINE (ly_music_name, "ly:music-name",
 	   "Return the name of @var{music}.")
 {
   Music *m = unsmob_music (mus);
-  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__ ,"music");
+  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__ , "music");
 
   char const *nm = classname (m);
   return scm_makfrom0str (nm);
@@ -91,7 +91,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
   return m->get_property_alist (true);
 }
 
-LY_DEFINE (ly_music_list_p,"ly:music-list?",
+LY_DEFINE (ly_music_list_p, "ly:music-list?",
 	   1, 0, 0, (SCM lst),
 	   "Type predicate: return true if @var{lst} is a list "
 	   "of music objects.")
@@ -155,7 +155,7 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
   return sc->self_scm ();
 }
 
-LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
+LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
 	  (SCM mus),
 	  "Extract the duration field from @var{mus}, and return the length.")
 {
@@ -177,7 +177,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
 }
 
 
-LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
+LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
 	  (SCM mus, SCM fact),
 	  "Compress @var{mus} by factor @var{fact}, which is a @code{Moment}.")
 {

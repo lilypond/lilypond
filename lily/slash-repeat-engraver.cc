@@ -78,7 +78,7 @@ Slash_repeat_engraver::try_music (Music * m)
       Moment meas_len = robust_scm2moment (m->get_property ("measureLength"), Moment (0));
       if (body_length_ < meas_len 
 	  && meas_len.main_part_.mod_rat (body_length_.main_part_)
-	  == Moment (Rational (0,0)))
+	  == Moment (Rational (0, 0)))
 	{
 	  repeat_ = m;
 	}

@@ -16,7 +16,7 @@
 
 Scheme_hash_table *global_translator_dict = 0;
 
-LY_DEFINE (get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
+LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0,  (),
 	  "Return a list of all translator objects that may be instantiated. "
 	   )
 {

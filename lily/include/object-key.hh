@@ -21,7 +21,7 @@
  */
 class Object_key
 {
-  DECLARE_SMOBS(Object_key,);
+  DECLARE_SMOBS(Object_key, );
 
 protected:
   Object_key();

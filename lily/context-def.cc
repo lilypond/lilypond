@@ -189,7 +189,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 	= g->path_to_acceptable_context (type_sym, odef);
       if (result.size () && result.size () < best_depth)
 	{
-	  result.insert (g,0);
+	  result.insert (g, 0);
 	  best_result = result;
 
 	  /* this following line was added in 1.9.3, but hsould've been

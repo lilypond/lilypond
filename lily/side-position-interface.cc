@@ -52,7 +52,7 @@ Side_position_interface::get_direction (Grob*me)
 }
   
 
-MAKE_SCHEME_CALLBACK (Side_position_interface,aligned_on_support_extents, 2);
+MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_on_support_extents, 2);
 SCM
 Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 {
@@ -92,7 +92,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 	else
 	  {
 	    Real x = e->relative_coordinate (common, a);
-	    dim.unite (Interval (x,x));
+	    dim.unite (Interval (x, x));
 	  }
     }
 
@@ -128,7 +128,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 /*
   Cut & paste (ugh.)
  */
-MAKE_SCHEME_CALLBACK (Side_position_interface,aligned_on_support_refpoints,2);
+MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_on_support_refpoints, 2);
 SCM
 Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
 {
@@ -156,7 +156,7 @@ directed_round (Real f, Direction d)
 
   Only rounds when we're inside the staff, as determined by
   Staff_symbol_referencer::staff_radius () */
-MAKE_SCHEME_CALLBACK (Side_position_interface,quantised_position,2);
+MAKE_SCHEME_CALLBACK (Side_position_interface, quantised_position, 2);
 SCM
 Side_position_interface::quantised_position (SCM element_smob, SCM)
 {
@@ -174,7 +174,7 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 
       Grob *head = me->get_parent (X_AXIS);
 	
-      if (Staff_symbol_referencer::on_staffline (me,ip)
+      if (Staff_symbol_referencer::on_staffline (me, ip)
 	  && ((abs (ip) <= rad)
 	      || (Note_head::has_interface (head)
 		  && sign (Staff_symbol_referencer::get_position (head))
@@ -193,7 +193,7 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 /*
   Position next to support, taking into account my own dimensions and padding.
  */
-MAKE_SCHEME_CALLBACK (Side_position_interface,aligned_side,2);
+MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_side, 2);
 SCM
 Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 {
@@ -202,7 +202,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   
   Direction d = Side_position_interface::get_direction (me);
   
-  Real o = scm_to_double (aligned_on_support_extents (element_smob,axis));
+  Real o = scm_to_double (aligned_on_support_extents (element_smob, axis));
 
   Interval iv =  me->extent (me, a);
 
@@ -258,7 +258,7 @@ Side_position_interface::get_axis (Grob*me)
 }
 
 
-ADD_INTERFACE (Side_position_interface,"side-position-interface",
+ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "Position a victim object (this one) next to other objects (the "
 	       "support).   The property @code{direction} signifies where to put the  "
 	       "victim object relative to the support (left or right, up or down?)\n\n "

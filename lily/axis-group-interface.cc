@@ -11,7 +11,7 @@
 #include "hara-kiri-group-spanner.hh"
 
 void
-Axis_group_interface::add_element (Grob*me,Grob *e)
+Axis_group_interface::add_element (Grob*me, Grob *e)
 {
   for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = scm_cdr (ax))
     {
@@ -32,7 +32,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 }
 
 bool
-Axis_group_interface::has_axis (Grob*me,Axis a)
+Axis_group_interface::has_axis (Grob*me, Axis a)
 {
   /*
     urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?
@@ -55,7 +55,7 @@ Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
   return r;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface,group_extent_callback,2);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, group_extent_callback, 2);
 SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
@@ -72,7 +72,7 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 }
 
 void
-Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
+Axis_group_interface::set_axes (Grob*me, Axis a1, Axis a2)
 {
   SCM sa1= scm_int2num (a1);
   SCM sa2 = scm_int2num (a2);
@@ -98,9 +98,9 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
     why so convoluted ? (fixme/documentme?) 
    */
   if (me->has_extent_callback (Grob::stencil_extent_proc, a1))
-    me->set_extent (Axis_group_interface::group_extent_callback_proc,a1);
+    me->set_extent (Axis_group_interface::group_extent_callback_proc, a1);
   if (me->has_extent_callback (Grob::stencil_extent_proc, a2))
-    me->set_extent (Axis_group_interface::group_extent_callback_proc,a2);
+    me->set_extent (Axis_group_interface::group_extent_callback_proc, a2);
 }
 
 Link_array<Grob> 

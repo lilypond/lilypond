@@ -51,7 +51,7 @@ void
 Chord_tremolo_iterator::derived_substitute (Context *f, Context *t) 
 {
   if (child_iter_)
-    child_iter_->substitute_outlet (f,t);
+    child_iter_->substitute_outlet (f, t);
 }
 
 void

@@ -72,8 +72,8 @@ Stem_tremolo::raw_stencil (Grob *me)
     dydx = 0.25;
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thick = robust_scm2double (me->get_property ("beam-thickness"),1);
-  Real width = robust_scm2double (me->get_property ("beam-width"),1);
+  Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
+  Real width = robust_scm2double (me->get_property ("beam-width"), 1);
   Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   width *= ss;
@@ -108,7 +108,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo,print,1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
 SCM
 Stem_tremolo::print (SCM grob) 
 {
@@ -173,6 +173,6 @@ Stem_tremolo::print (SCM grob)
 
 
 
-ADD_INTERFACE (Stem_tremolo,"stem-tremolo-interface",
+ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",
   "A beam slashing a stem to indicate a tremolo.",
   "stem beam-width beam-thickness flag-count");

@@ -26,7 +26,7 @@ struct Key_signature_interface
 /*
   FIXME: too much hardcoding here.
  */
-const int FLAT_TOP_PITCH =2; /* fes,ges,as and bes typeset in lower octave */
+const int FLAT_TOP_PITCH =2; /* fes, ges, as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH =4; /*  ais and bis typeset in lower octave */
 
 /*
@@ -88,7 +88,7 @@ alteration_pos  (SCM what, int alter, int c0p)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_CALLBACK (Key_signature_interface,print,1);
+MAKE_SCHEME_CALLBACK (Key_signature_interface, print, 1);
 SCM
 Key_signature_interface::print (SCM smob)
 {

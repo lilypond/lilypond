@@ -48,7 +48,7 @@ Time_signature_performer::create_audio_elements ()
       int b = scm_to_int (scm_car (fr));
       int o = scm_to_int (scm_cdr (fr));
       
-      audio_ = new Audio_time_signature (b,o);
+      audio_ = new Audio_time_signature (b, o);
       Audio_element_info info (audio_, 0);
       announce_element (info);
 
@@ -65,4 +65,4 @@ Time_signature_performer::stop_translation_timestep ()
     }
 }
 
-ADD_TRANSLATOR (Time_signature_performer,"","","","","","");
+ADD_TRANSLATOR (Time_signature_performer, "", "", "", "", "", "");

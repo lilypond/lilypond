@@ -10,7 +10,7 @@
 #include "object-key-undumper.hh"
 
 LY_DEFINE(ly_undumper_read_keys, "ly:undumper-read-keys",
-	  2,0,0,
+	  2, 0, 0,
 	  (SCM undumper, SCM keys),
 	  "Read serialized @var{keys} into @var{undumper}."
 	  )
@@ -23,7 +23,7 @@ LY_DEFINE(ly_undumper_read_keys, "ly:undumper-read-keys",
 }
 
 LY_DEFINE(ly_make_undumper, "ly:make-undumper",
-	  0, 0,0,
+	  0, 0, 0,
 	  (),
 	  "Create a key undumper. "
 	  )
@@ -36,7 +36,7 @@ LY_DEFINE(ly_make_undumper, "ly:make-undumper",
 
 
 LY_DEFINE(ly_undumper_lookup, "ly:undumper-lookup",
-	  2,0,0,
+	  2, 0, 0,
 	  (SCM undumper, SCM serial),
 	  "Return the object key for number @var{serial}. "
 	  )

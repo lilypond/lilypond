@@ -222,7 +222,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 
 
 LY_DEFINE(ly_grob_key, "ly:grob-key",
-	  1,0,0,
+	  1, 0, 0,
 	  (SCM grob),
 	  "Return the object-key for @var{grob}."
 	  )

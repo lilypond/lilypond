@@ -48,13 +48,13 @@ public:
   int get_notename () const;
   int get_alteration () const;
 
-  Pitch (int octave, int notename,int accidental);
+  Pitch (int octave, int notename, int accidental);
   Pitch ();
 
   Pitch transposed (Pitch) const;
   Pitch to_relative_octave (Pitch) const;
 
-  static int compare (Pitch const&,Pitch const&);
+  static int compare (Pitch const&, Pitch const&);
 
   int steps () const;
   int semitone_pitch () const; 
@@ -62,7 +62,7 @@ public:
   String to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Pitch,);
+  DECLARE_SIMPLE_SMOBS (Pitch, );
 };
 
 enum {
@@ -79,7 +79,7 @@ enum {
 
 SCM ly_pitch_diff (SCM pitch, SCM  root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
-DECLARE_UNSMOB(Pitch,pitch);
+DECLARE_UNSMOB(Pitch, pitch);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 

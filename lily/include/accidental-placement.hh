@@ -16,7 +16,7 @@ class Accidental_placement
 {
 public:
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
-  static void add_accidental (Grob *,Grob* );
+  static void add_accidental (Grob *, Grob* );
 
   static Interval get_relevant_accidental_extent (Grob *me,
 						  Item *item_col,

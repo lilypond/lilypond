@@ -143,7 +143,7 @@ Beam::quanting (SCM smob)
   Array<Real> base_lengths;
   Array<Real> stem_xposns;  
 
-  Drul_array<bool> dirs_found (0,0);
+  Drul_array<bool> dirs_found (0, 0);
   Grob *common[2];
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, me, Axis (a));
@@ -174,7 +174,7 @@ Beam::quanting (SCM smob)
 	 && s != lvs && s != fvs;
 
       base_lengths.push (calc_stem_y (me, s, common, xl, xr,
-				      Interval (0,0), f) / ss);
+				      Interval (0, 0), f) / ss);
       stem_xposns.push (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
 
@@ -233,7 +233,7 @@ Beam::quanting (SCM smob)
       qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
-      qscores[i].score_card_ += to_string ("S%.2f",d);
+      qscores[i].score_card_ += to_string ("S%.2f", d);
 #endif
     }
 
@@ -431,8 +431,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
-  Drul_array<Real> y (yl,yr);
-  Drul_array<Direction> dirs (ldir,rdir);
+  Drul_array<Real> y (yl, yr);
+  Drul_array<Direction> dirs (ldir, rdir);
   
   Real extra_demerit = SECONDARY_BEAM_DEMERIT / (beam_counts[LEFT] >? beam_counts[RIGHT]);
 
@@ -449,7 +449,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  /*
 	    The 2.2 factor is to provide a little leniency for
 	    borderline cases. If we do 2.0, then the upper outer line
-	    will be in the gap of the (2,sit) quant, leading to a
+	    will be in the gap of the (2, sit) quant, leading to a
 	    false demerit.
 	  */
 	  Real gap1 = y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2.2 );

@@ -199,7 +199,7 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	      e->set_parent (info.grob_, Y_AXIS);
 	      e->add_dependency (info.grob_);
 	    }
-	  Side_position_interface::add_support (e,info.grob_);
+	  Side_position_interface::add_support (e, info.grob_);
 	}
     }
   else if (Note_column::has_interface (info.grob_))

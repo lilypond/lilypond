@@ -84,7 +84,7 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       return;
     }
 
-  Real c = range_stiffness (l,r);
+  Real c = range_stiffness (l, r);
   if (isinf (c))
     {
       /*
@@ -102,7 +102,7 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       return;
     }
   
-  Real d = range_ideal_len (l,r);
+  Real d = range_ideal_len (l, r);
   Real block_stretch = dist - d;
   
   Real block_force = c * block_stretch;

@@ -69,7 +69,7 @@ pfb2pfa (Byte const * pfb, int length)
 }
 
 LY_DEFINE(ly_pfb_to_pfa, "ly:pfb->pfa",
-	  1,0,0, (SCM pfb_path),
+	  1, 0, 0, (SCM pfb_path),
 	  "Convert the contents of a PFB file to PFA."
 	  )
 {

@@ -36,7 +36,7 @@ Vertical_align_engraver::process_music ()
   if (!valign_)
     {
       valign_ = make_spanner ("VerticalAlignment", SCM_EOL);
-      valign_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
+      valign_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
@@ -45,7 +45,7 @@ Vertical_align_engraver::finalize ()
 {
   if (valign_)
     {
-      valign_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+      valign_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
       valign_ = 0;
     }
 }
@@ -64,7 +64,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 {
   if (qualifies (i))
     {
-      Align_interface::add_element (valign_,i.grob_, get_property ("verticalAlignmentChildCallback"));
+      Align_interface::add_element (valign_, i.grob_, get_property ("verticalAlignmentChildCallback"));
     }
 }
 

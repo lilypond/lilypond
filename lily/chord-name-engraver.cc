@@ -96,7 +96,7 @@ Chord_name_engraver::process_music ()
 	{
 	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
 	  int octavation =  scm_to_int (oct);
-	  Pitch orig = p->transposed (Pitch (-octavation, 0,0));
+	  Pitch orig = p->transposed (Pitch (-octavation, 0, 0));
 	  
 	  pitches = scm_cons (orig.smobbed_copy (), pitches);
 	}
@@ -115,7 +115,7 @@ Chord_name_engraver::process_music ()
    */
   SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
   
-  chord_name_ = make_item ("ChordName",notes_[0]->self_scm ());
+  chord_name_ = make_item ("ChordName", notes_[0]->self_scm ());
   chord_name_->set_property ("text", markup);
 
   SCM s = get_property ("chordChanges");

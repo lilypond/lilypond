@@ -146,13 +146,13 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   if (scm_is_symbol (nm) || scm_is_string (nm))
     scm_display (nm, p);
   else
-    scm_puts (classname (m),p);
+    scm_puts (classname (m), p);
 
   /* Printing properties takes a lot of time, especially during backtraces.
      For inspecting, it is better to explicitly use an inspection
      function.  */
 
-  scm_puts (">",p);
+  scm_puts (">", p);
   return 1;
 }
 

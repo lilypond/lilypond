@@ -24,7 +24,7 @@ Span_bar::add_bar (Grob*me, Grob*b)
   me->add_dependency (b);
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar,print,1);
+MAKE_SCHEME_CALLBACK (Span_bar, print, 1);
 
 /* Limitations/Bugs:
 
@@ -108,7 +108,7 @@ Span_bar::print (SCM smobbed_me)
   return span_bar_mol.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar,width_callback,2);
+MAKE_SCHEME_CALLBACK (Span_bar, width_callback, 2);
 SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
@@ -125,7 +125,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   return ly_interval2scm (m.extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Span_bar, before_line_breaking, 1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
@@ -139,7 +139,7 @@ Span_bar::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar,center_on_spanned_callback,2);
+MAKE_SCHEME_CALLBACK (Span_bar, center_on_spanned_callback, 2);
 
 SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
@@ -149,7 +149,7 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
-  /* Bar_line::print delivers a barline of y-extent (-h/2,h/2), so
+  /* Bar_line::print delivers a barline of y-extent (-h/2, h/2), so
      we have to translate ourselves to be in the center of the 
      interval that we span. */
   if (i.is_empty ())
@@ -222,7 +222,7 @@ Span_bar::get_spanned_interval (Grob*me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Span_bar,get_bar_size,1);
+MAKE_SCHEME_CALLBACK (Span_bar, get_bar_size, 1);
 SCM
 Span_bar::get_bar_size (SCM smob)
 {
@@ -239,7 +239,7 @@ Span_bar::get_bar_size (SCM smob)
 
 
 
-ADD_INTERFACE (Span_bar,"span-bar-interface",
+ADD_INTERFACE (Span_bar, "span-bar-interface",
   "A bar line that spanned between other barlines. This interface is "
 	       " used for  bar lines that connect different staves.",
   "elements");

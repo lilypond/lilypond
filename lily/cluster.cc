@@ -124,7 +124,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Cluster,print,1);
+MAKE_SCHEME_CALLBACK (Cluster, print, 1);
 SCM
 Cluster::print (SCM smob)
 {
@@ -193,8 +193,8 @@ Cluster::print (SCM smob)
 	      Interval v = col->extent (next_commony, Y_AXIS);
 	      Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 	      
-	      bottom_points.insert (Offset (x, v[DOWN]),0);
-	      top_points.insert (Offset (x, v[UP]),0);
+	      bottom_points.insert (Offset (x, v[DOWN]), 0);
+	      top_points.insert (Offset (x, v[UP]), 0);
 	    }
 	}
     }
@@ -207,7 +207,7 @@ Cluster::print (SCM smob)
   return out.smobbed_copy ();
 }
 
-ADD_INTERFACE (Cluster,"cluster-interface",
+ADD_INTERFACE (Cluster, "cluster-interface",
 	       "A graphically drawn musical cluster. " 
 	       "\n\n"
 	       "@code{padding} adds to the vertical extent of the shape (top and "
@@ -227,13 +227,13 @@ public:
   static bool has_interface (Grob *);
 };
 
-MAKE_SCHEME_CALLBACK (Cluster_beacon,height,2);
+MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 2);
 SCM
 Cluster_beacon::height (SCM g, SCM)
 {
   Grob *me = unsmob_grob (g);
   Interval v = robust_scm2interval (me->get_property ("positions"),
-				    Interval (0,0));
+				    Interval (0, 0));
   return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);
 }
 

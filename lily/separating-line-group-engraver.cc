@@ -168,7 +168,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
   if (Accidental_placement::has_interface (it))
     Separation_item::add_conditional_item (p_ref_, it);
   else
-    Separation_item::add_item (p_ref_,it);
+    Separation_item::add_item (p_ref_, it);
 }
 
 void

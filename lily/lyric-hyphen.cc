@@ -15,7 +15,7 @@
 #include "paper-column.hh"
 #include "moment.hh"
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner,print,1)
+MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1)
 SCM 
 Hyphen_spanner::print (SCM smob)
 {
@@ -70,7 +70,7 @@ Hyphen_spanner::print (SCM smob)
 
   space_left = space_left >? 0.0;
   
-  Box b (Interval (0, dl), Interval (h,h+th));
+  Box b (Interval (0, dl), Interval (h, h+th));
   Stencil dash_mol (Lookup::round_filled_box (b, 0.8 * lt));
 
   Stencil total;
@@ -86,7 +86,7 @@ Hyphen_spanner::print (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner,set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Hyphen_spanner, set_spacing_rods, 1);
 SCM
 Hyphen_spanner::set_spacing_rods (SCM smob)
 {

@@ -26,7 +26,7 @@ Bezier
 avoid_staff_line (Slur_score_state const &state, 
 		  Bezier bez)
 {
-  Offset horiz (1,0);
+  Offset horiz (1, 0);
   Array<Real> ts = bez.solve_derivative (horiz);
 
   /* TODO: handle case of broken slur.  */

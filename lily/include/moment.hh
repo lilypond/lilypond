@@ -19,7 +19,7 @@
 */
 class Moment
 {
-  DECLARE_SIMPLE_SMOBS (Moment,);
+  DECLARE_SIMPLE_SMOBS (Moment, );
 public:
   Moment ();
   Moment (int m);
@@ -56,8 +56,8 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
 
-DECLARE_UNSMOB(Moment,moment);
-int compare (Moment const&,Moment const&);
+DECLARE_UNSMOB(Moment, moment);
+int compare (Moment const&, Moment const&);
 INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
 Moment robust_scm2moment (SCM, Moment);

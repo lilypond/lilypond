@@ -74,10 +74,10 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
 
 /* Add these as well:
 
-@item -T,--no-timestamps
+@item -T, --no-timestamps
 don't timestamp the output
 
-@item -t,--test
+@item -t, --test
 Switch on any experimental features.  Not for general public use.
 
 */

@@ -76,7 +76,7 @@ internal_print (Grob *me, String * font_char)
 }
 
 
-MAKE_SCHEME_CALLBACK (Note_head,print,1);
+MAKE_SCHEME_CALLBACK (Note_head, print, 1);
 SCM
 Note_head::print (SCM smob)  
 {
@@ -87,7 +87,7 @@ Note_head::print (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Note_head,brew_ez_stencil,1);
+MAKE_SCHEME_CALLBACK (Note_head, brew_ez_stencil, 1);
 SCM
 Note_head::brew_ez_stencil (SCM smob)
 {
@@ -160,7 +160,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 
   result = (a == X_AXIS) ? scm_car (result) : scm_cdr (result);
   
-  return robust_scm2double (result,0);
+  return robust_scm2double (result, 0);
 }
 
 int
@@ -170,7 +170,7 @@ Note_head::get_balltype (Grob*me)
   return scm_is_number (s) ? scm_to_int (s) <? 2 : 0;
 }
 
-ADD_INTERFACE (Note_head,"note-head-interface",
+ADD_INTERFACE (Note_head, "note-head-interface",
   "Note head",
   "note-names glyph-name-procedure accidental-grob style stem-attachment-function");
 

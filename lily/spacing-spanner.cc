@@ -40,18 +40,18 @@ public:
 						 Real * fixed, Real * space, Moment);
   
 
-  static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment);
-  static Real note_spacing (Grob*,Grob*,Grob*,Moment, bool*);
-  static Real get_duration_space (Grob*,Moment dur, Rational shortest, bool*);
+  static Real default_bar_spacing (Grob*, Grob*, Grob*, Moment);
+  static Real note_spacing (Grob*, Grob*, Grob*, Moment, bool*);
+  static Real get_duration_space (Grob*, Moment dur, Rational shortest, bool*);
   static Rational find_shortest (Grob *, Link_array<Grob> const &);  
   static void breakable_column_spacing (Grob*, Item* l, Item *r, Moment);
   static void find_loose_columns () {}
-  static void prune_loose_columns (Grob*,Link_array<Grob> *cols, Rational);
+  static void prune_loose_columns (Grob*, Link_array<Grob> *cols, Rational);
   static void find_loose_columns (Link_array<Grob> cols);
   static void set_explicit_neighbor_columns (Link_array<Grob> cols);
   static void set_implicit_neighbor_columns (Link_array<Grob> cols);
-  static void do_measure (Rational, Grob*me,Link_array<Grob> *cols);
-  static void musical_column_spacing (Grob*,Item*,Item*, Real, Rational); 
+  static void do_measure (Rational, Grob*me, Link_array<Grob> *cols);
+  static void musical_column_spacing (Grob*, Item*, Item*, Real, Rational); 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
   static bool has_interface (Grob*);
 };
@@ -159,7 +159,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
   between.
 */
 void
-Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational shortest)
+Spacing_spanner::prune_loose_columns (Grob*me, Link_array<Grob> *cols, Rational shortest)
 {
   Link_array<Grob> newcols;
   Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
@@ -195,7 +195,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	  next_door[LEFT] = cols->elem (i - 1);
 	  next_door[RIGHT] = cols->elem (i + 1);	  
 	  Direction d = LEFT;
-	  Drul_array<Real> dists (0,0);
+	  Drul_array<Real> dists (0, 0);
 
 	  do
 	    {
@@ -360,7 +360,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
 }
 
 
-MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,1);
+MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
@@ -487,7 +487,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
     }
 
   SCM  bsd = me->get_property ("base-shortest-duration");
-  Rational d = Rational (1,8);
+  Rational d = Rational (1, 8);
   if (Moment *m = unsmob_moment (bsd))
     d = m->main_part_;
   
@@ -532,7 +532,7 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob*me,
 	  Item *rb = r->find_prebroken_piece (LEFT);
 	  
 	  if (lb)
-	    breakable_column_spacing (me, lb,r, global_shortest);
+	    breakable_column_spacing (me, lb, r, global_shortest);
 
 	  if (rb)
 	    breakable_column_spacing (me, l, rb, global_shortest);
@@ -666,7 +666,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 {
   *fixed = 0.0;
   Direction d = LEFT;
-  Drul_array<Item*> cols (l,r);
+  Drul_array<Item*> cols (l, r);
   
   do
     {
@@ -699,7 +699,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
     {
       Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
-      if (dt == Moment (0,0))
+      if (dt == Moment (0, 0))
 	{
 	  /*
 	    In this case, Staff_spacing should handle the job,
@@ -720,7 +720,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
   Read hints from L and generate springs.
 */
 void
-Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shortest)
+Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r, Moment shortest)
 {
   Real compound_fixed = 0.0;
   Real compound_space = 0.0;
@@ -728,7 +728,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 
   Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
-  if (dt == Moment (0,0))
+  if (dt == Moment (0, 0))
     {
       for (SCM s = l->get_property ("spacing-wishes");
 	   scm_is_pair (s); s = scm_cdr (s))
@@ -836,7 +836,7 @@ Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool 
   else
     {
       /*
-	  John S. Gourlay. ``Spacing a Line of Music,'' Technical
+	  John S. Gourlay. ``Spacing a Line of Music, '' Technical
 	  Report OSU-CISRC-10/87-TR35, Department of Computer and
 	  Information Science, The Ohio State University, 1987.
        */
@@ -923,7 +923,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
 
 
-ADD_INTERFACE (Spacing_spanner,"spacing-spanner-interface",
+ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 "The space taken by a note is dependent on its duration. Doubling a\n"
 "duration adds spacing-increment to the space. The most common shortest\n"
 "note gets @code{shortest-duration-space}. Notes that are even shorter are\n"

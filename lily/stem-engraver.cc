@@ -141,13 +141,13 @@ Stem_engraver::stop_translation_timestep ()
       SCM prop = get_property ("stemLeftBeamCount");
       if (scm_is_number (prop))
 	{
-	  Stem::set_beaming (stem_,scm_to_int (prop),LEFT);
+	  Stem::set_beaming (stem_, scm_to_int (prop), LEFT);
 	  context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
       if (scm_is_number (prop))
 	{
-	  Stem::set_beaming (stem_,scm_to_int (prop), RIGHT);
+	  Stem::set_beaming (stem_, scm_to_int (prop), RIGHT);
 	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
       stem_ = 0;

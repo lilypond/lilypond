@@ -85,7 +85,7 @@ Lyric_extender::print (SCM smob)
 }
 
 
-ADD_INTERFACE (Lyric_extender,"lyric-extender-interface",
+ADD_INTERFACE (Lyric_extender, "lyric-extender-interface",
 	       "The extender is a simple line at the baseline of the lyric "
 	       "that helps show the length of a melissima (tied/slurred note).",
 	       "next thickness heads");

@@ -20,7 +20,7 @@
 #include "side-position-interface.hh"
 #include "dot-column.hh"
 
-MAKE_SCHEME_CALLBACK (Note_collision_interface,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Note_collision_interface, force_shift_callback, 2);
 
 SCM
 Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
@@ -309,7 +309,7 @@ Note_collision_interface::do_shifts (Grob* me)
       if (cg[d].size ())
 	{
 	  Grob  *h = cg[d][0];
-	  wid = Note_column::first_head (h)->extent (h,X_AXIS).length () ;
+	  wid = Note_column::first_head (h)->extent (h, X_AXIS).length () ;
 	}
     }
   while (flip (&d) != UP);
@@ -496,7 +496,7 @@ Note_collision_interface::forced_shift (Grob *me)
 }
 
 void
-Note_collision_interface::add_column (Grob*me,Grob* ncol)
+Note_collision_interface::add_column (Grob*me, Grob* ncol)
 {
   ncol->add_offset_callback (Note_collision_interface::force_shift_callback_proc, X_AXIS);
   Axis_group_interface::add_element (me, ncol);

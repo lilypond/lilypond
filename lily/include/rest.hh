@@ -21,8 +21,8 @@ public:
   static bool has_interface (Grob*);
   static String glyph_name (Grob*, int, String, bool); 
   static SCM brew_internal_stencil (SCM, bool);
-  DECLARE_SCHEME_CALLBACK (extent_callback, (SCM,SCM));
-  DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM,SCM));
+  DECLARE_SCHEME_CALLBACK (extent_callback, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
 };
 #endif // REST_HH

@@ -17,7 +17,7 @@ typedef std::map<int, Object_key const *> Int_to_key_map;
 
 struct Object_key_undumper
 {
-  DECLARE_SMOBS(Object_key_undumper,);
+  DECLARE_SMOBS(Object_key_undumper, );
   Int_to_key_map keys_;
 public:
   void parse_contents (SCM);

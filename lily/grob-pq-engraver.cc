@@ -34,7 +34,7 @@ Grob_pq_engraver::initialize ()
 }
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
-	  2, 0 ,0, (SCM a, SCM b), 
+	  2, 0 , 0, (SCM a, SCM b), 
 	  "Compare 2 grob priority queue entries. Internal")
 {
   if (Moment::compare (*unsmob_moment (scm_car (a)),
@@ -117,10 +117,10 @@ ADD_TRANSLATOR (Grob_pq_engraver,
 /* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this \
 engraver is a sort-of a failure, since it doesn't handle all sorts of \
 borderline cases very well. \
-",												  \
+", 												  \
 		  
-/* creats*/       "",										  \
-/* accepts */     "",										  \
-/* acks  */      "grob-interface",								  \
-/* reads */       "busyGrobs",									  \
+/* creats*/       "", 										  \
+/* accepts */     "", 										  \
+/* acks  */      "grob-interface", 								  \
+/* reads */       "busyGrobs", 									  \
 /* write */       "busyGrobs");

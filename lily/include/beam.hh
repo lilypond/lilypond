@@ -24,9 +24,9 @@ public:
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
-  static void add_stem (Grob*,Grob*);
+  static void add_stem (Grob*, Grob*);
   static bool is_knee (Grob*);
-  static void set_beaming (Grob*,Beaming_info_list *);
+  static void set_beaming (Grob*, Beaming_info_list *);
   static void set_stemlens (Grob*);
   static int get_beam_count (Grob*me);
   static void position_beam (Grob* me);

@@ -22,7 +22,7 @@
   TODO: this doesn't follow standard pattern. Regularize.
  */
 void
-Tie_column::add_tie (Grob*me,Grob *s)
+Tie_column::add_tie (Grob*me, Grob *s)
 {
   if (s->get_parent (Y_AXIS)
       && Tie_column::has_interface (s->get_parent (Y_AXIS)))
@@ -30,8 +30,8 @@ Tie_column::add_tie (Grob*me,Grob *s)
   
   if (!Pointer_group_interface::count (me, ly_symbol2scm ("ties")))
     {
-      dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
-      dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
+      dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s, LEFT));
+      dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s, RIGHT));
     }
   s->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), s);
@@ -88,7 +88,7 @@ Tie_column::old_directions (Grob*me)
   if (ties.size () == 1)
     {
       Grob *  t = ties[0];      
-      set_grob_direction (t,Tie::get_default_dir (t));
+      set_grob_direction (t, Tie::get_default_dir (t));
       return;
     }
   
@@ -152,7 +152,7 @@ Tie_column::werner_directions (Grob *me)
       Grob *  t = ties[0];
       if (t->is_live ()
 	  && !get_grob_direction (t))
-	set_grob_direction (t,Tie::get_default_dir (t));
+	set_grob_direction (t, Tie::get_default_dir (t));
       return ;
     }
 
@@ -188,7 +188,7 @@ Tie_column::werner_directions (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Tie_column,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {
@@ -198,7 +198,7 @@ Tie_column::after_line_breaking (SCM smob)
 
 
 
-ADD_INTERFACE (Tie_column,"tie-column-interface",
+ADD_INTERFACE (Tie_column, "tie-column-interface",
   "Object that sets directions of multiple ties in a tied chord",
   "direction");
 

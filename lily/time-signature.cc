@@ -44,7 +44,7 @@ Time_signature::print (SCM smob)
   else if (scm_is_symbol (st))
     m = special_time_signature (me, st, n, d);
   else
-    m = numbered_time_signature (me, n,d);
+    m = numbered_time_signature (me, n, d);
 
   if (Staff_symbol_referencer::line_count (me) % 2 == 0)
     m.translate_axis (Staff_symbol_referencer::staff_space (me) / 2 , Y_AXIS);
@@ -88,7 +88,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 }
 
 Stencil
-Time_signature::numbered_time_signature (Grob*me,int num, int den)
+Time_signature::numbered_time_signature (Grob*me, int num, int den)
 {
   SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
   chain = scm_cons (scm_list_1 (scm_cons (ly_symbol2scm ("font-encoding"),
@@ -109,7 +109,7 @@ Time_signature::numbered_time_signature (Grob*me,int num, int den)
   if (den)
     {
       m.add_at_edge (Y_AXIS, UP, n, 0.0, 0);
-      m.add_at_edge (Y_AXIS, DOWN, d, 0.0,0);
+      m.add_at_edge (Y_AXIS, DOWN, d, 0.0, 0);
     }
   else
     {

@@ -25,7 +25,7 @@
 #include "item.hh"
 #include "font-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Custos,print,1);
+MAKE_SCHEME_CALLBACK (Custos, print, 1);
 SCM
 Custos::print (SCM smob)
 {

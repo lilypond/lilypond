@@ -45,7 +45,7 @@ Axis_group_engraver::process_music ()
     {
       staffline_ = get_spanner ();
       Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
-      staffline_->set_bound (LEFT,it);
+      staffline_->set_bound (LEFT, it);
     }
 } 
 
@@ -81,7 +81,7 @@ Axis_group_engraver::finalize ()
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 
-  staffline_->set_bound (RIGHT,it);
+  staffline_->set_bound (RIGHT, it);
 
   staffline_ = 0;
 }

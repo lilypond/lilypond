@@ -62,7 +62,7 @@ Span_bar_engraver::stop_translation_timestep ()
   if (spanbar_) 
     {
       for (int i = 0; i < bars_.size () ; i++)
-	Span_bar::add_bar (spanbar_,bars_[i]);
+	Span_bar::add_bar (spanbar_, bars_[i]);
 
       SCM vissym = ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);	  

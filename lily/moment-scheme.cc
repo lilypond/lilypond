@@ -17,7 +17,7 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 	   "\n"
 	   "\n"
 	   "Moment is a point in musical time.  "
-	   "It is consists of a pair of rationals (@var{m},@var{g}), "
+	   "It is consists of a pair of rationals (@var{m}, @var{g}), "
 	   "where @var{m} is the timing for the main\n"
 	   "notes, and @var{g} the timing for grace notes.  "
 	   "In absence of grace notes, @var{g} is zero.\n")
@@ -54,7 +54,7 @@ LY_DEFINE (ly_add_moment, "ly:add-moment",
   return (*ma + *mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_mul_moment,"ly:mul-moment",
+LY_DEFINE (ly_mul_moment, "ly:mul-moment",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Multiply two moments.")
 {
@@ -65,7 +65,7 @@ LY_DEFINE (ly_mul_moment,"ly:mul-moment",
   return (*ma * *mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_div_moment,"ly:div-moment",
+LY_DEFINE (ly_div_moment, "ly:div-moment",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Divide two moments.")
 {
@@ -76,7 +76,7 @@ LY_DEFINE (ly_div_moment,"ly:div-moment",
   return (*ma / *mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_moment_main_numerator,"ly:moment-main-numerator",
+LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
 	   1, 0, 0, (SCM mom),
 	   "Extract numerator from main timing.")
 {
@@ -86,7 +86,7 @@ LY_DEFINE (ly_moment_main_numerator,"ly:moment-main-numerator",
   return scm_from_int (ma->main_part_.numerator ()); 
 }
 
-LY_DEFINE (ly_moment_main_denominator,"ly:moment-main-denominator",
+LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
 	   1, 0, 0, (SCM mom),
 	   "Extract denominator from main timing.")
 {
@@ -96,7 +96,7 @@ LY_DEFINE (ly_moment_main_denominator,"ly:moment-main-denominator",
   return scm_from_int (ma->main_part_.denominator ()); 
 }
 
-LY_DEFINE (ly_moment_less_p,"ly:moment<?",
+LY_DEFINE (ly_moment_less_p, "ly:moment<?",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Compare two moments.")
 {

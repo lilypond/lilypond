@@ -240,7 +240,7 @@ vaticana_brew_primitive (Grob *me)
       Real staff_space = Staff_symbol_referencer::staff_space (me);
       Real flexa_width  = robust_scm2double ( me->get_property ("flexa-width"), 2)  *staff_space;
       out =
-	Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0,0)));
+	Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0, 0)));
     }
   else if (!String::compare (glyph_name, "flexa"))
     {

@@ -250,8 +250,8 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
       Link_array<Grob> c (breaking[i].cols_);
       pscore_->typeset_line (system);
       
-      system->set_bound (LEFT,c[0]);
-      system->set_bound (RIGHT,c.top ());
+      system->set_bound (LEFT, c[0]);
+      system->set_bound (RIGHT, c.top ());
       for (int j = 0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
@@ -405,7 +405,7 @@ System::get_line ()
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
-  Stencil sys_stencil (Box (x,y),
+  Stencil sys_stencil (Box (x, y),
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
 
@@ -480,7 +480,7 @@ System::columns () const
   return acs;
 }
 
-ADD_INTERFACE (System,"system-interface",
+ADD_INTERFACE (System, "system-interface",
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
 	       "all-elements spaceable-staves columns")

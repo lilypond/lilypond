@@ -80,6 +80,6 @@ Tempo_performer::try_music (Music* req)
 
 
 
-ADD_TRANSLATOR (Tempo_performer, "","",
+ADD_TRANSLATOR (Tempo_performer, "", "",
 		   "metronome-change-event",
-		   "","","" );
+		   "", "", "" );

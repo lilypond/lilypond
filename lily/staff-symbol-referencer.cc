@@ -94,7 +94,7 @@ Staff_symbol_referencer::get_rounded_position (Grob*me)
 }
 
 LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
-	   1, 0,0, (SCM sg),
+	   1, 0, 0, (SCM sg),
 	   "Return the Y-position of @var{sg} relative to the staff.")
 {
   Grob *g = unsmob_grob (sg);
@@ -110,7 +110,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 
 
 /* should use offset callback!  */
-MAKE_SCHEME_CALLBACK (Staff_symbol_referencer,callback,2);
+MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 2);
 SCM
 Staff_symbol_referencer::callback (SCM element_smob, SCM)
 {
@@ -169,7 +169,7 @@ compare_position (Grob *const &a, Grob *const &b)
 	       - Staff_symbol_referencer::get_position ((Grob*) b));
 }
 
-ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
+ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",
 	       "An object whose Y position is meant relative to a staff "
 	       "symbol. "
 	       "These usually have @code{Staff_symbol_referencer::callback} "

@@ -16,7 +16,7 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
-MAKE_SCHEME_CALLBACK (Staff_symbol,print,1);
+MAKE_SCHEME_CALLBACK (Staff_symbol, print, 1);
 
 SCM
 Staff_symbol::print (SCM smob)
@@ -26,7 +26,7 @@ Staff_symbol::print (SCM smob)
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
-  Interval span_points (0,0);
+  Interval span_points (0, 0);
   
 
   /*
@@ -125,7 +125,7 @@ Staff_symbol::get_ledger_line_thickness (Grob * me)
 }
 
 
-ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
+ADD_INTERFACE (Staff_symbol, "staff-symbol-interface",
 	       "This spanner draws the lines of a staff. "
 	       "A staff symbol definines a vertical unit, the staff space. "
 	       "Quantities that go by a half staff space are called positions "

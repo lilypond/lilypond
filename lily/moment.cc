@@ -78,13 +78,13 @@ Moment::equal_p (SCM a, SCM b)
 int
 compare (Moment const &a, Moment const &b)
 {
-  return Moment::compare (a,b);
+  return Moment::compare (a, b);
 }
 
 int
 Moment::compare (Moment const &a, Moment const &b)
 {
-  int c = Rational::compare (a.main_part_,b.main_part_);
+  int c = Rational::compare (a.main_part_, b.main_part_);
   if (c)
     return c;
 

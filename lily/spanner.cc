@@ -84,9 +84,9 @@ Spanner::do_break_processing ()
     }
   else
     {
-      Link_array<Item> break_points = pscore_->system_->broken_col_range (left,right);
+      Link_array<Item> break_points = pscore_->system_->broken_col_range (left, right);
 
-      break_points.insert (left,0);
+      break_points.insert (left, 0);
       break_points.push (right);
 
       for (int i =1; i < break_points.size (); i++) 
@@ -109,8 +109,8 @@ Spanner::do_break_processing ()
 	    }
 
 	  Spanner *span = dynamic_cast<Spanner*> (clone (broken_intos_.size ()));
-	  span->set_bound (LEFT,bounds[LEFT]);
-	  span->set_bound (RIGHT,bounds[RIGHT]);
+	  span->set_bound (LEFT, bounds[LEFT]);
+	  span->set_bound (RIGHT, bounds[RIGHT]);
 
 	  if (!bounds[LEFT]->get_system () 
 	    
@@ -145,7 +145,7 @@ Spanner::set_my_columns ()
   do 
     {
       if (!spanned_drul_[i]->get_system ())
-	set_bound (i,spanned_drul_[i]->find_prebroken_piece ((Direction) -i));
+	set_bound (i, spanned_drul_[i]->find_prebroken_piece ((Direction) -i));
     } 
   while (flip (&i) != LEFT);
 }       
@@ -335,7 +335,7 @@ add_bound_item (Spanner* sp, Grob*it)
 }
 
 
-MAKE_SCHEME_CALLBACK (Spanner,set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, 1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {

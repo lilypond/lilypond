@@ -109,7 +109,7 @@ Stencil::translate (Offset o)
 void
 Stencil::translate_axis (Real x, Axis a)
 {
-  Offset o (0,0);
+  Offset o (0, 0);
   o[a] = x;
   translate (o);
 }
@@ -133,8 +133,8 @@ Stencil::set_empty (bool e)
     }
   else
     {
-      dim_[X_AXIS] = Interval (0,0);
-      dim_[Y_AXIS] = Interval (0,0);
+      dim_[X_AXIS] = Interval (0, 0);
+      dim_[Y_AXIS] = Interval (0, 0);
     }
 }
 
@@ -172,7 +172,7 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
     + d * padding;
 
   Stencil toadd (s);
-  toadd.translate_axis (offset,a);
+  toadd.translate_axis (offset, a);
 
   if (minimum > 0 && d * (-origin ()[a] + toadd.origin ()[a]) < minimum)
     toadd.translate_axis ( -toadd.origin ()[a]
@@ -273,7 +273,7 @@ find_expression_fonts (SCM expr)
   fl.fonts_ = SCM_EOL;
 
   interpret_stencil_expression (expr, &find_font_function,
-				(void*) &fl, Offset (0,0));
+				(void*) &fl, Offset (0, 0));
 
   return fl.fonts_;
 }

@@ -55,7 +55,7 @@ protected:
   Moment music_length_;
   Moment start_mom_;
 
-  DECLARE_SMOBS (Music_iterator,dummy);
+  DECLARE_SMOBS (Music_iterator, dummy);
   Music_iterator (Music_iterator const&);
 public:
   
@@ -118,9 +118,9 @@ private:
 bool is_child_context (Context *me, Context *child);
 
 #define IMPLEMENT_CTOR_CALLBACK(Class)		\
-LY_DEFINE_MEMBER_FUNCTION(Class,constructor, #Class "::constructor",\
-	  0,0,0,\
-	  (),\
+LY_DEFINE_MEMBER_FUNCTION(Class, constructor, #Class "::constructor", \
+	  0, 0, 0, \
+	  (), \
 	  "")\
 {						\
   SCM val = (new Class)->self_scm();   \
