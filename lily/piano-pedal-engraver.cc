@@ -444,20 +444,31 @@ Piano_pedal_engraver::finalize ()
 	  && !p->line_spanner_->live ())
 	p->line_spanner_ = 0;
       
-      if (p->line_spanner_)
-	{
-	  p->finished_line_spanner_ = p->line_spanner_;
-	  typeset_all ();
-	}
       if (p->bracket_
 	  && !p->bracket_->live ())
 	p->bracket_ = 0;
       
       if (p->bracket_)
 	{
-	  p->current_bracket_ev_->origin ()->warning (_ ("unterminated pedal bracket"));
-	  p->bracket_->suicide ();
+	  SCM cc = get_property ("currentCommandColumn");
+	  Item *c = unsmob_item (cc);
+	  if (p->line_spanner_)
+	    {
+	      p->line_spanner_->set_bound (RIGHT, c);
+	    }
+	  p->bracket_ ->set_bound (RIGHT, c);
+
+	  p->finished_bracket_ = p->bracket_;
 	  p->bracket_ = 0;
+	  p->finished_line_spanner_ = p->line_spanner_;
+	  p->line_spanner_ = 0;
+	  typeset_all ();
+	}
+
+      if (p->line_spanner_)
+	{
+	  p->finished_line_spanner_ = p->line_spanner_;
+	  typeset_all ();
 	}
     }
 }
@@ -557,5 +568,8 @@ ENTER_DESCRIPTION (Piano_pedal_engraver,
 /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 /* accepts */     "pedal-event",
 /* acks  */       "note-column-interface",
-/* reads */       "pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings pedalSostenutoStyle pedalSustainStyle pedalUnaCordaStyle",
+/* reads */       "currentCommandColumn "
+		   "pedalSostenutoStrings pedalSustainStrings "
+		   "pedalUnaCordaStrings pedalSostenutoStyle "
+		   "pedalSustainStyle pedalUnaCordaStyle",
 /* write */       "");

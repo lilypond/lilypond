@@ -24,6 +24,7 @@ SCM
 Piano_pedal_bracket::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  Spanner *orig = dynamic_cast<Spanner*> (me->original_); 
   
   Drul_array<bool> broken (false,false);
   Drul_array<Real> height = robust_scm2drul
@@ -47,8 +48,15 @@ Piano_pedal_bracket::print (SCM smob)
       Item *b = me->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
       if (broken[d])
-	height[d] = 0.0;
-
+	{
+	  if (orig
+	      && ((d == RIGHT && me->get_break_index () != orig->broken_intos_.size()-1)
+		  || (d == LEFT && me->get_break_index ())))
+	    height[d] = 0.0;
+	  else
+	    flare[d] = 0.0; 
+	}
+      
       Interval ext   = b->extent (common,  X_AXIS);
       span_points[d] = ext [broken[d] ?  RIGHT : LEFT];
     }

@@ -3048,30 +3048,30 @@ information.
 Pedals can also be indicated by a sequence of brackets, by setting the 
 @code{pedalSustainStyle} property to @code{bracket} objects: 
 
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,relative=2]
  \set Staff.pedalSustainStyle = #'bracket
- c''4\sustainDown d''4 e''4
- a'4\sustainUp\sustainDown
- f'4 g'4 a'4\sustainUp
+ c\sustainDown d e
+ b\sustainUp\sustainDown
+ b g \sustainUp a \sustainDown \bar "|."
 @end lilypond
 
 A third style of pedal notation is a mixture of text and brackets,
 obtained by setting the @code{pedalSustainStyle} style property to
 @code{mixed}:
 
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,relative=2]
  \set Staff.pedalSustainStyle = #'mixed
-c''4\sustainDown d''4 e''4
-c'4\sustainUp\sustainDown
- f'4 g'4 a'4\sustainUp
+ c\sustainDown d e
+ b\sustainUp\sustainDown
+ b g \sustainUp a \sustainDown \bar "|."
 @end lilypond
 
 The default `*Ped.' style for sustain and damper pedals corresponds to
 style @code{#'text}. The sostenuto pedal uses @code{mixed} style by
 default.
 
-@lilypond[fragment,verbatim]
-c''4\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4\sostenutoUp
+@lilypond[fragment,verbatim,relative=2]
+  c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
 For fine-tuning of the appearance of a pedal bracket, the properties
@@ -3083,8 +3083,7 @@ bracket may be extended to the end of the note head:
 @lilypond[fragment,verbatim]
 \override Staff.PianoPedalBracket  
    #'shorten-pair = #'(0 . -1.0)
-c''4\sostenutoDown d''4 e''4 c'4
-f'4 g'4 a'4\sostenutoUp
+  c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
 @node Arpeggio
