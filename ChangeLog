@@ -1,5 +1,8 @@
 2004-09-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/music-functions-init.ly (keepWithTag): add music functions
+	keepWithTag and removeWithTag
+
 	* lily/quote-iterator.cc (Quote_iterator): init transposed_musics_.
 
 	* lily/accidental-engraver.cc (recent_enough): interpret laziness

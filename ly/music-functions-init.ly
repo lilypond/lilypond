@@ -48,6 +48,27 @@ makeClusters = #(def-music-function
 		(music-map note-to-cluster arg))
 
 
+removeWithTag = 
+#(def-music-function
+  (location tag music) (symbol? ly:music?)
+  (music-filter
+   (lambda (m)
+    (let* ((tags (ly:music-property m 'tags))
+	    (res (memq tag tags)))
+       (not res)))))
+	      
+keepWithTag =
+#(def-music-function
+  (location tag music) (symbol? ly:music?)
+  (music-filter
+   (lambda (m)
+    (let* ((tags (ly:music-property m 'tags))
+	    (res (memq tag tags)))
+       (or
+	(eq? tags '())
+	(memq tag tags))))
+   music))
+
 %{
 
 TODO:

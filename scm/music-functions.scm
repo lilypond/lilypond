@@ -48,7 +48,7 @@
       (set! (ly:music-property music 'elements) filtered-es)
       (set! (ly:music-property music 'articulations) filtered-as)
       ;; if filtering emptied the expression, we remove it completely.
-      (if (or (pred? music)
+      (if (or (not (pred? music))
 	      (and (eq? filtered-es '()) (not (ly:music? e))
 		   (or (not (eq? es '()))
 		       (ly:music? e))))
@@ -60,14 +60,6 @@
       music
       (make-music 'Music)))	  ;must return music.
 
-(define-public (remove-tag tag)
-  (lambda (mus)
-    (music-filter
-     (lambda (m)
-       (let* ((tags (ly:music-property m 'tags))
-	      (res (memq tag tags)))
-	 res))
-     mus)))
 
 (define-public (display-music music)
   "Display music, not done with music-map for clarity of presentation."
