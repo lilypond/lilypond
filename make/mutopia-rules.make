@@ -31,7 +31,7 @@ $(outdir)/%.dvi: %.ly
 
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
+	dvips -u +lilypond.map -o $@.pdfps  -Ppdf $<
 	ps2pdf $@.pdfps $@
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly

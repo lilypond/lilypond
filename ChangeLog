@@ -1,5 +1,8 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* make/ly-rules.make ($(outdir)/%.pdf): backport -u +lilypond.map
+	fix
+
 	* stepmake/stepmake/metafont-rules.make: backport 1.7 fixes.
 
 	* scripts/etf2ly.py: backport 1.7.24 fixes.
