@@ -2377,7 +2377,7 @@ length is omitted, then then the last value (stored in
   c'2:8 c':32 | c': c': |
 @end lilypond
 
-[TODO : stok is te kort bij 32en]
+@c [TODO : stok is te kort bij 32en]
 
 @refbugs
 
@@ -4090,29 +4090,6 @@ Still, you can manually force a clef glyph to be typeset on an
 arbitrary line, as described in section @ref{Clef}.  The note printed
 to the right side of each clef in the example column denotes the
 @code{c'} with respect to that clef.
-
-@c --- This should go somewhere else: ---
-@c @item modern style G clef (glyph: @code{clefs-G})
-@c
-@c Supported clefs:
-@c @code{treble}, @code{violin}, @code{G}, @code{G2}, @code{french}
-@c
-@c @lilypond[26pt]{\property Staff.TimeSignature \set #'transparent = ##t \clef "G" c'}
-@c
-@c @item modern style F clef (glyph: @code{clefs-F})
-@c
-@c Supported clefs:
-@c @code{varbaritone}, @code{bass}, @code{F}, @code{subbass}
-@c
-@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "F" c'}
-@c
-@c @item modern style C clef (glyph: @code{clefs-C})
-@c
-@c Supported clefs:
-@c @code{soprano}, @code{mezzosoprano}, @code{alto}, @code{C},
-@c @code{tenor}, @code{baritone}
-@c
-@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "C" c'}
 
 @multitable @columnfractions  .3 .3 .3 .1
 
@@ -6329,7 +6306,7 @@ vocabulary. With this expansion, many innovations in musical notation
 have been tried. For a comprehensive overview, refer to @cite{Stone
 1980} (see @ref{Literature}). In general, the use of new, innovative
 notation makes a piece harder to understand and perform and its use
-should be avoided if possible.  For this reason, support for
+should therefore be avoided if possible.  For this reason, support for
 contemporary notation in LilyPond is limited.
 
 
@@ -7332,25 +7309,21 @@ choose sensible page breaks in multi-page pieces.
 Entered music can also be converted to MIDI output.  The performance
 is good enough for proof-hearing the music for errors.
 
-
 Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic
 marks translate to a fixed fraction of the available MIDI volume
-range, crescendi and decrescendi make the volume vary linearly
-between their two extremities.  The fractions be adjusted by
+range, crescendi and decrescendi make the volume vary linearly between
+their two extremities.  The fractions be adjusted by
 @code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
-
-For each type of musical instrument (that MIDI supports), a volume range
-can be defined.  This gives you basic equalizer control, which can
-enhance the quality of the MIDI output remarkably.  The equalizer
-can be controlled by setting @code{instrumentEqualizer}.
-
-Both loudness controls are combined to produce the final  MIDI volume. 
+For each type of MIDI instrument, a volume range can be defined.  This
+gives you basic equalizer control, which can enhance the quality of
+the MIDI output remarkably.  The equalizer can be controlled by
+setting @code{instrumentEqualizer}.
 
 @refbugs
 
 Many musically interesting effects, such as swing, articulation,
-slurring, etc., are translated to MIDI.
+slurring, etc., are not translated to MIDI.
 
 
 @menu
@@ -7369,8 +7342,8 @@ simpler.  The @code{\midi} block can contain:
 @cindex MIDI block
 
 @itemize @bullet
-  @item  a @code{\tempo} definition
-  @item  context definitions
+  @item a @code{\tempo} definition
+  @item context definitions
 @end itemize
 
 Assignments in the @code{\midi} block are not allowed.
