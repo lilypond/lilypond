@@ -25,7 +25,7 @@ Simultaneous_music::start_mom () const
 }
 
 Simultaneous_music::Simultaneous_music (SCM x)
-  : Music (x)
+  : Music_sequence (x)
 {
 
 }
