@@ -10,7 +10,7 @@ texidoc = "Grob extents may be hard coded using grob
 	\property Lyrics . LyricHyphen \set #'extra-offset = #'(0.0 . -5.0) 
 	foo --
 	\property Lyrics . LyricText \set #'X-extent-callback = #Grob::preset_extent
-	\property Lyrics . LyricText \set #'extent-X = #'(-10.0 . 10.0)
+	\property Lyrics . LyricText \set #'X-extent = #'(-10.0 . 10.0)
  bar baz
 	}
     \paper { linewidth = -1.0 }
