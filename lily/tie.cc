@@ -185,28 +185,16 @@ Tie::get_control_points (SCM smob)
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
-  Offset leave_dir = b.control_[1] - b.control_[0];
-
-  Grob *hed =head (me, headdir);
-  Real dx = (hed->extent (hed, X_AXIS).length () + x_gap_f)/2.0;
-  Real max_gap = leave_dir[Y_AXIS] * dx / leave_dir[X_AXIS];
-
   /*
-    for small ties (t small) we want to start in the Y-center (so dy = 0), for
-    large ties, the tie should appear to come from the center of the
-    head, so dy = max_gap
-
-    maybe use a different formula?
+    I think this better, particularly for small ties. It always allows the user to move ties if
+    they seem in the wrong place
 
     TODO: what if 2 heads have different size.
 
-    TODO: for small ties, it is better to start over the heads
-    iso. next to the heads. 
   */
-  Real t = (width / staff_space - 5.0);	// ugh.
-  Real dy = t > 0 ? max_gap * sqr (t / (1 + t)) : 0.0;
 
-  Real ypos = Tie::position_f (me) * staff_space/2 + dir * dy;
+  Real ypos = Tie::position_f (me) * staff_space/2
+    + dir * gh_scm2double (me->get_grob_property ("y-offset"));;
 
   /*
     Make sure we don't start on a dots

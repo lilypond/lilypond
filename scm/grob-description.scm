@@ -316,7 +316,7 @@
 
 		(direction . 1)
 		(breakable . #t)
-		(font-family . number)
+		(font-family . roman)
 		(font-shape . upright)
 		(font-relative-size . 1)
 		(visibility-lambda . ,end-of-line-invisible)
@@ -673,6 +673,7 @@
 		(details . ((ratio . 0.333) (height-limit . 1.0)))
 		(thickness . 1.2)
 		(x-gap . 0.2)
+		(y-offset . 0.6)
 		(minimum-length  . 2.5)
 		(meta . ,(grob-description "Tie" tie-interface ))
 	))
