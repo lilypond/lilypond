@@ -26,11 +26,13 @@ public:
     Performer_group_performer();
     ~Performer_group_performer();
 
-    bool is_bottom_performer_b() const;
-    virtual Performer_group_performer* find_performer_l( String name, String id );
-    
     virtual void add( Performer* perf_p );
-    virtual bool try_request( Request* req_l );
+    virtual void print()const { Performer::print() ; }
+    virtual Moment get_mom() const;
+    virtual bool do_try_request( Request* req_l );
+    virtual bool try_request(Request*r) { return Performer::try_request(r) ; }
+
+protected:
 
     virtual Translator* find_get_translator_l( String name, String id );
     virtual Translator* get_default_interpreter();
@@ -38,12 +40,14 @@ public:
     Translator * ancestor_l( int l = 1 );
     virtual int depth_i() const;
 
-    virtual Moment get_mom() const;
-
-    virtual void midi_output( Midi_stream* midi_stream_l );
     virtual void process_requests();
-    virtual void set_track( Midi_def* midi_l, int& track_i_r );
+    virtual void do_removal_processing();
+    virtual void do_creation_processing();
 
+    bool is_bottom_performer_b() const;
+    virtual Performer_group_performer* find_performer_l( String name, String id );
+    
+    virtual void do_print()const;
 private:
     Pointer_list<Performer*> perf_p_list_;
     

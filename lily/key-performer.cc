@@ -11,7 +11,7 @@
 #include "midi-item.hh"
 
 
-IMPLEMENT_STATIC_NAME(Key_performer);
+
 IMPLEMENT_IS_TYPE_B1(Key_performer,Performer);
 ADD_THIS_PERFORMER(Key_performer);
 
@@ -49,7 +49,7 @@ Key_performer::process_requests()
 }
 
 bool
-Key_performer::try_request( Request* req_l )
+Key_performer::do_try_request( Request* req_l )
 {
     if ( key_req_l_ )
 	return false;

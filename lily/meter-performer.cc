@@ -11,7 +11,7 @@
 #include "midi-item.hh"
 
 
-IMPLEMENT_STATIC_NAME(Meter_performer);
+
 IMPLEMENT_IS_TYPE_B1(Meter_performer,Performer);
 ADD_THIS_PERFORMER(Meter_performer);
 
@@ -44,7 +44,7 @@ Meter_performer::process_requests()
 }
 
 bool
-Meter_performer::try_request( Request* req_l )
+Meter_performer::do_try_request( Request* req_l )
 {
     if ( meter_req_l_ )
 	return false;

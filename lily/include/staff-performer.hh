@@ -21,16 +21,14 @@ public:
     String instrument_str();
 
 protected:
-    virtual void midi_output( Midi_stream* midi_stream_l_ );
     virtual void play_event( Midi_item* l );
-    virtual void set_track( Midi_def* midi_l, int& track_i_r );
+    virtual void do_removal_processing();
+    virtual void do_creation_processing();
 
 private:
     void header();
 
-    Midi_def* midi_l_;
     Moment midi_mom_;
-    int track_i_;
     Midi_track* midi_track_p_;
 };
 
