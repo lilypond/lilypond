@@ -67,18 +67,22 @@ Score_elem::TeX_string() const
     
 }
 
-
-Score_elem::Score_elem(Score_elem const&s)
+void
+Score_elem::copy_dependencies(Score_elem const &s)
 {
-    transparent_b_ = s.transparent_b_;
-    empty_b_ = s.empty_b_;
     /* called from derived ctor, so most info points to the same deps
       as (Directed_graph_node&)s. Nobody points to us, so don't copy
       dependents.      
      */
     copy_edges_out(s);
-    x_group_element_i_ = 0;
-    y_group_element_i_ = 0;    
+}
+
+Score_elem::Score_elem(Score_elem const&s)
+{
+    transparent_b_ = s.transparent_b_;
+    empty_b_ = s.empty_b_;
+    x_group_l_ = 0;
+    y_group_l_ = 0;    
     status_ = s.status_;
     assert(!s.output);
     output = 0;
@@ -93,7 +97,7 @@ Score_elem::~Score_elem()
     delete output;
     status_ = DELETED;
     output = 0;
-    assert(!x_group_element_i_ && !y_group_element_i_);
+
 }
 
 void
@@ -192,8 +196,8 @@ Score_elem::print()const
 Score_elem::Score_elem()
 {
     transparent_b_ = empty_b_ = false;
-    x_group_element_i_ = 0;
-    y_group_element_i_ =0;
+    x_group_l_ = 0;
+    y_group_l_ =0;
     pscore_l_=0;
     offset_ = Offset(0,0);
     output = 0;
@@ -240,7 +244,10 @@ Score_elem::breakable_col_processing()
     if (status_ >= PREBROKEN )
 	return;
 
-    assert(status_ != PREBREAKING); // cyclic dependency
+    if(status_== PREBREAKING) {
+	status_ = PREBROKEN;
+	return ;
+    }
     status_ = PREBREAKING;
 
     for (int i=0; i < dependency_size(); i++)
@@ -257,7 +264,10 @@ Score_elem::break_processing()
     if (status_ >= BROKEN )
 	return;
 
-    assert(status_ != BREAKING); // cyclic dependency
+    if (status_ == BREAKING) {
+	status_ = BROKEN;
+	return;
+    }
     status_ = BREAKING;
 
     for (int i=0; i < dependency_size(); i++)
@@ -266,6 +276,7 @@ Score_elem::break_processing()
     
     do_break_processing();
     status_ = BROKEN;
+
 }
 
 void
@@ -338,8 +349,13 @@ Score_elem::do_substitute_dependency(Score_elem*,Score_elem*)
 {
 }
 void
-Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
+Score_elem::do_substitute_dependent(Score_elem*o,Score_elem*n)
 {
+    if  ( o== y_group_l_ ) {
+	y_group_l_ = n ?  n->vertical_group() : 0;
+    } else if (o == x_group_l_ ) {
+	x_group_l_ = n ? n->horizontal_group() : 0;
+    }
 }
 
 
@@ -388,6 +404,14 @@ Score_elem::substitute_dependency(Score_elem* old, Score_elem* new_l)
 }
 
 void
+Score_elem::junk_dependencies()
+{
+    while ( dependency_size() ) {
+	remove_edge_out( dependency( 0 ));
+    }
+}
+
+void
 Score_elem::handle_broken_dependencies()
 {
     Line_of_score *line  = line_l();
@@ -421,10 +445,6 @@ Score_elem::handle_broken_dependencies()
     for (int i=0;  i <remove_us_arr.size(); i++)
 	remove_dependency(remove_us_arr[i]);
 
-    /* Reset this. If we are a (broken) copy of a spanner, then
-      break_processing() was not called on us (and we are not breaking).  */
-    if (status_ < BROKEN)
-	status_ = BROKEN;
 }
 
 /*
@@ -468,11 +488,6 @@ Score_elem::handle_prebroken_dependencies()
     for (int i=0;  i <remove_us_arr.size(); i++)
 	remove_dependency(remove_us_arr[i]);
 
-    /*
-      see comment at handle_broken_dependencies()
-     */
-    if (status_ < PREBROKEN)
-	status_ = PREBROKEN;
 }
 
 
@@ -483,8 +498,8 @@ Score_elem::unlink_all()
     for (int i=0; i < dependency_size(); i++) 
 	dependency(i)->unlink_all();
     junk_links();
-    y_group_element_i_ = 0;
-    x_group_element_i_ = 0;
+    y_group_l_ = 0;
+    x_group_l_ = 0;
 }
 
 void
