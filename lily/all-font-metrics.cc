@@ -1,12 +1,10 @@
 /*
-  
   all-font-metrics.cc --  implement All_font_metrics
   
   source file of the GNU LilyPond music typesetter
   
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
 #include "all-font-metrics.hh"
 
@@ -159,49 +157,46 @@ All_font_metrics::find_tfm (String name)
 Font_metric*
 All_font_metrics::find_font (String name)
 {
-  if ((name.left_string (4) == "feta") ||
-      (name.left_string (8) == "parmesan"))
+  Font_metric *f = 0;
+  if ((name.left_string (4) == "feta")
+      || (name.left_string (8) == "parmesan")
+      || (name.left_string (2) == "lm"))
     {
-      Font_metric *f = find_afm (name);
-      if (f)
-	return f;
-      else
-      f =find_tfm (name);
-      if (f)
-	return f ;
+      f = find_afm (name);
+      if (!f)
+	f = find_tfm (name);
     }
   else
     {
-      Font_metric * f = find_tfm (name);
-      if (f)
-	return f;
-      else
-      f = find_afm (name);
-      if (f)
-	return f;
+      f = find_tfm (name);
+      if (!f)
+	f = find_afm (name);
     }
 
-  warning (_f ("can't find font: `%s'", name.to_str0 ()));
-  warning (_ ("Loading default font"));
+  if (!f)
+    {
+      warning (_f ("can't find font: `%s'", name.to_str0 ()));
+      warning (_ ("Loading default font"));
+    }
   
   String def_name = default_font_str0_;
 
-  /*
-    we're in emergency recovery mode here anyway, so don't try to do
-    anything smart that runs the risk of failing.  */
-  Font_metric*  f= find_afm (def_name);
-  if (f)
-    return f;
+  /* We're in emergency recovery mode here anyway, so don't try to do
+     anything smart that runs the risk of failing.  */
+  if (!f)
+    f = find_afm (def_name);
 
-  f =  find_tfm (def_name);
-  if (f)
-    return f;
+  if (!f)
+    f =  find_tfm (def_name);
 
-  error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
-  error (_f ("(search path: `%s')", search_path_.to_string ()));
-  error (_ ("Giving up"));
+  if (!f)
+    {
+      error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
+      error (_f ("(search path: `%s')", search_path_.to_string ()));
+      error (_ ("Giving up"));
+    }
 
-  return 0;
+  return f;
 }
 
 All_font_metrics *all_fonts_global;

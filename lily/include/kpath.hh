@@ -12,8 +12,8 @@
 
 class String;
 
-String kpathsea_find_afm (char const * name);
-String kpathsea_find_tfm (char const * name);
+String kpathsea_find_afm (char const *name);
+String kpathsea_find_tfm (char const *name);
 void initialize_kpathsea (char *av0);
 
 #endif /* KPATH_HH */

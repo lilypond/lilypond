@@ -44,22 +44,16 @@ extern "C" {
 #include "warn.hh"
 
 String
-kpathsea_find_afm (char const * name)
+kpathsea_find_afm (char const *name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  char * name_ptr =  kpse_find_file (name, kpse_afm_format, false);
 
-  if (!name_ptr)
-    {
-  /*
-    don't mutter about afms, since we try to find them first, and lots of
-    TFMs don't have AFMs. 
-   */
-      //      warning (_f ("kpathsea couldn't find AFM file `%s'", name));
-    }
-  else
-    return name_ptr;
-  
+  if (char *afm = kpse_find_file (name, kpse_afm_format, false))
+    return afm;
+#if 0 /* Do not mutter about afms, since we try to find them first, and
+	 lots of TFMs don't have AFMs. */
+  warning (_f ("kpathsea can not find AFM file `%s'", name));
+#endif
 #endif
   return "";
 }
@@ -80,11 +74,9 @@ kpathsea_find_tfm (char const *name)
 	     but we assume that if there is a .PFA, there is also a .TFM,
 	 and it's no use generating TFMs on the fly, because PFAs cannot
 	 be generated on the fly. */
-      char *p = kpse_find_file (name, kpse_tfm_format, false);
-      if (!p)
-	warning (_f ("kpathsea can not find TFM file: `%s'", name));
-      else
-	file_name = p;
+      if (char *tfm = kpse_find_file (name, kpse_tfm_format, false))
+	return tfm;
+      warning (_f ("kpathsea can not find TFM file: `%s'", name));
     }
 #endif
   return file_name;

@@ -1,3 +1,18 @@
+2004-11-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/all-font-metrics.cc (find_font): Add "lm" to try-AFM-first
+	block.
+
+	* lily/font-select.cc (select_encoded_font)
+	(get_font_by_mag_step, get_font_by_design_size): 
+	* lily/modified-font-metric.cc (Modified_font_metric): 
+	* lily/paper-def.cc (find_scaled_font): Add font_encoding parameter.
+
+	* scm/encoding.scm (coding-alist): Add fetaDynamic.
+	(read-encoding-file): Bugfix: do not require space after bracket.
+
+	* scm/font.scm (add-cork-lm-fonts): Remove unexistent fonts.
+
 2004-11-20  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: added info about typesetting

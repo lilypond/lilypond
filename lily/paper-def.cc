@@ -20,11 +20,11 @@ output_scale (Output_def *od)
 
 /* TODO: should add nesting for Output_def here too. */
 Font_metric *
-find_scaled_font (Output_def *mod,
-		  Font_metric *f, Real m, SCM input_enc_name)
+find_scaled_font (Output_def *mod, Font_metric *f, Real m,
+		  SCM font_encoding, SCM input_encoding)
 {
   if (mod->parent_)
-    return find_scaled_font (mod->parent_, f, m, input_enc_name);
+    return find_scaled_font (mod->parent_, f, m, font_encoding, input_encoding);
   
   Real lookup_mag = m;
   if (!dynamic_cast<Virtual_font_metric*> (f))
@@ -65,9 +65,9 @@ find_scaled_font (Output_def *mod,
       SCM *t = &lst;
       for (SCM s = vf->get_font_list (); scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Font_metric *scaled = find_scaled_font (mod,
-						  unsmob_metrics (scm_car (s)),
-						  m, input_enc_name);
+	  Font_metric *scaled
+	    = find_scaled_font (mod, unsmob_metrics (scm_car (s)), m,
+				font_encoding, input_encoding);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
 	  t = SCM_CDRLOC (*t);
 	}
@@ -76,10 +76,9 @@ find_scaled_font (Output_def *mod,
       val = vf->self_scm ();
     }
   else
-    {
-      val = Modified_font_metric::make_scaled_font_metric (input_enc_name,
-							   f, lookup_mag);
-    }
+    val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag,
+							 font_encoding,
+							 input_encoding);
 
   sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
   scm_gc_unprotect_object (val);
