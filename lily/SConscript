@@ -1,6 +1,7 @@
 # -*-python-*-
 
 import glob
+import os
 
 sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
 name = 'lyparser'
