@@ -5,6 +5,8 @@ Lily literature -- reading on music engraving
 =head1 DESCRIPTION
 
 A list of resources on music printing/writing and engraving.
+Please note that don't have access to most material (except a library
+copy of Chlapik)
 
 =head2 References
 
@@ -40,6 +42,10 @@ New York.
 [This is as close to the ``standard'' reference work for music notation issues
 as one is likely to get.]
 
+The University of Colorado Music Engraving page.
+http://www.cc.colorado.edu/cgi-bin/mfs/01/Dept/Musicpress/Welcome.html
+
+More on GNU Music: http://www.u-bordeaux.fr/~strandh
 
 =head2  Further reading
 
