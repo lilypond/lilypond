@@ -59,8 +59,10 @@ Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
 
 	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 
-	  rod.add_to_cols ();
-	  break;
+	  if ( rod.distance_ > 0.0)
+	    rod.add_to_cols ();
+	  else
+	    break;
 	}
 
       /*
