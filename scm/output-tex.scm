@@ -181,7 +181,7 @@
 ;; during setcolor and restores it during resetcolor.
 ;; We don't do that here.
 (define (resetcolor)
-  (string-append "\\color[rgb]{0,0,0}"))
+  (string-append "\\color[rgb]{0,0,0}\n"))
 
 (define (polygon points blotdiameter)
   (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
