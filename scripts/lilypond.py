@@ -482,7 +482,7 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		first = 0
 
 
-	s = s + '\\thispagestyle{lastpage}\n'
+	s = s + '\n\\thispagestyle{lastpage}\n'
 	s = s + '\\end{document}'
 
 	return s
