@@ -20,7 +20,7 @@ class Break_align_engraver : public Engraver
   SCM column_alist_;
   Item *left_edge_;
 
-  void add_to_group (SCM,Item*);
+  void add_to_group (SCM, Item*);
 protected:
   virtual void acknowledge_grob (Grob_info i);
   virtual void stop_translation_timestep ();
@@ -35,7 +35,7 @@ void
 Break_align_engraver::add_column (SCM smob)
 {
   Grob * e = unsmob_grob (smob);
-  Break_align_interface::add_element (align_,e);
+  Break_align_interface::add_element (align_, e);
   
 }
 

@@ -101,7 +101,7 @@ Spaceable_grob::remove_interface (Grob*me)
 
 
 
-ADD_INTERFACE (Spaceable_grob,"spaceable-grob-interface",
+ADD_INTERFACE (Spaceable_grob, "spaceable-grob-interface",
 	       "A layout object that takes part in the spacing problem. "
 	       ,
 	       "measure-length spacing-wishes penalty minimum-distances ideal-distances "

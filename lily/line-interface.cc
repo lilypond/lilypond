@@ -30,7 +30,7 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 			SCM_UNDEFINED);
   
   Box box;
-  box.add_point (Offset (0,0));
+  box.add_point (Offset (0, 0));
   box.add_point (to - from);
 
   box[X_AXIS].widen (thick/2);
@@ -66,7 +66,7 @@ Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
-    * robust_scm2double (me->get_property ("thickness"),1);
+    * robust_scm2double (me->get_property ("thickness"), 1);
   
   SCM type = me->get_property ("style");
 
@@ -95,7 +95,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 }
 
 ADD_INTERFACE (Line_interface, "line-interface",
-	      "Generic line objects. Any object using lines supports this.  Normally,"
+	      "Generic line objects. Any object using lines supports this.  Normally, "
 	      "you get a straight line. If @code{dash-period} is defined, a dashed line is "
 	      "produced; the length of the dashes is tuned with " 
 	      "@code{dash-fraction}. If the latter is set to 0, a dotted line is "

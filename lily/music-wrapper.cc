@@ -18,7 +18,7 @@ Music_wrapper::Music_wrapper (SCM x)
     start_callback_ = length_callback_proc; 
 }
 
-MAKE_SCHEME_CALLBACK(Music_wrapper,start_callback,1);
+MAKE_SCHEME_CALLBACK(Music_wrapper, start_callback, 1);
 SCM
 Music_wrapper::start_callback (SCM m)
 {
@@ -27,7 +27,7 @@ Music_wrapper::start_callback (SCM m)
   return elt->start_mom ().smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK(Music_wrapper,length_callback,1);
+MAKE_SCHEME_CALLBACK(Music_wrapper, length_callback, 1);
 SCM
 Music_wrapper::length_callback (SCM m)
 {

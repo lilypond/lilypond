@@ -57,7 +57,7 @@ protected:
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 {
-  return Rhythmic_tuple::time_compare (a,b);
+  return Rhythmic_tuple::time_compare (a, b);
 }
 
 int

@@ -140,12 +140,12 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	  if (p->line_spanner_)
 	    {
 	      Side_position_interface::add_support (p->line_spanner_, info.grob_);
-	      add_bound_item (p->line_spanner_,info.grob_);
+	      add_bound_item (p->line_spanner_, info.grob_);
 	    }	  
 	  if (p->bracket_)
-	    add_bound_item (p->bracket_,info.grob_);
+	    add_bound_item (p->bracket_, info.grob_);
 	  if (p->finished_bracket_)
-	    add_bound_item (p->finished_bracket_,info.grob_);		  
+	    add_bound_item (p->finished_bracket_, info.grob_);		  
 	}
     }
 }
@@ -356,7 +356,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0),scm_cdr (flare)));
+	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0), scm_cdr (flare)));
 	}
 
 

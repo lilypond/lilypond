@@ -30,10 +30,10 @@ Music_wrapper_iterator::derived_mark () const
 }
 
 void
-Music_wrapper_iterator::derived_substitute (Context *f,Context *t) 
+Music_wrapper_iterator::derived_substitute (Context *f, Context *t) 
 {
   if (child_iter_)
-    child_iter_->substitute_outlet (f,t);
+    child_iter_->substitute_outlet (f, t);
 }
 
 void

@@ -11,7 +11,7 @@
 #define GLOBAL_CTOR_HH
 
 
-#define ADD_GLOBAL_CTOR_WITHNAME(y,x)\
+#define ADD_GLOBAL_CTOR_WITHNAME(y, x)\
 class Global_ctor_ ## y  \
 {\
 public:	\
@@ -21,7 +21,7 @@ public:	\
 }  _ ## y ## _ctor_init;	\
 
 
-#define ADD_GLOBAL_CTOR(x) ADD_GLOBAL_CTOR_WITHNAME (x,x);
+#define ADD_GLOBAL_CTOR(x) ADD_GLOBAL_CTOR_WITHNAME (x, x);
 
 
 typedef void (* Global_ctor ) ();

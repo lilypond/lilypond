@@ -300,7 +300,7 @@ Stem::get_default_stem_end_position (Grob *me)
       SCM sshorten = me->get_property ("stem-shorten");
       SCM scm_shorten = scm_is_pair (sshorten) ?
 	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
-      Real shorten = 2* robust_scm2double (scm_shorten,0);
+      Real shorten = 2* robust_scm2double (scm_shorten, 0);
 
       /* On boundary: shorten only half */
       if (abs (head_positions (me)[dir]) <= 1)
@@ -467,7 +467,7 @@ Stem::position_noteheads (Grob *me)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Stem,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Stem, before_line_breaking, 1);
 SCM
 Stem::before_line_breaking (SCM smob)
 {
@@ -596,7 +596,7 @@ Stem::flag (Grob *me)
   return flag;
 }
 
-MAKE_SCHEME_CALLBACK (Stem,width_callback,2);
+MAKE_SCHEME_CALLBACK (Stem, width_callback, 2);
 SCM
 Stem::width_callback (SCM e, SCM ax)
 {
@@ -612,7 +612,7 @@ Stem::width_callback (SCM e, SCM ax)
     }    
   else if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
     {
-      r = Interval (-1,1);
+      r = Interval (-1, 1);
       r *= thickness (me)/2; 
     }
   else
@@ -678,14 +678,14 @@ Stem::print (SCM smob)
 	   + stemlet_length) / half_space;
     }
 
-  Interval stem_y (y1 <? y2,y2 >? y1);
+  Interval stem_y (y1 <? y2, y2 >? y1);
 
   if (Grob *hed = support_head (me))
     {
       /*
 	must not take ledgers into account.
        */
-      Interval head_height = hed->extent (hed,Y_AXIS);
+      Interval head_height = hed->extent (hed, Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
@@ -806,7 +806,7 @@ Stem::calc_stem_info (Grob *me)
   /* Simple standard stem length */
   SCM lengths = me->get_property ("beamed-lengths");
   Real ideal_length =
-    scm_to_double (robust_list_ref (beam_count - 1,lengths))
+    scm_to_double (robust_list_ref (beam_count - 1, lengths))
 		
     * staff_space
     /* stem only extends to center of beam

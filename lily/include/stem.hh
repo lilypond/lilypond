@@ -27,7 +27,7 @@ public:
   static Stem_info get_stem_info (Grob *);
   static Real chord_start_y (Grob *);
   static Direction get_direction (Grob *);
-  static void set_stemend (Grob *,Real);
+  static void set_stemend (Grob *, Real);
   static Direction get_default_dir (Grob *);
   static Slice Stem::beam_multiplicity (Grob *);
   static Real thickness (Grob*);

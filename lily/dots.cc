@@ -15,7 +15,7 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Dots,print,1);
+MAKE_SCHEME_CALLBACK (Dots, print, 1);
 SCM  
 Dots::print (SCM d)
 {
@@ -37,12 +37,12 @@ Dots::print (SCM d)
       /*
 	TODO: this should  be handled by side-position padding.
        */
-      mol = Lookup::blank (Box (Interval (0,0),
-				Interval (0,0)));
+      mol = Lookup::blank (Box (Interval (0, 0),
+				Interval (0, 0)));
   
       for (int i = scm_to_int (c); i--;)
 	{
-	  d.translate_axis (2*dw,X_AXIS);
+	  d.translate_axis (2*dw, X_AXIS);
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw, 0);
 	}
     }

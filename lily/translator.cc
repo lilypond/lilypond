@@ -156,7 +156,7 @@ Translator::static_translator_description ()const
 
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
-IMPLEMENT_TYPE_P (Translator,"ly:translator?");
+IMPLEMENT_TYPE_P (Translator, "ly:translator?");
 
 bool
 Translator::must_be_last () const

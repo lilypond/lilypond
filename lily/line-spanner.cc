@@ -47,7 +47,7 @@ zigzag_stencil (Grob *me,
 		      scm_make_real (dy),
 		      SCM_UNDEFINED);
   Box b;
-  b.add_point (Offset (0,0));
+  b.add_point (Offset (0, 0));
   b.add_point (dz);
   b[X_AXIS].widen (thick/2);
   b[Y_AXIS].widen (thick/2);
@@ -123,7 +123,7 @@ Line_spanner::line_stencil (Grob *me,
       Stencil mol;
 
       do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
 	     + m.extent (X_AXIS).length () < dz[X_AXIS]);
@@ -282,7 +282,7 @@ Line_spanner::print (SCM smob)
       ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
   
-      Stencil line = line_stencil (me, Offset (0,0),dxy);
+      Stencil line = line_stencil (me, Offset (0, 0), dxy);
 
       line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
       line.translate (ofxy - my_off + his_off);

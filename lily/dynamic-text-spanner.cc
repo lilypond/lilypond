@@ -88,7 +88,7 @@ Dynamic_text_spanner::print (SCM smob)
 
 	  Interval ext  = b->extent (common, X_AXIS);
 	  span_points[d] = -d  * pad
-	    + robust_relative_extent (b,common, X_AXIS)
+	    + robust_relative_extent (b, common, X_AXIS)
 	    .linear_combination (encl);
 	}
     }

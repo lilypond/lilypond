@@ -25,7 +25,7 @@ Repeated_music::alternatives (Music *me)
   return me->get_property ("elements");
 }
 
-MAKE_SCHEME_CALLBACK(Repeated_music,relative_callback, 2);
+MAKE_SCHEME_CALLBACK(Repeated_music, relative_callback, 2);
 SCM
 Repeated_music::relative_callback (SCM music, SCM pitch)
 {
@@ -107,7 +107,7 @@ Repeated_music::body_get_length (Music *me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Repeated_music,unfolded_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music, unfolded_music_length, 1);
 
 SCM
 Repeated_music::unfolded_music_length (SCM m)
@@ -118,7 +118,7 @@ Repeated_music::unfolded_music_length (SCM m)
   return l.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music,folded_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music, folded_music_length, 1);
 SCM
 Repeated_music::folded_music_length (SCM m)
 {
@@ -134,7 +134,7 @@ Repeated_music::repeat_count (Music *me)
   return scm_to_int (me->get_property ("repeat-count"));
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music,volta_music_length, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music, volta_music_length, 1);
 SCM
 Repeated_music::volta_music_length (SCM m)
 {
@@ -143,7 +143,7 @@ Repeated_music::volta_music_length (SCM m)
   return l.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music,minimum_start, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music, minimum_start, 1);
 SCM
 Repeated_music::minimum_start (SCM m)
 {
@@ -158,7 +158,7 @@ Repeated_music::minimum_start (SCM m)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Repeated_music,first_start, 1);
+MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);
 SCM
 Repeated_music::first_start (SCM m)
 {

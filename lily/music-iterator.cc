@@ -131,11 +131,11 @@ Music_iterator::substitute_outlet (Context *f, Context *t)
 {
   if (get_outlet () == f)
     set_context (t);
-  derived_substitute (f,t);
+  derived_substitute (f, t);
 }
 
 void
-Music_iterator::derived_substitute (Context *,Context *)
+Music_iterator::derived_substitute (Context *, Context *)
 {
 }
 

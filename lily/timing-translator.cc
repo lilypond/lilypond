@@ -59,7 +59,7 @@ Timing_translator::initialize ()
     context.
    */
   context ()->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
-  context ()->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
+  context ()->set_property ("beatLength", Moment (Rational (1, 4)).smobbed_copy ());
 }
 
 Rational
@@ -156,4 +156,4 @@ ADD_TRANSLATOR (Timing_translator,
 		   "@code{Timing} to its containing context."
 		   ,
 
-		   "","","","","");
+		   "", "", "", "", "");

@@ -21,7 +21,7 @@
 #include "duration.hh"
 #include "directional-element-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Rest_collision,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 2);
 SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
@@ -45,7 +45,7 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 
 
 void
-Rest_collision::add_column (Grob*me,Grob *p)
+Rest_collision::add_column (Grob*me, Grob *p)
 {
   me->add_dependency (p);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
@@ -174,7 +174,7 @@ Rest_collision::do_shift (Grob *me)
 
 	    Real diff = d * ((last_y - y) /staff_space);
 	    if (diff > 0)
-	      Note_column::translate_rests (ordered_rests[d][i],d * (int) ceil (diff) * 2);
+	      Note_column::translate_rests (ordered_rests[d][i], d * (int) ceil (diff) * 2);
 	  }
       } while (flip (&d) != LEFT);
     }
@@ -232,13 +232,13 @@ Rest_collision::do_shift (Grob *me)
       if (discrete_dist < stafflines+1)
 	discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
 
-      Note_column::translate_rests (rcol,dir * discrete_dist);
+      Note_column::translate_rests (rcol, dir * discrete_dist);
     }
   return SCM_UNSPECIFIED;
 }
 
 
-ADD_INTERFACE (Rest_collision,"rest-collision-interface",
+ADD_INTERFACE (Rest_collision, "rest-collision-interface",
 	       "Move around ordinary rests (not multi-measure-rests) to avoid "
 	       "conflicts.",
 	       "minimum-distance positioning-done elements");

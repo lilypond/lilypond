@@ -26,12 +26,12 @@ public:
   static Grob * accidentals (Grob*me);
   static Slice head_positions_interval (Grob* me);
   static Direction static_dir (Grob*);
-  static void translate_rests (Grob*me,int dy);
+  static void translate_rests (Grob*me, int dy);
   static Grob *first_head (Grob*me);
   static Grob *get_rest (Grob*me);
-  static void set_stem (Grob*me,Grob*);
-  static void set_dotcol (Grob*me,Grob*);
-  static void add_head (Grob*me,Grob*);
+  static void set_stem (Grob*me, Grob*);
+  static void set_dotcol (Grob*me, Grob*);
+  static void add_head (Grob*me, Grob*);
   static bool has_rests (Grob*me);
   static bool has_interface (Grob*);
   

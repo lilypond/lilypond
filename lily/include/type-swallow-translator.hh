@@ -31,12 +31,12 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
   TYPE ## _swallow_translator :: TYPE ## _swallow_translator() {\
       swallow_string_ =  #TYPE;						\
   }									\
-ADD_TRANSLATOR(TYPE ## _swallow_translator,				\
-		  "Swallow events of " #TYPE " type.",		\
-		  "",							\
-	"general-music",\
-		  "",							\
-		  "",							\
+ADD_TRANSLATOR(TYPE ## _swallow_translator, 				\
+		  "Swallow events of " #TYPE " type.", 		\
+		  "", 							\
+	"general-music", \
+		  "", 							\
+		  "", 							\
 		  "");
 
 #endif // TYPESWALLOW_GRAV_HH

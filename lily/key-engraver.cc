@@ -73,7 +73,7 @@ Key_engraver::create_key (bool def)
 	  && !scm_is_eq (last, key))
 	{
 	  cancellation_ = make_item ("KeyCancellation", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
-	  cancellation_->set_property ("old-accidentals",last);
+	  cancellation_->set_property ("old-accidentals", last);
 	  cancellation_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
       
@@ -85,7 +85,7 @@ Key_engraver::create_key (bool def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
       if (ly_c_procedure_p (vis))
-	item_->set_property ("break-visibility",vis);
+	item_->set_property ("break-visibility", vis);
     }
 }      
 
@@ -186,7 +186,7 @@ Key_engraver::initialize ()
   context ()->set_property ("keySignature", SCM_EOL);
   context ()->set_property ("lastKeySignature", SCM_EOL);
 
-  Pitch p (0,0,0);
+  Pitch p (0, 0, 0);
   context ()->set_property ("tonic", p.smobbed_copy ());
 
 }

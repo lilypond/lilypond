@@ -49,7 +49,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
       for (int i = 0; i < texts_.size (); i++)
 	{
 	  Grob*t = texts_[i];
-	  Side_position_interface::add_support (t,inf.grob_);
+	  Side_position_interface::add_support (t, inf.grob_);
 
 	  /*
 	    ugh.
@@ -67,7 +67,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i = 0; i < texts_.size (); i++)
 	{
-	  Side_position_interface::add_support (texts_[i],inf.grob_);
+	  Side_position_interface::add_support (texts_[i], inf.grob_);
 	}
     }
 }

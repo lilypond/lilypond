@@ -18,7 +18,7 @@ public:
   static Real next_notes_correction (Grob*, Grob*);
   static Real next_note_correction (Grob*, Grob*, Interval);  
   static bool has_interface (Grob*);
-  static void get_spacing_params (Grob*,Real*,Real*);
+  static void get_spacing_params (Grob*, Real*, Real*);
 
   static Interval bar_y_positions (Grob*);
 };

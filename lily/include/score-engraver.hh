@@ -25,7 +25,7 @@ class Score_engraver : public virtual Score_translator,
   Paper_score * pscore_;
 
   void make_columns ();
-  void set_columns (Paper_column*,Paper_column*);
+  void set_columns (Paper_column*, Paper_column*);
   void typeset_all ();
 protected:
   /* Score_translator */

@@ -30,7 +30,7 @@
   
 */
 
-MAKE_SCHEME_CALLBACK (Volta_bracket_interface,print,1);
+MAKE_SCHEME_CALLBACK (Volta_bracket_interface, print, 1);
 SCM
 Volta_bracket_interface::print (SCM smob) 
 {
@@ -55,8 +55,8 @@ Volta_bracket_interface::print (SCM smob)
   
   const char* cs = str.to_str0 ();
   no_vertical_end |=
-    (strcmp (cs,":|")!= 0 && strcmp (cs,"|:")!= 0 && strcmp (cs,"|.")!= 0
-     && strcmp (cs,":|:")!= 0 && strcmp (cs,".|")!= 0);
+    (strcmp (cs, ":|")!= 0 && strcmp (cs, "|:")!= 0 && strcmp (cs, "|.")!= 0
+     && strcmp (cs, ":|:")!= 0 && strcmp (cs, ".|")!= 0);
 
   Output_def * layout = me->get_layout ();
   Real half_space = 0.5;
@@ -83,14 +83,14 @@ Volta_bracket_interface::print (SCM smob)
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
   Real h =  robust_scm2double (me->get_property ("height"), 1);
 
-  Stencil start,end ;
+  Stencil start, end ;
   if (!no_vertical_start)
-    start = Line_interface::line (me, Offset (0,0), Offset (0, h)); 
+    start = Line_interface::line (me, Offset (0, 0), Offset (0, h)); 
   
   if (!no_vertical_end)
-    end = Line_interface::line (me, Offset (w, 0), Offset (w,h));
+    end = Line_interface::line (me, Offset (w, 0), Offset (w, h));
 
-  Stencil mol = Line_interface::line (me, Offset (0, h), Offset (w,h));
+  Stencil mol = Line_interface::line (me, Offset (0, h), Offset (w, h));
   mol.add_stencil (start);
   mol.add_stencil (end);
 
@@ -113,17 +113,17 @@ void
 Volta_bracket_interface::add_bar (Grob *me, Item* b)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
-  Side_position_interface::add_support (me,b);
+  Side_position_interface::add_support (me, b);
   add_bound_item (dynamic_cast<Spanner*> (me), b); 
 }
 
 void
 Volta_bracket_interface::add_column (Grob*me, Grob* c)
 {
-  Side_position_interface::add_support (me,c);
+  Side_position_interface::add_support (me, c);
 }
 
-ADD_INTERFACE (Volta_bracket_interface,"volta-bracket-interface",
+ADD_INTERFACE (Volta_bracket_interface, "volta-bracket-interface",
 	       "Volta bracket with number",
 	       "bars thickness height");
 

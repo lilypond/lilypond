@@ -88,10 +88,10 @@ Completion_heads_engraver::try_music (Music *m)
       if (now_mom ().grace_part_)
 	{
 	  musiclen.grace_part_ = musiclen.main_part_ ;
-	  musiclen.main_part_ = Rational (0,1);
+	  musiclen.main_part_ = Rational (0, 1);
 	}
       note_end_mom_  = note_end_mom_ >? (now + musiclen);
-      do_nothing_until_ = Rational (0,0);
+      do_nothing_until_ = Rational (0, 0);
       
       return true;
     }
@@ -115,7 +115,7 @@ Completion_heads_engraver::next_barline_moment ( )
   if (!e || !l)
     {
       programming_error ("No timing props set?");
-      return Moment (1,1);
+      return Moment (1, 1);
     }
 
   return (*l - *e);
@@ -126,7 +126,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
 {
   int log_limit = 6;
 
-  Duration d (0,0);
+  Duration d (0, 0);
 
   /*
     this could surely be done more efficient. Left to the reader as an
@@ -215,7 +215,7 @@ Completion_heads_engraver::process_music ()
 	{
 	  req = scratch_note_reqs_[i];
 	  SCM pits = note_reqs_[i]->get_property ("pitch");
-	  req->set_property ("pitch",pits);
+	  req->set_property ("pitch", pits);
 	}
       
       req->set_property ("duration", note_dur.smobbed_copy ());
@@ -274,7 +274,7 @@ Completion_heads_engraver::process_music ()
   if (orig
       &&  now_mom ().grace_part_ )
     {
-      left_to_do_ = Rational (0,0);
+      left_to_do_ = Rational (0, 0);
     }
 }
  

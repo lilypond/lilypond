@@ -525,7 +525,7 @@ Context::mark_smob (SCM sm)
 
 IMPLEMENT_SMOBS (Context);
 IMPLEMENT_DEFAULT_EQUAL_P (Context);
-IMPLEMENT_TYPE_P (Context,"ly:context?");
+IMPLEMENT_TYPE_P (Context, "ly:context?");
 
 bool
 Context::try_music (Music* m)

@@ -17,7 +17,7 @@ class Rhythmic_head
 {
 public:
   static int duration_log (Grob*);
-  static void set_dots (Grob*,Item *);
+  static void set_dots (Grob*, Item *);
   static Item * get_stem (Grob*) ;
   static Item * get_dots (Grob*) ;
   static int dot_count (Grob*) ;

@@ -22,7 +22,7 @@
 #include "lookup.hh"
 #include "separation-item.hh"
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, percent, 1);
 SCM
 Multi_measure_rest::percent (SCM smob)
 {
@@ -58,13 +58,13 @@ Multi_measure_rest::percent (SCM smob)
    */
   x_off += sp_iv.length ()/ 2;
 
-  r.translate_axis (x_off,X_AXIS);
+  r.translate_axis (x_off, X_AXIS);
 
   
   return r.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest,print,1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, 1);
 SCM
 Multi_measure_rest::print (SCM smob) 
 {
@@ -312,10 +312,10 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);      
   
-  Item *combinations[4][2] = {{li,ri},
-			      {lb,ri},
-			      {li,rb},
-			      {lb,rb}};
+  Item *combinations[4][2] = {{li, ri},
+			      {lb, ri},
+			      {li, rb},
+			      {lb, rb}};
 
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
@@ -343,7 +343,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
+ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
 	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest minimum-length");
 

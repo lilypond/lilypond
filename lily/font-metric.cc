@@ -201,6 +201,6 @@ Font_metric::text_stencil (String str) const
 Box
 Font_metric::text_dimension (String) const
 {
-  return Box (Interval (0,0), Interval (0,0));
+  return Box (Interval (0, 0), Interval (0, 0));
 }
 

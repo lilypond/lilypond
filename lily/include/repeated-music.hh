@@ -54,7 +54,7 @@ public:
 
   /* How often do we repeat? */
   static int repeat_count (Music*);
-  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
+  DECLARE_SCHEME_CALLBACK(relative_callback, (SCM, SCM));
 
   static Moment body_get_length (Music*);
   static Moment alternatives_get_length (Music *, bool fold);

@@ -21,7 +21,7 @@ void set_lexer ();
 
 class Lily_lexer : public Includable_lexer 
 {
-  DECLARE_SMOBS(Lily_lexer,);
+  DECLARE_SMOBS(Lily_lexer, );
 public:
   SCM scopes_;
   
@@ -57,7 +57,7 @@ public:
   void add_lexed_char (int);
 
   void prepare_for_next_token ();
-  int try_special_identifiers (SCM* ,SCM);
+  int try_special_identifiers (SCM* , SCM);
   Input here_input () const;
   
   void add_scope (SCM);

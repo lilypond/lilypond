@@ -17,7 +17,7 @@
 #include "lookup.hh"
 #include "group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Ambitus,print,1);
+MAKE_SCHEME_CALLBACK (Ambitus, print, 1);
 SCM
 Ambitus::print (SCM smob)
 {
@@ -30,7 +30,7 @@ Ambitus::print (SCM smob)
       && heads.size() > 1)
     {
       Grob *common
-	= common_refpoint_of_array (heads.slice (0,2), me, Y_AXIS);
+	= common_refpoint_of_array (heads.slice (0, 2), me, Y_AXIS);
 
       Grob *minh = heads[0];
       Grob *maxh = heads[1];
@@ -52,7 +52,7 @@ Ambitus::print (SCM smob)
 	  Real linethickness = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"))
 	    * robust_scm2double (me->get_property ("thickness"), 1.0); 
 	  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
-	  Interval x_extent = 0.5 * linethickness *Interval (-1,1);
+	  Interval x_extent = 0.5 * linethickness *Interval (-1, 1);
 	  Interval y_extent = Interval (pmin, pmax);
 	  Box line_box (x_extent, y_extent);
 

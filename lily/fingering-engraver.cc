@@ -57,7 +57,7 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
       for (int i = 0; i < fingerings_.size (); i++)
 	{
 	  Grob*t = fingerings_[i];
-	  Side_position_interface::add_support (t,inf.grob_);
+	  Side_position_interface::add_support (t, inf.grob_);
 	  if (!t->get_parent (X_AXIS))
 	    t->set_parent (inf.grob_, X_AXIS);
 	}

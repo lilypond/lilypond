@@ -25,7 +25,7 @@ Paper_system::Paper_system (Stencil s, bool is_title)
   break_before_penalty_ = 0;
   smobify_self ();
   stencil_ = s;
-  staff_refpoints_ = Interval(0,0);
+  staff_refpoints_ = Interval(0, 0);
 }
 
 Paper_system::~Paper_system ()

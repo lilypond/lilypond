@@ -24,7 +24,7 @@ public:
   
   static bool has_interface (Grob*);  
   static Interval get_spanned_interval (Grob*);
-  static void add_bar (Grob*,Grob*);
+  static void add_bar (Grob*, Grob*);
   static void evaluate_glyph (Grob*);
   static void evaluate_empty (Grob*);
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM smob, SCM axis));

@@ -179,7 +179,7 @@ Beam_engraver::start_translation_timestep ()
       set_melisma (true);
       
       subdivide_beams_ = to_boolean (get_property ("subdivideBeams"));
-      beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1,4));
+      beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1, 4));
     }
 }
 

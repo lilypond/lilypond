@@ -86,6 +86,6 @@ Beam_performer::try_music (Music *m)
   return false;
 }
 
-ADD_TRANSLATOR (Beam_performer,"","",
-		  "beam-event","","","");
+ADD_TRANSLATOR (Beam_performer, "", "",
+		  "beam-event", "", "", "");
 

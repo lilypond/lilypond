@@ -22,7 +22,7 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
 }
 
 LY_DEFINE (ly_translator_description, "ly:translator-description",
-	  1,0,0, (SCM me),
+	  1, 0, 0, (SCM me),
 	  "Return an alist of properties of  translator @var{me}.")
 {
   Translator *tr = unsmob_translator (me);

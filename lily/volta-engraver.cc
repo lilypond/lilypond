@@ -181,7 +181,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
       if (Note_column::has_interface (item))
 	{
 	  if (volta_span_)
-	    Volta_bracket_interface::add_column (volta_span_,item);
+	    Volta_bracket_interface::add_column (volta_span_, item);
 	}
       if (Bar_line::has_interface (item))
 	{

@@ -126,7 +126,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 
       if (tie_column_)
 	for (int i = ties_.size (); i--;)
-	  Tie_column::add_tie (tie_column_,ties_ [i]);
+	  Tie_column::add_tie (tie_column_, ties_ [i]);
     }
 }
 
@@ -167,15 +167,15 @@ Tie_engraver::stop_translation_timestep ()
 void
 Tie_engraver::typeset_tie (Grob *her)
 {
-  if (! (Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
+  if (! (Tie::head (her, LEFT) && Tie::head (her, RIGHT)))
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
   Drul_array<Grob *> new_head_drul;
-  new_head_drul[LEFT] = Tie::head (her,LEFT);
-  new_head_drul[RIGHT] = Tie::head (her,RIGHT);  
+  new_head_drul[LEFT] = Tie::head (her, LEFT);
+  new_head_drul[RIGHT] = Tie::head (her, RIGHT);  
   do {
-    if (!Tie::head (her,d))
+    if (!Tie::head (her, d))
       new_head_drul[d] = Tie::head (her, (Direction)-d);
   } while (flip (&d) != LEFT);
 

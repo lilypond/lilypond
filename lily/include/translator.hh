@@ -94,30 +94,30 @@ ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 
 
-#define ADD_TRANSLATOR(classname,desc,grobs,accepted,acked,read,write)						\
+#define ADD_TRANSLATOR(classname, desc, grobs, accepted, acked, read, write)						\
 ADD_THIS_TRANSLATOR (classname);\
 SCM												\
 classname::static_translator_description () const \
 {												\
   SCM  static_properties = SCM_EOL;								\
-  /*  static_properties = acons (name ,gh_str02scm (Translator::name (self_scm ())),		\
+  /*  static_properties = acons (name , gh_str02scm (Translator::name (self_scm ())), 		\
 			      static_properties_);						\
   */												\
-  static_properties = scm_acons (ly_symbol2scm ("grobs-created"),				\
+  static_properties = scm_acons (ly_symbol2scm ("grobs-created"), 				\
 			      parse_symbol_list (grobs), static_properties);	\
 			      									\
-  static_properties = scm_acons (ly_symbol2scm ("description"),					\
+  static_properties = scm_acons (ly_symbol2scm ("description"), 					\
 			      scm_makfrom0str (desc), static_properties);				\
 												\
-  static_properties = scm_acons (ly_symbol2scm ("interfaces-acked"),				\
+  static_properties = scm_acons (ly_symbol2scm ("interfaces-acked"), 				\
 			      parse_symbol_list (acked), static_properties);			\
-  static_properties = scm_acons (ly_symbol2scm ("events-accepted"),				\
+  static_properties = scm_acons (ly_symbol2scm ("events-accepted"), 				\
 			      parse_symbol_list (accepted), static_properties);			\
   												\
-  static_properties = scm_acons (ly_symbol2scm ("properties-read"),				\
+  static_properties = scm_acons (ly_symbol2scm ("properties-read"), 				\
 			      parse_symbol_list (read), static_properties);			\
 												\
-  static_properties = scm_acons (ly_symbol2scm ("properties-written"),				\
+  static_properties = scm_acons (ly_symbol2scm ("properties-written"), 				\
 				parse_symbol_list (write), static_properties);			\
 												\
   return static_properties;									\
@@ -128,5 +128,5 @@ classname::static_translator_description () const \
 void add_translator (Translator*trans);
 
 Translator*get_translator (SCM s);
-DECLARE_UNSMOB(Translator,translator);
+DECLARE_UNSMOB(Translator, translator);
 #endif // TRANSLATOR_HH

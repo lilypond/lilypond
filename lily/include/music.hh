@@ -32,7 +32,7 @@ public:
   bool internal_is_music_type (SCM) const;
   int duration_log () const;
   
-  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
+  DECLARE_SCHEME_CALLBACK(relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);
   Pitch generic_to_relative_octave (Pitch);  
   String name () const;
@@ -47,7 +47,7 @@ public:
   void compress (Moment factor);
   
 protected:
-  DECLARE_SMOBS (Music,);
+  DECLARE_SMOBS (Music, );
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
 protected:
@@ -57,7 +57,7 @@ protected:
 };
 
 DECLARE_TYPE_P(Music);
-DECLARE_UNSMOB(Music,music);
+DECLARE_UNSMOB(Music, music);
 
 Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);

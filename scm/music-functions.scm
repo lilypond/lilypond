@@ -418,8 +418,6 @@ of beat groupings "
   (let ((es (ly:music-property m 'elements))
 	(e (ly:music-property m 'element)))
 
-    (display (ly:music-property m 'name))
-    
     (if (pair? es)
 	(set! (ly:music-property m 'elements) (map voicify-music es)))
     (if (ly:music? e)

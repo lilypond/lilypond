@@ -19,7 +19,7 @@ class Bezier
 {
 public:
   void assert_sanity () const;
-  void scale (Real x,Real y);
+  void scale (Real x, Real y);
   void reverse ();
   void rotate (Real);
   void translate (Offset);

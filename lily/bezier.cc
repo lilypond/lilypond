@@ -93,7 +93,7 @@ Bezier::curve_point (Real t)const
   for (int j = 0 ; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient (3, j)
-	* pow (t,j) * pow (1-t, 3-j);
+	* pow (t, j) * pow (1-t, 3-j);
 
       tj *= t;
       if (1-t)
@@ -125,7 +125,7 @@ Bezier::polynomial (Axis a)const
 }
 
 /**
-   Remove all numbers outside [0,1] from SOL
+   Remove all numbers outside [0, 1] from SOL
  */
 Array<Real>
 filter_solutions (Array<Real> sol)
@@ -182,7 +182,7 @@ Bezier::extent (Axis a)const
   for (int i = sols.size (); i--;)
     {
       Offset o (curve_point (sols[i]));
-      iv.unite (Interval (o[a],o[a]));
+      iv.unite (Interval (o[a], o[a]));
     }
   return iv;
 }

@@ -93,9 +93,9 @@ Multi_measure_rest_engraver::process_music ()
 		= make_spanner ("MultiMeasureRestText", e->self_scm () );
 	      SCM t = e->get_property ("text");
 	      SCM dir = e->get_property ("direction");
-	      sp->set_property ("text",t);
+	      sp->set_property ("text", t);
 	      if (is_direction (dir))
-		sp->set_property ("direction",dir);
+		sp->set_property ("direction", dir);
 	      
 	      numbers_.push (sp);
 	    }

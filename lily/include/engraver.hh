@@ -52,8 +52,8 @@ public:
   TRANSLATOR_DECLARATIONS(Engraver);
 };
 
-#define make_item(x,cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
-#define make_spanner(x,cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
+#define make_item(x, cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
+#define make_spanner(x, cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
 Item* make_item_from_properties (Engraver * tg, SCM x, SCM cause, const char *name);
 Spanner* make_spanner_from_properties (Engraver * tg, SCM x, SCM cause, const char*name);
 

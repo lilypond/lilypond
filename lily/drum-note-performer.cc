@@ -110,8 +110,8 @@ Drum_note_performer::try_music (Music* ev)
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
-		  "Play drum notes.","",
-		  "note-event busy-playing-event","","","");
+		  "Play drum notes.", "",
+		  "note-event busy-playing-event", "", "", "");
 
 Drum_note_performer::Drum_note_performer ()
 {

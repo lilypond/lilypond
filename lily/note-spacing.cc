@@ -98,7 +98,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	}
 
       if (extents[d].is_empty ())
-	extents[d] = Interval (0,0);
+	extents[d] = Interval (0, 0);
     }
   while (flip (&d) != LEFT);
 
@@ -241,14 +241,14 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 				   Real increment,
 				   Real * space, Real *fixed)  
 {
-  Drul_array<Direction> stem_dirs (CENTER,CENTER);
+  Drul_array<Direction> stem_dirs (CENTER, CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;  
   Drul_array<SCM> props (me->get_property ("left-items"),
 			me->get_property ("right-items"));
 
-  Drul_array<Spanner*> beams_drul (0,0);
-  Drul_array<Grob*> stems_drul (0,0);
+  Drul_array<Spanner*> beams_drul (0, 0);
+  Drul_array<Grob*> stems_drul (0, 0);
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
@@ -448,7 +448,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
 
 
-ADD_INTERFACE (Note_spacing,"note-spacing-interface",
+ADD_INTERFACE (Note_spacing, "note-spacing-interface",
   "This object calculates spacing wishes for individual voices.",
   "left-items right-items stem-spacing-correction knee-spacing-correction");
 

@@ -22,7 +22,7 @@ class Event : public Music
 public:
   Event (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
-  DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
+  DECLARE_SCHEME_CALLBACK(length_callback, (SCM));
 };
 
 

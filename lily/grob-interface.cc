@@ -20,7 +20,7 @@ void add_interface (const char * symbol,
   SCM d = scm_makfrom0str (descr);
   SCM l = parse_symbol_list (vars);
 
-  ly_add_interface (s,d,l);
+  ly_add_interface (s, d, l);
 }
 
 

@@ -52,7 +52,7 @@ public:
   void do_break ();
   Real spanner_length () const;
 
-  static int compare (Spanner * const &,Spanner * const &);
+  static int compare (Spanner * const &, Spanner * const &);
   virtual Grob* find_broken_piece (System*) const;
   virtual SCM do_derived_mark () const;
   static bool has_interface (Grob*);

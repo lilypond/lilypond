@@ -46,7 +46,7 @@ Slur::height (SCM smob, SCM ax)
 /*
   Ugh should have dash-length + dash-period
 */
-MAKE_SCHEME_CALLBACK (Slur, print,1);
+MAKE_SCHEME_CALLBACK (Slur, print, 1);
 SCM
 Slur::print (SCM smob)
 {
@@ -216,7 +216,7 @@ get_default_dir (Grob*me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking, 1);
 SCM
 Slur::after_line_breaking (SCM smob)
 {

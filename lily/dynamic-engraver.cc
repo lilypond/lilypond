@@ -384,8 +384,8 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  /* Don't refill killed spanner */
 	  && line_spanner_->is_live ())
 	{
-	  Side_position_interface::add_support (line_spanner_,info.grob_);
-	  add_bound_item (line_spanner_,dynamic_cast<Item*> (info.grob_));
+	  Side_position_interface::add_support (line_spanner_, info.grob_);
+	  add_bound_item (line_spanner_, dynamic_cast<Item*> (info.grob_));
 	}
 
       if (script_ && !script_->get_parent (X_AXIS))

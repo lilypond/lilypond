@@ -18,11 +18,11 @@
    for administration of what was done already
 */
 enum Grob_status {
-  ORPHAN = 0,			// not yet added to Paper_score
+  ORPHAN = 0, 			// not yet added to Paper_score
   PRECALCING,
-  PRECALCED,		// calcs before spacing done
-  POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
-  POSTCALCED,		// after spacing calcs done
+  PRECALCED, 		// calcs before spacing done
+  POSTCALCING, 		// busy calculating. This is used to trap cyclic deps.
+  POSTCALCED, 		// after spacing calcs done
 };
 
 typedef void (Grob::*Grob_method_pointer) (void);
@@ -78,7 +78,7 @@ public:
   void add_to_list_property (SCM, SCM);
 
   SCM get_property_alist_chain (SCM) const;
-  static SCM ly_grob_set_property (SCM, SCM,SCM);
+  static SCM ly_grob_set_property (SCM, SCM, SCM);
   static SCM ly_grob_property (SCM, SCM);  
 
   void warning (String) const;

@@ -99,7 +99,7 @@ typedef std::map<int, Drul_array<Ledger_request> > Ledger_requests;
   TODO: ledger share a lot of info. Lots of room to optimize away common
   use of objects/variables.
  */
-MAKE_SCHEME_CALLBACK (Ledger_line_spanner,print,1);
+MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
 SCM
 Ledger_line_spanner::print (SCM smob)
 {
@@ -219,7 +219,7 @@ Ledger_line_spanner::print (SCM smob)
 	      Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
 	      Real d =
 		linear_combination (Drul_array<Real> (accidental_size[RIGHT],
-						      head_size[LEFT]),				
+						      head_size[LEFT]), 				
 				    0.0);
 
 	      left_shorten =  (-ledger_size[LEFT] + d) >?  0 ;

@@ -79,7 +79,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
   sprintf (str, "#<Scheme_hash_table 0x%0lx ", SCM_UNPACK (s));
   Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
   scm_display (me->hash_tab_, p);
-  scm_puts ("> ",p);
+  scm_puts ("> ", p);
   return 1;
 }
 

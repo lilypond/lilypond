@@ -57,7 +57,7 @@ Hairpin::print (SCM smob)
       if (broken [d])
 	{
 	  if (d == LEFT)
-	    x_points[d] = b->extent (common,X_AXIS)[RIGHT] ;
+	    x_points[d] = b->extent (common, X_AXIS)[RIGHT] ;
 	}
       else
 	{

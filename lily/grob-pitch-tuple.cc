@@ -13,7 +13,7 @@ source file of the GNU LilyPond music typesetter
 
 int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 {
-  return Grob_pitch_tuple::time_compare (a,b);
+  return Grob_pitch_tuple::time_compare (a, b);
 }
 
 

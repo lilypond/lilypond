@@ -73,7 +73,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods,1);
+MAKE_SCHEME_CALLBACK (Separating_group_spanner, set_spacing_rods, 1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {
@@ -107,7 +107,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 }
 
 void
-Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
+Separating_group_spanner::add_spacing_unit (Grob* me , Item*i)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), i);
   me->add_dependency (i);
@@ -117,7 +117,7 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 
 
 
-ADD_INTERFACE (Separating_group_spanner,"separation-spanner-interface",
+ADD_INTERFACE (Separating_group_spanner, "separation-spanner-interface",
 	       "A spanner that calculates spacing constraints (\"rods\") "
 	       "using the @code{separation-item-interface} grobs in @code{elements}.",
 	       "elements padding");

@@ -12,7 +12,7 @@
 #include "moment.hh"
 
 LY_DEFINE(ly_make_dumper, "ly:make-dumper",
-	  0,0,0,
+	  0, 0, 0,
 	  (),
 	  "Create a key dumper. "
 	  )
@@ -24,7 +24,7 @@ LY_DEFINE(ly_make_dumper, "ly:make-dumper",
 }
 
 LY_DEFINE(ly_dumper_definitions, "ly:dumper-definitions",
-	  1,0,0,
+	  1, 0, 0,
 	  (SCM dumper),
 	  "Return list of key definitions. "
 	  )
@@ -35,7 +35,7 @@ LY_DEFINE(ly_dumper_definitions, "ly:dumper-definitions",
 }
 
 LY_DEFINE(ly_dumper_key_serial, "ly:dumper-key-serial",
-	  2,0,0,
+	  2, 0, 0,
 	  (SCM dumper, SCM key),
 	  "Return the  key serial number @var{key}. "
 	  )

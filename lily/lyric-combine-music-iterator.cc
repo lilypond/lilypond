@@ -28,7 +28,7 @@ protected:
 
   virtual bool ok () const;
   virtual void derived_mark () const;
-  virtual void derived_substitute (Context *,Context *) ;
+  virtual void derived_substitute (Context *, Context *) ;
 private:
   bool get_busy_status ()const ;
   bool melisma_busy (); 
@@ -99,12 +99,12 @@ Lyric_combine_music_iterator::derived_mark ()const
 }
 
 void
-Lyric_combine_music_iterator::derived_substitute (Context *f,Context * t)
+Lyric_combine_music_iterator::derived_substitute (Context *f, Context * t)
 {
   if (music_iter_)
-    music_iter_->substitute_outlet (f,t);
+    music_iter_->substitute_outlet (f, t);
   if (lyric_iter_)
-    lyric_iter_->substitute_outlet (f,t);
+    lyric_iter_->substitute_outlet (f, t);
 }
 
 Music*

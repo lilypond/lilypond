@@ -18,7 +18,7 @@ public:
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (beat_slash, (SCM ));  
   DECLARE_SCHEME_CALLBACK (double_percent, (SCM ));
-  static Stencil x_percent (Grob*,int,Real,Real );
+  static Stencil x_percent (Grob*, int, Real, Real );
   static Stencil brew_slash (Grob*);
 };
 

@@ -24,7 +24,7 @@
   TODO: let Dot_column communicate with stem via Note_column.
  */
 
-MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Dot_column, force_shift_callback, 2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
@@ -42,7 +42,7 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   return scm_make_real (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Dot_column,side_position, 2);
+MAKE_SCHEME_CALLBACK (Dot_column, side_position, 2);
 SCM
 Dot_column::side_position (SCM element_smob, SCM axis)
 {
@@ -299,7 +299,7 @@ Dot_column::add_head (Grob * me, Grob *rh)
   Grob * d = unsmob_grob (rh->get_property ("dot"));
   if (d)
     {
-      Side_position_interface::add_support (me,rh);
+      Side_position_interface::add_support (me, rh);
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
       d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);

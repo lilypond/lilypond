@@ -207,7 +207,7 @@ Modified_font_metric::text_dimension (String text) const
   if (ydims.is_empty ())
     ydims = Interval (0, 0);
 
-  b = Box(Interval(0,w), ydims);
+  b = Box(Interval(0, w), ydims);
   return b;
 }
 

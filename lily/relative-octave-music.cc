@@ -16,11 +16,11 @@
 class Relative_octave_music
 {
 public:
-  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
-  DECLARE_SCHEME_CALLBACK(no_relative_callback,(SCM,SCM));
+  DECLARE_SCHEME_CALLBACK(relative_callback, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK(no_relative_callback, (SCM, SCM));
 };
 
-MAKE_SCHEME_CALLBACK(Relative_octave_music,no_relative_callback,2)
+MAKE_SCHEME_CALLBACK(Relative_octave_music, no_relative_callback, 2)
 SCM
 Relative_octave_music::no_relative_callback (SCM music, SCM pitch)
 {
@@ -28,7 +28,7 @@ Relative_octave_music::no_relative_callback (SCM music, SCM pitch)
   return pitch;
 }
 
-MAKE_SCHEME_CALLBACK(Relative_octave_music,relative_callback,2)
+MAKE_SCHEME_CALLBACK(Relative_octave_music, relative_callback, 2)
 SCM
 Relative_octave_music::relative_callback (SCM music, SCM pitch)
 {

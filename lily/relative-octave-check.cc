@@ -14,7 +14,7 @@
 class Relative_octave_check
 {
 public:
-  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
+  DECLARE_SCHEME_CALLBACK(relative_callback, (SCM, SCM));
 };
 
 

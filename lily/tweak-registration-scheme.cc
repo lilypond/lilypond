@@ -13,7 +13,7 @@
 #include "object-key-undumper.hh"
 
 LY_DEFINE(ly_clear_tweak_registry, "ly:tweak-clear-registry",
-	  0,0,0,(),
+	  0, 0, 0, (),
 	  "Clear global tweak registry"
 	  )
 {
@@ -22,7 +22,7 @@ LY_DEFINE(ly_clear_tweak_registry, "ly:tweak-clear-registry",
 }
 
 LY_DEFINE(ly_insert_tweak, "ly:insert-tweak",
-	  2,0,0,
+	  2, 0, 0,
 	  (SCM grob, SCM tweak),
 	  "add new tweak for grob."
 	  )
@@ -39,7 +39,7 @@ LY_DEFINE(ly_insert_tweak, "ly:insert-tweak",
 
 
 LY_DEFINE(ly_tweak_read_keys, "ly:tweak-define-keys",
-	  1,0,0,(SCM keys),
+	  1, 0, 0, (SCM keys),
 	  "Read keys"
 	  )
 {
@@ -49,7 +49,7 @@ LY_DEFINE(ly_tweak_read_keys, "ly:tweak-define-keys",
 
 
 LY_DEFINE(ly_all_tweaks, "ly:all-tweaks",
-	  0,0,0,(),
+	  0, 0, 0, (),
 	  "all tweaks"
 	  )
 {
@@ -58,7 +58,7 @@ LY_DEFINE(ly_all_tweaks, "ly:all-tweaks",
 
 
 LY_DEFINE(ly_tweak_read_tweaks, "ly:tweak-define-tweaks",
-	  1,0,0,(SCM tweaks),
+	  1, 0, 0, (SCM tweaks),
 	  "Read  tweaks"
 	  )
 {

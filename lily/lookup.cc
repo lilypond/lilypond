@@ -49,7 +49,7 @@ Lookup::dot (Offset p, Real radius)
  *        /    |   v
  *       |    /
  *       |   /
- * (0,0) x  /slope = dy/dx
+ * (0, 0)x  /slope = dy/dx
  *       | /
  *       |/
  *
@@ -91,7 +91,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 			       ly_quote_scm (l),
 			       SCM_UNDEFINED));
 
-  Box box (Interval (0,0),Interval (0,0));
+  Box box (Interval (0, 0), Interval (0, 0));
   return   Stencil (box, at);
 }
 
@@ -109,7 +109,7 @@ Lookup::horizontal_line (Interval w, Real th)
 
   Box box ;
   box[X_AXIS] = w;
-  box[Y_AXIS] = Interval (-th/2,th/2);
+  box[Y_AXIS] = Interval (-th/2, th/2);
 
   return Stencil (box, at);
 }
@@ -126,12 +126,12 @@ Lookup::filled_box (Box b)
 {
   SCM  at  = (scm_list_n (ly_symbol2scm ("filledbox"),
 		     scm_make_real (-b[X_AXIS][LEFT]),
-		     scm_make_real (b[X_AXIS][RIGHT]),		       
+		     scm_make_real (b[X_AXIS][RIGHT]), 		       
 		     scm_make_real (-b[Y_AXIS][DOWN]),
-		     scm_make_real (b[Y_AXIS][UP]),		       
+		     scm_make_real (b[Y_AXIS][UP]), 		       
 		     SCM_UNDEFINED));
 
-  return Stencil (b,at);
+  return Stencil (b, at);
 }
 
 /*
@@ -155,7 +155,7 @@ Lookup::filled_box (Box b)
  * |       |            |       |     |
  * |                            |     |
  * x\_____/______________\_____/|_____v
- * |(0,0)                       |
+ * |(0, 0)                       |
  * |                            |
  * |                            |
  * |<-------------------------->|
@@ -181,7 +181,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 			scm_make_real (blotdiameter),
 			SCM_UNDEFINED));
 
-  return Stencil (b,at);
+  return Stencil (b, at);
 }
 
 	  
@@ -678,7 +678,7 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
   b[other] = oi;
   m.add_stencil (round_filled_box (b, blot));
   b[a] = Interval (iv[DOWN], iv[DOWN] + thick);
-  m.add_stencil (round_filled_box (b,blot));
+  m.add_stencil (round_filled_box (b, blot));
 
   return m;
 }

@@ -59,7 +59,7 @@ Staff_symbol_engraver::finalize ()
 {
   if (span_)
     {
-      span_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+      span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
   span_ = 0;
 }

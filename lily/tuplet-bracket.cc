@@ -101,7 +101,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   follow beam precisely for determining tuplet number location.
   
  */
-MAKE_SCHEME_CALLBACK (Tuplet_bracket,print,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, 1);
 SCM
 Tuplet_bracket::print (SCM smob) 
 {
@@ -153,7 +153,7 @@ Tuplet_bracket::print (SCM smob)
   else if (numb == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
 	
-  Grob * commonx = columns[0]->common_refpoint (columns.top (),X_AXIS);
+  Grob * commonx = columns[0]->common_refpoint (columns.top (), X_AXIS);
 
   /*
     Tuplet brackets are normally not broken, but we shouldn't crash if
@@ -239,7 +239,7 @@ Tuplet_bracket::print (SCM smob)
     }
   
   mol.translate_axis (ly, Y_AXIS);
-  mol.translate_axis (x0  - sp->get_bound (LEFT)->relative_coordinate (commonx,X_AXIS),X_AXIS);
+  mol.translate_axis (x0  - sp->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }
 
@@ -250,7 +250,7 @@ Tuplet_bracket::print (SCM smob)
   brackets.
  */
 Stencil
-Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
+Tuplet_bracket::make_bracket (Grob *me, 	// for line properties.
 			      Axis protusion_axis,
 			      Offset dz,
 			      Drul_array<Real> height,
@@ -258,7 +258,7 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
 {
-  Drul_array<Offset> corners (Offset (0,0), dz);
+  Drul_array<Offset> corners (Offset (0, 0), dz);
   
   Real length = dz.length ();
   Drul_array<Offset> gap_corners;
@@ -275,7 +275,7 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 
 
   if (gap.is_empty())
-    gap = Interval (0,0);
+    gap = Interval (0, 0);
   do {
     gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
   } while (flip (&d) != LEFT);
@@ -413,7 +413,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me, Real *offset, Real * dy)
 /*
   We depend on the beams if there are any.
  */
-MAKE_SCHEME_CALLBACK (Tuplet_bracket,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, before_line_breaking, 1);
 SCM
 Tuplet_bracket::before_line_breaking (SCM smob)
 {
@@ -432,7 +432,7 @@ Tuplet_bracket::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, after_line_breaking, 1);
 
 SCM
 Tuplet_bracket::after_line_breaking (SCM smob)
@@ -470,7 +470,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   if (!par_beam
       || get_grob_direction (par_beam) != dir)
     {
-      calc_position_and_height (me,&offset,&dy);
+      calc_position_and_height (me, &offset, &dy);
     }
   else
     {
@@ -517,7 +517,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
-  Drul_array<int> dirs (0,0);  
+  Drul_array<int> dirs (0, 0);  
   for (SCM s = me->get_property ("note-columns"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob * nc = unsmob_grob (scm_car (s));

@@ -16,7 +16,7 @@ public:
   DECLARE_SCHEME_CALLBACK(start_callback, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK(Grace_music,start_callback,1);
+MAKE_SCHEME_CALLBACK(Grace_music, start_callback, 1);
 SCM
 Grace_music::start_callback (SCM m) 
 {

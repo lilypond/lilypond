@@ -13,7 +13,7 @@
 
 Protected_scm all_ifaces;
 
-LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
+LY_DEFINE (ly_add_interface, "ly:add-interface", 3, 0, 0, (SCM a, SCM b, SCM c),
 	  "Add an interface description.")
 {
   SCM_ASSERT_TYPE (scm_is_symbol (a), a, SCM_ARG1, __FUNCTION__, "symbol");
@@ -31,7 +31,7 @@ LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
 
 
 LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
-	  0,0,0, (),
+	  0, 0, 0, (),
 	  "Get a hash table with all interface descriptions.")
 {
   return all_ifaces;

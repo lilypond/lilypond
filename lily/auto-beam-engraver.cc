@@ -153,12 +153,12 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   else
     function = scm_list_n (ly_symbol2scm ("end"), SCM_UNDEFINED);
   
-  Moment beat_length (1,4);
+  Moment beat_length (1, 4);
   if (Moment * m = unsmob_moment (get_property ("beatLength")))
     {
       beat_length = *m;
     }
-  Moment measure_length (1,1);
+  Moment measure_length (1, 1);
   int num = 4;
   if (Moment* m = unsmob_moment (get_property ("measureLength")))
     {
@@ -316,7 +316,7 @@ Auto_beam_engraver::begin_beam ()
   beam_start_location_ =
     robust_scm2moment (get_property ("measurePosition"), Moment(0));
   subdivide_beams_ = ly_scm2bool (get_property ("subdivideBeams"));
-  beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment(1,4));
+  beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment(1, 4));
 }
 
 void

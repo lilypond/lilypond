@@ -47,7 +47,7 @@ extern "C" {
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
-	   "Return the absolute file name of @var{name},"
+	   "Return the absolute file name of @var{name}, "
 	   "or @code{#f} if not found.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
@@ -62,7 +62,7 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 
 LY_DEFINE (ly_kpathsea_find_file, "ly:kpathsea-find-file",
 	   1, 0, 0, (SCM name),
-	   "Return the absolute file name of @var{name},"
+	   "Return the absolute file name of @var{name}, "
 	   "or @code{#f} if not found.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");

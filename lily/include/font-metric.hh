@@ -38,7 +38,7 @@ public:
   virtual Stencil get_ascii_char_stencil (int k) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const; 
-  DECLARE_SMOBS (Font_metric,);
+  DECLARE_SMOBS (Font_metric, );
 
 private:
   /* No copying, no implicit copy constructor.  */

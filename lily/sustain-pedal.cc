@@ -37,7 +37,7 @@ public:
 };
 
 
-MAKE_SCHEME_CALLBACK (Sustain_pedal,print,1);
+MAKE_SCHEME_CALLBACK (Sustain_pedal, print, 1);
 SCM
 Sustain_pedal::print (SCM smob) 
 {

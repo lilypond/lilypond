@@ -156,7 +156,7 @@ Slice
 Source_file::line_slice (char const* pos_str0) const
 {
   if (!contains (pos_str0))
-    return Slice (0,0);
+    return Slice (0, 0);
 
   char const* data_str0 = to_str0 ();
   char const * eof_C_ = data_str0 + length ();

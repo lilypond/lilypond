@@ -125,7 +125,7 @@ SCM FNAME ## _proc; \
 void \
 INITPREFIX ## init () \
 { \
-  FNAME ## _proc = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, \
+  FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR, \
                                        (Scheme_function_unknown) FNAME); \
   ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST, \
 				 DOCSTRING); \

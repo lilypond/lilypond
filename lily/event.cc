@@ -9,7 +9,7 @@
 #include "event.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK(Event,length_callback,1);
+MAKE_SCHEME_CALLBACK(Event, length_callback, 1);
 SCM
 Event::length_callback (SCM m)
 {

@@ -14,7 +14,7 @@
 #include "warn.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,y_extent,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 2);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
@@ -58,7 +58,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob*me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,force_hara_kiri_callback,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
@@ -70,7 +70,7 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 }
 
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_parent_callback, 2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
@@ -93,14 +93,14 @@ Hara_kiri_group_spanner::add_element (Grob * me, Grob *e)
 
 
 void 
-Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
+Hara_kiri_group_spanner::add_interesting_item (Grob* me, Grob* n)
 {
   me->add_dependency (n);
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"),n);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"), n);
 }
 
 
-ADD_INTERFACE (Hara_kiri_group_spanner,"hara-kiri-group-interface",
+ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
 	       "A group spanner that  keeps track of interesting items.  If it "
 	       "doesn't contain any after linebreaking, then it "
 	       "will remove itself and all its children."

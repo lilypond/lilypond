@@ -144,7 +144,7 @@ static Long_option_init options_static[] =
     {0, "version", 'v',  _i ("print version number")},
     {0, "verbose", 'V', _i ("be verbose")},
     {0, "warranty", 'w',  _i ("show warranty and copyright")},
-    {0,0,0,0}
+    {0, 0, 0, 0}
   };
 
 static void
@@ -337,7 +337,7 @@ static void
 add_output_format (String format)
 {
   if (output_format_global != "")
-    output_format_global += ",";
+    output_format_global += ", ";
   output_format_global += format;
 }
 

@@ -109,7 +109,7 @@ Clef_engraver::create_clef ()
 	  g->set_property ("text",
 			   scm_list_n (ly_lily_module_constant ("vcenter-markup"),
 				       txt,  SCM_UNDEFINED));
-	  Side_position_interface::add_support (g,clef_);      
+	  Side_position_interface::add_support (g, clef_);      
 
 	  g->set_parent (clef_, Y_AXIS);
 	  g->set_parent (clef_, X_AXIS);

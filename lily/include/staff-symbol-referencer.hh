@@ -23,7 +23,7 @@ class Staff_symbol_referencer
 public:
   static bool has_interface (Grob*);
   static bool ugly_hack (Grob*);  
-  static void set_position (Grob*,Real);
+  static void set_position (Grob*, Real);
   DECLARE_SCHEME_CALLBACK (callback, (SCM element, SCM axis));
 
   /**
@@ -34,13 +34,13 @@ public:
   static Real staff_space (Grob*);
   static Grob *get_staff_symbol (Grob*);
   static bool on_staffline (Grob*);
-  static bool on_staffline (Grob*,int);
+  static bool on_staffline (Grob*, int);
   static int line_count (Grob*);
   static Real get_position (Grob*);
   static Real staff_radius (Grob*);
   static int get_rounded_position (Grob*);
 };
 
-int compare_position (Grob *const&,Grob *const&); 
+int compare_position (Grob *const&, Grob *const&); 
 #endif /* STAFF_SYMBOL_REFERENCER_HH */
 

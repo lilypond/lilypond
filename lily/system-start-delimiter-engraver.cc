@@ -35,7 +35,7 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
   if (Staff_symbol::has_interface (inf.grob_))
     {
       /*
-	don't add as Axis_group_interface::add_element (delim_,),
+	don't add as Axis_group_interface::add_element (delim_, ),
 	because that would set the parent as well */
 	  
       Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"),  inf.grob_);
@@ -91,7 +91,7 @@ System_start_delimiter_engraver::finalize ()
 }
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
-/* descr */       "Creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner",
+/* descr */       "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
 /* creats*/       "SystemStartBar SystemStartBrace SystemStartBracket",
 /* accepts */     "",
 /* acks  */      "system-start-delimiter-interface staff-symbol-interface",

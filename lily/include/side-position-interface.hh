@@ -32,7 +32,7 @@ public:
   static Axis get_axis (Grob*) ;
   static void set_axis (Grob*,  Axis) ;
   static bool has_interface (Grob*) ;
-  static void add_support (Grob*,Grob*);
+  static void add_support (Grob*, Grob*);
   static void add_staff_support (Grob*);
   static Direction get_direction (Grob*);
 };

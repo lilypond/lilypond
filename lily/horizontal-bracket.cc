@@ -36,7 +36,7 @@ Horizontal_bracket::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);
-  Link_array<Grob> gs = Pointer_group_interface__extract_grobs (me,(Grob*)0, "columns");
+  Link_array<Grob> gs = Pointer_group_interface__extract_grobs (me, (Grob*)0, "columns");
 
   if (!gs.size ())
     {
@@ -45,7 +45,7 @@ Horizontal_bracket::print (SCM smob)
     }
   Grob * cx = common_refpoint_of_array (gs, me, X_AXIS);
   cx = cx->common_refpoint (sp->get_bound (LEFT), X_AXIS);
-  cx = cx->common_refpoint (sp->get_bound (RIGHT),X_AXIS);
+  cx = cx->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
 
   Interval ext = gs.top ()->extent (cx, X_AXIS);
   ext.unite (gs[0]->extent (cx, X_AXIS));
@@ -55,10 +55,10 @@ Horizontal_bracket::print (SCM smob)
 
   
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
-						Interval (0,0));
+						Interval (0, 0));
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
-						  Interval (0,0));
+						  Interval (0, 0));
 
   Interval empty;
   Stencil b
@@ -70,7 +70,7 @@ Horizontal_bracket::print (SCM smob)
   return b.smobbed_copy ();  
 }
 
-ADD_INTERFACE (Horizontal_bracket,"horizontal-bracket-interface",
+ADD_INTERFACE (Horizontal_bracket, "horizontal-bracket-interface",
   "A horizontal bracket encompassing notes.",
   "columns bracket-flare shorten-pair edge-height");
 

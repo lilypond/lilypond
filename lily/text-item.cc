@@ -70,7 +70,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface,print,1);
+MAKE_SCHEME_CALLBACK (Text_interface, print, 1);
 SCM
 Text_interface::print (SCM grob)
 {
@@ -92,7 +92,7 @@ Text_interface::markup_p (SCM x)
 				      ly_symbol2scm ("markup-signature"))));
 }
 
-ADD_INTERFACE (Text_interface,"text-interface",
+ADD_INTERFACE (Text_interface, "text-interface",
 	       "A scheme markup text, see @usermanref{Text-markup}.",
 	       "text baseline-skip word-space");
 

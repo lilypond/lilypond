@@ -103,7 +103,7 @@ void
 Paper_outputter::output_stencil (Stencil stil)
 {
   interpret_stencil_expression (stil.expr (), paper_outputter_dump,
-                                (void*) this, Offset (0,0));
+                                (void*) this, Offset (0, 0));
 }
 
 void
