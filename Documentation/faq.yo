@@ -14,8 +14,8 @@ Note: relative paths are meant to be relative to the source directory
 
 sect(Installing)
 
-question(Wow, the webpages look really neat, but if I install the .exe
-file on my DOS/windows 3.11 machine, it doesn't work.)
+question(If I install the .exe file on my DOS/windows 3.11 machine, it
+doesn't work.)
 
 The DOS port is done with the cygnus gnu/windows32 port of the GNU utils.
 It does em(not) work with windows 3.x; you need Windows-NT (95/98?).  This

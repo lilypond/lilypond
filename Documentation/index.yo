@@ -30,9 +30,9 @@ it() url(Design criteria)(MANIFESTO.html)
 it()url(The GNU Music project)(gnu-music.html)
 it()url(Mutopia -- Music To the People)(mutopia.html)
 it()url(The lilypond
-  logo (Big, format: .gif))(DOEXPAND(pics)/lelieblond.gif)
+  logo (Big, format: .png))(DOEXPAND(pics)/lelieblond.png)
 it()url(The lilypond
-  logo (medium size, format: .gif))(DOEXPAND(pics)/lelie_logo.gif)
+  logo (medium size, format: .png))(DOEXPAND(pics)/lelie_logo.png)
 )
 
 nsubsect(Documentation: manuals)

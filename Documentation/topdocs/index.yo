@@ -1,6 +1,6 @@
 DEFINEMACRO(depth)(0)(.)
 DEFINEMACRO(docdir)(0)(Documentation)
-DEFINEMACRO(pic)(1)(url(ARG1)(DOEXPAND(docdir)/pictures/DOEXPAND(outdir)/ARG1.gif
+DEFINEMACRO(pic)(1)(url(ARG1)(DOEXPAND(docdir)/pictures/DOEXPAND(outdir)/ARG1.png
 ))
 
 
@@ -56,9 +56,9 @@ dit(lurl(http://sca.uwaterloo.ca/lilypond/))
 nsubsect(Examples)
 
 itemize(
-it()url(short examples of what LilyPond can do: MIDI, PS, .gif and input.)
+it()url(short examples of what LilyPond can do: MIDI, PS, .png and input.)
 (DOEXPAND(depth)/input/DOEXPAND(outdir)/index.html)
-it()url(examples of what LilyPond can do with real music: MIDI, PS, .gif and input)(DOEXPAND(depth)/mutopia/DOEXPAND(outdir)/index.html)
+it()url(examples of what LilyPond can do with real music: MIDI, PS, .png and input)(DOEXPAND(depth)/mutopia/DOEXPAND(outdir)/index.html)
 )
 
 nsubsect(NEWS)
