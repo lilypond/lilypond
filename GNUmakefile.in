@@ -72,7 +72,7 @@ lily: lily/$(outdir)/lilypond
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: fonts lily $(TOP_HTMLS:%.html=%) footify top-web
+local-web: fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 top-web:
 	rm -f `find . -name \*.html~ -print`

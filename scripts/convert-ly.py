@@ -1,10 +1,10 @@
 #!@PYTHON@
-
-# convert-lilypond.py -- convertor for lilypond versions
+#
+# convert-ly.py -- convertor for lilypond versions
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1998 
+# (c) 1998--2001
 
 # TODO
 #   use -f and -t for -s output
