@@ -30,7 +30,7 @@ protected:
   
   SCM coding_vector_;
   SCM coding_table_;
-  SCM coding_permutation_;
+  SCM coding_mapping_;
   SCM coding_description_;
   friend SCM ly_font_encoding(SCM);
     

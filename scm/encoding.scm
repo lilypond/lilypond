@@ -36,14 +36,14 @@ vector of symbols."
 
     h))
 
-(define-public (reencode-string permutation str)
-  "Apply PERMUTATION, a vector of [0..256) -> char, to STR"
+(define-public (reencode-string mapping str)
+  "Apply MAPPING, a vector of [0..256) -> char, to STR"
   (string-map (lambda (chr)
-		(vector-ref permutation (char->integer chr)))
+		(vector-ref mapping (char->integer chr)))
 	      str))
 
-(define-public (make-encoding-permutation input-encoding output-encoding)
-  "Contruct a permutation by applying output-encoding after input-encoding "
+(define-public (make-encoding-mapping input-encoding output-encoding)
+  "Contruct a mapping by applying output-encoding after input-encoding "
   (list->vector
    (map
     (lambda (byte)

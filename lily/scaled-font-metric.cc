@@ -17,7 +17,7 @@
 Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real magn)
 {
   coding_vector_ = SCM_EOL;
-  coding_permutation_ = SCM_EOL;
+  coding_mapping_ = SCM_EOL;
   coding_table_ = SCM_EOL;
   coding_description_ = SCM_EOL;
   
@@ -49,7 +49,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
 				  scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
 	  
-      coding_permutation_  = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
+      coding_mapping_  = scm_call_2 (ly_scheme_function ("make-encoding-mapping"),
 					 coding_vector_,
 					 coding_table_);
 
@@ -68,8 +68,8 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
 				       coding_table_,
 				       coding_description_);
       
-      coding_description_ = scm_acons (ly_symbol2scm ("coding-permutation"),
-				       coding_permutation_,
+      coding_description_ = scm_acons (ly_symbol2scm ("char-mapping"),
+				       coding_mapping_,
 				       coding_description_);
     } 
 }
@@ -81,7 +81,7 @@ LY_DEFINE (ly_font_encoding, "ly:font-encoding-alist",
 	   (SCM font),
 	   "Given the Modified_font_metric @var{font}, return an "
 	   "alist. Keys are input-name, input-vector, "
-	   "output-name, output-table, permutation.")
+	   "output-name, output-table, mapping.")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
@@ -160,7 +160,7 @@ Modified_font_metric::derived_mark () const
   scm_gc_mark (coding_vector_);
   scm_gc_mark (coding_description_);
   scm_gc_mark (coding_table_);
-  scm_gc_mark (coding_permutation_);
+  scm_gc_mark (coding_mapping_);
 }
 
 Box
