@@ -1,3 +1,8 @@
+2003-03-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Figured bass): revised figured
+	bass example.
+
 2003-03-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* stepmake/stepmake/omf-targets.make (local-install): add
