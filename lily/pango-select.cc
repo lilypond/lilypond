@@ -13,8 +13,9 @@
 #include "output-def.hh"
 #include "pango-font.hh"
 
-Font_metric *
-select_pango_font (Output_def *layout, SCM chain)
+
+PangoFontDescription *
+properties_to_pango_description (SCM chain, Real text_size)
 {
   SCM name = ly_chain_assoc (ly_symbol2scm ("font-name"), chain);
 
@@ -42,16 +43,24 @@ select_pango_font (Output_def *layout, SCM chain)
     }
 
   Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
-  Real size = layout->get_dimension (ly_symbol2scm ("text-font-size"))
+  Real size = text_size
     * pow (2.0, step / 6.0) * point_constant;
+  
   pango_font_description_set_size (description,
 				   gint (size * PANGO_SCALE));
-  
-  Font_metric * fm = all_fonts_global->find_pango_font (description);
+  return description;
+}
+
+Font_metric *
+select_pango_font (Output_def *layout, SCM chain)
+{
+  PangoFontDescription *pfd =properties_to_pango_description (chain,
+				   layout->get_dimension (ly_symbol2scm ("text-font-size")));
+
+  Font_metric * fm = all_fonts_global->find_pango_font (pfd);
 
   return find_scaled_font (layout, fm, 1.0);
 }
-
 
 PangoStyle
 symbol_to_pango_style (SCM style)

@@ -52,6 +52,7 @@ Font_metric *
 select_pango_font (Output_def *layout, SCM chain);
 
 const int PANGO_RESOLUTION = 1200;
+PangoFontDescription *properties_to_pango_description (SCM chain, Real text_size);
 
 #endif /* HAVE_PANGO16 */
 #endif /* PANGO_FONT_HH */
