@@ -1,5 +1,7 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/mutopia/W.A.Mozart/*.ly (romanze): markup syntax updates. 
+
 	* buildscripts/mf-to-table.py: add .pfa, .pfb target dependency.
 
 	* stepmake/stepmake/metafont-rules.make ($(outdir)/%.pfb): remove
