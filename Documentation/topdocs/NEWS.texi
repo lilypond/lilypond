@@ -36,8 +36,8 @@ running convert-ly on the lilypond snippets like so:
 @end example
 @end ignore
 
-@item The @code{Lyrics} context has been removed. Lyrics should only
-be constructed in @code{LyricsVoice}.
+@item The @code{LyricsVoice} context has been removed. Lyrics should only
+be constructed in @code{Lyrics}.
 
 @item The @code{Thread} context has been removed. Note heads and rests
 are now constructed at @code{Voice} level.

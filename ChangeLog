@@ -1,5 +1,7 @@
 2004-02-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/NEWS.texi: Substitute Lyrics/LyricsVoice.
+
 	* scripts/lilypond-book.py (snippet_res): @include filename must
 	not be empty.
 
