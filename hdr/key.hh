@@ -1,5 +1,5 @@
 /*
-  key.hh -- part of LilyPond
+  key.hh -- declare Key
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -10,6 +10,7 @@
 #include "varray.hh"
 #include "scalar.hh"
 
+/// administration of current key
 class Key {
     Array<int> accidentals;
 
@@ -24,6 +25,7 @@ public:
     int acc(int i) { return accidentals[i]; }
 };
 
+/// administration of accidentals
 struct Local_key
 {
     void reset(Key);    

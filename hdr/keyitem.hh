@@ -12,7 +12,7 @@
 
 struct Clef;
 
-///   An item which places accidentals at the start of the line
+/// An item which places accidentals at the start of the line
 struct Keyitem : Item {
     const char * name() const;
     Array<int> pitch;

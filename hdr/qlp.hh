@@ -1,3 +1,11 @@
+/*
+  qlp.hh -- declare Ineq_constrained_qp, Mixed_qp
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #ifndef QLP_HH
 #define QLP_HH
 
@@ -18,8 +26,8 @@ public:
     /**
       use a KKT method to assert optimality of sol
       */
-     void assert_solution(Vector sol) const;
-  /// solve the problem using a projected gradient method
+    void assert_solution(Vector sol) const;
+    /// solve the problem using a projected gradient method
     Vector solve(Vector start) const;
     
     /** return the number of variables in the problem */
@@ -61,8 +69,6 @@ public:
 
     x^T QUAD x /2 + b^T x 
 */
-
-
 class Mixed_qp :public Ineq_constrained_qp {
     Array<int> eq_cons;
     Array<Real> eq_consrhs;
