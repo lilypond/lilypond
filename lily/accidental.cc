@@ -194,11 +194,11 @@ Accidental_interface::print (SCM smob)
   Font_metric *fm = 0;
   if (smaller)
     {
-      SCM ac = Font_interface::text_font_alist_chain (me);
-      ac = scm_cons (scm_cons (scm_cons
-			     (ly_symbol2scm ("font-size"),
-			      scm_int2num (-2)), SCM_EOL),
-		    ac);
+      SCM ac = Font_interface::music_font_alist_chain (me);
+      ac = scm_cons (scm_list_1 (scm_cons
+				 (ly_symbol2scm ("font-size"),
+				  scm_int2num (-2))),
+		     ac);
       fm = select_font (me->get_paper (), ac);
     }
   else

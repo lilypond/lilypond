@@ -21,9 +21,7 @@ Font_interface::get_default_font (Grob *me)
   Font_metric *fm = unsmob_metrics (me->get_property ("font"));
   if (!fm)
     {
-      SCM defaults
-	= me->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-      SCM chain = me->get_property_alist_chain (defaults);
+      SCM chain = music_font_alist_chain (me);
       
       fm = select_font (me->get_paper (), chain);
       me->set_property ("font", fm->self_scm ());
@@ -42,6 +40,14 @@ LY_DEFINE (ly_font_interface_get_default_font, "ly:get-default-font",
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
+
+SCM
+Font_interface::music_font_alist_chain (Grob *g)
+{
+  SCM defaults
+    = g->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+  return g->get_property_alist_chain (defaults);
+}
 
 SCM
 Font_interface::text_font_alist_chain (Grob *g)
