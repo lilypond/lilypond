@@ -63,8 +63,6 @@
 		(font-load-command (car x) (cdr x)))
 	      (map cdr font-name-alist))))
 
-
-
 ;; alist containing fontname -> fontcommand assoc (both strings)
 (define font-alist '())
 (define font-count 0)
