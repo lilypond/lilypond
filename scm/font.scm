@@ -267,7 +267,7 @@
    (lambda (x)
      (add-font
       node
-      `((font-encoding . latin1)
+      `((font-encoding . ec)
 	(font-series . ,(vector-ref (car x) 2))
 	(font-shape . ,(vector-ref (car x) 1))
 	(font-family . ,(vector-ref (car x) 0)))

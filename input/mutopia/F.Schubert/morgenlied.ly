@@ -92,7 +92,7 @@ firstVerse = \lyrics {
     sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit ge -- |
     \manuscriptBreak
     heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak |
-    dei -- ne Ro -- sen -- pracht, grüß ich __ dei -- ne Ro -- sen -- pracht. 
+    dei -- ne Ro -- sen -- pracht, grüßxx ich __ dei -- ne Ro -- sen -- pracht. 
     }
 
 secondVerse = \lyrics {

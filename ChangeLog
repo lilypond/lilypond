@@ -1,3 +1,12 @@
+2004-07-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/book-paper-defaults.ly: set default encoding to ec.
+
+	* buildscripts/guile-gnome.sh (OPT): only compile pango if not
+	installed.
+
+	* tex/latin1.enc: new file, from a2ps. 
+
 2004-07-06  Heikki Junes  <hjunes@cc.hut.fi>
 
         * stepmake/bin/add-html-footer.py: use <div> instead of <table>,
