@@ -33,9 +33,9 @@ Lookup::beam_element(int sidx, int widx, Real slope)
 static int
 slope_index(Real &s)
 {
-    if (ABS(s) > 0.5) {
+    if (abs(s) > 0.5) {
 	WARN << "beam steeper than 0.5";
-	s = sgn(s) * 0.5;
+	s = sign(s) * 0.5;
     }
 
     int i = int(rint(s *  20.0));

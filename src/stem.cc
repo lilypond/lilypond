@@ -10,7 +10,7 @@
 
 const int STEMLEN=7;
 
-Stem::Stem(int c, Real len)
+Stem::Stem(int c, Moment len)
 {
     note_length = len;
     beams_left = 0;
@@ -48,7 +48,7 @@ Stem::set_stemend(Real se)
     
     top = (dir < 0) ? maxnote           : se;
     bot = (dir < 0) ? se  : minnote;
-    flag = dir*ABS(flag);
+    flag = dir*abs(flag);
 }
 
 void
@@ -116,7 +116,7 @@ Stem::set_noteheads()
     int parity=0;
     int lastpos = heads[0]->position;
     for (int i=1; i < heads.sz(); i ++) {
-	if (ABS(lastpos- heads[i]->position) == 1) {
+	if (abs(lastpos- heads[i]->position) == 1) {
 	    if (parity)
 		heads[i]->x_dir = (stem_xoffset>0) ? 1:-1;
 	    parity = !parity;
@@ -138,7 +138,7 @@ Stem::postprocess()
 Interval
 Stem::width()const
 {
-    if (!print_flag || ABS(flag) <= 4)
+    if (!print_flag || abs(flag) <= 4)
 	return Interval(0,0);	// TODO!
     Paperdef*p= paper();
     Interval r(p->lookup_->flag(flag).dim.x);
@@ -161,7 +161,7 @@ Stem::brew_molecole()
     
     output = new Molecule(Atom(ss));
 
-    if (print_flag&&ABS(flag) > 4){
+    if (print_flag&&abs(flag) > 4){
 	Symbol fl = p->lookup_->flag(flag);
 	Molecule m(fl);
 	if (flag < -4){		

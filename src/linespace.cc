@@ -56,7 +56,7 @@ Spacing_problem::check_constraints(Vector v) const
     // mtor << "checking solution " << v << '\n';
     for (int i=0; i < dim; i++) {
 
-	if (cols[i].fixed&& ABS(cols[i].fixpos - v(i)) > COLFUDGE) {
+	if (cols[i].fixed&& abs(cols[i].fixpos - v(i)) > COLFUDGE) {
 	    return false;
 	}
 	if (!i) 
