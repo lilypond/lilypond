@@ -41,6 +41,14 @@
    (equal? (substring fontname 0 2) "cm")
    (equal? (substring fontname 0 2) "ec")))
 
+(define (ps-embed-pfa body font-name version)
+  (string-append
+   (format
+    "%%BeginResource: font ~a
+~a
+%%EndResource"
+    font-name body)))
+
 (define (ps-embed-cff body font-set-name version)
   (let* ((binary-data
 	  (string-append
@@ -93,7 +101,6 @@
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:output-def-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
-
 
       ;; Bluesky pfbs have UPCASE names (sigh.)
       ;; FIXME - don't support Bluesky?
@@ -202,6 +209,15 @@
 "
     name (ly:gulp-file name))))
 
+(define (setup paper)
+  (string-append
+   "\n"
+   "%%BeginSetup\n"
+   (define-fonts paper)
+   (output-variables paper)
+   "init-lilypond-parameters\n"
+   "%%EndSetup\n"))
+
 (define (preamble paper load-fonts?)
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
@@ -230,8 +246,8 @@
 					   (ly:pfb->pfa bare-file-name)
 					   (ly:gulp-file bare-file-name)))
 		       (cff-file-name (ps-embed-cff (ly:gulp-file cff-file-name) x 0))
-		       (a-file-name (ly:gulp-file a-file-name))
-		       (b-file-name (ly:pfb->pfa b-file-name))
+		       (a-file-name (ps-embed-pfa (ly:gulp-file a-file-name) x 0))
+		       (b-file-name (ps-embed-pfa (ly:pfb->pfa b-file-name) x 0))
 		       (else
 			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)
 			""))))
@@ -240,12 +256,11 @@
       (string-join pfas "\n")))
 
   (list
-   (output-variables paper)
    (procset "music-drawing-routines.ps")
    (procset "lilyponddefs.ps")
    (if load-fonts?
        (load-fonts paper))
-   (define-fonts paper)))
+   (setup paper)))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
