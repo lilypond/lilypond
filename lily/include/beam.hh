@@ -24,6 +24,22 @@
 
    damping -- amount of beam slope damping. (int)
    should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
+
+
+   molecule-callback --
+
+   beam-thickness -- weight of beams, in staffspace
+
+   beam-space-function -- function of type multiplicity -> real (in staffspace)
+
+   default-neutral-direction -- which direction to choose if we're in
+     the middle of the staff
+   
+   after-line-breaking-callback --
+
+   damping -- damping factor (real).
+
+   
 */
 class Beam
 {

@@ -34,6 +34,8 @@
   
   force-hshift -- amount of collision_note_width that overides automatic collision settings.
   Read and removed from elements.
+
+  note-width -- unit for horizontal translation, measured in staff-space.
   
 */
 class Collision			// interface

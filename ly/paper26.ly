@@ -4,10 +4,6 @@
 
 paper_twentysix = \paper {
 	staffheight = 26.0\pt;
-
-	quartwidth = 8.59\pt;
-	wholewidth = 12.87\pt;
-	
 	font_Large = 17.;	
 	font_large = 14.;
 	font_normal = 12.;

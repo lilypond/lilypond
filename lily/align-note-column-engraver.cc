@@ -92,6 +92,9 @@ Align_note_column_engraver::process_acknowledged ()
 
 	 B. it has no pscore_l_ field.
 
+
+	 UGH UGH: separate note-spacing into  separate class,  and
+	 use that to space grace notes.	 
       */
       SCM grsp = get_property ("graceAccidentalSpace");
       if (gh_number_p(grsp))

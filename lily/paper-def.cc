@@ -94,18 +94,6 @@ Paper_def::set_lookup (int i, SCM l)
 }
 
 
-/*
-  junkme.
- */
-Real
-Paper_def::interbeam_f (int multiplicity_i) const
-{
-  if (multiplicity_i <= 3)
-    return get_var ("interbeam");
-  else
-    return get_var ("interbeam4");
-}
-
 
 void
 Paper_def::print () const

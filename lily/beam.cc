@@ -446,13 +446,17 @@ Beam::calc_slope_damping_f (Score_element*me,Real dy)
 Real
 Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy) 
 {
-  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness"));
-  thick *= me->paper_l ()->get_var ("staffspace");
-  
   int beam_multiplicity = get_multiplicity (me);
   int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
 
-  Real interbeam_f = me->paper_l ()->interbeam_f (beam_multiplicity);
+  Real staffspace = me->paper_l ()->get_var ("staffspace");
+  
+  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space = gh_call1 (space_proc, gh_int2scm (beam_multiplicity));
+
+  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness")) *staffspace;
+  Real interbeam_f = gh_scm2double (space) * staffspace;
+
   // ugh -> use commonx
   Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
   Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
@@ -643,11 +647,13 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
 
   Real staffline_f = me->paper_l ()->get_var ("stafflinethickness");
   int multiplicity = get_multiplicity (me);
+  Real staffspace =me->paper_l ()->get_var ("staffspace");
 
+  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
 
-  Real interbeam_f = me->paper_l ()->interbeam_f (multiplicity);
-  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness"));
-  thick *= me->paper_l ()->get_var ("staffspace");
+  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness")) *staffspace;
+  Real interbeam_f = gh_scm2double (space) * staffspace;
     
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
@@ -662,16 +668,19 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
   Molecule leftbeams;
   Molecule rightbeams;
 
-  // UGH
+  /*
+    UGH: make a property of this.
+  */
   Real nw_f;
   if (!Stem::first_head (here))
     nw_f = 0;
-  else if (Stem::type_i (here)== 1)
-    nw_f = me->paper_l ()->get_var ("wholewidth");
-  else if (Stem::type_i (here) == 2)
-    nw_f = me->paper_l ()->get_var ("notewidth") * 0.8;
-  else
-    nw_f = me->paper_l ()->get_var ("quartwidth");
+  else {
+    int t = Stem::type_i (here); 
+
+    SCM proc = me->get_elt_property ("beam-flag-width-function");
+    SCM result = gh_call1 (proc, gh_int2scm (t));
+    nw_f = gh_scm2double (result) * staffspace;
+  }
 
 
   Direction dir = Directional_element_interface::get (me);

@@ -78,7 +78,11 @@ Stem_tremolo::brew_molecule (SCM smob)
     tremolo_flags = 1;
 
   int mult = beam ? Beam::get_multiplicity (beam) : 0;
-  Real interbeam_f = me->paper_l ()->interbeam_f (mult);
+  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space = gh_call1 (space_proc, gh_int2scm (mult));
+  Real interbeam_f = gh_scm2double (space) * ss;
+
+
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {

@@ -1,5 +1,41 @@
-1.3.86.jcn2
-================
+1.3.87.hwn1
+===========
+
+* Sequential_iterator::get_music (), part combiner now works.
+
+* Changed paper variables into elt properties:
+  Beam:
+  - beam-space-function, Removed Paper_def::interbeam_f(), Smaller
+  beams for grace notes.
+  - beam-flag-width-function to Beam.
+
+  Grace_align_item:
+  -  horizontal-space: spacing of is configurable
+
+  Volta_spanner: 
+  - height
+  - thickness 
+
+  Multi_measure_rest:
+  - expand-limit
+  - minimum-width
+  - padding
+
+  Lyric_extender:
+  - height
+
+  Stem
+  - thickness 
+
+  Collision
+  -  note-width to Collision
+
+* removed various obsolete variables from params.ly
+
+* added input/test/bagpipe.ly
+
+1.3.87
+======
 
 * Made fixes to part-combine examples and Coriolan.
 

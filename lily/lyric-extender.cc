@@ -24,6 +24,7 @@ Lyric_extender::brew_molecule (SCM smob)
   
   Real leftext = sp->get_bound (LEFT)->extent (X_AXIS).length ();
   Real ss = sp->paper_l ()->get_var ("staffspace");
+  Real sl = sp->paper_l ()->get_var ("stafflinethickness");  
   Real righttrim = 0.5; // default to half a staffspace gap on the right
   SCM righttrim_scm = sp->get_elt_property("right-trim-amount");
   if (gh_number_p (righttrim_scm)) {
@@ -37,7 +38,7 @@ Lyric_extender::brew_molecule (SCM smob)
     }
   Real w = sp->spanner_length () - leftext - righttrim*ss;
   
-  Real h = sp->paper_l ()->get_var ("extender_height");
+  Real h = sl * gh_scm2double (sp->get_elt_property  ("height"));
   Molecule  mol (sp->lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h))));
   mol.translate (Offset (leftext, 0));
   return mol.create_scheme();

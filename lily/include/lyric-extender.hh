@@ -27,6 +27,15 @@
   with the left side of the last note of the melissima, and not
   extend beond, lasting the whole duration of the melissima
   (as in MUP, urg).
+
+  Properties:
+  
+  word-space --
+
+  height -- in stafflinethickness
+
+  right-trim-amount --
+  
   */
 class Lyric_extender // interface
 {
