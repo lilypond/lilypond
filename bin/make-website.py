@@ -80,21 +80,22 @@ def my_system(cmds):
 base="lilypond/";
 
 examples=["twinkle-pop", 
-		 "wtk1-fugue2",
-		 "standchen-16", 
-		 "standchen-20", 
-		 "wtk1-prelude1",
-		 "toccata-fuga-E", 
-		 "scsii-menuetto",
-		 "cadenza", 
-		 "gallina",
-		 "twinkle", 
-		 "collisions",
-		 "font16",
-		 "font20",
-		 #"scales", 
-		 "rhythm", 
-		 "multi"]
+	  "wtk1-fugue2",
+	  "standchen-16", 
+	  "standchen-20", 
+	  "standje",
+	  "wtk1-prelude1",
+	  "toccata-fuga-E", 
+	  "scsii-menuetto",
+	  "cadenza", 
+	  "gallina",
+	  "twinkle", 
+	  "collisions",
+	  "font16",
+	  "font20",
+	  #"scales", 
+	  "rhythm", 
+	  "multi"]
 
 def gen_html():
     print 'generating HTML'
