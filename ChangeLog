@@ -128,6 +128,8 @@
 
 2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: released 1.7.10
+
 	* scripts/musedata2ly.py (): idem
 
 	* scripts/midi2ly.py (dump_chord): idem
