@@ -143,7 +143,6 @@ Font_metric::find_by_name (String) const
   return m;
 }
 
-
 LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 	  (SCM font, SCM name),
 	  "This function retrieves a Molecule for the glyph named @var{name} in "
