@@ -5,7 +5,7 @@
 
     texidoc = "Graces at combined with volta repeats: a repeat
 starting with a grace, following a repeat directly. The bars should be
-merged into one :||:."
+merged into one @code{:||:}."
 
       }
 
