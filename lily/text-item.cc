@@ -38,9 +38,14 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   if (gh_string_p (text))
     return string2molecule (me, text, alist_chain);
+
+  /*
+    ugh: gh_list_p () is linear.
+   */
+  
   else if (gh_list_p (text) && text != SCM_EOL && text != SCM_UNDEFINED)
     {
-      if (!gh_pair_p (gh_car (text)) && gh_string_p (gh_car (text)))
+      if (gh_string_p (gh_car (text)))
 	return string2molecule (me, gh_car (text), alist_chain);
       else
 	return markup_text2molecule (me, text, alist_chain);
@@ -121,41 +126,36 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   SCM markup = gh_car (markup_text);
   SCM text = gh_cdr (markup_text);
 
-#if 1
   SCM p = gh_cons (gh_call2 (f, sheet, markup), alist_chain);
-#else
-  SCM pp = gh_call2 (f, sheet, markup);
-  gh_newline ();
-  scm_write (pp, scm_current_error_port ());
-  gh_newline ();
-  SCM p = gh_cons (pp, alist_chain);
-#endif
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Axis align = X_AXIS;
+  Axis axis = X_AXIS;
+
+  /*
+    TODO:  change ALIGN into AXIS.
+   */
   SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
-  if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
-    align = (Axis)gh_scm2int (gh_cdr (a));
+  if (gh_pair_p (a) && isaxis_b (gh_cdr (a)))
+    axis = (Axis)gh_scm2int (gh_cdr (a));
 
   Real baseline_skip = 0;
   SCM b = ly_assoc_chain (ly_symbol2scm ("baseline-skip"), p);
   if (gh_pair_p (b) && gh_number_p (gh_cdr (b)))
     baseline_skip = gh_scm2double (gh_cdr (b)) * staff_space;
   
-  Array<Real> kern (2);
-  kern[0] = 0; // zucht
-  kern[1] = 0;
+  Real kern[2] = {0,0};
+
   SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
   if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
-    kern[align] = gh_scm2double (gh_cdr (k)) * staff_space;
+    kern[axis] = gh_scm2double (gh_cdr (k)) * staff_space;
 			     
   Real raise = 0;
   SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
-  Offset o (0, (align == Y_AXIS ? - kern[align] : 0) + raise);
+  Offset o (0, (axis == Y_AXIS ? - kern[axis] : 0) + raise);
    
   Molecule mol;
   while (gh_pair_p (text))
@@ -165,16 +165,16 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       if (gh_pair_p (gh_car (text)))
 	m_p = gh_cons (gh_call2 (f, sheet, gh_caar (text)), alist_chain);
       SCM m_k = ly_assoc_chain (ly_symbol2scm ("kern"), m_p);
-      Real m_kern = kern[align];
+      Real m_kern = kern[axis];
       if (gh_pair_p (m_k) && gh_number_p (gh_cdr (m_k)))
 	m_kern = gh_scm2double (gh_cdr (m_k)) * staff_space;
 
       if (!m.empty_b ())
 	{
 	  m.translate (o);
-	  if (align == Y_AXIS && baseline_skip)
+	  if (axis == Y_AXIS && baseline_skip)
 	    m_kern += baseline_skip - m.extent (Y_AXIS)[UP];
-	  mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, m_kern);
+	  mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, m_kern);
 	}
       text = gh_cdr (text);
     }

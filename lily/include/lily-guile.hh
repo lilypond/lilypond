@@ -64,7 +64,7 @@ void read_lily_scm_file (String);
 void init_lily_guile ();
 
 bool isdir_b (SCM s);
-
+bool isaxis_b (SCM s);
 /*
   these conversion functions also do a typecheck on the argument, and
   return a default value if S has the wrong type.

@@ -125,7 +125,7 @@ ScoreContext = \translator {
 	\consists "Swallow_performer"
 
 	dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
-	instrumentEqualizer = #default-instrument-equaliser
+	instrumentEqualizer = #default-instrument-equalizer
 }
 \translator { \ScoreContext }
 

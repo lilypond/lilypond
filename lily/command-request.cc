@@ -95,8 +95,8 @@ bool
 Mark_req::do_equal_b (Request const * r) const
 {
   Mark_req const * other = dynamic_cast<Mark_req const*> (r);
-  return other && scm_equal_p (other->get_mus_property ("mark-label"),
-			       get_mus_property ("mark-label")) == SCM_BOOL_T;
+  return other && scm_equal_p (other->get_mus_property ("label"),
+			       get_mus_property ("label")) == SCM_BOOL_T;
 }
 
 

@@ -16,9 +16,12 @@
 ;;
 ;;     PATH=$LILYPONDPREFIX/scm:<datadir>/scm
 ;;
-(eval-string (ly-gulp-file "documentation-lib.scm"))
-(eval-string (ly-gulp-file "engraver-documentation-lib.scm"))
-(eval-string (ly-gulp-file "backend-documentation-lib.scm"))
+(eval-string
+ (apply string-append
+ (map ly-gulp-file '("documentation-lib.scm"
+				"engraver-documentation-lib.scm"
+				"music-documentation-lib.scm"
+				"backend-documentation-lib.scm"))))
 
 ;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
 ;;
@@ -28,6 +31,7 @@
 (define no-copies #f)
 
 (let* ((doc (string-append
+	     (document-music "LilyPond music properties") 
  	     (document-paper "LilyPond interpretation contexts")
  	     (document-all-engravers "LilyPond engravers")
 	     (document-all-engraver-properties "LilyPond context properties")	     
@@ -47,7 +51,9 @@
      
      ;; we can't use (dir) and top if we're included by lilypond.tely
      "LilyPond internals" name "(lilypond.info)"
-     '(("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
+     '(
+       ("LilyPond music properties" . "properties for Music representation")
+       ("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
        ("LilyPond engravers" . "Engravers create Grobs")
        ("LilyPond context properties" . "context properties")       
        ("LilyPond backend" . "Detailed description of all Grobs")

@@ -149,17 +149,16 @@ the duration of the long a. is proportionate to that of the main note.
 @
 
 @lilypond[13pt,eps]
-\emptyText
-%\property Voice.textNonEmpty = ##f
-\property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' {
 \key d \major
 \time 4/4
+
+\property Score.TextScript \set #'font-style = #'large
 <d4_"notation" a fis> r 
-{ \property Grace.Stem \override #'flag-style = ##f
+{ \property Grace.Stem \override #'flag-style = #""
   \grace g16 }
 fis8 e16 fis 
-{ \property Grace.Stem \override #'flag-style = ##f
+{ \property Grace.Stem \override #'flag-style = #""
   \grace a16 }
 g8 fis16 g | a4 \bar "||" }
 \notes\relative c'' {
@@ -171,11 +170,10 @@ An appoggiatura may have more notes preceding the main note.
 @
 
 @lilypond[13pt,eps]
-\emptyText
-\property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   \key as \major
   \time 2/4
+  \property Score.TextScript \set #'font-style = #'large
   \grace { bes16 } as8_"notation" as16 bes as8 g |
   \grace { [as16 ( bes] } < ) c4 as > 
   \grace { [as16 ( bes] } < ) c4 as > \bar "||"
@@ -286,7 +284,6 @@ beams determine the note value of the connected notes.
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   [g8_"1/8" g g g] s16
@@ -439,7 +436,6 @@ chords are denoted open chords
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Voice.textNonEmpty = ##t
 \property Voice.TextScript \set #'font-style = #'large
 \time 4/4
 \notes\relative c'' {
@@ -676,7 +672,6 @@ also to some extent in newer jazz music.
 @
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -691,7 +686,6 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -707,7 +701,6 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -722,7 +715,6 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -737,7 +729,6 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -752,7 +743,6 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -772,7 +762,6 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -787,7 +776,6 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -802,7 +790,6 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -821,7 +808,6 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -1114,7 +1100,6 @@ a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   g8_"1/8" s8 
@@ -1160,7 +1145,6 @@ of the base chords.
 @
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 \property Voice.TextScript \set #'font-style = #'large
@@ -1474,7 +1458,6 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\emptyText
 \property Lyrics.LyricText \set #'font-style = #'large
 \addlyrics
 \notes\relative c'' { 
@@ -1682,7 +1665,6 @@ subject.
 
 @lilypond[13pt,eps] 
 \property Score.TimeSignature \override #'style = #'C2/2
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   \time 4/4
@@ -1790,7 +1772,6 @@ half. Another dot adds yet a fourth of the duration.
 @
 
 @lilypond[13pt,eps]
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   \time 4/4
@@ -1807,7 +1788,6 @@ frequently used.
 
 @lilypond[13pt,eps]
 \property Voice.TextScript \set #'font-style = #'large
-\emptyText
 \notes\relative c'' { 
   \time 4/4
   \times 2/3 {g8_"triplets" g g} g4 g8 g g4 \bar "||" 
@@ -1844,8 +1824,7 @@ the upper note is played first.
 @lilypond[13pt,eps]
 <
   \context Staff = sa {
-    \emptyText
-    \property Voice.TextScript \set #'font-style = #'large
+        \property Voice.TextScript \set #'font-style = #'large
     \notes\relative c'' { 
       c2._"pre-1850"  b4\trill | c1 \bar "||"
       c2._"post-1850" b4\trill | c1 \bar "||"
@@ -1866,8 +1845,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @lilypond[13pt,eps]
 <
   \context Staff = sa {
-    \emptyText
-    \property Voice.TextScript \set #'font-style = #'large
+        \property Voice.TextScript \set #'font-style = #'large
     \notes\relative c'' { 
       a4_"turn" b\turn c2 \bar "||"
       g4_"mordent" a b\mordent a \bar "||"
@@ -2010,7 +1988,6 @@ the same @w{@ar{}@strong{signature}}.
 @
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c' { 
@@ -2081,7 +2058,6 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 @
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Lyrics.LyricText \set #'font-style = #'large
 %\property Lyrics.minVerticalAlign = #8
@@ -2272,7 +2248,6 @@ note. @w{@ar{}@strong{beam}}
 @lilypond[13pt,eps]
 \property Score.noAutoBeaming = ##t
 \property Score.barNonAuto = ##t
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' { 
   g2_"1/2" g' s16
@@ -2346,7 +2321,6 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @
 
 @lilypond[13pt,eps]
-\emptyText
 \property Voice.TextScript \set #'font-style = #'large
 \time 4/4
 \notes\relative c' {
@@ -2433,7 +2407,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
 
 @lilypond[13pt,eps]
 \context GrandStaff <
-  \notes\relative c'' { 
+  \context Staff = lh \notes\relative c'' { 
     \time 4/4
     \key es \major
     \clef treble 
@@ -2445,16 +2419,15 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
         < bes8 g > as < as f > g < g es > f < d f > es | < g4 es > } 
     >
   }
-  \property Voice.TextScript \set #'font-style = #'large
-  \property Lyrics.LyricText \set #'font-style = #'Large
-  \property Lyrics.minVerticalAlign = #6
   \addlyrics
-    \notes\relative c' { 
+    \context Staff = rh \notes\relative c' { 
     \clef bass
     \key es \major
     es8 c () c bes () bes as () as g16 f | es4 
   }
   \context Lyrics \lyrics { 
+    \property Lyrics . LyricText \set #'font-style = #'Large
+    \property Lyrics . VerticalAlign \override #'threshold = #'(6 . 12)
     < { "" "6" "4" "6" "4" "6" "4" "6" }
       { "" "" "2" "" "2" "" "2" "" } >
   } 
@@ -2538,7 +2511,6 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 @
 
 @lilypond[13pt,eps] 
-\emptyText
 \property Score.barNonAuto = ##t 
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c' {

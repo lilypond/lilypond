@@ -198,6 +198,9 @@ remembered for the duration of a measure.
     property is used to label subsequent lines.  If the
     @code{midiInstrument} property is not set, then @code{instrument}
     is used to determine the instrument for MIDI output.")
+
+(translator-property-description 'instrumentEqualizer procedure? "[DOCUMENT-ME]")
+				 
 (translator-property-description 'keyAccidentalOrder list? "
 Alist that defines in what order  alterations should be printed.
 The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.

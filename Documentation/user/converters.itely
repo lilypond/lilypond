@@ -133,6 +133,25 @@ ABC is a fairly simple ASCII based format. It is described at
 
 Convert ABC to LilyPond.
 
+There is a rudimentary facility for adding lilypond code to the ABC
+source file.  If you say:
+
+@example
+        %%LY voices \property Voice.noAutoBeaming=##t
+@end example
+
+This will cause the text following the keyword ``voices'' to be inserted 
+into the current voice of the lilypond output file.
+
+Similarly:
+
+@example
+        %%LY slyrics more words
+@end example
+
+will cause the text following the ``slyrics'' keyword to be inserted
+into the current line of lyrics.
+
 @unnumberedsubsec Options
 @table @code
 @item   -h,--help
@@ -148,6 +167,12 @@ version information
 The ABC standard is not very "standard". For extended features
 (eg. polyphonic music) different conventions exist. 
 
+Multiple tunes in one file cannot be converted.
+
+ABC synchronizes words and notes at the beginning of a line; abc2ly does 
+not.
+
+abc2ly ignores the ABC beaming.
 
 Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 

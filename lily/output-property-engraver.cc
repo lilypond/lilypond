@@ -64,8 +64,8 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 			   gh_list (inf.elem_l_->self_scm (), SCM_UNDEFINED));
       if (to_boolean (result))
 	{
-	  SCM sym = o->get_mus_property ("symbol");
-	  SCM val = o->get_mus_property ("value");
+	  SCM sym = o->get_mus_property ("grob-property");
+	  SCM val = o->get_mus_property ("grob-value");
 	  inf.elem_l_->set_grob_property (sym, val);
 	}
     }
