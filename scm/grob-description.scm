@@ -251,6 +251,7 @@
 	(Accidentals . (
 		(molecule-callback . ,Local_key_item::brew_molecule)
 		(X-offset-callbacks . (,Side_position::aligned_side))
+		(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
