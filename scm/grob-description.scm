@@ -502,11 +502,11 @@
 
     (RehearsalMark
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(self-alignment-X . 0)
-
+	(break-align-symbol . time-signature)
 	(direction . 1)
 	(breakable . #t)
 	(font-family . roman)
@@ -515,7 +515,17 @@
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
 	))
-    
+     (MetronomeMark
+     . (
+	(molecule-callback . ,brew-new-markup-molecule)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
+	(direction . 1)
+	(breakable . #t)
+	(font-family . roman)
+	(break-visibility . ,end-of-line-invisible)
+	(padding . 0.8)
+	(meta . ((interfaces . (text-interface side-position-interface font-interface metronome-mark-interface item-interface))))
+	))
     (MeasureGrouping
      . (
 	(Y-offset-callbacks . (,Side_position_interface::out_of_staff 

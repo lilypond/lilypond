@@ -297,6 +297,9 @@ the start of the music.
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
 (translator-property-description 'melismaEngraverBusy boolean? "See melismaBusy. This is set automatically.")
+(translator-property-description 'metronomeMarkFormatter procedure?
+				 "How to produce a metronome markup.
+Called with 2 arguments,  event and context.")
 (translator-property-description 'midiInstrument string? "Name of the
 MIDI instrument to use ")
 (translator-property-description 'midiMinimumVolume number? "[DOCUMENT-ME]")

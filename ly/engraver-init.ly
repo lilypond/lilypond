@@ -350,6 +350,7 @@ ScoreContext = \translator {
 	\consists "Output_property_engraver"
 	\consists "System_start_delimiter_engraver"
 	\consists "Mark_engraver"	
+	\consists "Metronome_mark_engraver"	
 	\consists "Break_align_engraver"
 	\consists "Spacing_engraver"
 	\consists "Vertical_align_engraver"
@@ -452,7 +453,7 @@ ScoreContext = \translator {
 
 	%%
 	bassFigureFormatFunction = #make-bass-figure-markup
-
+	metronomeMarkFormatter = #make-metronome-markup
 
 	\grobdescriptions #all-grob-descriptions
 }

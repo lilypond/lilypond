@@ -81,5 +81,5 @@ Tempo_performer::try_music (Music* req)
 
 
 ENTER_DESCRIPTION (Tempo_performer, "","",
-		   "tempo-event",
+		   "metronome-change-event",
 		   "","","" );

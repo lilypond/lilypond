@@ -49,6 +49,12 @@ are interesting enough to maintain a hara-kiri staff."
  '(
    ))
 
+(ly:add-interface
+ 'metronome-mark-interface
+ "a rehearsal mark"
+ '(
+   ))
+
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface
