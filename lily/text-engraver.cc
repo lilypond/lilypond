@@ -89,12 +89,8 @@ Text_engraver::process_acknowledged_grobs ()
 
       Item *text = new Item (get_property (basic.to_str0 ()));
 
-      /*
-	FIXME -> need to use basic props.
-       */
-      SCM axisprop = get_property ("scriptHorizontal");
       
-      Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
+      Axis ax = Y_AXIS;
       Side_position_interface::set_axis (text, ax);
 
       // Hmm
@@ -110,7 +106,7 @@ Text_engraver::process_acknowledged_grobs ()
 
       Direction dir = to_dir (r->get_mus_property ("direction"));
       if (dir)
-	Side_position_interface::set_direction (text, dir);
+	set_grob_direction (text, dir);
 
 
       SCM mark = r->get_mus_property ("text");
@@ -127,8 +123,6 @@ Text_engraver::stop_translation_timestep ()
   for (int i=0; i < texts_.size (); i++)
     {
       Item *ti = texts_[i];
-      if (!to_boolean (get_property ("scriptHorizontal")))
-	Side_position_interface::add_staff_support (ti);
       typeset_grob (ti);
     }
   texts_.clear ();
@@ -145,5 +139,5 @@ ENTER_DESCRIPTION(Text_engraver,
 /* creats*/       "TextScript",
 /* accepts */     "text-script-event",
 /* acks  */      "rhythmic-head-interface stem-interface",
-/* reads */       "scriptHorizontal",
+/* reads */       "",
 /* write */       "");

@@ -341,6 +341,7 @@
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(staff-padding . 0.1)
 	(padding . 0.6)
 	(minimum-space . 1.2)
 	(direction . -1)
@@ -370,7 +371,7 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(padding . 0.6)
-	(staff-padding . 0.5)
+	(staff-padding . 0.6)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
@@ -567,6 +568,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 1.3)
+	(staff-padding . 1.3)
 	(font-family . number)
 	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
@@ -579,6 +581,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 1.5)
+	(staff-padding . 1.5)
 	(font-family . roman)
 	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
@@ -654,6 +657,7 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(font-shape . italic)
 	(padding . 0.4)
+	(staff-padding . 0.2)
 	(font-size . -4)
 	(font-family . roman)
 	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface item-interface ))))
@@ -769,6 +773,7 @@
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
 	(padding . 0.25)
+	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
@@ -996,6 +1001,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	
 	(padding . 1.2)
+	(staff-padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . -1)
 	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface spanner-interface))))
@@ -1050,6 +1056,7 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
 	(padding . 0.5)
+	(staff-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
@@ -1062,7 +1069,8 @@
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
 	(style . dashed-line)
-
+	(staff-padding . 0.1)
+	
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
 	(dash-fraction . 0.2)
@@ -1181,8 +1189,8 @@
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	
 	(padding . 1.2)
+	(staff-padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . -1)
 	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface spanner-interface))))

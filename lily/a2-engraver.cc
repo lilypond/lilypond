@@ -80,7 +80,7 @@ A2_engraver::process_acknowledged_grobs ()
 		text = get_property ("aDueText");
 	    }
 	  
-	  Side_position_interface::set_direction (text_, dir);
+	  set_grob_direction (text_, dir);
 	  text_->set_grob_property ("text", text);
 	}
     }
@@ -193,7 +193,6 @@ A2_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Side_position_interface::add_staff_support (text_);
       typeset_grob (text_);
       text_ = 0;
     }
