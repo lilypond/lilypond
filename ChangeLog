@@ -11,6 +11,10 @@
 	Unify bulb with the rest of `r' to avoid grazing outlines which
 	confuses the overlap removal algorithm of fontforge.
 
+	* mf/feta-bolletjes.mf (draw_slash): Fix shape to avoid curves with
+	inflections.
+	(draw_cross): Fix shape to have uniform thickness in corners.
+
 2005-01-24  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-autometric.mf (fet_beginfont): Set font_coding_scheme

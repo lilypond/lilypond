@@ -535,8 +535,8 @@ fet_endchar;
 %
 def draw_slash (expr hwid_hash) =
 	save exact_height;
-	save ne_dir;
-	pair ne_dir;
+	save ne, nw_dist;
+	pair ne, nw_dist;
 	exact_height = staff_space# + stafflinethickness# / 2;
 
 	set_char_box (0, 2 exact_height / slash_slope + hwid_hash,
@@ -561,15 +561,16 @@ def draw_slash (expr hwid_hash) =
 	y4 = y1;
 	x3 - x2 = x4 - x1;
 
-	ne_dir := unitvector (z3 - z4);
+	ne = unitvector (z3 - z4);
+	nw_dist = (ne rotated 90) * 0.5 blot_diameter;
 
 	fill bot z1{left}
-	     .. lft z1{ne_dir}
-	     -- lft z2{ne_dir}
+	     .. (z1 + nw_dist){ne}
+	     -- (z2 + nw_dist){ne}
 	     .. top z2{right}
 	     -- top z3{right}
-	     .. rt z3{-ne_dir}
-	     -- rt z4{-ne_dir}
+	     .. (z3 - nw_dist){-ne}
+	     -- (z4 - nw_dist){-ne}
 	     .. bot z4{left}
 	     -- cycle;
 
@@ -581,11 +582,11 @@ def draw_slash (expr hwid_hash) =
 		y5 = y8;
 		y3 - y7 = th;
 		y5 - y1 = th;
-		z6 - z5 = whatever * ne_dir;
-		z8 - z7 = whatever * ne_dir;
+		z6 - z5 = whatever * ne;
+		z8 - z7 = whatever * ne;
 
-		z5  = z1 + whatever * ne_dir + th * (ne_dir rotated -90);
-		z8  = z4 + whatever * ne_dir + th * (ne_dir rotated 90);
+		z5  = z1 + whatever * ne + th * (ne rotated -90);
+		z8  = z4 + whatever * ne + th * (ne rotated 90);
 
 		unfill z5
 		       -- z6
@@ -624,11 +625,12 @@ fet_endchar;
 % (distance between centres of lines) in multiples of stafflinethickness
 %
 def draw_cross (expr thick) =
-	save ne_dir, nw_dir;
-	save horz_dist, vert_dist;
+	save ne, nw;
+	save ne_dist, nw_dist, rt_dist, up_dist;
 	save crz_in, crz_out;
 	save thickness;
-	pair ne_dir, nw_dir;
+	pair ne, nw;
+	pair ne_dist, nw_dist, rt_dist, up_dist;
 	path crz_in, crz_out;
 
 	pen_thick# := 1.2 stafflinethickness#;
@@ -641,44 +643,46 @@ def draw_cross (expr thick) =
 	h := h - feta_shift;
 
 	top y3 = h;
-	ne_dir := unitvector ((1, (2 h - pen_thick) / (w - pen_thick)));
+	ne = unitvector ((1, (2 h - pen_thick) / (w - pen_thick)));
 	rt x4 = w / 2;
 	y5 = 0;
-	z4 - z5 = whatever * ne_dir;
+	z4 - z5 = whatever * ne;
 	x6 = 0;
-	z6 - z3 = whatever * ne_dir;
-	z3 - z4 = whatever * (ne_dir yscaled -1);
+	z6 - z3 = whatever * ne;
+	z3 - z4 = whatever * (ne yscaled -1);
 
-	z4 - z3 = whatever * (ne_dir) + (ne_dir rotated -90) * thickness;
+	z4 - z3 = whatever * (ne) + (ne rotated -90) * thickness;
 
 
  	x1 = charwd / 2 - .5 pen_thick#;
-	z1 = whatever * ne_dir
-	     + thick / 2 * stafflinethickness# * (ne_dir rotated -90);
+	z1 = whatever * ne
+	     + thick / 2 * stafflinethickness# * (ne rotated -90);
 
 	% labels (1, 2, 3, 4, 5, 6);
 
-	nw_dir = unitvector (z3 - z4);
+	nw = unitvector (z3 - z4);
 
-	vert_dist = 0.5 pen_thick / cosd (angle (ne_dir));
-	horz_dist = 0.5 pen_thick / sind (angle (ne_dir));
+	up_dist = up * 0.5 pen_thick / cosd (angle (ne));
+	rt_dist = right * 0.5 pen_thick / sind (angle (ne));
+	nw_dist = (ne rotated 90) * 0.5 pen_thick;
+	ne_dist = (nw rotated -90) * 0.5 pen_thick;
 
 	x4' := x4;
 	x5' := x5;
 	y6' := y6;
 
 	x4 := hround (x4' + .5 pen_thick) - .5 pen_thick;
-	x5 := hfloor (x5' + horz_dist) - horz_dist;
-	y6 := vfloor (y6' + vert_dist) - vert_dist;
+	x5 := hfloor (x5' + xpart rt_dist) - xpart rt_dist;
+	y6 := vfloor (y6' + ypart up_dist) - ypart up_dist;
 
-	crz_out = (z6 + up * vert_dist)
-		  -- (z3 + nw_dir * 0.5 pen_thick){ne_dir}
+	crz_out = (z6 + up_dist)
+		  -- (z3 + nw_dist){ne}
 		  .. (top z3)
-		  .. (z3 + ne_dir * 0.5 pen_thick){-nw_dir}
-		  -- (z4 + ne_dir * 0.5 pen_thick){-nw_dir}
+		  .. (z3 + ne_dist){-nw}
+		  -- (z4 + ne_dist){-nw}
 		  .. (rt z4)
-		  .. (z4 - nw_dir * 0.5 pen_thick){-ne_dir}
-		  -- (z5 + right * horz_dist);
+		  .. (z4 - nw_dist){-ne}
+		  -- (z5 + rt_dist);
 	crz_out := crz_out shifted (0, feta_shift)
 		   -- reverse crz_out yscaled -1 shifted (0, -feta_eps);
 	fill crz_out
@@ -686,15 +690,15 @@ def draw_cross (expr thick) =
 	     -- cycle;
 
 	if (thick > 1):
-		x4 := hround (x4' - horz_dist) + horz_dist;
+		x4 := hround (x4' - xpart rt_dist) + xpart rt_dist;
 		x5 := hceiling (x5' - .5 pen_thick) + .5 pen_thick;
 		y6 := vfloor (y6' - .5 pen_thick) + .5 pen_thick;
 
 		crz_in = (bot z6){right}
-			 .. (z6 - nw_dir * 0.5 pen_thick){ne_dir}
-			 -- (z3 + down * vert_dist)
-			 -- (z4 + left * horz_dist)
-			 -- (z5 + nw_dir * 0.5 pen_thick){-ne_dir}
+			 .. (z6 - nw_dist){ne}
+			 -- (z3 - up_dist)
+			 -- (z4 - rt_dist)
+			 -- (z5 + nw_dist){-ne}
 			 .. {down}(lft z5);
 		crz_in := crz_in shifted (0, feta_shift)
 			  -- reverse crz_in yscaled -1 shifted (0, -feta_eps);
