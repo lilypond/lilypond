@@ -24,8 +24,10 @@ import  string
 import re
 import time
 
-lilypond_version_re_str = '\\\\version *\"(.*)\"'
-lilypond_version_re = re.compile(lilypond_version_re_str)
+# Did we ever have \mudela-version?  I doubt it.
+# lilypond_version_re_str = '\\\\version *\"(.*)\"'
+lilypond_version_re_str = '\\\\(mudela-)?version *\"(.*)\"'
+lilypond_version_re = re.compile (lilypond_version_re_str)
 
 def program_id ():
 	return '%s (GNU LilyPond) %s' %(program_name,  version);
@@ -92,11 +94,11 @@ def version_cmp (t1, t2):
 			return t1[x] - t2[x]
 	return 0
 
-def guess_lilypond_version(filename):
+def guess_lilypond_version (filename):
 	s = gulp_file (filename)
 	m = lilypond_version_re.search (s)
 	if m:
-		return m.group(1)
+		return m.group (2)
 	else:
 		return ''
 
@@ -177,6 +179,8 @@ if 1:
 if 1:
 	def conv(str):
 		str =  re.sub ('\\\\melodic', '\\\\notes',str)
+		if re.search ('\\\\header', str):
+			sys.stderr.write ('\nNot smart enough to convert \\multi constructs')
 			
 		return str
 	
@@ -185,8 +189,7 @@ if 1:
 if 1:
 	def conv(str):
 		str =  re.sub ('default_paper *=', '',str)
-		str =  re.sub ('default_midi *=', '',x)			
-			
+		str =  re.sub ('default_midi *=', '',str)
 		return str
 	
 	conversions.append (((1,0,4), conv, 'default_{paper,midi}'))
@@ -570,7 +573,7 @@ if 1:
 
 		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?timeSignatureStyle"? *= *"([^"]*)"', '\\\\property \\1.TimeSignature \\\\override #\'style = #\'\\2', str) 
 
-		str = re.sub ('"?timeSignatureStyle"? *= *#?""', 'TimeSignature \\\\override #\'style = ##f, str)
+		str = re.sub ('"?timeSignatureStyle"? *= *#?""', 'TimeSignature \\\\override #\'style = ##f', str)
 		
 		str = re.sub ('"?timeSignatureStyle"? *= *#?"([^"]*)"', 'TimeSignature \\\\override #\'style = #\'\\1', str)
 		
@@ -810,4 +813,9 @@ for f in files:
 	try:
 		do_one_file (f)
 	except UnknownVersion:
+		sys.stderr.write ('\n')
+		sys.stderr.write ("%s: can't determine version for %s" % (program_name, f))
+		sys.stderr.write ('\n')
+		sys.stderr.write ("%s: skipping" % program_name)
 		pass
+sys.stderr.write ('\n')

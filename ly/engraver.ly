@@ -104,7 +104,9 @@ VoiceContext = \translator {
 	\name Voice;
 
 	Generic_property_list = #generic-voice-properties
-	
+
+	% must come before all
+	\consists "Voice_devnull_engraver";
 	\consists "Output_property_engraver";	
 	\consists "Arpeggio_engraver";
 
@@ -137,7 +139,6 @@ VoiceContext = \translator {
 	\consists "Tuplet_engraver";
 	\consists "Grace_position_engraver";
 	\consists "A2_engraver";
-	\consists "Voice_devnull_engraver";
 
 	\consists "Skip_req_swallow_translator";
 	\accepts Thread; % bug if you leave out this!

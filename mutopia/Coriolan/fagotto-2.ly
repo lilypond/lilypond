@@ -172,8 +172,8 @@ fagottoII =  \notes \relative c {
 	b,2\sf r|
 	b\sf r|
 	R1*3|
-	bes2 r\ff|
-	bes2 r\sf|
+	bes2\ff r|
+	bes2\sf r|
 	R1*2|
 	r2 r4 bes\ff(|
 	)as2. bes4\sf(|

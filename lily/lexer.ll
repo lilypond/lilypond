@@ -214,7 +214,7 @@ HYPHEN		--
 	return RESTNAME;
 }
 <chords,notes>R		{
-	return MEASURES;
+	return MULTI_MEASURE_REST;
 }
 <INITIAL,chords,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;

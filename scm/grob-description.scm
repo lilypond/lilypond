@@ -310,7 +310,7 @@
 		(minimum-width . 12.5) ; staffspace
 		(font-family . number)
 		(font-relative-size . 1)
-		(meta . ,(grob-description "MultiMeasureRest" multi-measure-rest-interface  font-interface ))
+		(meta . ,(grob-description "MultiMeasureRest" multi-measure-rest-interface rest-interface font-interface ))
 	))
 	(NoteCollision . (
 		(axes 0 1)

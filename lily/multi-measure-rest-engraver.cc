@@ -96,7 +96,7 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-    if (new_req_l_ && stop_req_l_)
+  if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
 
   if (new_req_l_)

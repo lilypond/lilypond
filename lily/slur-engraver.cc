@@ -139,6 +139,8 @@ Slur_engraver::create_grobs ()
       if (slur_req_l->get_span_dir() == STOP)
 	{
 	  if (slur_l_stack_.empty ())
+	    /* How to shut up this warning, when Voice_devnull_engraver has
+	       eaten start request? */
 	    slur_req_l->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {

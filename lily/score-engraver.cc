@@ -174,9 +174,15 @@ Score_engraver::typeset_all()
 	    if (!s->get_bound (d))
 	      {
 		s->set_bound(d, command_column_l_);
-		::warning (_f ("unbound spanner `%s'", s->name().ch_C()));
+		/* don't warn for empty/suicided spanners,
+		   it makes real warningsinvisible.
+		   maybe should be junked earlier? */
+		if (elem_p->immutable_property_alist_ == SCM_EOL)
+		  ; // gdb hook
+		else
+		  ::warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
 	      }
-	  } while (flip(&d) != LEFT);
+	  } while (flip (&d) != LEFT);
 	}
       else 
 	{

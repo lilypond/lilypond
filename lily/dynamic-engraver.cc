@@ -297,12 +297,19 @@ void
 Dynamic_engraver::finalize ()
 {
   typeset_all ();
+  
+  if (line_spanner_
+      && line_spanner_->immutable_property_alist_ == SCM_EOL)
+    line_spanner_ = 0;
   if (line_spanner_)
     {
       finished_line_spanner_ = line_spanner_;
       typeset_all ();
     }
 
+  if (cresc_p_
+      && cresc_p_->immutable_property_alist_ == SCM_EOL)
+    cresc_p_ = 0;
   if (cresc_p_)
     {
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
@@ -314,6 +321,19 @@ Dynamic_engraver::finalize ()
 void
 Dynamic_engraver::typeset_all ()
 {  
+  /*
+    remove suicided spanners,
+    ugh: we'll need this for every spanner, beam, slur
+    Hmm, how to do this, cleanly?
+    Maybe just check at typeset_grob ()?
+  */
+  if (finished_cresc_p_
+      && finished_cresc_p_->immutable_property_alist_ == SCM_EOL)
+    finished_cresc_p_ = 0;
+  if (finished_line_spanner_
+      && finished_line_spanner_->immutable_property_alist_ == SCM_EOL)
+    finished_line_spanner_ = 0;
+
   if (finished_cresc_p_)
     {
       if (!finished_cresc_p_->get_bound (RIGHT))
@@ -337,10 +357,9 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
-      /*
-	To make sure that this works
-      */
+      /* To make sure that this works */
       Side_position_interface::add_staff_support (finished_line_spanner_);
+      
       /*
 	We used to have
 	
@@ -352,7 +371,8 @@ Dynamic_engraver::typeset_all ()
 
       */
 
-      if (!finished_line_spanner_->get_bound (RIGHT))
+      if (!finished_line_spanner_->get_bound (RIGHT)
+	  && finished_line_spanner_->get_bound (LEFT))
 	finished_line_spanner_->set_bound (RIGHT, finished_line_spanner_->get_bound (LEFT));
       
       typeset_grob (finished_line_spanner_);
@@ -365,7 +385,9 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.elem_l_))
     {
-      if (line_spanner_)
+      if (line_spanner_
+	  /* Don't refill killed spanner */
+	  && line_spanner_->immutable_property_alist_ != SCM_EOL)
 	{
 	  Side_position_interface::add_support (line_spanner_,i.elem_l_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*>(i.elem_l_));

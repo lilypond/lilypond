@@ -167,7 +167,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token KEY
 %token LYRICS
 %token MARK
-%token MEASURES
+%token MULTI_MEASURE_REST
 %token MIDI
 %token MM_T
 %token PITCH
@@ -1629,7 +1629,7 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 
 		  $$ = velt_p;
 	}
-	| MEASURES optional_notemode_duration  	{
+	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		Skip_req * sk = new Skip_req;
 		sk->set_mus_property ("duration", $2);
 		Span_req *sp1 = new Span_req;

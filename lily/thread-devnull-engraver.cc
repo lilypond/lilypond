@@ -27,7 +27,7 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("devNullThread");
 #if 0
-  /* No need */
+  /* No need, next if will never be true */
   if (s == ly_symbol2scm ("never"))
     return;
 #endif
@@ -38,5 +38,8 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))
 	  && to_boolean (get_property ("soloADue"))))
-    i.elem_l_->suicide ();
+    {
+      /* Ugh, we can suicide them, but they remain living */
+      i.elem_l_->suicide ();
+    }
 }

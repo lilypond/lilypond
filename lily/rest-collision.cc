@@ -54,8 +54,8 @@ Rest_collision::add_column (Grob*me,Grob *p)
 
     (not?)
   */
-      p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
-      p->set_grob_property ("rest-collision", me->self_scm ());
+  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
+  p->set_grob_property ("rest-collision", me->self_scm ());
 }
 
 

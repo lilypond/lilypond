@@ -532,6 +532,8 @@ if files:
 		type = 'DVI'
 
 	dest = os.path.join (outdir, dest)
+	if outdir != '.':
+		system ('mkdir -p %s' % outdir)
 	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
 	system ('cp *.midi %s' % outdir, ignore_error = 1)
 

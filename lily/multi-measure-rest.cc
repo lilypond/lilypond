@@ -41,6 +41,12 @@ SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
+  if (to_boolean (me->get_grob_property ("skip-timestep")))
+    {
+      me->set_grob_property ("skip-timestep", SCM_EOL);
+      return SCM_EOL;
+    }
+  
   Spanner * sp = dynamic_cast<Spanner*> (me);
 
   SCM alist_chain = Font_interface::font_alist_chain (me);

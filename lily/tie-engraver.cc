@@ -208,6 +208,8 @@ Tie_engraver::stop_translation_timestep ()
 
   if (req_l_ && !tie_p_arr_.size ())
     {
+      /* How to shut up this warning, when no notes appeared because
+	 they were suicided by Thread_devnull_engraver? */
       req_l_->origin ()->warning (_ ("No ties were created!"));
     }
   
