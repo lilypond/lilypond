@@ -63,6 +63,7 @@ Staff_symbol_referencer::get_position (Grob*me)
 	- st->relative_coordinate (c, Y_AXIS);
 
       p += 2.0 * y / Staff_symbol::staff_space (st);
+      return p;
     }
 
   return robust_scm2double ( me->get_grob_property ("staff-position"), p);
