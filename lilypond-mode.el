@@ -49,6 +49,10 @@
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
 
+(defvar LilyPond-imenu nil
+  "A flag to tell whether LilyPond-imenu is turned on.")
+(make-variable-buffer-local 'LilyPond-imenu)
+
 (defcustom LilyPond-include-path ".:/tmp"
   "* LilyPond include path."
   :type 'string
@@ -994,6 +998,7 @@ command."
 	  '(("Miscellaneous"
 	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
+	     ["Add index menu" LilyPond-add-imenu-menu]
  	     ))
 	  '(("Info"
 	     ["LilyPond" LilyPond-info t]
@@ -1035,6 +1040,17 @@ command."
 		     (progn (message "Region is not active, using region between inactive mark and current point.") (sit-for 0 500)))
 		 (LilyPond-command-region (mark t) (point))))
       (funcall LilyPond-command-current))))
+
+(defun LilyPond-add-imenu-menu ()
+  (interactive)
+  "Add an imenu menu to the menubar."
+  (if (not LilyPond-imenu)
+      (progn
+	(imenu-add-to-menubar "Index")
+	(redraw-frame (selected-frame))
+	(setq LilyPond-imenu t))
+    (message "%s" "LilyPond-imenu already exists.")))
+(put 'LilyPond-add-imenu-menu 'menu-enable '(not LilyPond-imenu))
 
 (defun LilyPond-mode ()
   "Major mode for editing LilyPond music files.
@@ -1114,7 +1130,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   ;; In XEmacs imenu was synched up with: FSF 20.4
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
-  (imenu-add-to-menubar "Index")
+  ;; (imenu-add-to-menubar "Index") ; see LilyPond-add-imenu-menu
 
   ;; In XEmacs one needs to use 'easy-menu-add'.
   (if (string-match "XEmacs\\|Lucid" emacs-version)
