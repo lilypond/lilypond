@@ -3,7 +3,7 @@
 %
 
 
-fet_begingroup("foobars")
+fet_begingroup("scripts")
 
 
 def draw_fermata =
@@ -13,7 +13,7 @@ def draw_fermata =
 	% suggest ca 80 degrees iso half-circle
 	alpha := 10;
 
-	radius# = 1.5 interline#;
+	radius# = 1.25 interline#;
 	crook_thinness# = 1.5stafflinethickness#;
 	crook_fatness# = 4 stafflinethickness#;
 
@@ -59,7 +59,7 @@ fet_endchar;
 % FIXME: rounded endings
 %
 % `\accent' is TeX reserved.
-fet_beginchar("> accent", "accent", "sforzatoaccent")
+fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	set_char_box(.9 interline#, .9 interline#, .5 interline#, .5 interline#);
 	save thickness, diminish;
 
@@ -89,7 +89,7 @@ fet_endchar;
 
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
-	radius# = 1.25 stafflinethickness#;
+	radius# = 1.5 stafflinethickness#;
 	define_pixels(radius);
 	pickup pencircle scaled 2 radius;
 	draw (0,0);
@@ -176,19 +176,19 @@ fet_endchar;
 fet_beginchar("open (unstopped)", "open", "ouvert")
 	save thin, height, width, thick;
 	height# = 5/4 width#;
-	height# = 7/8 interline#;
+	height# = interline#;
 	thin = 1.2 stafflinethickness;
 	thick =  1.4 thin;
-	set_char_box(width#/2, width#/2, 0, height#);
+	set_char_box(width#/2, width#/2, height#/2, height#/2);
 	
 	penpos1(thick, 0);
 	penpos2(thin, 90);
-	z1r = (w,h/2);
+	z1r = (w, 0);
 	z2r = (0, h);
 	penlabels(1,2);
 	penstroke z1e{up} .. {left}z2e;
 	addto currentpicture also currentpicture xscaled -1;
-	addto currentpicture also currentpicture reflectedabout((w,h/2), (0,h/2));
+	addto currentpicture also currentpicture yscaled -1;
 fet_endchar;
 
 
@@ -216,7 +216,7 @@ fet_beginchar("Upbow", "upbow", "upbow")
 
 	thick = 1.4 stafflinethickness;
 	wd# = 1.3 interline#;
-	ht# = 3/2 wd#; 
+	ht# = 1.6 wd#; 
 
 	
 	set_char_box(wd#/2, wd#/2, 0, ht#);
@@ -237,10 +237,10 @@ fet_beginchar("Downbow", "downbow", "downbow")
 	save wd;
 	define_pixels(wd)
 
-	wd# = 7/4 interline#;
+	wd# = 1.5 interline#;
 	stemthick = 1.2 stafflinethickness;
 
-	set_char_box(wd#/2, wd#/2, 0, interline#);
+	set_char_box(wd#/2, wd#/2, 0, 4/3 interline#);
 
 	beamheight = 4/10 h;
 
@@ -271,7 +271,6 @@ fet_endchar;
 %
 % Inspired by a computer-set version of auf dem Strom by Baerenreiter. 
 %
-
 fet_beginchar("Turn","turn","turn")
 	save thin, thick, ball_diam, darkness;
 	save wd, ht, thick_nibangle, ball_nib_thick;
@@ -280,7 +279,7 @@ fet_beginchar("Turn","turn","turn")
 
 	wd# = 35/16 interline#;
 	ht# = 18/17 interline#;
-	darkness = 1.25 stafflinethickness;
+	darkness = 1.20 stafflinethickness;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
 
@@ -346,23 +345,41 @@ def draw_bulb(expr zl, zr, center_factor, radius_factor)=
 	endgroup
 enddef;
 
-fet_beginchar("Trill (`tr')","utrill","utrill")
+%
+% Inspired by a (by now) PD edition of Durand & C'ie edition of 
+% Saint-Saens' Celloconcerto no. 1 
+%
+% FIXME take out hardcoded vars.
+% FIXME the two loops on the `t' should be smoother (and the left one bigger).
+% FIXME generic macros for serifs: top of the t and bottom of r
+%
+% 
+
+fet_beginchar("Trill (`tr')","trill","trill")
 	
 	save start_angle,  ascender_extra, ex, hair_thick, fatness,
-	  slant_angle, slant, t_fatness, r_fatness, kerning;
+	  slant_angle, slant, t_fatness, r_fatness, kerning, t_overshoot, 
+	  uitschieter, bulb_size;
+	;
 	pair slant_vec;
 
-	define_pixels(ex, ascender_extra, ascender);
 	ascender_extra# = 1/2 ex#;
 	ascender# = ascender_extra# + ex#;
-	ex# = interline#;
+	ex# = 1.5 interline#;
+	kerning# = .75 ex#;
 
+	define_pixels(ex, ascender_extra, ascender, kerning);
+	t_overshoot = 0.03 ex;
 	fatness = 12/40 ex;
 	t_fatness = 8/10 fatness;
-	r_fatness = 8/10 fatness;
+	r_fatness = .75 fatness;
+	uitschieter = 21/40 ex;
+	hair_thick =  blot_diameter;
+	bulb_size = 0.47;
+	slant = .15;
 
-	hair_thick = 2/3 blot_diameter;
-
+	local_copy(transform)(currenttransform);
+	currenttransform := currenttransform slanted slant;
 
 	y1 = ascender;
 	x1l = 0;
@@ -372,21 +389,22 @@ fet_beginchar("Trill (`tr')","utrill","utrill")
 	z2 = (x1, 7/18 ex);
 	penpos2(start_nib_wid, 25);
 
-	z3l = (11/10 t_fatness, 0);
+	z3l = (11/10 t_fatness, - t_overshoot);
 
-	z4l = (13/6 t_fatness, 3/8 ex);
+	z4l = (13/6 t_fatness, 5/16 ex);
 	penpos4(hair_thick, 180);
 
 	1.9 [z3l, z3r] = z4r;
 	z3 = .5 [z3l, z3r];
-
-
 	
 	save t_p, krul_p;
 	path t_p, krul_p, r_p;
 
 
-	t_p := z1l -- z2l{down} .. z3l{right} .. z4l{up} -- z4r{down} 
+	t_p := z1l -- z2l{down} .. tension (1 + .5 slant)
+		.. z3l{right} 
+		
+		.. z4l{up} -- z4r{down} 
 		.. z3r{left} .. z2r{up} .. z1r -- cycle;
 	fill t_p ;
 
@@ -396,28 +414,33 @@ fet_beginchar("Trill (`tr')","utrill","utrill")
 
 	z5 = (t_fatness/2, 2/3 ex);
 	
-	lft x6 = -18/40 ex;
+	lft x6 = - uitschieter;
 	y6 =  y5 - 1/20 ex;
 
-	z7 = (2 t_fatness, ex);
+	z7 = z5 + whatever*dir krul_ang;
+	up_angle = krul_ang;
+	% angle (z7-z5)
+	x7 = 5/10 kerning + x5;
+	
+	penpos7(hair_thick, up_angle + 90);
 
-	krul_p := z4{up} .. tension 1.1 .. z5  .. {down}z6
-		.. tension 1.1 .. z5 --- z7;
-	draw krul_p;
-
-	penpos7(hair_thick, angle (z7-z5) + 90);
-
-	z8l = (2 t_fatness + 2 hair_thick, ex);
-	penpos8(2 hair_thick, 35);
+	
+	x8l = .7 [x9r, x7r];
+	y8l = y7l;
+	penpos8(2 hair_thick, (up_angle +90)/2);
 
 	y9 = 3/4 ex;
-	x9l = 2.8 t_fatness;
+	x9 = x1 + kerning;
 	penpos9(r_fatness, 0);
 
 	x10 = x9;
 	y10 = 0;
 	penpos10(r_fatness, 0);
 
+	krul_p := z4{up} .. tension 1.1  .. z5 
+		.. tension 1 and .75 .. {down}z6
+		.. tension .85 and 1.1 .. z5 --- z7;
+	draw krul_p;
 	r_p := z7l{z7-z5} .. z8l{right} .. z9l{down} --- z10l -- z10r
 		--- z9r{up} 
 		..  z8r{left} ..  z7r{z5-z7} -- cycle;
@@ -428,12 +451,62 @@ fet_beginchar("Trill (`tr')","utrill","utrill")
 	penpos11(1/4 r_fatness, -20);
 	z11r = z9r;
 	
-	z13 = (x9 + 2 r_fatness, y11 + 1/16 ex);
+	z13 = (x9 + 2 r_fatness, y11 );
 	penpos13(r_fatness, 180);
 	fill z11r{dir 70} .. z13r{down} -- z13l{up} .. z11l{dir 250} -- cycle;
 	penlabels(range 1 thru 15);
 
-	draw_bulb(z13r, z13l, 0.5, 1.5);
+	draw_bulb(z13r, z13l, bulb_size, 1.5);
 fet_endchar;
 
-fet_endgroup("foobars");
+fet_beginchar("organ-heel", "pedalheel", "pedalheel")
+	save radius, thickness, wall;
+
+	radius# := .5 interline#;
+
+	define_pixels(radius);
+	set_char_box(radius#, radius#, radius#, 2/3 interline#);
+
+	thickness := 1.5 stafflinethickness;	
+	pickup pencircle scaled thickness;
+	rt x1 = b;
+	top y1 = h;
+	
+	x2 =x1;
+	y2 = 0;
+
+	x3 = 0;
+	bot y3 = -d;
+
+	draw z1{down} .. z2{down} .. z3{left};
+	addto currentpicture also currentpicture xscaled -1;
+	labels(1,2,3);
+fet_endchar;
+
+fet_beginchar("organ-toe", "pedaltoe", "pedaltoe")
+	save ht,wd;
+
+	thickness := 1.5 stafflinethickness;
+	ht# := 1.5 interline#;
+	wd# := 1/3 ht#;
+	define_pixels(ht,wd);
+
+
+	set_char_box(wd#, wd#, 0, ht#);
+	
+	pickup pencircle scaled thickness;
+	lft x1 = -b;
+	bot y1 = 0;
+	x2 =0;
+	top y2 = h;
+	z3 = z1 xscaled -1;
+
+
+	draw z1 -- z2 -- z3;
+	labels(1,2,3);
+fet_endchar;
+
+
+
+
+fet_endgroup("scripts");
