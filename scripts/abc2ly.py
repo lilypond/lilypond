@@ -48,7 +48,7 @@
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '1.2.9'		# uGUHGUHGHGUGH
+	version = '(unknown version)'		# uGUHGUHGHGUGH
   
 import __main__
 import getopt
