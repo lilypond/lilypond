@@ -26,7 +26,11 @@ add F<FILE> to the search path for input files.
 This disables TeX output. If you have a \midi definition, it will do
 the midi output only.
 
-=item B<-d,--debug>,
+=item B<-d,--dependencies>
+
+Also output rules to be included in Makefile.
+
+=item B<-D,--debug>,
 
 Turn debugging info on.  GNU LilyPond reads the file F<.dstreamrc>, 
 which lists what functions and classes may produce copious debugging
