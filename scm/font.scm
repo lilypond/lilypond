@@ -306,10 +306,10 @@
 		  ,(delay (ly:font-load "ectt10"))
 		  ,(delay (ly:font-load "ectt12"))))))))
 
-(define-public (add-pango-fonts node family factor)
+(define-public (add-pango-fonts node lily-family family factor)
   (define (add-node shape series)
     (add-font node
-	      `((font-family . ,family)
+	      `((font-family . ,lily-family)
 		(font-shape . ,shape)
 		(font-series . ,series)
 		(font-encoding . latin1) ;; ugh.
@@ -343,7 +343,8 @@
 (define-public (make-century-schoolbook-tree factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n factor)
-    (add-pango-fonts n "Century Schoolbook L" factor)
+    (add-pango-fonts n 'roman "Century Schoolbook L" factor)
+    (add-pango-fonts n 'sans "Luxi Sans" factor)
     n))
 
 (define-public (magstep x)
