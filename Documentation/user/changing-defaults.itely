@@ -1019,8 +1019,18 @@ collisions, and slurs, and ties and beams can be attached to it.
 @cindex invisible objects
 The following example demonstrates how to connect different voices
 using ties. Normally, ties only connect two notes in the same
-voice. By introducing a tie in a different voice, and blanking a stem
-in that voice, the tie appears to cross voices:
+voice. By introducing a tie in a different voice,
+
+@lilypond[fragment,relative=2]
+  << {
+      b8~ b8\noBeam
+  } \\ {
+       b[ g8]
+  } >>
+@end lilypond
+
+@noindent
+and blanking a stem in that voice, the tie appears to cross voices:
 
 @lilypond[fragment,relative=2,verbatim]
   << {
@@ -1815,10 +1825,8 @@ exaggerated corrections:
     \score { \notes {
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|
-      \override Staff.NoteSpacing   #'stem-spacing-correction
-   = #1.5
-      \override Staff.StaffSpacing   #'stem-spacing-correction
-   = #1.5
+      \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
+      \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|      
     }
@@ -1833,7 +1841,7 @@ created before any property commands are interpreted.
 @example
 \paper @{ \context  @{
   \ScoreContext
-  SpacingSpanner \override #'spacing-increment = #3.0
+  \override SpacingSpanner #'spacing-increment = #3.0
 @} @}
 @end example
 

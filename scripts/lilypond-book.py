@@ -512,12 +512,14 @@ class Lilypond_snippet (Snippet):
 	def is_outdated (self):
 		base = self.basename ()
 
-		require = ['.ly', '.tex']
+		found = os.path.exists (base + '.ly') and \
+			os.path.exists (base + '.tex')
+
 		if format == HTML or format == TEXINFO:
-			require.append ('.png')
-		require = [os.path.exists (base + x) for x in require]
-		if reduce (lambda a,b: a and b, require) \
-		   and (use_hash_p \
+			found = found and (os.path.exists (base + '.png')
+					   or glob.glob (base + '-page*.png'))
+			
+		if found and (use_hash_p \
 			or self.ly () == open (base + '.ly').read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes

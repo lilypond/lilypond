@@ -491,13 +491,14 @@ def make_ps_images (ps_name, resolution = 90):
 		map (os.unlink, rms)
 	else:
 		output_file = re.sub (r'\.e?ps', '-page%d.png', ps_name)
+
 		rmfile = base + '.png'
 		if os.path.isfile (rmfile):
 			os.unlink (rmfile)
 		
 		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
 																      resolution, ps_name)
-	
+
 	status = system (cmd)
 	signal = 0xf & status
 	exit_status = status >> 8
