@@ -17,6 +17,8 @@ grep for TODO and ugh/ugr
 	
 	this modifies \stem for the c2
 
+	* Fix ledgerlines
+
 	* use properties for:
 	- Text_style
 	- default_octave
@@ -160,7 +162,6 @@ languages:
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
 	- Move all Score_elems, into libmutype.a
-
  
 	* Documentation
 	- Doc Mutopia (Music To The People) 
@@ -345,6 +346,8 @@ SMALLISH PROJECTS
 
 IDEAS
 
+	* Output abstract data structures associated with
+Mudela.
 
 	* create libmudela, or liblily_frontend
 
