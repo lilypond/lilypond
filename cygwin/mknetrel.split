@@ -26,24 +26,33 @@ lib_split () {
     mv $inst/$prefix/lib/lib*[0-9]*.la ./$prefix/bin
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/$base ./$prefix/share
+    rmdir $inst/prefix/bin || true
+    rmdir $inst/prefix/lib || true
+    rmdir $inst/prefix/share || true
     true
 }
    
 devel_split () {
     mkdir -p ./$prefix/bin || exit 1
-    mv $inst/$prefix/include ./$prefix/include
+    tar -C $inst -cf - ./$prefix/include | tar -xf -
+    rm -rf $inst/$prefix/include
     # Only static .a libs in devel, load time .la files go in LIB or
     # BIN package.
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
-    mv $inst/$prefix/share/aclocal ./$prefix/share
+    tar -C $inst -cf - ./$prefix/share/aclocal | tar -xf -
+    rm -rf $inst/$prefix/share/aclocal
+    rmdir $inst/prefix/lib || true
+    rmdir $inst/prefix/share || true
     true
 }
 
 doc_split () {
     mkdir -p ./$docprefix || exit 1
-    mv $inst/$infodir ./$infodir
+    mkdir -p ./$infodir || exit 1
+    tar -C $inst -cf - ./$infodir | tar -xf -
+    rm -rf $inst/$infodir
     true
 }
 

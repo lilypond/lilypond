@@ -66,10 +66,12 @@
  @c ***** HTML *****
 
 @macro internalsref{NAME}@c
-@c makeinfo-4.7 encodes html names
-@uref{../lilypond-internals/\NAME\.html,\NAME\}@c
-@c @inforef{} adds ``See'' to the sentence.
-@c @inforef{\NAME\,,lilypond-internals}@c
+@c makeinfo-4.7 encodes html names, which means that nodes that
+@c contain nonalphanum characters will be broken links on the website.
+@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @inforef{} adds ``See'' to the sentence, which is annoying, but
+@c better than a broken link.
+@inforef{\NAME\,,lilypond-internals}@c
 @c should we do this? 
 @cindex @code{\NAME\}
 @end macro
