@@ -8,6 +8,7 @@
 */
 
 #include "book.hh"
+#include "grob-selector.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
@@ -100,6 +101,17 @@ Lily_parser::parse_file (String init, String name, String out_name)
   set_yydebug (0);
 
   lexer_->new_input (init, sources_);
+#ifdef TWEAK  
+  String s = global_path.find (name + ".t");
+  if (s == "")
+    Grob_selector::set_tweaks (SCM_EOL);
+  else
+    {
+      s = gulp_file_to_string (s, false);
+      SCM tweaks = scm_eval_string (scm_makfrom0str (s.to_str0 ()));
+      Grob_selector::set_tweaks (tweaks);
+    }
+#endif  
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */

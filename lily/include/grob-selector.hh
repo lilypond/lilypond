@@ -10,6 +10,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "protected-scm.hh"
 
 /**
  * Grob_selector:
@@ -18,14 +19,16 @@
  **/
 class Grob_selector
 {
-  static int count_;
   static Scheme_hash_table *grobs_;
+  static Protected_scm tweaks_;
 
 public:
   static void register_grob (Context *context, Grob *grob);
-  static SCM identify_grob (Context *context, Grob *grob, int count);
+  static SCM identify_grob (Context *context, Moment m, Grob *grob, int count);
   static SCM identify_grob (Grob *grob);
-  static Grob *retrieve_grob (SCM key);
+  static Grob *retrieve_grob (SCM grob_id);
+  static void store_grob (SCM grob_id, Grob *grob);
+  static void set_tweaks (SCM tweaks);
 };
 
 #endif /* GROB_SELECTOR_HH */

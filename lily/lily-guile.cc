@@ -42,11 +42,23 @@ inline int my_isnan (Real r) { return isnan (r); }
 // #define TEST_GC
 
 SCM
+ly_to_symbol (SCM scm)
+{
+  return scm_string_to_symbol (ly_to_string (scm));
+}
+
+SCM
+ly_to_string (SCM scm)
+{
+  return scm_call_3 (ly_scheme_function ("format"), SCM_BOOL_F,
+		     scm_makfrom0str ("~S"), scm);
+}
+
+SCM
 ly_last (SCM list)
 {
   return scm_car (scm_last_pair (list));
 }
-
 
 SCM
 ly_write2scm (SCM s)
@@ -62,7 +74,6 @@ ly_write2scm (SCM s)
   scm_call_2 (write, s, port);
   return scm_strport_to_string (port);
 }
-
 
 SCM
 ly_quote_scm (SCM s)
@@ -81,21 +92,27 @@ ly_symbol2string (SCM s)
 }
 
 String
-gulp_file_to_string (String fn)
+gulp_file_to_string (String fn, bool must_exist)
 {
   String s = global_path.find (fn);
   if (s == "")
     {
-      String e = _f ("can't find file: `%s'", fn);
-      e += " ";
-      e += _f ("(load path: `%s')", global_path.to_string ());
-      error (e);
+      if (must_exist)
+	{
+	  String e = _f ("can't find file: `%s'", fn);
+	  e += " ";
+	  e += _f ("(load path: `%s')", global_path.to_string ());
+	  error (e);
+	  /* unreachable */
+	}
+      return s;
     }
-  else if (verbose_global_b)
+
+  if (verbose_global_b)
     progress_indication ("[" + s);
 
   int n;
-  char * str = gulp_file (s, &n);
+  char *str = gulp_file (s, &n);
   String result (str);
   delete[] str;
   
@@ -111,7 +128,9 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "The file is looked up using the search path.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
+  return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name),
+					       true).to_str0 ());
+					       
 }
 
 
@@ -230,7 +249,7 @@ void add_scm_init_func (void (*f) ())
 void
 ly_init_ly_module (void *)
 {
-  for (int i=scm_init_funcs_->size () ; i--;)
+  for (int i = scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
 
   if (verbose_global_b)
@@ -265,10 +284,11 @@ is_direction (SCM s)
   return false;
 }
 
-LY_DEFINE(ly_assoc_get, "ly:assoc-get",
-	  2, 1, 0,
-	  (SCM key, SCM alist, SCM default_value),
-	  "Return value if KEY in ALIST, else DEFAULT-VALUE (or #f if not specified).")
+LY_DEFINE (ly_assoc_get, "ly:assoc-get",
+	   2, 1, 0,
+	   (SCM key, SCM alist, SCM default_value),
+	   "Return value if KEY in ALIST, else DEFAULT-VALUE "
+	   "(or #f if not specified).")
 {
   SCM handle = scm_assoc (key, alist);
 
@@ -416,7 +436,7 @@ ly_deep_copy (SCM src)
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i  =0 ; i < len ; i++)
+      for (int i = 0 ;i < len ; i++)
 	{
 	  SCM si = scm_int2num (i);
 	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si))); 
