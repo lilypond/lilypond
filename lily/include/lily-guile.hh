@@ -71,14 +71,14 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 #define scm_done_free(x) 
 #endif
 
-#if GUILE_MINOR_VERSION < 7
-#define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
-#define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
-
 #ifndef SMOB_FREE_RETURN_VAL
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
 
+
+#if GUILE_MINOR_VERSION < 7
+#define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
+#define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
 #endif
 
 #include "direction.hh"

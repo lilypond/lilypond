@@ -30,6 +30,7 @@ ADD_SCM_INIT_FUNC (init_type_p_ ## CL, init_type_p_ ## CL)
 #endif
 
 
+
 #define IMPLEMENT_SIMPLE_SMOBS(CL)				\
 scm_t_bits CL::smob_tag_;                                       \
 SCM								\
@@ -64,7 +65,7 @@ CL::free_smob (SCM ses)						\
   CL * s = (CL*) SCM_CDR (ses);					\
   delete s;							\
   scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob");  \
-  return 0;\
+  return SMOB_FREE_RETURN_VAL(CL);\
 }\
 ADD_SCM_INIT_FUNC (CL, CL::init_smobs)
 
