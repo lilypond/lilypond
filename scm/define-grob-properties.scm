@@ -47,7 +47,7 @@ called first.  The functions take a grob and axis argument. ")
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
 @code{0}: around center of width, @code{1}: right side.")
      (arch-angle ,number? "Turning angle of the hook of a system brace" )
-     (arch-height ,ly:dimension? "Height of the hook of a system brace.")
+     (arch-height ,ly:dimension ? "Height of the hook of a system brace.")
      (arch-thick ,number? "Thickness of the hook of system brace.")
      (arch-width ,ly:dimension? "Width of the hook of a system brace.")
      (arpeggio-direction ,ly:dir? "If set, put an
