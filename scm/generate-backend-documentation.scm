@@ -89,7 +89,7 @@
 	 (outname  (string-append name ".html"))
 	 (out (open-output-file outname))
 	 )
-    (display (string-append "Writing " outname " ... \n") (current-error-port))
+    (writing-wip outname)
     (display
      (string-append "<title>LilyPond Element " name " </title>"
 		    "<h1>" name "</h1>"
@@ -102,24 +102,24 @@
 (define (document-elements elts)
   (let* ((files (map (lambda (x) (document-element (car x) (cdr x)))
 		    elts))
+	 (names (map car elts))
 	(outname  (string-append "backend.html"))
 	(out (open-output-file outname))
-	(l (map (lambda (x) (string-append
-			     "<li><a href=" x ">" x "</a>\n"))
-		files))
+	(l (map (lambda (x) (string-append "<li>"
+					   (urlfy x))) names))
 	)
-
-	(display
-	 (string-append
-	  "<title>LilyPond backend documentation</title>"
-	  "<h1>LilyPond backend documentation</h1>"
-	  "<ul>"
-	  (apply string-append l)
-	  "</ul>"
-	)
-	 out
-	 )
-   ))
+    (writing-wip outname)
+    (display
+     (string-append
+      "<title>LilyPond backend documentation</title>"
+      "<h1>LilyPond backend documentation</h1>"
+      "<ul>"
+      (apply string-append l)
+      "</ul>"
+      )
+     out
+     )
+    ))
 
 ; (display (document-interface stem-interface '()))
 ; (define b (cdr (assoc 'Dyna all-element-descriptions)))

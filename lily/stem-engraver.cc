@@ -27,13 +27,11 @@ public:
   Stem_engraver();
   
 protected:
-  virtual void do_creation_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing ();
   virtual bool do_try_music (Music*);
   
 private:
-  int default_tremolo_type_i_;
   Score_element  *stem_p_;
   Score_element *tremolo_p_;
   Rhythmic_req *rhythmic_req_l_;
@@ -47,22 +45,9 @@ Stem_engraver::Stem_engraver ()
   tremolo_req_l_ = 0;
   stem_p_ = 0;
   tremolo_p_ = 0;
-  default_tremolo_type_i_ = 16;
   rhythmic_req_l_ =0;
 }
 
-void
-Stem_engraver::do_creation_processing ()
-{
-  /*
-    huh, why only at creation time?
-  */
-  SCM prop = get_property ("tremoloFlags");
-  if (gh_number_p(prop)) 
-    {
-      default_tremolo_type_i_  = gh_scm2int (prop);
-    }
-}
 
 void
 Stem_engraver::acknowledge_element(Score_element_info i)
@@ -96,10 +81,11 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
 	      int requested_type = tremolo_req_l_->type_i_;
-	      if (!requested_type)
-		requested_type = default_tremolo_type_i_;
+	      SCM f = get_property ("tremoloFlags");
+	      if (!requested_type && gh_number_p (f))
+		requested_type = gh_scm2int (f);
 	      else
-		default_tremolo_type_i_ = requested_type;
+		daddy_trans_l_->set_property ("tremoloFlags", gh_int2scm (requested_type));
 
 	      if (requested_type)
 		{
