@@ -70,6 +70,7 @@
 	* lilypond-indent.el: Add a message about trying to match \] or \).
 	
 2003-05-22  Juergen Reuter  <reuter@ipd.uka.de>
+	
 	* input/test/gregorian-scripts.ly, input/test/vaticana.ly: removed
 	obsolete "arithmetic_*"
 

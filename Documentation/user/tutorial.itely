@@ -20,9 +20,9 @@
 * Printing lyrics::             
 * A lead sheet::                
 * Listening to output::         
-* More movements ::             Joining separate pieces of music
+* Titling ::                    
 * Single staff polyphony  ::    
-* Piano music::                 
+* Piano staffs::                
 * Organising larger pieces::    
 * Fine tuning a piece::         
 * An orchestral score::         Conductor's score and individual parts
@@ -911,8 +911,20 @@ reference manual section @ref{Chords}.
 
 @cindex lead sheet 
 When put together,  chord names, lyrics and a melody form
-a lead sheet, for example:
-@lilypond[singleline,verbatim]
+a lead sheet, for example,
+
+@example
+\score @{
+  <
+    \context ChordNames \chords @{ @emph{chords} @}
+    \addlyrics
+      \notes @emph{the melody}
+      \context Lyrics \lyrics @{ @emph{the text} @}
+  >
+  \paper @{ @}
+@}
+@end example
+@lilypond[singleline]
 \score  {
   < 
    \context ChordNames \chords { r8 c2:sus4 f } 
@@ -950,117 +962,67 @@ example
 @end example 
 
 Here, the tempo is specified using the @code{\tempo} command.  In this
-case the tempo of quarter notes is set to 72 beats per minute.
+case the tempo of quarter notes is set to 72 beats per minute. More
+information on auditory output is in the @ref{Sound} section in the
+notation manual.
 
 
-@node More movements 
-@section More movements
+@node Titling 
+@section Titling
 
-The program @code{lilypond} only produces sheet music.  Titles,
-subtitles, and the composer's name are created by a separate program,
-called use @code{ly2dvi}.  @code{ly2dvi} creates the titles, then
-calls @code{lilypond} to format the sheet music.  In this section, we
-show you how to create titles like this:
-
-@center @strong{Two miniatures}
-@flushright
-F. Bar Baz
-
-Opus 1.
-@end flushright
-@flushleft
-@var{Up}
-@end flushleft
-@lilypond
-  \score {
-    \notes { c'4 d'4 }
-    \paper { raggedright = ##t }
-  }
-@end lilypond
-@flushright
-Opus 2.
-@end flushright
-@flushleft
-@var{Down}
-@end flushleft
-@lilypond
-  \score {
-    \notes { d'4 c'4 }
-    \paper { linewidth = -1.0 }
-  }
-@end lilypond
-
-For example, consider the following file (@file{miniatures.ly}) 
-
-@example
-\header @{
-  title = "Two miniatures"
-  composer = "F. Bar Baz" 
-  tagline = "small is beautiful" @}
-
-\score @{
-    \notes @{ c'4 d'4 @}
-    \header @{
-        opus = "Opus 1."
-        piece = "Up" @}
-@}
-\score @{
-    \notes @{ d'4 c'4 @}
-    \header @{
-        opus = "Opus 2."
-        piece = "Down" @}
-@}
-@end example
-
-
-The information for the global titling is in a so-called header block.
-The information in this block is not used by LilyPond, but it is
-passed into @code{ly2dvi}, which uses this information to print titles
-above the music.
-@cindex assignments
-@cindex identifier assignment
-the @code{\header} block contains assignments.  In each assignment, a
-variable is set to a value. The header block for this file looks like
-this
-@cindex @code{\header}
+Bibliographic information is entered in a separate block, the
+@code{\header} block. The name of the piece, its composer, etc. are
+entered as assignment within @code{\header @{ @dots{} @}}. For
+example,
 @example 
   \header @{
-    title = "Two miniatures" 
-    composer = "F. Bar Baz"
+    title = "Eight miniatures" 
+    composer = "Igor Stravinsky"
     tagline = "small is beautiful"
   @}
+  
+  \score { @dots{} 
 @end example
 
-When you process a file with ly2dvi, a signature line is printed at
-the bottom of the last page.  Many people find the default (``Lily was
-here'' with a version number) too droll.  If that is the case, you can
-change @code{tagline} in the @code{\header}, as shown above.
+@cindex bibliographic information
+@cindex titles
+@cindex composer
+@cindex ly2dvi
+
+
+When the file is processed by @code{ly2dvi}, the title and composer
+specified are printed above the music. The `tagline' is a short line
+printed at bottom of the last page, which normally says ``Lily was
+here, version @dots{}''. In the example above, it is replaced by the
+line ``small is beautiful.'' 
+
+Normally, the @code{\header} is put at the top of the file. However,
+for a document that contains multiple pieces (e.g. a etude book, or
+part with multiple movements), then the header can be put into the
+@code{\score} block as follows In this case, the name of each piece
+will be printed before each movement.
+
 
 @cindex Lily was here
 @cindex signature line
 @cindex tag line
 
-
-@separate
-@example
-    \header @{
+@example 
+  \header @{
+    title = "Eight miniatures" 
+    composer = "Igor Stravinsky"
+    tagline = "small is beautiful"
+  @}
+  
+  \score { @dots{}
+    \header @{ piece = "Adagio" @}
+  }
+  \score { @dots{}
+    \header @{ piece = "Menuetto" @}
+  }
 @end example
 
-The @code{\header} is normally at the top of the file, where it sets
-values for the rest of the file.  If you want to typeset different
-pieces from one file (for example, if there are multiple movements, or
-if you are making an exercise book), you can put different
-@code{\score} blocks into the input file.  @code{ly2dvi} will assemble
-all LilyPond output files into a one document.  The contents of
-@code{\header} blocks specified within each score is used for the
-title of that movement.
-@separate
-@example
-        opus = "Opus 1."
-        piece = "Up" @}
-@end example
-For example, the Opus number is put at the right, and the "piece" string
-will be at the left.
+More information on titling can be found in @ref{Invoking ly2dvi}.
 
 
 @node Single staff polyphony  
