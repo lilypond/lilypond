@@ -42,12 +42,20 @@ private:
   SCM split_list_;
 
   enum Status  {
-    APART, TOGETHER,
-    SOLO1, SOLO2,
-    UNISONO, UNISILENCE,
+    APART,
+    TOGETHER,
+    SOLO1,
+    SOLO2,
+    UNISONO,
+    UNISILENCE,
   };
   Status state_;
   Status playing_state_;
+
+  /*
+    Should be SOLO1 or SOLO2
+   */
+  Status last_playing_;
 
   /*
     TODO: this is getting of hand... 
@@ -70,6 +78,24 @@ private:
 };
 
 
+static Music *busy_playing_event;
+
+void
+Part_combine_iterator::do_quit ()
+{
+  if (first_iter_)
+    first_iter_->quit ();
+  if (second_iter_)
+    second_iter_->quit ();
+
+  null_.set_translator (0);
+  one_ .set_translator (0);
+  two_.set_translator (0);
+  shared_.set_translator (0);
+  solo_.set_translator (0);
+
+}
+
 Part_combine_iterator::Part_combine_iterator ()
 {
   first_iter_ = 0;
@@ -77,6 +103,12 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   playing_state_ = APART;
+  
+  if (!busy_playing_event)
+    {
+      busy_playing_event
+	= make_music_by_name (ly_symbol2scm ("BusyPlayingEvent"));
+    }
 }
 
 void
@@ -94,23 +126,7 @@ Part_combine_iterator::derived_substitute (Context *f,
 {
   if (first_iter_)
     first_iter_->substitute_outlet (f,t);
-  if (second_iter_)
-    second_iter_->substitute_outlet (f,t);
-}
 
-void
-Part_combine_iterator::do_quit ()
-{
-  if (first_iter_)
-    first_iter_->quit ();
-  if (second_iter_)
-    second_iter_->quit ();
-
-  null_.set_translator (0);
-  one_ .set_translator (0);
-  two_.set_translator (0);
-  shared_.set_translator (0);
-  solo_.set_translator (0);
 }
 
 Moment
@@ -229,13 +245,10 @@ Part_combine_iterator::unisono (bool silent)
 	in the 1st voice, so in that case, we use the second voice 
 	as a basis for events.
        */
-      Context *c1 = (state_ == SOLO2) ? null_.get_outlet() : shared_.get_outlet();
-      Context *c2 = (state_ == SOLO2) ? shared_.get_outlet() : null_.get_outlet();
-      
+      Context *c1 = (last_playing_ == SOLO2) ? null_.get_outlet() : shared_.get_outlet();
+      Context *c2 = (last_playing_ == SOLO2) ? shared_.get_outlet() : null_.get_outlet();
       substitute_both (c1, c2);
-
-      
-      kill_mmrest ((state_ == SOLO2)
+      kill_mmrest ((last_playing_ == SOLO2)
 		   ? one_.get_outlet () : two_.get_outlet ());
       kill_mmrest (shared_.get_outlet ());
 
@@ -412,10 +425,18 @@ Part_combine_iterator::process (Moment m)
     }
   
   if (first_iter_->ok ())
-    first_iter_->process (m);
+    {
+      first_iter_->process (m);
+      if (first_iter_->try_music_in_children (busy_playing_event))
+	last_playing_ = SOLO1;
+    }
   
   if (second_iter_->ok ())
-    second_iter_->process (m);
+    {
+      second_iter_->process (m);
+      if (first_iter_->try_music_in_children (busy_playing_event))
+	last_playing_ = SOLO2;
+    }
 }
 
 Music_iterator*

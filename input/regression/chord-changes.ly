@@ -13,15 +13,15 @@ scheme = \chordmode {
 }
 
 settings = {
-  \set chordChanges = ##t
 }
 
 \score {
-   <<
-    \context ChordNames << \scheme \settings >>
-    \context Staff \transpose c c' \scheme
-  >>
-  \paper{
-    linewidth = 40 * \staffspace
-  }
+    <<
+	\context ChordNames <<
+	    \scheme
+	    \set chordChanges = ##t
+	>>
+	\context Staff \transpose c c' \scheme
+    >>
+    \paper{ raggedright = ##t }
 }
