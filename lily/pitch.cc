@@ -308,13 +308,22 @@ LY_DEFINE(make_pitch, "ly:make-pitch", 3, 0, 0,
   return p.smobbed_copy ();
 }
 
+LY_DEFINE(pitch_steps, "ly:pitch-steps", 1, 0,0,
+	  (SCM p),
+	  "Number of steps counted from central C of the pitch @var{p}.")
+{
+  Pitch *pp = unsmob_pitch (p);
+  SCM_ASSERT_TYPE(pp, p, SCM_ARG1, __FUNCTION__, "Pitch");
+
+  return gh_int2scm (pp->steps());
+}
 
 LY_DEFINE(pitch_octave, "ly:pitch-octave", 1, 0, 0, 
 	  (SCM pp),
 	  "extract the octave from pitch @var{p}.")
 {
   Pitch *p = unsmob_pitch (pp);
-   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+  SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_octave ();
 
   return gh_int2scm (q);
@@ -351,13 +360,6 @@ LY_DEFINE(pitch_semitones,  "ly:pitch-semitones", 1, 0, 0,
  
   int q = p->semitone_pitch ();
   
-  // Was :
-  //
-  //int q = p->steps ();
-  //
-  // As the function is called "pitch_semitones", I assume it was a mistake !
-  // Jiba
-
   return gh_int2scm (q);
 }
 

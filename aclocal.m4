@@ -1,6 +1,6 @@
 dnl aclocal.m4   -*-shell-script-*-
 dnl WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from /users/hanwen/usr/src/savannah/lilypond/lilypond-1.7/stepmake/aclocal.m4
+dnl do not edit! this is aclocal.m4, generated from /home/hanwen/usr/src/lilypond/stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -681,7 +681,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	if test "$kpathsea_b" = "no"; then
 	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
    Else, please specify the location of your kpathsea using
-   --with-kpathea-include and --with-kpathsea-lib options.  You should
+   --with-kpathsea-include and --with-kpathsea-lib options.  You should
    install kpathsea; see INSTALL.txt.  Rerun ./configure
    --without-kpathsea only if kpathsea is not available for your
    platform.'

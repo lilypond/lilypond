@@ -1,3 +1,12 @@
+2003-02-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/double-plus-new-chord-name.scm (ignatzek-chord-names): classify
+	pitches for jazz chords.
+
+2003-02-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/pitch.cc (LY_DEFINE): add ly:pitch-steps
+
 2003-02-05  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond.words: add 1
