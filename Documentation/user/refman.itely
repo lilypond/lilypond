@@ -1658,8 +1658,8 @@ using @code{^} and @code{_}.
 @lilypond[]
   \score {
     <
-      \property Score.LyricSyllable \override #'font-family =#'typewriter
-      \property Score.LyricSyllable \override #'font-shape = #'upright
+      \property Score.LyricText \override #'font-family =#'typewriter
+      \property Score.LyricText \override #'font-shape = #'upright
       \context Staff \notes {
         c''-\accent      c''-\marcato      c''-\staccatissimo c''^\fermata 
         c''-\stopped     c''-\staccato     c''-\tenuto        c''-\upbow
