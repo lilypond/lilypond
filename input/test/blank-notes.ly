@@ -23,7 +23,7 @@ unblanknotes = { \property Voice.NoteHead
 
 
 \score {
-    \notes { c4 d4 
+    \notes \relative c'' { c4 d4 
     \blanknotes e4 f4   \unblanknotes
 	     g4 a 
 	     }

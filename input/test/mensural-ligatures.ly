@@ -1,12 +1,12 @@
 \version "1.7.19"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
-% check font size -- 26 looks too big, but need to ask.  -gp
+
 \header { texidoc = "@cindex Ancient Mensural Ligatures
 Lilypond can print mensural ligatures."
 }
 
-\include "paper26.ly"
+
 
 % Note that the horizontal alignment of the fermatas obeys to the
 % graphical width of the ligatures rather to the musical moment in time.

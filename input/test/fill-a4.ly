@@ -15,7 +15,9 @@
 \header{ texidoc="@cindex Paper a4 Fill
 This should fill a4 paper. "
 }
+
 \include "paper13.ly"
+
 \score{
 	\context Voice \notes\relative c'{
 		\clef alto
