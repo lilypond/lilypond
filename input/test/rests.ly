@@ -1,7 +1,10 @@
 \version "1.7.18"
 \header {
     texidoc = "@cindex Rests
-Rests in various styles."
+
+Rests in various styles.
+
+"
 }
 
 % FIXME: Currently, this file produces "warning: flag `d-3' not found"
@@ -10,6 +13,7 @@ Rests in various styles."
 
 \score { 
     \context Staff \notes\relative c {
+	\property Score.timing = ##f
 	\property Staff.Rest \set #'style = #'mensural
 	r\maxima^"Rest style = \#'mensural"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
@@ -18,29 +22,17 @@ Rests in various styles."
 	\property Staff.Rest \set #'style = #'neo_mensural
 	r\maxima^"Rest style = \#'neo\\_mensural"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
-	\break
+	\bar empty 	\break
 
 	\property Staff.Rest \set #'style = #'classical
 	r\maxima^"Rest style = \#'classical"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
-	\break
+\break
 
 	\property Staff.Rest \set #'style = #'default
 	r\maxima^"Rest style = \#'default"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
 	\break
-    }
-    \paper {
-	\translator {
-	    \StaffContext
-	    %%%% FIXME: The following looks good, but produces
-	    %%%% lots of warnings:
-	    % \remove Bar_engraver
-	}
-	\translator {
-	    \ScoreContext
-	    \remove Bar_number_engraver
-	}
     }
 }
 

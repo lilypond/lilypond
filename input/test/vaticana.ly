@@ -43,10 +43,7 @@ verba = \context Lyrics = verba \lyrics {
     indent = 0.0
 	raggedright = ##t
 %
-% FIXME: ragged-right alignment is currently broken
-	% I don't think it is any more.  -gp
-%   width = 12.0 \cm
-%   gourlay_maxmeasures = 30.
+% FIXME: packed alignment is currently broken
 %
 
     \translator {
@@ -67,7 +64,6 @@ verba = \context Lyrics = verba \lyrics {
       \remove Bar_engraver
       \consists Custos_engraver
       StaffSymbol \set #'line-count = #4
-%     StaffSymbol \set #'width = #60.0 % FIXME: how to get same as \linewidth?
       TimeSignature \set #'transparent = ##t
       KeySignature \set #'style = #'vaticana
       Accidental \set #'style = #'vaticana
