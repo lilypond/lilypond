@@ -674,7 +674,7 @@ class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format, line_number):
 		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
-		self.do_options(os,self.type)
+		self.do_options (os,self.type)
 
 	def ly (self):
 		return self.substring ('code')
@@ -688,7 +688,7 @@ class Lilypond_snippet (Snippet):
 	def do_options (self, option_string, type):
 		self.option_dict = {}
 
-		options = split_options(option_string)
+		options = split_options (option_string)
 
 		for i in options:
 			if string.find (i, '=') > 0:
@@ -789,7 +789,7 @@ class Lilypond_snippet (Snippet):
 		for a in compose_types:
 			compose_dict[a] = []
 
-		for (key, value) in self.option_dict.items():
+		for (key, value) in self.option_dict.items ():
 			(c_key, c_value) = \
 			  classic_lilypond_book_compatibility (key, value)
 			if c_key:
@@ -840,19 +840,19 @@ class Lilypond_snippet (Snippet):
 
 		program_name = __main__.program_name
 
-		paper_string = \
-		  string.join (compose_dict[PAPER], '\n  ') % override
-		layout_string = \
-		  string.join (compose_dict[LAYOUT], '\n  ') % override
-		notes_string = \
-		  string.join (compose_dict[NOTES], '\n  ') % vars ()
-		preamble_string = \
-		  string.join (compose_dict[PREAMBLE], '\n  ') % override
+		paper_string = string.join (compose_dict[PAPER],
+					    '\n  ') % override
+		layout_string = string.join (compose_dict[LAYOUT],
+					     '\n  ') % override
+		notes_string = string.join (compose_dict[NOTES],
+					    '\n  ') % vars ()
+		preamble_string = string.join (compose_dict[PREAMBLE],
+					       '\n  ') % override
 
 		font_dump_setting = ''
 		if FONTLOAD in self.option_dict:
 			font_dump_setting = '#(define-public force-eps-font-include #t)\n'
-					  
+
 		return (PREAMBLE_LY + body) % vars ()
 
 	# TODO: Use md5?
@@ -1045,7 +1045,7 @@ def find_linestarts (s):
 		if i < 0:
 			break
 
-		i = i + 1 
+		i = i + 1
 		nls.append (i)
 		start = i
 
@@ -1089,7 +1089,7 @@ def find_toplevel_snippets (s, types):
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
 
-				
+
 				start = index + m.start ('match')
 				line_number = line_start_idx
 				while (line_starts[line_number] < start):
@@ -1122,7 +1122,7 @@ def find_toplevel_snippets (s, types):
 
 		while (start > line_starts[line_start_idx+1]):
 			line_start_idx += 1
-		
+
 		(start, snip) = found[first]
 		snippets.append (Substring (s, index, start, line_start_idx + 1))
 		snippets.append (snip)
@@ -1262,17 +1262,19 @@ def write_file_map (lys, name):
 	snippet_map = open ('snippet-map.ly', 'w')
 	snippet_map.write ("\n#(ly:add-file-name-alist '(")
 	for ly in lys:
-		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n' % (ly.basename(),
-					   name,
-					   ly.line_number,
-					   ly.basename()))
+		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n' \
+				   % (ly.basename (),
+				      name,
+				      ly.line_number,
+				      ly.basename ()))
 
 	snippet_map.write ('))\n')
 
 def do_process_cmd (chunks, input_name):
-	all_lys = filter(lambda x: is_derived_class (x.__class__, Lilypond_snippet),
-			 chunks)
-	
+	all_lys = filter (lambda x: is_derived_class (x.__class__,
+						      Lilypond_snippet),
+			  chunks)
+
 	write_file_map (all_lys, input_name)
 	ly_outdated = \
 	  filter (lambda x: is_derived_class (x.__class__,
@@ -1497,8 +1499,8 @@ def main ():
 		format = guess_format (files[0])
 
 	formats = 'ps'
-	if format == TEXINFO or format == HTML: 
-		formats += ',png' 
+	if format == TEXINFO or format == HTML:
+		formats += ',png'
 	if process_cmd == '':
 		process_cmd = lilypond_binary + ' --formats=%s --backend eps ' % formats
 
