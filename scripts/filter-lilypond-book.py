@@ -69,7 +69,7 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond-bin'
 
 
-format = 'latex'
+format = 0
 filter_cmd = 'convert-ly --no-version --from=2.0.0 -'
 #filter_cmd = 0
 #process_cmd = 'convert-ly --no-version --from=2.0.0'
@@ -134,7 +134,7 @@ re_dict = {
 
 	# why do we have distinction between @mbinclude and @include?
 
-	'texi': {
+	'texinfo': {
 		'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude\s+(?P<filename>\S*))',
 		'input': no_match,
 		'header': no_match,
@@ -165,6 +165,44 @@ def compose_ly (code, options):
 		body = code
 	### todo: add options
 	return body
+
+
+LATEX = 'latex'
+HTML = 'html'
+TEXINFO = 'texinfo'
+BEFORE = 'before'
+AFTER = 'after'
+
+output = {
+	HTML : {
+	BEFORE: '',
+	AFTER: '',
+	},
+	
+	LATEX :	{
+	BEFORE: '',
+	AFTER: '',
+	},
+	
+	TEXINFO :	{
+	BEFORE: '',
+	AFTER: '',
+	},
+	
+	}
+
+
+# BARF
+# use lilypond-bin for latex (.lytex) books,
+# and lilypond --preview for html, texinfo books?
+def to_eps (file):
+	cmd = r'latex "\nonstopmode \input %s"' % file
+	# Ugh.  (La)TeX writes progress and error messages on stdout
+	# Redirect to stderr
+	cmd = '(( %s  >&2 ) >&- )' % cmd
+	ly.system (cmd)
+	ly.system ('dvips -Ppdf -u+lilypond.map -E -o %s.eps %s' \
+		   % (file, file))
 
 ## make source, index statics of Snippet?
 index = 0
@@ -197,18 +235,44 @@ class Snippet:
 							       'code')))
 		return self.hash
 
-	def filename (self, source):
-		return 'lily-%d.ly' % self.get_hash (source)
+	def basename (self, source):
+		return 'lily-%d' % self.get_hash (source)
 
 	def write_ly (self, source):
-		h = open (self.filename (source), 'w')
+		h = open (self.basename (source) + '.ly', 'w')
 		h.write (self.ly (source))
 		h.close ()
 
+	def output_html (self, source):
+		base = self.basename (source)
+		h.write (output[HTML][BEFORE])
+		h.write ('<src image="%(base)s.png">' % vars ())
+		h.write (output[HTML][AFTER])
+			
+	def output_latex (self, source):
+		h.write (output[HTML][BEFORE])
+		name = self.basename (source) + '.tex'
+		h.write (open (name).read ())
+		h.write (output[HTML][AFTER])
+			
+	def output_texinfo (self, source):
+		h.write ('\n@tex\n')
+		self.output_latex (source)
+		h.write ('\n@end tex\n')
+		
+		h.write ('\n@html\n')
+		self.output_html (source)
+		h.write ('\n@end html\n')
+			
 	def outdated_p (self, source):
-		if 1:
-			return self
-		return None
+		base = self.basename (source)
+		if os.path.exists (base + '.ly') \
+		   and os.path.exists (base + '.tex') \
+		   and self.ly (source) == open (base + '.ly').read ():
+			# TODO: something smart with target formats
+			# (ps, png) and m/atimes
+			return None
+		return self
 
 def find_snippets (s, type):
 	re = ly.re.compile (re_dict[format][type])
@@ -292,12 +356,39 @@ def do_snippets (source, snippets, func):
 	return index
 
 def process_snippets (source, snippets, cmd):
-	outdated = map_snippets (source, snippets, Snippet.outdated_p)
-	names = map_snippets (source, outdated, Snippet.filename)
+	names = map_snippets (source, snippets, Snippet.basename)
 	if names:
 		ly.system (string.join ([cmd] + names))
 
+	if format == HTML or format == TEXINFO:
+		for i in names:
+			to_eps (i)
+			ly.make_ps_images (i + '.eps', resolution=110)
+		
+
 def do_file (input_filename):
+	global format
+	
+	if not format:
+		ext2format = {
+			'.html' : HTML,
+			'.itely' : TEXINFO,
+			'.lytex' : LATEX,
+			'.tely' : TEXINFO,
+			'.tex': LATEX,
+			'.texi' : TEXINFO,
+			'.xml' : HTML,
+			}
+			       
+		e = os.path.splitext (input_filename)[1]
+		if e in ext2format.keys ():
+			format = ext2format[e]
+		else:
+			ly.error (_ ("cannot determine format for: %s" \
+				     % input_filename))
+
+	global h
+
 	h = sys.stdin
 	if input_filename != '-':
 		h = open (input_filename)
@@ -313,7 +404,6 @@ def do_file (input_filename):
 	snippets.sort (compare_index)
 
 	h = sys.stdout
-	ext = '.tex'
 
 	def filter_source (snippet, source):
 		global index
@@ -323,76 +413,87 @@ def do_file (input_filename):
 		if snippet.type == 'lilypond' or snippet.type == 'lilypond-block':
 			h.write (source[index:snippet.start ('code')])
 			h.write (run_filter (snippet.substring (source, 'code')))
-			#index = snippet.end ('code')
 			h.write (source[snippet.end ('code'):snippet.end (0)])
 		else:
 			h.write (source[index:snippet.end (0)])
 		index = snippet.end (0)
 
 	# TODO: output dict?
+
+	snippet_output = eval ("Snippet.output_" + format)
 	def compile_output (snippet, source):
 		global index
 		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
-		#if snippet.match.group ('code'):
+		# if snippet.match.group ('code'):
 		# urg
-		if snippet.type == 'lilypond' or snippet.type == 'lilypond-block':
+		if snippet.type == 'lilypond' \
+		       or snippet.type == 'lilypond-block':
 			h.write (source[index:snippet.start (0)])
-			fn = os.path.basename (os.path.splitext (snippet.filename (source))[0]) + ext
-			h.write (open (fn).read ())
+			snippet_output (snippet, source)
  		index = snippet.end (0)
+
 
 	global index
 	if filter_cmd:
 		index = do_snippets (source, snippets, filter_source)
 		h.write (source[index:])
 	elif process_cmd:
+		outdated = map_snippets (source, snippets, Snippet.outdated_p)
 		do_snippets (source, snippets, Snippet.write_ly)
-		process_snippets (source, snippets, process_cmd)
+		process_snippets (source, outdated, process_cmd)
 		do_snippets (source, snippets, compile_output)
 		h.write (source[index:])
 
-(sh, long) = ly.getopt_args (option_definitions)
-try:
-	(options, files) = getopt.getopt (sys.argv[1:], sh, long)
-except getopt.error, s:
-	sys.stderr.write ('\n')
-	ly.error (_ ("getopt says: `%s\'" % s))
-	sys.stderr.write ('\n')
-	ly.help ()
-	ly.exit (2)
+def do_options ():
+	global format
+	global filter_cmd, process_cmd, verbose_p
 	
-for opt in options:
-	o = opt[0]
-	a = opt[1]
-
-	if 0:
-		pass
-	elif o == '--version' or o == '-v':
-		ly.identify (sys.stdout)
-		sys.exit (0)
-	elif o == '--verbose' or o == '-V':
-		verbose_p = 1
-	elif o == '--filter' or o == '-F':
-		filter_cmd = a
-		process_cmd = 0
-	elif o == '--format' or o == '-f':
-		format = a
-		if a == 'texi-html':
-			format = 'texi'
-	elif o == '--help' or o == '-h':
+	(sh, long) = ly.getopt_args (option_definitions)
+	try:
+		(options, files) = getopt.getopt (sys.argv[1:], sh, long)
+	except getopt.error, s:
+		sys.stderr.write ('\n')
+		ly.error (_ ("getopt says: `%s\'" % s))
+		sys.stderr.write ('\n')
 		ly.help ()
-		sys.exit (0)
-	elif o == '--process' or o == '-P':
-		process_cmd = a
-		filter_cmd = 0
-	elif o == '--warranty' or o == '-w':
-		if 1 or status:
-			ly.warranty ()
-		sys.exit (0)
+		ly.exit (2)
 
-ly.identify (sys.stderr)
+	for opt in options:
+		o = opt[0]
+		a = opt[1]
 
-ly.setup_environment ()
+		if 0:
+			pass
+		elif o == '--version' or o == '-v':
+			ly.identify (sys.stdout)
+			sys.exit (0)
+		elif o == '--verbose' or o == '-V':
+			verbose_p = 1
+		elif o == '--filter' or o == '-F':
+			filter_cmd = a
+			process_cmd = 0
+		elif o == '--format' or o == '-f':
+			format = a
+			if a == 'texi-html':
+				format = 'texi'
+		elif o == '--help' or o == '-h':
+			ly.help ()
+			sys.exit (0)
+		elif o == '--process' or o == '-P':
+			process_cmd = a
+			filter_cmd = 0
+		elif o == '--warranty' or o == '-w':
+			if 1 or status:
+				ly.warranty ()
+			sys.exit (0)
+	return files
 
-for input_filename in files:
-	do_file (input_filename)
+def main ():
+	files = do_options ()
+	ly.identify (sys.stderr)
+	ly.setup_environment ()
+	if files:
+		do_file (files[0])
+
+if __name__ == '__main__':
+	main ()

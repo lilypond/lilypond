@@ -1,5 +1,7 @@
 2004-02-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/filter-lilypond-book.py: Further development.
+
 	* input/regression/collision-dots-move.ly: New test.
 
 	* lily/note-collision.cc (check_meshing_chords): Move dots on left
