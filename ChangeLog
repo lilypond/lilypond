@@ -1,3 +1,15 @@
+2004-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/paper.scm (layout-set-staff-size): use text-font-size in
+	dimension less points (ie. 12 = 12 point)
+
+	* lily/pango-select.cc (select_pango_font): use find_scaled_font().
+
+	* lily/all-font-metrics.cc (find_pango_font): set description_
+
+	* lily/pango-font.cc (text_stencil): export size as well.
+	(text_stencil): fix scaling and extents box.
+
 2004-12-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.texi (Top): add -f texstr

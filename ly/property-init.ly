@@ -135,7 +135,7 @@ arpeggioBracket = \sequential {
 
 glissando = #(make-music 'GlissandoEvent)
 
-fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 
+fermataMarkup = \markup { \musicglyph #"scripts.ufermata" } 
 
 hideNotes =\sequential {
   % hide notes, accidentals, etc.

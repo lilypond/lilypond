@@ -26,7 +26,7 @@ All_font_metrics::All_font_metrics (String path)
   otf_dict_ = new Scheme_hash_table;
 
 #if HAVE_PANGO_FT2
-  PangoFontMap*pfm =     pango_ft2_font_map_new ();
+  PangoFontMap*pfm = pango_ft2_font_map_new ();
 
   pango_ft2_fontmap_ =
     G_TYPE_CHECK_INSTANCE_CAST(pfm,
@@ -47,6 +47,11 @@ All_font_metrics::~All_font_metrics ()
   scm_gc_unprotect_object (afm_dict_->self_scm ());
   scm_gc_unprotect_object (tfm_dict_->self_scm ());
   scm_gc_unprotect_object (otf_dict_->self_scm ());
+
+#if HAVE_PANGO_FT2
+  scm_gc_unprotect_object (pango_dict_->self_scm ());
+  g_object_unref (pango_ft2_fontmap_);
+#endif
 }
 
 All_font_metrics::All_font_metrics (All_font_metrics const&)
@@ -66,7 +71,6 @@ All_font_metrics::find_pango_font (PangoFontDescription*description)
       if (verbose_global_b)
 	progress_indication ("[" + String (fn));
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
-				       pango_dpi_,
 				       RIGHT,
 				       description);
       val = pf->self_scm ();
@@ -75,6 +79,9 @@ All_font_metrics::find_pango_font (PangoFontDescription*description)
 
       if (verbose_global_b)
 	progress_indication ("]");
+
+      pf->description_ = scm_cons (SCM_BOOL_F,
+				   scm_make_real (1.0));
     }
   g_free (fn); 
   return dynamic_cast<Pango_font*> (unsmob_metrics (val));

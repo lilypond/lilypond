@@ -21,17 +21,12 @@
 
 class Pango_font : public Font_metric
 {
-  /** handle to face object */
-  FT_Face face_;
   PangoContext *context_;
   PangoAttrList *attribute_list_;
   Real scale_;
   SCM subfonts_;
-  Index_to_charcode_map index_to_charcode_map_;
-
 public:
   Pango_font (PangoFT2FontMap *,
-	      int dpi, 
 	      Direction leftright,
 	      PangoFontDescription *);
   ~Pango_font ();
@@ -42,8 +37,6 @@ public:
 
   virtual SCM sub_fonts () const;
   virtual void derived_mark () const;
-  virtual int name_to_index (String) const;
-  virtual unsigned index_to_charcode (int) const;
 };
 
 PangoFontDescription *
@@ -57,7 +50,8 @@ symbols_to_pango_font_description (SCM family,
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain);
 
-#endif /* HAVE_PANGO16 */
+const int PANGO_DPI = 1200;
 
+#endif /* HAVE_PANGO16 */
 #endif /* PANGO_FONT_HH */
 

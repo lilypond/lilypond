@@ -40,6 +40,10 @@ const Real PT_TO_MM = (1.0 / MM_TO_PT);
 
 String print_dimen (Real);
 const Real point_constant = 1 PT;
+const Real inch_constant = 1 INCH;
+const Real cm_constant = 1 CM;
+const Real mm_constant = 1 MM;
+const Real bigpoint_constant = 1 BIGPOINT;
 
 #endif /* DIMENSIONS_HH */
 
