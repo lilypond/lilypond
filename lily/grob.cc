@@ -240,8 +240,11 @@ Grob::get_molecule ()  const
 
   mol =  get_uncached_molecule ();
   
-  Grob *me = (Grob*)this;
-  me->set_grob_property ("molecule", mol);
+  if (live ())
+    {
+      Grob *me = (Grob*)this;
+      me->set_grob_property ("molecule", mol);
+    }
   
   return unsmob_molecule (mol);  
 }

@@ -1,5 +1,8 @@
 2002-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/windows/installing.texi (Top): version for python,
+	urls for ghostscript (thanks to John Potelle)
+	
 	* lily/simultaneous-music-iterator.cc
 	(Simultaneous_music_iterator): init children_list_ before
 	triggering GC.

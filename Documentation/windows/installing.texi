@@ -63,7 +63,9 @@ You can use GSView-2.6.  This old package has two advantages.  It has
 gsview and ghostscript bundeled, and it doesn't popup @emph{Register
 Now|Cancel} windows all the time.
 
-Install @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe, GSView-2.6} (GhostView for Windows), or visit
+Install
+@uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/aladdin/gs550/gsv27550.exe,GSView-2.7}
+(GhostView for Windows), or visit
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
 
 @c check/update versions
@@ -403,7 +405,7 @@ following commands:
 @item Version info
 @quotation
 @example
-  python --version
+  python -V
   lilypond --version
   ly2dvi --version
 @end example
