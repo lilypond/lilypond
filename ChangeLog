@@ -1,7 +1,7 @@
 2004-06-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/guile-gnome.sh: Add pango to recipe.  Resolve
-	conflict.
+	conflict.  Have I told you lately how much I love autotools?
 
 2004-06-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
