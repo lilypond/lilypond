@@ -28,7 +28,13 @@ See user manual, \NAME\
 
 
 @itemize @bullet
-
+@item
+Notes with ledger lines will be kept at a distance, so the lines do
+not disappear.
+@item
+Clefs that are below notes of other staves are now spaced according to
+engraving conventions.
+ 
 @item
 Markup texts can be appended to a @code{\score} block or toplevel
 music expression, for example,
