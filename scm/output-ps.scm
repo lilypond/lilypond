@@ -207,13 +207,9 @@
 	   (fontname (car value-name-size))
 	   (mangled (possibly-mangle-fontname fontname))
 	   (encoding (assoc-get fontname font-encoding-alist))
-	   (designsize (if #t ;;(tex-font? fontname)
-			   (/ 12 (fontname->designsize fontname))
-			   ;; This is about 12/20 :-)
-			   (cdr key-name-size)))
+	   (designsize (fontname->designsize fontname))
 	   (fontsize (cdr value-name-size))
-	   (scaling (* 12 (/ fontsize designsize)))
-	   (scaling (/ fontsize (/ designsize 12))))
+	   (scaling (* fontsize designsize)))
 
       (if
        #f
