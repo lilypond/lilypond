@@ -6,10 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
+#include "interval.hh"
 #include "lily-guile.hh"
 #include "ly-module.hh"
 #include "main.hh"
@@ -18,8 +18,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
-
 Output_def::Output_def ()
 {
   scope_ = SCM_EOL;
@@ -27,10 +25,6 @@ Output_def::Output_def ()
   smobify_self ();
 
   scope_ = ly_make_anonymous_module (false);
-}
-
-Output_def::~Output_def ()
-{
 }
 
 Output_def::Output_def (Output_def const &s)
@@ -45,30 +39,32 @@ Output_def::Output_def (Output_def const &s)
     ly_import_module (scope_, s.scope_);
 }
 
+Output_def::~Output_def ()
+{
+}
 
+#include "ly-smobs.icc"
 IMPLEMENT_SMOBS (Output_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Output_def);
-
 
 SCM
 Output_def::mark_smob (SCM m)
 {
-  Output_def * mo = (Output_def*) SCM_CELL_WORD_1 (m);
+  Output_def *mo = (Output_def*) SCM_CELL_WORD_1 (m);
 
-  /*
-    FIXME: why is this necessary?
-    all bookpaper_ should be protected by themselves.
-  */
+  /* FIXME: why is this necessary?
+     all bookpaper_ should be protected by themselves. */
   if (mo->parent_)
     scm_gc_mark (mo->parent_->self_scm ());
-  
 
   mo->derived_mark ();
   return mo->scope_;
 }
 
 void
-Output_def::derived_mark () {}
+Output_def::derived_mark ()
+{
+}
 
 void
 assign_context_def (Output_def * m, SCM transdef)
@@ -83,9 +79,7 @@ assign_context_def (Output_def * m, SCM transdef)
     }  
 }
 
-/*
-  find the translator for NAME. NAME must be a symbol.
-*/
+/* find the translator for NAME. NAME must be a symbol. */
 SCM
 find_context_def (Output_def const *m, SCM name)
 {  
@@ -111,7 +105,6 @@ Output_def::get_dimension (SCM s) const
   SCM val = lookup_variable (s);
   return ly_scm2double (val);
 }
-
 
 SCM
 Output_def::lookup_variable (SCM sym) const
@@ -151,14 +144,13 @@ LY_DEFINE (ly_paper_lookup, "ly:output-def-lookup",
 }
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
-	   1, 0,0, (SCM def),
+	   1, 0, 0, (SCM def),
 	   "Get the variable scope inside @var{def}.")
 {
   Output_def *op = unsmob_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->scope_;
 }
-
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 	   1, 0, 0, (SCM def),
@@ -168,7 +160,6 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
 }
-
 
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   1, 0, 0, (SCM def),
@@ -181,41 +172,32 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
   return s;
 }
 
-LY_DEFINE(ly_output_description, "ly:output-description",
-	  1,0,0,
-	  (SCM output_def),
-	  "Return the description of translators in @var{output-def}.")
+LY_DEFINE (ly_output_description, "ly:output-description",
+	   1, 0, 0, (SCM output_def),
+	   "Return the description of translators in @var{output-def}.")
 {
   Output_def *id = unsmob_output_def (output_def);
   
-  SCM al =ly_module_to_alist (id->scope_);
+  SCM al = ly_module2alist (id->scope_);
 
-  SCM l = SCM_EOL;
-  for (SCM s = al ; ly_c_pair_p (s); s = ly_cdr (s))
+  SCM ell = SCM_EOL;
+  for (SCM s = al; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Context_def * td = unsmob_context_def (ly_cdar (s));
       SCM key = ly_caar (s);
       if (td && key == td->get_context_name ())
-	{
-	  
-	  l = scm_cons (scm_cons (key, td->to_alist ()),  l);
-	}
+	ell = scm_cons (scm_cons (key, td->to_alist ()),  ell);
     }
-  return l;  
+  return ell;  
 }
   
-
-
-#include "interval.hh"
-
 /* FIXME.  This is broken until we have a generic way of
    putting lists inside the \paper block.  */
 Interval
 line_dimensions_int (Output_def *def, int n)
 {
-  Real lw =  def->get_dimension (ly_symbol2scm ("linewidth"));
+  Real lw = def->get_dimension (ly_symbol2scm ("linewidth"));
   Real ind = n ? 0.0 : def->get_dimension (ly_symbol2scm ("indent"));
-
   return Interval (ind, lw);
 }
 
@@ -226,19 +208,14 @@ LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
   return ly_bool2scm (unsmob_output_def (def));
 }
 
-
-
 LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
-	  1, 0, 0,
-	  (SCM bp),
+	  1, 0, 0, (SCM bp),
 	  "Get outputscale for BP.")
 {
   Output_def *b = unsmob_output_def (bp);
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
   return scm_make_real (output_scale (b));
 }
-
-
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 	   0, 0, 0, (),
@@ -247,4 +224,5 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
   Output_def *bp = new Output_def ;
   return scm_gc_unprotect_object (bp->self_scm ());
 }
+
 

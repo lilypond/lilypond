@@ -8,20 +8,17 @@
 
 #include <stdio.h>
 
-
-#include "ly-smobs.icc"
-#include "stencil.hh"
 #include "book.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "music-iterator.hh"
-#include "output-def.hh"
 #include "music-output.hh"
 #include "music.hh"
-#include "paper-book.hh"
 #include "output-def.hh"
+#include "paper-book.hh"
 #include "score.hh"
+#include "stencil.hh"
 #include "warn.hh"
 
 Book::Book ()
@@ -37,6 +34,7 @@ Book::~Book ()
 {
 }
 
+#include "ly-smobs.icc"
 IMPLEMENT_SMOBS (Book);
 IMPLEMENT_DEFAULT_EQUAL_P (Book);
 
@@ -60,10 +58,8 @@ Book::print_smob (SCM, SCM p, scm_print_state*)
   return 1;
 }
 
-/*
-  This function does not dump the output; outname is required eg. for
-  dumping header fields.
- */
+/* This function does not dump the output; outname is required eg. for
+   dumping header fields.  */
 Paper_book *
 Book::process (String outname, Output_def *default_def)
 {
@@ -83,12 +79,18 @@ Book::process (String outname, Output_def *default_def)
       SCM systems = scores_[i]->book_rendering (outname,
 						paper_book->bookpaper_,
 						default_def);
-      if (systems != SCM_UNDEFINED)
+      
+      /* If the score is empty, generate no output.  Should we
+	 do titling?  */
+      if (systems != SCM_EOL
+	  /* FIXME: can systems be SCM_UNDEFINED at all?
+	     it seesm to be initialise with SCM_EOL and only gets assigned
+	     non-SCM_UNDEFINED values -- jcn  */
+	  && systems != SCM_UNDEFINED)
 	{
 	  Score_lines sc;
 	  sc.lines_ = systems;
 	  sc.header_ = header_;
-
 	  paper_book->score_lines_.push (sc);
 	}
     }

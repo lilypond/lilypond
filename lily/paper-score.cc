@@ -6,25 +6,22 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "score.hh"
-#include "main.hh"
-#include "warn.hh"
+#include "all-font-metrics.hh"
 #include "font-metric.hh"
-#include "spanner.hh"
+#include "gourlay-breaking.hh"
+#include "ly-module.hh"
+#include "main.hh"
+#include "misc.hh"
 #include "output-def.hh"
-#include "system.hh"
+#include "paper-book.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "paper-column.hh"
 #include "scm-hash.hh"
-#include "gourlay-breaking.hh"
-//#include "paper-outputter.hh"
-#include "misc.hh"
-#include "all-font-metrics.hh"
-
+#include "score.hh"
+#include "spanner.hh"
 #include "stencil.hh"
-#include "paper-book.hh"
-#include "ly-module.hh"
+#include "system.hh"
+#include "warn.hh"
 
 Paper_score::Paper_score ()
 {
@@ -53,7 +50,7 @@ Paper_score::typeset_line (System *system)
 Array<Column_x_positions>
 Paper_score::calc_breaking ()
 {
-  Break_algorithm *algorithm=0;
+  Break_algorithm *algorithm = 0;
   Array<Column_x_positions> sol;
 
   algorithm = new Gourlay_breaking ;
@@ -87,8 +84,11 @@ Paper_score::process (String)
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   SCM lines = system_->get_lines ();
+#if 0
+  /* gourlay:do_solve also prints newline.  */
   progress_indication ("\n");
-
+#endif
+  
   /* Only keep result stencils in lines_, *title_; delete all grobs.  */
   systems_ = SCM_EOL;
   

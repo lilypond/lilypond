@@ -1,8 +1,20 @@
+2004-06-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/paper-score.cc (process): Do not show progress newline.
+
+	* lily/paper-book.cc (output, classic_output): Show progess
+	newline after score.
+
 2004-06-14  Heikki Junes <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond-words.py: add ly/vlaams.ly
 
 2004-06-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/score.cc (ly:run-translator): Do not crash on empty music
+	list.
+
+	* lily/book.cc (process): Do not render score when systems is empty.
 
 	* input/simple-song.ly: Down one octave.
 

@@ -1,55 +1,22 @@
 /*   
   translator-def.cc --  implement Context_def
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
-/*
-  TODO: should junk this class an replace by
-  a single list of context modifications?
- */
+/* TODO: should junk this class an replace by
+   a single list of context modifications?  */
 
-#include "lily-proto.hh"
 #include "context-def.hh"
+#include "engraver.hh"
+#include "lily-proto.hh"
+#include "output-def.hh"
+#include "performer.hh"
+#include "score-context.hh"
 #include "translator-group.hh"
 #include "warn.hh"
-#include "output-def.hh"
-#include "ly-smobs.icc"
-#include "score-context.hh"
-
-#include "performer.hh"
-#include "engraver.hh"
-
-int
-Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
-{
-  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
-
-  scm_puts ("#<Context_def ", port);
-  scm_display (me->context_name_, port);
-  scm_puts (">", port);
-  return 1;
-}
-
-
-SCM
-Context_def::mark_smob (SCM smob)
-{
-  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
-
-  scm_gc_mark (me->description_);
-  scm_gc_mark (me->context_aliases_);
-  scm_gc_mark (me->accept_mods_);
-  scm_gc_mark (me->translator_mods_);
-  scm_gc_mark (me->property_ops_);  
-  scm_gc_mark (me->translator_group_type_);
-
-  return me->context_name_;
-}
-
 
 Context_def::Context_def ()
 {
@@ -64,10 +31,6 @@ Context_def::Context_def ()
   smobify_self ();
 
   context_name_ = ly_symbol2scm ("");
-}
-
-Context_def::~Context_def ()
-{
 }
 
 Context_def::Context_def (Context_def const & s)
@@ -92,15 +55,48 @@ Context_def::Context_def (Context_def const & s)
   context_name_ = s.context_name_;
 }
 
+Context_def::~Context_def ()
+{
+}
+
+#include "ly-smobs.icc"
+IMPLEMENT_SMOBS (Context_def);
+IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
+
+int
+Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
+{
+  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
+
+  scm_puts ("#<Context_def ", port);
+  scm_display (me->context_name_, port);
+  scm_puts (">", port);
+  return 1;
+}
+
+SCM
+Context_def::mark_smob (SCM smob)
+{
+  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
+
+  scm_gc_mark (me->description_);
+  scm_gc_mark (me->context_aliases_);
+  scm_gc_mark (me->accept_mods_);
+  scm_gc_mark (me->translator_mods_);
+  scm_gc_mark (me->property_ops_);  
+  scm_gc_mark (me->translator_group_type_);
+
+  return me->context_name_;
+}
 
 void
 Context_def::add_context_mod (SCM mod)
 {
-  SCM tag  = ly_car (mod);
-  if (ly_symbol2scm ("description")  == tag)
+  SCM tag = ly_car (mod);
+  if (ly_symbol2scm ("description") == tag)
     {
       description_ = ly_cadr (mod);
-      return ;
+      return;
     }
 
   SCM sym = ly_cadr (mod);
@@ -112,42 +108,29 @@ Context_def::add_context_mod (SCM mod)
       || ly_symbol2scm ("remove") == tag)
     {
       if (!get_translator (sym))
-	error (_f ("Program has no such type: `%s'", ly_symbol2string (sym).to_str0 ()));
+	error (_f ("Program has no such type: `%s'",
+		   ly_symbol2string (sym).to_str0 ()));
       else
-	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_ );
+	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
   else if (ly_symbol2scm ("accepts") == tag
 	   || ly_symbol2scm ("denies") == tag)
-    {
-      accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_); 
-    }
+    accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_); 
   else if (ly_symbol2scm ("poppush") == tag
 	   || ly_symbol2scm ("pop") == tag
 	   || ly_symbol2scm ("push") == tag
 	   || ly_symbol2scm ("assign") == tag
 	   || ly_symbol2scm ("unset") == tag)
-    {
-      property_ops_ = scm_cons (mod, property_ops_);
-    }
+    property_ops_ = scm_cons (mod, property_ops_);
   else if (ly_symbol2scm ("alias") == tag)
-    {
-      context_aliases_ = scm_cons (sym, context_aliases_);
-    }
+    context_aliases_ = scm_cons (sym, context_aliases_);
   else if (ly_symbol2scm ("translator-type")  == tag)
-    {
-      translator_group_type_ = sym;
-    }
+    translator_group_type_ = sym;
   else if (ly_symbol2scm ("context-name")  == tag)
-    {
-      context_name_ = sym;
-    }
+    context_name_ = sym;
   else
-    {
-      programming_error ("Unknown context mod tag.");
-    }
+    programming_error ("Unknown context mod tag.");
 }
-
-
 
 SCM
 Context_def::get_context_name () const
@@ -158,8 +141,7 @@ Context_def::get_context_name () const
 SCM
 Context_def::get_accepted (SCM user_mod) const
 {
-  SCM mods = scm_reverse_x (scm_list_copy (accept_mods_),
-			    user_mod);
+  SCM mods = scm_reverse_x (scm_list_copy (accept_mods_), user_mod);
   SCM acc = SCM_EOL;
   for (SCM s = mods; ly_c_pair_p (s); s = ly_cdr (s))
     {
@@ -173,9 +155,8 @@ Context_def::get_accepted (SCM user_mod) const
   return acc;
 }
 
-	   
 Link_array<Context_def>
-Context_def::path_to_acceptable_context (SCM type_sym, Output_def* odef) const
+Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 {
   assert (ly_c_symbol_p (type_sym));
   
@@ -183,26 +164,22 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def* odef) const
 
   Link_array<Context_def> accepteds;
   for (SCM s = accepted; ly_c_pair_p (s); s = ly_cdr (s))
-    {
-      Context_def *t = unsmob_context_def (find_context_def (odef, ly_car (s)));
-      if (!t)
-	continue;
+    if (Context_def *t = unsmob_context_def (find_context_def (odef,
+							       ly_car (s))))
       accepteds.push (t);
-    }
 
   Link_array<Context_def> best_result;
   for (int i=0; i < accepteds.size (); i++)
     {
-      /*
-	don't check aliases, because \context Staff should not create RhythmicStaff.
-      */
+      /* do not check aliases, because \context Staff should not
+	 create RhythmicStaff. */
       if (ly_c_equal_p (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
 	}
     }
-      
+
   int best_depth= INT_MAX;
   for (int i=0; i < accepteds.size (); i++)
     {
@@ -215,10 +192,8 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def* odef) const
 	  result.insert (g,0);
 	  best_result = result;
 
-	  /*
-	    this following line was added in 1.9.3, but hsould've been
-	    there all along... Let's hope it doesn't cause nightmares.
-	   */
+	  /* this following line was added in 1.9.3, but hsould've been
+	     there all along... Let's hope it doesn't cause nightmares.  */
 	  best_depth = result.size ();
 	}
     }
@@ -226,18 +201,13 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def* odef) const
   return best_result;
 }
 
-IMPLEMENT_SMOBS (Context_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
-
-
 SCM
 Context_def::get_translator_names (SCM user_mod) const
 {
   SCM l1 = SCM_EOL;
   SCM l2 = SCM_EOL;
 
-  SCM mods = scm_reverse_x (scm_list_copy (translator_mods_),
-			    user_mod);
+  SCM mods = scm_reverse_x (scm_list_copy (translator_mods_), user_mod);
   
   for (SCM s = mods; ly_c_pair_p (s); s = ly_cdr (s))
     {
@@ -257,15 +227,13 @@ Context_def::get_translator_names (SCM user_mod) const
 	  l2 = scm_delete_x (arg, l2);
 	}
     }
-
   return scm_append_x (scm_list_2 (l1, l2));
 }
 
-
 SCM
-filter_performers (SCM l)
+filter_performers (SCM ell)
 {
-  for (SCM *tail = &l; ly_c_pair_p (*tail); tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &ell; ly_c_pair_p (*tail); tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
@@ -274,14 +242,13 @@ filter_performers (SCM l)
 	    break ;
 	}
     }
-  return l;
+  return ell;
 }
 
-
 SCM
-filter_engravers (SCM l)
+filter_engravers (SCM ell)
 {
-  SCM *tail = &l;  
+  SCM *tail = &ell;  
   for (; ly_c_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
@@ -291,14 +258,14 @@ filter_engravers (SCM l)
 	    break ;
 	}
     }
-  return l;
+  return ell;
 }
 
 
 Context *
 Context_def::instantiate (SCM ops)
 {
-  Context * tg =  0;
+  Context *tg =  0;
 
   if (context_name_ == ly_symbol2scm ("Score"))
     tg = new Score_context ();
@@ -309,27 +276,25 @@ Context_def::instantiate (SCM ops)
 
   SCM trans_names = get_translator_names (ops); 
 
-  Translator * g = get_translator (translator_group_type_);
+  Translator *g = get_translator (translator_group_type_);
   g = g->clone ();
   
-  g->simple_trans_list_ =  SCM_EOL;
+  g->simple_trans_list_ = SCM_EOL;
 
   for (SCM s = trans_names; ly_c_pair_p (s) ; s = ly_cdr (s))
     {
-      Translator * t = get_translator (ly_car (s));
+      Translator *t = get_translator (ly_car (s));
       if (!t)
 	warning (_f ("can't find: `%s'", s));
       else
 	{
-	  Translator * tr = t->clone ();
+	  Translator *tr = t->clone ();
 	  SCM str = tr->self_scm ();
 	  g->simple_trans_list_ = scm_cons (str, g->simple_trans_list_);
 	  tr->daddy_context_ = tg;
 	  scm_gc_unprotect_object (str);
 	}
     }
-
-
   
   tg->implementation_ = g->self_scm ();
   if (dynamic_cast<Engraver*> (g))
@@ -347,12 +312,10 @@ Context_def::instantiate (SCM ops)
   return tg;
 }
 
-
 SCM
 Context_def::clone_scm () const
 {
   Context_def * t = new Context_def (*this);
-
   SCM x = t->self_scm ();
   scm_gc_unprotect_object (x);
   return x;
@@ -362,8 +325,7 @@ SCM
 Context_def::make_scm ()
 {
   Context_def* t = new Context_def;
-
-  SCM x  =t->self_scm ();
+  SCM x = t->self_scm ();
   scm_gc_unprotect_object (x);
   return x;
 }
@@ -371,25 +333,28 @@ Context_def::make_scm ()
 void
 Context_def::apply_default_property_operations (Context *tg)
 {
-  apply_property_operations (tg , property_ops_);
+  apply_property_operations (tg, property_ops_);
 }
 
 SCM
 Context_def::to_alist () const
 {
-  SCM l = SCM_EOL;
+  SCM ell = SCM_EOL;
 
-  l = scm_cons (scm_cons (ly_symbol2scm ("consists"),
-			get_translator_names (SCM_EOL)), l);
-  l = scm_cons (scm_cons (ly_symbol2scm ("description"),  description_), l);
-  l = scm_cons (scm_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
-  l = scm_cons (scm_cons (ly_symbol2scm ("accepts"),  get_accepted (SCM_EOL)), l);
-  l = scm_cons (scm_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
-  l = scm_cons (scm_cons (ly_symbol2scm ("context-name"),  context_name_), l);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("consists"),
+			    get_translator_names (SCM_EOL)), ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), get_accepted (SCM_EOL)),
+		  ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("property-ops"), property_ops_),
+		  ell);
+  ell = scm_cons (scm_cons (ly_symbol2scm ("context-name"), context_name_),
+		  ell);
 
   if (ly_c_symbol_p (translator_group_type_))
-    l = scm_cons (scm_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
-
-  return l;  
+    ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
+			      translator_group_type_), ell);    
+  return ell;  
 }
 

@@ -14,7 +14,7 @@
 
 SCM ly_make_anonymous_module (bool safe);
 void ly_import_module (SCM dest, SCM src);
-SCM ly_module_to_alist (SCM mod);
+SCM ly_module2alist (SCM mod);
 SCM ly_module_lookup (SCM module, SCM sym);
 SCM ly_modules_lookup (SCM modules, SCM sym, SCM);
 SCM ly_module_symbols (SCM mod);

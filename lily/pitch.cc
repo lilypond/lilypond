@@ -291,7 +291,7 @@ Pitch::less_p (SCM p1, SCM p2)
 }
 
 /* Should add optional args.  */
-LY_DEFINE (make_pitch, "ly:make-pitch",
+LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 	   3, 0, 0, (SCM octave, SCM note, SCM alter),
 	   "@var{octave} is specified by an integer, "
 	   "zero for the octave containing middle C.  "
@@ -308,7 +308,7 @@ LY_DEFINE (make_pitch, "ly:make-pitch",
   return p.smobbed_copy ();
 }
 
-LY_DEFINE (pitch_steps, "ly:pitch-steps", 1, 0, 0,
+LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
 	   (SCM p),
 	   "Number of steps counted from middle C of the pitch @var{p}.")
 {
@@ -317,7 +317,7 @@ LY_DEFINE (pitch_steps, "ly:pitch-steps", 1, 0, 0,
   return scm_int2num (pp->steps ());
 }
 
-LY_DEFINE (pitch_octave, "ly:pitch-octave",
+LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
 	   1, 0, 0, (SCM pp),
 	   "Extract the octave from pitch @var{p}.")
 {
@@ -327,7 +327,7 @@ LY_DEFINE (pitch_octave, "ly:pitch-octave",
   return scm_int2num (q);
 }
 
-LY_DEFINE (pitch_alteration, "ly:pitch-alteration",
+LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
 	   1, 0, 0, (SCM pp),
 	   "Extract the alteration from pitch  @var{p}.")
 {
@@ -348,7 +348,7 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
   return scm_int2num (q);
 }
 
-LY_DEFINE (ly_pitch_quartertones,  "ly:pitch-quartertones",
+LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
 	   1, 0, 0, (SCM pp),
 	   "Calculate the number of quarter tones of @var{p} from middle C.")
 {
@@ -358,7 +358,7 @@ LY_DEFINE (ly_pitch_quartertones,  "ly:pitch-quartertones",
   return scm_int2num (q);
 }
 
-LY_DEFINE (ly_pitch_semitones,  "ly:pitch-semitones",
+LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
 	   1, 0, 0, (SCM pp),
 	   "calculate the number of semitones of @var{p} from middle C.")
 {
@@ -368,7 +368,7 @@ LY_DEFINE (ly_pitch_semitones,  "ly:pitch-semitones",
   return scm_int2num (q);
 }
 
-LY_DEFINE (pitch_less, "ly:pitch<?",
+LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
 	   2, 0, 0, (SCM p1, SCM p2),
 	   "Is @var{p1} lexicographically smaller than @var{p2}?")
 {
@@ -397,9 +397,8 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
   return interval (*r, *p).smobbed_copy ();
 }
 
-
 int
-Pitch::get_octave ()const
+Pitch::get_octave () const
 {
   return octave_;
 }

@@ -26,9 +26,7 @@
 #include "score.hh"
 #include "warn.hh"
 
-/*
-  TODO: junkme.
- */
+/*  TODO: junkme.  */
 Score::Score ()
   : Input ()
 {
@@ -64,18 +62,12 @@ Score::print_smob (SCM , SCM p, scm_print_state*)
   return 1;
 }
 
-
-
-/*
-  store point & click locations.
-  Global to save some time. (Sue us!)
- */
 Score::Score (Score const &s)
   : Input (s)
 {
   music_ = SCM_EOL;
 
-  // FIXME: SCM_EOL?
+  /* FIXME: SCM_EOL? */
   header_ = 0;
 
   smobify_self ();
@@ -93,7 +85,7 @@ Score::Score (Score const &s)
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator", 
-	  2, 0, 0, (SCM mus, SCM output_def),
+	   2, 0, 0, (SCM mus, SCM output_def),
 	   "Process @var{mus} according to @var{output_def}. "
 	   "An interpretation context is set up, "
 	   "and @var{mus} is interpreted with it.  "
@@ -102,12 +94,15 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   Output_def *odef = unsmob_output_def (output_def);
   Music *music = unsmob_music (mus);
 
+  if (!music)
+    return SCM_BOOL_F;
+
   SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
   SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__, "Output definition");
   
   Cpu_timer timer;
   
-  Global_context * trans = new Global_context (odef, music->get_length ());
+  Global_context *trans = new Global_context (odef, music->get_length ());
   
   if (!trans)
     {
@@ -151,7 +146,7 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 
   Music_output *output = g->get_output ();
   progress_indication ("\n");
-  // ugh, midi still wants outname
+  /* ugh, midi still wants outname  */
   return output->process (ly_scm2string (outname));
 }
 
@@ -165,25 +160,23 @@ default_rendering (SCM music, SCM outdef,
   
   Output_def *bpd = unsmob_output_def (book_outputdef);
 
-  /*
-    ugh.
-   */
+  /* ugh.  */
   if (bpd->c_variable ("is-bookpaper") == SCM_BOOL_T)
     {
       Real scale = ly_scm2double (bpd->c_variable ("outputscale"));
       
-      Output_def * def = scale_output_def (unsmob_output_def (outdef), scale);
+      Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
       scaled_def = def->self_scm ();
 
       scaled_bookdef = scale_output_def (bpd, scale)->self_scm ();
-      unsmob_output_def (scaled_def)->parent_ = unsmob_output_def (scaled_bookdef);
+      unsmob_output_def (scaled_def)->parent_
+	= unsmob_output_def (scaled_bookdef);
       
       scm_gc_unprotect_object (scaled_bookdef);
       scm_gc_unprotect_object (scaled_def);
     }
   
   SCM context = ly_run_translator (music, scaled_def);
-
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
     {
@@ -191,9 +184,7 @@ default_rendering (SCM music, SCM outdef,
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{
-	  /*
-	    ugh, this is strange, Paper_book without a Book object.
-	   */
+	  /* ugh, this is strange, Paper_book without a Book object. */
 	  Paper_book *paper_book = new Paper_book ();
 	  paper_book->header_ = header;
 	  paper_book->bookpaper_ = unsmob_output_def (scaled_bookdef);
@@ -214,9 +205,7 @@ default_rendering (SCM music, SCM outdef,
   scm_remember_upto_here_1 (scaled_bookdef);
 }
 
-/*
-  PAPERBOOK should be scaled already.
- */
+/*  PAPERBOOK should be scaled already.  */
 SCM
 Score::book_rendering (String outname,
 		       Output_def *paperbook,
@@ -226,9 +215,7 @@ Score::book_rendering (String outname,
   Real scale = 1.0;
 
   if (paperbook && paperbook->c_variable ("is-bookpaper") == SCM_BOOL_T)
-    {
-      scale = ly_scm2double (paperbook->c_variable ("outputscale"));
-    }
+    scale = ly_scm2double (paperbook->c_variable ("outputscale"));
   
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;
@@ -245,18 +232,13 @@ Score::book_rendering (String outname,
 	  scm_gc_unprotect_object (scaled);
 	}
 
-      /*
-	TODO: fix or junk --no-paper.
-	*/
-      
+      /* TODO: fix or junk --no-paper.  */
       SCM context = ly_run_translator (music_, def->self_scm ());
       if (dynamic_cast<Global_context*> (unsmob_context (context)))
 	{
 	  SCM s = ly_format_output (context, out);
 	  if (s != SCM_UNDEFINED)
-	    {
-	      systems = s;
-	    }
+	    systems = s;
 	}
 
       scm_remember_upto_here_1 (scaled);
@@ -285,8 +267,9 @@ LY_DEFINE (ly_score_bookify, "ly:score-bookify",
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   2, 0, 0, (SCM score, SCM paper),
-	   "Run @var{score} through @var{paper}, a output definition, "
-	   " scaled to correct outputscale already,  return a list of paper-lines. ")
+	   "Run @var{score} through @var{paper}, an output definition, "
+	   "scaled to correct outputscale already, "
+	   "return a list of paper-lines.")
 {
   Score * sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (paper);
@@ -297,32 +280,21 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   SCM lines = SCM_EOL;
   Output_def * score_def  = 0;
 
-  /*
-    UGR, FIXME, these are default \paper blocks once again. They suck.
-   */
+  /* UGR, FIXME, these are default \paper blocks once again.  They
+     suck. */
   for (int i = 0; !score_def && i < sc->defs_.size (); i++)
-    {
-      if (sc->defs_[i]->c_variable ("is-paper") == SCM_BOOL_T)
-	{
-	  score_def = sc->defs_[i];
-	}
-    }
+    if (sc->defs_[i]->c_variable ("is-paper") == SCM_BOOL_T)
+      score_def = sc->defs_[i];
 
   if (!score_def)
     return lines;
-  
       
   score_def = score_def->clone ();
   SCM prot = score_def->self_scm ();
   scm_gc_unprotect_object (prot);
 
-  /*
-
-  TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
-  itself.
-  
-   */
-  
+  /* TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
+     itself. */
   score_def->parent_ = od;
   
   SCM context = ly_run_translator (sc->music_, score_def->self_scm ());

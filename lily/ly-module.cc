@@ -104,9 +104,9 @@ entry_to_alist (void *closure, SCM key, SCM val, SCM result)
   return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
 }
 
-LY_DEFINE(ly_module_to_alist, "ly:module->alist",
-	  1,0,0, (SCM mod),
-	  "Dump the contents of  module @var{mod} as an alist.")
+LY_DEFINE (ly_module2alist, "ly:module->alist",
+	   1, 0, 0, (SCM mod),
+	   "Dump the contents of  module @var{mod} as an alist.")
 {
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr= SCM_MODULE_OBARRAY (mod);
@@ -125,28 +125,27 @@ ly_module_lookup (SCM module, SCM sym)
 #undef FUNC_NAME
 }
 
-/*
-  Lookup SYM in a list of modules, which do not have to be related.
-  Return the first instance.
- */
-LY_DEFINE(ly_modules_lookup, "ly:modules-lookup",
-	  2, 1, 0,
-	  (SCM modules, SCM sym, SCM def),
-	  "Lookup @var{sym} in the list @var{modules}, returning the "
-	  "first occurence. If not found, return @var{default}, or @code{#f}.")
+/* Lookup SYM in a list of modules, which do not have to be related.
+   Return the first instance. */
+LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
+	   2, 1, 0,
+	   (SCM modules, SCM sym, SCM def),
+	   "Lookup @var{sym} in the list @var{modules}, "
+	   "returning the first occurence.  "
+	   "If not found, return @var{default}, or @code{#f}.")
 {
   for (SCM s = modules; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM mod = ly_car (s);      
-      SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod), SCM_UNDEFINED);
-      if (SCM_VARIABLEP(v)  && SCM_VARIABLE_REF(v) != SCM_UNDEFINED)
+      SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod),
+			   SCM_UNDEFINED);
+      if (SCM_VARIABLEP(v) && SCM_VARIABLE_REF(v) != SCM_UNDEFINED)
 	return SCM_VARIABLE_REF(v);
     }
 
   if (def != SCM_UNDEFINED)
     return def;
-  else
-    return SCM_BOOL_F;
+  return SCM_BOOL_F;
 }
 
 void

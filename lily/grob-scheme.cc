@@ -15,11 +15,11 @@
 #include "system.hh"
 
 
-LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
- (SCM grob, SCM sym, SCM val),
-  "Set @var{sym} in grob @var{grob} to value @var{val}")
+LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
+	   3, 0, 0, (SCM grob, SCM sym, SCM val),
+	   "Set @var{sym} in grob @var{grob} to value @var{val}")
 {
-  Grob * sc = unsmob_grob (grob);
+  Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
@@ -30,7 +30,7 @@ LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_get_property, "ly:grob-property",
+LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   2, 0, 0, (SCM grob, SCM sym),
 	  "Return the value of a value in grob @var{g} of property @var{sym}. "
 	   "It will return @code{' ()} (end-of-list) "
@@ -45,8 +45,8 @@ LY_DEFINE (ly_get_property, "ly:grob-property",
   return sc->internal_get_property (sym);
 }
 
-LY_DEFINE (spanner_get_bound, "ly:spanner-get-bound", 2 , 0, 0,
-	   (SCM slur, SCM dir),
+LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
+	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")
 {
@@ -58,9 +58,9 @@ LY_DEFINE (spanner_get_bound, "ly:spanner-get-bound", 2 , 0, 0,
 
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
-LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
- (SCM g),
-  "Get @code{\\paper} definition from grob @var{g}.")
+LY_DEFINE (ly_grob_paper, "ly:grob-paper",
+	   1, 0, 0, (SCM g),
+	   "Get @code{\\paper} definition from grob @var{g}.")
 {
   Grob * sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
@@ -68,45 +68,42 @@ LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
   return sc->get_paper ()->self_scm ();
 }
 
-
-LY_DEFINE(ly_grob_alist_chain, "ly:grob-alist-chain",
-	  1, 1, 0,
-	  (SCM g, SCM global),
-	  "Get an alist chain for grob @var{g}, with @var{global} as the "
-	  "global default. If unspecified, @code{font-defaults} "
-	  "from the paper block is taken. "
-	  )
+LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
+	   1, 1, 0, (SCM g, SCM global),
+	   "Get an alist chain for grob @var{g}, with @var{global} as the "
+	   "global default. If unspecified, @code{font-defaults} "
+	   "from the paper block is taken. ")
 {
-  Grob * sc = unsmob_grob (g);
+  Grob *sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
   if (global == SCM_UNDEFINED)
-    global = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+    global
+      = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
 
   return sc->get_property_alist_chain (global);
 }
 
-
-LY_DEFINE (ly_get_extent, "ly:grob-extent", 3, 0, 0,
-	   (SCM grob, SCM refp, SCM axis),
+LY_DEFINE (ly_get_extent, "ly:grob-extent",
+	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
 	   "Get the extent in @var{axis} direction of @var{grob} relative to "
 	   "the grob @var{refp}")
 {
-  Grob * sc = unsmob_grob (grob);
-  Grob * ref = unsmob_grob (refp);
+  Grob *sc = unsmob_grob (grob);
+  Grob *ref = unsmob_grob (refp);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
-
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   return ly_interval2scm ( sc->extent (ref, Axis (ly_scm2int (axis))));
 }
 
-LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
+LY_DEFINE (ly_grob_parent, "ly:grob-parent",
+	   2, 0, 0, (SCM grob, SCM axis),
 	   "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis, "
 	   "1 for the Y-axis.")
 {
-  Grob * sc = unsmob_grob (grob);
+  Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
@@ -114,7 +111,7 @@ LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
   return par ? par->self_scm () : SCM_EOL;
 }
 
-LY_DEFINE (ly_get_system, "ly:grob-system",
+LY_DEFINE (ly_grob_system, "ly:grob-system",
 	   1, 0, 0, (SCM g),
 	   "Return the System Grob of @var{g}.")
 {
@@ -127,7 +124,7 @@ LY_DEFINE (ly_get_system, "ly:grob-system",
   return SCM_EOL;
 }
 
-LY_DEFINE (ly_get_original, "ly:grob-original",
+LY_DEFINE (ly_grob_original, "ly:grob-original",
 	   1, 0, 0, (SCM grob),
 	   "Return the unbroken original Grob of @var{grob}.")
 {
@@ -136,10 +133,9 @@ LY_DEFINE (ly_get_original, "ly:grob-original",
   return me->original_ ? me->original_->self_scm () : me->self_scm ();
 }
 
-/* FIXME: ly prefix? spanner in name? */
 /* TODO: maybe we should return a vector -- random access is more
    logical for this list? */
-LY_DEFINE (get_broken_into, "ly:spanner-broken-into",
+LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
 	   1, 0, 0, (SCM spanner),
 	   "Return broken-into list for @var{spanner}.")
 {

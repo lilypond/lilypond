@@ -8,7 +8,6 @@
 */
 
 #include "book.hh"
-
 #include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
@@ -22,8 +21,6 @@
 #include "score.hh"
 #include "source.hh"
 #include "warn.hh"
-
-#include "ly-smobs.icc"
 
 
 My_lily_parser::My_lily_parser (Sources *sources)
@@ -58,6 +55,8 @@ My_lily_parser::~My_lily_parser ()
   // FIXME: Memleak: del lexer
 }
 
+#include "ly-smobs.icc"
+
 IMPLEMENT_SMOBS (My_lily_parser);
 IMPLEMENT_TYPE_P (My_lily_parser, "ly:my-lily-parser?");
 IMPLEMENT_DEFAULT_EQUAL_P (My_lily_parser);
@@ -66,6 +65,7 @@ SCM
 My_lily_parser::mark_smob (SCM s)
 {
   My_lily_parser *parser = (My_lily_parser*) ly_cdr (s);
+  (void) parser;
   return SCM_EOL;
 }
 
@@ -208,8 +208,8 @@ My_lily_parser::here_input () const
 bool store_locations_global_b;
 
 /* Do not append `!' suffix, since 1st argument is not modified. */
-LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
-	  (SCM what),
+LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
+	   1, 0, 0, (SCM what),
 	  "Set the options for Point-and-click source specials output. The\n"
 "argument is a symbol.  Possible options are @code{none} (no source specials),\n"
 "@code{line} and @code{line-column}")
@@ -228,8 +228,7 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
 }
 
 LY_DEFINE (ly_parse_file, "ly:parse-file",
-	   1, 0, 0,
-	   (SCM name),
+	   1, 0, 0, (SCM name),
 	   "Parse a single @code{.ly} file.  "
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
@@ -297,8 +296,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 }
 
 LY_DEFINE (ly_parse_string, "ly:parse-string",
-	   1, 0, 0,
-	   (SCM ly_code),
+	   1, 0, 0, (SCM ly_code),
 	   "Parse the string LY_CODE.  "
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
@@ -316,23 +314,19 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
 }
 
 LY_DEFINE (ly_clone_parser, "ly:clone-parser",
-           1, 0, 0, 
-           (SCM parser_smob),
+           1, 0, 0, (SCM parser_smob),
            "Return a clone of PARSER_SMOB.")
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   My_lily_parser *clone = new My_lily_parser (*parser);
 
-  /*
-    FIXME: should copy scopes too.
-   */
+  /* FIXME: should copy scopes too. */
   return scm_gc_unprotect_object (clone->self_scm ());
 }
 
-LY_DEFINE(ly_parser_define, "ly:parser-define",
-          3, 0, 0, 
-          (SCM parser_smob, SCM symbol, SCM val),
-          "Bind SYMBOL to VAL in PARSER_SMOB's module.")
+LY_DEFINE (ly_parser_define, "ly:parser-define",
+	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
+	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
@@ -342,10 +336,11 @@ LY_DEFINE(ly_parser_define, "ly:parser-define",
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
 }
-LY_DEFINE(ly_parser_lookup, "ly:parser-lookup",
-          2, 0, 0, 
-          (SCM parser_smob, SCM symbol),
-          "Lookup @var{symbol} in @var{parser_smob}'s module. Undefined is '().")
+
+LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
+	   2, 0, 0, (SCM parser_smob, SCM symbol),
+	   "Lookup @var{symbol} in @var{parser_smob}'s module.  "
+	   "Undefined is '().")
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
@@ -360,12 +355,10 @@ LY_DEFINE(ly_parser_lookup, "ly:parser-lookup",
 }
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
-	   2, 0, 0,
-	   (SCM parser_smob, SCM ly_code),
+	   2, 0, 0, (SCM parser_smob, SCM ly_code),
 	   "Parse the string LY_CODE with PARSER_SMOB."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
@@ -412,10 +405,8 @@ get_bookpaper (My_lily_parser *parser)
 }
 
 
-/*
-  TODO: move this to Scheme? Why take the parser arg, and all the back
-  & forth between scm and c++?
- */
+/* TODO: move this to Scheme?  Why take the parser arg, and all the back
+   & forth between scm and c++? */
 LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 	   2, 0, 0,
 	   (SCM parser_smob, SCM score_smob),
@@ -455,11 +446,11 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 }
 
 
-LY_DEFINE (ly_parser_set_names, "ly:parser-set-note-names",
-	   2, 0, 0,
-	   (SCM parser, SCM names),
-	   "Replace current note names in @var{parser}. @var{names} is an alist of "
-	   "symbols. This only has effect if the current mode is notes.")
+LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
+	   2, 0, 0, (SCM parser, SCM names),
+	   "Replace current note names in @var{parser}. "
+	   "@var{names} is an alist of symbols.  "
+	   "This only has effect if the current mode is notes.")
 {
   My_lily_parser *p = unsmob_my_lily_parser (parser);
   SCM_ASSERT_TYPE(p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
@@ -474,8 +465,7 @@ LY_DEFINE (ly_parser_set_names, "ly:parser-set-note-names",
 }
 
 LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
-	   2, 0, 0,
-	   (SCM parser_smob, SCM book_smob),
+	   2, 0, 0, (SCM parser_smob, SCM book_smob),
 	   "Print book.")
 {
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
