@@ -17,7 +17,7 @@
 void
 Axis_group_spanner::do_break_processing_if_unbroken()
 {
-  Link_array<Score_elem> elems = axis_admin_.elem_l_arr_;
+  Link_array<Score_elem> elems = elem_l_arr ();
   Line_of_score *my_line = line_l();
   for (int i=0; i < elems.size(); i++) 
     {
@@ -49,7 +49,7 @@ Axis_group_spanner::do_break_processing()
     }
 
   break_into_pieces ();
-  Link_array<Score_elem> loose_elems = axis_admin_.elem_l_arr_;
+  Link_array<Score_elem> loose_elems = elem_l_arr ();
   remove_all();
   
   for (int i=0; i < loose_elems.size(); i++) 
