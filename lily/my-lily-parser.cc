@@ -310,6 +310,27 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_clone_parser, "ly:clone-parser",
+           1, 0, 0, 
+           (SCM parser_smob),
+           "Return a clone of PARSER_SMOB.")
+{
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  My_lily_parser *clone = new My_lily_parser (*parser);
+  return scm_gc_unprotect_object (clone->self_scm ());
+}
+
+LY_DEFINE(ly_parser_define, "ly:parser-define",
+          3, 0, 0, 
+          (SCM parser_smob, SCM symbol, SCM val),
+          "Bind SYMBOL to VAL in PARSER_SMOB's module.")
+{
+  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG1, __FUNCTION__, "symbol");
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   2, 0, 0,
 	   (SCM parser_smob, SCM ly_code),
@@ -321,7 +342,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 #endif
   SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
 
-#if 0
+#if 1
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   parser->parse_string (ly_scm2string (ly_code));
 #else

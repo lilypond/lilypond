@@ -175,8 +175,11 @@ e.g. (make-COMMAND-markup arg1 arg2 ...), and the rest expression."
          ;; expr === ((#:COMMAND arg1 ...) ...)
          (receive (m r) (compile-markup-expression (car expr))
                   (values m (cdr expr))))
+        ((and (pair? expr)
+              (string? (car expr))) ;; expr === ("string" ...)
+         (values `(make-simple-markup ,(car expr)) (cdr expr)))
         (else
-         ;; expr === (symbol ...) or ("string" ...) or ((funcall ...) ...)
+         ;; expr === (symbol ...) or ((funcall ...) ...)
          (values (car expr)
                  (cdr expr)))))
 
