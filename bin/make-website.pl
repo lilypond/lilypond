@@ -297,6 +297,7 @@ sub docxx_update
     print BANNER $ban;
     close BANNER;
     my_system("BANNEROPT=\"-B /tmp/lilybanner.html\" $depth/bin/out/make-docxx");
+    unlink "/tmp/lilybanner.html";
 }
 
 sub do_tar
@@ -313,6 +314,12 @@ sub identify
     print STDERR "This is " . $id_str . "\n";
     
 }
+sub clean_tmp
+{
+    @a = </tmp/gs*>;
+    unlink @a;
+}
+    
 sub main
 {
     identify;
@@ -352,6 +359,7 @@ sub main
     edit_index;
     docxx_update;
     do_tar;
+    clean_tmp;
 }
 
 main;

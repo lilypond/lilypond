@@ -22,6 +22,7 @@ extern Sources* source_l_g;
 extern bool only_midi;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
+extern bool postscript_global_b;
 
 extern String default_out_fn;
 

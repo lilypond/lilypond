@@ -24,6 +24,7 @@ static bool version_ignore_b = false;
 Sources* source_l_g = 0;
 bool only_midi = false;
 bool experimental_features_global_b = false;
+bool postscript_global_b = false;
 int exit_status_i_;
 
 void destill_inname (String &name_str_r);
@@ -37,6 +38,7 @@ Long_option_init theopts[] = {
   {1, "init", 'i'},
   {1, "include", 'I'},
   {0, "midi", 'M'},
+  {0, "postscript", 'p'},
   {0, "ignore-version", 'V'},
   {0,0,0}
 };
@@ -58,6 +60,7 @@ usage()
     "  -t, --test             switch on experimental features\n"
     "  -M, --midi             produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
+    "  -p, --postscript       try to use PostScript\n"
     "\n"
     "GNU LilyPond was compiled with the following settings:\n")
 #ifdef NDEBUG
@@ -186,6 +189,9 @@ main (int argc, char **argv)
 	  break;
 	case 'V':
 	  version_ignore_b = true;
+	  break;
+	case 'p':
+	  postscript_global_b = true;
 	  break;
 	case 'd':
 	  set_debug (true);

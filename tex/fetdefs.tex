@@ -66,7 +66,6 @@
 
 
 
-\def\turnOnExperimentalFeatures{
 
 %
 % WARNING: don't leave blank lines in the PS-code; they are
@@ -74,6 +73,13 @@
 %
 
 
+\def\turnOnPostScript{
+\def\embeddedps##1{
+        %
+        % This sets CTM so that you get to the currentpoint
+        % by executing a 0 0 moveto
+        \special{ps: @beginspecial @setspecial ##1 @endspecial}       
+}
 \special{ps:
 /draw_decresc
         {
@@ -99,8 +105,9 @@
         }
         def
 }
+}
 
-
+\def\turnOnExperimentalFeatures{
 % draw a slur in embedded postscript
 \special{ps:
 /xbow 1 3 div def
@@ -164,12 +171,7 @@
 }
 
 \def\embeddedtex#1{#1}
-\def\embeddedps#1{
-        %
-        % This sets CTM so that you get to the currentpoint
-        % by executing a 0 0 moveto
-        \special{ps: @beginspecial @setspecial #1 @endspecial}       
-}
+
 \def\embeddedmf#1{
         \edef\embedid{feta-sleur-\number\embedcount}
         \immediate\openout\embedfile=\embedid.mf
