@@ -121,19 +121,24 @@ some punctuation. It doesn't have any letters.  "
   "Set font size to -3."
   (interpret-markup paper (prepend-alist-chain 'font-size -3 props) arg))
 
+(def-markup-command (caps paper props arg) (markup?)
+  (interpret-markup paper (prepend-alist-chain 'font-shape 'caps props) arg))
+
 (def-markup-command (dynamic paper props arg) (markup?)
   "Use the dynamic font.  This font only contains s, f, m, z, p, and
 r.  When producing phrases, like ``piu f'', the normal words (like
-``piu'') should be done in a different font.
-The recommend font for this is bold and italic
+``piu'') should be done in a different font.  The recommend font for
+this is bold and italic
 "
-  (interpret-markup paper (prepend-alist-chain 'font-family 'dynamic props) arg))
+  (interpret-markup
+   paper (prepend-alist-chain 'font-family 'dynamic props) arg))
 
 (def-markup-command (italic paper props arg) (markup?)
   (interpret-markup paper (prepend-alist-chain 'font-shape 'italic props) arg))
 
 (def-markup-command (typewriter paper props arg) (markup?)
-  (interpret-markup paper (prepend-alist-chain 'font-family 'typewriter props) arg))
+  (interpret-markup
+   paper (prepend-alist-chain 'font-family 'typewriter props) arg))
 
 (def-markup-command (doublesharp paper props) ()
   (interpret-markup paper props (markup #:musicglyph "accidentals-4")))
@@ -503,8 +508,7 @@ FIXME: is this working?
 
 
 (def-markup-command (markletter paper props num) (integer?)
-  "Make a markup letter for @var{num}.  The letters start with A to Z
-(skipping I), and continues with double letters."
-
-  (Text_item::interpret_markup paper props (number->markletter-string num)))
-
+   "Make a markup letter for @var{num}.  The letters start with A to Z
+ (skipping I), and continues with double letters."
+ 
+   (Text_item::interpret_markup paper props (number->markletter-string num)))

@@ -58,7 +58,7 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-Paper_outputter::output_metadata (SCM scopes)
+Paper_outputter::output_metadata (SCM scopes, Paper_def *paper)
 {
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--;)
@@ -66,6 +66,7 @@ Paper_outputter::output_metadata (SCM scopes)
 				     fields);
   
   output_scheme (scm_list_n (ly_symbol2scm ("output-scopes"),
+			     paper->self_scm (),
 			     scm_list_n (ly_symbol2scm ("quote"),
 					 scopes, SCM_UNDEFINED),
 			     scm_list_n (ly_symbol2scm ("quote"),

@@ -8,7 +8,6 @@
 
 (debug-enable 'backtrace)
 
-
 (define-module (scm output-ps))
 (define this-module (current-module))
 
@@ -25,8 +24,10 @@
 
 ;; Module entry
 (define-public (ps-output-expression expr port)
-  (display (eval expr this-module) port))
+  (display (expression->string expr) port))
 
+(define (expression->string expr)
+  (eval expr this-module))
 
 ;; Global vars
 
@@ -102,10 +103,13 @@
 	 cmbxti8
 	 cmcsc12
 	 cmcsc7
-	 cmtt17)))
+	 cmtt17
+	 
+	 ;;; FIXME: added
+	 cmbx8)))
   
 (define (define-fonts internal-external-name-mag-pairs)
-  
+
   (define (font-load-command name-mag command)
 
     ;; frobnicate NAME to jibe with external definitions.
@@ -117,6 +121,8 @@
        ((equal? (substring name 0 4) "feta")
 	(regexp-substitute/global #f "feta([a-z-]*)([0-9]+)" name 'pre "GNU-LilyPond-feta" 1 "-" 2 'post))
        (else name)))
+    
+    ;;(format (current-error-port) "DEFINE-FONTS: ~S\n" internal-external-name-mag-pairs)
     
     (string-append
      "/" command
@@ -212,20 +218,25 @@
 (define (fontify name-mag-pair exp)
 
   (define (select-font name-mag-pair)
-    (let* ((c (assoc name-mag-pair font-name-alist)))
-      (if (eq? c #f)
+    (let ((c (assoc name-mag-pair font-name-alist)))
+      
+      (if c
+	  (string-append " " (cddr c) " ")
 	  (begin
-	    (display "FAILED\n")
-	    (display (object-type (car name-mag-pair)))
-	    (display (object-type (caaar font-name-alist)))
-	    (ly:warn (string-append
-		      "Programming error: No such font known "
-		      (car name-mag-pair) " "
-		      (ly:number->string (cdr name-mag-pair))))
+	    (ly:warn
+	     (format "Programming error: No such font: ~S" name-mag-pair))
 	    
-	    ;; Upon error, issue no command
-	    "")
-	  (string-append " " (cddr c) " "))))
+	    (display "FAILED\n" (current-error-port))
+	    (if #f ;(pair? name-mag-pair))
+		(display (object-type (car name-mag-pair)) (current-error-port))
+		(write name-mag-pair (current-error-port)))
+	    (if #f ;  (pair? font-name-alist)
+		(display
+		 (object-type (caaar font-name-alist)) (current-error-port))
+		(write font-name-alist (current-error-port)))
+
+	    ;; (format #f "\n%FAILED: (select-font ~S)\n" name-mag-pair))
+	    ""))))
   
   (string-append (select-font name-mag-pair) exp))
 
@@ -332,30 +343,55 @@
 (define (ps-number-def a b c)
   (string-append "/" a (symbol->string b) " " c " def\n"))
 
-(define (output-scopes scopes fields basename)
-  (define (output-scope scope)
-    (apply
-     string-append
-     (module-map
-      (lambda (sym var)
-	(let ((val (variable-ref var))
-	      (tex-key (symbol->string sym)))
-	 
-	  (if (memq sym fields)
-	      (header-to-file basename sym val))
-	  
-	  (cond
-	   ((string? val)
-	    (ps-string-def "lilypond" sym val))
-	   
-	   ((number? val)
-	    (ps-number-def "lilypond" sym
-			   (if (integer? val)
-			       (number->string val)
-			       (number->string (exact->inexact val)))))
-	   (else ""))))
-      scope)))
-  
-  (apply string-append
-   (map output-scope scopes)) )
 
+(define (output-scopes paper scopes fields basename)
+
+  ;; FIXME: customise/generate these
+  (let ((nmp '((("feta20"  . 0.569055118110236) "feta20" . 1.0)
+	       (("cmbx10"  . 0.569055118110236) "cmbx10" . 1.0)
+	       (("cmr10"   . 0.569055118110236) "cmr10" . 1.0)
+	       (("cmr10"   . 0.638742773474948) "cmr10" . 1.0)
+	       (("cmcsc10" . 0.451659346558038) "cmcs10" . 1.0)
+	       (("cmcsc10" . 0.638742773474948) "cmcs10" . 1.0)
+	       (("cmbx8"   . 0.564574183197548) "cmbx8" . 1.0)))
+	       
+	(props '(((font-family . roman)
+		  (word-space . 1)
+		  (font-shape . upright)
+		  (font-size . -2)))))
+
+  
+    (define (output-scope scope)
+      (apply
+       string-append
+       (module-map
+	(lambda (sym var)
+	  (let ((val (variable-ref var))
+		(tex-key (symbol->string sym)))
+	    
+	    (if (memq sym fields)
+		(header-to-file basename sym val))
+	    
+	    (cond
+	     ;; define strings, for /make-lilypond-title to pick up
+	     ((string? val) (ps-string-def "lilypond" sym val))
+
+	     ;; output markups ourselves
+	     ((markup? val) (string-append
+			     (expression->string
+			      (ly:stencil-get-expr
+			       (interpret-markup paper props val)))
+			     "\n"))
+	     ((number? val) (ps-number-def
+			     "lilypond" sym (if (integer? val)
+						(number->string val)
+						(number->string
+						 (exact->inexact val)))))
+	     (else ""))))
+	scope)))
+
+    (string-append
+     ;; urg
+     " 0 0 moveto\n"
+     (define-fonts nmp)
+     (apply string-append (map output-scope scopes)))))

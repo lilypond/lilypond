@@ -106,16 +106,12 @@ Paper_score::process (String outname)
     Last one first.
    */
   if (header_)
-    {
-      scopes = scm_cons (header_, scopes);
-    }
+    scopes = scm_cons (header_, scopes);
 
   if (global_input_file->header_ && global_input_file->header_ != header_)
-    {
-      scopes = scm_cons (global_input_file->header_, scopes);
-    }
+    scopes = scm_cons (global_input_file->header_, scopes);
   
-  outputter_->output_metadata (scopes);
+  outputter_->output_metadata (scopes, paper_);
   outputter_->output_music_output_def (paper_);
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);

@@ -23,9 +23,8 @@
 SCM
 Stencil::smobbed_copy () const
 {
-  Stencil * m = new Stencil (*this);
-
-  return m->smobbed_self ();
+  Stencil *s = new Stencil (*this);
+  return s->smobbed_self ();
 }
 
 Interval
@@ -68,24 +67,20 @@ Stencil::translate (Offset o)
     dim_.translate (o);
 }
   
-
 void
-Stencil::translate_axis (Real x,Axis a)
+Stencil::translate_axis (Real x, Axis a)
 {
   Offset o (0,0);
   o[a] = x;
   translate (o);
 }  
 
-
-
 void
-Stencil::add_stencil (Stencil const &m)
+Stencil::add_stencil (Stencil const &s)
 {
   expr_ = scm_list_n (ly_symbol2scm ("combine-stencil"),
-		   m.expr_,
-		   expr_, SCM_UNDEFINED);
-  dim_.unite (m.dim_);
+		      s.expr_, expr_, SCM_UNDEFINED);
+  dim_.unite (s.dim_);
 }
 
 void
@@ -103,7 +98,6 @@ Stencil::set_empty (bool e)
     }
 }
 
-
 void
 Stencil::align_to (Axis a, Real x)
 {
@@ -114,15 +108,13 @@ Stencil::align_to (Axis a, Real x)
   translate_axis (-i.linear_combination (x), a);
 }
 
-/*
-  See scheme Function.
- */
+/*  See scheme Function.  */
 void
-Stencil::add_at_edge (Axis a, Direction d, Stencil const &m, Real padding,
+Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 		       Real minimum)
 {
   Real my_extent= is_empty () ? 0.0 : dim_[a][d];
-  Interval i (m.extent (a));
+  Interval i (s.extent (a));
   Real his_extent;
   if (i.is_empty ())
     {
@@ -130,23 +122,19 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &m, Real padding,
       his_extent = 0.0;
     }
   else
-    his_extent = i[-d];      
+    his_extent = i[-d];
 
-  Real offset = (my_extent -  his_extent)  + d*padding;
-  if (minimum > 0  && fabs (offset) <  minimum)
+  Real offset = (my_extent -  his_extent) + d * padding;
+  if (minimum > 0 && fabs (offset) <  minimum)
     offset = sign (offset) * minimum; 
   
-  Stencil toadd (m);
+  Stencil toadd (s);
   toadd.translate_axis (offset, a);
   add_stencil (toadd);
 }
 
-
-
-/*
-  Hmm... maybe this is not such a good idea ; stuff can be empty,
-  while expr_ == '()
- */
+/* Hmm... maybe this is not such a good idea ; stuff can be empty,
+   while expr_ == '()  */
 bool
 Stencil::is_empty () const
 {
@@ -159,34 +147,27 @@ Stencil::get_expr () const
   return expr_;
 }
 
-
-
 Box
 Stencil::extent_box () const
 {
   return dim_;
 }
-IMPLEMENT_SIMPLE_SMOBS (Stencil);
-
 
 int
 Stencil::print_smob (SCM , SCM port, scm_print_state *)
 {
   scm_puts ("#<Stencil ", port);
   scm_puts (" >", port);
-  
   return 1;
 }
 
-  
 SCM
 Stencil::mark_smob (SCM s)
 {
   Stencil  *r = (Stencil *) ly_cdr (s);
-  
   return r->expr_;
 }
 
+IMPLEMENT_SIMPLE_SMOBS (Stencil);
 IMPLEMENT_TYPE_P (Stencil, "ly:stencil?");
 IMPLEMENT_DEFAULT_EQUAL_P (Stencil);
-
