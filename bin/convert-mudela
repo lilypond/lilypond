@@ -1,8 +1,19 @@
 #!/usr/bin/perl -w
 
+=head1 TODO
+
+    detect \lyrics and \melodic, and do substitution accordingly.
+    
+=cut    
+
+
+
 #
 # version of "supporting" engine, not mudela conversions.
 # 
+
+
+
 
 $convert_mudela_version = "0.1";
 
@@ -46,6 +57,11 @@ sub convert_0_0_55_to_0_0_56
     s/\"\|\|\"/\"|.\"/g;
 }
 
+sub convert_0_0_56_to_0_0_57
+{
+    s/\(([ \]\[|\t-\.>]|\\[<!>a-z]+)*\)/\~ $1/g;
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -80,8 +96,9 @@ my %minor_conversions = (50 => \&no_conv,
   			 53 => \&convert_0_0_52_to_0_0_53,
   			 54 => \&convert_0_0_53_to_0_0_54,
 			 55 => \&convert_0_0_54_to_0_0_55,
-			 56 => \&convert_0_0_55_to_0_0_56
-  			 );
+			 56 => \&convert_0_0_55_to_0_0_56,
+			 57 => \&convert_0_0_56_to_0_0_57
+			 );
  
 
 sub versions 
