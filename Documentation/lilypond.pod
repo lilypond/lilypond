@@ -51,7 +51,7 @@ Show a summary of usage.
 
 =item B<-i,--init=>F<FILE>,
 
-Set init file to F<FILE> (default: F<symbol.ly>).
+Set init file to F<FILE> (default: F<lily-init.ly>).
 
 =item B<--include, -I>=F<DIRECTORY>,
 
@@ -197,7 +197,7 @@ Than it would help if you send a dump of the Interval and the Item
 
 =over 5
 
-=item F<symbol.ly>
+=item F<lily-init.ly>
 
 The initialisation file with symbol tables etc.  It
 includes files from the directory F<init/>.

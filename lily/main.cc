@@ -158,7 +158,7 @@ main (int argc, char **argv)
 
   Getopt_long oparser (argc, argv,theopts);
   cout << get_version_str() << endl;
-  String init_str ("symbol.ly");
+  String init_str ("lily-init.ly");
 
   while (Long_option_init const * opt = oparser())
     {
