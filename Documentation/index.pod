@@ -1,12 +1,8 @@
 =head1 NAME
 
-GNU LilyPond -- the Webpage
-
-Excuse me for this poor page. I don't really have time for doing this..
+The Homepage of LilyPond -- the GNU Project music typesetter
 
 =head1 DESCRIPTION
-
-
 
 GNU LilyPond is a program which converts music definition files into
 visual or auditive output: it can typeset formatted sheet music to a
@@ -133,14 +129,9 @@ DEDICATION
 
 =back
 
-
 =head2 The program
 
-
 =over 5
-
-
-
 
 =item *
 <a href=TODO.txt
@@ -205,13 +196,9 @@ Other packages for printing music.
 >
 
 =item *
-Get LilyPond at ftp://pcnov095.win.tue.nl/pub/lilypond !
-
-
-=item *
 <a href=links.html
 >
-B<download LilyPond> and other interesting links
+B<download> LilyPond and other interesting links
 </a
 >
 

@@ -15,14 +15,14 @@
 
 class Horizontal_vertical_group_item  : public Item, public Horizontal_vertical_group {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_vertical_group_item);
 protected:
     virtual void do_print() const;
 };
 
 class Horizontal_group_item : public Item, public Horizontal_group {
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_group_item);
 protected:
     virtual void do_print() const { Elbement_group::do_print(); }

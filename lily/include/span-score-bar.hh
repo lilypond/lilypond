@@ -15,7 +15,7 @@
 class Span_score_bar : public Span_bar
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Span_score_bar);
     Span_score_bar();
 protected:
@@ -28,7 +28,7 @@ protected:
 class Piano_brace : public Span_score_bar
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Piano_brace);
 protected:
     virtual Interval do_width()const;

@@ -20,13 +20,13 @@ public:
     Elbement_group();
     bool contains_b(Score_elem const *)const;
     void add_element(Score_elem*);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
        
 };
 
 class Horizontal_group : public Elbement_group {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Horizontal_group(Horizontal_group const&);
     Horizontal_group(){}
     void add_element(Score_elem*);
@@ -47,7 +47,7 @@ protected:
 public:
     Vertical_group(Vertical_group const &);
     Vertical_group(){}
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 /** A class to treat a group of elements as a single entity. The
@@ -62,7 +62,7 @@ protected:
 public:
     Horizontal_vertical_group();
     bool contains_b(Score_elem const *)const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_print() const;
     void add_element(Score_elem*);

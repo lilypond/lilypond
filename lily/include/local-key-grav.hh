@@ -24,7 +24,7 @@ struct Local_key_engraver : Engraver {
     virtual void acknowledge_element(Score_elem_info);
     virtual void do_pre_move_processing();
     Local_key_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // LOCALKEYGRAV_HH

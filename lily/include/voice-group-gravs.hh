@@ -26,7 +26,7 @@ protected:
 public:
     
     
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     static bool static_acceptable_request_b(Request*);
     Voice_group_engravers();
 };

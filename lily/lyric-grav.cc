@@ -11,6 +11,7 @@
 #include "text-item.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
+#include "paper-def.hh"
 
 Lyric_engraver::Lyric_engraver()
 {
@@ -34,6 +35,8 @@ Lyric_engraver::do_process_requests()
 {
     if ( lreq_l_ ) {  
 	lyric_item_p_ =  new Text_item(lreq_l_->tdef_p_ );
+
+	lyric_item_p_->translate_x( paper()->note_width()/2 );
 	lyric_item_p_->dir_i_ = -1;
 	lyric_item_p_->fat_b_ = true;
 	announce_element( Score_elem_info( lyric_item_p_, lreq_l_));

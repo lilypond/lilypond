@@ -19,7 +19,7 @@
   */
 class Rest_column : public Head_column {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     void translate_heads(int dy);
 };
 

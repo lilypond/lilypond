@@ -25,7 +25,7 @@ protected:
     virtual void do_substitute_dependency(Score_elem*, Score_elem*);
     virtual void do_pre_processing();
     SCORE_ELEM_CLONE(Slur);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // SLUR_HH

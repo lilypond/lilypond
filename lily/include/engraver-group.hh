@@ -53,7 +53,7 @@ public:
      */
     virtual void terminate_engraver(Engraver * grav_l);
     
-   NAME_MEMBERS();
+   DECLARE_MY_RUNTIME_TYPEINFO;
     
     /**
       Remove #grav_l# from the list, and return it.

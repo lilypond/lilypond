@@ -15,7 +15,7 @@ class Score_performer:
     public Performer_group_performer, public Global_translator 
 {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Score_performer();
     ~Score_performer();
 

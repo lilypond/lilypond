@@ -1,5 +1,5 @@
 /*
-  line-group-grav.hh -- declare 
+  line-group-grav.hh -- declare Line_group_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -24,7 +24,7 @@ protected:
     virtual void acknowledge_element(Score_elem_info);
 
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Line_group_engraver();
 };
 

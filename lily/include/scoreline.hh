@@ -18,7 +18,7 @@ public:
     virtual String TeX_string() const;    
     
 
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Line_of_score();
     
     void add(Score_elem *);

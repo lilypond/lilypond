@@ -20,7 +20,7 @@ public:
     void add(Score_elem*);
     bool contains_b(Score_elem const*)const;
     Vertical_align_element();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_post_processing() ;

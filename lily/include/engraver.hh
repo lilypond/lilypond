@@ -134,7 +134,7 @@ public:
 
     Engraver();
     virtual ~Engraver(){}
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     void print() const;
 };
 

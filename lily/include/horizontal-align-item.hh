@@ -32,7 +32,7 @@ public:
      */
     int align_i_;
         
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_align_item);
     void add(Item*, int p);
     Horizontal_align_item();

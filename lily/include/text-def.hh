@@ -15,7 +15,7 @@
 class Text_def : public General_script_def {
 protected:
     virtual Atom get_atom(Paper_def* p, int dir_i_)const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Text_def,General_script_def);
 public:
     /**

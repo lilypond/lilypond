@@ -29,7 +29,7 @@ public:
     String id_str_;    
     Music_list(Music_list const&);    
     Music_list();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Music_list,Music);
     virtual void add(Music*);
     virtual void transpose(Melodic_req const *);
@@ -47,7 +47,7 @@ protected:
 class Chord : public Music_list {
 public:
     Chord();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Chord,Music);
     virtual void translate(Moment dt);
     virtual MInterval time_int()const;
@@ -55,7 +55,7 @@ public:
 
 class Request_chord : public Chord {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Request_chord();
     VIRTUAL_COPY_CONS(Request_chord,Music);
 };
@@ -69,7 +69,7 @@ public:
     Moment offset_mom_;
 
     Voice();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Voice, Music);
     virtual void translate(Moment dt);
     virtual MInterval time_int()const;
@@ -86,7 +86,7 @@ public:
     /// what name (or look for this name)
     String id_str_;
 
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Change_reg, Music);
 };
 #endif // MUSIC_LIST_HH

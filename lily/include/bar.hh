@@ -15,7 +15,7 @@ public:
     String type_str_;
     int spanned_i_;
     
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Bar);
     Bar();
 private:

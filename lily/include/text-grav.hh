@@ -23,7 +23,7 @@ protected:
     virtual void acknowledge_element(Score_elem_info);
 public:
     Text_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // TEXTGRAV_HH

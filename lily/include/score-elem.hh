@@ -68,7 +68,7 @@ public:
 
     virtual ~Score_elem();
     Score_elem();
-    NAME_MEMBERS();    
+    DECLARE_MY_RUNTIME_TYPEINFO;    
     
     Interval width() const;
     Interval height() const;

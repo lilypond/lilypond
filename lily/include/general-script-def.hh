@@ -19,7 +19,7 @@
 class General_script_def : public Input {
 public:
     VIRTUAL_COPY_CONS(General_script_def,General_script_def);
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     virtual int staff_dir_i()const;
     void print() const;
     virtual int rel_stem_dir_i()const;

@@ -21,6 +21,6 @@ protected:
     bool acceptable_request_b(Request*) const;
     bool do_try_request(Request*) ;
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // SWALLOW_GRAV_HH

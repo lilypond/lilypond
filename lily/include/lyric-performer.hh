@@ -16,7 +16,7 @@
 
 class Lyric_performer : public Performer {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Lyric_performer();
     ~Lyric_performer();
 

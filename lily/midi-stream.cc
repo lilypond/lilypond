@@ -33,10 +33,9 @@ Midi_stream::~Midi_stream()
 Midi_stream&
 Midi_stream::operator <<( String str )
 {
-    // still debugging...
     if ( check_debug )
 	str = String_convert::bin2hex_str( str );
-    // string now 1.0.26-2 handles binary streaming
+    
     *os_p_ << str;
     return *this;
 }
@@ -61,23 +60,14 @@ Midi_stream::operator <<( int i )
 void
 Midi_stream::header()
 {
-//    *os_p_ << "% Creator: " << get_version();
-//    *os_p_ << "% Automatically generated, at ";
-//    time_t t(time(0));
-//    *os_p_ << ctime(&t);
-
-//                4D 54 68 64     MThd
-//    String str = "MThd";
-//                00 00 00 06     chunk length
-//                00 01   format 1
-//                00 01   one track
-//                00 60   96 per quarter-note
-
-//    char const ch_C = "0000" "0006" "0001" "0001" "0060";
-//    str += String_convert::hex2bin_str( ch_C );
-//    *os_p_ << str;
-
-//      *this << Midi_header( 1, 1, tempo_i_ );
+/*
+                4D 54 68 64     MThd
+    String str = "MThd";
+                00 00 00 06     chunk length
+                00 01   format 1
+                00 01   one track
+                00 60   96 per quarter-note
+*/
       *this << Midi_header( 1, tracks_i_, clocks_per_4_i_ );
 }
 

@@ -24,7 +24,7 @@ public:
    
 
     /* *************** */
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Beam();
     void add(Stem*);
 

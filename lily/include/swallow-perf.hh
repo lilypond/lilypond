@@ -14,7 +14,7 @@
 
 class Swallow_performer : public Performer {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual bool do_try_request (Request* ) { return true; }
 };

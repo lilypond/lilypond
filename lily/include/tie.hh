@@ -28,7 +28,7 @@ public:
     void set_head(int, Note_head*head_l);
 
     Tie();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Tie);
 };
 #endif // TIE_HH

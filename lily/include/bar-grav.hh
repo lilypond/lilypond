@@ -19,7 +19,7 @@ class Bar_engraver : public Engraver {
     Bar * bar_p_;
 public:
     Bar_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
      
 protected:

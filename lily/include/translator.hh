@@ -30,7 +30,7 @@ public:
     virtual Translator *find_get_translator_l(String name, String id)=0;
     virtual Translator *ancestor_l(int l=1)=0;
     virtual ~Translator(){}
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     Translator();
     virtual Translator *get_default_interpreter()=0;
 };

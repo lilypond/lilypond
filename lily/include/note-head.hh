@@ -20,7 +20,7 @@
 
 class Note_head : public Item {
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     bool rest_b_;
     int position_i_;

@@ -23,7 +23,7 @@ class Dynamic_engraver : public Engraver {
 public:
     Dynamic_engraver();
     ~Dynamic_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void acknowledge_element(Score_elem_info);
     virtual bool do_try_request(Request *req_l);

@@ -30,7 +30,7 @@ public:
     virtual void finish() {}
     virtual void start() {}
     
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     
     virtual Global_translator *global_l() { return this; }

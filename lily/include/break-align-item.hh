@@ -18,7 +18,7 @@ class Break_align_item : public Horizontal_align_item {
 protected:
     virtual void do_pre_processing();
 public:
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Break_align_item);
 	
 };

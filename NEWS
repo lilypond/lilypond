@@ -1,9 +1,21 @@
-pl 77.jcn1
-	- init/*.ly in dist
-	- bf: string-convert.cc: return local buf
-	- bf: debug.cc: <new.h>
-	- bf: template4.cc: #includes
 
+pl 78
+	- bf: Midi_instrument 
+	- added  enable/disable defaults to help.
+	- incredibly ugly NAME_MEMBERS(); bug. Immediately changed to 
+DECLARE_MY_RUNTIME_TYPEINFO;
+	- \stem -1 -> \stem \down in input	
+	- bf: slurchar index
+	- configure warnings 
+	- preliminary stuff for multiarch building
+	- #!/usr/bin/perl fixes (AO)
+	- some Makefile cleanups: now faster.
+
+pl 77.jcn2
+	- Midi_instrument
+
+******
+july 29
 pl 77	
 	- some fixes for internal compiler errors 
 derive from Pointer_list with default dtor gives error with -O2

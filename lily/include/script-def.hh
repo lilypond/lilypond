@@ -35,7 +35,7 @@ public:
     virtual int priority_i()const;
     virtual bool inside_b()const;
     virtual Atom get_atom(Paper_def* p, int dir_i_)const;
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 
     virtual bool do_equal_b(General_script_def const &)const;
     virtual void do_print() const;

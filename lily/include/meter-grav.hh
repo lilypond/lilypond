@@ -31,6 +31,6 @@ public:
     virtual void do_creation_processing();
     virtual void do_post_move_processing();
     Meter_engraver();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // METERGRAV_HH

@@ -26,7 +26,7 @@ protected:
     virtual void handle_broken_dependencies();
 
     virtual void do_add_processing();
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // SUPER_ELEM_HH
