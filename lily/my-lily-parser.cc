@@ -36,6 +36,7 @@ My_lily_parser::set_debug()
     lexer_p_->set_debug( !monitor->silence(s+"Lexer") && check_debug);
 #endif
 }
+
 void
 My_lily_parser::print_declarations()
 {
@@ -60,11 +61,17 @@ My_lily_parser::do_init_file()
 void
 My_lily_parser::parse_file(String init, String s)
 {
-    *mlog << "Parsing ... ";
     lexer_p_ = new My_lily_lexer;
     init_str_ = init;
     
+    
+
+    *mlog << "Parsing ... ";
     lexer_p_->new_input(s, source_l_);
+    if (!lexer_p_->source_file_l()) {
+	warning("Can not find toplevel file. Ignoring " + s);
+	return; 
+    }
     do_yyparse();
     print_declarations();
 

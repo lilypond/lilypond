@@ -21,9 +21,11 @@ Includable_lexer::new_input(String s, Sources  * global_sources)
 {
     Source_file * sl = global_sources->get_file_l(s);
     if (!sl) {
-	LexerError("can't find file");
+	LexerError("Can't find file `" + s+ "'");
 	return; 
-    }
+    } else
+
+    
     char_count_stack_.push(0);
     if (yy_current_buffer) 
 	state_stack_.push(yy_current_buffer);
@@ -79,5 +81,8 @@ Includable_lexer::add_lexed_char(int count)
 Source_file*
 Includable_lexer::source_file_l()const
 {
-    return include_stack_.top();
+    if (include_stack_.empty())
+	return 0;
+    else
+	return include_stack_.top();
 }
