@@ -15,10 +15,8 @@
 
 % FIXME.  translate to middle of box.
 % Nice rectangle with rounded corners
-% FIXME: linewidth hardcoded.  check: too round?
 /draw_box % breapth width depth height
 {
-	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
 		/blot 0.005 def
@@ -32,13 +30,6 @@
 
 	blot 2 div sub /h exch def
 	blot 2 div sub /d exch def
-
-	%% UGH huh?
-	%% Where does this correction come from?
-	%% Why don't we need this in x direction?
-	h blot 2 div sub /h exch def
-	d blot 2 div sub /d exch def
-
 	blot 2 div sub /w exch def
 	blot 2 div sub /b exch def
 
@@ -57,10 +48,8 @@
 } bind def
 
 % Nice beam with rounded corners
-% FIXME: linewidth hardcoded.  check: too round?
 /draw_beam % slope width thick 
 {
-	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
 		/blot 0.005 def
@@ -72,11 +61,11 @@
  	0 setlinecap
 	1 setlinejoin
 
-	blot 2 mul sub /t exch def
-	blot 2 mul sub /w exch def
+	blot sub /t exch def
+	blot sub /w exch def
 	w mul /h exch def
 
-	blot t 2 div neg moveto
+	blot 2 div t 2 div neg moveto
 	w h rlineto
 	0 t rlineto
 	w neg h neg rlineto

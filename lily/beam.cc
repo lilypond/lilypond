@@ -670,11 +670,12 @@ Beam::set_stem_lengths (Grob *me)
 
       Real stem_y = calc_stem_y_f (me, s, y, dy);
 
-#if 0 // doesn't play well with dvips
-      if (Stem::get_direction (s) == Directional_element_interface::get (me))
-	stem_y += Stem::get_direction (s)
-	  * gh_scm2double (me->get_grob_property ("thickness")) / 2;
-#endif
+      // doesn't play well with dvips
+      if (scm_definedp (ly_symbol2scm ("ps-testing"), SCM_UNDEFINED)
+	  == SCM_BOOL_T)
+	if (Stem::get_direction (s) == Directional_element_interface::get (me))
+	  stem_y += Stem::get_direction (s)
+	    * gh_scm2double (me->get_grob_property ("thickness")) / 2;
       
       /* caution: stem measures in staff-positions */
       Real id = me->relative_coordinate (common, Y_AXIS)

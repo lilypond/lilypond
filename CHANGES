@@ -1,3 +1,16 @@
+1.5.3.hwn1
+==========
+
+* midi2ly bugfixes: don't print ';' in .ly output.
+
+* small cleanup of input/bugs/
+
+* bugfix: nested grace notes; added input/regression/grace-nest.ly
+
+* Bugfix: add double alterations to keyAccidentalOrder (Mats)
+
+* Fixes for PostScript beams and stems.
+
 1.5.2.hwn1
 ==========
 
