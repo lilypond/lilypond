@@ -23,6 +23,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{noteheadstyle.ly}
 
+@lilypondfile[printfilename]{easy-notation.ly}
+
 @lilypondfile[printfilename]{dots.ly}
 
 @lilypondfile[printfilename]{accidental.ly}

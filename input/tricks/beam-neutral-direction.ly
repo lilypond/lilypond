@@ -1,4 +1,5 @@
 
+
 fragment = \notes {
   [b''8 b]
   \property Voice.Beam \set #'default-neutral-direction = #-1

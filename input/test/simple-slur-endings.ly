@@ -1,10 +1,11 @@
+
 \score{
 	\notes \relative c''{
-		\property Voice.slurVerticalDirection = #1 c()a d()g,\break
-		\property Voice.slurVerticalDirection = #-1 c()a d()g,\break
-		\property Voice.slurVerticalDirection = #1 a()c d()g,\break
-		\property Voice.slurVerticalDirection = #-1 a()c d()g,\break
-		\property Voice.slurVerticalDirection = #-1 a()c d()g,\break
+		\slurUp c()a d()g,\break
+		\slurDown c()a d()g,\break
+		\slurUp a()c d()g,\break
+		\slurDown a()c d()g,\break
+		\slurDown a()c d()g,\break
 	}
 	\paper{
 		indent = 0.0;

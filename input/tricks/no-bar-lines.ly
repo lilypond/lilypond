@@ -1,3 +1,4 @@
+
 \score {
   \notes \relative c'' {
     a b c d

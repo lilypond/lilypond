@@ -1,5 +1,5 @@
 	
-\version "1.3.117";
+
 
 
 blah =  	\notes{ \transpose c'' {

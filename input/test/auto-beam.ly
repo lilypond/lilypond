@@ -1,3 +1,4 @@
+
 %{
   The auto-beam engraver has presets for common time signatures.
 %}

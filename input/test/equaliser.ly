@@ -1,4 +1,5 @@
 
+
 flauti = \notes \relative c' {
   \property Staff.midiInstrument = #"flute"
   \property Staff.instrument	= #"2 Flauti"
@@ -55,7 +56,7 @@ timpani = \notes \relative c' {
   R1*6 c1 R1*4
 }
 
-violino1 = \notes \relative c' {
+violinoB = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino I"
   \property Staff.instr		= #"Vl. I"
@@ -63,7 +64,7 @@ violino1 = \notes \relative c' {
   R1*7 c1 R1*3
 }
 
-violino2 = \notes \relative c' {
+violinoC = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino II"
   \property Staff.instr		= #"Vl. II"
@@ -129,7 +130,7 @@ violoncello = \notes \relative c' {
 	}
 
   \paper {
-  	\paper_sixteen
+  	\paperSixteen
   	indent=100.0\mm;
   	linewidth=150.0\mm;
     \translator {

@@ -1,3 +1,4 @@
+
 \header{
 texidoc="Beam thinks that first two notes should be stem down.  Can be fixed by uncommenting \stemUp";
 }

@@ -1,3 +1,4 @@
+
 \include "paper20.ly"
 Sopnotes = \notes {
 	\time 4/4;
@@ -13,7 +14,7 @@ Sopnotes = \notes {
 	<
 		\context Staff="sop"
 		<
-		    \$Sopnotes
+		    \Sopnotes
 		>
 	>
 	\paper {

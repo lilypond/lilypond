@@ -1,3 +1,4 @@
+
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110
 ";
@@ -13,7 +14,7 @@ texidoc="Simple beams.  This broke somewhere < 1.3.110
 
 linebreak = \penalty -1000;
 
-$ex8 = \notes \relative c' {
+exI = \notes \relative c' {
   \repeat "volta" 2 {
     \times 2/3 {c8( cis d} \times 2/3 {dis e f} 
     \times 2/3 {fis g gis} \times 2/3 {a bes b} |
@@ -29,4 +30,4 @@ $ex8 = \notes \relative c' {
   c1 || \linebreak
 }
 
-\score { \context Staff { \notes { \$ex8 } } }
+\score { \context Staff { \notes { \exI } } }

@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 The staccato dot (and all scripts with follow-into-staff set), must

@@ -1,3 +1,4 @@
+
 \score{
   \notes\relative c''{
     \time 2/4;

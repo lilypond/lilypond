@@ -1,3 +1,4 @@
+
 \score {
   \notes \relative c'' {
     a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"

@@ -1,3 +1,4 @@
+
 % dynamics should not collide with staff
 % dynamics (of two voices) should not collide with eachother
 % strange stem through beam bug in bar 8 on viola staff

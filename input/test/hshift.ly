@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 
 shiftI \property Voice.NoteColumn \override #'horizontal-shift = #0

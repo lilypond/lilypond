@@ -1,7 +1,12 @@
-/* @configure_input@ */
+/* @AUTOGENERATE@ */
 
 /* Hmm */
 #define PACKAGE "@package@"
+
+/* define if bla bla /var and the like. */
+#define DIR_SHAREDSTATEDIR "@DIR_SHAREDSTATEDIR@"
+
+#define DIR_DATADIR "@DIR_DATADIR@"
 
 /* default lilypond init and input dir */
 #define  DIR_DATADIR "@DIR_DATADIR@"

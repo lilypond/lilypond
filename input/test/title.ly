@@ -10,7 +10,7 @@ source =  	"urtext";
 instrument=	"Instrument";
 }
 
-\version "1.3.117";
+
 
 \score{
 	\notes

@@ -6,7 +6,7 @@ second staff line.  This does not hold for grace note beams.
 Override with @code{noStemExtend}.
 ";
 }
-\version "1.3.117";
+
 
 \score { 
   \context Voice \notes\relative c {

@@ -6,7 +6,7 @@
    /Mats B
 %}
 
-\version "1.3.117";
+
 
 violinincipit =  \notes\relative c''{
   \clef "french";

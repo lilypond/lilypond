@@ -1,4 +1,4 @@
-\version "1.3.117";
+
 
 voiceOne =  \notes \relative c'' {
 	a1 a a

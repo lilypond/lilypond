@@ -1,3 +1,4 @@
+
 % When tightly spaced, hinterfleisch -> 0.
 % Stems may touch the bar lines, opposite stems may touch eachother.
 % We need a mininum of about a note-width/interline space in these

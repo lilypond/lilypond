@@ -1,3 +1,4 @@
+
 \header {
 texidoc= "Staffs that end half way a system should end at the bar line.";
 }

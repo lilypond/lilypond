@@ -19,7 +19,7 @@ TODO:
 
 %}
 
-\version "1.3.117";
+
 praeludiumRight =   \notes {
    \key e \major;
   \clef violin;

@@ -3,7 +3,7 @@ cpp -P -traditional -o l.ly les-nereides.ly
 cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
 %}
 
-\version "1.3.117";
+
 
 \header{
     composer =   "ARTHUR GRAY";
@@ -218,7 +218,7 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \override #'direction = #-1
     \property Voice.slurEndAttachment = #'stem
     <)a''4\arpeggio eis cis> 
-    %\stemboth
+    %\stemBoth
     \property Voice.slurEndAttachment = ##f
     % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
@@ -358,39 +358,39 @@ middleDynamics =  \context Dynamics=middle \notes{
 lowerDynamics =  \context Dynamics=lower \notes{
     s2
     %2
-    s2\sustaindown s8. s16\sustainup s4
+    s2\sustainDown s8. s16\sustainUp s4
     %3
-    s2\sustaindown s8. s16\sustainup s4
+    s2\sustainDown s8. s16\sustainUp s4
     %3
 
 #ifndef FAKE_GRACE
-    s4\sustaindown s16
-    s32 s s\sustainup s
-    s32\sustaindown s s s
+    s4\sustainDown s16
+    s32 s s\sustainUp s
+    s32\sustainDown s s s
     s8
 #else
-    s2\sustaindown
+    s2\sustainDown
     s32*12
-    s32 s s\sustainup s
-    s32\sustaindown s s s
+    s32 s s\sustainUp s
+    s32\sustainDown s s s
 #endif
 
     \property Dynamics.stopSustain = #""
-    s4 s16. s32\sustainup
+    s4 s16. s32\sustainUp
 
     %5
-    s8\sustaindown s s
+    s8\sustainDown s s
     \property Dynamics.stopSustain = #"*"
     \property Dynamics.stopStartSustain = #"-P"
-    s s\sustainup\sustaindown s s
-    s\sustainup
+    s s\sustainUp\sustainDown s s
+    s\sustainUp
 
     %6
     \property Dynamics.stopStartSustain = #""
-    s8\sustaindown s s
+    s8\sustainDown s s
     \property Dynamics.stopStartSustain = #"-P"
-    s s\sustainup\sustaindown s s
-    s\sustainup
+    s s\sustainUp\sustainDown s s
+    s\sustainUp
 }
 
 \score{
@@ -420,7 +420,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	magnification_italic = 1.;
 	\translator {
 	    \ScoreContext
-	    TimeSignature \override #'style = #"C"
+	    TimeSignature \override #'style = #'C
 	    SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 4)
 
 	    \remove Bar_number_engraver;

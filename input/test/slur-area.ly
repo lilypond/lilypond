@@ -1,8 +1,9 @@
+
 \score{
 \notes\relative c''{
 
-\property Voice.slurVerticalDirection = #1
-\property Voice.stemVerticalDirection = #-1
+\slurUp
+\stemDown
 a(a' a,)a
 a(a a')a,
 a(d a)a
@@ -16,7 +17,7 @@ c,(g' c e f d b)g
 c,(g' c e f d b)g 
 
 \property Voice.noAutoBeaming = ##t
-\property Voice.stemVerticalDirection = #1
+\stemUp
 a8(a a a a a a)a
 
 }

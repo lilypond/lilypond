@@ -22,7 +22,7 @@
    * organ staff...
 %}
 
-\version "1.3.117";
+
 
 
 
@@ -114,22 +114,22 @@ fugaIIRight =  \notes   \relative c''   {
 
   \context Staff \notes\relative c''<
        \context Voice=one {
-	  \property Voice.horizontalNoteShift=0
-	  \property Voice.verticalDirection=1 
+	  \property Voice.NoteColumn \override #'horizontal-shift = #0
+	  \stemUp\slurUp\tieUp 
 	  e4 
        }
        \context Voice=two {
-	  \property Voice.verticalDirection=1 
-	  \property Voice.horizontalNoteShift=1
+	  \stemUp\slurUp\tieUp 
+	  \property Voice.NoteColumn \override #'horizontal-shift = #1
 	  cis
        }
        \context Voice=three {
-	  \property Voice.horizontalNoteShift=2
-	  \property Voice.verticalDirection=1 
+	  \property Voice.NoteColumn \override #'horizontal-shift = #2
+	  \stemUp\slurUp\tieUp 
 	  ais
        }
        \context Voice=four {
-	  \property Voice.verticalDirection=-1 
+	  \stemDown\slurDown\tieDown 
 	  \property Voice.horizontalNoteShift=-1
 	  fis
        }

@@ -5,7 +5,7 @@ only to avoid noteheads, and as little as possible.  Slurs never
 run through noteheads or stems.
 ";
 }
-\version "1.3.117";
+
 \score{
 	\notes\relative c''{
 		\time 3/4;

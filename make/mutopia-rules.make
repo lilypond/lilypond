@@ -22,7 +22,6 @@ $(outdir)/%.ly: %.abc
 
 $(outdir)/%.dvi: $(outdir)/%.ly
 	$(PYTHON) $(LY2DVI) --outdir=$(outdir) --dependencies $< 
-	-mv $(basename $(<F))*.midi $(outdir)
 
 # don't junk intermediate .dvi files.  They're easier to view than
 # .ps or .png
@@ -30,12 +29,7 @@ $(outdir)/%.dvi: $(outdir)/%.ly
 
 $(outdir)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --outdir=$(outdir) --dependencies $< 
-	-mv $(basename $<)*.midi $(outdir)
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --outdir=$(outdir)-$(PAPERSIZE) --dependencies --papersize=$(PAPERSIZE) $< 
-	-mv $(basename $<)*.midi $(outdir)-$(PAPERSIZE)
 
-$(outdir)/%.dvi: %.fly
-	$(PYTHON) $(LY2DVI) -o $(outdir)  $< 
-	-mv $(basename $<)*.midi $(outdir)

@@ -2,7 +2,7 @@
 instrument names on grandstaffs. GR is centered on entire score
 %}
 
-\version "1.3.129"
+
 \include "paper20.ly"
 \header{
         latexpackages = "amsmath";

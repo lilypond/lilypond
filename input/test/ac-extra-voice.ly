@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 global =  \notes {
 	\key a \minor;
@@ -31,8 +31,8 @@ accompany =  \notes \relative c{
 		\context Staff=up < 
 			\global
 			\context Voice=foo {
-			\property Voice.verticalDirection = #1
-			\property Voice.scriptVerticalDirection = #1
+			\stemUp\slurUp\tieUp
+			\scriptUp
 			\melody 
 			}
 		>

@@ -17,5 +17,5 @@ TestedFeatures =
 	    gourlay_maxmeasures =5.;
 	}
 }
-\version "1.3.117"; 
+
 

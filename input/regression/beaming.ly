@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Beaming is generated automatically. Beams may cross bar lines. In that

@@ -1,3 +1,4 @@
+
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
 

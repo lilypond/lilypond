@@ -1,3 +1,4 @@
+
 \header{
 texidoc="property chordChanges: only display chord names when
 there's a change in the chords scheme, but always display the

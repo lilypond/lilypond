@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 %% This should only be necessary if your kpathsea setup is broken
 %
@@ -60,8 +60,8 @@ scheme = \chords {
   \paper {
     \translator { 
       \ChordNamesContext
-      ChordName \override #'word-space = #1 
-      ChordName \override #'style = #'jazz
+      ChordNames \override #'word-space = #1 
+      ChordNames \override #'style = #'jazz
     }
   }
 }

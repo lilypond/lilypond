@@ -14,6 +14,10 @@
 #include "lily-guile.hh"
 
 class Scheme_hash_table;
+
+/*
+ Junk this almost-void class. 
+ */
 class Scope {
   Scheme_hash_table *id_dict_;
   Scope (Scope const &);

@@ -1,4 +1,4 @@
-\version "1.3.117"
+
 %{
   See scm/chord-names.scm: chord::names-alist-american
   James Hammons <jlhamm@pacificnet.net>
@@ -48,8 +48,8 @@ scheme = \chords {
   \paper {
     \translator { 
       \ChordNamesContext
-      ChordName \override #'word-space = #1 
-      ChordName \override #'style = #'american
+      ChordNames \override #'word-space = #1 
+      ChordNames \override #'style = #'american
     }
   }
 }

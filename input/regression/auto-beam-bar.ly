@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 The first two a8 notes should not be beamed.

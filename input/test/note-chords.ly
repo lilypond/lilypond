@@ -1,3 +1,4 @@
+
 scheme = \notes {
   <c'1 e' g'>
   <e' g' c''>

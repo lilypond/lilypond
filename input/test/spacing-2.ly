@@ -14,9 +14,9 @@ source =  "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris.";
     \notes \relative c''
 	\context GrandStaff <
 	\context Staff = SA <
-		\context Voice = VA { \property Voice.verticalDirection= 1
+		\context Voice = VA { \stemUp\slurUp\tieUp
 			e4 dis4 e2 }
-		\context Voice = VB { \property Voice.verticalDirection= -1
+		\context Voice = VB { \stemDown\slurDown\tieDown
 			[cis8 a] [fis b] gis2 }
 		{\key e \major; }
 		>
@@ -33,4 +33,4 @@ source =  "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris.";
 }
 }
 
-\version "1.3.117"; 
+

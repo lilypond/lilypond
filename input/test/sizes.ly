@@ -1,3 +1,4 @@
+
 \score { 
   \context Voice \notes\relative c {
     % to see the magic: uncomment size stuff in init/paper20.ly

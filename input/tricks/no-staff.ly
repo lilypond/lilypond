@@ -1,3 +1,4 @@
+
 \score {
   \notes { c4 c4 c8 c8 }
   \paper {

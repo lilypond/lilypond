@@ -570,8 +570,18 @@ if 1:
 
 		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?timeSignatureStyle"? *= *"([^"]*)"', '\\\\property \\1.TimeSignature \\\\override #\'style = #\'\\2', str) 
 
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizonta-shift = #\\2', str) 
+		str = re.sub ('"?timeSignatureStyle"? *= *#?""', 'TimeSignature \\\\override #\'style = ##f, str)
+		
+		str = re.sub ('"?timeSignatureStyle"? *= *#?"([^"]*)"', 'TimeSignature \\\\override #\'style = #\'\\1', str)
+		
+		str = re.sub ('#\'style *= #*"([^"])"', '#\'style = #\'\\1', str)
+		
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
 
+		# ugh
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *""', '\\\\property \\1.Stem \\\\override #\'flag-style = ##f', str)
+		
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *"([^"]*)"', '\\\\property \\1.Stem \\\\override #\'flag-style = #\'\\2', str) 
 		return str
 	
 	conversions.append (((1,3,98), conv, 'CONTEXT.textStyle -> GROB.#font-style '))
@@ -695,10 +705,13 @@ def do_conversion (infile, from_version, outfile, to_version):
 	if last_conversion:
 		sys.stderr.write ('\n')
 		new_ver =  '\\version \"%s\"' % tup_to_str (last_conversion)
+		# JUNKME?
+		# ugh: this all really doesn't help
+		# esp. as current conversion rules are soo incomplete
 		if re.search (lilypond_version_re_str, str):
 			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
-		else:
-			str = new_ver + '\n' + str
+		#else:
+		#	str = new_ver + '\n' + str
 
 		outfile.write(str)
 

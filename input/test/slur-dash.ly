@@ -1,15 +1,15 @@
-\version "1.3.117";
+
 
 \score{
 	\notes{
 		c( d e )c |
-		\slurdotted
+		\slurDotted
 		c( d e )c |
-		\slurnormal
+		\slurNoDots
 		c( d e )c |
 		\property Voice.slurDash = #0.0
 		c( d e )c |
-		\slurnormal
+		\slurNoDots
 		c( d e )c |
 	}
 	\paper{ 

@@ -1,4 +1,5 @@
 
+
 accompMotif = \notes \relative c {
 	\times 2/3 { c8 g' es' }
 	\times 2/3 { c' es, g, }

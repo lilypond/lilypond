@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Grace notes are typeset as an encapsulated piece of music. You can

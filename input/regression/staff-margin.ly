@@ -7,7 +7,7 @@ be on normal staffs, but also on compound staffs, like the PianoStaff
 }
 
 	
-\version "1.3.117";
+
 
 \score {
 

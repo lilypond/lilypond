@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Ties are strictly horizontal.  They are placed in between note heads.

@@ -1,3 +1,4 @@
+
 \score
 {
   \context StaffGroup = a < 
@@ -13,7 +14,7 @@
     \translator
     {
       \StaffContext
-      \consists Staff_margin_engraver;
+      \consists Instrument_name_engraver;
 	numberOfStaffLines  = #1
       
     }

@@ -1,3 +1,4 @@
+
 % lines preceded by a percent are comments.
 \include "paper16.ly"
 \score {

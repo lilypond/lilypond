@@ -4,7 +4,7 @@ dynamics are linked with (de)crescendi, they should be on the same
 line. Isolated dynamics may be forced up or down.  ";
 }
 
-\version "1.3.122";
+
 
 \score{
 \notes\relative c''{

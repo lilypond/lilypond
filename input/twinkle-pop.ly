@@ -7,7 +7,6 @@ enteredby = 	 "HWN, chords by Johan Vromans";
 copyright = 	 "public domain";
 }
 
-\version "1.3.117";
 
 melodie =  \notes\relative c'' {
         \clef "violin";
@@ -34,7 +33,7 @@ acc =  \chords {
 }
 
 text =  \lyrics{ 
-        \property Lyrics . textStyle =  "italic"
+        \property Lyrics.LyricText \set #'font-style = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2
         Ce4 qui cau -- se mon tour -- ment2

@@ -1,3 +1,4 @@
+
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110
 ";

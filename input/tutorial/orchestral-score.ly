@@ -1,4 +1,4 @@
-\version "1.3.130";
+
 
 \include "paper13.ly";
 

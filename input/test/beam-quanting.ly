@@ -1,3 +1,4 @@
+
 %{
 Have some fun beam quanting
 %}

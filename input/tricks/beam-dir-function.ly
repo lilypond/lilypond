@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 There are several ways to calculate the direction of a beam

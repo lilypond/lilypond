@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 %{
 
@@ -20,16 +20,16 @@ bla =  \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> }
  \translator {
   \StaffContext
   \name TabStaff;
-  basicStaffSymbolProperties \override #'line-count = #6
+  StaffSymbol \override #'line-count = #6
   \remove "Clef_engraver";
   \remove "Time_signature_engraver";
   \consists "Pitch_squash_engraver";
-   basicNoteHeadProperties \override #'transparent = ##t
-   basicStemProperties \override #'transparent = ##t
-   basicNoteHeadProperties \override #'staff-position = #-6
-   basicDotsProperties \override #'transparent = ##t
+   NoteHead \override #'transparent = ##t
+   Stem \override #'transparent = ##t
+   NoteHead \override #'staff-position = #-6
+   Dots \override #'transparent = ##t
    squashedPosition = #-4
-   basicStemProperties \override #'length = #12
+   Stem \override #'length = #12
 }
 \translator {
 \ScoreContext

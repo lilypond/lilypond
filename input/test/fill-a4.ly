@@ -1,3 +1,4 @@
+
 %
 % test file to get a4 paper really filled,
 % without having to resort to the ever-ugly oversizing hack:
@@ -17,7 +18,7 @@ tagline="Ligly";
 		\repeat "unfold" 36 c1
 	}
 	\paper{
-		\paper_thirteen
+		\paperThirteen
 		indent = 0.0\mm;
 		% URG
 		% Vertical space is rather precious when typesetting

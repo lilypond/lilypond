@@ -8,10 +8,10 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-% \version "1.0.16";
+% \;
 
 tempi = \notes {
-	\property Voice.textStyle = "large"
+	\property Voice.TextScript \set #'font-style = #'large
 	s8^"Allegro assai"
 }
 
@@ -21,7 +21,7 @@ dynamics = \notes {
 }
 
 global = \notes {
-	\key g;
+	\key g \major;
 	\time 3/8;
 	< 
 	        \dynamics

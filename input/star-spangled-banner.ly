@@ -4,7 +4,7 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
-\version "1.3.120";
+
 
 \header{
 	title="The Star Spangled Banner";

@@ -12,9 +12,6 @@ One or more La@TeX{} files are created, based on information found
 in the output (@TeX{}) files, and latex is finally run to create
 one or more DVI files.
 
-The majority of this utility came from a bourne script written by Jan
-Arne Fagertun name @file{ly2dvi}. 
-
 @subsection Invoking ly2dvi
 
 @example
@@ -24,86 +21,33 @@ Arne Fagertun name @file{ly2dvi}.
 @unnumberedsec Options
 
 @table @code
-@item -D,--debug
-    Set debug mode. There are two levels - in level one some debug
-    info is written, in level two the command @strong{set -x} is run, which
-    echoes every command in the ly2dvi script.
-@item -F,--headers=
-    Name of additional La@TeX{} headers file. This is included in the
-    tex file at the end of the headers, last line before @code{\begin@{document@}}
-@item -H,--Heigth=
-    Set paper heigth (points). Used together with width and La@TeX{} name of
-    papersize in case of papersize unknown to ly2dvi.
-@item -K,--keeplilypond
-    Keep LilyPond output after the run.
-@item -L,--landscape
-    Set landscape orientation - portrait is the default.
-    Use together with @code{dvips -t landscape} if you run dvips 
-    separately. 
-@item -N,--nonumber
-    Switch off page numbering.
-@item -O,--orientation=
-    Set orientation landscape - obsolete, use @strong{-L} instead.
+@item -s,--set=@var{KEY}=@var{VAL}
+    Add @var{key}= @var{val} to the settings, overriding those specified
+in the files. Possible keys: language, latexheaders, latexpackages,
+papersizename, pagenumber, linewidth, orientation, textheight. 
+
+@item -k,--keep
+    Keep the temporary directory including LilyPond and ly2dvi output
+files. The temporary directory is created in the current directory as @code{ly2dvi.dir}.
 @item -P,--postscript
-    In addition to the DVI file, also Generate a postsript file.
-@item -W,--Width=
-    Set paper width (points). Used together with heigth and La@TeX{} name of
-    papersize in case of papersize unknown to ly2dvi.
-@item -d,--dependencies
-    Tell LilyPond to make dependencies file.
+    Generate  PostScript in stead of DVI.
+@item --no-lily
+    Do not run LilyPond; useful for debugging ly2dvi.
 @item -h,--help
     Print help.
-@item -k,--keeply2dvi
-    Keep the La@TeX{} file after the run.
-@item -l,--language=
-    Specify La@TeX{} language.
-    (@strong{-l norsk} produces @code{\usepackage[norsk]@{babel@}}).
-@item -o,--output=
-    Set output directory.
-@item -p,--papersize=
-    Specify papersize.
-    (@strong{-p a4} produces @code{\usepackage[a4paper]@{article@}})
-@item -s,--separate
-    Normally all output files are included into one La@TeX{} file.
-    With this switch all files are run separately, to produce one
-    DVI file for each.
+@item -I,--include
+    Add to the lilypond include path.
+@item -d,--dependencies
+    Make a dependency file for the output.
+@item --outdir=@var{dir}
+    Generate output (including MIDI files) in @var{dir}
+
 @end table
 
+@subsection Titling layout
 
-@subsection  Features
-
-Ly2dvi responds to several parameters specified in the LilyPond
-file. They are overridden by corresponding command line options.
-
-@table @code
-@item language="";
-    Specify La@TeX{} language
-@item latexheaders="";
-    Specify additional La@TeX{} headers file
-@item orientation="";
-    Set orientation.
-@item paperlinewidth="";
-    Specify the width (pt, mm or cm) of the printed lines.
-@item papersize="";
-    Specify name of papersize.
-@end table
-
-@subsection  Environment
-
-@table @code
-@item LILYPONDPREFIX
-    Sets the root directory of the LilyPond installation
-@item LILYINCLUDE
-    Additional directories for input files.
-@item TMP
-    Temporary directory name. Default is /tmp
-@end table
-
-@subsection  Files
-
-@file{titledefs.tex} is inspected for definitions used to extract
-additional text definitions from the LilyPond file. In the current
-version the following are defined:
+Ly2dvi extracts the following header fields from the .ly files to
+generate titling:
 
 @table @code
 @item title
@@ -126,119 +70,57 @@ version the following are defined:
     Name of the piece, leftflushed below the instrument
 @end table
 
-@file{$LILYPONDPREFIX/share/.lilyrc $HOME/.lilyrc ./.lilyrc} are files
-to set up default running conditions.  On Windows OS initialization
-files are named @file{_lilyrc}. The file syntax is as follows:
 
-@example 
-VARIABLE-NAME=VALUE 
-@end example 
- 
+@subsection Additional parameters
 
-Where @strong{VARIABLE-NAME} is the name of the variable documented below
-and @strong{VALUE} is either a string, a 1, or a 0.  All files are parsed,
-in the shown sequence. In the current version the following are
-allowed:
+Ly2dvi responds to several parameters specified in the LilyPond
+file. They can be overridden by supplying the @code{--set} command line
+option.
 
 @table @code
-@item DEBUG=value
-This turns off (default) or on the debug capabilities.  Possible
-values are 0 (off) and 1 (on).
-@item DEPENDENCIES=value
-This turns off (default) or on the ability to generate a Makefile
-dependency list.  Possible values are 0 (off) and 1 (on).
-@item KEEPLILYPOND=value
-This turns off (default) or on the ability to keep the log file
-associated with the LilyPond job.  Possible values are 0 (off) and 1
-(on).
-@item KEEPLY2DVI=value
-This turns off (default) or on the ability to keep the temporary files
-that are generated by the ly2dvi job.  Possible values are 0 (off) and
-1 (on)
-@item LANGUAGE=value
-Specify La@TeX{} language.  Possible value is a valid La@TeX{} language.
-@item LATEXHF=value
-Specify additional La@TeX{} headers file.  Possible value is a file
-specification. 
-@item LILYINCLUDE=value
-Additional directories for input files.  Possible value is a delimited
-directory path list.
-@item LILYPONDPREFIX=value
-This defines the LilyPond root directory.  Possible value is a valid
-directory specification to the LilyPond distribution location.
-@item NONUMBER=value
-This turns off (default) or on the page numbering capability.
-Possible values are 0 (page numbering enabled) and 1 (page numbering
-disabled). 
-@item ORIENTATION=value
-This sets the image orientation.  Possible values are
-portrait (default) and landscape.
-@item OUTPUTDIR=value
-This defines the directory where the resultant files will be
-generated.  Possible value is a valid directory specification.
-Default is the current working directory.
-@item PAPERSIZE=value
-This defines the papersize the image will be sized to fit.  Possible
-values are a0, a1, a2, a3, a4 (default), a5, a6, a7, a8, a9, a10, b0,
-b1, b2, b3, b4, b5, archA, archB, archC, archD, archE, flsa, flse,
-halfletter, ledger, legal, letter, or note.
-@item PHEIGHT=value
-Specify paperheight (points - an inch is 72.27, a cm is 28.453 points).
-@item POSTSCRIPT=value
-This turns off (default) or on the capability of additionally
-generating a postscript file.  Possible values are 0 (off) and 1 (on).
-@item PWIDTH=value
-Specify paperwidth (points - an inch is 72.27, a cm is 28.453 points).
-@item SEPARATE=value
-This turns off (default) or on the capability of generating multiple
-dvi and postscript files from multiple source files.  The default is
-to generate a concatenation of the source files.  Possible values are
-0 (single file) and 1 (separate files).
-@item TMP=value
-This defines the emporary directory.  Actually this is not used at the
-present.  Possible value is a valid directory specification that is
-writable to the user.
+@item language
+    Specify La@TeX{} language: the @code{babel} package will be
+included.  Default: unset.
+
+        Read from the @code{\header} block.
+
+@item latexheaders
+    Specify additional La@TeX{} headers file.
+
+        Normally read from the @code{\header} block. Default value: empty
+
+@item latexheaders
+    Specify additional La@TeX{} packages file. This works cumulative,
+so you can add multiple packages using multiple @code{-s=latexpackages} options.
+       Normally read from the @code{\header} block. Default value:
+@code{geometry}.
+
+@item orientation
+    Set orientation. Choices are @code{portrait} or @code{landscape}. Is
+read from the @code{\paper} block, if set.
+        
+@cindex 
+@item linewidth
+   Is read from the @code{\paper} block.  
+
+@item papersizename
+   Specify name of papersize. Is read from the @code{\paper} block.
 @end table
 
-@subsection  Initialization Sequence
-The initialization process reads inputs for several sources.  Below is
-a list of priorities for lowest to hightest proirity.
-
-[FIXME: should use ly2dvirc iso lilyrc]
-
-@itemize @bullet
-@item  Program's defaults
-@item  Values found in LilyPond output file
-@item  Environment variables
-@item  $LILYPONDPREFIX/share/lilypond/.lilyrc
-@item  $HOME/.lilyrc
-@item  ./.lilyrc
-@item  command line options
-@end itemize
-
 @subsection  Bugs
+
+Assumes that settings for LilyPond are correct. Assumes that @code{cp}
+and @code{rm} are in the path.
 
 If find something that you consider a bug, please send a bugreport (See
 @ref{Bug reports}) to @email{bug-gnu-music@@gnu.org}.
 
-@subsection  Remarks
-
-Many papersizes are now supported. Information on other sizes
-(La@TeX{} names, horizontal and vertical sizes) should be mailed to
-the author or to the mailing list.
-
-Supported papersizes are:
-
-a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
-archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
-letter, note
-
 @subsection  Authors
-Python Version author:
-@email{daboys@@austin.rr.com, Jeffrey B. Reed},
-@uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
 
-Original bourne shell version author:
-@email{Jan.A.Fagertun@@energy.sintef.no, Jan Arne Fagertun},
-@uref{http://www.termo.unit.no/mtf/people/janaf/}
+@email{hanwen@@cs.uu.nl,Han-Wen Nienhuys}.
+
+Earlier incarnations of ly2dvi were written by
+@email{daboys@@austin.rr.com, Jeffrey B. Reed} (Python version), and
+@email{Jan.A.Fagertun@@energy.sintef.no, Jan Arne Fagertun} (Bourne
+shell version)
 

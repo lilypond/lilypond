@@ -782,5 +782,5 @@ direction = Forced direction for all ties"
 	    all-interfaces)))
 
 
-(define interface-names (map (lambda (x) (symbol->string (car x))) all-interfaces))
+(define (interface-names) (map (lambda (x) (symbol->string (car x))) all-interfaces))
 

@@ -1,4 +1,4 @@
-\version "1.3.122"
+
 
 % Ugh, we need to override some LaTeX titling stuff
 \header {
@@ -63,13 +63,13 @@ timpani = \notes \relative c' {
   c1 c
 }
 
-violino1 = \notes \relative c' {
+violinoB = \notes \relative c' {
   \property Staff.instrument	= #"Violino I  "
   \property Staff.instr		= #"Vl. I  "
   c1 c
 }
 
-violino2 = \notes \relative c' {
+violinoC = \notes \relative c' {
   \property Staff.instrument	= #"Violino II  "
   \property Staff.instr		= #"Vl. II  "
   c1 c
@@ -128,7 +128,7 @@ violoncello = \notes \relative c' {
     }
     \translator {
       \OrchestralScoreContext
-      timeSignatureStyle = #"C"
+      TimeSignature \override #'style = #'C
     }
   }
 }

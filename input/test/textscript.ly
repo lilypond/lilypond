@@ -1,4 +1,4 @@
-\version "1.3.123";
+
 
 %
 % Test font selection and scm text markup

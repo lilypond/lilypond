@@ -1,4 +1,4 @@
-\version "1.3.117";
+
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -62,7 +62,7 @@ keys =  \notes{
 	\paper{
         	\translator { 
 			\ChordNamesContext
-			ChordName \override #'word-space = #1 
+			ChordNames \override #'word-space = #1 
 		}
 	}
 }

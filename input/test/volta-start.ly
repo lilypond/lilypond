@@ -6,7 +6,7 @@ line, they should always start after the prefatory matter.  ";
 
 }
 
-\version "1.3.117";
+
 
 voiceB =  \notes {
     \clef bass;

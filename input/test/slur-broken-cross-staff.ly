@@ -49,4 +49,4 @@ linebreak.
 	\paper { indent = 0.; linewidth = 40.*\staffspace; }
 }
 
-\version "1.3.110"; 
+

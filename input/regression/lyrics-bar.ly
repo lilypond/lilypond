@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
