@@ -41,7 +41,9 @@ Line_of_staff::TeXstring() const
 	    // moveover
 	    if (delta)
 		s +=String( "\\kern ") + print_dimen(delta);
-
+	    if (cc->error_mark_b_) {
+		s += String("\\columnerrormark");
+	    }
 	    // now output the items.
 	    for (iter_top(cc->its,i); i.ok(); i++) {
 		if (i->pstaff_l_ == pstaff_l_)
