@@ -3,8 +3,8 @@
 
 \include "deutsch.ly"
 
-#(set-staff-size 16)
-\version "2.1.11"
+#(set-global-staff-size 16)
+\version "2.1.13"
 
 \header {
   title = "Romanzen"

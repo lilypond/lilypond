@@ -1,5 +1,8 @@
 2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/$(redhat-package)): use http for
+	downloading.
+
 	* scm/output-lib.scm (shift-right-at-line-begin): new function:
 	kludge rehearsalmark placement.
 

@@ -103,7 +103,7 @@ get-deb-pfa: $(outdir)/$(debian-package)
 
 redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
 $(outdir)/$(redhat-package):
-	wget  --passive-ftp -P $(outdir) ftp://ftp.lilypond.org/pub/LilyPond/binaries/RedHat-9/$(redhat-package)
+	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/RedHat-9/$(redhat-package)
 
 get-rpm-pfa: $(outdir)/$(redhat-package)
 	cd $(outdir) ; rm -rf usr/ # (root alert!) 

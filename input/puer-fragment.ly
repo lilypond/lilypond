@@ -1,4 +1,4 @@
-\version "2.1.11"
+\version "2.1.13"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -17,7 +17,7 @@ before the ligature (not demonstrated in this example)."
 
 }
 
-#(set-staff-size 26)
+#(set-global-staff-size 26)
 \include "gregorian-init.ly"
 
 %%% N.B.: Yes, I know, the formatting of the following looks awful,

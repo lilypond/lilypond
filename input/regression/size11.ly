@@ -1,4 +1,4 @@
-\version "2.1.11"
+\version "2.1.13"
 
 \header{
 texidoc="
@@ -14,5 +14,5 @@ foollilypondbook = "
 
 
 
-#(set-staff-size 11)
+#(set-global-staff-size 11)
 \include "allfontstyle.lyinc"

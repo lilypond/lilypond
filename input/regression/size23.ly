@@ -1,4 +1,4 @@
-\version "2.1.11"
+\version "2.1.13"
 foollilypondbook = "
 \score
 "
@@ -8,5 +8,5 @@ foollilypondbook = "
     }
 
 
-#(set-staff-size 23)
+#(set-global-staff-size 23)
 \include "allfontstyle.lyinc"
