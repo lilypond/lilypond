@@ -16,7 +16,7 @@ class Interpretation_context_handle
 public:
   ~Interpretation_context_handle ();
   Interpretation_context_handle ();
-  Interpretation_context_handle* clone () const;
+
   void set_translator (Context *);
   bool try_music (Music *);
   void operator = (Interpretation_context_handle const&);

@@ -25,6 +25,8 @@ demangle_classname (std::type_info const &);
       VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
    }; */
 
+Base *clone () const { return new Name (*this); }
+
 #define VIRTUAL_COPY_CONSTRUCTOR(base, name) \
   /* Hack to fix constness: gcc >= 2.95 is correct in defining \
      typeof (*this) in a const member function to be const.  */ \

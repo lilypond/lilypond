@@ -14,89 +14,79 @@
 
 
 /*
+  Smobs are GUILEs mechanism of exporting C(++) objects to the Scheme
+  world.  They are documented in the GUILE manual.
 
-   Each smobbed C-object may only be interfaced by a single, unique
-   smob cell. Therefore NEVER provide a public function that will
-   create a smobcell for an existing object pointer.
 
-   There are two ways to reach this goal:
+  In LilyPond, smobs are created from C++ objects through macros.
+  There are two types of smob objects.
 
-   simple smobs:
+  1. Simple smobs are intended for simple objects like numbers:
+   immutable objects that can be copied without change of meaning.
 
-   - Data structures that are encapsulated by GUILE. If constructed
-   through GUILE, you may only store them as protected SCMs, and may
-   not copy the pointer the object itself. Typical interface
+   To obtain an SCM version of a simple smob, use the member function
+   SCM smobbed_copy ().
 
-   struct Ssmob {
-   public:
-     SCM make_copy_scm () const {
-       Ssmob *sp = new Ssmob (*this);
-       return sp->smobbed_self ();
-     }
-   };
+   Simple smobs are created by adding the
+   DECLARE_SIMPLE_SMOBS(Classname,) to the declaration
 
-   or
+  2. Complex smobs are objects that have an identity. These objects
+   carry this identity in the form of a self_scm () method, which is a
+   SCM pointer to the object itself.
 
-   struct Ssmob {
-   public:
-     DECLARE_SIMPLE_SMOBS;
-     static SCM make_scm (void initdata) {
-       Ssmob * sp = new Ssmob (initdata);
-       return sp->smobbed_self ();
-     }
-   private:
-     Ssmob (initdata);
-   }
+   The constructor for a complex smob should have 3 steps:
 
-   Objets of type Ssmob may live on the stack, or on the heap, or as
-   part of other objects.  However, as soon as the object is smobbed,
-   by definition (by definition of the constructors, in this example),
-   lives on the heap as a separate object
-   
-   - complex smobs: data structures whose identity is referenced and
-   stored both in C++ and in GUILE form. From going from C++ to GUILE,
-   you use smob_ptr->self_scm_
+   * initialize all SCM members to a non-immediate value (like SCM_EOL)
 
-   class Csmob {
-     DECLARE_SMOBS;
-     Csmob () { smobify_self (); }
-     Csmob (Csmob const & s) {
-       // don't copy self_scm_
+   * call smobify_self ()
+
+   * initialize SCM members
+
+   For example,
+
+     Complex_smob::Complex_smob () {
+       scm_member_ =SCM_EOL;
        smobify_self ();
+       scm_member_ = <..what you want to store..>
      }
-   };
    
-   A complex smob is a C++ class with static member functions to glue
-   it with Scheme. Every instance carries SELF_SCM_, a pointer to the
-   unique Scheme smob cell of itself.
+   after creation, the self_scm() field of a complex smob is protected
+   from Garbage Collection. This protection should be removed once the
+   object is put into another (reachable) Scheme data structure, ie.
 
-   Upon creation, SELF_SCM_ is protected, so if you choose to store it
-   in C++ structures, you need to do
+      Complex_smob * p = new Complex_smob;
+      list = scm_cons (p->self_scm (), list);
+      scm_gc_unprotect_object (p->self_scm ());
 
-   class Bla {
-   Csmob *ptr;
-   ~Bla () {  scm_gc_unprotect_object (ptr->self_scm_); }
+   Complex smobs are made with DECLARE_SMOBS(Classname,) in the class
+   declaration.
+
+   CALLING INTERFACE
    
-   };
+   Common public methods to C++ smob objects:
 
-   If protection is done via GUILE, don't forget to unprotect AFTER putting
-   stuff into the GUILE datastructs
+   unsmob (SCM x)  - unpacks X and returns pointer to the C++ object, or 0
+     if it has the wrong type.
 
+   SCM equal_p (SCM a, SCM b) - compare A and B. Returns a Scheme boolean
 
-   guile_data = gh_cons (ptr->self_scm_, guile_data);
-   ptr->self_scm_
+   
+   IMPLEMENTATION
+   
+   For implementating a class, the following should be provided
 
-   Since GUILE takes care of the freeing the object, the destructor
-   is private.
+   - an equal_p() function (a default is in the
+     IMPLEMENT_DEFAULT_EQUAL_P macro in ly-smobs.icc)
 
-   DUMMY a thing to make sure compiles only work if this header
-   if this file is there.
+   - mark_smob () function, that calls scm_gc_mark () on all Scheme
+     objects in the class
 
+   - a print_smob () function, that displays a representation for
+     debugging purposes
 
-   WARNING:
-
-   smobify_self () might trigger a GC, so make sure that objects are  
-   sane when you do smobify_self ().
+   - A call to one of the IMPLEMENT_SMOBS or  IMPLEMENT_SIMPLE_SMOBS macros
+   from file "ly-smobs.icc"
+   
 */
 
 #define DECLARE_SIMPLE_SMOBS(CL,dummy) \

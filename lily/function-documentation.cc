@@ -9,6 +9,9 @@ void ly_add_function_documentation (SCM func,
 				    char const * varlist,
 				    char const * doc)
 {
+  if (!strlen (doc))
+    return ; 
+    
   if (!gh_vector_p (doc_hash_table ))
     doc_hash_table = scm_make_vector (gh_int2scm (59), SCM_EOL);
 

@@ -314,7 +314,7 @@ def compose_ly (code, options):
 		body = FULL_LY
 
 	# defaults
-	relative = 0
+	relative = 1
 	staffsize = 16
 	override = {}
 	override.update (default_ly_options)
@@ -357,7 +357,7 @@ def compose_ly (code, options):
 
 	# 1 = central C
 	if relative < 0:
-		relative_quotes += ',' * (- relative - 1)
+		relative_quotes += ',' * (- relative)
 	elif relative > 0:
 		relative_quotes += "'" * relative
 		
