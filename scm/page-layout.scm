@@ -293,9 +293,9 @@ is what have collected so far, and has ascending page numbers."
 	    (let*
 		((this-system-ext (vector-ref real-extents idx))
 		 (next-system-ext (vector-ref real-extents (1+ idx)))
-		 (distance (- (+ (car this-system-ext)
+		 (distance (- (+ (cdr next-system-ext)
 				 fixed-dist)
-			      (cdr next-system-ext)
+			      (car this-system-ext)
 			      ))
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
