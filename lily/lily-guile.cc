@@ -193,25 +193,33 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
+#if 0
+SCM
+ly_use_module (SCM module)
+{
+  scm_call_1 (SCM_VARIABLE_REF (process_use_modules_var),
+	      scm_list_1 (scm_list_1 (convert_module_name (name))));
+  return SCM_UNSPECIFIED;
+}
+#endif
 
 void
-ly_init_guile ()
+ly_init_ly_module (void *data)
 {
-  SCM last_mod = scm_current_module ();
-  scm_set_current_module (scm_c_resolve_module ("lily"));
-
-  scm_c_use_module ("guile");
-  
   for (int i=scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
 
   if (verbose_global_b)
     progress_indication ("\n");
-
-
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
+}
 
-  scm_set_current_module (last_mod);
+SCM lily_module ;
+
+void
+ly_init_guile ()
+{
+  lily_module = scm_c_define_module ("lily", ly_init_ly_module, 0);
 }
 
 unsigned int ly_scm_hash (SCM s)
@@ -708,12 +716,17 @@ robust_list_ref(int i, SCM l)
 
 static int module_count;
 
+void
+ly_init_anonymous_module (void * data)
+{
+  scm_c_use_module ("lily");  
+}
+
 SCM
 ly_make_anonymous_module ()
 {
   String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
-  SCM mod = scm_c_resolve_module (s.to_str0());
-
+  SCM mod = scm_c_define_module (s.to_str0(), ly_init_anonymous_module, 0);
   scm_module_define (mod, ly_symbol2scm ("symbols-defined-here"), SCM_EOL);
   return mod;
 }

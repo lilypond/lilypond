@@ -12,7 +12,7 @@
 ;;;; WARNING: don't use anonymous functions for initialization. 
 
 ;; TODO: junk the meta field in favor of something more compact?
-(define all-grob-descriptions
+(define-public all-grob-descriptions
   `(
     (Accidental
      . (

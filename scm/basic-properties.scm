@@ -1,13 +1,14 @@
 ; Definition of backend properties (aka. element properties).
 
 ;; See documentation of Item::visibility_lambda_
-(define (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
-(define (end-of-line-visible d) (if (= d -1) '(#f . #f) '(#t . #t)))
-(define (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
-(define (all-visible d) '(#f . #f))
-(define (all-invisible d) '(#t . #t))
-(define (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
-(define (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define-public (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define-public (end-of-line-visible d) (if (= d -1) '(#f . #f) '(#t . #t)))
+(define-public (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
+
+(define-public (all-visible d) '(#f . #f))
+(define-public (all-invisible d) '(#t . #t))
+(define-public (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define-public (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18,7 +19,7 @@
 ; How should a  bar line behave at a break? 
 ;
 ;; Why prepend `default-' to every scm identifier?
-(define (default-break-barline glyph dir)
+(define-public (default-break-barline glyph dir)
    (let ((result (assoc glyph 
 			'((":|:" . (":|" . "|:"))
 			  ("||:" . ("||" . "|:"))

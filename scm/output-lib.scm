@@ -14,7 +14,7 @@
 
 ; The TabNoteHead molecule callback.
 ; Create a text molecule
-(define (tablature-molecule-callback grob)
+(define-public (tablature-molecule-callback grob)
   (let ((molecule (fontify-text
                    (ly-get-default-font grob)
                    (ly-get-grob-property grob 'text)
@@ -25,7 +25,7 @@
 
 ; The TabNoteHead tablatureFormat callback.
 ; Compute the text grob-property
-(define (fret-number-tablature-format string tuning pitch)
+(define-public (fret-number-tablature-format string tuning pitch)
   (number->string
    (- (pitch-semitones pitch)
       (list-ref tuning
@@ -35,7 +35,7 @@
    )
   )
 
-(define (hammer-molecule-callback grob)
+(define-public (hammer-molecule-callback grob)
   (let* ((note-collums (ly-get-grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
          (note-column2 (car  note-collums))
@@ -66,12 +66,12 @@
 
 
 
-(define guitar-tunings '(4 -1 -5 -10 -15 -20))
+(define-public guitar-tunings '(4 -1 -5 -10 -15 -20))
 
 ; end of tablature functions
 
 
-(define (make-molecule-boxer line-thick x-padding y-padding callback)
+(define-public (make-molecule-boxer line-thick x-padding y-padding callback)
    "Makes a routine that adds a box around the grob parsed as argument"
   (define (molecule-boxer grob)
   (let*
@@ -224,4 +224,4 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
-(define (default-bar-number-visibility barnum) (> barnum 1))
+(define-public (default-bar-number-visibility barnum) (> barnum 1))

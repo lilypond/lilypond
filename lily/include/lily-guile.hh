@@ -262,6 +262,7 @@ TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
   TYPE :: FUNC ## _proc = gh_new_procedure ## ARGCOUNT  ## _0 (#TYPE "::" #FUNC, \
  ((Scheme_function_ ## ARGCOUNT)TYPE :: FUNC)); 				\
+  scm_c_export (#TYPE "::" #FUNC, NULL);\
 }								\
 								\
 ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
@@ -289,6 +290,7 @@ INITPREFIX ## init ()\
  FNAME ## _proc \
     = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, (Scheme_function_unknown) FNAME);\
   ly_add_function_documentation (PRIMNAME, #ARGLIST,  DOCSTRING);\
+  scm_c_export (PRIMNAME,NULL);\
 }\
 ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init);\
 SCM \

@@ -28,7 +28,7 @@
 ;;;   end beams with 16th notes each 1 4 note
 ;;;   end beams with 32th notes each 1 8 note
 
-(define auto-beam-settings
+(define-public auto-beam-settings
    `(
      ((end * * 3 2) . ,(make-moment 1 2))
      ((end 1 16 3 2) . ,(make-moment 1 4))
