@@ -149,7 +149,12 @@ Beam::set_default_dir()
 
 /*
   should use minimum energy formulation (cf linespacing)
-  */
+
+  [todo]
+  the y of the (start) of the beam should be quantisized,
+  so that no stafflines appear just in between two beam-flags
+
+*/
 void
 Beam::solve_slope()
 {
@@ -208,6 +213,11 @@ Beam::set_stemlens()
 void
 Beam::do_post_processing()
 {
+    if ( stems.size() < 2) {
+	warning("Beam with less than 2 stems");
+	transparent_b_ = true;
+	return ;
+    }
     solve_slope();    
     set_stemlens();
 }
@@ -248,7 +258,6 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 void
 Beam::do_pre_processing()
 {
-    assert(stems.size()>1);
     if (!dir_i_)
 	set_default_dir();
 
@@ -329,11 +338,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 Molecule*
 Beam::brew_molecule_p() const 
 {
-    /*
-      [todo]
-      the y of the (start) of the beam should be quantisized,
-      so that no stafflines appear just in between two beam-flags
-     */
+ 
     Molecule *mol_p = new Molecule;
     // huh? inter-what
 //    Real inter_f = paper()->interbeam_f();
@@ -364,12 +369,13 @@ Beam::do_print()const
     Spanner::print();
 #endif
 }
-
+/*
+  duh. The stem is not a dependency but a dependent
+ */
 void
 Beam::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
-    int i;
-    while ((i=stems.find_i((Stem*)o->item())) >=0) 
-	   if (n) stems[i] = (Stem*) n->item();
-	   else stems.del(i);
+    if (o->is_type_b( Stem::static_name() )) {
+	stems.substitute( (Stem*)o->item(),  n?(Stem*) n->item():0);
+    }
 }

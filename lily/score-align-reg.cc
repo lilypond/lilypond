@@ -11,9 +11,9 @@
 #include "score-align-reg.hh"
 #include "item.hh"
 
-Score_align_register::Score_align_register(const char *nm)
+Score_align_register::Score_align_register()
 {
-    type_ch_C_ = nm;
+    type_ch_C_ = 0;
     priority_i_ =0;
     align_p_=0;
 }
@@ -31,6 +31,7 @@ void
 Score_align_register::acknowledge_element(Score_elem_info inf)
 {
     if (inf.elem_l_->name() == type_ch_C_ ) {
+	
 	if (! align_p_ ) {
 	    align_p_ = new Horizontal_group_item;
 	    announce_element(Score_elem_info(align_p_,0));

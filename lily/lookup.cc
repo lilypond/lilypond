@@ -100,9 +100,9 @@ Lookup::ball(int j) const
 }
 
 Symbol
-Lookup::rest(int j) const
+Lookup::rest(int j, bool o) const
 {
-    return (*symtables_)("rests")->lookup(String(j));
+    return (*symtables_)("rests")->lookup(String(j) + (o ? "o" : "") );
 }
 
 Symbol

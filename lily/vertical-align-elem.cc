@@ -31,7 +31,7 @@ void
 Vertical_align_elem::do_post_processing()
 {
     Array<Interval> dims;
-    for (int i=elem_l_arr_.size(); i--; ) {
+    for (int i=0; i < elem_l_arr_.size(); i++ ) {
 	Interval y = elem_l_arr_[i]->height() ;
 	if (y.empty_b())
 	    y = Interval(0,0);

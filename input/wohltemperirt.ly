@@ -9,12 +9,14 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 
  Remarks: the stem direction algorithm is severely broken (look at the
-          bass dux) with pl64.
+bass dux) with pl64. [this is supposedly fixed in pl68, can anybody
+knowledgeable remove this comment if it's not appropriate anymore?]
+    
 
 
 %}
 
-\version "0.0.59";
+\version "0.0.60";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -198,7 +200,7 @@ bassdux =
 	>
     \paper{}
     \midi {
-        \tempo 4:84
+        \tempo 4:84;
     }
 }
 

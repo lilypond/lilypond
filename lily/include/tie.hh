@@ -29,6 +29,6 @@ public:
 
     Tie();
     NAME_MEMBERS();
-    SCORE_ELEM_CLONE(Tie)
+    SCORE_ELEM_CLONE(Tie);
 };
 #endif // TIE_HH

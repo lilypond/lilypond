@@ -18,17 +18,17 @@
 void
 Text_spanner::set_support(Directional_spanner*d)
 {
-    if (support)
-	remove_dependency(support);
+    if (support_span_l_)
+	remove_dependency(support_span_l_);
     
-    support =d;
+    support_span_l_ =d;
     add_dependency(d);
 }
 
 Text_spanner::Text_spanner()
 {
     spec_p_ = 0;
-    support = 0;
+    support_span_l_ = 0;
 }
 
 IMPLEMENT_STATIC_NAME(Text_spanner);
@@ -43,8 +43,8 @@ Text_spanner::do_print() const
 void
 Text_spanner::do_post_processing()
 {
-    text_off_ = support->center() +
-	Offset(0,support->dir_i_ * paper()->internote_f() * 4); // todo
+    text_off_ = support_span_l_->center() +
+	Offset(0,support_span_l_->dir_i_ * paper()->internote_f() * 4); // todo
 }
 
 Molecule*
@@ -61,8 +61,8 @@ Text_spanner::brew_molecule_p() const
 void
 Text_spanner::do_pre_processing()
 {
-    right_col_l_ = support->right_col_l_;
-    left_col_l_ = support->left_col_l_;
+    right_col_l_ = support_span_l_->right_col_l_;
+    left_col_l_ = support_span_l_->left_col_l_;
     assert(left_col_l_ && right_col_l_);
 }
 
@@ -75,13 +75,20 @@ Text_spanner::height()const
 void
 Text_spanner::do_substitute_dependency(Score_elem* o, Score_elem*n)
 {
-    Directional_spanner * old = (Directional_spanner*)o->spanner();
-    if (support == old)
-	support = (Directional_spanner*) n->spanner();
+    if (support_span_l_ == o) 
+	support_span_l_ = (Directional_spanner*) (n?n->spanner():0);
 }
 
 
 Text_spanner::~Text_spanner()
 {
     delete spec_p_;
+}
+
+Text_spanner::Text_spanner(Text_spanner const&s)
+    : Spanner( s)
+{
+    support_span_l_ = s.support_span_l_;
+    spec_p_ = s.spec_p_? s.spec_p_->clone() : 0;
+    text_off_ = s.text_off_;
 }

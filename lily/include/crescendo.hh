@@ -26,7 +26,7 @@ public:
     bool left_dyn_b_;
     Crescendo();
 protected:
-    SCORE_ELEM_CLONE(Crescendo)
+    SCORE_ELEM_CLONE(Crescendo);
     virtual Molecule*brew_molecule_p()const;
     NAME_MEMBERS();
     

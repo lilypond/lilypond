@@ -30,7 +30,7 @@ public:
 
     void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
-    SCORE_ELEM_CLONE(Beam)
+    SCORE_ELEM_CLONE(Beam);
 protected:
     virtual Interval do_width()const;    
     virtual Offset center() const;

@@ -2,7 +2,7 @@
 % scales with accents.
 %
 
-\version "0.0.59";
+\version "0.0.60";
 blah = 	\melodic {
 		\meter 6/8;	
 		\octave  'c ;
@@ -61,13 +61,12 @@ c1
 	|[c' b a g][f e d c]
 			
 	}
-}
+
 
 \score{
 	\melodic {\blah}
 	\paper{
-		\symboltables {table_sixteen}
-		\unitspace 1.5 \cm
-		\geometric 1.4
+		\unitspace 1.5 \cm;
+		\geometric 1.4;
 	}
 }

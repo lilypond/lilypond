@@ -15,7 +15,7 @@ public:
     String type_str_;
     
     NAME_MEMBERS();
-    SCORE_ELEM_CLONE(Bar)
+    SCORE_ELEM_CLONE(Bar);
     Bar();
 private:
     void do_print() const;

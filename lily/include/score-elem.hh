@@ -35,6 +35,9 @@ class Score_elem : private Directed_graph_node {
       */
     Offset offset_;
 
+    /**
+      for administration of what was done already
+     */
     enum Status {
 	ORPHAN,			// not yet added to pstaff
 	VIRGIN,			// added to pstaff
@@ -49,7 +52,9 @@ class Score_elem : private Directed_graph_node {
 	OUTPUT,			// molecule has been output
 	DELMARKED,		// mark for 'unclean' deletion
 	DELETED,		// to catch malloc mistakes.
-    } status;
+    };
+    
+    Status status;
 
 public:
     PScore *pscore_l_;    
@@ -69,10 +74,10 @@ public:
     Interval height() const;
     virtual void translate_x(Real);
     virtual void translate_y(Real);
+    
      /**
       translate the symbol. The symbol does not have to be created yet. 
-      Overridable, since this score-elem might act as a pseudo-list.
-     */
+      */
     void translate(Offset);
     Offset offset()const;
 
@@ -98,7 +103,7 @@ public:
     virtual Horizontal_vertical_group* elem_group() { return 0; }
     virtual Item * item() { return 0; }
     virtual Line_of_score * line_l() const;
-    SCORE_ELEM_CLONE(Score_elem)
+    SCORE_ELEM_CLONE(Score_elem);
 protected:
 
     virtual  Interval do_height()const;

@@ -18,6 +18,7 @@ IMPLEMENT_IS_TYPE_B1(Rest_column,Item);
 Rest_column::Rest_column()
 {
     dir_i_ = 0;
+    stem_l_ = 0;
 }
     
 void
@@ -31,6 +32,7 @@ void
 Rest_column::add(Stem*stem_l)
 {
     stem_l_ = stem_l;
+    add_dependency(stem_l);
 //    add_support(stem_l);
 }
 
@@ -46,12 +48,17 @@ void
 Rest_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
     Script_column::do_substitute_dependency(o,n);
-    if (o->name() == Note_head::static_name()) {
+    if (o == stem_l_)
+	stem_l_ = n? (Stem*)n->item() :0;
+    
+    if (o->is_type_b( Note_head::static_name()) ) 
 	head_l_arr_.substitute( (Note_head*)o->item(), 
 				(n)? (Note_head*)n->item() : 0);
-    }
 }
 
+/*
+  Are you sure. Horizontal_vertical_group_item::translate_y could handle this
+ */
 void
 Rest_column::translate_y(Real dy_f)
 {

@@ -71,7 +71,9 @@ sub my_system
 
 
 local $base="lilypond/";
-local @examples=("wohltemperirt" ,"standchen", "toccata-fuga-E", "scsii-menuetto", "rhythm", "collisions");
+local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", "scsii-menuetto", "collisions");
+
+# rhythm, scales, 
 
 
 sub gen_html
@@ -244,8 +246,9 @@ sub docxx_update
 sub do_tar
 {
      print "tarring.\n";
+     $files = join (' ', < *.html *.$image *.ps.gz *.txt *.midi docxx/*>);
      my_system
-	 " tar vhcf website.tar *.html *.$image *.ps.gz *.txt *.midi docxx/*;",
+	 "-tar vhcf website.tar $files;",
 	 "gzip -f9 website.tar;";
 }
 sub identify
@@ -256,7 +259,7 @@ sub identify
 sub main
 {
     identify;
-    GetOptions("jpeg", "gif", "png");
+    GetOptions("jpeg", "gif", "png", "noexamples");
 
     local $image="gif" ;
     $image = "png" if ($opt_png);
@@ -278,12 +281,14 @@ sub main
 
 
     gen_html;
-    gen_examples;
     copy_files;
+    if (! $opt_noexamples) {
+	gen_examples;
+	gen_list;
+    }
     set_images;
-    gen_list;
-    edit_html;
 
+    edit_html;
     docxx_update;
     do_tar;
 }

@@ -17,6 +17,7 @@
 class Music_iterator {
 protected:
     bool first_b_;
+    virtual void do_print()const;
     
 public:
     Music_iterator *daddy_iter_l_;
@@ -25,22 +26,29 @@ public:
     
     static Music_iterator* static_get_iterator_p(Music*,Register_group_register*);
     Music_iterator* get_iterator_p(Music*)const;
+    void set_reg(Register_group_register*);
     Music_iterator();
     virtual void next(Moment until);
     virtual Moment next_moment()const;
     virtual bool ok()const;
     virtual ~Music_iterator();
     virtual void construct_children();
+    void print()const;
     virtual Register_group_register * get_req_acceptor_l();
 };
 
 // duh.
 class Request_iterator : public Music_iterator {
     Request  *req_l_;
+    bool last_b_;
 public:
     Request_iterator(Request const *);
     NAME_MEMBERS();
 protected:
+    virtual bool ok() const;
+    virtual Moment next_moment() const;
+    
+    virtual void do_print()const;
     virtual void next(Moment);
 };
 
@@ -60,6 +68,7 @@ public:
     Chord_iterator(Chord const*);
     NAME_MEMBERS();
 protected:
+    virtual void do_print()const;
     virtual void construct_children();
     virtual void next(Moment);
     virtual Moment next_moment()const;
@@ -86,6 +95,7 @@ public:
     Voice_iterator(Voice const*);
     NAME_MEMBERS();
 protected:
+    virtual void do_print()const;
     virtual void construct_children();
     ~Voice_iterator();    
     virtual void next(Moment);

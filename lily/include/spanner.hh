@@ -43,7 +43,7 @@ public:
     bool broken_b() const;
     Spanner* find_broken_piece(Line_of_score*)const;
 protected:
-    SCORE_ELEM_CLONE(Spanner)
+    SCORE_ELEM_CLONE(Spanner);
     virtual void break_into_pieces();
 
     Link_array<Spanner> broken_into_l_arr_;

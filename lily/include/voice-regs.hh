@@ -15,13 +15,11 @@
 
 class Voice_registers : public Interpreter, public Register_group_register {
 public:
-    Voice_registers();
     NAME_MEMBERS();
 
 protected:
     virtual bool interpret_request_b(Request*);
     virtual Interpreter* interpreter_l() { return this; }
-    virtual void do_print() const;
 };
 
 

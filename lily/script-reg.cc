@@ -36,7 +36,9 @@ Script_register::do_process_requests()
 {
     for (int i=0; i < script_req_l_arr_.size(); i++){
 	Script_req* l=script_req_l_arr_[i];
-	Script *p =new Script( l);
+	Script *p =new Script;
+	p->dir_i_ = l->dir_i_;
+	p->specs_l_ = l->scriptdef_p_;
 	script_p_arr_.push(p);
 	announce_element(Score_elem_info(p, l));
     }

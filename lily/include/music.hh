@@ -33,7 +33,7 @@ public:
     void print() const;
     virtual void transpose(Melodic_req const *);
     virtual void translate(Moment dt);
-    VIRTUAL_COPY_CONS(Music,Music)
+    VIRTUAL_COPY_CONS(Music,Music);
     NAME_MEMBERS();
     Music();
 protected:

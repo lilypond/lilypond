@@ -29,6 +29,14 @@ Script_column::do_print()const
 {
     mtor << "scripts: " << script_l_arr_.size() << '\n'; 
 }
+static int
+idx(bool inside, int dir)
+{
+    int j = (dir+1);
+    if ( !inside )
+	j ++;
+    return j;
+}
 
 void
 Script_column::do_pre_processing()
@@ -36,15 +44,11 @@ Script_column::do_pre_processing()
     if (!script_l_arr_.size()) 
 	return;
     
-    /* up+outside, up+inside, down+outside, down+inside */
+    /* up+inside, up+outside, down+inside, down+outside */
     Array<Script*> placed_l_arr_a[4];
     for (int i=0; i < script_l_arr_.size(); i++) {
 	Script*s_l = script_l_arr_[i];
-	int j = (s_l->dir_i_ >0) ? 0 : 2;
-	if (!s_l->inside_staff_b_) 
-	    j ++;
-	
-	placed_l_arr_a[j].push(s_l);
+	placed_l_arr_a[idx( s_l->inside_staff_b_ , s_l->dir_i_) ].push(s_l);
     }
     
     for (int j =0; j <4; j++) {
@@ -57,10 +61,11 @@ Script_column::do_pre_processing()
 	    for (int i=0; i  < support_l_arr_.size(); i++)
 		placed_l_arr_a[j][0]->add_support( support_l_arr_[i]);
     }
+    
     Item * support_l=0;
     int j = 0;
     for (; j < 2; j++ ) {
-	for (int i=1; i < placed_l_arr_a[j].size(); i++) {
+	for (int i=0; i < placed_l_arr_a[j].size(); i++) {
 	    if (support_l)
 		placed_l_arr_a[j][i]->add_support(support_l);
 	    support_l = placed_l_arr_a[j][i];
@@ -68,7 +73,7 @@ Script_column::do_pre_processing()
     }
     support_l = 0;
     for (; j < 4; j++ ) {
-	for (int i=1; i < placed_l_arr_a[j].size(); i++) {
+	for (int i=0; i < placed_l_arr_a[j].size(); i++) {
 	    if (support_l)
 		placed_l_arr_a[j][i]->add_support(support_l);
 	    support_l = placed_l_arr_a[j][i];

@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.59"
+#define MUDELA_VERSION "0.0.60"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -405,13 +405,13 @@ paper_body:
 		$$ = THIS->default_paper();
 
 	}
-	| paper_body WIDTH dim		{ $$->linewidth = $3;}
-	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
+	| paper_body WIDTH dim ';'		{ $$->linewidth = $3;}
+	| paper_body OUTPUT STRING ';'	{ $$->outfile = *$3;
 		delete $3;
 	}
 	| paper_body symtables		{ $$->set($2); }
-	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
-	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
+	| paper_body UNITSPACE dim ';'	{ $$->whole_width = $3; }
+	| paper_body GEOMETRIC REAL ';'	{ $$->geometric_ = $3; }
 	| paper_body error {
 
 	}
@@ -429,11 +429,11 @@ midi_block:
 midi_body: { 
 		$$ = new Midi_def; 
 	}
-	| midi_body OUTPUT STRING	{ 
+	| midi_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3; 
 		delete $3; 
 	}
-	| midi_body TEMPO notemode_duration ':' int {
+	| midi_body TEMPO notemode_duration ':' int ';' {
 		$$->set_tempo( $3->length(), $5 );
 	}
 	| midi_body error {
@@ -765,9 +765,9 @@ script_definition:
 	;
 
 script_body:
-	STRING int int int int 		{
+	STRING int int int int int		{
 		Script_def *s = new Script_def;
-		s->set_from_input(*$1,$2, $3,$4,$5);
+		s->set_from_input(*$1,$2, $3,$4,$5, $6);
 		$$  = s;
 		delete $1;
 	}	
@@ -785,7 +785,9 @@ script_req:
 
 gen_script_def:
 	text_def	{ $$ = $1; }
-	| mudela_script	
+	| mudela_script	{ $$ = $1; 
+		$$-> set_spot( THIS->here_input() );
+	}
 	;
 
 text_def:

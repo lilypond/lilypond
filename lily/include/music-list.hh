@@ -30,7 +30,7 @@ public:
     Music_list(Music_list const&);    
     Music_list();
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Music_list,Music)
+    VIRTUAL_COPY_CONS(Music_list,Music);
     virtual void add(Music*);
     virtual void transpose(Melodic_req const *);
     
@@ -48,7 +48,7 @@ class Chord : public Music_list {
 public:
     Chord();
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Chord,Music)
+    VIRTUAL_COPY_CONS(Chord,Music);
     virtual void translate(Moment dt);
     virtual MInterval time_int()const;
 };
@@ -56,7 +56,7 @@ public:
 class Voice_element : public Chord {
 public:
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Voice_element,Music)
+    VIRTUAL_COPY_CONS(Voice_element,Music);
 };
 
 /**
@@ -69,7 +69,7 @@ public:
 
     Voice();
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Voice, Music)
+    VIRTUAL_COPY_CONS(Voice, Music);
     virtual void translate(Moment dt);
     virtual MInterval time_int()const;
 };
@@ -86,6 +86,6 @@ public:
     String id_str_;
 
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Change_reg, Music)
+    VIRTUAL_COPY_CONS(Change_reg, Music);
 };
 #endif // MUSIC_LIST_HH

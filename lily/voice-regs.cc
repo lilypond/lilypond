@@ -14,17 +14,6 @@
 #include "register.hh"
 #include "debug.hh"
 
-Voice_registers::Voice_registers()
-{
-}
-
-void
-Voice_registers::do_print() const
-{
-#ifndef NPRINT
-    Register_group_register::do_print();
-#endif
-}
 
 ADD_THIS_REGISTER(Voice_registers);
 IMPLEMENT_IS_TYPE_B1(Voice_registers, Register_group_register);

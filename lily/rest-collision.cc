@@ -152,3 +152,9 @@ Rest_collision::do_substitute_dependency(Score_elem*o,Score_elem*n)
     rest_l_arr_.substitute((Rest_column*)o_l,(Rest_column*)n_l);
     ncol_l_arr_.substitute((Note_column*)o_l,(Note_column*)n_l);
 }
+
+Rest_collision::Rest_collision()
+{
+    transparent_b_ = true;
+    empty_b_ = true;
+}

@@ -62,6 +62,7 @@ Note_column::do_pre_processing()
 	else 
 	    dir_i_ = (head_positions_interval().center() >=  5) ? -1 : 1;
     }
+    Script_column::do_pre_processing();
 }
 
     

@@ -48,9 +48,10 @@ Score::setup_music()
 
     while ( iter->ok() || score_reg->extra_mom_pq_.size() ) {
 	Moment w = INFTY;
-	if (iter->ok() ) 
+	if (iter->ok() ) {
 	    w = iter->next_moment();
-	
+	    iter->print();
+	}
 	if (score_reg->extra_mom_pq_.size() && 
 	    score_reg->extra_mom_pq_.front() <= w)
 	    
@@ -74,8 +75,10 @@ Score::setup_music()
 	score_reg->process_requests();
 	score_reg->do_announces();
 	score_reg->pre_move_processing();
+	score_reg->check_removal();
     }
     delete iter;
+    score_reg->check_removal();
     score_reg->do_removal_processing();
     delete score_reg;
 }

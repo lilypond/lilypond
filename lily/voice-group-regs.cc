@@ -21,7 +21,6 @@
 Voice_group_registers::Voice_group_registers()
 {
     dir_i_ =0;
-    termination_mom_ = INFTY; 
 }
 
 bool
@@ -48,17 +47,6 @@ Voice_group_registers::do_print() const
 #ifndef NPRINT
     Register_group_register::do_print();
 #endif
-}
-
-void
-Voice_group_registers::do_post_move_processing()
-{
-    if ( get_staff_info().time_C_ ->when_ > termination_mom_ ){
-	mtor << "Terminating voice_group\n";
-	daddy_reg_l_->terminate_register(this);
-	return ;
-    }
-    Register_group_register::do_post_move_processing();
 }
 
 

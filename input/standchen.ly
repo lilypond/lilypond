@@ -13,7 +13,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.58";
+\version "0.0.60";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -199,7 +199,7 @@ begeleiding = \melodic{
 	''a r4 |
 %%5
 \duration 8;
- 	< \multivoice { \stem 1;	
+ 	< \multi 2; { \stem 1;	
 		[ 'f 'a d 'a d 'a ] 
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'cis 'e 'g 'e 'g e ]
@@ -216,7 +216,7 @@ begeleiding = \melodic{
 %%10
 	[ 'd 'a d 'a d 'a ] |
 %%11
-	< \multivoice 	
+	< \multi 2; 	
 	{ \stem 1;
 		[ 'f 'a d 'a d 'a ]
 		[ 'd 'e 'g 'e 'g 'e ] 
@@ -232,7 +232,7 @@ begeleiding = \melodic{
 	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
-	< \multivoice
+	< \multi 2;
 	{ \stem 1; 
 		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
 		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
@@ -246,7 +246,7 @@ begeleiding = \melodic{
 	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
-	< \multivoice {
+	< \multi 2; {
 		\stem 1;
 		[ ''a 'e 'g 'e 'g 'e ] 
 		[ 'd 'fis 'a 'fis 'a 'fis ] 
@@ -298,7 +298,7 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multivoice { \stem 1; 
+	< \multi 2; { \stem 1; 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	} {
@@ -465,20 +465,21 @@ tekstII = \lyric{
 }
 
 \score{
-	\staff{ lyricregs tekstI }
-	\staff{ lyricregs tekstII }
+%	\staff{ lyricregs tekstI }
+%	\staff{ lyricregs tekstII }
 
-	\staff{ melodicregs melodie commands}
-	\staff{ melodicregs begeleiding commands }
+	\melodic < \multi 3; < \melodie \commands >
+	  <\begeleiding \commands >
+	>
 	\paper{
-		\width 195\mm
+		\width 195.\mm;
 
 		% on two pages...
-		\unitspace 9\mm
-		\geometric 1.2
-		\output "standchen.out"
+		\unitspace 9.\mm;
+		\geometric 1.2;
+		\output "standchen.out";
 	}
 	\midi{
-		\tempo 4:54
+		\tempo 4:54;
 	}
 }

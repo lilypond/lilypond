@@ -20,8 +20,6 @@ Crescendo::Crescendo()
     left_dyn_b_ = right_dyn_b_ =false;
 }
 
-
-
 Molecule*
 Crescendo::brew_molecule_p() const
 {

@@ -21,6 +21,7 @@ public:
     void add(Rest_column*);
     void add(Collision*);
     NAME_MEMBERS();
+    Rest_collision();
 protected:
     virtual void do_post_processing();
     virtual void do_pre_processing();

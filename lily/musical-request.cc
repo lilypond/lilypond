@@ -15,6 +15,7 @@
 
 IMPLEMENT_STATIC_NAME(Stem_req);
 IMPLEMENT_IS_TYPE_B1(Stem_req,Rhythmic_req);
+
 void
 Stem_req::do_print() const
 {
@@ -263,8 +264,8 @@ Script_req::Script_req(Script_req const&s)
 int
 Script_req::compare(Script_req const &d1, Script_req const &d2)
 {
-    return d1.dir_i_ == d2.dir_i_ &&
-	d1.scriptdef_p_->equal_b(*d2.scriptdef_p_);
+    return !(d1.dir_i_ == d2.dir_i_ &&
+	d1.scriptdef_p_->equal_b(*d2.scriptdef_p_));
 }
 
 Script_req::Script_req()
@@ -279,13 +280,17 @@ IMPLEMENT_IS_TYPE_B1(Script_req,Request);
 void
 Script_req::do_print() const
 {
+#ifndef NPRINT
     mtor << " dir " << dir_i_ ;
     scriptdef_p_->print();
+#endif
 }
 
 void
 Musical_script_req::do_print() const
-{}
+{
+    Script_req::do_print();
+}
 
 IMPLEMENT_STATIC_NAME(Musical_script_req);
 IMPLEMENT_IS_TYPE_B2(Musical_script_req,Musical_req, Script_req);

@@ -119,7 +119,7 @@ Identifier::Identifier(Identifier const&)
 
 
 default_accessor(Real_id, Real, real);
-default_accessor(Script_id, General_script_def, script);
+virtual_accessor(Script_id, General_script_def, script);
 default_accessor(Lookup_id, Lookup, lookup);
 default_accessor(Symtables_id, Symtables, symtables);
 virtual_accessor(Music_id, Music, music);

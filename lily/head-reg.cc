@@ -44,16 +44,12 @@ Note_head_register::do_process_requests()
 	    *get_staff_info().c0_position_i_l_;
     } else if (note_req_l_->rest()) {
 	n_p->rest_b_ = true;
-	if (note_req_l_->rhythmic()->duration_.type_i_ <= 2)
-	    note_p_->translate(
-		Offset(0,
-		       6 * paper()->internote_f()));
     }
     
     Score_elem_info itinf(note_p_,note_req_l_);
     announce_element(itinf);
 }
-
+ 
 void
 Note_head_register::do_pre_move_processing()
 {

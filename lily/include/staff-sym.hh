@@ -28,7 +28,7 @@ public:
     Real inter_note_f()const;
     int steps_i()const;
 protected:
-    SCORE_ELEM_CLONE(Staff_symbol)
+    SCORE_ELEM_CLONE(Staff_symbol);
     virtual Molecule* brew_molecule_p() const;
     virtual void do_print()const;
 };
