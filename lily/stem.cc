@@ -586,15 +586,18 @@ Stem::brew_molecule (SCM smob)
   Real y1 = Staff_symbol_referencer::position_f (first_head (me));
   Real y2 = stem_end_position (me);
   
-  Interval stem_y (y1,y2);
-  stem_y.unite (Interval (y2,y1));
+  Interval stem_y (y1 <? y2,y2 >? y1);
+
 
   // dy?
-  Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
+  Real dy = Staff_symbol_referencer::staff_space (me) * 0.5;
     
   if (Grob *hed = support_head (me))
     {
-      Interval head_height = hed->extent (hed,Y_AXIS);
+      /*
+	must not take ledgers into account.
+       */
+      Interval head_height = Note_head::head_extent (hed,Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
