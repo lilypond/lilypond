@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.18"
 
 
 \chordmodifiers #default-chord-modifier-list

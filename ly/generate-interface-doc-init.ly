@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.18"
 
 %
 % Running LilyPond on this file generates the short interface doc

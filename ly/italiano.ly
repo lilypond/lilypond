@@ -48,4 +48,4 @@
 	(sidd . ,(ly:make-pitch -1 6 2 ))
 )
 
-\version "1.7.3"
+\version "1.7.18"

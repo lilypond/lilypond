@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
   texidoc = "By inserting the @TeX{} command \embeddedps, you can
 insert postscript directly into the output.

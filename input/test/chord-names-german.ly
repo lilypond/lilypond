@@ -1,5 +1,5 @@
 
-\version "1.7.17"
+\version "1.7.18"
 \header  {
 
     texidoc = "By setting @code{ChordNames.chordRootNamer}, the root

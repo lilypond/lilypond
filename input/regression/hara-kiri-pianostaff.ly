@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle staff is harakiried."
 }

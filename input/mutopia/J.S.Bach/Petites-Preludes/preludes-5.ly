@@ -3,7 +3,7 @@
 piece = "5"
 opus = "BWV 926"
 
-\version "1.7.17"
+\version "1.7.18"
 
 upper =  \context Staff \notes\relative c
 	\context Voice=i {

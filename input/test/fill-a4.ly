@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 %
 % test file to get a4 paper really filled,

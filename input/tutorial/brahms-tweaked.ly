@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 \score {
     \notes\context PianoStaff <
     \context Staff = up
@@ -29,7 +29,7 @@
         \key d \major
         \time 3/8 \clef bass s4. }
     >
-    \paper { linewidth = -1. }
+    \paper { raggedright = ##t}
 }
 
 

@@ -22,7 +22,7 @@ using Scheme functions to save typing work.
 }
 
 \include "deutsch.ly"
-\version "1.7.16"
+\version "1.7.18"
 
 #(define (transform music)
   (let* ((es (ly:get-mus-property music 'elements))
@@ -79,7 +79,7 @@ using Scheme functions to save typing work.
 
 
 
-\version "1.7.16"
+\version "1.7.18"
 
 pat = \notes \transpose c c' \repeat unfold 2 {
   < { \context Staff=up {r8 e16 f g e f g } }

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation

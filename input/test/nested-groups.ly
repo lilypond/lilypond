@@ -9,7 +9,7 @@ copyright = 	 "public domain"
 Tested = 	 "Nested StaffGroups"
 }
 
-\version "1.7.16" % rz1
+\version "1.7.18" % rz1
 
 \score { \notes
 <

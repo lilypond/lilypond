@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 
 	 texidoc= "Positions of accidentals may be manually set. This

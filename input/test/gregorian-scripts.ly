@@ -1,4 +1,4 @@
-\version "1.7.17"
+\version "1.7.18"
 \header {
     title	= "Gregorian Scripts"
     date	= "2003"

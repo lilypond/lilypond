@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header{
 filename = 	"tchaikovsky.ly"
 title = 		"Extracts from 6th symphony"

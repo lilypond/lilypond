@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 
 \header {
   texidoc = "popsong format: chords, melody and lyrics."

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 %{
  Test of how to make an ``incipit'' to indicate scordatora 
  tuning of a violin part, using the clefStyle property.
