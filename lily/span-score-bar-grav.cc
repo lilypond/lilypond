@@ -42,6 +42,17 @@ Staff_group_bar_engraver::get_span_bar_p () const
   return s;
 }
 
+void
+Staff_group_bar_engraver::acknowledge_element (Score_elem_info f)
+{
+  Span_bar_engraver::acknowledge_element (f);
+  if (f.elem_l_->is_type_b (Piano_brace::static_name ()))
+    {
+      // Piano_brace * brace = (Piano_brace*) f.elem_l_->item ()->bar ();
+      // do something.
+    }
+  
+}
 ADD_THIS_TRANSLATOR (Piano_bar_engraver);
 ADD_THIS_TRANSLATOR (Staff_group_bar_engraver);
 ADD_THIS_TRANSLATOR (Span_score_bar_engraver);
