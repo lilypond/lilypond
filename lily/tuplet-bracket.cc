@@ -83,7 +83,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
     {
       number_visibility = gh_scm2bool (numb);
     }
-  else if (bracket == ly_symbol2scm ("if-no-beam"))
+  else if (numb == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
   
 	

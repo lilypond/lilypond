@@ -26,16 +26,16 @@ c d e
 
 \begin{lilypond}
 \header {
-  title =	"Title";
-  subtitle =	"Subtitle";
-  subsubtitle =	"Subsubtitle";
-  opus =  "Opus 1";
-  piece = "Piece";
-  composer = 	 "Composer";
-  enteredby = 	 "JCN";
-  instrument = "instrument";
+  title =	"Title"
+  subtitle =	"Subtitle"
+  subsubtitle =	"Subsubtitle"
+  opus =  "Opus 1"
+  piece = "Piece"
+  composer = 	 "Composer"
+  enteredby = 	 "JCN"
+  instrument = "instrument"
 }
-\paper { linewidth = -1.; }
+\paper { linewidth = -1. }
 \score {
   \notes \relative c'' { a b c d }
 }
