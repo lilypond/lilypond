@@ -3,8 +3,8 @@
 
 soprano = \notes \relative c''  {
 	fis8 g  g8.-\trill fis32 g a8 d, r a
-	b4 ~ \times 2/3 { [b16 cis d] } \times 2/3 { [e fis g] }
-	a,4 ~ \times 2/3 { [a16 b cis] } \times 2/3 { [d e fis] }
+	b4-~ \times 2/3 { b16-[ cis d-] } \times 2/3 { e-[ fis g-] }
+	a,4-~ \times 2/3 { a16-[ b cis-] } \times 2/3 { d-[ e fis-] }
 	a8 g16. fis32 g8.-\trill fis16 fis4
 }
 
@@ -16,8 +16,8 @@ bass = \notes \relative c {
 tenor = \notes \relative c' {
 	\stemUp\slurUp\tieUp
 	r8
-	d4 cis8 r d16. cis32 d4 | r8 e16. dis32 e4 ~ e8 d16. cis32 d4 ~ |
-	[d8 d8] [cis cis] d4
+	d4 cis8 r d16. cis32 d4 | r8 e16. dis32 e4 -~ e8 d16. cis32 d4 -~ |
+	d8-[ d8-] cis-[ cis-] d4
 }
 
 

@@ -4,14 +4,14 @@
     \context Staff = up
     \relative c'' <
         {   \key d\major 
-            fis4-3_\p ( ~
-            fis16 )a-5 } \\
+            fis4-3_\p-(-~
+            fis16 a-)-5 } \\
         {
-            fis16( \> d \! b \translator Staff = down
-            \clef treble g ~ < g8 )e> } \\
+            fis16-(-\> d b-\! \translator Staff = down
+            \clef treble g-~ <<g e>>8-) } \\
         { s16
           d'
-          ~ < d4 b4  > }
+          ~ <<d b>>4 }
     >
     \context Staff = down {
         \key d \major
