@@ -12,7 +12,7 @@
 #include "engraver.hh"
 #include "spanner.hh"
 #include "tie.hh"
-
+#include "input.hh"
 /*
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and
@@ -119,6 +119,11 @@ Slur_engraver::process_music ()
 {
   if (events_[STOP])
     {
+      if (slurs_.size() == 0)
+	{
+	  events_[STOP]->origin()->warning (_ ("No slur to end"));
+	}
+      
       end_slurs_ = slurs_;
       slurs_.clear ();
     }

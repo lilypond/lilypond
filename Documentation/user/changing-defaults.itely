@@ -2222,6 +2222,11 @@ The default layout responds to the following settings in the
  If set to true, systems will not be spread across the page.  
 @item raggedlastbottom
  If set to true, systems will not be spread to fill the last page.
+
+@item betweensystemspace
+  This dimensions determines the distance between systems. It is the
+ideal distance between the center of the bottom staff of one system, and
+the center of the top staff of the next system.
 @end table
 
 @example

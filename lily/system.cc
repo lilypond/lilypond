@@ -8,6 +8,7 @@
 
 #include <math.h>
 
+#include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
 #include "system.hh"
@@ -308,7 +309,7 @@ System::post_processing ()
     programming_error ("System with zero extent.");
   else
     translate_axis (-iv[MAX], Y_AXIS);
-
+  
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
@@ -336,6 +337,8 @@ System::get_line ()
      Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
   Interval staff_refpoints;
+  staff_refpoints.set_empty();
+  
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
       {
@@ -344,6 +347,7 @@ System::get_line ()
 
 	if (i == 0
 	    && Axis_group_interface::has_interface (g)
+	    && !Align_interface::has_interface (g)
 	    && dynamic_cast<Spanner*> (g))
 	  {
 	    staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
@@ -368,8 +372,6 @@ System::get_line ()
 	st.translate (o + extra);
 	*tail = scm_cons (st.expr (), SCM_EOL);
 	tail = SCM_CDRLOC(*tail);
-
-	
       }
 
   if (Stencil *me = get_stencil ())

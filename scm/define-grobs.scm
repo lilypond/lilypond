@@ -1311,6 +1311,7 @@
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
+	(threshold .  (12 . 1000))
 	(meta . ((interfaces . (align-interface axis-group-interface spanner-interface))))
 	))
 
