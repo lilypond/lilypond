@@ -46,8 +46,11 @@ Stanza_number_engraver::acknowledge_grob (Grob_info i)
       
       if (now_mom () > Moment (0))
 	s = get_property ("stz");
-  
+
+
+      // TODO
       if (gh_string_p (s))
+	
 
 	/*
 	  if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))

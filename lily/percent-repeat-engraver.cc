@@ -65,7 +65,6 @@ protected:
 protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
-  virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -220,11 +219,6 @@ Percent_repeat_engraver::typeset_perc ()
 }
 
 
-void
-Percent_repeat_engraver::acknowledge_grob (Grob_info info)
-{
-
-}
 
 
 void

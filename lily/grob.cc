@@ -347,7 +347,7 @@ Grob::add_dependency (Grob*e)
       representing the break direction. Do not modify SRC.
 */
 SCM
-Grob::handle_broken_smobs (SCM src, SCM criterion)
+Grob::handle_broken_grobs (SCM src, SCM criterion)
 {
  again:
   Grob *sc = unsmob_grob (src);
@@ -393,7 +393,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
       /*
 	UGH! breaks on circular lists.
       */
-      SCM newcar = handle_broken_smobs (oldcar, criterion);
+      SCM newcar = handle_broken_grobs (oldcar, criterion);
       SCM oldcdr = gh_cdr (src);
       
       if (newcar == SCM_UNDEFINED
@@ -402,7 +402,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
 	  /*
 	    This is tail-recursion, ie. 
 	    
-	    return handle_broken_smobs (cdr, criterion);
+	    return handle_broken_grobs (cdr, criterion);
 
 	    We don't want to rely on the compiler to do this.  Without
 	    tail-recursion, this easily crashes with a stack overflow.  */
@@ -410,7 +410,7 @@ Grob::handle_broken_smobs (SCM src, SCM criterion)
 	  goto again;
 	}
 
-      SCM newcdr = handle_broken_smobs (oldcdr, criterion);
+      SCM newcdr = handle_broken_grobs (oldcdr, criterion);
       return gh_cons (newcar, newcdr);
     }
   else
@@ -433,7 +433,7 @@ Grob::handle_broken_dependencies ()
 	  Grob * sc = s->broken_into_l_arr_[i];
 	  Line_of_score * l = sc->line_l ();
 	  sc->mutable_property_alist_ =
-	    handle_broken_smobs (mutable_property_alist_,
+	    handle_broken_grobs (mutable_property_alist_,
 				 l ? l->self_scm () : SCM_UNDEFINED);
 	}
     }
@@ -444,12 +444,12 @@ Grob::handle_broken_dependencies ()
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
       mutable_property_alist_
-	= handle_broken_smobs (mutable_property_alist_,
+	= handle_broken_grobs (mutable_property_alist_,
 			       line ? line->self_scm () : SCM_UNDEFINED);
     }
   else if (dynamic_cast <Line_of_score*> (this))
     {
-      mutable_property_alist_ = handle_broken_smobs (mutable_property_alist_,
+      mutable_property_alist_ = handle_broken_grobs (mutable_property_alist_,
 					    SCM_UNDEFINED);
     }
   else
