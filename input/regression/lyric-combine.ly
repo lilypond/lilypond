@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
     texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -13,7 +13,7 @@ extenders do not assume anything about lyric lengths, so they continue
 to work."
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 
 

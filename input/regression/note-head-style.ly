@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Note head shapes may be set from several choices.  
@@ -76,7 +76,7 @@ pattern =  <<
     \break
   }
 
-  \paper {
+  \layout {
     indent = 0.0
     raggedright = ##t
   }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
@@ -26,5 +26,5 @@ Arpeggios are supported, both cross-staff and broken single staff.
 	     <g b d>\arpeggio
 	 }
     >>
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 }

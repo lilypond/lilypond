@@ -3,7 +3,7 @@
     texidoc = "By setting texts starting with a multi-measure rest, an 
 extra spacing column is created. This should not cause problems."
     }
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
     <<
@@ -12,7 +12,7 @@ extra spacing column is created. This should not cause problems."
 	    <<  { R1*40 }  { s1*0_"bla" }>> 
 	}
     >>
-    \paper {
+    \layout {
 	raggedright = ##t
     }
  }

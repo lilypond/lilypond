@@ -1,4 +1,4 @@
-;;;; paper.scm -- manipulate the paper block.
+;;;; paper.scm -- manipulate the paper and layout block.
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
@@ -12,8 +12,8 @@
 		       staffspace linethickness ledgerlinethickness
 		       blotdiameter interscoreline leftmargin rightmargin)))
 
-(define-public (paper-set-staff-size sz)
-  "Function to be called inside a \\paper{} block to set the staff size."
+(define-public (layout-set-staff-size sz)
+  "Function to be called inside a \\layout{} block to set the staff size."
   (let* ((m (current-module))
 	 (ss (/ sz 4))
 	 (pt (eval 'pt m))
@@ -42,16 +42,14 @@
     (module-define! m 'linethickness lt)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
-    (module-define! m 'interscoreline (* 4 mm))
-
-     ))
+    (module-define! m 'interscoreline (* 4 mm))))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((old-mod (current-module))
-	 (pap (eval '$defaultbookpaper old-mod))
-	 (in-paper? (or (module-defined? old-mod 'is-bookpaper)
-			(module-defined? old-mod 'is-paper)))
+	 (pap (eval '$defaultpaper old-mod))
+	 (in-layout? (or (module-defined? old-mod 'is-paper)
+			 (module-defined? old-mod 'is-layout)))
 
 	 ; maybe not necessary.
 	 ; but let's be paranoid. Maybe someone still refers to the
@@ -60,12 +58,12 @@
 	 
 	 (new-scope (ly:output-def-scope new-paper)))
     
-    (if in-paper?
+    (if in-layout?
 	(ly:warn "Not in toplevel scope"))
     (set-current-module new-scope)
-    (paper-set-staff-size (* sz (eval 'pt new-scope)))
+    (layout-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
-    (module-define! old-mod '$defaultbookpaper new-paper)))
+    (module-define! old-mod '$defaultpaper new-paper)))
 
 (define paper-alist
   '(("a6" . (cons (* 105 mm) (* 148.95 mm)))
@@ -79,7 +77,7 @@
 ;; todo: take dimension arguments.
 
 (define (set-paper-dimensions m w h)
-  "M is a module (i.e. paper->scope_ )"
+  "M is a module (i.e. layout->scope_ )"
   (let* ((mm (eval 'mm m)))
     (module-define! m 'hsize w)
     (module-define! m 'vsize h)
@@ -101,12 +99,12 @@
     (cons (cdr x) (car x)))
   
   (let* ((entry (assoc name paper-alist))
-	 (is-bookpaper? (module-defined? module 'is-bookpaper))
+	 (is-paper? (module-defined? module 'is-paper))
 	 (mm (eval 'mm module)))
     
     (cond
-     ((not is-bookpaper?)
-      (ly:warning "This is not a \\paper {} object, ~S"
+     ((not is-paper?)
+      (ly:warning "This is not a \\layout {} object, ~S"
 		   module))
      ((pair? entry)
 
@@ -117,51 +115,44 @@
       (module-define! module 'papersize name)
       (module-define! module 'papersizename name)
       (if landscape?
-	  (module-define! module 'landscape #t))
-      )
+	  (module-define! module 'landscape #t)))
      (else
-      (ly:warn (string-append "Unknown papersize: " name))))
-
-    ))
+      (ly:warn (string-append "Unknown papersize: " name))))))
 
 (define-public (set-default-paper-size name . rest)
   (internal-set-paper-size
-   (ly:output-def-scope (eval '$defaultbookpaper (current-module)))
+   (ly:output-def-scope (eval '$defaultpaper (current-module)))
    name
-   (memq 'landscape rest)
-   ))
+   (memq 'landscape rest)))
 
 (define-public (set-paper-size name . rest)
-  (if (module-defined? (current-module) 'is-bookpaper)
+  (if (module-defined? (current-module) 'is-paper)
       (internal-set-paper-size (current-module) name
 			       (memq 'landscape rest))
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
-      (ly:warn "Must use #(set-paper-size .. ) within \\bookpaper { ... }")))
+      (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))
 
-(define-public (scale-paper pap scale)
-  (let*
-      ((new-pap (ly:output-def-clone pap))
-       (dim-vars (ly:output-def-lookup pap 'dimension-variables))
-       (old-scope (ly:output-def-scope pap))
-       (scope (ly:output-def-scope new-pap)))
+(define-public (scale-layout pap scale)
+  (let* ((new-pap (ly:output-def-clone pap))
+	 (dim-vars (ly:output-def-lookup pap 'dimension-variables))
+	 (old-scope (ly:output-def-scope pap))
+	 (scope (ly:output-def-scope new-pap)))
 
     (for-each
      (lambda (v)
-       (let*
-	   ((var (module-variable old-scope v))
-	    (val (if (variable? var) (variable-ref var) #f)))
+       (let* ((var (module-variable old-scope v))
+	      (val (if (variable? var) (variable-ref var) #f)))
 
 	 (if (number? val)
 	     (module-define! scope v
 			     (/ val scale))
 
-	   ;; spurious warnings, eg. for hsize, vsize. 
-;	   (ly:warn "not a number, ~S = ~S " v  val)
-	   )))
+	     ;; spurious warnings, eg. for hsize, vsize. 
+	     ;; (ly:warn "not a number, ~S = ~S " v  val)
+	     )))
      
      dim-vars)
-
-    new-pap
-  ))
+    
+    new-pap))

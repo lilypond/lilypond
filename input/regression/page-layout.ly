@@ -1,9 +1,9 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
-\header{ texidoc = "This shows how different settings on \bookpaper
-modify the general page layout. Basically \bookpaper will set the
-values for the whole paper while \paper for each \score block." }
+\header{ texidoc = "This shows how different settings on \paper
+modify the general page layout. Basically \paper will set the
+values for the whole paper while \layout for each \score block." }
 
  \header {
     title = "Title"
@@ -17,7 +17,7 @@ values for the whole paper while \paper for each \score block." }
     instrument = "Instrument"
   }
 
-\bookpaper {
+\paper {
     %hsize = 2\cm
     %vsize = 2\cm
     topmargin = 2\cm
@@ -41,7 +41,7 @@ values for the whole paper while \paper for each \score block." }
             }
         }
         \header {piece = "Piece I"}
-        \paper {linewidth = 13\cm}
+        \layout {linewidth = 13\cm}
     }
     \score {
         \relative c'' {
@@ -50,6 +50,6 @@ values for the whole paper while \paper for each \score block." }
             }
         }
         \header {piece = "Piece II"}
-        \paper {linewidth = 9\cm}
+        \layout {linewidth = 9\cm}
     }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="No auto beams will be put over (manual) repeat bars."
@@ -10,7 +10,7 @@ texidoc="No auto beams will be put over (manual) repeat bars."
         \time 3/4
         a'4 b' c''8 \bar ":|:" d''8
     }
-    \paper{
+    \layout{
    raggedright = ##t
 }
 }

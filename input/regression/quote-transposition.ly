@@ -10,9 +10,9 @@ quoted ones) will transposed as well.  "
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 
 \addquote clarinet  {

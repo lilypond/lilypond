@@ -55,7 +55,7 @@ Breathing_sign::divisio_minima (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   /*
    * Draw a small vertical line through the uppermost (or, depending
@@ -88,7 +88,7 @@ Breathing_sign::divisio_maior (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   /*
    * Draw a vertical line that is vertically centered in the staff
@@ -128,7 +128,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   // like a "|" type bar
   Interval xdim (0, thickness);
@@ -158,7 +158,7 @@ Breathing_sign::finalis (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blotdiameter = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   // like a "||" type bar
   Interval xdim (0, thickness);

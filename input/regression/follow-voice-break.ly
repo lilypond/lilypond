@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
        texidoc = "
 The line-spanners connects to the Y position of the note  on the next line.
@@ -19,7 +19,7 @@ printed.
 		}
         \context Staff=two { \clef bass \skip 1*2 }
     >>
-    \paper{
+    \layout{
 	raggedright = ##t
     }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "In combination with a beam, the bracket of the tuplet
@@ -7,7 +7,7 @@ bracket is removed. This only happens if there is one beam, as long as
 the bracket."
 
 }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {  \context Voice\relative c'' {
 \times 2/3 { r  c8[ c8] }

@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -53,7 +53,7 @@
     >>
     \midi { \tempo 8 = 60 }
 
-    \paper {
+    \layout {
 	raggedright = ##t 
 
 	\context {

@@ -5,9 +5,9 @@
 
 }
 
-\paper  { raggedright = ##t }
+\layout  { raggedright = ##t }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \relative <<
     \new Staff {

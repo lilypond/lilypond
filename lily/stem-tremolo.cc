@@ -72,7 +72,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = robust_scm2double (me->get_property ("beam-thickness"),1);
   Real width = robust_scm2double (me->get_property ("beam-width"),1);
-  Real blot = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   width *= ss;
   thick *= ss;

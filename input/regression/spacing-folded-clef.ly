@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this does not disrupt the flow of the notes."
@@ -9,6 +9,6 @@ this does not disrupt the flow of the notes."
 	\new Staff { \clef bass c,2 \clef treble  c'2 }
 	>>
 
-	\paper { raggedright = ##t}
+	\layout { raggedright = ##t}
 	}
 

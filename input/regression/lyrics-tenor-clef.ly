@@ -2,8 +2,8 @@
     texidoc = "Lyrics are not lowered despite the presence of an octavation 8."
 }
 
-\version "2.3.17"
-\paper {
+\version "2.3.22"
+\layout {
     \context {
 	\Staff
 	minimumVerticalExtent = ##f

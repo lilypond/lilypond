@@ -2,7 +2,7 @@
 independent on prefatory matter in other staves."
 
 	  }
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
     << \new Staff  { R1 } 
@@ -10,5 +10,5 @@ independent on prefatory matter in other staves."
 
     >>
 
-\paper { raggedright = ##t } 
+\layout { raggedright = ##t } 
 }

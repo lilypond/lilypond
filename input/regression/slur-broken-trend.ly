@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ staff.  A slur should follow the same vertical direction it would have
 in unbroken state.
 "
 }
-\paper {
+\layout {
     linewidth=40.\mm
     indent=0.
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -15,5 +15,5 @@ barline is drawn between the staves, but the @code{:|} is not."
     }
     \context Staff=down { r r }
   >>
-  \paper{ raggedright = ##t }
+  \layout{ raggedright = ##t }
 }

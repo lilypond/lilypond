@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 	texidoc = "@cindex Beaming Presets
 There are presets for the @code{auto-beam} engraver in the case of common
@@ -58,7 +58,7 @@ time signatures. " }
 	c8 c c c c c c c c
 	c16 c c c c c c c c c c c c c c c c c
     }
-    \paper{
+    \layout{
     }
 }
 

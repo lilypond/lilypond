@@ -34,7 +34,7 @@ c d e
   enteredby = 	 "JCN"
   instrument = "instrument"
 }
-\paper { linewidth = -1. }
+\layout { linewidth = -1. }
 \relative c'' { a b c d }
 \end{lilypond}
 

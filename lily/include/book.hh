@@ -20,7 +20,7 @@ class Book : public Input
 
 public:
   SCM header_;
-  Output_def *bookpaper_;
+  Output_def *paper_;
   
   Link_array<Score> scores_;
   Book ();

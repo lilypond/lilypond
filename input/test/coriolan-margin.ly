@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -102,7 +102,7 @@ violoncello =  \relative c' {
 
 
 % ugf, must be here?
-\bookpaper {
+\paper {
     indent=10.0\mm
     linewidth=150.0\mm
 }
@@ -138,7 +138,7 @@ violoncello =  \relative c' {
 	  \context Staff ="violoncello" \violoncello
 	>>
       >>
-      \paper {
+      \layout {
 	  \context {
 	      \RemoveEmptyStaffContext
 	  }
@@ -149,7 +149,7 @@ violoncello =  \relative c' {
       }
     }
     % this is ignored?
-    \bookpaper {
+    \paper {
 	indent=10.0\mm
 	linewidth=150.0\mm
     }

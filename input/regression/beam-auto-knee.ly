@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{ texidoc="A knee is made automatically when a horizontal
 beam fits in a gap between note heads that is larger than a predefined
@@ -12,7 +12,7 @@ threshold.
      c'8[ c,,]  c8[ e']
      c,16[ e g c e g c c,,] 
   }
-  \paper{
+  \layout{
       raggedright = ##t 
   }
 }

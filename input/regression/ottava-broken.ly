@@ -10,10 +10,10 @@ the end of the line (regardless of prefatory matter).
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 \relative c'''  {
     a2 b
     #(set-octavation 1)

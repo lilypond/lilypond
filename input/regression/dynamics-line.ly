@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
@@ -24,7 +24,7 @@ d\f
 a
 
 }
-\paper{
+\layout{
 }
 \midi{
 \tempo 1 = 60

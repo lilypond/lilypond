@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc = "The staff is a grob (graphical object) which may be adjusted as well, for example, to have 6 thick lines and a slightly large @code{staff-space}.
@@ -19,7 +19,7 @@ mus =  \relative c' { c4 g' d'8 d d d }
     }
     \mus
   >>
-  \paper  {
+  \layout  {
     raggedright = ##t
   }
 }

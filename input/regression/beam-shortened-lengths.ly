@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
@@ -14,5 +14,5 @@
 	\stemUp
         f'4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
     }
-    \paper{ raggedright = ##t}
+    \layout{ raggedright = ##t}
 }          

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 
@@ -38,6 +38,6 @@
 	    f' c as' f c'4)
 	}>>
     >>
-    \paper {  }
+    \layout {  }
 }
 

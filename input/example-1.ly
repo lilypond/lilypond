@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 
 % A simple scale in LilyPond
 %
@@ -17,6 +17,6 @@
   \context Voice \relative c {
     c' d e f g a b c
   }
-  \paper {  }  
+  \layout {  }  
   \midi { }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
     texidoc="@cindex Bar Number Show All
 By default, bar numbers are printed only in the first measure.  This 
@@ -14,7 +14,7 @@ setting can be overridden, so that bar numbers on start of every measure.
 	\break
 	c c c
     }
-	\paper{ raggedright = ##t }
+	\layout{ raggedright = ##t }
 }
 
 

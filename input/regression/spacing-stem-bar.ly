@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "Upstem notes before a barline are printed with some extra
@@ -24,6 +24,6 @@ a a a
 c c c
 e e e
 }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 }
 

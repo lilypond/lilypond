@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc  = "@cindex Gregorian Scripts
 
@@ -26,7 +26,7 @@ FIXME: episem stops one notehead too early.
 
 \include "gregorian-init.ly"
 
-\bookpaper {
+\paper {
     linethickness = \staffspace / 5.0
 }
 
@@ -47,7 +47,7 @@ FIXME: episem stops one notehead too early.
       \[ a \episemInitium \pes b \flexa a \episemFinis \]
     }
   }
-  \paper {
+  \layout {
     linewidth = 70.0
     width = 60.0
     indent = 0.0

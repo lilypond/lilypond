@@ -5,7 +5,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
   title = "Romanzen"
@@ -271,7 +271,7 @@ leftb =  \transpose c cis {
 	<< \global \context Voice=lva \lefta \context Voice=lvb \leftb >>
     }
   >>
-  \paper {
+  \layout {
     interscoreline = 0.0
     interscorelinefill = 1
     indent = 0.5 \in

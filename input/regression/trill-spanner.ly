@@ -2,8 +2,8 @@
     texidoc = "Trill spanner"
 }
 
-\version "2.3.17"
-\paper {
+\version "2.3.22"
+\layout {
     raggedright = ##T
 }
 \relative \new Voice {

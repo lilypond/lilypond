@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     
@@ -7,7 +7,7 @@
 
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 \relative {
     c4 \bar "|" \mark \markup {  \simple #"|" }

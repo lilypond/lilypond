@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 
     texidoc="Simple beams on middle staffline are allowed to be
@@ -41,7 +41,7 @@
 	 a''[ f]
 	 f[ a]
     }
-    \paper{
+    \layout{
 	raggedright = ##t
 	indent = 0
     }

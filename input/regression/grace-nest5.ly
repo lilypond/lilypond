@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "Graces notes may have the same duration as the main note."
     }
@@ -10,6 +10,6 @@
     \grace g e4
 }
 
-  \paper { raggedright = ##t }
+  \layout { raggedright = ##t }
 }
 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -38,5 +38,5 @@ voiceb =  \transpose c c' {
 
 			 }
     >>
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 }

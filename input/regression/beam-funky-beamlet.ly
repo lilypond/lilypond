@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc=" Funky kneed beams with beamlets also work. The beamlets
@@ -16,6 +16,6 @@ should be pointing to the note head.
      c16 c,,8 c16          
      
   }
-  \paper { raggedright = ##t}
+  \layout { raggedright = ##t}
 }
 	  

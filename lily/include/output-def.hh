@@ -21,10 +21,10 @@
 
   This devolved into a rather empty class. The distinction between
   various instances is made in the parser, which creates
-  midi/paper/bookpaper blocks depending on the keyword read.
+  midi/layout/paper blocks depending on the keyword read.
 
   The data structure is set up as recursive: the definitions not
-  supplied in paper are looked up in bookpaper. This is done through
+  supplied in layout are looked up in paper. This is done through
   the parent_ field of Output_def. However, such nesting is limited to
   two levels,
 
@@ -32,7 +32,7 @@
   of output block.
 
   * Second, because the prime benefit of multiple levels
-  (eg. bookpaper containing paper for a score, containing paper of a
+  (eg. paper containing layout for a score, containing layout of a
   \score embedded in \markup) requires scaling the Stencils (eg. the
   one coming from score at markup level)
   
@@ -68,8 +68,8 @@ void set_tempo (Output_def*def, Moment moment, int count_per_minute_i);
 Interval line_dimensions_int (Output_def*def, int);
  
 
-Font_metric *select_encoded_font (Output_def *paper, SCM input_encoding, SCM chain);
-Font_metric *select_font (Output_def *paper, SCM chain);
+Font_metric *select_encoded_font (Output_def *layout, SCM input_encoding, SCM chain);
+Font_metric *select_font (Output_def *layout, SCM chain);
 
 DECLARE_UNSMOB (Output_def, output_def);
 

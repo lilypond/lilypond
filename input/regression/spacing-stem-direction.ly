@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 
@@ -18,7 +18,7 @@ much to correct."
 	\time 16/4  c''4 c c,  c' d, c' e, c' f, c' g c a c b c
 	
   }
-  \paper {
+  \layout {
     raggedright = ##t
   }  
 }

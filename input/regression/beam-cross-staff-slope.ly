@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }
@@ -27,6 +27,6 @@
     \context Staff = down {
         \time 3/8 \clef bass s4.*3 }
     >>
-    \paper { raggedright = ##t}
+    \layout { raggedright = ##t}
 }
 

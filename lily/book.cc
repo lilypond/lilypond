@@ -26,7 +26,7 @@
 Book::Book ()
   : Input ()
 {
-  bookpaper_ = 0;
+  paper_ = 0;
   header_ = SCM_EOL;
   assert (!scores_.size ());
   smobify_self ();
@@ -47,8 +47,8 @@ Book::mark_smob (SCM s)
   for (int i = 0; i < score_count; i++)
     scm_gc_mark (book->scores_[i]->self_scm ());
 
-  if (book->bookpaper_)
-    scm_gc_mark (book->bookpaper_->self_scm ());
+  if (book->paper_)
+    scm_gc_mark (book->paper_->self_scm ());
   return book->header_;
 }
 
@@ -72,11 +72,11 @@ Book::process (String outname, Output_def *default_def)
     return 0;
     
   Paper_book *paper_book = new Paper_book ();
-  Real scale = scm_to_double (bookpaper_->c_variable ("outputscale"));
+  Real scale = scm_to_double (paper_->c_variable ("outputscale"));
   
-  Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);
+  Output_def * scaled_bookdef = scale_output_def (paper_, scale);
 
-  paper_book->bookpaper_ = scaled_bookdef;
+  paper_book->paper_ = scaled_bookdef;
   scm_gc_unprotect_object (scaled_bookdef->self_scm());
   
   paper_book->header_ = header_;
@@ -85,7 +85,7 @@ Book::process (String outname, Output_def *default_def)
   for (int i = 0; i < score_count; i++)
     {
       SCM systems = scores_[i]->book_rendering (outname,
-						paper_book->bookpaper_,
+						paper_book->paper_,
 						default_def);
       
       /* If the score is empty, generate no output.  Should we
@@ -103,16 +103,16 @@ Book::process (String outname, Output_def *default_def)
 }
 
 LY_DEFINE(ly_make_book, "ly:make-book",
-	  2, 0, 1, (SCM bookpaper, SCM header, SCM scores),
-	  "Make a \\book of @var{bookpaper} and @var{header} (which may be #f as well)  "
+	  2, 0, 1, (SCM paper, SCM header, SCM scores),
+	  "Make a \\book of @var{paper} and @var{header} (which may be #f as well)  "
 	  "containing @code{\\scores}.")
 {
-  Output_def * odef = unsmob_output_def (bookpaper);
-  SCM_ASSERT_TYPE (odef, bookpaper,
+  Output_def * odef = unsmob_output_def (paper);
+  SCM_ASSERT_TYPE (odef, paper,
 		   SCM_ARG1, __FUNCTION__, "Output_def");
 
   Book *book = new Book;
-  book->bookpaper_ = odef;
+  book->paper_ = odef;
 
   if (ly_c_module_p (header))
     book->header_ = header;

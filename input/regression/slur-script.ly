@@ -8,8 +8,8 @@
     For different configurations, the scripts can be moved manually."
     }
 
-\version "2.3.17"
-\paper {
+\version "2.3.22"
+\layout {
     raggedright = ##t
 }
 \relative

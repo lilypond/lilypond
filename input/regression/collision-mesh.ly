@@ -1,10 +1,10 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 
 \score {

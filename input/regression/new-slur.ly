@@ -3,8 +3,8 @@
     texidoc = "Scoring based slur formatting."
 }
 
-\version "2.3.17"
-\paper {
+\version "2.3.22"
+\layout {
     raggedright = ##t
 %    #(define debug-slur-scoring #t)
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header { 
 texidoc = "Accidentals in different staves do not affect the
@@ -14,7 +14,7 @@ spacing of the quarter notes here."
  }
    { \key d \major cis4 cis4 cis4 cis!4  } >>
 
-   \paper { raggedright = ##t} 
+   \layout { raggedright = ##t} 
  }
 
 

@@ -8,7 +8,7 @@ Currently, this is for testing purposes.  "
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 
@@ -64,5 +64,5 @@ DISTANCE; then call the original callback.  "
 	    \skip 1 }
 
     >>
-    \paper { raggedright = ##T } 
+    \layout { raggedright = ##T } 
 }

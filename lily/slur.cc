@@ -81,7 +81,7 @@ Slur::print (SCM smob)
 #if DEBUG_SLUR_SCORING
   SCM quant_score = me->get_property ("quant-score");
 
-  if (to_boolean (me->get_paper ()
+  if (to_boolean (me->get_layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_string (quant_score))
     {
@@ -89,7 +89,7 @@ Slur::print (SCM smob)
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->get_paper ()->self_scm (), properties,
+				    (me->get_layout ()->self_scm (), properties,
 				     quant_score));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0, 0);
     }

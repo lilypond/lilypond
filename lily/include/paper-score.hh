@@ -16,11 +16,11 @@
 #include "lily-guile.hh"
 #include "protected-scm.hh"
 
-/* PAPER output */
+/* LAYOUT output */
 class Paper_score : public Music_output
 {
 public:
-  Output_def *paper_;
+  Output_def *layout_;
   System *system_;
 
   Paper_score ();

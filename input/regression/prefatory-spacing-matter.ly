@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Distances between prefatory items (e.g. clef, bar,
@@ -20,6 +20,6 @@ bar-line is different from the start of line.
 	\key g \minor
 	c1
 }
-\paper  { raggedright = ##t}
+\layout  { raggedright = ##t}
 }
 

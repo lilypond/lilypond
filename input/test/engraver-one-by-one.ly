@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -22,7 +22,7 @@ Staff context.
 "
 
     }
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 \include "engraver-example.lyinc"
 
@@ -128,7 +128,7 @@ MyVoice = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
       }
@@ -142,7 +142,7 @@ MyStaff = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -156,7 +156,7 @@ MyStaff = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -169,7 +169,7 @@ MyVoice = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -182,7 +182,7 @@ MyVoice = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -198,7 +198,7 @@ MyVoice= \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -213,7 +213,7 @@ MyStaff = \context {
 
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }
@@ -226,7 +226,7 @@ MyStaff = \context {
 }
 \score {
   \topVoice
-  \paper {
+  \layout {
       \context { \MyStaff }
       \context { \MyVoice }
             }

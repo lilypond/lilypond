@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -15,7 +15,7 @@ In this example, space for opposite pointed stems is adjusted.
 	\time 12/4  c''4 c c c  a f' f, a 
 	
   }
-  \paper {
+  \layout {
     raggedright = ##t
   }  
 }
@@ -26,7 +26,7 @@ In this example, space for opposite pointed stems is adjusted.
 	\time 12/4  c''4 c c c  a f' f, a 
 	
   }
-  \paper {
+  \layout {
     raggedright = ##t
     \context { \Score
     \override SpacingSpanner #'stem-spacing-correction = #0.0

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "@cindex Auto Beaming Override
@@ -42,7 +42,7 @@ The @code{autoBeaming} can also be turned off.
 	\set autoBeaming = ##f
       	c8 c c c
     }
-    \paper{raggedright = ##t}
+    \layout{raggedright = ##t}
 }
 
 

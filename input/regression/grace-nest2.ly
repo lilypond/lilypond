@@ -1,10 +1,10 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Grace code should not be confused by nested sequential musics, containing grace notes; practically speaking, this means that the end-bar and measure bar coincide in this example." 
 
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {  \context Voice {
 	 { \grace b'8 c''2 }

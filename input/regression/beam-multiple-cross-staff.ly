@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -25,6 +25,6 @@ to the last beam.
 	     }	     
 	     
 	     >>
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Spacing uses the duration of the notes, but disregards
@@ -18,6 +18,6 @@
 
 }
 
-	 \paper { raggedright = ##t}
+	 \layout { raggedright = ##t}
 }
 

@@ -2,7 +2,7 @@
     texidoc = "Use \\score block as markup command."
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 tuning = \markup {
     \score {
@@ -11,7 +11,7 @@ tuning = \markup {
 	} {
 	    \clef bass  <c, g, d g>1
 	}
-	\paper { raggedright = ##t }
+	\layout { raggedright = ##t }
     }
 }
 

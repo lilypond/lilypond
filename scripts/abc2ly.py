@@ -189,7 +189,7 @@ def dump_lyrics (outf):
 		for i in range (len (lyrics)):
 			outf.write ( lyrics [i])
 			outf.write ("\n")
-		outf.write("    >>\n    \\paper{}\n}\n")
+		outf.write("    >>\n    \\layout{}\n}\n")
 
 def dump_default_bar (outf):
 	"""
@@ -284,7 +284,7 @@ def dump_score (outf):
 				outf.write("\n\t  { \\words%sV%s }" % ( m, l) )
 			outf.write ( "\n\t>>\n" )
 	outf.write ("\n    >>")
-	outf.write ("\n\t\\paper {\n")
+	outf.write ("\n\t\\layout {\n")
 	if part_names:
 		outf.write ("\t    \\translator \n\t    {\n")
 		outf.write ("\t\t\\StaffContext\n")

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc =
 
@@ -9,7 +9,7 @@ if the black note heads are from 8th or shorter notes.
     
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 
 \score {

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 
@@ -23,7 +23,7 @@ The engraver does no time-keeping, so it involves some trickery to get
 		\override Glissando  #'style = #'zigzag
 		c4 \glissando c,, \glissando c' \glissando d
     }
-    \paper{
+    \layout{
         linewidth = 50.\mm indent = 0
 	\context{
 	       \Staff

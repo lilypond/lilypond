@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Pieces may begin with grace notes."
 }
@@ -9,6 +9,6 @@ texidoc = "Pieces may begin with grace notes."
  \grace {  a16[ bes]  }  c1
  \bar "||"  % test if | and || are synced. 
   }
-  \paper { raggedright = ##t}
+  \layout { raggedright = ##t}
 }
 

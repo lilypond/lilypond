@@ -5,14 +5,14 @@
 ;;;; (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;          Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-(define-public (page-properties paper)
+(define-public (page-properties layout)
   (list (append `((linewidth . ,(ly:paper-get-number
-				 paper 'linewidth)))
-		(ly:output-def-lookup paper 'text-font-defaults))))
+				 layout 'linewidth)))
+		(ly:output-def-lookup layout 'text-font-defaults))))
 
 ;;;;;;;;;;;;;;;;;;
 					; titling.
-(define-public (default-book-title paper scopes)
+(define-public (default-book-title layout scopes)
   "Generate book title from header strings."
 
 
@@ -22,10 +22,10 @@
   (define (has sym)
     (markup?  (ly:modules-lookup scopes sym)))
 
-  (let ((props (page-properties paper)))
+  (let ((props (page-properties layout)))
 
     (interpret-markup
-     paper props
+     layout props
      (make-override-markup
       '(baseline-skip . 4)
       (make-column-markup
@@ -92,15 +92,15 @@
 	    ))))))))))
 
 
-(define-public (default-user-title paper markup)
+(define-public (default-user-title layout markup)
   "Generate book title from header markup."
   (if (markup? markup)
-      (let ((props (page-properties paper))
+      (let ((props (page-properties layout))
 	    (baseline-skip (chain-assoc-get 'baseline-skip props 2)) )
 	(stack-lines DOWN 0 BASELINE-SKIP
-		     (list (interpret-markup paper props markup))))))
+		     (list (interpret-markup layout props markup))))))
 
-(define-public (default-score-title paper scopes)
+(define-public (default-score-title layout scopes)
   "Generate score title from header strings."
 
   (define (get sym)
@@ -110,9 +110,9 @@
   (define (has sym)
     (markup? (ly:modules-lookup scopes sym)))
 
-  (let ((props (page-properties paper)))
+  (let ((props (page-properties layout)))
     (interpret-markup
-     paper props
+     layout props
      (make-override-markup
       '(baseline-skip . 4)
       (make-column-markup

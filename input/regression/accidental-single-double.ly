@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
@@ -20,6 +20,6 @@ gisis'4 gis gisis ges |
 		\thenotes
 	}
 	>>
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 }
 

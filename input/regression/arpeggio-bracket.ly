@@ -1,6 +1,6 @@
 
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 A square bracket on the left indicates that the player should not
@@ -15,6 +15,6 @@ arpeggiate the chord.
 	 <fis,  d a >\arpeggio
 	 }
      
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 }
 

@@ -4,11 +4,11 @@
     dots: notes with dots should go to the right, if there could be
     confusion to which notes the dots belong."
 }
-\version "2.3.17"
+\version "2.3.22"
 \score { 
    \relative c'' { 
     << <a c>2\\ { <b d>4 <b d>4 }   >>
     << { <a c>2 } \\ { <b d>4. <b e>8 } >> 
   }
-  \paper {  raggedright = ##t } 
+  \layout {  raggedright = ##t } 
 }   

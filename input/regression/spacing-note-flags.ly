@@ -12,10 +12,10 @@ texidoc = "The flags of 8th notes take some space, but not
     a8[ a8 a8 a8]
     a8 a8 a8 a8
 }
-\paper {
+\layout {
 raggedright = ##t
     }
      }
 
-\version "2.3.17"
+\version "2.3.22"
 

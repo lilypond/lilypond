@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="Property chordChanges: display chord names only when
@@ -23,5 +23,5 @@ settings = {
 	>>
 	\context Staff \transpose c c' \scheme
     >>
-    \paper{ raggedright = ##t }
+    \layout{ raggedright = ##t }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc = "Tuplet-spanner should not put (visible) brackets on
@@ -13,6 +13,6 @@ beams even if they're auto generated."
 	 f8[ f f ] f8[ f f ] f f f f f f 
  }
 }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
      }

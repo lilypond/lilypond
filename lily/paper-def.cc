@@ -1,5 +1,5 @@
 /* 
-  book-paper-def.cc -- implement Output_def
+  paper-def.cc -- implement Paper_def
 
   source file of the GNU LilyPond music typesetter
 
@@ -38,6 +38,7 @@ find_scaled_font (Output_def *mod,
       mod->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
     }
 
+  
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
     {
@@ -93,14 +94,14 @@ find_scaled_font (Output_def *mod,
 Output_def * 
 scale_output_def (Output_def *o, Real amount)
 {
-  SCM proc = ly_scheme_function ("scale-paper");
+  SCM proc = ly_scheme_function ("scale-layout");
   SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_double2num (amount));
   scm_gc_protect_object (new_pap);
 
   return unsmob_output_def (new_pap);
 }
 
-LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
+LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 	   1, 0, 0,
 	   (SCM bp),
 	   "Return fonts scaled up BP")
@@ -109,7 +110,7 @@ LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
 
   SCM font_table = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   
-  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
 
   SCM ell = SCM_EOL;
   if (scm_hash_table_p (font_table) == SCM_BOOL_T)

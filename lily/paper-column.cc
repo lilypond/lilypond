@@ -117,7 +117,7 @@ Paper_column::print (SCM p)
   String r = to_string (Paper_column::get_rank (me));
   SCM properties = Font_interface::text_font_alist_chain (me);
 
-  SCM scm_mol = Text_interface::interpret_markup (me->get_paper ()->self_scm (),
+  SCM scm_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
 					     properties,
 					     scm_makfrom0str (r.to_str0 ()));
   Stencil t = *unsmob_stencil (scm_mol);

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
     texidoc = "Symmetric figures should lead to symmetric slurs."
@@ -15,7 +15,7 @@
 			f'8(f f) f(g f) f(a f) f(b f)
 		}
 	>>
-	\paper{
+	\layout{
 		raggedright = ##t
 	}
 }

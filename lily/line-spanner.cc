@@ -117,7 +117,7 @@ Line_spanner::line_stencil (Grob *me,
 					     ly_symbol2scm ("fetaMusic")),
 				    SCM_UNDEFINED);
       
-      Font_metric *fm = select_font (me->get_paper (),
+      Font_metric *fm = select_font (me->get_layout (),
 				     scm_cons (style_alist,
 					      alist_chain));
       Stencil m = fm->find_by_name ("scripts-trill-element");

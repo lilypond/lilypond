@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "For knees, the spacing correction is such that the
@@ -16,7 +16,7 @@ width of the note heads and the thickness of the stem.
  \override Stem  #'thickness = #10 
  g''8[ g g'' g''] 
     }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
      }
 
 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 
 \header { texidoc= "
@@ -19,7 +19,7 @@ can be printed automatically. This is enabled if the property
 	}
 	\context Staff = two {\clef bass \skip 1*2 }
     >>
-    \paper{ 
+    \layout{ 
 	raggedright = ##t 
     }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -8,7 +8,7 @@ Extreme slurs are scaled to fit the pattern, but only  symmetrically.
 Asymmetric slurs are created by setting @code{excentricity}."
 
 }
-\paper {
+\layout {
     raggedright = ##t
 }
 

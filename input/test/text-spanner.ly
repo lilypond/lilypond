@@ -1,12 +1,12 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc = "@cindex text spanner
 Text spanners can be used in the similar manner than markings for pedals
 or octavation.
 "
       }
-\paper{ raggedright = ##t}
+\layout{ raggedright = ##t}
 
 \relative c''{
     \override TextSpanner  #'edge-text = #'("bla" . "blu")

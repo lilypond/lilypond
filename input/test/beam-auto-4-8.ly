@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
@@ -30,7 +30,7 @@ You can override the automatic beaming settings.
      c8 c c c16 c
 
   }
-\paper{raggedright = ##t}
+\layout{raggedright = ##t}
 }
     
 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = " Chord names are generated from a list pitches.  The
@@ -141,7 +141,7 @@ banterProperties = \sequential {
 	
 	\new Staff  \transpose c c' { \chs }
     >>
-    \paper {
+    \layout {
 	indent = 3.\cm
 	\context { 
 	    \ChordNames

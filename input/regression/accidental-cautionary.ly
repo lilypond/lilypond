@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "Cautionary accidentals are indicated using either
@@ -8,7 +8,7 @@ parentheses (default) or smaller accidentals.
 
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 {
     c''4

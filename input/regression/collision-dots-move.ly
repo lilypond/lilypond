@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     
     texidoc = "If collision resolution finds dotted note head must
@@ -6,7 +6,7 @@
 
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 \score {
    \relative c {

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -150,7 +150,7 @@ sarabandeCelloStaff = \context Staff <<
 >>
 
 % size perversions
-smallerPaper = \paper {
+smallerPaper = \layout {
     \context { \Staff
 		  fontSize = #-1
 		  \override StaffSymbol  #'staff-space = #0.8
@@ -163,7 +163,7 @@ smallerPaper = \paper {
     linewidth = 146.8 \mm
 }
 
-\bookpaper {
+\paper {
   raggedbottom = ##t
   indent = 7. \mm
   linewidth =183.5 \mm
@@ -174,7 +174,7 @@ smallerPaper = \paper {
 \score{
   \sarabandeCelloStaff
   \midi{ \tempo 4 = 40 }
-  \paper { }
+  \layout { }
   \header{
     opus= "" 
     piece ="Sarabande" }

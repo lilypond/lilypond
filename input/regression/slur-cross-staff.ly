@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Slurs behave decently when broken across a linebreak.

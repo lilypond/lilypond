@@ -25,7 +25,7 @@
 
 Paper_score::Paper_score ()
 {
-  paper_ = 0;
+  layout_ = 0;
   system_ = 0;
 }
 

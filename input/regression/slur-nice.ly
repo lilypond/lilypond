@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Slurs should look nice and symmetric.  The curvature may increase
@@ -19,7 +19,7 @@ run through noteheads or stems.
 		\stemNeutral c ( \stemUp c \stemNeutral  c) c ( a  c) c( d,  c') c( f,  c')
 		\stemDown c( f,  c')
 	}
-	\paper{
+	\layout{
 		linewidth = 120.\mm
 	}
 }

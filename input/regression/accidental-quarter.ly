@@ -3,7 +3,7 @@
     texidoc = "Quarter tone notation is supported, including
     threequarters flat."
     }
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
      \relative c'' {
@@ -19,5 +19,5 @@
 	cisih
 	cisis
     }
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 % this chart is used in the manual too.
 
@@ -48,7 +48,7 @@ This chart shows all articulations, or scripts, that feta font contains.
         coda__                  varcoda__
       }
     >>
-    \paper {
+    \layout {
       linewidth = 5.1\in
       indent = 0.0\mm
     }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
     texidoc = "The standard piano pedals style comes with Ped symbols.

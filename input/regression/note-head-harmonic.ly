@@ -6,7 +6,7 @@
   Harmonic heads do not get  dots. If @code{harmonicAccidentals} is unset, they also don't get accidentals."
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
   {
@@ -18,7 +18,7 @@
     < dis'' gis''\harmonic >8
   }
 
-  \paper {
+  \layout {
       raggedright = ##t 
   }
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
@@ -10,7 +10,7 @@ texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
 	<fis, g d a>\arpeggio
 	<fis'' g d a>\arpeggio
 	}
-    \paper {
+    \layout {
         raggedright = ##t
 	\context{
 	    \Staff

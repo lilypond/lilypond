@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 
 \header {
   texidoc ="Polyphonic piano music."
@@ -37,6 +37,6 @@ lowerTwo = \relative c {
       \context Voice = two \lowerTwo
     >>  
   >>
-  \paper { }  
+  \layout { }  
   \midi { }  
 }

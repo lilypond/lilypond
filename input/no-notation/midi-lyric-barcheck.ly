@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 \header {
 
     texidoc = "Lyrics in MIDI are aligned to ties and beams:
@@ -19,6 +19,6 @@ this examples causes no bar checks in MIDI.
     }
     \lyricsto "A" \lyricmode\new Lyrics { bla bla | bla bla | bla bla | bla }
     >>
-    \paper {}
+    \layout {}
       \midi {}
     }

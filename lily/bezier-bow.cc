@@ -59,7 +59,7 @@ height   <indent>
 
   Although this might seem cand_idates to SCM-ify, it is not all clear
   which parameters (ie. h_inf, r_0, F (.)) should be candidates for
-  this.  At present h_inf and r_0 come from paper settings, but we did
+  this.  At present h_inf and r_0 come from layout settings, but we did
   no experiments for determining the best combinations of F, h_inf and
   r_0.
 

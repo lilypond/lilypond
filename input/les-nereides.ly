@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.17"
+\version "2.3.22"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -262,7 +262,7 @@ theScore = \score{
 	    \bassTwo
         >>
     >>
-    \paper {
+    \layout {
 	\context {
 	    \Score
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")

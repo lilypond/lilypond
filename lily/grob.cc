@@ -151,9 +151,9 @@ robust_relative_extent (Grob*me, Grob*refp, Axis a)
 }
 
 Output_def *
-Grob::get_paper () const
+Grob::get_layout () const
 {
- return pscore_ ? pscore_->paper_ : 0;
+ return pscore_ ? pscore_->layout_ : 0;
 }
 
 

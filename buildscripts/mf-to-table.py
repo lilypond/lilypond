@@ -194,7 +194,7 @@ def write_fontlist (file, global_info, charmetrics):
 			file.write ('\skip 8  \\break\n')
 	file.write (r"""
 }
-  \paper{
+  \layout{
     interscoreline = 1.0
     indent = 0.0 \cm
     \context {

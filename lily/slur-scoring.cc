@@ -287,7 +287,7 @@ Slur_score_state::fill (Grob *me)
     }
 
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-  Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
   
   dir_ = get_grob_direction (me);
@@ -399,7 +399,7 @@ Slur_score_state::get_best_curve ()
 
 #if DEBUG_SLUR_SCORING
   SCM inspect_quants = slur_->get_property ("inspect-quants");
-  if (to_boolean (slur_->get_paper ()
+  if (to_boolean (slur_->get_layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_pair (inspect_quants))
     {

@@ -83,8 +83,8 @@ Gourlay_breaking::do_solve () const
   Break_node first_node ;
   optimal_paths.push (first_node);
 
-  bool ragged_right = to_boolean (pscore_->paper_->c_variable ("raggedright"));
-  bool ragged_last = to_boolean (pscore_->paper_->c_variable ("raggedlast"));
+  bool ragged_right = to_boolean (pscore_->layout_->c_variable ("raggedright"));
+  bool ragged_last = to_boolean (pscore_->layout_->c_variable ("raggedlast"));
 
   Real worst_force = 0.0;
   for (int break_idx = 1; break_idx< breaks.size (); break_idx++) 
@@ -110,7 +110,7 @@ Gourlay_breaking::do_solve () const
 	  cp.cols_ = line;
 
 	  Interval line_dims
-	    = line_dimensions_int (pscore_->paper_, optimal_paths[start_idx].line_);
+	    = line_dimensions_int (pscore_->layout_, optimal_paths[start_idx].line_);
 	  Simple_spacer_wrapper * sp = generate_spacing_problem (line, line_dims);
 	  bool last_line = break_idx == breaks.size ()-1;
 	  bool ragged = ragged_right

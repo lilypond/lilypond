@@ -136,10 +136,10 @@ episemFinis = #(make-span-event 'TextSpanEvent STOP)
 %climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
 
 %
-% example paper block for gregorian chant notation
+% example layout block for gregorian chant notation
 %
 
-neumeDemoPaper = \paper {
+neumeDemoLayout = \layout {
     interscoreline = 1
     \context {
 	\Score

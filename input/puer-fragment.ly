@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -80,7 +80,7 @@ verba = \context Lyrics = "verba" \lyricmode {
   et fi -- li -- us da -- tus est no -- bis:
 }
 
-\bookpaper  {
+\paper  {
     linethickness = \staffspace / 7.0
 }
 
@@ -89,7 +89,7 @@ verba = \context Lyrics = "verba" \lyricmode {
     \cantus
     \lyricsto "cantus" \verba
   >>
-  \paper {
+  \layout {
     linewidth = 137.0\mm
     width = 137.0\mm
     indent = 0.0

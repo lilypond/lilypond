@@ -35,15 +35,15 @@ example, a music expression is assigned to a variable with the name
 @noindent
 
 There is also a form of scoping: in the following example, the
-@code{\paper} block also contains a @code{traLaLa} variable, which is
+@code{\layout} block also contains a @code{traLaLa} variable, which is
 independent of the outer @code{\traLaLa}.
 @example
   traLaLa = @{ c'4 d'4 @}
-  \paper @{ traLaLa = 1.0 @}
+  \layout @{ traLaLa = 1.0 @}
 @end example
 @c
 In effect, each input file is a scope, and all @code{\header},
-@code{\midi} and @code{\paper} blocks are scopes nested inside that
+@code{\midi} and @code{\layout} blocks are scopes nested inside that
 toplevel scope.
 
 Both variables and scoping are implemented in the GUILE module system.
@@ -415,7 +415,7 @@ This function may also be defined as a music function:
 @section Markup programmer interface
 
 Markups implemented as special Scheme functions. When applied with as
-arguments an output definition (@code{\paper} or @code{\bookpaper}),
+arguments an output definition (@code{\layout} or @code{\paper}),
 and a list of properties and other arguments, produce a Stencil
 object.
 
@@ -505,7 +505,7 @@ raise markup is called as
 
 @example
   (apply raise-markup
-         @var{\paper object}
+         @var{\layout object}
          @var{list of property alists}
          0.5
          @var{the "foo" markup})
@@ -522,7 +522,7 @@ section, and in @file{scm/define-markup-commands.scm}.
 New markup commands can be defined
 with  the @code{def-markup-command} scheme macro.
 @lisp
-(def-markup-command (@var{command-name} @var{paper} @var{props} @var{arg1} @var{arg2} ...)
+(def-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
             (@var{arg1-type?} @var{arg2-type?} ...)
   ..command body..)
 @end lisp
@@ -534,8 +534,8 @@ The arguments signify
 @var{i}th command argument
 @item argi-type?
 a type predicate for the i@var{th} argument
-@item paper
-the `paper' definition
+@item layout
+the `layout' definition
 @item props
 a list of alists, containing all active properties. 
 @end table
@@ -556,7 +556,7 @@ define a function using @code{def-markup-command}. The command should
 take a single argument, of markup type. Therefore, the start of the
 definition should read
 @example
-  (def-markup-command (smallcaps paper props argument) (markup?)
+  (def-markup-command (smallcaps layout props argument) (markup?)
 @end example
 
 @noindent
@@ -565,7 +565,7 @@ What follows is the content of the command: we should interpret
 the @code{argument} as a markup, i.e.
 
 @example
-    (interpret-markup paper  @dots{} argument)
+    (interpret-markup layout  @dots{} argument)
 @end example
 
 @noindent
@@ -590,10 +590,10 @@ that takes into account the needed translation, and uses the newly
 defined @code{\smallcaps} command:
 
 @verbatim
-#(def-markup-command (character paper props name) (string?)
+#(def-markup-command (character layout props name) (string?)
    "Print the character name in small caps, translated to the left and
    top. Syntax: \\character #\"name\""
-   (interpret-markup paper props 
+   (interpret-markup layout props 
     (markup "" #:translate (cons -4 2) #:smallcaps name)))
 @end verbatim
 
@@ -615,9 +615,9 @@ The final result is as follows:
 @end verbatim
 
 @lilypond[raggedright]
-#(def-markup-command (smallcaps paper props str) (string?)
+#(def-markup-command (smallcaps layout props str) (string?)
    "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
-   (interpret-markup paper props
+   (interpret-markup layout props
     (make-line-markup
      (map (lambda (s)
             (if (= (string-length s) 0)
@@ -627,10 +627,10 @@ The final result is as follows:
                         #:tiny (string-upcase (substring s 1)))))
           (string-split str #\Space)))))
 
-#(def-markup-command (character paper props name) (string?)
+#(def-markup-command (character layout props name) (string?)
    "Print the character name in small caps, translated to the left and
    top. Syntax: \\character #\"name\""
-   (interpret-markup paper props 
+   (interpret-markup layout props 
     (markup "" #:translate (cons -4 0) #:smallcaps name)))
 
     { \fatText
@@ -645,9 +645,9 @@ the small caps font, by setting a string in upcase, with the first
 letter a little larger:
 
 @example
-#(def-markup-command (smallcaps paper props str) (string?)
+#(def-markup-command (smallcaps layout props str) (string?)
    "Print the string argument in small caps."
-   (interpret-markup paper props
+   (interpret-markup layout props
     (make-line-markup
      (map (lambda (s)
             (if (= (string-length s) 0)
@@ -668,7 +668,7 @@ introduces a space between markups on a line, the second markup is
 translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
 the markups built for each token are put in a line by
 @code{(make-line-markup ...)}. Finally, the resulting markup is passed
-to the @code{interpret-markup} function, with the @code{paper} and
+to the @code{interpret-markup} function, with the @code{layout} and
 @code{props} arguments.
 
 

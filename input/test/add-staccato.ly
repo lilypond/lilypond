@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -29,7 +29,7 @@ it is not necessary to use scm constructs (see @code{separate-staccato.ly}).
   \relative c'' {
     a b \applymusic #(lambda (x) (music-map add-staccato x)) { c c } 
   }
-  \paper{ raggedright = ##t }
+  \layout{ raggedright = ##t }
 }
 
 

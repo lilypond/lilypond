@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.3.17"
+\version "2.3.22"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -439,7 +439,7 @@ bassStaff = \context Staff = bass<<
 	    \bassStaff
 	>>
     >>
-    \paper {
+    \layout {
 				% Use
 				%   textheight = 280.\mm
 				%   linewidth = 190.\mm

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
   texidoc = "@cindex Embedded Postscript
 By inserting the @TeX{} command \embeddedps, you can
@@ -17,7 +17,7 @@ insert postscript directly into the output.
     s2
     a'1
   }
-  \paper { linewidth = 70 * 5 \pt
+  \layout { linewidth = 70 * 5 \pt
 %	raggedright = ##t 
 	}
 }

@@ -5,9 +5,9 @@
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
-\paper {
+\layout {
    indent = 0.0\mm
    raggedright = ##t
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -14,5 +14,5 @@ foo = \relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
   << \foo 
    \context NoteNames \foo
   >>
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 }

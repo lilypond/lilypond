@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar
@@ -21,6 +21,6 @@ su = \override Stem  #'direction = #1
 \sd c4 \su c4
 \sd f c,4  c'4 cis4 \stemUp c4
 }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 }
 

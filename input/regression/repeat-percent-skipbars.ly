@@ -1,11 +1,11 @@
-\version "2.3.17"
+\version "2.3.22"
 
 
 \header {
 texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {
      \context Staff <<

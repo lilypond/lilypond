@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
@@ -15,6 +15,6 @@ the rest.
 		  
 
 	      }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
     }
 

@@ -7,7 +7,7 @@
 
       }
 
-\version "2.3.17" % to be updated
+\version "2.3.22" % to be updated
 
 #(def-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
@@ -18,5 +18,5 @@
         c''-\markup \upcase #"hello world"
         % produces a "HELLO WORLD" markup
     }
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 }

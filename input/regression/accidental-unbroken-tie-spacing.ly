@@ -4,7 +4,7 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) do not
 wreak havoc in the spacing when unbroken."
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 rechts =  \relative c' {
   \clef treble
@@ -16,7 +16,7 @@ rechts =  \relative c' {
 \score {
   \rechts
 
-  \paper {
+  \layout {
     raggedright = ##t
   }
 }

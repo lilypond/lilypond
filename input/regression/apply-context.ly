@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 
 \header {
@@ -14,7 +14,7 @@ This example prints a bar-number during processing on stdout.
 
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 
 \score {  \relative c'' {

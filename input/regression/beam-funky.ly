@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     
     texidoc = "In complex configurations of knee beaming, according to
@@ -33,7 +33,7 @@ beam. This is in disagreement with the current algorithm."
 	     g''' g,,,]	    }  }
 	     
 	 }
-\paper { raggedright = ##t} 
+\layout { raggedright = ##t} 
 
      }
 

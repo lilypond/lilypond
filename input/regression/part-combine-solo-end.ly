@@ -4,8 +4,8 @@
     other one. Unfortunately, the multi-rest does not get printed."
 }
 
-\version "2.3.17"
-\paper { raggedright = ##t }
+\version "2.3.22"
+\layout { raggedright = ##t }
 
 <<
     \new Staff

@@ -24,8 +24,8 @@ is then separated.
 
    <score>
      <music></music>
-     <paperoutput>
-     </paperoutput>
+     <layoutoutput>
+     </layoutoutput>
    </score>
 "
 

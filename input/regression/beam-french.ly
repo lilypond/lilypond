@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -16,7 +16,7 @@
 	     c8[ c16 e16 g8]
 	 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
      }
 

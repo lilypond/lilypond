@@ -374,14 +374,14 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 }
 
 Output_def*
-get_paper (Lily_parser *parser)
+get_layout (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
-  Output_def *paper = unsmob_output_def (id);
-  paper = paper ? paper->clone () : new Output_def;
-  paper->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
+  SCM id = parser->lexer_->lookup_identifier ("$defaultlayout");
+  Output_def *layout = unsmob_output_def (id);
+  layout = layout ? layout->clone () : new Output_def;
+  layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
 
-  return paper;
+  return layout;
 }
 
 
@@ -389,22 +389,22 @@ Output_def*
 get_midi (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultmidi");
-  Output_def *paper = unsmob_output_def (id);
-  paper = paper ? paper->clone () : new Output_def;
-  paper->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
-  return paper;
+  Output_def *layout = unsmob_output_def (id);
+  layout = layout ? layout->clone () : new Output_def;
+  layout->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
+  return layout;
 }
 
 
 Output_def*
-get_bookpaper (Lily_parser *parser)
+get_paper (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier ("$defaultbookpaper");
-  Output_def *paper = unsmob_output_def (id);
+  SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
+  Output_def *layout = unsmob_output_def (id);
 
-  paper = paper ? dynamic_cast<Output_def*> (paper->clone ()) : new Output_def;
-  paper->set_variable (ly_symbol2scm ("is-bookpaper"), SCM_BOOL_T);
-  return paper;
+  layout = layout ? dynamic_cast<Output_def*> (layout->clone ()) : new Output_def;
+  layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
+  return layout;
 }
 
 
@@ -434,19 +434,19 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   (*c)++;
 
   SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
-  SCM bookpaper = get_bookpaper (parser)->self_scm ();
+  SCM paper = get_paper (parser)->self_scm ();
   for (int i = 0; i < score->defs_.size (); i++)
     default_rendering (score->get_music (), score->defs_[i]->self_scm (),
-		       bookpaper,
+		       paper,
 		       header, os);
 
   if (score->defs_.is_empty ())
     {
-      Output_def *paper = get_paper (parser);
-      default_rendering (score->get_music(), paper->self_scm (),
-			 get_bookpaper (parser)->self_scm (),
+      Output_def *layout = get_layout (parser);
+      default_rendering (score->get_music(), layout->self_scm (),
+			 get_paper (parser)->self_scm (),
 			 header, os);
-      scm_gc_unprotect_object (paper->self_scm ());
+      scm_gc_unprotect_object (layout->self_scm ());
     }
   return SCM_UNSPECIFIED;
 }
@@ -476,13 +476,13 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 {
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
-  Output_def *bp = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
+  Output_def *bp = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"));
   
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "Lilypond parser");
   SCM_ASSERT_TYPE (book, book_smob, SCM_ARG2, __FUNCTION__, "Book");
   
   /*  ugh. changing argument.*/
-  book->bookpaper_ = bp;
+  book->paper_ = bp;
   
   File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
@@ -490,16 +490,16 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
     outname.base_ += "-" + to_string (*c);
   (*c)++;
 
-  Output_def *paper = get_paper (parser);
+  Output_def *layout = get_layout (parser);
 
-  Paper_book* pb = book->process (outname.to_string (), paper);
+  Paper_book* pb = book->process (outname.to_string (), layout);
   if (pb)
     {
       pb->output (outname.to_string ());
       scm_gc_unprotect_object (pb->self_scm ());
     }
 
-  scm_gc_unprotect_object (paper->self_scm ());
+  scm_gc_unprotect_object (layout->self_scm ());
   return SCM_UNSPECIFIED;
 }
 

@@ -53,7 +53,7 @@ Output_def::mark_smob (SCM m)
   Output_def *mo = (Output_def*) SCM_CELL_WORD_1 (m);
 
   /* FIXME: why is this necessary?
-     all bookpaper_ should be protected by themselves. */
+     all paper_ should be protected by themselves. */
   if (mo->parent_)
     scm_gc_mark (mo->parent_->self_scm ());
 
@@ -125,7 +125,7 @@ Output_def::set_variable (SCM sym, SCM val)
   scm_module_define (scope_, sym, val);
 }
 
-LY_DEFINE (ly_paper_lookup, "ly:output-def-lookup",
+LY_DEFINE (ly_layout_lookup, "ly:output-def-lookup",
 	   2, 0, 0, (SCM pap, SCM sym),
 	   "Lookup @var{sym} in @var{pap}. "
 	   "Return the value or @code{'()} if undefined.")
@@ -186,7 +186,7 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 }
   
 /* FIXME.  This is broken until we have a generic way of
-   putting lists inside the \paper block.  */
+   putting lists inside the \layout block.  */
 Interval
 line_dimensions_int (Output_def *def, int n)
 {
@@ -195,19 +195,19 @@ line_dimensions_int (Output_def *def, int n)
   return Interval (ind, lw);
 }
 
-LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
+LY_DEFINE (ly_layout_def_p, "ly:layout-def?",
 	   1, 0, 0, (SCM def),
-	   "Is @var{def} a paper definition?")
+	   "Is @var{def} a layout definition?")
 {
   return ly_bool2scm (unsmob_output_def (def));
 }
 
-LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
+LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	  1, 0, 0, (SCM bp),
 	  "Get outputscale for BP.")
 {
   Output_def *b = unsmob_output_def (bp);
-  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
   return scm_make_real (output_scale (b));
 }
 

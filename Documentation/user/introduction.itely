@@ -345,7 +345,7 @@ note heads, the @code{Note_heads_engraver}.
 
 \score {
    \topVoice
-   \paper {
+   \layout {
    \context {
       \Voice
       \remove "Stem_engraver"
@@ -377,7 +377,7 @@ Then a @code{Staff_symbol_engraver} adds the staff
 
 \score {
   \topVoice
-  \paper {
+  \layout {
     \context {
       \Voice
       \remove "Stem_engraver"
@@ -408,7 +408,7 @@ the @code{Clef_engraver} defines a reference point for the staff
 
 \score {
   \topVoice
-  \paper {
+  \layout {
     \context {
       \Voice
       \remove "Stem_engraver"
@@ -437,7 +437,7 @@ and the @code{Stem_engraver} adds stems.
 
 \score {
   \topVoice
-  \paper {
+  \layout {
     \context {
       \Voice
       \remove "Phrasing_slur_engraver"

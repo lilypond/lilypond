@@ -167,7 +167,7 @@ default_rendering (SCM music, SCM outdef,
   Output_def *bpd = unsmob_output_def (book_outputdef);
 
   /* ugh.  */
-  if (bpd->c_variable ("is-bookpaper") == SCM_BOOL_T)
+  if (bpd->c_variable ("is-paper") == SCM_BOOL_T)
     {
       Real scale = scm_to_double (bpd->c_variable ("outputscale"));
       
@@ -193,7 +193,7 @@ default_rendering (SCM music, SCM outdef,
 	  /* ugh, this is strange, Paper_book without a Book object. */
 	  Paper_book *paper_book = new Paper_book ();
 	  paper_book->header_ = header;
-	  paper_book->bookpaper_ = unsmob_output_def (scaled_bookdef);
+	  paper_book->paper_ = unsmob_output_def (scaled_bookdef);
 	  
 	  Score_systems sc;
 	  sc.systems_ = systems;
@@ -215,12 +215,12 @@ default_rendering (SCM music, SCM outdef,
 Format score, return systems. OUTNAME is still passed to create a midi
 file.
 
-PAPERBOOK should be scaled already.
+LAYOUTBOOK should be scaled already.
 
 */
 SCM
 Score::book_rendering (String outname,
-		       Output_def *paperbook,
+		       Output_def *layoutbook,
 		       Output_def *default_def)
 {
   if (error_found_)
@@ -229,8 +229,8 @@ Score::book_rendering (String outname,
   SCM scaled_bookdef = SCM_EOL;
   Real scale = 1.0;
 
-  if (paperbook && paperbook->c_variable ("is-bookpaper") == SCM_BOOL_T)
-    scale = scm_to_double (paperbook->c_variable ("outputscale"));
+  if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
+    scale = scm_to_double (layoutbook->c_variable ("outputscale"));
   
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;
@@ -239,15 +239,15 @@ Score::book_rendering (String outname,
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
       SCM scaled = SCM_EOL;
-      if (def->c_variable ("is-paper") == SCM_BOOL_T)
+      if (def->c_variable ("is-layout") == SCM_BOOL_T)
 	{
 	  def = scale_output_def (def, scale);
-	  def->parent_ = paperbook;
+	  def->parent_ = layoutbook;
 	  scaled = def->self_scm ();
 	  scm_gc_unprotect_object (scaled);
 	}
 
-      /* TODO: fix or junk --no-paper.  */
+      /* TODO: fix or junk --no-layout.  */
       SCM context = ly_run_translator (music_, def->self_scm ());
       if (dynamic_cast<Global_context*> (unsmob_context (context)))
 	{
@@ -267,13 +267,13 @@ Score::book_rendering (String outname,
 
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-	   2, 0, 0, (SCM score, SCM paper),
-	   "Run @var{score} through @var{paper}, an output definition, "
+	   2, 0, 0, (SCM score, SCM layout),
+	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct outputscale already, "
-	   "return a list of paper-lines.")
+	   "return a list of layout-lines.")
 {
   Score * sc = unsmob_score (score);
-  Output_def *od = unsmob_output_def (paper);
+  Output_def *od = unsmob_output_def (layout);
 
   if (sc->error_found_)
     {
@@ -281,14 +281,14 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
     }
   
   SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
-  SCM_ASSERT_TYPE (od, paper, SCM_ARG2, __FUNCTION__, "Output_def");
+  SCM_ASSERT_TYPE (od, layout, SCM_ARG2, __FUNCTION__, "Output_def");
 
   Output_def * score_def  = 0;
 
-  /* UGR, FIXME, these are default \paper blocks once again.  They
+  /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
   for (int i = 0; !score_def && i < sc->defs_.size (); i++)
-    if (sc->defs_[i]->c_variable ("is-paper") == SCM_BOOL_T)
+    if (sc->defs_[i]->c_variable ("is-layout") == SCM_BOOL_T)
       score_def = sc->defs_[i];
 
   if (!score_def)

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -32,7 +32,7 @@ voice =  \transpose c c' {
   \bar "||"
 }
 
-\bookpaper {
+\paper {
     linethickness = \staffspace / 5.0
 }
 \score {
@@ -48,7 +48,7 @@ voice =  \transpose c c' {
 	    >>
 	>>
     >>
-    \paper {
+    \layout {
 	\context {
 	    \Voice
 	    \name MensuralVoice

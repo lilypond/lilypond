@@ -1,7 +1,7 @@
 
 % this chart is used in the manual too.
 
-\version "2.3.17"
+\version "2.3.22"
 \header { texidoc = "@cindex Script Abbreviations
 
 Some articulations may be entered using an abbreviation.

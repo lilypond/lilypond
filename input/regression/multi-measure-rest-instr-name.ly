@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "There are both long and short instrument names.
@@ -13,7 +13,7 @@ multimeasure rests. "
 	\set Staff.instr = "instr"
 	{c''1 \break R1 }
     >>
-    \paper {
+    \layout {
 	raggedright = ##t
 	\context {
 	    \Staff

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -17,7 +17,7 @@ If they don't barlines should still be shown.
     % more alts than body
     \repeat volta 2 { c^"2$\\times$ 3alt" d } \alternative { e f g }
   }
-  \paper {}
+  \layout {}
   \midi {}
 }
 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -36,7 +36,7 @@ what you would expect.)
 	}
     >>
 
-    \paper {
+    \layout {
 	\context {
 	    \Score
 	    \accepts StaffContainer

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc = "Stanza numbers are put left of their lyric. They are aligned in a column."
@@ -19,7 +19,7 @@ texidoc = "Stanza numbers are put left of their lyric. They are aligned in a col
     }
 >>
 
-\paper { raggedright = ##t } 
+\layout { raggedright = ##t } 
 }
 
 

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 
 \header {
@@ -22,7 +22,7 @@
 	     #'beaming = #(cons (list 0 2 4) (list 0 1 4))
 	     c c c]
     }
-    \paper{ 
+    \layout{ 
 	raggedright = ##t 
     }
 }

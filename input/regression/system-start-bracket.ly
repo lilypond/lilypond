@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc =
 "
@@ -16,6 +16,6 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 	   >>
     >>
     }
-    \paper {raggedright = ##t}
+    \layout {raggedright = ##t}
 }
 

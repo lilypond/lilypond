@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -7,7 +7,7 @@ must be scaled."
 
 }
 
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 
 \relative c' <<
 %    \new Staff \relative c'' { \dynamicDown c4 \ff c c c }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc =
 
@@ -18,7 +18,7 @@ alignment; this should not confuse the mechanism.
 	  
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 	
 \score {  \transpose c c''
@@ -27,7 +27,7 @@ alignment; this should not confuse the mechanism.
    \new Staff {  d4 d d d s1 s1 s1 s1 }
    \new Staff {  e4 e e e s1 e4 e e e s1 }
  >>
- \paper {
+ \layout {
   \context {
    \RemoveEmptyStaffContext
   }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
 When entering partially typeset music (i.e. for students to be 
@@ -28,6 +28,6 @@ mel =  \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}
   >>
   \new Staff  {\clef F s1*4}
 >>
-\paper {}
+\layout {}
 }
 

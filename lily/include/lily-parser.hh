@@ -55,7 +55,7 @@ public:
   Lily_parser (Sources *sources);
   Lily_parser (Lily_parser const&);
 
-  DECLARE_SCHEME_CALLBACK (paper_description, ());
+  DECLARE_SCHEME_CALLBACK (layout_description, ());
 
   Input here_input () const;
   Input pop_spot ();
@@ -79,8 +79,8 @@ SCM ly_parser_print_score (SCM, SCM);
 SCM ly_parser_bookify (SCM, SCM);
 SCM ly_parser_scorify (SCM, SCM);
 
-Output_def *get_paper (Lily_parser *parser);
+Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);
-Output_def *get_bookpaper (Lily_parser *parser);
+Output_def *get_paper (Lily_parser *parser);
 
 #endif /* MY_LILY_PARSER_HH */

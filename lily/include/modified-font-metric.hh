@@ -11,7 +11,7 @@
 
 #include "font-metric.hh"
 
-/* Perhaps junk this, and move this to paper_def as interface? */
+/* Perhaps junk this, and move this to layout_def as interface? */
 struct Modified_font_metric : public Font_metric
 {
 public:

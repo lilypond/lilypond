@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 %{
    Markup titles also available for direct PostScript output:
@@ -25,7 +25,7 @@ For century schoolbook font:
 
 %}
 
-\paper{
+\layout{
     #(define page-breaking ly:optimal-page-breaks)
     %% Ughr, this breaks TeX output...
     %% fonts = #(make-century-schoolbook-tree 1.0)
@@ -94,7 +94,7 @@ spaceTest = \markup { "two space chars" }
 	\context Staff  \relative c' {
 	    c2-\sizeTest c2-\spaceTest
 	}
-	\paper {
+	\layout {
 	    #(paper-set-staff-size (* 11.0 pt)) 
 	}
     }
@@ -118,7 +118,7 @@ spaceTest = \markup { "two space chars" }
 	    opus = "opus 1"
 	    piece = "Second"
 	}
-	\paper {
+	\layout {
 	}
     }
 }

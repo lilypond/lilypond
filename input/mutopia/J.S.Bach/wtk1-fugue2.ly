@@ -44,7 +44,7 @@ to match up.
 %}
 
 
-\version "2.3.17"
+\version "2.3.22"
 
 
 
@@ -222,12 +222,12 @@ bassdux = \context Voice=three  \relative c' {
 	\header{
 	    opus = "BWV 847"
 	}
-	\paper {}
+	\layout {}
 	\midi {
 	    \tempo 4 =84
 	}
     }
-    \bookpaper {
+    \paper {
 	linewidth = 18.0 \cm
     }
 }

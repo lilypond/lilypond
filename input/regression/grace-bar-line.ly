@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Bar line should come before the grace note."
 }
@@ -10,6 +10,6 @@ texidoc = "Bar line should come before the grace note."
 
 \score  { \relative c' \context Staff  { 
  f1 \grace {  a'16[ f]  } g1 }
-		\paper { raggedright = ##t}
+		\layout { raggedright = ##t}
  } 
 

@@ -1101,7 +1101,7 @@ class Parser:
 \score {
   <<%s
   >>
-  \paper {}
+  \layout {}
   \midi {}
 }
 ''' % refs 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, and
@@ -21,7 +21,7 @@ verba = \context Lyrics = "verba" \lyricmode {
   Al- le- lu- ia.
 }
 
-\bookpaper {
+\paper {
     linethickness = \staffspace / 7.0
 }
 
@@ -30,7 +30,7 @@ verba = \context Lyrics = "verba" \lyricmode {
     \cantus
     \lyricsto "cantus" \verba
   >>
-  \paper {
+  \layout {
     linewidth = 137.0 \mm
     width = 137.0 \mm
     indent = 0.0

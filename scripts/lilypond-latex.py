@@ -118,7 +118,7 @@ option_definitions = [
 	#junkme?
 	('', '', 'no-lily', _ ("don't run LilyPond")),
 	#junkme? 
-	('', 'm', 'no-paper', _ ("produce MIDI output only")),
+	('', 'm', 'no-layout', _ ("produce MIDI output only")),
 	
 	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
 	(_ ('RES'), '', 'preview-resolution',
@@ -174,7 +174,7 @@ extra_init = {
 header_fields = extra_init.keys ()
 
 include_path = ['.']
-paper_p = 1
+layout_p = 1
 
 output_name = ''
 
@@ -217,11 +217,11 @@ def run_lilypond (files, dep_prefix):
 	## UGHr
 	if pseudo_filter_p:
 		opts += ' --output=lelie'
-	if paper_p:
+	if layout_p:
 		opts += ' ' + string.join (map (lambda x : '--header=' + x,
 						header_fields))
 	else:
-		opts = opts + ' --no-paper'
+		opts = opts + ' --no-layout'
 	if safe_mode_p:
 		opts = opts + ' --safe-mode'
 
@@ -273,7 +273,7 @@ def analyse_lilypond_output (filename, extra):
 	# search only the first 10k
 	s = s[:10240]
 	for x in header_fields:
-		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}' % x, s)
+		m = re.search (r'\\def\\lilypondlayout%s{([^}]*)}' % x, s)
 		if m:
 			set_setting (extra, x, m.group (1))
 
@@ -618,9 +618,9 @@ for opt in options:
 			targets.append ('PNG')
 	elif o == '--preview-resolution':
 		preview_resolution = string.atoi (a)
-	elif o == '--no-paper' or o == '-m':
+	elif o == '--no-layout' or o == '-m':
 		targets = ['MIDI'] 
-		paper_p = 0
+		layout_p = 0
 	elif o == '--output' or o == '-o':
 		output_name = a
 	elif o == '--safe-mode' or o == '-s':

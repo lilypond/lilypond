@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -28,7 +28,7 @@ analysis brackets start and end.
 	c4\stopGroup\stopGroup
     }
 
-    \paper {
+    \layout {
 	\context {
 	    \Staff \consists "Horizontal_bracket_engraver"
 	}

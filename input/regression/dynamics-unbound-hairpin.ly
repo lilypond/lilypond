@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc = "Crescendi may start off-notes, however, they should  not collapse into flat lines."
@@ -8,6 +8,6 @@ texidoc = "Crescendi may start off-notes, however, they should  not collapse int
   << f''1 { s4 s4 \< s4\! \> s4\! } >>
 }}
 
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 }
 

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -11,7 +11,7 @@
 
 \score  {
      \relative c'' \new Staff { \repeat unfold 20 { c1 } }
-    \paper{
+    \layout{
 	raggedlast = ##t
     }
 }

@@ -4,7 +4,7 @@ texidoc = "Music function are generic music transformation functions,
 which can be used to extend music syntax seamlessly."
 
 }
-\version "2.3.17"
+\version "2.3.22"
 
 #(define myBar
   (ly:make-music-function

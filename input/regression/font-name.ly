@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -36,6 +36,6 @@ available through (La)TeX.
 	     R1*21^"Wait for Utopia Italic"
 	     }
     
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 
 }

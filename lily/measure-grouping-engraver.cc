@@ -73,7 +73,7 @@ Measure_grouping_engraver::process_music ()
 	
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-	   where += Rational (scm_to_int (scm_car (s))) * bl,
+	   where += Rational ((int) scm_to_int (scm_car (s))) * bl,
 	   s = scm_cdr (s)
 	   )
 	{

@@ -627,7 +627,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   */
   compound_fixed_note_space = compound_fixed_note_space <? compound_note_space;
 
-  bool packed = to_boolean (me->get_paper ()->c_variable ("packed"));
+  bool packed = to_boolean (me->get_layout ()->c_variable ("packed"));
   Real strength, distance;
 
   /*

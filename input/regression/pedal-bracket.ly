@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -21,5 +21,5 @@ At a line-break, there are no vertical endings.  " }
         c4 d \unaCorda e f g
         b  | \break c b c \treCorde c
     }
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 }

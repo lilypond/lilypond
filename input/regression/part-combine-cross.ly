@@ -4,13 +4,13 @@
 "
     }
 
-\version "2.3.17"
+\version "2.3.22"
 
 vone =  \relative a' { g4 g f f e e d d }
 vtwo =  \relative a' { e4 e f f g g a a }
 
 \score {
    \partcombine \vone \vtwo
-   \paper { raggedright = ##t } 
+   \layout { raggedright = ##t } 
 }
  

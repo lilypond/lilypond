@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
     texidoc = "The autobeamer is not confused by grace notes."
@@ -11,6 +11,6 @@
     \grace a8 g16 f e f \grace a8 g16 f e f \grace a8 g16 f e f 
         \grace a8 g16 f e f |
   }
-  \paper { raggedright = ##t }
+  \layout { raggedright = ##t }
 }
 

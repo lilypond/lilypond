@@ -204,7 +204,7 @@ Accidental_interface::print (SCM smob)
 				 (ly_symbol2scm ("font-size"),
 				  scm_int2num (-2))),
 		     ac);
-      fm = select_font (me->get_paper (), ac);
+      fm = select_font (me->get_layout (), ac);
     }
   else
     fm = Font_interface::get_default_font (me);

@@ -3,7 +3,7 @@
     texidoc = "newlyrics, multiple stanzas, multiple lyric voices."
     
 }
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 <<
     \new Staff \relative {
 	d'2 d c4 bes a2 \break
@@ -26,4 +26,4 @@
     }
 >>
 
-\version "2.3.17"
+\version "2.3.22"

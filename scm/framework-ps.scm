@@ -45,8 +45,8 @@
    (equal? (substring fontname 0 2) "cm")
    (equal? (substring fontname 0 2) "ec")))
 
-(define (load-fonts bookpaper)
-  (let* ((fonts (ly:bookpaper-fonts bookpaper))
+(define (load-fonts paper)
+  (let* ((fonts (ly:paper-fonts paper))
 	 (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
 	 (pfas (map
 		(lambda (x)
@@ -68,9 +68,9 @@
   
     (string-join pfas "\n")))
 
-(define (define-fonts bookpaper)
+(define (define-fonts paper)
 
-  (define font-list (ly:bookpaper-fonts bookpaper))
+  (define font-list (ly:paper-fonts paper))
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "
@@ -100,7 +100,7 @@
 	   (plain (ps-font-command font #f))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:output-def-lookup bookpaper 'outputscale))
+	   (ops (ly:output-def-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
       ;; Bluesky pfbs have UPCASE names (sigh.)
@@ -142,8 +142,8 @@
 
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
-(define (output-variables paper)
-  ;; FIXME: duplicates output-paper's scope-entry->string, mostly
+(define (output-variables layout)
+  ;; FIXME: duplicates output-layout's scope-entry->string, mostly
   (define (value->string  val)
     (cond
      ((string? val) (string-append "(" val ")"))
@@ -154,7 +154,7 @@
   (define (output-entry ps-key ly-key)
     (string-append
      "/" ps-key " "
-     (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
+     (value->string (ly:output-def-lookup layout ly-key)) " def \n"))
 
   (string-append
    "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter \n"
@@ -163,7 +163,7 @@
    (output-entry "paper-size" 'papersize)
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
-   (number->string (ly:output-def-lookup paper 'outputscale))
+   (number->string (ly:output-def-lookup layout 'outputscale))
    " lily-output-units mul def \n"
    (output-entry "page-height" 'vsize)
    (output-entry "page-width" 'hsize)
@@ -187,53 +187,53 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
-(define (eps-header bookpaper bbox)
+(define (eps-header paper bbox)
   (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
 		 "%%Creator: creator time-stamp\n"
 		 "%%BoundingBox: "
 		 (string-join (map number->string bbox) " ") "\n"
 		 "%%Orientation: "
-		 (if (eq? (ly:output-def-lookup bookpaper 'landscape) #t)
+		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
 		 "%%EndComments\n"))
 
-(define (page-header bookpaper page-count)
+(define (page-header paper page-count)
   (string-append "%!PS-Adobe-3.0\n"
 		 "%%Creator: creator time-stamp\n"
 		 "%%Pages: " (number->string page-count) "\n"
 		 "%%PageOrder: Ascend\n"
 		 "%%Orientation: "
-		 (if (eq? (ly:output-def-lookup bookpaper 'landscape) #t)
+		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
-		 "%%DocumentPaperSizes: "
-		 (ly:output-def-lookup bookpaper 'papersize) "\n"))
+		 "%%DocumentLayoutSizes: "
+		 (ly:output-def-lookup paper 'papersize) "\n"))
 
-(define (preamble bookpaper)
+(define (preamble paper)
   (list
-   (output-variables bookpaper)
+   (output-variables paper)
    (ly:gulp-file "music-drawing-routines.ps")
    (ly:gulp-file "lilyponddefs.ps")
-   (load-fonts bookpaper)
-   (define-fonts bookpaper)
+   (load-fonts paper)
+   (define-fonts paper)
 
 
    ))
 
 (define-public (output-framework outputter book scopes fields basename)
-  (let* ((bookpaper (ly:paper-book-book-paper book))
+  (let* ((paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
-	 (landscape? (eq? (ly:output-def-lookup bookpaper 'landscape) #t))
-	 (page-number (1- (ly:output-def-lookup bookpaper 'firstpagenumber)))
+	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
+	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
 	 (page-count (length pages)))
     
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
    (cons
-    (page-header bookpaper page-count)
-    (preamble bookpaper)))
+    (page-header paper page-count)
+    (preamble paper)))
   
   (for-each
    (lambda (page)
@@ -244,9 +244,9 @@
   (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
 (define-public (output-preview-framework outputter book scopes fields basename)
-  (let* ((bookpaper (ly:paper-book-book-paper book))
+  (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
-	 (scale  (ly:output-def-lookup bookpaper 'outputscale ))
+	 (scale  (ly:output-def-lookup paper 'outputscale ))
 	 (titles (take-while ly:paper-system-title? systems))
 	 (non-title (find (lambda (x)
 			    (not (ly:paper-system-title? x))) systems))
@@ -261,14 +261,14 @@
    (lambda (x)
      (ly:outputter-dump-string outputter x))
    (cons
-    (eps-header bookpaper
+    (eps-header paper
 		(map
 		 (lambda (x)
 		   (inexact->exact
 		    (round (* x scale mm-to-bigpoint))))
 		 (list (car xext) (car yext)
 		       (cdr xext) (cdr yext))))
-    (preamble bookpaper)))
+    (preamble paper)))
 
 
   (ly:outputter-dump-string outputter
@@ -281,7 +281,7 @@
 
 (define-public (convert-to-pdf book name)
   (let*
-      ((defs (ly:paper-book-book-paper book))
+      ((defs (ly:paper-book-paper book))
        (size (ly:output-def-lookup defs 'papersize)))
 
     (if (equal? name "-")
@@ -291,7 +291,7 @@
   
 (define-public (convert-to-png book name)
   (let*
-      ((defs (ly:paper-book-book-paper book))
+      ((defs (ly:paper-book-paper book))
        (resolution (ly:output-def-lookup defs 'pngresolution)))
 
     (postscript->png (if (number? resolution) resolution 90)

@@ -1,8 +1,8 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Single head notes may collide. "
 }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 
 \score {

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Unterminated piano pedal brackets run to the end of the piece. "
@@ -11,5 +11,5 @@
 	c4 \sustainDown
 	\bar "|."
     }
-    \paper { raggedright  = ##t }
+    \layout { raggedright  = ##t }
 }

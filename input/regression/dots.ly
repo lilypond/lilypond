@@ -1,4 +1,4 @@
-\version "2.3.17" \header{
+\version "2.3.22" \header{
 
 
     texidoc=" Noteheads can have dots, and rests too.  
@@ -38,7 +38,7 @@ The priorities to print the dots are (ranked in importance):
 	
 	
   }
-  \paper { }  
+  \layout { }  
   \midi { }
 }
 

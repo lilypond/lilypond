@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -22,7 +22,7 @@ mus =  	\relative c' {
 	\new NoteNames \mus
 	\new Voice { \key g \major \mus }
     >>
-    \paper {
+    \layout {
 	raggedright = ##t
     }
 }

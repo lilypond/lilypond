@@ -150,7 +150,7 @@ postinstall () {
     cygwin=cygwin
     cd $src || exit 1
     install -d -m755 $inst/$cygdocdir
-    install -m644 $cygwin/changelog $inst/$cygdocdir/changelog.Cygwin
+    install -m644 $cygwin/changelog $inst/$packagedocdir/changelog.Cygwin
 
     cd $build || exit 1
     install -m644 $cygwin/out/README $inst/$packagedocdir/README.Cygwin

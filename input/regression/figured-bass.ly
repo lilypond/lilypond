@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "
 Figured bass is created by the FiguredBass context which eats
@@ -10,7 +10,7 @@ You can also type letters by entering quoted strings, which is shown in the
 last bass figure.
 
 " }
-\paper  { raggedright = ##t }  
+\layout  { raggedright = ##t }  
 <<
     \figures { 
 	<3 [5 7]>

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 
@@ -16,7 +16,7 @@ to it.  "
 	\stemDown
 	e,-. d-. c-. b-. a-. g-.    
     }
-    \paper {
+    \layout {
 	raggedright = ##t
     }  
 }

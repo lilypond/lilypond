@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.16"
+\version "2.3.22"
 \header{ texidoc = "Tests MIDI output with grace notes. " }
 
 \score { 
@@ -17,7 +17,7 @@
  d4 d d d d 
 	
   }
-  \paper { }  
+  \layout { }  
   \midi { }
 }
 

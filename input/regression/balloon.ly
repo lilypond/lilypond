@@ -3,7 +3,7 @@
     texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
     }
-\version "2.3.17"
+\version "2.3.22"
 
 \score  {
   {
@@ -28,5 +28,5 @@ with lines and explanatory text added."
        c8
        }
   }
- \paper{ raggedright = ##t }
+ \layout{ raggedright = ##t }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 % probably should be merged into refman.
 \header{
     texidoc = "@cindex Dynamic Piu Forte
@@ -15,7 +15,7 @@ piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
 	
 	c2\< c2\!
 	}
-\paper{raggedright = ##t}
+\layout{raggedright = ##t}
     }
 
 

@@ -1,4 +1,4 @@
-\version "2.3.17" 
+\version "2.3.22" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 Staffs can be nested in various combinations. Here, @code{StaffGroup}
@@ -40,6 +40,6 @@ and @code{InnerChoirStaff}, the brackets are shifted leftwards.
 
 >>
 
- \paper { raggedright = ##t}
+ \layout { raggedright = ##t}
 }
 

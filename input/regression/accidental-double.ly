@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 	texidoc = "If two forced accidentals happen at the same time, only one
 	sharp sign is printed."
@@ -12,7 +12,7 @@
      \context Voice=vb { \stemDown c fis! }
    >>
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 	 
 }
 

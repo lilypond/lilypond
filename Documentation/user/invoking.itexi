@@ -432,7 +432,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @subsection Additional parameters
 
 The @code{lilypond} program responds to several parameters specified
-in a @code{\paper} section of the input file.  They can be overridden
+in a @code{\layout} section of the input file.  They can be overridden
 by supplying a @code{--set} command line option.
 
 @table @code
@@ -461,19 +461,19 @@ achieve this specify @code{twoside}.
 
 @item orientation
     Set orientation.  Choices are @code{portrait} or @code{landscape}.  Is
-read from the @code{\paper} block, if set.
+read from the @code{\layout} block, if set.
         
 @item textheight
     The vertical extension of the music on the page.  It is normally 
     calculated automatically, based on the paper size.
 
 @item linewidth
-        The music line width.  It is normally read from the @code{\paper}
+        The music line width.  It is normally read from the @code{\layout}
 block.
 
 @item papersize
    The paper size (as a name, e.g. @code{a4}).  It is normally read from
-the @code{\paper} block.
+the @code{\layout} block.
   
 @item fontenc
      The font encoding, should be set identical to the @code{font-encoding}
