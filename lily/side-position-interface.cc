@@ -56,13 +56,14 @@ Side_position_interface::get_direction () const
   return DOWN;
 }
   
-/**
-   Callback that does the aligning.
+/*
+   Callback that does the aligning. Puts the element next to the support
  */
+
 Real
 Side_position_interface::side_position (Dimension_cache const * c)
 {
-  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+  Score_element * me =  (c->element_l ());
 
   Interval dim;
   Axis  axis = c->axis ();
@@ -110,13 +111,16 @@ Side_position_interface::side_position (Dimension_cache const * c)
   return total_off;
 }
 
+/*
+  callback that centers the element on itself
+ */
 Real
-Side_position_interface::self_alignment (Dimension_cache const *c)
+Side_position_interface::aligned_on_self (Dimension_cache const *c)
 {
   String s ("self-alignment-");
   Axis ax = c->axis ();
   s +=  (ax == X_AXIS) ? "X" : "Y";
-  Score_element *elm = dynamic_cast<Score_element*> (c->element_l ());
+  Score_element *elm = c->element_l ();
   SCM align (elm->get_elt_property (s));
   if (isdir_b (align))
     {
@@ -132,7 +136,6 @@ Side_position_interface::self_alignment (Dimension_cache const *c)
     return 0.0;
 }
 
-
 Real
 directed_round (Real f, Direction d)
 {
@@ -142,10 +145,13 @@ directed_round (Real f, Direction d)
     return ceil (f);
 }
 
+/*
+  Callback that quantises in staff-spaces, rounding in the direction
+  of the elements "direction" elt property. */
 Real
 Side_position_interface::quantised_position (Dimension_cache const *c)
 {
-  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+  Score_element * me =  (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
   Staff_symbol_referencer_interface si (me);
@@ -167,10 +173,13 @@ Side_position_interface::quantised_position (Dimension_cache const *c)
   return 0.0;
 }
 
+/*
+  Position next to support, taking into account my own dimensions and padding.
+ */
 Real
 Side_position_interface::aligned_side (Dimension_cache const *c)
 {
-  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+  Score_element * me =  (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
   Axis ax = c->axis ();
@@ -188,6 +197,21 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
     }
   return o;
 }
+
+/*
+  Position centered on parent.
+ */
+Real
+Side_position_interface::centered_on_parent (Dimension_cache const *c)
+{
+
+  Score_element *me = c->element_l ();
+  Axis a = c->axis ();
+  Score_element *him = me->parent_l (a);
+
+  return him->extent (a).center ();  
+}
+
 
 void
 Side_position_interface::add_staff_support ()

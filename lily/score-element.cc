@@ -222,14 +222,14 @@ Score_element::add_processing()
   if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED
       && !dim_cache_[X_AXIS]->off_callback_l_)
     {
-      dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::self_alignment);
+      dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
     }
   
   if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED
       && !dim_cache_[X_AXIS]->off_callback_l_)
       
     {
-      dim_cache_[Y_AXIS]->set_offset_callback (Side_position_interface::self_alignment);
+      dim_cache_[Y_AXIS]->set_offset_callback (Side_position_interface::aligned_on_self);
     }
 #endif
   

@@ -30,7 +30,6 @@ Request_chord_iterator::elt_l () const
 Request_chord_iterator::Request_chord_iterator ()
 {
   last_b_ = false;
-  //  cursor_ = elt_l ()->music_p_list_p_->head_;
   cursor_ = 0;
 }
 

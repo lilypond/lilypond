@@ -6,7 +6,7 @@
 @top
 
 
-@unnumbered LilyPond -- The GNU Project Music Typesetter
+@unnumberedsec LilyPond -- The GNU Project Music Typesetter
 
 
 @html
@@ -15,27 +15,39 @@
 
 @c something breaks on 3.12 f
 
+@unnumberedsec What is LilyPond?
+
 LilyPond is a music typesetter.  It produces beautiful sheet music using
 a high level description file as input. It excels at typesetting
 classical music, but you can also print pop-songs.  With LilyPond we
 hope to make music publication software available to anyone on the
 internet.
 
+@unnumberedsec Why should I use it?
+
+The input to LilyPond is plain text. So you can use your favorite text
+editor to edit it, you can put it in mail or embed it in an article like
+this:
+
+@quotation
+@mudela[fragment,verbatim]
+	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
+@end mudela 
+@end quotation
+
+The output looks very good: the font and the layout algorithms were
+inspired by engraved music, so you can expect that same clear and
+elegant look from your LilyPond output.  And if you don't like the
+looks, you can tweak almost everything.
+
 The program also has limited MIDI functionality: you can write MIDI
 files with lilypond, and we have a simple MIDI to lilypond conversion
 tool, @file{midi2ly}.
 
 LilyPond is free software. It is licensed under GNU General Public
-License, and it is part of the @uref{http://www.gnu.org/,GNU Project}.
-
-
-@quotation
-@mudela[fragment]
-	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
-@end mudela 
-@end quotation
-
-    
+License, so you can use, modify and redistribute the program almost no
+restrictions.  LilyPond is part of the @uref{http://www.gnu.org/,GNU
+Project}.
 
 The version numbers are in Linux-kernel style: even unnumbered versions
 are `stable'. The webpages for the stable version reside at GNU, here:

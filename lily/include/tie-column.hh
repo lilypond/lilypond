@@ -17,7 +17,7 @@ class Tie_column : public Spanner
 {
 public:
   VIRTUAL_COPY_CONS (Score_element);
-  void add_tie (Score_element*);
+  void add_tie (Tie*);
   Tie_column ();
 protected:
   virtual void do_post_processing ();

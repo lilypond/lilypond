@@ -148,6 +148,12 @@ The horizontal middle should not overlap with a staffline.
 
 @mudelafile{tie.ly}
 
+When tieing chords, the outer slurs point outwards, the inner slurs
+point away from the center of the staff.  Override with
+@code{tieVerticalDirection}.
+
+@mudelafile{tie-chord.ly}
+
 When tieing notes with accidentals across a bar boundary, the accidental
 must not be drawn on the note in the new bar.  Instead, the next note of
 the same pitch in this bar should always show the accidental (even if

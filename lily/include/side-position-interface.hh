@@ -19,9 +19,10 @@ struct Side_position_interface
 public:
   Side_position_interface (Score_element const*);
   static Real side_position (Dimension_cache const *);
-  static Real self_alignment (Dimension_cache const *);
+  static Real aligned_on_self (Dimension_cache const *);
   static Real aligned_side (Dimension_cache const *);  
   static Real quantised_position (Dimension_cache const*);
+  static Real centered_on_parent (Dimension_cache const*);
   void set_axis (Axis);
   void set_quantised (Axis);
   Axis get_axis () const;

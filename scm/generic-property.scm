@@ -98,6 +98,11 @@
 	       (list 'tieVerticalDirection dir? 'direction)
 	       (list 'verticalDirection dir? 'direction)
   )))
+(define generic-tie-column-properties
+  (cons "Tie_column" (list
+		      (list 'tieVerticalDirection dir? 'direction)
+		      (list 'verticalDirection dir? 'direction)
+  )))
 
 
 (define generic-note-column-properties
@@ -143,6 +148,7 @@
    generic-stem-properties
    generic-breathing-sign-properties
    generic-tie-properties
+   generic-tie-column-properties   
    generic-tuplet-spanner-properties
    generic-rest-properties
    generic-slur-properties
