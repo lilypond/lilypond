@@ -58,8 +58,6 @@ It is more robust and less buggy. The part-combiner can be used with
 @noindent
 See @file{input/regression/new-part-combine.ly} for an example.
 
-(This feature is still experimental.)
-
 @item Formatting of rehearsal marks has been improved. The @code{\mark}
 command now only does automatic incrementing for marks specified as
 integer. For example, @code{\mark #1} will print an A in the default
