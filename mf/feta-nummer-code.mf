@@ -31,10 +31,6 @@ define_pixels(kuulleke);
 % direction = is ink on left or right side (1 or -1)
 %
 
-% 
-% The basic idea, is to put a really bulb shaped ending at 
-% an angle of 45 degrees with the normal ending.
-% the length  can be controlled using flare_len and flare_thick. 
 def number_flare_path(expr pos,alpha,beta,line,flare,
 
 			move_away_to,
@@ -42,36 +38,36 @@ def number_flare_path(expr pos,alpha,beta,line,flare,
 			away_from_start_pos, direction) =
 	begingroup;
 	clearxy;
-	save flare_thick, flare_len;
 
-	flare_thick= 0.7 flare;
-	flare_len = 0.9 * 0.75 flare;
+	z5 = z2 + 0.43* flare *dir (alpha - 1.5 beta);
+
 	save taille;
-	taille = -0.05 flare;
 
-
+	taille = 0.06;
+	z4 = (0.75 - taille)  [z2r, z2l] + whatever* dir (alpha - beta) ;
+	z4 = (0.00 + .4 taille) [z3l, z3r] + whatever* dir(alpha);
 	penpos1(line,180+beta+alpha);
 	z1r=pos;
 
 	z2r = z1r + move_away_to *dir (alpha) + (line + turn_to) * dir(alpha+beta);
-	penpos2(flare_thick, alpha + 0.45 beta);
-	penpos3(flare_thick, alpha + 0.5 beta);
+	z3r = 0.5 [z2l,z2r] + 0.5 *flare *dir(alpha + beta);
 
-	z3 = 0.5 [z2l,z2r] + flare_len* dir (alpha + 3/2 beta);
-
-	z4 = z2l + taille * dir (alpha);
-	penlabels(1,2,3,4);
+	penpos2(flare, alpha );
+	penpos3(flare, alpha +  beta);
+	penlabels(1,2,3,4, 5);
 	pickup pencircle;
 
 	save p;
 	path p;
 	p := z1r{dir(alpha)}
-		.. super_curvelet (z1r, z2r, 0.73, -1)
-		.. z2r{dir(180+alpha-beta)}.. z3r{dir(alpha+180)}
-		..z3l{dir(180+alpha+beta)}
+		.. z2r{dir(180+alpha-beta)}
+		.. z3r{dir(alpha+180)}
+		.. z2l{dir(alpha-beta)} 
 
+
+%%% Two versions of the curve: one with z4, the other with z5.
+%		.. z5{dir(alpha- beta/2 )}
 		..z4{dir(180+alpha+beta)}
-		.. super_curvelet (z4, z1l, 0.69, 1)
 		..z1l{dir(alpha+180)};
 %	draw p ;
 	if direction = 1:
@@ -271,15 +267,16 @@ fet_beginchar("Numeral 2", "2", "two")
 	z1=(0,0)+(1/2sqrt(2)*hair)*dir(45);
 	penpos3(hair,90+gamma);
 	z3=(w,thick)+(1/2sqrt(2)*hair)*dir(-135);
-	penpos2(thick,90+alpha);
-	x2-x1=x3-x2; y2=11/16thick/widen;
-	fill z1r{dir(beta)}..{dir(alpha)}z2r..{dir(gamma)}z3r
-		..z3l{dir(180+gamma)}..{dir(180+alpha)}z2l
+	penpos2(thick, 90+alpha -15);
+	x2-x1=x3-x2;
+	y2=10/16 thick/widen;
+	fill z1r{dir(beta)}.. tension 0.9 .. {dir(alpha + 10)}z2r..{dir(gamma)}z3r
+		..z3l{dir(180+gamma)}..{dir(180+alpha - 5)}z2l
 		..{dir(180+beta)}z1l..cycle;
 
-	penpos4(thick,0);
+	penpos4(0.85 thick,0);
 	z4r=(w-thin/2, .71 h);
-	penpos5(thin,90);
+	penpos5(hair,90);
 	y5r = h;
 	x5r = 1/2 hair + 1.0 flare + flare_start* flare;
 
@@ -290,9 +287,9 @@ fet_beginchar("Numeral 2", "2", "two")
 	save p;
 	path p ;
 	p := z1l{dir(beta)}..tension t..z4r{up}
- 		.. number_flare_path(z5r,180,90,thin, flare,
+ 		.. number_flare_path(z5r,180,90,hair, flare,
 				x5r  - 1/2 hair,
-				.22 h, 
+				.20 h, 
 				flare_start* flare, 1)
 		.. z4l{down}..tension t
 		..{dir(180+beta)}z1r..cycle;
