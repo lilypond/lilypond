@@ -76,6 +76,10 @@ Tie_column::set_directions (Score_element*me)
       ties.del (i);
   
 
+  if(!ties.size())
+    return ;
+  
+
   Direction d = Directional_element_interface::get (me);
   if (d)
     {
