@@ -68,7 +68,7 @@ protected:
   friend SCM ly_extended_make_music(SCM,SCM);
 };
 
-
+DECLARE_TYPE_P(Music);
 DECLARE_UNSMOB(Music,music);
 
 Music* make_music_by_name (SCM sym);
