@@ -14,7 +14,7 @@
 
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
-  combined_b_ = false;
+  combined_b_ = true;
 
   first_iter_p_ = 0;
   second_iter_p_ = 0;
@@ -117,32 +117,7 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   Moment first_next = first_iter_p_->next_moment ();
   Moment second_next = second_iter_p_->next_moment ();
 
-  bool changed_b = false;
   Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
-
-  String to_id =  combined_b_ ? "first" : "second";
-  /*
-    different rhythm for combined voices: separate 
-    same rhythm for separated voices: combine
-  */
-  if ((first_next != second_next && combined_b_)
-      || (first_next == second_next && !combined_b_))
-    {
-      combined_b_ = !combined_b_;
-      to_id =  combined_b_ ? "first" : "second";
-      change_to (second_iter_p_, p->what_str_, to_id);
-      changed_b = true;
-    }
-
-  Translator_group * fd = 
-    first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-							     "first");
-  Translator_group * sd = 
-    second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-							      to_id);
-
-  fd->set_property ("first", SCM_BOOL_T);
-  sd->set_property ("second", SCM_BOOL_T);
 
   if (first_next <= m)
     first_iter_p_->process_and_next (m);
@@ -154,25 +129,9 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   /*
     TODO:
+
+    (check): can this all be handled now?
     
-    * "a2" string is fine, but "Soli" strings are one request late,
-      second a2 requests are junked one requst late...
-    
-      The problem seems to be: we need to do_try_music for the
-      spanish_inquisition to work; but the properties that we set
-      need to be set *before* we do_try_music?
-      
-    * setting of stem directions by a2-engraver don't work
-      
-    * move much as possible code (changed?) to engravers: just notify
-      them of status: unison/solo.  Engravers should be able to find
-      out whether something changed and if so, what to do.
-
-    * who should reset the properties, it's a mess now?
-
-
-    Later (because currently,we only handle thread swiching, really):
-
     Maybe different modes exist?
 
     * Wind instruments (Flute I/II)
@@ -198,43 +157,97 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     second_spanish_inquisition = new Pitch_interrogate_req;
   Music_iterator* sit = second_iter_p_->try_music (second_spanish_inquisition);
 
+  Array<Musical_pitch>* first_arr_l = &first_spanish_inquisition->pitch_arr_;
+  Array<Musical_pitch>* second_arr_l = &second_spanish_inquisition->pitch_arr_;
 
-  // URG, moveme: just set properties
-  if (//changed_b
-      //&&
-      (first_next == second_next)
-      && first_spanish_inquisition->pitch_arr_.size ()
-      && (first_spanish_inquisition->pitch_arr_.size ()
-	  == second_spanish_inquisition->pitch_arr_.size ())
-      && (first_spanish_inquisition->pitch_arr_[0] ==
-	  second_spanish_inquisition->pitch_arr_[0]))
+  SCM interval = SCM_BOOL_F;
+  if (first_arr_l->size () && second_arr_l->size ())
     {
-      if (changed_b)
-	{
-	  fd->set_property ("a2", SCM_BOOL_T);
-	  sd->set_property ("a2", SCM_BOOL_T);
-	}
-      second_iter_p_->report_to_l ()->set_property ("a2", SCM_BOOL_T);
-    }
-  else
-    second_iter_p_->report_to_l ()->set_property ("a2", SCM_BOOL_F);
-  
-  if (changed_b
-      && first_spanish_inquisition->pitch_arr_.size ()
-      && !second_spanish_inquisition->pitch_arr_.size ())
-    {
-      fd->set_property ("solo", SCM_BOOL_T);
+      first_arr_l->sort (Musical_pitch::compare);
+      second_arr_l->sort (Musical_pitch::compare);
+      interval = gh_int2scm (first_arr_l->top ().steps ()
+			     - (*second_arr_l)[0].steps ());
     }
 
-  if (changed_b
-      && !first_spanish_inquisition->pitch_arr_.size ()
-      && second_spanish_inquisition->pitch_arr_.size ())
+  Translator_group * fir = first_iter_p_->report_to_l ();
+  Translator_group * sir = second_iter_p_->report_to_l ();
+
+  bool solo_b = (first_arr_l->empty () != second_arr_l->empty ());
+
+  /*
+    Urg, this won't work at end of music.  Should interrogate rhythm.
+   */
+  if (first_iter_p_->ok ())
+    first_next = first_iter_p_->next_moment ();
+  if (second_iter_p_->ok ())
+    second_next = second_iter_p_->next_moment ();
+  bool unirhythm_b = (first_next == second_next) && !solo_b;
+
+  Translator_group * fd = fir->find_create_translator_l (p->what_str_, "one");
+  Translator_group * sd = sir->find_create_translator_l (p->what_str_, "two");
+
+  bool split_interval_b = false;
+  if (gh_number_p (interval))
     {
-      sd->set_property ("solo2", SCM_BOOL_T);
+      SCM s = fd->get_property (ly_symbol2scm ("splitInterval"));
+      int i = gh_scm2int (interval);
+      if (gh_pair_p (s)
+	  && gh_number_p (gh_car (s))
+	  && gh_number_p (gh_cdr (s))
+	  && i >= gh_scm2int (gh_car (s))
+	  && i <= gh_scm2int (gh_cdr (s)))
+	split_interval_b = true;
     }
 
-  first_spanish_inquisition->pitch_arr_.clear ();
-  second_spanish_inquisition->pitch_arr_.clear ();
+  /*
+    Hmm, maybe we should set/check combined_b_ against
+
+       first_iter_p_->report_to_l () == second_iter_p_->report_to_l ()
+
+   ? 
+   */
+
+  String to_id =  combined_b_ ? "one" : "two";
+  if ((!unirhythm_b && combined_b_)
+      || (split_interval_b && combined_b_)
+      || (solo_b && combined_b_)
+      || (unirhythm_b && !combined_b_ && !split_interval_b && !solo_b))
+    {
+      combined_b_ = !combined_b_;
+      to_id =  combined_b_ ? "one" : "two";
+      change_to (second_iter_p_, p->what_str_, to_id);
+    }
+
+  if (!combined_b_)
+    sir = second_iter_p_->report_to_l ();
+
+  SCM b = unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F;
+  fd->set_property ("unirhythm", b);
+  sd->set_property ("unirhythm", b);
+
+  b = split_interval_b ? SCM_BOOL_T : SCM_BOOL_F;
+  fd->set_property ("split-interval", b);
+  sd->set_property ("split-interval",  b);
+
+  b = gh_bool2scm (unirhythm_b && !compare (first_arr_l, second_arr_l));
+  fd->set_property ("unison", b);
+  sd->set_property ("unison", b);
+
+  b = solo_b  ? SCM_BOOL_T : SCM_BOOL_F;
+  if (first_arr_l->size ())
+    {
+      fd->set_property ("solo", b);
+      sd->set_property ("solo", SCM_BOOL_F);
+    }
+
+  if (second_arr_l->size ())
+    {
+      fd->set_property ("solo", SCM_BOOL_F);
+      sd->set_property ("solo", b);
+    }
+
+  first_arr_l->clear ();
+  second_arr_l->clear ();
 }
 
 Music_iterator*
