@@ -33,12 +33,13 @@
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))
 	))
 
-    (Ambitus
+    (AmbitusLine
      . (
        (breakable . #t)
        (break-align-symbol . ambitus)
        (print-function . ,Ambitus::print)
        (join-heads . #t)
+       (X-offset-callbacks (,Self_alignment_interface::centered_on_parent))
        (break-visibility . ,begin-of-line-visible)
        (space-alist . (
 		       (clef . (extra-space . 0.0))

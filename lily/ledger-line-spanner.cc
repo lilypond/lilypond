@@ -139,7 +139,7 @@ Ledger_line_spanner::print (SCM smob)
 	{
 	  Interval head_extent = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_extent = head_extent;
-	  head_extent.widen (length_fraction * head_extent.length ());
+	  ledger_extent.widen (length_fraction * head_extent.length ());
 
 	  Direction vdir = Direction (sign (pos));
 	  int rank = Paper_column::get_rank (h->get_column ());

@@ -38,11 +38,12 @@ Ambitus::print (SCM smob)
       if (minh->relative_coordinate (common, Y_AXIS) >
 	  maxh->relative_coordinate (common, Y_AXIS))
 	{
-	  maxh = heads[0];
-	  minh = heads[0];
+	  Grob *t = maxh;
+	  maxh = minh;
+	  minh = t;
 	}
 
-      Real pad = 1.35;
+      Real pad = 0.35;
       Real pmax = maxh->relative_coordinate (common, Y_AXIS) - pad;
       Real pmin = minh->relative_coordinate (common, Y_AXIS) + pad;
       
