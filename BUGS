@@ -43,6 +43,11 @@ Guile 1.3.2 is buggy in several respects. Do not use it for LilyPond.
 Lilypond 1.1.35-1.1.51,...:  Wierd errors in guile scm_gc_mark ()
 
 
+[Sparc64/Solaris 2.6, make-3.77]
+
+GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.
+
+
 [All platforms] 
 
 Some bugs may be captured in input/bugs/*y

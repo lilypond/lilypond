@@ -1,3 +1,6 @@
+pl 11.jcn1
+	- gnossiene with new \autochange
+
 pl 10.hwn1
 	- Auto_change_music, Auto_change_iterator: auto staff
 switching. 2nd try.  See input/test/auto-change.ly
