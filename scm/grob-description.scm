@@ -78,6 +78,7 @@
 			(custos . (minimum-space . 2.0))
 			(clef .   (minimum-space . 1.0))
 			(first-note . (extra-space . 1.3))
+			(right-edge . (extra-space . 0.0))
 			))
 
 	;;
@@ -252,6 +253,7 @@
 	(font-family . ancient)
 	(space-alist . (
 			(first-note . (minimum-space . 0.0))
+			(right-edge . (extra-space . 0.1))
 			))
 	(meta . ((interfaces
 		  . (custos-interface staff-symbol-referencer-interface
@@ -332,6 +334,7 @@
 			(breathing-sign . (minimum-space  . 0.0))
 			(clef . (extra-space . 1.0))
 			(first-note . (extra-space . 1.0))
+			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
 			))
 	(meta . ((interfaces . (break-aligned-interface item-interface ))))
@@ -1076,6 +1079,7 @@
 	(break-visibility . ,all-visible)
 	(space-alist . (
 			(first-note . (extra-space . 2.0))
+			(right-edge . (extra-space . 0.8))
 			(staff-bar .  (minimum-space . 2.0))
 			))
 	(breakable . #t)

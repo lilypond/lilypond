@@ -154,7 +154,7 @@ HYPHEN		--
 }
 <version>\"[^"]*\"     { /* got the version number */
 	String s (YYText ()+1);
-	s = s.left_string (s.index_last ('"'));
+	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state ();
 	if (!valid_version_b (s))
@@ -701,7 +701,7 @@ scan_fraction (String frac)
 	int d = String_convert::dec2int (right);
 	return gh_cons (gh_int2scm (n), gh_int2scm (d));
 }
-		
+#if 0		
 /* avoid silly flex induced gcc warnings */
 static void yy_push_state (int) {;}
 static void yy_pop_state () {;}
@@ -718,3 +718,4 @@ avoid_silly_flex_induced_gcc_warnings ()
 	yy_top_state ();
 	avoid_silly_flex_induced_gcc_warnings ();
 }
+#endif

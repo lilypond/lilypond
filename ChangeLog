@@ -1,3 +1,10 @@
+2002-10-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (sup_quotes): use '\'' for sup_quotes.
+
+	* lily/break-align-interface.cc (do_alignment): right-edge spacing
+	key adds space at the end of line. 
+
 2002-10-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/sketch.scm: Fix beams.
@@ -26,7 +33,7 @@
 	cloning from lexer.
 
 	* scm/music-functions.scm (make-multi-measure-rest): move mmrest
-	logic out of the parser.
+	logic out of the parser. Add bar checks on both ends.
 
 	* Documentation/user/refman.itely (Multi measure rests): add more
 	notes about mm rests.
