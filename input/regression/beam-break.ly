@@ -5,9 +5,9 @@
 
 }
 \version "2.1.22"
-    \paper { raggedright= ##t }
+\paper { raggedright= ##t }
 
 \score { \notes \relative c''  {
-    \set Score.forbidBeamBreak = ##f
-   \time 3/16 c16-[ d e \break f-] 
+    \set Score.allowBeamBreak = ##t
+    \time 3/16 c16-[ d e \break f-] 
 }}

@@ -1894,6 +1894,7 @@ def conv (str):
 conversions.append (((2,1,23), conv, """Property setting syntax in \\translator{ }"""))
 def conv (str):
 	str = re.sub (r'music-list\?', 'ly:music-list?', str)
+	str = re.sub (r'\|\s*~', '~ |', str)   
 	return str
 
 conversions.append (((2,1,24), conv, """music-list? -> ly:music-list?"""))

@@ -104,10 +104,10 @@
 	   ((val (variable-ref var))
 	    (tex-key (symbol->string sym))
 	   )
+	 (if (memq sym fields)
+	     (header-to-file basename sym val))
 
 	 (cond
-	  ((memq sym fields)
-	     (header-to-file basename sym val))
 	  ((string? val)
 	   (tex-string-def "lilypond" sym val) )
 	  ((number? val)
