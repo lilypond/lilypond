@@ -69,9 +69,6 @@ Tab_note_heads_engraver::process_music ()
   int j = 0; 
   for (int i=0; i < note_events_.size (); i++)
     {
-
-
-      
       SCM stringTunings = get_property ("stringTunings");
       int number_of_strings = ((int) gh_length(stringTunings));
       bool high_string_one = to_boolean(get_property ("highStringOne"));

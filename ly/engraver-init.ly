@@ -56,7 +56,6 @@
 	instr = #'()
 	  
 	\accepts "Voice"
-	\accepts "Devnull"
 }
 
 
@@ -434,6 +433,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	\accepts "GrandStaff"
 	\accepts "ChoirStaff"
 	\accepts "PianoStaff"
+	\accepts "Devnull"
 	\accepts "NoteNames"
 	\accepts "FiguredBass"
 
@@ -600,7 +600,7 @@ EasyNotation = \translator {
       \remove "Fingering_engraver"
       \remove "New_fingering_engraver"
 
-\description "Context for drawing notes in a Tab staff. "
+      \description "Context for drawing notes in a Tab staff. "
       Slur \override #'font-family       = #'roman
       Slur \override #'molecule-callback = #hammer-molecule-callback
       Slur \override #'direction    = #-1
