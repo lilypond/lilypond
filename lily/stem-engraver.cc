@@ -79,17 +79,17 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int evuested_type = gh_scm2int (tremolo_ev_->get_mus_property ("tremolo-type"));
+	      int requested_type = gh_scm2int (tremolo_ev_->get_mus_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
-	      if (!evuested_type)
+	      if (!requested_type)
 		if (gh_number_p (f))
-		  evuested_type = gh_scm2int (f);
+		  requested_type = gh_scm2int (f);
 		else
-		  evuested_type = 8; 
+		  requested_type = 8; 
 	      else
-		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (evuested_type));
+		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
 
-	      int tremolo_flags = intlog2 (evuested_type) - 2
+	      int tremolo_flags = intlog2 (requested_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
 	      if (tremolo_flags <= 0)
 		{
