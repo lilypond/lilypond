@@ -412,8 +412,8 @@ re_dict = {
 		  'option-sep' : ', *',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  #ugh fix
-		  'multiline-comment': r"(?s)(?P<code>@ignore\s.*?@end ignore)\s",
-		  'singleline-comment': r"(?m)(?P<code>^@c.*$\n+)",
+		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
+		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
 		  'numcols': no_match,
 		 }
 	}
@@ -688,7 +688,7 @@ def do_columns(m):
 	if m.group('num') == 'two':
 		return [('numcols', m.group('code'), 2)]
 	
-def new_chop_chunks(chunks, re_name, func):
+def chop_chunks(chunks, re_name, func, use_match=0):
     newchunks = []
     for c in chunks:
         if c[0] == 'input':
@@ -699,27 +699,10 @@ def new_chop_chunks(chunks, re_name, func):
                     newchunks.append (('input', str))
                     str = ''
                 else:
-                    newchunks.append (('input', str[:m.start ('match')]))
-                    #newchunks.extend(func(m))
-		    # python 1.5 compatible:
-		    newchunks = newchunks + func(m)
-                    str = str [m.end(0):]
-        else:
-            newchunks.append(c)
-    return newchunks
-
-def chop_chunks(chunks, re_name, func):
-    newchunks = []
-    for c in chunks:
-        if c[0] == 'input':
-            str = c[1]
-            while str:
-                m = get_re (re_name).search (str)
-                if m == None:
-                    newchunks.append (('input', str))
-                    str = ''
-                else:
-                    newchunks.append (('input', str[:m.start (0)]))
+		    if use_match:
+                        newchunks.append (('input', str[:m.start ('match')]))
+		    else:
+                        newchunks.append (('input', str[:m.start (0)]))
                     #newchunks.extend(func(m))
 		    # python 1.5 compatible:
 		    newchunks = newchunks + func(m)
@@ -755,8 +738,8 @@ def read_doc_file (filename):
 	chunks = chop_chunks(chunks, 'verb', make_verb)
 	chunks = chop_chunks(chunks, 'multiline-comment', do_ignore)
 	#ugh fix input
-	chunks = new_chop_chunks(chunks, 'include', do_include_file)
-	chunks = new_chop_chunks(chunks, 'input', do_input_file)
+	chunks = chop_chunks(chunks, 'include', do_include_file, 1)
+	chunks = chop_chunks(chunks, 'input', do_input_file, 1)
 	return chunks
 
 
@@ -1016,10 +999,10 @@ def do_file(input_filename):
 	my_depname = my_outname + '.dep'		
 
 	chunks = read_doc_file(input_filename)
-	chunks = new_chop_chunks(chunks, 'mudela', make_mudela)
-	chunks = new_chop_chunks(chunks, 'mudela-file', make_mudela_file)
-	chunks = new_chop_chunks(chunks, 'mudela-block', make_mudela_block)
-	chunks = chop_chunks(chunks, 'singleline-comment', do_ignore)
+	chunks = chop_chunks(chunks, 'mudela', make_mudela, 1)
+	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file, 1)
+	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block, 1)
+	chunks = chop_chunks(chunks, 'singleline-comment', do_ignore, 1)
 	chunks = chop_chunks(chunks, 'preamble-end', do_preamble_end)
 	chunks = chop_chunks(chunks, 'numcols', do_columns)
 	#print "-" * 50

@@ -16,7 +16,7 @@ This file lists authors of GNU LilyPond, and what they wrote.  This
 list is alphabetically ordered.
 
 @itemize @bullet
-@item @email{tomcato@@xoommail.com, Tom Cato Amundsen},
+@item @email{tca@@gnu.org, Tom Cato Amundsen},
     cembalo-partita in mudela, accordion symbols, some mudela-book.py
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~matsb/}
