@@ -6,30 +6,26 @@ This chapter details the technicalities of running LilyPond.
 
  
 @menu
-* Invoking lilypond::           Titling LilyPond scores.
-* Invoking the lilypond binary::  
+* Invoking lilypond::           
 * Error messages::              
 * Reporting bugs::              
 * Editor support::              
 * Point and click::             
+* Invoking lilypond-latex::     
 @end menu
-@node Invoking the lilypond binary
-@section Invoking the lilypond binary
+
+@node Invoking lilypond
+@section Invoking lilypond
 @cindex Invoking LilyPond
 @cindex command line options
 @cindex options, command line
 @cindex switches
 
 
-The formatting system consists of two parts: a binary executable
-(@file{lilypond}), which is responsible for the formatting
-functionality, and support scripts, which post-process the resulting
-output. Normally, the support scripts are called, which in turn invoke
-the @code{lilypond-bin} binary. However, @code{lilypond-bin} may be
-called directly as follows.
+The @code{lilypond} may be called as follows from the command line.
 
 @example
-        lilypond-bin [@var{option}]@dots{} @var{file}@dots{}
+        lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 
@@ -472,16 +468,21 @@ users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
 @node Invoking lilypond-latex
 @section Invoking lilypond-latex
 
-Before LilyPond 3.0, the task of generating nicely titled output was
-relegated to a separate program. This wrapper script
-@code{lilypond-latex} uses the LilyPond program and La@TeX{} to create
-a nicely titled piece of sheet music.
+Before LilyPond 3.0, the @code{lilypond} program only generated music
+notation.  Titles and page layout was done in a separate wrapper
+program. For compatibility with older files, this wrapper program has
+been retained as @code{lilypond-latex}. It uses the LilyPond program
+and La@TeX{} to create a nicely titled piece of sheet music.  Use of
+this program is only necessary if the input file contains special
+La@TeX{} options or formatting codes in markup texts.
 
+The @code{lilypond-latex} wrapper is invoked from the command-line as
+follows
 @example
-        @code{lilypond} [@var{option}]@dots{} @var{file}@dots{}
+        @code{lilypond-latex} [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
-To have @code{lilypond} read from stdin, use a dash @code{-} for
+To have @code{lilypond-latex} read from stdin, use a dash @code{-} for
 @var{file}.  The program supports the following options.
 
 @cindex stdin, reading

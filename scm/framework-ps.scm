@@ -258,7 +258,7 @@
 (define-public (convert-to-pdf book name)
   (let*
       ((defs (ly:paper-book-book-paper book))
-       (size (ly:output-def-lookup book 'papersize)))
+       (size (ly:output-def-lookup defs 'papersize)))
 
     (postscript->pdf (if (string? size) size "a4")
 		     name)))
