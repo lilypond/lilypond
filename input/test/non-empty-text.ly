@@ -4,20 +4,10 @@
 %
 \score{
 	\notes\relative c''{
-		%\property Staff.textEmptyDimension=1
-		a-"This text has no"
-		a
-		a
-		a-"width; the default"
-		\break
 		\property Staff.textNonEmpty=##t
-		%\property Staff.textEmptyDimension=0
-		a-"This text"
-		a-"is fat: notes are spaced"
-		a-"far apart and text"
-		a-"does not collide"
+		c4_"longlonglonglonglonglong" c4_"text" 
 		}
 	  \paper{
-	      linewidth=80.\mm;
+	      linewidth=-80.\mm;
 	  }
 }

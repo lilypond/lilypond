@@ -34,6 +34,8 @@
 #include "lyric-combine-music-iterator.hh"
 #include "auto-change-music.hh"
 #include "auto-change-iterator.hh"
+#include "part-combine-music.hh"
+#include "part-combine-music-iterator.hh"
 #include "request.hh"
 #include "request-iterator.hh"
 #include "output-property.hh"
@@ -146,6 +148,8 @@ Music_iterator::static_get_iterator_p (Music  *m)
     p = new Grace_iterator;
   else if (dynamic_cast<Auto_change_music *> (m))
     p = new Auto_change_iterator;
+  else if (dynamic_cast<Part_combine_music *> (m))
+    p = new Part_combine_music_iterator;
   else if (dynamic_cast<Music_wrapper   *> (m))
     p = new Music_wrapper_iterator;
   else if (Repeated_music  * n = dynamic_cast<Repeated_music  *> (m))

@@ -66,6 +66,7 @@ static Keyword_ent the_key_tab[]={
   {"remove", REMOVE},
   {"repeat", REPEAT},
   {"addlyrics", ADDLYRICS},
+  {"partcombine", PARTCOMBINE},
   {"score", SCORE},
   {"script", SCRIPT},
   {"skip", SKIP},

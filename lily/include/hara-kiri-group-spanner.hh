@@ -24,11 +24,16 @@
   items-worth-living -- list of interesting items. If empty in a particular system,
     clear this line
 
+
+    todo: naming
 */
 class Hara_kiri_group_spanner 
 {
 public:
   static Real force_hara_kiri_callback (Score_element * , Axis);
+  static Interval y_extent (Score_element * , Axis);
+  static Real force_hara_kiri_in_parent_callback (Score_element * , Axis);
+  static void add_element (Score_element *me, Score_element *e);
   static void set_interface (Score_element*me);
   static bool has_interface (Score_element*);
   static void consider_suicide (Score_element*me);

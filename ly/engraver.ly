@@ -145,6 +145,7 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
+	\consists "A2_engraver";
 
 
 	startSustain = #"Ped."
@@ -204,7 +205,8 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
-	\consists "Note_heads_engraver" ;
+	\consists "A2_devnull_engraver";
+	\consists "Note_heads_engraver";
 	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";
@@ -472,6 +474,7 @@ ScoreContext = \translator {
 	basicChordNameProperties = #`(
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(interfaces . (chord-name-interface))
+		(after-line-breaking-callback . ,Chord_name::after_line_breaking) 
 	)
 	basicCollisionProperties = #`(
 		(axes 0 1)
@@ -491,12 +494,12 @@ ScoreContext = \translator {
 		(interfaces . (dot-interface))
 	)
 	basicDynamicLineSpannerProperties = #`(
-		(interfaces (dynamic-interface axis-group-interface))
+		(interfaces . (dynamic-interface axis-group-interface))
 		(axes . ( 1))
 	)
 	basicDynamicTextProperties	 = # `(
 		(style . "dynamic")
-		(interface (dynamic-interface))
+		(interfaces . (dynamic-interface))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
@@ -683,7 +686,9 @@ ScoreContext = \translator {
 	)
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
-		(no-spacing-rods . #t)
+
+: -- don't set, because property-engraver will not override it.  
+;		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface))
 	)
 	basicTieProperties = #`(

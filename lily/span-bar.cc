@@ -66,7 +66,13 @@ Span_bar::center_on_spanned_callback (Score_element * me, Axis a)
 
 void
 Span_bar::evaluate_empty (Score_element*me)
-{ 
+{
+  /*
+    TODO: filter all hara-kiried out of ELEMENS list, and then
+    optionally do suicide. Call this cleanage function from
+    center_on_spanned_callback() as well.
+    
+   */
   if (!gh_pair_p (me->get_elt_property ("elements")))
     {
       me->suicide ();
@@ -113,8 +119,11 @@ Span_bar::get_bar_size (SCM smob)
   Interval iv (get_spanned_interval (me));
   if (iv.empty_b ())
     {
-      programming_error("Huh? My children deflated (FIXME)");
-      iv = Interval (0,0);
+      /*
+	This happens if the bars are hara-kiried from under us.
+       */
+      me->suicide ();
+      return gh_double2scm (-1);
     }
   return gh_double2scm (iv.length ());
 }

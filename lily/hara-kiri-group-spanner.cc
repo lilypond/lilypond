@@ -19,7 +19,17 @@ Hara_kiri_group_spanner::set_interface (Score_element*me)
   me->set_elt_property ("items-worth-living", SCM_EOL);
   me->add_offset_callback (force_hara_kiri_callback, Y_AXIS);
   me->set_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
+  me->set_extent_callback (Hara_kiri_group_spanner::y_extent, Y_AXIS);
 }
+
+Interval
+Hara_kiri_group_spanner::y_extent(Score_element*me, Axis a)
+{
+  assert (a == Y_AXIS);
+  consider_suicide (me);
+  return  Axis_group_interface::group_extent_callback (me, a);
+}
+
 
 bool
 Hara_kiri_group_spanner::has_interface (Score_element*me)
@@ -66,3 +76,18 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (Score_element *elt, Axis a)
   return 0.0;
 }
 
+
+Real
+Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (Score_element*daughter, Axis a)
+{
+  assert (a == Y_AXIS);
+  force_hara_kiri_callback (daughter->parent_l (a), Y_AXIS);
+  return 0.0;
+}
+
+void
+Hara_kiri_group_spanner::add_element (Score_element * me, Score_element *e)
+{
+  //  e->add_offset_callback (force_hara_kiri_in_parent_callback, Y_AXIS);
+  Axis_group_interface::add_element (me, e);
+}
