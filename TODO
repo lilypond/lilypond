@@ -15,28 +15,10 @@ Grep for TODO and ugh/ugr/urg.
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
 . * didot / big point.
-. * midi key.
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * check EGCS version
 . * input/test/stem-spacing.ly: 12/4 touches first note
-. * timesig: sometimes bottom digit  too high
-. * [<c8. d> <c16 d> <c8. d> <c16 d> <c8. d> <c16 d>] 
-. * I'm using lilypond version 1.1.50 and have a problem with repeat/alternative.
-I tried this code
-
- \time 4/4;
- \repeat semi 2
- {
-  \partial 4; f'8 g' | a'4 a'8 a'4 g'8 f'4 | f' d'8 c'( )c'2 |
-  f'4 f' 
- }
- \alternative
- {
-  { [g'8 f'] g' a'( | )a'2 r4 }
-  { \partial 2; [g'8 f'] e' f'( | )f'2 r2 }
- }
-. * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * We need feta-din*.mf files for more sizes than 10.
@@ -60,6 +42,7 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
 . * grace_align_item -> stackingdir = left, weird placement.
+. * grace before triplet, see standchen
 . * tuplets that are written as "number : note", for example
    "3 : [image of a half note here]".  possible?
 
@@ -78,13 +61,13 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 . * Stem
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
 . * Slur
-. * Rhythmic_grouping
 . * Duration
 . * clef engraver 
 . * parser
 
 .* TODO before 1.2
 . * Grace_slur_engraver.
+. * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * Morally pure LilyPond.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
@@ -112,12 +95,6 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
 . * do scaled fonts generally 
-. * The Lilypond accidental symbols are available through the TeX macros, 
-\textflat, \textsharp and \textnatural defined in the init file
-lilyponddefs.tex. All the symbols are defined in the files fetaXX.tex
-where XX corresponds to the size. I don't know where (or even if) they
-are installed but they are generated in the mf/out/ directory during the
-compilation.
 . * make dependencies () a virtual function.
 . * store req -> element, element -> element causes for warnings
 . * include examples in RPM.
@@ -137,17 +114,11 @@ compilation.
 . * Staff_margin (with a partial measure.)
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
-. * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
-	 and
-	 { \voicetwo  d'4 d'2.*2/3 } spacing
-. * tied notes for MIDI
-. * sharp / flat on trills (in MIDI ??)
 . * scm-ify \property values.
 . * move class Lookup {} into scm
 . * msgfmt -o check?
 . * add new glyphs to font.ly
 . * formatting of input stuff. 
-. * \notes{ a \< b \cr } vs \notes{ a \< b \! }
 . * broken scripts:
 	lbheel = \script { "bheel" 0 0 -1  0 0 }
 	rbheel = \script { "bheel" 0 0 1 0 0 }
@@ -157,11 +128,9 @@ compilation.
 	rfheel = \script { "fheel" 0 0 1 0 0 }
 	lftoe = \script { "ftoe" 0 0 -1 0 0 }
 	rftoe = \script { "ftoe" 0 0 1 0 0 }
-	and also
-	portato= \script { "portato" 0 -1 0 1 0 }
-. * ly2dvi
-.  * bottomnote for ly2dvi
 .  * deps for ly2dvi
+
+. * decide wether to junk _ in lyrics. 
 
 .* STUFF
 . * compulsory hshift
@@ -229,7 +198,6 @@ repeated section with different words for each repeat.
 	   * { a4 a16 } c <-- duration of c?
 	   * < a4 b8 > c <-- duration of c?
 . * \tempo 4. = 90;
-. * fix audio-items (don't use (input) requests, but copy data)
 . * make sure all ex's have a mudela-version
 . * do rest-collisions for Multi_measure_rests as well.
 . * split error/warning in error/warning/non_fatal_error
@@ -244,7 +212,7 @@ repeated section with different words for each repeat.
 . * add full cello suites to web site (kom op, Maarten!)
 . * add mudela-book-doc source to webstie.
 . * Rethink Time_description
-\cadenza , \meter, \grouping should all be \properties
+\cadenza , \meter,  should all be \properties
 . * fix singleStaffBracket
 . * rename
 .  * measure -> bar
@@ -265,7 +233,6 @@ which is irritating.
 touching it.
 . * put errorlevel in Input class
 . * junk nesting slurs
-. * integrate midi-elts from mi2mu and lily?
 . * distinguish between unset and empty properties. 
 
 .* FONT
@@ -311,6 +278,8 @@ touching it.
 	  assert (feof (f))
 
 . * tetex: mfplain.mem
+. * timesig: sometimes bottom digit  too high: Xdvi doesn't handle
+    newly created fonts correctly.
 .* 3RD PARTY PROJECTS:
 . * make GCC warn about ctor that leaves member vars  uninitialised.
 . * GNU patch 
@@ -383,6 +352,8 @@ languages:
 .  * SMDL?
 
 . * add to MIDI output:
+.  * tied notes for MIDI
+.  * sharp / flat on trills (in MIDI ??)
 .  * tempo change
 .  * ornaments (and trills?)
 .  * slurs
@@ -420,7 +391,6 @@ hesitate to ask.
 .  * account for rhythmic position in measure
 .  * etc.
 
-. * accidentals per Voice_group
 
 . * Output class, handles : (smallish)
 .  * help text /(c) notice?
@@ -456,12 +426,9 @@ hesitate to ask.
 .  * Glissando
 .  * trill
 
-. * Rewrite Stem, Beam and Rhythmic_grouping (hairy)
-.  * [c8. c32 c32]
-.  * doc on Rhythmic_grouping
+. * Rewrite Stem, Beam (hairy)
 .  * general shaving on Beam and Stem
 .  * use plet grouping
-.  * separate visual from rhythmic info even more
 .  * beams over bars
 
 . * lines:
@@ -516,8 +483,6 @@ hesitate to ask.
 
 
 .* SMALLISH PROJECTS
-
-. * Faulenzer sign (% repeat).  Perhaps also use \repeat syntax?
 
 . * fix confusing naming in Engraver vs Engraver_group_engraver (context)
 

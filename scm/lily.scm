@@ -270,6 +270,8 @@
      "\\placebox{"
      (number->dim y) "}{" (number->dim x) "}{" s "}"))
 
+
+  ;;;; UGH! Junk \\bracefont !
   (define (pianobrace y)
     (define step 1.0)
     (define minht (* 2 mudelapaperstaffheight))

@@ -60,13 +60,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
-% ugh
 
+%
+% TODO JUNK THIS
+%
+% ugh
 \def\cmrtwenty{
         \font\smalltextfont=cmr8
         \font\textmusic=cmmi12
 }
-
 \def\cmrsixteen{
         \font\smalltextfont=cmr6
         \font\textmusic=cmmi10
@@ -79,7 +81,6 @@
         \font\smalltextfont=cmr5
         \font\textmusic=cmmi8
         }
-
 %%%%%%%
 %
 \def\musixtwentydefs{
@@ -114,16 +115,12 @@
 \def\textflat{\raise.2ex\hbox{\textmusic\char"5B}}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % do derivative calcs
 
 % this has to be synced with the font definition
 \def\musixcalc{
-        \staffheight=\mudelapaperbarsize pt
-
-        % ugh.  Can extract ex dim from TFM
-        \interlinedist=\staffheight 
-        \divide\interlinedist by 4
         \notewidth=\mudelapapernotewidth pt
 
         \smallspace=.3\interlinedist
