@@ -1,5 +1,8 @@
 2002-10-14  Rune Zedeler  <rune@zedeler.dk>
 
+	* lily/rest.cc (after_line_breaking): bugfix: dots after half
+	and breve rests.
+	
 	* input/test/blank-notes.ly: bugfix
 
 	* lily/rest.cc (after_line_breaking): bugfix: dots after whole
