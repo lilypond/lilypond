@@ -62,6 +62,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
   printf (_ ("Usage: lilypond -e \"(ly : set - option SYMBOL VAL)\"").to_str0 ());
   puts ("\n");
   printf (_ ("Use help as  SYMBOL to get online help.").to_str0 ());
+  puts ("\n");
 
   exit (0);
   return SCM_UNSPECIFIED;

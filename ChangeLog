@@ -1,3 +1,7 @@
+2005-04-04  Werner Lemberg  <wl@gnu.org>
+
+	* lilypond/scm-option.cc (ly_option_usage): Add final newline.
+
 2005-04-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ps/lilyponddefs.ps: remove reencode-font
