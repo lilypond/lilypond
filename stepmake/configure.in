@@ -1,12 +1,20 @@
 dnl configure.in   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script. 
 
-# Bootstrap the init proces.  List a file identifies your package.
-AC_INIT(make/stepmake.lsm.in)
-AC_CONFIG_HEADER($CONFIGFILE.h:config.hh.in)
+# Bootstrap the init proces.
+AC_INIT
 
 # Bootstrap StepMake configure
+# For user package:
+# AC_CONFIG_AUX_DIR(stepmake/bin)
+# For stepmake package:
+AC_CONFIG_AUX_DIR(bin)
 STEPMAKE_INIT
+
+# List a file that identifies your package.
+AC_CONFIG_SRCDIR([make/stepmake.lsm.in])
+# Move to aclocal.m4?
+AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
 
 # For all packages except the StepMake package itself
 # AC_CONFIG_SUBDIRS(stepmake)
@@ -15,7 +23,7 @@ CC=echo
 AC_SUBST(CC)
 # Uncomment the configuration options your package needs.
 # STEPMAKE_COMPILE
-# AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
+# AC_CHECK_HEADERS([limits.h malloc.h string.h unistd.h values.h])
 # STEPMAKE_CXX
 # STEPMAKE_GXX
 # STEPMAKE_CXXTEMPLATE

@@ -170,8 +170,8 @@ $(config_h): configure.in aclocal.m4
 # and they blindly run "cvs update; make".
 #
 	@echo
-	@echo ' *** config.h is out of date'
+	@echo ' *** $(config_h) is out of date'
 	@echo ' *** Remove it and rerun autogen:'
-	@echo '         rm config.h; ./autogen.sh'
+	@echo '         rm $(config_h); ./autogen.sh'
 	@echo
 	@false
