@@ -66,6 +66,7 @@ Percent_repeat_iterator::process (Moment m)
 
   if (finish_mom_ <= m )
     {
+      child_iter_->quit(); 
       child_iter_ = 0;
     }
 }

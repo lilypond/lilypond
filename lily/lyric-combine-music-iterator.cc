@@ -127,8 +127,10 @@ Lyric_combine_music_iterator::process (Moment m)
 void
 Lyric_combine_music_iterator::do_quit ()
 {
-  if (music_iter_) music_iter_->quit();
-  if (lyric_iter_) lyric_iter_->quit();
+  if (music_iter_)
+    music_iter_->quit();
+  if (lyric_iter_)
+    lyric_iter_->quit();
   
 }
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)

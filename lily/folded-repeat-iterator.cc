@@ -1,5 +1,5 @@
 /*   
-  repeated-music-iterator.cc --  implement Folded_repeat_iterator
+     folded-repeat-iterator.cc --  implement Folded_repeat_iterator
   
   source file of the GNU LilyPond music typesetter
   
@@ -67,7 +67,7 @@ Folded_repeat_iterator::construct_children ()
   main_iter_ = unsmob_iterator (get_iterator (mus->body ()));
   if (!main_iter_->ok ())
     {
-     leave_body ();
+      leave_body ();
       enter_alternative ();
     }
 }
@@ -121,12 +121,17 @@ Folded_repeat_iterator::enter_alternative ()
   Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());  
   if (mus->alternatives ())
     {
+  /*
+    ugh.
+   */ 
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
       s->separate_contexts_b_ = true;
       s->init_translator (mus, report_to ());
       
       alternative_iter_ = s;
       alternative_iter_->construct_children ();
+
+      scm_gc_unprotect_object (s->self_scm());
     }
 }
 

@@ -50,7 +50,11 @@ Translator_def::Translator_def ()
   end_consists_name_list_ = SCM_EOL;
   property_ops_ = SCM_EOL;
   type_name_ = SCM_EOL;
+
+  smobify_self();
+  
 }
+
 Translator_def::~Translator_def ()
 {
 }
@@ -58,6 +62,16 @@ Translator_def::~Translator_def ()
 Translator_def::Translator_def (Translator_def const & s)
   : Input (s)
 {
+  type_aliases_ = SCM_EOL;
+  translator_group_type_ = SCM_EOL;
+  accepts_name_list_ = SCM_EOL;   
+  consists_name_list_ = SCM_EOL;
+  end_consists_name_list_ = SCM_EOL;
+  property_ops_ = SCM_EOL;
+  type_name_ = SCM_EOL;
+
+  
+  smobify_self();
   consists_name_list_ = scm_list_copy (s.consists_name_list_);
   end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
   accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
@@ -275,14 +289,16 @@ SCM
 Translator_def::clone_scm () const
 {
   Translator_def * t = new Translator_def (*this);
-  return t->unprotected_smobify_self ();
+  scm_gc_unprotect_object (t->self_scm());
+  return t->self_scm();
 }
 
 SCM
 Translator_def::make_scm ()
 {
   Translator_def* t = new Translator_def;
-  return t->unprotected_smobify_self ();
+  scm_gc_unprotect_object (t->self_scm());
+  return t->self_scm();
 }
 
 void

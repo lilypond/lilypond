@@ -1,4 +1,13 @@
+2002-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/sequential-iterator.cc (Sequential_iterator): init list_
+
+	* lily/translator-def.cc (Translator_def): make a GC proof copy
+	constructor.
+
 2002-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/percent-repeat-iterator.cc (process): quit iter.
 
 	* lily/simultaneous-music-iterator.cc
 	(Simultaneous_music_iterator): protection bugfix.

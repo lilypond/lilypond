@@ -39,6 +39,7 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 Sequential_iterator::Sequential_iterator ()
 {
   here_mom_ = Moment (0);
+  list_ = SCM_EOL;
   grace_fixups_ = 0;
   iter_ =0;
 }
@@ -64,10 +65,7 @@ Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   cursor_ = src.cursor_;
   list_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  if (src.iter_)
-    iter_ = src.iter_->clone ();
-  else
-    iter_ = 0;
+  iter_ = (src.iter_) ? src.iter_->clone () : 0;
 
   if (iter_)
     scm_gc_unprotect_object (iter_->self_scm());

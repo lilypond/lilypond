@@ -500,7 +500,8 @@ g'4 ~ g' a'2 ~ a'4
 @end quotation
 @separate
 
-The key signature is set with the command ``@code{\key}'':
+The key signature is set with the command ``@code{\key}''.  One caution:
+you need to specify whether the key is @code{\major} or @code{\minor}.
 @quotation
 @example
 \key d \major

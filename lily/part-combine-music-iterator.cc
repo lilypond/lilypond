@@ -34,8 +34,10 @@ Part_combine_music_iterator::derived_mark () const
 void
 Part_combine_music_iterator::do_quit ()
 {
-  if (first_iter_) first_iter_->quit();
-  if (second_iter_) second_iter_->quit();
+  if (first_iter_)
+    first_iter_->quit();
+  if (second_iter_)
+    second_iter_->quit();
 }
 
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)

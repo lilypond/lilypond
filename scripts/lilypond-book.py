@@ -113,6 +113,8 @@ kpse = os.popen ('kpsexpand \$TEXMF').read()
 kpse = re.sub('[ \t\n]+$','', kpse)
 type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
 
+binary = 'lilypond'
+#binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
 environment = {
 	# TODO: * prevent multiple addition.
 	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
@@ -1144,8 +1146,8 @@ def compile_all_files (chunks):
 			if g_outdir:
 				lilyopts = lilyopts + '--dep-prefix=' + g_outdir + '/'
 		texfiles = string.join (tex, ' ')
-		cmd = 'lilypond --header=texidoc %s %s %s' \
-		      % (lilyopts, g_extra_opts, texfiles)
+		cmd = '%s --header=texidoc %s %s %s' \
+		      % (binary, lilyopts, g_extra_opts, texfiles)
 
 		system (cmd)
 
