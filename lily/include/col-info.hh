@@ -13,17 +13,27 @@
 #include "lily-proto.hh"
 #include "pointer.hh"
 #include "interval.hh"
-#include "assoc.hh"
+#include "drul-array.hh"
+
+struct Spacer_rod {
+  Real distance_f_;
+  int other_idx_;
+  void print () const;
+};
+
 
 /// helper struct for #Spacing_problem#
 struct Colinfo {
   Paper_column *pcol_l_;
   P<Real> fixpos_p_;
-  Assoc<int, Real> min_dists_assoc_;
+
   Interval width_;
   int rank_i_;
   /// did some tricks to make this column come out.
   bool ugh_b_;		
+
+  Drul_array< Array<Spacer_rod> > rods_;
+  
   /* *************** */
   Colinfo();
   Colinfo (Paper_column *,Real const *);
