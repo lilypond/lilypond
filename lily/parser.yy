@@ -925,7 +925,6 @@ grace_head:
 	| ACCIACCATURA { $$ = scm_makfrom0str ("Acciaccatura"); }
 	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
-	
 
 Composite_music:
 	CONTEXT STRING Music	{
@@ -940,7 +939,7 @@ Composite_music:
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-	Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
+		Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
 		chm->set_mus_property ("element", $3->self_scm ());
 		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
 
@@ -1262,6 +1261,10 @@ simple_property_def:
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
 		Music *t = MY_MAKE_MUSIC("RevertProperty");
+
+		/*
+			UGH.
+		*/
 		bool autobeam
 		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
 		bool itc = internal_type_checking_global_b;

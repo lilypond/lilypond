@@ -4,8 +4,8 @@
     date = "27. Februar 1815"
     source = "Edition Peters"
     editor = "Paul Losse"
-    enteredby="Rune Zedeler"
-    maintainer="rune@zedeler.dk"
+    enteredby="Han-Wen Nienhuys"
+    maintainer="hanwen@xs4all.nl"
 
     texidoc = "The source is a rather tightly set Peters in Edition is
     a heavy font. The Peters edition (4622c) was `herausgegeben' by
@@ -17,6 +17,10 @@
     The original compresses the entire music onto a single page, in 4
     systems.  Lily does so too if you tune down spacing-increment, but
     chooses line breaks differently.
+
+    Further manual tweaks: the slur in measure 12 has been flattened
+    manually. The beam in measure 3, left-hand, technically is wrong,
+    but has been added following the original.
 
 "
 
@@ -32,11 +36,12 @@ manuscriptBreak = { \break }
     \include "params-init.ly"
     linewidth = #(* mm 160)
     indent = 8\mm
+    interscoreline = 2.\mm
     }
 
 modernAccidentals = {
   \property Staff.extraNatural = ##f
-  \property Staff.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (same-octave . 3))
+  \property Staff.autoAccidentals = #'(Staff (same-octave . 1) (any-octave . 0))
   \property Staff.autoCautionaries = #'()  
 }
 
@@ -81,10 +86,11 @@ secondVerse = \lyrics {
     Ach, der Lie -- be sanf "" -- tes We -- hen schwellt mir
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich
     nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht
-    zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts
+    zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts.
     }
 
 pianoRH = \notes \relative c''' \repeat volta 2 {
+    \modernAccidentals
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
@@ -92,7 +98,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     r8_\> << { s8 s8-\! }  << { fis( g)
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
-    e,16_" "_\markup { \bold\italic cresc } g c g e g d gis b gis d gis |
+    e,16_" "_\markup { \bold\italic cresc. } g c g e g d gis b gis d gis |
     c, e a e c e a,-\f d fis d a d |
     b d g  d b g r4\fermata \clef treble g''8 |
     as4.( g 4.) | fis4. r4 <d g>8 ( |
@@ -100,7 +106,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     r8 <e c g> <e c g> r <d b g > <d b g> |
     r <e c g> <e c g> r <f d b g> <f d b g> |
     r <e c g> <e c g> r <d b f> <d b f> |
-    c16( b c e g b c b c e g <e b'>) |
+    c16(_\f b c e g b c b c e g <e b'>) |
     <c c'>8 r r <c, g e>8 r r\fermata |  
 }
 
@@ -108,7 +114,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r
-    \clef treble r4 <bes' c>8( <a c>) r <f c'> |
+    \clef treble r4 <bes' c>8([ <a c>)] r <f c'> |
     \clef bass r8 dis( e) r c c |
     f,4. r8 g g |
     <c, c,>4. <e e,>4. |
@@ -116,7 +122,11 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     g,8 r r g16 r16\fermata r8 g''8 |
     as4.( g ) |
     fis r4 <g b>8( |
-    <f c'>4.) <g c>4.( | <a c>4.) <g b,> |
+    <f c'>4.)
+
+    \once \property Voice.Slur \set #'height-limit = #1.0
+
+    <g c>4.( | <a c>4.) <g b,> |
     c,4 r8 g4 r8 |
     c4 r8 g4 r8 |
     c4 r8 g4 r8 |
@@ -138,7 +148,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {
 	     \bold
-	     \huge "2.  " }
+	     \bigger\bigger \huge "2.  " }
 	 \new Staff \pianoRH
 	 \new Staff \pianoLH
 	>> 
@@ -151,12 +161,17 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	}
 	\translator {
 	    \ScoreContext
-	    Beam \override #'thickness = #0.6
+	    Beam \override #'thickness = #0.55
 	    SpacingSpanner \set #'spacing-increment = #1.0
-	    Slur \set #'height-limit = #1.0
+	    Slur \set #'height-limit = #1.5
 	}
-	\translator {  \PianoStaffContext
-		VerticalAlignment \override #'forced-distance = #10
-		}
-}
+	\translator {
+	    \PianoStaffContext
+	    VerticalAlignment \override #'forced-distance = #10
+	}
+	\translator {
+	    \StaffContext
+	    minimumVerticalExtent = #'(-3. . 6)
+	}
+    }
 }

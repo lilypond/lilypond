@@ -6,6 +6,8 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <set>
+
 #include "dots.hh"
 #include "dot-column.hh"
 #include "rhythmic-head.hh"
@@ -15,6 +17,8 @@
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "stem.hh"
+
+using std::set;
 
 /*
   TODO: let Dot_column communicate with stem via Note_column.
@@ -28,8 +32,14 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   me = me->get_parent (X_AXIS);
-  SCM l = me->get_grob_property ("dots");
-  do_shifts (l);
+
+  if (!to_boolean (me->get_grob_property ("collision-done")))
+    {
+      SCM l = me->get_grob_property ("dots");
+      me->set_grob_property ("collision-done", SCM_BOOL_T);
+  
+      do_shifts (me, l);
+    }
   return gh_double2scm (0.0);
 }
 
@@ -60,22 +70,18 @@ Dot_column::side_position (SCM element_smob, SCM axis)
 
 
 /*
-  Will fuck up in this case.
+  Put the dots in the spaces, close to the heads.
 
-  X.  .
-  X.X .
-   |X .
-   |
-   |
-   |X .
-   |
-   |
+  This is somewhat gruesome; the problem really is
 
+  minimize (sum_j dist (head_j, dot_j))
 
-   Should be smarter.
- */
+  over all configurations. This sounds like a messy optimization
+  problem to solve.
+  
+*/
 SCM
-Dot_column::do_shifts (SCM l)
+Dot_column::do_shifts (Grob*me, SCM l)
 {
   Link_array<Grob> dots;
   while (gh_pair_p (l))
@@ -86,43 +92,54 @@ Dot_column::do_shifts (SCM l)
   
   dots.sort (compare_position);
   
-  if (dots.size () < 2)
-    return SCM_UNSPECIFIED;
-  Slice s;
-  s.set_empty ();
 
-  Array<int> taken_posns;
-  int conflicts = 0;
+  set<int> taken_posns;
   for (int i=0; i < dots.size (); i++)
     {
-      Real p = Staff_symbol_referencer::get_position (dots[i]);
-      for (int j=0; j < taken_posns.size (); j++)
-	{
-	  if (taken_posns[j] == (int) p)
-	    conflicts++;
-	}
-      taken_posns.push ((int)p);
-      s.unite (Slice ((int)p,
- (int)p));      
-    }
-
-  if (!conflicts)
-    return SCM_UNSPECIFIED;
-  
-  int  middle = s.center ();
-  /*
-    +1 -> off by one 
-   */
-  int pos = middle - dots.size () + 1;
-  if (! (pos % 2))
-    pos ++;			// center () rounds down.
-
-  for (int i=0; i < dots.size (); pos += 2, i++)
-    {
       Grob * d = dots[i];
-      Staff_symbol_referencer::set_position (d,pos);
-    }
+      int p = int (Staff_symbol_referencer::get_position (d));
 
+      if (Staff_symbol_referencer::on_staffline (d, p)
+	  || taken_posns.find (p) != taken_posns.end ())
+	{
+	  int pd = p;
+	  int pu = p;
+	  if (Staff_symbol_referencer::on_staffline (d, p))
+	    {
+	      pu ++;
+	      pd --;
+	    }
+	  
+	  Direction dir =  to_dir (d->get_grob_property  ("direction"));
+	  if (dir != DOWN)
+	      
+	  while (1)
+	    {
+	      if (dir != DOWN)
+		{
+		  if (taken_posns.find (pu) == taken_posns.end ())
+		    {
+		      p = pu;
+		      break;
+		    }
+		  pu += 2;
+		}
+	      if (dir != UP)
+		{
+		  if (taken_posns.find (pd) == taken_posns.end ())
+		    {
+		      p = pd;
+		      break;
+		    }
+		  pd -= 2;
+		}
+	    }
+	  Staff_symbol_referencer::set_position (d, p);  
+	}
+      
+      taken_posns.insert (p);
+    }
+  
   return SCM_UNSPECIFIED;
 }
 

@@ -83,8 +83,8 @@ Hyphen_spanner::brew_molecule (SCM smob)
 }
 
 
-
 ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
 	       "A centred hyphen is a simple line between lyrics used to divide syllables",
 	       "thickness height dash-period length");
+
 

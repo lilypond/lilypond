@@ -45,7 +45,7 @@ public:
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));  
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
-  static Real score_slopes_dy (Real, Real, Real, Real, bool);
+  static Real score_slopes_dy (Real, Real, Real, Real, Real, bool);
 
   static Real score_stem_lengths (Link_array<Grob> const &stems,
 				  Array<Stem_info> const &stem_infos,

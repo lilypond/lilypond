@@ -207,7 +207,7 @@ i.e.  this is not an override"
    (append
       (map (lambda (x) (make-grob-property-set x 'direction
 					       (if (odd? n) -1 1)))
-	   '(Tie Slur Script TextScript Stem Dots))
+	   '(Tie Slur Script TextScript Stem Dots DotColumn))
       (list
        (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
        (make-grob-property-set 'MultiMeasureRest 'staff-position

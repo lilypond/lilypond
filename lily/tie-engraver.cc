@@ -186,8 +186,8 @@ Tie_engraver::typeset_tie (Grob *her)
       new_head_drul[d] = Tie::head (her, (Direction)-d);
   } while (flip (&d) != LEFT);
 
-  index_set_cell (her->get_grob_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm ());
-  index_set_cell (her->get_grob_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm ());
+  index_set_cell (her->get_grob_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
+  index_set_cell (her->get_grob_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
 
   typeset_grob (her);
 }

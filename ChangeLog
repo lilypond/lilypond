@@ -1,3 +1,31 @@
+2004-01-06  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/tie.cc: change 'heads to 'head-pair.
+
+	* lily/lyric-phrasing-engraver.cc (process_acknowledged_grobs):
+	fill in 'heads field.
+
+	* lily/lyric-extender.cc (brew_molecule): use heads for width, use
+	minimum-length for short ones, and shorten so collisions with the
+	next syllable are avoided.
+
+	* lily/beam-quanting.cc (score_slopes_dy): add extra points for
+	near-zero slopes.
+	Only do DAMPING_DIRECTION_PENALTY for non-horizontal dy 
+
+	* lily/dots.cc: remove quantized_position callback. All Y
+	positioning is done by dot-column.cc
+
+	* lily/dot-column.cc (do_shifts): rewrite shifting routine: do
+	exhaustive test of all dot positions. This fixes disappearing dots
+	in dotted chords.
+
+2004-01-05  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* mf/feta-klef.mf (test_staff): fatten up G clef
+	(test_staff): fatten up f clef.
+	
+
 2004-01-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: 

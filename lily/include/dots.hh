@@ -18,7 +18,6 @@
 class Dots
 {
 public:
-  DECLARE_SCHEME_CALLBACK (quantised_position_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   bool has_interface (Grob*);
 };

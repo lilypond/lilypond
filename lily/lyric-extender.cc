@@ -6,6 +6,7 @@
   Han-Wen Nienhuys
 */
 
+#include <math.h>
 
 #include "box.hh"
 #include "warn.hh"
@@ -15,6 +16,7 @@
 #include "paper-def.hh"
 #include "lyric-extender.hh"
 #include "note-head.hh"
+#include "group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Lyric_extender,brew_molecule,1)
 SCM 
@@ -25,20 +27,46 @@ Lyric_extender::brew_molecule (SCM smob)
   Item *r = me->get_bound (RIGHT);
   Grob *common = l->common_refpoint (r, X_AXIS);
   
-  Real left_point = l->extent (common, X_AXIS)[RIGHT];
 
   Real sl = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
 
+  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
+								  "heads"));
+
+  common = common_refpoint_of_array (heads, common, X_AXIS);
+  
+  Real left_point = 0.0;
+  if (!heads.size()
+      || l->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+    left_point = l->extent (common, X_AXIS)[RIGHT];
+  else
+    left_point = heads[0]->extent (common, X_AXIS)[LEFT];
+
+
+  if (isinf (left_point))
+    return SCM_EOL;
+  
 
   /*
     It seems that short extenders are even lengthened to go past the note head,  but
     haven't found a pattern in it yet. --hwn  1/1/04
     
    */
-  Real right_point = r->extent (common, X_AXIS)
-    [(Note_head::has_interface (r)) ? RIGHT : LEFT];
+  
+  SCM minlen =  me->get_grob_property ("minimum-length");
+  Real right_point
+    = left_point + (gh_number_p (minlen) ? gh_scm2double (minlen) : 0.0);
+
+  if (heads.size ())
+    right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
 
   Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
+
+  right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - h);
+
+  if (isinf (right_point))
+    return SCM_EOL;
+  
 
   right_point += h;
 
@@ -53,17 +81,8 @@ Lyric_extender::brew_molecule (SCM smob)
   return mol.smobbed_copy ();
 }
 
-void
-Lyric_extender::set_textitem (Spanner *me, Direction d, Grob *s)
-{
-  me->set_bound (d, s);
-  me->add_dependency (s);
-}
-
-
-
 
 ADD_INTERFACE (Lyric_extender,"lyric-extender-interface",
   "The extender is a simple line at the baseline of the lyric "
   " that helps show the length of a melissima (tied/slurred note).",
-  "thickness");
+  "thickness heads");

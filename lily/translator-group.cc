@@ -142,7 +142,7 @@ Translator_group::find_create_translator (SCM n, String id)
 	  Translator_group * new_group = path[i]->instantiate (output_def_);
 
 	  if (i == path.size () -1)
-	    new_group->id_string_ = id;	  
+	    new_group->id_string_ = id;
 	  current->add_fresh_group_translator (new_group);
 	  current = new_group;
 	}

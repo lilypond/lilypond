@@ -27,9 +27,11 @@ const int STEM_LENGTH_DEMERIT_FACTOR = 5;
 
 // possibly ridiculous, but too short stems just won't do
 const int STEM_LENGTH_LIMIT_PENALTY = 5000;
-const int DAMPING_DIRECTIION_PENALTY = 800;
+const int DAMPING_DIRECTION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
+
+const int ROUND_TO_ZERO_POINTS = 4;
 
 extern bool debug_beam_quanting_flag;
 
@@ -210,7 +212,9 @@ Beam::quanting (SCM smob)
   for (int i = qscores.size (); i--;)
     {
       Real d =  score_slopes_dy (qscores[i].yl, qscores[i].yr,
-				 dy_mus, yr- yl, xstaff);
+				 dy_mus, yr- yl, 
+				 xr - xl,
+				 xstaff);
       qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
@@ -353,14 +357,21 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
 Real
 Beam::score_slopes_dy (Real yl, Real yr,
 		       Real dy_mus, Real dy_damp,
+		       Real dx,
 		       bool xstaff)
 {
   Real dy = yr - yl;
 
   Real dem = 0.0;
-  if (sign (dy_damp) != sign (dy))
+
+  /*
+    DAMPING_DIRECTION_PENALTY is a very harsh measure, while for
+    complex beaming patterns, horizontal is often a good choice.
+   */
+  if (sign (dy)
+      && sign (dy_damp) != sign (dy))
     {
-      dem += DAMPING_DIRECTIION_PENALTY;
+      dem += DAMPING_DIRECTION_PENALTY;
     }
 
    dem += MUSICAL_DIRECTION_FACTOR * (0 >? (fabs (dy) - fabs (dy_mus)));
@@ -376,6 +387,14 @@ Beam::score_slopes_dy (Real yl, Real yr,
    /* Huh, why would a too steep beam be better than a too flat one ? */
    dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy), 1.5)
      * slope_penalty;
+
+   /*
+     almost zero slopes look like errors in horizontal beams. 
+    */
+   if (fabs (dy) > 1e-3
+       && (dy / dx < 0.05))
+     dem += ROUND_TO_ZERO_POINTS;
+   
    return dem;
 }
 
