@@ -1,3 +1,29 @@
+
+* Removed \interscoreline after the last line, prevents some
+empty pages. (patch by Mats Bengtsson)
+
+* Smobified Music, junked associated identifiers. Use Scheme list to
+store Music_sequence.  Removed const declarations from
+Music_iterators.  Added a mutable and immutable property list to
+Music.  Use music property for all Scheme values in Music.  Created
+and fixed a load of Garbage Collection bugs.
+
+* Changed number font to allow automatic .mf creation.
+
+* Output place of definition as \special{src:LOCATION}. See FAQ for
+explanation how to use.
+
+* Schemified Local_key_item and fixed minor bug with accidentals.
+
+* new Japanese .po file.
+
+* Bugfix for broken tie direction
+
+* Bugfix for bar at beginning of line break
+
+1.3.72
+======
+
 * Robustness fix for minimise_least_squares ()
 
 * cleanups of Slur_bezier_bow, removed Bezier_bow.
