@@ -293,8 +293,6 @@ Score_elem::handle_broken_dependencies()
   remove_us_arr.uniq();
   for (int i=0;  i <remove_us_arr.size(); i++)
     remove_dependency (remove_us_arr[i]);
-
-  //  status_i_= BROKEN;
 }
 
 /*
@@ -341,9 +339,6 @@ Score_elem::handle_prebroken_dependencies()
   for (int i=0;  i < old_arr.size(); i++)
     if (old_arr[i])
       substitute_dependency (old_arr[i], new_arr[i]);
-	
-	
-  //  status_i_= PREBROKEN;
 }
 
 
