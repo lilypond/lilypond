@@ -130,19 +130,22 @@ dist:
 
 # ugh. should generate in out/
 dozedist: doosdist
-doosdist:
+doosdist: check-mf-deps
+	rm -rf $(distdir)
 	-mkdir $(distdir)
-#	nogo, SUBDIRS is handed down to subdir...
-#	$(MAKE) SUBDIRS="Documentation init input tex" localdist
 	$(MAKE) localdist
 	chmod -Rf a+rX $(distdir)
 #	ugh, the ugly way, then
+	rm -f $(distdir)/mf/$(outdir)/*.log
+	# urg
+	(cd $(distdir)/init; ln -s ../../../mf/out/*.ly .)
+	(cd $(distdir)/tex; ln -s ../../../mf/out/*.tex .)
 	(cd $(distdir); rm -rf $(NO_DOOS_DIST))
 	ln $(lilyout)/lilypond $(distdir)/bin/lilypond.exe
-	strip -s $(distdir)/bin/lilypond.exe
+	-strip -s $(distdir)/bin/lilypond.exe
 	ln $(mi2muout)/mi2mu $(distdir)/bin/mi2mu.exe
-	strip -s $(distdir)/bin/mi2mu.exe
-	(cd ./$(depth); $(ZIP) $(outdir)/$(DIST_NAME).exe.zip $(distdir))
+	-strip -s $(distdir)/bin/mi2mu.exe
+	(cd ./$(depth)/$(outdir); $(ZIP) $(DIST_NAME).exe.zip $(DIST_NAME))
 # should be trapped
 	rm -rf $(distdir)/
 

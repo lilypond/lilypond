@@ -8,7 +8,6 @@ composer =	 "Johann Sebastian Bach(1685-1750)";
 
 % urg
 
-\version "0.1.14";
 % \include "prelude-" + \instrument + ".ly";
 
 i = "prelude-" + \instrument + ".ly";
