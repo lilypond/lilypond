@@ -1884,9 +1884,9 @@ def conv (str):
 			      r' \\revert \1', s)
 		return s
 	str = re.sub (r'\\(translator|with)\s*{[^}]+}',  subst_in_trans, str)
-
-	str = re.sub (r"""\\override\s*([a-zA-Z]+\s*\.\s*)?autoBeamSettings\s*#([^=]+)\s*=\s*#\(ly:make-moment\s+(\d+)\s+(\d)\s*\)""",
-		      r"""#(override-auto-beam-setting \1 \2 \3)""",
+	str = re.sub (r"""\\override\s*([a-zA-Z]+\s*\.\s*)?autoBeamSettings"""
+		      +r"""\s*#([^=]+)\s*=\s*#\(ly:make-moment\s+(\d+)\s+(\d)\s*\)""",
+		      r"""#(override-auto-beam-setting \2 \3 \4)""",
 		      str)
 	
 	return str
