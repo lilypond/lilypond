@@ -88,12 +88,3 @@ romanze = \notes \relative c' {
 }
 
 
-
-\score
-{
-    \notes { \transpose c' bes \romanze }
-	\header { piece = "romanze" opus = "" }	
-	\midi{ \tempo 4 = 70  }
-	\paper{}
-}
-
