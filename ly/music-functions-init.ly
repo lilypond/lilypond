@@ -4,7 +4,8 @@
 applymusic = #(def-music-function (location func music) (procedure? ly:music?)
                (func music))
 
-addlyrics = #(def-music-function (location music lyrics) (ly:music? ly:music?)
+oldaddlyrics = #(def-music-function (location music lyrics) (ly:music? ly:music?)
+
               (make-music 'LyricCombineMusic 
                           'origin location
                           'elements (list music lyrics)))

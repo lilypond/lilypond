@@ -9,25 +9,20 @@
     }
 
 \version "2.3.7"
-\paper { raggedright = ##t }
+\paper {
+    raggedright = ##t
+}
 \relative
 {
     b4-.( b-. b-.)
-    
     b(-.  d-.)
-    d(-.  b-.)
-    
-    b--( b-- b--)
-    b->( b-> b->)
-    b-.--( b-.-- b-.--)
-    b---.( b---. b---.)
 
     b_1( b b_1_2_3)
     c-1_\markup { \italic {"cresc."}}( f c)
-    c-1( f\f c)
     c-1( c\f c)
     \once \override Script #'padding = #1.2
     b-.( b-.
     \once \override Script #'padding = #1.2
     b-.)
+    e=''16[-.( f-.)]
 }
