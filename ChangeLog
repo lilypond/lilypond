@@ -1,5 +1,7 @@
 2002-12-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.9 released
+
 	* scm/music-functions.scm (shift-one-duration-log): refactor.
 	Use music-map.
 
