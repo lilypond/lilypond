@@ -103,10 +103,9 @@ Score_engraver::initialize ()
    
   unsmob_context_def (definition_)->apply_default_property_operations (this);
 
-  assert (dynamic_cast<Paper_def *> (output_def_));
   assert (!daddy_trans_);
   pscore_ = new Paper_score;
-  pscore_->paper_ = dynamic_cast<Paper_def*> (output_def_);
+  pscore_->paper_ = dynamic_cast<Paper_def*> (get_output_def ());
 
   SCM props = get_property ("System");
 
@@ -274,6 +273,7 @@ Score_engraver::get_output ()
   pscore_=0;
   return o;
 }
+
 
 bool
 Score_engraver::try_music (Music*r)

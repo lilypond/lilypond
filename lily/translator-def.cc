@@ -253,13 +253,12 @@ Context_def::get_translator_names (SCM user_mod) const
 
 
 Translator_group *
-Context_def::instantiate (Music_output_def* md, SCM ops)
+Context_def::instantiate (SCM ops)
 {
   Translator * g = get_translator (translator_group_type_);
   g = g->clone (); 
 
   Translator_group *tg = dynamic_cast<Translator_group*> (g);
-  tg->output_def_ = md;
   tg->definition_ = self_scm ();
 
   SCM trans_names = get_translator_names (ops); 

@@ -150,7 +150,7 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
 	  Translator_group * new_group
-	    = path[i]->instantiate (output_def_, ops);
+	    = path[i]->instantiate (ops);
 
 	  if (i == path.size () -1)
 	    {
@@ -187,12 +187,6 @@ Translator_group::try_music (Music* m)
     hebbes_b = daddy_trans_->try_music (m);
   
   return hebbes_b ;
-}
-
-int
-Translator_group::get_depth () const
-{
-  return (daddy_trans_) ? daddy_trans_->get_depth ()  + 1 : 0;
 }
 
 void
@@ -253,7 +247,7 @@ Translator_group::get_default_interpreter ()
 	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
 	  t = unsmob_context_def (this->definition_);
 	}
-      Translator_group *tg = t->instantiate (output_def_, SCM_EOL);
+      Translator_group *tg = t->instantiate (SCM_EOL);
       add_fresh_group_translator (tg);
       if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();

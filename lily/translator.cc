@@ -75,7 +75,10 @@ Translator::do_announces ()
 Music_output_def *
 Translator::get_output_def () const
 {
-  return output_def_;
+  return
+    (daddy_trans_)
+    ? daddy_trans_->get_output_def ()
+    : 0;
 }
 
 SCM

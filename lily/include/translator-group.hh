@@ -28,46 +28,45 @@ class Scheme_hash_table;
   hierarchically grouped Translators
   */
 class Translator_group : public virtual Translator {
+public:
+  String id_string_;
+private:
+  int iterator_count_;
+  friend class Interpretation_context_handle;
 
   Scheme_hash_table *properties_dict () const;
-  int iterator_count_;
-
-  friend class Interpretation_context_handle;
   SCM add_translator (SCM, Translator*);
-  
 protected:
   ~Translator_group ();
 
   virtual SCM get_simple_trans_list ();
+
 public:
   void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
-  
   void unset_property (SCM var_sym);
   void internal_set_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;
-
-  String id_string_;
   String context_name () const;  
-  VIRTUAL_COPY_CONS (Translator);
   Translator_group (Translator_group const &);
   Translator_group ();
   void add_fresh_group_translator (Translator *trans);
   void add_used_group_translator (Translator *trans);
   
-  int get_depth () const;
   bool is_bottom_context () const;
   bool is_removable () const;
   void terminate_translator (Translator*r);
   Translator *remove_translator (Translator*trans);
   void check_removal ();
   Translator_group *find_existing_translator (SCM context_name, String id);
-  Translator_group *find_create_translator (SCM context_name, String id, SCM ops);
-  Link_array<Translator_group> path_to_acceptable_translator (SCM alias,
-							      Music_output_def*) const;
+  Translator_group *find_create_translator (SCM context_name,
+					    String id, SCM ops);
+  Link_array<Translator_group>
+    path_to_acceptable_translator (SCM alias,
+				   Music_output_def*) const;
   Translator_group*get_default_interpreter ();
-
+  VIRTUAL_COPY_CONS (Translator);
 public:
   bool try_music_on_nongroup_children (Music *m);
   
