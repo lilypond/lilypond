@@ -13,6 +13,7 @@
 #include "text-db.hh"
 #include "string-convert.hh"
 #include "assoc-iter.hh"
+
 /// indent of each level 
 const INDTAB = 2;
 
@@ -75,8 +76,6 @@ Dstream::silence(String s)
     return (*silent_assoc_p_)[s];
 }
 
-/** Output a string via the Dstream. This is the only output
- interface. It delegates all conversion to String class.  */
 Dstream &
 Dstream::operator<<(String s)
 {
@@ -172,5 +171,4 @@ Dstream::clear_silence()
     for (Assoc_iter<String, bool> i(*silent_assoc_p_); i.ok(); i++) {
 	i.val() = 0;
     }
-			
 }
