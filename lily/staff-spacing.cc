@@ -223,7 +223,6 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   SCM alist = last_grob->get_grob_property ("space-alist");
   if (!scm_list_p (alist))
     return ;
-
   
   SCM space_def = scm_sloppy_assq (ly_symbol2scm ("first-note"), alist);
   if (me_item->break_status_dir () == CENTER)

@@ -140,10 +140,8 @@ is then separated.
      "\n   "
     (symbol->string sym)
     "=\""
-
     (let ((s (call-with-output-string (lambda (port) (display val port)))))
       (re-sub-alist s xml-entities-alist))
-    
     "\""
     )))
 
@@ -151,7 +149,6 @@ is then separated.
    "<" (symbol->string tag)
    (apply string-append
 	  (map dump-attr (filter-list candidate? attrs)))
-
    ">\n")
    
   )
@@ -189,8 +186,7 @@ is then separated.
 	   (music-to-xml-helper e port)))
      (display (close-tag 'music) port)
    ))
-   
-   
+
 (define-public (music-to-xml music port)
   "Dump XML-ish stuff to PORT."
   (display (dtd-header) port)
