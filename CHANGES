@@ -1,19 +1,38 @@
-1.3.24.jcn4
+1.3.25.jcn2
 ===========
 
+* lilypond as as2ly: --help and --version to stdout.  Regular identify 
+  to stderr.  This fixes help2man's manpage generation.
+
+* configure: substitute full path for perl and guile in scripts.
+
+* Added ascii slur and volta.  There seems to be a Lily bug in volta placement.
+
+* Bugfix: default font now user settable
+
+* as2text: handle plain ascii font, read from stdin, you can now do:
+
+  echo "\time 4/4; g''1 g2 g4. g8" | lilypond -f as -i init-as.fly - | as2text
+
+1.3.25.hwn1
+===========
+
+* Bugfix: second half of broken ties now are displayed again.
+
+* Bugfix: add clef to the support of 8 text in the G_8 clefs. Center
+it horizontally on the clef.
+
+* Added Tie_column spanner. Ties in tied chords now get proper directionsa.
+
+* Bugfix: unbroken repeat barlines now work, eg. |:
+
+* Added Request_iterator to make more flexible constructions possible.
+
+1.3.25
+======
 * as2text: catch missing font/character errors, added default font, set text.
 
-1.3.24.jcn3
-===========
-
-* New ascii fonts: as5 as-numeral4 as-braces9
-
-* Fixes to as2text.scm
-
-* Added lots of ascii glyphs
-
-1.3.24.jcn2
-===========
+* New ascii fonts and glyphs: as5 as-numeral4 as-braces9
 
 * Ascii output, minimal support:
   - AsciiScript Fonts: mf/*.af

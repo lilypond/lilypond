@@ -10,6 +10,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * control paper-size/-file from commandline ?
+  lilypond --paper=paper16 foo.ly
+  lilypond --paper=paper20 foo.ly
+  lilypond --paper=paper-as9 foo.ly
 . * fix tremolos.
 . * change ) c4  to c4-)
 . * internationalize GUILE msgs.
@@ -58,6 +62,11 @@ John
 . * junk -M ? 
 . * mudela-book doco
 . * bracket pdf hack
+. * Added StaffContents and RhythmicStaffContents context, they are
+between Staff (which groups the elements), and generates the Staff
+level elements (key, clef, meter, etc). This construction makes
+\consistsend redundant
+
 . * Mondrup:
 - if I change the property minVerticalAlign in a multi staff score with
 lyrics the change affects the lyrics too. I would like the change to
