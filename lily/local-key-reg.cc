@@ -36,7 +36,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	if( note_l_->forceacc_b_ ||
 	    local_key_.oct(note_l_->octave_i_).acc(note_l_->notename_i_)
 	    != note_l_->accidental_i_) {
-	    Item * support_l_ = info.elem_p_->item();
+	    Item * support_l_ = info.elem_l_->item();
 	
 
 	    if (!key_item_p_) {
@@ -48,7 +48,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	    local_key_.oct(note_l_->octave_i_)
 		.set(note_l_->notename_i_, note_l_->accidental_i_);
 	}
-    } else if (info.elem_p_->name()==Key_item::static_name()) { 
+    } else if (info.elem_l_->name()==Key_item::static_name()) { 
 	Key_register * key_reg_l =
 	    (Key_register*)info.origin_reg_l_arr_[0];
 	key_C_ = &key_reg_l->key_;

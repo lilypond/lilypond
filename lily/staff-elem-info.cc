@@ -11,14 +11,14 @@
 
 Staff_elem_info::Staff_elem_info(Staff_elem*s_l, Request*r_l)
 {
-    elem_p_ = s_l;
+    elem_l_ = s_l;
     voice_l_ =  (r_l)?r_l->voice_l():0;
     req_l_ = r_l;
 }
 
 Staff_elem_info::Staff_elem_info()
 {
-    elem_p_ = 0;
+    elem_l_ = 0;
     voice_l_ = 0;
 
     req_l_ = 0;

@@ -37,8 +37,8 @@ Slur_register::try_request(Request *req_l)
 void
 Slur_register::acknowledge_element(Staff_elem_info info)
 {
-    if (info.elem_p_->name() == Notehead::static_name()) { 
-	Notehead *head_p =(Notehead*) info.elem_p_ ;// ugh
+    if (info.elem_l_->name() == Notehead::static_name()) { 
+	Notehead *head_p =(Notehead*) info.elem_l_ ;// ugh
 	for (int i = 0; i < slur_l_stack_.size(); i++)
 	    slur_l_stack_[i]->add(head_p );
 	for (int i = 0; i < end_slur_l_arr_.size(); i++)
