@@ -176,14 +176,20 @@
 
 
 ;; TODO: use the srfi-1 partition function.
-(define-public (uniq-list list)
+(define-public (uniq-list l)
+  
   "Uniq LIST, assuming that it is sorted"
-  (if (null? list) '()
-      (if (null? (cdr list))
-	  list
-	  (if (equal? (car list) (cadr list))
-	      (uniq-list (cdr list))
-	      (cons (car list) (uniq-list (cdr list)))))))
+  (define (helper acc l) 
+    (if (null? l)
+	acc
+	(if (null? (cdr l))
+	    (cons (car l) acc)
+	    (if (equal? (car l) (cadr l))
+		(helper acc (cdr l))
+		(helper (cons (car l) acc)  (cdr l)))
+	    )))
+  (reverse! (helper '() l) '()))
+
 
 (define (split-at-predicate predicate l)
  "Split L = (a_1 a_2 ... a_k b_1 ... b_k)

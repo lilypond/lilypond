@@ -23,6 +23,11 @@
 #include "note-column.hh"
 #include "warn.hh"
 
+/*
+  Urgh. This engraver is too complex. rewrite. --hwn
+
+*/
+
 struct Pedal_info
 {
   char const * name_;
@@ -31,6 +36,7 @@ struct Pedal_info
     Event for currently running pedal.
   */
   Music* current_bracket_ev_;
+
   /*
     Event for currently starting pedal, (necessary?
     
@@ -80,8 +86,6 @@ private:
   */
   
   Link_array<Spanner> previous_;
-  
-
   
   void create_text_grobs (Pedal_info *p, bool);
   void create_bracket_grobs (Pedal_info *p, bool);
@@ -145,8 +149,9 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	      add_bound_item (p->line_spanner_,info.grob_);
 	    }	  
 	  if (p->bracket_)
-	    add_bound_item (p->bracket_,info.grob_);		  
-	  
+	    add_bound_item (p->bracket_,info.grob_);
+	  if (p->finished_bracket_)
+	    add_bound_item (p->finished_bracket_,info.grob_);		  
 	}
     }
 }
@@ -195,7 +200,6 @@ Piano_pedal_engraver::process_music ()
 	      String name  = String (p->name_) + "PedalLineSpanner";
 	      p->line_spanner_ = new Spanner (get_property (name.to_str0 ()));
 
-	      
 	      Music * rq = (p->event_drul_[START]  ?  p->event_drul_[START]  :  p->event_drul_[STOP]);
 	      announce_grob (p->line_spanner_, rq->self_scm ());
 	    }
@@ -344,7 +348,9 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       assert (!p->finished_bracket_); 
 
       Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
-      p->bracket_->set_bound (RIGHT, cmc);
+
+      if (!p->bracket_->get_bound (RIGHT))
+	p->bracket_->set_bound (RIGHT, cmc);
 
       /*
 	Set properties so that the molecule-creating function will
@@ -516,12 +522,9 @@ Piano_pedal_engraver::typeset_all ()
 	  /*
 	    Hmm.
 	  */
-	  if (p->name_ != String ("Sustain"))
+	  if (p->name_ != String ("Sustain") && sustain)
 	    {
-	      if (sustain)
-		{
-		  Side_position_interface::add_support (p->item_,sustain);
-		}
+	      Side_position_interface::add_support (p->item_,sustain);
 	    }
 	  typeset_grob (p->item_);
 	  p->item_ = 0;
@@ -536,6 +539,7 @@ Piano_pedal_engraver::typeset_all ()
 	    }
 
 	  typeset_grob (p->finished_bracket_);
+	  
 	  p->finished_bracket_ =0;
 	}
 

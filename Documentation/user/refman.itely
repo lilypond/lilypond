@@ -3203,7 +3203,8 @@ Pedals can also be indicated by a sequence of brackets, by setting the
 @end lilypond
 
 A third style of pedal notation is a mixture of text and brackets,
-obtained by setting @code{pedal-type} to @code{mixed}:
+obtained by setting the @code{pedalSustainStyle} style property to
+@code{mixed}:
 
 @lilypond[fragment,verbatim]
  \property Staff.pedalSustainStyle = #'mixed
@@ -3213,8 +3214,8 @@ c'4\sustainUp\sustainDown
 @end lilypond
 
 The default `*Ped' style for sustain and damper pedals corresponds to
-@code{\pedal-type = #'text}. However, @code{mixed} is the default style
-for a sostenuto pedal:
+style @code{#'text}. The sostenuto pedal uses @code{mixed} style by
+default.
 
 @lilypond[fragment,verbatim]
 c''4\sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4\sostenutoUp

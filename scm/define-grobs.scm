@@ -719,18 +719,17 @@
 
     (PianoPedalBracket   ;; an example of a text spanner
      . (
-	(molecule-callback . ,Text_spanner::brew_molecule)
-	(after-line-breaking-callback . ,Piano_pedal_bracket::after_line_breaking)
+	(molecule-callback . ,Piano_pedal_bracket::brew_molecule)
 	(font-family . roman)
 	(style . line)
 	(if-text-padding . 1.0)
-	(enclose-bounds . #t)
+	(enclose-bounds . -1.0)
 	(direction . -1)
 	(bracket-flare . (0.5 . 0.5))
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
 	(thickness .  1.0)
-	(meta . ((interfaces . (text-spanner-interface piano-pedal-interface piano-pedal-bracket-interface spanner-interface))))
+	(meta . ((interfaces . (line-interface piano-pedal-interface piano-pedal-bracket-interface spanner-interface))))
 	))
 
     (RepeatSlash
@@ -1084,7 +1083,7 @@
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
 	(padding  . 0.5)
-	(enclose-bounds . #t)
+	(enclose-bounds . 1)
 	(minimum-length . 1.0)
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))

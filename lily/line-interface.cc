@@ -64,22 +64,23 @@ Line_interface::make_line (Real th, Offset from, Offset to)
   return Molecule (box, at);
 }
 
-
-/*
-  TODO: read THICK from ME
- */
 Molecule
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
-  Real thick = Staff_symbol_referencer::line_thickness (me);
+  Real thick = Staff_symbol_referencer::line_thickness (me)
+    * robust_scm2double (me->get_grob_property ("thickness"),1);
+  
   SCM type = me->get_grob_property ("style");
 
   SCM dash_fraction = me->get_grob_property ("dash-fraction");
   if (gh_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
-      Real fraction =
-	robust_scm2double (dash_fraction, (type == ly_symbol2scm ("dotted-line")) ? 0.0 : 0.4);
-
+      
+      Real fraction
+	= type == ly_symbol2scm ("dotted-line")
+	? 0.0
+	: robust_scm2double (dash_fraction, 0.4);
+      
       fraction = (fraction >? 0) <? 1.0;
       Real period = Staff_symbol_referencer::staff_space (me)
 	* robust_scm2double (me->get_grob_property ("dash-period"), 1.0);
@@ -96,5 +97,11 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 }
 
 ADD_INTERFACE(Line_interface, "line-interface",
-	      "Generic line objects. Any object using lines supports this. ",
+	      "Generic line objects. Any object using lines supports this.  Normally,"
+	      "you get a straight line. If dash-period is defined, a dashed line is "
+	      "produced; the length of the dashes is tuned with" 
+	      "@code{dash-fraction}. If the latter is set to 0, a dotted line is "
+	      "produced. If @code{dash-fraction} is negative, the line is set "
+	      "transparent.",
+	      
 	      "dash-period dash-fraction thickness style")

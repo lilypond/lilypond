@@ -821,7 +821,6 @@ Rest can contain a list of beat groupings
     (ly:set-mus-property! m2 'property-operations props)
     (ly:run-translator m2 part-combine-listener)
     (ly:run-translator m1 part-combine-listener)
-    (display noticed)
     (ly:set-mus-property! m 'split-list
 			 (determine-split-list (reverse (cdr (assoc "one" noticed)))
 					       (reverse (cdr (assoc "two" noticed)))))
@@ -831,6 +830,11 @@ Rest can contain a list of beat groupings
 
 
 
+;;
+;; due to a bug in the GUILE evaluator,
+;; stack traces result in core dumps.
+;; therefore we retain debugging code.
+;;
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
   
@@ -846,7 +850,7 @@ Rest can contain a list of beat groupings
   (define result
     (list->vector
      (map (lambda (x)
-	    (cons x 'together))
+	    (cons x '()))
 	  (uniq-list
 	  (merge (map car evl1) (map car evl2) ly:moment<?)))))
 
@@ -860,7 +864,7 @@ Rest can contain a list of beat groupings
 	    ((name (ly:get-mus-property ev 'name))
 	     (key (cond
 		   ((equal? name 'SlurEvent) 'slur)
-		   ((equal? name 'TieEvent) 'tie)
+		   ((equal? name 'PhrasingSlurEvent) 'tie)
 		   ((equal? name 'Beam) 'beam)
 		   (else #f)))
 	     (sp (ly:get-mus-property ev 'span-direction)))
@@ -886,21 +890,24 @@ Rest can contain a list of beat groupings
       (set-cdr! (vector-ref result (if (pair? index)
 				       (car index) ri)) x) )
 
-;    (display (list ri i1 i2 active1 active2 "\n"))
+;    (display (list i1 i2 ri active1 active2 (vector-length ev1) (vector-length ev2) (vector-length result)  "\n"))
     (cond
      ((= ri (vector-length result)) '())
      ((= i1 (vector-length ev1)) (put 'apart))
      ((= i2 (vector-length ev2)) (put 'apart))
      (else
       (let*
-	  ((m1 (when ev1 i1))
+	  (
+;	   (x (display (list "\nelse" (= i1 (vector-length ev1)) i2  (vector-length ev2) (= i2 (vector-length ev2)))))
+	   (m1 (when ev1 i1))
 	   (m2 (when ev2 i2))
+;	   (x (display "oked"))
 	   (new-active1
 	    (sort
 	     (analyse-span-events active1 (map car (what ev1 i1)))
 	     symbol<?))
 	   (new-active2
-	    (sort (analyse-span-events active2 (map car (what ev2 i1)))
+	    (sort (analyse-span-events active2 (map car (what ev2 i2)))
 		  symbol<?)))
 	
 	(if (not (or (equal? m1 (when result ri))
@@ -934,10 +941,14 @@ Rest can contain a list of beat groupings
 		   )
 		(cond
 		 ((equal? pitches1 pitches2) (put 'unisono))
+		 ((= (length notes1) 0) (put 'solo2))
+		 ((= (length notes2) 0) (put 'solo1))
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
 		 (else
-		  (let* ((diff (ly:pitch-diff (car pitches1) (car pitches2))))
+		  (let* (
+;			 (bla (display (list (length pitches1) (length pitches2))))
+			 (diff (ly:pitch-diff (car pitches1) (car pitches2))))
 		    (if (< (ly:pitch-steps diff) chord-threshold)
 			(put 'chords)
 			(put 'apart))
