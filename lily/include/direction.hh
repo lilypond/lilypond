@@ -36,7 +36,7 @@ flip (Direction *i) {
    if d > 0: the max operator
    if d < 0: the min operator
  */
-template<class T> minmax (Direction d, T, T);
+template<class T> T minmax (Direction d, T, T);
 
 String direction_str (Direction, Axis);
 
