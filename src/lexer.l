@@ -8,9 +8,10 @@
 #include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
-#include "inputscore.hh"
+#include "input-score.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
+#include "string-convert.hh"
 
 %}
 
