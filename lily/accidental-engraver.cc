@@ -126,10 +126,17 @@ Accidental_engraver::initialize ()
 
 /*
 
-  calculates the number of accidentals on basis of the current local key
+  Calculates the number of accidentals on basis of the current local key
   sig (passed as argument)
 
+  * First check step+octave (taking into account barnumbers if necessary).
+
+  * Then check the global signature (only step).
+
+  
+  
   Returns number of accidentals (0, 1 or 2).
+  
 
 */
 static int
@@ -140,56 +147,43 @@ number_accidentals_from_sig (bool *different,
   int n = pitch->get_notename ();
   int o = pitch->get_octave ();
   int a = pitch->get_alteration ();
-  int accbarnum = -1;
 
-  SCM prevs[3];
-  int bar_nums[3] = {-1,-1,-1};
-  int prev_idx = 0;
-  
+  SCM prev_alt = SCM_BOOL_F;
+
   if (!ignore_octave)
     {
-      prevs[prev_idx] = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
+      SCM prev_local
+	= scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
 
-      if (ly_c_pair_p (prevs[prev_idx]))
-	prev_idx++;
-    }
-  
-  prevs[prev_idx] = scm_assoc (scm_int2num (n), sig);
-  if (ly_c_pair_p (prevs[prev_idx]))
-    prev_idx++;
-
-  for (int i= 0; i < prev_idx; i++)
-    {
-      if (ly_c_pair_p (prevs[i])
-	  && ly_c_pair_p (ly_cdr (prevs[i])))
+      if (ly_c_pair_p (prev_local))
 	{
-	  bar_nums[i]  = ly_scm2int (ly_cddr (prevs[i]));
-	  prevs[i] = scm_cons (ly_car (prevs[i]), ly_cadr (prevs[i]));
-	}
-    }
-  
+	  if (ly_c_pair_p (ly_cdr (prev_local))
+	      && ly_c_number_p (lazyness)
+	      )
+	    {
+	      int barnum = ly_scm2int (ly_cddr (prev_local));
 
-  SCM prev_acc = scm_int2num (0);
-  for (int i= 0; i < prev_idx; i++)
-    {
-      if (accbarnum < 0
-	  || (ly_c_number_p (lazyness)
-	      && curbarnum > accbarnum + ly_scm2int (lazyness)))
-	{
-	  prev_acc = ly_cdr (prevs[i]);
-	  break;
+	      prev_local = scm_cons (ly_car (prev_local), ly_cadr (prev_local));
+	      if (curbarnum <= barnum + ly_scm2int (lazyness))
+		prev_alt = prev_local;
+	    }
 	}
     }
 
+  if (prev_alt == SCM_BOOL_F)
+    prev_alt = scm_assoc (scm_int2num (n), sig);
+
+
+  prev_alt =  (prev_alt == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev_alt); 
+    
   /*
     UGH. prev_acc can be #t in case of ties. What is this for?
     
    */
-  int p = ly_c_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
-
+  int p = ly_c_number_p (prev_alt) ? ly_scm2int (prev_alt) : 0;
 
   int num;
-  if (a == p && ly_c_number_p (prev_acc))
+  if (a == p && ly_c_number_p (prev_alt))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
