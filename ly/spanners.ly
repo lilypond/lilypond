@@ -10,10 +10,24 @@ cresc = \notes {
   \property Voice.crescendoSpanner = "dashed-line"
 }
 
+% ah, this is handy: maybe drop resetting of properties in
+% dynamic-engraver ?
 endcresc = \notes {
-\commandspanrequest \stop "crescendo"; 
-\property Voice.crescendoText = ##f
-\property Voice.crescendoSpanner = ##f
+  \commandspanrequest \stop "crescendo"; 
+  \property Voice.crescendoText = ##f
+  \property Voice.crescendoSpanner = ##f
+}
+
+dim = \notes {
+  \commandspanrequest \start "decrescendo" ;
+  \property Voice.decrescendoText = "dim."
+  \property Voice.decrescendoSpanner = "dashed-line"
+}
+
+enddim = \notes {
+  \commandspanrequest \stop "decrescendo"; 
+  \property Voice.decrescendoText = ##f
+  \property Voice.decrescendoSpanner = ##f
 }
 
 %{
@@ -27,8 +41,8 @@ endcresc = \spanrequest \stop "crescendo"
 sustainDown = \spanrequest \start "Sustain"
 sustainUp = \spanrequest \stop "Sustain"
 
-unaChorda = \spanrequest \start "UnaChorda"
-treChorde = \spanrequest \stop "UnaChorda"
+unaCorda = \spanrequest \start "UnaCorda"
+treCorde = \spanrequest \stop "UnaCorda"
 
 sostenutoDown = \spanrequest \start "Sostenuto"
 sostenutoUp = \spanrequest \stop "Sostenuto"

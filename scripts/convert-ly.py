@@ -773,6 +773,13 @@ if 1:
 	
 	conversions.append (((1,3,141), conv, 'xNoDots -> xSolid'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('([Cc])horda', '\\1orda', str)
+		return str
+	
+	conversions.append (((1,3,144), conv, 'Chorda -> Corda'))
+
 
 ############################
 	

@@ -406,7 +406,7 @@ ScoreContext = \translator {
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
 	pedalSustainStrings = #'("Ped." "*Ped." "*")
-	pedalUnaChordaStrings = #'("una chorda" "" "tre chorde")
+	pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 	pedalSostenutoStrings = #'()  % FIXME
 
 	tupletNumberFormatFunction = #denominator-tuplet-formatter

@@ -1823,6 +1823,12 @@ bars.
 @node Latex and texinfo integration
 @section Latex and texinfo integration
 
+
+@menu
+* Songs with additional verses::  
+@end menu
+
+
 So what does this look like? Well, here is an example:
 @lilypond[veryverbatim, intertext="produces this music:"]
 \score{
@@ -2050,6 +2056,50 @@ So the music will be adjusted to the new linewith:
 Verbatim environments will also ignore the page margins. That is
 a feature of La@TeX{}. (But you usually put things inside a verbatim
 environment when you don't want La@TeX{} to do any linebreaking)
+
+@node Songs with additional verses
+@subsection Songs with additional verses
+
+With lilypond-book, you can typeset songs with additional verses.  To
+make lilypond-book print titles like ly2dvi, add
+
+@example
+\input titledefs.tex
+\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+@end example
+
+just before the music fragment.
+
+@c urg: can't show, won't work for .texi docs
+
+@example
+% generate standard lilypond titles
+\input titledefs.tex
+\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+
+\begin@{lilypond@}
+\header @{
+  title =	"Title";
+  subtitle =	"Subtitle";
+  subsubtitle =	"Subsubtitle";
+  opus =  "Opus 1";
+  piece = "Piece";
+  composer = 	 "Composer";
+  enteredby = 	 "JCN";
+  instrument = "instrument";
+@}
+\paper @{ linewidth = -1.; @}
+\score @{
+  \notes \relative c'' @{ a b c d @}
+@}
+\end@{lilypond@}
+
+\begin@{enumerate@}
+\item Verse one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+\item Verse two.  bbb bbb bbb bbb bbb bbb bbb bbb bbb bbb 
+\end@{enumerate@}
+@end example
+
 
 
 @node  end of tutorial

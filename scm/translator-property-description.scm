@@ -228,7 +228,7 @@ measures later.
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
 this is done with the pedal.")
-(translator-property-description 'pedalUnaChordaStrings string? "see pedalSustainStrings.")
+(translator-property-description 'pedalUnaCordaStrings string? "see pedalSustainStrings.")
 (translator-property-description 'pedalSostenutoStrings string? "see pedalSustainStrings.")
 
 (translator-property-description 'phrasingPunctuation string? "")

@@ -16,12 +16,19 @@ TODO:
         endfooter=\tagline  -> 'lily was here <version>'
      }
 
+     lilytagline (->lily was here), usertagline, copyright etc.
+
   * head/header tagline/endfooter
 
+  * check/set TEXINPUTS: see to it that/warn if not/
+    kpathsea can find titledefs.tex?
+    
   * dvi from lilypond .tex output?  This is hairy, because we create dvi
     from lilypond .tex *and* header output.
 
-  * windows compatibility: rm -rf, cp file... dir
+  * multiple \score blocks?
+  
+  * windows-sans-cygwin compatibility?  rm -rf, cp file... dir
   
 '''
 
@@ -37,10 +44,14 @@ import operator
 import tempfile
 
 sys.path.append ('@datadir@/python')
-import gettext
-gettext.bindtextdomain ('lilypond', '@localedir@')
-gettext.textdomain('lilypond')
-_ = gettext.gettext
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.textdomain('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
 
 
 layout_fields = ['title', 'subtitle', 'subsubtitle', 'footer', 'head',
@@ -222,7 +233,7 @@ def system (cmd, ignore_error = 0):
 def cleanup_temp ():
 	if not keep_temp_dir_p:
 		if verbose_p:
-			progress (_ ('Cleaning up `%s\'') % temp_dir)
+			progress (_ ("Cleaning %s...") % temp_dir)
 		system ('rm -rf %s' % temp_dir)
 
 
@@ -388,9 +399,10 @@ def global_latex_definition (tfiles, extra):
 		orientation = extra['orientation'][0]
 
 	# set sane geometry width (a4-width) for linewidth = -1.
-	linewidth = extra['linewidth'][0]
-	if linewidth < 0:
+	if not extra['linewidth'] or extra['linewidth'][0] < 0:
 		linewidth = 597
+	else:
+		linewidth = extra['linewidth'][0]
 	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	s = s + r'''
@@ -419,7 +431,7 @@ def global_latex_definition (tfiles, extra):
 
 	s = s + r'''
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\lilypondtagline}}%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
 \makeatother
 '''
 	s = s + '\\end{document}'
@@ -556,11 +568,22 @@ if files:
 		type = 'DVI'
 
 	dest = os.path.join (outdir, dest)
+	midi = base + '.midi'
+	midi = os.path.join (outdir, midi)
+	
 	if outdir != '.':
 		system ('mkdir -p %s' % outdir)
-	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
-	if re.match ('[.]midi', string.join (os.listdir ('.'))):
-		system ('cp *.midi %s' % outdir, ignore_error = 1)
+		
+	#if re.match ('.*[.]dvi', string.join (os.listdir ('.'))):
+	if os.path.isfile (srcname):
+		# huh, and what bout all other (-1, -2) scores?
+		system ('cp \"%s\" \"%s\"' % (srcname, dest))
+	else:
+		dest = 0
+	if re.match ('.*[.]midi', string.join (os.listdir ('.'))):
+		system ('cp *.midi %s' % outdir)
+	else:
+		midi = 0
 
 	depfile = os.path.join (outdir, base + '.dep')
 
@@ -571,8 +594,13 @@ if files:
 	cleanup_temp ()
 
 	# most insteresting info last
-	progress (_ ("dependencies output to %s...") % depfile)
-	progress (_ ("%s output to %s...") % (type, dest))
+	# don't say silly things
+	if os.path.isfile (depfile):
+		progress (_ ("dependencies output to %s...") % depfile)
+	if dest and os.path.isfile (dest):
+		progress (_ ("%s output to %s...") % (type, dest))
+	if midi and os.path.isfile (midi):
+		progress (_ ("%s output to %s...") % ('MIDI', midi))
 
 
 

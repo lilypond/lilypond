@@ -11,6 +11,7 @@
       (append 
       '(
 	("sf" . 1.00)
+	("fffff" . 0.95)
 	("ffff" . 0.91)
 	("fff" . 0.81)
 	("ff" . 0.71)
@@ -20,6 +21,8 @@
 	("p" . 0.30)
 	("pp" . 0.20)
 	("ppp" . 0.10)
+	("pppp" . 0.08)
+	("ppppp" . 0.05)
 	)
       absolute-volume-alist))
 

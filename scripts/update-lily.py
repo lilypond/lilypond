@@ -9,8 +9,7 @@
 
 '''
 TODO:
-    * more flexible build paths
-    * cleanup previous tree
+    * more flexible build/ftp/patches/releases paths
     * flexible build command
     * show only?
 '''
@@ -26,6 +25,14 @@ import __main__
 import operator
 import tempfile
 
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.textdomain('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
 
 sys.path.append ('@datadir@/python')
 import gettext
@@ -38,13 +45,16 @@ program_name = 'build-lily'
 package_name = 'lilypond'
 help_summary = _("Fetch and rebuild from latest source package")
 build_root = os.environ ['HOME'] + '/usr/src'
-build_command = './configure; make web'
+build_command = '(./configure --prefix=$HOME/usr && make all web) >> log.txt 2>&1'
+
 release_dir = build_root + '/releases'
 patch_dir = build_root + '/patches'
 
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
+
+remove_previous_p = 0
 
 
 # lily_py.py -- options and stuff
@@ -189,7 +199,7 @@ def system (cmd, ignore_error = 0):
 def cleanup_temp ():
 	if not keep_temp_dir_p:
 		if verbose_p:
-			progress (_ ('Cleaning up `%s\'') % temp_dir)
+			progress (_ ("Cleaning %s...") % temp_dir)
 		system ('rm -rf %s' % temp_dir)
 
 
@@ -328,6 +338,8 @@ def find_latest (url):
 def build (p):
 	os.chdir (build_root)
 	system ('tar xzf %s/%s.tar.gz' % (release_dir, p))
+	system ('rm -f building')
+        os.symlink ('%s/%s' % (build_root, p), 'building')
 	os.chdir (p)
 	return system (build_command)
 
@@ -348,6 +360,8 @@ for opt in options:
 		help ()
 	elif o == '--buid-root' or o == '-b':
 		build_root = a
+	elif o == '--remove-previous' or o == '-r':
+		remove_previous_p = 1
 	elif o == '--url' or o == '-u':
 		url = a
 	elif o == '--verbose' or o == '-V':
@@ -362,7 +376,8 @@ for opt in options:
 if 1:
 	latest = find_latest (url)
 
-	if os.path.isdir ('%s/%s' % (build_root, latest)):
+	#if os.path.isdir ('%s/%s' % (build_root, latest)):
+	if os.path.isdir ('%s/%s/%s' % (build_root, latest, 'lily/out/lilypond')):
 		progress (_ ("latest is %s") % latest)
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
@@ -387,15 +402,15 @@ if 1:
 		progress (_ ("fetching %s...") % get)
 		copy_url (get, '.')
 
-	build_command = './configure --prefix=$HOME/usr && make web'
 	if not build (latest):
 		if os.path.isdir ('%s/%s' % (build_root, package_name)):
 			os.chdir ('%s/%s' % (build_root, package_name))
 			previous = os.getcwd ()
 			os.chdir (build_root)
-			system ('rm -f %s' % package_name)
-			system ('echo rm -rf %s/%s' % (build_root, previous))
+			if remove_previous_p:
+				system ('echo rm -rf %s/%s' % (build_root, previous))
 			
+		system ('rm -f %s' % package_name)
 		os.symlink ('%s/%s' % (build_root, latest),  package_name)
 		
 	os.chdir (original_dir)

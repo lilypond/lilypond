@@ -1,51 +1,50 @@
-\header{
-filename = 	 "standchen.ly";
-%
-% From the album:
-% Schubert-Lieder
-% Edition Schott No. 608
-% Without date, but makes mention of
-% ``Jubil"aums-Ausgabe zum 100. Todestage'' ie, 1928
-%
-% page 60
-%
-title    = "St\\\"andchen";
-subtitle =  "(Serenade)\\\\``Leise flehen meine Lieder''";
-opus = 	 "D. 957 No. 4";
-date =  "August 1828";
-composer = 	 "Franz Schubert (1797-1828)";
-poet=	 "Text by Ludwig Rellstab (1799-1860)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
+
+instrument = "Piano"
+
+\header {
+  title = "Ständchen";
+  subtitle = "(Serenade)";
+  subsubtitle = "Leise flehen meine Lieder";
+  opus = "D. 957 No. 4";
+  date = "August 1828";
+  composer = "Franz Schubert (1797-1828)";
+  poet = "Text by Ludwig Rellstab (1799-1860)";
+  enteredby = "JCN";
+  copyright = "public domain";
+  instrument = \instrument;
 
   % mutopia headers.
-  mutopiatitle = "St\\\"andchen";
-  mutopiasubtitle = "(Serenade)\\\\``Leise flehen meine Lieder''";
+  mutopiatitle = "Standchen";
+  mutopiasubtitle = "Leise flehen meine Lieder";
   mutopiacomposer = "Franz Schubert (1797-1828)";
   mutopiapoet = "Ludwig Rellstab (1799-1860)";
-  mutopiaopus = "D. 957 No. 4";
-  mutopiainstrument = "Piano";
+  mutopiaopus = "D957.4";
+  mutopiainstrument = \instrument;
+  date = "1828/08";
   style = "Romantic";
-  copyright = "Public Domain";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwater
-loo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Jan Nieuwenhuizen.\\\\Unrestricted modification and redistribution is permitted and enc
-ouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Oct/17";
+  source = "Schubert-Lieder; Edition Schott No. 608, (Not dated).
+    Jubilaeums-Ausgabe zum 100. Todestage (~1928).";
 
+  copyright = "Public Domain";
+  maintainer = "Jan Nieuwenhuizen";
+  maintainer_email = "janneke@gnu.org";
+  lastupdated =	 "2001/Mar/26";
+  mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
+    \\\\This music is part of the Mutopia project,
+    \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
+    and placed in the public domain by " + \maintainer +
+    ".\\\\Unrestricted modification and redistribution is permitted
+    and encouraged---copy this music and share it.}";
+ tagline = \mutopiapublicdomain;
+ footer = "Mutopia-2001/03/26-xx";
 } 
 
-%{
- Tested Features: multivoice accents lyrics chords piano music
-multiple \paper{}s in one \score 
-Note: Original key f.
-%}
+\version "1.3.141";
 
-\version "1.3.117";
+dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
+dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
 
-dynamicUp =  	\property Voice.DynamicLineSpanner \override #'direction = #1
-dynamicRevert =  	\property Voice.DynamicLineSpanner \revert #'direction
-
+\include "paper16.ly"
 
 vocalVerse =  \notes\relative c''{
 	\dynamicUp
@@ -63,7 +62,9 @@ vocalVerse =  \notes\relative c''{
 	R2. |
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
-	\grace { as'16 bes } \times 2/3 { [ )as8( )g] as } c4. as8 |
+	% CHECK
+	% \grace { as'16 bes } \times 2/3 { [ )as8( )g] as } c4. as8 |
+	\grace { as'16( bes } \times 2/3 { [ )as8( )g] as } c4. as8 |
 	g2. |
 	\grace { f16( g } \times 2/3 { [ )f8( )e] f } as4. f8 |
   

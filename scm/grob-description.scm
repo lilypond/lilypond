@@ -693,7 +693,7 @@
 			   tuplet-bracket-interface font-interface))
 	))
 
-	(UnaChordaPedal . (
+	(UnaCordaPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
 		(no-spacing-rods . #t)
@@ -703,7 +703,7 @@
 		(Y-offset-callbacks .
 		 (,Side_position_interface::aligned_side
 		  ,Side_position_interface::centered_on_parent))
-		(meta . ,(grob-description "UnaChordaPedal" text-interface font-interface))
+		(meta . ,(grob-description "UnaCordaPedal" text-interface font-interface))
 	))
 
 	(VoltaBracket . (
