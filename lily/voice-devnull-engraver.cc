@@ -26,6 +26,7 @@ ADD_THIS_TRANSLATOR (Voice_devnull_engraver);
 static char const *eat_spanners[] = {
   "beam-interface",
   "slur",
+  "tie",
   "dynamic-interface",
   "crescendo-interface",
   0
@@ -34,9 +35,18 @@ static char const *eat_spanners[] = {
 bool
 Voice_devnull_engraver::try_music (Music *m)
 {
-  if (daddy_trans_l_->id_str_.left_str (3) == "two"
-      && (to_boolean (get_property ("unison"))
-	  || to_boolean (get_property ("unisilence"))))
+  SCM s = get_property ("devNullVoice");
+#if 0
+  /* No need */
+  if (gh_equal_p (s, ly_symbol2scm ("never")))
+    return;
+#endif
+
+  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+      || (s == SCM_EOL
+	  && daddy_trans_l_->id_str_.left_str (3) == "two"
+	  && (to_boolean (get_property ("unison"))
+	      || to_boolean (get_property ("unisilence")))))
     {
       for (char const **p = eat_spanners; *p; p++)
 	{
@@ -69,9 +79,18 @@ static char const *junk_interfaces[] = {
 void
 Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 {
-  if (daddy_trans_l_->id_str_.left_str (3) == "two"
-      && (to_boolean (get_property ("unison"))
-	  || to_boolean (get_property ("unisilence"))))
+  SCM s = get_property ("devNullVoice");
+#if 0
+  /* No need */
+  if (gh_equal_p (s, ly_symbol2scm ("never")))
+    return;
+#endif
+
+  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+      || (gh_equal_p (s, ly_symbol2scm ("unisolo"))
+	  && daddy_trans_l_->id_str_.left_str (3) == "two"
+	  && (to_boolean (get_property ("unison"))
+	      || to_boolean (get_property ("unisilence")))))
     for (char const **p = junk_interfaces; *p; p++)
       if (i.elem_l_->has_interface (ly_symbol2scm (*p)))
 	{
@@ -79,3 +98,4 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  return;
 	}
 }
+ 

@@ -4,12 +4,13 @@
   opus =  "Op. 62";
   composer = 	 "Ludwig van Beethoven (1770-1827)";
   enteredby = 	 "JCN";
+  instrument = \instrument;
 
   % mutopia headers.
   mutopiatitle = "Ouverture Coriolan";
   mutopiacomposer = "L.v.Beethoven (1770-1827)";
   mutopiaopus = "O62";
-  mutopiainstrument = "Orchestra";
+  mutopiainstrument = \instrument;
   date = "1807";
   source = "Edition Dr. Max Unger 1936 from original published parts and autograph.";
   style = "Classical";
@@ -24,4 +25,5 @@
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it!}";
  tagline = \mutopiapublicdomain;
+ footer = "pre-Mutopia-200y/mm/dd-nr";
 }

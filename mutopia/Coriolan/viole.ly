@@ -6,52 +6,49 @@
 
 %{
 violeGroup =  \context PianoStaff = viole_group \notes <
-	\context StaffCombineStaff=oneViole {
-		\property StaffCombineStaff.midiInstrument = #"viola"
-		\property StaffCombineStaff.instrument = #"Viola"
-		\property StaffCombineStaff.instr = #"Vla."
+	\context Staff=oneViole {
+		\property Staff.midiInstrument = #"viola"
+		\property Staff.instrument = #"Viola"
+		\property Staff.instr = #"Vla."
 		
-		%\clef "alto";
-		% Ugh, clef broken in 1.3.125
-		\property StaffCombineStaff.clefGlyph = #"clefs-C"
-		\property StaffCombineStaff.clefPosition = #0
+		\clef "alto";
+		%\property Staff.clefGlyph = #"clefs-C"
+		%\property Staff.clefPosition = #0
 
 		\global
 	}
-	\context StaffCombineStaff=twoViole {
-		\property StaffCombineStaff.midiInstrument = #"viola"
-		\property StaffCombineStaff.instrument = #"Viola II"
-		\property StaffCombineStaff.instr = #"Vla. II"
+	\context Staff=twoViole {
+		\property Staff.midiInstrument = #"viola"
+		\property Staff.instrument = #"Viola II"
+		\property Staff.instr = #"Vla. II"
 		
-		%\clef "alto"; 
-		% Ugh, clef broken in 1.3.125
-		\property StaffCombineStaff.clefGlyph = #"clefs-C"
-		\property StaffCombineStaff.clefPosition = #0
+		\clef "alto"; 
+		%\property Staff.clefGlyph = #"clefs-C"
+		%\property Staff.clefPosition = #0
 
 		\global
 	}
 
-	\context StaffCombineStaff=oneViole \partcombine StaffCombineStaff
-		\context StaffCombineVoice=one \violaI
-		\context StaffCombineVoice=two \violaII
+	\context Staff=oneViole \partcombine Staff
+		\context Voice=one \violaI
+		\context Voice=two \violaII
 >
 %}
 
-violeGroup =  \notes \context VoiceCombineStaff = viole <
-	\context VoiceCombineStaff=viole {
-		\property VoiceCombineStaff.midiInstrument = #"viola"
-		\property VoiceCombineStaff.instrument = #"Viola"
-		\property VoiceCombineStaff.instr = #"Vla."
+violeGroup =  \notes \context Staff = viole <
+	\context Staff=viole {
+		\property Staff.midiInstrument = #"viola"
+		\property Staff.instrument = #"Viola"
+		\property Staff.instr = #"Vla."
 
-		%\clef "alto"; 
-		% Ugh, clef broken in 1.3.125
-		\property VoiceCombineStaff.clefGlyph = #"clefs-C"
-		\property VoiceCombineStaff.clefPosition = #0
+		\clef "alto"; 
+		%\property Staff.clefGlyph = #"clefs-C"
+		%\property Staff.clefPosition = #0
 
 		\global
 	}
-	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
-		\context VoiceCombineThread=one \violaI
-		\context VoiceCombineThread=two \violaII
+	\context Voice=one \partcombine Voice
+		\context Thread=one \violaI
+		\context Thread=two \violaII
 >
 

@@ -4,12 +4,12 @@
 \include "oboe-1.ly"
 \include "oboe-2.ly"
 
-oboiStaff =  \context VoiceCombineStaff = oboi <
-	\property VoiceCombineStaff.midiInstrument = #"oboe"
-	\property VoiceCombineStaff.instrument = #"2 Oboi"
-	\property VoiceCombineStaff.instr = #"Ob."
+oboiStaff =  \context Staff = oboi <
+	\property Staff.midiInstrument = #"oboe"
+	\property Staff.instrument = #"2 Oboi"
+	\property Staff.instr = #"Ob."
 	\global
-	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
-		\context VoiceCombineThread=one \oboeI
-		\context VoiceCombineThread=two \oboeII
+	\context Voice=one \partcombine Voice
+		\context Thread=one \oboeI
+		\context Thread=two \oboeII
 >

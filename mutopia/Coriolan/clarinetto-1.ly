@@ -12,8 +12,8 @@ clarinettoI =  \notes \relative c {
 	f4-. r r2|
 	e4-. r r2|
 	R1 *4|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	bes2\p\< ( a|
 	)gis2. \!a4-.\f|
 	R1*13|
@@ -35,8 +35,8 @@ clarinettoI =  \notes \relative c {
 	c2. c4\sf|
 	c4 r r2|
 	R1*5|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	a'2.\p\< ( bes4|
 	a g e)c|
 	c'2.( d4|
@@ -49,8 +49,8 @@ clarinettoI =  \notes \relative c {
 	d~|
 	d~|
 	d|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	bes2.\<( c4|
 	bes a fis)d|
 	\!d'2\ff f|
@@ -132,8 +132,8 @@ clarinettoI =  \notes \relative c {
 	)e2. f4\sf(|
 	)e4 r r2|
 	R1*9|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	fis2.\p\<(g4|
 	fis e cis)a|
 	\!a2\ff c|
@@ -152,8 +152,8 @@ clarinettoI =  \notes \relative c {
 	r2 r4 d(|
 	)cis r r2|
 	r r4 r8 cis|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	d4\< r r2|
 	r r4 r8 d|
 	e4 r r r8 e|
@@ -186,8 +186,8 @@ clarinettoI =  \notes \relative c {
 	d4 r8 g f4 r8 c|
 	bes4 r r2|
 	R1*11|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	f'2.\p\<(g4|
 	f e cis)a|
 	a1|
@@ -196,8 +196,8 @@ clarinettoI =  \notes \relative c {
 	c\f~|
 	c\p|
 	d\f~|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	d\p\<~|
 	d~|
 	d~|
@@ -227,8 +227,8 @@ clarinettoI =  \notes \relative c {
 	R1|
 	d4-. d-. r2|
 	d4-. d-. r2|
-	\property VoiceCombineVoice.decrescendoText = #"dim."
-	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
 	d4\> r e r|
 	R1|
 	\!a,4\p r r2|

@@ -116,7 +116,26 @@ arpeggios that cross staffs.
 (translator-property-description 'crescendoText string? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
-(translator-property-description 'disableDevNullThread boolean? "temp hack: turn off thread-devnull-engraver")
+(translator-property-description 'devNullThread symbol? "User control of Thread_devnull_engraver: one of
+@table @samp
+@item (), or unset
+Behave in normal way: remove one set of grobs when in unisolo.
+@item allways:
+Remove any grob that comes along.
+@item never:
+Do nothing.
+@end table
+")
+(translator-property-description 'devNullVoice symbol? "User control of Voice_devnull_engraver: one of
+@table @samp
+@item (), or unset
+Behave in normal way: remove spanners when in unisolo.
+@item allways:
+Remove any spanners that come along.
+@item never:
+Do nothing.
+@end table
+")
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.

@@ -137,7 +137,7 @@ timpani =  \notes \relative c {
 
 timpaniStaff =  \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property VoiceCombineStaff.instrument = #'((kern . 0.5)
+	\property Staff.instrument = #'((kern . 0.5)
 	(lines "2 Timpani" "(C-G)"))
 	\property Staff.instr = #"Timp."
 	\clef "bass";

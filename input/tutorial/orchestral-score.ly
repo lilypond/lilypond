@@ -5,6 +5,17 @@
 % #(set! point-and-click #t)
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 
+staffCombinePianoStaffProperties = {
+	\property PianoStaff.devNullThread = #'()
+	\property PianoStaff.soloADue = ##t
+	\property PianoStaff.soloText = #""
+	\property PianoStaff.soloIIText = #""
+	% This is non-conventional, but currently it is
+	% the only way to tell the difference.
+	\property PianoStaff.aDueText = #"\\`a2"
+	\property PianoStaff.splitInterval = #'(1 . 0)
+	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+}
 
 % Coriolan 218-222
 flautoI = \notes\relative c'' {
@@ -189,17 +200,8 @@ contrabasso = \notes\relative c {
 	  \context Thread=one \violaI
 	  \context Thread=two \violaII
       >
-      \context GrandStaff=bass <
-        \property GrandStaff.soloADue = ##t
-        \property GrandStaff.soloText = #""
-        \property GrandStaff.soloIIText = #""
-	% This is non-conventional, but currently it is
-	% the only way to tell the difference.
-        \property GrandStaff.aDueText = #"\\`a2"
-        \property GrandStaff.splitInterval = #'(1 . 0)
-        \property GrandStaff.changeMoment =
-	  #`(,(make-moment 1 1) . ,(make-moment 1 1))
-
+      \context PianoStaff=bass <
+	\staffCombinePianoStaffProperties
         \context Staff=one <
 	  \property Staff.midiInstrument = #"cello"
 	  \property Staff.instrument = #'((kern . 0.5)
@@ -231,38 +233,35 @@ contrabasso = \notes\relative c {
     \translator{
       \VoiceContext
       \remove "Rest_engraver";    
-      soloText = #"I."
-      soloIIText = #"II."
-      soloADue = ##f
-      % We must override the settings for Staff level
-      % with the default values, here.
-      aDueText = #"\\`a2"
-      splitInterval = #'(0 . 1)
-      changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
+
+      % The staff combine (bassi part) needs a
+      % thread_devnull_engraver here.
+      % Instead of maintaining two separate hierarchies,
+      % we switch add it, but switch it off immediately.
+      % --> move to Score level to be able to override
+      % The staff combine part switches it on.
+      
+      %% devNullThread = #'never
+      \consists "Thread_devnull_engraver";
     }
     \translator{
       \HaraKiriStaffContext
       \consists "Mark_engraver";
-      soloADue = ##t
-      soloText = #""
-      soloIIText = #""
-      % This is non-conventional, but currently it is
-      % the only way to tell the difference.
-      aDueText = #"\\`a2"
-      splitInterval = #'(1 . 0)
-      changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
     }
     \translator {
       \OrchestralScoreContext
-      skipBars = ##t
+      % skipBars = ##t
+
+      soloText = #"I."
+      soloIIText = #"II."
+      devNullThread = #'never
+
       % Hmm
       currentBarNumber = #218
       BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
-      marginScriptHorizontalAlignment = #1
       TimeSignature \override #'style = #'C
     }
-    \translator { \HaraKiriStaffContext }
   }
 }
 
