@@ -336,8 +336,6 @@ System::get_line ()
 
      Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
-  Interval staff_refpoints;
-  staff_refpoints.set_empty();
   
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
@@ -345,20 +343,6 @@ System::get_line ()
 	Grob *g = unsmob_grob (scm_car (s));
 	Stencil *stil = g->get_stencil ();
 
-	if (i == 0
-	    && Axis_group_interface::has_interface (g)
-	    && !Align_interface::has_interface (g)
-	    && dynamic_cast<Spanner*> (g)
-	    /*
-	      UGH.
-	     */
-	    && !g->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-	    && !g->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
-	    )
-	  {
-	    staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
-	  }
-  
 	/* Skip empty stencils and grobs that are not in this layer.  */
 	if (!stil
 	    || robust_scm2int (g->get_property ("layer"), 1) != i)
@@ -388,7 +372,17 @@ System::get_line ()
   Stencil sys_stencil (Box (x,y),
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
+
+  Interval staff_refpoints;
+  staff_refpoints.set_empty();
+  for (SCM s = get_property ("spaceable-staves");
+       scm_is_pair (s); s = scm_cdr (s))
+      {
+	Grob *g = unsmob_grob (scm_car (s));
+	staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
+      }
   
+ 
   Paper_system *pl = new Paper_system (sys_stencil, false);
   pl->staff_refpoints_ = staff_refpoints;
   Item * break_point =this->get_bound(LEFT);
@@ -453,4 +447,4 @@ System::columns () const
 ADD_INTERFACE (System,"system-interface",
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
-	       "all-elements columns")
+	       "all-elements spaceable-staves columns")

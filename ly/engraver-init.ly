@@ -561,6 +561,8 @@ AncientRemoveEmptyStaffContext = \context {
 
     quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event)
     instrumentTransposition = #(ly:make-pitch 0 0 0)
+
+    verticallySpacedContexts = #'(Staff)
 }
 
 EasyNotation = \context {	% TODO: why \context override? 

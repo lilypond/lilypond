@@ -397,7 +397,11 @@ to 10 (5+5) staffspaces high.
 
 This does not work for Voice or any other context  that doesn't form a
 vertical group.")
-
+     
+     (verticallySpacedContexts ,list? "List of symbols, containing
+context names whose vertical axis groups should be taken into account for
+vertical spacing of systems.")
+     
      (vocalName ,markup? "Name of a vocal line.")
      (vocNam ,markup? "Name of a vocal line, short version.")
 

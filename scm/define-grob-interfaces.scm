@@ -103,3 +103,9 @@ are interesting enough to maintain a hara-kiri staff."
  "An interface for any notes set in a tablature staff"
  '())
 
+
+(ly:add-interface
+ 'vertically-spaceable-interface 
+ "Objects that should be kept at constant vertical distances. Typically:
+@internalsref{VerticalAxisGroup} objects  of @internalsref{Staff} contexts."
+ '())

@@ -1,3 +1,29 @@
+2004-10-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add verticallySpacedContexts.
+
+	* scm/define-grob-interfaces.scm (vertically-spaceable-interface):
+	add interface
+
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	add spaceable-staves
+
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	vertically-spaceable-interface for VerticalAxisGroup and
+	RemoveEmptyVerticalGroup
+
+	* lily/system.cc (get_line): determine staff_refpoints_
+	using spaceable-staves.
+
+	* lily/score-engraver.cc (acknowledge_grob): ack
+	vertically-spaceable-interface and verticallySpacedContexts to
+	set spaceable-staves.
+
+	* input/regression/new-slur.ly: add slur under 16th subbeam case.
+
+	* lily/slur-scoring.cc (fill): init has_same_beam_ before use.
+
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): tune
