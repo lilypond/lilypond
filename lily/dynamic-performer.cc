@@ -84,7 +84,7 @@ Dynamic_performer::create_audio_elements ()
 	    s = get_property ("instrument");
 	  
 	  if (!gh_string_p (s))
-	    s = ly_str02scm ("piano");
+	    s = scm_makfrom0str ("piano");
 	  
 	  
 	  SCM eq = get_property ("instrumentEqualizer");

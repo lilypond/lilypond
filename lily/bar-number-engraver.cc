@@ -63,7 +63,7 @@ Bar_number_engraver::process_music ()
 	  
 	  // guh.
 	  text_->set_grob_property ("text",
-				      ly_str02scm (to_string (gh_scm2int (bn)).to_str0 ()));
+				      scm_makfrom0str (to_string (gh_scm2int (bn)).to_str0 ()));
 	}
     }
 

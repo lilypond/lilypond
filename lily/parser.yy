@@ -360,9 +360,9 @@ toplevel_expression:
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_->set_identifier (gh_str02scm ("$defaultpaper"), $1->self_scm ());
+			THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultpaper"), $1->self_scm ());
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_->set_identifier (gh_str02scm ("$defaultmidi"), $1->self_scm ());
+			THIS->lexer_->set_identifier (scm_makfrom0str ("$defaultmidi"), $1->self_scm ());
 	}
 	| embedded_scm {
 		// junk value
@@ -745,7 +745,7 @@ Repeated_music:
 		SCM func = scm_primitive_eval (ly_symbol2scm ("repeat-name-to-ctor"));
 		SCM result = gh_call1 (func, $2);
 
-		if (gh_equal_p ($2, ly_str02scm ("tremolo")))
+		if (gh_equal_p ($2, scm_makfrom0str ("tremolo")))
 		{
 		/*
 		we can not get durations and other stuff correct down the line, so we have to
@@ -832,7 +832,7 @@ Composite_music:
 		scm_gc_unprotect_object ($3->self_scm ());
 
 		csm->set_mus_property ("context-type",$2);
-		csm->set_mus_property ("context-id", ly_str02scm (""));
+		csm->set_mus_property ("context-id", scm_makfrom0str (""));
 
 		$$ = csm;
 	}
@@ -1156,7 +1156,7 @@ command_element:
 	| E_LEFTSQUARE {
 		Span_req *l = new Span_req;
 		l->set_span_dir (START);
-		l->set_mus_property ("span-type", ly_str02scm ("ligature"));
+		l->set_mus_property ("span-type", scm_makfrom0str ("ligature"));
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
@@ -1167,7 +1167,7 @@ command_element:
 	| E_RIGHTSQUARE {
 		Span_req *l = new Span_req;
 		l->set_span_dir (STOP);
-		l->set_mus_property ("span-type", ly_str02scm ("ligature"));
+		l->set_mus_property ("span-type", scm_makfrom0str ("ligature"));
 		l->set_spot (THIS->here_input ());
 
 		$$ = new Request_chord (SCM_EOL);
@@ -1196,7 +1196,7 @@ command_element:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm->set_mus_property ("context-type", ly_str02scm ("Score"));
+		csm->set_mus_property ("context-type", scm_makfrom0str ("Score"));
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->length_mom ();
@@ -1207,7 +1207,7 @@ command_element:
 		scm_gc_unprotect_object (p->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
 	}
 	| CLEF STRING  {
 		SCM func = scm_primitive_eval (ly_symbol2scm ("clef-name-to-properties"));
@@ -1228,7 +1228,7 @@ command_element:
 		scm_gc_unprotect_object (seq->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property ("context-type", ly_str02scm ("Staff"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ("Staff"));
 	}
 	| TIME_T fraction  {
 		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
@@ -1264,7 +1264,7 @@ command_element:
  TODO: should make alias TimingContext for Score
 */
 
-		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
 	}
 	;
 
@@ -1286,7 +1286,7 @@ shorthand_command_req:
 	| '['		{
 		Span_req*b= new Span_req;
 		b->set_span_dir (START);
-		b->set_mus_property ("span-type", ly_str02scm ("beam"));
+		b->set_mus_property ("span-type", scm_makfrom0str ("beam"));
 		$$ =b;
 
 
@@ -1295,7 +1295,7 @@ shorthand_command_req:
 	| ']'		{
 		Span_req*b= new Span_req;
 		b->set_span_dir ( STOP);
-		b->set_mus_property ("span-type", ly_str02scm ("beam"));
+		b->set_mus_property ("span-type", scm_makfrom0str ("beam"));
 		$$ = b;
 	}
 	| BREATHE {
@@ -1560,25 +1560,25 @@ close_request_parens:
 	'('	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "slur"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_OPEN	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "phrasing-slur"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_SMALLER {
 		Span_req*s =new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "crescendo"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_BIGGER {
 		Span_req*s =new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ("decrescendo"));
+		s->set_mus_property ("span-type", scm_makfrom0str ("decrescendo"));
 		s->set_spot (THIS->here_input());
 	}
 	;
@@ -1594,7 +1594,7 @@ open_request:
 open_request_parens:
 	E_EXCLAMATION 	{
 		Span_req *s =  new Span_req;
-		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "crescendo"));
 		s->set_spot (THIS->here_input());
 
 		$$ = s;
@@ -1602,14 +1602,14 @@ open_request_parens:
 	| ')'	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "slur"));
 		s->set_spot (THIS->here_input());
 
 	}
 	| E_CLOSE	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
+		s->set_mus_property ("span-type", scm_makfrom0str ( "phrasing-slur"));
 		s->set_spot (THIS->here_input());
 	}
 	;
@@ -1631,7 +1631,7 @@ gen_text_def:
 		String ds = to_string ($1);
 		Text_script_req* t = new Text_script_req;
 		SCM finger = ly_symbol2scm ("finger");
-		t->set_mus_property ("text",  ly_str02scm (ds.to_str0 ()));
+		t->set_mus_property ("text",  scm_makfrom0str (ds.to_str0 ()));
 		t->set_mus_property ("text-type" , finger);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
@@ -1640,22 +1640,22 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = gh_str02scm ("Hat");
+		$$ = scm_makfrom0str ("Hat");
 	}
 	| '+'		{
-		$$ = gh_str02scm ("Plus");
+		$$ = scm_makfrom0str ("Plus");
 	}
 	| '-' 		{
-		$$ = gh_str02scm ("Dash");
+		$$ = scm_makfrom0str ("Dash");
 	}
  	| '|'		{
-		$$ = gh_str02scm ("Bar");
+		$$ = scm_makfrom0str ("Bar");
 	}
 	| '>'		{
-		$$ = gh_str02scm ("Larger");
+		$$ = scm_makfrom0str ("Larger");
 	}
 	| '.' 		{
-		$$ = gh_str02scm ("Dot");
+		$$ = scm_makfrom0str ("Dot");
 	}
 	;
 
@@ -1919,7 +1919,7 @@ simple_element:
 		Span_req *sp2 = new Span_req;
 		sp1-> set_span_dir ( START);
 		sp2-> set_span_dir ( STOP);
-		SCM r = ly_str02scm ("rest");
+		SCM r = scm_makfrom0str ("rest");
 		sp1->set_mus_property ("span-type", r);
 		sp2->set_mus_property ("span-type", r);
 

@@ -141,7 +141,7 @@ LY_DEFINE(ly_translator_name,
   SCM_ASSERT_TYPE(tr, trans, SCM_ARG1, __FUNCTION__, "Context");
 
   char const* nm = classname (tr);
-  return ly_str02scm (nm);
+  return scm_makfrom0str (nm);
 }
 
 LY_DEFINE(ly_translator_description,

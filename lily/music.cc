@@ -274,7 +274,7 @@ LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0,
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__ ,"music");
   
   const char * nm = classname (m);
-  return ly_str02scm (nm);
+  return scm_makfrom0str (nm);
 }
 
 LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0, 

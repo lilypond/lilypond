@@ -184,10 +184,11 @@ File_path::find (String nm) const
 	continue;
 #endif
 #if !STAT_MACROS_BROKEN
+      
       struct stat sbuf;
       if (stat (path.to_str0 (), &sbuf) != 0)
 	continue;
-      
+
       if (S_ISDIR (sbuf.st_mode))
 	continue;
 #endif

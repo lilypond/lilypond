@@ -56,13 +56,6 @@ ly_last (SCM list)
   return ly_car (scm_last_pair (list));
 }
 
-SCM
-ly_str02scm (char const*c)
-{
-  // this all really sucks, guile should take char const* arguments!
-  return gh_str02scm ((char*)c);
-}
-
 
 SCM
 ly_write2scm (SCM s)
@@ -125,22 +118,9 @@ file is looked up using the lilypond search path.
 
 ")
 {
-  return ly_str02scm (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
+  return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
-
-/**
-   Read a file, and shove it down GUILE.  GUILE also has file read
-   functions, but you can't fiddle with the path of those.
-
-
-   TODO: JUNKME.
-*/
-void
-read_lily_scm_file (String fn)
-{
-  gh_eval_str ((char *) gulp_file_to_string (fn).to_str0 ());
-}
 
 extern "C" {
   // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
@@ -233,7 +213,9 @@ ly_init_guile ()
 
   if (verbose_global_b)
     progress_indication ("\n");
-  read_lily_scm_file ("lily.scm");
+
+
+  scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 
   scm_set_current_module (last_mod);
 }
@@ -359,7 +341,7 @@ ly_type (SCM exp)
       cp = "list";
     }
 
-  return ly_str02scm (cp);
+  return scm_makfrom0str (cp);
 }
 
 /*
@@ -394,7 +376,7 @@ leaves a space at the end.
       sprintf (str, "%d ", gh_scm2int (s));
     }
 
-  return ly_str02scm (str);
+  return scm_makfrom0str (str);
 }
 
 /*
@@ -434,7 +416,7 @@ LY_DEFINE(ly_version,  "ly-version", 0, 0, 0, (),
 LY_DEFINE(ly_unit,  "ly-unit", 0, 0, 0, (),
 	  "Return the unit used for lengths as a string.")
 {
-  return ly_str02scm (INTERNAL_UNIT);
+  return scm_makfrom0str (INTERNAL_UNIT);
 }
 
 LY_DEFINE(ly_verbose,  "ly-verbose", 0, 0, 0, (),
@@ -588,10 +570,6 @@ ly_truncate_list (int k, SCM l )
   return l;
 }
 
-SCM my_gh_symbol2scm (const char* x)
-{
-  return gh_symbol2scm ((char*)x);
-}
 
 String
 print_scm_val (SCM val)

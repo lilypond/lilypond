@@ -11,7 +11,7 @@ void ly_add_function_documentation (char const * fname,
     doc_hash_table = scm_make_vector (gh_int2scm (59), SCM_EOL);
 
 
-  SCM entry = gh_cons (ly_str02scm (varlist), ly_str02scm (doc));
+  SCM entry = gh_cons (scm_makfrom0str (varlist), scm_makfrom0str (doc));
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 

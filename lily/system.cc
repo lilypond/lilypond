@@ -292,7 +292,7 @@ System::output_molecule (SCM expr, Offset o)
       
 
 	  pscore_->outputter_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
-							   ly_str02scm (ip->file_string ().to_str0 ()),
+							   scm_makfrom0str (ip->file_string ().to_str0 ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
 							   SCM_UNDEFINED));

@@ -121,7 +121,7 @@ Paper_column::brew_molecule (SCM p)
   String r = to_string (Paper_column::get_rank (me));
   SCM properties = Font_interface::font_alist_chain (me);
   
-  Molecule t = Text_item::text2molecule (me, ly_str02scm (r.to_str0 ()),
+  Molecule t = Text_item::text2molecule (me, scm_makfrom0str (r.to_str0 ()),
 					 properties);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);

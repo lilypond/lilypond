@@ -164,7 +164,7 @@ Piano_pedal_engraver::try_music (Music *m)
 	      p->bracket_ = 0;
 	    }  
 	  if (scm_equal_p (s->get_mus_property ("span-type"),
-			   ly_str02scm (p->name_))==SCM_BOOL_T)
+			   scm_makfrom0str (p->name_))==SCM_BOOL_T)
 	    {
 	      p->req_l_drul_[s->get_span_dir ()] = s;
 	      return true;

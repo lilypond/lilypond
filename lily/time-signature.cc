@@ -102,10 +102,10 @@ Time_signature::time_signature (Grob*me,int num, int den)
   SCM chain = Font_interface::font_alist_chain (me);
 
   Molecule n = Text_item::text2molecule (me,
-					 ly_str02scm (to_string (num).to_str0 ()),
+					 scm_makfrom0str (to_string (num).to_str0 ()),
 					 chain);
   Molecule d = Text_item::text2molecule (me,
-					 ly_str02scm (to_string (den).to_str0 ()),
+					 scm_makfrom0str (to_string (den).to_str0 ()),
 					 chain);
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);

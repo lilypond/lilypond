@@ -209,7 +209,7 @@ Note_head::brew_ez_molecule (SCM smob)
   s[0] = (pit->notename_ + 2)%7 + 'a';
   s[0] = toupper (s[0]);
   
-  SCM charstr = ly_str02scm (s);
+  SCM charstr = scm_makfrom0str (s);
   
   SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
 		       charstr,

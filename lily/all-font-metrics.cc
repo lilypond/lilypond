@@ -39,7 +39,7 @@ All_font_metrics::find_afm (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
 
-  SCM name_string = ly_str02scm (name.to_str0 ());
+  SCM name_string = scm_makfrom0str (name.to_str0 ());
 
   SCM val;
   
@@ -114,7 +114,7 @@ Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
-  SCM name_string = ly_str02scm (name.to_str0 ());
+  SCM name_string = scm_makfrom0str (name.to_str0 ());
 
   SCM val;
   if (!tfm_p_dict_->try_retrieve (sname, &val))

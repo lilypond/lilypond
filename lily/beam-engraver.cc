@@ -99,7 +99,7 @@ Beam_engraver::try_music (Music *m)
   if (Span_req * c = dynamic_cast<Span_req*> (m))
     {
       if (scm_equal_p (c->get_mus_property ("span-type"),
-		       ly_str02scm ("abort")) == SCM_BOOL_T)
+		       scm_makfrom0str ("abort")) == SCM_BOOL_T)
 	{
 	  reqs_drul_[START] = 0;
 	  reqs_drul_[STOP] = 0;
@@ -108,7 +108,7 @@ Beam_engraver::try_music (Music *m)
 	  beam_ = 0;
 	}
       else if (scm_equal_p (c->get_mus_property ("span-type"),
-			    ly_str02scm ("beam")) == SCM_BOOL_T)
+			    scm_makfrom0str ("beam")) == SCM_BOOL_T)
 	{
 	  Direction d =c->get_span_dir ();
 

@@ -48,11 +48,11 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
       /*
 	UGH UGH
        */
-      if (gh_string_p (gl) && gh_equal_p (gl, ly_str02scm  ("brace"))
-	  && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_str02scm  ("bracket")))
+      if (gh_string_p (gl) && gh_equal_p (gl, scm_makfrom0str  ("brace"))
+	  && gh_string_p (my_gl) && gh_equal_p (my_gl, scm_makfrom0str  ("bracket")))
 	inf.grob_->translate_axis (-0.8, X_AXIS); // ugh
-      else if (gh_string_p (gl) && gh_equal_p (gl, ly_str02scm  ("bracket"))
-	       && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_str02scm  ("bracket")))
+      else if (gh_string_p (gl) && gh_equal_p (gl, scm_makfrom0str  ("bracket"))
+	       && gh_string_p (my_gl) && gh_equal_p (my_gl, scm_makfrom0str  ("bracket")))
        {
          inf.grob_->translate_axis ( -0.8, X_AXIS); // ugh
          inf.grob_->set_grob_property ("arch-height",

@@ -116,7 +116,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   if (measures > gh_scm2int (s))
     {
       Molecule s = Text_item::text2molecule (me,
-					     ly_str02scm (to_string (measures).to_str0 ()),
+					     scm_makfrom0str (to_string (measures).to_str0 ()),
 					     alist_chain);
 
       s.align_to (X_AXIS, CENTER);

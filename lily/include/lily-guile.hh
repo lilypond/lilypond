@@ -113,13 +113,6 @@ SCM ly_truncate_list (int k, SCM l );
 #endif
 
 
-/*
-  We don't use gh_symbol2scm directly, since it has const-correctness
-  problems in GUILE 1.3.4
-  
- */
-SCM my_gh_symbol2scm (const char* x);
-
 #ifdef CACHE_SYMBOLS
 
 
@@ -141,7 +134,7 @@ SCM my_gh_symbol2scm (const char* x);
   value = gh_symbol2scm ((char*) (x)); \
   value; })
 #else
-inline SCM ly_symbol2scm(char const* x) { return my_gh_symbol2scm((x)); }
+inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((x)); }
 #endif 
 
 
