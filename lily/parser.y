@@ -792,7 +792,7 @@ dynamic_req:
 		ad_p ->loudness_ = (Dynamic_req::Loudness)$3;
 		$$ =ad_p;
 	}
-	|SPANDYNAMIC '{' int int '}' {
+	| SPANDYNAMIC '{' int int '}' {
 		Span_dynamic_req * sp_p = new Span_dynamic_req;
 		sp_p->spantype = $4;
 		sp_p-> dynamic_dir_i_  = $3;
