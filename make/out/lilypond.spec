@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.1.54
+Version: 1.1.55
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.54.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.55.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -13,12 +13,10 @@ Prereq: tetex
 
 %description 
 
-LilyPond is the GNU Project music typesetter.  This program can print
-beautiful sheet music from a music definition file.  It can also play
-mechanical performances to a MIDI file.  Features include multiple
-staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,
-beams, slurs, triplets, named chords, transposing, formatting scores, 
-part extraction.  It includes a nice font of musical symbols.
+
+LilyPond is the GNU Project music typesetter. It transforms a musical
+description file into beautiful sheet music.
+
 
 %prep
 %setup
@@ -38,7 +36,7 @@ mkdir htmldocs
 tar -C htmldocs -xzf out/htmldoc.tar.gz
 #tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
 
-strip lily/out/lilypond mi2mu/out/mi2mu
+strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT/usr" install
 # gzip -9fn $RPM_BUILD_ROOT/usr/info/* || true
 
@@ -72,8 +70,8 @@ fi
 /usr/bin/mudela-book
 /usr/bin/ly2dvi
 /usr/bin/lilypond
-/usr/bin/mi2mu
-/usr/man/man1/mi2mu.1
+/usr/bin/midi2ly
+/usr/man/man1/midi2ly.1
 /usr/man/man1/lilypond.1
 /usr/man/man1/mudela-book.1
 /usr/man/man1/ly2dvi.1

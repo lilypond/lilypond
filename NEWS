@@ -1,3 +1,33 @@
+pl 53.jbr2
+        - Documentation/ntweb/index.html: Updated nt distribution web page
+
+pl 54.uu1
+	- bf: Stem lens for beams.
+	- move meta doco to Documentation/metadoc
+	- move .bibb to Documentation/bibliography
+	- rename mi2mu to midi2ly
+	- removed other-packages.bib to comply with GNU standards
+
+pl 54.jcn1
+	- mutopia/J.S.Bach/Duette 1&2
+
+pl 54.mb1
+        - Renamed \wheel to the \coda
+	- bf: correct gap in tuplet braces
+
+pl 53.hwn2
+	- move more parameters from PS/TeX to Lily.
+	- PS cleanup
+	- TeX cleanup.
+	- bf: also make (empty) bar at end of voltabracket.
+	- bf: don't put slur over rest. 
+
+
+pl 54.uu1
+	- debian updates (anthony fok).
+
+*************
+pl 54 (july, 8)
 pl 53.jbr1
 	- scripts/ly2dvi.py: A fix for the multitude of file systems supported
           by windows.  As long as the paths that the cygwin apps use are

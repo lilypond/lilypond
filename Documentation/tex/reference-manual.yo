@@ -575,13 +575,13 @@ mudela()(
           c''-\open  c''-\flageolet  c''-\reverseturn 
           c''-\trill
           c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
-          c''-\upprall c''-\downprall c''-\thumb c''-\segno c''-\wheel}
+          c''-\upprall c''-\downprall c''-\thumb c''-\segno c''-\coda}
   \context Lyrics \lyrics{  
         accent__ marcato__ staccatissimo__ fermata stopped__
         staccato__ tenuto__ upbow downbow__ lheel__ rheel__ ltoe
         rtoe__ turn__ open__ flageolet reverseturn__ trill__ prall__
         mordent prallprall__ prallmordent__ uprall__ downprall thumb 
-	segno wheel}
+	segno coda }
   >
   \paper{ linewidth = 5.875\in;          
           indent = 0.0;        }

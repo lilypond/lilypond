@@ -14,9 +14,6 @@
 % ``compiles'' operatorname binding in the body of foo, making
 % the code faster, and more reliable (less flexible)
 
-% transplant a TeX dimension into the PS output.
-\def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\the\csname #1\endcsname) deftexdimen}}
-
 {%
    \def\par{ }%         %Ugh.  Don't try this at home, kids!
    % neat file-include trick by Piet van Oostrum <piet@cs.uu.nl>
@@ -42,48 +39,4 @@
    \filedef\includelilyps{lily.ps}%
    \expandafter\special{! \includelilyps }
 }
-
-
-\special{!
-% PS helper: convert (0.2pt) to the token 0.2
-/settexdimen
-{
-        /thestring exch def
-        thestring 0 thestring length 2 sub
-        getinterval
-        token
-        pop exch pop 
-} def
-%
-/deftexdimen
-{
-        settexdimen
-        def     
-} def
-}
-
-\def\turnOnPostScript{%
-        \PSsetTeXdimen{stafflinethickness}
-        \PSsetTeXdimen{staffheight}
-        
-        % This sets CTM so that you get to the currentpoint
-        % by executing a 0 0 moveto
-        \def\embeddedps##1{%
-                \special{ps: @beginspecial @setspecial ##1 @endspecial}       
-        }
-        %
-
-        \special{! 
-/interline \mudelapaperinterline0  def % ugh.  Only works x.yyyy floats 
-interline 3 div /bracket_b exch def
-interline 2 mul /bracket_w exch def
-stafflinethickness 2 mul /bracket_t exch def
-interline 1.5 mul /bracket_v exch def
-bracket_v /bracket_u exch def
-50 /bracket_alpha exch def
-staffheight 4 div /interline exch def
-1 setlinecap}
-}
-
-\def\turnOnExperimentalFeatures{}
 

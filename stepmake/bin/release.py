@@ -73,7 +73,3 @@ rel_pn = package.patch_dir + pn
 os.rename(pn, rel_pn)
 os.link(rel_pn, pn)
 
-# urg; this includes lilypond*.gz into yodl ball
-# os.system('tar cf ' + package.nickname + ' *gz')
-os.system('set -x; tar cf ' + package.nickname + ' ' + package.name + '*gz')
-

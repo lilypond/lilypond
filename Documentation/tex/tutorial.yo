@@ -795,12 +795,11 @@ Example:
     \partial 4;
     [d'8 dis'] e' c''4 e'8 c''4 
   )
+)
 
-
-The commands described above aren't really music, but they can best be
-thought as as notes with no duration.  Since they are grammatically
-equivalent to notes, these commands can be used in the same places as
-notes.
+The commands described above do not music that you could hear, but
+within the language, they are "Music": they are grammatically
+equivalent to notes, so they can appear in the same places as notes.
 
 sect(Notation context)
 

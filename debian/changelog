@@ -1,6 +1,35 @@
-lilypond (1.1.36-1) unstable; urgency=low
+lilypond (1.1.53-1) unstable; urgency=low
 
   * New upstream release.
+  * Partially upgraded to standards version 3.0.0:
+     - Updated copyright to point to /usr/share/common-licenses
+     - First step towards FHS-compliance: Man pages are now installed
+       under /usr/share/man.
+
+ -- Anthony Fok <foka@debian.org>  Wed,  7 Jul 1999 15:23:57 -0600
+
+lilypond (1.1.47-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 10 Jun 1999 18:10:13 -0600
+
+lilypond (1.1.42-1) unstable; urgency=low
+
+  * New upstream release.
+  * [postinst]: Runs "/usr/bin/mktexlsr /usr/share/texmf" to save time.
+  * [postrm]: Removed the unnecessary "/usr/bin/mktexlsr" call.
+  * The segfault problem has disappeared on my computer (running
+    the latest potato system).  Please test.
+
+ -- Anthony Fok <foka@debian.org>  Tue, 11 May 1999 11:16:58 -0600
+
+lilypond (1.1.37-1) unstable; urgency=low
+
+  * New upstream release.
+  * Known problem: LilyPond simply segfaults under glibc 2.1 on my i386
+    system, and I don't know how to fix the problem yet.  I hope users of
+    other platforms have better luck.
   * [debian/rules]:
       - Make and install info files.
       - Removed "CC=egcc" because the default gcc on all platforms is
@@ -9,8 +38,13 @@ lilypond (1.1.36-1) unstable; urgency=low
       - Minor clean-ups.
   * Added debian/compress to make sure *.png are not compressed.
   * Added debian/doc-base and postinst/prerm for the LilyPond info files.
+  * s!usr/lib/texmf!usr/share/texmf!g and cleaned up old hacks
+    in {pre,post}{inst,rm} files due to tetex's new FHS-compliant
+    directory structure.
+  * [debian/control]: Now Depends/Recommends the latest FHS-compliant
+      tetex-{bin,base,extra} (>= 0.9.99031{0,1}-1) packages.
 
- -- Anthony Fok <foka@debian.org>  Sun, 21 Mar 1999 13:39:39 -0700
+ -- Anthony Fok <foka@debian.org>  Mon,  5 Apr 1999 20:43:30 -0600
 
 lilypond (1.1.31-1) unstable; urgency=low
 

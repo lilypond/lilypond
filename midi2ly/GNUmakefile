@@ -1,10 +1,10 @@
-# title	   makefile for mi2mu
-# file	   mi2mu/Makefile 
+# title	   makefile for midi2ly
+# file	   midi2ly/Makefile 
 
 depth = ..
 
-NAME = mi2mu
-MODULE_NAME = mi2mu
+NAME = midi2ly
+MODULE_NAME = midi2ly
 
 SUBDIRS = include
 EXTRA_DIST_FILES += TODO
@@ -18,5 +18,5 @@ include $(depth)/make/stepmake.make
 midi-lexer.l:	$(outdir)/midi-parser.hh
 
 
-$(outdir)/mi2mu-version.o: $(outdir)/version.hh
+$(outdir)/midi2ly-version.o: $(outdir)/version.hh
 

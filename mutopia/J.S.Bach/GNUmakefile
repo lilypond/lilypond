@@ -1,8 +1,8 @@
-# mutopia/J.S.Bach/Makefile
+# mutopia/J.S.Bach/GNUmakefile
 
 depth = ../..
 
-SUBDIRS = Petites-Preludes Solo-Cello-Suites Cembalo-Partitas
+SUBDIRS = Petites-Preludes Solo-Cello-Suites Cembalo-Partitas Duette
 EXTRA_DIST_FILES=
 
 

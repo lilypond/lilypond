@@ -159,11 +159,13 @@ Lookup::bar (String str, Real h, Paper_def *paper_l) const
   if (str == "bracket")
     return staff_bracket (h);
   else if (str == "brace")
-    return staff_brace (h);
-  
+    {
+      Real staffht  = paper_l->get_var ("staffheight");
+      return staff_brace (h,staffht);
+    }
   Real kern = paper_l->get_var ("bar_kern");
   Real thinkern = paper_l->get_var ("bar_thinkern");
-  
+
   Molecule thin = simple_bar ("thin", h, paper_l);
   Molecule thick = simple_bar ("thick", h, paper_l);
   Molecule colon = afm_find ("dots-repeatcolon", paper_l);  
@@ -483,12 +485,13 @@ Lookup::time_signature (int num, int den, Paper_def *paper_l) const
 }
 
 Molecule
-Lookup::staff_brace (Real y) const
+Lookup::staff_brace (Real y, int staff_size) const
 {
   Molecule m;
   
   Atom at  (gh_list (pianobrace_scm_sym,
 		     gh_double2scm (y),
+		     gh_int2scm (staff_size),
 		     SCM_UNDEFINED
 		     ));
   
@@ -499,7 +502,7 @@ Lookup::staff_brace (Real y) const
 }
 
 Molecule
-Lookup::hairpin (Real width, Real height, bool decresc, bool continued) const
+Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continued) const
 {
   Molecule m;   
 
@@ -508,6 +511,7 @@ Lookup::hairpin (Real width, Real height, bool decresc, bool continued) const
 		     gh_double2scm (width),
 		     gh_double2scm (height),
 		     gh_double2scm (continued ? height/2 : 0.0),
+		     gh_double2scm (thick),
 		     SCM_UNDEFINED));
   m.dim_.x () = Interval (0, width);
   m.dim_.y () = Interval (-2*height, 2*height);
@@ -538,7 +542,7 @@ Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap, Real interline_
   Make a smooth curve along the points 
  */
 Molecule
-Lookup::slur (Array<Offset> controls) const
+Lookup::slur (Array<Offset> controls, Real linethick) const
 {
   Offset  delta_off = controls[3]- controls[0];
   Molecule m; 
@@ -552,6 +556,7 @@ Lookup::slur (Array<Offset> controls) const
 
   Atom at  (gh_list (ly_symbol ("bezier-sandwich"),
 		     ly_quote_scm (array_to_list (scontrols, 8)),
+		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
 
   m.dim_[X_AXIS] = Interval (0, delta_off[X_AXIS]);

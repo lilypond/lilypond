@@ -38,10 +38,13 @@ void
 Slur::add_column (Note_column*n)
 {
   if (!n->head_l_arr_.size ())
-    warning (_ ("Putting slur over rest."));
-  encompass_arr_.push (n);
-  //  n->stem_l_->slur_l_ = this;
-  add_dependency (n);
+    warning (_ ("Putting slur over rest. Ignoring"));
+  else
+    {
+      encompass_arr_.push (n);
+      //  n->stem_l_->slur_l_ = this;
+      add_dependency (n);
+    }
 }
 
 Direction

@@ -104,6 +104,8 @@ tie_slope_damping = 0.8;
 slur_thickness = 1.4 * \staffline;
 slur_height_limit = \staffheight;
 
+
+
 % slur_ratio = 0.3;
 % try bit flatter slurs
 slur_ratio = 0.25;
@@ -165,6 +167,7 @@ mmrest_x_minimum = 2.0*\staffheight;
 
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \interline;
+crescendo_thickness   = \staffline;
 
 % in internote.
 restcollision_minimum_dist = 3.0;
@@ -175,6 +178,8 @@ postBreakPadding = 0.0;
 
 % optical correction amount.
 stemSpacingCorrection = 0.5*\interline;
+
+
 
 
 

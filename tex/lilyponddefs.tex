@@ -2,7 +2,7 @@
 %% include file for LilyPond
 %%
 %% this file defines various macros to accomodate lilypond output
-%% 
+%%
 %% let's not make par before endinput
 %
 % TeXbook ex 7.7
@@ -16,185 +16,20 @@
 \fi
 \SkipLilydefs
 %
-\ifundefined{mudelacopyright}
-        \def\mudelacopyright{\copyright\ \number\year}
-\fi
-\ifundefined{mudelatagline}
-        \def\mudelatagline{Lily was here}
-\fi
-\ifundefined{documentclass}
-        \input lilypond-plaintex
-\else
-        \input lilypond-latex
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% macros to shorten other definitions
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\musicmathdef#1#2{\def#1{\musicmathchar{#2}}}
-\def\musicmathchar#1{\musicmathfont\char#1}
-
-\def\topalign#1{\vbox to 0pt{#1\vss}}
 \def\botalign#1{\vbox to 0pt{\vss #1}}
-
-\def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
 \def\leftalign#1{\hbox to 0pt{#1\hss}}
-\def\rightalign#1{\hbox to 0pt{\hss#1}}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% set up dimensions
-% mudela-book don't like this:
-%\parindent=0pt
-\newdimen\interlinedist
-
-\newcount\n                     %duh. meaningful identifiers.
-\newdimen\staffheight
-\newdimen\stafflinethickness
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% set fonts and primary dimensions
-
-%
-% TODO JUNK THIS
-%
-% ugh
-\def\cmrtwenty{
-        \font\smalltextfont=cmr8
-        \font\textmusic=cmmi12
-}
-\def\cmrsixteen{
-        \font\smalltextfont=cmr6
-        \font\textmusic=cmmi10
-        }
-\def\cmrthirteen{
-        \font\smalltextfont=cmr6
-        \font\textmusic=cmmi9
-        }
-\def\cmreleven{
-        \font\smalltextfont=cmr5
-        \font\textmusic=cmmi8
-        }
-%%%%%%%
-%
-\def\musixtwentydefs{
-      \twentyfonts
-      \csname cmrtwenty\texsuffix\endcsname
-      \musixcalc
-}
-
-\def\musixsixteendefs{
-        \sixteenfonts
-        \csname cmrsixteen\texsuffix\endcsname
-        \musixcalc
-        }
-\def\musixtwentysixdefs{
-      \csname cmrtwentysix\texsuffix\endcsname
-          \twentysixfonts
-         \musixcalc
-        }
-\def\musixthirteendefs{
-        \thirteenfonts
-        \csname cmrthirteen\texsuffix\endcsname
-       \musixcalc
-}
-\def\musixelevendefs{
-        \csname cmreleven\texsuffix\endcsname
-        \elevenfonts
-        \musixcalc
-}
-
-\def\textsharp{\raise.4ex\hbox{\textmusic\char"5D}}
-\def\textnatural{\raise.4ex\hbox{\textmusic\char"5C}}
-\def\textflat{\raise.2ex\hbox{\textmusic\char"5B}}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% do derivative calcs
-
-% this has to be synced with the font definition
-\def\musixcalc{
-
-        \stafflinethickness=\mudelapaperrulethickness pt
-}
-
-
-
-% stacked horizontal lines 
+% stacked horizontal lines
 \def\interscoreline{\vskip 16pt}
-
-% big fat marks, if errors are detected.
-\def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
-\def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
-\def\errormark{{\bf E!}}
-\def\unknown{%
-  %{\bf u} %FIXME
-}
-
-\input fetdefs
-
-
-% ugh
-% see e.g. input/test/beam-pos.ly
-%
-% something's wrong with the aligment; sometimes all symbols
-% look to be placed a bit too high (there's an ugly fix for
-% the staccato-dot in script.cc)
-% but this varies from line to line: it seems that xdvi
-% does some rounding; i can't really check this from screen on i
-% 600x600 res.
-%
-\def\rulesym#1#2{\dimen0=#1     %obsolete
-        \vrule height .5\dimen0 depth .5\dimen0 width #2}
-\def\shiftedrulesym#1#2{\dimen0=#1%
-        \vrule height .7\dimen0 depth .3\dimen0 width #2}
-\def\tinyrulesym#1#2{\dimen0=#1%
-        \vrule height .1\dimen0 depth .1\dimen0 width #2}
-%would be nice for checking alignment
-\def\openrulesym#1#2{\dimen0=#1%
-        \vbox to \dimen0{\vss%
-        \hbox{\vrule height .1\dimen0 width #2}%
-        \hbox{\vrule height .2\dimen0 width 0pt}%
-        \hbox{\vrule height .4\dimen0 width #2}%
-        \hbox{\vrule height .2\dimen0 width 0pt}%
-        \hbox{\vrule height .1\dimen0 width #2}%
-        \vss}}
-%\let\rulesym\shiftedrulesym
-%\let\rulesym\tinyrulesym
-%\let\rulesym\openrulesym
-
-% the interline symbol. Redefine to remove it.
-\def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
-\def\lineseparator{\defaultlineseparator}
-\def\beauty{%
-        \par\vskip 10pt plus 30pt minus 10pt\par
-        \hskip -5pt\lineseparator
-        \par\vskip 10pt plus 30pt minus 10pt\par
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\placebox#1#2#3{%
+        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
+\input lily-ps-defs
+\def\EndLilyPondOutput{%
+  \csname bye\endcsname
+  }
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
 \def\postheader{}
-
-%
-% macros suck. \ifundefined{nolilyfooter} gives wierd errors from time
-%        to time.
-%
-
-%
-% Warning: the order is conceptually weird.  It says:
-
-% if not defined (``nolilyfooter''):
-%    do_footer ()
-% else 
-%    dont_do_footer ()
-%
-\ifx\csname nolilyfooter\endcsname\relax
-        \message{[footer defined]}%
-        \csname lilyfooter\texsuffix\endcsname%
-\else
-        \message{[footer empty]}
-        \csname%
-        nolilyfooter\texsuffix\endcsname
-\fi
+\noindent

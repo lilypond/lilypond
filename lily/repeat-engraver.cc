@@ -23,14 +23,6 @@
 
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
-/*
-  Needs redesign?
-
-  -  Logic needs to be moved out of do_try_music(),
-  
-  - don't  try to do multiple repeated music.  Lets assume repeats  don't nest.
-  
- */
 bool
 Repeat_engraver::do_try_music (Music* m)
 {
@@ -155,6 +147,8 @@ Repeat_engraver::do_process_requests ()
 
 	      if (t != "stop")
 		bar_engraver_l->request_bar (t);
+	      else
+		bar_engraver_l->request_bar (""); 
 	    }
 	  else
 	    {

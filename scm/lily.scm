@@ -206,19 +206,22 @@
     (embedded-ps ((ps-scm 'crescendo) w h cont)))
 
   (define (char i)
-    (string-append "\\show{" (inexact->string i 10) "}"))
+    (string-append "\\char" (inexact->string i 10) " "))
   
   (define (decrescendo w h cont)
     (embedded-ps ((ps-scm 'decrescendo) w h cont)))
 
+   ;This sets CTM so that you get to the currentpoint
+  ; by executing a 0 0 moveto
+       
   (define (embedded-ps s)
-    (string-append "\\embeddedps{" s "}"))
+    (string-append "\\special{ps: @beginspecial @setspecial " s " @endspecial}"))
 
   (define (end-output) 
     "\n\\EndLilyPondOutput")
   
   (define (experimental-on)
-    "\\turnOnExperimentalFeatures")
+    "")
 
   (define (font-switch i)
     (string-append
@@ -228,11 +231,19 @@
     (string-append
      "\\font" (font-switch i) "=" s "\n"))
 
-  (define (generalmeter num den)
-    (string-append 
-     "\\generalmeter{" (number->string (inexact->exact num)) "}{" (number->string (inexact->exact den)) "}"))
-
-  (define (header-end) "\\turnOnPostScript")
+  ;; UGH
+   
+  (define (header-end) (string-append
+"\\special{!"
+"/stafflinethickness \\mudelapaperstaffline0 def " ;may we burn in hell.
+"/interline \\mudelapaperinterline0 %\n def "
+"interline 3 div /bracket_b exch def "
+"interline 2 mul /bracket_w exch def "
+"stafflinethickness 2 mul /bracket_t exch def "
+"interline 1.5 mul /bracket_v exch def "
+"bracket_v /bracket_u exch def "
+"50 /bracket_alpha exch def "
+"1 setlinecap}"))
 
   (define (header creator generate) 
     (string-append
@@ -269,17 +280,17 @@
      "\\placebox{"
      (number->dim y) "}{" (number->dim x) "}{" s "}"))
 
-
-  ;;;; UGH! Junk \\bracefont !
-  (define (pianobrace y)
-    (define step 1.0)
-    (define minht (* 2 mudelapaperstaffheight))
-    (define maxht (* 7 minht))
-    (string-append
-     "{\\bracefont " (char (max
-			    0
-			    (/  (- (min y (- maxht step)) minht) step))) "}"))
-
+  ;;;;
+  (define (pianobrace y staffht)
+    (let* ((step 1.0)
+	   (minht (* 2 staffht))
+	   (maxht (* 7 minht))
+	   )
+      (string-append
+       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))))
+       (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
+      )
+    )
 
 
   (define (rulesym h w) 
@@ -290,8 +301,8 @@
      )
     )
 
-  (define (bezier-sandwich l)
-    (embedded-ps ((ps-scm 'bezier-sandwich) l)))
+  (define (bezier-sandwich l thick)
+    (embedded-ps ((ps-scm 'bezier-sandwich) l thick)))
 
 
   (define (start-line ht)
@@ -309,8 +320,6 @@
      "\\vrule width " (number->dim (+ breapth width))
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
-
-
 
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))
@@ -338,7 +347,6 @@
 	    (define filledbox ,filledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
-	    (define generalmeter ,generalmeter)
 	    (define header-end ,header-end)
 	    (define lily-def ,lily-def)
 	    (define header ,header) 
@@ -366,7 +374,6 @@
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'font-def) font-def)
 	((eq? action-name 'font-switch) font-switch)
-	((eq? action-name 'generalmeter) generalmeter)
 	((eq? action-name 'header-end) header-end)
 	((eq? action-name 'lily-def) lily-def)
 	((eq? action-name 'header) header) 
@@ -432,9 +439,9 @@
   (define (char i)
     (invoke-char " show" i))
 
-  (define (crescendo w h cont)
+  (define (crescendo w h cont thick)
     (string-append 
-     (numbers->string (list w h (inexact->exact cont)))
+     (numbers->string (list w h (inexact->exact cont) thick))
      " draw_crescendo"))
 
   (define (dashed-slur thick dash l)
@@ -446,9 +453,9 @@
      (number->string (* 2 thick))
      " ] 0 draw_dashed_slur"))
 
-  (define (decrescendo w h cont)
+  (define (decrescendo thick w h cont)
     (string-append 
-     (numbers->string (list w h (inexact->exact cont)))
+     (numbers->string (list w h (inexact->exact cont) thick))
      " draw_decrescendo"))
 
 
@@ -471,17 +478,15 @@
   (define (font-switch i)
     (string-append (font i) " "))
 
-  (define (generalmeter num den)
-    (string-append (number->string (inexact->exact num)) " " (number->string (inexact->exact den)) " generalmeter "))
-
   (define (header-end) "")
   (define (lily-def key val)
 
-     (if (string=? (substring  key 0 (string-length "mudelapaper") ) "mudelapaper")
+     (if (string=? (substring key 0 (min (string-length "mudelapaper") (string-length key))) "mudelapaper")
 	 (string-append "/" key " {" val "} bind def\n")
 	 (string-append "/" key " (" val ") def\n")
 	 )
      )
+
   (define (header creator generate) 
     (string-append
      "%!PS-Adobe-3.0\n"
@@ -498,9 +503,18 @@
   (define (placebox x y s) 
     (string-append 
      (number->string x) " " (number->string y) " {" s "} placebox "))
-  (define (pianobrace y)
-    ""
+
+  (define (pianobrace y staffht)
+    (let* ((step 1.0)
+	   (minht (* 2 staffht))
+	   (maxht (* 7 minht))
+	   )
+      (string-append
+       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))))
+       (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
+      )
     )
+
 
   (define (rulesym x y) 
     (string-append 
@@ -508,9 +522,10 @@
      (number->string y) " "
      " rulesym"))
 
-  (define (bezier-sandwich l)
+  (define (bezier-sandwich l thick)
     (string-append 
-     (apply string-append (map control->string l)) 
+     (apply string-append (map control->string l))
+     (number->string  thick)
      " draw_bezier_sandwich"))
 
   (define (start-line height)
@@ -561,7 +576,6 @@
 	    (define filledbox ,filledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
-	    (define generalmeter ,generalmeter)
 	    (define pianobrace ,pianobrace)
 	    (define header-end ,header-end)
 	    (define lily-def ,lily-def)

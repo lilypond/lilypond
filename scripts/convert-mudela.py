@@ -362,6 +362,30 @@ if 1:
 			    'deprecate \\grouping')
 
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\\\\wheel','\\\\coda', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,1,55), conv,
+			    '\\wheel -> \\coda')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\\\\wheel','\\\\coda', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,1,55), conv,
+			    '\\wheel -> \\coda')
+
+
 
 ############################
 	

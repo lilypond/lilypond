@@ -10,12 +10,10 @@ Depends: ${shlibs:Depends}, tetex-bin (>= 0.9.981031-2)
 Recommends: python-base (>= 1.5.1), python-misc (>= 1.5.1), tetex-base (>= 0.9.981030-1), tetex-extra (>= 0.9.981030-1)
 Conflicts: musixtex-fonts, tetex-base (<< 0.9)
 Description: The GNU Project music typesetter.
- LilyPond is the GNU Project music typesetter.  This program can print
- beautiful sheet music from a music definition file.  It can also play
- mechanical performances to a MIDI file.  Features include multiple
- staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,
- beams, slurs, triplets, named chords, transposing, formatting scores, 
- part extraction.  It includes a nice font of musical symbols.
+ 
+ LilyPond is the GNU Project music typesetter. It transforms a musical
+ description file into beautiful sheet music.
+ 
  .
   URLs: http://www.cs.uu.nl/~hanwen/lilypond/
         http://www.xs4all.nl/~jantien/lilypond/

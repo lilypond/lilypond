@@ -63,7 +63,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   int stem_max = (int)rint(paper_l->get_var ("stem_max"));
   String type_str = grace_b ? "grace_" : "";
   Real min_stem_f = paper_l->get_var (type_str + "minimum_stem_length"
-				      + to_str (mult_i_ <? stem_max));
+				      + to_str (mult_i_ <? stem_max)) * internote_f;
   Real stem_f = paper_l->get_var (type_str + "stem_length"
 				  + to_str (mult_i_ <? stem_max))* internote_f;
 

@@ -31,7 +31,7 @@ Bow::do_brew_molecule_p () const
 
   SCM d =  get_elt_property (dashed_scm_sym);
   if (d == SCM_BOOL_F)
-    a = lookup_l ()->slur (c);
+    a = lookup_l ()->slur (c, thick);
   else
     a = lookup_l ()->dashed_slur (c, thick, gh_scm2int (SCM_CDR(d)));
 
