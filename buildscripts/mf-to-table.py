@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+# (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 import os
 import sys
@@ -14,7 +14,6 @@ import regex
 import regsub
 import time
 
-sys.path.append ('@abs-step-bindir@')
 
 (options, files) = getopt.getopt(
     sys.argv[1:], 'a:d:hl:o:p:t:', 
@@ -60,6 +59,7 @@ class Feta_file(File):
 	    if begin_autometric_re.search(line) == -1:
 		line = ''
 	    line = line + regsub.sub('\n','', suf)
+            line = regsub.sub('\r','', line)
 
 	if self.eof():
 	   return ''

@@ -1,3 +1,58 @@
+pl 12.mb1
+	- bf: feta-timesig.mf Added horizontal space, minor corrections.
+	- Changed meaning of Staff.timeSignatureStyle:
+		C	Use C and stroked C for 4/4,2/2
+		old	Use old style mensuration marks
+		1	Use single number
+		Cn/m	Set symbol explicitly, n/m=2/2 or 4/4	
+		oldn/m	Set symbol explicitly, n/m=2/2,3/2,3/4,4/4,6/4 or 9/4.
+	  All other time signatures are typeset with the default two-digit
+	  layout.
+		
+
+pl 12.jcn2
+	- Lookup abstract base class
+	- Lookup/Symtable(s): separation of input/output
+
+pl 12.jcn1
+	- preparations for braindead PostScript output
+
+pl 12.hwn3
+	- praeludium-fuga-E to relative mode
+	- bf: mudela-mode.el
+	- bf: BIBINPUTS
+	- more dutch glossary + explanations
+	- table-to-html fixes
+pl 12.hwn2
+	- bf: mymycode in .yo
+	- VERSION to out/
+	- add VPATH to mutopia
+	- access_Identifier (bool): (non)copy arg now explicit.
+	- bf: lilypond-latex.tex
+  
+
+
+pl 12.hwn1
+	- \remove "Engraver_type";
+	- \output "bla" -> output = "bla" (mudela 0.1.6)
+	- \property defaultclef -> \property defaultClef
+	- naming of access_{Engraver,Performer,Translator_group} ()
+	- changed syntax for \translator in \paper{} (mudela 0.1.6)
+	- declared contexts:
+
+		StaffContext = \translator { .. }
+		\translator { \StaffContext }
+
+	- elt_b -> elem_b
+	- bf: add Separating_line_group_engraver to RhythmicStaff.
+
+
+pl 12.am1
+	- large doc patch, ChoireStaff -> ChoirStaff
+
+*******
+pl 12
+
 pl 11.uu2
 	- added Transposed_music for mixing transposition and relative 
 
