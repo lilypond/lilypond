@@ -80,6 +80,9 @@ o    Python  1.5  (Strictly  speaking,  you  shouldn't  need
      to regenerate the font tables, e.g.).
 
 
+o    GUILE 1.3 (no, GUILE 1.2 won't work)
+
+
 3: RUNNING
 
 

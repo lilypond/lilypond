@@ -37,6 +37,7 @@ SCM ly_quote ();
 
 #include "array.hh"
 #include "scalar.hh"
+SCM lambda_scm (String str, Array<int> args_arr);
 SCM lambda_scm (String str, Array<Real> args_arr);
 SCM lambda_scm (String str, Array<Scalar> args_arr);
 

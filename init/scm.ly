@@ -5,8 +5,5 @@
 % (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 \scm "
-; huh?
-;(append %load-path 'init)
-;(load-patch 'lily.scm)
-(load 'init/lily.scm)
+(primitive-load-path 'lily)
 ";

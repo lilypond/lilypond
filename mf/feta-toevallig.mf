@@ -247,7 +247,38 @@ fet_beginchar("Double sharp", "2", "sharpsharp")
 	currentpicture := currentpicture  shifted (w/2,0);
 
 
-	fet_endchar;
+
+fet_endchar;
+
+
+def draw_paren =
+  	save leftindent;
+	leftindent# := .2 interline#;
+	define_pixels(leftindent);
+  	set_char_box(0, .5 interline#+stafflinethickness#,
+	  interline#, interline#);
+	z1 = (leftindent,h);
+	z2 = (w-stafflinethickness,0);
+	z3 = (leftindent,-d);
+
+	penpos1(stafflinethickness, 35);
+	penpos2(2 stafflinethickness, 0);
+	penpos3(stafflinethickness, -35);
+
+	penlabels(1,2,3);
+	fill z2l{down} .. simple_serif(z3l, z3r, 90) ..	z2r{up}
+	.. simple_serif(z1r, z1l, 90) .. z2l{down} -- cycle;
+enddef;
+  
+fet_beginchar("Right paranthesis", ")", "rightparen")
+	draw_paren;
+fet_endchar;
+
+fet_beginchar("Left paranthesis", "(", "leftparen")
+	draw_paren;
+        currentpicture := currentpicture xscaled -1;
+        set_char_box(charwd, charbp, chardp, charht);
+fet_endchar;
 
 
 fet_endgroup("accidentals");

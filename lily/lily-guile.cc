@@ -64,6 +64,23 @@ ly_func_o (char const* name)
 #endif
 
 SCM
+lambda_scm (String str, Array<int> args_arr)
+{
+  if (str.empty_b ())
+    {
+      str = "empty";
+      args_arr.clear ();
+    }
+  SCM args_scm = SCM_EOL;
+  for (int i = args_arr.size () - 1; i >= 0; i--)
+    args_scm = gh_cons (gh_int2scm (args_arr[i]), args_scm);
+  SCM scm =
+    ly_append (ly_lambda_o (), 
+    ly_list1 (ly_append (ly_func_o (str.ch_l ()), args_scm)));
+  return scm;
+}
+
+SCM
 lambda_scm (String str, Array<Scalar> args_arr)
 {
   if (str.empty_b ())

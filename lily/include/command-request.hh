@@ -132,7 +132,7 @@ public:
 class Key_change_req  : public Command_req  {
 public:
   Array<Musical_pitch> pitch_arr_;
-  bool minor_b_;
+  int modality_i_;
   bool ordinary_key_b_;
 
   Key_change_req();
@@ -147,7 +147,6 @@ public:
   int sharps_i();
 
   void transpose (Musical_pitch  d);
-  /// is minor key?
   bool minor_b() const;
 };
 

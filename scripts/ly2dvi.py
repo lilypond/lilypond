@@ -876,7 +876,8 @@ class Properties:
 def getLilyopts():
     inc = ''	
     if len(Props.get('include')) > 0: 
-        inc = '-I ' + string.join(Props.get('include'),os.pathsep)
+#        inc = '-I ' + string.join(Props.get('include'),os.pathsep)
+        inc = '-I ' + string.join(Props.get('include'), ' -I ')
     else:
 
         if Props.get('dependencies'):

@@ -248,6 +248,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	abbrev_type
 %type <i>	int unsigned
 %type <i>	script_dir
+%type <i>	optional_modality
 %type <id>	identifier_init simple_identifier_init block_identifier
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
@@ -910,10 +911,11 @@ verbose_command_req:
 		$$ = new Clef_change_req (*$2);
 		delete $2;
 	}
-	| KEY NOTENAME_PITCH 	{
+	| KEY NOTENAME_PITCH optional_modality	{
 		Key_change_req *key_p= new Key_change_req;
 		key_p->pitch_arr_.push(*$2);
 		key_p->ordinary_key_b_ = true;
+		key_p->modality_i_ = $3;
 		$$ = key_p;
 		delete $2;
 	}
@@ -967,6 +969,15 @@ post_request:
 		Abbreviation_req* a = new Abbreviation_req;
 		a->type_i_ = $1;
 		$$ = a;
+	}
+	;
+
+optional_modality:
+	/* empty */	{
+		$$ = 0;
+	}
+	| int	{
+		$$ = $1;
 	}
 	;
 
@@ -1027,6 +1038,10 @@ steno_notepitch:
 	}
 	| steno_notepitch  '!' 		{
 		$$->forceacc_b_ = ! $$->forceacc_b_;
+	}
+	| steno_notepitch  '?' 		{
+		$$->forceacc_b_ = ! $$->forceacc_b_;
+		$$->cautionary_b_ = ! $$->cautionary_b_;
 	}
 	;
 

@@ -322,7 +322,7 @@ Key_change_req::do_print() const
 
 Key_change_req::Key_change_req()
 {
-  minor_b_ = false;
+  modality_i_ = 0;
   ordinary_key_b_= false;
 }
 
@@ -366,7 +366,7 @@ Key_change_req::flats_i()
 bool
 Key_change_req::minor_b() const
 {
-  return minor_b_;
+  return modality_i_ == 3;
 }
 
 int

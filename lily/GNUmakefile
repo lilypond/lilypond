@@ -11,11 +11,6 @@ MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include
 
 STEPMAKE_TEMPLATES= c++ executable
 
-MODULE_LIBES=-lguile 
-
-# for the RedHat GUILE 1.3 RPM 
-MODULE_LIBES+= -lreadline -ldl 
-
 include $(depth)/make/stepmake.make 
 
 # force these: Make can't know these have to be generated in advance

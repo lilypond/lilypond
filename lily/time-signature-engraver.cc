@@ -35,7 +35,7 @@ Time_signature_engraver::do_process_requests()
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)
     {
-      Array<Real> args;
+      Array<int> args;
       args.push (req->beats_i_);
       args.push (req->one_beat_i_);
 	

@@ -34,7 +34,12 @@ dit(lurl(http://www.iat.unc.edu/technology/music/music.html))
     An enormous collection of music related URLs
 dit(lurl(http://www.ram.org/ramblings/philosophy/fmp.html))
     Musings on free music, plus hints how to record your own (free) music.
+
+dit(lurl(http://www.cyberus.ca/~jdsankey/harpsichord.html))
+	John Sankey has taken up the task of recording classical
+music, and distributing the results at no cost.
 )
+
 
 sect(Ftp)
 

@@ -53,11 +53,20 @@ Lookup::~Lookup ()
   delete symtables_p_;
 }
 
-Atom
-Lookup::accidental (int j) const
+Molecule
+Lookup::accidental (int j, bool cautionary) const
 {
-  Atom a = afm_find (String ("accidentals") + String ("-") + to_str (j));
-  return a;
+  Molecule m(afm_find (String ("accidentals") + String ("-") + to_str (j)));
+  if (cautionary) 
+    {
+      m.add_at_edge(X_AXIS, LEFT, 
+                    Molecule(afm_find (String ("accidentals") + String ("-("))))
+;
+      m.add_at_edge(X_AXIS, RIGHT, 
+                    Molecule(afm_find (String ("accidentals") + String ("-)"))))
+;
+    }
+  return m;
 }
 
 void
@@ -67,7 +76,7 @@ Lookup::add (String s, Symtable*p)
 }
 
 Atom
-Lookup::afm_find (String s) const
+Lookup::afm_find (String s, bool warn) const
 {
   if (!afm_p_)
     {
@@ -76,7 +85,7 @@ Lookup::afm_find (String s) const
       *mlog << "]" << flush ;
       DOUT << this->afm_p_->str ();
     }
-  Adobe_font_char_metric m = afm_p_->find_char (s);
+  Adobe_font_char_metric m = afm_p_->find_char (s, warn);
 
   Atom a;
   if (m.code () < 0)
@@ -222,10 +231,11 @@ Lookup::rule_symbol (Real height, Real width) const
   Array<Real> arr;
   arr.push (height);
   arr.push (width);
-  a.lambda_ = lambda_scm (a.str_, arr);
+  a.lambda_ = (lambda_scm (a.str_, arr));
   a.str_ = "rule_symbol";
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (0, height);
+  return a;
 }
 
 Atom
@@ -235,24 +245,20 @@ Lookup::script (String str) const
 }
 
 Atom
-Lookup::special_time_signature (String s, Array<Real> arr) const
+Lookup::special_time_signature (String s, Array<int> arr) const
 {
-  String symbolname = "timesig-" + s;
-  if (!arr.empty ())
-    symbolname += to_str (arr[0]);
-  if (arr.size () >1)
-    symbolname += "/" + to_str (arr[1]);
+  // First guess: s contains only the signature style
+  assert (arr.size () >1);
+  String symbolname = "timesig-" + s + to_str (arr[0]) + "/" + to_str (arr[1]);
   
-  Atom a = afm_find (symbolname);
+  Atom a = afm_find (symbolname, false);
   if (!a.empty ()) 
     return a;
 
-#if 0 //guess we covered this
-  // Try if the full name was given
-  a = afm_find ("timesig-"+s);
+  // Second guess: s contains the full signature name
+  a = afm_find ("timesig-"+s, false);
   if (!a.empty ()) 
     return a;
-#endif
 
   // Resort to default layout with numbers
   return time_signature (arr);
@@ -280,9 +286,10 @@ Lookup::stem (Real y1, Real y2) const
   arr.push (y2);
   arr.push (-y1);
 
-  a.lambda_ = lambda_scm ("stem", arr);
+  a.lambda_ = (lambda_scm ("stem", arr));
   a.str_ = "stem";
   a.font_ = font_;
+  return a;
 }
 
 Atom
@@ -291,8 +298,7 @@ Lookup::streepje (int type) const
   if (type > 2)
     type = 2;
 
-  Atom a = afm_find ("balls" + String ("-") + to_str (type) + "l");
-  return a;
+  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
 }
 
 Atom
@@ -305,14 +311,18 @@ Lookup::text (String style, String text) const
   a.lambda_ = lambda_scm (a.str_, arr);
   a.str_ = "text";
   a.font_ = font_;
+  return a;
+   
 }
+  
 
 Atom
-Lookup::time_signature (Array<Real> a) const
+Lookup::time_signature (Array<int> a) const
 {
-  Atom a ((*symtables_p_) ("param")->lookup ("time_signature"));
-  a.lambda_ = lambda_scm (a.str_, arr);
-  a.str_ = "time_signature";
+  Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
+  s.lambda_ =  (lambda_scm (s.str_, a));
+
+  return s;
 }
 
 /*
@@ -330,13 +340,13 @@ Lookup::vbrace (Real &y) const
   if (y < min_y)
     {
       warning (_ ("piano brace") 
-	+ " " + _ ("too small") +  " (" + print_dimen (y) + ")");
+	       + " " + _ ("too small") +  " (" + print_dimen (y) + ")");
       y = min_y;
     }
   if (y > max_y)
     {
       warning (_ ("piano brace")
-       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
+	       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
       y = max_y;
     }
 
@@ -345,7 +355,7 @@ Lookup::vbrace (Real &y) const
   
   Array<Real> arr;
   arr.push (idx);
-  a.lambda_ = lambda_scm (a.str_, arr);
+  a.lambda_ = (lambda_scm (a.str_, arr));
   a.str_ = "brace";
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
   a.font_ = font_;
@@ -359,7 +369,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
   Real height = paper_l_->staffheight_f () / 6;
   String ps;
   ps += to_str (width) + " " 
-	+ to_str (height) + " " 
+    + to_str (height) + " " 
     + to_str (continued ? height/2 : 0) + 
     + " draw_"  + String (decresc ? "de" : "") + "cresc\n";
   a.str_ = ps;
@@ -400,18 +410,18 @@ Lookup::slur (Array<Offset> controls) const
  
   // (lambda (o) (slur o '((0.1 0.2) (1.1 1.2) (2.1 2.2) (3.1 3.2) .. )))
   a.lambda_ =  (
-    ly_append (ly_lambda_o (), 
-    ly_list1 (ly_append (ly_func_o ("slur"),
-    ly_list1 (ly_list2 (ly_quote (),
-    gh_cons (ly_list2 (gh_double2scm (controls[5].x ()), gh_double2scm (controls[5].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[6].x ()), gh_double2scm (controls[6].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[7].x ()), gh_double2scm (controls[7].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[4].x ()), gh_double2scm (controls[4].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[1].x ()), gh_double2scm (controls[1].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[2].x ()), gh_double2scm (controls[2].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
-    SCM_EOL))))))))))))));
+		ly_append (ly_lambda_o (), 
+			   ly_list1 (ly_append (ly_func_o ("slur"),
+						ly_list1 (ly_list2 (ly_quote (),
+								    gh_cons (ly_list2 (gh_double2scm (controls[5].x ()), gh_double2scm (controls[5].y ())),
+									     gh_cons (ly_list2 (gh_double2scm (controls[6].x ()), gh_double2scm (controls[6].y ())),
+										      gh_cons (ly_list2 (gh_double2scm (controls[7].x ()), gh_double2scm (controls[7].y ())),
+											       gh_cons (ly_list2 (gh_double2scm (controls[4].x ()), gh_double2scm (controls[4].y ())),
+													gh_cons (ly_list2 (gh_double2scm (controls[1].x ()), gh_double2scm (controls[1].y ())),
+														 gh_cons (ly_list2 (gh_double2scm (controls[2].x ()), gh_double2scm (controls[2].y ())),
+															  gh_cons (ly_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
+																   gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
+																	    SCM_EOL))))))))))))));
   a.str_ = "slur";
 
   a.dim_[X_AXIS] = Interval (0, dx);
@@ -428,8 +438,8 @@ Lookup::vbracket (Real &y) const
   if (y < min_y)
     {
       warning (_ ("bracket")
-	+ " " + _ ("too small") +  " (" + print_dimen (y) + ")");
-//      y = min_y;
+	       + " " + _ ("too small") +  " (" + print_dimen (y) + ")");
+      //      y = min_y;
     }
   Array<Real> arr;
   arr.push (y);

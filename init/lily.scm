@@ -60,6 +60,9 @@
    "}"))
 
 (define 
+  (bracket o h) (empty o))
+
+(define 
   (char o n) 
   ((invoke-output o "char") n))
 
@@ -105,9 +108,6 @@
 (define 
   (empty-tex) 
   "%\n\\empty%\n")
-
-(define 
-  (emptybar o h) (empty o))
 
 (define 
   (end-output o) 
@@ -258,9 +258,6 @@
 (define
   (repeatbar o h) (empty o))
 
-(define
-  (repeatbarstartrepeat o h) (empty o))
-
 (define 
   (rulesym o x y) 
   ((invoke-output o "rulesym") x y))
@@ -280,6 +277,9 @@
 (define 
   (setbold o s) 
   ((invoke-output o "text") "bold" s))
+
+(define
+  (setdynamic o s) (empty o))
 
 (define 
   (setfinger o s) 

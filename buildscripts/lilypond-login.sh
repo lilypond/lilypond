@@ -10,4 +10,4 @@ setenv LILYINCLUDE "@datadir@/ly:@datadir@/afm"
 # include an empty path component for the system wide includes.
 setenv MFINPUTS "@datadir@/mf:"${MFINPUTS:=":"}
 setenv TEXINPUTS "@datadir@/tex:"${TEXINPUTS:=":"}
-
+setenv GUILE_LOAD_PATH "@datadir@/scm:$GUILE_LOAD_PATH"
