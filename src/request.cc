@@ -1,10 +1,16 @@
-#include "request.hh"
+/*
+  request.cc -- implement all musical requests.
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+#include "musicalrequest.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "scriptdef.hh"
 #include "textdef.hh"
-
-#include "inputcommand.hh"
 
 void
 Stem_req::do_print() const
@@ -19,20 +25,14 @@ Stem_req::Stem_req(int s, int d)
     dir_i_ = 0;
 }
 
-/* *************** */
-void
-Barcheck_req::do_print() const    
-{
-#ifndef NPRINT
-
-#endif
-}
+/* ************** */
+void Musical_req::do_print()const{}
+void Request::do_print() const{}
 
 /* *************** */
 
 void
 Request::print() const
-
 {
     mtor << name() << " {";
     do_print();
@@ -40,12 +40,6 @@ Request::print() const
 }
      
 
-void
-Request::do_print() const    
-{
-#ifndef NPRINT
-#endif
-}
 
 void
 Span_req::do_print() const    
@@ -58,12 +52,12 @@ Span_req::do_print() const
 Request::Request()
 {
     elt_l_ = 0;
-    defined_ch_c_l_m = 0;
+    defined_ch_c_l_ = 0;
 }
 Request::Request(Request const&src)
 {
     elt_l_ = 0;
-    defined_ch_c_l_m = src.defined_ch_c_l_m;
+    defined_ch_c_l_ = src.defined_ch_c_l_;
 }
 /* *************** */
 Spacing_req::Spacing_req()
@@ -85,22 +79,22 @@ Blank_req::do_print()const
 /* *************** */
 Melodic_req::Melodic_req()
 {
-    notename = 0;
-    octave = 0;
-    accidental = 0;
-    forceacc = false;
+    notename_i_ = 0;
+    octave_i_ = 0;
+    accidental_i_ = 0;
+    forceacc_b_ = false;
 }
 
 void
 Melodic_req::do_print() const
 {
-    mtor << "notename: " << notename << " oct: "<< octave;
+    mtor << "notename: " << notename_i_ << " oct: "<< octave_i_;
 }
 
 int
 Melodic_req::height() const
 {
-    return  notename + octave*7;
+    return  notename_i_ + octave_i_*7;
 }
 
 /* *************** */
@@ -188,25 +182,7 @@ Span_req::Span_req()
 {
     spantype = NOSPAN;
 }
-/* *************** */
-void
-Group_feature_req::do_print() const
-{
-    mtor << "stemdir " << stemdir_i_;
-}
-Group_feature_req::Group_feature_req()
-{
-    stemdir_i_ = 0;
-}
-void
-Group_change_req::do_print()const
-{
-    mtor << "id : " << newgroup_str_;
-}
-void
-Terminate_voice_req::do_print()const
-{
-}
+
 /* *************** */
 Script_req::Script_req(int d , Script_def*def)
 {
@@ -273,39 +249,17 @@ Text_req::do_print() const
     tdef_p_->print();
 }
 
-
-
 /* *************** */
 
-Mark_req::Mark_req(String s)
+Moment
+Skip_req::duration() const
 {
-    mark_str_ = s;
+    return duration_;
 }
 
 void
-Mark_req::do_print()const
+Skip_req::do_print() const
 {
-#ifndef NDEBUG
-    mtor<< " `" << mark_str_ << "\'\n";
-#endif
+    mtor << "duration: " << duration();
 }
-/* *************** */
-Staff_command_req::Staff_command_req(Input_command * p)
-{
-    com_p_ = p;
-}
-Staff_command_req::~Staff_command_req()
-{
-    delete com_p_;
-}
-Staff_command_req::Staff_command_req(Staff_command_req const&src)
-{
-    com_p_ = new Input_command(*src.com_p_);
-}
-void
-Staff_command_req::do_print()const
-{
-    com_p_->print();
-}
-
 
