@@ -143,7 +143,7 @@ PScore::select_items(PStaff*ps, PCol*pc)
     assert(ps && pc);
     for (iter_top(pc->its,i); i.ok(); i++){
 	if (i->pstaff_l_ == ps)
-	    ret.add((Item*)(const Item*)i);
+	    ret.push((Item*)(const Item*)i);
     }
     return ret;
 }

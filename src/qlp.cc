@@ -12,15 +12,15 @@ Mixed_qp::add_equality_cons(Vector , double )
 void
 Mixed_qp::add_fixed_var(int i, Real r)
 {
-    eq_cons.add(i);
-    eq_consrhs.add(r);
+    eq_cons.push(i);
+    eq_consrhs.push(r);
 }
 
 void
 Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
 {
-    cons.add(c);
-    consrhs.add(r);
+    cons.push(c);
+    consrhs.push(r);
 }
 
 Ineq_constrained_qp::Ineq_constrained_qp(int novars):
@@ -96,7 +96,7 @@ Ineq_constrained_qp::assert_solution(Vector sol) const
 	Real R=cons[i] * sol- consrhs[i];
 	assert(R> -EPS);
 	if (R < EPS)
-	    binding.add(i);
+	    binding.push(i);
     }
     // KKT check...
     // todo

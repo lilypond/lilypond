@@ -5,15 +5,27 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Script::Script(Script_req* rq, Item*i , int staflen, Stem*st_l)
+NAME_METHOD(Script);
+
+void
+Script::set_stem(Stem*st_l)
 {
-    dependencies.add(st_l);
-    dependencies.add(i);
-    
+    stem_l_ = st_l;
+    dependencies.push(st_l);
+}
+
+void
+Script::set_support(Item*i)
+{
+    support.push(i);
+    dependencies.push(i);
+}
+
+Script::Script(Script_req* rq, int staflen)
+{    
     staffsize =staflen;
     specs_l_ = rq->scriptdef;
-    support= i;
-    stem_l_ = st_l;
+    stem_l_ = 0;
     pos = 0;
     symdir=1;
     dir =rq->dir;
@@ -37,6 +49,13 @@ Script::set_default_dir()
     }
 }
 
+Interval
+Script::support_height() const return r;
+{
+    for (int i=0; i < support.size(); i++)
+	r.unite(support[i]->height());
+}
+
 void
 Script::set_default_pos()
 {
@@ -46,12 +65,12 @@ Script::set_default_pos()
     int d = specs_l_->staffdir;
     Real y  ;
     if (!d) {
-	Interval v= support->height();
+	Interval v= support_height();
 	y = v[dir]  -dy[-dir] + 2*dir*inter_f;
     } else {
 	Real y  = (d > 0) ? staffsize + 2: -2; // ug
 	y *=inter_f;
-	Interval v= support->height();
+	Interval v= support_height();
 
 	if (d > 0) {
 	    y = y >? v.max();

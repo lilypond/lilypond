@@ -7,7 +7,7 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
-
+NAME_METHOD(Slur);
 Slur::Slur()
 {
     dir = 0;
@@ -30,8 +30,8 @@ Slur::center() const
 void
 Slur::add(Notehead*n)
 {
-    encompass.add(n);
-    dependencies.add(n);
+    encompass.push(n);
+    dependencies.push(n);
 }
 
 void
@@ -51,12 +51,6 @@ Slur::set_default_dir()
 }
 
 void
-Slur::print()const
-{
-    mtor << "Slur.\n";   
-}
-
-void
 Slur::do_pre_processing()
 {
     right  = encompass.last()->pcol_l_;
@@ -72,7 +66,7 @@ Slur::do_break_at(PCol*l, PCol*r) const
     ret->encompass.set_size(0);
     for (int i =0; i < encompass.size(); i++) {
 	if (encompass[i]->pcol_l_->line_l_==l->line_l_)
-	    ret->encompass.add(encompass[i]);
+	    ret->encompass.push(encompass[i]);
     }
     if (right != r)
 	ret->open_right = true;

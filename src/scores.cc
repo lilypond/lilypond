@@ -25,7 +25,7 @@ do_scores()
 void
 add_score(Input_score * s)
 {
-    score_array_global.add(s);
+    score_array_global.push(s);
 }
 
 

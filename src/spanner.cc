@@ -2,6 +2,12 @@
 #include "spanner.hh"
 #include "pcol.hh"
 
+NAME_METHOD(Spanner);
+void
+Spanner::do_print()const
+{
+    mtor << " (unknown) ";
+}
 Spanner*
 Spanner::broken_at(PCol*c1, PCol *c2)const
 {
@@ -9,7 +15,7 @@ Spanner::broken_at(PCol*c1, PCol *c2)const
     Spanner *span_p = do_break_at(c1,c2);
 
     me_p->calc_children = true;
-    me_p->dependencies.add(span_p);
+    me_p->dependencies.push(span_p);
 
     span_p->calc_children = false; // should handle in ctor
 
@@ -28,20 +34,10 @@ Spanner::Spanner()
 Interval
 Spanner::width()const
 {
-    Real r =right->hpos,
-	l= left->hpos;
+    Real r = right->hpos;
+    Real l = left->hpos;
+    assert(*left < *right);
     assert(r>=l);
 	
     return Interval(0, r-l);
 }
-
-void
-Spanner::print() const
-{
-#ifndef NPRINT
-    mtor << "Spanner { ";
-    Staff_elem::print();
-    mtor << "}\n";
-#endif
-}
-

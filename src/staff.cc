@@ -77,19 +77,19 @@ Staff::clean_cols()
 Staff_column *
 Staff::get_col(Moment w, bool mus)
 {
-    Score_column* sc = score_l_->find_col(w,mus);
+    Score_column* sccol_l = score_l_->find_col(w,mus);
     
     iter_top(cols,i);
     for (; i.ok(); i++) {
 
-	if (*i->score_column_l_ > *sc) // too far
+	if (*i->score_column_l_ > *sccol_l) // too far
 	    break;
-	if (sc == i->score_column_l_)
+	if (sccol_l == i->score_column_l_)
 	    return i;
     }
 
     /* post: *sc > *->score_column_l_ || !i.ok() */
-    Staff_column* newst = create_col(sc);
+    Staff_column* newst = create_col(sccol_l);
 
     if (!i.ok()) {
 	cols.bottom().add(newst);
@@ -121,8 +121,8 @@ Staff::get_marks(Array<String>&s_arr, Array<Moment>&m_arr)
 	for (iter_top(i->elts,j); j.ok(); j++) {
 	    for (iter_top(j->reqs, k); k.ok(); k++) {
 		if (k->mark()) { // ugh. 4 levels
-		    s_arr.add(k->mark()->mark_str_);
-		    m_arr.add(now);
+		    s_arr.push(k->mark()->mark_str_);
+		    m_arr.push(now);
 		}
 	    }
 	    now += j->duration;	    
@@ -176,6 +176,15 @@ Staff::OK() const
 #ifndef NDEBUG
     cols.OK();
     voices.OK();
+    iter_top(cols, i);
+    iter_top(cols, j);
+    i++;
+    for (; i.ok(); j++,i++) {
+	if ( j->when() == i->when())
+	    assert(!j->mus() && i->mus());
+	else
+	    assert(j->when () < i->when() );
+    }
     assert(score_l_);
 #endif    
 }

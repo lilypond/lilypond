@@ -21,9 +21,9 @@ get_meter_command(int n, int m)
     Command*c = new Command;
     
     c->code = TYPESET;
-    c->args.add( "METER");
-    c->args.add( n );
-    c->args.add( m );
+    c->args.push( "METER");
+    c->args.push( n );
+    c->args.push( m );
     c->priority = 40;
     return c;
 }
@@ -33,8 +33,8 @@ get_defaultbar_command()
 {
     Command c;
     c.code = TYPESET;
-    c.args.add("BAR");
-    c.args.add("default");
+    c.args.push("BAR");
+    c.args.push("default");
     return c;
 }
 
@@ -45,21 +45,21 @@ split_bar_command(Command &pre_com, Command &no_break_com, Command &post_com,
     Command c;
     c.code = TYPESET;
     c.priority = (s=="default") ? 100: 110;
-    c.args.add("BAR");
+    c.args.push("BAR");
     if(s=="default")
 	s = "|";
     
     if (s == ":|:") {
 	no_break_com=post_com=pre_com = c;
 	
-	pre_com.args.add( ":|");
-	no_break_com.args.add( s);
-	post_com.args.add( "|:");
+	pre_com.args.push( ":|");
+	no_break_com.args.push( s);
+	post_com.args.push( "|:");
     }else if (s=="|:") {
-	c.args.add(s);
+	c.args.push(s);
 	no_break_com=post_com=c;
     } else {
-	c.args.add(s);
+	c.args.push(s);
 	pre_com= no_break_com= c;	
     } 
 }

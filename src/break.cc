@@ -19,7 +19,7 @@ Break_algorithm::find_breaks() const
     Array<PCol *> retval;
     for (iter_top(pscore_.cols,c); c.ok(); c++)
 	if (c->breakable())
-	    retval.add(c);
+	    retval.push(c);
 
     return retval;
 }
@@ -82,7 +82,7 @@ Col_configuration::Col_configuration()
 void
 Col_configuration::add( PCol*c)
 {
-    cols.add(c);
+    cols.push(c);
 }
 
 void

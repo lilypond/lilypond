@@ -33,7 +33,7 @@ Lookup::text(String style, String text, int dir)
 {
     Array<String> a;
  
-    a.add(text);
+    a.push(text);
     Symbol tsym =  (*symtables_)("style")->lookup(style);
     a[0] = substitute_args(tsym.tex,a);
 
@@ -132,7 +132,7 @@ Lookup::streepjes(int i)
     Symbol ret = (*symtables_)("streepjes")->lookup(idx);
     
     Array<String> a;
-    a.add(arg);
+    a.push(arg);
     ret.tex = substitute_args(ret.tex, a);
 
     return ret;
@@ -149,8 +149,8 @@ Lookup::linestaff(int lines, Real wid)
     s.dim.y = Interval(0,dy);
 
     Array<String> a;
-    a.add(lines);
-    a.add(print_dimen(wid));
+    a.push(lines);
+    a.push(print_dimen(wid));
 
     s.tex = (*symtables_)("param")->lookup("linestaf").tex;
     s.tex = substitute_args(s.tex, a);
@@ -182,8 +182,8 @@ Lookup::stem(Real y1,Real y2)
     s.dim.y = Interval(y1,y2);
     
     Array<String> a;
-    a.add(print_dimen(y1));
-    a.add(print_dimen(y2));
+    a.push(print_dimen(y1));
+    a.push(print_dimen(y2));
 	
     String src = (*symtables_)("param")->lookup("stem").tex;
     s.tex = substitute_args(src,a);

@@ -19,7 +19,7 @@ Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
     staff_l_ = rs;
     beam_ = 0;
     text_=0;
-    lreq_p_ = 0;
+
 }
 
 Simple_staff::Simple_staff()
@@ -27,18 +27,10 @@ Simple_staff::Simple_staff()
     theline_l_ = 0;
 }
 
-/**
- accept:
-
-    BREAK: all
-    TYPESET: bar, meter,
-Scalar
-    */
-
 
 
 void
-Simple_column::process_requests()
+Simple_column::setup_requests()
 {
     for (int i = 0 ; i < v_elts.size(); i ++)
 	for (iter_top(v_elts[i]->reqs,j); j.ok(); j++) {
@@ -49,10 +41,10 @@ Simple_column::process_requests()
 		}
 	    }
 	    if (rq->rhythmic()){
-		notes.add(rq->rhythmic());
+		notes.push(rq->rhythmic());
 	    }
 	    if (rq->script()) {
-		notes.last().scripts.add(rq->script());
+		notes.last().scripts.push(rq->script());
 	    }
 	    if (rq->stem()) {
 		stem_ = rq->stem();
@@ -61,16 +53,11 @@ Simple_column::process_requests()
 	    if (rq->text()) {
 		text_ = rq->text();
 	    }
-#if 0
-	    if (rq->lreq_l()) {
-		lreq_p_ = rq->lreq_l();
-	    }
-#endif
 	    if (rq->beam()) {
 		beam_ = rq->beam();
 	    }
 	    if (rq->slur()) {
-		slurs.add(rq->slur());
+		slurs.push(rq->slur());
 	    }
 	}
 }
@@ -85,7 +72,7 @@ void
 Simple_staff::walk()
 {
     for (Simple_walker sc(this); sc.ok(); sc++) {
-	sc.col()->process_requests();// TODO
+	sc.col()->setup_requests();// TODO
 	sc.process();
     }
 }

@@ -4,10 +4,23 @@
 #include "textdef.hh"
 #include "debug.hh"
 
-Text_spanner::Text_spanner(Directional_spanner*d)
+NAME_METHOD(Text_spanner);
+
+void
+Text_spanner::set_support(Directional_spanner*d)
 {
     support = d;
-    dependencies.add(d);
+    dependencies.push(d);
+}    
+Text_spanner::Text_spanner()
+{
+    support = 0;
+}
+
+void
+Text_spanner::do_print() const
+{
+    spec.print();
 }
 
 void
@@ -36,14 +49,6 @@ Text_spanner::brew_molecule_p() const
 }
 
 void
-Text_spanner::print() const	// todo
-{
-#ifndef NDEBUG
-    mtor << "Text_spanner\n";
-#endif
-}
-
-void
 Text_spanner::do_pre_processing()
 {
     right = support->right;
@@ -60,5 +65,5 @@ Text_spanner::height()const
 Spanner*
 Text_spanner::do_break_at(PCol*c1, PCol*c2)const
 {
-    return new Text_spanner(*this);    
+    return new Text_spanner(*this); // todo
 }

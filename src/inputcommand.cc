@@ -39,8 +39,8 @@ Input_command*
 get_partial_command(Moment u)
 {
     Input_command*c = new Input_command;
-    c->args.add("PARTIAL");
-    c->args.add(u);
+    c->args.push("PARTIAL");
+    c->args.push(u);
     return c;
 }
 
@@ -48,8 +48,8 @@ Input_command*
 get_goto_command(String s)
 {
     Input_command*c = new Input_command;
-    c->args.add("GOTO");
-    c->args.add(s);
+    c->args.push("GOTO");
+    c->args.push(s);
     return c;
 }
 
@@ -58,17 +58,17 @@ get_cadenza_toggle(int i)
 {
     
     Input_command*c = new Input_command;
-    c->args.add("CADENZA");
-    c->args.add(i);
+    c->args.push("CADENZA");
+    c->args.push(i);
     return c;
 }
 Input_command*
 get_grouping_command(Array<int>a ) 
 {
     Input_command*c = new Input_command;
-    c->args.add("GROUPING");    
+    c->args.push("GROUPING");    
     for (int i=0; i < a.size(); i ++)
-	c->args.add(a[i]);
+	c->args.push(a[i]);
 
     return c;
 }
@@ -77,9 +77,9 @@ Input_command*
 get_key_interpret_command(Array<int >a ) 
 {
     Input_command*c = new Input_command;
-    c->args.add("KEY");
+    c->args.push("KEY");
     for (int i=0; i < a.size(); i ++) {
-	c->args.add(a[i]);
+	c->args.push(a[i]);
     }
     return c;
 }
@@ -88,7 +88,7 @@ Input_command*
 get_reset_command()
 {
     Input_command*c = new Input_command;
-    c->args.add("RESET");
+    c->args.push("RESET");
     return c;
 }
 
@@ -97,9 +97,9 @@ get_meterchange_command(int n, int m)
 {
     Input_command*c = new Input_command;
 
-    c->args.add( "METER");
-    c->args.add( n );
-    c->args.add( m );
+    c->args.push( "METER");
+    c->args.push( n );
+    c->args.push( m );
 
     return c;
 }
@@ -108,7 +108,7 @@ Input_command *
 get_newmeasure_command()
 {
     Input_command*c = new Input_command;
-    c->args.add( "NEWMEASURE");
+    c->args.push( "NEWMEASURE");
     return c;
 }
 
@@ -117,9 +117,9 @@ get_skip_command(int n, Moment m)
 {
     Input_command*c = new Input_command;
     
-    c->args.add( "SKIP");
-    c->args.add( n );
-    c->args.add( m );
+    c->args.push( "SKIP");
+    c->args.push( n );
+    c->args.push( m );
 
     return c;
 }
@@ -143,8 +143,8 @@ Input_command*
 get_clef_interpret_command(String w)
 {
     Input_command*c = new Input_command;
-    c->args.add("CLEF");
-    c->args.add(w);
+    c->args.push("CLEF");
+    c->args.push(w);
     return c;
 }
 
@@ -152,8 +152,8 @@ Input_command*
 get_bar_command(String w)
 {
     Input_command*c = new Input_command;
-    c->args.add("BAR");
-    c->args.add(w);
+    c->args.push("BAR");
+    c->args.push(w);
     return c;
 }
 
@@ -163,12 +163,12 @@ get_default_grouping(int count)
     Array<int> s;
     if (!(count % 3 )) {
 	for (int i=0; i < count/3; i++)
-	    s.add(3);
+	    s.push(3);
     } else if (!(count %2)) {
 	for (int i=0; i < count/2; i++)
-	    s.add(2);
+	    s.push(2);
     }else {
-	s.add(2);
+	s.push(2);
 	s.concat(get_default_grouping(count-2));
     }
     return s;
