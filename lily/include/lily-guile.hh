@@ -90,7 +90,7 @@ void								\
 TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
   TYPE ## _ ## FUNC ## _proc = gh_new_procedure1_0 (#TYPE "::" #FUNC, \
-  (SCM(*)(...))TYPE :: FUNC); 				\
+  (SCM(*)(SCM))TYPE :: FUNC); 				\
 }								\
 								\
 ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
