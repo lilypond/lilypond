@@ -4365,7 +4365,7 @@ For example, consider  a piece written in the key of  D major.  If
 this piece is a  little too low for its performer, it can be
 transposed up to E major with
 @example
- \tranpose d e @ldots{}
+ \tranpose d e @dots{}
 @end example
 
 Consider a part  written for violin (a C instrument). If
@@ -4373,7 +4373,7 @@ this part is to be played on the A clarinet, the following
 transposition will produce the appropriate part
 
 @example
-  \transpose a c
+  \transpose a c @dots{}
 @end example   
 
 Since @var{from} and @var{to} are pitches, @code{\transpose} must be
@@ -8806,6 +8806,9 @@ setting @code{instrumentEqualizer}.
 
 Many musically interesting effects, such as swing, articulation,
 slurring, etc., are not translated to MIDI.
+
+Since slurs are not interpreted, @code{\lyricsto} and
+@code{\addlyrics} sections will be interpreted wrongly.
 
 
 @menu

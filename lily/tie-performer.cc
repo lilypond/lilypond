@@ -7,7 +7,7 @@
   
  */
 
-
+#include "translator-group.hh"
 #include "audio-item.hh"
 #include "event.hh"
 #include "pqueue.hh"
@@ -52,12 +52,20 @@ private:
   Link_array<Audio_tie> ties_;
   
 protected:
+  virtual void process_music ();
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual bool try_music (Music*);
   virtual void create_audio_elements ();
 };
+
+void
+Tie_performer::process_music ()
+{
+  if (event_)
+    daddy_trans_->set_property ("tieMelismaBusy", SCM_BOOL_T);
+}
 
 
 Tie_performer::Tie_performer ()
