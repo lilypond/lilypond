@@ -20,7 +20,7 @@ document, the
 Program reference
 @end iftex
 @ifnottex
-@ref{lilypond-internals,Program reference,,lilypond-internals}.
+@ref{Top,Program reference,,lilypond-internals}.
 @end ifnottex
 manual.  That manual
 lists all different variables, functions and options available in
