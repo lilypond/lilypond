@@ -112,8 +112,18 @@
       (if landscape?
 	  (set! entry (swap entry)))
       (set-paper-dimensions module (car entry) (cdr entry))
+
+      
       (module-define! module 'papersize name)
+      
+      ;; FIXME: if this name-play is on purpose, please document.  Why
+      ;; is it not used troughout?  Should this be removed, or
+      ;; should 'papersize be removed?
+
+      ;; setting \paper{ papersize = "a6" } gives funny results.
+      
       (module-define! module 'papersizename name)
+
       (if landscape?
 	  (module-define! module 'landscape #t)))
      (else
