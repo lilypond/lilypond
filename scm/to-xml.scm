@@ -105,6 +105,13 @@ is then separated.
 	      (re-sub-alist string (cdr alist))
 	      string)))
 
+(define xml-entities-alist
+  '(("\"" . "&quot;")
+    ("<" . "&lt;")
+    (">" . "&gt;")
+    ("'" . "&apos;")
+    ("&" . "&amp;")))
+
 (define (open-tag tag attrs exceptions)
   (define (candidate? x)
     (not (memq (car x) exceptions)))
@@ -122,11 +129,7 @@ is then separated.
     "=\""
 
     (let ((s (call-with-output-string (lambda (port) (display val port)))))
-      (re-sub-alist s '(("\"" . "&quot;")
-			("<" . "&lt;")
-			(">" . "&gt;")
-			("'" . "&apos;")
-			("&" . "&amp;"))))
+      (re-sub-alist s xml-entities-alist))
     
     "\""
     )))
