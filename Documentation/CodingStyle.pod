@@ -40,23 +40,23 @@ the C<type> is a Hungarian notation postfix for $C<Type>$.
 =head2 COMMENTS
 
 The source is commented in the DOC++ style.  Check out doc++ at
-F<http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html>
+http://www.zib.de/Visual/software/doc++/index.html
 
 	/// short description
 	class Class {
-		///
-		Data data_member_;
+		/// short description
 		/**
-			..
+			long description
 		*/
 
+		Data data_member_;
 		/****************/
 
 		/// short memo
-		member();
 		/**
 			long doco of member()
 		*/
+		member();
 	};
 	/**
 		Class documentation.
