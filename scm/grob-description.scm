@@ -29,6 +29,7 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
+		(paren-cautionaries . #t)
 		(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
 	))
 

@@ -187,7 +187,9 @@
  "Accidentals"
  '(accidentals
    left-padding 
-   right-padding 
+   right-padding
+   paren-cautionaries
+   cautionary-size
    ))
 
 

@@ -92,7 +92,7 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'break-glyph-function procedure? "function taking glyph and break-direction, returning the glyph at a line break.")
 (grob-property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.).")
 (grob-property-description 'c0-position integer? "integer indicating the position of central C.")
-
+(grob-property-description 'cautionary-size integer? "size of cautionary accidentals (relative to size of accidentals)")
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
@@ -257,6 +257,7 @@ more than this (in staffspace).")
 
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket .")
+(grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
