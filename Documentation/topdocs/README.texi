@@ -2,10 +2,6 @@
 @setfilename README.info
 @settitle Toplevel README
 
-@html
-<!--- @@WEB-TITLE@@=README --->
-@end html
-
 @node Top, , , 
 @top
 
@@ -21,8 +17,6 @@ Project.
 LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
 For development versions 'y' is odd.
-
-Version 1.6 is the latest stable release.
 
 @section Downloading
 
