@@ -207,7 +207,7 @@ Script_engraver::stop_translation_timestep ()
 
       SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), scripts_[i].description_);
       if (gh_pair_p (follow) && to_boolean (gh_cdr (follow)))
-	sc->add_offset_callback (Side_position_interface::quntised_position_proc, Y_AXIS);
+	sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
       else
 	Side_position_interface::add_staff_support (sc);
       typeset_grob (sc);
