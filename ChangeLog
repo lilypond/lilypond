@@ -2,6 +2,8 @@
 
 	* lilypond-mode.el: tidy, add TODO
 
+	* make/lilypond.mandrake.spec.in: install-info quietly.
+
 2002-12-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/markup.ly: use new syntax.

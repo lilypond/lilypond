@@ -52,6 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 ## Add options if needed
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimising
 %make MAKE_PFA_FILES=1 all
+make -C mf/ pfa
 
 # make info
 make -C Documentation
@@ -130,7 +131,7 @@ touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
 
 %if %{info}
-  /sbin/install-info %{_infodir}/lilypond.info.bz2 %{_infodir}/dir 
+  /sbin/install-info --quiet %{_infodir}/lilypond.info.bz2 %{_infodir}/dir 
 %endif
 
 /usr/X11R6/bin/mkfontdir %{_datadir}/lilypond/%{version}/fonts/type1/
@@ -140,7 +141,7 @@ chkfontpath --add=%{_datadir}/lilypond/%{version}/fonts/type1/
 
 %if %{info}
   if [ $1 = 0 ]; then
-    /sbin/install-info --delete %{_infodir}/lilypond.info.bz2 %{_infodir}/dir 
+    /sbin/install-info --quiet --delete %{_infodir}/lilypond.info.bz2 %{_infodir}/dir 
   fi
 %endif
 
