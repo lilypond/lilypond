@@ -843,7 +843,7 @@
 			   ,New_slur::height)
 					; Slur::height)
 	(height-limit . 2.0)
-	(ratio . 0.333)
+	(ratio . 0.25)
 	(beautiful . 0.5)
 	(y-free . 0.75)
 	(attachment . (#f . #f))

@@ -1,5 +1,16 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): set ratio
+	.25. This flattens short slurs.
+
+	* lily/new-slur.cc (enumerate_attachments): move X of attachment
+	points for tilted slurs.
+
+	* input/regression/slur-tilt.ly: new file.
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): shorten
+	stems of 16th graces too.
+
 	* lily/beam-quanting.cc (score_forbidden_quants): make forbidden
 	quant penalty dependent on how much the line is in the gap.
 
