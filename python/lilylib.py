@@ -153,9 +153,9 @@ def option_help_str (o):
 	if o[1]:
 		sh = '-%s' % o[1]
 
-	sep = ' '
+	sep = '  '
 	if o[1] and o[2]:
-		sep = ','
+		sep = ', '
 		
 	long = ''
 	if o[2]:
