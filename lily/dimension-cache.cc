@@ -5,6 +5,8 @@
   
   (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
+#include <math.h>
+#include "warn.hh"
 
 #include "dimension-cache.hh"
 #include "parray.hh"
@@ -82,7 +84,13 @@ Dimension_cache::get_offset () const
     {
       Offset_cache_callback c = me->off_callbacks_[0];
       me->off_callbacks_.del (0);
-      me->basic_offset_ += (*c) (me);
+      Real r =  (*c) (me);
+      if (isinf (r) || isnan (r))
+	{
+	  r = 0.0;
+	  programming_error ("Infinity or NaN encountered");
+	}
+      me->basic_offset_ +=r;
     }
   return basic_offset_ + extra_offset_;
 }
