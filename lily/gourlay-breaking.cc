@@ -66,7 +66,6 @@ print_break_nodes (Array<Break_node> const & arr)
   This algorithms is adapted from the OSU Tech report on breaking lines.
 
   this function is longish, but not very complicated.
-  
  */
 Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
@@ -81,8 +80,7 @@ Gourlay_breaking::do_solve () const
   optimal_paths.push (first_node);
 
   Real worst_force = 0.0;
-  
-  for (int break_idx=1; break_idx< breaks.size (); break_idx++) 
+  for (int break_idx = 1; break_idx< breaks.size (); break_idx++) 
     {
       /*
 	start with a short line, add measures. At some point 

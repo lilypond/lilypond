@@ -50,11 +50,11 @@
 		(font-load-command (car x) (cdr x)))
 	      (map cdr font-name-alist))))
 
-
-
+;;
 ;; urg, how can exp be #unspecified?  -- in sketch output
 ;;
 ;; set! returns #<unspecified>  --hwn
+;;
 (define (fontify name-mag-pair exp)
   (string-append (select-font name-mag-pair)
 		 exp))
