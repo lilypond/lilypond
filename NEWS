@@ -1,3 +1,28 @@
+pl 32.mb1
+	- bf: \> and \< were interchanged!!
+	- Added property: textScriptPadding
+	- Changed copyright text on the Gade score.
+
+pl 32.uu1
+	- really include Gade score now.
+	- fixes: install-[out-]targets, INSTALLATION_[OUT_]SUFFIXES
+	- install TFMs in separate dir.
+pl 31.hwn3
+	- Span_bar bugfix (there you go, Mats).
+	- bf: Score copy ctor (-> bf declaring score)
+	- new Tie behavior: only tie identical pitches, switchable with
+oldTieBehavior
+	- junked cautionary_b_ from Musical_pitch
+
+pl 32.jcn1
+	- set-lily: set weird locale links for $LILYPONDPREFIX 
+
+**********
+pl 31.mb2
+	- Added example: "Imellan Fjeldene" by Niels W. Gade.
+	- bf: don't attach staff margin text to clef changes within the
+	lines. (Still not perfect: no text when a clef change happens
+
 pl 31.hwn2
 	- be somewhat lazy in break/object multiplication.
 	- print # elements for memory usage impression (try  -t)

@@ -1,7 +1,7 @@
 PACKAGE_NAME=LilyPond
 MAJOR_VERSION=1
 MINOR_VERSION=1
-PATCH_LEVEL=32
+PATCH_LEVEL=33
 MY_PATCH_LEVEL=
 
 # use the above to send patches: MY_PATCH_LEVEL is always empty for a
