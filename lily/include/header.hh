@@ -16,6 +16,7 @@
 
 struct Header : Assoc<String, String>
 {
+  String TeX_string()const;
 };
 
 #endif // HEADER_HH

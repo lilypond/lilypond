@@ -14,6 +14,8 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "parser.hh"
+#include "header.hh"
+
 
 void
 My_lily_parser::clear_notenames()
@@ -80,6 +82,7 @@ My_lily_parser::parse_file (String init, String s)
 My_lily_parser::~My_lily_parser()
 {
   delete lexer_p_;
+  delete default_header_p_;
 }
   
 void
@@ -270,6 +273,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   error_level_i_ = 0;
   last_duration_mode_b_ = true;
   fatal_error_i_ = 0;
+  default_header_p_ =0;
 }
 
 void
