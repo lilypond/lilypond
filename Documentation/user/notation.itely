@@ -3485,6 +3485,7 @@ Here is an example demonstrating manual lyric durations,
 
 @lilypond[relative=1,verbatim,fragment]
 << \context Voice = melody {
+     \time 3/4
      c2 e4 g2.
   } 
   \new Lyrics \lyrics {

@@ -33,7 +33,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
   return ly_symbol2scm (tr->context_name ().to_str0 ()); 
 }
 
-LY_DEFINE (is_contextushpop_property, "ly:context-pushpop-property",
+LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 	   3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
 	   "Do a single @code{\\override} or @code{\\revert} operation "
 	   "in @var{context}.  The grob definition @code{grob} is extended "
@@ -50,7 +50,7 @@ LY_DEFINE (is_contextushpop_property, "ly:context-pushpop-property",
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (is_contextroperty, "ly:context-property",
+LY_DEFINE (ly_context_property, "ly:context-property",
 	   2, 0, 0, (SCM c, SCM name),
 	  "Return the value of @var{name} from context @var{c}")
 {
@@ -76,7 +76,7 @@ LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (is_contextroperty_where_defined, "ly:context-property-where-defined",
+LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined",
 	   2, 0, 0, (SCM context, SCM name),
 	   "Return the context above @var{context} "
 	   "where @var{name} is defined.")
@@ -104,7 +104,7 @@ LY_DEFINE (ly_unset_context_property, "ly:context-unset-property", 2, 0, 0,
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (is_contextarent, "ly:context-parent",
+LY_DEFINE (ly_context_parent, "ly:context-parent",
 	   1, 0, 0, (SCM context),
 	   "Return the parent of @var{context}, @code{#f} if none.")
 {
@@ -137,17 +137,3 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   
   return SCM_BOOL_F;
 }
-
-#if 0
-/*
-  What is this used for? Should remove? --hwn
- */
-LY_DEFINE (is_contextroperties, "ly:context-properties",
-	   1, 0, 0, (SCM context),
-	   "Return all properties  of @var{context} in an alist.")
-{
-  Context *tr = unsmob_context (context);
-  SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  return tr->properties_as_alist ();
-}
-#endif

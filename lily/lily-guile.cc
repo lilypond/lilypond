@@ -182,7 +182,7 @@ LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE (is_dir,  "ly:dir?", 1,0, 0,  (SCM s),
+LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 	  "type predicate. A direction is @code{-1}, @code{0} or "
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
@@ -356,27 +356,6 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   return scm_makfrom0str (str);
 }
 
-/*
-  Undef this to see if GUILE GC is causing too many swaps.
- */
-
-//#define TEST_GC
-
-#ifdef TEST_GC
-#include <libguile/gc.h>
-
-static void *
-greet_sweep (void *dummy1, void *dummy2, void *dummy3)
-{
-  fprintf (stderr, "entering sweep\n");
-}
-
-static void *
-wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
-{
-  fprintf (stderr, "leaving sweep\n");
-}
-#endif
 
 
 LY_DEFINE (ly_version,  "ly:version", 0, 0, 0, (),
@@ -395,23 +374,12 @@ LY_DEFINE (ly_unit,  "ly:unit", 0, 0, 0, (),
 
 
 
-LY_DEFINE (is_dimension,  "ly:dimension?", 1, 0, 0, (SCM d),
+LY_DEFINE (ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
 	  "Return @var{d} is a number. Used to distinguish length "
 	  "variables from normal numbers.")
 {
   return scm_number_p (d);
 }
-
-static void
-init_functions ()
-{
-#ifdef TEST_GC 
-  scm_c_hook_add (&scm_before_mark_c_hook, greet_sweep, 0, 0);
-  scm_c_hook_add (&scm_before_sweep_c_hook, wave_sweep_goodbye, 0, 0);
-#endif
-}
-
-ADD_SCM_INIT_FUNC (funcs, init_functions);
 
 SCM
 ly_deep_copy (SCM src)
