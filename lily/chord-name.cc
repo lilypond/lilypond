@@ -32,7 +32,14 @@
 Molecule
 Chord_name::ly_word2molecule (SCM word) const
 {
-  Dictionary<SCM> option_dict;	// junkme
+  /*
+    junkme.
+
+    Using the dict doesn't save code, since you have to compare
+    dict entries by hand later on anyway.
+    
+   */
+  Dictionary<SCM> option_dict;	
   if (gh_pair_p (word))
     {
       SCM options = gh_cdr (word);
@@ -40,8 +47,7 @@ Chord_name::ly_word2molecule (SCM word) const
       while (gh_pair_p (options))
         {
 	  SCM option = gh_car (options);
-	  if (option != SCM_UNDEFINED && option != SCM_BOOL_F
-	      && gh_pair_p (option))
+	  if (gh_pair_p (option))
 	    {
 	      SCM key = gh_car (option);
 	      SCM val = gh_cdr (option);
@@ -57,8 +63,11 @@ Chord_name::ly_word2molecule (SCM word) const
 	  options = gh_cdr (options);
         }
     }
-  Real ex = lookup_l ()->text ("", "x", paper_l ()).extent
-	    ()[Y_AXIS].length ();
+
+  /*
+    UGH. Should read from font metric structure.
+  */
+  Real ex = lookup_l ()->text ("", "x", paper_l ()).extent(Y_AXIS).length ();
   if (gh_string_p (word))
     {
       String w = ly_scm2string (word);
@@ -77,7 +86,7 @@ Chord_name::ly_word2molecule (SCM word) const
 	  && ly_scm2string (option_dict["type"]) == "super")
 	{
 	  Real super_y = ex / 2;
-	  //super_y += -acc.extent ()[Y_AXIS][MIN];
+	  //super_y += -acc.extent (Y_AXIS)[MIN];
 	  offset = Offset (0, super_y);
 	  if (!size)
 	    size = -2;
