@@ -532,7 +532,6 @@ Stem::flag (Grob*me)
   /* TODO: maybe property stroke-style should take different values,
      e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
      '() or "grace").  */
-
   String flag_style;
   
   SCM flag_style_scm = me->get_grob_property ("flag-style");

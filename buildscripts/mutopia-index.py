@@ -153,7 +153,12 @@ def gen_list(inputs, filename):
 		list.write ('<ul>\n')
 		def list_item(filename, desc, type, l = list):
 			if file_exist_b(filename):
+				
 				l.write ('<li><a href="%s">%s</a>' % (filename, desc))
+
+				# todo: include warning if it uses \include
+				# files.
+				
 				size=os.stat(filename)[stat.ST_SIZE]
 				kB=(size + 512) / 1024
 				if kB:

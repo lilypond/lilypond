@@ -95,6 +95,7 @@ top-web:
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 

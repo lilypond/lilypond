@@ -1,9 +1,9 @@
 #!@PYTHON@
 # vim: set noexpandtab:
 # TODO:
-# * junk --outdir for --output 
+# * junk --outdir for --output
 # * Figure out clean set of options.
-# * 
+# *
 # * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
 # * texinfo: add support for @pagesize
 
@@ -13,8 +13,8 @@
 #       fix it.)
 
 #
-# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips. 
-# 
+# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips.
+#
 
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
@@ -54,9 +54,20 @@ import __main__
 ## python 2.2 has another bug, see Sf.net bugtracker
 ##
 ## https://sourceforge.net/tracker/?func=detail&aid=604803&group_id=5470&atid=105470
-## 
+##
 
-if float (sys.version[0:3]) <= 2.1:
+
+##
+##
+##
+
+
+
+
+if float (sys.version[0:3]) <= 2.1: 
+## or sys.version[0:5] == '2.2.1':
+## still broken on python 2.2.1  / RH8.
+	
 	try:
 		import pre
 		re = pre
@@ -98,7 +109,7 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 	program_version = '1.6.0'
 
 # if set, LILYPONDPREFIX must take prevalence
-# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+# if datadir is not set, we're doing a build and LILYPONDPREFIX
 datadir = '@local_lilypond_datadir@'
 
 if os.environ.has_key ('LILYPONDPREFIX') :
@@ -136,7 +147,7 @@ def setup_environment ():
 	# $TEXMF is special, previous value is already taken care of
 	if os.environ.has_key ('TEXMF'):
 		del os.environ['TEXMF']
- 
+
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
@@ -173,7 +184,7 @@ class LatexPaper:
 		self.m_document_preamble = []
 		self.m_num_cols = 1
 		self.m_multicols = 1
-		
+
 	def find_latex_dims(self):
 		if g_outdir:
 			fname = os.path.join(g_outdir, "lily-tmp.tex")
@@ -216,13 +227,13 @@ class LatexPaper:
 
 				if countdown == 0:
 					break
-				
+
 				if countdown > 0:
 					countdown = countdown -1
 
 			sys.stderr.write ("  ... (further messages elided)...\n")
 			sys.exit (1)
-			
+
 		lns = open ('lily-tmp.log').readlines()
 		for ln in lns:
 			ln = string.strip(ln)
@@ -230,7 +241,7 @@ class LatexPaper:
 			if m:
 				if m.groups()[0] in ('textwidth', 'columnsep'):
 					self.__dict__['m_%s' % m.groups()[0]] = float(m.groups()[1])
-					
+
 		try:
 			os.remove (fname)
 			os.remove (os.path.splitext(fname)[0]+".aux")
@@ -240,7 +251,7 @@ class LatexPaper:
 
 		if not self.__dict__.has_key ('m_textwidth'):
 			raise 'foo!'
-		
+
 	def get_linewidth(self):
 		if self.m_num_cols == 1:
 			w = self.m_textwidth
@@ -296,9 +307,9 @@ def conv_dimen_to_float(value):
 			unit = m.group (2)
 			num = string.atof(m.group (1))
 			conv =  dimension_conversion_dict[m.group(2)]
-			
+
 			value = conv(num)
-	 	
+
 		elif re.match ("^[0-9.]+$",value):
 			value = float(value)
 
@@ -322,7 +333,7 @@ option_definitions = [
 	('EXT', 'f', 'format', 'use output format EXT (texi [default], latex, html)'),
 	('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
 	('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
-	('OPT', '', 'extra-options' , 'Pass OPT quoted to the lilypond command line'),
+	('OPT', '', 'extra-options' , 'pass OPT quoted to the lilypond command line'),
 	('DIM', '', 'force-music-fontsize', 'force fontsize for all inline lilypond. DIM is assumed be to in points'),
 	('DIM', '', 'force-lilypond-fontsize', 'deprecated, use --force-music-fontsize'),
 	('', 'h', 'help', 'this help'),
@@ -331,7 +342,7 @@ option_definitions = [
 	('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
 	('', 'n', 'no-lily', 'don\'t run lilypond'),
 	('', '', 'no-pictures', "don\'t generate pictures"),
-	('', '', 'no-music', "strip all lilypond blocks from output"),	
+	('', '', 'no-music', "strip all lilypond blocks from output"),
 	('', '', 'read-lys', "don't write ly files."),
 	('FILE', 'o', 'outname', 'filename main output file'),
 	('FILE', '', 'outdir', "where to place generated files"),
@@ -341,38 +352,46 @@ option_definitions = [
 
 # format specific strings, ie. regex-es for input, and % strings for output
 output_dict= {
-	'html' : {'output-lilypond': '''<lilypond%s>
+
+
+	'html' : {
+
+		'output-lilypond': '''<lilypond%s>
 %s
 </lilypond>''',
 		'output-filename' : r'''
 <!-- %s >
 <a href="%s">
-<pre>%s</pre></a>:''',	  
-		  'output-lilypond-fragment': '''<lilypond%s>
+<pre>%s</pre></a>:''',
+		'output-lilypond-fragment': '''<lilypond%s>
 \context Staff\context Voice{ %s }
 </lilypond>''',
-		  'output-noinline': r'''
+		'output-noinline': r'''
 <!-- generated: %(fn)s.png !-->
 ''',
-		  ## maybe <hr> ?
-		  'pagebreak': None,
-		  'output-verbatim': r'''<pre>
-%s
-</pre>''',
-  		  'output-small-verbatim': r'''<font size=-1><pre>
-%s
-</pre></font>''',
-
-		  ## Ugh we need to differentiate on origin:
-		  ## lilypond-block origin wants an extra <p>, but
-		  ## inline music doesn't.
-		  ## possibly other center options?
-		  'output-all': r'''
+		## maybe <hr> ?
+		'pagebreak': None,
+		# Verbatim text is always finished with \n.  FIXME: For HTML,
+		# this newline should be removed.
+		'output-verbatim': r'''<pre>
+%s</pre>''',
+		# Verbatim text is always finished with \n.  FIXME: For HTML,
+		# this newline should be removed.
+		'output-small-verbatim': r'''<font size=-1><pre>
+%s</pre></font>''',
+		## Ugh we need to differentiate on origin:
+		## lilypond-block origin wants an extra <p>, but
+		## inline music doesn't.
+		## possibly other center options?
+		'output-html': r'''
 <a href="%(fn)s.png">
 <img align="center" valign="center" border="0" src="%(fn)s.png" alt="[picture of music]"></a>
 ''',
-		  },
+		},
+
+
 	'latex': {
+
 		'output-lilypond-fragment' : r'''\begin[eps,singleline,%s]{lilypond}
   \context Staff <
     \context Voice{
@@ -380,8 +399,7 @@ output_dict= {
     }
   >
 \end{lilypond}''',
-		'output-filename' : r'''
-\verb+%s+:
+		'output-filename' : r'''\verb+%s+:\\
 %% %s
 %% %s
 ''',
@@ -389,9 +407,14 @@ output_dict= {
 %s
 \end{lilypond}
 ''',
-		'output-verbatim': r'''\begin{verbatim}%s\end{verbatim}%%
+		# verbatim text is always finished with \n
+		'output-verbatim': r'''\begin{verbatim}
+%s\end{verbatim}
 ''',
-		'output-small-verbatim': r'''{\small\begin{verbatim}%s\end{verbatim}}%%''',
+		# verbatim text is always finished with \n
+		'output-small-verbatim': r'''{\small\begin{verbatim}
+%s\end{verbatim}}
+''',
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
@@ -399,48 +422,66 @@ output_dict= {
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
-		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
+		'output-latex-quoted': r'''{\preLilypondExample
+\input %(fn)s.tex
+\postLilypondExample}''',
+		'output-latex-noquote': r'''{\parindent 0pt
+\preLilypondExample
+\input %(fn)s.tex
+\postLilypondExample}''',
 		'pagebreak': r'\pagebreak',
 		},
-	
-	'texi' : {'output-lilypond': '''@lilypond[%s]
+
+
+	'texi' : {
+
+		'output-lilypond': '''@lilypond[%s]
 %s
-@end lilypond 
+@end lilypond
 ''',
-		'output-filename' : r'''
-@ifnothtml
-@file{%s}:
+		'output-filename' : r'''@ifnothtml
+@file{%s}:@*
 @end ifnothtml
 @ifhtml
 @uref{%s,@file{%s}}
 @end ifhtml
-''',	  
-		  'output-lilypond-fragment': '''@lilypond[%s]
+''',
+		'output-lilypond-fragment': '''@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond ''',
-		  'output-noinline': r'''
-@c generated: %(fn)s.png		  
+		'output-noinline': r'''
+@c generated: %(fn)s.png
 ''',
-		  'pagebreak': None,
-		  'output-small-verbatim': r'''@smallexample
-%s
-@end smallexample
+		'pagebreak': None,
+		# verbatim text is always finished with \n
+		'output-small-verbatim': r'''@smallexample
+%s@end smallexample
 ''',
-		  'output-verbatim': r'''@example
-%s
-@end example
+		# verbatim text is always finished with \n
+		'output-verbatim': r'''@example
+%s@end example
 ''',
-
-# do some tweaking: @ is needed in some ps stuff.
-# override EndLilyPondOutput, since @tex is done
-# in a sandbox, you can't do \input lilyponddefs at the
-# top of the document.
-
-# should also support fragment in
-
-# ugh, the <p> below breaks inline images...
-		  
-		  'output-all': r'''
+		# do some tweaking: @ is needed in some ps stuff.
+		# override EndLilyPondOutput, since @tex is done
+		# in a sandbox, you can't do \input lilyponddefs at the
+		# top of the document.
+		#
+		# ugh, the <p> below breaks inline images...
+		'output-texi-noquote': r'''@tex
+\catcode`\@=12
+\parindent 0pt
+\input lilyponddefs
+\def\EndLilyPondOutput{}
+\input %(fn)s.tex
+\catcode`\@=0
+@end tex
+@html
+<p><a href="%(fn)s.png">
+<img border=0 src="%(fn)s.png" alt="[picture of music]">
+</a><p>
+@end html
+''',
+		'output-texi-quoted': r'''@quotation
 @tex
 \catcode`\@=12
 \input lilyponddefs
@@ -449,14 +490,14 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<p>
 <a href="%(fn)s.png">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a><p>
+</a>
 @end html
+@end quotation
 ''',
 		}
-	
+
 	}
 
 def output_verbatim (body, small):
@@ -465,7 +506,6 @@ def output_verbatim (body, small):
 		body = re.sub ('>', '&gt;', body)
 		body = re.sub ('<', '&lt;', body)
 	elif __main__.format == 'texi':
-		
 		# clumsy workaround for python 2.2 pre bug.
 		body = re.sub ('@', '@@', body)
 		body = re.sub ('{', '@{', body)
@@ -478,75 +518,75 @@ def output_verbatim (body, small):
 	return get_output (key) % body
 
 
-#warning: this uses extended regular expressions. Tread with care.
-
+# Warning: This uses extended regular expressions.  Treat with care.
+#
 # legenda
-
-# (?P  -- name parameter
+#
+# (?P<name>regex) -- assign result of REGEX to NAME
 # *? -- match non-greedily.
-# (?m)  -- ?  
+# (?m) -- multiline regex: make ^ and $ match at each line
+# (?s) -- make the dot match all characters including newline
 re_dict = {
 	'html': {
-		 'include':  no_match,
-		 'input': no_match,
-		 'header': no_match,
-		 'preamble-end': no_match,
-		 'landscape': no_match,
-		 'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
-		 'verb': r'''(?P<code><pre>.*?</pre>)''',
-		 'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
-		 'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
-		 'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
-		  'option-sep' : '\s*',
-		  'intertext': r',?\s*intertext=\".*?\"',
-		  'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
-		  'singleline-comment': no_match,
-		  'numcols': no_match,
-		  'multicols': no_match,
-		 },
-	
-	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
-		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
-		  'option-sep' : ',\s*',
-		  'header': r"\n*\\documentclass\s*(\[.*?\])?",
-		  'preamble-end': r'(?P<code>\\begin\s*{document})',
-		  'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
-		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
-		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
-		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
-		  'def-post-re': r"\\def\\postLilypondExample",
-		  'def-pre-re': r"\\def\\preLilypondExample",
-		  'usepackage-graphics': r"\usepackage\s*{graphics}",
-		  'intertext': r',?\s*intertext=\".*?\"',
-		  'multiline-comment': no_match,
-		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
-		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
-		  'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
-		  },
+		'include':  no_match,
+		'input': no_match,
+		'header': no_match,
+		'preamble-end': no_match,
+		'landscape': no_match,
+		'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
+		'verb': r'''(?P<code><pre>.*?</pre>)''',
+		'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
+		'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
+		'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
+		'option-sep' : '\s*',
+		'intertext': r',?\s*intertext=\".*?\"',
+		'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
+		'singleline-comment': no_match,
+		'numcols': no_match,
+		'multicols': no_match,
+		},
 
+	'latex': {
+		'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
+		'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
+		'option-sep' : ',\s*',
+		'header': r"\n*\\documentclass\s*(\[.*?\])?",
+		'preamble-end': r'(?P<code>\\begin\s*{document})',
+		'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
+		'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
+		'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+		'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
+		'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
+		'def-post-re': r"\\def\\postLilypondExample",
+		'def-pre-re': r"\\def\\preLilypondExample",
+		'usepackage-graphics': r"\usepackage\s*{graphics}",
+		'intertext': r',?\s*intertext=\".*?\"',
+		'multiline-comment': no_match,
+		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
+		'numcols': r"(?P<code>\\(?P<num>one|two)column)",
+		'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
+		},
 
 	# why do we have distinction between @mbinclude and @include?
 
-	
 	'texi': {
-		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
-		 'input': no_match,
-		 'header': no_match,
-		 'preamble-end': no_match,
-		 'landscape': no_match,
-		 'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
-		 'verb': r'''(?P<code>@code{.*?})''',
-		 'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
-		 'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
-		 'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end +lilypond)\s''',
-		 'option-sep' : ',\s*',
-		 'intertext': r',?\s*intertext=\".*?\"',
-		 'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-		 'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
-		 'numcols': no_match,
-		 'multicols': no_match,
-		 }
+		'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
+		'input': no_match,
+		'header': no_match,
+		'preamble-end': no_match,
+		'landscape': no_match,
+		'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
+		'verb': r'''(?P<code>@code{.*?})''',
+		'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+		'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
+		'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end +lilypond)\s''',
+		'option-sep' : ',\s*',
+		'intertext': r',?\s*intertext=\".*?\"',
+		'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
+		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
+		'numcols': no_match,
+		'multicols': no_match,
+		}
 	}
 
 
@@ -564,7 +604,7 @@ for r in re_dict.keys ():
 			raise "Invalid re"
 	re_dict[r] = newdict
 
-	
+
 def uniq (list):
 	list.sort ()
 	s = list
@@ -573,7 +613,7 @@ def uniq (list):
 		if x not in list:
 			list.append (x)
 	return list
-		
+
 
 def get_output (name):
 	return  output_dict[format][name]
@@ -591,7 +631,7 @@ def bounding_box_dimensions(fname):
 	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
-		
+
 		gs = map (lambda x: string.atoi (x), s.groups ())
 		return (int (gs[2] - gs[0] + 0.5),
 			int (gs[3] - gs[1] + 0.5))
@@ -611,6 +651,7 @@ def compose_full_body (body, opts):
 		music_size = g_force_music_fontsize
 	indent = ''
 	linewidth = ''
+	notime = ''
 	for o in opts:
 		if not g_force_music_fontsize:
 			m = re.match ('([0-9]+)pt', o)
@@ -621,7 +662,7 @@ def compose_full_body (body, opts):
 		if m:
 			f = float (m.group (1))
 			indent = 'indent = %f\\%s' % (f, m.group (2))
-			
+
 		m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt)', o)
 		if m:
 			f = float (m.group (1))
@@ -638,15 +679,26 @@ def compose_full_body (body, opts):
 
 	if is_fragment and not 'multiline' in opts:
 		opts.append('singleline')
-		
+
 	if 'singleline' in opts:
-		linewidth = 'linewidth = -1.0'
+		if not linewidth:
+			linewidth = 'linewidth = -1.0'
+		if not indent:
+			indent = 'indent = 0.0\mm'
 	elif not linewidth:
 		l = __main__.paperguru.get_linewidth ()
 		linewidth = 'linewidth = %f\pt' % l
 
 	if 'noindent' in opts:
 		indent = 'indent = 0.0\mm'
+
+	if 'notime' in opts:
+		notime = r'''
+\translator {
+  \StaffContext
+  \remove Time_signature_engraver
+}
+'''
 
 	for o in opts:
 		m= re.search ('relative(.*)', o)
@@ -665,25 +717,29 @@ def compose_full_body (body, opts):
 				pitch = pitch + '\'' * v
 
 			body = '\\relative %s { %s }' %(pitch, body)
-	
+
 	if is_fragment:
-		body = r'''\score { 
- \notes { %s }
-  \paper { }  
-}''' % body
+		body = r'''
+\score {
+  \notes {
+%s
+  }
+}
+''' % body
 
 	opts = uniq (opts)
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
 	body = r'''
 %% Generated automatically by: lilypond-book.py
-%% options are %s  
+%% options are %s
 \include "paper%d.ly"
 \paper  {
   %s
   %s
-} 
-''' % (optstring, music_size, linewidth, indent) + body
+  %s
+}
+''' % (optstring, music_size, linewidth, indent, notime) + body
 
 	# ughUGH not original options
 	return body
@@ -713,7 +769,7 @@ def scan_latex_preamble(chunks):
 		break
 
 
-	# Then we add everythin before \begin{document} to
+	# Then we add everything before \begin{document} to
 	# paperguru.m_document_preamble so that we can later write this header
 	# to a temporary file in find_latex_dims() to find textwidth.
 	while idx < len(chunks) and chunks[idx][0] != 'preamble-end':
@@ -725,7 +781,7 @@ def scan_latex_preamble(chunks):
 
 	if len(chunks) == idx:
 		error ("Didn't find end of preamble (\\begin{document})")
-		
+
 	paperguru.find_latex_dims()
 
 def scan_texi_preamble (chunks):
@@ -745,7 +801,7 @@ def scan_preamble (chunks):
 		scan_latex_preamble (chunks)
 	elif __main__.format == 'texi':
 		scan_texi_preamble (chunks)
-		
+
 
 def completize_preamble (chunks):
 	if __main__.format != 'latex':
@@ -762,7 +818,7 @@ def completize_preamble (chunks):
 			m = get_re('def-post-re').search(chunk[1])
 			if m:
 				post_b = 1
-				
+
 		if chunk[0] == 'input':
 			m = get_re('usepackage-graphics').search(chunk[1])
 			if m:
@@ -773,7 +829,7 @@ def completize_preamble (chunks):
 
 	if x == len(chunks):
 		return chunks
-	
+
 	if not pre_b:
 		chunks.insert(x, ('input', get_output ('output-default-pre')))
 	if not post_b:
@@ -824,7 +880,7 @@ def do_include_file(m):
 	"m: MatchObject"
 	return [('input', get_output ('pagebreak'))] \
 	     + read_doc_file(m.group('filename')) \
-	     + [('input', get_output ('pagebreak'))] 
+	     + [('input', get_output ('pagebreak'))]
 
 def do_input_file(m):
 	return read_doc_file(m.group('filename'))
@@ -834,7 +890,7 @@ def make_lilypond(m):
 		options = m.group('options')
 	else:
 		options = ''
-	return [('input', get_output('output-lilypond-fragment') % 
+	return [('input', get_output('output-lilypond-fragment') %
 			(options, m.group('code')))]
 
 def make_lilypond_file(m):
@@ -842,9 +898,9 @@ def make_lilypond_file(m):
 
 	Find @lilypondfile{bla.ly} occurences and substitute bla.ly
 	into a @lilypond .. @end lilypond block.
-	
+
 	'''
-	
+
 	if m.group('options'):
 		options = m.group('options')
 	else:
@@ -858,11 +914,11 @@ def make_lilypond_file(m):
 def make_lilypond_block(m):
 	if not g_do_music:
 		return []
-	
+
 	if m.group('options'):
 		options = get_re('option-sep').split (m.group('options'))
 	else:
-	    options = []
+		options = []
 	options = filter(lambda s: s != '', options)
 	return [('lilypond', m.group('code'), options)]
 
@@ -908,14 +964,14 @@ def chop_chunks(chunks, re_name, func, use_match=0):
 
 def determine_format (str):
 	if __main__.format == '':
-		
+
 		html = re.search ('(?i)<[dh]tml', str[:200])
 		latex = re.search (r'''\\document''', str[:200])
 		texi = re.search ('@node|@setfilename', str[:200])
 
 		f = ''
 		g = None
-		
+
 		if html and not latex and not texi:
 			f = 'html'
 		elif latex and not html and not texi:
@@ -933,7 +989,7 @@ def determine_format (str):
 			g = LatexPaper ()
 		elif __main__.format == 'texi':
 			g = TexiPaper ()
-			
+
 		__main__.paperguru = g
 
 
@@ -942,14 +998,13 @@ def read_doc_file (filename):
 	'''
 	(str, path) = find_file(filename)
 	determine_format (str)
-	
+
 	chunks = [('input', str)]
-	
+
 	# we have to check for verbatim before doing include,
 	# because we don't want to include files that are mentioned
 	# inside a verbatim environment
 	chunks = chop_chunks(chunks, 'verbatim', make_verbatim)
-
 
 	chunks = chop_chunks(chunks, 'verb', make_verb)
 	chunks = chop_chunks(chunks, 'multiline-comment', do_ignore)
@@ -969,7 +1024,6 @@ def schedule_lilypond_block (chunk):
 	Return: a chunk (TYPE_STR, MAIN_STR, OPTIONS, TODO, BASE)
 
 	TODO has format [basename, extension, extension, ... ]
-	
 	'''
 	(type, body, opts) = chunk
 	assert type == 'lilypond'
@@ -1020,7 +1074,7 @@ def schedule_lilypond_block (chunk):
 			if m:
 				newbody = newbody + get_output ("output-filename") % (m.group(1), basename + '.ly', m.group(1))
 				break
-		
+
 
 	if 'smallverbatim' in opts:
 		newbody = newbody + output_verbatim (body, 1)
@@ -1030,17 +1084,30 @@ def schedule_lilypond_block (chunk):
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)
 		if m:
-			newbody = newbody  + m.group (1) + "\n\n"
-	
+			newbody = newbody + "\n"
+			if format == 'texi':
+				newbody = newbody + "@noindent\n"
+			elif format == 'latex':
+				newbody = newbody + "\\noindent\n"
+			newbody = newbody + m.group (1) + "\n"
+
 	if 'noinline' in opts:
 		s = 'output-noinline'
 	elif format == 'latex':
 		if 'eps' in opts:
 			s = 'output-eps'
 		else:
-			s = 'output-tex'
-	else: # format == 'html' or format == 'texi':
-		s = 'output-all'
+			if 'noquote' in opts:
+				s = 'output-latex-noquote'
+			else:
+				s = 'output-latex-quoted'
+	elif format == 'texi':
+		if 'noquote' in opts:
+			s = 'output-texi-noquote'
+		else:
+			s = 'output-texi-quoted'
+	else: # format == 'html'
+		s = 'output-html'
 	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
 
@@ -1083,23 +1150,29 @@ def get_bbox (filename):
 	gr = []
 	if m:
 		gr = map (string.atoi, m.groups ())
-	
+
 	return gr
 
 def make_pixmap (name):
 	bbox = get_bbox (name + '.eps')
+
+
 	margin = 0
 	fo = open (name + '.trans.eps' , 'w')
 	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
 	fo.close ()
-	
+
 	res = 90
 
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
+	if x == 0:
+		x = 1
+	if y == 0:
+		y = 1
 
 	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit '''
-	
+
 	cmd = cmd % (x, y, name + '.png', res, name + '.trans.eps', name + '.eps')
 	status = 0
 	try:
@@ -1168,15 +1241,15 @@ def compile_all_files (chunks):
 				f.close ()
 
 	for e in eps:
-		cmd = r"echo $TEXMF; tex '\nonstopmode \input %s'" % e
-		quiet_system (cmd, 'TeX')
-		
+		cmd = r"echo $TEXMF; latex '\nonstopmode \input %s'" % e
+		quiet_system (cmd, 'LaTeX')
+
 		cmd = r"dvips -E -o %s %s" % (e + '.eps', e)
 		quiet_system (cmd, 'dvips')
-		
+
 	for g in png:
 		make_pixmap (g)
-		
+
 	os.chdir (d)
 
 
@@ -1196,7 +1269,7 @@ def update_file (body, name):
 		f = open (name , 'w')
 		f.write (body)
 		f.close ()
-	
+
 	return not same
 
 
@@ -1218,14 +1291,14 @@ def getopt_args (opts):
 
 def option_help_str (o):
 	"Transform one option description (4-tuple ) into neatly formatted string"
-	sh = '  '	
+	sh = '  '
 	if o[1]:
 		sh = '-%s' % o[1]
 
 	sep = ' '
 	if o[1] and o[2]:
 		sep = ','
-		
+
 	long = ''
 	if o[2]:
 		long= '--%s' % o[2]
@@ -1236,7 +1309,6 @@ def option_help_str (o):
 			arg = '='
 		arg = arg + o[0]
 	return '  ' + sh + sep + long + arg
-
 
 def options_help_str (opts):
 	"Convert a list of options into a neatly formatted string"
@@ -1257,12 +1329,12 @@ def options_help_str (opts):
 
 def help():
 	sys.stdout.write('''Usage: lilypond-book [options] FILE\n
-Generate hybrid LaTeX input from Latex + lilypond
+Generate hybrid LaTeX input from latex + lilypond.\n
 Options:
 ''')
 	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write (r'''Warning all output is written in the CURRENT directory
-
+	sys.stdout.write (r'''
+Warning: All output is written in the CURRENT directory.
 
 
 Report bugs to bug-lilypond@gnu.org.
@@ -1347,17 +1419,17 @@ def fix_epswidth (chunks):
 			dims = bounding_box_dimensions (filename)
 
 			return '%fpt' % (dims[0] *lmag)
- 	
+
 		body = re.sub (r'''\\lilypondepswidth{(.*?)}''', replace_eps_dim, c[1])
 		newchunks.append(('lilypond', body, c[2], c[3], c[4]))
-			
+
 	return newchunks
 
 
 ##docme: why global?
 foutn=""
-def do_file(input_filename):
 
+def do_file(input_filename):
 	chunks = read_doc_file(input_filename)
 	chunks = chop_chunks(chunks, 'lilypond', make_lilypond, 1)
 	chunks = chop_chunks(chunks, 'lilypond-file', make_lilypond_file, 1)
@@ -1383,7 +1455,6 @@ def do_file(input_filename):
 	x = 0
 	chunks = completize_preamble (chunks)
 
-
 	global foutn
 
 	if outname:
@@ -1392,8 +1463,8 @@ def do_file(input_filename):
 		my_outname = '-'
 	else:
 		my_outname = os.path.basename (os.path.splitext(input_filename)[0]) + '.' + format
-	my_depname = my_outname + '.dep'		
-	
+	my_depname = my_outname + '.dep'
+
 	if my_outname == '-' or my_outname == '/dev/stdout':
 		fout = sys.stdout
 		foutn = "<stdout>"
@@ -1419,7 +1490,7 @@ except getopt.error, msg:
 	sys.exit(1)
 
 do_deps = 0
-for opt in options:	
+for opt in options:
 	o = opt[0]
 	a = opt[1]
 
@@ -1476,7 +1547,7 @@ if g_outdir:
 setup_environment ()
 for input_filename in files:
 	do_file(input_filename)
-	
+
 #
 # Petr, ik zou willen dat ik iets zinvoller deed,
 # maar wat ik kan ik doen, het verandert toch niets?

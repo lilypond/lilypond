@@ -17,8 +17,8 @@ Distributions will want to install lilypond.info doing:
 @c    ;; prepend GNU for dir, must be unique
 * GNU LilyPond: (lilypond).                    The GNU music typesetter.
 * ly2dvi: (lilypond)Invoking ly2dvi::          Titling LilyPond scores.
-* convert-ly: (lilypond)Invoking convert-ly::
-                                               Older LilyPond versions.
+* Glossary: (music-glossary).                  Glossary of music terms.
+* convert-ly: (lilypond)Invoking convert-ly::  Older LilyPond versions.
 * midi2ly: (lilypond)Invoking midi2ly::        Importing MIDI.
 * etf2ly: (lilypond)Invoking etf2ly::          Importing Finale.
 * abc2ly: (lilypond)Invoking abc2ly::          Importing ABC.          
@@ -27,6 +27,12 @@ Distributions will want to install lilypond.info doing:
                                                Importing Musedata.
 * mup2ly: (lilypond)Invoking mup2ly::          Importing MUP. 
 @end direntry
+
+
+@ifhtml
+This document is also available in @uref{../lilypond.ps.gz,gzipped
+PostScript} and @uref{../lilypond.pdf,PDF}.
+@end ifhtml
 
 
 @titlepage
@@ -47,11 +53,12 @@ Copyright @copyright{} 1999--2002 by the authors
 
 @end titlepage
 
-@ifinfo
+@c Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano, Tom Cato Amundsen.
+
+@ifnottex
 This file documents GNU LilyPond.
 
-Copyright 1999 Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano
-Tom Cato Amundsen.
+Copyright 1999-2002 by the authors
 
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.1
@@ -60,17 +67,12 @@ Tom Cato Amundsen.
   A copy of the license is included in the section entitled ``GNU
   Free Documentation License''.
 
-@end ifinfo
+@end ifnottex
 
 
 @ifnottex
 @node Top
 @top
-
-@ifhtml
-This document is also available as a @uref{../lilypond.ps.gz,gzipped
-postscript file} and @uref{../lilypond.pdf,PDF}.
-@end ifhtml
 
 @chapter GNU LilyPond --- The music typesetter
 

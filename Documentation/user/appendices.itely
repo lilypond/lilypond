@@ -38,8 +38,7 @@ rules.
 @section American Chords
 
 
-@quotation
-@lilypond[verbatim]
+@lilypond[verbatim, noquote, noindent, notime]
 \include "english.ly"
 
 scheme = \chords {
@@ -75,6 +74,7 @@ scheme = \chords {
     \context Staff \transpose c'' \scheme
   >
   \paper {
+    linewidth = 5.7\in
     \translator { 
       \ChordNamesContext
       ChordName \override #'word-space = #1 
@@ -83,15 +83,14 @@ scheme = \chords {
   }
 }
 @end lilypond
-@end quotation
 
 @node Jazz chords
 @section Jazz chords
 
 Similarly, Jazz style chord names are implemented as a variation on
 American style names:
-@quotation
-@lilypond[verbatim]
+
+@lilypond[verbatim, noquote, noindent, notime]
 scheme = \chords {
   % major chords
   c
@@ -139,6 +138,7 @@ scheme = \chords {
     \context Staff \transpose c'' \scheme
   >
   \paper {
+    linewidth = 5.7\in
     \translator { 
       \ChordNamesContext
       ChordName \override #'word-space = #1 
@@ -147,7 +147,6 @@ scheme = \chords {
   }
 }
 @end lilypond
-@end quotation
 
 @c [barnumbers look silly, fixme.]
 
@@ -208,7 +207,7 @@ The following symbols are available in the Feta font and may be
 accessed directly using text markup such as 
 @code{g^#'(music "scripts-segno")}, see @ref{Text markup}.
 
-@lilypondfile{feta16list.ly}
+@lilypondfile[noquote,noindent]{feta16list.ly}
 
 @c parmesan is too big. Apparently pythons re's choke on this.
 @c @lil ypondfile{parmesan16list.ly}
