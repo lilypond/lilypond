@@ -56,8 +56,16 @@ init_iface_funcs ()
 ADD_SCM_INIT_FUNC(giface, init_iface_funcs);
 
 void
-check_interfaces_for_property (Grob *me, SCM sym)
+check_interfaces_for_property (Grob const *me, SCM sym)
 {
+  if (sym == ly_symbol2scm ("meta"))
+    {
+      /*
+	otherwise we get in a nasty recursion loop.
+       */
+      return ;
+
+    }
   SCM ifs =  me->get_grob_property ("interfaces");
 
 

@@ -808,5 +808,5 @@ Stem::has_interface (Grob*m)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head heads direction length style no-stem-extend flag-style dir-forced");
+  "adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head heads direction length style no-stem-extend flag-style dir-forced");
 

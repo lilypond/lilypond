@@ -72,7 +72,7 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity .")
 (grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity.")
-(grob-property-description 'beamed-stem-shorten number? "shorten beamed stems in forced direction.")
+(grob-property-description 'beamed-stem-shorten list? "shorten beamed stems in forced direction.")
 (grob-property-description 'beaming number-pair? "number of beams extending to left and right.")
 (grob-property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
 (grob-property-description 'before-line-breaking-callback procedure? "Procedure taking grob as argument.
@@ -228,6 +228,8 @@ and will have no effect.
 measure. Used in some spacing situations.")
 (grob-property-description 'measure-count integer? "number of measures for a multimeasure rest.")
 (grob-property-description 'merge-differently-dotted boolean? " Merge noteheads in collisions, even if they have a different number of dots. This normal notation for some types of polyphonic music. The value of this setting is used by @ref{note-collision-interface} .")
+
+(grob-property-description 'meta list? "Alist of meta information of this grob.")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
 (grob-property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space.")
@@ -249,6 +251,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 
 ")
 (grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")
+
 (grob-property-description 'molecule molecule? "Cached output of the molecule-callback.")
 
 (grob-property-description 'new-accidentals list? "list of (pitch, accidental) pairs.")
@@ -448,3 +451,4 @@ columns.
 (grob-property-description 'note-columns pair? "list of NoteColumn grobs.")
 
 (grob-property-description 'if-text-padding number? "padding in case texts are there.")
+(grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")

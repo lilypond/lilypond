@@ -29,7 +29,6 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
-  DECLARE_SCHEME_CALLBACK (end_after_line_breaking, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));

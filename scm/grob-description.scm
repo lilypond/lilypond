@@ -63,7 +63,7 @@
 	(thin-kern . 3.0)
 	(hair-thickness . 1.6)
 	(thick-thickness . 6.0)
-	(meta . ((interfaces . (bar-line-interface font-interface))))
+	(meta . ((interfaces . (bar-line-interface  break-aligned-interface font-interface))))
 	))
 
     
@@ -113,8 +113,7 @@
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
-	(after-line-breaking-callback . (,Beam::after_line_breaking
-					 ,Beam::end_after_line_breaking))
+	(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority-median)
 	(beamed-stem-shorten . (1.0 0.5))
@@ -903,7 +902,7 @@
 	(breakable . #t)
 	(style . C)
 	(font-family . number)
-	(meta . ((interfaces . (time-signature-interface  font-interface))))
+	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface))))
 	))
 
     (TupletBracket
