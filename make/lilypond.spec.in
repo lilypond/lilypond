@@ -1,0 +1,42 @@
+Name: lilypond
+Version: @TOPLEVEL_VERSION@
+Release: 1
+Copyright: GPL
+Group: Applications/Publishing
+Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Summary: A preprocessor to make TeX typeset music.
+URL: http://www.stack.nl/~hanwen/lilypond
+Packager: Han-Wen Nienhuys <hanwen@stack.nl>
+Icon: lelie_logo.gif
+
+%description
+LilyPond is a program which converts a music-script (mudela) into
+TeX output, or MIDI to produce multi-staff scores. Feature include multiple
+meters, clefs, keys, lyrics, versatile input-language, cadenzas
+beams, slurs, triplets
+
+%prep
+%setup
+%build
+configure --enable-checking --enable-optimise --enable-printing --prefix=/usr
+make all
+%install
+make install
+
+%files
+%doc Documentation/out/index.text Documentation/out/CodingStyle.text
+%doc Documentation/out/lilygut.text Documentation/out/lilyinput.text
+%doc Documentation/out/error.text Documentation/out/faq.text
+%doc Documentation/out/INSTALL.text
+%doc Documentation/out/language.text Documentation/out/lelie_logo.png
+/usr/bin/lilypond
+/usr/bin/mi2mu
+/usr/man/man1/lilypond.1
+/usr/lib/texmf/texmf/tex/lilypond/*
+/usr/share/lilypond/*
+
+%post
+texhash
+%post
+texhash
+

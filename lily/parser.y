@@ -535,6 +535,7 @@ steno_note_req:
 	MELODIC_REQUEST_IDENTIFIER	{
 		$$ = new Note_req;
 		* (Melodic_req *) $$ = *$1->request(false)->melodic();
+		$$->octave_i_ += lexer->prefs.default_octave_i_;
 	}
 	| octave_quote steno_note_req	{  
 		$2-> octave_i_ += $1;
@@ -661,20 +662,20 @@ pre_request:
 
 voice_command:
 	PLET	'{' INT '/' INT '}'		{
-		set_plet($3,$5);
+		lexer->prefs.set_plet($3,$5);
 	}
 	| DURATIONCOMMAND '{' STRING '}'	{
-		set_duration_mode(*$3);
+		lexer->prefs.set_duration_mode(*$3);
 		delete $3;
 	}
 	| DURATIONCOMMAND '{' notemode_duration '}'	{
-		set_default_duration($3);
+		lexer->prefs.set_default_duration($3);
 	}
 	| OCTAVECOMMAND '{' octave_quotes '}'	{
-		set_default_octave($3);
+		lexer->prefs.default_octave_i_ = $3;
 	}
 	| TEXTSTYLE STRING 	{
-		set_text_style(*$2);
+		lexer->prefs.textstyle_str_ = *$2;
 		delete $2;
 	}
 	;
@@ -707,31 +708,31 @@ mudela_duration:
 
 explicit_duration:
 	INT		{
-		last_duration($1);
+		lexer->prefs.set_last_duration($1);
 		$$[0] = $1;
 		$$[1] = 0;
 	}
 	| INT DOTS 	{
-		last_duration($1);
+		lexer->prefs.set_last_duration($1);
 		$$[0] = $1;
 		$$[1] = $2;
 	}
 	| DOTS  {
-                get_default_duration($$);
+                lexer->prefs.get_default_duration($$);
                 $$[1] = $1;
 	}
 	| INT '*' INT '/' INT {
 		// ugh, must use Duration
-		set_plet( $3, $5 );
+		lexer->prefs.set_plet( $3, $5 );
 		$$[ 0 ] = $1;
 		$$[ 1 ] = 0;
-		set_plet( 1, 1 );
+		lexer->prefs.set_plet( 1, 1 );
 	}
 	;
 
 default_duration:
 	/* empty */	{
-		get_default_duration($$);
+		lexer->prefs.get_default_duration($$);
 	}
 	;
 

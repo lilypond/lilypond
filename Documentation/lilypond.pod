@@ -8,12 +8,60 @@ LilyPond - a music typesetter
 
 =head1 DESCRIPTION
 
-LilyPond typesets music. It translates script files (mudela files or
-F<*.ly>'s) into TeX input.  Typesetting music is a complex task,
-whereas the message that printed music conveys is usually a simple
-one. LilyPond is a try at providing a simple interface for setting
-music. LilyPond has these features:
+Technically LilyPond is a preprocessor which generates TeX
+(or LaTeX) output which contains information to typeset a musical
+score. Practically it is a typesetter, which only uses TeX as an
+output medium. (this is handy because there exist music fonts for TeX)
 
+As a bonus, you can also output a MIDI file of what you typed.
+
+It translates script files (mudela files or F<*.ly>'s) into TeX input.
+Typesetting music is a complex task, whereas the message that printed
+music conveys is usually a simple one. LilyPond is a try at providing
+a simple interface for setting music.
+
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<-I,--include>=F<FILE>,
+
+add F<FILE> to the search path for input files.
+
+
+=item B<-M,--midi>
+
+do midi output only
+
+=item B<-d,--debug>,
+
+Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
+tells for what functions and classes may produce copious debugging
+output.
+
+=item B<-w,--warranty>,
+
+Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
+
+=item B<-o,--output=>F<FILE>,
+
+Set the default output file to F<FILE>.
+
+=item B<-h,--help>,
+
+Show a summary of usage
+
+=item B<-i,--init=>F<FILE>
+
+set init file to F<FILE> (default: F<symbol.ini>)
+
+=item B<--include, -I>=F<DIRECTORY>
+add F<DIRECTORY> to the search path for input files.
+
+=back
+
+=head1 FEATURES
 
 =over 5
 
@@ -23,6 +71,9 @@ customizable notenames, customizable fontset
 
 =item *
 MIDI output lets you check if you have entered the correct notes.
+
+=item *
+MIDI to Mudela conversion through the mi2mu program.
 
 =item *
 Multiple staffs in one score. Each staff can have a different meters.
@@ -112,46 +163,6 @@ broken systems.
 
 =back
 
-=head1 OPTIONS
-
-=over 5
-
-=item B<-I,--include>=F<FILE>,
-
-add F<FILE> to the search path for input files.
-
-
-=item B<-M,--midi>
-
-do midi output only
-
-=item B<-d,--debug>,
-
-Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
-tells for what functions and classes may produce copious debugging
-output.
-
-=item B<-w,--warranty>,
-
-Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
-
-=item B<-o,--output=>F<FILE>,
-
-Set the default output file to F<FILE>.
-
-=item B<-h,--help>,
-
-Show a summary of usage
-
-=item B<-i,--init=>F<FILE>
-
-set init file to F<FILE> (default: F<symbol.ini>)
-
-=item B<--include, -I>=F<DIRECTORY>
-add F<DIRECTORY> to the search path for input files.
-
-=back
-
 =head1 
 DISCLAIMER & COPYING POLICY
 
@@ -160,72 +171,6 @@ distributed under the terms of the GNU General Public
 License. LilyPond is provided without any warranty what so ever.
 LilyPond may be freely distributed.  For further information consult
 the GNU General Public License, which is in the file F<COPYING>
-
-=head1 PREREQUISITES
-
-For compilation you need.
-
-=over 5
-
-=item *
-Unix. LilyPond is known to run on Linux, AIX, Digital Unix and
-Solaris (if you have the Cygnus WIN32 port of the GNU utils, it will
-even work in Lose NT/95)
-
-=item *
-GNU C++ v2.7 or better, with libg++ installed.  Version 2.7.2
-or better recommended. I doubt if it will compile with AT&T CC.
-
-=item *
-Bash. Most scripts will continue to work with a stock sh, but they
-will generate (harmless) syntax errors
-
-=item *
-GNU make.
-
-=item *
-Flex (2.5.1 or better). 
-
-=item *
-Bison.
-
-=item *
-Perl.  The Makefile uses Perl for trivial operations, and you
-could tinker with it to use sed or awk.
-
-=back
-
-LilyPond does use a lot of resources. For operation you need the following:
-
-=over 5
-
-=item *
-a fast computer (a full page of music typically takes 1 minute
-on my 486/66, using the DEBUG compile. It's lot slower than most
-MusiXTeX preprocessors)
-
-=item *
-TeX
-
-=item *
-The MusixTeX fonts. (I use version those found in MusixTeX
-Taupin version T.59)
-
-=back
-
-=head1 COMPILING
-
-Do:
-
-	tar zxf flower-1.11.9.tar.gz
-	tar zxf lilypond-1.2.13.tar.gz
-	cd lilypond-1.2.13
-	configure
-	make
-
-You probably want to edit Variables.make to tailor the compilation
-flags. If you're not into debugging C++, then you should go for no
-debugging and C<-O2>
 
 =head1 AUTHORS
 
@@ -236,7 +181,8 @@ Han-Wen Nienhuys <hanwen@stack.nl>, Main author
 
 =item *
 Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
-bits of FlowerLib, general comments.
+mi2mu, MIDI stuff, make structure, bits of FlowerLib, general
+comments.
 
 =item *
 Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
@@ -258,21 +204,14 @@ quality. If you're not discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	LilyPond 0.0.pre32-3/FlowerLib 1.0.27. Compile: Feb 18 1997, 11:21:57 (g++ 2.7.2)
-	Parsing ... [./init//symbol.ini[./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
+	LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
+	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
 	Setting up music ...Processing music ............
 	Preprocessing ... 
 	Calculating column positions ... [3][6][9]
 	Postprocessing ...
-	warning: slope_index(): beam steeper than 0.5 (-0.555556)
-	warning: slope_index(): beam steeper than 0.5 (-0.588346)
-	warning: slope_index(): beam steeper than 0.5 (-0.523166)
-	warning: slope_index(): beam steeper than 0.5 (0.571915)
-	warning: slope_index(): beam steeper than 0.5 (-0.555556)
-	warning: slope_index(): beam steeper than 0.5 (-0.588346)
-	warning: slope_index(): beam steeper than 0.5 (-0.523166)
-	warning: slope_index(): beam steeper than 0.5 (0.571915)
-	output to lelie.out...
+	TeX output to lelie.out ...
+	midi output to lelie.midi ...
 
 	hw:~/musix/spacer$ tex test
 	This is TeX, Version 3.14159 (C version 6.1)

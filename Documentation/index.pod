@@ -88,12 +88,13 @@ The DOC++ documentation of the C++ sources.
 </a
 >
 
+
 =item *
-<a href=ftp://pcnov095.win.tue.nl/pub/lilypond
->
-Get it!
-</a
->
+Get it at ftp://pcnov095.win.tue.nl/pub/lilypond !
+=cut
+niet veranderen in expliciete URL. pod2* doet dit automaties.
+=pod
+
 
 =head1 AUTHOR
 

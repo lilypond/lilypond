@@ -1,0 +1,24 @@
+# -*-Makefile-*-
+
+# @configure_input@
+
+INSTALL = @INSTALL@
+CXXFLAGS = @CXXFLAGS@
+#CXX = @CXX@
+
+prefix = @prefix@
+TEXPREFIX = @TEXPREFIX@
+mandir  =  @mandir@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+includedir = @includedir@
+datadir = @datadir@
+
+RANLIB = @RANLIB@
+DEFS = @DEFS@
+#SET_MAKE = @SET_MAKE@
+DEFINES = @DEFINES@
+FIND = @FIND@
+COMPILEINFO = @COMPILEINFO@
+BISON = @BISON@
+FLEX = @FLEX@

@@ -9,6 +9,27 @@ Please use these standards while doing programming for LilyPond
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
 
+		A program should be light and agile, its subroutines
+	connected like a strings of pearls.  The spirit and intent of
+	the program should be retained throughout.  There should be
+	neither too little nor too much, neither needless loops nor
+	useless variables, neither lack of structure nor overwhelming
+	rigidity.
+
+		A program should follow the 'Law of Least
+	Astonishment'.  What is this law?  It is simply that the
+	program should always respond to the user in the way that
+	astonishes him least.
+
+		A program, no matter how complex, should act as a
+	single unit.  The program should be directed by the logic
+	within rather than by outward appearances.
+
+		If the program fails in these requirements, it will be
+	in a state of disorder and confusion.  The only way to correct
+	this is to rewrite the program.
+		-- Geoffrey James, "The Tao of Programming"
+
 =head2 INDENTATION
 
 in emacs:

@@ -1,3 +1,5 @@
+	* remove notename.* README.pod LilyPond.pod
+
 before 0.1
 
 	* remove spurious/outdated comments in .ly, debug .ly
@@ -17,10 +19,9 @@ before 0.1
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
-STUFF
-	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
+MAKE-STUFF
 
-	* generate all (.hh) files into out dirs
+	* fix increase build ( libflower rebuilt when making lilypond. )
 
 	* sort out headers, see m2m
 
@@ -51,6 +52,8 @@ SEVERELY LACKING:
 
 INPUTLANGUAGE
 
+	* read ENV for include path 
+
 	* lose the $ and @ ?
 
 	* figured bass?
@@ -64,6 +67,9 @@ INPUTLANGUAGE
 	* '*' vs. '/'
 
 SMALLISH PROJECTS
+
+
+	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
 	* fix Staff_elem::width() derivs to use offset_
 
@@ -144,7 +150,7 @@ FUTURE
 	* eentje/tweetje
 
 	* piano staff
-	
+
 	* abbreviations a4*8
 
 IDEAS
@@ -163,7 +169,7 @@ IDEAS
 
 	* itemcolumns: Use dummy items.
 
-	* use an embedded language: scheme, lisp, S-lang, Perl, ?
+	* use an embedded language: scheme, lisp, S-lang, Perl, GUILE, ?
 
 	* y -dims in internote?
 

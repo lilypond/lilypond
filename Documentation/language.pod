@@ -130,16 +130,9 @@ voices on one staff?
 We might be able to do without the staff{} construct, but I doubt if
 it will make things easier.
 
-=head1 CONCRETE PROPOSAL
+=head1 CONCRETE PROPOSALS
 
-Any optional request/modifier should follow the note/rest-name/lyric:
 
-	old		new
-	''!a		a!''
-	[a()a]()a	a[( a)]( a) 
-
-the []() construct doesn't look nice. We might make an exception for
-spanning requests.
 
 =head1 THOUGHTS
 

@@ -101,7 +101,7 @@ strrev( Byte* byte_l, int length_i )
 }
 
 #ifndef HAVE_SNPRINTF
-int snprintf ( char *str, size_t n,
+int snprintf ( char *str, size_t,
 	       const char *format, ... )
 {
     va_list ap;

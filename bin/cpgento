@@ -19,9 +19,9 @@ genlily="out/parser.hh out/parser.cc out/lexer.cc"
 echo generating $genlily ...
 $MAKE -C lily $genlily
 
-genm2m="out/midi-parser.hh out/midi-parser.cc out/midi-lexer.cc"
-echo generating $genm2m ...
-$MAKE -C m2m $genm2m
+genmi2mu="out/midi-parser.hh out/midi-parser.cc out/midi-lexer.cc"
+echo generating $genmi2mu ...
+$MAKE -C mi2mu $genmi2mu
 
 lilydir=`pwd | sed "s/.*\///"`
 todir=$1/$lilydir
@@ -41,7 +41,7 @@ cpto() {
 }
 
 cpto lily "$genlily"
-cpto m2m "$genm2m"
+cpto mi2mu "$genmi2mu"
 
 # if you cannot gen the above, you-ll probably want:
 flexlexerh=/usr/include/FlexLexer.h

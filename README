@@ -9,13 +9,17 @@ version, then this is version is *not* meant for producing nice output
 
 ====================
 
-Please refer to the directory Documentation/, Documentation/README.*. 
+Please refer to the directory Documentation/ for the real doco.
 
-To generate the pretty-printed docs, do this:
+To generate the pretty-printed docs, you have to run configure first,
+and then do this:
 
 	make doc
 
-You can also simply read the .pod source. It is ASCII text.
+You can also simply read the .pod sources. It is ASCII text. For your
+convenience, a copy of the formatted INSTALL instructions are in
+the toplevel directory, as INSTALL.text 
+
 
 ======================
 

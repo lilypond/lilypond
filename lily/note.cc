@@ -16,22 +16,29 @@
 #include "parseconstruct.hh"
 #include "input-music.hh"
 #include "voice-element.hh"
-
-int default_duration = 4, default_dots=0, default_octave=0;
-int default_plet_type = 1, default_plet_dur = 1;
-String textstyle="roman";		// in lexer?
-
-bool last_duration_mode = false;
+Moment
+Lexer_prefs::plet_mom()
+{
+    return Moment(default_plet_dur, default_plet_type);
+}
+Lexer_prefs::Lexer_prefs()
+{
+    default_duration = 4, default_dots=0, default_octave_i_=0;
+    default_plet_type = 1, default_plet_dur = 1;
+    textstyle_str_="roman";		// in lexer?
+    
+    last_duration_mode = false;
+}
 
 void
-set_duration_mode(String s)
+Lexer_prefs::set_duration_mode(String s)
 {
     s = s.upper_str();
     last_duration_mode = (s== "LAST");
 }
 
 void
-last_duration(int n)
+Lexer_prefs::set_last_duration(int n)
 {
     if (last_duration_mode)
 	default_duration = n;
@@ -39,7 +46,7 @@ last_duration(int n)
 
 /* triplet is '2/3' */
 void 
-set_plet(int num,int den)
+Lexer_prefs::set_plet(int num,int den)
 {
     assert(num >0&& den>0);
     default_plet_dur = num;
@@ -51,32 +58,10 @@ get_text(String s) return t;
 {
     t= new Text_def;
     t->text_str_= s;
-    t->style_str_ = textstyle;
+    t->style_str_ = lexer->prefs.textstyle_str_;
     t->defined_ch_c_l_ = defined_ch_c_l;
     return t;
 }
-
-void
-set_text_style(String s)
-{
-    textstyle = s;
-}
-
-void
-parse_octave (const char *a, int &j, int &oct)
-{    
-    while (1) 
-    {	
-	if (a[j] == '\'')
-	    oct ++;
-	else if (a[j] == '`')
-	    oct --;
-	else
-	    break;
-	j++;
-    }
-}
-
 Voice_element *
 get_note_element(Note_req *rq, int * duration )
 {
@@ -88,7 +73,8 @@ get_note_element(Note_req *rq, int * duration )
 
     if (dur >= 2) {
 	Stem_req * stem_req_p = new Stem_req(dur,dots);
-	stem_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+	stem_req_p->plet_factor = lexer->prefs.plet_mom();
+	
 	stem_req_p->defined_ch_c_l_ = defined_ch_c_l;
 	v->add(stem_req_p);
     }
@@ -98,7 +84,8 @@ get_note_element(Note_req *rq, int * duration )
 
     rq->balltype = dur;
     rq->dots = dots;
-    rq->plet_factor = Moment(default_plet_dur, default_plet_type);
+    rq->plet_factor = lexer->prefs.plet_mom();
+
     rq->defined_ch_c_l_ = defined_ch_c_l;
 
     v->add(rq);
@@ -121,7 +108,7 @@ get_word_element(Text_def* tdef_p, int* duration)
 
     lreq_p->balltype = dur;
     lreq_p->dots = dots;
-    lreq_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+    lreq_p->plet_factor = lexer->prefs.plet_mom();
     lreq_p->print();
     lreq_p->defined_ch_c_l_ = defined_ch_c_l;
 
@@ -137,7 +124,7 @@ get_rest_element(String,  int * duration )
     velt_p->defined_ch_c_l_ = defined_ch_c_l;
 
     Rest_req * rest_req_p = new Rest_req;
-    rest_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+    rest_req_p->plet_factor = lexer->prefs.plet_mom();
     rest_req_p->balltype = duration[0];
     rest_req_p->dots = duration[1];    
     rest_req_p->print();
@@ -149,26 +136,17 @@ get_rest_element(String,  int * duration )
 }
 
 void
-get_default_duration(int *p)
+Lexer_prefs::get_default_duration(int *p)
 {
     *p++ = default_duration;
     *p = default_dots;
 }
 
 void
-set_default_duration(int *p)
+Lexer_prefs::set_default_duration(int *p)
 {
      default_duration = *p++;
      default_dots = *p++;
-}
-
-
-void
-set_default_octave(String d)
-{
-    int i=0;
-    default_octave=0;
-    parse_octave(d, i, default_octave);
 }
 
 Request*
@@ -194,8 +172,9 @@ get_request(char c)
     case ']':
     {
 	Beam_req*b = new Beam_req;
-	if (default_plet_type != 1)
-	    b->nplet = default_plet_type;
+	int p_i=lexer->prefs.default_plet_type ;
+	if (p_i!= 1)
+	    b->nplet = p_i;
 	req_p = b;
     }
 	break;

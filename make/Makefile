@@ -21,7 +21,7 @@ MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
 PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/.build
+build = ./$(depth)/lily/$(outdir)/.build
 #
 
 # list of generic make files:
@@ -31,7 +31,7 @@ MAKEFILES = $(shell ls *.make)
 
 # list of distribution files:
 #
-DISTFILES = configure.in ACVariables.make.in Makefile lilypond.spec $(MAKEFILES)
+DISTFILES = Configure_variables.make.in Makefile lilypond.spec.in $(MAKEFILES)
 #
 
 # generic variables:
@@ -45,3 +45,5 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
+lilypond.spec: lilypond.spec.in
+	sed 's/@TOPLEVEL_VERSION@/${TOPLEVEL_VERSION}/g'< $< > $@

@@ -5,7 +5,7 @@
 depth = ..
 #
 
-build = ./$(depth)/lily/.build
+build = ./$(depth)/lily/$(outdir)/.build
 
 # generic stuff/Makefile
 #

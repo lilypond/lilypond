@@ -1,3 +1,22 @@
+pl 41.hwn3
+	- struct Lexer_prefs
+	- parser bug
+	- make uninstall
+
+pl 41.hwn2
+	- make file rehack
+	- spec update
+	- make install
+	- detect TeX directory
+
+pl 41.hwn1
+ 	- cygnus configure,
+ 	- updated versioning 
+ 	- install.pod
+  
+pl 41.jn1
+Bugfix
+	- doze compile
 pl 41
 	- release
 pl 40.3

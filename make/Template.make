@@ -30,7 +30,7 @@ MINOR_VERSION = 0
 PATCH_LEVEL = 0
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = # include separator: "-1" or ".a"
-build = $(lily-dir)/.build
+build = $(lily-dir)/$(outdir)/.build #????!
 #
 
 # descent order into subdirectories:

@@ -1,0 +1,198 @@
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+NNNNAAAAMMMMEEEE
+       INSTALL - installing LilyPond
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       This page documents installation  and compilation of
+       LilyPond
+
+IIIIMMMMPPPPOOOORRRRTTTTAAAANNNNTTTT
+       if you have downloaded a
+
+               *.pre*
+
+       version, then this is version is _n_o_t meant for producing
+       nice output, but to keep your patchsets up to date.  It
+       might not even compile.
+
+PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
+       For compilation you need.
+
+       +o Unix. LilyPond is known to run on Linux, AIX, Digital
+            Unix and Solaris
+            If you have the Cygnus WIN32 port of the GNU utils,
+            it will even work in Lose NT/95, but don't promise to
+            support it.
+
+       +o GNU C++ v2.7 or better, with libg++ installed.  Version
+            2.7.2 or better recommended. I almost positive that
+            it will not compile with AT&T CC.
+
+       +o Bash. Most scripts will continue to work with a stock
+            sh, but they will generate (harmless) syntax errors
+
+       +o GNU make.
+
+       +o Flex (2.5.1 or better).
+
+       +o Bison.
+
+RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
+       +o Perl.  Some (mostly unimportant scripts) use Perl for
+            trivial operations. The documentation was created
+            with the perl's Plain Old Documentation.
+
+       +o (GNU) find
+
+CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG aaaannnndddd CCCCOOOOMMMMPPPPIIIILLLLIIIINNNNGGGG
+       to install LilyPond, simply type:
+
+               configure
+               make install
+
+       This will install the following files:
+
+
+
+
+
+14/Mar/97                LilyPond 0.0.41                        1
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+               /usr/local/man/man1/lilypond.1
+               /usr/local/bin/lilypond
+               /usr/local/bin/mi2mu
+               /usr/local/share/lilypond/*
+               /usr/lib/texmf/texmf/tex/lilypond/*
+
+       The TeX include directory is detected dynamically, but it
+       can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxxpppprrrreeeeffffiiiixxxx. The above assumes
+       that you are root and have the gnu development tools, and
+       your make is gnu make.  If this is not the case, you can
+       adjust your environment variables to your taste:
+
+               CXXFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" configure
+
+       the configure script is Cygnus configure, and it will
+       accept --------hhhheeeellllpppp. If you are not root, you will probably have
+       to make it with
+
+               configure --prefix=/home/me_myself_and_I/
+
+       Since LilyPond currently is beta, You are advised to also
+       use
+
+               --enable-debug
+               --enable-checking
+
+       other options include:
+
+               --enable-printing
+               --enable-optimise
+               --enable-profiling
+
+       The option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
+       usage.
+
+       If you do
+
+               make all
+
+       everything will be compiled, but nothing will be
+       installed.  The resulting binaries can be found in the
+       subdirectory _b_i_n_/.
+
+RRRRUUUUNNNNNNNNIIIINNNNGGGG
+       LilyPond does use a lot of resources. For operation you
+       need the following:
+
+       +o A fast computer (a full page of music typically takes 1
+            minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
+            compile. It's lot slower than most MusiXTeX
+            preprocessors)
+
+       +o TeX
+
+
+
+
+14/Mar/97                LilyPond 0.0.41                        2
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+       +o The MusixTeX fonts. (I use those found in MusixTeX T.59)
+
+       Please refer to the man page for more information.
+
+RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
+       RedHat Linux users should be able to get a RPM. A spec
+       file is in _m_a_k_e_/_l_i_l_y_p_o_n_d_._s_p_e_c.
+
+WWWWIIIINNNNDDDDOOOOZZZZEEEE
+       Windows NT:
+
+       you need the cygnus win32 gnu port development stuff; have
+       a look at http://www.cygnus.com/gnu-win32.
+
+       to make LilyPond under, brr, aargh, well, simply type:
+
+               bash configure
+               make win32
+
+
+PPPPLLLLAAAATTTTFFFFOOOORRRRMMMMSSSS
+       LilyPond (pl 0.0.39) is known to compile on the following
+       platforms:
+
+               * linux 2.0.28, g++ 2.7.2[.1]
+               * aix 4.1, g++ 2.7.2
+               * windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
+               * linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
+
+
+AAAAUUUUTTTTHHHHOOOORRRRSSSS
+               Han-Wen Nienhuys <hanwen@stack.nl>
+
+               Jan Nieuwenhuizen <jan@digicash.com>
+
+       Have fun!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+14/Mar/97                LilyPond 0.0.41                        3
+
+

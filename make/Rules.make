@@ -21,31 +21,34 @@
 
 # compile rules:
 #
-$(outdir)/%.o: %.cc $(genout)
+$(outdir)/%.o: %.cc
 	$(DODEP)\
 	$(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION) 
 
-$(outdir)/%.cc: %.y $(genout)
+$(outdir)/%.cc: %.y
 #	$(BISON) -d $<
 	$(BISON) $<
 #	mv $(shell basename $@ .cc ).tab.h $(include-lib)/$(shell basename $@ .cc).hh
 #	mv $(shell basename $@ .cc ).tab.h $(outdir)/$(shell basename $@ .cc).hh
 	mv $(shell basename $@ .cc ).tab.c $@
 
-$(outdir)/%.hh: %.y $(genout)
+$(outdir)/%.hh: %.y
 	$(BISON) -d $<
 	mv $(shell basename $@ .hh ).tab.h $@
 	mv $(shell basename $@ .hh ).tab.c $(outdir)/$(shell basename $@ .hh).cc
 
-$(outdir)/%.cc: %.l $(genout)
+$(outdir)/%.cc: %.l
 	$(FLEX)  -t $< > $@
 
 $(outdir)/%.text: $(outdir)/%.1
 	groff -man -Tascii $< > $@
 
-$(outdir)/%.1: %.pod $(genout)
+$(depth)/%.text: $(outdir)/%.text
+	cp $< $@
+
+$(outdir)/%.1: %.pod
 	pod2man --center="LilyPond documentation" --section="0"\
-		--release="LilyPond $(MAJVER).$(MINVER).$(PATCHLEVEL)" $< > $@
+		--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
 #
 
 # outdirs:
@@ -53,37 +56,25 @@ $(outdir)/%.1: %.pod $(genout)
 # ?$(outdir)/%.dep:
 %.dep:
 	touch $@
-$(outdir):
-	mkdir $(outdir)
-	@touch $(genout)
-%/$(outdir):y
-	mkdir $@
-	@touch $(@D)/$(genout)
-$(genout):
-	mkdir $(outdir)
-	@touch $@
-%/$(genout):
-	mkdir $(@D)/$(outdir)
-	@touch $@
-#
+
 
 # build and config stuff: (could make this generic default rule...)
 #
 %/.build:
-	@echo 0 >$@
-$(flower-config): $(flower-dir)/$(genout)
-	touch $@
-$(lily-config): $(lib-dir)/$(genout)
-	@echo "#define LIBDIR \"./\"" >$@
-%.hh:
-	touch $@
-#
+	echo 0 >$@
+
 
 # specific stuff:
 #
-$(LIBFLOWER): check-flower-version
+$(LIBFLOWER): check-flower-deps
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/flower/lib
-#
+
+check-flower-deps:
+	$(MAKE)  -C $(depth)/flower/lib
+
+check-lily-deps: check-flower-deps
+	$(MAKE)  -C $(depth)/lib
+
 $(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
 #

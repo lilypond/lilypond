@@ -13,42 +13,42 @@
 depth = ../..
 #
 
-# identify module:
-#
-NAME = flower
-MODULE_NAME = flower
-include ./$(depth)/flower/.version
-build = ./$(depth)/flower/lib/.build
-#
-
 # generic variables:
 #
 include ./$(depth)/make/Variables.make 
 #
 
+# identify module:
+#
+NAME = flower
+MODULE_NAME = flower
+include ./$(depth)/flower/.version
+build = ./$(depth)/flower/$(outdir)/.build
+#
+
 # descent order into subdirectories:
 #
-SUBDIRS = include
+SUBDIRS = include 
 #
 
 # to be remade each build:
 #
-VERSION_DEPENDENCY = include/fversion.hh
+VERSION_DEPENDENCY =#
 #
 
 # list of c++ header files:
 # 
-HHFILES = # $(shell ls include/*.hh)
+HHFILES = $(shell ls *.hh $(ERROR_LOG))
 #
 
 # list of c++ source files:
 #
-CCFILES = $(shell ls *.cc)
+CCFILES = $(shell ls *.cc $(ERROR_LOG))
 #
 
 # list of other source files:
 #
-EXTRA_SOURCE_FILES =# $(shell ls *.y *.l)
+EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
 #
 
 # list of distribution files:
@@ -75,18 +75,23 @@ MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 default: $(MAINTARGET)
 #
 
-# sic.
-$(include-flower)/flower-config.hh:
-	touch $@
- 
+# # sic.
+# $(include-flower)/flower-config.hh:
+# 	touch $@
+
 # generic targets and rules:
 #
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
+# list of depend files:
+#
+DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
+#
+
 # auto dependencies:
 #
--include ./$(outdir)/*.dep
+-include /dev/null $(DEPFILES)
 #
 

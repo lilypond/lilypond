@@ -175,6 +175,9 @@ min_elt_index(Vector v)
 Vector
 Ineq_constrained_qp::solve(Vector start) const 
 {    
+    if (!dim())
+	return Vector(0);
+    
     Active_constraints act(this);
 
 

@@ -14,6 +14,6 @@ include ./$(depth)/make/Include.make
 #
 MODULE_NAME = flower
 include ./$(depth)/flower/.version
-build = ./$(depth)/flower/lib/.build
+build = ./$(depth)/flower/$(outdir)/.build
 #
 

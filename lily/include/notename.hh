@@ -6,7 +6,7 @@
 
 #ifndef NOTENAME_HH
 #define NOTENAME_HH
-
+#error OBSOLETE!
 #include "string.hh"
 
 struct Notename_tab {

@@ -23,7 +23,7 @@ include ./$(depth)/make/Variables.make
 NAME = mi2mu
 MODULE_NAME = mi2mu
 include $(mi2mu-dir)/.version
-build = $(mi2mu-dir)/.build
+build = $(mi2mu-dir)/$(outdir)/.build
 #
 
 # descent order into subdirectories:
@@ -38,17 +38,17 @@ VERSION_DEPENDENCY = $(mi2mu-version)
 
 # list of c++ header files:
 # 
-HHFILES = $(shell ls *.hh $(ERROR_LOG))
+HHFILES := $(wildcard *.hh )
 #
 
 # list of c++ source files:
 #
-CCFILES = $(shell ls *.cc $(ERROR_LOG))
+CCFILES := $(wildcard *.cc )
 #
 
 # list of other source files:
 #
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
+EXTRA_SOURCE_FILES := $(wildcard *.y *.l )
 #
 
 # list of distribution files:
@@ -69,7 +69,7 @@ LOADLIBES +=
 #
 # MAINTARGET = $(EXECUTABLE)
 # MAINTARGET = $(LIBRARY)
-MAINTARGET = $(bindir)/$(EXECUTABLE)# huh?
+MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
 # MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 
 default: $(MAINTARGET)
@@ -84,15 +84,6 @@ include ./$(depth)/make/Rules.make
 # explicit dependencies: (how to do auto?)
 #
 midi-lexer.l:	$(outdir)/midi-parser.hh
-version.cc:	check-flower-version $(mi2mu-version)
-#
-
-# version:
-#
-mi2mu-version: $(mi2mu-dir)/$(genout) $(mi2mu-version)
-$(mi2mu-version): $(mi2mu-dir)/$(genout) $(mi2mu-dir)/.version ./$(bindir)/make_version $(build)
-	./$(bindir)/make_version "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
-#
 
 # list of depend files:
 #
@@ -101,6 +92,6 @@ DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
 
 # auto dependencies:
 #
--include $(DEPFILES)
+-include /dev/null $(DEPFILES)
 #
 
