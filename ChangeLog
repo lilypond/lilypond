@@ -1,7 +1,8 @@
 2002-11-21  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-insert-string): new function, use it
-	in LilyPond-insert-tag-notes.
+	in LilyPond-insert-tag-notes. LilyPond-insert-between, new function.
+	Get rid of skeleton.el-dependency.
 
 2002-11-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
