@@ -20,7 +20,7 @@ message "******************************************************";
 def fet_beginfont(expr name,size) =
 	font_identifier:=name&decimal size;
 	font_size size;
-	message "@{font@:"&name&"@:"&decimal size&"@}";
+	message "@{font@:GNU@:LilyPond@:"&name&"@:"&decimal size&"@}";
 	message "";
 	enddef;
 

@@ -1,3 +1,8 @@
+2003-02-10  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* mf/*, buildscipts/* : Backport 1.7 changes. Fixes problems with 
+	incorrect font naming in .pfa files (i.e. broken PDF output).
+
 2003-01-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in: set docdir to %{_docdir}/lilypond/
