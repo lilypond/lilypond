@@ -30,6 +30,6 @@ Input_command *get_grouping_command(Array<int>);
 Input_command *get_bar_command(String);
 Input_command *get_newmeasure_command();
 Input_command *get_goto_command(String);
-Array<int> get_default_grouping(int count);
+Array<int> get_default_grouping(int count, int onenote);
 #endif // INPUTCOMMAND_HH
 
