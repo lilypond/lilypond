@@ -8072,9 +8072,15 @@ their center lines:
  c1^\markup { \line < a b c > }
 @end lilypond
 
+Markups can be stored in variables, and these variables
+may be attached to notes, like
+@verbatim
+allegro = \markup { \bold \large { Allegro } }
+\notes { a^\allegro b c d }
+@end verbatim
+
 The markup mechanism is extensible.  Refer to
 @file{scm/new-markup.scm} for more information.
-
 
 
 @seealso
