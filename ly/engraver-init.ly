@@ -700,7 +700,7 @@ EasyNotation = \translator {
   TextSpanner \set #'style = #'line
   TextSpanner \set #'edge-height = #'(0 . 0)
   TextSpanner \set #'padding = #0.5
-  TextSpanner \set #'enclose-bounds = ##t
+  TextSpanner \set #'enclose-bounds = #1
   TextSpanner \set #'edge-text = #'("" . "")
 }
 
@@ -786,7 +786,7 @@ EasyNotation = \translator {
   TextSpanner \set #'style = #'line
   TextSpanner \set #'edge-height = #'(0 . 0)
   TextSpanner \set #'padding = #0.5
-  TextSpanner \set #'enclose-bounds = ##t
+  TextSpanner \set #'enclose-bounds = #1
   TextSpanner \set #'edge-text = #'("" . "")
 }
  \translator {
