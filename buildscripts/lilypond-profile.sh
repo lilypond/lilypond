@@ -9,7 +9,7 @@
 # trees, rather than messing around with environment variables (eg,
 # see Debian or SuSE package).
 
-datadir="@datadir@"
+datadir=`echo "@datadir@" | sed 's!//!/!g'`
 
 # For direct ps output fonts
 GS_FONTPATH="$datadir/afm:$datadir/pfa"
