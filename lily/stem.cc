@@ -800,8 +800,12 @@ Stem::calc_stem_info (Grob*me)
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  Direction first_dir = Directional_element_interface::get
-    (Beam::first_visible_stem (beam));
+  Grob *fvs = Beam::first_visible_stem (beam);
+
+  /*
+    Let's hope people don't use kneed tremolo beams.
+   */
+  Direction first_dir = fvs ? Directional_element_interface::get(fvs) : mydir;
 
   // FIXME, hairy.  see beam::calc_stem_y, for knees it's not trival
   // to calculate where secondary, ternary beams will go.
