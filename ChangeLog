@@ -1,5 +1,7 @@
 2002-11-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/tutorial/*.ly: update to new syntax.
+
 	* lily/parser.yy (Composite_music): new transpose syntax,
 	\transpose FROM TO MUSIC. 
 

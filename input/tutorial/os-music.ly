@@ -18,7 +18,7 @@ flautoI = \notes\relative c'' {
   bes as bes as bes as bes as
 }
 flautoII = \notes\relative c'' {
-  as8 bes as bes R1 d4 ~ d
+  as8 bes as bes R1 d4-~ d
 }
 tromboI = \notes\relative c'' {
   c4. c8 c8 c4. es4 r as, r

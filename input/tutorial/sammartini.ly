@@ -43,8 +43,8 @@ bassvoices = \notes \relative c' {
     
     [c8 c'8] r4
     <g d'> r4
-    < { r2 <e4 c'> <c8 g'> } \\
-      { g2 ~ | g4 c8 } >
+    < { r2 <<e c'>> <<c g'>> } \\
+      { g2-~ | g4 c8 } >
 }
 
 \score {

@@ -12,8 +12,8 @@
 	\repeat "volta" 2 \sequential {
 	    d4 g,8 a b c d4 g, g |
 	    e'4 c8 d e fis g4 g, g |
-	    c4 d8( )c b a( )b4 c8 b a g |
-	    a4 [b8 a] [g fis] g2.  |
+	    c4 d8-( c-) b a( b4-) c8 b a g |
+	    a4 b8-[ a-] g-[ fis-] g2.  |
 	}
 
         b'4 g8 a b g
