@@ -32,7 +32,7 @@ public:
   SCM lines ();
   SCM pages ();
   SCM scopes (int);
-  Stencil *title (int);
+  Stencil title (int);
   void classic_output (String);
   void init ();
   void output (String);

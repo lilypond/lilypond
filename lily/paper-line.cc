@@ -15,11 +15,24 @@
 
 Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
 {
-  dim_ = o;
-  stencils_ = stencils;
   is_title_ = is_title;
   penalty_ = penalty;
   smobify_self ();
+
+
+  /*
+    TODO: we should extend the definition of stencil to allow
+
+    stencil-expr:  LISTOF stencil-expr*
+
+    so that we don't use as much memory for combining the stencils, and
+    can do this conversion in constant time. 
+  */
+  for (SCM s = stencils; ly_c_pair_p (s); s = ly_cdr (s))
+    stencil_.add_stencil (*unsmob_stencil (ly_car (s)));
+
+  Box x (Interval (0, o[X_AXIS]), Interval (0, o[Y_AXIS]));
+  stencil_ = Stencil (x, stencil_.expr ());
 }
 
 Paper_line::~Paper_line ()
@@ -35,7 +48,7 @@ SCM
 Paper_line::mark_smob (SCM smob)
 {
   Paper_line *line = (Paper_line*) ly_cdr (smob);
-  return line->stencils_;
+  return line-> stencil_.expr ();
 }
 
 int
@@ -51,12 +64,6 @@ Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
-Offset
-Paper_line::dim () const
-{
-  return dim_;
-}
-
 bool
 Paper_line::is_title () const
 {
@@ -69,22 +76,17 @@ Paper_line::penalty () const
   return penalty_;
 }
 
-SCM
-Paper_line::stencils () const
+Offset
+Paper_line::dim () const
 {
-  return stencils_;
+  return Offset (stencil_.extent (X_AXIS).length (),
+		 stencil_.extent (Y_AXIS).length ());
 }
 
 SCM
 Paper_line::to_stencil () const
 {
-  Stencil stencil;
-  for (SCM s = stencils_; ly_c_pair_p (s); s = ly_cdr (s))
-    stencil.add_stencil (*unsmob_stencil (ly_car (s)));
-  Offset o = dim ();
-  Box x (Interval (0, o[X_AXIS]), Interval (0, o[Y_AXIS]));
-  stencil = Stencil (x, stencil.expr ());
-  return stencil.smobbed_copy ();
+  return stencil_.smobbed_copy ();
 }
 
 LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",

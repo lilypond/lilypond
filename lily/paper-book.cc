@@ -19,14 +19,14 @@
 
 // JUNKME
 SCM
-stencil2line (Stencil *stil, bool is_title = false)
+stencil2line (Stencil stil, bool is_title = false)
 {
   static SCM z;
   if (!z)
     z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
-  Offset dim = Offset (stil->extent (X_AXIS).length (),
-		       stil->extent (Y_AXIS).length ());
-  Paper_line *pl = new Paper_line (dim, scm_cons (stil->smobbed_copy (),
+  Offset dim = Offset (stil.extent (X_AXIS).length (),
+		       stil.extent (Y_AXIS).length ());
+  Paper_line *pl = new Paper_line (dim, scm_cons (stil.smobbed_copy (),
 						  SCM_EOL),
 				   -10001 * is_title, is_title);
 
@@ -135,28 +135,31 @@ Paper_book::scopes (int i)
   return scopes;
 }
 
-Stencil*
+Stencil
 Paper_book::title (int i)
 {
+  /*
+    TODO: get from book-paper definition.
+   */
   SCM user_title = ly_scheme_function ("user-title");
   SCM book_title = ly_scheme_function ("book-title");
   SCM score_title = ly_scheme_function ("score-title");
   SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
 	       : ly_symbol2scm ("scoreTitle"));
 
-  Stencil *title = 0;
+  Stencil title;
   SCM scopes = this->scopes (i);
   SCM s = ly_modules_lookup (scopes, field);
   if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
-    title = unsmob_stencil (scm_call_2 (user_title,
+    title = *unsmob_stencil (scm_call_2 (user_title,
 					papers_[0]->self_scm (),
 					scm_variable_ref (s)));
   else
-    title = unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
+    title = *unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
 					papers_[0]->self_scm (),
 					scopes));
-  if (title)
-    title->align_to (Y_AXIS, UP);
+  if (!title.is_empty ())
+    title.align_to (Y_AXIS, UP);
   
   return title;
 }
@@ -202,9 +205,9 @@ Paper_book::init ()
   height_ = 0;
   for (int i = 0; i < score_count; i++)
     {
-      Stencil *title = this->title (i);
-      if (title)
-	height_ += title->extent (Y_AXIS).length ();
+      Stencil title = this->title (i);
+      if (!title.is_empty ())
+	height_ += title.extent (Y_AXIS).length ();
 
       int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
       for (int j = 0; j < line_count; j++)
@@ -239,7 +242,8 @@ Paper_book::lines ()
   SCM lines = SCM_EOL;
   for (int i = 0; i < score_count; i++)
     {
-      if (Stencil *title = this->title (i))
+      Stencil title = this->title (i);      
+      if (!title.is_empty ())
 	lines = ly_snoc (stencil2line (title, true), lines);
       lines = scm_append (scm_list_2 (lines, scm_vector_to_list (scores_[i])));
     }

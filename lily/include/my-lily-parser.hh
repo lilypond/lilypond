@@ -56,7 +56,7 @@ public:
   My_lily_parser (My_lily_parser const&);
 
   DECLARE_SCHEME_CALLBACK (paper_description, ());
-  
+
   Input here_input () const;
   Input pop_spot ();
   void beam_check (SCM); 
@@ -78,5 +78,7 @@ SCM ly_parser_print_book (SCM, SCM);
 SCM ly_parser_print_score (SCM, SCM);
 SCM ly_parser_bookify (SCM, SCM);
 SCM ly_parser_scorify (SCM, SCM);
+
+Music_output_def *get_paper (My_lily_parser *parser);
 
 #endif /* MY_LILY_PARSER_HH */
