@@ -1,3 +1,7 @@
+2005-03-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/fixcc.py: Fixes (Werner).
+
 2005-03-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* GNUmakefile.in: fix lilypond-words path.
