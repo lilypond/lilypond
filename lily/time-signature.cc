@@ -34,10 +34,10 @@ Time_signature::print (SCM smob)
   SCM frac = me->get_property ("fraction");
   int n = 4;
   int d = 4;
-  if (ly_c_pair_p (frac))
+  if (scm_is_pair (frac))
     {
-      n = scm_to_int (ly_car (frac));
-      d = scm_to_int (ly_cdr (frac));
+      n = scm_to_int (scm_car (frac));
+      d = scm_to_int (scm_cdr (frac));
     }
 
   Stencil m;

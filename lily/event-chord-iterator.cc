@@ -47,9 +47,9 @@ Event_chord_iterator::process (Moment m)
   if (last_processed_mom_ < Moment (0))
     {
       for (SCM s = dynamic_cast<Music_sequence *> (get_music ())->music_list ();
-	   ly_c_pair_p (s);  s = ly_cdr (s))
+	   scm_is_pair (s);  s = scm_cdr (s))
 	{
-	  Music *mus = unsmob_music (ly_car (s));
+	  Music *mus = unsmob_music (scm_car (s));
 
 	  bool gotcha = try_music (mus);
 	  if (!gotcha)

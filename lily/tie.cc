@@ -59,7 +59,7 @@ Tie::head (Grob*me, Direction d)
 {
   SCM c = me->get_property ("head-pair");
 
-  if (ly_c_pair_p (c))
+  if (scm_is_pair (c))
     return unsmob_grob (index_get_cell (c, d));
   else
     return 0;
@@ -206,8 +206,8 @@ Tie::get_control_points (SCM smob)
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
   
-  Real h_inf = scm_to_double (ly_cdr (lim)) *  staff_space;
-  Real r_0 = scm_to_double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
+  Real h_inf = scm_to_double (scm_cdr (lim)) *  staff_space;
+  Real r_0 = scm_to_double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -326,13 +326,13 @@ Tie::print (SCM smob)
   Grob*me = unsmob_grob (smob);
 
   SCM cp = me->get_property ("control-points");
-  if (!ly_c_pair_p (cp))		// list is more accurate
+  if (!scm_is_pair (cp))		// list is more accurate
     {
       cp = get_control_points (smob);
       me->set_property ("control-points", cp);
     }
 
-  if (!ly_c_pair_p (cp))
+  if (!scm_is_pair (cp))
     return Stencil ().smobbed_copy ();
   
   Real thick
@@ -341,9 +341,9 @@ Tie::print (SCM smob)
 
   Bezier b;
   int i = 0;
-  for (SCM s= cp; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s= cp; s != SCM_EOL; s = scm_cdr (s))
     {
-      b.control_[i] = ly_scm2offset (ly_car (s));
+      b.control_[i] = ly_scm2offset (scm_car (s));
       i++;
     }
   

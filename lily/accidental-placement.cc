@@ -64,7 +64,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
       entry = SCM_EOL;
     }
   else
-    entry = ly_cdr (entry);
+    entry = scm_cdr (entry);
 
   entry = scm_cons (a->self_scm (), entry);
 
@@ -81,11 +81,11 @@ Accidental_placement::split_accidentals (Grob * accs,
 					 Link_array<Grob> *break_reminder,
 					 Link_array<Grob> *real_acc)
 {
-  for (SCM acs =accs->get_property ("accidental-grobs"); ly_c_pair_p (acs);
-       acs =ly_cdr (acs))
-    for (SCM s = ly_cdar (acs); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM acs =accs->get_property ("accidental-grobs"); scm_is_pair (acs);
+       acs =scm_cdr (acs))
+    for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
-	Grob *a = unsmob_grob (ly_car (s));
+	Grob *a = unsmob_grob (scm_car (s));
 
 	if (unsmob_grob (a->get_property ("tie")))
 	  break_reminder->push (a);
@@ -260,13 +260,13 @@ Accidental_placement::position_accidentals (Grob * me)
     Y-position, they share an Ape, and will be printed in overstrike.
    */
   Link_array<Accidental_placement_entry> apes;
-  for (SCM s = accs; ly_c_pair_p (s); s =ly_cdr (s))
+  for (SCM s = accs; scm_is_pair (s); s =scm_cdr (s))
     {
       Accidental_placement_entry *ape = new Accidental_placement_entry;
-      ape->notename_ = scm_to_int (ly_caar (s));
+      ape->notename_ = scm_to_int (scm_caar (s));
       
-      for (SCM t = ly_cdar (s); ly_c_pair_p (t); t =ly_cdr (t))
-	ape->grobs_.push (unsmob_grob (ly_car (t)));
+      for (SCM t = scm_cdar (s); scm_is_pair (t); t =scm_cdr (t))
+	ape->grobs_.push (unsmob_grob (scm_car (t)));
 
       apes.push (ape);
     }

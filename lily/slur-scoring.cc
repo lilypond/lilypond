@@ -204,8 +204,8 @@ Real
 get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
-  return robust_scm2double (ly_c_pair_p (entry)
-			    ? ly_cdr (entry)
+  return robust_scm2double (scm_is_pair (entry)
+			    ? scm_cdr (entry)
 			    : SCM_EOL,
 			    0.0);
 }
@@ -517,7 +517,7 @@ set_end_points (Grob *me)
   SCM inspect_quants = me->get_property ("inspect-quants");
   if (to_boolean (me->get_paper ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
-      && ly_c_pair_p (inspect_quants))
+      && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
       Real mindist = 1e6;
@@ -1135,7 +1135,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 		  && scm_ilength (accs) == 1)
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (ly_car (accs)))
+		  switch (scm_to_int (scm_car (accs)))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

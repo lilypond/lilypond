@@ -37,6 +37,18 @@ inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_is_eq(x,y)  (SCM_EQ_P((x), (y)))
 
+#define scm_is_pair(x) (SCM_CONSP(x))
+
+inline SCM scm_cdr (SCM x) { return SCM_CDR (x); }
+inline SCM scm_car (SCM x) { return SCM_CAR (x); }
+inline SCM scm_caar (SCM x) { return SCM_CAAR (x); }
+inline SCM scm_cdar (SCM x) { return SCM_CDAR (x); }
+inline SCM scm_cadr (SCM x) { return SCM_CADR (x); }
+inline SCM scm_cddr (SCM x) { return SCM_CDDR (x); }
+inline SCM scm_caddr (SCM x) { return SCM_CADDR (x); }
+inline SCM scm_cdadr (SCM x) { return SCM_CDADR (x); }
+inline SCM scm_caadr (SCM x) { return SCM_CAADR (x); }
+inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double(x))
 #define scm_from_double(x) (scm_make_real(x))
@@ -146,22 +158,12 @@ SCM parse_symbol_list (char const *);
 SCM robust_list_ref(int i, SCM l);
 SCM alist_to_hashq (SCM);
 
-inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
-inline SCM ly_car (SCM x) { return SCM_CAR (x); }
-inline SCM ly_caar (SCM x) { return SCM_CAAR (x); }
-inline SCM ly_cdar (SCM x) { return SCM_CDAR (x); }
-inline SCM ly_cadr (SCM x) { return SCM_CADR (x); }
-inline SCM ly_cddr (SCM x) { return SCM_CDDR (x); }
-inline SCM ly_caddr (SCM x) { return SCM_CADDR (x); }
-inline SCM ly_cdadr (SCM x) { return SCM_CDADR (x); }
-inline SCM ly_caadr (SCM x) { return SCM_CAADR (x); }
-inline SCM ly_cadar (SCM x) { return SCM_CADAR (x); }
+
 /* inserts at front, removing dublicates */
 inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
 {
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
-inline bool ly_c_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
 inline bool ly_c_char_p (SCM x) { return SCM_CHARP (x); }
 inline bool ly_c_vector_p (SCM x) { return SCM_VECTORP (x); }
 inline bool ly_c_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }

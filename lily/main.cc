@@ -256,9 +256,9 @@ determine_output_options ()
   
   bool found_tex = false;
   SCM formats = ly_output_formats ();
-  for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
+  for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
     {
-      found_tex = found_tex || (ly_scm2string (ly_car (s)) == "tex");
+      found_tex = found_tex || (ly_scm2string (scm_car (s)) == "tex");
     }
 
       

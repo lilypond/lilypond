@@ -63,7 +63,7 @@ Measure_grouping_engraver::process_music ()
     return; 
   
   SCM grouping = get_property ("beatGrouping");
-  if (ly_c_pair_p (grouping))
+  if (scm_is_pair (grouping))
     {
       Moment *measpos = unsmob_moment (get_property ("measurePosition"));
       Rational mp = measpos->main_part_;
@@ -72,12 +72,12 @@ Measure_grouping_engraver::process_music ()
       Rational bl = beatlen->main_part_;
 	
       Rational where (0);
-      for (SCM s = grouping; ly_c_pair_p (s);
-	   where += Rational (scm_to_int (ly_car (s))) * bl,
-	   s = ly_cdr (s)
+      for (SCM s = grouping; scm_is_pair (s);
+	   where += Rational (scm_to_int (scm_car (s))) * bl,
+	   s = scm_cdr (s)
 	   )
 	{
-	  int grouplen = scm_to_int (ly_car (s));
+	  int grouplen = scm_to_int (scm_car (s));
 	  if (where == mp)
 	    {
 	      if (grouping_)

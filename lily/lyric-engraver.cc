@@ -110,9 +110,9 @@ Grob *
 get_current_note_head (Context *voice)
 {
   for (SCM s = voice->get_property ("busyGrobs");
-       ly_c_pair_p (s); s = ly_cdr (s))
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      Item *g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
+      Item *g = dynamic_cast<Item*> (unsmob_grob (scm_cdar (s)));
 	
       if (g && !g->get_column ()
 	  && Note_head::has_interface (g))

@@ -136,10 +136,10 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     return 0.0;
   
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));
-  if (!ly_c_pair_p (result))
+  if (!scm_is_pair (result))
     return 0.0;
 
-  result = (a == X_AXIS) ? ly_car (result) : ly_cdr (result);
+  result = (a == X_AXIS) ? scm_car (result) : scm_cdr (result);
   
   return robust_scm2double (result,0);
 }

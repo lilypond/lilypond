@@ -104,8 +104,8 @@ Slur::get_curve (Grob*me)
   Bezier b;
   int i = 0;
   for (SCM s = me->get_property ("control-points"); s != SCM_EOL;
-       s = ly_cdr (s))
-    b.control_[i++] = ly_scm2offset (ly_car (s));
+       s = scm_cdr (s))
+    b.control_[i++] = ly_scm2offset (scm_car (s));
 
   return b;
 }

@@ -40,9 +40,9 @@ Separation_item::conditional_width (Grob * me, Grob * left)
   Paper_column * pc = item->get_column ();
   
   
-  for (SCM s =  me->get_property ("conditional-elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s =  me->get_property ("conditional-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM elt = ly_car (s);
+      SCM elt = scm_car (s);
       if (!unsmob_grob (elt))
 	continue;
       
@@ -84,9 +84,9 @@ Separation_item::width (Grob *me)
   Paper_column * pc = item->get_column ();
   Interval w;
   
-  for (SCM s =  me->get_property ("elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s =  me->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM elt = ly_car (s);
+      SCM elt = scm_car (s);
       if (!unsmob_grob (elt))
 	continue;
 
@@ -140,9 +140,9 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
   last_ext->set_empty ();
   Grob *last_grob = 0;
   for (SCM s = separation_item->get_property ("elements");
-       ly_c_pair_p (s); s = ly_cdr (s))
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * break_item = unsmob_grob (ly_car (s));
+      Grob * break_item = unsmob_grob (scm_car (s));
       
       if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
 	continue;

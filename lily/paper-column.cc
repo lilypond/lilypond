@@ -99,8 +99,8 @@ Paper_column::is_musical (Grob *me)
 bool
 Paper_column::is_used (Grob*me)
 {
-  return ly_c_pair_p (me->get_property ("elements")) ||  Item::is_breakable (me)
-    || ly_c_pair_p (me->get_property ("bounded-by-me"))
+  return scm_is_pair (me->get_property ("elements")) ||  Item::is_breakable (me)
+    || scm_is_pair (me->get_property ("bounded-by-me"))
     ;
 }
 
@@ -147,13 +147,13 @@ Paper_column::before_line_breaking (SCM grob)
   SCM c = me->get_property ("bounded-by-me");
   SCM *ptrptr = &c;
 
-  while (ly_c_pair_p (*ptrptr))
+  while (scm_is_pair (*ptrptr))
     {
-      Grob * g = unsmob_grob (ly_car (*ptrptr));
+      Grob * g = unsmob_grob (scm_car (*ptrptr));
 
       if (!g || !g->is_live ())
 	{
-	  *ptrptr = ly_cdr (*ptrptr);
+	  *ptrptr = scm_cdr (*ptrptr);
 	}
       else
 	{

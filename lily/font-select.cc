@@ -112,19 +112,19 @@ select_encoded_font (Output_def *paper, SCM chain, SCM input_encoding)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
-  if (!ly_c_pair_p (name) || !scm_is_string (ly_cdr (name)))
+  if (!scm_is_pair (name) || !scm_is_string (scm_cdr (name)))
     {
       SCM fonts = paper->lookup_variable (ly_symbol2scm ("fonts"));
       name = properties_to_font_size_family (fonts, chain);
     }
   else
-    name = ly_cdr (name);
+    name = scm_cdr (name);
 
   if (scm_is_string (name))
     {
       SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
-      Real rmag = (ly_c_pair_p (mag)
-		   ? robust_scm2double (ly_cdr (mag), 1.0)
+      Real rmag = (scm_is_pair (mag)
+		   ? robust_scm2double (scm_cdr (mag), 1.0)
 		   : 1);
       Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 		   
@@ -137,8 +137,8 @@ select_encoded_font (Output_def *paper, SCM chain, SCM input_encoding)
       
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
       Real req = 0;
-      if (ly_c_pair_p (font_size))
-	req = scm_to_double (ly_cdr (font_size));
+      if (scm_is_pair (font_size))
+	req = scm_to_double (scm_cdr (font_size));
 
       return get_font_by_mag_step (paper, req, vec, scm_to_double (base_size),
 				   input_encoding);

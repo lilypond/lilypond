@@ -46,7 +46,7 @@ Moment::mark_smob (SCM)
 int
 Moment::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Moment  *r = (Moment *) ly_cdr (s);
+  Moment  *r = (Moment *) scm_cdr (s);
      
   scm_puts ("#<Mom ", port);
   String str = r->to_string ();

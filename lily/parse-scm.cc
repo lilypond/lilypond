@@ -84,7 +84,7 @@ parse_handler (void *data, SCM tag, SCM args)
   ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
-    scm_display_error_message (ly_cadr (args), ly_caddr (args), scm_current_error_port ());
+    scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
 
   /*
     The following is a kludge; we should probably search for

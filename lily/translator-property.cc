@@ -55,15 +55,15 @@ execute_pushpop_property (Context * trg,
 	  else
 	    prev = trg->internal_get_property (prop);
 	  
-	  if (!ly_c_pair_p (prev))
+	  if (!scm_is_pair (prev))
 	    {
 	      programming_error ("Grob definition should be cons.");
 	      return ;
 	    }
 
-	  SCM prev_alist = ly_car (prev);
+	  SCM prev_alist = scm_car (prev);
 	  
-	  if (ly_c_pair_p (prev_alist) || prev_alist == SCM_EOL)
+	  if (scm_is_pair (prev_alist) || prev_alist == SCM_EOL)
 	    {
 	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
 
@@ -81,24 +81,24 @@ execute_pushpop_property (Context * trg,
       else if (trg->where_defined (prop) == trg)
 	{
 	  SCM prev = trg->internal_get_property (prop);
-	  SCM prev_alist = ly_car (prev);
-	  SCM daddy = ly_cdr (prev);
+	  SCM prev_alist = scm_car (prev);
+	  SCM daddy = scm_cdr (prev);
 	  
 	  SCM new_alist = SCM_EOL;
 	  SCM *tail = &new_alist;
 
 	  while (prev_alist != daddy)
 	    {
-	      if (ly_c_equal_p (ly_caar (prev_alist), eltprop))
+	      if (ly_c_equal_p (scm_caar (prev_alist), eltprop))
 		{
-		  prev_alist = ly_cdr (prev_alist);
+		  prev_alist = scm_cdr (prev_alist);
 		  break ;
 		}
 
 	      
-	      *tail = scm_cons (ly_car (prev_alist), SCM_EOL);
+	      *tail = scm_cons (scm_car (prev_alist), SCM_EOL);
 	      tail = SCM_CDRLOC (*tail);
-	      prev_alist = ly_cdr (prev_alist);
+	      prev_alist = scm_cdr (prev_alist);
 	    }
 
 	  if (new_alist == SCM_EOL && prev_alist == daddy)
@@ -125,22 +125,22 @@ void
 apply_property_operations (Context *tg, SCM pre_init_ops)
 {
   SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = correct_order; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM entry = ly_car (s);
-      SCM type = ly_car (entry);
-      entry = ly_cdr (entry); 
+      SCM entry = scm_car (s);
+      SCM type = scm_car (entry);
+      entry = scm_cdr (entry); 
       
       if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
 	{
-	  SCM val = ly_cddr (entry);
-	  val = ly_c_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
+	  SCM val = scm_cddr (entry);
+	  val = scm_is_pair (val) ? scm_car (val) : SCM_UNDEFINED;
 
-	  execute_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
+	  execute_pushpop_property (tg, scm_car (entry), scm_cadr (entry), val);
 	}
       else if (type == ly_symbol2scm ("assign"))
 	{
-	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
+	  tg->internal_set_property (scm_car (entry), scm_cadr (entry));
 	}
     }
 }
@@ -165,25 +165,25 @@ updated_grob_properties (Context * tg, SCM sym)
   
   SCM props  = tg->internal_get_property (sym);
 
-  if (!ly_c_pair_p (props))
+  if (!scm_is_pair (props))
     {
       programming_error ("grob props not a pair?");
       return SCM_EOL;
     }
 
-  SCM based_on = ly_cdr (props);
+  SCM based_on = scm_cdr (props);
   if (based_on == daddy_props)
     {
-      return ly_car (props);
+      return scm_car (props);
     }
   else
     {
       SCM copy = daddy_props;
       SCM * tail = &copy;
-      SCM p = ly_car (props);
+      SCM p = scm_car (props);
       while  (p != based_on)
 	{
-	  *tail = scm_cons (ly_car (p), daddy_props);
+	  *tail = scm_cons (scm_car (p), daddy_props);
 	  tail = SCM_CDRLOC (*tail);
 	  p = SCM_CDR (p);
 	}

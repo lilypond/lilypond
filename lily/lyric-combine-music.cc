@@ -25,9 +25,9 @@ Music*
 Lyric_combine_music::get_music () const
 {
   SCM l = get_property ("elements");
-  if (!ly_c_pair_p (l))
+  if (!scm_is_pair (l))
     return 0;
-  return unsmob_music (ly_car (l));
+  return unsmob_music (scm_car (l));
 }
 
 
@@ -35,12 +35,12 @@ Music*
 Lyric_combine_music::get_lyrics () const
 {
   SCM l = get_property ("elements");
-  if (!ly_c_pair_p (l))
+  if (!scm_is_pair (l))
     return 0;
-  l = ly_cdr (l);
-  if (!ly_c_pair_p (l))
+  l = scm_cdr (l);
+  if (!scm_is_pair (l))
     return 0;
-  return unsmob_music (ly_car (l));
+  return unsmob_music (scm_car (l));
 }
 
 

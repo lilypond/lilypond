@@ -83,12 +83,12 @@ Volta_engraver::staff_eligible ()
     volta engraver in score context or somesuch.
 	
   */
-  if (!ly_c_pair_p (staffs))
+  if (!scm_is_pair (staffs))
     {
       programming_error ("Huh? Volta engraver can't find staffs?");
       return false;
     }
-  else if (ly_car (scm_last_pair (staffs)) != staff_)
+  else if (scm_car (scm_last_pair (staffs)) != staff_)
     {
       return false;
     }
@@ -107,21 +107,21 @@ Volta_engraver::process_music ()
     
   bool  end = false;
   start_string_ = SCM_EOL;
-  while (ly_c_pair_p (cs))
+  while (scm_is_pair (cs))
     {
-      SCM c = ly_car (cs);
+      SCM c = scm_car (cs);
 
-      if (ly_c_pair_p (c)
-	  && ly_car (c) == ly_symbol2scm ("volta")
-	  && ly_c_pair_p (ly_cdr (c)))
+      if (scm_is_pair (c)
+	  && scm_car (c) == ly_symbol2scm ("volta")
+	  && scm_is_pair (scm_cdr (c)))
 	{
-	  if (ly_cadr (c) ==  SCM_BOOL_F)
+	  if (scm_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
 	  else
-	    start_string_ = ly_cadr (c);
+	    start_string_ = scm_cadr (c);
 	}
       
-      cs = ly_cdr (cs);
+      cs = scm_cdr (cs);
     }
 
   if (volta_span_)
@@ -147,7 +147,7 @@ Volta_engraver::process_music ()
     }
 
   if (volta_span_ && 
-      (scm_is_string (start_string_) || ly_c_pair_p (start_string_)))
+      (scm_is_string (start_string_) || scm_is_pair (start_string_)))
     {
       warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
       
@@ -162,7 +162,7 @@ Volta_engraver::process_music ()
     }
 
   if (!volta_span_ && 
-      (scm_is_string (start_string_) || ly_c_pair_p (start_string_)))
+      (scm_is_string (start_string_) || scm_is_pair (start_string_)))
     {
       started_mom_ = now_mom () ;
 

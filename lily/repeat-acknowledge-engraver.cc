@@ -72,16 +72,16 @@ Repeat_acknowledge_engraver::process_music ()
   bool start = false;
   bool end = false;
   bool volta_found = false;
-  while (ly_c_pair_p (cs))
+  while (scm_is_pair (cs))
     {
-      SCM command = ly_car (cs);
+      SCM command = scm_car (cs);
       if (command == ly_symbol2scm ("start-repeat"))
 	start = true;
       else if (command == ly_symbol2scm ("end-repeat"))
 	end = true;
-      else if (ly_c_pair_p (command) && ly_car (command) == ly_symbol2scm ("volta"))
+      else if (scm_is_pair (command) && scm_car (command) == ly_symbol2scm ("volta"))
 	volta_found = true;
-      cs = ly_cdr (cs);      
+      cs = scm_cdr (cs);      
     }
 
   if (start && end)

@@ -175,10 +175,10 @@ LY_DEFINE (ly_output_description, "ly:output-description",
   SCM al = ly_module2alist (id->scope_);
 
   SCM ell = SCM_EOL;
-  for (SCM s = al; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context_def * td = unsmob_context_def (ly_cdar (s));
-      SCM key = ly_caar (s);
+      Context_def * td = unsmob_context_def (scm_cdar (s));
+      SCM key = scm_caar (s);
       if (td && key == td->get_context_name ())
 	ell = scm_cons (scm_cons (key, td->to_alist ()),  ell);
     }

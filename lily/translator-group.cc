@@ -27,8 +27,8 @@ Translator_group::get_daddy_translator () const
 void
 translator_each (SCM list, Translator_method method)
 {
-  for (SCM p = list; ly_c_pair_p (p); p = ly_cdr (p))
-    (unsmob_translator (ly_car (p))->*method) ();
+  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
+    (unsmob_translator (scm_car (p))->*method) ();
 }
 
 
@@ -45,9 +45,9 @@ translator_accepts_any_of (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
 			   tr->translator_description ());
-  ack_ifs = ly_cdr (ack_ifs);
-  for (SCM s = ifaces; ly_c_pair_p (s); s = ly_cdr (s))
-    if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
+  ack_ifs = scm_cdr (ack_ifs);
+  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
+    if (scm_c_memq (scm_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
   return false;
 }
@@ -56,9 +56,9 @@ SCM
 find_accept_translators (SCM gravlist, SCM ifaces)
 {
   SCM l = SCM_EOL;
-  for (SCM s = gravlist; ly_c_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = gravlist; scm_is_pair (s);  s = scm_cdr (s))
     {
-      Translator* tr = unsmob_translator (ly_car (s));
+      Translator* tr = unsmob_translator (scm_car (s));
       if (translator_accepts_any_of (tr, ifaces))
 	l = scm_cons (tr->self_scm (), l); 
     }
@@ -74,10 +74,10 @@ Translator_group::try_music (Music* m)
   SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
 			      m->get_property_alist (false));
 
-  if (!ly_c_pair_p (name))
+  if (!scm_is_pair (name))
     return false;
 
-  name = ly_cdr (name);
+  name = scm_cdr (name);
   SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
   if (accept_list == SCM_BOOL_F)
     {
@@ -86,9 +86,9 @@ Translator_group::try_music (Music* m)
       scm_hashq_set_x (tab, name, accept_list);
     }
 
-  for (SCM p = accept_list; ly_c_pair_p (p); p = ly_cdr (p))
+  for (SCM p = accept_list; scm_is_pair (p); p = scm_cdr (p))
     {
-      Translator * t = unsmob_translator (ly_car (p));
+      Translator * t = unsmob_translator (scm_car (p));
       if (t && t->try_music (m))
 	return true;
     }
@@ -120,10 +120,10 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->children_contexts () ; ly_c_pair_p (s);
-       s =ly_cdr (s))
+  for (SCM s = c->children_contexts () ; scm_is_pair (s);
+       s =scm_cdr (s))
     {
-      recurse_over_translators (unsmob_context (ly_car (s)), ptr, dir);
+      recurse_over_translators (unsmob_context (scm_car (s)), ptr, dir);
     }
 
   if (dir == UP)

@@ -101,8 +101,8 @@ Beam::quanting (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   SCM s = me->get_property ("positions");
-  Real yl = scm_to_double (ly_car (s));
-  Real yr = scm_to_double (ly_cdr (s));
+  Real yl = scm_to_double (scm_car (s));
+  Real yr = scm_to_double (scm_cdr (s));
 
 
   /*
@@ -286,7 +286,7 @@ Beam::quanting (SCM smob)
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
   if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
-      && ly_c_pair_p (inspect_quants))
+      && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
 

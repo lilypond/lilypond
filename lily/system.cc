@@ -42,8 +42,8 @@ int
 System::spanner_count () const
 {
   int k = 0;
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
-    if (dynamic_cast<Spanner*> (unsmob_grob (ly_car (s))))
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+    if (dynamic_cast<Spanner*> (unsmob_grob (scm_car (s))))
       k++;
   return k;
 }
@@ -65,18 +65,18 @@ System::typeset_grob (Grob * elem)
 static void
 fixup_refpoints (SCM s)
 {
-  for (; ly_c_pair_p (s); s = ly_cdr (s))
+  for (; scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob::fixup_refpoint (ly_car (s));
+      Grob::fixup_refpoint (scm_car (s));
     }
 }
 
 SCM
 System::get_lines ()
 {
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = unsmob_grob (ly_car (s));
+      Grob *g = unsmob_grob (scm_car (s));
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
 	{
 	  /*
@@ -102,8 +102,8 @@ System::get_lines ()
     {
       Grob *se = broken_intos_[i];
       SCM all = se->get_property ("all-elements");
-      for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
-	fixup_refpoint (ly_car (s));
+      for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
+	fixup_refpoint (scm_car (s));
       count += scm_ilength (all);
     }
   
@@ -112,8 +112,8 @@ System::get_lines ()
    */
   fixup_refpoints (get_property ("all-elements"));
 
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
-    unsmob_grob (ly_car (s))->handle_broken_dependencies ();
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+    unsmob_grob (scm_car (s))->handle_broken_dependencies ();
   handle_broken_dependencies ();
 
 #if 0  /* don't do this: strange side effects.  */
@@ -171,11 +171,11 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       while (1)
 	{
 	  SCM between = loose->get_property ("between-cols");
-	  if (!ly_c_pair_p (between))
+	  if (!scm_is_pair (between))
 	    break;
 
-	  Item *le = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
-	  Item *re = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
+	  Item *le = dynamic_cast<Item*> (unsmob_grob (scm_car (between)));
+	  Item *re = dynamic_cast<Item*> (unsmob_grob (scm_cdr (between)));
 
 	  if (!(le && re))
 	    break;
@@ -253,7 +253,7 @@ System::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_property ("columns");
-  Grob *prev =  ly_c_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
+  Grob *prev =  scm_is_pair (cs) ? unsmob_grob (scm_car (cs)) : 0;
 
   p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
 
@@ -265,29 +265,29 @@ System::add_column (Paper_column*p)
 void
 System::pre_processing ()
 {
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
-    unsmob_grob (ly_car (s))->discretionary_processing ();
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+    unsmob_grob (scm_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
     progress_indication (_f ("Grob count %d", element_count ()));
   
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
-    unsmob_grob (ly_car (s))->handle_prebroken_dependencies ();
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+    unsmob_grob (scm_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_property ("all-elements"));
   
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *sc = unsmob_grob (ly_car (s));
+      Grob *sc = unsmob_grob (scm_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n");
   progress_indication (_ ("Calculating line breaks..."));
   progress_indication (" ");
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *e = unsmob_grob (ly_car (s));
+      Grob *e = unsmob_grob (scm_car (s));
       SCM proc = e->get_property ("spacing-procedure");
       if (ly_c_procedure_p (proc))
 	scm_call_1 (proc, e->self_scm ());
@@ -297,9 +297,9 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = unsmob_grob (ly_car (s));
+      Grob *g = unsmob_grob (scm_car (s));
       g->calculate_dependencies (POSTCALCED, POSTCALCING,
           ly_symbol2scm ("after-line-breaking-callback"));
     }
@@ -317,9 +317,9 @@ System::post_processing ()
   all = ly_list_qsort_uniq_x (all);
 
   this->get_stencil ();
-  for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = unsmob_grob (ly_car (s));
+      Grob *g = unsmob_grob (scm_car (s));
       g->get_stencil ();
     }
 }
@@ -340,9 +340,9 @@ System::get_line ()
   staff_refpoints.set_empty();
   
   for (int i = LAYER_COUNT; i--;)
-    for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
+    for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
       {
-	Grob *g = unsmob_grob (ly_car (s));
+	Grob *g = unsmob_grob (scm_car (s));
 	Stencil *stil = g->get_stencil ();
 
 	if (i == 0
@@ -407,19 +407,19 @@ System::broken_col_range (Item const *left, Item const *right) const
   right = right->get_column ();
   SCM s = get_property ("columns");
 
-  while (ly_c_pair_p (s) && ly_car (s) != right->self_scm ())
-    s = ly_cdr (s);
+  while (scm_is_pair (s) && scm_car (s) != right->self_scm ())
+    s = scm_cdr (s);
 
-  if (ly_c_pair_p (s))
-    s = ly_cdr (s);
+  if (scm_is_pair (s))
+    s = scm_cdr (s);
 
-  while (ly_c_pair_p (s) && ly_car (s) != left->self_scm ())
+  while (scm_is_pair (s) && scm_car (s) != left->self_scm ())
     {
-      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
+      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (scm_car (s)));
       if (Item::is_breakable (c) && !c->system_)
 	ret.push (c);
 
-      s = ly_cdr (s);
+      s = scm_cdr (s);
     }
 
   ret.reverse ();

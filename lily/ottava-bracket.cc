@@ -58,9 +58,9 @@ Ottava_bracket::print (SCM smob)
 	{
 	  SCM heads = b->get_property ("note-heads");
 	  common = common_refpoint_of_list (heads, common, X_AXIS);
-	  for (SCM s = heads; ly_c_pair_p (s); s =ly_cdr (s))
+	  for (SCM s = heads; scm_is_pair (s); s =scm_cdr (s))
 	    {
-	      Grob * h = unsmob_grob (ly_car (s));
+	      Grob * h = unsmob_grob (scm_car (s));
 	      Grob * dots = Rhythmic_head::get_dots (h);
 	      if (dots)
 		common = dots->common_refpoint (common, X_AXIS);
@@ -91,9 +91,9 @@ Ottava_bracket::print (SCM smob)
       Interval ext;
       if (Note_column::has_interface (b))
 	{
-	  for (SCM s = b->get_property ("note-heads"); ly_c_pair_p (s); s =ly_cdr (s))
+	  for (SCM s = b->get_property ("note-heads"); scm_is_pair (s); s =scm_cdr (s))
 	    {
-	      Grob * h = unsmob_grob (ly_car (s));
+	      Grob * h = unsmob_grob (scm_car (s));
 	      ext.unite (h->extent (common, X_AXIS));
 	      Grob * dots = Rhythmic_head::get_dots (h);
 

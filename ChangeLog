@@ -1,5 +1,7 @@
 2004-09-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/*: ly_c[ad]+r -> scm_XXX , ly_c_pair_p -> scm_is_pair.
+
 	* scripts/lilypond-book.py (Compile_error.process_include): catch
 	Compile_error exception, and remove output .texi.
 
@@ -22,7 +24,7 @@
 	BusyPlayingEvent to determine which voice was active last.
 	(unisono): use last active to where to get unisono information
 	from. This fixes: partcombine-rest.ly (again).
-v/v
+
 	* scm/part-combiner.scm (determine-split-list): cleanups
 
 2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>

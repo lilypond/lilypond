@@ -155,7 +155,7 @@ Ambitus_engraver::finalize ()
 	    handle = scm_assoc (scm_from_int (p.get_notename ()),
 				start_key_sig_);
 	  
-	  int sig_alter = (handle != SCM_BOOL_F) ? scm_to_int (ly_cdr (handle)) : 0;
+	  int sig_alter = (handle != SCM_BOOL_F) ? scm_to_int (scm_cdr (handle)) : 0;
 	  if (sig_alter == p.get_alteration ())
 	    {
 	      accidentals_[d]->suicide();
