@@ -19,6 +19,7 @@
   */
 class Score_walker : public PCursor<Score_column *>
 {
+    Score* score_l_;
     /// walkers for the individual staves.
     Array<Staff_walker *> walker_p_arr_;
     Array<Staff_walker *> disallow_break_walk_l_arr;

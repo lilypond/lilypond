@@ -51,8 +51,8 @@ struct PCol {
     /// which  one (left =0)
     int rank() const;
 
-    /// does this column have items, does it have spacings attached?
-    bool used() const;
+    /// does this column have items
+    bool used_b() const;
     
     void add(Item *i);
 
@@ -64,10 +64,10 @@ struct PCol {
     PCol(PCol * parent);
 
     /**
-       which col comes first?.
-    signed compare on columns.
+      which col comes first?.
+      signed compare on columns.
 
-    @return < 0 if c1 < c2.
+      @return < 0 if c1 < c2.
     */static int compare(const PCol &c1, const PCol &c2);
     
 

@@ -30,8 +30,8 @@ Score_column::Score_column(Moment w)
 }
 
 bool
-Score_column::used() {
-    return pcol_l_->used();
+Score_column::used_b() {
+    return pcol_l_->used_b();
 }
 
 void

@@ -152,11 +152,9 @@ score {
 	}
 	commands {
 		meter {2 * 4}
-%		skip 24*2
+		skip {24*2}
 %		bar "||"
 	}
-	staff { midi_track music { melodie } }
-	staff { midi_track music { begeleiding } }
 	midi { 
 		tempo 4:120 
 	}

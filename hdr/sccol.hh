@@ -44,7 +44,7 @@ public:
     void preprocess();
     bool breakable_b();
     bool musical_b() { return musical_b_; }
-    bool used();
+    bool used_b();
     void print() const;
 
 

@@ -18,7 +18,7 @@ Score::calc_idealspacing()
     iter_top(cols_,i);
 
     for (; i.ok(); i++) {
-	assert(i->used());
+	assert(i->used_b());
 	PCursor<Score_column*> j(i+1);
 	if (i->musical_b()) {
 	    assert(j.ok());

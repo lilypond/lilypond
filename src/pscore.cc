@@ -27,7 +27,7 @@ void
 PScore::clean_cols()
 {
     for (iter_top(cols,c); c.ok(); )
-	if (!c->used()) {
+	if (!c->used_b()) {
 	    delete c.get();
 	} else
 	    c++;
