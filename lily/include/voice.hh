@@ -15,6 +15,9 @@
     */
 
 struct Voice {
+    /** the elements, earliest first.
+      Please use the member #add()# to add a new element
+      */
     IPointerList<Voice_element *> elts;
     Moment start;
 
@@ -26,7 +29,7 @@ struct Voice {
     Moment last() const;
     void transpose(Melodic_req const &)const;
     void add(Voice_element*);
-    bool find_plet_start_bo(char c, Moment& moment_r);
+    bool find_plet_start_b(char c, Moment& moment_r);
     void print() const;
     void set_default_group(String id);
     void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);

@@ -2,6 +2,7 @@
 #include "input-music.hh"
 #include "voice.hh"
 #include "musical-request.hh"
+#include "command-request.hh"
 #include "voice-element.hh"
 
 void
@@ -10,7 +11,7 @@ Input_music::check_plet(Voice_element* velt_l)
     for (iter_top(velt_l->reqs,i); i.ok(); i++)
 	if ( i->plet() ) {
 	    Moment start_moment = 0;
-	    if ( !find_plet_start_bo( i->plet()->type_c_, start_moment ) ) {
+	    if ( !find_plet_start_b( i->plet()->type_c_, start_moment ) ) {
 		error( "begin of plet not found", i->defined_ch_C_ );
 	        break;
 	    }
@@ -48,7 +49,15 @@ Voice_list
 Simple_music::convert()const
 {
     Voice_list l;
-    l.bottom().add(new Voice(voice_));
+    Voice * v_p = new Voice(voice_);
+    PCursor<Voice_element*> i= v_p->elts.bottom();
+	// need-to-have, otherwise memory will be filled up with regs. 
+    if (!i.ok() || i->duration_) {
+	v_p->add ( new Voice_element);
+	i=v_p->elts.bottom();
+    }
+    i->add(new Terminate_voice_req); 
+    l.bottom().add(v_p);
     return l;
 }
 
@@ -56,17 +65,20 @@ Simple_music::convert()const
 void
 Simple_music::print() const
 {
+#ifndef NPRINT
     mtor << "Simple_music {";
     voice_.print();
     mtor << "}\n";
+#endif
 }
 bool
-Simple_music::find_plet_start_bo(char c, Moment& moment_r)
+Simple_music::find_plet_start_b(char c, Moment& moment_r)
 {
-    return voice_.find_plet_start_bo(c, moment_r);
+    return voice_.find_plet_start_b(c, moment_r);
 }
 void 
-Simple_music::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i)
+Simple_music::set_plet_backwards(Moment& now_moment_r, Moment until_moment, 
+				 int num_i, int den_i)
 {
     voice_.set_plet_backwards(now_moment_r, until_moment, num_i, den_i);
 }
@@ -115,10 +127,10 @@ Complex_music::set_default_group(String g)
 	    i->set_default_group(g);
 }
 bool
-Complex_music::find_plet_start_bo(char c, Moment& moment_r)
+Complex_music::find_plet_start_b(char c, Moment& moment_r)
 {
     for (iter_bot(elts,i); i.ok(); i--) {
-        if ( i->find_plet_start_bo(c, moment_r) )
+        if ( i->find_plet_start_b(c, moment_r) )
 	    return true;
     }
     return false;
