@@ -100,31 +100,26 @@ Tempo_req::do_equal_b (Request const *r) const
   return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
 }
 
-
-
-
 void
 Key_change_req::do_print () const
 {
-#if 0
-  key_->print();
-#endif
 }
 
 Key_change_req::Key_change_req ()
 {
   key_ = 0;
 }
+
 Key_change_req::Key_change_req (Key_change_req const&s)
   : Request (s)
 {
-  key_ = new Key_def (*s.key_);
+  key_ = s.key_ ?  new Key_def (*s.key_) : 0;
 }
+
 Key_change_req::~Key_change_req ()
 {
   delete key_;
 }
-
 
 Break_req::Break_req ()
 {

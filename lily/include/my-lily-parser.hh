@@ -23,8 +23,10 @@
 /**
    State for the parser.  Do not ever add any variables to parse
    musical content here.  We still have to remove default_duration_.
-   
- */
+
+   TODO: interface is too complicated
+
+*/
 class My_lily_parser 
 {
 public:
@@ -37,14 +39,17 @@ public:
 
 public:
   Duration default_duration_;
-  Musical_pitch default_pitch_;
+
   Scope *default_header_p_;
+
+
+  // JUNKME
   int chord_tremolo_type_i_;
-  bool first_b_;
+
   int fatal_error_i_;
   Sources * source_l_;
   int error_level_i_;
-  bool init_parse_b_;
+
   My_lily_lexer * lexer_p_;
   bool ignore_version_b_;
 
@@ -54,23 +59,18 @@ public:
   void remember_spot();
   Input pop_spot();
     
-  Paper_def*default_paper_p();
-  Midi_def*default_midi_p();
   void do_yyparse();
   void parser_error (String);
 
-  void set_debug();
   void set_yydebug (bool);
 private:
-  char const* here_ch_C() const;
+  
   Array<Input> define_spot_array_;
-  String init_str_;
 
-  Simultaneous_music * get_note_element (Note_req * ,Duration *);
+  char const* here_ch_C() const;
+
   Simultaneous_music * get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p, Duration d);
-  Simultaneous_music* get_rest_element (String, Duration *);
-  Simultaneous_music* get_word_element (String, Duration*);
-  String notename_str (Melodic_req* melodic);
+
   void set_chord_tremolo (int type_i);
   void set_last_duration (Duration const *);
   void set_last_pitch (Musical_pitch const *);

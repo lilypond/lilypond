@@ -6,6 +6,9 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+/*
+  JUNKTHIS!
+ */
 #include <assert.h>
 
 #include "midi-def.hh"
@@ -16,13 +19,12 @@
 #include "debug.hh"
 #include "request.hh"
 #include "translator-group.hh"
-#include "notename-table.hh"
+
 
 Identifier::Identifier (int code)
 {
   token_code_i_ = code;
   accessed_b_ = 0;
-  init_b_ = 0;
 }
 
 Identifier::Identifier (Identifier const&s)
@@ -30,7 +32,6 @@ Identifier::Identifier (Identifier const&s)
 {
   token_code_i_ = s.token_code_i_;
   accessed_b_ = s.accessed_b_;
-  init_b_ = s.init_b_;
 }
 
 Identifier::~Identifier()
@@ -91,7 +92,6 @@ Class ## _identifier::do_str () const { \
 }
 
 
-DUMMY_STR(Notename_table);
 DUMMY_STR(Translator_group);
 DUMMY_STR(Music);
 DUMMY_STR(Request);
@@ -112,7 +112,6 @@ STRING_PRINT(Duration);
 STRING_PRINT(Real);
 STRING_PRINT(int);
 STRING_PRINT(String);
-STRING_PRINT(Notename_table);
   
 #define DEFAULT_STR(Class) \
 String \
@@ -168,11 +167,9 @@ IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Request);
 IMPLEMENT_ID_CLASS(Midi_def);
 IMPLEMENT_ID_CLASS(Paper_def);
-IMPLEMENT_ID_CLASS(Notename_table);
 VIRTUAL_ACCESSOR(Music);
 VIRTUAL_ACCESSOR(Request);
 VIRTUAL_ACCESSOR(Translator_group);
-DEFAULT_ACCESSOR(Notename_table);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);
 DEFAULT_ACCESSOR(Real);

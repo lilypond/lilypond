@@ -8,7 +8,7 @@
 
 #include <strstream.h>
 #include <ctype.h>
-#include "notename-table.hh"
+
 #include "interval.hh"
 #include "identifier.hh"
 #include "lily-guile.hh"
@@ -85,8 +85,6 @@ My_lily_lexer::My_lily_lexer()
   toplevel_scope_p_ = new Scope;
   scope_l_arr_.push (toplevel_scope_p_);
   errorlevel_i_ = 0;
-  note_tab_p_ = new Notename_table;
-  chordmodifier_tab_p_ = new Notename_table;
   main_input_b_ = false;
 }
 
@@ -110,17 +108,8 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  if (flower_dstream && !flower_dstream->silent_b ("InitDeclarations") && flower_dstream)
-    print_declarations (true);
-  if (flower_dstream && !flower_dstream->silent_b ("InitLexer") && flower_dstream)
-    set_debug (1);
-
-
   new_input (main_input_str_, source_global_l);
   allow_includes_b_ = allow_includes_b_ &&  !(safe_global_b);
-  
-  
-  print_declarations(true);
 }
 
 void
@@ -133,10 +122,6 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
    
   if  (old)
     {
-#if 0
-      if (unique_b)
-	old->warning(_f ("redeclaration of `\\%s'", name_str));
-#endif
       delete old;
     }
   if (lookup_keyword (name_str) >= 0)
@@ -149,21 +134,11 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
 
 My_lily_lexer::~My_lily_lexer()
 {
-  delete chordmodifier_tab_p_;
   delete keytable_p_;
   delete toplevel_scope_p_ ;
-  delete note_tab_p_;
 }
 
-void
-My_lily_lexer::print_declarations (bool ) const
-{
-  for (int i=scope_l_arr_.size (); i--; )
-    {
-      DEBUG_OUT << "Scope no. " << i << '\n';
-      scope_l_arr_[i]->print ();
-    }
-}
+
 
 void
 My_lily_lexer::LexerError (char const *s)
@@ -178,35 +153,6 @@ My_lily_lexer::LexerError (char const *s)
       Input spot (source_file_l(),here_ch_C());
       spot.error (s);
     }
-}
-
-Musical_pitch
-My_lily_lexer::lookup_notename (String s)
-{
-  return note_tab_p_->get_pitch (s);
-}
-
-Musical_pitch
-My_lily_lexer::lookup_chordmodifier (String s)
-{
-  return chordmodifier_tab_p_->get_pitch (s);
-}
-
-
-void
-My_lily_lexer::set_notename_table (Notename_table *p)
-{
-  delete note_tab_p_;
-  note_tab_p_ = p;
-}
-
-
-
-void
-My_lily_lexer::set_chordmodifier_table (Notename_table *p)
-{
-  delete chordmodifier_tab_p_;
-  chordmodifier_tab_p_ = p;
 }
 
 char

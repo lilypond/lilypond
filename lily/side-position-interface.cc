@@ -129,7 +129,13 @@ Side_position_interface::aligned_on_self (Dimension_cache const *c)
     {
       Direction d = to_dir (align);
       Interval ext(elm->extent (ax));
-      if (d)
+
+      if (ext.empty_b ())
+	{
+	  programming_error ("I'm empty. Can't align on self");
+	  return 0.0;
+	}
+      else if (d)
 	{
 	  return - ext[d];
 	}

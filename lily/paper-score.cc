@@ -112,30 +112,43 @@ Paper_score::process ()
 {
   print ();
   progress_indication (_ ("Preprocessing elements...") + " ");
-  line_l_->breakable_col_processing ();
+
+
+  /*
+    Be sure to set breakability on first & last column.
+   */
+  col_l_arr_[0]->set_elt_property ("breakable", SCM_BOOL_T);
+  col_l_arr_.top ()->set_elt_property ("breakable", SCM_BOOL_T);
+
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    unsmob_element (gh_car (s))->do_breakable_col_processing ();
+
   fixup_refpoints ();
-  line_l_->pre_processing ();
-  
+
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element* sc = unsmob_element (gh_car (s));
+      sc->calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
+    }
+
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
-  line_l_->space_processing ();
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    unsmob_element (gh_car (s))->do_space_processing ();
 
   Array<Column_x_positions> breaking = calc_breaking ();
   line_l_->break_into_pieces (breaking);
 
   for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element *sc = unsmob_element (gh_car (s));
-      sc->do_break_processing ();
+      unsmob_element (gh_car (s))->do_break_processing ();
     }
   for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element *sc = unsmob_element (gh_car (s));
-      sc->handle_broken_dependencies ();
+      unsmob_element (gh_car (s))->handle_broken_dependencies ();
     }
   
   outputter_l_ = new Paper_outputter ;
   outputter_l_->output_header ();
-
   outputter_l_->output_version();
   
   if (header_global_p)
@@ -164,9 +177,14 @@ Paper_score::process ()
     
    */
   SCM before_output = outputter_l_->last_cons_;
-  
-
   fixup_refpoints ();
+
+  /*
+    TODO: change this, so that each element ouputs its molecules into
+    its line, and then output all lines one by one; then we can do
+    
+    foreach element: output
+  */
   line_l_->output_lines ();
 
 
@@ -179,9 +197,9 @@ Paper_score::process ()
   
   Paper_stream* psp = paper_l_->paper_stream_p ();
   outputter_l_->dump_onto (psp);
+
   // huh?
   delete outputter_l_;
-  
   outputter_l_ = 0;
   delete psp;
   

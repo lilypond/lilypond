@@ -770,8 +770,6 @@ Beam::forced_stem_count () const
   return f;
 }
 
-
-
 /*
   TODO: Fix this class. This is wildly inefficient.
   And it sux.  Yet another array/list 'interface'.
@@ -795,8 +793,6 @@ Beam::stem_top () const
   SCM s = get_elt_property ("stems");
   
   return gh_pair_p (s) ? dynamic_cast<Stem*> (unsmob_element (gh_car (s))) : 0;
-    
-  //Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[stem_count () - 1];
 }
 
 /* burp */

@@ -13,18 +13,18 @@
 SCM
 Musical_pitch::to_scm ()const
 {
-  return gh_list (gh_int2scm (notename_i_),
+  return gh_list (gh_int2scm (octave_i_),
+		  gh_int2scm (notename_i_),
 		  gh_int2scm (accidental_i_),
-		  gh_int2scm (octave_i_),
 		  SCM_UNDEFINED);
 }
 
 
 Musical_pitch::Musical_pitch (SCM s)
 {
-  notename_i_ = gh_scm2int (gh_car (s));
-  accidental_i_ = gh_scm2int (gh_cadr (s));
-  octave_i_ = gh_scm2int (gh_caddr (s));
+  octave_i_ = gh_scm2int (gh_car (s));
+  notename_i_ = gh_scm2int (gh_cadr (s));
+  accidental_i_ = gh_scm2int (gh_caddr (s));
 }
 
 Musical_pitch::Musical_pitch (int n, int a, int o)

@@ -340,7 +340,7 @@ HYPHEN		--
 		return STRING;
 	}
 	. {
-		return yylval.c = YYText ()[0];
+		return YYText ()[0];
 	}
 }
 <chords>{
@@ -370,7 +370,7 @@ HYPHEN		--
 		return CHORD_CARET;
 	}
 	. {
-		return yylval.c = YYText ()[0];
+		return YYText ()[0];
 	}
 }
 
@@ -415,12 +415,12 @@ HYPHEN		--
 }
 
 <INITIAL,notes>.	{
-	return yylval.c = YYText ()[0];
+	return YYText ()[0];
 }
 
 <INITIAL,lyrics,notes>\\. {
     char c= YYText ()[1];
-    yylval.c = c;
+
     switch (c) {
     case '>':
 	return E_BIGGER;
@@ -468,6 +468,10 @@ My_lily_lexer::pop_state ()
 int
 My_lily_lexer::scan_escaped_word (String str)
 {
+	// use more SCM for this.
+
+	SCM sym = ly_symbol2scm (str.ch_C());
+
 	int l = lookup_keyword (str);
 	if (l != -1) {
 		return l;
@@ -478,16 +482,16 @@ My_lily_lexer::scan_escaped_word (String str)
 		return id->token_code_i_;
 	}
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {
-		if (note_tab_p_->elem_b (str))
+		SCM pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F);
+		
+		if (pitch != SCM_BOOL_F)
 		{
-			yylval.pitch = new Musical_pitch (lookup_notename (str));
+			yylval.pitch = new Musical_pitch (pitch);
 			yylval.pitch->set_spot (Input (source_file_l (), 
 			  here_ch_C ()));
 			return NOTENAME_PITCH;
 		}
 	}
-	if (flower_dstream)
-		print_declarations (true);
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
 
@@ -499,15 +503,17 @@ My_lily_lexer::scan_escaped_word (String str)
 int
 My_lily_lexer::scan_bare_word (String str)
 {
+	SCM sym = ly_symbol2scm (str.ch_C ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
-		if (note_tab_p_->elem_b (str)) {
-		    yylval.pitch = new Musical_pitch (lookup_notename (str));
+		SCM pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F);
+		if (pitch != SCM_BOOL_F) {
+		    yylval.pitch = new Musical_pitch (pitch);
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-		} else if (chordmodifier_tab_p_->elem_b (str))
+		} else if ((pitch = scm_hashq_ref (pitchname_tab_, sym, SCM_BOOL_F))!= SCM_BOOL_F)
 		{
-		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));
+		    yylval.pitch = new Musical_pitch (pitch);
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
 		    return CHORDMODIFIER_PITCH;

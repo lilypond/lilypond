@@ -92,12 +92,6 @@ Music_output_def::get_global_translator_p ()
 void
 Music_output_def::print () const
 {
-#ifndef NPRINT
-  DEBUG_OUT << "Translators: \n";
-  translator_p_dict_p_->print ();
-  DEBUG_OUT << "Other definitions.\n";
-  scope_p_->print( );
-#endif
 }
 
 String

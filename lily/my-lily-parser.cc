@@ -25,7 +25,6 @@
 
 My_lily_parser::My_lily_parser (Sources * source_l)
 {
-  first_b_ = true;
   source_l_ = source_l;
   lexer_p_ = 0;
   chord_tremolo_type_i_ = 0;
@@ -52,12 +51,11 @@ void
 My_lily_parser::parse_file (String init, String s)
 {
   lexer_p_ = new My_lily_lexer;
-  init_str_ = init;
+
   lexer_p_->main_input_str_ = s;
 
   progress_indication (_("Parsing..."));
 
-  init_parse_b_ = false;
   set_yydebug (flower_dstream &&!flower_dstream->silent_b ("Parser"));
   lexer_p_->new_input (init, source_l_);
   do_yyparse ();
@@ -112,7 +110,12 @@ My_lily_parser::set_chord_tremolo (int type_i)
 
 // junk me
 Simultaneous_music *
-My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p, Duration d)
+My_lily_parser::get_chord (Musical_pitch tonic,
+			   Array<Musical_pitch>* add_arr_p,
+			   Array<Musical_pitch>* sub_arr_p,
+			   Musical_pitch* inversion_p,
+			   Musical_pitch* bass_p,
+			   Duration d)
 {
   Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
@@ -171,17 +174,5 @@ My_lily_parser::here_input() const
   return  lexer_p_->here_input ();
 }
 
-Paper_def*
-My_lily_parser::default_paper_p ()
-{
-  Identifier *id = lexer_p_->lookup_identifier ("$defaultpaper");
-  return id ? id->access_content_Paper_def (true) : new Paper_def ;
-}
 
-Midi_def*
-My_lily_parser::default_midi_p ()
-{
-  Identifier *id = lexer_p_->lookup_identifier ("$defaultmidi");
-  return id ? id->access_content_Midi_def (true) : new Midi_def ;
-}
 

@@ -193,7 +193,7 @@ In a lot of other formats this would be called an 'Event'
     Each dynamic is bound to one note (a crescendo spanning multiple
     notes is thought to be made of two "dynamics": a start and a stop).
     Dynamic changes can occur in a smaller time than the length of its
-    note, therefore fore each  @code{Dynamic} request carries a time, measured
+    note, therefore each @code{Dynamic} request carries a time, measured
     from the start of its note.
 @end table
 
@@ -327,7 +327,7 @@ union of its children.
 
 Besides relative positions there are lots of other relations between
 elements. Lilypond does not contain other specialized relation
-management (Like the relative positioning code).  In stead, objects can
+management (Like the relative positioning code).  Instead, objects can
 be connected through dependencies, which sets the order in which objects
 are to be processed.
 
@@ -366,7 +366,7 @@ An item has one horizontal position.  A spanner hangs on two  items.
 
 
 An item is a score element that is associated with only one
-Paper_column. Examples are note heads, clefs, sup and superscripts, etc.
+Paper_column. Examples are note heads, clefs, super and superscripts, etc.
 Item is a derived class of Score_element.
 
 The shape of an item is known before the break calculations, and line

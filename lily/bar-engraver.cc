@@ -38,7 +38,7 @@ Bar_engraver::create_bar ()
       SCM default_type = get_property ("defaultBarType");
       if (gh_string_p (default_type))
 	{
-	  bar_p_->set_elt_property ("glyph", default_type); // gu.h
+	  bar_p_->set_elt_property ("glyph", default_type); // ugh
 	}
 
 #if 0

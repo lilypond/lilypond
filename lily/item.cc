@@ -44,9 +44,7 @@ Line_of_score *
 Item::line_l() const
 {
   Score_element *g = parent_l (X_AXIS);
-  if (!g)
-    return 0;
-  return dynamic_cast<Score_element *> (g)-> line_l ();
+  return g ?  g->line_l () : 0;
 }
 
 

@@ -15,6 +15,23 @@
 #include "dimension-cache-callback.hh"
 
 
+
+
+
+/**
+    for administration of what was done already
+    */
+enum Score_element_status {
+  ORPHAN=0,			// not yet added to pstaff
+  VIRGIN,			// added to pstaff
+  PRECALCING,
+  PRECALCED,		// calcs before spacing done
+  POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
+  POSTCALCED,		// after spacing calcs done
+  BREWING,
+  BREWED,
+};
+
 typedef void (Score_element::*Score_element_method_pointer) (void);
 
 /**
@@ -126,6 +143,13 @@ public:
 
   virtual void do_break_processing ();
   virtual Score_element *find_broken_piece (Line_of_score*) const;
+  /// generate rods & springs
+  virtual void do_space_processing ();
+  virtual void do_breakable_col_processing ();
+
+  /// do calculations before determining horizontal spacing
+  virtual void before_line_breaking ();
+
 protected:
 
   /**
@@ -142,13 +166,7 @@ protected:
   virtual Molecule do_brew_molecule () const;
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
-  /// do calculations before determining horizontal spacing
-  virtual void before_line_breaking ();
 
-  /// generate rods & springs
-  virtual void do_space_processing ();
-
-  virtual void do_breakable_col_processing ();
   /// do calculations after determining horizontal spacing
   virtual void after_line_breaking ();
     

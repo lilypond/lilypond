@@ -11,7 +11,6 @@
 
 #include <iostream.h>
 #include "lily-guile.hh"
-#include "notename-table.hh"
 #include "translation-property.hh"
 #include "lookup.hh"
 #include "misc.hh"
@@ -52,15 +51,13 @@ is_duration_b (int t)
   return t == 1 << intlog2(t);
 }
 
-
-
-
 void
 print_mudela_versions (ostream &os)
 {
   os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
     << endl;
 }
+
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
 
@@ -84,7 +81,6 @@ print_mudela_versions (ostream &os)
     Array<Musical_pitch> *pitch_arr;
     Link_array<Request> *reqvec;
     Array<int> *intvec;
-    Notename_table *chordmodifiertab;
     Duration *duration;
     Identifier *id;
     String * string;
@@ -98,7 +94,6 @@ print_mudela_versions (ostream &os)
     Musical_pitch * pitch;
     Midi_def* midi;
     Moment *moment;
-    Notename_table *notenametab;
     Paper_def *paper;
     Real real;
     Request * request;
@@ -110,7 +105,6 @@ of the parse stack onto the heap. */
 
     Tempo_req *tempo;
     Translator_group* trans;
-    char c;
     int i;
 }
 %{
@@ -201,7 +195,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <pitch>	CHORDMODIFIER_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
-%token <id>	NOTENAME_TABLE_IDENTIFIER
 %token <id>	MUSIC_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
@@ -235,12 +228,11 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <intvec>	 int_list
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
-%type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
+%type <pitch>   steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
 
-%type <pitch_arr>	pitch_list
+%type <pitch_arr>	pitch_list chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
-%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
 %type <pitch>	chord_note chord_inversion chord_bass
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
@@ -260,10 +252,10 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	string
 %type <score>	score_block score_body
 
-%type <scm>	script_abbreviation
 %type <trans>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
-%type <notenametab> notenames_body notenames_block chordmodifiers_block
+%type <scm> notenames_body notenames_block chordmodifiers_block
+%type <scm>	script_abbreviation
 
 
 
@@ -284,10 +276,10 @@ mudela:	/* empty */
 
 toplevel_expression:
 	notenames_block			{
-		THIS->lexer_p_->set_notename_table ($1);
+		THIS->lexer_p_->pitchname_tab_ =  $1;
 	}
 	| chordmodifiers_block			{
-		THIS->lexer_p_->set_chordmodifier_table ($1);
+		THIS->lexer_p_->chordmodifier_tab_  = $1;
 	}
 	| mudela_header {
 		delete header_global_p;
@@ -317,26 +309,29 @@ embedded_scm:
 
 
 chordmodifiers_block:
-	CHORDMODIFIERS '{' notenames_body '}'  {  $$ = $3; }
+	CHORDMODIFIERS notenames_body   {  $$ = $2; }
 	;
 
 
 notenames_block:
-	NOTENAMES '{' notenames_body '}'  {  $$ = $3; }
+	NOTENAMES notenames_body   {  $$ = $2; }
 	;
 
 
 
 notenames_body:
-	/**/	{
-		$$ = new Notename_table;
-	}
-	| NOTENAME_TABLE_IDENTIFIER	{
-		$$ = $1-> access_content_Notename_table(true);
-	}
-	| notenames_body STRING '=' explicit_musical_pitch {
-		$$->add_note_name (ly_scm2string ($2), $4);
-		delete $4;
+	embedded_scm	{
+	  int i = scm_ilength ($1);
+
+	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
+	  for (SCM s = $1; s != SCM_EOL; s = gh_cdr (s)) {
+		SCM pt = gh_cdar (s);
+		if (scm_ilength (pt) != 3)
+			THIS->parser_error ("Need three args");
+		scm_hashq_set_x (tab, gh_caar(s), pt);
+	  }
+
+	  $$ = tab;
 	}
 	;
 
@@ -367,7 +362,7 @@ assignment:
 	}
 	/* cont */ '=' identifier_init  {
 	    THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
-	    $4->init_b_ = THIS->init_parse_b_;
+
 	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
@@ -378,12 +373,6 @@ identifier_init:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
 
-	}
-	| chordmodifiers_block {
-		$$ = new Notename_table_identifier ($1, NOTENAME_TABLE_IDENTIFIER);
-	}
-	| notenames_block {
-		$$ = new Notename_table_identifier ($1, NOTENAME_TABLE_IDENTIFIER);
 	}
 	| paper_block {
 		$$ = new Paper_def_identifier ($1, PAPER_IDENTIFIER);
@@ -488,7 +477,11 @@ score_block:
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
 		if (!$$->def_p_arr_.size ())
-			$$->add_output (THIS->default_paper_p ());
+		{
+		  Identifier *id =
+			THIS->lexer_p_->lookup_identifier ("$defaultpaper");
+		  $$->add_output (id ? id->access_content_Paper_def (true) : new Paper_def );
+		}
 	}
 	;
 
@@ -538,7 +531,8 @@ paper_block:
 
 paper_def_body:
 	/* empty */		 	{
-		Paper_def *p = THIS->default_paper_p ();
+		  Identifier *id = THIS->lexer_p_->lookup_identifier ("$defaultpaper");
+		  Paper_def *p = id ? id->access_content_Paper_def (true) : new Paper_def;
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
@@ -635,9 +629,12 @@ midi_block:
 	;
 
 midi_body: /* empty */ 		{
-		Midi_def * p =THIS->default_midi_p ();
-		$$ = p;
-		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+	 Identifier *id = THIS->lexer_p_->lookup_identifier ("$defaultmidi");
+	 Midi_def* p = id
+		? id->access_content_Midi_def (true) : new Midi_def ;
+
+	 $$ = p;
+	 THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
 	| MIDI_IDENTIFIER	{
 		Midi_def * p =$1-> access_content_Midi_def (true);
@@ -651,6 +648,10 @@ midi_body: /* empty */ 		{
 		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request semicolon {
+		/*
+			junk this ? there already is tempo stuff in
+			music.
+		*/
 		$$->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 		delete $2;
 	}
@@ -707,8 +708,9 @@ Repeated_music:
 
 		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
 		$$ = r;
-		r->fold_b_ = (ly_scm2string ($2) == "fold");
-		r->volta_fold_b_ =  (ly_scm2string ($2) == "volta");
+		r->type_ = ly_scm2string ($2);
+		r->fold_b_ = (r->type_ == "fold");
+		r->volta_fold_b_ =  (r->type_ == "volta");
 		r->set_spot ($4->spot  ());
 	}
 	;
@@ -950,6 +952,7 @@ shorthand_command_req:
 		$$ =b;
 	}
 	| '[' ':' unsigned {
+		// JUNKME
 		if (!is_duration_b ($3))
 		  THIS->parser_error (_f ("not a duration: %d", $3));
 		else
@@ -976,6 +979,8 @@ shorthand_command_req:
 		    Chord_tremolo_req* a = new Chord_tremolo_req;
 		    a->span_dir_ = STOP;
 		    a->type_i_ = THIS->chord_tremolo_type_i_;
+
+	// JUNKME.
 		    THIS->set_chord_tremolo (0);
 		    $$ = a;
 		  }
@@ -1197,24 +1202,17 @@ steno_tonic_pitch:
 	}
 	;
 
-explicit_musical_pitch:
-	MUSICAL_PITCH '{' int_list '}'	{/* ugh */
-		Array<int> &a = *$3;
-		ARRAY_SIZE(a,3);
-		$$ = new Musical_pitch;
-		$$->octave_i_ = a[0];
-		$$->notename_i_ = a[1];
-		$$->accidental_i_ = a[2];
-		delete &a;
-	}
-	;
-
 musical_pitch:
 	steno_musical_pitch {
 		$$ = $1;
 	}
-	| explicit_musical_pitch {
-		$$ = $1;
+	| MUSICAL_PITCH embedded_scm {
+		int sz = scm_ilength ($2);
+		if (sz != 3) {
+			THIS->parser_error (_f ("Expecting %d arguments", 3));
+			$2 = gh_list (gh_int2scm (0), gh_int2scm (0), gh_int2scm (0), SCM_UNDEFINED);
+		}
+		$$ = new Musical_pitch ($2);
 	}
 	;
 
@@ -1420,7 +1418,7 @@ simple_element:
 		n->pitch_ = *$1;
 		n->duration_ = *$4;
                 /*
-	          URG
+	          URG, JUNKTHIS!
                  */
 		if (THIS->chord_tremolo_type_i_)
 		  {
