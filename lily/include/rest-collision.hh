@@ -20,7 +20,7 @@ public:
     
   Rest_collision(SCM);
 
-  SCM member_before_line_breaking ();
-  static SCM before_line_breaking (SCM);
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
 };
 #endif // REST_COLLISION_HH

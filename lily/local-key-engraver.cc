@@ -208,6 +208,9 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     }
 }
 
+/*
+  ugh. deep_copy uses lots of space.
+ */
 void
 Local_key_engraver::do_process_music()
 {
@@ -218,11 +221,11 @@ Local_key_engraver::do_process_music()
   if (!mp)
     {
       if (!to_boolean (get_property ("noResetKey")))
-	daddy_trans_l_->set_property ("localKeySignature",  sig);
+	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
     }
   else if (last_keysig_ != sig) 
     {
-      daddy_trans_l_->set_property ("localKeySignature",  sig);
+      daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
     }
 }
 

@@ -29,6 +29,9 @@
     A ly_B2A (B b);
  */
 SCM ly_str02scm (char const*c);
+SCM ly_deep_copy (SCM);
+
+
 SCM ly_symbol2scm (char const *);
 String ly_scm2string (SCM s);
 String ly_symbol2string (SCM);

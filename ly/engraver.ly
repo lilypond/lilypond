@@ -549,6 +549,7 @@ ScoreContext = \translator {
 	)
 	
 	basicRestCollisionProperties = #`(
+		(after-line-breaking-callback . ,Rest_collision::after_line_breaking)
 	)
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::brew_molecule)
@@ -615,10 +616,10 @@ ScoreContext = \translator {
 	)
 	basicTieProperties = #`(
 		(molecule-callback . ,Tie::brew_molecule)
-		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking) 		
+		(after-line-breaking-callback . ,Tie::after_line_breaking) 		
 	)
 	basicTieColumnProperties = #`(
-		(after-line-breaking-callback .,Tie_engraver::after_line_breaking)
+		(after-line-breaking-callback . ,Tie_column::after_line_breaking)
 	)
 	basicTupletSpannerProperties = #`(
 		(number-gap . 2.0)   
