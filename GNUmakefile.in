@@ -77,7 +77,7 @@ local-WWW-post:
 AddCharset utf-8 .html\
 AddCharset utf-8 .en\
 AddCharset utf-8 .nl\
-AddCharset utf-8 .txt' > .htaccess 
+AddCharset utf-8 .txt' > $(builddir)/.htaccess 
 
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
 	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
@@ -87,7 +87,7 @@ AddCharset utf-8 .txt' > .htaccess
 		> $(outdir)/weblist
 	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
-	cd $(builddir) && ls *.html >> $(outdir)/weblist
+	cd $(builddir) && ls .htaccess *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 tree-prefix = $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)
