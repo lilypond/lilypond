@@ -2234,6 +2234,21 @@ conversions.append (((2, 4, 0),
 		     conv,
 		     ''))
 
+
+# nothing, just to make version numbers look good.
+def conv (str):
+	str = re.sub (r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
+		      r'\\quoteDuring #"\1" { \skip \2 }',
+		      str
+		      )
+	return str
+
+conversions.append (((2, 5, 0),
+		     conv,
+		     ''))
+
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

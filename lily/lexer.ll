@@ -164,7 +164,7 @@ HYPHEN		--
   }
 }
 
-<INITIAL,lyrics,notes>\\encoding{WHITE}* {
+<INITIAL,lyrics,figures,notes>\\encoding{WHITE}* {
 	yy_push_state (encoding);
 }
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
@@ -243,16 +243,14 @@ HYPHEN		--
 <INITIAL,chords,lyrics,figures,notes>\\include           {
 	yy_push_state (incl);
 }
-<incl>\"[^"]*\";?   { /* got the include file name */
-/* FIXME: semicolon? */
+<incl>\"[^"]*\"   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('"'));
 
 	new_input (s, sources_);
 	yy_pop_state ();
 }
-<incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
-/* FIXME: semicolon? */
+<incl>\\{BLACK}*{WHITE} { /* got the include identifier */
 	String s = YYText () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
@@ -356,7 +354,6 @@ HYPHEN		--
 		yylval.i = String_convert::dec2int (String (YYText () +1));
 		return E_UNSIGNED;
 	}
-
 	\" {
 		start_quote ();
 	}

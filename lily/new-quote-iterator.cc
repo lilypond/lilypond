@@ -104,9 +104,17 @@ New_quote_iterator::construct_children ()
   SCM name = get_music ()->get_property ("quoted-context-type");
   SCM id = get_music ()->get_property ("quoted-context-id");
 
-  Context *cue_context = get_outlet()->find_create_context (name,
-							    ly_scm2string (id), SCM_EOL);
-  quote_outlet_.set_context (cue_context);
+  if (scm_is_string (id)
+      && scm_is_symbol (name))
+    {
+      Context *cue_context = get_outlet()->find_create_context (name,
+								ly_scm2string (id), SCM_EOL);
+      quote_outlet_.set_context (cue_context);
+    }
+  else
+    {
+      quote_outlet_.set_context (get_outlet ());
+    }
   
   Moment now = get_outlet ()->now_mom ();
   Moment stop = now + get_music()->get_length ();

@@ -1598,14 +1598,6 @@ command_element:
 
 		$$ = skip;
 	}
-	| QUOTE STRING duration_length {
-		Music *quote = MY_MAKE_MUSIC ("QuoteMusic");
-		quote->set_property ("duration", $3);
-		quote->set_property ("quoted-music-name", $2);
-		quote->set_spot (THIS->here_input ());
-
-		$$ = quote;
-	}
 	| OCTAVE { THIS->push_spot (); }
  	  pitch {
 		Music *m = MY_MAKE_MUSIC ("RelativeOctaveCheck");
