@@ -1,4 +1,14 @@
+2003-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION (PACKAGE_NAME): 1.9.3 released
+
+	* stepmake/stepmake/help2man-rules.make ($(outdir)/%.1): build man
+	pages unconditionally.
+
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely (Top): small syntax
+	fixes.
 
 	* scm/music-functions.scm (remove-tag): filter \tagged music
 	expressions.

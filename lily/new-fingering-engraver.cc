@@ -316,5 +316,5 @@ ENTER_DESCRIPTION(New_fingering_engraver,
 /* creats*/       "Fingering",
 /* accepts */     "",
 /* acks  */       "rhythmic-head-interface stem-interface",
-/* reads */       "fingerHorizontalDirection",
+/* reads */       "fingeringOrientations",
 /* write */       "");

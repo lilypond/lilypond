@@ -14,6 +14,7 @@ Each music expression can now be tagged, to make different printed
 versions from the same music expression.  In the following example,
 we see two versions of a piece of music, one for the full score, and
 one with cue notes for the instrumental part:
+
 @example
 < \tag #'part <
   @{ c4 f2 g @}      % in the part, we have cue-notes  
@@ -24,10 +25,13 @@ one with cue notes for the instrumental part:
  
 The same can be applied to articulations, texts, etc.: they are
 made by prepending
+
 @example
-        -\tag #@var{your-tag(s)} 
+        -\tag #@var{your-tags} 
 @end example
+
 to an articulation, for example, 
+
 @example
         c4-\tag #'with-fingerings -4 -\tag #'with-strings \6
 @end example
@@ -35,7 +39,21 @@ to an articulation, for example,
 This defines a note, which has a fingering and a string-number
 indication. 
 
+@item
+The settings for chord-fingering are more flexible. You can specify a
+list where fingerings may be placed, eg.
 
+@example
+	\property Voice.fingeringOrientations = #'(left down)
+@end example
+
+This will put the fingering for the lowest note below the chord, and the
+rest to the left.
+
+@item
+The script previously known as @file{ly2dvi} has been renamed to
+@file{lilypond}. The binary itself is now installed as
+@file{lilypond-bin}.
 
 @item
 Markup text (ie. general text formatting) may now be used for lyrics too. 

@@ -9,7 +9,7 @@ MODULE_INCLUDES= $(depth)/flower/include
 MODULE_CXXFLAGS= 
 
 
-HELP2MAN_EXECS = lilypond
+HELP2MAN_EXECS = lilypond-bin
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
 include $(depth)/make/stepmake.make 

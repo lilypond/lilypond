@@ -765,6 +765,7 @@ lilypond (0.1.42-1) unstable; urgency=low
 
   * New upstream release.
   * Now places ly2dvi in /usr/bin.
+	
 
  -- Anthony Fok <foka@debian.org>  Thu, 29 Jan 1998 02:50:36 -0700
 

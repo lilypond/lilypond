@@ -4018,6 +4018,7 @@ some common problems in orchestral music.
 * Multi measure rests::         
 * Automatic part combining::    
 * Hiding staves::               
+* Different editions from one source::  
 * Sound output for transposing instruments::  
 @end menu
 
@@ -4392,7 +4393,8 @@ measure:
   >
 @end lilypond
 
-The part combiner is slated to be rewritten [TODO: explain why].
+The part combiner is rather buggy, and it will be replaced by a better
+mechanism in the near future.
 
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
@@ -4443,16 +4445,17 @@ In the following example, we see two versions of a piece of music, one
 for the full score, and one with cue notes for the instrumental part:
 
 @example
- c1
+    c1
     \relative c' <
 	\tag #'part <
 	  R1 \\
-	  {
+	  @{
 	      \property Voice.fontSize = #-1
-	      c4_"cue" f2 g4 } 
+	      c4_"cue" f2 g4 @} 
         >
 	\tag #'score R1
      >
+     c1
 @end example
 
 The same can be applied to articulations, texts, etc.: they are
@@ -4470,11 +4473,11 @@ This defines a note with a conditional fingering indication.
 By applying the @code{remove-tag} function, tagged expressions can be
 filtered. For example,
 @example
-\simultaneous {
+\simultaneous @{
         @var{the music}
 	\apply #(remove-tag 'score) @var{the music}
 	\apply #(remove-tag 'part) @var{the music}
-}
+@}
 @end example
 would yield
 
