@@ -1,7 +1,7 @@
 \header{
 filename =	 "violino-i.ly";
 title =	 	 "Vier Duette";
-description =	 "For duets for Violino and Violoncello (Viola)";
+description =	 "Four duets for Violino and Violoncello (Viola)";
 opus =           "BWV";
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
@@ -30,7 +30,9 @@ $violino_i = \notes\relative c'' {
 
 $violino_i_staff = \type Staff = violino <
 	<
-		\notes\property Voice.textstyle = "large" s4^"Moderato"
+		%urg
+		% \notes\property Voice.textstyle = "large" s4^"Moderato"
+		% \notes {s4. \property Voice.textstyle = "large" s4^"Moderato"}
 		\$violino_i
 	>
 	\$global_i

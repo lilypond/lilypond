@@ -33,10 +33,6 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "grouping.hh"
-#include "stem-info.hh"
-
-
-
 
 Beam::Beam ()
 {
@@ -117,7 +113,7 @@ Beam::do_post_processing ()
       transparent_b_ = true;
       return ;
     }
-  solve_slope ();
+  calculate_slope ();
   set_stemlens ();
 }
 
@@ -160,10 +156,17 @@ Beam::set_default_dir ()
 
     } while (flip(&d) != DOWN);
   
+#if 0
+   /*
+     urg?  consider [b''16 a]: will get stem down!
+     i'll leave this 'fix' commented-out in case something breaks.
+     jcn
+    */
    do {
     if (!total[d])
       count[d] = 1;
   } while (flip(&d) != DOWN);
+#endif
   
   /* 
      [Ross] states that the majority of the notes dictates the
@@ -209,48 +212,30 @@ Beam::set_default_dir ()
 /*
   See Documentation/tex/fonts.doc
  */
+
 void
-Beam::solve_slope ()
+Beam::solve_slope (Array<Stem_info>& sinfo)
 {
   /*
     should use minimum energy formulation (cf linespacing)
   */
-
-  assert (multiple_i_);
-  Array<Stem_info> sinfo;
+  assert (sinfo.size () > 1);
   DOUT << "Beam::solve_slope: \n";
-  for (int j=0; j <stems_.size (); j++)
+
+  Real staffline_f = paper ()->rule_thickness ();
+  Real epsilon_f = staffline_f / 8;
+
+  Real leftx = sinfo[0].x_;
+  Least_squares l;
+  for (int i=0; i < sinfo.size (); i++)
     {
-      Stem *i = stems_[j];
-
-      i->mult_i_ = multiple_i_;
-      i->set_default_extents ();
-      if (i->invisible_b ())
-	continue;
-
-      Stem_info info (i);
-      sinfo.push (info);
+      sinfo[i].x_ -= leftx;
+      l.input.push (Offset (sinfo[i].x_, sinfo[i].idealy_f_));
     }
-  if (! sinfo.size ())
-    slope_f_ = left_y_ = 0;
-  else if (sinfo.size () == 1)
-    {
-      slope_f_ = 0;
-      left_y_ = sinfo[0].idealy_f_;
-    }
-  else
-    {
-      Real leftx = sinfo[0].x_;
-      Least_squares l;
-      for (int i=0; i < sinfo.size (); i++)
-	{
-	  sinfo[i].x_ -= leftx;
-	  l.input.push (Offset (sinfo[i].x_, sinfo[i].idealy_f_));
-	}
 
-      l.minimise (slope_f_, left_y_);
-
-     }
+  // l.input[0].y () += left_y_;
+  l.input[0].y () += left_y_ / 2;
+  l.minimise (slope_f_, left_y_);
 
   solved_slope_f_ = dir_ * slope_f_;
 
@@ -273,33 +258,32 @@ Beam::solve_slope ()
     perhaps only if slope = 0 ?
     */
 
-//      left_y_ = sinfo[0].minyf_;
+  if (abs (slope_f_) < epsilon_f)
+    left_y_ = (sinfo[0].idealy_f_ + sinfo.top ().idealy_f_) / 2;
+  else
+    /* 
+      symmetrical, but results often in having stemlength = minimal 
 
-  if (sinfo.size () >= 1)
+    left_y_ = sinfo[0].dir_ == dir_ ? sinfo[0].miny_f_ : sinfo[0].maxy_f_;
+
+      what about
+    */
     {
-      Real staffline_f = paper ()->rule_thickness ();
-      Real epsilon_f = staffline_f / 8;
-      if (abs (slope_f_) < epsilon_f)
-	left_y_ = (sinfo[0].idealy_f_ + sinfo.top ().idealy_f_) / 2;
+      Real dx = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+      if (sinfo[0].dir_ == sinfo.top ().dir_)
+	left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
+      // knee
       else
-	/* 
-	  symmetrical, but results often in having stemlength = minimal 
-
-	left_y_ = sinfo[0].dir_ == dir_ ? sinfo[0].miny_f_ : sinfo[0].maxy_f_;
-
-	  what about
-	*/
-	{
-	  Real dx = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-	  if (sinfo[0].dir_ == sinfo.top ().dir_)
-	    left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
-	  // knee
-	  else
-	    left_y_ = sinfo[0].idealy_f_;
-	}
+	left_y_ = sinfo[0].idealy_f_;
     }
+}
 
-  // uh?
+Real
+Beam::check_stemlengths_f (Array<Stem_info>& sinfo)
+{
+  /*
+   find shortest stem and adjust left_y accordingly
+   */
   Real dy = 0.0;
   for (int i=0; i < sinfo.size (); i++)
     {
@@ -309,7 +293,81 @@ Beam::solve_slope ()
       if (my - y > dy)
 	dy = my -y;
     }
-  left_y_ += dy;
+  return dy;
+}
+
+void
+Beam::calculate_slope ()
+{
+  Real interline_f = paper ()->interline_f ();
+  Real staffline_f = paper ()->rule_thickness ();
+  Real epsilon_f = staffline_f / 8;
+
+  assert (multiple_i_);
+  Array<Stem_info> sinfo;
+  for (int i=0; i < stems_.size (); i++)
+    {
+      Stem *s = stems_[i];
+
+      s->mult_i_ = multiple_i_;
+      s->set_default_extents ();
+      if (s->invisible_b ())
+	continue;
+
+      Stem_info info (s);
+      sinfo.push (info);
+    }
+
+  if (! sinfo.size ())
+    slope_f_ = left_y_ = 0;
+  else if (sinfo.size () == 1)
+    {
+      slope_f_ = 0;
+      left_y_ = sinfo[0].idealy_f_;
+    }
+  else
+    {
+      Real y;
+      Real s;
+      Array <Stem_info> local_sinfo;
+      local_sinfo = sinfo;
+      for (int i = 0; i < 5; i++)
+        {
+	  y = left_y_;
+	  solve_slope (sinfo);
+	  Real dy = check_stemlengths_f (sinfo);
+	  left_y_ += dy;
+
+	  // only consider recalculation if long stem adjustments
+	  if (!i && (left_y_ - sinfo[0].idealy_f_ < 0.5 * interline_f))
+	    break;
+	
+	  if (!i)
+	    s = slope_f_;
+	  // never allow slope to tilt the other way
+	  else if (sign (slope_f_) != sign (s))
+	    {
+	      left_y_ = 0;
+	      slope_f_ = 0;
+	      sinfo = local_sinfo;
+	      Real dy = check_stemlengths_f (sinfo);
+	      left_y_ += dy;
+	      break;
+	    }
+	  // or become steeper
+	  else if (abs (slope_f_) > abs (s))
+	    {
+	      slope_f_ = s;
+	      sinfo = local_sinfo;
+	      Real dy = check_stemlengths_f (sinfo);
+	      left_y_ += dy;
+	      break;
+	    }
+	  if (abs (dy) < epsilon_f)
+	    break;
+	}
+    }
+
   left_y_ *= dir_;
   slope_f_ *= dir_;
 

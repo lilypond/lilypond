@@ -92,8 +92,10 @@ save breve_rest_y, breve_rest_x;
 
 breve_rest_y# =  interline#;
 breve_rest_x# = 3/5 interline#;
+multi_rest_x# = 2 interline#;
+multi_rest_y# = 1/3 interline#;
 
-define_pixels(breve_rest_y, breve_rest_x);
+define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_rest_y);
 
 fet_beginchar("breve rest", "-1", "breverest");
        set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
@@ -105,6 +107,16 @@ fet_beginchar("longa rest", "-2", "longarest");
        draw_block ((0,-breve_rest_y), (breve_rest_x, breve_rest_y));
 fet_endchar;
 
+fet_beginchar("multi rest", "-4", "multirest");
+       set_char_box(multi_rest_x#, multi_rest_x#,
+                    breve_rest_y#, breve_rest_y#);
+       draw_block ((-multi_rest_x, -multi_rest_y),
+	           (multi_rest_x, multi_rest_y));
+       draw_block ((-multi_rest_x,-breve_rest_y),
+		   (rthin-multi_rest_x, breve_rest_y));
+       draw_block ((multi_rest_x-rthin,-breve_rest_y),
+		   (multi_rest_x, breve_rest_y));
+fet_endchar;
 
 fet_beginchar("Quarter rest","2","quartrest");
 	save alpha;

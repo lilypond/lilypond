@@ -58,6 +58,9 @@ G_staff_side_item::do_substitute_dependency (Score_element*o, Score_element*n)
 void
 G_staff_side_item::do_post_processing ()
 {
+  if (!support_l_arr_.size ())
+    return ;
+  
   Dimension_cache *common = common_group (typecast_array (support_l_arr_, (Graphical_element*)0),
 					  Y_AXIS);
 

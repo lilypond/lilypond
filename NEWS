@@ -1,3 +1,33 @@
+pl 18.jcn5
+	- bf: beamtrend
+	- bf: vv-duet
+
+pl 18.mb1
+         - \mark now works, using G_staff_side_item.
+ 	- Improved layout of multi-bar rests, including a new
+ 	  font symbol.
+
+pl 18.jcn4
+	- beam length adjustments
+	- ugly beamtrend fix: input/test/beam-trend.ly
+
+pl 18.jcn3
+	- bf: (beamed) forced stem shorten
+	- bf: broken slurs and ties; minimal slur/tie length setting ignored
+	- bf: separators on cygwin
+
+pl 18.jcn2
+ 	- bf: stem-length algorithm
+ 	- bf: beam direction algorithm
+ 	- bf's: wtk1-fugue2.ly
+
+pl 18.jcn1
+ 	- stepmake update
+ 	- small fixes: spacing.ly, wtk1-fugue2-ly, violino-viola duet.
+ 
+*******
+pl 18 (jan 4 '99)
+
 pl 17.jbr2
         - Documentation/README-W32: Brought my stuff up to date
         - Documentation/ntweb: updated for realease

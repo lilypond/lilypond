@@ -38,7 +38,13 @@ forced_stem_shorten = 1.0 * \interline;
 %
 % enum Dir_algorithm { DOWN=-1, UP=1, MAJORITY=2, MEAN, MEDIAN };
 %
-beam_dir_algorithm = 2.0;
+DOWN = -1.0;
+UP = 1.0;
+MAJORITY = 2.0;
+MEAN = 3.0;
+MEDIAN = 4.0;
+% [Ross]: majority
+beam_dir_algorithm = \MAJORITY;
 
 %
 %
@@ -48,10 +54,10 @@ beam_dir_algorithm = 2.0;
 %    beam_*2 : multiplicity >= beam_multiple_break
 %
 beam_multiple_break = 3.0;
-beam_minimum_stem1 = 1.5 * \interline;
-beam_minimum_stem2 = 1.0 * \interline;
-beam_ideal_stem1 = 2.0 * \interline;
-beam_ideal_stem2 = 1.5 * \interline;
+beam_minimum_stem1 = 0.75 * \interline;
+beam_ideal_stem1 = 1.75 * \interline;
+beam_minimum_stem2 = 0.75 * \interline;
+beam_ideal_stem2 = 1.25 * \interline;
 
 % beam_slope_damp_correct_factor = 2.0;
 beam_slope_damp_correct_factor = 0.0;
