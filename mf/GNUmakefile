@@ -17,10 +17,10 @@ FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
 
-OTF_FILES = $(addsuffix .otf, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES)))\
+OTF_FILES = $(addsuffix .otf, $(addprefix $(outdir)/emmentaler, $(STAFF_SIZES)))\
  $(outdir)/aybabtu.otf
-PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) \
-  $(addsuffix .dep, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) 
+PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/emmentaler, $(STAFF_SIZES))) \
+  $(addsuffix .dep, $(addprefix $(outdir)/emmentaler, $(STAFF_SIZES))) 
 OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))) \
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
@@ -69,7 +69,7 @@ $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(
 $(outdir)/aybabtu.subfonts: 
 	 echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS): $(buildscript-dir)/gen-bigcheese-scripts.py
+$(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
 
@@ -113,7 +113,7 @@ INSTALLATION_OUT_FILES8=$(OTF_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: pfa_warning $(ALL_GEN_FILES) $(outdir)/bigcheese20.otf
+default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler20.otf
 
 pfa_warning:
 ifneq ($(shell $(MFTRACE) --version | sed 's/ .*//'),mftrace)
