@@ -17,14 +17,6 @@ Lyric_performer::Lyric_performer ()
   audio_p_ = 0;
 }
 
-void 
-Lyric_performer::do_print () const
-{
-#ifndef NPRINT
-  if (lreq_arr_.size ())
-    lreq_arr_[0]->print ();
-#endif
-}
 
 void
 Lyric_performer::do_process_music ()

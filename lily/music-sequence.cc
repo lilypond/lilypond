@@ -63,14 +63,6 @@ Music_sequence::transpose (Musical_pitch rq)
     unsmob_music (gh_car (s))->transpose (rq);    
 }
 
-void
-Music_sequence::do_print() const
-{
-#ifndef NPRINT
-  for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
-    unsmob_music (gh_car (s))->print();
-#endif 
-}
 
 
 

@@ -137,23 +137,10 @@ Performance::add_element (Audio_element *p)
   audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
 }
 
-void
-Performance::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "Performance { ";
-  DEBUG_OUT << "Items: ";
-  for (Cons<Audio_element>* i =audio_elem_p_list_; i; i = i->next_)
-    i->car_->print ();
-  DEBUG_OUT << "}";
-#endif
-}
 
 void
 Performance::process()
 {
-  print ();
-
   String out = midi_l_->get_default_output ();
   if (out.empty_b ())
     {

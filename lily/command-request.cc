@@ -23,27 +23,12 @@ Barcheck_req::do_equal_b (Request const *r) const
   return b;
 }
 
-void
-Clef_change_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << clef_str_ ;
-#endif
-}
 
 Clef_change_req::Clef_change_req (String s)
 {
   clef_str_ = s;
 }
 
-
-void
-Time_signature_change_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << beats_i_ << "/" << one_beat_i_;
-#endif
-}
 
 bool
 Time_signature_change_req::do_equal_b (Request const *r) const
@@ -68,11 +53,6 @@ Tempo_req::Tempo_req ()
   dur_. durlog_i_ = 2;
 }
 
-void
-Tempo_req::do_print () const
-{
-  DEBUG_OUT << dur_.str () << " = " << metronome_i_;
-}
 
 
 bool

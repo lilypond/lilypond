@@ -46,7 +46,7 @@ struct Musical_pitch : public Input
   void up_to (int);
   void down_to (int);
   String str () const;
-  void print () const;
+
   SCM to_scm () const;
 };
 

@@ -66,7 +66,7 @@ public:
   Paper_def (Paper_def const&);
 
   Interval line_dimensions_int (int) const;
-  void print () const;
+
   Lookup const * lookup_l (int sz) const;	// TODO naming
   virtual int get_next_default_count () const;
   static void reset_default_count();

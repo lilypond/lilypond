@@ -44,7 +44,10 @@ Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
   SCM sname = ly_symbol2scm (name.ch_C ());
-  if (!afm_p_dict_->elem_b (sname))
+
+  SCM val;
+  
+  if (!afm_p_dict_->try_retrieve  (sname, &val))
     {
       String path;
 
@@ -63,17 +66,19 @@ All_font_metrics::find_afm (String name)
       
       if (verbose_global_b)
 	progress_indication ("[" + path);
-      SCM  afm = read_afm_file (path);
+      val = read_afm_file (path);
 
-      unsmob_metrics (afm)->name_ = sname;
+      unsmob_metrics (val)->name_ = sname;
 
       if (verbose_global_b)
 	progress_indication ("]");
 
-       afm_p_dict_->set (sname,afm);
+      afm_p_dict_->set (sname,val);
+
+      
     }
   
-  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_->get (sname)));
+  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 }
 
 Scaled_font_metric * 
@@ -82,25 +87,26 @@ All_font_metrics::find_scaled (String nm, int m)
   String index =  nm + "@" + to_str (m);
   SCM sname = ly_symbol2scm (index.ch_C ());
 
-  Font_metric *fm =0;
-  if (!scaled_p_dict_->elem_b (sname))
+  SCM val;
+
+  if (!scaled_p_dict_->try_retrieve  (sname, &val))
     {
       Font_metric *f = find_font (nm);
-      SCM s =  Scaled_font_metric::make_scaled_font_metric (f, m);
-      scaled_p_dict_->set (sname, s);
-      fm =  unsmob_metrics (s);
+      val =  Scaled_font_metric::make_scaled_font_metric (f, m);
+      scaled_p_dict_->set (sname, val);
     }
-  else
-    fm = unsmob_metrics (scaled_p_dict_->get (sname));
+  
 
-  return dynamic_cast<Scaled_font_metric*> (fm);
+  return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
 }
 
 Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
-  SCM sname = ly_symbol2scm (name.ch_C ());  
-  if (!tfm_p_dict_->elem_b (sname))
+  SCM sname = ly_symbol2scm (name.ch_C ());
+
+  SCM val;
+  if (!tfm_p_dict_->try_retrieve (sname, &val))
     {
       String path;
       
@@ -118,17 +124,16 @@ All_font_metrics::find_tfm (String name)
 
       if (verbose_global_b)
 	progress_indication ("[" + path);
-      SCM tfm = Tex_font_metric::make_tfm (path);
+      val = Tex_font_metric::make_tfm (path);
       if (verbose_global_b)
 	progress_indication ("]");
 
-      Font_metric *fm = unsmob_metrics (tfm);
-      fm->name_ = sname;
-      tfm_p_dict_->set (sname, tfm);
+      unsmob_metrics (val)->name_ = sname;
+      tfm_p_dict_->set (sname, val);
     }
     
   return
-    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_->get(sname)));
+    dynamic_cast<Tex_font_metric*> (unsmob_metrics (val));
 }
 
 

@@ -31,15 +31,4 @@ Audio_column::at_mom() const
   return at_mom_;
 }
 
-void
-Audio_column::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "Audio_column {";
-  DEBUG_OUT << "at: " << at_mom_ << ". Contains:";
-  for (int i =0; i < audio_item_l_arr_.size (); i++)
-    DEBUG_OUT << classname (audio_item_l_arr_[i]) << ", ";
-  DEBUG_OUT << "\n}\n";
-#endif 
-}
 

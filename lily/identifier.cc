@@ -61,28 +61,6 @@ Identifier::do_str () const
   return "";
 }
 
-void
-Identifier::print () const
-{
-  DEBUG_OUT << "identifier ";
-  do_print ();
-}
-void
-Identifier::do_print () const
-{
-}
-
-/* ugh. */
-#define DEFAULT_PRINT(Class) \
-void \
-Class ## _identifier::do_print () const { \
-  Class *cl = ((Class ## _identifier *)this)->access_content_ ## Class(false);\
-  cl->print (); \
-}
-
-
-DEFAULT_PRINT(Score);
-DEFAULT_PRINT(Music_output_def);
 
 /* ugh. */
 #define DUMMY_STR(Class) \
@@ -95,15 +73,6 @@ DUMMY_STR(Score);
 DUMMY_STR(Music_output_def);
 DUMMY_STR(Duration);
 
-#define STRING_PRINT(Class) \
-void \
-Class ## _identifier::do_print () const\
-{\
-  DEBUG_OUT << do_str () << '\n';\
-}\
-
-
-STRING_PRINT(Duration);
   
 #define DEFAULT_STR(Class) \
 String \

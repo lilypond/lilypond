@@ -20,7 +20,7 @@ public:
   
   Lyric_combine_music (Music*, Music*);
   virtual void transpose (Musical_pitch);
-  virtual void do_print () const;
+
   VIRTUAL_COPY_CONS(Music);
   virtual Moment length_mom () const;
   virtual Musical_pitch to_relative_octave (Musical_pitch);

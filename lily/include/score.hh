@@ -32,7 +32,6 @@ public:
 
   void process();
   void add_output (Music_output_def *def_p);
-  void print() const;
 private:
   void run_translator (Music_output_def*);
 };

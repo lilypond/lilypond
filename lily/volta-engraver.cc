@@ -105,7 +105,7 @@ Volta_engraver::do_process_music ()
 	  volta_span_p_ = 0;
 	}
 
-      volta_span_p_ = new Spanner (get_property ("basicVoltaSpannerProperties"));
+      volta_span_p_ = new Spanner (get_property ("basicVoltaBracketProperties"));
       Volta_spanner::set_interface (volta_span_p_);
       announce_element (volta_span_p_,0);
       volta_span_p_->set_elt_property ("text", str);

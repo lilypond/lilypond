@@ -23,7 +23,7 @@ public:
 protected:
   virtual void do_process_music ();
   virtual bool do_try_music (Music *req_l) ;
-  virtual void do_print () const;
+
   virtual void do_pre_move_processing ();
   virtual void process_acknowledged ();
   Global_translator* global_translator_l ();

@@ -19,13 +19,12 @@ public:
   Audio_element ();
   virtual ~Audio_element ();
 
-  void print () const;
+
 
   // should we use a scm list?
   bool grace_b_;
   
 protected:
-  virtual void do_print () const;
 };
 
 #endif // AUDIO_ELEMENT_HH

@@ -92,7 +92,6 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	{
 	  w = iter->pending_moment();
       
-	  DEBUG_OUT << "proccing: " << w << '\n';
 	}
 
       w = sneaky_insert_extra_moment (w);

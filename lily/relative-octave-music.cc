@@ -23,11 +23,5 @@ Relative_octave_music::Relative_octave_music(Music*p,Musical_pitch def)
   last_pitch_ = element ()->to_relative_octave (def);
 }
 
-void
-Relative_octave_music::do_print () const
-{
-  Music_wrapper::do_print ();
-  DEBUG_OUT << "default pitch: " << last_pitch_.str ();
-}
 
 

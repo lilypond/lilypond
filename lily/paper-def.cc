@@ -56,12 +56,13 @@ Paper_def::get_scmvar (String s) const
 Real
 Paper_def::get_realvar (SCM s) const
 {
-  if (!scope_p_->elem_b (s))
+  SCM val ;
+  if (!scope_p_->try_retrieve (s, &val))
     {
       programming_error ("unknown paper variable: " +  ly_symbol2string (s));
       return 0.0;
     }
-  SCM val = scope_p_->scm_elem (s);
+
   if (gh_number_p (val))
     {
       return gh_scm2double (val);
@@ -91,18 +92,6 @@ Paper_def::set_lookup (int i, SCM l)
 {
   assert (unsmob_lookup (l));
   lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l);
-}
-
-
-
-void
-Paper_def::print () const
-{
-#ifndef NPRINT
-  Music_output_def::print ();
-  if (flower_dstream)
-    gh_display (lookup_alist_);
-#endif
 }
 
 Lookup const *

@@ -48,12 +48,12 @@ Stanza_number_engraver::acknowledge_element(Score_element_info i)
   
   if (gh_string_p (s))
     {
-//       if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+//       if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
         // Tried catching lyric items to generate stanza numbers, but it spoils lyric spacing.
        if (Bar::has_interface (i.elem_l_) || now_mom() == Moment(0))
 	// Works, but requires bar_engraver in LyricVoice context apart from at beginning.
 	// Is there any score element we can catch that will do the trick?
-//       if (! i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")) ||
+//       if (! i.elem_l_->has_interface (symbol ("lyric-syllable-interface")) ||
 // 	  now_mom() == Moment(0))
 	// What happens if we try anything at all EXCEPT a lyric? Is there anything else?
         // Not sure what it's catching, but it still mucks up lyrics.

@@ -49,7 +49,7 @@ struct Identifier : public Input {
 
   DECLARE_SMOBS(Identifier, foo);
 protected:
-  virtual void do_print () const;
+
   virtual String do_str () const;
 };
 
@@ -62,7 +62,7 @@ struct Class ## _identifier : Identifier {\
 			     VIRTUAL_COPY_CONS(Identifier);\
 			     virtual Class* access_content_ ## Class (bool copy_b) const;\
 			     ~Class ## _identifier();\
-			     virtual void do_print () const; \
+			    \
 			     virtual String do_str () const; \
 }\
 

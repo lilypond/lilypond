@@ -23,7 +23,7 @@ public:
   Music * second_l () const;
   
   virtual void transpose (Musical_pitch);
-  virtual void do_print () const;
+
   virtual Moment length_mom () const;
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void compress (Moment);

@@ -17,12 +17,6 @@ Transposed_music::Transposed_music (Music *p, Musical_pitch pit)
   p->transpose (pit);
 }
 
-void
-Transposed_music::do_print () const
-{
-  Music_wrapper::do_print ();
-  DEBUG_OUT << "transposition pitch: " << transpose_to_pitch_.str ();
-}
 
 Musical_pitch
 Transposed_music::to_relative_octave (Musical_pitch p)

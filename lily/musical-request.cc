@@ -11,26 +11,12 @@
 #include "debug.hh"
 #include "music-list.hh"
 
-void
-Span_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << span_dir_;
-#endif
-}
 
 Tremolo_req::Tremolo_req ()
 {
   type_i_ = 0;
 }
 
-void
-Tremolo_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "type " << type_i_ << '\n';
-#endif
-}
 
 void
 Melodic_req::transpose (Musical_pitch delta)
@@ -59,11 +45,6 @@ Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
   return Musical_pitch::compare (m1.pitch_, m2.pitch_);
 }
 
-void
-Melodic_req::do_print () const
-{
-  pitch_.print ();
-}
 
 
 
@@ -82,13 +63,6 @@ Rhythmic_req::do_equal_b (Request const* r) const
   return rh && !compare (*this, *rh);
 }
 
-void
-Rhythmic_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "duration { " <<duration_.str () << "}";
-#endif
-}
 
 
 Moment
@@ -103,14 +77,6 @@ Rhythmic_req::compress (Moment m)
   duration_.compress (m);
 }
 
-void
-Lyric_req::do_print () const
-{
-#ifndef NPRINT
-  Rhythmic_req::do_print ();
-  DEBUG_OUT <<  "text = " << text_str_;
-#endif
-}
 
 
 bool
@@ -129,22 +95,6 @@ Note_req::Note_req ()
 
 
 
-void
-Note_req::do_print () const
-{
-#ifndef NPRINT
-  Melodic_req::do_print ();
-  if (cautionary_b_)
-    {
-	DEBUG_OUT << " force cautionary accidental\n";
-    }
-  else if (forceacc_b_)
-    {
-	DEBUG_OUT << " force accidental\n";
-    }
-  Rhythmic_req::do_print ();
-#endif
-}
 
 
 bool
@@ -159,12 +109,6 @@ Span_req::Span_req ()
   span_dir_ = CENTER;
 }
 
-void
-Text_script_req::do_print () const
-{
-  DEBUG_OUT << "text" << text_str_
-       << ", style = " << style_str_;
-}
 
 bool
 Text_script_req::do_equal_b (Request const* r) const
@@ -173,11 +117,6 @@ Text_script_req::do_equal_b (Request const* r) const
   return t && t->text_str_ == text_str_ && t->style_str_ == style_str_;
 }
 
-void
-Articulation_req::do_print () const
-{
-  DEBUG_OUT << articulation_str_;
-}
 
 bool
 Articulation_req::do_equal_b (Request const* r) const

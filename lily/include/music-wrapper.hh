@@ -25,7 +25,7 @@ public:
   Music_wrapper (Music*);
   Music * element () const;
   virtual void transpose (Musical_pitch);
-  virtual void do_print () const;
+
   
   VIRTUAL_COPY_CONS(Music);
   virtual Moment length_mom () const;

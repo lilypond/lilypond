@@ -22,14 +22,6 @@ Tempo_performer::~Tempo_performer ()
 {
 }
 
-void 
-Tempo_performer::do_print () const
-{
-#ifndef NPRINT
-  if (tempo_req_l_)
-    tempo_req_l_->print ();
-#endif
-}
 
 void
 Tempo_performer::do_process_music ()

@@ -29,7 +29,7 @@ public:
   Music_output_def ();
   virtual ~Music_output_def ();
   virtual int get_next_default_count () const;
-  virtual void print () const;
+
 
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;

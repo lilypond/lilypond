@@ -104,8 +104,11 @@ My_lily_lexer::lookup_identifier (String s)
   SCM sym = ly_symbol2scm (s.ch_C());
   
   for (int i = scope_l_arr_.size (); i--; )
-    if (scope_l_arr_[i]->elem_b (sym))
-      return scope_l_arr_[i]->scm_elem(sym);
+    {
+      SCM val = SCM_UNSPECIFIED;
+      if (scope_l_arr_[i]->try_retrieve (sym, &val))
+	return val;
+    }
   return SCM_UNSPECIFIED;
 }
 

@@ -88,22 +88,6 @@ Translator::do_add_processing ()
 {
 }
 
-void
-Translator::print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << classname (this) << " {";
-  if (classname (this) != type_str_)
-    DEBUG_OUT << "type = " << type_str_;
-  do_print ();
-  DEBUG_OUT << "}\n";
-#endif
-}
-
-void
-Translator::do_print () const
-{
-}
 
 
 

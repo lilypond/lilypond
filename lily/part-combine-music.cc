@@ -27,12 +27,7 @@ Part_combine_music::transpose (Musical_pitch p)
   second_l () ->transpose (p);
 }
 
-void
-Part_combine_music::do_print () const  
-{
-  first_l ()->print();
-  second_l () ->print ();
-}
+
 
 Moment
 Part_combine_music::length_mom () const

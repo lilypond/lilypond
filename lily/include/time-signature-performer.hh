@@ -21,7 +21,7 @@ public:
   ~Time_signature_performer();
 
 protected:
-  void do_print() const;
+
   virtual bool do_try_music (Music* req_l);
   virtual void do_process_music();
   virtual void do_pre_move_processing ();

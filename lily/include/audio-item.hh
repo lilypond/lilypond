@@ -29,8 +29,6 @@ public:
 
   Audio_column* audio_column_l_;
 
-protected:
-  virtual void do_print () const;
   
 private:
   Audio_item (Audio_item const&);

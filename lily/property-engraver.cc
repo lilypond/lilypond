@@ -12,6 +12,7 @@
 #include "dictionary.hh"
 #include "score-element.hh"
 #include "scm-hash.hh"
+#include "translator-group.hh"
 
 /*
   JUNKME: should use pushproperty everywhere.
@@ -23,7 +24,7 @@ class Property_engraver : public Engraver
     UGH. Junk Dictionary
   */
   Scheme_hash_table *prop_dict_;	// junkme
-  void apply_properties (SCM, Score_element*);
+  void apply_properties (SCM, Score_element*, Translator_group *origin);
 
 protected:
   virtual void acknowledge_element (Score_element_info ei);
@@ -58,7 +59,7 @@ Property_engraver::do_creation_processing ()
 {
   prop_dict_ = new Scheme_hash_table;
 
-  SCM plist = get_property ("Generic_property_list");
+  SCM plist = get_property (ly_symbol2scm ("Generic_property_list"));
   for (; gh_pair_p (plist); plist = gh_cdr (plist))
     {
       SCM elt_props = gh_car (plist);
@@ -75,19 +76,19 @@ Property_engraver::acknowledge_element (Score_element_info i)
     {      
       if (prop_dict_->try_retrieve (gh_car (ifs), &props))
 	{
-	  apply_properties (props,i.elem_l_);
+	  apply_properties (props,i.elem_l_, i.origin_trans_l_->daddy_trans_l_);
 	}
     }
 
   if (prop_dict_->try_retrieve (ly_symbol2scm ("all"), &props))
     {
-      apply_properties (props, i.elem_l_);
+      apply_properties (props, i.elem_l_, i.origin_trans_l_->daddy_trans_l_);
     }
 }
 
 
 void
-Property_engraver::apply_properties (SCM p, Score_element *e)
+Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*origin)
 {
   for (; gh_pair_p (p); p = gh_cdr (p))
     {
@@ -112,7 +113,18 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
 	;			// Not defined in context.
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
-	e->set_elt_property (elt_prop_sym, val);
+	{
+	  e->set_elt_property (elt_prop_sym, val);
+
+	  String msg = "Property_engraver is deprecated. Use\n \\property "
+	    + origin->type_str_
+	    + ".basicXXXXProperties"
+	    + " \\push #'"
+	    + ly_symbol2string (elt_prop_sym)
+	    + " = #";
+	  warning (msg);
+	  scm_display (val, scm_current_error_port ());
+	}
       else
 
 	/*

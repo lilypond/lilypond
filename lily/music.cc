@@ -64,10 +64,7 @@ Music::compress (Moment)
 {
 }
 
-void
-Music::do_print() const
-{
-}
+
 
 Moment
 Music::length_mom () const
@@ -177,10 +174,6 @@ Music::origin () const
 }
 
 
-void
-Music::print ()const
-{
-}
 
 
 

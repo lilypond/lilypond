@@ -81,8 +81,6 @@ do_scores()
 	}
       else
 	{
-	  if (flower_dstream && !flower_dstream->silent_b ("do_scores"))
-	      is_p->print ();
 	  is_p->process();
 	}
     }

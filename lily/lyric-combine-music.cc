@@ -24,12 +24,6 @@ Lyric_combine_music::transpose (Musical_pitch p)
   lyrics_l () ->transpose (p);
 }
 
-void
-Lyric_combine_music::do_print () const  
-{
-  music_l ()->print();
-  lyrics_l () ->print ();
-}
 
 Moment
 Lyric_combine_music::length_mom () const
