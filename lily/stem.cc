@@ -166,9 +166,10 @@ Stem::last_head (Grob *me)
   return 0;  
 }
 
-/* START is part where stem reaches `last' head.
+/*
+  START is part where stem reaches `last' head.
 
-This function returns a drul with (bottom-head, top-head). 
+  This function returns a drul with (bottom-head, top-head). 
 
 */
 Drul_array<Grob*>
@@ -179,9 +180,7 @@ Stem::extremal_heads (Grob *me)
   extpos[DOWN] = inf;
   extpos[UP] = -inf;
 
-  Drul_array<Grob *> exthead;
-  exthead[LEFT] = exthead[RIGHT] =0;
-
+  Drul_array<Grob *> exthead (0, 0);
   for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
        s = scm_cdr (s))
     {
@@ -202,7 +201,7 @@ Stem::extremal_heads (Grob *me)
 }
 
 static int
-icmp (int const &a, int const &b)
+integer_compare (int const &a, int const &b)
 {
   return a - b;
 }
@@ -221,7 +220,7 @@ Stem::note_head_positions (Grob *me)
       ps.push (p);
     }
 
-  ps.sort (icmp);
+  ps.sort (integer_compare);
   return ps;
 }
 
@@ -231,15 +230,20 @@ Stem::add_head (Grob *me, Grob *n)
   n->set_property ("stem", me->self_scm ());
   n->add_dependency (me);
 
-  /* TODO: why not store Rest pointers? */
   if (Note_head::has_interface (n))
     Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), n);
+  else if (Rest::has_interface (n))
+    Pointer_group_interface::add_grob (me, ly_symbol2scm ("rests"), n);
 }
 
 bool
 Stem::is_invisible (Grob *me)
 {
-  return !(head_count (me)
+  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
+					   0.0);
+  
+  return !((head_count (me)
+	    || stemlet_length > 0.0)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
@@ -357,7 +361,7 @@ Stem::get_default_stem_end_position (Grob *me)
 
 	  /* Very gory: add myself to the X-support of the parent,
 	     which should be a dot-column. */
-	  if (dir * (st + flagy -  dp) < 0.5)
+	  if (dir * (st + flagy - dp) < 0.5)
 	    {
 	      Grob *par = dots->get_parent (X_AXIS);
 
@@ -479,8 +483,6 @@ Stem::before_line_breaking (SCM smob)
       stem_end_position (me);	// ugh. Trigger direction calc.
       position_noteheads (me);
     }
-  else
-    me->set_property ("print-function", SCM_EOL);
   
   return SCM_UNSPECIFIED;
 }
@@ -633,24 +635,47 @@ Stem::print (SCM smob)
   Stencil mol;
   Direction d = get_direction (me);
 
+  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
+					   0.0);
+  bool stemlet = stemlet_length > 0.0;
+  
   /* TODO: make the stem start a direction ?
      This is required to avoid stems passing in tablature chords.  */
-  Grob *lh = to_boolean (me->get_property ("avoid-note-head"))
-    ? last_head (me) :  lh = first_head (me);
+  Grob *lh =
+    to_boolean (me->get_property ("avoid-note-head"))
+    ? last_head (me)
+    : lh = first_head (me);
+  Grob *beam = get_beam (me);
 
-  if (!lh)
+  if (!lh && !stemlet)
     return SCM_EOL;
 
+  if (stemlet && !beam)
+    return SCM_EOL;
+    
   if (is_invisible (me))
     return SCM_EOL;
 
-  Real y1 = Staff_symbol_referencer::get_position (lh);
   Real y2 = stem_end_position (me);
+  Real y1 = y2;
+  Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+
+
+  if (lh)
+    y2 = Staff_symbol_referencer::get_position (lh);
+  else if (stemlet)
+    {
+      Real beam_translation = Beam::get_beam_translation (beam);
+      Real beam_thickness = Beam::get_thickness (beam);
+      int beam_count = beam_multiplicity (me).length () + 1;
+
+      y2 -= d
+	* (0.5 * beam_thickness
+	   + beam_translation * (0 >? (beam_count - 1))
+	   + stemlet_length) / half_space;
+    }
 
   Interval stem_y (y1 <? y2,y2 >? y1);
-
-  // dy?
-  Real dy = Staff_symbol_referencer::staff_space (me) * 0.5;
 
   if (Grob *hed = support_head (me))
     {
@@ -661,7 +686,7 @@ Stem::print (SCM smob)
       Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      stem_y[Direction (-d)] += d * y_attach/dy;
+      stem_y[Direction (-d)] += d * y_attach/half_space;
     }
 
 
@@ -671,7 +696,7 @@ Stem::print (SCM smob)
 	me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   Box b = Box (Interval (-stem_width/2, stem_width/2),
-	       Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));
+	       Interval (stem_y[DOWN]*half_space, stem_y[UP]*half_space));
 
   Stencil ss = Lookup::round_filled_box (b, blot);
   mol.add_stencil (ss);
@@ -679,7 +704,7 @@ Stem::print (SCM smob)
   if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
       Stencil fl = flag (me);
-      fl.translate_axis (stem_y[d]*dy - d * blot/2, Y_AXIS);
+      fl.translate_axis (stem_y[d]*half_space - d * blot/2, Y_AXIS);
       fl.translate_axis (stem_width/2, X_AXIS);
       mol.add_stencil (fl);
     }
@@ -697,28 +722,36 @@ Stem::off_callback (SCM element_smob, SCM)
   Grob *me = unsmob_grob (element_smob);
   Real r = 0.0;
   
-  if (head_count (me))
-    if (Grob *f = first_head (me))
-      {
-	Interval head_wid = f->extent (f, X_AXIS);
-	Real attach = 0.0;
+  if (Grob *f = first_head (me))
+    {
+      Interval head_wid = f->extent (f, X_AXIS);
+      Real attach = 0.0;
 	
-	if (is_invisible (me))
-	  attach = 0.0;
-	else
+      if (is_invisible (me))
+	attach = 0.0;
+      else
 	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
 	
-	Direction d = get_direction (me);
-	Real real_attach = head_wid.linear_combination (d * attach);
-	r = real_attach;
+      Direction d = get_direction (me);
+      Real real_attach = head_wid.linear_combination (d * attach);
+      r = real_attach;
 	
-	/* If not centered: correct for stem thickness.  */
-	if (attach)
-	  {
-	    Real rule_thick = thickness (me);
-	    r += - d * rule_thick * 0.5;
-	  }
-      }
+      /* If not centered: correct for stem thickness.  */
+      if (attach)
+	{
+	  Real rule_thick = thickness (me);
+	  r += - d * rule_thick * 0.5;
+	}
+    }
+  else if (scm_is_number (me->get_property ("stemlet-length")))
+    {
+      SCM rests = me->get_property ("rests");
+      if (scm_is_pair (rests))
+	{
+	  Grob * rest = unsmob_grob (scm_car (rests));
+	  r = rest->extent (rest, X_AXIS).center ();
+	}
+    }
   return scm_make_real (r);
 }
 
@@ -880,6 +913,7 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "Rests and whole notes have invisible stems.",
 	       "tremolo-flag french-beaming "
 	       "avoid-note-head thickness "
+	       "stemlet-length rests "
 	       "stem-info beamed-lengths beamed-minimum-free-lengths "
 	       "beamed-extreme-minimum-free-lengths lengths beam stem-shorten "
 	       "duration-log beaming neutral-direction stem-end-position "

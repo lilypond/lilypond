@@ -4,6 +4,14 @@
 
 @node Top, , , 
 @top
+@unnumbered New features in 2.5 since 2.4
+
+@itemize @bullet
+@item Stemlets, short stems over beamed rests, have been added.
+
+@end itemize
+
+
 @unnumbered New features in 2.4 since 2.2
 
 @itemize @bullet
