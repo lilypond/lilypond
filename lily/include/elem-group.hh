@@ -11,7 +11,7 @@
 #define ELEM_GROUP_HH
 
 #include "score-elem.hh"
-#include "axis-group.hh"
+#include "axis-group-element.hh"
 
 
 

@@ -11,7 +11,7 @@ copyright		Public Domain
 %{
 	
 %}
-\version "0.1.2";
+\version "0.1.5";
 
 
 global = 
@@ -24,7 +24,7 @@ tenor =
         \clef "violin";
         \octave c';
 
-        \stem \down;
+        \stemdown
         r8 [c8 d e] [f. g32 f] [e8 a] |
         [d g] ~ [g16 a g f] [e f e d] [c d c 'b] |
         ['a8 fis] g4 ~ [g8 fis16 e] [f8 d] |
@@ -40,20 +40,20 @@ tenor =
 	[e fis] [g. a32 g] [fis8 b e a] ~ |
 	[a16 b a gis] [fis8 f!] [e d] ~ [d16 e fis gis] |
 	[a gis a b] [gis fis gis a] b8 r8 r4 |
-	r8 [c8 d e] \stem 1; [f. g32 f] [e8 a] |
+	r8 [c8 d e] \stemup [f. g32 f] [e8 a] |
 %% 15
-	[d g] ~ [g16 a g f] e8 \stem -1; [e fis g] ~ |
+	[d g] ~ [g16 a g f] e8 \stemdown [e fis g] ~ |
 	[g8 fis] [gis8 a] ~ [a g! a b] |
-	\stem 0;
+	\stemboth
 	[c'. d'32 c'] [b8 e'] [a d'] ~ [d'16 e' d' c'] |
 	[b8 g' cis' d'] [e' cis' d' e' ] |
-	\stem -1; a8 r8 r e [fis g] \stem 0; [a. b32 a] |
+	\stemdown a8 r8 r e [fis g] \stemboth[a. b32 a] |
 %% 20
-	[g8 c' fis b] ~ [b16 c' b a] \stem -1; [g fis e d] \stem 0; |
-	e4 \stem -1; d ~ [d16 a g f!] [e g f! a] |
+	[g8 c' fis b] ~ [b16 c' b a] \stemdown [g fis e d] \stemboth|
+	e4 \stemdown d ~ [d16 a g f!] [e g f! a] |
 	g4 ~ [g16 a bes8] c'4 [d'8 g] |
-	\stem 0; g4. f8 ~ [f e] d4 |
-	\stem -1; e8 a4 g8 ~ [g8 f g a] |
+	\stembothg4. f8 ~ [f e] d4 |
+	\stemdown e8 a4 g8 ~ [g8 f g a] |
 %% 25
 	[bes8. c'32 b] [a8 d'] [g c'] ~ [c'16 d' c' bes] |
 	[a bes a g] [f g f e] d4 ~ [d8. g16] |
@@ -64,7 +64,7 @@ tenor =
 soprane =
     \melodic {
         \octave c';
-        \stem \up;
+        \stemup
         r1 |
         r2 r8 [g8 a b] |
         [c'. d'32 c'] [b8 e'] [a d'] ~ [d'16 e' d' c'] |
@@ -105,7 +105,7 @@ alt =
         \clef "bass";
         \octave c;
 	
-	\stem 1;
+	\stemup
 	r1 |
 	r |
 	r |
@@ -145,7 +145,7 @@ bass =
         \clef "bass";
         \octave c;
 
-	\stem -1;
+	\stemdown
         r1 |
 	r |
 	r |
@@ -182,7 +182,7 @@ bass =
 
         
 \score {
-    \melodic < \id "Piano" ""; 
+    \melodic \type Grandstaff < 
 	       \multi 1;
                  < \multi 2;
                        \global 

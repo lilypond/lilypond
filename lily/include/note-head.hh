@@ -7,48 +7,35 @@
 #ifndef NOTEHEAD_HH
 #define NOTEHEAD_HH
 
-#include "item.hh"
+#include "rhythmic-head.hh"
 
-/** ball at the end of the stem takes care of:
+/** ball at the end of the stem. Takes care of:
 
   * help lines  
-  * proper placing of dots 
 
-  It also is the item for a Rest
-  
   */
 
-class Note_head : public Item {
+class Note_head : public Rhythmic_head {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
-    bool rest_b_;
-    int position_i_;
+  int position_i_;
     
-    /// -1 = lowest, 0 = inside, 1 = top
-    int extremal_i_;
+  /// -1 = lowest, 0 = inside, 1 = top
+  int extremal_i_;
     
-    /// needed for the help-lines
-    int staff_size_i_;
-    int dots_i_;
-    int balltype_i_;
-    int dot_delta_y_i_;
-    Direction x_dir_;
+  /// needed for the help-lines
+  int staff_size_i_;
+  Direction x_dir_;
     
-    /* *************** */
-    
-    void set_rhythmic (Rhythmic_req *);
-
-    /**
-      position of top line (5 linestaff: 8)
-      */
-    Note_head (int staff_size);
-    void set_dots();
-    static int compare (Note_head * const &a, Note_head *const &b) ;
+  /**
+    position of top line (5 linestaff: 8)
+    */
+  Note_head ();
+  static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
-    virtual    void do_print() const;
-    virtual void do_pre_processing();
-    virtual    Molecule* brew_molecule_p() const;
+  virtual void do_pre_processing();
+  virtual Molecule* brew_molecule_p() const;
 };
 #endif // NOTEHEAD_HH
 

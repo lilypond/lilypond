@@ -18,7 +18,7 @@ Matrix_storage::set_addition_result (Matrix_storage *&dat, Matrix_storage *right
 	Diagonal_storage *L = (Diagonal_storage*)dat;
 	Diagonal_storage* R = (Diagonal_storage*) right;
 
-	if ( R->band_size_i() > L->band_size_i ()) 
+	if (R->band_size_i() > L->band_size_i ()) 
 	  {
 	    L->set_band_size (R->band_size_i());
 	  }
@@ -50,7 +50,7 @@ void
 Matrix_storage::set_product_result (Matrix_storage*&dest, 
 			   Matrix_storage*left, Matrix_storage*right)
 {
-  if ( left->name() == Diagonal_storage::static_name () 
+  if (left->name() == Diagonal_storage::static_name () 
 	 && right->name() == Diagonal_storage::static_name ()) 
 	   {
 	Diagonal_storage *L = (Diagonal_storage*)left;
@@ -69,7 +69,7 @@ Matrix_storage::set_product_result (Matrix_storage*&dest,
 	  }
     }
 
-  if ( dest && dest->name() == Full_storage::static_name ()) 
+  if (dest && dest->name() == Full_storage::static_name ()) 
     {
 	dest->set_size (left->rows(), right->cols ());
     }

@@ -122,4 +122,4 @@ Local_key_engraver::do_process_requests()
 
 
 IMPLEMENT_IS_TYPE_B1(Local_key_engraver,Engraver);
-ADD_THIS_ENGRAVER(Local_key_engraver);
+ADD_THIS_TRANSLATOR(Local_key_engraver);

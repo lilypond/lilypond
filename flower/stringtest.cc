@@ -95,14 +95,14 @@ main()
 
   cout << "up: " << str.upper_str() << " down: " << str.lower_str ()<<endl;
   
-  if ( str == String ("") )
+  if (str == String ("") )
       cout << str << " is empty" << endl;
   else
 	cout << str << " is not empty"<<endl;
 
   
   String fn = "";
-  if ( fn == "")
+  if (fn == "")
       cout << fn << " is empty" << endl;
   else
 	assert (false);

@@ -3,11 +3,11 @@
 */
 #ifndef SYMTABLE_HH
 #define SYMTABLE_HH
-#include "assoc.hh"
+#include "dictionary.hh"
 #include "string.hh"
 #include "symbol.hh"
 
-struct  Symtable : public Assoc<String, Symbol> {
+struct  Symtable : public Dictionary<Symbol> {
     String id_str;
     
     Symbol lookup (String) const;
@@ -15,7 +15,7 @@ struct  Symtable : public Assoc<String, Symbol> {
 };
 
 
-struct Symtables : private Assoc<String, Symtable*> {
+struct Symtables : private Dictionary<Symtable*> {
     
     Symtable* operator()(String s);
     ~Symtables();

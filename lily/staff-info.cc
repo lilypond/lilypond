@@ -50,9 +50,3 @@ Staff_info::musical_pcol_l()
   return musical_l();
 }
 
-Moment
-Staff_info::when()
-{
-  return command_l()->when ();
-}
-

@@ -13,7 +13,11 @@
 #include "virtual-methods.hh"
 
 struct Audio_element {
-    virtual ~Audio_element();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  void print ()const;
+  
+  virtual ~Audio_element();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+protected:
+  virtual void do_print () const;
 };
 #endif // AUDIO_ELEMENT_HH

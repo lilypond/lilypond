@@ -47,7 +47,8 @@ Beam::add (Stem*s)
 
   if (!spanned_drul_[LEFT])
     set_bounds(LEFT,s);
-  set_bounds(RIGHT,s);
+  else
+    set_bounds(RIGHT,s);
 }
 
 Molecule*

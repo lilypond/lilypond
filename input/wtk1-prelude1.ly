@@ -1,18 +1,14 @@
 \header{
 filename		prelude1.ly
-title		Preludium
+title			Preludium
 description		Das Wohltemperierte Clavier I, Prelude I (c-major)
-opus		BWV 846
-source
+opus			BWV 846
 composer		Johann Sebastian Bach (1685-1750)
 enteredby		Shay Rojansky
-copyright		Public Domain"
+copyright		Public Domain
 }
 
-\version "0.1.2";
-
-                                    % should add \need{dutch.ini} for
-                                    % correct parsing of note names
+\version "0.1.5";
 
 global = 
     \melodic {
@@ -29,7 +25,7 @@ soprane =
 
 	<\multi 2;
 	% Real soprane
-	{\stem 1;
+	{\stemup
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
 	r8 [a16 d'] [f' a d' f'] r8 [a16 d'] [f' a d' f'] |
 	r8 [g16 d'] [f' g d' f'] r8 [g16 d'] [f' g d' f'] |
@@ -40,7 +36,7 @@ soprane =
 	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] |
 	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] |}
 	% Tenor
-	{\stem -1;
+	{\stemdown
 	r16 e8. ~ e4 r16 e8. ~ e4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
@@ -87,7 +83,7 @@ bass =
         \clef "bass";
         \octave c;
 
-	\stem -1;
+	\stemdown
 	c'2 c' |
 	c' c' |
 	b b |
@@ -100,7 +96,7 @@ bass =
 %% 10
 	<\multi 2;
 	% Alt
-	{\stem 1;
+	{\stemup
 	r16 a8. ~ a4 r16 a8. ~ a4 |
 	r16 b8. ~ b4 r16 b8. ~ b4 |
 	r16 bes8. ~ bes4 r16 bes8. ~ bes4 |
@@ -132,7 +128,7 @@ bass =
 	c1 ||}
 
 	% Bass
-	{\stem -1;
+	{\stemdown
 	d2 d |
 	g g |
 	g g |
@@ -166,7 +162,7 @@ bass =
 
         
 \score {
-    \melodic < \id "Piano" ""; 
+    \melodic \type Grandstaff < 
 	       \multi 1;
                  < \multi 2;
                        \global 
@@ -179,8 +175,7 @@ bass =
              >
 
     \paper{
-	gourlay_maxmeasures =5.;
-	
+	gourlay_maxmeasures =5.;	
     }
     \midi {
         \tempo 4 = 84;

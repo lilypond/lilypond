@@ -23,6 +23,7 @@ class Beam_engraver : public Engraver
   Rhythmic_grouping *current_grouping_p_;
 
 public:
+  TRANSLATOR_CLONE(Beam_engraver);
   DECLARE_MY_RUNTIME_TYPEINFO;
   Beam_engraver();
 protected:

@@ -1,7 +1,7 @@
 #include "proto.hh"
 #include "plist.tcc"
-#include "engraver.hh"
-#include "performer.hh"
+#include "translator.hh"
 
-template POINTERLIST_INSTANTIATE(Engraver);
-template POINTERLIST_INSTANTIATE(Performer);
+
+template POINTERLIST_INSTANTIATE(Translator);
+

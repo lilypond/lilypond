@@ -3,7 +3,7 @@
 #include "dstream.hh"
 
 bool flower_check_debug=false;
-ofstream null_device ( "/dev/null");
+ofstream null_device ("/dev/null");
 Dstream default_flower_stream (&null_device ,"/dev/null");
 Dstream *flower_dstream  = &default_flower_stream;
 

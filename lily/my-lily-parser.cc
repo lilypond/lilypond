@@ -90,6 +90,11 @@ My_lily_parser::parse_file (String init, String s)
   set_debug();
   lexer_p_->new_input (init, source_l_);
   do_yyparse();
+
+  if (error_level_i_)
+    {
+      error ("Found errors in init files");
+    }
   print_declarations();
 
   init_parse_b_ = false;

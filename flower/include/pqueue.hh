@@ -85,7 +85,7 @@ public:
 	int mini=2;
 	int lasti=1;
 
-	while ( mini < size()) {
+	while (mini < size()) {
 	    if (compare (elt (mini + 1), elt (mini)) <0)
 		mini++;
 	    if (compare (last,elt (mini)) < 0)

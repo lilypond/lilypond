@@ -35,6 +35,9 @@ Bar_engraver::do_try_request (Request*r_l)
 void
 Bar_engraver::do_process_requests()
 {
+  if (bar_p_)
+    return ;
+  
   if (bar_req_l_) 
     {
       bar_p_ = new Bar;
@@ -54,7 +57,7 @@ Bar_engraver::do_process_requests()
   else 
     {
       Disallow_break_req r;
-      daddy_grav_l_->try_request (&r);
+      daddy_grav_l()->try_request (&r);
     }
 }
 
@@ -78,6 +81,6 @@ Bar_engraver::do_post_move_processing()
 
 
 IMPLEMENT_IS_TYPE_B1(Bar_engraver,Engraver);
-ADD_THIS_ENGRAVER(Bar_engraver);
+ADD_THIS_TRANSLATOR(Bar_engraver);
 
 

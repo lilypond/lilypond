@@ -13,36 +13,22 @@
 #include "request.hh"
 #include "score-elem-info.hh"
 #include "staff-info.hh"
+#include "translator.hh"
 
 /**
   Convert a music definition into a audio representation.
   A baseclass
  */
-class Performer {
-    bool init_b_;
+class Performer : public virtual Translator{
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Performer_group_performer* daddy_perf_l_;
-
-    Performer();
-    virtual ~Performer();
-
-    void print() const;
-    virtual void process_requests();
-
-    virtual bool try_request (Request* req_l);
-
-    virtual void do_removal_processing();
-    void creation_processing();
-
+  TRANSLATOR_CLONE(Performer);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Performer_group_performer* daddy_perf_l() const;
 protected:
-    virtual void do_creation_processing();
-    virtual bool do_try_request (Request*);
-    virtual int get_tempo_i() const;
-    virtual void do_print() const;
-    virtual void play (Audio_element * elem_p );
+  virtual int get_tempo_i() const;
+  virtual void play (Audio_element * elem_p );
+  Performer * performer_l () { return this; }
 };
 
-#include "global-performers.hh"
 
 #endif // PERFORMER_HH

@@ -12,7 +12,7 @@ copyright		Public Domain
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.2";
+\version "0.1.5";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -28,7 +28,7 @@ dux =
         \clef "violin";
         \octave c';
 
-        \stem \down;
+        \stemdown
         r8 [c'16 b] [c'8 g] [as c'16 b] [c'8 d'] |
         [g c'16 b] [c'8 d'] [f16 g] as4 [g16 f] |
         [es c' b a] [g f! es d] [c8 es' d' c'] |
@@ -43,10 +43,12 @@ dux =
 %% 10   
         as4 r8 a [bes bes16 a] [bes8 f] |
         g4 r8 g [as as g f] |
+	\translator Staff=bass \stemup
         \octave c; r8 [as bes c'] r8 [as16 g] [as8 f8] |
         [bes8 c' bes as] [bes g f es] |
         [f des' c' bes] [c' as g f] |
 %% 15
+	\translator Staff=treble \stemdown
         g8 \octave c'; [g16 fis] [g8 c] [es g16 fis!] [g8 a] |
         [d g16 fis] [g8 a!] [c16 d] es4 [d16 c] |
                                                     % forced accident!
@@ -74,7 +76,7 @@ dux =
 comes =
     \melodic {
         \octave c'';
-        \stem \up;
+        \stemup
         r1 |
         r1 |
         r8 [g16 fis] [g8 c] [es g16 fis] [g8 a] |
@@ -156,25 +158,24 @@ bassdux =
         [d c g G]
 %% 30
         < \multi 2;
-        { \stem \up; c2~ | c1~ | c1 }
-        { \stem \down; C2~ | C1~ | C1 }
+        { \stemup c2~ | c1~ | c1 }
+        { \stemdown C2~ | C1~ | C1 }
         >
     }
 
         
 \score {
-    \melodic < \id "Piano" ""; 
-	       \multi 1;
-                 < \multi 2; 
+    \melodic \type Grandstaff < 
+	\type Staff=treble < \multi 2; 
                        \global 
                        \dux
                        \comes 
                  >
-                 < \multi 2;
+	\type Staff=bass < \multi 2;
                        \global
                        \bassdux
                  >
-             >
+    >
 
     \paper{
 	gourlay_maxmeasures =5.;

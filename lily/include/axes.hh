@@ -1,6 +1,5 @@
-
 /*
-  axes.hh -- declare 
+  axes.hh -- declare Axis
 
   source file of the GNU LilyPond music typesetter
 

@@ -21,6 +21,7 @@ protected:
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
 public:
+  TRANSLATOR_CLONE(Meter_engraver);
   Meter * meter_p_;
 
   Meter_engraver();

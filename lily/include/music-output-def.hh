@@ -9,9 +9,12 @@
 
 #ifndef Music_output_DEF_HH
 #define Music_output_DEF_HH
+
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
+#include "plist.hh"
+#include "dictionary.hh"
 
 /**
   Definition of how to output mudela. 
@@ -19,11 +22,21 @@
 class Music_output_def  
 {
 public:
+  Dictionary<Translator*> translator_p_dict_;
+  
+  Music_output_def (Music_output_def const&);
+  Music_output_def ();
+  virtual ~Music_output_def ();
+
   VIRTUAL_COPY_CONS(Music_output_def, Music_output_def);
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual void print () const {}
-  virtual ~Music_output_def () {}
-  virtual Global_translator * get_global_translator_p () { return 0; }
+  virtual void print () const;
+
+  Global_translator *get_global_translator_p ();
+  Translator_group *get_group_translator_p (String type) const;
+  void assign_translator (String, Translator*);
   String outfile_str_;
+  Translator * find_translator_l (String) const;
 };
+
 #endif // Music_output_DEF_HH

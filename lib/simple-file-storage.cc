@@ -29,14 +29,16 @@
 Simple_file_storage::Simple_file_storage(String s)
 {
   data_p_ =0;
+
   /*
     let's hope that "b" opens anything binary, and does not apply 
     CR/LF translation
     */
-  FILE * f = fopen (s.ch_C(), "rb");
+  FILE * f =  (s) ?  fopen (s.ch_C(), "rb") : stdin;
+  
   if (!f) 
     {
-      warning("can't open file\n");
+      warning("can't open file `" + s + "'");
       return ;
     }
 
@@ -48,10 +50,12 @@ Simple_file_storage::Simple_file_storage(String s)
   ret = fread(data_p_, sizeof(char), len_i_, f);
 
      
-#if 1 // ugh, \r\n -> \n translation
-  assert (ret==len_i_);
-#endif
-  fclose(f);
+  if  (ret!=len_i_)
+    warning ("Huh? got " + String(ret) + ", expected " 
+	     + String(len_i_) + " characters");
+
+  if (f != stdin)
+    fclose(f);
 }
 
 char const*

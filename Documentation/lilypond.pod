@@ -22,7 +22,8 @@ add F<FILE> to the search path for input files.
 
 =item B<-M,--midi>
 
-do midi output only.
+This disables TeX output. If you have a \midi definition, it will do
+the midi output only.
 
 =item B<-d,--debug>,
 

@@ -15,14 +15,15 @@
 /**
   catch bars, and put a number over them.
  */
-class Bar_number_grav : public Engraver {
+class Bar_number_engraver : public Engraver {
   Script * script_p_;
 protected:
 
   void acknowledge_element (Score_elem_info);
   void do_pre_move_processing();
 public:
-  Bar_number_grav();
+  TRANSLATOR_CLONE(Bar_number_engraver);
+  Bar_number_engraver();
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // BAR_NUMBER_GRAV_HH

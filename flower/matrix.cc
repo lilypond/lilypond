@@ -19,7 +19,7 @@ Matrix::band_b() const
 void
 Matrix::set_full() const
 {
-  if ( dat->name() != Full_storage::static_name ()) 
+  if (dat->name() != Full_storage::static_name ()) 
     {
 	Matrix_storage::set_full (((Matrix*)this)->dat);
     }
@@ -32,7 +32,7 @@ Matrix::try_set_band() const
 	return;
   
   int b = band_i();
-  if (  b > dim()/2)
+  if (b > dim()/2)
 	return;
   // it only looks constant
   Matrix*self  = (Matrix*)this;
@@ -109,7 +109,7 @@ Matrix::operator=(Matrix const &m)
 int
 Matrix::band_i() const
 {
-  if ( band_b()) 
+  if (band_b()) 
     {
 	Diagonal_storage const * diag = (Diagonal_storage*) dat;
 	return diag->band_size_i();
@@ -117,10 +117,10 @@ Matrix::band_i() const
   int starty = dim();
   while (starty >= 0) 
     {
-	for ( int i = starty, j = 0; i < dim(); i++, j++)
+	for (int i = starty, j = 0; i < dim(); i++, j++)
 	    if (dat->elem (i,j))
 		goto gotcha;
-	for ( int i=0, j = starty; j < dim(); i++,j++)
+	for (int i=0, j = starty; j < dim(); i++,j++)
 	    if (dat->elem (i,j))
 		goto gotcha;
 	starty --;

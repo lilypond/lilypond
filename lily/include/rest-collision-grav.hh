@@ -14,15 +14,14 @@
 #include "engraver.hh"
 
 class Rest_collision_engraver : public Engraver {
-    Rest_collision* rest_collision_p_;
+  Rest_collision* rest_collision_p_;
 
-    void make_collision();
 protected:
-    virtual void acknowledge_element (Score_elem_info);
-    virtual void do_print() const;
-    virtual void do_pre_move_processing();
+  virtual void acknowledge_element (Score_elem_info);
+  virtual void do_pre_move_processing();
 public:
-    Rest_collision_engraver();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  TRANSLATOR_CLONE(Rest_collision_engraver);
+  Rest_collision_engraver();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // REST_COLLISION_GRAV_HH

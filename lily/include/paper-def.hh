@@ -34,22 +34,19 @@
  */
 class Paper_def : public Music_output_def {
   Lookup *lookup_p_;
-  Assoc<String, Real> *real_vars_p_;
+  Dictionary<Real> *real_vars_p_;
 
-  Input_translator * itrans_p_;
 protected:
-  virtual  Global_translator * get_global_translator_p();
   VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
-  DECLARE_MY_RUNTIME_TYPEINFO;
 public:    
   virtual ~Paper_def();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
   void set_var (String, Real);
   Real get_var (String) const;
   void reinit();
   Paper_def();
   void set (Lookup*);
-  void set (Input_translator *);
 
   Paper_def (Paper_def const&);
   /// The distance between beams

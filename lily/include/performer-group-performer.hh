@@ -12,44 +12,16 @@
 #include "parray.hh"
 #include "plist.hh"
 #include "performer.hh"
-#include "translator.hh"
+#include "translator-group.hh"
 
 /**
   Group a number of performers. Usually delegates everything to its contents.
 */
 
-class Performer_group_performer : public Performer, public virtual Translator {
+class Performer_group_performer : public Performer, public virtual Translator_group {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Input_translator* itrans_l_;
-
-    virtual void add (Performer* perf_p);
-    virtual bool do_try_request (Request* req_l);
-    virtual void print() const;
-    virtual bool try_request (Request* r);
-    
-
-protected:
-    virtual ~Performer_group_performer();
-    virtual Translator* find_get_translator_l (String name, String id);
-    virtual Translator* get_default_interpreter();
-
-    Translator * ancestor_l (int l = 1);
-    virtual int depth_i() const;
-
-    virtual void process_requests();
-    virtual void do_removal_processing();
-    virtual void do_creation_processing();
-
-    bool is_bottom_performer_b() const;
-    virtual Performer_group_performer* find_performer_l (String name, String id);
-    virtual void do_print() const;
-
-private:
-    Pointer_list<Performer*> perf_p_list_;
-    
-    Link_array<Performer_group_performer> group_l_arr_;
-    Link_array<Performer> nongroup_l_arr_;
+  TRANSLATOR_CLONE(Performer_group_performer);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // PERFORMER_GROUP_PERFORMER_HH

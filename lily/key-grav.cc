@@ -126,4 +126,4 @@ Key_engraver::do_post_move_processing()
 
 
 IMPLEMENT_IS_TYPE_B1(Key_engraver,Engraver);
-ADD_THIS_ENGRAVER(Key_engraver);
+ADD_THIS_TRANSLATOR(Key_engraver);

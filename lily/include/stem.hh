@@ -47,12 +47,9 @@ class Stem : public Item {
     -1 stem points down, +1: stem points up
     */
   Real stem_xoffset_f_;
-  /**
-    store the wholes (for vapourware tremolo)
-    */
-  Link_array<Note_head> whole_l_arr_;
+
   Link_array<Note_head> head_l_arr_;
-  Link_array<Note_head> rest_l_arr_;
+  Link_array<Rest> rest_l_arr_;
     
 public:
   /// abbrev flag? + count
@@ -77,6 +74,7 @@ public:
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add (Note_head*n);
+  void add (Rest*);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 

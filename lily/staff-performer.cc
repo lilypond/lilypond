@@ -7,15 +7,14 @@
  */
 
 #include "staff-performer.hh"
-#include "translator.hh"
-#include "input-translator.hh"
+#include "translator-group.hh"
 #include "debug.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
 
 IMPLEMENT_IS_TYPE_B1(Staff_performer,Performer_group_performer);
-ADD_THIS_PERFORMER(Staff_performer);
+ADD_THIS_TRANSLATOR(Staff_performer);
 
 Staff_performer::Staff_performer()
 {
@@ -34,23 +33,25 @@ Staff_performer::do_creation_processing()
 
   if (instrument_str().length_i()) 
     {
-	// staff name
-	play (new Audio_text (Audio_text::TRACK_NAME, instrument_str ()));
-	// instrument description
-	play (new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_str ()));
+      // staff name
+      play (new Audio_text (Audio_text::TRACK_NAME, id_str_));
+      // instrument description
+      play (new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_str ()));
     }
 
   // tempo
-  play(new Audio_tempo(get_tempo_i()));
+  play (new Audio_tempo (get_tempo_i ()));
 
   if (instrument_str ().length_i ())
-	// instrument
-	play (new Audio_instrument (instrument_str ()));
+    // instrument
+    play (new Audio_instrument (instrument_str ()));
+  Performer_group_performer::do_creation_processing ();
 }
 
 void
 Staff_performer::do_removal_processing()
 {
+  Performer_group_performer::do_removal_processing ();
   Performer::play (audio_staff_p_);
   audio_staff_p_ = 0;
 }
@@ -58,7 +59,7 @@ Staff_performer::do_removal_processing()
 String 
 Staff_performer::instrument_str() 
 { 
-  return Translator::id_str_; 
+  return get_property ("instrument");
 }
 
 void 
@@ -66,7 +67,7 @@ Staff_performer::play (Audio_element* p)
 {
   if (p->is_type_b (Audio_item::static_name())) 
     {
-	audio_staff_p_->add ((Audio_item*)p);
+      audio_staff_p_->add ((Audio_item*)p);
     }
   Performer::play (p);
 }

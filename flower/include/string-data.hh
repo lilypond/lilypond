@@ -61,7 +61,7 @@ friend class String_handle;
     /// concatenation.
     void append (Byte const* byte_C, int length_i);
 
-    void operator += ( char const* ch_C);
+    void operator += (char const* ch_C);
 
     char const* ch_C() const; 
 

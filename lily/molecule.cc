@@ -19,7 +19,7 @@ Molecule::TeX_string() const
 {
   String s;
   for (iter_top (ats,c); c.ok(); c++)
-	s+=c->TeX_string();
+    s+=c->TeX_string();
   return s;
 }
 
@@ -28,7 +28,7 @@ Molecule::extent() const
 {
   Box b;
   for (iter_top (ats,c); c.ok(); c++)
-	b.unite (c->extent());
+    b.unite (c->extent());
   return b;
 }
 
@@ -36,14 +36,14 @@ void
 Molecule::translate (Offset o)
 {
   for (iter_top (ats,c); c.ok(); c++)
-	c->translate (o);
+    c->translate (o);
 }
 
 void
 Molecule::translate (Real x,Axis a)
 {
   for (iter_top (ats,c); c.ok(); c++)
-	c->translate (x,a);
+    c->translate (x,a);
 }
 
 void
@@ -51,71 +51,27 @@ Molecule::add (Molecule const &m)
 {
   for (iter_top (m.ats,c); c.ok(); c++) 
     {
-	add (**c);
+      add (**c);
     }
 }
 
-void
-Molecule::add_right (Molecule const &m)
-{
-   if (!ats.size()) 
-     {
-	add (m);
-	return;
-    }
-   Real xof=extent().x ().right - m.extent ().x ().left;
- 
-   
-  Molecule toadd (m);
-  toadd.translate (Offset (xof, 0.0));
-  add (toadd);
-}
 
 void
-Molecule::add_left (Molecule const &m)
+Molecule::add_at_edge (Axis a, Direction d, Molecule const &m)
 {
   if (!ats.size()) 
     {
-	add (m);
-	return;
+      add (m);
+      return;
     }
-  Real xof=extent().x ().left - m.extent ().x ().right;
-   
+  Real offset = extent ()[a][d] - m.extent ()[a][-d];
   Molecule toadd (m);
-  toadd.translate (Offset (xof, 0.0));
+  toadd.translate (offset, a);
   add (toadd);
 }
 
-
-void
-Molecule::add_top (Molecule const &m)
-{
-    if (!ats.size()) 
-      {
-	add (m);
-	return;
-    }
-   Real yof=extent().y ().right - m.extent ().y ().left;
-
-  Molecule toadd (m);
-  toadd.translate (yof, Y_AXIS);
-  add (toadd);
-}
-
-void
-Molecule::add_bottom (Molecule const &m)
-{
-  if (!ats.size()) 
-    {
-	add (m);
-	return;
-    }
-   Real yof=extent().y ().left- m.extent ().y ().right;
-  Molecule toadd (m);
-  toadd.translate (yof, Y_AXIS);
-  add (toadd);
-}
-
+  
+  
 void
 Molecule::operator = (Molecule const &)
 {
@@ -132,9 +88,9 @@ Molecule::print() const
 {
 #ifndef NPRINT
   if (! check_debug)
-	return;
+    return;
   for (iter_top (ats,c); c.ok(); c++)
-	c->print();
+    c->print();
 #endif
 }
 

@@ -24,8 +24,8 @@ Music::print() const
   if (! check_debug)
 	return ;
   DOUT << name() << "{";
-  if  (type_str_!="" || id_str_!="")
-	DOUT << "`" <<type_str_ << " = " << id_str_<<"\'";
+  if  (translator_type_str_)
+	DOUT << translator_type_str_ << " = " << translator_id_str_;
   do_print();
   DOUT << "}\n";
 #endif

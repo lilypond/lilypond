@@ -7,6 +7,7 @@
 \usepackage{a4wide}
 \title{Mudela and LilyPond crash course}
 \author{Han-Wen Nienhuys}
+\def\file#1{{\texttt{#1}}}
 
 \begin{document}
 \maketitle
@@ -17,30 +18,124 @@
 \emph{This document is not complete yet. It's just a brief blurb which
   skimps some features of Mudela}
 
+\section{Who is who}
+
+This document describes two different things
+\begin{description}
+\item[Mudela] A language for defining music.
+  
+\item[LilyPond] A package (the only one existing :-) which can 
+  read a mudela file and interpret it. 
+  
+  The name ``LilyPond'' does not have much to do with the purpose of
+  the package, but we have a special emotional attachment with the
+  name.  (Of course we are not telling why we chose it; this is an
+  excercise for the reader, most of the vital clues are contained in
+  the documentation and the source code.  If you have guess, then let
+  me know)
+\end{description}
 
 \section{Overview}
 
-Mudela is a language for specifying music. LilyPond is a
-program which converts such a specification into formatted sheet
-music, or MIDI output.
 
-Please note that some examples not only demonstrate features but also
-some lurking bugs. If can't understand what is happening, it might
-just be my (lack of) programming skills.
+Let's start with a very simple example, we will enter ``twinkle twinkle
+little star.''  We start with the most important part: the notes.
 
+Imagine being in a music-lesson, and that you made an error playing
+``twinkle twinkle''.  Your teacher asks you to read out loud the
+melody of the song, just to verify your eyesight.  You would probably
+say something like
+\begin{quote}
+  A quarter note C, Another quarter note C, a quarter G, another one, etc.
+\end{quote}
 
-\begin[fragment,verbatim]{mudela}
-  { c4 e4 g4 }
+Mudela tries to capture this verbal presentation of sheet music, in
+the following way.  The first line of twinkle twinkle is written in
+as follows
+\begin{verbatim}
+c4 c4 g4 g4 a4 a4 g2
+f4 f4 e4 e4 d4 d4 c2
+\end{verbatim}
+
+The notes are entered with names (a, b, c) combined with numbers
+(2,4).  The names designate the pitches, the numbers the durations: 4
+is a quarter note, 2 a half note, etc.
+
+Now all we have to specify what should be done with the music.  We
+want a paper version, so we combine the music with a ``output this on
+paper'' statement.  These two are combined in ``score'' block.  This
+is the final result with its output.   We add a comment (the line
+starting with \verb+%+).
+Put this into a file
+called \file{twinkle.ly}
+
+\begin{verbatim}
+
+% twinkle, v1
+\score {
+        \melodic { 
+                c4 c4 g4 g4 a4 a4 g2
+                f4 f4 e4 e4 d4 d4 c2
+        }
+        \paper {}
+} 
+\end{verbatim}
+
+there are a few things to note about this example:
+
+The braces are grouping characters. In general, in mudela data entry
+for a data section called ``foobar'' looks like this:
+
+\begin{verbatim}
+\foobar { ...... }
+\end{verbatim}
+
+To see if it actually works, we run it through LilyPond.  Invoke the
+command 
+\begin{verbatim}
+        lilypond twinkle.ly
+\end{verbatim}
+When LilyPond starts working it will produce various ``operator
+pacification'' messages, which you can safely ignore for now.  The run
+should have left a file called \file{lelie.tex} in your working
+directory.  You can process that file with TeX, and it will look like
+this:
+
+\begin{mudela}
+\score {
+        \melodic { 
+                c4 c4 g4 g4 a4 a4 g2
+                f4 f4 e4 e4 d4 d4 c2
+        }
+        \paper {}
+} 
 \end{mudela}
 
+As you can see, this is the song that we wanted, albeit a little
+low-pitched.  You would probably want a version of the song which has
+all notes an octave higher.  This can be done by adding a
+\verb+\octave+ command to the source.  This sets the default octave
+for all notes.  Another convenience is the default duration: if you do
+not specify a duration with the notename, the last explicitly entered
+is used.  The improved version reads thus
 
-Basics: the \verb+%+ introduces a comment. All music is inside a
-\verb+\score+ block which represents one movement, ie one contiguous
-block of music.  Voices are grouped by \verb+{+ and \verb+}+ and
-chords by \verb+<+ and \verb+>+.
 
 \begin[verbatim]{mudela}
+  % twinkle v2
 \score {
+        \melodic { 
+                \octave c';
+                c4 c g g a a g2
+                f4 f e e d d c2
+        }
+        \paper {}
+} 
+\end{mudela}
+
+ 
+
+\begin[verbatim]{mudela}
+  \score {
         \melodic {      % {...} is a voice
         c'4 g'4         % c and g are pitches, 4 is the duration
                         % (crotchet/quarter note)
@@ -49,6 +144,17 @@ chords by \verb+<+ and \verb+>+.
         }
 } 
 \end{mudela}
+
+
+\begin[fragment,verbatim]{mudela}
+  { c4 e4 g4 }
+\end{mudela} 
+
+Basics: the \verb+%+ introduces a comment. All music is inside a
+\verb+\score+ block which represents one movement, ie one contiguous
+block of music.  Voices are grouped by \verb+{+ and \verb+}+ and
+chords by \verb+<+ and \verb+>+.
+
 
 The \verb+\octave+ command controls the default pitch (octave). If you
 do not specify duration, the last one entered is used.  The

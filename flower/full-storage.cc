@@ -179,7 +179,7 @@ Full_storage::resize_cols (int newh)
 Full_storage::Full_storage (Matrix_storage*m)
 {
   set_size (m->rows(), m->cols ());
-  if ( !m->is_type_b ( Full_storage::static_name()))
+  if (!m->is_type_b (Full_storage::static_name()))
 	for (int i=0; i<height_i_; i++)
 	    for (int j=0; j<width_i_; j++)
 		els_p_p_[i][j]=0.0;

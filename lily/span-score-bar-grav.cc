@@ -25,5 +25,5 @@ Piano_bar_engraver::get_span_bar_p() const
   return new Piano_brace;
 }
 
-ADD_THIS_ENGRAVER(Piano_bar_engraver);
-ADD_THIS_ENGRAVER(Span_score_bar_engraver);
+ADD_THIS_TRANSLATOR(Piano_bar_engraver);
+ADD_THIS_TRANSLATOR(Span_score_bar_engraver);

@@ -1,5 +1,5 @@
 /*
-  bar-number-grav.cc -- implement Bar_number_grav
+  bar-number-grav.cc -- implement Bar_number_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,7 +14,7 @@
 #include "bar.hh"
 #include "time-description.hh"
 
-Bar_number_grav::Bar_number_grav()
+Bar_number_engraver::Bar_number_engraver()
 {
   script_p_ =0;
 }
@@ -22,7 +22,7 @@ Bar_number_grav::Bar_number_grav()
 static Command_script_req dummy;
 
 void
-Bar_number_grav::acknowledge_element (Score_elem_info i)
+Bar_number_engraver::acknowledge_element (Score_elem_info i)
 {
   if (i.origin_grav_l_arr_.size() == 1 &&
       i.elem_l_->is_type_b (Bar::static_name()) && !script_p_) 
@@ -44,7 +44,7 @@ Bar_number_grav::acknowledge_element (Score_elem_info i)
 }
 
 void
-Bar_number_grav::do_pre_move_processing()
+Bar_number_engraver::do_pre_move_processing()
 {
   if (script_p_) 
     {
@@ -53,5 +53,5 @@ Bar_number_grav::do_pre_move_processing()
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Bar_number_grav,Engraver);
-ADD_THIS_ENGRAVER(Bar_number_grav);
+IMPLEMENT_IS_TYPE_B1(Bar_number_engraver,Engraver);
+ADD_THIS_TRANSLATOR(Bar_number_engraver);

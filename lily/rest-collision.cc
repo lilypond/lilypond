@@ -22,14 +22,10 @@ void
 Rest_collision::add (Note_column *nc_l)
 {
   add_dependency (nc_l);
-  ncol_l_arr_.push (nc_l);
-}
-
-void
-Rest_collision::add (Rest_column *rc_l)
-{
-  add_dependency (rc_l);
-  rest_l_arr_.push (rc_l);
+  if (nc_l->rest_b ())
+    rest_l_arr_.push (nc_l);
+  else
+    ncol_l_arr_.push (nc_l);
 }
 
 void
@@ -51,10 +47,10 @@ Rest_collision::do_post_processing()
   // can this happen?
   Stem* stem_l = rest_l_arr_[0]->stem_l_;
   if (!stem_l)
-  	return;
+    return;
   // no beam
   if (!(stem_l->beams_left_i_ || stem_l->beams_right_i_))
-  	return;
+    return;
 
   int dir_i = rest_l_arr_[0]->dir_;
   int midpos = 4;
@@ -66,66 +62,66 @@ Rest_collision::do_post_processing()
 #else // nogo: stem_start not set for rests?
   int pos = (stem_l->stem_start_f() - midpos) + dir_i * 2;
 #endif
-  rest_l_arr_[0]->translate_heads (pos);	
+  rest_l_arr_[0]->translate_rests (pos);	
 }
 
 void
 Rest_collision::do_pre_processing()
 {
   /* 
-    handle rest-rest and rest-note collisions
+     handle rest-rest and rest-note collisions
 
-    [todo]
-    decide not to print rest if too crowded?
+     [todo]
+     decide not to print rest if too crowded?
    */
 
   // no rests to collide
   if (!rest_l_arr_.size())
-  	return;
+    return;
 
   // no partners to collide with
   if (rest_l_arr_.size() + ncol_l_arr_.size () < 2)
-	return;
+    return;
 
   // meisjes met meisjes
   if (!ncol_l_arr_.size()) 
     {
-	int dy = rest_l_arr_.size() > 2 ? 6 : 4;
+      int dy = rest_l_arr_.size() > 2 ? 6 : 4;
 	
-	rest_l_arr_[0]->translate_heads (rest_l_arr_[0]->dir_ *dy);	
-	// top is last element...
-	rest_l_arr_.top()->translate_heads (rest_l_arr_.top ()->dir_* dy);	
+      rest_l_arr_[0]->translate_rests (rest_l_arr_[0]->dir_ *dy);	
+      // top is last element...
+      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir_* dy);	
     }
   // meisjes met jongetjes
   else 
     {
 #if 0 // breendet: rests go always under
-	// geen gemug, trug op je rug
-	int dir_i = -1;
-	rest_l_arr_[0]->translate_heads (dir_i * 3);	
+      // geen gemug, trug op je rug
+      int dir_i = -1;
+      rest_l_arr_[0]->translate_rests (dir_i * 3);	
 #else
-	// int dir_i = - ncol_l_arr_[0]->dir_;
-	int dir_i = rest_l_arr_[0]->dir_;
-	// hope it's 4: if it works->doco
-	int midpos = 4;
+      // int dir_i = - ncol_l_arr_[0]->dir_;
+      int dir_i = rest_l_arr_[0]->dir_;
+      // hope it's 4: if it works->doco
+      int midpos = 4;
 	
       // minimum move
-	int minpos = 4;
+      int minpos = 4;
 	
-	// quart rest height
-	// UGH Should get dims from table!
-	int size_i = 6;
+      // quart rest height
+      // UGH Should get dims from table!
+      int size_i = 6;
 	
-	int sep_i = 3 + size_i / 2;
-	for (int i = 0; i < ncol_l_arr_.size(); i++) 
-	  {
-	    // how to know whether to sort?
-	    ncol_l_arr_[i]->sort();
-	    for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
-		minpos = minpos >? dir_i * 
-		    (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
-	  }
-	rest_l_arr_[0]->translate_heads (dir_i * minpos);	
+      int sep_i = 3 + size_i / 2;
+      for (int i = 0; i < ncol_l_arr_.size(); i++) 
+	{
+	  // how to know whether to sort?
+	  ncol_l_arr_[i]->sort();
+	  for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
+	    minpos = minpos >? dir_i * 
+	      (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
+	}
+      rest_l_arr_[0]->translate_rests (dir_i * minpos);	
 #endif
     }
 }
@@ -143,10 +139,14 @@ void
 Rest_collision::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   Item*o_l = o->item();
-  Item*n_l = n?n->item():0;
   
-  rest_l_arr_.substitute ((Rest_column*)o_l,(Rest_column*)n_l);
-  ncol_l_arr_.substitute ((Note_column*)o_l,(Note_column*)n_l);
+
+  if (o_l&&o_l->is_type_b (Note_column::static_name ()))
+    {
+      Note_column *n_l = n?(Note_column*)n->item():0;
+      rest_l_arr_.substitute ((Note_column*)o_l, n_l);
+      ncol_l_arr_.substitute ((Note_column*)o_l, n_l);
+    }
 }
 
 Rest_collision::Rest_collision()

@@ -16,16 +16,17 @@
   Engravers put elements on the same or lowel level in a line
   */
 class Line_group_engraver : public Engraver{
-    Vertical_group_spanner *staffline_p_;   
+  Vertical_group_spanner *staffline_p_;   
 
 protected:
-    virtual void do_creation_processing();
-    virtual void do_removal_processing();
-    virtual void acknowledge_element (Score_elem_info);
+  virtual void do_creation_processing();
+  virtual void do_removal_processing();
+  virtual void acknowledge_element (Score_elem_info);
 
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Line_group_engraver();
+  TRANSLATOR_CLONE(Line_group_engraver);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Line_group_engraver();
 };
 
 

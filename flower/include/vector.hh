@@ -101,7 +101,7 @@ operator*(Vector v, Real a) {
 }
 
 inline Vector
-operator*( Real a,Vector v) {
+operator*(Real a,Vector v) {
     v *= a;
     return v;
 }

@@ -13,9 +13,9 @@
 #include "pointer.hh"
 #include "string.hh"
 #include "lily-proto.hh"
-#include "assoc.hh"
+#include "dictionary.hh"
 
-class Notename_table :   Assoc<String, P<Melodic_req> >{
+class Notename_table :   Dictionary< P<Melodic_req> >{
 public:
     void add (String, Melodic_req*);
     Melodic_req*get_l (String);

@@ -36,13 +36,6 @@ Slur_engraver::acknowledge_element (Score_elem_info info)
     }
 }
 
-void
-Slur_engraver::set_feature (Feature f)
-{
-  if (f.type_ == "vdir")
-    dir_ = (Direction)int(f.value_);
-}
-
 /*
   abracadabra
   */
@@ -86,6 +79,7 @@ Slur_engraver::do_process_requests()
 void
 Slur_engraver::do_pre_move_processing()
 {
+  dir_ = (Direction) int(get_property ("ydirection"));
   for (int i = 0; i < end_slur_l_arr_.size(); i++) 
     {
       if (dir_)
@@ -109,4 +103,4 @@ Slur_engraver::~Slur_engraver()
 }
 
 IMPLEMENT_IS_TYPE_B1(Slur_engraver,Engraver);
-ADD_THIS_ENGRAVER(Slur_engraver);
+ADD_THIS_TRANSLATOR(Slur_engraver);

@@ -184,7 +184,7 @@ Getopt_long::operator()()
 	return 0;
 
   if (argument_C[1] == '-') {// what to do with "command  --  bla"
-	if ( argument_C[2])
+	if (argument_C[2])
 	    return parselong();
 	else
 	    return 0;

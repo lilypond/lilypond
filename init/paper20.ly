@@ -25,6 +25,6 @@ paper_twenty = \paper {
 	
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_twenty }
-	\requesttranslator { \orchestral_score_translator }
+\include "engraver.ly"
 }
 

@@ -18,8 +18,8 @@
 
 Dynamic_engraver::Dynamic_engraver()
 {
-  dir_ = CENTER;
   do_post_move_processing();
+  dir_ = CENTER;
   dynamic_p_ =0;
   to_end_cresc_p_ = cresc_p_ = 0;
   cresc_req_l_ = 0;
@@ -123,27 +123,31 @@ Dynamic_engraver::do_pre_move_processing()
     }
 }
 
-void
-Dynamic_engraver::set_feature (Feature i)
-{
-  if (i.type_ == "vdir")	
-    dir_ = (Direction) int(i.value_);
-}
-
 
 IMPLEMENT_IS_TYPE_B1(Dynamic_engraver,Engraver);
-ADD_THIS_ENGRAVER(Dynamic_engraver);
+ADD_THIS_TRANSLATOR(Dynamic_engraver);
 
-Dynamic_engraver::~Dynamic_engraver()
+void
+Dynamic_engraver::do_removal_processing ()
 {
-  delete dynamic_p_;
-  delete to_end_cresc_p_;
-  if (cresc_p_) 
+  if (cresc_p_)
     {
-      cresc_req_l_->warning ("unended crescendo");
+      typeset_element (cresc_p_ );
+      cresc_p_ =0;
     }
-  delete cresc_p_;
+  if (to_end_cresc_p_)
+    {
+      typeset_element (to_end_cresc_p_);
+      cresc_req_l_->warning ("unended crescendo");
+      to_end_cresc_p_ =0;
+    }
+  if (dynamic_p_)
+    {
+      typeset_element (dynamic_p_);
+      dynamic_p_ =0;
+    }
 }
+
 void
 Dynamic_engraver::acknowledge_element (Score_elem_info i)
 {

@@ -9,8 +9,8 @@
 #include <math.h>
 #include "misc.hh"
 #include "midi-def.hh"
-#include "input-translator.hh"
-#include "audio-score.hh"
+#include "translator.hh"
+#include "performance.hh"
 #include "assoc-iter.hh"
 #include "score-performer.hh"
 #include "debug.hh"
@@ -21,30 +21,22 @@
 //     destructor
 //     routines, alphasorted
 
-// statics Midi_def
-// ugh
-
-int Midi_def::den_i_s = 4;
-int Midi_def::num_i_s = 4;
-
 Midi_def::Midi_def()
 {
   outfile_str_ = ""; 
-  itrans_p_ = 0;
   // ugh
   set_tempo (Moment (1, 4), 60);
 }
 
 Midi_def::Midi_def (Midi_def const& s)
+  : Music_output_def (s)
 {
   whole_seconds_f_ = s.whole_seconds_f_;
-  itrans_p_ = s.itrans_p_ ? new Input_translator (*s.itrans_p_) : 0;
   outfile_str_ = s.outfile_str_;
 }
 
 Midi_def::~Midi_def()
 {
-  delete itrans_p_;
 }
 
 Real
@@ -56,17 +48,7 @@ Midi_def::duration_to_seconds_f (Moment mom)
   return Moment (whole_seconds_f_) * mom;
 }
 
-Global_translator*
-Midi_def::get_global_translator_p() 
-{
-  Global_translator *g =     itrans_p_->get_group_performer_p()->global_l ();
 
-  assert (g->is_type_b (Score_performer::static_name()));
-  Score_performer * perf = (Score_performer*)g;
-  perf->performance_p_ = new Audio_score;
-  perf->performance_p_->midi_l_ = this;
-  return g;
-}
 
 int
 Midi_def::get_tempo_i (Moment moment)
@@ -85,12 +67,6 @@ Midi_def::print() const
 #endif
 }
 
-void
-Midi_def::set (Input_translator* itrans_p)
-{
-  delete itrans_p_;
-  itrans_p_ = itrans_p;
-}
 
 void
 Midi_def::set_tempo (Moment moment, int count_per_minute_i)

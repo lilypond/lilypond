@@ -36,7 +36,7 @@ String::print_on (ostream& os) const
   if (!strh_.is_binary_bo())
       os << ch_C();
   else
-	for ( int i = 0; i < length_i(); i++)
+	for (int i = 0; i < length_i(); i++)
 	    os << (Byte)(*this)[ i ];
 }
 
@@ -147,7 +147,7 @@ String::compare_i (String const& s1, String const& s2)
 {
   Byte const* p1 = s1.byte_C();
   Byte const* p2 = s2.byte_C();
-  if ( p1 == p2)
+  if (p1 == p2)
 	return 0;
 
   int i1 = s1.length_i();
@@ -161,12 +161,12 @@ String::compare_i (String const& s1, String const& s2)
 int
 String::index_last_i (char const c) const
 {
-  if ( !length_i()) 
+  if (!length_i()) 
 	return -1;
 
   char const* me = strh_.ch_C();
   char const* p = memrchr (me, length_i(), c);
-  if ( p)
+  if (p)
 	return p - me;
   return -1;
 }
@@ -176,11 +176,11 @@ String::index_last_i (char const* string) const // UGK!
 {
   assert (false);		// broken
   int length = strlen (string); // ugrh
-  if ( !length_i() || !length) 
+  if (!length_i() || !length) 
 	return -1;
   
   int next_i = index_i (string);
-  if ( next_i == -1)
+  if (next_i == -1)
 	return -1;
   
   int index_i = 0;
@@ -205,7 +205,7 @@ String::index_i (char c) const
 {
   char const* me = strh_.ch_C();
   char const* p = (char const *) memchr (me,c,  length_i());
-  if ( p)
+  if (p)
 	return p - me;
   return -1;
 }
@@ -223,7 +223,7 @@ String::index_i (String searchfor) const
   char const* p = (char const *) memmem (
 	me, length_i(), searchfor.ch_C(), searchfor.length_i ());
   
-  if ( p)
+  if (p)
 	return p - me;
   else
 	return -1;
@@ -238,7 +238,7 @@ int
 String::index_any_i (String set) const
 {
   int n = length_i();
-  if ( !n)
+  if (!n)
 	return -1;
 
   void const * me_l = (void const *) strh_.ch_C();
@@ -274,7 +274,7 @@ String::right_str (int n) const
   if (n > length_i())
 	return *this;
   
-  if ( n < 1)
+  if (n < 1)
       return "";
   
   return String (strh_.byte_C() + length_i() - n, n); 
@@ -284,12 +284,12 @@ String::right_str (int n) const
 String
 String::nomid_str (int index_i, int n) const
 {
-  if ( index_i < 0) 
+  if (index_i < 0) 
     {
 	n += index_i;
 	index_i = 0;
     }
-  if ( n <= 0)
+  if (n <= 0)
 	return *this;
   
   return
@@ -309,10 +309,10 @@ String::mid_str (int index_i, int n) const
 	index_i=0;
     }
   
-  if ( !length_i() || ( index_i < 0) || ( index_i >= length_i () ) || ( n < 1 ) )
+  if (!length_i() || (index_i < 0) || (index_i >= length_i () ) || (n < 1 ) )
 	return String();
 
-  if ( ( n > length_i()) ||  ( index_i + n > length_i () ) )
+  if ((n > length_i()) ||  (index_i + n > length_i () ) )
 	n = length_i() - index_i;
 
   return String (byte_C() + index_i, n);

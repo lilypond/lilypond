@@ -235,8 +235,8 @@ Lookup::big_slur (int dy , Real &dx, Direction dir) const
   mol.add (l);
   Atom a (m);
   a.translate (slur_extra * internote_f, Y_AXIS);
-  mol.add_right (m);
-  mol.add_right (r);
+  mol.add_at_edge (X_AXIS, RIGHT, m);
+  mol.add_at_edge (X_AXIS, RIGHT, r);
   mol.translate (l_dy * internote_f, Y_AXIS);
   Symbol s;
   s.tex = mol.TeX_string();

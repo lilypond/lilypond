@@ -39,6 +39,8 @@ part of the basso continuo
  
 %}
 
+\version "0.1.5";
+
 vi1=\melodic{
   \meter 4/4;
   \octave c'';
@@ -198,11 +200,11 @@ bc=\melodic{
   \meter 3/2;
   g1. | c |
 	% 30
-  f | d^"\sharp" |
+  f | d^"\textsharp" |
   g | c |
-  A | d^"\sharp" |
+  A | d^"\textsharp" |
   G | c |
-  d^"\sharp" | e |
+  d^"\textsharp" | e |
   f | g1 B2 |
   d1.^"3 4 3" |
   \meter 4/4;
@@ -211,7 +213,7 @@ bc=\melodic{
   g1^"3 4 3" | c |
   G^"3 4 3" | c2 G |
   d1^"3 4 3" | G^"3 4 3" |
-  c2 G | d1^"\sharp" ( |
+  c2 G | d1^"\textsharp" ( |
   ) d^"3 4 3" | 
   \cadenza 1;
   G\breve 
@@ -229,9 +231,9 @@ bc=\melodic{
      \output "gallina.out";
     gourlay_maxmeasures=7.;
   }
- \midi{ 
+  \midi{ 
 	\tempo 4=90;
-}
+  }
 }
 
 

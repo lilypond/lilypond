@@ -15,8 +15,8 @@
 #include "musical-request.hh"
 #include "misc.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Abbreviation_beam_engraver, Engraver);
-ADD_THIS_ENGRAVER (Abbreviation_beam_engraver);
+IMPLEMENT_IS_TYPE_B1(Abbreviation_beam_engraver, Engraver);
+ADD_THIS_TRANSLATOR(Abbreviation_beam_engraver);
 
 Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 {
@@ -87,8 +87,7 @@ Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
     return;
 
   Stem* s = (Stem*)i.elem_l_->item ();
-//  Rhythmic_req *rhythmic_req = i.req_l_->musical ()->rhythmic ();
-//  s->flag_i_ = Duration_convert::type2_i (rhythmic_req->duration_.durlog_i_);
+  
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;
   if (span_reqs_drul_[RIGHT])

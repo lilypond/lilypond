@@ -89,7 +89,7 @@ String_data::remax (int j)
   if (j > maxlen) 
     {
       Byte *p = new Byte[j + 1];	
-      memcpy (p, data_byte_p_, ( maxlen <? length_i_) + 1 );	    
+      memcpy (p, data_byte_p_, (maxlen <? length_i_) + 1 );	    
       maxlen = j;
       delete[] data_byte_p_;
       data_byte_p_ = p;
@@ -143,7 +143,7 @@ String_data::append (Byte const* byte_C, int length_i)
 
 INLINE
 void 
-String_data::operator += ( char const* ch_C) 
+String_data::operator += (char const* ch_C) 
 {
   append ((Byte const*)ch_C, strlen (ch_C) );
 }
@@ -189,7 +189,7 @@ INLINE bool
 String_data::is_binary_bo() const
 {
   //    return !memchr (data_byte_p_, length_i_, 0);
-  return ( (int)strlen ((char const*)data_byte_p_) != length_i_ );
+  return ((int)strlen ((char const*)data_byte_p_) != length_i_ );
 }
 
 INLINE Byte&

@@ -19,7 +19,6 @@
 class Command_req  : public virtual Request  {
 public:
     REQUESTMETHODS(Command_req, command);
-    virtual Group_feature_req * groupfeature() { return 0; }
     virtual Measure_grouping_req * measuregrouping() { return 0; }
     virtual Clef_change_req * clefchange() { return 0; }
     virtual Key_change_req * keychange() { return 0; }
@@ -123,14 +122,6 @@ public:
     bool do_equal_b (Request*) const;
 
     REQUESTMETHODS(Bar_req,bar);
-};
-
-class Group_feature_req  : public Command_req  {
-public:
-    String type_str_;
-    String value_str_;
-    
-    REQUESTMETHODS(Group_feature_req, groupfeature);
 };
 
 

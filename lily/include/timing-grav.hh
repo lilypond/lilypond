@@ -10,30 +10,18 @@
 #ifndef TIMING_GRAV_HH
 #define TIMING_GRAV_HH
 
-#include "engraver.hh"
-#include "time-description.hh"
-#include "grouping.hh"
-#include "parray.hh"
+#include "timing-translator.hh"
 
 /**
   Do time bookkeeping
  */
-class Timing_engraver : public Engraver
+class Timing_engraver : public Timing_translator, public Engraver
 {   
-public:
-  Time_description time_;
-  Rhythmic_grouping  default_grouping_;
-  Link_array<Timing_req> timing_req_l_arr_;
-protected: 
-  virtual void do_creation_processing ();
+protected:
   virtual void fill_staff_info (Staff_info&);
-  virtual bool do_try_request (Request *req_l);
-  virtual void do_process_requests();
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+  virtual Engraver * engraver_l () { return Engraver::engraver_l (); }
 public:
-  Meter_change_req * meter_req_l () const;
-  Timing_engraver();
+  TRANSLATOR_CLONE(Timing_engraver);
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

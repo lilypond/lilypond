@@ -46,6 +46,7 @@ Stem_engraver::do_pre_move_processing()
 {
   if (stem_p_)
     {
+      dir_ = (Direction) int(get_property ("ydirection"));
       if (dir_)
 	stem_p_->dir_ = dir_;
 
@@ -71,12 +72,5 @@ Stem_engraver::do_try_request (Request* r)
   return true;
 }
 
-void
-Stem_engraver::set_feature (Feature i)
-{
-  if (i.type_ == "vdir")	
-    dir_ = (Direction) int(i.value_);
-}
-
 IMPLEMENT_IS_TYPE_B1(Stem_engraver, Engraver);
-ADD_THIS_ENGRAVER(Stem_engraver);
+ADD_THIS_TRANSLATOR(Stem_engraver);

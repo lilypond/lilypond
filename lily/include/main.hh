@@ -14,7 +14,6 @@ void set_debug (bool);
 void do_scores();
 void add_score (Score* s);
 void set_default_output (String s);
-Input_score* current_iscore_l();
 String find_file (String);
 String get_version_str();
 String get_version_number_str();

@@ -9,15 +9,13 @@
 #include "super-elem.hh"
 #include "scoreline.hh"
 #include "debug.hh"
-#include "score-elem.hh"
-#include "bar.hh"		// needed for Bar::static_name
+#include "item.hh"
 #include "score-grav.hh"
-#include "p-col.hh"
 #include "p-score.hh"
-#include "score.hh"
 #include "musical-request.hh"
 #include "score-column.hh"
 #include "command-request.hh"
+#include "paper-def.hh"
 
 
 Score_engraver::Score_engraver()
@@ -33,6 +31,7 @@ Score_engraver::Score_engraver()
 void
 Score_engraver::prepare (Moment w)
 {
+  Global_translator::prepare (w);
   set_columns (new Score_column (w),  new Score_column (w));
   
   disallow_break_b_ = false;
@@ -210,11 +209,6 @@ Score_engraver::get_staff_info() const
   return inf;
 }
 
-Paper_def*
-Score_engraver::paper() const
-{
-  return pscore_p_->paper_l_;
-}
 
 
 Music_output*
@@ -235,6 +229,14 @@ Score_engraver::do_try_request (Request*r)
 }
 
 IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
-ADD_THIS_ENGRAVER(Score_engraver);
+ADD_THIS_TRANSLATOR(Score_engraver);
 
-  
+void
+Score_engraver::add_processing ()
+{
+  Translator_group::add_processing ();
+  assert (output_def_l_->is_type_b (Paper_def::static_name ()));
+  assert (!daddy_trans_l_);
+  pscore_p_ = new Paper_score;
+  pscore_p_->paper_l_ = (Paper_def*)output_def_l_;
+}

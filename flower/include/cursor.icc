@@ -29,7 +29,7 @@ inline
 Cursor<T>::Cursor (const List<T>& list, Link<T>* pointer) : 
   list_((List<T>&) list)
 {
-  if ( list.size())
+  if (list.size())
       pointer_ = pointer ? pointer : list.top_;
   else
       pointer_ = pointer;
@@ -38,7 +38,7 @@ Cursor<T>::Cursor (const List<T>& list, Link<T>* pointer) :
 template<class T>
 inline
 Cursor<T>::Cursor (const Cursor<T>& cursor) :
-  list_( cursor.list_)
+  list_(cursor.list_)
 {
   pointer_ = cursor.pointer_;
 }
@@ -53,7 +53,7 @@ Cursor<T>::thing()
 
 template<class T>
 Cursor<T>
-Cursor<T>::operator =( const Cursor<T>& c)
+Cursor<T>::operator =(const Cursor<T>& c)
 {   
   assert (&list_ == &c.list_);
   pointer_ = c.pointer_;
@@ -92,21 +92,21 @@ template<class T>
 inline bool
 Cursor<T>::backward() const
 {
-  return ( pointer_ != 0);
+  return (pointer_ != 0);
 }
 
 template<class T>
 inline bool
 Cursor<T>::forward() const
 {
-  return ( pointer_ != 0);
+  return (pointer_ != 0);
 }
 
 template<class T>
 inline bool
 Cursor<T>::ok() const
 {
-  return ( pointer_ != 0);
+  return (pointer_ != 0);
 }
 template<class T>
 inline void
@@ -118,7 +118,7 @@ Cursor<T>::next()
 
 template<class T>
 inline Cursor<T> 
-Cursor<T>::operator ++( int)    
+Cursor<T>::operator ++(int)    
 {
   Cursor<T> r (*this);
   next();
@@ -135,7 +135,7 @@ Cursor<T>::previous()
 
 template<class T>
 inline Cursor<T>
-Cursor<T>::operator --( int)
+Cursor<T>::operator --(int)
 {
   Cursor<T> r (*this);
   previous();

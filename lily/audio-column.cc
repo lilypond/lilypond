@@ -8,14 +8,14 @@
 
 #include "audio-column.hh"
 #include "audio-item.hh"
-#include "audio-score.hh"
+#include "performance.hh"
 
 #include "debug.hh"
 
 Audio_column::Audio_column (Moment at_mom)
 {
   at_mom_ = at_mom;
-  audio_score_l_ = 0;
+  performance_l_ = 0;
 }
 
 void
@@ -36,8 +36,10 @@ Audio_column::print() const
 {
 #ifndef NPRINT
   DOUT << "Audio_column {";
-  DOUT << "at: " << at_mom_ << "\n";
-  DOUT << "}\n";
+  DOUT << "at: " << at_mom_ << ". Contains:";
+  for (PCursor<Audio_item*> i (audio_item_l_list_.top ()); i.ok (); i++)
+    DOUT << i->name () << ", ";
+  DOUT << "\n}\n";
 #endif 
 }
 

@@ -17,7 +17,7 @@
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
-#include "input-translator.hh"
+#include "translator.hh"
 
 
 IMPLEMENT_IS_TYPE_B(Identifier);
@@ -60,7 +60,7 @@ class Class
 
 DEFAULT_PRINT(Script_id, General_script_def, script);
 DEFAULT_PRINT(Lookup_id, Lookup, lookup);
-DEFAULT_PRINT(Input_translator_id, Input_trans, input_translator);
+DEFAULT_PRINT(Translator_id, Translator, translator);
 DEFAULT_PRINT(Symtables_id, Symtables, symtables);
 DEFAULT_PRINT(Music_id,Music , music);
 DEFAULT_PRINT(Request_id, Request, request);
@@ -106,7 +106,7 @@ Idclass::accessor () {\
 	Idclass::Idclass (Class*st, int code):Identifier (code) { data_p_ = st; }\
 
 IMPLEMENT_ID_CLASS(Duration_id, Duration, duration);
-IMPLEMENT_ID_CLASS(Input_translator_id, Input_translator, input_translator);
+IMPLEMENT_ID_CLASS(Translator_id, Translator, translator);
 IMPLEMENT_ID_CLASS(Int_id, int, intid);
 IMPLEMENT_ID_CLASS(Real_id, Real, real);
 IMPLEMENT_ID_CLASS(Script_id, General_script_def, script);
@@ -124,7 +124,7 @@ Identifier::Identifier (Identifier const&)
 }
 
 DEFAULT_ACCESSOR(Duration_id, Duration, duration);
-DEFAULT_ACCESSOR(Input_translator_id,Input_translator, input_translator);
+VIRTUAL_ACCESSOR(Translator_id,Translator, translator);
 DEFAULT_ACCESSOR(Int_id, int, intid);
 DEFAULT_ACCESSOR(Real_id, Real, real);
 VIRTUAL_ACCESSOR(Script_id, General_script_def, script);

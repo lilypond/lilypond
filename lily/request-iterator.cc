@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "translator.hh"
+#include "translator-group.hh"
 #include "debug.hh"
 #include "request-iterator.hh"
 #include "music-list.hh"

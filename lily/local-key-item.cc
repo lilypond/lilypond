@@ -43,8 +43,8 @@ Local_key_item::add (int o, int p , int a)
   l.name_i_ = p;
   l.accidental_i_ = a;
   for (int i=0; i< accs.size(); i++)
-	if (!Local_acc::compare (l, accs[i]))
-	    return;
+    if (!Local_acc::compare (l, accs[i]))
+      return;
   
   accs.push (l);
 }
@@ -63,33 +63,33 @@ Local_key_item::brew_molecule_p() const
   int lastoct = -100;
   for  (int i = 0; i <  accs.size(); i++) 
     {
-	// do one octave
-	if (accs[i].octave_i_ != lastoct) 
-	  {
-	    if (octmol)
-	      {
-		Real dy =lastoct*7*paper()->internote_f ();
-		octmol->translate (dy, Y_AXIS);
-		output->add (*octmol);
-		delete octmol;
-	      }
-	    octmol= new Molecule;
-	  }
-	lastoct = accs[i].octave_i_;
-	Symbol s =paper()->lookup_l ()->accidental (accs[i].accidental_i_);   
-	Atom a (s);
-	Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
-	a.translate (dy, Y_AXIS);
+      // do one octave
+      if (accs[i].octave_i_ != lastoct) 
+	{
+	  if (octmol)
+	    {
+	      Real dy =lastoct*7*paper()->internote_f ();
+	      octmol->translate (dy, Y_AXIS);
+	      output->add (*octmol);
+	      delete octmol;
+	    }
+	  octmol= new Molecule;
+	}
+      lastoct = accs[i].octave_i_;
+      Symbol s =paper()->lookup_l ()->accidental (accs[i].accidental_i_);   
+      Atom a (s);
+      Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
+      a.translate (dy, Y_AXIS);
 
-	octmol->add_right (a);
+      octmol->add_at_edge (X_AXIS, RIGHT, a);
     }
 
   if (octmol)
     {
-	Real dy =lastoct*7*paper()->internote_f ();
-	octmol->translate (dy, Y_AXIS);
-	output->add (*octmol);
-	delete octmol;
+      Real dy =lastoct*7*paper()->internote_f ();
+      octmol->translate (dy, Y_AXIS);
+      output->add (*octmol);
+      delete octmol;
     }
 
   Interval head_width=itemlist_width (support_items_);
@@ -102,9 +102,9 @@ int
 Local_acc::compare (Local_acc&a, Local_acc&b)
 {
   if (a.octave_i_ - b.octave_i_)
-	return a.octave_i_ - b.octave_i_;
+    return a.octave_i_ - b.octave_i_;
   if (a.name_i_ - b.name_i_)
-	return a.name_i_ - b.name_i_;
+    return a.name_i_ - b.name_i_;
   
   return a.accidental_i_ - b.accidental_i_;
 };

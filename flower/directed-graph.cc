@@ -118,7 +118,7 @@ Directed_graph_node::unlink()
 	t.concat (edge_in_l_arr_);
 #endif
 
-	while ( edge_out_l_arr_.size())
+	while (edge_out_l_arr_.size())
 	    remove_edge_out_idx (0);
 	
 	while (edge_in_l_arr_.size())

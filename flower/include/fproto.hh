@@ -11,7 +11,7 @@
 char const * flower_version_sz();
 
 // what the F*** is "int" ?
-// depreciate int, long, etc., use i32, i64, remember: linux-16/linux-64 ?
+// deprecate int, long, etc., use i32, i64, remember: linux-16/linux-64 ?
 /// (i32)
 typedef int i32;
 /// (i64)
@@ -20,6 +20,8 @@ typedef long long I64;
 template<class T> struct Array;
 template<class T> struct sstack;
 template<class T,class K> struct Assoc;
+template<class T> struct Dictionary;
+template<class T> struct Dictionary_iter;
 template<class T> struct List;
 template<class T> struct Link_list;
 template<class T> struct Pointer_list;

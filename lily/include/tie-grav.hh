@@ -27,12 +27,11 @@ protected:
     virtual void acknowledge_element (Score_elem_info);
     virtual bool do_try_request (Request*);
     virtual bool acceptable_request_b (Request*);
-    virtual void sync_features();
     virtual void do_process_requests();
     virtual void do_post_move_processing();
     virtual void do_pre_move_processing();
-    virtual void set_feature (Feature);
 public:
+TRANSLATOR_CLONE(Tie_engraver);
     Tie_engraver();
     DECLARE_MY_RUNTIME_TYPEINFO;
 };

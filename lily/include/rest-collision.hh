@@ -14,11 +14,10 @@
 #include "item.hh"
 
 class Rest_collision : public Item {
-    Link_array<Rest_column> rest_l_arr_;
+    Link_array<Note_column> rest_l_arr_;
     Link_array<Note_column> ncol_l_arr_;
 public:
     void add (Note_column*);
-    void add (Rest_column*);
     DECLARE_MY_RUNTIME_TYPEINFO;
     Rest_collision();
 protected:

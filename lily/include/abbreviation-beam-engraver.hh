@@ -14,14 +14,13 @@
 #include "engraver.hh"
 #include "drul-array.hh"
 
-class Abbreviation_beam; // move me to lily-proto
-
 /**
   Generate an abbreviation beam.  Eat stems.
  */
 class Abbreviation_beam_engraver : public Engraver
 {
 public:
+  TRANSLATOR_CLONE(Abbreviation_beam_engraver);
   DECLARE_MY_RUNTIME_TYPEINFO;
 
   Abbreviation_beam_engraver();

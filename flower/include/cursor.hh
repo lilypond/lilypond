@@ -32,13 +32,13 @@ public:
   /// return current T
   T& operator *() { return thing(); }
   operator T() { return thing(); }
-  Cursor<T> operator =( const Cursor<T>& c);
+  Cursor<T> operator =(const Cursor<T>& c);
 
   /// make cursor with #no# items back
-  Cursor<T> operator -( int no) const;
+  Cursor<T> operator -(int no) const;
 
   /// make cursor with #no# items further
-  Cursor<T> operator +( int no) const;
+  Cursor<T> operator +(int no) const;
   int operator -(Cursor<T> op) const;
   Cursor<T> operator -=(int);
   Cursor<T> operator +=(int);
@@ -47,10 +47,10 @@ public:
   /// move one up.
   void previous();
   /// return current and move one down
-  Cursor<T> operator ++( int);
+  Cursor<T> operator ++(int);
     
   /// return current and move one up
-  Cursor<T> operator --( int); 
+  Cursor<T> operator --(int); 
 
   /// point to link?
   bool ok() const;

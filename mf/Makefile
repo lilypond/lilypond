@@ -12,7 +12,7 @@ include ./$(depth)/make/Include.make
 # 
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
-DISTFILES = Makefile $(MFFILES) $(TEXFILES)
+EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO
 #
 
 localinstall:

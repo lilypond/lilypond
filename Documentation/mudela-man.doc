@@ -41,7 +41,8 @@ and up-to-date definition, see \file{lily/parser.y} and
 
 As a related note, you should take a look at the examples and the init
 files, as this document does not cover every aspect of mudela yet, and
-may be out of date.
+may be out of date.\footnote{Ok, I am being pessimistic here.  This
+  just is a disclaimer.  Docs usually are written after the program itself.}
 
 
 \section{Basic elements}
@@ -49,7 +50,7 @@ may be out of date.
 \subsection{Files}
 
 The de-facto extension of Mudela is \file{.ly}. Files may be included by
-entering \verb+include+ at the start of a line:
+entering \verb+\include+ at the start of a line:
 
 \begin{verbatim}
 \include "a_file.ly"
@@ -88,8 +89,7 @@ alphabetic characters only.
 Identifiers in their normal form consist start with a backslash, a
 alpha character, followed by alpha-numerics. Identifiers can contain
 any characters (except whitespace, 
-\verb+$+ and \verb+%+), if you use this
-construct:
+ and \verb+%+), if you use this construct:
 
 \begin{verbatim}
 \$i'm_a_weird!!!identifier

@@ -24,7 +24,7 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "0.1.2";
+\version "0.1.5";
 
 \score{
 		\melodic {

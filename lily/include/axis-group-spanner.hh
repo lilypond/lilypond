@@ -11,7 +11,7 @@
 #define SPAN_AXIS_GROUP_HH
 
 #include "spanner.hh"
-#include "axis-group.hh"
+#include "axis-group-element.hh"
 
 /** An element which groups a line in a certain direction. The most
   useful example of this is the Vertical_group_spanner */

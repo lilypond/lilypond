@@ -22,7 +22,6 @@
 
 static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
-  {"alias", ALIAS},
   {"bar", BAR},
   {"cadenza", CADENZA},
   {"clear", CLEAR},
@@ -32,11 +31,9 @@ static Keyword_ent the_key_tab[]={
   {"contains", CONTAINS},
   {"duration", DURATION},
   {"absdynamic", ABSDYNAMIC},
-  {"group", GROUP},
-  {"hshift", HSHIFT},
-  {"id", ID},
   {"in", IN_T},
-  {"requesttranslator", REQUESTTRANSLATOR},
+  {"translator", TRANSLATOR},
+  {"type", TYPE},
   {"lyric", LYRIC},
   {"key", KEY},
   {"melodic" , MELODIC},
@@ -52,12 +49,12 @@ static Keyword_ent the_key_tab[]={
   {"partial", PARTIAL},
   {"paper", PAPER},
   {"plet", PLET},
+  {"property", PROPERTY},
   {"pt", PT_T},
   {"score", SCORE},
   {"script", SCRIPT},
   {"skip", SKIP},
   {"staff", STAFF},
-  {"stem", STEM},
   {"table", TABLE},
   {"spandynamic", SPANDYNAMIC}, 
   {"symboltables", SYMBOLTABLES},
@@ -73,7 +70,7 @@ static Keyword_ent the_key_tab[]={
 My_lily_lexer::My_lily_lexer()
 {
   keytable_p_ = new Keyword_table (the_key_tab);
-  identifier_assoc_p_ = new Assoc<String, Identifier*>;
+  identifier_p_dict_p_ = new Dictionary<Identifier*>;
   errorlevel_i_ = 0;
   post_quotes_b_ = false;
   note_tab_p_ = new Notename_table;
@@ -88,10 +85,10 @@ My_lily_lexer::lookup_keyword (String s)
 Identifier*
 My_lily_lexer::lookup_identifier (String s)
 {
-  if (!identifier_assoc_p_->elt_b (s))
-	return 0;
+  if (!identifier_p_dict_p_->elt_b (s))
+    return 0;
   
-  return (*identifier_assoc_p_)[s];
+  return (*identifier_p_dict_p_)[s];
 }
 
 
@@ -101,10 +98,10 @@ My_lily_lexer::set_identifier (String name_str, Identifier*i)
   Identifier *old = lookup_identifier (name_str);
   if  (old) 
     {
-	old->warning("redeclaration of \\" + name_str);
-	delete old;
+      old->warning("redeclaration of \\" + name_str);
+      delete old;
     }
-  (*identifier_assoc_p_)[name_str] = i;
+  (*identifier_p_dict_p_)[name_str] = i;
 }
 
 My_lily_lexer::~My_lily_lexer()
@@ -112,25 +109,25 @@ My_lily_lexer::~My_lily_lexer()
   delete keytable_p_;
 
   for (Assoc_iter<String,Identifier*>
-	     ai (*identifier_assoc_p_); ai.ok(); ai++) 
-	       {
-	DOUT << "deleting: " << ai.key()<<'\n';
-	delete ai.val();
+	 ai (*identifier_p_dict_p_); ai.ok(); ai++) 
+    {
+      DOUT << "deleting: " << ai.key()<<'\n';
+      delete ai.val();
     }
   delete note_tab_p_;
-  delete identifier_assoc_p_;
+  delete identifier_p_dict_p_;
 }
 void
 My_lily_lexer::print_declarations (bool init_b) const
 {
-  for (Assoc_iter<String,Identifier*> ai (*identifier_assoc_p_); ai.ok(); 
-	 ai++) 
-	   {
-	if (ai.val()->init_b_ == init_b) 
-	  {
-	    DOUT << ai.key() << '=';
-	    ai.val()->print ();
-	  }
+  for (Assoc_iter<String,Identifier*> ai (*identifier_p_dict_p_);
+       ai.ok(); ai++) 
+    {
+      if (ai.val()->init_b_ == init_b) 
+	{
+	  DOUT << ai.key() << '=';
+	  ai.val()->print ();
+	}
     }
 }
 
@@ -139,15 +136,13 @@ My_lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.empty()) 
     {
-	*mlog << "error at EOF" << s << '\n';
+      *mlog << "error at EOF" << s << '\n';
     }
   else 
     {
-	errorlevel_i_ |= 1;
- 
-	Input spot (source_file_l(),here_ch_C());
-
-	spot.error (s);
+      errorlevel_i_ |= 1;
+      Input spot (source_file_l(),here_ch_C());
+      spot.error (s);
     }
 }
 

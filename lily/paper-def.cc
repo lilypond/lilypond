@@ -14,11 +14,32 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "dimen.hh"
-#include "input-translator.hh"
 #include "assoc-iter.hh"
 #include "score-grav.hh"
 #include "p-score.hh"
 #include "main.hh"
+
+
+Paper_def::Paper_def()
+{
+  lookup_p_ = 0;
+  real_vars_p_ = new Dictionary<Real>;
+}
+
+Paper_def::~Paper_def()
+{
+  delete real_vars_p_;
+  delete lookup_p_;
+}
+
+Paper_def::Paper_def (Paper_def const&s)
+  : Music_output_def (s)
+{
+  lookup_p_ = s.lookup_p_? new Lookup (*s.lookup_p_) : 0;
+  lookup_p_->paper_l_ = this;
+  real_vars_p_ = new Dictionary<Real> (*s.real_vars_p_);
+  outfile_str_ = s.outfile_str_;
+}
 
 void
 Paper_def::set_var (String s, Real r)
@@ -77,36 +98,6 @@ Paper_def::geometric_spacing(Moment d) const
   return get_var ("basicspace") + get_var ("unitspace")  * dur_f;
 }
 
-Paper_def::Paper_def()
-{
-  itrans_p_ = 0;
-  lookup_p_ = 0;
-  real_vars_p_ = new Assoc<String,Real>;
-}
-
-Paper_def::~Paper_def()
-{
-  delete itrans_p_;
-  delete real_vars_p_;
-  delete lookup_p_;
-}
-
-Paper_def::Paper_def (Paper_def const&s)
-{
-  itrans_p_ = s.itrans_p_ ? new Input_translator (*s.itrans_p_):0;
-  lookup_p_ = s.lookup_p_? new Lookup (*s.lookup_p_) : 0;
-  lookup_p_->paper_l_ = this;
-  real_vars_p_ = new Assoc<String,Real> (*s.real_vars_p_);
-  outfile_str_ = s.outfile_str_;
-}
-
-void
-Paper_def::set (Input_translator * itrans_p)
-{
-  delete itrans_p_;
-  itrans_p_  = itrans_p;
-}
-
 void
 Paper_def::set (Lookup*l)
 {
@@ -150,10 +141,10 @@ void
 Paper_def::print() const
 {
 #ifndef NPRINT
+  Music_output_def::print ();
   DOUT << "Paper {";
   DOUT << "out: " <<outfile_str_;
   lookup_p_->print();
-  itrans_p_->print();
   for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++) 
     {
       DOUT << i.key() << "= " << i.val () << "\n";
@@ -167,22 +158,6 @@ Paper_def::lookup_l()
 {
   assert (lookup_p_);
   return lookup_p_;
-}
-
-Global_translator*
-Paper_def::get_global_translator_p() 
-{
-  if (only_midi) 
-    {
-      return 0;
-    }
-
-  Global_translator* g =  itrans_p_->get_group_engraver_p()->global_l ();
-  assert (g->is_type_b (Score_engraver::static_name()));
-  Score_engraver*grav = (Score_engraver*) g;
-  grav->pscore_p_ = new Paper_score;
-  grav->pscore_p_->paper_l_ = this;
-  return g;	  
 }
 
 IMPLEMENT_IS_TYPE_B1(Paper_def, Music_output_def);

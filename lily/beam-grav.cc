@@ -125,4 +125,4 @@ Beam_engraver::acknowledge_element (Score_elem_info i)
 } 
     
 IMPLEMENT_IS_TYPE_B1(Beam_engraver, Engraver);
-ADD_THIS_ENGRAVER(Beam_engraver);
+ADD_THIS_TRANSLATOR(Beam_engraver);

@@ -11,10 +11,10 @@
 #define HEADER_HH
 
 #include "string.hh"
-#include "assoc.hh"
+#include "dictionary.hh"
 
 
-struct Header : Assoc<String, String>
+struct Header : Dictionary<String>
 {
   String lily_id_str_;
   String TeX_string() const;

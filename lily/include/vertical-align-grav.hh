@@ -13,15 +13,16 @@
 #include "engraver.hh"
 
 class Vertical_align_engraver : public Engraver {
-    Vertical_align_spanner * valign_p_;
+  Vertical_align_spanner * valign_p_;
     
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Vertical_align_engraver();
+  TRANSLATOR_CLONE(Vertical_align_engraver);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Vertical_align_engraver();
 protected:
-   virtual void acknowledge_element (Score_elem_info);
-   virtual void do_creation_processing();
-   virtual void do_removal_processing();
+  virtual void acknowledge_element (Score_elem_info);
+  virtual void do_creation_processing();
+  virtual void do_removal_processing();
 };
 
 #endif // VERTICAL_ALIGN_GRAV_HH

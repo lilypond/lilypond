@@ -123,6 +123,7 @@ Score::print() const
 {
 #ifndef NPRINT
   DOUT << "score {\n"; 
+  music_p_ -> print ();
   for (int i=0; i < def_p_arr_.size (); i++)
     def_p_arr_[i]->print();
   DOUT << "}\n";

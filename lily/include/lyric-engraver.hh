@@ -23,6 +23,7 @@ protected:
     virtual void do_process_requests();
     virtual void do_post_move_processing();
 public:
+  TRANSLATOR_CLONE(Lyric_engraver);
     DECLARE_MY_RUNTIME_TYPEINFO;
     Lyric_engraver();
 };

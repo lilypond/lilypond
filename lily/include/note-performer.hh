@@ -15,18 +15,19 @@
 
 class Note_performer : public Performer {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  TRANSLATOR_CLONE(Note_performer);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
-    Note_performer();
+  Note_performer();
 
 protected:
-    virtual void process_requests();
+  virtual void do_process_requests();
 
-    virtual bool do_try_request (Request *req_l) ;
-    virtual void do_print() const;
+  virtual bool do_try_request (Request *req_l) ;
+  virtual void do_print() const;
 
 private:
-    Melodic_req * note_req_l_;
+  Melodic_req * note_req_l_;
 };
 
 #endif // NOTE_PERFORMER_HH

@@ -16,6 +16,7 @@
 #include "p-col.hh"
 #include "misc.hh"
 #include "beam.hh"
+#include "rest.hh"
 
 const int STEMLEN=7;
 
@@ -101,23 +102,23 @@ void
 Stem::add (Note_head *n)
 {
   n->add_dependency (this);
-  if (n->rest_b_) 
-      rest_l_arr_.push (n);
-  else 
       head_l_arr_.push (n);
-
-#if 0
-  else if (1) //why different? (n->balltype_i_) 
-      head_l_arr_.push (n);
-  else
-      whole_l_arr_.push (n);
-#endif
+}
+ 
+void
+Stem::add (Rest *r)
+{
+  rest_l_arr_.push (r);
+  r->add_dependency (this);	// ?
 }
 
 bool
 Stem::invisible_b () const
 {
-  return !head_l_arr_.size();
+  
+  return !head_l_arr_.size () || 
+    head_l_arr_[0]->balltype_i_ <= 0;
+
 }
 
 // if dir_ is set we return fake values.
@@ -244,10 +245,11 @@ Stem::do_pre_processing ()
   if (stem_bottom_f_== stem_top_f_)
     set_default_extents ();
   set_noteheads ();
-  flag_i_ = dir_*abs (flag_i_);
+  flag_i_ = dir_ * abs (flag_i_);
   transparent_b_ = invisible_b ();
   empty_b_ = invisible_b ();
 }
+
 
 Interval
 Stem::do_width () const
@@ -260,46 +262,50 @@ Stem::do_width () const
   return r;
 }
 
-Molecule
-Stem::abbrev_mol () const
-{
-  Real dy = paper ()->interbeam_f ();
-  Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim.x ().length ();
-  Real beamdy = paper ()->interline_f () / 2;
 
-  int beams_i = 0;
-  Real slope = paper ()->internote_f () / 4;
-
-  if (beam_l_) {
-    // huh?
-    slope = 2 * beam_l_->slope;
-    // ugh, rather calc from Abbreviation_req
-    beams_i = beams_right_i_ >? beams_left_i_; 
-  }
-  paper()->lookup_l ()->beam (slope, 20 PT);
-
-  Molecule beams;
-  Atom a (paper ()->lookup_l ()->beam (slope, w));
-  a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
-  // ugh
-  if (!beams_i)
-    a.translate (dy + beamdy - dir_ * dy, Y_AXIS);
-  else
-    a.translate (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
-  	
-  for (int i = 0; i < abbrev_flag_i_; i++) 
-    {
-      Atom b (a);
-      b.translate (-dir_ * dy * (beams_i + i), Y_AXIS);
-      beams.add (b);
-    }
-
-  return beams;
-}
+  
+ Molecule
+ Stem::abbrev_mol () const
+ {
+   Real dy = paper ()->interbeam_f ();
+   Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim.x ().length ();
+   Real beamdy = paper ()->interline_f () / 2;
+ 
+   int beams_i = 0;
+   Real slope = paper ()->internote_f () / 4;
+ 
+   if (beam_l_) {
+     // huh?
+     slope = 2 * beam_l_->slope;
+     // ugh, rather calc from Abbreviation_req
+     beams_i = beams_right_i_ >? beams_left_i_; 
+   }
+   paper ()->lookup_l ()->beam (slope, 20 PT);
+ 
+   Molecule beams;
+   Atom a (paper ()->lookup_l ()->beam (slope, w));
+   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
+   // ugh
+   if (!beams_i)
+     a.translate (dy + beamdy - dir_ * dy, Y_AXIS);
+   else
+     a.translate (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
+   	
+   for (int i = 0; i < abbrev_flag_i_; i++) 
+     {
+       Atom b (a);
+       b.translate (-dir_ * dy * (beams_i + i), Y_AXIS);
+       beams.add (b);
+     }
+ 
+   return beams;
+ }
 
 Molecule*
 Stem::brew_molecule_p () const 
 {
+  Molecule *mol_p =new Molecule;
+      
   Real bot  = stem_bottom_f_;
   Real top = stem_top_f_;
   
@@ -308,31 +314,32 @@ Stem::brew_molecule_p () const
   Paper_def *p =paper ();
 
   Real dy = p->internote_f ();
-  Symbol ss =p->lookup_l ()->stem (bot*dy,top*dy);
-
-  Molecule* mol_p = new Molecule;
-  if (head_l_arr_.size() && head_l_arr_[0]->balltype_i_)
-    mol_p->add (Atom (ss));
-
-  if (!beam_l_ && abs (flag_i_) > 4)
+  if (!invisible_b ())
+    {
+      Symbol ss =p->lookup_l ()->stem (bot*dy,top*dy);
+      mol_p->add (Atom (ss));
+    }
+  
+  if (!beam_l_ &&abs (flag_i_) > 4)
     {
       Symbol fl = p->lookup_l ()->flag (flag_i_);
       Molecule m (fl);
-      if (flag_i_ < -4){		
-	mol_p->add_bottom (m);
-      }
+      if (flag_i_ < -4)
+	{
+	  mol_p->add_at_edge (Y_AXIS, DOWN, m);
+	}
       else if (flag_i_ > 4) 
 	{
-	  mol_p->add_top (m);
+	  mol_p->add_at_edge (Y_AXIS, UP, m);
 	}
       else
 	assert (false); 
-      assert (!abbrev_flag_i_);
-    }
+         assert (!abbrev_flag_i_);
+ }
 
   if (abbrev_flag_i_)
     mol_p->add (abbrev_mol ());
-
+  
   mol_p->translate (stem_xoffset_f_, X_AXIS);
   return mol_p;
 }
@@ -348,8 +355,7 @@ void
 Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   Item * o_l = o->item ();
-  Item * n_l = n? n->item ():0;
-//  whole_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
+  Item * n_l = n? n->item () : 0;
   head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
-  rest_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
+  rest_l_arr_.substitute ((Rest*)o_l, (Rest*)n_l);
 }

@@ -25,23 +25,16 @@ Tie_engraver::Tie_engraver()
 }
 
 void
-Tie_engraver::sync_features()
-{
-  dir_ = Direction (int (get_feature ("vdir")));
-}
-  
-
-void
 Tie_engraver::do_post_move_processing()
 {
-  if (tie_p_ && get_staff_info().when () == end_mom_) 
+  if (tie_p_ && now_moment () == end_mom_) 
     {
-	end_tie_p_ = tie_p_;
-	end_req_l_ = req_l_;
-	end_melodic_req_l_ = melodic_req_l_;
-	tie_p_ =0;
-	req_l_ =0;
-	end_mom_ = -1;
+      end_tie_p_ = tie_p_;
+      end_req_l_ = req_l_;
+      end_melodic_req_l_ = melodic_req_l_;
+      tie_p_ =0;
+      req_l_ =0;
+      end_mom_ = -1;
     }
 }
 
@@ -55,23 +48,24 @@ bool
 Tie_engraver::do_try_request (Request*r)
 {
   if (!acceptable_request_b (r))
-	return false;
+    return false;
   if (req_l_) 
     {
-	return false;
+      return false;
     }
   req_l_ = r->musical()->tie ();
   end_mom_ = r->parent_music_l_->time_int().length ()
-	+ get_staff_info().when ();
+    + now_moment ();
   return true;
 }
 
 void
 Tie_engraver::do_process_requests()
 {
+  dir_ = (Direction) int (get_property ("ydirection"));
   if (req_l_ && ! tie_p_) 
     {
-	tie_p_ = new Tie;
+      tie_p_ = new Tie;
     }
 }
 
@@ -80,19 +74,19 @@ Tie_engraver::acknowledge_element (Score_elem_info i)
 {
   if (i.elem_l_->name() == Note_head::static_name ()) 
     {
-	if (tie_p_) 
-	  {
-	    tie_p_->set_head (LEFT, (Note_head*)i.elem_l_->item());
-	    melodic_req_l_ = i.req_l_->musical()->melodic ();
-	  }
+      if (tie_p_) 
+	{
+	  tie_p_->set_head (LEFT, (Note_head*)i.elem_l_->item());
+	  melodic_req_l_ = i.req_l_->musical()->melodic ();
+	}
 
-	if (end_tie_p_) 
-	  {
-	    end_tie_p_->set_head (RIGHT, (Note_head*)i.elem_l_->item());
-	    if (!Melodic_req::compare (*end_melodic_req_l_, *melodic_req_l_))
-		end_tie_p_->same_pitch_b_ = true;
-	    announce_element (Score_elem_info (end_tie_p_,end_req_l_));
-	  }
+      if (end_tie_p_) 
+	{
+	  end_tie_p_->set_head (RIGHT, (Note_head*)i.elem_l_->item());
+	  if (!Melodic_req::compare (*end_melodic_req_l_, *melodic_req_l_))
+	    end_tie_p_->same_pitch_b_ = true;
+	  announce_element (Score_elem_info (end_tie_p_,end_req_l_));
+	}
     }
 }
 
@@ -101,32 +95,25 @@ Tie_engraver::do_pre_move_processing()
 {
   if (end_tie_p_) 
     {
-	if (dir_)
-	    end_tie_p_->dir_ =  dir_;
+      if (dir_)
+	end_tie_p_->dir_ =  dir_;
 	
-	typeset_element (end_tie_p_);
-	end_tie_p_ =0;
-	end_req_l_ =0;
+      typeset_element (end_tie_p_);
+      end_tie_p_ =0;
+      end_req_l_ =0;
     }
- 
 }
 
 Tie_engraver::~Tie_engraver()
 {
   if (tie_p_) 
     {
-	req_l_->warning ("unended Tie");
-	delete tie_p_;
+      req_l_->warning ("unended Tie");
+      delete tie_p_;
     }
 }
 
-void
-Tie_engraver::set_feature (Feature f)
-{
-  if (f.type_ == "vdir")
-	dir_ = Direction (int (f.value_));
-}
 
 
 IMPLEMENT_IS_TYPE_B1(Tie_engraver,Engraver);
-ADD_THIS_ENGRAVER(Tie_engraver);
+ADD_THIS_TRANSLATOR(Tie_engraver);

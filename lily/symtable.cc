@@ -51,7 +51,7 @@ Symtable::lookup (String s) const
 Symtable* 
 Symtables::operator()(String s) 
 {
-  return Assoc<String, Symtable*>::operator[](s);
+  return Dictionary<Symtable*>::operator[](s);
 } 
 void
 Symtables::print() const
@@ -76,5 +76,5 @@ void
 Symtables::add (String s, Symtable*p)
 {
   p-> id_str = s;
-  Assoc<String, Symtable*>::add (s,p);
+  Dictionary<Symtable*>::add (s,p);
 }

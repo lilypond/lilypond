@@ -48,4 +48,4 @@ Staff_sym_engraver::do_removal_processing()
 
 
 IMPLEMENT_IS_TYPE_B1(Staff_sym_engraver,Engraver);
-ADD_THIS_ENGRAVER(Staff_sym_engraver);
+ADD_THIS_TRANSLATOR(Staff_sym_engraver);
