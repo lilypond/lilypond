@@ -127,9 +127,15 @@ do_one_file (String init_str, String file_str)
     My_lily_parser parser (source_l_g);
     parser.set_version_check (version_ignore_b);
     parser.parse_file (init_str, file_str);
-    exit_status_i_ |= parser.error_level_i_;
+
+    if (parser.error_level_i_)
+      {
+	exit_status_i_  = 1;
+      }
+    else
+      do_scores();
+    clear_scores ();
   }
-  do_scores();
   source_l_g = 0;
 }
 

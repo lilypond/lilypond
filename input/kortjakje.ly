@@ -59,7 +59,7 @@ begeleiding = \melodic{
 }
 
 \score{
-	\melodic \type Grandstaff =  <
+	\melodic \type Grandstaff <
 		\melodie
 		\begeleiding 
 	>

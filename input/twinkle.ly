@@ -10,10 +10,11 @@ composers =	 "Traditional";
 enteredby =	 "HWN & JCN";
 copyright =	 "public domain";
 }
-%{
-Tested Features: lyrics
 
+%{
+Tested Features: lyrics, interleaving lyrics and staffs
 %}
+
 \version "0.1.7";
 
 melody = \melodic{
@@ -122,19 +123,17 @@ textiii = \lyric{
 
 \score{
 	< 
-		\type Grandstaff <
-			< \global 
-			  \melody >
-			< \global 
-			\accompany >
-		>
-		
-		% ugh
-		\lyric \type Lyrics < 
+		\lyric \type Lyrics = top < 
 			\global \tekst >
-		\lyric \type Lyrics <  \global
+
+		\type Staff=treb < \global 
+			  \melody >
+		\lyric \type Lyrics  = "Middle" <  \global
 			\texte >
-		\lyric \type Lyrics < \global
+		\type Staff=bass	< \global 
+			\accompany >
+		% ugh
+		\lyric \type Lyrics  = bottomlyrics < \global
 			\texti \textii \textiii >
 		
 	>
