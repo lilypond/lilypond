@@ -6,27 +6,23 @@
 
 #ifndef BAR_HH
 #define BAR_HH
-#include "item.hh"
+
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /**
   A vertical bar.
  */
-class Bar:public Item
+class Bar
 {
 public:
-  VIRTUAL_COPY_CONS(Score_element);
-  Bar(SCM);
-
-  Molecule compound_barline (String, Real height) const;
-  Molecule simple_barline (Real wid, Real height) const;      
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);
+  static Molecule compound_barline (Score_element*, String, Real height) ;
+  static Molecule simple_barline (Score_element*, Real wid, Real height) ;      
+  static SCM get_staff_bar_size (SCM);
   static SCM brew_molecule (SCM);
-  
-
-public:
-  SCM member_before_line_breaking ();
   static SCM before_line_breaking (SCM);
-
-  virtual Real get_bar_size () const;
 };
 #endif // BAR_HH
 

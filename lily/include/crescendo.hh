@@ -21,6 +21,7 @@ struct Crescendo
 public:
   static SCM brew_molecule (SCM);
   static void set_interface(Score_element*);
+  static bool has_interface (Score_element*);
 };
 
 #endif // CRESCENDO_HH

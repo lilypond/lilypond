@@ -34,7 +34,7 @@ public:
   static Slice head_positions_interval(Score_element* me) ;
   static Direction static_dir (Score_element*);
   void translate_rests(int dy);
-  Rhythmic_head * first_head ()const;
+  Score_element * first_head ()const;
   Interval rest_dim ()const ;
   Note_column (SCM);
   void set_stem (Score_element*);
@@ -42,7 +42,9 @@ public:
   void add_head (Score_element*);
   bool rest_b () const;
 
-  Stem *stem_l()const;
+  static bool has_interface (Score_element*);
+
+  Item *stem_l()const;
 };
 
 #endif // NOTE_COLUMN_HH

@@ -23,6 +23,7 @@ class  Rest
 {
 public:
   static SCM after_line_breaking (SCM);
+  static bool has_interface (Score_element*);
   static SCM brew_molecule (SCM);
 };
 #endif // REST_HH

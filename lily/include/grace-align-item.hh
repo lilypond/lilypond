@@ -11,16 +11,14 @@
 #define GRACE_ALIGN_ITEM_HH
 
 
-#include "item.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
-class Grace_align_item : public Item
+class Grace_align_item
 {
 public:
-  VIRTUAL_COPY_CONS (Score_element);
-  Grace_align_item (SCM);
-
-
-  SCM member_before_line_breaking ();
+  static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static SCM before_line_breaking (SCM);
 };
 #endif /* GRACE_ALIGN_ITEM_HH */

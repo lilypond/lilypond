@@ -10,7 +10,7 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "axis-group-interface.hh"
-#include "dimension-cache.hh"
+
 #include "engraver-group-engraver.hh"
 
 Axis_group_engraver::Axis_group_engraver ()
@@ -22,8 +22,8 @@ void
 Axis_group_engraver::do_creation_processing ()
 {
   staffline_p_ = get_spanner_p ();
-  Axis_group_interface (staffline_p_).set_interface ();
-  Axis_group_interface (staffline_p_).set_axes (Y_AXIS, Y_AXIS);
+  Axis_group_interface::set_interface (staffline_p_);
+  Axis_group_interface::set_axes (staffline_p_, Y_AXIS, Y_AXIS);
 
   Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
   Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
@@ -84,9 +84,9 @@ Axis_group_engraver::process_acknowledged ()
     {
       Score_element *par = elts_[i]->parent_l (Y_AXIS);
 
-      if ((!par || !Axis_group_interface (par).has_interface_b ())
+      if ((!par || !Axis_group_interface::has_interface (par))
 	  && ! elts_[i]->empty_b (Y_AXIS))
-	Axis_group_interface (staffline_p_).add_element (elts_[i]);
+	Axis_group_interface::add_element (staffline_p_, elts_[i]);
     }
   elts_.clear ();
 }

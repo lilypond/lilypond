@@ -22,9 +22,9 @@ Group_interface::Group_interface (Score_element const *e, String s)
   name_ = s;
 } 
 bool
-Group_interface::has_interface_b () 
+Group_interface::has_interface () 
 {
-  SCM el = elt_l_->get_elt_property (name_);
+  SCM el = elt_l_->get_elt_property (name_.ch_C());
 
   return el == SCM_EOL || gh_pair_p (el);
 }
@@ -34,24 +34,23 @@ Group_interface::has_interface_b ()
 void
 Group_interface::add_thing (SCM s)
 {
-  elt_l_->set_elt_property (name_,
-			    gh_cons (s, elt_l_->get_elt_property (name_)));
-
+  elt_l_->set_elt_property (name_.ch_C (),
+ 			    gh_cons (s, elt_l_->get_elt_property (name_.ch_C())));
 }
 
 
 int
 Group_interface::count ()
 {
-  return scm_ilength (elt_l_->get_elt_property (name_));
+  return scm_ilength (elt_l_->get_elt_property (name_.ch_C()));
 }
 
 void
 Group_interface::set_interface ()
 {
-  if (!has_interface_b ())
+  if (!has_interface ())
     {
-      elt_l_->set_elt_property (name_, SCM_EOL);
+      elt_l_->set_elt_property (name_.ch_C (), SCM_EOL);
     }
 }
 

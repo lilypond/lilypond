@@ -18,12 +18,12 @@
 void
 Crescendo::set_interface (Score_element*s)
 {
-  s->set_elt_pointer ("dynamic-drul", gh_cons (SCM_UNDEFINED, SCM_UNDEFINED));
+  s->set_elt_property ("dynamic-drul", gh_cons (SCM_UNDEFINED, SCM_UNDEFINED));
 }
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Crescendo,brew_molecule);
+MAKE_SCHEME_CALLBACK(Crescendo,brew_molecule);
 SCM
 Crescendo::brew_molecule (SCM smob) 
 {

@@ -16,7 +16,7 @@ Directional_element_interface::Directional_element_interface (Score_element cons
 }
 
 bool
-Directional_element_interface::has_interface_b () const
+Directional_element_interface::has_interface () const
 {
   return isdir_b (elt_l_->get_elt_property ("direction"));
 }

@@ -7,7 +7,7 @@
 */
 
 #include "debug.hh"
-#include "dimension-cache.hh"
+
 #include "line-of-score.hh"
 #include "item.hh"
 #include "score-engraver.hh"
@@ -158,12 +158,12 @@ Score_engraver::typeset_all()
 	  if (!elem_p->parent_l (X_AXIS))
 	    {
 	      bool br = to_boolean (elem_p->get_elt_property ("breakable"));
-	      Axis_group_interface gi ((br) ? command_column_l_ : musical_column_l_) ;
-	      gi.add_element(elem_p);
+	      Axis_group_interface::add_element (br ? command_column_l_ : musical_column_l_, elem_p);
+
 	    }
 	}
       if (!elem_p->parent_l(Y_AXIS))
-	Axis_group_interface (scoreline_l_).add_element (elem_p);
+	Axis_group_interface::add_element (scoreline_l_, elem_p);
     }
   elem_p_arr_.clear();
 }
@@ -266,5 +266,7 @@ Score_engraver::do_add_processing ()
   assert (!daddy_trans_l_);
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
+
+  pscore_p_->typeset_line (new Line_of_score (get_property(ly_symbol2scm ("basicLineOfScoreProperties"))));
 }
 

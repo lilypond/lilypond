@@ -9,7 +9,7 @@
 
 #include "main.hh"
 #include "dimensions.hh"
-#include "dimension-cache.hh"
+#include "score-element.hh"
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -17,65 +17,56 @@
 #include "lookup.hh"
 #include "debug.hh"
 #include "all-font-metrics.hh"
+#include "item.hh"
+#include "staff-symbol-referencer.hh"
 
-Bar::Bar (SCM s)
-  : Item (s)
-{
-}
-
-
-Real
-Bar::get_bar_size () const
-{
-  // Never called!
-  return 0;
-}
-
+MAKE_SCHEME_CALLBACK(Bar,brew_molecule);
 
 SCM 
 Bar::brew_molecule (SCM smob) 
 {
-  Score_element * self = unsmob_element (smob);
-  Bar * fly = dynamic_cast<Bar*> (self);
-  SCM s = self->get_elt_property ("glyph");
-  if (gh_string_p (s))
+  Score_element * me = unsmob_element (smob);
+
+  SCM s = me->get_elt_property ("glyph");
+  SCM barsiz_proc = me->get_elt_property ("barsize-procedure");
+  if (gh_string_p (s) && gh_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
-      return fly->compound_barline (str, fly->get_bar_size ()).create_scheme ();
+      SCM siz = gh_call1 (barsiz_proc, me->self_scm_);
+      return compound_barline (me, str, gh_scm2double (siz)).create_scheme ();
     }
   return SCM_EOL;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Bar,brew_molecule);
 
 Molecule
-Bar::compound_barline (String str, Real h) const
+Bar::compound_barline (Score_element*me, String str, Real h)
 {
-  Real kern = gh_scm2double (get_elt_property ("kern"));
-  Real thinkern = gh_scm2double (get_elt_property ("thin-kern"));
-  Real hair = gh_scm2double (get_elt_property ("hair-thickness"));
-  Real fatline = gh_scm2double (get_elt_property ("thick-thickness"));
+  Real kern = gh_scm2double (me->get_elt_property ("kern"));
+  Real thinkern = gh_scm2double (me->get_elt_property ("thin-kern"));
+  Real hair = gh_scm2double (me->get_elt_property ("hair-thickness"));
+  Real fatline = gh_scm2double (me->get_elt_property ("thick-thickness"));
 
-  Real staffline = paper_l ()->get_var ("stafflinethickness");
+  Real staffline = me->paper_l ()->get_var ("stafflinethickness");
 
   kern *= staffline;
   thinkern *= staffline;
   hair *= staffline;
   fatline *= staffline;
   
-  Molecule thin = simple_barline (hair, h);
-  Molecule thick = simple_barline (fatline, h);
-  Molecule colon = lookup_l ()->afm_find ("dots-repeatcolon");  
+  Molecule thin = simple_barline (me, hair, h);
+  Molecule thick = simple_barline (me, fatline, h);
+  Molecule colon = me->lookup_l ()->afm_find ("dots-repeatcolon");  
 
   Molecule m;
   
   if (str == "")
     {
-      return lookup_l ()->blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
+      return me->lookup_l ()->blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
     }
   if (str == "scorepostbreak")
     {
-      return simple_barline (paper_l ()->get_var ("barthick_score"), h);
+      return simple_barline (me, me->paper_l ()->get_var ("barthick_score"), h);
     }
   else if (str == "|")
     {
@@ -126,19 +117,22 @@ Bar::compound_barline (String str, Real h) const
 
 
 Molecule
-Bar::simple_barline (Real w, Real h) const
+Bar::simple_barline (Score_element*me,Real w, Real h) 
 {
-  return lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
+MAKE_SCHEME_CALLBACK(Bar,before_line_breaking );
 
-GLUE_SCORE_ELEMENT(Bar,before_line_breaking );
 SCM
-Bar::member_before_line_breaking  ()
+Bar::before_line_breaking  (SCM smob)
 {
-  SCM g = get_elt_property ("glyph");
+  Score_element*me=unsmob_element (smob);
+  Item * item = dynamic_cast<Item*> (me);
+  
+  SCM g = me->get_elt_property ("glyph");
   SCM orig = g;
-  Direction bsd = break_status_dir ();
+  Direction bsd = item->break_status_dir ();
   if (gh_string_p (g))
     {
       if (bsd)
@@ -157,15 +151,42 @@ Bar::member_before_line_breaking  ()
   
   if (!gh_string_p (g))
     {
-      set_elt_property ("molecule-callback", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
+      me->set_elt_property ("molecule-callback", SCM_BOOL_T);
+      me->set_extent_callback (0, X_AXIS);
       // leave y_extent for spanbar? 
     }
   else if (! gh_equal_p  (g, orig))
-    set_elt_property ("glyph", g);
+    me->set_elt_property ("glyph", g);
 
 
   return SCM_UNDEFINED;
 }
   
+void
+Bar::set_interface (Score_element*me)
+{
+  me->set_elt_property ("interfaces",
+			gh_cons (ly_symbol2scm ("bar-interface"), me->get_elt_property ("interfaces")));
+}
 
+bool
+Bar::has_interface (Score_element*m)
+{
+  return m && m->has_interface (ly_symbol2scm ("bar-interface"));
+}
+
+
+MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size);
+SCM
+Bar::get_staff_bar_size (SCM smob) 
+{
+  Score_element*me = unsmob_element (smob);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  SCM size = me->get_elt_property ("bar-size");
+  if (gh_number_p (size))
+    return gh_double2scm (gh_scm2double(size)*ss);
+  else
+    {
+      return gh_double2scm ((Staff_symbol_referencer::line_count (me) -1) * ss);
+    }
+}

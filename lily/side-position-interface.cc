@@ -9,46 +9,40 @@
 #include <math.h>		// ceil.
 
 #include "side-position-interface.hh"
-#include "staff-symbol.hh"
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
-#include "dimension-cache.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "group-interface.hh"
 
-Side_position_interface::Side_position_interface (Score_element const *e)
-{
-  elt_l_ = (Score_element*)e;
-}
-
 void
-Side_position_interface::add_support (Score_element*e)
+Side_position::add_support (Score_element*me, Score_element*e)
 {
-  Pointer_group_interface (elt_l_, "side-support-elements").add_element (e);
+  Pointer_group_interface (me, "side-support-elements").add_element (e);
 }
 
 
 
 Direction
-Side_position_interface::get_direction () const
+Side_position::get_direction (Score_element*me)
 {
-  SCM d = elt_l_->get_elt_property ("direction");
+  SCM d = me->get_elt_property ("direction");
   if (isdir_b (d))
     return to_dir (d) ? to_dir (d) : DOWN;
 
   Direction relative_dir = UP;
-  SCM reldir = elt_l_->get_elt_property ("side-relative-direction");	// should use a lambda.
+  SCM reldir = me->get_elt_property ("side-relative-direction");	// should use a lambda.
   if (isdir_b (reldir))
     {
       relative_dir = to_dir (reldir);
     }
   
-  SCM other_elt = elt_l_->get_elt_pointer ("direction-source");
+  SCM other_elt = me->get_elt_property ("direction-source");
   Score_element * e = unsmob_element(other_elt);
   if (e)
     {
-      return (Direction)(relative_dir * Side_position_interface (e).get_direction ());
+      return (Direction)(relative_dir * Side_position::get_direction (e));
     }
   
   return DOWN;
@@ -59,11 +53,11 @@ Side_position_interface::get_direction () const
  */
 
 Real
-Side_position_interface::side_position (Score_element *cme, Axis axis)
+Side_position::side_position (Score_element *cme, Axis axis)
 {
   Score_element* me = (Score_element*)cme;
   Score_element *common = me->parent_l (axis);
-  SCM support = me->get_elt_pointer ("side-support-elements");
+  SCM support = me->get_elt_property ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
       Score_element * e  = unsmob_element (gh_car (s));
@@ -89,7 +83,7 @@ Side_position_interface::side_position (Score_element *cme, Axis axis)
       dim = Interval(0,0);
     }
 
-  Direction dir = Side_position_interface (me).get_direction ();
+  Direction dir = Side_position::get_direction (me);
     
   Real off =  me->parent_l (axis)->relative_coordinate (common, axis);
   SCM minimum = me->remove_elt_property ("minimum-space");
@@ -114,13 +108,13 @@ Side_position_interface::side_position (Score_element *cme, Axis axis)
   callback that centers the element on itself
  */
 Real
-Side_position_interface::aligned_on_self (Score_element *elm, Axis ax)
+Side_position::aligned_on_self (Score_element *elm, Axis ax)
 {
   String s ("self-alignment-");
 
   s +=  (ax == X_AXIS) ? "X" : "Y";
 
-  SCM align (elm->get_elt_property (s));
+  SCM align (elm->get_elt_property (s.ch_C()));
   if (isdir_b (align))
     {
       Direction d = to_dir (align);
@@ -156,15 +150,13 @@ directed_round (Real f, Direction d)
   Callback that quantises in staff-spaces, rounding in the direction
   of the elements "direction" elt property. */
 Real
-Side_position_interface::quantised_position (Score_element *me, Axis a)
+Side_position::quantised_position (Score_element *me, Axis )
 {
-  Side_position_interface s(me);
-  Direction d = s.get_direction ();
+  Direction d = Side_position::get_direction (me);
 
-  if (Staff_symbol_referencer_interface::has_interface_b (me))
+  if (Staff_symbol_referencer::has_interface (me))
     {
-      Staff_symbol_referencer_interface si (me);
-      Real p = si.position_f ();
+      Real p = Staff_symbol_referencer::position_f (me);
       Real rp = directed_round (p, d);
 
       int ip = int  (rp);
@@ -174,7 +166,7 @@ Side_position_interface::quantised_position (Score_element *me, Axis a)
 	  rp += d;
 	}
 
-      return (rp - p) * si.staff_space () / 2.0;
+      return (rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0;
     }
   return 0.0;
 }
@@ -183,10 +175,10 @@ Side_position_interface::quantised_position (Score_element *me, Axis a)
   Position next to support, taking into account my own dimensions and padding.
  */
 Real
-Side_position_interface::aligned_side (Score_element *me, Axis ax)
+Side_position::aligned_side (Score_element *me, Axis ax)
 {
-  Side_position_interface s(me);
-  Direction d = s.get_direction ();
+  
+  Direction d = Side_position ::get_direction (me);
   Real o = side_position (me,ax);
 
   Interval iv =  me->extent (ax);
@@ -206,7 +198,7 @@ Side_position_interface::aligned_side (Score_element *me, Axis ax)
   Position centered on parent.
  */
 Real
-Side_position_interface::centered_on_parent (Score_element * me, Axis a)
+Side_position::centered_on_parent (Score_element * me, Axis a)
 {
   Score_element *him = me->parent_l (a);
 
@@ -215,38 +207,34 @@ Side_position_interface::centered_on_parent (Score_element * me, Axis a)
 
 
 void
-Side_position_interface::add_staff_support ()
+Side_position::add_staff_support (Score_element*me)
 {
-  Staff_symbol_referencer_interface si (elt_l_);
-  if (si.staff_symbol_l ())
+  Score_element* st = Staff_symbol_referencer::staff_symbol_l (me);
+  if (st)
     {
-      add_support (si.staff_symbol_l ());
+      add_support (me,st);
     }
 }
 
 void
-Side_position_interface::set_axis (Axis a)
+Side_position::set_axis (Score_element*me, Axis a)
 {
   // prop transparent ? 
-  if (elt_l_->get_elt_pointer ("side-support-elements") == SCM_UNDEFINED)
-    elt_l_->set_elt_pointer ("side-support-elements" ,SCM_EOL);
+  if (me->get_elt_property ("side-support-elements") == SCM_UNDEFINED)
+    me->set_elt_property ("side-support-elements" ,SCM_EOL);
 
-  if (!elt_l_->has_offset_callback_b (aligned_side, a))
-    elt_l_->add_offset_callback (aligned_side, a);
+  if (!me->has_offset_callback_b (aligned_side, a))
+    me->add_offset_callback (aligned_side, a);
 }
 
 
-void
-Side_position_interface::set_quantised (Axis a)
-{
-  elt_l_->add_offset_callback (quantised_position, a);
-}
+
 
 Axis
-Side_position_interface::get_axis () const
+Side_position::get_axis (Score_element*me)
 {
-  if (elt_l_->has_offset_callback_b (&side_position, X_AXIS)
-      || elt_l_->has_offset_callback_b (&aligned_side , X_AXIS))
+  if (me->has_offset_callback_b (&side_position, X_AXIS)
+      || me->has_offset_callback_b (&aligned_side , X_AXIS))
     return X_AXIS;
 
   
@@ -254,33 +242,33 @@ Side_position_interface::get_axis () const
 }
 
 void
-Side_position_interface::set_direction (Direction d) 
+Side_position::set_direction (Score_element*me, Direction d)
 {
-  elt_l_->set_elt_property ("direction", gh_int2scm (d));
+  me->set_elt_property ("direction", gh_int2scm (d));
 }
 
 void
-Side_position_interface::set_minimum_space (Real m)
+Side_position::set_minimum_space (Score_element*me, Real m)
 {
-  elt_l_->set_elt_property ("minimum-space", gh_double2scm (m));
+  me->set_elt_property ("minimum-space", gh_double2scm (m));
 }
 
 void
-Side_position_interface::set_padding (Real p)
+Side_position::set_padding (Score_element*me, Real p)
 {
-  elt_l_->set_elt_property ("padding", gh_double2scm (p));
+  me->set_elt_property ("padding", gh_double2scm (p));
 }
 
 bool
-Side_position_interface::has_interface_b () const
+Side_position::has_interface (Score_element*me) 
 {
-  return elt_l_->get_elt_pointer ("side-support-elements") != SCM_UNDEFINED;
+  return me->get_elt_property ("side-support-elements") != SCM_UNDEFINED;
 }
 
 bool
-Side_position_interface::supported_b () const
+Side_position::supported_b (Score_element*me) 
 {
-  SCM s =elt_l_->get_elt_pointer  ("side-support-elements"); 
+  SCM s =me->get_elt_property  ("side-support-elements"); 
   return s != SCM_UNDEFINED && s != SCM_EOL;
 }
 

@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include "bar.hh"
 #include "command-request.hh"
-#include "dimension-cache.hh"
+#include "staff-symbol.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "lily-guile.hh"
@@ -18,7 +18,6 @@
 #include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "staff-symbol.hh"
 #include "item.hh"
 #include "group-interface.hh"
 
@@ -36,7 +35,6 @@ protected:
   Protected_scm staffs_;
   
 protected:
-  virtual void do_creation_processing ();
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
   void create_items(Request*);
@@ -58,21 +56,17 @@ Mark_engraver::Mark_engraver ()
   staffs_ = SCM_EOL;
 }
 
-void
-Mark_engraver::do_creation_processing ()
-{
-}
 
 
 void
 Mark_engraver::acknowledge_element (Score_element_info inf)
 {
   Score_element * s = inf.elem_l_;
-  if (dynamic_cast<Staff_symbol*> (s))
+  if (Staff_symbol::has_interface (s))
     {
       staffs_ = gh_cons (inf.elem_l_->self_scm_, staffs_);
     }
-  else if (text_p_ && dynamic_cast<Bar*> (s))
+  else if (text_p_ && Bar::has_interface (s))
     {
       /*
 	Ugh. Figure out how to do this right at beginning of line, (without
@@ -87,7 +81,7 @@ Mark_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_pointer("side-support-elements" , staffs_);
+      text_p_->set_elt_property("side-support-elements" , staffs_);
       typeset_element (text_p_);
       text_p_ =0;
     }
@@ -103,9 +97,8 @@ Mark_engraver::create_items (Request *rq)
   SCM s = get_property ("basicMarkProperties");
   text_p_ = new Item (s);
 
-  Group_interface (text_p_, "interfaces").add_thing (ly_symbol2scm ("Mark"));
-  Side_position_interface staffside(text_p_);
-  staffside.set_axis (Y_AXIS);
+
+  Side_position::set_axis (text_p_, Y_AXIS);
 
   /*
     -> Generic props.

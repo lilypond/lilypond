@@ -22,9 +22,9 @@ Pointer_group_interface::Pointer_group_interface (Score_element const *e, String
   name_ = s;
 } 
 bool
-Pointer_group_interface::has_interface_b () 
+Pointer_group_interface::has_interface () 
 {
-  SCM el = elt_l_->get_elt_pointer (name_.ch_C());
+  SCM el = elt_l_->get_elt_property (name_.ch_C());
 
   return el == SCM_EOL || gh_pair_p (el);
 }
@@ -33,23 +33,23 @@ Pointer_group_interface::has_interface_b ()
 void
 Pointer_group_interface::add_element (Score_element*p) 
 {
-  elt_l_->set_elt_pointer (name_.ch_C(),
+  elt_l_->set_elt_property (name_.ch_C(),
 			   gh_cons (p->self_scm_,
-				    elt_l_->get_elt_pointer (name_.ch_C())));
+				    elt_l_->get_elt_property (name_.ch_C())));
 }
 
 int
 Pointer_group_interface::count ()
 {
-  return scm_ilength (elt_l_->get_elt_pointer (name_.ch_C()));
+  return scm_ilength (elt_l_->get_elt_property (name_.ch_C()));
 }
 
 void
 Pointer_group_interface::set_interface ()
 {
-  if (!has_interface_b ())
+  if (!has_interface ())
     {
-      elt_l_->set_elt_pointer (name_.ch_C(), SCM_EOL);
+      elt_l_->set_elt_property (name_.ch_C(), SCM_EOL);
     }
 } 
 

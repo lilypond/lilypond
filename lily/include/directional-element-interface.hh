@@ -21,7 +21,7 @@ public:
   Directional_element_interface (Score_element const *);
   void set  (Direction d);
   Direction get () const;
-  bool has_interface_b () const;
+  bool has_interface () const;
   // bool set_interface ();
 };
 

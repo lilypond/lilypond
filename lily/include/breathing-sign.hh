@@ -22,6 +22,7 @@ public:
   static SCM brew_molecule (SCM);
   static Real offset_callback (Score_element *, Axis);
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
 };
 
 #endif // BREATHING_SIGN_HH

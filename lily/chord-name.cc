@@ -124,7 +124,7 @@ Chord_name::ly_text2molecule (Score_element * me, SCM text)
   return mol;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Chord_name,brew_molecule);
+MAKE_SCHEME_CALLBACK(Chord_name,brew_molecule);
 
 SCM
 Chord_name::brew_molecule (SCM smob) 

@@ -1,3 +1,4 @@
+#if 0
 /*   
   score-element-callback.cc --  implement Callback smob.
   
@@ -52,3 +53,4 @@ smobify_callback (Score_element_callback cb )
 }
   
 ADD_SCM_INIT_FUNC(callback, start_callback_smobs);
+#endif

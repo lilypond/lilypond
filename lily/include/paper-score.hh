@@ -21,10 +21,9 @@
      #Paper_score# contains the items, the columns.
     
     */
-
 class Paper_score : public Music_output
 {
-  SCM element_smob_list_;
+  SCM main_smob_;
 public:
   Paper_def *paper_l_;
 

@@ -5,40 +5,72 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
+
 #include <math.h>
 #include <libc-extension.hh>
 
 #include "side-position-interface.hh"
+#include "axis-group-interface.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
 #include "break-align-item.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
-
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-GLUE_SCORE_ELEMENT(Break_align_item,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Break_align_item,before_line_breaking);
+
 SCM
-Break_align_item::member_before_line_breaking ()
+Break_align_item::before_line_breaking (SCM smob)
 {
-  if (break_status_dir() == LEFT)
+  Score_element* me = unsmob_element (smob);
+  do_alignment (me);
+  return SCM_UNDEFINED;
+}
+
+Real
+Break_align_item::alignment_callback (Score_element*c, Axis a)
+{
+  assert (a == X_AXIS);
+  Score_element *par = c->parent_l (a);
+  if (par && !to_boolean (par->get_elt_property ("break-alignment-done")))\
     {
-      set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
+      par->set_elt_property ("break-alignment-done", SCM_BOOL_T);
+      Break_align_item::do_alignment (par);
+    }
+    
+  return 0.0;
+}
+
+void
+Break_align_item::add_element (Score_element*me, Score_element *toadd)
+{
+  toadd->add_offset_callback (alignment_callback, X_AXIS);
+  Axis_group_interface::add_element (me, toadd);
+}
+
+void
+Break_align_item::do_alignment (Score_element *me)
+{
+  Item * item = dynamic_cast<Item*> (me);
+  Item *column = item->column_l ();
+  if (item->break_status_dir() == LEFT)
+    {
+      me->set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
     }
   else
     {
-      add_offset_callback (Align_interface::center_on_element, X_AXIS);
+      me->add_offset_callback (Align_interface::center_on_element, X_AXIS);
     }
-  
 
-
-  Real interline= paper_l ()->get_var ("interline");	
+  Real interline= me->paper_l ()->get_var ("interline");	
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems
-    = Pointer_group_interface__extract_elements (this, (Score_element*)0,
-					 "elements");
+    = Pointer_group_interface__extract_elements (me, (Score_element*)0,
+						 "elements");
   
   for (int i=0; i < all_elems.size(); i++) 
     {
@@ -48,7 +80,7 @@ Break_align_item::member_before_line_breaking ()
     }
   
   if (!elems.size ())
-    return SCM_UNDEFINED;
+    return;
 
   SCM symbol_list = SCM_EOL;
   Array<Real> dists;
@@ -104,8 +136,7 @@ Break_align_item::member_before_line_breaking ()
   symbol_list  = gh_cdr (scm_reverse (symbol_list));
   for (int i=0; i <elems.size()-1; i++)
     {
-      String sym_str = ly_symbol2string (gh_car  (symbol_list));
-      elems[i]->set_elt_property (sym_str,
+      elems[i]->set_elt_property (gh_car  (symbol_list),
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
@@ -126,9 +157,10 @@ Break_align_item::member_before_line_breaking ()
 
   /*
     Force callbacks for alignment to be called   
-   */
-  Real unused =  elems[0]->relative_coordinate (this, X_AXIS);
-  Real pre_space = elems[0]->relative_coordinate (column_l (), X_AXIS);
+  */
+  Align_interface::do_side_processing (me, X_AXIS);
+
+  Real pre_space = elems[0]->relative_coordinate (column, X_AXIS);
 
   Real xl = elems[0]->extent (X_AXIS)[LEFT];
   if (!isinf (xl))
@@ -137,7 +169,7 @@ Break_align_item::member_before_line_breaking ()
     programming_error ("Infinity reached. ");
 
   Real xr = elems.top ()->extent (X_AXIS)[RIGHT];
-  Real spring_len = elems.top ()->relative_coordinate (column_l (), X_AXIS);
+  Real spring_len = elems.top ()->relative_coordinate (column, X_AXIS);
   if (!isinf (xr))
     spring_len += xr;
   else
@@ -161,25 +193,23 @@ Break_align_item::member_before_line_breaking ()
 
     The pairs are in the format of an interval (ie. CAR <  CDR).
   */
-  column_l ()->set_elt_property ("extra-space",
-				 scm_cons (gh_double2scm (pre_space),
-					   gh_double2scm (spring_len)));
+  column->set_elt_property ("extra-space",
+			    scm_cons (gh_double2scm (pre_space),
+				      gh_double2scm (spring_len)));
 
-  column_l ()->set_elt_property ("stretch-distance",
-				 gh_cons (gh_double2scm (-dists[0]),
-					  gh_double2scm (stretch_distance)));
+  column->set_elt_property ("stretch-distance",
+			    gh_cons (gh_double2scm (-dists[0]),
+				     gh_double2scm (stretch_distance)));
 
 
-  return SCM_UNDEFINED;
 }
 
-Break_align_item::Break_align_item (SCM s)
-  : Item (s)
+
+void
+Break_align_item::set_interface (Score_element*me)
 {
-  set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
+  Align_interface::set_interface (me); 
+  Align_interface::set_axis (me,X_AXIS);
 
-  Align_interface (this).set_interface (); 
-  Align_interface (this).set_axis (X_AXIS);
-
-  add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
+  me->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
 }

@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 #
-# TODO: CLEAN THIS UP.
+# TODO: CLEAN THIS UP, merge packagepython.py and release.py 
 #
 
 

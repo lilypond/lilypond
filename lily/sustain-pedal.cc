@@ -33,7 +33,7 @@ public:
 };
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Sustain_pedal,brew_molecule);
+MAKE_SCHEME_CALLBACK(Sustain_pedal,brew_molecule);
 
 SCM
 Sustain_pedal::brew_molecule (SCM smob) 

@@ -8,7 +8,7 @@
 
 #include "note-column.hh"
 #include "collision.hh"
-#include "dimension-cache.hh"
+
 #include "engraver.hh"
 #include "axis-group-interface.hh"
 
@@ -37,14 +37,14 @@ Collision_engraver::process_acknowledged ()
   if (!col_p_) 
     {
       col_p_ = new Item (get_property ("basicCollisionProperties"));
-      Axis_group_interface (col_p_).set_interface ();
-      Axis_group_interface (col_p_).set_axes (X_AXIS, Y_AXIS);
+      Axis_group_interface::set_interface (col_p_);
+      Axis_group_interface::set_axes (col_p_, X_AXIS, Y_AXIS);
 
       announce_element (Score_element_info (col_p_,0));
     }
   
   for (int i=0; i< note_column_l_arr_.size (); i++)
-    Collision (col_p_).add_column (note_column_l_arr_[i]);
+    Collision::add_column (col_p_,note_column_l_arr_[i]);
 }
 
 void

@@ -158,7 +158,10 @@ fugaIIPedal = \notes \relative c {
   \clef bass;
 
   %15
-  dis4.-\ltoe e8-\rtoe cis4 |
+  %
+  % TODO: the volta typesetting should spread over the complete score.
+  %
+  \repeat "volta" 2 { dis4.-\ltoe } \alternative { e8-\rtoe cis4 } |
   b4.-\lheel [cis8-\ltoe dis8-\rtoe e8-\rheel] |
   fis4.-\rtoe [e8-\rheel dis8-\rtoe cis8-\ltoe] |
   dis4-\rtoe e4-\rheel e,4-\ltoe |

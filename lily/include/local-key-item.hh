@@ -40,17 +40,17 @@ class Local_key_item : public Item
 {
   Array<Local_key_cautionary_tuple> accidental_arr_;
 
-  Molecule accidental (int,bool,bool) const;
+  static Molecule accidental (Score_element*me, int,bool,bool) ;
 public:
   Local_key_item (SCM );
    static SCM brew_molecule (SCM);
   
   void add_pitch (Musical_pitch, bool cautionary, bool natural);
 
-  SCM member_before_line_breaking ();
   static SCM before_line_breaking (SCM);
-  SCM member_brew_molecule() const;
+  static bool has_interface (Score_element*);
 };
+
 
 #endif // LOCALKEYITEM_HH
 

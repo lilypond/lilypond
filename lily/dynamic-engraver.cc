@@ -120,9 +120,9 @@ Dynamic_engraver::do_process_music ()
 	{
 	  line_spanner_ = new Spanner (get_property ("basicDynamicLineSpannerProperties"));
 
-	  Side_position_interface (line_spanner_).set_axis (Y_AXIS);
-	  Axis_group_interface (line_spanner_).set_interface ();
-	  Axis_group_interface (line_spanner_).set_axes (Y_AXIS, Y_AXIS);
+	  Side_position::set_axis (line_spanner_, Y_AXIS);
+	  Axis_group_interface::set_interface (line_spanner_);
+	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
 	  announce_element (Score_element_info
 			    (line_spanner_,
 			     text_req_l_ ? text_req_l_ : accepted_spanreqs_drul_[START]));
@@ -170,9 +170,9 @@ Dynamic_engraver::do_process_music ()
       if (Direction d=text_req_l_->get_direction ())
 	Directional_element_interface (line_spanner_).set (d);
 
-      Axis_group_interface (line_spanner_).add_element (text_p_);
+      Axis_group_interface::add_element (line_spanner_, text_p_);
 
-      text_p_->add_offset_callback (Side_position_interface::aligned_on_self,
+      text_p_->add_offset_callback (Side_position::aligned_on_self,
 				    Y_AXIS);
       announce_element (Score_element_info (text_p_, text_req_l_));
     }
@@ -256,17 +256,17 @@ Dynamic_engraver::do_process_music ()
 	  
 	  if (text_p_)
 	    {
-	      index_set_cell (cresc_p_->get_elt_pointer ("dynamic-drul"),
+	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
 			      LEFT, text_p_->self_scm_);
 	      if (finished_cresc_p_)
-		index_set_cell (finished_cresc_p_->get_elt_pointer ("dynamic-drul"),
+		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
 				RIGHT, text_p_->self_scm_);
 	    }
 
-	  Axis_group_interface (line_spanner_).add_element (cresc_p_);
+	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
 	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
 	  cresc_p_->add_offset_callback
-	    (Side_position_interface::aligned_on_self, Y_AXIS);
+	    (Side_position::aligned_on_self, Y_AXIS);
 	  announce_element (Score_element_info (cresc_p_, accepted_spanreqs_drul_[START]));
 	}
     }
@@ -312,7 +312,7 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
-      Side_position_interface (finished_line_spanner_).add_staff_support ();
+      Side_position::add_staff_support (finished_line_spanner_);
 
       if (!finished_line_spanner_->get_bound (LEFT))
 	{
@@ -337,7 +337,7 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
     {
       if (line_spanner_)
 	{
-	  Side_position_interface (line_spanner_).add_support (n);
+	  Side_position::add_support (line_spanner_,n);
 	  add_bound_item (line_spanner_,n);
 	}
     }

@@ -19,7 +19,7 @@
 
 
 (define generic-beam-properties
-  (cons 'Beam
+  (cons 'beam-interface
 	(list
 	 (list 'beamSlopeDamping number? 'damping)
 	 (list 'autoKneeGap number? 'auto-knee-gap)
@@ -33,7 +33,7 @@
 
 
 (define generic-stem-properties
-  (cons 'Stem
+  (cons 'stem-interface
 	(list
 	 (list 'stemVerticalDirection dir? 'direction)
 	 (list 'verticalDirection dir? 'direction)	 
@@ -46,7 +46,7 @@
   )
 
 (define generic-dot-properties
-  (cons 'Dots
+  (cons 'dot-interface
 	(list
 		(list 'dotDirection dir? 'direction)
 		(list 'verticalDirection dir? 'direction)
@@ -54,7 +54,8 @@
 	))
 
 (define generic-script-properties
-  (cons 'Script (list
+  (cons 'script-interface
+	(list
 		  (list 'articulationScriptVerticalDirection dir? 'direction)
 		  (list 'articulationScriptPadding number? 'padding)
 
@@ -64,7 +65,8 @@
 
 
 (define generic-text-properties
-  (cons 'Text_item (list
+  (cons 'text-item-interface
+	(list
 		     (list 'textStyle string? 'style)
 		     (list 'lyricAlignment dir? 'self-alignment-X)
 		     (list 'textScriptPadding number? 'padding)
@@ -75,26 +77,30 @@
 	))
 
 (define generic-sustain-pedal-properties
-  (cons 'Sustain_pedal (list
-			 (list 'textScriptPadding number? 'padding)
-			 (list 'sustainPedalPadding number? 'padding))))
+  (cons 'sustain-pedal-interface
+	(list
+	 (list 'textScriptPadding number? 'padding)
+	 (list 'sustainPedalPadding number? 'padding))))
 
 (define generic-chord-name-properties
-  (cons 'Chord_name (list
-		      (list 'textScriptWordSpace number? 'word-space)
-		      (list 'chordNameWordSpace number? 'word-space)
-		      (list 'chordNameStyle string? 'style))))
+  (cons 'chord-name-interface
+	(list
+	 (list 'textScriptWordSpace number? 'word-space)
+	 (list 'chordNameWordSpace number? 'word-space)
+	 (list 'chordNameStyle string? 'style))))
 
 (define generic-crescendo-properties
-  (cons 'Crescendo (list
-		     (list 'dynamicDirection dir? 'direction)
-		     (list 'verticalDirection dir? 'direction)
-		     (list 'dynamicPadding number? 'padding) 
-		     (list 'dynamicMinimumSpace number? 'minimum-space) 
-		     )))
-  
+  (cons 'crescendo-interface
+	(list
+	 (list 'dynamicDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)
+	 (list 'dynamicPadding number? 'padding) 
+	 (list 'dynamicMinimumSpace number? 'minimum-space) 
+	 )))
+
 (define generic-dynamic-line-spanner-properties
-  (cons 'Dynamic_line_spanner (list
+  (cons 'dynamic-interface
+	(list
 		     (list 'dynamicDirection dir? 'direction)
 		     (list 'verticalDirection dir? 'direction)
 		     (list 'dynamicPadding number? 'padding) 
@@ -102,78 +108,82 @@
 		     )))
   
 (define generic-volta-spanner-properties
-  (cons 'Volta_spanner (list
+  (cons 'volta-spanner-interface (list
 		     (list 'voltaVerticalDirection dir? 'direction)
 		     (list 'voltaPadding number? 'padding) 
 		     (list 'voltaMinimumSpace number? 'minimum-space) 
 		     )))
   
 (define generic-bar-properties
-  (cons 'Staff_bar (list
-		     (list 'barSize number? 'bar-size))
+  (cons 'staff-bar-interface
+	(list
+	 (list 'barSize number? 'bar-size))
 	)
   )	
 
 ; don't do this yet. Depends on whennn the staff is really announced
 (define generic-staff-symbol-properties
-  (cons 'Staff_symbol (list
-			)
+  (cons 'staff-symbol-interface
+	(list
+	 )
 	)
   )
 
 (define generic-breathing-sign-properties
-  (cons 'Breathing_sign
+  (cons 'breathing-sign-interface
 	(list
 	 (list 'breathingSignVerticalDirection dir? 'direction)
 	 (list 'verticalDirection dir? 'direction)
 	 )))
 
 (define generic-clef-properties
-  (cons 'Clef_item
+  (cons 'clef-interface
 	(list
 	 (list 'clefStyle string? 'style))
 	)
   )
 
 (define generic-All-properties
-  (cons 'all  (list (list 'fontSize number? 'fontsize))))
+  (cons 'all
+	(list (list 'fontSize number? 'fontsize))))
 
 
 (define generic-notehead-properties
-  (cons 'Note_head
+  (cons 'note-head-interface
 	(list (list 'noteHeadStyle symbol? 'style))))
 
 
 (define generic-rest-properties
-  (cons 'Rest
+  (cons 'rest-interface
 	(list (list 'restStyle string? 'reststyle))))
 
 (define generic-rest-collision-properties
-  (cons 'Rest_collision
+  (cons 'rest-collision-interface
 	(list (list 'maximumRestCount number? 'maximum-rest-count))))
 
 (define generic-tie-properties
-  (cons 'Tie (list
+  (cons 'tie-interface
+	(list
 	       (list 'tieVerticalDirection dir? 'direction)
 	       (list 'verticalDirection dir? 'direction)
 (list 'tieDash number? 'dashed)
   )))
 
 (define generic-tie-column-properties
-  (cons 'Tie_column (list
+  (cons 'tie-column-interface (list
 		      (list 'tieVerticalDirection dir? 'direction)
 		      (list 'verticalDirection dir? 'direction)
   )))
 
 (define generic-note-column-properties
-  (cons 'Note_column
+  (cons 'note-column-interface
 	(list
 	 (list 'horizontalNoteShift number? 'horizontal-shift)
 	 (list 'forceHorizontalShift number? 'force-hshift)
 	 )))
 
 (define generic-collision-properties
-  (cons 'Collision
+  (cons 'collision-interface
 	(list
 	 (list 'collisionMergeDotted boolean? 'merge-differently-dotted)
 	 )
@@ -181,14 +191,14 @@
   )
   
 (define generic-slur-properties
-  (cons 'Slur
+  (cons 'slur-interface
 	(list
 	 (list 'slurVerticalDirection dir? 'direction)
 	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'slurDash number? 'dashed))))
 
 (define generic-timesig-properties
-  (cons 'Time_signature
+  (cons 'time-signature-interface
 	(list
 	 (list 'timeSignatureStyle string? 'style))))
 
@@ -196,7 +206,7 @@
   (or (boolean? s) (symbol? s)))
 
 (define generic-tuplet-spanner-properties
-  (cons 'Tuplet_spanner
+  (cons 'tuplet-spanner-interface
 	(list
 	 (list 'tupletDirection dir? 'direction)
 	 (list 'tupletNumberVisibility symbol-or-boolean? 'tuplet-number-visibility)

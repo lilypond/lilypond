@@ -36,14 +36,14 @@ Slur::Slur (SCM s)
   : Spanner (s)
 {
   set_elt_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
-  set_elt_pointer ("note-columns", SCM_EOL);
+  set_elt_property ("note-columns", SCM_EOL);
   set_elt_property ("control-points", SCM_EOL);
 }
 
 void
 Slur::add_column (Note_column*n)
 {
-  if (!gh_pair_p (n->get_elt_pointer ("note-heads")))
+  if (!gh_pair_p (n->get_elt_property ("note-heads")))
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
@@ -111,7 +111,7 @@ Slur::encompass_offset (Score_element* col,
 			Score_element **common) const
 {
   Offset o;
-  Score_element* stem_l = unsmob_element (col->get_elt_pointer ("stem"));
+  Score_element* stem_l = unsmob_element (col->get_elt_property ("stem"));
   
   Direction dir = Directional_element_interface (this).get ();
   
@@ -148,13 +148,15 @@ Slur::encompass_offset (Score_element* col,
   return o;
 }
 
-GLUE_SCORE_ELEMENT(Slur,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Slur,after_line_breaking);
 
 SCM
-Slur::member_after_line_breaking ()
+Slur::after_line_breaking (SCM smob)
 {
-  set_extremities ();
-  set_control_points ();
+  Score_element *me = unsmob_element (smob);
+  Slur * sl = dynamic_cast<Slur*>(me);
+  sl->set_extremities ();
+  sl->set_control_points ();
   return SCM_UNDEFINED;
 } 
 
@@ -195,18 +197,19 @@ Slur::get_attachment (Direction dir,
   SCM s = get_elt_property ("attachment");
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
   String str = ly_symbol2string (a);
-  Real ss = Staff_symbol_referencer_interface (this).staff_space ();
+  Real ss = Staff_symbol_referencer::staff_space ((Score_element*)this);
   Real hs = ss / 2.0;
   Offset o;
 
   
   if (Note_column* n = dynamic_cast<Note_column*> (get_bound (dir)))
     {
-      if (Stem* st = dynamic_cast<Stem*> (n->stem_l ()))
+      if (n->stem_l ())
 	{
+	  Score_element*st = n->stem_l();
 	  if (str == "head")
 	    {
-	      o = Offset (0, st->chord_start_f ());
+	      o = Offset (0, Stem::chord_start_f (st ));
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
@@ -215,24 +218,24 @@ Slur::get_attachment (Direction dir,
 	    }
 	  else if (str == "alongside-stem")
 	    {
-	      o = Offset (0, st->chord_start_f ());
+	      o = Offset (0, Stem::chord_start_f (st ));
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */
 	      o += Offset (n->extent (X_AXIS).length ()
-			   * (1 + st->get_direction ()),
+			   * (1 + Stem::get_direction (st )),
 			   0.5 * ss * Directional_element_interface (this).get ());
 	    }
 	  else if (str == "stem")
 	    {
-	      o = Offset (0, st->stem_end_position () * hs);
+	      o = Offset (0, Stem::stem_end_position (st ) * hs);
 	      /*
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
 			   (n->extent (X_AXIS).length ()
 			    - st->extent (X_AXIS).length ())
-			    * (1 + st->get_direction ()),
+			    * (1 + Stem::get_direction (st )),
 			    0);
 	    }
 	  else if (str == "loose-end")
@@ -247,7 +250,7 @@ Slur::get_attachment (Direction dir,
 	  
 	  SCM l = scm_assoc
 	    (scm_listify (a,
-			  gh_int2scm (st->get_direction () * dir),
+			  gh_int2scm (Stem::get_direction (st ) * dir),
 			  gh_int2scm (Directional_element_interface (this).get () * dir),
 			  SCM_UNDEFINED),
 	     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
@@ -275,7 +278,7 @@ Slur::get_attachment (Direction dir,
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
-  SCM eltlist = get_elt_pointer ("note-columns");
+  SCM eltlist = get_elt_property ("note-columns");
   Score_element *common[] = {common_refpoint (eltlist,X_AXIS),
 			     common_refpoint (eltlist,Y_AXIS)};
 
@@ -360,19 +363,22 @@ Slur::get_rods () const
 /*
   Ugh should have dash-length + dash-period
  */
-GLUE_SCORE_ELEMENT(Slur,brew_molecule);
+MAKE_SCHEME_CALLBACK(Slur,brew_molecule);
 SCM
-Slur::member_brew_molecule () const
+Slur::brew_molecule (SCM smob)
 {
-  Real thick = paper_l ()->get_var ("slur_thickness");
-  Bezier one = get_curve ();
+  Slur * me = dynamic_cast<Slur*> (unsmob_element (smob));
+
+  
+  Real thick = me->paper_l ()->get_var ("slur_thickness");
+  Bezier one = me->get_curve ();
 
   Molecule a;
-  SCM d =  get_elt_property ("dashed");
+  SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
-    a = lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
+    a = me->lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = lookup_l ()->slur (one, Directional_element_interface (this).get () * thick, thick);
+    a = me->lookup_l ()->slur (one, Directional_element_interface (me).get () * thick, thick);
 
   return a.create_scheme();
 }
@@ -383,7 +389,7 @@ Slur::set_control_points ()
   Slur_bezier_bow bb (get_encompass_offset_arr (),
 		      Directional_element_interface (this).get ());
 
-  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
+  Real staff_space = Staff_symbol_referencer::staff_space (this);
   Real h_inf = paper_l ()->get_var ("slur_height_limit_factor") * staff_space;
   Real r_0 = paper_l ()->get_var ("slur_ratio");
 

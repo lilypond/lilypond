@@ -14,11 +14,11 @@
 #include "item.hh"
 
 void
-Collision::add_column (Note_column* ncol_l)
+Collision::add_column (Score_element*me,Note_column* ncol_l)
 {
   ncol_l->add_offset_callback (force_shift_callback, X_AXIS);
-  Axis_group_interface (elt_l_).add_element (ncol_l);
-  elt_l_->add_dependency (ncol_l);
+  Axis_group_interface::add_element (me, ncol_l);
+  me->add_dependency (ncol_l);
 }
 
 Real
@@ -30,9 +30,9 @@ Collision::force_shift_callback (Score_element * c, Axis a)
   /*
     ugh. the way DONE is done is not clean
    */
-  if (!unsmob_element (me->get_elt_pointer ("done")))
+  if (!unsmob_element (me->get_elt_property ("done")))
     {
-      me->set_elt_pointer ("done", me->self_scm_);
+      me->set_elt_property ("done", me->self_scm_);
       do_shifts (me);
     }
   
@@ -81,7 +81,7 @@ Collision::automatic_shift (Score_element *me)
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
-  SCM s = me->get_elt_pointer ("elements");
+  SCM s = me->get_elt_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM car = gh_car (s);
@@ -164,19 +164,19 @@ Collision::automatic_shift (Score_element *me)
       /*
 	TODO.
        */
-      Rhythmic_head * nu_l= cu_l->first_head();
-      Rhythmic_head * nd_l = cd_l->first_head();
+      Score_element * nu_l= cu_l->first_head();
+      Score_element * nd_l = cd_l->first_head();
       
       int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
       int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      
       
       bool merge  =
 	downpos == uppos
-	&& nu_l->balltype_i () == nd_l->balltype_i ();
+	&& Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
 
 
       if (!to_boolean (me->get_elt_property ("merge-differently-dotted")))
-	merge = merge && nu_l->dot_count () == nd_l->dot_count ();
+	merge = merge && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
 
       /*
 	notes are close, but can not be merged.  Shift
@@ -208,7 +208,7 @@ Collision::forced_shift (Score_element *me)
 {
   SCM tups = SCM_EOL;
   
-  SCM s = me->get_elt_pointer ("elements");
+  SCM s = me->get_elt_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
@@ -225,7 +225,3 @@ Collision::forced_shift (Score_element *me)
 
 
 
-Collision::Collision (Score_element* c)
-{
-  elt_l_ = c;
-}

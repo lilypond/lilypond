@@ -42,7 +42,7 @@ Instrument_name_engraver::do_pre_move_processing ()
 {
   if (text_)
     {
-      text_->add_offset_callback (Side_position_interface::centered_on_parent,
+      text_->add_offset_callback (Side_position::centered_on_parent,
 				  Y_AXIS);
 
       typeset_element (text_);
@@ -78,7 +78,7 @@ Instrument_name_engraver::acknowledge_element (Score_element_info i)
 
   if (gh_string_p (s))
     {
-      if (Bar* b= dynamic_cast<Bar*> (i.elem_l_))
+      if (Bar::has_interface (i.elem_l_))
 	{
 	  create_text (s);
 	}

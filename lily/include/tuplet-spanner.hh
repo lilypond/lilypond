@@ -21,6 +21,7 @@ class Tuplet_spanner
 public:
   static SCM brew_molecule (SCM);
   static void set_interface (Score_element*);  
+  static bool has_interface (Score_element*);
 
   static void add_column (Score_element*me,Item*);
   static void add_beam (Score_element*me,Score_element*);

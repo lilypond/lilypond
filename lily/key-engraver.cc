@@ -17,7 +17,7 @@
 #include "engraver.hh"
 #include "musical-pitch.hh"
 #include "protected-scm.hh"
-
+#include "clef.hh"
 
 /**
   Make the key signature.
@@ -64,7 +64,7 @@ Key_engraver::create_key (bool def)
       item_p_->set_elt_property ("old-accidentals", old_accs_);
       item_p_->set_elt_property ("new-accidentals", get_property ("keySignature"));
 
-      Staff_symbol_referencer_interface::set_interface (item_p_);
+      Staff_symbol_referencer::set_interface (item_p_);
 
       SCM prop = get_property ("keyOctaviation");
       bool multi = to_boolean (prop);
@@ -99,7 +99,7 @@ Key_engraver::do_try_music (Music * req_l)
 void
 Key_engraver::acknowledge_element (Score_element_info info)
 {
-  if (to_boolean (info.elem_l_->get_elt_property ("clef-interface"))) 
+  if (Clef::has_interface (info.elem_l_))
     {
       SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))
@@ -107,7 +107,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
 	  create_key (false);
 	}
     }
-  else if (dynamic_cast<Bar *> (info.elem_l_)
+  else if (Bar::has_interface (info.elem_l_)
 	   && gh_pair_p (get_property ("keySignature")))
     {
       create_key (true);

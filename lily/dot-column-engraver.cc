@@ -16,7 +16,7 @@
 class Dot_column_engraver : public Engraver
 {
   Score_element *dotcol_p_ ;
-  Link_array<Rhythmic_head> head_l_arr_;
+  Link_array<Item> head_l_arr_;
 public:
   VIRTUAL_COPY_CONS(Translator);
   Dot_column_engraver();
@@ -46,7 +46,7 @@ Dot_column_engraver::do_pre_move_processing ()
 void
 Dot_column_engraver::acknowledge_element (Score_element_info info)
 {
-  Score_element *d = unsmob_element (info.elem_l_->get_elt_pointer ("dot"));
+  Score_element *d = unsmob_element (info.elem_l_->get_elt_property ("dot"));
   if (d)
     {
       if (!dotcol_p_)
@@ -54,8 +54,8 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 	  dotcol_p_ = new Item(get_property ("basicDotColumnProperties"));
 
 	  Dot_column::set_interface (dotcol_p_);
-	  Side_position_interface (dotcol_p_).set_axis (X_AXIS);
-	  Side_position_interface (dotcol_p_).set_direction (RIGHT);      
+	  Side_position::set_axis (dotcol_p_, X_AXIS);
+	  Side_position::set_direction (dotcol_p_, RIGHT);      
 	  announce_element (Score_element_info (dotcol_p_, 0));
 	}
 

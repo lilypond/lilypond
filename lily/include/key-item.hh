@@ -24,7 +24,8 @@
 struct Key_item
 {
   static int calculate_position(Score_element*,SCM pair) ;
-  void set_interface (Score_element*);
+  static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static SCM brew_molecule (SCM);
 };
 

@@ -33,7 +33,7 @@ protected:
 private:
   void create_bar ();
 
-  Bar * bar_p_;
+  Item * bar_p_;
 };
 
 #endif // BAR_ENGRAVER_HH

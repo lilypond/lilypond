@@ -18,40 +18,32 @@
 
 
 void
-Dot_column::add_head (Score_element * dc, Score_element *rh)
+Dot_column::add_head (Score_element * me, Score_element *rh)
 {
-  Score_element * d = unsmob_element (rh->get_elt_pointer ("dot"));
+  Score_element * d = unsmob_element (rh->get_elt_property ("dot"));
   if (d)
     {
-      Side_position_interface (dc).add_support (rh);
+      Side_position::add_support (me,rh);
 
-      Pointer_group_interface gi (dc, "dots");
+      Pointer_group_interface gi (me, "dots");
       gi.add_element (d);
       
       d->add_offset_callback (force_shift_callback , Y_AXIS);
-      Axis_group_interface (dc).add_element (d);
+      Axis_group_interface::add_element (me, d);
     }
 }
 
 
-int
-Dot_column::compare (Score_element * const &d1, Score_element * const &d2)
-{
-  Staff_symbol_referencer_interface s1(d1);
-  Staff_symbol_referencer_interface s2(d2);  
-  
-  return int (s1.position_f () - s2.position_f ());
-}
 
 
 void
-Dot_column::set_interface (Score_element* dc)
+Dot_column::set_interface (Score_element* me)
 {
-  dc->set_elt_pointer  ("dots", SCM_EOL);
-  Directional_element_interface (dc).set (RIGHT);
+  me->set_elt_property  ("dots", SCM_EOL);
+  Directional_element_interface (me).set (RIGHT);
   
-  Axis_group_interface (dc).set_interface ();
-  Axis_group_interface (dc).set_axes(X_AXIS,X_AXIS);
+  Axis_group_interface::set_interface (me);
+  Axis_group_interface::set_axes (me, X_AXIS,X_AXIS);
 }
 
 /*
@@ -76,7 +68,7 @@ Dot_column::force_shift_callback (Score_element * dot, Axis a)
 {
   assert (a == Y_AXIS);
   Score_element * me = dot->parent_l (X_AXIS);
-  SCM dots = me->get_elt_pointer ("dots");
+  SCM dots = me->get_elt_property ("dots");
   do_shifts (dots);
   return 0.0;
 }
@@ -91,7 +83,7 @@ Dot_column::do_shifts (SCM l)
       l = gh_cdr (l);
     }
   
-  dots.sort (Dot_column::compare);
+  dots.sort (compare_position);
   
   if (dots.size () < 2)
     return SCM_UNDEFINED;
@@ -102,7 +94,7 @@ Dot_column::do_shifts (SCM l)
   int conflicts = 0;
   for (int i=0; i < dots.size (); i++)
     {
-      Real p = Staff_symbol_referencer_interface (dots[i]).position_f ();
+      Real p = Staff_symbol_referencer::position_f (dots[i]);
       for (int j=0; j < taken_posns.size (); j++)
 	{
 	  if (taken_posns[j] == (int) p)
@@ -127,8 +119,14 @@ Dot_column::do_shifts (SCM l)
   for (int i=0; i < dots.size (); pos += 2, i++)
     {
       Score_element * d = dots[i];
-      Staff_symbol_referencer_interface (d).set_position(pos);
+      Staff_symbol_referencer::set_position (d,pos);
     }
 
   return SCM_UNDEFINED;
+}
+
+bool
+Dot_column::has_interface (Score_element*m)
+{
+  return m && m->has_interface (ly_symbol2scm ("dot-column-interface"));
 }

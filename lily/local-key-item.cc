@@ -29,28 +29,31 @@ Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
   accidental_arr_.push (t);
 }
 
-GLUE_SCORE_ELEMENT(Local_key_item,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Local_key_item,before_line_breaking);
 
 SCM
-Local_key_item::member_before_line_breaking ()
+Local_key_item::before_line_breaking (SCM smob)
 {
-  accidental_arr_.sort (Local_key_cautionary_tuple::compare);
+  Local_key_item* me = dynamic_cast<Local_key_item*>(unsmob_element (smob));
+
+  
+  me->accidental_arr_.sort (Local_key_cautionary_tuple::compare);
   return SCM_UNDEFINED;
 }
 
 Molecule
-Local_key_item::accidental (int j, bool cautionary, bool natural) const
+Local_key_item::accidental (Score_element*me, int j, bool cautionary, bool natural) 
 {
-  Molecule m (lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
+  Molecule m (me->lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
   if (natural)
     {
-      Molecule prefix = lookup_l ()->afm_find (String ("accidentals-0"));
+      Molecule prefix = me->lookup_l ()->afm_find (String ("accidentals-0"));
       m.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
     }
   if (cautionary) 
     {
-      Molecule open = lookup_l ()->afm_find (String ("accidentals-("));
-      Molecule close = lookup_l ()->afm_find (String ("accidentals-)"));
+      Molecule open = me->lookup_l ()->afm_find (String ("accidentals-("));
+      Molecule close = me->lookup_l ()->afm_find (String ("accidentals-)"));
       m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
       m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
     }
@@ -62,20 +65,23 @@ Local_key_item::accidental (int j, bool cautionary, bool natural) const
   UGH. clean me up
  */
 
-GLUE_SCORE_ELEMENT(Local_key_item,brew_molecule);
+MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule);
 SCM
-Local_key_item::member_brew_molecule () const
+Local_key_item::brew_molecule (SCM smob)
 {
+  Local_key_item* lki = dynamic_cast<Local_key_item*>(unsmob_element (smob));
+  Score_element* me = lki;
+  
   Molecule mol;
-  Staff_symbol_referencer_interface si (this);
-  Real note_distance = si.staff_space ()/2;
+
+  Real note_distance = Staff_symbol_referencer::staff_space (me)/2;
   Molecule octave_mol;
   bool oct_b = false;
   int lastoct = -100;
   
-  for  (int i = 0; i <  accidental_arr_.size(); i++) 
+  for  (int i = 0; i <  lki->accidental_arr_.size(); i++) 
     {
-      Musical_pitch p (accidental_arr_[i].pitch_);
+      Musical_pitch p (lki->accidental_arr_[i].pitch_);
       // do one octave
       if (p.octave_i_ != lastoct) 
 	{
@@ -91,13 +97,13 @@ Local_key_item::member_brew_molecule () const
       
       lastoct = p.octave_i_;
 
-      SCM c0 =  get_elt_property ("c0-position");
+      SCM c0 =  me->get_elt_property ("c0-position");
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
       
-      Molecule m (accidental (p.accidental_i_,
-			      accidental_arr_[i].cautionary_b_,
-			      accidental_arr_[i].natural_b_));
+      Molecule m (accidental (me,p.accidental_i_,
+			      lki->accidental_arr_[i].cautionary_b_,
+			      lki->accidental_arr_[i].natural_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol.add_at_edge (X_AXIS, RIGHT, m, 0);
@@ -111,15 +117,15 @@ Local_key_item::member_brew_molecule () const
       octave_mol = Molecule ();
     }
   
- if (accidental_arr_.size()) 
+ if (lki->accidental_arr_.size()) 
     {
       Drul_array<SCM> pads;
 
       /*
 	Use a cons?
        */
-      pads[RIGHT] = get_elt_property ("right-padding");
-      pads[LEFT] = get_elt_property ("left-padding");
+      pads[RIGHT] = me->get_elt_property ("right-padding");
+      pads[LEFT] = me->get_elt_property ("left-padding");
 
 
       // unused ?
@@ -130,7 +136,7 @@ Local_key_item::member_brew_molecule () const
 
 	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
 	      Interval (0,0));
-	Molecule m (lookup_l ()->blank (b));
+	Molecule m (me->lookup_l ()->blank (b));
 	mol.add_at_edge (X_AXIS, d, m, 0);
       } while ( flip (&d)!= LEFT);
     }
@@ -142,4 +148,9 @@ Local_key_item::Local_key_item (SCM s)
   : Item (s)
 {
   
+}
+bool
+Local_key_item::has_interface (Score_element*m)
+{
+  return m && m->has_interface (ly_symbol2scm ("accidentals-interface"));
 }

@@ -13,13 +13,14 @@
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
 #include "pqueue.hh"
+#include "item.hh"
 
 /**
   make balls and rests
  */
 class Note_heads_engraver : public Engraver
 {
-  Link_array<Rhythmic_head> note_p_arr_;
+  Link_array<Item> note_p_arr_;
   Link_array<Item> dot_p_arr_;
   Link_array<Note_req> note_req_l_arr_;
   Moment note_end_mom_;
@@ -85,9 +86,9 @@ Note_heads_engraver::do_process_music()
   
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
-      Rhythmic_head *note_p  = new Rhythmic_head (get_property ("basicNoteHeadProperties"));
+      Item *note_p  = new Item (get_property ("basicNoteHeadProperties"));
       
-      Staff_symbol_referencer_interface::set_interface (note_p);
+      Staff_symbol_referencer::set_interface (note_p);
 
 
       
@@ -100,9 +101,9 @@ Note_heads_engraver::do_process_music()
 	{
 	  Item * d = new Item (get_property ("basicDotsProperties"));
 
-	  Staff_symbol_referencer_interface::set_interface (d);
+	  Staff_symbol_referencer::set_interface (d);
 	  
-	  note_p->set_dots (d);
+	  Rhythmic_head::set_dots (note_p, d);
 	  
 	  if (note_req_l->duration_.dots_i_
 	      != gh_scm2int (d->get_elt_property ("dot-count")))

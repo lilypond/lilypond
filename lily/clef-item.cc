@@ -7,35 +7,16 @@
 */
 
 
-#include "clef-item.hh"
+#include "clef.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "item.hh"
-
-
-/**
-  Set a clef in a staff.
-
-  properties:
-
-  non-default -- not set because of existence of a bar?
-
-  change -- is this a change clef (smaller size)?
-
-  glyph -- a string determining what glyph is typeset
-  
- */
-struct Clef 
-{
-  static SCM before_line_breaking (SCM);
-};
-
 
 /*
 FIXME: should use symbol.
 
 */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Clef,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Clef,before_line_breaking);
 SCM
 Clef::before_line_breaking (SCM smob)
 {
@@ -71,5 +52,17 @@ Clef::before_line_breaking (SCM smob)
   return SCM_UNDEFINED;
 }
 
+bool
+Clef::has_interface (Score_element* me)
+{
+  return me->has_interface (ly_symbol2scm ("clef-interface"));
+}
+
+
+void
+Clef::set_interface (Score_element* me)
+{
+  me->set_interface (ly_symbol2scm ("clef-interface"));
+}
 
 

@@ -16,13 +16,14 @@
 #include "tie-column.hh"
 #include "pqueue.hh"
 #include "engraver.hh"
+#include "item.hh"
 
 struct CHead_melodic_tuple {
   Melodic_req *req_l_ ;
-  Rhythmic_head *head_l_;
+  Score_element *head_l_;
   Moment end_;
   CHead_melodic_tuple ();
-  CHead_melodic_tuple (Rhythmic_head*, Melodic_req*, Moment);
+  CHead_melodic_tuple (Score_element*, Melodic_req*, Moment);
   static int pitch_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);
   static int time_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);  
 };
@@ -38,7 +39,7 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
    priority queue. If we have a Tie_req, connect the notes that finish
    just at this time, and note that start at this time.
 
-   TODO: should share code with Beam_engraver, Extender_engraver?
+   TODO: junk the pq.
  */
 class Tie_engraver : public Engraver
 {
@@ -100,12 +101,12 @@ Tie_engraver::set_melisma (bool m)
 void
 Tie_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Rhythmic_head *nh = dynamic_cast<Rhythmic_head *> (i.elem_l_))
+  if (Rhythmic_head::has_interface (i.elem_l_))
     {
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
 	return;
-      now_heads_.push (CHead_melodic_tuple (nh, m, now_mom()+ m->length_mom ()));
+      now_heads_.push (CHead_melodic_tuple (i.elem_l_, m, now_mom()+ m->length_mom ()));
     }
 }
 
@@ -224,7 +225,7 @@ Tie_engraver::do_pre_move_processing ()
   tie_p_arr_.clear ();
   if (tie_column_p_)
     {
-      typeset_tie (tie_column_p_);
+      typeset_element (tie_column_p_);
       tie_column_p_ =0;
     }
 }
@@ -232,11 +233,11 @@ Tie_engraver::do_pre_move_processing ()
 void
 Tie_engraver::typeset_tie (Score_element *her)
 {
-    if (!(Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
+  if (!(Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
-  Drul_array<Item *> new_head_drul;
+  Drul_array<Score_element *> new_head_drul;
   new_head_drul[LEFT] = Tie::head(her,LEFT);
   new_head_drul[RIGHT] = Tie::head (her,RIGHT);  
   do {
@@ -244,8 +245,8 @@ Tie_engraver::typeset_tie (Score_element *her)
       new_head_drul[d] = Tie::head(her,(Direction)-d);
   } while (flip(&d) != LEFT);
 
-  index_set_cell (her->get_elt_pointer ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
-  index_set_cell (her->get_elt_pointer ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
+  index_set_cell (her->get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
+  index_set_cell (her->get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
 
   typeset_element (her);
 }
@@ -274,7 +275,7 @@ CHead_melodic_tuple::CHead_melodic_tuple ()
   end_ = 0;
 }
 
-CHead_melodic_tuple::CHead_melodic_tuple (Rhythmic_head *h, Melodic_req*m, Moment mom)
+CHead_melodic_tuple::CHead_melodic_tuple (Score_element *h, Melodic_req*m, Moment mom)
 {
   head_l_ = h;
   req_l_ = m;

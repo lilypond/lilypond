@@ -11,7 +11,7 @@
 #include <math.h>		// m_pi
 
 #include "directional-element-interface.hh"
-#include "dimension-cache.hh"
+#include "note-head.hh"
 #include "stem.hh"
 #include "debug.hh"
 #include "paper-def.hh"
@@ -29,22 +29,22 @@
 
 
 void
-Stem::set_beaming (int i,  Direction d )
+Stem::set_beaming (Score_element*me ,int i,  Direction d )
 {
-  SCM pair = get_elt_property ("beaming");
+  SCM pair = me->get_elt_property ("beaming");
   
   if (!gh_pair_p (pair))
     {
       pair = gh_cons (gh_int2scm (0),gh_int2scm (0));
-      set_elt_property ("beaming", pair);
+      me->      set_elt_property ("beaming", pair);
     }
   index_set_cell (pair, d, gh_int2scm (i));
 }
 
 int
-Stem::beam_count (Direction d) const
+Stem::beam_count (Score_element*me,Direction d)
 {
-  SCM p=get_elt_property ("beaming");
+  SCM p=me->get_elt_property ("beaming");
   if (gh_pair_p (p))
     return gh_scm2int (index_cell (p,d));
   else
@@ -52,38 +52,37 @@ Stem::beam_count (Direction d) const
 }
 
 Interval
-Stem::head_positions () const
+Stem::head_positions (Score_element*me) 
 {
-  if (!heads_i ())
+  if (!heads_i (me))
     {
       Interval iv;
       return iv;
     }
 
-  
-  Drul_array<Rhythmic_head*> e (extremal_heads ());
+  Drul_array<Score_element*> e (extremal_heads (me));
 
-  return Interval (Staff_symbol_referencer_interface (e[DOWN]).position_f (),
-		   Staff_symbol_referencer_interface ( e[UP]).position_f ()); 
+  return Interval (Staff_symbol_referencer::position_f (e[DOWN]),
+		   Staff_symbol_referencer::position_f ( e[UP]));
 }
 
 
 Real
-Stem::chord_start_f () const
+Stem::chord_start_f (Score_element*me) 
 {
-  return head_positions()[get_direction ()]
-    * Staff_symbol_referencer_interface (this).staff_space ()/2.0;
+  return head_positions(me)[get_direction (me)]
+    * Staff_symbol_referencer::staff_space (me)/2.0;
 }
 
 Real
-Stem::stem_end_position () const
+Stem::stem_end_position (Score_element*me) 
 {
-  SCM p =get_elt_property ("stem-end-position");
+  SCM p =me->get_elt_property ("stem-end-position");
   Real pos;
   if (!gh_number_p (p))
     {
-      Stem * me = (Stem*) this;
-      pos = get_default_stem_end_position ();
+
+      pos = get_default_stem_end_position (me);
       me->set_elt_property ("stem-end-position", gh_double2scm (pos));
     }
   else
@@ -93,14 +92,13 @@ Stem::stem_end_position () const
 }
 
 Direction
-Stem::get_direction () const
+Stem::get_direction (Score_element*me)
 {
-  Direction d = Directional_element_interface (this).get ();
+  Direction d = Directional_element_interface (me).get ();
 
   if (!d)
     {
-       Stem * me = (Stem*) this;
-       d = get_default_dir ();
+       d = get_default_dir (me);
        // urg, AAARGH!
        Directional_element_interface (me).set (d);
     }
@@ -109,82 +107,82 @@ Stem::get_direction () const
 
 
 void
-Stem::set_stemend (Real se)
+Stem::set_stemend (Score_element*me, Real se)
 {
   // todo: margins
-  Direction d= get_direction ();
+  Direction d= get_direction (me);
   
-  if (d && d * head_positions()[get_direction ()] >= se*d)
+  if (d && d * head_positions(me)[get_direction (me)] >= se*d)
     warning (_ ("Weird stem size; check for narrow beams"));
 
-  set_elt_property ("stem-end-position", gh_double2scm (se));
+  me->set_elt_property ("stem-end-position", gh_double2scm (se));
 }
 
 int
-Stem::type_i () const
+Stem::type_i (Score_element*me) 
 {
-  return first_head () ?  first_head ()->balltype_i () : 2;
+  return first_head (me) ?  Rhythmic_head::balltype_i (first_head (me)) : 2;
 }
 
 /*
   Note head that determines hshift for upstems
  */ 
 Score_element*
-Stem::support_head ()const
+Stem::support_head (Score_element*me)
 {
-  SCM h = get_elt_pointer ("support-head");
+  SCM h = me->get_elt_property ("support-head");
   Score_element * nh = unsmob_element (h);
   if (nh)
     return nh;
-  else if (heads_i () == 1)
+  else if (heads_i (me) == 1)
     {
       /*
 	UGH.
        */
       
-      return unsmob_element (gh_car (get_elt_pointer ("heads")));
+      return unsmob_element (gh_car (me->get_elt_property ("heads")));
     }
   else
-    return first_head ();
+    return first_head (me);
 }
 
 
 int
-Stem::heads_i ()const
+Stem::heads_i (Score_element*me)
 {
-  Pointer_group_interface gi (this, "heads");
+  Pointer_group_interface gi (me, "heads");
   return gi.count ();
 }
 
 /*
   The note head which forms one end of the stem.  
  */
-Rhythmic_head*
-Stem::first_head () const
+Score_element*
+Stem::first_head (Score_element*me)
 {
-  return extremal_heads ()[-get_direction ()];
+  return extremal_heads (me)[-get_direction (me)];
 }
 
 /*
   START is part where stem reaches `last' head. 
  */
-Drul_array<Rhythmic_head*>
-Stem::extremal_heads () const
+Drul_array<Score_element*>
+Stem::extremal_heads (Score_element*me) 
 {
   const int inf = 1000000;
   Drul_array<int> extpos;
   extpos[DOWN] = inf;
   extpos[UP] = -inf;  
   
-  Drul_array<Rhythmic_head *> exthead;
+  Drul_array<Score_element *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
-  for (SCM s = get_elt_pointer ("heads"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Rhythmic_head * n = dynamic_cast<Rhythmic_head*> (unsmob_element (gh_car (s)));
-      Staff_symbol_referencer_interface si (n);
+      Score_element * n = unsmob_element (gh_car (s));
+
       
-      int p = int(si.position_f ());
+      int p = int(Staff_symbol_referencer::position_f (n));
 
       Direction d = LEFT;
       do {
@@ -200,57 +198,55 @@ Stem::extremal_heads () const
 }
 
 void
-Stem::add_head (Rhythmic_head *n)
+Stem::add_head (Score_element*me, Score_element *n)
 {
-  n->set_elt_pointer ("stem", this->self_scm_);
-  n->add_dependency (this);
+  n->set_elt_property ("stem", me->self_scm_);
+  n->add_dependency (me);
 
-  if (to_boolean (n->get_elt_property ("note-head-interface")))
+  if (Note_head::has_interface (n))
     {
-      Pointer_group_interface (this, "heads").add_element (n);
+      Pointer_group_interface (me, "heads").add_element (n);
     }
   else
     {
-      n->set_elt_pointer ("rest", n->self_scm_);
+      n->set_elt_property ("rest", n->self_scm_);
     }
 }
 
 Stem::Stem (SCM s)
   : Item (s)
 {
-  set_elt_pointer ("heads", SCM_EOL);
-
-  add_offset_callback ( &Stem::off_callback, X_AXIS);
+  Score_element * me = this;
+  
+  me->set_elt_property ("heads", SCM_EOL);
+  Stem::set_interface (me);
+  me->add_offset_callback ( &Stem::off_callback, X_AXIS);
 }
 
 bool
-Stem::invisible_b () const
+Stem::invisible_b (Score_element*me)
 {
-  /*
-    UGH. Who determines balltype for stem?
-   */
-  Rhythmic_head * nh = dynamic_cast<Rhythmic_head*> (support_head ());
-  return !(heads_i () && nh->balltype_i () >= 1);
+  return !(heads_i (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
 }
 
 int
-Stem::get_center_distance (Direction d) const
+Stem::get_center_distance (Score_element*me, Direction d)
 {
   int staff_center = 0;
-  int distance = (int) (d*(head_positions()[d] - staff_center));
+  int distance = (int) (d*(head_positions(me)[d] - staff_center));
   return distance >? 0;
 }
 
 Direction
-Stem::get_default_dir () const
+Stem::get_default_dir (Score_element*me) 
 {
-  int du = get_center_distance (UP);
-  int dd = get_center_distance (DOWN);
+  int du = get_center_distance (me,UP);
+  int dd = get_center_distance (me,DOWN);
 
   if (sign (dd - du))
     return Direction (sign (dd -du));
 
-  return Direction (int(paper_l ()->get_var ("stem_default_neutral_direction")));
+  return to_dir (me->get_elt_property ("default-neutral-direction"));
 }
 
 /*
@@ -259,15 +255,15 @@ Stem::get_default_dir () const
   conversions. (but lets wait till we have namespaces in SCM)
  */
 Real
-Stem::get_default_stem_end_position () const
+Stem::get_default_stem_end_position (Score_element*me) 
 {
-  bool grace_b = to_boolean (get_elt_property ("grace"));
+  bool grace_b = to_boolean (me->get_elt_property ("grace"));
   String type_str = grace_b ? "grace-" : "";
   SCM s;
   Array<Real> a;
 
   Real length_f = 0.;
-  SCM scm_len = get_elt_property("length");
+  SCM scm_len = me->get_elt_property("length");
   if (gh_number_p (scm_len))
     {
       length_f = gh_scm2double (scm_len);
@@ -279,7 +275,7 @@ Stem::get_default_stem_end_position () const
 	a.push (gh_scm2double (gh_car (q)));
 		
       // stem uses half-spaces
-      length_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
+      length_f = a[((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
     }
 
 
@@ -292,30 +288,30 @@ Stem::get_default_stem_end_position () const
   // stem uses half-spaces
 
   // fixme: use gh_list_ref () iso. array[]
-  Real shorten_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
+  Real shorten_f = a[((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG
      'set-default-stemlen' sets direction too
    */
-  Direction dir = get_direction ();
+  Direction dir = get_direction (me);
   if (!dir)
     {
-      dir = get_default_dir ();
-      Directional_element_interface (this).set (dir);
+      dir = get_default_dir (me);
+      Directional_element_interface (me).set (dir);
     }
   
   /* 
     stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay]
    */
-  if (((int)chord_start_f ())
-      && (get_direction () != get_default_dir ()))
+  if (((int)chord_start_f (me))
+      && (get_direction (me) != get_default_dir (me)))
     length_f -= shorten_f;
 
 
-   Real st = head_positions()[dir] + dir * length_f;
+   Real st = head_positions(me)[dir] + dir * length_f;
   
-   bool no_extend_b = to_boolean (get_elt_property ("no-stem-extend"));
+   bool no_extend_b = to_boolean (me->get_elt_property ("no-stem-extend"));
     if (!grace_b && !no_extend_b && dir * st < 0)
       st = 0.0;
 
@@ -326,39 +322,39 @@ Stem::get_default_stem_end_position () const
   FIXME: wrong name
  */
 int
-Stem::flag_i () const
+Stem::flag_i (Score_element*me) 
 {
-  SCM s = get_elt_property ("duration-log");
+  SCM s = me->get_elt_property ("duration-log");
   return  (gh_number_p (s)) ? gh_scm2int (s) : 2;
 }
 
 void
-Stem::position_noteheads ()
+Stem::position_noteheads (Score_element*me)
 {
-  if (!heads_i ())
+  if (!heads_i (me))
     return;
   
   Link_array<Score_element> heads =
-    Pointer_group_interface__extract_elements (this, (Score_element*)0, "heads");
+    Pointer_group_interface__extract_elements (me, (Score_element*)0, "heads");
 
   heads.sort (compare_position);
-  Direction dir =get_direction ();
+  Direction dir =get_direction (me);
   
   if (dir < 0)
     heads.reverse ();
 
 
-  Real w = support_head ()->extent (X_AXIS)[dir];
+  Real w = support_head (me)->extent (X_AXIS)[dir];
   for (int i=0; i < heads.size (); i++)
     {
       heads[i]->translate_axis (w - heads[i]->extent (X_AXIS)[dir], X_AXIS);
     }
   
-  bool parity= true;		// todo: make this settable.
-  int lastpos = int (Staff_symbol_referencer_interface (heads[0]).position_f ());
+  bool parity= true;		// todo: make me settable.
+  int lastpos = int (Staff_symbol_referencer::position_f (heads[0]));
   for (int i=1; i < heads.size (); i ++)
     {
-      Real p = Staff_symbol_referencer_interface (heads[i]).position_f ();
+      Real p = Staff_symbol_referencer::position_f (heads[i]);
       int dy =abs (lastpos- (int)p);
 
       if (dy <= 1)
@@ -366,7 +362,7 @@ Stem::position_noteheads ()
 	  if (parity)
 	    {
 	      Real l  = heads[i]->extent (X_AXIS).length ();
-	      heads[i]->translate_axis (l * get_direction (), X_AXIS);
+	      heads[i]->translate_axis (l * get_direction (me), X_AXIS);
 	    }
 	  parity = !parity;
 	}
@@ -377,20 +373,21 @@ Stem::position_noteheads ()
     }
 }
 
-GLUE_SCORE_ELEMENT(Stem,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Stem,before_line_breaking);
 SCM
-Stem::member_before_line_breaking ()
+Stem::before_line_breaking (SCM smob)
 {
-  stem_end_position ();	// ugh. Trigger direction calc.
-  position_noteheads ();
+  Score_element*me = unsmob_element (smob);
+  stem_end_position (me);	// ugh. Trigger direction calc.
+  position_noteheads (me);
 
-  if (invisible_b ())
+  if (invisible_b (me))
     {
-      remove_elt_property ("molecule-callback");
+      me->remove_elt_property ("molecule-callback");
       // suicide();
     }
   
-  set_spacing_hints ();
+  set_spacing_hints (me);
   return SCM_UNDEFINED;
 }
 
@@ -404,52 +401,53 @@ Stem::member_before_line_breaking ()
    TODO: more advanced: supply height of noteheads as well, for more advanced spacing possibilities
  */
 void
-Stem::set_spacing_hints () 
+Stem::set_spacing_hints (Score_element*me) 
 {
-  if (!invisible_b ())
+  if (!invisible_b (me))
     {
-      SCM scmdir  = gh_int2scm (get_direction ());
-      SCM dirlist = column_l ()->get_elt_property ("dir-list");
+      SCM scmdir  = gh_int2scm (get_direction (me));
+
+      Item* item = dynamic_cast<Item*> (me);
+      Item * col =  item->column_l ();
+      SCM dirlist =col->get_elt_property ("dir-list");
       if (dirlist == SCM_UNDEFINED)
 	dirlist = SCM_EOL;
 
       if (scm_sloppy_memq (scmdir, dirlist) == SCM_EOL)
 	{
 	  dirlist = gh_cons (scmdir, dirlist);
-	  column_l ()->set_elt_property ("dir-list", dirlist);
+	  col->set_elt_property ("dir-list", dirlist);
 	}
     }
 }
 
 Molecule
-Stem::flag () const
+Stem::flag (Score_element*me)
 {
   String style;
-  SCM st = get_elt_property ("flag-style");
+  SCM st = me->get_elt_property ("flag-style");
   if ( gh_string_p (st))
     {
       style = ly_scm2string (st);
     }
 
-  char c = (get_direction () == UP) ? 'u' : 'd';
-  Molecule m = lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
-				      to_str (flag_i ()));
+  char c = (get_direction (me) == UP) ? 'u' : 'd';
+  Molecule m = me->lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
+				      to_str (flag_i (me)));
   if (!style.empty_b ())
-    m.add_molecule(lookup_l ()->afm_find (String ("flags-") + to_str (c) + style));
+    m.add_molecule(me->lookup_l ()->afm_find (String ("flags-") + to_str (c) + style));
   return m;
 }
 
 Interval
 Stem::dim_callback (Score_element *se, Axis ) 
 {
-  Stem * s = dynamic_cast<Stem*> ((Score_element*)se);
-  
   Interval r (0, 0);
-  if (unsmob_element (s->get_elt_pointer ("beam")) || abs (s->flag_i ()) <= 2)
+  if (unsmob_element (se->get_elt_property ("beam")) || abs (flag_i (se)) <= 2)
     ;	// TODO!
   else
     {
-      r = s->flag ().extent (X_AXIS);
+      r = flag (se).extent (X_AXIS);
     }
   return r;
 }
@@ -458,39 +456,40 @@ Stem::dim_callback (Score_element *se, Axis )
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh! Should be settable.
 
 
-GLUE_SCORE_ELEMENT(Stem,brew_molecule);
+MAKE_SCHEME_CALLBACK(Stem,brew_molecule);
 
 SCM
-Stem::member_brew_molecule () const
+Stem::brew_molecule (SCM smob) 
 {
+  Score_element*me = unsmob_element (smob);
   Molecule mol;
-
-  Staff_symbol_referencer_interface si (first_head ());
+  Direction d = get_direction (me);
   
-  Real y1 = si.position_f();
-  Real y2 = stem_end_position ();
+  
+  Real y1 = Staff_symbol_referencer::position_f (first_head (me));
+  Real y2 = stem_end_position (me);
   
   Interval stem_y(y1,y2);
   stem_y.unite (Interval (y2,y1));
 
-  Real dy = Staff_symbol_referencer_interface (this).staff_space ()/2.0;
+  Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
   Real head_wid = 0;
-  if (support_head ())
-    head_wid = support_head ()->extent (X_AXIS).length ();
-  stem_y[Direction(-get_direction ())] += get_direction () * head_wid * tan(ANGLE)/(2*dy);
+  if (support_head (me))
+    head_wid = support_head (me)->extent (X_AXIS).length ();
+  stem_y[Direction(-d)] += d * head_wid * tan(ANGLE)/(2*dy);
   
-  if (!invisible_b ())
+  if (!invisible_b (me))
     {
-      Real stem_width = paper_l ()->get_var ("stemthickness");
-      Molecule ss =lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
+      Real stem_width = me->paper_l ()->get_var ("stemthickness");
+      Molecule ss =me->lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
 						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol.add_molecule (ss);
     }
 
-  if (!beam_l () && abs (flag_i ()) > 2)
+  if (!beam_l (me) && abs (flag_i (me)) > 2)
     {
-      Molecule fl = flag ();
-      fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
+      Molecule fl = flag (me);
+      fl.translate_axis(stem_y[d]*dy, Y_AXIS);
       mol.add_molecule (fl);
     }
 
@@ -498,20 +497,18 @@ Stem::member_brew_molecule () const
 }
 
 Real
-Stem::off_callback (Score_element * se, Axis)
+Stem::off_callback (Score_element * me, Axis)
 {
-  Stem *st = dynamic_cast<Stem*> ((Score_element*)se);
-
   Real r=0;
-  if (Rhythmic_head * f = st->first_head ())
+  if (Score_element * f = first_head (me))
     {
       Interval head_wid(0, f->extent (X_AXIS).length ());
 
-      if (to_boolean (st->get_elt_property ("stem-centered")))
+      if (to_boolean (me->get_elt_property ("stem-centered")))
 	return head_wid.center ();
       
-      Real rule_thick = st->paper_l ()->get_var ("stemthickness");
-      Direction d = st->get_direction ();
+      Real rule_thick = me->paper_l ()->get_var ("stemthickness");
+      Direction d = get_direction (me);
       r = head_wid[d] - d * rule_thick ;
     }
   return r;
@@ -520,39 +517,39 @@ Stem::off_callback (Score_element * se, Axis)
 
 
 Beam*
-Stem::beam_l ()const
+Stem::beam_l (Score_element*me)
 {
-  SCM b=  get_elt_pointer ("beam");
+  SCM b=  me->get_elt_property ("beam");
   return dynamic_cast<Beam*> (unsmob_element (b));
 }
 
 
 // ugh still very long.
 Stem_info
-Stem::calc_stem_info () const
+Stem::calc_stem_info (Score_element*me) 
 {
-  assert (beam_l ());
+  Beam * beam = beam_l (me);
 
-  Direction beam_dir = Directional_element_interface (beam_l ()).get ();
+  Direction beam_dir = Directional_element_interface (beam).get ();
   if (!beam_dir)
     {
       programming_error ("Beam dir not set.");
       beam_dir = UP;
     }
     
-  Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
-  Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->get_multiplicity ());
-  Real thick = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
-  int multiplicity = beam_l ()->get_multiplicity ();
+  Real interbeam_f = me->paper_l ()->interbeam_f (beam->get_multiplicity ());
+  Real thick = gh_scm2double (beam->get_elt_property ("beam-thickness"));
+  int multiplicity = beam->get_multiplicity ();
 
   Stem_info info; 
-  info.idealy_f_ = chord_start_f ();
+  info.idealy_f_ = chord_start_f (me);
 
   // for simplicity, we calculate as if dir == UP
   info.idealy_f_ *= beam_dir;
-  SCM grace_prop = get_elt_property ("grace");
+  SCM grace_prop = me->get_elt_property ("grace");
 
   bool grace_b = to_boolean (grace_prop);
   
@@ -575,7 +572,7 @@ Stem::calc_stem_info () const
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  if (!beam_dir || (beam_dir == Directional_element_interface (this).get ()))
+  if (!beam_dir || (beam_dir == Directional_element_interface (me).get ()))
     /* normal beamed stem */
     {
       if (multiplicity)
@@ -598,7 +595,7 @@ Stem::calc_stem_info () const
 	than middle staffline, just as normal stems.
 	
       */
-      bool no_extend_b = to_boolean (get_elt_property ("no-stem-extend"));
+      bool no_extend_b = to_boolean (me->get_elt_property ("no-stem-extend"));
       if (!grace_b && !no_extend_b)
 	{
 	  /* highest beam of (UP) beam must never be lower than middle
@@ -625,11 +622,11 @@ Stem::calc_stem_info () const
   
   info.idealy_f_ = (info.maxy_f_ <? info.idealy_f_) >? info.miny_f_;
 
-  s = beam_l ()->get_elt_property ("shorten");
+  s = beam->get_elt_property ("shorten");
   if (gh_number_p (s))
     info.idealy_f_ -= gh_scm2double (s);
 
-  Real interstaff_f = -beam_dir* calc_interstaff_dist (this, beam_l ());
+  Real interstaff_f = -beam_dir* calc_interstaff_dist (dynamic_cast<Item*> (me), beam);
 
   info.idealy_f_ += interstaff_f;
   info.miny_f_ += interstaff_f;
@@ -638,3 +635,14 @@ Stem::calc_stem_info () const
   return info;
 }
 
+bool
+Stem::has_interface (Score_element*m)
+{
+  return m && m->has_interface (ly_symbol2scm ("stem-interface"));
+}
+
+void
+Stem::set_interface (Score_element*m)
+{
+  return m->set_interface (ly_symbol2scm ("stem-interface"));
+}

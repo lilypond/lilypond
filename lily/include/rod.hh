@@ -19,7 +19,6 @@ struct Column_rod
   Real distance_f_;
 
   Column_rod ();
-  static int compare (const Column_rod &r1, const Column_rod &r2);
 };
 
 

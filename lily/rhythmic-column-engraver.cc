@@ -6,7 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "dimension-cache.hh"
+
 #include "slur.hh"
 #include "engraver.hh"
 #include "rhythmic-head.hh"
@@ -14,12 +14,13 @@
 #include "note-column.hh"
 #include "dot-column.hh"
 #include "musical-request.hh"
+#include "item.hh"
 
 class Rhythmic_column_engraver :public Engraver
 {
-  Link_array<Rhythmic_head> rhead_l_arr_;
+  Link_array<Score_element> rhead_l_arr_;
   Link_array<Slur> grace_slur_endings_;
-  Stem * stem_l_;
+  Score_element * stem_l_;
   Note_column *ncol_p_;
   Score_element *dotcol_l_;
 
@@ -51,7 +52,7 @@ Rhythmic_column_engraver::process_acknowledged ()
     {
       if (!ncol_p_)
 	{
-	  ncol_p_ = new Note_column (SCM_EOL);
+	  ncol_p_ = new Note_column (get_property("basicNoteColumnProperties"));
 	  announce_element (Score_element_info (ncol_p_, 0));
 	}
 
@@ -94,22 +95,20 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
   SCM wg = get_property ("weAreGraceContext");
   bool wegrace = to_boolean (wg);
-  if ((wegrace !=
-      (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED))
+  if (wegrace != to_boolean (i.elem_l_->get_elt_property ("grace"))
     && !dynamic_cast<Slur*> (i.elem_l_))
     return ;
   
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
-  if (Stem*s=dynamic_cast<Stem *> (item))
+  if (item && Stem::has_interface (item))
     {
-      stem_l_ = s;
+      stem_l_ = item;
     }
-  else if (Rhythmic_head*r=dynamic_cast<Rhythmic_head *> (item))
+  else if (item && Rhythmic_head::has_interface (item))
     {
-      rhead_l_arr_.push (r);
+      rhead_l_arr_.push (item);
     }
-  else if (item
-	   && to_boolean (item->get_elt_property ("dot-column-interface")))
+  else if (item && Dot_column::has_interface (item))
     {
       dotcol_l_ = item;
     }

@@ -12,7 +12,7 @@
 #include "rhythmic-head.hh"
 #include "local-key-item.hh"
 #include "paper-column.hh"
-#include "dimension-cache.hh"
+#include "note-head.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 
@@ -26,7 +26,7 @@ protected:
   virtual void process_acknowledged ();
   virtual void do_post_move_processing ();
   virtual void do_pre_move_processing ();
-  Grace_align_item*align_l_;
+  Item*align_l_;
   Link_array<Item> support_;
 public:
   Grace_position_engraver();
@@ -42,21 +42,22 @@ Grace_position_engraver::Grace_position_engraver ()
 void
 Grace_position_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Grace_align_item*g  =dynamic_cast<Grace_align_item*>(i.elem_l_))
+  Item *item = dynamic_cast<Item*> (i.elem_l_);
+  if (item && Grace_align_item::has_interface (i.elem_l_))
     {
-      align_l_ = g;
+      align_l_ = item;
     }
-  else if (to_boolean (i.elem_l_->get_elt_property ("note-head-interface")))
+  else if (item && Note_head::has_interface (i.elem_l_))
     {
-      if (!to_boolean (i.elem_l_->get_elt_property ("grace")))
-	support_.push (dynamic_cast<Item*> (i.elem_l_));
+      if (!to_boolean (item->get_elt_property ("grace")))
+	support_.push (item);
     }
-  else if (Local_key_item*it = dynamic_cast<Local_key_item*>(i.elem_l_))
+  else if (item && Local_key_item::has_interface (i.elem_l_))
     {
-      if (!to_boolean (it->get_elt_property ("grace")))
-	support_.push (it);
+      if (!to_boolean (item->get_elt_property ("grace")))
+	support_.push (item);
       else if (align_l_) 
-	it->add_dependency (align_l_);
+	item->add_dependency (align_l_);
     }
 }
 
@@ -66,7 +67,7 @@ Grace_position_engraver::process_acknowledged ()
   if (align_l_)
     {
       for (int i=0; i < support_.size (); i++)
-	Side_position_interface  (align_l_).add_support (support_[i]);
+	Side_position::add_support (align_l_,support_[i]);
       support_.clear ();
     }
 }
@@ -74,7 +75,7 @@ Grace_position_engraver::process_acknowledged ()
 void
 Grace_position_engraver::do_pre_move_processing ()
 {
-  if (align_l_ && !Side_position_interface (align_l_).supported_b ())
+  if (align_l_ && !Side_position::supported_b (align_l_))
     {
   /*
      We don't have support. Either some moron tried attaching us to a rest,
@@ -93,7 +94,7 @@ Grace_position_engraver::do_pre_move_processing ()
       warning (_("Unattached grace notes.  Attaching to last musical column."));
       
       align_l_->set_parent (0, X_AXIS);
-      Axis_group_interface (last_musical_col_l_).add_element (align_l_);
+      Axis_group_interface::add_element (last_musical_col_l_, align_l_);
     }
 
   last_musical_col_l_ = dynamic_cast<Paper_column*>( unsmob_element (get_property ("currentMusicalColumn")));

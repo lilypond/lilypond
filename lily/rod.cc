@@ -25,13 +25,6 @@ Column_rod::Column_rod ()
   distance_f_ = 0;
   other_l_ = 0;
 }
-  
-int
-Column_rod::compare (const Column_rod &r1, const Column_rod &r2)
-{
-  return r1.other_l_->rank_i() - r2.other_l_->rank_i();
-}
-
 
 void
 Rod::columnize ()

@@ -16,6 +16,7 @@
 #include "musical-request.hh"
 #include "warn.hh"
 #include "misc.hh"
+#include "note-head.hh"
 
 /**
   This acknowledges repeated music with "tremolo" style.  It typesets
@@ -130,12 +131,13 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 {
   if (beam_p_)
     {
-      if (Stem* s = dynamic_cast<Stem *> (info.elem_l_))
+      if (Stem::has_interface (info.elem_l_))
 	{
-	  int f = s->flag_i ();
+	  Score_element * s = info.elem_l_;
+	  int f = Stem::flag_i (s);
 	  f = (f > 2) ? f - 2 : 1;
-	  s->set_beaming (f, LEFT);
-	  s->set_beaming (f, RIGHT);
+	  Stem::set_beaming (s, f, LEFT);
+	  Stem::set_beaming (s, f, RIGHT);
 	  
 	  /*
 	    URG: this sets the direction of the Stem s.
@@ -149,9 +151,9 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 		      --hwn.
 	   */
 	  SCM d = s->get_elt_property ("direction");
-	  if (s->type_i () != 1)
+	  if (Stem::type_i (s ) != 1)
 	    {
-	      int gap_i =s->flag_i () - ((s->type_i () >? 2) - 2);
+	      int gap_i =Stem::flag_i (s ) - ((Stem::type_i (s ) >? 2) - 2);
 	      beam_p_->set_elt_property ("beam-gap", gh_int2scm(gap_i));
 	    }
 	  s->set_elt_property ("direction", d);
@@ -171,7 +173,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 		::warning (s);
 	    }
 	}
-      if (to_boolean (info.elem_l_->get_elt_property ("note-head-interface")))
+      if (Note_head::has_interface (info.elem_l_))
 	{
 	  info.elem_l_->set_elt_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
 	}

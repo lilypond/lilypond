@@ -14,11 +14,13 @@
 #include "paper-def.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "rest.hh"
+#include "note-head.hh"
 
 bool
 Note_column::rest_b () const
 {
-  return unsmob_element (get_elt_pointer ("rest"));
+  return unsmob_element (get_elt_property ("rest"));
 }
 
 int
@@ -35,17 +37,19 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
 Note_column::Note_column( SCM s)
   : Item (s)
 {
-  set_elt_pointer ("note-heads", SCM_EOL);  
-  Axis_group_interface (this).set_interface ();
-  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
-  Group_interface (this, "interfaces").add_thing (ly_symbol2scm ("Note_column"));
+  Score_element* me = this;
+  me->set_elt_property ("note-heads", SCM_EOL);  
+  me->set_interface (ly_symbol2scm ("note-column-interface"));
+  
+  Axis_group_interface::set_interface (me);
+  Axis_group_interface::set_axes (me, X_AXIS, Y_AXIS);
 }
 
-Stem *
+Item *
 Note_column::stem_l () const
 {
-  SCM s = get_elt_pointer ("stem");
-  return dynamic_cast<Stem*> (unsmob_element (s));
+  SCM s = get_elt_property ("stem");
+  return  dynamic_cast<Item*>(unsmob_element (s));
 }
 
   
@@ -56,13 +60,12 @@ Note_column::head_positions_interval(Score_element *me)
 
   iv.set_empty ();
 
-  SCM h = me->get_elt_pointer ("note-heads");
+  SCM h = me->get_elt_property ("note-heads");
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
       Score_element *se = unsmob_element (gh_car (h));
-      Staff_symbol_referencer_interface si (se); 
       
-      int j = int (si.position_f ());
+      int j = int (Staff_symbol_referencer::position_f (se));
       iv.unite (Slice (j,j));
     }
   return iv;
@@ -71,10 +74,10 @@ Note_column::head_positions_interval(Score_element *me)
 Direction
 Note_column::static_dir (Score_element*  me)
 {
-  Score_element *stem = unsmob_element (me->get_elt_pointer ("stem"));
-  if (dynamic_cast<Stem*> (stem))
-    return dynamic_cast<Stem*> (stem)->get_direction ();
-  else if (gh_pair_p (me->get_elt_pointer ("note-heads")))
+  Score_element *stem = unsmob_element (me->get_elt_property ("stem"));
+  if (stem && Stem::has_interface (stem))
+    return Stem::get_direction (stem);
+  else if (gh_pair_p (me->get_elt_property ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("Note column without heads and stem!");
@@ -91,25 +94,25 @@ Note_column::dir () const
 void
 Note_column::set_stem (Score_element * stem_l)
 {
-  set_elt_pointer ("stem", stem_l->self_scm_);
+  set_elt_property ("stem", stem_l->self_scm_);
 
   add_dependency (stem_l);
-  Axis_group_interface (this).add_element (stem_l);
+  Axis_group_interface::add_element (this, stem_l);
 }
 
 void
 Note_column::add_head (Score_element *h)
 {
-  if (to_boolean (h->get_elt_property ("rest-interface")))
+  if (Rest::has_interface (h))
     {
-      this->set_elt_pointer ("rest", h->self_scm_);
+      this->set_elt_property ("rest", h->self_scm_);
     }
-  else if (to_boolean (h->get_elt_property ("note-head-interface")))
+  else if (Note_head::has_interface (h))
     {
       Pointer_group_interface gi (this, "note-heads");
       gi.add_element (h);
     }
-  Axis_group_interface (this).add_element (h);
+  Axis_group_interface::add_element (this, h);
 }
 
 /**
@@ -118,11 +121,10 @@ Note_column::add_head (Score_element *h)
 void
 Note_column::translate_rests (int dy_i)
 {
-  Score_element * r = unsmob_element (get_elt_pointer ("rest"));
+  Score_element * r = unsmob_element (get_elt_property ("rest"));
   if (r)
     {
-      Staff_symbol_referencer_interface si (r);
-      r->translate_axis (dy_i * si.staff_space ()/2.0, Y_AXIS);
+      r->translate_axis (dy_i * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
     }
 }
 
@@ -130,7 +132,7 @@ Note_column::translate_rests (int dy_i)
 void
 Note_column::set_dotcol (Score_element *d)
 {
-  Axis_group_interface (this).add_element (d);
+  Axis_group_interface::add_element (this, d);
 }
 
 
@@ -138,13 +140,19 @@ Note_column::set_dotcol (Score_element *d)
 Interval
 Note_column::rest_dim () const
 {
-  Score_element * r = unsmob_element (get_elt_pointer ("rest"));
+  Score_element * r = unsmob_element (get_elt_property ("rest"));
   return r->extent (Y_AXIS);
 }
 
-Rhythmic_head*
+Score_element*
 Note_column::first_head () const
 {
-  Stem * st = stem_l ();
-  return st?  st->first_head (): 0; 
+  Score_element * st = stem_l ();
+  return st?  Stem::first_head (st): 0; 
+}
+
+bool
+Note_column::has_interface (Score_element*me)
+{
+  return me && me->has_interface (ly_symbol2scm ("note-column-interface"));
 }

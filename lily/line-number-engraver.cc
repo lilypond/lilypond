@@ -12,6 +12,7 @@
 #include "side-position-interface.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
+#include "note-head.hh"
 
 /**
    Annotate output with line numbers. Creates text-items when it
@@ -37,11 +38,11 @@ Line_number_engraver::process_acknowledged ()
   if (!text_item_p_ && interesting_.size ())
     {
       text_item_p_ = new Item (get_property ("basicTextProperties") );
-      Side_position_interface si (text_item_p_);
-      si.set_axis (Y_AXIS);
+      Side_position::set_axis (text_item_p_,Y_AXIS);
+      Side_position::set_direction (text_item_p_, UP);
       text_item_p_->set_parent (interesting_[0].elem_l_, Y_AXIS);
 
-      si.set_direction (UP);
+
       announce_element (Score_element_info (text_item_p_, 0));
     }
 }
@@ -49,12 +50,12 @@ Line_number_engraver::process_acknowledged ()
 void
 Line_number_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (to_boolean (inf.elem_l_->get_elt_property ("note-head-interface")))
+  if (Note_head::has_interface (inf.elem_l_))
     {
       interesting_.push (inf);
       support_.push (inf.elem_l_);
     }
-  else if (to_boolean (inf.elem_l_->get_elt_property ("stem-interface")))
+  else if (Stem::has_interface (inf.elem_l_))
     {
       support_.push (inf.elem_l_);
     }
@@ -66,7 +67,7 @@ Line_number_engraver::do_pre_move_processing ()
   if (text_item_p_)
     {
       String s;
-      Side_position_interface si (text_item_p_);
+      
       for (int i=0; i < interesting_.size (); i++)
 	{
 	  if (i)
@@ -78,7 +79,7 @@ Line_number_engraver::do_pre_move_processing ()
 
       for (int j= support_.size (); j--; )
 	{
-	  si.add_support (support_[j]);
+	  Side_position::add_support (text_item_p_,support_[j]);
 	}
       if (s != last_text_)
 	{

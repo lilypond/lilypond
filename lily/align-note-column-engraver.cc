@@ -14,13 +14,14 @@
 #include "warn.hh"
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
+#include "local-key-item.hh"
 
 /**
    Catch notes, and put them in a row. Used for aligning grace notes.
  */
 class Align_note_column_engraver: public Engraver
 {
-  Grace_align_item * align_item_p_;
+  Item * align_item_p_;
   Note_column * now_column_l_;
   Score_element * accidental_l_;
 
@@ -44,9 +45,10 @@ Align_note_column_engraver::Align_note_column_engraver()
 void
 Align_note_column_engraver::do_creation_processing ()
 {
-  align_item_p_ = new Grace_align_item (get_property ("basicGraceAlignItemProperties"));
-  Side_position_interface (align_item_p_).set_axis (X_AXIS);
-  Side_position_interface (align_item_p_).set_direction (LEFT);
+  align_item_p_ = new Item (get_property ("basicGraceAlignItemProperties"));
+  Grace_align_item::set_interface (align_item_p_);
+  Side_position::set_axis (align_item_p_, X_AXIS);
+  Side_position::set_direction (align_item_p_, LEFT);
   
   // needed  for setting font size.
   announce_element (Score_element_info (align_item_p_, 0));
@@ -73,7 +75,7 @@ Align_note_column_engraver::acknowledge_element (Score_element_info inf)
     {
       now_column_l_ =n;
     }
-  else if (to_boolean (inf.elem_l_->get_elt_property ("accidentals-interface")))
+  else if (Local_key_item::has_interface (inf.elem_l_))
     {
       accidental_l_ = inf.elem_l_;
     }
@@ -105,7 +107,7 @@ Align_note_column_engraver::process_acknowledged ()
 
   if (now_column_l_)
     {
-      Align_interface (align_item_p_).add_element (now_column_l_);
+      Align_interface::add_element (align_item_p_,now_column_l_);
       now_column_l_ =0;
     }
 }

@@ -22,6 +22,8 @@
 #include "paper-def.hh"
 #include "music-list.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
+#include "note-column.hh"
 
 struct Bar_create_event
 {
@@ -261,22 +263,24 @@ Repeat_engraver::do_process_music ()
 void
 Repeat_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
+  if (Item* item = dynamic_cast<Item*> (i.elem_l_))
     {
-      if (volta_span_p_)
-	Volta_spanner::add_column (volta_span_p_,c);
-      if (end_volta_span_p_)
-	Volta_spanner::add_column (end_volta_span_p_,c);      
-    }
-  if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
-    {
-      if (volta_span_p_)
-	Volta_spanner::add_bar (volta_span_p_,c);
-      if (end_volta_span_p_)
-	Volta_spanner::add_bar(end_volta_span_p_ , c);
+      if (Note_column::has_interface (item))
+	{
+	  if (volta_span_p_)
+	    Volta_spanner::add_column (volta_span_p_,item);
+	  if (end_volta_span_p_)
+	    Volta_spanner::add_column (end_volta_span_p_,item);      
+	}
+      if (Bar::has_interface (item))
+	{
+	  if (volta_span_p_)
+	    Volta_spanner::add_bar (volta_span_p_, item);
+	  if (end_volta_span_p_)
+	    Volta_spanner::add_bar(end_volta_span_p_ , item);
+	}
     }
 }
-
 
 void
 Repeat_engraver::do_removal_processing ()
@@ -309,7 +313,7 @@ Repeat_engraver::do_pre_move_processing ()
 {
   if (end_volta_span_p_)
     {
-      Side_position_interface (end_volta_span_p_).add_staff_support ();
+      Side_position::add_staff_support (end_volta_span_p_);
       
       typeset_element (end_volta_span_p_ );
       end_volta_span_p_ =0;

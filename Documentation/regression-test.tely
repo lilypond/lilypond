@@ -407,5 +407,9 @@ setting the @code{extra-offset} of an output object.
 
 @mudelafile{generic-output-property.ly}
 
+The same mechanism can be  used  to force pagebreaks.
+
+@mudelafile{between-systems.ly}
+
 @bye
 

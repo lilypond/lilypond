@@ -22,7 +22,7 @@
 void
 Multi_measure_rest::set_interface (Score_element*me)
 {
-  me->set_elt_pointer ("columns", SCM_EOL);
+  me->set_elt_property ("columns", SCM_EOL);
 }
 
 Multi_measure_rest::Multi_measure_rest (SCM s)
@@ -33,14 +33,14 @@ Multi_measure_rest::Multi_measure_rest (SCM s)
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Multi_measure_rest,brew_molecule);
+MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
   Score_element *me = unsmob_element (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
   Real staff_space
-    = Staff_symbol_referencer_interface (me).staff_space ();
+    = Staff_symbol_referencer::staff_space (me);
 
   Interval sp_iv;
   Direction d = LEFT;

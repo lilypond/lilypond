@@ -9,39 +9,26 @@
 
 #include "axis-group-interface.hh"
 #include "score-element.hh"
-#include "dimension-cache.hh"
-
-Axis_group_interface::Axis_group_interface (Score_element*s)
-{
-  elt_l_ = s;
-}
-
-Axis_group_interface
-Axis_group_interface (Score_element*s)
-{
-  return Axis_group_interface (s);
-}
 
 void
-Axis_group_interface::add_element (Score_element *e)
+Axis_group_interface::add_element (Score_element*me,Score_element *e)
 {
-  for (SCM ax = elt_l_->get_elt_property ("axes"); ax != SCM_EOL ; ax = gh_cdr (ax))
+  for (SCM ax = me->get_elt_property ("axes"); ax != SCM_EOL ; ax = gh_cdr (ax))
     {
       Axis a = (Axis) gh_scm2int (gh_car (ax));
       
       if (!e->parent_l (a))
-	e->set_parent (elt_l_, a);
+	e->set_parent (me, a);
     }
 
-  Pointer_group_interface (elt_l_).add_element (e);
-  elt_l_->add_dependency (e);
+  Pointer_group_interface (me).add_element (e);
+  me->add_dependency (e);
 }
 
-
 bool
-Axis_group_interface::axis_b (Axis a )const
+Axis_group_interface::axis_b (Score_element*me,Axis a )
 {
-  return elt_l_->has_extent_callback_b (group_extent_callback, a);
+  return me->has_extent_callback_b (group_extent_callback, a);
 }
 
 Interval
@@ -63,38 +50,28 @@ Axis_group_interface::group_extent_callback (Score_element *me, Axis a)
 {
   Score_element * common =(Score_element*) me;
 
-  for (SCM s = me->get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
       common = se->common_refpoint (common, a);
     }
 
   Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (a, common, me->get_elt_pointer ("elements")));
+  Interval r (relative_group_extent (a, common, me->get_elt_property ("elements")));
 
   return r - my_coord;
 }
 
-void
-Axis_group_interface::set_interface ()
-{
-  if (!has_interface_b ())
-    {
-      elt_l_->set_elt_pointer ("elements", SCM_EOL);
 
-
-      Group_interface (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
-    }
-}
 
 void
-Axis_group_interface::set_axes (Axis a1, Axis a2)
+Axis_group_interface::set_axes (Score_element*me,Axis a1, Axis a2)
 {
   // set_interface () ?
   SCM sa1= gh_int2scm (a1);
   SCM sa2 = gh_int2scm (a2);
 
-  SCM prop = elt_l_->get_elt_property ("axes");
+  SCM prop = me->get_elt_property ("axes");
   
   if (prop == SCM_UNDEFINED
       || scm_memq (sa1, prop) == SCM_BOOL_F
@@ -103,45 +80,51 @@ Axis_group_interface::set_axes (Axis a1, Axis a2)
       SCM ax = gh_cons (sa1, SCM_EOL);
       if (a1 != a2)
 	ax= gh_cons (sa2, ax);
-      elt_l_->set_elt_property ("axes", ax);
+      me->set_elt_property ("axes", ax);
     }
 
   if (a1 != X_AXIS && a2 != X_AXIS)
-    elt_l_->set_extent_callback (0, X_AXIS);
+    me->set_extent_callback (0, X_AXIS);
   if (a1 != Y_AXIS && a2 != Y_AXIS)
-    elt_l_->set_extent_callback (0, Y_AXIS);
+    me->set_extent_callback (0, Y_AXIS);
   
-  elt_l_->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
-  elt_l_->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
+  me->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
+  me->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
 }
 
 Link_array<Score_element> 
-Axis_group_interface::get_children ()
+Axis_group_interface::get_children (Score_element*me)
 {
   Link_array<Score_element> childs;
-  childs.push (elt_l_) ;
+  childs.push (me) ;
 
-  if (!has_interface_b ())
+  if (!has_interface (me))
     return childs;
   
-  for (SCM ep = elt_l_->get_elt_pointer ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
+  for (SCM ep = me->get_elt_property ("elements"); gh_pair_p (ep); ep = gh_cdr (ep))
     {
       Score_element* e = unsmob_element (gh_car (ep));
       if (e)
-	childs.concat (Axis_group_interface (e).get_children ());
+	childs.concat (Axis_group_interface::get_children (e));
     }
   
   return childs;
 }
 
 bool
-Axis_group_interface::has_interface_b ()
+Axis_group_interface::has_interface (Score_element*me)
 {
-  SCM ifs = elt_l_->get_elt_property ("interfaces");
-
-  if (!gh_pair_p (ifs ))
-    return false;
-  return scm_memq (ly_symbol2scm ("Axis_group"),ifs)  != SCM_BOOL_F;
+  return me && me->has_interface (ly_symbol2scm ("axis-group-interface"));
 }
 
 
+
+void
+Axis_group_interface::set_interface (Score_element*me)
+{
+  if (!has_interface (me))
+    {
+      me->set_interface (ly_symbol2scm ("axis-group-interface"));      
+      me->set_elt_property ("elements", SCM_EOL);
+    }
+}

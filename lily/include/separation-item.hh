@@ -28,6 +28,7 @@
 struct Separation_item
 {
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static Interval my_width (Score_element*) ;
   static void add_item (Score_element*,Item*);
 };

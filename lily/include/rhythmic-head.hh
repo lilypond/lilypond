@@ -10,7 +10,8 @@
 #ifndef RHYTHMIC_HEAD_HH
 #define RHYTHMIC_HEAD_HH
 
-#include "item.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /*
   Properties
@@ -20,24 +21,17 @@
   dot -- reference to Dots object.
 
 */
-class Rhythmic_head : public Item
+class Rhythmic_head
 {
 public:
-
-  /*
-    Typically not used, since Rhythmic_head is not breakable.
-   */
-  VIRTUAL_COPY_CONS(Rhythmic_head);
-  int balltype_i () const;
-
-  void set_dots (Item *);
-  Stem * stem_l () const;
-  Item * dots_l () const;
-  int dot_count () const;
-
-  SCM member_after_line_breaking ();
+  static int balltype_i (Score_element*) ;
+  static void set_dots (Score_element*,Item *);
+  static Item * stem_l (Score_element*) ;
+  static Item * dots_l (Score_element*) ;
+  static int dot_count (Score_element*) ;
   static SCM after_line_breaking (SCM);
-  Rhythmic_head (SCM s);
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);
 };
 
 #endif // RHYTHMIC_HEAD_HH

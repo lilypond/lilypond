@@ -35,7 +35,9 @@
 Beam::Beam (SCM s)
   : Spanner (s)
 {
-  Pointer_group_interface g (this, "stems");
+  Score_element*me =this;
+  
+  Pointer_group_interface g (me, "stems");
   g.set_interface ();
 
   set_elt_property ("height", gh_int2scm (0)); // ugh.
@@ -43,29 +45,31 @@ Beam::Beam (SCM s)
 }
 
 void
-Beam::add_stem (Stem*s)
+Beam::add_stem (Score_element*s)
 {
-  Pointer_group_interface gi (this, "stems");
+    Score_element*me =this;
+  Pointer_group_interface gi (me, "stems");
   gi.add_element (s);
   
-  s->add_dependency (this);
+  s->add_dependency (me);
 
-  assert (!s->beam_l ());
-  s->set_elt_pointer ("beam", self_scm_);
+  assert (!Stem::beam_l (s));
+  s->set_elt_property ("beam", self_scm_);
 
-  add_bound_item (this, s);
+  add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
 }
 
 int
 Beam::get_multiplicity () const
 {
+  Score_element*me =(Score_element*)this;
   int m = 0;
-  for (SCM s = get_elt_pointer ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element (gh_car (s));
 
-      if (Stem * st = dynamic_cast<Stem*> (sc))
-	m = m >? st->beam_count (LEFT) >? st->beam_count (RIGHT);
+      if (Stem::has_interface (sc))
+	m = m >? Stem::beam_count (sc,LEFT) >? Stem::beam_count (sc,RIGHT);
     }
   return m;
 }
@@ -78,23 +82,27 @@ Beam::get_multiplicity () const
   [Alternatively, stems could set its own directions, according to
    their beam, during 'final-pre-processing'.]
  */
-GLUE_SCORE_ELEMENT(Beam,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Beam,before_line_breaking);
 SCM
-Beam::member_before_line_breaking ()
+Beam::before_line_breaking (SCM smob)
 {
+  
+  Score_element * beam =  unsmob_element (smob);
+  Beam * me =dynamic_cast<Beam*> (beam);
+
   // Why?
-  if (visible_stem_count () < 2)
+  if (me->visible_stem_count () < 2)
     {
       warning (_ ("beam has less than two stems"));
 
     }
 
-  if (!Directional_element_interface (this).get ())
-    Directional_element_interface (this).set (get_default_dir ());
+  if (!Directional_element_interface (me).get ())
+    Directional_element_interface (me).set (me->get_default_dir ());
 
-  auto_knees ();
-  set_stem_directions ();
-  set_stem_shorten ();
+  me->auto_knees ();
+  me->set_stem_directions ();
+  me->set_stem_shorten ();
 
   return SCM_EOL;
 }
@@ -110,13 +118,16 @@ Beam::get_default_dir () const
   Drul_array<int> count; 
   count[UP]  = count[DOWN] = 0;
   Direction d = DOWN;
+  Spanner*me = (Spanner*)this;
+  Link_array<Item> stems=
+	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
 
-  for (int i=0; i <stem_count (); i++)
+  for (int i=0; i <stems.size (); i++)
     do { // HUH -- waar slaat dit op?
-      Stem *s = stem (i);
+      Score_element *s = stems[i];
       Direction sd = Directional_element_interface (s).get ();
       int current = sd	? (1 + d * sd)/2
-	: s->get_center_distance ((Direction)-d);
+	: Stem::get_center_distance (s, (Direction)-d);
 
       if (current)
 	{
@@ -137,10 +148,9 @@ Beam::get_default_dir () const
     return to_dir (s);
   
   /*
-    If dir is not determined: get from paper
+    If dir is not determined: get default
   */
-  return (Direction)(int)
-    paper_l ()->get_var ("stem_default_neutral_direction");
+  return to_dir (get_elt_property ("default-neutral-direction"));
 }
 
 
@@ -152,10 +162,13 @@ Beam::get_default_dir () const
 void
 Beam::set_stem_directions ()
 {
+  Link_array<Item> stems
+    =Pointer_group_interface__extract_elements (this,  (Item*) 0, "stems");
   Direction d = Directional_element_interface (this).get ();
-  for (int i=0; i <stem_count (); i++)
+  
+  for (int i=0; i <stems.size (); i++)
     {
-      Stem *s = stem (i);
+      Score_element *s = stems[i];
       SCM force = s->remove_elt_property ("dir-forced");
       if (!gh_boolean_p (force) || !gh_scm2bool (force))
 	Directional_element_interface (s).set (d);
@@ -181,20 +194,24 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
 {
   bool knee_b = false;
   int knee_y = 0;
-  SCM gap = get_elt_property (gap_str);
-  Direction d = Directional_element_interface (this).get ();
+  SCM gap = get_elt_property (gap_str.ch_C());
+  Spanner* me =  this;
+  
+  Direction d = Directional_element_interface (me).get ();
+      Link_array<Item> stems=
+	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
   
   if (gh_number_p (gap))
     {
       int auto_gap_i = gh_scm2int (gap);
-      for (int i=1; i < stem_count (); i++)
+      for (int i=1; i < stems.size (); i++)
         {
-	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
-	    - calc_interstaff_dist (stem (i-1), this));
-	  int l_y = (int)(stem (i-1)->head_positions()[d])
-	    + (int)calc_interstaff_dist (stem (i-1), this);
-	  int r_y = (int)(stem (i)->head_positions()[d])
-	    + (int)calc_interstaff_dist (stem (i), this);
+	  bool is_b = (bool)(calc_interstaff_dist (stems[i], me) 
+	    - calc_interstaff_dist (stems[i-1], me));
+	  int l_y = (int)(Stem::head_positions(stems[i-1])[d])
+	    + (int)calc_interstaff_dist (stems[i-1], me);
+	  int r_y = (int)(Stem::head_positions(stems[i])[d])
+	    + (int)calc_interstaff_dist (stems[i], me);
 	  int gap_i = r_y - l_y;
 
 	  if ((abs (gap_i) >= auto_gap_i) && (!interstaff_b || is_b))
@@ -207,12 +224,11 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
     }
   if (knee_b)
     {
-      for (int i=0; i < stem_count (); i++)
+      for (int i=0; i < stems.size (); i++)
         {
-	  Item *s = stem(i);	  
-	  int y = (int)(stem (i)->head_positions()[d])
-	    + (int)calc_interstaff_dist (s, this);
-
+	  Item *s = stems[i];	  
+	  int y = (int)(Stem::head_positions(s)[d])
+	    + (int)calc_interstaff_dist (s, me);
 
 	  Directional_element_interface (s).set (y < knee_y ? UP : DOWN);
 	  s->set_elt_property ("dir-forced", SCM_BOOL_T);
@@ -230,6 +246,7 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
 void
 Beam::set_stem_shorten ()
 {
+  Spanner*me = this;
   if (!visible_stem_count ())
     return;
 
@@ -247,8 +264,7 @@ Beam::set_stem_shorten ()
 
   int sz = scm_ilength (shorten);
   
-  Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM shorten_elt = scm_list_ref (shorten, gh_int2scm (multiplicity <? (sz - 1)));
   Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
 
@@ -256,10 +272,13 @@ Beam::set_stem_shorten ()
   if (forced_fraction < 1)
     shorten_f /= 2;
 
-  for (int i=0; i < stem_count (); i++)
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+
+  for (int i=0; i < stems.size (); i++)
     {
-      Stem* s = stem (i);
-      if (s->invisible_b ())
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
         continue;
       if (gh_number_p (s->get_elt_property ("shorten")))
 	s->set_elt_property ("shorten", gh_double2scm (shorten_f));
@@ -270,20 +289,23 @@ Beam::set_stem_shorten ()
   Set elt properties height and y-position if not set.
   Adjust stem lengths to reach beam.
  */
-GLUE_SCORE_ELEMENT(Beam,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Beam,after_line_breaking);
 SCM
-Beam::member_after_line_breaking ()
+Beam::after_line_breaking (SCM smob)
 {
+  Score_element * beam =  unsmob_element (smob);
+  Beam * me =dynamic_cast<Beam*> (beam);
+
   /* first, calculate y, dy */
   Real y, dy;
-  calc_default_position_and_height (&y, &dy);
-  if (visible_stem_count ())
+  me->calc_default_position_and_height (&y, &dy);
+  if (me->visible_stem_count ())
     {
-      if (suspect_slope_b (y, dy))
+      if (me->suspect_slope_b (y, dy))
 	dy = 0;
 
-      Real damped_dy = calc_slope_damping_f (dy);
-      Real quantised_dy = quantise_dy_f (damped_dy);
+      Real damped_dy = me->calc_slope_damping_f (dy);
+      Real quantised_dy = me->quantise_dy_f (damped_dy);
 
       y += (dy - quantised_dy) / 2;
       dy = quantised_dy;
@@ -291,22 +313,22 @@ Beam::member_after_line_breaking ()
   /*
     until here, we used only stem_info, which acts as if dir=up
    */
-  y *= Directional_element_interface (this).get ();
-  dy *= Directional_element_interface (this).get ();
+  y *= Directional_element_interface (me).get ();
+  dy *= Directional_element_interface (me).get ();
 
-  Staff_symbol_referencer_interface st (this);
-  Real half_space = st.staff_space () / 2;
+
+  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
 
   /* check for user-override of dy */
-  SCM s = remove_elt_property ("height-hs");
+  SCM s = me->remove_elt_property ("height-hs");
   if (gh_number_p (s))
     {
       dy = gh_scm2double (s) * half_space;
     }
-  set_elt_property ("height", gh_double2scm (dy));
+  me->set_elt_property ("height", gh_double2scm (dy));
 
   /* check for user-override of y */
-  s = remove_elt_property ("y-position-hs");
+  s = me->remove_elt_property ("y-position-hs");
   if (gh_number_p (s))
     {
       y = gh_scm2double (s) * half_space;
@@ -314,11 +336,11 @@ Beam::member_after_line_breaking ()
   else
     { 
       /* we can modify y, so we should quantise y */
-      Real y_shift = check_stem_length_f (y, dy);
+      Real y_shift = me->check_stem_length_f (y, dy);
       y += y_shift;
-      y = quantise_y_f (y, dy, 0);
-      set_stem_length (y, dy);
-      y_shift = check_stem_length_f (y, dy);
+      y = me->quantise_y_f (y, dy, 0);
+      me->set_stem_length (y, dy);
+      y_shift = me->check_stem_length_f (y, dy);
 
       if (y_shift > half_space / 4)
 	{
@@ -330,15 +352,14 @@ Beam::member_after_line_breaking ()
 	  */
 	  int quant_dir = 0;
 	  if (abs (y_shift) > half_space / 2)
-	    quant_dir = sign (y_shift) * Directional_element_interface (this).get ();
-	  y = quantise_y_f (y, dy, quant_dir);
+	    quant_dir = sign (y_shift) * Directional_element_interface (me).get ();
+	  y = me->quantise_y_f (y, dy, quant_dir);
 	}
     }
   // UGH. Y is not in staff position unit?
   // Ik dacht datwe daar juist van weg wilden?
-  set_stem_length (y, dy);
-  set_elt_property ("y-position", gh_double2scm (y));
-
+  me->set_stem_length (y, dy);
+  me->set_elt_property ("y-position", gh_double2scm (y));
 
   return SCM_UNDEFINED;
 }
@@ -349,13 +370,14 @@ Beam::member_after_line_breaking ()
 void
 Beam::calc_default_position_and_height (Real* y, Real* dy) const
 {
+  Spanner*me = (Spanner*)this;
   *y = 0;
   *dy = 0;  
   if (visible_stem_count () <= 1)
     return;
 
-  Real first_ideal = first_visible_stem ()->calc_stem_info ().idealy_f_;
-  if (first_ideal == last_visible_stem ()->calc_stem_info ().idealy_f_)
+  Real first_ideal = Stem::calc_stem_info (first_visible_stem ()).idealy_f_;
+  if (first_ideal == Stem::calc_stem_info (last_visible_stem ()).idealy_f_)
     {
       *dy = 0;
       *y = first_ideal;
@@ -364,13 +386,16 @@ Beam::calc_default_position_and_height (Real* y, Real* dy) const
 
   Array<Offset> ideals;
   Real x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
-  for (int i=0; i < stem_count (); i++)
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+
+  for (int i=0; i < stems.size (); i++)
     {
-      Stem* s = stem (i);
-      if (s->invisible_b ())
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
         continue;
       ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0, 
-			   s->calc_stem_info ().idealy_f_));
+			   Stem::calc_stem_info (s).idealy_f_));
     }
   Real dydx;
   minimise_least_squares (&dydx, y, ideals); // duh, takes references
@@ -386,8 +411,8 @@ Beam::suspect_slope_b (Real y, Real dy) const
   /*
     steep slope running against lengthened stem is suspect
   */
-  Real first_ideal = first_visible_stem ()->calc_stem_info ().idealy_f_;
-  Real last_ideal = last_visible_stem ()->calc_stem_info ().idealy_f_;
+  Real first_ideal = Stem::calc_stem_info (first_visible_stem ()).idealy_f_;
+  Real last_ideal = Stem::calc_stem_info (last_visible_stem ()).idealy_f_;
   Real lengthened = paper_l ()->get_var ("beam_lengthened");
   Real steep = paper_l ()->get_var ("beam_steep_slope");
 
@@ -410,10 +435,8 @@ Beam::suspect_slope_b (Real y, Real dy) const
 Real
 Beam::calc_slope_damping_f (Real dy) const
 {
-  SCM damp = get_elt_property ("damping"); // remove?
-  int damping = 1;		// ugh.
-  if (gh_number_p (damp))
-    damping = gh_scm2int (damp);
+  SCM damp = get_elt_property ("damping"); 
+  int damping = gh_scm2int (damp);
 
   if (damping)
     {
@@ -427,13 +450,14 @@ Beam::calc_slope_damping_f (Real dy) const
 }
 
 Real
-Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
+Beam::calc_stem_y_f (Item* s, Real y, Real dy) const
 {
+  Score_element*me = (Score_element*)this;
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
   thick *= paper_l ()->get_var ("staffspace");
   
   int beam_multiplicity = get_multiplicity ();
-  int stem_multiplicity = (s->flag_i () - 2) >? 0;
+  int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
 
   Real interbeam_f = paper_l ()->interbeam_f (beam_multiplicity);
   Real x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
@@ -441,7 +465,7 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   Real stem_y = (dy && dx ? (s->relative_coordinate (0, X_AXIS) - x0) / dx * dy : 0) + y;
 
   /* knee */
-   Direction dir  = Directional_element_interface(this).get ();
+   Direction dir  = Directional_element_interface(me).get ();
    Direction sdir = Directional_element_interface (s).get ();
    
     /* knee */
@@ -450,35 +474,39 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
        stem_y -= dir 
 	* (thick / 2 + (beam_multiplicity - 1) * interbeam_f);
 
-      Staff_symbol_referencer_interface me (s);
-      Staff_symbol_referencer_interface last (last_visible_stem ());
+
       
       // huh, why not for first visible?
-      if (//(s != first_visible_stem ()) &&
-	  me.staff_symbol_l () != last.staff_symbol_l ())
-	stem_y += Directional_element_interface (this).get ()
-	  * (beam_multiplicity - stem_multiplicity) * interbeam_f;
-    }
+       if (Staff_symbol_referencer::staff_symbol_l (s)
+	   != Staff_symbol_referencer::staff_symbol_l (last_visible_stem ()))
+	 stem_y += Directional_element_interface (me).get ()
+	   * (beam_multiplicity - stem_multiplicity) * interbeam_f;
+      }
+
   return stem_y;
 }
 
 Real
 Beam::check_stem_length_f (Real y, Real dy) const
 {
+  Score_element * me = (Score_element*)this;
   Real shorten = 0;
   Real lengthen = 0;
-  Direction dir = Directional_element_interface (this).get ();
-  
-  for (int i=0; i < stem_count (); i++)
+  Direction dir = Directional_element_interface (me).get ();
+
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+
+  for (int i=0; i < stems.size(); i++)
     {
-      Stem* s = stem (i);
-      if (s->invisible_b ())
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
 	continue;
 
       Real stem_y = calc_stem_y_f (s, y, dy);
 	
       stem_y *= dir;
-      Stem_info info = s->calc_stem_info ();
+      Stem_info info = Stem::calc_stem_info (s);
 
       // if (0 > info.maxy_f_ - stem_y)
       shorten = shorten <? info.maxy_f_ - stem_y;
@@ -500,18 +528,23 @@ Beam::check_stem_length_f (Real y, Real dy) const
 void
 Beam::set_stem_length (Real y, Real dy)
 {
-  Staff_symbol_referencer_interface st (this);
-  Real half_space = st.staff_space ()/2;
-  for (int i=0; i < stem_count (); i++)
+  Beam*me = this;
+
+  Real half_space = Staff_symbol_referencer::staff_space (me)/2;
+  Link_array<Item> stems=
+    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+
+
+  for (int i=0; i < stems.size (); i++)
     {
-      Stem* s = stem (i);
-      if (s->invisible_b ())
+      Item* s = stems[i];
+      if (Stem::invisible_b (s))
 	continue;
 
       Real stem_y = calc_stem_y_f (s, y, dy);
 
       /* caution: stem measures in staff-positions */
-      s->set_stemend ((stem_y + calc_interstaff_dist (s, this)) / half_space);
+      Stem::set_stemend (s,(stem_y + calc_interstaff_dist (s, me)) / half_space);
     }
 }
 
@@ -526,6 +559,7 @@ Beam::set_stem_length (Real y, Real dy)
 Real
 Beam::quantise_dy_f (Real dy) const
 {
+  Score_element*me = (Score_element*)this;
   Array<Real> a;
   for (SCM s = scm_eval (ly_symbol2scm ("beam-height-quants")); s !=SCM_EOL; s = gh_cdr (s))
     a.push (gh_scm2double (gh_car (s)));
@@ -533,8 +567,7 @@ Beam::quantise_dy_f (Real dy) const
   if (a.size () <= 1)
     return dy;
 
-  Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   
   Interval iv = quantise_iv (a, abs (dy)/staff_space) * staff_space;
   Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
@@ -556,8 +589,9 @@ Real
 Beam::quantise_y_f (Real y, Real dy, int quant_dir)
 {
   int multiplicity = get_multiplicity ();
-  Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Score_element*me = (Score_element*)this;
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM quants = scm_eval (gh_list (ly_symbol2scm ("beam-vertical-position-quants"),
 				  gh_int2scm (multiplicity),
 				  gh_double2scm (dy/staff_space),
@@ -571,7 +605,7 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
   if (a.size () <= 1)
     return y;
 
-  Real up_y = Directional_element_interface (this).get () * y;
+  Real up_y = Directional_element_interface (me).get () * y;
   Interval iv = quantise_iv (a, up_y/staff_space) * staff_space;
 
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
@@ -579,19 +613,23 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
   if (quant_dir)
     q = iv[(Direction)quant_dir];
 
-  return q * Directional_element_interface (this).get ();
+  return q * Directional_element_interface (me).get ();
 }
 
 void
 Beam::set_beaming (Beaming_info_list *beaming)
 {
+  Score_element*me = this;
+  Link_array<Score_element> stems=
+    Pointer_group_interface__extract_elements (me, (Score_element*)0, "stems");
+  
   Direction d = LEFT;
-  for (int i=0; i  < stem_count (); i++)
+  for (int i=0; i  < stems.size(); i++)
     {
       do
 	{
-	  if (stem (i)->beam_count (d) == 0)
-	    stem (i)->set_beaming ( beaming->infos_.elem (i).beams_i_drul_[d],d);
+	  if (Stem::beam_count (stems[i], d) == 0)
+	    Stem::set_beaming ( stems[i], beaming->infos_.elem (i).beams_i_drul_[d],d);
 	}
       while (flip (&d) != LEFT);
     }
@@ -606,8 +644,9 @@ Beam::set_beaming (Beaming_info_list *beaming)
   clean  me up.
   */
 Molecule
-Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
+Beam::stem_beams (Item *here, Item *next, Item *prev) const
 {
+  Score_element*me = (Score_element*)this;
   if ((next && !(next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
       (prev && !(prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
       programming_error ("Beams are not left-to-right");
@@ -634,23 +673,23 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   // UGH
   Real nw_f;
-  if (!here->first_head ())
+  if (!Stem::first_head (here))
     nw_f = 0;
-  else if (here->type_i ()== 1)
+  else if (Stem::type_i (here)== 1)
     nw_f = paper_l ()->get_var ("wholewidth");
-  else if (here->type_i () == 2)
+  else if (Stem::type_i (here) == 2)
     nw_f = paper_l ()->get_var ("notewidth") * 0.8;
   else
     nw_f = paper_l ()->get_var ("quartwidth");
 
 
-  Direction dir = Directional_element_interface (this).get ();
+  Direction dir = Directional_element_interface (me).get ();
   
   /* half beams extending to the left. */
   if (prev)
     {
-      int lhalfs= lhalfs = here->beam_count (LEFT) - prev->beam_count (RIGHT);
-      int lwholebeams= here->beam_count (LEFT) <? prev->beam_count (RIGHT) ;
+      int lhalfs= lhalfs = Stem::beam_count (here,LEFT) - Stem::beam_count (prev,RIGHT);
+      int lwholebeams= Stem::beam_count (here,LEFT) <? Stem::beam_count (prev,RIGHT) ;
       /*
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
@@ -671,8 +710,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   if (next)
     {
-      int rhalfs  = here->beam_count (RIGHT) - next->beam_count (LEFT);
-      int rwholebeams= here->beam_count (RIGHT) <? next->beam_count (LEFT) ;
+      int rhalfs  = Stem::beam_count (here,RIGHT) - Stem::beam_count (next,LEFT);
+      int rwholebeams= Stem::beam_count (here,RIGHT) <? Stem::beam_count (next,LEFT) ;
 
       Real w = next->relative_coordinate (0, X_AXIS) - here->relative_coordinate (0, X_AXIS);
       Molecule a = lookup_l ()->beam (dydx, w + stemdx, thick);
@@ -701,7 +740,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  b.translate (Offset (here->invisible_b () ? 0 : gap_f, -dir * bdy * j));
+	  b.translate (Offset (Stem::invisible_b (here) ? 0 : gap_f, -dir * bdy * j));
 	  rightbeams.add_molecule (b);
 	}
 
@@ -726,42 +765,49 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   return leftbeams;
 }
 
-GLUE_SCORE_ELEMENT(Beam,brew_molecule);
+MAKE_SCHEME_CALLBACK(Beam,brew_molecule);
 SCM
-Beam::member_brew_molecule () const
+Beam::brew_molecule (SCM smob)
 {
+  Score_element * beam =  unsmob_element (smob);
+  Beam * me =dynamic_cast<Beam*> (beam);
+
   Molecule mol;
-  if (!stem_count ())
+  if (!gh_pair_p (me->get_elt_property ("stems")))
     return SCM_EOL;
   Real x0,dx;
-  if (visible_stem_count ())
+  Link_array<Item>stems = 
+    Pointer_group_interface__extract_elements ((Beam*) me, (Item*) 0, "stems");  
+  if (me->visible_stem_count ())
     {
-      x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
-      dx = last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
+      x0 = me->first_visible_stem ()->relative_coordinate (0, X_AXIS);
+      dx = me->last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
     }
   else
     {
-      x0 = stem (0)->relative_coordinate (0, X_AXIS);
-      dx = stem_top ()->relative_coordinate (0, X_AXIS) - x0;
+      x0 = stems[0]->relative_coordinate (0, X_AXIS);
+      dx = stems.top()->relative_coordinate (0, X_AXIS) - x0;
     }
   
   
-  Real dy = gh_scm2double (get_elt_property ("height"));
+  Real dy = gh_scm2double (me->get_elt_property ("height"));
   Real dydx = dy && dx ? dy/dx : 0;
-  Real y = gh_scm2double (get_elt_property ("y-position"));
-  for (int j=0; j <stem_count (); j++)
-    {
-      Stem *i = stem (j);
-      Stem * prev = (j > 0)? stem (j-1) : 0;
-      Stem * next = (j < stem_count ()-1) ? stem (j+1) :0;
+  Real y = gh_scm2double (me->get_elt_property ("y-position"));
 
-      Molecule sb = stem_beams (i, next, prev);
+
+  for (int j=0; j <stems.size  (); j++)
+    {
+      Item *i = stems[j];
+      Item * prev = (j > 0)? stems[j-1] : 0;
+      Item * next = (j < stems.size()-1) ? stems[j+1] :0;
+
+      Molecule sb = me->stem_beams (i, next, prev);
       Real x = i->relative_coordinate (0, X_AXIS)-x0;
       sb.translate (Offset (x, x * dydx + y));
       mol.add_molecule (sb);
     }
   mol.translate_axis (x0 
-    - get_bound (LEFT)->relative_coordinate (0, X_AXIS), X_AXIS);
+    - me->get_bound (LEFT)->relative_coordinate (0, X_AXIS), X_AXIS);
 
   return mol.create_scheme ();
 }
@@ -769,79 +815,70 @@ Beam::member_brew_molecule () const
 int
 Beam::forced_stem_count () const
 {
+  Score_element* me = (Score_element*)this;
+  Link_array<Item>stems = 
+    Pointer_group_interface__extract_elements ((Beam*) me, (Item*) 0, "stems");
   int f = 0;
-  for (int i=0; i < stem_count (); i++)
+  for (int i=0; i < stems.size (); i++)
     {
-      Stem *s = stem (i);
+      Item *s = stems[i];
 
-      if (s->invisible_b ())
+      if (Stem::invisible_b (s))
 	continue;
 
-      if (((int)s->chord_start_f ()) 
-        && (s->get_direction () != s->get_default_dir ()))
+      if (((int)Stem::chord_start_f (s)) 
+        && (Stem::get_direction (s ) != Stem::get_default_dir (s )))
         f++;
     }
   return f;
 }
 
-/*
-  TODO: Fix this class. This is wildly inefficient.
-  And it sux.  Yet another array/list 'interface'.
+
+
+
+/* TODO:
+   use filter and standard list functions.
  */
-Stem *
-Beam::stem (int i) const
-{
-  return Pointer_group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
-}
-
-int
-Beam::stem_count () const
-{
-  Pointer_group_interface gi (this, "stems");
-  return gi.count ();
-}
-
-Stem*
-Beam::stem_top () const
-{
-  SCM s = get_elt_pointer ("stems");
-  
-  return gh_pair_p (s) ? dynamic_cast<Stem*> (unsmob_element (gh_car (s))) : 0;
-}
-
-/* burp */
 int
 Beam::visible_stem_count () const
 {
+  Score_element * me = (Score_element*)this;
+  Link_array<Item>stems = 
+    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
   int c = 0;
-  for (int i = 0; i < stem_count (); i++)
+  for (int i = stems.size (); i--;)
     {
-      if (!stem (i)->invisible_b ())
+      if (!Stem::invisible_b (stems[i]))
         c++;
     }
   return c;
 }
 
-Stem*
-Beam::first_visible_stem () const
+Item*
+Beam::first_visible_stem() const
 {
-  for (int i = 0; i < stem_count (); i++)
+  Score_element * me = (Score_element*)this;
+  Link_array<Item>stems = 
+    Pointer_group_interface__extract_elements ((Beam*) me, (Item*) 0, "stems");
+  
+  for (int i = 0; i < stems.size (); i++)
     {
-      Stem* s = stem (i);
-      if (!s->invisible_b ())
-        return s;
+      if (!Stem::invisible_b (stems[i]))
+        return stems[i];
     }
   return 0;
 }
 
-Stem*
-Beam::last_visible_stem () const
+Item*
+Beam::last_visible_stem() const
 {
-  for (int i = stem_count (); i > 0; i--)
+  Score_element * me = (Score_element*)this;
+  Link_array<Item>stems = 
+    Pointer_group_interface__extract_elements ((Beam*) me, (Item*) 0, "stems");
+  for (int i = stems.size (); i--;)
     {
-      Stem* s = stem (i - 1);
-      if (!s->invisible_b ())
-        return s;
+      if (!Stem::invisible_b (stems[i]))
+        return stems[i];
     }
   return 0;
 }
@@ -861,11 +898,11 @@ Beam::rest_collision_callback (Score_element *rest, Axis a )
 {
   assert (a == Y_AXIS);
 
-  Score_element * st = unsmob_element (rest->get_elt_pointer ("stem"));
-  Stem * stem  = dynamic_cast<Stem*> (st);
+  Score_element * st = unsmob_element (rest->get_elt_property ("stem"));
+  Score_element * stem = st;
   if (!stem)
     return 0.0;
-  Beam * beam = dynamic_cast<Beam*> (unsmob_element (stem->get_elt_pointer ("beam"))); 
+  Beam * beam = dynamic_cast<Beam*> (unsmob_element (stem->get_elt_property ("beam"))); 
   if (!beam || !beam->visible_stem_count ())
     return 0.0;
 
@@ -883,16 +920,14 @@ Beam::rest_collision_callback (Score_element *rest, Axis a )
   if (gh_number_p (s))
     beam_y = gh_scm2double (s);
   
-  Real x0 = beam->first_visible_stem ()->relative_coordinate (0, X_AXIS);
-  Real dx = beam->last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
+  Real x0 = beam->first_visible_stem()->relative_coordinate (0, X_AXIS);
+  Real dx = beam->last_visible_stem()->relative_coordinate (0, X_AXIS) - x0;
   Real dydx = beam_dy && dx ? beam_dy/dx : 0;
 
-  Direction d = stem->get_direction ();
+  Direction d = Stem::get_direction (stem);
   Real beamy = (stem->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
 
-  Staff_symbol_referencer_interface si (rest);
-
-  Real staff_space = si.staff_space ();      
+  Real staff_space =   Staff_symbol_referencer::staff_space (rest);
   Real rest_dim = rest->extent (Y_AXIS)[d]*2.0 / staff_space ;
 
   Real minimum_dist
@@ -900,7 +935,7 @@ Beam::rest_collision_callback (Score_element *rest, Axis a )
   Real dist =
     minimum_dist +  -d  * (beamy - rest_dim) >? 0;
 
-  int stafflines = si.line_count ();
+  int stafflines = Staff_symbol_referencer::line_count (rest);
 
   // move discretely by half spaces.
   int discrete_dist = int (ceil (dist));

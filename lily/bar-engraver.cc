@@ -7,15 +7,16 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "bar.hh"
 #include "score-engraver.hh"
 #include "bar-engraver.hh"
-#include "staff-bar.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
+#include "item.hh"
 
 Bar_engraver::Bar_engraver()
 {
@@ -28,13 +29,8 @@ Bar_engraver::create_bar ()
 {
   if (!bar_p_)
     {
-      bar_p_ = new Staff_bar (get_property ("basicBarProperties"));
-
+      bar_p_ = new Item (get_property ("basicBarProperties"));
       
-      // urg: "" != empty...
-      /*
-	TODO: use symbol.
-       */
       SCM default_type = get_property ("defaultBarType");
       if (gh_string_p (default_type))
 	{
@@ -48,7 +44,6 @@ Bar_engraver::create_bar ()
 /**
    Make a barline.  If there are both |: and :| requested, merge them
    to :|:.
-
 */
 void
 Bar_engraver::request_bar (String requested_type)

@@ -10,6 +10,10 @@
 
 #include <ctype.h>
 
+#include "key-item.hh"
+#include "local-key-item.hh"
+#include "bar.hh"
+#include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"
 #include "command-request.hh"
@@ -123,18 +127,19 @@ Clef_engraver::acknowledge_element (Score_element_info info)
   Item * item =dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
-      if (to_boolean (info.elem_l_->get_elt_property ("bar-interface"))
+      if (Bar::has_interface (info.elem_l_)
 	  && gh_string_p (clef_glyph_))
 	create_clef();
       
 
-      if (to_boolean (item->get_elt_property("note-head-interface"))
-	  || to_boolean (item->get_elt_property ("accidentals-interface")))
+      if (Note_head::has_interface (item)
+	  || Local_key_item::has_interface (item))
 	{
-	  Staff_symbol_referencer_interface si (item);
-	  si.set_position (int (si.position_f ()) + c0_position_i_);
+	  int p = int (Staff_symbol_referencer::position_f (item)) + c0_position_i_;
+	  Staff_symbol_referencer::set_position (item,p);
+					
 	}
-      else if (to_boolean (item->get_elt_property ("key-item-interface")))
+      else if (Key_item::has_interface (item))
 	{
 	  item->set_elt_property ("c0-position", gh_int2scm (c0_position_i_));
 	}
@@ -175,23 +180,21 @@ Clef_engraver::create_clef()
       Item *c= new Item ( current_settings_);
       announce_element (Score_element_info (c, clef_req_l_));
 
-      Staff_symbol_referencer_interface::set_interface (c);
+      Staff_symbol_referencer::set_interface (c);
       
       clef_p_ = c;
     }
-  Staff_symbol_referencer_interface si(clef_p_);
-
-  si.set_position (clef_position_i_);
+  Staff_symbol_referencer::set_position(clef_p_, clef_position_i_);
   if (octave_dir_)
     {
       Item * g = new Item (get_property ("basicOctavateEightProperties"));
-      Side_position_interface spi (g);
-      spi.set_axis (Y_AXIS);
-      spi.add_support (clef_p_);
+      Side_position::set_axis (g,Y_AXIS);
+      Side_position::add_support (g,clef_p_);      
+
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);
-      g->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
-      g->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
+      g->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
+      g->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
       g->set_elt_property ("direction", gh_int2scm (octave_dir_));
       octavate_p_ = g;
       announce_element (Score_element_info (octavate_p_, clef_req_l_));

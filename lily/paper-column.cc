@@ -14,7 +14,7 @@
 void
 Paper_column::add_rod (Paper_column * p, Real d)
 {
-  Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
+  Direction dir =  Direction (sign (rank_i(p)  -rank_i (this)));
   
   if (dir != RIGHT)
     {
@@ -42,7 +42,7 @@ Paper_column::add_rod (Paper_column * p, Real d)
 void
 Paper_column::add_spring (Paper_column * p, Real d, Real s)
 {
-  Direction dir =  Direction (sign (p->rank_i ()  - rank_i ()));
+  Direction dir =  Direction (sign (rank_i(p)  -rank_i (this)));
   
   if (dir != RIGHT)
     {
@@ -69,18 +69,10 @@ Paper_column::add_spring (Paper_column * p, Real d, Real s)
 }
 
 int
-Paper_column::rank_i() const
+Paper_column::rank_i(Score_element*me) 
 {
-  return rank_i_;
+  return dynamic_cast<Paper_column*> (me)->rank_i_;
 }
-
-void
-Paper_column::set_rank (int i)
-{
-  rank_i_ = i;
-}
-
-
 
 Line_of_score*
 Paper_column::line_l() const
@@ -97,9 +89,9 @@ Paper_column::column_l () const
 Paper_column::Paper_column (SCM l)
   : Item (l)		// guh.?
 {
-  Axis_group_interface (this).set_interface ();
-  Axis_group_interface (this).set_axes (X_AXIS, X_AXIS);
-  set_elt_pointer ("bounded-by-me", SCM_EOL);
+  Axis_group_interface::set_interface (this);
+  Axis_group_interface::set_axes (this, X_AXIS, X_AXIS);
+  set_elt_property ("bounded-by-me", SCM_EOL);
   line_l_=0;
   rank_i_ = -1;
 }
@@ -131,7 +123,7 @@ Paper_column::musical_b () const
 bool
 Paper_column::used_b ()const
 {
-  return gh_pair_p (get_elt_pointer ("elements")) ||  breakable_b ()
-    || gh_pair_p (get_elt_pointer ("bounded-by-me"))
+  return gh_pair_p (get_elt_property ("elements")) ||  breakable_b ()
+    || gh_pair_p (get_elt_property ("bounded-by-me"))
     ;
 }

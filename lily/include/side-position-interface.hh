@@ -31,32 +31,29 @@
 
    padding -- add this much extra space between victim and support
 
+
    TODO: move  out unrelated callbacks.
-   
+
+   TODO: reduce number of methods.
  */
-struct Side_position_interface
+struct Side_position
 {
-  Score_element * elt_l_;
 public:
-  Side_position_interface (Score_element const*);
   static Real side_position (Score_element *, Axis);
   static Real aligned_on_self (Score_element *, Axis);
   static Real aligned_side (Score_element *, Axis);  
   static Real quantised_position (Score_element *, Axis);
   static Real centered_on_parent (Score_element *, Axis);
-  void set_axis (Axis);
-  void set_minimum_space (Real);
-  void set_padding (Real);
-  void set_quantised (Axis);
-  Axis get_axis () const;
-  
-  bool supported_b () const;
-  bool has_interface_b () const;
-  void add_support (Score_element*);
-
-  void add_staff_support ();
-  Direction get_direction () const;
-  void set_direction (Direction);
+  static void set_axis (Score_element*,Axis);
+  static void set_minimum_space (Score_element*,Real);
+  static void set_padding (Score_element*,Real);
+  static Axis get_axis (Score_element*) ;
+  static bool supported_b (Score_element*) ;
+  static bool has_interface (Score_element*) ;
+  static void add_support (Score_element*,Score_element*);
+  static void add_staff_support (Score_element*);
+  static Direction get_direction (Score_element*);
+  static void set_direction (Score_element*,Direction);
 };
 
 

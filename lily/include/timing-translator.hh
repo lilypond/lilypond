@@ -35,7 +35,6 @@ public:
   Moment measure_position () const;
   Moment measure_length () const;  
   void set_time_signature (int, int);
-  void get_time_signature (int *, int*) const;
 
 };
 #endif // TIMING_TRANSLATOR_HH

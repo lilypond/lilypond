@@ -12,9 +12,9 @@ calc_interstaff_dist (Item const *item, Spanner const *span)
 {
   Real interstaff = 0.0; 
   Score_element *common = item->common_refpoint (span, Y_AXIS);
-  Align_interface align(common);
 
-  if (align.has_interface_b () && align.axis() == Y_AXIS)
+
+  if (Align_interface::has_interface (common) && Align_interface::axis(common) == Y_AXIS)
     {
       SCM threshold = common->get_elt_property ("threshold");
       if (!gh_pair_p (threshold)
@@ -34,9 +34,9 @@ calc_interstaff_dist (Item const *item, Spanner const *span)
 	note_refpoint = note_refpoint->parent_l (Y_AXIS);
 
       int span_prio =
-	align.get_count ((Score_element*) dynamic_cast<Score_element const*> (span_refpoint));
+	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element const*> (span_refpoint));
       int item_prio =
-	align.get_count ((Score_element*) dynamic_cast<Score_element  const *> (note_refpoint));
+	Align_interface::get_count (common,(Score_element*) dynamic_cast<Score_element  const *> (note_refpoint));
 
       /*
 	our staff is lower -> interstaff *= -1

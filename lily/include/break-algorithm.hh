@@ -18,6 +18,8 @@
 
 /** Class representation of an algorithm which decides where to put
   the column, and where to break lines.
+
+  JUNKME.
   
   */
 class Break_algorithm {

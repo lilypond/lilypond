@@ -30,22 +30,19 @@
   element properties
 
   stacking-dir
-  
-  Which side to align?  -1: left side, 0: centered (around
-     center_l_ if not nil, or around center of width), 1: right side
- */
-struct Align_interface  {
-  Score_element * elt_l_;
-  
-  Align_interface (Score_element const*);
+ 
+  Which side to align? -1: left side, 0: centered (around
+  center_l_ if not nil, or around center of width), 1: right side
+*/
+struct Align_interface {
   static Real alignment_callback (Score_element *,Axis);
-  void do_side_processing (Axis a);
-  void set_axis (Axis);
-  Axis axis () const;
-  void add_element (Score_element*);
-  int get_count (Score_element*)const;
-  void set_interface ();
-  bool has_interface_b ();
+  static void do_side_processing (Score_element*,Axis a);
+  static void set_axis (Score_element*,Axis);
+  static Axis axis (Score_element*) ;
+  static void add_element (Score_element*,Score_element*);
+  static int get_count (Score_element*,Score_element*);
+  static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static Real center_on_element (Score_element *c, Axis);
 };
 

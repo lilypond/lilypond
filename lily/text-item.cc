@@ -19,7 +19,7 @@ struct Text_item
 };
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Text_item,brew_molecule)
+MAKE_SCHEME_CALLBACK(Text_item,brew_molecule)
 
 SCM 
 Text_item::brew_molecule (SCM sm) 
@@ -39,7 +39,7 @@ Text_item::brew_molecule (SCM sm)
       Molecule m;
       m.set_empty (false);
       mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)*
-		       Staff_symbol_referencer_interface (s).staff_space ());
+		       Staff_symbol_referencer::staff_space (s));
     }
   return mol.create_scheme (); 
 }
