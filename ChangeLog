@@ -5,6 +5,12 @@
 	* lily/multi-measure-rest.cc (big_rest): multi measure rest was
 	off horizontally by 0.05 ss. Fixed.
 
+2002-10-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/pdftex.scm: Rename ly-number to ly:number->string.
+
+	* Documentation/topdocs/index.tely: Remove duplicate from merge.
+
 2002-10-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/tie.cc (get_control_points): also avoid staff lines on the
