@@ -41,7 +41,6 @@
 ;  (let ((keyword (car expr))) 
 ;    (cond
 ; ((eq? keyword 'beam x y width slope thick)
-; ((eq? keyword 'bezier-bow x y l thick)
 ; ((eq? keyword 'bezier-sandwich x y l thick)
 ; ((eq? keyword 'bracket arch_angle arch_width arch_height  height arch_thick thick)
 ; ((eq? keyword 'char x y i)
@@ -285,10 +284,6 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 
 (define (invoke-char s i)
   "")
-
-;; TODO: bezier-ending, see ps.scm
-(define (bezier-bow x y l thick)
-  (bezier-sandwich x y l thick))
 
 (define (bezier-sandwich x y l thick)
   (apply

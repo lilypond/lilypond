@@ -221,29 +221,6 @@
 				   (* -1 (/ y z))
 				   1 1)))))
 
-;; TODO: bezier-ending, see ps.scm
-(define (bezier-bow urg-l thick)
-  
-  (define (bezier-ending z0 z1 z2)
-    (let ((x0 (car z0))
-	  (y0 (cdr z0))
-	  (x1 (car z1))
-	  (y1 (cdr z1))
-	  (x2 (car z2))
-	  (y2 (cdr z2)))
-      (let ((r (/ (sqrt (+ (* (- x1 x2) (- x1 x2))
-			  (* (- y1 y2) (- y1 y2)))) 2)))
-      (tagify "circle" ""
-	      `(fill . "#000000;")
-	      `(cx . ,(number->string (* output-scale x0)))
-	      `(cy . ,(number->string (* output-scale (- 0 y0))))
-	      `(r . ,(number->string (* output-scale r)))))))
-  
-  (let ((l (eval urg-l this-module)))
-    (string-append
-     (bezier-sandwich l thick)
-     (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
-     (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5)))))
 
 (define (bezier-sandwich l thick)
   (let* (;;(l (eval urg-l this-module))

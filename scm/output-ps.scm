@@ -39,29 +39,6 @@
   (string-append
    (numbers->string (list slope width thick)) " draw_beam" ))
 
-;; two beziers with round endings
-(define (bezier-bow l thick)
-  
-  (define (bezier-ending z0 z1 z2)
-    (let ((x0 (car z0))
-	  (y0 (cdr z0))
-	  (x1 (car z1))
-	  (y1 (cdr z1))
-	  (x2 (car z2))
-	  (y2 (cdr z2)))
-      (string-append
-       " "
-       (numbers->string
-	(list x0 y0
-	      (/ (sqrt (+ (* (- x1 x2) (- x1 x2))
-			  (* (- y1 y2) (- y1 y2)))) 2)))
-       " draw_dot")))
-
-  (string-append
-   (bezier-sandwich l thick)
-   (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
-   (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
-
 ;; two beziers
 (define (bezier-sandwich l thick)
   (string-append 

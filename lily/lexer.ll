@@ -729,14 +729,14 @@ strip_trailing_white (String&s)
 
 
 /* 1.3.146 == removal of ; */ 
-LilyPond_version oldest_version ("1.3.146");
+Lilypond_version oldest_version ("1.3.146");
 
 
 bool
 valid_version_b (String s)
 {
-  LilyPond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
-  LilyPond_version ver (s);
+  Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
+  Lilypond_version ver (s);
   if (! ((ver >= oldest_version) && (ver <= current)))
 	{	
 		non_fatal_error (_f ("Incorrect lilypond version: %s (%s, %s)", ver.to_string (), oldest_version.to_string (), current.to_string ()));

@@ -225,9 +225,6 @@
 		 (ly:number->string x) "}{"
 		 s "}%\n"))
 
-(define (bezier-bow l thick)
-  (embedded-ps (list 'bezier-bow  `(quote ,l) thick)))
-
 (define (bezier-sandwich l thick)
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
