@@ -49,3 +49,10 @@ Performer::announce_element (Audio_element_info i)
     i.origin_trans_= this;
   get_daddy_perf ()->announce_element (i);
 }
+
+
+void
+Performer::process_music ()
+{
+  
+}

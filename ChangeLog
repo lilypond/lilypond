@@ -1,5 +1,25 @@
 2004-02-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/refman.itely (More stanzas): document slur
+	deficiency.
+
+	* lily/melisma-performer.cc (try_music): new file. Handle
+	melismata to help lyrics.
+
+	* lily/beam-performer.cc (try_music): new file. Handle beam events
+	to help lyrics.
+
+	* lily/score-performer.cc (one_time_step): reinstate
+	process_music().
+	
+
+	* lily/performer.cc (process_music): add to interface.
+
+	* lily/performer-group-performer.cc (process_music): new function.
+
+	* lily/dot-column.cc (do_shifts): do collision resolution before
+	dot positioning.
+	
 	* scripts/lilypond-book.py (Snippet.output_print_filename): new
 	file, process printfilename option.
 	(Snippet.__init__): rewrite: do not use global variables h or

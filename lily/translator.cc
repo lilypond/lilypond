@@ -85,7 +85,7 @@ Translator::internal_get_property (SCM sym) const
 }
 
 void
-Translator:: stop_translation_timestep ()
+Translator::stop_translation_timestep ()
 {
 }
 

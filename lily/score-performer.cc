@@ -75,8 +75,7 @@ Score_performer::prepare (Moment m)
 void 
 Score_performer::one_time_step ()
 {
-  // fixme: put this back.
-  // process_music ();
+  process_music ();
   do_announces ();
   stop_translation_timestep ();
   check_removal ();

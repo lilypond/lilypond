@@ -15,8 +15,6 @@ $(outdir)/%.texi: %.tely
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	if [ -f $@ ]; then chmod a+w $@; fi
-# debugging:
-#	set|egrep '(TEX|LILY)'
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
@@ -27,7 +25,7 @@ $(outdir)/%.texi: $(outdir)/%.tely
 # for plain info doco: don't run lily
 $(outdir)/%.nexi: %.tely
 	if [ -f $@ ]; then chmod a+w $@; fi
-	time $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) --process='true' $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) --process='true' $<
 	mv $(outdir)/$*.texinfo $@ 2>/dev/null || mv $(outdir)/$*.texi $@
 	chmod -w $@
 

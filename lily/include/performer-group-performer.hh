@@ -22,6 +22,7 @@ public:
   TRANSLATOR_DECLARATIONS(Performer_group_performer);
   
   virtual void do_announces ();
+  virtual void process_music ();
   virtual void announce_element (Audio_element_info);
 protected:
   Array<Audio_element_info> announce_infos_;

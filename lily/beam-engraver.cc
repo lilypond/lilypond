@@ -22,7 +22,7 @@
 class Beam_engraver : public Engraver
 {
 protected:  
-  Drul_array<Music*> evs_drul_;
+  Music * start_ev_;
   
   Spanner *finished_beam_;
   Spanner *beam_;
@@ -87,7 +87,7 @@ Beam_engraver::Beam_engraver ()
   finished_beam_info_=0;
   beam_info_ =0;
   now_stop_ev_ = 0;
-  evs_drul_[LEFT] = evs_drul_[RIGHT] =0;
+  start_ev_ = 0;
   prev_start_ev_ =0;
 }
 
@@ -104,7 +104,7 @@ Beam_engraver::try_music (Music *m)
 
       if (d == START)
 	{
-	  evs_drul_[d] = m;
+	  start_ev_ = m;
 	}
       else if (d==STOP)
 	{
@@ -126,31 +126,21 @@ Beam_engraver::set_melisma (bool ml)
 void
 Beam_engraver::process_music ()
 {
-  if (evs_drul_[STOP])
-    {
-      prev_start_ev_ =0;
-      finished_beam_ = beam_;
-      finished_beam_info_ = beam_info_;
-
-      beam_info_ =0;
-      beam_ = 0;
-    }
-
   if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
     {
       top_engraver ()->forbid_breaks ();
     }
 
-  if (evs_drul_[START])
+  if (start_ev_)
     {
       if (beam_)
 	{
-	  evs_drul_[START]->origin ()->warning (_ ("already have a beam"));
+	  start_ev_->origin ()->warning (_ ("already have a beam"));
 	  return;
 	}
 
       set_melisma (true);
-      prev_start_ev_ = evs_drul_[START];
+      prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam");
       SCM smp = get_property ("measurePosition");
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
@@ -161,7 +151,7 @@ Beam_engraver::process_music ()
       beam_info_ = new Beaming_info_list;
       
       /* urg, must copy to Auto_beam_engraver too */
-      announce_grob (beam_, evs_drul_[START]->self_scm());
+      announce_grob (beam_, start_ev_->self_scm());
     }
 
 }
@@ -184,8 +174,7 @@ Beam_engraver::typeset_beam ()
 void
 Beam_engraver::start_translation_timestep ()
 {
-  evs_drul_ [START] =0;
-  evs_drul_[STOP] = 0;
+  start_ev_ = 0;
   
   if (beam_)
     {
@@ -209,7 +198,7 @@ Beam_engraver::stop_translation_timestep ()
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam();
-	  set_melisma (false);
+      set_melisma (false);
     }
 }
 

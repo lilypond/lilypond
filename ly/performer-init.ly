@@ -40,6 +40,8 @@
     \type "Performer_group_performer"
     \name Voice
     \consists "Note_performer"
+    \consists "Beam_performer"
+    \consists "Melisma_performer"
 }
 
 \translator {
@@ -84,6 +86,7 @@
 
     \name Score
     \alias Timing
+    melismaBusyProperties = #default-melisma-properties
     instrument = #"bright acoustic"
     \accepts Staff
     \accepts DrumStaff
