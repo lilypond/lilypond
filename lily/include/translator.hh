@@ -13,7 +13,7 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
-#include "scalar.hh"
+#include "property-inspect.hh"
 #include "dictionary.hh"
 #include "parray.hh"
 #include "input.hh"
@@ -59,7 +59,7 @@ public:
     ask daddy for a feature
     */
   Music_output_def *output_def_l () const;
-  Scalar get_property (String, Translator_group **) const;
+  SCM get_property (String, Translator_group **) const;
   virtual Moment now_mom () const;  
 
 protected:
