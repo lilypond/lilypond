@@ -54,4 +54,9 @@ Event_chord::to_relative_octave (Pitch p)
   return music_list_to_relative (music_list (), p, true);
 }
 
+Event_chord::Event_chord (SCM x)
+  : Simultaneous_music (x)
+{
+}
+
 ADD_MUSIC (Event_chord);
