@@ -1,7 +1,0 @@
-#!/bin/bash
-set -e
-
-if [ -x /usr/bin/texhash -a -e /usr/lib/texmf/ls-R ]; then
-    texhash
-fi
-

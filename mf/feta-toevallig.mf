@@ -38,7 +38,7 @@ fet_beginchar("Sharp" , "1", "sharp");
 	beamheight := 4 stafflinethickness;
 	beamwidth := w;
 	stemwidth := 1.3 stafflinethickness;
-	roundness := blot_diameter;
+	roundness := 2blot_diameter;
 	pair center;
 	center := (.5 w, 0);
 	

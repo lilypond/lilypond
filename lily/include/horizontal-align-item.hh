@@ -19,7 +19,7 @@
 
   TODO: insert (order, elem)
   */
-class Horizontal_align_item :  public Item {
+class Horizontal_align_item : public Item {
 protected:
     Link_array<Item> item_l_arr_;
     Array<int> priority_i_arr_;

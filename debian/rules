@@ -1,0 +1,66 @@
+#!/usr/bin/make -f
+# Made with the aid of debhelper by by Joey Hess,
+# based on the sample debian/rules file for GNU hello by Ian Jackson.
+#
+# This is free software; see the GNU General Public Licence
+# version 2 or later for copying conditions.  There is NO warranty.
+#
+# Currently maintained by Anthony Fok <foka@gpu.srv.ualberta.ca>
+# for Debian GNU/Linux.
+
+package=lilypond
+
+SHELL=/bin/bash
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	./configure --disable-checking --disable-debugging \
+		--enable-printing --prefix=/usr --enable-optimise \
+		--enable-shared
+	make all
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	dh_clean
+	-$(MAKE) distclean
+	rm -f {,*/}out/{*,.build} flower/config.{log,status}
+
+# Build architecture-independent files here.
+binary-indep: build
+# We have nothing to do by default.
+
+binary-arch: build
+	dh_testdir
+	dh_testroot
+	dh_clean
+	dh_installdirs usr/lib/texmf/doc
+	$(MAKE) prefix=`pwd`/debian/tmp/usr install
+	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
+	dh_installdocs BUGS TODO NEWS DEDICATION ANNOUNCE README \
+		Documentation/out/*.text Documentation/*.doc \
+		Documentation/lelie_logo.xpm
+	dh_installexamples
+#	dh_installmenu
+#	dh_installcron
+#	dh_installmanpages
+#	dh_undocumented
+	dh_installchangelogs
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_suidregister
+	dh_installdebfiles
+#	dh_makeshlibs
+	dh_du
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary

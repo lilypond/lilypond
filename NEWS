@@ -1,3 +1,15 @@
+pl 31
+	- bf: replaced Score_column assert by a warning (thanks Scott)
+	- bf: mi2mu version output (thanks Scott)
+	- faq updates
+	- always output lily header with  Lily version
+	- bar mucking: make scorebars/braces different from repeat bars.
+	- feta: repeatcolon, clef bf's
+	- debian/ updates. (AF)
+	- moved debian stuff into toplevel dir
+
+********
+nov 11
 pl 30
 	- feta: G clef. 
 	- scripts now do relative coords (fixes lyrics + barnumber bug)

@@ -16,7 +16,7 @@ depth = ..
 # identify module:
 #
 NAME = make
-SUBDIRS = debian
+SUBDIRS = 
 
 # list of distribution files:
 

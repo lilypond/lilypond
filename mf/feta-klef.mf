@@ -93,16 +93,25 @@ fet_endchar;
 %
 % Inspired by Baerenreiter
 % 
-% FIXME top 
+% FIXME top should be thinner at z8,
 % FIXME bulb should curve (see bass clef)
 % FIXME start (inside) should be little thinner
 % FIXME parametrise.
 % FIXME should be a bit more upright
 %
+
+% Beste lezers, kijk,
+%
+% Een bolletje  hebben we bij toeval allemaal wel eens getekend, maar begint u
+% toch eenvoudig.   Eerst een eenvoudig kruis of herstellingsteken
+% en via de dubbelslag naar een voorzichtig vlaggetje, en heb geduld!
+% Ikzelf heb bijvoorbeeld over mijn eerste gave G-sleutel
+% 35 kilobyte metafont, 12 patchlevels, 0 vriendinnen en 45 dagen gedaan
+%
 def draw_gclef (expr exact_center, reduction)=
 	save reduced_il, downstroke_dir, downstroke_angle, hair, center;
-	save breapth_factor, inner_thick_end, thinness, thickness, thinnib
-, thinness, thinpen;
+	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
+	save inner_start_angle, thinness, thinpen;
 	reduced_il# = interline# * reduction;
 	define_pixels(reduced_il);
 	pair downstroke_dir, center;
@@ -115,7 +124,8 @@ def draw_gclef (expr exact_center, reduction)=
 	downstroke_dir = (14, -75);
 	breapth_factor = 11/7;
 	inner_thick_end = 45;
-	thickness = .4 interline - hair;
+	inner_start_angle = angle(-1,-2);
+	thickness = .4 reduced_il - hair;
 
 	thinnib = thinness - hair;
 	thinpen = thinness;
@@ -127,7 +137,7 @@ def draw_gclef (expr exact_center, reduction)=
 	pickup pencircle scaled hair;
 
 	downstroke_angle = angle downstroke_dir;
-	z1 = center + whatever * (-1, -2);
+	z1 = center + whatever * dir inner_start_angle;
 	x1 = xpart center -.28 reduced_il;
 	
 	top z2r = center + (0,reduced_il + stafflinethickness/2);
@@ -143,12 +153,8 @@ def draw_gclef (expr exact_center, reduction)=
 	z6 = center + whatever * downstroke_dir;
 	y6 = ypart center + 2 reduced_il;
 
-
 	z7l - z6 = whatever *(z5- z6) ;
 	y7l = 3.5 reduced_il;
-
-
-
 	z8r = .4 [z9r, z7r] + 1.5 stafflinethickness * dir 52;
 
 	x9 = .7 [x10, x7r];
@@ -168,7 +174,7 @@ def draw_gclef (expr exact_center, reduction)=
 	center - z10= whatever * downstroke_dir;
 	center - z11 =  whatever * downstroke_dir;
 
-	penpos1(thinnib, angle(-1,-2));
+	penpos1(thinnib, inner_start_angle);
 	penpos2(thickness, 90);
 	penpos3(thinnib, -90 + inner_thick_end);
 	penpos4(thinnib, -90);
@@ -216,7 +222,7 @@ fet_beginchar("G clef", "violin", "violinclef")
 	draw_gclef((1.6 interline#,0), 1.0);
 fet_endchar;
 fet_beginchar("G clef", "violin_change", "cviolinclef")
-	draw_gclef((1.2 interline#,0), .8);
+	draw_gclef((1.3 interline#,0), .8);
 fet_endchar;
 
 fet_endgroup("klef");

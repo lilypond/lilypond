@@ -17,7 +17,6 @@ Bar::Bar()
 {
   breakable_b_ = true;
   type_str_ = "|";
-  spanned_i_ = 0;
 }
 
 
@@ -38,7 +37,6 @@ Bar::brew_molecule_p() const
   Paper_def *p = paper();
   Atom s = p->lookup_l()->bar (type_str_, 
 			       p->get_var ("bar_size"));
-   s.translate_axis (-s.extent()[Y_AXIS].center (), Y_AXIS);
   
   Molecule*output = new Molecule (Atom (s));
   return output;
@@ -51,6 +49,7 @@ Bar::brew_molecule_p() const
 static char const *bar_breaks[][3] ={
   {":|", ":|:", "|:"},
   {"|", "|", ""},
+  {"", "|s", "|"},
   {"", "|:", "|:"},
   {"||.", "||.", ""},
   {":|", ":|", ""},
@@ -62,8 +61,8 @@ Bar::do_pre_processing()
 {
   for (int i=0; bar_breaks[i][0]; i++) 
     {
-	if (bar_breaks[i][1] == type_str_)
-	    type_str_ = bar_breaks[i][break_status_i()+1];
+      if (bar_breaks[i][1] == type_str_)
+	type_str_ = bar_breaks[i][break_status_i()+1];
     }
   
   /*

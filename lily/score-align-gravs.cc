@@ -11,6 +11,8 @@
 #include "meter.hh"
 #include "bar.hh"
 #include "score-align-grav.hh"
+#include "score-bar.hh"
+#include "normal-bar.hh"
 
 #define IMPLEMENT_ALIGN_GRAV(C,T,p)\
 class C ## _align_engraver : public Type_align_engraver		\
@@ -29,5 +31,5 @@ IMPLEMENT_IS_TYPE_B1(C ## _align_engraver, Type_align_engraver)    	;
 IMPLEMENT_ALIGN_GRAV(Key,Key_item,3);
 IMPLEMENT_ALIGN_GRAV(Clef,Clef_item,2);
 IMPLEMENT_ALIGN_GRAV(Meter,Meter,4);
-IMPLEMENT_ALIGN_GRAV(Bar, Bar,0);
-
+IMPLEMENT_ALIGN_GRAV(Normal_bar, Normal_bar,5);
+IMPLEMENT_ALIGN_GRAV(Score_bar, Score_bar,0);

@@ -83,13 +83,13 @@ Score = \translator {
 	\consists "Bar_column_engraver";
 	\consists "Bar_number_engraver";
 
-	\consists "Bar_align_engraver";
+	\consists "Span_score_bar_engraver";
+	\consists "Normal_bar_align_engraver";
 	\consists "Clef_align_engraver";
 	\consists "Key_align_engraver";
 	\consists "Meter_align_engraver";
 	\consists "Score_horizontal_align_engraver";
 	\consists "Vertical_align_engraver";
-	\consists "Span_score_bar_engraver";
 
 
 	\accepts "Staff_group";

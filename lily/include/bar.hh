@@ -15,8 +15,7 @@
 class Bar:public Item {
 public:
   String type_str_;
-  int spanned_i_;
-    
+
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEM_CLONE(Bar);
   Bar();

@@ -7,6 +7,7 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
+	* add a screenshot to the website.
 
 	* LILYSOURCEDIR
 	
@@ -22,7 +23,7 @@ grep for TODO and ugh/ugr
 
 	* bf: abbrevs over whole note
 
-	* Score_bar/Piano_braces, are *not* ordinary bars 
+	* mi2mu: fix a1*0/4 output
 
 STUFF
 
@@ -57,9 +58,8 @@ STUFF
 
 	* AFM for font input?
 
-
-
 3RD PARTY BUGS:
+
 	* Rational infty(HUGE_VAL) on glibc / w32
 
 	* Fix profiling. gprof bugreport?
@@ -69,7 +69,7 @@ PROJECTS
 	* Unicode support?
 	- 16 bit Strings
 	- -u switch
-	- detect of 16/8 bit files
+		- detect of 16/8 bit files
 	- examples to go with it.
 
 	* Spring_spacer:

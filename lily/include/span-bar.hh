@@ -12,9 +12,9 @@
 
 #include "bar.hh"
 
-class Span_bar : public Bar
+class Span_bar : public virtual Bar
 {
-    Link_array<Bar> spanning_l_arr_;
+    Link_array<Score_elem> spanning_l_arr_;
 
 public:
     Span_bar();

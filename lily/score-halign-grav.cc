@@ -24,15 +24,13 @@ Score_horizontal_align_engraver::do_pre_move_processing()
       typeset_element (halign_p_);
       halign_p_ =0;
     }
-	
 }
 
 void
 Score_horizontal_align_engraver::acknowledge_element (Score_elem_info i)
 {
   Engraver* reg = i.origin_grav_l_arr_[0];
-  if (reg->is_type_b (
-		      Type_align_engraver::static_name()))
+  if (reg->is_type_b (Type_align_engraver::static_name()))
     {
       Type_align_engraver * align_grav_l = (Type_align_engraver*) reg;
       if (!halign_p_) 

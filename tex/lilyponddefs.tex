@@ -163,8 +163,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
-\def\thinbar#1{\vrule height #1 width 1.6\staffrulethickness} % TODO parametric.
-\def\thickbar#1{\vrule height #1 width 2\smallspace}
+\def\thinbar#1{\dimen0=#1%
+        \vrule height .5\dimen0 depth .5\dimen0 width 1.6\staffrulethickness} % TODO parametric.
+\def\thickbar#1{\dimen0=#1%
+        \vrule height .5\dimen0 depth .5\dimen0 width 2\smallspace}
 \def\maatstreep#1{\thinbar{#1}}
 \def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}

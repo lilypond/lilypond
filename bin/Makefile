@@ -21,7 +21,7 @@ $(outdir)/%: %.pl
 
 #FIXME.  Check for bash?
 $(outdir)/%: %.sh
-	sed 's!@SH@!$(SH)!' < $< > $@
+	sed 's!@SH@!$(SHELL)!' < $< > $@
 	chmod 755 $@
 
 $(outdir)/%: %.py
