@@ -600,11 +600,13 @@ New_slur::get_base_attachments (Spanner *me,
 }
 
 void
-New_slur::generate_curves (Grob *me,  Grob **common,
+New_slur::generate_curves (Grob *me, Grob **common,
 			   Drul_array<Bound_info> extremes,
 			   Drul_array<Offset>,
 			   Array<Slur_score> *scores)
 {
+  (void) common;
+  (void) extremes;
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
   Real r_0 = robust_scm2double (me->get_property ("ratio"), 0.33);
   Real h_inf = staff_space * ly_scm2double (me->get_property ("height-limit"));
@@ -877,22 +879,11 @@ New_slur::score_slopes (Grob *me, Grob *common[],
   for (int i = 0; i < scores->size (); i++)
     {
       Offset slur_dz = (*scores)[i].attachment_[RIGHT]
-	- (*scores)[i].attachment_[LEFT];
-      Real slur_dy = slur_dz[Y_AXIS];
+	-  (*scores)[i].attachment_[LEFT];
+      Real slur_dy = slur_dz[Y_AXIS]; 
       Real demerit = 0.0;
       if (!has_beams)
-	/* 0.2: account for staffline offset.  */
-	demerit += score_param->STEEPER_SLOPE_FACTOR
-	  * (dir * (fabs (slur_dy) - fabs (dy + 0.2)) >? 0);
-
-      demerit += ((fabs (slur_dy/slur_dz[X_AXIS])
-		   - score_param->MAX_SLOPE) >? 0)
-	* score_param->MAX_SLOPE_FACTOR;
-
-      if (!has_beams)
-	/*
-	  0.2: account for staffline offset.
-	*/
+	/* 0.2: account for staffline offset. */
 	demerit += score_param->STEEPER_SLOPE_FACTOR * ((fabs (slur_dy) - (fabs (dy) + 0.2)) >? 0); 
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS]) - score_param->MAX_SLOPE)>?0)  * score_param->MAX_SLOPE_FACTOR;
