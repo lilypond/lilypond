@@ -203,8 +203,23 @@
 (define (bezier-sandwich l thick)
   (string-append 
    (apply string-append (map control->string l))
-   (ly-number->string  thick)
-   " draw_bezier_sandwich"))
+   (ly-number->string thick)
+   " draw_bezier_sandwich "
+   (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
+   (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
+
+(define (bezier-ending z0 z1 z2)
+  (let ((x0 (car z0))
+	(y0 (cdr z0))
+	(x1 (car z1))
+	(y1 (cdr z1))
+	(x2 (car z2))
+	(y2 (cdr z2)))
+    (string-append " "
+     (numbers->string
+      (list x0 y0
+	    (/ (sqrt (+ (* (- x1 x2) (- x1 x2)) (* (- y1 y2) (- y1 y2)))) 2)))
+     " draw_dot")))
 
 					; TODO: use HEIGHT argument
 (define (start-line height)
