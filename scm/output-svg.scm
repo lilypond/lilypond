@@ -116,12 +116,15 @@
 (define (fontify font expr)
    (tagify "text" expr (cons 'style (svg-font font))))
 
+;; FIXME
 (define-public (otf-name-mangling font family)
   ;; Hmm, family is bigcheese20/26?
   (if (string=? (substring family 0 (min (string-length family) 9))
 		"bigcheese")
       "LilyPond"
-      family))
+      (if (string=? family "aybabtu")
+	  "LilyPondBraces"
+	  family)))
 
 (define-public (otf-weight-mangling font family)
   ;; Hmm, family is bigcheese20/26?
