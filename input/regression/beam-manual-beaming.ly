@@ -1,3 +1,6 @@
+\version "1.7.23"
+
+
 \header {
 texidoc =  
 "Beaming can be overidden for individual stems."

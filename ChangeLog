@@ -1,5 +1,7 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/*.ly: add \version
+
 	* Documentation/user/*.itely: various fixes.
 
 	* buildscripts/mf-to-table.py (base): break table every three

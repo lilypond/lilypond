@@ -1,3 +1,6 @@
+\version "1.7.23"
+
+
 \header {
 texidoc = "Modern  transcriptions  of gregrorian music.
 Gregorian music has no measure, no stems, only uses half and quarter notes,

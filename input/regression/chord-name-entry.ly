@@ -1,3 +1,6 @@
+\version "1.7.23"
+
+
 \header {
 
 texidoc = "Test file for the new chordname entry code (@code{\chords}
