@@ -264,8 +264,15 @@ Only set if not set previously.
 		 (if (and (= (length pitches1) (length pitches2)))
 		     (if (and (pair? pitches1)
 			      (pair? pitches2)
-			      (< chord-threshold (ly:pitch-steps
-						  (ly:pitch-diff (car pitches1) (car pitches2)))))
+			      (or
+			       (< chord-threshold (ly:pitch-steps
+						   (ly:pitch-diff (car pitches1)
+								  (car pitches2))))
+
+			       ;; voice crossings:
+			       (> 0 (ly:pitch-steps (ly:pitch-diff (car pitches1)
+								   (car pitches2))))
+			       ))
 			 (put 'apart)
 			 ;; copy previous split state from spanner state
 			 (begin

@@ -21,5 +21,6 @@ vtwo = \notes \relative a' { f2 f4 f f2 g4 g c, f f  f  f f~ f ~ f
 
 \score {
    \partcombine \vone \vtwo
+   \paper { raggedright = ##t } 
 }
  
