@@ -1,5 +1,9 @@
 \version "1.7.18"
 
+\header{texidoc = "@cindex Staff Bracket
+Here's an example of staff brackets. "
+}
+
 \score
 {
   \context StaffGroup = a < 
@@ -21,6 +25,7 @@
       \StaffContext
       \consists Instrument_name_engraver
     }
+	raggedright=##t
   }
 }
 %% new-chords-done %%

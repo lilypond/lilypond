@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% regression again?  *sigh*  :)   -gp
 
 nt =  \notes { c1 \break c1 c1 } 
 stuff =  \notes \relative c'' <

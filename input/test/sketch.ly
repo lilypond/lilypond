@@ -1,4 +1,5 @@
 \version "1.7.18"
+% looks like a really old file.  delete.  -gp
 \header {
 texidoc="sketch output supported features"
 }

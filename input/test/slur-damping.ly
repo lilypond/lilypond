@@ -1,6 +1,5 @@
 \version "1.7.18"
-% test damping
-
+% delete.  -gp
 
 \score{
 	\notes\relative c'{

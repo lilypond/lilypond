@@ -1,5 +1,8 @@
 \version "1.7.18"
-
+% is this really useful?  candidate for long-term delete
+\header {texidoc = "@cindex Scales
+Prints scales. "
+}
 \score { 
   \context Voice \notes\relative c {
     % sharp-major 
@@ -106,6 +109,5 @@
 }
 
   \paper { }  
-  \midi { }
 }
 %% new-chords-done %%

@@ -1,16 +1,9 @@
 \version "1.7.18"
 
-\header {
-    texidoc = "
-
+\header { texidoc = "@cindex Stem Cross Staff
 There is no support for putting chords across staves.
 You can get this result by increasing the length of the stem in the
-lower stave so it reaches the stem in the upper stave, or vice versa.
-
-@cindex  Cross staff stems
-@cindex Stems, cross staff
-
-"
+lower stave so it reaches the stem in the upper stave, or vice versa. "
 }
 
 stemExtend = \once \property Voice.Stem \override #'length  = #22

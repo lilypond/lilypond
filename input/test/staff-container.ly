@@ -1,12 +1,9 @@
 \version "1.7.18"
 
-
-\header {
-
- texidoc = "By splitting the grouping (Axis_group_engraver) and
+\header { texidoc = "@cindex Staff Container
+By splitting the grouping (Axis_group_engraver) and
 creation functionality into separate contexts, you can override
-interesting things. You can also drop the \consistsend feature."
-
+interesting things. You can also drop the \consistsend feature. "
 }
 
 
@@ -35,6 +32,7 @@ interesting things. You can also drop the \consistsend feature."
 		\StaffContext
 		\remove Axis_group_engraver
 	}
+	raggedright=##t
 }
 }
 

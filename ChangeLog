@@ -10,6 +10,8 @@
 	stem-extend was deleted (it was duplicate example, and not as
 	good).
 
+	* input/test/s*.ly: add texidoc index.
+
 2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/slur.cc (get_boundary_notecolumn_y): change name from

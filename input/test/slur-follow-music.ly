@@ -1,4 +1,5 @@
 \version "1.7.18"
+% more fodder for regression.  -gp
 
 \score { 
   \context Voice \notes\relative c {
@@ -22,6 +23,5 @@
   \paper {
     raggedright = ##t
   }  
-  \midi { }
 }
 %% new-chords-done %%

@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% looks pretty, but it's for regression.  -gp
 
 x = {
   \outputproperty #(make-type-checker 'note-head-interface) 

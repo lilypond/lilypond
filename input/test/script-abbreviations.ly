@@ -1,7 +1,7 @@
 \version "1.7.18"
-
-\header {
-    texidoc = "Some scripts may be entered using an abbreviation"
+% covered by refman.  delete.  -gp
+\header { texidoc = "@cindex Script Abbreviations
+Some scripts may be entered using an abbreviation. "
 }
 
 \score {

@@ -1,8 +1,7 @@
 \version "1.7.18"
 
-\header {
-texidoc="You can get ugly slurs, if you want.
-"
+\header { texidoc="@cindex Slur Ugly
+You can get ugly slurs, if you want. "
 }
 
 baseWalk = \notes \relative c {

@@ -1,15 +1,18 @@
 \version "1.7.18"
+% possible rename to ancient- something.
 \header {
-    texidoc ="mensural note heads."
-    }
+    texidoc ="@cindex Ancient Mensural Note Heads
+Mensural note heads. "
+}
 
 \score {
-\notes {
-\relative c'' {
-\property Voice . NoteHead \set #'style = #'mensural
-c\maxima*1/8
-c\longa*1/4 c\breve*1/2 c1 c2 c4 c8 
-}
-}
+	\notes {
+	\relative c'' {
+		\property Voice . NoteHead \set #'style = #'mensural
+		c\maxima*1/8
+		c\longa*1/4 c\breve*1/2 c1 c2 c4 c8 
+		}
+	}
+	\paper{raggedright=##t}
 }
 %% new-chords-done %%

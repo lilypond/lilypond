@@ -1,9 +1,7 @@
 \version "1.7.18"
-\header{
-texidoc="
-The same goes for slurs. They behave decently when broken across
-linebreak.
-"
+% regression or delete.  -gp
+\header{ texidoc="
+Slur behave decently when broken across linebreak. "
 }
 
 	

@@ -1,7 +1,7 @@
 \version "1.7.18"
-
 \header {
-  texidoc = "Show different scales."
+  texidoc = "@cindex Scales Greek
+Show different scales."
 }
 
 voicedefault = \notes {
@@ -54,8 +54,7 @@ voicedefault = \notes {
 	}
 
     >
-	\paper {
-	}
+	\paper { }
 	\midi {}
 }
 %% new-chords-done %%
