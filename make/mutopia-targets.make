@@ -1,5 +1,5 @@
 
-.PHONY: mutopia png ps scores tar
+.PHONY: download mutopia png ps scores tar
 
 .PRECIOUS: $(outdir)/%.ps $(outdir)/%-book.ps
 .PRECIOUS: $(outdir)-letter/%.dvi $(outdir)-letter/%.ps
@@ -30,16 +30,6 @@ ps: $(ps_examples)
 scores: $(score_ps)
 	$(MAKE) ps_examples="$<" ps
 
-mutopia-letter=$(mutopia-examples:%=out-letter/%.ps.gz)
-
-mutopia:
-	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
-
-local-clean: local-letter-clean
-
-local-letter-clean:
-	rm -f $(outdir)-letter/*
-
 #
 # <NAME> and -book targets only available through ly.make template makefile;
 # too scary to install in LilyPonds make yet.
@@ -63,6 +53,21 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	@echo Making $@ from $<
 endif
 
+
+local-mutopia:
+	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
+
+mutopia: local-mutopia
+	$(LOOP)
+
+mutopia-letter=$(mutopia-examples:%=out-letter/%.ps.gz)
+
+local-clean: local-letter-clean
+
+local-letter-clean:
+	rm -f $(outdir)-letter/*
+
+
 local-help:
 	@echo -e "\
   <NAME>      update $(outdir)/<NAME>.ps\n\
@@ -74,3 +79,43 @@ local-help:
   scores      update PostScript of all scores\n\
 "\
 #
+
+
+
+#
+# mutopia-archive playground
+#
+
+
+# -> mutopia-vars.make
+MUTOPIA_MIRROR = http://www.mutopiaproject.org/ftp
+# ugh: doesn't work
+# mutopia-dir = $(pwd:%/mutopia/%=mutopia)
+mutopia-dir = $(shell pwd | sed 's@.*mutopia@@')
+wget-list = $(mutopia-examples:%=$(mutopia-dir)/%)
+
+local-remove-ly:
+	-mv -f $(wildcard *.ly) $(outdir)
+
+remove-ly: local-remove-ly
+	$(LOOP)
+
+local-download: $(mutopia-examples:%=%.ly)
+	@echo downloading $<
+
+download: local-download
+	$(LOOP)
+
+# -> mutopia-rules.make
+ifeq ($(zipped),)
+%.ly:
+	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
+else
+%.zip:
+	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
+
+%.ly:	%-lys.zip
+	unzip $<
+endif
+
+

@@ -4,12 +4,12 @@ depth = ..
 
 SUBDIRS = J.S.Bach Coriolan F.Schubert D.Zipoli Hymns E.Satie 
 
-examples= 
+# empty mutopia-archive dirs
+SUBDIRS += BachJS
+
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
-include $(depth)/make/stepmake.make
+EXTRA_DIST_FILES = mutopia.make
 
-EXTRA_DIST_FILES +=  
-
-
+include $(depth)/mutopia/mutopia.make
 
