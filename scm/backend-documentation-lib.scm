@@ -95,7 +95,7 @@
      (let* ((grob name)
 	    (engravers (filter-list
 			(lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
-	    (engraver-names (map Translator::name engravers))
+	    (engraver-names (map ly-translator-name engravers))
 	    )
 
        (string-append
@@ -108,7 +108,7 @@
 
 
 (define (engraver-makes-grob? name-symbol grav)
-  (memq name-symbol (assoc 'grobs-created (Translator::description grav)))
+  (memq name-symbol (assoc 'grobs-created (ly-translator-description grav)))
   )
 
 (define (document-all-grobs name)
@@ -209,10 +209,7 @@
        (texi (description-list->texi descs))
        )
     
-    (string-append
-     (node name)
-     (texi-section 1 name #f)
-     texi)
+     texi
   )
   )
 

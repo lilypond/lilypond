@@ -139,30 +139,27 @@ Translator::mark_smob (SCM sm)
   return me->properties_scm_;
 }
 
-MAKE_SCHEME_CALLBACK(Translator,name,1);
-SCM
-Translator::name (SCM trans) 
+LY_DEFINE(ly_translator_name,
+	  "ly-translator-name", 1,0,0,  (SCM trans),
+	  "Return the type name of the translator @var{trans}.
+")
 {
-  if (unsmob_translator (trans))
-    {
-      char const* nm = classname (unsmob_translator (trans));
-      return ly_str02scm (nm);
-    }
-  return
-    SCM_EOL;
+  Translator* tr =  unsmob_translator (trans);
+  SCM_ASSERT_TYPE(tr, trans, SCM_ARG1, __FUNCTION__, "Context");
+
+  char const* nm = classname (tr);
+  return ly_str02scm (nm);
 }
 
-MAKE_SCHEME_CALLBACK(Translator,description,1)
-SCM
-Translator::description (SCM me) 
+LY_DEFINE(ly_translator_description,
+	  "ly-translator-description",
+	  1,0,0, (SCM me),
+	  "Return an alist of properties of  translator @var{me}.")
 {
-  if (unsmob_translator (me))
-    return unsmob_translator(me)->translator_description ();
-  else
-    {
-      programming_error ("Translator::description ()");  
-      return SCM_EOL;
-    }
+  Translator *tr =unsmob_translator (me);
+  SCM_ASSERT_TYPE (tr, me, SCM_ARG1, __FUNCTION__, "Context");
+
+  return tr->translator_description ();
 }
 
 SCM
@@ -177,7 +174,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   Translator *sc = (Translator *) ly_cdr (s);
      
   scm_puts ("#<Translator ", port);
-  scm_display (name (s), port);
+  scm_display (ly_translator_name (s), port);
   scm_display (sc->simple_trans_list_, port);
   /*
     don't try to print properties, that is too much hassle.

@@ -48,8 +48,15 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 /*
   TODO: add optional factor argument.
  */
-SCM
-make_rational (SCM n, SCM d)
+LY_DEFINE (make_moment,"make-moment", 2,0,0, (SCM n, SCM d),
+	   "create the rational number with main timing @var{n}/@var{d}. 
+
+
+Moment is a point in musical time. It is consists of a pair of
+rationals (@var{m},@var{g}), where @var{m} is the timing for the  main
+notes, and @var{g} the timing for  grace notes. In absence of grace
+notes, @var{g} is zero.
+")
 {
   Moment m (Rational (1,1));
 
@@ -64,15 +71,6 @@ make_rational (SCM n, SCM d)
 
   return m.smobbed_copy ();
 }
-
-
-void
-init_moments ()
-{
-  scm_c_define_gsubr ("make-moment", 2 , 0, 0, (Scheme_function_unknown) make_rational);
-}
-
-ADD_SCM_INIT_FUNC (moms,init_moments);
 
 SCM
 Moment::equal_p (SCM a, SCM b)

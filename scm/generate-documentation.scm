@@ -17,9 +17,11 @@
 ;;;;;;;;;;;;;;;;
 
 (define load-files '("documentation-lib.scm"
+		     "function-documentation.scm"
 		     "engraver-documentation-lib.scm"
 		     "music-documentation-lib.scm"
-		     "backend-documentation-lib.scm"))
+		     "backend-documentation-lib.scm"
+		     ))
 
 (map load-from-path load-files)
 
@@ -34,13 +36,23 @@
 
 
 (let* ((doc (string-append
-	     (document-music "LilyPond music properties") 
- 	     (document-paper "LilyPond interpretation contexts")
- 	     (document-all-engravers "LilyPond engravers")
-	     (document-all-engraver-properties "LilyPond context properties")
- 	     (document-all-grobs "LilyPond backend")
- 	     (document-all-interfaces "LilyPond interfaces")
-	     (document-all-backend-properties "LilyPond backend properties")
+	     (document-music "music properties") 
+ 	     (document-paper "interpretation contexts")
+ 	     (document-all-engravers "engravers")
+	     (document-all-engraver-properties "context properties")
+ 	     (document-all-grobs "backend")
+ 	     (document-all-interfaces "interfaces")
+
+	     (node "backend properties")
+	     (texi-section 1 "backend properties" #f)
+
+	     (document-all-backend-properties "backend properties")
+
+	     (node "function documentation")
+	     (texi-section 1 "function documentation" #f)
+
+	     (document-all-scheme-functions)
+	     
 	     )
        )
        (name "lilypond-internals")
@@ -55,13 +67,14 @@
      ;; we can't use (dir) and top if we're included by lilypond.tely
      "LilyPond internals" name "(lilypond.info)"
      '(
-       ("LilyPond music properties" . "properties for Music representation")
-       ("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
-       ("LilyPond engravers" . "Engravers create Grobs")
-       ("LilyPond context properties" . "context properties")       
-       ("LilyPond backend" . "Detailed description of all Grobs")
-       ("LilyPond interfaces" . "Grob Interfaces")
-       ("LilyPond backend properties" . "Grob properties")
+       ("music properties" . "properties for Music representation")
+       ("interpretation contexts" . "Hierarchy and grouping of Engravers")
+       ("engravers" . "Engravers create Grobs")
+       ("context properties" . "context properties")       
+       ("backend" . "Detailed description of all Grobs")
+       ("interfaces" . "Grob Interfaces")
+       ("backend properties" . "Grob properties")
+       ("function documentation" . "Grob properties")       
        ("Index" . "index")
        ))
 

@@ -22,11 +22,11 @@
 
   (let* (
 	 (level (if (eq? where 'context) 3 2))
-	 (propsr (cdr (assoc 'properties-read (Translator::description engraver))))
-	 (propsw (cdr (assoc 'properties-written (Translator::description engraver))))	 
-	 (name (Translator::name engraver))
+	 (propsr (cdr (assoc 'properties-read (ly-translator-description engraver))))
+	 (propsw (cdr (assoc 'properties-written (ly-translator-description engraver))))	 
+	 (name (ly-translator-name engraver))
 	 (name-sym (string->symbol name))
-	 (desc (cdr (assoc 'description (Translator::description engraver))))
+	 (desc (cdr (assoc 'description (ly-translator-description engraver))))
 	 (grobs (engraver-grobs engraver))
 	 )
 
@@ -78,7 +78,7 @@
 
 ;; First level Engraver description
 (define (document-separate-engraver top grav)
-  (let ((name (Translator::name grav)))
+  (let ((name (ly-translator-name grav)))
     (processing name)
     (string-append
      (node (engraver-name name))
@@ -88,7 +88,7 @@
 (define (find-engraver-by-name name list)
   (if (null? list)
       #f
-      (if (equal? name (Translator::name (car list)))
+      (if (equal? name (ly-translator-name (car list)))
 	  (car list)
 	  (find-engraver-by-name name (cdr list)))))
 
@@ -150,7 +150,7 @@
 
     (if (eq? eg #f)
 	'()
-	(map symbol->string (cdr (assoc 'grobs-created (Translator::description eg))))
+	(map symbol->string (cdr (assoc 'grobs-created (ly-translator-description eg))))
  	)
   ))
 
@@ -199,7 +199,7 @@
 (define all-engravers-list  (ly-get-all-translators))
 (define (document-all-engravers name)
   (let* ((gravs all-engravers-list)
-	 (names (map Translator::name gravs))
+	 (names (map ly-translator-name gravs))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-separate-engraver name x))
 			  gravs))))

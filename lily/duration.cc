@@ -128,24 +128,28 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-static SCM
-make_duration (SCM l, SCM d)
+
+LY_DEFINE(make_duration,
+	  "make-duration", 2, 0, 0, (SCM length, SCM dotcount),
+	  "
+@var{length} is the negative logarithm (base 2) of the duration:
+1 is a half note, 2 is a quarter note, 3 is an eighth
+note, etc.  The number of dots after the note is given by
+@var{dotcount}.
+
+
+A duration is a musical duration, i.e. a length of time described by a
+power of two (whole, half, quarter, etc.) and a number of augmentation
+dots. 
+
+")
 {
-  SCM_ASSERT_TYPE(gh_number_p(l), l, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE(gh_number_p(d), d, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(gh_number_p(length), length, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(gh_number_p(dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
   
-  Duration p (gh_scm2int (l), gh_scm2int (d));
+  Duration p (gh_scm2int (length), gh_scm2int (dotcount));
   return p.smobbed_copy ();
 }
-
-static void
-add_funcs ()
-{
-  scm_c_define_gsubr ("make-duration", 2, 0, 0,
-		      (Scheme_function_unknown)make_duration);
-}
-
-ADD_SCM_INIT_FUNC (duration, add_funcs);
 
 SCM
 Duration::smobbed_copy ()const

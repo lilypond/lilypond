@@ -244,6 +244,10 @@ TYPE ## _ ## FUNC ## _init_functions ()					\
 ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
 
 
+void ly_add_function_documentation (char const * fname,
+				    char const * varlist,
+				    char const * doc);
+
 #define ADD_SCM_INIT_FUNC(name, func)\
 class name ## _scm_initter {			\
 public:\
@@ -253,5 +257,21 @@ public:\
   }						\
 } _ ## name ## _scm_initter;			\
 /* end define */
+
+#define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
+SCM FNAME ARGLIST ; \
+SCM FNAME ## _proc;\
+void \
+FNAME ## init ()\
+{\
+ FNAME ## _proc \
+    = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, (Scheme_function_unknown) FNAME);\
+  ly_add_function_documentation (PRIMNAME, #ARGLIST,  DOCSTRING);\
+}\
+ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);\
+SCM \
+FNAME ARGLIST\
+
+
 
 #endif // LILY_GUILE_HH

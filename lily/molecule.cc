@@ -135,9 +135,14 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
   add_molecule (toadd);
 }
 
-/* ly_?  Thought we had the ly_ prefix for wrapping/adding to gh_ */
-SCM
-Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
+LY_DEFINE(ly_set_molecule_extent_x,"ly-set-molecule-extent!", 3 , 0, 0, 
+	  (SCM mol, SCM axis, SCM np),
+	  "Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in 
+@var{axis} direction (0 or 1 for x- and y-axis respectively).
+
+Note that an extent @code{(A . B)} is an interval and hence @code{A} is
+smaller than @code{B}, and is often negative.
+5")
 {
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
@@ -150,8 +155,11 @@ Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
   return SCM_UNDEFINED;
 }
 
-SCM
-Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
+LY_DEFINE(ly_get_molecule_extent,
+	  "ly-get-molecule-extent", 2 , 0, 0,  (SCM mol, SCM axis),
+	  "Return a pair of numbers signifying the extent of @var{mol} in
+@var{axis} direction (0 or 1 for x and y axis respectively).
+")
 {
   Molecule *m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
@@ -161,9 +169,14 @@ Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
 }
 
 
-SCM
-Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
-					SCM second, SCM padding)
+LY_DEFINE(ly_molecule_combined_at_edge,
+	  "ly-combine-molecule-at-edge",
+	  5 , 0, 0,  (SCM first, SCM axis, SCM direction,
+		      SCM second, SCM padding),
+	  "Construct a molecule by putting @var{second} next to
+@var{first}. @var{axis} can be 0 (x-axis) or 1 (y-axis), @var{direction} can be
+-1 (left or down) or 1 (right or up).  @var{padding} specifies extra
+space to add in between measured in global staff space.")
 
 {
   Molecule * m1 = unsmob_molecule (first);
@@ -184,8 +197,13 @@ Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
   return result.smobbed_copy ();
 }
 
-SCM
-ly_add_molecule (SCM first, SCM second)
+/*
+  FIXME: support variable number of arguments "
+ */
+LY_DEFINE(ly_add_molecule , 
+	  "ly-add-molecule", 2, 0,0,(SCM first, SCM second),
+	  "Combine two molecules."
+	  )
 {
   Molecule * m1 = unsmob_molecule (first);
   Molecule * m2 = unsmob_molecule (second);
@@ -200,9 +218,9 @@ ly_add_molecule (SCM first, SCM second)
   return result.smobbed_copy ();
 }
 
-
-SCM
-ly_make_molecule (SCM expr, SCM xext, SCM yext)
+LY_DEFINE(ly_make_molecule,
+	  "ly-make-molecule", 3, 0, 0,  (SCM expr, SCM xext, SCM yext),
+	  "")
 {
   SCM_ASSERT_TYPE (ly_number_pair_p (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (ly_number_pair_p (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  
@@ -222,16 +240,16 @@ fontify_atom (Font_metric * met, SCM f)
 			ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
-SCM
-ly_fontify_atom (SCM met, SCM f)
+LY_DEFINE(ly_fontify_atom,"ly-fontify-atom", 2, 0, 0, 
+	  (SCM met, SCM f),
+	  "Add a font selection command for the font metric @var{met} to @var{f}.")
 {
   SCM_ASSERT_TYPE(unsmob_metrics (met), met, SCM_ARG1, __FUNCTION__, "font metric");
 
   return fontify_atom (unsmob_metrics (met), f);
 }
-
-SCM
-ly_align_to_x (SCM mol, SCM axis, SCM dir)
+LY_DEFINE(ly_align_to_x,"ly-align-to!", 3, 0, 0,  (SCM mol, SCM axis, SCM dir),
+	  "Align @var{mol} using its own extents.")
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
   SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
@@ -242,19 +260,6 @@ ly_align_to_x (SCM mol, SCM axis, SCM dir)
   return SCM_UNDEFINED;
 }
 
-
-static void
-molecule_init ()
-{
-  scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) ly_make_molecule);
-  scm_c_define_gsubr ("ly-fontify-atom", 2, 0, 0, (Scheme_function_unknown) ly_fontify_atom);
-  scm_c_define_gsubr ("ly-align-to!", 3, 0, 0, (Scheme_function_unknown) ly_align_to_x);
-  scm_c_define_gsubr ("ly-add-molecule", 2, 0,0,(Scheme_function_unknown) ly_add_molecule);
-  scm_c_define_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
-  scm_c_define_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
-  scm_c_define_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
-}
-ADD_SCM_INIT_FUNC (molecule,molecule_init);
 
 
 /*
@@ -284,9 +289,8 @@ IMPLEMENT_SIMPLE_SMOBS (Molecule);
 
 
 int
-Molecule::print_smob (SCM s, SCM port, scm_print_state *)
+Molecule::print_smob (SCM , SCM port, scm_print_state *)
 {
-     
   scm_puts ("#<Molecule ", port);
 #if 0
   Molecule  *r = (Molecule *) ly_cdr (s);

@@ -206,8 +206,9 @@ Music::~Music ()
   
 }
 
-SCM
-ly_get_mus_property (SCM mus, SCM sym)
+LY_DEFINE(ly_get_mus_property,
+	  "ly-get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
+	  "Get the property @var{sym} of music expression @var{mus}.")
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
@@ -217,9 +218,10 @@ ly_get_mus_property (SCM mus, SCM sym)
 
 }
 
-
-SCM
-ly_set_mus_property (SCM mus, SCM sym, SCM val)
+LY_DEFINE(ly_set_mus_property,
+	  "ly-set-mus-property", 3, 0, 0,
+	  (SCM mus, SCM sym, SCM val),
+	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
@@ -236,8 +238,17 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
 
 
 // to do  property args 
-SCM
-ly_make_music (SCM type)
+LY_DEFINE(ly_make_music,
+	  "ly-make-music", 1, 0, 0,  (SCM type),
+	  "
+Make a music object/expression of type @var{name}. Warning: this
+interface will likely change in the near future.
+
+
+
+Music is the data type that music expressions are stored in. The data
+type does not yet offer many manipulations.
+")
 {
   SCM_ASSERT_TYPE(gh_string_p(type), type, SCM_ARG1, __FUNCTION__, "string");
   
@@ -248,8 +259,9 @@ ly_make_music (SCM type)
   return s;
 }
 
-SCM
-ly_music_name (SCM mus)
+LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0, 
+  (SCM mus),
+  "Return the name of @var{music}.")
 {
   Music * m = unsmob_music (mus);
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__ ,"music");
@@ -258,8 +270,8 @@ ly_music_name (SCM mus)
   return ly_str02scm (nm);
 }
 
-SCM
-ly_music_list_p (SCM l)
+LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0, 
+  (SCM l),"Type predicate: return true if @var{l} is a list of music objects.")
 {
   if (scm_list_p (l) != SCM_BOOL_T)
     return SCM_BOOL_F;
@@ -272,15 +284,4 @@ ly_music_list_p (SCM l)
     }
   return SCM_BOOL_T;
 }
-
-static void
-init_functions ()
-{
-  scm_c_define_gsubr ("music-list?", 1, 0, 0, (Scheme_function_unknown)ly_music_list_p);  
-  scm_c_define_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
-  scm_c_define_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
-  scm_c_define_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);
-  scm_c_define_gsubr ("ly-music-name", 1, 0, 0, (Scheme_function_unknown)ly_music_name);    
-}
-ADD_SCM_INIT_FUNC (musicscm,init_functions);
 ADD_MUSIC(Music);

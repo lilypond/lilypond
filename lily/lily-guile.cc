@@ -148,10 +148,14 @@ gulp_file_to_string (String fn)
   return result;
 }
 
-SCM
-ly_gulp_file (SCM fn)
+LY_DEFINE(ly_gulp_file, "ly-gulp-file", 1,0, 0,
+	  (SCM name),
+	  "Read the file named @var{name}, and return its contents in a string. The
+file is looked up using the lilypond search path.
+
+")
 {
-  return ly_str02scm (gulp_file_to_string (ly_scm2string (fn)).ch_C ());
+  return ly_str02scm (gulp_file_to_string (ly_scm2string (name)).ch_C ());
 }
 
 
@@ -206,16 +210,19 @@ index_set_cell (SCM s, Direction d, SCM v)
   return s;
 }
   
-SCM
-ly_warning (SCM str)
+LY_DEFINE(ly_warning,"ly-warn", 1, 0, 0,
+  (SCM str),"Scheme callable function to issue the warning @code{msg}.
+")
 {
   assert (gh_string_p (str));
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
 }
 
-SCM
-ly_isdir_p (SCM s)
+LY_DEFINE(ly_isdir_p,  "dir?", 1,0, 0,  (SCM s),
+	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or
+down and 1 represents right or up.
+")
 {
   if (gh_number_p (s))
     {
@@ -405,8 +412,11 @@ ly_type (SCM exp)
  */
    
    
-SCM
-ly_number2string (SCM s)
+LY_DEFINE(ly_number2string,  "ly-number->string", 1, 0,0,
+	  (SCM s),
+	  " converts @var{num} to a string without generating many decimals. It
+leaves a space at the end.
+")
 {
   assert (gh_number_p (s));
 
@@ -456,23 +466,24 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 
 
 #include "version.hh"
-SCM
-ly_version ()
+LY_DEFINE(ly_version,  "ly-version", 0, 0, 0, (),
+	  "Return the current lilypond version as a list, e.g.
+@code{(1 3 127 uu1)}. 
+")
 {
   char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
   
   return gh_eval_str ((char*)vs);
 }
 
-SCM
-ly_unit ()
+LY_DEFINE(ly_unit,  "ly-unit", 0, 0, 0, (),
+	  "Return the unit used for lengths as a string.")
 {
   return ly_str02scm (INTERNAL_UNIT);
 }
 
-
-SCM
-ly_verbose ()
+LY_DEFINE(ly_verbose,  "ly-verbose", 0, 0, 0, (),
+  "Return whether lilypond is being run in verbose mode.")
 {
   return gh_bool2scm (verbose_global_b);
 }
@@ -480,21 +491,6 @@ ly_verbose ()
 static void
 init_functions ()
 {
-  scm_c_define_gsubr ("ly-warn", 1, 0, 0,
-		      (Scheme_function_unknown)ly_warning);
-  scm_c_define_gsubr ("ly-verbose", 0, 0, 0,
-		      (Scheme_function_unknown)ly_verbose);
-  scm_c_define_gsubr ("ly-version", 0, 0, 0,
-		      (Scheme_function_unknown)ly_version);  
-  scm_c_define_gsubr ("ly-unit", 0, 0, 0,
-		      (Scheme_function_unknown)ly_unit);  
-  scm_c_define_gsubr ("ly-gulp-file", 1,0, 0,
-		      (Scheme_function_unknown)ly_gulp_file);
-  scm_c_define_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
-  scm_c_define_gsubr ("ly-number->string", 1, 0,0,
-		      (Scheme_function_unknown) ly_number2string);
-
-
 #ifdef TEST_GC 
   scm_c_hook_add (&scm_before_mark_c_hook, greet_sweep, 0, 0);
   scm_c_hook_add (&scm_before_sweep_c_hook, wave_sweep_goodbye, 0, 0);
@@ -738,3 +734,4 @@ ly_split_list (SCM s, SCM list)
   return gh_cons ( scm_reverse_x (before, SCM_EOL),  after);
   
 }
+

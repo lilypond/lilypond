@@ -490,7 +490,7 @@ Grob::handle_broken_dependencies ()
 	dependencies, so let's junk the element itself.
 
 	do not do this for System, since that would remove
-	references to the originals of score-elts, which get then GC'd
+	references to the originals of score-grobs, which get then GC'd
  (a bad thing.)
       */
       suicide ();
@@ -851,12 +851,13 @@ Grob::do_derived_mark ()
   return SCM_EOL;
 }
 
-
-SCM
-ly_set_grob_property (SCM elt, SCM sym, SCM val)
+LY_DEFINE(ly_set_grob_property,"ly-set-grob-property", 3, 0, 0,
+(SCM grob, SCM sym, SCM val),
+"
+Set @var{sym} in grob @var{grob} to value @var{val}")
 {
-  Grob * sc = unsmob_grob (elt);
-  SCM_ASSERT_TYPE(sc, elt, SCM_ARG1, __FUNCTION__, "grob");
+  Grob * sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
@@ -866,12 +867,14 @@ ly_set_grob_property (SCM elt, SCM sym, SCM val)
   return SCM_UNSPECIFIED;
 }
 
-
-SCM
-ly_get_grob_property (SCM elt, SCM sym)
+LY_DEFINE(ly_get_grob_property,
+	  "ly-get-grob-property", 2, 0, 0, (SCM grob, SCM sym),
+	  "  Get the value of a value in grob @var{g} of property @var{sym}. It
+will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
+")
 {
-  Grob * sc = unsmob_grob (elt);
-  SCM_ASSERT_TYPE(sc, elt, SCM_ARG1, __FUNCTION__, "grob");
+  Grob * sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   return sc->internal_get_grob_property (sym);
@@ -884,9 +887,11 @@ Grob::discretionary_processing ()
 }
 
 
-
-SCM
-spanner_get_bound (SCM slur, SCM dir)
+LY_DEFINE(spanner_get_bound, "ly-get-spanner-bound", 2 , 0, 0,
+	  (SCM slur, SCM dir),
+	  "Get one of the bounds of @var{spanner}. @var{dir} may be @code{-1} for
+left, and @code{1} for right.
+")
 {
   Spanner * sl = dynamic_cast<Spanner*> (unsmob_grob (slur));
   SCM_ASSERT_TYPE(sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
@@ -894,8 +899,9 @@ spanner_get_bound (SCM slur, SCM dir)
   return sl->get_bound (to_dir (dir))->self_scm ();
 }
 
-SCM
-ly_get_paper_var (SCM grob, SCM sym)
+LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
+  (SCM grob, SCM sym),
+  "Get a variable from the \\paper block.")
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -906,8 +912,10 @@ ly_get_paper_var (SCM grob, SCM sym)
 
 
 
-SCM
-ly_get_extent (SCM grob, SCM refp, SCM axis)
+LY_DEFINE(ly_get_extent, "ly-get-extent", 3, 0, 0,
+	  (SCM grob, SCM refp, SCM axis),
+	  "Get the extent in @var{axis} direction of @var{grob} relative to the
+grob @var{refp}")
 {
   Grob * sc = unsmob_grob (grob);
   Grob * ref = unsmob_grob (refp);
@@ -919,8 +927,9 @@ ly_get_extent (SCM grob, SCM refp, SCM axis)
   return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
 }
 
-SCM
-ly_get_parent (SCM grob, SCM axis)
+LY_DEFINE (ly_get_parent,   "ly-get-parent", 2, 0, 0, (SCM grob, SCM axis),
+	   "Get the parent of @var{grob}.  @var{axis} can be 0 for the X-axis, 1
+for the Y-axis.")
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -930,23 +939,6 @@ ly_get_parent (SCM grob, SCM axis)
 }
 
 
-static void
-init_functions ()
-{
-  scm_c_define_gsubr ("ly-get-grob-property", 2, 0, 0,
-		      (Scheme_function_unknown)ly_get_grob_property);
-  scm_c_define_gsubr ("ly-set-grob-property", 3, 0, 0,
-		      (Scheme_function_unknown)ly_set_grob_property);
-  scm_c_define_gsubr ("ly-get-spanner-bound", 2 , 0, 0,
-		      (Scheme_function_unknown) spanner_get_bound);
-  scm_c_define_gsubr ("ly-get-paper-variable", 2, 0, 0,
-		      (Scheme_function_unknown) ly_get_paper_var);
-  scm_c_define_gsubr ("ly-get-extent", 3, 0, 0,
-		      (Scheme_function_unknown) ly_get_extent);
-  scm_c_define_gsubr ("ly-get-parent", 2, 0, 0,
-		      (Scheme_function_unknown) ly_get_parent);
-}
-
 bool
 Grob::internal_has_interface (SCM k)
 {
@@ -955,8 +947,6 @@ Grob::internal_has_interface (SCM k)
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
 
-
-ADD_SCM_INIT_FUNC (scoreelt, init_functions);
 IMPLEMENT_TYPE_P (Grob, "ly-grob?");
 
 ADD_INTERFACE (Grob, "grob-interface",

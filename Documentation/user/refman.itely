@@ -196,7 +196,7 @@ The verbose syntax for pitch specification is
   \pitch @var{scmpitch}
 @end example
 
-@var{scmpitch} is a pitch scheme object, see @ref{Pitch data type}.
+@var{scmpitch} is a pitch scheme object.
 
 In Note and Chord mode, pitches may be designated by names.  The default
 names are the Dutch note names.  The notes are specified by the letters
@@ -320,8 +320,7 @@ The syntax for a verbose duration specification is
 @example
  \duration @var{scmduration}
 @end example
-Here, @var{scmduration} is a Scheme object of type @code{Duration}. See
-@ref{Duration} for more information.
+Here, @var{scmduration} is a Scheme object of type @code{Duration}.
 
 
 In Note, Chord, and Lyrics mode, durations may be designated by numbers
@@ -4676,8 +4675,7 @@ including dimensions.  Produced by some Grob functions
 See @ref{Molecules}
 @item Translator: object that produces audio objects or Grobs. This is
 not yet user accessible.
-@item Font_metric: object representing a font. (See @ref{Font metrics})
-
+@item Font_metric: object representing a font.
 @end itemize
 
 

@@ -17,7 +17,16 @@
 #include "interpretation-context-handle.hh"
 #include "cxx-function-smob.hh"
 
-/** 
+/**
+   ---
+
+   Music_iterator is an object type that traverses the Music structure and
+   reports the events it finds to interpretation contexts. It is not yet
+   user-serviceable.
+
+
+   ---
+	
   Conceptually a music-iterator operates on a queue of musical events
   that are pending. This queue does not actually exist, but it is a
   way of viewing and traversing music-expressions.

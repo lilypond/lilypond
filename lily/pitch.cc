@@ -219,14 +219,13 @@ Pitch::down_to (int notename)
     }
   notename_i_ = notename;
 }
-
-/*
-  can't use macro MAKE_SCHEME_CALLBACK().
-   messy stuff since Pitch::transpose is overloaded.
- */
-
-SCM
-pitch_transpose (SCM p, SCM delta)
+ 
+LY_DEFINE(ly_pitch_transpose,
+	  "ly-transpose-pitch", 2, 0, 0,
+	  (SCM p, SCM delta),
+	  "Transpose @var{p} by the amount @var{delta}, where @var{delta} is the
+pitch that central C is transposed to.
+")
 {
   Pitch* t = unsmob_pitch (p);
   Pitch *d = unsmob_pitch (delta);
@@ -236,12 +235,6 @@ pitch_transpose (SCM p, SCM delta)
   Pitch tp =*t;
   tp.transpose (*d);
   return tp.smobbed_copy ();
-}
-
-SCM
-Pitch::transpose (SCM p, SCM d)
-{
-  return pitch_transpose (p,d);
 }
 
 /****************************************************************/
@@ -297,8 +290,16 @@ Pitch::less_p (SCM p1, SCM p2)
 /*
   should add optional args
  */
-static SCM
-make_pitch (SCM o, SCM n, SCM a)
+
+LY_DEFINE(make_pitch, "make-pitch", 3, 0, 0, 
+	  (SCM o, SCM n, SCM a),
+	  "
+@var{octave} is specified by an integer, zero for the octave containing
+middle C.  @var{note} is a number from 0 to 6, with 0 corresponding to C
+and 6 corresponding to B.  The shift is zero for a natural, negative for
+flats, or positive for sharps.
+
+")
 {
   SCM_ASSERT_TYPE(gh_number_p(o), o, SCM_ARG1, __FUNCTION__, "number");
   SCM_ASSERT_TYPE(gh_number_p(n), n, SCM_ARG2, __FUNCTION__, "number");
@@ -308,8 +309,10 @@ make_pitch (SCM o, SCM n, SCM a)
   return p.smobbed_copy ();
 }
 
-static SCM
-pitch_octave (SCM pp)
+
+LY_DEFINE(pitch_octave, "pitch-octave", 1, 0, 0, 
+	  (SCM pp),
+	  "extract the octave from pitch @var{p}.")
 {
   Pitch *p = unsmob_pitch (pp);
    SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -318,8 +321,9 @@ pitch_octave (SCM pp)
   return gh_int2scm (q);
 }
 
-static SCM
-pitch_alteration (SCM pp)
+LY_DEFINE(pitch_alteration, "pitch-alteration", 1, 0, 0, 
+	  (SCM pp),
+	  "extract the alteration from pitch  @var{p}.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -328,8 +332,9 @@ pitch_alteration (SCM pp)
   return gh_int2scm (q);
 }
 
-static SCM
-pitch_notename (SCM pp)
+LY_DEFINE(pitch_notename, "pitch-notename", 1, 0, 0, 
+	  (SCM pp),
+	  "extract the note name from pitch  @var{pp}.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -338,8 +343,9 @@ pitch_notename (SCM pp)
   return gh_int2scm (q);
 }
 
-static SCM
-pitch_semitones (SCM pp)
+LY_DEFINE(pitch_semitones,  "pitch-semitones", 1, 0, 0, 
+	  (SCM pp),
+	  "calculate the number of semitones of @var{p} from central C.")
 {
   Pitch *p = unsmob_pitch (pp);
    SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -348,28 +354,12 @@ pitch_semitones (SCM pp)
 
   return gh_int2scm (q);
 }
-SCM pitch_less_proc;
-static SCM
-pitch_less (SCM p1, SCM p2)
+
+LY_DEFINE(pitch_less, "pitch<?", 2,0,0, (SCM p1, SCM p2),
+	  "Is @var{p1} lower than @var{p2}? This uses lexicographic ordening.")
 {
   return Pitch::less_p (ly_car (p1),  ly_car (p2));
 }
-
-
-static void
-add_funcs ()
-{
-  // should take list?: (make-pitch ' (octave name accidental))
-  scm_c_define_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
-  scm_c_define_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
-  scm_c_define_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
-  scm_c_define_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
-  scm_c_define_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
-  scm_c_define_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
-  pitch_less_proc = gh_new_procedure2_0 ("pitch-less", &pitch_less);
-}
-
-ADD_SCM_INIT_FUNC (pitch, add_funcs);
 
 SCM
 Pitch::smobbed_copy ()const

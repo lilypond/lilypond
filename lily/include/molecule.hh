@@ -39,7 +39,10 @@
     init the molecule, we assume that
     DIMENSIONS = (Interval (0,0),Interval (0,0)
 */
-class Molecule {
+class Molecule
+{
+  friend SCM ly_set_molecule_extent_x (SCM, SCM, SCM);
+  
   Box dim_;
   SCM expr_;
   
