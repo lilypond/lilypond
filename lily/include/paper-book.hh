@@ -29,8 +29,8 @@ class Paper_book
   Real height_;
   SCM copyright_;
   SCM tagline_;
-  SCM global_header_;
 public:
+  SCM header_;
   Array<Score_lines> score_lines_;
   Output_def *bookpaper_;
   

@@ -1,4 +1,18 @@
+2004-05-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/book.cc (process): return Paper_book
+	(to_stencil): use Book::process().
+
+	* lily/include/my-lily-parser.hh (class My_lily_parser): remove
+	header_ field. Store in $globalheader
+
+	* lily/parser.yy (book_body): book header is initted to
+	$globalheader.
+	
+
 2004-05-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/test/fill-a4.ly: removed.
 
 	* lily/parser.yy (output_def): push scope of parent_ Output_def
 	too.

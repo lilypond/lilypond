@@ -105,8 +105,7 @@
 
 (define-public (print-score-as-book parser score)
   (let
-      ((book (ly:score-bookify score))
-       )
+      ((book (ly:score-bookify score (ly:parser-lookup parser '$globalheader))))
     
     (ly:parser-print-book parser book)))
 
