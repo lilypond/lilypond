@@ -318,7 +318,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 
 
 /* --Het lijkt me dat dit in het paarse gedeelte moet. */
-Simultaneous_music *
+Music *
 Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 {
   SCM pitches = tonic_add_sub_to_pitches (tonic, add, sub);
@@ -331,7 +331,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	{
 	  /* Then, delete and add as base note, ie: the inversion */
 	  pitches = scm_delete (s, pitches);
-	  Note_req* n = new Note_req;
+	  Music * n = make_music_by_name (ly_symbol2scm ("NoteEvent"));
 	  n->set_mus_property ("pitch", ly_car (add_below_tonic (s, pitches)));
 	  n->set_mus_property ("duration", dur);
 	  n->set_mus_property ("inversion", SCM_BOOL_T);
@@ -346,7 +346,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
   /* Bass is easy, just add if requested */
   if (bass != SCM_EOL)
     {
-      Note_req* n = new Note_req;
+      Music * n = make_music_by_name (ly_symbol2scm ("NoteEvent"));
       n->set_mus_property ("pitch", ly_car (add_below_tonic (bass, pitches)));
       n->set_mus_property ("duration", dur);
       n->set_mus_property ("bass", SCM_BOOL_T);
@@ -356,14 +356,14 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
   
   for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
-      Note_req* n = new Note_req;
+      Music * n = make_music_by_name(ly_symbol2scm ("NoteEvent"));
       n->set_mus_property ("pitch", ly_car (i));
       n->set_mus_property ("duration", dur);
       list = gh_cons (n->self_scm (), list);
       scm_gc_unprotect_object (n->self_scm ());
     }
 
-  Simultaneous_music*v = new Request_chord ();
+  Music * v = make_music_by_name(ly_symbol2scm ("RequestChord"));
   v->set_mus_property ("elements", list);
 
   return v;

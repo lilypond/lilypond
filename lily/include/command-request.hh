@@ -62,5 +62,7 @@ protected:
   void transpose (Pitch  d);
 };
 
+SCM transpose_key_alist (SCM,SCM);
+
 #endif // COMMANDREQUEST_HH
 

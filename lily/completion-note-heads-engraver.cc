@@ -280,7 +280,7 @@ Completion_heads_engraver::stop_translation_timestep ()
   scratch_note_reqs_.clear();
 }
 
-Tie_req * tie_req = 0;
+Music * tie_req = 0;
 
 void
 Completion_heads_engraver::start_translation_timestep ()
@@ -294,7 +294,7 @@ Completion_heads_engraver::start_translation_timestep ()
   if (left_to_do_)
     {
       if (!tie_req)
-	tie_req = new Tie_req;
+	tie_req = make_music_by_name (ly_symbol2scm ("TieEvent"));
       
       bool succ = daddy_trans_->try_music (tie_req);
       if (!succ)

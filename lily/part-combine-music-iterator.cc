@@ -343,7 +343,7 @@ Part_combine_music_iterator::get_state (Moment)
   return state;
 }
 
-static Span_req* abort_req = NULL;
+static Music* abort_req = NULL;
 
 void
 Part_combine_music_iterator::process (Moment m)
@@ -394,7 +394,7 @@ s      Consider thread switching: threads "one", "two" and "both".
 
   if (!abort_req)
     {
-      abort_req = new Span_req;
+      abort_req = make_music_by_name (ly_symbol2scm ("SpanEvent"));
       abort_req->set_mus_property ("span-type", scm_makfrom0str ("abort"));
     }
   

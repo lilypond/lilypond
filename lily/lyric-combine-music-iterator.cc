@@ -18,21 +18,26 @@
 /*
   Ugh, why static?
  */
-Busy_playing_req *busy_req;
-Melisma_req *melisma_start_req;
-Melisma_req *melisma_stop_req;
-Melisma_playing_req * melisma_playing_req;
+Music *busy_req;
+Music *melisma_start_req;
+Music *melisma_stop_req;
+Music *melisma_playing_req;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   if (!busy_req)
     {
-      busy_req = new Busy_playing_req;
-      melisma_playing_req = new Melisma_playing_req;
-      melisma_stop_req = new Melisma_req;
-      melisma_start_req = new Melisma_req;      
-      melisma_start_req->set_span_dir (START);
-      melisma_stop_req->set_span_dir (STOP);
+      busy_req
+	= make_music_by_name (ly_symbol2scm ("BusyPlayingEvent"));
+      melisma_playing_req
+	= make_music_by_name (ly_symbol2scm ("MelismaPlayingEvent"));
+      melisma_stop_req
+	= make_music_by_name (ly_symbol2scm ("MelismaEvent"));
+      melisma_start_req
+	= make_music_by_name (ly_symbol2scm ("MelismaEvent"));
+
+      melisma_start_req->set_mus_property ("span-direction", gh_int2scm (START));
+      melisma_stop_req->set_mus_property ("span-direction", gh_int2scm (STOP));
     }
   
   music_iter_ =0;

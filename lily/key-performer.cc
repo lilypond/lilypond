@@ -64,10 +64,7 @@ Key_performer::create_audio_elements ()
       my_do.transpose (to_c);
       to_c.alteration_ -= my_do.alteration_;
 
-      Key_change_req *key = new Key_change_req;
-      key->set_mus_property ("pitch-alist", scm_list_copy (pitchlist));
-      ((Music*)key)->transpose (to_c);
-      SCM c_pitchlist = key->get_mus_property ("pitch-alist");
+      SCM c_pitchlist = transpose_key_alist (pitchlist, to_c.smobbed_copy());
       SCM major = gh_call1 (proc, c_pitchlist);
 
       audio_ = new Audio_key (gh_scm2int (acc), major == SCM_BOOL_T); 

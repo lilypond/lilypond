@@ -262,27 +262,6 @@ LY_DEFINE(ly_set_mus_property,
 }
 
 
-// to do  property args 
-LY_DEFINE(ly_make_music,
-	  "ly-make-music", 1, 0, 0,  (SCM type),
-	  "
-Make a music object/expression of type @var{name}. Warning: this
-interface will likely change in the near future.
-
-
-
-Music is the data type that music expressions are stored in. The data
-type does not yet offer many manipulations.
-")
-{
-  SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
-  
-  SCM s = make_music (ly_scm2string (type))->self_scm ();
-  scm_gc_unprotect_object (s);
-
-  return s;
-}
-
 LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0, 
   (SCM mus),
   "Return the name of @var{music}.")
@@ -295,9 +274,10 @@ LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0,
 }
 
 
+
 // to do  property args 
 LY_DEFINE(ly_extended_make_music,
-	  "ly-extended-make-music", 2, 0, 0,  (SCM type, SCM props),
+	  "ly-make-bare-music", 2, 0, 0,  (SCM type, SCM props),
 	  "
 Make a music object/expression of type @var{type}, init with
 @var{props}. Warning: this interface will likely change in the near
@@ -331,3 +311,21 @@ LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0,
 }
 ADD_MUSIC(Music);
 
+
+SCM make_music_proc;
+
+
+Music*
+make_music_by_name (SCM sym)
+{
+  if (!make_music_proc)
+    make_music_proc = scm_primitive_eval (ly_symbol2scm ("make-music-by-name"));
+	
+  SCM rv = scm_call_1 (make_music_proc, sym);
+
+  /*
+    UGH.
+  */
+  scm_gc_protect_object (rv);
+  return unsmob_music (rv);
+}

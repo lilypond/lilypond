@@ -15,12 +15,15 @@ Tempo_req::Tempo_req ()
   set_mus_property ("duration", Duration (2,0).smobbed_copy ());
 }
 
-void
-Key_change_req::transpose (Pitch p)
+
+LY_DEFINE(transpose_key_alist,"transpose-key-alist",
+	  2, 0,0, (SCM l, SCM pitch),
+	  "Make a new key alist of @var{l} transposed by pitch @var{pitch}")
 {
   SCM newlist = SCM_EOL;
-  SCM pa = get_mus_property ("pitch-alist");
-  for (SCM s = pa; gh_pair_p (s); s = ly_cdr (s))
+  Pitch *p = unsmob_pitch (pitch);
+  
+  for (SCM s = l; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM alter = ly_cdar (s);
@@ -30,7 +33,7 @@ Key_change_req::transpose (Pitch p)
 			      gh_scm2int (ly_cdr (key)),
 			      gh_scm2int (alter));
 
-	  orig.transpose (p);
+	  orig.transpose (*p);
 
 	  SCM key = gh_cons (scm_int2num (orig.get_octave ()),
 			     scm_int2num (orig.notename_));
@@ -41,15 +44,22 @@ Key_change_req::transpose (Pitch p)
       else if (gh_number_p (key))
 	{
 	  Pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
-	  orig.transpose (p);
+	  orig.transpose (*p);
 
 	  key =scm_int2num (orig.notename_);
 	  alter = scm_int2num (orig.alteration_);
 	  newlist = gh_cons (gh_cons (key, alter), newlist);
 	}
     }
+  return scm_reverse_x (newlist, SCM_EOL);
+}
 
-  set_mus_property ("pitch-alist", gh_reverse (newlist));
+void
+Key_change_req::transpose (Pitch p)
+{
+  SCM pa = get_mus_property ("pitch-alist");
+
+  set_mus_property ("pitch-alist", transpose_key_alist (pa, p.smobbed_copy()));
 }
 
 
