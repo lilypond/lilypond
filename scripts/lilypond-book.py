@@ -737,7 +737,7 @@ def run_filter (s):
 
 def is_derived_class (cl,  baseclass):
 	if cl == baseclass:
-		return 0
+		return 1
 	for b in cl.__bases__:
 		if is_derived_class (b, baseclass):
 			return 1

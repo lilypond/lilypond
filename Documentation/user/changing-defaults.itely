@@ -662,8 +662,8 @@ Cyclic references in Scheme values for properties can cause hangs
 and/or crashes.
 
 
-@node Defining context defaults 
-@subsection Defining context defaults
+@node Changing context default settings
+@subsection Changing context default settings
 
 The adjustments of the previous chapters can also be entered separate
 from the music, in the @code{\paper} block,
@@ -687,32 +687,169 @@ This
 @end example
 
 @noindent
-takes the existing definition @context{Staff}, and adds
-changes some settings,
+takes the existing definition @context{Staff} from the identifier
+@code{StaffContext}. This works analogously other contexts, so the
+existing definition  of @code{Voice} is in 
+@code{\VoiceContext}.
 
+The statements
 @example
         \set fontSize = #-2
         \override Stem #'thickness
         \remove "Time_signature_engraver"
 @end example
 
+@noindent
+affect all staves in the score.
 
+The @code{\set} keyword is optional within the @code{\paper} block, so
 
-Context properties can be set as defaults, within the
-@code{\paper} block. For example, 
-
-@verbatim
-\paper {
-  \context {
-    \ScoreContext
-    skipBars = ##t
-  }
-}
-@end verbatim
+@example
+  fontSize = #-2
+@end example
 
 @noindent
-will set skipBars default 
+will also work.
 
+
+
+
+@node Defining new  contexts
+@subsection Defining new  contexts
+
+Specific contexts, like @context{Staff} and @code{Voice} are made of
+simple building blocks, and it is possible to compose engraver
+plug-ins in different combinations, thereby creating new types of
+contexts.
+
+The next example shows how to build a different type of
+@context{Voice} context from scratch.  It will be similar to
+@code{Voice}, but print centered slash noteheads only. It can be used
+to indicate improvisation in Jazz pieces,
+
+@lilypond[raggedright]
+  \paper { \context {
+    \name ImproVoice
+    \type "Engraver_group_engraver"
+    \consists "Note_heads_engraver"
+    \consists "Text_script_engraver"
+    \consists Pitch_squash_engraver
+    squashedPosition = #0
+    \override NoteHead #'style = #'slash
+    \override Stem #'transparent = ##t
+    \alias Voice
+  }
+  \context { \StaffContext
+    \accepts "ImproVoice"
+  }
+  \score { \notes \relative c'' {
+    a4 d8 bes8 \new ImproVoice { c4^"ad lib" 4 
+     c4 c^"undress"  c c_"while playing :)"  } 
+    a1 
+  }
+@end lilypond
+
+
+These settings are again done within a @code{\context} block inside a
+@code{\paper} block,
+
+@example
+  \paper  {
+    \context {
+      @dots{}
+    }
+  }
+@end example
+
+In the following discussion, the example input shown should go on the
+@dots{} of the previous fragment.
+
+First, name the context gets a name. Instead of @context{Voice} it
+will be called @context{ImproVoice},
+
+@verbatim
+  \name ImproVoice
+@end verbatim
+
+Since it is similar to the @context{Voice}, we want commands that work
+on (existing) @context{Voice}s to remain working. This is achieved by
+giving the new context an alias @context{Voice},
+
+@verbatim
+  \alias Voice
+@end verbatim
+
+The context will print notes, and instructive texts
+
+@verbatim
+  \consists Note_heads_engraver
+  \consists Text_script_engraver
+@end verbatim
+
+but only on the center line,
+
+@verbatim
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+@end verbatim
+
+The @internalsref{Pitch_squash_engraver} modifies note heads (created
+by @internalsref{Note_heads_engraver}) and sets their vertical
+position to the value of @code{squashedPosition}, in this case
+@code{0}, the center line.
+
+The notes look like a  slash, without a stem,
+
+@verbatim
+    \override NoteHead #'style = #'slash
+    \override Stem #'transparent = ##t
+@end verbatim
+
+
+All these plug-ins have to cooperate, and this is achieved with a
+special plug-in, which must be marked with the keyword @code{\type}.
+This should always be @internalsref{Engraver_group_engraver},
+
+@example
+ \type "Engraver_group_engraver"
+@end example
+
+Put together, we get
+
+@verbatim
+  \context {
+    \name ImproVoice
+    \type "Engraver_group_engraver"
+    \consists "Note_heads_engraver"
+    \consists "Text_script_engraver"
+    \consists Pitch_squash_engraver
+    squashedPosition = #0
+    \override NoteHead #'style = #'slash
+    \override Stem #'transparent = ##t
+    \alias Voice
+  }
+@end verbatim
+
+Contexts form hierarchies. We want to hang the @consists{ImproVoice}
+under @consists{Staff}, just like normal @code{Voice}s. Therefore, we
+modify the @code{Staff} definition with the @code{\accepts}
+command,@footnote{The opposite of @code{\accepts} is @code{\denies},
+which is sometimes when reusing existing context definitions. }
+
+
+
+@verbatim
+  \context {
+    \StaffContext
+    \accepts ImproVoice    
+  }
+@end verbatim 
+
+
+@example
+
+
+    
 @node Which properties to change
 @subsection Which properties to change
 
