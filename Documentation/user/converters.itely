@@ -69,7 +69,7 @@ Set the output file to write.
 
 @item -n,--no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator 
-to the output. Specifying this option suppresses this.  
+to the output.  Specifying this option suppresses this.  
 
 @item -s, --show-rules
 Show all known conversions and exit.
@@ -103,11 +103,11 @@ http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/conve
 @end ignore
 @verbatim
 
-There are a few things that the convert-ly cannot handle. Here's a list of limitations
+There are a few things that the convert-ly cannot handle.  Here's a list of limitations
 that the community has complained about.
 
 This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist, placed
+allow to smoothly implement all needed changes.  Thus this is just a wishlist, placed
 here for reference.
 
 1.6->2.0:

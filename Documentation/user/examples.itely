@@ -1294,6 +1294,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
   composer = "Composer (xxxx-yyyy)"
   opus = "Opus 0"
   piece = "Piece I"
+  meter = "meter"
   instrument = "Instrument"
   arranger = "Arranger"
   poet = "Poet"

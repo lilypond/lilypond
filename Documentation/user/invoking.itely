@@ -55,7 +55,7 @@ some internal variables.  Use @code{-e '(ly:option-usage)'} for more
 information.
 
 @item -f,--format=@var{format}
-which formats should be written. Choices are @code{svg}, @code{ps},
+which formats should be written.  Choices are @code{svg}, @code{ps},
 @code{pdf}, @code{png}, @code{tex}, @code{dvi}.
 
 @item -b,--backend=@var{format}
@@ -72,12 +72,12 @@ extents of strings of text.
  for PostScript.
 @cindex PostScript output
 
-  Postscript files include TTF, Type1 and OTF fonts. No subsetting of
-  these fonts is done. When using oriental character sets, this can
+  Postscript files include TTF, Type1 and OTF fonts.  No subsetting of
+  these fonts is done.  When using oriental character sets, this can
   lead to huge files.  
   
 @item eps
- for encapsulated PostScript. This dumps every page (system) as a separate
+ for encapsulated PostScript.  This dumps every page (system) as a separate
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with
 all pages (systems) including fonts.
 
@@ -156,7 +156,7 @@ disables the use of backslashes in @TeX{} strings.
 In @code{--safe} mode, it is not possible to import LilyPond variables
 into Scheme.
 
-@code{--safe} does @emph{not} detect resource overuse. It is still
+@code{--safe} does @emph{not} detect resource overuse.  It is still
 possible to make the program hang indefinitely, for example by feeding
 cyclic data structures into the backend.  Therefore, if using LilyPond
 on a publicly accessible webserver, the process should be limited in

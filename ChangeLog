@@ -1,3 +1,16 @@
+2005-02-26  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/examples.itely: small fix from Steve Doonan.
+
+	* Documentation/user/scheme-tutorial.itely: small fix from Steve Doonan.
+
+	* Documentation/user/notation.itely: revamped Polyphony section
+	from Yuval Harel.  Thanks!
+
+	* THANKS: added Yuval Harel.
+
+	* Documentation/user/{various}: inserted two spaces after a period.
+
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Text encoding): add
