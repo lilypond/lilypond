@@ -138,23 +138,6 @@
     ;; possibly a goops 1.6.4 problem
     (initialize go)
 
-    (map ly:pango-add-afm-decoder
-	 '("lilypond-feta"
-	   "lilypond-feta-braces-a"
-	   "lilypond-feta-braces-b"
-	   "lilypond-feta-braces-c"
-	   "lilypond-feta-braces-d"
-	   "lilypond-feta-braces-d"
-	   "lilypond-feta-braces-e"
-	   "lilypond-feta-braces-f"
-	   "lilypond-feta-braces-g"
-	   "lilypond-feta-braces-h"
-	   "lilypond-feta-braces-i"
-	   "lilypond-parmesan"
-	   ;;"lilypond"
-	   ;;"bigcheese20"
-	   ))
-
     (dump-page go 0)
 
     (gtk-main)))
