@@ -10,8 +10,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.18
-;; Last Modified: 6MAY2003
+;; Version:       1.7.20
+;; Last Modified: 9JUN2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -131,15 +131,15 @@
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
 	  '(
-	    ;; also '['- and ']'-slurs are handled by lilypond-indent.el
-	    ;( ?\[ . "(]" ) ( ?\] . ")[" )
 	    ;; all the paren characters are now handled by   
-	    ;; lily-specific indenting/matching code in lilypond-indent.el 
-	    ( ?\[ . "." ) ( ?\] . "." )
-	    ( ?\( . "." ) ( ?\) . "." ) 
-	    ( ?\< . "." ) ( ?\> . ".") 
-	    ( ?\{  .  ". 2" )  ; also 2nd char in begin of block-comment
-	    ( ?\}  .  ". 4" )  ; also 2nd char in end of block-comment
+	    ;; lily-specific indenting/matching code in lilypond-indent.el
+	    ;; Emacs' show-paren-function and XEmacs' paren-highlight use
+	    ;; these slur-definitions through Lilypond specific scan-sexps.
+	    ( ?\[ . "(]" ) ( ?\] . ")[" )
+	    ( ?\( . "()" ) ( ?\) . ")(" ) 
+	    ( ?\< . "(>" ) ( ?\> . ")<") 
+	    ( ?\{  .  "(} 2" )  ; also 2nd char in begin of block-comment
+	    ( ?\}  .  "){ 4" )  ; also 2nd char in end of block-comment
 	    ( ?\%  .  "< 13" ) ; comment starter, 1st char in block-comments
 	    ( ?\n . ">")       ; newline: comment ender
 	    ( ?\r . ">")       ; formfeed: comment ender
