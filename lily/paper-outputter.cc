@@ -137,6 +137,15 @@ Paper_outputter::output_scheme (SCM scm)
       gh_display (scm); gh_newline ();
     }
 #endif
+  // urg; temporary hack to debug scheme error #unknown
+  if (String (output_global_ch) == "scm")
+    {
+//      char* c = gh_scm2newstr (scm, NULL);
+//      *outstream_l_ << c << "\n";
+//      free (c);
+	gh_display (scm); gh_newline ();
+      return;
+    }
   SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));
   char* c = gh_scm2newstr (str_scm, NULL);
 #ifndef NPRINT
