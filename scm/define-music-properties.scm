@@ -15,8 +15,7 @@
 	))
   (set-object-property! symbol 'music-type? type?)
   (set-object-property! symbol 'music-doc description)
-  symbol )
-
+  symbol)
 
 (define-public all-music-properties
   (map

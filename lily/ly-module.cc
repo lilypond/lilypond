@@ -70,6 +70,13 @@ ly_module_define (void *closure, SCM key, SCM val, SCM result)
 /* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
 typedef SCM (*Hash_cl_func)();
 
+/*
+  Check me. This is NOT an actual import. It just copies the
+  definitions.
+
+  If a variable in changed in SRC, we DEST doesn't see the
+  definitions.
+ */
 LY_DEFINE (ly_import_module, "ly:import-module",
 	   2, 0, 0, (SCM dest, SCM src),
 	   "Import all bindings from module SRC into DEST.")

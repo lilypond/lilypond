@@ -339,7 +339,7 @@ Beam::print (SCM grob)
   else
     pos= ly_scm2realdrul (posns);
 
-  scale_drul (  &pos,  Staff_symbol_referencer::staff_space (me));
+  scale_drul (&pos,  Staff_symbol_referencer::staff_space (me));
   
   Real dy = pos[RIGHT] - pos[LEFT];
   Real dydx = (dy && dx) ? dy/dx : 0;
@@ -351,7 +351,7 @@ Beam::print (SCM grob)
   Real last_xposn = -1;
   Real last_stem_width = -1 ;
 
-  Real gap_length =robust_scm2double ( me->get_property ("gap"), 0.0);
+  Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
   
   Stencil the_beam;
   Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
@@ -369,7 +369,7 @@ Beam::print (SCM grob)
 	right from the left stem, and rfliebertjes pointing left from
 	right stem.
        */
-      SCM left = (i>0) ? ly_cdr (last_beaming) : SCM_EOL;
+      SCM left = (i > 0) ? ly_cdr (last_beaming) : SCM_EOL;
       SCM right = st ? ly_car (this_beaming) : SCM_EOL;
 
       Array<int> full_beams;
