@@ -430,8 +430,8 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     GCC_UNSUPPORTED=
     STEPMAKE_CHECK_VERSION_UNSUPPORTED(CXX, GCC_UNSUPPORTED, 3.3)
     if test -n "$GCC_UNSUPPORTED"; then
-	AC_MSG_WARN([autoconf <= 2.57 with g++ >= 3.3 gettext test broken.])
-	AC_MSG_WARN([Trying gcc, cross thumbs.])
+	AC_MSG_WARN([autoconf <= 2.59 with g++ >= 3.3 gettext test broken.])
+	AC_MSG_WARN([Trying gcc, cross fingers.])
 	AC_LANG_PUSH(C)
     fi
     AC_CHECK_LIB(intl, gettext)
