@@ -6,21 +6,23 @@
   (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "axis-group-interface.hh"
+#include "debug.hh"
 #include "line-of-score.hh"
+#include "main.hh"
+#include "paper-column.hh"
 #include "paper-def.hh"
 #include "paper-outputter.hh"
-#include "paper-column.hh"
 #include "paper-score.hh"
+#include "string.hh"
 #include "warn.hh"
-#include "main.hh"
-#include "debug.hh"
-#include "axis-group-interface.hh"
 
 
 Line_of_score::Line_of_score()
 {
   set_elt_property ("columns", SCM_EOL);
-  axis_group (this).set_axes (Y_AXIS,X_AXIS);
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes (Y_AXIS,X_AXIS);
 }
 
 
@@ -67,15 +69,9 @@ Line_of_score::add_column (Paper_column*p)
 {
   set_elt_property ("columns",
 		    gh_cons (p->self_scm_, get_elt_property ("columns")));
-  axis_group (this).add_element (p);
+  Axis_group_interface (this).add_element (p);
 }
 
-void
-Line_of_score::do_print() const
-{
-  Spanner::do_print();
-  Axis_group_spanner::do_print ();
-}
 
 void
 Line_of_score::output_line (bool last_line)
@@ -87,7 +83,7 @@ Line_of_score::output_line (bool last_line)
     translate_axis (- i[MAX], Y_AXIS);
   
   pscore_l_->outputter_l_->start_line (i.length ());
-  Super_element::output_all ();
+  output_all ();
   if (last_line)
     pscore_l_->outputter_l_->stop_last_line();
   else
@@ -99,3 +95,67 @@ Line_of_score::compare (Line_of_score* const &p1,Line_of_score* const &p2)
 {
   return p1->rank_i_ - p2->rank_i_;
 }
+
+
+
+/**
+    for administration of what was done already
+    */
+enum Score_element_status {
+  ORPHAN=0,			// not yet added to pstaff
+  VIRGIN,			// added to pstaff
+  PREBROKEN,
+  PREBROKEN_SECOND,
+  PRECALCING,
+  PRECALCED,		// calcs before spacing done
+  SPACING,
+  SPACED,
+  BROKEN,
+  BROKEN_SECOND,
+  POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
+  POSTCALCED,		// after spacing calcs done
+  BREWING,
+  BREWED,
+};
+
+void
+Line_of_score::pre_processing ()
+{
+  calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
+}
+
+void
+Line_of_score::space_processing ()
+{
+  calculate_dependencies (SPACED, SPACING, &Score_element::do_space_processing);
+}
+
+/* for break processing, use only one status, because copies have to
+  have correct status. (Previously,
+  Score_element::handle_[pre]broken_dependencies assigned to status_i_
+  */
+void
+Line_of_score::breakable_col_processing ()
+{
+  calculate_dependencies (PREBROKEN, PREBROKEN, &Score_element::do_breakable_col_processing);
+  //  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
+}
+
+
+void
+Line_of_score::post_processing ()
+{
+  //  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
+  //		  &Score_element::handle_broken_dependents);
+  calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::after_line_breaking);
+}
+
+void
+Line_of_score::output_all () 
+{
+  calculate_dependencies (BREWED, BREWING, &Score_element::output_processing);
+}
+
+
+
+

@@ -8,13 +8,34 @@
 #define SCORELINE_HH
 
 #include "column-x-positions.hh"
-#include "axis-group-spanner.hh"
-#include "super-element.hh"
+#include "spanner.hh"
 
 /// the columns of a score that form one line. FIXME: multiple inheritance
-class Line_of_score : public Axis_group_spanner, public Super_element
+class Line_of_score : public Spanner
 {
 public:
+
+  
+/*
+  imported the following  from Super_element
+  
+  The toplevel element. The Paper_score contains this element, and any
+  element shoud be a dependency for the super element.
+
+  It is the entry point for the "constraint solver"/ dependency
+  tracker.  Every XXXX_processing () call traverses the entire
+  dependency graph, and calls the appropriate
+  Score_element::do_XXX_processing function on each Score_element it encounters.
+  
+
+  FIXME: remove this class, to eliminate multiple inheritance. Merge
+  with Line_of_score ?  */
+  void space_processing ();
+  void pre_processing();
+  void breakable_col_processing();
+  void post_processing();
+  void output_all ();
+
   int rank_i_;
   
   Line_of_score();
@@ -30,7 +51,6 @@ public:
   void add_column (Paper_column*);
   
 protected:
-  virtual void do_print() const;
   VIRTUAL_COPY_CONS(Score_element);
 };
 

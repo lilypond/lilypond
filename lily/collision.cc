@@ -15,13 +15,14 @@
 
 Collision::Collision()
 {
-  axis_group (this).set_axes (X_AXIS, Y_AXIS);
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 void
 Collision::add_column (Note_column* ncol_l)
 {
-  axis_group (this).add_element (ncol_l);
+  Axis_group_interface (this).add_element (ncol_l);
   add_dependency (ncol_l);
 }
 
