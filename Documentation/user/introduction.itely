@@ -192,34 +192,30 @@ in the last two measures form down-stem/up-stems clumps of notes.
 @node Typography and program architecture
 @section Typography and program architecture
 
-Producing good engraving requires skill and knowledge.  It was our
-challenge to see if we could put such typographical knowledge into a
-computer program. Capturing that knowledge has two aspects: first, it
-has to be acquired. Then, it has to be encoded in data-structures and
-algorithms.  As the previous examples show, there is a lot of subtlety
-involved in music engraving, and unfortunately, only a small fraction
-of these details are documented.
-
-One reason for the time that it takes to become a master engraver, is
-that all these details must be learned either from experience or from
-other engravers: as an engraver gets older and wiser, he will be able
+Producing good engraving requires skill and knowledge.  As the
+previous examples show, there is a lot of subtlety involved in music
+engraving, and unfortunately, only a small fraction of these details
+are documented.  Master engraver must learn all these details from
+experience or from other engravers, which is why it takes so long to
+become a master.  As an engraver gets older and wiser, he will be able
 to produce better and more complex pieces.  A similar situation is
-present when putting typography into computer programs.  It is not
-possible to come up with a final solution for a problem at the first
-try. Instead, we start out with simple solution that might cover 75%
-of the cases, and gradually refine that solution over the course of
-months or years, so that 90 or 95 % of the cases are handled.
+present when putting typographical knowledge into a computer program.
+It is not possible to come up with a definitive solution for a problem
+at the first try. Instead, we start out with simple solution that
+might cover 75% of the cases, and gradually refine that solution over
+the course of months or years, so 90 or 95 % of the cases are
+handled.
 
-This has an important implication for the design of the
-program. During development, almost every piece of formatting code
-must be considered as temporary. When the need arises, is to be
-replaced a solution that will cover even more cases.  A clean way to
-accomplish this, is a ``plug-in'' architecture: an architecture where
-new pieces of code can be inserted in the program dynamically.  In
-such a program, a new solution can be developed along-side the
-existing code. It can be perfected separately until it is better than
-the existing solution, at which point, the new solution is switched on
-by default, and the old one is removed.
+This has an important implication for the design of the program: at
+any time, almost every piece of formatting code must be considered as
+temporary. When the need arises, it is to be replaced a solution that
+will cover even more cases.  is A ``plug-in'' architecture is a clean
+way to accomplish this. This is an architecture where new pieces of
+code can be inserted in the program dynamically.  In such a program, a
+new solution can be developed along-side the existing code. For
+testing, it is plugged in, but for production use, the old solution is
+used. The new module can be perfected separately until it is better
+than the existing solution, at which point it replaces the old one.
 
 Until that time, users must have a way to deal with imperfections:
 these 25%, 10% or 5% of the cases that are not handled
@@ -229,8 +225,9 @@ in generic variables, and let the user manipulate these variables.
 For example, consider the following fragment of notation.
 
 @lilypond
-\score { \notes {
-    g'4-\f g4
+\score { \notes \relative c'' {
+\stemUp
+    c4-\f f4
   	}
 \paper { raggedright = ##t }
      }
@@ -243,21 +240,23 @@ general. This may be remedied by inserting extra space between the
 high note and the `f', as shown in this example
 
 @lilypond
-\score { \notes {
+\score { \notes \relative c'' {
+\stemUp
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
-    g'4-\f g4
+    c4-\f f4
   	}
 \paper { raggedright = ##t }
      }
 @end lilypond
 
-This was achieved with the input statement
+This was achieved with the following input statement.
 @example
-    \property Voice. DynamicLineSpanner  \override #'padding = #4.0 
+   \once \property Voice. DynamicLineSpanner  \override #'padding = #4.0 
 @end example
-which increases the amount of space (@code{padding}) between the note
-and the dynamic symbol to 4.0 (which is measured in staff space, so
-4.0 equals the height of a staff).
+It increases the amount of space (@code{padding}) between the note and
+the dynamic symbol to 4.0 (which is measured in staff space, so 4.0
+equals the height of a staff). The keyword @code{\once} indicates that
+this is a tweak: it is only done one time.
 
 Both design aspects, a plug-in architecture, and formatting variables,
 are built on top of GUILE, an interpreter for the programming language
@@ -270,11 +269,12 @@ Consider the case of a publisher that is not satisfied with the in the
 default layout, and wants heavier stems. Normally, they are @code{1.3}
 times the thickness of staff lines, but suppose that their editions
 require them to be twice the thickness of the staff lines. The same
-mechanism can be used to adjust a setting globally. By issuing
+mechanism can be used to adjust a setting globally. By issuing the
+following command, the entire piece is now formatted with thicker stems:
 @example
     \property Score.Stem \override #'thickness = #2.0 
 @end example
-the entire piece is formatted with thick stems:
+
 @lilypond
 \score { \notes {
     \property Score.Stem \override #'thickness = #2.0 
@@ -310,22 +310,25 @@ The full scope of this functionality certainly is intimidating, but
 there is no need to fear: normally, it is not necessary to define
 style-sheets or rewrite formatting functions. In fact, LilyPond gets a
 lot of formatting right automatically, so adjusting individual layout
-situations is not needed very often at all.
+situations is not needed  often at all.
 
 
 @node Music representation
 @section Music representation
 
 
-One of the big questions when writing batch programs, is what kind of
-input the program should expect. Many music notation programs offer a
-graphical interface that shows notation, and allow you to enter the
-music by placing notes on a staff. From our point of view, this design
-is a form of cheating. After all, the core message of a piece of music
-notation simply is the music itself. If you start by offering notation
-to the user, you have already skipped one conversion, even if it is
-implicit. If we want to generate music notation from something else,
-then the obvious candidate for the source is the music itself.
+Our premise is that LilyPond is a system that does music formatting
+completely automatically. Under this assumption, the output does not
+have to be touched up. Consequently, an interactive display of the
+output, where it is possible to reposition notation elements, is
+superfluous.  This implies that the program should be a batch program:
+the input is entered in a file, which is @emph{compiled}, i.e. then
+put through the program.  The final output is produced as a file ready
+to view or print. The compiler fills in all the details of the
+notation, those details should be left out of the input file. In other
+words, the input should mirror the content as closely as possible. In
+the case of music notation the content is the music itself, so that is
+what the input should consist of.
 
 On paper this theory sounds very good. In practice, it opens a can of
 worms. What really @emph{is} music? Many philosophical treatises must
@@ -344,27 +347,29 @@ definition exactly the musical meaning of the score.
 There are also more practical concerns.  Our users have to key in the
 music into the file directly, so the input format should have a
 friendly syntax: a quarter note C is entered as @code{c4}, the code
-@code{r8.}  signifies a dotted eighth rest.
+@code{r8.}  signifies a dotted eighth rest. Notes and rests form the
+simplest musical expressions in the input syntax.  More complex
+constructs are produced by combining them into compound
+structures. This is done s in much the same way that complex
+mathematical formulas are built from simple expressions such as
+numbers and operators.
 
-As programmers and scientists, we want a clean formal
-definition. After all, producing music notation is a difficult
-problem, and problems can only be solved if they are
-well-specified. Moreover, formally defined formats are easier to write
-programs for.  We have chosen for a format that is based on music
-expressions: complex musical constructs are built from simple entities
-like notes and rests in much the same way that complex formulas are
-built from simple expressions such as numbers and mathematical
-operators.  The language is described by a context-free
-grammar. Reading such languages robustly is a well studied problem,
-and we use a standard solution to do it.
+In effect, the input format is a language, and the rules of that
+language can be specified succinctly with a so-called context-free
+grammar.  The grammar formally specificies what types of input form
+valid `sentences.'  Reading such languages, and splitting them into
+grammatical structures is a problem with standard solutions.
+Moreover, they make the format easier to understand: a a concise
+formal definition permits a simple informal description.
 
-LilyPond is a batch program, so the syntax of the program is its
-user-interface.  It is the part that they see most, so it is easy to
-think that music representation is a very important or interesting
-problem. In reality, less than 10% of the source code of the program
-handles reading and representing the input, and they form the easy
-bits of the program. Converting the music to notation, and calculating
-a pretty layout is much more difficult.
+The user-interface of LilyPond is its syntax.  That part is what users
+see most.  As a results, some users think that music representation is
+a very important or interesting problem. In reality, less than 10% of
+the source code of the program handles reading and representing the
+input, and they form the easy bits of the program.  In our opinion,
+producing music notation, and formatting it prettily are the
+interesting and important parts: they take up most of the bulk of the
+code, and are the most difficult things to get right.
 
 @node Example applications
 @section Example applications
@@ -379,6 +384,7 @@ simplest application is printing notes.
 @end lilypond
 
 By adding chord names and lyrics we obtain a lead sheet:
+
 @lilypond[raggedright]
 \score { <
   \context ChordNames \chords  { c2 c f2 c }
@@ -391,11 +397,12 @@ example combines some more exotic constructs.
 
 @lilypondfile{screech-boink.ly}
 
-The fragments shown above have all been written by hand, but that is not
-a requirement. Since the formatting engine is mostly automatic, it can
-serve as an output means for other programs that manipulate music. It
-can also be used to convert databases of musical fragments to images for
-use on websites on multimedia presentations.
+The fragments shown above have all been written by hand, but that is
+not a requirement. Since the formatting engine is mostly automatic, it
+can serve as an output means for other programs that manipulate
+music. For example, it can also be used to convert databases of
+musical fragments to images for use on websites and multimedia
+presentations.
 
 This manual also shows an application: the input format is plain text,
 and can therefore be easily embedded in other text-based formats, such
@@ -422,7 +429,14 @@ First time users should start here.
 The
 @end ifhtml
 @emph{@ref{Notation manual}}
-discusses topics grouped by notation construct.
+discusses topics grouped by notation construct. Once you master the
+basics, this is the place to lookup details.
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{Literature}}
+chapter lists useful reference books on notation and engraving. 
 @item
 @ifhtml
  The
@@ -455,18 +469,16 @@ browser.
 @cindex search in manual
 @cindex using the manual
 
-@c  TODO: advise to buy a book on notation? 
 
 If you are not familiar with music notation, or music terminology
-(especially if you are a foreigner), then it is advisable to consult
-the glossary as well. The glossary explains musical terms, and
-includes translations to various languages. It is a
+(especially if you are a non-native English speaker), then it is
+advisable to consult the glossary as well. The glossary explains
+musical terms, and includes translations to various languages. It is a
 @ifhtml
 @uref{../glossary.html,separate document}
 @end ifhtml
 @ifnothtml
-separate document, available in HTML and PDF and can be printed as
-well.
+separate document, available in HTML and PDF.
 @end ifnothtml
 @cindex idiom
 @cindex jargon
@@ -486,17 +498,17 @@ Generated internal documentation.
 available @uref{../lilypond-internals/lilypond-internals.html,here}
 @end ifhtml
 
-The generated internal documentation is a heavily crosslinked HTML
-document, produced directly from the formatting definitions used.  It
-documents the nit-gritty details of each and every LilyPond class,
-object and function.
+The generated internal documentation is a set of heavily crosslinked
+HTML pages, which documents the nit-gritty details of each and every
+LilyPond class, object and function.  It is produced directly from the
+formatting definitions used.
 
 Almost all formatting functionality that is used internally, is
 available directly to the user. For example, all variables that
 control thicknesses, distances, etc, can be changed in input
 files. There are a huge number of formatting options, and all of them
 are described in the generated documentation.  Each section of the
-reference manual has a @b{See also} subsection, which refers to the
+notation manual has a @b{See also} subsection, which refers to the
 the generated documentation.  In the HTML document, these subsections
 have clickable links.
 
@@ -508,7 +520,7 @@ have clickable links.
 
 After you have gone through the tutorial, in theory you should be able
 to write input files. In practice, writing files from scratch turns
-out to be intimidating.  To give a headstart, we have collected a
+out to be intimidating.  To give you a headstart, we have collected a
 number of often-used formats in example files.  These files can be
 used as a start, by copying the template, and adding notes in the
 appropriate places.
@@ -530,13 +542,17 @@ big HTML document, with pictures and explanatory texts included.
 available @uref{../../../input/regression/out-www/collated-files.html,here}
 @end ifhtml
 
-We strive to test each feature in one test file. This collection is
-primarilyt there to help us debug problems, but it can be instructive
-to see how we excercise the program. The format is like the tips and
-tricks document.
+This collection of files tests each notation and engraving feature of
+LilyPond in one file. The collection is primarily there to help us
+debug problems, but it can be instructive to see how we excercise the
+program. The format is like the tips and tricks document.
 
 @end itemize
 
+
+In all HTML documents that have music fragments embedded, the LilyPond
+input that was used to produce that image can be viewed by clicking
+the image.
 
 The location of the documentation files that are mentioned here can
 vary from system to system.  On occasion, this manual refers to

@@ -1,5 +1,9 @@
 2003-07-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/introduction.itely: revise
+
+	* Documentation/user/tutorial.itely: reorganise.
+
 	* Documentation/topdocs/index.tely: remove.
 
 	* Documentation/header.html.in: prune.
