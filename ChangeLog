@@ -1,5 +1,10 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/GNUmakefile (MODULE_LIBS): link with kpath-guile
+
+	* lily/all-font-metrics.cc (kpathsea_find_file): wrapper around
+	new ly:kpathsea-find-file
+
 	* kpath-guile/kpath.c: new file. Put kpath bindings in lib.
 
 	* kpath-guile/GNUmakefile: new file
