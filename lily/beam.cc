@@ -769,6 +769,10 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev)
   return leftbeams;
 }
 
+/*
+  TODO: it would be nice to introduce y-position via callbacks.
+ */
+
 MAKE_SCHEME_CALLBACK(Beam,brew_molecule,1);
 SCM
 Beam::brew_molecule (SCM smob)
