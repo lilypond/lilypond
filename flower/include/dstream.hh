@@ -29,6 +29,8 @@ const char eol= '\n';
    
    TODO:
    make a baseclass for indentable streams.
+
+   JUNKME
   */
 class Dstream
 {
@@ -39,7 +41,7 @@ class Dstream
   String current_classname_str_;
   void output (String s);
   Dictionary<bool> *silent_dict_p_;
-
+  
 public:
   void clear_silence();
   bool silent_b (String) const;

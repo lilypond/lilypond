@@ -8,39 +8,32 @@
  */
 
 #include "scope.hh"
-#include "dictionary-iter.hh"
-#include "debug.hh"
 #include "identifier.hh"
-#include "dictionary.hh"
-#include "protected-scm.hh"
+#include "scm-hash.hh"
 
 
 Scope::~Scope ()
 {
-  for (Scope_iter ai (*this); ai.ok(); ai++)
-    delete ai.val ();
   delete id_dict_;
 }
 
 Scope::Scope (Scope const&s)
+  : id_dict_ (new Scheme_hash_table (*s.id_dict_))
 {
+  /*
+    cloning not necessary.
+
   id_dict_ = new Hash_table<Protected_scm,Identifier*> (*s.id_dict_);
   for (Scope_iter ai (s); ai.ok(); ai++)
     {
       id_dict_->elem (ai.scm_key ()) = ai.val ()->clone ();
     }
+  */
 }
-
-unsigned int ly_pscm_hash (Protected_scm s)
-{
-  return ly_scm_hash (s);
-}
-
 
 Scope::Scope ()
 {
-  id_dict_ = new Hash_table<Protected_scm,Identifier*>;
-  id_dict_->hash_func_ = ly_pscm_hash;
+  id_dict_ = new Scheme_hash_table;
 }
 
 bool
@@ -50,57 +43,31 @@ Scope::elem_b (String s) const
 }
 
 
-Identifier *&
-Scope::elem (String s) 
-{
-  return id_dict_->elem (ly_symbol2scm (s.ch_C()));
-}
-
-
-Scope_iter::Scope_iter (Scope const &s)
-{
-  iter_ = new Hash_table_iter<Protected_scm,Identifier*>(*s.id_dict_);
-}
-
-String
-Scope_iter::key () const
-{
-  SCM s= iter_->key ();
-  return ly_symbol2string (s);
-}
-
 bool
 Scope::elem_b (SCM s) const
 {
   return id_dict_->elem_b (s);
 }
-
-Identifier* &
-Scope::elem (SCM s)
+Identifier*
+Scope::elem (SCM s)const
 {
-  return id_dict_->elem (s);
+  return unsmob_identifier  (id_dict_->get (s));
 }
-
-SCM
-Scope_iter::scm_key () const
+Identifier*
+Scope::elem (String s)const
 {
-  return iter_->key ();
-}
-
-bool
-Scope_iter::ok () const
-{
-  return iter_->ok();
+  return elem (ly_symbol2scm (s.ch_C()));
 }
 
 void
-Scope_iter::operator ++(int)
+Scope::set (String s, Identifier * id) 
 {
-  (*iter_) ++;
+  return id_dict_->set (ly_symbol2scm (s.ch_C()),
+			id->smobify_self());
 }
 
-Identifier*
-Scope_iter::val ()const
+SCM
+Scope::to_alist () const
 {
-  return iter_->val ();
+  return id_dict_->to_alist ();
 }

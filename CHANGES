@@ -1,3 +1,9 @@
+1.3.59.hwn1
+===========
+
+* Use Scheme_hash_table for identifier Scopes.  Scheme_hash_table is
+based on STL and should be faster than hash_table.
+
 1.3.58.hwn1
 ===========
 

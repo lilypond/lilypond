@@ -8,9 +8,11 @@
 #define IDENTIFIER_HH
 
 #include "lily-proto.hh"
+#include "lily-guile.hh"
 #include "string.hh"
 #include "input.hh"
 #include "virtual-methods.hh"
+#include "smobs.hh"
 
 
 #define DECLARE_TYPE_NAME(Class)
@@ -39,13 +41,15 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
    TODO: use SMOBS for the union type, and junk all derived classes.
    */
 struct Identifier : public Input {
+
+  DECLARE_SMOBS;
   bool init_b_;
   bool accessed_b_;
   int token_code_i_;
   Identifier (Identifier const&);    
   Identifier (int code) ;
   virtual ~Identifier() ;
-
+  
 
   void print() const;
   
@@ -93,6 +97,8 @@ DECLARE_ID_CLASS(Score);
 DECLARE_ID_CLASS(Request);
 DECLARE_ID_CLASS(Paper_def);
 DECLARE_ID_CLASS(Midi_def);
+
+Identifier * unsmob_identifier (SCM);
 
 #endif // IDENTIFIER_HH
 

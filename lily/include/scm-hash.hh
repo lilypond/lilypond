@@ -14,7 +14,6 @@
 #include <map>
 
 #include "lily-guile.hh"
-#include "hash-table.hh"
 #include "smobs.hh"
 
 

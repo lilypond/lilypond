@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #include "scm-hash.hh"
-#include "hash-table-iter.hh"
+
 
 
 Scheme_hash_table::Scheme_hash_table ()

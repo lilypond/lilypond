@@ -7,9 +7,9 @@
 */
 
 #include <fstream.h>
-#include "dictionary-iter.hh"
 #include "dstream.hh"
-
+#include "dictionary-iter.hh"
+#include "dictionary.hh"
 #include "text-db.hh"
 #include "string-convert.hh"
 #include "rational.hh"
@@ -73,6 +73,9 @@ Dstream::identify_as (String name)
 bool
 Dstream::silent_b (String s) const
 {
+  if (!silent_dict_p_)
+    return 0;
+  
   if (!silent_dict_p_->elem_b (s))
     return false;
   return (*silent_dict_p_)[s];
@@ -201,10 +204,7 @@ Dstream::~Dstream()
 void
 Dstream::clear_silence()
 {
-  for (map<String,bool>::iterator ki(silent_dict_p_->begin ());
-       silent_dict_p_->end () != ki; ki++)
-    {
-      (*ki).second = false;
-    }
+  delete silent_dict_p_;
+  silent_dict_p_ = 0;
 }
 
