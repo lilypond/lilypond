@@ -57,10 +57,10 @@ from source drill.
 The latest development version is also available through anonymous
 CVS. See @uref{http://savannah.gnu.org/cvs/?group=lilypond}.
 
-CVS does not contain generated files.  To create @file{configure}, run
+CVS does not contain generated files.  To create @file{configure}, run:
 @quotation
 @example
-./autogen.sh
+	./autogen.sh
 @end example
 @end quotation
 
@@ -97,25 +97,25 @@ LinuxPPC}
 
 @subsection Upgrading
 
-There are two options for upgrading sources.
+There are two options for upgrading sources:
 
 @itemize
-@item if you have an unpacked source tree of a previous version, you
+@item If you have an unpacked source tree of a previous version, you
 may the patches.
 
 @emph{If you upgrade by patching do remember to rerun autoconf after
 applying the patch}.
 
-@item if you have the @code{.tar.gz} file of a previous release, you can
+@item If you have the @code{.tar.gz} file of a previous release, you can
 use
-@uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/, xdelta}.
+@uref{http://sourceforge.net/projects/xdelta/, xdelta}.
  This is much safer than using patches, and is the recommended way.
 
 The following command produces @file{lilypond-1.4.3.tar.gz} from
 @file{lilypond-1.4.2.tar.gz} identical (up to compression dates) to the .3
-on the FTP site.
+on the FTP site:
 @example
-  xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
+	xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
 @end example
 @end itemize
 
@@ -196,14 +196,14 @@ installed in a directory where the compiler normally looks, read the
 hints for Slackware below.
 
 In the very unlikely case that kpathsea is not available for your
-platform (ie, you're not running GNU/Linux, Windows, or any recent
+platform (i.e., you're not running GNU/Linux, Windows, or any recent
 UNIX), you can compile LilyPond without kpathsea support.  In that case,
 you'll probably have to indicate where @TeX{}'s tfm files live.  Invoke
 configure something like:
 
 @quotation
 @example
-./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
+	./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 @end example
 @end quotation
 
@@ -212,14 +212,14 @@ configure something like:
 @subsection Running requirements
 
 GNU LilyPond does use a lot of resources. For operation you need the
-following software
+following software:
 
 @itemize @bullet
 @item @TeX{}.
-@item Xdvi and Ghostscript
+@item Xdvi and Ghostscript.
 @item GUILE 1.4, or newer.
 Check out
-@uref{http://www.gnu.org/software/guile.html,the GUILE webpage}
+@uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 @end itemize
 
 For running LilyPond successfully you have to help @TeX{} and MetaFont find
@@ -237,11 +237,9 @@ recommended for comfortable use.
 You can view the documentation online at
 @uref{http://www.lilypond.org/stable/Documentation/out-www/}, but you
 can also build it locally. This process requires a successful compile of
-lilypond. The documentation is built by issuing
+lilypond. The documentation is built by issuing:
 @example 
-
-  make web
- 
+	make web
 @end example 
 
 Building the website requires some additional tools: 
@@ -255,14 +253,14 @@ will need to install some additional packages to get mftrace to work.
 
 @section Building LilyPond
 
-to install GNU LilyPond, type:
+To install GNU LilyPond, type:
 @example 
 	gunzip -c lilypond-x.y.z | tar xf -
 	cd lilypond-x.y.z
 	./configure		# run with --help to see appropriate options
 	make
 	make install
-        sh buildscripts/clean-fonts.sh      
+	sh buildscripts/clean-fonts.sh      
 @end example 
 
 If you are doing an upgrade, you should remove all @file{feta}
@@ -271,11 +269,9 @@ work for you, see @file{buildscripts/clean-fonts.sh}.
 
 
 If you are not root, you should choose a @code{--prefix} argument that
-points into your home directory, eg.
+points into your home directory, e.g.:
 @example 
-
 	./configure --prefix=$HOME/usr
- 
 @end example 
 
 In this case, you have to insert the contents of
@@ -290,25 +286,22 @@ hand.
 If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the @code{--enable-config=CONF}
 option of configure.  You should use @samp{make conf=CONF} to generate
-the output in @file{out-CONF}.  Example: suppose I want to build with
+the output in @file{out-CONF}.  Example: Suppose I want to build with
 and without profiling.  Then I'd use the following for the normal
-build,
+build:
 @c prefix=~ ?
 @example 
-
-      ./configure --prefix=$HOME/usr/ --enable-checking
-      make
-      make install
+	./configure --prefix=$HOME/usr/ --enable-checking
+	make
+	make install
 @end example 
 
-and for the profiling version, I specify a different configuration.
+and for the profiling version, I specify a different configuration:
 
 @example 
-
-      ./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
-      make conf=prof
-      make conf=prof install
-
+	./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
+	make conf=prof
+	make conf=prof install
 @end example 
 
 
@@ -332,7 +325,7 @@ to your @var{load-path}. Append the following line (modified) to your
 @file{~/.emacs}:
 @quotation
 @example
-(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+	(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 @end quotation
 
@@ -350,13 +343,13 @@ get auto-completion. Syntax highlighting you get by installing
 to @file{~/.vim/filetype.vim}:
 @quotation
 @example
-" my filetype file
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufRead,BufNewFile  *.ly          setfiletype lilypond
-augroup
+	" my filetype file
+	if exists("did_load_filetypes")
+	  finish
+	endif
+	augroup filetypedetect
+	  au! BufRead,BufNewFile  *.ly          setfiletype lilypond
+	augroup
 @end example
 @end quotation
 
@@ -369,14 +362,12 @@ You can compile RPMS yourself.  For running on a Red Hat system you
 need these packages: guile, tetex, tetex-latex, tetex-dvips,
 libstdc++, python, ghostscript.  A spec file is in
 @file{make/out/lilypond.redhat.spec}. This file is distributed along
-with the sources.  You can make the rpm by issuing
+with the sources.  You can make the rpm by issuing:
 @example 
-
-        cp lilypond-x.y.z.tar.gz /usr/src/redhat/SOURCES/
-        tar xfz lilypond-x.y.z.tar.gz
+	cp lilypond-x.y.z.tar.gz /usr/src/redhat/SOURCES/
+	tar xfz lilypond-x.y.z.tar.gz
 	rpm -bb lilypond-x.y.z/make/out/lilypond.redhat.spec
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
-
 @end example 
 
 For compilation on a Red Hat system you need these packages, in
@@ -406,7 +397,7 @@ with a faulty compiler. Do not compile LilyPond with -O2 on this
 platform.
 
 At least on Slackware 8.0, you have to manually specify the paths to the
-Kpathsea library, see the section on kpathsea 
+Kpathsea library, see the section on kpathsea.
 
 
 @subsection Mandrake
@@ -437,7 +428,7 @@ If you're real impatient, you may even do:
 @example
 
 	cd lilypond-x.y.z   # a previous version
-        uscan               # download and build latest directly from upstream
+	uscan               # download and build latest directly from upstream
 @end example
 
 
@@ -472,7 +463,7 @@ You could also export @env{extra_mem_top} and @env{extra_mem_bot} as
 environment variables if you do not want to or cannot modify
 @file{/etc/texmf/texmf.cnf}.
 
-Alternatively, visit
+Alternatively, visit:
 
 @itemize @bullet
 @item @uref{http://packages.debian.org/lilypond,http://packages.debian.org/lilypond}
@@ -541,7 +532,7 @@ For Debian in development ("unstable", the future 2.3 or 3.0):
 
 @example
 	apt-get install binutils cpp gcc libc6-dev \
-        	g++ libstdc++2.10-dev \
+		g++ libstdc++2.10-dev \
 		python-base libguile-dev tetex-bin libkpathsea-dev \
 		tetex-extra flex bison texinfo  groff gs \
 		netpbm m4 gettext
@@ -560,7 +551,7 @@ LilyPond is available through fink, in the unstable cvs distribution.
 
 You need to:
 @itemize @bullet
-@item Get the Fink package manager from @uref{http://fink.sourceforge.net}
+@item Get the Fink package manager from @uref{http://fink.sourceforge.net}.
 @item Get the Lilypond package description by enabling the "unstable" tree
 in fink and executing @command{fink selfupdate-cvs}.
 @end itemize
@@ -594,14 +585,14 @@ To make sure you have all packages needed to build LilyPond installed,
 run as root:
 
 @example
-        apt-get install bash python guile debianutils flex bison texinfo \
-                ghostscript6 netpbm m4 gettext
+	apt-get install bash python guile debianutils flex bison texinfo \
+		ghostscript6 netpbm m4 gettext
 @end example        
 
 and:
                 
 @example
-        fink install tetex
+	fink install tetex
 @end example        
 
 For more information about @file{apt-get} and @file{fink}, see
@@ -611,13 +602,13 @@ For more information about @file{apt-get} and @file{fink}, see
 Then, configure, patch, make and install LilyPond using these commands:
 
 @example
-        CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
-            ./configure --prefix=/sw
-        make -C lily out/parser.hh out/parser.cc out/config.h
-        patch -p0 < darwin.patch
-        make -C lily out/parser.o
-        make DEPENDENCIES_OUTPUT=/dev/null all
-        make install
+	CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
+	    ./configure --prefix=/sw
+	make -C lily out/parser.hh out/parser.cc out/config.h
+	patch -p0 < darwin.patch
+	make -C lily out/parser.o
+	make DEPENDENCIES_OUTPUT=/dev/null all
+	make install
 @end example
 
 For installing, you must be root, of course.
@@ -636,7 +627,7 @@ Bugs that are not fault of LilyPond are documented here.
 If kpathsea and the corresponding header files are installed in some
 directory where GCC does not search by default, for example in
 @file{/usr/local/lib/} and @file{/usr/local/include/} respectively,
-you have to explicitly tell configure where to find it. To do this,
+you have to explicitly tell configure where to find it. To do this:
 
 @itemize
 @item @code{rm config.cache}
@@ -660,10 +651,10 @@ Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
 LilyPond with gcc-3.0 you may do:
 
 @example
-        CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
-        make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
-        patch -p1 < lexer-gcc-3.0.patch
-        make conf=gcc-3.0 -C lily
+	CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
+	make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
+	patch -p1 < lexer-gcc-3.0.patch
+	make conf=gcc-3.0 -C lily
 @end example
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
@@ -674,11 +665,11 @@ Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
 LilyPond with gcc-3.1.1 you may do:
 
 @example
-        CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-        CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
-            ./configure --enable-config=gcc-3.1
-        CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-        make conf=gcc-3.1
+	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+	CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
+	    ./configure --enable-config=gcc-3.1
+	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+	make conf=gcc-3.1
 @end example
 
 This assumes that the GCC 3.1 binaries are called gcc-3.1 and g++-3.1.
@@ -694,7 +685,7 @@ version of Linux.  If you can't do that, you may try to recompiling
 Guile without threads (YMMV):
 
 @example
-         guile-1.4$ ./configure --without-threads; make all install
+	 guile-1.4$ ./configure --without-threads; make all install
 @end example
 
 @unnumberedsubsec OpenBSD
@@ -718,7 +709,7 @@ Download flex-2.5.4a, build, install.
 release)) does not include @file{/usr/pkg} paths.  Configure using:
 @example
 
-CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
+	CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
 
 @end example
 
@@ -733,11 +724,11 @@ CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
 @file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
 is.  Please run configure like:
 @example
-        CONFIG_SHELL=/bin/ksh ksh -c ./configure
+	CONFIG_SHELL=/bin/ksh ksh -c ./configure
 @end example
-or
+or:
 @example
-        CONFIG_SHELL=/bin/bash bash -c ./configure
+	CONFIG_SHELL=/bin/bash bash -c ./configure
 @end example
 
 @item Sparc64/Solaris 2.6, GNU make-3.77
@@ -755,7 +746,7 @@ Not yet resolved.
 @itemize @bullet
 @item AIX 4.3 ld
 
-The following is from the gcc install/SPECIFIC file.
+The following is from the gcc install/SPECIFIC file:
 @quotation
    Some versions of the AIX binder (linker) can fail with a relocation
    overflow severe error when the -bbigtoc option is used to link
@@ -770,9 +761,9 @@ The following is from the gcc install/SPECIFIC file.
    interoperate with GCC.
 @end quotation
 
-add -Wl,-bbigtoc to USER_LDFLAGS, ie:
+add -Wl,-bbigtoc to USER_LDFLAGS, i.e.:
 @example
-    LDFLAGS='-Wl,-bbigtoc' ./configure
+	LDFLAGS='-Wl,-bbigtoc' ./configure
 @end example
 
 @end itemize
