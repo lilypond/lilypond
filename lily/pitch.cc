@@ -27,6 +27,7 @@ Pitch::Pitch (int o, int n, int a)
       s += ", notename = " + to_str (n);
       warning (s);
     }
+  normalise ();
 }
 
 Pitch::Pitch ()
@@ -63,44 +64,87 @@ Pitch::steps () const
  */
 static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
+
+/* Calculate pitch height in 12th octave steps.  Don't assume
+   normalised pitch as this function is used to normalise the pitch.  */
 int
 Pitch::semitone_pitch () const
 {
-  return  pitch_byte_a[ notename_i_ % 7 ] + alteration_i_ + octave_i_ * 12;
+  int o = octave_i_;
+  int n = notename_i_;
+  while (n < 0)
+    {
+      n += 7;
+      o -= 1;
+    }
+  return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_i_;
+}
+
+void
+Pitch::normalise ()
+{
+  int pitch = semitone_pitch ();
+  while (notename_i_ >= 7)
+    {
+      notename_i_ -= 7;
+      octave_i_++;
+      alteration_i_ -= semitone_pitch () - pitch;
+    }
+  while (notename_i_ < 0)
+    {
+      notename_i_ += 7;
+      octave_i_--;
+      alteration_i_ -= semitone_pitch () - pitch;
+    }
+  while (alteration_i_ >= 3)
+    {
+      if (notename_i_ == 6)
+	{
+	  notename_i_ = 0;
+	  octave_i_++;
+	}
+      else
+	notename_i_++;
+
+      alteration_i_ = 0;
+      alteration_i_ -= semitone_pitch () - pitch;
+    }
+  while (alteration_i_ <= -3)
+    {
+      if (notename_i_ == 0)
+	{
+	  notename_i_ = 6;
+	  octave_i_--;
+	}
+      else
+	notename_i_--;
+
+      alteration_i_ = 0;
+      alteration_i_ -= semitone_pitch () - pitch;
+    }
 }
 
 /* WHugh, wat een intervaas */
 void
 Pitch::transpose (Pitch delta)
 {
-  int old_pitch = semitone_pitch ();
-  int delta_pitch = delta.semitone_pitch ();
+  int old_semi = semitone_pitch ();
+  int delta_semi = delta.semitone_pitch ();
   octave_i_ += delta.octave_i_;
   notename_i_ += delta.notename_i_;
 
-  
-  while  (notename_i_ >= 7)
-    {
-      notename_i_ -= 7;
-      octave_i_ ++;
-    }
-
-  int new_pitch = semitone_pitch ();
-  int delta_acc = new_pitch - old_pitch - delta_pitch;
+  int new_semi = semitone_pitch ();
+  int delta_acc = new_semi - old_semi - delta_semi;
   alteration_i_ -= delta_acc;
+
+  normalise ();
 }
 
 
-
-
-/* FIXME */
-#if 0
-// nice test for internationalisation strings
-char const *accname[] = {"double flat", "flat", "natural",
-			 "sharp" , "double sharp"};
-#else
+/* FIXME
+   Merge with *pitch->text* funcs in chord-name.scm
+ */
 char const *accname[] = {"eses", "es", "", "is" , "isis"};
-#endif
 
 String
 Pitch::str () const
@@ -122,7 +166,6 @@ Pitch::str () const
       while (o--)
 	s += to_str (',');
     }
-
 
   return s;
 }
@@ -252,10 +295,7 @@ Pitch::less_p (SCM p1, SCM p2)
 static SCM
 make_pitch (SCM o, SCM n, SCM a)
 {
-  Pitch p;
-  p.octave_i_ = gh_scm2int (o);    
-  p.notename_i_ = gh_scm2int (n);
-  p.alteration_i_ = gh_scm2int (a);
+  Pitch p (gh_scm2int (o), gh_scm2int (n), gh_scm2int (a));
   return p.smobbed_copy ();
 }
 
