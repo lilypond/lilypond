@@ -22,26 +22,7 @@
 class Musical_req  : public virtual Request  {
 public:
 
-  DEFAULTACCESSOR(Lyric_req)
-  DEFAULTACCESSOR(Note_req )
-  DEFAULTACCESSOR(Stem_req )
-  DEFAULTACCESSOR(Melodic_req )
-  DEFAULTACCESSOR(Slur_req )
-  DEFAULTACCESSOR(Beam_req )
-  DEFAULTACCESSOR(Abbreviation_beam_req)
-  DEFAULTACCESSOR(Rhythmic_req)
-  DEFAULTACCESSOR(Musical_script_req)
-  DEFAULTACCESSOR(Text_req)
-  DEFAULTACCESSOR(Rest_req )
-  DEFAULTACCESSOR(Skip_req)
-  DEFAULTACCESSOR(Dynamic_req)
-  DEFAULTACCESSOR(Absolute_dynamic_req )
-  DEFAULTACCESSOR(Tie_req)
-  DEFAULTACCESSOR(Musical_span_req)
-  DEFAULTACCESSOR(Plet_req)
-  DEFAULTACCESSOR(Span_dynamic_req )
-  DEFAULTACCESSOR(Abbreviation_req)
-  DEFAULTACCESSOR(Multi_measure_rest_req)
+
   REQUESTMETHODS(Musical_req);
 };
 
@@ -131,7 +112,6 @@ public:
   bool forceacc_b_;
   Note_req();
   bool do_equal_b (Request*) const;
-  Rhythmic_req* access_Rhythmic_req () { return Rhythmic_req::access_Rhythmic_req (); }
   REQUESTMETHODS(Note_req);
 };
 

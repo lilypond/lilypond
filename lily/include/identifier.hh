@@ -32,8 +32,8 @@ class Duration_identifier;
 
 
 #define IDACCESSOR(Class)\
-virtual Class *  access_ ## Class (bool=true) const { error (#Class  + String ("_identifier")); return 0; }\
-virtual Class ## _identifier * access_ ## Class ## _identifier () { return 0; }
+virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String ("_identifier")); return 0; }\
+
 
 /**
    A declarable data structure in mudela. 
@@ -78,11 +78,7 @@ struct Class ## _identifier : Identifier {\
 			     Class ## _identifier (Class ## _identifier const&);\
 			     Class ## _identifier (Class*st, int code);\
 			     VIRTUAL_COPY_CONS (Class ## _identifier, Identifier);\
-			     virtual Class ## _identifier * access_ ## Class ## _identifier ()\
-    {\
-      return this;\
-    }\
-			     virtual Class* access_ ## Class (bool copy_b) const;\
+			     virtual Class* access_content_ ## Class (bool copy_b) const;\
 			     ~Class ## _identifier();\
 			     virtual void do_print () const; \
 			     virtual String do_str () const; \
