@@ -1,3 +1,28 @@
+pl 20
+
+
+pl 19.jcn5
+	- interstaff beams v0: see beam-interstaff.ly and wtk1-fugue2.ly
+
+pl 19.jcn4
+	- new stem/beam parameters
+	- bf: forced stem shorten
+
+pl 19.jcn3
+	- dehairification of beam code; cleanup and bugfixes
+	  * stemlength
+	  * forced stem shorten
+	  * slope calculation
+	  * damping and correction
+	  * catch for silly beams: input/test/beam-suspect.ly
+
+pl 19.jcn2
+	- multi-measure-rest is now spanner SkipBars=0 is broken
+
+pl 19.jcn1
+	- hmm, almost centered whole-bar rests -- NOT
+
+********
 pl 18.jcn5
 	- bf: beamtrend
 	- bf: vv-duet
