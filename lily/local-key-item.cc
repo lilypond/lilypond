@@ -119,6 +119,8 @@ Local_key_item::do_brew_molecule() const
       pads[RIGHT] = get_elt_property ("right-padding");
       pads[LEFT] = get_elt_property ("left-padding");
 
+
+      // unused ?
       Direction d = LEFT;
       do {
 	if (!gh_number_p (pads[d]))

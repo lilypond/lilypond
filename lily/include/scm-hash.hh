@@ -30,6 +30,18 @@ typedef map<SCM,SCM, SCM_less> Scm_stl_map;
 
 /**
    auto resizing hash table. This should come from GUILE.
+
+   ALWAYS USE THIS AS VIA A POINTER, i.e.
+
+   class Foo {
+    Scheme_hash_table * tab;
+   };
+
+   and NOT
+
+   class Foo {
+    Scheme_hash_table tab;
+   }
  */
 class Scheme_hash_table :  private Scm_stl_map
 {

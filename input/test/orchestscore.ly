@@ -1,6 +1,7 @@
 \version "1.3.42";
 
 m = \notes \relative c''{
+
 c1 | c2 c | c c | c c | \break c c | c c | c c | c c | 
 }
 
@@ -89,7 +90,8 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
     \translator {
 	\OrchestralScoreContext
 	barNumberScriptPadding = 10;
-        minVerticalAlign = 2.2*\staffheight; 
+        minVerticalAlign = 2.2*\staffheight;
+
     }
     \translator { \StaffContext
 	\consists "Instrument_name_engraver";

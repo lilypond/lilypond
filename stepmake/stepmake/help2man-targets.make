@@ -1,3 +1,4 @@
+default: man
 
 localinstall: install-help2man
 

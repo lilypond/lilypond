@@ -56,6 +56,8 @@ CL::unsmobify_self ()							 \
   SCM_CAR(self_scm_) = SCM_EOL;	 \
   SCM_CDR(self_scm_) = SCM_EOL;						 \
   self_scm_ = SCM_EOL;							 \
+\
+  scm_done_malloc ( - sizeof (CL));\
 }									 \
 \
 SCM									\
@@ -72,7 +74,7 @@ CL::smobify_self ()							\
   self_scm_ = s;							\
   scm_protect_object (s);						\
 									\
-/* no scm_done_malloc() !  */ \
+  scm_done_malloc(sizeof(CL));\
   do_smobify_self();							\
   return s;					\
 }						\
@@ -83,10 +85,13 @@ CL::free_smob (SCM ses)				\
   /* someone else did the deed already; this might be an automatic var.*/ \
   if (s->self_scm_ != ses)\
      return 0; \
+\
+ /* no need to call scm_unprotect_object, since this call \
+    implies that the object is not protected. */ \
   SCM_CAR(ses) = SCM_EOL;\
-  					\
-  return 0;\
-}						\
+  delete s;\
+  return sizeof (CL);\
+} \
 ADD_SCM_INIT_FUNC(CL, CL::init_smobs)\
 
 

@@ -310,22 +310,46 @@ tagline="Typeset by GNU LilyPond"
 
 @subsubsection Can I make blank manuscript paper with LilyPond?
 
-Theoretically, yes but it is easier to do with TeX:
+Theoretically, yes but it is easier to do with (La)TeX. This LaTeX file
+will do the trick for you:
+
 
 @example
-\def\foo@{\hbox@{\vrule width 15.0cm height 0.5pt depth 0.0pt@}
-\nointerlineskip
-\vskip 5pt\nointerlineskip@}
-\def\musicline@{\vbox @{
-     \foo\foo\foo\foo\foo
-@}\par@}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% notepaper.tex
+% Mats Bengtsson, 18/5 2000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper]@{article@}
 
-\musicline
-\musicline
-\musicline
-\musicline
-\bye
+\usepackage@{ifthen@}
+\usepackage[noheadfoot,hmargin=15mm,vmargin=20mm]@{geometry@}
 
+\pagestyle@{empty@}
+
+\newcounter@{staffnumber@}
+\newlength@{\interstaffline@}
+
+\newcommand@{\drawline@}@{\hbox@{\rule@{\textwidth@}@{0.5pt@}@}
+  \nointerlineskip\vskip\interstaffline\nointerlineskip@}
+
+\newcommand@{\printstaff@}@{\vfill
+  \vbox@{\drawline\drawline\drawline\drawline\drawline@}
+  \vfill@}
+
+\begin@{document@}
+\typeout@{@}\typeout@{@}
+\typein[\staffsize]@{Type in the staff size (20pt is a common value):@}
+\setlength@{\interstaffline@}@{\staffsize@}
+\setlength@{\interstaffline@}@{.25\interstaffline@}
+\typeout@{@}
+\typein[\num]@{Type in the number of staffs:@}
+\setcounter@{staffnumber@}@{\num@}
+
+\mbox@{@} % To get a starting point for the \vfill
+\whiledo@{\value@{staffnumber@}>0@}@{%
+  \printstaff \addtocounter@{staffnumber@}@{-1@}@}
+
+\end@{document@}
 @end  example
 
 

@@ -348,8 +348,17 @@ way, so this is fragile as well.
 
 @mudelafile{clefs.ly}
 
+
+Key signatures appear on key  changes. They may also
+appear without barlines.  The restoration accidentals are not printed at
+the start of the line. If @code{createKeyOnClefChange} is set, they're
+also created on a clef change.
+
+@mudelafile{keys.ly}
+
 @ignore
 @c the input file is too long and does not test for specific bugs
+
 By default, time signatures are written with two numbers. With style
 ``C'', 4/4 and 2/2 are written with their corresponding symbols and
 with style ``old'', 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
@@ -359,6 +368,8 @@ signatures.
 %
 \mu delafile{time.ly}
 @end ignore
+
+
 
 @section Hacks and Features
 

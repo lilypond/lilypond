@@ -51,7 +51,19 @@ System_start_delimiter::simple_bar (Real h) const
   Real w = paper_l ()->get_var ("barthick_score");
   return lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
-   
+
+void
+System_start_delimiter::after_line_breaking ()
+{
+  SCM   gl = get_elt_property ("glyph");
+  
+  if (scm_ilength (get_elt_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);
+    }
+}
 
 Molecule
 System_start_delimiter::do_brew_molecule ()const
@@ -72,11 +84,14 @@ System_start_delimiter::do_brew_molecule ()const
 
   
   s = get_elt_property ("glyph");
-  if (gh_symbol_p (s) && s == ly_symbol2scm ("bracket"))
+  if (!gh_symbol_p(s))
+    return m;
+  
+  if (s == ly_symbol2scm ("bracket"))
     m = staff_bracket (l);
-  else if (gh_symbol_p (s) && s == ly_symbol2scm ("brace"))
+  else if ( s == ly_symbol2scm ("brace"))
     m =  staff_brace (l);
-  else
+  else if (s == ly_symbol2scm ("bar-line"))
     m = simple_bar (l);
   
   
