@@ -1,3 +1,26 @@
+1.3.85.hwn2
+===========
+
+* Added side-position-interface as an interface identifier, in stead
+of checking side-support-elements. This fixes a problem with stacked
+text scripts.
+
+* Removed spurious set_elt_property ("XX", SCM_EOL) calls.
+
+* Added \property squashedPosition for Pitch_squash_engraver: the
+staff-position number to squash noteheads to.
+
+* Added FAQ entry for script on bar, updated description of mailing
+lists.
+
+* Fixed bug with \translator { basicXXXProperties \push ... }
+
+* Updated and revised call for help in hacking.texi.
+
+* Bugfix: don't remember accidental if it is tied from the previous note.
+
+1.3.85
+======
 
 * Separated definition and implementation of contexts (moved
 definition out of Translator_group into Translator_def)
