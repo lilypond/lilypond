@@ -5,6 +5,11 @@
 
 2005-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* GNUmakefile.in (local-WWW-post): Restore .htaccess and .html
+	additions to website.
+
+	* Documentation/user/lilypond.tely: Remove reference to ps.gz.
+
 	* Documentation/user/macros.itexi: Fix @usermanref html links in
 	split documents: use @inforef.
 
