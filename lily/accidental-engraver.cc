@@ -29,6 +29,7 @@ public:
   Music *melodic_;
   Grob *accidental_;
   Context *origin_;
+  Engraver *origin_trans_;
   Grob *head_;
   bool tied_;
 
@@ -317,7 +318,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 		Accidental from the respective Voice.
 	       */
 	      Grob *a
-		= make_item_from_properties (origin->implementation (),
+		= make_item_from_properties (accidentals_[i].origin_trans_,
 					     ly_symbol2scm ("Accidental"),
 					     note->self_scm ());
 	      a->set_parent (support, Y_AXIS);
@@ -455,6 +456,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  
 	  Accidental_entry entry ;
 	  entry.head_ = info.grob_;
+	  entry.origin_trans_ = dynamic_cast<Engraver*> (info.origin_trans_);
 	  entry.origin_ = info.origin_trans_->context ();
 	  entry.melodic_ = note;
 

@@ -245,9 +245,9 @@
      Separating_group_spanner::set_spacing_rods
      Side_position_interface::aligned_on_support_refpoints
      Side_position_interface::aligned_side
-     Slur::after_line_breaking
-     Slur::height
-     Slur::print
+     New_slur::after_line_breaking
+     New_slur::height
+     New_slur::print
      Spacing_spanner::set_springs
      Span_bar::before_line_breaking
      Span_bar::get_bar_size

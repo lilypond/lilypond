@@ -124,8 +124,6 @@ void
 New_slur::add_column (Grob*me, Grob*n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  me->add_dependency (n);
-
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
 }
 
@@ -134,12 +132,9 @@ void
 New_slur::add_extra_encompass (Grob*me, Grob*n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
-  me->add_dependency (n);
-
-  add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
 }
 
 
 ADD_INTERFACE (New_slur, "new-slur-interface",
 	       "A slur",
-	       "extra-encompass control-points dashed details direction height-limit note-columns ratio thickness");
+	       "encompass-objects control-points dashed details direction height-limit note-columns ratio thickness");
