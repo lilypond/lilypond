@@ -1,7 +1,17 @@
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
+
+AC_DEFUN(AC_STEPMAKE_BIBTEX2HTML, [
+    AC_CHECK_PROGS(BIBTEX2HTML, bibtex2html bib2html, error)
+    if test "$BIBTEX2HTML" = "bib2html"; then
+	BIBTEX2HTML_FLAGS='$< $(@)'
+    else
+	BIBTEX2HTML_FLAGS='-o $(@D)/$(*F) $<'
+    fi
+    AC_SUBST(BIBTEX2HTML)
+    AC_SUBST(BIBTEX2HTML_FLAGS)
+])
+
 
 AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining

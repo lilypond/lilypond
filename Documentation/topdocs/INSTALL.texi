@@ -45,11 +45,11 @@ disk-space run configure with @code{--disable-debugging}.
 Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section Windows NT/95,es.
 
-@item  EGCS 1.1 or newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/}.
+@item A reasonable C++ compiler:  EGCS 1.1, GCC 2.95.2 or newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/}.
 
 @item  Python 1.5,
-Check out
-@uref{ftp://ftp.python.org} or @uref{ftp://ftp.cwi.nl/pub/python}.
+Check out @uref{ftp://ftp.python.org} or
+@uref{ftp://ftp.cwi.nl/pub/python}.
 
 @item  GUILE 1.3.4 or newer,  check out
 @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
@@ -101,7 +101,7 @@ following software
 @item A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
-@item  GUILE 1.3.4, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/software/guile/}
+@item  GUILE 1.3.4, or newer.  Check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/software/guile/}
 @end itemize
 
 For running LilyPond successfully you have to help TeX and MetaFont find
@@ -133,12 +133,12 @@ If you want to auto-generate Lily's website, you'll need some additional
 conversion tools.
 
 @itemize @bullet
-@item xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
+@item xpmtoppm (from the netpbm package: the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
 	the original is at
 @uref{ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz,ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz}
 
-@item pnmtopng, which is also in libgr-progs for RedHat. The original is
+@item pnmtopng (also in libgr-progs for RedHat). The original is
 at
 @uref{ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz,ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz}.i
 
@@ -146,12 +146,15 @@ The version of @file{pnmtopng} that is distributed with RedHat 5.1 and
 5.2 contains a bug: pnmtopng is dynamically linked to the wrong
 version of libpng.
 
-@item @uref{http://pertsserver.cs.uiuc.edu/~hull/bib2html,Bib2html}.
-    Which, in turn depends on man2html for proper installation.
+@item @uref{http://www.lri.fr/~filliatr/ftp/bibtex2html/, Bibtex2html}, or
+@uref{http://www.uni-koblenz.de/ag-ki/ftp/bib2html/, Bib2html}.
+Bibtex2html is available in debian, while bib2html is in some rpm based
+distributions.
+Bib2html, in turn depends on man2html for proper installation.
 man2html can be had from @uref{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05,http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05}.
 
-The website will build without this utility, but you will not see our
-hypertextified bibliography.
+The website will build without bib converter utility, but you will not
+see our hypertextified bibliography.
 
 @end itemize
 
@@ -309,7 +312,7 @@ You can make the rpm by issuing
  
 @end example 
 
-Precompiled i386 RedHat RPMS are available from
+Precompiled RedHat-7.0 i386 RPMS are available from
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/}.
 
 For compilation on a RedHat system you need these packages,

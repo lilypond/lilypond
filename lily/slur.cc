@@ -501,7 +501,7 @@ Slur::set_spacing_rods (SCM smob)
 /*
   ugh ?
  */
-MAKE_SCHEME_CALLBACK(Slur,height,2);
+MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
 Slur::height (SCM smob, SCM ax)
 {

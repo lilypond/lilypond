@@ -18,12 +18,11 @@ TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
 echo " Running /usr/bin/mktexlsr $TEXMFMAIN..."
 /usr/bin/mktexlsr $TEXMFMAIN
 
-#install-info --description='LilyPond, the GNU Project music typesetter' \
-#	--section "Music" "Music" \
-#	--quiet /usr/share/info/lilypond.info.gz
+install-info --description='LilyPond, the GNU Project music typesetter' \
+	--section "Music" "Music" \
+	--quiet /usr/share/info/lilypond.info.gz
 
 #DEBHELPER#
-
 echo
 echo " $pkg_name configuration completed."
 echo " Please read /usr/share/doc/lilypond1.3/README.Debian to get started."

@@ -14,7 +14,7 @@
       chord::names-alist-american))
 
 chord =  \notes\transpose c''\chords{
-	\property Chordnames.Chordname \override #'style = #'american
+	\property ChordNames.ChordName \override #'style = #'american
 c         % Major triad
 cs:m      % Minor triad
 df:m5-    % Diminished triad

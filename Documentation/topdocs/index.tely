@@ -104,11 +104,11 @@ Binaries are available, but are not updated for every version released.
 @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/, RedHat i386}
 @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/ppc, LinuxPPC}
 @item
-@uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex,
-Debian GNU/Linux i386} 
+@uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond,
+Debian GNU/Linux Stable} 
 @item
-@uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex,
-Debian GNU/Linux PowerPC} 
+@uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond1.3,
+Debian GNU/Linux Unstable} 
 @item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
 @item @uref{http://appel.lilypond.org/lilypond/gnu-windows, Windows
 Testing}

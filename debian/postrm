@@ -15,7 +15,6 @@ std_TEXMFMAIN=/usr/share/texmf
 std_VARTEXFONTS=/var/spool/texmf
 
 #DEBHELPER#
-
 TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
 : ${TEXMFMAIN:=$std_TEXMFMAIN}
 VARTEXFONTS=`/usr/bin/kpsewhich -expand-var '$VARTEXFONTS'`
