@@ -64,14 +64,12 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     #(define $is-paper #t)
     
     #(define font-defaults
-      '((font-encoding . fetaMusic))
-      )
+      '((font-encoding . fetaMusic)))
 
     #(define text-font-defaults
       '((font-encoding . latin1)
 	(baseline-skip . 2)
-	(word-space . 0.6)
-	))
+	(word-space . 0.6)))
 
     #(define page-breaking ly:ragged-page-breaks)
     %%#(define page-breaking ly:optimal-page-breaks)
@@ -141,11 +139,11 @@ partCombineListener = \paper {
 
 \include "property-init.ly"
 
-
-
-% reset default duration
+%% reset default duration
 unusedEntry = \notes { c4 }
 
+%% must have size argument for GUILE 1.6 compat.
+#(define musicQuotes (make-hash-table 29))
 
-% must have size argument for GUILE 1.6 compat.
-#(define musicQuotes (make-hash-table 29)) 
+%%#(define-public toplevel-music-handler ly:parser-add-book-and-score)
+#(define toplevel-music-handler default-toplevel-music-handler)

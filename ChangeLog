@@ -1,3 +1,9 @@
+2004-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/parser.yy (NEWLYRICS): Switch to LYRICS mode for lyrics.
+	Fix for simple case: input/simple-song.ly, more complex stuff
+	does not work yet.
+
 2004-04-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/parser.yy (Prefix_composite_music): split Composite_music

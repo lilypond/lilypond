@@ -338,6 +338,7 @@ or
 %type <scm> 	context_mod_list
 %type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
+%type <music>	new_lyrics
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -379,7 +380,8 @@ or
 %type <i>	sub_quotes sup_quotes
 %type <music>	toplevel_music
 %type <music>	simple_element event_chord command_element
-%type <music>	Composite_music Simple_music Prefix_composite_music Grouped_music_list
+%type <music>	Composite_music Simple_music Prefix_composite_music
+%type <music>	Grouped_music_list
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
 %type <i>	tremolo_type
@@ -388,29 +390,31 @@ or
 %type <scm>	identifier_init
 %type <scm>	simple_string
 
-%type <music> note_chord_element chord_body chord_body_element
-%type <scm>  chord_body_elements
-%type <scm> steno_duration optional_notemode_duration multiplied_duration
+%type <music>	note_chord_element chord_body chord_body_element
+%type <scm>	chord_body_elements
+%type <scm> 	steno_duration optional_notemode_duration multiplied_duration
 	
-%type <scm>   post_events
-%type <music> gen_text_def direction_less_event direction_reqd_event
-%type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
-%type <scm>    steno_tonic_pitch
+%type <scm>	post_events
+%type <music>	gen_text_def direction_less_event direction_reqd_event
+%type <scm>	steno_pitch pitch absolute_pitch pitch_also_in_chords
+%type <scm>	steno_tonic_pitch
 %type <scm>	duration_length fraction
 
-%type <scm> new_chord step_number chord_items chord_item chord_separator step_numbers
+%type <scm>	chord_item chord_items chord_separator new_chord
+%type <scm>	step_number step_numbers 
 
-%type <scm>  embedded_scm scalar
+%type <scm>	embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music
 %type <music>	relative_music re_rhythmed_music
 %type <music>	music_property_def context_change
-%type <scm> context_prop_spec
-%type <scm> Music_list
-%type <scm> property_operation context_mod context_def_mod optional_context_mod
-%type <outputdef>  music_output_def_body music_output_def_head
+%type <scm>	context_prop_spec
+%type <scm>	Music_list
+%type <scm>	property_operation
+%type <scm>	context_mod context_def_mod optional_context_mod
+%type <outputdef>	music_output_def_body music_output_def_head
 %type <music>	post_event tagged_post_event
-%type <music> command_req
-%type <music> string_number_event
+%type <music>	command_req
+%type <music>	string_number_event
 %type <scm>	string bare_number number_expression number_term number_factor
 %type <score>	score_block score_body
 
@@ -448,10 +452,9 @@ toplevel_expression:
 	}
 	| toplevel_music {
 		Music_output_def *paper = get_paper (THIS);
-		// delay?
-		// SCM proc = paper->get_scmvar ("toplevel-music-handler");
- 		SCM proc = ly_scheme_function ("ly:parser-add-book-and-score");
-  		//SCM proc = ly_scheme_function ("toplevel-music-handler");
+		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-music-handler");
+		if (proc == SCM_UNDEFINED)
+			proc = ly_scheme_function ("ly:parser-add-book-and-score");
 		scm_call_2 (proc, THIS->self_scm (), $1->self_scm ());
  		scm_gc_unprotect_object (paper->self_scm ());
 	}
@@ -961,8 +964,8 @@ context_mod_list:
 
 
 Composite_music:
-	Prefix_composite_music { $$ = $1 ; }
-	| Grouped_music_list { $$ = $1 }
+	Prefix_composite_music { $$ = $1; }
+	| Grouped_music_list { $$ = $1; }
 	;
 
 Grouped_music_list:
@@ -1176,14 +1179,27 @@ relative_music:
 	;
 
 new_lyrics:
-	NEWLYRICS Grouped_music_list {
-	/*
-		Can also use Music at the expensive of two S/Rs
-similar to \repeat \alternative
-	*/
+	NEWLYRICS { THIS->lexer_->push_lyric_state (); }
+	/*cont */
+	Grouped_music_list {
+	/* Can also use Music at the expensive of two S/Rs similar to
+           \repeat \alternative */
+		THIS->lexer_->pop_state ();
+#if 0
+		$$ = $3;
+#else
+		Music *music = MY_MAKE_MUSIC ("SimultaneousMusic");
+		music->set_property ("elements", scm_list_1 ($3->self_scm ()));
+		$$ = music;
+#endif
 	}
-	| new_lyrics NEWLYRICS Grouped_music_list {
-		
+	| new_lyrics NEWLYRICS { THIS->lexer_->push_lyric_state (); }
+	Grouped_music_list {
+		THIS->lexer_->pop_state ();
+		Music *music = MY_MAKE_MUSIC ("SimultaneousMusic");
+		music->set_property ("elements", scm_cons ($4->self_scm (),
+			$1->get_property ("elements")));
+		$$ = music;
 	}
 	;
 
@@ -1197,15 +1213,36 @@ re_rhythmed_music:
 		$$ = m;
 	}
 	| Grouped_music_list new_lyrics {
-		THIS->lexer_->pop_state ();
 
-		Music *music = $1;
+		/* TODO: loop over simultaneous lyric musics? */
+
+		Music *music = $2;
 		SCM name = scm_makfrom0str ("");
-		Music *combined = make_lyric_combine_music (name, music);
 		SCM context = scm_makfrom0str ("Lyrics");
-		$$ = context_spec_music (context, SCM_UNDEFINED, combined,
-			SCM_EOL);
-		scm_gc_unprotect_object (music->self_scm ());
+		Music *all = MY_MAKE_MUSIC ("SimultaneousMusic");
+#if 0 // simple only
+		Music *combined = make_lyric_combine_music (name, music);
+		Music *csm = context_spec_music (context, SCM_UNDEFINED,
+			combined, SCM_EOL);
+		all->set_property ("elements", scm_listify ($1->self_scm (),
+			csm->self_scm (), SCM_UNDEFINED));
+#else
+		SCM lst = SCM_EOL;
+		for (SCM s = music->get_property ("elements"); ly_c_pair_p (s);
+			s = ly_cdr (s))
+		{
+			Music *com = make_lyric_combine_music (name, music);
+			Music *csm = context_spec_music (context,
+				SCM_UNDEFINED, com, SCM_EOL);
+			//lst = ly_snoc (csm->self_scm (), lst);
+			lst = scm_cons (csm->self_scm (), lst);
+		}
+#endif
+		all->set_property ("elements", scm_cons ($1->self_scm (),
+			lst));
+		$$ = all;
+		scm_gc_unprotect_object ($1->self_scm ());
+		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| LYRICSTO string Music {
 		Music *music = $3;

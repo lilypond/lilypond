@@ -555,7 +555,6 @@ HYPHEN		--
 		if (!close_input ())
  	        /* Returns YY_NULL */
 			yyterminate ();
-		return EOI;
 	}
 	else if (!close_input ())
  	        /* Returns YY_NULL */

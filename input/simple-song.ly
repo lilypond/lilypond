@@ -5,7 +5,6 @@
 	d2 d c4 bes a2 \break
 	c2 c d4 f g2
     }
-
     \newlyrics {
 	My first Li -- ly song,
 	Not much can go wrong!
