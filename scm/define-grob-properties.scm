@@ -417,6 +417,7 @@ expressed in global staffspace.")
 staff spaces, counted from the middle line.")
      (staffline-clearance ,ly:dimension? "How far away ties keep from
 staff lines.")
+     (stemlet-length ,number? "How long should a stem over a rest be?")
      (stem-attachment-function ,procedure? "A function that calculates
 where a stem attaches to the note head? This is a fallback when this
 information is not specified in the font.  The function takes a grob
@@ -534,6 +535,7 @@ set, which grob to get the direction from .")
      (tie ,ly:grob? "")
      (staff-symbol ,ly:grob? "the staff symbol grob that we're in.")
      (rest ,ly:grob? "the staff symbol grob that we're in.")
+     (rests ,grob-list? "A list of rest objects.")
      (rest-collision ,ly:grob? "rest collision that a rest is in.")
      (accidental-grob ,ly:grob? "Accidental for this note.")
      (bars ,grob-list? "list of bar line pointers.")
