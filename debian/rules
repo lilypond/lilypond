@@ -92,8 +92,8 @@ binary-arch: build install
 		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/tex/*.doc \
-		Documentation/tex/*.bib \
-		Documentation/tex/out/*.dvi
+		Documentation/tex/out/*.dvi 
+#		Documentation/tex/*.bib
 #	dh_installexamples input
 	cp -aP `find input mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
 		$(r)/$(d)/examples

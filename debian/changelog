@@ -1,3 +1,16 @@
+lilypond (1.2.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/control]:
+     - Removed recommendation for python-misc (>= 1.5.1)
+       and updated the recommendation of python-base to 1.5.2-4.
+       Thanks to Gregor Hoffleit for the note (closes: Bug#41343).
+     - Updated package description to that provided by the upstream
+       authors in the new version.
+  * [debian/rules]: Now configure with --enable-optimise.
+
+ -- Anthony Fok <foka@debian.org>  Tue, 24 Aug 1999 22:05:12 -0600
+
 lilypond (1.1.53-1) unstable; urgency=low
 
   * New upstream release.
