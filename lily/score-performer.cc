@@ -50,7 +50,7 @@ Score_performer::finish()
     Midi_stream output_stream( midi_l_->outfile_str_, midi_item_p_arr_.size() + 1, 384 );    
     *mlog << "MIDI output to " << midi_l_->outfile_str_ << " ..." << endl;    
 
-    header( output_stream);        
+    header( output_stream);
     int track_i = 1;
     for (int i=0; i<  midi_item_p_arr_.size(); i++) {
 	Midi_item * it_p = midi_item_p_arr_[i];
@@ -59,6 +59,7 @@ Score_performer::finish()
 	    ((Midi_track*)it_p )->number_i_ = track_i ++;
 	output_stream<< *it_p;
     }
+    *output_stream.os_p_ << flush;
     *mlog << endl;
 }
 
