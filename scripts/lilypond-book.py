@@ -553,7 +553,8 @@ def find_toplevel_snippets (s, types):
 
 	snippets = []
 	index = 0
-	found = {}.fromkeys (types)
+	#found = {}.fromkeys (types)
+	found = dict (map (lambda x: (x,None), types))
 	while 1:
 		first = 0
 		endex = 1 << 30
