@@ -101,6 +101,7 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(molecule-callback . ,Beam::brew_molecule)
+	(concaveness-gap . 2.0)
 	(concaveness-threshold . 0.08)
 	(positions . (#f . #f))
 	(position-callbacks . (,Beam::least_squares

@@ -775,37 +775,64 @@ Beam::check_concave (SCM smob)
   if (stems.size () < 3)
     return SCM_UNSPECIFIED;
 
-  /* Concaveness try #2: Sum distances of inner noteheads that
-     fall outside the interval of the two outer noteheads */
-  Real concave = 0;
-  Interval iv (Stem::chord_start_f (stems[0]),
-	       Stem::chord_start_f (stems.top ()));
-  
-  if (iv[MAX] < iv[MIN])
-    iv.swap ();
-  
-  for (int i = 1; i < stems.size () - 1; i++)
+  Direction dir = Directional_element_interface::get (me);
+  /* Concaveness #1: If distance of an inner notehead to line between
+     two outer noteheads is bigger than CONCAVENESS-GAP (2.0ss),
+     beam is concave (Heinz Stolba). */
+  bool concaveness1 = false;
+  Real r1 = gh_scm2double (me->get_grob_property ("concaveness-gap"));
+  if (r1 > 0)
     {
-      Real c = 0;
-      Real f = Stem::chord_start_f (stems[i]);
-      if ((c = f - iv[MAX]) > 0)
-	concave += c;
-      else if ((c = f - iv[MIN]) < 0)
-	concave += c;
+      Real dy = Stem::chord_start_f (stems.top ())
+	- Stem::chord_start_f (stems[0]);
+      Real slope = dy / (stems.size () - 1);
+      
+      Real y0 = Stem::chord_start_f (stems[0]);
+      for (int i = 1; i < stems.size () - 1; i++)
+	{
+	  Real c = (Stem::chord_start_f (stems[i]) - y0) - i * slope;
+	  if (c > r1)
+	    {
+	      concaveness1 = true;
+	      break;
+	    }
+	}
     }
 
-  Direction dir = Directional_element_interface::get (me);
-  concave *= dir;
+    
+  /* Concaveness #2: Sum distances of inner noteheads that fall
+     outside the interval of the two outer noteheads */
+  Real concaveness2 = 0;
+  Real r2 = gh_scm2double (me->get_grob_property ("concaveness-threshold"));
+  if (!concaveness1 && r2 > 0)
+    {
+      Real concave = 0;
+      Interval iv (Stem::chord_start_f (stems[0]),
+		   Stem::chord_start_f (stems.top ()));
       
-  Real concaveness = concave / (stems.size () - 2);
-  /* ugh: this is the a kludge to get input/regression/beam-concave.ly
-     to behave as baerenreiter. */
-  concaveness /= (stems.size () - 2);
-  
-  Real r = gh_scm2double (me->get_grob_property ("concaveness-threshold"));
+      if (iv[MAX] < iv[MIN])
+	iv.swap ();
+      
+      for (int i = 1; i < stems.size () - 1; i++)
+	{
+	  Real c = 0;
+	  Real f = Stem::chord_start_f (stems[i]);
+	  if ((c = f - iv[MAX]) > 0)
+	    concave += c;
+	  else if ((c = f - iv[MIN]) < 0)
+	    concave += c;
+	}
+      
+      concave *= dir;
 
+      concaveness2 = concave / (stems.size () - 2);
+      /* ugh: this is the a kludge to get input/regression/beam-concave.ly
+	 to behave as baerenreiter. */
+      concaveness2 /= (stems.size () - 2);
+    }
+  
   /* TODO: some sort of damping iso -> plain horizontal */
-  if (concaveness > r)
+  if (concaveness1 || concaveness2 > r2)
     {
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
       Real r = pos.linear_combination (0);
