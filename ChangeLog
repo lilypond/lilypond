@@ -1,5 +1,7 @@
 2004-02-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/quote.ly: new file.
+
 	* lily/sequential-iterator.cc (process): only process if moment >= 0.
 
 	* lily/parser.yy (command_element): \quote DURATION NAME: support
