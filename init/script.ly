@@ -20,6 +20,7 @@ rtoe = \script { "dpedaltoe" 0 0 1 0 0 }
 turn = \script { "turn" 0 0 1 0 0 }
 open = \script { "open" 0 0 1 0 0 }
 flageolet = \script { "flageolet"  0 0 1 0 0 }
+reverseturn = \script { "reverseturn"   0 0 1 0 0 }
 
 
 % could  we do without this bloat?

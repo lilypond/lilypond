@@ -7,8 +7,9 @@ description = "This file tests the Feta music font";
 % "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\include "paper26.ly";
+\include "paper26.ly"
 \include "font-body.ly"
+
 \score{
 	\FontBody
 	\paper{
