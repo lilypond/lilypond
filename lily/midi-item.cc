@@ -431,6 +431,7 @@ Midi_note::str () const
 }
 
 Midi_note_off::Midi_note_off (Midi_note* n)
+  : Midi_note (n->audio_l_)
 {
   on_l_ = n;
   channel_i_ = n->channel_i_;
@@ -443,12 +444,6 @@ Midi_note_off::Midi_note_off (Midi_note* n)
   static int i = 0;
   aftertouch_byte_ = i;
   i += 0x10;
-}
-
-int
-Midi_note_off::pitch_i () const
-{
-  return on_l_->pitch_i ();
 }
 
 String

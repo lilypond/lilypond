@@ -198,6 +198,7 @@ struct Rational;
 struct Request;
 struct Request_column;
 struct Relative_octave_music;
+struct Re_rhythmed_music;
 struct Repeat_engraver;
 struct Repeated_music;
 struct Repeated_music_iterator;

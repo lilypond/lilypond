@@ -56,6 +56,9 @@ lurl(http://cgi.debian.org/www-master/debian.org/Packages/stable/tex/lilypond.ht
 and
 lurl(ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex/lilypond_*.deb)
 
+Precompiled i386 RedHat RPMS are available from
+lurl(http://linux.umbc.edu/software/lilypond/rpms/).
+
 
 sect(News)
 

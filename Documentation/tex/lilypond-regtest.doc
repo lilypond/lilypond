@@ -25,7 +25,9 @@ you must create a special context called Thread.
 \mudelafile{noteheadstyle.ly}
 
 Multiple measure rests do not collide with barlines and clefs.  They
-are not expanded when you set Score.SkipBars
+are not expanded when you set \verb+Score.SkipBars+.  Although the
+multi-measure-rest is a Spanner, minimum distances are set to keep it
+colliding from barlines. 
 
 \mudelafile{multi-measure-rest.ly}
 
@@ -124,7 +126,9 @@ middle voices are horizontally shifted in a limited number of cases.
 \mudelafile{collisions.ly}
 
 The number of stafflines of a staff can be set with the property
-numberOfStaffLines.  Ledger lines both on note heads and rests are adjusted.
+numberOfStaffLines.  Ledger lines both on note heads and rests are
+adjusted.  Barlines also are adjusted.
+
 
 \mudelafile{number-staff-lines.fly}
 

@@ -30,6 +30,8 @@ Request_chord_iterator::elt_l () const
 Request_chord_iterator::Request_chord_iterator ()
 {
   last_b_ = false;
+  //  cursor_ = elt_l ()->music_p_list_p_->head_;
+  cursor_ = 0;
 }
 
 
@@ -39,8 +41,6 @@ Request_chord_iterator::ok() const
   return (elt_length_mom_ && !last_b_) || first_b_;
 }
 
-
-
 Moment
 Request_chord_iterator::next_moment() const
 {
@@ -48,6 +48,25 @@ Request_chord_iterator::next_moment() const
   if  (!first_b_)
     m = elt_length_mom_;
   return m;
+}
+
+Music*
+Request_chord_iterator::next_music_l ()
+{
+  if (first_b_)
+    {
+      cursor_ = elt_l ()->music_p_list_p_->head_;
+      first_b_ = false;
+    }
+  else
+    {
+      if (cursor_)
+	cursor_ = cursor_->next_;
+    }
+  if (cursor_)
+    return cursor_->car_;
+  else
+    return 0;
 }
 
 void

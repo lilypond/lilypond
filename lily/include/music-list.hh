@@ -19,6 +19,7 @@ class Music_list : public Cons_list<Music>
 {
 public:
   Musical_pitch do_relative_octave (Musical_pitch, bool); 
+  Music_iterator* do_rhythm (Music_iterator*); 
   void add_music (Music*);
   Music_list (Music_list const&);
   Music_list ();
@@ -38,6 +39,7 @@ public:
   
   VIRTUAL_COPY_CONS(Music);
   Musical_pitch do_relative_octave (Musical_pitch p, bool b);
+  Music_iterator* do_rhythm (Music_iterator*);
   virtual void transpose (Musical_pitch );
   virtual void compress (Moment);
   void add_music (Music *music_p);
@@ -48,6 +50,7 @@ public:
   
 protected:
   virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Music_iterator* to_rhythm (Music_iterator*);
   virtual void do_print() const;
 };
 
@@ -62,6 +65,7 @@ public:
   
   Simultaneous_music(Music_list *);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Music_iterator* to_rhythm (Music_iterator*);
   virtual Moment length_mom () const;
 };
 
@@ -76,6 +80,7 @@ public:
   VIRTUAL_COPY_CONS(Music);
   
   virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Music_iterator* to_rhythm (Music_iterator*);
   Request_chord();
 };
 

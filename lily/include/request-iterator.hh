@@ -22,6 +22,7 @@ class Request_chord_iterator : public Music_iterator {
    */
   Moment elt_length_mom_;
   bool last_b_;
+  Cons<Music>* cursor_;
 
 public:
   Request_chord_iterator ();
@@ -30,6 +31,7 @@ public:
 protected:
   virtual void do_process_and_next (Moment);
   virtual Moment next_moment() const;
+  virtual Music* next_music_l ();
   virtual void construct_children();
   virtual bool ok() const;
   virtual void do_print() const;

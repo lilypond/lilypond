@@ -109,18 +109,18 @@ conversion tools.
 
 o xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
-o Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
-    Which, in turn depends on man2html for proper installation.
-man2html can be had from http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05.
+	the original is at
+ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz
 
-    TeTeX users should not forget to rerun texhash.
+o pnmtopng, which is also in libgr-progs for RedHat. The original is
+at
+ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz.i
 
-Building the website requires pnmtopng.  The version of pnmtopng
-that is distributed with RedHat 5.1 and 5.2 contains a bug: pnmtopng
-is dynamically linked to the wrong version of libpng.  Recompile it
-from source, and make sure that the pnmtopng binary is linked
-statically to the libpng that is included in libgr.   RedHat 6.0 does
-not have this problem.
+The version of pnmtopng that is distributed with RedHat 5.1 and
+5.2 contains a bug: pnmtopng is dynamically linked to the wrong
+version of libpng.  Recompile it from source, and make sure that the
+pnmtopng binary is linked statically to the libpng that is included in
+libgr.  RedHat 6.0 does not have this problem.
 
  tar xzf libgr-2.0.13.tar.gz
       make
@@ -129,6 +129,15 @@ not have this problem.
       make pnmtopng
 
 You can then install the new pnmtopng into /usr/local/bin/
+
+o Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
+    Which, in turn depends on man2html for proper installation.
+man2html can be had from http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05.
+
+    TeTeX users should not forget to rerun texhash.
+
+You also have to install buildscripts/out/ps-to-gifs in a
+directory that is in the path.
 
 6: CONFIGURING and COMPILING
 
@@ -271,13 +280,13 @@ You can make the rpm by issuing
 	rpm -tb lilypond-x.y.z.tar.gz
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
-Precompiled i386 eRedHat RPMS are available from
+Precompiled i386 RedHat RPMS are available from
 http://linux.umbc.edu/software/lilypond/rpms/.
 
 10: DEBIAN GNU/LINUX
 
 A Debian package is also available; contact Anthony Fok
-<foka@debian.org>.  The build scripts are in the subdirectory
+foka@debian.org.  The build scripts are in the subdirectory
 debian/.
 
 11: WINDOWS NT/95

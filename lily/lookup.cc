@@ -517,12 +517,13 @@ Lookup::hairpin (Real width, Real height, bool decresc, bool continued) const
 }
 
 Molecule
-Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real interline_f, Direction dir) const
+Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap, Real interline_f, Direction dir) const
 {
   Molecule m;
 
   Atom at  (gh_list(tuplet_scm_sym,
-		    gh_double2scm (interline_f), 
+		    gh_double2scm (interline_f),
+		    gh_double2scm (gap),
 		    gh_double2scm (dx),
 		    gh_double2scm (dy),
 		    gh_double2scm (thick),
@@ -575,17 +576,18 @@ Lookup::staff_bracket (Real y) const
 }
 
 Molecule
-Lookup::volta (Real w, Real thick, Real interline_f, bool last_b) const
+Lookup::volta (Real h, Real w, Real thick, bool last_b) const
 {
   Molecule m; 
 
   Atom at  (gh_list (volta_scm_sym,
+		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (thick),
 		     gh_int2scm (last_b),
 		     SCM_UNDEFINED));
 
-  m.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
+  m.dim_[Y_AXIS] = Interval (- h/2, h/2);
   m.dim_[X_AXIS] = Interval (0, w);
 
   m.add_atom (&at);

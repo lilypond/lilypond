@@ -46,17 +46,11 @@
 %% set up dimensions
 % mudela-book don't like this:
 %\parindent=0pt
-\newdimen\smallspace
 \newdimen\interlinedist
 
-\newdimen\stemthickness
 \newcount\n                     %duh. meaningful identifiers.
 \newdimen\staffheight
-\newdimen\notewidth
-\newdimen\noteheight
 \newdimen\stafflinethickness
-\newdimen\interstaffline
-\newdimen\dist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
@@ -121,13 +115,8 @@
 
 % this has to be synced with the font definition
 \def\musixcalc{
-        \notewidth=\mudelapapernotewidth pt
 
-        \smallspace=.3\interlinedist
-        \interstaffline=\staffheight
-        \divide\interstaffline by 4
         \stafflinethickness=\mudelapaperrulethickness pt
-        \stemthickness=\stafflinethickness
 }
 
 

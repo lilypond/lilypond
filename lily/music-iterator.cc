@@ -90,6 +90,11 @@ Music_iterator::next_moment() const
   return 0;
 }
 
+Music*
+Music_iterator::next_music_l ()
+{
+  return 0;
+}
 
 void
 Music_iterator::process_and_next (Moment m)

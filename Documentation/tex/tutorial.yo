@@ -97,7 +97,7 @@ mudela(verbatim)(
 	    \key g;
 	    \time 3/4;		
 
-	\repeat 2 {
+	\repeat "semi" 2 {
 	    d4 g,8 a b c d4 g, g |
 	    e'4 c8 d e fis g4 g, g |
 	    c4 d8( )c b a( )b4 c8 b a g |
@@ -796,25 +796,6 @@ Example:
     [d'8 dis'] e' c''4 e'8 c''4 
   )
 
-dit(code(\grouping) var(durationslist)) sets the metric structure of the measure.
-    Its effect can best be shown by an example:
-    mudela(fragment,verbatim,center)(
-        \time 5/16;
-        \grouping 16*3 16*2;
-        [c'8 c'16 c'8]
-        \grouping 16*2 16*3;
-        [c'8 c'16 c'8]
-        \grouping 16*5 ;
-        [c'8 c'16 c'8]
-    )
-
-In practice, you won't be needing this command often: the
-grouping is switched automatically when you issue a code(\time)
-command.  It is set to a combination of groups
-of 2 and 3 beats, with as many groups of
-3 as possible (in other words: 4/4 is divided in two times two beats
-(2+2), 8/8 in 3+3+2)
-)
 
 The commands described above aren't really music, but they can best be
 thought as as notes with no duration.  Since they are grammatically

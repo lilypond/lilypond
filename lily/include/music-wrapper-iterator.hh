@@ -26,6 +26,7 @@ public:
 
   virtual void construct_children  () ;
   virtual Moment next_moment () const;
+  virtual Music* next_music_l ();
   virtual bool ok () const;
 
 protected:

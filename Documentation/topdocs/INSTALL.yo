@@ -100,19 +100,18 @@ conversion tools.
 itemize(
 it()xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
-it()Bib2html lurl(http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
-    Which, in turn depends on man2html for proper installation.
-man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
+	the original is at
+lurl(ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz)
 
-    TeTeX users should not forget to rerun texhash.
-)
+it()pnmtopng, which is also in libgr-progs for RedHat. The original is
+at
+lurl(ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz).i
 
-Building the website requires pnmtopng.  The version of file(pnmtopng)
-that is distributed with RedHat 5.1 and 5.2 contains a bug: pnmtopng
-is dynamically linked to the wrong version of libpng.  Recompile it
-from source, and make sure that the pnmtopng binary is linked
-statically to the libpng that is included in libgr.   RedHat 6.0 does
-not have this problem.
+The version of file(pnmtopng) that is distributed with RedHat 5.1 and
+5.2 contains a bug: pnmtopng is dynamically linked to the wrong
+version of libpng.  Recompile it from source, and make sure that the
+pnmtopng binary is linked statically to the libpng that is included in
+libgr.  RedHat 6.0 does not have this problem.
 
 verb( tar xzf libgr-2.0.13.tar.gz
       make
@@ -122,6 +121,17 @@ verb( tar xzf libgr-2.0.13.tar.gz
 )
 
 You can then install the new pnmtopng into /usr/local/bin/
+
+it()Bib2html lurl(http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
+    Which, in turn depends on man2html for proper installation.
+man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
+
+    TeTeX users should not forget to rerun texhash.
+)
+
+You also have to install file(buildscripts/out/ps-to-gifs) in a
+directory that is in the path.
+
 
 sect(CONFIGURING and COMPILING)
 
@@ -292,7 +302,7 @@ verb(
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 )
 
-Precompiled i386 eRedHat RPMS are available from
+Precompiled i386 RedHat RPMS are available from
 lurl(http://linux.umbc.edu/software/lilypond/rpms/).
 
 

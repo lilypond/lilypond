@@ -24,9 +24,22 @@ Audio_note::Audio_note (Musical_pitch p, Moment m, int transposing_i)
 {
   pitch_ = p;
   length_mom_ = m;
+  tied_ = 0;
   transposing_i_ = transposing_i;
 }
 
+void
+Audio_note::tie_to (Audio_note* t)
+{
+  tied_ = t;
+  Audio_note* first = t;
+  while (first->tied_)
+    first = first->tied_;
+  first->length_mom_ += length_mom_;
+  length_mom_ = 0;
+}
+
+		    
 Audio_key::Audio_key (Key_def const& k)
 {
   key_ = k;

@@ -136,16 +136,8 @@ Lots of them.  See file(TODO) and file(BUGS)
 
 manpageseealso()
 
-LilyPond comes with various other documentation files, but most are in
-the form of manual pages.  They are included in the source
-package. Interesting documents include 
-
-description(
-dit(MANIFESTO)
-    Goals of the GNU LilyPond project.
-dit(FAQ)
-    The GNU LilyPond FAQ list
-)
+LilyPond comes with various other documentation files.  They are
+included in the source package.
 
 A further source for information is the website, which can be found at
 lurl(http://www.lilypond.org/).  The website contains on-line versions

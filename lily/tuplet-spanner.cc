@@ -25,7 +25,7 @@ Tuplet_spanner::Tuplet_spanner ()
 }
 
 /*
-  TODO.  We should control the gap for lookup from here.
+  TODO. 
  */
 Molecule*
 Tuplet_spanner::do_brew_molecule_p () const
@@ -69,7 +69,9 @@ Tuplet_spanner::do_brew_molecule_p () const
     Real thick = paper_l ()->get_realvar (tuplet_thick_scm_sym);
     if (bracket_visibility)      
       {
-	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, interline, dir_));
+	Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
+	
+	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, dir_));
       }
 
     if (number_visibility)

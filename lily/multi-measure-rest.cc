@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -59,7 +59,7 @@ Multi_measure_rest::do_brew_molecule_p () const
   Real x_off = 0.0;
 
 
-  Dimension_cache * col_ref = spanned_drul_[LEFT]->column_l ()->dim_cache_[X_AXIS];
+  //  Dimension_cache * col_ref = spanned_drul_[LEFT]->column_l ()->dim_cache_[X_AXIS];
 
   Real rx  = spanned_drul_[LEFT]->absolute_coordinate (X_AXIS);
   /*
@@ -150,48 +150,35 @@ Multi_measure_rest::get_rods () const
   if (!(spanned_drul_[LEFT] && spanned_drul_[RIGHT]))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-	return a;
+      return a;
     }
-      Rod r;
-      r.item_l_drul_ = spanned_drul_;
-      r.distance_f_ = paper_l ()->get_var ("mmrest_x_minimum");
-      a.push (r);
 
+  Item * l = spanned_drul_[LEFT]->column_l ();
+  Item * r = spanned_drul_[RIGHT]->column_l ();
+  Item * lb = l->find_prebroken_piece (RIGHT);
+  Item * rb = r->find_prebroken_piece (LEFT);      
   
-  /*
-    also set distances in case the left or right ending of the rest is
-    a broken column. This is very common: it happens if the rest is in
-    the beginning of the line, or at the end.
-
-    TODO: merge this code with other discretionary handling code.
-
-    TODO: calc  mmrest_x_minimum (see brew_molecule_p ())
-  */
-
-  Drul_array<Item*> discretionaries;
-  Direction d = LEFT;
-  do
+  Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
+  for (int i=0; i < 4; i++)
     {
-      Item *i = r.item_l_drul_[d]->find_prebroken_piece (-d);
-      discretionaries[d] = i;
-      if (i)
-      {
-        Rod k (r);
+      Item * l =  combinations[i][0];
+      Item *r = combinations[i][1];
 
-        k.item_l_drul_[d] = i;
-        a.push (k);
-      }
+      if (!l || !r)
+	continue;
+
+      Rod rod;
+      rod.item_l_drul_[LEFT] = l;
+      rod.item_l_drul_[RIGHT] = r;
+
+	/*
+	  should do something more advanced.
+	 */
+      rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
+	+ paper_l ()->get_var ("mmrest_x_minimum");
+  
+      a.push (rod);
     }
-  while ((flip (&d))!= LEFT);
-
-  if (discretionaries[LEFT] && discretionaries[RIGHT])
-    {
-      Rod k(r);
-      k.item_l_drul_ = discretionaries;
-      a.push (k);
-    }
-
-
-
+  
   return a;
 }

@@ -57,9 +57,14 @@ class Audio_note : public Audio_item
 public:  
   Audio_note (Musical_pitch p, Moment m, int transposing_i = 0);
 
+  void tie_to (Audio_note*);
+
   Musical_pitch pitch_;
   Moment length_mom_;
+  Moment delayed_mom_;
+  Moment delayed_until_mom_;
   int transposing_i_;
+  Audio_note* tied_;
 };
 
 class Audio_text : public Audio_item

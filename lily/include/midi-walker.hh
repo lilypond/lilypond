@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 
-struct Midi_note_event : PQueue_ent<Moment, Midi_note_off*>
+struct Midi_note_event : PQueue_ent<Moment, Midi_note*>
 {
   bool ignore_b_;
   Midi_note_event();

@@ -66,7 +66,7 @@ Midi_walker::do_start_note (Midi_note* note_p)
   e.val = new Midi_note_off (note_p);
   e.key = stop_mom;
   stop_note_queue.insert (e);
-  
+      
   output_event (ptr->audio_column_l_->at_mom (), note_p);
 }
 
@@ -86,7 +86,7 @@ Midi_walker::do_stop_notes (Moment max_mom)
 	}
       
       Moment stop_mom = e.key;
-      Midi_note_off* note_p = e.val;
+      Midi_note* note_p = e.val;
 	
       output_event (stop_mom, note_p);
     }

@@ -1,7 +1,7 @@
 %
 % setup for Request->Element conversion. Guru-only
 %
-\translator {
+StaffContext = \translator {
 	\type "Staff_performer";
 	\name Staff;
 	\accepts Voice;
@@ -13,7 +13,8 @@
 
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
-}
+};
+\translator { \StaffContext }
 
 %% urg, why (needs praeludium-*.ly) these?
 \translator
@@ -29,25 +30,33 @@
 	\consists "Note_performer";
 	\name VoiceThree;
 }
-\translator
-{
+\translator {
 	\type "Performer_group_performer";
 	\consists "Note_performer";
 	 \name VoiceOne;
 }
 
-\translator
-{
+VoiceContext = \translator {
 	\type "Performer_group_performer";
 	\name Voice;
+% All notes fall to Grace if you leave Thread out (huh?)
+	\consists "Grace_position_performer";
+	\accepts Thread;
+	\accepts Grace;
+};
+\translator { \VoiceContext }
+
+GraceContext = \translator {
+	\type "Performer_group_performer";
+	\name Thread;
 	\consists "Note_performer";
 	\consists "Tie_performer";
-%	\accepts Grace;
-}
+};
+\translator { \GraceContext }
 
 \translator {
 	\type "Grace_performer_group";
-	\name "Grace";
+	\name Grace;
 	\consists "Note_performer";
 	\consists "Tie_performer";
 	 weAreGraceContext = "1";
@@ -60,20 +69,24 @@
 
 }
 
-\translator
-{
+GrandStaffContext = \translator {
 	\type "Performer_group_performer";
-	\accepts Staff;
 	\name GrandStaff;
-}
+	\accepts Staff;
+};
+\translator { \GrandStaffContext }
 
-\translator {\type "Performer_group_performer";
-	\accepts Staff; \name "PianoStaff";}
+PianoStaffContext = \translator {
+        \type "Performer_group_performer";
+	\name "PianoStaff";
+	\accepts Staff;
+};
+\translator { \PianoStaffContext }
 
 \translator {
 	\type "Performer_group_performer";
 	\consists "Lyric_performer";
-\name LyricVoice;
+	\name LyricVoice;
 }
 
 \translator{
@@ -87,16 +100,15 @@
 	\name Lyrics;
 	\consists "Time_signature_performer";
 }
-\translator
-{
+\translator {
 	\type Performer_group_performer;
 
 	\name StaffGroup;
 	\accepts Staff;
 }
-\translator {
-	\type "Score_performer";
 
+ScoreContext = \translator {
+	\type "Score_performer";
 
 	\name Score;
 	instrument = "bright acoustic";
@@ -107,5 +119,6 @@
 	\accepts StaffGroup;
 	\accepts ChoirStaff;
 	\consists "Swallow_performer";
-}
+};
+\translator { \ScoreContext }
 

@@ -17,8 +17,6 @@ Transposed_music::Transposed_music (Music *p, Musical_pitch pit)
   p->transpose (pit);
 }
 
-
-
 void
 Transposed_music::do_print () const
 {
@@ -33,6 +31,12 @@ Transposed_music::to_relative_octave (Musical_pitch p)
     warning (_("Will ignore \relative for transposed music"));
 #endif
   return p;
+}
+
+Music_iterator*
+Transposed_music::to_rhythm (Music_iterator* r)
+{
+  return r;
 }
 
 

@@ -16,11 +16,16 @@ Relative_octave_music::to_relative_octave (Musical_pitch)
   return last_pitch_;
 }
 
+Music_iterator*
+Relative_octave_music::to_rhythm (Music_iterator* r)
+{
+  return element_l ()->to_rhythm (r);
+}
 
 Relative_octave_music::Relative_octave_music(Music*p,Musical_pitch def)
   : Music_wrapper (p)
 {
-  last_pitch_ = element_l()->to_relative_octave (def);
+  last_pitch_ = element_l ()->to_relative_octave (def);
 }
 
 void

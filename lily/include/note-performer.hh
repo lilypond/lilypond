@@ -25,10 +25,13 @@ protected:
   virtual bool do_try_music (Music *req_l) ;
   virtual void do_print () const;
   virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
+  Global_translator* global_translator_l ();
 
 private:
   Array<Note_req*> note_req_l_arr_;
   Array<Audio_note*> note_p_arr_;
+  Array<Audio_note*> delayed_p_arr_;
 };
 
 #endif // NOTE_PERFORMER_HH

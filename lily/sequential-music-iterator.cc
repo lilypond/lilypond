@@ -127,6 +127,40 @@ Sequential_music_iterator::next_moment() const
   return iter_p_->next_moment() + here_mom_;
 }
 
+Music*
+Sequential_music_iterator::next_music_l ()
+{
+  if (!iter_p_)
+    return 0;
+
+  while (1) 
+    {
+      if (Music* m = iter_p_->next_music_l ())
+	{
+	  return m;
+	}
+      else
+	{
+	  // urg FIXME: grace-iterator::next_music_l () fools me!
+	  if (dynamic_cast<Grace_iterator*> (iter_p_))
+	    iter_p_ = 0;
+	  leave_element ();
+	  
+	  if (cursor_)
+	    {
+	      start_next_element ();
+	      set_sequential_music_translator ();
+	    }
+	  else 
+	    {
+	      delete iter_p_;
+	      iter_p_ = 0;
+	      return 0;
+	    }
+	}
+    }
+}
+
 bool
 Sequential_music_iterator::ok() const
 {
