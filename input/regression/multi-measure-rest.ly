@@ -23,7 +23,7 @@ Rests over measures during longer than 2 wholes use breve rests.
  \once \property Staff.MultiMeasureRestNumber \set #'text = #'(music "scripts-ufermata")
     R2.
     R2.*3
-    R2.*7
+    R2.*27
 \time 8/4 R1*2
 }
 	\paper {
