@@ -920,7 +920,7 @@ Repeated_music:
 			{
 				int list_len = scm_ilength ($4->get_property ("elements"));
 				if (list_len != 2)
-					seq->origin ()->warning ("Chord tremolo must have 2 elements.");
+					$4->origin ()->warning ("Chord tremolo must have 2 elements.");
 				shift -= 1;
 				r->compress (Moment (Rational (1, list_len)));
 			}
