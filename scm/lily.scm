@@ -7,15 +7,7 @@
 
 ;;; Library functions
 
-; (top-repl)
-
 (use-modules (ice-9 regex))
-; (use-modules (lily))
-
-;;(display "hallo\n")
-;;(display (make-duration 1  2))
-;;(write standalone (current-error-port))
-
 
 ;;; General settings
 ;; debugging evaluator is slower.
@@ -25,7 +17,6 @@
 (read-enable 'positions)
 
 
-(define-public security-paranoia #f)
 
 (define-public (line-column-location line col file)
   "Print an input location, including column number ."
@@ -41,25 +32,80 @@
 ;; cpp hack to get useful error message
 (define ifdef "First run this through cpp.")
 (define ifndef "First run this through cpp.")
-  
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define X 0)
+(define Y 1)
+(define LEFT -1)
+(define RIGHT 1)
+(define UP 1)
+(define DOWN -1)
+(define CENTER 0)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lily specific variables.
 (define-public default-script-alist '())
 
+(define-public security-paranoia #f)
 (if (not (defined? 'standalone))
-    (define standalone (not (defined? 'ly-gulp-file))))
-
-;; The regex module may not be available, or may be broken.
-(define-public use-regex
-  (let ((os (string-downcase (vector-ref (uname) 0))))
-    (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
+    (define-public standalone (not (defined? 'ly-gulp-file))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Unassorted utility functions.
 
-;;; Un-assorted stuff
+(define (uniqued-alist  alist acc)
+  (if (null? alist) acc
+      (if (assoc (caar alist) acc)
+	  (uniqued-alist (cdr alist) acc)
+	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
-;; URG guile-1.4/1.4.x compatibility
-(if (not (defined? 'primitive-eval))
-    (define (primitive-eval form)
-      (eval2 form #f)))
+(define (other-axis a)
+  (remainder (+ a 1) 2))
+  
+
+(define-public (widen-interval iv amount)
+   (cons (- (car iv) amount)
+         (+ (cdr iv) amount))
+)
+
+
+
+(define (index-cell cell dir)
+  (if (equal? dir 1)
+      (cdr cell)
+      (car cell)))
+
+(define (cons-map f x)
+  "map F to contents of X"
+  (cons (f (car x)) (f (cdr x))))
+
+;; used where?
+(define (reduce operator list)
+  "reduce OP [A, B, C, D, ... ] =
+   A op (B op (C ... ))
+"
+      (if (null? (cdr list)) (car list)
+	  (operator (car list) (reduce operator (cdr list)))))
+
+(define (take-from-list-until todo gathered crit?)
+  "return (G, T), where (reverse G) + T = GATHERED + TODO, and the last of G
+is the  first to satisfy CRIT
+
+ (take-from-list-until '(1 2 3  4 5) '() (lambda (x) (eq? x 3)))
+=>
+ ((3 2 1) 4 5)
+
+"
+  (if (null? todo)
+      (cons gathered todo)
+      (if (crit? (car todo))
+	  (cons (cons (car todo) gathered) (cdr todo))
+	  (take-from-list-until (cdr todo) (cons (car todo) gathered) crit?)
+      )
+  ))
 
 (define (sign x)
   (if (= x 0)
@@ -71,9 +117,6 @@
   (write x)
   (newline)
   x)
-
-(define (empty? x)
-  (equal? x '()))
 
 (define (!= l r)
   (not (= l r)))
@@ -100,7 +143,7 @@
 	  (uniqued-alist (cdr alist) acc)
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
-(define (uniq-list list)
+(define-public (uniq-list list)
   (if (null? list) '()
       (if (null? (cdr list))
 	  list
@@ -108,9 +151,13 @@
 	      (uniq-list (cdr list))
 	      (cons (car list) (uniq-list (cdr list)))))))
 
-(define (alist<? x y)
+(define-public (alist<? x y)
   (string<? (symbol->string (car x))
 	    (symbol->string (car y))))
+
+(define-public (pad-string-to str wid)
+  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
+  )
 
 (define (ly-load x)
   (let* ((fn (%search-load-path x)))
@@ -119,6 +166,8 @@
     (primitive-load fn)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  output
 (use-modules (scm tex)
 	     (scm ps)
 	     (scm pysk)
@@ -137,9 +186,6 @@
     ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))
     ))
 
-(define (pad-string-to str wid)
-  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
-  )
 
 (define (document-format-dumpers)
   (map
@@ -157,13 +203,8 @@
 	(scm-error "Could not find dumper for format ~s" format))
     ))
 
-(define X 0)
-(define Y 1)
-(define LEFT -1)
-(define RIGHT 1)
-(define UP 1)
-(define DOWN -1)
-(define CENTER 0)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; other files.
 
 (if (not standalone)
     (map ly-load

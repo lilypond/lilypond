@@ -1,5 +1,7 @@
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm: reorganisation, cleanups.
+
 	* lily/main.cc: small cleanups.
 
 2002-09-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

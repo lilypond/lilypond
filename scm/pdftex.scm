@@ -17,8 +17,6 @@
 	     (ice-9 regex)
 	     (ice-9 string-fun)	  
 	     )
-
-
 (define font-name-alist  '())
 
 (define this-module (current-module))
@@ -185,21 +183,19 @@
 ;;
 (define (output-tex-string s)
   (if security-paranoia
-      (if use-regex
-	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
-	  (begin (display "warning: not paranoid") (newline) s))
+      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
       s))
 
 (define (lily-def key val)
   (let ((tex-key
-	 (if use-regex
-	     (regexp-substitute/global 
-	      #f "_" (output-tex-string key) 'pre "X" 'post)      
-	     (output-tex-string key)))
+	 (regexp-substitute/global 
+	      #f "_" (output-tex-string key) 'pre "X" 'post)
+	     
+	 ))
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}\n"))))
+	(string-append "\\def\\" tex-key "{" tex-val "}\n")))
 
 (define (number->dim x)
   (string-append

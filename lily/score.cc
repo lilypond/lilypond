@@ -59,8 +59,10 @@ Score::Score (Score const &s)
   for (int i=0; i < s.defs_.size (); i++)
     defs_.push (s.defs_[i]->clone ());
   errorlevel_ = s.errorlevel_;
+
   header_ = ly_make_anonymous_module ();
-  ly_copy_module_variables (header_, s.header_);
+  if (ly_module_p (s.header_))
+    ly_copy_module_variables (header_, s.header_);
 }
 
 Score::~Score ()

@@ -164,7 +164,7 @@
 	
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
-	(flag-width-function . ,default-beam-flag-width-function)
+	(flag-width-function . ,beam-flag-width-function)
 	(damping . 1)
 	(auto-knee-gap . 5.5)
 	(font-name . "cmr10")

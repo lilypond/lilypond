@@ -4,7 +4,8 @@
 ;;;; changed eval to primitive-eval for guile 1.4/1.4.1 compatibility --jcn
 
 
-(define drum-pitch-names `(
+;; ugh. Should make separate module?
+(define-public drum-pitch-names `(
 	(acousticbassdrum bda	,(make-pitch -3 6 0 ))
 	(bassdrum	  bd	,(make-pitch -2 0 0 ))
 	(hisidestick	  ssh	,(make-pitch -3 6 2))
@@ -81,7 +82,7 @@
 	(fivedown	  de	,(make-pitch -1 2 0))
 ))
 
-(define drums `(
+(define-public drums `(
 	(acousticbassdrum default 	#f	  ,(make-pitch -1 4 0))
 	(bassdrum	  default 	#f	  ,(make-pitch -1 4 0))
 	(sidestick	  cross		#f	  ,(make-pitch 0 1 0))
@@ -113,7 +114,7 @@
 	(ridecymbalb	  cross		#f	  ,(make-pitch 0 5 0))
  ))
 
-(define timbales `(
+(define-public timbales `(
 	(losidestick	  cross		#f	  ,(make-pitch -1 6 0))
 	(lotimbale	  default	#f	  ,(make-pitch -1 6 0))
 	(cowbell	  triangle	#f	  ,(make-pitch 0 2 0))
@@ -121,7 +122,7 @@
 	(hitimbale	  default	#f	  ,(make-pitch 0 1 0))
  ))
 
-(define congas `(
+(define-public congas `(
 	(losidestick	  cross		#f	  ,(make-pitch -1 6 0))
 	(loconga	  default	#f	  ,(make-pitch -1 6 0))
 	(openloconga      default       "open"    ,(make-pitch -1 6 0))
@@ -133,7 +134,7 @@
   
  ))
 
-(define bongos `(
+(define-public bongos `(
 	(losidestick	  cross		#f	  ,(make-pitch -1 6 0))
 	(lobongo	  default	#f	  ,(make-pitch -1 6 0))
 	(openlobongo      default       "open"    ,(make-pitch -1 6 0))
@@ -145,7 +146,7 @@
  ))
 
 
-(define percussion `(
+(define-public percussion `(
 	(opentriangle	  cross		"open"	  ,(make-pitch 0 0 0))
 	(mutetriangle	  cross		"stopped" ,(make-pitch 0 0 0))
 	(triangle	  cross		#f	  ,(make-pitch 0 0 0))
@@ -161,7 +162,7 @@
  ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;
+;;
 
 (define (make-articulation-script x) 
      (let* (  (m (ly-make-music "Articulation_req"))
@@ -192,33 +193,22 @@
 (define (make-head-type-elem t)
    (let* ( (m (ly-make-music "Music"))
          )
-     (ly-set-mus-property! m 'iterator-ctor Push_property_iterator::constructor)
-     (ly-set-mus-property! m 'symbol 'NoteHead)
-     (ly-set-mus-property! m 'grob-property 'style)
-     (ly-set-mus-property! m 'grob-value t)
-     (ly-set-mus-property! m 'pop-first #t)
-     m
+     (set-mus-properties!
+      m
+      `((iterator-ctor . ,Push_property_iterator::constructor)
+	(symbol . NoteHead)
+	(grob-property . style)
+	(grob-value . ,t)
+	(pop-first  . #t)))
+      m
    )
  )
 
 (define (make-head-type t)
-   (let* ( (m (ly-make-music "Context_specced_music"))
-           (e (make-head-type-elem t))
-         )
-     (ly-set-mus-property! m 'element e)
-     (ly-set-mus-property! m 'context-type "Thread")
-     m
-   )
- )
+  (context-spec-music (make-head-type-elem t) "Thread"))
 
 (define (make-thread-context thread-name element)
-   (let* ( (m (ly-make-music "Context_specced_music")))
-     (ly-set-mus-property! m 'element element)
-     (ly-set-mus-property! m 'context-type "Thread")
-     (ly-set-mus-property! m 'context-id (symbol->string thread-name))
-     m
-   )
- )
+  (context-spec-music element "Thread" thread-name))
 
 ;; makes a sequential-music of thread-context, head-change and note
 (define (make-drum-head kit req-ch )
@@ -278,7 +268,7 @@
 
 
 ;; converts a midi-pitched (ly/drumpitch.ly) file to paper output.
-(define ((drums->paper kit) music)
+(define-public ((drums->paper kit) music)
   (begin
    (if (equal? (ly-music-name music) "Request_chord")
     (set! music (make-drum-head kit music))

@@ -82,24 +82,3 @@
      ((end 1 16 12 8) . ,(make-moment 3 8))
      ((end 1 32 12 8) . ,(make-moment 1 8))
      ))
-
-;;; Users may override in most cases, simply by issuing
-;;;
-;;;    % from here on consider ending beam every 1 4 note
-;;;    \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 1 4)
-;;;
-;;;    % no autobeaming
-;;;    \property Voice.beamAuto = ##f  
-;;;
-;;; or, more globally, by doing:
-;;;
-;;; \paper{
-;;;        \translator{
-;;;            \VoiceContext
-;;;            % consider ending beam at every 1 2 note
-;;;            autoBeamSettings \override #'(end * * * *) = #(make-moment 1 2)
-;;;        }
-;;;    }
-;;;
-;;; see also input test auto-beam-override.ly
-

@@ -7,7 +7,7 @@
 
 
 
-(define all-backend-properties '())
+(define-public all-backend-properties '())
 
 (define (grob-property-description symbol type? description)
   (if (not (equal? (object-property symbol 'backend-doc) #f))

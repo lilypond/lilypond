@@ -1,5 +1,5 @@
 
-(define all-translation-properties '())
+(define-public all-translation-properties '())
 
 (define (translator-property-description symbol type? description)
  (if (not (equal? #f (object-property symbol 'translation-doc)))
