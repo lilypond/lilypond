@@ -12,11 +12,14 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
+/*
+  TODO: junk nested slur functionality.
+ */
 class Slur_engraver : public Engraver
 {
-  Link_array<Span_req> requestses_;
+  Link_array<Span_req> requests_;
   Link_array<Span_req> new_slur_reqs_;
-  Link_array<Grob> slur_l_stack_;
+  Link_array<Grob> slur_stack_;
   Link_array<Grob> end_slurs_;
   Moment last_start_;
 
@@ -47,17 +50,17 @@ Slur_engraver::try_music (Music *req)
       String t =  ly_scm2string (sl->get_mus_property ("span-type"));
       if (t == "abort")
 	{
-	  for (int i = 0; i < slur_l_stack_.size (); i++)
+	  for (int i = 0; i < slur_stack_.size (); i++)
 	    {
-	      slur_l_stack_[i]->suicide ();
+	      slur_stack_[i]->suicide ();
 	    }
-	  slur_l_stack_.clear ();
+	  slur_stack_.clear ();
 	  for (int i = 0; i < end_slurs_.size (); i++)
 	    {
 	      end_slurs_[i]->suicide ();
 	    }
 	  end_slurs_.clear ();
-	  requestses_.clear ();
+	  requests_.clear ();
 	  new_slur_reqs_.clear ();
 	}
       else if (t == "slur")
@@ -71,11 +74,24 @@ Slur_engraver::try_music (Music *req)
 	        {
 	          new_slur_reqs_.push (sl);
 		  last_start_ = now_mom ();
-	          return true;
 		}
+
+	      /*
+		But we swallow other slur requests.
+	      */
+	      
+	      return true;
+
 	    }
-	  else
+	  else if (sl->get_span_dir () == STOP)
 	    {
+	      /*
+		Swallow other requests.
+	       */
+	      for (int j = new_slur_reqs_.size(); j--;)
+		if (new_slur_reqs_[j]->get_span_dir() == STOP)
+		  return true;
+	      
 	      new_slur_reqs_.push (sl);
 	      return true;
 	    }
@@ -96,8 +112,8 @@ Slur_engraver::acknowledge_grob (Grob_info info)
   if (Note_column::has_interface (info.grob_))
     {
       Grob *e =info.grob_;
-      for (int i = 0; i < slur_l_stack_.size (); i++)
-	Slur::add_column (slur_l_stack_[i], e);
+      for (int i = 0; i < slur_stack_.size (); i++)
+	Slur::add_column (slur_stack_[i], e);
       for (int i = 0; i < end_slurs_.size (); i++)
 	Slur::add_column (end_slurs_[i], e);
     }
@@ -106,22 +122,22 @@ Slur_engraver::acknowledge_grob (Grob_info info)
 void
 Slur_engraver::finalize ()
 {
-  for (int i = 0; i < slur_l_stack_.size (); i++)
+  for (int i = 0; i < slur_stack_.size (); i++)
     {
 #if 0
-      typeset_grob (slur_l_stack_[i]);
+      typeset_grob (slur_stack_[i]);
 #else
       /*
 	Let's not typeset unterminated stuff
        */
-      slur_l_stack_[i]->suicide ();
+      slur_stack_[i]->suicide ();
 #endif     
     }
-  slur_l_stack_.clear ();
+  slur_stack_.clear ();
 
-  for (int i=0; i < requestses_.size (); i++)
+  for (int i=0; i < requests_.size (); i++)
       {
-	requestses_[i]->origin ()->warning (_ ("unterminated slur"));
+	requests_[i]->origin ()->warning (_ ("unterminated slur"));
       }
 }
 
@@ -135,16 +151,16 @@ Slur_engraver::process_acknowledged_grobs ()
       // end slur: move the slur to other array
       if (slur_req->get_span_dir () == STOP)
 	{
-	  if (slur_l_stack_.empty ())
+	  if (slur_stack_.empty ())
 	    /* How to shut up this warning, when Voice_devnull_engraver has
 	       eaten start request? */
 	    slur_req->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
-	      Grob* slur = slur_l_stack_.pop ();
+	      Grob* slur = slur_stack_.pop ();
 	    
 	      end_slurs_.push (slur);
-	      requestses_.pop ();
+	      requests_.pop ();
 	    }
 	}
       else  if (slur_req->get_span_dir () == START)
@@ -154,12 +170,12 @@ Slur_engraver::process_acknowledged_grobs ()
 	  Grob* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur); // cannot remove yet!
 	  start_slurs.push (slur);
-	  requestses_.push (slur_req);
+	  requests_.push (slur_req);
 	  announce_grob (slur, slur_req->self_scm ());
 	}
     }
   for (int i=0; i < start_slurs.size (); i++)
-    slur_l_stack_.push (start_slurs[i]);
+    slur_stack_.push (start_slurs[i]);
   new_slur_reqs_.clear ();
 }
 
@@ -180,7 +196,7 @@ Slur_engraver::start_translation_timestep ()
   SCM m = get_property ("automaticMelismata");
   if (to_boolean (m))
     {
-      set_melisma (slur_l_stack_.size ());
+      set_melisma (slur_stack_.size ());
     }
 }
 

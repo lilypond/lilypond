@@ -324,7 +324,11 @@ HaraKiriStaffContext = \translator {
 	\consistsend "Hara_kiri_engraver"
 	\consists "Instrument_name_engraver"
 	\accepts "Voice"
+
+	% hara kiri & auto knee don't work together.
+	Beam \override #'auto-knee-gap = #'()
 }
+
 %{
   The HaraKiriStaffContexts doesn't override \name,
   so it is still named `Staff'.
