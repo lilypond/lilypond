@@ -672,12 +672,13 @@ LilyPond with gcc-3.1.1 you may do:
 
 @example
         CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-        CPPFLAGS=$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
+        CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
             ./configure --enable-config=gcc-3.1
         CONF=gcc-3.1 ./lexer-gcc-3.1.sh
         make conf=gcc-3.1
 @end example
 
+This assumes that the GCC 3.1 binaries are called gcc-3.1 and g++-3.1.
 Note that this is @strong{not} fixed in Debian/unstable for flex <=
 2.5.4a-26.
 

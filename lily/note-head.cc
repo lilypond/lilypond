@@ -125,15 +125,15 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   SCM scm_font_family = ly_cdr (scm_pair);
   String font_char = "noteheads-" + ly_scm2string (scm_font_char);
   String font_family = ly_scm2string (scm_font_family);
-  
-   me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
-   Molecule out =
-     Font_interface::get_default_font (me)->find_by_name (font_char);
-   if (out.empty_b())
-     {
-       warning (_f("Symbol not found, ", font_char.to_str0()));
+
+  me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
+  Molecule out =
+    Font_interface::get_default_font (me)->find_by_name (font_char);
+  if (out.empty_b())
+    {
+      me->warning (_f ("Symbol `%s' not found in family `%s'",
+		       font_char.to_str0 (), font_family.to_str0 ()));
     }
-  
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   if (abs (pos) - interspaces > 1)

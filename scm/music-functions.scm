@@ -13,7 +13,7 @@
 (define (shift-duration-log music shift dot)
   "Recurse through music, adding SHIFT to duration-log and optionally 
   a dot to any note encountered. This scales the music up by a factor 
-  2^shift."
+  2^shift * (2 - (1/2)^dot)"
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
          (n  (ly-music-name music))

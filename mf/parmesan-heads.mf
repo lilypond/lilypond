@@ -486,50 +486,50 @@ def inclinatum_char(expr verbose_name, internal_name, mudela_name,
 enddef;
 
 % punctum
-punctum_char("Ed. Vat. punctum", "0vaticana_punctum", "vatpunctumhead",
+punctum_char("Ed. Vat. punctum", "vaticana_punctum", "vatpunctumhead",
 	     false, false, false, false, false,
 	     false, false, false, false, 1.0);
 
 % punctum cavum (for OpusTeX compatibility)
-punctum_char("Ed. Vat. punctum cavum", "0vaticana_punctum_cavum",
+punctum_char("Ed. Vat. punctum cavum", "vaticana_punctum_cavum",
 	     "vatpunctumcavumhead",
 	     false, false, false, true, false,
 	     false, false, false, false, 1.0);
 
 % linea punctum (for OpusTeX compatibility)
-punctum_char("Ed. Vat. linea punctum", "0vaticana_linea_punctum",
+punctum_char("Ed. Vat. linea punctum", "vaticana_linea_punctum",
 	     "vatlineapunctumhead",
 	     false, false, true, false, false,
 	     false, false, false, false, 1.0);
 
 % linea punctum cavum (for OpusTeX compatibility)
-punctum_char("Ed. Vat. linea punctum cavum", "0vaticana_linea_punctum_cavum",
+punctum_char("Ed. Vat. linea punctum cavum", "vaticana_linea_punctum_cavum",
 	     "vatlineapunctumcavumhead",
 	     false, false, true, true, false,
 	     false, false, false, false, 1.0);
 
 % punctum inclinatum
-inclinatum_char("Ed. Vat. inclinatum", "0vaticana_inclinatum",
+inclinatum_char("Ed. Vat. inclinatum", "vaticana_inclinatum",
 		"vatinclinatumhead",
 		false, false, false);
 
 % virga (i.e. right stemmed punctum)
-punctum_char("Ed. Vat. virga", "0vaticana_virga", "vatvirgahead",
+punctum_char("Ed. Vat. virga", "vaticana_virga", "vatvirgahead",
 	     false, true, false, false, false,
 	     false, false, false, false, 1.0);
 
 % left stemmed punctum as used in clivis (flexa) ligature
-punctum_char("Ed. Vat. reverse virga", "0vaticana_rvirga", "vatrvirgahead",
+punctum_char("Ed. Vat. reverse virga", "vaticana_rvirga", "vatrvirgahead",
 	     true, false, false, false, false,
 	     false, false, false, false, 1.0);
 
 % pes lower punctum
-punctum_char("Ed. Vat. pes lower punctum", "0vaticana_lpes", "vatlpeshead",
+punctum_char("Ed. Vat. pes lower punctum", "vaticana_lpes", "vatlpeshead",
 	     false, false, false, false, true,
 	     false, true, false, false, 1.0);
 
 % pes upper punctum
-punctum_char("Ed. Vat. pes upper punctum", "0vaticana_upes", "vatupeshead",
+punctum_char("Ed. Vat. pes upper punctum", "vaticana_upes", "vatupeshead",
 	     false, false, false, false, true,
 	     false, false, false, false, 1.0);
 
@@ -539,29 +539,29 @@ punctum_char("Ed. Vat. pes upper punctum", "0vaticana_upes", "vatupeshead",
 % punctum to avoid collision with the lower punctum note of the pes when
 % the upper punctum sits directly on top of the lower punctum.
 %
-punctum_char("Ed. Vat. var pes upper punctum", "0vaticana_vupes",
+punctum_char("Ed. Vat. var pes upper punctum", "vaticana_vupes",
 	     "vatvupeshead",
 	     false, false, false, false, true,
 	     false, false, false, true, 1.0);
 
 % small punctum as used in epiphonus/cephalicus
-punctum_char("Ed. Vat. plica", "0vaticana_plica", "vatplicahead",
+punctum_char("Ed. Vat. plica", "vaticana_plica", "vatplicahead",
 	     false, false, false, false, true,
 	     false, false, false, false, 0.5);
 
 % excentric punctum as used in epiphonus
-punctum_char("Ed. Vat. epiphonus", "0vaticana_epiphonus", "vatepiphonushead",
+punctum_char("Ed. Vat. epiphonus", "vaticana_epiphonus", "vatepiphonushead",
 	     false, false, false, false, false,
 	     false, true, true, false, 1.0);
 
 % excentric punctum as used in cephalicus
-punctum_char("Ed. Vat. cephalicus", "0vaticana_cephalicus",
+punctum_char("Ed. Vat. cephalicus", "vaticana_cephalicus",
 	     "vatcephalicushead",
 	     false, false, false, false, false,
 	     false, false, true, false, 1.0);
 
 % quilisma
-fet_beginchar("Ed. Vat. quilisma", "0vaticana_quilisma", "vatquilismahead")
+fet_beginchar("Ed. Vat. quilisma", "vaticana_quilisma", "vatquilismahead")
 	save b_h,a_w;
 	a_b:=1.54; % b_h*a_b/a_w = wd/ht
 	b_h:=0.85;
@@ -589,39 +589,39 @@ fet_beginchar("Ed. Vat. quilisma", "0vaticana_quilisma", "vatquilismahead")
 fet_endchar;
 
 % solesmes punctum inclinatum parvum
-inclinatum_char("Solesmes punctum inclinatum parvum", "0solesmes_incl_parvum",
+inclinatum_char("Solesmes punctum inclinatum parvum", "solesmes_incl_parvum",
 		"solinclparvumhead",
 		true, false, false);
 
 % solesmes punctum auctum ascendens
-punctum_char("Solesmes punctum auctum ascendens", "0solesmes_auct_asc",
+punctum_char("Solesmes punctum auctum ascendens", "solesmes_auct_asc",
 	     "solauctaschead",
 	     false, false, false, false, false,
 	     true, true, false, false, 1.0);
 
 % solesmes punctum auctum descendens
-punctum_char("Solesmes punctum auctum descendens", "0solesmes_auct_desc",
+punctum_char("Solesmes punctum auctum descendens", "solesmes_auct_desc",
 	     "solauctdeschead",
 	     false, false, false, false, false,
 	     true, false, false, false, 1.0);
 
 % solesmes punctum inclinatum auctum
-inclinatum_char("Solesmes punctum incl. auctum", "0solesmes_incl_auctum",
+inclinatum_char("Solesmes punctum incl. auctum", "solesmes_incl_auctum",
 		"solpunctuminclinatumauctumhead",
 		false, false, true);
 
 % solesmes stropha
-inclinatum_char("Solesmes stropha", "0solesmes_stropha",
+inclinatum_char("Solesmes stropha", "solesmes_stropha",
 		"solstrophahead",
 		false, true, false);
 
 % solesmes stropha aucta
-inclinatum_char("Solesmes stropha aucta", "0solesmes_stropha_aucta",
+inclinatum_char("Solesmes stropha aucta", "solesmes_stropha_aucta",
 		"solstrophaauctahead",
 		false, true, true);
 
 % solesmes oriscus
-fet_beginchar("Solesmes oriscus", "0solesmes_oriscus",
+fet_beginchar("Solesmes oriscus", "solesmes_oriscus",
 	"soloriscushead")
 	save b_h, a_w;
 	a_b := 1.54; % b_h*a_b/a_w = wd/ht
@@ -658,7 +658,7 @@ fet_endchar;
 %
 
 % inclinatum
-fet_beginchar("Ed. Med. inclinatum", "0medicaea_inclinatum",
+fet_beginchar("Ed. Med. inclinatum", "medicaea_inclinatum",
 	"medinclinatumhead")
 	save b_h, a_w;
 	a_b := 1.54; % b_h*a_b/a_w = wd/ht
@@ -724,15 +724,15 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 enddef;
 
 % punctum
-punctum_char("Ed. Med. punctum", "0medicaea_punctum", "medpunctumhead",
+punctum_char("Ed. Med. punctum", "medicaea_punctum", "medpunctumhead",
 	false, false);
 
 % left up-stemmed punctum
-punctum_char("Ed. Med. reverse virga", "0medicaea_rvirga", "medrvirgahead",
+punctum_char("Ed. Med. reverse virga", "medicaea_rvirga", "medrvirgahead",
 	true, false);
 
 % virga (i.e. left down-stemmed punctum)
-punctum_char("Ed. Med. virga", "0medicaea_virga", "medvirgahead",
+punctum_char("Ed. Med. virga", "medicaea_virga", "medvirgahead",
 	false, true);
 
 %%%%%%%%
@@ -783,13 +783,13 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 enddef;
 
 % punctum
-punctum_char("Hufnagel punctum", "0hufnagel_punctum", "hufpunctumhead", false)
+punctum_char("Hufnagel punctum", "hufnagel_punctum", "hufpunctumhead", false)
 
 % virga
-punctum_char("Hufnagel virga", "0hufnagel_virga", "hufvirgahead", true)
+punctum_char("Hufnagel virga", "hufnagel_virga", "hufvirgahead", true)
 
 % pes lower punctum
-fet_beginchar("Hufnagel pes lower punctum", "0hufnagel_lpes", "huflpeshead")
+fet_beginchar("Hufnagel pes lower punctum", "hufnagel_lpes", "huflpeshead")
 	save b_h, a_w;
 	a_b := 1.54; % b_h*a_b/a_w = wd/ht
 	b_h := 0.85;

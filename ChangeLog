@@ -1,3 +1,11 @@
+
+2002-08-29  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/test/ancient-font.ly, mf/parmesan-heads.mf,
+	scm/output-lib.scm, lily/note-head.cc: bugfix: make neume note
+	heads accessible
+ 
+
 2002-08-29  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scm/music-functions.scm (unfold-repeats): Call new

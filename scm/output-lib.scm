@@ -154,8 +154,11 @@
 	(cons (string-append (number->string duration) "neo_mensural") "ancient")
 	(cons (number->string duration) "music")))
    (else
-    (cons (string-append (number->string (max 0 duration)) (symbol->string style))
-     "music"))))
+    (if (string-match "vaticana*|hufnagel*|medicaea*" style)
+	(cons (symbol->string style) "ancient")
+	(cons (string-append (number->string (max 0 duration))
+			     (symbol->string style))
+	      "music")))))
 
 
 (define (note-head-style->attachment-coordinates style duration)
