@@ -485,7 +485,7 @@
 	(bracket-flare . (0.5 . 0.5)) 
 	(meta . ((interfaces . (horizontal-bracket-interface
 				side-position-interface
-				bracket-interface line-interface
+				line-interface
 				spanner-interface))))
 	))
     (InstrumentName

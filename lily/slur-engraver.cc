@@ -127,7 +127,7 @@ Slur_engraver::process_music ()
 	slur_->set_property ("direction", scm_int2num (updown));
     }
 
-  set_melisma (slur_)
+  set_melisma (slur_);
 }
 
 void

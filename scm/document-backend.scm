@@ -99,6 +99,7 @@ node."
       ((metah (assoc 'meta description))
        (meta (cdr metah))
        (name (cdr (assoc 'name meta)))
+;       (bla (display name))
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
        (ifacedoc (map (lambda (iface)
 			(ref-ify (symbol->string (car iface)))
