@@ -16,13 +16,14 @@ in emacs:
 
 	(add-hook 'c-mode-hook
 		  '(lambda ()(setq c-basic-offset 4)))
-
-
 	(add-hook 'c++-mode-hook
 		  '(lambda() (c-set-style "Stroustrup")
 		     )
 		  )
+=head2 FILES
 
+The class C<This_is_a_class> is declared in F<this-is-a-class.hh> and
+implemented in F<this-is-a-class.cc>.
 
 =head2 CLASSES and TYPES:
 
@@ -34,7 +35,7 @@ in emacs:
 	Class::member()
 	Type Class::member_type_
 
-the C<type> is a Hungarian notation postfix for $C<Type>$. See below
+the C<type> is a Hungarian notation postfix for C<Type>. See below
 
 
 =head2 COMMENTS
@@ -88,7 +89,7 @@ symbols. Staff is  the "brains" for PStaff
 NB: in PCursor (which is part of the library) P stands for PointerCursor
 
 
-=head2 MEMBERS(2)
+=head2 MEMBERS (2)
 
 Standard methods:
 
