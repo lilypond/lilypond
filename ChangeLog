@@ -1,5 +1,8 @@
 2004-09-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/system.cc (get_line): don't take piano-pedal & dynamic line
+	spanners into account for staff-extents.
+
 	* lily/ottava-bracket.cc (print): take common refpoint of dots
 	into account as well.
 

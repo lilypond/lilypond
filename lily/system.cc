@@ -348,7 +348,13 @@ System::get_line ()
 	if (i == 0
 	    && Axis_group_interface::has_interface (g)
 	    && !Align_interface::has_interface (g)
-	    && dynamic_cast<Spanner*> (g))
+	    && dynamic_cast<Spanner*> (g)
+	    /*
+	      UGH.
+	     */
+	    && !g->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+	    && !g->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
+	    )
 	  {
 	    staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
 	  }
