@@ -530,7 +530,7 @@ HYPHEN		--
 	[{}]	{
 		return YYText ()[0];
 	}
-	[^#{}"\\ \t\n\r\f]+ {
+	[^<>#{}"\\ \t\n\r\f]+ {
 		String s (YYText ()); 
 
 		char c = s[s.length () - 1];

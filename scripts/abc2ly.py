@@ -204,7 +204,7 @@ def dump_slyrics (outf):
 	ks.sort ()
 	for k in ks:
 		if re.match('[1-9]', k):
-			m = chr(string.atoi(k) + 'A')
+			m = chr(string.atoi(k) + ord ('A'))
 		else:
 			m = k
 		for i in range (len(slyrics[voice_idx_dict[k]])):
@@ -219,7 +219,7 @@ def dump_voices (outf):
 	ks.sort ()
 	for k in ks:
 		if re.match ('[1-9]', k):
-			m = chr(string.atoi(k) + 'A')
+			m = chr(string.atoi(k) + ord ('A'))
 		else:
 			m = k
 		outf.write ("\nvoice%s =  {" % m)
