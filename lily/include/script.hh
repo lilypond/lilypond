@@ -17,7 +17,6 @@ class Script : public Item, public Staff_side {
     
     Stem *stem_l_;
 
-    /* *************** */
 protected:
     Molecule *brew_molecule_p()const;
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
@@ -25,6 +24,7 @@ protected:
     virtual Interval symbol_height()const;
     virtual void do_pre_processing();
     virtual Interval do_width() const;
+    SCORE_ELEM_CLONE(Script);
 private:
 
     void set_default_dir();
