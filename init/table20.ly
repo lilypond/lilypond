@@ -78,12 +78,8 @@ table_twenty =
 	"tenor_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
     }
 
-    "balls" = \table {
-	"-1"	"\breveball" 	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
-	"0"	"\wholeball"	0.0\pt	10.2\pt	0.0\pt	5.4\pt
-	"1"	"\halfball"	0.0\pt	6.8\pt	0.0\pt	5.4\pt
-	"2"	"\quartball"	0.0\pt	6.6\pt	0.0\pt	5.4\pt
-    }
+    % ugh what's our outdir called?
+    \include "font-en-tja20.ly"
 
     "slur" = \table {
 	"whole"	"\slurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
@@ -99,8 +95,8 @@ table_twenty =
     }
 
     "streepjes" = \table {
-	"toplines"	"\toplines{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botlines{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
+	"toplines"	"\toplines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
+	"botlines"	"\botlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
     }
 
     "bars" = \table {
@@ -170,7 +166,8 @@ table_twenty =
      }
 
     "beamslopes" = \table {
-	"slope"	"\beamslope{%}{%}"
+	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
 	"horizontal"	"\rulesym{%}{%}"	
     }
 }

@@ -75,18 +75,14 @@ table_sixteen=
 	"tenor_change"	"\caltoclef" 	0.0\pt	11.2\pt	0.0\pt	16.0\pt
      }
 
-     "balls" = \table {
-	"-2"	"\longaball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
-	"-1"	"\breveball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
-	"0"	"\wholeball"	0.0\pt	8.0\pt	0.0\pt	4.4\pt
-	"1"	"\halfball"	0.0\pt	5.4\pt	0.0\pt	4.4\pt
-	"2"	"\quartball"	0.0\pt	5.5\pt	0.0\pt	4.4\pt
-     }
+     % ugh what's our outdir called?
+     \include "font-en-tja16.ly"
 
      "slur" = \table {
 	"whole"	"\slurchar%{%}"
 	"half"	"\hslurchar%{%}"
      }
+
      "accidentals" = \table {
 	"-2"	"\flatflat"	0.0\pt 	8.16\pt	-2.5\pt 7.5\pt
 	"-1"	"\flat"		0.0\pt	4.8\pt	-2.5\pt 7.5\pt
@@ -96,8 +92,8 @@ table_sixteen=
      }
 
      "streepjes" = \table {
-	"toplines"	"\toplines{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botlines{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"toplines"	"\toplines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
+	"botlines"	"\botlines{%}{%}"	-1.0\pt	7.0\pt	0.0\pt	0.0\pt
      }
 
      "bars" = \table {
@@ -170,8 +166,9 @@ table_sixteen=
      }
 
      "beamslopes" = \table {
-	"slope"	"\beamslope{%}{%}"
-	"horizontal"	"\rulesym{%}{%}"
+	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"horizontal"	"\rulesym{%}{%}"	
      }
 
 }

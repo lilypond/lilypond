@@ -57,12 +57,14 @@
 \newdimen\noteheight
 \newdimen\staffrulethickness
 \newdimen\interstaffrule
+\newdimen\dist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
+% ugh
 \def\musixtwentydefs{
         \balkheight=20pt
-        \notewidth=6.7pt
+        \notewidth=7.15pt
         \noteheight=5pt
         \staffrulethickness=0.4pt
         \musixtwentyfonts
@@ -73,7 +75,7 @@
 \def\musixsixteendefs{
         \balkheight=16pt
         \staffrulethickness=0.4pt
-        \notewidth=5.45pt
+        \notewidth=5.93pt
         \noteheight=4pt
         \musixsixteenfonts
         \font\textmusic=cmmi10
@@ -101,6 +103,7 @@
 \input dyndefs
 
 \input taupindefs
+%\input eglerdefs
 
 \musicmathdef\cup{91} % \cup
 \musicmathdef\wedge{94} % \wedge
@@ -180,11 +183,11 @@
 %%
 % Ugh. Need to redo this. Wish we had PS.
 %
-\def\toplines#1{ % why space needed here?
-        \topalign{\hbox{\kern-\notewidth\lines{#1}{1.6\notewidth}{1.6\staffrulethickness}}}}
+\def\toplines#1#2{\dist#1
+        \topalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
 
-\def\botlines#1{ % idem ditto
-        \botalign{\hbox{\kern-\notewidth\lines{#1}{1.6\notewidth}{1.6\staffrulethickness}}}}
+\def\botlines#1#2{\dist#1
+        \botalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
@@ -198,7 +201,6 @@
 }
 
 
-\def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
 \def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
 \def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
 \def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}

@@ -51,7 +51,13 @@ Symtable::lookup (String s) const
 Symtable* 
 Symtables::operator()(String s) 
 {
-  return Dictionary<Symtable*>::operator[](s);
+  if (!elt_b (s))
+    {
+      warning ("Symtables `" + s + "\' unknown");
+      return 0;
+    }
+  else
+    return Dictionary<Symtable*>::operator[](s);
 } 
 void
 Symtables::print() const
