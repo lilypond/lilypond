@@ -64,6 +64,7 @@
 		     (list 'textScriptPadding number? 'padding)
 		     (list 'textVerticalAlignment dir? 'self-alignment-Y)
 		     (list 'textHorizontalAlignment dir? 'self-alignment-X)
+		     (list 'textScriptWordSpace number? 'word-space)
 		     )
 	))
 
@@ -71,6 +72,11 @@
   (cons "Sustain_pedal" (list
 			 (list 'textScriptPadding number? 'padding)
 			 (list 'sustainPedalPadding number? 'padding))))
+
+(define generic-chord-name-properties
+  (cons "Chord_name" (list
+		      (list 'textScriptWordSpace number? 'word-space)
+		      (list 'chordNameWordSpace number? 'word-space))))
 
 (define generic-crescendo-properties
   (cons "Crescendo" (list
@@ -238,5 +244,10 @@
    
 (define generic-lyrics-properties
   (list generic-text-properties
+  )
+)
+
+(define generic-chord-staff-properties
+  (list generic-chord-name-properties
   )
 )

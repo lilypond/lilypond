@@ -1,3 +1,12 @@
+1.3.44.jcn2
+===========
+
+* Implemented una-chorda and sostenuto piano pedals in performer and engraver.
+
+* Added Properties textScriptWordSpace and chordNameWordSpace.
+
+* Junked old lyrics in star-spangled-banner.
+
 1.3.44.jcn1
 ===========
 

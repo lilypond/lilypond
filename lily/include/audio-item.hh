@@ -79,7 +79,8 @@ public:
 class Audio_piano_pedal : public Audio_item
 {
 public:
-  bool type_b_;
+  String type_str_;
+  Direction dir_;
 };
 
 class Audio_text : public Audio_item

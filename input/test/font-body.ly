@@ -62,5 +62,6 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			\time 12/8; a1. |
 			\time 12/4;
 			r1. r2. r4. r8. r16. r32. r64. r64. |
+			c2\sustaindown c\sustainup |
 		}
 }

@@ -144,6 +144,12 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
+
+	startSustain = #"Ped."
+	stopSustain = #"*"
+	stopStartSustain = #"*Ped."
+	startUnaChorda = #"una chorda"
+	stopUnaChorda = #"tre chorde"
 	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -291,6 +297,8 @@ ChordNameContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
 
+	Generic_property_list = #generic-chord-staff-properties
+	\consists "Property_engraver";	
 	\consists "Output_property_engraver";	
 	\accepts "ChordNameVoice";
 	\consistsend "Axis_group_engraver";

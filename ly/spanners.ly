@@ -24,8 +24,14 @@ cresc = \spanrequest \start "crescendo"
 endcresc = \spanrequest \stop "crescendo"
 
 % better name sustainstart/stop? 
-sustaindown = \spanrequest \start "sustain"
-sustainup = \spanrequest \stop "sustain"
+sustaindown = \spanrequest \start "Sustain"
+sustainup = \spanrequest \stop "Sustain"
+
+unachorda = \spanrequest \start "UnaChorda"
+trechorde = \spanrequest \stop "UnaChorda"
+
+sostenutodown = \spanrequest \start "Sostenuto"
+sostenutoup = \spanrequest \stop "Sostenuto"
 
 %crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
 %decresc = \property Voice.crescendoText = "decr."
