@@ -1,3 +1,14 @@
+2004-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/include/open-type-font.hh (count): New method.
+
+	* mf/aybabtu.pe.in: Typo.
+
+	* Documentation/user/out/lilypond-internals.nexi (Scheme
+	functions): Typo.
+
+	* lily/include/guile-compatibility.hh (SCM_HASHTABLE_P): Add compat.
+
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/gen-bigcheese-scripts.py (i): use symbols for
