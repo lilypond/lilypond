@@ -75,7 +75,7 @@ c d e f g a b
 @separate
 
 The length of a note is specified by adding a number, ``@code{1}'' for a
-whole note, ``@code{2}'' for a halve note, and so on:
+whole note, ``@code{2}'' for a half note, and so on:
 
 @quotation
 @example
@@ -471,8 +471,9 @@ and @code{]}:
 @separate
 
 To print more than one staff, each piece of music that makes up a staff
-is marked by adding @code{\context Staff} before it.  These staffs can
-be grouped inside @code{<} and @code{>}, as is demonstrated here:
+is marked by adding @code{\context Staff} before it.  These
+@code{Staff}'s can be grouped inside @code{<} and @code{>}, as is
+demonstrated here:
 
 @quotation
 @lilypond[fragment,verbatim]
@@ -484,12 +485,12 @@ be grouped inside @code{<} and @code{>}, as is demonstrated here:
 @end quotation
 
 In this example, @code{staffA} and @code{staffB} are names that are
-given to the staffs.  For now, it doesn't matter what names you give, as
+given to the staves.  For now, it doesn't matter what names you give, as
 long as each staff has a unique name.
 
 @separate
 
-We can typeset a melody with two staffs now:
+We can typeset a melody with two staves now:
 
 @quotation
 @lilypond[verbatim]
@@ -513,7 +514,7 @@ We can typeset a melody with two staffs now:
 
 Notice that the time signature is specified in one melody staff only
 (the top staff), but is printed on both.  LilyPond knows that the time
-signature should be the same for all staffs.
+signature should be the same for all staves.
 
 @separate
 
@@ -555,7 +556,7 @@ r4 <c e g> <c f a>
 @c hmm, te losjes, iig
 In general, @code{ < @var{stuff} > } is used when @var{stuff} all
 happens at the same time, like in chords, or (like in the two-staff
-example above) in a bunch of stacked staffs.
+example above) in a bunch of stacked staves.
 @end ignore
 
 Of course, you can combine beams and ties with chords.  Notice that
@@ -1520,7 +1521,7 @@ a @code{Staff} context explicitly: should you choose to remove the
 comment before the ``note heads'' version of the accompaniment, the
 accompaniment will be on a nameless staff.  The melody has to be on
 staff different from the accompaniment.  This is accomplished by giving
-the melody and accompaniment staffs different names.
+the melody and accompaniment staves different names.
 @separate
 @example 
 
@@ -1532,8 +1533,9 @@ the melody and accompaniment staffs different names.
 @cindex setting context variables
 An interpretation context has variables, called properties, that tune
 its behavior.  One of the variables is @code{noAutoBeaming}.  Setting
-this Staff's property to @code{##t}, which is the boolean value @var{true},
-turns the automatic beaming mechanism off for the current staff.
+this @code{Staff}'s property to @code{##t}, which is the boolean value
+@var{true}, turns the automatic beaming mechanism off for the current
+staff.
 @cindex GUILE
 @cindex Scheme
 @cindex accessing Scheme
@@ -1828,20 +1830,22 @@ viola = \notes \relative c' \context Voice = viola {
 
 oboes = \notes \relative c'' \context Voice = oboe {
     \stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-    \grace <e8( g> <d4 )f> <c2 e>
+    \grace { <e8( g> } <d4 )f> <c2 e>
     \times 2/3 { <d8 \< f> <e g> <f a> }
     <
         { \times 2/3 { a8 g c } \! c2 }
         \context Voice = oboeTwo {
             \stemDown
             \grace {
-                \property Grace.Stem \override #'direction = #-1
-                [f,16 g] }
+                \property Voice.Stem \override #'direction = #-1
+                [f,16 g] 
+                \property Voice.Stem \revert #'direction
+	    }
             f8 e e2
         }
     >
     \stemBoth
-    \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
+    \grace { <c,8( e> } <)b8. d8.-\trill> <c16 e> | 
     [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
     [<c16( e>  < )e8. g>] <c8 e,>
 }
@@ -1986,12 +1990,13 @@ these notes are indeed processed by precisely one context with
 defined above. 
 @separate
 @example 
-\grace <e8 g> < d4 f> <c2 e> 
+\grace @{ <e8 g> @} < d4 f> <c2 e> 
 @end example
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
 
+[FIXME]
 @code{\grace} introduces grace notes.  It takes one argument, in this
 case a chord.
 
@@ -2052,6 +2057,7 @@ it from the other context.  Stems go down in this voice.
 @example 
 \grace @{  
 @end example
+[FIXME]
 @cindex Grace context
 When a grace section is processed, a @code{Grace} context is
 created. This context acts like a miniature score of its own.  It has
@@ -2061,8 +2067,9 @@ etc. Here we fiddle with a property and make a beam.  The argument of
 
 @separate
 @example 
-\property Grace.Stem \override #'direction = #-1
-[f,16 g] @}
+                \property Voice.Stem \override #'direction = #-1
+                [f,16 g] 
+                \property Voice.Stem \revert #'direction
 @end example 
 
 Normally, grace notes are always stem up, but in this case, the upper
@@ -2081,7 +2088,7 @@ This ends the two-part section.
 @separate
 @example 
 \stemBoth
-\grace <c,8( e> <)b8. d8.-\trill> <c16 e> |  
+\grace @{ <c,8( e> @} <)b8. d8.-\trill> <c16 e> |  
 @end example
 @cindex trill
 @cindex stemBoth
@@ -2090,7 +2097,7 @@ This ends the two-part section.
 positioned as if it were single part music.
 
 The bass has a little hoom-pah melody to demonstrate parts switching
-between staffs.  Since it is repetitive, we use repeats:
+between staves.  Since it is repetitive, we use repeats:
 @separate
 @example 
 hoomPah  =  \repeat unfold 8
@@ -2124,10 +2131,10 @@ c4 g8. b,16
 @cindex cross staff voice, automatic
 @cindex @code{\autochange}
 
-Voices can switch between staffs. The easiest way to get this, is to use
+Voices can switch between staves. The easiest way to get this, is to use
 @code{\autochange}. This command looks at the pitch of each note, and if
 necessary, will cross to the other staff. For this to work, the two
-staffs must be called @code{"up"} and @code{"down"}.
+staves must be called @code{"up"} and @code{"down"}.
 @separate
 @example
         \translator Staff = down
@@ -2263,7 +2270,7 @@ to the end of the piece, and we can set the end bar.
 Key = \notes \key as \major
 @end example
 Declare the key signature of the piece and assign it to the identifier
-@var{Key}.  Later on, we'll use @code{\Key} for all staffs except those
+@var{Key}.  Later on, we'll use @code{\Key} for all staves except those
 for transposing instruments.
 
 @node The full score
@@ -2389,7 +2396,7 @@ too big for text, so we select a relative size of @code{-2}.
   <
     \global
 @end example
-Of course, all staffs are simultaneous and use the same global settings.
+Of course, all staves are simultaneous and use the same global settings.
 
 @separate
 @example
@@ -2417,11 +2424,11 @@ the online documentation.
     \context StaffGroup = woodwind <
       \context Staff = flauti <
 @end example
-A new notation context: the StaffGroup.  StaffGroup can hold one or more
-Staffs, and will print a big bracket at the left of the score.  Start a
-new staff group for the woodwind section (just the flutes in this case).
-Immediately after that, we start the staff for the two flutes, that also
-play simultaneously.
+A new notation context: the @code{StaffGroup}.  @code{StaffGroup} can
+hold one or more @code{Staff}'s, and will print a big bracket at the
+left of the score.  Start a new staff group for the woodwind section
+(just the flutes in this case).  Immediately after that, we start the
+staff for the two flutes, that also play simultaneously.
 
 @separate
 @example
@@ -2541,7 +2548,7 @@ want a different type of Staff context.
 In orchestral scores, it often happens that one instrument has only
 rests during one line of the score.  The @code{HaraKiriStaffContext} can
 be used as a regular @code{StaffContext} drop-in and will take care of
-the automatic removing of empty staffs.
+the automatic removing of empty staves.
 
 @node Extracting an individual part
 @subsection Extracting an individual part

@@ -10,8 +10,6 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
-#include "dictionary.hh"
-#include "dictionary-iter.hh"
 
 /**
    perform Piano pedals
