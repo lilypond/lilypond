@@ -44,7 +44,7 @@ Use Xdelta to patch tarballs, e.g. to patch
 @end example
 
 For information on packaging and CVS, see  
-@uref{http://lilypond.org/}, under ``develoment''.
+@uref{http://lilypond.org/}, under ``development''.
 
 
 @subsection Precompiled binaries
