@@ -1,18 +1,18 @@
 =head1 NAME
 
-LilyExamples - LilyPond example input
+LilyExamples - GNU LilyPond example input
 
 =head1 DESCRIPTION
 
-This file documents the example inputfiles of LilyPond. Information of
+This file documents the example inputfiles of GNU LilyPond. Information of
 each file: 
 
 	title
 	description (composer, piece)
-	tested LilyPond features.
+	tested GNU LilyPond features.
 	copyright info
 
-Most music distributed with LilyPond was composed a long time ago, and
+Most music distributed with GNU LilyPond was composed a long time ago, and
 do not have copyrights. Any exceptions are mentioned here.
 
 =head2 F<cadenza.ly>
@@ -46,6 +46,8 @@ bones version.
 
 Features: example with lots of newbie comment.
 
+Copyright: public domain
+
 =head2 F<maartje.ly>
 
 Features: partial measure.
@@ -73,11 +75,11 @@ Features: auto beams, multiple parralel meters.
 =head2 F<scales.ly>
 
 Features: plets, accents, beam steepnesses, dynamics, crescendi,
-\octave command.
+\octave command, \transpose, multiple scripts
 
 =head2 F<scsii-menuetto.ly>
 
-J. S. Bach, Solo Cello Suites. Suite II part v Menuetto I
+J. S. Bach, Solo Cello Suites. Suite II part v Menuetto I. BWV ?
 
 Features: breaking algorithm, chords, multivoice, accents
 
@@ -90,13 +92,13 @@ Features: multivoice, accents, lyrics, chords, piano music
 
 =head2 F<twinkle.ly>
 
+Twinkle twinkle little star in three languages.
+
 Features: lyrics
 
 =head2 F<wohltemperirt.ly>
 
-JS Bach, Das Wohltemperirtes Clavier I, Fuga II (c-minor)
-
-a 7 bar fragment. 
+JS Bach, Das Wohltemperirtes Clavier I, Fuga II (c-minor), BWV ?
 
 Features: stem direction, multivoice.
 
