@@ -162,7 +162,11 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
       LIBS="-lguile $LIBS" AC_DEFINE(HAVE_LIBGUILE), \
       AC_CHECK_LIB(readline, readline) \
       AC_CHECK_LIB(dl, dlopen) \
-      AC_CHECK_LIB(guile, scm_boot_guile))
+      AC_CHECK_LIB(socket, socket)\
+      AC_CHECK_LIB(termcap,tgetent)\
+      AC_CHECK_LIB(m, fabs)\
+      AC_CHECK_LIB(guile, scm_boot_guile)\
+    )
 ])
 
 AC_DEFUN(AC_STEPMAKE_INIT, [
