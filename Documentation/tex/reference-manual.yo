@@ -206,7 +206,7 @@ up in a chord modifier table (containg code(maj), code(dim) etc.)
 
 Since combinations of numbers and dots are used for indicating
 durations, you can not enter real numbers in this mode.  Dashes and
-carets are used to indicate chord additions and substractions, so
+carets are used to indicate chord additions and subtractions, so
 scripts can not be entered in chord mode.
 
 dit(Lyric mode) cindex(mode!lyric) Lyrics mode is introduced by the keyword
@@ -539,10 +539,28 @@ cis' d' e' cis'  c'? d' e' c'!
 )
 
 cindex(duration)
-Durations are entered as their reciprocal values
-mudela(fragment,verbatim,center)(
-a'1 a'2 a'4 a a'8 a a'16 a'32 a'64
+Durations are entered as their reciprocal values. For notes longer
+than a whole note, use identifiers.
+verb(
+  c'\longa c'\breve  
+  c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 c'2. c'8. c'16
 )
+mudela()(
+\score {
+       \notes \relative c'' {
+         a\longa a\breve  
+         a1 a2 a4 a8 a16 a32 a64 a64 a2. a8. a16
+         }
+         \paper {
+		loose_column_distance = 2.5 * \interline;
+        	linewidth = -1.0;
+        	\translator { \type "Score_engraver";
+        		    \name "Score";
+        		    \consists "Note_heads_engraver";
+        		    \consists "Stem_engraver";
+        		    \consists "Rhythmic_column_engraver";
+         }}})
+
 mudela(fragment,verbatim,center)(
 r1 r2 r4 r8 r16 r32
 )
@@ -687,7 +705,7 @@ per minute.
 
 code(\partial)keyindex(partial)var( duration)code(;) This creates an incomplete
 measure at the start of the music, eg.  code(\partial 8*2;) creates a
-starting measure lasting two eighth notes.cindex(anacrouse)cindex(upstep)
+starting measure lasting two eighth notes.cindex(anacrusis)cindex(upstep)
 
 code(|)cindex(|)cindex(barcheck)
 
@@ -1406,18 +1424,18 @@ name to give the chord.  By default, LilyPond will not try to identify
 chord inversions:
 mudela(fragment,verbatim,center)(
 <
-  \context ChordNames { 
-     \notes{ < e' g' c'' > } }
-  \context Staff \notes{ c' } 
+  \context ChordNameVoice { 
+     \notes{ < e'1 g' c'' > } }
+  \context Thread \notes{ < e'1 g' c'' > }
 >)
 If you want inversions to be recognized, you must set the property
 indexandcode(Score.chordInversion): 
 mudela(fragment,verbatim,center)(
 <
   \property Score.chordInversion = 1
-  \context ChordNames { 
-       \notes{ < e' g' c'' > } }
-  \context Staff \notes{ c' } 
+  \context ChordNameVoice { 
+       \notes{ < e'1 g' c'' > } }
+  \context Thread \notes{ < e'1 g' c'' > }
 >)
 
 
