@@ -52,9 +52,6 @@ void
 Score::run_translator (Music_output_def *odef_l)
 {
   Cpu_timer timer;
-  scm_gc();
-  cout << "\nCells in use: " <<  scm_cells_allocated << endl;
-  cout <<    "protects: " << scm_ilength (scm_protects) << endl;
 
   
   Global_translator * trans_p = odef_l->get_global_translator_p();
@@ -102,11 +99,12 @@ Score::run_translator (Music_output_def *odef_l)
   output->process();
   delete output ;
 
-  // force GC
+  /*
+    force GC. At this point, GUILE may give back mallocated area to
+    the system.
+  */
+    
   scm_gc();
-  cout << "\nCells in use: " <<  scm_cells_allocated <<endl;
-  cout <<    "protects " << scm_ilength (scm_protects) << endl;
-
 }
 
 void

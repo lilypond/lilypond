@@ -122,7 +122,10 @@ Paper_column::column_l () const
 
 Paper_column::Paper_column (Moment w)
 {
-  set_elt_property ("when", (new Moment (w))->smobify_self ());
+  SCM when = (new Moment (w))->smobify_self ();;
+  scm_unprotect_object (when);
+  set_elt_property ("when", when);
+  
   set_axes (X_AXIS, X_AXIS);
 
   line_l_=0;

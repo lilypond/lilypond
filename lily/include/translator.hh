@@ -67,6 +67,9 @@ public:
   virtual Moment now_mom () const;  
 
 protected:
+  /*
+    UGH. Clean this up.
+   */
    enum { 
     ORPHAN,
     VIRGIN,

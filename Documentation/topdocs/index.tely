@@ -144,6 +144,25 @@ If you have questions, do write to the mailing lists!
  (But don't forget to read the @uref{Documentation/out-www/faq.html,
 Frequently Asked Questions} first.)
 
+@html
+<p align=center>
+[
+    <a href="#download">Download</a>
+    |
+    <a href="Documentation/out-www/faq.html">FAQ</a>
+    |
+    <a href="Documentation/out-www/index.html">Documentation</a>
+    |
+    <a href="#music">Music archives</a>
+    |
+    <a href="#mailing-lists">Mailing lists</a>
+    |
+    <a href="Documentation/programmer/out-www/regression-test.html">
+    Regression test</a>
+    |
+    <a href="Documentation/out-www/CHANGES.txt">News</a>
+]
+@end html
 
 @table @samp
 @item info-gnu-music@@gnu.org

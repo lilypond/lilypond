@@ -1,5 +1,5 @@
 /*   
-  request-iterator.cc --  implement 
+  request-iterator.cc --  implement Simple_music_iterator
   
   source file of the GNU LilyPond music typesetter
   
@@ -9,19 +9,15 @@
 #include "request-iterator.hh"
 #include "music.hh"
 
-Request_iterator::Request_iterator()
-{
-}
-
 
 void
-Request_iterator::do_process_and_next (Moment m)
+Simple_music_iterator::do_process_and_next (Moment m)
 {
   if (first_b_)
     {
       bool g= try_music (music_l_);
       if (!g)
-	music_l_->warning (_f ("Junking request: `%s'", classname(music_l_)));
+	music_l_->warning (_f ("Junking music: `%s'", classname(music_l_)));
 
       first_b_ = false;
     }

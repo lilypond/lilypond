@@ -220,7 +220,7 @@ ly_isdir_p (SCM s)
 }
 
 
-void
+static void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
@@ -310,9 +310,7 @@ to_boolean (SCM s)
 /*
   Appendable list L: the cdr contains the list, the car the last cons
   in the list.
-  
  */
-
 SCM
 appendable_list ()
 {

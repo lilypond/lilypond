@@ -27,7 +27,7 @@ public:
      WARNING: putting something in assumes responsibility for cleaning
      up.  */
   void set (SCM k, SCM v);
-  SCM get (SCM k);
+  SCM get (SCM k) const; 
   
   Scheme_hash_table ();
   void operator = (Scheme_hash_table const &); 

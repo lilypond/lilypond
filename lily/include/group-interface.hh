@@ -15,6 +15,15 @@
 #include "lily-guile.hh"
 #include "smobs.hh"
 
+/*
+  rename to list interface?
+ */
+
+/**
+   Look at Score element ELT as thing which has a list property called
+   NAME_. Normally the list would contain Score_elements, but
+   sometimes it can be different things.
+*/
 struct Group_interface
 {
   Score_element * elt_l_;
@@ -23,6 +32,7 @@ public:
   Group_interface (Score_element const*);
   Group_interface (Score_element const*, String);
   int count ();
+  void add_thing (SCM);
   bool has_interface_b ();
   void set_interface ();
   void add_element (Score_element*);
@@ -31,10 +41,9 @@ public:
 Group_interface group (Score_element*);
 Group_interface group (Score_element*, String);
 
-/*
-  template<class T>
-  Link_array<T> Group_interface__extract_elements (T *, String name);
-*/
+/** 
+  Put all score elements of ELT's property called NAME into an array,
+  and return it.  */
 template<class T>
 Link_array<T>
 Group_interface__extract_elements (Score_element const *elt, T *, String name)

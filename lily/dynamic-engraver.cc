@@ -18,6 +18,7 @@
 #include "engraver.hh"
 #include "stem.hh"
 #include "note-head.hh"
+#include "group-interface.hh"
 
 /**
    print text & hairpin dynamics.
@@ -36,6 +37,9 @@ public:
   Dynamic_engraver();
   
 protected:
+
+  void announce_element (Score_element_info);
+  
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music *req_l);
@@ -45,6 +49,13 @@ protected:
   virtual void typeset_element (Score_element*);
 };
 
+void
+Dynamic_engraver::announce_element (Score_element_info i)
+{
+  group (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
+  
+  Engraver::announce_element (i);
+}
 
 
 Dynamic_engraver::Dynamic_engraver()

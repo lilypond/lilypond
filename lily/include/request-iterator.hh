@@ -12,10 +12,9 @@
 
 #include "music-iterator.hh"
 
-class Request_iterator : public Music_iterator
+class Simple_music_iterator : public Music_iterator
 {
 public:
-  Request_iterator ();
 protected:
   virtual void do_process_and_next (Moment );
 };

@@ -35,10 +35,18 @@ Group_interface::add_element (Score_element*p)
 {
   p->used_b_ =  true;
   elt_l_->used_b_ = true;
-  
-  elt_l_->set_elt_property (name_,
-			    gh_cons (p->self_scm_, elt_l_->get_elt_property (name_)));
+
+  add_thing (p->self_scm_);
 }
+
+void
+Group_interface::add_thing (SCM s)
+{
+  elt_l_->set_elt_property (name_,
+			    gh_cons (s, elt_l_->get_elt_property (name_)));
+
+}
+
 
 int
 Group_interface::count ()

@@ -1,7 +1,7 @@
 /*
   engraver.cc -- implement Engraver
 
-  Sourcefile of GNU LilyPond musictypesetter
+  Sourcefile of GNU LilyPond music type setter
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -13,6 +13,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "score-element.hh"
+#include "group-interface.hh"
 
 void
 Engraver::fill_staff_info (Staff_info&)
@@ -23,6 +24,9 @@ Engraver::fill_staff_info (Staff_info&)
 void
 Engraver::announce_element (Score_element_info i)
 {
+  Score_element *  e = i.elem_l_;
+  group (e, "interfaces").add_thing (ly_symbol2scm (e->name()));
+  
   if (!i.origin_trans_l_)
     i.origin_trans_l_ = this;
   daddy_grav_l()->announce_element (i);

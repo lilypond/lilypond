@@ -222,9 +222,6 @@ Paper_outputter::dump_onto (Paper_stream *ps)
 	  *ps << c;
 	  free (c);
 	}
-      cout << "\nCells in use: " <<  scm_cells_allocated << endl;
-  cout <<    "protects "  << scm_ilength (scm_protects) << endl;
-
   }
 }
 

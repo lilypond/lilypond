@@ -65,7 +65,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
   assert (SMOB_IS_TYPE_B (Scheme_hash_table, s));
   char str[1000];
-  sprintf (str, "#<Scheme_hash_table 0x%0ulx ", s);
+  sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
   scm_puts (str, p);      
   Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);
   for (Hash_table_iter<SCM,SCM> i (*me); i.ok(); i++)
@@ -88,9 +88,9 @@ Scheme_hash_table::set (SCM k, SCM v)
 }
 
 SCM
-Scheme_hash_table::get (SCM k)
+Scheme_hash_table::get (SCM k)const
 {
-  return elem (k);
+  return const_elem (k);
 }
 
 

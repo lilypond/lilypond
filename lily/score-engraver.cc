@@ -176,21 +176,23 @@ Score_engraver::set_columns (Paper_column *new_command_l,
 
   for (int i=00; i< 2; i++) 
     {
-      if (*current[i] && (*current[i])->linked_b()) 
+      if (*current[i])
 	{
-	  pscore_p_->add_column ((*current[i]));
-	  scoreline_l_->add_column ((*current[i]));
-	}
-      else
-	{
-	  *current[i]  =0;
-	  
-	  /*
-	    We're forgetting about this column. Dump it, and make SCM
-	    forget it.
+	  if ((*current[i])->linked_b()) 
+	    {
+	      pscore_p_->add_column ((*current[i]));
+	      scoreline_l_->add_column ((*current[i]));
+	    }
+	  else
+	    {
+	      /*
+		We're forgetting about this column. Dump it, and make SCM
+		forget it.
 
-	    (UGH.)  */
-	  scm_unprotect_object ((*current[i])->self_scm_);
+		(UGH.)  */
+	      scm_unprotect_object ((*current[i])->self_scm_);
+	      *current[i]  =0;
+	    }
 	}
       if (news[i])
 	*current[i] = news[i];

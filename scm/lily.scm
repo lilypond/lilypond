@@ -216,7 +216,27 @@
 		(font-load-command (car x) (cdr x))) font-name-alist)
   ))
   
+;;;;;;;;;;;;;;;;;;;;
 
+
+; Make a function that checks score element for being of a specific type. 
+(define (make-type-checker name)
+  (lambda (elt)
+    (not (not (memq name (ly-get-elt-property elt 'interfaces))))))
+
+	
+
+
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;; TeX output
 (define (tex-scm action-name)
   (define (unknown) 
     "%\n\\unknown%\n")
