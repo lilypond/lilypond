@@ -108,18 +108,23 @@ default_ly_options = {}
 AFTER = 'after'
 FILTER = 'filter'
 BEFORE = 'before'
+EXAMPLEINDENT = 'exampleindent'
 FRAGMENT = 'fragment'
 HTML = 'html'
+INDENT = 'indent'
 LATEX = 'latex'
 LINEWIDTH = 'linewidth'
 NOFRAGMENT = 'nofragment'
+NOINDENT = 'noindent'
 NOTES = 'body'
+NOTIME = 'notime'
 OUTPUT = 'output'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
 RAGGEDRIGHT = 'raggedright'
 RELATIVE = 'relative'
+QUOTE = 'quote'
 STAFFSIZE = 'staffsize'
 TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
@@ -189,17 +194,21 @@ ly_options = {
 	RELATIVE: r'''\relative c%(relative_quotes)s''',
 	},
 	PAPER: {
-	'indent' : r'''
+	EXAMPLEINDENT : '',
+	INDENT : r'''
     indent = %(indent)s''',
 	'linewidth' : r'''
     linewidth = %(linewidth)s''',
-	'noindent' : r'''
+	NOINDENT : r'''
     indent = 0.0\mm''',
-	'notime' : r'''
+	NOTIME : r'''
     \context {
         \StaffContext
         \remove Time_signature_engraver
     }''',
+	QUOTE : r'''
+    linewidth = %(linewidth)s - 2.0 * %(exampleindent)s
+''',	
 	RAGGEDRIGHT : r'''
     indent = 0.0\mm
     raggedright = ##t''',
@@ -227,6 +236,10 @@ output = {
     <img align="center" valign="center"
          border="0" src="%(image)s" alt="[image of music]">''',
 	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
+	QUOTE: r'''<blockquote>
+%(str)s
+</blockquote>
+''',	
 	VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 	},
@@ -244,6 +257,10 @@ output = {
 	PRINTFILENAME: '''\\texttt{%(filename)s}
 
 	''',
+	QUOTE: r'''\begin{quotation}
+%(str)s
+\end{quotation}
+''',	
 	VERBATIM: r'''\noindent
 \begin{verbatim}
 %(verb)s\end{verbatim}
@@ -265,6 +282,11 @@ output = {
 	PRINTFILENAME: '''@file{%(filename)s}
 
 	''',
+	QUOTE: r'''@quotation
+%(str)s
+@end quotation
+''',
+	# FIXME: @exampleindent 5  is the default...
 	VERBATIM: r'''@exampleindent 0
 @example
 %(verb)s@end example
@@ -319,6 +341,10 @@ def compose_ly (code, options):
 		if i not in options:
 			options.append (i)
 	
+	#Hmm
+	if QUOTE in options and LINEWIDTH in options:
+		options.remove (LINEWIDTH)
+
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
 		      or not NOFRAGMENT in options or FRAGMENT in options):
@@ -333,6 +359,8 @@ def compose_ly (code, options):
 	staffsize = 16
 	override = {}
 	override.update (default_ly_options)
+	#FIXME: where to get sane value for exampleindent?
+	override[EXAMPLEINDENT] = r'9.0 \mm'
 
 	option_string = string.join (options, ',')
 	notes_options = []
@@ -563,6 +591,8 @@ class Lilypond_snippet (Snippet):
 			if VERBATIM in self.options:
 				verb = verbatim_html (self.substring ('code'))
 				str += write (output[HTML][VERBATIM] % vars ())
+			if QUOTE in self.options:
+				str = output[HTML][QUOTE] % vars ()
 
 		str += output[HTML][BEFORE] % vars ()
 		for image in self.get_images ():
@@ -591,6 +621,9 @@ class Lilypond_snippet (Snippet):
 			if  VERBATIM in self.options:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
+			if QUOTE in self.options:
+				str = output[LATEX][QUOTE] % vars ()
+
 		str +=  (output[LATEX][BEFORE]
 			 + (output[LATEX][OUTPUT] % vars ())
 			 + output[LATEX][AFTER])
@@ -617,13 +650,17 @@ class Lilypond_snippet (Snippet):
 			if os.path.exists (texidoc):
 				str += '@include %(texidoc)s\n' % vars ()
 
-		if  VERBATIM in self.options:
+		if VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
 			str +=  (output[TEXINFO][VERBATIM] % vars ())
 
 		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 		str += ('@html\n' + self.output_html () + '\n@end html\n')
+
+		if QUOTE in self.options:
+			str = output[TEXINFO][QUOTE] % vars ()
+
 		# need par after image
 		str += '\n'
 
