@@ -145,14 +145,18 @@ Gourlay_breaking::do_solve()const
 
     Array<int> final_breaks;
 
+    Array<Col_hpositions> lines;
     /* skip 0-th element, since it is a "dummy" elt*/
     for (int i = optimal_paths.size()-1; i> 0; ) {
 	final_breaks.push ( i );
 	assert ( i > optimal_paths[i].prev_break_i_);
+
+	// there was no "feasible path"
+	if (!optimal_paths[i].line_config_.config.size() )
+	   return lines; 
 	i = optimal_paths[i].prev_break_i_;
     }
 
-    Array<Col_hpositions> lines;
     for (int i= final_breaks.size(); i--; ) 
 	lines.push ( optimal_paths[final_breaks[i]].line_config_ );
 

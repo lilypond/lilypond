@@ -41,7 +41,8 @@ chords by \verb+<+ and \verb+>+.
 \begin[verbatim]{mudela}
 \score {
         \melodic {      % {...} is a voice
-        c'4 g'4         % c and g are pitches, 4 is the duration (quaver)
+        c'4 g'4         % c and g are pitches, 4 is the duration
+                        % (crotchet/quarter note)
         c''4 ''c4       % c' is 1 octave up, 'c 1 down.
         <c'4 g'4>       % <...> is a chord
         }
