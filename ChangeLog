@@ -1,3 +1,14 @@
+2004-11-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): fixed
+	typo s/ly:dimension ?/ly:dimension?/
+
+	* input/regression/lily-in-scheme.ly: 
+	* input/regression/music-function.ly: 
+	* ly/spanners-init.ly (assertBeamSlope): 
+	* scm/music-functions.scm (def-grace-function): add the paper
+	argument to music function definitions.
+
 2004-11-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/spacing-stick-out.ly: new file.

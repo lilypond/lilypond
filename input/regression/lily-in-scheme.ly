@@ -15,17 +15,17 @@ the @code{TextScript} grob.
 \version "2.4.0"
 \layout { raggedright = ##t }
 
-withPaddingA = #(def-music-function (location padding music) (number? ly:music?)
+withPaddingA = #(def-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #$padding
 		 $music 
 		 \revert TextScript #'padding #})
 
-withPaddingB = #(def-music-function (location padding music) (number? ly:music?)
+withPaddingB = #(def-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #$(* padding 2)
 		 $music 
 		 \revert TextScript #'padding #})
 
-withPaddingC = #(def-music-function (location padding music) (number? ly:music?)
+withPaddingC = #(def-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #(+ 1 $(* padding 2))
 		    $music 
 		    \revert TextScript #'padding #})

@@ -93,7 +93,7 @@ sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 
 % for regression testing purposes.
 assertBeamQuant =
-#(def-music-function (location l r) (pair? pair?)
+#(def-music-function (parser location l r) (pair? pair?)
   (let* ((f (check-quant-callbacks l r)))
    
    #{
@@ -104,7 +104,7 @@ assertBeamQuant =
 
 % for regression testing purposes.
 assertBeamSlope =
-#(def-music-function (location comp) (procedure?)
+#(def-music-function (parser location comp) (procedure?)
   (let* ((f (check-slope-callbacks comp)))
    
    #{
