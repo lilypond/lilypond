@@ -7,7 +7,6 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-
 	* decimal point in \paper {}
 
 	> I have changed Mark_engraver to use the G_... classes.
@@ -42,6 +41,11 @@ grep for TODO and ugh/ugr/urg
 	* update mi2mu for lilypond 1.1
 
 BUGS:
+
+	* AAARG: Rational::Rational (double x) is broken, try:
+           Rational x = (double)0.25;
+           see 'suck me gently...'
+
 	* collisions/voices \voiceone \voicetwo are broken; see 
  	  input/praeludium-fuga-E.ly
  	  mutopia/J.S.Bach/wtk1-fugue2.ly
