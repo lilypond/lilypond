@@ -1,5 +1,7 @@
 2003-05-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lookup.cc (LY_DEFINE): new function
+
 	* Documentation/user/tutorial.itely: updates
 
 2003-05-15  Heikki Junes  <hjunes@cc.hut.fi>
