@@ -37,17 +37,17 @@ import tempfile
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
-datadir = '@local_package_datadir@'
+datadir = '@local_lilypond_datadir@'
 if os.environ.has_key ('LILYPONDPREFIX') \
-   or '@local_package_datadir@' == '@' + 'local_package_datadir' + '@':
+   or '@local_lilypond_datadir@' == '@' + 'local_lilypond_datadir' + '@':
 	datadir = os.environ['LILYPONDPREFIX']
 else:
-	datadir = '@local_package_datadir@'
+	datadir = '@local_lilypond_datadir@'
 
 sys.path.append (os.path.join (datadir, 'python'))
 sys.path.append (os.path.join (datadir, 'python/out'))
 
-program_name = 'ly2dvi'
+program_name = 'mup2ly'
 program_version = '@TOPLEVEL_VERSION@'
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
@@ -313,12 +313,12 @@ def mkdir_p (dir, mode=0777):
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
-datadir = '@datadir@'
+datadir = '@local_lilypond_datadir@'
 
 if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
 else:
-	datadir = '@datadir@'
+	datadir = '@local_lilypond_datadir@'
 
 
 while datadir[-1] == os.sep:

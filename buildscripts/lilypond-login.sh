@@ -10,7 +10,7 @@
 
 
 # strange shell, this C
-set datadir="@datadir@"
+set datadir="@local_lilypond_datadir@"
 
  if ( $?GS_LIB ) then
        setenv GS_LIB "$datadir/ps:$GS_LIB"
@@ -22,7 +22,7 @@ set datadir="@datadir@"
 # setenv LILYPONDPREFIX "$datadir"
 
 # bit silly. for ly2dvi, overrules compiled-in datadir...
-# setenv LILYPONDPREFIX "@datadir@"
+# setenv LILYPONDPREFIX "@local_lilypond_datadir@"
 
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
