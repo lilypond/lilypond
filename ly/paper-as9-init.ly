@@ -7,10 +7,9 @@ paperAsNine = \paper {
 
 	%\translator { \StaffContext barSize = \staffheight }
 
-	\stylesheet #(as-make-style-sheet 'as9)
+	#(define fonts (as-make-font-list 'as9))
 
 	\include "params-as-init.ly"
-	
 }
 
 \paper { \paperAsNine }
