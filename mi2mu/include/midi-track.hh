@@ -49,13 +49,11 @@ private:
 	void output_mudela_rest_remain( Lily_stream& lily_stream_r, Moment mom );
 
 #ifdef TCOL_LIST
-#warning using track_column list
 	Pointer_list<Track_column*> tcol_p_list_;
 #else
 	Array<Track_column*> tcol_p_array_;
 #endif
 #ifdef MVOICE_LIST
-#warning using midi_voice list
 	Pointer_list<Midi_voice*> midi_voice_p_list_;
 #else
 	Array<Midi_voice*> midi_voice_p_array_;

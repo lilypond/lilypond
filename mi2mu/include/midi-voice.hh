@@ -22,7 +22,6 @@ private:
 	Moment end_mom_;
 	Moment begin_mom_;
 #ifdef MEVENT_LIST
-#error using list
 	Pointer_list<Midi_event*> midi_event_p_list_;
 #else
 	Array<Midi_event*> midi_event_p_array_;

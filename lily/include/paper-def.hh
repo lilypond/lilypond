@@ -49,6 +49,8 @@ public:
     void set(Lookup*);
     ~Paper_def();
     Paper_def(Paper_def const&);
+    /// The distance between beams
+    Real interbeam_f()const;
     /**
       The distance between lines
      */

@@ -20,11 +20,14 @@ class Rest_column : public Script_column {
     Link_array<Note_head> head_l_arr_;
 public:
     int dir_i_;
+    Stem* stem_l_;
     void add(Note_head *);
+    void add(Stem *);
     NAME_MEMBERS();
     void translate_y(Real dy);
     Rest_column();
 protected:
+    virtual void do_print() const;
     virtual void do_substitute_dependency(Score_elem*, Score_elem*);
 };
 

@@ -107,7 +107,7 @@ AC_ARG_ENABLE(profiling,
 AC_ARG_ENABLE(mingw32,
     [  mingw-prefix=DIR        set the mingw32 directory (standalone windows32 exes)],
     [MINGWPREFIX=$enableval],
-    [MINGWPREFIX=$enableval])
+    [MINGWPREFIX=no])
     
 AC_ARG_ENABLE(tex-prefix,
     [  tex-prefix=DIR          set the tex-directory to find TeX subdirectories. (default: PREFIX)],

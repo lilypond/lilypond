@@ -14,7 +14,6 @@ Midi_track::Midi_track( int number_i, String copyright_str, String track_name_st
 	midi_time_p_ = new Midi_time( 4, 2, 24, 8 );
 	midi_tempo_p_ = new Midi_tempo( 1000000 );
 #ifdef TCOL_LIST
-#error doing list!
 	tcol_p_list_.bottom().add( new Track_column( Moment( 0 ) ) );
 #else
 	tcol_p_array_.push( new Track_column( Moment( 0 ) ) );
@@ -141,14 +140,12 @@ Midi_track::next_begin_mom( Moment now_mom )
 	Moment begin_mom = Midi_track::end_mom();
 #ifdef MVOICE_LIST
 	for ( PCursor<Midi_voice*> i( midi_voice_p_list_.top() ); i.ok(); i++ )
-//		if ( i->begin_mom() >= now_mom )// well, which one ? 
 		if ( i->begin_mom() > now_mom )
 			begin_mom = begin_mom <? i->begin_mom();
 #else
 	for ( int i = 0; i < midi_voice_p_array_.size(); i++ )
-		if ( midi_voice_p_array_[ i ]->begin_mom() >= now_mom ) // well, which one ?
 		if ( midi_voice_p_array_[ i ]->begin_mom() > now_mom )
-//			begin_mom = begin_mom <? midi_voice_p_array_[ i ]->begin_mom();
+			begin_mom = begin_mom <? midi_voice_p_array_[ i ]->begin_mom();
 #endif
 	return begin_mom;
 }
@@ -163,7 +160,6 @@ Midi_track::next_end_mom( Moment now_mom )
 			end_mom = end_mom <? i->end_mom();
 #else
 	for ( int i = 0; i < midi_voice_p_array_.size(); i++ ) 
-//		if ( midi_voice_p_array_[ i ]->end_mom() >= now_mom )
 		if ( midi_voice_p_array_[ i ]->end_mom() > now_mom )
 			end_mom = end_mom <? midi_voice_p_array_[ i ]->end_mom();
 #endif
@@ -444,7 +440,6 @@ void
 Midi_track::remove_end_at( Link_list<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( open_voices_r.top() ); i.ok(); i++ )
-//		if ( i->end_mom() == mom ) { }
 		if ( i->end_mom() <= mom ) {
 			tor( DEBUG_ver ) << "open_voices (" << open_voices_r.size() << "): -1\n";
 			i.remove_p();

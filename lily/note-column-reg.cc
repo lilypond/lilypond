@@ -73,8 +73,12 @@ Note_column_register::do_pre_move_processing()
     for (int i=0; i < script_l_arr_.size(); i++)
 	col_l->add(script_l_arr_[i]);
     
-    if (ncol_p_&&stem_l_)
-	ncol_p_->add(stem_l_);
+    if (stem_l_) {
+	if (ncol_p_)
+	    ncol_p_->add(stem_l_);
+	if (restcol_p_)
+	    restcol_p_->add(stem_l_);
+    }
     if (restcol_p_) {
 	if (! restcol_p_ -> dir_i_)
 	    restcol_p_->dir_i_ = dir_i_;
