@@ -239,3 +239,4 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
   return scm_makfrom0str (prefix_directory.to_str0 ());
 }
 
+

@@ -28,12 +28,14 @@
 (define mm-to-bigpoint
   (/ 72 25.4))
 
+
 (define-public (ps-font-command font)
   (let* ((name (munge-lily-font-name (ly:font-file-name font)))
 	 (magnify (ly:font-magnification font)))
 
     (string-append
-     "magfont" (string-encode-integer (string-hash  name 1000000))
+     "magfont"
+     (string-regexp-substitute "[ /%]" "_" name)
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
 (define (tex-font? fontname)
