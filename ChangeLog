@@ -1,5 +1,7 @@
 2004-07-25  Pedro Kroger  <kroeger@pedrokroeger.net>
 
+	* input/regression/page-layout.ly: new file.
+
 	* scm/paper.scm (set-paper-dimensions): Preliminary support for
 	left and right margins.
 
