@@ -52,7 +52,7 @@ Mark_engraver::do_process_requests ()
   td_p->style_str_ = td_p->text_str_.index_any_i ("0123456789") >= 0 
     ? "mark" : "Large";
 
-  script_p_->dir_ = UP;
+  script_p_->dir_ = LEFT;
   script_p_->specs_p_ = td_p->clone ();
   script_p_->postbreak_only_b_ = true;
   
@@ -66,6 +66,7 @@ Mark_engraver::do_process_requests ()
     {
       script_p_->break_priority_i_ = int(break_priority);
     }
+
   
   announce_element (Score_element_info (script_p_, mark_req_l_));
 }

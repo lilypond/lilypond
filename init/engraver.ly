@@ -44,6 +44,7 @@ Staff = \translator {
 	to the left of a staff.
 %}
 %{
+	marginBreakPriority = "-5";
 	\consists "Staff_margin_engraver";
 %}
 	\consists "Separating_line_group_engraver";
