@@ -9,11 +9,16 @@ decr = #(make-span-event 'DecrescendoEvent START)
 enddecr = #(make-span-event 'DecrescendoEvent STOP)
 endcr = #(make-span-event 'CrescendoEvent STOP) 
 
+
 startTextSpan = #(make-span-event 'TextSpanEvent START)
 stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 
-% TODO: junkme!
+startTrillSpan = #(make-span-event 'TrillSpanEvent START)
+stopTrillSpan = #(make-span-event 'TrillSpanEvent STOP)
+
+
+% STOP: junkme!
 cresc =  {
   #(ly:export (make-event-chord (list cr)))
   \set crescendoText = \markup { \italic "cresc." }

@@ -83,6 +83,7 @@ Score::Score (Score const &s)
     ly_import_module (header_, s.header_);
 }
 
+
 LY_DEFINE (ly_run_translator, "ly:run-translator", 
 	   2, 0, 0, (SCM mus, SCM output_def),
 	   "Process @var{mus} according to @var{output_def}. "
@@ -268,7 +269,6 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
   SCM_ASSERT_TYPE (od, paper, SCM_ARG2, __FUNCTION__, "Output_def");
 
-  SCM lines = SCM_EOL;
   Output_def * score_def  = 0;
 
   /* UGR, FIXME, these are default \paper blocks once again.  They
@@ -278,7 +278,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
       score_def = sc->defs_[i];
 
   if (!score_def)
-    return lines;
+    return scm_c_make_vector (0, SCM_EOL);
       
   score_def = score_def->clone ();
   SCM prot = score_def->self_scm ();
@@ -289,7 +289,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   score_def->parent_ = od;
   
   SCM context = ly_run_translator (sc->music_, score_def->self_scm ());
-  lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
+  SCM lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
   
   scm_remember_upto_here_1 (prot);
   return lines;

@@ -180,3 +180,15 @@ semiGermanChords = {
     \set chordRootNamer = #(chord-name->german-markup #f)
     \set chordNoteNamer = #note-name->german-markup
 }
+
+
+
+improvisationOn =  {
+    \set squashedPosition = #0
+    \override NoteHead  #'style = #'slash
+}
+
+improvisationOff =  {
+    \unset squashedPosition 
+    \revert NoteHead #'style
+}

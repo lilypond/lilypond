@@ -451,6 +451,10 @@ arts =   { s4-. s4-> }
   >>
 @end lilypond
 
+With this mechanism, it is possible to define an Urtext (original
+edition), with the option put several distinct articulations on the
+same notes.
+
 @cindex @code{\context}
 @cindex creating contexts
 
@@ -1053,6 +1057,7 @@ layout property name:
 * Navigating the program reference::  
 * Layout interfaces::           
 * Determining the grob property::  
+* Difficult tweaks::            
 @end menu
 
 
@@ -1430,6 +1435,107 @@ also be deduced from the program reference, for the page for the
   Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @end quotation
 
+@node Difficult tweaks
+@subsection Difficult tweaks
+
+There are two classes of difficult adjustments. First, when there are
+several of the same objects at one point, and you want to adjust only
+one. For example, if you want to change only one note head in a chord.
+
+In this case, the @code{\applyoutput} function must be used.  The
+next example defines a Scheme function @code{set-position-font-size}
+that sets the @code{font-size} property, but only  
+on objects that have @internalsref{note-head-interface} and are at the
+right Y-position.
+
+@lilypond[verbatim]
+#(define ((set-position-font-size pos size) grob origin current)
+  (let*
+      ((interfaces (ly:grob-property grob 'interfaces))
+       (position (ly:grob-property grob 'staff-position)))
+  (if (and
+  
+        ; is this a note head?
+        (memq 'note-head-interface interfaces)
+
+        ; is the Y coordinate right?
+        (= pos position))
+
+      ; then do it.
+      (set! (ly:grob-property grob 'font-size) size))))
+
+\relative {
+    c
+    \applyoutput #(set-position-font-size -2 4)
+    <c e g>
+}
+@end lilypond
+
+@noindent
+A similar technique can be used for accidentals. In that case, the
+function should check for @code{accidental-interface}.
+
+Another difficult adjustment is the appearance of spanner objects,
+such as slur and tie. Initially, only one of these objects is created,
+and they can be adjust with the normal mechanism. However, in some
+cases the spanners cross line breaks. If this happens, these objects
+are cloned.  A separate object is created for every system that it is
+in. These are clones of the original object and inherit all
+properties, including @code{\override}s.
+
+In other words, an @code{\override} always affects all pieces of a
+broken spanner. To change only one part of a spanner at a line break,
+it is necessary to hook into the formatting process. The
+@code{after-line-breaking-callback} property contains the Scheme procedure
+that is called after line breaks have been determined, and layout
+objects have been split over different systems.
+
+In the following example, we define a procedure
+@code{my-callback}. This procedure
+ 
+@itemize @bullet
+@item
+determines if we have been split across line breaks
+@item
+if yes, retrieves all the split objects
+@item
+checks if we are the last of the split objects
+@item
+if yes, it sets @code{extra-offset}.
+@end itemize
+
+This procedure is installed into @internalsref{Tie}, so the last part
+of broken tie is translated up.
+
+
+@lilypond[verbatim,raggedright]
+#(define (my-callback grob)
+  (let* (
+
+      ; have we been split? 
+      (orig (ly:grob-original grob))
+
+      ; if yes, get the split pieces (our siblings)
+      (siblings (if (ly:grob? orig) (ly:spanner-broken-into orig) '() )))
+
+      
+    (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+	(ly:grob-set-property! grob 'extra-offset '(-2 . 5))
+	)))
+
+\relative c'' { 
+    \override Tie  #'after-line-breaking-callback =
+    #my-callback
+    c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+
+When applying this trick, the new @code{after-line-breaking-callback}
+should also call the old @code{after-line-breaking-callback}, if there
+is one. For example, if using this with @code{Slur},
+@code{Slur::after_line_breaking} should also be called.
 
 @node Fonts
 @section Fonts
@@ -1651,6 +1757,7 @@ be moved with layout properties such as @code{padding} and
 
 
 
+
 @seealso
 
 Init files:  @file{scm/new-markup.scm}.
@@ -1672,6 +1779,7 @@ for formatting.
 
 @menu
 * Text encoding::               
+* Nested scores::               
 * Overview of text markup commands::  
 @end menu
 
@@ -1710,6 +1818,25 @@ are passed to the output back-end verbatim.
 @cindex @TeX{} commands in strings
 
 
+@node Nested scores
+@subsection Nested scores
+
+It is possible to nest music inside markups, by adding a @code{\score}
+block to markup expression. Such a score must contain a @code{\paper}
+block.
+
+@lilypond[verbatim,raggedright]
+\relative {
+  c4  d^\markup {
+    \score {
+      \relative { c4 d e f }
+      \paper { }
+    }
+  }
+  e f
+}
+@end lilypond
+ 
 
 
 @node  Overview of text markup commands

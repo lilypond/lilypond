@@ -1,6 +1,5 @@
 \version "2.3.8"
 \header {
-    title	= "Gregorian Scripts"
     texidoc  = "@cindex Gregorian Scripts
 
 Here is demonstrated a preliminary support of Gregorian Scripts:

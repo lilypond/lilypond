@@ -94,10 +94,9 @@
 (define (grob-doc description)
   "Given a property alist DESCRIPTION, make a documentation
 node."
-  
+
   (let*
-      (
-       (metah (assoc 'meta description))
+      ((metah (assoc 'meta description))
        (meta (cdr metah))
        (name (cdr (assoc 'name meta)))
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
@@ -108,8 +107,7 @@ node."
        (engravers (filter
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
        (namestr (symbol->string name))
-       (engraver-names (map symbol->string (map ly:translator-name engravers)))
-       )
+       (engraver-names (map symbol->string (map ly:translator-name engravers))))
 
     (make <texi-node>
       #:name namestr

@@ -120,6 +120,8 @@
 
 (define-public (collect-music-for-book parser music)
   (collect-scores-for-book parser (ly:music-scorify music)))
+
+
   
 ;;;;;;;;;;;;;;;;
 ; alist

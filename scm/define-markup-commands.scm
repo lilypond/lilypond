@@ -18,12 +18,18 @@
 
 (def-markup-command (score paper props score) (ly:score?)
   (let*
-      ((systems (ly:score-embedded-format score paper))
-       (1st (vector-ref systems 0))
-       (stencil (ly:paper-system-stencil 1st)) )
+      ((systems (ly:score-embedded-format score paper)))
 
-    (ly:stencil-align-to! stencil Y CENTER)
-    stencil))
+    (if (= 0 (vector-length systems))
+	(begin
+	  (ly:warn "No systems found in \\score markup. Did you forget \\paper?")
+	  empty-markup)
+	(begin
+	  (let*
+	      ((stencil (ly:paper-system-stencil  (vector-ref systems 0)))) 
+
+	    (ly:stencil-align-to! stencil Y CENTER)
+	    stencil)))))
 
 (def-markup-command (simple paper props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with

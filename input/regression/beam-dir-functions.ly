@@ -1,4 +1,4 @@
-
+% junkme?
 \version "2.3.8"
 \header {
   texidoc = "@cindex Beam Dir Functions

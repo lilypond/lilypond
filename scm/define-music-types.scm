@@ -124,14 +124,16 @@ Syntax:
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	))
-    (StartPlayingEvent
+    (ContextChange
      . (
-	(description .	"Used internally to signal beginning of notes.")
+	(description .	"Change staffs in Piano staff. 
 
-	(internal-class-name . "Event")
-	(types . (general-music event start-playing-event))
+Syntax @code{\\translator Staff = @var{new-id}}.")
+	(internal-class-name . "Music")
+	(iterator-ctor . , Change_iterator::constructor)
+	(types . (general-music translator-change-instruction))
 	))
-    
+
     (ClusterNoteEvent
      . (
 	(description .	"A note that is part of a cluster.")
@@ -439,6 +441,17 @@ Syntax @code{r4} for a quarter rest. ")
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
+    (RevertProperty
+     . (
+	(description .	"The opposite of @ref{OverrideProperty}: remove a
+previously added property from a graphical object definition
+ ")
+
+	(internal-class-name . "Music")
+	(types . (general-music layout-instruction))
+	(iterator-ctor . ,	Pop_property_iterator::constructor)
+	))
+
     (SequentialMusic
      . (
 	(description .	"Music expressions concatenated. 
@@ -504,17 +517,14 @@ Syntax NOTE(	 and )NOTE")
 	(types . (general-music span-event slur-event))
 	))
 
-    (RevertProperty
+    (StartPlayingEvent
      . (
-	(description .	"The opposite of @ref{OverrideProperty}: remove a
-previously added property from a graphical object definition
- ")
+	(description .	"Used internally to signal beginning of notes.")
 
-	(internal-class-name . "Music")
-	(types . (general-music layout-instruction))
-	(iterator-ctor . ,	Pop_property_iterator::constructor)
+	(internal-class-name . "Event")
+	(types . (general-music event start-playing-event))
 	))
-
+    
     (OutputPropertySetMusic
      . (
 	(description .	"Set grob properties in objects
@@ -535,14 +545,11 @@ Syntax @code{\\outputproperty @var{predicate} @var{prop}
 	(types . (general-music span-event text-span-event))
 	))
     
-    (ContextChange
+    (TrillSpanEvent
      . (
-	(description .	"Change staffs in Piano staff. 
-
-Syntax @code{\\translator Staff = @var{new-id}}.")
-	(internal-class-name . "Music")
-	(iterator-ctor . , Change_iterator::constructor)
-	(types . (general-music translator-change-instruction))
+	(description . "Start a trill spanner tr~~~")
+	(internal-class-name . "Event")
+	(types . (general-music span-event trill-span-event))
 	))
     
     (TimeScaledMusic

@@ -141,7 +141,7 @@ Dynamic_text_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Dynamic_text_spanner,
-	       "crescendo-text-spanner-interface",
+	       "dynamic-text-spanner-interface",
 	       "A text spanner for crescendo texts",
 	       "dash-period dash-fraction edge-text style thickness");
 

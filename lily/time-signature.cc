@@ -41,17 +41,13 @@ Time_signature::print (SCM smob)
     }
 
   Stencil m;
-  if (ly_c_symbol_p (st))
+  if (st == ly_symbol2scm ("single-digit"))
     {
-      String style (ly_scm2string (scm_symbol_to_string (st)));
-      if (style[0]=='1')
-	{
-	  m = numbered_time_signature (me, n, 0);
-	}
-      else
-	{
-	  m = special_time_signature (me, st, n, d);
-	}
+      m = numbered_time_signature (me, n, 0);
+    }
+  else if (ly_c_symbol_p (st))
+    {
+      m = special_time_signature (me, st, n, d);
     }
   else
     m = numbered_time_signature (me, n,d);
@@ -151,10 +147,9 @@ ADD_INTERFACE (Time_signature, "time-signature-interface",
 "        typeset with mensural style mensuration marks.  All other time\n"
 "        signatures are written with two digits.\n"
 "\n"
-"      @item @code{1xxx}\n"
+"      @item @code{single-digit"
 "        All time signatures are typeset with a single\n"
-"        digit, e.g. 3/2 is written as 3. (Any symbol starting\n"
-"	with the digit @code{1} will do.)\n"
+"        digit, e.g. 3/2 is written as 3.\n"
 "    @end table\n"
 "\n"
 "See also the test-file @file{input/test/time.ly}.\n",
