@@ -1,12 +1,13 @@
 Name: lilypond
-Version: 1.3.6
+Version: 1.3.7
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.6.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.7.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
-Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# get Packager from (undocumented?) ~/.rpmmacros!
+# Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 # Icon: lilypond-icon.gif
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex

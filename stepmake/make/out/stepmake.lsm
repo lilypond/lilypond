@@ -1,15 +1,15 @@
 Begin3
 Title: StepMake
-Version: 0.1.80
-Entered-date: 16AUG99
+Version: 0.1.81
+Entered-date: 18NOV99
 Description: 
 Keywords: music notation typesetting midi fonts engraving
 Author: janneke@gnu.org (Jan Nieuwenhuizen)
 	hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Maintained-by: janneke@gnu.org (Jan Nieuwenhuizen)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	40k stepmake-0.1.80.tar.gz 
+	40k stepmake-0.1.81.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
-	40k stepmake-0.1.80.tar.gz 
+	40k stepmake-0.1.81.tar.gz 
 Copying-policy: GPL
 End

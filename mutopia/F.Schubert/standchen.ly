@@ -44,7 +44,7 @@ Note: Original key F.
 \version "1.3.4";
 
 vocalVerse = \notes\relative c''{
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
 	g4.-> f8 \times 2/3 { [ f( )es] d } |
@@ -73,7 +73,7 @@ vocalVerse = \notes\relative c''{
 }
 
 vocalThrough = \notes\relative c{
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
 	g4. b8 d8. c16 |
@@ -240,7 +240,7 @@ trebleThrough = \notes \relative c'{
 }
 
 bassIntro = \notes\relative c{
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 %1
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -250,7 +250,7 @@ bassIntro = \notes\relative c{
 
 bassVerseOne = \notes\relative c{
 %	\clef bass;
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 %5
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -281,7 +281,7 @@ bassVerseOne = \notes\relative c{
 }
 
 bassEentje = \notes\relative c{
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 	<c,8 c'> [<c' f as!> <f as c> <c f as> <f as c> <c f as>] |
 	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
 	<g,8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
@@ -293,7 +293,7 @@ bassEentje = \notes\relative c{
 }
 
 bassThrough = \notes\relative c{
-	\property Voice.dynamicDirectionection=1
+	\property Voice.dynamicDirection=1
 	%61
 	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
 	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
@@ -351,7 +351,7 @@ vocals = \notes{
  	\property Voice.noAutoBeaming = "1"
 	\property Staff.automaticMelismata=1
 
-	\property Voice.dynamicDirectionection = \up
+	\property Voice.dynamicDirection = \up
 	\skip 4 * 12; 
 	\vocalVerse 
 	\skip 4 * 24; 

@@ -12,7 +12,7 @@
 class Paper_stream
 {
 public:
-    bool outputting_comment;
+    bool outputting_comment_b_;
     ostream *os;
     int nest_level;
     /// to check linelen in output. TeX has limits.

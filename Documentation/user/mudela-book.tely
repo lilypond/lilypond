@@ -1,6 +1,74 @@
 \input texinfo @c -*-texinfo-*-
-@setfilename reference-manual.info
-@settitle Reference Manual
+@setfilename mudela-book.info
+@settitle mudela-book Manual
+
+
+@titlepage
+@title mudela-book Manual
+@subtitle Integrating mudela with LateX and TeXinfo
+@author Tom Cato Amundsen and  Han-Wen Nienhuys
+
+     Copyright @copyright 1999 by the authors
+
+@vskip 0pt plus 1filll
+
+Permission is granted to make and distribute verbatim
+copies of this manual provided the copyright notice and
+this permission notice are preserved on all copies.
+
+Permission is granted to copy and distribute modified
+versions of this manual under the conditions for
+verbatim copying, provided also that the sections
+entitled ``Copying'' and ``GNU General Public License''
+are included exactly as in the original, and provided
+that the entire resulting derived work is distributed
+under the terms of a permission notice identical to this
+one.
+
+Permission is granted to copy and distribute
+translations of this manual into another language,
+under the above conditions for modified versions,
+except that this permission notice may be stated in a
+translation approved by the Free Software Foundation.
+
+@end titlepage
+
+@ifinfo
+This file documents GNU LilyPond.
+
+Copyright 1999 Tom Cato Amundsen and  Han-Wen Nienhuys
+
+
+Permission is granted to make and distribute verbatim
+copies of this manual provided the copyright notice and
+this permission notice are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX
+and print the results, provided the printed document
+carries a copying permission notice identical to this
+one except for the removal of this paragraph (this
+paragraph not being relevant to the printed manual).
+
+@end ignore
+
+Permission is granted to copy and distribute modified
+versions of this manual under the conditions for
+verbatim copying, provided also that the sections
+entitled ``Copying'' and ``GNU General Public License''
+are included exactly as in the original, and provided
+that the entire resulting derived work is distributed
+under the terms of a permission notice identical to this
+one.
+
+Permission is granted to copy and distribute
+translations of this manual into another language,
+under the above conditions for modified versions,
+except that this permission notice may be stated in a
+translation approved by the Free Software Foundation.
+
+@end ifinfo
+
 
 @node Top, , , (dir)
 @top

@@ -1,5 +1,9 @@
 #!@PYTHON@
 
+#
+# TODO: CLEAN THIS UP.
+#
+
 
 import find
 import sys
@@ -134,7 +138,9 @@ usage
 
 Patches do not contain automatically generated files 
 or (urg) empty directories, 
-i.e., you should rerun autoconf, configure """
+i.e., you should rerun autoconf, configure
+
+"""
 
 
 def makediff (fromdir, todir, patch_name):

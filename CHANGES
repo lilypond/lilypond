@@ -1,3 +1,31 @@
+
+pl 6.uu2
+	- bf: PS font selecting.
+
+pl 6.uu1
+	- bf: ls-latex
+	- mudela-book --no-pictures
+	- bf: ly2dvi
+	- convert-mudela: beamAuto moment syntax. 
+
+pl 6.jcn3
+	- fixed scm output
+
+pl 6.jcn2
+	- half-baken ly-gulp-file in scm
+	- resurrected scm output through guile
+
+pl 5.mb1
+	- bf: version of init.sly, init.fly
+	- Clarify necessary version of texinfo
+	- bf: texi files, minor errors and syntax compatible with 
+	  older makeinfo
+
+pl 6.jcn1
+	- bf: scm output
+
+*******
+
 pl 5.hwn2
 	- Bach preludes: mutopification
 	- dots are Directional_element too; use \property dotDirection

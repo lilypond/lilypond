@@ -66,9 +66,9 @@ Prerequisites
    * Bison (version 1.25 or newer).  Check out ftp://ftp.gnu.org/bison/
      (ftp://ftp.gnu.org/bison/).
 
-   * Texinfo. Check out ftp://ftp.gnu.org/pub/texinfo/
-     (ftp://ftp.gnu.org/pub/texinfo/).  Most documentation is in
-     texinfo.
+   * Texinfo (version 4.0 or newer).  Check out
+     ftp://ftp.gnu.org/pub/texinfo/ (ftp://ftp.gnu.org/pub/texinfo/).
+     Most documentation is in texinfo.
 
    * The geometry package for LaTeX is needed to use ly2dvi.  Available
      at

@@ -131,41 +131,78 @@ Paper_outputter::output_scheme (SCM scm)
 
 
 void
-Paper_outputter::dump_onto (Paper_stream *os)
+Paper_outputter::dump_onto (Paper_stream *ps)
 {
-  
-  if (output_global_ch == String ("scm"))
-    *os << ""
-      "(primitive-load-path 'lily.scm)\n"
-      "(eval (tex-scm 'all-definitions))\n"
-      ";(eval (ps-scm 'all-definitions))\n"
-      "(display (map (lambda (x) (string-append (eval x) \"\\n\")) '(\n"
-    ;
-
-  for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
+  if (String (output_global_ch) == "scm")
+#if 1  // both are fine
     {
-      if (String (output_global_ch) == "scm")
+      /*
+        default to stdin
+       */
+      int fd = 1;
+      if (ofstream* of = dynamic_cast<ofstream*> (ps->os))
+	fd = of->rdbuf ()->fd ();
+      SCM port = scm_fdes_to_port (fd, "a", SCM_EOL);
+
+      /*
+	 lilypond -f scm x.ly
+	 guile -s x.scm
+       */
+      scm_display (gh_str02scm (
+	";;; Usage: guile -s x.scm > x.tex\n"
+	"(primitive-load-path 'lily.scm)\n"
+	"(scm-tex-output)\n"
+	";(scm-ps-output)\n"
+	"(map (lambda (x) (display (eval x))) '(\n"
+	), port);
+
+      SCM newline = gh_str02scm ("\n");
+      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
+        {
+	  scm_write (gh_car (s), port);
+	  scm_display (newline, port);
+	  scm_flush (port);
+	}
+      scm_display (gh_str02scm (")))"), port);
+      scm_display (newline, port);
+      scm_flush (port);
+      scm_close_port (port);
+    }
+#else
+    {
+      /*
+	 lilypond -f scm x.ly
+	 guile -s x.scm
+       */
+      if (output_global_ch == String ("scm"))
+	*ps << ""
+	  ";;; Usage: guile -s x.scm > x.tex\n"
+	  "(primitive-load-path 'lily.scm)\n"
+	  "(scm-tex-output)\n"
+	  ";(scm-ps-output)\n"
+	  "(map (lambda (x) (display (eval x))) '(\n"
+	;
+      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
 	{
 	  SCM result =  scm_eval (scm_listify (ly_symbol2scm ("scm->string"),
 					       ly_quote_scm (gh_car (s)), SCM_UNDEFINED));
 	  
-	  *os << ly_scm2string (result);
+	  *ps << ly_scm2string (result);
 	}
-      else
+      *ps << ")))";
+    }
+#endif
+  
+  else
+    {
+      for (SCM s = gh_cdr (molecules_); gh_pair_p (s); s = gh_cdr (s))
 	{
 	  SCM result = scm_eval (gh_car (s));
 	  char *c=gh_scm2newstr (result, NULL);
 	  
-	  *os << c;
+	  *ps << c;
 	  free (c);
 	}
-
-    }
-
-
-  if (String (output_global_ch) == "scm")
-    {
-      *os << ")))";
     }
 }
 

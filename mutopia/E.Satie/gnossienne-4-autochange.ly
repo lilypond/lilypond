@@ -141,7 +141,7 @@ accompany = \notes \relative c{
 
       slurVerticalDirection = 1;
       verticalDirection = -1;
-      beamAutoEnd = "1/2";
+      beamAutoEnd = #(make-moment 1 2)
     }
   }
   \midi {

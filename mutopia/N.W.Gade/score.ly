@@ -56,12 +56,12 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \property Staff.instr = "Cor."
       \context Voice = corI <
 	\globalNoKey
-	\stemup \property Voice.dynamicDirectionection = \up 
+	\stemup \property Voice.dynamicDirection = \up 
 	 \property Voice.articulationScriptVerticalDirection = \up 
 	\corI 
       >
       \context Voice = corII { 
-	\stemdown \property Voice.dynamicDirectionection = \down 
+	\stemdown \property Voice.dynamicDirection = \down 
 	 \property Voice.articulationScriptVerticalDirection = \down
 	\corII 
       }
@@ -71,12 +71,12 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \property Staff.instr = "Trp."
       \context Voice = trpI <
 	\globalNoKey
-	\stemup \property Voice.dynamicDirectionection = \up 
+	\stemup \property Voice.dynamicDirection = \up 
 	 \property Voice.articulationScriptVerticalDirection = \up 
 	\trpI
       >
       \context Voice = trpII { 
-	\stemdown \property Voice.dynamicDirectionection = \down 
+	\stemdown \property Voice.dynamicDirection = \down 
 	 \property Voice.articulationScriptVerticalDirection = \down
 	\trpII
       }
@@ -126,8 +126,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 >
  \paper {
 %    \paper_sixteen;
-    linewidth = 180.\mm;
-    textheight = 260.\mm;
+    linewidth = 18.0\cm;
     \translator {
 	\OrchestralScoreContext
         minVerticalAlign = 2.5*\staffheight;

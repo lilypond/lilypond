@@ -52,6 +52,7 @@ options = [
   ('', '', 'force-verbatim', 'make all mudela verbatim'),
   ('', 'M', 'dependencies', 'write dependencies'),
   ('', 'n', 'no-lily', 'don\'t run lilypond'),
+  ('', '', 'no-pictures', "don\'t generate pictures"),
   ('FILE', 'o', 'outname', 'prefix for filenames'),
   ('', 'v', 'version', 'print version information' ),
   ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency')
@@ -61,6 +62,7 @@ format = ''
 run_lilypond = 1
 use_hash = 1
 no_match = 'a\ba'
+do_pictures = 1
 
 # format specific strings, ie. regex-es for input, and % strings for output
 output_dict= {
@@ -669,7 +671,7 @@ def compile_all_files (chunks):
 				eps.append (base)
 			elif e == 'tex':
 				tex.append (base + '.ly')
-			elif e == 'png':
+			elif e == 'png' and do_pictures:
 				png.append (base)
 
 		if __main__.use_hash:
@@ -863,6 +865,8 @@ for opt in options:
 		initfile =  a
 	elif o == '--dep-prefix':
 		dep_prefix = a
+	elif o == '--no-pictures':
+		do_pictures = 0
 
 identify()
 

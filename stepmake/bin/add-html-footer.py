@@ -12,7 +12,6 @@ import getopt
 import __main__
 
 fullname = "unknown"
-changelog_file = ''
 index_file=''
 banner_file = ''
 changelog_file=''
@@ -53,16 +52,16 @@ package_name = ''
 
 def gulp_file(f):
 	try:
-			i = open(f)
-			i.seek (0, 2)
-			n = i.tell ()
-			i.seek (0,0)
+		i = open(f)
+		i.seek (0, 2)
+		n = i.tell ()
+		i.seek (0,0)
 	except:
-			sys.stderr.write ("can't open file: %s\n" % f)
-			return ''
+		sys.stderr.write ("can't open file: %s\n" % f)
+		return ''
 	s = i.read (n)
 	if len (s) <= 0:
-			sys.stderr.write ("gulped empty file: %s\n" % f)
+		sys.stderr.write ("gulped empty file: %s\n" % f)
 	i.close ()
 	return s
 
@@ -70,10 +69,10 @@ def help ():
 	sys.stdout.write (r"""Usage: add-html-footer [OPTION]... HTML-FILE
 Add a nice footer, add the top of the ChangLog file (up to the ********)
 Options:
--h, --help			 print this help
---version               package version
---name				 package_name
---footer			   footer file.
+-h, --help                print this help
+--version                 package version
+--name                    package_name
+--footer                  footer file
 """)
 	sys.exit (0)
 
@@ -129,16 +128,17 @@ banner = footstr (index_file)
 banner_id = '<! banner_id >'
 
 
-if changelog_file:
-	changes = gulp_file (changelog_file)
-	m = re.search ('^\*\*', changes)
-	if m:
-		changes = changes[:m.start (0)]
-
 
 
 def do_file (s):
+
 	if changelog_file:
+		changes = gulp_file (changelog_file)
+		# urg?
+		#m = re.search ('^\\\\*\\\\*', changes)
+		m = re.search (r'\*\*\*', changes)
+		if m:
+			changes = changes[:m.start (0)]
 		s = re.sub ('top_of_ChangeLog', '<XMP>\n'+ changes  + '\n</XMP>\n', s)
 
 

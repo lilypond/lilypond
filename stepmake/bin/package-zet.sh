@@ -24,7 +24,7 @@ fi
 # and create links to here, if necessary
 #
 sourcetree=`basename \`pwd\``
-if [ "xsourcetree" != "x$package" ]; then
+if [ "x$sourcetree" != "x$package" ]; then
 	(cd ..; rm -f $package 2>&1 > /dev/null)
 	(cd ..; ln -s $sourcetree $package)
 fi

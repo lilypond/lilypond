@@ -10,7 +10,7 @@ users.
 
 @unnumberedsubsec Music
 
-@itemize
+@itemize @bullet
 @item @uref{http://www.geocities.com/Vienna/Studio/1714/} and
 @uref{http://johnsankey.webjump.com/} 
 	John Sankey has taken up the task of recording classical
@@ -26,7 +26,7 @@ users.
 
 @unnumberedsubsec Software
 
-@itemize
+@itemize @bullet
 @item @uref{http://www.zib.de/Visual/software/doc++/index.html}
     A documentation system for C++ sources, which is used for the
     LilyPond sources.
@@ -38,7 +38,7 @@ users.
 
 @unnumberedsubsec Philosophy
 
-@itemize
+@itemize @bullet
 @item @uref{http://www.gnu.org/}
     LilyPond is part of the GNU Project.  The GNU project is the name 
     of Richard Stallman's effort to create a freely available 

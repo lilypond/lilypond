@@ -6,7 +6,7 @@
 @top
 
 Miscellaneous texts
-@itemize
+@itemize @bullet
 @item @uref{CHANGES-0.0.txt, Change logs from 0.0 till 0.1 }
 @item @uref{CHANGES-0.1.txt, Change logs from 0.1 till 1.0 }
 @item @uref{CHANGES-1.0.txt, Change logs from 1.0 till 1.1 }
