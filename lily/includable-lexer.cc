@@ -66,7 +66,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
     Whoops. The size argument to yy_create_buffer is not the
     filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
 
-    */
+  */
   yy_switch_to_buffer (yy_create_buffer (sl->istream_l (), YY_BUF_SIZE));
 
 }
@@ -102,10 +102,10 @@ Includable_lexer::close_input ()
       return false;
     }
   else
-      {
-	yy_switch_to_buffer (state_stack_.pop ());
-	return true;
-      }
+    {
+      yy_switch_to_buffer (state_stack_.pop ());
+      return true;
+    }
 }
 
 char const*
