@@ -297,6 +297,12 @@ fet_beginchar("8th rest","3","eighthrest");
 	draw_eighth_rest;
 	fet_endchar;
 
+
+%
+% TODO: the X dimensions of the rests are fucked up:
+% they can collide with augmentation dots. 
+%
+
 fet_beginchar("16th rest","4","sixteenthrest");
 	save width, bulb_diam, thin, thick;
 	save ycenter, crook_thick, crook_thin;

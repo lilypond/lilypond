@@ -1,5 +1,7 @@
 2003-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mf/feta-eindelijk.mf (tracingvariables): add TODO.
+
 	* lily/system-start-delimiter.cc (after_line_breaking): retrieve
 	vertical extents to deal with Hara kiri correctly.
 
