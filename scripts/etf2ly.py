@@ -395,7 +395,7 @@ class Verse:
 				str = str + ' ' * 4 + line + '\n'
 				line = ''
 			
-		str = """\nverse%s = \\lyrics {\n %s}\n""" %  (encodeint (self.number - 1) ,str)
+		str = """\nverse%s = \\lyricmode {\n %s}\n""" %  (encodeint (self.number - 1) ,str)
 		return str
 
 class KeySignature:
