@@ -37,6 +37,14 @@ private:
   Audio_item& operator=( Audio_item const&);
 };
 
+class Audio_dynamic : public Audio_item
+{
+public:
+  Audio_dynamic (int volume);
+
+  int volume_i_;
+};
+
 class Audio_key : public Audio_item
 {
 public:

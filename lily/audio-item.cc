@@ -45,6 +45,11 @@ Audio_key::Audio_key (Key_def const& k)
   key_ = k;
 }
 
+Audio_dynamic::Audio_dynamic (int volume)
+{
+  volume_i_ = volume;
+}
+
 Audio_tempo::Audio_tempo (int per_minute_4_i)
 {
   per_minute_4_i_ = per_minute_4_i;

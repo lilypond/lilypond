@@ -175,6 +175,8 @@ multi_measure_rest_expand_limit = 10.0;
 crescendo_shorten = 4.0 * \staffspace;
 crescendo_thickness   = \stafflinethickness;
 crescendo_height = 0.666 * \staffspace;
+crescendo_dash_thickness = 1.2*\stafflinethickness;
+crescendo_dash = 4.0*\staffspace;
 
 % in internote.
 restcollision_minimum_dist = 3.0;

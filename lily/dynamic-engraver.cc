@@ -20,12 +20,24 @@
 #include "note-head.hh"
 #include "group-interface.hh"
 
+/*
+  TODO:
+    * why handle absolute and span requests in one cryptic engraver,
+    what about Span_dynamic_engraver?
+
+    * hairpin
+    * text:
+      - `cresc. --  --  --'
+      - `cresc. poco a poco -- -- --'
+ */
+
 /**
    print text & hairpin dynamics.
  */
 class Dynamic_engraver : public Engraver
 {
-  Text_item * text_p_;
+  Text_item * abs_text_p_;
+  Text_item * cr_text_p_;
   Crescendo * to_end_cresc_p_;
   Crescendo * cresc_p_;
 
@@ -61,10 +73,9 @@ Dynamic_engraver::announce_element (Score_element_info i)
 Dynamic_engraver::Dynamic_engraver()
 {
   do_post_move_processing();
-  text_p_ =0;
-
+  abs_text_p_ = 0;
+  cr_text_p_ = 0;
   to_end_cresc_p_ = cresc_p_ = 0;
-
   cresc_req_l_ = 0;
 }
 
@@ -112,7 +123,7 @@ Dynamic_engraver::do_process_requests()
       if (Text_script_req *absd =
 	  dynamic_cast<Text_script_req *> ( dynamic_req_l_arr_[i]))
 	{
-	  if (text_p_)
+	  if (abs_text_p_)
 	    {
 	      dynamic_req_l_arr_[i]->warning (_("Got a dynamic already.  Continuing dazed and confused."));
 	      continue;
@@ -120,19 +131,19 @@ Dynamic_engraver::do_process_requests()
 	  
 	  String loud = absd->text_str_;
 
-	  text_p_ = new Text_item;
-	  text_p_->set_elt_property ("text",
+	  abs_text_p_ = new Text_item;
+	  abs_text_p_->set_elt_property ("text",
 				     ly_str02scm (loud.ch_C()));
-	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
-	  text_p_->set_elt_property ("script-priority",
+	  abs_text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
+	  abs_text_p_->set_elt_property ("script-priority",
 				     gh_int2scm (100));
 	  
-	  Side_position_interface (text_p_).set_axis (Y_AXIS);
+	  Side_position_interface (abs_text_p_).set_axis (Y_AXIS);
 
 	  
 	  if (absd->get_direction ())
 	    {
-	      text_p_->set_elt_property ("direction", gh_int2scm (absd->get_direction ()));
+	      abs_text_p_->set_elt_property ("direction", gh_int2scm (absd->get_direction ()));
 	    }
 
 
@@ -146,14 +157,14 @@ Dynamic_engraver::do_process_requests()
 	    }
 
 	  if (isdir_b (prop) && to_dir (prop))
-	    text_p_->set_elt_property ("direction", prop);
+	    abs_text_p_->set_elt_property ("direction", prop);
 
 	  prop = get_property ("dynamicPadding");
 	  if (gh_number_p(prop))
 	    {
-	      text_p_->set_elt_property ("padding", prop);
+	      abs_text_p_->set_elt_property ("padding", prop);
 	    }
-	  announce_element (Score_element_info (text_p_, absd));
+	  announce_element (Score_element_info (abs_text_p_, absd));
 	}
       else if (Span_req *span_l
 	       = dynamic_cast <Span_req *> (dynamic_req_l_arr_[i]))
@@ -177,10 +188,50 @@ Dynamic_engraver::do_process_requests()
 	      cresc_req_l_ = span_l;
 	      assert (!new_cresc_p);
 	      new_cresc_p  = new Crescendo;
-	      new_cresc_p
-		->set_elt_property ("grow-direction",
-				    gh_int2scm ((span_l->span_type_str_ == "crescendo") ? BIGGER : SMALLER));
+	      new_cresc_p->set_elt_property
+		("grow-direction",
+		 gh_int2scm ((span_l->span_type_str_ == "crescendo")
+			     ? BIGGER : SMALLER));
 	      
+	      SCM s = get_property (span_l->span_type_str_ + "Text");
+	      if (gh_string_p (s))
+		{
+		  cr_text_p_ = new Text_item;
+		  cr_text_p_->set_elt_property ("text", s);
+		  // urg
+		  cr_text_p_->set_elt_property ("style", gh_str02scm ("italic"));
+		  // ?
+		  cr_text_p_->set_elt_property ("script-priority",
+						gh_int2scm (100));
+		  
+		  /*
+		    This doesn't work.
+		    I'd like to have support like this:
+                           |
+                          x|
+		          cresc. - - -
+
+		    or
+                           |
+                          x|
+		          ff cresc. - - -
+
+		   */
+		  if (0) //abs_text_p_)
+		    {
+		      Side_position_interface (cr_text_p_).set_axis (X_AXIS);
+		      Side_position_interface (cr_text_p_).add_support (abs_text_p_);
+		    }
+		  //Side_position_interface (cr_text_p_).set_axis (Y_AXIS);
+		  announce_element (Score_element_info (cr_text_p_, span_l));
+		}
+
+	      s = get_property (span_l->span_type_str_ + "Spanner");
+	      if (gh_string_p (s)) //&& ly_scm2string (s) != "hairpin")
+		{
+		  new_cresc_p->set_elt_property ("spanner", s);
+		}
+	  
 	      side_position (new_cresc_p).set_axis (Y_AXIS);
 	      announce_element (Score_element_info (new_cresc_p, span_l));
 	    }
@@ -201,7 +252,8 @@ Dynamic_engraver::do_process_requests()
       cresc_p_ = new_cresc_p;
       cresc_p_->set_bounds(LEFT,get_staff_info().musical_pcol_l ());
 
-      if (text_p_)
+      // arrragh, brr, urg: we know how wide text is, no?
+      if (abs_text_p_)
 	{
 	  index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
 			  LEFT, SCM_BOOL_T);
@@ -247,10 +299,16 @@ Dynamic_engraver::typeset_all ()
 
     }
   
-  if (text_p_)
+  if (abs_text_p_)
     {
-      typeset_element (text_p_);
-      text_p_ =0;
+      typeset_element (abs_text_p_);
+      abs_text_p_ = 0;
+    }
+
+  if (cr_text_p_)
+    {
+      typeset_element (cr_text_p_);
+      cr_text_p_ = 0;
     }
 }
 
@@ -268,8 +326,14 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
       || dynamic_cast<Note_head *> (i.elem_l_)
       )
     {
-      if (text_p_)
-	Side_position_interface (text_p_).add_support (i.elem_l_);
+      if (abs_text_p_)
+	Side_position_interface (abs_text_p_).add_support (i.elem_l_);
+
+      if (cr_text_p_)  ///&& !abs_text_p_)
+	{
+	  Side_position_interface (cr_text_p_).set_axis (Y_AXIS);
+	  Side_position_interface (cr_text_p_).add_support (i.elem_l_);
+	}
 
       if (to_end_cresc_p_)
 	Side_position_interface (to_end_cresc_p_).add_support (i.elem_l_);

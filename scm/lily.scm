@@ -281,6 +281,9 @@
   (define (char i)
     (string-append "\\char" (inexact->string i 10) " "))
   
+  (define (dashed-line thick dash w)
+    (embedded-ps ((ps-scm 'dashed-line) thick dash w)))
+
   (define (decrescendo thick w h cont)
     (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
 
@@ -405,6 +408,7 @@
 	    (define bracket ,bracket)
 	    (define char ,char)
 	    (define crescendo ,crescendo)
+	    (define dashed-line ,dashed-line) 
 	    (define dashed-slur ,dashed-slur) 
 	    (define decrescendo ,decrescendo) 
 	    (define end-output ,end-output)
@@ -431,6 +435,7 @@
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'crescendo) crescendo)
+	((eq? action-name 'dashed-line) dashed-line) 
 	((eq? action-name 'dashed-slur) dashed-slur) 
 	((eq? action-name 'decrescendo) decrescendo) 
 	((eq? action-name 'end-output) end-output)
@@ -538,6 +543,17 @@
      (number->string (* 10 thick))	;UGH.  10 ?
      " ] 0 draw_dashed_slur"))
 
+  (define (dashed-line thick dash width)
+    (string-append 
+     (number->string width) 
+     " "
+     (number->string thick) 
+     " [ "
+     (number->string dash)
+     " "
+     (number->string dash)
+     " ] 0 draw_dashed_line"))
+
   (define (decrescendo thick w h cont)
     (string-append 
      (numbers->string (list w h (inexact->exact cont) thick))
@@ -641,6 +657,7 @@
 	    (define crescendo ,crescendo)
 	    (define volta ,volta)
 	    (define bezier-sandwich ,bezier-sandwich)
+	    (define dashed-line ,dashed-line) 
 	    (define dashed-slur ,dashed-slur) 
 	    (define decrescendo ,decrescendo) 
 	    (define end-output ,end-output)
@@ -668,6 +685,7 @@
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'char) char)
 	((eq? action-name 'crescendo) crescendo)
+	((eq? action-name 'dashed-line) dashed-line) 
 	((eq? action-name 'dashed-slur) dashed-slur) 
 	((eq? action-name 'decrescendo) decrescendo)
 	((eq? action-name 'experimental-on) experimental-on)

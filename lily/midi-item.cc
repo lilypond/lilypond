@@ -27,6 +27,8 @@ Midi_item::midi_p (Audio_item* a)
     return i->str_.length_i () ? new Midi_instrument (i) : 0;
   else if (Audio_note* i = dynamic_cast<Audio_note*> (a))
     return new Midi_note (i);
+  else if (Audio_dynamic* i = dynamic_cast<Audio_dynamic*> (a))
+    return new Midi_dynamic (i);
   else if (Audio_tempo* i = dynamic_cast<Audio_tempo*> (a))
     return new Midi_tempo (i);
   else if (Audio_time_signature* i = dynamic_cast<Audio_time_signature*> (a))
@@ -455,6 +457,27 @@ Midi_note_off::str () const
   String str = to_str ((char)status_byte);
   str += to_str ((char) (pitch_i () + Midi_note::c0_pitch_i_c_));
   str += to_str ((char)aftertouch_byte_);
+  return str;
+}
+
+Midi_dynamic::Midi_dynamic (Audio_dynamic* a)
+{
+  audio_l_ = a;
+}
+
+String
+Midi_dynamic::str () const
+{
+  Byte status_byte = (char) (0xB0 + channel_i_);
+  String str = to_str ((char)status_byte);
+
+  /*
+    Main volume controller (per channel):
+    07 MSB
+    27 LSB
+   */
+  str += to_str ((char)0x07);
+  str += to_str ((char)audio_l_->volume_i_);
   return str;
 }
 

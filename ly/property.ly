@@ -123,3 +123,4 @@ autoBeamOn = \property Voice.noAutoBeaming = ##f
 
 emptyText = \property Voice.textEmptyDimension = ##t
 fatText = \property Voice.textEmptyDimension = ##f
+

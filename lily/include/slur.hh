@@ -35,7 +35,7 @@ protected:
   Array<Rod> get_rods () const;
 
 private:  
-  void de_uglyfy (class Slur_bezier_bow* bb, Real default_height);
+  void de_uglyfy (Slur_bezier_bow* bb, Real default_height);
   void set_extremities ();
   void set_control_points ();
   int cross_staff_count () const;

@@ -69,28 +69,45 @@ Crescendo::do_brew_molecule () const
 
   Drul_array<bool> broken;
   Direction d = LEFT;
-  do {
-    Paper_column* s = dynamic_cast<Paper_column*>(spanned_drul_[d]); // UGH
-    broken[d] = (!s->musical_b ());
-  } while (flip (&d) != LEFT);
+  do
+    {
+      Paper_column* s = dynamic_cast<Paper_column*>(spanned_drul_[d]); // UGH
+      broken[d] = (!s->musical_b ());
+    }
+  while (flip (&d) != LEFT);
   
 
-  bool continued = broken[Direction (-gd)];
-  Real height = paper_l()->get_var ("crescendo_height");
-  Real thick = paper_l ()->get_var ("crescendo_thickness");
+  SCM at;
+  SCM s = get_elt_property ("spanner");
+  Real height;
+  if (gh_string_p (s) && ly_scm2string (s) == "dashed-line")
+    {
+      Real thick = paper_l ()->get_var ("crescendo_dash_thickness");
+      Real dash = paper_l ()->get_var ("crescendo_dash");
+      height = thick;
+      at = gh_list (ly_symbol2scm (ly_scm2string (s).ch_C ()),
+		    gh_double2scm (thick),
+		    gh_double2scm (dash),
+		    gh_double2scm (width),
+		    SCM_UNDEFINED);
+    }
+  else
+    {
+      bool continued = broken[Direction (-gd)];
+      height = paper_l()->get_var ("crescendo_height");
+      Real thick = paper_l ()->get_var ("crescendo_thickness");
+      
+      const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
 
-  const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
-
-  Box b (Interval (0, width),
-	 Interval (-2*height, 2*height));
-
-  SCM at = gh_list (ly_symbol2scm (hairpin),
-		     gh_double2scm (thick),
-		     gh_double2scm (width),
-		     gh_double2scm (height),
-		     gh_double2scm (continued ? height/2 : 0.0),
-		     SCM_UNDEFINED);
-
+      at = gh_list (ly_symbol2scm (hairpin),
+		    gh_double2scm (thick),
+		    gh_double2scm (width),
+		    gh_double2scm (height),
+		    gh_double2scm (continued ? height/2 : 0.0),
+		    SCM_UNDEFINED);
+    }
+  
+  Box b (Interval (0, width), Interval (-2*height, 2*height));
   Molecule m (b, at);
   
   m.translate_axis (extra_left, X_AXIS);
