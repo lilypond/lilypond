@@ -77,9 +77,13 @@ sub my_system
 
 local $base="lilypond/";
 
-local @examples=("twinkle-pop", "twinkle", "multi", "wohltemperirt"
-		 ,"standchen-16", "standchen-20", "toccata-fuga-E", "scsii-menuetto",
-		 "cadenza", "scales", "rhythm", "gallina");
+local @examples=("twinkle-pop", "twinkle", "multi", "wohltemperirt",
+		 #"standchen-16", 
+		 #"standchen-20", 
+		 "toccata-fuga-E", "scsii-menuetto",
+		 "cadenza", "scales", 
+		#"rhythm", 
+		 "gallina");
 
 # rhythm, scales, 
 
