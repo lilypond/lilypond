@@ -24,7 +24,7 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "0.0.57";
+\version "0.0.58";
 
 \score{
 	\staff{ melodicregs

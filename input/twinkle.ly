@@ -14,7 +14,7 @@
  Tested Features: lyrics
 EndMudelaHeader
 %}
-\version "0.0.57";
+\version "0.0.58";
 
 melody = \melodic{
 	\clef\violin;

@@ -13,7 +13,7 @@
         \def\SkipLilydefs{}
 \fi
 \SkipLilydefs
-% should use \endinput
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % macros to shorten other definitions
@@ -44,15 +44,11 @@
 \newdimen\smallspace
 \newdimen\interlinedist
 \newcount\n
-\newdimen\balkhoog
+\newdimen\balkheight
 \newdimen\notewidth
 \newdimen\noteheight
-\newdimen\notewidthhalf
-\newdimen\notewidthdouble
-\newdimen\notewidthquart
 \newdimen\staffrulethickness
 \newdimen\interstaffrule
-\newdimen\balkhalf
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
@@ -70,7 +66,7 @@
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
         \font\mathfont=cmsy10
-        \balkhoog=20pt
+        \balkheight=20pt
         \notewidth=6pt
         \noteheight=5pt
         \staffrulethickness=0.4pt
@@ -92,7 +88,7 @@
         \font\dynfont=cmbxti12
         \font\musicdraw=musixsps
         \font\mathfont=cmsy8
-        \balkhoog=16pt
+        \balkheight=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
         \noteheight=4pt
@@ -105,16 +101,8 @@
 \def\musixcalc{
         \interlinedist=\fontdimen5\musicfnt
         \smallspace=.3\interlinedist
-        \interstaffrule=\balkhoog
+        \interstaffrule=\balkheight
         \divide\interstaffrule by 4
-        \notewidthhalf=\notewidth
-        \notewidthquart=\notewidth
-        \notewidthdouble=\notewidth
-        \rationalmultiply \notewidthhalf*1/2
-        \rationalmultiply\notewidthquart*1/4
-        \multiply \notewidthdouble by 2
-        \balkhalf=\balkhoog
-         \rationalmultiply\balkhalf*1/2 
 }
 
 % dynamics take extra kerning
@@ -134,96 +122,19 @@
 \def\dynfff{\dynff\kdynf}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% provide interface to musixtex fonts 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\mdef\quartball{'007}
-\mdef\halfball{'010}
-\mdef\wholeball{'011}
-\mdef\halfrest{'074}
-\mdef\wholerest{'075}
-\mdef\quartrest{62}
-\mdef\eighthrest{63}
-\mdef\sixteenthrest{64}
-\mdef\thirtysecondrest{65}
-\mdef\sixtyfourthrest{66}
-\mdef\hundredtwentyeighthrest{67}
-\mdef\sharp{52}
-\mdef\flat{50}
-\mdef\natural{54}
-\mdef\sharpsharp{53}
-\mdef\flatflat{51}
-
-\mdef\singledot{'00}
-\mdef\doubledot{'01}
-\mdef\tripledot{'02}
-\mdef\mussepline{155}
-
-\mdef\violinclef{71}
-\mdef\bassclef{73}
-\mdef\altoclef{75}
-\mdef\cviolinclef{72}
-\mdef\cbassclef{74}
-\mdef\caltoclef{76}
-
-\mdef\deighthflag{45}
-\mdef\dsixteenthflag{46}
-\mdef\dthirtysecondflag{47}
-\mdef\dsixtyfourthflag{48}
-\mdef\dhundredtwentyeighthflag{49}
-
-% pointing up
-\mdef\ueighthflag{40}
-\mdef\usixteenthflag{41}
-\mdef\uthirtysecondflag{42}
-\mdef\usixtyfourthflag{43}
-\mdef\uhundredtwentyeighthflag{44}
-
-\maccentdef\repeatcolon{55}{2/1}
-\def\eighthflag{\topalign{\ueighthflag}}
-\def\sixteenthflag{\topalign{\usixteenthflag}}
-\def\thirtysecondflag{\topalign{\uthirtysecondflag}}
-\def\sixtyfourthflag{\topalign{\usixtyfourthflag}}
-\def\hundredtwentyeighthflag{\topalign{\uhundredtwentyeighthflag}}
-
-\def\cquartrest{\vertcenter\quartrest}
-\def\ceighthrest{\vertcenter\eighthrest}
-\def\csixteenthrest{\vertcenter\sixteenthrest}
-\def\cthirtysecondrest{\vertcenter\thirtysecondrest}
-\def\csixtyfourthrest{\vertcenter\sixtyfourthrest}
-\def\chundredtwentyeighthrest{\vertcenter\hundredtwentyeighthrest}
-
-\def\lsingledot{\kern-\notewidth\singledot}
-\def\ldoubledot{\kern-\notewidth\doubledot}
-\def\ltripledot{\kern-\notewidth\tripledot}
-
-\maccentdef\sforzato{30}{-3/2}
-\maccentdef\marcato{20}{-1/1}
-\maccentdef\imarcato{21}{1/1}
-\maccentdef\staccato{24}{-1/3}
-\maccentdef\istaccato{25}{1/3}
-\maccentdef\staccatissimo{28}{-5/5}
-\maccentdef\istaccatissimo{29}{2/5}
-\maccentdef\portato{18}{-6/5}
-\maccentdef\iportato{19}{3/5}
-\maccentdef\tenuto{26}{-1/1}
-\maccentdef\itenuto{27}{1/1}
-\maccentdef\fermata{80}{-1/1}
-\maccentdef\ifermata{81}{1/1}
-
-\mdef\spicato{28}
-\mdef\ispicato{29}
-\mdef\upbow{23}
-\mdef\downbow{22}
+\input taupindefs
 
 \mathdef\cup{91} % \cup
 \mathdef\wedge{94} % \wedge
 \mathdef\striepke{0} % heu?
 
 %% custom characters --- this should go: add to (meta!) font
-\def\myheel{\kern-.5ex\vbox{\cup}\kern-.5ex}
-\def\mytoe{\kern-.5ex\vbox{\wedge}\kern-.5ex}
-\def\mystriepke{\kern-1.1ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.1ex}
+% \def\myheel{\kern-.5ex\vbox{\cup}\kern-.5ex}
+% \def\mytoe{\kern-.5ex\vbox{\wedge}\kern-.5ex}
+\def\myheel{\vbox{\cup}}
+\def\mytoe{\vbox{\wedge}}
+% \def\mystriepke{\kern-1.1ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.1ex}
+\def\mystriepke{\kern-1.8ex\vbox{\hbox{\kern-.05em\striepke}}\kern-1.8ex}
 
 \def\heel{\vbox{\myheel}}
 \def\toe{\vbox{\mytoe}}
@@ -239,8 +150,8 @@
 
 \def\emptybar{}
 
-\def\thinbar{\vrule height\balkhoog width0.8pt} % TODO parametric.
-\def\thickbar{\vrule height\balkhoog width 2\smallspace}
+\def\thinbar{\vrule height\balkheight width 1.6\staffrulethickness} % TODO parametric.
+\def\thickbar{\vrule height\balkheight width 2\smallspace}
 \def\maatstreep{\thinbar}
 
 %? what-s wrong with rightalign?
@@ -267,18 +178,18 @@
 \def\hslurcharu#1{{\hslurufont\char#1}}
 \def\hslurchard#1{{\hslurdfont\char#1}}
 % stacked numbers
-\def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
+\def\generalmeter#1#2{\botalign{\vbox to0.5\balkheight{\vss \meterfont#1}%
         \nointerlineskip
-        \vbox to \balkhalf{\vss\meterfont #2}}}
+        \vbox to 0.5\balkheight{\vss\meterfont #2}}}
 
 % stacked horizontal lines 
-\def\lines#1#2{%
+\def\lines#1#2#3{%
  \vbox{\kern-\interstaffrule
         \n=0\nointerlineskip%
         \loop\ifnum\n<#1\advance\n by1%
                 \kern\interstaffrule
                 \nointerlineskip
-                \vbox to 0pt{\hrule height \staffrulethickness width#2%
+                \vbox to 0pt{\hrule height #3 width#2%
                         \vss}\nointerlineskip
                 \repeat
         }}
@@ -287,15 +198,15 @@
 % Ugh. Need to redo this. Wish we had PS.
 %
 \def\toplines#1{ % why space needed here?
-        \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+        \topalign{\hbox{\kern-\notewidth\lines{#1}{1.6\notewidth}{1.6\staffrulethickness}}}}
 
 \def\botlines#1{ % idem ditto
-        \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+        \botalign{\hbox{\kern-\notewidth\lines{#1}{1.6\notewidth}{1.6\staffrulethickness}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
 % bottom at baseline
-\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
+\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}{\staffrulethickness}}}}
 
 \def\stem#1#2{\vrule height#2 depth-#1}
 

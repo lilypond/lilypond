@@ -31,7 +31,7 @@ public:
     Request(Request const&);
     virtual ~Request(){}
 
-    NAME_MEMBERS(Request);
+    NAME_MEMBERS();
     virtual Request* clone() const { return new Request(*this); }
     void print()const ;
     
@@ -42,19 +42,11 @@ public:
 	maybe checkout RTTI
      */
     virtual Barcheck_req *barcheck() { return 0; }
-    virtual Note_req *note() { return 0;}
     virtual Script_req *script() { return 0;}
-    virtual Stem_req *stem() { return 0;}
     virtual Text_req*text() { return 0; }
     virtual Rest_req *rest() { return 0; }
     virtual Span_req *span() { return 0; }
-    virtual Beam_req *beam() { return 0 ; }
-    virtual Plet_req* plet() { return 0; }
-    virtual Slur_req *slur() { return 0 ; }
-    virtual Rhythmic_req*rhythmic() { return 0; }
-    virtual Lyric_req* lreq_l() { return 0; }
-    virtual Melodic_req *melodic() { return 0; }
-     virtual Spacing_req * spacing() { return 0; }
+    virtual Spacing_req * spacing() { return 0; }
     virtual Blank_req * blank() { return 0; }
     virtual Musical_req *musical() { return 0; }
     virtual Command_req * command() { return 0; }
@@ -64,8 +56,27 @@ protected:
 
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
-NAME_MEMBERS(T);\
+NAME_MEMBERS();\
 VIRTUAL_COPY_CONS(T, Request)\
 virtual void do_print() const
 
+
+
+/** Put a script above or below this ``note'' or bar. eg upbow, downbow. Why
+  a request? These symbols may conflict with slurs and brackets, so
+  this also a request */
+class Script_req  : public virtual Request { 
+public:
+    int dir_i_;
+    General_script_def *scriptdef_p_;
+
+    /* *************** */
+    static int compare(const Script_req &, const Script_req &);
+    Script_req();
+    REQUESTMETHODS(Script_req,script);
+    ~Script_req();
+    Script_req(Script_req const&);
+};
+
+    
 #endif

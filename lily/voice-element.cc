@@ -69,17 +69,6 @@ Voice_element::Voice_element(Voice_element const&src)
 	add(i->clone());
 
 }
-bool
-Voice_element::find_plet_start_b(char c, Moment& moment_r)// b unused?
-{
-    assert( c == ']' );
-    moment_r += duration_;
-    for ( PCursor<Request*> i( req_p_list_.top() ); i.ok(); i++ ) {
-	if (i->beam() && i->beam()->spantype == Span_req::START )
-	    return true;
-    }
-    return false;
-}
 
 void
 Voice_element::set_default_group(String s)
@@ -92,20 +81,3 @@ Voice_element::set_default_group(String s)
     add(greq);
 }
 
-void
-Voice_element::set_plet_backwards(Moment& now_moment_r,
-				  Moment until_moment, int num_i, int den_i)
-{
-    now_moment_r += duration_;
-    if ( now_moment_r > until_moment )
-    	return;
-    for ( PCursor<Request*> i( req_p_list_.top() ); i.ok(); i++ ) {
-	if (i->beam() && i->beam()->spantype == Span_req::START )
-	    i->beam()->nplet = den_i;
-	if (i->rhythmic()) {
-	    i->rhythmic()->duration_.plet_.type_i_ = den_i;
-	    i->rhythmic()->duration_.plet_.iso_i_  = num_i;
-	    
-	}
-    }
-}

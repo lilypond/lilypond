@@ -10,7 +10,7 @@
  Tested Features: local key, key, forced accidentals
 EndMudelaHeader
 %}
-\version "0.0.57";
+\version "0.0.58";
 
 
 blah = \melodic{

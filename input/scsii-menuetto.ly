@@ -12,7 +12,7 @@
 
 EndMudelaHeader
 %}
-\version "0.0.57";
+\version "0.0.58";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}

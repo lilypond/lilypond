@@ -10,7 +10,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.57";
+\version "0.0.58";
 
 
 cad = \melodic  {
@@ -43,7 +43,7 @@ cad = \melodic  {
 	\duration 16;	[d cis d e]
 	f4~ [f e d c]
 	'b4
-	\octave c'; [d'8 c'8 a8]2/3
+	\octave c'; [2/3 d'8 c'8 a8]1/1
 	g2
 		\bar \empty ;
 	[g c e g] [c' e g c']\octave c''; 
