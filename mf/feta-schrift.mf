@@ -857,6 +857,54 @@ fet_endchar;
 % Hmm
 input feta-slag;
 
+% railroad tracks.
+%
+% I actually have no clue how they should look, so we use a slightly curvy  
+% and tapered shape. 
+%
+fet_beginchar("Caesura", "caesura", "caesura");
+  save slant, space_between, clearance;
+  save alpha, p;
+  save botthick, topthick;
+  save krom ;
+
+  path p;
+
+  botthick = 1.5 stafflinethickness;
+  topthick = 2.5 stafflinethickness;
+  pickup pencircle scaled botthick;
+
+
+  slant = 3.5 ;
+  space_between# = 0.6 staff_space#;
+  clearance# = 0.2 staff_space#;
+  height# = 1.2 staff_space#;
+
+  set_char_box(0, 2.0 staff_space#, staff_space# - clearance#, height#);
+  define_pixels (space_between, clearance, height);
+
+  bot y1 = -d;
+  top y2 = h;
+ 
+  lft x1 = 0;
+  x2 = (y2 - y1) / slant;
+
+  krom = 10;
+
+  alpha = angle (z2 - z1);
+  penpos1 (botthick, alpha - krom);
+  penpos3 (botthick, alpha - krom + 90);
+
+  penpos2 (topthick, alpha + krom );
+  penpos4 (topthick, alpha + krom + 90);
+  z3 = z1; z4 = z2; 
+  penlabels (1,2,3,4);
+
+  p  := z3r{(z1r - z1l)} .. z4r{z2r-z2l} .. z2r{z4l-z4r} .. z4l{z2l-z2r} .. z3l{z1l-z1r} .. z1l{z3r-z3l} .. cycle;
+  fill p;
+  fill p shifted (space_between , 0);
+
+fet_endchar; 
 
 
 fet_endgroup("scripts");

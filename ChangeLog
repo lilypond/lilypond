@@ -1,3 +1,9 @@
+2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/breathing-sign.cc (railtracks): another caesura.
+
+	* mf/feta-schrift.mf: caesura symbol
+
 2003-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.conv): add

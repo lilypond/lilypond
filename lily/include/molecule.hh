@@ -41,7 +41,7 @@
 */
 class Molecule
 {
-  friend SCM ly_set_molecule_extent_x (SCM, SCM, SCM);
+  friend SCM ly_molecule_set_extent_x (SCM, SCM, SCM);
   
   Box dim_;
   SCM expr_;
