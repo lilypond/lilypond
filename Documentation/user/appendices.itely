@@ -11,7 +11,7 @@
 
 
 @node Chord name chart
-@section chord name chart
+@section Chord name chart
 
 @lilypondfile[notexidoc]{chord-names-jazz.ly}
 

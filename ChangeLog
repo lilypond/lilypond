@@ -3,6 +3,8 @@
 	* lilypond-font-lock.el: add a comment about LilyPond specific
 	escape characters: ^, - and _, in the syntax table.
 
+	* Documentation/user/appendices.itely: a majuscule fix.
+
 2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/trills.ly (endHorizScript): fixes.
