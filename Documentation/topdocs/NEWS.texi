@@ -8,12 +8,6 @@
 
 @itemize @bullet
 
-
-@item
-lilypond-book now uses the PostScript backend. This means that the
-manual and default lilypond layout (using PostScript) now correspond
-exactly.
-
 @item
 Locations of errors in the input are now calculated more precisely.
 
