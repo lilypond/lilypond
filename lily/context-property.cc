@@ -8,7 +8,6 @@
 */
 
 #include "context.hh"
-#include "grob-selector.hh"
 #include "engraver.hh"
 #include "item.hh"
 #include "main.hh"
