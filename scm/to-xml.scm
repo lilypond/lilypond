@@ -1,4 +1,5 @@
-(use-modules (ice-9 regex))
+(use-modules (ice-9 regex)
+	     (srfi srfi-1))
 
 
 ;; should make module?

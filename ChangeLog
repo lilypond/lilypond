@@ -1,5 +1,9 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/to-xml.scm: import srfi-1
+
+	* VERSION (MAJOR_VERSION):  release 1.7.24
+
 	* python/lilylib.py (make_ps_images): make multipage _really_ work.
 
 	* scripts/lilypond-book.py (do_file): put texidoc before image.
