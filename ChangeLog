@@ -1,5 +1,8 @@
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/tutorial.itely (Commenting input files): add
+	note about convert-ly.
+
 	* input/test/cadenza-skip.ly:  new file.
 
 2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
