@@ -1467,7 +1467,7 @@ if 1:
 		
 		return str
 	
-	conversions.append (((1,9,2), conv, """\newcontext -> \new"""))
+	conversions.append (((1,9,2), conv, """\\newcontext -> \\new"""))
 
 if 1:
 	def conv (str):
@@ -1487,7 +1487,7 @@ if 1:
 		return str
 	
 	conversions.append (((1,9,3), conv,
-			     """\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations"""))
+			     """\\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations"""))
 
 
 def conv (str):
@@ -1812,7 +1812,7 @@ def conv (str):
 	
 	return str
 
-conversions.append (((2,1,19), conv, """Drum notation changes, Removing \chordmodifiers, \notenames.
+conversions.append (((2,1,19), conv, """Drum notation changes, Removing \\chordmodifiers, \\notenames.
 Harmonic notes. Thread context removed. Lyrics context removed."""))
 
 def conv (str):
