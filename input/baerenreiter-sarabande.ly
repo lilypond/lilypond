@@ -8,24 +8,25 @@
   editor = "August Wenzinger"
   source= "B\\\"arenreiter Urtext"
 
-  texidoc = "The B\\\"arenreiter edition of the Cello Suites is the most
-beautifully typeset piece of music in our collection of music (we both
-own one. It is also lovely on French Horn). This piece follows the
-same beaming as the printed edition. This is done in order to
-benchmarkk the quality of the LilyPond output. As of lilypond 1.5.38,
-the spacing is almost identical. With a line-break forced before
-measure 25, we get back the linebreaking of Baerenreiter.
+  texidoc = "The B\\\"arenreiter edition of the Cello Suites is the
+most beautifully typeset piece of music in our collection of music (we
+both own one. It is also lovely on French Horn). This piece does not
+include articulation, but it does follows the same beaming and
+linebreaking as the printed edition. This is done in order to
+benchmark the quality of the LilyPond output.
 
+As of lilypond 1.5.42, the spacing and beam quanting is almost
+identical.
 
+There are two tweaks in this file: a line-break was forced before
+measure 25, we get back the linebreaking of Baerenreiter.  The stem
+direction is forced in measure 24. The last beam of that measure is up
+in Baerenreiter because of context. We don't detect that yet.
 
-This file used to show spacing weaknesses. Now it shows weaknesses in
-slur handling.
-
-Note that the Barenreiter edition contains an engraving mistake. The
-second line begins with measure 6 (but prints 5).
-
-"
-
+Note that the Barenreiter edition contains a few engraving
+mistakes. The second line begins with measure 6 (but prints 5). The |:
+half way in measure 13 has been forgotten.
+ "
 }
 
 
@@ -51,7 +52,7 @@ sarabandeA =  \context Voice \notes \relative c {
 
   g8 bes16()a c()bes a()g d'8 f, |
   <  e4.-\trill
-     \\ <a,,4 e'> >
+  \\ <c,4 g'> >
   [d8 c bes]
   %%8
   < { f'8 g16()a a4. g16()f  |
@@ -69,9 +70,7 @@ sarabandeA =  \context Voice \notes \relative c {
 
   fis8.-\trill es16 d8 c |
   [bes g']
-  \stemUp
   [a, fis']
-  \stemBoth
   [es' d] |
   %%16
   < bes4.-\trill d, g, > [a8 g f!] |

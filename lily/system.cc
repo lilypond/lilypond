@@ -1,5 +1,5 @@
 /*
-  scoreline.cc -- implement Line_of_score
+  system.cc -- implement System
 
   source file of the GNU LilyPond music typesetter
 
@@ -32,7 +32,7 @@ fixup_refpoints (SCM s)
 }
 
 
-Line_of_score::Line_of_score (SCM s)
+System::System (SCM s)
   : Spanner (s)
 {
   rank_i_ = 0;
@@ -42,13 +42,13 @@ Line_of_score::Line_of_score (SCM s)
 }
 
 int
-Line_of_score::element_count () const
+System::element_count () const
 {
   return scm_ilength (get_grob_property ("all-elements"));
 }
 
 void
-Line_of_score::typeset_grob (Grob * elem_p)
+System::typeset_grob (Grob * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
   Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"),elem_p);
@@ -56,7 +56,7 @@ Line_of_score::typeset_grob (Grob * elem_p)
 }
 
 void
-Line_of_score::output_lines ()
+System::output_lines ()
 {
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
@@ -98,7 +98,7 @@ Line_of_score::output_lines ()
   
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
-      Line_of_score *line_l = dynamic_cast<Line_of_score*> (broken_into_l_arr_[i]);
+      System *line_l = dynamic_cast<System*> (broken_into_l_arr_[i]);
 
       if (verbose_global_b)
 	progress_indication ("[");
@@ -134,7 +134,7 @@ Line_of_score::output_lines ()
   Find the loose columns in POSNS, and drape them around the columns
   specified in BETWEEN-COLS.  */
 void
-set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
+set_loose_columns (System* which, Column_x_positions const *posns)
 {
   for (int i = 0; i < posns->loose_cols_.size (); i++)
     {
@@ -240,11 +240,11 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 
 // const?
 void
-Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
+System::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
   for (int i=0; i < breaking.size (); i++)
     {
-      Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone ());
+      System *line_l = dynamic_cast <System*> (clone ());
       line_l->rank_i_ = i;
       //      line_l->set_immutable_grob_property ("rank", gh_int2scm (i));
       Link_array<Grob> c (breaking[i].cols_);
@@ -281,7 +281,7 @@ GLOBAL_SYMBOL (combine_sym , "combine-molecule");
 
 
 void
-Line_of_score::output_molecule (SCM expr, Offset o)
+System::output_molecule (SCM expr, Offset o)
 {
 
   while (1)
@@ -332,13 +332,13 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 }
 
 void
-Line_of_score::output_scheme (SCM s)
+System::output_scheme (SCM s)
 {
   pscore_l_->outputter_l_->output_scheme (s);
 }
 
 void
-Line_of_score::add_column (Paper_column*p)
+System::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_grob_property ("columns");
@@ -357,7 +357,7 @@ Line_of_score::add_column (Paper_column*p)
   TODO: use scm_map iso. for loops.
  */
 void
-Line_of_score::pre_processing ()
+System::pre_processing ()
 {
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->discretionary_processing ();
@@ -388,7 +388,7 @@ Line_of_score::pre_processing ()
 }
 
 void
-Line_of_score::post_processing (bool last_line)
+System::post_processing (bool last_line)
 {
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = ly_cdr (s))
@@ -400,7 +400,7 @@ Line_of_score::post_processing (bool last_line)
 
   Interval i (extent (this, Y_AXIS));
   if (i.empty_b ())
-    programming_error ("Huh?  Empty Line_of_score?");
+    programming_error ("Huh?  Empty System?");
   else
     translate_axis (- i[MAX], Y_AXIS);
 
@@ -415,6 +415,7 @@ Line_of_score::post_processing (bool last_line)
     generate all molecules  to trigger all font loads.
 
     (ugh. This is not very memory efficient.)  */
+  this->get_molecule();
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       unsmob_grob (ly_car (s))->get_molecule ();
@@ -436,6 +437,13 @@ Line_of_score::post_processing (bool last_line)
   
   /* Output elements in three layers, 0, 1, 2.
      The default layer is 1. */
+
+  {
+    Molecule *m = this->get_molecule();
+    if (m)
+      output_molecule (m->get_expr (), Offset(0,0));
+  }
+  
   for (int i = 0; i < 3; i++)
     for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s);
 	 s = ly_cdr (s))
@@ -462,6 +470,8 @@ Line_of_score::post_processing (bool last_line)
 	
 	output_molecule (m->get_expr (), o);
       }
+
+  
   
   if (last_line)
     {
@@ -475,7 +485,7 @@ Line_of_score::post_processing (bool last_line)
 
 
 Link_array<Item> 
-Line_of_score::broken_col_range (Item const*l, Item const*r) const
+System::broken_col_range (Item const*l, Item const*r) const
 {
   Link_array<Item> ret;
 
@@ -507,7 +517,7 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
    disrupt the spacing problem.
  */
 Link_array<Grob>
-Line_of_score::column_l_arr ()const
+System::column_l_arr ()const
 {
   Link_array<Grob> acs
     = Pointer_group_interface__extract_grobs (this, (Grob*) 0, "columns");

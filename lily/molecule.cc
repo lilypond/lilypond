@@ -184,6 +184,22 @@ Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
   return result.smobbed_copy ();
 }
 
+SCM
+ly_add_molecule (SCM first, SCM second)
+{
+  Molecule * m1 = unsmob_molecule (first);
+  Molecule * m2 = unsmob_molecule (second);
+  Molecule result;
+
+
+  if (m1)
+    result = *m1;
+  if (m2)
+    result.add_molecule (*m2);
+
+  return result.smobbed_copy ();
+}
+
 
 SCM
 make_molecule (SCM expr, SCM xext, SCM yext)
@@ -232,7 +248,8 @@ molecule_init ()
 {
   scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) make_molecule);
   scm_c_define_gsubr ("ly-fontify-atom", 2, 0, 0, (Scheme_function_unknown) ly_fontify_atom);
-  scm_c_define_gsubr ("ly-align-to!", 3, 0, 0, (Scheme_function_unknown) ly_align_to_x);    
+  scm_c_define_gsubr ("ly-align-to!", 3, 0, 0, (Scheme_function_unknown) ly_align_to_x);
+  scm_c_define_gsubr ("ly-add-molecule", 2, 0,0,(Scheme_function_unknown) ly_add_molecule);
   scm_c_define_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
   scm_c_define_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
   scm_c_define_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);

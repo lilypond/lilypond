@@ -75,7 +75,7 @@ class Key_performer;
 class Keyword_ent;
 class Keyword_table;
 class Line_group_engraver_group;
-class Line_of_score;
+class System;
 class Local_key_item;
 class Lookup;
 class Lyric_combine_music;

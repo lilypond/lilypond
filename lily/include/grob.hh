@@ -89,7 +89,7 @@ public:
     add a dependency. It may be the 0 pointer, in which case, it is ignored.
     */
   void add_dependency (Grob*);    
-  virtual Line_of_score * line_l () const;
+  virtual System * line_l () const;
   bool linked_b () const;
 
 
@@ -107,7 +107,7 @@ public:
   static SCM handle_broken_grobs(SCM, SCM criterion);
 
   virtual void do_break_processing ();
-  virtual Grob *find_broken_piece (Line_of_score*) const;
+  virtual Grob *find_broken_piece (System*) const;
   virtual void discretionary_processing ();
   virtual SCM do_derived_mark ();
 

@@ -20,7 +20,7 @@
 
 /*
   Paper_columns form the top-most item parent. (The Paper_columns X
-  parent is Line_of_score, which is a spanner.)
+  parent is System, which is a spanner.)
 
   Paper_columns form the units for the spacing engine. They are
   numbered, the first (leftmost) is column 0. Numbering happens before
@@ -45,7 +45,7 @@ Paper_column::rank_i (Grob*me)
   return dynamic_cast<Paper_column*> (me)->rank_i_;
 }
 
-Line_of_score*
+System*
 Paper_column::line_l () const
 {
   return line_l_;

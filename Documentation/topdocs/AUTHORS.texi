@@ -86,7 +86,7 @@ list is alphabetically ordered.
 @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
 @item @email{rune@@zedeler.dk, Rune Zedeler}
-    Drum notation, beaming and accidental fixes 
+    Drum notation, beaming and auto-accidental changes. Font updates. Misc fixes.
 @end itemize
 
 @bye

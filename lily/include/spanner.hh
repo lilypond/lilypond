@@ -52,14 +52,14 @@ public:
   Real spanner_length () const;
 
   static int compare (Spanner * const &,Spanner * const &);
-  virtual Grob* find_broken_piece (Line_of_score*) const;
+  virtual Grob* find_broken_piece (System*) const;
   virtual SCM do_derived_mark ();
 protected:
   void set_my_columns ();
 
   VIRTUAL_COPY_CONS (Grob);
   virtual void do_break_processing ();
-  virtual Line_of_score*line_l () const;
+  virtual System*line_l () const;
 };
 
 

@@ -28,7 +28,7 @@ public:
   Paper_def *paper_l_;
 
   Paper_outputter *outputter_l_;  
-  Line_of_score * line_l_;
+  System * line_l_;
   
   Paper_score ();
 
@@ -38,7 +38,7 @@ public:
   int find_col_idx (Paper_column const *) const;
 
   Link_array<Item> broken_col_range (Item const*,Item const*) const;
-  void typeset_line (Line_of_score*);
+  void typeset_line (System*);
     
 protected:
     /* MAIN ROUTINES */

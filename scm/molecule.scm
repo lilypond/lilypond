@@ -36,3 +36,35 @@
     (set! mol (ly-combine-molecule-at-edge mol (other-axis  axis) -1 rb padding))
     mol
   ))
+
+
+
+(define (box-molecule xext yext)
+  "Make a filled box."
+  
+  (ly-make-molecule
+      (list 'filledbox (- (car xext)) (cdr xext)
+                       (- (car yext)) (cdr yext))
+      xext yext)		       
+)
+
+(define (widen-interval iv amount)
+   (cons (- (car iv) amount)
+         (+ (cdr iv) amount))
+)
+
+
+(define (box-grob-molecule grob)
+  "Make a box of exactly the extents of the grob."
+  (let* ((xext (ly-get-extent grob grob 0))
+	 (yext (ly-get-extent grob grob 1))
+	 (mol (ly-make-molecule '() '(10000 . -10000) '(10000 . -10000)))
+	 (thick 0.1)
+	 )
+    (display "hoi")
+    (set! mol (ly-add-molecule mol (box-molecule xext (cons (car yext) (+ (car yext) thick)))))
+    (set! mol (ly-add-molecule mol (box-molecule xext (cons (- (cdr yext) thick) (cdr yext)))))
+    (set! mol (ly-add-molecule mol (box-molecule (cons (car xext) (+ (car xext) thick)) yext)))
+    (set! mol (ly-add-molecule mol (box-molecule (cons (- (cdr xext) thick) (cdr xext)) yext)))
+    mol
+  ))

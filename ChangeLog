@@ -1,3 +1,49 @@
+2002-03-21  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.45 released
+
+	* input/regression/system-extents.ly: new regression test. Test
+	System extents. 
+
+	* lily/system.cc: rename LineOfScore into System 
+
+	* lily/molecule.cc (ly_add_molecule): new Scheme ly-add-molecule.
+
+	* lily/grob.cc (ly_get_parent): new Scheme function ly-get-parent.
+	(ly_get_extent): new Scheme function ly-get-extent
+
+	* ps/lilyponddefs.ps: use output-scale for  line-x
+	definition. 
+
+	* scm/ps.scm (font-load-command): 
+	use output-scale
+
+2002-03-20  Rune Zedeler <rune@zedeler.dk>
+	
+	* lily/beaming-info.cc: Stupid typo fixed
+	
+	* lily/accidental-engraver.cc: rewrote accidental-routines to get
+	support for cross-context auto-accidentals.
+	Now the engraver can stay in Staff-context and see other contexts
+	from there.
+	Changed properties: autoAccidentals, autoCautionaries
+
+	* lily/translator-group.cc (set_children_property):
+	Function added recursively setting the same property (deep_copied)
+	for all children of a Translator_group.
+	
+	* ly/property-init.ly: added commands
+	\pianoAccidentals \voiceAccidentals
+	\modernVoiceAccidentals \modernVoiceCautionaries
+
+	* ly/engraver-init.ly: Correct initialization of new accidentals.
+	
+	* scm/translator-property-description.scm: Updated
+	
+	* input/regression/accidental-voice.ly: Added
+	
+	* Documentation/regression-test.tely: Added new test	
+
 2002-03-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.44 released

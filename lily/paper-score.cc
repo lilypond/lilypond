@@ -31,7 +31,7 @@ Paper_score::Paper_score ()
 }
 
 void
-Paper_score::typeset_line (Line_of_score *l)
+Paper_score::typeset_line (System *l)
 {
   if (!line_l_)
     {

@@ -151,7 +151,7 @@ Grob::remove_grob_property (const char* key)
 /*
   Puts the k, v in the immutable_property_alist_, which is convenient for
   storing variables that are needed during the breaking process. (eg.
-  Line_of_score::rank : int)
+  System::rank : int)
  */
 void
 Grob::set_immutable_grob_property (const char*k, SCM v)
@@ -331,7 +331,7 @@ Grob::do_break_processing ()
 
 
 
-Line_of_score *
+System *
 Grob::line_l () const
 {
   return 0;
@@ -379,8 +379,8 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	}
       else
 	{
-	  Line_of_score * line
-	    = dynamic_cast<Line_of_score*> (unsmob_grob (criterion));
+	  System * line
+	    = dynamic_cast<System*> (unsmob_grob (criterion));
 	  if (sc->line_l () != line)
 	    {
 	      sc = sc->find_broken_piece (line);
@@ -452,7 +452,7 @@ Grob::handle_broken_dependencies ()
       for (int i = 0;  i< s->broken_into_l_arr_ .size (); i++)
 	{
 	  Grob * sc = s->broken_into_l_arr_[i];
-	  Line_of_score * l = sc->line_l ();
+	  System * l = sc->line_l ();
 	  sc->mutable_property_alist_ =
 	    handle_broken_grobs (mutable_property_alist_,
 				 l ? l->self_scm () : SCM_UNDEFINED);
@@ -460,7 +460,7 @@ Grob::handle_broken_dependencies ()
     }
 
 
-  Line_of_score *line = line_l ();
+  System *line = line_l ();
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
@@ -468,7 +468,7 @@ Grob::handle_broken_dependencies ()
 	= handle_broken_grobs (mutable_property_alist_,
 			       line ? line->self_scm () : SCM_UNDEFINED);
     }
-  else if (dynamic_cast <Line_of_score*> (this))
+  else if (dynamic_cast <System*> (this))
     {
       mutable_property_alist_ = handle_broken_grobs (mutable_property_alist_,
 					    SCM_UNDEFINED);
@@ -479,7 +479,7 @@ Grob::handle_broken_dependencies ()
 	This element is `invalid'; it has been removed from all
 	dependencies, so let's junk the element itself.
 
-	do not do this for Line_of_score, since that would remove
+	do not do this for System, since that would remove
 	references to the originals of score-elts, which get then GC'd
  (a bad thing.)
       */
@@ -514,7 +514,7 @@ Grob::handle_prebroken_dependencies ()
 }
 
 Grob*
-Grob::find_broken_piece (Line_of_score*) const
+Grob::find_broken_piece (System*) const
 {
   return 0;
 }
@@ -886,6 +886,30 @@ ly_get_paper_var (SCM grob, SCM sym)
 
 
 
+SCM
+ly_get_extent (SCM grob, SCM refp, SCM axis)
+{
+  Grob * sc = unsmob_grob (grob);
+  Grob * ref = unsmob_grob (refp);
+  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(ref, refp, SCM_ARG2, __FUNCTION__, "grob");
+  
+  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+
+  return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
+}
+
+SCM
+ly_get_parent (SCM grob, SCM axis)
+{
+  Grob * sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+
+  return sc->get_parent (Axis (gh_scm2int (axis)))->self_scm();
+}
+
+
 static void
 init_functions ()
 {
@@ -895,8 +919,10 @@ init_functions ()
 		      (Scheme_function_unknown)ly_set_grob_property);
   scm_c_define_gsubr ("ly-get-spanner-bound", 2 , 0, 0,
 		      (Scheme_function_unknown) spanner_get_bound);
-  scm_c_define_gsubr ("ly-get-paper-variable", 2 , 0, 0,
-		      (Scheme_function_unknown) ly_get_paper_var);
+  scm_c_define_gsubr ("ly-get-extent", 3, 0, 0,
+		      (Scheme_function_unknown) ly_get_extent);
+  scm_c_define_gsubr ("ly-get-parent", 2, 0, 0,
+		      (Scheme_function_unknown) ly_get_parent);
 }
 
 bool

@@ -173,9 +173,9 @@ Spanner::set_bound (Direction d, Grob*s)
   spanned_drul_[d] =i;
 
   /**
-     We check for Line_of_score to prevent the column -> line_of_score
+     We check for System to prevent the column -> line_of_score
      -> column -> line_of_score -> etc situation */
-  if (d== LEFT && !dynamic_cast<Line_of_score*> (this))
+  if (d== LEFT && !dynamic_cast<System*> (this))
     {
       set_parent (i, X_AXIS);
     }
@@ -219,7 +219,7 @@ Spanner::spanner_length () const
   return r-l;
 }
 
-Line_of_score *
+System *
 Spanner::line_l () const
 {
   if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
@@ -231,7 +231,7 @@ Spanner::line_l () const
 
 
 Grob*
-Spanner::find_broken_piece (Line_of_score*l) const
+Spanner::find_broken_piece (System*l) const
 {
   int idx = binsearch_link_array (broken_into_l_arr_, (Spanner*)l, Spanner::compare);
   

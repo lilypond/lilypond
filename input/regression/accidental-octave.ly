@@ -1,8 +1,9 @@
-\version "1.5.24.rz2"
+\version "1.5.43.rz1"
 
 \header {
 texidoc="
 This shows how accidentals in different octaves are handled.
+Fixme: Shorten and docu
 "
 }
 
@@ -47,14 +48,14 @@ mel = \notes \transpose c'' {
 mus = \notes {
    \mel
    \property Score.oneMeasureLazy = ##t
-   \property Score.autoAccidentals = #'((measure-same-octave . 0))
-   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'((measure-same-octave . 0))" \mel >
-   \property Score.autoAccidentals = #'((measure-same-octave . 1))
-   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'((measure-same-octave . 1))" \mel >
-   \property Score.autoAccidentals = #'((measure-any-octave . 0))
-   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'((measure-any-octave . 0))" \mel >
-   \property Score.autoAccidentals = #'((measure-any-octave . 1))
-   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'((measure-any-octave . 1))" \mel >
+   \property Score.autoAccidentals = #'(Staff (same-octave . 0))
+   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (same-octave . 0))" \mel >
+   \property Score.autoAccidentals = #'(Staff (same-octave . 1))
+   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (same-octave . 1))" \mel >
+   \property Score.autoAccidentals = #'(Staff (any-octave . 0))
+   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (any-octave . 0))" \mel >
+   \property Score.autoAccidentals = #'(Staff (any-octave . 1))
+   < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (any-octave . 1))" \mel >
    \modernAccidentals
    < s1^""^""^"$\\backslash$modernAccidentals" \mel >
    \modernCautionaries
