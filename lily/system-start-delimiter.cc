@@ -26,7 +26,6 @@ System_start_delimiter::staff_bracket (Grob*me,Real height)
 		    me->get_grob_property ("arch-angle"),
 		    me->get_grob_property ("arch-width"),
 		    gh_double2scm (arc_height),
-		    me->get_grob_property ("bracket-width"),
 		    gh_double2scm (height),
 		    me->get_grob_property ("arch-thick"),
 		    me->get_grob_property ("bracket-thick"),

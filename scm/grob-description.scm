@@ -541,7 +541,6 @@
 		(glyph . bar-line)
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
-		(bracket-width . 2.0)
 		(Y-extent-callback . #f)
 		(font-family . braces)
 		;; if you want to set point-size, you cannot set

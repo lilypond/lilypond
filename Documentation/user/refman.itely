@@ -29,7 +29,8 @@
 * transpose::                      transpose
 * Ambiguities::                    Ambiguities
 * Notation conversion specifics::  Notation conversion specifics
-* autobeam::                       autobeam
+* Automatic Beaming::              Automatic Beaming
+* Chord Names::                    Chord Names
 * lyricprint::                     lyricprint
 * Notation Contexts::              Notation Contexts
 * Properties::                     Changing formatting
@@ -935,7 +936,7 @@ Some more elaborate constructions:
   \times 2/3 { [e'8 f' g'] }
 @end lilypond
 
-Beaming can be generated automatically; see section @ref{autobeam}.
+Beaming can be generated automatically; see section @ref{Automatic Beaming}.
 
 
 To place tremolo marks between notes, use @code{\repeat} with tremolo
@@ -1816,97 +1817,266 @@ foo = -6
 @section Notation conversion specifics
 
 
-
+@node Automatic Beaming, , ,  Reference Manual
 @cindex automatic beam generation
+@cindex autobeam
 
-@node autobeam, , ,  Reference Manual
-
-[FIXME: UPDATEME]
+@c beamAuto vs autoBeam ?
 
 By default, LilyPond will generate beams automatically.  This feature
 can be disabled by setting the
-@code{Voice.noAutoBeaming}@indexcode{Voice.noAutoBeaming} property to 1.
+@code{Voice.beamAuto}@indexcode{Voice.beamAuto} property to @code{#f}.
 It can be overridden for specific cases by specifying explicit beams.
 
+
 A large number of Voice properties are used to decide how to generate
-beams.  Their default values appear in @file{auto-beam-settings.ly}.  In
+beams.  Their default values appear in @file{scm/auto-beam.scm}.  In
 general, beams can begin anywhere, but their ending location is
 significant.  Beams can end on a beat, or at durations specified by the
-@code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} property.  To end
-beams every quarter note, for example, you could set
-@code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} equal to
-`@code{"1/4"}'.  To end beams at every three eighth notes you would set
-it to `@code{"3/8"}'.  The same syntax can be used to specify beam
+properties in
+@code{Voice.autoBeamSettings}@indexcode{Voice.autoBeamSettings}.
+To end beams every quarter note, for example, you could set the property
+@code{(end * * * *)} @indexcode{(end * * * *)} to `@code{(make-moment 1
+4)}'.  To end beams at every three eighth notes you would set
+it to `@code{(make-moment 1 8)}'.
+The same syntax can be used to specify beam
 starting points using
-@code{Voice.beamAutoBegin}@indexcode{Voice.beamAutoBegin}.
+@code{(begin * * * *)}@indexcode{(begin * * * *)}, eg:
+@quotation
+@example
+\property Voice.autoBeamSettings \override
+    #'(end * * * *) = #(make-moment 1 4)
+\property Voice.autoBeamSettings \override
+    #'(begin * * * *) = #(make-moment 1 8)
+@end example
+@end quotation
 
-To allow different settings for different time signatures, these
-property names can start with `@code{time}@var{N}@code{_}@var{M}' to
-restrict the definition to `@var{N}@code{/}@var{M}' time.  For example,
-to specify beams ending only for 6/8 time you would use the property
-@code{Voice.time6_8beamAutoEnd}.  To allow different endings for notes
-of different durations, the duration can be tacked onto the end of the
-property.  To specify beam endings for beams that contain 32nd notes,
-you would use @code{Voice.beamAutoEnd_32}.
+To allow different settings for different time signatures, instead of
+the first two asterisks @code{* *} you can specify a time signature; use
+@code{(end N M * *)} to restrict the definition to
+`@var{N}@code{/}@var{M}' time.  For example, to specify beams ending
+only for 6/8 time you would use the property @code{(end 6 8 * *)}.
+
+To allow different endings for notes of different durations, instead of
+th last two asterisks you can specify a duration; use @code{(end * * N
+M)} to restrict the definition to beams that contain notes of
+`@var{N}@code{/}@var{M}' duration.
+
+For example, to specify beam endings for beams that contain 32nd notes,
+you would use @code{(end * * 1 32)}.
 
 
-
+@node Chord Names, , ,  Reference Manual
 @cindex chord names
-
 @cindex chords
 
 @cindex printing!chord names
 
-For displaying printed chord names, use the @code{ChordNames}@indexcode{ChordNames}
-and @code{ChordNameVoice}@indexcode{ChordNameVoice} contexts.  The chords may be entered
-either using the notation described above, or directly using
-simultaneous music.
+For displaying printed chord names, use the
+@code{ChordNames}@indexcode{ChordNames} and
+@code{ChordNameVoice}@indexcode{ChordNameVoice} contexts.  The chords
+may be entered either using the notation described above, or directly
+using simultaneous music.
 
 @quotation
-
-@lilypond[fragment,verbatim]
-<
-  \context ChordNames {
-    \chords{a b c} \notes{<d f g>  <e g b>}
-  }
-  \context Staff \notes {
-    a b c' d' e'
-  }
->
-
+@lilypond[verbatim]
+scheme = \notes {
+  \chords {a1 b c} <d f g>  <e g b>
+}
+\score {
+  \notes<
+    \context ChordNamesVoice \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper { linewidth = -1.; }
+}
 @end lilypond
 @end quotation
 
+
+You can make the chord changes stand out more by setting property
+@code{ChordNames.chordChanges} to @code{#t}.  This will only display
+chord names when there's a change in the chords scheme, but always
+display the chord name after a line break:
+
+@c bug
+@quotation
+@lilypond[verbatim]
+scheme = \chords {
+%  \property ChordNames.chordChanges = ##t
+  c1:m \break c:m c:m c:m d
+}
+
+\score {
+  \notes <
+    \context ChordNamesVoice \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper{
+    linewidth = 40 * \staffspace;
+  }
+}
+@end lilypond
+@end quotation
+
+
+
 LilyPond examines chords specified as lists of notes to determine a
-name to give the chord.  By default, LilyPond will not try to
-identify chord inversions:
+name to give the chord. LilyPond will not try to
+identify chord inversions or added base, which may result in strange
+chord names when chords are entered as a list of pitches:
 
-@lilypond[fragment,verbatim,center]
+@quotation
+@lilypond[verbatim,center]
+scheme = \notes {
+  <c'1 e' g'>
+  <e' g' c''>
+  <e e' g' c''>
+}
+
+\score {
   <
-    \context ChordNameVoice \notes {
-      <e'1 g' c''>
-    }
-    \context Thread \notes {
-      <e'1 g' c''>
-    }
+    \context ChordNamesVoice \scheme
+    \context Staff \scheme
   >
+  \paper { linewidth = -1.; }
+}
 @end lilypond
+@end quotation
 
-If you want inversions to be recognized, you must set the property
-@code{ChordNames.chordInversion}@indexcode{ChordNames.chordInversion}:
+To specify chord inversions, append @code{/<notename>}.  To specify an
+added bass note, append @code{/+<notename}:
 
-@lilypond[fragment,verbatim,center]
-  <
-    \property Score.chordInversion = ##t
-    \context ChordNameVoice \notes {
-      <e'1 g' c''>
-    }
-    \context Thread \notes {
-      <e'1 g' c''>
-    }
+@quotation
+@lilypond[verbatim,center]
+scheme = \chords {
+  d1 d/a d/+gis
+}
+
+\score {
+  \notes <
+    \context ChordNames \scheme
+    \context Staff \transpose c'' \scheme
   >
+  \paper { linewidth = -1.; }
+}
 @end lilypond
+@end quotation
 
+The chord names that LilyPond should print are fully customisable.  The
+default code can be found in @file{scm/chord-name.scm}.  Chord names are
+based on Banter style naming, which is unambiguous and has a logical
+structure.  Typical American style chord names are implemented as a
+variation on Banter names, they can be selected by setting poperty
+@code{ChordName.style} to @code{american}:
+
+@quotation
+@lilypond[verbatim]
+\include "english.ly"
+
+scheme = \chords {
+  c         % Major triad
+  cs:m      % Minor triad
+  df:m5-    % Diminished triad
+  c:5^3     % Root-fifth chord
+  c:4^3     % Suspended fourth triad
+  c:5+      % Augmented triad
+  c:2^3     % "2" chord
+  c:m5-.7-  % Diminished seventh
+  c:7+      % Major seventh
+  c:7.4^3   % Dominant seventh suspended fourth
+  c:5+.7    % Augmented dominant seventh
+  c:m5-.7   % "Half" diminished seventh
+  c:5-.7    % Dominant seventh flat fifth
+  c:5-.7+   % Major seventh flat fifth
+  c:m7+     % Minor-major seventh
+  c:m7      % Minor seventh
+  c:7       % Dominant seventh
+  c:6       % Major sixth
+  c:m6      % Minor sixth
+  c:9^7     % Major triad w/added ninth
+  c:6.9^7   % Six/Nine chord
+  c:9       % Dominant ninth 
+  c:7+.9    % Major ninth
+  c:m7.9    % Minor ninth
+}
+
+\score {
+  \notes <
+    \context ChordNames \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper {
+    \translator { 
+      \ChordNamesContext
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'american
+    }
+  }
+}
+@end lilypond
+@end quotation
+
+Similarly, Jazz style chord names are implemented as a variation on
+American style names:
+@quotation
+@lilypond[verbatim]
+scheme = \chords {
+  % major chords
+  c
+  c:6		% 6 = major triad with added sixth
+  c:maj		% triangle = maj
+  c:6.9^7	% 6/9 
+  c:9^7		% add9
+
+  % minor chords
+  c:m		% m = minor triad
+  c:m.6		% m6 = minor triad with added sixth
+  c:m.7+	% m triangle = minor major seventh chord
+  c:3-.6.9^7	% m6/9 
+  c:m.7		% m7
+  c:3-.9	% m9
+  c:3-.9^7	% madd9
+
+  % dominant chords
+  c:7		% 7 = dominant
+  c:7.5+	% +7 = augmented dominant
+  c:7.5-	% 7b5 = hard diminished dominant
+  c:9		% 7(9)
+  c:9-		% 7(b9)
+  c:9+		% 7(#9)
+  c:13^9.11 	% 7(13)
+  c:13-^9.11 	% 7(b13)
+  c:13^11	% 7(9,13)
+  c:13.9-^11	% 7(b9,13)
+  c:13.9+^11	% 7(#9,13)
+  c:13-^11	% 7(9,b13)
+  c:13-.9-^11	% 7(b9,b13)
+  c:13-.9+^11	% 7(#9,b13)
+
+  % half diminished chords
+  c:m5-.7		% slashed o = m7b5
+  c:9.3-.5-	% o/7(pure 9)
+
+  % diminished chords
+  c:m5-.7-	% o = diminished seventh chord
+}
+
+\score {
+  \notes <
+    \context ChordNames \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper {
+    \translator { 
+      \ChordNamesContext
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'jazz
+    }
+  }
+}
+@end lilypond
+@end quotation
 
 
 @cindex lyrics
@@ -1923,7 +2093,6 @@ Lyric syllables must be interpreted within a @code{Lyrics} context
 Here is a full example: 
 
 @quotation
-
 @lilypond[verbatim]
 \score {
   <

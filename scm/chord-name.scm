@@ -138,7 +138,9 @@
 	; major sixth chord = 6
  	(((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . (((raise . 0.5) "6")))
 	; major seventh chord = triangle
-	(((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . "math") "M"))))
+	;; shouldn't this be a filled black triange, like this:  ? --jcn
+	;; (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . math) "N"))))
+	(((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . math) "M"))))
 	; major chord add nine = add9
 	(((0 . 0) (2 . 0) (4 . 0) (1 . 0)) . (((raise . 0.5) "add9")))
 	; major sixth chord with nine = 6/9
@@ -147,8 +149,10 @@
 	;; minor chords
 	; minor sixth chord = m6
  	(((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . (rows("m")((raise . 0.5) "6")))
-	; minor major seventh chord = m triangle
-	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . "math") "M"))))
+	;; minor major seventh chord = m triangle
+	;; shouldn't this be a filled black triange, like this:  ? --jcn
+	;;(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . math) "N"))))
+	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . math) "M"))))
 	; minor seventh chord = m7
 	(((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . (rows("m")((raise . 0.5) "7")))
 	; minor sixth nine chord = m6/9

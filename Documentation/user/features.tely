@@ -7,7 +7,21 @@ TODO
   * add more un/badly documented features
   * write some text
   * add to/merge with refman
+
+
+  
+  there's a very simple, very general noXXX mechanism; try
+
+noop	\property Staff.VoltaBrace = #'()
+yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
+
+
+  visibility?
+  brew_molecule?
 @end ignore
+
+
+
 
 @node Top
 @chapter Features

@@ -629,6 +629,14 @@ if 1:
 	
 	conversions.append (((1,3,120), conv, 'paper_xxx -> paperXxxx, pedalup -> pedalUp.'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('drarnChords', 'chordChanges', str)
+		return str
+	
+	conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges'))
+
+
 ############################
 	
 
