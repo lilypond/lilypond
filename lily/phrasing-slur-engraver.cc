@@ -112,7 +112,7 @@ Phrasing_slur_engraver::process_music ()
     {
       Music *ev = events_[START];
 
-      Grob * slur = make_spanner ("Slur", events_[START]->self_scm ());
+      Grob * slur = make_spanner ("PhrasingSlur", events_[START]->self_scm ());
       Direction updown = to_dir (ev->get_property ("direction"));
       if (updown)
 	set_grob_direction (slur, updown);
