@@ -1157,20 +1157,30 @@ def format_lilypond_block (chunk):
 		s = 'output-html'
 
 	def html_pages (basename):
-		files =  glob.glob ("%s-page*.png"%  basename)
-
+		pat = os.path.join (g_outdir, "%s-page*.png"%  basename)
+		
+		files =  glob.glob (pat)
+		
+		
 		template = '''<img align="center" valign="center"
 		border="0" src="%s" alt="[picture of music]">'''
 
 		str = ''
-		if not files:
+		if  files == []:
 			files = [basename+'.png' ]
-		for  f in  files:
+		else:
+			files = map (os.path.basename, files)
+			
+		for f in  files:
 			str += template % f
 
 		str = '<a href="%s.ly">%s</a>' % (basename, str)
+
+		print 'hai', str
+		
 		return str
 
+	
 	newbody = newbody + get_output (s) % {'fn': basename,
 					      'htmlimages': html_pages(basename)
 					      }
@@ -1234,7 +1244,10 @@ linking to the menu.
 		changed = update_file (content, outname)
 
 		preview = base + ".png"
-		if changed or not os.path.isfile (preview):
+		preview_page = base + '-page1.png'
+		
+		if changed or not (os.path.isfile (preview) or
+				   os.path.isfile (preview_page)):
 			
 			ly.system ('%s --preview --postscript --verbose %s ' % (ly2dvi_binary, base) ) 
 

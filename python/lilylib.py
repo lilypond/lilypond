@@ -401,8 +401,9 @@ def make_ps_images (ps_name, resolution = 90):
 	## todo:
 	## have better algorithm for deciding when to crop page,
 	## and when to show full page
-	
-	multi_page = re.search ('^%%Pages: ', open (ps_name).read (1024))
+
+	header = open (ps_name).read (1024)
+	multi_page = re.search ('\n%%Pages: ', header)
 	cmd = ''
 
 	if multi_page == None:

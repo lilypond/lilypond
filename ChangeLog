@@ -1,6 +1,9 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* python/lilylib.py (make_ps_images): make multipage _really_ work.
+
 	* scripts/lilypond-book.py (do_file): put texidoc before image.
+	(TexiPaper.process_ly2dvi_block): make multipage _really_ work.
 
 	* input/regression/*.ly: fix snippet octaves 
 

@@ -112,7 +112,7 @@ Copyright 1999--2003 by the authors
 
 @chapter GNU LilyPond --- The music typesetter
 
-This is the user manual for GNU LilyPond 1.7.16.
+This is the user manual for GNU LilyPond 1.8.0.
 
 @cindex web site
 
@@ -128,11 +128,11 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction.
 * Notation manual::                All notation supported, and how to
                                    produce it 
+* Literature::                     Books about notation and engraving.
 * Technical manual::                How it all works.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * lilypond-book manual::           Integrating text and music with lilypond-book.
-* Literature::                     Additional reading material.
 * Index::                          Unified index.
 * Reference manual details::
 * Cheat sheet::     
