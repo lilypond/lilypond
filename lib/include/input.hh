@@ -26,6 +26,7 @@ public:
     String location_str()const;
     Input(Source_file*, char const*);
     Input();
+    Input( Input const& );
 };
 
 #endif // INPUT_HH

@@ -6,6 +6,8 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "proto.hh"
+#include "plist.hh"
 #include "input-register.hh"
 #include "debug.hh"
 #include "register.hh"

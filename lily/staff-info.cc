@@ -4,8 +4,9 @@
   source file of the LilyPond music typesetter
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "staff.hh"
 #include "proto.hh"
+#include "plist.hh"
+#include "staff.hh"
 #include "staff-info.hh"
 #include "score-column.hh"
 #include "complex-walker.hh"

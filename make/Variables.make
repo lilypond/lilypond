@@ -18,14 +18,9 @@ include ./$(depth)/.version
 #
 include ./$(depth)/make/out/Configure_variables.make
 
-# ugh, for win32 make
-# leave me up here, or i won-t work
-export CXX
-
 ifeq (0,${MAKELEVEL})
 MAKE:=$(MAKE) --no-builtin-rules
 endif
-
 
 # directory names:
 #
