@@ -1725,12 +1725,15 @@ or at durations specified by the properties in
 @code{autoBeamSettings}.  The defaults for @code{autoBeamSettings}
 are defined in @file{scm/@/auto@/-beam@/.scm}.
 
-The value of @code{autoBeamSettings} is changed with two functions,
+The value of @code{autoBeamSettings} is changed with three functions,
 @example
 #(override-auto-beam-setting
    '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b}
    [@var{context}])
-#(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m}))
+#(score-override-auto-beam-setting
+   '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b})
+#(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m})
+   [@var{context}])
 @end example
 Here, @var{be} is the symbol @code{begin} or @code{end}, and
 @var{context} is an optional context (default: @code{'Voice}).  It
@@ -1741,7 +1744,9 @@ to a time signature (wildcards `@code{* *}' may be entered to
 designate all time signatures), @var{a}/@var{b} is a duration.  By
 default, this command changes settings for the current voice.  It is
 also possible to adjust settings at higher contexts, by adding a
-@var{context} argument.
+@var{context} argument.  @code{score-override-auto-beam-setting} is
+equal to @code{override-auto-beam-setting} with the argument
+@var{context} set to @code{'Score}.
 
 For example, if automatic beams should end on every quarter note, use
 the following

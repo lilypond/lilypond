@@ -1,3 +1,11 @@
+2005-01-18  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/auto-beam.scm: Simplify score-override-auto-beam-setting
+
+	* Documentation/user/notation.itely: Document
+	score-override-auto-beam-setting Fix documentation for
+	revert-auto-beam-setting.
+
 2005-01-18  Werner Lemberg  <wl@gnu.org>
 
 	* scm/framework-ps.scm (ps-embed-cff): Fix DSC comments.
