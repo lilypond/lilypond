@@ -6,7 +6,9 @@
           content="Top-level index to the standard documentation for
                    LilyPond @TOPLEVEL_VERSION@">
     <style type="text/css">
-    .navigation td          { background-color: #e8ffe8;
+    .navigation         { background-color: #e8ffe8;
+   	                  padding: 2; border: #c0ffc0 1px solid;
+			  text-align: center;
                           font-weight: bold;
                           font-family: avantgarde, sans-serif;
                           font-size: 110%; }
@@ -19,14 +21,11 @@
     </style>
   </head>
   <body>
+        
 	<div class="navigation">
-	<table align="center" width="100%" cellpadding="0" cellspacing="2">
-	<tr>
-	  <td align=center><h1> LilyPond documentation</h1></td>
-	</tr>
-	</table>
-        <hr>
+	  <h1> LilyPond documentation</h1>
 	</div>
+    <hr>
     <div align="center" class="titlepage">
 
       <p>
