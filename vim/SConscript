@@ -8,7 +8,7 @@ a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --words --vim --dir=${TARGET
 e.Command ('lilypond-words.vim',
 	   ['#/lily/lily-lexer.cc',
 	    '#/buildscripts/lilypond-words.py',
-	    '#/scm/new-markup.scm',
+	    '#/scm/markup.scm',
 	    '#/ly/engraver-init.ly',],
 	   a)
 

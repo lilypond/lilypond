@@ -16,7 +16,7 @@ LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\
   $(topdir)/lily/lily-lexer.cc \
   $(buildscript-dir)/lilypond-words.py \
-  $(topdir)/scm/new-markup.scm \
+  $(topdir)/scm/markup.scm \
   $(topdir)/ly/engraver-init.ly
 
 $(LILYPOND_WORDS): 
