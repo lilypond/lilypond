@@ -2,12 +2,18 @@
 #include "debug.hh"
 #include "parseconstruct.hh"
 
+Real
+Staff_commands_at::when()
+{
+    return moment_.when;
+}
 void
 Staff_commands_at::print() const
 {
 #ifndef NPRINT
     PCursor<Command*> i (*this);
-    mtor << "Commands at: " << when<<"\n";
+    mtor << "Commands at: " ;
+    moment_.print();
     
     for (; i.ok(); i++)
 	i->print();
@@ -22,9 +28,10 @@ Staff_commands_at::OK()const
 	    assert(i->priority >= (i+1)->priority);
 }
 
-Staff_commands_at::Staff_commands_at(Real r)
+Staff_commands_at::Staff_commands_at(Moment m)
+    :moment_(m)
 {
-    when = r;
+    
 }
 
 bool
@@ -200,9 +207,8 @@ Staff_commands::OK() const
 {
 #ifndef NDEBUG
     for (PCursor<Staff_commands_at*> i(*this); i.ok() && (i+1).ok(); i++) {
-	assert(i->when <= (i+1)->when);
+	assert(i->moment_.when <= (i+1)->moment_.when);
 	i->OK();
-
     }
 #endif
 }
@@ -222,41 +228,44 @@ Staff_commands::find(Real w)
 {
     PCursor<Staff_commands_at*> i(bottom());
     for (; i.ok() ; i--) {
-	if (i->when == w)
+	if (i->moment_.when == w)
 	    return i;
-	if (i->when < w)
+	if (i->moment_.when < w)
 	    break;
     }
-    Staff_commands_at*p =new Staff_commands_at(w);
+    return 0;
+}
+
+void
+Staff_commands::add(Staff_commands_at*p)
+{
+    PCursor<Staff_commands_at*> i(bottom());
+    for (; i.ok() ; i--) {
+	if (i->moment_.when < p->moment_.when)
+	    break;
+    }
     if (!i.ok()) 
 	i.insert(p);
     else {
 	i.add(p);
 	i++;
     }
-    return i;
-}
-
-void
-Staff_commands::add(Command c, Real when)
-{
-    Staff_commands_at* p = find(when);
-    p->add(c);
 }
 
 void
 Staff_commands::clean(Real l)
 {
     PCursor<Staff_commands_at*> i(bottom());
-    for (; i->when > l ; i=bottom()) {
+    for (; i->moment_.when > l; i=bottom()) {
 	remove(i);
     }
-    Staff_commands_at*p = find(l);
     
+    Staff_commands_at*p = find(l);
+    if (!p) {
+	p = new Staff_commands_at(Moment(l - i->when(), &i->moment_));
+	add(p);
+    }
     if (!p->is_breakable()) {
 	p->set_breakable();
-/*	Command b;
-	b.code = INTERPRET;
-	b.args.add("BAR");*/
     }
 }
