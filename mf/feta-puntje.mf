@@ -1,13 +1,13 @@
-fet_begingroup("dots");
+fet_begingroup ("dots");
 
 save dot_radius;
 4 dot_radius# = staff_space# - stafflinethickness#;
-define_whole_blacker_pixels(dot_radius);
+define_whole_blacker_pixels (dot_radius);
 
-fet_beginchar("duration dot","dot")
+fet_beginchar ("duration dot", "dot")
 	pickup pencircle scaled 2 dot_radius;
-	drawdot (dot_radius,0);
-	set_char_box(0, 2*dot_radius#, dot_radius#, dot_radius#);
+	drawdot (dot_radius, 0);
+	set_char_box (0, 2*dot_radius#, dot_radius#, dot_radius#);
 fet_endchar;
 
 fet_endgroup("dots");
