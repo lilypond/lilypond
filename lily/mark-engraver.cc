@@ -7,8 +7,8 @@
 */
 #include "command-request.hh"
 #include "mark-engraver.hh"
-#include "engraver-group.hh"
-#include "g-text-item.hh"
+#include "engraver-group-engraver.hh"
+#include "text-item.hh"
 
 
 ADD_THIS_TRANSLATOR (Mark_engraver);

@@ -10,6 +10,7 @@
 #include "array.hh"
 #include "musical-pitch.hh"
 #include "staff-symbol-referencer.hh"
+#include "note-head-side.hh"
 
 struct Local_key_cautionary_tuple
 {
@@ -37,16 +38,15 @@ struct Local_key_cautionary_tuple
   figure out private/public
   
  */
-class Local_key_item : public Item, public Staff_symbol_referencer {
+class Local_key_item : public Note_head_side, public Staff_symbol_referencer {
   Array<Local_key_cautionary_tuple> accidental_arr_;
-  Link_array<Item> support_items_;
+
 public:
   int c0_position_i_;
   Local_key_item ();
-  void add_support (Item*);
   void add_pitch (Musical_pitch, bool cautionary);
 protected:
-  virtual void do_pre_processing();    
+  virtual void do_pre_processing();
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Molecule* do_brew_molecule_p() const;
 };

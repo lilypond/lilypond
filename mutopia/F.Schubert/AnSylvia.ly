@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.0.16";
+\version "1.0.20";
 
 \include "paper16.ly";
 \include "paper13.ly";
@@ -18,8 +18,8 @@ title = "An Sylvia";
 pianoRH=\notes \relative c''  {
 		 \clef "G";
 %1
-		 <[b,8-.(\pp d-. g-.> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
-		 <[b8-. d-. g-.(> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
+		 <[b,8-.(\pp d-. g-.> <b-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
+		 <[b8-. d-. g-.(> <b-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
 		 |
 %2
 		 <[c d g_"{\it simile}" \< > <c d g> <c d fis> <c d fis>]
@@ -33,7 +33,7 @@ pianoRH=\notes \relative c''  {
 		 <[d a' b> <d a' b> <d g! b> <d g b>] 
 		 <[d g a> <d g a> <d fis a> <d fis a>] |
 %5
-		 \repeat 2 {
+		 \repeat semi 2 {
 		 <[b_. d g( \pp > <b_. d g> <b_. d g> <)b_. d g>]
 		 <[b_. d g(> <b_. d g> <b_. d g> <)b_. d g>]
 		 |
@@ -144,7 +144,7 @@ pianoLH=\notes \relative c  {
 		)b4-. [d,8.( d16] )c'4-. [d,8. d16] |
 %4
 		d'4-. d,-. d'-. [d,8.( d16 ] 
-		\repeat 2 {
+		\repeat semi 2 {
 %5
 		)g4-. d_. r4 [g8.( g16] |
 %6
@@ -206,7 +206,7 @@ tune=\notes  \relative c''  {
 	       \property Voice.dynamicdir = "1"
 
 	       r1 | r1 |r1 | r1 |
-		\repeat 2 {
+		\repeat semi 2 {
 %5
 		b2. g4 |
 %6
@@ -393,8 +393,8 @@ Vocals= <
 		>
 	>
 	\paper {
-	%	\paper_thirteen;
-		\paper_sixteen;
+	%	\paper_thirteen
+		\paper_sixteen
 		linewidth = 18.0\cm;
 		textheight = 26.0\cm;
 		gourlay_maxmeasures=15.0;

@@ -10,7 +10,7 @@
 #ifndef SCORE_GRAV_HH
 #define SCORE_GRAV_HH
 
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "global-translator.hh"
 
 /**

@@ -36,31 +36,13 @@ protected:
 
 
 
-class G_script_req : public virtual Request
+class Script_req : public virtual Request
 {
 public:
   Direction dir_;
   VIRTUAL_COPY_CONS(Music);
 };
 
-#if 0
-/** Put a script above or below this ``note'' or bar. eg upbow, downbow. Why
-  a request? These symbols may conflict with slurs and brackets, so
-  this also a request */
-
-class Script_req  : public virtual G_script_req { 
-public:
-  General_script_def *scriptdef_p_;
-  
-  bool do_equal_b (Request*) const;
-
-  Script_req();
-  VIRTUAL_COPY_CONS(Music);
-  virtual void do_print () const;
-  ~Script_req();
-  Script_req (Script_req const&);
-};
-#endif
 
 /**
   Requests to start or stop something.

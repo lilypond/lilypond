@@ -9,8 +9,8 @@
 #include "staff-margin-engraver.hh"
 #include "bar.hh"
 #include "time-description.hh"
-#include "g-text-item.hh"
-#include "g-staff-side.hh"
+#include "text-item.hh"
+#include "staff-side.hh"
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 

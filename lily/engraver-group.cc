@@ -7,7 +7,7 @@
 */
 
 #include "proto.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "debug.hh"
 #include "p-score.hh"

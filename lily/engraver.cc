@@ -9,7 +9,7 @@
 #include "music-list.hh"
 #include "musical-request.hh"
 #include "engraver.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 

@@ -34,7 +34,7 @@
   (let* ((keywords '("alternative" "repeat"
 		     "accepts" "accidentals" "break" "bar" "cadenza" 
 		     "clef" "cm" "consists" "consistsend" "contains" "duration" 
-		     "spanrequest" "scmfile" "lyrics"
+		     "spanrequest" "grace" "scmfile" "lyrics"
 		     "in" "translator" "context" "key" "maininput" "notes"
 		     "musical_pitch" "time" "midi" "mm" "header"
 		     "notenames" "octave" "output" "partial" "paper" "plet" "name"

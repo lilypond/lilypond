@@ -47,7 +47,8 @@
 class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
 private:
-  Spring_spacer (Spring_spacer const&){}
+  // can't copy me.
+  Spring_spacer (Spring_spacer const&s);
   Cons<Idealspacing> *ideal_p_list_;
   Array<Column_info> cols_;
   Array<Column_info> loose_col_arr_;

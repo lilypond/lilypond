@@ -7,6 +7,8 @@
 */
 
 #include "global-translator.hh"
+#include "music-iterator.hh"
+#include "debug.hh"
 
 Global_translator::Global_translator()
 {
@@ -58,4 +60,43 @@ Music_output*
 Global_translator::get_output_p()
 {
   return 0;
+}
+
+void
+Global_translator::process ()
+{
+}
+void
+Global_translator::start ()
+{
+}
+void
+Global_translator::finish ()
+{
+}
+
+void
+Global_translator::run_iterator_on_me (Music_iterator * iter)
+{
+  while (iter->ok() || moments_left_i ())
+    {
+      Moment w;
+      w.set_infinite (1);
+      if (iter->ok())
+	{
+	  w = iter->next_moment();
+	  DOUT << "proccing: " << w << '\n';
+	  if (!monitor->silent_b ("walking"))
+	    iter->print();
+	}
+      
+      modify_next (w);
+      prepare (w);
+      
+      if (!monitor->silent_b ("walking"))
+	print();
+
+      iter->process_and_next (w);
+      process();
+    }
 }

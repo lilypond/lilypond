@@ -132,55 +132,60 @@ Beam_engraver::do_removal_processing ()
 void
 Beam_engraver::acknowledge_element (Score_element_info info)
 {
-    if (beam_p_)
-      {
-	Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
-	if (!stem_l)
-	  return;
+  if (beam_p_)
+    {
+      Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
+      if (!stem_l || stem_l->beam_l_)
+	return;
 
+      bool self_grace = beam_p_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+      bool stem_grace = stem_l->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
 
-	Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
-	if (!rhythmic_req)
-	  {
-	    String s = _ ("Stem must have Rhythmic structure.");
-	    if (info.req_l_)
-	      info.req_l_->warning (s);
-	    else
-	      ::warning (s);
+      if (!self_grace && stem_grace)
+	return;
+
+      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+      if (!rhythmic_req)
+	{
+	  String s = _ ("Stem must have Rhythmic structure.");
+	  if (info.req_l_)
+	    info.req_l_->warning (s);
+	  else
+	    ::warning (s);
 	  
-	    return;
-	  }
+	  return;
+	}
       
 
-	if (rhythmic_req->duration_.durlog_i_<= 2)
-	  {
-	    rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-	    prev_start_req_->warning (_ ("beam was started here"));
-	    return;
-	  }
+      if (rhythmic_req->duration_.durlog_i_<= 2)
+	{
+	  rhythmic_req->warning (_ ("stem doesn't fit in beam"));
+	  prev_start_req_->warning (_ ("beam was started here"));
+	  return;
+	}
 
-	/*
-	  TODO: do something sensible if it doesn't fit in the beam.
-	*/
-	Moment start = get_staff_info().time_C_->whole_in_measure_;
+      /*
+	TODO: do something sensible if it doesn't fit in the beam.
+      */
+      Moment start = get_staff_info().time_C_->whole_in_measure_;
 
-	if (!grouping_p_->child_fit_b (start))
-	  {
-	    String s (_ ("please fix me") + ": " 
-		      + _f ("stem at %s doesn't fit in beam", now_mom ().str ()));
+      if (!grouping_p_->child_fit_b (start))
+	{
+	  String s (_ ("please fix me") + ": " 
+		    + _f ("stem at %s doesn't fit in beam", now_mom ().str ()));
 
-	    if (info.req_l_)
-	      info.req_l_->warning(s);
-	    else 
-	      warning (s);
-	  }
-	else
-	  {
-	    grouping_p_->add_child (start, rhythmic_req->length_mom ());
-	    stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
-	    beam_p_->add_stem (stem_l);
-	  }
-      }
+	  if (info.req_l_)
+	    info.req_l_->warning(s);
+	  else 
+	    warning (s);
+	}
+      else
+	{
+	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
+	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+	  beam_p_->add_stem (stem_l);
+	}
+    }
 }
 
 

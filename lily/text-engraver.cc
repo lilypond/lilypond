@@ -8,8 +8,8 @@
  */
 
 #include "engraver.hh"
-#include "g-staff-side.hh"
-#include "g-text-item.hh"
+#include "staff-side.hh"
+#include "text-item.hh"
 #include "musical-request.hh"
 #include "note-head.hh"
 #include "stem.hh"
@@ -18,8 +18,8 @@
 class Text_engraver : public Engraver
 {
   Link_array<Text_script_req> reqs_;
-  Link_array<G_staff_side_item> positionings_;
-  Link_array<G_text_item> texts_;
+  Link_array<Staff_side_item> positionings_;
+  Link_array<Text_item> texts_;
 public:
   Text_engraver();
   VIRTUAL_COPY_CONS(Translator);
@@ -74,8 +74,8 @@ Text_engraver::do_process_requests ()
     {
       Text_script_req * r = reqs_[i];
 
-      G_text_item *text = new G_text_item;
-      G_staff_side_item *ss = new G_staff_side_item;
+      Text_item *text = new Text_item;
+      Staff_side_item *ss = new Staff_side_item;
 
       ss->set_victim (text);
       ss->set_elt_property (script_priority_scm_sym,

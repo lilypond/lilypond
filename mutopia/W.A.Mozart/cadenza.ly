@@ -9,9 +9,7 @@ copyright =	 "public domain";
 
 %{
 Tested Features: cadenza mode
-
-Ugh.. Wish we had grace notes....  It adds another dimension to this
-piece of music.  %}
+%}
 
 \version "1.0.21";
 
@@ -29,7 +27,7 @@ cad = \notes  \relative c' {
 	[e'^"accel" () d  c b]
 	[b() c] g-\fermata
 		\bar "empty";
-			c, [c_"rubato" e g c]
+			c, ~ [c^\turn_"rubato" e g c]
 	e4. e8 [g () f_"rit" e d]
 
 	dis4() e4
@@ -43,11 +41,12 @@ cad = \notes  \relative c' {
 		\bar "" ;
 
 	r8 a [b cis]
+%	\grace e16
 	[d16 cis d e]
-	f4( [  )f16 e d c]
+	f4 ~ [f16 e d c]
 	b4-\turn
 	\times 2/3 { [ d8 c8 a8] }
-	g2
+	g2~
 		\bar "" ;
 	[g16 c, e g] [c e, g c]
 	[e g, c e] g4^\fermata 
@@ -55,11 +54,13 @@ cad = \notes  \relative c' {
 	[g8.(_"a tempo" e16 g8. )e16]
 	a4. g8 [f8 e8 d8 c8]
 	g2 d'2-\trill
-	c4
-	}}
+%	\grace { [c32 d] }
+	 c4
+	} }
+	
 \score {
 	\notes { \cad }
-	\midi { \tempo 4 = 90; }
 	\paper {
 	}
+	\midi { \tempo 4 = 90; }
 }

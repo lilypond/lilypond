@@ -19,8 +19,8 @@
 class Bar_script_engraver : public Engraver
 {
 protected:
-  G_staff_side_item* staff_side_p_;
-  G_text_item* text_p_;
+  Staff_side_item* staff_side_p_;
+  Text_item* text_p_;
   Protected_scm visibility_lambda_;
   String type_;
   Axis axis_;

@@ -14,6 +14,10 @@
 #include "rational.hh"
 #include "pqueue.hh"
 
+
+class Iteration_interface_translator : public virtual Translator_group {
+};
+
 class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:
@@ -25,17 +29,19 @@ public:
   int moments_left_i() const;
   void modify_next (Moment&);
   void add_moment_to_process (Moment);
-
+  void run_iterator_on_me (Music_iterator*);
+  
   virtual Music_output *get_output_p ();     
   virtual void prepare (Moment);
-  virtual void process() {}
-  virtual void finish() {}
-  virtual void start() {}
+  virtual void process();
+  virtual void finish();
+  virtual void start();
+
+  virtual Moment now_mom () const;
 
   
 protected:
-  virtual Moment now_mom () const;
-  virtual Global_translator *global_l() { return this; }
+
 };
 
 

@@ -42,6 +42,15 @@ Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
 point) are mixed.
 
+\section{Grace notes}
+
+Grace notes are typeset as an encapsulated piece of music. You can
+have beams, notes, chords, stems etc. within a \verb|\grace|
+section. Slurs that start within a grace section, but aren't ended are
+attached to the next normal note.  Grace notes have zero duration 
+
+\mudelafile{grace.ly}
+
 
 \section{Beams, slurs and other spanners}
 
@@ -83,9 +92,13 @@ Unfolded behavior:
 
 \mudelafile{repeat-unfold.ly}
 
-Semi (un)0folded behavior:
+Semi (un)folded behavior:
 
 \mudelafile{repeat-semifold.ly}
+
+Folded.  This doesn't make sense without alternatives, but it works.
+
+\mudelafile{repeat-fold.ly}
 
 \section{Multiple notes}
 
@@ -94,7 +107,6 @@ be under beams.  Rests should be move by integral number of spaces
 inside the staff, and by half spaces outside.  Notice that the half
 and whole rests just outside the staff get ledger lines in different
 cases.
-
 
 \mudelafile{rest-collision.ly}
 
@@ -134,7 +146,7 @@ Breathing signs, also used for phrasing, do normally not influence
 global spacing -- only if space gets tight, notes are shifted to make
 room for the breathing sign. Breathing signs break beams running
 through their voice. In the following example, the notes in the first
-two bars all have the same distance from each other:
+two measures all have the same distance from each other:
 
 \mudelafile{breathing-sign.ly}
 

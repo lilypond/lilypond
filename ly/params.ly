@@ -20,23 +20,24 @@ interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 %
 % poor man's array size
 stem_max = 3.0;
-%
-stem_length0 = 3.5*\interline;
-stem_length1 = 2.5 * \interline;
-stem_length2 = 2.0 * \interline;
-stem_length3 = 1.5 * \interline;
+
+% stem stuff measured in staff positions.
+stem_length0 = 7.;
+stem_length1 = 5.;
+stem_length2 = 4.;
+stem_length3 = 3.;
 
 % only used for beams
-minimum_stem_length0 = 0.0; % not used
-minimum_stem_length1 = 1.5 * \interline;
-minimum_stem_length2 = 1.25 * \interline;
-minimum_stem_length3 = 1.0 * \interline;
+minimum_stem_length0 = 0.0 ; % not used
+minimum_stem_length1 = 3. ;
+minimum_stem_length2 = 2.5;
+minimum_stem_length3 = 2.0;
 
 % stems in unnatural (forced) direction should be shortened,
 % according to [Roush & Gourlay].  Their suggestion to knock off
 % a whole staffspace seems a bit drastical: we'll do half.
 %
-forced_stem_shorten0 = 0.5 * \interline;
+forced_stem_shorten0 = 1.0;
 forced_stem_shorten1 = \forced_stem_shorten0;
 forced_stem_shorten2 = \forced_stem_shorten1;
 forced_stem_shorten3 = \forced_stem_shorten2;

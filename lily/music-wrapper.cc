@@ -1,5 +1,5 @@
 /*   
-  music-wrapper.cc --  implement 
+  music-wrapper.cc --  implement Music_wrapper
   
   source file of the GNU LilyPond music typesetter
   

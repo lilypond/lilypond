@@ -9,7 +9,7 @@
 #include "engraver.hh"
 #include "interpretation-context-handle.hh"
 #include "drul-array.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "musical-request.hh"
 
 class Staff_switching_translator : public Engraver
