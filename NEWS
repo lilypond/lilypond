@@ -1,3 +1,22 @@
+pl 8
+
+pl7.jcn3
+	- bf's: spanner/volta
+	- volta-support: via Note, Bar, and Paper-column to Bar (item)
+
+pl7.jcn2
+	- note repeats
+
+pl7.jcn1
+	- configure/guile fixes (still no check for 1.2/1.3)
+
+pl7.hwn1
+	- tutorial fixes
+	- tuplets over beams.
+
+*****************
+pl 7
+
 pl6.jcn5
  	- repeatbars, volta-spanner work, alternative iteration still broken
  	- volta symbol
