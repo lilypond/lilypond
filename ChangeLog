@@ -1,3 +1,7 @@
+2003-08-07  Heikki Junes <hjunes@cc.hut.fi>
+
+	* make/lilypond.mandrake.spec.in: remove menu, sync with redhat-spec.
+
 2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* GNUmakefile.in (local-WWW-post): footify build fix.
