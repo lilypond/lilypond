@@ -30,8 +30,20 @@
 (define (markup-doc-node)
   (make <texi-node>
     #:name "Markup functions"
-    #:desc "Definitions of the markup functions"
+    #:desc "Definitions of the markup functions."
+
+
     #:text (apply string-append
+		  
+		  "A @code{\\markup} mode command, eg. @code{bold}, is
+coupled with a Scheme function (@code{bold-markup}) implementing the
+formatting.  For use in Scheme, a function @code{make-bold-markup} is
+also defined, which constructs a Markup expression.
+
+This chapter describes all of the @code{...-markup} functions.
+
+"
+
 		  (map doc-markup-function
 		       (sort markup-function-list markup-function<?) ))
     ))
