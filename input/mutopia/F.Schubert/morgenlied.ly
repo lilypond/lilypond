@@ -152,10 +152,8 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
      \new Staff <<
 	 \context Staff \modernAccidentals
 	 \melody >>
-     \new LyricsVoice <<
 	 \lyricsto "singer" \new LyricsVoice \firstVerse
 	 \lyricsto "singer" \new LyricsVoice \secondVerse
-	 >>
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {
 	     \bold
@@ -185,4 +183,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	    minimumVerticalExtent = #'(-3. . 6)
 	}
     }
+    \midi {
+	\tempo 4 = 70
+	}
 }

@@ -893,7 +893,7 @@ Composite_music:
 		scm_gc_unprotect_object ($2->self_scm ());
 		$$ = unsmob_music (res);
 		scm_gc_protect_object (res);
-		$$->set_spot (THIS->here_input())
+		$$->set_spot (THIS->here_input());
 	}
 	| PARTCOMBINE Music Music {
 		static SCM proc;
