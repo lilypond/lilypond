@@ -66,7 +66,12 @@ Volta_spanner::brew_molecule (SCM smob)
   Real staff_space = me->paper_l ()->get_var ("staffspace");
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = staff_space / 2;
-  Real left = dynamic_cast<Spanner*>(me)->get_broken_left_end_align ();
+
+  /*
+    the volta spanner is attached to the bar-line, which is moved
+    to the right. We don't need to compensate for the left edge.
+   */
+  Real left = 0.0;
   Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
   Real h = staff_space * gh_scm2double (me->get_elt_property ("height"));
   Real t = staff_thick * gh_scm2double (me->get_elt_property ("thickness"));
