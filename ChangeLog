@@ -11,7 +11,8 @@
 	* scm/encoding.scm (coding-alist): Add fetaDynamic.
 	(read-encoding-file): Bugfix: do not require space after bracket.
 
-	* scm/font.scm (add-cork-lm-fonts): Remove unexistent fonts.
+	* scm/font.scm (add-cork-lm-fonts): Remove lmbxi8 and lmbxi14,
+	these do not exist.
 
 2004-11-20  Graham Percival  <gperlist@shaw.ca>
 
