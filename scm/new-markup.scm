@@ -52,6 +52,10 @@ for the reader.
 ;;
 
 (define-public (simple-markup paper props . rest)
+  "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
+@code{\markup @{ \simple #\"foo\" @}}.
+"
+  
   (Text_item::interpret_markup paper props (car rest)))
 
 (define-public (stack-molecule-line space molecules)
@@ -83,6 +87,7 @@ for the reader.
 
 
 (define-public (combine-markup paper props . rest)
+  "Overstrike two markups."
   (ly:molecule-add
    (interpret-markup paper props (car rest))
    (interpret-markup paper props (cadr rest))))
@@ -114,6 +119,8 @@ for the reader.
 
 (define-public bold-markup
   (font-markup 'font-series 'bold))
+(define-public sans-markup
+  (font-markup 'font-family 'sans))
 (define-public number-markup
   (font-markup 'font-family 'number))
 (define-public roman-markup
@@ -124,6 +131,8 @@ for the reader.
   (font-markup 'font-size 2))
 (define-public large-markup
   (font-markup 'font-size 1))
+(define-public normalsize-markup
+  (font-markup 'font-size 0))
 (define-public small-markup
   (font-markup 'font-size -1))
 (define-public tiny-markup
@@ -146,7 +155,9 @@ for the reader.
   )
 
 (define-public (dir-column-markup paper props . rest)
-  "Make a column of args, going up or down, depending on DIRECTION."
+  "Make a column of args, going up or down, depending on the setting
+of the #'direction layout property."
+  
   (let*
       (
        (dir (cdr (chain-assoc 'direction props)))
@@ -178,7 +189,7 @@ for the reader.
     (ly:molecule-align-to! m X LEFT)
     m))
 (define-public (halign-markup paper props . rest)
-  "Set horizontal alignment. Syntax: haling A MARKUP. A=-1 is LEFT,
+  "Set horizontal alignment. Syntax: halign A MARKUP. A=-1 is LEFT,
 A=1 is right, values in between vary alignment accordingly."
   (let* ((m (interpret-markup paper props (cadr rest))))
     (ly:molecule-align-to! m X (car rest))
@@ -243,6 +254,7 @@ Syntax: \\fraction MARKUP1 MARKUP2."
       )))
 
 
+;; TODO: better syntax.
 (define-public (note-markup paper props . rest)
   "Syntax: \\note #LOG #DOTS #DIR.  By using fractional values
 for DIR, you can obtain longer or shorter stems."
@@ -391,7 +403,10 @@ for DIR, you can obtain longer or shorter stems."
   ))
 
 (define-public (override-markup paper props . rest)
-  "Tack the 1st arg in REST onto PROPS, e.g.
+
+  "Add the first argument in to the property list.  Properties may be
+any sort of property supported by @ref{font-interface} and
+@ref{text-interface}, for example
 
 \\override #'(font-family . married) \"bla\"
 
@@ -411,6 +426,7 @@ for DIR, you can obtain longer or shorter stems."
      (car rest))
     ))
 
+
 (define-public (bigger-markup  paper props . rest)
   "Syntax: \\bigger MARKUP"
   (let*
@@ -421,6 +437,9 @@ for DIR, you can obtain longer or shorter stems."
    paper (cons (list entry) props)
    (car rest))
   ))
+
+(define-public larger-markup bigger-markup)
+
 
 (define-public (box-markup paper props . rest)
   "Syntax: \\box MARKUP"
@@ -433,6 +452,7 @@ for DIR, you can obtain longer or shorter stems."
   ))
 
 
+;; TODO: fix this .
 (define-public (strut-markup paper props . rest)
   "Syntax: \\strut
 
@@ -565,12 +585,14 @@ for DIR, you can obtain longer or shorter stems."
    (cons small-markup (list markup?))
    (cons dynamic-markup (list markup?))
    (cons large-markup (list markup?)) 
+   (cons normalsize-markup (list markup?)) 
    
    (cons huge-markup (list markup?))
 
    ;; size
    (cons smaller-markup (list markup?))
    (cons bigger-markup (list markup?))
+   (cons larger-markup (list markup?))
 ;   (cons char-number-markup (list string?))
    
    ;; 
@@ -602,7 +624,7 @@ for DIR, you can obtain longer or shorter stems."
    
    (cons combine-markup (list markup? markup?))
    (cons simple-markup (list string?))
-   (cons musicglyph-markup (list scheme?))
+   (cons musicglyph-markup (list string?))
    (cons translate-markup (list number-pair? markup?))
    (cons override-markup (list pair? markup?))
    (cons char-markup (list integer?))
@@ -615,7 +637,6 @@ for DIR, you can obtain longer or shorter stems."
    (cons fontsize-markup (list number? markup?))
 
    (cons box-markup  (list markup?))
-   (cons strut-markup '())
    ))
 
 
