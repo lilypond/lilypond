@@ -2,9 +2,6 @@
 @settitle Music Glossary
 @setfilename music-glosssary.info
 
-@html
-<!--- @@WEB-TITLE@@=Music Glossary --->
-@end html
 
 @ifhtml
 This document is also available in @uref{music-glossary.ps.gz,gzipped

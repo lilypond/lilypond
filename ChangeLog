@@ -1,3 +1,20 @@
+2003-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/*.tely: remove WEBTITLE
+
+	* scm/output-tex.scm (comment): idem.
+
+	* scm/output-pdftex.scm: remove GUILE 1.4 glue
+
+	* scm/music-functions.scm (make-lyric-event): new function
+
+	* scm/lily.scm (lilypond-version): new function
+
+	* input/test/version-output.ly: new file.
+
+	* Documentation/user/lilypond.tely: add version number to
+	front-page.
+
 2003-08-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/midi-scales.ly: Reformat to match midi2ly output again.
