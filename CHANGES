@@ -1,3 +1,38 @@
+1.3.22.hwn2
+===========
+
+* Symbols opposite to stem  (eg marcato) now get the proper glyph.
+
+* Breathing marks now have a direction by default.
+
+* Do set generic script properties.
+
+* Also put tuplet brackets under notes.
+
+* Score_element_info: only store origin of element, but not the path
+to parent translators. Saves a little memory, and removes some complexity.
+
+
+1.3.22.hwn1
+===========
+
+* Autobeaming in time sigs that don't have 1/4 beats fixed.
+
+* (De)crescendi should now work. (Thanks Michael)
+
+* Better error reporting for conflicting time signatures.
+
+* Line_number_engraver: output locations of note head
+definitions. Very handy when entering complicated scores.
+
+* Rewrote multi measure rest support: now they are entered as spanners
+(\commandspanrequest \start "rest"). RXXXX is an abbreviation for
+\commandspanrequest \start "rest" SXXXX \commandspanrequest \stop "rest".
+
+* Removed support of percent style repetitions. 
+
+* Put texts outside the staff.
+
 1.3.21.mb1
 ==========
 * Getopt bugfix: don't assert on certain errors.

@@ -31,20 +31,26 @@ Breathing_sign::do_brew_molecule_p () const
 {
   Staff_symbol_referencer_interface si (this);
   
-  Real dl = si.staff_space();
-  Interval i1(0, dl / 6), i2(-dl / 2, dl / 2);
+  Real space = si.staff_space();
+  Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
   Molecule *output = new Molecule (lookup_l()->filledbox(b));
-
+ 
   return output;
 }
 
 void
 Breathing_sign::do_post_processing()
 {
-  Real dl = Staff_symbol_referencer_interface (this).staff_space();
+  Real space = staff_symbol_referencer (this).staff_space();
+  Direction d = directional_element (this). get ();
+  if (!d)
+    {
+      d = UP;
+      directional_element(this).set (d);
+    }
 
-  translate_axis(2.0 * dl * directional_element(this).get (), Y_AXIS);
+  translate_axis(2.0 * space * d, Y_AXIS);
 }
 

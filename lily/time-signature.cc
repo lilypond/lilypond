@@ -18,6 +18,7 @@ Time_signature::Time_signature ()
   set_elt_property ("breakable", SCM_BOOL_T);
 }
 
+// ugh.!
 Molecule*
 Time_signature::do_brew_molecule_p () const
 {
