@@ -9,8 +9,6 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
-#define SCM_VOIDP_TEST
-
 
 /*
   TODO: the  GH interface is deprecated as of GUILE 1.6

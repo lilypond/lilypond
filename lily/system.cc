@@ -61,7 +61,18 @@ System::output_lines ()
     {
       Grob * g = unsmob_grob (ly_car (s));
       if (Spacing_interface::has_interface (g))
-	g->suicide ();
+	{
+	  /*
+	    Kill no longer needed grobs. 
+	   */
+	  Item * it = dynamic_cast<Item*> (g);
+	  if (it && Item::breakable_b(it))
+	    {
+	      it->find_prebroken_piece (LEFT)->suicide();
+	      it->find_prebroken_piece (RIGHT)->suicide();
+	    }
+	  g->suicide ();
+	}
       else
 	g->do_break_processing ();
     }

@@ -105,25 +105,6 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 	find_rods (rb, ly_cdr (s));
     }
 
-#if 0
-  /*
-    TODO; restore this.
-   */
-  /*
-    We've done our job, so we get lost. 
-   */
-  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
-    {
-      Item * it =dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
-      if (it && it->broken_b ())
-	{
-	  it->find_prebroken_piece (LEFT) ->suicide ();
-	  it->find_prebroken_piece (RIGHT)->suicide ();
-	}
-      it->suicide ();
-    }
-  me->suicide ();
-#endif
   return SCM_UNSPECIFIED ;
 }
 
