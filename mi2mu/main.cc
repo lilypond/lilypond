@@ -60,7 +60,7 @@ error( String message_str, char const* context_ch_c_l )
 void
 help()
 {
-    btor <<
+    mtor <<
 	"--be-blonde, -b		use exact, blonde durations, e.g.: a[385]\n"
 	"--debug, -d		be really verbose\n"
 	"--help, -h		this help\n"
@@ -76,7 +76,7 @@ help()
 void
 identify()
 {
-	mtor << version_str() << endl;
+	mtor << mi2mu_version_str() << endl;
 }
     
 void 
