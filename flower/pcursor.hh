@@ -10,6 +10,11 @@
 
 
 /// cursor to go with PointerList
+/**
+  don't create PointerList<void*>'s.
+  This cursor is just an interface class for Cursor. It takes care of the
+  appropriate type casts
+ */
 template<class T>
 struct PCursor : private Cursor<void *> {
     friend class IPointerList<T>;
@@ -53,11 +58,6 @@ public:
 	return Cursor<void*>::compare(a,b);
     }
 };
-/**
-  don't create PointerList<void*>'s.
-  This cursor is just an interface class for Cursor. It takes care of the
-  appropriate type casts
- */
 
 
 
