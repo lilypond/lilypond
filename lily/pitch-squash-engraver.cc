@@ -35,10 +35,10 @@ Pitch_squash_engraver::Pitch_squash_engraver()
 }
 
 ENTER_DESCRIPTION(Pitch_squash_engraver,
-/* descr */       "Treat all pitches as middle C.  Note that the notes move, but
-the locations of accidentals stay the same. 
-Set the position field of all note heads to zero. This useful for
-making a single line staff that demonstrates the rhythm of a melody.",
+/* descr */       "Treat all pitches as middle C.  Note that the notes move, but "
+"the locations of accidentals stay the same. "
+"Set the position field of all note heads to zero. This useful for "
+"making a single line staff that demonstrates the rhythm of a melody.",
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "note-head-interface",

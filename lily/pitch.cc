@@ -128,16 +128,25 @@ Pitch::normalise ()
 void
 Pitch::transpose (Pitch delta)
 {
-  int old_semi = semitone_pitch ();
-  int delta_semi = delta.semitone_pitch ();
+  int new_semi = semitone_pitch ()  +delta.semitone_pitch();
   octave_ += delta.octave_;
   notename_ += delta.notename_;
-
-  int new_semi = semitone_pitch ();
-  int delta_acc = new_semi - old_semi - delta_semi;
-  alteration_ -= delta_acc;
+  alteration_ += new_semi - semitone_pitch();
 
   normalise ();
+}
+
+Pitch
+interval (Pitch const & from , Pitch const & to )
+{
+  int sound = to.semitone_pitch()  - from.semitone_pitch ();
+  Pitch pt ;
+  pt.octave_ = to.octave_ - from.octave_;
+  pt.notename_ = to.notename_ - from.notename_;
+  pt.alteration_ = to.alteration_ - from.alteration_;
+  pt.alteration_ += sound - pt.semitone_pitch();
+
+  return pt;
 }
 
 
@@ -223,9 +232,8 @@ Pitch::down_to (int notename)
 LY_DEFINE(ly_pitch_transpose,
 	  "ly:transpose-pitch", 2, 0, 0,
 	  (SCM p, SCM delta),
-	  "Transpose @var{p} by the amount @var{delta}, where @var{delta} is the
-pitch that central C is transposed to.
-")
+	  "Transpose @var{p} by the amount @var{delta}, where @var{delta} is the "
+" pitch that central C is transposed to.")
 {
   Pitch* t = unsmob_pitch (p);
   Pitch *d = unsmob_pitch (delta);
@@ -293,13 +301,10 @@ Pitch::less_p (SCM p1, SCM p2)
 
 LY_DEFINE(make_pitch, "ly:make-pitch", 3, 0, 0, 
 	  (SCM o, SCM n, SCM a),
-	  "
-@var{octave} is specified by an integer, zero for the octave containing
-middle C.  @var{note} is a number from 0 to 6, with 0 corresponding to C
-and 6 corresponding to B.  The shift is zero for a natural, negative for
-flats, or positive for sharps.
-
-")
+	  "@var{octave} is specified by an integer, zero for the octave containing "
+	  "middle C.  @var{note} is a number from 0 to 6, with 0 corresponding to C "
+	  "and 6 corresponding to B.  The shift is zero for a natural, negative for "
+	  "flats, or positive for sharps. ")
 {
   SCM_ASSERT_TYPE(gh_number_p (o), o, SCM_ARG1, __FUNCTION__, "number");
   SCM_ASSERT_TYPE(gh_number_p (n), n, SCM_ARG2, __FUNCTION__, "number");

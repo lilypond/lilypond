@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
     title	= "ancient font test"
     date	= "2002"
@@ -16,7 +16,7 @@ upperStaff =  \context GregorianStaff = upperStaff <
     \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
       #'line-count = #4
 
-    \notes \transpose c' {
+    \notes \transpose c c {
 	\property Staff.KeySignature \override #'style = #'vaticana
 	\property Staff.Accidental \override #'style = #'vaticana
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
@@ -120,7 +120,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
     \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
       #'line-count = #5
 
-    \notes \transpose c' {
+    \notes \transpose c c {
 	\property Voice.autoBeaming = ##f
 	\property Voice.NoteHead \override #'style = #'neo_mensural
 	\property Voice.Rest \override #'style = #'neo_mensural
@@ -158,7 +158,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	\clef "mensural_g"
 	r4 r8 r16 r16
 	\property Voice.NoteHead \override #'style = #'mensural
-	\property Voice.Stem \override #'style = #'mensural
+	\property Voice.Stem \override #'flag-style = #'mensural
 	\property Voice.Stem \override #'thickness = #1.0
 	\property Voice.Rest \override #'style = #'mensural
 	\clef "petrucci_f"
@@ -176,9 +176,9 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	% FIXME: must set Voice.Stem style to #'neo_mensural to avoid
 	% segmentation fault on r8/r16/r32.  (Strange: what has
 	% Voice.Stem style to do with mensural rests?)
-	\property Voice.Stem \override #'style = #'neo_mensural
+	\property Voice.Stem \override #'flag-style = #'neo_mensural
 	r2 r4 r8 r16 r16
-	\property Voice.Stem \override #'style = #'mensural
+	\property Voice.Stem \override #'flag-style = #'mensural
 	\property Staff.forceClef = ##t
 	\clef "mensural_f"
 	e\breve f g a1
@@ -233,7 +233,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	    \remove Ligature_bracket_engraver
 	    \consists Mensural_ligature_engraver
 	    NoteHead \set #'style = #'mensural
-%	    Stem \set #'style = #'mensural %%%%%%%% FIXME: this core dumps
+%	    Stem \set #'flag-style = #'mensural %%%%%%%% FIXME: this core dumps
 	    Stem \set #'thickness = #1.0
 	    Rest \set #'style = #'mensural
 	    autoBeaming = ##f

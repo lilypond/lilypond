@@ -354,12 +354,11 @@ Lyric_phrasing_engraver::stop_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Lyric_phrasing_engraver,
-		  /* descr */       "
-This engraver combines note heads and lyrics for alignment.
-
-This engraver is switched on by default. Turn it off for faster
-processing of orchestral scores.
-",
+		  /* descr */       
+"This engraver combines note heads and lyrics for alignment. "
+"\n\n"
+"This engraver is switched on by default. Turn it off for faster " 
+"processing of orchestral scores. ",
 		  /* creats*/       "",
 		  /* accepts */     "",
 /* acks  */      "lyric-syllable-interface note-head-interface lyric-extender-interface",

@@ -1,5 +1,5 @@
 
-\version "1.5.68"
+\version "1.7.5"
 \include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
@@ -86,7 +86,7 @@ romanze = \notes \relative c' {
 
 \score
 {
-    \notes { \transpose bes \romanze }
+    \notes { \transpose c' bes \romanze }
 	\header { piece = "romanze" opus = "" }	
 	\midi{ \tempo 4 = 70  }
 	\paper{}

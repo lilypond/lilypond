@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 % \include "mozart-hrn3-defs.ly"
 
@@ -187,7 +187,7 @@ rondo = \notes 	\relative c'
 
 \score
 {
-    \notes { \transpose bes	\rondo }
+    \notes { \transpose c' bes	\rondo }
 	\header { piece = "rondo" opus = "" }
 	\midi{ \tempo 4 = 100 }
 	\paper { }

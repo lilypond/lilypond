@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -21,7 +21,7 @@ extreme = \notes\relative c'' {
   a'16 cis a, g''' % Used to give a nice beam directed upwards.
   \stemBoth
 
-  \transpose c' {
+  \transpose c c {
 	  \stemDown [e'8 e e']
       }
 }

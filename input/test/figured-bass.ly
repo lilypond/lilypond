@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
 texidoc = "Test figured bass.
 
@@ -10,7 +10,7 @@ mode, which allows you to type numbers, like @code{<4 6+>}.
 " }
 
 \score { \notes  <
-\context FiguredBass \transpose c'' {
+\context FiguredBass \transpose c c' {
    <e! g >
    <f8 ais >
    \figures {

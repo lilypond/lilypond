@@ -3797,7 +3797,7 @@ relative pitches.
 @lilypond[13pt]
 \context Staff {
   \time 3/4
-  \transpose bes\relative c'' {
+  \transpose bes\relative c' c'' {
     \key g \major
     d4 g,8 a b c | d4 g, g | e' c8 d e fis | g4 g, g \bar "|."
   }

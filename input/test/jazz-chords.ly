@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 
 
@@ -56,7 +56,7 @@ scheme = \chords {
 \score {
   \notes <
     \context ChordNames \scheme
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
   \paper {
     \translator { 

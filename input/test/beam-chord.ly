@@ -1,10 +1,10 @@
-\version "1.5.68"
+\version "1.7.5"
 
 \header {
 texidoc = "Hmm. what's this supposed to test?"
 }
 \score{
-	\notes\transpose c'{
+	\notes	\transpose c' c'{
 \property Voice.Beam \set #'position-callbacks =
  #`(,Beam::least_squares
 			       ,Beam::check_concave

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 texidoc="
 Normal collisions. We have support for polyphony, where the
@@ -65,7 +65,7 @@ hairyChord =  \context Staff \notes\relative c' <
 
 
 \score{
-	\notes \transpose c'' {
+	\notes \transpose c c' {
 	   \twovoice
 	   \twovoicechords
 	

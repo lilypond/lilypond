@@ -1,11 +1,11 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
 texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
 }
 
 \score {
-  \context Staff \notes \transpose c'' {
+  \context Staff \notes \transpose c c' {
      \time 3/4
      % Here's what I was trying to do:
      < \context Voice  = VI {\stemDown

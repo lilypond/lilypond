@@ -334,19 +334,16 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 
 
 ENTER_DESCRIPTION(Score_engraver,
-/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System)
-
-
-This engraver decides whether a column is breakable. The default is
-that a column is always breakable. However, when every Bar_engraver
-that does not have a barline at a certain point will call
-Score_engraver::forbid_breaks to stop linebreaks.  In practice, this
-means that you can make a breakpoint by creating a barline (assuming
-that there are no beams or notes that prevent a breakpoint.)
-
-
-",
-/* creats*/       "System PaperColumn NonMusicalPaperColumn",
+/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
+"\n\n "
+"This engraver decides whether a column is breakable. The default is "
+"that a column is always breakable. However, when every Bar_engraver "
+"that does not have a barline at a certain point will call "
+"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
+"means that you can make a breakpoint by creating a barline (assuming "
+"that there are no beams or notes that prevent a breakpoint.) "
+,
+/* creats*/       "System PaperColumn NonMusicalPaperColumn", 
 /* accepts */     "break-event",
 /* acks  */       "note-spacing-interface staff-spacing-interface",
 /* reads */       "currentMusicalColumn currentCommandColumn",

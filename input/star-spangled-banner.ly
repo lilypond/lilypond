@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 %{
 Converted from star.mup with the aid of mup2ly.py
 http://www.arkkra.com/doc/star.html
@@ -122,12 +122,12 @@ text =  \lyrics {
 			\global
 			\clef treble
 			\property Staff.automaticMelismata = ##t
-			\context Voice = one \transpose c'' {
+			\context Voice = one \transpose c c' {
 				\voiceOne
 				\staffBVoiceB
 				\bar "|."
 			} 
-			\context Voice = two \transpose c'' {
+			\context Voice = two \transpose c c' {
 				\voiceTwo
 				\staffBVoiceC
 			}

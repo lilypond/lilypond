@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.5"
 
 \header{
 texidoc="
@@ -42,7 +42,7 @@ mel = \notes { \key d \major \time 4/4
 
 \score { \notes
  <
-  \context Staff \transpose c''' {
+  \context Staff \transpose c c'' {
    \mel
 %   \property Score.oneMeasureLazy = ##t
    \property Score.autoAccidentals = #'(Staff (same-octave . 0))

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.5"
 
 \header {
 
@@ -9,8 +9,8 @@ can use, define or change lilypond variables. "
 }
 
 
-foo = \notes \transpose c' { d''4-. }
-bra = \notes \transpose c' { e'4-. }
+foo = \notes \transpose c c { d''4-. }
+bra = \notes \transpose c c { e'4-. }
 
 \score { 
   \context Voice \notes\relative c' {

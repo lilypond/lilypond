@@ -1,15 +1,15 @@
-\version "1.5.68"
+\version "1.7.5"
 %{
 Hi all,
 
 I have extend Mats' patches to allow accidental transposition:
         \keysignature bes es fis
-		= \transpose d =>
+		= \transpose c' d =>
         \keysignature gis
 
 As you can see in output =  the example file "test.ly" there are a few problems left:
 - key undo (already in the Todo)
-- "wrong" transposition: e.g. \transpose d of fis-major = gis-major (better as-major?).
+- "wrong" transposition: e.g. \transpose c' d of fis-major = gis-major (better as-major?).
 	The solution gis=as etc. would concern both note and key transposistion
 
 Eric
@@ -42,7 +42,7 @@ vOne =  \notes \relative c''{
         c4 c |
 }
 
-vTwo =  \notes \transpose d' { \vOne }
+vTwo =  \notes \transpose c d { \vOne }
 
 vThree =  \notes \relative c''{
         \clef"violin"
@@ -58,7 +58,7 @@ vThree =  \notes \relative c''{
         cis4 ais4 |
 }
 
-vFour =  \notes \transpose d' \vThree
+vFour =  \notes \transpose c d \vThree
 
 \score {
   \context StaffGroup <

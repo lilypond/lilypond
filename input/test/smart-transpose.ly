@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.5"
 
 \header {
 texidoc="
@@ -65,8 +65,8 @@ music = \notes \relative c' { c4 d  e f g a b  c }
 
 \score {
   \notes \context Staff {
-    \transpose ais' \music
-    \apply #simplify \transpose ais' \music
+    \transpose c ais \music
+    \apply #simplify \transpose c ais \music
   }
   \paper { linewidth = -1. }
 }

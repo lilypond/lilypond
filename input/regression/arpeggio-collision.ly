@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 \header  {
 texidoc = "arpeggio stays clear of accidentals and flipped note heads.
@@ -33,7 +33,7 @@ hairyChord = \context Staff \notes\relative c' <
 
 
 \score{
-    \notes \transpose c'' {
+    \notes \transpose c c' {
         \context Voice < fis''-\arpeggio g  d a >
         \context Voice < fis,-\arpeggio g  d a >
         \context Voice < fis''-\arpeggio g  d a >

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 \include "paper16.ly"
  
@@ -27,7 +27,7 @@ oboes = \notes \relative c'' \context Voice = oboes {
 }
 
 hoomPah = \repeat unfold 8 \notes
-    \transpose c' {
+    \transpose c c {
 	\translator Staff = down
 	\stemUp
 	c8

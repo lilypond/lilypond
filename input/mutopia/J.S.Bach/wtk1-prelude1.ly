@@ -15,11 +15,11 @@ enteredby = 	 "Shay Rojansky"
   lastupdated = "1999/Oct/14"
 }
 
-\version "1.5.68"
+\version "1.7.5"
 
 % should do programmable input.
 soprane = 
-    \notes \transpose c'' {
+    \notes \transpose c c' {
 	\context Staff <
 	% Real soprane
 	\context Voice = uVoice {

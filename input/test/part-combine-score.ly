@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.5"
 
 \header {
 texidoc="Template for part-combining orchestral scores"
@@ -106,9 +106,9 @@ violinoIIStaff =  \context Staff = twoViolini <
   \End
 >
 
-violaI = \notes\transpose c, \violinoI
+violaI = \notes\transpose c' c, \violinoI
 
-violaII = \notes\transpose c, \violinoII
+violaII = \notes\transpose c' c, \violinoII
 
 violeGroup =  \notes \context VoiceCombineStaff = oneViole <
   \property VoiceCombineStaff.midiInstrument = #"viola"

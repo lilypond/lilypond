@@ -1,5 +1,5 @@
 
-\version "1.7.3"
+\version "1.7.5"
 
 \header {
 texidoc="
@@ -40,7 +40,7 @@ FIXME: Shorten and docu
 
 \include "paper16.ly"
 
-mel = \notes \transpose c'' {
+mel = \notes \transpose c c' {
   \time 4/4 \key d \major
   gis4 g' g gis' | gis2 g' | g1 | gis | g | gis' | g |
   fis4 f' f fis' | fis2 f' | f1 | fis | f | fis' | f |

@@ -56,7 +56,7 @@ then the result looks like this:
 
 @lilypond[notime]
 \property Score.timing = ##f
-\transpose c'' { c d e f g a b }
+\transpose c c' { c d e f g a b }
 @end lilypond
 
 We will continue with this format: First we show a snippet of input,
@@ -72,7 +72,7 @@ a1 a2 a4 a16 a32
 @lilypond[notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
-\transpose c'' { a1 a2 a4 a16 a32 s16_" " }
+\transpose c c' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
 If you don't specify a @rglos{duration}, the previous one is used: 
@@ -83,7 +83,7 @@ a4 a a2 a
 
 @lilypond[notime]
 \property Score.timing = ##f
-\transpose c'' { a a a2 a s16_" " }
+\transpose c c' { a a a2 a s16_" " }
 @end lilypond
 
 A @rglos{sharp} (@texisharp{}) is made by adding @samp{is}, a
@@ -97,7 +97,7 @@ cis1 ees fisis aeses
 
 @lilypond[notime]
 \property Score.timing = ##f
-\transpose c'' { cis1 ees fisis aeses s16_" " }
+\transpose c c' { cis1 ees fisis aeses s16_" " }
 @end lilypond
 
 Add a dot @samp{.} after the duration to get a @rglos{dotted note}:
@@ -108,7 +108,7 @@ a2. a4 a8. a16
 
 @lilypond[notime]
 \property Score.timing = ##f
-\transpose c'' { a2. a4 a8. a16 s16_" " }
+\transpose c c' { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
 The @rglos{meter} (or @rglos{time signature}) can be set with the

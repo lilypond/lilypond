@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "PD"
@@ -16,7 +16,7 @@ shortlong =  \notes{
 	c c c )c |
 }
 
-broken =  \notes\transpose c''{
+broken =  \notes\transpose c c'{
 
       c c c c()
       c c c c(

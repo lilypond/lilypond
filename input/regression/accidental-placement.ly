@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
     texidoc ="Accidentals are placed as closely as possible.
 Accidentals in corresponding octaves are aligned.
@@ -10,7 +10,7 @@ flats in a sixth shoudl be staggered.  "
 \score { \notes \context Voice \relative c' {
     cis4
     c4
- \transpose c'' {    
+ \transpose c c' {    
   <bis4 es gis>
   <es! as!>
   <gis! cis!>

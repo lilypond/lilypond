@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 enteredby = 	 "jcn"
 copyright = 	 "public domain"
@@ -16,11 +16,11 @@ shortlong =  \notes{
 	c c c )c |
 }
 
-dirs =  \notes\transpose c' {
+dirs =  \notes\transpose c c {
 
 	c'1() g' () c () g () c |
 }
-over =  \notes\transpose c'{
+over =  \notes\transpose c c{
 
 
 	e( g' g' )e
@@ -44,7 +44,7 @@ over =  \notes\transpose c'{
 	e( c'' f )e
 }
 
-under =  \notes\transpose c'{
+under =  \notes\transpose c c{
 	\stemDown 
 	f'( \stemBoth d d \stemDown )f'
 	f'( \stemBoth c c \stemDown )f'
@@ -68,7 +68,7 @@ under =  \notes\transpose c'{
 	f'( e, f )f'
 }
 
-eccentric =  \notes\transpose c'{
+eccentric =  \notes\transpose c c{
 	\stemUp
 	\times 4/7 { f( a' f f f f )f } |
 	\times 4/7 { f( f f f f a' )f } |
@@ -77,7 +77,7 @@ eccentric =  \notes\transpose c'{
 	\times 4/7 { e'( e' e' e' e' c )e' } |
 }
 
-tiltup =  \notes\transpose c'{
+tiltup =  \notes\transpose c c{
 	e( c'' c'' )e'
 	\stemUp
 	e( c'' c'' )e'
@@ -91,7 +91,7 @@ tiltup =  \notes\transpose c'{
 	f'( a, a, )f''
 }
 
-tiltdown =  \notes\transpose c'{
+tiltdown =  \notes\transpose c c{
 	e'( c'' c'' )e
 	\stemUp
 	e'( c'' c'' )e
@@ -105,7 +105,7 @@ tiltdown =  \notes\transpose c'{
 	f''( a, a, )f'
 }
 
-broken =  \notes\transpose c''{
+broken =  \notes\transpose c c'{
       c c c c()
       c c c c(
       c )c c c(
@@ -118,7 +118,7 @@ broken =  \notes\transpose c''{
       f,( c c )f,
 }
 
-blend = 	\notes\transpose c'{
+blend = 	\notes\transpose c c{
 	e( c'' c'' )e
 	\stemUp
 	f'( c'' c'' )f'
@@ -139,7 +139,7 @@ blend = 	\notes\transpose c'{
 }
 
 
-bug =  \notes\transpose c'{
+bug =  \notes\transpose c c{
 
 	a()g( f )e
 	b'()a'( g' )f'
@@ -148,7 +148,7 @@ bug =  \notes\transpose c'{
 	c' () b () c' c'
 }
 
-clipping =  \notes\transpose c'{
+clipping =  \notes\transpose c c{
 	\stemBoth
 	c( c''' c''')c
 	c( c''' c )c''

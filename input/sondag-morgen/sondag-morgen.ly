@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \include "paper13.ly"
 
 mu = {}
@@ -35,7 +35,7 @@ sd = \translator Staff = down
 		    \context Voice = kor <
 			\voiceOne
 			\property Voice.MultiMeasureRest \override #'transparent = ##t
-			\transpose c \kormel
+			\transpose c' c \kormel
 		    >
 		    \context Lyrics=korlyr \korlyr
 		>
@@ -43,7 +43,7 @@ sd = \translator Staff = down
 		    \addlyrics
 		    \context Voice = mel <
 			\voiceTwo
-			\transpose c \mel
+			\transpose c' c \mel
 		    >
 		    \context Lyrics=lyr \lyr
 		>
@@ -98,7 +98,7 @@ sd = \translator Staff = down
 
 		\clef "F_8"
 		\global
-		\transpose c \bas
+		\transpose c' c \bas
 	    >
 	    \context Staff = drums <
 		\property Staff.instrument = "Trommer"
@@ -185,7 +185,7 @@ sd = {}
 	>
 	\context Staff = bas <
 	    \property Staff.instrument = "electric bass (finger)"
-	    < \transpose c \bas s1-\ff >
+	    < \transpose c' c \bas s1-\ff >
 	>
 	\context Staff = trom <
 	    \property Staff.instrument = "drums"

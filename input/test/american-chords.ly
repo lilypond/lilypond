@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
     texidoc = "Chord names in american styles, according to one of our users."
 }
@@ -41,7 +41,7 @@ scheme = \chords {
 \score {
   \notes <
     \context ChordNames \scheme
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
   \paper {
     \translator { 
