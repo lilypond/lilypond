@@ -136,7 +136,7 @@
                       lmargin
                       (/ (- hsize
                             (ly:output-def-lookup paper 'linewidth)) 2)))
- 
+
       (rightmargin (ly:output-def-lookup paper 'rightmargin))
       (bottom-edge (- vsize
 		      (ly:output-def-lookup paper 'bottommargin)))
@@ -168,7 +168,11 @@
 			   page-stencil))))
       )
 
-
+    (if #t
+	(display (list
+		  "leftmargin" leftmargin "rightmargin" rightmargin
+		  )))
+    
     (set! page-stencil (ly:stencil-combine-at-edge
 	  page-stencil Y DOWN head 0. 0.))
 
@@ -344,9 +348,9 @@ is what have collected so far, and has ascending page numbers."
 		       (+ y topskip)) 
 	       (cdr  result)))
 	 )
-
-     (if #f ;; debug.
-	 (begin
+      
+      (if #f ;; debug.
+	  (begin
 	   (display (list "\n# systems: " no-systems
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
 			  "\ninterscore" inter-system-space
@@ -377,8 +381,8 @@ CURRENT-BEST is the best result sofar, or #f."
 
 	   
 	   (ragged? (or (eq? #t (ly:output-def-lookup bookpaper 'raggedbottom))
-		       (and (eq? #t (ly:output-def-lookup bookpaper 'raggedlastbottom))
-			    last?)))
+			(and (eq? #t (ly:output-def-lookup bookpaper 'raggedlastbottom))
+			     last?)))
            (page-height (page-height this-page-num last?))
 	   (vertical-spacing (space-systems page-height current-lines ragged?))
 	   (satisfied-constraints (car vertical-spacing))

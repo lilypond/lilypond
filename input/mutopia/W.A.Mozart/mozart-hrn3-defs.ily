@@ -29,7 +29,7 @@ stopGraceMusic= \sequential {
     \stopGraceMusic
 }
 
-\paper{
+\paper {
     \context {
         \Score
         skipBars = ##t
@@ -47,10 +47,13 @@ stopGraceMusic= \sequential {
     }
     \context {
         \Staff
-        minimumVerticalExtent = #'(-4.5 . 4.5)
+        minimumVerticalExtent = #'(-2.5 . 3.5)
     }
+}
+
+\bookpaper{
+
     % #(define fonts my-sheet)
-    #(define page-breaking ly:optimal-page-breaks)
 
     % stress page breaking on a6 paper:
     % linewidth = 80 \mm

@@ -108,8 +108,6 @@
 		   module))
      ((pair? entry)
 
-	    
-
       (set! entry (eval (cdr entry) module))
       (if landscape?
 	  (set! entry (swap entry)))
