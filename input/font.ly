@@ -13,7 +13,7 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\meter 4/4;
 		\multi 2  < { \stemup e'\longa a\breve | }
 		{ \stemdown
-		c1 g c' a'
+		c1 \clef "bass"; ''b \clef "violin"; c' a'
 		c2 g c' a'
 		} >
 		\stemboth
@@ -25,20 +25,34 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		[c a'] [a' c] |
 		[c d e f] [as' ges' f' e']
 		[cis' dis' c' des'] [cisis' disis' ceses' deses'] |
+		\clef "bass";
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\multi 2 < { \stemup r2 r2} {\stemdown c'' c''}>
-		\multi 2 < { \stemup c1 } {\stemdown r1}>		
+		\multi 2 < { \stemup r2 r2} {\stemdown c c }>
+		\multi 2 < { \stemup ''c1 } {\stemdown r1}>		
 		\stemboth
-		
+		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
 		e64 g'64 c4... |
+
+		\meter 1/2; a2 |
+		\meter 3/2; a1. |
+		\meter 2/4; a2 |
+		\meter 5/4; a1.. |
+		\meter 6/8; a2. |
+		\meter 7/8; a2.. |
+		\meter 9/8; a1... |
+		\meter 12/8; a1. |
 		}
 	\paper{ 
+	    % don't change this.
+	    % otherwise 16pt and 20pt layouts differ.
+	    linewidth = 12.5 \cm;
 	    gourlay_maxmeasures =5.;
 	}
-	\paper{ 
+	\paper{
 	    \paper_twenty
+	    linewidth = 17.5 \cm;
 	    gourlay_maxmeasures =5.;
 	    \output "lelie20.tex";
 	}
