@@ -60,6 +60,8 @@ LY_DEFINE(set_lily_option,"set-lily-option", 2, 0, 0,  (SCM var, SCM val),
 List all options.
 @item midi-debug
 If set to true, generate human  readable MIDI
+@item internal-type-checking
+Set paranoia for property assignments 
 @end table
 
 This function is useful to call from the command line: @code{lilypond -e

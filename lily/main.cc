@@ -118,7 +118,12 @@ static Long_option_init options_static[] = {
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
   {_i ("DIR"), "dep-prefix", 'P',  _i ("prepend DIR to dependencies")},
+#if 0
+  /*
+    should audit again.
+   */
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
+#endif
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},

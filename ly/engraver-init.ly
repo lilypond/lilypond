@@ -379,6 +379,7 @@ ScoreContext = \translator {
 	centralCPosition = #-6
 	
         automaticPhrasing = ##t
+	automaticMelismata = ##t
 	
 	defaultBarType = #"|"
 

@@ -229,7 +229,7 @@
 	(neutral-direction . -1)
 	(adjust-if-on-staffline . #t)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(font-family . music)
+	(font-family . ancient)
 	(space-alist . (
 			(first-note . (minimum-space . 0.0))
 			))

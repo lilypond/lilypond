@@ -148,7 +148,7 @@ voiceAccidentals = {
 % in other octaves and in the next measure.
 modernAccidentals = {
   \property Score.extraNatural = ##f
-  \property Score.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (any-octave . 1))
+  \property Score.autoAccidentals = #'(Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
   \property Score.autoCautionaries = #'()  
 }
 
@@ -156,7 +156,7 @@ modernAccidentals = {
 modernCautionaries = {
   \property Score.extraNatural = ##f
   \property Score.autoAccidentals = #'(Staff (same-octave . 0))
-  \property Score.autoCautionaries = #'(Staff (any-octave . 0) (any-octave . 1))  
+  \property Score.autoCautionaries = #'(Staff (any-octave . 0) (same-octave . 1))  
 }
 
 % Multivoice accidentals to be read both by musicians playing one voice
@@ -165,8 +165,8 @@ modernCautionaries = {
 modernVoiceAccidentals = {
   \property Staff.extraNatural = ##f
   \property Staff.autoAccidentals = #'(
-    Voice (same-octave . 0) (any-octave . 0) (any-octave . 1)
-    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
+    Voice (same-octave . 0) (any-octave . 0) (same-octave . 1)
+    Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
   )
   \property Staff.autoCautionaries = #'()  
 }
@@ -179,8 +179,8 @@ modernVoiceCautionaries = {
     Voice (same-octave . 0) 
   )
   \property Staff.autoCautionaries = #'(
-    Voice (any-octave . 0) (any-octave . 1)
-    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
+    Voice (any-octave . 0) (same-octave . 1)
+    Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
   )  
 }
 
@@ -188,11 +188,22 @@ modernVoiceCautionaries = {
 % Accidentals are cancelled across the staves in the same grand staff as well
 pianoAccidentals = {
   \property GrandStaff.autoAccidentals = #'(
-    Staff (same-octave . 0) (any-octave . 0) (any-octave . 1)
-    GrandStaff (any-octave . 1)
+    Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
+    GrandStaff (any-octave . 0) (same-octave . 1)
   )
   \property GrandStaff.autoCautionaries = #'()  
 }
+
+pianoCautionaries = {
+  \property GrandStaff.autoAccidentals = #'(
+    Staff (same-octave . 0)
+  )
+  \property GrandStaff.autoCautionaries = #'(
+    Staff (any-octave . 0) (same-octave . 1)
+    GrandStaff (any-octave . 0) (same-octave . 1)
+  )  
+}
+
 
 % Do not reset the key at the start of a measure.  Accidentals will be
 % printed only once and are in effect until overridden, possibly many

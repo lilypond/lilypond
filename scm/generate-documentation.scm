@@ -74,7 +74,7 @@
        ("grob overview" . "Detailed description of all Grobs")
        ("interfaces" . "Grob Interfaces")
        ("backend properties" . "Grob properties")
-       ("function documentation" . "Grob properties")       
+       ("function documentation" . "All embedded functions")
        ("Index" . "index")
        ))
 

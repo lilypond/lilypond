@@ -15,7 +15,7 @@ philosophizing and heated e-mail exchanges Han-Wen started LilyPond in
 1996.  This time, Jan got sucked into Han-Wen's new project.  The rest
 is, as they say, history.
 
-@c some more here.
+[TODO some more here.]
 
 LilyPond would have been a far less useful program without the input
 of incountable number of individuals. We would like to thank all users
@@ -27,6 +27,7 @@ various piano support code, Heikki Junes for taking care of the
 Emacs-mode, Glen Prideaux for implementing lyric-phrasing.  Juergen
 Reuter for the ancient notation support, Rune Zedeler for many code
 improvements All translators that helped translate the error messages.
+Jeremie Lumbroso, 
 
 @ignore
   should mention many more people, these are from AUTHORS

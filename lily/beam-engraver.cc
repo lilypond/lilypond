@@ -38,6 +38,7 @@ protected:
   Moment beam_start_mom_;
 
   bool subdivide_beams_;
+  Moment beat_length_;
 
   void typeset_beam ();
   void set_melisma (bool);
@@ -190,9 +191,7 @@ Beam_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      finished_beam_info_p_->beamify(*unsmob_moment (get_property ("beatLength")),
-				     subdivide_beams_);
-
+      finished_beam_info_p_->beamify(beat_length_, subdivide_beams_);
       Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
       typeset_grob (finished_beam_p_);
       delete finished_beam_info_p_;
@@ -215,7 +214,8 @@ Beam_engraver::start_translation_timestep ()
 	{
 	  set_melisma (true);
 	}
-      subdivide_beams_ = to_boolean(get_property("subdivideBeams")); 
+      subdivide_beams_ = to_boolean(get_property("subdivideBeams"));
+      beat_length_ = *unsmob_moment (get_property ("beatLength"));
     }
 }
 
@@ -306,7 +306,7 @@ ENTER_DESCRIPTION(Beam_engraver,
 printed with flags instead of beams.",
 /* creats*/       "Beam",
 /* acks  */       "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy subdivideBeams",
+/* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
 
 
@@ -348,6 +348,6 @@ are at grace points in time.
 ",
 /* creats*/       "Beam",
 /* acks  */       "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy subdivideBeams",
+/* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
 
