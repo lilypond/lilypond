@@ -111,20 +111,20 @@ is the  first to satisfy CRIT
   ))
 
 ;; rare naam.  voorstel: reduce-add-infix
-(define-public (reduce-list list between)
+(define-public (list-insert-separator list between)
   "Create new list, inserting BETWEEN between elements of LIST"
   (if (null? list)
       '()
       (if (null? (cdr list))
 	  list
 	  (cons (car list)
-		(cons between (reduce-list (cdr list) between)))
+		(cons between (list-insert-separator (cdr list) between)))
   
   )))
 
 (define-public (string-join str-list sep)
   "append the list of strings in STR-LIST, joining them with SEP"
-  (apply string-append (reduce-list str-list sep))
+  (apply string-append (list-insert-separator str-list sep))
   )
 
 

@@ -369,6 +369,24 @@ LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
   return Pitch::less_p (ly_car (p1),  ly_car (p2));
 }
 
+
+LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
+	  (SCM pitch, SCM  root),
+	  "Return pitch with value DELTA =  PITCH - ROOT, ie,
+ROOT == (ly:pitch-transpose root delta).")
+{
+  Pitch *p = unsmob_pitch (pitch);
+  Pitch *r = unsmob_pitch (root);
+  SCM_ASSERT_TYPE(p, pitch, SCM_ARG1, __FUNCTION__, "Pitch");
+  SCM_ASSERT_TYPE(r, root, SCM_ARG2, __FUNCTION__, "Pitch");
+
+  return interval (*p, *r ).smobbed_copy();
+}
+
+	  
+
+
+
 SCM
 Pitch::smobbed_copy ()const
 {

@@ -1,3 +1,14 @@
+2003-02-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/chords-funky-ignatzek.ly: new file.
+
+	* scm/double-plus-new-chord-name.scm (ignatzek-chord-names):
+	jazz chords.
+
+	* lily/pitch.cc (ly:pitch-diff): new function.
+
+	* input/regression/chords-ignatzek.ly: new file.
+
 2003-02-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/double-plus-new-chord-name.scm (ignatzek-chord-names): classify
