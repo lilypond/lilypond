@@ -17,7 +17,7 @@ linewidth=-1.0;
 	}
 %\translator { \StaffContext \consists "Instrument_name_engraver"; }
 %\translator { \PianoStaffContext \consists "Instrument_name_engraver"; }
-\translator { \StaffContext \consists "New_staff_margin_engraver"; }
-\translator { \PianoStaffContext \consists "New_staff_margin_engraver"; }
+\translator { \StaffContext \consists "Instrument_name_engraver"; }
+\translator { \PianoStaffContext \consists "Instrument_name_engraver"; }
 }}
 
