@@ -4,10 +4,9 @@
 #include "string.hh"
 
 
-
 template<class T>
 int
-Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
+_Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
 {
     if (a.left == b.left && a.right == b.right)
 	return 0;
@@ -18,16 +17,30 @@ Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
     if (a.left >= b.left && a.right <= b.right)
 	return -1;
 
-    assert(false);		// not comparable
-
-    return 0;
+    return -2;
 }
 
+
+template<class T>
+int
+Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
+{
+    int i = _Interval__compare(a,b);
+    if (i < -1)
+	assert(false);
+    return i;
+}
+
+#ifdef AIX
+const Real INFTY = 1e8;	// ARGh. AIX sucks
+#else
 const Real INFTY = HUGE;
+#endif
 
 template<class T>
 void
-Interval_t<T>::set_empty() {
+Interval_t<T>::set_empty()
+{
     left = INFTY;
     right = -INFTY;
 }

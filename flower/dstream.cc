@@ -118,7 +118,7 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
 	     r.message("not enough fields in Dstream init.");
 	     continue;
 	 }
-	 (*silent)[r[0]] = Scalar(r[1]).to_bool();
+	 (*silent)[r[0]] = bool(Scalar(r[1]));
     }
 
 }
