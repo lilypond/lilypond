@@ -292,7 +292,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @section Chord names
 
 @menu
-* Printing chord names::        
+* Introducing chord names::     
 * Chords mode::                 
 * Printing chord names::        
 @end menu
@@ -300,9 +300,9 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
-@node Printing chord names
-@subsection Printing chord names
-@cindex Chord names
+@node Introducing chord names
+@subsection Introducing chord names
+@cindex chord names
 
 LilyPond has support for printing chord names.  Chords may be entered
 in musical chord notation, i.e., @code{< .. >}, but they can also be
