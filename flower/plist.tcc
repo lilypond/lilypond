@@ -5,7 +5,7 @@ IPointerList<T>::~IPointerList()
 {
     PCursor<T> c( *this );
     while (c.ok()) {
-	delete c.get();
+	delete c.get_p();
     }
 }
 
