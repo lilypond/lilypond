@@ -243,7 +243,6 @@ FIXME: also pair? (cons LEFT RIGHT)
 ? (cons LEFT RIGHT)
 
 ")
-(grob-property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace.")
 (grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")
 (grob-property-description 'molecule molecule? "Cached output of the molecule-callback.")
 
