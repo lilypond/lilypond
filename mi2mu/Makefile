@@ -81,5 +81,5 @@ localinstall: installexe
 
 localuninstall: uninstallexe
 
-
 $(outdir)/mi2mu-version.o: $(outdir)/version.hh
+

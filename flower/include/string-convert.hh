@@ -8,6 +8,7 @@
 #define STRING_CONVERT_HH
 
 #include "fproto.hh"
+#include "string.hh"
 
 
 /** The functor String_convert handles all conversions to/from String

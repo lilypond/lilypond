@@ -18,7 +18,7 @@ then
    echo untarring ..
   if [ ! -f $newarc ]
   then
-	echo cant find $newarc
+	echo "can't find $newarc"
 	exit
   fi
   tar zfx $newarc
@@ -29,7 +29,7 @@ then
 
   if [ ! -f $oldarc ]
   then
-	echo cant find $oldarc
+	echo "can't find $oldarc"
 	exit
   fi
    tar zfx $oldarc

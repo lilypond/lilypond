@@ -98,6 +98,8 @@ Midi_walker::process()
     do_stop_notes (ptr()->audio_column_l_->at_mom ());
 
     Midi_item* p = ptr()->midi_item_p ();
+    if ( !p )
+	return;
     p->channel_i_ = track_l_->number_i_;
     
     if ( p->name() != Midi_note::static_name ())
