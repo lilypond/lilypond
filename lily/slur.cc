@@ -169,8 +169,14 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   
   if (!bezext.contains (x))
     return scm_make_real (0);
-
-  Real y = curve.get_other_coordinate (X_AXIS, x);
+  Real dist = fabs (x - bezext[LEFT]) <? fabs (x - bezext[RIGHT]);
+  
+  Real y = (dist >  1e-3)
+    ? curve.get_other_coordinate (X_AXIS, x)
+    : ((x < bezext.center())
+       ? curve.control_[0][Y_AXIS]
+       : curve.control_[3][Y_AXIS]);
+       
   if (yext.contains (y)) 
     {
       Direction dir = get_grob_direction (script); 
