@@ -12,24 +12,11 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
 . * alignment within @itemize
-. * make a trip test
-.  * base on praeludium
-.  * cross staff beam
-.  * remain very short
-.  * broken slurs, ties
-.  * chords on stem
-.  * grace notes.
-.  * dynamics.
-
 . * junk dstream output.
 . * agressive type-checking for SCM stuff.
+. * script columns
 . * Must stop before this music ends:
 verse=\lyrics {
-. * use  "staff-space" and "half-space" iso interline,
-    staff_line_leading () etc.
-. * why does Voice.beamQuantisation = #'none not work?
-    overriding in ly/params.ly works fine
-
 . * TODO^2:
 .  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
 .  * make this file understandable for 3rd parties.
@@ -38,29 +25,6 @@ verse=\lyrics {
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
 . * sparse ties.
-. * 
-- in the melody contex I have:
-
-                d8 d, d' <d f> d, <d' f> |
-
-- in the bass context I have:
-
-
-                r8 d4. d4 |
-
-The problem is with 3rd note from melody / 2nd note from the bass.
-lilypond prints them as 2 separate notes, while the original score uses
-the same note circle, and draws both up and down stems. Like for the 5th
-melody / 3rd bass note. Is there any way to solve this ? It looks like
-lilypond doesn't like that the bass note is "4." If I make it "4", then
-lilypond will draw it like I want.
-
-Also, another problem is the midi output. Those bass notes are doubled.
-Is there any way to mute one of "them" ? 
-
-Probably this is not a problem with lilypond, but with my lack of
-knowledge of music theory and/or lilypond. Anyhow, any help is highly
-appreciated, like always :-)
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?
@@ -76,7 +40,6 @@ John
 . * junk -M ? 
 . * mudela-book doco
 . * fix or replace feta-accordion.mf
-. * script engraver
 . * bracket pdf hack
 . * Mondrup:
 - if I change the property minVerticalAlign in a multi staff score with
@@ -85,19 +48,9 @@ _only_ affect staves.
 
 - I would like to be able to influence the sloping of xtuplet brackets
 
-- for one of my test scores containing a modern edition of an early
-17'th century composition I have a leading measure containing the
-orginal clefs and note values of the original composition. I use the
-a"harmonic" and "diamond" note head styles for that measure and would
-like to have the stems of these notes _centered_ on the notehead as in
-the mensural music notation.
-
 - after the leading measure in the above mentioned score I want a double
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
-
-. * make all Feta (including dynamics) available to the user in
-    textual scripts. Examples: "D.S. al \coda", "\mf espress.".
 . * Write script that uses --find-old-relative to do auto relativization. 
 
 
@@ -118,7 +71,7 @@ ChoirStaff bar line types in the rest of the scores
 . * accidentals closer to note head
 
 
-.* Beams
+.* BEAMS
 . * [c8. c16 c16 c16] in 6/8 timesig.
 . * Rewrite Stem, Beam (hairy)
 .  * beams over barlines

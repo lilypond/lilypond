@@ -113,9 +113,9 @@ Stem_tremolo::do_brew_molecule_p () const
 	    uhg.  Should use relative coords and placement
 	  */
 	  Real whole_note_correction = (st && st->invisible_b( ))
-	    ? -st->get_direction () * st->note_delta_f ()/2
+	    ? 0.0 //  -st->get_direction () * st->note_delta_f ()/2
 	    : 0.0;
-
+	 
 	  dy += st->stem_end_position ();
 	  beams->translate (Offset(st->hpos_f () - hpos_f ()+
 				   whole_note_correction, dy));

@@ -396,6 +396,15 @@ if 1:
 
 	conversions.append ((1,3,5), conv, 'beamAuto moment properties')
 
+if 1:
+	def conv (str):
+		str = re.sub ('stemStyle',
+			      'flagStyle',
+			      str)
+		return str
+
+	conversions.append ((1,3,17), conv, 'stemStyle -> flagStyle')
+
 ############################
 	
 

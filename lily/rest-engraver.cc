@@ -61,7 +61,8 @@ Rest_engraver::do_process_requests ()
 	  si.set_interface ();
 	  
 	  rest_p_->add_dots (dot_p_);
-	  dot_p_->dots_i_ = rest_req_l_->duration_.dots_i_;	  
+	  dot_p_->set_elt_property ("dot-count",
+				    gh_int2scm (rest_req_l_->duration_.dots_i_));
 	  announce_element (Score_element_info (dot_p_,0));
 	}
 

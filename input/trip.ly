@@ -27,12 +27,10 @@
 
 
 praeludium_commands = \notes {
-  \time 4/4;
-   \key e;
 }
 
-praeludium_right =  \notes {
-  \$praeludium_commands
+praeludiumRight =  \notes {
+   \key e;
   \clef violin;
 
   % 13 -- how to type -- where to split -- this more neatly?
@@ -63,19 +61,24 @@ praeludium_right =  \notes {
   % 16
 }
 
-praeludium_left = \notes \relative c {
-  \$praeludium_commands
+praeludiumLeft = \notes \relative c {
+   \key e;
   \clef bass;
 
   % 13
   \context Staff <
     \context Voice = two { r4 }
     \context Voice = one { \stemup s4 dis' cis cis ~ |
-      [cis8 a d cis] [bis gis] cis4 |
+      [cis8 ( a \translator Staff = treble  \stemdown \shifton d ) cis]
+      \translator Staff = bass 
+      \shiftoff
+      [bis gis] cis4 |
       dis2 cis4 r8 cis }
     \context Voice = one { \stemup bis2 }
-    \context Voice = three { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
-      a4. fis8 gis4. a8 ~ |
+    \context Voice = three {
+    \property Voice.dynamicDirection  = \down
+    \stemup \shifton r4 gis ~ [gis8 \< gis] ~ \stemdown \shiftoff gis4 |
+      a4. fis8 \! gis4. a8 ~ |
       a4 gis4 gis r8 gis }
 %    { \stemup \shifton s4 fis4 e}
 % a quick hack to avoid some collisons
@@ -85,25 +88,14 @@ praeludium_left = \notes \relative c {
   %16
 }
 
-praeludium_pedal = \notes \relative c{
-  \$praeludium_commands  
-  \clef bass;
-
-  %13
-  r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
-  fis4.-\rtoe fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 
-  dis,4-\ltoe gis-\rtoe [cis,8-\ltoe b!-\lheel ais-\rtoe gis-\ltoe] |
-  %16
-}
 
 
 fugaII_commands = \notes{
   \time3/4;
-  \key e;              % E-major
 }
 
-fugaII_right = \notes   \relative c''   {
-  \$fugaII_commands
+fugaIIRight = \notes   \relative c''   {
+  \key e;              % E-major
   \clef violin;
 
   %15
@@ -150,13 +142,15 @@ fugaII_right = \notes   \relative c''   {
   %19
 }
 
-fugaII_left = \notes {
-  \$fugaII_commands  
+fugaIILeft = \notes {
+  \key e;
   \clef bass;
 
   %15
   \context Staff < 
-    \context Voice = two { \stemdown b2 \stemup ais4 |
+    \context Voice = one { \stemdown
+    \grace { [c16 ( cis dis] }
+    \relative b, < )b2 dis fis a b cis dis> \stemup ais4 |
       b2 b4 }
     \context Voice = two { \stemdown s2 e4 |
       fis2 fis4 }
@@ -166,8 +160,8 @@ fugaII_left = \notes {
   %19
 }
 
-fugaII_pedal = \notes \relative c {
-  \$fugaII_commands  
+fugaIIPedal = \notes \relative c {
+  \key e;
   \clef bass;
 
   %15
@@ -178,24 +172,35 @@ fugaII_pedal = \notes \relative c {
   %19
 }
 
-breakmusic = \notes { 
-  %\time4/4;
-  r1
-}
 
 
 % these should be two separate scores...
 \score{
-  \context Score <
+  \context Score  \notes <
     \context PianoStaff <
       \context Staff = treble {
  	\property Score.midiInstrument = "church organ"
-        \praeludium_right \breakmusic \fugaII_right }
+        \praeludiumRight r1 \fugaIIRight }
       \context Staff = bass { 
-        \praeludium_left \breakmusic \fugaII_left }
+        \praeludiumLeft r1 \fugaIILeft }
     > 
-    \context Staff = pedal {
-      \praeludium_pedal \breakmusic \fugaII_pedal }
+    \context Staff = pedal \relative c  <
+      {
+        \time 4/4;
+	\key E; 
+  \clef bass;
+
+  %13
+  r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
+  fis4.-\rtoe fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 
+  dis,4-\ltoe gis-\rtoe [cis,8-\ltoe( b!-\lheel ais-\rtoe gis-\ltoe ~ ] |
+  %16
+ \notes { gis8  r4. )c2 }
+ \time 3/4;
+
+  \fugaIIPedal }
+      
+    >
   >
 
   \paper {

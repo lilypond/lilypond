@@ -215,6 +215,8 @@ Stem::Stem ()
 {
   set_elt_property ("heads", SCM_EOL);
   set_elt_property ("rests", SCM_EOL);
+
+  dim_cache_[X_AXIS]->off_callbacks_.push ( &Stem::off_callback);
 }
 
 bool
@@ -274,6 +276,8 @@ Stem::get_default_stem_end_position () const
   scm_to_array (s, &a);
 
   // stem uses half-spaces
+
+  // fixme: use gh_list_ref () iso. array[]
   Real shorten_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG
@@ -406,7 +410,7 @@ Molecule
 Stem::flag () const
 {
   String style;
-  SCM st = get_elt_property ("style");
+  SCM st = get_elt_property ("flag-style");
   if ( st != SCM_UNDEFINED)
     {
       style = ly_scm2string (st);
@@ -431,7 +435,6 @@ Stem::dim_callback (Dimension_cache const* c)
   else
     {
       r = s->flag ().dim_.x ();
-      r += s->note_delta_f ();
     }
   return r;
 }
@@ -475,36 +478,29 @@ Stem::do_brew_molecule_p () const
       mol_p->add_molecule (fl);
     }
 
-  if (first_head ())
-    {
-      mol_p->translate_axis (note_delta_f (), X_AXIS);
-    }
   return mol_p;
 }
 
 Real
-Stem::note_delta_f () const
+Stem::off_callback (Dimension_cache const * c)
 {
-  Real r=0;
-  if (first_head ())
-    {
-      Interval head_wid(0,  first_head()->extent (X_AXIS).length ());
-         Real rule_thick = paper_l ()->get_var ("stemthickness");
+  Stem * st = dynamic_cast<Stem*> (c->element_l ());
 
-      Interval stem_wid(-rule_thick/2, rule_thick/2);
-      if (get_direction () == CENTER)
-	r = head_wid.center ();
-      else
-	r = head_wid[get_direction ()] - stem_wid[get_direction ()];
+  Real r=0;
+  if (Note_head * f = st->first_head ())
+    {
+      Interval head_wid(0, f->extent (X_AXIS).length ());
+
+      if (to_boolean (st->get_elt_property ("stem-centered")))
+	return head_wid.center ();
+      
+      Real rule_thick = st->paper_l ()->get_var ("stemthickness");
+      Direction d = st->get_direction ();
+      r = head_wid[d] - d * rule_thick ;
     }
   return r;
 }
 
-Real
-Stem::hpos_f () const
-{
-  return note_delta_f () + Item::hpos_f ();
-}
 
 
 Beam*

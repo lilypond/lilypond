@@ -56,7 +56,7 @@ Repeat_engraver::queue_events ()
   Moment walk_mom = now_mom () + repeated_music_l_->repeat_body_p_->length_mom ();
 
   SCM novolta = get_property ("noVoltaBraces",0);
-  bool create_volta = gh_boolean_p (novolta) && !gh_scm2bool (novolta);
+  bool create_volta = !to_boolean (novolta);
 
   Cons_list<Bar_create_event> becel;
   becel.append (new Bar_create_event (now_mom (), "|:"));
@@ -104,15 +104,15 @@ Repeat_engraver::queue_events ()
 	      volta_number ++;
               SCM l (get_property ("voltaSpannerDuration", 0));
               if (SMOB_IS_TYPE_B (Moment, l))
-              {
-                 Moment vSD_mom = *SMOB_TO_TYPE (Moment,l);
-                if ( vSD_mom < i->car_->length_mom() ) // terminate volta early ?
-                {
-                        vSD_mom += walk_mom;
-                   c->last_b_ = true;
-                   becel.append (new Bar_create_event (vSD_mom, "stop"));
-                }
-              }
+		{
+		  Moment vSD_mom = *SMOB_TO_TYPE (Moment,l);
+		  if ( vSD_mom < i->car_->length_mom() ) // terminate volta early ?
+		    {
+		      vSD_mom += walk_mom;
+		      c->last_b_ = true;
+		      becel.append (new Bar_create_event (vSD_mom, "stop"));
+		    }
+		}
 	    }
 	  walk_mom += i->car_->length_mom();
 

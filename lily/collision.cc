@@ -153,8 +153,11 @@ Collision::automatic_shift ()
       
       bool merge  =
 	downpos == uppos
-	&& nu_l->balltype_i () == nd_l->balltype_i ()
-	&& nu_l->dots_i () == nd_l->dots_i ();
+	&& nu_l->balltype_i () == nd_l->balltype_i ();
+
+
+      if (!to_boolean (get_elt_property ("merge-differently-dotted")))
+	merge = merge && nu_l->dot_count () == nd_l->dot_count ();
 
       /*
 	notes are close, but can not be merged.  Shift

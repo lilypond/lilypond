@@ -172,8 +172,7 @@ Score_element::print() const
 {
 #ifndef NPRINT
   DEBUG_OUT << classname(this) << "{\n";
-  
-  
+    
   if (flower_dstream && !flower_dstream->silent_b ("Score_element"))
     ly_display_scm (element_property_alist_);
 

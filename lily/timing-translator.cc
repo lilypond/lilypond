@@ -239,8 +239,3 @@ Timing_translator::do_post_move_processing()
   tr->set_property ("currentBarNumber", gh_int2scm (b));
 }
 
-int 
-Timing_translator::bars_i () const
-{
-  return gh_scm2int (get_property ("currentBarNumber", 0));
-}

@@ -134,6 +134,13 @@ Slur::do_post_processing ()
   Link_array<Note_column> encompass_arr =
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
+  if (!encompass_arr.size ())
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);
+      return;
+    }
 
   if (!directional_element (this).get ())
     directional_element (this).set (get_default_dir ());

@@ -24,8 +24,6 @@ protected:
   virtual Molecule * do_brew_molecule_p () const;
   virtual void do_post_processing ();
 public:
-  // junkme.
-  int dots_i_;
   
   Dots ();
 };
