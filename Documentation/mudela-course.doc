@@ -1,0 +1,157 @@
+% -*-LaTeX-*-
+\documentclass{article}
+\usepackage{a4wide}
+\title{Mudela and LilyPond crash course}
+\author{Han-Wen Nienhuys}
+
+\begin{document}
+\maketitle
+\def\interexample{\par Produces the following:\par}
+\def\preexample{\par\medskip}
+\def\postexample{\par\medskip}
+
+
+\section{Overview}
+Mudela is a language for specifying music. LilyPond is a
+program which converts such a specification into formatted  sheet
+music, or MIDI output.
+
+Please note that some examples not only demonstrate features but also
+some lurking bugs. If can't understand what is happening, it might
+just be my (lack of) programming skills.
+
+
+\begin[fragment,verbatim]{mudela}
+  { c4 e4 g4 }
+\end{mudela}
+
+
+Basics: the \verb+%+ introduces a comment. All music is inside a
+\verb+\score+ block which represents one movement, ie one contiguous
+block of music.  Voices are grouped by \verb+{+ and \verb+}+ and
+chords by \verb+<+ and \verb+>+.
+
+\begin[verbatim]{mudela}
+\score {
+        \melodic {      % { means voice
+        c'4 g'4         % 4 means quaver, 1 beat in 4/4 meter
+        c''4 ''c4       % c' is 1 octave up, 'c 1 down.
+        <c'4 g'4>       % <> means a chord
+        }
+} 
+\end{mudela}
+
+The \verb+\octave+ command controls the default pitch (octave). If you
+do not specify duration, the last one entered is used.  The
+\verb+\paper+ block contains parameters for spacing and dimensions.
+
+\begin[verbatim]{mudela}
+\score {
+        % twinkle twinkle little star
+        \melodic { 
+                \octave c';
+                c4 c g g a a g2
+                f4 f e e d [d8. e16] c2
+                
+        }
+        \paper { linewidth = 5.\cm; }
+}
+\end{mudela}
+
+A more complex example; The multi command controls at what level the
+different components of a chord are interpreted.  The LilyPond chord
+is much more general than a traditional chord.  Multiple voices on a
+staff are entered as a chord of voices.  A score is a chord of staffs,
+etc.
+
+\begin[verbatim]{mudela}
+        
+\score{
+  \melodic 
+    { \octave c'; c4 c4 
+      < \multi 1;  { c2 c2 } { c'2 c'2 } > 
+      < \multi 2;  { \stem -1; c2 c2 } { \stem 1; c'2 c'2 } > 
+      < \multi 3;
+        { \clef "bass"; c2 c2 }
+        { \meter 2/4;\bar "||";
+          \key fis cis gis; c'2 c'2 } > 
+         c2 c1 
+      c1 c1
+      < \multi 1; < \multi 3; 
+        { \meter 2/4; \clef "violin"; c2 c2 }
+        { \meter 2/4; \clef "bass"; c2 c2 }
+      >
+      < \multi 3; 
+        { \meter 2/4; \clef "violin"; c2 c2 }
+        { \meter 2/4; \clef "bass"; c2 c2 }
+      >
+      >
+    }
+}
+
+\end{mudela}
+
+
+LilyPond is designed to handle complicated stuff
+automatically. Expertise should be in the program, not in the user.
+
+The following example shows how multiple voice  on the same staff are
+handled graciously (well, somewhat). If the noteheads of different
+voices collide, they are moved horizontally. The same goes for the rests. 
+
+\begin[verbatim]{mudela}
+two_voice = \melodic 
+        < \multi 2; 
+          {     \octave c'; \stem -1;
+                c4 d e f g2~  g4 a [c8 d e f] c2| }
+          { \stem 1;
+                g4 f e g ~ g2 g2  c4 g4 g2 } 
+
+        >
+
+two_voice_steminvert = \melodic 
+        < \multi 2;  
+          {     \octave c'; \stem 1;
+% the f and g on 4th beat are exceptionally ugh.
+                c4 d e f g2 g4 a | }
+          { \stem -1;
+                g4 f e g  g2 g2 } 
+
+        >
+
+three_voice = \melodic 
+        < \multi 2;
+        { \stem 1; 
+                g4 f e f g a g2 }
+        { \hshift 1; \stem 1; 
+                e2  e2  e2  e2 }
+        { \stem -1;
+                c4 d e d c d es }
+        >
+
+
+restsII = \melodic {
+        \octave c'; 
+                        < \multi2;  
+                                { \stem 1;  g'8 f' e' d' c' b a g f e d c }
+                                { \stem -1; r  r  r  r  r  r r r r r r r }
+                        >
+                        r8 r4
+                        < \multi2;  r8 r8 >
+                        < \multi2;  r8 r8 r8 >
+                        < \multi2;  r8 r8 r8 r8 >
+                        < \multi2;  r r >
+                        < \multi2;  r r r >
+                        \stem 1;
+                        [c''8 r8 c''8 c''8]
+                        [c8 r8 c8 c8]
+}
+
+\score{
+        \melodic {  \$two_voice  \$two_voice_steminvert 
+                        \$three_voice  \restsII }
+}
+
+\end{mudela}
+
+\end{document}

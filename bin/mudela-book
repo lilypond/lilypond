@@ -1,0 +1,120 @@
+#!/usr/bin/perl -w
+my $mudcount = 0;
+my $mudela_b = 0;
+my $outdir = "";
+my $outname = "";
+use Getopt::Long;
+
+sub gen_mufile
+{
+    return "$outdir/$outname$mudcount.ly";
+}
+
+sub gen_texfile
+{
+    return "$outdir/$outname$mudcount.tex";
+}
+
+sub close_mudela
+{
+    $mudela_b = 0;
+    if ($fragment_b) {
+	print MUDELA "}\n \\paper { linewidth = -1.0\\cm; } }\n";
+	$fragment_b =0;
+    }
+    if ( $verbatim_b)  {
+	print BOOK "\\end{verbatim}\n\\interexample";
+	$verbatim_b =0;
+    }
+    close MUDELA;
+    my $status =0;
+    if ( -f gen_mufile ) {
+	$status = system "diff -q $outdir/book-mudela.ly " . gen_mufile;
+    } else {
+	$status = 1;
+	}
+    if ( $status ) {
+	rename "$outdir/book-mudela.ly", gen_mufile;
+	unlink gen_texfile;
+    }
+    
+    if ( ! -f gen_texfile) {
+	system "lilypond ". gen_mufile;
+	rename "lelie.tex", gen_texfile;
+    }
+    print BOOK "\\preexample\\input " . gen_texfile . "\n\\postexample\n";
+	
+}
+
+sub open_mudela
+{
+    $mudcount++;
+    $mudela_b = 1	;
+    open MUDELA, ">$outdir/book-mudela.ly";
+    if ($verbatim_b) {
+	print BOOK "\\begin{verbatim}\n";
+    }
+    if ($fragment_b) {
+	print MUDELA "\\score { \\melodic {";
+    }
+
+}
+
+sub begin_b
+{
+    my ($s) = @_;
+    return (/^\\begin{$s}/) ;    
+}
+
+sub end_b
+{
+    my ($s) = @_;
+    return (/^\\end{$s}/) ;    
+}
+sub parse_mudela_opts
+{
+   my ($s) = @_;
+   $s =~ s/[\[\]]//g;
+
+   $verbatim_b =1 if ($s =~ /verbatim/ );
+   $fragment_b = 1 if ($s =~ /fragment/ );
+}   
+
+sub main
+{
+    GetOptions( 'outdir=s', 'outname=s');
+    $outdir = $opt_outdir;
+    $outname = $opt_outname if (defined ($opt_outname) && $opt_outname);
+    open INFILE, $ARGV[0];
+    
+    open BOOK, ">$outdir/$outname";
+    while (<INFILE>) {
+	if ($mudela_b) {
+	    if (end_b "mudela") {
+		close_mudela;
+		next;
+	    }
+	    print MUDELA;
+	    if ( $verbatim_b ) {
+		my $s = $_;
+		$s =~ s/\t/    /g; #shit
+		print BOOK $s;
+	    }
+	    
+	} else {
+	    if (/^\\begin(\[.*\])?{mudela}/ ) {
+		my $opts ="";
+		$opts = $1 if ( defined ($1));
+
+		parse_mudela_opts($opts);
+		open_mudela;
+		next;  
+	    } 
+	    print BOOK;
+	}
+    }
+    close INFILE;
+    close BOOK;
+}
+
+main;

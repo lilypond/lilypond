@@ -78,3 +78,14 @@ $(depth)/%.text: check-doc-deps
 
 $(outdir)/%.xpm: %.gif
 	giftopnm $< | ppmtoxpm > $@
+
+$(outdir)/%.ps: $(outdir)/%.dvi
+	dvips -o $@ $<
+
+$(outdir)/%.dvi: $(outdir)/%.mudtex
+	latex '\batchmode \input $<'
+
+$(outdir)/%.mudtex: %.doc
+	$(depth)/bin/mudela-book --outdir=$(outdir)/ --outname=$(notdir $@) $<
+
+
