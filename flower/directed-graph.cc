@@ -68,7 +68,7 @@ Directed_graph_node::remove_edge_out_idx(int i)
 
     int j = d_l->edge_in_l_arr_.find_i(this);
     assert(j>=0);
-    d_l->edge_in_l_arr_.del(j);
+    d_l->edge_in_l_arr_.unordered_del(j);
     PARANOID_OK();
 }
 
