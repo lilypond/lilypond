@@ -1,5 +1,7 @@
 2002-07-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (chord_notes): typo. 
+
 	* scm/music-functions.scm (unfold-repeats): bugfix
 
 2002-07-31  Rune Zedeler <rune@zedeler.dk>

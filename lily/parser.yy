@@ -1974,7 +1974,7 @@ chord_additions:
 
 chord_notes:
 	chord_step {
-		$$ = $1
+		$$ = $1;
 	}
 	| chord_notes '.' chord_step {
 		$$ = gh_append2 ($$, $3);
