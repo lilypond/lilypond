@@ -1,5 +1,7 @@
 2004-05-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: release 2.3.3
+
 	* stepmake/stepmake/generic-vars.make: unset LANG.
 
 	* input/regression/tuplet-nest.ly: bugfix.
