@@ -318,8 +318,14 @@ Paper_book::classic_output (String outname)
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)
     {
+      /*
+	In classic compatibility TeX tracks how large things are, and
+	advances the Y pos for us. If we advance it too, we get too
+	much space.
+       */
       if (output_format_global == "tex")
 	o = Offset (0,0);
+
       
       out->output_line (scm_vector_ref ((SCM) scores_.top (),
 						scm_int2num (i)),
