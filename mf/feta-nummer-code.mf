@@ -121,7 +121,7 @@ def draw_foot(expr xpos) =
 	enddef;
 
 def draw_six =
-	set_char_box(0, 2/3height#*widen, 0, height#);
+	set_char_box(0, .68  height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
 
@@ -130,28 +130,44 @@ def draw_six =
 	penpos2(hair,90);
 	
 	z2=(w/2,y1);
-	penpos3(7/8thick,0);
+
+	penpos3( 15/16 thick,0);
 	% yup, should use the path fract [] "everywhere"
-	z3r=(w,1/2[0,y1]);
+	x3r=w;
+	y3r = .48 [y4r, y2r];
 	penpos4(hair,-90);
 	z4r=(x2,0);
 	penpos6(hair,90);
-	z6r=(w-flare,h);
-	penpos7(7/8thick,180);
-	z7r=(0,h/2);
-	penpos10(7/8thick,180);
+	x6r = .56 w;
+	y6r = h;
+	penpos7(thick,180);
+
+	x7r=0;
+	y7r = .50 h;
+
+	penpos10(thick,180);
 	z10r=(0,y3);
 	penlabels(1,2,3,4,5,6,7,8,9,10,11);
 
 
-	save t; t=tense;
-	fill z7{right}..z2r{right}..tension t..z3r{down}
-		..tension t..z4r{left}
-		..tension t..z7r{up}
-		.. super_curvelet(z7r, z6r, 0.76, 1)
-		.. flare_path (z6r,0,-90,hair,flare, 1)
+	save outer_t; outer_t= 0.88;
+	save t ; t := tense; 
+	fill
+%	draw
+		z7{right}..z2r{right}
+		..tension outer_t
+		..z3r{down}
+		..tension outer_t
+		..z4r{left}
+%		..tension t
+		..z7r{up}
+%		.. flare_path (z6r,0,-90,hair,flare, 1)
+		.. number_flare_path (z6r, 0,-90,hair,flare,
+			w - x6r -hair/2, .16 h, 0.05, 2.5, 1)
 
-		..tension t..z7l{down}..z10l{up}..cycle;
+%		..tension t
+		..z7l{down}
+		 .. {down}z10l -- cycle;
 
 	unfill z2l{right}..tension t..z3l{down}..tension t
 		..z4l{left}..tension t..z10l{up}..tension t..cycle;
@@ -256,7 +272,7 @@ fet_beginchar("Numeral 1", "1", "one")
 fet_endchar;
 
 fet_beginchar("Numeral 2", "2", "two")
-	set_char_box(0, 23/30 height#*widen, 0, height#);
+	set_char_box(0, 22/30 height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
 	clearxy;
@@ -310,7 +326,7 @@ fet_beginchar("Numeral 3", "3", "three")
 	penpos1(hair,-90);
 
 %	flare_start = 0.25 ;
-	x1l = 17/40 w;
+	x1l = 35/80 w;
 	y1l = h;
 	
 %	z1l=(17/16thick,h);
@@ -321,33 +337,46 @@ fet_beginchar("Numeral 3", "3", "three")
 	penpos4(thin,90);
 	z4=(5/8thick+1/2thin,y3);
 	penpos5(thick,0);
-	z5r=(w,1/4h+thick/16);
+	x5r=w;
+	y5r = 17/64 h + thick/16;
+
 	penpos6(hair,-90);
 
-	x6r= 18/40 w;
+	x6r= 37/80 w;
 	y6r = 0;
 	penpos7(3/2thin,90);
 	z7=(x5,y3);
 	penlabels(1,2,3,4,5,6,7);
 	save alpha; alpha=25;
 	save t; t=tense;
+	save outer_t; outer_t := 0.93;
 	pickup pencircle scaled 1;
 
-	%.. number_flare_path(z5r,180,90,hair, 1.05 flare, x5r  - 1/2 hair, .21 h, 1)
-	
 %	draw
 	fill
-		number_flare_path (z1l, 180, 90, hair,  flare, x1l, .15 h, 0.05, 2,  -1)
-%		flare_path (z1l, 180, 90, hair, 7/8 flare,  -1)
-%		.. super_curvelet(z1l, z2l, 0.76, -1)
-		.. z2l{down}..z7r{dir(180+alpha)}
-		..z7l{dir(-alpha)}..z5r{down}..
-		number_flare_path (z6r, 180, -90, hair,  flare, x6l, .17 h, 0.05, 2,  1)
-%		flare_path (z6r, 180, -90, hair, flare, 1) ..tension t..
+		number_flare_path (z1l, 180, 90, hair,  7/8 flare, x1l - .5 hair,
+			.16 h, 0.06, 1.5,  -1)
+		..tension outer_t
+		.. z2l{down}
+		.. tension outer_t
+		..z7r{dir(180+alpha)}
+		..z7l{dir(-alpha)}
+		.. tension outer_t 
+		..z5r{down}
+		.. tension outer_t
+		.. number_flare_path (z6r, 180, -90, hair,  flare, x6l,
+			.18 h, 0.06, 1.5,  1)
+
 		.. z5l{up}
-		..tension t..z3l{left}..z4l{left}
-		..z4r{right}..z3r{right}..tension t..z2r{up}
-		..tension t.. cycle
+		..tension t
+		..z3l{left}
+		..z4l{left}
+		..z4r{right}
+		..z3r{right}
+		..tension t
+		..z2r{up}
+		..tension t
+		.. cycle
 ;
 fet_endchar;
 

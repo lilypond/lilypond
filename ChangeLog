@@ -1,5 +1,8 @@
 2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mf/feta-nummer-code.mf (code): tweaks for three, fixes for 6
+	bulb. 
+
 	* Documentation/index.texi: add PDF links.
 
 	* Documentation/user/GNUmakefile (PDF_FILES): add PDF files to website.
