@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.2.0"
+\version "2.3.8"
 
 stemUp = \override Stem  #'direction = #1
 stemDown = \override Stem  #'direction = #-1 
@@ -97,7 +97,7 @@ normalsize = {
 
 
 % End the incipit and print a ``normal line start''.
-endincipit = \notes \context Staff {
+endincipit =  \context Staff {
     \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
     \once \override Staff.Clef  #'full-size-change = ##t
     \once \override Staff.Clef  #'non-default = ##t

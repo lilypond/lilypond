@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 
-\version "2.3.2"
+\version "2.3.8"
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
@@ -40,7 +40,7 @@ noPagebreak = \noPageBreak % ugh
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)
 
-foo = \notes { \pageBreak }
+foo =  { \pageBreak }
 
 \include "scale-definitions-init.ly"
 
@@ -128,7 +128,7 @@ partCombineListener = \paper {
 \include "property-init.ly"
 
 %% reset default duration
-unusedEntry = \notes { c4 }
+unusedEntry =  { c4 }
 
 %% must have size argument for GUILE 1.6 compat.
 #(define musicQuotes (make-hash-table 29))

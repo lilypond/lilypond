@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.8"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -100,3 +100,29 @@ semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
 episemInitium = #(make-span-event 'TextSpanEvent START)
 episemFinis = #(make-span-event 'TextSpanEvent STOP)
+
+
+
+neumeDemoPaper = \paper {
+    interscoreline = 1
+    \context {
+	\Score
+	\remove "Bar_number_engraver"
+    }
+    \context {
+	\Staff
+	\remove "Clef_engraver"
+	\remove "Key_engraver"
+	\override StaffSymbol #'transparent = ##t
+	\remove "Time_signature_engraver"
+	\remove "Bar_engraver"
+	minimumVerticalExtent = ##f
+    }
+    \context {
+	\Voice
+	\remove Ligature_bracket_engraver
+	\consists Vaticana_ligature_engraver
+	\override NoteHead #'style = #'vaticana_punctum
+	\override Stem #'transparent = ##t
+    }
+}

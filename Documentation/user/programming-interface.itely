@@ -29,7 +29,7 @@ The input format supports the notion of variable: in the following
 example, a music expression is assigned to a variable with the name
 @code{traLaLa}.
 @example
-  traLaLa = \notes @{ c'4 d'4 @}
+  traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
@@ -38,7 +38,7 @@ There is also a form of scoping: in the following example, the
 @code{\paper} block also contains a @code{traLaLa} variable, which is
 independent of the outer @code{\traLaLa}.
 @example
-  traLaLa = \notes @{ c'4 d'4 @}
+  traLaLa = @{ c'4 d'4 @}
   \paper @{ traLaLa = 1.0 @}
 @end example
 @c
@@ -50,13 +50,13 @@ Both variables and scoping are implemented in the GUILE module system.
 An anonymous Scheme module is attached to each scope. An assignment of
 the form
 @example
- traLaLa = \notes @{ c'4 d'4 @}
+ traLaLa = @{ c'4 d'4 @}
 @end example
 
 @noindent
 is internally converted to a Scheme definition
 @example
- (define traLaLa @var{Scheme value of ``@code{\notes ... }''})
+ (define traLaLa @var{Scheme value of ``@code{... }''})
 @end example
 
 This means that input variables and Scheme variables may be freely
@@ -65,14 +65,14 @@ variable @code{traLaLa}, and duplicated using Scheme. The result is
 imported in a @code{\score} by means of a second variable
 @code{twice}:
 @example
-  traLaLa = \notes @{ c'4 d'4 @}
+  traLaLa = @{ c'4 d'4 @}
 
   #(define newLa (map ly:music-deep-copy
     (list traLaLa traLaLa)))
   #(define twice
     (make-sequential-music newLa))
 
-  \score @{ \twice @}
+  @{ \twice @}
 @end example
 
 In the above example, music expressions can be `exported' from the
@@ -83,7 +83,7 @@ of defining @code{\twice}, the example above could also have been
 written as
 @example
   @dots{}
-  \score @{ #(ly:export (make-sequential-music newLa)) @}
+  @{ #(ly:export (make-sequential-music newLa)) @}
 @end example
 
 @refbugs
@@ -235,7 +235,7 @@ its argument:
      (ly:music-set-property! m 'elements (reverse
        (ly:music-property m 'elements)))
      m)
-  \score { \notes \applymusic #rev-music-1 { c4 d4 } }
+  \applymusic #rev-music-1 { c4 d4 } 
 @end lilypond
 
 The use of such a function is very limited. The effect of this
@@ -314,10 +314,10 @@ scheme, with the dedicated @code{#@{ ... #@}} syntax.
 The following two expressions give equivalent music expressions:
 @example
   mynotes = @{ \override Stem #'thickness = #4
-              \notes @{ c'8 d' @} @}
+              @{ c'8 d' @} @}
   
   #(define mynotes #@{ \override Stem #'thickness = #4
-                      \notes @{ c'8 d' @} #@})
+                      @{ c'8 d' @} #@})
 @end example
 
 The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
@@ -334,13 +334,12 @@ setting the TextScript's padding is defined:
   #(use-modules (ice-9 optargs))
   #(define* (textpad padding #:optional once?)
     (ly:export   ; this is necessary for using the expression
-                 ; directly inside a \notes block
+                 ; directly inside a block
       (if once?
           #{ \once \override TextScript #'padding = #$padding #}
           #{ \override TextScript #'padding = #$padding #})))
   
-  \score {
-      \notes {
+      {
           c'^"1"
           #(textpad 3.0 #t) % only once
           c'^"2"
@@ -350,7 +349,6 @@ setting the TextScript's padding is defined:
           c'^"5"
           
       }
-  }
 @end lilypond
 
 Here, the variable @code{padding} is a number; music expression
@@ -364,14 +362,12 @@ example:
           $music
           \revert TextScript #'padding #}))
   
-  \score {
-      \notes {
+      {
           c'^"1"
           \applymusic #(with-padding 3)
             { c'^"2" c'^"3"}
           c'^"4"
       }
-  }
 @end lilypond
 
 The function created by @code{(with-padding 3)} adds @code{\override} and
@@ -379,8 +375,7 @@ The function created by @code{(with-padding 3)} adds @code{\override} and
 this new expression. Thus, this example is equivalent to:
 
 @example
-  \score @{
-      \notes @{
+      @{
           c'^"1"
           @{ \override TextScript #'padding = #3
             @{ c'^"2" c'^"3"@}
@@ -388,7 +383,6 @@ this new expression. Thus, this example is equivalent to:
           @}
           c'^"4"
       @}
-  @}
 @end example
 
 This function may also be defined as a music function:
@@ -399,14 +393,12 @@ This function may also be defined as a music function:
                       $music 
                       \revert TextScript #'padding #})
   
-  \score {
-      \notes {
+      {
           c'^"1"
           \withPadding #3
             { c'^"2" c'^"3"}
           c'^"4"
       }
-  }
 @end lilypond
 
 
@@ -565,12 +557,10 @@ that the text is moved to the upper left.
 
 The final result is as follows:
 @verbatim
-\score {
-    \notes { \fatText
+    { \fatText
         c''^\markup \character #"Cleopatra"
         e'^\markup \character #"Giulio Cesare"
     }
-}
 @end verbatim
 
 @lilypond[raggedright]
@@ -592,12 +582,10 @@ The final result is as follows:
    (interpret-markup paper props 
     (markup "" #:translate (cons -4 0) #:smallcaps name)))
 
-\score {
-    \notes { \fatText
+    { \fatText
         c''^\markup \character #"Cleopatra"
         e'^\markup \character #"Giulio Cesare"
     }
-}
 @end lilypond
 
 We have used the @code{caps} font shape, but suppose that our font

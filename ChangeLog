@@ -1,3 +1,11 @@
+2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/tutorial.itely (Integrating text and music):
+	remove \score and \notes from manual.
+
+	* lily/my-lily-lexer.cc (My_lily_lexer): really switch on note
+	mode in the beginning.
+
 2004-07-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Horizontal spacing):

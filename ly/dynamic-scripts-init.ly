@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.8"
 
 %
 % declare the standard dynamic identifiers.
@@ -14,7 +14,9 @@ pp = #(make-dynamic-script "pp")
 p = #(make-dynamic-script "p")
 mp = #(make-dynamic-script "mp")
 mf = #(make-dynamic-script "mf")
-f = #(make-dynamic-script "f")
+
+%% f is pitch.
+"f" = #(make-dynamic-script "f")
 ff = #(make-dynamic-script "ff")
 fff = #(make-dynamic-script "fff")
 ffff = #(make-dynamic-script "ffff")

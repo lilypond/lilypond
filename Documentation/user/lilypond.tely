@@ -108,7 +108,7 @@ Copyright @copyright{} 1999--2004 by the authors
 @c compiling gs-8.01 right now... -- jcn
 @lilypond[raggedright]
 \score {
-    \context Lyrics \notes {
+    \context Lyrics {
         \override Score.RehearsalMark   #'self-alignment-X = #LEFT
         \mark #(ly:export (string-append
              "(For LilyPond version " (lilypond-version) ")"))

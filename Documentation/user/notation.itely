@@ -80,8 +80,8 @@ cis'4 d'8 e'16 c'16
 @cindex pitches
 @cindex entering notes
 
-The most common syntax for pitch entry is used in @code{\chords} and
-@code{\notes} mode.  In these modes, pitches may be designated by
+The most common syntax for pitch entry is used in standard notes and
+@code{\chords} mode.  In these modes, pitches may be designated by
 names.  The notes are specified by the letters @code{a} through
 @code{g}, while the octave is formed with notes ranging from @code{c}
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
@@ -262,12 +262,10 @@ The @code{s} syntax is only available in note mode and chord mode.  In
 other situations, you should use the @code{\skip} command
 
 @lilypond[quote,raggedright,verbatim]
-\score {
   \new Staff <<
     { \time 4/8 \skip 2 \time 4/4 } 
-    \notes\relative c'' { a2 a1 }
+    \relative c'' { a2 a1 }
   >>
-}
 @end lilypond
 
 The skip command is merely an empty musical placeholder.  It does not
@@ -278,7 +276,7 @@ The @code{s} skip command does create @internalsref{Staff} and
 commands. For example, the following results in an empty staff.
 
 @lilypond[quote,raggedright,verbatim]
-\score { \notes { s4 } } 
+ { s4 } 
 @end lilypond
 
 The same fragment using @code{\skip} results in an empty page.
@@ -314,7 +312,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 @lilypond[quote]
 \score {
-  \notes \relative c'' {
+ \relative c'' {
     a\breve*1/2  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa*1/4 r\breve  *1/2
@@ -609,10 +607,9 @@ to determine the first note of the next chord
   <c, e' g>
 }
 @end lilypond
-@cindex @code{\notes}
 
-The pitch after the @code{\relative} contains a note name.  To parse
-the note name as a pitch, it must be surrounded by @code{\notes}
+The pitch after the @code{\relative} contains a note name.
+
 
 The relative conversion will not affect @code{\transpose},
 @code{\chords} or @code{\relative} sections in its argument.  If you
@@ -714,9 +711,7 @@ by assigning a music expression to @code{pipeSymbol},
 @lilypond
 pipeSymbol = \bar "||"
 
-\score {
-    \notes  { c'2 c'2 | c'2 c'2 | }
-}
+{ c'2 c'2 | c'2 c'2 | }
 @end lilypond 
 
 
@@ -1036,7 +1031,7 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 
 @lilypond[quote,raggedright,verbatim]
 \score {
-  \notes \relative c'' {
+  \relative c'' {
     #(set-time-signature 9 8 '(2 2 2 3))
     g8[ g] d[ d] g[ g] a8[( bes g]) | 
     #(set-time-signature 5 8 '(3 2))
@@ -1933,7 +1928,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 
 @lilypond[quote,raggedright,verbatim]
 \score {
-  \notes \relative c'' {  
+  \relative c'' {  
     c4\startGroup\startGroup
     c4\stopGroup
     c4\startGroup
@@ -2616,13 +2611,11 @@ Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 To place tremolo marks between notes, use @code{\repeat} with tremolo
 style
 @lilypond[quote,verbatim,raggedright]
-\score { 
-  \context Voice \notes\relative c' {
+  \context Voice \relative c' {
     \repeat "tremolo" 8 { c16 d16 }
     \repeat "tremolo" 4 { c16 d16 }    
     \repeat "tremolo" 2 { c16 d16 }
   }
-}
 @end lilypond
 
 Tremolo marks can also be put on a single note.  In this case, the
@@ -2771,12 +2764,10 @@ To typeset the music, the notes must be interpreted in a
 @lilypond[quote,raggedright,verbatim]
 up = \drums { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
 down = \drums { bassdrum4 snare8 bd r bd sn4 }
-\score {
   \new DrumStaff <<
     \new DrumVoice { \voiceOne \up } 
     \new DrumVoice { \voiceTwo \down } 
   >>
-}
 @end lilypond
 
 The above example shows verbose polyphonic notation. The short
@@ -2842,8 +2833,8 @@ to typeset timbales on a two line staff
 @lilypond[quote,raggedright]
 nam = \lyrics { timh ssh timl ssl cb }
 mus = \drums  { timh ssh timl ssl cb s16 }
-\score {
-    <<
+
+<<
         \context DrumStaff \with {
             \remove Bar_engraver
             \remove Time_signature_engraver
@@ -2858,8 +2849,7 @@ mus = \drums  { timh ssh timl ssl cb s16 }
             \override LyricText #'font-family = #'typewriter
 
         \nam  }
-    >>
-}
+>>
 @end lilypond
 @item congas-style
 to typeset congas on a two line staff
@@ -2867,8 +2857,7 @@ to typeset congas on a two line staff
 @lilypond[quote,raggedright]
 nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
 mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
-\score {
-    <<
+<<
         \context DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
@@ -2883,8 +2872,7 @@ mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
         \context Lyrics {
                     \override LyricText #'font-family = #'typewriter
 \nam  }
-    >>
-}
+>>
 @end lilypond
 @item bongos-style
 to typeset bongos on a two line staff
@@ -2892,8 +2880,7 @@ to typeset bongos on a two line staff
 @lilypond[quote,raggedright]
 nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
 mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
-\score {
-    <<
+<<
         \context DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
@@ -2908,8 +2895,7 @@ mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
         \context Lyrics {
                     \override LyricText #'font-family = #'typewriter
 \nam  }
-    >>
-}
+>>
 @end lilypond
 
 @item percussion-style
@@ -2917,8 +2903,7 @@ to typeset all kinds of simple percussion on one line staves
 @lilypond[quote,raggedright]
 nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
 mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
-\score {
-    <<
+<<
         \context DrumStaff\with{
             \remove Bar_engraver
             drumStyleTable = #percussion-style
@@ -2928,11 +2913,10 @@ mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
             \override Stem #'Y-extent-callback = ##f
         } \mus
         \context Lyrics {
-        \nam
-                    \override LyricText #'font-family = #'typewriter
-}
-    >>
-}
+          \nam
+          \override LyricText #'font-family = #'typewriter
+        }
+>>
 @end lilypond
 @end table
 
@@ -2948,14 +2932,13 @@ list at the top of your file
         (lowtom	      diamond   #f       3)))
 up = \drums { hh8 hh hh hh hhp4 hhp }
 down = \drums { bd4 sn bd toml8 toml }
-\score {
-  \new DrumStaff <<
+
+\new DrumStaff <<
     \set DrumStaff.drumStyleTable
        = #(alist->hash-table mydrums)
     \new DrumVoice { \voiceOne \up }
     \new DrumVoice { \voiceTwo \down }
-  >>
-}
+>>
 @end lilypond
 
 
@@ -3043,14 +3026,14 @@ point), and it looks ahead skipping over rests to switch in
 advance. Here is a practical example
         
 @lilypond[quote,verbatim,raggedright]
-\score { \notes \context PianoStaff <<
+\context PianoStaff <<
   \context Staff = "up" {
     \autochange \new Voice \relative c' {
        g4 a  b c d r4 a g } }
   \context Staff = "down" {
        \clef bass
        s1*2
-} >> }
+} >>
 @end lilypond
 
 @noindent
@@ -3458,7 +3441,7 @@ then the lyrics are specified with @code{\lyricsto}. The command
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
 @example
-\context ChoirStaff \notes <<
+\context ChoirStaff  <<
   \context Lyrics = sopranoLyrics @{ s1 @}
   \context Voice = soprano @{ @emph{music} @}
   \context Lyrics = tenorLyrics @{ s1 @}
@@ -3475,7 +3458,7 @@ and then combine the appropriate melodies and lyric lines
 The final input would resemble
 
 @example
-  << \context ChoirStaff \notes << @emph{setup the music}  >>
+  << \context ChoirStaff  << @emph{setup the music}  >>
      \lyricsto "soprano" @emph{etc}
      \lyricsto "alto" @emph{etc}
      @emph{etc}
@@ -3623,9 +3606,8 @@ that identity followed by a dash.  In the preceding example, the
 
 The complete example is shown here
 @lilypond[quote,raggedright,verbatim]
-\score {
   <<
-    \notes \relative c'' \context Voice = duet {
+    \relative c'' \context Voice = duet {
       \time 3/4
        g2 e4 a2 f4 g2. }
     <<
@@ -3637,7 +3619,6 @@ The complete example is shown here
         Ooooo, ch\'e -- ri, je t'aime. }
     >>
   >>
-}
 @end lilypond
 
 @cindex stanza number
@@ -3699,9 +3680,15 @@ for example,
 This results in the following output
 
 @lilypond[quote,raggedright]
-\score {
+  \paper {
+    \context {
+      \Staff
+      \consists Ambitus_engraver
+    }
+  }
+
   \context ChoirStaff 
-  \notes \relative c' <<
+  \relative c' <<
     \new Staff {
       as'' c e2 cis,2
     }
@@ -3709,13 +3696,6 @@ This results in the following output
       es4 b c f as g
     }
   >>
-  \paper {
-    \context {
-      \Staff
-      \consists Ambitus_engraver
-    }
-  }
-}
 @end lilypond
 
 If you have multiple voices in a single staff, and you want a single
@@ -3769,7 +3749,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 @internalsref{TabVoice} contexts
 
 @lilypond[quote,fragment,verbatim]
-\notes \context TabStaff {
+ \context TabStaff {
   a,4\5 c'\2 a\3 e'\1
   e\4 c'\2 a\3 e'\1
 }
@@ -3789,18 +3769,16 @@ e16 fis gis a b4
 e16 fis gis a b4
 @end example
 @lilypond[quote,noindent,raggedright]
-frag = \notes {
+frag =  {
   \key e \major
   e16 fis gis a b4
   \set TabStaff.minimumFret = #8
   e16 fis gis a b4
 }
-\score {
   \context StaffGroup <<
     \context Staff { \clef "G_8" \frag }
     \context TabStaff { \frag }
   >>
-}
 @end lilypond
 
 @seealso
@@ -3834,7 +3812,7 @@ g
   \context TabStaff <<
     \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
     
-    \notes {
+     {
       a,4 c' a e' e c' a e'
     }
   >> 
@@ -3860,7 +3838,7 @@ set of pitches, so they can be transposed
 
 
 @lilypond[quote,verbatim,raggedright]
-twoWays = \notes \transpose c c' {
+twoWays =  \transpose c c' {
   \chords {
     c1 f:sus4 bes/f
   }
@@ -3869,9 +3847,8 @@ twoWays = \notes \transpose c c' {
   <f bes d'>
 }
 
-\score {
   << \context ChordNames \twoWays
-     \context Voice \twoWays >> }
+     \context Voice \twoWays >> 
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
@@ -3988,7 +3965,7 @@ by using  @code{/+}@var{pitch}.
 \chords { c1 c/+g c/+f }
 @end lilypond
 
-Chords is a mode similar to @code{\lyrics}, @code{\notes} etc.  Most
+Chords is a mode similar to @code{\lyrics} etc.  Most
 of the commands continue to work, for example, @code{r} and
 @code{\skip} can be used to insert rests and spaces, and property
 commands may be used to change various settings.
@@ -4018,15 +3995,14 @@ The chords may be entered either using the notation
 described above, or directly using @code{<} and @code{>}
 
 @lilypond[quote,verbatim,raggedright]
-scheme = \notes {
+scheme =  {
   \chords {a1 b c} <d' f' a'>  <e' g' b'>
 }
-\score {
-  \notes <<
+
+ <<
     \context ChordNames \scheme
     \context Staff \scheme
-  >>
-}
+>>
 @end lilypond
 
 You can make the chord changes stand out by setting
@@ -4038,14 +4014,12 @@ the start of a new line
 scheme = \chords {
   c1:m c:m \break c:m c:m d
 }
-\score {
-  \notes <<
+ <<
     \context ChordNames {
       \set chordChanges = ##t
       \scheme }
     \context Staff \transpose c c' \scheme
-  >>
-}
+>>
 @end lilypond
 
 The default chord name layout is a system for Jazz music, proposed by
@@ -4340,7 +4314,7 @@ You can also use markup texts to construct more complicated instrument
 names, for example
 
 @lilypond[quote,fragment,verbatim,raggedright]
-\notes {
+ {
   \set Staff.instrument = \markup {
     \column < "Clarinetti" { "in B"
       \smaller \flat } > }
@@ -4393,20 +4367,19 @@ transposition will produce the appropriate part
 \transpose a c @dots{}
 @end example   
 
-Since @var{from} and @var{to} are pitches, so @code{\transpose} must be
-inside a @code{\notes} section.  @code{\transpose} distinguishes
-between enharmonic pitches: both @code{\transpose c cis} or
-@code{\transpose c des} will transpose up half a tone.  The first
-version will print sharps and the second version will print flats
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose c cis} or @code{\transpose c des} will transpose up
+half a tone.  The first version will print sharps and the second
+version will print flats
 
 @lilypond[quote,raggedright,verbatim]
-mus =\notes { \key d \major cis d fis g }
-\score { \notes \context Staff {
+mus = { \key d \major cis d fis g }
+\context Staff {
   \clef "F" \mus
   \clef "G"
   \transpose c g' \mus
   \transpose c f' \mus
-}}
+}
 @end lilypond
 
 
@@ -4643,15 +4616,16 @@ in this example disappears in the second line
 
 
 @lilypond[quote,verbatim]
-\score  {
-  \notes \relative c' <<
-    \new Staff { e4 f g a \break c1 }
-    \new Staff { c4 d e f \break R1 }
-  >>
   \paper {
     linewidth = 6.\cm 
     \context { \RemoveEmptyStaffContext }
   }
+
+{
+  \relative c' <<
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { c4 d e f \break R1 }
+  >>
 }
 @end lilypond
 
@@ -4743,7 +4717,7 @@ Here, @var{name} is an identifying string. The @var{music} is any kind
 of music.  This is an example of @code{\addquote}
 
 @verbatim
-\addquote clarinet \notes\relative c' {
+\addquote clarinet \relative c' {
   f4 fis g gis
 }
 @end verbatim
@@ -4762,14 +4736,14 @@ Quotations take into account the transposition both source and target
 instruments, if they are specified using the @code{\transposition} command.
 
 @lilypond[quote,raggedright,verbatim]
-\addquote clarinet \notes\relative c' {
+\addquote clarinet \relative c' {
   \transposition bes
   f4 fis g gis
 }
-\score {
-  \notes {
+
+{
   e'8 f'8 \quote clarinet 2
-} }
+}
 @end lilypond
 
 @refbugs
@@ -4907,7 +4881,7 @@ select ancient accidentals.   Supported styles are
 
 @lilypond[quote,raggedright,staffsize=26]
 \score {
-    \notes {
+    {
         \fatText
         s
         ^\markup {
@@ -5264,7 +5238,7 @@ following table
 
 @lilypond[quote]
 \score {
-    \notes {
+     {
         \set Score.timing = ##f
         \set Score.barAlways = ##t
         s_\markup { "$\\backslash$time 4/4" }
@@ -5385,7 +5359,7 @@ The result looks like this
 
 @lilypond[quote,raggedright]
 \score {
-    \notes {
+     {
 	a'1
 	\override Staff.Custos #'style = #'mensural
 	\break
@@ -5511,12 +5485,10 @@ this particular type of ligature.  By default, the
 above the ligature
 
 @lilypond[quote,raggedright,verbatim]
-\score {
-  \notes \transpose c c' {
+\transpose c c' {
     \[ g c a f d' \]
     a g f
     \[ e f a g \]
-  }
 }
 @end lilypond
 
@@ -5575,7 +5547,7 @@ For example,
 @end example
 @lilypond[quote,raggedright]
 \score {
-    \notes \transpose c c' {
+    \transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
         \override NoteHead #'style = #'neo_mensural
@@ -5600,8 +5572,7 @@ Without replacing @internalsref{Ligature_bracket_engraver} with
 to the following
 
 @lilypond[quote,raggedright]
-\score {
-    \notes \transpose c c' {
+\transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
         \override NoteHead #'style = #'neo_mensural
@@ -5610,7 +5581,6 @@ to the following
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
         \[ e1 f1 a\breve g\longa \]
-    }
 }
 @end lilypond
 
@@ -5663,7 +5633,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.5\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+    \transpose c c' {
         % Punctum
         \[ b \]
         \noBreak s^\markup {"a"} \noBreak
@@ -5672,36 +5642,13 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
         \[ \inclinatum b \]
         \noBreak s^\markup {"b"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.5\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Punctum Auctum Ascendens
         \[ \auctum \ascendens b \]
         \noBreak s^\markup {"c"} \noBreak
@@ -5714,64 +5661,18 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
         \[ \inclinatum \auctum b \]
         \noBreak s^\markup {"e"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Punctum Inclinatum Parvum
         \[ \inclinatum \deminutum b \]
         \noBreak s^\markup {"f"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -5780,35 +5681,12 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Virga
         \[ \virga b \]
         \noBreak s^\markup {"g"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @tab
@@ -5819,69 +5697,23 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Stropha
         \[ \stropha b \]
         \noBreak s^\markup {"h"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Stropha Aucta
         \[ \stropha \auctum b \]
         \noBreak s^\markup {"i"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 
@@ -5891,35 +5723,12 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Oriscus
         \[ \oriscus b \]
         \noBreak s^\markup {"j"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @tab
@@ -5930,41 +5739,18 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Clivis vel Flexa
         \[ b \flexa g \]
         s^\markup {"k"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Clivis Aucta Descendens
         \[ b \flexa \auctum \descendens g \]
         \noBreak s^\markup {"l"} \noBreak
@@ -5973,64 +5759,18 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
         \[ b \flexa \auctum \ascendens g \]
         \noBreak s^\markup {"m"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Cephalicus
         \[ b \flexa \deminutum g \]
         s^\markup {"n"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6039,41 +5779,18 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Podatus vel Pes
         \[ g \pes b \]
         s^\markup {"o"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Pes Auctus Descendens
         \[ g \pes \auctum \descendens b \]
         \noBreak s^\markup {"p"} \noBreak
@@ -6082,64 +5799,18 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
         \[ g \pes \auctum \ascendens b \]
         \noBreak s^\markup {"q"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Epiphonus
         \[ g \pes \deminutum b \]
         s^\markup {"r"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6148,69 +5819,23 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Pes Quassus
         \[ \oriscus g \pes \virga b \]
         s^\markup {"s"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Pes Quassus Auctus Descendens
         \[ \oriscus g \pes \auctum \descendens b \]
         s^\markup {"t"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 
@@ -6220,69 +5845,23 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Quilisma Pes
         \[ \quilisma g \pes b \]
         s^\markup {"u"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Quilisma Pes Auctus Descendens
         \[ \quilisma g \pes \auctum \descendens b \]
         s^\markup {"v"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 
@@ -6292,69 +5871,23 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Pes Initio Debilis
         \[ \deminutum g \pes b \]
         s^\markup {"w"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Pes Auctus Descendens Initio Debilis
         \[ \deminutum g \pes \auctum \descendens b \]
         s^\markup {"x"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 
@@ -6364,103 +5897,34 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus
         \[ a \pes b \flexa g \]
         s^\markup {"y"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus Auctus Descendens
         \[ a \pes b \flexa \auctum \descendens g \]
         s^\markup {"z"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus Deminutus
         \[ a \pes b \flexa \deminutum g \]
         s^\markup {"A"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6469,103 +5933,34 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus Initio Debilis
         \[ \deminutum a \pes b \flexa g \]
         s^\markup {"B"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus Auctus Descendens Initio Debilis
         \[ \deminutum a \pes b \flexa \auctum \descendens g \]
         s^\markup {"C"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Torculus Deminutus Initio Debilis
         \[ \deminutum a \pes b \flexa \deminutum g \]
         s^\markup {"D"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6574,103 +5969,34 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Porrectus
         \[ a \flexa g \pes b \]
         s^\markup {"E"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Porrectus Auctus Descendens
         \[ a \flexa g \pes \auctum \descendens b \]
         s^\markup {"F"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Porrectus Deminutus
         \[ a \flexa g \pes \deminutum b \]
         s^\markup {"G"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6679,103 +6005,35 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Climacus
         \[ \virga b \inclinatum a \inclinatum g \]
         s^\markup {"H"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
+    \paper { \neumeDemoPaper }
 }
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Climacus Auctus
         \[ \virga b \inclinatum a \inclinatum \auctum g \]
         s^\markup {"I"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Climacus Deminutus
         \[ \virga b \inclinatum a \inclinatum \deminutum g \]
         s^\markup {"J"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6784,103 +6042,34 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Scandicus
         \[ g \pes a \virga b \]
         s^\markup {"K"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Scandicus Auctus Descendens
         \[ g \pes a \pes \auctum \descendens b \]
         s^\markup {"L"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Scandicus Deminutus
         \[ g \pes a \pes \deminutum b \]
         s^\markup {"M"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 
 @item
@@ -6889,69 +6078,23 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Salicus
         \[ g \oriscus a \pes \virga b \]
         s^\markup {"N"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
         % Salicus Auctus Descendens
         \[ g \oriscus a \pes \auctum \descendens b \]
         s^\markup {"O"}
     }
-    \paper {
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context {
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \override StaffSymbol #'transparent = ##t
-            \remove "Time_signature_engraver"
-            \remove "Bar_engraver"
-            minimumVerticalExtent = ##f
-        }
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Vaticana_ligature_engraver
-            \override NoteHead #'style = #'vaticana_punctum
-            \override Stem #'transparent = ##t
-        }
-    }
-}
+\paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 
@@ -6961,34 +6104,12 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-  \notes \transpose c c' {
+   \transpose c c' {
     % Trigonus
     \[ \stropha b \stropha b \stropha a \]
     s^\markup {"P"}
   }
-  \paper {
-    interscoreline = 1
-    \context {
-      \Score
-      \remove "Bar_number_engraver"
-    }
-    \context {
-      \Staff
-      \remove "Clef_engraver"
-      \remove "Key_engraver"
-      \override StaffSymbol #'transparent = ##t
-      \remove "Time_signature_engraver"
-      \remove "Bar_engraver"
-      minimumVerticalExtent = ##f
-    }
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Vaticana_ligature_engraver
-      \override NoteHead #'style = #'vaticana_punctum
-      \override Stem #'transparent = ##t
-    }
-  }
+  \paper { \neumeDemoPaper }
 }
 @end lilypond
 @tab
@@ -7290,7 +6411,7 @@ entering the chant, as the following short excerpt demonstrates
   <<
     \context VaticanaVoice = "cantus" {
       \override Score.BarNumber #'transparent = ##t
-      \notes {
+       {
         \[ c'\melisma c' \flexa a \]
         \[ a \flexa \deminutum g\melismaEnd \]
         f \divisioMinima
@@ -7319,7 +6440,7 @@ LilyPond has limited support for figured bass
 
 @lilypond[quote,verbatim,fragment]
 <<
-  \context Voice \notes { \clef bass dis4  c d ais }
+  \context Voice  { \clef bass dis4  c d ais }
   \context FiguredBass \figures {
     < 6 >4 < 7 >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
@@ -7452,9 +6573,8 @@ indicate fermatas of differing lengths.  The following fermatas are
 supported
 
 @lilypond[quote,raggedright]
-\score {
-  <<
-    \addlyrics \notes {
+<<
+    \addlyrics  {
       b'
       ^\shortfermata
       _\shortfermata
@@ -7478,12 +6598,11 @@ supported
       \override LyricText #'font-family = #'typewriter
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
     }
-  >>
-}
+>>
 @end lilypond
 
 See @ref{Articulations} for general instructions how to apply scripts
-such as fermatas to a @code{\notes@{@}} block.
+such as fermatas to notes.
 
 
 @node Special notation

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.8"
 
 				%
 				% setup for Request->Element conversion. Guru-only

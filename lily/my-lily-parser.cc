@@ -97,6 +97,7 @@ My_lily_parser::parse_file (String init, String name, String out_name)
   progress_indication ("\n");
 
   set_yydebug (0);
+
   lexer_->new_input (init, sources_);
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to

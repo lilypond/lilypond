@@ -134,6 +134,15 @@ This is handled by the function defined in
 @code{toplevel-book-handler}.  By changing these variables, different
 results can be obtained.
 
+This required a small change in the syntax. Mode changing commands,
+such as @code{\chords} and @code{\figures} now be directly followed by
+delimeters. The following example demonstrates the new behavior,
+
+@example
+  \figures \context Figures { .. } % wrong
+  \context Figures \figures { .. } % right
+@end example 
+
 
 @item Start pitch for @code{relative} music is optional for music lists.
 The default value is middle C.

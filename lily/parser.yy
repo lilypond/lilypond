@@ -223,7 +223,12 @@ yylex (YYSTYPE *s, void *v)
 
 2. \markup identifier.
 
+  (what? --hwn)
+
 3. \markup { }
+
+  (what? --hwn)
+
 
 4.  \repeat
 	\repeat .. \alternative
@@ -270,7 +275,6 @@ or
 %token INVALID
 %token KEY
 %token LYRICS
-%token LYRICS_STRING
 %token MARK
 %token MIDI
 %token MULTI_MEASURE_REST
@@ -331,6 +335,7 @@ or
 %token <scm>	NUMBER_IDENTIFIER
 %token <scm>	OUTPUT_DEF_IDENTIFIER
 %token <scm>	RESTNAME
+%token <scm> LYRICS_STRING
 %token <scm>	SCM_T
 %token <scm>	SCORE_IDENTIFIER
 %token <scm>	STRING
@@ -548,9 +553,6 @@ identifier_init:
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
 	}
-	| full_markup {
-		$$ = $1;
-	}
 	| output_def {
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
@@ -567,15 +569,21 @@ identifier_init:
 		scm_gc_unprotect_object ($$);
 	}
 	| number_expression {
-		$$ = $1;
+ 		$$ = $1;
 	}
 	| string {
 		$$ = $1;
 	}
-	| embedded_scm	{
+        | embedded_scm {
 		$$ = $1;
 	}
-	;
+	| full_markup {
+		$$ = $1;
+	}
+	| DIGIT {
+		$$ = scm_int2num ($1);
+	}
+	;	;
 
 context_def_spec_block:
 	CONTEXT '{' context_def_spec_body '}'
@@ -1100,7 +1108,7 @@ Prefix_composite_music:
 		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	}
-	Music
+	Grouped_music_list
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
 		}
@@ -1109,13 +1117,13 @@ Prefix_composite_music:
 		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	}
-	Music 
+	Grouped_music_list
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
 		}
 	| FIGURES
 		{ THIS->lexer_->push_figuredbass_state (); }
-	Music
+	Grouped_music_list
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
 		  chm->set_property ("element", $3->self_scm ());
@@ -1131,7 +1139,7 @@ Prefix_composite_music:
 		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
 
 	}
-	Music
+	Grouped_music_list
 	{
 		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
 		  chm->set_property ("element", $3->self_scm ());
@@ -1142,7 +1150,7 @@ Prefix_composite_music:
 	}
 	| LYRICS
 		{ THIS->lexer_->push_lyric_state (); }
-	Music
+	Grouped_music_list
 		{
 		  $$ = $3;
 		  THIS->lexer_->pop_state ();
@@ -1349,21 +1357,27 @@ string:
 	;
 
 simple_string: STRING {
+		$$ = $1;
 	}
 	| LYRICS_STRING {
+		$$ = $1;
 	}
 	;
 
 scalar: string {
+		$$ = $1;
 	}
 	| LYRICS_STRING {
+		$$ = $1;
 	}
         | bare_int {
 		$$ = scm_int2num ($1);
 	}
         | embedded_scm {
+		$$ = $1;
 	}
 	| full_markup {
+		$$ = $1;
 	}
 	| DIGIT {
 		$$ = scm_int2num ($1);
@@ -1371,9 +1385,8 @@ scalar: string {
 	;
 
 /*
-FIXME: remove or fix this comment.  What is `This'?
 
-This is a trick:
+pre_events doesn't contain anything. It is a trick:
 
 Adding pre_events to the simple_element
 makes the choice between

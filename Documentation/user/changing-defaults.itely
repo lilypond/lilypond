@@ -432,8 +432,8 @@ one context. In the following example, articulations and notes are
 entered separately,
 
 @verbatim
-music = \notes { c4 c4 }
-arts = \notes { s4-. s4-> }
+music =  { c4 c4 }
+arts =  { s4-. s4-> }
 @end verbatim
 
 They are combined by sending both to the same @context{Voice} context,
@@ -444,13 +444,11 @@ They are combined by sending both to the same @context{Voice} context,
   >>
 @end verbatim
 @lilypond[raggedright]
-music = \notes { c4   c4 }
-arts = \notes  { s4-. s4-> }
-\score {
-  \notes \relative c''  << \new Staff \context Voice = "A" \music
+music =  { c4   c4 }
+arts =   { s4-. s4-> }
+   \relative c''  << \new Staff \context Voice = "A" \music
      \context Voice = "A" \arts
   >>
-} 
 @end lilypond
 
 @cindex @code{\context}
@@ -852,11 +850,11 @@ to indicate improvisation in Jazz pieces,
   \context { \Staff
     \accepts "ImproVoice"
   }}
-  \score { \notes \relative c'' {
+  {  \relative c'' {
     a4 d8 bes8 \new ImproVoice { c4^"ad lib" c 
      c4 c^"undress" c_"while playing :)" c } 
     a1 
-  }}
+  }
 @end lilypond
 
 
@@ -973,16 +971,14 @@ Putting both into a @code{\paper} block, like
 Then the output at the start of this subsection can be entered as
 
 @verbatim
-\score {
-  \notes \relative c'' {
+\relative c'' {
      a4 d8 bes8
      \new ImproVoice {
        c4^"ad lib" c 
        c4 c^"undress"
        c c_"while playing :)"
      }
-     a1 
-  }
+     a1
 }
 @end verbatim
   
@@ -1630,7 +1626,7 @@ Markups can be stored in variables, and these variables
 may be attached to notes, like
 @verbatim
 allegro = \markup { \bold \large { Allegro } }
-\notes { a^\allegro b c d }
+ { a^\allegro b c d }
 @end verbatim
 
 
@@ -1965,16 +1961,15 @@ for controlling the stem/bar line spacing. The following example
 shows these corrections, once with default settings, and once with
 exaggerated corrections:
 
-@lilypond
-    \score { \notes {
+@lilypond[raggedright]
+{
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|
       \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
       \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|      
-    }
-    \paper { raggedright = ##t } }
+}
 @end lilypond
 
 @cindex SpacingSpanner, overriding properties

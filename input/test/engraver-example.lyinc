@@ -1,6 +1,6 @@
 %% texidoc = "Include file for engraver example."
-\version "2.2.0"
-topVoice = \notes \relative c' {
+\version "2.3.8"
+topVoice =  \relative c' {
   \key d\major
   es8([ g] a[ fis])
   b4
@@ -8,7 +8,7 @@ topVoice = \notes \relative c' {
   d4->
 }
 
-botVoice = \notes \relative c' {
+botVoice =  \relative c' {
   \key d\major
   c8[( f] b[ a)]
   es4
@@ -16,7 +16,7 @@ botVoice = \notes \relative c' {
   b4->
 }
 
-hoom = \notes \relative c {
+hoom =  \relative c {
   \key d \major
   \clef bass
   g8-. r
@@ -27,7 +27,7 @@ hoom = \notes \relative c {
   b'4->
 }
 
-pah = \notes \relative c' {
+pah =  \relative c' {
   r8 b-.
   r4
   r8 g8-.

@@ -1,32 +1,32 @@
-\version "2.3.1"
+\version "2.3.8"
 
 
-startGraceMusic = \notes {
+startGraceMusic =  {
     \context Voice \applycontext #set-start-grace-properties
 }
 
-stopGraceMusic = \notes { 
+stopGraceMusic =  { 
     \context Voice \applycontext #set-stop-grace-properties
 }
 
 startAppoggiaturaMusic =
-\notes {
+ {
     \context Voice \applycontext #set-start-grace-properties
     s1*0(
 }
 
-stopAppoggiaturaMusic = \notes { 
+stopAppoggiaturaMusic =  { 
     \context Voice \applycontext #set-stop-grace-properties
     s1*0)
 }
 
-startAcciaccaturaMusic = \notes {
+startAcciaccaturaMusic =  {
     \context Voice \applycontext #set-start-grace-properties
     s1*0(
     \override Stem  #'stroke-style = #"grace"
 }
 
-stopAcciaccaturaMusic = \notes {
+stopAcciaccaturaMusic =  {
     \revert Stem #'stroke-style
     \context Voice \applycontext #set-stop-grace-properties
     s1*0)

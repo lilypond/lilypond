@@ -760,9 +760,9 @@ alist_to_hashq (SCM alist)
 {
   int i = scm_ilength (alist);
   if (i < 0)
-    return scm_make_vector (scm_int2num (0), SCM_EOL);
+    return scm_c_make_hash_table (0);
 	  
-  SCM tab = scm_make_vector (scm_int2num (i), SCM_EOL);
+  SCM tab = scm_c_make_hash_table (i);
   for (SCM s = alist; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM pt = ly_cdar (s);
