@@ -38,6 +38,6 @@ else:
 %	input feta-eindelijk;
 %	input feta-klef;
 %	input feta-toevallig;
-%	input feta-schrift;
-	input feta-slag;
+	input feta-schrift;
+%	input feta-slag;
 fi
