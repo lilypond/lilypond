@@ -1,5 +1,5 @@
 /*
-  note-heads-engraver.cc -- part of GNU LilyPond
+  shape-note-heads-engraver.cc -- part of GNU LilyPond
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -15,28 +15,27 @@
 #include "engraver.hh"
 #include "warn.hh"
 
-class Note_heads_engraver : public Engraver
+class Shape_note_heads_engraver : public Engraver
 {
   Link_array<Item> notes_;
   Link_array<Item> dots_;
   Link_array<Music> note_evs_;
 
 public:
-  TRANSLATOR_DECLARATIONS (Note_heads_engraver);
+  TRANSLATOR_DECLARATIONS (Shape_note_heads_engraver);
 
 protected:
   virtual bool try_music (Music *ev) ;
   virtual void process_music ();
-
   virtual void stop_translation_timestep ();
 };
 
-Note_heads_engraver::Note_heads_engraver ()
+Shape_note_heads_engraver::Shape_note_heads_engraver ()
 {
 }
 
 bool
-Note_heads_engraver::try_music (Music *m) 
+Shape_note_heads_engraver::try_music (Music *m) 
 {
   if (m->is_mus_type ("note-event"))
     {
@@ -51,8 +50,11 @@ Note_heads_engraver::try_music (Music *m)
 
 
 void
-Note_heads_engraver::process_music ()
+Shape_note_heads_engraver::process_music ()
 {
+  if (!note_evs_.size())
+    return ;
+  
   for (int i=0; i < note_evs_.size (); i++)
     {
 
@@ -76,8 +78,28 @@ Note_heads_engraver::process_music ()
 	  dots_.push (d);
 	}
 
-      Pitch *pit =unsmob_pitch (ev->get_property ("pitch"));
+      Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
 
+      SCM scm_tonic = get_property ("tonic");
+      Pitch tonic (0,0,0); 
+      if (unsmob_pitch (scm_tonic))
+	tonic = *unsmob_pitch (scm_tonic);
+      
+      unsigned int delta = (pit->get_notename() - tonic.get_notename() + 7) % 7;
+      SCM shape_vector = get_property ("shapeNoteStyles");
+
+      SCM style = SCM_EOL;
+      if (ly_c_vector_p (shape_vector)
+	  && SCM_VECTOR_LENGTH (shape_vector) > delta
+	  && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
+	{
+	  style = scm_vector_ref (shape_vector, scm_from_int (delta));
+	}
+      if (scm_is_symbol (style))
+	{
+	  note->set_property ("style", style);
+	}
+      
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("middleCPosition");
       if (scm_is_number (c0))
@@ -85,11 +107,16 @@ Note_heads_engraver::process_music ()
 
       note->set_property ("staff-position",   scm_int2num (pos));
       notes_.push (note);
+
+
+      
+      
+      
     }
 }
 
 void
-Note_heads_engraver::stop_translation_timestep ()
+Shape_note_heads_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
   dots_.clear ();
@@ -98,10 +125,10 @@ Note_heads_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Note_heads_engraver,
+ENTER_DESCRIPTION (Shape_note_heads_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots",
 /* accepts */     "note-event busy-playing-event",
 /* acks  */      "",
-/* reads */       "middleCPosition",
+/* reads */       "middleCPosition shapeNoteStyles",
 /* write */       "");

@@ -66,10 +66,12 @@
 
     %% use lmodern in latin1 (cork) flavour if EC is not available.
     #(define text-font-defaults
-      `((font-encoding
-	 . cork-lm)
-;	 . ,(if (and  ;  (not (ly:kpathsea-find-file "ecrm10.pfa"))
-;		 (ly:kpathsea-find-file "cork-lm.enc")) 'cork-lm 'Extended-TeX-Font-Encoding---Latin))
+      `((font-encoding .
+;	  cork-lm
+	Extended-TeX-Font-Encoding---Latin
+;	  ,(if (and (not (ly:kpathsea-find-file "ecrm10.pfa"))
+;		(ly:kpathsea-find-file "cork-lm.enc")) 'cork-lm 'Extended-TeX-Font-Encoding---Latin)
+	)
 	(baseline-skip . 2)
 	(word-space . 0.6)))
 

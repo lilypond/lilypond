@@ -165,7 +165,7 @@ Offset
 Adobe_font_metric::get_indexed_wxwy (int k) const
 {
   AFM_CharMetricInfo const *mi = font_info_->cmi + k;
-#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM :-(
+#if 1 /* Fine for feta; ec-fonts-mftraced do not have AFM :-( */
   return Offset (mi->wx, mi->wy) * 0.001 PT;
 #else /* FIXME: about right for lmodern.  */
   return Offset (mi->wx, mi->wy) * 1.14 * 0.001 PT;
