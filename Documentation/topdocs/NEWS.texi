@@ -103,7 +103,7 @@ results can be obtained.
 
 
 @item Start pitch for @code{relative} music is optional for music lists.
-The default value is one octave below middle C.
+The default value is middle C.
 
 @c update-me?  formal definition of newaddlyrics, once it works
 @item Combining lyrics with music can be done with @code{\newlyrics}
