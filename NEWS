@@ -1,4 +1,21 @@
+pl 22
+	- fixed "already have a Beam" error
 
+pl 21.jcn2
+	- gnossienne: hmm, how to 
+	  * undisplay bars
+	  * don't put 'grace notes' in beam
+	  * put separator between  "] \translator Staff=x" 
+
+pl 21.jcn1
+	- gnossienne-4.ly (start of)
+
+pl 20.jcn2
+	- mutopia fixes; see preludes-1.ly for cross-staff beams and slurs
+	- bf: broken interstaff slur
+	- sm66: check for gmake
+
+*******
 pl 20.jcn1
 	- interstaff slurs v0: preludes-1.ly
 	- warnings for silly interbeam settings
