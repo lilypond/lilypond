@@ -60,7 +60,17 @@ The head of the list:
     )
 
 @end example")
-(translator-property-description 'automaticPhrasing boolean? "")
+(translator-property-description 'automaticPhrasing boolean? " If set,
+the @ref{Lyric_phrasing_engraver} will match note heads of context
+called Voice X to syllables from LyricsVoice called
+X-<something>. This feature is turned on by default. See the example
+file @file{lyrics-multi-stanza.ly}.
+
+")
+(translator-property-description 'automaticMelismata boolean? " If
+set, \addlyrics will assume that beams, slurs and ties signal
+melismata, and align lyrics accordingly.
+")
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckNoSynchronize boolean? "If set, don't reset measurePosition when finding a bbarcheck. This
@@ -191,8 +201,8 @@ r1 r1*3 R1*3property Score.skipBars=1 r1*3 R1*3
 @end example
 
 ")
-(translator-property-description 'slurBeginAttachment symbol? "translates to the car of Slur.element-property 'attachment.")
-(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of Slur.element-property 'attachment.")
+(translator-property-description 'slurBeginAttachment symbol? "translates to the car of grob-property 'attachment.")
+(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment.")
 (translator-property-description 'slurMelismaBusy boolean? "")
 (translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set")
 (translator-property-description 'solo boolean? "set if solo is detected")
@@ -234,7 +244,7 @@ Switch off for cadenzas.")
     If set to true, tuplet bracket creation is switched off
 entirely. This has the same effect as setting both
 @code{tupletNumberVisibility} and @code{tupletBracketVisibility} to
-@code{#f}, but as this does not even create elements, this setting
+@code{#f}, but as this does not even create any grobs, this setting
 uses less memory and time.")
 (translator-property-description 'tupletSpannerDuration moment? "
 Normally a tuplet bracket is as wide as the

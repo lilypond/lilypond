@@ -60,6 +60,9 @@
      ((end 1 16 2 4) . ,(make-moment 1 4))
      ((end 1 32 2 4) . ,(make-moment 1 8))
 
+     ;; It seems that, because of a bug in the previous auto-beamer,
+     ;; we had the effect of this setting x
+     ;; ((end * * 2 8) . ,(make-moment 2 8))
 
      ((end * * 4 8) . ,(make-moment 1 4))
      ((end 1 16 4 8) . ,(make-moment 1 4))
@@ -78,7 +81,7 @@
      ((end * * 12 8) . ,(make-moment 3 8))
      ((end 1 16 12 8) . ,(make-moment 3 8))
      ((end 1 32 12 8) . ,(make-moment 1 8))
-     (meta . ,(element-description  "autoBeamSettings"))
+     (meta . ,(grob-description  "autoBeamSettings"))
      ))
 
 ;;; Users may override in most cases, simply by issuing

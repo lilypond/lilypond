@@ -33,7 +33,7 @@
  	     (document-paper "LilyPond interpretation contexts")
  	     (document-all-engravers "LilyPond engravers")
  	     (document-all-engraver-properties "LilyPond context properties")	     
- 	     (document-all-elements "LilyPond backend")
+ 	     (document-all-grobs "LilyPond backend")
  	     (document-all-interfaces "LilyPond interfaces")
 	     (document-all-backend-properties "LilyPond backend properties")
 	     )
@@ -50,11 +50,11 @@
      ;; we can't use (dir) and top if we're included by lilypond.tely
      "LilyPond internals" name "(lilypond.info)"
      '(("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
-       ("LilyPond engravers" . "Engravers create Elements")
+       ("LilyPond engravers" . "Engravers create Grobs")
        ("LilyPond context properties" . "context properties")       
-       ("LilyPond backend" . "Detailed description of all Elements")
-       ("LilyPond interfaces" . "Element Interfaces")
-       ("LilyPond backend properties" . "Element properties")))
+       ("LilyPond backend" . "Detailed description of all Grobs")
+       ("LilyPond interfaces" . "Grob Interfaces")
+       ("LilyPond backend properties" . "Grob properties")))
 
     
     

@@ -17,8 +17,8 @@
   )
 
 
-(define (element-description name . interfaces)
-  (let* ((ifs (cons general-element-interface interfaces))
+(define (grob-description name . interfaces)
+  (let* ((ifs (cons general-grob-interface interfaces))
 	 (props (map caddr ifs))
 ;	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
 ;					(apply append props)))
@@ -29,14 +29,14 @@
 	  (cons 'interfaces syms)
 	  (cons 'interface-descriptions ifs)
 	  ; (cons 'interface-descriptions (cadr merged))
-	  ;; description of the element itself?
+	  ;; description of the grob itself?
 ;	  (cons 'properties prop-typep-pairs)
   )))
 
-(define general-element-interface
+(define general-grob-interface
   (lily-interface
-   'general-element-interface
-   "All elements support this"
+   'general-grob-interface
+   "All grobs support this"
    '(
     X-offset-callbacks 
     Y-offset-callbacks 
@@ -94,7 +94,7 @@
 (define axis-group-interface
   (lily-interface
    'axis-group-interface
-   "a group of coupled elements"
+   "a group of coupled grobs"
    '(
     axes 
    )))
@@ -189,11 +189,11 @@
 (define line-of-score-interface
   (lily-interface
    'line-of-score-interface
-   "Super element, parent of all:
+   "Super grob, parent of all:
 
-The columns of a score that form one line.  The toplevel element.  Any
-element has a Line_of_score as both X and Y reference point. The
-Paper_score contains one element of this type. Control enters the
+The columns of a score that form one line.  The toplevel grob.  Any
+grob has a Line_of_score as both X and Y reference point. The
+Paper_score contains one grob of this type. Control enters the
 Grob dependency calculation from this single Line_of_score
 object."
    '(
@@ -260,7 +260,7 @@ object."
 (define align-interface
   (lily-interface
    'align-interface
-   " Order elements top to bottom/left to right/right to left etc."
+   " Order grobs top to bottom/left to right/right to left etc."
    '(
     stacking-dir  
     align-dir  
@@ -440,7 +440,7 @@ font-point-size font-relative-size)
 (define separation-spanner-interface
   (lily-interface
    'separation-spanner-interface
-   "Spanner that containing @code{separation-item-interface} elements to calculate rods"
+   "Spanner that containing @code{separation-item-interface} grobs to calculate rods"
    '()
   ))
 (define text-script-interface
@@ -554,7 +554,7 @@ contains-grace extra-space stretch-distance ))
 (define spaceable-element-interface
   (lily-interface
    'spaceable-element-interface
-   "An element (generally a Paper_column) that takes part in the
+   "An grob (generally a Paper_column) that takes part in the
 spacing problem. "
    '(
      minimum-distances 
@@ -667,7 +667,7 @@ position 0."
    "Item that computes widths to generate spacing rods.
 
 Calc dimensions for the Separating_group_spanner; this has to be
-   an item to get dependencies correct.  It can't be an element_group
+   an item to get dependencies correct.  It can't be an grob_group
    since these usually are in a different X_group
 "
    '(
