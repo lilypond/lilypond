@@ -17,6 +17,7 @@ void
 Staff_side::set_staffsym(Staff_symbol* s_l)
 {
     staff_sym_l_ = s_l;
+    add_dependency( s_l );
 }
 
 Staff_side::Staff_side()
@@ -89,12 +90,15 @@ int
 Staff_side::get_position_i(Interval sym_dim) const
 { 
     int i= get_position_i();
-    return i+ int(rint(- sym_dim[-dir_i_] / paper()->internote_f()));
+    if (dir_i_)
+	return i+ int(rint(- sym_dim[-dir_i_] / paper()->internote_f()));
+    else
+	return i;
 }
 
 
 void
-Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n )
+Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n)
 { 
     int i;
     while ((i=support_l_arr_.find_i(o) ) >=0)

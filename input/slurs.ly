@@ -11,10 +11,9 @@
 EndMudelaHeader
 %}
 
-\version "0.0.58";
+\version "0.0.60";
 
-\score{\staff{
-	melodicregs 
+\score{
 	\melodic{\octave c';
 		\duration "last";
 		'c4 ~ 'c c'' ~ c'' ~ g ~ c ~
@@ -29,11 +28,10 @@ EndMudelaHeader
 		< { c ~ d }
 		  { e ~ f }
 		>
-	< \multivoice 
+	< \multi 2;
 	{ \stem 1; c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
-	{ \stem -1; c (e g )c'~( [b a g )d]   	r2 } >
-
-	}
+	{ \stem -1; c (e g )c'~( [b a g )d]   	r2 } 
+	>
 
 	}
 }

@@ -20,7 +20,7 @@ EndMudelaHeader
 %}
 
 
-\version "0.0.59";
+\version "0.0.60";
 
 toccata_commands = \melodic{
 	\meter 4/4;
@@ -136,15 +136,16 @@ break = \melodic{ \meter 4/4; r1 }
 % these should be two separate scores...
 \score{
 	\melodic < \multi 3;
-		{ \$toccata_right   \break   \$fuga2_right }
-		{	\$toccata_left   \break   \$fuga2_left }
+
+		 {\$toccata_right     \break   \$fuga2_right }
+		 {\$toccata_left  \break   \$fuga2_left }
 	
-		{ \$toccata_pedal   \break   \$fuga2_pedal }
+		 {\$toccata_pedal    \break   \$fuga2_pedal }
 		
 	>
 	\paper{}
 	\midi{
-		\tempo 4:96
+		\tempo 4:96;
 	}
 }
 

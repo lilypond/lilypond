@@ -3,14 +3,14 @@
  filename: collisions.ly
  title:
  description:  random counterpoint to test collisions
- composer(s): HWN
- entered-by: HWN
+ composer(s): HWN,JCN
+ entered-by: HWN,JCN
  copyright: public domain
 
  Tested Features:test the Collision resolution 
 EndMudelaHeader
 %}
-\version "0.0.59";
+\version "0.0.60";
 
 
 
@@ -56,12 +56,35 @@ rests = \melodic
 	}
 	>
 
+restsII = \melodic {
+	\octave c'; 
+			< \multi2;  
+				{ \stem 1;  g' f' e' d' c' b a g f e d c }
+				{ \stem -1; r  r  r  r  r  r r r r r r r }
+			>
+			< \multi2;  
+				{ \stem 1;  r r r r r r r r  r  r  r  r }
+				{ \stem -1; c d e f g a b c' d' e' f' g' }
+			>
+			r8
+			< \multi2;  r8 r8 >
+			< \multi2;  r8 r8 r8 >
+			< \multi2;  r8 r8 r8 r8 >
+			< \multi2;  r r >
+			< \multi2;  r r r >
+			\stem 1;
+			[c''8 r8 c''8 c''8]
+			[c8 r8 c8 c8]
+			\stem -1;
+			[c8 r8 c8 c8]
+			[c''8 r8 c''8 c''8]
+}
+
 \score{
+	\melodic {  \$two_voice  \$two_voice_steminvert 
+			\$three_voice  \rests \restsII }
+	
 
-		\melodic {  \$two_voice  \$two_voice_steminvert 
-			\$three_voice  \rests
-		}
-
-	\paper {}
+	
 %	\midi { \tempo 4:80 }
 }
