@@ -41,7 +41,7 @@ internal_ly_parse_scm (Parse_start * ps)
 	  static SCM module = SCM_BOOL_F;
 	  if (module == SCM_BOOL_F)
 	    {
-	      SCM function = ly_scheme_function ("make-safe-lilypond-module");
+	      SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
 	      module = scm_call_0 (function);
 	    }
 	  answer = scm_eval (form, module);

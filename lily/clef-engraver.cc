@@ -107,7 +107,7 @@ Clef_engraver::create_clef ()
 					  scm_from_int (10));
 
 	  g->set_property ("text",
-			   scm_list_n (ly_scheme_function ("vcenter-markup"),
+			   scm_list_n (ly_lily_module_constant ("vcenter-markup"),
 				       txt,  SCM_UNDEFINED));
 	  Side_position_interface::add_support (g,clef_);      
 

@@ -48,7 +48,7 @@ ly_to_symbol (SCM scm)
 SCM
 ly_to_string (SCM scm)
 {
-  return scm_call_3 (ly_scheme_function ("format"), SCM_BOOL_F,
+  return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
 		     scm_makfrom0str ("~S"), scm);
 }
 
@@ -624,7 +624,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
-	  SCM typefunc = ly_scheme_function ("type-name");
+	  SCM typefunc = ly_lily_module_constant ("type-name");
 	  SCM type_name = scm_call_1 (typefunc, type);
 
 	 

@@ -45,7 +45,7 @@ Modified_font_metric::Modified_font_metric (Font_metric *fm,
       && input_encoding_ != "ASCII"
       && input_encoding_ !=  font_encoding)
     {
-      coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
+      coding_vector_ = scm_call_1 (ly_lily_module_constant ("get-coding-vector"),
 				   scm_makfrom0str (font_encoding.to_str0 ()));
 
       if (!ly_c_vector_p (coding_vector_))
@@ -54,11 +54,11 @@ Modified_font_metric::Modified_font_metric (Font_metric *fm,
 	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
 	}
 
-      coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
+      coding_table_ = scm_call_1 (ly_lily_module_constant ("get-coding-table"),
 				  scm_makfrom0str (font_encoding.to_str0 ()));
 
       coding_mapping_
-	= scm_call_2 (ly_scheme_function ("make-encoding-mapping"),
+	= scm_call_2 (ly_lily_module_constant ("make-encoding-mapping"),
 		      coding_vector_,
 		      coding_table_);
 

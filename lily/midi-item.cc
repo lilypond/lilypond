@@ -142,7 +142,7 @@ Midi_instrument::to_string () const
   /*
     UGH. don't use eval.
    */
-  SCM proc = ly_scheme_function ("midi-program");
+  SCM proc = ly_lily_module_constant ("midi-program");
   SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
   found = (program != SCM_BOOL_F);
   if (found)

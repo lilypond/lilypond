@@ -72,7 +72,7 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
 Output_def * 
 scale_output_def (Output_def *o, Real amount)
 {
-  SCM proc = ly_scheme_function ("scale-layout");
+  SCM proc = ly_lily_module_constant ("scale-layout");
   SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_double2num (amount));
   scm_gc_protect_object (new_pap);
 
@@ -93,7 +93,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
   SCM ell = SCM_EOL;
   if (scm_hash_table_p (font_table) == SCM_BOOL_T)
     {
-      SCM func = ly_scheme_function ("hash-table->alist");
+      SCM func = ly_lily_module_constant ("hash-table->alist");
 
       for (SCM s = scm_call_1 (func, font_table); scm_is_pair (s);
 	   s = scm_cdr (s))

@@ -26,7 +26,7 @@ lookup_tex_text_dimension (Font_metric *font,
 {
   Box b;
 
-  SCM limit = ly_scheme_function ("TEX_STRING_HASHLIMIT");
+  SCM limit = ly_lily_module_constant ("TEX_STRING_HASHLIMIT");
   String key_str = ly_scm2string (font->font_file_name());
   int hash_code = scm_to_int (scm_hash (text, limit));
   key_str = to_string (hash_code)  + key_str;
@@ -37,12 +37,12 @@ lookup_tex_text_dimension (Font_metric *font,
 
   if (scm_is_pair (val))
     {
-      b[X_AXIS][LEFT] = 0.0;
-      b[X_AXIS][RIGHT] = scm_to_double (scm_car (val));
+      b[X_AXIS][LEFT] = 0.0 PT;
+      b[X_AXIS][RIGHT] = scm_to_double (scm_car (val)) PT;
       val = scm_cdr (val);
-      b[Y_AXIS][UP] = scm_to_double (scm_car (val));
+      b[Y_AXIS][UP] = scm_to_double (scm_car (val)) PT;
       val = scm_cdr (val);
-      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)); 
+      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)) PT; 
     }
   
   return b; 
@@ -132,7 +132,7 @@ Tex_font_metric::make_tfm (String file_name)
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
   tfm->encoding_table_
-    = scm_call_1 (ly_scheme_function ("get-coding-table"),
+    = scm_call_1 (ly_lily_module_constant ("get-coding-table"),
 		  scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
 
   return tfm->self_scm ();

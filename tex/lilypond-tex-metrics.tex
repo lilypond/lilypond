@@ -1,0 +1,56 @@
+%
+% lilymetrics.tex
+%
+\catcode `\@=11\relax
+
+\newdimen\lily@globalscale
+\newdimen\lily@localscale
+\newbox\lily@metricsbox
+\newwrite\lily@metricsfile
+
+\def\lilyglobalscale#1{%
+  \lily@globalscale #1pt
+}
+
+\def\lilymetricsfile#1{%
+  \immediate\openout\lily@metricsfile #1\relax
+}
+
+\begingroup
+  \catcode `P=12
+  \catcode `T=12
+  \lowercase{%
+    \def\x{%
+      \def\lily@rempt##1.##2PT{%
+        ##1\ifnum ##2 > \z@ .##2\fi
+      }%
+    }%
+  }
+\expandafter\endgroup\x
+
+\def\lily@strippt{%
+  \expandafter\lily@rempt
+}
+
+\long\def\lilygetmetrics#1#2#3#4{%
+  \lily@localscale #3\lily@globalscale
+  % convert pt to 1000*sp (1000/65536)
+  \lily@localscale 0.015259\lily@localscale
+  \font\lily@font = #2 scaled \lily@localscale
+  \setbox\lily@metricsbox\hbox{%
+    \lily@font
+    #4%
+  }%
+  \edef\lily@wd{\the\wd\lily@metricsbox}%
+  \edef\lily@ht{\the\ht\lily@metricsbox}%
+  \edef\lily@dp{\the\dp\lily@metricsbox}%
+  \immediate\write\lily@metricsfile{%
+    ("#1" . (\lily@strippt\lily@wd
+           \space\lily@strippt\lily@ht
+           \space\lily@strippt\lily@dp))%
+  }%
+}
+
+\catcode `\@=13\relax
+
+\endinput

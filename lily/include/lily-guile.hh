@@ -74,7 +74,7 @@ extern SCM global_lily_module;
 /*
   TODO: rename me to ly_c_lily_module_eval
  */
-#define ly_scheme_function(x) \
+#define ly_lily_module_constant(x) \
 ({ \
   static SCM cached; \
   /* We store this one locally, since G++ -O2 fucks up else */ \

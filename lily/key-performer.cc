@@ -42,7 +42,7 @@ Key_performer::create_audio_elements ()
   if (key_req_) 
     {
       SCM pitchlist = key_req_->get_property ("pitch-alist");
-      SCM proc = ly_scheme_function ("alterations-in-key");
+      SCM proc = ly_lily_module_constant ("alterations-in-key");
       
       SCM acc = scm_call_1 (proc, pitchlist);
       

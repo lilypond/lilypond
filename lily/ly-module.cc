@@ -33,7 +33,7 @@ ly_make_anonymous_module (bool safe)
     }
   else
     {
-      SCM proc = ly_scheme_function ("make-safe-lilypond-module");
+      SCM proc = ly_lily_module_constant ("make-safe-lilypond-module");
       mod = scm_call_0 (proc);
     }
   return mod;
