@@ -9,7 +9,6 @@
 
 #include "engraver.hh"
 #include "grob.hh"
-#include "output-property-music-iterator.hh"
 #include "translator-group.hh"
 
 class Output_property_engraver : public Engraver
