@@ -13,6 +13,7 @@
 * An orchestral score::         
 * Part extraction::             
 * end of tutorial::             The end
+* Pre-cooked makefile::         
 @end menu
 
 @node Introduction
@@ -1826,4 +1827,38 @@ files, or you can read the reference manual.  You can find more example
 files in @file{input} and @file{input/test}.  You can also look at Real
 Music (TM), have a look at the @ref{Mutopia project}.
 
+
+
+[TODO figure out what to do with this: ]
+
+
+@node Pre-cooked makefile
+@section Pre-cooked makefile
+
+@c waar deze info?  is uiteindelijk wel handig, schat ik.
+[TODO: cut blabla]
+
+If you have a big music project, or just a lot of LilyPond input files,
+all generated output from LilyPond, @TeX{} and metafont will clutter
+your working directory.  LilyPond comes with a one-size-fits-all
+pre-cooked makefile that helps you manage producing ouptut.  It will
+produce all output in @file{out}, generate and track dependencies.
+Also, it helps in preparing your submission to the @ref{Mutopia
+project}.
+
+@file{make/ly.make}
+@example
+mkdir my-project
+cd my-project
+cp /usr/share/lilypond/make/ly.make GNUmakefile
+cp /usr/share/doc/lilypond/examples/input/tutorial/menuet.ly .
+make menuet
+[..]
+Generated out/menuet.ps for target menuet.
+@end example
+
+Type @samp{make help} to see possible targets.
+
+[TODO]
+@file{/usr/share/lilypond/doc/lilypond/examples/input/mutopia-header.ly}
 

@@ -6,7 +6,7 @@
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-; should include default value?
+					; should include default value?
 
 
 ;;; FIXME: naming.
@@ -27,18 +27,18 @@
 (define (grob-description name . interfaces)
   (let* ((ifs (cons general-grob-interface interfaces))
 	 (props (map caddr ifs))
-;	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
-;					(apply append props)))
+					;	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
+					;					(apply append props)))
 	 (syms (map car ifs))
-	)
+	 )
     (list (cons 'separator "\n\n\n")	;easy printing.
 	  (cons 'name name)
 	  (cons 'interfaces syms)
 	  (cons 'interface-descriptions ifs)
-	  ; (cons 'interface-descriptions (cadr merged))
+					; (cons 'interface-descriptions (cadr merged))
 	  ;; description of the grob itself?
-;	  (cons 'properties prop-typep-pairs)
-  )))
+					;	  (cons 'properties prop-typep-pairs)
+	  )))
 
 
 (lily-interface
@@ -190,7 +190,7 @@
  '(
    left-padding 
    right-padding 
- ))
+   ))
 
 
 
@@ -217,7 +217,7 @@ object."
  'note-head-interface
  "Note head"
  '(
-   style attachment-angle note-character
+   style attachment-slope note-character
 	 ))
 
 
@@ -758,22 +758,26 @@ direction = Forced direction for all ties"
    '(direction
    ))
 
+(lily-interface
+ 'percent-repeat-interface
+ "Repeats that look like percent signs"
+ '(slope thickness))
 
-  (lily-interface
-   'volta-bracket-interface
-   "Volta bracket with number"
-   '(
-    bars  
-    thickness  
-    height  
-    ))
+(lily-interface
+ 'volta-bracket-interface
+ "Volta bracket with number"
+ '(
+   bars  
+   thickness  
+   height  
+   ))
 
 
-  (lily-interface
-   'span-bar-interface
-   "A bar line that spans other barlines (typically used to get cross-staff barlines."
-   '(
-    ))
+(lily-interface
+ 'span-bar-interface
+ "A bar line that spans other barlines (typically used to get cross-staff barlines."
+ '(
+   ))
 
 
 (eval (cons
@@ -783,4 +787,5 @@ direction = Forced direction for all ties"
 
 
 (define (interface-names) (map (lambda (x) (symbol->string (car x))) all-interfaces))
+
 
