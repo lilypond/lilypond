@@ -1,3 +1,8 @@
+2005-02-07  Erik Sandberg  <ersa9195@student.uu.se>
+
+	* ly/*.ly, input/regression/*.ly: Added missing \version
+	statements in some files.
+
 2005-02-15  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: minor editing.

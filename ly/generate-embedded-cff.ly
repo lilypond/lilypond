@@ -1,3 +1,4 @@
+\version "2.4.0"
 #(define (write-cff name filename)
   (let*
       ((body (ly:gulp-file filename))
