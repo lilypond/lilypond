@@ -12,27 +12,6 @@
 <!--- @@WEB-TITLE@@=Tutorial --->
 @end html
 
-@menu
-* First steps::                 Music language of LilyPond.
-* Running LilyPond::            Printing music.
-* More about pitches and accidentals::  
-* Octave entry::                
-* Relative octave entry::       
-* Combining music into compound expressions::  
-* Adding articulation marks to notes::  
-* Combining notes into chords::  
-* Printing lyrics::             
-* A lead sheet::                
-* Listening to output::         
-* Titling::                     
-* Single staff polyphony::      
-* Piano staffs::                
-* Setting variables::           
-* Fine tuning layout::          
-* Organizing larger pieces::    
-* An orchestral part::          
-* Integrating text and music::  Integrating text and music.
-@end menu
 
 Using LilyPond comes down to encoding music in an input file. After
 entering the music, the program is run on the file producing output
@@ -67,6 +46,28 @@ This tutorial starts with a short introduction to the LilyPond music
 language.  After this first contact, we will show you how to to
 produce printed output, normally using the program @code{ly2dvi}.  You
 should then be able to create and print your first sheets of music.
+
+@menu
+* First steps::                 Music language of LilyPond.
+* Running LilyPond::            Printing music.
+* More about pitches and accidentals::  
+* Octave entry::                
+* Relative octave entry::       
+* Combining music into compound expressions::  
+* Adding articulation marks to notes::  
+* Combining notes into chords::  
+* Printing lyrics::             
+* A lead sheet::                
+* Listening to output::         
+* Titling::                     
+* Single staff polyphony::      
+* Piano staffs::                
+* Setting variables::           
+* Fine tuning layout::          
+* Organizing larger pieces::    
+* An orchestral part::          
+* Integrating text and music::  Integrating text and music.
+@end menu
 
 
 @node First steps

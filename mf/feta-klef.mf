@@ -11,18 +11,6 @@
 
 fet_begingroup("clefs");
 
-%
-% [Ross] says that clefs take 1 staff_space space on the left and right
-%
-% this is now handled in the lilypond spacing engine. 
-%
-
-def set_horizontal_spacing =
-	save left_space ,right_space;
-	left_space# = 0;
-	right_space# = 0;
-enddef;
-
 
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % "arrow"
@@ -35,10 +23,9 @@ def draw_c_clef (expr reduction) =
 	norm#:=2/3reduced_ss#;
 	hair#:=1/6norm#;
 
-	set_horizontal_spacing;
 	right_edge# = 15/4norm#+2hair#;
 
-	set_char_box (left_space#, right_edge# + right_space#, 
+	set_char_box (0, right_edge# + 0, 
 		2 reduced_ss#, 2 reduced_ss#);
 	define_pixels (hair,norm,reduced_ss, right_edge);
 
@@ -190,14 +177,13 @@ def draw_bass_clef(expr exact_center, reduction) =
         swoosh_width# = 2.1 reduced_ss#;
 %	tip_protude := (-stafflinethickness, -.2 staff_space);
 	tip_protude := (0, 0);	
-        set_horizontal_spacing;
 	bulb_y_offset := 0.15 staff_space;
 	overshoot_top := 0.0;
 	%% 
 
-        set_char_box(left_space# +
+        set_char_box(0 +
                 - xpart exact_center,
-                right_space# +
+                0 +
                 xpart exact_center + swoosh_width# + 7/12 reduced_ss#, 
                 - ypart exact_center + 2.5 reduced_ss#, 
                 ypart exact_center +reduced_ss#);
@@ -281,16 +267,13 @@ fet_endchar;
 %  -- vrij naar Van Kooten & De Bie
 %
 def debugfill = fill enddef;
-def draw_gclef (expr exact_center, reduction)=
+def draw_gclef (expr reduction)=
 	save reduced_ss, downstroke_dir, downstroke_angle, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
 	save inner_start_angle, thinness;
 	reduced_ss# = staff_space# * reduction;
 	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
-
-	center := (hround_pixels(xpart exact_center), 
-		vround_pixels(ypart exact_center));
 
 	thinness = 1.4 stafflinethickness;
 	downstroke_dir = unitvector (14, -75);
@@ -304,16 +287,13 @@ def draw_gclef (expr exact_center, reduction)=
 
 	thinnib = thinness;
 
-	set_horizontal_spacing;
 	
-	set_char_box(
-		left_space# +
-		-xpart exact_center + 1.0 * breapth_factor* reduced_ss#, 
-		right_space# +
-		xpart exact_center + .66 breapth_factor* reduced_ss#,
-		-ypart exact_center + 2.6 * reduced_ss#,
-		ypart exact_center + 5 * reduced_ss#);
+	set_char_box(0,
+		 1.71 * breapth_factor* reduced_ss#, 
+		 2.6 * reduced_ss#,
+		 5 * reduced_ss#);
 
+	center := (1.0 * breapth_factor* reduced_ss, 0);
 
 	save upward_swoosh_angle;
 	upward_swoosh_angle =130 ;
@@ -469,10 +449,10 @@ fet_beginchar("G clef", "G", "trebleclef")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
-	draw_gclef((1.7 staff_space#,0), 1.0);
+	draw_gclef(1.0);
 fet_endchar;
 fet_beginchar("G clef", "G_change", "ctrebleclef")
-	draw_gclef((1.3 staff_space#,0), .8);
+	draw_gclef(0.8);
 fet_endchar;
 
 %%%%
@@ -481,8 +461,16 @@ fet_endchar;
 %
 
 
+
+%%
+%
+% The perc clef extent is not coincident with its bbox, since 
+%  the perc clef needs more space in front than a normal clef.
+%
+
 def draw_percussion_clef(expr reduction) =
-	save reduced_ss;
+	save reduced_ss, razt;
+
 	reduced_ss# = staff_space# * reduction;
 	define_pixels(reduced_ss);
 	set_char_box(-.67reduced_ss#,2.0reduced_ss#,reduced_ss#,reduced_ss#);

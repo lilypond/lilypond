@@ -9,23 +9,42 @@
 
 if [ `basename "$0"` = "lilypond-profile" ] ; then
     cat >/dev/stderr <<EOF
-Error: This script must be sourced, i.e, you must do:
+    
+Error: This script cannot be run in a subshell; it MUST be sourced.
 
-    . /PATH/TO/lilypond-profile
 
-Note the space after the period.  If you install this script, you must
-logout and re-login before you can use LilyPond.  On a Red Hat-like
-system, install this script as:
+EXAMPLE 1: One time use 
 
-    /etc/profile.d/lilypond-profile
+	Do
 
-Alternatively, put it in:
+	    . $0
 
-    ~/bin/lilypond-profile
 
-and in your ~/.profile, say:
 
-    . ~/bin/lilypond-profile
+EXAMPLE 2: Local installation
+
+	* Do
+
+	    mv lilypond-profile $HOME/bin/
+
+	* Add
+
+	    .  $HOME/bin/lilypond-profile
+
+	to either $HOME/.profile or $HOME/.bash_profile, 
+
+	* Logout.
+
+
+EXAMPLE 3: Global installation
+
+	* Do
+
+	     mv lilypond-profile /etc/profile.d/lilypond.sh
+
+	* Logout
+
+
 
 EOF
     exit 2 
