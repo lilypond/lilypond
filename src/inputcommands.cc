@@ -118,6 +118,11 @@ Input_cursor::find_moment(Moment w)
 
 
 /****************/
+void
+Input_commands::find_moment(Moment m)
+{
+    ptr.find_moment(m);
+}
 
 Input_commands::Input_commands(Input_commands const&src)
     : ptr(src.ptr)
@@ -155,7 +160,7 @@ Input_commands::add(Input_command c, Assoc<String,Moment> &marks_assoc_r)
 {
     String s(c.args[0]);
     if (s == "CADENZA") {
-	ptr->tdescription_.set_cadenza(c.args[1]);
+	ptr->tdescription_.set_cadenza((int)c.args[1]);
     } if (s == "PARTIAL") {	
 	ptr->setpartial(c.args[1]);
     } else if (s == "GROUPING") {

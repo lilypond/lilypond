@@ -10,6 +10,7 @@
 #include "varray.hh"
 #include "textdef.hh"
 
+
 int default_duration = 4, default_dots=0, default_octave=0;
 int default_plet_type = 1, default_plet_dur = 1;
 String textstyle="roman";		// in lexer?
@@ -26,8 +27,8 @@ Text_def*
 get_text(String s) return t;
 {
     t= new Text_def;
-    t->text= s;
-    t->style = textstyle;
+    t->text_str_= s;
+    t->style_str_ = textstyle;
     return t;
 }
 
@@ -104,6 +105,27 @@ get_note_element(String pitch, int * notename, int * duration )
     v->add(rq);
 
     return v;
+}
+
+Voice_element*
+get_word_element(Text_def* tdef_p, int* duration)
+{
+    Voice_element* velt_p = new Voice_element;
+
+    
+    int dur = duration[0];
+    int dots=duration[1];
+    
+    Lyric_req* lreq_p = new Lyric_req(tdef_p);
+
+    lreq_p->balltype = dur;
+    lreq_p->dots = dots;
+    lreq_p->plet_factor = Moment(default_plet_dur, default_plet_type);
+    lreq_p->print();
+
+    velt_p->add(lreq_p);
+
+    return velt_p;
 }
 
 Voice_element *
@@ -229,7 +251,6 @@ get_script_req(int d , Script_def*def)
     return new Script_req(d, def);
 }
 
-
 Request*
 get_text_req(int d , Text_def*def)
 {
@@ -241,6 +262,21 @@ get_mark_element(String s)
 {
     Voice_element*v_p = new Voice_element;
     v_p->add( new Mark_req(s));
+    
+    return v_p;
+}
+Voice_element*
+get_command_element(Input_command*com_p)
+{
+    Voice_element *v_p = new Voice_element;
+    v_p->add(new Staff_command_req(com_p));
+    return v_p;
+}
+Voice_element*
+get_barcheck_element()
+{
+    Voice_element*v_p = new Voice_element;
+    v_p->add( new Barcheck_req);
     
     return v_p;
 }

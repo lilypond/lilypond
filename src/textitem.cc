@@ -5,22 +5,21 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
-Text_item::Text_item(Text_req * r, int s)
+Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 {
-    dir = r->dir;
-    if (!dir)
-	dir = -1;
-    
-    specs = r->spec;
-    staffsize = s;
-    pos = 0;
+    staffsize_i_ = staffsize_i;
+    dir_i_ = treq_l->dir_i_;
+    if (!dir_i_)
+	dir_i_ = -1;
+    tdef_l_ = treq_l->tdef_p_;
 }
 
 void
 Text_item::set_default_pos()
 {
-    pos  = (dir > 0) ? staffsize + 2: -4;
+    pos_i_  = (dir_i_ > 0) ? staffsize_i_ + 2: -4;
 }
+
 void
 Text_item::do_pre_processing()
 {
@@ -29,12 +28,13 @@ Text_item::do_pre_processing()
 
     
 Molecule*
-Text_item::brew_molecule() const
+Text_item::brew_molecule_p() const
 {
-    Molecule*    output = new Molecule(specs->create(paper()));
-    if(dir <0)
-	output->translate(Offset(0, -output->extent().y.length() ));
+    Molecule* mol_p = new Molecule(tdef_l_->create_atom(paper()));
+    mol_p->translate(Offset(0, pos_i_ * paper()->internote()));
+
+    if(dir_i_<0)
+	mol_p->translate(Offset(0, -mol_p->extent().y.length() ));
     
-    output->translate(Offset(0, pos * paper()->internote()));
-    return output;
+    return mol_p;
 }
