@@ -1,9 +1,9 @@
-#!/usr/bin/env fontforge
+#!@FONTFORGE@
+
 New();
 
-// TODO: set version
-// TODO: GPL?
-SetFontNames("bigcheese20", "", "", "", "This font is in the public domain.", "");
+# Separate Feta versioning?
+SetFontNames("bigcheese20", "LilyPond", "LilyPondBigCheese", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta20.pfa");
 MergeFonts("parmesan20.pfa");

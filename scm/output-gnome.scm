@@ -287,6 +287,10 @@ lilypond -fgnome input/simple-song.ly
 (define (placebox x y expr)
   (debugf "item: ~S\n" expr)
   (debugf "x,y: ~S,~S\n" x y)
+  ;; symbols enter visual
+  (set! x 10)
+  ;;(set! y -10)
+  ;;(set! y (/ y 10))
   (let ((item expr))
     ;;(if item
     ;; FIXME ugly hack to skip #unspecified ...
