@@ -55,11 +55,8 @@ Score_engraver::make_columns ()
       Grob_info i2 (musical_column_);
       i2.origin_trans_ = this;
 
-  
       announce_grob (i1);
       announce_grob (i2);
-
-      
     }
 }
 
@@ -145,6 +142,8 @@ Score_engraver::one_time_step ()
     }
   
   stop_translation_timestep ();
+  
+  apply_finalizations ();
   check_removal ();
 
 
@@ -176,7 +175,6 @@ Score_engraver::typeset_grob (Grob *elem)
   if (!elem)
     programming_error ("Score_engraver: empty elt\n");
   else
-
     elems_.push (elem);
 }
 

@@ -72,6 +72,7 @@ void
 Global_translator::one_time_step ()
 {
 }
+
 void
 Global_translator::start ()
 {
@@ -100,9 +101,6 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       w = sneaky_insert_extra_moment (w);
       
       //      printf ("proccing %s\n ",       w.string ().to_str0 ());
-
-
-      
       if (first)
 	{
 	  first = false;
@@ -115,4 +113,40 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       
       one_time_step ();
     }
+}
+
+void
+Global_translator::apply_finalizations ()
+{
+  SCM lst = get_property ("finalizations");
+  set_property ("finalizations" , SCM_EOL); 
+  for (SCM s = lst ; gh_pair_p (s); s = gh_cdr (s))
+    {
+      scm_primitive_eval (gh_car (s));
+    }
+}
+
+/*
+   Add a function to execute before stepping to the next time step.
+ */
+void
+Global_translator::add_finalization (SCM x)
+{
+  SCM lst = get_property ("finalizations");
+  lst = scm_cons (x, lst);
+  set_property ("finalizations" ,lst); 
+}
+
+
+Global_translator *
+Translator::top_translator()const
+{
+  if (dynamic_cast<Global_translator*>((Translator*)this))
+    return dynamic_cast<Global_translator*> ((Translator*)this);
+
+  if (daddy_trans_)
+    return daddy_trans_->top_translator ();
+
+  programming_error ("No top translator!");
+  return 0;
 }

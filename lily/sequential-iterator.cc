@@ -52,7 +52,8 @@ Sequential_iterator::get_music_list () const
 void
 Sequential_iterator::do_quit ()
 {
-  if (iter_) iter_->quit();
+  if (iter_)
+    iter_->quit();
 }
 
 

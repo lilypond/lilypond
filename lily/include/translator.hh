@@ -66,7 +66,9 @@ public:
   SCM properties_scm_;
   DECLARE_SMOBS (Translator, dummy);
 
+
 public:
+  Global_translator * top_translator () const;
   TRANSLATOR_DECLARATIONS(Translator);
     /**
     try to fit the request in this engraver

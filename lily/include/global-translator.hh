@@ -14,8 +14,8 @@
 #include "moment.hh"
 #include "pqueue.hh"
 
-
-class Global_translator : public virtual Translator_group{
+class Global_translator : public virtual Translator_group
+{
   PQueue<Moment> extra_mom_pq_;
 public:
   VIRTUAL_COPY_CONS (Translator);
@@ -28,6 +28,9 @@ public:
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator*);
+
+  void apply_finalizations ();
+  void add_finalization (SCM);
   
   virtual Music_output *get_output ();     
   virtual void prepare (Moment);

@@ -210,6 +210,7 @@ yylex (YYSTYPE *s,  void * v)
 %token NAME
 %token PITCHNAMES
 %token NOTES
+%token ONCE
 %token PAPER
 %token PARTIAL
 %token PENALTY
@@ -283,7 +284,6 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
-
 %type <scm>	identifier_init 
 
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
@@ -302,7 +302,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
-%type <music>	property_def translator_change
+%type <music>	property_def translator_change  simple_property_def
 %type <scm> Music_list
 %type <outputdef>  music_output_def_body
 %type <request> shorthand_command_req
@@ -1038,6 +1038,15 @@ translator_change:
 	;
 
 property_def:
+	simple_property_def
+	| ONCE simple_property_def {
+		$$ = $2;
+		SCM e = $2->get_mus_property ("element");
+		unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
+	}
+	;
+
+simple_property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
 		
 		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
@@ -1090,7 +1099,9 @@ property_def:
 
 		csm-> set_mus_property ("context-type", $2);
 	}
-	| PROPERTY STRING '.' STRING OVERRIDE embedded_scm '=' embedded_scm {
+	| PROPERTY STRING '.' STRING OVERRIDE
+		embedded_scm '=' embedded_scm
+	{
 		/*
 			UGH UGH UGH UGH.
 		*/
@@ -1118,6 +1129,7 @@ property_def:
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
+
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
 		Music *t = new Music (SCM_EOL);

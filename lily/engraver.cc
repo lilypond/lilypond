@@ -68,17 +68,7 @@ Engraver::Engraver()
 Score_engraver* 
 Engraver::top_engraver () const
 {
-  /*
-    ugh.
-   */
-  if (dynamic_cast<Score_engraver*>((Engraver*)this))
-    return dynamic_cast<Score_engraver*> ((Engraver*)this);
-
-  if (daddy_trans_)
-    return dynamic_cast<Engraver*> (daddy_trans_)->top_engraver ();
-
-  programming_error ("No score engraver!");
-  return 0;
+  return dynamic_cast<Score_engraver*> (top_translator());
 }
 
 ENTER_DESCRIPTION(Engraver,
