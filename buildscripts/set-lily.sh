@@ -81,7 +81,7 @@ rm -f cmtfm; showln -sf $TEX_TFMDIR $BUILDDIR/cmtfm
 
 if [ -f ../.gdbinit.lilypond ];
 then
-    showln -f ../.gdbinit.lilypond .
+    showln -f ../.gdbinit.lilypond .gdbinit
 fi
 
 if [ -f ../.dstreamrc ]

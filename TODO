@@ -12,6 +12,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * use Rhythmic_head::position_i () for all Staff_referenced 
 . * .po -> .pot.
 . *  why need to run -C mf twice?
+. * fix interstaff stuff
 . * junk BLURB files.
 . * setting indent to 0 with \shape fails
 . * ly2dvi : don't repeat opus if same.
@@ -21,10 +22,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * mudela-book doco
 . * rerun profile
 . * fix or replace feta-accordion.mf
-. * fix configure with CFLAGS or LDFLAGS, try:
-   CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
-configure will use them while testing the compiler, but they don't
-appear in config.make
 . * script engraver
 . * Chords:
 .  * Bass/inversion pitch when not part of Chord

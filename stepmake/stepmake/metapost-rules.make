@@ -9,5 +9,5 @@ mfplain.mem: $(MFPLAIN_MP)
 $(outdir)/%.pfa: $(outdir)/%.0
 	$(PYTHON) $(depth)/buildscripts/ps-to-pfa.py --output $(basename $<).pfa $<
 	rm -f $(basename $(@F)).[0-9]*
-	rm -f $(basename $<).log $(basename $<).tfm
+	rm -f $(basename $<).log
 
