@@ -1,5 +1,7 @@
 2002-07-07  Han-Wen  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.66 released
+
 	* scm/grob-description.scm (all-grob-descriptions): add
 	item-interface where necessary
 
