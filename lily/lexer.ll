@@ -276,7 +276,7 @@ HYPHEN		--
 	char const* s = here_str0 ();
 	int n = 0;
 	SCM sval = ly_parse_scm (s, &n, here_input (),
-		safe_global_b && main_input_b_);
+		be_safe_global && main_input_b_);
 
 	if (sval == SCM_UNDEFINED)
 	{

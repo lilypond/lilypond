@@ -36,15 +36,6 @@ Text_interface::interpret_string (SCM layout_smob,
 
   String str = ly_scm2string (markup);
 
-#if HAVE_PANGO_FT2
-  if (output_backend_global != "tex"
-      && output_backend_global != "texstr")
-    {
-      Font_metric *fm = select_pango_font (layout, props);
-      return fm->text_stencil (str).smobbed_copy ();
-    }
-#endif
-  
   Font_metric *fm = select_encoded_font (layout, props);
   return fm->text_stencil (str).smobbed_copy();
 }

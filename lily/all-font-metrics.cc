@@ -68,7 +68,7 @@ All_font_metrics::find_pango_font (PangoFontDescription*description)
   SCM val;
   if (!pango_dict_->try_retrieve (key, &val))
     {
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[" + String (fn));
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
 				       RIGHT,
@@ -77,7 +77,7 @@ All_font_metrics::find_pango_font (PangoFontDescription*description)
       pango_dict_->set (key, val);
       scm_gc_unprotect_object (val);
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("]");
 
       pf->description_ = scm_cons (SCM_BOOL_F,
@@ -118,7 +118,7 @@ All_font_metrics::find_afm (String name)
       if (file_name.is_empty ())
 	return 0;
       
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[" + file_name);
       val = read_afm_file (file_name);
       unsmob_metrics (val)->file_name_ = file_name;
@@ -126,7 +126,7 @@ All_font_metrics::find_afm (String name)
       unsmob_metrics (val)->description_ = scm_cons (name_string, 
 						     scm_make_real (1.0));
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("]");
 
       afm_dict_->set (sname, val);
@@ -184,12 +184,12 @@ All_font_metrics::find_otf (String name)
       if (file_name.is_empty ())
 	return 0;
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[" + file_name);
       
       val = Open_type_font::make_otf (file_name);
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("]");
 
       unsmob_metrics (val)->file_name_ = file_name;
@@ -226,12 +226,12 @@ All_font_metrics::find_tfm (String name)
       if (file_name.is_empty ())
 	return 0;
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[" + file_name);
       
       val = Tex_font_metric::make_tfm (file_name);
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("]");
 
       unsmob_metrics (val)->file_name_ = file_name;

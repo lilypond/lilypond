@@ -379,7 +379,7 @@ void
 Context::internal_set_property (SCM sym, SCM val)
 {
 #ifndef NDEBUG
-  if (internal_type_checking_global_b)
+  if (do_internal_type_checking_global)
     assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
 #endif
   

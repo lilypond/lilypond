@@ -68,7 +68,7 @@ Includable_lexer::new_input (String name, Sources *sources)
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (String ("[") + name);
 	
   include_stack_.push (file);
@@ -91,7 +91,7 @@ Includable_lexer::new_input (String name, String data, Sources *sources)
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (String ("[") + name);
   include_stack_.push (file);
 
@@ -106,7 +106,7 @@ Includable_lexer::close_input ()
 {
   include_stack_.pop ();
   char_count_stack_.pop ();
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("]");
   yy_delete_buffer (yy_current_buffer);
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER  

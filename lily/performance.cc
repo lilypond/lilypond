@@ -51,7 +51,7 @@ Performance::output (Midi_stream& midi_stream)
   for (int i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[" + to_string (i)) ;
 
       /*
@@ -74,7 +74,7 @@ Performance::output (Midi_stream& midi_stream)
 	}
       
       s->output (midi_stream, channel++);
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("]");
     }
 }

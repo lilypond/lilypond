@@ -43,8 +43,7 @@ properties_to_pango_description (SCM chain, Real text_size)
     }
 
   Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
-  Real size = text_size
-    * pow (2.0, step / 6.0) * point_constant;
+  Real size = text_size * pow (2.0, step / 6.0);
   
   pango_font_description_set_size (description,
 				   gint (size * PANGO_SCALE));
@@ -55,8 +54,8 @@ Font_metric *
 select_pango_font (Output_def *layout, SCM chain)
 {
   PangoFontDescription *pfd =properties_to_pango_description (chain,
-				   layout->get_dimension (ly_symbol2scm ("text-font-size")));
-
+							      point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
+  
   Font_metric * fm = all_fonts_global->find_pango_font (pfd);
 
   return find_scaled_font (layout, fm, 1.0);
@@ -152,9 +151,12 @@ symbols_to_pango_font_description(SCM family,
 {
   PangoFontDescription * description = pango_font_description_new ();
 
-  String family_str = scm_is_symbol (family)
-    ? ly_symbol2string (family)
-    : String("roman");
+  String family_str = "roman";
+  if (scm_is_symbol (family))
+    family_str = ly_symbol2string (family);
+  else if (scm_is_string (family))
+    family_str = ly_scm2string (family);
+
   pango_font_description_set_family (description,
 				     family_str.to_str0 ());
   pango_font_description_set_style (description,

@@ -145,7 +145,7 @@ System::get_lines ()
     }
 #endif
   
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (_f ("Element count %d.",  count + element_count ()));
 
   int line_count = broken_intos_.size ();
@@ -153,14 +153,14 @@ System::get_lines ()
   
   for (int i = 0; i < line_count; i++)
     {
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication ("[");
 
       System *system = dynamic_cast<System*> (broken_intos_[i]);
       system->post_processing ();
       scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
 
-      if (verbose_global_b)
+      if (be_verbose_global)
 	progress_indication (to_string (i) + "]");
     }
   return lines;
@@ -298,7 +298,7 @@ System::pre_processing ()
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     unsmob_grob (scm_car (s))->discretionary_processing ();
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (_f ("Grob count %d", element_count ()));
   
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))

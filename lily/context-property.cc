@@ -112,7 +112,7 @@ execute_pushpop_property (Context * trg,
   else
     {
       warning ("Need symbol arguments for \\override and \\revert");
-      if (internal_type_checking_global_b)
+      if (do_internal_type_checking_global)
 	assert (false);
     }
 }

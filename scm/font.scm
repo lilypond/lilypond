@@ -310,34 +310,28 @@
 		  ,(delay (ly:font-load "ectt10"))
 		  ,(delay (ly:font-load "ectt12"))))))))
 
-;; (display (make-font-tree 1.0))
+(define-public (add-pango-fonts node family factor)
+  (define (add-node shape series)
+    (add-font node
+	      `((font-family . ,family)
+		(font-shape . ,shape)
+		(font-series . ,series)
+		(font-encoding . latin1) ;; ugh.
+		)
+	      
+	      `(,(ly:pt (* factor 12.0))
+		. #(,(cons
+		     (ly:pt 12)
+		     (ly:make-pango-description-string
+		       `(((font-family . ,family)
+			  (font-series . ,series)
+			  (font-shape . ,shape)))
+		       (ly:pt 12)))))))
 
-;; Century Schoolbook fonts file names on Debian/Sid
-(define-public (add-century-schoolbook-fonts node factor)
-  (add-font node
-	    '((font-family . roman)
-	      (font-shape . upright)
-	      (font-series . medium)
-	      (font-encoding . latin1))
-	    `(,(ly:pt 10.0) . #(,(delay (ly:font-load "uncr8a")))))
-  (add-font node
-	    '((font-family . roman)
-	      (font-shape . italic)
-	      (font-series . medium)
-	      (font-encoding . latin1))
-	    `(,(ly:pt 10.0) . #(,(delay (ly:font-load "uncri8a")))))
-  (add-font node
-	    '((font-family . roman)
-	      (font-shape . upright)
-	      (font-series . bold)
-	      (font-encoding . latin1))
-	    `(,(ly:pt 10.0) . #(,(delay (ly:font-load "uncb8a")))))
-  (add-font node
-	    '((font-family . roman)
-	      (font-shape . italic)
-	      (font-series . bold)
-	      (font-encoding . latin1))
-	    `(,(ly:pt 10.0) . #(,(delay (ly:font-load "uncbi8a"))))))
+  (add-node 'upright 'medium) 
+  (add-node 'upright 'bold) 
+  (add-node 'italic 'bold) 
+  (add-node 'italic 'medium))
 
 (define-public (make-cmr-tree factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
@@ -352,7 +346,7 @@
 (define-public (make-century-schoolbook-tree factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n factor)
-    (add-century-schoolbook-fonts n factor)
+    (add-pango-fonts n "Century Schoolbook L" factor)
     n))
 
 (define-public (magstep x)

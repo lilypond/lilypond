@@ -128,7 +128,7 @@ kpathsea_gulp_file_to_string (String name)
   if (file_name.is_empty ())
     error (_f ("can't find file: `%s'", name));
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("[" + file_name);
 
   int filesize;
@@ -136,7 +136,7 @@ kpathsea_gulp_file_to_string (String name)
   String string (str);
   delete[] str;
   
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication ("]");
 
   return string;

@@ -35,7 +35,11 @@
     (module-define! m 'text-font-size (* 12 (/ sz (* 20 pt))))
     
     (module-define! m 'outputscale ss)
-    (module-define! m 'fonts (make-cmr-tree (/  sz (* 20 pt))))
+    (module-define! m 'fonts
+		    (if tex-backend?
+			(make-cmr-tree (/  sz (* 20 pt)))
+			(make-century-schoolbook-tree
+			 (/  sz (* 20 pt)))))
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
     (module-define! m 'staffspace ss)

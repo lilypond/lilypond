@@ -27,13 +27,14 @@ extern String init_name_global;
 
 /* options */
 extern Array<String> dump_header_fieldnames_global;
-extern bool no_layout_global_b;
+extern bool skip_layout_global;
 extern String output_backend_global;
 extern String output_name_global;
-extern bool safe_global_b;
-extern bool verbose_global_b;
-extern bool store_locations_global_b;
-extern bool internal_type_checking_global_b;
+extern bool be_safe_global;
+extern bool be_verbose_global;
+extern bool store_locations_global;
+extern bool do_internal_type_checking_global;
+extern bool is_pango_format_global;
 
 /*
   todo: collect in Output_option struct? 

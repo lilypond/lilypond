@@ -87,7 +87,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   scm_remember_upto_here_1 (protected_iter);
   trans->finish ();
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));
   
   return scm_gc_unprotect_object (trans->self_scm ());

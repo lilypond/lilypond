@@ -46,6 +46,9 @@
 
 (define-public point-and-click #f)
 
+(define-public tex-backend?
+  (memq (ly:output-backend) '("texstr" "tex")))
+
 (define-public parser #f)
 
 (define-public (lilypond-version)

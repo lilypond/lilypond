@@ -195,7 +195,7 @@ Gourlay_breaking::do_solve () const
       i = prev;
     }
 
-  if (verbose_global_b)
+  if (be_verbose_global)
     {
       progress_indication (_f ("Optimal demerits: %f",
 			       optimal_paths.top ().demerits_) + "\n");

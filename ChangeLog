@@ -1,5 +1,8 @@
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/main.hh: lose _b hungarian suffixes for global
+	variables.
+
 	* lily/include/lily-guile-macros.hh: new file.
 
 	* lily/pango-select-scheme.cc (LY_DEFINE): new file.
