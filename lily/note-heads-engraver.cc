@@ -91,7 +91,6 @@ Note_heads_engraver::process_music ()
 void
 Note_heads_engraver::stop_translation_timestep ()
 {
-
   notes_.clear ();
   dots_.clear ();
   note_reqs_.clear ();
