@@ -133,7 +133,7 @@ ls =  sys.stdin.readline ()
 ls = string.split (ls)
 
 sketch_p = 0
-sketch_p = 0
+sodipodi_p = 0
 if len (ls) and ls[0] == 'sodipodi':
 	ls = ls[1:]
 	sodipodi_p = 1

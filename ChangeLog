@@ -6,6 +6,8 @@
 
 	* lilypond-mode.el: Look shortcuts in menu from keymap, if possible.
 
+	* buildscripts/make-font-dir.py: Fix. 
+
 2002-11-25  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Add support for Info inside Emacs.
