@@ -6,10 +6,10 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "0.1.15";
+\version "1.0.0";
 
 multipart = \melodic{ 
-    \multi 3 < 
+    \type StaffGroup < 
                 { 
                    c4
                    c 

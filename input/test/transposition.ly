@@ -1,0 +1,64 @@
+%{
+Hi all,
+
+I have extend Mats' patches to allow accidental transposition:
+        \accidentals bes es fis;
+		= \transpose d =>
+        \accidentals gis;
+
+As you can see in output the example file "test.ly" there are a few problems left:
+- key undo (already in the Todo)
+- "wrong" transposition: e.g. \transpose d of fis-major = gis-major (better as-major?).
+	The solution gis=as etc. would concern both note and key transposistion
+
+Eric
+%}
+
+\header{
+title =	 "Test it";
+description =	 "Transposition Test file";
+enteredby =	 "Eric Bullinger";
+copyright =	 "public domain";
+}
+
+
+\version "1.0.0";
+
+vOne = \melodic \relative c''{
+        \clef"violin";
+        \key d;
+        \time 2/4 ;
+        d4 d |       
+        \key fis;
+        fis4 fis |         
+        \key es;
+        c4 c |
+}
+
+vTwo = \melodic \relative c''\transpose d' { \vOne }
+
+vThree = \melodic \relative c''{
+        \clef"violin";
+        \accidentals fis cis;
+        \time 2/4 ;
+        d4 d |       
+        \accidentals bes es fis;
+        fis4 fis |         
+        \accidentals fis cis gis dis ais eis;
+        cis4 ais4 |
+}
+
+vFour = \melodic \relative c''\transpose d' \vThree
+
+\score {
+  \type StaffGroup <
+         \vOne
+         \vTwo
+         \vThree
+         \vFour
+  >
+        \paper { linewidth= 130.\mm; }
+}
+
+
+

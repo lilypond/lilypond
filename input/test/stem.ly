@@ -8,29 +8,28 @@ of beams";
 	
 }
 
-\version "0.1.15";
+\version "1.0.0";
 
 beamintervals = \melodic{
-		\meter 7/4;
+		\time 7/4;
 		\stemup
-		\octave c';
+\transpose c'{
 		[ c8 d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
-		\octave c'';
+		}\transpose c''{
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
-		\stemdown
-		\octave c''';
+		\stemdown}
+		\transpose c'''{
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
-		\octave c'';
+}		\transpose c''{
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
 		[ c d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
-	}
+	}}
 
 \score{
-	\melodic{ 
-		\octave c';
+	\melodic\transpose c'{ 
 		\stemup
-		\meter 17/4;
+		\time 17/4;
 		g,4 a, b, c d e f g a b c' d' e' f' g' a' b' |
 		\stemdown
 		b' a' g' f' e' d' c' b a g f e d c b, a, g, |

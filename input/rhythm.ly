@@ -7,26 +7,26 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "0.1.15";
+\version "1.0.0";
 
-ritme = \melodic{ %\octave ;
+ritme = \melodic\transpose c'' {
 	\partial 8;
-	\octave c';
-	\meter  4/4;
+
+	\time  4/4;
 	c8					|
 	
 	[a8~  a8. a8 a16 a16 a16] c4.		|	% watch the beams!
 	 r32 r32 r16 r8 r4 r2			|
-	\meter   5/16;
+	\time   5/16;
 
 	% divide measure in 5 equal parts. Usually it 2+3 or 3+2
 	\grouping  16*5 ;	
 	[c8 c16 c8 ]				|	% watch THIS!
 	 [5/4 c16 c16 c16 c16]1/1 |
-	\meter   2/8;
+	\time   2/8;
 	c4 				|
 	c4	c4	c4	c4
-	\meter 4/4;
+	\time 4/4;
 	c1 c1 c1
 	
 %	[c16 c16 c16 c16 ]			|
@@ -37,22 +37,22 @@ ritme = \melodic{ %\octave ;
 	
 
 another = 
-	\melodic{ \meter 4/4; 
-		c1.  c1. c4 c4 c4 c4  \meter  4/4; c1 c1 c1
+	\melodic{ \time 4/4; 
+		c1.  c1. c4 c4 c4 c4  \time  4/4; c1 c1 c1
 	 }
 
 
 yanother = 
-	\melodic{ \meter 4/4; 
+	\melodic{ \time 4/4; 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
 	 }
 
 
 \score{
-	\type Staff_group <
+	\type StaffGroup <
 		\ritme
 		\another
-		\type Rhythmic_staff {
+		\type RhythmicStaff {
 			\yanother
 		}
 	>
@@ -71,13 +71,13 @@ yanother =
 	\consists "Vertical_align_engraver";
 
 
-	\accepts "Staff_group";
+	\accepts "StaffGroup";
 	\accepts "Staff";
 	\accepts "Lyrics";
-	\accepts "Grand_staff";
+	\accepts "GrandStaff";
 }
 
-Rhythmic_staff = \translator
+RhythmicStaff = \translator
 {
 	  \type "Engraver_group_engraver";
 	nolines  = "1";

@@ -1,9 +1,9 @@
 	
-\version "0.1.15";
+\version "1.0.0";
 
 
-blah = 	\melodic {
-	\octave c';
+blah = 	\melodic{ \transpose c'' {
+
 	c,4 ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"
 	c' ->-.-\fermata-"text"
@@ -43,9 +43,7 @@ blah = 	\melodic {
 	\stemup
 	b,---. c---. d---. e---. f---. g---. a---. b---. c'---.
 	\stemboth
-
-      \meter 4/4;
-	\octave c';
+      \time 4/4;
 	[c8 \< d e \! f][d' \> e' f' \! g'] 
 	[c-> \< d-> e-> \! f->][d'-> \> e'-> f'-> \! g'->] 
 	[c-^ \< d-^ e-^ \! f-^][d'-^ \> e'-^ f'-^ \! g'-^] 
@@ -60,7 +58,8 @@ blah = 	\melodic {
 		[d'-\fermata \> e'-\fermata f'-\fermata \! g'-\fermata] 
 	[c-\lheel \< d-\lheel e-\lheel \! f-\lheel]
 		[d'-\lheel \> e'-\lheel f'-\lheel \! g'-\lheel]
-}
+
+}}
 
 
 \score{

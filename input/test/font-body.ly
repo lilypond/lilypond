@@ -1,9 +1,9 @@
-\version "0.1.15";
-FontBody=	\melodic{ 
-		\octave c';
+\version "1.0.0";
+
+FontBody=	\melodic\transpose c''{ 
 		\bar "|:";
-		\meter 4/4;
-		\multi 2  < { \stemup e'\longa a\breve | }
+		\time 4/4;
+		\type Staff  < { \stemup e'\longa a\breve | }
 		{ \stemdown
 		c1 \clef "bass"; b,, \clef "violin"; c' a'
 		c2 \clef "alto"; g c' \clef "violin"; a'
@@ -18,36 +18,38 @@ FontBody=	\melodic{
 		[c \< d e f] [as' ges' f' e']
 		[cis' dis' c' des'] [cisis' disis' \! ceses' deses'] |
 		\clef "bass";
+		  r\longa * 1/4 r\breve *1/2
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\multi 2 < { \stemup r2 r2} {\stemdown c c }>
-		\multi 2 < { \stemup c,,1 } {\stemdown r1}>		
+		\type Staff < { \stemup r2 r2} {\stemdown c c }>
+		\type Staff < { \stemup c,,1 } {\stemdown r1}>		
 		\stemboth
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
 		e64-\rtoe g'64-\rheel c4... |
 
-		\octave c'';
-		\meter 4/4;
-		\textstyle "finger";
-		c4^"1" d^"2" e^"3" f^"4" g^"5"
-		
-		% Music to the Martians!
-		< bes4^"6" e_"7" c_"8" >
-		a^"0"_"9"
-		
-		a'^\flageolet
-		\textstyle "roman";
-		\meter 1/2; a2 |
-		\meter 3/2; < a1.
-		{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
-		|
-		\meter 2/4; a2 |
-		\meter 5/4; a1.. |
-		\meter 6/8; a2. |
-		\meter 7/8; a2.. |
-		\meter 9/8; a1... |
-		\meter 12/8; a1. |
-		\meter 12/4;
-		r1. r2. r4. r8. r16. r32. r64. r64. |
+		\transpose c'{
+			\time 4/4;
+			\property Voice . textstyle =  "finger"
+			c4^"1" d^"2" e^"3" f^"4" g^"5"
+
+			% Music to the Martians!
+			< bes4^"6" e_"7" c_"8" >
+			a^"0"_"9"
+
+			a'^\flageolet
+			\property Voice . textstyle =  "roman"
+			\time 1/2; a2 |
+			\time 3/2; < a1.
+			{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
+			|
+			\time 2/4; a2 |
+			\time 5/4; a1.. |
+			\time 6/8; a2. |
+			\time 7/8; a2.. |
+			\time 9/8; a1... |
+			\time 12/8; a1. |
+			\time 12/4;
+			r1. r2. r4. r8. r16. r32. r64. r64. |
 		}
+}

@@ -2,17 +2,18 @@
 filename =	 "global.ly";
 %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
 description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1792)";
+composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 
 
 }
 
-\version "0.1.14";
+\version "1.0.0";
 
-global = \melodic{
-	\meter 4/4;
-	\key bes es as;
+global = \melodic {
+	\time 4/4;
+	\key es;
+	\skip 1*314;
 }
 

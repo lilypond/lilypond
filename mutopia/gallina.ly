@@ -1,11 +1,13 @@
 \header{
-title =	 "La Gallina a 2 violini";
+title =	 "La Gallina à 2 violini";
 date =	 "1637";
 source =	 "the manuscript of Canzoni overo Sonate Concertate "
 	 "libro terzo, opera duodecima ";
 composer =	 "Tarquinio Merula (1594/95-1665)";
 enteredby =	 "Mats Bengtsson";
 copyright =	 "Public Domain ";
+subtitle = "from Canzoni overo Sonate Concertate libro terzo, "
+	"opera duodecima 1637";
 }
 
 
@@ -43,149 +45,147 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "0.1.15";
+\version "1.0.0";
 
-vi1=\melodic{
-  \meter 4/4;
-  \octave c'';
+vi1=\melodic \relative c'' {
+  \time 4/4;
 
-  [d8 d d d] d4 [A16 B c A] |
-  [B8 G ][ G G16 A][ B8 G ][ G G16 A] | 
-  [B8 G ][ G A16 B] c4 B |
-  [A8 D] G2 Fis4 |
-  G2 r2 |
+  [d8 d d d] d4 [a16 b c a] |
+  [b8 g ][ g g16 a][ b8 g ][ g g16 a] | 
+  [b8 g ][ g a16 b] c4 b |
+  [a8 d,] g2 fis4 |
+  g2 r2 |
   r1 |
-  [d8 d d d] d4 [A16 B c A] |
-  [B8 G ][ G G16 A][ B8 G ][ G G16 A] | 
-  [B8 G ][ G A16 B][ c8 e d c] |
-  [B G] c2 B4 |
+  [d'8 d d d] d4 [a16 b c a] |
+  [b8 g ][ g g16 a][ b8 g ][ g g16 a] | 
+  [b8 g ][ g a16 b][ c8 e d c] |
+  [b g] c2 b4 |
   c2 r |
   r1 |
-  [g8 g g g] g4 [d16 e f d] |
+  [g'8 g g g] g4 [d16 e f d] |
   [e8 c ][ c c16 d][ e8 c ][ c c16 d] |
   [e8 c ][ c d16 e] f4 e |
-  [d8 G] c2 B4 |
-  [c8 G ][ G G16 A] B4 G |
-  r8 G [G G16 A] B4 G |
-  r8 [E16 Fis ][ G8 G] [ Fis! G G Fis!] |
-  G2 r |
+  [d8 g,] c2 b4 |
+  [c8 g ][ g g16 a] b4 g |
+  r8 g [g g16 a] b4 g |
+  r8 [e16 fis ][ g8 g] [ fis! g g fis!] |
+  g2 r |
   r1 |
-  r16 [d c B ][ A G Fis E] [D8 d ][ d d16 c] |
-  [B8 d ][ d d16 c][ B8 d ][ d d16 e] |
+  r16 [d' c b ][ a g fis e] [d8 d' ][ d d16 c] |
+  [b8 d ][ d d16 c][ b8 d ][ d d16 e] |
   fis4 g2 fis!4 |
-  r16 [g f e ][ d c B A][ G8 g ][ g g16 f] |
+  r16 [g f e ][ d c b a][ g8 g' ][ g g16 f] |
   [e8 g ][ g g16 f][ e8 g ][ g g16 a] |
-  b4 c'2 b4 |
-  [c'8 g ][ g g16 f] e4 d |
+  b4 c2 b4 |
+  [c8 g ][ g g16 f] e4 d |
   r8 g [g g16 f] e4 d |
-  r8 [d16 A ][ B8 B16 c] A2 |
-  B1 |
-  \meter 3/2;
+  r8 [d16 a ][ b8 b16 c] a2 |
+  b1 |
+  \time 3/2;
   \tempo 2=140;
   r4 d d d d d |
   e1. |
   r4 c c c c c |
   d1. |
-  r4 [d8 c] B4 [c8 d] G4 [A8 B] |
-  E1. |
-  r4 [e8 d] cis4 [d8 e] A4[ B8 cis!] |
-  Fis1. |
-  r4 d d d d d |
-  e [e8 d] c4 [d8 e] A4 [B8 c] |
-  Fis4 [fis8 e] d4 [e8 fis!] B4 [c8 d] |
-  G4 g g g g g |
-  a4 [c'8 b] a4 [b8 c'] f4 [g8 a] |
-  d4 g g g g g |
-  a [d8 c] B4 [c8 d] A2 |
-  \meter 4/4;
+  r4 [d8 c] b4 [c8 d] g,4 [a8 b] |
+  e,1. |
+  r4 [e'8 d] cis4 [d8 e] a,4[ b8 cis!] |
+  fis,1. |
+  r4 d' d d d d |
+  e [e8 d] c4 [d8 e] a,4 [b8 c] |
+  fis,4 [fis'8 e] d4 [e8 fis!] b,4 [c8 d] |
+  g,4 g' g g g g |
+  a4 [c8 b] a4 [b8 c] f,4 [g8 a] |
+  d,4 g g g g g |
+  a [d,8 c] b4 [c8 d] a2 |
+  \time 4/4;
   \tempo 4=80;
-  B1 |
-  [d8 d d d] d4 [A16 B ][ c A] |
-  [B8 G ][ G G16 A] [B8 G ][ G G16 A] | 
-  [B8 G]  c2 B4 |
+  b1 |
+  [d8 d d d] d4 [a16 b c a] |
+  [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
+  [b8 g]  c2 b4 |
   c2 r |
-  [g8 g g g] g4 [d16 e f d] |
-  [e8 G ][ G G16 A] [B8 d ][ d d16 e] |
+  [g'8 g g g] g4 [d16 e f d] |
+  [e8 g, ][ g g16 a] [b8 d ][ d d16 e] |
   fis4 g2 fis!4 |
-  r16 [g f e ][ d c B A] [G8 g ][ g g16 f] |
+  r16 [g f e ][ d c b a] [g8 g' ][ g g16 f] |
   e2 r8 d [d d16 e] |
-  [fis a g fis ][ e d c B] [A8 d ][ d d16 e] |
+  [fis a g fis ][ e d c b] [a8 d ][ d d16 e] |
   fis4 g2 fis!4 |
   \cadenza 1;
   g\breve
   \bar "|.";
 }
 
-vi2=\melodic{
-  \meter 4/4;
-  \octave c'';
+vi2=\melodic \relative c'' {
+  \time 4/4;
 
   r1 | r | r | 
-  [d8 d d d] d4 [A16 B c A] |
-  [B8 G ][ G G16 A] [B8 G ][ G G16 A] | 
-  [B8 G ][ G A16 B] c4 B |
-  [A8 D] G2 Fis4 |
-  G2 r2 |
+  [d8 d d d] d4 [a16 b c a] |
+  [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
+  [b8 g ][ g a16 b] c4 b |
+  [a8 d,] g2 fis4 |
+  g2 r2 |
   r1 |
-  [g8 g g g] g4 [d16 e f d] |
+  [g'8 g g g] g4 [d16 e f d] |
   [e8 c ][ c c16 d] [e8 c ][ c c16 d] |
   [e8 c ][ c d16 e] f4 e |
-  [d8 G] c2 B4 |
+  [d8 g,] c2 b4 |
   c2 r |
   r1 |
-  [g8 g g g] g4 [d16 e f d] |
-  e2 r8 G [G G16 A] |
-  B4 G r8 G [G A16 B] | 
-  c4 B A2 |
-  G r16 [d c B ][ A G Fis E] |
-  [D8 d ][ d d16 c] [B8 d ][ d d16 e] |
+  [g'8 g g g] g4 [d16 e f d] |
+  e2 r8 g, [g g16 a] |
+  b4 g r8 g [g a16 b] | 
+  c4 b a2 |
+  g r16 [d' c b ][ a g fis e] |
+  [d8 d' ][ d d16 c] [b8 d ][ d d16 e] |
   fis4 g g4. fis!8 |
   g2 r |
-  r16 [d c B ][ A G Fis E] [D8 d ][ d d16 c] |
-  B4 c2 B4 |
-  c d G2 |
-  r16 [g f e ][ d c B A] [G8 g ][ g g16 f] |
+  r16 [d c b ][ a g fis e] [d8 d' ][ d d16 c] |
+  b4 c2 b4 |
+  c d g,2 |
+  r16 [g' f e ][ d c b a] [g8 g' ][ g g16 f] |
   e4 d r8 g [g g16 f] |
-  e4 d r8 [c16 G ][ B8 B16 c] |
-  A4 G2 Fis4 |
-  G1 |
-  \meter 3/2;
+  e4 d r8 [c16 g ][ b8 b16 c] |
+  a4 g2 fis4 |
+  g1 |
+  \time 3/2;
   r1. |
-  r4 [g8 f] e4 [f8 g] c4 [d8 e] |
-  A1. |
-  r4 [a8 g] fis4 [g8 a] d4 [e8 fis!] |
-  B1. |
-  r4 g g g g g |
+  r4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
+  a,1. |
+  r4 [a'8 g] fis4 [g8 a] d,4 [e8 fis!] |
+  b,1. |
+  r4 g' g g g g |
   a1. |
   r4 a a a a a |
-  b [d8 c] B4 [c8 d] G4 [A8 B] |
-  E4 [g8 f] e4 [f8 g] c4 [d8 e] |
-  A4 [a8 g] fis4 [g8 a] d4 [e8 fis!] |
-  B4 [b8 a] g4 [a8 b] e4 [fis8 g] |
-  c4 A A A A A |
-  B [d8 c] B4 [c8 d] D4 E |
-  Fis2 G Fis! |
-  \meter 4/4;
-  G1 |
+  b [d,8 c] b4 [c8 d] g,4 [a8 b] |
+  e,4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
+  a,4 [a'8 g] fis4 [g8 a] d,4 [e8 fis!] |
+  b,4 [b'8 a] g4 [a8 b] e,4 [fis8 g] |
+  c,4 a a a a a |
+  b [d8 c] b4 [c8 d] d,4 e |
+  fis2 g fis! |
+  \time 4/4;
+  g1 |
   r1 | r1 |
-  [g8 g g g] g4 [d16 e f d] |
-  [e8 c ][ c c16 d] [e8 G ][ G G16 A] |
-  [B8 G] c2 B4 |
+  [g'8 g g g] g4 [d16 e f d] |
+  [e8 c ][ c c16 d] [e8 g, ][ g g16 a] |
+  [b8 g] c2 b4 |
   c2 r |
-  r16 [d c B ][ A G Fis E] [D8 d ][ d d16 c] |
-  B4 c2 B4 |
-  [c8 G ][ G G16 A] [B d c B ][ A G Fis E] |
-  [D8 d ][ d d16 e] [fis16 a g fis ][ e d c B] |
-  [A d c B ][ A G Fis E] D4 d |
+  r16 [d c b ][ a g fis e] [d8 d' ][ d d16 c] |
+  b4 c2 b4 |
+  [c8 g ][ g g16 a] [b d c b ][ a g fis e] |
+  [d8 d' ][ d d16 e] [fis16 a g fis ][ e d c b] |
+  [a d c b ][ a g fis e] d4 d' |
   \cadenza 1;
-  B\breve
+  b\breve
   \bar "|.";
 }
 
-bc=\melodic{
+
+bc=\melodic\transpose c'{
   \clef "bass";
-  \meter 4/4;
-  \octave c;
+  \time 4/4;
 
   G2 d^"4 3" | G1 |
   g2 c4 G | d1^"3 4 3" |
@@ -203,7 +203,7 @@ bc=\melodic{
   G1^"3 4 3" | c4 B c g |
   c B c G | d1^"3 4 3" |
   G1 |
-  \meter 3/2;
+  \time 3/2;
   g1. | c |
   f | d^"\\textsharp" |
   g | c |
@@ -212,7 +212,7 @@ bc=\melodic{
   d^"\\textsharp" | e |
   f | g1 B2 |
   d1.^"3 4 3" |
-  \meter 4/4;
+  \time 4/4;
   G1 |
   g2 fis | g G |
   g1^"3 4 3" | c |
@@ -226,7 +226,7 @@ bc=\melodic{
 }
 
 \score{
-  \type Staff_group <
+  \type StaffGroup <
     \vi1
     \vi2
     \bc
