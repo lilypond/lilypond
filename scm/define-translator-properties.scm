@@ -313,6 +313,9 @@ not less than minimumFret")
 then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description 'oneBeat ly:moment? "  How long does one beat in the current time signature last?")
+(translator-property-description
+ 'originalCentralCPosition integer?
+ "Used for temporary overriding central C in octavation brackets. ")
 (translator-property-description 'othersolo boolean? "FIXME")
 (translator-property-description 'ottavation string? "If set, the text
 for an 8va spanner. Changing this implies a new text spanner. ")

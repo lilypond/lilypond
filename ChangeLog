@@ -1,3 +1,13 @@
+2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (set-octavation): new function.
+
+	* input/regression/ottava.ly: new file
+
+	* lily/translator-scheme.cc (LY_DEFINE): new function
+	ly:unset-context-property
+	(LY_DEFINE) new function ly:context-property-where-defined: 
+
 2003-05-18  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Add postfix syntax for horizontal groups.
@@ -539,7 +549,6 @@
 
 	* scm/music-functions.scm (make-multi-measure-rest): set input
 	locations for multimeasure rests.
-	
 
 2003-03-31  Juergen Reuter  <reuter@ipd.uka.de>
 

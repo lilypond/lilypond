@@ -392,7 +392,9 @@ is the  first to satisfy CRIT
        "define-music-properties.scm"
        "auto-beam.scm"
        "chord-name.scm"
+       
        "define-translator-properties.scm"
+       "translation-functions.scm"
        "script.scm"
        "drums.scm"
        "midi.scm"
