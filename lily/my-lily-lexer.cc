@@ -106,9 +106,21 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
-  scopes_ = src.scopes_;
+  
   error_level_ = src.error_level_; 
   main_input_b_ = src.main_input_b_;
+
+  SCM scopes = SCM_EOL;
+  SCM* tail = &scopes;
+  for (SCM s = src.scopes_; ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      SCM newmod = ly_make_anonymous_module (false);
+      ly_import_module (newmod, ly_car (s));
+      *tail = scm_cons (newmod, SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+  
+  scopes_ =  scopes;
 }
 
 My_lily_lexer::~My_lily_lexer ()
@@ -176,6 +188,7 @@ My_lily_lexer::start_main_input ()
 {
   // yy_flex_debug = 1;
   new_input (main_input_name_, sources_);
+  
   /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && !safe_global_b;
 
@@ -202,14 +215,11 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
 
       scm_module_define (mod, sym, s);
     }
-  
   else
     {
       programming_error ("Identifier is not a symbol.");
     }
 }
-
-
 
 void
 My_lily_lexer::LexerError (char const *s)
@@ -233,7 +243,6 @@ My_lily_lexer::escaped_char (char c) const
       return '\n';
     case 't':
       return '\t';
-
     case '\'':
     case '\"':
     case '\\':

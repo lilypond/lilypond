@@ -43,9 +43,10 @@ public:
   Sources *sources_;
   Duration default_duration_;
   String output_basename_;
-  //  Protected_scm header_;
+
   int score_count_;
   int book_count_;
+
   int fatal_error_;
   int error_level_;
   bool ignore_version_b_;
