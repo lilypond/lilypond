@@ -32,6 +32,7 @@ void notice()
 	"LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
+	"  Jan-Nieuwenhuizen <jan@digicash.com>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"
