@@ -44,6 +44,7 @@ public:
     void clear_notenames();
     Identifier*lookup_identifier (String s);
     Melodic_req* lookup_melodic_req_l (String s);
+  void push_header_state();
     void push_note_state();
     void push_lyric_state();
     void pop_state();
