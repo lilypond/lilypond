@@ -35,9 +35,9 @@ def draw_trillelement (expr offset) =
 	clearxy;
 
 begingroup;
-	save nw, p;
-	pair nw;
-	path p;
+	save nw, pat, nw_dist, ne_dist;
+	pair nw, nw_dist, ne_dist;
+	path pat;
 
 	pickup pencircle scaled trill_thin;
 
@@ -49,27 +49,29 @@ begingroup;
 
 	z4 = z1 - trill_ne * trill_overlap;
 	x4 := hround x4;
-	x5 = x2;
-	y5 = 0;
 
 	bot z3' = (top z3) scaled -1;
 
-	nw := unitvector (z2 - z3');
+	nw = unitvector (z2 - z3');
+	ne_dist = (nw rotated -90) * 0.5 trill_thin;
+	nw_dist = (trill_ne rotated 90) * 0.5 trill_thin;
 
-	path p;
-	p := z5
-	     -- (z4 - 0.5 trill_thin * nw)
-	     .. bot z4
-	     .. lft z4
-	     .. (z4 + 0.5 trill_thin * nw)
-	     -- (z3 + 0.5 trill_thin * nw)
-	     .. top z3
-	     .. (z3 + 0.5 trill_thin * trill_ne);
-	p := p
-	     -- p scaled -1 shifted (-feta_eps, -feta_eps)
-	     -- cycle;
-	p := p shifted (offset, 0);
-	fill p;
+	z5 = whatever * trill_ne + (z4 - nw_dist);
+	z5 = whatever * nw + (z3' - ne_dist);
+
+	pat := z5
+	       -- (z4 - nw_dist){-trill_ne}
+	       .. bot z4{left}
+	       .. lft z4{up}
+	       .. (z4 + nw_dist){trill_ne}
+	       -- (z3 + nw_dist){trill_ne}
+	       .. top z3{right}
+	       .. (z3 + ne_dist){-nw};
+	pat := pat
+	       -- pat scaled -1 shifted (-feta_eps, -feta_eps)
+	       -- cycle;
+	pat := pat shifted (offset, 0);
+	fill pat;
 endgroup;
 enddef;
 
