@@ -1,5 +1,11 @@
+
+
 input feta-autometric;
 input feta-macros;
+
+staffsize# := 20 pt#;  %% arbitrary.
+
+
 input feta-params;
 
 font_coding_scheme "feta braces";

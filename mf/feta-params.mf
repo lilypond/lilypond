@@ -1,23 +1,25 @@
 
 stafflines = 5;
-% [reuter] URG!  This is not always true.  One of the effects of
-% keeping this a constant is that, for notation with less stafflines,
-% stafflinethickness gets too small.
 
-staff_space#:=staffsize#/(stafflines-1);
+%
+% The design size of a staff should really be the 
+% staff_space, but we use staffsize for historical reasons.
+% 
+staff_space# = staffsize#/(stafflines-1);
 
 
 
 % measuring on pocket scores turns out: stafflinethickness is
 % independent on staff size, and generally 0.5 pt.
-stafflinethickness#  :=0.5 pt#; 
+
+stafflinethickness#  = 0.5 pt#; 
 
 %
 % bigger puff_up_factor, relatively thicker stafflines.
 % 20 pt = puff_up_factor 0.
 % 10 pt = puff_up_factor 1
 %
-puff_up_factor =  (stafflinethickness# - 0.1 staff_space#) / (.1 staff_space#);
+puff_up_factor =  (stafflinethickness# - 0.1 staff_space#) / (0.1 staff_space#);
 
 
 
