@@ -1,5 +1,10 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/new-slur.cc: cleanup, split in functions.
+
+	* lily/parser.yy (chord_body_element): allow octave-check = inside
+	chord body. 
+
 	* lily/new-slur.cc (score_encompass): variable head-distance penalty.
 
 	* lily/stem.cc (height): call Beam::after_line_breaking().

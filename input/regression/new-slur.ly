@@ -22,20 +22,21 @@
     }
     d8.[) c16]
     d8.[ \grace f16( e16)]
-
+    s2 
 
     << {c=''8.([ es16] bes4~bes )}
        \\
        {r8  <as es> r <f des> r }
    >>
+    s4
     
     f'=''16( e)    d( c)
+    s2.
+    
     c'=''2(~c8 d16 c b8 a)
-    f='4 f
-    | <c g>4 ( f <g b>)
-     f
-    <c g>^( f <g b>)
-    f
+    
+    <c=' g>4 ( f <g b>) f
+    <c g>^( f <g b>) f
     <c g>_( f <g b>)
     <g b>_( g  <b d>)
     <g b>_( \stemDown g \stemBoth  <b d>)
