@@ -85,9 +85,12 @@ than the names being similar :-)"
 
 @end ignore
 
-@node Top, , , (dir)
-@chapter GNU LilyPond --- The music typesetter
+@ifnottex
+@node Top
+@top
+@end ifnottex
 
+@chapter GNU LilyPond --- The music typesetter
 
 LilyPond produces sheet music from input files.  This document describes
 how to use LilyPond.
@@ -105,11 +108,10 @@ this and other documentation.
 * Invoking LilyPond::              Operation.
 * Reporting Bugs::                 Where to report bugs.
 * Reference Manual::               Reference Manual.
-@c Move to Reference Manual?
+* Internals::                      Internals
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
-* convert-ly::                     Upgrading input files.
-* Internals::
 * Development::                    Some hints on developing for LilyPond.
+* convert-ly::                     Upgrading input files.
 * Index::                          Unified index.
 @end menu
 
@@ -138,7 +140,7 @@ this and other documentation.
 
 @include development.itexi
 
-@node Index, , , Top
+@node Index
 @unnumbered Index
 
 @printindex cp

@@ -632,9 +632,10 @@ if 1:
 if 1:
 	def conv (str):
 		str = re.sub ('drarnChords', 'chordChanges', str)
+		str = re.sub ('\\musicalpitch', '\\pitch', str)
 		return str
 	
-	conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges'))
+	conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch'))
 
 
 ############################

@@ -1,3 +1,16 @@
+1.3.121.jcn2
+============
+
+* Renamed last instances of musical_*pitch to pitch.
+
+* Bugfix: actually read pitch value in \pitch #(make-pitch ...)
+
+* Bugfix(?): always allow explicit duration entry.
+
+* Fixed .po charsets for upcoming msgfmt release (Bruno Haible).
+
+* Some doco updates and fixes.
+
 1.3.121.jcn1
 ============
 

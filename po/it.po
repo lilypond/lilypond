@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: 2000-12-17 15:35+0100\n"
-"Content-Type: text/plain; charset=\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
 "Xgettext-Options: --c++ --default-domain=lilypond --join "

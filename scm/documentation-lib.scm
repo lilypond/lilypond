@@ -50,7 +50,7 @@
    "\n@html"
    "\n<hr>"
    "\n@end html"
-   "\n@node " name ",,,"))
+   "\n@node " name))
 
 (define texi-section-alist
   '(
@@ -125,7 +125,7 @@ Add a ref if REF is set
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name " (" file-name ").           " name "."
    "\n@end direntry"
-   (node "Top") top
+   (node "Top") ",(lilypond)Development,," top
    "\n@top"
    (texi-section 1 name #f)
    (texi-menu items-alist)

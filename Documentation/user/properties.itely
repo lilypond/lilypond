@@ -1,4 +1,5 @@
-@node Properties, , , Reference Manual
+@node Properties
+@section Properties
 
 Properties are Scheme values. Most of them are in the generated documentation, but some MIDI properties are not. Here is their documentation
 

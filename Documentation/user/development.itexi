@@ -1,4 +1,5 @@
-@node Internals, , , top
+@node Internals
+@chapter Internals
 
 @menu
 * Conversion stages::              Lilypond is a multi-pass program.
@@ -10,8 +11,8 @@
 * Molecules::                       Molecules are stand-alone descriptions of output
 @end menu
 
-
-@node Conversion stages, , , Internals
+@node Conversion stages
+@section Conversion stages
 
 When translating the input to notation, there are number of distinct
 phases.  We list them here:
@@ -60,7 +61,7 @@ are output, line by line.
 @end table
 
 
-@node Grobs, , , Internals
+@node Grobs
 @section Grobs
 
 This section is about Grobs (short for Graphical Objects), which are
@@ -90,7 +91,8 @@ how grobs work.
 * Pointer substitution::
 @end menu
 
-@node What is a grob?, , , Grobs
+@node What is a grob?
+@subsection What is a grob?
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
@@ -146,7 +148,8 @@ dimensions, line breaks, etc.  are calculated. Finally,   the printing
 description in the form of Molecules (@ref{Molecules})  is extracted from
 the network. These are then dumped into the output file
 
-@node Callbacks, , , Grobs
+@node Callbacks
+@subsection Callbacks
 
 Offsets of grobs are relative to a parent reference point. Most
 positions are not known when an object is created, so these are
@@ -196,7 +199,8 @@ means: "empty in this direction". If you fill in a pair, that pair
 hard-codes the extent in that coordinate.
 
 
-@node Setting grob properties, , , Grobs
+@node Setting grob properties
+@subsection Setting grob properties
 
 Grob properties are stored as GUILE association lists, with symbols as
 keys.   From C++, element properties can be accessed using the functions
@@ -281,7 +285,7 @@ This shifts all elements that have a @code{text} property one staff
 space to the left. This mechanism is rather clumsy to use, but it allows
 you tweak any setting of any grob.
 
-@node Items and Spanners, , , Grobs
+@node Items and Spanners
 @unnumberedsubsec Items and Spanners
 
 Grobs can also be distinguished in their role in the horizontal spacing.
@@ -308,7 +312,7 @@ the outcome of the visibility-lambda. This is a function taking a
 direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
 this grob should be transparent and invisible.
 
-@node Pointer substitution, , , Grobs
+@node Pointer substitution
 @unnumberedsubsec Pointer substitution
 
 
@@ -318,13 +322,17 @@ complications. When a  spanner crosses a line-break, then the spanner is
 the grob is made. A substitution process redirects all grob-reference
 so that spanner grob will only reference other grobs in the same line.
 
-@node Engraver, , , Internals
+@node Engraver
+@section Engraver
 
-@node Music_iterator, , , Internals
+@node Music_iterator
+@section Music_iterator
 
-@node Music, , , Internals
+@node Music
+@section Music
 
-@node Molecules, , , Internals
+@node Molecules
+@section Molecules
 
 The objective of any typesetting system is to put ink on paper in the
 right places. For LilyPond, this final stage is left to the TeX and the
@@ -363,7 +371,7 @@ Molecule.
 
 
 
-@node Development, , , top
+@node Development
 @chapter Development
 
 @menu
@@ -372,7 +380,7 @@ Molecule.
 * Localisation::
 @end menu
 
-@node CodingStyle, , , Development
+@node CodingStyle
 @section CodingStyle - standards while programming for GNU LilyPond
 
 As a general rule, you should always try to continue computations, even
@@ -601,8 +609,8 @@ files, doing a release.
 
 Use them.
 
-@node Making patches, , , Development
-
+@node Making patches
+@section Making patches
 
 @unnumberedsec  Track and distribute your code changes
 
@@ -701,11 +709,8 @@ and don't forget to make automatically generated files:
  
 @end example 
 
-@node Localisation, , , Development
-
-@chapter Localisation - User messages in LilyPond
-
-@section Introduction
+@node Localisation
+@section Localisation - User messages in LilyPond
 
 This document provides some guidelines for uniformising user messages.
 In the absence of other standards, we'll be using these rules when coding
@@ -715,7 +720,7 @@ guidelines in the future.
 Not-preferred messages are marked with @code{+}.  By convention,
 agrammatical examples are marked with @code{*}.
 
-@section Guidelines
+@subsection Guidelines
 
 @itemize @bullet
 

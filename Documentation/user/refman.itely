@@ -6,7 +6,8 @@
 @c - Add some words about Guile.  /MB
 @c - Fix indexing (keyindex) so it doesn't add line breaks  /MB
 
-@node Reference Manual, ,  , Top
+@c ugh: because of @include, we need to fill in these nodes
+@node Reference Manual
 @chapter Reference Manual
 
 @menu
@@ -47,7 +48,7 @@
 
 
 
-@node Overview, , , Reference Manual
+@node Overview
 @section Overview
 
 This document@footnote{This document has been revised for LilyPond 1.2.}
@@ -68,7 +69,7 @@ can enter and edit them in manageable chunks.
 
 
 
-@node Top level, , , Reference Manual
+@node Top level
 @section Top level
 
 @cindex top level
@@ -108,8 +109,8 @@ metre, arranger, piece and tagline.
 
 It is customary to put the @code{\header} at the top of the file.
 
-
-@node Pitch names, , ,  Reference Manual
+@node Pitch names
+@section Pitch names
 
 Note names and chord modifiers can be customised for nationalities.
 languages and conventions.  The syntax is as follows.
@@ -133,7 +134,7 @@ forbidden after top level assignments.
 
 
 
-@node Lexical conventions, , ,  Reference Manual
+@node Lexical conventions
 @section Lexical conventions
 
 @cindex lexical conventions
@@ -266,10 +267,9 @@ This is used to detect invalid input, and to aid
 @code{convert-ly}, a tool that automatically upgrades input files.
 
 
-
-@cindex other languages
-
-@node Other languages, , ,  Reference Manual
+@node Other languages
+@section Other languages
+@cindex Other languages
 
 Note name definitions have been provided in various languages. 
 Simply include the language specific init file.  For example:
@@ -290,11 +290,11 @@ catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
 Pitch names can be redefined using the @code{\pitchnames} command, see
 @ref{Pitch names}.
 
-@cindex Lexical Modes
-
+@node Lexical modes
+@section Lexical modes
+@cindex Lexical modes
 @cindex modes
 
-@node Lexical modes, , ,  Reference Manual
 
 To simplify entering notes, lyrics, and chords, @emph{Lilypond} has three
 special input modes on top of the default mode.  In each mode, words
@@ -382,7 +382,7 @@ _ _ _ _         % 4 words, each one a space
 
 [todo: include short table showign differences] 
 
-@node Types, , ,  Reference Manual
+@node Types
 @section Types
 
 @cindex  Identifiers
@@ -467,7 +467,7 @@ copied.  For this reason, an identifier reference must always be the
 @end example
 
 
-@node Music expressions, , ,  Reference Manual
+@node Music expressions
 @section Music expressions
 
 @cindex music expressions
@@ -494,7 +494,7 @@ discussed in subsection @ref{Compound music expressions}.
 
 
 
-@node Atomic music expressions, , ,  Reference Manual
+@node Atomic music expressions
 @section Atomic music expressions
 
 
@@ -536,9 +536,9 @@ In Note, Chord, and Lyrics mode, durations may be designated by
 numbers and dots.  
 
 
-@node Note specification, , ,  Reference Manual
-
-@cindex note specification
+@node Note specification
+@section Note specification
+@cindex Note specification
 
 @cindex pitches
 
@@ -813,7 +813,8 @@ Prints a mark over or under the staff.  You must add
 @code{Mark_engraver}@indexcode{Mark_engraver} to the Score context for
 this to work.
 
-@node barlines, , ,  Reference Manual
+@node barlines
+@section barlines
 
 @example
   \bar@keyindex{bar} @var{bartype};
@@ -918,9 +919,9 @@ notes printed.  It works in Note Mode or Lyrics Mode.  In Note mode,
 this has the same effect as the space rest `@code{s}'.
 
 
+@node Manual beams
+@section Manual beams
 @cindex beams
-
-@node Manual beams, , ,  Reference Manual
 
 A beam is specified by surrounding the beamed notes with brackets
 `@code{[}@indexcode{[}' and `@code{]}@indexcode{]}'.  
@@ -1177,10 +1178,9 @@ You can attach a (general) span request to a note using
 The slur syntax with parentheses is a shorthand for this.
 
 
-
+@node stem tremolo
+@section stem tremolo
 @cindex tremolo marks
-
-@node stem tremolo, , ,  Reference Manual
 
 Tremolo marks can be printed on a single note by adding
 `@code{:}[@var{length}]' after the note.  The length must be at
@@ -1195,7 +1195,7 @@ no last value.
 
 
 
-@node Compound music expressions, , ,  Reference Manual
+@node Compound music expressions
 @section Compound music expressions
 
 @cindex compound music expressions
@@ -1305,9 +1305,10 @@ a Voice context:
 
 
 
-@cindex relative pitch specification
 
-@node relative, , , Reference Manual
+@node relative
+@section relative
+@cindex relative pitch specification
 
 It is easy to get confused by octave changing marks and accidentally
 putting a pitch in the wrong octave.  A much better way of entering a
@@ -1546,9 +1547,10 @@ error, since there will be no main note to attach the grace notes to.
 
 
 
+@node Repeats
+@section Repeats
 @cindex repeats
 
-@node Repeats, , , Reference Manual
 
 In order to specify repeats, use the @code{\repeat}@keyindex{repeat}
 keyword.  Since repeats look and sound differently when played or
@@ -1665,9 +1667,10 @@ bars will not.
 
 
 
-@cindex transposition of pitches
 
-@node transpose, , , Reference Manual
+@node transpose
+@section transpose
+@cindex transposition of pitches
 
 A music expression can be transposed with
 @code{\transpose}@keyindex{transpose}.  The syntax is
@@ -1763,7 +1766,7 @@ lyrics for @var{musicexpr2}.
 
 
 
-@node Ambiguities, , ,  Reference Manual
+@node Ambiguities
 @section Ambiguities
 
 @cindex ambiguities
@@ -1813,11 +1816,12 @@ foo = -6
 
 
 
-@node Notation conversion specifics, , ,  Reference Manual
+@node Notation conversion specifics
 @section Notation conversion specifics
 
 
-@node Automatic Beaming, , ,  Reference Manual
+@node Automatic Beaming
+@section Automatic Beaming
 @cindex automatic beam generation
 @cindex autobeam
 
@@ -1825,7 +1829,7 @@ foo = -6
 
 By default, LilyPond will generate beams automatically.  This feature
 can be disabled by setting the
-@code{Voice.beamAuto}@indexcode{Voice.beamAuto} property to @code{#f}.
+@code{Voice.beamAuto}@indexcode{Voice.beamAuto} property to false.
 It can be overridden for specific cases by specifying explicit beams.
 
 
@@ -1866,7 +1870,8 @@ For example, to specify beam endings for beams that contain 32nd notes,
 you would use @code{(end * * 1 32)}.
 
 
-@node Chord Names, , ,  Reference Manual
+@node Chord Names
+@section Chord Names
 @cindex chord names
 @cindex chords
 
@@ -1895,7 +1900,7 @@ scheme = \notes {
 
 
 You can make the chord changes stand out more by setting property
-@code{ChordNames.chordChanges} to @code{#t}.  This will only display
+@code{ChordNames.chordChanges} to true.  This will only display
 chord names when there's a change in the chords scheme, but always
 display the chord name after a line break:
 
@@ -2079,11 +2084,12 @@ scheme = \chords {
 @end quotation
 
 
+@node lyricprint
+@section lyricprint
 @cindex lyrics
 
 @cindex printing!lyrics
 
-@node lyricprint, , ,  Reference Manual
 
 Lyric syllables must be interpreted within a @code{Lyrics} context
 
@@ -2163,7 +2169,7 @@ For example:
 
 
 
-@node Notation Contexts, , ,  Reference Manual
+@node Notation Contexts
 @section Notation Contexts
 
 @cindex notation contexts
@@ -2321,7 +2327,8 @@ called @emph{performers}.
 
 @mbinclude properties.itely
 
-@node Page layout, , ,  Reference Manual
+@node Page layout
+@section Page layout
 
 @subsection Paper block
 
@@ -2391,7 +2398,11 @@ The paper block has some variables you may want to use or change:
   
   @item @code{linewidth}@indexcode{linewidth}  
     Sets the width of the lines.  If set to -1.0, a single
-    unjustified line is produced.
+    unjustified line is produced.  If you use this variable, you
+    probably want to define it in staff spaces, ie
+    @example
+        linewidth = 30 * \staffspace;
+    @end example
 
   @item @code{textheight}@indexcode{textheight}  
     Sets the total height of the music on each page. Only used by
@@ -2486,7 +2497,8 @@ The file "paper16.ly" will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
 @code{ly2dvi})
 
-@node contextdefs, , ,  Reference Manual
+@node contextdefs
+@section contextdefs
 
 @cindex context definition
 @cindex translator definition
@@ -2660,7 +2672,7 @@ translator:
 @end quotation
 
       
-@node Sound output, , ,  Reference Manual
+@node Sound output
 @section Sound output
 
 The MIDI block is analogous to the paper block, but it is somewhat
@@ -2686,7 +2698,8 @@ The contexts for MIDI output are defined in @file{ly/performer.ly}.
 
 @cindex MIDI instrument names
 
-@node midilist, , , Reference Manual
+@node midilist
+@section midilist
 
 The MIDI instrument name is set by the
 @code{Staff.midiInstrument}@indexcode{Staff.midiInstrument} property or,
@@ -2748,7 +2761,7 @@ piano.
 
 
 
-@node Pre-defined Identifiers, , ,  Reference Manual
+@node Pre-defined Identifiers
 
 @section Pre-defined Identifiers
 
@@ -2780,7 +2793,7 @@ set different shift values.
     Allow stems, beams, and slurs to point either upwards or
     downwards, decided automatically by LilyPond.
 
-  @item @code{\stemdown}@keyindex{stemdown}  
+  @item @code{\stemDown}@keyindex{stemDown}  
     Force stems, beams, and slurs to point down.
 
   @item @code{\stemUp}@keyindex{stemUp}  
