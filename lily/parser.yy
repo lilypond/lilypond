@@ -1391,6 +1391,15 @@ command_element:
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
+	| MARK scalar {
+		static SCM proc;
+		if (!proc)
+			proc = scm_c_eval_string ("make-mark-set");
+
+		SCM result = scm_call_1 (proc, $2);
+		scm_gc_protect_object (result);
+		$$ = unsmob_music (result);
+	}
 	;
 
 command_req:
@@ -1415,11 +1424,7 @@ verbose_command_req:
 		Music * m = MY_MAKE_MUSIC("MarkEvent");
 		$$ = m;
 	}
-	| MARK scalar {
-		Music *m = MY_MAKE_MUSIC("MarkEvent");
-		m->set_mus_property ("label", $2);
-		$$ = m;
-	}
+	
 	| SKIP duration_length {
 		Music * skip = MY_MAKE_MUSIC("SkipEvent");
 		skip->set_mus_property ("duration", $2);
