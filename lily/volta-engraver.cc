@@ -60,40 +60,41 @@ Volta_engraver::Volta_engraver ()
 bool
 Volta_engraver::staff_eligible ()
 {
-  /*
-    UGH.
-   */
-  if (!unsmob_grob (staff_))
-    return true;
-  
-  if (!to_boolean (get_property ("voltaOnThisStaff")))
+  SCM doit =get_property ("voltaOnThisStaff");
+  if (ly_c_boolean_p (doit))
     {
-      /*
-	TODO: this does weird things when you open a piece with a
-	volta spanner.
-	
-       */
-      SCM staffs = get_property ("stavesFound");
+      return to_boolean (doit);
+    }
 
-      /*
-	only put a volta on the top staff.
+
+  if (!unsmob_grob (staff_))
+    return false;
+
+  /*
+    TODO: this does weird things when you open a piece with a
+    volta spanner.
+  */
+  SCM staffs = get_property ("stavesFound");
+
+  /*
+    only put a volta on the top staff.
 	
-	May be this is a bit convoluted, and we should have a single
-	volta engraver in score context or somesuch.
+    May be this is a bit convoluted, and we should have a single
+    volta engraver in score context or somesuch.
 	
-      */
-      if (!ly_c_pair_p (staffs))
-	{
-	  programming_error ("Huh? Volta engraver can't find staffs?");
-	  return false;
-	}
-      else if (ly_car (scm_last_pair (staffs)) != staff_)
-	{
-	  return false;
-	}
+  */
+  if (!ly_c_pair_p (staffs))
+    {
+      programming_error ("Huh? Volta engraver can't find staffs?");
+      return false;
+    }
+  else if (ly_car (scm_last_pair (staffs)) != staff_)
+    {
+      return false;
     }
   return true;
 }
+
 
 void
 Volta_engraver::process_music ()
@@ -227,7 +228,22 @@ Volta_engraver::stop_translation_timestep ()
       volta_span_ = 0;
     }
   
+  if (end_volta_span_ && !end_volta_span_->get_bound (RIGHT))
+    {
+      Grob * cc = unsmob_grob (get_property ("currentCommandColumn"));
+      Item * ci = dynamic_cast<Item*> (cc);
+      end_volta_span_->set_bound (RIGHT, ci);
+    }
+
   end_volta_span_ =0;
+
+  if (volta_span_ && !volta_span_->get_bound (LEFT))
+    {
+      Grob * cc = unsmob_grob (get_property ("currentCommandColumn"));
+      Item * ci = dynamic_cast<Item*> (cc);
+      volta_span_->set_bound (LEFT, ci);
+    }
+  
 }
 
 /*
@@ -235,7 +251,7 @@ Volta_engraver::stop_translation_timestep ()
  */
 
 ENTER_DESCRIPTION (Volta_engraver,
-/* descr */       "Make volta brackets",
+/* descr */       "Make volta brackets.",
 /* creats*/       "VoltaBracket",
 /* accepts */     "",
 /* acks  */       "bar-line-interface staff-symbol-interface note-column-interface",

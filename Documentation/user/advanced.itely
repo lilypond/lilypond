@@ -87,7 +87,7 @@ interactions between different modules of LilyPond.
 
 LilyPond includes an interpreter for the programming language Scheme,
 a member of the LISP family. This interpreter,
-@uref{GUILE,http://www.gnu.org/software/guile/}, 
+@uref{http://www.gnu.org/software/guile/,GUILE}, 
 forms the basis of the 
 
 ****************************************************************
