@@ -1,3 +1,9 @@
+2005-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/NEWS.tely (Top): elucidate GS problem.
+
+	* scm/output-ps.scm (white-text): reinstate white-text
+
 2005-03-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (offset-add): Remove.
@@ -15,6 +21,9 @@
 	wrt ghostscript.
 
 2005-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/slash-repeat-engraver.cc (try_music): always make slashes
+	if body length smaller than measure length.
 
 	* scm/define-markup-commands.scm (with-url): oops. use Y extent
 	for Y.

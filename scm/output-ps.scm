@@ -310,18 +310,12 @@
    (ly:numbers->string
     (list x y radius)) " draw_white_dot"))
 
-;; FIXME: BARF helvetica?
 (define (white-text scale s)
   (let ((mystring (string-append
 		   "(" s  ") " (number->string scale)
 		   " /Helvetica-Bold "
 		   " draw_white_text")))
     mystring
-
-    ;; FIXME
-    (ly:warn "FIXME: white-text broken for Han-Wen's $HOME install of GS 8.x")
-    
-    ""
     ))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)

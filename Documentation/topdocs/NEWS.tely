@@ -69,9 +69,8 @@ Individual objects may be assigned colors, for example,
 The PostScript backend is now used by default.  This backend requires
 less machinery to run, and gives more consistent results.
 
-Please use GhostScript 8.x, as earlier versions expose bugs in PDF
-handling.
-@c what is PDF handling?
+GhostScript 8.x is required for PDF output.  Earlier versions may hang
+while converting PostScript to PDF. 
 
 @item
 Separator slashes may be inserted between systems in a score. For an
