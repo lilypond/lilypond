@@ -25,7 +25,7 @@ Vertical_align_engraver::do_creation_processing()
   valign_p_->set_axis (Y_AXIS);
   valign_p_->set_elt_property ("stacking-dir",  gh_int2scm (DOWN));
   
-  valign_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
+  valign_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_element_info (valign_p_ , 0));
 }
 
@@ -44,7 +44,7 @@ Vertical_align_engraver::do_removal_processing()
       valign_p_->threshold_interval_[SMALLER]  = gh_scm2double (dist);
     }
 
-  valign_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
+  valign_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);
   valign_p_ =0;
 }

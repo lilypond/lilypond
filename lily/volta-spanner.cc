@@ -114,8 +114,8 @@ Volta_spanner::do_add_processing ()
 
   if (bar_arr.size ())
     {
-      set_bounds (LEFT, bar_arr[0]);
-      set_bounds (RIGHT, bar_arr.top ());  
+      set_bound (LEFT, bar_arr[0]);
+      set_bound (RIGHT, bar_arr.top ());  
     }
 }
 

@@ -48,8 +48,8 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       line_l->rank_i_ = i;
       Link_array<Paper_column> c (breaking[i].cols_);
       pscore_l_->typeset_element (line_l);
-      line_l->set_bounds(LEFT,c[0]);
-      line_l->set_bounds(RIGHT,c.top ());
+      line_l->set_bound(LEFT,c[0]);
+      line_l->set_bound(RIGHT,c.top ());
       for (int j=0; j < c.size(); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);

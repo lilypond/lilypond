@@ -28,11 +28,9 @@ class Dynamic_line_spanner : public Spanner
 {
 public:
   Dynamic_line_spanner ();
-  
-  void add_column (Note_column*);
+  VIRTUAL_COPY_CONS(Score_element);
+  void add_column (Item*);
   Direction get_default_dir () const;
-protected:
-  virtual void do_post_processing ();
 };
 
 Dynamic_line_spanner::Dynamic_line_spanner ()
@@ -42,11 +40,12 @@ Dynamic_line_spanner::Dynamic_line_spanner ()
 }
 
 void
-Dynamic_line_spanner::add_column (Note_column* n)
+Dynamic_line_spanner::add_column (Item* n)
 {
-  if (!spanned_drul_[LEFT])
-    set_bounds (LEFT, n);
-  set_bounds (RIGHT, n);
+  if (!get_bound (LEFT))
+    set_bound (LEFT, n);
+  else
+    set_bound (RIGHT, n);
 
   add_dependency (n);
 }
@@ -55,48 +54,6 @@ Direction
 Dynamic_line_spanner::get_default_dir () const
 {
   return DOWN;
-}
-
-void
-Dynamic_line_spanner::do_post_processing ()
-{
-  Spanner::do_post_processing ();
-  Direction dir = directional_element (this).get ();
-  if (!dir)
-    dir = get_default_dir ();
-
-  /*
-    Hier is ook vast iets voor?
-   */
-  Staff_symbol_referencer_interface si (this);
-  Real above_staff = si.line_count () + 2;
-
-#if 0
-  // Aargh, nu snap ik waarom ik het niet snap
-  // zie Staff_symbol_referencer_interface::set_position 
-
-  if (si.position_f () * dir < above_staff)
-    si.set_position (above_staff * (int)dir);
-
-  SCM s = get_elt_property ("padding");
-  if (gh_number_p (s))
-    {
-      si.set_position (si.position_f () + gh_scm2double (s) * (int) dir);
-    }
-#else
-  Real dy = 0;
-  Real pos = si.position_f () * dir;
-  if (pos * dir < above_staff)
-    dy = above_staff;
-
-  SCM s = get_elt_property ("padding");
-  if (gh_number_p (s))
-    dy += gh_scm2double (s);
-  
-  Real half_space = si.staff_space () / 2;
-  translate_axis (dy*half_space*dir, Y_AXIS);
-#endif
-  
 }
 
 /**
@@ -162,6 +119,12 @@ Dynamic_engraver::do_post_move_processing ()
   text_req_l_ = 0;
   span_req_l_drul_[START] = 0;
   span_req_l_drul_[STOP] = 0;
+
+  /* ugr; we must attach the Dynamic_line_spanner to something
+     to be sure that the linebreaker will not be confused
+  */
+  // if (line_spanner_)
+  // line_spanner_->add_column (LEFT, get_staff_info ().command_pcol_l ());
 }
 
 bool
@@ -229,8 +192,8 @@ Dynamic_engraver::do_process_requests ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  cresc_p_->set_bounds(RIGHT, get_staff_info ().musical_pcol_l ());
-	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound(RIGHT, get_staff_info ().musical_pcol_l ());
+	  //	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  span_start_req_l_ = 0;
@@ -272,11 +235,21 @@ Dynamic_engraver::do_process_requests ()
 					    + "Spanner", SCM_UNDEFINED);
 	    }
 
-	  cresc_p_->set_bounds(LEFT, get_staff_info ().musical_pcol_l ());
-	  cresc_p_->set_bounds(RIGHT, get_staff_info ().musical_pcol_l ());
-	  cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound(LEFT, get_staff_info ().musical_pcol_l ());
 
-	  // arrragh, brr, urg: we know how wide text is, no?
+
+	  // cresc_p_->add_dependency (get_staff_info ().musical_pcol_l ());
+
+	  /* 
+	      We know how wide the text is, if we can be sure that the
+	      text already has relevant pointers into the paperdef,
+	      and it has its font-size property set.
+
+	      Since font-size may be set by a context higher up, we
+	      can not be sure of the size.
+	  */
+
+	     
 	  if (text_p_)
 	    {
 	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
@@ -288,7 +261,7 @@ Dynamic_engraver::do_process_requests ()
 
 	  assert (line_spanner_);
 	  cresc_p_->set_parent (line_spanner_, Y_AXIS);
-	  cresc_p_->add_dependency (line_spanner_);
+	  // cresc_p_->add_dependency (line_spanner_);
 	  announce_element (Score_element_info (cresc_p_, span_req_l_drul_[START]));
 	}
     }
@@ -299,6 +272,7 @@ Dynamic_engraver::do_pre_move_processing ()
 {
   typeset_all ();
 }
+
 
 void
 Dynamic_engraver::do_removal_processing ()
@@ -323,7 +297,6 @@ Dynamic_engraver::typeset_all ()
 {  
   if (finished_cresc_p_)
     {
-      //finished_cresc_p_->set_bounds (RIGHT, get_staff_info ().musical_pcol_l ());
       typeset_element (finished_cresc_p_);
       finished_cresc_p_ =0;
     }
@@ -338,10 +311,12 @@ Dynamic_engraver::typeset_all ()
     TODO: This should be optionised:
       * break when group of dynamic requests ends
       * break now 
-      * continue through piece
-   */
+      * continue through piece */
   if (line_spanner_ && last_request_mom_ < now_mom ())
     {
+
+      side_position (line_spanner_).add_staff_support ();
+      
       typeset_element (line_spanner_);
       line_spanner_ = 0;
     }

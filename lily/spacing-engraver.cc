@@ -35,7 +35,7 @@ void
 Spacing_engraver::do_creation_processing ()
 {
   spacing_p_  =new Spacing_spanner;
-  spacing_p_->set_bounds (LEFT, get_staff_info ().command_pcol_l ());  
+  spacing_p_->set_bound (LEFT, get_staff_info ().command_pcol_l ());  
   announce_element (Score_element_info (spacing_p_, 0));
 }
 
@@ -44,7 +44,7 @@ Spacing_engraver::do_removal_processing ()
 {
   Paper_column * p = get_staff_info ().command_pcol_l ();
 
-  spacing_p_->set_bounds (RIGHT, p);
+  spacing_p_->set_bound (RIGHT, p);
   typeset_element (spacing_p_);
   spacing_p_ =0;
 }

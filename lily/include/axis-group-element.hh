@@ -16,7 +16,9 @@
 /** 
   Treat a group of elements a unity in either or both axis sense .
   This is a wrapper around Axis_group_administration
-  */
+
+  FIXME: remove this class, and make interface of it, so we can remove multiple inheritance.
+*/
 class Axis_group_element : public virtual Score_element
 {
   /// modify fields of E for removal.

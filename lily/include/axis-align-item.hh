@@ -13,8 +13,10 @@
 #include "align-element.hh"
 #include "axis-group-item.hh"
 
-class Axis_align_item : public virtual Align_element,
-			public virtual Axis_group_item
+/*
+  UGH. FIXME: multiple inheritance.
+ */
+class Axis_align_item : public virtual Align_element, public virtual Axis_group_item
 {
 public:
   Axis_align_item ();

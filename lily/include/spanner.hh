@@ -35,11 +35,12 @@ class Axis_group_spanner;
 
   */
 class Spanner : public virtual Score_element {
-public:
   Drul_array<Item*> spanned_drul_;
-  Link_array<Spanner> broken_into_l_arr_;
-  void set_bounds (Direction d, Item*);
 
+public:
+  Link_array<Spanner> broken_into_l_arr_;
+  void set_bound (Direction d, Item*);
+  Item *get_bound (Direction d) const;
   
   Spanner ();
   Spanner (Spanner const &);

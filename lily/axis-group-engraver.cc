@@ -20,7 +20,7 @@ Axis_group_engraver::do_creation_processing ()
 {
   staffline_p_ = get_spanner_p ();
   staffline_p_->set_axes (Y_AXIS, Y_AXIS);
-  staffline_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
+  staffline_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_element_info (staffline_p_, 0));
 }
 
@@ -32,7 +32,7 @@ Axis_group_engraver::get_spanner_p () const
 void
 Axis_group_engraver::do_removal_processing ()
 {
-  staffline_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
+  staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (staffline_p_);
   staffline_p_ = 0;
 }

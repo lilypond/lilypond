@@ -108,7 +108,19 @@ Staff_symbol_referencer_interface::callback (Dimension_cache const * c)
 }
 
 /*
-  Huh? -- jcn
+  
+  This sets the position relative to the center of the staff symbol.
+
+  The function is hairy, because it can be callled in two situations:
+
+  1.  There is no staff yet; we must set staff-position
+
+  2.  There is a staff, and perhaps someone even applied a
+  translate_axis (). Then we must compensate for the translation
+  
+  In either case, we set a callback to be sure that our new position
+  will be extracted from staff-position
+  
  */
 void
 Staff_symbol_referencer_interface::set_position (Real p)
@@ -117,7 +129,6 @@ Staff_symbol_referencer_interface::set_position (Real p)
   if (st && elt_l_->common_refpoint(st, Y_AXIS))
     {
       Real oldpos = position_f ();
-      // Aargh!
       elt_l_->set_elt_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else

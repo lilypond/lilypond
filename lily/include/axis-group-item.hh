@@ -16,9 +16,7 @@
 /**
   A grouping item. Its special support is in do_breakable_col_processing().
  */
-
-class Axis_group_item : public virtual Axis_group_element,
-			public virtual Item
+class Axis_group_item : public virtual Axis_group_element, public virtual Item
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);

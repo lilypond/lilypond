@@ -78,7 +78,7 @@ Audio_tie::set_note (Direction d, Audio_note* note_l)
 {
   assert (!note_l_drul_[d]);
   note_l_drul_[d] = note_l;
-  //set_bounds (d, head_l);
+  //set_bound (d, head_l);
 
   //  add_dependency (head_l);
 }

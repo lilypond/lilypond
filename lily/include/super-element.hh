@@ -19,8 +19,9 @@
   dependency graph, and calls the appropriate
   Score_element::do_XXX_processing function on each Score_element it encounters.
   
-  
-  */
+
+  FIXME: remove this class, to eliminate multiple inheritance. Merge
+  with Line_of_score ?  */
 class Super_element : public virtual Score_element {
 public:
   void space_processing ();
