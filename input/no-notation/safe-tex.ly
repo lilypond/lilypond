@@ -2,8 +2,8 @@
 
 \header{
     
-    texidoc = "This should not survive lilypond --safe-mode --no-pdf --png
-    run, and certainly not write /tmp/safe-tex.tex"
+    texidoc = "This should not survive lilypond --safe-mode run, and
+    certainly not write /tmp/safe-tex.tex"
 
     % beware
     % openout_any=y lilypond --keep --safe-mode -S latexoptions=']{article}
