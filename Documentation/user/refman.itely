@@ -7789,18 +7789,18 @@ After such a tweak, the definition is independent of the objects in
 enclosing contexts. For example
 
 @lilypond[verbatim,fragment]
-  \property Voice.Stem \set #'direction = #1
-  a'4
+  \property Voice.Stem \set #'direction = #UP
+  d''4
   \property Staff.Stem \set #'thickness = #4.0
-  a'8
-  \new Voice { a'32 }
+  d''8
+  \new Voice { d'32 }
 @end lilypond
 
 In this fragment, @code{direction} is tweaked. As a result, the
 current @internalsref{Voice} gets a private version of the
 @internalsref{Stem} object. The following tweak modifies the
 definition at @internalsref{Staff} level. Since it a different
-definition, the thickness of the first @code{b'16} is unaffected.  For
+definition, the thickness of the first @code{d'} is unaffected.  For
 the third note, a new Voice is created, which inherits the new
 definition, including the changed thickness, but excluding the new
 neutral direction.

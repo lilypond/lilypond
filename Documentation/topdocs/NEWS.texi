@@ -18,8 +18,8 @@ Version 2.1.13
 
 @itemize @bullet
 
-@item The automatic staff changer was internally rewritten. The new
-syntax  for this  is
+@item The automatic staff changer was internally rewritten. As a
+result, the syntax  has been simplified as well:
 
 @example
   \autochange @var{the music}
@@ -43,7 +43,7 @@ PostScript file output is disallowed, and lilypond-bin is invoked with
 @code{--safe-mode}, the user's Guile expressions are evaluated in a
 safe environment and file inclusion is not allowed.
 
-Warning: this does protect against denial-of-service attacks using
+Warning: this does not protect against denial-of-service attacks using
 Guile, @TeX{} or PostScript.
 
 (This feature is still experimental.)
@@ -226,7 +226,7 @@ the desired size. As a side-effect, there are now no longer
 limitations in using smaller fonts (eg. grace notes) at small staff
 sizes.
 
-@item The appearance of stem tips is now also engraved with rounded corners.
+@item Stem tips are now also engraved with rounded corners.
 
 @item
 The placement of accidentals on chords and ledgered notes is improved.
