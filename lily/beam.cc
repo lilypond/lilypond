@@ -735,8 +735,8 @@ Beam::least_squares (SCM smob)
   
   if (!ideal.delta ())
     {
-      Interval chord (Stem::chord_start_f (first_visible_stem (me)),
-		      Stem::chord_start_f (last_visible_stem (me)));
+      Interval chord (Stem::chord_start_y (first_visible_stem (me)),
+		      Stem::chord_start_y (last_visible_stem (me)));
 
 
       /*
@@ -831,16 +831,16 @@ Beam::check_concave (SCM smob)
          == Stem::get_direction(stems[0]))
     {
       Real r1 = gh_scm2double (gap);
-      Real dy = Stem::chord_start_f (stems.top ())
-	- Stem::chord_start_f (stems[0]);
+      Real dy = Stem::chord_start_y (stems.top ())
+	- Stem::chord_start_y (stems[0]);
 
       
       Real slope = dy / (stems.size () - 1);
       
-      Real y0 = Stem::chord_start_f (stems[0]);
+      Real y0 = Stem::chord_start_y (stems[0]);
       for (int i = 1; i < stems.size () - 1; i++)
 	{
-	  Real c = (Stem::chord_start_f (stems[i]) - y0) - i * slope;
+	  Real c = (Stem::chord_start_y (stems[i]) - y0) - i * slope;
 	  if (c > r1)
 	    {
 	      concaveness1 = true;
@@ -862,8 +862,8 @@ Beam::check_concave (SCM smob)
       Direction dir = Directional_element_interface::get (me);  
 
       Real concave = 0;
-      Interval iv (Stem::chord_start_f (stems[0]),
-		   Stem::chord_start_f (stems.top ()));
+      Interval iv (Stem::chord_start_y (stems[0]),
+		   Stem::chord_start_y (stems.top ()));
       
       if (iv[MAX] < iv[MIN])
 	iv.swap ();
@@ -871,7 +871,7 @@ Beam::check_concave (SCM smob)
       for (int i = 1; i < stems.size () - 1; i++)
 	{
 	  Real c = 0;
-	  Real f = Stem::chord_start_f (stems[i]);
+	  Real f = Stem::chord_start_y (stems[i]);
 	  if ((c = f - iv[MAX]) > 0)
 	    concave += c;
 	  else if ((c = f - iv[MIN]) < 0)
@@ -1080,13 +1080,14 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
   Real nw_f;
   if (!Stem::first_head (here))
     nw_f = 0;
-  else {
-    int t = Stem::type_i (here); 
+  else
+    {
+      int t = Stem::duration_log (here); 
 
-    SCM proc = me->get_grob_property ("flag-width-function");
-    SCM result = gh_call1 (proc, gh_int2scm (t));
-    nw_f = gh_scm2double (result);
-  }
+      SCM proc = me->get_grob_property ("flag-width-function");
+      SCM result = gh_call1 (proc, gh_int2scm (t));
+      nw_f = gh_scm2double (result);
+    }
 
 
   Direction dir = Directional_element_interface::get (me);
@@ -1293,7 +1294,7 @@ Beam::forced_stem_count (Grob *me)
       if (Stem::invisible_b (s))
 	continue;
 
-      if (((int)Stem::chord_start_f (s)) 
+      if (((int)Stem::chord_start_y (s)) 
         && (Stem::get_direction (s) != Stem::get_default_dir (s)))
         f++;
     }

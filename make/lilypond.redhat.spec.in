@@ -143,3 +143,5 @@ chkfontpath --remove=/usr/share/lilypond/pfa/
 
 %files documentation
 %doc web/
+%doc input/
+%doc mutopia/ 

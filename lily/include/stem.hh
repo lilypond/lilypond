@@ -27,9 +27,8 @@ public:
   static Grob * support_head (Grob*) ;
   static void add_head (Grob*me, Grob*n);
   static Stem_info calc_stem_info (Grob *) ;
-  static Real chord_start_f (Grob *) ;
+  static Real chord_start_y (Grob *) ;
   static Direction get_direction (Grob*) ;
-  static int type_i (Grob *) ;
   static void set_stemend (Grob *,Real);
   static Direction get_default_dir (Grob *) ;
 

@@ -21,8 +21,6 @@
   TODO:
     lengthen stem if necessary
  */
-
-
 MAKE_SCHEME_CALLBACK (Stem_tremolo,dim_callback,2);
 
 /*
@@ -49,7 +47,11 @@ Stem_tremolo::height (SCM smob, SCM ax)
   assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_molecule ();
-  return ly_interval2scm (unsmob_molecule (mol)->extent (a));
+
+  if (Molecule *m = unsmob_molecule (mol))
+    return ly_interval2scm (m->extent (a));
+  else
+    return ly_interval2scm (Interval());
 }
 
 
@@ -87,14 +89,24 @@ Stem_tremolo::brew_molecule (SCM smob)
   Molecule a (Lookup::beam (dydx, width, thick));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
-  int tremolo_flags;
+  int tremolo_flags = 0;
   SCM s = me->get_grob_property ("flag-count");
   if (gh_number_p (s))
     tremolo_flags = gh_scm2int (s);
-  else
-    // huh?
-    tremolo_flags = 1;
 
+  if (!tremolo_flags)
+    {
+      programming_error ("No tremolo flags?");
+
+      me->suicide();
+      return SCM_EOL;
+    }
+
+  /*
+    Who the fuck is 0.81 ?
+
+    --hwn.
+   */
   Real interbeam = beam ? Beam::get_interbeam (beam) : 0.81;
 
   Molecule mol; 
@@ -104,27 +116,47 @@ Stem_tremolo::brew_molecule (SCM smob)
       b.translate_axis (interbeam * i, Y_AXIS);
       mol.add_molecule (b);
     }
-  if (tremolo_flags)
-    mol.translate_axis (-mol.extent (Y_AXIS).center (), Y_AXIS);
-  if (beam)
+  Direction stemdir = Stem::get_direction (stem);
+  Interval mol_ext = mol.extent (Y_AXIS);
+
+  // ugh, rather calc from Stem_tremolo_req
+  int beams_i = (beam)
+    ? (Stem::beam_count (stem, RIGHT) >? Stem::beam_count (stem, LEFT))
+    : 0;
+  
+  Real beamthickness = 0.0;
+  SCM sbt = (beam) ? beam->get_grob_property ("thickness") : SCM_EOL ;
+  if (gh_number_p (sbt))
     {
-      // ugh, rather calc from Stem_tremolo_req
-      int beams_i = Stem::beam_count (stem, RIGHT)
-	>? Stem::beam_count (stem, LEFT);
-      mol.translate (Offset (0,
-			     Stem::stem_end_position (stem) * ss / 2 - 
-			     Directional_element_interface::get (beam)
-			     * beams_i * interbeam));
+      beamthickness = gh_scm2double (sbt) * ss;
+    }
+
+  Real end_y
+    = Stem::stem_end_position (stem) *ss/2 
+    - stemdir * (beams_i * beamthickness
+		 + ((beams_i -1) >? 0) * interbeam);
+
+  /*
+    the 0.33 ss is to compensate for the size of the note head
+   */
+  Real chord_start_y = Stem::chord_start_y (stem) +
+    0.33 * ss * stemdir;
+
+  Real padding = interbeam;
+
+  /*
+    if there is not enough space, center on remaining space,
+    else one beamspace away from stem end.
+   */
+  if (stemdir * (end_y - chord_start_y) - 2*padding - mol_ext.length ()  < 0.0)
+    {
+      mol.translate_axis ((end_y + chord_start_y) /2.0  - mol_ext.center (),Y_AXIS);
     }
   else
-    {  
-      /*
-	Beams should intersect one beamthickness below stem end
-      */
-      Real dy = Stem::stem_end_position (stem) * ss / 2;
-      dy -= mol.extent (Y_AXIS).length () / 2 *  Stem::get_direction (stem);
-
-      mol.translate (Offset (0, dy));
+    {
+      mol.translate_axis (end_y - stemdir * interbeam
+			  -mol_ext [stemdir]
+			  , Y_AXIS);
     }
   
   return mol.smobbed_copy ();

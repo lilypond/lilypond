@@ -7,6 +7,10 @@
     Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
+
+  TODO: fix naming.
+
+  Stem-end, chord-start, etc. is all confusing naming.
 */
 
 #include <math.h>		// rint
@@ -70,7 +74,7 @@ Stem::head_positions (Grob*me)
 
 
 Real
-Stem::chord_start_f (Grob*me) 
+Stem::chord_start_y (Grob*me) 
 {
   return head_positions (me)[get_direction (me)]
     * Staff_symbol_referencer::staff_space (me)/2.0;
@@ -119,11 +123,6 @@ Stem::set_stemend (Grob*me, Real se)
   me->set_grob_property ("stem-end-position", gh_double2scm (se));
 }
 
-int
-Stem::type_i (Grob*me) 
-{
-  return first_head (me) ?  Note_head::balltype_i (first_head (me)) : 2;
-}
 
 /*
   Note head that determines hshift for upstems
@@ -296,7 +295,7 @@ Stem::get_default_stem_end_position (Grob*me)
   Real shorten_f = a[ ((duration_log (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* On boundary: shorten only half */
-  if (abs (chord_start_f (me)) == 0.5)
+  if (abs (chord_start_y (me)) == 0.5)
     shorten_f *= 0.5;
 
   /* URGURGURG
@@ -311,7 +310,7 @@ Stem::get_default_stem_end_position (Grob*me)
   
   /* stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay] */
-  if (chord_start_f (me)
+  if (chord_start_y (me)
       && (get_direction (me) != get_default_dir (me)))
     length_f -= shorten_f;
 
@@ -750,7 +749,7 @@ Stem::calc_stem_info (Grob*me)
 
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
   Stem_info info; 
-  info.ideal_y = chord_start_f (me);
+  info.ideal_y = chord_start_y (me);
 
   // for simplicity, we calculate as if dir == UP
 
