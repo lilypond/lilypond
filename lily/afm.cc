@@ -39,7 +39,7 @@ Adobe_font_char_metric::width ()
 
 Adobe_font_char_metric::Adobe_font_char_metric ()
 {
-  C_ = 0;
+  C_ = -1;
 }
 
 Adobe_font_metric::Adobe_font_metric ()

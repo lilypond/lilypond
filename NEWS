@@ -1,3 +1,8 @@
+pl 13.mb1
+	- bf: Lookup::afm_find, the width was undefined for the feta fonts.
+	- bf: refman.yo
+	- The time signature warnings still remain, will be fixed later.
+
 pl 12.mb1
 	- bf: feta-timesig.mf Added horizontal space, minor corrections.
 	- Changed meaning of Staff.timeSignatureStyle:

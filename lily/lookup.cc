@@ -78,7 +78,7 @@ Lookup::afm_find (String s, String str) const
   Adobe_font_char_metric m = afm_p_->find_char (s);
 
   Atom a;
-  if (m.width () ==0)
+  if (m.code () < 0)
     return a;
   
   a.dim_ = m.B_;
