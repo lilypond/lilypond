@@ -59,7 +59,7 @@ public:
   Translator_group* get_ancestor (int l=1);
   int get_depth () const;
   bool is_bottom_translator_b () const;
-  bool removable_b () const;
+  bool is_removable () const;
   void terminate_translator (Translator*r);
   Translator *remove_translator (Translator*trans);
   void check_removal ();
@@ -81,5 +81,9 @@ public:
   virtual void finalize ();
   virtual void each (Method_pointer);
 };
+
+
+bool melisma_busy (Translator* tr); // where to put this? --hwn
+
 
 #endif // TRANSLATOR_GROUP_HH

@@ -124,7 +124,7 @@ internal_brew_molecule (Grob *me, bool with_ledgers)
 
   Font_metric * fm = Font_interface::get_default_font (me);
   Molecule out = fm->find_by_name (font_char);
-  if (out.empty_b())
+  if (out.is_empty ())
     {
       me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
     }
@@ -190,7 +190,7 @@ Note_head::head_extent (Grob *me, Axis a)
     {
       Molecule mol = internal_brew_molecule (me, false);
   
-      if (!mol.empty_b())
+      if (!mol.is_empty ())
 	return mol.extent (a);
     }
   else
@@ -285,7 +285,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 	  Box b = fm->get_indexed_char (k);
 	  Offset wxwy = fm->get_indexed_wxwy (k);
 	  Interval v = b[a];
-	  if (!v.empty_b ())
+	  if (!v.is_empty ())
 	    return 2 * (wxwy[a] - v.center()) / v.length ();
 	}
     }

@@ -38,7 +38,7 @@ class Translator
 public:
   Music_output_def * output_def_;
   
-  bool is_alias_b (SCM) const;
+  bool is_alias (SCM) const;
   Translator (Translator const &);
 
   

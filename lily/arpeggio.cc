@@ -54,7 +54,7 @@ Arpeggio::brew_molecule (SCM smob)
 		   - my_y);
     }
 
-  if (heads.empty_b ())
+  if (heads.is_empty ())
     {
       /*
 	Dumb blonde error

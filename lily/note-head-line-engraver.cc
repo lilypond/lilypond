@@ -60,10 +60,10 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
       if (to_boolean (get_property ("followVoice")))
 	{
 	  Translator_group  * tr = daddy_trans_;
-	  while (tr && !tr->is_alias_b (ly_symbol2scm ( "Staff")))
+	  while (tr && !tr->is_alias (ly_symbol2scm ( "Staff")))
 	    tr = tr->daddy_trans_ ;
 
-	  if (tr && tr->is_alias_b (ly_symbol2scm ("Staff")) && tr != last_staff_)
+	  if (tr && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
 	    {
 	      if (last_head_)
 		follow_ = true;

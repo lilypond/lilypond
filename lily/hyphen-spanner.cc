@@ -59,7 +59,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
     {
       Interval iv = sp->get_bound (d)->extent (common, X_AXIS);
 
-      bounds[d] = iv.empty_b ()
+      bounds[d] = iv.is_empty ()
 	? sp->get_bound (d)->relative_coordinate (common, X_AXIS)
 	: iv[-d];
     }
@@ -91,7 +91,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
     we should probably do something more intelligent when bounds is
     empty, but at least this doesn't crash.
   */      
-  Real w  = bounds.empty_b () ? 0 : bounds.length ();
+  Real w  = bounds.is_empty () ? 0 : bounds.length ();
   
   /* for length, use a geometric mean of the available space and some minimum
    */
@@ -125,7 +125,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
     }
   Box b (Interval (-l/2,l/2), Interval (h,h+th));
   Molecule mol (Lookup::filledbox (b));
-  Real ct = bounds.empty_b () ? 0 : bounds.center () ;
+  Real ct = bounds.is_empty () ? 0 : bounds.center () ;
   mol.translate_axis (ct -sp->relative_coordinate (common, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }

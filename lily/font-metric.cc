@@ -68,7 +68,7 @@ Font_metric::text_dimension (String text) const
 	  break;
 	}
     }
-  if (ydims.empty_b ())
+  if (ydims.is_empty ())
     ydims = Interval (0,0);
 
   return Box (Interval (0, w), ydims);

@@ -60,10 +60,10 @@ Staff_spacing::next_note_correction (Grob * me,
     Let's decrease the space a little if the problem is not located
     after a barline.
   */
-  if (bar_size.empty_b ())
+  if (bar_size.is_empty ())
     max_corr *= 0.75;
   
-  if (!bar_size.empty_b())
+  if (!bar_size.is_empty ())
     if (Grob *stem = Note_column::get_stem (g))
       {
 	Direction d = Stem::get_direction (stem);
@@ -163,7 +163,7 @@ Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
 
       Interval ext = break_item->extent (col, X_AXIS);
 
-      if (ext.empty_b ())
+      if (ext.is_empty ())
 	continue;
       if (!last_grob
 	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0) )

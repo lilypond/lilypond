@@ -151,7 +151,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   for (int i=0; i < all_grobs.size (); i++) 
     {
       Interval y = all_grobs[i]->extent (me, a);
-      if (!y.empty_b ())
+      if (!y.is_empty ())
 	{
 	  Grob *e =dynamic_cast<Grob*> (all_grobs[i]);
 

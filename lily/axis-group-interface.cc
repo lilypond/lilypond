@@ -45,7 +45,7 @@ Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
     {
       Grob * se = unsmob_grob (ly_car (s));
       Interval dims = se->extent (common, a);
-      if (!dims.empty_b ())
+      if (!dims.is_empty ())
 	r.unite (dims);
     }
   return r;

@@ -271,7 +271,7 @@ Path
 distill_inname (String str)
 {
   Path p = split_path (str);
-  if (str.empty_b () || str == "-")
+  if (str.is_empty () || str == "-")
     p.base = "-";
   else
     {
@@ -280,10 +280,10 @@ distill_inname (String str)
       for (int i = 0; extensions[i]; i++)
 	{
 	  p.ext = orig_ext;
-	  if (*extensions[i] && !p.ext.empty_b ())
+	  if (*extensions[i] && !p.ext.is_empty ())
 	    p.ext += ".";
 	  p.ext += extensions[i];
-	  if (!global_path.find (p.to_string ()).empty_b ())
+	  if (!global_path.find (p.to_string ()).is_empty ())
 	      break;
 	}
       /* Reshuffle extension */
@@ -356,11 +356,11 @@ main_prog (void *, int, char **)
       outpath.root = "";
       outpath.dir = "";
       
-      if (!output_name_global.empty_b ())
+      if (!output_name_global.is_empty ())
 	outpath = split_path (output_name_global);
       
       String init;
-      if (!init_name_global.empty_b ())
+      if (!init_name_global.is_empty ())
 	init = init_name_global;
       else
 	init = "init.ly";
@@ -420,7 +420,7 @@ main (int argc, char **argv)
 	  {
 	    String s = oparser_p_static->optional_argument_str0_;
 	    Path p = split_path (s);
-	    if (s != "-" && p.ext.empty_b ())
+	    if (s != "-" && p.ext.is_empty ())
 	      p.ext = output_format_global;
 
 	    output_name_global = p.to_string ();

@@ -266,7 +266,7 @@ Beam::connect_beams (Grob *me)
 	    }
 	  while (flip (&d) != LEFT);
 
-	  if (!new_slice.empty_b())
+	  if (!new_slice.is_empty ())
 	    last_int =  new_slice;
 	}
       else
@@ -609,7 +609,7 @@ struct Int_set
 
 	s.intersect (allowed_regions_[i]);
 
-	if (!s.empty_b ())
+	if (!s.is_empty ())
 	  {
 	    Interval before = allowed_regions_[i];
 	    Interval after = allowed_regions_[i];
@@ -617,13 +617,13 @@ struct Int_set
 	    before[RIGHT] = s[LEFT];
 	    after[LEFT] = s[RIGHT];
 
-	    if (!before.empty_b() && before.length () > 0.0)
+	    if (!before.is_empty () && before.length () > 0.0)
 	      {
 		allowed_regions_.insert (before, i);
 		i++;
 	      }
 	    allowed_regions_.del (i);
-	    if (!after.empty_b () && after.length () > 0.0)
+	    if (!after.is_empty () && after.length () > 0.0)
 	      {
 		allowed_regions_.insert (after, i);
 		i++;
@@ -669,7 +669,7 @@ Beam::consider_auto_knees (Grob* me)
 	continue;
 
       Interval hps = Stem::head_positions (stem);
-      if(!hps.empty_b())
+      if(!hps.is_empty ())
 	{
 	  hps[LEFT] += -1;
 	  hps[RIGHT] += 1; 
@@ -732,7 +732,7 @@ Beam::consider_auto_knees (Grob* me)
 	  stem->set_grob_property ("direction", scm_int2num (d));
 	  
 	  hps.intersect (max_gap);
-	  assert (hps.empty_b () || hps.length () < 1e-6 );
+	  assert (hps.is_empty () || hps.length () < 1e-6 );
 	}
     }
 }
@@ -1003,7 +1003,7 @@ Beam::shift_region_to_valid (SCM grob)
       feasible_left_point.intersect (flp);
     }
       
-  if (feasible_left_point.empty_b())
+  if (feasible_left_point.is_empty ())
     {
       warning (_("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
     }
@@ -1231,13 +1231,13 @@ Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
   if (french)
     {
       Slice bm = where_are_the_whole_beams (beaming);
-      if (!bm.empty_b())
+      if (!bm.is_empty ())
 	stem_y += beam_translation * bm[-my_dir];
     }
   else
     {
       Slice bm = Stem::beam_multiplicity(s);
-      if (!bm.empty_b())
+      if (!bm.is_empty ())
 	stem_y +=bm[my_dir] * beam_translation;
     }
   

@@ -102,7 +102,7 @@ extern Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * e
 void
 New_fingering_engraver::add_script (Grob * head,
 				    Music * event,
-				    Music * head_event)
+				    Music * )
 {
   Finger_tuple ft ;
 
@@ -113,7 +113,6 @@ New_fingering_engraver::add_script (Grob * head,
       
       articulations_.push (ft);
       announce_grob (g, event->self_scm ());
-  
  
       ft.script_->set_parent (head, X_AXIS);
     }

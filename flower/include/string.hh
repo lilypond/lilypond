@@ -89,7 +89,7 @@ public:
   void operator += (char const* s) { strh_ += s; }
   void operator += (String s);
 
-  bool empty_b () const;
+  bool is_empty () const;
 
   void append (String);
   void prepend (String);

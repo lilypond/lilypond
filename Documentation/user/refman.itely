@@ -3517,10 +3517,11 @@ The complete example is shown here:
 }
 @end lilypond
 
-Stanza numbers, or the names of the singers can be added by setting
-@code{LyricsVoice.Stanza} (for the first system) and
-@code{LyricsVoice.stz} for the following systems.  Notice how dots are
-surrounded with spaces in @code{\lyrics} mode:
+@cindex stanza number
+@cindex singer's names
+@cindex name of singer 
+
+Stanza numbers can be added by setting @code{LyricsVoice.stanza}, e.g.
 
 @example
     \property LyricsVoice . stanza = "Bert"
@@ -3528,6 +3529,14 @@ surrounded with spaces in @code{\lyrics} mode:
     \property LyricsVoice . stanza = "Ernie" 
 @end example
 
+Notice how dots are surrounded with spaces in @code{\lyrics} mode, to
+prevent @code{LyricsVoice.stanza} being interpreted as a single
+string.
+
+Names of the singers should be added using @code{LyricsVoice
+. instrument} and @code{LyricsVoice . instr}, analogous to instrument
+annotations for staves.
+ 
 To make empty spaces in lyrics, use @code{\skip}.
 
 

@@ -119,7 +119,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
       extent.unite (which->elem(i)->extent (item_col, X_AXIS));
     }
 
-  if (!extent.empty_b())
+  if (!extent.is_empty ())
     {
       Real p = gh_scm2double (me->get_grob_property ("left-padding"));
       extent[LEFT] -= p;

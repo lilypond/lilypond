@@ -13,10 +13,44 @@ Self_alignment_interface::centered_on_parent (SCM element_smob, SCM axis)
   Grob *him = me->get_parent (a);
   Interval he = him->extent (him,a);
   
-  return  gh_double2scm (he.empty_b () ? 0.0 : he.center ());
+  return  gh_double2scm (he.is_empty () ? 0.0 : he.center ());
 }
 
+MAKE_SCHEME_CALLBACK (Self_alignment_interface,aligned_on_parent,2);
+SCM
+Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+  Grob *him = me->get_parent (a);
+  Interval he = him->extent (him,a);
+  
+  SCM sym= (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X"): ly_symbol2scm ("self-alignment-Y");
+  SCM align_prop (me->internal_get_grob_property (sym));
 
+  if (!gh_number_p (align_prop))
+    return gh_int2scm (0);
+
+  Real x = 0.0;
+
+  Real align = gh_scm2double (align_prop);
+      
+  Interval ext (me->extent (me,a));
+  if (ext.is_empty ())
+    {
+      programming_error ("I'm empty. Can't align on self");
+      
+    }
+  else
+    x -= ext.linear_combination (align) ;
+
+  if (!he.is_empty ())
+    {
+      x += he.linear_combination (align);
+    }
+
+  return gh_double2scm (x);
+}
 
 /*
   Position centered on parent.
@@ -31,7 +65,7 @@ Self_alignment_interface::centered_on_other_axis_parent (SCM element_smob,
   Grob *him = me->get_parent (other_axis (a));
   Interval he = him->extent (him,a);
   
-  return  gh_double2scm (he.empty_b () ? 0.0 : he.center ());
+  return  gh_double2scm (he.is_empty () ? 0.0 : he.center ());
 }
 
 
@@ -48,20 +82,15 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
-  static SCM  prop_syms[2];
 
-  if (!prop_syms[0])
-    {
-      prop_syms[X_AXIS] = ly_symbol2scm ("self-alignment-X");
-      prop_syms[Y_AXIS] = ly_symbol2scm ("self-alignment-Y");
-    }
+  SCM sym= (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X"): ly_symbol2scm ("self-alignment-Y");
   
-  SCM align (me->internal_get_grob_property (prop_syms[a]));
+  SCM align (me->internal_get_grob_property (sym));
   if (gh_number_p (align))
     {
       Interval ext (me->extent (me,a));
 
-      if (ext.empty_b ())
+      if (ext.is_empty ())
 	{
 	  programming_error ("I'm empty. Can't align on self");
 	  return gh_double2scm (0.0);

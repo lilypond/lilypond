@@ -29,7 +29,7 @@ open_file_stream (String filename, int mode)
   else
     {
       Path p = split_path (filename);
-      if (!p.dir.empty_b ())
+      if (!p.dir.is_empty ())
         if (mkdir (p.dir.to_str0 (), 0777) == -1 && errno != EEXIST)
           error (_f ("can't create directory: `%s'", p.dir));
       os = new std::ofstream (filename.to_str0 (), mode);

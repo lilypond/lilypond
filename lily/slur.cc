@@ -438,7 +438,7 @@ Slur::encompass_offset (Grob*me,
   o[X_AXIS] -= 0.5 * stem_dir * x_extent;
 
   if ((stem_dir == dir)
-      && !stem->extent (stem, Y_AXIS).empty_b ())
+      && !stem->extent (stem, Y_AXIS).is_empty ())
     {
       o[Y_AXIS] = stem->extent (common[Y_AXIS], Y_AXIS)[dir];
     }

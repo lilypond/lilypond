@@ -75,12 +75,12 @@ String
 Path::to_string () const
 {
   String s;
-  if (!root.empty_b ())
+  if (!root.is_empty ())
     s = root + ::to_string (ROOTSEP);
-  if (!dir.empty_b ())
+  if (!dir.is_empty ())
     s += dir + ::to_string (DIRSEP);
   s += base;
-  if (!ext.empty_b ())
+  if (!ext.is_empty ())
     s += ::to_string (EXTSEP) + ext;
   return s;
 }

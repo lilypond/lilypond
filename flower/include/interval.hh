@@ -25,7 +25,7 @@ struct Interval_t : public Drul_array<T> {
   static T infinity () ;
   static String T_to_string (T arg);
   T center () const {
-    assert (!empty_b ());
+    assert (!is_empty ());
     return (elem (LEFT) + elem (RIGHT)) / T (2);
   }
   void translate (T t)
@@ -57,7 +57,7 @@ struct Interval_t : public Drul_array<T> {
   /*
     TODO: strip hungarian suffix.
    */
-  bool empty_b () const { return elem (LEFT) > elem (RIGHT); }
+  bool is_empty () const { return elem (LEFT) > elem (RIGHT); }
   bool contains_b (Interval_t<T> const&) const;
   Interval_t () {
     set_empty ();
@@ -76,7 +76,7 @@ struct Interval_t : public Drul_array<T> {
     return *this;
   }
   Interval_t<T> &operator *= (T r) {
-    if (!empty_b ())
+    if (!is_empty ())
       {
 	elem (LEFT) *= r;
 	elem (RIGHT) *= r;

@@ -204,7 +204,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
       record_notehead (voice_context_id, h);
 
       /* is it in a melisma ? */
-      if (to_boolean (i.origin_trans_->get_property ("melismaEngraverBusy")))
+      if (melisma_busy (i.origin_trans_))
 	{
 	  record_melisma (voice_context_id);
 	}
@@ -255,12 +255,12 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 String 
 get_context_id (Translator_group * ancestor, SCM  type)
 {
-  while (ancestor != 0 && !ancestor->is_alias_b(type))
+  while (ancestor && !ancestor->is_alias(type))
     {
       ancestor = ancestor->daddy_trans_;
     }
 
-  if (ancestor != 0)
+  if (ancestor)
     {
       return ancestor->id_string_;
     }
@@ -362,5 +362,5 @@ ENTER_DESCRIPTION(Lyric_phrasing_engraver,
 		  /* creats*/       "",
 		  /* accepts */     "",
 /* acks  */      "lyric-syllable-interface note-head-interface lyric-extender-interface",
-		  /* reads */       "automaticPhrasing melismaEngraverBusy associatedVoice phrasingPunctuation",
+		  /* reads */       "automaticPhrasing associatedVoice phrasingPunctuation",
 		  /* write */       "");

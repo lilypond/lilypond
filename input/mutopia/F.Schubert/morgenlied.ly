@@ -14,8 +14,7 @@
     not be in the PD - but I am assuming there are no notable ones in
     this small piece.
 
-    The original compresses the entire music onto a single page, in 4
-systems.  "
+    The original compresses the entire music onto a single page, in 4 systems."
 
 }
 
@@ -35,7 +34,6 @@ systems.  "
 melody = \notes  \relative c'' \repeat volta 2 \context Voice = singer {
     \time 6/8
     \autoBeamOff
-    \property Voice.automaticMelismata = ##t
     s1*0^\markup { \bold \bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
@@ -57,6 +55,8 @@ melody = \notes  \relative c'' \repeat volta 2 \context Voice = singer {
 
 
 firstVerse = \lyrics {
+    \property LyricsVoice . stanza = "1."
+    
     Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \break
     sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit \break
     ge -- heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \break
@@ -64,6 +64,8 @@ firstVerse = \lyrics {
     }
 
 secondVerse = \lyrics {
+    \property LyricsVoice . stanza = "2."
+
     Ach, der Lie -- be sanf "" -- tes We -- hen schwellt mir
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich
     nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht
@@ -117,7 +119,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	 \context LyricsVoice = "singer-2" \secondVerse
 	 >>
      \new PianoStaff <<
-	 \property PianoStaff.instrument = #"2  "
+	 \property PianoStaff.instrument = \markup { \bold \bigger "2.  " }
 	 \new Staff \pianoRH
 	 \new Staff \pianoLH
 	>> 
@@ -136,6 +138,11 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	\translator {  \PianoStaffContext
 		VerticalAlignment \override #'forced-distance = #10
 		}
+	\translator {
+	     \ScoreContext
+	     \remove "Lyric_phrasing_engraver"
+	     \consists "New_phrasing_engraver"
+	 }
 
 }
 }

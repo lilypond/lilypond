@@ -95,7 +95,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
 	  }
     }
 
-  if (dim.empty_b ())
+  if (dim.is_empty ())
     {
       dim = Interval (0,0);
     }
@@ -199,7 +199,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 
   Interval iv =  me->extent (me, a);
 
-  if (!iv.empty_b ())
+  if (!iv.is_empty ())
     {
       if (!d)
 	{

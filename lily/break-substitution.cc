@@ -282,7 +282,7 @@ struct Substitution_entry
     /*
       duh, don't support scores with more than 32000 systems.
     */
-    if (sr.empty_b())
+    if (sr.is_empty ())
       {
 	/*
 	  overflow if we don't treat this specially.

@@ -117,7 +117,7 @@ calculates the number of accidentals on basis of the current local key sig
 
 */
 static int
-number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+number_accidentals (SCM sig, Music *, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
   int n = pitch->get_notename ();
@@ -204,7 +204,7 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
       else if (gh_symbol_p (ly_car (accidentals)))
 	{
 	  SCM context =ly_car (accidentals);
-	  while (origin && !origin->is_alias_b (context))
+	  while (origin && !origin->is_alias (context))
 	    origin = origin->daddy_trans_;
       
 	  if (!origin)

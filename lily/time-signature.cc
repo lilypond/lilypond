@@ -87,7 +87,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
   me->set_grob_property ("font-family", ly_symbol2scm ("music"));
   Molecule out = Font_interface::get_default_font (me)
     ->find_by_name ("timesig-" + char_name);
-  if (!out.empty_b ())
+  if (!out.is_empty ())
     return out;
 
   /* If there is no such symbol, we default to the numbered style.

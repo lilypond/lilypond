@@ -87,7 +87,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
 	{
 	  Interval v = unsmob_grob (gh_car (s))->extent (common, Y_AXIS);
 
-	  if (!v.empty_b ())
+	  if (!v.is_empty ())
 	    count ++;
 	}
   
@@ -118,7 +118,7 @@ System_start_delimiter::brew_molecule (SCM smob)
  (me->self_scm (), gh_int2scm (Y_AXIS)));
   Real l = ext.length () / staff_space;
   
-  if (ext.empty_b ()
+  if (ext.is_empty ()
       || (gh_number_p (c) && l <= gh_scm2double (c)))
     {
       me->suicide ();
@@ -165,7 +165,7 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
     {
       int cmp = (lo + hi) / 2;
       b = fm->get_indexed_char (cmp);
-      if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
+      if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
 	hi = cmp;
       else
 	lo = cmp;

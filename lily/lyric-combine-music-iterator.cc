@@ -39,6 +39,20 @@ private:
 };
 
 
+bool
+melisma_busy (Translator* tr)
+{
+  SCM melisma_properties = tr->get_property ("melismaBusyProperties");
+  bool busy = false;
+
+  for (; gh_pair_p (melisma_properties);
+       melisma_properties = gh_cdr (melisma_properties))
+    busy = busy || to_boolean (tr->internal_get_property (gh_car (melisma_properties)));
+
+  return busy;
+}
+
+
 
 /*
   Ugh, why static?

@@ -319,7 +319,6 @@ top of those automatically detected. ")
 (translator-property-description 'melismaBusyProperties list?
 				 "List of  properties (symbols) to
 determine whether a melisma  is playing.")
-(translator-property-description 'melismaEngraverBusy boolean? "See melismaBusy. This is set automatically.")
 (translator-property-description 'metronomeMarkFormatter procedure?
 				 "How to produce a metronome markup.
 Called with 2 arguments,  event and context.")
@@ -407,7 +406,8 @@ squashing for Pitch_squash_engraver.")
 (translator-property-description 'stringOneTopmost boolean? "Whether the 1st string is printed on the
 top line of the tablature.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
-(translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+(translator-property-description 'stanza markup? "Stanza `number' to
+print before the start of a verse. Use in LyricsVoice context.")
 (translator-property-description 'stemLeftBeamCount integer? "
 Specify the number of beams to draw on the left side of the next note.
 Overrides automatic beaming.  The value is only used once, and then it
@@ -415,7 +415,6 @@ is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
 (translator-property-description 'stringTunings list? "The tablature strings tuning. Must be a list of the different semitons pitch of each string (starting by the lower one).")
-(translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
 (translator-property-description 'systemStartDelimiter symbol? "Which grob to make for the start of the system/staff?")

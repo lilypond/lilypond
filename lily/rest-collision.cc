@@ -208,7 +208,7 @@ Rest_collision::do_shift (Grob *me)
       Grob * r = unsmob_grob (rcol->get_grob_property ("rest"));
       Interval restdim = r->extent (r, Y_AXIS);	// ??
 
-      if (restdim.empty_b ())
+      if (restdim.is_empty ())
 	return SCM_UNSPECIFIED;
       
 

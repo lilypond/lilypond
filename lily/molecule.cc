@@ -64,7 +64,7 @@ Molecule::translate (Offset o)
   expr_ = scm_list_n (ly_symbol2scm ("translate-molecule"),
 		   ly_offset2scm (o),
 		   expr_, SCM_UNDEFINED);
-  if (!empty_b ())
+  if (!is_empty ())
     dim_.translate (o);
 }
   
@@ -107,7 +107,7 @@ Molecule::set_empty (bool e)
 void
 Molecule::align_to (Axis a, Real x)
 {
-  if (empty_b())
+  if (is_empty ())
     return ;
 
   Interval i (extent (a));
@@ -121,10 +121,10 @@ void
 Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
 		       Real minimum)
 {
-  Real my_extent= empty_b () ? 0.0 : dim_[a][d];
+  Real my_extent= is_empty () ? 0.0 : dim_[a][d];
   Interval i (m.extent (a));
   Real his_extent;
-  if (i.empty_b ())
+  if (i.is_empty ())
     {
       programming_error ("Molecule::add_at_edge: adding empty molecule.");
       his_extent = 0.0;
@@ -148,7 +148,7 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
   while expr_ == '()
  */
 bool
-Molecule::empty_b () const
+Molecule::is_empty () const
 {
   return expr_ == SCM_EOL;
 }
