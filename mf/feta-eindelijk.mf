@@ -222,10 +222,10 @@ def draw_eighth_rest =
        
 	x2r = width;
 
-	y3 - y2l = 0.25 staff_space;
+
 	x2r - x1 = 0.5 staff_space;
 
-	x3 = x1l ;
+	x3 = x1l - 0.045 staff_space ;
 
 
 	x4 = 1.02 bulb_diam ;
@@ -238,13 +238,14 @@ def draw_eighth_rest =
 
 %	z7 = %(bulb_diam/2,ycenter) + 0.23 staff_space * dir ( 35);
 	z7 = 0.5 [z4, z5] + (0.45 stafflinethickness,0.4 stafflinethickness);
-	z8 = (0, ycenter + 0.5 stafflinethickness);
+	x8 = 0;
+	y8 = ycenter + 0.25 stafflinethickness;
 
 	z6 = whatever [z1l, z2l];
 	z6 = whatever [z2l, z4] + crook_thick * (crook_dir rotated -90);
 	crook_dir = normalize(z2l - z4);
 
-	y3 := ycenter +floor (- bulb_diam/2);
+	y3 := ycenter +floor (- 0.45 bulb_diam);
 
 
 	penlabels (1, 2);
@@ -256,6 +257,7 @@ def draw_eighth_rest =
 		.. z5{left} .. z8 .. z3{right}
 		.. {curl 0.2}z6 -- cycle;
 
+%	draw_staff (-2,2,0.0);
 
 	enddef;
 

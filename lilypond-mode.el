@@ -149,13 +149,13 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-gv-command "gv -watch"
-  "Command used to display PS files."
+(defcustom LilyPond-midi-command "timidity"
+  "Command used to play MIDI files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-midi-command "timidity"
+(defcustom LilyPond-midi-all-command "timidity -ig"
   "Command used to play MIDI files."
 
   :group 'LilyPond
@@ -369,6 +369,25 @@ Must be the car of an entry in `LilyPond-command-alist'."
 		".midi"))
      "Midi")))
 
+(defun LilyPond-command-all-midi ()
+  "Play next midi score of the current document."
+  (interactive)
+  (if (Midi-running)
+      (quit-process (get-process "midi") t)
+    (LilyPond-compile-file 
+     (let ((fname (LilyPond-master-file))
+	   (allcount (string-to-number (substring (count-midi-words) 0 -12))))
+       (concat  LilyPond-midi-all-command " "
+		(if (> allcount 0) ; at least one midi-score
+		    (concat (substring fname 0 -3) ".midi "))
+		(if (> allcount 1) ; more than one midi-score
+		    (concat (substring fname 0 -3) "-?.midi "))
+ 		(if (> allcount 9) ; etc.
+		    (concat (substring fname 0 -3) "-??.midi"))
+ 		(if (> allcount 99) ; not first score
+		    (concat (substring fname 0 -3) "-???.midi"))))
+     "Midi")))
+
 (defun LilyPond-un-comment-region (start end level)
   "Remove up to LEVEL comment characters from each line in the region."
   (interactive "*r\np") 
@@ -571,6 +590,7 @@ command."
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
 	  '([ "Midi (off)" (LilyPond-command-next-midi) :keys "C-c C-m"])
+	  '([ "Midi all" (LilyPond-command-all-midi)])
 	  ))
 
 (easy-menu-define LilyPond-mode-menu

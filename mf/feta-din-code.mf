@@ -3,6 +3,7 @@ save serif_thick;
 serif_thick# = 1.1 stafflinethickness#;
 define_blacker_pixels (serif_thick);
 med_thick = round (1.5 stafflinethickness);
+bottom_blot = 1.3 serif_thick;
 
 
 
@@ -123,7 +124,7 @@ fet_endchar;
 
 code := 114;
 fet_beginchar("dynamic s", "s", "dyns");
-	set_char_box (0, 2/3 ex#, 0, 1 ex#);
+	set_char_box (0, 17/24  ex#, 0, 1 ex#);
 
 	save left_angle, right_angle;
 	save s_thick, s_thin;
@@ -135,10 +136,12 @@ fet_beginchar("dynamic s", "s", "dyns");
 
 	bulb_diam = 11/70 ex;
 	bulb_len = 1.0 bulb_diam;
-	left_angle =  slant_angle - 0;
-	right_angle =  slant_angle -9;
-	s_thick = 7.5/36 ex;
-	s_thin = 5/70 ex;
+	left_angle =  slant_angle - 2;
+	right_angle =  slant_angle -11;
+
+	s_thick = 16/70 ex;
+	s_thin = serif_thick;
+
 	base_point = (0,0);
 
 	penpos1 (bulb_diam, -45);
@@ -236,6 +239,7 @@ fet_beginchar("dynamic p", "p", "dynp")
 	save updir, fill_up;
 	save serif, dishing_angle, p, q;
 	save cheek_medium, left_serif_protude, right_serif_protude;
+	save lower_overshoot;
 
 	pair updir;
 	path serif,q,p;
@@ -248,6 +252,7 @@ fet_beginchar("dynamic p", "p", "dynp")
 	dishing_angle = 5;
 	fill_up := 1.5 serif_thick;
 	straigh_len = 0.5 ex;
+	lower_overshoot  := .3 serif_thick; 
 
 	stem_thick = 2/6 ex;
 	cheek_thick = 13/32 ex;
@@ -261,7 +266,7 @@ fet_beginchar("dynamic p", "p", "dynp")
 
 	x4r - x4l = cheek_thick;
 	penpos4 (whatever, 0);
-	penpos5 (cheek_medium, -55);
+	penpos5 (whatever, -38);
 	penpos6 (stem_thick, 0);
 	penpos17 (straigh_len, 90 -slant);
 	whatever [z17l, z17r] =  z4l;
@@ -282,23 +287,44 @@ fet_beginchar("dynamic p", "p", "dynp")
 
 	y3r = ex;
 	z3l = 0.58 [(stem_thick, -descender), (stem_thick + cheek_width - cheek_thick, -descender)] + whatever * updir;
-	y4r = 1/3  ex;
+	y4r = .38  ex;
 	z4r = whatever*updir + (stem_thick+  cheek_width, -descender);
 
 	z5l = whatever*updir  + z3l;
-	y5l = 1/12 ex;
+	y5r = -lower_overshoot;
+	y5l = y5r + cheek_medium * ypart dir(55);
 
 	z9 = z6r + whatever*updir;
 	y9 = .2 [y5l, y5r];
 
 	p :=
 		z2r{right} .. {dir( -60)}z8 & z8{dir 35} .. z3r{right}
-		.. tension 1.0 .. z4r{-updir} .. z5r{left} .. z9
+		.. z4r{-updir}
+		.. tension 1.1
+		.. z5r{left} .. z9
 		& z9 -- z6r -- z6l -- z7{updir} 
 		..  z2l{left} .. tension 1.2 ..
 		% z1r & z1r -- z1l & z1l
 		simple_serif (z1r, z1l, -90)
 		.. cycle;
+
+
+	save blot_t, corner_t;
+
+	blot_t := 0.13;
+	corner_t := xpart (p intersectiontimes z9);
+
+	z19 = point corner_t - 2 blot_t of p;
+	z20 = point corner_t + blot_t of p;
+	labels(19,20);
+
+	save blot_path;
+	path blot_path;
+
+	pickup pencircle scaled 1;
+
+	fill z19{up} .. {right}z20{updir} .. z19{-(direction corner_t - 2 blot_t of p)} .. cycle;
+
 	pickup pencircle scaled 1;
 	fill p;
 
@@ -375,12 +401,11 @@ fet_beginchar("dynamic m", "m", "dynm");
 	i_angle := 0;
 	idir := dir(90- i_angle);
 
-	i_left_space = 18/80 ex;
-	i_twiddle_thick = serif_thick;
+	i_left_space = 16/80 ex;
+	i_twiddle_thick = 1.2 serif_thick;
 	i_twiddle_start_y =  8/16 ex;
 	i_twiddle_start_angle = 0;
 	center =(0,0);
-	bottom_blot = 1.5 serif_thick;
 
 	penpos1 (i_twiddle_thick, -i_twiddle_start_angle);
 	y1 = i_twiddle_start_y;
@@ -414,7 +439,7 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 	i_angle := -3.2;
 	idir := dir(90 - i_angle);
-	i_left_space := 15/80 ex;
+	i_left_space := 14/80 ex;
 
 
 	z1r = right_ending;
@@ -447,7 +472,7 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 	i_thick := 23 / 80 ex;
 	i_angle := -6;
-	i_left_space := 15/80 ex;
+	i_left_space := 14/80 ex;
 
 
 	idir := dir(90- i_angle);
@@ -468,7 +493,7 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 	save end_twiddle_angle;
 	end_twiddle_angle := 35;
-	penpos6(.9 serif_thick, - end_twiddle_angle);
+	penpos6(serif_thick, - end_twiddle_angle);
 	y6l = 23/80 ex + ypart center;
 	z6l = 1.6 [z3l, z3r]  + whatever * idir;
 	
@@ -500,8 +525,102 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 fet_endchar;
 
-ligtable "m" : "p" kern 0.25 ex#, "f" kern -0.1 ex#;
+
+code := 113;
+
+
+currenttransform := identity slanted ypart(dir(15));
+fet_beginchar("dynamic r", "r", "dynr");
+	set_char_box (0, .75 ex#, 0, 1ex#);
+
+
+	save base_point, stem_thick, bulb_diam;
+	save twiddle_thick, attach_len, overshoot, taille;
+	stem_thick =.26 ex;
+	bulb_diam = .30 ex;
+	twiddle_thick= 1.1 serif_thick;
+	overshoot = .5 serif_thick;
+
+	taille = -0.3 serif_thick;
+
+	pair base_point;
+	base_point = (0,0);
+
+	x1l = 0;
+	y1l = .5 bottom_blot;
+
+	penpos10(stem_thick - bottom_blot, 0);
+	y10 = 0;
+	x10 = x1;
+
+	penpos1 (stem_thick, 0);
+	y2l - y1l = 36/47 ex;
+	x2l = x1l;
+	penpos2 (stem_thick, 0);
+
+	y3 = .77  ex;
+	x3r = x2l - .2 ex;
+	penpos3(twiddle_thick, -20);
+
+	x9 = 0.15 [x1r, x1l] ;
+	y9 = y4l - .12 ex ;
+
+	x4l = -0.1 [x1l, x1r];
+	y4l = ex + overshoot;
+
+	x4r = 0.62 [x3r, x2l];
+	y4r = 0.5 [y4l, y2l];
+
+	penpos5(whatever, -74);
+	y5l - y5r =  bulb_diam;
+	y5l = ex + overshoot;
+	x5 = x2r + attach_len;
+	attach_len + bulb_diam/2 + stem_thick = w;
+
+	z6 = z5;
+	penpos6 (bulb_diam, 0);
+%	z7 = z6l + taille* dir(180);
+
+	save alpha;
+	alpha := 35;
+	z7 = z6 + .4 * bulb_diam * dir (-90 -alpha);
+	z8 = 9/10 [z1r, z2r];
+
+
+	save p;
+	path p;
+
+	p := z1r .. z10r --- z10l .. z1l 
+		--- z2l
+		.. z4r{left}
+		.. tension 1.2
+		.. {down}simple_serif(z3r, z3l,-90){up}
+		.. tension 0.95
+		.. z4l
+		.. z9
+		& z9{curl 0}
+		.. z5l
+		.. z6r{dir(-80)}
+		.. z5r{left}
+		.. z7
+		.. z6l
+		.. tension 1.2
+		.. z8 --- cycle;
+	pickup pencircle scaled 1;
+	draw p;
+	fill p;
+	penlabels (1,2,3, 4,5,6,7,8, 9, 10);
+fet_endchar ;
+
+
+
+
+
+%%% KERNING
+
+ligtable "m" : "p" kern 0.15 ex#, "f" kern -0.1 ex#;
 ligtable "f" : "f" kern -0.13 ex#;
+ligtable "r" : "f" kern 0.1 ex#;
 
 
 

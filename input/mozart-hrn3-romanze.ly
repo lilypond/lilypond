@@ -65,7 +65,7 @@ romanze = \notes \relative c' {
 	[c8( e g )bes] [a( c f ) d]
 	c-. r e-. r f4 r4	
 	g,1\pp
-	c,2~c4. c8
+	c,2 c4. c8
 	[c8( e g )bes] [a( c f ) d]
 	c r e r f4 r4			% -. ? 
 

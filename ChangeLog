@@ -1,3 +1,14 @@
+2002-04-09 Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lily/arpeggio.cc: New function brew_chord_bracket to draw chord
+	brackets using arpeggio requests.
+	
+	* ly/property-init.ly: Shorthand \arpeggioBracket defined as the
+	molecule-callback to use for drawing the brackets.
+
+	* Documentation/user/refman.itely: 
+	* input/test/chord-bracket.ly: Chord brackets documented
+	
 2002-04-10  Han-Wen  <hanwen@cs.uu.nl>
 
 	* mf/feta-din-code.mf: tweaks for p, s. New dynamic r sign. 
@@ -19,6 +30,9 @@
 	Added 2Midi to "Command"-menu. Inspired by latex.el and tex.el: 
 	separate "Command"-menu and "LilyPond"-menu. Added "Miscellanous"-
 	submenu to "LilyPond"-menu.
+
+	* lilypond-mode.el: Added "Midi all" to "Command"-menu, i.e.,
+	an interface to play midi.
 
 2002-04-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
