@@ -1,7 +1,7 @@
 /*
   inputstaff.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef INPUTSTAFF_HH
@@ -13,6 +13,9 @@
 #include "proto.hh"
 
 struct Input_staff {
+    
+    /// defined where?    
+    String define_spot_str_;
     String type;
     IPointerList<Input_command*> commands_;
     IPointerList<Input_music*> music_;
@@ -20,10 +23,10 @@ struct Input_staff {
     /****************/
 
     void add(Input_music*m);
-    Input_staff(Input_staff&);
+    Input_staff(Input_staff const&);
     Input_staff(String);
     void add(Array<Input_command*> &s);
-    Staff* parse(PointerList<Input_command*>, Score*);
+    Staff* parse(Score*);
     void print() const;
 };
 
