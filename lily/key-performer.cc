@@ -51,7 +51,6 @@ Key_performer::create_audio_elements ()
       SCM pitchlist = key_req_->get_mus_property ("pitch-alist");
       SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
       SCM acc = gh_call1 (proc, pitchlist);
-      proc = scm_primitive_eval (ly_symbol2scm ("major-key"));
  
       Pitch my_do (0, 
 		   gh_scm2int (ly_caar (pitchlist)),
@@ -65,9 +64,13 @@ Key_performer::create_audio_elements ()
       to_c = my_do.transposed (Pitch(0,0,- my_do.get_alteration ()));
 
       SCM c_pitchlist = transpose_key_alist (pitchlist, to_c.smobbed_copy());
-      SCM major = gh_call1 (proc, c_pitchlist);
 
-      audio_ = new Audio_key (gh_scm2int (acc), major == SCM_BOOL_T); 
+      /*
+	MIDI keys are too limited for lilypond scales.
+
+	TODO: should probably detect minor key, though.
+      */
+      audio_ = new Audio_key (gh_scm2int (acc), true); 
       Audio_element_info info (audio_, key_req_);
       announce_element (info);
       key_req_ = 0;

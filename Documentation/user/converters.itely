@@ -7,7 +7,7 @@ Music can be entered also by importing it from other formats.  This
 chapter documents the tools included in the distribution to do so.
 There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters. Refer to the
-@uref{website,http://lilypond.org} for more details.
+@uref{http://lilypond.org,website} for more details.
 
 
 
@@ -296,7 +296,7 @@ version information
 
 @refbugs
 
-musedata2ly converts only a small subset musedata. 
+@file{musedata2ly} converts only a small subset of musedata. 
 
 @node Invoking mup2ly
 @section Invoking mup2ly
@@ -335,7 +335,7 @@ print warranty and copyright.
 
 @refbugs
 
-Currently, only plain notes (pitches, durations), voices and staves are
+Currently, only plain notes (pitches, durations), voices, and staves are
 converted.
 
 

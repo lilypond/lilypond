@@ -5,6 +5,7 @@
 @menu
 * Reporting bugs::              
 * Website::                     
+* Point and click::             
 * Invoking ly2dvi::             Titling LilyPond scores.
 @end menu
 
@@ -77,7 +78,7 @@ Add @var{directory} to the search path for input files.
 Set init file to @var{file} (default: @file{init.ly}).
 @item -m,--no-paper
 @cindex MIDI
-Disable @TeX{} output. If you have a @code{\midi} definition midi output
+Disable @TeX{} output. If you have a @code{\midi} definition MIDI output
 will be generated.
 @item -M,--dependencies
 Output rules to be included in Makefile.
@@ -229,13 +230,9 @@ website contains updates to the manual. You can find the website at
 @uref{http://www.lilypond.org/}.
 
 
-@c .  {Point and click}
-@menu
-* Point and click::             
-@end menu
 
 @node Point and click
-@subsection Point and click
+@section Point and click
 @cindex poind and click
 
 Point and click lets you find notes in the input by clicking on them in
@@ -254,6 +251,9 @@ To use it, you need the following software
   are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
 newer.  Enable option @emph{Inverse search} in the menu @emph{Settings}.
+
+Apparently, KDVI does not process PostScript specials correctly. Beams
+and slurs will not be visible in KDVI.
 
 @cindex Xdvi
 @cindex KDVI
@@ -550,13 +550,6 @@ positive integer, start with this value as the first page number.
   @item fontenc
      The font encoding, should be set identical to the @code{font-encoding}
      property in the score.
-@end table
-
-@subsection Environment variables
-
-@table @code
-
-
 @end table
 
 

@@ -11,7 +11,7 @@
 @chapter Notation manual
 
 @html
-<!--- @@WEB-TITLE@@=Reference Manual --->
+<!--- @@WEB-TITLE@@=Notation manual --->
 @end html
 
 
@@ -183,9 +183,17 @@ ways. For more information, refer to @ref{Accidentals}.
 @subsection Chords
 
 A chord is formed by a enclosing a set of pitches in @code{<<} and
-@code{>>}.
+@code{>>}. A chord may be followed by  a duration, and a set of
+articulations, just like simple notes.
 
-TODO: accidental overides?
+Additionally, fingerings and articulations may be attached to
+individual pitches of the chord:
+
+@lilypond[singleline,verbatim,relative 1]
+  <<f-1 a-^ c-5>>
+@end lilypond
+
+
 
 @node  Rests
 @subsection Rests
@@ -385,52 +393,6 @@ optimal results.
 
 
 
-@node Automatic note splitting 
-@subsection Automatic note splitting
-@c FIXME: This subsection does not belong in @ref{Note entry}.
-
-Long notes can be converted automatically to tied notes.  This is done
-by replacing the @internalsref{Note_heads_engraver} by the
-@internalsref{Completion_heads_engraver}.
-
-@example
-  \paper @{ \translator @{
-      \ThreadContext
-      \remove "Note_heads_engraver"
-      \consists "Completion_heads_engraver"
-  @} @}
-@end example
-
-For example,
-@example
-  \time 2/4
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
-@end example
-
-@lilypond[noindent]
-\score{
-  \notes\relative c'{
-  \time 2/4
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
-  }
-  \paper { \translator {
-      \ThreadContext
-      \remove "Note_heads_engraver"
-      \consists "Completion_heads_engraver"
-  } }
-  }
-@end lilypond
-
-This engraver splits all running notes at the bar line, and inserts
-ties.  One of its uses is to debug complex scores: if the measures are
-not entirely filled, then the ties exactly show how much each measure
-is off.
-
-@refbugs
-
-Not all durations (especially those containing tuplets) can be
-represented exactly; the engraver will not insert tuplets. 
-
 @node Tuplets
 @subsection Tuplets
 
@@ -520,17 +482,30 @@ produce the correct result.
 @node Easier music entry
 @section Easier music entry
 @cindex Music entry
+
+When entering music it is easy to introduce errors. This section deals
+with tricks and features of the input language that help when entering
+music, and find and correct mistakes.
+
+Some features of the input language ease entering music, for example
+the use of variables (for splitting up large pieces of music), and
+unfolded repeats for writing repetitive parts. They are described in
+other sections (see @ref{Repeats} and @ref{Assignments}), since they
+are not especially aimed at easing entry
+
+It is also possible to use external programs, for example GUI
+interfaces, or MIDI transcription programs, to enter or edit
+music. Refer to the website for more information. Finally, there are
+tools make debugging easier, by linking the input file and the output
+shown on screen. See @ref{Point and click} for more information.
+
+
 @menu
 * Relative octaves::            
 * Bar check::                   
 * Skipping corrected music::    
 @end menu
 
-When entering music it is easy to introduce errors. This section deals
-with tricks and features that help entering music, and find and
-correct mistakes.  It is also possible to use external programs, for
-example GUI interfaces, or MIDI transcription programs, to enter or
-edit music. Refer to the website for more information.
 
 
 
@@ -645,6 +620,51 @@ been checked for errors.
 \property Score.skipTypesetting = ##f
 c d b bes a g c2 } 
 @end lilypond
+
+@node Automatic note splitting 
+@subsection Automatic note splitting
+
+Long notes can be converted automatically to tied notes.  This is done
+by replacing the @internalsref{Note_heads_engraver} by the
+@internalsref{Completion_heads_engraver}.
+
+@example
+  \paper @{ \translator @{
+      \ThreadContext
+      \remove "Note_heads_engraver"
+      \consists "Completion_heads_engraver"
+  @} @}
+@end example
+
+For example,
+@example
+  \time 2/4
+  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
+@end example
+
+@lilypond[noindent]
+\score{
+  \notes\relative c'{
+  \time 2/4
+  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
+  }
+  \paper { \translator {
+      \ThreadContext
+      \remove "Note_heads_engraver"
+      \consists "Completion_heads_engraver"
+  } }
+  }
+@end lilypond
+
+This engraver splits all running notes at the bar line, and inserts
+ties.  One of its uses is to debug complex scores: if the measures are
+not entirely filled, then the ties exactly show how much each measure
+is off.
+
+@refbugs
+
+Not all durations (especially those containing tuplets) can be
+represented exactly; the engraver will not insert tuplets. 
 
 
 
@@ -4624,7 +4644,9 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 
 @c TODO: \paper block is identical in all of the below examples.
 @c Therefore, it should somehow be included rather than duplicated all
-@c the time.
+@c the time. --jr
+
+@c why not make identifiers in ly/engraver-init.ly? --hwn
 
 @item
 @code{1. Punctum}

@@ -463,6 +463,7 @@ ScoreContext = \translator {
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f
+	forbidBeamBreak = ##t
 	extraNatural = ##t
 	autoAccidentals = #'(Staff (same-octave . 0))
 	autoCautionaries = #'()  
