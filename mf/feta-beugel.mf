@@ -11,6 +11,16 @@ save code;
 code := 0;
 
 
+def abc_encode_int (expr i) =
+	if i > 0:
+		abc_encode_int(i div 26)&char(65 + i mod 26)
+	else:
+		"A"
+	fi
+enddef ;
+
+message (abc_encode_int (26));
+
 def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 
 	save pendir, height, width, thin, thick, slt;
@@ -19,8 +29,10 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 	width# := width_sharp;
 	slt# := slt_sharp;
 
-	beginchar(code, width#, height#/2, height#/2);
-	code := incr code;
+fet_beginchar("brace number "&(decimal code), "brace"&abc_encode_int(code),
+		"brace"&abc_encode_int (code))
+
+	set_char_box (0, width#, height#/2, height#/2);
 	  
 	define_pixels (height, width, slt);
 	thin = 2 slt;
@@ -44,7 +56,7 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 		.. z2l .. simple_serif (z1l, z1r, 90) ..cycle;
 
 	addto currentpicture also currentpicture yscaled -1;
-endchar;
+fet_endchar;
 enddef;
 
 
