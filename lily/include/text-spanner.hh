@@ -17,8 +17,6 @@ class Text_spanner
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
-private:
-  static void setup_pedal_bracket(Spanner *s);
 };
 
 #endif /* TEXT_SPANNER_HH */

@@ -377,9 +377,26 @@
 	(font-encoding . fetaDynamic)
 	(font-shape . italic)
 	(self-alignment-Y . 0)
-	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface script-interface item-interface))))
+	(meta . ((interfaces . (font-interface text-interface self-alignment-interface
+					       dynamic-interface script-interface item-interface))))
 	))
+    (DynamicTextSpanner
+     . ((print-function . ,Dynamic_text_spanner::print)
+	(font-series . bold) 
+	(font-shape . italic)
+	(style . dashed-line)
 
+	; need to blend with dynamic texts.
+	(font-size . 2)
+	(bound-padding . 0.75) 
+	(dash-fraction . 0.2)
+	(dash-period . 3.0)
+	(meta . ((interfaces . (font-interface
+				text-interface 
+				dynamic-interface dynamic-text-spanner-interface
+				item-interface))))
+	 ))
+    
     (DynamicLineSpanner
      . (
 	(axes . (1))
@@ -444,7 +461,7 @@
 	(height . 0.6666)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 2.0)
-	(if-text-padding . 1.0)
+	(bound-padding . 1.0)
 	(self-alignment-Y . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(meta . ((interfaces . (hairpin-interface line-interface self-alignment-interface dynamic-interface spanner-interface))))
@@ -776,7 +793,7 @@
      . (
 	(print-function . ,Piano_pedal_bracket::print)
 	(style . line)
-	(if-text-padding . 1.0)
+	(bound-padding . 1.0)
 	(direction . -1)
 	(bracket-flare . (0.5 . 0.5))
 	(edge-height . (1.0 . 1.0))
@@ -1115,9 +1132,6 @@
 	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.1)
-	
-	;; urg, only for (de)cresc. text spanners
-	(if-text-padding . 1.0)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(direction . 1)

@@ -1,4 +1,19 @@
+2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/dynamic-text-spanner.cc (print): new file.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add DynamicTextSpanner
+
+	* lily/engraver-group-engraver.cc (do_announces): reorder logic:
+	keep recursing into children in case a parent context inserts a
+	grob into a child context.
+
+	* lily/dynamic-engraver.cc (acknowledge_grob): add accidentals to
+	
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (postscript): new markup command
+	\postscript
 
 	* Documentation/user/notation.itely (Formatting cue notes): new
 	section.

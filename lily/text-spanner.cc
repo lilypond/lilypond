@@ -155,5 +155,5 @@ Text_spanner::print (SCM smob)
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
+	       "dash-period dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
 

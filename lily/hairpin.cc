@@ -35,13 +35,7 @@ Hairpin::print (SCM smob)
   
   Direction grow_dir = to_dir (s);
 
-
-  /* Ugh, must be same as Text_spanner::print.  */
-
-  /*
-    Ugh. property name is not general.
-   */
-  Real padding = ly_scm2double (me->get_property ("if-text-padding"));
+  Real padding = ly_scm2double (me->get_property ("bound-padding"));
  
   Drul_array<bool> broken;
   Drul_array<Item*> bounds ;
@@ -136,5 +130,5 @@ Hairpin::print (SCM smob)
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
   "A hairpin (de)crescendo.",
-  "grow-direction height if-text-padding");
+  "grow-direction height bound-padding");
 

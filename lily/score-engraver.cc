@@ -146,7 +146,7 @@ Score_engraver::one_time_step ()
   if (!to_boolean (get_property ("skipTypesetting")))
     {
       recurse_over_translators (context (), &Engraver::process_music, UP);
-      recurse_over_translators (context (), &Engraver::do_announces, UP);
+      Engraver_group_engraver::do_announces();
     }
   
   recurse_over_translators (context (), &Translator::stop_translation_timestep, UP);

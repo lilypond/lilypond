@@ -45,7 +45,6 @@ Text_spanner_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("text-span-event"))
     {
-
       Direction d = to_dir (m->get_property ("span-direction"));
       req_drul_[d] = m;
       return true;
@@ -61,8 +60,7 @@ Text_spanner_engraver::process_music ()
     {
       if (!span_)
 	{
-	  req_drul_[STOP]->origin ()->warning
- (_ ("can't find start of text spanner"));
+	  req_drul_[STOP]->origin ()->warning (_ ("can't find start of text spanner"));
 	}
       else
 	{

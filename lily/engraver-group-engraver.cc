@@ -78,21 +78,56 @@ Engraver_group_engraver::acknowledge_grobs ()
 }
 
 
+/*
+  Ugh. This is slightly expensive. We could/should cache the value of
+  the group count?
+ */
+int
+Engraver_group_engraver::pending_grob_count () const
+{
+  int count = announce_infos_.size ();
+  for (SCM s = context ()->children_contexts ();
+       ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      Context *c = unsmob_context (ly_car (s));
+      Engraver_group_engraver * group
+	=dynamic_cast<Engraver_group_engraver*> (c->implementation ());
+
+      if (group)
+	count += group->pending_grob_count (); 
+    }
+  return count; 
+}
+
 void
 Engraver_group_engraver::do_announces ()
 {
-  do
-    {
-      engraver_each (get_simple_trans_list (),
-		     &Engraver::process_acknowledged_grobs);
+  do {
+    for (SCM s = context ()->children_contexts ();
+	 ly_c_pair_p (s); s = ly_cdr (s))
+      {
+	Context *c = unsmob_context (ly_car (s));
+	Engraver_group_engraver * group
+	  = dynamic_cast<Engraver_group_engraver*> (c->implementation ());
+	if (group)
+	  group->do_announces ();
+      }
 
-      if (!announce_infos_.size ())
-	break;
+    do
+      {
+	engraver_each (get_simple_trans_list (),
+		       &Engraver::process_acknowledged_grobs);
 
-      acknowledge_grobs ();
-      announce_infos_.clear ();
-    }
-  while (1);
+      
+	if (announce_infos_.size () == 0)
+	  break;
+
+	acknowledge_grobs ();
+	announce_infos_.clear ();
+      }
+    while (1);
+
+  } while (pending_grob_count () > 0);
 }
 
 
