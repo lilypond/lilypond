@@ -1081,7 +1081,7 @@
 	(break-visibility . ,all-visible)
 	(space-alist . (
 			(first-note . (extra-space . 2.0))
-			(right-edge . (extra-space . 0.8))
+			(right-edge . (extra-space . 0.5))
 			(staff-bar .  (minimum-space . 2.0))
 			))
 	(breakable . #t)

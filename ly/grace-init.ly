@@ -2,9 +2,10 @@
 
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1
-    \property Voice.Stem \override #'length = #5.5
     \property Voice.Stem \override #'lengths = 
-        #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
+        #(map (lambda (x) (* 0.8 x)) '(2.5 2.5 3.0 4.0 5.0))
+    \property Voice.Stem \override #'stem-shorten = 
+        #'(0.4 0)
     \property Voice.Stem \override #'beamed-lengths =
         #(map (lambda (x) (* 0.8 x)) '(3.26))
     \property Voice.Stem \override #'beamed-minimum-free-lengths =
@@ -34,6 +35,9 @@ startGraceMusic = {
     \property Voice.Slur \override #'direction = #-1
 }
 
+
+%% attention: order is significant: reversed from above
+%% (consistent ordering reduces memory usage.)
 stopGraceMusic = {
     \property Voice.Slur \revert #'direction
     \property Staff.Accidental \revert #'font-relative-size
@@ -41,11 +45,11 @@ stopGraceMusic = {
 
     \property Voice.Stem \revert #'stroke-style
     \property Voice.Stem \revert #'no-stem-extend
-    \property Voice.Stem \revert #'beamed-lengths
-    \property Voice.Stem \revert #'beamed-minimum-free-lengths
     \property Voice.Stem \revert #'beamed-extreme-minimum-free-lengths
-    \property Voice.Stem \revert #'lengths    
-    \property Voice.Stem \revert #'length
+    \property Voice.Stem \revert #'beamed-minimum-free-lengths
+    \property Voice.Stem \revert #'beamed-lengths
+    \property Voice.Stem \revert #'stem-shorten
+    \property Voice.Stem \revert #'lengths
     \property Voice.Stem \revert #'direction    
     \property Voice.Beam \revert #'space-function
     
