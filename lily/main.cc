@@ -243,12 +243,24 @@ setup_paths ()
   }
 }
 
+#define TESTING_TFM
+#ifdef TESTING_TFM
+#include "tfm.hh"
+#endif
 
 void
 main_prog (int argc, char **argv)
 {
   default_outname_base_global = "lelie";
   all_fonts_global_p = new All_font_metrics (global_path.str ());
+
+#ifdef TESTING_TFM
+  Tex_font_metric tfm;
+  tfm.read_file ("cmr10.tfm");
+  String str = tfm.str ();
+  cout << str;
+  return;
+#endif
   
   int p=0;
   const char *arg ;

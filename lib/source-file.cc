@@ -25,6 +25,7 @@ Source_file::Source_file (String filename_str)
   name_str_ = filename_str;
   istream_p_ = 0;
   storage_p_ = new Simple_file_storage (filename_str);
+  pos_ch_C_ = ch_C ();
 }
 
 Source_file::Source_file (String name_str, String data_str)
@@ -32,6 +33,7 @@ Source_file::Source_file (String name_str, String data_str)
   name_str_ = name_str;
   istream_p_ = 0;
   storage_p_ = new String_storage (data_str);
+  pos_ch_C_ = ch_C ();
 }
 
 istream*
@@ -197,4 +199,47 @@ char const *
 Source_file::ch_C () const
 {
   return storage_p_->ch_C ();
+}
+
+void
+Source_file::set_pos (char const * pos_ch_C)
+{
+  if (in_b (pos_ch_C))
+    pos_ch_C_ = pos_ch_C;
+  else
+    error (error_str (pos_ch_C) + "invalid pos");
+}
+
+char const*
+Source_file::seek_ch_C (int n)
+{
+  char const* new_ch_C = ch_C () + n;
+  if (n < 0)
+    new_ch_C += length_i ();
+  if (in_b (new_ch_C))
+    pos_ch_C_ = new_ch_C;
+  else
+    error (error_str (new_ch_C) + "seek past eof");
+
+  return pos_ch_C_;
+}
+
+char const*
+Source_file::forward_ch_C (int n)
+{
+  char const* old_pos_C = pos_ch_C_;
+  char const* new_ch_C = pos_ch_C_ + n;
+  if (in_b (new_ch_C))
+    pos_ch_C_ = new_ch_C;
+  else
+    error (error_str (new_ch_C)  + "forward past eof");
+
+  return old_pos_C;
+}
+
+String
+Source_file::get_str (int n)
+{
+  String str ((Byte const*)forward_ch_C (n), n);
+  return str;
 }

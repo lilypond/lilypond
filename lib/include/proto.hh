@@ -13,8 +13,10 @@
 struct Duration;
 struct Duration_iterator;
 struct Source_file;
+struct Binary_source_file;
 struct Sources;
 struct File_storage;
 struct Mapped_file_storage;
 struct Simple_file_storage;
+
 #endif // PROTO_HH

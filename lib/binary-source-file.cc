@@ -27,20 +27,20 @@ Binary_source_file::~Binary_source_file ()
 }
 
 String
-Binary_source_file::error_str (char const* pos_ch_c_l) const
+Binary_source_file::error_str (char const* pos_ch_C) const
 {
     assert (this);
-    if (!in_b (pos_ch_c_l))
+    if (!in_b (pos_ch_C))
 	return "";
 
-    char const* begin_ch_c_l = pos_ch_c_l - 8 >? ch_C ();
-    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_C () + length_i ();
+    char const* begin_ch_C = pos_ch_C - 8 >? ch_C ();
+    char const* end_ch_C = pos_ch_C + 7 <? ch_C () + length_i ();
 
-    String pre_str ((Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l);
+    String pre_str ((Byte const*)begin_ch_C, pos_ch_C - begin_ch_C);
     pre_str = String_convert::bin2hex_str (pre_str);
     for (int i = 2; i < pre_str.length_i (); i += 3)
 	pre_str = pre_str.left_str (i) + " " + pre_str.cut_str (i, INT_MAX);
-    String post_str ((Byte const*)pos_ch_c_l, end_ch_c_l - pos_ch_c_l);
+    String post_str ((Byte const*)pos_ch_C, end_ch_C - pos_ch_C);
     post_str = String_convert::bin2hex_str (post_str);
     for (int i = 2; i < post_str.length_i (); i += 3)
 	post_str = post_str.left_str (i) + " " + post_str.cut_str (i, INT_MAX);
@@ -53,11 +53,11 @@ Binary_source_file::error_str (char const* pos_ch_c_l) const
 }
 
 int
-Binary_source_file::line_i (char const* pos_ch_c_l) const
+Binary_source_file::line_i (char const* pos_ch_C) const
 {
-    if (!in_b (pos_ch_c_l))
+    if (!in_b (pos_ch_C))
     	return 0;
 
-    return pos_ch_c_l - ch_C ();
+    return pos_ch_C - ch_C ();
 }
 

@@ -232,8 +232,6 @@ struct Symtables;
 struct Super_element;
 struct Translation_property;
 struct Tempo_req;
-struct Tex_font_metric;
-struct Tex_font_char_metric;
 struct Text_def;
 struct Text_gob;
 struct Text_item ;
