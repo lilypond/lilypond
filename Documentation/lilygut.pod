@@ -47,79 +47,6 @@ Very simple, just walk all Line_of_* and follow the links over there
 
 =back
 
-=head1 REQUESTS
-
-[see F<request.hh>]
-
-Any Voice_element can do a number of requests. A request is done
-to the C<Staff> which contains the C<Voice_element>. The staff decides
-whether to to honor the request, ignore it, or merge it with other
-requests. Merging of requests is preferably done with other
-requests done by members of the same voicegroups (beams, brackets, stems) 
-
-Please refer to the documentation of the Child classes of
-C<Request> for explanation of each request type.
-
-The result of a request will be an C<Item> or a C<Spanner>, which
-will be put on a C<PStaff>. Note that the C<PStaff> and the original
-C<Staff> need not have anything in common. For example, the
-``double'' piano Staff could interpret commands which juggle
-melodies across the left and right hand, and may put the result in
-two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
-signs and any lyric.
-
-The class C<Staff> should be thought as a container for the
-C<Voice>s, and an interpreter for C<Request>s and C<Command>s.
-Different staffs can produce different outputs; a melodious voice
-which is put into a percussion-Staff, will be typeset as the rythm of
-that voice.
-
-After C<Staff> made up her mind, the resultant items and
-spanners are put on the PScore.
-
-=over 5
-
-=item C<Barcheck_req>
-
-Checks during music processing if start of this voice element
-coincides with the start of a measure. Handy to check if you left out
-some voice elts.
-
-=item C<Note_req>
-
-Staff has to decide if the ball should be hanging left or right. This
-influences the horizontal dimensions of a column, and this  is why
-request processing should be done before horizontal spacing.
-
-Other voices' frivolities may cause the need for accidentals, so this
-is also for the  C<Staff> to decide. The  C<Staff> can decide on positioning
-based on ottava commands and the appropriate clef.
-
-=item C<Rest_req>
-
-Why a request? It might be a good idea to not typeset the rest, if the
-paper is too crowded.
-
-=item C<Span_req>
-
-This type of request typically results in the creation of a C<Spanner>
-
-=item C<Beam_req>
-
-Staff has to combine this request with the stem_request, since the
-number of flags that a stem wants to carry will determine the
-number of beams.
-
-=item  C<Dynamic>
-
-Each dynamic is bound to one note (a crescendo spanning multiple
-notes is thought to be made of two "dynamics": a start and a stop).
-Dynamic changes can occur in a smaller time than the length of its
-note, therefore fore each  C<Dynamic> request carries a time, measured
-from the start of its note.
-
-This subfield would come in handy, if LilyPond  was adapted for midi
-support.
 
 =back
 
@@ -130,10 +57,10 @@ this only solves one half of the problem. The other half is
 deciding which requests should be honored, which should merged with
 other requests, and which should be ignored. Consider this (pseudo)input
 
-	{ % chord
+	< % chord
 		\music { [c() c] }
 		\music { [e() e] }
-	}
+	>
 
 Both the c and e are part of a chord (they are in the same
 Voice_group), so they should share the beams, and the two [ ] pairs
