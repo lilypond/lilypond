@@ -1,5 +1,7 @@
 2004-03-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/new-markup.scm (stack-stencil-line): robustness.
+
 	* scm/define-markup-commands.scm (simple): robustification of
 	simple-markup.
 

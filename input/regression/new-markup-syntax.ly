@@ -20,6 +20,9 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 			\char #53
 		}
 		\semiflat
+
+		{ }
+		
 		\combine "X" "+"   
 		\combine "o" "/"
 %		\char-number #"abc1234abc"
