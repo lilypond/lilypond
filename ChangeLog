@@ -1,3 +1,15 @@
+2003-01-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/cluster-engraver.cc: clean up Cluster engraver
+
+	* lily/cluster.cc (brew_molecule): cleaned up Cluster code and
+	Engraver. Use Note_column to compute Y positions and deal with
+	line break stuff.
+
+2003-01-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc: move french-beaming to stem.
+
 2003-01-13  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: fontify all durations in chords.
@@ -5,6 +17,8 @@
 	* lilypond.words: add from lily/my-lily-lexer.cc
 
 2003-01-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/vaticana-ligature-engraver.cc (finish_primitive): compile fixes.
 
 	* lily/gregorian-ligature.cc: new file
 

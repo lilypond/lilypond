@@ -11,12 +11,9 @@ octavation. "
 
     %% todo: should put something interesting in the .tex output.
     
-    \applycontext #(lambda (tr)
-		    (let* ((bn (ly:get-context-property tr 'currentBarNumber)))
-		     (if (= bn  3)
-		      #t
-		      (format #t "We were called in  ~a" bn))
-		 ))
-
+    \applycontext
+	#(lambda (tr)
+	 (format #t "\nWe were called in barnumber ~a.\n"
+	  (ly:get-context-property tr 'currentBarNumber)))
     c1 c1
 }}

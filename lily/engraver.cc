@@ -20,6 +20,10 @@ Engraver::announce_grob (Grob_info inf)
   get_daddy_grav ()->announce_grob (inf);
 }
 
+/*
+  CAUSE is the object (typically a Music object)  that
+  was the reason for making E.
+ */
 void
 Engraver::announce_grob (Grob* e, SCM cause)
 {
