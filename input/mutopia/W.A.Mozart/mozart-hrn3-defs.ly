@@ -53,6 +53,11 @@ stopGraceMusic= \sequential {
     % #(define fonts my-sheet)
     #(define page-breaking ly:optimal-page-breaks)
 
+    % stress page breaking on a6 paper:
+    % linewidth = 80 \mm
+    % hsize = 105 \mm
+    % vsize = 149 \mm
+    
     indent = 10. \mm
     linewidth = 189. \mm
 
