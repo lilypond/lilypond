@@ -1,11 +1,20 @@
 #!/bin/sh
-echo '#ifndef VERSION_HH'
-echo '#define VERSION_HH'
-echo '#define MAJOR_VERSION ' "$1"
-echo '#define MINOR_VERSION ' "$2"
-echo '#define PATCH_LEVEL ' "$3"
-echo '#define MY_PATCH_LEVEL ' "$4"
-echo '#define BUILD ' "$5"
-echo '#define VERSIONSTR "'$1.$2.$3$4 \#$5'"'
-echo '#define COMPILER "'$6'"'
-echo '#endif'
+
+#shift;
+if test "x$1" = x;
+then
+    versionfile=".version"
+else
+    versionfile=$1;
+fi
+
+cat $versionfile| sed 's/#.*$//g'|sed 's/\([^ ]*\)[\t ]*=[ \t]*\([^ ]*\)$/#define \1 \"\2\"/g' 
+echo
+if [ -z $CXX ]
+then
+    COMPILER=unknown
+else
+    COMPILER="$CXX `$CXX --version`"
+fi
+
+echo "#define COMPILER "\"$COMPILER\"
