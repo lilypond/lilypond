@@ -18,6 +18,7 @@
 	>
 	\paper {
 		linewidth = 120.0\mm;
+		\translator { \VoiceContext  }
 	}
 }
 
