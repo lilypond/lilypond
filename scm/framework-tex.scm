@@ -80,8 +80,7 @@
   (display
    (format (_ "Writing header field `~a' to `~a'...")
 	   key
-	   (if (equal? "-" fn) "<stdout>" fn)
-	   (current-error-port))
+	   (if (equal? "-" fn) "<stdout>" fn))
    (current-error-port))
   (if (equal? fn "-")
       (display val)
