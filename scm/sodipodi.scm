@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2002 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2002 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; NOTE:
 ;;;;
@@ -12,6 +12,7 @@
 ;;;;
 ;;;; * Link/copy mf/out/private-fonts to ~/.sodipodi/private-fonts 
 
+;;;; http://www.w3.org/TR/SVG11/paths.html
 
 
 (debug-enable 'backtrace)
@@ -138,20 +139,16 @@
        ""
        (string-append ","  (numbers->string (cdr l))))))
 
-(define (svg-bezier l)
+(define (svg-bezier l close)
   (let* ((c0 (car (list-tail l 3)))
 	 (c123 (list-head l 3)))
     (string-append
-     "M " (control->string c0)
-     "C " (apply string-append (map control->string c123)))))
+     (if (not close) "M " "L ")
+     (control->string c0)
+     "C " (apply string-append (map control->string c123))
+     (if (not close) "" (string-append
+			 "L " (control->string close))))));; " Z")))))
 
-;; URG
-(define (svg-close l)
-  (let* ((c0 (car (list-tail l 3))))
-    (string-append
-     "M " (control->string c0))))
-	 
-	 
 (define xml-header
 "<?xml version='1.0' standalone='no'?>
 <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 20010904//EN'
@@ -207,20 +204,41 @@
 				 output-scale output-scale)))))
 
 ;; TODO: bezier-ending, see ps.scm
-(define (bezier-bow l thick)
-  (bezier-sandwich l thick))
+(define (bezier-bow urg-l thick)
+  
+  (define (bezier-ending z0 z1 z2)
+    (let ((x0 (car z0))
+	  (y0 (cdr z0))
+	  (x1 (car z1))
+	  (y1 (cdr z1))
+	  (x2 (car z2))
+	  (y2 (cdr z2)))
+      (let ((r (/ (sqrt (+ (* (- x1 x2) (- x1 x2))
+			  (* (- y1 y2) (- y1 y2)))) 2)))
+      (tagify "circle" ""
+	      `(fill . "#000000;")
+	      `(cx . ,(number->string (* output-scale x0)))
+	      `(cy . ,(number->string (* output-scale (- 0 y0))))
+	      `(r . ,(number->string (* output-scale r)))))))
+  
+  (let ((l (eval urg-l this-module)))
+    (string-append
+     (bezier-sandwich l thick)
+     (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
+     (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5)))))
 
 (define (bezier-sandwich l thick)
-  (let* ((urg (eval l this-module))
-	 (first (list-tail urg 4))
-	 (second (list-head urg 4)))
+  (let* (;;(l (eval urg-l this-module))
+	 (first (list-tail l 4))
+	 (first-c0 (car (list-tail first 3)))
+	 (second (list-head l 4)))
     (tagify "path" ""
-	    `(style . ,(format #f "stroke-width:~f;" line-thickness))
+	    `(stroke . "#000000")
+	    `(stroke-width . ,(number->string line-thickness))
 	    `(transform . ,(format #f "scale (~f,~f)"
 				   output-scale output-scale))
-	    `(d . ,(string-append (svg-bezier first)
-				  (svg-bezier second)
-				  (svg-close first))))))
+	    `(d . ,(string-append (svg-bezier first #f)
+				  (svg-bezier second first-c0))))))
   
 (define (char i)
   (if #t

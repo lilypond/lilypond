@@ -52,13 +52,12 @@
        " "
        (numbers->string
 	(list x0 y0
-	      (/ (sqrt (+ (* (- x1 x2) (- x1 x2)) (* (- y1 y2) (- y1 y2)))) 2)))
+	      (/ (sqrt (+ (* (- x1 x2) (- x1 x2))
+			  (* (- y1 y2) (- y1 y2)))) 2)))
        " draw_dot")))
-  
-  (string-append 
-   (apply string-append (map number-pair->string l))
-   (ly:number->string thick)
-   " draw_bezier_sandwich "
+
+  (string-append
+   (bezier-sandwich l thick)
    (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
    (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
 
