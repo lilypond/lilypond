@@ -22,7 +22,7 @@
 	 (vsize (ly:output-def-lookup paper 'vsize))
 	 (page-width (inexact->exact (ceiling (* output-scale hsize))))
 	 (page-height (inexact->exact (ceiling (* output-scale vsize))))
-	 (page-set? (> page-count 1)))
+	 (page-set? (or (> page-count 1) landscape?)))
     
    (ly:outputter-dump-string
     outputter
@@ -56,14 +56,17 @@
     (ec 'svg)))))
 
 (define (dump-page outputter page page-number page-count landscape? page-set?)
-  ;; FIXME:landscape
   (ly:outputter-dump-string
    outputter (comment (format #f "Page: ~S/~S" page-number page-count)))
-  (if page-set? (ly:outputter-dump-string outputter (eo 'page)))
+  (if (or landscape? page-set?)
+      (ly:outputter-dump-string
+       outputter
+       (if landscape? (eo 'page '(page-orientation . "270")) (eo 'page))))
   (ly:outputter-dump-string outputter (string-append (eo 'g)))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter (string-append (ec 'g)))
-  (if page-set? (ly:outputter-dump-string outputter (ec 'page))))
+  (if (or landscape? page-set?)
+      (ly:outputter-dump-string outputter (ec 'page))))
 
 (define (embed-font string)
   (let ((start (string-contains string "<defs>"))
