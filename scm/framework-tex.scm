@@ -260,15 +260,11 @@
 
 
 (define-public (convert-to-pdf book name)
-  (let*
-      ((defs (ly:paper-book-paper book))
-       (size (ly:output-def-lookup defs 'papersize)))
+  (let* ((defs (ly:paper-book-paper book))
+	 (size (ly:output-def-lookup defs 'papersize)))
 
     (postscript->pdf (if (string? size) size "a4")
-		     (string-append
-		      (basename name ".tex")
-		      ".ps")
-		     )))
+		     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
   (let*
@@ -277,8 +273,7 @@
 
     (postscript->png
      (if (number? resolution) resolution 90)
-     (string-append (basename name ".tex") ".ps")
-     )))
+     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
