@@ -16,6 +16,10 @@
 
 2003-01-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/ossia.ly (texidoc): add comment.
+
+	* input/regression/voice-follower.ly: new file.
+
 	* mf/feta-toevallig.mf: make flat heavier.
 
 	* lily/cluster-engraver.cc: clean up Cluster engraver
