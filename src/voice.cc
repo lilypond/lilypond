@@ -18,7 +18,7 @@ Voice::Voice()
 void
 Voice::add(Voice_element*v)
 {
-    v->voice_ = this;
+    v->voice_l_ = this;
     elts.bottom().add(v);
 }
 
@@ -59,9 +59,10 @@ void
 Voice_element::add(Request*r)
 {
     if (r->rhythmic()) {
-	assert (!duration);	    
+	assert (!duration  || duration == r->duration());	    
 	duration = r->duration();
     }
+    
     r->elt_l_ = this;
     reqs.bottom().add(r);
 }
@@ -69,15 +70,15 @@ Voice_element::add(Request*r)
 
 Voice_element::Voice_element()
 {
-    voice_ = 0;
-    group = 0;
+    voice_l_ = 0;
+//    group = 0;
     duration = 0.0;
 }
 
 Voice_element::Voice_element(Voice_element const&src)
 {
-    voice_=src.voice_;
+    voice_l_=0;
     for (iter_top(src.reqs, i); i.ok(); i++)
 	add(i->clone());
-    group=src.group;
+//    group=src.group;
 }
