@@ -234,7 +234,7 @@ Beam::connect_beams (Grob *me)
       SCM this_beaming = this_stem->get_grob_property ("beaming");
 
       Direction this_dir = Directional_element_interface::get(this_stem);
-      if (i > 0)
+      if (gh_pair_p (last_beaming) && gh_pair_p (this_beaming))
 	{
 	  int start_point = position_with_maximal_common_beams
 	    (last_beaming, this_beaming,
