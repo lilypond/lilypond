@@ -504,7 +504,7 @@ the mark when there are no spanners active."
 	 (context (ly:run-translator (context-spec-music mus 'Voice)
 				     part-combine-listener))
 	 (first-voice-handle (last-pair noticed)))
-
+q
     ;; (display (last-pair noticed))
     (if (pair? first-voice-handle)
 	(hash-set! tab name

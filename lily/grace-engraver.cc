@@ -65,7 +65,7 @@ Grace_engraver::start_translation_timestep ()
 	  SCM context_name = scm_car (entry);
 	  SCM grob = scm_cadr (entry);
 	  SCM sym = scm_caddr (entry);
-	  SCM val = scm_cadddr (entry);
+	  SCM val = scm_cadr (scm_cddr (entry));
 
 	  Context *c = context ();
 	  while (c  
