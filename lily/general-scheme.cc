@@ -7,8 +7,13 @@
                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>   /* isinf */
+#include "config.hh"
 
+#include <math.h>   /* isinf */
+#include <stdio.h>
+#include <libintl.h> 		// gettext on macos x
+
+#include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "string.hh"
 #include "misc.hh"
@@ -115,10 +120,10 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	  r = 0.0;
 	}
 
-      sprintf (str, "%08.4f", r);
+      snprintf (str, sizeof (str), "%08.4f", r);
     }
   else
-    sprintf (str, "%d", scm_to_int (s));
+    snprintf (str, sizeof (str), "%d", scm_to_int (s));
 
   return scm_makfrom0str (str);
 }

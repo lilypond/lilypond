@@ -29,6 +29,7 @@ $(outdir)/lily-parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 
+$(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/kpath.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
