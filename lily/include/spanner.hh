@@ -68,4 +68,5 @@ protected:
 void add_bound_item (Spanner*, Grob*);
 ///DECLARE_UNSMOB (Spanner, spanner);
 
+int broken_spanner_index (Spanner * sp);
 #endif

@@ -160,32 +160,26 @@ Line_spanner::get_broken_offset (Grob *me, Direction dir)
   return Offset ();
 }
 
+/* A broken line-spaner should maintain the same vertical trend
+   the unbroken line-spanner would have had.
+   From slur */
 Offset
 Line_spanner::broken_trend_offset (Grob *me, Direction dir)
 {
-  /* A broken line-spaner should maintain the same vertical trend
-     the unbroken line-spanner would have had.
-     From slur */
   Offset o;
+  
   if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
     {
-      for (int i = dir == LEFT ? 0 : mother->broken_intos_.size () - 1;
-	   dir == LEFT ? i < mother->broken_intos_.size () : i > 0;
-	   dir == LEFT ? i++ : i--)
-	{
-	  if (mother->broken_intos_[i - dir] == me)
-	    {
-	      Grob *neighbour = mother->broken_intos_[i];
-	      Offset neighbour_o = get_broken_offset (neighbour, dir);
-	      Offset me_o = get_broken_offset (me, -dir);
-	      // Hmm, why not return me_o[X], but recalc in brew_mol?
-	      o = Offset (0,
- (neighbour_o[Y_AXIS]*me_o[X_AXIS]
-			   - me_o[Y_AXIS]*neighbour_o[X_AXIS]) * dir /
- (me_o[X_AXIS] + neighbour_o[X_AXIS]));
-	      break;
-	    }
-	}
+      int k = broken_spanner_index (dynamic_cast<Spanner*> (me));
+      Grob *neighbour = mother->broken_intos_[k + dir];      
+      Offset neighbour_o = get_broken_offset (neighbour, dir);
+      Offset me_o = get_broken_offset (me, -dir);
+
+      // Hmm, why not return me_o[X], but recalc in brew_mol?
+      o = Offset (0,
+		  (neighbour_o[Y_AXIS]*me_o[X_AXIS]
+		   - me_o[Y_AXIS]*neighbour_o[X_AXIS]) * dir /
+		  (me_o[X_AXIS] + neighbour_o[X_AXIS]));
     }
   return o;
 }
@@ -207,14 +201,9 @@ Line_spanner::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
 
   Spanner *spanner = dynamic_cast<Spanner*> (me);
-  Item* bound_drul[] = {
-    spanner->get_bound (LEFT),
-    0,
-    spanner->get_bound (RIGHT)
-  };
+  Drul_array<Item*>  bound (spanner->get_bound (LEFT),
+			    spanner->get_bound (RIGHT));
   
-  Item** bound = bound_drul + 1;
-
   Grob *common[] = { me, me };
   for (int a = X_AXIS;  a < NO_AXES; a++)
     {
@@ -229,12 +218,12 @@ Line_spanner::brew_molecule (SCM smob)
     }
   
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
-  Real dist; /*distance between points */
 
   Offset ofxy (gap, 0); /*offset from start point to start of line*/
   Offset dxy ;
   Offset my_off;
   Offset his_off;
+
 
   
   if (bound[LEFT]->break_status_dir () || bound[RIGHT]->break_status_dir ())

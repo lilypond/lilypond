@@ -218,7 +218,7 @@ Slur::set_extremities (Grob *me)
 
 
 Real
-Slur::get_first_notecolumn_y (Grob *me, Direction dir)
+Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_grob_property ("note-columns");
 
@@ -261,25 +261,17 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
   Offset o;
   if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
     {
-      for (int i = dir == LEFT ? 0 : mother->broken_intos_.size () - 1;
-	   dir == LEFT ? i < mother->broken_intos_.size () : i > 0;
-	   dir == LEFT ? i++ : i--)
-	{
-	  if (mother->broken_intos_[i - dir] == me)
-	    {
-	      Grob *neighbour = mother->broken_intos_[i];
-	      if (dir == RIGHT)
-		neighbour->set_grob_property ("direction",
-					     me->get_grob_property ("direction"));
-	      Real neighbour_y = get_first_notecolumn_y (neighbour, dir);
-	      Real y = get_first_notecolumn_y (me, -dir);
-	      int neighbour_cols = scm_ilength (neighbour->get_grob_property ("note-columns"));
-	      int cols = scm_ilength (me->get_grob_property ("note-columns"));
-	      o = Offset (0, (y*neighbour_cols + neighbour_y*cols) /
- (cols + neighbour_cols));
-	      break;
-	    }
-	}
+      int k = broken_spanner_index (dynamic_cast<Spanner*> (me));
+      Grob *neighbour = mother->broken_intos_[k + dir];      
+      if (dir == RIGHT)
+	neighbour->set_grob_property ("direction",
+				      me->get_grob_property ("direction"));
+      Real neighbour_y = get_boundary_notecolumn_y (neighbour, dir);
+      Real y = get_boundary_notecolumn_y (me, -dir);
+      int neighbour_cols = scm_ilength (neighbour->get_grob_property ("note-columns"));
+      int cols = scm_ilength (me->get_grob_property ("note-columns"));
+      o = Offset (0, (y*neighbour_cols + neighbour_y*cols) /
+		  (cols + neighbour_cols));
     }
   return o;
 }
@@ -288,6 +280,8 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
   COMMON is size-2 array with common refpoints.
 
 UGH: this routine delivers offsets which are *not* relative to COMMON.
+
+UGH,  we should take COMMON-Y as argument.
 */ 
 Offset
 Slur::get_attachment (Grob *me, Direction dir,

@@ -343,6 +343,17 @@ Spanner::set_spacing_rods (SCM smob)
 }
 
 
+/*
+  Return I such that SP == SP->ORIGINAL_->BROKEN_INTOS_[I]. 
+ */
+int
+broken_spanner_index (Spanner * sp)
+{
+  Spanner * parent = dynamic_cast<Spanner*> (sp->original_);
+  return parent->broken_intos_.find_index (sp);
+}
+		      
+
 Spanner*
 unsmob_spanner (SCM s )
 {

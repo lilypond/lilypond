@@ -1,3 +1,10 @@
+2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/slur.cc (get_boundary_notecolumn_y): change name from
+	get_first_notecolumn_y
+
+	* lily/spanner.cc (broken_spanner_index): new function.
+
 2003-06-19  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/ beam-damp.ly grace-end.ly lyric-extender.ly
