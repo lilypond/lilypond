@@ -1979,9 +1979,9 @@ using @code{^} and @code{_}.
         c''-\prallprall         c''-\prallmordent       c''-\upprall
         c''-\downprall          c''-\upmordent          c''-\downmordent
         c''-\pralldown          c''-\prallup            c''-\lineprall
-        c''-\shortfermata       c''-\fermata            c''-\longfermata
-        c''-\verylongfermata    c''-\segno              c''-\coda
-        c''-\varcoda
+        c''-\signumcongruentiae c''-\shortfermata       c''-\fermata
+        c''-\longfermata        c''-\verylongfermata    c''-\segno
+        c''-\coda               c''-\varcoda
       }
       \context Lyrics \lyrics {
         accent__                marcato__               staccatissimo__
@@ -1993,10 +1993,10 @@ using @code{^} and @code{_}.
         trill__                 prall__                 mordent__
         prallprall__            prallmordent__          uprall__
         downprall__             upmordent__             downmordent__
-        pralldown__             prallup__               lineprall__            
-        shortfermata__          fermata__               longfermata__
-        verylongfermata__       segno__                 coda__
-        varcoda__
+        pralldown__             prallup__               lineprall__
+        signumcongruentiae__    shortfermata__          fermata__
+        longfermata__           verylongfermata__       segno__
+        coda__                  varcoda__
       }
     >
     \paper {

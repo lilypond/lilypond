@@ -8,7 +8,7 @@
 
 fet_begingroup ("scripts")
 
-def draw_fermata =
+def draw_signum_congruentiae =
 	save za, zb, zc, zd, ze, zf, zg, zh;
 	pair za, zb, zc, zd, ze, zf, zg, zh;
 
@@ -34,13 +34,15 @@ def draw_fermata =
 	drawdot zh;
 enddef;
 
-fet_beginchar("fermata up", "ufermata", "ufermata")
-	draw_fermata;	
+fet_beginchar("signum congruentiae up",
+	      "usignumcongruentiae", "usignumcongruentiae")
+	draw_signum_congruentiae;
 fet_endchar;
 
-fet_beginchar("fermata down", "dfermata", "dfermata")
-	draw_fermata;
-	y_mirror_char;
+fet_beginchar("signum congruentiae down",
+	      "dsignum_congruentiae", "dsignumcongruentiae")
+	draw_signum_congruentiae;
+	xy_mirror_char;
 fet_endchar;
 
 fet_endgroup ("scripts")
