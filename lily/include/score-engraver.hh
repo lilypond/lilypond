@@ -45,16 +45,15 @@ protected:
 
 protected:
   /* Engraver_group_engraver interface */
+  virtual void acknowledge_grob (Grob_info);
 
   virtual bool try_music (Music*);
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);
-  virtual void do_announces ();
   virtual void typeset_grob (Grob*elem_p);
 
   virtual void stop_translation_timestep ();
-
 };
 
 #endif // SCORE_GRAV_HH

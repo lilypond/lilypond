@@ -132,6 +132,16 @@ class LatexPaper:
 		self.m_geo_x_marginparsep = None
 		self.__body = None
 	def set_geo_option(self, name, value):
+
+		if type(value) == type(""):
+			m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
+			if m:
+				unit = m.group (2)
+				num = string.atof(m.group (1))
+				conv =  dimension_conversion_dict[m.group(2)]
+
+				value = conv(num)
+
 		if name == 'body' or name == 'text':
 			if type(value) == type(""):
 				self.m_geo_textwidth =  value
@@ -307,6 +317,7 @@ def pt2pt(x):
 
 dimension_conversion_dict ={
 	'mm': mm2pt,
+	'cm': lambda x: mm2pt(10*x),
 	'in': in2pt,
 	'em': em2pt,
 	'ex': ex2pt,
@@ -614,7 +625,7 @@ def scan_latex_preamble(chunks):
 			idx = idx + 1
 			continue
 		m = get_re ('header').match(chunks[idx][1])
-		if m.group (1):
+		if m <> None and m.group (1):
 			options = re.split (',[\n \t]*', m.group(1)[1:-1])
 		else:
 			options = []
@@ -628,8 +639,8 @@ def scan_latex_preamble(chunks):
 				m = re.match("(\d\d)pt", o)
 				if m:
 					paperguru.m_fontsize = int(m.group(1))
-			
 		break
+	
 	while chunks[idx][0] != 'preamble-end':
 		if chunks[idx] == 'ignore':
 			idx = idx + 1

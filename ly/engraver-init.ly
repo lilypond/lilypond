@@ -324,6 +324,7 @@ ScoreContext = \translator {
 	\name Score
 	
 	\consists "Repeat_acknowledge_engraver"
+	\consists "Staff_collecting_engraver"
 	\consists "Timing_engraver"
 	\consists "Output_property_engraver"
 	\consists "System_start_delimiter_engraver"
@@ -382,6 +383,10 @@ ScoreContext = \translator {
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f
+	extraNatural = ##t
+	autoAccidentals = #'((measure-same-octave . 0))
+	autoCautionaries = #'()  
+
 
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)

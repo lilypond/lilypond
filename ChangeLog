@@ -1,3 +1,68 @@
+2001-12-14  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (LatexPaper.set_geo_option):
+	Convert strings with dimensions to numbers.
+
+	* lily/volta-engraver.cc:  only make a  bracket for the top staff,
+	as found in stavesFound. 
+
+	* lily/bar-number-engraver.cc: remove staff administration. 
+
+	* lily/mark-engraver.cc (acknowledge_grob): remove staff
+	administration. This breaks support for invisible-staff.
+
+	* lily/staff-collecting-engraver.cc: new engraver. Collects staff
+	symbols into stavesFound.
+
+	* lily/score-engraver.cc (acknowledge_grob): Acknowledge spacing
+	grobs, and put them into columns.
+
+	* lily/engraver-group-engraver.cc (acknowledge_grobs): Include the
+	Engraver_group_engraver as a potential candidate for ack'ing grobs.
+
+2001-12-13  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-command-next-midi): Play next (or last)
+	midi section in the Emacs-mode, so it is possible to play certain
+	score in a multiscore lilypond-file.
+	 
+2001-12-09  Rune Zedeler  <rune@zedeler.dk>
+	* lily/lily-guile.cc: Added ly_assoc_front_x() and ly_assoc_cdr()
+	(FIXME: not accessible from guile)
+	
+	* lily/accidental-engraver.cc: rewrote accidental-routines to get
+	better support for Kurt Stone's suggestions.
+	Removed properties: noResetKey, forgetAccidentals, autoReminders,
+	                    lazyKeySignature.
+	Changed property:   localKeySignature.
+	Added properties:   extraNatural, autoAccidentals,
+	                    autoCautionaries.
+	(BUGFIX: broken-tie-support destroyed in 1.5.16)
+	
+	* ly/property-init.ly: added commands
+	\defaultAccidentals \modernAccidentals \modernCautionaries
+	\noResetKey \forgetAccidentals
+
+	* ly/engraver-init.ly: Correct initialization of new accidentals.
+	
+	* scm/translator-property-description.scm: The new properties
+	added.
+	
+	* input/: Some examples added, some changed.
+	
+	* Documentation/regression-test.tely: Added quick test of new
+	accidentals.
+
+2001-12-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (scan_latex_preamble): don't crash if
+	header not found
+
+2001-12-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (before_line_breaking): Make beams  without stems
+	or with only one stem disappear.
+
 2001-12-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* bibtools/bib2html.py: Add simple bib2html convertor, and .bst

@@ -15,7 +15,6 @@
 #include "lily-guile.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
-
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
@@ -38,7 +37,6 @@ protected:
   void create_items (Request*);
   virtual bool try_music (Music *req_l);
   virtual void start_translation_timestep ();
-  virtual void initialize ();
   virtual void process_music ();
   
 private:
@@ -56,33 +54,10 @@ Mark_engraver::Mark_engraver ()
 }
 
 void
-Mark_engraver::initialize ()
-{
-  daddy_trans_l_->set_property ("stavesFound", SCM_EOL); // ugh: sharing with barnumber grav.
-}
-
-
-
-
-/*
-
-which grobs carry INVISIBLE-STAFF ?
-
-*/
-
-void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
   Grob * s = inf.grob_l_;
-  if (Staff_symbol::has_interface (s)
-      || to_boolean (s->get_grob_property ("invisible-staff")))
-    {
-      SCM sts = get_property ("stavesFound");
-      SCM thisstaff = inf.grob_l_->self_scm ();
-      if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
-	daddy_trans_l_->set_property ("stavesFound", gh_cons (thisstaff, sts));
-    }
-  else if (text_p_ && Bar::has_interface (s))
+ if (text_p_ && Bar::has_interface (s))
     {
       /*
 	Ugh. Figure out how to do this right at beginning of line, (without
@@ -218,6 +193,6 @@ Mark_engraver::process_music ()
 ENTER_DESCRIPTION(Mark_engraver,
 /* descr */       "",
 /* creats*/       "RehearsalMark",
-/* acks  */       "grob-interface", 
+/* acks  */       "bar-line-interface", 
 /* reads */       "rehearsalMark stavesFound",
 /* write */       "");
