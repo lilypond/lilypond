@@ -26,7 +26,7 @@ extern String default_out_fn;
 void
 Score::setup_music()
 {
-    *mlog << "\nSetting up music ..." << flush;
+    *mlog << "\nSetting up requests..." << flush;
     
     Pulk_voices pulk(staffs_); 
 
@@ -60,7 +60,7 @@ Score::setup_music()
 void
 Score::process_music()
 {
-    *mlog << "Processing music ..." << flush;
+    *mlog << "Processing requests ..." << flush;
     for (Score_walker w(this); w.ok(); w++) {
 	w.process();
    }
