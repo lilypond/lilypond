@@ -100,6 +100,11 @@ with the perl's Plain Old Documentation. (I use 5.003)
 
 =item *
 
+Python.  Although perl is nice, python is better.  We will shift
+towards python for build scripts
+
+=item *
+
 GNU find
 
 =item *
