@@ -93,8 +93,10 @@ Ottava_bracket::print (SCM smob)
 	}
 
       if (ext.is_empty ())
-	ext = Interval (0,0);
-      
+	{
+	  Real x = b->relative_coordinate (common, X_AXIS);
+	  ext = Interval (x,x);
+	}
       span_points[d] =  (broken [d]) ? b->extent (common, X_AXIS)[-d] : ext[d];
 
       if (broken[d])
