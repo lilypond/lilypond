@@ -75,7 +75,8 @@ Morten Welinder <terra@diku.dk> September 1999.
 #include <math.h>
 #include <string.h>
 #include "parse-afm.hh"
- 
+#include "warn.hh"
+
 #define lineterm EOL	/* line terminating character */
 #define lineterm_alt '\r' /* alternative line terminating character */
 #define normalEOF 1	/* return code from parsing routines used only */
@@ -158,28 +159,28 @@ static char *keyStrings[] = {
  
 static char *token (FILE *stream)
 {
-    int ch, idx;
+  int ch, idx;
 
-    /* skip over white space */
-    while ((ch = fgetc (stream)) == ' ' || ch == lineterm ||
-	    ch == lineterm_alt ||
-            ch == ',' || ch == '\t' || ch == ';');
+  /* skip over white space */
+  while ((ch = fgetc (stream)) == ' ' || ch == lineterm ||
+	 ch == lineterm_alt ||
+	 ch == ',' || ch == '\t' || ch == ';');
     
-    idx = 0;
-    while (idx < MAX_NAME - 1 &&
-	   ch != EOF && ch != ' ' && ch != lineterm && ch != lineterm_alt
-           && ch != '\t' && ch != ':' && ch != ';') 
+  idx = 0;
+  while (idx < MAX_NAME - 1 &&
+	 ch != EOF && ch != ' ' && ch != lineterm && ch != lineterm_alt
+	 && ch != '\t' && ch != ':' && ch != ';') 
     {
-        ident[idx++] = ch;
-        ch = fgetc (stream);
+      ident[idx++] = ch;
+      ch = fgetc (stream);
     } /* while */
 
-    if (ch == EOF && idx < 1) return ((char *)NULL);
-    if (idx >= 1 && ch != ':' ) ungetc (ch, stream);
-    if (idx < 1 ) ident[idx++] = ch;	/* single-character token */
-    ident[idx] = 0;
+  if (ch == EOF && idx < 1) return ((char *)NULL);
+  if (idx >= 1 && ch != ':' ) ungetc (ch, stream);
+  if (idx < 1 ) ident[idx++] = ch;	/* single-character token */
+  ident[idx] = 0;
     
-    return (ident);	/* returns pointer to the token */
+  return (ident);	/* returns pointer to the token */
 
 } /* token */
 
@@ -193,22 +194,22 @@ static char *token (FILE *stream)
 
 static char *linetoken (FILE *stream)
 {
-    int ch, idx;
+  int ch, idx;
 
-    while ((ch = fgetc (stream)) == ' ' || ch == '\t' ); 
+  while ((ch = fgetc (stream)) == ' ' || ch == '\t' ); 
     
-    idx = 0;
-    while (idx < MAX_NAME - 1 &&
-	   ch != EOF && ch != lineterm && ch != lineterm_alt) 
+  idx = 0;
+  while (idx < MAX_NAME - 1 &&
+	 ch != EOF && ch != lineterm && ch != lineterm_alt) 
     {
-        ident[idx++] = ch;
-        ch = fgetc (stream);
+      ident[idx++] = ch;
+      ch = fgetc (stream);
     } /* while */
     
-    ungetc (ch, stream);
-    ident[idx] = 0;
+  ungetc (ch, stream);
+  ident[idx] = 0;
 
-    return (ident);	/* returns pointer to the token */
+  return (ident);	/* returns pointer to the token */
 
 } /* linetoken */
 
@@ -225,24 +226,24 @@ static char *linetoken (FILE *stream)
 
 static enum parseKey recognize (  register char *ident)
 {
-    int lower = 0,
-      upper = (int) NOPE,
-      midpoint = 0,
-      cmpvalue = 0;
-    BOOL found = FALSE;
+  int lower = 0,
+    upper = (int) NOPE,
+    midpoint = 0,
+    cmpvalue = 0;
+  BOOL found = FALSE;
 
-    while ((upper >= lower) && !found)
+  while ((upper >= lower) && !found)
     {
-        midpoint = (lower + upper)/2;
-        if (keyStrings[midpoint] == NULL) break;
-        cmpvalue = strncmp (ident, keyStrings[midpoint], MAX_NAME);
-        if (cmpvalue == 0) found = TRUE;
-        else if (cmpvalue < 0) upper = midpoint - 1;
-        else lower = midpoint + 1;
+      midpoint = (lower + upper)/2;
+      if (keyStrings[midpoint] == NULL) break;
+      cmpvalue = strncmp (ident, keyStrings[midpoint], MAX_NAME);
+      if (cmpvalue == 0) found = TRUE;
+      else if (cmpvalue < 0) upper = midpoint - 1;
+      else lower = midpoint + 1;
     } /* while */
 
-    if (found) return (enum parseKey) midpoint;
-    else return NOPE;
+  if (found) return (enum parseKey) midpoint;
+  else return NOPE;
     
 } /* recognize */
 
@@ -270,146 +271,146 @@ static enum parseKey recognize (  register char *ident)
  
 static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
 {  
-    BOOL cont = TRUE, save = (gfi != NULL);
-    int error = AFM_ok;
-    register char *keyword;
+  BOOL cont = TRUE, save = (gfi != NULL);
+  int error = AFM_ok;
+  register char *keyword;
     
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
+      keyword = token (fp);
         
-        if (keyword == NULL)
-          /* Have reached an early and unexpected EOF. */
-          /* Set flag and stop parsing */
+      if (keyword == NULL)
+	/* Have reached an early and unexpected EOF. */
+	/* Set flag and stop parsing */
         {
-            error = AFM_earlyEOF;
-            break;   /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break;   /* get out of loop */
         }
-        if (!save)	
-          /* get tokens until the end of the Global Font info section */
-          /* without saving any of the data */
-            switch (recognize (keyword))  
-            {				
-                case STARTCHARMETRICS:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:	
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                default:
-                    break;
-            } /* switch */
-        else
-          /* otherwise parse entire global font info section, */
-          /* saving the data */
-            switch (recognize (keyword))
-            {
-                case STARTFONTMETRICS:
-                    keyword = token (fp);
-                    gfi->afmVersion = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->afmVersion, keyword);
-                    break;
-                case COMMENT:
-                    keyword = linetoken (fp);
-                    break;
-                case FONTNAME:
-                    keyword = token (fp);
-                    gfi->fontName = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->fontName, keyword);
-                    break;
-                case ENCODINGSCHEME:
-                    keyword = token (fp);
-                    gfi->encodingScheme = (char *) 
-                    	malloc (strlen (keyword) + 1);
-                    strcpy (gfi->encodingScheme, keyword);
-                    break; 
-                case FULLNAME:
-                    keyword = linetoken (fp);
-                    gfi->fullName = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->fullName, keyword);
-                    break; 
-                case FAMILYNAME:           
-                   keyword = linetoken (fp);
-                    gfi->familyName = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->familyName, keyword);
-                    break; 
-                case WEIGHT:
-                    keyword = token (fp);
-                    gfi->weight = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->weight, keyword);
-                    break;
-                case ITALICANGLE:
-                    keyword = token (fp);
-                    gfi->italicAngle = atof (keyword);
-                    if (errno == ERANGE) error = AFM_parseError;
-                    break;
-                case ISFIXEDPITCH:
-                    keyword = token (fp);
-                    if (MATCH (keyword, False))
-                        gfi->isFixedPitch = 0;
-                    else 
-                        gfi->isFixedPitch = 1;
-                    break; 
-	            case UNDERLINEPOSITION:
-                    keyword = token (fp);
-	                gfi->underlinePosition = atoi (keyword);
-                    break; 
-                case UNDERLINETHICKNESS:
-                    keyword = token (fp);
-                    gfi->underlineThickness = atoi (keyword);
-                    break;
-                case VERSION:
-                    keyword = linetoken (fp);
-                    gfi->version = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->version, keyword);
-                    break; 
-                case NOTICE:
-                    keyword = linetoken (fp);
-                    gfi->notice = (char *) malloc (strlen (keyword) + 1);
-                    strcpy (gfi->notice, keyword);
-                    break; 
-                case FONTBBOX:
-                    keyword = token (fp);
-                    gfi->fontBBox.llx = atoi (keyword);
-                    keyword = token (fp);
-                    gfi->fontBBox.lly = atoi (keyword);
-                    keyword = token (fp);
-                    gfi->fontBBox.urx = atoi (keyword);
-                    keyword = token (fp);
-                    gfi->fontBBox.ury = atoi (keyword);
-                    break;
-                case CAPHEIGHT:
-                    keyword = token (fp);
-                    gfi->capHeight = atoi (keyword);
-                    break;
-                case XHEIGHT:
-                    keyword = token (fp);
-                    gfi->xHeight = atoi (keyword);
-                    break;
-                case DESCENDER:
-                    keyword = token (fp);
-                    gfi->descender = atoi (keyword);
-                    break;
-                case ASCENDER:
-                    keyword = token (fp);
-                    gfi->ascender = atoi (keyword);
-                    break;
-                case STARTCHARMETRICS:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                case NOPE:
-                default:
-                    error = AFM_parseError;
-                    break;
-            } /* switch */
+      if (!save)	
+	/* get tokens until the end of the Global Font info section */
+	/* without saving any of the data */
+	switch (recognize (keyword))  
+	  {				
+	  case STARTCHARMETRICS:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:	
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  default:
+	    break;
+	  } /* switch */
+      else
+	/* otherwise parse entire global font info section, */
+	/* saving the data */
+	switch (recognize (keyword))
+	  {
+	  case STARTFONTMETRICS:
+	    keyword = token (fp);
+	    gfi->afmVersion = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->afmVersion, keyword);
+	    break;
+	  case COMMENT:
+	    keyword = linetoken (fp);
+	    break;
+	  case FONTNAME:
+	    keyword = token (fp);
+	    gfi->fontName = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->fontName, keyword);
+	    break;
+	  case ENCODINGSCHEME:
+	    keyword = token (fp);
+	    gfi->encodingScheme = (char *) 
+	      malloc (strlen (keyword) + 1);
+	    strcpy (gfi->encodingScheme, keyword);
+	    break; 
+	  case FULLNAME:
+	    keyword = linetoken (fp);
+	    gfi->fullName = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->fullName, keyword);
+	    break; 
+	  case FAMILYNAME:           
+	    keyword = linetoken (fp);
+	    gfi->familyName = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->familyName, keyword);
+	    break; 
+	  case WEIGHT:
+	    keyword = token (fp);
+	    gfi->weight = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->weight, keyword);
+	    break;
+	  case ITALICANGLE:
+	    keyword = token (fp);
+	    gfi->italicAngle = atof (keyword);
+	    if (errno == ERANGE) error = AFM_parseError;
+	    break;
+	  case ISFIXEDPITCH:
+	    keyword = token (fp);
+	    if (MATCH (keyword, False))
+	      gfi->isFixedPitch = 0;
+	    else 
+	      gfi->isFixedPitch = 1;
+	    break; 
+	  case UNDERLINEPOSITION:
+	    keyword = token (fp);
+	    gfi->underlinePosition = atoi (keyword);
+	    break; 
+	  case UNDERLINETHICKNESS:
+	    keyword = token (fp);
+	    gfi->underlineThickness = atoi (keyword);
+	    break;
+	  case VERSION:
+	    keyword = linetoken (fp);
+	    gfi->version = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->version, keyword);
+	    break; 
+	  case NOTICE:
+	    keyword = linetoken (fp);
+	    gfi->notice = (char *) malloc (strlen (keyword) + 1);
+	    strcpy (gfi->notice, keyword);
+	    break; 
+	  case FONTBBOX:
+	    keyword = token (fp);
+	    gfi->fontBBox.llx = atoi (keyword);
+	    keyword = token (fp);
+	    gfi->fontBBox.lly = atoi (keyword);
+	    keyword = token (fp);
+	    gfi->fontBBox.urx = atoi (keyword);
+	    keyword = token (fp);
+	    gfi->fontBBox.ury = atoi (keyword);
+	    break;
+	  case CAPHEIGHT:
+	    keyword = token (fp);
+	    gfi->capHeight = atoi (keyword);
+	    break;
+	  case XHEIGHT:
+	    keyword = token (fp);
+	    gfi->xHeight = atoi (keyword);
+	    break;
+	  case DESCENDER:
+	    keyword = token (fp);
+	    gfi->descender = atoi (keyword);
+	    break;
+	  case ASCENDER:
+	    keyword = token (fp);
+	    gfi->ascender = atoi (keyword);
+	    break;
+	  case STARTCHARMETRICS:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  case NOPE:
+	  default:
+	    error = AFM_parseError;
+	    break;
+	  } /* switch */
     } /* while */
     
-    return (error);
+  return (error);
     
 } /* parseGlobals */    
 
@@ -435,61 +436,61 @@ static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
  
 static int initializeArray (FILE *fp, register int *cwi)
 {  
-    BOOL cont = TRUE, found = FALSE;
-    long opos = ftell (fp);
-    int code = 0, width = 0, i = 0, error = 0;
-    register char *keyword;
+  BOOL cont = TRUE, found = FALSE;
+  long opos = ftell (fp);
+  int code = 0, width = 0, i = 0, error = 0;
+  register char *keyword;
   
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
-        if (keyword == NULL)
+      keyword = token (fp);
+      if (keyword == NULL)
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        switch (recognize (keyword))
+      switch (recognize (keyword))
         {
-            case COMMENT:
-                keyword = linetoken (fp);
-                break;
-            case CODE:
-                code = atoi (token (fp));
-                break;
-            case XWIDTH:
-                width = atoi (token (fp));
-                break;
-            case CHARNAME: 
-                keyword = token (fp);
-                if (MATCH (keyword, Space))
-                {    
-                    cont = FALSE;
-                    found = TRUE;
-                } 
-                break;            
-            case ENDCHARMETRICS:
-                cont = FALSE;
-                break; 
-            case ENDFONTMETRICS:
-                cont = FALSE;
-                error = normalEOF;
-                break;
-            case NOPE:
-            default: 
-                error = AFM_parseError;
-                break;
+	case COMMENT:
+	  keyword = linetoken (fp);
+	  break;
+	case CODE:
+	  code = atoi (token (fp));
+	  break;
+	case XWIDTH:
+	  width = atoi (token (fp));
+	  break;
+	case CHARNAME: 
+	  keyword = token (fp);
+	  if (MATCH (keyword, Space))
+	    {    
+	      cont = FALSE;
+	      found = TRUE;
+	    } 
+	  break;            
+	case ENDCHARMETRICS:
+	  cont = FALSE;
+	  break; 
+	case ENDFONTMETRICS:
+	  cont = FALSE;
+	  error = normalEOF;
+	  break;
+	case NOPE:
+	default: 
+	  error = AFM_parseError;
+	  break;
         } /* switch */
     } /* while */
     
-    if (!found)
-        width = 250;
+  if (!found)
+    width = 250;
     
-    for (i = 0; i < 256; ++i)
-        cwi[i] = width;
+  for (i = 0; i < 256; ++i)
+    cwi[i] = width;
     
-    fseek (fp, opos, 0);
+  fseek (fp, opos, 0);
     
-    return (error);
+  return (error);
         
 } /* initializeArray */    
 
@@ -516,82 +517,82 @@ static int initializeArray (FILE *fp, register int *cwi)
  
 static int parseCharWidths (FILE *fp, register int *cwi)
 {  
-    BOOL cont = TRUE, save = (cwi != NULL);
-    int pos = 0, error = AFM_ok;
-    register char *keyword;
+  BOOL cont = TRUE, save = (cwi != NULL);
+  int pos = 0, error = AFM_ok;
+  register char *keyword;
     
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
-          /* Have reached an early and unexpected EOF. */
-          /* Set flag and stop parsing */
-        if (keyword == NULL)
+      keyword = token (fp);
+      /* Have reached an early and unexpected EOF. */
+      /* Set flag and stop parsing */
+      if (keyword == NULL)
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        if (!save)	
-          /* get tokens until the end of the Char Metrics section without */
-          /* saving any of the data*/
-            switch (recognize (keyword))  
-            {				
-                case ENDCHARMETRICS:
-                    cont = FALSE;
-                    break; 
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                default: 
-                    break;
-            } /* switch */
-        else
-          /* otherwise parse entire char metrics section, saving */
-          /* only the char x-width info */
-            switch (recognize (keyword))
-            {
-                case COMMENT:
-                    keyword = linetoken (fp);
-                    break;
-                case CODE:
-                    keyword = token (fp);
-                    pos = atoi (keyword);
-                    break;
-                case XYWIDTH:
-                /* PROBLEM: Should be no Y-WIDTH when doing "quick & dirty" */
-                    keyword = token (fp); keyword = token (fp); /* eat values */
-                    error = AFM_parseError;
-                    break;
-                case XWIDTH:
-                    keyword = token (fp);
-                    if (pos >= 0) /* ignore unmapped chars */
-                        cwi[pos] = atoi (keyword);
-                    break;
-                case ENDCHARMETRICS:
-                    cont = FALSE;
-                    break; 
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                case CHARNAME:	/* eat values (so doesn't cause AFM_parseError) */
-                    keyword = token (fp); 
-                    break;
-            	case CHARBBOX: 
-                    keyword = token (fp); keyword = token (fp);
-                    keyword = token (fp); keyword = token (fp);
-		    break;
-		case LIGATURE:
-                    keyword = token (fp); keyword = token (fp);
-		    break;
-                case NOPE:
-                default: 
-                    error = AFM_parseError;
-                    break;
-            } /* switch */
+      if (!save)	
+	/* get tokens until the end of the Char Metrics section without */
+	/* saving any of the data*/
+	switch (recognize (keyword))  
+	  {				
+	  case ENDCHARMETRICS:
+	    cont = FALSE;
+	    break; 
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  default: 
+	    break;
+	  } /* switch */
+      else
+	/* otherwise parse entire char metrics section, saving */
+	/* only the char x-width info */
+	switch (recognize (keyword))
+	  {
+	  case COMMENT:
+	    keyword = linetoken (fp);
+	    break;
+	  case CODE:
+	    keyword = token (fp);
+	    pos = atoi (keyword);
+	    break;
+	  case XYWIDTH:
+	    /* PROBLEM: Should be no Y-WIDTH when doing "quick & dirty" */
+	    keyword = token (fp); keyword = token (fp); /* eat values */
+	    error = AFM_parseError;
+	    break;
+	  case XWIDTH:
+	    keyword = token (fp);
+	    if (pos >= 0) /* ignore unmapped chars */
+	      cwi[pos] = atoi (keyword);
+	    break;
+	  case ENDCHARMETRICS:
+	    cont = FALSE;
+	    break; 
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  case CHARNAME:	/* eat values (so doesn't cause AFM_parseError) */
+	    keyword = token (fp); 
+	    break;
+	  case CHARBBOX: 
+	    keyword = token (fp); keyword = token (fp);
+	    keyword = token (fp); keyword = token (fp);
+	    break;
+	  case LIGATURE:
+	    keyword = token (fp); keyword = token (fp);
+	    break;
+	  case NOPE:
+	  default: 
+	    error = AFM_parseError;
+	    break;
+	  } /* switch */
     } /* while */
     
-    return (error);
+  return (error);
     
 } /* parseCharWidths */    
 
@@ -615,93 +616,103 @@ static int parseCharWidths (FILE *fp, register int *cwi)
  
 static int parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
 {  
-    BOOL cont = TRUE, firstTime = TRUE;
-    int error = AFM_ok, count = 0;
-    register AFM_CharMetricInfo *temp = fi->cmi;
-    register char *keyword;
+  BOOL cont = TRUE, firstTime = TRUE;
+  int error = AFM_ok, count = 0;
+  register AFM_CharMetricInfo *temp = fi->cmi;
+  register char *keyword;
   
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
-        if (keyword == NULL)
+      keyword = token (fp);
+      if (keyword == NULL)
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        switch (recognize (keyword))
+      switch (recognize (keyword))
         {
-            case COMMENT:
-                keyword = linetoken (fp);
-                break; 
-            case CODE:
-                if (count < fi->numOfChars)
-                { 
-                    if (firstTime) firstTime = FALSE;
-                    else temp++;
-                    temp->code = atoi (token (fp));
-                    count++;
-                }
-                else
-                {
-                    error = AFM_parseError;
-                    cont = FALSE;
-                }
-                break;
-            case XYWIDTH:
-                temp->wx = atoi (token (fp));
-                temp->wy = atoi (token (fp));
-                break;                 
-            case XWIDTH: 
-                temp->wx = atoi (token (fp));
-                break;
-            case CHARNAME: 
-                keyword = token (fp);
-                temp->name = (char *) malloc (strlen (keyword) + 1);
-                strcpy (temp->name, keyword);
-                break;            
-            case CHARBBOX: 
-                temp->charBBox.llx = atoi (token (fp));
-                temp->charBBox.lly = atoi (token (fp));
-                temp->charBBox.urx = atoi (token (fp));
-                temp->charBBox.ury = atoi (token (fp));
-                break;
-            case LIGATURE: {
-                AFM_Ligature **tail = & (temp->ligs);
-                AFM_Ligature *node = *tail;
+	case COMMENT:
+	  keyword = linetoken (fp);
+	  break; 
+	case CODE:
+	  if (count < fi->numOfChars)
+	    { 
+	      if (firstTime)
+		firstTime = FALSE;
+	      else
+		temp++;
+	      temp->code = atoi (token (fp));
+	      count++;
+	    }
+	  else
+	    {
+	      warning ("Too many metrics.");
+	      error = AFM_parseError;
+	      cont = FALSE;
+	    }
+	  break;
+	case XYWIDTH:
+	  temp->wx = atoi (token (fp));
+	  temp->wy = atoi (token (fp));
+	  break;                 
+	case XWIDTH: 
+	  temp->wx = atoi (token (fp));
+	  break;
+	  
+	case CHARNAME: 
+	  keyword = token (fp);
+	  temp->name = (char *) malloc (strlen (keyword) + 1);
+	  strcpy (temp->name, keyword);
+	  break;
+	  
+	case CHARBBOX: 
+	  temp->charBBox.llx = atoi (token (fp));
+	  temp->charBBox.lly = atoi (token (fp));
+	  temp->charBBox.urx = atoi (token (fp));
+	  temp->charBBox.ury = atoi (token (fp));
+	  break;
+
+	case LIGATURE: {
+	  AFM_Ligature **tail = & (temp->ligs);
+	  AFM_Ligature *node = *tail;
                 
-                if (*tail != NULL)
-                {
-                    while (node->next != NULL)
-                        node = node->next;
-                    tail = & (node->next); 
-                }
+	  if (*tail != NULL)
+	    {
+	      while (node->next != NULL)
+		node = node->next;
+	      tail = & (node->next); 
+	    }
                 
-                *tail = (AFM_Ligature *) calloc (1, sizeof (AFM_Ligature));
-                keyword = token (fp);
- (*tail)->succ = (char *) malloc (strlen (keyword) + 1);
-                strcpy ((*tail)->succ, keyword);
-                keyword = token (fp);
- (*tail)->lig = (char *) malloc (strlen (keyword) + 1);
-                strcpy ((*tail)->lig, keyword);
-                break; }
-            case ENDCHARMETRICS:
-                cont = FALSE;;
-                break; 
-            case ENDFONTMETRICS: 
-                cont = FALSE;
-                error = normalEOF;
-                break; 
-            case NOPE:
-            default:
-                error = AFM_parseError; 
-                break; 
+	  *tail = (AFM_Ligature *) calloc (1, sizeof (AFM_Ligature));
+	  keyword = token (fp);
+	  (*tail)->succ = (char *) malloc (strlen (keyword) + 1);
+	  strcpy ((*tail)->succ, keyword);
+	  keyword = token (fp);
+	  (*tail)->lig = (char *) malloc (strlen (keyword) + 1);
+	  strcpy ((*tail)->lig, keyword);
+	  break; }
+	case ENDCHARMETRICS:
+	  cont = FALSE;;
+	  break; 
+	case ENDFONTMETRICS: 
+	  cont = FALSE;
+	  error = normalEOF;
+	  break; 
+	case NOPE:
+	default:
+	  warning ("Unknown token");
+	  
+	  error = AFM_parseError; 
+	  break; 
         } /* switch */
     } /* while */
     
-    if ((error == AFM_ok) && (count != fi->numOfChars))
-        error = AFM_parseError;
-    
-    return (error);
+  if ((error == AFM_ok) && (count != fi->numOfChars))
+    {
+      warning ("Incorrect char count");
+      error = AFM_parseError;
+    }
+  return (error);
     
 } /* parseCharMetrics */    
 
@@ -724,87 +735,87 @@ static int parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
  
 static int parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
 {  
-    BOOL cont = TRUE, save = (fi->tkd != NULL);
-    int pos = 0, error = AFM_ok, tcount = 0;
-    register char *keyword;
+  BOOL cont = TRUE, save = (fi->tkd != NULL);
+  int pos = 0, error = AFM_ok, tcount = 0;
+  register char *keyword;
   
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
+      keyword = token (fp);
         
-        if (keyword == NULL)
+      if (keyword == NULL)
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        if (!save)
-          /* get tokens until the end of the Track Kerning Data */
-          /* section without saving any of the data */
-            switch (recognize (keyword))
-            {
-                case ENDTRACKKERN:
-                case ENDKERNDATA:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                default:
-                    break;
-            } /* switch */
-	else
-          /* otherwise parse entire Track Kerning Data section, */
-          /* saving the data */
-            switch (recognize (keyword))
-            {
-                case COMMENT:
-                    keyword = linetoken (fp);
-                    break;
-                case TRACKKERN:
-                    if (tcount < fi->numOfTracks)
-                    {
-                        keyword = token (fp);
-                        fi->tkd[pos].degree = atoi (keyword);
-                        keyword = token (fp);
-                        fi->tkd[pos].minPtSize = atof (keyword);
-                        if (errno == ERANGE) error = AFM_parseError;
-                        keyword = token (fp);
-                        fi->tkd[pos].minKernAmt = atof (keyword);
-                        if (errno == ERANGE) error = AFM_parseError;
-                        keyword = token (fp);
-                        fi->tkd[pos].maxPtSize = atof (keyword);
-                        if (errno == ERANGE) error = AFM_parseError;
-                        keyword = token (fp);
-                        fi->tkd[pos++].maxKernAmt = atof (keyword);
-                        if (errno == ERANGE) error = AFM_parseError;
-                        tcount++;
-                    }
-                    else
-                    {
-                        error = AFM_parseError;
-                        cont = FALSE;
-                    }
-                    break;
-                case ENDTRACKKERN:
-                case ENDKERNDATA:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                case NOPE:
-                default:
-                    error = AFM_parseError;
-                    break;
-            } /* switch */
+      if (!save)
+	/* get tokens until the end of the Track Kerning Data */
+	/* section without saving any of the data */
+	switch (recognize (keyword))
+	  {
+	  case ENDTRACKKERN:
+	  case ENDKERNDATA:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  default:
+	    break;
+	  } /* switch */
+      else
+	/* otherwise parse entire Track Kerning Data section, */
+	/* saving the data */
+	switch (recognize (keyword))
+	  {
+	  case COMMENT:
+	    keyword = linetoken (fp);
+	    break;
+	  case TRACKKERN:
+	    if (tcount < fi->numOfTracks)
+	      {
+		keyword = token (fp);
+		fi->tkd[pos].degree = atoi (keyword);
+		keyword = token (fp);
+		fi->tkd[pos].minPtSize = atof (keyword);
+		if (errno == ERANGE) error = AFM_parseError;
+		keyword = token (fp);
+		fi->tkd[pos].minKernAmt = atof (keyword);
+		if (errno == ERANGE) error = AFM_parseError;
+		keyword = token (fp);
+		fi->tkd[pos].maxPtSize = atof (keyword);
+		if (errno == ERANGE) error = AFM_parseError;
+		keyword = token (fp);
+		fi->tkd[pos++].maxKernAmt = atof (keyword);
+		if (errno == ERANGE) error = AFM_parseError;
+		tcount++;
+	      }
+	    else
+	      {
+		error = AFM_parseError;
+		cont = FALSE;
+	      }
+	    break;
+	  case ENDTRACKKERN:
+	  case ENDKERNDATA:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  case NOPE:
+	  default:
+	    error = AFM_parseError;
+	    break;
+	  } /* switch */
     } /* while */
     
-    if (error == AFM_ok && tcount != fi->numOfTracks)
-        error = AFM_parseError;
+  if (error == AFM_ok && tcount != fi->numOfTracks)
+    error = AFM_parseError;
         
-    return (error);
+  return (error);
     
 } /* parseAFM_TrackKernData */    
 
@@ -826,106 +837,106 @@ static int parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
  
 static int parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
 {  
-    BOOL cont = TRUE, save = (fi->pkd != NULL);
-    int pos = 0, error = AFM_ok, pcount = 0;
-    register char *keyword;
+  BOOL cont = TRUE, save = (fi->pkd != NULL);
+  int pos = 0, error = AFM_ok, pcount = 0;
+  register char *keyword;
   
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
+      keyword = token (fp);
         
-        if (keyword == NULL)
+      if (keyword == NULL)
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        if (!save)
-          /* get tokens until the end of the Pair Kerning Data */
-          /* section without saving any of the data */
-            switch (recognize (keyword))
-            {
-                case ENDKERNPAIRS:
-                case ENDKERNDATA:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                default:
-                    break;
-            } /* switch */
-	else
-          /* otherwise parse entire Pair Kerning Data section, */
-          /* saving the data */
-            switch (recognize (keyword))
-            {
-                case COMMENT:
-                    keyword = linetoken (fp);
-                    break;
-                case KERNPAIR:
-                    if (pcount < fi->numOfPairs)
-                    {
-                        keyword = token (fp);
-                        fi->pkd[pos].name1 = (char *) 
-                            malloc (strlen (keyword) + 1);
-                        strcpy (fi->pkd[pos].name1, keyword);
-                        keyword = token (fp);
-                        fi->pkd[pos].name2 = (char *) 
-                            malloc (strlen (keyword) + 1);
-                        strcpy (fi->pkd[pos].name2, keyword);
-                        keyword = token (fp);
-                        fi->pkd[pos].xamt = atoi (keyword);
-                        keyword = token (fp);
-                        fi->pkd[pos++].yamt = atoi (keyword);
-                        pcount++;
-                    }
-                    else
-                    {
-                        error = AFM_parseError;
-                        cont = FALSE;
-                    }
-                    break;
-                case KERNPAIRXAMT:
-                    if (pcount < fi->numOfPairs)
-                    {
-                        keyword = token (fp);
-                        fi->pkd[pos].name1 = (char *) 
-                            malloc (strlen (keyword) + 1);
-                        strcpy (fi->pkd[pos].name1, keyword);
-                        keyword = token (fp);
-                        fi->pkd[pos].name2 = (char *) 
-                            malloc (strlen (keyword) + 1);
-                        strcpy (fi->pkd[pos].name2, keyword);
-                        keyword = token (fp);
-                        fi->pkd[pos++].xamt = atoi (keyword);
-                        pcount++;
-                    }
-                    else
-                    {
-                        error = AFM_parseError;
-                        cont = FALSE;
-                    }
-                    break;
-                case ENDKERNPAIRS:
-                case ENDKERNDATA:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                case NOPE:
-                default:
-                    error = AFM_parseError;
-                    break;
-            } /* switch */
+      if (!save)
+	/* get tokens until the end of the Pair Kerning Data */
+	/* section without saving any of the data */
+	switch (recognize (keyword))
+	  {
+	  case ENDKERNPAIRS:
+	  case ENDKERNDATA:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  default:
+	    break;
+	  } /* switch */
+      else
+	/* otherwise parse entire Pair Kerning Data section, */
+	/* saving the data */
+	switch (recognize (keyword))
+	  {
+	  case COMMENT:
+	    keyword = linetoken (fp);
+	    break;
+	  case KERNPAIR:
+	    if (pcount < fi->numOfPairs)
+	      {
+		keyword = token (fp);
+		fi->pkd[pos].name1 = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->pkd[pos].name1, keyword);
+		keyword = token (fp);
+		fi->pkd[pos].name2 = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->pkd[pos].name2, keyword);
+		keyword = token (fp);
+		fi->pkd[pos].xamt = atoi (keyword);
+		keyword = token (fp);
+		fi->pkd[pos++].yamt = atoi (keyword);
+		pcount++;
+	      }
+	    else
+	      {
+		error = AFM_parseError;
+		cont = FALSE;
+	      }
+	    break;
+	  case KERNPAIRXAMT:
+	    if (pcount < fi->numOfPairs)
+	      {
+		keyword = token (fp);
+		fi->pkd[pos].name1 = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->pkd[pos].name1, keyword);
+		keyword = token (fp);
+		fi->pkd[pos].name2 = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->pkd[pos].name2, keyword);
+		keyword = token (fp);
+		fi->pkd[pos++].xamt = atoi (keyword);
+		pcount++;
+	      }
+	    else
+	      {
+		error = AFM_parseError;
+		cont = FALSE;
+	      }
+	    break;
+	  case ENDKERNPAIRS:
+	  case ENDKERNDATA:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  case NOPE:
+	  default:
+	    error = AFM_parseError;
+	    break;
+	  } /* switch */
     } /* while */
     
-    if (error == AFM_ok && pcount != fi->numOfPairs)
-        error = AFM_parseError;
+  if (error == AFM_ok && pcount != fi->numOfPairs)
+    error = AFM_parseError;
         
-    return (error);
+  return (error);
     
 } /* parseAFM_PairKernData */    
 
@@ -950,107 +961,107 @@ static int parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
  
 static int parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
 {  
-    BOOL cont = TRUE, firstTime = TRUE, save = (fi->ccd != NULL);
-    int pos = 0, j = 0, error = AFM_ok, ccount = 0, pcount = 0;
-    register char *keyword;
+  BOOL cont = TRUE, firstTime = TRUE, save = (fi->ccd != NULL);
+  int pos = 0, j = 0, error = AFM_ok, ccount = 0, pcount = 0;
+  register char *keyword;
   
-    while (cont)
+  while (cont)
     {
-        keyword = token (fp);
-        if (keyword == NULL)
-          /* Have reached an early and unexpected EOF. */
-          /* Set flag and stop parsing */
+      keyword = token (fp);
+      if (keyword == NULL)
+	/* Have reached an early and unexpected EOF. */
+	/* Set flag and stop parsing */
         {
-            error = AFM_earlyEOF;
-            break; /* get out of loop */
+	  error = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        if (ccount > fi->numOfComps)
+      if (ccount > fi->numOfComps)
         {
-            error = AFM_parseError;
-            break; /* get out of loop */
+	  error = AFM_parseError;
+	  break; /* get out of loop */
         }
-        if (!save)
-          /* get tokens until the end of the Composite Character info */
-          /* section without saving any of the data */
-            switch (recognize (keyword))
-            {
-                case ENDCOMPOSITES:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                default:
-                    break;
-            } /* switch */
-	else
-          /* otherwise parse entire Composite Character info section, */
-          /* saving the data */
-            switch (recognize (keyword))
-            {
-                case COMMENT:
-                    keyword = linetoken (fp);
-                    break;
-                case COMPCHAR:
-                    if (ccount < fi->numOfComps)
-                    {
-                        keyword = token (fp);
-                        if (pcount != fi->ccd[pos].numOfPieces)
-                            error = AFM_parseError;
-                        pcount = 0;
-                        if (firstTime) firstTime = FALSE;
-                        else pos++;
-                        fi->ccd[pos].ccName = (char *) 
-                            malloc (strlen (keyword) + 1);
-                        strcpy (fi->ccd[pos].ccName, keyword);
-                        keyword = token (fp);
-                        fi->ccd[pos].numOfPieces = atoi (keyword);
-                        fi->ccd[pos].pieces = (AFM_Pcc *)
-                            calloc (fi->ccd[pos].numOfPieces, sizeof (AFM_Pcc));
-                        j = 0;
-                        ccount++;
-                    }
-                    else
-                    {
-                        error = AFM_parseError;
-                        cont = FALSE;
-                    }
-                    break;
-                case COMPCHARPIECE:
-                    if (pcount < fi->ccd[pos].numOfPieces)
-                    {
-                        keyword = token (fp);
-                        fi->ccd[pos].pieces[j].AFM_PccName = (char *) 
-                                malloc (strlen (keyword) + 1);
-                        strcpy (fi->ccd[pos].pieces[j].AFM_PccName, keyword);
-                        keyword = token (fp);
-                        fi->ccd[pos].pieces[j].deltax = atoi (keyword);
-                        keyword = token (fp);
-                        fi->ccd[pos].pieces[j++].deltay = atoi (keyword);
-                        pcount++;
-                    }
-                    else
-                        error = AFM_parseError;
-                    break;
-                case ENDCOMPOSITES:
-                    cont = FALSE;
-                    break;
-                case ENDFONTMETRICS:
-                    cont = FALSE;
-                    error = normalEOF;
-                    break;
-                case NOPE:
-                default:
-                    error = AFM_parseError;
-                    break;
-            } /* switch */
+      if (!save)
+	/* get tokens until the end of the Composite Character info */
+	/* section without saving any of the data */
+	switch (recognize (keyword))
+	  {
+	  case ENDCOMPOSITES:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  default:
+	    break;
+	  } /* switch */
+      else
+	/* otherwise parse entire Composite Character info section, */
+	/* saving the data */
+	switch (recognize (keyword))
+	  {
+	  case COMMENT:
+	    keyword = linetoken (fp);
+	    break;
+	  case COMPCHAR:
+	    if (ccount < fi->numOfComps)
+	      {
+		keyword = token (fp);
+		if (pcount != fi->ccd[pos].numOfPieces)
+		  error = AFM_parseError;
+		pcount = 0;
+		if (firstTime) firstTime = FALSE;
+		else pos++;
+		fi->ccd[pos].ccName = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->ccd[pos].ccName, keyword);
+		keyword = token (fp);
+		fi->ccd[pos].numOfPieces = atoi (keyword);
+		fi->ccd[pos].pieces = (AFM_Pcc *)
+		  calloc (fi->ccd[pos].numOfPieces, sizeof (AFM_Pcc));
+		j = 0;
+		ccount++;
+	      }
+	    else
+	      {
+		error = AFM_parseError;
+		cont = FALSE;
+	      }
+	    break;
+	  case COMPCHARPIECE:
+	    if (pcount < fi->ccd[pos].numOfPieces)
+	      {
+		keyword = token (fp);
+		fi->ccd[pos].pieces[j].AFM_PccName = (char *) 
+		  malloc (strlen (keyword) + 1);
+		strcpy (fi->ccd[pos].pieces[j].AFM_PccName, keyword);
+		keyword = token (fp);
+		fi->ccd[pos].pieces[j].deltax = atoi (keyword);
+		keyword = token (fp);
+		fi->ccd[pos].pieces[j++].deltay = atoi (keyword);
+		pcount++;
+	      }
+	    else
+	      error = AFM_parseError;
+	    break;
+	  case ENDCOMPOSITES:
+	    cont = FALSE;
+	    break;
+	  case ENDFONTMETRICS:
+	    cont = FALSE;
+	    error = normalEOF;
+	    break;
+	  case NOPE:
+	  default:
+	    error = AFM_parseError;
+	    break;
+	  } /* switch */
     } /* while */
     
-    if (error == AFM_ok && ccount != fi->numOfComps)
-        error = AFM_parseError;
+  if (error == AFM_ok && ccount != fi->numOfComps)
+    error = AFM_parseError;
     
-    return (error);
+  return (error);
     
 } /* parseAFM_CompCharData */    
 
@@ -1058,6 +1069,67 @@ static int parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
 
 
 /*************************** 'PUBLIC' FUNCTION ********************/ 
+
+void
+AFM_free (AFM_Font_info *fi)
+{
+  if (fi->gfi) {
+    free (fi->gfi->afmVersion);
+    free (fi->gfi->fontName);
+    free (fi->gfi->fullName);
+    free (fi->gfi->familyName);
+    free (fi->gfi->weight);
+    free (fi->gfi->version);
+    free (fi->gfi->notice);
+    free (fi->gfi->encodingScheme);
+    free (fi->gfi);
+  }
+
+  /* This contains just scalars.  */
+  free (fi->cwi);
+
+  if (fi->cmi) {
+    int i;
+    for (i = 0; i < fi->numOfChars; i++) {
+      free (fi->cmi[i].name);
+      while (fi->cmi[i].ligs) {
+	AFM_Ligature *tmp;
+	tmp = fi->cmi[i].ligs;
+	free (tmp->succ);
+	free (tmp->lig);
+	free (tmp);
+	fi->cmi[i].ligs = fi->cmi[i].ligs->next;
+      }
+    }
+    free (fi->cmi);
+  }
+
+  /* This contains just scalars.  */
+  free (fi->tkd);
+
+  if (fi->pkd) {
+    int i;
+    for (i = 0; i < fi->numOfPairs; i++) {
+      free (fi->pkd[i].name1);
+      free (fi->pkd[i].name2);
+    }
+    free (fi->pkd);
+  }
+
+  if (fi->ccd) {
+    int i, j;
+    for (i = 0; i < fi->numOfComps; i++) {
+      free (fi->ccd[i].ccName);
+      for (j = 0; j < fi->ccd[i].numOfPieces; j++) {
+	free (fi->ccd[i].pieces[j].AFM_PccName);
+      }
+      free (fi->ccd[i].pieces);
+    }
+    free (fi->ccd);
+  }
+
+  free (fi);
+}
 
 
 /*************************** parseFile *****************************/
@@ -1084,214 +1156,161 @@ static int parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
 extern int AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
 {
     
-    int code = AFM_ok; 	/* return code from each of the parsing routines */
-    int error = AFM_ok;	/* used as the return code from this function */
+  int code = AFM_ok; 	/* return code from each of the parsing routines */
+  int error = AFM_ok;	/* used as the return code from this function */
     
-    register char *keyword; /* used to store a token */	 
+  register char *keyword; /* used to store a token */	 
     
    			      
-    /* storage data for the global variable ident */			      
-    if (!ident)
-	 ident = (char *) calloc (MAX_NAME, sizeof (char)); 
-    if (ident == NULL) {error = AFM_storageProblem; return (error);}      
+  /* storage data for the global variable ident */			      
+  if (!ident)
+    ident = (char *) calloc (MAX_NAME, sizeof (char)); 
+  if (ident == NULL) {error = AFM_storageProblem; return (error);}      
   
- (*fi) = (AFM_Font_info *) calloc (1, sizeof (AFM_Font_info));
-    if ((*fi) == NULL) {error = AFM_storageProblem; return (error);}      
+  (*fi) = (AFM_Font_info *) calloc (1, sizeof (AFM_Font_info));
+  if ((*fi) == NULL) {error = AFM_storageProblem; return (error);}      
   
-    if (flags & P_G) 
+  if (flags & P_G) 
     {
- (*fi)->gfi = (AFM_GlobalFontInfo *) calloc (1, sizeof (AFM_GlobalFontInfo));
-        if ((*fi)->gfi == NULL) {error = AFM_storageProblem; return (error);}      
+      (*fi)->gfi = (AFM_GlobalFontInfo *) calloc (1, sizeof (AFM_GlobalFontInfo));
+      if ((*fi)->gfi == NULL) {error = AFM_storageProblem; return (error);}      
     }
     
-    /* The AFM File begins with Global Font Information. This section */
-    /* will be parsed whether or not information should be saved. */     
-    code = parseGlobals (fp, (*fi)->gfi); 
+  /* The AFM File begins with Global Font Information. This section */
+  /* will be parsed whether or not information should be saved. */     
+  code = parseGlobals (fp, (*fi)->gfi); 
     
-    if (code < 0) error = code;
+  if (code < 0)
+    error = code;
     
-    /* The Global Font Information is followed by the Character Metrics */
-    /* section. Which procedure is used to parse this section depends on */
-    /* how much information should be saved. If all of the metrics info */
-    /* is wanted, parseCharMetrics is called. If only the character widths */
-    /* is wanted, parseCharWidths is called. parseCharWidths will also */
-    /* be called in the case that no character data is to be saved, just */
-    /* to parse through the section. */
+  /* The Global Font Information is followed by the Character Metrics */
+  /* section. Which procedure is used to parse this section depends on */
+  /* how much information should be saved. If all of the metrics info */
+  /* is wanted, parseCharMetrics is called. If only the character widths */
+  /* is wanted, parseCharWidths is called. parseCharWidths will also */
+  /* be called in the case that no character data is to be saved, just */
+  /* to parse through the section. */
   
-    if ((code != normalEOF) && (code != AFM_earlyEOF))
+  if ((code != normalEOF) && (code != AFM_earlyEOF))
     {
- (*fi)->numOfChars = atoi (token (fp));
-	    if (flags & (P_M ^ P_W))
+      (*fi)->numOfChars = atoi (token (fp));
+      if (flags & (P_M ^ P_W))
         {
- (*fi)->cmi = (AFM_CharMetricInfo *) 
-                      calloc ((*fi)->numOfChars, sizeof (AFM_CharMetricInfo));
-           if ((*fi)->cmi == NULL) {error = AFM_storageProblem; return (error);}
-            code = parseCharMetrics (fp, *fi);             
+	  (*fi)->cmi = (AFM_CharMetricInfo *) 
+	    calloc ((*fi)->numOfChars, sizeof (AFM_CharMetricInfo));
+	  if ((*fi)->cmi == NULL) {
+	    error = AFM_storageProblem;
+	    return (error);
+
+	  }
+	  code = parseCharMetrics (fp, *fi);             
         }
-        else
+      else
         {
-            if (flags & P_W)
+	  if (flags & P_W)
             { 
- (*fi)->cwi = (int *) calloc (256, sizeof (int)); 
-                if ((*fi)->cwi == NULL) 
+	      (*fi)->cwi = (int *) calloc (256, sizeof (int)); 
+	      if ((*fi)->cwi == NULL) 
                 {
-                	error = AFM_storageProblem; 
-                	return (error);
+		  error = AFM_storageProblem; 
+		  return (error);
                 }
             }
-            /* parse section regardless */
-            code = parseCharWidths (fp, (*fi)->cwi);
+	  /* parse section regardless */
+	  code = parseCharWidths (fp, (*fi)->cwi);
         } /* else */
     } /* if */
     
-    if ((error != AFM_earlyEOF) && (code < 0)) error = code;
+  if ((error != AFM_earlyEOF) && (code < 0))
+    error = code;
     
-    /* The remaining sections of the AFM are optional. This code will */
-    /* look at the next keyword in the file to determine what section */
-    /* is next, and then allocate the appropriate amount of storage */
-    /* for the data (if the data is to be saved) and call the */
-    /* appropriate parsing routine to parse the section. */
+  /* The remaining sections of the AFM are optional. This code will */
+  /* look at the next keyword in the file to determine what section */
+  /* is next, and then allocate the appropriate amount of storage */
+  /* for the data (if the data is to be saved) and call the */
+  /* appropriate parsing routine to parse the section. */
     
-    while ((code != normalEOF) && (code != AFM_earlyEOF))
+  while ((code != normalEOF) && (code != AFM_earlyEOF))
     {
-        keyword = token (fp);
-        if (keyword == NULL)
-          /* Have reached an early and unexpected EOF. */
-          /* Set flag and stop parsing */
+      keyword = token (fp);
+      if (keyword == NULL)
+	/* Have reached an early and unexpected EOF. */
+	/* Set flag and stop parsing */
         {
-            code = AFM_earlyEOF;
-            break; /* get out of loop */
+	  code = AFM_earlyEOF;
+	  break; /* get out of loop */
         }
-        switch (recognize (keyword))
+      switch (recognize (keyword))
         {
-            case STARTKERNDATA:
-                break;
-            case ENDKERNDATA:
-                break;
-            case STARTTRACKKERN:
-                keyword = token (fp);
-                if (flags & P_T)
-                {
- (*fi)->numOfTracks = atoi (keyword);
- (*fi)->tkd = (AFM_TrackKernData *) 
-                        calloc ((*fi)->numOfTracks, sizeof (AFM_TrackKernData));
-                    if ((*fi)->tkd == NULL) 
-                    {
-                    	error = AFM_storageProblem; 
-                    	return (error);
-                    }
-                } /* if */
-                code = parseAFM_TrackKernData (fp, *fi);
-                break;
-            case STARTKERNPAIRS:
-                keyword = token (fp);
-                if (flags & P_P)
-                {
- (*fi)->numOfPairs = atoi (keyword);
- (*fi)->pkd = (AFM_PairKernData *) 
-                        calloc ((*fi)->numOfPairs, sizeof (AFM_PairKernData));
-                    if ((*fi)->pkd == NULL) 
-                    {
-                    	error = AFM_storageProblem; 
-                    	return (error);
-                    }
-                } /* if */
-                code = parseAFM_PairKernData (fp, *fi);
-                break;
-            case STARTCOMPOSITES:
-                keyword = token (fp);
-                if (flags & P_C)
-                { 
- (*fi)->numOfComps = atoi (keyword);
- (*fi)->ccd = (AFM_CompCharData *) 
-                        calloc ((*fi)->numOfComps, sizeof (AFM_CompCharData));
-                    if ((*fi)->ccd == NULL) 
-                    {
-                    	error = AFM_storageProblem; 
-                    	return (error);
-                    }
-                } /* if */
-                code = parseAFM_CompCharData (fp, *fi); 
-                break;    
-            case ENDFONTMETRICS:
-                code = normalEOF;
-                break;
-            case NOPE:
-            default:
-                code = AFM_parseError;
-                break;
+	case STARTKERNDATA:
+	  break;
+	case ENDKERNDATA:
+	  break;
+	case STARTTRACKKERN:
+	  keyword = token (fp);
+	  if (flags & P_T)
+	    {
+	      (*fi)->numOfTracks = atoi (keyword);
+	      (*fi)->tkd = (AFM_TrackKernData *) 
+		calloc ((*fi)->numOfTracks, sizeof (AFM_TrackKernData));
+	      if ((*fi)->tkd == NULL) 
+		{
+		  error = AFM_storageProblem; 
+		  return (error);
+		}
+	    } /* if */
+	  code = parseAFM_TrackKernData (fp, *fi);
+	  break;
+	case STARTKERNPAIRS:
+	  keyword = token (fp);
+	  if (flags & P_P)
+	    {
+	      (*fi)->numOfPairs = atoi (keyword);
+	      (*fi)->pkd = (AFM_PairKernData *) 
+		calloc ((*fi)->numOfPairs, sizeof (AFM_PairKernData));
+	      if ((*fi)->pkd == NULL) 
+		{
+		  error = AFM_storageProblem; 
+		  return (error);
+		}
+	    } /* if */
+	  code = parseAFM_PairKernData (fp, *fi);
+	  break;
+	case STARTCOMPOSITES:
+	  keyword = token (fp);
+	  if (flags & P_C)
+	    { 
+	      (*fi)->numOfComps = atoi (keyword);
+	      (*fi)->ccd = (AFM_CompCharData *) 
+		calloc ((*fi)->numOfComps, sizeof (AFM_CompCharData));
+	      if ((*fi)->ccd == NULL) 
+		{
+		  error = AFM_storageProblem; 
+		  return (error);
+		}
+	    } /* if */
+	  code = parseAFM_CompCharData (fp, *fi); 
+	  break;    
+	case ENDFONTMETRICS:
+	  code = normalEOF;
+	  break;
+	case NOPE:
+	default:
+	  code = AFM_parseError;
+	  break;
         } /* switch */
         
-        if ((error != AFM_earlyEOF) && (code < 0)) error = code;
+      if ((error != AFM_earlyEOF) && (code < 0))
+	error = code;
         
     } /* while */
   
-    if ((error != AFM_earlyEOF) && (code < 0)) error = code;
+  if ((error != AFM_earlyEOF) && (code < 0))
+    error = code;
     
-    if (ident != NULL) { free (ident); ident = NULL; }
+  if (ident != NULL) { free (ident); ident = NULL; }
         
-    return (error);
+  return (error);
   
 } /* parseFile */
 
-
-void
-AFM_free (AFM_Font_info *fi)
-{
-     if (fi->gfi) {
-	  free (fi->gfi->afmVersion);
-	  free (fi->gfi->fontName);
-	  free (fi->gfi->fullName);
-	  free (fi->gfi->familyName);
-	  free (fi->gfi->weight);
-	  free (fi->gfi->version);
-	  free (fi->gfi->notice);
-	  free (fi->gfi->encodingScheme);
-	  free (fi->gfi);
-     }
-
-     /* This contains just scalars.  */
-     free (fi->cwi);
-
-     if (fi->cmi) {
-	  int i;
-	  for (i = 0; i < fi->numOfChars; i++) {
-	       free (fi->cmi[i].name);
-	       while (fi->cmi[i].ligs) {
-		    AFM_Ligature *tmp;
-		    tmp = fi->cmi[i].ligs;
-		    free (tmp->succ);
-		    free (tmp->lig);
-		    free (tmp);
-		    fi->cmi[i].ligs = fi->cmi[i].ligs->next;
-	       }
-	  }
-	  free (fi->cmi);
-     }
-
-     /* This contains just scalars.  */
-     free (fi->tkd);
-
-     if (fi->pkd) {
-	  int i;
-	  for (i = 0; i < fi->numOfPairs; i++) {
-	       free (fi->pkd[i].name1);
-	       free (fi->pkd[i].name2);
-	  }
-	  free (fi->pkd);
-     }
-
-     if (fi->ccd) {
-	  int i, j;
-	  for (i = 0; i < fi->numOfComps; i++) {
-	       free (fi->ccd[i].ccName);
-	       for (j = 0; j < fi->ccd[i].numOfPieces; j++) {
-		    free (fi->ccd[i].pieces[j].AFM_PccName);
-	       }
-	       free (fi->ccd[i].pieces);
-	  }
-	  free (fi->ccd);
-     }
-
-     free (fi);
-}
