@@ -7,7 +7,7 @@ Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
-Icon: @package@-icon.gif
+# Icon: @package@-icon.gif
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
 
@@ -20,7 +20,7 @@ Prereq: tetex
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
 make all
 make -C Documentation info || true
-make htmldoc
+make htmldoc || true
 
 %install
 rm -rf $RPM_BUILD_ROOT
