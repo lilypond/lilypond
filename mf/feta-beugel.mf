@@ -40,5 +40,7 @@ enddef;
 
 
 for h :=  2 staffsize#  step 1 pt# until (7 * staffsize#):
-	draw_brace(h, staff_space# );
+	% note: define_pixels (x) multiplies x by hppp,
+	%       we must never get bigger than infinity
+	draw_brace (min (h, infinity/hppp - 1), staff_space#);
 endfor

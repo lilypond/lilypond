@@ -163,7 +163,8 @@ build ()
 		a=$tp
 	fi
 
-	rpm_package=`find_path $name*.rpm "$topdir/RPMS/$cto:$topdir/RPMS/$tp"`
+	##rpm_package=`find_path $name*.rpm "$topdir/RPMS/$cto:$topdir/RPMS/$tp"`
+	rpm_package=`find_path $package*.rpm "$topdir/RPMS/$cto:$topdir/RPMS/$tp"`
 	if [ "$rpm_package" != "" ]; then
 		echo "$rpm_package: package exists"
 		#echo "$rpm_package: refreshing installation only"
@@ -550,7 +551,7 @@ cat > $distdir/setup.sh <<EOF
 set -x
 ROOT=/Cygnus
 PREFIX=\$ROOT/usr
-gunzip rpm.gz || exit 1
+# gunzip rpm.gz || exit 1
 #dll=\$ROOT/net-485
 #mkdir -p \$dll
 #gzip -dc cygwin.dll.gz > \$dll/cygwin1.dll
@@ -560,8 +561,8 @@ gunzip rpm.gz || exit 1
 #gunzip cygwin1.dll.gz
 #cp -f cygwin1.dll \$old_dll
 echo > rpmrc
-mkdir -p \$ROOT/var/lib
-mkdir -p \$ROOT/bin
+# mkdir -p \$ROOT/var/lib
+# mkdir -p \$ROOT/bin
 rem # touch \$ROOT/bin/rpm \$ROOT/bin/rpm.exe
 echo > \$ROOT/bin/rpm; echo > \$ROOT/bin/rpm.exe
 ./rpm --root \$ROOT --rcfile rpmrc --initdb
@@ -575,12 +576,27 @@ cat > $distdir/setup.bat <<EOF
 del dll olddll
 rem # old_dll=\`which cygwin1.dll\`
 rem # urg, should dist bash too, then we don't need usertools!
+rem # but this gets ugly, we could really use:
+rem # 
+rem #     cp, cygpath, gunzip, mv, mkdir, touch
+rem #  
+rem # ie, fileutils, gzip, (cygpath?)
+rem #  
 rem #	cp -f \`which bash\` /bin;
-bash -c 'mkdir -p /bin;
-	cp -f bash /bin/bash.exe;
-	cp -f /bin/bash /bin/sh.exe;
-	dll=\`which cygwin1.dll\`;
+rem #   mkdir -p /bin;
+rem #	cp -f bash /bin/bash.exe;
+rem #	cp -f /bin/bash /bin/sh.exe;
+mkdir \\bin
+copy bash \\bin\\bash.exe
+copy bash \\bin\\sh.exe
+mkdir \\Cygnus
+mkdir \\Cygnus\\bin
+mkdir \\Cygnus\\var
+mkdir \\Cygnus\\var\\lib
+bash -c '
+	dll=\`type -p cygwin1.dll\`;
 	wdll=\`./cygpath -w \$dll\`;
+	wdll=\${wdll:-\\Cygnus\\bin};
 	echo cygwin1.dll \$wdll > newdll; echo \$wdll \$wdll.orig\$\$ > olddll'
 if not errorlevel 0 goto nobash
 rem # mv -f \$old_dll \$old_dll.orig\$\$
@@ -622,7 +638,7 @@ EOF
 
 cd $distdir
 rm -f $CYGWIN_DLL.gz
-cp -f $PREFIX/bin/$CYGWIN_DLL
+cp -f $PREFIX/bin/$CYGWIN_DLL .
 rm -f rpm.gz
 cp -f `/bin/ls -d1 $ROOT/bin/rpm* |head -1` rpm
 
@@ -630,7 +646,7 @@ rm -f bash.gz
 cp -f `/bin/ls -d1 $ROOT/bin/bash* |head -1` bash
 
 rm -f cygpath.gz
-cp -f `/bin/ls -d1 $ROOT/bin/cygpath* |head -1` cygpath
+cp -f `/bin/ls -d1 $PREFIX/bin/cygpath* |head -1` cygpath
 
 distbase=`basename $distdir`
 rm -f RPMS
@@ -638,13 +654,13 @@ ln -s ../redhat/RPMS .
 
 www=`dirname $distdir`
 cd $www
-for i in bash-2 guile-1 rpm-3 lilypond; do
+for i in bash-2 guile-1 rpm-3 lilypond-$lilypond_version; do
 	rpm=`find_path $i*.rpm $distbase/RPMS/$tp`
 	dist_rpms="$dist_rpms $rpm"
 done
 
-rm -f $www/setup.zip
-cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms
+rm -f $www/setup*.zip
+cd $www && zip setup-lilypond-$lilypond_version.zip lily-w32 $distbase/* $dist_rpms
 
 # make small zip dist available
 #
@@ -654,7 +670,7 @@ mkdir -p $zipdir
 rm -f $zipdir/$CYGWIN_DLL.zip
 cd $ROOT/bin && zip $zipdir/$CYGWIN_DLL.zip $CYGWIN_DLL
 
-for i in bash-2 guile-1 rpm-3 lilypond; do
+for i in bash-2 guile-1 rpm-3 lilypond-$lilypond_version; do
 	found=`find_path $i*.rpm $distdir/RPMS/$tp`
 	if [ "$found" = "" ]; then
 		echo "$i: no such .rpm"
@@ -676,7 +692,4 @@ gzip -f $CYGWIN_DLL
 gzip -f rpm
 gzip -f bash
 gzip -f cygpath
-
-
-
 
