@@ -1112,10 +1112,6 @@ msgstr "debug"
 msgid "define macro NAME [optional expansion EXP]"
 msgstr "definieer macro NAAM [optionele expansie EXP]"
 
-#: mup2ly.py:76 main.cc:117
-msgid "write output to FILE"
-msgstr "schrijf uitvoer naar BESTAND"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr "alleen pre-processen"

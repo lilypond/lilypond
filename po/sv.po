@@ -1113,10 +1113,6 @@ msgstr "felsökningsutdata"
 msgid "define macro NAME [optional expansion EXP]"
 msgstr "definiera makro NAME [valfri makroersättning EXP]"
 
-#: mup2ly.py:76 main.cc:117
-msgid "write output to FILE"
-msgstr "skriv utdata till FIL"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr "förbehandla enbart"

@@ -1101,11 +1101,6 @@ msgstr ""
 msgid "define macro NAME [optional expansion EXP]"
 msgstr ""
 
-#: mup2ly.py:76 main.cc:117
-#, fuzzy
-msgid "write output to FILE"
-msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr ""
@@ -2600,14 +2595,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "NAME"
 #~ msgstr "BASENAME"
-
-#, fuzzy
-#~ msgid "write output to NAME"
-#~ msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
-
-#, fuzzy
-#~ msgid "write ouput to NAME"
-#~ msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
 
 #~ msgid "not enough fields in Dstream init"
 #~ msgstr "Dstream 初期化時のフィールドが不十分"

@@ -702,10 +702,6 @@ msgstr "LilyPond nicht aufrufen"
 msgid "produce MIDI output only"
 msgstr "nur MIDI-Ausgabe erzeugen"
 
-#: ly2dvi.py:135 midi2ly.py:102
-msgid "write output to FILE"
-msgstr "Ausgabe in DATEI schreiben"
-
 #: ly2dvi.py:136
 msgid "find pfa fonts used in FILE"
 msgstr "PFA-Schriftarten, welche in DATEI verwendet werden, finden"

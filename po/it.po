@@ -1101,10 +1101,6 @@ msgstr ""
 msgid "define macro NAME [optional expansion EXP]"
 msgstr ""
 
-#: mup2ly.py:76 main.cc:117
-msgid "write output to FILE"
-msgstr ""
-
 #: mup2ly.py:77
 msgid "only pre-process"
 msgstr ""
