@@ -3,6 +3,7 @@
 % indexstring follow_into_staff same_dir_as_stem above_below_staff symbol_can_beinverted priority }
 %
 
+thumb = \script { "thumb" 0 0 1 0 0 }
 accent = \script { "sforzato"  0 -1 0 0 0 }
 marcato = \script { "marcato" 0 -1 0 1  0 }
 staccatissimo = \script { "staccatissimo" 0  -1 0 1 0 }
