@@ -89,7 +89,7 @@
      ly:music-set-property!
      ly:music-transpose
      ly:music?
-     ly:my-lily-parser?
+     ly:lily-parser?
      ly:number->string
      ly:option-usage
      ly:output-def-clone
