@@ -1,14 +1,25 @@
 \version "1.7.18"
-\header { texidoc = "
-Conventionally, stems and beams extend to the middle staff line.  This
-extension can be controlled through @code{Voice.Stem}'s grob-property
-@code{no-stem-extend}:
-"}
 
-\paper { raggedright = ##t}
-\score {\notes \relative c \context Voice {
-  \grace a'8 a4
-  \property Voice.Stem \set #'no-stem-extend = ##t
-  \grace g8 g4  g8-[ g]
-}}
+\header { texidoc = "@cindex Stem Extend
+You can stop Lilypond from extending stems to the center line. "
+}
+
+\score { 
+  \context Voice \notes\relative c {
+	\context Staff <
+		\context Voice = "a" { 
+			f2 f8 g a b 
+			\property Voice.Stem \set #'no-stem-extend = ##t
+		 	f2 f8 g a b
+		}
+		\context Voice = "b" { 
+			c''2 c8 b a g
+			\property Voice.Stem \set #'no-stem-extend = ##t
+			c2 c8 b a g
+		}
+	>
+	
+  }
+  \paper { raggedright = ##t}  
+}
 %% new-chords-done %%
