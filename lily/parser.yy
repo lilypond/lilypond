@@ -993,7 +993,7 @@ Generic_prefix_music:
 		SCM func = ly_car ($1);
 		Input *loc = unsmob_input (ly_cadr ($1));
 		SCM args = ly_cddr ($1);
-		SCM sig = scm_object_property (func, ly_symbol2scm ("music-head-signature"));
+		SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 		int k = 0;
 		bool ok  = true; 
 		for (SCM s = sig, t = args;
@@ -1015,9 +1015,10 @@ Generic_prefix_music:
 			$$ = unsmob_music (m);
 			scm_gc_protect_object (m);
 			}
-		else
+		else 
 			{
-			loc->error (_ ("Music head function should return Music object.")); 
+			if (ok)
+ 				loc->error (_ ("Music head function should return Music object.")); 
 			$$ = MY_MAKE_MUSIC ("Music");
 			}
 		$$->set_spot (*loc);

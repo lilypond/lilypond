@@ -2082,6 +2082,12 @@ def conv (str):
 conversions.append (((2,2, 0), conv,
 		     '''clean up version. '''))
 
+def conv (str):
+	return re.sub (r'\\apply\b', r'\\applymusic', str)
+
+conversions.append (((2, 3, 1), conv,
+		     '''\\apply -> \\applymusic'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

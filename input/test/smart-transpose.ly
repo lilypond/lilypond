@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.1"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -69,9 +69,9 @@ music = \notes \relative c' { c4 d  e f g a b  c }
 \score {
   \notes \context Staff {
     \transpose c ais \music
-    \apply #naturalise \transpose c ais \music
+    \applymusic #naturalise \transpose c ais \music
     \transpose c deses \music
-    \apply #naturalise \transpose c deses \music
+    \applymusic #naturalise \transpose c deses \music
   }
   \paper { raggedright = ##t}
 }

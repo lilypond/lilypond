@@ -1,3 +1,7 @@
+2004-05-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (conv): \apply -> \applymusic
+
 2004-05-06  Kristof Bastiaensen  <kristof.bastiaensen@vleeuwen.org>
 
 	* elisp/lilypond-mode.el: changed the order of some commands

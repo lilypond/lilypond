@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -40,7 +40,7 @@
 	    \override Beam  #'thickness = #0.3
 	    \override Stem  #'thickness = #4.0
 	    g'16[ b16 fis16 g16]
-	    << \apply #notes-to-clusters { 
+	    << \applymusic #notes-to-clusters { 
 		as16 <as b>
 		<g b>
 		<g cis>

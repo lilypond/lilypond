@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 
 \header {
 texidoc= "@cindex make-music Fingering
@@ -28,7 +28,7 @@ create, then write a function that will structure the music for you.
    m)
 
 \score {
-  \apply #(lambda (x)  (add-text-script x "6") (display-music x) x ) \notes { c'4-3 }
+  \applymusic #(lambda (x)  (add-text-script x "6") (display-music x) x ) \notes { c'4-3 }
 	\paper{ raggedright = ##t }
 }
 

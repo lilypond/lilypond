@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 
 \header{ texidoc="
 
@@ -37,14 +37,14 @@ multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
     	\new Staff {
 	    \time 3/4
 	    \set Staff.timeSignatureFraction = #'(9 . 8)
-	    \apply #(scale-music-function '(2 . 3))
+	    \applymusic #(scale-music-function '(2 . 3))
 	      \repeat unfold 6 { c8[ c c] }
 	}
 	
     	\new Staff {
 	    \time 3/4
 	    \set Staff.timeSignatureFraction = #'(10 . 8)
-	    \apply #(scale-music-function '(3 . 5))
+	    \applymusic #(scale-music-function '(3 . 5))
 	      { \repeat unfold 2 { c8[ c c] }
 		\repeat unfold 2 { c8[  c] }
 		|  c4. c4. \times 2/3 { c8 c c } c4  }

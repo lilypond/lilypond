@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 \header {
 
     texidoc = "Unfolding tremolo repeats. All fragments fill one
@@ -10,12 +10,12 @@
 \score{
     \notes{
 	\time 2/4 
-	\apply #unfold-repeats 	
+	\applymusic #unfold-repeats 	
 	{ \repeat tremolo 4 { c'16 e' } |
 	  \repeat tremolo 8 c'16 } |
 
 	\time 3/4 
-	\apply #unfold-repeats 	
+	\applymusic #unfold-repeats 	
 	{ \repeat tremolo 6 { c'16 e' } |
 	  \repeat tremolo 12 c'16 } | \bar "|."
 	
