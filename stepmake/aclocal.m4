@@ -790,6 +790,20 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
 	fi
     fi
+
+    save_CFLAGS="$CFLAGS"
+    CFLAGS="-shared $CFLAGS"
+    AC_MSG_CHECKING([for shared libkpathsea])
+    AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
+                 [kpse_var_expand ("\$TEXMF");],
+                 [have_libkpathsea_so=yes],
+                 [have_libkpathsea_so=no])
+    AC_MSG_RESULT($have_libkpathsea_so)
+    if test "$have_libkpathsea_so" = "yes"; then
+	AC_DEFINE(HAVE_LIBKPATHSEA_SO)
+    fi
+    CFLAGS="$save_CFLAGS"
+
     KPATHSEA_LIBS="$LIBS"
     LIBS="$save_LIBS"
     AC_MSG_CHECKING(whether to use kpathsea)
