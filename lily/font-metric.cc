@@ -1,5 +1,5 @@
 /*   
-  font-metric.cc --  implement Font_metric
+  font-metric.cc -- implement Font_metric
   
   source file of the GNU LilyPond music typesetter
   
@@ -11,6 +11,7 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "scaled-font-metric.hh"
 #include "virtual-methods.hh"
 #include "warn.hh"
 #include "stencil.hh"
@@ -30,61 +31,7 @@ Font_metric::coding_scheme () const
   return "FontSpecific";
 }
 
-Box
-Font_metric::text_dimension (String text) const
-{
-  Interval ydims;
-  Real w=0.0;
-  
-  for (int i = 0; i < text.length (); i++) 
-    {
-      
-      switch (text[i]) 
-	{
-	case '\\':
-  // accent marks use width of base letter
-         if (i +1 < text.length ())
-	   {
-	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"' ||
-		 text[i+1]=='^')
-	       {
-		 i++;
-		 break;
-	       }
-	     // for string width \\ is a \ and \_ is a _.
-	     if (text[i+1]=='\\' || text[i+1]=='_')        
-	       {
-		 break;
-	       }
-	   }
-	  
-	  for (i++; (i < text.length ()) && !isspace (text[i]) 
-		 && text[i]!='{' && text[i]!='}'; i++)
-	    ;
-	  // ugh.
-	  i--; // Compensate for the increment in the outer loop!
-	  break;
-	case '{':  // Skip '{' and '}'
-	case '}':
-	  break;
-	
-	default: 
-	  Box b = get_ascii_char ((unsigned char)text[i]);
-	  
-	  // Ugh, use the width of 'x' for unknown characters
-	  if (b[X_AXIS].length () == 0) 
-	    b = get_ascii_char ((unsigned char)'x');
-	  
-	  w += b[X_AXIS].length ();
-	  ydims.unite (b[Y_AXIS]);
-	  break;
-	}
-    }
-  if (ydims.is_empty ())
-    ydims = Interval (0, 0);
 
-  return Box (Interval (0, w), ydims);
-}
 
 
 Font_metric::Font_metric ()
@@ -211,10 +158,11 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension",
 	   "The return value is a pair of number-pairs.")
 {
   Box b;
-  Font_metric *fm = unsmob_metrics (font);
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  Modified_font_metric*fm = dynamic_cast<Modified_font_metric*>
+    (unsmob_metrics (font));
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "modified font metric");
   SCM_ASSERT_TYPE (gh_string_p (text), text, SCM_ARG2, __FUNCTION__, "string");
-
+  
   b = fm->text_dimension (ly_scm2string (text));
   
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));

@@ -14,6 +14,7 @@
 #include "font-interface.hh"
 #include "virtual-font-metric.hh"
 #include "paper-def.hh"
+#include "scaled-font-metric.hh"
 
 MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
@@ -27,13 +28,19 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       Font_metric *fm = select_font (pap, props);
       SCM lst = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
       
-      if (dynamic_cast<Virtual_font_metric*> (fm))
-	/* ARGH. */
-	programming_error ("Can't use virtual font for text.");
+      Box b;
+      if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
+	{
+	  lst = fontify_atom (mf, lst);
+	
+	  Box b = mf->text_dimension (str);
+	}
       else
-	lst = fontify_atom (fm, lst);
-
-      Box b = fm->text_dimension (str);
+	{
+	  /* ARGH. */
+	  programming_error ("Must have Modified_font_metric for text.");
+	}
+      
       return Stencil (b, lst).smobbed_copy ();
     }
   else if (gh_pair_p (markup))

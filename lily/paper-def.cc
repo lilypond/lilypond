@@ -153,7 +153,7 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
 
       m /= gh_scm2double (scm_variable_ref (scale_var));
 
-      val = Scaled_font_metric::make_scaled_font_metric (f, m);
+      val = Modified_font_metric::make_scaled_font_metric (f, m);
     }
 
   sizes = scm_acons (gh_double2scm (m), val, sizes);
@@ -182,7 +182,7 @@ Paper_def::font_descriptions () const
 	{
 	  Font_metric *fm= unsmob_metrics (gh_cdar (t));
 
-	  if (dynamic_cast<Scaled_font_metric*> (fm))
+	  if (dynamic_cast<Modified_font_metric*> (fm))
 	    l = gh_cons (fm->self_scm (), l);
 	}
     }

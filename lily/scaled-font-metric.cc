@@ -1,5 +1,5 @@
 /*
-  scaled-font-metric.cc -- declare Scaled_font_metric
+  scaled-font-metric.cc -- declare Modified_font_metric
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,13 +7,16 @@
   
  */
 
+#include <ctype.h>
+
+#include "warn.hh"
 #include "scaled-font-metric.hh"
 #include "string.hh"
 #include "stencil.hh"
 
-
-Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
+Modified_font_metric::Modified_font_metric (Font_metric* m, Real magn)
 {
+  coding_vector_ =  SCM_EOL;
   magnification_ = magn;
   SCM desc = m->description_;
 
@@ -25,20 +28,23 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
 }
 
 SCM
-Scaled_font_metric::make_scaled_font_metric (Font_metric *m, Real s)
+Modified_font_metric::make_scaled_font_metric (Font_metric *m, Real s)
 {
-  Scaled_font_metric *sfm = new Scaled_font_metric (m, s);
+  Modified_font_metric *sfm = new Modified_font_metric (m, s);
+
+  sfm->coding_scheme_ = "TeX";
+  
   return sfm->self_scm ();
 }
 
 Real
-Scaled_font_metric::design_size () const
+Modified_font_metric::design_size () const
 {
   return orig_->design_size ();
 }
 
 Stencil
-Scaled_font_metric::find_by_name (String s) const
+Modified_font_metric::find_by_name (String s) const
 {
   Stencil m = orig_->find_by_name (s);
   Box b = m.extent_box ();
@@ -48,7 +54,7 @@ Scaled_font_metric::find_by_name (String s) const
 }
 
 Box 
-Scaled_font_metric::get_indexed_char (int i) const
+Modified_font_metric::get_indexed_char (int i) const
 {
   Box b = orig_->get_indexed_char (i);
   b.scale (magnification_);
@@ -56,43 +62,172 @@ Scaled_font_metric::get_indexed_char (int i) const
 }
 
 Box 
-Scaled_font_metric::get_ascii_char (int i) const
+Modified_font_metric::get_ascii_char (int i) const
 {
   Box b = orig_->get_ascii_char (i);
   b.scale (magnification_);
   return b;  
 }
 
-Box
-Scaled_font_metric::text_dimension (String t) const
-{
-  Box b (orig_->text_dimension (t));
-  b.scale (magnification_);
-  return b;
-}
 
 int
-Scaled_font_metric::count () const
+Modified_font_metric::count () const
 {
   return orig_->count ();
 }
 
 Offset
-Scaled_font_metric::get_indexed_wxwy (int k) const
+Modified_font_metric::get_indexed_wxwy (int k) const
 {
   Offset o = orig_->get_indexed_wxwy (k);
   return o * magnification_;
 }
 
 int
-Scaled_font_metric::name_to_index (String s)const
+Modified_font_metric::name_to_index (String s)const
 {
   return orig_->name_to_index (s);
 }
 
 String
-Scaled_font_metric::coding_scheme () const
+Modified_font_metric::coding_scheme () const
 {
-  return orig_->coding_scheme ();
+  return coding_scheme_;
 }
 
+void
+Modified_font_metric::derived_mark ()
+{
+  scm_gc_mark (coding_vector_);
+}
+
+
+Box
+Modified_font_metric::tex_kludge (String text) const
+{
+  Interval ydims;
+  Real w=0.0;
+
+  /*
+    TODO: put this klutchness behind ly:option switch.
+  */  
+  for (int i = 0; i < text.length (); i++) 
+    {
+      
+      switch (text[i]) 
+	{
+	case '\\':
+  // accent marks use width of base letter
+         if (i +1 < text.length ())
+	   {
+	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"' ||
+		 text[i+1]=='^')
+	       {
+		 i++;
+		 break;
+	       }
+	     // for string width \\ is a \ and \_ is a _.
+	     if (text[i+1]=='\\' || text[i+1]=='_')        
+	       {
+		 break;
+	       }
+	   }
+	  
+	  for (i++; (i < text.length ()) && !isspace (text[i]) 
+		 && text[i]!='{' && text[i]!='}'; i++)
+	    ;
+	  // ugh.
+	  i--; // Compensate for the increment in the outer loop!
+	  break;
+	case '{':  // Skip '{' and '}'
+	case '}':
+	  break;
+	
+	default: 
+	  Box b = get_ascii_char ((unsigned char)text[i]);
+	  
+	  // Ugh, use the width of 'x' for unknown characters
+	  if (b[X_AXIS].length () == 0) 
+	    b = get_ascii_char ((unsigned char)'x');
+	  
+	  w += b[X_AXIS].length ();
+	  ydims.unite (b[Y_AXIS]);
+	  break;
+	}
+    }
+  
+  if (ydims.is_empty ())
+    ydims = Interval (0, 0);
+  
+  return Box (Interval (0, w), ydims);
+}
+
+Box
+Modified_font_metric::text_dimension (String text) 
+{
+  Box b; 
+  if (coding_scheme_ == "TeX")
+    {
+      b = tex_kludge (text);
+    }
+  else if (coding_scheme_ == "ASCII"
+	   || coding_scheme_ ==  orig_->coding_scheme ())
+    {
+      Interval ydims;
+
+      Real w=0.0;
+
+      for (int i = 0; i < text.length (); i++) 
+	{
+	  Box b = get_ascii_char ((unsigned char)text[i]);
+    
+	  w += b[X_AXIS].length ();
+	  ydims.unite (b[Y_AXIS]); 
+	}
+    }
+  else
+    {
+      if (!gh_vector_p (coding_vector_))
+	{
+	  coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
+				       scm_makfrom0str (coding_scheme_.to_str0 ()));
+
+	  if (!gh_vector_p (coding_vector_))
+	    {
+	      programming_error ("get-coding-vector  should return vector");
+	      coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
+	    }
+	}
+	  
+      Interval ydims;
+      Real w=0.0;
+
+      for (int i = 0; i < text.length (); i++) 
+	{
+	  SCM sym = scm_vector_ref (coding_vector_,
+				    SCM_MAKINUM((unsigned char) text[i]));
+
+	  Box char_box;
+
+	  if (!gh_symbol_p (sym))
+	    continue;
+	  
+	  int idx = orig_->name_to_index (SCM_SYMBOL_CHARS(sym));
+
+	  if (idx >= 0)
+	    {
+	      char_box = orig_->get_indexed_char (idx);
+	    }
+	  if (!char_box[X_AXIS].is_empty ())
+	    w += char_box[X_AXIS][RIGHT]; // length ?
+
+	  ydims.unite (char_box[Y_AXIS]);
+	}
+
+	  
+      b = Box (Interval (0, w), ydims);
+    }
+  
+  b.scale (magnification_);
+  return b;
+}

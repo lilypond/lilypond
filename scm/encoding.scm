@@ -70,8 +70,6 @@ vector of symbols."
        (tab (make-encoding-table vec)))
     (list vec tab)))
 
-
-
 ;; coding-alist maps NAME -> (list VECTOR TAB)
 (define coding-alist
   

@@ -13,9 +13,12 @@
 #include "font-metric.hh"
 
 /* Perhaps junk this, and move this to paper_def as interface? */
-struct Scaled_font_metric : public Font_metric
+struct Modified_font_metric : public Font_metric
 {
-  virtual Box text_dimension (String) const;
+public:
+  Box text_dimension (String);
+  
+  
   virtual Stencil find_by_name (String) const;
   static SCM make_scaled_font_metric (Font_metric*, Real);
   virtual int count () const;
@@ -25,12 +28,16 @@ struct Scaled_font_metric : public Font_metric
 
 protected:
   virtual Real design_size () const;
+  virtual void derived_mark (); 
   virtual Box get_indexed_char (int)const;
-  virtual Box get_ascii_char (int)const;
+  virtual Box get_ascii_char (int) const;
   Font_metric *orig_;
   Real magnification_;
+  String coding_scheme_;
+  SCM coding_vector_;
   
-  Scaled_font_metric (Font_metric*, Real);
+  Modified_font_metric (Font_metric*, Real);
+  Box tex_kludge (String) const;
 };
 
 #endif /* SCALED_FONT_METRIC_HH */
