@@ -131,5 +131,8 @@ Paper_score::process ()
   outputter_ = 0;
   
   if (verbose_global_b)
-    ly_display_scm (scm_gc_stats ()); 
+    {
+      scm_write (scm_gc_stats (), scm_current_error_port ());
+      scm_flush (scm_current_error_port ());
+    }
 }

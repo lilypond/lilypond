@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "string.hh"
+#include "main.hh"
 
 void
 progress_indication (String s)

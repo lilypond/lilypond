@@ -236,7 +236,8 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     }
 
   warning (_ ("couldn't find any font satisfying "));
-  scm_write (scm_list_n (point_str0, shape, series , family, rel_str0, SCM_UNDEFINED), scm_current_error_port ());
+  scm_write (scm_list_n (point_str0, shape, series , family, rel_str0,
+			 SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return scm_makfrom0str ("cmr10");

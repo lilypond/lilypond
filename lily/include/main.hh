@@ -20,6 +20,8 @@ String find_file (String);
 void call_constructors ();
 extern Array<String> get_inclusion_names ();
 extern void set_inclusion_names (Array<String>);
+
+/* FIXME: in warn.cc */
 void progress_indication (String);
 
 /* options */

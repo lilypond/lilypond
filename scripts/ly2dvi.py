@@ -322,6 +322,7 @@ keep_temp_dir_p = 0
 verbose_p = 0
 preview_p = 0
 preview_resolution = 90
+pseudo_filter_p = 0
 
 help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
@@ -375,8 +376,9 @@ paper_p = 1
 
 output_name = ''
 
-## docme: what does this do?
-targets = [ 'DVI', 'LATEX', 'MIDI', 'TEX']
+# List of output formats that ly2dvi should create
+# Most advanced format first.
+targets = ['DVI', 'LATEX', 'MIDI', 'TEX']
 
 track_dependencies_p = 0
 dependency_files = []
@@ -449,16 +451,19 @@ def quiet_system (cmd, name, ignore_error = 0):
 	if not verbose_p:
 		progress ( _("Running %s...") % name)
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
+	elif pseudo_filter_p:
+		cmd = cmd + ' 1> /dev/null'
 
 	return system (cmd, ignore_error, quiet = 1)
 
 
-def run_lilypond (files, outbase, dep_prefix):
+def run_lilypond (files, dep_prefix):
 
 	opts = ''
-#	opts = opts + '--output=%s.tex' % outbase
 	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x,
 					      include_path))
+	if pseudo_filter_p:
+		opts = opts + ' --output=lelie'
 	if paper_p:
 		opts = opts + ' ' + string.join (map (lambda x : '-H ' + x,
 						      fields))
@@ -559,7 +564,7 @@ def find_tex_files (files, extra):
 			x = x + 1
 	if not x:
 		fstr = string.join (files, ', ')
-		warning (_ ("no lilypond output found for %s") % fstr)
+		warning (_ ("no LilyPond output found for %s") % fstr)
 	return tfiles
 
 def one_latex_definition (defn, first):
@@ -683,6 +688,7 @@ RETURN VALUE
 
 None
 	"""
+
 	latex_fn = outbase + '.latex'
 	
 	wfs = find_tex_files (files, extra)
@@ -871,8 +877,8 @@ for opt in options:
 	elif o == '--postscript' or o == '-P':
 		targets.append ('PS')
 	elif o == '--pdf' or o == '-p':
-		targets.append ('PDF')
 		targets.append ('PS')
+		targets.append ('PDF')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--no-lily':
@@ -904,6 +910,7 @@ for opt in options:
 
 		sys.exit (0)
 
+print 'hallo3'
 # Don't convert input files to abspath, rather prepend '.' to include
 # path.
 include_path.insert (0, '.')
@@ -917,11 +924,20 @@ if files and files[0] != '-' and os.path.dirname (files[0]) != '.':
 	
 include_path = map (abspath, include_path)
 
-
-
+if files and (files[0] == '-' or output_name == '-'):
+	if len (files) == 1:
+		pseudo_filter_p = 1
+		output_name = 'lelie'
+		if verbose_p:
+			progress (_ ("pseudo filter"))
+	else:
+		help ()
+		user_error (_ ("pseudo filter only for single input file."), 2)
+		
+	
 original_output = output_name
 
-if files and files[0] != '-':
+if files:
 	
 	# Ugh, maybe make a setup () function
 	files = map (lambda x: strip_extension (x, '.ly'), files)
@@ -932,7 +948,7 @@ if files and files[0] != '-':
 	(outdir, outbase) = ('','')
 	if not output_name:
 		outbase = os.path.basename (files[0])
-		outdir = abspath('.')
+		outdir = abspath ('.')
 	elif output_name[-1] == os.sep:
 		outdir = abspath (output_name)
 		outbase = os.path.basename (files[0])
@@ -965,7 +981,7 @@ if files and files[0] != '-':
 	
 	if lily_p:
 		try:
-			run_lilypond (files, outbase, dep_prefix)
+			run_lilypond (files, dep_prefix)
 		except:
  			# TODO: friendly message about LilyPond setup/failing?
  			#
@@ -979,6 +995,11 @@ if files and files[0] != '-':
 			targets = []
 			traceback.print_exc ()
 
+	# Our LilyPond pseudo filter always outputs to 'lelie'
+	# have subsequent stages and use 'lelie' output.
+	if pseudo_filter_p:
+		files[0] = 'lelie'
+		
 	if 'PNG' in targets and 'PS' not in targets:
 		targets.append ('PS')
 	if 'PS' in targets and 'DVI' not in targets:
@@ -1015,8 +1036,23 @@ if files and files[0] != '-':
 		depfile = os.path.join (outdir, outbase + '.dep')
 		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
-			progress (_ ("dependencies output to `%s'...") % depfile)
+			progress (_ ("dependencies output to `%s'...") %
+				  depfile)
 
+	if pseudo_filter_p:
+		main_target = 0
+		for i in 'PDF', 'PS', 'PNG', 'DVI', 'LATEX':
+			if i in targets:
+				main_target = i
+				break
+
+		outname = outbase + '.' + string.lower (main_target)
+		if os.path.isfile (outname):
+			sys.stdout.write (open (outname).read ())
+		elif verbose_p:
+			warning (_ ("can't find file: `%s'") % outname)
+		targets = []
+		
 	# Hmm, if this were a function, we could call it the except: clauses
 	for i in targets:
 		ext = string.lower (i)
@@ -1034,9 +1070,5 @@ if files and files[0] != '-':
 	cleanup_temp ()
 	
 else:
-	# FIXME: read from stdin when files[0] = '-'
 	help ()
 	user_error (_ ("no files specified on command line."), 2)
-
-
-

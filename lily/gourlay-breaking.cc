@@ -184,7 +184,10 @@ Gourlay_breaking::do_solve () const
     }
 
   if (verbose_global_b)
-    printf ("Optimal demerits: %f\n", optimal_paths.top ().demerits_); 
+    {
+      progress_indication (_f ("Optimal demerits: %f",
+			       optimal_paths.top ().demerits_) + "\n");
+    }
   
   if (optimal_paths.top ().demerits_ >= infinity_f)
     warning (_ ("No feasible line breaking found"));

@@ -6,13 +6,26 @@
 <!--- @@WEB-TITLE@@=User Manual --->
 @end html
 
+@ignore
+Distributions will want to install lilypond.info doing:
 
+    ./install-info --info-dir=/usr/share/info out/lilypond.info
+    
+@end ignore
 @dircategory GNU music project
 @direntry
 @c    ;; prepend GNU for dir, must be unique
-* GNU LilyPond: (lilypond).          The GNU music typesetter.
-@c * install-info: (texinfo)Invoking install-info. Update info/dir entries.
-@c * texi2dvi: (texinfo)Format with texi2dvi.      Print Texinfo documents.
+* GNU LilyPond: (lilypond).                    The GNU music typesetter.
+* ly2dvi: (lilypond)Invoking ly2dvi::          Titling LilyPond scores.
+* convert-ly: (lilypond)Invoking convert-ly::
+                                               Older LilyPond versions.
+* midi2ly: (lilypond)Invoking midi2ly::        Importing MIDI.
+* etf2ly: (lilypond)Invoking etf2ly::          Importing Finale.
+* abc2ly: (lilypond)Invoking abc2ly::          Importing ABC.          
+* pmx2ly: (lilypond)Invoking pmx2ly::          Importing PMX.
+* musedata2ly: (lilypond)Invoking musedata2ly::
+                                               Importing Musedata.
+* mup2ly: (lilypond)Invoking mup2ly::          Importing MUP. 
 @end direntry
 
 
@@ -98,7 +111,6 @@ this and other documentation.
 @mbinclude refman.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi
-@mbinclude ly2dvi.itexi
 @mbinclude lilypond-book.itely
 @mbinclude converters.itely
 @mbinclude literature.itely
