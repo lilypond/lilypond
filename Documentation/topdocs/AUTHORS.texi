@@ -60,7 +60,7 @@ list is alphabetically ordered.
     parts of Documentation/user/glossary*, started internationalization stuff.
 @item @email{gperciva@@sfu.ca, Graham Percival},
     @uref{http://www.sfu.ca/~gperciva/},
-    minor documentation fixes.
+    Documenation Editor.
 @item @email{portnoy@@ai.mit.edu, Stephen Peters},
     pdf@TeX{} support.
 @item @email{glenprideaux@@iname.com, Glen Prideaux},

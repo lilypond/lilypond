@@ -1,3 +1,7 @@
+2004-09-07  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/topdocs/AUTHORS.texi, THANKS: add/modify my name and summary.
+
 2004-09-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (output-framework): handle landscape settings.
