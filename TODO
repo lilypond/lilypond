@@ -26,6 +26,8 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
+	* stafftypes: voice names/ instrument names.
+
 	* make spanner for staffsym
 	
 	* Lookup::tex_glissando, Lookup::tex_bracket,

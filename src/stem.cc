@@ -121,7 +121,7 @@ Stem::set_noteheads()
 {
     heads.sort(Notehead::compare);
     heads[0]->extremal = -1;
-    heads.last()->extremal = 1;
+    heads.top()->extremal = 1;
     int parity=1;
     int lastpos = heads[0]->position;
     for (int i=1; i < heads.size(); i ++) {

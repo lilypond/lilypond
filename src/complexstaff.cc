@@ -8,6 +8,7 @@
 #include "complexstaff.hh"
 #include "sccol.hh" 
 #include "complexwalker.hh"
+#include "main.hh"
 
 
 
@@ -30,7 +31,8 @@ Complex_column::setup_requests()
 
 	    if (j->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-		    error( "Barcheck failed", j->defined_ch_c_l_m );
+		    warning( "Barcheck failed", j->defined_ch_c_l_m );
+//		    staff_l_->the_line_->pscore_l_->heu errorlevel_i_ |= 1;
 		}
 		continue;
 	    }

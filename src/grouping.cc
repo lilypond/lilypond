@@ -38,7 +38,7 @@ Rhythmic_grouping::interval()const
     else
 	return
 	    MInterval(children[0]->interval().left,
-		     children.last()->interval().right);
+		     children.top()->interval().right);
 }
 
 void
@@ -217,7 +217,7 @@ bool
 Rhythmic_grouping::child_fit_query(Moment start)
 {
     if (children.size())
-	return ( children.last()->interval().right== start);
+	return ( children.top()->interval().right== start);
 
     return true;
 }  
@@ -311,7 +311,7 @@ Rhythmic_grouping::extend(MInterval m)
 	Array<Rhythmic_grouping*> a(children);
 	for (int i=0; i < a.size(); i++) {
 	    a[i] =new Rhythmic_grouping(*children[i]);
-	    a[i]->translate(children.last()->interval().right);	    
+	    a[i]->translate(children.top()->interval().right);	    
 	}
 	children.concat(a);
     }

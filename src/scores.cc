@@ -33,7 +33,7 @@ Input_score*
 current_iscore_l()
 {
     if ( score_array_global.size() )
-	return score_array_global.last(); // UGH
+	return score_array_global.top(); // UGH
     else
     	return 0;
 }

@@ -19,10 +19,11 @@
 #endif
 
 Array<Request*> pre_reqs, post_reqs;
-sstack<const char *> define_spots;
+Array<const char *> define_spots;
 Paperdef*default_paper();
 char const* defined_ch_c_l;
 char const* req_defined_ch_c_l;
+int fatal_error_i = 0;
 
 %}
 
@@ -171,7 +172,7 @@ declaration:
 		delete $1;
 	}
 	| declarable_identifier error '}' {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -224,7 +225,7 @@ score_body:		{
 score_commands_block:
 	COMMANDS '{' score_commands_body '}' { $$ =$3;}
 	| COMMANDS '{' error '}' {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -325,7 +326,7 @@ paper_body:
 	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
 	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
 	| paper_body error {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -361,7 +362,7 @@ staff_body:
 		delete $2;
 	}
 	| staff_body error {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -392,7 +393,7 @@ music_voice_body:
 		$$->add($2);
 	}
 	| music_voice_body error {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -416,7 +417,7 @@ music_chord_body:
 		$$ ->add_elt($2);
 	}
 	| music_chord_body error {
-		warning( "parse error", lexer->here_ch_c_l() );
+//		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -436,8 +437,12 @@ full_element:	pre_requests voice_elt post_requests {
 	}
 	| COMMAND '{' staff_command '}'	{ $$=get_command_element($3); }
 	| COMMAND '{' score_command '}'	{ $$=get_command_element($3); }
-	| '|'				{ $$ = get_barcheck_element(); }
+	| '|'				{ 
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = get_barcheck_element(); 
+	}
 	| STEM '{' int '}'		{
+		req_defined_ch_c_l = lexer->here_ch_c_l();
 		$$ = get_stemdir_element($3);
 	}
 	| lyrics_elt
@@ -459,8 +464,8 @@ post_requests:
 
 post_request:
 	close_request_parens	{ 
-		$$ = get_request($1); 
 		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = get_request($1); 
 	}
 	| script_req
 	| textscript_req
@@ -468,23 +473,23 @@ post_request:
 
 close_request_parens:
 	'('	{ 
-		$$='(';
 		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$='(';
 	}
 	| ']'	{ 
-		$$ = ']';
 		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = ']';
 	}
 	;
   
 open_request_parens:
 	')'	{ 
-		$$=')';
 		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$=')';
 	}
 	| '['	{
-		$$='[';
 		req_defined_ch_c_l = lexer->here_ch_c_l();
+		$$='[';
 	}
 	;
 
@@ -505,9 +510,9 @@ textscript_req:
 
 mudela_text:
 	STRING			{ 
+		defined_ch_c_l = lexer->here_ch_c_l();
 		$$ = get_text(*$1); 
 		delete $1;
-		defined_ch_c_l = lexer->here_ch_c_l();
 	}
 	;
 
@@ -530,6 +535,10 @@ mudela_script:
 		    warning( "too many staccato dots", lexer->here_ch_c_l() );
 		$$ = get_scriptdef('.');
 	}
+	| error {
+		$$ = get_scriptdef('.');
+		yyerrok;
+	}
 	;
 
 script_dir:
@@ -546,8 +555,8 @@ pre_requests:
 
 pre_request: 
 	open_request_parens	{ 
-		$$ = get_request($1); 
 		defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = get_request($1); 
 	}
 	;
 
@@ -622,12 +631,12 @@ default_duration:
 	;
 
 pitchmod:		{ 
-		$$ = new String; 
 		defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = new String; 
 	}
 	| PITCHMOD	{ 
-		$$ = $1;
 		defined_ch_c_l = lexer->here_ch_c_l();
+		$$ = $1;
 	}
 	;
 
@@ -769,6 +778,17 @@ dinterval: dim	dim		{
 	;
 
 %%
+
+void
+yyerror(const char *s)
+{
+//	if ( YYRECOVERING() ) 
+//		return;
+	lexer->LexerError(s);
+
+	if ( fatal_error_i )
+		exit( fatal_error_i );
+}
 
 void
 parse_file(String init, String s)

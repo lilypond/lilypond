@@ -8,15 +8,25 @@ FAQ - LilyPond FAQs
 Q: Why are [] around the notes, and () inbetween?
 
 A: [] designate beams, a note can only be in one beam at the same
-time. () is a slur, which connects notes. You need to be able to specify
+time. () is a slur, which connects notes.  You need to be able to 
+specify
 
 	a()a()a
 
 
 Q: I want a DOS/NT/W95 port.
 
-A: I haven't had time to find a GCC crosscompiler to DOS/win (in rpm,
-please :).  No, I'm not considering compilation in W95, but feel free to give it a try.
+A0: Reconsider.  Try Linux.  It-s fun!
+
+A1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
+and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
+I (JCN) only had to make a minor workaround for missing library calls.  
+Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
+make $OS. (I am not promising to maintain this platform, it is just that
+when having to use doze, i-m sometimes too lazy to reboot.)
+
+A2: I haven't had time to find a GCC crosscompiler to DOS/win (in rpm,
+please :).  
 
 Q: Why GPL?
 

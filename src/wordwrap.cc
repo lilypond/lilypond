@@ -60,7 +60,7 @@ Word_wrap::solve()
 
 
 	    // add nobreak version of breakable column
-	    current.cols.last()=breakpoints[break_idx_i];
+	    current.cols.top()=breakpoints[break_idx_i];
 	    curcol ++;
 	    break_idx_i++;
 	}

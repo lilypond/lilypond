@@ -1,3 +1,8 @@
+# version info
+MAJVER=0
+MINVER=0
+PATCHLEVEL=29
+include Site.make
 ####
 #### USER CONFIGURABLE
 ####
@@ -37,10 +42,6 @@ endif
 
 
 
-# version info
-MAJVER=0
-MINVER=0
-PATCHLEVEL=28
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -105,3 +106,4 @@ SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR) $(DEPDIR) \
 depfile=deps/$(subst .o,.dep,$(notdir $@)) 
 DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(OBJECTDIR)/$(notdir $@)"
 
+STRIPDEBUG=strip --strip-debug

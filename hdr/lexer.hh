@@ -3,7 +3,7 @@
 #include <FlexLexer.h>
 #include "proto.hh"
 #include "fproto.hh"
-#include "sstack.hh"
+#include "varray.hh"
 #include "string.hh"
 
 int yylex();
@@ -14,6 +14,7 @@ void set_lexer();
 
 struct Input_file {
 	istream* is;
+	char const* defined_ch_c_l_m;
 	Source_file* sourcefile_l_;
 	int line;
 	String name;
@@ -26,7 +27,7 @@ struct Input_file {
 /// lexer with provisions for include files.
 struct My_flex_lexer : yyFlexLexer {
 
-    sstack<Input_file*> include_stack;
+    Array<Input_file*> include_stack;
     Assoc<String, Identifier*> *the_id_tab;
     Keyword_table * keytable;
     Notename_tab * defaulttab;

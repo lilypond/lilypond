@@ -15,12 +15,6 @@ yylex() {
 	return lexer->yylex();
 }
 
-void
-yyerror(const char *s)
-{
-	lexer->LexerError(s);
-}
-
 bool
 busy_parsing()
 {
@@ -34,6 +28,7 @@ Input_file::Input_file(String s)
     String pf(s);
     if (pf=="") {
 	is = &cin;
+        defined_ch_c_l_m = 0;
         sourcefile_l_ = 0;
     }
     else {
@@ -41,6 +36,7 @@ Input_file::Input_file(String s)
 	source_global_l->add( sourcefile_p );
 	sourcefile_l_ = sourcefile_p;
 	is = sourcefile_l_->istream_l();
+        defined_ch_c_l_m = sourcefile_l_->ch_c_l();
     }
     cout << "["<<pf<<flush;
 }

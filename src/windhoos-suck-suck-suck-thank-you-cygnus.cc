@@ -4,6 +4,7 @@
 #ifdef _WIN32
 
 #include <sys/types.h>
+#include <sys/mman.h>
 #include <winbase.h>
 
 /* 
@@ -25,16 +26,42 @@ LPVOID MapViewOfFile(
     DWORD dwNumberOfBytesToMap 	// number of bytes to map 
    );	
  
+
+io.h:
+long _get_osfhandle( int filehandle );
 */
+
+// cygnus's gnu-win32-b17.1 does not have _get_osfhandle
+// however, after some hacking, it turns out that:
+
+static const int OSF_OFFSET_i = 72;  
+static const int OSF_BASE_i = -3;
+static const int OSF_FACTOR_i = 8;  
+// let-s hope bill doesn-t change his mind any time soon :-)
+
+// so that, while waiting for cygnus's mmap, we can write:
+
+// #define HAVE_GET_OSFHANDLE  // no we still cannot; works only with cl.exe
+long
+_get_osfhandle( int filedes_i )
+{
+    return (long)( OSF_OFFSET_i + ( filedes_i + OSF_BASE_i ) * OSF_FACTOR_i );
+}
+
+#ifdef HAVE_GET_OSFHANDLE
+
+#include <iostream.h>
 
 caddr_t
 mmap(caddr_t addr, size_t len, int prot, int flags, int fd, off_t offset)
 {
     (void)flags;
     (void)prot;
-    HANDLE file_handle = CreateFileMapping( fd, (void*)0, PAGE_READONLY,
+    (void)addr;
+    HANDLE osf = (HANDLE)_get_osfhandle( fd );
+    HANDLE file_handle = CreateFileMapping( osf, (void*)0, PAGE_READONLY,
 	0, len, 0 ); 
-    return (caddr_t)MapViewOfFile( file_handle, addr, 0, offset, len );
+    return (caddr_t)MapViewOfFile( file_handle, FILE_MAP_READ, 0, offset, len );
 }
 
 
@@ -44,5 +71,32 @@ munmap(caddr_t addr, size_t len)
     (void)len;
     return UnmapViewOfFile( addr );
 }
+
+#else // ! HAVE_GET_OSFHANDLE //
+
+caddr_t
+mmap(caddr_t addr, size_t len, int prot, int flags, int fd, off_t offset)
+{
+    (void)flags;
+    (void)prot;
+    (void)addr;
+    (void)offset;
+    char* ch_p = new char[ len ];
+    if ( ch_p )
+        read( fd, (void*)ch_p, len );
+    return ch_p;
+}
+
+
+int
+munmap(caddr_t addr, size_t len)
+{
+    (void)len;
+    delete (char*)addr;
+    return 0;
+}
+
+#endif // !HAVE_GET_OSFHANDLE //
+
 
 #endif // _WIN32 //

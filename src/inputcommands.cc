@@ -7,6 +7,7 @@
 #include "stcol.hh"
 #include "staff.hh"
 #include "assoc.hh"
+#include "lexer.hh"
 
 void
 Commands_at::print() const
@@ -181,8 +182,10 @@ Input_commands::add(Input_command c, Assoc<String,Moment> &marks_assoc_r)
     } else if (s=="GOTO") {
 	ptr = top();
 	String m(c.args[1]);
-	if (!marks_assoc_r.elt_query(m))
-	    error("Unknown marker: `" +m + "\'");
+	if (!marks_assoc_r.elt_query(m)) { 
+	    warning( "Unknown marker: `" +m + "\'", 0 );
+	    return;
+	}
 	
 	ptr.find_moment(marks_assoc_r[m]);
     } else {

@@ -10,6 +10,7 @@
 #include "lyricstaff.hh"
 #include "staff.hh"
 #include "complexstaff.hh"
+#include "lexer.hh"
 
 void
 Input_staff::add(Array<Input_command*> &s)
@@ -46,8 +47,8 @@ Input_staff::parse(Score*score_l)
     else if (type == "lyric")
     	p = new Lyric_staff;
     else
-	error("Unknown staff-type `" + type +"\'");
-    
+	error( "Unknown staff-type `" + type +"\'", 0 );
+
     p->score_l_ = score_l;
     p->define_spot_str_ = "";	// todo
     

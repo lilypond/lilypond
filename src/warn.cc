@@ -24,7 +24,7 @@ error(String s)
     if (busy_parsing())
 	yyerror(s);
     else
-	cerr <<  "\nerror: " << s << "\n";
+	cerr <<  "error: " << s << "\n";
 	
     exit(1);
 }
@@ -50,14 +50,16 @@ message( String message_str, char const* context_ch_c_l )
     String str = "lilypond: ";
     Source_file* sourcefile_l = source_global_l->sourcefile_l( context_ch_c_l );
     if ( sourcefile_l ) {
-	str += sourcefile_l->file_line_no_str(context_ch_c_l);
+	str += sourcefile_l->file_line_no_str(context_ch_c_l) + String(": ");
     }
     str += message_str;
     if ( sourcefile_l ) {
-	str += "\n";
+	str += ":\n";
 	str += sourcefile_l->error_str( context_ch_c_l );
     }
-    cerr << endl << str << endl;
+    if ( busy_parsing() )
+    	cerr << endl;
+    cerr << str << endl;
 }
 
 void

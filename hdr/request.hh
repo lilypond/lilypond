@@ -96,6 +96,7 @@ struct Spacing_req :virtual Request {
     Real distance;
     Real strength;
     /****************/
+    Spacing_req();
     REQUESTMETHODS(Spacing_req, spacing);
 };
 

@@ -7,10 +7,10 @@
 #include "keyword.hh"
 #include "assoc.hh"
 #include "lexer.hh"
-#include "sstack.hh"
 #include "debug.hh"
 #include "notename.hh"
 #include "sourcefile.hh"
+#include "parseconstruct.hh"
 
 static Keyword_ent the_key_tab[]={
     "bar", BAR,
@@ -70,7 +70,7 @@ My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
     if (p[0] < 0) {
 
 	errorlevel_i_ |= 1;
-	warning( String( "notename does not exist: " ) +YYText() + ": ", ch_c_l );
+	warning( String( "notename does not exist: " ) + YYText(), ch_c_l );
 	p[0] = p[1] = 0;
     }
     return NOTENAME;
@@ -103,7 +103,7 @@ My_flex_lexer::lookup_identifier(String s)
 char const*
 My_flex_lexer::here_ch_c_l()
 {
-    return data_ch_c_l_m + yyin->tellg();
+    return data_ch_c_l_m ? data_ch_c_l_m + yyin->tellg() : 0;
 }
 
 void
@@ -137,11 +137,14 @@ My_flex_lexer::LexerError(const char *s)
 	*mlog << "error at EOF" << s << '\n';
     } else {
 	char const* ch_c_l = here_ch_c_l();
-	ch_c_l--;
-	while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
-		ch_c_l--;
-	ch_c_l++;
-	error( s, ch_c_l );
+	if ( ch_c_l ) {
+	    ch_c_l--;
+	    while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+		    ch_c_l--;
+	    ch_c_l++;
+	}
+	errorlevel_i_ |= 1;
+	warning( s, ch_c_l );
     }
 }
 
@@ -149,13 +152,20 @@ My_flex_lexer::LexerError(const char *s)
 void
 My_flex_lexer::new_input(String s)
 {    
-   if (!include_stack.empty())
+   if (!include_stack.empty()) {
 	include_stack.top()->line = lineno();
+	     // should this be saved at all?
+	include_stack.top()->defined_ch_c_l_m = defined_ch_c_l;
+   }
 
    Input_file *newin = new Input_file(s);
    include_stack.push(newin);
    switch_streams(newin->is);
-   data_ch_c_l_m = newin->sourcefile_l_->ch_c_l();
+   if ( newin->sourcefile_l_ )
+       data_ch_c_l_m = newin->sourcefile_l_->ch_c_l();
+   else
+       data_ch_c_l_m = 0;
+
    yylineno = 1;
 }
 
@@ -171,6 +181,7 @@ My_flex_lexer::close_input()
 	Input_file *i = include_stack.top();
 	switch_streams(i->is);
 	yylineno = i->line;	
+	defined_ch_c_l = i->defined_ch_c_l_m;
     }
     delete old;
     return ok;
