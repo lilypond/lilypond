@@ -12,7 +12,6 @@
 
 #include "string.hh"
 #include "real.hh"
-#include "matrix.hh"
 
 /// Perl -like scalar type.
 struct Scalar : public String 
@@ -34,8 +33,8 @@ struct Scalar : public String
     urg, these are bit silly; perhaps should make "Print_string" class
     (derive from Scalar?)
    */
-  Scalar (Vector v) { *this = v.str (); }
-  Scalar (Matrix m) { *this = m.str (); }
+  Scalar (Vector const &v);
+  Scalar (Matrix const &m);
 
   /**   perl -like string to bool conversion.
    */
