@@ -10,6 +10,7 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (oop goops)
 	     (srfi srfi-1)  ; lists
 	     (srfi srfi-13)) ; strings
 
@@ -82,6 +83,9 @@
 (define-public SEMI-TONE 2)
 
 (define-public ZERO-MOMENT (ly:make-moment 0 1)) 
+
+(define-public (moment-min a b)
+  (if (ly:moment<? a b) a b))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
@@ -433,3 +437,5 @@ L1 is copied, L2 not.
    (,symbol? . "symbol")
    (,vector? . "vector")
    ))
+
+

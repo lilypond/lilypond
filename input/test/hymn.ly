@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.18"
 
 \header { texidoc = "
 
@@ -12,13 +12,13 @@ texts, so they should be switched off.
 \score{
 	\context Staff <<
 		\time 4/4
-		\context Voice=one \partcombine Voice
-			\context Thread=one \notes\relative c'' {
+		\partcombine 
+			\notes\relative c'' {
 				a4 c4.(g8) a4 |
 				g4 e' g(f) | 
 				b, a c2
 			}
-			\context Thread=two \notes\relative c'' {
+			\notes\relative c'' {
 				g4 e4.(d8) c4 |
 				g'4 c, e(f) |
 				d2 a

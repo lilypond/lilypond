@@ -14,7 +14,6 @@ class Output_property_music_iterator : public Simple_music_iterator
 {
 public:  
   DECLARE_SCHEME_CALLBACK(constructor, ());
-  /* construction */
 protected:
   virtual void process (Moment);
 };
