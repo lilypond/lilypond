@@ -556,7 +556,8 @@ AncientRemoveEmptyStaffContext = \context {
 	(Voice Accidental font-size -4)
 	(Voice Slur direction -1)
     )
-    
+
+  quotedEventTypes = #'(note-event rest-event)
 }
 
 EasyNotation = \context {	% TODO: why \context override? 

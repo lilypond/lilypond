@@ -5463,6 +5463,19 @@ instruments, if they are specified using the @code{\transposition} command.
 }
 @end lilypond
 
+The type of events that are present in cue notes can be trimmed with
+the @code{quotedEventTypes} property. The default value is
+@code{(note-event rest-event)}, which means that only notes of and
+rests of the cued voice end up in the @code{\quote}.
+Setting
+
+@example
+  \set Staff.quotedEventTypes = #'(note-event articulation-event dynamic-event)  
+@end example
+
+@noindent
+will quote notes (but no rests), together with scripts and dynamics.
+ 
 @refbugs
 
 Only the contents of the first @internalsref{Voice} occurring in an

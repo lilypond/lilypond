@@ -7,9 +7,14 @@
 @unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
+
+@item The types of events quoted with @code{\quote}  can  now be tuned
+with @code{quotedEventTypes}. By default, only notes and rests end up
+in quotes.
+
 @item  LilyPond will try to keep
 staves at the same distances across a page, but it will stretch
-distances to prevent collisions. This results in a more orderly
+distances to prevent collisions. This results in a more even
 appearance of the page.
 
 @item Key signature cancellations are now printed before the bar line,

@@ -480,7 +480,10 @@ signature change.")
 Script_engraver for typesetting note-super/subscripts. See
 @file{scm/script.scm} for more information
 ")
-     (quotes ,hash-table? "Hash table, mapping names to music-event vectors.")
+     (quotedEventTypes ,list? "List of symbols, representing the
+event types that should be duplicated for @code{\\quote} commands.")
+
+;     (quotes ,hash-table? "Hash table, mapping names to music-event vectors.")
      (stavesFound ,grob-list? "list of all staff-symbols found.")
      (instrumentSupport ,grob-list? "list of grobs to attach instrument name
 to.")
