@@ -1123,6 +1123,14 @@ if 1:
 		return str
 	conversions.append (((1,7,10), conv, "\property ChordName #'style -> #(set-chord-name-style 'style)"))
 	
+
+
+if 1:
+	def conv(str):
+		str = re.sub (r"ly:transpose-pitch", "ly:pitch-transpose", str)
+		
+		return str
+	conversions.append (((1,7,11), conv, "transpose-pitch -> pitch-transpose"))
 	
 
 ################################

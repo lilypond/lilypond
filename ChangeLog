@@ -1,3 +1,9 @@
+2003-01-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: release 1.7.11
+
+	* scripts/convert-ly.py: add ly:pitch-transpose rule
+
 2003-01-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/double-plus-new-chord-name.scm
