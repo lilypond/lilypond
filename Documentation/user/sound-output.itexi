@@ -27,7 +27,7 @@ settings.  Therefore the midi file should not have more than 15 staves
 
 Not all midi players correctly handle tempo change in the midi
 output.  Players that are known to work include
-@uref{http://timidity.sourceforge.net/,timidity}.
+@uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 
 
@@ -110,7 +110,7 @@ inserted, for example
 
 Context definitions follow precisely the same syntax as within the
 \layout block.  Translation modules for sound are called performers.
-The contexts for MIDI output are defined in @file{ly/performer-init.ly}.
+The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
 
 
 @node MIDI instrument names

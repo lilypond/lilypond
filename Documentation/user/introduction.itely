@@ -127,12 +127,12 @@ The fragment only uses quarter notes: notes that are played in a
 constant rhythm.  The spacing should reflect that.  Unfortunately, the
 eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
-consecutive stems.  As a result, the notes of an up-stem/down-stem
+consecutive stems.  As a result, the notes of an up-stem/@/down-stem
 combination should be put farther apart, and the notes of a down-up
 combination should be put closer together, all depending on the
 combined vertical positions of the notes.  The first two measures are
 printed with this correction, the last two measures without.  The notes
-in the last two measures form down-stem/up-stem clumps of notes.
+in the last two measures form down-stem/@/up-stem clumps of notes.
 
 @cindex typography
 
@@ -798,12 +798,13 @@ The location of the documentation files that are mentioned here can
 vary from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
-example, @file{input/test/bla.ly} may refer to the file
-@file{lilypond-2.3.14/input/test/bla.ly}.  On binary packages for the
-Unix platform, the documentation and examples can typically be found
-somewhere below @file{/usr/share/doc/lilypond/}.  Initialization files,
-for example @file{scm/lily.scm}, or @file{ly/engraver-init.ly}, are
-usually found in the directory @file{/usr/share/lilypond/}.
+example, @file{input/@/test/@/bla@/.ly} may refer to the file
+@file{lilypond@/-2.3.14/@/input/@/test/@/bla@/.ly}.  On binary packages
+for the Unix platform, the documentation and examples can typically be
+found somewhere below @file{/usr/@/share/@/doc/@/lilypond/}.
+Initialization files, for example @file{scm/@/lily@/.scm}, or
+@file{ly/@/engraver@/-init@/.ly}, are usually found in the directory
+@file{/usr/@/share/@/lilypond/}.
 
 @cindex adjusting output
 @cindex variables
@@ -817,7 +818,7 @@ usually found in the directory @file{/usr/share/lilypond/}.
 
 Finally, this and all other manuals, are available online both as PDF
 files and HTML from the web site, which can be found at
-@uref{http://www.lilypond.org/}.
+@uref{http://@/www@/.lilypond@/.org/}.
 
 @cindex website
 @cindex URL

@@ -212,7 +212,7 @@ functions:
 Examples of the use of @code{\applymusic} are in the next section.
 
 @seealso
-@file{ly/@/music-functions-init@/.ly}.
+@file{ly/@/music@/-functions@/-init@/.ly}.
 
 @node Manipulating music expressions
 @subsection Manipulating music expressions

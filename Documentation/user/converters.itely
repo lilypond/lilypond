@@ -7,7 +7,7 @@ Music can be entered also by importing it from other formats.  This
 chapter documents the tools included in the distribution to do so.
 There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters. Refer to the
-@uref{http://lilypond.org,website} for more details.
+@uref{http://@/lilypond@/.org,website} for more details.
 
 
 
@@ -184,9 +184,9 @@ confuse etf2ly. Sequences of grace notes are ended improperly.
 
 @cindex ABC
 
-ABC is a fairly simple ASCII based format. It is described at the ABC site:
+ABC is a fairly simple ASCII based format.  It is described at the ABC site:
 @quotation
-@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
+@uref{http://@/www@/.gre@/.ac@/.uk/@/~c.walshaw/@/abc2mtex/@/abc@/.txt}.
 @end quotation
 abc2ly translates from ABC to LilyPond. It is invoked as follows:
 
@@ -287,14 +287,14 @@ LilyPond itself does not come with support for other formats, but
 there are also external tools that generate LilyPond files.
 
 These tools include
-http://denemo.sourceforge.net/
+@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}.
 
 @itemize @bullet
-@item @uref{http://www.nongnu.org/xml2ly/, xml2ly}, that imports
-@uref{http://www.musicxml.com/,MusicXML}
+@item @uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, that imports
+@uref{http://@/www@/.musicxml@/.com/,MusicXML}
 @item
-@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html,NoteEdit}
+@uref{http://@/rnvs@/.informatik@/.tu@/-chemnitz@/.de/@/~jan/@/noteedit/@/noteedit@/.html,NoteEdit}
 which imports MusicXML
-@item @uref{http://www.all-day-breakfast.com/rosegarden/,Rosegarden},
+@item @uref{http://@/www@/.all@/-day@/-breakfast@/.com/@/rosegarden/,Rosegarden},
 which imports MIDI
 @end itemize
