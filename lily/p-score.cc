@@ -25,8 +25,8 @@
 #include "outputter.hh"
 
 // sucking Cygnus egcs - w32
-#include "plist.tcc"
-#include "pcursor.tcc"
+#include "list.tcc"
+#include "cursor.tcc"
 
 Paper_score::Paper_score ()
 {
@@ -185,7 +185,9 @@ Paper_score::process ()
   *mlog << _("Preprocessing elements... ") <<flush;
   super_elem_l_->breakable_col_processing ();
   super_elem_l_->pre_processing ();
+  
   *mlog << _("\nCalculating column positions ... ") <<flush;
+  super_elem_l_->space_processing ();
   calc_breaking ();
   *mlog << _("\nPostprocessing elements...") << endl;
   super_elem_l_->post_processing ();
