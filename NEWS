@@ -1,7 +1,22 @@
+
+pl 8
+	- gif -> xpm
+	- bf: Whoops! Open eyes now, when finding shortest note in
+spring-spacer. Fixes spacing problems.
+	- GNU coding: parentheses (here you are, Franc,ois :-)
+	- all macros now UPPERCASE
+	- Identifier blondification: don't use void*
+	- Identifier doesn't store its name. Much cleaner now.	
+	- bf: Rest_collision_engraver now always announces
+	- bf: announce Staff_sym only once
+	- rewrite of mi2mu (JCN)
+
+********
+aug 14
 pl 7
 	- Audio_element as base for Audio_item and Audio_staff. fixes
 midi-lyric segfault
-	- added "Gallina a due violini"
+	- added "Gallina a due violini" (MB)
 	- make MIDI files on website.
 	- Collision now also is an Element_group.
 	- bf: announce Collision when created
