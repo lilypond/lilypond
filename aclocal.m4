@@ -648,20 +648,24 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	    break;
 	fi
     done
+    AC_MSG_RESULT($MFMODE)
 
+    AC_MSG_CHECKING(for mfplain.mp)
     #
     # For now let people define these in their environments
     #
     : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
+    AC_MSG_RESULT($MFPLAIN_MP)
 
+    AC_MSG_CHECKING(for inimetapost flags)
     if test  ${INIMETAPOST} = "inimp" ; then
        : ${INIMETAPOST_FLAGS=''}
     else
        : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
     fi
+    AC_MSG_RESULT($INIMETAPOST_FLAGS)
 
     rm -f mfput.*
-    AC_MSG_RESULT($MFMODE)
 
     AC_SUBST(METAFONT)
     AC_SUBST(METAPOST)

@@ -11,9 +11,13 @@
    )
 
 ;; The regex module may not be available, or may be broken.
-(define use-regex
+(define chord-use-regex
   (let ((os (string-downcase (vector-ref (uname) 0))))
     (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
+
+;; If you have trouble with regex, define #f
+(define chord-use-regex #t)
+;;(define chord-use-regex #f)
 
 ;;
 ;; (octave notename accidental)
@@ -260,7 +264,7 @@
     (apply append (pitch->text-banter tonic)
 	   (if user-name user-name '())
 	   ;; why does list->string not work, format seems only hope...
-	   (if (and use-regex
+	   (if (and chord-use-regex
 		    (string-match "super" (format "~s" user-name))
 		    (or (pair? additions)
 			(pair? subtractions)))
