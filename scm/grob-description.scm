@@ -87,14 +87,14 @@
     (BassFigure
      . (
 	(molecule-callback . ,brew-bass-figure)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 0)
 	(font-family . number)
 	(font-relative-size . -1)
 	(padding . 0.1)
 	(kern . 0.2)
 	(thickness . 1.0)
-	(meta . ((interfaces . (text-interface font-interface))))
+	(meta . ((interfaces . (text-interface self-alignment-interface font-interface))))
 	))
     (Beam
      . (
@@ -241,9 +241,9 @@
 
     (DynamicText
      . (
-	(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(no-spacing-rods . #t)
 	(script-priority . 100)
@@ -251,7 +251,7 @@
 	(font-family . dynamic)
 	(font-shape . italic)
 	(self-alignment-Y . 0)
-	(meta . ((interfaces . (font-interface text-interface dynamic-interface))))
+	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface))))
 	))
 
     (DynamicLineSpanner
@@ -285,8 +285,8 @@
     (Fingering
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::centered_on_parent
-			       ,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
+			       ,Self_alignment_interface::aligned_on_self))
 	(padding . 0.6)
 					;		(direction . -1)
 	(self-alignment-X . 0)
@@ -294,7 +294,7 @@
 	(font-family . number)
 	(font-relative-size . -3)
 	(font-shape . upright)
-	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface))))
+	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface))))
 	))
 
 
@@ -319,14 +319,14 @@
 	(dash-thickness . 1.2)
 	(dash-length . 4.0)
 	(self-alignment-Y . 0)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(meta . ((interfaces . (hairpin-interface dynamic-interface))))
+	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(meta . ((interfaces . (hairpin-interface self-alignment-interface dynamic-interface))))
 	))
 
     (InstrumentName
      . (
 	(breakable . #t)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_on_self
+	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Side_position_interface::aligned_on_support_refpoints))
 	;; huh? what's this for?
 	(direction . 0)
@@ -340,7 +340,7 @@
 	(visibility-lambda . ,begin-of-line-visible)
 	(baseline-skip . 2)
 	(font-family . roman)
-	(meta . ((interfaces . (font-interface side-position-interface text-interface break-aligned-interface))))
+	(meta . ((interfaces . (font-interface self-alignment-interface side-position-interface text-interface break-aligned-interface))))
 	))
 
     (KeySignature
@@ -382,7 +382,7 @@
     (LyricText
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(non-rhythmic . #t)
 	(word-space . 0.6)
@@ -392,7 +392,7 @@
 	(font-family . roman)
 	(font-shape . upright)
 	;; duh, side-position-interface?
-	(meta . ((interfaces . (lyric-syllable-interface side-position-interface text-interface font-interface))))
+	(meta . ((interfaces . (lyric-syllable-interface self-alignment-interface text-interface font-interface))))
 	))
 
     (Porrectus
@@ -411,14 +411,15 @@
     (RehearsalMark
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(self-alignment-X . 0)
 
 	(direction . 1)
 	(breakable . #t)
 	(visibility-lambda . ,end-of-line-invisible)
 	(padding . 0.8)
-	(meta . ((interfaces . (text-interface font-interface mark-interface side-position-interface))))
+	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface))))
 	))
 
     (MultiMeasureRest
@@ -497,12 +498,12 @@
 	(self-alignment-X . 0)
 	(text . "8")
 	(visibility-lambda . ,begin-of-line-visible)
-	(X-offset-callbacks . (,Side_position_interface::centered_on_parent ,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(molecule-callback . ,Text_item::brew_molecule)
 	(font-shape . italic)
 	(font-family . roman)
-	(meta . ((interfaces . (text-interface side-position-interface font-interface))))
+	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface))))
 	))
 
     (PaperColumn
@@ -609,7 +610,7 @@
 	;; don't set direction here: it breaks staccato.
 	(molecule-callback . ,Script::brew_molecule)
 	(padding . 0.29) 
-	(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
+	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script::before_line_breaking)
 	(font-family . music)
 	(meta . ((interfaces . (script-interface side-position-interface font-interface))))
@@ -710,14 +711,14 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(direction . 1)
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(pedal-type . mixed)
 	(font-family . roman)
 	(font-shape . italic)
 	(self-alignment-X . 0)
-	(meta . ((interfaces . (text-interface  font-interface))))
+	(meta . ((interfaces . (text-interface  self-alignment-interface font-interface))))
 	))
 
     (SostenutoPedalLineSpanner 
@@ -786,8 +787,8 @@
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
 	(pedal-type . text)
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(meta . ((interfaces . (piano-pedal-interface text-spanner-interface text-interface side-position-interface font-interface))))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(meta . ((interfaces . (piano-pedal-interface text-spanner-interface text-interface self-alignment-interface font-interface))))
 	))
 
     (SustainPedalLineSpanner 
@@ -933,8 +934,8 @@
 	(direction . 1)
 	(pedal-type . text)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
-	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(meta . ((interfaces . (text-interface font-interface))))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(meta . ((interfaces . (text-interface self-alignment-interface font-interface))))
 	))
 
     (UnaCordaPedalLineSpanner 
