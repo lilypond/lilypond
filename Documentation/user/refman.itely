@@ -3540,6 +3540,10 @@ mus =\notes { \key d \major cis d fis g }
 }}
 @end lilypond
 
+@seealso
+
+@internalsref{TransposedMusic}, @internalsref{UntransposableMusic}. 
+
 @refbugs
 
 If you want to use both @code{\transpose} and @code{\relative}, then
@@ -4186,6 +4190,7 @@ Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
+
 In musical terminology, a ligature is a coherent graphical symbol that
 represents at least two different notes.  Ligatures originally appeared
 in the manuscripts of Gregorian chant notation roughly since the 9th
@@ -4305,6 +4310,8 @@ to the following:
 
 @c TODO: musicological blurb about FB
 
+@syntax
+
 LilyPond has limited support for figured bass:
 
 @lilypond[verbatim,fragment]
@@ -4364,6 +4371,11 @@ realizations of the bass are played in the MIDI file.
 Internally, the code produces markup texts. You can use any of the
 markup text properties to override formatting. For example, the
 vertical spacing of the figures may be set with @code{baseline-skip}.
+
+@seealso
+
+@internalsref{BassFigureEvent} music, @internalsref{BassFigure} grob,
+@internalsref{FiguredBass} context
 
 @refbugs
 
@@ -4459,34 +4471,41 @@ accurately.  Use @code{<<g a>>8 <<e a>>8} instead.
 
 @cindex fermatas
 
-The following fermata symbols,  that are frequently used in contemporary
-music notation, are supported
+
+
+Contemporary music notation frequently uses special fermata symbols to
+indicate fermatas of differing lengths.
+
+@syntax
+
+The following are supported
 
 @lilypond[singleline]
 \score {
-    \notes {
+  <  \notes {
         \fatText
         b'
         ^\shortfermata
         _\shortfermata
-        ^\markup { short fermata }
         r
         b'
         ^\fermata
         _\fermata
-        ^\markup { fermata }
+
         r
         b'
         ^\longfermata
         _\longfermata
-        ^\markup { long fermata }
+
         r
         b'
         ^\verylongfermata
         _\verylongfermata
-        ^\markup { very long fermata }
         r
     }
+    \context Lyrics \lyrics {
+      "shortfermata" "fermata"  "longfermata" "verylongfermata"
+    } >
 }
 @end lilypond
 
@@ -4513,27 +4532,11 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Tuning per object ::          
 * Tuning objects ::             
 * Outputproperty::              
 * Font selection::              
 * Text markup::                 
 @end menu
-
-@node Tuning per object 
-@subsection Tuning per object 
-
-@cindex \once
-Tuning a single object is most often done with @code{\once \property}. The
-form,
-@example
-        \once \property @dots{}
-@end example
-@c
-@c
-
-
-
 
 @node Tuning objects 
 @subsection Tuning objects 
