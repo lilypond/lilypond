@@ -507,6 +507,7 @@ Slur_score_state::get_base_attachments () const
 	    fixme: X coord should also be set in this case.
 	  */
 	  if (stem
+	      && !Stem::is_invisible (stem)
 	      && extremes_[d].stem_dir_ == dir_
 	      && Stem::get_beaming (stem, -d)
 	      && (!spanner_less (slur_, Stem::get_beam (stem))
@@ -572,8 +573,8 @@ Slur_score_state::get_base_attachments () const
 
 	  if (isinf (b) || isnan (b))
 	    {
-	      b = 0.0;
 	      programming_error ("Slur attachment is inf/nan");
+	      b = 0.0;
 	    }
 	    
 	}
