@@ -920,7 +920,7 @@ To mark a file for version 2.4.0, use
 @noindent
 These annotations make future upgrades of LilyPond go more
 smoothly.  Changes in the syntax are handled with a special program,
-@file{convert-ly} (see @ref{Invoking convert-ly}), and it uses
+@file{convert-ly} (see @ref{Updating files with convert-ly}), and it uses
 @code{\version} to determine what rules to apply.
 
 

@@ -1,6 +1,5 @@
 %% Toplevel initialisation file. 
 
-#(define-public point-and-click #f)
 #(define-public midi-debug  #f)
 
 

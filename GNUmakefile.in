@@ -66,7 +66,7 @@ final-install:
 	@echo '*** when you log in.  So, please log out now and log in again.'
 	@echo '*** For more information see Invoking LilyPond in the manual.'
 
-web-ext = gz html midi pdf png txt ly
+web-ext = html midi pdf png txt ly
 
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 footifymail = MAILADDRESS=bug-lilypond@gnu.org

@@ -11,13 +11,13 @@
 This chapter explains how to use all basic notation features.
 
 @menu
-* Note entry::
-* Easier music entry::
-* Staff notation::
-* Polyphony::
-* Beaming::
-* Repeats::
-* Expressive marks::
+* Note entry::                  
+* Easier music entry::          
+* Staff notation::              
+* Polyphony::                   
+* Beaming::                     
+* Repeats::                     
+* Expressive marks::            
 @end menu
 
 
@@ -43,7 +43,7 @@ related constructs, such as stems, tuplets and ties.
 * Stems::                       
 * Ties::                        
 * Tuplets::                     
-* Transposition::
+* Transpose::                   
 @end menu
 
 
@@ -939,7 +939,8 @@ such as key signatures, clefs and time signatures.
 * Bar lines::                   
 * Time administration::         
 * Controlling formatting of prefatory matter::  
-* System start delimiters::
+* System start delimiters::     
+* Aligning to cadenzas::        
 @end menu
 
 @node Staff symbol
@@ -1598,9 +1599,9 @@ a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
 @menu
-* Basic polyphony::    
-* Explicitly instantiating voices::
-* Collision Resolution::
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
 @end menu
 
 @node Basic polyphony
@@ -2476,15 +2477,14 @@ Expressive marks help musicians to bring more to the music than simple
 notes and rhythms.
 
 @menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Articulations::
-* Running trills::
-* Fingering instructions::
-* Grace notes::
-* Glissando::
-* Dynamics:: 
+* Slurs::                       
+* Phrasing slurs::              
+* Breath marks::                
+* Running trills::              
+* Fingering instructions::      
+* Grace notes::                 
+* Glissando::                   
+* Dynamics::                    
 @end menu
 
 
