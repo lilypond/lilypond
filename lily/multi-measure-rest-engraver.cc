@@ -11,6 +11,7 @@
 #include "multi-measure-rest-engraver.hh"
 #include "score-column.hh"
 #include "time-description.hh"
+#include "p-score.hh"
 
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
@@ -49,7 +50,15 @@ Multi_measure_rest_engraver::do_process_requests ()
     {
       Time_description const *time = get_staff_info().time_C_;
       mmrest_p_ = new Multi_measure_rest;
-      rest_item_creation_mom_ =  time->when_mom ();
+      rest_item_creation_mom_ = time->when_mom ();
+
+      rest_item_creation_mom_ += time->whole_per_measure_ / Moment (2);
+#if 0
+      // core dump because of missing column?
+      mmrest_p_->pscore_l_->add_column (new Score_column (rest_item_creation_mom_));
+      mmrest_p_->pscore_l_->add_column (new Score_column (rest_item_creation_mom_, true));
+#endif
+
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_ = time->bars_i_;
     }
@@ -76,7 +85,6 @@ Multi_measure_rest_engraver::do_post_move_processing ()
   if (mmrest_p_ && (!time->whole_in_measure_ || !multi_measure_req_l_))
     {
       assert (rest_item_creation_mom_ < now);
-      mmrest_p_->measures_i_ = time->bars_i_ - start_measure_i_;
       mmrest_p_ = 0;
     }
 }

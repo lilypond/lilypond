@@ -11,11 +11,11 @@
 #include "score-column.hh"
 #include "command-request.hh"
 
-Score_column::Score_column (Moment w)
+Score_column::Score_column (Moment w, bool musical_b)
 {
   break_penalty_i_ = 0;
   when_ = w;
-  musical_b_ = false;
+  musical_b_ = musical_b;
 }
 
 void
