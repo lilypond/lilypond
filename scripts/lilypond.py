@@ -137,7 +137,7 @@ option_definitions = [
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
 	('', '', 'no-pdf', _ ("do not generate PDF output")),
-	('', '', 'no-ps', _ ("do not generate PostScript outpug")),
+	('', '', 'no-ps', _ ("do not generate PostScript output")),
 	('', 'p', 'pdf', _ ("generate PDF output")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
