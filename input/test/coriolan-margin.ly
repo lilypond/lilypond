@@ -30,7 +30,8 @@ oboi = \notes \relative c' {
 }
 
 clarinetti = \notes \relative c' {
-  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
+   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
+%  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
   \property Staff.instr		= #`(lines "Cl." (rows "(B" ,raisedflat ")"))
 
   c1 c

@@ -97,6 +97,7 @@ Paper_score::process ()
   outputter_l_->output_header ();
   outputter_l_->output_version ();
 
+  progress_indication ("\n");
 
   if (global_header_p)
     {
@@ -125,7 +126,6 @@ Paper_score::process ()
   outputter_l_->output_scheme (scm);
 
   progress_indication ("\n");
-
 
   // huh?
   delete outputter_l_;

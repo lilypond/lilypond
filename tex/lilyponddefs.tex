@@ -8,6 +8,10 @@
 % TeXbook ex 7.7
 \def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
 %
+% If we must make titles, do so, before we're Skipped.
+\ifx\mustmakelilypondtitle\undefined\else\makelilypondtitle\fi
+\ifx\mustmakelilypondpiecetitle\undefined\else\makelilypondpiecetitle\fi
+%
 % skip if included already
 \def\SkipLilydefs{\endinput}
 \ifundefined{EndLilyPondOutput}
@@ -72,10 +76,6 @@
         \csname%
         nolilyfooter\texsuffix\endcsname
 \fi
-
-% If we must make titles, do so
-\ifx\mustmakelilypondtitle\undefined\else\makelilypondtitle\fi
-\ifx\mustmakelilypondpiecetitle\undefined\else\makelilypondpiecetitle\fi
 
 % fix chord.cc::banter_str before removing these
 \input fetdefs

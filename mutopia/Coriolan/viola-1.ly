@@ -116,14 +116,14 @@ violaI =  \notes \relative c {
 	[d8\< d-.] es4. es8-. d4 ~|
 	[d8 d-.] es4. es8-. d4 ~|
 	[d8 d-.] es4. es8-. d4 ~|
-	[d8 d-.] es4. es8-. d4 (|
-	\!)fis,2:\ff fis4: g:|
+	[d8 d-.] es4. es8-. d4|
+	\!fis2:\ff fis4: g:|
 	%85
 	d2: d:|
 	fis: fis4: g:|
 	c,: d: c: d:|
 	b2: b4: c:|
-	f': es: f: es:|
+	f: es: f: es:|
 	%90
 	b2: b4: c:|
 	d: c: d: c:|
@@ -155,7 +155,7 @@ violaI =  \notes \relative c {
 	%110
 	% cello has eighth notes here...
 	[g,16 g bes bes][d d es es][f, f a a][cis cis d d]|
-	[es,8: g: b: c!:][d,: f: a: bes:]|
+	[es,8: g: b: c:][d,: f: a: bes:]|
 	[c,: es: g: a:][cis,: e: g: bes:]|
 	[d,: g: bes: d:][d,: fis: a: d:]|
 	d2: d:
@@ -282,7 +282,7 @@ violaI =  \notes \relative c {
 	)d4 r r r8 d8(|
 	%195
 	)g4 r r r8 g8|
-	[\!a16\ff a' a a]a4: a2:|
+	[\!a16\ff a' a a]a4: g2:|
 	fis: dis:|
 	
 	e,4\p r r r8 e8(|
@@ -316,7 +316,7 @@ violaI =  \notes \relative c {
 	bes,: c: bes: c:|
 	
 	e2:16\ff e4: f:|
-	b,: c: b: c:|
+	bes,: c: bes: c:|
 	
 	%220
 	r4 r8 as as2\sf|
@@ -331,8 +331,8 @@ violaI =  \notes \relative c {
 	[g8 g]g4. as8 as4 ~|
 	[as8 as]f4. f8 g4|
 	%230
-	c\p r r2|
-	r r4 r8 b\f|
+	c,\p r r2|
+	r r4 r8 b'\f|
 	c4 r r2|
 	r r4 r8 b\f|
 	c4 r r2|
@@ -402,7 +402,7 @@ violaI =  \notes \relative c {
 	R1|
 	c,4 r r2|
 	R1*15|
-	c4\pp r r2|
+	c4-#'((font-shape . upright) "pizz.") r r2|
 	c4 r r2|
 	c4 r r2|
 }

@@ -151,7 +151,7 @@
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
 		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
-		(meta . ,(grob-description "Hairpin" hairpin-interface))
+		(meta . ,(grob-description "Hairpin" hairpin-interface dynamic-interface))
 	))
 
 	(DotColumn . (
@@ -175,7 +175,7 @@
 		(font-family . dynamic)
 		(font-shape . italic)
 		(self-alignment-Y . 0)
-		(meta . ,(grob-description "DynamicText" font-interface  text-interface ))
+		(meta . ,(grob-description "DynamicText" font-interface text-interface dynamic-interface))
 	))
 	
 	(DynamicLineSpanner . (

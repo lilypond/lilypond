@@ -34,7 +34,7 @@ instrument = "Piano"
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
     ".\\\\Unrestricted modification and redistribution is permitted
-    and encouraged---copy this music and share it!}";
+    and encouraged---copy this music and share it.}";
  tagline = \mutopiapublicdomain;
  footer = "pre-Mutopia-200y/mm/dd-nr";
 }

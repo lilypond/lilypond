@@ -50,6 +50,8 @@ My_lily_parser::parse_file (String init, String s)
   lexer_p_->new_input (init, source_l_);
   do_yyparse ();
 
+  progress_indication ("\n");
+  
   if (!define_spot_array_.empty())
     {
       define_spot_array_.top ().warning (_ ("Braces don't match"));

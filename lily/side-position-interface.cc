@@ -224,12 +224,18 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   
   Direction d = Side_position_interface::get_direction (me);
+  
   Real o = gh_scm2double (aligned_on_support_extents (element_smob,axis));
 
   Interval iv =  me->extent (me, a);
 
   if (!iv.empty_b ())
     {
+      if (!d)
+	{
+	  programming_error ("Direction unknown, but aligned-side wanted.");
+	  d = DOWN;
+	}
       o += - iv[-d];
 
       SCM pad = me->get_grob_property ("padding");

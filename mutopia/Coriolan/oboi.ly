@@ -6,7 +6,7 @@
 
 oboiStaff =  \context Staff = oboi <
 	\property Staff.midiInstrument = #"oboe"
-	\property Staff.instrument = #"2 Oboi"
+	\property Staff.instrument = #"Oboi"
 	\property Staff.instr = #"Ob."
 	\global
 	\context Voice=one \partcombine Voice

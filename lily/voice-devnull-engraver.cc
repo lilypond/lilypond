@@ -64,15 +64,18 @@ Voice_devnull_engraver::try_music (Music *m)
 }
   
 static char const *junk_interfaces[] = {
-#if 0
+#if 1
   "beam-interface",
 #endif
+  "script-interface",
   "slur-interface",
   "tie-interface",
+  "text-interface",
   "text-item-interface",
   "text-script-interface",
   "dynamic-interface",
-  "crescendo-interface",
+  "hairpin-interface",
+  "text-spanner-interface",
   0
 };
 
@@ -82,12 +85,12 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
   SCM s = get_property ("devNullVoice");
 #if 0
   /* No need */
-  if (gh_equal_p (s, ly_symbol2scm ("never")))
+  if (s == ly_symbol2scm ("never"))
     return;
 #endif
 
-  if (gh_equal_p (s, ly_symbol2scm ("allways"))
-      || (gh_equal_p (s, ly_symbol2scm ("unisolo"))
+  if (s == ly_symbol2scm ("allways")
+      || (s == SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))

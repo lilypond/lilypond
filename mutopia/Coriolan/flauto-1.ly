@@ -41,10 +41,10 @@ flautoI =  \notes \relative c {
 	as\sf r|
 	g1\sf|
 	ges\sf|
-	f2. ges4\sf (|
-	)f2. ges4\sf (|
-	)f2. ges4\sf (|
-	)f2. ges4\sf|
+	f2. ges4\sf|
+	f2. ges4\sf|
+	f2. ges4\sf|
+	f2. ges4\sf|
 	f4 r r2|
 	R1*9|
 	\property Voice.crescendoText = #"cresc."
@@ -83,9 +83,9 @@ flautoI =  \notes \relative c {
 	fis(g fis)g|
 	es2.()d4|
 	fis(g fis)g|
-	a2.()g4|
+	as2.()g4|
 	b,(c b)c|
-	a'2.()g4|
+	as'2.()g4|
 	b,(c b)c|
 	r2 es\sf|
 	r es\sf|

@@ -26,9 +26,9 @@ violinoI =  \notes \relative c {
 	%20
 	[g8 fis] fis4 ~ fis \!g-.\f|
 	R1|
-	[bes,,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
-	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
-	[bes,!8\p-. des-.][des()c][c-. ges'-.][ges()f]|
+	[bes,,8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,8\p-. des-.][des()c][c-. ges'-.][ges()f]|
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des]|
 	\property Voice.crescendoText = #"cresc."
@@ -48,25 +48,25 @@ violinoI =  \notes \relative c {
 	%35
 	[f16 f f f][es es es es][des des des des][c c c c]|
 	b2:16 c:|
-	d!: es:|
+	d: es:|
 	e: f:|
 	g: as:|
 	%40
 	a2\sf [c,,8-. es-.][es()d]|
 	a''2\sf [c,,8-. es-.][es()d]|
-	as''!2\sf [b,,8-. d-.][d()c]|
+	as''2\sf [b,,8-. d-.][d()c]|
 	as''2\sf [b,,8-. d-.][d()c]|
 	g''1\sf|
 	
 	%45
 	ges\sf|
 	
-	f2. ges4\sf(|
-	)f2. ges4\sf(|
-	)f2. ges4\sf(|
-	)f2. ges4\sf(|
+	f2. ges4\sf|
+	f2. ges4\sf|
+	f2. ges4\sf|
+	f2. ges4\sf|
 	%50
-	)f1\>~|
+	f1\>~|
 	f4 d( bes)as|
 	\!g2.\p( as4|
 	g f d ) bes|
@@ -115,8 +115,8 @@ violinoI =  \notes \relative c {
 	[a8 bes-.] bes4. bes8-. bes4~|
 	[bes8 bes-.] bes4. bes8-. bes4~|
 	[bes8 c-.] c4. c8-. c4~|
-	[c8 d-.] d4. d8-. d4(|
-	)es2:16\ff es4: d:|
+	[c8 d-.] d4. d8-. d4|
+	es2:16\ff es4: d:|
 	%85
 	fis: g: fis: g:|
 	es2: es4: d:|
@@ -135,8 +135,8 @@ violinoI =  \notes \relative c {
 	%95
 	r8 es' as,4\sf~as()g|
 	r8 es' as,4. fis8 es'4~|
-	[es8 d] g,4. e8 d'4~|
-	[d8 c] f,4. c'8 es,4 ~|
+	[es8 d] g,4. e8 des'4~|
+	[des8 c] f,4. c'8 es,4 ~|
 	
 	[es8 c'] a4. c8 g4 ~|
 	%100
@@ -173,7 +173,7 @@ violinoI =  \notes \relative c {
 	
 	%120
 	bes4 r8 es des4 r8 bes|
-	as!4 r8 es' des4 r8 as|
+	as4 r8 es' des4 r8 as|
 	g4 r r2|
 	r4 r8 es' des4 r8 as|
 	g4 r r2|
@@ -204,7 +204,7 @@ violinoI =  \notes \relative c {
 	f4\f r8 bes as4 r8 es|
 	des4 r8 ges f4 r8 c|
 	bes4 r8 e f4 r8 bes,|
-	bes4 r8 g'! e4 r8 bes'|
+	bes4 r8 g' e4 r8 bes'|
 	\property Voice.crescendoText = #"cresc."
 	\property Voice.crescendoSpanner = #'dashed-line
 	as4\p r8 des\< c4 r8 g|
@@ -228,7 +228,7 @@ violinoI =  \notes \relative c {
 	f,,1 ~|
 	f|
 	
-	<f'2\sf d'!> [f,8-. as-.][as()g]|
+	<f'2\sf d'> [f,8-. as-.][as()g]|
 	<f'2\sf d'> [f,8-. as-.][as()g]|
 	%160
 	[f8-.\p as-.][as()g] [g-. c-.][c()b]|
@@ -319,31 +319,21 @@ violinoI =  \notes \relative c {
 	%225
 	r8 g c,4. a8 f'4 ~|
 	[f8 f] b,4. f'8 as,4 ~|
-	[as8 f'] d!4. f8 c4 ~|
+	[as8 f'] d4. f8 c4 ~|
 	[c8 b] g,4. as8 as'4 ~|
 	[as8 as] f4. f8 g4|
 	%230
 	c,4\p r8 as' g4 r8 es|
-	
+	d4 r8 as' g4 r8 d\f|
+	es4 r8 as\p g4 r8 es|
 	d4\p r8 as' g4 r8 d\f|
-	
-	es4\p r8 as\p g4 r8 es|
-	
-	d4\p r8 as' g4 r8 d\f|
-	
 	es4\p r8 as'\p g4 r8 d|
-	
 	%235
 	c4 r8 f es4 r8 bes|
-	
 	as4 r8 d c4 r8 g|
-	
 	f4 r8 c' b4 r8 f'|
-	
 	es4\f r8 as g4 r8 d|
-	
-	c4\f r8 f es4 r8 bes|
-	
+	c4 r8 f es4 r8 bes|
 	%240
 	as4-. des-. r2|
 	R1*3|
@@ -408,7 +398,7 @@ violinoI =  \notes \relative c {
 	\property Voice.decrescendoSpanner = #'dashed-line
 	f4\> r d r|
 	R1|
-	\!es!4\p r r2|
+	\!es4\p r r2|
 	R1|
 	d,4-#'((font-shape . upright) "pizz.") r r2|
 	
@@ -449,7 +439,7 @@ violinoI =  \notes \relative c {
 violinoIStaff =  \context Staff = violino1 <
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino I  "
-	\property Staff.instr = #"Vl. I   "
+	\property Staff.instr = #"Vl. I    "
 	\notes< 
 		\global
 		\context Voice=violinoi

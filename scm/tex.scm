@@ -133,15 +133,17 @@
 	  s))
       
   (define (lily-def key val)
-    (string-append
-     "\\def\\"
-     (if use-regex
-	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
-	 (regexp-substitute/global #f "_"
-				   (output-tex-string key) 'pre "X" 'post)
-	 (output-tex-string key))
-     "{" (output-tex-string val) "}\n"))
-
+    (let ((tex-key
+	   (if use-regex
+	       ;; fixed in 1.3.4 for powerpc -- broken on Windows
+	       (regexp-substitute/global
+		#f "_" (output-tex-string key) 'pre "X" 'post)
+	       (output-tex-string key)))
+	  (tex-val (output-tex-string val)))
+      (if (equal? (sans-surrounding-whitespace tex-val) "")
+	  (string-append "\\let\\" tex-key "\\undefined\n")
+	  (string-append "\\def\\" tex-key "{" tex-val "}\n"))))
+		
   (define (number->dim x)
     (string-append
      ;;ugh ly-* in backend needs compatibility func for standalone output

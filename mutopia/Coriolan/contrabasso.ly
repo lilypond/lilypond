@@ -3,15 +3,15 @@
 
 contrabasso =  \notes \relative c {
 	% copied 21 from cello
-	c1\ff ~|
+	c1\ff~|
 	c|
 	f,4-. r r2|
 	R1|
-	c'1\ff ~|
+	c'1~|
 	c|
 	f,4-. r r2|
 	R1|
-	c'1\ff ~|
+	c'1~|
 	c|
 	fis,4-. r r2|
 	R1|
@@ -57,17 +57,17 @@ contrabasso =  \notes \relative c {
 	%40
 	fis2\sf r|
 	fis2\sf r|
-	f!2\sf r|
+	f2\sf r|
 	f2\sf r|
 	e2\sf r|
 	%45
-	es!2\sf r|
-	des2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
+	es2\sf r|
+	des2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
 	% 50
-	)d4 r r2|
+	d4 r r2|
 	R1
 	es'4\p r r r8 es(|
 	)as,4 r r r8 as(|
@@ -122,7 +122,7 @@ contrabasso =  \notes \relative c {
 	a(g a)g|
 	c2.()bes4|
 	a(g a)g|
-	f!2.()es4|
+	f2.()es4|
 	d(c d)c|
 	%90
 	f2.()es4|
@@ -150,7 +150,7 @@ contrabasso =  \notes \relative c {
 	% copied 8 from cello
 	%110
 	[g'8:8 bes d es][f, a cis d]|
-	[es,8: g: b: c!:][d,: f: a: bes:]|
+	[es,8: g: b: c:][d,: f: a: bes:]|
 	[c,: es: g: a:][cis,: e: g: bes:]|
 	[d,: g: bes: d:][d,: fis: a: d:]|
 	g,,2 ~ g4. g8|
@@ -160,7 +160,7 @@ contrabasso =  \notes \relative c {
 	g4. g8 g4 r8 g|
 	g4\p r r2|
 	% urg, this is *rest*, not skip: 
-	% need own staff for rests, mustn't collapse to one cello staff!
+	% need own staff for rests, mustn't collapse to one cello staff
 	%120 - 1
 	R1*21|
 	% copied 4 frorm cello
@@ -230,18 +230,16 @@ contrabasso =  \notes \relative c {
 
 	%195
 	)g,4 r r r8 g(|
-%%	\!)d2\ff e'|
-%%	dis b|
-	\!)d2\ff e|
-	dis b'|
-	es4\p r r r8 es(|
+	\!)d2\ff e'|
+	dis b|
+	e4\p r r r8 es(|
 	)a,4 r r r8 a(|
 	)g1|
 
 	%200
 	f|
 	% copied 18 from cello
-	es'!4\fp r e r|
+	es'4\fp r e r|
 	f r g r|
 	as r g r|
 	f r fis r|
@@ -291,10 +289,10 @@ contrabasso =  \notes \relative c {
 	R1*3|
 
 	%copied 59 from cello
-	[c8\f e g as][bes, d fis g]|
+	[c8\f es g as][bes, d fis g]|
 
 	%240
-	[as, c e f!][g, bes d es]|
+	[as, c e f][g, bes d es]|
 	f4 r r2|
 	R1*3|
 	c4\p r r r8 c(|
@@ -319,7 +317,7 @@ contrabasso =  \notes \relative c {
 	\!ges\f|
 	f\p|
 	as\f|
-	g!\p|
+	g\p|
 	bes\f|
 
 	%260
@@ -339,7 +337,7 @@ contrabasso =  \notes \relative c {
 	b,4. b'8 b2\sf|
 	
 	%270
-	[c,8-"sempre"\ff b c d][es\ff d es c]|
+	[c,8-"sempre"\ff b c d][es d es c]|
 	[b c d c][b c b g]|
 	[c8 b c d][es d es c]|
 	[b c d c][b c b g]|
@@ -349,15 +347,15 @@ contrabasso =  \notes \relative c {
 	[c b c g][c b c g]|
 	c1 ~|
 	c|
-	f4-. r r2|
+	f,4-. r r2|
 	R1|
 
 	%280
-	c1 ~|
+	c'1 ~|
 	c|
-	f4-. r r2|
+	f,4-. r r2|
 	R1|
-	c1 ~|
+	c'1 ~|
 
 	%285
 	c|
@@ -378,24 +376,24 @@ contrabasso =  \notes \relative c {
 	%295
 	R1|
 	c4 r r2|
-	r2 r4 f,|
-	c' r r2|
-	r2 r4 f,|
+	r2 r4 g|
+	c r r2|
+	r2 r4 g|
 
 	%300
-	c' r r2|
+	c r r2|
 	R1|
-	f,4 r r2|
+	g4 r r2|
 	R1|
-	c'4 r r2|
+	c4 r r2|
 
 	%305
 	R1|
-	f,4 r r2|
+	g4 r r2|
 	R1*3|
 
 	%310
-	c'4\pp r r2|
+	c4\pp r r2|
 	R1|
 	c4 r r2|
 	c4 r r2|

@@ -253,6 +253,7 @@ Dynamic_engraver::process_music ()
 	  else
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
+	      cresc_p_->set_interface (ly_symbol2scm ("dynamic-interface"));
 	      cresc_p_->set_grob_property ("type", s);
 	      
 	      daddy_trans_l_->set_property (start_type

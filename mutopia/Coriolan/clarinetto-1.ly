@@ -163,14 +163,14 @@ clarinettoI =  \notes \relative c {
 	cis2.\ff()d4|
 	cis(d cis)d|
 	es2.()d4|
-	c(bis c)bes|
+	c(bes c)bes|
 	es2.()d4|
-	c(bis c)bes|
+	c(bes c)bes|
 	r2 es4\sf()d|
 	r2 es4\sf()d|
 	r2 es4\sf()d|
 	r2 es4\sf()d|
-	es2 bis|
+	es2 cis|
 	d b|
 	cis d|
 	e d|

@@ -75,7 +75,7 @@ Score::run_translator (Music_output_def *odef_l)
       programming_error ("no toplevel translator");
       return ;
     }
-  progress_indication ("\n" + _("Interpreting music..."));
+  progress_indication (_("Interpreting music..."));
   Music * music = unsmob_music (music_);
   
   trans_p->final_mom_ = music->length_mom ();

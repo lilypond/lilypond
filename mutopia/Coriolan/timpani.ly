@@ -59,6 +59,7 @@ timpani =  \notes \relative c {
 	g4 r8 g g4 r8 g|
 	g4 r8 g g4 r8 g|
 	R1|
+	% should extend over two bars tr ~~~~~~
 	g1\trill~|
 	g|
 	g4 r8 g g4 r8 g|
@@ -137,8 +138,7 @@ timpani =  \notes \relative c {
 
 timpaniStaff =  \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = #'(lines
-	  "2 Timpani" "(C-G)")
+	\property Staff.instrument = #"Timpani in C-G  "
 	\property Staff.instr = #"Timp."
 	\clef "bass";
 	\Time

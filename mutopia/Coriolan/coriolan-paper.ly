@@ -9,6 +9,7 @@
 	% Mandatory Mutopia settings:
 	textheight = 270.0\mm;
 	linewidth = 180.0\mm;
+	indent = 30.\mm;
 
 	\translator {
 		\ThreadContext
@@ -32,9 +33,16 @@
 		
 		%% devNullThread = #'never
 		\consists "Thread_devnull_engraver";
+
+		%\remove "Dynamic_engraver";
+		%\remove "Text_engraver";
 	}
 	\translator {
 		\HaraKiriStaffContext
+		
+		%\consists "Dynamic_engraver";
+		%\consists "Text_engraver";
+
 		\consists "Mark_engraver";
 		MultiMeasureRest \override #'minimum-width = #6
 	}

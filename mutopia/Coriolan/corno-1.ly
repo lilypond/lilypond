@@ -122,11 +122,13 @@ cornoI =  \notes \relative c {
 	R1*17|
 	r4 r8 e,8 e4. e8|
 	r4 r8 e8 e4. e8|
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
+	r4 r8 e8\< e4. e8|
 	r4 r8 e8 e4. e8|
 	r4 r8 e8 e4. e8|
 	r4 r8 e8 e4. e8|
-	r4 r8 e8 e4. e8|
-	f'2. e4|
+	\!f'2.\ff e4|
 	d e d e|
 	f2. e4|
 	d e d e|

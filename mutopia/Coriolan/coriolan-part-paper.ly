@@ -32,11 +32,18 @@
 		
 		%% devNullThread = #'never
 		\consists "Thread_devnull_engraver";
+
+		%\remove "Dynamic_engraver";
+		%\remove "Text_engraver";
 	}
 	% We need the HaraKiri staff for Staff Combining,
 	% but we better remove the Instrument_name_engraver.
 	\translator {
 		\HaraKiriStaffContext
+		
+		%\consists "Dynamic_engraver";
+		%\consists "Text_engraver";
+
 		\consists "Mark_engraver";
 		\remove "Instrument_name_engraver";
 	}

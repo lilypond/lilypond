@@ -7,8 +7,7 @@
 corniStaff = \context Staff = corni <
 	\property Staff.midiInstrument = #"french horn"
 
-	\property Staff.instrument = #`(lines
-	  "2 Corni" (rows "(E" ,text-flat ")"))
+	\property Staff.instrument = #`(rows "Corni in E" ,text-flat)
 	
 	\property Staff.instr = #`(lines "Cor."  (rows "(E" ,text-flat ")"))
 	\property Staff.transposing = #3

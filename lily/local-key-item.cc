@@ -36,7 +36,7 @@ ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
 
 void
 Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
-			   Grob* tie_break_cautionary)
+			   Grob* tie_break_reminder)
 {
   SCM acs = me->get_grob_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
@@ -45,11 +45,11 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
     opts = gh_cons (ly_symbol2scm ("cautionary"), opts);
   if (natural)
     opts = gh_cons (ly_symbol2scm ("natural"), opts);
-  if (tie_break_cautionary)
+  if (tie_break_reminder)
     {
       /* Ugh, these 'options' can't have a value, faking... */
-      opts = gh_cons (tie_break_cautionary->self_scm (), opts);
-      opts = gh_cons (ly_symbol2scm ("tie-break-cautionary"), opts);
+      opts = gh_cons (tie_break_reminder->self_scm (), opts);
+      opts = gh_cons (ly_symbol2scm ("tie-break-reminder"), opts);
     }
 
   pitch = gh_cons (pitch, opts);

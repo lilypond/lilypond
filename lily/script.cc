@@ -57,12 +57,18 @@ Script::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
 #if 0
-   Direction dir = DOWN;
+  
    SCM d = me->get_grob_property ("direction");
    if (isdir_b (d))
      dir = to_dir (d);
 #endif
   Direction dir = Side_position_interface::get_direction(me);
+  if (!dir)
+    {
+      programming_error ("Script direction not known, but molecule wanted.");
+      dir= DOWN;
+    }
+  
   return get_molecule (me, dir).smobbed_copy();
 }
 

@@ -2,15 +2,15 @@
 \version "1.3.120";
 
 violoncello =  \notes \relative c {
-	c1\ff ~|
+	c1\ff~|
 	c|
 	f,4-. r r2|
 	R1|
-	c'1\ff ~|
+	c'1~|
 	c|
 	f,4-. r r2|
 	R1|
-	c'1\ff ~|
+	c'1~|
 	c|
 	fis,4-. r r2|
 	R1|
@@ -28,9 +28,9 @@ violoncello =  \notes \relative c {
 	as4. as8 \!g4\f r4|
 	R1|
 	% 4 bars same as violino-1...
-	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
-	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
-	[bes,!8\p-. des-.][des()c][c-. ges'-.][ges()f]|
+	[bes,8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,8\p-. des-.][des()c][c-. ges'-.][ges()f]|
 
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des]|
@@ -56,19 +56,19 @@ violoncello =  \notes \relative c {
 	%40
 	fis2\sf [c'8-. es-.][es()d]
 	fis,2\sf [c'8-. es-.][es()d]
-	f,!2\sf [b8-. d-.][d()c]
 	f,2\sf [b8-. d-.][d()c]
-	e,2\sf [bes'!8-. des-.][des()c]
+	f,2\sf [b8-. d-.][d()c]
+	e,2\sf [bes'8-. des-.][des()c]
 
 	%45
-	es,!2\sf [a!8-. c-.][c()bes]|
-	d,4 [a'!8-. c-.][c()bes] es,4\sf(|
-	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
-	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
-	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
+	es,2\sf [a8-. c-.][c()bes]|
+	d,4 [a'8-. c-.][c()bes] es,4\sf|
+	d4 [a'8-. c-.][c()bes] es,4\sf|
+	d4 [a'8-. c-.][c()bes] es,4\sf|
+	d4 [a'8-. c-.][c()bes] es,4\sf|
 
 	%50
-	)d4 r r2|
+	d4 r r2|
 	R1|
 	[bes'8\p(g'es g][bes g es)bes~]|
 	[bes(f'd f][bes f d)bes~]|
@@ -93,7 +93,7 @@ violoncello =  \notes \relative c {
 	[c(as'f as][c as f)c~]|
 	[c(bes'g bes][c bes g)c,~]|
 	[c(as'f as][c as f)c~]|
-	[c(g'e g][c g e)bes]|
+	[c(g'e g][bes g e)bes]|
 
 	%70
 	as2\ff g|
@@ -102,7 +102,7 @@ violoncello =  \notes \relative c {
 	\property Voice.crescendoSpanner = #'dashed-line
 	[g8\p\<(bes' g bes][d bes g)d~]|
 	[d8(a' fis a][d a fis)d]|
-	[\!f!8\sf\>(as f as][f g d)g]|
+	[\!f8\sf\>(as f as][f g d)g]|
 
 	%75
 	\!c,4\p r d r|
@@ -123,7 +123,7 @@ violoncello =  \notes \relative c {
 	a(g a)g|
 	c2.()bes4|
 	a(g a)g|
-	f!2.()es4|
+	f2.()es4|
 	d(c d)c|
 
 	%90
@@ -163,7 +163,7 @@ violoncello =  \notes \relative c {
 	% [g,16 g bes bes][d d es es][f, f a a][cis cis d d]|
 	% see if this:8 neat trick works...
 	[g,:8 bes d es][f, a cis d]|
-	[es,8: g: b: c!:][d,: f: a: bes:]|
+	[es,8: g: b: c:][d,: f: a: bes:]|
 	[c,: es: g: a:][cis,: e: g: bes:]|
 	[d,: g: bes: d:][d,: fis: a: d:]|
 	g,,2 ~ g4. g8|
@@ -196,10 +196,10 @@ violoncello =  \notes \relative c {
 	%131
 	[g bes d es][f es bes g]|
 	% shared with viola until here
-	as1 (|
+	as1|
 	a|
 	bes|
-	)c|
+	c|
 	\!des2\p( c|
 	bes as|
 	ges f|
@@ -249,7 +249,7 @@ violoncello =  \notes \relative c {
 
 	%160
 	R1*3|
-	bes,!2\ff [e8-. g-.][g()f]|
+	bes,2\ff [e8-. g-.][g()f]|
 	bes,2\sf [e8-. g-.][g()f]|
 
 	%165
@@ -284,32 +284,30 @@ violoncello =  \notes \relative c {
 	[g(e' c d][g e c )g~]|
 	[g(f' d f][g f d )g,~]|
 	[g(e' c d][g e c )g~]|
-	[g(d' b d][g d b )g(]|
+	[g(d' b d][g d b )g]|
 
 	%190
-	\!)e2\ff d'|
+	\!e2\ff d'|
 	cis a ~|
-	[a8( f' d f][a f d )a!~]|
-	[a( e' cis e][a e c )a!~]|
-	[a8( f' d f][a f d )a!~]|
-	[a( g' e g][a g e )a,!~]|
+	[a8( f' d f][a f d )a~]|
+	[a( e' cis e][a e cis )a~]|
+	[a8( f' d f][a f d )a~]|
+	[a( g' e g][a g e )a,~]|
 
 	%195
 	\property Voice.crescendoText = #"cresc."
 	\property Voice.crescendoSpanner = #'dashed-line
-	[a8\<( f' d f][a f d )a!~]|
-	[a( e' cis e][a e c )g]|
-%%	\!f2\ff e|
-%%	dis b'~|
-	\!f2\ff e'|
-	dis b~|
-	[b8\p( g' e g][b g e )b!~]|
+	[a8\<( f' d f][a f d )a~]|
+	[a( e' cis e][a e cis )g]|
+	\!f2\ff e|
+	dis b'~|
+	[b8\p( g' e g][b g e )b~]|
 
 	%200
-	[b8\<( fis' dis fis ][b fis dis )b!~]|
+	[b8\<( fis' dis fis ][b fis dis )b~]|
 	[b8( g' e g][e g e )g]|
 	[f(g f g][f g f)g]|
-	\!es!4\fp r e r|
+	\!es4\fp r e r|
 	f r g r|
 	
 	%205
@@ -358,13 +356,13 @@ violoncello =  \notes \relative c {
 
 	%235
 	[c es g\p as][bes, d fis g]|
-	[as, c e f!][g, bes d es]|
+	[as, c e f][g, bes d es]|
 	[f, as c d][es g b c]|
 	[d, f as c][g, b d g]|
-	[c,\f e g as][bes, d fis g]|
+	[c,\f es g as][bes, d fis g]|
 
 	%240
-	[as, c e f!][g, bes d es]|
+	[as, c e f][g, bes d es]|
 	f4 r r2|
 	R1*3|
 	c4\p r r r8 c(|
@@ -389,7 +387,7 @@ violoncello =  \notes \relative c {
 	\!ges\f|
 	f\p|
 	as\f|
-	g!\p|
+	g\p|
 	bes\f|
 
 	%260
@@ -409,7 +407,7 @@ violoncello =  \notes \relative c {
 	b,4. b'8 b2\sf|
 	
 	%270
-	[c,8-"sempre"\ff b c d][es\ff d es c]|
+	[c,8-"sempre"\ff b c d][es d es c]|
 	[b c d c][b c b g]|
 	[c8 b c d][es d es c]|
 	[b c d c][b c b g]|
@@ -419,15 +417,15 @@ violoncello =  \notes \relative c {
 	[c b c g][c b c g]|
 	c1 ~|
 	c|
-	f4-. r r2|
+	f,4-. r r2|
 	R1|
 
 	%280
-	c1 ~|
+	c'1 ~|
 	c|
-	f4-. r r2|
+	f,4-. r r2|
 	R1|
-	c1 ~|
+	c'1 ~|
 
 	%285
 	c|
@@ -454,7 +452,7 @@ violoncello =  \notes \relative c {
 	% urg, "" is assumed to be hairpin...
 	%\property Voice.decrescendoSpanner = #""
 	\property Voice.decrescendoSpanner = #'dashed-line
-	\times 2/3 {  c,4\> ( es c ~ } \times 2/3 {  c as' )g }|
+	\times 2/3 {  c,4\> ( es d ~ } \times 2/3 { d as' )g }|
 
 	%300
 	r2 r4 c,(|

@@ -1,3 +1,35 @@
+1.3.136.jcn1
+============
+
+* Bugfix: install gettext.py into @datadir@/python and use that path
+from ly2dvi.  Debian or RedHat installs could/should move gettext.py
+into /usr/share/lib/python/1.x/site-packages or so.
+
+* Bugfix: move the making of \makelilypondpiecetitle to actually
+included part of lilyponddefs.tex.
+
+* Bugfix: ly2dvi, tex.scm: set empty tex definitions to \relax.  This
+fixes ly2dvi'ing of scsii.
+
+* Bugfix: completed renaming of `cautionary' to `reminder' for broken
+tie accidental feature.  (`Cautionary' is reserved for parenthised
+accidentals.).  This fixes all tie and accidentals bugs.
+
+* Bugfix: added dynamic-interface to DynamicText grob.  This fixes
+loose dynamics.
+
+* Bugfix: enable Voice_devnull_engraver.  This fixes loose scripts and
+double dynamics.
+
+* Bugfix: don't dump core on some programming errors (2x).
+
+* Grand Coriolan revision after copyright free reprint of a 1862-1865
+original edition.  This revision also revealed fair amount of bugs.
+Previous versions arguably might have worn some small stains of
+editorial decisions dated 1936.  Arguably, because most of these small
+changes can be found in other editions, some of which even are
+commonplace modernisations.
+
 1.3.136
 =======
 

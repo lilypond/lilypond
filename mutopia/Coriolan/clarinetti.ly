@@ -7,8 +7,7 @@
 clarinettiStaff = \context Staff = clarinetti <
 	\property Staff.midiInstrument = #"clarinet"
 
-	\property Staff.instrument = #`(lines
-	  "2 Clarinetti" (rows "(B" ,text-flat ")"))
+	\property Staff.instrument = #`("Clarinetti in B" ,text-flat)
 	
 	\property Staff.instr = #`(lines "Cl."  (rows "(B" ,text-flat ")"))
 	\property Staff.transposing = #-2

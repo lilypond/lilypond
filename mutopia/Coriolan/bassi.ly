@@ -38,7 +38,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 bassiGroup =  \context PianoStaff = bassi_group \notes <
 	\context Staff=violoncelloStaff <
 		\property Staff.midiInstrument = #"cello"
-		\property Staff.instrument = #"Violoncello  "
+		\property Staff.instrument = #"Violoncello   "
     		\property Staff.instr = #"Vc.  "
 		\clef "bass";
 		\global
@@ -46,7 +46,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 	>
 	\context Staff=contrabassoStaff <
 		\property Staff.midiInstrument = #"contrabass"
-		\property Staff.instrument = #"Contrabasso  "
+		\property Staff.instrument = #"Contrabasso   "
 		\property Staff.instr = #"Cb.  "
 		\property Staff.transposing = #-12
 	 	\clef "bass"; 
