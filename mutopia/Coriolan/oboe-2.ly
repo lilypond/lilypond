@@ -74,8 +74,8 @@ oboeII =  \notes \relative c{
 	bes4 r8 bes bes4 r8 bes|
 	bes4\p r r2|
 	R1*15|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r4 r8 as'\< ges4 r8 des|
 	es4 r8 bes' as4 r8 es|
 	f4 r r2|
@@ -85,8 +85,8 @@ oboeII =  \notes \relative c{
 	des4 r r r8 c|
 	bes4 r8 bes bes4 r8 bes|
 	bes4 r8 bes bes4 r8 bes|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c1\p\< ~||
 	c~|
 	c~|
@@ -150,8 +150,8 @@ oboeII =  \notes \relative c{
 	d\f|
 	es\p|
 	e\f|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c\p\< ~|
 	c~|
 	c~|
@@ -183,8 +183,8 @@ oboeII =  \notes \relative c{
 	R1|
 	c4-. c-. r2|
 	c4-. c-. r2|
-	\property VoiceCombineVoice.decrescendoText = "dim."
-	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = #"dim."
+	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
 	c4\> r d r|
 	R1|
 	\!c4\p r r2|

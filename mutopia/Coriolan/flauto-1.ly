@@ -20,19 +20,19 @@ flautoI =  \notes \relative c {
 	g4-. r r2 |
 	b,4-. r r2 |
 	R1 *4 |
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r2 g'\p\< ( |
 	)fis2. \!g4-.\f |
 	R1*5 |
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r2 f\p\< ~ |
 	f4 \!e-.\f r2 |
 	R1 |
 	f2\p()es |
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	d1\<  |
 	d1 |
 	d2 d2 |
@@ -55,8 +55,8 @@ flautoI =  \notes \relative c {
 	)f2. ges4\sf|
 	f4 r r2 |
 	R1*9|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	g2.\p\<(f4|
 	as g d)bes
 	\!bes2\ff des|
@@ -65,14 +65,14 @@ flautoI =  \notes \relative c {
 	c~|
 	c~|
 	c~|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c\<~|
 	c~|
 	\!c2\ff es|
 	d1~|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	d\p\<~|
 	d~| 
 	d2.()f4|
@@ -82,8 +82,8 @@ flautoI =  \notes \relative c {
 	\!fis\pp r r2|
 	r2 r4 r8 a|
 	bes4 r r2|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r r4 r8 bes\<|
 	c4 r r r8 c |
 	d4 r r r8 d|
@@ -129,8 +129,8 @@ flautoI =  \notes \relative c {
 	r4 r8 f' es4 r8 bes|
 	c4 r r2|
 	R1*2|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r4 r8 ges'\< f4 r8 c|
 	des4 r r2|
 	R1*5|
@@ -164,15 +164,15 @@ flautoI =  \notes \relative c {
 	)d2. es4\sf(|
 	)d r r2|
 	R1*9|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	e2.\p\<(f4|
 	e d b )g|
 	\!g2\ff bes|
 	a1~a4\p r r2|
 	R1*3|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	a1\<~|
 	a|
 	\!a2\ff c|
@@ -215,8 +215,8 @@ flautoI =  \notes \relative c {
 	c r8 f8 es4 r8 bes|
 	as4-. des4-. r2|
 	R1*11|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	es2.\p\<(f4|
 	es d b)g|
 	g1|
@@ -255,8 +255,8 @@ flautoI =  \notes \relative c {
 	R1|
 	c4-. c4-. r2|
 	c4-. c4-. r2|
-	\property VoiceCombineVoice.decrescendoText = "dim."
-	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = #"dim."
+	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
 	c4\> r d r|
 	R1|
 	\!es4\p r r2|

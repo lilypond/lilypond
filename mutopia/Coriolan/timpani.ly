@@ -24,8 +24,8 @@ timpani =  \notes \relative c {
 	R1*6 |
 	r4 c-.\f r2 |
 	R1*2 |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	r2 c4-.\p\< r |
 	r2 c4-. r |
 	r2 c4-. r |
@@ -131,8 +131,8 @@ timpani =  \notes \relative c {
 	R1|
 	c4-. c-. r2|
 	c4-. c-. r2|
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
 	c4\> r g r|
 	R1|
 	\!c4\p r r2|
