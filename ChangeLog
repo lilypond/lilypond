@@ -25,6 +25,8 @@
 
 	* Documentation/topdocs/INSTALL.texi: update vim-mode installing orders.
 
+	* vim/GNUmakefile: add local-uninstall target.
+
 2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
 
         * config.make.in: add vimdir.
