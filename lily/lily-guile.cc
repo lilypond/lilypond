@@ -30,8 +30,6 @@ ly_str02scm (char const*c)
   return gh_str02scm ((char*)c);
 }
 
-
-
 /*
   Pass string to scm parser, evaluate one expression.
   Return result value and #chars read.
