@@ -114,7 +114,7 @@ gnu-music-discuss.
 
 =item http://www.ssc.com/linux/
 
-The Number One Free OS-Kernel: Linux 
+The Number One Free Operating System Kernel: Linux 
 
 =item http://www.bright.net/~dlphilp/linux_soundapps.html
 
@@ -126,7 +126,7 @@ More software for (early) music.
 
 =item http://www.emry.net/webwatcher/
 
-The Linux webwatcher.
+The Linux webwatcher: this site logs changes in important Linux sites.
 
 =item http://www.pbm.com/~lindahl/ravenscroft/modern
 
