@@ -10,8 +10,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.8
-;; Last Modified: 23NOV2002
+;; Version:       1.7.9
+;; Last Modified: 12DEC2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -25,7 +25,7 @@
 ;;
 
 ;; TODO:
-;;   - handle lexer modes (\header, \melodic, \lyric) etc.
+;;   - handle lexer modes (\header, \melodic) etc.
 
 (defconst LilyPond-font-lock-keywords
   (let* ((kwregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-keywords "\\|"))
@@ -86,6 +86,9 @@
 
 ;; "on top", ... ties ~, slurs \( () \), hairpins \<, \>, \! 
       '("\\(\\\\[(<!>)]\\|[(~)]\\)" 0 font-lock-builtin-face t)
+
+;; "on top", ... lyrics-mode: fontify everything between '{' and '}'
+      '("\\(\\\\lyrics[^{]*{\\)\\([^}]*\\)" 2 font-lock-string-face t)
 
 ;; "on top", ... (multiline-)scheme: try find slurs up to 7th
       '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z-:]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
