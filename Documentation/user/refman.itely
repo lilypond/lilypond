@@ -2942,8 +2942,8 @@ quarter on the third string. The string 1 is the lowest one, and the
 tuning defaults to the standard guitar tuning (with 6 strings).
 
 @c FIXME  TabStaff is broken
-@ignore
 @lily pond[fragment,verbatim]
+@example
   \context TabStaff <
     \notes {
       \property Staff.Stem \override #'direction = #1
@@ -2952,8 +2952,8 @@ tuning defaults to the standard guitar tuning (with 6 strings).
       e-3 c'-5 a-4 e'-6
     }
   >  
-@end lilypond
-@end ignore
+@end example
+@c @end lilypond
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
@@ -2986,8 +2986,8 @@ the fingering information (which correspond to the string number) for
 the standard staff.
 
 @c FIXME
-@ignore
-@lily pond[verbatim]
+@c @lily pond[verbatim]
+@example
   part = \notes {
     a,4-2 c'-5 a-4 e'-6
     e-3 c'-5 a-4 e'-6
@@ -3007,8 +3007,8 @@ the standard staff.
       >
     >
   }
-@end lilypond
-@end ignore
+@end example
+@c @end lilypond
 
 @c . {Chords}
 @node Chords
