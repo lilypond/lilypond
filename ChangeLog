@@ -1,3 +1,7 @@
+2004-06-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* debian/: Remove cruft (requested Anthony Fok.)
+
 2004-06-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* po/tr.po: turkish translation.

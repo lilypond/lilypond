@@ -29,7 +29,7 @@
 noclefs = \notes { s1 \set Staff.Clef = \turnOff }
 margins = {
   %% first line left margin
-  \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
+  \applycontext #(set-extra-space 'TimeSignature 'first-note 7.5)
   
   %% next lines left margin
   %% \applycontext #(set-extra-space 'KeySignature 'first-note 15)
