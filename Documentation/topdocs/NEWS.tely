@@ -66,11 +66,12 @@ Individual objects may be assigned colors, for example,
 @end lilypond 
 
 @item
-The PostScript backend is now used by default. This backend requires
+The PostScript backend is now used by default.  This backend requires
 less machinery to run, and gives more consistent results.
 
-Due to bugs in GhostScript's PDF handling, it is recommended to
-upgrade to GhostScript 8.x.
+Please use GhostScript 8.x, as earlier versions expose bugs in PDF
+handling.
+@c what is PDF handling?
 
 @item
 Separator slashes may be inserted between systems in a score. For an
