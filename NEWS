@@ -1,4 +1,15 @@
-pl 53.gp1
+--- ../lilypond-1.1.53/NEWS	Mon Jul 05 05:56:28 1999
+++ b/NEWS	Wed Jul 07 23:47:42 1999
+@@ -1,3 +1,9 @@
+pl 53.jbr1
+	- scripts/ly2dvi.py: A fix for the multitude of file systems supported
+          by windows.  As long as the paths that the cygwin apps use are
+          UNC style and the paths that the native windows apps use are DOS 
+          style everybody is happy.  I add quick and dirty  unc2dos function
+          to facilitate this approach.
+ 
+ pl 52.jcn3
+ 	- bf: mi2mu: midi without keypl 53.gp1
 	- added Hyphen-engraver, Hyphen-spanner
 ************
 pl 52.jcn3

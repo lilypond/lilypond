@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.11'
+version = '0.0.12'
 errorlog = ''
 
 import sys
@@ -854,7 +854,11 @@ class Properties:
         """
 
         os.environ['LILYPONDPREFIX'] = path
+        if os.name == 'nt' or os.name == 'dos':
+            path = unc2dos(path);
+
 	this.__set('root',path,requester)
+        
 
     #
     # printProps
@@ -911,6 +915,17 @@ def getTeXFile(contents):
         sys.exit('ExitNoTeXName')
     else:
         return texfiles
+
+def unc2dos(path):
+    """
+    Convert a path of format //<drive>/this/that/the/other to
+    <drive>:\this\that\the\other
+    """
+    m=re.match('^//([A-Za-z])(/.*)$',path)
+    if m:
+        return m.group(1) + ':' + os.path.normpath(m.group(2))
+    
+    
 
 def program_id ():
     return name + ' ' + version;
