@@ -45,6 +45,9 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
+/*
+  TODO: add optional factor argument.
+ */
 SCM
 make_rational (SCM n, SCM d)
 {

@@ -3,7 +3,7 @@
 @node ly2dvi
 @chapter ly2dvi
 
-Ly2dvi is a Python script which creates input file for La@TeX{},
+@file{ly2dvi} is a Python script which creates input file for La@TeX{},
 based on information from the output files from LilyPond.
 The script handles multiple files. If a LilyPond file name is
 specified LilyPond is run to make an output (@TeX{}) file.
@@ -17,8 +17,11 @@ Arne Fagertun name @file{ly2dvi}.
 
 @subsection Invoking ly2dvi
 
+@example
         ly2dvi [options] inputfile[.ly] [....]
+@end example
 
+@unnumberedsec Options
 
 @table @code
 @item -D,--debug
@@ -67,7 +70,7 @@ Arne Fagertun name @file{ly2dvi}.
 @end table
 
 
-@subsection Ly2dvi Features
+@subsection  Features
 
 Ly2dvi responds to several parameters specified in the LilyPond
 file. They are overridden by corresponding command line options.
@@ -85,7 +88,7 @@ file. They are overridden by corresponding command line options.
     Specify name of papersize.
 @end table
 
-@subsection Ly2dvi Environment
+@subsection  Environment
 
 @table @code
 @item LILYPONDPREFIX
@@ -96,7 +99,7 @@ file. They are overridden by corresponding command line options.
     Temporary directory name. Default is /tmp
 @end table
 
-@subsection Ly2dvi Files
+@subsection  Files
 
 @file{titledefs.tex} is inspected for definitions used to extract
 additional text definitions from the LilyPond file. In the current
@@ -197,7 +200,7 @@ present.  Possible value is a valid directory specification that is
 writable to the user.
 @end table
 
-@subsection Ly2dvi Initialization Sequence
+@subsection  Initialization Sequence
 The initialization process reads inputs for several sources.  Below is
 a list of priorities for lowest to hightest proirity.
 
@@ -213,7 +216,7 @@ a list of priorities for lowest to hightest proirity.
 @item  command line options
 @end itemize
 
-@subsection Ly2dvi Bugs
+@subsection  Bugs
 
 See @ref{Bug reports}.  If you have found a bug, you should send a
 bugreport.
@@ -227,7 +230,7 @@ bugreport.
     to this mailinglist).
 @end itemize
 
-@subsection Ly2dvi Remarks
+@subsection  Remarks
 
 Many papersizes are now supported. Information on other sizes
 (La@TeX{} names, horizontal and vertical sizes) should be mailed to
@@ -239,7 +242,7 @@ a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
 archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
 letter, note
 
-@subsection Ly2dvi Authors
+@subsection  Authors
 Python Version author:
 @email{daboys@@austin.rr.com, Jeffrey B. Reed},
 @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}

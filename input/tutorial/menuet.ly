@@ -4,7 +4,7 @@
     \notes			
     \relative c''
         \sequential {		
-	    \key g;
+	    \key g \major;
 	    \time 3/4;		
 
 	\repeat "volta" 2 \sequential {

@@ -67,8 +67,11 @@ The lines and horizontal positions of the columns are determined.
 
 @item Breaking
 
-Relations between all grobs are modified to reflect line breaks. See
-also @ref{Pointer substitution}.
+Relations between all grobs are modified to reflect line breaks: When a
+spanner, eg. a slur, crosses a line-break, then the spanner is "broken
+into pieces", for every line that the spanner is in, a copy of the grob
+is made. A substitution process redirects all grob-reference so that
+spanner grob will only reference other grobs in the same line.
 
 @item Outputting:
 
@@ -117,12 +120,15 @@ how grobs work.
 * Callbacks::			
 * Setting grob properties::	
 * Items and Spanners::		
-* Pointer substitution::	
 * Grob Scheme functions::	
 @end menu
 
+
+
 @node What is a grob?
 @subsection What is a grob?
+
+[TODO: document/explain interfaces]
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
@@ -147,7 +153,7 @@ to. Whenever the note head is moved, the staccato dot moves along
 automatically.
 
 If you keep following offset reference points, you will always end up at
-the root-object. This root object is called @rgrob{Line_of_score}, and it
+the root-object. This root object is called @code{Line_of_score}, and it
 represents a system (ie. a line of music).
 
 All grobs carry a set of grob-properties.  In the Stem example above,
@@ -157,17 +163,17 @@ that draws the symbol (@code{Stem::brew_molecule}) uses the value of
 appearance of a grob is determined solely by the values of its
 properties.
 
-Often, a grob also is associated with a symbol. On the other hand,
-Some grobs do not print any symbols, but take care of grouping
-objects. For example, there is a separate grob that stacks staffs
-vertically, so they are not printed in overstrike. The
-@rgrob{NoteCollision} is another example of an abstract grob.  It only
-moves around chords, but doesn't print anything.
+Often, a grob also is associated with a symbol. However, some
+grobs do not print any symbols, but take care of grouping objects. For
+example, there is a separate grob that stacks staffs vertically, so they
+are not printed in overstrike. The @code{NoteCollision} is another
+example of an abstract grob.  It only moves around chords, but doesn't
+print anything.
 
-A complete list of grob types is found in
+A complete list of grob types is found in 
 @ref{(lilypond-internals)LilyPond backend}
 
-Grobs are created in the "Interpreting music" phase, by things in
+Grobs are created in the "Interpreting music" phase, by objects in
 LilyPond called engravers.  In this phase of the translation, a load of
 grobs are created, and they are linked into a giant network of objects.
 This network of grobs forms the "specification" of the print
@@ -187,7 +193,7 @@ direction.
 Suppose you have the following code in a .ly file.
 @example
         #(define (my-callback gr axis)
-                (*  2.0 (get-gr-property grob 'direction))
+                (*  2.0 (get-grob-property gr 'direction))
         )
 
 ....
@@ -214,17 +220,17 @@ Offset callbacks can be stacked, ie.
 
 The callbacks will be executed in the order callback3 callback2
 callback1. This is used for quantized positioning: the staccato dot is
-above or below a note head, and it must not be on a staff-line.
-
-To achieve this, for the staccato there are two callbacks: one callback
+above or below a note head, and it must not be on a staff-line.  To
+achieve this, for the staccato there are two callbacks: one callback
 that positions the grob above or below the note head, and one callback
 that rounds the Y-position of the grob to the nearest open space.
 
 Similarly, the size of a grob are determined through callbacks, settable
-with grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
-There can be only one extent-callback for each axis. No callback (value #f)
-means: "empty in this direction". If you fill in a pair, that pair
-hard-codes the extent in that coordinate.
+with grob properties @code{X-extent-callback} and
+@code{Y-extent-callback}.  There can be only one extent-callback for
+each axis. No callback (Scheme value @code{#f}) means: "empty in this
+direction". If you fill in a pair of numbers, that pair hard-codes the
+extent in that coordinate.
 
 
 @node Setting grob properties
@@ -340,15 +346,6 @@ the outcome of the visibility-lambda. This is a function taking a
 direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
 this grob should be transparent and have no extent.
 
-@node Pointer substitution
-@unnumberedsubsec Pointer substitution
-
-
-Symbols that cross line-breaks (such as slurs) cause some more
-complications. When a  spanner crosses a line-break, then the spanner is
-"broken into pieces", for every line that the spanner is in, a copy of
-the grob is made. A substitution process redirects all grob-reference
-so that spanner grob will only reference other grobs in the same line.
 
 @node Grob Scheme functions
 @unnumberedsubsec Grob Scheme functions
@@ -360,28 +357,33 @@ will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
 @end  defun
 
 @defun ly-set-grob-property g sym val
+Set @var{sym} in grob @var{g} to value @var{val}
 @end defun
 
 @defun ly-get-spanner-bound spanner dir
+Get one of the bounds of @var{spanner}. @var{dir} may be @code{-1} for
+left, and @code{1} for right.
 @end defun
 
 @defun ly-grob? g
+Typecheck: is @var{g} a grob?
 @end defun
 
 @node Duration
 @section Duration
 
-@menu
-@end menu
 @defun make-duration length dotcount
 
 @var{length} is the negative logarithm (base 2) of the duration:
 1 is a half note, 2 is a quarter note, 3 is an eighth
 note, etc.  The number of dots after the note is given by
 @var{dotcount}.
-
 @end defun
 
+
+@defun duration? d
+type predicate for Duration
+@end defun
 
 @node Pitch data type
 @section Pitch data type
@@ -396,43 +398,62 @@ corresponding to C and 7 corresponding to B.  The shift is zero for a
 natural, negative to add flats, or positive to add sharps.
 @end defun
 
-@defun pitch-octave
+@defun pitch-octave p 
+extract the octave from pitch @var{p}.
 @end defun
 
 @defun pitch-notename
+extract the note name from pitch  @var{p}.
 @end defun
 
 @defun pitch-alteration
+extract the alteration from pitch  @var{p}.
 @end defun
 
 @defun pitch-semitones
+calculate the number of semitones of @var{p} from central C.
 @end defun
 
-@defun Pitch::transpose
+@defun Pitch::transpose t p
+Transpose @var{p} by the amount @var{t}, where @var{t} is the pitch that
+central C is transposed to. 
 @end defun
 
 @node Engraver
 @section Engraver
 
-@defun ly-get-trans-property
+Engravers are building blocks of contexts. They are not yet user accessible.
+
+@defun ly-get-trans-property tr sym
+retrieve the value of @var{sym} from context @var{tr}
 @end defun
 
-@defun ly-set-trans-property
+@defun ly-set-trans-property tr sym val
+set value of property @var{sym} in context @var{tr} to @var{val}.
 @end defun
 
 @node Music_iterator
 @section Music_iterator
 
+This data-type is a direct hook into some C++ constructor functions. It
+is not yet user-serviceable.
+
 @defun c++-function?
+type predicate for c++-function.
 @end defun
 
 @node Music
 @section Music
 
-@defun ly-get-mus-property
+Music is the data type that music expressions are stored in. The data
+type does not yet offer many manipulations.
+
+@defun ly-get-mus-property m sym
+Get the property @var{sym} of music expression @var{m}.
 @end defun
 
-@defun ly-set-mus-property
+@defun ly-set-mus-property m sym val
+Set property @var{sym} in music expression @var{m} to @var{val}.
 @end defun
 
 
@@ -470,7 +491,7 @@ notation:
  Molecule = COMBINE Molecule Molecule
            | TRANSLATE Offset Molecule
            | GLYPH-DESCRIPTION
-	   ;
+           ;
 @end example
 
 If you are interested in seeing how this information is stored, you
@@ -478,21 +499,32 @@ can run with the @code{-f scm} option. The scheme expressions are then
 dumped onto the output file.
 
 (refer to the C++ code for more details). All visible,
-ie. non-transparant, grobs have a callback to create a Molecule. The
+i.e. non-transparant, grobs have a callback to create a Molecule. The
 name of the property is @code{molecule-callback}, and its value should
 be a Scheme function taking one argument (the grob) and returning a
 Molecule.
 
+[insert example of write your own.]
+
 @defun molecule? m
+type predicate.
 @end defun
 
 @defun ly-combine-molecule-at-edge  mol1 axis dir mol2 padding
+Construct a molecule by putting @var{mol2} next to
+@var{mol1}. @var{axis} can be 0 (x-axis) or 1 (y-axis), @var{dir} can be
+-1 (left or down) or 1 (right or up).  @var{padding} specifies extra
+space to add in between.  The unit is global staff space.  is the
 @end defun
 
 @defun ly-get-molecule-extent! mol axis
+Return a pair of numbers signifying the extent of @var{mol} in
+@var{axis} direction (0 or 1 for x and y axis respectively).
 @end defun
 
 @defun ly-set-molecule-extent! mol axis extent
+Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in 
+@var{axis} direction (0 or 1 for x and y axis respectively).
 @end defun
 
 @node Font metrics
@@ -502,12 +534,10 @@ The font object represents the metric information of a font. Every font
 that is loaded into LilyPond can be accessed via Scheme. 
 
 LilyPond only needs to know the dimension of glyph to be able to process
-them. This information is present in font-metric files. LilyPond can
+them. This information is stored in font metric files. LilyPond can
 read two types of font-metrics: @TeX{} Font Metric files (tfm files) and
-Adobe Font Metric files (afm files).  AFM files are more versatile, and
-LilyPond needs those features to typeset musical symbols. So LilyPond
-will always try to load afm files first. 
-
+Adobe Font Metric files (@file{.afm} files).  LilyPond will always try
+to load afm files first since @file{.afm} files are more versatile.
 
 @defun ly-get-default-font gr
 This returns the default font for grob @var{gr}.
@@ -524,21 +554,31 @@ This function retrieves a Molecule for the glyph named @var{name} in
 @section Miscellaneous Scheme functions
 
 @defun ly-input-location?
+type predicate
 @end defun
-
-@defun ly-warn
+ 
+@defun ly-warn msg
+Scheme callable function to issue the warning @code{msg}.
 @end defun
 
 @defun ly-version
+Return the current lilypond version as a list, e.g.
+@code{(1 3 127 uu1)}. 
 @end defun
 
-@defun ly-gulp-file
+@defun ly-gulp-file name
+read file named @var{name}, and return its contents in a string. This
+uses the lilypond search path.
+
 @end defun
 
 @defun dir?
+type predicate. A direction is a -1, 0 or 1.
 @end defun
 
-@defun ly-number->string
+@defun ly-number->string num
+ converts @var{num} without generating many decimals. It leaves a space
+at the end.
 @end defun
 
 

@@ -3,24 +3,15 @@
 
 If you need to know more about music notation, here are some interesting titles to read
 
-@table @emph
+@table @cite
 @item banter
-Harald Banter, Akkord Lexikon.  Schott's S\"ohne
+Harald Banter, Akkord Lexikon.  Schott's S@"{o}hne
 1987. Mainz, Germany ISBN 3-7957-2095-8
 
 Comprehensive overview of commonly used chords.  Suggests (and uses) a
 unification for all different kinds of chord names.
 
 
-
-@item ross,
-Ted Ross, Teach yourself the art of music engraving and processing.
-Hansen House, Miami, Florida 	 1987
-
-This is about engraving, i.e.  professional typesetting.  It contains
-directions on good typesetting, but the sections on reproduction
-technicalities, how to use pens and history are interesting.
-Especially the section on Music Typewriters is amusing....
 
 @item gerou96
 
@@ -31,45 +22,57 @@ A concise, alphabetically ordered list of typesetting and music
 (notation) issues with a rather simplistic attitude but in most cases
 "good-enough" answers.
 
+[graag zonder neertrappen.]
+
 
 @item Stone80
 
 Kurt Stone, Music Notation in the Twentieth Century
 Norton, New York 1980.
 
-The most important book on notation in recent years.
+The most important book on notation in recent years: it describes music
+notation for modern serious music, but starts out with a thorough
+overview of existing traditional notation practices.
 
+@item read-notation,
+Gardner Read,  Music Notation: a Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+This is as close to the ``standard'' reference work for music notation
+issues as one is likely to get.
 
 @item hader48,
 
 Karl Hader, Aus der Werkstatt eines Notenstechers. Waldheim--Eberle
 Verlag, Vienna 1948.
 
-
 Hader was the chief-engraver of the Waldheim-Eberle music publishers.
-This beautiful booklet was intended as an introduction for laymen on
-the art of engraving.  It contains a step by step, in-depth
-explanation of how to cut and stamp music into zinc plates.  It also
-contains a few compactly formulated rules on musical orthography. Out
-of print.
+This beautiful booklet was intended as an introduction for laymen on the
+art of engraving.  It contains a step by step, in-depth explanation of
+how to cut and stamp music into zinc plates.  It also contains a few
+compactly formulated rules on musical orthography. This book is out of
+print.
+
+
+@item ross,
+Ted Ross, Teach yourself the art of music engraving and processing.
+Hansen House, Miami, Florida 	 1987
+
+This book is about engraving, i.e.  professional typesetting.  It contains
+directions on good typesetting, but the sections on reproduction
+technicalities, how to use pens and history are interesting.
 
 @item  wanske,
 
-1988
-Helene Wanske, Musiknotation --- Von der Syntax des Notenstichs zum EDV-gesteuerten Notensatz.
-Schott-Verlag, Mainz 1988.
-ISBN 3-7957-2886-x
+Helene Wanske, Musiknotation --- Von der Syntax des Notenstichs zum
+EDV-gesteuerten Notensatz.  Schott-Verlag, Mainz 1988.  ISBN
+3-7957-2886-x
 
 I. A very thorough overview of engraving practices of various
 craftsmen. It includes detailed specs of characters, dimensions
 etc. II. a thorough overview of a anonymous (by now antiquated)
-automated system. EDV Means e(lektronischen) D(aten)v(erarbeitung),
-electronic data processing HWN.
+automated system. EDV means E(lektronischen) D(aten)v(erarbeitung),
+electronic data processing.
 
-@item read-notation,
-Gardner Read,  Music Notation: a Manual of Modern Practice.
-Taplinger Publishing, New York (2nd edition).
 
-This is as close to the ``standard''
-  reference work for music notation issues as one is likely to get.
 @end table

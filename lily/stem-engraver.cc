@@ -146,7 +146,6 @@ Stem_engraver::stop_translation_timestep()
 
       
       // UGH. Should mark non-forced instead.
-
       /*
 	 aargh: I don't get it.  direction is being set (and then set
 	 to forced), if we have a Chord_tremolo.

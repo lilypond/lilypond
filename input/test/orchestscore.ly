@@ -1,4 +1,8 @@
-\version "1.3.120";
+\header{
+  latexpackages="graphicx";
+}
+
+\version "1.3.126";
 
 m =  \notes \relative c''{
 
@@ -13,7 +17,7 @@ c1 | c2 c | c c | R1*5
 \score{ < 
   \context StaffGroup = wood <
     \context Staff = flauto <
-      \property Staff.instrument = "Flauto"
+      \property Staff.instrument = "\\rotatebox[origin=c]{90}{Flauto}"
       \property Staff.instr = "Fl."
       \m
     >
@@ -97,7 +101,7 @@ c1 | c2 c | c c | R1*5
       \OrchestralScoreContext
       skipBars = ##t 
       markScriptPadding = #4.0
-      BarNumber \override $'padding = #3
+      BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
       marginScriptHorizontalAlignment = #1
     }

@@ -149,51 +149,56 @@ Mark_engraver::create_grobs ()
        */
       
       SCM m = mark_req_l_->get_mus_property ("label");
-      if (!gh_string_p (m)) 
-	m =  get_property ("rehearsalMark");
-;
-      
-      if (gh_number_p (m))
+      if (gh_pair_p (m)) // markup text
+	text_p_->set_grob_property ("text",m);
+      else 
 	{
-	  int mark_count = gh_scm2int (m);
-	  t = to_str (mark_count);
-	  mark_count ++;
-	  m = gh_int2scm (mark_count);
-	}
-      else if (gh_string_p (m))
-	{
-	  t = ly_scm2string (m);
-	  String next;
-	  if (t.length_i ())
-	    {
-	      char c = t[0];
-	      c++;
-	      next = to_str (c);
-	    }
-	  m = ly_str02scm (next.ch_C());
-	}
-      else
-	{
-	  m = gh_int2scm (1);
-	}
+	  if (!gh_string_p (m)) 
+	    m =  get_property ("rehearsalMark");
+	  ;
 	  
-      daddy_trans_l_->set_property ("rehearsalMark", m);
-
-      
-      text_p_->set_grob_property ("text",
-				 ly_str02scm ( t.ch_C()));
-
-      String style = "mark";
-      for (int i=0; i < t.length_i(); i++)
-	{
-	  if (!isdigit(t[i])) 
+	  if (gh_number_p (m))
 	    {
-	      style = "large";
-	      break;
+	      int mark_count = gh_scm2int (m);
+	      t = to_str (mark_count);
+	      mark_count ++;
+	      m = gh_int2scm (mark_count);
 	    }
+	  else if (gh_string_p (m))
+	    {
+	      t = ly_scm2string (m);
+	      String next;
+	      if (t.length_i ())
+		{
+		  char c = t[0];
+		  c++;
+		  next = to_str (c);
+		}
+	      m = ly_str02scm (next.ch_C());
+	    }
+	  else
+	    {
+	      m = gh_int2scm (1);
+	    }
+	  
+	  daddy_trans_l_->set_property ("rehearsalMark", m);
+	  
+	  text_p_->set_grob_property ("text",
+				      ly_str02scm ( t.ch_C()));
+
+	  String style = "mark";
+	  for (int i=0; i < t.length_i(); i++)
+	    {
+	      if (!isdigit(t[i])) 
+		{
+		  style = "large";
+		  break;
+		}
+	    }
+	  SCM st = ly_symbol2scm (style.ch_C());
+	  text_p_->set_grob_property ("font-style",  st);
 	}
-      SCM st = ly_symbol2scm (style.ch_C());
-      text_p_->set_grob_property ("font-style",  st);
+
     }
 }
 

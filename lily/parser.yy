@@ -735,12 +735,12 @@ Simple_music:
 			THIS->parser_error (_("First argument must be a procedure taking 1 argument"));
 		}
 
-	  Music *m = new Music (SCM_EOL);
-	  m->set_mus_property ("predicate", pred);
-	  m->set_mus_property ("symbol", $3);
-	  m->set_mus_property ("value",  $5);
-	  m->set_mus_property ("iterator-ctor",
-			Output_property_music_iterator::constructor_cxx_function);
+		Music *m = new Music (SCM_EOL);
+		m->set_mus_property ("predicate", pred);
+		m->set_mus_property ("symbol", $3);
+		m->set_mus_property ("value",  $5);
+		m->set_mus_property ("iterator-ctor",
+		Output_property_music_iterator::constructor_cxx_function);
 
 		$$ = m;
 	}
@@ -1149,16 +1149,11 @@ verbose_command_req:
 		Mark_req * m = new Mark_req;
 		$$ = m;
 	}
-	| MARK STRING {
+	| MARK scalar {
 		Mark_req *m = new Mark_req;
 		m->set_mus_property ("label", $2);
 		$$ = m;
 
-	}
-	| MARK bare_unsigned {
-		Mark_req *m = new Mark_req;
-		m->set_mus_property ("label",  gh_int2scm ($2));
-		$$ = m;
 	}
 	| PENALTY bare_int 	{
 		Break_req * b = new Break_req;
@@ -1256,12 +1251,13 @@ verbose_request:
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
-	| tremolo_type	{
-		Tremolo_req* a = new Tremolo_req;
-		a->set_spot (THIS->here_input ());
-		a->set_mus_property ("tremolo-type", gh_int2scm ($1));
-		$$ = a;
-	}
+	| tremolo_type  {
+               Tremolo_req* a = new Tremolo_req;
+               a->set_spot (THIS->here_input ());
+               a->set_mus_property ("tremolo-type", gh_int2scm ($1));
+               $$ = a;
+        }
+
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
 		a->set_mus_property ("articulation-type", $2);

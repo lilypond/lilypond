@@ -9,7 +9,7 @@
 * The first tune::                 The first tune
 * Lyrics and chords::              Lyrics and chords
 * More movements::                 More than one movement in a file
-* Piano music::                    Piano music
+* A piano excerpt::                    Piano music
 * end of tutorial::                The end
 @end menu
 
@@ -1086,8 +1086,8 @@ will be at the left.
 
 
 
-@node Piano music
-@section Piano music
+@node A piano excerpt
+@section A piano excerpt
 
 Our third subject is a piece of piano music.  The fragment in the input
 file is a piano reduction of the G major Sinfonia by Giovanni Battista

@@ -7,7 +7,7 @@
 # * (c) on page 1
 # * more helpful info on lily crashes
 # * Should use files in /tmp/ only.  This potentially messes with
-# usergenerated files in the CWD
+# user generated files in the CWD
 
 
 """
@@ -25,8 +25,6 @@ Output: DVI file
 
 name = 'ly2dvi'
 version = '@TOPLEVEL_VERSION@'
-if version == '@' + 'TOPLEVEL_VERSION' + '@':
-	version = '(unknown version)'		# uGUHGUHGHGUGH
 errorlog = ''
 
 import sys
@@ -147,6 +145,7 @@ class Input:
             #   ------              ----------
             ( 'language',         Props.setLanguage ),
             ( 'latexheaders',     Props.setHeader ),
+            ( 'latexpackages',    Props.setPackages ),
             ( 'paperorientation', Props.setOrientation ),
             ( 'paperpapersize',   Props.setPaperZize ),
             ( 'papertextheight',  Props.setTextHeight ),
@@ -261,7 +260,6 @@ class TeXOutput:
 \usepackage[latin1]{inputenc} 
 %%\usepackage[T1]{fontenc} 
 %%
-%s 
 %% don not waste unused space at bottom of page
 %% (unless we have footnotes ...)
 %%\headheight9pt
@@ -276,10 +274,11 @@ class TeXOutput:
 %% UGR.
 %%\renewcommand{\@evenhead}{eve!{\small\lilypondinstrument{,}\quad\textbf{\thepage}}\hfil}%%
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
+%s
 \begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
-        Props.get('language'), Props.get('pagenumber'), Props.get('linewidth'),
-        textheightsetting, Props.get('orientation'), Props.get('header') )
+        Props.get('language'), Props.get('linewidth'), textheightsetting, 
+        Props.get('orientation'), Props.get('header'), Props.get('pagenumber'))
         
         base, ext = os.path.splitext(file)
         this.__base = base
@@ -574,6 +573,7 @@ class Properties:
             ( 'KEEPLY2DVI',     this.setKeeply2dvi ),
             ( 'LANGUAGE',       this.setLanguage ),
             ( 'LATEXHF',        this.setHeader ),
+            ( 'LATEXPKG',       this.setPackages ),
             ( 'LILYINCLUDE',    this.setInclude ),
             ( 'LILYPONDPREFIX', this.setRoot ),
             ( 'NONUMBER',       this.setNonumber ),
@@ -822,7 +822,13 @@ class Properties:
     # Set latex header name
     #
     def setHeader(this,head, requester):
-	this.__set('header','\\input{' + head + '}',requester)
+	this.__set('header','\\input{' + head + '}'+this.get('header'),requester)
+
+    #
+    # Set latex package name
+    #
+    def setPackages(this,pkgs, requester):
+	this.__set('header','\\usepackage{' + pkgs + '}'+this.get('header'),requester)
 
     #
     # Set or Clear Dependencies flag to generate makefile dependencies

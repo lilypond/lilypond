@@ -11,7 +11,7 @@
         lilypond [OPTION]... [MUDELA-FILE]...
 @end example
 
-@unnumberedsec Lilypond Command Options
+@unnumberedsec Command Options
 
 @table @code
 @item -f,--format=
@@ -42,8 +42,8 @@ show all changes needed to convert a file to  relative octave syntax.
 Disallow untrusted @code{\include} directives, in-line
 Scheme evaluation, backslashes in @TeX{}, code.
 
-@strong{WARNING}: the @code{--safe} option has not been reviewed for
-over a year; do not rely on it for automatic invocation (e.g. over the
+@strong{WARNING}: the @code{--safe} option has not been reviewed for a
+long time; do not rely on it for automatic invocation (e.g. over the
 web). Volunteers are welcome to do a new audit.
 
 @item -T,--no-timestamps
