@@ -27,9 +27,6 @@ Event::length_callback (SCM m)
 void
 Event::compress (Moment m)
 {
-  Duration *d =  unsmob_duration (get_property ("duration"));
-  if (d)
-    set_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
 }
 
 

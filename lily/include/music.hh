@@ -53,7 +53,7 @@ public:
   virtual void transpose (Pitch p);
 
   /// Scale the music in time by #factor#.
-  virtual void compress (Moment factor);
+  void compress (Moment factor);
   
 protected:
   DECLARE_SMOBS (Music,);
