@@ -197,6 +197,8 @@ Lookup::frame (Box b, Real thick)
 
 
 /*
+  JUNKME
+ 
    TODO: THIS IS UGLY.
    Since the user has direct access to TeX marcos,
    that currently provide the  only way to do
@@ -236,7 +238,7 @@ sanitise_TeX_string (String text)
 }
 
 /**
-   TODO!
+   JUNKME
  */
 String
 sanitise_PS_string (String t)
@@ -245,7 +247,7 @@ sanitise_PS_string (String t)
 }
 
 /**
-TODO: move into Text_item. UGH: paper_l argument shoudl be junked.
+   JUNKME
 */
 Molecule
 Lookup::text (String style, String text, Paper_def *paper_l) 

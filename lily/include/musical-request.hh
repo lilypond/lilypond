@@ -66,16 +66,17 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-class Text_script_req : public Script_req {
+class Text_script_req : public Script_req
+{
 public:
-  String text_str_;
+  String text_str_;  // to be deprecated
+  String style_str_; // to be deprecated
 
-  // should be generic property of some kind.. 
-  String style_str_;
+  SCM text_scm_;
+
 protected:
   VIRTUAL_COPY_CONS(Music);
   virtual bool do_equal_b (Request const*)const;
-
 };
 
 

@@ -851,6 +851,8 @@ ScoreContext = \translator {
 		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface side-position-interface))
 		(padding . 0.5)
+		(get-font-name . ,get-font-name)
+		(markup-to-properties . ,markup-to-properties)
 		(name . "TextScript") 
 	)
 	TextSpanner = #`(

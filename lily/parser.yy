@@ -1064,6 +1064,12 @@ verbose_request:
 
 		$$ = ts_p;
 	}
+	| TEXTSCRIPT embedded_scm {
+		Text_script_req *ts_p = new Text_script_req;
+		ts_p->text_scm_ = $2;
+		ts_p->set_spot (THIS->here_input ());
+		$$ = ts_p;
+	}
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p->span_dir_  = Direction($2);

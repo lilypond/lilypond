@@ -122,8 +122,14 @@ Text_engraver::do_process_music ()
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
       
-      text->set_elt_property ("text",
-			      ly_str02scm ( r->text_str_.ch_C ()));
+      if (r->text_str_.length_i ())
+	text->set_elt_property ("text",
+				ly_str02scm ( r->text_str_.ch_C ()));
+      else
+	{
+	  text->set_elt_property ("text", r->text_scm_);
+	  text->set_elt_property ("scm-text", r->text_scm_);
+	}
       
       if (r->style_str_.length_i ())
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));

@@ -5,6 +5,7 @@ maxima = \duration #'( -3 0 )
 
 #(begin
   (eval-string (ly-gulp-file "slur.scm"))
+  (eval-string (ly-gulp-file "font.scm"))
   (eval-string (ly-gulp-file "generic-property.scm"))
   (eval-string (ly-gulp-file "basic-properties.scm"))
  )
@@ -48,7 +49,6 @@ papersize = "a4"
 \include "spanners.ly"
 
 \include "property.ly"
-
 
 
 unusedEntry = \notes { c4 }		% reset default duration
