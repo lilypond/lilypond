@@ -45,7 +45,7 @@ Staff_symbol_engraver::process_music ()
 {
   if (!span_)
     {
-      span_ = new Spanner (get_property ("StaffSymbol"));
+      span_ = make_spanner ("StaffSymbol");
   
       span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 

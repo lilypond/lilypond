@@ -73,7 +73,7 @@ Tab_note_heads_engraver::process_music ()
       int number_of_strings = ((int) gh_length(stringTunings));
       bool high_string_one = to_boolean(get_property ("highStringOne"));
 
-      Item * note  = new Item (get_property ("TabNoteHead"));
+      Item * note  = make_item ("TabNoteHead");
       
       Music * event = note_events_[i];
 
@@ -115,7 +115,7 @@ Tab_note_heads_engraver::process_music ()
 
       if (dur.dot_count ())
 	{
-	  Item * d = new Item (get_property ("Dots"));
+	  Item * d = make_item ("Dots");
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()

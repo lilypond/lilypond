@@ -110,11 +110,11 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
       if (!align_)
 	{
-	  align_ = new Item (get_property ("BreakAlignment"));
+	  align_ = make_item ("BreakAlignment");
 
 	  announce_grob (align_, SCM_EOL);
 
-	  edge_ = new Item (get_property ("LeftEdge"));
+	  edge_ = make_item ("LeftEdge");
 	  add_to_group (edge_->get_grob_property ("break-align-symbol"), edge_);
 	  announce_grob(edge_, SCM_EOL);
 	}
@@ -136,7 +136,7 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item)
     }
   else
     {
-      group = new Item (get_property ("BreakAlignGroup"));
+      group = make_item ("BreakAlignGroup");
 
       group->set_grob_property ("break-align-symbol", align_name);
       group->set_parent (align_, Y_AXIS);

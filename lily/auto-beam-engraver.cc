@@ -244,7 +244,7 @@ Auto_beam_engraver::create_beam ()
      return 0;
     }
   
-  Spanner* beam = new Spanner (beam_settings_);
+  Spanner* beam = internal_make_spanner (beam_settings_);
   for (int i = 0; i < stems_->size (); i++)
     {
       /*

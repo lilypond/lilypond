@@ -62,7 +62,7 @@ Note_heads_engraver::process_music ()
 {
   for (int i=0; i < note_reqs_.size (); i++)
     {
-      Item *note = new Item (get_property ("NoteHead"));
+      Item *note = make_item ("NoteHead");
 
       Music * req = note_reqs_[i];
       
@@ -72,7 +72,7 @@ Note_heads_engraver::process_music ()
 
       if (dur.dot_count ())
 	{
-	  Item * d = new Item (get_property ("Dots"));
+	  Item * d = make_item ("Dots");
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()

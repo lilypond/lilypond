@@ -198,7 +198,7 @@ Piano_pedal_engraver::process_music ()
 	  if (!p->line_spanner_)
 	    {
 	      String name  = String (p->name_) + "PedalLineSpanner";
-	      p->line_spanner_ = new Spanner (get_property (name.to_str0 ()));
+	      p->line_spanner_ = make_spanner (name.to_str0 ());
 
 	      Music * rq = (p->event_drul_[START]  ?  p->event_drul_[START]  :  p->event_drul_[STOP]);
 	      announce_grob (p->line_spanner_, rq->self_scm ());
@@ -309,8 +309,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
     {
       String propname = String (p->name_) + "Pedal";
 
-      SCM b = get_property (propname.to_str0 ());
-      p->item_ = new Item (b);
+      p->item_ = make_item (propname.to_str0 ());
       p->item_->set_grob_property ("text", s);
       Axis_group_interface::add_element (p->line_spanner_, p->item_);
 	  
@@ -374,7 +373,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       p->start_ev_ = p->event_drul_[START];
       p->current_bracket_ev_ = p->event_drul_[START];
 
-      p->bracket_  = new Spanner (get_property ("PianoPedalBracket"));
+      p->bracket_  = make_spanner ("PianoPedalBracket");
 
       /*
 	Set properties so that the molecule-creating function will

@@ -64,7 +64,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
       
       if (!stem_) 
 	{
-	  stem_ = new Item (get_property ("Stem"));
+	  stem_ = make_item ("Stem");
 
 	  stem_->set_grob_property ("duration-log", gh_int2scm (duration_log));
 
@@ -99,7 +99,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
 	      if (tremolo_flags)
 		{
-		  tremolo_ = new Item (get_property ("StemTremolo"));
+		  tremolo_ = make_item ("StemTremolo");
 		  announce_grob(tremolo_, tremolo_ev_->self_scm());
 
 		  /*

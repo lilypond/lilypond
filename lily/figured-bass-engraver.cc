@@ -68,7 +68,7 @@ Figured_bass_engraver::process_music ()
 {
   if (rest_req_)
     {
-      figure_ = new Item (get_property ("BassFigure"));
+      figure_ = make_item ("BassFigure");
       announce_grob(figure_, rest_req_->self_scm()); // todo
       figure_->set_grob_property ("text" , scm_makfrom0str ("-"));
     }
@@ -84,7 +84,7 @@ Figured_bass_engraver::process_music ()
 
 	  SCM markup = scm_call_2 (proc, l, daddy_trans_->self_scm ());
 
-	  figure_ = new Item (get_property ("BassFigure"));
+	  figure_ = make_item ("BassFigure");
 	  figure_->set_grob_property ("text", markup);
 	  announce_grob(figure_, figures_[0]->self_scm()); // todo
 	}

@@ -64,7 +64,7 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
     {
       if (!dotcol_)
 	{
-	  dotcol_ = new Item (get_property ("DotColumn"));
+	  dotcol_ = make_item ("DotColumn");
 	  announce_grob(dotcol_, SCM_EOL);
 	}
 

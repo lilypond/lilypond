@@ -48,7 +48,7 @@ Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 Spanner *
 Vaticana_ligature_engraver::create_ligature_spanner ()
 {
-  return new Spanner (get_property ("VaticanaLigature"));
+  return make_spanner ("VaticanaLigature");
 }
 
 bool

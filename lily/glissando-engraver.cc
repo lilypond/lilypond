@@ -55,7 +55,7 @@ Glissando_engraver::process_music ()
 {
   if (event_)
     {
-      line_ = new Spanner (get_property ("Glissando"));
+      line_ = make_spanner ("Glissando");
       announce_grob (line_, event_->self_scm ());
     }
 }

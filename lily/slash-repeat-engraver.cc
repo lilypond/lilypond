@@ -109,7 +109,7 @@ Slash_repeat_engraver::process_music ()
 {
   if (repeat_ && now_mom () == next_moment_)
     {
-      beat_slash_ = new Item (get_property ("RepeatSlash"));
+      beat_slash_ = make_item ("RepeatSlash");
       announce_grob(beat_slash_, repeat_->self_scm());
       next_moment_ = next_moment_ + body_length_;
 

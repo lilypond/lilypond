@@ -70,8 +70,9 @@ copy_property (Grob * g , SCM sym, SCM alist)
   little space by tacking the props onto the Script grob (i.e. make
   ScriptStaccato , ScriptMarcato, etc. )
  */
-Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
-			      int index)
+void make_script_from_event (Grob *p,
+			     SCM * descr, Translator_group*tg, Music * event,
+			     int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art_type= event->get_mus_property ("articulation-type");
@@ -82,12 +83,12 @@ Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
       event->origin ()->warning (_("Don't know how to interpret articulation:"));
       event->origin ()->warning (_("Scheme encoding: "));
       scm_write (art_type, scm_current_error_port ());
-      return 0 ;
+      return  ;
     }
 
   art = gh_cdr (art);
     
-  Grob *p =new Item (tg->get_property ("Script"));
+  
   *descr = art;  
 
   SCM force_dir = event->get_mus_property ("direction");
@@ -113,7 +114,6 @@ Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
 
   Side_position_interface::set_axis (p, Y_AXIS);
   p->set_grob_property ("script-priority", gh_int2scm (prio));
-  return p;
 }
 
 void
@@ -123,7 +123,9 @@ Script_engraver::process_music ()
     {
       Music* l=scripts_[i].event_;
 
-      Grob * p = make_script_from_event (&scripts_[i].description_, daddy_trans_, l, i);
+      Grob * p = make_item ("Script");
+
+      make_script_from_event (p, &scripts_[i].description_, daddy_trans_, l, i);
 
       scripts_[i].script_ = p;
       if (p)

@@ -62,7 +62,7 @@ Time_signature_engraver::process_music ()
   
       
       last_time_fraction_ = fr; 
-      time_signature_ = new Item (get_property ("TimeSignature"));
+      time_signature_ = make_item ("TimeSignature");
       time_signature_->set_grob_property ("fraction",fr);
 
       if (time_signature_)

@@ -106,7 +106,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      && gh_equal_p (right_mus->get_mus_property ("pitch"),
 			     left_mus->get_mus_property ("pitch")))
 	    {
-	      Grob * p = new Spanner (get_property ("Tie"));
+	      Grob * p = make_spanner ("Tie");
 	      Tie::set_interface (p); // cannot remove yet!
 	  
 	      Tie::set_head (p, LEFT, th);
@@ -119,7 +119,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 
       if (ties_.size () && ! tie_column_)
 	{
-	  tie_column_ = new Spanner (get_property ("TieColumn"));
+	  tie_column_ = make_spanner ("TieColumn");
 	  announce_grob(tie_column_, SCM_EOL);
 	}
 

@@ -113,7 +113,7 @@ Extender_engraver::process_music ()
 {
   if (ev_)
     {
-      extender_ = new Spanner (get_property ("LyricExtender"));
+      extender_ = make_spanner ("LyricExtender");
       announce_grob (extender_, ev_->self_scm());
     }
 }

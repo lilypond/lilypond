@@ -103,7 +103,7 @@ Chord_name_engraver::process_music ()
    */
   SCM chord_as_scm = gh_cons (pitches, gh_cons (bass, inversion));
   
-  chord_name_ = new Item (get_property ("ChordName"));
+  chord_name_ = make_item ("ChordName");
   chord_name_->set_grob_property("text", markup);
   announce_grob(chord_name_, notes_[0]->self_scm ());
   SCM s = get_property ("chordChanges");

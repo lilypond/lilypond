@@ -56,7 +56,7 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 
       if (bars_.size () >= 2 && !spanbar_) 
 	{
-	  spanbar_ = new Item (get_property ("SpanBar"));
+	  spanbar_ = make_item ("SpanBar");
 
 	  spanbar_->set_parent (bars_[0], X_AXIS);
 

@@ -72,7 +72,7 @@ Instrument_name_engraver::create_text ()
       if (txt == SCM_EOL)
 	return ;
       
-      text_ = new Item (get_property ("InstrumentName"));
+      text_ = make_item ("InstrumentName");
       
       if (text_->get_grob_property ("text") != txt)
 	text_->set_grob_property ("text", txt);

@@ -36,7 +36,7 @@ Collision_engraver::process_acknowledged_grobs ()
     return ;
   if (!col_) 
     {
-      col_ = new Item (get_property ("NoteCollision"));
+      col_ = make_item ("NoteCollision");
       announce_grob (col_, SCM_EOL);
     }
   

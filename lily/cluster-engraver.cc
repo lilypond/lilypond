@@ -104,7 +104,7 @@ Cluster_spanner_engraver::process_music ()
 	  pmin = pmin <? p;
 	}
       
-      beacon_ = new Item (get_property ("ClusterSpannerBeacon"));
+      beacon_ = make_item ("ClusterSpannerBeacon");
       beacon_->set_grob_property ("positions",
 				  scm_cons (gh_int2scm (pmin),
 					    gh_int2scm (pmax)));
@@ -113,7 +113,7 @@ Cluster_spanner_engraver::process_music ()
 
   if (beacon_ && !spanner_)
     {    
-      spanner_ = new Spanner (get_property ("ClusterSpanner"));
+      spanner_ = make_spanner ("ClusterSpanner");
       announce_grob (spanner_, cluster_notes_[0]->self_scm ());
     }
   

@@ -124,8 +124,7 @@ Custos_engraver::process_acknowledged_grobs ()
 Item* 
 Custos_engraver::create_custos ()
 {
-  SCM basicProperties = get_property ("Custos");
-  Item* custos = new Item (basicProperties);
+  Item* custos = make_item ("Custos");
   
   announce_grob(custos, SCM_EOL);
   custodes_.push (custos);

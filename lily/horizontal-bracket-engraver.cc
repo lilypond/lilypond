@@ -91,7 +91,7 @@ Horizontal_bracket_engraver::process_music ()
 {
   for  (int k = 0; k < push_count_; k++)
     {
-      Spanner * sp = new Spanner (get_property ("HorizontalBracket"));
+      Spanner * sp = make_spanner ("HorizontalBracket");
 
       announce_grob (sp, events_[k]->self_scm());
       for (int i = 0; i < bracket_stack_.size(); i++)

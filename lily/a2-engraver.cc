@@ -54,7 +54,7 @@ A2_engraver::process_acknowledged_grobs ()
 	      || (unison == SCM_BOOL_T && state_ != UNISON
 		  && daddy_trans_->id_string_.left_string (3) == "one")))
 	{
-	  text_ = new Item (get_property ("TextScript"));
+	  text_ = make_item ("TextScript");
 	  Side_position_interface::set_axis (text_, Y_AXIS);
 	  announce_grob(text_, SCM_EOL);
       

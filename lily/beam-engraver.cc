@@ -159,7 +159,7 @@ Beam_engraver::process_music ()
 
       set_melisma (true);
       prev_start_ev_ = evs_drul_[START];
-      beam_ = new Spanner (get_property ("Beam"));
+      beam_ = make_spanner ("Beam");
       SCM smp = get_property ("measurePosition");
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 

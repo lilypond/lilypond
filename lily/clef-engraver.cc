@@ -86,7 +86,7 @@ Clef_engraver::create_clef ()
 {
   if (!clef_)
     {
-      Item *c= new Item (get_property ("Clef"));
+      Item *c= make_item ("Clef");
       announce_grob(c, SCM_EOL);
 
       clef_ = c;
@@ -98,7 +98,7 @@ Clef_engraver::create_clef ()
       SCM oct =  get_property ("clefOctavation");
       if (gh_number_p (oct) && gh_scm2int (oct))
 	{
-	  Item * g = new Item (get_property ("OctavateEight"));
+	  Item * g = make_item ("OctavateEight");
 
 	  int abs_oct = gh_scm2int (oct) ;
 	  int dir = sign (abs_oct);

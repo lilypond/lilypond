@@ -74,7 +74,7 @@ Tuplet_engraver::process_acknowledged_grobs ()
       if (i < started_spanners_.size () && started_spanners_[i])
 	continue;
 
-      Spanner* glep = new Spanner (get_property ("TupletBracket"));
+      Spanner* glep = make_spanner ("TupletBracket");
 
       if (i >= started_spanners_.size ())
 	started_spanners_.push (glep);

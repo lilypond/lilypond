@@ -26,7 +26,7 @@ protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
-  virtual Spanner* get_spanner () const;
+  virtual Spanner* get_spanner () ;
   virtual void add_element (Grob*) ;
 public:  
   TRANSLATOR_DECLARATIONS(Axis_group_engraver);
@@ -53,9 +53,9 @@ Axis_group_engraver::process_music ()
 } 
 
 Spanner*
-Axis_group_engraver::get_spanner () const
+Axis_group_engraver::get_spanner () 
 {
-  return new Spanner (get_property ("VerticalAxisGroup"));
+  return make_spanner ("VerticalAxisGroup");
 }
 
 /*
@@ -155,7 +155,7 @@ Axis_group_engraver::add_element (Grob*e)
 class Hara_kiri_engraver : public Axis_group_engraver
 {
 protected:
-  virtual Spanner*get_spanner ()const;
+  virtual Spanner*get_spanner ();
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
 public:
@@ -170,9 +170,9 @@ Hara_kiri_engraver::add_element (Grob*e)
 
 
 Spanner*
-Hara_kiri_engraver::get_spanner () const
+Hara_kiri_engraver::get_spanner () 
 {
-  Spanner * sp = new Spanner (get_property ("RemoveEmptyVerticalGroup"));
+  Spanner * sp = make_spanner ("RemoveEmptyVerticalGroup");
   
   return sp;
 }

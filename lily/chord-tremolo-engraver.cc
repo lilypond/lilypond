@@ -123,7 +123,7 @@ Chord_tremolo_engraver::process_music ()
     {
       if (sequential_body_b_ && !beam_)
 	{
-	  beam_ = new Spanner (get_property ("Beam"));
+	  beam_ = make_spanner ("Beam");
 	  beam_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
 	  SCM smp = get_property ("measurePosition");
@@ -136,7 +136,7 @@ Chord_tremolo_engraver::process_music ()
 	{
 	  if (flags_)
 	    {
-	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
+	      stem_tremolo_ = make_item ("StemTremolo");
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("flag-count",
 						scm_int2num (flags_));

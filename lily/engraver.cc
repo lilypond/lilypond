@@ -12,6 +12,8 @@
 #include "grob.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 void
 Engraver::announce_grob (Grob_info inf)
@@ -64,6 +66,18 @@ void
 Engraver::process_music ()
 {
   
+}
+
+Item*
+Engraver::internal_make_item (SCM x)
+{
+  return new Item (x);
+}
+
+Spanner*
+Engraver::internal_make_spanner (SCM x)
+{
+  return new Spanner (x);
 }
 
 Engraver::Engraver()
