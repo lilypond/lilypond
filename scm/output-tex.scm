@@ -315,7 +315,9 @@
 
 (define (text font s)
   (let*
-      ((mapping #f))
+      ((mapping #f)
+       (input-enc-name (assoc-get 'input-name (ly:font-encoding-alist font) ))
+       )
 
     ;; TODO: we'd better do this for PS only
     ;; LaTeX gets in the way, and we need to remap
@@ -323,7 +325,10 @@
     
     ;; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
 
-    (string-append "\\hbox{\\" (font-command font) "{}"
+    (string-append "\\hbox{\\" (font-command font)
+		   (if (string? input-enc-name)
+		       (string-append "\\inputencoding{" input-enc-name "}")
+		       "{}")
 		   (output-tex-string
 		    (if (vector? mapping)
 			(reencode-string mapping s)
