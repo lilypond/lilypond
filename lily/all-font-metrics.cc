@@ -50,7 +50,7 @@ All_font_metrics::find_afm (String name)
     {
       String path;
 
-#if KPATHSEA && HAVE_KPSE_FIND_FILE
+#if (KPATHSEA && HAVE_KPSE_FIND_FILE)
       if (path.empty_b ())
 	{
 	  char  * p = kpse_find_file (name.ch_C(), kpse_afm_format, true);

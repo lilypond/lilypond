@@ -11,8 +11,10 @@
 #include "note-head.hh"
 #include "translator-group.hh"
 #include "side-position-interface.hh"
+#include "ly-smobs.icc"
 #include "spanner.hh"
 #include "paper-def.hh"
+
 
 String get_context_id(Translator_group * ancestor, const char * type);
 String trim_suffix(String &id);
@@ -505,7 +507,7 @@ Voice_alist_entry::next_lyric()
 
 /* SMOB */
 
-#include "ly-smobs.icc"
+
 
 SCM
 Voice_alist_entry::mark_smob (SCM)
