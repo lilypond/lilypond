@@ -1835,7 +1835,7 @@ identify ()
 for f in files:
 	if f == '-':
 		f = ''
-	if not os.path.isfile (f):
+	elif not os.path.isfile (f):
 		continue
 	try:
 		do_one_file (f)
