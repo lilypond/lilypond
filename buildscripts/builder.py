@@ -97,10 +97,12 @@ lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
 
-verbose = verbose_opt (env, ' --verbose')
+#verbose = verbose_opt (env, ' --verbose')
+verbose = ''
 a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(ABC2LY_PY)s%(verbose)s'\
-     + ' --include=${TARGET.dir}'\
+#     + ' --include=${TARGET.dir}'\
+     + ' --strict'\
      + ' --output=${TARGET.base}'\
      + ' $SOURCE') % vars ()
 abc2ly = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
@@ -164,33 +166,37 @@ def encoding_opt (target):
 	return ''
 
 # UGH, should fix --output option for mftrace
-xpfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mftrace -I %(outdir)s --pfa' \
-			 + ' --simplify --keep-trying' \
-			 + ' ${SOURCE.filebase} ' \
-			 + ' && mv ${TARGET.filebase} $TARGET') % vars (),
+verbose = verbose_opt (env, ' --verbose')
+a = ('(cd ${TARGET.dir} && '
+     + ' if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi;' \
+#     + ' MFINPUTS=.:${TARGET.dir}:${SOURCE.dir}'\
+# ugrh
+     + ' MFINPUTS=%(srcdir)s/mf}:.:'\
+     + ' mftrace --pfa --simplify --keep-trying $$encoding%(verbose)s'\
+     + ' --include=${TARGET.dir}'\
+     + ' ${SOURCE.file})') % vars ()
+
+pfa = Builder (action = a,
 	       suffix = '.pfa',
 	       src_suffix = '.mf',
 	       emitter = add_enc_src)
 
-verbose = verbose_opt (env, ' --verbose')
 def run_mftrace (target, source, env):
 	TARGET = target[0]
 	SOURCE = source[0]
 	mf = os.path.basename (str (source[0]))
 	base = os.path.splitext (os.path.basename (str (target[0])))[0]
 	enc = base + '.enc'
-	mfdir = os.path.join (here, reldir)
-	outdir = os.path.join (env['build'], reldir, env['out'])
 	encoding = encoding_opt (target)
-	command = ('(cd ${TARGET.dir} && '
-		   + ' MFINPUTS=.:${TARGET.dir}:' + mfdir\
+	verbose = verbose_opt (env, ' --verbose')
+	command = ('(cd $$(dirname %(TARGET)s && '
+		   + ' MFINPUTS=.:$$(dirname %(TARGET)s):$$(dirname %(SOURCE)s'\
 		   + ' mftrace --pfa --simplify --keep-trying%(verbose)s'\
 		   + ' --include=${TARGET.dir}'\
 		   + ' %(encoding)s %(mf)s)') % vars ()
 	return os.system (command)
 
-pfa = Builder (action = run_mftrace, suffix = '.pfa', src_suffix = '.mf',
+xpfa = Builder (action = run_mftrace, suffix = '.pfa', src_suffix = '.mf',
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 

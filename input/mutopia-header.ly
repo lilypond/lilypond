@@ -32,3 +32,6 @@
  tagline = \mutopiapublicdomain
  footer = "pre-Mutopia-2001/mm/dd-nn"
 }
+
+%% the music
+{ c'' }
