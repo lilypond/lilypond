@@ -284,14 +284,6 @@ Font_metric::index_to_charcode (int i) const
   return (unsigned) index_to_ascii (i);
 }
 
-#if 0
-unsigned
-Font_metric::glyph_name_to_charcode (String glyph_name) const
-{
-  return (unsigned) index_to_ascii (name_to_index (glyph_name));
-}
-#endif
-
 Stencil
 Font_metric::get_ascii_char_stencil (int code) const
 {

@@ -77,7 +77,7 @@ Generate("%(name)s%(design_size)d.cff");''' % vars()
 
 	ns = []
 	for s in subfonts:
-		ns.append ('"%s"' % (s % vars()))
+		ns.append ('%s' % (s % vars()))
 		
 	subfonts_str = string.join (ns)
 	
