@@ -15,14 +15,6 @@ staffsize# := 20 pt#;   %% arbitrary.
 input feta-params;
 
 
-def abc_encode_int (expr i) =
-	if i > 0:
-		abc_encode_int (i div 26) & char (65 + i mod 26)
-	else:
-		"A"
-	fi
-enddef ;
-
 % we must let the design increase for each
 % font to make sure that mftrace doesn't jack up the resolution too highly
 % for the longer braces.

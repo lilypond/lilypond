@@ -396,7 +396,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     if (prefix_set & VIRGA)
       {
 	glyph_name = "vaticana.punctum";
-	primitive->set_property ("add.stem", ly_bool2scm (true));
+	primitive->set_property ("add-stem", ly_bool2scm (true));
       }
     else if (prefix_set & QUILISMA)
       glyph_name = "vaticana.quilisma";

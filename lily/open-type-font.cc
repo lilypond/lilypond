@@ -136,6 +136,17 @@ Open_type_font::make_otf (String str)
   return otf->self_scm ();
 }
 
+Open_type_font::Open_type_font(FT_Face face)
+{
+  face_ = face;
+  lily_character_table_ = SCM_EOL;
+  lily_global_table_ = SCM_EOL;
+  
+  lily_character_table_ = load_scheme_table ("LILC", face_);
+  lily_global_table_ = load_scheme_table ("LILY", face_);
+  index_to_charcode_map_ = make_index_to_charcode_map (face_);  
+}
+
 void
 Open_type_font::derived_mark () const
 {
@@ -155,9 +166,10 @@ Open_type_font::attachment_point (String glyph_name) const
 
   SCM char_alist = entry;
 
-  SCM att_scm =scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
-
-  return ly_scm2offset (att_scm);
+  
+  SCM att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
+  
+  return point_constant * ly_scm2offset (att_scm);
 }
 
 Box
@@ -204,7 +216,7 @@ Open_type_font::glyph_name_to_charcode (String glyph_name) const
 Real
 Open_type_font::design_size () const
 {
-  return point_constant
-    * scm_to_double (scm_hashq_ref (lily_global_table_,
-				    ly_symbol2scm ("staffsize"), SCM_BOOL_F));
+  SCM entry = scm_hashq_ref (lily_global_table_,
+			     ly_symbol2scm ("staffsize"), SCM_BOOL_F);
+  return scm_to_double (entry);
 }
