@@ -50,12 +50,10 @@ void
 Slur::add_column (Grob*me, Grob*n)
 {
   if (!gh_pair_p (n->get_grob_property ("note-heads")))
-    me->warning (_ ("Putting slur over rest.  Ignoring rest."));
-  else
-    {
-      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-      me->add_dependency (n);
-    }
+    me->warning (_ ("Putting slur over rest."));
+
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
+  me->add_dependency (n);
 
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
 }

@@ -693,7 +693,7 @@ fet_endchar ;
 
 %%% KERNING
 
-ligtable "m" : "p" kern 0.15 ex#, "f" kern -0.1 ex#;
+ligtable "m" : "p" kern 0.2 ex#, "f" kern -0.1 ex#;
 ligtable "f" : "f" kern -0.13 ex#;
 ligtable "r" : "f" kern 0.1 ex#;
 

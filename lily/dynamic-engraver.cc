@@ -144,8 +144,6 @@ Dynamic_engraver::process_music ()
 	  if (script_req_l_)
 	    rq =  script_req_l_ ;
 	  announce_grob(line_spanner_, rq ? rq->self_scm(): SCM_EOL);
-			 
-
 	}
     }
   
@@ -402,6 +400,12 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	  Side_position_interface::add_support (line_spanner_,i.grob_l_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_l_));
 	}
+
+      if (script_p_ && !script_p_->get_parent (X_AXIS))
+	{
+	  script_p_->set_parent (i.grob_l_,  X_AXIS);
+	}
+      
     }
 }
 ENTER_DESCRIPTION(Dynamic_engraver,

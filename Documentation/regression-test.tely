@@ -191,6 +191,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{slur-staccato.ly}
 
+@lilypondfile[printfilename]{slur-rest.ly}
 
 @section Ties
 
