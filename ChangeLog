@@ -1,3 +1,10 @@
+2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/melisma-engraver.cc (try_music): use melismaBusyProperties.
+
+	* scm/define-translator-properties.scm (melismaBusyProperties):
+	add melismaBusyProperties property.
+
 2003-09-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/ambitus-mixed.ly (texidoc): new file.

@@ -437,7 +437,8 @@ ScoreContext = \translator {
 	changeMoment = #`(,(ly:make-moment 0 0) . ,(ly:make-moment 1 512))
 	systemStartDelimiter =#'SystemStartBar
 
-
+	melismaBusyProperties = #'(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy)
+	
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
 	centralCPosition = #-6
