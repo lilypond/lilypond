@@ -931,9 +931,9 @@ command."
   (vector arg (list 'LilyPond-insert-tag-current arg) :style 'radio :selected (list 'eq 'LilyPond-insert-tag-current arg)))
 
 (defun LilyPond-menu-keywords ()
-  "Make Insert Tags menu. 
+  "Make Insert Tag menu. 
 
-The Insert Tags -menu is splitte into pieces if it is long enough."
+The Insert Tag -menu is splitted into parts if it is long enough."
 
   (let ((li (mapcar 'LilyPond-menu-keywords-item LilyPond-menu-keywords))
 	(w (round (sqrt (length LilyPond-menu-keywords))))
