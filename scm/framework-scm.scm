@@ -12,19 +12,18 @@
 	     (srfi srfi-13)
 	     (lily))
 
-(define-public (output-framework outputter book scopes fields basename)
-  (ly:outputter-dump-string outputter ";; raw SCM output\n")
+(define-public (output-framework basename book scopes fields )
+  (let*
+      ((file (open-output-file (format "~a.scm" basename))))
+    
+    (display ";; raw SCM output\n" file)
 
   (for-each
    (lambda (page)
-     (ly:outputter-dump-string
-      outputter ";;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;PAGE\n") 
-     (ly:outputter-dump-string
-      outputter
-      (call-with-output-string
-       (lambda (port)
-	 (pretty-print (ly:stencil-expr page) port)))))
-   (ly:paper-book-pages book)))
+     (display
+       ";;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;PAGE\n" file)
+     (pretty-print (ly:stencil-expr page) file))
+   (ly:paper-book-pages book))))
 
 
 (define-public (convert-to-ps . args) #t)

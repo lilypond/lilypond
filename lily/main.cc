@@ -126,7 +126,7 @@ static Long_option_init options_static[] =
     /* Bug in option parser: --output =foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "backend", 'b', _i ("select back-end to use")},
-    {_i ("EXTs"), "format", 'f', _i ("list of formats to dump")},
+    {_i ("EXTs"), "formats", 'f', _i ("list of formats to dump")},
     {0, "help", 'h',  _i ("print this help")},
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},

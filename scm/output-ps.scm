@@ -236,36 +236,9 @@
    (ly:numbers->string
     (list x y width height blotdiam)) " draw_round_box"))
 
-(define (old-text font s)
-  ;; ugh, we should find a better way to
-  ;; extract the hsbw for /space from the font.
-  (let* ((space-length (cdar (ly:text-dimension font " "))) 
-	 (commands '())
-	 (add-command (lambda (x) (set! commands (cons x commands)))))
-
-    (string-fold
-     (lambda (chr word)
-       "Translate space as into moveto, group the rest in words."
-       (if (and (< 0 (string-length word))
-		(equal? #\space  chr))
-	   (add-command 
-	    (string-append "(" (ps-encoding word) ") show\n")))
-
-       (if (equal? #\space chr)
-	   (add-command  (string-append (number->string space-length)
-					" 0.0 rmoveto ")))
-       
-       (if (equal? #\space chr)
-	   ""
-	   (string-append word (make-string 1 chr))))
-     ""
-     (string-append s " "))
-
-    (string-append
-     (ps-font-command font) " setfont "
-     (string-join (reverse commands)))))
-
-(define (new-text font s)
+(define (text font s)
+;  (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
+  
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
 				    " 0.0 rmoveto "))
@@ -283,11 +256,6 @@
 	      space-move
 	      (string-append "/" (symbol->string sym) " glyphshow")))
 	out-vec))))))
-
-;;(define text old-text)
-(define (text font str)
-  (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
-  (new-text font str))
 
 ;; FIXME: BARF helvetica?
 (define (white-text scale s)
