@@ -1,5 +1,8 @@
 2002-04-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/note-spacing.cc (stem_dir_correction): only do
+	beam-correction if a beam is there. 
+
 	* lily/stem.cc (duration_log): change from flag_i (); better
 	naming.
 	(get_default_stem_end_position): fix dot/flag collision code.
