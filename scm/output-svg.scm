@@ -8,7 +8,6 @@
 ;;;; http://www.w3.org/TR/SVG12/ -- page, pageSet in draft
 
 ;;;; TODO:
-;;;;  * font selection: name, size, design size
 ;;;;  * .cff MUST NOT be in fc's fontpath.
 ;;;;    - workaround: remove mf/out from ~/.fonts.conf,
 ;;;;      instead add ~/.fonts and symlink all /mf/out/*otf there.
@@ -31,10 +30,6 @@
 ;; GLobals
 ;; FIXME: 2?
 (define output-scale (* 2 scale-to-unit))
-
-(define (debugf string . rest)
-  (if #f
-      (apply stderr (cons string rest))))
 
 (define (dispatch expr)
   (let ((keyword (car expr)))
@@ -86,15 +81,6 @@
 (define (sqr x)
   (* x x))
 
-(define (font-size font)
-  (let* ((designsize (ly:font-design-size font))
-	 (magnification (* (ly:font-magnification font)))
-	 (scaling (* output-scale magnification designsize)))
-    (debugf "scaling:~S\n" scaling)
-    (debugf "magnification:~S\n" magnification)
-    (debugf "design:~S\n" designsize)
-    scaling))
-
 (define (integer->entity integer)
   (format #f "&#x~x;" integer))
 
@@ -105,17 +91,21 @@
   (apply string-append
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
-;; FIXME: font can be pango font-name or smob
-;;        determine size and style properly.
+;;; FONT may be font smob, or pango font string
 (define (svg-font font)
-  (let ((name-style (if (string? font) (list font "Regular")
+  (let ((name-style (if (string? font)
+			(list font "Regular")
 			(font-name-style font)))
-	(size (if (string? font) 12 (font-size font)))
-	(anchor "west"))
-    (format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
-	    (car name-style)
-	    (cadr name-style)
-	    size anchor)))
+	    (size (svg-font-size font))
+	    (anchor "west"))
+	(format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
+		(car name-style) (cadr name-style) size anchor)))
+
+;;; FONT may be font smob, or pango font string
+(define (svg-font-size font)
+  (if (string? font)
+      12
+      (* output-scale (font-size font))))
 
 (define (fontify font expr)
    (entity 'text expr (cons 'style (svg-font font))))
