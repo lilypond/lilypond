@@ -484,7 +484,7 @@ down
 To use relative mode, add @code{\relative} before the piece of
 music.  The first note is taken relative to the middle C
 @c no , for this sentence
-(i.e. @code{c'})
+(i.e., @code{c'})
 
 
 
@@ -885,7 +885,7 @@ see @ref{Partial measures}.
 A comment is a remark for the human reader of the music input; it is
 ignored while parsing, so it has no effect on the printed output.
 There are two types of comments.  The percent symbol @samp{%}
-introduces a line comment; after  @code{%} the rest of the line   is
+introduces a line comment; after @code{%} the rest of the line is
 ignored.  A block comments marks a whole section of music
 input.  Anything that is enclosed in @code{%@{} and @code{%@}} is
 ignored.  The following fragment shows possible uses for comments
@@ -1031,7 +1031,7 @@ following example shows a few common modifiers
 
 For lead sheets, chords are not printed on staves, but as names on a
 line of themselves.  This is achieved by using @code{\chords} instead
-of @code{\chordmode}. This uses the same syntax as @code{\chordmode},
+of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
 following result.
  
@@ -1247,7 +1247,7 @@ suppose that the file @file{horn-music.ly} contains the following part
 of a horn/@/bassoon duo
 
 @example
-hornNotes =  \relative c @{
+hornNotes = \relative c @{
   \time 2/4
   r4 f8 a cis4 f e d
 @}

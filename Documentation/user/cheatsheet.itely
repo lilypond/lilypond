@@ -6,7 +6,7 @@
 @appendix Cheat sheet
 
 
-@multitable @columnfractions  .35 .3 .35
+@multitable @columnfractions .35 .3 .35
 
 @item @b{Syntax}
 @tab @b{Description}
@@ -57,7 +57,7 @@ s4_" "
 @tab time signature
 @tab
 @lilypond[fragment]
-\override Staff.Clef   #'transparent = ##t 
+\override Staff.Clef #'transparent = ##t 
 \time 3/4
 s4_" "
 \time 4/4
@@ -128,7 +128,7 @@ c( d e)
 \set Score.timing = ##f
 \override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
-c\(  c( d) e\)
+c\( c( d) e\)
 @end lilypond
 
 

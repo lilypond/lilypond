@@ -6,7 +6,7 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
-@c  bad node name for ancient notation to avoid confict
+@c bad node name for ancient notation to avoid confict
 @menu
 * Suggestions for writing LilyPond files::
 * Single staff::
@@ -47,7 +47,7 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item Include checks:  See @ref{Bar check} and @ref{Octave check}.  If you
+@item Include checks: See @ref{Bar check} and @ref{Octave check}.  If you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is ``every so often''?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
@@ -133,7 +133,7 @@ Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[quote,verbatim,raggedright]
 \version "2.3.22"
-melody =  \relative c' {
+melody = \relative c' {
    \clef treble
    \key c \major
    \time 4/4
@@ -156,7 +156,7 @@ harmonies = \chordmode {
    >>
 
    \layout{ }
-   \midi  { \tempo 4=60}
+   \midi { \tempo 4=60}
 }
 @end lilypond
 
@@ -166,7 +166,7 @@ This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[quote,verbatim,raggedright]
 \version "2.3.22"
-melody =  \relative c' {
+melody = \relative c' {
    \clef treble
    \key c \major
    \time 4/4
@@ -241,7 +241,7 @@ piano accompaniment underneath.
 
 @lilypond[quote,verbatim,raggedright]
 \version "2.3.22"
-melody =  \relative c'' {
+melody = \relative c'' {
    \clef treble
    \key c \major
    \time 4/4
@@ -361,12 +361,12 @@ lower = \relative c {
   a2 c
 }
 
-dynamics =  {
+dynamics = {
   s2\fff\> s4
   s\!\pp
 }
 
-pedal =  {
+pedal = {
   s2\sustainDown s2\sustainUp
 }
 
@@ -562,7 +562,7 @@ bassWords = \lyricmode {
 @end lilypond
 
 
-@c  bad node name to avoid node name confict
+@c bad node name to avoid node name confict
 @node Ancient notation templates
 @section Ancient notation templates
 
@@ -614,7 +614,7 @@ global = {
 
   \skip 1*5
 
-  % last bar contains a brevis (i.e. spans 2 bars);
+  % last bar contains a brevis (i.e., spans 2 bars);
   % therefore do not draw this particular bar
   \cadenzaOn
   \skip 1*2
@@ -862,7 +862,7 @@ Key = { \key c \major }
 % ############ Horns ############
 
 % ------ Trumpet ------
-trpt =  \transpose c d \relative c'' {
+trpt = \transpose c d \relative c'' {
   \Key
   c1 c c
 }
@@ -913,7 +913,7 @@ barisax = {
 }
 
 % ------ Trombone ------
-tbone =  \relative c {
+tbone = \relative c {
   \Key
   c1 c c
 }
@@ -932,7 +932,7 @@ trombone = {
 % ############ Rhythm Section #############
 
 % ------ Guitar ------
-gtr =  \relative c'' {
+gtr = \relative c'' {
   \Key
   c1 \sl b4 b b b \nsl c1
 }
@@ -1075,7 +1075,7 @@ drumContents = {
 
 This template displays all available headers.  Some of them are only
 used in the Mutopia project; they don't affect the printed output at
-all.  They are used  if you want the piece to be listed with different
+all.  They are used if you want the piece to be listed with different
 information in the Mutopia database than you wish to have printed on the
 music.  For example, Mutopia lists the composer of the famous D major
 violin concerto as TchaikovskyPI, whereas perhaps you wish to print
@@ -1137,14 +1137,14 @@ quarter notes, and two types of barlines, a short one indicating a rest,
 and a second one indicating a breath mark.
 
 @lilypond[quote,verbatim,raggedright]
-barOne = { \once \override Staff.BarLine  #'bar-size = #2
+barOne = { \once \override Staff.BarLine #'bar-size = #2
   \bar "|" }
-barTwo = { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
-  \once \override Staff.BarLine  #'bar-size = #2
+barTwo = { \once \override Staff.BarLine #'extra-offset = #'(0 . 2)
+  \once \override Staff.BarLine #'bar-size = #2
   \bar "|" }
 chant = \relative c' {
   \set Score.timing = ##f
-  \override Staff.Stem  #'transparent = ##t
+  \override Staff.Stem #'transparent = ##t
 
   f4 a2 \barTwo
   g4 a2 f2 \barOne
@@ -1173,15 +1173,15 @@ grip = { \grace { g32[ b g ]    } }
 thrd = { \grace { g32[ d' c']   } }
 birl = { \grace { g32[ a g]     } }
 gstd = { \grace { g'32[ d' g]   } }
-fgg =  { \grace { f32[ g'32]    } }
+fgg  = { \grace { f32[ g'32]    } }
 dblb = { \grace { g'32[ b d']   } }
 dblc = { \grace { g'32[ c' d']  } }
 dble = { \grace { g'32[ e' f']  } }
 dblf = { \grace { g'32[ f' g']  } }
 dblg = { \grace { g'32[ f']     } }
 dbla = { \grace { a'32[ g']     } }
-lgg =  { \grace { g32  } }
-lag =  { \grace { a32  } }
+lgg  = { \grace { g32  } }
+lag  = { \grace { a32  } }
 cg   = { \grace { c'32 } }
 eg   = { \grace { e'32 } }
 gg   = { \grace { g'32 } }
@@ -1211,7 +1211,7 @@ gcdg = { \grace { g'32[ c' d']  } }
   \dblg g'4 a'8 \gg a'4. |
   \thrd d'4.( d'4) \eg a8 |
   \time 9/8
-  \dble e'4 \lag e'8 \gg  e'16[ d'8. e'8] \gg f'4 g'8 |
+  \dble e'4 \lag e'8 \gg e'16[ d'8. e'8] \gg f'4 g'8 |
 
   \break
   \time 6/8
@@ -1221,7 +1221,7 @@ gcdg = { \grace { g'32[ c' d']  } }
   \thrd d'4.( d'4) f'8 |
 
   \break
-  \dblg g'4 e'8( e'8) \dblf  f'8.[ e'16] |
+  \dblg g'4 e'8( e'8) \dblf f'8.[ e'16] |
   \thrd d'4.( d'4) \cg d'8 |
   \gg c'4 e'8 \thrd d'4.( |
   d'4.) \gdcg d'4.
