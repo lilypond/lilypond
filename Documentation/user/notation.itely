@@ -3699,11 +3699,34 @@ More stanzas can be added by adding more
 
 @lilypond[raggedright,verbatim,fragment,quote]
   \time 3/4
-  \relative {  c2 e4 g2. }
+  \relative { c2 e4 g2. }
   \addlyrics { play the game } 
   \addlyrics { speel het spel } 
   \addlyrics { joue le jeu }
 @end lilypond
+
+@c TODO - this isn't such a great place for this note, but I can't
+@c  find a better place without rearranging a lot of lyric stuff.
+@c  It's yet another thing to look at post-3.0.
+
+The @code{\addlyrics} command is actually just a convienient way
+to write a more complicated LilyPond structure that sets up the
+lyrics.  You should use @code{\addlyrics} unless you need to
+fancy things, in which case you should investigate
+@code{\lyricsto} or @code{\lyricmode}.
+
+@example
+  @{ MUSIC @}
+  \addlyrics @{ LYRICS @}
+@end example
+
+is the same as
+
+@example
+  \context Voice = blah @{ music @}
+  \lyricsto "blah" \lyricsmode \new lyrics @{ LYRICS @}
+@end example
+
 
 @node Entering lyrics
 @subsection Entering lyrics
@@ -3714,7 +3737,8 @@ More stanzas can be added by adding more
 @cindex punctuation
 
 Lyrics are entered in a special input mode.  This mode is is introduced
-by the keyword @code{\lyricmode}.  In this mode you can enter lyrics,
+by the keyword @code{\lyricmode}, or by using @code{addlyrics} or
+@code{lyricsto}.  In this mode you can enter lyrics,
 with punctuation and accents, and the input @code{d} is not parsed as
 a pitch, but rather as a one letter syllable.  Syllables are entered
 like notes, but with pitches replaced by text.  For example,
@@ -3818,7 +3842,7 @@ Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
 
 Lyrics are printed by interpreting them in a @internalsref{Lyrics} context
 @example
- \context Lyrics \lyricmode @dots{}
+  \context Lyrics \lyricmode @dots{}
 @end example
 
 @cindex automatic syllable durations
@@ -5724,8 +5748,8 @@ heads that mimic the look of note heads in historic printings of the
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright]
-  \set Score.skipBars = ##T 
+@lilypond[quote,fragment,raggedright,verbatim]
+  \set Score.skipBars = ##t
   \override NoteHead #'style = #'neomensural
   a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
@@ -5831,9 +5855,9 @@ in historic prints of the 16th century.
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright]
-  \override Rest #'style = #'neomensural
+@lilypond[quote,fragment,raggedright,verbatim]
   \set Score.skipBars = ##t 
+  \override Rest #'style = #'neomensural
   r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -6119,7 +6143,8 @@ style mimics the look of historical printings of the 16th century.
 
 The following examples shows the differences in style,
 
-@lilypond[raggedright,relative=1]
+@c  why isn't relative working?
+@lilypond[raggedright,relative=1,quote]
 {
   \fatText
   \time 2/2
