@@ -73,8 +73,22 @@
 /* define if you have sys/stat.h */
 #define STAT_MACROS_BROKEN 0
 
+
+/* GUILE only includes version in headers (libguile/version.h) as of
+   1.5.x.  For some strange reason, they call it SCM.*VERSION. */
+#include <libguile.h>
+
+#ifndef GUILE_MAJOR_VERSION
+#ifdef SCM_MAJOR_VERSION
+#define GUILE_MAJOR_VERSION SCM_MAJOR_VERSION
+#define GUILE_MINOR_VERSION SCM_MINOR_VERSION
+#define GUILE_PATCH_LEVEL SCM_MICRO_VERSION
+#else
 /* define GUILE major version */
 #define GUILE_MAJOR_VERSION 0
-
 /* define GUILE minor version */
 #define GUILE_MINOR_VERSION 0
+/* define GUILE patch level */
+#define GUILE_PATCH_LEVEL 0
+#endif
+#endif

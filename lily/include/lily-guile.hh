@@ -11,7 +11,6 @@
 
 #define SCM_VOIDP_TEST
 
-#include <libguile.h>
 
 /*
   TODO: the  GH interface is deprecated as of GUILE 1.6
@@ -20,7 +19,24 @@
  */
 #include <guile/gh.h>
 
+
+/* GUILE only includes version in headers (libguile/version.h) as of
+   1.5.x.  For some strange reason, they call it SCM.*VERSION.
+
+   Not including config.h here, saves a lot of unnecessary
+   recompiles. */
+#include <libguile.h>
+
+#ifndef GUILE_MAJOR_VERSION
+#ifdef SCM_MAJOR_VERSION
+#define GUILE_MAJOR_VERSION SCM_MAJOR_VERSION
+#define GUILE_MINOR_VERSION SCM_MINOR_VERSION
+#define GUILE_PATCH_LEVEL SCM_MICRO_VERSION
+#else
 #include "config.h"
+#endif
+#endif
+
 #include "drul-array.hh"
 
 
