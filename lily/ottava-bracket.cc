@@ -91,11 +91,15 @@ Ottava_bracket::brew_molecule (SCM smob)
   /*
     0.3 is ~ italic correction. 
    */
-  Real text_offset = text.extent (X_AXIS).is_empty ()
+  Real text_size =  text.extent (X_AXIS).is_empty ()
     ? 0.0 : text.extent (X_AXIS)[RIGHT] +  0.3;
-
+  
+  span_points[LEFT] = span_points[LEFT]
+    <? (span_points[RIGHT] - text_size
+	- robust_scm2double (me->get_grob_property ("minimum-length"), -1.0)); 
+  
   Interval bracket_span_points = span_points;
-  bracket_span_points[LEFT] += text_offset;
+  bracket_span_points[LEFT] += text_size;
   
   Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
 						      Interval (1.0, 1.0));
@@ -112,7 +116,7 @@ Ottava_bracket::brew_molecule (SCM smob)
     edge_height[RIGHT] = 0.0;
   
   Molecule b;
-  if (!bracket_span_points.is_empty ())
+  if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Tuplet_bracket::make_bracket (me,
 				      Y_AXIS, Offset (bracket_span_points.length (), 0),
 				       edge_height,
@@ -133,5 +137,5 @@ Ottava_bracket::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Ottava_bracket, "ottava-bracket-interface",
 	       "An ottava bracket",
-	       "edge-height bracket-flare shorten-pair");
+	       "edge-height bracket-flare shorten-pair minimum-length");
 

@@ -483,7 +483,6 @@ The following variables are predefined: @code{all-visible},
 (grob-property-description 'word-space ly:dimension? "elongate left (?) by this much (FIXME: cumbersome semantics).")
 
 (grob-property-description 'width ly:dimension? "width of a grob measured in staff space.")
-(grob-property-description 'width-correct ly:dimension? "width correction for (de)cresc. text spanners.")
 (grob-property-description 'x-gap ly:dimension? "horizontal gap between notehead and tie.")
 (grob-property-description 'x-offset ly:dimension? "extra horizontal offset for ligature heads.")
 (grob-property-description 'y-free ly:dimension? "minimal vertical gap between slur and noteheads or stems.")

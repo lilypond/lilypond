@@ -38,6 +38,8 @@ add_translator (Translator *t)
 
   SCM k= ly_symbol2scm  (classname (t));
   global_translator_dict->set (k, t->self_scm ());
+
+  scm_gc_unprotect_object (t->self_scm ());
 }
 
 Translator*

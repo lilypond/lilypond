@@ -7482,7 +7482,33 @@ such as fermatas to a @code{\notes@{@}} block.
 @node Balloon help
 @subsection Balloon help
 
+Elements of notation can be marked and named with the help of a square
+balloon.  The primary purpose of this feature is to explain notation.
 
+The following example demonstrates its use.
+
+@lilypond[verbatim,fragment,singleline,relative 1]
+  \context Voice
+     \applyoutput
+        #(add-balloon-text 'NoteHead "heads, or tails?"
+          '(1 . -3))
+  c8
+@end lilypond
+
+@noindent
+The function @code{add-balloon-text} takes the name of a grob, the
+label to print and where to put the label relative to the object. In
+the above example, the text ``heads or tails?'' ends 3 spaces below
+the `balloon.' 
+
+@cindex balloon
+@cindex notation, explaining
+
+@seealso
+
+Internals: @internalsref{text-balloon-interface}
+
+Examples: @inputfileref{input/regression,balloon.ly}
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
@@ -7500,19 +7526,14 @@ used in music aimed at beginners:
 }
 @end lilypond
 
-The @code{EasyNotation} variable overrides a @internalsref{Score} context.  
-You probably will want to print it with magnification or a
-large font size to make it more readable.  To print with
-magnification, you must create a DVI file (with @file{lilypond}) and
-then enlarge it with something like @file{dvips -x 2000 file.dvi}.
-See the @code{dvips} documentation for more details.  To print with a
-larger font, see @ref{Font Size}.
-
+The @code{EasyNotation} variable overrides a @internalsref{Score}
+context.  To make the letters readable, it has to be printed in a
+large font size.  To print with a larger font, see @ref{Font Size}.
 
 @cindex Xdvi
 @cindex ghostscript
 
-If you view the result with Xdvi, then staff lines will show through
+If you view the result with Xdvi, then staff lines may show through
 the letters.  Printing the PostScript file obtained does produce the
 correct result.
 
