@@ -43,7 +43,7 @@ allegro =
 	[ )fis8( e16 )d] d4-. r2 | 
 	\mark "B"
 	R1*3
-	r2 r4 [d8(_#`(,italic-bf "con espressione") )b ]
+	r2 r4 [d8-(_\markup { \italic \bold "con espressione" } b-) ]
 	[a( )g d'( )b] [a( )g e'( )c ]
 	[b8( )a] a4 r4 [a8 a]
 	[a( \< b c \!cis\> ]  d4 \! )c
@@ -123,7 +123,7 @@ allegro =
 	[dis()e] r e-. [e()f] r f-. |
 	g4-.-\f\endcresc  e-. c-. bes-. |
 	g-.-\ff e-. c-. r |
-	a'2 ~ [a8_""_#`(,italic-bf "sempre " (dynamic "f")) b16 c] [d( e d )e]
+	a'2 ~ [a8_""_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c] [d( e d )e]
 
 	
 	f4. () d8 [f8 ()d f d]

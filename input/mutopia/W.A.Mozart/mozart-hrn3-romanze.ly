@@ -7,7 +7,7 @@ romanze = \notes \relative c' {
 	\time 2/2
 	\property Score.skipBars = ##t
 
-	c'4.( _#'(italic (dynamic "p") " con molto espressione") 
+	c'4.( _\markup { \dynamic "p" \italic { "" con molto espressione } }
 		)f8 a,4 a
 	[bes8( c d bes] )g4 r8 g
 	a r bes r c r [d()bes]
