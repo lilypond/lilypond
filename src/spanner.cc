@@ -5,7 +5,10 @@
 #include "symbol.hh"
 #include "molecule.hh"
 #include "pcol.hh"
-
+void
+Spanner::calculate()
+{
+}
 String
 Spanner::TeXstring() const
 {

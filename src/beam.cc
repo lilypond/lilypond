@@ -27,13 +27,23 @@ Stem_info::Stem_info(const Stem*s)
 {
     x = s->hpos();
     int dir = s->dir;
-    idealy  = MAX(dir*s->top, dir*s->bot);
-    miny = MAX(dir*s->minnote, dir*s-> maxnote);
+    idealy  = max(dir*s->top, dir*s->bot);
+    miny = max(dir*s->minnote, dir*s-> maxnote);
     assert(miny <= idealy);
     no_beams = s->flag;
 }
 
 /****************/
+Offset
+Beam::center()const
+{
+    if(!dir)
+        ((Beam*)this)->calculate();
+    Real w=width().length()/2;
+    return Offset(w,
+                  (left_pos + w* slope)*paper()->interline());
+}
+
 
 Beam::Beam()
 {
@@ -143,7 +153,7 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	PCursor<Stem*> s(stems);
 	svec<int> flags;
 	for (; s.ok(); s++) {
-	    int f = intlog2(ABS(s->flag))-2;
+	    int f = intlog2(abs(s->flag))-2;
 	    assert(f>0);
 	    flags.add(f);
 	}

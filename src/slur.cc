@@ -7,6 +7,24 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
+void
+Slur::calculate()
+{
+    set_default_dir();
+}
+
+Offset
+Slur::center() const
+{
+        int pos1 = encompass.last()->position;
+    int pos2 = encompass[0]->position;
+
+    int dy =  pos1-pos2;
+
+    Real w = width().length();
+
+    return Offset(w/2,dy * paper()->internote());
+}
 
 void
 Slur::add(Notehead*n)

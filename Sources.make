@@ -9,20 +9,22 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	parseconstruct.hh debug.hh globvars.hh keyword.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookup.hh\
+	spanner.hh  beam.hh directionalspanner.hh slur.hh textspanner.hh\
 	sccol.hh stcol.hh staffcommands.hh melodicstaff.hh\
-	identifier.hh simplestaff.hh spanner.hh stem.hh\
-	notehead.hh leastsquares.hh beam.hh rest.hh\
+	identifier.hh simplestaff.hh  stem.hh\
+	notehead.hh leastsquares.hh  rest.hh\
 	swalker.hh bar.hh meter.hh accidental.hh\
 	key.hh keyitem.hh localkeyitem.hh simplewalker.hh\
-	clef.hh clefitem.hh slur.hh inputcommands.hh\
-	getcommand.hh inputmusic.hh \
+	clef.hh clefitem.hh  inputcommands.hh\
+	getcommand.hh inputmusic.hh timedescription.hh\
 	inputscore.hh inputstaff.hh identparent.hh\
-	inputcommand.hh grouping.hh moment.hh
+	inputcommand.hh grouping.hh moment.hh offset.hh
+
 
 mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	inputcommands.cc inputmusic.cc	\
-	inputscore.cc inputstaff.cc\
-	moment.cc\
+	inputscore.cc inputstaff.cc inputcommand.cc\
+	timedescription.cc\
 	break.cc linespace.cc molecule.cc staffline.cc\
 	pscore.cc tex.cc item.cc pcol.cc staff.cc \
 	rhythmstaff.cc 	score.cc note.cc  main.cc misc.cc\
@@ -34,15 +36,16 @@ mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	dimen.cc paper.cc lookup.cc staffcommands.cc\
 	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
 	melodicstaff.cc simpleprint.cc\
-	spanner.cc \
+	spanner.cc textspanner.cc directionalspanner.cc \
 	notehead.cc  stem.cc \
 	rest.cc bar.cc meter.cc keyitem.cc localkeyitem.cc clefitem.cc\
 	swalker.cc scoreline.cc\
 	simplewalker.cc\
 	texbeam.cc texslur.cc clef.cc key.cc slur.cc beam.cc\
-	idealspacing.cc inputcommand.cc grouping.cc identifier.cc\
+	idealspacing.cc  grouping.cc identifier.cc\
 	lexerinit.cc mylexer.cc\
 	template1.cc template2.cc template3.cc template4.cc\
+	template5.cc\
 	version.cc
 
 
