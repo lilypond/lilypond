@@ -13,6 +13,8 @@
 struct Clef_item : Item {
     String type;
     int y_off;
+    bool change;
+
 
     Clef_item();
     void read(Clef);
