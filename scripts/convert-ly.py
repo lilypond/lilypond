@@ -2144,6 +2144,15 @@ def conv (str):
 conversions.append (((2, 3, 10), conv,
 		     '''\\addlyrics -> \\oldaddlyrics, \\newlyrics -> \\addlyrics'''))
 
+def conv (str):
+	str = re.sub (r'\\setMmRestFermata\s+(R[0-9.*/]*)',
+		      r'\1^\\fermataMarkup', str)
+	return str
+
+conversions.append (((2, 3, 11), conv,
+		     '''\\setMmRestFermata -> ^\\fermataMarkup'''))
+
+
 
 
 def conv_mode_experiment (str):

@@ -94,9 +94,13 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   Output_def *odef = unsmob_output_def (output_def);
   Music *music = unsmob_music (mus);
 
-  if (!music)
-    return SCM_BOOL_F;
-
+  if (!music
+      || !music->get_length ().to_bool ())
+    {
+      warning (_ ("Need music in a score"));
+      return SCM_BOOL_F;
+    }
+  
   SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
   SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__, "Output definition");
   

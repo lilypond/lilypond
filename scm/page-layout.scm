@@ -333,8 +333,7 @@ DONE."
     (ly:paper-system-number (car (node-lines node))))
 
   (let* ((best-break-node (walk-lines '() '() lines))
-	 (break-nodes (get-path best-break-node '()))
-	 )
+	 (break-nodes (get-path best-break-node '())))
 
     (if (ly:get-option 'verbose)
 	(begin
