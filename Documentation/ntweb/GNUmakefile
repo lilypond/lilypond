@@ -2,6 +2,7 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation
 TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
+PLAIN_FILES=angels.ly guile.patch
 
 
 include $(depth)/make/stepmake.make 
@@ -15,6 +16,9 @@ $(outdir)/%.html: %.yo
 	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) \
 	--index=http://www.cs.ruu.nl/people/hanwen/lilypond/index.html \
 	--news=$(depth)/NEWS $@
+
+dist-plain: 
+	cp $(PLAIN_FILES) $(out-dir)
 
 local-WWW:
 
