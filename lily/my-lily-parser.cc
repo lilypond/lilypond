@@ -20,7 +20,11 @@ My_lily_parser::clear_notenames()
 {
     lexer_p_->clear_notenames();
 }
-
+void
+My_lily_parser::set_version_check(bool ig)
+{
+    ignore_version_b_ = ig;
+}
 void
 My_lily_parser::set_debug()
 {
