@@ -862,12 +862,13 @@ score_extra_encompass (Grob *me, Grob *common[],
 		case FLAT:
 		case DOUBLE_FLAT:
 		  xp = LEFT;
-		  /* fallthrough */
+		  break ;
 		case SHARP:
 		  xp = 0.5 * dir;
-		  /* fallthrough */
+		  break ;
 		case NATURAL:
 		  xp = -dir;
+		  break; 
 		}
 	    }
 	}
