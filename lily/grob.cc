@@ -243,6 +243,7 @@ Grob::get_molecule ()  const
   
   return unsmob_molecule (mol);  
 }
+
 SCM
 Grob::get_uncached_molecule ()const
 {
@@ -297,43 +298,10 @@ Grob::do_break_processing ()
 {
 }
 
-
-
-
-
-
 System *
 Grob::get_system () const
 {
   return 0;
-}
-
-LY_DEFINE (get_system,
-	   "get-system",
-	   1, 0, 0, (SCM grob),
-	   "
-Return the System Grob of @var{grob}.
-")
-{
-  Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
-  
-  if (Grob *g = me->get_system ())
-    return g->self_scm ();
-    
-  return SCM_EOL;
-}
-
-LY_DEFINE (get_original,
-	   "get-original",
-	   1, 0, 0, (SCM grob),
-	   "
-Return the original Grob of @var{grob}
-")
-{
-  Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
-  return me->original_ ? me->original_->self_scm () : me->self_scm ();
 }
 
 void
@@ -346,7 +314,6 @@ Grob::add_dependency (Grob*e)
   else
     programming_error ("Null dependency added");
 }
-
 
 
 void

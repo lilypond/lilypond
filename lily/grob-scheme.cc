@@ -103,3 +103,52 @@ for the Y-axis.")
   return par ? par->self_scm() : SCM_EOL;
 }
 
+/* ly prefix? */
+LY_DEFINE (get_system,
+	   "get-system",
+	   1, 0, 0, (SCM grob),
+	   "
+Return the System Grob of @var{grob}.
+")
+{
+  Grob *me = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+  
+  if (Grob *g = me->get_system ())
+    return g->self_scm ();
+    
+  return SCM_EOL;
+}
+
+/* ly prefix? */
+LY_DEFINE (get_original,
+	   "get-original",
+	   1, 0, 0, (SCM grob),
+	   "
+Return the original Grob of @var{grob}
+")
+{
+  Grob *me = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+  return me->original_ ? me->original_->self_scm () : me->self_scm ();
+}
+
+
+/* ly prefix? spanner in name? */
+LY_DEFINE (get_broken_into,
+	  "get-broken-into", 1, 0, 0, (SCM spanner),
+	   "
+Return broken-into list for @var{spanner}.
+"
+)
+{
+  ///  Spanner *me = unsmob_spanner (spanner);
+  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (spanner));
+  SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
+
+  SCM s = SCM_EOL;
+  for (int i = me->broken_intos_.size (); i; i--)
+    s = gh_cons (me->broken_intos_[i-1]->self_scm (), s);
+  return s;
+}
+

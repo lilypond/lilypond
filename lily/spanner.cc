@@ -19,24 +19,6 @@
 #include "system.hh"
 #include "group-interface.hh"
 
-/* spanner in name? */
-LY_DEFINE (get_broken_into,
-	  "get-broken-into", 1, 0, 0, (SCM spanner),
-	   "
-Return broken-into list for @var{spanner}.
-"
-)
-{
-  ///  Spanner *me = unsmob_spanner (spanner);
-  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (spanner));
-  SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
-
-  SCM s = SCM_EOL;
-  for (int i = me->broken_intos_.size (); i; i--)
-    s = gh_cons (me->broken_intos_[i-1]->self_scm (), s);
-  return s;
-}
-
 void
 Spanner::do_break_processing ()
 {
