@@ -1,8 +1,11 @@
 /*
-  accidental-engraver.cc -- implement accidental_engraver
+  new-accidental-engraver.cc -- implement new_accidental_engraver
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Modified 2001--2002 by Rune Zedeler <rz@daimi.au.dk>
+
+  This is an experimental file - producing correct accidentals but
+  unfortunately ruining the spacing. -rz
 */
 
 #include "musical-request.hh"
