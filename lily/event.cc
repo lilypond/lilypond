@@ -66,15 +66,13 @@ Event::to_relative_octave (Pitch last)
       if (gh_number_p (check) &&
 	  new_pit.get_octave () != gh_scm2int (check))
 	{
-	  String s =_("Failed octave check, got: ");
-	  s += new_pit.to_string ();
-	  new_pit = Pitch (gh_scm2int (check),
-			   new_pit.get_notename (),
-			   new_pit.get_alteration ());
-
-	  s += " expected ";
-	  s += new_pit.to_string ();
-	  origin ()->warning (s);
+	  Pitch expected_pit (gh_scm2int (check),
+			      new_pit.get_notename (),
+			      new_pit.get_alteration ());
+	  origin ()->warning (_f ("octave check failed; expected %s, found: %s",
+				  expected_pit.to_string (),
+				  new_pit.to_string ()));
+	  new_pit = expected_pit;
 	}
       
       set_property ("pitch", new_pit.smobbed_copy ());

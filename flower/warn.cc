@@ -22,13 +22,13 @@ message (String s)
 void
 warning (String s)
 {
-  message (_f ("warning: %s\n", s.to_str0 ()));
+  message (_f ("warning: %s", s.to_str0 ()) + "\n");
 }
 
 void
 non_fatal_error (String s)
 {
-  message (_f ("error: %s\n", s.to_str0 ()));
+  message (_f ("error: %s", s.to_str0 ()) + "\n");
 }
 
 void
@@ -41,7 +41,7 @@ error (String s)
 void
 programming_error (String s)
 {
-  message (_f ("programming error: %s (Continuing; crossing fingers)\n",
-	       s.to_str0 ()));
+  message (_f ("programming error: %s", s) + "\n");
+  message (_ ("Continuing; crossing fingers") + "\n");
 }
 

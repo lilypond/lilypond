@@ -133,14 +133,13 @@ def identify ():
 def warranty ():
 	identify ()
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001--2004'))
+	sys.stdout.write (_ ('Copyright (c) %s by') % ' 2001--2004')
 	sys.stdout.write ('\n')
 	sys.stdout.write ('  Han-Wen Nienhuys')
 	sys.stdout.write ('  Jan Nieuwenhuizen')
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ (r'''
-Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.'''))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License."))
+        sys.stdout.write (_ ("It comes with NO WARRANTY."))
 	sys.stdout.write ('\n')
 
 def progress (s):

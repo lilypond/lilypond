@@ -93,7 +93,7 @@ Hyphen_engraver::finalize ()
 
       if (!hyphen_->get_bound (RIGHT))
 	{
-	  hyphen_->warning (_ ("unterminated hyphen; removing"));
+	  hyphen_->warning (_ ("removing unterminated hyphen"));
 	  hyphen_->suicide ();
 	}
 

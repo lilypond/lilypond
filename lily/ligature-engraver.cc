@@ -276,7 +276,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 	}
       if (Rest::has_interface (info.grob_))
 	{
-	  info.music_cause ()->origin ()->warning (_ ("ligature may not contain rest; ignoring rest"));
+	  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
 	  prev_start_req_->origin ()->warning (_ ("ligature was started here"));
 	  // TODO: maybe better should stop ligature here rather than
 	  // ignoring the rest?

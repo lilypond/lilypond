@@ -140,7 +140,7 @@ option_definitions = [
 	('', '', 'no-ps', _ ("do not generate PostScript output")),
 	('', 'p', 'pdf', _ ("generate PDF output")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
+	('', '', 'pdftex', _ ("use pdflatex to generate PDF output")),
 	('', '', 'png', _("generate PNG page images")),
 	('', '', 'preview', _ ("make a picture of the first system")),
 	('', '', 'psgz', _ ("generate PS.GZ")),

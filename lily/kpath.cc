@@ -72,9 +72,7 @@ kpathsea_find_tfm (char const * name)
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
   char * name_ptr =  kpse_find_file (name, kpse_tfm_format, true);
   if (!name_ptr)
-    {
-      warning (_f ("Kpathsea couldn't find TFM file `%s'", name));
-    }
+    warning (_f ("kpathsea can not find TFM file: `%s'", name));
   else
     return name_ptr;
   

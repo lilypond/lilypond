@@ -200,7 +200,7 @@ usage ()
   printf ("\n\n");
   printf (_ ("LilyPond produces beautiful music notation.").to_str0 ());
   printf ("\n");
-  printf (_f ("For more information, see %s,", PROGRAM_URL).to_str0 ());
+  printf (_f ("For more information, see %s", PROGRAM_URL).to_str0 ());
   printf ("\n\n");
   printf (_ ("Options:").to_str0 ());
   printf ("\n");

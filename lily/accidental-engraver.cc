@@ -191,7 +191,7 @@ number_accidentals (bool *different,
 	      number = max (number, n);     
 	    }
 	  else
-	    warning (_f ("unknown accidental typesetting: %s. Ignored", 
+	    warning (_f ("ignoring unknown accidental: %s", 
 			 ly_symbol2string (type).to_str0 ()));
 	}
       
