@@ -6,7 +6,6 @@
 #include "real.hh"
 
 void error(String s);		// errors
-void error_t(String s, Real when);
 
 // warnings
 void warning(String s);
