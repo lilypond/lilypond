@@ -162,9 +162,9 @@ def gen_list(inputs, filename):
 				size=os.stat(filename)[stat.ST_SIZE]
 				kB=(size + 512) / 1024
 				if kB:
-					l.write (' (%s %dkB)' % (type, kB))
+					l.write (' (%s %d kB)' % (type, kB))
 				else:
-					l.write (' (%s %dcharacters)' % (type, size))
+					l.write (' (%s %d characters)' % (type, size))
 				pictures = ['jpeg', 'png', 'xpm']
 				l.write ('\n')
 
@@ -174,8 +174,8 @@ def gen_list(inputs, filename):
 			if not file_exist_b (f):
 				break
 			list_item(f, 'See a picture of page %d' % pageno, 'png')
-		list_item(base + '.pdf', 'Print ', 'PDF')
-		list_item(base + '.ps.gz', 'Print ', 'gzipped PostScript')
+		list_item(base + '.pdf', 'Print', 'PDF')
+		list_item(base + '.ps.gz', 'Print', 'gzipped PostScript')
 		list_item(base + '.midi', 'Listen', 'MIDI')
 		list.write ("</ul>\n");
 
