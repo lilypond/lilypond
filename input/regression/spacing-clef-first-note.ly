@@ -6,20 +6,23 @@ than clef changes halfway the line."
 
 }
 
-\score  {  {
-    << \new Staff {
-	c'2
-	\clef bass e16 f a
-	\clef treble b
+\score  {  
+    <<
+	\new Staff {
+	    c'2
+	    \clef bass e16 f a
+	    \clef treble b
 	}
-      \new Staff  {
-	  c'4 c'4 c'4 
-      }>>
+	\new Staff  {
+	    c'4 c'4 c'4 
+	}
+    >>
+    \paper {
+	raggedright = ##t
+	\context {
+	    \Staff
+	    \remove Time_signature_engraver
+	}
     }
-    \paper { raggedright = ##t
-\context { \Staff
-	      TimeSignature = \turnOff
-	 }
-
-     }}
+}
 

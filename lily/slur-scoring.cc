@@ -83,7 +83,7 @@ struct Slur_score_parameters
   Real free_slur_distance_;
   Real free_head_distance_;
   Real extra_encompass_free_distance_;
-
+  Real edge_slope_exponent_;  
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
 
@@ -125,7 +125,7 @@ struct Bound_info
   Interval slur_head_extent_;
   Real neighbor_y_;
   Real staff_space_;
-
+  
   Bound_info ()
   {
     stem_ = 0;
@@ -250,6 +250,8 @@ init_score_param (Grob *me,
     = get_detail (details, ly_symbol2scm ("head-slur-distance-max-ratio"));
   score_param->free_slur_distance_
     = get_detail (details, ly_symbol2scm ("free-slur-distance"));
+  score_param->edge_slope_exponent_
+    = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
 }
 
 
@@ -928,13 +930,18 @@ score_encompass (Grob *me, Grob *common[],
 						configuration.attachment_[RIGHT][Y_AXIS],
 						configuration.attachment_[LEFT][Y_AXIS]);
 
-	      if (dir * (infos[j].get_point (dir) - line_y) > 0)
+	      if ( 1 ) // dir * infos[j].get_point (dir) > dir *line_y )
 		{
-		  Real d = fabs (infos[j].get_point (dir) - y);
+		  
+		  Real closest =
+		    dir * (dir * infos[j].get_point (dir)
+			   >? dir *line_y
+			   );
+		  Real d = fabs(closest - y);
+	      
 		  convex_head_distances.push (d);
-		}	      
+		}
 	    }
-
 	  
 	
 
@@ -981,11 +988,13 @@ score_encompass (Grob *me, Grob *common[],
 	  int n =  convex_head_distances.size();
 	  if (convex_head_distances.size() <= 2)
 	    {
+	      //	      Real min_edge_dist = 1e6;
 	      for (int j = 0; j < edge_distances.size(); j++)
 		{
 		  avg_distance += edge_distances[j];
 		  n++;
 		}
+
 	    }
 
 	  /*
@@ -1185,6 +1194,10 @@ score_extra_encompass (Grob *me, Grob *common[],
     }
 }
 
+/*
+  TODO: should make edge penalties dependent on the direction that the
+  slur-end is pointing.
+ */
 void
 score_edges (Grob *me, Grob *common[],
 	     Slur_score_parameters * score_param,
@@ -1198,9 +1211,12 @@ score_edges (Grob *me, Grob *common[],
   for (int i = 0; i < scores->size (); i++)
     {
       Direction d = LEFT;
+      Slur_score &config = scores->elem_ref (i);
+      Offset dz = config.attachment_[RIGHT] - config.attachment_[LEFT];
+      Real slope = dz[Y_AXIS] / dz[X_AXIS];
       do
 	{
-	  Real y = scores->elem (i).attachment_[d][Y_AXIS];
+	  Real y = config.attachment_[d][Y_AXIS];
 	  Real dy = fabs (y - base_attach[d][Y_AXIS]);
 	
 	  Real factor = score_param->edge_attraction_factor_;
@@ -1210,7 +1226,10 @@ score_edges (Grob *me, Grob *common[],
 	      && !Stem::get_beaming (extremes[d].stem_, -d)
 	      )
 	    demerit /= 5;
-	
+
+	  demerit *= exp (dir * d * slope
+			  * score_param->edge_slope_exponent_ );
+	  
 	  (*scores)[i].score_ += demerit;
 #if DEBUG_SLUR_QUANTING
 	  (*scores)[i].score_card_ += to_string ("E%.2f", demerit);
