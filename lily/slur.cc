@@ -120,7 +120,8 @@ Slur::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
   set_extremities (me);
-  set_control_points (me);
+  if (!gh_pair_p (me->get_grob_property ("control-points")))
+    set_control_points (me);
   return SCM_UNSPECIFIED;
 } 
 
