@@ -63,49 +63,46 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 }
 
 
-void
-Break_align_interface::order_elements (Grob *grob)
+/*
+  This is tricky: we cannot modify 'elements, since callers are
+  iterating the same list. Reordering the list in-place, or resetting
+  'elements will skip elements in the loops of callers.
+  
+  So we return the correct order as an array.
+ */
+Link_array<Grob>
+Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me  = dynamic_cast<Item*> (grob);
   SCM elts = me->get_property ("elements");
   SCM order_vec = me->get_property ("break-align-orders");
   if (!gh_vector_p (order_vec)
       || gh_vector_length (order_vec) < 3)
-    return ;
-
+    return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
+						    "elements");
   SCM order = scm_vector_ref (order_vec,
 			      gh_int2scm (me->break_status_dir() + 1));
 
+
   /*
-    Copy in order specified in BREAK-ALIGN-ORDER. We use
-    Pointer_group_interface__extract_grobs (which reverses the list)
-    down the line, so it's ok to prepend onto newlist.
-   */
-  SCM new_list = SCM_EOL;
+    Copy in order specified in BREAK-ALIGN-ORDER.
+  */
+  Link_array<Grob> new_elts;
   for (; gh_pair_p (order); order = ly_cdr (order))
     {
       SCM sym = gh_car (order);
-
-      SCM *tail = &elts;
-      for (; gh_pair_p (*tail); tail = SCM_CDRLOC(*tail))
+      
+      for (SCM s =elts; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Grob * g = unsmob_grob (gh_car (*tail));
-	  if (sym == g->get_property ("break-align-symbol"))
+	  Grob *g = unsmob_grob (gh_car (s));
+	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
-	      SCM new_pair = *tail;
-	      *tail = gh_cdr (*tail);
-	      if (gh_pair_p (*tail))
-		tail = SCM_CDRLOC(*tail);
-
-	      gh_set_cdr_x (new_pair, new_list);
-	      new_list = new_pair;
-	      break;
+	      new_elts.push (g);
+	      elts = scm_delq (g->self_scm (), elts); 
 	    }
 	}
     }
-
-  new_list = scm_reverse_x (elts, new_list);
-  me->set_property ("elements", new_list);
+  return new_elts;
 }
 
 void
@@ -119,11 +116,8 @@ Break_align_interface::do_alignment (Grob *grob)
 {
   Item * me = dynamic_cast<Item*> (grob);
 
-  order_elements (me);
   
-  Link_array<Grob> elems
-    = Pointer_group_interface__extract_grobs (me, (Grob*)0,
-						 "elements");
+  Link_array<Grob> elems = ordered_elements (me);
   Array<Interval> extents;
 
   int last_nonempty = -1; 

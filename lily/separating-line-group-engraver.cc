@@ -163,7 +163,6 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	    }
 	  else if (last_spacings_.staff_spacing_)
 	    {
-	      
 	      last_spacings_.staff_spacing_->set_property ("right-items",
 								gh_cons (break_item_->self_scm (), SCM_EOL));
 	    }
