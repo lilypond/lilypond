@@ -88,15 +88,26 @@ Finds file lilypond-words from load-path."
 	(LilyPond-add-dictionary-word (list copy)))
       (kill-buffer b)))
 
-(defconst LilyPond-menu-keywords nil
-  "Keywords which can be inserted from the menu.")
+(defconst LilyPond-menu-keywords 
+  (let ((wordlist '()) ; add syntax entries to lilypond.words
+	(co (all-completions "" (LilyPond-add-dictionary-word ())))
+	(currword ""))
+    (progn
+      (while (> (length co) 0)
+	(setq currword (car co))
+	(if (string-equal "-" (car (setq co (cdr co))))
+	    (progn
+	      (add-to-list 'wordlist currword)
+	      (while (and (> (length co) 0)
+			  (not (string-equal "-" (car (setq co (cdr co))))))))))
+      wordlist))
+  "Keywords inserted from LilyPond-Insert-menu.")
 
-(defconst LilyPond-keywords 
+(defconst LilyPond-keywords
   (let ((wordlist '("\\score")) ; add \keywords to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ())))
 	(currword ""))
     (progn
-      (setq LilyPond-menu-keywords '())
       (while (> (length co) 0)
 	(setq currword (car co))
 	(if (> (length currword) 1)
@@ -105,10 +116,8 @@ Finds file lilypond-words from load-path."
 		     (string-equal (downcase currword) currword))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
-	    (progn
-	      (add-to-list 'LilyPond-menu-keywords currword)
-	      (while (and (> (length co) 0)
-			  (not (string-equal "-" (car (setq co (cdr co))))))))))
+	    (while (and (> (length co) 0)
+			(not (string-equal "-" (car (setq co (cdr co)))))))))
       wordlist))
   "LilyPond \\keywords")
 

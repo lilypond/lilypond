@@ -1,3 +1,5 @@
+-\( - _ -\) -
+-\\\( - _ -\\\) -
 \\accent
 \\accentus
 \\accepts
@@ -445,7 +447,7 @@ Thread
 \\tiltup
 \\timb
 \\time
-\\times
+\\times - % { _ } -
 TimeSignature 
 \\tiny
 \\toeters
