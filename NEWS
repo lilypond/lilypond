@@ -1,3 +1,10 @@
+pl 9.jcn1	
+	- bf (urg): no |: at start of piece
+	- bf?: text defs without width
+	- alignment absolute dynamics
+	- mutopia/opus-130.ly (excerpt, triggered by GUIDO)
+	- bf: crescendo symbol
+
 pl 9
 	- fixed \relative
 

@@ -441,7 +441,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
   Atom a;  
   Real height = paper_l_->staffheight_f () / 6;
 
-  String hairpin = String (decresc ? "de" : "") + "crescendo\n";
+  String hairpin = String (decresc ? "de" : "") + "crescendo";
   a.lambda_ = gh_list (ly_symbol (hairpin),
 		       gh_double2scm (width),
 		       gh_double2scm (height),

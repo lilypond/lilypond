@@ -86,15 +86,16 @@ Repeat_engraver::do_removal_processing ()
 void
 Repeat_engraver::do_process_requests ()
 {  
+  Moment now = now_moment ();
   for (int i = bar_p_arr_.size (); i < repeated_music_arr_.size (); i++)
     {
       Bar* bar_p = new Bar;
       bar_p-> type_str_ = "|:";
       bar_p_arr_.push (bar_p);
-      announce_element (Score_element_info (bar_p, repeated_music_arr_[i])); 
+      if (now > Moment (0))
+	announce_element (Score_element_info (bar_p, repeated_music_arr_[i])); 
     }
 #if 0 //urg, try pre-ceating and announcing 
-  Moment now = now_moment ();
   for (int i = 0; i < bar_p_arr_.size (); i++)
     {
       if (!bar_p_arr_[i] && (now >= stop_mom_arr_[i]))
@@ -123,15 +124,18 @@ Repeat_engraver::do_process_requests ()
 void 
 Repeat_engraver::do_pre_move_processing ()
 {
+  Moment now = now_moment ();
   for (int i = bar_p_arr_.size (); i--; )
     {
       if (bar_p_arr_[i])
         {
-	  typeset_element (bar_p_arr_[i]);
+	  if (now > Moment (0))
+	    typeset_element (bar_p_arr_[i]);
+	  else
+	    delete bar_p_arr_[i];
 	  bar_p_arr_[i] = 0;
 	}
     }
-  Moment now = now_moment ();
   for (int i = volta_p_arr_.size (); i--; )
     {
       if (now >= alternative_stop_mom_arr_[i])
