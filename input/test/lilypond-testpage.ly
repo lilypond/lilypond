@@ -17,7 +17,7 @@ metre = "metre"
 opus = "opus"
 piece = "piece"
 poet = "poet"
-texidoc = "This file tests lilypond titling. It should be processed with lilypond. "
+texidoc = "In the generated output for printing, there are several titles which do not appear in the web pages. "
 
 %
 % todo: check whether title.ly does the same. --hwn

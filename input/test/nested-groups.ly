@@ -1,11 +1,12 @@
 \version "2.1.26" 
 
 \header{ texidoc="@cindex Nested Staff Groups
-LilyPond can print nested groups of staffs. "
+Staffs can be nested in various combinations. Here, @code{StaffGroup}
+and @code{ChoirStaff} produce similar straight brackets, whereas 
+@code{GrandStaff} produces curly brackets. In @code{InnerStaffGroup} 
+and @code{InnerChoirStaff}, the brackets are shifted leftwards.
 
-%   old texidoc; it sounds like a testing comment, rather than an "example" comment.
-%In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
-}
+"
 
 \score { \notes
 <<
@@ -29,7 +30,7 @@ LilyPond can print nested groups of staffs. "
   >>
   \new ChoirStaff << 
    \new Staff {c' d' e' f'}
-   \new InnerStaffGroup <<
+   \new InnerChoirStaff <<
     \new Staff {c' d' e' f'}
     \new Staff {c' d' e' f'}
    >>

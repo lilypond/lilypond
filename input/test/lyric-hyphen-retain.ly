@@ -3,14 +3,15 @@
 
 \header {
 
-texidoc = "In tight situations, hyphens are removed, except at the
-end of the line.  Normally, lyrics aren't set this tight, but by
-tuning down @code{padding} of in @code{SeparationItem}, syllables are put closer together, and hyphens may disappear.
+texidoc = "In tightly engraved music, hyphens are removed, except at the
+end of the line.  Normally, lyrics are not typeset so tightly, but by
+tuning down @code{padding} of in @code{SeparationItem}, syllables are put 
+closer together, and as a result hyphens may disappear.
 
-In some languages (eg. German and Hungarian).  hyphens should not
-disappear, since spelling depends on hyphenation. In this case,
-hyphens can be forced to remain by setting @code{minimum-length} on
-the LyricHyphen grob.
+In some languages (e.g. German and Hungarian),  hyphens should not
+disappear, since spelling depends on hyphenation. For that purpose,
+hyphens can be forced to remain by overriding @code{minimum-length} of
+the @code{LyricHyphen} grob.
 "
 
 }

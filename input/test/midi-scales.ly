@@ -2,7 +2,13 @@
 \version "2.1.26"
 % candidate for regression.  -gp
 \header {
-  texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py should be minimal."
+  texidoc="Converting LilyPond input to MIDI and then again back with
+  @code{midi2ly.py} is a reversible procedure in some simple cases,
+  which mean that the original @code{.ly} -file and the one converted 
+  back from the generated @code{.midi} -file do not differ.
+  Here are produced some scales.
+  
+  "
 }
 
 %{

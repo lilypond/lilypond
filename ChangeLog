@@ -1,3 +1,7 @@
+2004-02-27  Heikki Junes <hjunes@cc.hut.fi>
+
+	* input/test/[j-o]*.ly: update texidocs.
+
 2004-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/documentation-generate.scm (usermanref): Add macro for TeX.

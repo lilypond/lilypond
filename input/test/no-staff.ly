@@ -2,7 +2,9 @@
 % possible rename to staff-something.  -gp
 
 \header{ texidoc = "@cindex Staff Remove
-You can stop LilyPond from printing the staff by removing the engraver. "
+The printing of the staff lines may be suppressed by removing the 
+corresponding engraver.
+"
 }
 
 \score {
