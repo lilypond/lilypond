@@ -8,6 +8,7 @@
 
 (use-modules (oop goops)
 	     (srfi srfi-13)
+	     (srfi srfi-1)
 	     )
 
 (define-class <texi-node> ()

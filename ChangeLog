@@ -1,5 +1,7 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/documentation-lib.scm (oop): use srfi-1 too.
+
 	* input/regression/*.ly: add \version
 
 	* Documentation/user/*.itely: various fixes.
