@@ -157,6 +157,7 @@ Paper_book::get_pages ()
   Page *page = new Page (paper);
   fprintf (stderr, "book_height: %f\n", book_height);
   fprintf (stderr, "vsize: %f\n", page->vsize_);
+  fprintf (stderr, "pages: %f\n", book_height / page->text_height ());
 
 #if ONE_SCORE_PER_PAGE
   for (int i = 0; i < score_count; i++)

@@ -19,6 +19,10 @@
 
 (define this-module (current-module))
 
+;;; Output interface entry
+(define-public (tex-output-expression expr port)
+  (display (eval expr this-module) port ))
+
 ;;;;;;;;
 ;;;;;;;; DOCUMENT ME!
 ;;;;;;;;
@@ -121,25 +125,11 @@
 
 (define (select-font name-mag-pair)
   (let ((c (assoc name-mag-pair font-name-alist)))
-
     (if c
 	(string-append "\\" (cddr c))
 	(begin
-	  (ly:warn (string-append
-		    "Programming error: No such font known "
-		    (car name-mag-pair) " "
-		    (ly:number->string (cdr name-mag-pair))))
-	  
-	  (display "FAILED\n" (current-error-port))
-	  (if #f ;(pair? name-mag-pair))
-	      (display (object-type (car name-mag-pair)) (current-error-port))
-	      (write name-mag-pair (current-error-port)))
-	  (if #f ;  (pair? font-name-alist)
-	      (display
-	       (object-type (caaar font-name-alist)) (current-error-port))
-	      (write font-name-alist (current-error-port)))
-
-	  ;; (format #f "\n%FAILED: (select-font ~S)\n" name-mag-pair))
+	  (ly:warn
+	   (format "Programming error: No such font: ~S" name-mag-pair))
 	  ""))))
 
 ;; top-of-file, wtf?  ugh: tagline?
@@ -350,13 +340,10 @@
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
-(define-public (tex-output-expression expr port)
-  (display (eval expr this-module) port ))
+(define (start-page)
+  "\n%\\vbox{\n")
 
-(define-public (start-page)
-  "\n\\vbox{\n")
-
-(define-public (stop-page last?)
+(define (stop-page last?)
   (if last?
-      "\n}\n"
-      "\n}\n\\newpage\n"))
+      "\n%}\n"
+      "\n%}\n\\newpage\n"))

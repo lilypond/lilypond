@@ -106,12 +106,12 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
 
-(define (assoc-get key alist)
+(define-public (assoc-get key alist)
   "Return value if KEY in ALIST, else #f."
   (let ((entry (assoc key alist)))
     (if entry (cdr entry) #f)))
   
-(define (assoc-get-default key alist default)
+(define-public (assoc-get-default key alist default)
   "Return value if KEY in ALIST, else DEFAULT."
   (let ((entry (assoc key alist)))
     (if entry (cdr entry) default)))
