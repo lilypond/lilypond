@@ -51,14 +51,14 @@ void
 Curve::rotate (Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
-  for (int i = 1; i < size (); i++)
+  for (int i = 0; i < size (); i++)
     (*this)[i] = complex_multiply (rot, (*this)[i]);
 }
 
 void
 Curve::translate (Offset o)
 {
-  for (int i = 1; i < size (); i++)
+  for (int i = 0; i < size (); i++)
     (*this)[i] += o;
 }
 
@@ -94,8 +94,6 @@ Bezier::set (Array<Offset> points)
 Real
 Bezier::y (Real x)
 {
-//  if (x <= curve_[0].x ())
-//    return curve_[0].y ();
   for (int i = 1; i < curve_.size (); i++ )
     {
       if (x < curve_[i].x () || (i == curve_.size () - 1))
@@ -103,7 +101,7 @@ Bezier::y (Real x)
 	  Offset z1 = curve_[i-1];
 	  Offset z2 = curve_[i];
 	  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
-	  Real y = z1.y () * multiplier + (1.0 - multiplier) z2.y();
+	  Real y = z1.y () * multiplier + (1.0 - multiplier) * z2.y();
 
 	  return y;
         }
@@ -207,18 +205,129 @@ void
 Bezier_bow::calc ()
 {
   transform ();
-  calc_default (0);
-  calc_bezier ();
-  
-  if (check_fit_bo ())
-    calc_return (0, 0);
-  else
-    {
-      calc_controls ();
-      blow_fit ();
-    }
+
+  calc_controls ();
 
   transform_controls_back ();
+}
+
+/*
+  [TODO]
+    * see if it works
+    * document in Documentation/fonts.tex
+ */
+
+/*
+  Clipping
+
+  This function tries to address two issues:
+    * the tangents of the slur should always point inwards 
+      in the actual slur, i.e.  *after rotating back*.
+    * slurs shouldn't be too high ( <= 1.5 staffheight?)
+
+  We could calculate the tangent of the bezier curve from
+  both ends going inward, and clip the slur at the point
+  where the tangent (after rotation) points up (or inward
+  with a certain maximum angle).
+  
+  However, we assume that real clipping is not the best
+  answer.  We expect that moving the outer control point up 
+  if the slur becomes too high will result in a nicer slur 
+  after recalculation.
+
+  Knowing that the tangent is the line through the first
+  two control points, we'll clip (move the outer control
+  point upwards) too if the tangent points outwards.
+ */
+
+bool
+Bezier_bow::calc_clipping ()
+{
+  if (!experimental_features_global_b)
+    return false;
+#ifndef STANDALONE
+  Real staffsize_f = paper_l_->get_var ("barsize");
+#else
+  Real staffsize_f = STAFFHEIGHT;
+#endif
+
+  Real clip_h = staffsize_f;
+  Real begin_h = control_[1].y () - control_[0].y ();
+  Real end_h = control_[2].y () - control_[3].y ();
+  Real begin_dy = begin_h - clip_h;
+  Real end_dy = end_h - clip_h;
+  
+  Real pi = M_PI;
+  Real begin_alpha = (control_[1] - control_[0]).arg () + alpha_;
+  Real end_alpha = pi -  (control_[2] - control_[3]).arg () - alpha_;
+
+  Real max_alpha = 1.1 * pi/2;
+  if ((begin_dy < 0) && (end_dy < 0)
+    && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
+    return false;
+
+  encompass_.rotate (alpha_);
+  // ugh
+  origin_.y () *= dir_;
+  encompass_.translate (origin_);
+
+  bool again = true;
+  //ugh
+  if ((begin_dy > 0) || (end_dy > 0))
+    {
+      Real dy = (begin_dy + end_dy) / 4;
+      dy *= cos (alpha_);
+      encompass_[0].y () += dy;
+      encompass_[encompass_.size () - 1].y () += dy;
+    }
+  else
+    {
+      //ugh
+      Real c = -0.4;
+      if (begin_alpha >= max_alpha)
+	begin_dy = c * begin_alpha / max_alpha * begin_h;
+      if (end_alpha >= max_alpha)
+	end_dy = c * end_alpha / max_alpha * end_h;
+      encompass_[0].y () += begin_dy;
+      encompass_[encompass_.size () - 1].y () += end_dy;
+
+      Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
+      alpha_ = delta.arg ();
+      alpha_ *= dir_;
+//      again = false;
+    }
+
+  origin_ = encompass_[0];
+  encompass_.translate (-origin_);
+  // ugh
+  origin_.y () *= dir_;
+  encompass_.rotate (-alpha_);
+
+  return again;
+}
+
+void
+Bezier_bow::calc_controls ()
+{
+  for (int i = 0; i < 3; i++)
+    {
+      calc_default (0);
+      calc_bezier ();
+      
+      if (check_fit_bo ())
+        {
+	  calc_return (0, 0);
+	  return;
+	}
+      calc_tangent_controls ();
+      blow_fit ();
+
+      // ugh
+      blow_fit ();
+
+      if (!calc_clipping ())
+	return;
+    }
 }
 
 void
@@ -239,12 +348,10 @@ Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
 }
 
 /*
- [TODO]
- Document algorithm in:
  See Documentation/fonts.tex
  */
 void
-Bezier_bow::calc_controls ()
+Bezier_bow::calc_tangent_controls ()
 {
   Offset ijk_p (control_[3].x () / 2, control_[1].y ());
   SLUR_DOUT << "ijk: " << ijk_p.x () << ", " << ijk_p.y () << endl;
@@ -370,8 +477,8 @@ Bezier_bow::transform ()
   encompass_.translate (-origin_);
 
   Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
-
   alpha_ = delta.arg ();
+
   encompass_.rotate (-alpha_);
 
   if (dir_ == DOWN)
@@ -383,6 +490,7 @@ Bezier_bow::transform_controls_back ()
 {
   // silly name; let's transform encompass back too
   // to allow recalculation without re-set()ting encompass array
+
   if (dir_ == DOWN)
     {
       control_.flipy ();
@@ -398,6 +506,7 @@ Bezier_bow::transform_controls_back ()
 
   encompass_.rotate (alpha_);
   encompass_.translate (origin_);
+
 }
 
 /*
@@ -425,11 +534,20 @@ Bezier_bow::calc_default (Real h)
   Real indent = alpha * atan (beta * b);
   Real height = indent + h;
  
+#define RESIZE_ICE
+#ifndef RESIZE_ICE
   Array<Offset> control;
   control.push (Offset (0, 0));
   control.push (Offset (indent, height));
   control.push (Offset (b - indent, height));
   control.push (Offset (b, 0));
+#else
+  Array<Offset> control (4);
+  control[0] = Offset (0, 0);
+  control[1] = Offset (indent, height);
+  control[2] = Offset (b - indent, height);
+  control[3] = Offset (b, 0);
+#endif
   Bezier::set (control);
 }
 
