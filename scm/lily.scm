@@ -91,7 +91,7 @@
 ;; lily specific variables.
 (define-public default-script-alist '())
 
-(define-public security-paranoia #f)
+(define-public safe-mode? #f)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Unassorted utility functions.

@@ -267,10 +267,16 @@
   
   (string-append (select-font name-mag-pair) exp))
 
-(define (header creator generate) 
+(define (header creator time-stamp) 
   (string-append
    "%!PS-Adobe-3.0\n"
-   "%%Creator: " creator generate "\n"))
+   "%%Creator: " creator " " time-stamp "\n"
+   ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
+   ;;	   (strftime "%c" (localtime (current-time))))
+   ;; FIXME: duplicated in every backend
+   (ps-string-def
+    "lilypond" 'tagline
+    (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))))
 
 (define (header-end)
   (string-append
@@ -400,16 +406,6 @@
 (define (text s)
 ;;  (string-append "(" (escape-parentheses s) ") show "))
   (string-append "(" (ps-encoding s) ") show "))
-
-;; top-of-file, wtf?
-(define (top-of-file)
-  (string-append
-   (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
-	   (strftime "%c" (localtime (current-time))))
-  ;;; ugh
-   (ps-string-def
-    "lilypond" 'tagline
-    (string-append "Engraved by LilyPond (" (lilypond-version) ")"))))
 
 (define (unknown) 
   "\n unknown\n")

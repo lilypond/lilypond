@@ -84,3 +84,23 @@
       (#:fill-line
        ("" (get 'opus))
        #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
+
+(define-public (make-header paper page-number)
+  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
+					      paper 'linewidth))
+			       (font-family . roman))
+			     (ly:paper-lookup paper 'font-defaults)))))
+    
+  (interpret-markup paper props
+		    (markup #:fill-line ("" (number->string page-number))))))
+
+
+(define-public (make-footer paper page-number)
+  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
+					      paper 'linewidth))
+			       (font-family . roman))
+			     (ly:paper-lookup paper 'font-defaults)))))
+    
+  (interpret-markup paper props
+		    (markup #:fill-line ("" (number->string page-number))))))
+

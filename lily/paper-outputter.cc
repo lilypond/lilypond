@@ -31,20 +31,28 @@
 Paper_outputter::Paper_outputter (String name)
 {
   if (safe_global_b)
-    {
-      gh_define ("security-paranoia", SCM_BOOL_T);      
-    }
+    scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
   
   file_ = scm_open_file (scm_makfrom0str (name.to_str0 ()),
-			    scm_makfrom0str ("w"));
+			 scm_makfrom0str ("w"));
 
   static SCM find_dumper;
   if (!find_dumper)
     find_dumper = scm_c_eval_string ("find-dumper");
 
-  
-  output_func_ = scm_call_1 (find_dumper,scm_makfrom0str (output_format_global.to_str0 ()));
-  output_scheme (gh_cons (ly_symbol2scm ("top-of-file"), SCM_EOL));
+  output_func_
+    = scm_call_1 (find_dumper,
+		  scm_makfrom0str (output_format_global.to_str0 ()));
+
+  String creator = gnu_lilypond_version_string ();
+  creator += " (http://lilypond.org)";
+  time_t t (time (0));
+  String time_stamp = ctime (&t);
+  time_stamp = time_stamp.left_string (time_stamp.length () - 1)
+    + " " + *tzname;
+  output_scheme (scm_list_3 (ly_symbol2scm ("header"),
+			     scm_makfrom0str (creator.to_str0 ()),
+			     scm_makfrom0str (time_stamp.to_str0 ())));
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -113,8 +121,9 @@ Paper_outputter::output_line (SCM line, bool is_last)
 	  between = stil->get_expr ();
 	  continue;
 	}
-  
-      output_expr (stil->get_expr (), ly_scm2offset (head));
+
+      if (stil)
+	output_expr (stil->get_expr (), ly_scm2offset (head));
     }
 
   if (is_last)

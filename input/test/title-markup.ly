@@ -36,6 +36,9 @@ sizeTest = \markup {
 spaceTest = \markup { "two space chars" }
 \header {
     texidoc = "Make titles using markup (WIP)."
+
+    tagline = "my tagline for v \version"
+    copyright = "copyright by me"
     
     %dedication = "För my dør Lily"
     % ugh: encoding char-size
@@ -103,7 +106,7 @@ spaceTest = \markup { "two space chars" }
 
 \score {
     \context Staff \notes \relative c' {
-	\repeat unfold 10 { a b c d \break }
+	\repeat unfold 1 { a b c d \break }
 	c1
     }
 }

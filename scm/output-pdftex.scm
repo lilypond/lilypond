@@ -174,11 +174,9 @@
   (string-append 
    "\n\\" s "{" (inexact->string i 10) "}" ))
 
-;;
-;; need to do something to make this really safe.
-;;
+;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define (output-tex-string s)
-  (if security-paranoia
+  (if safe-mode?
       (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
       s))
 
