@@ -10,25 +10,29 @@
 
 #include "interval.tcc"
 
+template<>
 Real
 Interval_t<Real>::infinity () 
 {
   return HUGE_VAL;
 }
 
+template<>
 String
 Interval_t<Real>::T_to_string (Real r)
 {
   return ::to_string (r);
 }
 
-
+template<>
 int
 Interval_t<int>::infinity () 
 {
   return INT_MAX;
 }
 
+
+template<>
 String
 Interval_t<int>::T_to_string (int i)
 {
