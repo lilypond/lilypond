@@ -209,16 +209,16 @@
 	aid in future changes to input/test/ files.
 
 2003-05-28  Graham Percival  <gperlist@shaw.ca>
-   * Documentation/user/refman.itely: fixed build problem (missing
-   file) caused by previous renaming.
+	* Documentation/user/refman.itely: fixed build problem (missing
+	file) caused by previous renaming.
 
 2003-05-28  Graham Percival  <gperlist@shaw.ca>
-   * input/test/[a,b]*.ly: added texinfo index and added comments to
-   aid in future changes to input/test/ files.
-   * input/test/bar-number-every-5-reset.ly: renamed to
-   bar-number-every-five-reset.ly
-   * input/test/bar-script-visibility.ly: renamed to
-   bar-number-show-all.ly
+	* input/test/[a,b]*.ly: added texinfo index and added comments to
+	aid in future changes to input/test/ files.
+	* input/test/bar-number-every-5-reset.ly: renamed to
+	bar-number-every-five-reset.ly
+	* input/test/bar-script-visibility.ly: renamed to
+	bar-number-show-all.ly
 
 2003-05-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
