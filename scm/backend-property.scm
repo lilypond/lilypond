@@ -141,10 +141,8 @@ is used by @ref{note-collision-interface}")
 (elt-property-description 'fraction number-pair? "")
 (elt-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")
 
-(elt-property-description 'glyph symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. ")
-(elt-property-description 'glyph string? "what kind barline? A concatenation of |, : and .")
-(elt-property-description 'glyph string? "a string determining what glyph is typeset")
-
+(elt-property-description 'glyph symbol? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. ")
+(elt-property-description 'glyph-name string? "a name of character within font")
 
 (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
 (elt-property-description 'hair-thickness number? "thickness, measured in stafflinethickness")
@@ -299,7 +297,7 @@ bracket. Setting the property to #'if-no-beam will make it
 print only if there is no beam associated with this tuplet bracket.")
 (elt-property-description 'tuplet-number-visibility boolean-or-symbol? "
 Like @code{tuplet-bracket-visibility}, but for the number.")
-(elt-property-description 'type string? "one of: line, dashed-line or dotted-line")
+(elt-property-description 'type symbol? "one of: line, dashed-line or dotted-line")
 (elt-property-description 'vertical-position-quant-function procedure? "
 function of type (beam multiplicity dy staff-line-thickness) -> real.  Default value: default-beam-y-quants, also available: beam-traditional-y-quants.
 ")
