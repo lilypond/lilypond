@@ -127,7 +127,7 @@ gsave /ecrm10 findfont
 			     point-stencil)
 			    stencils)))
 
-    (if (null? (remove ly:stencil-empty? orig-stencils))
+o    (if (null? (remove ly:stencil-empty? orig-stencils))
 	empty-stencil
 	(stack-stencils X RIGHT fill-space line-stencils))))
 

@@ -43,7 +43,9 @@
 	    (header-proc layout scopes number last?)
 	    #f)))
 
-    (if (and (number? sep) (ly:stencil? head-stencil))
+    (if (and (number? sep)
+	     (ly:stencil? head-stencil)
+	     (not (ly:stencil-empty? head-stencil)))
 	(set! head-stencil
 	      (ly:stencil-combine-at-edge
 	       stencil Y  dir head-stencil

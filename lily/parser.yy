@@ -1740,7 +1740,7 @@ command_req:
 		{		
 			key->set_property ("pitch-alist", $3);
 			key->set_property ("tonic", Pitch (0,0,0).smobbed_copy ());
-			((Music*)key)->transpose (* unsmob_pitch ($2));
+			key->transpose (* unsmob_pitch ($2));
 		} else {
 			THIS->parser_error (_ ("Second argument must be pitch list."));
 		}

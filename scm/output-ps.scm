@@ -265,7 +265,8 @@
 	out-vec)))
      )))
 
-(define text old-text)
+;(define text old-text)
+(define text new-text)
 
 (define (white-text scale s)
    (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-bold "
