@@ -2,6 +2,9 @@
 \header{
 texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 }
+
+    \paper { raggedright= ##t }
+
 \score{
   \context PianoStaff \notes \relative c'' <
     \context Staff = treble {

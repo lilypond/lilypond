@@ -25,4 +25,5 @@ Arpeggios are supported, both cross-staff and broken single staff.
 	     <<g b d>>-\arpeggio
 	 }
     >
+    \paper { raggedright= ##t }
 }

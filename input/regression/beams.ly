@@ -2,6 +2,9 @@
 \header {
     texidoc = "beams (simple)"
 }
+
+    \paper { raggedright= ##t }
+
 \score { \notes
 \relative c'
 	 {

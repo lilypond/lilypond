@@ -4,6 +4,7 @@
 
 }
 \version "1.7.19"
+    \paper { raggedright= ##t }
 
 \score { \notes \relative c''  {
     \property Score.forbidBeamBreak = ##f

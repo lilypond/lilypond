@@ -1,5 +1,11 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/bass-figure.scm (make-bass-figure-markup): add
+	alignBassFigureAccidentals property.
+
+	* lily/volta-bracket.cc (brew_molecule): only put text on 1st
+	bracket.
+
 	* lily/hyphen-spanner.cc (set_spacing_rods): new function: take
 	syllables widths into account for minimum-length.
 

@@ -7,6 +7,8 @@ texidoc = "Rests in collisions sit opposite of the note if no direction is
 }
 
 
+    \paper { raggedright= ##t }
+
 \score{\notes\relative c''
        \context Staff <
 \time 2/4

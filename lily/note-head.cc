@@ -57,6 +57,10 @@
 
 */
 
+/*
+  TODO: ledger lines are also a property of the staff. Maybe move them
+  to there?
+ */
 Molecule
 Note_head::brew_ledger_lines (Grob *me,
                               int pos,

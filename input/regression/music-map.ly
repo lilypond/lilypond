@@ -27,6 +27,8 @@ Scripts and dynamics are maintained.
 )
 
 
+    \paper { raggedright= ##t }
+
 foobar = \notes \transpose c c' { c4-\>-^ c4-^ c4-\!-^ c4-^  } 
 
 \score {

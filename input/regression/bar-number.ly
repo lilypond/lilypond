@@ -3,7 +3,11 @@
 \header {
 
 texidoc="Bar number settable and padding adjustable.  Bar numbers
-start counting after the anacrusis."
+start counting after the anacrusis.
+
+The padding should be increased, to prevent clashes at the start of the line.
+ 
+"
 
 }
 

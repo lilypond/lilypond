@@ -6,6 +6,7 @@ to a different thread."
 
 }
 \version "1.7.18"
+    \paper { raggedright= ##t }
 
 \score {
 
@@ -15,7 +16,6 @@ to a different thread."
 }
 
 
-%% comment out New_tie_engraver for lily 1.6
 \paper {
 \translator {
   \ThreadContext

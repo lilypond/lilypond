@@ -1,7 +1,8 @@
 \version "1.7.19"
 \header {
-texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle staff is harakiried."
+texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle of 3 staves is harakiried."
 }
+    \paper { raggedright= ##t }
 
 	
 \score { \notes \transpose c c''

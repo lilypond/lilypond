@@ -102,14 +102,17 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   Molecule mol = Lookup::line (t, Offset (0, h), Offset (w,h));
   mol.add_molecule (start);
   mol.add_molecule (end);
-  
-  SCM text = me->get_grob_property ("text");
-  SCM properties = me->get_property_alist_chain (SCM_EOL);
 
-  Molecule num = Text_item::interpret_new_markup (smob, properties, text);
+  if (first_bracket)
+    {
+      SCM text = me->get_grob_property ("text");
+      SCM properties = me->get_property_alist_chain (SCM_EOL);
+      
+      Molecule num = Text_item::interpret_new_markup (smob, properties, text);
 
-  mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-		   - 1.0, 0);
+      mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
+		       - 1.0, 0);
+    }
   mol.translate_axis (left, X_AXIS);
   return mol.smobbed_copy ();
 }

@@ -6,6 +6,8 @@ fingerings uniquely with notes. This makes horizontal fingering much
 easier to process."
 
 }
+    \paper { raggedright= ##t }
+
 
 \score {
     \notes \relative c'{

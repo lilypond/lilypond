@@ -5,6 +5,7 @@
 texidoc = "Percent repeats are not skipped, even when skipBars is set.  "
 }
 
+    \paper { raggedright= ##t }
 
 \score {
      \context Staff <

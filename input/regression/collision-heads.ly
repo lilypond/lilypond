@@ -8,6 +8,9 @@ if the black note heads are from 8th or shorter notes.
 "
     
 }
+    \paper { raggedright= ##t }
+
+
 \score { \notes \context Staff\relative c''<
 \context Voice = VA {
     \voiceOne

@@ -5,9 +5,16 @@
 
 texidoc = "with \\applycontext, \\properties can be modified
 procedurally. Applications include: checking bar numbers, smart
-octavation. "
+octavation.
+
+
+This example prints a bar-number during processing on stdout.
+"
 
 }
+
+    \paper { raggedright= ##t }
+
 
 \score { \notes \relative c'' {
     c1 c1

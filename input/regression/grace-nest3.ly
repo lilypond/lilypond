@@ -2,6 +2,7 @@
 \header {
     texidoc = "Another nested grace situation"
     }
+    \paper { raggedright= ##t }
 
 \score { \notes \relative c'' {
 	f1

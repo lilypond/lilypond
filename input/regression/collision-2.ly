@@ -2,6 +2,8 @@
 \header {
 texidoc = "Collisions for single head notes. "
 }
+    \paper { raggedright= ##t }
+
 
 \score {
     \notes

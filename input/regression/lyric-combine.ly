@@ -12,6 +12,8 @@ extenders do not assume anything about lyric lengths, so they continue
 to work."
 }
 
+    \paper { raggedright= ##t }
+
 
 
 m = \notes  \relative c'' {

@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header{
 
-texidoc = "Concave beams should be horizontal. informally spoken,
+texidoc = "Concave beams should be horizontal. Informally spoken,
   concave refers to the shape of the notes that are opposite a
   beam. If an up-beam has high notes on its center stems, then we call
   it concave.  This example shows borderline cases. Only the beams

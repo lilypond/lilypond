@@ -1,14 +1,7 @@
 
 \version "1.7.23"
 
-clusterSneeuwbal =\notes {
-		\property Thread.NoteHead \set #'transparent = ##t
-		\property Voice.Stem \set #'transparent = ##t
-		\property Voice.Beam \set #'transparent = ##t
-%		\property Staff.Accidental \set #'transparent = ##t
-		\property Voice.Cluster \set #'padding = #0.25
-		\property Voice.Cluster \set #'style = #'ramp
-}
+
 \score {
 \notes \context PianoStaff <
   \context Staff = up {
@@ -42,10 +35,10 @@ clusterSneeuwbal =\notes {
 \property Voice.Beam \set #'thickness = #0.3
 \property Voice.Stem \set #'thickness = #4.0
     g'16-[ b16 fis16 g16]
-< { \clusterSneeuwbal
-    as16-\startCluster <<as b>>
+< \apply #notes-to-clusters { 
+    as16 <<as b>>
     <<g b>>
-    <<g cis>>-\stopCluster
+    <<g cis>>
   } \\
  {
 \property Staff.Arpeggio \set #'arpeggio-direction =#-1

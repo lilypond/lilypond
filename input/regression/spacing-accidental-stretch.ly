@@ -10,6 +10,8 @@
 	d16 d d d d d cis d 
 	
      }
+
+     %% not raggedright!!
      \paper {  linewidth = 14.\cm
      }
 }

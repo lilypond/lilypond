@@ -5,6 +5,8 @@ texidoc="
 beams should look the same
 "
 }
+    \paper { raggedright= ##t }
+
     
 \score { 
   \context Voice \notes\relative c {

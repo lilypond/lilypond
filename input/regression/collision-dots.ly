@@ -6,6 +6,8 @@
 }
 
 \version "1.7.18"
+    \paper { raggedright= ##t }
+
 
 \score{
         \context Staff \notes <

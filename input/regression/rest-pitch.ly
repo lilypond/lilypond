@@ -7,6 +7,8 @@ collision will leave it alone."
 
 }
 
+    \paper { raggedright= ##t }
+
 \score { \notes\relative c'' 
 {
    a4\rest b4\rest c4\rest

@@ -2100,6 +2100,8 @@ is to put the grace notes before a phantom ``space note'', e.g.
    )c4
 }
 @end lilypond
+By adjusting the duration of the skip note (here it is a half-note),
+the space between the main-note and the grace is adjusted.
 
 A @code{\grace} section has some default values, and LilyPond will
 use those default values unless you specify otherwise inside the
@@ -6595,11 +6597,12 @@ reasonable to specify a cluster as the envelope of a set of notes.
 
 @syntax
 
-A cluster is engraved as the envelope of a set of cluster-notes. This
-is achieved by applying the function @code{notes-to-cluster} to a
-sequence of chords, eg.
+A cluster is engraved as the envelope of a set of
+cluster-notes. Cluster notes are created by applying the function
+@code{notes-to-clusters} to a sequence of chords, eg.
+@c
 @lilypond[relative 2]
-    \apply #notes-to-cluster {  << c e >> <<b f'>>  }
+    \apply #notes-to-clusters {  << c e >> <<b f'>>  }
 @end lilypond
 
 The following example (from
@@ -6616,13 +6619,11 @@ ordinary notes and clusters.
 
 @seealso
 
-@internalsref{Cluster}, @inputfileref{input/regression,cluster.ly},
-@internalsref{Cluster_engraver}, @internalsref{ClusterEvent}.
+@internalsref{ClusterSpanner}, @internalsref{ClusterSpannerBeacon},
+@inputfileref{input/regression,cluster.ly},
+@internalsref{Cluster_engraver}, @internalsref{ClusterNoteEvent}.
 
 @refbugs
-
-When a cluster is active, note heads must be switched off manually using
-@code{\hideNotes}. 
 
 Music expressions like @code{< @{ g8 e8 @} a4 >} are not printed
 accurately.  Use @code{<<g a>>8 <<e a>>8} instead.
