@@ -258,7 +258,7 @@ check_meshing_chords (Grob *me,
   else if (Rhythmic_head::dot_count (nu) || Rhythmic_head::dot_count (nd))
     shift_amount *= 0.1;
   else
-    shift_amount *= 0.25;
+    shift_amount *= 0.17;
 
   /* For full or close half collisions, the right hand head may
      obscure dots.  Move dots to the right.  */

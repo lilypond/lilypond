@@ -15,7 +15,7 @@ http://www.orphee.com/comparison/study.html, see
 http://www.orphee.com/comparison/gray.pdf
 
 
-lines that contain tweaks (17 currently, not counting reverts) are
+lines that contain tweaks (22 currently, not counting reverts) are
 marked with %tweak
 
 possibly more impressive to render without tweaks?
