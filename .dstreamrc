@@ -33,5 +33,6 @@ Score			0
 Voice			0
 Voice_element		1
 Input_cursor		1
-Commands_at		0
+Commands_at		1
 Input_command		1
+Moment		0
