@@ -16,7 +16,8 @@
 
 	* lily/scaled-font-metric.cc (derived_mark): idem.
 
-	* scm/encoding.scm (make-encoding-mapping): change permutation to mapping.
+	* scm/encoding.scm (make-encoding-mapping): change permutation to
+	mapping.
 
 	* lily/scaled-font-metric.cc (derived_mark): is a const method.
 	(Modified_font_metric): make alist for coding_description_
