@@ -11,11 +11,8 @@ LYM4_FILES = $(wildcard *.lym4)
 EXTRA_DIST_FILES +=  $(M4_FILES) $(LYM4_FILES)
 
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
-fly_examples=$(addprefix $(outdir)/, $(addsuffix .fly.txt, $(flexamples)))
-sly_examples=$(addprefix $(outdir)/, $(addsuffix .sly.txt, $(slexamples)))
-
-all_examples=$(flexamples) $(slexamples) $(examples)
-
+all_examples=$(examples)
+dvi_examples=$(addprefix $(outdir)/, $(addsuffix .dvi, $(all_examples)))
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(all_examples)))
 gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(all_examples)))
 png_examples=$(addprefix $(outdir)/, $(addsuffix .png, $(all_examples)))

@@ -1,3 +1,40 @@
+1.5.18.jcn1
+===========
+
+* Moved python modules to ./python.
+
+* Better python module stepmake support.
+
+* Bugfix ly2dvi etc: LILYPONDPREFIX should override datadir.
+
+1.5.18.hwn2
+===========
+
+* Put lilylib back into ly2dvi
+
+* Cache symbols for {get,set}_{grob,music}_property and
+{get,set}_property.  Speedup: about 20 percent.
+
+* Remove C++ version of midi2ly
+
+* Inline Grob::parent_l (Axis), String::String() speedup 2 % 
+
+* First try at Sketch (sketch.sourceforge.net) output.
+
+
+1.5.18.rz1
+==========
+
+* subdivideBeams fix - setting property right after beam definition no
+  longer affects that beam.
+
+* Minor docu updates, accidental cleanups and example updates
+
+* Added Accidental grob properties paren-cautionaries and
+  cautionary-size controlling the appearance of cautionary accidentals
+
+1.5.18
+======
 1.5.17.jcn6 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
 ===========
 

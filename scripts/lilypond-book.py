@@ -43,7 +43,7 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.4pre'
+	program_version = '1.5.18'
 
 #
 # Try to cater for bad installations of LilyPond, that have
