@@ -108,7 +108,6 @@ melodie = \melodic{
 %%36
 	< a2. fis2. > |
 %#%\volta2
-%#%:|
 %%37
 	[ a8. a16 ] [ cis'8. cis'16 ] [ e'8. e'16 ] |
 %%38
@@ -181,7 +180,6 @@ begeleiding = \melodic{
 
 %%4
 	''a r4 |
-%#%:|
 %%5
 \duration  8 ;
  	< \multivoice { \stem  1 ; [ 'f 'a d 'a d 'a ] }
@@ -265,7 +263,6 @@ begeleiding = \melodic{
 %%36
 	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %#%\volta2
-%#%:|
 %%37
 	[ ''a 'e 'g 'e ''bes^> 'e ] |
 %%38
