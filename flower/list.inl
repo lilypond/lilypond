@@ -22,8 +22,12 @@ template<class T>
 inline
 List<T>::~List()
 {
-    for ( Cursor<T> c( *this ); c.forward(); c++ )
-        remove( c );
+    Cursor<T> next(*this);
+    for ( Cursor<T> c( *this ); c.ok(); c = next ) {
+	next = c;
+	next++;
+	remove( c );
+    }
 }
 
 template<class T>
@@ -94,12 +98,12 @@ template<class T>
 inline void
 List<T>::remove( Cursor<T> me )
 {
-    if ( me.ok() )
-	{
-	me.pointer()->remove(*this);
-	delete me.pointer();
+    if ( me.ok() ){
+	Link<T> *lp = me.pointer();	
+	lp->remove(*this);
+	delete lp;
         size_--;
-	}
+    }
 }
 
 template<class T>
@@ -127,8 +131,12 @@ template<class T>
 inline
 PointerList<T>::~PointerList()
 {
-    for ( Cursor<T> c( *this ); c.forward(); c++ )
-        remove( c );
+    Cursor<T> next(*this);
+    for ( Cursor<T> c( *this ); c.ok(); c = next ) {
+	next = c;
+	next++;
+	remove( c );		// PointerList::remove deletes the  real data
+    }
 }
 
 template<class T>
@@ -136,7 +144,7 @@ inline void
 PointerList_print( PointerList<T> const & l  ) 
 {
     List<T>& promises_to_be_const = (List<T>&) l;
-    for ( Cursor<T> c( promises_to_be_const ); c.forward(); c++ )
+    for ( Cursor<T> c( promises_to_be_const ); c.ok(); c++ )
         (*c)->print();  
 }
 
