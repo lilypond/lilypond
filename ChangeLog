@@ -1,3 +1,8 @@
+2002-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/accidental-placement.cc (extent_callback): remove function
+	(position_accidentals): do nothing if not live.
+
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: Add
