@@ -1,3 +1,19 @@
+2004-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/dynamic-engraver.cc (typeset_all):
+	* lily/script-engraver.cc (stop_translation_timestep): Handle
+	collisions with new-slur.
+
+2004-08-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/define-grobs.scm (all-grob-descriptions): Add
+	new-slur-interface.
+
+2004-08-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* elisp/lilypond-mode.el (LilyPond-command-alist): LilyPond now
+	produces .PS
+
 2004-08-09  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties): fix

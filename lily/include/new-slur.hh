@@ -25,11 +25,12 @@ public:
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
 
   static void set_interface (Grob *);
-  static bool  has_interface (Grob *);
+  static bool has_interface (Grob *);
   static Bezier get_curve (Grob*me);
 };
 
-
+// zught
+Direction get_slur_dir (Grob *slur);
 
 #endif /* NEW_SLUR_HH */
 

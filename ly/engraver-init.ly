@@ -191,10 +191,6 @@
     \consists "Melisma_translator"
     \consists "Part_combine_engraver"
 
-%{
-    Must come before text_engraver, but after note_column engraver.
-
-%}
     \consists "Text_engraver"
     \consists "Dynamic_engraver"
     \consists "Fingering_engraver"

@@ -679,4 +679,3 @@ than a whole rest.")
   (append
    all-internal-grob-properties
    all-user-grob-properties))
-

@@ -411,11 +411,11 @@ in LilyPond-include-path."
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   `(
-    ("LilyPond" . ("lilypond-bin %s" "%s" "%l" "LaTeX"))
+    ("LilyPond" . ("lilypond %s" "%s" "%l" "ViewPS"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "View"))
 
-    ("2Dvi" . ("lilypond %s" "%s" "%d" "View"))
-    ("2PS" . ("lilypond -P %s" "%s" "%p" "ViewPS"))
+    ("2Dvi" . ("lilypond -f tex %s" "%s" "%d" "LaTeX"))
+    ("2PS" . ("lilypond -f ps %s" "%s" "%p" "ViewPS"))
     ("2Midi" . ("lilypond -m %s" "%s" "%m" "Midi"))
 
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))

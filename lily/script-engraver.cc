@@ -7,12 +7,15 @@
 */
 
 #include "context.hh"
+#include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "event.hh"
+#include "new-slur.hh"
 #include "note-column.hh"
 #include "rhythmic-head.hh"
 #include "script-interface.hh"
 #include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
 
@@ -32,6 +35,7 @@ struct Script_tuple
 class Script_engraver : public Engraver
 {
   Array<Script_tuple> scripts_;
+  Grob *slur_;
 
 protected:
   virtual bool try_music (Music*);
@@ -45,6 +49,7 @@ public:
 
 Script_engraver::Script_engraver ()
 {
+  slur_ = 0;
 }
 
 bool
@@ -190,6 +195,8 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	    e->set_parent (inf.grob_, X_AXIS);
 	}
     }
+  else if (New_slur::has_interface (inf.grob_) && script_count)
+    slur_ = inf.grob_;
 }
 
 void
@@ -207,7 +214,19 @@ Script_engraver::stop_translation_timestep ()
 				     ::quantised_position_proc, Y_AXIS);
 	    sc->set_property ("staff-padding", SCM_EOL);
 	  }
+	SCM priority = sc->get_property ("script-priority");
+	if (robust_scm2int (priority, 0) >= 0
+	    && slur_
+	    && get_grob_direction (sc) == get_slur_dir (slur_))
+	  {
+	    Real ss = Staff_symbol_referencer::staff_space (sc);
+	    Real pad = robust_scm2double (sc->get_property ("padding"), 0);
+
+	    /* FIXME: 1ss padding hardcoded */
+	    sc->set_property ("padding", scm_make_real (pad + ss));
+	  }
       }
+  slur_ = 0;
   scripts_.clear ();
 }
 
@@ -215,6 +234,7 @@ ENTER_DESCRIPTION (Script_engraver,
 /* descr */       "Handles note scripted articulations.",
 /* creats*/       "Script",
 /* accepts */     "script-event articulation-event",
-/* acks  */      "stem-interface rhythmic-head-interface note-column-interface",
+/* acks  */       "stem-interface rhythmic-head-interface\
+ new-slur-interface note-column-interface",
 /* reads */       "scriptDefinitions",
 /* write */       "");

@@ -765,7 +765,7 @@
 	(Y-extent-callback . ,New_slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.333)
-	(meta . ((interfaces . (slur-interface spanner-interface))))
+	(meta . ((interfaces . (slur-interface new-slur-interface spanner-interface))))
 	))
 
     (NonMusicalPaperColumn
@@ -878,7 +878,7 @@
 					; Slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.25)
-	(meta . ((interfaces . (slur-interface spanner-interface))))
+	(meta . ((interfaces . (slur-interface new-slur-interface spanner-interface))))
 	))
 
     (SpacingSpanner

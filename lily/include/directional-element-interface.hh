@@ -12,6 +12,7 @@
 
 #include "grob.hh"
 
+// what is the advantage not having these two as STATICs of GROB -- jcn
 void set_grob_direction (Grob*, Direction);
 Direction get_grob_direction (Grob*);
 
