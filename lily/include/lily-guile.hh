@@ -77,6 +77,7 @@ SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 
 #ifdef CACHE_SYMBOLS
+#warning: CACHE_SYMBOLS
 /*
   Using this trick we cache the value of gh_symbol2scm ("fooo") where
   "fooo" is a constant string. This is done at the cost of one static

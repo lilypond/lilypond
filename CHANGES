@@ -1,5 +1,7 @@
-1.5.14.jcn4
+1.5.14.jcn5
 ===========
+
+* Some random typing at midi2ly.py.
 
 * Slightly better doco for r, s and \skip, with examples.
 
