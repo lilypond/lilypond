@@ -13,6 +13,7 @@ mwa = music {
 	a b ,c
 	a b c-*
 	a b c&
+	{ a-. b-. }
 	$
 }
 
@@ -21,6 +22,9 @@ bla = music {
 	These Gates will open just like windows. % ok; warning
 	@
 }
+
+
+include "this-is-hopefully-a-nonexisting-file"
 
 score {
 	staff { 

@@ -64,7 +64,7 @@ int fatal_error_i = 0;
 }
 
 %token VOICE STAFF SCORE TITLE  BAR  OUTPUT MULTIVOICE
-%token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
+%token CM_T IN_T PT_T MM_T PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF  TABLE  VOICES STEM
 %token PARTIAL MUSIC GROUPING CADENZA
@@ -78,7 +78,7 @@ int fatal_error_i = 0;
 %token <string> STRING
 
 %token <i> DOTS INT
-%type <consstr> unit
+%type <real> unit
 %type <intvec> pitch_list 
 %type <c> open_request_parens close_request_parens
 %type <id> declaration
@@ -517,7 +517,9 @@ mudela_text:
 	;
 
 script_req:
-	script_dir mudela_script	{ $$ = get_script_req($1, $2); }
+	script_dir mudela_script	{ 
+		$$ = get_script_req($1, $2);
+	}
 	;
 
 mudela_script:
@@ -704,14 +706,14 @@ int_list:		{
 
 
 dim:
-	real unit	{ $$ = convert_dimen($1,$2); }
+	real unit	{ $$ = $1*$2; }
 	;
 
 
-unit:	CM		{ $$ = "cm"; }
-	|IN		{ $$ = "in"; }
-	|MM		{ $$ = "mm"; }
-	|PT		{ $$ = "pt"; }
+unit:	CM_T		{ $$ = 1 CM; }
+	|IN_T		{ $$ = 1 INCH; }
+	|MM_T		{ $$ = 1 MM; }
+	|PT_T		{ $$ = 1 PT; }
 	;
 	
 /*

@@ -17,7 +17,7 @@ Script_def::print() const
 int
 Script_def::compare(Script_def const & c)
 {
-    return (symidx == c.symidx &&
+    return !(symidx == c.symidx &&
 	stemdir == c.stemdir&&
 	staffdir == c.staffdir&&
 	invertsym == c.invertsym);
