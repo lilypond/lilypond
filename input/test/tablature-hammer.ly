@@ -1,5 +1,7 @@
 \version "1.7.18"
-\header {texidoc = "DELETE. "} 
+\header {texidoc = "@cindex Tablature hammer
+You can fake a hammer in tablature with slurs. "
+} 
 
 \score{
   \context TabStaff <
@@ -9,5 +11,6 @@
 		d(c-)
   }
   >
+	\paper{ raggedright = ##t}
 }
 %% new-chords-done %%

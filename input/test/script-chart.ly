@@ -1,8 +1,8 @@
 \version "1.7.18"
-% covered in refman.  delete, or move to an appendix. -gp
+% FIXMEsoon: check if test/ is the best place.
 \header {
-    texidoc ="Covered in refman; DELETE or move to an appendix.  Or maybe REGRESSION.
-A chart showing all feta scripts"
+    texidoc ="@cindex Feta scripts
+A chart showing all feta scripts. "
 }
 
 \score {

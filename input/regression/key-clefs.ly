@@ -1,6 +1,5 @@
 \version "1.7.18"
-% candidate for regression -gp
-\header { texidoc = "REGRESSION or DELETE " }
+\header { texidoc = "Tests placement of accidentals in every clef. " }
 
 \score { \notes
   \relative cis' {

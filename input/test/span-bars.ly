@@ -1,5 +1,6 @@
 \version "1.7.18"
-% regression again?  *sigh*  :)   -gp
+
+\header { texidoc = "I really don't understand this one.  DELETE or REGRESSION? -gp " }
 
 nt =  \notes { c1 \break c1 c1 } 
 stuff =  \notes \relative c'' <

@@ -1,6 +1,5 @@
 \version "1.7.18"
-% regression or delete.  -gp
-\header{ texidoc = "DELETE or REGRESSION." }
+\header{ texidoc = "Tests MIDI output with grace notes. " }
 
 \score { 
   \context Voice \notes\relative c {

@@ -1,6 +1,7 @@
 \version "1.7.18"
-% regression or delete.  -gp
-\header {texidoc = "REGRESSION or DELETE. "} 
+\header {texidoc = "@cindex Slur, dotted
+You can print different kinds of slurs (dotted, dashed, etc). "
+} 
 \score{
 	\notes{
 		c( d e  c-) |
@@ -13,12 +14,11 @@
 		\slurSolid
 		c( d e  c-) |
 	}
-	\paper{ 
-	      indent = 0.0\pt
+	\paper{ raggedright=##t }
+%	      indent = 0.0\pt
 		%for broken!
 		% linewidth= 30.\mm
-
-	}
+%	}
 }
 
 
