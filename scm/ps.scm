@@ -229,7 +229,15 @@
   (string-append 
    (ly-number->string x) " " (ly-number->string y) " {" s "} place-box\n"))
 
+;; two beziers
 (define (bezier-sandwich l thick)
+  (string-append 
+   (apply string-append (map control->string l))
+   (ly-number->string thick)
+   " draw_bezier_sandwich "))
+
+;; two beziers with round endings
+(define (bezier-bow l thick)
   (string-append 
    (apply string-append (map control->string l))
    (ly-number->string thick)
@@ -237,6 +245,7 @@
    (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
    (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
 
+;; two beziers with round endings
 (define (bezier-ending z0 z1 z2)
   (let ((x0 (car z0))
 	(y0 (cdr z0))

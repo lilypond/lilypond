@@ -1,7 +1,18 @@
 2002-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* make/lilypond.redhat.spec.in (post): Also remove parmesan fonts.
+	* lily/lookup.cc (slur): Invoke bezier-bow.
 
+	* scm/tex.scm (bezier-bow): 
+	* scm/ps.scm (bezier-bow): Bezier sandwich with rounded endings
+	(Previously named bezier-sandwich).
+	
+	* scm/tex.scm (bezier-sandwich):
+	* scm/ps.scm (bezier-sandwich): Plain bezier sandwich.
+
+	* make/lilypond.mandrake.spec.in (post): 
+	* make/lilypond.suse.spec.in (post): 
+	* make/lilypond.redhat.spec.in (post): Also remove parmesan fonts.
+	
 	* tex/lilyponddefs.tex: Uncomment feta character support.
 
 	* Documentation/user/refman.itely (Pitches): Add espanol.ly
