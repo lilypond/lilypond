@@ -11,14 +11,16 @@
 
 
 (define-public (read-encoding-file filename)
-  "Read .enc file, return as a vector of symbols."
+  "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
   (let* ((raw (ly:kpathsea-gulp-file filename))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
-	 (start (string-index string #\[))
-	 (end (string-index string #\]))
-	 (ps-lst (string-tokenize (substring string (+ start 1) end)))
-	 (lst (map (lambda (x) (substring x 1)) ps-lst)))
-    (list->vector lst)))
+	 (command (match:substring
+		(string-match "/([^ \t\n\r]*)[ \t\n\r]+[[]" string) 1))
+	 (encoding (match:substring (string-match "[[](.*)[]]" string) 1))
+	 (ps-lst (string-tokenize encoding))
+	 (lst (map (lambda (x) (string->symbol (substring x 1))) ps-lst))
+	 (vector (list->vector lst)))
+    (cons command vector)))
 
 (define (make-encoding-table encoding-vector)
   "Return a hash table mapping names to chars. ENCODING-VECTOR is a
@@ -58,16 +60,18 @@ vector of symbols."
 
 (define (get-coding-from-file filename)
   "Read FILENAME, return a list containing encoding vector and table"
-   (let* ((vec (read-encoding-file filename))
+   (let* ((coding (read-encoding-file filename))
+	  (com (car coding))
+	  (vec (cdr coding))
 	  (tab (make-encoding-table vec)))
-    (list vec tab)))
+    (list com vec tab)))
 
-;; coding-alist maps NAME -> (list VECTOR TAB)
+;; coding-alist maps NAME -> (list FILENAME COMMAND VECTOR TAB)
 (define coding-alist
   
   (map (lambda (x)
 	 (cons (car x)
-	       (delay (get-coding-from-file (cdr x)))))
+	       (cons (cdr x) (delay (get-coding-from-file (cdr x))))))
        
        '(
 	 ;; teTeX
@@ -95,16 +99,21 @@ vector of symbols."
        ))
 
 (define (get-coding coding-name)
-  (force (assoc-get coding-name coding-alist )))
+  (let ((entry (assoc-get coding-name coding-alist)))
+    (cons (car entry) (force (cdr entry)))))
 
-(define-public (get-coding-vector coding-name)
+(define-public (get-coding-filename coding-name)
+  (format (current-error-port) "FILENAME: ~S\n" (get-coding coding-name))
   (car (get-coding coding-name)))
 
-(define-public (get-coding-table coding-name)
+(define-public (get-coding-command coding-name)
+  (format (current-error-port) "COMMAND: ~S\n" (get-coding coding-name))
   (cadr (get-coding coding-name)))
 
+(define-public (get-coding-vector coding-name)
+  (format (current-error-port) "VECTOR: ~S\n" (get-coding coding-name))
+  (caddr (get-coding coding-name)))
 
-;;; JUNKME
-;;; what's this for? --hwn
-;; (define-public (encoded-index font-coding input-coding code)
-;; This was used by simplistic first incarnation of reencode-string --jcn
+(define-public (get-coding-table coding-name)
+  (format (current-error-port) "TABLE: ~S\n" (get-coding coding-name))
+  (cadddr (get-coding coding-name)))
