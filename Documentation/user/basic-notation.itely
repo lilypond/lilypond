@@ -1744,6 +1744,9 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 <c e>4 ( <d f> <c e> <d f> )
 @end lilypond
 
+Only one slur can be printed at once.  If you need to print a long
+slur over a few small slurs, please see @ref{Phrasing slurs}.
+
 
 @refcommands
 
@@ -1788,6 +1791,8 @@ normal slur.  However, they are treated as different objects.  A
 
 The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurNeutral}
 will only affect normal slurs and not phrasing slurs.
+
+You cannot have simultaneous phrasing slurs.
 
 @refcommands
 

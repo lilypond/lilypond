@@ -3,6 +3,10 @@
 	* Documentation/topdocs/INSTALL.texi: now recommends
 	lexer-gcc-3.1.sh for gcc 3.1.1 or higher.
 
+	* Documentation/user/basic-notation.itely,
+	Documentation/user/tutoria.itely: warn about
+	only one (phrasing) slur at once.
+
 2005-03-24  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* ly/music-functions-init.ly (removeWithTag): fixed to return "music".
