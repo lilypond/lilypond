@@ -1,5 +1,11 @@
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (main): add png for HTML too, guess
+	only if necessary. Thanks to John Williams.
+
+	* flower/include/virtual-methods.hh: simplify. Patch by Matthias
+	Neeracher.
+
 	* mf/GNUmakefile (depth): use $(FONTFORGE). Patch by Jeff Smith
 	<whydoubt@yahoo.com>
 
