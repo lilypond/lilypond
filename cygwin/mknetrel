@@ -1,43 +1,46 @@
 # -*- shell-script -*-
+# cygwin/mknetrel - LilyPond mknetrel overrides
 
-# ancient LilyPond releases: lilypond-1.6
-# archive=ftp://lilypond.org/pub/LilyPond/v1.6
-
-# stable LilyPond releases: lilypond-1.8
-# archive=ftp://lilypond.org/pub/LilyPond/v1.8
-
-# development LilyPond releases: lilypond-1.9
-# archive=ftp://lilypond.org/pub/LilyPond/v1.9
-
-# LilyPond mknetrel overrides
-# To use this, do something like:
+# This script should be used to package LilyPond for Cygwin.
+# It can be used to build LilyPond on Cygwin, but also on GNU/Linux.
+#
+# See http://lilypond.org/web/devel/packaging.html for more information,
+# report bugs to bug-lilypond@gnu.org.
+#
+#
+# Get mknetrel from here:
+#
+#   cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co mknetrel
+#
+# To build the package do:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.8/lilypond-1.8.0.tar.gz
-   rm -rf /home/netrel/src/lilypond-*
-   mkdir -p /home/netrel/src && cd /home/netrel/src
-   ## TODO: look at pimport
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.9/lilypond-1.9.8.tar.gz
+   rm -rf /netrel/src/lilypond-*
+   mkdir -p /netrel/src && cd /home/netrel/src
    tar xzf /var/tmp/lilypond-*
-   mv lilypond-* $(echo lilypond-*)-1
+   mv lilypond-1.9.8 lilypond-1.9.8-1
    cd -
-   ./bin/mknetrel -xXC lilypond
+   ./bin/mknetrel -xX lilypond
 
 EOC
-
-# sover=14
-
-patch=$mknetrel_root/patch
-if iscygwin; then
-    true
-else 
-    uploads=$here/uploads/$base && mkdir -p $uploads/
-    [ "$ABI" = "1.5" ] && uploads=$here/uploads-development/$base && mkdir -p $uploads/
-    tarstem=$uploads/$package
-fi
 
 sub_packages="doc"
 old_path=$PATH
 
+patch=$mknetrel_root/patch
+
+# for cross-compiling LilyPond:
+if !iscygwin; then
+    uploads=$here/uploads/$base && mkdir -p $uploads/
+    tarstem=$uploads/$package
+fi
+
+# the files mknetrel.doc, mknetrel.patch, etc. can be had from the
+# latest cygwin source, currently:
+#
+#   http://lilypond.org/cygwin/uploads/lilypond/lilyond-1.8.2-1-src.tar.bz2
+#
 
 # copy and include extra mknetrel stuff
 extras="doc patch auto cross split"
@@ -52,50 +55,44 @@ needdevoflags () {
     return 1
 }
 
+preconfig () {
 
-preconfig () { # aka libtool_woes ()
-
-    # Add to mknetrel?
     patchsrc 
+    rm -f config.cache
 
-    ## autoupdate
-
-    cd $build || exit 1
-
-    GUILE=1.6.4
-    cat > guile-config <<EOF
+    # for cross-compiling LilyPond:
+    if !iscygwin; then
+	cd $build || exit 1
+	GUILE=1.6.4
+	cat > guile-config <<EOF
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
 [ "\$1" == "link" ] && echo "-L$cygwin_prefix/lib -lguile"
 exit 0
 EOF
-    chmod 755 guile-config
-    PATH=$(pwd):$PATH
-
-
-    if [ "$ABI" != "1.5" ];then
-	export LDFLAGS="$cygwin_prefix/bin/cygkpathsea-3abi13.dll"
+	chmod 755 guile-config
+	PATH=$(pwd):$PATH
     fi
-    ##opt='-O2 -g' LDFLAGS='"$cygwin_prefix/bin/libpython2.2.dll"
-    rm -f config.cache
 }
 
 postconfig () {
-    # Configure for build, for generating doc
-    rm -f config.cache
-    export HOST_CC=gcc
-    export HOST_CXX=g++
-    if [ "$ABI" != "1.5" ]; then
-	HOST_CC=gcc-2.95
-	HOST_CXX=g++-2.95
-	(cd $src && ln -s GNUmakefile.in GNUmakefile)
+    # cross-compiling: configure for build-host
+    if !iscygwin; then
+	rm -f config.cache
+	export HOST_CC=gcc
+	export HOST_CXX=g++
+	if [ "$ABI" != "1.5" ]; then
+	    HOST_CC=gcc-2.95
+	    HOST_CXX=g++-2.95
+	    (cd $src && ln -s GNUmakefile.in GNUmakefile)
+	fi
+	(PATH="$old_path" \
+	    PATH="$HOME/usr/pkg/guile-1.6/bin:$PATH" \
+	    CFLAGS="-O2 -g" \
+	    CC=$HOST_CC \
+	    CXX=$HOST_CXX \
+	    $src/configure --prefix=/usr --enable-config=for-build)
     fi
-    (PATH="$old_path" \
-	PATH="$HOME/usr/pkg/guile-1.6/bin:$PATH" \
-	CFLAGS="-O2 -g" \
-	CC=$HOST_CC \
-	CXX=$HOST_CXX \
-	$src/configure --prefix=/usr --enable-config=for-build)
 }
 
 prebuild () {
@@ -104,40 +101,39 @@ prebuild () {
 	mkdir -p $inst-$i || exit 1
     done
     
-    # Build for build-host, generating doc
-    cd $build || exit 1
+    # cross-compiling: build for build-host, generate doc
+    if !iscygwin; then
+	cd $build || exit 1
 
-    PATH=/bin:/usr/bin:$PATH \
-	PYTHONPATH=$build/python/out-for-build:$PYTHONPATH \
-	make conf=for-build all doc web || exit 1
+	PATH=/bin:/usr/bin:$PATH \
+	    PYTHONPATH=$build/python/out-for-build:$PYTHONPATH \
+	    make conf=for-build all doc web || exit 1
+	
+        # as of 1.9.9, this should no longer be necessary:
+	for i in $(find . -path ".*out-for-build/*.1"); do
+	    o=$(dirname $(dirname $i))/out
+	    mkdir -p $o
+	    cp -pv $i $o/$(basename $i)
+	done
 
-    # as of 1.9.9, this should no longer be necessary:
-    for i in $(find . -path ".*out-for-build/*.1"); do
-	o=$(dirname $(dirname $i))/out
-	mkdir -p $o
-	cp -pv $i $o/$(basename $i)
-    done
-
-    mkdir -p mf/out
-    cp -pv mf/out-for-build/* mf/out
-    
-    if false; then #[ "$ABI" != "1.5" ]; then
-	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
-    else
-	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+	mkdir -p mf/out
+	cp -pv mf/out-for-build/* mf/out
     fi
+    
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 preinstall () {
-    cd $build || exit 1
-    cp -v scripts/out-for-build/midi2ly.1 scripts/out
-    cp -v lily/out-for-build/lilypond.1 lily/out
-    
-    if false; then # [ "$ABI" != "1.5" ]; then
-	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
-    else
-	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+
+    # cross-compiling: fix manual pages
+    if !iscygwin; then
+        # as of 1.9.9, this should no longer be necessary:
+	cd $build || exit 1
+	cp -v scripts/out-for-build/midi2ly.1 scripts/out
+	cp -v lily/out-for-build/lilypond.1 lily/out
     fi
+    
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 postinstall () {
@@ -174,4 +170,3 @@ postinstall () {
     cd $inst-doc/$packagedocdir &&
     ln -s $(find html/Documentation -name '*.ps.gz') .
 }
-
