@@ -37,6 +37,8 @@ typedef Interval_t<Real> Interval;
 struct Choleski_decomposition;
 
 struct Long_option_init;
+struct File_path;
+struct Directed_graph_node;
 struct Getopt_long;
 struct Matrix;
 struct String_data;
