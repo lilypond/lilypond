@@ -5,7 +5,7 @@ COMMENT(
 )
 manpage(LilyPond)
        (1)
-	(1998)
+	(1999)
        (midi2ly)
        (The LilyPond package)
 

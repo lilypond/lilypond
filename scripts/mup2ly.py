@@ -8,7 +8,7 @@
 
 # TODO: regex -> re.
 
-name = 'mup-to-ly'
+name = 'mup2ly'
 version = '0.1'
 
 import os
