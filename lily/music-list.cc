@@ -6,16 +6,11 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-
 #include "music-list.hh"
 #include "musical-pitch.hh"
 #include "request.hh"
 #include "musical-request.hh"
-
-
-
-
+#include "main.hh"
 
 Moment
 Simultaneous_music::duration () const
@@ -85,8 +80,27 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
       if (!count ++ )
 	retval = last;
     }
+
+  // hmmm
+#if 0  
+  if (!ret_first && find_old_relative_b)
+    {
+      PCursor<Music*> b (bottom ());
+
+      if (b.ok ())
+	{
+	  String w = _("\\relative mode changed here, old value: ");
+	  w +=  last.str ();
+
+	  b->warning (w);
+	  retval = last;
+	}
+    }
+  
+#endif
   if (!ret_first)
     retval = last;
+  
   return retval;
 }
 

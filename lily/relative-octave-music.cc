@@ -20,7 +20,7 @@ Relative_octave_music::to_relative_octave (Musical_pitch)
 Relative_octave_music::Relative_octave_music(Music*p,Musical_pitch def)
   : Music_wrapper (p)
 {
-  last_pitch_ = element_p_->to_relative_octave (def);
+  last_pitch_ = element_l()->to_relative_octave (def);
 }
 
 void

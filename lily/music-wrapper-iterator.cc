@@ -27,7 +27,7 @@ Music_wrapper_iterator::do_print () const
 void
 Music_wrapper_iterator::construct_children ()
 {
-  child_iter_p_ = get_iterator_p (music_wrapper_l ()->element_p_);  
+  child_iter_p_ = get_iterator_p (music_wrapper_l ()->element_l ());  
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()

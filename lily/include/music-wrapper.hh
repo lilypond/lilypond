@@ -21,9 +21,10 @@
   */
 class Music_wrapper : public Music
 {
-public:
   Music * element_p_;
+public:
   Music_wrapper (Music*);
+  Music * element_l () const;
   virtual void transpose (Musical_pitch);
   virtual void do_print () const;
   

@@ -92,8 +92,6 @@ RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
-PLET		\\\[
-TELP		\\\]
 EXTENDER	[_][_]
 
 %%
@@ -341,14 +339,6 @@ EXTENDER	[_][_]
 	return c;
 }
 
-<lyrics,notes>{PLET}	{
-	return yylval.i = PLET;
-}
-
-<lyrics,notes>{TELP}	{
-	return yylval.i = TELP;
-}
-
 <INITIAL,notes>.	{
 	return yylval.c = YYText ()[0];
 }
@@ -443,7 +433,7 @@ My_lily_lexer::scan_bare_word (String str)
 		    yylval.pitch = new Musical_pitch (lookup_notename (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
-		    return NOTENAME_PITCH;
+                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 		} else if (chordmodifier_b (str)) {
 		    DOUT << "(chordmodifier)\n";
 		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));

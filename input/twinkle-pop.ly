@@ -1,6 +1,6 @@
 \header{
 filename =	 "twinkle-pop.ly";
-title =	 "Ah, vous dirais-je, maman ";
+%title =	 "Ah, vous dirais-je, maman ";
 description =	 "twinkle twinkle in pop-song-settings";
 composer =	 "traditional";
 enteredby =	 "HWN, chords by Johan Vromans";
@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.10";
+\version "1.0.12";
 
 melodie = \notes\relative c'' {
         \clef "violin";
@@ -23,18 +23,18 @@ melodie = \notes\relative c'' {
         g  g  | f f  | e e | d d |
 	% copy 1-8
         c4 c  | g' g | a a | g2  |
-        f4 f  | e e  | d d | c2  |
+        f4 f  | e e  | d d | c2 \bar "|.";
 }
 
 acc = \chords {
 	% why don't \skip, s4 work?
-        @2c @c @f @c
-        @f @c @g7 @c
-	@g @f @c  @g7 % urg, bug!
-        @g @f @c  @g7
+        c2 c f c
+        f c g-7 c
+	g f c  g-7 % urg, bug!
+        g f c  g-7
 	% copy 1-8
-        @2c @c @f @c
-        @f @c @g7 @c
+        c2 c f c
+        f c g-7 c
 }
 
 text = \lyrics{ 
@@ -51,10 +51,25 @@ text = \lyrics{
 
 \score {
         <  
-	   \chords \type ChordNames \acc
-%	   \notes \type Staff=chords \acc
-	   \notes \type Staff=melody \melodie
-           \lyrics \type Lyrics \text
+	   \type ChordNames \acc
+	   \type Staff=melody \melodie
+           \type Lyrics \text
         >
+	\header{
+		title = "Ah, vous dirais-je, maman ";
+	}
         \paper {  }
 }
+
+\score {
+        <  
+	   \chords \type ChordNames \transpose bes\acc
+	   \notes \type Staff=melody \transpose bes\melodie
+           \lyrics \type Lyrics \text
+        >
+	\header{
+		piece = "clarinet in B\\textflat";
+	}
+        \paper {  }
+}
+

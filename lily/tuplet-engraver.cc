@@ -14,14 +14,19 @@
 #include "compressed-music.hh"
 #include "text-def.hh"
 #include "beam.hh"
+#include "music-list.hh"
 
 bool
 Tuplet_engraver::do_try_music (Music *r)
 {
   if (Compressed_music * c = dynamic_cast<Compressed_music *> (r))
     {
-      compressed_music_arr_.push (c);
-      stop_moments_.push (now_moment () + c->duration ());
+      Music *el = c->element_l ();
+      if (!dynamic_cast<Request_chord*> (el))
+	{
+	  compressed_music_arr_.push (c);
+	  stop_moments_.push (now_moment () + c->duration ());
+	}
       return true;
     }
   return false;

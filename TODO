@@ -7,6 +7,10 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 BUGS:
+	* c4 \! \> c4
+
+	* resurrect tremolo beams.
+
 	* gallina barlines.
 
 	* fix height of / collisions with lyrics (chords), 
@@ -16,7 +20,6 @@ BUGS:
 	  - one volta spanner per score
 	  - repeat bars span staffs
 	  - placement alternative number
-	  - dimensions of volta bracket
 
 	* who is trying to print too (small/big) piano braces all the time?
 	    warning: piano brace too small (16.000pt)
@@ -28,6 +31,8 @@ BUGS:
 	* \breathmark TeX macro 
 
 	* configure error if GUILE 1.3 not found
+
+	* configure error if no rtti (gcc 2.8 or egcs-1.1)
 
 	* catch GUILE errors?
 
@@ -407,12 +412,11 @@ PROJECTS
 	 .. ?
 
 	* chords
-	- guitar chords
-	- chord names
+	- jazz style inversions C/E => <e g c>
+	- guitar chords (fret diagrams)
+	- other chord name styles (american(?) style)
 	- basso continuo
-	- Syntax/parser
 	- MIDI output?
-	- typesetting
 
 	* Debug logs:
 	- derive lily_stream, Dstream, texstream from ostream?
@@ -635,7 +639,7 @@ IDEAS
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* Klavarskribo?
-
+5
 	* lyrics in chords still fuck up.
 
 	* Use hooks/dependency graphs for properties

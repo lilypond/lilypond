@@ -12,6 +12,7 @@ name			value	effect			shorthand
 ydirection		-1	force stem down		\stemdown
 ydirection		0  	stem direction free	\stemboth
 ydirection		1	force stem up		\stemup
+
 pletvisibility		0	show nothing
 pletvisibility		1 	show number
 pletvisibility		2 	show (number and bracket)-if-no-beam
@@ -78,28 +79,22 @@ instrument		ascii	midi instrument table lookup
 % i guess they're meant as some form of doco
 % that's what i use them for...
 stemup = {
-	\skip 1*0;
 	% Stupid hack to make < { \stemup } > work
 	\property Voice.ydirection = \up 
 	}
 stemboth= {
-	\skip 1*0;
 	\property Voice.ydirection = \center
 }
 stemdown = { 	
-	\skip 1*0;
 	\property Voice.ydirection = \down
 }
 slurup = {
-	\skip 1*0;
 	\property Voice.slurydirection = \up 
 	}
 slurboth= {
-	\skip 1*0;
 	\property Voice.slurydirection = \center
 }
 slurdown = { 	
-	\skip 1*0;
 	\property Voice.slurydirection = \down
 }
 
@@ -112,59 +107,50 @@ onevoice = {
 
 voiceone = { 	
 	\type Voice = one 
-	\skip 1*0;
 	\stemup
 }
 
 voicetwo = { 	
 	\type Voice = two
-	\skip 1*0;
 	\stemdown
 }
 
 voicethree = { 	
 	\type Voice = three
-	\skip 1*0;
 	\stemup
 
 }
 
 voicefour = { 	
 	\type Voice = four
-	\skip 1*0;
 	\stemdown
 	\shifton
 }
 
 onestaff = { 	
 	\translator Staff=one
-	\skip 1*0;
 }
 
 staffone = { 	
 	\translator Staff=one
-	\skip 1*0;
 	\property Staff.ydirection = \center
 	\property Staff.hshift = 0
 }
 
 stafftwo = { 	
 	\translator Staff=two
-	\skip 1*0;
 	\property Staff.ydirection = \center
 	\property Staff.hshift = 0
 }
 
 staffthree = { 	
 	\translator Staff=three
-	\skip 1*0;
 	\property Staff.ydirection = \center
 	\property Staff.hshift = 0
 }
 
 stafffour = { 	
 	\translator Staff=four
-	\skip 1*0;
 	\property Staff.ydirection = \center
 	\property Staff.hshift = 0
 }

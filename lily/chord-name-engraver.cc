@@ -86,7 +86,7 @@ Chord_name_engraver::do_process_requests ()
     scale[i].transpose (tonic);
 
   //urg, should do translation in scheme.
-  char const *acc[] = {"\\textflat\\textflat", "\\textflat", "", "\\textsharp" , "\\textsharp\\textsharp"};
+  char const *acc[] = {"\\textflat\\textflat ", "\\textflat ", "", "\\textsharp " , "\\textsharp\\textsharp "};
   String tonic_str = tonic.str ();
   tonic_str = tonic_str.left_str (1).upper_str ()
     + acc[tonic.accidental_i_ + 2];

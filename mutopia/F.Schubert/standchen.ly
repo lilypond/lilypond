@@ -18,12 +18,12 @@ Note: Original key F.
 
 \version "1.0.10";
 
-$vocal_verse1 = \notes\relative c{
+$vocal_verse1 = \notes\relative c''{
 	% ugh: treble/bass
-%	\clef treble;
-%	\clef violin;
+	% ?
+	\clef treble;
 	\property Voice.dynamicdir=1
-	\times 2/3 { [ g''8( )as] g } c4. g8 |
+	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
 	g4.-> f8 \times 2/3 { [ f( )es] d } |
 	es2 r4 |

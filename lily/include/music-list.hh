@@ -58,6 +58,7 @@ public:
   virtual Moment duration () const;
 };
 
+
 /**
   The request is a collection of Requests. A note that you enter in mudela is 
   one Request_chord, one syllable of lyrics is one Request_chord
@@ -70,6 +71,8 @@ public:
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   Request_chord();
 };
+
+
 /**
   Sequential_music is a list of music-elements which are placed behind each other.
  */

@@ -23,7 +23,8 @@ extern Sources* source_global_l;
 extern bool no_paper_global_b;
 extern bool safe_global_b;
 extern bool no_timestamps_global_b;
-extern bool find_quarts_global_b;
+extern bool find_old_relative_b;
+
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern char const* output_global_ch;

@@ -15,7 +15,7 @@ Compressed_music::Compressed_music (int n, int d,Music *mp)
 {
   num_i_ = n;
   den_i_ = d;
-  element_p_->compress (Moment (num_i_,den_i_));
+  element_l ()->compress (Moment (num_i_,den_i_));
 }
 
 
