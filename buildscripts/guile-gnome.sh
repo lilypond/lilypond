@@ -22,8 +22,9 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
 PANGOVERSION=1.6.0
-GGVERSION=2.7.97
-GWRAPVERSION=1.9.3
+GGVERSION=2.7.99
+GWRAPVERSION=1.9.5
+GLVERSION=0.1.2
 
 download=$HOME/usr/src/releases
 [ -d $download ] || mkdir -p $download
@@ -84,21 +85,14 @@ fi
 
 ## 3. Currently (2004-9-15) GUILE CVS works somewhat
 ##    But there's a guile/g-wrap problem with integer parameters
-unset GUILE_LOAD_PATH
-PATH=/usr/bin:$PATH
+## PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
     export CPPFLAGS=-I$OPT/libffi/include
 fi
 
-PKG_CONFIG_PATH=$OPT/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
-LD_LIBRARY_PATH=$OPT/g-wrap/lib:$LD_LIBRARY_PATH
-GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH:$SLIB_PATH
-
-
 ## 4.  get g-wrap 2.0
-## note that bleeding edge (2004-9-13) g-wrap breaks guile-gnome.
 if ! pkg-config --atleast-version=$GWRAPVERSION g-wrap-2.0-guile; then
     if [ -n "$BLOEDIGE_RAND" ]; then
 	tla register-archive a.rottmann@gmx.at--2004-main \
@@ -125,8 +119,38 @@ if ! pkg-config --atleast-version=$GWRAPVERSION g-wrap-2.0-guile; then
     ../configure --prefix=$OPT/g-wrap --enable-maintainer-mode
     make install
     cd ../..
-fi    
+    PKG_CONFIG_PATH=$OPT/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
+    LD_LIBRARY_PATH=$OPT/g-wrap/lib:$LD_LIBRARY_PATH
+    GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH:$SLIB_PATH
+fi
 
+## 4a.  get g-lib 0.1.2
+if ! guile -c "(use-modules (srfi srfi-35))"; then
+    if [ -n "$BLOEDIGE_RAND" ]; then
+	:
+    else
+	$WGET http://download.gna.org/guile-lib/guile-lib-$GLVERSION.tar.gz
+	tar xzf $download/guile-lib-$GLVERSION.tar.gz
+	ln -s guile-lib-$GLVERSION guile-lib
+    fi
+    cd guile-lib
+    
+    rm -rf $OPT/guile-lib
+    if [ ! -f src/configure ]; then
+	sh autogen.sh --noconfigure
+    fi    
+    mkdir =build
+    cd =build
+    ../src/configure --prefix=$OPT/guile-lib #--enable-maintainer-mode
+    if true; then
+	make
+	cp ./guile-lib/doc/guile-library.info doc
+	install -d $OPT/guile-lib/share/info
+    fi
+    make install
+    cd ../..
+    GUILE_LOAD_PATH=$OPT/guile-lib/share/guile:$GUILE_LOAD_PATH
+fi    
 
 # not a good idea
 ## cp srfi-34.scm from CVS head ?  --hwn
@@ -134,9 +158,6 @@ fi
 # mv srfi-34.scm srfi-34.scm-g-wrap
 # cp $OPT/guile/share/guile-1.7/srfi/srfi-34.scm .)
 
-PKG_CONFIG_PATH=$OPT/guile-gnome/lib/pkgconfig:$PKG_CONFIG_PATH
-LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH
-GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
 ## 5.  get guile-gnome
 if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
     if [ -n "$BLOEDIGE_RAND" ]; then
@@ -179,7 +200,8 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	cd ..
 	srcdir="../src"
     else
- 	$WGET http://download.gna.org/guile-gnome/releases/guile-gnome-platform-$GGVERSION.tar.gz
+ 	#$WGET http://download.gna.org/guile-gnome/releases/guile-gnome-platform-$GGVERSION.tar.gz
+ 	$WGET ftp://ftp.gnu.org/gnu/guile-gnome/guile-gnome-platform/guile-gnome-platform-$GGVERSION.tar.gz
 	tar xzf $download/guile-gnome-platform-$GGVERSION.tar.gz
 	ln -s guile-gnome-platform-$GGVERSION guile-gnome
 	cd guile-gnome
@@ -205,6 +227,9 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	CC=$GCC34 $srcdir/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
     fi
     make all install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
+    PKG_CONFIG_PATH=$OPT/guile-gnome/lib/pkgconfig:$PKG_CONFIG_PATH
+    LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH
+    GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
 fi
 
 cat <<EOF

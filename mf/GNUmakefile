@@ -64,7 +64,7 @@ $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst fet
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
-$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts  $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
+$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts  $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@ 

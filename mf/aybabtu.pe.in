@@ -54,7 +54,7 @@ MergeFonts("feta-braces-g.scale.pfa");
 MergeFonts("feta-braces-h.scale.pfa");
 MergeFonts("feta-braces-i.scale.pfa");
 
-SetFontNames("aybabtu-Regular", "aybabtu", "aybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("Aybabtu-Regular", "Aybabtu", "Aybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 i = 0;
 while (i < CharCnt())
