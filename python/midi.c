@@ -18,7 +18,6 @@ midi.parse (s)
 
 */
 
-#include "config.h"
 #include <Python.h>
 
 #if 0

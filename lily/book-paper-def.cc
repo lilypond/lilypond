@@ -7,6 +7,7 @@
   
 */
 
+#include "ly-module.hh"
 #include "paper-def.hh"
 #include "dimensions.hh"
 #include "book-paper-def.hh"
@@ -22,8 +23,20 @@ Book_paper_def::Book_paper_def ()
 {
   output_scale_ = 1.0;
   scaled_fonts_ = SCM_EOL;
+  scope_ = SCM_EOL;
   smobify_self ();
   scaled_fonts_ = scm_c_make_hash_table (11);
+  scope_ = ly_make_anonymous_module (false); 
+}
+
+Book_paper_def::Book_paper_def (Book_paper_def const & src)
+{
+  scope_ = SCM_EOL;
+  scaled_fonts_ = SCM_EOL;
+  smobify_self ();
+  scope_= ly_make_anonymous_module (false);
+  if (is_module (src.scope_))
+    ly_import_module (scope_, src.scope_);
 }
 
 Book_paper_def::~Book_paper_def ()
@@ -34,6 +47,8 @@ SCM
 Book_paper_def::mark_smob (SCM m)
 {
   Book_paper_def *mo = (Book_paper_def*) SCM_CELL_WORD_1 (m);
+
+  scm_gc_mark (mo->scope_);
   return mo->scaled_fonts_;
 }
 
