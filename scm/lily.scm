@@ -100,6 +100,7 @@
 ;; (Measured in staff space)
 (define space-alist
  '(
+   (("" "Left_edge_item") . (minimum-space -15.0))
    (("" "Clef_item") . (minimum-space 1.0))
    (("" "Staff_bar") . (minimum-space 0.0))
    (("" "Clef_item") . (minimum-space 1.0))

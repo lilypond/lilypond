@@ -13,23 +13,39 @@
 #include "hash-table-iter.hh"
 #include "dimension-cache.hh"
 
-void
-Align_element::after_line_breaking()
+/*
+  This callback is set in the children of the align element. It does
+  not compute anything, but a side effect of a->do_side_processing ()
+  is that the elements are placed correctly.  */
+Real
+Align_element::alignment_callback (Dimension_cache const *c)
 {
-  if (axis () == Y_AXIS)
-    do_side_processing ();
+  Axis ax = c->axis ();
+  Score_element * sc = c->element_l ()->parent_l (ax);
+  Align_element * a = dynamic_cast<Align_element*> (sc);
+  if (a && a->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
+    {
+      a->do_side_processing (ax);
+    }
+  return 0.0;
 }
 
 void
-Align_element::before_line_breaking ()
+Align_element::add_element (Score_element* s)
 {
-  if (axis () == X_AXIS)
-    do_side_processing ();
+  s->add_offset_callback (alignment_callback, axis ());
+  Axis_group_element::add_element (s);
 }
 
+/*
+  Hairy function to put elements where they should be. Can be tweaked
+  from the outside by setting minimum-space and extra-space in its
+  children */
 void
-Align_element::do_side_processing ()
+Align_element::do_side_processing (Axis a)
 {
+  set_elt_property ("alignment-done", SCM_BOOL_T);
+  
   SCM d = get_elt_property ("stacking-dir");
   Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
@@ -42,7 +58,7 @@ Align_element::do_side_processing ()
   Link_array<Score_element> all_elts (elem_l_arr ());
   for (int i=0; i < all_elts.size(); i++) 
     {
-      Interval y = all_elts[i]->extent(axis ()) + all_elts[i]->relative_coordinate (this, axis ());
+      Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (this, a);
       if (!y.empty_b())
 	{
 	  Score_element *e =dynamic_cast<Score_element*>(all_elts[i]);
@@ -71,6 +87,15 @@ Align_element::do_side_processing ()
 	}
     }
 
+  
+  Interval threshold = Interval (0, Interval::infinity ());
+  SCM thr = get_elt_property ("threshold");
+  if (gh_pair_p (thr))
+    {
+      threshold[SMALLER] = gh_scm2double (gh_car (thr));
+      threshold[BIGGER] = gh_scm2double (gh_cdr (thr));      
+    }
+
   Real where_f=0;
   for (int i=0 ;  i < elems.size(); i++) 
     {
@@ -80,20 +105,15 @@ Align_element::do_side_processing ()
 
       if (i)
 	{
-	  dy = (dy >? threshold_interval_[SMALLER] )
-	    <? threshold_interval_[BIGGER];
+	  dy = (dy >? threshold[SMALLER] )
+	    <? threshold[BIGGER];
 	}
 
-
       where_f += stacking_dir * dy;
-      elems[i]->translate_axis (where_f, axis ());
+      elems[i]->translate_axis (where_f, a);
     }
 }
 
-Align_element::Align_element()
-{
-  threshold_interval_ = Interval (0, Interval::infinity ());
-}
 
 int
 Align_element::get_count (Score_element*s)const
@@ -113,13 +133,13 @@ Align_element::get_count (Score_element*s)const
 Axis
 Align_element::axis () const
 {
-  return axes_[0];
+  return Axis (gh_scm2int (gh_car (get_elt_property ("axes"))));
 }
 
 void
 Align_element::set_axis (Axis a)
 {
-  set_axes (a,a);
+  set_axes (a, a);
 }
 
 

@@ -12,11 +12,14 @@ calc_interstaff_dist (Item const *item, Spanner const *span)
   Align_element * align = dynamic_cast<Align_element*> (common);
   if (align && align->axis() == Y_AXIS)
     {
-      if (align->threshold_interval_[MIN] != 
-	  align->threshold_interval_[MAX])
+      SCM threshold = align->get_elt_property ("threshold");
+      if (!gh_pair_p (threshold)
+	  || !scm_equal_p (gh_car (threshold), gh_cdr (threshold)))
 	warning (_ ("minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"));
 
-      interstaff = align->threshold_interval_[MIN];
+      interstaff = 0.0;
+      if (gh_pair_p (threshold))
+	interstaff =  gh_scm2double (gh_car (threshold));
 
       Score_element const * span_refpoint = span;
       while (span_refpoint->parent_l  (Y_AXIS) != common)

@@ -32,18 +32,17 @@ Vertical_align_engraver::do_creation_processing()
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  SCM dist (get_property ("maxVerticalAlign"));
-  if (gh_number_p(dist))
-    {
-      valign_p_->threshold_interval_[BIGGER]  = gh_scm2double (dist);
-    }
+  SCM min = get_property ("maxVerticalAlign");
+  SCM max = get_property ("minVerticalAlign");
 
-  dist = get_property ("minVerticalAlign");
-  if (gh_number_p(dist))
-    {
-      valign_p_->threshold_interval_[SMALLER]  = gh_scm2double (dist);
-    }
-
+  if (gh_number_p (min) || gh_number_p (max))
+  {
+    min = gh_number_p (min) ? min : gh_double2scm (0.0);
+    max = gh_number_p (max) ? max : gh_double2scm (infinity_f);    
+    
+    valign_p_->set_elt_property ("threshold",
+				 gh_cons (min,max));
+  }
   valign_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);
   valign_p_ =0;
@@ -57,7 +56,7 @@ Vertical_align_engraver::qualifies_b (Score_element_info i) const
 
   Axis_group_element * elt = dynamic_cast<Axis_group_element *> (i.elem_l_);
 
-  return sz > 1 && elt && elt->axes_[0] == Y_AXIS && !elt->parent_l (Y_AXIS);
+  return sz > 1 && elt && !elt->parent_l (Y_AXIS) && elt->axis_b (Y_AXIS);
 }
 
 void

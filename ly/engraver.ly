@@ -113,7 +113,7 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Voice;
 
-	dynamicPadding = #5.0
+	dynamicPadding = #2.0
 	Generic_property_list = #generic-voice-properties
 	\consists "Output_property_engraver";	
 
@@ -329,6 +329,7 @@ ScoreContext = \translator {
 %	\consists "Score_priority_engraver";
 	\consists "Break_align_engraver";
 	breakAlignOrder = #'(
+	  "Left_edge_item"
 	  "Span_bar"
 	  "Breathing_sign"
 	  "Clef_item"

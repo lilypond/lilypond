@@ -155,5 +155,5 @@ Break_align_item::Break_align_item ()
   set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
   set_axis (X_AXIS);
 
-  dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
+  add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
 }

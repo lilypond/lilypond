@@ -74,9 +74,9 @@ Clef_item::do_add_processing ()
 	  g->set_parent (this, X_AXIS);
 	  
 	  g->set_elt_property ("self-alignment-X", gh_int2scm (0));
-	  g->dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
-	  g->dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::centered_on_parent);
-	  
+	  g->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
+	  g->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
+
 	  g->set_elt_property ("direction", octave_dir);
 	  
 	  add_dependency (g);	// just to be sure.
