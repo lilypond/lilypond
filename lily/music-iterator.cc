@@ -185,8 +185,18 @@ Music_iterator::init_translator (Music *m, Translator_group *report_l)
   music_l_ = m;
   if (Context_specced_music * csm =dynamic_cast<Context_specced_music *> (m))
     {
-      Translator_group* a =report_l->
-	find_create_translator_l (csm->translator_type_str_, csm->translator_id_str_);
+      SCM ct = csm->get_mus_property ("context-type");
+      String c_type;
+      if (gh_string_p (ct))
+	  c_type =  ly_scm2string (ct);
+      
+      String c_id;
+      SCM ci = csm->get_mus_property ("context-id");
+      if (gh_string_p (ci))
+	c_id = ly_scm2string (ci);
+      
+      Translator_group* a
+	=report_l->find_create_translator_l (c_type, c_id);
 
       set_translator (a);
       
