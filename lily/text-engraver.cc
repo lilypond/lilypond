@@ -78,6 +78,9 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
+      /*
+	Urg:  Text_engraver loads TextScriptProperties
+       */
       Item *text = new Item (get_property ("basicTextScriptProperties"));
       
 
@@ -89,7 +92,7 @@ Text_engraver::do_process_music ()
 	make sure they're in order by adding i to the priority field.
 	*/
       text->set_elt_property ("script-priority",
-			    gh_int2scm (200 + i));
+			      gh_int2scm (200 + i));
 
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
@@ -99,20 +102,13 @@ Text_engraver::do_process_music ()
       
       if (r->style_str_.length_i ())
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
-      
-      /*
-       Text is empty by default, which means that the only condition
-       for not setting 'no-spacing-rods' should be: boolean && true.
 
-       Anyway, non-empty text has been broken for some time now.
-       */
       SCM nonempty = get_property ("textNonEmpty");
-      if (!to_boolean (nonempty))
+      if (to_boolean (nonempty))
 	/*
 	  empty text: signal that no rods should be applied.  
 	 */
-	text->set_elt_property ("no-spacing-rods" , SCM_BOOL_T);
-
+	text->set_elt_property ("no-spacing-rods" , SCM_BOOL_F);
 		
       announce_element (text, r);
       texts_.push (text);
