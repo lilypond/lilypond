@@ -1,5 +1,7 @@
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): junk script{Up|Down|Both}.
+
 	* lily/horizontal-bracket.cc (print): use
 	Tuplet_bracket::make_bracket, so it supports bracket-flare,
 	edge-eight and shorten-pair.

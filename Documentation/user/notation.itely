@@ -2210,7 +2210,9 @@ c\fermata c^\fermata c_\fermata
 @cindex coda
 @cindex varcoda
 
-@lilypondfile[quote,raggedright]{script-chart.ly}
+Here is a chart showing  all scripts available,
+
+@lilypondfile[quote]{script-chart.ly}
 
 
 The vertical ordering of scripts is controlled with the
@@ -2235,14 +2237,6 @@ they are entered decides which one comes first.
 
 
 
-@refcommands
-
-@cindex @code{\scriptUp}
-@code{\scriptUp}, 
-@cindex @code{\scriptDown}
-@code{\scriptDown}, 
-@cindex @code{\scriptBoth}
-@code{\scriptBoth}.
 
 @seealso
 

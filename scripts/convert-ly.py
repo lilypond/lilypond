@@ -2154,6 +2154,18 @@ conversions.append (((2, 3, 11), conv,
 
 def conv (str):
 	str = re.sub (r'\\newpage', r'\\pageBreak', str)
+	str = re.sub (r'\\scriptUp', r'''{
+  \\override TextScript  #'direction = #1
+  \\override Script  #'direction = #1
+} ''', str)
+	str = re.sub (r'\\scriptDown', r'''{
+  \\override TextScript  #'direction = #-1
+  \\override Script  #'direction = #-1
+} ''', str)
+	str = re.sub (r'\\scriptBoth', r'''{
+  \\revert TextScript  #'direction
+  \\override Script  #'direction
+} ''', str)
 	return str
 
 conversions.append (((2, 3, 12), conv,
