@@ -25,7 +25,8 @@
 #include "file-results.hh"
 #include "misc.hh"
 
-#if 0				// has w32 advanced?
+//#if 0				// has w32 advanced?
+#if 1				// cygwin-b20: nope
 // sucking Cygnus egcs - w32
 #include "list.tcc"
 #include "cursor.tcc"
