@@ -23,7 +23,7 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 Try it on this image
 @lilypond[quote,raggedright,relative=2]
-  c-\markup { \bold \huge { Click here.  } }
+c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
 
@@ -94,9 +94,8 @@ a1 a2 a4 a16 a32
 @end lilypond
 
 If you do not specify a @rglos{duration}, the duration last entered is
-used; the duration of the first note defaults to a quarter
-@c FIXME: let's omit the first note rule?
-@c  The first note will be a quarter
+used for the next notes.  The duration of the first note in input
+defaults to a quarter
 
 @example
 a a8 a a2 a
@@ -108,19 +107,16 @@ a a8 a a2 a
 @end lilypond
 
 
-Rests are entered just like notes, but with the name ``@code{r}''
+Rests are entered just like notes, but with the name @samp{r}
 
 @cindex rests
 @example
 r2 r4 r8 r16
 @end example
 
-@lilypond[quote,fragment]
+@lilypond[quote,notime]
 \set Score.timing = ##f
-\set Staff.Clef = \turnOff
-\set Staff.TimeSignature = \turnOff
-r2 r4 r8 r16
-s16_" "
+r2 r4 r8 r16 s16_" "
 @end lilypond
 @separate
 
@@ -179,11 +175,11 @@ s4_" "
 s16_" "
 @end lilypond
 
-To recognize names like @code{c} and @code{d} as pitches, they have to
+To recognize names like @samp{c} and @samp{d} as pitches, they have to
 be entered inside a so-called @code{\notes} block.  This block is
 formed by enclosing notes and commands are enclosed in curly braces
-@code{@{ @dots{} @}} and adding the keyword @code{\notes} before the
-opening brace
+@code{@{@tie{}@dots{}@tie{}@}} and adding the keyword @code{\notes} before
+the opening brace
 
 @example
 \notes @{
@@ -208,6 +204,7 @@ the @code{\notes} block in a @code{\score} block
 @}
 @end example
 
+@noindent
 and the music will be converted to printable output.
 
 @lilypond[quote,noindent]
@@ -230,8 +227,9 @@ be present when feeding the file to LilyPond.
 
 For more elaborate information on
 
+@quotation
 @table @asis
-@item  Entering pitches and durations
+@item Entering pitches and durations
 see 
 @ref{Pitches} and @ref{Durations}.
 @item Clefs
@@ -239,8 +237,9 @@ see @ref{Clef}
 @item Rests
 see @ref{Rests}.  
 @item Time signatures and other timing commands
-see  @ref{Time signature}.
-@end table 
+see @ref{Time signature}.
+@end table
+@end quotation
 
 
 @node Running LilyPond
@@ -296,7 +295,7 @@ GNU LilyPond 1.8.0
 Now processing: `/home/fred/ly/test.ly'
 Parsing...
 Interpreting music...[1]
- @emph{ ...  more interesting stuff ...  }
+@emph{ ...  more interesting stuff ...  }
 PDF output to `test.pdf'...
 DVI output to `test.dvi'...
 @end example
@@ -355,7 +354,7 @@ cis1 ees fisis aeses
 @end lilypond
 
 @cindex key signature, setting
-The key signature is set with the command ``@code{\key}'', followed by
+The key signature is set with the command @samp{\key}, followed by
 a pitch and @code{\major} or @code{\minor}
 @example
 \key d \major
@@ -405,7 +404,7 @@ d cis fis
 @end example
 
 The code @code{d} does not mean ``print a black dot just below the
-staff.'' Rather, it means: ``a note with pitch D-natural.'' In the key
+staff.''  Rather, it means: ``a note with pitch D-natural.''  In the key
 of A-flat, it does get an accidental
 
 @lilypond[quote,fragment]
@@ -427,7 +426,7 @@ according to different rules.
 
 
 For more information on
- 
+
 @table @asis
 @item Accidentals
 see @ref{Accidentals}
@@ -440,7 +439,7 @@ see @ref{Key signature}
 @section Entering ties
 
 @cindex tie
-A tie is created by adding a tilde ``@code{~}'' to the first note
+A tie is created by adding a tilde @samp{~} to the first note
 being tied
 @lilypond[quote,fragment,verbatim,relative=3]
 g4~ g a2~ a4
@@ -630,7 +629,7 @@ a4
 
 Enclosing group of notes in braces creates a new music
 expression
- 
+
 @lilypond[quote,verbatim,relative=3]
 { a4 g4 }
 @end lilypond
@@ -652,7 +651,7 @@ as a simultaneous combination of two sequences.  A ``simultaneous''
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two notes) are combined simultaneously
- 
+
 @lilypond[quote,verbatim,relative=3]
 <<
    { a4 g }
@@ -670,9 +669,9 @@ you can make arbitrarily complex and large expressions.  For example,
 1
 
 1 + 2
-  
+
 (1 + 2) * 3
-  
+
 ((1 + 2) * 3) / (4 * 5)
 @end example
 @cindex expression
@@ -785,7 +784,7 @@ For more information on context see the description in
 @cindex accents
 @cindex staccato
 
-Common accents can be added to a note using a dash (`@code{-}') and a
+Common accents can be added to a note using a dash (@samp{-}) and a
 single character
 @lilypond[quote,verbatim,relative=2]
 c-.  c-- c-> c-^ c-+ c-_
@@ -794,10 +793,10 @@ c-.  c-- c-> c-^ c-+ c-_
 
 @cindex fingering
 Similarly, fingering indications can be added to a note using a dash
-(`@code{-}') and the digit to be printed
+(@samp{-}) and the digit to be printed
 @c
 @lilypond[quote,verbatim,relative=2]
-  c-3 e-5 b-2 a-1
+c-3 e-5 b-2 a-1
 @end lilypond
 
 
@@ -826,7 +825,7 @@ c2\<  c2\ff\>  c2  c2\!
 
 A slur is a curve drawn across many notes, and indicates legato
 articulation.  The starting note and ending note are marked with a
-``@code{(}'' and a ``@code{)}'' respectively
+@samp{(} and a @samp{)}, respectively
 
 @lilypond[quote,fragment,relative=2,verbatim]
 d4( c16)( cis d e c cis d e)( d4)
@@ -855,15 +854,15 @@ a8(\( ais b  c) cis2 b'2 a4 cis,  c\)
 For more information on
 @table @asis
 @item Fingering
-  see @ref{Fingering instructions}
+see @ref{Fingering instructions}
 @item Articulations
-  see @ref{Articulations}
+see @ref{Articulations}
 @item Slurs
-  see @ref{Slurs}
+see @ref{Slurs}
 @item Phrasing slurs
-  see  @ref{Phrasing slurs}
+see @ref{Phrasing slurs}
 @item Dynamics
-  see  @ref{Dynamics}
+see @ref{Dynamics}
 @item Fingering
 @end table
 
@@ -928,7 +927,7 @@ Grace notes are also made by prefixing a music expression with the
 keyword @code{\appoggiatura} or @code{\acciaccatura}
 @cindex appoggiatura
 @cindex acciaccatura
-      
+
 @lilypond[quote,relative=2,verbatim,fragment]
 c4 \appoggiatura b16 c4
 c4 \acciaccatura b16 c4
@@ -965,7 +964,7 @@ comments
 @example
 % notes for twinkle twinkle follow
 c4 c  g' g  a a
- 
+
 %@{
     This line, and the notes below
     are ignored, since they are in a
@@ -1000,7 +999,7 @@ smoothly. Changes in the syntax are handled with a special program,
 Lyrics are entered by separating each syllable with a space,
 
 @example
-  I want to break free
+I want to break free
 @end example
 
 To prevent certain words (for example ``as'') as being read as a
@@ -1008,7 +1007,7 @@ pitch, the input-mode must be switched.  This is done with
 @code{\lyrics}.  In @code{\lyrics} mode, all words are read as lyric
 syllables.
 @example
-  \lyrics @{ I want to break free @}
+\lyrics @{ I want to break free @}
 @end example
 
 @noindent
@@ -1033,7 +1032,7 @@ c4
 The lyrics can be set to these notes, combining both with the
 @code{\lyricsto} keyword
 @example
-  \lyricsto "@var{name}" \new Lyrics @dots{}
+\lyricsto "@var{name}" \new Lyrics @dots{}
 @end example
 where @var{name} identifies to which melody the lyrics should be
 aligned.  In this case, there is only one melody, so we can leave it
@@ -1103,7 +1102,7 @@ discussed in @ref{Vocal music}.
 @cindex Lead sheets
 @cindex chords
 @cindex chord names
- 
+
 In popular music, it is common to denote accompaniment as chord-names.
 Such chords can  be entered like notes,
 
@@ -1134,7 +1133,7 @@ line of themselves.  Hence, we have to override the context with
 context
 
 @lilypond[quote,verbatim]
- \new ChordNames \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+\new ChordNames \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
 @cindex lead sheet
@@ -1334,7 +1333,7 @@ such a staff is similar to the polyphonic example in @ref{More staves}
 but now this entire expression must be interpreted as a
 @code{PianoStaff}
 @example
- \new PianoStaff << \new Staff @dots{} >>
+\new PianoStaff << \new Staff @dots{} >>
 @end example
 
 Here is a full-fledged example
@@ -1438,7 +1437,7 @@ Then, an individual part is made by putting the following in a file
 The line
 
 @example
-  \include "horn-music.ly"
+\include "horn-music.ly"
 @end example
 
 @noindent

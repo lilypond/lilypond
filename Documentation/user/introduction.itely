@@ -521,6 +521,7 @@ to type
 @example
 c'4 d'8
 @end example
+@noindent
 a quarter note C1 (middle C) and an eighth note D1 (D above middle C)
 @lilypond[quote,fragment]
 c'4 d'8

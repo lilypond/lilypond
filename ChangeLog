@@ -2,7 +2,8 @@
 
 	* Documentation/user/dedication.itely,
 	Documentation/user/preface.itely,
-	Documentation/user/introduction.itely: Revised.
+	Documentation/user/introduction.itely,
+	Documentation/user/tutorial.itely: Revised.
 	Removing leading spaces which distorts output if info files are read
 	with stand-alone info.
 	Removing superfluous inter-word spaces which also distorts output
