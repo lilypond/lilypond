@@ -1,3 +1,23 @@
+2003-03-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely: add @omf tags
+
+	* Documentation/user/lilypond.tely: add @omf tags
+
+	* scm/generate-documentation.scm (string-append): add @omf tags.
+
+	* stepmake/stepmake/omf-*: new files 
+
+	* input/regression/multi-measure-rest.ly (texidoc): add doco
+
+	* GNUmakefile.in (web-doc-install): add web-doc-install target
+
+	* lily/scm-hash.cc (remove): prevent underflow of elt_count_. This
+	fixes crashes while dumping MIDI.
+
+	* ly/performer-init.ly (FiguredBassContext): add Figured bass for
+	midi
+
 2003-03-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* buildscripts/texi2omf.py: new file.

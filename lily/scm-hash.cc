@@ -11,14 +11,20 @@
 #include "scm-hash.hh"
 #include "ly-smobs.icc"
 
-void
+/*
+  Return: number of objects.
+ */
+int
 copy_scm_hashes (SCM dest, SCM src)
 {
-  for (int i = SCM_SYMBOL_LENGTH (src); i--;)
+  int k = 0;
+  for (int i = SCM_VECTOR_LENGTH (src); i--;)
     for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); ly_pair_p(s); s = ly_cdr (s))
       {
 	scm_hashq_set_x (dest, ly_caar (s), ly_cdar (s));
+	k++;
       }
+  return k ;
 }
 
 
@@ -35,11 +41,11 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
 
 {
   hash_tab_ = SCM_EOL;
-  elt_count_ = src.elt_count_;
+  elt_count_ = 0;
   smobify_self ();
 
   hash_tab_ = scm_make_vector (gh_int2scm (src.elt_count_ >? 11 ), SCM_EOL);  
-  copy_scm_hashes (hash_tab_, src.hash_tab_);
+  elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
 void
@@ -48,9 +54,8 @@ Scheme_hash_table::operator = (Scheme_hash_table const & src)
   if (&src == this)
     return;
   
-  elt_count_ = src.elt_count_;
   hash_tab_ = scm_make_vector (gh_int2scm (src.elt_count_ >? 11), SCM_EOL);  
-  copy_scm_hashes (hash_tab_, src.hash_tab_);
+  elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
 SCM
@@ -108,13 +113,12 @@ Scheme_hash_table::set (SCM k, SCM v)
   /*
     resize if getting too large.
   */
-  if (elt_count_ > 2 * SCM_SYMBOL_LENGTH (hash_tab_))
+  if (elt_count_ > 2 * SCM_VECTOR_LENGTH (hash_tab_))
     {
       SCM nh = scm_make_vector (gh_int2scm (3* elt_count_+1), SCM_EOL);
-      copy_scm_hashes (nh, hash_tab_);
+      elt_count_ = copy_scm_hashes (nh, hash_tab_);
       hash_tab_ = nh;
     }
-  
 }
 
 // UGH. 
@@ -131,7 +135,10 @@ void
 Scheme_hash_table::remove (SCM k)
 {
   scm_hashq_remove_x (hash_tab_, k);
-  elt_count_ --;
+  /*
+    don't decrease elt_count_ , as this may cause underflow. The exact
+    value of elt_count_ is not important.
+   */
 }
 
 Scheme_hash_table::~Scheme_hash_table ()
@@ -142,7 +149,7 @@ SCM
 Scheme_hash_table::to_alist () const
 {
   SCM l = SCM_EOL;
-  for (int i = SCM_SYMBOL_LENGTH (hash_tab_); i--;)
+  for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
     for (SCM s = scm_vector_ref (hash_tab_, gh_int2scm (i)); ly_pair_p(s); s = ly_cdr (s))
       {
 	l = scm_acons (ly_caar (s), ly_cdar (s), l);

@@ -53,6 +53,7 @@ if not files:
 formats = {
 	'html' : 'text/html',
 	'pdf' : 'application/pdf',
+	'ps.gz' : 'application/postscript',
 	'ps' : 'application/postscript',
 	}
 

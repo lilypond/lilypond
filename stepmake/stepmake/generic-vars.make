@@ -9,7 +9,10 @@ DEPTH = $(depth)/$(package-depth)
 ##deprecated
 #topdir := $(abs-srcdir)
 #endif
-pwd := $(shell pwd)
+
+## `which pwd` is to prevent symlink resolving intelligence 
+pwd:=$(shell `which pwd`)
+current-relative-dir:=$(subst $(strip $(shell cd $(depth); `which pwd`)),,$(pwd))
 
 ifeq ($(srcdir),.)
 src-depth = $(depth)

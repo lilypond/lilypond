@@ -29,6 +29,15 @@ Distributions will want to install lilypond.info doing:
 @end direntry
 
 
+@ignore
+@omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
+@omfdescription User manual  of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Music 
+@end ignore
+
+
+
 @ifhtml
 This document is also available in @uref{../lilypond.ps.gz,gzipped
 PostScript} and @uref{../lilypond.pdf,PDF}.

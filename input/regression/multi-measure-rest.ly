@@ -7,10 +7,11 @@ are not expanded when you set @code{Score.skipBars}.  Although the
 multi-measure-rest is a Spanner, minimum distances are set to keep it
 colliding from barlines. 
 
+Rests over measures during longer than 2 wholes use breve rests. When
+more than 10 or more measures (tunable through @code{expand-limit})
+are used then a different symbol is used.
 
-Rests over measures during longer than 2 wholes use breve rests.
 "
-
 }
 
 
@@ -20,7 +21,9 @@ Rests over measures during longer than 2 wholes use breve rests.
   
     R2.
     R2.*3
-    R2.*27
+    R2.*9
+    R2.*11
+
 \time 8/4 R1*2
 }
 	\paper {

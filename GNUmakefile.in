@@ -90,6 +90,11 @@ lily/$(outdir)/lilypond:
 
 local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
+
+web-doc-install: web-doc
+	$(INSTALL) -m 755 -d $(local_package_docdir) 
+	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
+
 web-ext = gz html midi pdf png txt ly
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
