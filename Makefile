@@ -56,10 +56,10 @@ parser.hh: parser.cc
 version.o: $(obs) version.hh
 
 hdr/version.hh: Variables.make make_version
-	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > $@
+	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL) "$(CXX) $(CXXVER)" > $@
 
 $(CCDIR)/lexer.cc: lexer.l
-	$(FLEX) -+ -t $< > $@
+	$(FLEX)  -t $< > $@
 
 dist:
 	-mkdir $(DDIR)
