@@ -1,3 +1,10 @@
+2004-01-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/new-markup.scm (parse-simple-duration): parse duration
+	string to log & dots. (Thanks Nicolas!)
+
+	* scripts/convert-ly.py (FatalConversionError.sub_note): add \note rule.
+
 2004-01-17  Heikki Junes   <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond.words.py: remove unused files (THANKS Werner

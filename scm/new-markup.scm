@@ -255,15 +255,42 @@ Syntax: \\fraction MARKUP1 MARKUP2."
 
 
 ;; TODO: better syntax.
+
+
+(use-modules (ice-9 optargs)
+             (ice-9 regex))
+
+(define-public log2 
+  (let ((divisor (log 2)))
+    (lambda (z) (inexact->exact (/ (log z) divisor)))))
+
+(define (parse-simple-duration duration-string)
+  "Parse the `duration-string', eg ''4..'' or ''breve.'', and return a (log dots) list."
+  (let ((match (regexp-exec (make-regexp "(breve|longa|maxima|[0-9]+)(\\.*)") duration-string)))
+    (if (and match (string=? duration-string (match:substring match 0)))
+        (let ((len  (match:substring match 1))
+              (dots (match:substring match 2)))
+          (list (cond ((string=? len "breve")  -1)
+                      ((string=? len "longa")  -2)
+                      ((string=? len "maxima") -3)
+                      (else (log2 (string->number len))))
+                (if dots (string-length dots) 0)))
+        (error "This is not a valid duration string:" duration-string))))
+
+
 (define-public (note-markup paper props . rest)
+  (let*
+      ((parsed (parse-simple-duration (car rest)))
+       (dir (cadr rest)))
+    (make-note paper props (car parsed) (cadr parsed) dir)
+  ))
+
+(define-public (make-note paper props log dot-count dir)
   "Syntax: \\note #LOG #DOTS #DIR.  By using fractional values
 for DIR, you can obtain longer or shorter stems."
  
   (let*
       (
-       (log (car rest))
-       (dot-count (cadr rest))
-       (dir (caddr rest))
        (font (ly:paper-get-font paper (cons '((font-family .  music)) props)))
        (stemlen (max 3 (- log 1)))
        (headgl
@@ -606,7 +633,7 @@ any sort of property supported by @ref{font-interface} and
    (cons number-markup (list markup?))
    (cons hbracket-markup  (list markup?))
    (cons bracket-markup  (list markup?))
-   (cons note-markup (list integer? integer? ly:dir?))
+   (cons note-markup (list string? number?))
    (cons fraction-markup (list markup? markup?))
    
    (cons column-markup (list markup-list?))

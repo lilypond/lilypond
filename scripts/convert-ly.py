@@ -1661,9 +1661,30 @@ conversions.append (((2,1,10), conv, """\\newaddlyrics -> \\lyricsto"""))
 def conv (str):
 	str = re.sub (r'\\include\s*"paper([0-9]+)(-init)?.ly"',
 		      r"#(set-staff-size \1)", str)
+
+	def sub_note (match):
+		dur = ''
+		log = string.atoi (match.group (1))
+		dots = string.atoi (match.group (2))
+		
+		if log >= 0:
+			dur = '%d' % (1 << log)
+		else:
+			dur = { -1 : 'breve',
+				-2 : 'longa',
+				-3 : 'maxima'}[log]
+
+		dur += ('.' * dots)
+		
+		return r'\note #"%s" #%s' % (dur, match.group (3))
+	
+	str = re.sub (r'\\note\s+#([0-9-]+)\s+#([0-9]+)\s+#([0-9.-]+)',
+		      sub_note, str)
 	return str
 
-conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-size 16) """))
+conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-size 16)
+\note #3 #1 #1 -> \note #"8." #1
+"""))
 
 
 ################################
