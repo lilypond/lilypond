@@ -1,6 +1,11 @@
+2002-04-05  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/cmbase.mf: remove file. -- do without s and z signs for now.
+
 2002-04-04  Han-Wen  <hanwen@cs.uu.nl>
 
 	* mf/feta-new-code.mf:  new dynamic f sign.
+	new dynamic m sign.
 
 2002-04-03  Han-Wen  <hanwen@cs.uu.nl>
 
