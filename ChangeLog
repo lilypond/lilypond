@@ -7,6 +7,9 @@
 
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/invoking.itexi (Invoking the lilypond
+	binary): document --safe.
+
 	* scm/output-gnome.scm: set PATH in script.
 
 	* scm/page-layout.scm (default-page-make-stencil): don't stretch
