@@ -739,15 +739,19 @@ Alternative_music: {
 		Music_list* m = new Music_list;
 		$$ = new Sequential_music (m);
 	}
-	| ALTERNATIVE '{' Music_list '}'		{
-		$$ = new Sequential_music ($3);
+	| ALTERNATIVE Simultaneous_music {
+		$$ = $2;
+	}
+	| ALTERNATIVE Sequential_music {
+		$$ = $2;
 	}
 	;
 
 Repeated_music: REPEAT unsigned '{' Music '}' Alternative_music	{
 		// s/r conflicts -> '{' '}' 
-		Sequential_music* s = (Sequential_music*)$6;
-		$$ = new Repeated_music ($4, $2, s);
+		Music_sequence* m = dynamic_cast <Music_sequence*> ($6);
+		assert (m);
+		$$ = new Repeated_music ($4, $2, m);
 	}
 	;
 

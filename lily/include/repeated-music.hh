@@ -21,10 +21,10 @@ public:
   int repeats_i_;
   Music* repeat_p_;
 //  Music_list* alternative_p_;
-  Sequential_music* alternative_p_;
+  Music_sequence* alternative_p_;
 
 //  Repeated_music (Music*, int n, Music_list*);
-  Repeated_music (Music*, int n, Sequential_music*);
+  Repeated_music (Music*, int n, Music_sequence*);
   Repeated_music (Repeated_music const& s);
   virtual ~Repeated_music ();
   

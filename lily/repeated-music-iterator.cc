@@ -94,8 +94,8 @@ Repeated_music_iterator::ok () const
 	  Repeated_music_iterator *urg = (Repeated_music_iterator*)this;
 	  delete urg->repeat_iter_p_;
 	  urg->repeat_iter_p_ = 0;
-	  urg->alternative_iter_p_ = dynamic_cast<Sequential_music_iterator*>
-	    (get_iterator_p (repeated_music_l ()->alternative_p_));  
+	  urg->alternative_iter_p_ = dynamic_cast<Music_list_iterator*>
+	    (get_iterator_p ((Music*)repeated_music_l ()->alternative_p_));  
 	}
     }
   if (alternative_iter_p_)

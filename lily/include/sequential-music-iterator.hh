@@ -1,33 +1,32 @@
 /*
-  Sequential_music-iter.hh -- declare Sequential_music_iterator
+  Sequential_music-iterator.hh -- declare Sequential_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#ifndef SEQUENTIAL_MUSIC_ITER_HH
-#define SEQUENTIAL_MUSIC_ITER_HH
+#ifndef SEQUENTIAL_MUSIC_ITERATOR_HH
+#define SEQUENTIAL_MUSIC_ITERATOR_HH
 
-#include "music-iterator.hh"
-#include "pcursor.hh"
+#include "music-list-iterator.hh"
 
 /** Sequential_music iteration: walk each element in turn, and
   construct an iterator for every element.
   
  */
-class Sequential_music_iterator :  public Music_iterator
+class Sequential_music_iterator :  public Music_list_iterator
 {
 public:
   Sequential_music_iterator ();
-  ~Sequential_music_iterator ();
+  virtual ~Sequential_music_iterator ();
 
   virtual void construct_children ();
   virtual Moment next_moment () const;
   virtual bool ok () const;
 
 protected:
-  Sequential_music * sequential_music_l() const;
+  Sequential_music* sequential_music_l () const;
 
   virtual void do_print() const;
   virtual void do_process_and_next (Moment);
@@ -45,4 +44,4 @@ private:
   void set_Sequential_music_translator();
 };
 
-#endif // SEQUENTIAL_MUSIC_ITER_HH
+#endif // SEQUENTIAL_MUSIC_ITERATOR_HH

@@ -1,5 +1,5 @@
 /*
-  Simultaneous_music-iter.cc -- implement Simultaneous_music_iterator
+  Simultaneous_music-iterator.cc -- implement Simultaneous_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,10 +8,17 @@
 
 #include "translator-group.hh"
 #include "debug.hh"
-#include "chord-iterator.hh"
+#include "simultaneous-music-iterator.hh"
 
 #include "music-list.hh"
 
+Simultaneous_music_iterator::Simultaneous_music_iterator ()
+{
+}
+
+Simultaneous_music_iterator::~Simultaneous_music_iterator ()
+{
+}
 
 void
 Simultaneous_music_iterator::construct_children()

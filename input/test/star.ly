@@ -56,19 +56,15 @@ $staff2_voice_2 = \notes {
   [g8.  g16] fis4.~a,8 [d8 e8] fis2 [b8 b8] a4. a8 a,4 d2 s4 
 }
 
-$text1 = \lyrics{
-  Oh4 __ say. can you see,2 by8. the16 dawn's4 ear- ly light2 What8
+$text = \lyrics{
+  Oh4 __ \repeat 2 { { } } 
+  \alternative < 
+  { say. can you see,2 by8. the16 dawn's4 ear- ly light2 What8
   so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
-  ing. Whose8. broad16 
-}
-
-$text2 = \lyrics{
-  _4 stripes and bright stars,2 through8 the8 per-4 il- ous fight,2
-  O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly
-  _ _ _ 
-}
-
-$text3 = \lyrics{
+  ing. Whose8. broad16 }
+  { stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
+  O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly }
+  >
   stream-4 ing. And8. the16 rock-4 ets' red glare,2 the8 bombs8
   burst-4 ing in air,2 gave4 proof4. through8 the4 night2 that8.
   our16 flag4 was still there,2 Oh4 say, does that star- span-
@@ -81,9 +77,7 @@ global = \notes {
 	\key D;
 	\partial 4;
 	\skip 4;
-	\bar "|:";
 	\skip 2.*8;
-	\bar ":|";
 	\skip 2.*16;
 	\skip 2.;
 	\bar "|.";
@@ -99,10 +93,7 @@ global = \notes {
 			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
 		\type Lyrics = one \lyrics <
-% urg, too much distance between two texts; fixme first
-%			\$text1
-%			{ \$text2 \$text3 }
-			{ \$text1 \$text3 }
+			\$text
 		>
 		\type Staff=staffB < 
 			\global

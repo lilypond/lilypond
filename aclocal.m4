@@ -170,7 +170,7 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
       AC_CHECK_LIB(guile, scm_boot_guile)\
     )
     if test "$ac_cv_lib_guile_scm_shell" != yes -a \
-      "$ac_cv_lib_scm_boot_guile" != yes ; then
+      "$ac_cv_lib_guile_scm_boot_guile" != yes ; then
 	    AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
     fi
 ])
