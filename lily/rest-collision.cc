@@ -60,15 +60,16 @@ col2rhythmic_head (Note_column* c)
   return dynamic_cast<Rhythmic_head*> (e);
 }
 
-GLUE_SCORE_ELEMENT(Rest_collision,before_line_breaking);
+GLUE_SCORE_ELEMENT(Rest_collision,after_line_breaking);
+
 SCM
-Rest_collision::member_before_line_breaking ()
+Rest_collision::member_after_line_breaking ()
 {
   Link_array<Note_column> rest_l_arr =
     Pointer_group_interface__extract_elements (this, (Note_column*) 0, "rests");
   Link_array<Note_column> ncol_l_arr =
     Pointer_group_interface__extract_elements (this, (Note_column*) 0, "notes");
-				      
+
   
   /* 
      handle rest-rest and rest-note collisions

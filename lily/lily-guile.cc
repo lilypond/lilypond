@@ -404,3 +404,15 @@ init_functions ()
 }
 
 ADD_SCM_INIT_FUNC(funcs, init_functions);
+
+SCM
+ly_deep_copy (SCM l)
+{
+  if (gh_pair_p (l))
+    {
+      return gh_cons (ly_deep_copy (gh_car (l)), ly_deep_copy (gh_cdr (l)));
+    }
+  else
+    return l;
+}
+
