@@ -16,7 +16,9 @@ NAME = Documentation
 include ./$(depth)/make/Variables.make 
 include ./$(depth)/make/Version.make
 include ./$(depth)/make/Files.make 
+include ./Rules.make
 #
+
 
 #
 DOCFILES = $(wildcard *.doc)
@@ -32,7 +34,8 @@ DVIFILES = $(addprefix $(outdir)/, $(DOCFILES:.doc=.dvi))
 EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif  $(DOCFILES)
 default: do-doc
 
-do-doc: $(TEXTFILES) $(DVIFILES)
+# don't do DVI files. They can only be made if lily is installed
+do-doc: $(TEXTFILES)
 
 html: $(HTMLFILES)
 
