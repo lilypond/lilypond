@@ -230,7 +230,7 @@ Pitch::down_to (int notename)
 }
  
 LY_DEFINE(ly_pitch_transpose,
-	  "ly:transpose-pitch", 2, 0, 0,
+	  "ly:pitch-transpose", 2, 0, 0,
 	  (SCM p, SCM delta),
 	  "Transpose @var{p} by the amount @var{delta}, where @var{delta} is the "
 " pitch that central C is transposed to.")

@@ -110,7 +110,7 @@ is the  first to satisfy CRIT
       )
   ))
 
-
+;; rare naam.  voorstel: reduce-add-infix
 (define-public (reduce-list list between)
   "Create new list, inserting BETWEEN between elements of LIST"
   (if (null? list)
@@ -139,22 +139,23 @@ is the  first to satisfy CRIT
   (newline)
   x)
 
-(define (!= l r)
+(define-public (!= l r)
   (not (= l r)))
 
+;; why -list suffix (see reduce-list)
 (define-public (filter-list pred? list)
   "return that part of LIST for which PRED is true."
   (if (null? list) '()
-      (let* ((rest  (filter-list pred? (cdr list))))
-	(if (pred?  (car list))
+      (let* ((rest (filter-list pred? (cdr list))))
+	(if (pred? (car list))
 	    (cons (car list)  rest)
 	    rest))))
 
 (define-public (filter-out-list pred? list)
-  "return that part of LIST for which PRED is true."
+  "return that part of LIST for which PRED is false."
   (if (null? list) '()
-      (let* ((rest  (filter-list pred? (cdr list))))
-	(if (not (pred?  (car list)))
+      (let* ((rest (filter-out-list pred? (cdr list))))
+	(if (not (pred? (car list)))
 	    (cons (car list)  rest)
 	    rest))))
 
@@ -199,6 +200,7 @@ is the  first to satisfy CRIT
 	     (scm sketch)
 	     (scm sodipodi)
 	     (scm pdftex)
+	     (scm double-plus-new-chord-name)
 	     )
 
 (define output-alist
