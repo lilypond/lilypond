@@ -1,6 +1,6 @@
 dnl aclocal.m4   -*-shell-script-*-
 dnl WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from /users/hanwen/usr/src/lilypond/stepmake/aclocal.m4
+dnl do not edit! this is aclocal.m4, generated from /home/fred/cvs/savannah/lilypond/stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -238,23 +238,24 @@ AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
 
 
 AC_DEFUN(STEPMAKE_DATADIR, [
-    if test "$datadir" = "\${prefix}/share"; then
-	    datadir='${prefix}/share/'$package/$FULL_VERSION
-    fi
-    DIR_DATADIR=${datadir}
     presome=${prefix}
     if test "$prefix" = "NONE"; then
-	    presome=${ac_default_prefix}
+	presome=${ac_default_prefix}
     fi
-    DIR_DATADIR=`echo ${DIR_DATADIR} | sed "s!\\\${prefix}!$presome!"`
-
-    AC_SUBST(datadir)
-    AC_SUBST(DIR_DATADIR)
-
-    # we used to set DIR_SHAREDSTATEDIR here,
-    # but apparently that broke something
+    datadir=$(echo ${datadir} | sed "s!\\\${prefix}!$presome!")
     
-    AC_DEFINE_UNQUOTED(DIR_DATADIR, "${DIR_DATADIR}")
+    package_datadir=$datadir/$package
+    local_package_datadir=$package_datadir/$FULL_VERSION
+    build_package_datadir=$builddir/share/$package
+    
+    AC_SUBST(datadir)
+    AC_SUBST(package_datadir)
+    AC_SUBST(local_package_datadir)
+    AC_SUBST(build_package_datadir)
+    AC_DEFINE_UNQUOTED(DATADIR, "${datadir}")
+    AC_DEFINE_UNQUOTED(PACKAGE_DATADIR, "${package_datadir}")
+    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_DATADIR, "${local_package_datadir}")
+    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, "${build_package_datadir}")
 ])
 
 
@@ -332,16 +333,14 @@ AC_DEFUN(STEPMAKE_GCC, [
 
 
 AC_DEFUN(STEPMAKE_GETTEXT, [
-    DIR_LOCALEDIR=${localedir}
     presome=${prefix}
     if test "$prefix" = "NONE"; then
 	    presome=${ac_default_prefix}
     fi
-    DIR_LOCALEDIR=`echo ${DIR_LOCALEDIR} | sed "s!\\\${prefix}!$presome!"`
+    localedir=$(echo ${localedir} | sed "s!\\\${prefix}!$presome!")
+    
     AC_SUBST(localedir)
-    AC_SUBST(DIR_LOCALEDIR)
-    AC_DEFINE_UNQUOTED(DIR_LOCALEDIR, "${DIR_LOCALEDIR}")
-
+    AC_DEFINE_UNQUOTED(LOCALEDIR, "${localedir}")
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
 ])
@@ -467,7 +466,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     fi
 
     AC_MSG_CHECKING(Package)
-    if test "x$PACKAGE" = "xSTEPMAKE"; then
+    if test "$PACKAGE" = "STEPMAKE"; then
 	AC_MSG_RESULT(Stepmake package!)
 
 	AC_MSG_CHECKING(builddir)
@@ -528,7 +527,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_DEFINE_UNQUOTED(PACKAGE, "${PACKAGE_NAME}")
     AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 
-    if test "$package_depth" = "" ; then
+    if test -z "$package_depth"; then
     	package_depth="."
     else
     	package_depth="../$package_depth"

@@ -248,7 +248,7 @@ Mensural_ligature::brew_ligature_primitive (SCM smob)
 
 MAKE_SCHEME_CALLBACK (Mensural_ligature, brew_molecule, 1);
 SCM
-Mensural_ligature::brew_molecule (SCM smob)
+Mensural_ligature::brew_molecule (SCM)
 {
   return SCM_EOL;
 }

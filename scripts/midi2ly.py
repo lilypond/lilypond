@@ -30,11 +30,11 @@ import string
 
 
 # do fuddling: we must load the midi module from the right directory. 
-datadir = '@datadir@'
+datadir = '@local_package_datadir@'
 if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 else:
-	datadir = '@datadir@'
+	datadir = '@local_package_datadir@'
 
 sys.path.append (os.path.join (datadir, 'python'))
 sys.path.append (os.path.join (datadir, 'python/out'))

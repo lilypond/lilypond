@@ -202,7 +202,7 @@ void ly_display_scm (SCM s);
 #include "array.hh"
 
 void read_lily_scm_file (String);
-void init_lily_guile (String dir);
+void ly_init_guile ();
 
 bool ly_dir_p (SCM s);
 bool ly_number_pair_p (SCM);

@@ -20,11 +20,14 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 
 builddir = @builddir@
+build_lilypond_datadir = @build_package_datadir@
 bindir = @bindir@
 datadir = @datadir@
 includedir = @includedir@
 infodir = @infodir@
 libdir = @libdir@
+lilypond_datadir = @package_datadir@
+local_lilypond_datadir = @local_package_datadir@
 localedir = @localedir@
 mandir = @mandir@
 program_prefix = @program_prefix@

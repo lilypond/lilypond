@@ -112,34 +112,31 @@ WWW:
 
 default: builddir-setup
 
-builddir-setup: $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force
+builddir-setup: $(builddir)/share/lilypond-force
 
-$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
+$(builddir)/share/lilypond-force:
 	# Preparing LilyPond tree for builddir exec
 	@echo Making $(builddir)/share 
 	@cd $(builddir) && rm -rf share
-	@cd $(builddir) && mkdir -p share/lilypond
-	@cd $(builddir)/share/lilypond && mkdir -p $(TOPLEVEL_VERSION)
-	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+	@mkdir -p $(builddir)/share/lilypond
+	@mkdir -p $(builddir)/share/lilypond/fonts
+	@mkdir -p $(builddir)/share/lilypond/tex
+	@cd $(builddir)/share/lilypond && \
 		ln -s $(abs-srcdir)/ly ly && \
-		ln -s ../../../mf/$(outconfbase) dvips && \
-		ln -s ../../../mf/$(outconfbase) afm && \
-		ln -s ../../../mf/$(outconfbase) tfm && \
+		ln -s ../../mf/$(outconfbase) dvips && \
+		ln -s ../../mf/$(outconfbase) afm && \
+		ln -s ../../mf/$(outconfbase) tfm && \
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
 		ln -s $(abs-srcdir)/scm
-	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
-		mkdir tex
-	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/tex && \
+	@cd $(builddir)/share/lilypond/tex && \
 		ln -s $(abs-srcdir)/tex source && \
-		ln -s ../../../../mf/$(outconfbase) generate
-	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
-		mkdir fonts
-	@cd $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/fonts && \
+		ln -s ../../../mf/$(outconfbase) generate
+	@cd $(builddir)/share/lilypond/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
-		ln -s ../../../../mf/$(outconfbase) afm && \
-		ln -s ../../../../mf/$(outconfbase) tfm && \
-		ln -s ../../../../mf/$(outconfbase) type1
+		ln -s ../../../mf/$(outconfbase) afm && \
+		ln -s ../../../mf/$(outconfbase) tfm && \
+		ln -s ../../../mf/$(outconfbase) type1
 
 local-clean: builddir-setup-clean
 builddir-setup-clean:

@@ -37,12 +37,12 @@ import tempfile
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
-datadir = '@datadir@'
+datadir = '@local_package_datadir@'
 if os.environ.has_key ('LILYPONDPREFIX') \
-   or '@datadir@' == '@' + 'datadir' + '@':
+   or '@local_package_datadir@' == '@' + 'local_package_datadir' + '@':
 	datadir = os.environ['LILYPONDPREFIX']
 else:
-	datadir = '@datadir@'
+	datadir = '@local_package_datadir@'
 
 sys.path.append (os.path.join (datadir, 'python'))
 sys.path.append (os.path.join (datadir, 'python/out'))

@@ -273,26 +273,12 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
-extern  void init_cxx_function_smobs ();
+extern void init_cxx_function_smobs ();
+
 
 void
-prepend_load_path (String p )
+ly_init_guile ()
 {
-  char s[1024];
-  sprintf (s, 
-	   "(set! %%load-path (cons \"%s\" %%load-path))", p.ch_C());
-
-  scm_c_eval_string (s);
-}
-
-void
-init_lily_guile (String p )
-{
-  prepend_load_path (p);
-
-  // todo: junk this. We should make real modules iso. just loading files.
-  prepend_load_path (p + "/scm/");
-
   SCM last_mod = scm_current_module ();
   scm_set_current_module (scm_c_resolve_module ("guile"));
   
@@ -773,7 +759,7 @@ ly_split_list (SCM s, SCM list)
 
 
 void
-taint (SCM * foo)
+taint (SCM *)
 {
   /*
     nop.

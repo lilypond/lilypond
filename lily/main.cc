@@ -131,48 +131,48 @@ static Long_option_init options_static[] = {
 };
 
 void
-identify (FILE* os)
+identify (FILE *out)
 {
-  fputs(gnu_lilypond_version_str ().ch_C(), os);
+  fputs (gnu_lilypond_version_str ().ch_C (), out);
+}
+
+void
+dirinfo (FILE *out)
+{
+  fputs ("\n", out);
+  fprintf (out, "lilypond_datadir: `%s'\n", LILYPOND_DATADIR);
+  fprintf (out, "local_lilypond_datadir: `%s'\n", LOCAL_LILYPOND_DATADIR);
+  fprintf (out, "localedir: `%s'\n", LOCALEDIR);
+
+  char *lilypond_prefix = getenv ("LILYPONDPREFIX");
+  fprintf (out, "LILYPONDPREFIX: `%s'\n",
+	   (lilypond_prefix ? lilypond_prefix : ""));
 }
 
 void
 usage ()
 {
-  
-  /*
-    No version number or newline here. It confuses help2man
-   */
-  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C();
+  std::cout << "\n";
+  /* No version number or newline here. It confuses help2man.  */
+  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C ();
   std::cout << "\n\n";
-  std::cout << _ ("Typeset music and or play MIDI from FILE").ch_C();
+  std::cout << _ ("Typeset music and or play MIDI from FILE").ch_C ();
   std::cout << "\n\n";
   std::cout << 
 _ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-).ch_C();
+).ch_C ();
 
   std::cout << '\n';
-  std::cout << _ ("Options:").ch_C();
+  std::cout << _ ("Options:").ch_C ();
   std::cout << '\n';
-  std::cout << Long_option_init::table_str (options_static).ch_C();
+  std::cout << Long_option_init::table_str (options_static).ch_C ();
   std::cout << '\n';
-  std::cout << _ ("This binary was compiled with the following options:") .ch_C()
-    << " " <<
-#ifdef NDEBUG
-    "NDEBUG "
-#endif
-    "\n"
-    "datadir: `" DIR_DATADIR "'\n"
-    "localedir: `" DIR_LOCALEDIR "'\n"
-    "\n";
-
-
   std::cout << std::endl;
 
-  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C() << std::endl;
+  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C () << std::endl;
 }
 
 void
@@ -184,10 +184,10 @@ version ()
   "This is free software.  It is covered by the GNU General Public License,\n"
   "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n",
-    "lilypond").ch_C();
+    "lilypond").ch_C ();
   std::cout << std::endl;
 
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C ();
   std::cout << '\n';
   std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -197,9 +197,9 @@ void
 notice ()
 {
   std::cout << '\n';
-  std::cout << _ ("GNU LilyPond -- The music typesetter").ch_C();
+  std::cout << _ ("GNU LilyPond -- The music typesetter").ch_C ();
   std::cout << '\n';
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C ();
   std::cout << '\n';
   std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -217,19 +217,20 @@ notice ()
 	     "    You should have received a copy (refer to the file COPYING) of the\n"
 	     "GNU General Public License along with this program; if not, write to\n"
 	     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-	     "USA.\n").ch_C();
+	     "USA.\n").ch_C ();
 }
 
-String prefix_directory;
+
+/* Where LilyPond's init files live.  Typically:
+   LILYPOND_DATADIR = /usr/local/share/lilypond
+   LOCAL_LILYPOND_DATADIR = /usr/local/share/lilypond/1.5.68 */
+char const *prefix_directory[2] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR};
 
 void
 setup_paths ()
 {
-  // facilitate binary distributions
-  char const *env_lily = getenv ("LILYPONDPREFIX");
-
-  if (env_lily)
-    prefix_directory = env_lily;
+  if (char const *lilypond_prefix = getenv ("LILYPONDPREFIX"))
+    prefix_directory[1] = lilypond_prefix;
 
 #if HAVE_GETTEXT
   setlocale (LC_ALL, ""); /* enable locales */
@@ -242,13 +243,13 @@ setup_paths ()
     urg; what *do* we want with $LILYPONDPREFIX, DIR_DATADIR and $prefix/share
     handy for multiple source-dir runs, though...
    */
-  if (!prefix_directory.empty_b ())
+  if (!String (prefix_directory[0]).empty_b ())
     {
-      lily_locale_dir = prefix_directory + "/share/locale";
+      lily_locale_dir = String (prefix_directory[0]) + "/share/locale";
       bindtextdomain (name.ch_C (), lily_locale_dir.ch_C ());
     }
   else
-    bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
+    bindtextdomain (name.ch_C (), LOCALEDIR);
   textdomain (name.ch_C ());
 #endif
 
@@ -259,22 +260,22 @@ setup_paths ()
      LILYPONDPREFIX to lilypond-x.y.z */
   char *suffixes[] = {"ly", "afm", "mf/out", "scm", "tfm", "ps", 0};
 
-  if (prefix_directory.empty_b ())
-    prefix_directory =  DIR_DATADIR;
-  for (char **s = suffixes; *s; s++)
-    {
-      String p =  prefix_directory + to_str ('/') + String (*s);
-      global_path.add (p);
-
+  for (unsigned i = 0; i < sizeof (prefix_directory)
+	 / sizeof (*prefix_directory); i++)
+    for (char **s = suffixes; *s; s++)
+      {
+	String p = prefix_directory[i] + to_str ('/') + String (*s);
+	global_path.add (p);
+	
 #if !KPATHSEA
-      /* Urg: GNU make's $ (word) index starts at 1 */
-      int i  = 1;
-      while (global_path.try_add (p + to_str (".") + to_str (i)))
-	i++;
+	/* Urg: GNU make's $ (word) index starts at 1 */
+	int i  = 1;
+	while (global_path.try_add (p + to_str (".") + to_str (i)))
+	  i++;
 #endif
-    }
-}
-
+      }
+  }
+  
 /**
   Make input file name from command argument.
 
@@ -316,26 +317,40 @@ format_to_ext (String format)
 }
 
 void
-main_prog (void * , int, char**)
+prepend_load_path (String dir)
 {
-  /*
-    need to do this first. Engravers use lily.scm contents.
-   */
+  String s = "(set! %load-path (cons \""
+    + dir
+    + "\" %load-path))";
+  scm_c_eval_string (s.ch_C ());
+}
+
+void
+main_prog (void *, int, char **)
+{
+  /* Engravers use lily.scm contents, need to make Guile find it.
+     Prepend onto GUILE %load-path, very ugh. */
+     
+  for (unsigned i = 0; i < sizeof (prefix_directory)
+	 / sizeof (*prefix_directory); i++)
+    {
+      prepend_load_path (prefix_directory[i]);
+      /* Junk this.  We should make real modules iso. just loading files. */
+      prepend_load_path (String (prefix_directory[i]) + "/scm");
+    }
+      
+  if (verbose_global_b)
+    dirinfo (stderr);
   
-  /*
-    prepend onto GUILE  loadpath.
-
-    Very ugh.
-   */
-
-  init_lily_guile (prefix_directory);
+  ly_init_guile ();
+  
   std::cout << std::endl;
 
   call_constructors ();
   all_fonts_global_p = new All_font_metrics (global_path.str ());
 
   init_scheme_code_string += ")";
-  gh_eval_str ((char *)init_scheme_code_string.ch_C());
+  gh_eval_str ((char *)init_scheme_code_string.ch_C ());
   
   int p=0;
   const char *arg  = oparser_p_static->get_next_arg ();
@@ -346,22 +361,12 @@ main_prog (void * , int, char**)
       /* No FILE arguments is now a usage error */
       exit (2);
     }
-  else
-    do 
+  
+  do
     {
       String infile (arg);
-      	
-      /* What/when was this supposed to do?
-       It looks like it reset the outname_str_global for every new
-       file, but only if user didn't specify a outname?  Huh?
-
-       // if (outname_str_global == "")
-
-      */
-      {
-	Midi_def::reset_score_count ();
-	Paper_def::reset_score_count ();
-      }
+      Midi_def::reset_score_count ();
+      Paper_def::reset_score_count ();
 
       Path inpath = distill_inname (infile);
 
@@ -428,7 +433,8 @@ main (int argc, char **argv)
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", false);
 
   ly_init_kpath (argv[0]);
-  
+
+  bool help_b = false;
   oparser_p_static = new Getopt_long (argc, argv, options_static);
   while (Long_option_init const * opt = (*oparser_p_static) ())
     {
@@ -471,8 +477,7 @@ main (int argc, char **argv)
 	  init_name_global = oparser_p_static->optional_argument_ch_C_;
 	  break;
 	case 'h':
-	  usage ();
-	  exit (0);
+	  help_b = true;
 	  break;
 	case 'V':
 	  verbose_global_b = true;
@@ -492,6 +497,14 @@ main (int argc, char **argv)
 	}
     }
   identify (stderr);
+
+  if (help_b)
+    {
+      usage ();
+      if (verbose_global_b)
+	dirinfo (stdout);
+      exit (0);
+    }
 
 #ifdef WINNT
   scm_boot_guile (argc, argv, main_prog, 0);

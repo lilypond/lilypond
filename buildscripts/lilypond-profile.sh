@@ -8,11 +8,10 @@
 #   . lilypond-profile
 
 
-
-if [ "$LILYPONDPREFIX" == "" ] ; then
+if [ -z "$LILYPONDPREFIX" ]; then
     datadir=`echo "@datadir@" | sed 's!//!/!g'`
 else
-    if [ -d "$LILYPONDPREFIX/fonts" ] ; then
+    if [ -d "$LILYPONDPREFIX/fonts" ]; then
 	datadir=$LILYPONDPREFIX
     else
 	eval `cat $LILYPONDPREFIX/VERSION`
@@ -34,9 +33,6 @@ export TEXMF
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
 export GS_LIB
-
-
-
 
 # For direct ps output fonts. Add all available TeX Type1 fonts
 GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}

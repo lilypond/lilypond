@@ -89,7 +89,7 @@ Text_item::lookup_character (Grob *, Font_metric*fm, SCM char_name)
 
 
 Molecule
-Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
+Text_item::lookup_text (Grob *, Font_metric*fm, SCM text)
 {
   SCM list = scm_list_n (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (fm, list);

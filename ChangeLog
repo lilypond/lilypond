@@ -1,3 +1,29 @@
+2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* aclocal.m4: Regenerate.
+	
+	* config.hh.in:
+	* config.make.in:
+	* stepmake/aclocal.m4: Cleanups and more conventional naming for
+	datadir ($prefix/share), package_datadir ($prefix/$package), and
+	local_package_datadir ($prefix/$package/$version).
+	
+	* make/lilypond-vars.make:
+	* scripts/ly2dvi.py:
+	* scripts/lilypond-book.py:
+	* scripts/mup2ly.py:
+	* scripts/midi2ly.py: use local_package_datadir iso datadir.
+	
+	* GNUmakefile.in: build_datadir without version.
+	
+	* lily/main.cc: Datadir cleanup.
+
+	* lily/text-item.cc (lookup_text): 
+	* lily/music-output-def.cc (print_smob): 
+	* lily/mensural-ligature.cc (brew_molecule):
+	* lily/beam-quanting.cc (score_slopes_dy, score_forbidden_quants):
+	Fix warnings.
+	
 2002-07-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: Warn when not
