@@ -24,24 +24,24 @@ Lookup::Lookup()
 {
   paper_l_ = 0;
   texsetting = "\\unknowntexsetting";
-  symtables_ = new Symtables;
+  symtables_p_ = new Symtables;
 }
 
 Lookup::Lookup (Lookup const &s)
 {
   paper_l_ = s.paper_l_;
   texsetting = s.texsetting;
-  symtables_ = new Symtables (*s.symtables_);
+  symtables_p_ = new Symtables (*s.symtables_p_);
 }
 Lookup::~Lookup()
 {
-  delete symtables_;
+  delete symtables_p_;
 }
 
 void
 Lookup::add (String s, Symtable*p)
 {
-  symtables_->add (s, p);
+  symtables_p_->add (s, p);
 }
 
 void
@@ -49,7 +49,7 @@ Lookup::print() const
 {
 #ifndef NPRINT
   DOUT << "Lookup: " << texsetting << " {\n";
-  symtables_->print();
+  symtables_p_->print();
   DOUT << "}\n";
 #endif
 }
@@ -60,10 +60,10 @@ Lookup::text (String style, String text, int dir) const
   Array<String> a;
 
   a.push (text);
-  Atom tsym =  (*symtables_)("style")->lookup (style);
+  Atom tsym =  (*symtables_p_)("style")->lookup (style);
   a[0] = substitute_args (tsym.tex_,a);
 
-  Atom s = (*symtables_)("align")->lookup (dir);
+  Atom s = (*symtables_p_)("align")->lookup (dir);
   s.tex_ = substitute_args (s.tex_,a);
   s.dim_ = tsym.dim_;
   return s;
@@ -77,20 +77,20 @@ Lookup::ball (int j) const
   if (j > 2)
     j = 2;
 
-  Symtable * st = (*symtables_)("balls");
+  Symtable * st = (*symtables_p_)("balls");
   return st->lookup (String (j));
 }
 
 Atom
 Lookup::rest (int j, bool o) const
 {
-  return (*symtables_)("rests")->lookup (String (j) + (o ? "o" : ""));
+  return (*symtables_p_)("rests")->lookup (String (j) + (o ? "o" : ""));
 }
 
 Atom
 Lookup::fill (Box b) const
 {
-  Atom s ((*symtables_)("param")->lookup ("fill"));
+  Atom s ((*symtables_p_)("param")->lookup ("fill"));
   s.dim_ = b;
   return s;
 }
@@ -98,7 +98,7 @@ Lookup::fill (Box b) const
 Atom
 Lookup::accidental (int j) const
 {
-  return (*symtables_)("accidentals")->lookup (String (j));
+  return (*symtables_p_)("accidentals")->lookup (String (j));
 }
 
 
@@ -107,7 +107,7 @@ Lookup::bar (String s, Real h) const
 {
   Array<String> a;
   a.push (print_dimen (h));
-  Atom ret=(*symtables_)("bars")->lookup (s);;
+  Atom ret=(*symtables_p_)("bars")->lookup (s);;
   ret.tex_ = substitute_args (ret.tex_, a);
   ret.dim_.y() = Interval (0, h);
   return ret;
@@ -116,32 +116,32 @@ Lookup::bar (String s, Real h) const
 Atom
 Lookup::script (String s) const
 {
-  return (*symtables_)("scripts")->lookup (s);
+  return (*symtables_p_)("scripts")->lookup (s);
 }
 
 Atom
 Lookup::dynamic (String s) const
 {
-  return (*symtables_)("dynamics")->lookup (s);
+  return (*symtables_p_)("dynamics")->lookup (s);
 }
 
 Atom
 Lookup::clef (String s) const
 {
-  return (*symtables_)("clefs")->lookup (s);
+  return (*symtables_p_)("clefs")->lookup (s);
 }
 
 Atom
 Lookup::dots () const
 {
-  return (*symtables_)("dots")->lookup ("dot");
+  return (*symtables_p_)("dots")->lookup ("dot");
 }
 
 Atom
 Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
-  return (*symtables_)("flags")->lookup (c + String (j));
+  return (*symtables_p_)("flags")->lookup (c + String (j));
 }
 
 Atom
@@ -150,7 +150,7 @@ Lookup::streepje (int type) const
   if (type > 2)
     type = 2;
 
-  Symtable * st = (*symtables_)("balls");
+  Symtable * st = (*symtables_p_)("balls");
   
   return st->lookup (String (type) + 'l');
 }
@@ -162,7 +162,7 @@ Lookup::hairpin (Real &wid, bool decresc) const
   if (!idx) idx ++;
   wid = idx*6 PT;
   String idxstr = (decresc)? "decrescendosym" : "crescendosym";
-  Atom ret=(*symtables_)("param")->lookup (idxstr);
+  Atom ret=(*symtables_p_)("param")->lookup (idxstr);
 
   Array<String> a;
   a.push (idx);
@@ -172,30 +172,9 @@ Lookup::hairpin (Real &wid, bool decresc) const
 }
 
 Atom
-Lookup::linestaff (int lines, Real interline_f, Real wid) const
-{
-  Atom s;
-  Real dy = (lines >0) ? (lines-1)*interline_f : 0;
-  s.dim_ = Box (Interval (0,wid), Interval (0,dy));
-
-  Array<String> a;
-  a.push (lines);
-  a.push (print_dimen (wid));
-
-  s.tex_ = (*symtables_)("param")->lookup ("linestaf").tex_;
-  s.tex_ = substitute_args (s.tex_, a);
-
-
-  s.translate_axis (-s.extent ()[Y_AXIS].center (), Y_AXIS);
-
-  return s;
-}
-
-
-Atom
 Lookup::meter (Array<Scalar> a) const
 {
-  Atom s((*symtables_)("param")->lookup ("meter"));
+  Atom s((*symtables_p_)("param")->lookup ("meter"));
   s.tex_ = substitute_args (s.tex_,a);
   return s;
 }
@@ -219,7 +198,7 @@ Lookup::stem (Real y1,Real y2) const
   a.push (print_dimen (y1));
   a.push (print_dimen (y2));
 
-  String src = (*symtables_)("param")->lookup ("stem").tex_;
+  String src = (*symtables_p_)("param")->lookup ("stem").tex_;
   s.tex_ = substitute_args (src,a);
   return s;
 }
@@ -243,7 +222,7 @@ Lookup::vbrace (Real &y) const
 
   int idx = int (rint ((y/2.0 - 20) + 148));
 
-  Atom s = (*symtables_)("param")->lookup ("brace");
+  Atom s = (*symtables_p_)("param")->lookup ("brace");
   {
     Array<String> a;
     a.push (idx);
