@@ -1,5 +1,5 @@
 /*
-  context-scheme.cc --
+  context-scheme.cc -- Context bindings
 
   source file of the GNU LilyPond music typesetter
 
