@@ -1202,7 +1202,8 @@ def check_texidoc (chunks):
 	        if c[0] == 'lilypond':
 			(type, body, opts, todo, basename) = c;
 			pathbase = os.path.join (g_outdir, basename)
-			if os.path.isfile (pathbase + '.texidoc'):
+			if os.path.isfile (pathbase + '.texidoc') \
+			   and 'notexidoc' not in opts:
 				body = '\n@include %s.texidoc\n' % basename + body
 				c = (type, body, opts, todo, basename)
 		n.append (c)
