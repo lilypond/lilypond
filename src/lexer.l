@@ -86,11 +86,11 @@ REAL		[0-9]+(\.[0-9]*)?
 <notes>\$	{
 	BEGIN(INITIAL); return '$';
 }
-<notes>[\[){]	{ /* parens () are NO mistake */
+<notes>[\[{)]	{ /* parens () are NO mistake */
 	yylval.c = YYText()[0];
 	return OPEN_REQUEST_PARENS;
 }
-<notes>[\]()}]	{ /* parens () are NO mistake */
+<notes>[\]}(]	{ /* parens () are NO mistake */
 	yylval.c = YYText()[0];
 	return CLOSE_REQUEST_PARENS;
 }
