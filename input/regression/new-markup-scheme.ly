@@ -20,7 +20,7 @@
                 \lookup #"noteheads-0"
                 \char #53
             }
-            \musicglyph #"accidentals--1"
+            \musicglyph #"accidentals.-1"
             \combine "X" "+"   
             \combine "o" "/"
             \box \column { \line { "string 1" } \line { "string 2" } }
@@ -41,7 +41,7 @@
               #:hspace 2.0
               #:override '(font-family . music) #:line (#:lookup "noteheads-0" 
                                                         #:char 53)
-              #:musicglyph "accidentals--1"
+              #:musicglyph "accidentals.-1"
               #:combine "X" "+"   
               #:combine "o" "/"
               #:box #:column ("string 1" "string 2")

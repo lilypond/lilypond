@@ -2287,11 +2287,13 @@ conversions.append (((2, 5, 2),
 
 def conv (str):
 	str = re.sub ('ly:find-glyph-by-name', 'ly:font-get-glyph', str)
+	str = re.sub ('"accidentals-', '"accidentals.', str)
+	str = re.sub ('"scripts-', '"scripts.', str)
 	return str
 
 conversions.append (((2, 5, 2),
 		     conv,
-		     'ly:find-glyph-by-name -> ly:font-get-glyph'))
+		     'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.'))
 
 
 ################################
