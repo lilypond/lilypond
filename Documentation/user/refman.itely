@@ -57,7 +57,7 @@ encouraged to study the tutorial first.
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
-* Tablatures::                 
+* Tablatures::                  
 * Lyrics::                      
 * Chords::                      
 * Writing parts::               
@@ -1203,8 +1203,9 @@ indicate this preference by increasing the @code{beautiful} value:
 Producing nice slurs is a difficult problem, and LilyPond currently
 uses a simple, empiric method to produce slurs. In some cases, the
 results of this method don't look too good.  This is reflected by the
-@code{beautiful} parameter. It is an arbitrary parameter in the slur
-formatter.  Useful values can only be determined by trial and error.
+@code{beautiful} property, which it is an arbitrary parameter in the
+slur formatter.  Useful values can only be determined by trial and
+error.
 
 @cindex Adjusting slurs
 
@@ -1450,16 +1451,48 @@ helpful identifier definitions appear in @file{script.ly}.
 
 
 
-@cindex Grace music
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
-@cindex @code{graceAlignPosition}
+
+Grace notes are ornaments  are written out ornaments
+@lilypond[relative=2,fragment] 
+  c4  \grace c16  c4 \grace { [c16 d16] } c4 
+@end lilypond
+
+In normal notation, grace notes are supposed to take up no logical
+time in a measure. Such an idea is practical for normal notation, but
+is not strict enough to put it into a program. The model that LilyPond
+uses for grace notes internally is that all timing is done in two
+steps:
+
+Every point in musical time consists of two rational numbers: one
+denotes the logical time, one denotes the grace timing. The above
+example is shown here with timing tuples.
+
+@lilypond[relative=2,fragment] 
+  c4^"(0,0)"  \grace c16^"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
+  [c16^"(2/4,-1/8)"  d16^"(2/4,-1/16)" ] } c4^"(2/4,0)"  
+@end lilypond
+
+The advantage of this approach is that you can use almost any lilypond
+construction together with grace notes, for example slurs and clef
+changes may appear halfway in between grace notes:
+
+@lilypond[relative=2,fragment] 
+  c4  \grace { [ c16 c, \clef bass c, b(] }  )c4 
+@end lilypond
+
+The placement of these grace notes is synchronized between different
+staffs, using this grace timing.
+
+@lilypond[relative=2,fragment] 
+\context Staff = SA { e4 \grace { c16 d e f } e4 }
+\context Staff = SB { c4 \grace { g8 b } c4 }
+@end lilypond
 
 
-Grace notes are ornaments that are written out, but do not take up  any
-logical time in a measure. LilyPond has limited support for grace notes.
-The syntax is as follows. 
+The syntax is as follows.
 @example
   \grace @var{musicexpr}
 @end example
@@ -1484,8 +1517,20 @@ set @code{Voice.graceAlignPosition} to @code{1}.
 
 @refbugs
 
+
+Grace note synchronization can also lead to surprises. Staff notation,
+such as key signatures, barlines, etc. are also synchronized. Take
+care when you mix staffs with grace notes and staffs without.
+
+@lilypond[relative=2,fragment]
+\context Staff = SA { e4 \bar "|:" \grace c16 d4 }
+\context Staff = SB { c4 \bar "|:"  d4 }
+@end lilypond
+
 Nesting @code{\grace} notes is not supported. The following may cause
-run-time errors: @example
+run-time errors:
+@c
+@example
   @code{\grace @{ \grace c32 c16 @} c4}
 @end example
 Since the meaning of such a construct is unclear, we don't consider this
@@ -2107,9 +2152,9 @@ The associated grob is @internalsref{VoiceFollower}.
 @section Tablatures
 
 @menu
-* Tablatures basic::
-* Non-guitar tablatures::
-* Tablature in addition to normal staff::
+* Tablatures basic::            
+* Non-guitar tablatures::       
+* Tablature in addition to normal staff::  
 @end menu
 
 @node Tablatures basic
@@ -2718,6 +2763,10 @@ If you want boxed bar numbers, see the example file
 It is not possible to have bar numbers printed at regular intervals
 only.
 
+Barnumbers can collide with the StaffGroup, if there is one at the
+top. To solve this, You have to twiddle with the padding-property of
+the bar-number if your score starts with a staff-group. 
+
 @node Instrument names
 @subsection Instrument names
 
@@ -3131,6 +3180,7 @@ object, and set a grob property in that object.
 * Text markup::                 
 * Invisible grobs::             
 * Dirty tricks::                
+* Spacing::                     
 @end menu
 
 @node Tuning groups of grobs 
@@ -3669,6 +3719,32 @@ space.
   \paper { linewidth = 70*\staffspace }
 }
 @end lilypond
+
+@node Spacing
+@subsection Spacing
+
+TODO: Move this section.
+
+
+@refbugs
+
+
+Generating optically pleasing spacing is black magic. LilyPond tries
+to deal with a number of frequent cases. Here is an example that is
+not handled correctly, due to the combination of chord collisions and
+kneed stems.
+
+@lilypond
+\score {
+     \context PianoStaff \notes \transpose c''' <
+     \context Staff = up { s1 }
+     \context Staff = down { [c8 c \translator Staff=up <c d> c 
+\translator Staff=down c c c] }
+     >
+     \paper { linewidth = -1 }
+}
+@end lilypond
+
 
 
 @c . {Page layout}

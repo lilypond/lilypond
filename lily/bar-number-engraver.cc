@@ -1,5 +1,5 @@
 /*
-  bar-number-grav.cc -- implement Bar_number_engraver
+  bar-number-engraver.cc -- implement Bar_number_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,6 +15,14 @@
 #include "moment.hh"
 #include "engraver.hh"
 #include "translator-group.hh"
+
+/*
+  
+TODO: detect the top staff (staffsFound), and acknowledge staff-group
+system-start-delims. If we find these, and the top staff is in the
+staff-group, add padding to the bar number.
+
+*/
 
 
 class Bar_number_engraver : public Engraver

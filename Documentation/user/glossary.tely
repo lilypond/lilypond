@@ -2265,7 +2265,7 @@ note. @w{@ar{}@strong{beam}}
 @
 
 @lilypond[13pt,eps]
-\property Score.noAutoBeaming = ##t
+\property Score.autoBeaming = ##f
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' { 

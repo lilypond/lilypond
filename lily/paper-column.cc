@@ -18,8 +18,11 @@
 #include "font-interface.hh"
 
 
-/*
-  Paper_columns form the top-most item parent. (The Paper_columns X
+
+
+
+ADD_INTERFACE (Paper_column, "paper-column-interface",
+  "  Paper_columns form the top-most item parent. (The Paper_columns X
   parent is System, which is a spanner.)
 
   Paper_columns form the units for the spacing engine. They are
@@ -29,8 +32,13 @@
   Since many columns go unused, you should only use the rank field to
   get ordering information.  Two adjacent columns may have
   non-adjacent numbers.
-  
- */
+
+  Don't be confused by right-items: each spacing wish can also contain
+  a number of items, with which a spacing constraint may be kept. It's
+  a little baroque, but it might come in handy later on?
+",
+  "between-cols between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");
+
 
 void
 Paper_column::do_break_processing ()
@@ -123,9 +131,3 @@ Paper_column::brew_molecule (SCM p)
   return t.smobbed_copy ();						
 }
 
-
-
-
-ADD_INTERFACE (Paper_column, "paper-column-interface",
-  "",
-  "between-cols between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");

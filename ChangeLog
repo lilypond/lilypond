@@ -1,3 +1,11 @@
+2002-06-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/spacing-spanner.cc (loose_column): add another check: don't
+	move around bar lines as loose columns.
+
+	* scm/basic-properties.scm (default-break-barline):  add pre-break
+	for .| barline
+
 2002-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (builddir-setup): Bugfix: include srcdir/tex as
