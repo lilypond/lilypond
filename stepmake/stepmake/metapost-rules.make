@@ -4,7 +4,7 @@
 $(outdir)/%.0: %.mf $(outdir)/mfplain.mem  
 	-$(METAPOST) "&$(outdir)/mfplain \mode=lowres; \mag=1.0; nonstopmode; input $<"
 
-mfplain.mem: $(MFPLAIN_MP)
+$(outdir)/mfplain.mem: $(MFPLAIN_MP)
 	$(INIMETAPOST)  $(INIMETAPOST_FLAGS) $(MFPLAIN_MP) dump
 	mv mfplain.* $(outdir)
 

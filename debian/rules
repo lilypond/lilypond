@@ -18,7 +18,7 @@ d = usr/share/doc/$(package)
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# This is the debhelper compatability version to use.
+# This is the debhelper compatibility version to use.
 export DH_COMPAT=1
 
 build: build-stamp
@@ -70,6 +70,12 @@ install: build
 	ln -s ../../../../lilypond/mf $(r)/usr/share/texmf/fonts/source/public/lilypond
 	ln -s ../../../../lilypond/afm $(r)/usr/share/texmf/fonts/afm/public/lilypond
 	ln -s ../../../../lilypond/tfm $(r)/usr/share/texmf/fonts/tfm/public/lilypond
+
+	# Change from an absolute symlink to a relative symlink (Lintian)
+	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \
+		rm -f $(r)/usr/share/lilypond/cmtfm; \
+		ln -s ../texmf/fonts/tfm/public/cm $(r)/usr/share/lilypond/cmtfm; \
+	fi
 
 # Build architecture-independent files here.
 binary-indep: build install

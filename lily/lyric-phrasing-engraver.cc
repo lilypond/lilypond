@@ -17,6 +17,27 @@ String trim_suffix(String &id);
 
 ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
 
+/*
+  We find start and end of phrases, and align lyrics accordingly.
+  Also, lyrics at start of melismata should be left aligned.
+
+  Alignment and melismata
+
+  I've taken [a different] approach:
+	  |      |
+	  |      |
+	 O      O  <-- second note throws a melisma score element
+	  \____/
+
+	 ^      ^
+	 |      |
+       Lyric (None)
+
+  Lyric_phrasing_engraver keeps track of the current and previous notes and
+  lyrics for each voice, and when it catches a melisma, it adjusts the
+  alignment of the lyrics of the previous note. I hope this isn't
+  unnecessarily convoluted.
+ */
 
 Lyric_phrasing_engraver::Lyric_phrasing_engraver()
 {
@@ -39,17 +60,30 @@ Lyric_phrasing_engraver::lookup_context_id(const String &context_id)
     SCM s = scm_assoc(key, voice_alist_);
     if(! (gh_boolean_p(s) && !to_boolean(s))) {
       /* match found */
-      return unsmob_voice_entry(gh_cdr(s));
+      // ( key . ( (alist_entry . old_entry) . previous_entry) )
+      if(to_boolean(gh_cdadr(s))) { // it's an old entry ... make it a new one
+	SCM val = gh_cons(gh_cons(gh_caadr(s), SCM_BOOL_F), gh_cddr(s)); 
+	voice_alist_ = scm_assoc_set_x(voice_alist_, gh_car(s), val);
+	return unsmob_voice_entry (gh_caar(val));
+      }
+      else { // the entry is current ... return it.
+	SCM entry_scm = gh_caadr(s);
+	return unsmob_voice_entry(entry_scm);
+      }
     }
   }
-  SCM val = Voice_alist_entry::make_entry (); 
+  // ( ( alist_entry . old_entry ) . previous_entry )
+  SCM val = gh_cons(gh_cons(Voice_alist_entry::make_entry (), SCM_BOOL_F), 
+		    Voice_alist_entry::make_entry ()); 
+
   voice_alist_ = scm_acons(key, val, voice_alist_);
-  return unsmob_voice_entry (val);
+  return unsmob_voice_entry (gh_caar(val));
 }
 
 
 void 
-Lyric_phrasing_engraver::record_notehead(const String &context_id, Score_element * notehead)
+Lyric_phrasing_engraver::record_notehead(const String &context_id, 
+					 Score_element * notehead)
 {
   Voice_alist_entry * v = lookup_context_id(context_id);
   v->set_notehead(notehead);
@@ -64,9 +98,13 @@ Lyric_phrasing_engraver::record_lyric(const String &context_id, Score_element * 
   v->add_lyric(lyric);
 }
 
-
-
-
+void 
+Lyric_phrasing_engraver::record_melisma(const String &context_id)
+{
+  Voice_alist_entry * v = lookup_context_id(context_id);
+  v->set_melisma();
+}
+  
 void
 Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
 {
@@ -100,8 +138,13 @@ Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
     record_lyric(trim_suffix(lyric_voice_context_id), h);
     return;
   }
+  /* finally for a melisma */
+  if(h->has_interface (ly_symbol2scm ("melisma-interface"))) {
+    String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "Voice");
+    record_melisma(voice_context_id);
+    return;
+  }
 }
-
 
 String 
 get_context_id(Translator_group * ancestor, const char *type)
@@ -133,15 +176,28 @@ void Lyric_phrasing_engraver::process_acknowledged ()
   /* iterate through entries in voice_alist_
      for each, call set_lyric_align(alignment). Issue a warning if this returns false.
   */
-  Voice_alist_entry *entry;
   String punc;
   SCM sp = get_property("phrasingPunctuation");
   punc = gh_string_p(sp) ? ly_scm2string(sp) : ".,;:?!\""; 
   
-  for(unsigned v=0; v < gh_length(voice_alist_); v++) {
-    entry = unsmob_voice_entry(gh_cdr(gh_list_ref(voice_alist_, gh_int2scm(v))));
+  for(SCM v=voice_alist_; gh_pair_p(v); v = gh_cdr(v)) {
+    SCM v_entry = gh_cdar(v);
+    // ((current . oldflag) . previous)
+    Voice_alist_entry *entry = unsmob_voice_entry(gh_caar(v_entry));
     if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
       warning (_ ("lyrics found without any matching notehead"));
+
+    // is this note melismatic? If so adjust alignment of previous one.
+    if(entry->get_melisma()) {
+      if(entry->lyric_count())
+	warning (_ ("Huh? Melismatic note found to have associated lyrics."));
+      SCM previous_scm = gh_cdr(v_entry);
+      if(previous_scm != SCM_EOL) {
+	Voice_alist_entry *previous = unsmob_voice_entry(previous_scm);
+	if (previous->lyric_count())
+	  previous->adjust_melisma_align();
+      }
+    }
   }
 }
 
@@ -149,9 +205,19 @@ void Lyric_phrasing_engraver::process_acknowledged ()
 void
 Lyric_phrasing_engraver::do_pre_move_processing ()
 {
-  Voice_alist_entry * entry;
-  for(unsigned v=0; v < gh_length(voice_alist_); v++) {
-    entry = unsmob_voice_entry(gh_cdr(gh_list_ref(voice_alist_, gh_int2scm(v))));
+  for(SCM v=voice_alist_; gh_pair_p(v); v = gh_cdr(v)) {
+    SCM entry_scm = gh_cdar(v);
+    // ((alist_entry . entry_is_old) . previous_entry)
+    Voice_alist_entry * entry = unsmob_voice_entry(gh_caar(entry_scm));
+
+    // set previous_entry, set entry_is_old, and resave it to alist_
+    // but only change if this current was not old.
+    if(! to_boolean(gh_cdar(entry_scm))) { 
+      Voice_alist_entry * previous_entry = unsmob_voice_entry(gh_cdr(entry_scm));
+      previous_entry->copy(entry);
+      entry_scm = gh_cons(gh_cons(gh_caar(entry_scm), SCM_BOOL_T), gh_cdr(entry_scm));
+      voice_alist_ = scm_assoc_set_x(voice_alist_, gh_caar(v), entry_scm);
+    }
     entry->next_lyric();
   }
   any_notehead_l_ = 0;
@@ -168,11 +234,9 @@ Lyric_phrasing_engraver::do_pre_move_processing ()
 Voice_alist_entry::Voice_alist_entry()
 {
   first_in_phrase_b_=true;
+  melisma_b_ = false;
   clear();
 }
-
-
-
 
 void 
 Voice_alist_entry::clear()
@@ -181,8 +245,21 @@ Voice_alist_entry::clear()
   lyric_list_.clear();
   longest_lyric_l_=0;
   shortest_lyric_l_=0;
+  melisma_b_ = false;
 }
   
+void
+Voice_alist_entry::copy( Voice_alist_entry *from)
+{
+  notehead_l_ = from->notehead_l_;
+  lyric_list_ = from->lyric_list_;
+  longest_lyric_l_ = from->longest_lyric_l_;
+  shortest_lyric_l_ = from->shortest_lyric_l_;
+  melisma_b_ = from->melisma_b_;
+  alignment_i_ = from->alignment_i_;
+  first_in_phrase_b_ = from->first_in_phrase_b_;
+}
+
 void 
 Voice_alist_entry::set_first_in_phrase(bool f) 
 { 
@@ -192,9 +269,10 @@ Voice_alist_entry::set_first_in_phrase(bool f)
 void 
 Voice_alist_entry::set_notehead(Score_element * notehead)
 {
-  if(!notehead_l_) 
+  if(!notehead_l_) {
     /* there should only be a single notehead, so silently ignore any extras */
     notehead_l_=notehead;
+  }
 }
 
 void 
@@ -211,59 +289,71 @@ Voice_alist_entry::add_lyric(Score_element * lyric)
   else
     longest_lyric_l_ = shortest_lyric_l_ = lyric;
 }
-  
+
+ void 
+Voice_alist_entry::set_melisma()
+{
+  melisma_b_ = true;
+}
+ 
 bool 
 Voice_alist_entry::set_lyric_align(const char *punc, Score_element *default_notehead_l)
 {
-  if(lyric_list_.size()<2) {
-    /* Only for multi-stanza songs ... if we've only a single lyric (or none at all) we
-       do nothing.
-    */
-    clear();
+  if(lyric_list_.size()==0) {
+    // No lyrics: nothing to do.
     return true;
   }
 
   Score_element * lyric;
   alignment_i_ = appropriate_alignment(punc);
 
+  // If there was no notehead in the matching voice context, use the first 
+  // notehead caught from any voice context (any port in a storm).
+  if(!notehead_l_) {
+    notehead_l_ = default_notehead_l;
+  }
+  Real translation = amount_to_translate();
   for(int l = 0; l < lyric_list_.size(); l++) {
     /** set the x alignment of each lyric
      */
     lyric = lyric_list_[l];
     lyric->set_elt_property("self-alignment-X", gh_int2scm(alignment_i_));
 
-    // centre on notehead ... if we have one. If there was no notehead in the matching
-    // voice context, use the first notehead caught from any voice context (any port in a storm).
-    if(notehead_l_ || default_notehead_l) {
+    // centre on notehead ... if we have one. 
+    if(notehead_l_) {
       /* set the parent of each lyric to the notehead,
 	 set the offset callback of each lyric to centered_on_parent,
       */
-      Score_element * parent_nh = notehead_l_ ? notehead_l_ : default_notehead_l;
-      lyric->set_parent(parent_nh, X_AXIS);
+      lyric->set_parent(notehead_l_, X_AXIS);
       lyric->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
-      /* reference is on the right of the notehead; move it left half way */
-      lyric->translate_axis (-(parent_nh->extent(X_AXIS)).center(), X_AXIS);
-
-      if(alignment_i_ != CENTER) {
-	// right or left align ... 
-	/* If length of longest lyric < 2 * length of shortest lyric,
-	     - centre longest lyric on notehead
-	   Otherwise
-	     - move so shortest lyric just reaches notehead centre
-	*/
-	// FIXME: do we really know the lyric extent here? Some font sizing comes later?
-	Real translate;
-	if((longest_lyric_l_->extent(X_AXIS)).length() <
-	   (shortest_lyric_l_->extent(X_AXIS)).length() * 2 )
-	  translate = alignment_i_*(longest_lyric_l_->extent(X_AXIS)).length()/2;
-	else
-	  translate = alignment_i_*(shortest_lyric_l_->extent(X_AXIS)).length();
-	lyric->translate_axis (translate, X_AXIS);	  
-      }
+      /* reference is on the right of the notehead; move it left half way, then centralise */
+      lyric->translate_axis (translation-(notehead_l_->extent(X_AXIS)).center(), X_AXIS);
     }
   }
-  return (notehead_l_ || default_notehead_l);
+  return (notehead_l_);
 }
+
+Real 
+Voice_alist_entry::amount_to_translate()
+{
+  Real translate = 0.0;
+  if(alignment_i_ != CENTER) {
+    // right or left align ... 
+    /* If length of longest lyric < 2 * length of shortest lyric,
+       - centre longest lyric on notehead
+       Otherwise
+       - move so shortest lyric just reaches notehead centre
+    */
+    // FIXME: do we really know the lyric extent here? Some font sizing comes later?
+    if((longest_lyric_l_->extent(X_AXIS)).length() <
+       (shortest_lyric_l_->extent(X_AXIS)).length() * 2 )
+      translate = alignment_i_*(longest_lyric_l_->extent(X_AXIS)).length()/2;
+    else
+      translate = alignment_i_*(shortest_lyric_l_->extent(X_AXIS)).length();
+  }
+  return translate;
+}
+
 
 /** determine what alignment we want.
     Rules: if first_in_phrase_b_ is set, then alignment is LEFT.
@@ -316,6 +406,32 @@ Voice_alist_entry::appropriate_alignment(const char *punc)
 
   return CENTER;
 }
+
+/** We don't know about the melisma until after the initial alignment work is done, so go
+    back and fix the alignment when we DO know.
+*/
+void
+Voice_alist_entry::adjust_melisma_align()
+{
+  if(notehead_l_) {
+    // undo what we did before ...
+    Real translation = -amount_to_translate();
+    // melisma aligning:
+    switch (alignment_i_) {
+      //  case LEFT: // that's all
+    case CENTER: // move right so smallest lyric is left-aligned on notehead
+      translation += (shortest_lyric_l_->extent(X_AXIS)).length()/2;
+      break;
+    case RIGHT: // move right so smallest lyric is left-aligned on notehead
+      translation += (shortest_lyric_l_->extent(X_AXIS)).length();
+      break;
+    }
+    for(int l = 0; l < lyric_list_.size(); l++) {
+      lyric_list_[l]->translate_axis (translation, X_AXIS);
+    }
+  }
+}
+
 
 bool
 Voice_alist_entry::is_empty()

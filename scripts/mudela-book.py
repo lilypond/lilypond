@@ -695,7 +695,12 @@ def compile_all_files (chunks):
 		system ('lilypond %s %s' % (lilyopts, texfiles))
 
 	for e in eps:
-		cmd = r"""tex '\nonstopmode \input %s'; dvips -E -o %s %s""" % \
+		if os.environ.has_key('OS') and \
+                   os.environ['OS'] == 'Windows_95':
+                    	cmd = r"""ash -c 'tex " \nonstopmode \input %s " ; dvips -E -o %s %s ' """ % \
+		      (e, e + '.eps', e)
+                else:
+                	cmd = r"""tex '\nonstopmode \input %s' ;  dvips -E -o %s %s""" % \
 		      (e, e + '.eps', e)
 		system (cmd)
 
