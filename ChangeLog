@@ -1,5 +1,10 @@
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/paper.scm (set-paper-dimension-variables): new
+	function. Define dimension-variables explicitly in \paper too.
+	This allows overriding linewidth inside \score { \paper { } }
+	blocks
+ 
 	* scm/framework-tex.scm (convert-to-ps): invoke dvips with -t
 	landscape.
 	(header): add landscape and papersize options.

@@ -79,6 +79,9 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     cm = #(* 10 mm)
     
     \include "engraver-init.ly"
+
+    #(set-paper-dimension-variables (current-module))
+    
 }
 
 

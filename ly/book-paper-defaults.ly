@@ -78,5 +78,6 @@
 
     #(define make-header plain-header)
     #(define make-footer plain-footer)
+    #(set-paper-dimension-variables (current-module))
    
 }

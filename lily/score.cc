@@ -238,7 +238,7 @@ Score::book_rendering (String outname,
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
-      SCM scaled= SCM_EOL;
+      SCM scaled = SCM_EOL;
       if (def->c_variable ("is-paper") == SCM_BOOL_T)
 	{
 	  def = scale_output_def (def, scale);
