@@ -8,6 +8,11 @@
 
 @itemize @bullet
 @item
+Pagebreaks can now be forced or forbidden after title blocks. This is
+achieved by setting @code{breakbefore} in the @code{\header} block to
+true or false.
+
+@item
 Shaped note heads. This feature has been sponsored by Jonathan Walther.
 
 @item

@@ -35,7 +35,7 @@ public:
   bool is_title () const;
   Real break_before_penalty () const;
 };
-
+//
 DECLARE_UNSMOB (Paper_system, paper_system);
 
 #endif /* PAPER_SYSTEM_HH */

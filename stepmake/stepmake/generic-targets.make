@@ -139,7 +139,6 @@ installextradoc:
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 
-
 include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep) # expect a warning here
 
 $(outdir)/dummy.dep:

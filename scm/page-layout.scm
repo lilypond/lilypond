@@ -372,7 +372,7 @@ CURRENT-BEST is the best result sofar, or #f."
 			   #:penalty total-penalty)
                          current-best)))
       
-      (if #t ;; debug
+      (if #f ;; debug
           (display
            (list
             "\nuser pen " user-penalty

@@ -4,6 +4,43 @@
 %
 %
 
+
+fet_beginchar("espr", "espr", "espressivo")
+	set_char_box(.9 staff_space#, .9 staff_space#, .5 staff_space#, .5 staff_space#);
+	save thickness, diminish;
+	thickness = 0.05 staff_space + linethickness;
+	pickup pencircle scaled thickness;
+	t = thickness;
+	diminish = .75;
+	top z1 =(0.2 staff_space,h);
+	rt z3 =(w*2,0);
+	bot y5 =-h;
+	x5 = x1;
+	x2 = .5[x1,x3];
+	x4 = .5[x5,x3];
+	z2 = whatever[z1,z3];
+	z4 = whatever[z5,z3];
+	penpos1(t,90);
+	penpos2(t,90);
+	penpos5(t,90);
+	penpos4(t,90);
+	penpos3(diminish*t,90);
+	draw z1 .. z2;
+	draw z5 .. z4;
+	penstroke z4e .. z3e;
+	penstroke z2e .. z3e;
+	draw (z1 .. z2) xscaled -1;
+	draw (z5 .. z4) xscaled -1;
+	penstroke (z4e .. z3e) xscaled -1;
+	penstroke (z2e .. z3e) xscaled -1;
+	penlabels(1,2,3,4,5);
+	pickup pencircle scaled (diminish* thickness);
+	draw z3;
+	draw z3 xscaled -1;
+
+fet_endchar;
+
+
 input feta-bolletjes;	
 %input feta-banier;
 %input feta-slag;

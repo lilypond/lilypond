@@ -146,8 +146,9 @@ Lily_parser::parse_string (String ly_code)
   
   if (!define_spots_.is_empty ())
     {
-      define_spots_.top ().warning (_ ("Braces don't match"));
-      error_level_ = 1;
+      if (define_spots_.is_empty()
+	  && !error_level_ )
+	programming_error ("Braces don't match, but error_level_ not set.");
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
