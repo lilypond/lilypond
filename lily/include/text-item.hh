@@ -32,6 +32,7 @@ protected:
     virtual void set_default_index();
     Molecule* brew_molecule_p() const;
     virtual void do_post_processing();
+    virtual void do_pre_processing();
 };
 
 
