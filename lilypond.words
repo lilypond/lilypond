@@ -46,8 +46,6 @@ ChordNames
 \\ChordNamesContext
 \\chords
 \\chordstest
-\\clarinetti
-\\clarinettiStaff
 \\clef
 \\clipping
 \\cm
@@ -97,8 +95,6 @@ DynamicText
 \\extreme
 \\f
 F
-\\fagotti
-\\fagottiStaff
 \\fatText
 \\fermata
 \\ff
@@ -108,8 +104,6 @@ FiguredBass
 \\FiguredBassContext
 \\figures
 \\flageolet
-\\flauti
-\\flautiStaff
 fold
 \\font
 \\FontBody
@@ -227,8 +221,6 @@ NoteNames
 \\notes
 \\number
 \\nt
-\\oboi
-\\oboiStaff
 \\once
 \\one
 \\onestaff
@@ -427,7 +419,6 @@ Thread
 \\time
 \\times
 TimeSignature 
-\\timpaniGroup
 \\tiny
 \\toeters
 \\touch
@@ -461,13 +452,7 @@ unfold
 \\upperVoice
 \\version
 VerticalAlignment
-\\viloinII
-\\viloinIIStaff
-\\violeGroup
 violin
-\\violinI
-\\violiniGroup
-\\violinIStaff
 \\visible
 Voice
 \\voiceAccidentals
