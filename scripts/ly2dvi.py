@@ -263,15 +263,16 @@ class TeXOutput:
 %%\addtolength{\topmargin}{-1cm} 
 %%\setlength{\textwidth}{%s} 
 %%\setlength{\textheight}{%s} 
-\geometry{width=%spt, left=%spt, height=%spt, top=%spt, nohead} 
+\geometry{width=%spt, left=%spt, height=%spt, top=%spt} 
 \input lilyponddefs 
 \input titledefs 
 %s
 \makeatletter
-\renewcommand{\@oddhead}{\hfil{\small\theheader\quad\textbf{\thepage}}}%%
+\renewcommand{\@oddhead}{\parbox{\textwidth}%%
+    {\mbox{}\small\theheader\hfill\textbf{\thepage}}}%%
 %% UGR.
 %%\renewcommand{\@evenhead}{eve!{\small\mudelainstrument{,}\quad\textbf{\thepage}}\hfil}%%
-\renewcommand{\@oddfoot}{{\thefooter}\hfil}%%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
 \begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
         Props.get('language'), Props.get('pagenumber'), linewidth, textheight,
@@ -341,7 +342,7 @@ class TeXOutput:
         this.write(r"""
 %% \vfill\hfill{\mudelatagline}
 \makeatletter
-\renewcommand{\@oddfoot}{\hfil\mudelatagline}%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\mudelatagline}}%%
 \makeatother
 \end{document}
 """)

@@ -25,14 +25,14 @@ copyright =	 "public domain";
 \include "violino-2.ly"
 \include "violoncello.ly"
 
-legno = \context StaffGroup = legno_group <
+legni = \context StaffGroup = legni_group <
 	\$flauti_staff
 	\$oboi_staff
 	\$clarinetti_staff
 	\$fagotti_staff
 >
 
-koper = \context StaffGroup = koper_group <
+ottoni = \context StaffGroup = otonni_group <
 	\$corni_staff
 	\$trombe_staff
 >
@@ -57,7 +57,7 @@ $bassi = \context GrandStaff = bassi_group <
 	\$contrabasso_staff
 >
 
-strijkers = \context StaffGroup = strijkers_group <
+archi = \context StaffGroup = archi_group <
 	\$violini
 	\$violi
 	\$bassi
@@ -68,10 +68,10 @@ strijkers = \context StaffGroup = strijkers_group <
 	<
 		\property Score . textStyle =  "italic"
 
-		\$legno
-		\$koper
+		\$legni
+		\$ottoni
 		\$timpani_g
-		\$strijkers
+		\$archi
 	>
 	\paper{
 		linewidth = 130.0\mm;

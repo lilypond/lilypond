@@ -55,10 +55,11 @@ StaffContext=\translator {
 	The Staff_margin_engraver puts the name of the instrument
 	(\property Staff.instrument; Staff.instr for subsequent lines)
 	to the left of a staff.
-%}
-%{
+	Usually, you only want this in the full score, not in the parts.
+
 	\consists "Staff_margin_engraver";
 %}
+
 	defaultClef = #"treble"
 
 	\consists "Separating_line_group_engraver";
@@ -298,6 +299,7 @@ HaraKiriStaffContext = \translator {
 	\StaffContext
 	\remove "Axis_group_engraver";
 	\consistsend "Hara_kiri_engraver";	  
+	\consists "Staff_margin_engraver";
 	\accepts "Voice";
 };
 

@@ -15,13 +15,14 @@ copyright =	 "public domain";
 \include "clarinetto-2.ly"
 
 $clarinetti_staff = \context Staff = clarinetti <
-	\property Staff.midiInstrument = "clarinet"
-	\property Staff.instrument = "2 Clarinetti (B\\textflat)"
-	\property Staff.instr = "Cl. (B\\textflat)"
+	\property Staff.midiInstrument = #"clarinet"
+	\property Staff.instrument = #"2 Clarinetti (B\\textflat)"
+	\property Staff.instr = #"Cl. (B\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "bes"
-	\property Staff.transposing = -3
-	\notes \context Voice=one < 
+	\property Staff.transposing = #-2
+	%\notes \context Voice=clarinetti < 
+	\notes \context Staff=clarinetti < 
 		\time 4/4;
 		\key F;
 		\$clarinetto1

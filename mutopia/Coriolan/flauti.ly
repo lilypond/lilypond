@@ -15,10 +15,11 @@ copyright =	 "public domain";
 \include "flauto-2.ly"
 
 $flauti_staff = \context Staff = flauti <
-	\property Staff.midiInstrument = "flute"
-	\property Staff.instrument = "2 Flauti"
-	\property Staff.instr = "Fl."
-	\notes \context Voice=flauti < 
+	\property Staff.midiInstrument = #"flute"
+	\property Staff.instrument = #"2 Flauti"
+	\property Staff.instr = #"Fl."
+	%\notes \context Voice=flauti < 
+	\notes \context Staff=flauti < 
 		\global
 		\$flauto1
 		\$flauto2

@@ -15,10 +15,11 @@ copyright =	 "public domain";
 \include "trombo-2.ly"
 
 $trombe_staff = \context Staff = trombe <
-	\property Staff.midiInstrument = "trumpet"
-	\property Staff.instrument = "2 Trombe (C)"
-	\property Staff.instr = "Tbe."
-	\notes \context Voice=trombe < 
+	\property Staff.midiInstrument = #"trumpet"
+	\property Staff.instrument = #"2 Trombe (C)"
+	\property Staff.instr = #"Tbe."
+	%\notes \context Voice=trombe < 
+	\notes \context Staff=trombe < 
 %		\global
 		\time 4/4;
 		\$trombo1

@@ -13,7 +13,7 @@ copyright =	 "public domain";
 
 violoncello = \notes \relative c {
 	c1\ff ~ | c | f,4-. r r2 | r1 | c'1\ff ~ | c | f,4-. r r2 |
-	\property Staff.instr = "Vc. \& Cb."
+	\property Staff.instr = #"Vc. \& Cb."
 	r1 |
 	c'1\ff ~ | c | fis,4-. r r2 | r1 |
 	g4-. r r2 | g4-. r r2 |
@@ -151,7 +151,8 @@ violoncello = \notes \relative c {
 	[g,: bes: c: des:][f,: bes: c: des:]|
 	[e,: g: bes: des:][c: e: g: c:]|
 	%shared with cello from here on
-	[f,8\p-"cresc." as c des][es, g b c]|[des, f a bes][c, es g as]|
+	[f,8\p-"cresc." as c des][es, g b c]|
+	[des, f a bes][c, es g as]|
 	% uhuh, still 'same as cello';
 	% but now rests for notes that viola cannot reach...
 	% r[des, e g]r[c, e f]|
@@ -200,84 +201,107 @@ violoncello = \notes \relative c {
 	[g(f' d f][g f d )g,~] |
 	[g-"cresc."(e' c d][g e c )g~] |
 	[g(d' b d][g d b )g~] |
-	[g(e' c d][g e c )g~] |
 	%185
+	[g(e' c d][g e c )g~] |
 	[g(f' d f][g f d )g,~] |
 	[g(e' c d][g e c )g~] |
 	[g(d' b d][g d b )g(] |
-	)e2\ff d' | cis a ~ |
 	%190
+	)e2\ff d' | cis a ~ |
 	[a8( f' d f][a f d )a!~] |
 	[a( e' cis e][a e c )a!~] |
 	[a8( f' d f][a f d )a!~] |
 	[a( g' e g][a g e )a,!~] |
-	[a8-"cresc."( f' d f][a f d )a!~] |
 	%195
+	[a8-"cresc."( f' d f][a f d )a!~] |
 	[a( e' cis e][a e c )g] |
 	f2\ff e | dis b'~ | 
 	[b8\p( g' e g][b g e )b!~] |
-	[b8\<( fis' dis fis ][b fis dis )b!~] |
 	%200
+	[b8\<( fis' dis fis ][b fis dis )b!~] |
 	[b8\p( g' e g][e g e )g] |
 	[f(g f g][f g f)\!g] |
-	es!4\fp r e r | f r g r | as r g r | f r fis r | 
-	g r g r | g r g r | g r g-"cresc." r | 
-	g r g r | g r g r | g r g r | 
-	f2.\ff()es4 | d( c d )c |
-	f2.\ff()es4 | d( c d )c |
-	bes2.\ff()as4 | g( f g )f |
-	bes2.\ff()as4 | g( f g )f |
+	es!4\fp r e r | 
+	f r g r | 
+	%205
+	as r g r | 
+	f r fis r | 
+	g r g r | 
+	g r g r | 
+	g r g-"cresc." r | 
+	%210
+	g r g r | 
+	g r g r | 
+	g r g r | 
+	f2.\ff()es4 | 
+	d( c d )c |
+	%215
+	f2.\ff()es4 | 
+	d( c d )c |
+	bes2.\ff()as4 | 
+	g( f g )f |
+	bes2.\ff()as4 | 
 	%220
+	g( f g )f |
 	r4 r8 f' f4\sf()ges |
 	r4 r8 f f4\sf()ges |
 	r4 r8 f f4\sf()ges |
 	r4 r8 f f4\sf()ges |
-	f4. f'8 f,4. f'8 |
 	%225
+	f4. f'8 f,4. f'8 |
 	e,4. e'8 es,4. es'8 |
 	d,4. d'8 c,4. c'8 |
 	b,4. b'8 as,4. as'8 |
 	g,4 r8 g as4 r8 as |
-	f4 r8 f g4 r8 g |
 	%230
+	f4 r8 f g4 r8 g |
 	[c8\p es fis g][as g es c]|
 	[b d fis g][as g d b\f]|
 	[c es fis\p g][as g es c]|
 	[b d fis g][as g d b\f]|
-	[c es g\p as][bes, d fis g]|
 	%235
+	[c es g\p as][bes, d fis g]|
 	[as, c e f!][g, bes d es]|
 	[f, as c d][es g b c]|
 	[d, f as c][g, b d g]|
 	[c,\f e g as][bes, d fis g]|
-	[as, c e f!][g, bes d es]|
 	%240
-	f4 r r2 | R1*3 | 
+	[as, c e f!][g, bes d es]|
+	f4 r r2 | 
+	R1*3 | 
 	c4\p r r r8 c(|
+	%245
 	)f4 r r r8 f(|
 	)e4 r r r8 e(|
 	)b4 r r r8 b(|
 	)c4 r r r8 c(|
-	%250
 	)f4 r r r8 f(|
+	%250
 	)es4 r r r8 es(|
 	)b4 r r r8 b(|
 	)c4-"cresc." r r r8 c(|
 	)f4 r r r8 f,(|
-	)es1 | ges\f | f\p | as\f | g!\p | 
-	%260
+	)es1 | 
+	%255
+	ges\f | 
+	f\p | 
+	as\f | 
+	g!\p | 
 	bes\f |
-	as4.\p-"cresc." as'8 g4. g8 | f4. f8 es4. es8 |
-	as4. as8 g4. g8 | f4. f8 es4. es8 |
-	%265
+	%260
+	as4.\p-"cresc." as'8 g4. g8 | 
+	f4. f8 es4. es8 |
+	as4. as8 g4. g8 | 
+	f4. f8 es4. es8 |
 	f,4.\ff f'8 f2\sf | 
+	%265
 	f,4. f'8 f2\sf | 
 	g,4. g'8 g2\sf | 
 	g,4. g'8 g2\sf | 
 	as,4. as'8 as2\sf | 
-	%270
 	a,4. a'8 a2\sf | 
-	[c,8-"sempre" b c d][es\ff d es c]|
+	%270
+	[c,8-"sempre\ \ \ \ \ \ \ "\ff b c d][es\ff d es c]|
 	[b c d c][b c b g]|
 	[c8 b c d][es d es c]|
 	[b c d c][b c b g]|
@@ -300,9 +324,9 @@ violoncello = \notes \relative c {
 }
 
 $violoncello_staff = \context Staff = violoncello <
-	\property Staff.midiInstrument = "cello"
-	\property Staff.instrument = "Violoncello"
-	\property Staff.instr = "Vc."
+	\property Staff.midiInstrument = #"cello"
+	\property Staff.instrument = #"Violoncello"
+	\property Staff.instr = #"Vc."
 	\clef "bass";
 	\notes \context Voice=one< 
 		\global

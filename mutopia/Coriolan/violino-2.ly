@@ -293,9 +293,9 @@ violino2 = \notes \relative c {
 $violino2_staff = \context Staff = violino2 <
  	% MIDI hoort geeneens verschil tussen een
 	% eerste en tweede viool ;-)
-	\property Staff.midiInstrument = "violin"
-	\property Staff.instrument = "Violino II"
-	\property Staff.instr = "Vl. II"
+	\property Staff.midiInstrument = #"violin"
+	\property Staff.instrument = #"Violino II"
+	\property Staff.instr = #"Vl. II"
 	\notes< 
 		\global
 		\$violino2

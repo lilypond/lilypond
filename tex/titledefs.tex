@@ -76,9 +76,10 @@
 }
 \def\makelilypiecetitle
 {
-  \bigskip
+  \bigskip\myfilbreak
   {\flushright{\theopus}\par}
   {\flushleft{\large\normalfont\scshape\thepiece}\par}
+  \nopagebreak%
   \global\let\theopus\relax%
   \global\let\thepiece\relax%
 }

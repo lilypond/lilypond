@@ -1,8 +1,8 @@
 \version "1.3.5";
 
 toeter_i = \notes\relative c <{
-		\property Staff.instrument = "Toeters"
-		\property Staff.instr = "Ttr." }
+		\property Staff.instrument = #"Toeters"
+		\property Staff.instr = #"Ttr." }
 	\context Voice = lower { \stemdown s1*6 }
 	\context Voice = upper { \stemup s1*6 }
 	\context Voice = together  { 
@@ -35,13 +35,13 @@ toeters = \context Staff = toeters <
  
 zager = \context Staff = zager \notes \relative c'' {
 	\clef treble;
-	\property Staff.instrument = "Zager"
-	\property Staff.instr = "Zag."
+	\property Staff.instrument = #"Zager"
+	\property Staff.instr = #"Zag."
 	c4^"zag" d e f 
-	\property Staff.instr = "Zag. \& Zog."
+	\property Staff.instr = #"Zag. \\& Zog."
 	f e d c 
 	c d e f 
-	\property Staff.instr = "Zag."
+	\property Staff.instr = #"Zag."
 	\stemup
 	f e d c 
 	c d e f 
@@ -50,8 +50,8 @@ zager = \context Staff = zager \notes \relative c'' {
 
 zoger = \context Staff = zoger \notes \relative c'' {
 	\clef treble;
-	\property Staff.instrument = "Zoger"
-	\property Staff.instr = "Zog."
+	\property Staff.instrument = #"Zoger"
+	\property Staff.instr = #"Zog."
 	c4^"zog" d e f 
 	\skip 1*2;
 

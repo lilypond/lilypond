@@ -15,10 +15,11 @@ copyright =	 "public domain";
 \include "oboe-2.ly"
 
 $oboi_staff = \context Staff = oboi <
-	\property Staff.midiInstrument = "oboe"
-	\property Staff.instrument = "2 Oboi"
-	\property Staff.instr = "Ob."
-	\notes \context Voice=oboi < 
+	\property Staff.midiInstrument = #"oboe"
+	\property Staff.instrument = #"2 Oboi"
+	\property Staff.instr = #"Ob."
+	%\notes \context Voice=oboi < 
+	\notes \context Staff=oboi < 
 		\global
 		\$oboe1
 		\$oboe2
