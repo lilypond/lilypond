@@ -97,10 +97,10 @@ Score_engraver::finish ()
 void
 Score_engraver::initialize ()
 {
-  Font_metric *fm =
-    all_fonts_global->find_afm("feta20");
+  Font_metric *fm = all_fonts_global->find_afm("feta20");
   if (!fm)
-    error (_("Could not find feta20.afm. Fonts have not been installed properly; Aborting"));
+    error (_f ("can't find `%s'", "feta20.afm")
+	   + "\n" +_ ("Fonts have not been installed properly.  Aborting"));
    
   unsmob_translator_def (definition_)->apply_property_operations (this);
 
