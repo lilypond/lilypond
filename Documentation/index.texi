@@ -45,8 +45,8 @@ It is released under the @uref{http://www.gnu.org/copyleft/gpl.html, GNU GPL}.
 @item The @uref{../topdocs/out-www/README.html, README} contains general information.
 @item   How to @uref{../topdocs/out-www/INSTALL.html, install on Unix}
 @item How to install @uref{../windows/out-www/installing.html, on
-Windows}.  (or @uref{http://cygwin.com/setup.exe, click here} to
-install Lily now).
+Windows}.  (Or just @uref{http://cygwin.com/setup.exe, Install Lily Now}).
+install Lily now.)
 @end itemize
 
 @c also for users...
@@ -80,7 +80,7 @@ manual}, (also in @uref{../user/out-www/lilypond.ps.gz,PostScript} and
 @uref{../user/out-www/lilypond.pdf,PDF}).
 
 @item
-The @uref{../user/out-www/lilypond.html,user manual} as one big page,
+The user @uref{../user/out-www/lilypond.html, manual in one big page},
 for easy searching, or look it up in the
 @uref{../user/out-www/lilypond/Index.html,index}.
 
@@ -99,7 +99,7 @@ you want to fine-tune output, you need the information in this
 document.
 
 @item
- @uref{../../input/templates/out-www/templates.html, Templates}, for
+ @uref{../../input/template/out-www/template.html, Templates}, for
 different music styles. Add notes, and done!
 
 @item All of the @uref{../../input/test/out-www/test.html,tips-and-tricks}
