@@ -18,6 +18,7 @@
    2e318, this number would have approx 318 zero's in its string.
 
    Should enlarge buff dynamically.
+   
    @see
    man 3 snprintf
    */
@@ -156,7 +157,7 @@ String_convert::u2hex_str( unsigned u, int length_i, char fill_ch )
 	u /= 16;
     }
 #else
-    str += int_str( u, "%x" );
+    str += int_str( u, "%x" );	// hmm. %lx vs. %x -> portability?
 #endif
 
     str = String( fill_ch, length_i - str.length_i() ) + str;
