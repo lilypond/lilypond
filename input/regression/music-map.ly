@@ -10,7 +10,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.1.30"
+\version "2.1.36"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -20,7 +20,7 @@ Scripts and dynamics are maintained.
 	(let* ((newmus 	  (make-music 'SkipEvent)))
 		(map
 		  (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
-		  (ly:mutable-music-properties m))
+		  (ly:music-mutable-properties m))
 		newmus
 	)
 	m)
