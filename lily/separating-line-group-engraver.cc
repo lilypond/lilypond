@@ -74,7 +74,7 @@ Separating_line_group_engraver::process_music ()
 
   if (!sep_span_)
     {
-      sep_span_ = new Spanner (get_property ("SeparatingGroupSpanner"));
+      sep_span_ = make_spanner ("SeparatingGroupSpanner");
 
       announce_grob(sep_span_, SCM_EOL);
       sep_span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
@@ -131,7 +131,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
   if (!p_ref_)
     {
-      p_ref_ = new Item (get_property ("SeparationItem"));
+      p_ref_ = make_item ("SeparationItem");
 
       if (ib)
 	{
@@ -142,7 +142,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
       if (p_ref_ == break_item_)
 	{
-	  Item *it  = new Item (get_property ("StaffSpacing"));
+	  Item *it  = make_item ("StaffSpacing");
 	  current_spacings_.staff_spacing_ = it;
 	  it->set_grob_property ("left-items", gh_cons (break_item_->self_scm (), SCM_EOL));
 	  

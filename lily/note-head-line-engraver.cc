@@ -85,7 +85,7 @@ Note_head_line_engraver::process_acknowledged_grobs ()
 	 Should probably store follow_ in line_, and suicide at some
 	 later point */
       if (follow_)
-	line_ = new Spanner (get_property ("VoiceFollower"));
+	line_ = make_spanner ("VoiceFollower");
 	  
       line_->set_bound (LEFT, last_head_);
       line_->set_bound (RIGHT, head_);

@@ -1,9 +1,14 @@
 2004-01-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/feta-din{4,5,7,9}.mf: remove.
+	
+	* lily/engraver.cc (internal_make_item): centralize item/spanner
+	factory.
+
 	* scripts/convert-ly.py (FatalConversionError.sub_durs): bugfix:
-	do correct chord conversion for ^"sim."   
+	do correct chord conversion for ^"sim."  (backportme)
 	(FatalConversionError.sub_articulations): substitute ^"foo" in
-	chords too.
+	chords too. (backportme)
 
 	* scm/define-grobs.scm (all-grob-descriptions): use staff-padding
 	for Fingering.
@@ -33,9 +38,9 @@
 	All markup commands are defined thanks to it.  Users may also use
 	it to define their own markup commands. (Nicolas Sceaux)
 
-	* scm/new-markup.scm:Little scheme style clean-up: there should be
-	no parenthese alone on a line; LET* should not be used where LET
-	is enough. (Nicolas Sceaux)
+	* scm/new-markup.scm: Scheme style clean-up: there should be no
+	parenthesis alone on a line; LET* should not be used where LET is
+	enough. (Nicolas Sceaux)
 
 2004-01-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 

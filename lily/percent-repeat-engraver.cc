@@ -132,14 +132,14 @@ Percent_repeat_engraver::process_music ()
 	{
 	  finished_perc_ = perc_;
 	  typeset_perc ();
-	  perc_ = new Spanner (get_property ("PercentRepeat"));
+	  perc_ = make_spanner ("PercentRepeat");
 	  SCM col =get_property ("currentCommandColumn");
 	  perc_->set_bound (LEFT, unsmob_grob (col));
 	  announce_grob(perc_, repeat_->self_scm());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
-	  double_percent_ = new Item (get_property ("DoublePercentRepeat"));
+	  double_percent_ = make_item ("DoublePercentRepeat");
 	  announce_grob(double_percent_, repeat_->self_scm());
 
       /*

@@ -146,7 +146,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	{
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
-	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
+	  Grob* phrasing_slur = make_spanner ("PhrasingSlur");
 	  Slur::set_interface (phrasing_slur); // can't remove.
 
 

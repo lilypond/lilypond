@@ -79,14 +79,14 @@ Multi_measure_rest_engraver::process_music ()
 {
   if (rest_ev_ && !mmrest_)
     {
-      mmrest_ = new Spanner (get_property ("MultiMeasureRest"));
+      mmrest_ = make_spanner ("MultiMeasureRest");
 
       if (text_events_.size())
 	{
 	  for (int i = 0; i < text_events_.size(); i++)
 	    {
 	      Spanner *sp
-		= new Spanner (get_property ("MultiMeasureRestText"));
+		= make_spanner ("MultiMeasureRestText");
 
 	      Music* e = text_events_[i];
 	      SCM t = e->get_mus_property ("text");
@@ -119,7 +119,7 @@ Multi_measure_rest_engraver::process_music ()
       else
 	{
 	  Spanner *sp
-	    = new Spanner (get_property ("MultiMeasureRestNumber"));
+	    = make_spanner ("MultiMeasureRestNumber");
 	  numbers_.push (sp);
 	  announce_grob (sp, rest_ev_->self_scm());
 	}

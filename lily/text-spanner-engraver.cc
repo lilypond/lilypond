@@ -89,7 +89,7 @@ Text_spanner_engraver::process_music ()
       else
 	{
 	  current_req_ = req_drul_[START];
-	  span_  = new Spanner (get_property ("TextSpanner"));
+	  span_  = make_spanner ("TextSpanner");
 
 	  
 	  Side_position_interface::set_axis (span_, Y_AXIS);

@@ -163,7 +163,7 @@ Slur_engraver::process_music ()
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
-	  Grob* slur = new Spanner (get_property ("Slur"));
+	  Grob* slur = make_spanner ("Slur");
 	  Slur::set_interface (slur); // cannot remove yet!
 
 

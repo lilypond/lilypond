@@ -39,7 +39,7 @@ Ligature_bracket_engraver::Ligature_bracket_engraver ()
 Spanner *
 Ligature_bracket_engraver::create_ligature_spanner ()
 {
-  return new Spanner (get_property ("LigatureBracket"));
+  return make_spanner ("LigatureBracket");
 }
 
 void

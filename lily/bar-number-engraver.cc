@@ -108,8 +108,7 @@ Bar_number_engraver::create_items ()
   if (text_)
     return;
 
-  SCM b = get_property ("BarNumber");
-  text_ = new Item (b);
+  text_ = make_item ("BarNumber");
   Side_position_interface::set_axis (text_,Y_AXIS);
 
   announce_grob(text_, SCM_EOL);

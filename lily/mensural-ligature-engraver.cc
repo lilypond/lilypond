@@ -73,7 +73,7 @@ Mensural_ligature_engraver::Mensural_ligature_engraver ()
 Spanner *
 Mensural_ligature_engraver::create_ligature_spanner ()
 {
-  return new Spanner (get_property ("MensuralLigature"));
+  return make_spanner ("MensuralLigature");
 }
 
 /*

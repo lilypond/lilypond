@@ -82,7 +82,7 @@ Mark_engraver::create_items (Music *ev)
   if (text_)
     return;
 
-  text_ = new Item (get_property ("RehearsalMark"));
+  text_ = make_item ("RehearsalMark");
   announce_grob(text_, ev->self_scm());
 }
 

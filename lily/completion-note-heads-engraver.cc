@@ -204,7 +204,7 @@ Completion_heads_engraver::process_music ()
   for (int i = 0;
        left_to_do_ && i < note_reqs_.size (); i++)
     {
-      Item *note  = new Item (get_property ("NoteHead"));
+      Item *note  = make_item ("NoteHead");
       
       Music * req =  note_reqs_[i];
       if (scratch_note_reqs_.size())
@@ -221,7 +221,7 @@ Completion_heads_engraver::process_music ()
       int dots= note_dur.dot_count ();
       if (dots)
 	{
-	  Item * d = new Item (get_property ("Dots"));
+	  Item * d = make_item ("Dots");
 	  Rhythmic_head::set_dots (note, d);
 
 	  /*
@@ -251,7 +251,7 @@ Completion_heads_engraver::process_music ()
     {
       for (int i= 0; i < notes_.size(); i++)
 	{
-	  Grob * p = new Spanner (get_property ("Tie"));
+	  Grob * p = make_spanner ("Tie");
 	  Tie::set_interface (p); // cannot remove yet!
 	  
 	  Tie::set_head (p, LEFT, prev_notes_[i]);

@@ -281,12 +281,12 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	  if (num)
 	    {
-	      Grob * a = new Item (get_property ("Accidental"));
+	      Grob * a = make_item ("Accidental");
 	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)
 		{
-		  accidental_placement_ = new Item (get_property ("AccidentalPlacement"));
+		  accidental_placement_ = make_item ("AccidentalPlacement");
 		  announce_grob (accidental_placement_, a->self_scm());
 		}
 	      

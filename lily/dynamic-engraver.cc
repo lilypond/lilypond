@@ -129,7 +129,7 @@ Dynamic_engraver::process_music ()
     {
       if (!line_spanner_)
 	{
-	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
+	  line_spanner_ = make_spanner ("DynamicLineSpanner");
 
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_ev_)
@@ -155,7 +155,7 @@ Dynamic_engraver::process_music ()
   */
   if (script_ev_)
     {
-      script_ = new Item (get_property ("DynamicText"));
+      script_ = make_item ("DynamicText");
       script_->set_grob_property ("text",
 				   script_ev_->get_mus_property ("text"));
 
@@ -238,7 +238,7 @@ Dynamic_engraver::process_music ()
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_  = new Spanner (get_property ("Hairpin"));
+	      cresc_  = make_spanner ("Hairpin");
 	      cresc_->set_grob_property ("grow-direction",
 					   gh_int2scm ((start_type == "crescendo")
 						       ? BIGGER : SMALLER));
@@ -253,7 +253,7 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_  = new Spanner (get_property ("TextSpanner"));
+	      cresc_  = make_spanner ("TextSpanner");
 	      cresc_->set_grob_property ("style", s);
 	      daddy_trans_->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);

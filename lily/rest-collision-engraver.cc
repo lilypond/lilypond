@@ -38,7 +38,7 @@ Rest_collision_engraver::process_acknowledged_grobs ()
   if (rest_collision_ || note_columns_.size () < 2)
     return;
 
-  rest_collision_ = new Item (get_property ("RestCollision"));
+  rest_collision_ = make_item ("RestCollision");
 
   announce_grob(rest_collision_, SCM_EOL);
   for (int i=0; i< note_columns_.size (); i++)

@@ -162,8 +162,8 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
 void
 Ambitus_engraver::create_ambitus ()
 {
-  SCM basicProperties = get_property ("Ambitus");
-  ambitus_ = new Item (basicProperties); is_typeset = 0;
+  ambitus_ = make_item ("Ambitus");
+  is_typeset = 0;		// UGH.
   announce_grob (ambitus_, SCM_EOL);
 }
 

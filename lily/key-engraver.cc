@@ -64,7 +64,7 @@ Key_engraver::create_key (bool def)
 {
   if (!item_) 
     {
-      item_ = new Item (get_property ("KeySignature"));
+      item_ = make_item ("KeySignature");
 
       item_->set_grob_property ("c0-position",
 				get_property ("centralCPosition"));

@@ -85,10 +85,11 @@ or
     (#(medium caps roman) .
      (10.0 . #((10.0 . "cmcsc10"))))
 
-    ;; this is a little pointless, since feta-din scales linearly
     (#(* * dynamic) .
-     (14.0 .  #((8.0 . "feta-din10")
+     (14.0 .  #((6.0 . "feta-din6"
+		 8.0 . "feta-din8")
 		(10.0 . "feta-din10")
+		(12.0 . "feta-din10")
 		(14.0 . "feta-din14")
 		(17.0 . "feta-din17")
 		)))

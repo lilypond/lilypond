@@ -79,7 +79,7 @@ Fingering_engraver::process_music ()
 void
 Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
 {
-  Item *fingering = new Item (get_property ("Fingering"));
+  Item *fingering = make_item ("Fingering");
 
   Axis other = other_axis (a);
 

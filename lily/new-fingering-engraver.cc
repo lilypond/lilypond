@@ -97,7 +97,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
     }
 }
 
-extern Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
+extern void make_script_from_event (Grob *, SCM * descr, Translator_group*tg, Music * event,
 				     int index);
 void
 New_fingering_engraver::add_script (Grob * head,
@@ -106,7 +106,8 @@ New_fingering_engraver::add_script (Grob * head,
 {
   Finger_tuple ft ;
 
-  Grob * g=  make_script_from_event (&ft.description_, daddy_trans_, event, 0);
+  Grob * g=  make_item ("Script");
+  make_script_from_event (g, &ft.description_, daddy_trans_, event, 0);
   if (g)
     {
       ft.script_ =g ;
@@ -126,7 +127,7 @@ New_fingering_engraver::add_fingering (Grob * head,
 {
   Finger_tuple ft;
 
-  ft.script_ = new Item (get_property ("Fingering"));
+  ft.script_ = make_item ("Fingering");
   announce_grob (ft.script_, event->self_scm());
   
   Side_position_interface::add_support (ft.script_, head);

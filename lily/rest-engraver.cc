@@ -65,7 +65,7 @@ Rest_engraver::process_music ()
 {
   if (rest_req_ && !rest_) 
     {
-      rest_ = new Item (get_property ("Rest"));
+      rest_ = make_item ("Rest");
 
       int durlog  = unsmob_duration (rest_req_->get_mus_property ("duration"))-> duration_log ();
       
@@ -76,7 +76,7 @@ Rest_engraver::process_music ()
       
       if (dots)
 	{
-	  dot_ = new Item (get_property ("Dots"));
+	  dot_ = make_item ("Dots");
 
 	  Rhythmic_head::set_dots (rest_, dot_);
 	  dot_->set_parent (rest_, Y_AXIS);

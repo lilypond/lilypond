@@ -98,7 +98,7 @@ Hyphen_engraver::process_acknowledged_grobs ()
 	  return;
 	}
       
-      hyphen_ = new Spanner (get_property ("LyricHyphen"));
+      hyphen_ = make_spanner ("LyricHyphen");
 
       hyphen_->set_bound (LEFT, last_lyric_);
       announce_grob(hyphen_, req_->self_scm());
