@@ -27,8 +27,6 @@ Output_property_music_iterator::process (Moment m)
 	get_music ()->origin ()->warning (_f ("Junking event: `%s'",
 					  classname (get_music ())));
     }
-
-  skip (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Output_property_music_iterator);

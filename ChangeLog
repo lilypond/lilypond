@@ -1,5 +1,9 @@
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/include/music-iterator.hh (class Music_iterator): remove
+	Music_iterator::skip and Music_iterator::get_pending_events from
+	interface. Rename report_to -> get_outlet 
+
 	* lily/auto-change-iterator.cc: move contents from
 	new-auto-change-iterator.cc from
 

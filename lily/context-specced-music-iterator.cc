@@ -31,7 +31,7 @@ Context_specced_music_iterator::construct_children ()
   SCM ops = get_music ()->get_mus_property ("property-operations");
   
   Translator_group* a
-    = report_to ()->find_create_translator (ct, c_id, ops);
+    = get_outlet ()->find_create_translator (ct, c_id, ops);
 
   if (a)
     set_translator (a);

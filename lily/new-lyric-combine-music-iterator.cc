@@ -164,7 +164,7 @@ New_lyric_combine_music_iterator::construct_children ()
   find_thread ();
   
   if (lyric_iter_)
-    lyrics_context_ = find_context_below (lyric_iter_->report_to (),
+    lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
 					  "LyricsVoice", "");
 
   /*
@@ -183,7 +183,7 @@ New_lyric_combine_music_iterator::find_thread ()
   
       if (gh_string_p (voice_name))
 	{
-	  Translator_group *t = report_to ();
+	  Translator_group *t = get_outlet ();
 	  while (t && t->daddy_trans_)
 	    t = t->daddy_trans_;
 

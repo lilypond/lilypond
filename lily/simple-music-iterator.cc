@@ -46,28 +46,14 @@ Simple_music_iterator::pending_moment ()const
     return music_get_length ();
 }
 
-void
-Simple_music_iterator::skip (Moment m)
-{
-  /*
-    docme??!!
-
-    uncommented because setting MUSIC_L_ = 0 causes core dumps with
-    grace notes.  */
-  
-  //  music_ = 0;
-  
-  last_processed_mom_ = m;
-}
 
 void
-Simple_music_iterator::process (Moment m)
+Simple_music_iterator::process (Moment )
 {
   /*
   don't do try_music (), since it would make the function useless for
   base classes */
 
-  skip (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Simple_music_iterator);

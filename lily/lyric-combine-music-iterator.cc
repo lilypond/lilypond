@@ -125,7 +125,7 @@ Lyric_combine_music_iterator::get_busy_status () const
   if (try_music (busy_req))
     return true;
   
-  Translator_group * tr = music_iter_->report_to ();
+  Translator_group * tr = music_iter_->get_outlet ();
 
   SCM grobs = tr->get_property ("busyGrobs");
   Moment now = tr->now_mom();
@@ -151,7 +151,7 @@ bool
 Lyric_combine_music_iterator::melisma_busy ()
 {
   /*
-    We can not read the property, since music_iter_->report_to() might
+    We can not read the property, since music_iter_->get_outlet () might
     not be the context that sets the melisma properties, but rather a
     parent context.
    */

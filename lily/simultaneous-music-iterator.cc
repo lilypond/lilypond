@@ -54,17 +54,6 @@ Simultaneous_music_iterator::derived_substitute(Translator_group*f,Translator_gr
     unsmob_iterator (gh_car (s))-> substitute_outlet (f,t);
 }
 
-SCM
-Simultaneous_music_iterator::get_pending_events (Moment m)const
-{
-  SCM l = SCM_EOL;
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
-    {
-      l = gh_append2 (unsmob_iterator (gh_car (s))->get_pending_events (m), l);
-    }
-  return l;
-}
-
 void
 Simultaneous_music_iterator::construct_children ()
 {
@@ -84,13 +73,13 @@ Simultaneous_music_iterator::construct_children ()
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
 
-      SCM name = unsmob_context_def (report_to ()->definition_)->get_context_name ();
+      SCM name = unsmob_context_def (get_outlet ()->definition_)->get_context_name ();
       Translator_group * t = (j && separate_contexts_b_)
-	? report_to ()->find_create_translator (name, to_string (j), SCM_EOL)
-	: report_to ();
+	? get_outlet ()->find_create_translator (name, to_string (j), SCM_EOL)
+	: get_outlet ();
 
       if (!t)
-	t = report_to ();
+	t = get_outlet ();
 
       mi->init_translator (mus, t);
       mi->construct_children ();
@@ -116,29 +105,6 @@ Simultaneous_music_iterator::process (Moment until)
 	  || i->pending_moment () == until) 
 	{
 	  i->process (until);
-	}
-      if (!i->ok ())
-	{
-	  i->quit ();
-	  *proc = gh_cdr (*proc);
-	}
-      else
-	{
-	  proc = SCM_CDRLOC(*proc);
-	}
-    }
-}
-
-void
-Simultaneous_music_iterator::skip (Moment until)
-{
-  SCM *proc = &children_list_; 
-  while(gh_pair_p (*proc))
-    {
-      Music_iterator * i = unsmob_iterator (gh_car (*proc));
-      if (i->pending_moment () <= until) 
-	{
-	  i->skip (until);
 	}
       if (!i->ok ())
 	{

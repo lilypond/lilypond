@@ -59,11 +59,7 @@ Music_wrapper_iterator::ok () const
 {
   return child_iter_ && child_iter_->ok ();
 }
-void
-Music_wrapper_iterator::skip (Moment m)
-{
-  child_iter_->skip (m);
-}
+
 
 void
 Music_wrapper_iterator::process (Moment m)
@@ -71,11 +67,6 @@ Music_wrapper_iterator::process (Moment m)
   child_iter_->process (m);
 }
 
-SCM
-Music_wrapper_iterator::get_pending_events (Moment m)const
-{
-  return child_iter_->get_pending_events (m);
-}
 
 Moment
 Music_wrapper_iterator::pending_moment () const

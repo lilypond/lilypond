@@ -21,11 +21,12 @@ public:
   bool try_music (Music *);
   void operator = (Interpretation_context_handle const&);
   Interpretation_context_handle (Interpretation_context_handle const&);
-  Translator_group * report_to () const;
+  Translator_group * get_outlet () const;
+
   int get_count () const;
   void quit ();
 private:
-  Translator_group * report_to_;
+  Translator_group * outlet_;
   void down ();
   void up (Translator_group*);
 };

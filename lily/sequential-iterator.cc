@@ -229,8 +229,8 @@ Sequential_iterator::next_element (bool)
 void
 Sequential_iterator::descend_to_child ()
 {
-  Translator_group  * child_report = child_report = iter_->report_to ();
-  Translator_group * me_report = report_to ();
+  Translator_group  * child_report = child_report = iter_->get_outlet ();
+  Translator_group * me_report = get_outlet ();
 
   Translator_group * c = child_report;
   while (c && c != me_report)
@@ -243,82 +243,6 @@ Sequential_iterator::descend_to_child ()
 }
 
 
-/*
-  Retrieve all music (starting at HERE), until a music with length L >
-  0 is found.  From the precondition, we know that UNTIL is later than
-  the earliest event. Hence we know
-  
-  L >= (UNTIL - HERE)
-
-  so something that comes after this thing with L > 0 happens after
-
-  HERE + L >= HERE + (UNTIL - HERE) = UNTIL
-
-  Hence all events after the one with L>0 are uninteresting, so we
-  ignore them.
-  
-*/
-
-SCM
-Sequential_iterator::get_pending_events (Moment until) const
-{
-  SCM s = SCM_EOL;
-  if (until <  pending_moment ())
-    return s;
-
-  Sequential_iterator * me =
-    dynamic_cast<Sequential_iterator*> (clone ());
-  while (me->ok ())
-    {
-      SCM nm = me->iter_->get_pending_events (until - me->here_mom_);
-      s = gh_append2 (nm, s);
-      
-      Moment m = 0;
-      for (SCM i = nm; gh_pair_p (i); i = ly_cdr (i))
-	{
-	  Music *mus=unsmob_music (ly_car (i));
-	  m = m >? (mus->get_length () - mus->start_mom ());
-	}
-      if (m > Moment (0))
-	break ;
-      else
-	me->next_element (false);
-    }
-
-  scm_gc_unprotect_object (me->self_scm());
-  return s;
-}
-
-
-/*
-  Skip events till UNTIL. We don't do any other side effects such as
-  descending to child iterator contexts, because they might depend on
-  \context specs and \translator changes being executed
- */
-void
-Sequential_iterator::skip (Moment until)
-{
-  while (ok ())
-    {
-      if (grace_fixups_ &&
-	  grace_fixups_->start_ == here_mom_
-	  && (grace_fixups_->start_ + grace_fixups_->length_
-	      + Moment (Rational (0), grace_fixups_->grace_start_) == until))
-	{
-	  /*
-	    do the stuff/note/rest preceding a grace.
-	   */
-	  iter_->skip (iter_->music_get_length ());
-	}
-      else if (iter_->music_get_length () >= until - here_mom_)
-	iter_->skip (until - here_mom_ + iter_->music_start_mom ());
-
-      if (iter_->ok ())
-	return ; 
-
-      next_element (false);
-    }
-}
 
 void
 Sequential_iterator::process (Moment until)

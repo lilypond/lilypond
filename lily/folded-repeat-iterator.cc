@@ -8,11 +8,6 @@
  */
 
 
-/*
-   Folded repeats are a stupid idea at this point, so we refrain from
-   implementing get_pending_events () and skip ().
-*/
-
 #include "folded-repeat-iterator.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"
@@ -132,7 +127,7 @@ Folded_repeat_iterator::enter_alternative ()
       */ 
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
       s->separate_contexts_b_ = true;
-      s->init_translator (mus, report_to ());
+      s->init_translator (mus, get_outlet ());
       
       alternative_iter_ = s;
       alternative_iter_->construct_children ();
