@@ -236,6 +236,7 @@ beaming style: stems stop at innermost beams.")
 For text,  this is `relative'(?) to the current alignment.
 
 For barline, space after a thick line.")
+(grob-property-description 'knee-spacing-correction number? "optical correction amount for knees. 0: no correction; 1: full correction.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 
 (grob-property-description 'left-position number? "position of left part of spanner.")
