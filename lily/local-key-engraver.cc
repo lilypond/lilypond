@@ -38,7 +38,6 @@ public:
 
   // todo -> property
   SCM last_keysig_;
-  Key_engraver *key_grav_l_;
   
   Link_array<Note_req> mel_l_arr_;
   Link_array<Item> support_l_arr_;
@@ -51,7 +50,6 @@ public:
 
 Local_key_engraver::Local_key_engraver()
 {
-  key_grav_l_ = 0;
   key_item_p_ =0;
   grace_align_l_ =0;
   last_keysig_ = SCM_EOL;
