@@ -1,3 +1,7 @@
+2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* mf/parmesan-heads.mf (overdone_heads): enlarge harmonic head.
+
 2004-01-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/include/music-iterator.hh (class Music_iterator): add
