@@ -48,7 +48,7 @@ Volta_spanner::do_brew_molecule_p () const
   Real t = paper_l ()->get_realvar (volta_thick_scm_sym);
 
   Real dx = internote_f;
-  Real w = extent (X_AXIS).length () - dx;
+  Real w = extent (X_AXIS).length () - dx - get_broken_left_end_align ();
   Real h = paper_l()->get_var ("volta_spanner_height");
   Molecule volta (lookup_l ()->volta (h, w, t, no_vertical_start, no_vertical_end));
 
@@ -98,6 +98,7 @@ Volta_spanner::do_post_processing ()
 {
   if (bar_arr_.size())
     translate_axis (bar_arr_[0]->extent (Y_AXIS)[UP], Y_AXIS);
+  translate_axis (get_broken_left_end_align (), X_AXIS);
 }
 
 void

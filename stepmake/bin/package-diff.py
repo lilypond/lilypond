@@ -5,9 +5,13 @@ version = '0.62'
 
 import sys
 import os
-from string import *
+import string
 import getopt
 import pipes
+
+def gulp_file (fn):
+	f = open (fn)
+	return f.read ()
 
 def program_id ():
 	return name + ' ' + version;
@@ -159,7 +163,7 @@ def makediff (fromdir, todir, patch_name):
 def main ():
 	os.environ['GZIP'] = '-q'
 	identify ()
-	print 'argv: ' + join (sys.argv[2:])
+	print 'argv: ' + string.join (sys.argv[2:])
 	(options, files) = getopt.getopt (sys.argv[1:], 
 		'hF:f:o:p:rT:t:', ['from=', 'dir-from=', 'dir-to=', 'help', 'output=', 'package=', 'release', 'to='])
 

@@ -68,6 +68,7 @@ protected:
     this is virtual; for instance, Line_of_score overrides it.
     */
   virtual void break_into_pieces ();
+  Real get_broken_left_end_align () const;
 
   friend Axis_group_spanner; // UGH
 

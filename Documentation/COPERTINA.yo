@@ -5,5 +5,4 @@ nsect(LilyPond è il tipografo musicale del progetto GNU. )
 
 includefile(COPERTINA.in)
 nl()
-pic(schermo)
 

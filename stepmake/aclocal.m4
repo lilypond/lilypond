@@ -150,7 +150,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     # ugh autoconf
     # urg, egcs: how to check for egcs >= 1.1?
     changequote(<<, >>)dnl
-    if $CXX --version | egrep '2\.8|2\.9' > /dev/null ||
+    if $CXX --version | egrep '2\.[89]' > /dev/null ||
 	$CXX --version | grep 'egcs' > /dev/null
     changequote([, ])dnl
     then
@@ -161,19 +161,9 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_GUILE, [
-    # on some systems, -lguile succeeds for guile-1.3
-    # others need readline, dl (or even more)
-    # urg, must check for different functions in libguile
-    # to force new check iso reading from cache
-
-    # gh_scm2doubles,gh_doubles2scm are new in 1.3
     GUILE_FLAGS
-    AC_CHECK_LIB(guile, gh_scm2doubles,
-      [LIBS="`echo $GUILE_LDFLAGS | sed -e 's/-L[[/-_a-zA-Z0-9]]\+ //g'` $LIBS"
-      AC_DEFINE(HAVE_LIBGUILE)], , $GUILE_LDFLAGS dnl
-    )
-    if test "$ac_cv_lib_guile_gh_scm2doubles" != yes ; then
-	AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
+    if guile-config --version 2>&1 | grep -q 'version 1\.[012]'; then
+       AC_STEPMAKE_WARN(Guile version 1.3 or better needed)
     fi
 ])
 

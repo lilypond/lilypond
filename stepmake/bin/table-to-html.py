@@ -11,124 +11,139 @@ name = 'table-to-html'
 
 import os
 import sys
-
 import getopt
-from string import *
-import regex
-import regsub
+import string
 import time
+import re
+
+format = 'html'
 
 def program_id ():
-    return name + ' version ' + version;
+	return name + ' version ' + version;
 
 def identify ():
-    sys.stdout.write (program_id () + '\n')
+	sys.stdout.write (program_id () + '\n')
 
 def help ():
-    sys.stdout.write ("Usage: table-to-html [OPTION]... TABLE-FILE HTML-FILENAME\n"
-		 + "Generate pretty table from char separated table\n\n"
-		 + "Options:\n"
-		 + "  -h, --help             print this help\n"
-		 + "  -p, --package=DIR      specify package\n"
-		 + "  -s, --separator=SEP    specify separator [:]\n"
-		 + "  -t, --latex            do latex output instead\n"
-		      )
-    
-    sys.exit (0)
+	sys.stdout.write (
+r"""Usage: table-to-html [OPTION]... TABLE-FILE HTML-FILENAME
+Generate pretty table from char separated table
+Options:
+  -h, --help			 print this help
+  -p, --package=DIR	  specify package
+  -s, --separator=SEP	specify separator [:]
+  -t, --latex			do latex output instead
+""")
+	sys.exit (0)
 
 
 def header (html):
-    html.write ('<body bgcolor=white><table cellspacing=10>')
+	html.write ('<body bgcolor=white><table cellspacing=10>')
 
 def footer (html):
-    html.write ('</table></body>')
+	html.write ('</table></body>')
 
-def convert_html (inname, outname, cols, separator, linesep):
-    table = open (inname)
-    # ugh
-    html = open (outname, 'w')
+def convert_html (lines, outname, cols, separator, linesep):
+	# ugh
+	html = open (outname, 'w')
 
-    header (html)
-    i = 0
-    for line in table.readlines ():
-	i = i + 1
-	if not len(line):
-	    continue
-	columns = split (line, separator)
-	html_line = '<tr><td>' + join (columns, '</td><td>') + '</td></tr>'
-	html_line= regsub.gsub (linesep, ' ',html_line)
-	html.write (html_line)
+	header (html)
+	i = 0
+	for line in lines:
+		i = i + 1
+		if not len(line):
+			continue
+		columns = string.split (line, separator)
+		html_line = '<tr><td>' + string.join (columns, '</td><td>') + '</td></tr>'
+		html_line= re.sub (linesep, ' ', html_line)
+		html.write (html_line)
 
-	if len (columns) <> cols:
-		print i
-		raise 'not enough cols'
+		if len (columns) <> cols:
+				print i
+				raise 'not enough cols'
 
-    table.close ()
-    footer (html)
-    html.close ()
+	footer (html)
+	html.close ()
 
 
-def convert_tex (inname, outname, cols, separator, linesep):
-    table = open (inname)
-    html = open(outname, 'w')
+def convert_tex (lines, outname, cols, separator, linesep):
+	html = open(outname, 'w')
+	header = r"""\documentclass{article}
+\begin{document}
+{\parindent -1pc
+	\parskip 0pc\parsep 0pc
+	%  COMMENT( from the texbook)
+	\def\length#1{\count0=0 \getlength#1\end}
+	\def\getlength#1{\ifx#1\end \let\next=\relax
+	  \else\advance\count0 by1 \let\next=\getlength\fi \next}
+	  \def\inlanguage#1#2{{\length{#2}%
+		\ifnum\count0=0
+		\else
+		\emph{#1}: #2.
+		\fi}}
+	\small
 
-    i = 0
-    for line in table.readlines ():    
-	i = i + 1
-	if not len(line):
-	    continue
-	columns = split (line, separator)
-	if len (columns) <> cols:
-		print i
-		raise 'not enough cols'
+	\def\tableentry#1#2#3#4#5#6#7{\par{\bf #1}: #7
+	  \inlanguage{Fran\c cais}{#2}
+	   \inlanguage{British}{#4}  \inlanguage{Deutsch}{#3}
+	   \inlanguage{Nederlands}{#5}\inlanguage{Italiano}{#6}}
+"""
 
-	tex_line =  '\\tableentry{' + join (columns, '}{') + '}\n'
-	tex_line = regsub.gsub (linesep, ' ', tex_line)
-	html.write (tex_line)
-	
-    table.close ()
-    html.close ()
+	html.write (header)
+	i = 0
+	for line in lines:
+		i = i + 1
+		if not len(line):
+			continue
+		columns = string.split (line, separator)
+		if len (columns) <> cols:
+				print i
+				raise 'not enough cols'
 
-def main ():
-    identify ()
-    (options, files) = getopt.getopt (
-	sys.argv[1:], 'tl:o:hp:c:s:', ['columns=', 'help', 'latex', 'output=', 'package=', 'separator=', 'linesep='])
-    latex = 0
-    separator = '@'
-    output = ''
-    linesep = '\r'
-    for opt in options:
+		tex_line =  '\\tableentry{' + string.join (columns, '}{') + '}\n'
+		tex_line = re.sub (linesep, ' ', tex_line)
+		html.write (tex_line)
+		
+	html.write(r"""}\end{document}""")
+	html.close ()
+
+def convert_texinfo (lines, outname, cols, separator, linesep):
+		pass
+
+
+
+identify ()
+(options, files) = getopt.getopt (
+	sys.argv[1:], 'f:tl:o:h:c:s:', ['columns=', 'help', 'format=', 'output=', 'separator=', 'linesep='])
+latex = 0
+separator = '@'
+output = ''
+linesep = '\r'
+for opt in options:
 	o = opt[0]
 	a = opt[1]
 	if o == '--separator' or o == '-s':
-	    separator = a
+		separator = a
 	elif o== '--help' or o == '-h':
-	    help ()
-	elif o=='--latex' or o == '-t':
-	    latex = 1
+		help ()
+	elif o=='--format' or o == '-f':
+		format = a
 	elif o == '--output' or o == '-o':
-	    output = a
-	elif o == '--package' or o == '-p':
-	    topdir=a
+		output = a
 	elif o == '--linesep' or o == '-l':
 		linesep = a
 	elif o == '--columns' or o == '-c':
-		cols =  atoi(a)
+		cols =  string.atoi(a)
 	else:
-	    print o
-	    raise getopt.error
+		print o
+		raise getopt.error
 
-    sys.path.append (topdir + '/stepmake/bin')
-    from packagepython import *
-    package = Package (topdir)
-    packager = Packager ()
+lines = open (files[0]).readlines ()
 
-    from flower import *
-
-    if latex:
-	convert_tex (files[0], output,  cols, separator, linesep)
-    else:
-	convert_html (files[0], output, cols, separator, linesep)
-
-main ()
+if format == 'latex':
+	convert_tex (lines, output,  cols, separator, linesep)
+elif format == 'html':
+	convert_html (lines, output, cols, separator, linesep)
+elif format == 'texi':
+	convert_texinfo (lines, output, cols, separator, linesep)
 

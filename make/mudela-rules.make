@@ -11,14 +11,3 @@ $(outdir)/%.latex: %.doc
 $(outdir)/%.texi: %.tely
 	cd $(outdir); $(PYTHON) $(depth)/../scripts/mudela-book.py -I .. -I $(depth)/../input/test/ --dependencies --format=texi ../$<
 
-$(outdir)/%.info: $(outdir)/%.texi
-	makeinfo --output=$@ $<
-
-$(outdir)/%.html:	$(outdir)/%.texi
-	makeinfo --output=$@ --html --no-headers $< 
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=$(depth)/../index.html $@ $(wildcard $(basename $@)[0-9][0-9].html)
-
-$(outdir)/%.dvi:	$(outdir)/%.texi
-	# --clean only in >= 3.12s
-	# cd $(outdir); texi2dvi --clean ../$< 
-	cd $(outdir); texi2dvi ../$< 

@@ -54,6 +54,7 @@ Note_heads_engraver::do_process_requests()
 	{
 	  Dots * d = new Dots;
 	  note_p->dots_l_ = d;
+	  d->dots_i_ = note_req_l->duration_.dots_i_;
 
 	  Scalar dir = get_property ("verticalDirection",0);
 	  if (dir.isdir_b())

@@ -9,7 +9,6 @@
 
 #include "parray.hh"
 #include "virtual-methods.hh"
-#include "directed-graph.hh"
 #include "graphical-element.hh"
 #include "lily-guile.hh"
 

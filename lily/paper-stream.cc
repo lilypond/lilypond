@@ -19,7 +19,7 @@ Paper_stream::Paper_stream (String filename)
   if (filename.length_i () && (filename != "-"))
     os = new ofstream (filename.ch_C ());
   else
-//    os = new ostream (cout.ostreambuf ());
+    //    os = new ostream (cout.ostreambuf ());
     os = new ostream (cout._strbuf);
   if (!*os)
     error (_f ("can't open file: `%s\'", filename));
@@ -46,56 +46,57 @@ Paper_stream::operator << (Scalar s)
 {
   for (char const *cp = s.ch_C (); *cp; cp++)
     {
-	if (outputting_comment)
-	  {
-	    *os << *cp;
-	    if (*cp == '\n')
-	      {
-		outputting_comment=false;
-
-	      }
-	    continue;
-	  }
-	line_len_i_ ++;
-	switch (*cp)
+      if (outputting_comment)
+	{
+	  *os << *cp;
+	  if (*cp == '\n')
 	    {
-	    case '%':
-		outputting_comment = true;
-		*os << *cp;
-		break;
-	    case '{':
-		nest_level++;
-		*os << *cp;
-		break;
-	    case '}':
-		nest_level--;
-		*os << *cp;
+	      outputting_comment=false;
 
-		if (nest_level < 0)
-		  {
-		    delete os;	// we want to see the remains.
-		    assert (nest_level>=0);
-		  }
+	    }
+	  continue;
+	}
+      line_len_i_ ++;
+      switch (*cp)
+	{
+	case '%':
+	  outputting_comment = true;
+	  *os << *cp;
+	  break;
+	case '{':
+	  nest_level++;
+	  *os << *cp;
+	  break;
+	case '}':
+	  nest_level--;
+	  *os << *cp;
 
-		/* don't break line if not nested; very ugly for ps */
-		if (nest_level == 0)
-		  break;
+	  if (nest_level < 0)
+	    {
+	      delete os;	// we want to see the remains.
+	      assert (nest_level>=0);
+	    }
 
-		/* FALLTHROUGH */
+	  /* don't break line if not nested; very ugly for ps */
+	  if (nest_level == 0)
+	    break;
 
-	    case '\n':
-		break_line ();
-		break;
-	    case ' ':
-		*os <<  ' ';
-		if (line_len_i_ > MAXLINELEN)
-		   break_line ();
+	  *os << '%';
+	  break_line ();
+	  break;
+	case '\n':
+	  break_line ();
+	  break;
+	case ' ':
+	  *os <<  ' ';
+	  if (line_len_i_ > MAXLINELEN)
+	    break_line ();
 
-		break;
-	    default:
-		*os << *cp;
-		break;
-	      }
+	  break;
+	default:
+	  *os << *cp;
+	  break;
+	}
     }
   //urg, for debugging only!!
   *os << flush;
@@ -105,8 +106,7 @@ Paper_stream::operator << (Scalar s)
 void
 Paper_stream::break_line ()
 {
-  // aaargh
-  *os << "%\n";
+  *os << '\n';
   *os << to_str (' ', nest_level);
   line_len_i_ = 0;
 }

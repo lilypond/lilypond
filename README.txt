@@ -1,103 +1,109 @@
 
-          This is the toplevel README to LilyPond
 
-LilyPond is a music typesetter.  It produces beautiful sheet
-music using a high level description file as input.  Lily-
-Pond is part of the GNU Project.
+   )
 
-1: VERSIONING
+This is the toplevel README to LilyPond
+***************************************
 
-LilyPond uses a versioning scheme similar to the Linux ker-
-nel.  In a version "x.y.z", an even second number 'y'
-denotes a stable version.  For development versions 'y' is
-odd.  For using straightforward score production, please use
-the latest stable version.  Development versions may not
-produce good or nice scores.
+   LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of the
+GNU Project.
 
-2: REQUIREMENTS
+versioning
+==========
 
-For the compilation and running of LilyPond you need some
-additional packages.  Please refer to the installation
-instructions.
+   LilyPond uses a versioning scheme similar to the Linux kernel.  In a
+version "x.y.z", an even second number 'y' denotes a stable version.
+For development versions 'y' is odd.  For using straightforward score
+production, please use the latest stable version.  Development versions
+may not produce good or nice scores.
 
-NOTE: If you downloaded a binary (.rpm or a W95/NT .zip
-file), then you don't have to compile LilyPond.
+requirements
+============
 
-3: INSTALLATION
+   For the compilation and running of LilyPond you need some additional
+packages.  Please refer to the installation instructions.
 
-For your convenience, a formatted copy of the INSTALL
-instructions are in the toplevel directory, as INSTALL.txt
+   NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), then
+you don't have to compile LilyPond.
 
-The process is fairly straightforward, but chances are that
-you have to specify directories for  to configure: this is
-done with the options --enable-tex-dir and --enable-mf-dir
+installation
+============
 
-4: DOCUMENTATION
+   For your convenience, a formatted copy of the INSTALL instructions
+are in the toplevel directory, as INSTALL.txt
 
-The real documentation is the directory Documentation/
+   The process is fairly straightforward, but chances are that you have
+to specify directories for TeX to `configure': this is done with the
+options `--enable-tex-dir' and `--enable-mf-dir'
 
-If you want to read the documentation online, these are
-options:
+documentation
+=============
 
-o    use .html. Refer to INSTALL.txt for info on how to make
-     the .html documentation.
+   The real documentation is the directory Documentation/
 
-o    use .html. Point your browser to
-     http://www.cs.uu.nl/~hanwen/lilypond/index.html.
+   If you want to read the documentation online, these are options:
+   * use `.html'. Refer to INSTALL.txt for info on how to make the
+     .html documentation.
 
-o     use .dvi,  for the tutorial and reference manual. Do
+   * use `.html'. Point your browser to
+     `http://www.cs.uu.nl/~hanwen/lilypond/index.html'.
+
+   * use `.dvi',  for the tutorial and reference manual. Do
 
             make -C Documentation/tex/ dvi
 
-o    use ASCII. Do using
+   * use ASCII. Do using
 
-               make -C Documentation/
+          	make -C Documentation/
 
-     The tutorial and the reference manual  can not be made
-     in ASCII, as they contain graphics.
+     The tutorial and the reference manual  can not be made in ASCII, as
+     they contain graphics.
 
-5: COMMENTS
+comments
+========
 
-LilyPond is a long way from finished and polished.  We do
-appreciate criticism, comments, bugreports, patches, etc.
+   LilyPond is a long way from finished and polished.  We do appreciate
+criticism, comments, bugreports, patches, etc.
 
-             Please send your e-mail to one of the MAILING LISTS
+     	   Please send your e-mail to one of the MAILING LISTS
 
-and not to us personally.  See Documentation/links.yo for
-more info.
+   and _not_ to us personally.  See `Documentation/links.yo' for more
+info.
 
-6: WINDOWS 32
+windows 32
+==========
 
-If you have received this file as part of a DOS/Window32
-distribution (LilyPond-*.zip), then it is advisable to also
-download the source package, since it might contain more
-documentation ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
+   If you have received this file as part of a DOS/Window32 distribution
+(LilyPond-*.zip), then it is advisable to also download the source
+package, since it might contain more documentation
+`ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/'
 
-If you decide to build LilyPond from source, please read the
-INSTALL.txt document first, especially the Windows NT/95
-section.
+   If you decide to build LilyPond from source, please read the
+INSTALL.txt document first, especially the Windows NT/95 section.
 
-7: CAVEATS
+caveats
+=======
 
-* Please read the file BUGS for some ugly bugs.
+   * Please read the file BUGS for some ugly bugs.
 
-* If you have installed a previous version, be sure to
-remove old font files, eg
-
+   * If you have installed a previous version, be sure to remove old
+font files, eg
      rm `find /var/lib/texmf/fonts -name 'feta*'`
 
-a script to do this for you is in buildscripts/clean-
-fonts.sh
+   a script to do this for you is in `buildscripts/clean-fonts.sh'
 
-8: BUGS
+bugs
+====
 
-Send bug reports to bug-gnu-music@gnu.org.  For help and
-questions use help-gnu-music@gnu.org and gnu-music-dis-
-cuss@gnu.org.  Please consult the faq before mailing your
-problems.
+   Send bug reports to bug-gnu-music@gnu.org.  For help and questions
+use help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please
+consult the faq before mailing your problems.
 
-9: CDROM DISTRIBUTIONS
+cdrom distributions
+===================
 
-If you have received LilyPond on a cdrom, chances are that
-development has moved a some patchlevels up.  Please check
-the latest version of LilyPond before reporting bugs.
+   if you have received LilyPond on a cdrom, chances are that
+development has moved a some patchlevels up.  Please check the latest
+version of LilyPond before reporting bugs.
+

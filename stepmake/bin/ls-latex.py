@@ -7,7 +7,11 @@ version = '0.1'
 
 import sys
 import os
-from string import *
+import string
+
+def gulp_file (fn):
+	f = open (fn)
+	return f.read ()
 
 import __main__
 import glob

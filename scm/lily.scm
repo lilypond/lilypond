@@ -233,9 +233,12 @@
     (string-append
      "\\font" (font-switch i) "=" s "\n"))
 
-  ;; UGH
-   
-  (define (header-end) "\\input lilyponddefs \\turnOnPostScript")
+  (define (header-end)
+    (string-append
+     "\\special{! "
+     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
+     "}"
+     "\\input lilyponddefs \\turnOnPostScript"))
 
   (define (header creator generate) 
     (string-append

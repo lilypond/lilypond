@@ -50,7 +50,8 @@ Multi_measure_rest::do_brew_molecule_p () const
     {
       Item * col = spanned_drul_[d]->column_l ();
 
-      Interval coldim = col->extent (X_AXIS);
+      Interval coldim = col->extent (X_AXIS)
+	+ col->relative_coordinate (0, X_AXIS);
 
       sp_iv[d] = coldim[-d]  ;
     }

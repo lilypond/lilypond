@@ -53,6 +53,7 @@ Rest_engraver::do_process_requests ()
 	{
 	  dot_p_ = new Dots;
 	  rest_p_->dots_l_  =dot_p_;
+	  dot_p_->dots_i_ = rest_req_l_->duration_.dots_i_;	  
 	  announce_element (Score_element_info (dot_p_,0));
 	}
       if (rest_p_->balltype_i_ >= 2) 

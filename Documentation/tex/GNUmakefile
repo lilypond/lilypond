@@ -6,20 +6,20 @@ DATA_FILES = $(wildcard *.data)
 datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 TEX_FILES = $(wildcard *.tex)
 DOC_FILES = $(wildcard *.doc)
-TELY_FILES = $(wildcard *.tely)
-DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi) $(TELY_FILES:.tely=.dvi))
 
-# just include me
-YO_URG_FILES = $(wildcard *.yo-urg)
+DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi)  $(TELY_FILES:.tely=.dvi))
 
-OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
+
+
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
+OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
 
-EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES) $(TEX_FILES) $(TELY_FILES) testje.fly
-HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html) $(TELY_FILES:.tely=.html))
+EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(TEX_FILES) testje.fly
+HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
+
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
-STEPMAKE_TEMPLATES=tex documentation
+STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
 include $(depth)/make/stepmake.make 
@@ -42,31 +42,24 @@ OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 #urg should generalise and move Lilypond -> StepMake
 # URG.  Lilypond specific. Move out. 
 $(outdir)/%.html: %.data $(depth)/VERSION
-	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ $<
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' -o $@ $<
 	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $@
 
-$(outdir)/%.tex: %.data $(depth)/VERSION
-	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
+$(outdir)/%.latex: %.data $(depth)/VERSION
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep=''  -o $@ --format=latex $<
 
 
-$(outdir)/glossary.dvi: $(outdir)/glossary-table.tex
-$(outdir)/glossary.html: $(outdir)/glossary-table.html
 
 
-local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz)  $(datafiles)
+
+local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTTEX_FILES:.tex=.ps.gz)   $(datafiles)
 	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about LilyPond' \
-	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
+	   $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
-
-# Yeah right: 
-# make -k out/mudela.dvi => cp -f out/vocabulary.tex out/mudela.dvi
-
-#out/%: $(outdir)/%
-#	cp -f $< $@
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
