@@ -1975,10 +1975,10 @@ finger changes, use markup texts:
 @c
 @lilypond[verbatim, singleline, fragment]
       c'4-1 c'4-2 c'4-3 c'4-4
-      c^#'(finger "2-3")
+      c^\markup { \fontsize #-3 \number "2-3" }
 @end lilypond
 
-
+@cindex finger change
 @cindex scripts
 @cindex superscript
 @cindex subscript

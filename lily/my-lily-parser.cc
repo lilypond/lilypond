@@ -95,7 +95,21 @@ My_lily_parser::here_input () const
     Parsing looks ahead , so we really want the previous location of the
     lexer, not lexer_->here_input().
    */
-  return lexer_->last_input_;
+  /*
+    Actually, that gets very icky when there are white space, because
+    the line-numbers are all wrong.  Let's try the character before
+    the current token. That gets the right result for
+    note/duration stuff, but doesn't mess up for errors in the 1st token of the line. 
+    
+   */
+  Input hi (lexer_->here_input ());
+
+  char const * bla = hi.defined_str0_;
+  if (hi.line_number () > 1
+      || hi.column_number () > 1)
+    bla --;
+  
+  return Input (hi.source_file_, bla);
 }
 
 #include "paper-def.hh"
