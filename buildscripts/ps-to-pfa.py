@@ -13,7 +13,6 @@ version = '0.4'
 
 datadir = ''
 
-import find
 import os
 import sys
 import getopt
@@ -130,10 +129,10 @@ def characters (f):
 	logfile.write ('[')
 	
 	files = []
-	import find			# q
+	import glob
 	suffixes = [".[0-9]", ".[0-9][0-9]",  ".[0-9][0-9][0-9]"]
 	for suf in suffixes:
-		files = files + find.find (font_name + suf)
+		files = files + glob.glob(font_name + suf)
 
 
 	# concat all files into charprocs.
