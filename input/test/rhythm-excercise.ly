@@ -1,7 +1,8 @@
 \version "2.1.26"
 \header { texidoc = "@cindex Rhythm Exercise
-This example shows a way to generate rhythm exercises with
-LilyPond (e.g. no staff but retaining the barlines). "
+Rythmic exercises may be produced by removing the @code{Clef} engraver,
+putting all notes to the same pitch and using transparent staff lines.
+"
 }
 
 \score { \notes { c4 c4 c8[ c8]  c2 c2 }

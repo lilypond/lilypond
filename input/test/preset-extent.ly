@@ -3,10 +3,9 @@
 
 @cindex Preset Extent
 
-
-Grob extents may be hard coded using grob properties.
-The lyrics in this example have extent (-10,10) which is why they are
-spaced so widely.
+The object may be extended to larger sized by overriding their properties.
+The lyrics in this example have an extent of @code{(-10,10)}, which is why 
+they are spaced so widely.
 
 "
 

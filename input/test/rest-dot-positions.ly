@@ -2,7 +2,7 @@
 \version "2.1.26"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
-This file tests dotted rests. " }
+Dots of rests should follow the rest positions. " }
 
 muz = \notes \relative c'' {
     \time 6/1

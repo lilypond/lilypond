@@ -3,8 +3,11 @@
 % possible rename to lyric-repeat or repeat-lyric.
 
 \header{ texidoc = "@cindex Repeat Lyrics
-You can use alternate lyrics as well as alternate notes for repeats. "
+Alternate lyrics can be used, as well as alternate notes for repeats. "
 }
+
+%% Syntax << { aaa } { bbb } >> seems not to work in lyrics. 
+%% The notes are lyrics do not match syntactically here. - HJJ
 
 \score{
 	<<
