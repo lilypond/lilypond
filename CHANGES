@@ -1,5 +1,53 @@
-1.3.113.jcn2
+
+
+1.3.114.mb1
+===========
+
+* Bugfix: convert-ly
+
+* Bugfix: Included FAQ.txt in the top directory
+
+* Allow for instrument names with multiple lines and font selection,
+  see input/test/coriolan-margin.ly
+
+* Added example for figured bass: input/test/figbass.ly
+
+1.3.114.lec1
 ============
+
+* abc2ly fixes
+	* allow a g_8 clef to be specified by treble8
+
+	* allow full mode names, as well as 3 character abbreviations
+
+	* support breves and longas (no abc program that I know of has
+	  longas, but a couple of them have breves, and one can always hope.)
+
+	* translate text annotations beginning with _ and ^ for above and 
+	  below the staff.
+
+	* quote lyrics syllables with (
+
+	* handle real repeat syntax, for appropriately written ABC.
+
+	* %%LY slyrics now works for longer than one character lyric strings.
+
+	* N: fields are now in header.
+
+1.3.114.uu1
+===========
+
+* Prepare for Music type-unification: remove all args from Music
+constructor, and set everything in the parser.
+
+* Moved writing of \header strings feature from lilypond-book to lilypond. (1.3.114.jcn1)
+
+* Bugfix: tied chords.
+
+* Turn off .info creation by default.
+
+1.3.114
+=======
 
 * Moved all documentation from regtest to individual example files.
 
