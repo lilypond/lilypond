@@ -124,26 +124,23 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textstyle = "italic";
 	textScriptPadding = 5.0;
     }
-\translator{\VoiceContext
-\remove Auto_beam_engraver; % Bug workaround!
-}
   }
 }
 
 \score{
   \type StaffGroup <
-    \oboe
-    \flauto
-    \type Staff = cor {\notes \transpose bes <\clarI \clarII >}
-    \fagotto
-    \type Staff = cor {\notes \transpose f <\corI \corII >}
-    \type Staff = cor {\notes \transpose bes <\trpI \trpII >}
-    \timpani
-    \viI
-    \viII
-    \vla
-    \vlc
-    \cb
+    \type Staff = oboe \oboe
+    \type Staff = flauto \flauto
+    \type Staff = clarinetsInBes {\notes \transpose bes <\clarI \clarII >}
+    \type Staff = fagotto \fagotto
+    \type Staff = corniInF {\notes \transpose f <\corI \corII >}
+    \type Staff = trumpetsInBes {\notes \transpose bes <\trpI \trpII >}
+    \type Staff = timpani \timpani
+    \type Staff = violinoi \viI
+    \type Staff = violinoii \viII
+    \type Staff = viola \vla
+    \type Staff = violoncello \vlc
+    \type Staff = contrabass \cb
   >
   \midi {
     \tempo 4=120;

@@ -152,8 +152,8 @@ lower = \type Staff \notes \relative c{
     \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
-	    beamAutoEnd8 = "1/4";
-	    beamAutoEnd16 = "1/4";
+	    beamAutoEnd_8 = "1/4";
+	    beamAutoEnd_16 = "1/4";
     }
   }
   \midi {

@@ -68,7 +68,7 @@ menuetto_i_cello_staff = \type Staff <
 		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			beamAutoEnd8 = "3/4";
+			beamAutoEnd_8 = "3/4";
 		}
 	}
 	\midi{ \tempo 4 = 110; }
@@ -103,7 +103,7 @@ menuetto_ii_cello_staff = \type Staff <
 		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			beamAutoEnd8 = "3/4";
+			beamAutoEnd_8 = "3/4";
 		}
 	}
 	\midi{ \tempo 4 = 130; }

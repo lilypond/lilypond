@@ -29,13 +29,14 @@ protected:
 private:
   void begin_beam ();
   void consider_end_and_begin ();
+  Beam* create_beam_p ();
   void end_beam ();
   void junk_beam ();
   void typeset_beam ();
 
-  int mult_i_;
+  Moment shortest_mom_;
   Beam *finished_beam_p_;
-  Beam *beam_p_;
+  Array<Stem*>* stem_l_arr_p_;
   Moment last_add_mom_;
   Moment extend_mom_;
   Rhythmic_grouping*grouping_p_;
