@@ -191,7 +191,8 @@ def write_global_lisp_table (file, global_info):
 		'blot_diameter'
 		]
 	for k in keys:
-		str = str + "(%s . %s)\n" % (k,global_info[k])
+		if global_info.has_key (k):
+			str = str + "(%s . %s)\n" % (k,global_info[k])
 
 	file.write (str)
 

@@ -43,7 +43,7 @@ SCM
 load_scheme_table (char const *tag_str, FT_Face face)
 {
   FT_ULong length = 0;
-  FT_Byte* buffer =load_table ("LILC", face, &length);
+  FT_Byte* buffer =load_table (tag_str, face, &length);
 
   SCM tab = SCM_EOL;
   if (buffer)
@@ -99,7 +99,7 @@ Offset
 Open_type_font::attachment_point (String glyph_name) const
 {
   SCM sym = ly_symbol2scm (glyph_name.to_str0 ());
-  SCM entry =  scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+  SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
   Offset o;
   if  (entry == SCM_BOOL_F)
@@ -156,5 +156,5 @@ Open_type_font::name_to_index (String nm) const
 Real
 Open_type_font::design_size () const
 {
-  return 20.0;
+  return scm_to_double (scm_hashq_ref (lily_global_table_, ly_symbol2scm ("staffsize"), SCM_BOOL_F));
 }
