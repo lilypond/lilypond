@@ -19,9 +19,6 @@
 ;;; Look lilypond-init.el or Documentation/topdocs/INSTALL.texi
 ;;; for installing instructions.
 
-;;; TODO:
-;;;    * parenthesis matching
-
 (require 'easymenu)
 (require 'compile)
 
@@ -675,9 +672,9 @@ command."
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c:" 'LilyPond-un-comment-region)
   (define-key LilyPond-mode-map "\C-c;" 'comment-region)
-  (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren) ; urgh
-  (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren) ; argh
-  (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren) ; ..rgh
+  (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map [(shift iso-lefttab)] 'LilyPond-autocompletion)
   (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
@@ -1080,8 +1077,8 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
   (imenu-add-to-menubar "Index")
 
-  (easy-menu-add LilyPond-mode-menu)    ;; automatically added in Emacs, but
-  (easy-menu-add LilyPond-command-menu) ;; explicitly added in XEmacs
+  (easy-menu-add LilyPond-mode-menu)    ; automatically added in Emacs, but
+  (easy-menu-add LilyPond-command-menu) ; explicitly added in XEmacs
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))

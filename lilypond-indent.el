@@ -5,6 +5,11 @@
 
 ;;; Variables for customising indentation style
 
+;;; TODO:
+;;;    * emulate show-paren-mode 
+;;;    * separate slurs '(' and ')' from '\(' and '\)'
+;;;    * blinking is not shonw in Emacs, but is shown in XEmacs
+
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
 
@@ -435,7 +440,3 @@ the syntax table"
 	(progn (backward-char 1)
 	       (LilyPond-blink-matching-open close-char)
 	       (forward-char 1)))))
-
-
-;;; TODO:
-;;; emulate show-paren-mode 

@@ -1,3 +1,12 @@
+2003-05-05  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Move comments of parenthesis matching below.
+
+	* lilypond-font-lock.el: Fix parent-matching for Emacs:
+	Emacs knows only "13"-style, XEmacs knows also "1b3b", etc.
+
+	* lilypond-indent.el: Add TODO.
+
 2003-05-03  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Fix XEmacs: 

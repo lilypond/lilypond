@@ -122,17 +122,17 @@
 (defvar LilyPond-mode-syntax-table nil
   "Syntax table used in `LilyPond-mode' buffers.")
 
-;;
 (if LilyPond-mode-syntax-table
     ()
   (setq LilyPond-mode-syntax-table (make-syntax-table))
+  ;; NOTE: Emacs knows only "13"-style (used), XEmacs knows also "1b3b", etc.
   (mapcar (function
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
 	  '(( ?\( . "." ) ( ?\) . "." ) 
-	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ;; all the other paren characters are now handled by          
-	    ( ?\{  .  ". 2b" )             ;; lily-specific indenting/matching code in lilypond-indent.el 
-	    ( ?\}  .  ". 4b" )              
+	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ; all the other paren characters are now handled by          
+	    ( ?\{  .  ". 2" )             ; lily-specific indenting/matching code in lilypond-indent.el 
+	    ( ?\}  .  ". 4" ) 
 	    ( ?\< . "." )( ?\> . ".") 
 	    ( ?\$ . "." ) ( ?\& . "." )
 	    ( ?\* . "." ) ( ?\+ . "." )
@@ -141,7 +141,7 @@
 	    ( ?\- . "." ) ( ?\_ . "." ) ( ?\^ . "." ) ; accent positioners: puctuation characters
 	    ( ?\' . "w") ( ?\, . "w") ; transposing octaves, parts of words (notes)
 	    ( ?\" . "\"" ) ; string quote characters 
-	    ( ?\%  .  "< 1b3b" ) ; (block-)comment starter (or ender)
+	    ( ?\%  .  "< 13" ) ; (block-)comment starter (or ender)
 	    ( ?\n . ">") ; newline: comment ender
 	    ( ?\r . ">") ; formfeed: comment ender
 	    ))
