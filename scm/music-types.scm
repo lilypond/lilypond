@@ -508,6 +508,7 @@
 	   ("decrescendo" . DecrescendoEvent)
 	   ("crescendo" . CrescendoEvent)
 	   ("Sustain" . SustainPedalEvent)
+	   ("slur" . SlurEvent)
 	   ("UnaCorda" . UnaCordaEvent)
 	   ("Sostenuto" . SostenutoEvent)
 	   )))
