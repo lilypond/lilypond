@@ -1,18 +1,13 @@
-//
-// version.cc -- implement inexpensive versioning
-//
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
-
 #include "mi2mu.hh"
-#include "fversion.hh"
-#include "version.hh"
+
+const char * mi2mu_version_sz();
 
 // should simply have Root class...
 String
-version_str()
+mi2mu_version_str()
 {
-	return String ( "This is mi2mu " ) + VERSIONSTR 
-		+ "/FlowerLib " + FVERSIONSTR
+	return String ( "This is " ) + mi2mu_version_sz()
+		+ flower_version_sz()
 		+ " of " +  __DATE__ + " " + __TIME__;
 }
 
