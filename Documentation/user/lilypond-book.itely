@@ -22,9 +22,10 @@ LilyPond code, process it separately to embedded PostScript or
 
 @command{lilypond-book} provides you with a way to automate this
 process: This program extracts snippets of music from your document,
-runs LilyPond on them, and substitutes the resulting pictures back.
-The line width and font size definitions for the music are adjusted
-to match the layout of your document.
+runs LilyPond on them, and outputs your document with the resulting
+pictures substituted for the music you entered.  The line width and
+font size definitions for the music are adjusted to match the layout
+of your document.
 
 It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
 on using lilypond-book is in @ref{Integrating text and music}.
@@ -59,7 +60,9 @@ You specify the LilyPond code like this:
 @@lilypondfile[options, go, here]@{@var{filename}@}
 @end example
 
-We show two simple examples here.  First a complete block:
+Then you run lilypond-book on it, and the result is a file you can
+process with texinfo. We show two simple examples here.  First a
+complete block:
 
 @example
 @@lilypond[26pt]
@@ -105,7 +108,8 @@ music, so you can make a HTML document with embedded music.
 @node Integrating La@TeX{} and music
 @section Integrating La@TeX{} and music
 
-You specify LilyPond code like this:
+
+  You specify LilyPond code like this:
 
 @example
 \begin[options, go, here]@{lilypond@}
@@ -124,7 +128,8 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
-We show some examples here.
+Then you run lilypond-book on it, and the result is a file you can
+process with La@TeX{}. We show some examples here.
 
 @example
 \begin[26pt]@{lilypond@}
@@ -180,7 +185,8 @@ You specify LilyPond code like this:
 @end example
 
 @noindent
-produces
+Then you run lilypond-book on it, and the result is a file you can
+process with La@TeX{}. The final result look like
 
 @example
 <lilypond relative1 verbatim>
@@ -192,8 +198,7 @@ produces
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
-Inline picture:
-
+For inline pictures, use @code{<lilypond ... />} syntax, eg.
 @example
 Some music in <lilypond a b c/> a line of text.
 @end example

@@ -1,6 +1,7 @@
 \version "1.7.4"
 \header {
-    texidoc = "cluster demo."
+    texidoc = "Clusters are a device to denote that a complete range of
+notes is to be played."
 }
 
 voiceI = % same as voiceII, but with ordinary notes
