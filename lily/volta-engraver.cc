@@ -117,7 +117,8 @@ Volta_engraver::process_music ()
       volta_span_ =0;
     }
 
-  if (gh_string_p (start_string_) && volta_span_)
+  if (volta_span_ && 
+      (gh_string_p (start_string_) || gh_pair_p (start_string_)))
     {
       warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
       
@@ -138,7 +139,8 @@ Volta_engraver::process_music ()
 void
 Volta_engraver::process_acknowledged_grobs ()
 {
-  if (!volta_span_ && gh_string_p (start_string_))
+  if (!volta_span_ && 
+      (gh_string_p (start_string_) || gh_pair_p (start_string_)))
     {
       started_mom_ = now_mom () ;
 
