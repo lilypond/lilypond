@@ -44,10 +44,10 @@ complex examples.
 @c @node Music language of LilyPond
 @c @section Music language of LilyPond
 
-In this section, we show how can make small, very simple examples in
-LilyPond.  If you have not seen LilyPond input files before, this
-section is for you. The contents of this section are summarized in the
-Cheat Sheet (See @ref{Cheat sheet}).
+In this section, we show how to make small, very simple pieces of
+music in LilyPond.  If you have not seen LilyPond input files before,
+this section is for you. The contents of this section are summarized
+in the Cheat Sheet (See @ref{Cheat sheet}).
 
 You get a simple note by typing its note name, from @code{a} through
 @code{g}. So if you enter
@@ -55,7 +55,9 @@ You get a simple note by typing its note name, from @code{a} through
 @example
 c d e f g a b
 @end example
-then the   result looks like this:
+@end quotation
+then the result looks like this:
+@quotation
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
