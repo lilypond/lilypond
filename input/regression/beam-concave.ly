@@ -2,13 +2,14 @@
 \version "2.3.4"
 \header{
 
-texidoc = "Concave beams should be horizontal. Informally spoken,
+texidoc = "Fully concave beams should be horizontal. Informally spoken,
   concave refers to the shape of the notes that are opposite a
   beam. If an up-beam has high notes on its center stems, then we call
-  it concave. If a beam is fails a test, the desired slope is printed
-  next to it."
+  it concave.
 
 
+  If a beam is fails a test, the desired slope is printed
+next to it."
 }
 
 
@@ -25,8 +26,7 @@ rossFourBeams =\relative c'' {
   a[ d, e g] a[ f f g]
   c,[ b f' e]
   b[ e g, e']
-  g[ d a' b]
-  c[ c, c c]
+  c'[ c, c c]
   c[ c c c']
   f,,[ b a g]
   f[g g e]
@@ -49,12 +49,6 @@ rossBeams = \relative c'' {
   \rossThreeBeams
   }
 
-nonHorizBeams = \relative c'' {
-   \time 3/4
-   f[ e d c g b]
-   b,16[ f' g a]
-   \stemUp b,8[  \stemDown d'8 bes8]  
-}
 
 
 
