@@ -13,6 +13,7 @@
 #include "debug.hh"
 #include "item.hh"
 #include "staff-symbol.hh"
+#include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
 
@@ -27,23 +28,38 @@ Staff_symbol::brew_molecule (SCM smob)
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
-  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  bool paper_raggedright = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  bool grob_raggedright = to_boolean (me->get_grob_property ("ragged-right"));
   Real width;
-  if (ragged)
+
+  SCM width_scm = me->get_grob_property ("width");
+  if (gh_number_p (width_scm)) // user-defined width
     {
-      // *prevent* staff symbol from being ragged right
       width =
-	me->paper_l ()->get_var ("linewidth")
-	- sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
-	;
+	gh_scm2double (width_scm) *
+	Staff_symbol_referencer::staff_space (me);
     }
-  else
+  else // determine width automatically
     {
-      width =
-	// right_shift     - left_shift
-	+ sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
-	- sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
-	;
+      if (paper_raggedright && !grob_raggedright)
+	{
+	  // *prevent* staff symbol from being ragged right; instead, use
+	  // paper variable "linewidth"
+	  width = me->paper_l ()->get_var ("linewidth");
+	}
+      else // determine width from my own bounds
+	{
+	  width = sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS);
+	}
+    }
+
+  // respect indentation, if any
+  width -= sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
+
+  if (width < 0)
+    {
+      warning (_f ("staff symbol: indentation yields beyond end of line"));
+      width = 0;
     }
 
   Real t = me->paper_l ()->get_var ("linethickness");

@@ -51,7 +51,9 @@ public:
 
   SCM last_beam_start_;
   void beam_check (SCM); 
-  
+
+  SCM last_ligature_start_;
+
   Input here_input () const;
   void push_spot ();
   Input pop_spot ();

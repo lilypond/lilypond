@@ -358,6 +358,13 @@
 	(meta . ((interfaces . (key-signature-interface  font-interface  break-aligned-interface))))
 	))
 
+    (LigatureBracket
+     . (
+	(width . 0.75)
+	(height . 0.5)
+	(molecule-callback . ,Ligature_bracket::brew_molecule)
+	(meta . ((interfaces . (ligature-bracket-interface))))
+	))
 
     (LyricHyphen
      . (
@@ -702,6 +709,7 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(line-count . 5)
+	(ragged-right . #f)
 	(layer . 0)
 	(meta . ((interfaces . (staff-symbol-interface))))
 	))

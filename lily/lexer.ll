@@ -460,6 +460,10 @@ HYPHEN		--
 	return E_OPEN;
     case ')':
 	return E_CLOSE;
+    case '[':
+	return E_LEFTSQUARE;
+    case ']':
+	return E_RIGHTSQUARE;
     case '~':
 	return E_TILDE;
     case '\\':

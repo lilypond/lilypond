@@ -255,7 +255,7 @@ Argument LIM limit."
 ;; are handled by the syntax table
 
 (defconst LilyPond-parens-regexp-alist
-  `( ( ?>  .  ("[^\\]<" . "[^ \\n\\t_^-]\\s-*>\\|[_^-]\\s-*[-^]\\s-*>"))
+  `( ( ?>  .  ("\\([^\\]\\|^\\)<" . "[^ \\n\\t_^-]\\s-*>\\|[_^-]\\s-*[-^]\\s-*>"))
      ;; a b c->, a b c^> and a b c_> are not close-angle-brackets, they're accents
      ;; but a b c^-> and a b c^^> are close brackets with tenuto/marcato before them
      ;; also \> and \< are hairpins
