@@ -134,7 +134,7 @@ Slur::do_post_processing ()
 	    side directly attached to note head;
 	    no beam getting in the way
 	  */
-	  if (((stem_l->get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
+	  if ((stem_l->extent (Y_AXIS).empty_b ()
 	       || !((stem_l->dir_ == dir_) && (dir_ != d)))
 	      && !((dir_ == stem_l->dir_)
 		   && stem_l->beam_l_ && (stem_l->beams_i_drul_[-d] >= 1)))
@@ -241,14 +241,6 @@ Slur::do_post_processing ()
   Real height_damp_f;
   Real slope_damp_f;
   Real snap_f;
-  Real ratio_f;
-
-  if (!fix_broken_b)
-    dy_f_drul_[RIGHT] += interstaff_f;
-  Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-
-  Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
-  Real height_f = do_height ().length ();
 
   if (!interstaff_b)
     {
@@ -263,6 +255,11 @@ Slur::do_post_processing ()
       snap_f = paper_l ()->get_var ("slur_interstaff_snap_to_stem");
     }
 
+  Real ratio_f;
+  if (!fix_broken_b)
+    dy_f_drul_[RIGHT] += interstaff_f;
+  Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+  Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
 
   /*
     Avoid too steep slurs.
@@ -273,26 +270,50 @@ Slur::do_post_processing ()
       Direction d = (Direction)(- dir_ * (sign (dy_f)));
       if (!d)
 	d = LEFT;
-      dy_f_drul_[d] += dir_ * (ratio_f - slope_damp_f) * dx_f;
+      Real damp_f = (ratio_f - slope_damp_f) * dx_f;
+      /*
+	must never change sign of dy
+       */
+      damp_f = damp_f <? abs (dy_f);
+      dy_f_drul_[d] += dir_ * damp_f;
     }
 
   /*
    Avoid too high slurs 
+
+   Wierd slurs may look a lot better after they have been
+   adjusted a bit.
+   So, we'll do this in 3 steps
    */
-  ratio_f = abs (height_f / dx_f);
-  if (ratio_f > height_damp_f)
+  for (int i = 0; i < 3; i++)
     {
-      Direction d = (Direction)(- dir_ * (sign (dy_f)));
-      if (!d)
-	d = LEFT;
-      Real damp_f = dir_ * (ratio_f - height_damp_f) * dx_f;
-      dy_f_drul_[d] += damp_f;
-      /*
-	if y positions at about the same height, correct both ends
-       */
-      if (abs (dy_f / dx_f ) < slope_damp_f)
+      Real height_f = do_height ().length ();
+      dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+
+      ratio_f = abs (height_f / dx_f);
+      if (ratio_f > height_damp_f)
 	{
-	  dy_f_drul_[-d] += damp_f;
+	  Direction d = (Direction)(- dir_ * (sign (dy_f)));
+	  if (!d)
+	    d = LEFT;
+	  /* take third step */
+	  Real damp_f = (ratio_f - height_damp_f) * dx_f / 3;
+	  /*
+	    if y positions at about the same height, correct both ends
+	  */
+	  if (abs (dy_f / dx_f ) < slope_damp_f)
+	    {
+	      dy_f_drul_[-d] += dir_ * damp_f;
+	      dy_f_drul_[d] += dir_ * damp_f;
+	    }
+	  /*
+	    don't change slope too much, would have been catched by slope damping
+	  */
+	  else
+	    {
+	      damp_f = damp_f <? abs (dy_f/2);
+	      dy_f_drul_[d] += dir_ * damp_f;
+	    }
 	}
     }
 

@@ -45,7 +45,7 @@ void
 Column_x_positions::OK() const
 {
 #ifndef NDEBUG
-  assert (config.size() == cols.size ());
+  assert (config_.size() == cols_.size ());
 #endif
 }
 
