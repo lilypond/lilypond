@@ -16,7 +16,7 @@
         closepath fill
 } bind def
 
-/draw_decrescendo % cont height width
+/draw_decrescendo % width height cons
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
@@ -31,7 +31,7 @@
 	stroke
 } bind def
 
-/draw_crescendo % cont height width
+/draw_crescendo % width height cons
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
@@ -73,6 +73,21 @@
 		tuplet_dy tuplet_gapy add 2 div tuplet_h add moveto
 	tuplet_dx tuplet_dy tuplet_h add lineto
 	tuplet_dx tuplet_dy lineto
+	stroke
+} bind def
+
+/draw_volta % w last
+{
+	/last exch def
+	/volta_w exch def
+	staffheight 2 div /volta_h exch def
+	volta_t setlinewidth
+	0 0 moveto
+	0 volta_h lineto
+	volta_w volta_h lineto
+	last 0 eq {
+		volta_w 0 lineto
+	} if
 	stroke
 } bind def
 

@@ -1,4 +1,21 @@
+pl6.jcn5
+ 	- repeatbars, volta-spanner work, alternative iteration still broken
+ 	- volta symbol
 
+pl5.szmulewicz2
+ 	- more GUILE stuff.
+	- tutorial doco updates
+
+pl6.jcn4
+ 	- volta-spanner
+ 	- repeat-engraver
+ 	- repeat/alternative music layout (hehe)
+  
+pl6.uu1
+	- Doco of music iterators.
+
+********
+pl 6
 
 pl5.szmulewicz1
 	- rtti stuff
