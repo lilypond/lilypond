@@ -1,0 +1,7 @@
+These examples make lilypond crash or exit prematurely.
+
+Some are bugs that should be fixed to generate output, andd then
+moved to ../bugs or ../regression.
+
+Some (notably parse*.ly) are just error/warning generation tests
+and should remain here.

@@ -116,9 +116,12 @@ want to fine-tune output, you need the information in this document.
 @c Jan's site?
 
 @itemize @bullet
-@item @uref{../out-www/regression-test.html,regression-test}
-A large document that tests all kinds of features (in
+@item @uref{../out-www/regression-test.html,Regression Test}
+A large document that tests all kinds of features (also as
 @uref{../out-www/regression-test.ps.gz,Postscript}).
+@item @uref{../../input/bugs/out-www/bugs.html,Bugs}
+A document that shows bugs (also as
+@uref{../../input/bugs/out-www/bugs.ps.gz,Postscript}).
 @item
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain

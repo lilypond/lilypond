@@ -1,8 +1,9 @@
-# input/bugs/Makefile
-
 depth = ../..
 
-LOCALSTEPMAKE_TEMPLATES=ly mutopia
+STEPMAKE_TEMPLATES=documentation texinfo tex
+LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+EXTRA_DIST_FILES=README
+
 include $(depth)/make/stepmake.make 
 
-
+TITLE=Assorted Possible Bugs
