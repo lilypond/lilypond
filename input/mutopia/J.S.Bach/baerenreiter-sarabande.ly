@@ -174,6 +174,7 @@ smallerPaper = \paper {
 \score{
   \sarabandeCelloStaff
   \midi{ \tempo 4 = 40 }
+  \paper { }
   \header{
     opus= "" 
     piece ="Sarabande" }

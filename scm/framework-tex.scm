@@ -165,7 +165,9 @@
 (define (dump-page putter page last?)
   (ly:outputter-dump-string
    putter
-   "\\vbox to 0pt{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n")
+   (format "\\vbox to ~a\\outputscale{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n"
+	   (interval-length (ly:stencil-extent page Y))
+	   ))
   (ly:outputter-dump-stencil putter page)
   (ly:outputter-dump-string
    putter
