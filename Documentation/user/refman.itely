@@ -2916,10 +2916,10 @@ The associated grob is @internalsref{VoiceFollower}.
 @node Tablatures
 @section Tablatures
 
-Tablature notation is used music for plucked string instruments.  It
-notates pitches not by using note heads, but by indicating on which
-string and fret a note must be played.  LilyPond offers limited
-support for tablature, by abusing the fingering system.
+Tablature notation is used for notating music for plucked string
+instruments.  It notates pitches not by using note heads, but by
+indicating on which string and fret a note must be played.  LilyPond
+offers limited support for tablature by abusing the fingering system.
 
 @menu
 * Tablatures basic::            

@@ -253,7 +253,6 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   
   return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }
-g
 
 int
 Note_head::get_balltype (Grob*me) 

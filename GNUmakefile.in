@@ -16,7 +16,7 @@ SUBDIRS = buildscripts scripts flower lily \
 #
 
 SCRIPTS = configure aclocal.m4 autogen.sh
-README_FILES =  ChangeLog CHANGES COPYING DEDICATION NEWS README.mandrake ROADMAP
+README_FILES =  ChangeLog CHANGES COPYING DEDICATION NEWS README.mandrake ROADMAP THANKS
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = $(wildcard *.el) vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch lexer-gcc-3.0.patch server.el.patch darwin.patch .cvsignore  lexer-gcc-3.1.sh 

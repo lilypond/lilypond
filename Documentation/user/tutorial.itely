@@ -331,10 +331,10 @@ file by executing @code{lpr test.ps}.
 @c volgende alinea schrappen?  
 
 If your system does not support printing PostScript files, then you
-can install GhostScript, a PostScript emulator.  Refer to
-GhostScript's website at @uref{http://www.ghostscript.com}.
+can install Ghostscript, a PostScript emulator.  Refer to
+Ghostscript's website at @uref{http://www.ghostscript.com}.
 
-@cindex GhostScript
+@cindex Ghostscript
 @cindex @code{lpr}
 @cindex Printing output
 @cindex PostScript
