@@ -61,6 +61,8 @@ and documenting bugfixes.
 
 @lilypondfile{glissando.ly}
 
+@lilypondfile{follow-thread.ly}
+
 
 
 @section Chord names
@@ -82,6 +84,10 @@ and documenting bugfixes.
 @lilypondfile{beam-extreme.ly}
 
 @lilypondfile{beam-position.ly}
+
+@lilypondfile{auto-beam-bar.ly}
+
+@lilypondfile{beam-rest.ly}
 
 @lilypondfile{slur-nice.ly}
 @lilypondfile{slur-symmetry.ly}

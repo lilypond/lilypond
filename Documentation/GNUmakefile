@@ -12,6 +12,10 @@ include $(depth)/make/stepmake.make
 
 default: local-doc
 
+test-reg:
+	rm -f out-www/regression-test.html out-www/regression-test.texi 
+	$(MAKE) out=www out-www/regression-test.html
+
 local-WWW: copy-for-me txt-to-html $(outdir)/regression-test.ps.gz $(outdir)/regression-test.html footify
 
 copy-for-me:

@@ -40,6 +40,7 @@
 * Sound output::                   Sound output
 * midilist::                       midilist
 * Grobs::                          Graphical objects
+* Molecule::                       Molecules
 * Pre-defined Identifiers::        Pre-defined Identifiers
 @c May be fragile.  Better make single link to generated doco?
 * Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
@@ -2616,6 +2617,7 @@ provide shorthands for some settings.  Most of them are in
 @end table
 
 @node  Grobs, , , Reference Manual
+@section Grobs
 
 This section is about Grobs (short for Graphical Objects), which are
 formatting objects used to create  the final output. This material is
@@ -2636,17 +2638,218 @@ there are many more ways of customizing Lily output, and since most of
 them involve Grobs in some form, this section explains some details of
 how grobs work.
 
-Types of grob?
+@menu
+* What is a grob?::
+* Callbacks::
+* Setting grob properties::
+* Items and Spanners::
+* Pointer substitution::
+@end menu
 
-What is a grob?
+@node What is a grob?, , , Grobs
 
-Where do they come from?
+All grobs have an X and Y-position on the page.  These X and Y positions
+are stored in a relative format, so they can easily be combined by
+stacking them, hanging one grob to the side of another, and coupling
+them into a grouping-grob.
 
-How can you override?
+Each grob has a reference point, or parent: the position of a grob is
+stored relative to that reference point. For example the X-reference
+point of a staccato dot usually is the note head that it applies
+to. Whenever the note head is moved, the staccato dot moves along
+automatically.
 
-Items and Spanners?
+If you keep following offset reference points, you will always end up at
+the root-object. This root object is called @code{Line_of_score}
+@ref{(lilypond-internals)Element Line_of_score}, and it represents a
+system (ie. a line of music).
 
-X and Y parents, offsets and extents.
+All grobs carry a set of grob-properties.  In the Stem example above,
+the property @code{direction} is set to value @code{1}.  The function
+that draws the symbol (@code{Stem::brew_molecule}) uses the value of
+@code{direction} to determine how to print the stem and the flag.  The
+appearance of a grob is determined solely by the values of its
+properties.
+
+Often, a grob also is associated with a symbol. On the other hand, Some
+grobs do not print any symbols, but take care of grouping objects. For
+example, there is a separate grob that stacks staffs vertically, so they
+are not printed in overstrike. The NoteCollision @ref{(lilypond-internals)Element
+NoteCollision} is another example of an abstract grob.  It only moves
+around chords, but doesn't print anything.
+
+A complete list of grob types is found in @ref{(lilypond-internals)Elements}
+
+Grobs are created in the "Interpreting music" phase, by things in
+LilyPond called engravers.  In this phase of the translation, a load of
+grobs are created, and they are linked into a giant network of objects.
+This network of grobs forms the "specification" of the print
+problem. This problem is then solved: configurations, directions,
+dimensions, line breaks, etc.  are calculated. Finally,   the printing
+description in the form of Molecules (@ref{Molecule})  is extracted from
+the network. These are then dumped into the output file
+
+@node Callbacks, , , Grobs
+
+Offsets of grobs are relative to a parent reference point. Most
+positions are not known when an object is created, so these are
+calculated as needed. This is done by adding a callback for a specific
+direction.
+
+Suppose you have the following code in a .ly file.
+@example
+        #(define (my-callback gr axis)
+                (*  2.0 (get-gr-property grob 'direction))
+        )
+
+....
+
+        \property Voice.Stem \override #'Y-offset-callbacks = #(list
+                        my-callback)
+@end example
+
+When the Y-offset of a Stem object is needed, LilyPond will
+automatically execute all callbacks for that object. In this case, it
+will find @code{my-callback}, and execute that. The result is that the
+stem is translated by two staff spaces in its direction.
+
+(note: Y-offset-callbacks is also a property) 
+
+
+Offset callbacks can be stacked, ie.
+
+@example
+        \property .... \override #'Y-offset-callbacks = #(list
+                callback1 callback2 callback3)
+
+@end example
+
+The callbacks will be executed in the order callback3 callback2
+callback1. This is used for quantized positioning: the staccato dot is
+above or below a note head, and it must not be on a staff-line.
+
+To achieve this, for the staccato there are two callbacks: one callback
+that positions the grob above or below the note head, and one callback
+that rounds the Y-position of the grob to the nearest open space.
+
+Similarly, the size of a grob are determined through callbacks, settable
+with grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
+There can be only one extent-callback for each axis. No callback (value #f)
+means: "empty in this direction". If you fill in a pair, that pair
+hard-codes the extent in that coordinate.
+
+
+@node Setting grob properties, , , Grobs
+
+Grob properties are stored as GUILE association lists, with symbols as
+keys.   From C++, element properties can be accessed using the functions
+
+@example
+  SCM  get_grob_property (SCM) const;
+  void set_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (SCM key, SCM val);  
+  void set_grob_property (SCM , SCM val);  
+  void set_grob_pointer (const char*, SCM val);
+  SCM  remove_grob_property (const char* nm);
+@end example
+
+In GUILE, LilyPond provides
+
+@example
+        ly-get-grob-property GROB SYMBOL
+        ly-set-grob-property GROB SYMBOL VALUE
+@end example
+
+All lookup functions identify undefined properties with 
+end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+
+Properties are stored in two ways:
+@itemize @bullet
+@item mutable properties:
+element properties that change from object to object. The storage of
+these are private to a grob. Typically this is used to store lists of
+pointers to other grobs
+
+@item immutable properties:
+element properties that are shared across different grobs of the same
+type. The storage is shared, and hence it is read-only. Typically, this
+is used to store function callbacks, and values for shared element
+properties are read from @file{scm/element-description.scm}.
+@end itemize
+
+There are two ways to manually set grob properties.
+
+You can change immutable grob properties. This is done with the
+\override syntax:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This will push the entry @code{'(direction . 1)} on the immutable
+property list for stems, in effect overriding the setting from
+@file{scm/element-description.scm}. This can be undone by 
+
+@example
+        \property Voice.stem \revert #'direction
+@end example
+
+If you use this a lot, this gets old quickly. So we also have a
+shorthand,
+
+@example
+        \property Context.GrobType \set #'prop = #VAL
+@end example
+
+this does a @code{\revert} followed by a @code{\override}
+
+The second way is \outputproperty. This construct looks like
+
+@example
+        \context ContextName \outputproperty @var{pred} #@var{sym} = #@var{val}
+@end example
+
+In this case, in every grob that satisfies @var{pred}, the property
+assignment @var{sym} = @var{val} is done.  For example
+
+@example
+        \outputproperty
+                #(lambda (gr) (string? (ly-get-grob-property gr
+                        'text)))
+                #'extra-offset = #'(-1.0 . 0.0)
+@end example
+
+This shifts all elements that have a @code{text} property one staff
+space to the left.
+
+@node Items and Spanners, , , Grobs
+
+Grobs can also be distinguished in their role in the horizontal spacing.
+A lot of grobs define constraints on the spacing by their sizes. For
+example, note heads, clefs, stems, and all other symbols with a fixed
+shape.  These grobs form a subtype called @code{Item}.
+
+Other grobs have a shape that depends on the horizontal spacing. For
+example, slur, beam, tie, etc. These grobs form a subtype called
+@code{Spanner}. All spanners have two span-points (these must be
+@code{Item}s), one on the left and one on the right. The left bound is
+also the X-reference point.
+
+Some items need special treatment for line breaking. For example, a
+clef is normally only printed at the start of a line (ie. after a line
+break).  To model this, `breakable' items (clef, key signature, bar lines,
+etc.) are copied twice. Then we have three versions of each breakable
+item: one version if there is no line break, one version that is printed
+before the line break (at the end of a system), one version that is
+printed after the line break.
+
+Whether these versions are visible and take up space, is determined by
+the outcome of the visibility-lambda. This is a function taking a
+direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
+this grob should be transparent and invisible.
+
+@node Pointer substitution, , , Grobs
 
 
 @node Molecule, , , Reference Manual
@@ -2667,7 +2870,8 @@ you merely have to look at the tex output of lily to see this.
 Internally these instructions are encoded in Molecules:@footnote{At some
 point LilyPond also contained Atom-objects, but they have been replaced
 by Scheme expressions.}.  A molecule is an object that combines
-dimension information (how large is this ?) with what-to-print-where.
+dimension information (how large is this glyph ?) with
+what-to-print-where.
 
 Conceptually, Molecules can be constructed from Scheme code, by
 translating a Molecule and by combining two molecules. In BNF notation:
@@ -2680,4 +2884,7 @@ translating a Molecule and by combining two molecules. In BNF notation:
 @end example
 
 (refer to the C++ code for more details). All visible,
-ie. non-transparent, grobs have a function to create Molecule.
+ie. non-transparent, grobs have a callback to create a Molecule. The
+name of the property is @code{molecule-callback}, and its value should
+be a Scheme function taking one argument (the grob) and returning a
+Molecule.

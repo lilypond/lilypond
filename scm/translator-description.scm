@@ -204,7 +204,7 @@ put on top of all staffs, and appears only at  left side of the staff."
     'Break_align_engraver
     (engraver-description
      "Break_align_engraver"
-     "Align graphic elements with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder"
+     "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder"
      '(BreakAlignment BreakAlignGroup LeftEdge)
      '(
       breakAlignOrder
@@ -285,7 +285,7 @@ If omitted, then dots appear on top of the notes.
      "Dynamic_engraver"
      ""
      '(DynamicLineSpanner
-       DynamicText Crescendo
+       DynamicText Hairpin
        TextSpanner)
      '(
       )))
@@ -484,7 +484,7 @@ making a single line staff that demonstrates the rhythm of a melody."
     (engraver-description
      "Property_engraver"
 "This is a engraver that converts \property settings into
-back-end element-property settings. Example: Voice.stemLength will set
+back-end grob-property settings. Example: Voice.stemLength will set
 #'length in all Stem objects.
 
 Due to CPU and memory requirements, the use of this engraver is deprecated."

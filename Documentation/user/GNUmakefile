@@ -18,7 +18,7 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.
 
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
-# INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
+INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly

@@ -24,7 +24,6 @@
     - contination types (vert. star, vert. end)  |-> eat volta-spanner
     - more styles
     - more texts/positions
-    - style: hairpin ?
  */
 
 MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
@@ -35,22 +34,42 @@ Text_spanner::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  
+
+
+  /* Ugh, must be same as Hairpin::brew_molecule.  */
+  Real padding = gh_scm2double (me->get_grob_property ("padding"));
+  Real broken_left =  spanner->get_broken_left_end_align ();
+  Real width = spanner->spanner_length ();
+  width -= broken_left;
+
   Drul_array<bool> broken;
+  Drul_array<Real> extra_off;
   Direction d = LEFT;
   do
     {
-      Paper_column* s = dynamic_cast<Paper_column*>(spanner->get_bound (d)); // UGH
-      if (s && s->musical_b ())
-	broken[d] = false;
-      else
-	broken[d] = true;
+      Item *b = spanner->get_bound (d);
+      broken[d] = b->break_status_dir () != CENTER;
+
+      if (!broken [d])
+	{
+
+	  Interval e = b->extent (b, X_AXIS);
+	  Real r = 0.0;
+	  if (!e.empty_b ())
+	    r = e[-d] + padding;
+	  width += d * r;
+	  extra_off[d] = r;
+	}
     }
   while (flip (&d) != LEFT);
-  
-  SCM properties = Font_interface::font_alist_chain (me);
 
+  // FIXME: ecs tells us
+  width += gh_scm2double (me->get_grob_property ("width-correct"));
+  /* /Ugh */
+
+
+  SCM properties = Font_interface::font_alist_chain (me);
+  
   SCM edge_text = me->get_grob_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
@@ -65,6 +84,8 @@ Text_spanner::brew_molecule (SCM smob)
 	}
       while (flip (&d) != LEFT);
     }
+  width -= edge[LEFT].extent (X_AXIS).length ()
+    + edge[RIGHT].extent (X_AXIS).length ();
 
   Drul_array<Real> shorten;
   shorten[LEFT] = 0;
@@ -73,19 +94,12 @@ Text_spanner::brew_molecule (SCM smob)
   SCM s = me->get_grob_property ("shorten");
   if (gh_pair_p (s))
     {
-      shorten[LEFT] = gh_scm2double (gh_car (s)) * staff_space;
-      shorten[RIGHT] = gh_scm2double (gh_cdr (s)) * staff_space;
+      shorten[LEFT] = gh_scm2double (gh_car (s));
+      shorten[RIGHT] = gh_scm2double (gh_cdr (s));
     }
 
-  Real broken_left =  spanner->get_broken_left_end_align ();
-  Real width = spanner->spanner_length ();
-  Grob *bnd = spanner->get_bound (RIGHT);
-  width += bnd->extent (bnd, X_AXIS).length ();
-  width -= broken_left;
   width -= shorten[LEFT] + shorten[RIGHT];
-  width -= edge[LEFT].extent (X_AXIS).length ()
-    + edge[RIGHT].extent (X_AXIS).length ();
-
+  
   if (width < 0)
     {
       warning (_ ("Text_spanner too small"));
@@ -138,7 +152,7 @@ Text_spanner::brew_molecule (SCM smob)
     m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], 0);
   if (!edge[RIGHT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0);
-  m.translate_axis (broken_left, X_AXIS);
+  m.translate_axis (broken_left + extra_off[LEFT], X_AXIS);
 
   return m.smobbed_copy ();
 }
