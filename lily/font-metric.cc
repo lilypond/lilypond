@@ -14,9 +14,10 @@
 #include <cctype>
 
 #include "modified-font-metric.hh"
+#include "open-type-font.hh"
+#include "stencil.hh"
 #include "virtual-methods.hh"
 #include "warn.hh"
-#include "stencil.hh"
 
 #include "ly-smobs.icc"
 
@@ -182,7 +183,13 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (scm_is_integer (index), index, SCM_ARG2, __FUNCTION__, "index");
 
-  return scm_from_unsigned_integer (fm->index_to_charcode (ly_scm2int (index)));
+  unsigned charcode;
+  if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
+    charcode = mfm->original_font ()->index_to_charcode (ly_scm2int (index));
+  else
+    charcode = fm->index_to_charcode (ly_scm2int (index));
+
+  return scm_from_unsigned_integer (charcode);
 }
 
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
@@ -193,8 +200,21 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG2, __FUNCTION__, "string");
+#if 1
+  unsigned charcode;
+  if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
+    charcode = mfm->original_font ()->index_to_charcode (mfm->original_font ()->name_to_index (ly_scm2string (name)));
+  else
+    charcode = fm->index_to_charcode (fm->name_to_index (ly_scm2string (name)));
+#else
+  unsigned charcode;
+  if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
+    charcode = mfm->original_font ()->glyph_name_to_charcode (ly_scm2string (name));
+  else
+    charcode = fm->glyph_name_to_charcode (ly_scm2string (name));
+#endif
 
-  return scm_from_unsigned_integer (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
+  return scm_from_unsigned_integer (charcode);
 }
 
 LY_DEFINE (ly_text_dimension,"ly:text-dimension",
@@ -243,11 +263,8 @@ LY_DEFINE (ly_font_name,"ly:font-name",
   if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
     return ly_font_name (mfm->original_font ()->self_scm ());
   else if (Adobe_font_metric* afm = dynamic_cast<Adobe_font_metric*> (fm))
-    {
-      return scm_makfrom0str (afm->font_info_->gfi->fontName);
-    }
-  else
-    return SCM_BOOL_F;
+    return scm_makfrom0str (afm->font_info_->gfi->fontName);
+  return SCM_BOOL_F;
 }
 
 
@@ -285,6 +302,14 @@ Font_metric::index_to_charcode (int i) const
 {
   return (unsigned) index_to_ascii (i);
 }
+
+#if 0
+unsigned
+Font_metric::glyph_name_to_charcode (String glyph_name) const
+{
+  return (unsigned) index_to_ascii (name_to_index (glyph_name));
+}
+#endif
 
 Stencil
 Font_metric::get_ascii_char_stencil (int code) const

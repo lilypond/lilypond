@@ -61,7 +61,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
     }
   return tab;
 }
-	
+
 Index_to_charcode_map
 make_index_to_charcode_map (FT_Face face)
 {
@@ -69,15 +69,34 @@ make_index_to_charcode_map (FT_Face face)
   FT_ULong charcode;
   FT_UInt gindex;
 
-  charcode = FT_Get_First_Char (face, &gindex);
-  while (gindex != 0)
+  for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
+       charcode = FT_Get_Next_Char (face, charcode, &gindex))
+    m[gindex] = charcode;
+  return m;
+}
+
+#if 0
+Glyph_name_to_charcode_map
+make_glyph_name_to_charcode_map (FT_Face face)
+{
+  Glyph_name_to_charcode_map m;
+  FT_ULong charcode;
+  FT_UInt gindex;
+  char buffer[1024];
+
+  for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
+       charcode = FT_Get_Next_Char (face, charcode, &gindex))
     {
-      printf ("index -> code: %d %d \n", gindex, charcode);
-      m[gindex] = charcode;
-      charcode = FT_Get_Next_Char (face, charcode, &gindex);
+      if (FT_Get_Glyph_Name (face, gindex, buffer, sizeof (buffer) - 1))
+	{
+	  programming_error ("no glyph name");
+	  continue;
+	}
+      m[String (buffer)] = charcode;
     }
   return m;
 }
+#endif
 
 Open_type_font::Open_type_font (FT_Face face)
 {
@@ -88,6 +107,7 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_character_table_ = load_scheme_table ("LILC", face_);
   lily_global_table_ = load_scheme_table ("LILY", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
+  //glyph_name_to_charcode_map_ = make_glyph_name_to_charcode_map (face_);
 }
 
 Open_type_font::~Open_type_font()
@@ -170,8 +190,16 @@ Open_type_font::name_to_index (String nm) const
 unsigned
 Open_type_font::index_to_charcode (int i) const
 {
-  return ((Open_type_font*) this)->index_to_charcode_map_[index_to_ascii (i)];
+  return ((Open_type_font*) this)->index_to_charcode_map_[i];
 }
+
+#if 0
+unsigned
+Open_type_font::glyph_name_to_charcode (String glyph_name) const
+{
+  return ((Open_type_font*) this)->glyph_name_to_charcode_map_[glyph_name];
+}
+#endif
 
 Real
 Open_type_font::design_size () const

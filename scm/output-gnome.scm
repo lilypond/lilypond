@@ -166,6 +166,9 @@ lilypond -fgnome input/simple-song.ly
 		 (+ #x80 (modulo y #x40))))))
    (else FIXME)))
   
+(define (integer->utf8-string font integer)
+  (list->string (utf8 integer)))
+
 (define (char->utf8-string font char)
   (list->string (utf8 (char->unicode-index font char))))
   
@@ -325,7 +328,7 @@ lilypond -fgnome input/simple-song.ly
   (debugf "glyph:~S\n" name)
   (debugf "index:~S\n" (ly:font-glyph-name-to-charcode font name))
   (debugf "font:~S\n" (font-family font))
-  (text font (integer->char (ly:font-glyph-name-to-charcode font name))))
+  (text font (ly:font-glyph-name-to-charcode font name)))
 
 (define (polygon coords blotdiameter)
   (let*
@@ -360,12 +363,18 @@ lilypond -fgnome input/simple-song.ly
 
 (define (text font s)
   (define (pango-font-name font)
-    (stderr "FONT-NAME:~S\n" (ly:font-name font))
+    (stderr "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
     
     (let ((family (font-family font)))
       ;; Hmm, family is bigcheese20?
-      (if (string=? family "bigcheese20")
-	  (format #f "~S, ~S" (ly:font-name font) (ly:font-design-size font))
+      (if (string=? (substring family 0 (min (string-length family) 9))
+					     "bigcheese")
+	  (begin
+	    ;; FIXME: FONT-NAME:#f:8.85678704856787
+	    ;;(format #f "~S, ~S" (ly:font-name font) (ly:font-design-size font))
+	    (stderr "BIGCHEESE\n")
+	  "LilyPond 20"
+	  )
 	  family)))
   
   (define (pango-font-size font)
@@ -405,4 +414,6 @@ lilypond -fgnome input/simple-song.ly
       #:size-set #t
       #:text (if (char? s)
 		 (char->utf8-string font s)
-		 (string->utf8-string font s)))))
+		 (if (integer? s)
+		     (integer->utf8-string font s)
+		     (string->utf8-string font s))))))

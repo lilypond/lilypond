@@ -4,9 +4,10 @@
 
 	* lily/font-metric.cc (ly:font-glyph-name-to-charcode): Use it in
 	new function.
-	(ly:font-glyp-to-index): Remove.
+	(ly:font-glyph-to-index): Remove.
 
-	* scm/lily-library.scm (char->unicode-index): Remove.
+	* lily/font-metric.cc ("ly:font-glyph-name-to-charcode"): Bugfix:
+	use original font.
 
 2004-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
