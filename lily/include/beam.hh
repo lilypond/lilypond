@@ -22,6 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
   static void add_stem (Grob*,Grob*);
+  static bool knee_b (Grob*);
   static void set_beaming (Grob*,Beaming_info_list *);
   static void set_stemlens (Grob*);
   static int get_beam_count (Grob*me);

@@ -1,5 +1,14 @@
 2002-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/test/cue-notes.ly: better example
+
+	* Documentation/user/refman.itely (Font selection): font size doco
+
+	* input/mutopia/F.Schubert/standchen.ly: note bugfix
+
+	* lily/stem.cc: rewrite of scoring to give sane results on knee
+	beams.
+
 	* lily/beam.cc (set_stem_lengths): extend stems for gapped tremolo
 	beams.
 	(connect_beams): chop off beaming outside the beam. Fixes problem

@@ -3888,7 +3888,7 @@ slightly different design. Smaller design sizes are relatively wider,
 which enhances readability.
 @end table
 
-For any of these properties, the value @code{*} (i.e. the @em{symbol},
+For any of these properties, the value @code{*} (i.e. the @emph{symbol},
 @code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
 to override default setting, which are always present. For example:
 @example

@@ -818,15 +818,14 @@ Stem::calc_stem_info (Grob*me)
 
   Grob * beam = beam_l (me);
   int beam_count = beam_multiplicity(me).length()+1;
-  Real beam_translation_f = Beam::get_beam_translation (beam);
+  Real beam_translation= Beam::get_beam_translation (beam);
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
-  Real ideal_y = chord_start_y (me);
+  Real note_start = chord_start_y (me);
   
   /* from here on, calculate as if dir == UP */
-  ideal_y *= mydir;
+  note_start *= mydir;
   
   SCM grace_prop = me->get_grob_property ("grace");
-
   
   bool grace_b = to_boolean (grace_prop);
   SCM bml = robust_list_ref ( beam_count ,
@@ -837,17 +836,16 @@ Stem::calc_stem_info (Grob*me)
 			      me->get_grob_property ("beamed-lengths"));
   Real stem_length =  gh_scm2double(bl) * staff_space;
 
-  ideal_y += thick + (beam_count - 1) * beam_translation_f;
 
-   
-  Real shortest_y = ideal_y + minimum_length
-    + (beam_count > 0) ? thick : 0
-    + beam_translation_f * (beam_count - 1);
-    
+  /*
+    stem goes to center of beam, hence 0.5
+   */
+  Real beam_lengthen = beam_translation* (beam_count - 1)
+    + ((beam_count > 0) ? thick : 0) - 0.5 * thick;
 
-  ideal_y += stem_length;
+  Real shortest_y = note_start + minimum_length + beam_lengthen;
+  Real ideal_y = stem_length + note_start + beam_lengthen;
 
-  
   /*
     lowest beam of (UP) beam must never be lower than second staffline
 
@@ -865,21 +863,9 @@ Stem::calc_stem_info (Grob*me)
 	 staffline
 	 lowest beam of (UP) beam must never be lower than second staffline
       */
-#if 0
-      shortest_y =
-	shortest_y >? 0
-	>? (- 2 * half_space - thick
-	    + (beam_count > 0) * thick
-	    + beam_translation_f * (beam_count - 1));
-
-#else
       ideal_y =
 	ideal_y >? 0
-	>? (- 2 * half_space - thick
-	    + (beam_count > 0) * thick
-	    + beam_translation_f * (beam_count - 1));
-#endif
-      
+	>? (- 2 * half_space - thick + beam_lengthen);
     }
     
   
