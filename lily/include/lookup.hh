@@ -26,7 +26,7 @@ struct Lookup
   static Stencil slur (Bezier controls, Real cthick, Real thick);
   static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
   static Stencil beam (Real slope, Real width, Real thick, Real blot);
-  static Stencil dashed_slur (Bezier, Real thick, Real dash);
+  static Stencil dashed_slur (Bezier, Real thick, Real dash_period, Real dash_fraction);
   static Stencil blank (Box b);
   static Stencil filled_box (Box b);
   static Stencil round_filled_box (Box b, Real blotdiameter);

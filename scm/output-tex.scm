@@ -88,8 +88,8 @@
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
-(define (dashed-slur thick dash l)
-  (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
+(define (dashed-slur thick on off l)
+  (embedded-ps (list 'dashed-slur thick on off `(quote ,l))))
 
 (define (char font i)
   (string-append "\\" (tex-font-command font)

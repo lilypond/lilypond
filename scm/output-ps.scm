@@ -128,16 +128,15 @@
    " ] 0 draw_dashed_line"))
 
 ;; what the heck is this interface ?
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick on off l)
   (string-append 
    (string-join (map ly:number-pair->string l) " ")
    " "
    (ly:number->string thick) 
    " [ "
-   (ly:number->string dash)
-   " "
-   ;;UGH.  10 ?
-   (ly:number->string (* 10 thick))
+   (ly:number->string on)
+   " "   
+   (ly:number->string off)
    " ] 0 draw_dashed_slur"))
 
 ; todo: merge with tex-font-command?

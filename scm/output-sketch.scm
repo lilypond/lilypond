@@ -46,7 +46,7 @@
 ; ((eq? keyword 'char x y i)
 ; ((eq? keyword 'comment s)
 ; ((eq? keyword 'dashed-line thick on off dx dy)
-; ((eq? keyword 'dashed-slur thick dash l)
+; ((eq? keyword 'dashed-slur thick on off l)
 ; ((eq? keyword 'define-origin a b c ) "")
 ; ((eq? keyword 'experimental-on) "")
 ; ((eq? keyword 'ez-ball ch letter-col ball-col)
@@ -218,15 +218,15 @@
 
 
 ;; what the heck is this interface ?
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick on off l)
   (string-append 
    (string-join (map ly:number-pair->string l) " ")
    " "
    (ly:number->string thick) 
    " [ "
-   (ly:number->string dash)
+   (ly:number->string on)
    " "
-   (ly:number->string (* 10 thick))	;UGH.  10 ?
+   (ly:number->string off)
    " ] 0 draw_dashed_slur"))
 
 (define (dashed-line thick on off dx dy)

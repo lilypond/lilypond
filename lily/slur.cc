@@ -71,9 +71,11 @@ Slur::print (SCM smob)
   /*
     TODO: replace dashed with generic property.
   */
-  SCM d =  me->get_property ("dashed");
-  if (scm_is_number (d))
-    a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
+  SCM p =  me->get_property ("dash-period");
+  SCM f =  me->get_property ("dash-fraction");
+  if (scm_is_number (p) && scm_is_number (f))
+    a = Lookup::dashed_slur (one, thick, robust_scm2double (p, 1.0), 
+            robust_scm2double(f,0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
 		      thick);
@@ -241,6 +243,6 @@ Slur::after_line_breaking (SCM smob)
 
 ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
-	       "quant-score excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
+	       "quant-score excentricity encompass-objects control-points dash-period dash-fraction slur-details direction height-limit note-columns ratio thickness");
 
 

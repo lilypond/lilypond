@@ -150,7 +150,7 @@ negative, no line is drawn at all.")
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
 
-     ;; [FIXME: use dash-period/dash length; see text-spanner]
+     ;; use dash-period/dash-fraction instead;
      (dashed ,number? " number representing the length of the dashes.")
  
      ;; todo: why is this tunable?

@@ -101,10 +101,10 @@
   (invoke-char " show" i))
 
 
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick on off l)
   (string-append (setlineparams)
-		 "[ " (ly:number->string dash) " "
-		 (ly:number->string (* 10 thick)) " ] 0 d "
+		 "[ " (ly:number->string on) " "
+		 (ly:number->string off) " ] 0 d "
 		 (setlinewidth thick)
 		 (moveto-pair (car l))
 		 (apply curveto (cdr l))
