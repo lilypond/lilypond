@@ -503,7 +503,10 @@ class Chunk:
 		return self.replacement_text ()
 
 
-	def is_outdated (self):
+	def ly_is_outdated (self):
+		return 0
+
+	def png_is_outdated (self):
 		return 0
 
 class Substring (Chunk):
@@ -577,7 +580,7 @@ class Lilypond_snippet (Snippet):
 		open (self.basename() + '.txt', 'w').write("image of music")
 		
 
-	def is_outdated (self):
+	def ly_is_outdated (self):
 		base = self.basename ()
 
 		tex_file = '%s.tex' % base
@@ -586,16 +589,20 @@ class Lilypond_snippet (Snippet):
 		     and os.stat (tex_file)[stat.ST_SIZE] \
 		     and open (tex_file).readlines ()[-1][1:-1] \
 		     == 'lilypondend'
-
-		if format == HTML or format == TEXINFO:
-			ok = ok and (os.path.exists (base + '.png')
-				     or glob.glob (base + '-page*.png'))
 			
 		if ok and (use_hash_p or self.ly () == open (ly_file).read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
 			return None
 		return self
+	
+	def png_is_outdated (self):
+		base = self.basename ()
+		ok = self.ly_is_outdated ()
+		if format == HTML or format == TEXINFO:
+			ok = ok and (os.path.exists (base + '.png')
+				     or glob.glob (base + '-page*.png'))
+		return not ok
 	
 	def filter_text (self):
 		code  = self.substring ('code')
@@ -825,13 +832,15 @@ def is_derived_class (cl,  baseclass):
 	return 0
 
 
-def process_snippets (cmd, snippets):
-	names = filter (lambda x: x, map (Lilypond_snippet.basename, snippets))
-	if names:
-		ly.system (string.join ([cmd] + names), progress_p = 1)
+def process_snippets (cmd, ly_snippets, png_snippets):
+	ly_names = filter (lambda x: x, map (Lilypond_snippet.basename, ly_snippets))
+	png_names = filter (lambda x: x, map (Lilypond_snippet.basename, png_snippets))
+	
+	if ly_names:
+		ly.system (string.join ([cmd] + ly_names), progress_p = 1)
 
 	if format == HTML or format == TEXINFO:
-		for i in names:
+		for i in png_names:
 			if not os.path.exists (i + '.eps') and os.path.exists (i + '.tex'):
 				to_eps (i)
 				ly.make_ps_images (i + '.eps', resolution=110)
@@ -989,15 +998,18 @@ def do_file (input_filename):
 		
 		
 	elif process_cmd:
-		outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
-				   and x.is_outdated (), chunks)
+		ly_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
+				   and x.ly_is_outdated (), chunks)
+		png_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
+				   and x.png_is_outdated (), chunks)
+		
 		ly.progress (_ ("Writing snippets..."))
-		map (Lilypond_snippet.write_ly, outdated)
+		map (Lilypond_snippet.write_ly, ly_outdated)
 		ly.progress ('\n')
 
-		if outdated:
+		if ly_outdated:
 			ly.progress (_ ("Processing..."))
-			process_snippets (process_cmd, outdated)
+			process_snippets (process_cmd, ly_outdated, png_outdated)
 		else:
 			ly.progress (_ ("All snippets are up to date..."))
 		ly.progress ('\n')
