@@ -4,6 +4,8 @@
 
 	* input/template/{many}.ly: harmonise descriptions.
 
+	* Documentation/user/music-glossary.itely: add Finnish author.
+
 2004-02-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.texi: Substitute Lyrics/LyricsVoice.
