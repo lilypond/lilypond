@@ -116,7 +116,6 @@ slur_rc_factor = 2.4;
 notewidth = (\quartwidth + \wholewidth) / 2.0;
 
 % ugh
-barsize = \staffheight;
 rulethickness = \staffline;
 
 gourlay_energybound = 100000.;

@@ -16,6 +16,8 @@ class Staff_switching_translator : public Engraver
 {
   Interpretation_context_handle my_voice_;
   Drul_array<Interpretation_context_handle> staff_handle_drul_;
+
+  int switch_pitch_i_ ;
 protected:
   virtual bool do_try_music (Music* m);
   virtual void do_creation_processing ();
@@ -28,6 +30,7 @@ public:
 
 Staff_switching_translator::Staff_switching_translator ()
 {
+  switch_pitch_i_ =0;
 }
 
 void
@@ -35,9 +38,18 @@ Staff_switching_translator::do_creation_processing ()
 {
   Translator_group * daddy =daddy_grav_l (); // staff switching context
 
+
+  Scalar pit = get_property ("switchPitch", 0);
+  if (pit.isnum_b ())
+    switch_pitch_i_ = int (pit);
   Scalar s = get_property("staffContextName", 0);
-  staff_handle_drul_[UP].set_translator (daddy->daddy_trans_l_ -> find_create_translator_l (s, "upper"));
-  staff_handle_drul_[DOWN].set_translator (daddy->daddy_trans_l_-> find_create_translator_l (s, "lower"));  
+  Scalar up = get_property ("upStaffName",0);
+  Scalar down = get_property ("downStaffName",0);
+  if (!up.length_i()) up = "upper";
+  if (!down.length_i()) up = "lower";  
+  
+  staff_handle_drul_[UP].set_translator (daddy->daddy_trans_l_ -> find_create_translator_l (s, up));
+  staff_handle_drul_[DOWN].set_translator (daddy->daddy_trans_l_-> find_create_translator_l (s, down));  
 
 
   staff_handle_drul_[DOWN].report_to_l ()->set_property ("defaultClef", "bass");
@@ -58,7 +70,7 @@ Staff_switching_translator::do_try_music (Music*m)
 {
   if (Note_req*nr = dynamic_cast<Note_req*> (m))
     {
-      Direction staff =  (nr->pitch_.semitone_pitch () >= 0)
+      Direction staff =  (nr->pitch_.semitone_pitch () >= switch_pitch_i_)
 	? UP
 	: DOWN;
 

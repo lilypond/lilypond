@@ -56,14 +56,14 @@
 #include "grace-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.20");
+Mudela_version oldest_version ("1.1.52");
 Mudela_version version ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
 
 
 void
 print_mudela_versions (ostream &os)
 {
-  os << "Mudela versions: oldest  " << oldest_version.str () << " current " << version.str () <<endl;
+  os << "Oldest supported input version:   " << oldest_version.str () << endl;
 }
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
@@ -150,7 +150,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token DURATION
 %token EXTENDER
 %token FONT
-%token GROUPING
 %token GRACE
 %token HEADER
 %token IN_T
@@ -173,6 +172,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token RELATIVE
 %token REMOVE
 %token REPEAT
+%token REPETITIONS
 %token SCM_T
 %token SCMFILE
 %token SCORE
@@ -229,7 +229,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <id>	identifier_init  
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
-%type <intvec>	intastint_list int_list
+%type <intvec>	 int_list
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
@@ -542,16 +542,6 @@ output_def:
 	}
 	;
 
-intastint_list:
-	/* */	{ $$ =new Array<int>; }
-	| intastint_list int '*' int	{
-		$$->push ($2); $$->push ($4);
-	}
-	| intastint_list int	{
-		$$->push ($2); $$->push (1);
-	}
-	;	
-
 
 /*
 	PAPER
@@ -717,6 +707,7 @@ Alternative_music:
 	}
 	| ALTERNATIVE Music_sequence {
 		$$ = $2;
+		$2->set_spot (THIS->here_input ());
 	}
 	;
 
@@ -727,12 +718,16 @@ Repeated_music:
 	REPEAT STRING unsigned Music Alternative_music
 	{
 		Music_sequence* m = dynamic_cast <Music_sequence*> ($5);
+		if (m && $3 < m->length_i ())
+			$5->warning ("More alternatives than repeats. Junking excess alternatives.");
 
-		New_repeated_music * r = new New_repeated_music ($4, $3 >? 1, m);
+		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
 		$$ = r;
 		r->fold_b_ = (*$2 == "fold");
 		r->semi_fold_b_ =  (*$2 == "semi");
 		delete $2;
+		r->set_spot (THIS->here_input ());
+
 	}
 	;
 
@@ -979,31 +974,20 @@ verbose_command_req:
 	}
 	| KEY NOTENAME_PITCH optional_modality	{
 		Key_change_req *key_p= new Key_change_req;
-		key_p->pitch_arr_.push(*$2);
-		key_p->ordinary_key_b_ = true;
-		key_p->modality_i_ = $3;
+		key_p->key_.pitch_arr_.push (*$2);
+		key_p->key_.ordinary_key_b_ = true;
+		key_p->key_.modality_i_ = $3;
 		$$ = key_p;
 		delete $2;
 	}
 	| KEYSIGNATURE pitch_list {
 		Key_change_req *key_p= new Key_change_req;
-		key_p->pitch_arr_ = *$2;
-		key_p->ordinary_key_b_ = false;
+		key_p->key_.pitch_arr_ = *$2;
+		key_p->key_.ordinary_key_b_ = false;
 		$$ = key_p;
 		delete $2;
 	}
-	| GROUPING intastint_list  {
-		  Measure_grouping_req * mr_p = new Measure_grouping_req;
-		  for (int i=0; i < $2->size();) 
-		    {
-		      mr_p->elt_length_arr_.push (Moment (1, $2->elem(i++)));
-		      mr_p->beat_i_arr_.push ($2->elem(i++));
-		    }
 
-
-		$$ = mr_p;
-		delete $2;
-	}
 	;
 
 post_requests:
@@ -1375,6 +1359,16 @@ simple_element:
 		Simultaneous_music*velt_p = new Request_chord;
 		velt_p->set_spot (THIS->here_input ());
 		velt_p->add_music (m);
+		$$ = velt_p;
+	}
+	| REPETITIONS notemode_duration  	{
+		Repetitions_req* r = new Repetitions_req;
+		r->duration_ = *$2;
+		delete $2;
+
+		Simultaneous_music*velt_p = new Request_chord;
+		velt_p->set_spot (THIS->here_input ());
+		velt_p->add_music (r);
 		$$ = velt_p;
 	}
 	| STRING notemode_duration 			{

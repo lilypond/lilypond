@@ -32,7 +32,7 @@ private:
   Drul_array<Moment> rest_moments_;
   
   int start_measure_i_;
-  Multi_measure_rest_req* multi_measure_req_l_;
+  Rhythmic_req* multi_measure_req_l_;
   Multi_measure_rest* mmrest_p_;
   Multi_measure_rest* lastrest_p_;
 };

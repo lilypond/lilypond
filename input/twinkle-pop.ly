@@ -7,11 +7,7 @@ enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
 }
 
-%{
-Tested Features		lyrics and chords
-%}
-
-\version "1.0.21";
+\version "1.1.52";
 
 melodie = \notes\relative c'' {
         \clef "violin";
@@ -40,7 +36,7 @@ acc = \chords {
 text = \lyrics{ 
         \property Lyrics . textStyle =  "italic"
 
-        Ah!4 vous dir- ai_- je ma man2
+        Ah!4 vous dir- ai- je ma man2
         Ce4 qui cau- se mon tour- ment2
         Pa-4 pa veut que je rai- so- nne
         Comme4 un- e grand- e per- so- nne

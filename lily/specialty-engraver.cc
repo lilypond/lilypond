@@ -1,3 +1,5 @@
+#if 0
+// not finished yet.
 /*   
   specialty-engraver.cc --  implement  Specialty_engraver
   
@@ -21,7 +23,7 @@ protected:
 
 
 void
-Specialty_engraver::acknowledge_element (Score_element_info i)
+Specialty_engraver::acknowledge_element (Score_element_info )
 {
   /*
     We could do groovy stuff, by inserting our own custom (FUNC,FONT)
@@ -30,3 +32,4 @@ Specialty_engraver::acknowledge_element (Score_element_info i)
     But not yet.  This would be cleaner if we had SCM as properties.
   */
 }
+#endif

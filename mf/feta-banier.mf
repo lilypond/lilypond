@@ -252,7 +252,7 @@ fet_beginchar("grace 8th Flag (up)", "u3grace", "graceeighthflag")
 		(hip_width, foot_depth), 
 		hip_depth_ratio, foot_width_ratio, hip_thickness, foot_thickness);
 
-	pickup pencircle scaled stemthickness;
+	pickup pencircle scaled 1.5 stemthickness;
 	draw (0, 0) .. (0,-2 interline);
 	draw (-b ,-foot_depth * hip_depth_ratio) ..
 	  (w, -flare);
@@ -440,7 +440,7 @@ fet_beginchar("grace 8th (down)", "d3grace", "dgraceeighthflag")
 		hip_depth_ratio,foot_width_ratio, hip_thickness, foot_thickness);
 
 
-	pickup pencircle scaled stemthickness;
+	pickup pencircle scaled 1.5 stemthickness;
 	draw (0, 0) .. (0,-2 interline);
 	draw (-b, -foot_depth * hip_depth_ratio) .. (w,-flare);
 	y_mirror_char;

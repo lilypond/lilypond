@@ -130,7 +130,7 @@ Music_iterator::static_get_iterator_p (Music const *m)
     p = new Grace_iterator;      
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
-  else if (New_repeated_music const * n = dynamic_cast<New_repeated_music const *> (m))
+  else if (Repeated_music const * n = dynamic_cast<Repeated_music const *> (m))
     {
       if (n->fold_b_)
 	p = new Folded_repeat_iterator;

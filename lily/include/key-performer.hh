@@ -12,7 +12,8 @@
 #include "lily-proto.hh"
 #include "performer.hh"
 
-class Key_performer : public Performer {
+class Key_performer : public Performer
+{
 public:
   VIRTUAL_COPY_CONS(Translator);
   
@@ -22,10 +23,12 @@ public:
 protected:
   void do_print() const;
   virtual bool do_try_music (Music* req_l);
-  virtual void do_process_requests();
+  virtual void do_process_requests ();
+  virtual void do_pre_move_processing ();
 
 private:
   Key_change_req* key_req_l_;
+  Audio_key* audio_p_;
 };
 
 #endif // KEY_PERFOMER_HH

@@ -13,32 +13,47 @@
 
 
 
-ADD_THIS_TRANSLATOR(Key_performer);
+ADD_THIS_TRANSLATOR (Key_performer);
 
-Key_performer::Key_performer()
+Key_performer::Key_performer ()
 {
   key_req_l_ = 0;
+  audio_p_ = 0;
 }
 
-Key_performer::~Key_performer()
+Key_performer::~Key_performer ()
 {
 }
 
 void 
-Key_performer::do_print() const
+Key_performer::do_print () const
 {
 #ifndef NPRINT
   if (key_req_l_)
-    key_req_l_->print();
+    key_req_l_->print ();
 #endif
 }
 
 void
-Key_performer::do_process_requests()
+Key_performer::do_process_requests ()
 {
   if (key_req_l_)
-    play (new Audio_key (key_req_l_));
-  key_req_l_ = 0;
+    {
+      audio_p_ = new Audio_key (key_req_l_->key_);
+      Audio_element_info info (audio_p_, key_req_l_);
+      announce_element (info);
+      key_req_l_ = 0;
+    }
+}
+
+void
+Key_performer::do_pre_move_processing ()
+{
+  if (audio_p_)
+    {
+      play_element (audio_p_);
+      audio_p_ = 0;
+    }
 }
 
 bool

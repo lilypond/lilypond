@@ -45,7 +45,7 @@ Folded_repeat_iterator::next_moment () const
 void
 Folded_repeat_iterator::construct_children ()
 {
-  New_repeated_music const *  mus = dynamic_cast<New_repeated_music const*> (music_l_);
+  Repeated_music const *  mus = dynamic_cast<Repeated_music const*> (music_l_);
   main_iter_p_ = get_iterator_p (mus->repeat_body_p_);
   if (!main_iter_p_->ok())
     {
@@ -64,7 +64,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
 	music_l_->warning ( _("No one to print a volta bracket"));
     }
   
-  New_repeated_music const * mus = dynamic_cast<New_repeated_music const*> (music_l_);
+  Repeated_music const * mus = dynamic_cast<Repeated_music const*> (music_l_);
   
   if (main_iter_p_)
     {
@@ -92,7 +92,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
 void
 Folded_repeat_iterator::leave_body ()
 {
-  New_repeated_music const *  mus = dynamic_cast<New_repeated_music const*> (music_l_);
+  Repeated_music const *  mus = dynamic_cast<Repeated_music const*> (music_l_);
   delete main_iter_p_;
   main_iter_p_ = 0;
   main_length_mom_ +=  mus->repeat_body_p_->length_mom ();
@@ -101,7 +101,7 @@ Folded_repeat_iterator::leave_body ()
 void
 Folded_repeat_iterator::enter_alternative ()
 {
-  New_repeated_music const *  mus = dynamic_cast<New_repeated_music const*> (music_l_);  
+  Repeated_music const *  mus = dynamic_cast<Repeated_music const*> (music_l_);  
   if (mus->alternatives_p_)
     {
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;

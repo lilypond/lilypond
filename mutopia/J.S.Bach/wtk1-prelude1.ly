@@ -8,7 +8,7 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "1.0.21";
+\version "1.1.52";
 
 global = 
     \notes {

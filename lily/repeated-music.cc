@@ -1,5 +1,5 @@
 /*   
-  new-repeated-music.cc --  implement New_repeated_music
+  new-repeated-music.cc --  implement Repeated_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -12,16 +12,18 @@
 #include "musical-pitch.hh"
 #include "debug.hh"
 
-New_repeated_music::New_repeated_music(Music *beg, int times, Music_sequence * alts)
+Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
 {
   repeat_body_p_ = beg;
   fold_b_ = false;
   repeats_i_ = times;
   alternatives_p_ = alts;
   semi_fold_b_ = true;
+  if (alts)
+    alts->music_p_list_p_->truncate (times);
 }
 
-New_repeated_music::New_repeated_music (New_repeated_music const &s)
+Repeated_music::Repeated_music (Repeated_music const &s)
   : Music (s)
 {
   repeats_i_ = s.repeats_i_;
@@ -33,14 +35,14 @@ New_repeated_music::New_repeated_music (New_repeated_music const &s)
     ? dynamic_cast<Music_sequence*> (s.alternatives_p_->clone ()):0;
 }
 
-New_repeated_music::~New_repeated_music ()
+Repeated_music::~Repeated_music ()
 {
   delete repeat_body_p_;
   delete alternatives_p_;
 }
 
 void
-New_repeated_music::do_print () const
+Repeated_music::do_print () const
 {
 #ifndef NPRINT
   DOUT << "Fold = " << fold_b_ << " reps: " << repeats_i_;
@@ -54,7 +56,7 @@ New_repeated_music::do_print () const
 }
 
 Musical_pitch
-New_repeated_music::to_relative_octave (Musical_pitch p)
+Repeated_music::to_relative_octave (Musical_pitch p)
 {
   if (repeat_body_p_)
     p = repeat_body_p_->to_relative_octave (p);
@@ -66,7 +68,7 @@ New_repeated_music::to_relative_octave (Musical_pitch p)
 
 
 void
-New_repeated_music::transpose (Musical_pitch p)
+Repeated_music::transpose (Musical_pitch p)
 {
   if (repeat_body_p_)
     repeat_body_p_->transpose (p);
@@ -76,7 +78,7 @@ New_repeated_music::transpose (Musical_pitch p)
 }
 
 void
-New_repeated_music::compress (Moment p)
+Repeated_music::compress (Moment p)
 {
   if (repeat_body_p_)
     repeat_body_p_->compress (p);
@@ -86,7 +88,7 @@ New_repeated_music::compress (Moment p)
 }
 
 Moment
-New_repeated_music::alternatives_length_mom () const
+Repeated_music::alternatives_length_mom () const
 {
   if (!alternatives_p_ )
     return 0;
@@ -108,7 +110,7 @@ New_repeated_music::alternatives_length_mom () const
 }
 
 Moment
-New_repeated_music::length_mom () const
+Repeated_music::length_mom () const
 {
   Moment m =0;
   if (fold_b_)

@@ -16,7 +16,9 @@
 #define DECLARE_LY_SYMBOL(a) extern SCM a ## _scm_sym
 #endif
 
+DECLARE_LY_SYMBOL(alt_symbol);
 DECLARE_LY_SYMBOL(at_line_start);
+DECLARE_LY_SYMBOL(bar_size);
 DECLARE_LY_SYMBOL(beam);
 DECLARE_LY_SYMBOL(beam_thickness);
 DECLARE_LY_SYMBOL(beam_dir);

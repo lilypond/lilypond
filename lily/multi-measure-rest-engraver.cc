@@ -42,20 +42,28 @@ Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
 bool
 Multi_measure_rest_engraver::do_try_music (Music* req_l)
 {
- if (Multi_measure_rest_req *mr = dynamic_cast<Multi_measure_rest_req *> (req_l))
-   {
-     if (multi_measure_req_l_)
-       if (!multi_measure_req_l_->equal_b (mr)
-	   || rest_moments_[START] != now_mom ())
-	 return false;
-  
-     multi_measure_req_l_ = mr;
-     rest_moments_[START] = now_mom ();
-     
-     rest_moments_[STOP] = rest_moments_[START] + multi_measure_req_l_->duration_.length_mom ();
-     return true;
-   }
- return false;
+  Rhythmic_req *r=0;
+  if (Multi_measure_rest_req *mr = 
+      dynamic_cast<Multi_measure_rest_req *> (req_l))
+    r=mr;
+  else if (Repetitions_req *rr = 
+	   dynamic_cast<Repetitions_req *> (req_l))
+    r=rr;
+  if (r)
+    {
+      if (multi_measure_req_l_)
+	if (!multi_measure_req_l_->equal_b (r)
+	    || rest_moments_[START] != now_mom ())
+	  return false;
+      
+      multi_measure_req_l_ = r;
+      rest_moments_[START] = now_mom ();
+      
+      rest_moments_[STOP] = rest_moments_[START] +
+	multi_measure_req_l_->duration_.length_mom ();
+      return true;
+    }
+  return false;
 }
 
 void
@@ -65,6 +73,9 @@ Multi_measure_rest_engraver::do_process_requests ()
     {
       Time_description const *time = get_staff_info().time_C_;
       mmrest_p_ = new Multi_measure_rest;
+      if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
+	mmrest_p_->set_elt_property (alt_symbol_scm_sym, 
+				     gh_str02scm("scripts-repeatsign"));
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_ = time->bars_i_;
     }

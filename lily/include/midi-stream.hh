@@ -16,7 +16,7 @@ struct Midi_stream {
   ~Midi_stream();
 
   Midi_stream& operator <<( String str);
-  Midi_stream& operator <<( Midi_item const& mitem_c_r);
+  Midi_stream& operator <<( Midi_item const& midi_c_r);
   Midi_stream& operator <<( int i);
 
   void open();

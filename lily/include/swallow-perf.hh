@@ -12,7 +12,8 @@
 
 #include "performer.hh"
 
-class Swallow_performer : public Performer {
+class Swallow_performer : public Performer
+{
 public:
   VIRTUAL_COPY_CONS(Translator);
   

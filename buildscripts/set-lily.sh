@@ -53,6 +53,7 @@ showln -sf $LILYPOND_SOURCEDIR/lily/out/lilypond $prefix/bin/lilypond
 showln -sf $LILYPOND_SOURCEDIR/mi2mu/out/mi2mu $prefix/bin/mi2mu
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
+showln -sf $LILYPOND_SOURCEDIR/buildscripts/out/genheader $prefix/bin/genheader
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 showln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 

@@ -18,7 +18,6 @@
  */
 struct Staff_info {
   Time_description const *time_C_;
-  Rhythmic_grouping const *rhythmic_C_;
   Score_column *musical_l_;
   Score_column *command_l_;
 

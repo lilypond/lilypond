@@ -49,7 +49,10 @@ Performer_group_performer::do_announces()
 	  for (int i=0; i < nongroups.size(); i++) 
 	    {	// Is this good enough?
 	      Performer * eng = dynamic_cast<Performer*> (nongroups[i]);
-	      if (eng && eng!= info.origin_trans_l_arr_[0])
+	      // urg, huh? core dump?
+	      //if (eng && eng!= info.origin_trans_l_arr_[0])
+	      if (eng && info.origin_trans_l_arr_.size ()
+		  && eng!= info.origin_trans_l_arr_[0])
 		eng->acknowledge_element (info);
 	    }
 	}

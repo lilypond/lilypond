@@ -22,16 +22,16 @@ void
 Note_performer::do_print () const
 {
 #ifndef NPRINT
-  if (note_req_l_.size()>0)
-    for(int i=0;i<note_req_l_.size();i++)
-      note_req_l_[i]->print ();
+  if (note_req_l_arr_.size()>0)
+    for(int i=0;i<note_req_l_arr_.size();i++)
+      note_req_l_arr_[i]->print ();
 #endif
 }
 
 void 
 Note_performer::do_process_requests () 
 {
-  if (note_req_l_.size()>0)
+  if (note_req_l_arr_.size ())
     {
       int transposing_i = 0;
       //urg
@@ -39,18 +39,34 @@ Note_performer::do_process_requests ()
       if (!prop.empty_b () && prop.isnum_b ()) 
 	transposing_i = prop;
 
-      while(note_req_l_.size()>0)
-	play (new Audio_note (note_req_l_.pop(), transposing_i));
-
+      while(note_req_l_arr_.size ())
+	{
+	  Note_req* n = note_req_l_arr_.pop ();
+	  Audio_note* p = new Audio_note (n->pitch_, n->length_mom (), transposing_i);
+	  Audio_element_info info (p, n);
+	  announce_element (info);
+	  note_p_arr_.push (p);
+	}
     }
 }
 
-bool 
+void
+Note_performer::do_pre_move_processing ()
+{
+  for (int i=0; i < note_p_arr_.size (); i++)
+    {
+      play_element (note_p_arr_[i]);
+    }
+  note_p_arr_.clear ();
+  note_req_l_arr_.clear ();
+}
+ 
+bool
 Note_performer::do_try_music (Music* req_l)
 {
   if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
     {
-      note_req_l_.push(nr);
+      note_req_l_arr_.push (nr);
       return true;
     }
   return false;

@@ -10,6 +10,9 @@
 #include "mudela-staff.hh"
 #include "mudela-stream.hh"
 #include "mudela-voice.hh"
+#include "mudela-score.hh"
+
+extern Mudela_score* mudela_score_l_g;
 
 Mudela_voice::Mudela_voice (Mudela_staff* mudela_staff_l)
 {
@@ -56,6 +59,8 @@ Mudela_voice::output (Mudela_stream& mudela_stream_r)
 	}
 
       mudela_stream_r << *i->car_;
+      if (Mudela_key* k = dynamic_cast<Mudela_key*> (i->car_))
+	mudela_staff_l_->mudela_key_l_ = mudela_score_l_g->mudela_key_l_ = k;
     }
 
   if (mudela_item_l_list_.size_i () > FAIRLY_LONG_VOICE_i)

@@ -8,92 +8,61 @@
 #include "debug.hh"
 #include "audio-item.hh"
 #include "midi-item.hh"
-#include "request.hh"
 #include "audio-column.hh"
 
 Audio_instrument::Audio_instrument (String instrument_str)
-  : Audio_item (0)
 {
   str_ = instrument_str;
 }
 
-Midi_item*
-Audio_instrument::midi_item_p()
-{
-  return str_.length_i() ? new Midi_instrument(0, str_) : 0;
-}
-
-
-Audio_item::Audio_item (Request* req_l)
+Audio_item::Audio_item ()
 {
   audio_column_l_ = 0;
-  req_l_ = req_l;
 }
 
-Audio_key::Audio_key (Request* req_l)
-  : Audio_item (req_l)
+Audio_note::Audio_note (Musical_pitch p, Moment m, int transposing_i)
 {
-}
-
-Midi_item*
-Audio_key::midi_item_p()
-{
-  return new Midi_key (this);
-}
-
-
-Audio_note::Audio_note (Request* req_l, int transposing_i)
-  : Audio_item (req_l)
-{
+  pitch_ = p;
+  length_mom_ = m;
   transposing_i_ = transposing_i;
 }
 
-Midi_item*
-Audio_note::midi_item_p()
+Audio_key::Audio_key (Key_def const& k)
 {
-  return new Midi_note (this);
+  key_ = k;
 }
 
-
-
 Audio_tempo::Audio_tempo (int per_minute_4_i)
-  : Audio_item (0)
 {
   per_minute_4_i_ = per_minute_4_i;
 }
 
-Midi_item*
-Audio_tempo::midi_item_p()
+Audio_time_signature::Audio_time_signature (int beats, int one_beat)
 {
-  return new Midi_tempo (this);
+  beats_i_ = beats;
+  one_beat_i_ = one_beat;
 }
-
-
-
-Audio_time_signature::Audio_time_signature (Request* req_l)
-  : Audio_item (req_l)
-{
-}
-
-Midi_item*
-Audio_time_signature::midi_item_p()
-{
-  return new Midi_time_signature (this);
-}
-
-
 
 Audio_text::Audio_text (Audio_text::Type type, String text_str)
-  : Audio_item (0)
 {
   text_str_ = text_str;
   type_ = type;
 }
 
-Midi_item*
-Audio_text::midi_item_p()
+Audio_tie::Audio_tie ()
 {
-  return text_str_.length_i() ? new Midi_text(this) : 0;
+  note_l_drul_[RIGHT] = 0;
+  note_l_drul_[LEFT] = 0;
+}
+
+void
+Audio_tie::set_note (Direction d, Audio_note* note_l)
+{
+  assert (!note_l_drul_[d]);
+  note_l_drul_[d] = note_l;
+  //set_bounds (d, head_l);
+
+  //  add_dependency (head_l);
 }
 
 void
@@ -103,11 +72,6 @@ Audio_item::do_print () const
   if (audio_column_l_)
     {
       DOUT << "at: "<< audio_column_l_->at_mom ();
-    }
-  if (req_l_)
-    {
-      DOUT << "from: ";
-      req_l_->print ();
     }
 #endif
 }

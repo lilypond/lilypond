@@ -75,7 +75,14 @@ Multi_measure_rest::do_brew_molecule_p () const
 
   
   Molecule s;
-  if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
+  bool rest_symbol=true;
+  SCM alt_symbol_sym =get_elt_property (alt_symbol_scm_sym);
+  if (alt_symbol_sym != SCM_BOOL_F)
+    {
+      s = lookup_l () -> afm_find (ly_scm2string (SCM_CDR(alt_symbol_sym)));
+      rest_symbol = false;
+    }
+  else if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
     {
       s = lookup_l ()->rest (- intlog2(measures_i_), 0, "");
       s.translate_axis (-s.extent ()[X_AXIS].length () / 2, X_AXIS);
@@ -86,7 +93,7 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   mol_p->add_molecule (s);
   Real interline_f = staff_line_leading_f ();
-  if (measures_i_ == 1)
+  if (measures_i_ == 1 && rest_symbol)
     {
       mol_p->translate_axis (interline_f, Y_AXIS);
     }
@@ -97,7 +104,6 @@ Multi_measure_rest::do_brew_molecule_p () const
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_molecule (s);
     }
-
   mol_p->translate_axis (x_off, X_AXIS);
   return mol_p;
 }

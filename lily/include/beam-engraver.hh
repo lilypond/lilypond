@@ -19,8 +19,15 @@ class Beam_engraver : public Engraver {
   Beam *finished_beam_p_;
   Beam *beam_p_;
   Span_req * prev_start_req_;
-  Rhythmic_grouping*grouping_p_;
-  Rhythmic_grouping*finished_grouping_p_;
+
+  Beaming_info_list * beam_info_p_;
+  Beaming_info_list * finished_beam_info_p_;  
+
+  /// location  within measure where beam started.
+  Moment beam_start_location_;
+
+  /// moment (global time) where beam started.
+  Moment beam_start_mom_;
   
   void typeset_beam ();
 protected:

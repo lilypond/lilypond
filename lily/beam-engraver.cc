@@ -6,21 +6,23 @@
   (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
+#include "timing-engraver.hh"
+#include "engraver-group-engraver.hh"
 #include "beam-engraver.hh"
 #include "musical-request.hh"
 #include "beam.hh"
-#include "rhythmic-grouping.hh"
 #include "stem.hh"
 #include "warn.hh"
 #include "time-description.hh"
+#include "new-beaming.hh"
+#include "score-engraver.hh"
 
 Beam_engraver::Beam_engraver ()
 {
   beam_p_ = 0;
   finished_beam_p_ =0;
-  finished_grouping_p_ = 0;
-  grouping_p_ =0;
+  finished_beam_info_p_=0;
+  beam_info_p_ =0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
   prev_start_req_ =0;
 }
@@ -56,10 +58,26 @@ Beam_engraver::do_process_requests ()
 	reqs_drul_[STOP]->warning (_("No beam to end"));
       prev_start_req_ =0;
       finished_beam_p_ = beam_p_;
-      finished_grouping_p_ = grouping_p_;
+      finished_beam_info_p_ = beam_info_p_;
 
+      beam_info_p_ =0;
       beam_p_ = 0;
-      grouping_p_ = 0;
+    }
+
+
+  if (beam_p_)
+    {
+      Score_engraver * e = 0;
+      Translator * t  =  daddy_grav_l ();
+      for (; !e && t;  t = t->daddy_trans_l_)
+	{
+	  e = dynamic_cast<Score_engraver*> (t);
+	}
+      
+      if (!e)
+	programming_error ("No score engraver!");
+      else
+	e->forbid_breaks ();
     }
   
   if (reqs_drul_[START])
@@ -72,7 +90,14 @@ Beam_engraver::do_process_requests ()
 
       prev_start_req_ = reqs_drul_[START];
       beam_p_ = new Beam;
-      grouping_p_ = new Rhythmic_grouping;
+
+      Translator * t  = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
+      Timing_engraver *timer = dynamic_cast<Timing_engraver*> (t);
+      beam_start_location_ = (t) ?  timer->time_.whole_in_measure_ : Moment (0);
+      beam_start_mom_ = now_mom();
+      beam_info_p_ = new Beaming_info_list;
+      
+      
 
       Scalar prop = get_property ("beamslopedamping", 0);
       if (prop.isnum_b ()) 
@@ -91,14 +116,13 @@ Beam_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-      rg_C->extend (finished_grouping_p_->interval());
-      finished_beam_p_->set_grouping (*rg_C, *finished_grouping_p_);
+      finished_beam_info_p_->beamify ();
+      
+      finished_beam_p_->set_beaming (finished_beam_info_p_);
       typeset_element (finished_beam_p_);
+      delete finished_beam_info_p_;
+      finished_beam_info_p_ =0;
       finished_beam_p_ = 0;
-    
-      delete finished_grouping_p_;
-      finished_grouping_p_= 0;
     
       reqs_drul_[STOP] = 0;
     }
@@ -124,7 +148,7 @@ Beam_engraver::do_removal_processing ()
     {
       prev_start_req_->warning (_ ("Unfinished beam"));
       finished_beam_p_ = beam_p_;
-      finished_grouping_p_ = grouping_p_;
+      finished_beam_info_p_ = beam_info_p_;
       typeset_beam ();
     }
 }
@@ -164,27 +188,10 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
 
-      /*
-	TODO: do something sensible if it doesn't fit in the beam.
-      */
-      Moment start = get_staff_info().time_C_->whole_in_measure_;
-
-      if (!grouping_p_->child_fit_b (start))
-	{
-	  String s (_ ("please fix me") + ": " 
-		    + _f ("stem at %s doesn't fit in beam", now_mom ().str ()));
-
-	  if (info.req_l_)
-	    info.req_l_->warning(s);
-	  else 
-	    warning (s);
-	}
-      else
-	{
-	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
-	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
-	  beam_p_->add_stem (stem_l);
-	}
+      stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+      Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
+      beam_info_p_->add_stem (stem_location, rhythmic_req->duration_.durlog_i_ - 2);
+      beam_p_->add_stem (stem_l);
     }
 }
 

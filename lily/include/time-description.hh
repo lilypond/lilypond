@@ -15,15 +15,15 @@
 struct Time_description {
   Moment when_;
 
-  /// found an error so far?
-  bool error_b_ ;
-
   /// if true, no bars needed, no reduction of whole_in_measure
   bool cadenza_b_;
     
   /// current measure info
   Moment whole_per_measure_;
 
+  /*
+    ugh: naming! junk whole_ prefixes.
+   */
   /// where am i 
   Moment whole_in_measure_;
 

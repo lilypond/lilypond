@@ -49,10 +49,18 @@ have beams, notes, chords, stems etc. within a \verb|\grace|
 section. Slurs that start within a grace section, but aren't ended are
 attached to the next normal note.  Grace notes have zero duration 
 
+
+
 \mudelafile{grace.ly}
 
 
 \section{Beams, slurs and other spanners}
+
+Beaming is generated automatically. Beams may cross bar lines. In that
+case, line breaks are forbidden.  Yet clef and key signatures are
+hidden just as with breakable bar lines.
+
+\mudelafile{beaming.ly}
 
 %Beams should not interfere with various items on the staff (amongst
 %others repeat signs)
@@ -61,7 +69,7 @@ attached to the next normal note.  Grace notes have zero duration
 
 Beams can be typeset over fixed distance aligned staffs, beam
 beautification doesn't really work, but knees do. Beams should be
-behave well, whereever the switching point is.
+behave well, wherever the switching point is.
 
 \mudelafile{beam-interstaff.ly}
 
@@ -92,7 +100,7 @@ Unfolded behavior:
 
 \mudelafile{repeat-unfold.ly}
 
-Semi (un)folded behavior:
+Semi (un)folded behavior.  Voltas can start on non-barline moments.
 
 \mudelafile{repeat-semifold.ly}
 

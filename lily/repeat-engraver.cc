@@ -24,175 +24,255 @@
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
 /*
-  Urg. Hairy.  Needs redesign?
+  Needs redesign?
+
+  -  Logic needs to be moved out of do_try_music(),
+  
+  - don't  try to do multiple repeated music.  Lets assume repeats  don't nest.
+  
  */
 bool
 Repeat_engraver::do_try_music (Music* m)
 {
-  if (New_repeated_music* r = dynamic_cast<New_repeated_music *> (m))
+  if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
     {
-      if (!r->semi_fold_b_)
-        return true;
-
-      Music_sequence* alt = r->alternatives_p_;
-      Moment repeat_length_mom = r->repeat_body_p_->length_mom ();
-      Moment stop_mom = now_mom () + repeat_length_mom;
-      Moment alt_mom = now_mom () + repeat_length_mom;
-
-      /*
-	if there's a repeat block, we'll need a stop-repeat :| 
-	*/
-      if (repeat_length_mom)
+      if (repeated_music_l_)
 	{
-	  /*
-	    if there are alternatives, the :| comes before last alternative
-	    (only for semi-unfolded, but otherwise we're not here anyway?)
-	    */
-	  if (alt)
-	    {
-	      for (Cons<Music> *i (alt->music_p_list_p_->head_); i && i->next_; i = i->next_)
-		{
-		  stop_mom += i->car_->length_mom ();
-		  if (r->fold_b_)
-		    break;
-		}
-	     }
-	  repeated_music_arr_.push (r);
-	  stop_mom_arr_.push (stop_mom);
-	}
-
-      /* 
-	 Counting nested repeats, it seems safest to forbid
-	 two pieces of alternative music to start at the same time.
-      */
-      for (int i = 0; i < alternative_start_mom_arr_.size (); i++)
-        if (alternative_start_mom_arr_[i] == alt_mom)
+	  m->warning ("Already have repeated music.");
 	  return false;
-
-      /*
-	Coda kludge: see input/test/coda-kludge.ly
-       */
-      Moment span_mom;
-      Scalar prop = get_property ("voltaSpannerDuration", 0);
-      if (prop.length_i ())
-	span_mom = prop.to_rat ();
-
-      if (!alt)
-	return true;
-
-      int alt_i = r->repeats_i_ + 1 - cons_list_size_i (alt->music_p_list_p_->head_ ) >? 1;
-      for (Cons<Music> *i = alt->music_p_list_p_->head_; i ; i = i->next_)
-        {
-	  alternative_music_arr_.push (i->car_);
-	  alternative_start_mom_arr_.push (alt_mom);
-	  if (span_mom)
-	    alternative_stop_mom_arr_.push (alt_mom + span_mom);
-	  else
-	    alternative_stop_mom_arr_.push (alt_mom + i->car_->length_mom ());
-	  String str;
-	  if ((alt_i != 1) && (alt_i != r->repeats_i_) && (i == alt->music_p_list_p_->head_))
-	    str = "1.-";
-	  str += to_str (alt_i) + ".";
-	  alt_i++;
-	  alternative_str_arr_.push (str);
-	  if (!dynamic_cast<Simultaneous_music *> (alt))
-	    alt_mom += i->car_->length_mom ();
 	}
-      return true;
+      
+      if (r->semi_fold_b_)
+	{
+	  repeated_music_l_ = r;
+	  return true;
+	}
     }
   return false;
 }
 
+/**
+ Walk through repeat music, and generate events for appropriate times.
+*/
 void
-Repeat_engraver::acknowledge_element (Score_element_info i)
+Repeat_engraver::queue_events ()
 {
-  Moment now = now_mom ();
-  if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
-    {
-      for (int i = 0; i < volta_p_arr_.size (); i++)
-        if (volta_p_arr_[i] && (now >= alternative_start_mom_arr_[i]))
-	  volta_p_arr_[i]->add_column (c);
-    }
-  if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
-    {
-      for (int i = 0; i < volta_p_arr_.size (); i++)
-        if (volta_p_arr_[i] && (now >= alternative_start_mom_arr_[i]))
-	  volta_p_arr_[i]->add_column (c);
-    }
-}
+  Music_sequence* alt = repeated_music_l_->alternatives_p_;
+  Moment walk_mom = now_mom () + repeated_music_l_->repeat_body_p_->length_mom ();
 
-void
-Repeat_engraver::do_removal_processing ()
-{
-  for (int i = 0; i < volta_p_arr_.size (); i++)
-    if (volta_p_arr_[i])
-      typeset_element (volta_p_arr_[i]);
+      
+  Cons_list<Bar_create_event> becel;
+  becel.append (new Bar_create_event (now_mom (), "|:"));
+
+  if (!alt)
+    {
+      becel.append  (new Bar_create_event (walk_mom, ":|"));
+      becel.append  (new Bar_create_event (walk_mom, "stop"));
+   }
+  else
+    {
+      int last_number = 0;
+      int volta_number = repeated_music_l_->repeats_i_ - alt->length_i () + 1;
+
+      /*
+	all repeat alternatives, and generate events with
+	appropriate timestamps. The volta spanner event (a number string)
+	happens at the begin of the alt. The :| bar event at the ending.
+      */
+      for (Cons<Music> *i = alt->music_p_list_p_->head_; i; i = i->next_)
+	{
+
+	  /*
+	    some idiot might typeset a repeat not starting on a
+	    barline.  Make sure there is one.
+
+	    (todo: should try to avoid line breaks?)
+	  */
+	  if (last_number == 0)
+	    {
+	      becel.append (new Bar_create_event (walk_mom, ""));
+	    }
+
+	  
+	  Bar_create_event * c = new Bar_create_event (walk_mom, last_number+ 1,
+						       volta_number);
+
+	  if (!i->next_)
+	    c->last_b_ = true;
+	  
+	  becel.append (c);
+	  last_number = volta_number;
+	  volta_number ++;
+
+	  // should think about voltaSpannerDuration
+	  walk_mom += i->car_->length_mom();
+
+	  if (i->next_)
+	    becel.append (new Bar_create_event (walk_mom, ":|"));
+	  else
+	    becel.append (new Bar_create_event (walk_mom, "stop"));
+	}
+    } 
+  create_barmoments_queue_ = becel.head_ ;
+  becel.head_ = 0;
 }
 
 void
 Repeat_engraver::do_process_requests ()
-{  
-  Moment now = now_mom ();
+{
+  if (repeated_music_l_ && !done_this_one_b_)
+    { 
+      queue_events ();
+      done_this_one_b_ = true;
+    }
+  
+  
+  Cons<Bar_create_event> * head =   create_barmoments_queue_;
+  if (!head)
+    return;
+
   Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
     (daddy_grav_l ()->get_simple_translator ("Bar_engraver"));
-  for (int i = bar_b_arr_.size (); i < repeated_music_arr_.size (); i++)
-    {
-      if (bar_engraver_l)
-	bar_engraver_l->request_bar ("|:");
-      bar_b_arr_.push (true);
-    }
-  for (int i = 0; i < bar_b_arr_.size (); i++)
-    {
-      if (!bar_b_arr_[i] && (now >= stop_mom_arr_[i]))
-        {
-	  if (bar_engraver_l)
-	    bar_engraver_l->request_bar (":|");
-	}
-    }
-  for (int i = volta_p_arr_.size (); i < alternative_music_arr_.size (); i++)
-    {
-      Volta_spanner* v = new Volta_spanner;
-      Scalar prop = get_property ("voltaVisibility", 0);
-      if (!prop.to_bool ())
-	v->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      prop = get_property ("voltaSpannerDuration", 0);
-      if ((i == alternative_music_arr_.size () - 1) || prop.length_i ())
-        v->last_b_ = true;
 
-      v->number_str_ = alternative_str_arr_[i];
-      volta_p_arr_.push (v);
-      announce_element (Score_element_info (v, alternative_music_arr_[i]));
+  /*
+    Do all the events that need to be done now.
+  */
+  bool stop = false;
+  while (head && now_mom () == head->car_->when_)
+    {
+      create_barmoments_queue_ = create_barmoments_queue_->next_;
+      head->next_ =0;
+      if (bar_engraver_l)
+	{
+	  String t = head->car_->type_;
+	  if (head->car_->bar_b_)
+	    {
+	      if (t == "stop" || t == ":|")
+		{
+		  end_volta_span_p_ = volta_span_p_;
+		  volta_span_p_ =0;
+		}
+
+	      if (t != "stop")
+		bar_engraver_l->request_bar (t);
+	    }
+	  else
+	    {
+	      assert (!volta_span_p_);
+	      volta_span_p_ = new Volta_spanner;
+	      announce_element (Score_element_info (volta_span_p_,0));
+	      volta_span_p_->number_str_ = t;
+	      volta_span_p_->last_b_ = head->car_->last_b_;
+	      // voltaSpannerDuration stuff here.
+	      // other property stuff here.
+	    }
+	  
+	}
+      else
+	{
+	  warning ("No bar engraver found. Ignoring repeats.");
+	}
+
+      delete head->car_;
+      delete head;
+
+      head = create_barmoments_queue_;
     }
+
+  assert (!head || head->car_->when_ > now_mom ());
+}  
+
+
+void
+Repeat_engraver::acknowledge_element (Score_element_info i)
+{
+  if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
+    {
+      if (volta_span_p_)
+	volta_span_p_->add_column (c);
+      if (end_volta_span_p_)
+	end_volta_span_p_->add_column (c);      
+    }
+  if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
+    {
+      if (volta_span_p_)
+	volta_span_p_->add_bar (c);
+      if (end_volta_span_p_)
+	end_volta_span_p_ ->add_bar(c);
+    }
+}
+
+
+void
+Repeat_engraver::do_removal_processing ()
+{
+  if (volta_span_p_)
+    {
+      typeset_element(volta_span_p_);
+    }
+  if (end_volta_span_p_)
+    {
+      typeset_element (end_volta_span_p_);
+    }
+  // todo: the paranoid may also delete create_barmoments_queue_
+}
+
+void
+Repeat_engraver::do_post_move_processing ()
+{
+  for (Cons<Bar_create_event> *p = create_barmoments_queue_;
+       p && p->car_->when_ == now_mom (); p = p->next_)
+    if (p->car_->type_ == "stop")
+      {
+	repeated_music_l_ = 0;
+	done_this_one_b_ = false;
+      }
 }
 
 void 
 Repeat_engraver::do_pre_move_processing ()
 {
-  Moment now = now_mom ();
-  for (int i = bar_b_arr_.size (); i--; )
+  if (end_volta_span_p_)
     {
-      if (bar_b_arr_[i])
-	bar_b_arr_[i] = false;
-      if (now >= stop_mom_arr_[i])
-	{
-	  bar_b_arr_.del (i);
-	  stop_mom_arr_.del (i);
-	  repeated_music_arr_.del (i);
-	}
+      typeset_element (end_volta_span_p_ );
+      end_volta_span_p_ =0;
     }
-  for (int i = volta_p_arr_.size (); i--; )
-    {
-      if (volta_p_arr_[i] && (now >= alternative_stop_mom_arr_[i])
-	  && (volta_p_arr_[i]->column_arr_.size () >= 1))
-        {
-	  typeset_element (volta_p_arr_[i]);
-	  volta_p_arr_[i] = 0;
-	  volta_p_arr_.del (i);
-	  alternative_music_arr_[i] = 0;
-	  alternative_music_arr_.del (i);
-	  alternative_start_mom_arr_.del (i);
-	  alternative_stop_mom_arr_.del (i);
-	  alternative_str_arr_.del (i);
-	}
-    }
+    
+}
+
+
+Repeat_engraver::Repeat_engraver()
+{
+  repeated_music_l_ =0;
+  end_volta_span_p_ =0;
+  volta_span_p_ =0;
+  done_this_one_b_ = false;
+  create_barmoments_queue_ =0;
+}
+				 
+/* ************** */
+Bar_create_event::Bar_create_event()
+{
+  last_b_ =false;
+  bar_b_ = true;
+}
+
+Bar_create_event::Bar_create_event (Moment w, String s)
+{
+  last_b_ =false;
+  when_ = w;
+  type_ = s;
+  bar_b_ = true;
+}
+
+Bar_create_event::Bar_create_event (Moment w, int i, int j)
+{
+  last_b_ =false;
+  when_ = w ;
+  bar_b_ = false;
+
+  if (i!=j)
+    type_ = to_str (i) + ".-" ;
+
+  type_ += to_str(j) + ".";
 }

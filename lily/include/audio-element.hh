@@ -12,12 +12,16 @@
 
 #include "virtual-methods.hh"
 
-struct Audio_element {
-  void print ()const;
-  
-  virtual ~Audio_element();
+class Audio_element
+{
+public:
+  Audio_element ();
+  virtual ~Audio_element ();
+
+  void print () const;
   
 protected:
   virtual void do_print () const;
 };
+
 #endif // AUDIO_ELEMENT_HH

@@ -304,12 +304,14 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  else if ((byte == 0x59) && (next == 0x02))
 	    {
 	      next_byte ();
-	      int accidentals_i = (int)next_byte ();
-	      int minor_i = (int)next_byte ();
+	      int accidentals_i = (int)(signed char)next_byte ();
+	      int minor_i = (int)(bool)next_byte ();
 	      Mudela_key* p = new Mudela_key (accidentals_i, minor_i);
 	      item_p = p;
+#if 0
 	      info_l_->score_l_->mudela_key_l_ = p;
 	      mudela_staff_p_->mudela_key_l_ = p;
+#endif
 	    }
 	  // SSME		[\0x7f][\x03]
 	  else if ((byte == 0x7f) && (next == 0x03))

@@ -1,5 +1,5 @@
 /*   
-  new-repeated-music.hh -- declare New_repeated_music
+  new-repeated-music.hh -- declare Repeated_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,8 +7,8 @@
   
  */
 
-#ifndef NEW_REPEATED_MUSIC_HH
-#define NEW_REPEATED_MUSIC_HH
+#ifndef RepEATED_MUSIC_HH
+#define RepEATED_MUSIC_HH
 
 #include "music.hh"
 
@@ -47,7 +47,7 @@
    the first alternative is assumed to be repeated.
    
 */
-class New_repeated_music : public Music
+class Repeated_music : public Music
 {
 public:
   bool fold_b_;
@@ -75,12 +75,12 @@ public:
   virtual void compress (Moment factor);
   VIRTUAL_COPY_CONS(Music);
 
-  New_repeated_music (Music*, int , Music_sequence*);
-  New_repeated_music (New_repeated_music const&);
-  ~New_repeated_music ();
+  Repeated_music (Music*, int , Music_sequence*);
+  Repeated_music (Repeated_music const&);
+  ~Repeated_music ();
 protected:
   virtual void do_print() const;
 };
 
 
-#endif /* NEW_REPEATED_MUSIC_HH */
+#endif /* RepEATED_MUSIC_HH */

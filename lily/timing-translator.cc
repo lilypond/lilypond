@@ -12,11 +12,6 @@
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
 
-Timing_translator::Timing_translator ()
-{
-  default_grouping_ = Rhythmic_grouping (MInterval (0, 1), 4); // ugh
-}
-
 bool
 Timing_translator::do_try_music (Music*r)
 {
@@ -68,10 +63,6 @@ Timing_translator::do_process_requests()
 	  else
 	    {
 	      time_.set_time_signature (b_i, o_i);
-
-	      default_grouping_ =
-		Rhythmic_grouping (MInterval (0,Moment (b_i, o_i)),
-				   b_i == 1 ? 2 : b_i);
 	    }
 	}
       else if (Partial_measure_req *pm = dynamic_cast <Partial_measure_req *> (tr_l))
@@ -93,19 +84,11 @@ Timing_translator::do_process_requests()
 	        time_.whole_in_measure_.str ()));
 
 	      time_.whole_in_measure_ = 0; // resync
-	      time_.error_b_ = true;
 	    }
 	}
       else if (Cadenza_req *cr = dynamic_cast <Cadenza_req *> (tr_l))
 	{
 	  time_.set_cadenza (cr->on_b_);
-	}
-      else if (Measure_grouping_req *mg=dynamic_cast <Measure_grouping_req *> (tr_l))
-	{
-	  default_grouping_ =
-	    parse_grouping (mg->beat_i_arr_,
-			    mg->elt_length_arr_);
-
 	}
     }
 
@@ -165,6 +148,5 @@ Timing_translator::do_print () const
 {
 #ifndef NPRINT
   time_.print ();
-  default_grouping_.print ();
 #endif
 }

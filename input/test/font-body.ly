@@ -1,4 +1,4 @@
-\version "1.0.21";
+\version "1.1.52";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
@@ -14,7 +14,7 @@ FontBody=	\notes\transpose c''{
 		a\mf_\fermata a\f-\stopped a\ff-\open a\fff^\trill|
 		a\fp-\reverseturn a4.\sf a4.\sfz |  a4\fz % a\rf
 		[c8-\prall c-\mordent] [a'-\prallmordent a'-\prallprall]
-		[c8-\upprall a'8-\downprall] [a' c] |
+		[c8-\upprall a'8-\downprall] [a'-\segno c-\wheel] |
 		[c \< d e f] [as' ges' f' e']
 		[cis' dis' c' des'] [cisis' disis' \! ceses' deses'] |
 		\clef "bass";

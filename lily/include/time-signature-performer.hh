@@ -6,13 +6,14 @@
   (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef METER_PERFOMER_HH
-#define METER_PERFOMER_HH
+#ifndef TIME_SIGNATURE_PERFORMER_HH
+#define TIME_SIGNATURE_PERFORMER_HH
 
 #include "lily-proto.hh"
 #include "performer.hh"
 
-class Time_signature_performer : public Performer {
+class Time_signature_performer : public Performer
+{
 public:
   VIRTUAL_COPY_CONS(Translator);
   
@@ -23,9 +24,11 @@ protected:
   void do_print() const;
   virtual bool do_try_music (Music* req_l);
   virtual void do_process_requests();
+  virtual void do_pre_move_processing ();
 
 private:
   Time_signature_change_req* time_signature_req_l_;
+  Audio_time_signature* audio_p_;
 };
 
-#endif // METER_PERFOMER_HH
+#endif // TIME_SIGNATURE_PERFORMER_HH

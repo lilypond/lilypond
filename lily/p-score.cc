@@ -176,9 +176,10 @@ Paper_score::process ()
     }
 
   if (experimental_features_global_b)
-    *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << " elements. ";
+    *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << _ (" elements. ");
 
-  *mlog << "\nLine ... ";
+  *mlog << "\n";
+  *mlog << _ ("Line ... ");
   line_l_->break_processing ();
   for (int i=0; i < lines.size (); i++)
     {
@@ -187,7 +188,7 @@ Paper_score::process ()
       Line_of_score *line_l = lines[i];
 
       line_l->post_processing ();
-	*mlog << i << flush;
+      *mlog << i << flush;
       line_l->output_all (i + 1 == lines.size());
       if (experimental_features_global_b)
 	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';

@@ -575,12 +575,13 @@ mudela()(
           c''-\open  c''-\flageolet  c''-\reverseturn 
           c''-\trill
           c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
-          c''-\upprall c''-\downprall c''-\thumb }
+          c''-\upprall c''-\downprall c''-\thumb c''-\segno c''-\wheel}
   \context Lyrics \lyrics{  
         accent__ marcato__ staccatissimo__ fermata stopped__
         staccato__ tenuto__ upbow downbow__ lheel__ rheel__ ltoe
         rtoe__ turn__ open__ flageolet reverseturn__ trill__ prall__
-        mordent prallprall__ prallmordent__ uprall__ downprall thumb }
+        mordent prallprall__ prallmordent__ uprall__ downprall thumb 
+	segno wheel}
   >
   \paper{ linewidth = 5.875\in;          
           indent = 0.0;        }
@@ -1590,6 +1591,9 @@ above or below the clef instead of on the bar line.
 dit(code(barNumberScriptPadding)) Sets extra space between the bar
 number and the bar it labels.
 
+dit(code(barSize)) Specify the height of the bar lines if it should be
+different than the staff height.
+
 dit(code(markHangOnClef)) Set to 1 to cause marks to appear by clefs
 instead of by bar lines.
 
@@ -1607,6 +1611,9 @@ overridden, possibly many measures later.
 
 dit(code(staffLineLeading)) Specifies the distance (in points) between lines
 of the staff.  
+
+dit(code(numberOfStaffLines)) Specifies the number of staff lines. The
+default is 5. 
 
 dit(code(postBreakPadding)) Extra space in points to be added after
 the clef, time signature and key signature on the staff.
@@ -1936,8 +1943,6 @@ arithmetic_basicspace.  The smallest space is the one following the
 shortest note in the measure.  Typically arithmetic_basicspace is set
 to the width of a quarter note head.
 
-dit(code(barsize)) Specify height of bars.  This value may need to be
-adjusted if you change the number of lines in the staff.
 dit(code(beam_dir_algorithm)) Specify algorithm for determining
 whether beams go up or down.  It is real valued.  If set to 2.0 then
 majority selection is used.  If set to 3.0, then mean selection is

@@ -106,6 +106,10 @@ public:
       head_ =0;
       nil_pointer_address_ = &head_;
     }
+  void append (T *c)
+    {
+      append (new Cons<T> (c,0));
+    }
   void append (Cons<T> *c)
     {
       assert (!c->next_);
@@ -124,6 +128,24 @@ public:
 
       return ::remove_cons (pp);
     }
+
+  /// junk everything after the  first I elements.
+  void truncate (int i)
+    {
+      Cons<T> **p  = &head_;
+      for (; *p && i;  p = &((*p)->next_))
+	{
+	  i--;
+	}
+
+      if (*p)
+	{
+	  delete *p;
+	  *p = 0;
+	}
+      nil_pointer_address_ = p;
+    }
+
   void junk ()
     {
       delete head_;

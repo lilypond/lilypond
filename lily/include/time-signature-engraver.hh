@@ -11,7 +11,6 @@
 #define TIME_SIG_ENGRAVER_HH
 #include "engraver.hh"
 #include "time-description.hh"
-#include "rhythmic-grouping.hh"
 
 /**
   generate time_signatures. 

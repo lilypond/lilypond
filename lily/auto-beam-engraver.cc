@@ -6,16 +6,16 @@
   (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
-
+#include "new-beaming.hh"
 #include "auto-beam-engraver.hh"
 #include "musical-request.hh"
 #include "bar.hh"
 #include "beam.hh"
-#include "rhythmic-grouping.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
-#include "time-description.hh"
+#include "timing-engraver.hh"
+#include "engraver-group-engraver.hh"
 
 ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
@@ -26,6 +26,14 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
+  timer_l_ =0;
+}
+
+void
+Auto_beam_engraver::do_creation_processing ()
+{
+  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
+  timer_l_ = dynamic_cast<Timing_engraver*> (t);
 }
 
 void
@@ -37,7 +45,10 @@ Auto_beam_engraver::do_process_requests ()
 void
 Auto_beam_engraver::consider_end_and_begin ()
 {
-  Time_description const *time = get_staff_info().time_C_;
+  if (!timer_l_)
+      return;
+  
+  Time_description const *time = &timer_l_->time_;
   int num = time->whole_per_measure_ / time->one_beat_;
   int den = time->one_beat_.den_i ();
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
@@ -158,7 +169,9 @@ Auto_beam_engraver::begin_beam ()
   assert (!stem_l_arr_p_);
   stem_l_arr_p_ = new Array<Stem*>;
   assert (!grouping_p_);
-  grouping_p_ = new Rhythmic_grouping;
+  grouping_p_ = new Beaming_info_list;
+  beam_start_moment_ = now_mom ();
+  beam_start_location_ = timer_l_->time_.whole_in_measure_;
 }
 
 Beam*
@@ -205,9 +218,8 @@ Auto_beam_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-      rg_C->extend (finished_grouping_p_->interval());
-      finished_beam_p_->set_grouping (*rg_C, *finished_grouping_p_);
+      finished_grouping_p_->beamify ();
+      finished_beam_p_->set_beaming (finished_grouping_p_);
       typeset_element (finished_beam_p_);
       finished_beam_p_ = 0;
     
@@ -246,85 +258,68 @@ Auto_beam_engraver::same_grace_state_b (Score_element* e)
 void
 Auto_beam_engraver::acknowledge_element (Score_element_info info)
 {
+  if (!same_grace_state_b (info.elem_l_) || !timer_l_)
+    return;
+  
   if (stem_l_arr_p_)
     {
       if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
 	{
-	  if (same_grace_state_b (b))
-	    junk_beam ();
+	  junk_beam ();
 	}
       else if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
 	{
-	  if (same_grace_state_b (b))
-	    junk_beam ();
+	  junk_beam ();
 	}
-      else if (Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_))
+      else if (Rest* rest_l = dynamic_cast<Rest *> (info.elem_l_))
 	{
-	  if (Rest* rest_l = dynamic_cast<Rest *> (info.elem_l_))
+	  end_beam ();
+	}
+      else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+	{
+	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+	  if (!rhythmic_req)
 	    {
-	      if (same_grace_state_b (rest_l))
-		end_beam ();
+	      programming_error ("Stem must have rhythmic structure");
+	      return;
 	    }
-	  else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+	  
+	  if (stem_l->beam_l_)
+	    {
+	      junk_beam ();
+	      return ;
+	    }
+	      
+	      /*
+		now that we have last_add_mom_, perhaps we can (should) do away
+		with these individual junk_beams
+	      */
+
+	  int durlog  =rhythmic_req->duration_.durlog_i_;
+	  if (durlog <= 2)
+	    end_beam ();
+	  else 
 	    {
 	      /*
-		if we're a nice grace beam, but the new note is regular,
-		gracefully end beam, and consider starting a regular one.
-	       */
-	      /*
-		When does that happen !? --hwn
-	       */
-#if 0
-	      if (stem_l_arr_p_ && stem_l_arr_p_->size ()
-		  && grace_b (stem_l_arr_p_->top ())
-		  && !grace_b (stem_l))
+		if shortest duration would change
+		reconsider ending/starting beam first.
+	      */
+	      Moment mom = rhythmic_req->duration_.length_mom ();
+	      if (mom < shortest_mom_)
 		{
-		    end_beam ();
-		    consider_end_and_begin ();
-		    if (!stem_l_arr_p_)
-		      return;
-		}
-#endif
-	      if (same_grace_state_b (stem_l))
-		{
-		  if (stem_l->beam_l_)
-		    junk_beam ();
-		  /*
-		    now that we have last_add_mom_, perhaps we can (should) do away
-		    with these individual junk_beams
-		  */
-		  else if (rhythmic_req->duration_.durlog_i_ <= 2)
-		    end_beam ();
-		  else 
+		  if (stem_l_arr_p_->size ())
 		    {
-		      Moment start = get_staff_info().time_C_->whole_in_measure_;
-		      if (!grouping_p_->child_fit_b (start))
-			end_beam ();
-		      else
-			{
-			  /*
-			    if shortest duration would change
-			    reconsider ending/starting beam first.
-			  */
-			  Moment mom = rhythmic_req->duration_.length_mom ();
-			  if (mom < shortest_mom_)
-			    {
-			      if (stem_l_arr_p_->size ())
-				{
-				  shortest_mom_ = mom;
-				  consider_end_and_begin ();
-				}
-			      shortest_mom_ = mom;
-			    }
-			  grouping_p_->add_child (start, rhythmic_req->length_mom ());
-			  
-			  stem_l_arr_p_->push (stem_l);
-			  Moment now = now_mom ();
-			  last_add_mom_ = now;
-			  extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
-			}
+		      shortest_mom_ = mom;
+		      consider_end_and_begin ();
 		    }
+		  shortest_mom_ = mom;
 		}
+	      Moment now = now_mom ();
+
+	      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_, durlog - 2);
+	      stem_l_arr_p_->push (stem_l);
+	      last_add_mom_ = now;
+	      extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
 	    }
 	}
     }

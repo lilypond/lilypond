@@ -12,9 +12,9 @@
 #include "debug.hh"
 
 void 
-Performer::play (Audio_element* p) 
+Performer::play_element (Audio_element* p) 
 { 
-  daddy_perf_l ()->play (p); 
+  daddy_perf_l ()->play_element (p); 
 }
 
 int

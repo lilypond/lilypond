@@ -30,7 +30,7 @@ TAROUTDIR=/tmp/tar-docxx
 rm -rf $TAROUTDIR
 mkdir -p $TAROUTDIR
 echo untarring ...
-tar -C $TAROUTDIR -zxf $TARBALL '*cc' '*.c' '*.hh' '*.h'
+tar -C $TAROUTDIR -zxf $TARBALL '*.hh' '*.h'
 
 cd $TAROUTDIR 
 DATE=`date`

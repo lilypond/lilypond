@@ -30,7 +30,7 @@ Volta_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
-  if (!column_arr_.size ())
+  if (!bar_arr_.size ())
     return mol_p;
 
   Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
@@ -43,8 +43,8 @@ Volta_spanner::do_brew_molecule_p () const
   Real h = volta.dim_.y ().length ();
   
   Molecule num (lookup_l ()->text ("volta", number_str_, paper_l ()));
-  Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
-     column_arr_[0]->extent (Y_AXIS) [UP];
+  Real dy = bar_arr_.top ()->extent (Y_AXIS) [UP] > 
+     bar_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
 
   for (int i = 0; i < note_column_arr_.size (); i++)
@@ -65,10 +65,10 @@ Volta_spanner::do_brew_molecule_p () const
 void
 Volta_spanner::do_add_processing ()
 {
-  if (column_arr_.size ())
+  if (bar_arr_.size ())
     {
-      set_bounds (LEFT, column_arr_[0]);
-      set_bounds (RIGHT, column_arr_.top ());  
+      set_bounds (LEFT, bar_arr_[0]);
+      set_bounds (RIGHT, bar_arr_.top ());  
     }
 }
   
@@ -85,8 +85,8 @@ Volta_spanner::do_height () const
 void
 Volta_spanner::do_post_processing ()
 {
-  if (column_arr_.size())
-    translate_axis (column_arr_[0]->extent (Y_AXIS)[UP], Y_AXIS);
+  if (bar_arr_.size())
+    translate_axis (bar_arr_[0]->extent (Y_AXIS)[UP], Y_AXIS);
 }
 
 void
@@ -95,13 +95,13 @@ Volta_spanner::do_substitute_element_pointer (Score_element* o, Score_element* n
   if (Note_column* c = dynamic_cast <Note_column*> (o))
     note_column_arr_.substitute (c, dynamic_cast<Note_column*> (n));
   else if (Bar* c = dynamic_cast <Bar*> (o))
-    column_arr_.substitute (c, dynamic_cast<Bar*> (n));
+    bar_arr_.substitute (c, dynamic_cast<Bar*> (n));
 }
   
 void
-Volta_spanner::add_column (Bar* c)
+Volta_spanner::add_bar  (Bar* c)
 {
-  column_arr_.push (c);
+  bar_arr_.push (c);
   add_dependency (c);
 }
 

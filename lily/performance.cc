@@ -15,6 +15,7 @@
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "audio-column.hh"
+#include "audio-item.hh"
 #include "audio-staff.hh"
 #include "performance.hh"
 #include "score.hh"
@@ -45,10 +46,15 @@ Performance::output (Midi_stream& midi_stream)
 
   midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
   output_header_track (midi_stream);
+  *mlog << "\n";
+  *mlog << _ ("Track ... ");
   int channel = 1;
   for (int i =0; i < audio_staff_l_arr_.size (); i++)
     {
+      *mlog << '[' << flush;
       Audio_staff *s = audio_staff_l_arr_[i];
+
+      *mlog << i << flush;
 
       /*
 	Aargh, let's hear it for the MIDI standard.
@@ -58,6 +64,7 @@ Performance::output (Midi_stream& midi_stream)
       if (channel == 9)
 	channel++;
       s->output (midi_stream, channel++);
+      *mlog << ']' << flush;
     }
 }
 
@@ -74,7 +81,12 @@ Performance::output_header_track (Midi_stream& midi_stream)
     str += gnu_lilypond_version_str();
   str += "\n";
 
-  Midi_text creator (Midi_text::TEXT, str);
+  /*
+    This seems silly, but in fact the audio elements should
+    be generated elsewhere: not midi-specific.
+   */
+  Audio_text creator_a (Audio_text::TEXT, str);
+  Midi_text creator (&creator_a);
   midi_track.add (Moment (0), &creator);
 
   str = _("Automatically generated");
@@ -87,19 +99,24 @@ Performance::output_header_track (Midi_stream& midi_stream)
       str += ctime (&t);
       str = str.left_str (str.length_i() - 1);
     }
-  Midi_text generate (Midi_text::TEXT, str);
+  Audio_text generate_a (Audio_text::TEXT, str);
+  Midi_text generate (&generate_a);
   midi_track.add (Moment (0), &generate);
 
   str = _f ("from musical definition: %s", origin_str_);
 
-  Midi_text from (Midi_text::TEXT, str);
+  Audio_text from_a (Audio_text::TEXT, str);
+  Midi_text from (&from_a);
   midi_track.add (Moment (0), &from);
 
-  Midi_text track_name (Midi_text::TRACK_NAME, "Track "
-			+ String_convert::i2dec_str (0, 0, '0'));
+  Audio_text track_name_a (Audio_text::TRACK_NAME, "Track "
+			   + String_convert::i2dec_str (0, 0, '0'));
+  Midi_text track_name (&track_name_a);
+			
   midi_track.add (Moment (0), &track_name);
 
-  Midi_tempo tempo (midi_l_->get_tempo_i (Moment (1, 4)));
+  Audio_tempo tempo_a (midi_l_->get_tempo_i (Moment (1, 4)));
+  Midi_tempo tempo (&tempo_a);
   midi_track.add (Moment (0), &tempo);
 
   midi_stream << midi_track;

@@ -53,9 +53,9 @@ Item::line_l() const
 void
 Item::copy_breakable_items()
 {
-  if (broken_to_drul_[LEFT] || broken_to_drul_[RIGHT] 
-      || ! breakable_b ())
-    return;
+  if (broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]
+      || !breakable_b ())
+    return ;
 
   Drul_array<Item *> new_copies;
   Direction  i=LEFT;
@@ -114,7 +114,8 @@ Item::do_breakable_col_processing()
 {
   if (breakable_b ())
     do_break ();
-
+  else
+    try_visibility_lambda ();
 }
 Item*
 Item::find_prebroken_piece (Line_of_score*l) const

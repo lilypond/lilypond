@@ -57,7 +57,6 @@ Time_description::set_cadenza (bool b)
 
 Time_description::Time_description()
 {
-  error_b_ =  false;
   whole_per_measure_ = 1;
   whole_in_measure_ =0;
   one_beat_ = Moment (1,4);

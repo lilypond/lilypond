@@ -46,21 +46,31 @@ Mudela_key::Mudela_key (int accidentals_i, int minor_i)
   minor_i_ = minor_i;
 }
 
+char const *accname[] = {"eses", "es", "", "is" , "isis"};
+
 String
 Mudela_key::str ()
 {
-  int key_i = 0;
-  if (accidentals_i_ >= 0)
-    key_i =   ((accidentals_i_ % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
-  else
-    key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
+  int key_i = accidentals_i_ >= 0
+    ? ((accidentals_i_ % 7) ["cgdaebf"] - 'a' - 2 -2 * minor_i_ + 7) % 7
+    : ((-accidentals_i_ % 7) ["cfbeadg"] - 'a' - 2 -2 * minor_i_ + 7) % 7;
   
-  String keyname = (1) // !minor_i_)
-    ?  to_str ((char)  ((key_i + 2) % 7 + 'A'))
-    : to_str ((char)  ((key_i + 2 - 2) % 7 + 'a'));
-  // heu, -2: should be - 1 1/2: A -> fis
-   
-  return String("\\key " + keyname  + ";\n");
+  String notename_str = !minor_i_
+    ? to_str ((char) ((key_i + 2) % 7 + 'A'))
+    : to_str ((char) ((key_i + 2) % 7 + 'a'));
+
+  // fis cis gis dis ais eis bis
+  static int sharps_i_a [7] = { 2, 4, 6, 1, 3, 5, 7 };
+  // bes es as des ges ces fes
+  static int flats_i_a [7] = { 6, 4, 2, 7, 5, 3, 1 };
+  int accidentals_i = accidentals_i_ >= 0
+			      ? sharps_i_a [key_i] <= accidentals_i_ ? 1 : 0
+			      : flats_i_a [key_i] <= -accidentals_i_ ? -1 : 0;
+			       
+  if (accidentals_i)
+    notename_str += String (accname [accidentals_i + 2]);
+
+  return "\\key " + notename_str  + (minor_i_ ? "\\minor" : "") + ";\n";
 }
 
 String
@@ -71,27 +81,20 @@ Mudela_key::notename_str (int pitch_i)
 
   // major scale: do-do
   // minor scale: la-la  (= + 5)
-  static int notename_i_a[ 12 ] = { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 };
-  int notename_i = notename_i_a[  (minor_i_ * 5 + pitch_i) % 12 ];
+  static int notename_i_a [12] = { 0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6 };
+  int notename_i = notename_i_a [pitch_i % 12];
 
-  static int accidentals_i_a[ 12 ] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
-  int accidental_i = accidentals_i_a[ (minor_i_ * 5 + pitch_i) % 12 ];
+  static int accidentals_i_a [12] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
+  int accidental_i = accidentals_i_a [(minor_i_ * 5 + pitch_i) % 12];
   if (accidental_i &&  (accidentals_i_ < 0))
     {
-      accidental_i = - accidental_i;
+      accidental_i *= -1;
       notename_i =  (notename_i + 1) % 7;
     }
 
   String notename_str = to_str ((char)(((notename_i + 2) % 7) + 'a'));
-  while  (accidental_i-- > 0)
-    notename_str += "is";
-  accidental_i++;
-  while  (accidental_i++ < 0)
-    if   ((notename_str == "a") ||  (notename_str == "e"))
-      notename_str += "s";
-    else
-      notename_str += "es";
-  accidental_i--;
+  if (accidental_i)
+    notename_str += String (accname [accidental_i + 2]);
 
   /*
     By tradition, all scales now consist of a sequence of 7 notes each
@@ -113,18 +116,36 @@ Mudela_key::notename_str (int pitch_i)
     
     John Sankey <bf250@freenet.carleton.ca>
 
+    Let's also do a-minor: a b c d e f gis a
+
+    --jcn
+
    */
 
-  /* ok, bit ugly, but here we go */
+  /* ok, bit ugly, but here we go -- jcn */
 
-  if (minor_i_ && (accidentals_i_ == -1))
-    if (notename_str == "des")
-      notename_str = "cis";
-  
-  if (minor_i_ && (accidentals_i_ == -2))
-    if (notename_str == "ges")
+
+  if (minor_i_)
+    {
+     if ((accidentals_i_ == 0) && (notename_str == "as"))
+       notename_str = "gis";
+     else if ((accidentals_i_ == -1) && (notename_str == "des"))
+       notename_str = "cis";
+     else if ((accidentals_i_ == -2) && (notename_str == "ges"))
       notename_str = "fis";
-  
+     else if ((accidentals_i_ == 5) && (notename_str == "g"))
+       notename_str = "fisis";
+     else if ((accidentals_i_ == 6) && (notename_str == "d"))
+      notename_str = "cisis";
+     else if ((accidentals_i_ == 7) && (notename_str == "a"))
+      notename_str = "gisis";
+
+     if ((accidentals_i_ <= -6) && (notename_str == "b"))
+      notename_str = "ces";
+     if ((accidentals_i_ <= -7) && (notename_str == "e"))
+      notename_str = "fes";
+    }
+	      
   String de_octavate_str = to_str (',',  (Mudela_note::c0_pitch_i_c_ + 11 - pitch_i) / 12);
   String octavate_str = to_str ('\'',  (pitch_i - Mudela_note::c0_pitch_i_c_) / 12);
   return notename_str +de_octavate_str  + octavate_str;

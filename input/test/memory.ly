@@ -11,5 +11,5 @@ bla = \notes {
 	>
 	\paper { Gourlay_maxmeaures = 2.; }
 }
-\version "1.0.21"; 
+\version "1.1.52"; 
 
