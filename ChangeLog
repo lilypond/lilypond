@@ -1,5 +1,11 @@
 2003-08-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/music.cc (var): add ly:music-transpose function.
+
+	* Lily/parser.yy (pre_events): remove prefix articulations.
+
+	* lily/music-sequence.cc (do_relative_octave): change relative meaning.
+
 	* VERSION (MY_PATCH_LEVEL): open HEAD/1.9 branch.
 
 	* Documentation/user/refman.itely (Text markup): add comment about
