@@ -182,6 +182,9 @@ manual was written using lilypond-book. lilypond-book is discussed in
 
 [TODO]
 
+* setting of env vars (TFMINPUTS,MFINPUTS,TEXINPUTS)
+* dvi viewer doesn't display postscript
+
 
 @node The first tune
 @section The first tune

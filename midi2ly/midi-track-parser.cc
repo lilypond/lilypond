@@ -10,24 +10,24 @@
 #include "string-convert.hh"
 #include "midi2ly-global.hh"
 #include "midi-track-parser.hh"
-#include "mudela-column.hh"
-#include "mudela-item.hh"
-#include "mudela-score.hh"
-#include "mudela-staff.hh"
+#include "lilypond-column.hh"
+#include "lilypond-item.hh"
+#include "lilypond-score.hh"
+#include "lilypond-staff.hh"
 
 Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l, int i)
 {
   info_l_ = info_l;
   at_mom_ = 0;
   track_info_p_ = 0;
-  mudela_staff_p_ = new Mudela_staff (i, "", "", "");
+  lilypond_staff_p_ = new Lilypond_staff (i, "", "", "");
   parse_header ();
   parse_delta_time ();
 }
 
 Midi_track_parser::~Midi_track_parser ()
 {
-  delete mudela_staff_p_;
+  delete lilypond_staff_p_;
   delete track_info_p_;
 }
 
@@ -46,16 +46,16 @@ Midi_track_parser::eot ()
 }
 
 void
-Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, int aftertouch_i )
+Midi_track_parser::note_end (Lilypond_column* col_l, int channel_i, int pitch_i, int aftertouch_i )
 {
   // junk dynamics
   (void)aftertouch_i;
 
   assert (col_l);
 
-  for (Cons<Mudela_note>** pp = &open_note_l_list_.head_; *pp;)
+  for (Cons<Lilypond_note>** pp = &open_note_l_list_.head_; *pp;)
     {
-      Cons<Mudela_note>* i = *pp;
+      Cons<Lilypond_note>* i = *pp;
       if ((i->car_->pitch_i_ == pitch_i) && (i->car_->channel_i_ == channel_i))
 	{
 	  i->car_->end_column_l_ = col_l;
@@ -70,11 +70,11 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 }
 
 void
-Midi_track_parser::note_end_all (Mudela_column* col_l)
+Midi_track_parser::note_end_all (Lilypond_column* col_l)
 {
   // find
   assert (col_l);
-  for (Cons<Mudela_note>* i = open_note_l_list_.head_; i; i = i->next_)
+  for (Cons<Lilypond_note>* i = open_note_l_list_.head_; i; i = i->next_)
     {
       i->car_->end_column_l_ = col_l;
     }
@@ -82,15 +82,15 @@ Midi_track_parser::note_end_all (Mudela_column* col_l)
   open_note_l_list_.init ();
 }
 
-Mudela_staff*
-Midi_track_parser::parse (Mudela_column* col_l)
+Lilypond_staff*
+Midi_track_parser::parse (Lilypond_column* col_l)
 {
   Rational mom = at_mom ();
   while (!eot () && (mom == at_mom ()))
     {
-      Mudela_item* p = parse_event (col_l);
+      Lilypond_item* p = parse_event (col_l);
       if (p)
-	mudela_staff_p_->add_item (p);
+	lilypond_staff_p_->add_item (p);
     }
 
   if (!eot())
@@ -99,8 +99,8 @@ Midi_track_parser::parse (Mudela_column* col_l)
   // catch-all
   note_end_all (col_l);
 
-  Mudela_staff* p = mudela_staff_p_;
-  mudela_staff_p_ = 0;
+  Lilypond_staff* p = lilypond_staff_p_;
+  lilypond_staff_p_ = 0;
   return p;
 }
 
@@ -113,8 +113,8 @@ Midi_track_parser::parse_delta_time ()
   at_mom_ += Rational (delta_i, info_l_->division_1_i_);
 }
 
-Mudela_item*
-Midi_track_parser::parse_event (Mudela_column* col_l)
+Lilypond_item*
+Midi_track_parser::parse_event (Lilypond_column* col_l)
 {
   Byte byte = peek_byte ();
   // RUNNING_STATUS	[\x00-\x5f]
@@ -131,7 +131,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
   else
     byte = next_byte ();
 
-  Mudela_item* item_p = 0;
+  Lilypond_item* item_p = 0;
   // DATA_ENTRY	[\x60-\x79]
   if ((byte >= 0x60) && (byte <= 0x79))
     {
@@ -166,9 +166,9 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
       */
       if (dyn_i)
 	{
-	  Mudela_note* p = new Mudela_note (col_l, channel_i, pitch_i, dyn_i);
+	  Lilypond_note* p = new Lilypond_note (col_l, channel_i, pitch_i, dyn_i);
 	  item_p = p;
-	  open_note_l_list_.append (new Cons<Mudela_note> (p, 0));
+	  open_note_l_list_.append (new Cons<Lilypond_note> (p, 0));
 	}
       else
 	{
@@ -245,15 +245,15 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  int length_i = get_var_i ();
 	  String str = get_str (length_i);
 	  // LOGOUT (DEBUG_ver) << str << endl;
-	  Mudela_text::Type t = (Mudela_text::Type)byte;
-	  Mudela_text* p = new Mudela_text (t, str);
+	  Lilypond_text::Type t = (Lilypond_text::Type)byte;
+	  Lilypond_text* p = new Lilypond_text (t, str);
 	  item_p = p;
-	  if (t == Mudela_text::COPYRIGHT)
-	    mudela_staff_p_->copyright_str_ = p->text_str_;
-	  else if (t == Mudela_text::TRACK_NAME)
-	    mudela_staff_p_->name_str_ = p->text_str_;
-	  else if (t == Mudela_text::INSTRUMENT_NAME)
-	    mudela_staff_p_->instrument_str_ = p->text_str_;
+	  if (t == Lilypond_text::COPYRIGHT)
+	    lilypond_staff_p_->copyright_str_ = p->text_str_;
+	  else if (t == Lilypond_text::TRACK_NAME)
+	    lilypond_staff_p_->name_str_ = p->text_str_;
+	  else if (t == Lilypond_text::INSTRUMENT_NAME)
+	    lilypond_staff_p_->instrument_str_ = p->text_str_;
 	}
       // END_OF_TRACK	[\x2f][\x00]
       else
@@ -269,12 +269,12 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	    {
 	      next_byte ();
 	      unsigned useconds_per_4_u = get_u (3);
-	      // $$ = new Mudela_tempo ( ($2 << 16) + ($3 << 8) + $4);
+	      // $$ = new Lilypond_tempo ( ($2 << 16) + ($3 << 8) + $4);
 	      // LOGOUT (DEBUG_ver) << $$->str() << endl;
-	      Mudela_tempo* p = new Mudela_tempo ( useconds_per_4_u );
+	      Lilypond_tempo* p = new Lilypond_tempo ( useconds_per_4_u );
 	      item_p = p;
-	      info_l_->score_l_->mudela_tempo_l_ = p;
-	      mudela_staff_p_->mudela_tempo_l_ = p;
+	      info_l_->score_l_->lilypond_tempo_l_ = p;
+	      lilypond_staff_p_->lilypond_tempo_l_ = p;
 	    }
 	  // SMPTE_OFFSET	[\x54][\x05]
 	  else if ((byte == 0x54) && (next == 0x05))
@@ -294,11 +294,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      int den_i = (int)next_byte ();
 	      int clocks_4_i = (int)next_byte ();
 	      int count_32_i = (int)next_byte ();
-	      Mudela_time_signature* p = new Mudela_time_signature ( num_i, den_i, clocks_4_i, count_32_i );
+	      Lilypond_time_signature* p = new Lilypond_time_signature ( num_i, den_i, clocks_4_i, count_32_i );
 	      item_p = p;
-	      info_l_->score_l_->mudela_time_signature_l_ = p;
+	      info_l_->score_l_->lilypond_time_signature_l_ = p;
 	      info_l_->bar_mom_ = p->bar_mom ();
-	      mudela_staff_p_->mudela_time_signature_l_ = p;
+	      lilypond_staff_p_->lilypond_time_signature_l_ = p;
 	    }
 	  // KEY		[\x59][\x02]
 	  else if ((byte == 0x59) && (next == 0x02))
@@ -306,11 +306,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      next_byte ();
 	      int accidentals_i = (int)(signed char)next_byte ();
 	      int minor_i = (int)(bool)next_byte ();
-	      Mudela_key* p = new Mudela_key (accidentals_i, minor_i);
+	      Lilypond_key* p = new Lilypond_key (accidentals_i, minor_i);
 	      item_p = p;
 #if 0
-	      info_l_->score_l_->mudela_key_l_ = p;
-	      mudela_staff_p_->mudela_key_l_ = p;
+	      info_l_->score_l_->lilypond_key_l_ = p;
+	      lilypond_staff_p_->lilypond_key_l_ = p;
 #endif
 	    }
 	  // SSME		[\0x7f][\x03]
@@ -319,7 +319,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      next_byte ();
 	      int length_i = get_var_i ();
 	      String str = get_str (length_i);
-	      item_p = new Mudela_text ((Mudela_text::Type)byte, str);
+	      item_p = new Lilypond_text ((Lilypond_text::Type)byte, str);
 	    }
 	  else
 	    {
@@ -333,7 +333,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
     exit (_ ("invalid MIDI event"));
 
   if (item_p)
-    item_p->mudela_column_l_ = col_l;
+    item_p->lilypond_column_l_ = col_l;
 
   parse_delta_time ();
 

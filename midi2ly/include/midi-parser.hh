@@ -49,7 +49,7 @@ struct Midi_parser_info
   Byte const* byte_L_;
   Byte const* end_byte_L_;
   Source_file* source_l_;
-  Mudela_score* score_l_;
+  Lilypond_score* score_l_;
   Rational bar_mom_;
 };
 

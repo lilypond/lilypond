@@ -7,7 +7,7 @@ else
 	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
 
 %.ly:	%-lys.zip
-	unzip $<
+	unzip -n $<
 	$(MAKE) local-convert-ly
 endif
 

@@ -83,4 +83,12 @@ The website is usually made from the latest snapshots.  Binary releases,
 in particular the windows32 binaries, are only made every once in a while.
 They may lag several versions behind the latest version.
 
+@subsection Beams, slurs and crescendi are not displayed at all!
+
+XDvi uses GhostScript for displaying PostScript, check that you have
+GhostScript installed.  If you use a different DVI viewer (eg, on
+Windows), check if it will display embedded PostScript.  Don't worry,
+the symbols should appear on the printout.
+
+
 @bye

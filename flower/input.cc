@@ -37,8 +37,8 @@ Input::set_spot (Input const &i)
 }
 
 /*
-  Produce GNU-compliant error message.  Correcting mudela is such a
-  breeze if you ('re edidor) know (s) the error column too
+  Produce GNU-compliant error message.  Correcting lilypond source is
+  such a breeze if you ('re edidor) know (s) the error column too
   
   Format:
 

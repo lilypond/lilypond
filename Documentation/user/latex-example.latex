@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+
+
+
+%\def\preLilypondExample{}}
+%\def\postLilypondExample{}
+
+
+\begin{document}
+
+\begin{lilypond}
+\score {
+ \notes\relative c' { c d e f g a b c }
+}
+\end{lilypond}
+
+
+\begin[fragment]{lilypond}
+c d e
+\end{lilypond}
+
+
+% generate standard lilypond titles
+\input titledefs.tex
+\def\preLilypondExample{\def\mustmakelilypondtitle{}}
+
+\begin{lilypond}
+\header {
+  title =	"Title";
+  subtitle =	"Subtitle";
+  subsubtitle =	"Subsubtitle";
+  opus =  "Opus 1";
+  piece = "Piece";
+  composer = 	 "Composer";
+  enteredby = 	 "JCN";
+  instrument = "instrument";
+}
+\paper { linewidth = -1.; }
+\score {
+  \notes \relative c'' { a b c d }
+}
+\end{lilypond}
+
+\begin{enumerate}
+\item Vers one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
+\item Vers two.  bbb bbb bbb bbb bbb bbb bbb bbb bbb bbb 
+\end{enumerate}
+
+\end{document}

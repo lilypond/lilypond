@@ -26,7 +26,7 @@ make-root?=$(wildcard /usr/local/share/lilypond/make)
 ifneq ($(make-root),)
 ### some versions apparently choke on $(message)
 ### $(message running from $(make-root))
-depth=$(make-root)/..
+depth:=$(make-root)/..
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 include $(make-root)/stepmake.make
 else

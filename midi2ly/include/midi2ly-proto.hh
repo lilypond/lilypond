@@ -14,16 +14,16 @@ class Midi_parser;
 struct Midi_parser_info;
 class Midi_score_parser;
 class Midi_track_parser;
-class Mudela_stream;
-class Mudela_item;
-class Mudela_key;
-class Mudela_time_signature;
-class Mudela_note;
-class Mudela_tempo;
-class Mudela_text;
-class Mudela_score;
-class Mudela_staff;
-class Mudela_voice;
-class Mudela_column;
+class Lilypond_stream;
+class Lilypond_item;
+class Lilypond_key;
+class Lilypond_time_signature;
+class Lilypond_note;
+class Lilypond_tempo;
+class Lilypond_text;
+class Lilypond_score;
+class Lilypond_staff;
+class Lilypond_voice;
+class Lilypond_column;
 
 #endif // MIDI2LY_PROTO_HH

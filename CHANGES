@@ -1,3 +1,21 @@
+1.3.140.jcn6
+============
+
+* po update.
+
+* Renamed remaining mudela -> lilypond (except for old change logs).
+
+* Dropped Solo-Cello-Suite II and gnossienne-4 from ./mutopia, as
+they're now accessible throug the ports.
+
+* Fixed compilation of lots of examples.
+
+* Convert-ly: added and fixed some conversions.
+
+* Doco updates.
+
+* Ly2dvi: don't hang compilation process: run latex in batchmode.
+
 1.3.140.jcn4
 ============
 

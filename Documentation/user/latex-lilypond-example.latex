@@ -1,15 +1,23 @@
-% kommentar
+%
+% This is way too long and hairy
+%
+%
+
+
+
 \documentclass[a4paper, 12pt]{article}
-%\def\preMudelaExample{}
-%\def\postMudelaExample{}
+
+%\def\preLilypondExample{}
+%\def\postLilypondExample{}
 %\usepackage{graphics}
 %\usepackage{landscape}
+
 \begin{document}
 %uncomment this to try twocolumn mode
 %\twocolumn
 
 
-\section{Mudelabook + LaTeX}
+\section{Lilypond-book + LaTeX}
 
 This is an examplefile for mixing Lilypond and Latex. It is also
 used to test lilypond-book. View the source to see how it is done.

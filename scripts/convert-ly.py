@@ -114,11 +114,19 @@ def show_rules (file):
 
 ############################
 		
+if 1:
+	def conv(str):
+		if re.search ('\\\\multi', str):
+			sys.stderr.write ('\nNot smart enough to convert \\multi')
+		return str
+	
+	conversions.append (((0,1,9), conv, '\\header { key = concat + with + operator }'))
+
 if 1:					# need new a namespace
 	def conv (str):
 		if re.search ('\\\\octave', str):
 			sys.stderr.write ('\nNot smart enough to convert \\octave')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		
 		return str
 
@@ -130,7 +138,8 @@ if 1:					# need new a namespace
 	def conv (str):
 		str = re.sub ('\\\\textstyle([^;]+);',
 					 '\\\\property Lyrics . textstyle = \\1', str)
-		str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
+		# harmful to current .lys
+		# str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
 			
 		return str
 
@@ -179,10 +188,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		str =  re.sub ('\\\\melodic', '\\\\notes',str)
-		if re.search ('\\\\header', str):
-			sys.stderr.write ('\nNot smart enough to convert \\multi constructs')
-			
+		str =  re.sub ('\\\\melodic([^a-zA-Z])', '\\\\notes\\1',str)
 		return str
 	
 	conversions.append (((1,0,3), conv, '\\melodic -> \\notes'))
@@ -198,7 +204,7 @@ if 1:
 if 1:
 	def conv(str):
 		str =  re.sub ('ChoireStaff', 'ChoirStaff',str)
-		str =  re.sub ('\\output', 'output = ',str)
+		str =  re.sub ('\\\\output', 'output = ',str)
 			
 		return str
 	
@@ -208,7 +214,7 @@ if 1:
 	def conv(str):
 		if re.search ('[a-zA-Z]+ = *\\translator',str):
 			sys.stderr.write ('\nNot smart enough to change \\translator syntax')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		return str
 	
 	conversions.append (((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }'))
@@ -263,7 +269,10 @@ if 1:
 
 if 1:
 	def conv(str):
+		str =  re.sub ('\\\\type([^\n]*engraver)','\\\\TYPE\\1', str)
+		str =  re.sub ('\\\\type([^\n]*performer)','\\\\TYPE\\1', str)
 		str =  re.sub ('\\\\type','\\\\context', str)
+		str =  re.sub ('\\\\TYPE','\\\\type', str)
 		str =  re.sub ('textstyle','textStyle', str)
 			
 		return str
@@ -275,7 +284,7 @@ if 1:
 	def conv(str):
 		if re.search ('\\\\repeat',str):
 			sys.stderr.write ('\nNot smart enough to convert \\repeat')
-			raise FatalConversionError()
+		#	raise FatalConversionError()
 		return str
 	
 	conversions.append (((1,0,18), conv,
@@ -418,6 +427,18 @@ if 1:
 
 	conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
 
+
+if 1:
+	def conv(str):
+		if re.search ('\\\\repetitions',str):
+			sys.stderr.write ('\nNot smart enough to convert \\repetitions')
+		#	raise FatalConversionError()
+		return str
+	
+	conversions.append (((1,3,23), conv,
+                '\\\\repetitions feature dropped'))
+
+
 if 1:
 	def conv (str):
 		str = re.sub ('textEmptyDimension *= *##t',
@@ -479,6 +500,16 @@ if 1:
 
 if 1:
 	def conv (str):
+		if re.search ('\\\\keysignature', str):
+			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
+		return str
+
+
+	conversions.append (((1,3,58), conv,
+                'noteHeadStyle value: string -> symbol'))
+
+if 1:
+	def conv (str):
 		str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
 		return str
 	conversions.append (((1,3,59), conv,
@@ -508,12 +539,13 @@ if 1:
 
 
 		str = re.sub ('basicLocalKeyProperties' ,"Accidentals", str)
-		str = re.sub ('basicMarkProperties' ,"Accidentals", str) 				
+		str = re.sub ('basicMarkProperties' ,"Accidentals", str)
 		str = re.sub ('basic([A-Za-z_]+)Properties', '\\1', str)
 
+		str = re.sub ('Repeat_engraver' ,'Volta_engraver', str)
 		return str
 	
-	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX'))
+	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX, Repeat_engraver -> Volta_engraver'))
 
 if 1:
 	def conv (str):
@@ -545,10 +577,19 @@ if 1:
 		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
 		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
 		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\stemBoth\\\\slurBoth\\\\tieBoth', str)
+
+		str = re.sub ('verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #1', str)
+		str = re.sub ('verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #-1', str)
+		str = re.sub ('verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', 'Stem \\\\override #\'direction = #0\nSlur \\\\override #\'direction = #0\n Tie \\\\override #\'direction = #0', str)
 		
 		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\\\1Up', str)
 		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\\\1Down', str)
 		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\\\1Both', str)
+
+		# (lacks capitalisation slur -> Slur)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\1 \\\\override #\'direction = #1', str)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\1 \\override #\'direction = #-1', str)
+		str = re.sub ('([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\1 \\\\override #\'direction = #0', str)
 
 		## dynamic..
 		str = re.sub ('\\\\property *[^ .]*[.]?dynamicDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\dynamicUp', str)
@@ -597,7 +638,7 @@ if 1:
 		
 		str = re.sub ('#\'style *= #*"([^"])"', '#\'style = #\'\\1', str)
 		
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([-0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
 
 		# ugh
 		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *""', '\\\\property \\1.Stem \\\\override #\'flag-style = ##f', str)
@@ -767,8 +808,8 @@ def do_conversion (infile, from_version, outfile, to_version):
 		# esp. as current conversion rules are soo incomplete
 		if re.search (lilypond_version_re_str, str):
 			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
-		else:
-			str = new_ver + '\n' + str
+		#else:
+		#	str = new_ver + '\n' + str
 
 		outfile.write(str)
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-03-20 23:05+0100\n"
+"POT-Creation-Date: 2001-03-21 16:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Reading %s..."
 msgstr ""
 
-#: ly2dvi.py:153 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: lilypond-stream.cc:111 ly2dvi.py:153 mapped-file-storage.cc:87
 #: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
@@ -634,7 +634,7 @@ msgstr ""
 msgid "paper output to %s..."
 msgstr ""
 
-#: mudela-stream.cc:93 paper-outputter.cc:85 performance.cc:95
+#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:95
 msgid ", at "
 msgstr ""
 
@@ -1033,6 +1033,76 @@ msgstr ""
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
+#: lilypond-item.cc:161
+#, c-format
+msgid "#32 in quarter: %d"
+msgstr ""
+
+#: lilypond-score.cc:108
+#, c-format
+msgid "Lily output to %s..."
+msgstr ""
+
+#: lilypond-score.cc:119
+#, c-format
+msgid "track %d:"
+msgstr ""
+
+#: lilypond-score.cc:155
+msgid "Processing..."
+msgstr ""
+
+#: lilypond-score.cc:164
+msgid "Creating voices..."
+msgstr ""
+
+#: lilypond-score.cc:168
+msgid "track "
+msgstr ""
+
+#: lilypond-score.cc:177
+msgid "NOT Filtering tempo..."
+msgstr ""
+
+#: lilypond-score.cc:186
+msgid "NOT Quantifying columns..."
+msgstr ""
+
+#: lilypond-score.cc:190
+msgid "Quantifying columns..."
+msgstr ""
+
+#: lilypond-score.cc:223
+msgid "Settling columns..."
+msgstr ""
+
+#: lilypond-staff.cc:209
+msgid "% MIDI copyright:"
+msgstr ""
+
+#: lilypond-staff.cc:210
+msgid "% MIDI instrument:"
+msgstr ""
+
+#: lilypond-stream.cc:37
+#, c-format
+msgid "lily indent level: %d"
+msgstr ""
+
+#. Maybe better not to translate these?
+#: lilypond-stream.cc:83
+msgid "% Creator: "
+msgstr ""
+
+#: lilypond-stream.cc:88
+msgid "% Automatically generated"
+msgstr ""
+
+#: lilypond-stream.cc:97
+#, c-format
+msgid "% from input file: "
+msgstr ""
+
 #: main.cc:93
 msgid "write exact durations, e.g.: a4*385/384"
 msgstr ""
@@ -1095,7 +1165,7 @@ msgid "Usage: %s [OPTION]... [FILE]"
 msgstr ""
 
 #: main.cc:116
-msgid "Translate MIDI-file to mudela"
+msgid "Translate MIDI-file to lilypond"
 msgstr ""
 
 #: main.cc:130
@@ -1170,74 +1240,4 @@ msgstr ""
 
 #: midi-track-parser.cc:353
 msgid "invalid track length"
-msgstr ""
-
-#: mudela-item.cc:161
-#, c-format
-msgid "#32 in quarter: %d"
-msgstr ""
-
-#: mudela-score.cc:108
-#, c-format
-msgid "Lily output to %s..."
-msgstr ""
-
-#: mudela-score.cc:119
-#, c-format
-msgid "track %d:"
-msgstr ""
-
-#: mudela-score.cc:155
-msgid "Processing..."
-msgstr ""
-
-#: mudela-score.cc:164
-msgid "Creating voices..."
-msgstr ""
-
-#: mudela-score.cc:168
-msgid "track "
-msgstr ""
-
-#: mudela-score.cc:177
-msgid "NOT Filtering tempo..."
-msgstr ""
-
-#: mudela-score.cc:186
-msgid "NOT Quantifying columns..."
-msgstr ""
-
-#: mudela-score.cc:190
-msgid "Quantifying columns..."
-msgstr ""
-
-#: mudela-score.cc:223
-msgid "Settling columns..."
-msgstr ""
-
-#: mudela-staff.cc:209
-msgid "% MIDI copyright:"
-msgstr ""
-
-#: mudela-staff.cc:210
-msgid "% MIDI instrument:"
-msgstr ""
-
-#: mudela-stream.cc:37
-#, c-format
-msgid "lily indent level: %d"
-msgstr ""
-
-#. Maybe better not to translate these?
-#: mudela-stream.cc:83
-msgid "% Creator: "
-msgstr ""
-
-#: mudela-stream.cc:88
-msgid "% Automatically generated"
-msgstr ""
-
-#: mudela-stream.cc:97
-#, c-format
-msgid "% from input file: "
 msgstr ""

@@ -469,7 +469,7 @@ def do_files (fs, extra):
 	f.close ()
 
 	# todo: nonstopmode
-	system ('latex %s' % latex_file)
+	system ('latex \\\\nonstopmode \\\\input %s' % latex_file)
 	return latex_file + '.dvi'
 
 def generate_postscript (dvi_name, extra):

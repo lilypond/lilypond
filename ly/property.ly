@@ -7,8 +7,8 @@ stemDown = \property Voice.Stem \override #'direction = #-1
 stemBoth= \property Voice.Stem \revert #'direction
 
 slurUp   = \property Voice.Slur \override #'direction = #1
-slurBoth = \property Voice.Slur \revert #'direction 
 slurDown = \property Voice.Slur \override #'direction = #-1
+slurBoth = \property Voice.Slur \revert #'direction 
 shiftOn  = \property Voice.NoteColumn \override #'horizontal-shift = #1
 shiftOnn  = \property Voice.NoteColumn \override #'horizontal-shift = #2
 shiftOnnn  = \property Voice.NoteColumn \override #'horizontal-shift = #3
@@ -30,6 +30,20 @@ dynamicBoth = {
   \property Voice.DynamicText \revert #'direction
   \property Voice.DynamicLineSpanner \revert #'direction
 }
+
+scriptUp  = {
+  \property Voice.TextScript \override #'direction = #1
+  \property Voice.Script \override #'direction = #1
+}
+scriptDown = {
+  \property Voice.TextScript \override #'direction = #-1
+  \property Voice.Script \override #'direction = #-1
+}
+scriptBoth = {
+  \property Voice.TextScript \revert #'direction
+  \property Voice.Script \revert #'direction
+}
+
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = {
