@@ -13,8 +13,6 @@ bla = \notes\relative c' { fis4 fis fis fis }
 
 \score {
     \notes \relative c'' {
-	\set Score.quotes = \musicQuotes
-	
 	c8 d8 \quote 2 "bla" es8 gis  
 	}
 }

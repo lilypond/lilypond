@@ -80,8 +80,8 @@ For chord inversions, this is negative.")
 		"The function to run with \\applycontext. It must take a single argument, being the context.")
      (property-operations ,list?
 			  "Do these operations for instantiating the context.")
-     (predicate ,procedure? "the predicate of a \\outputproperty")
-     (quoted-name ,string? "The name of the voice to be quoted")
+     (predicate ,procedure? "the predicate of a \\outputproperty.")
+     (quoted-events ,vector? "A vector of with moment/event-list entries.")
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music
 object; determines by what engraver this music expression is
