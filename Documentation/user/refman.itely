@@ -3615,7 +3615,6 @@ NoteHead grob to @code{mensural}. There is also a note head style
 
 @lilypond[fragment,singleline,verbatim]
  \property Voice.NoteHead \set #'style = #'mensural
- \property Voice.NoteHead \set #'font-family = #'ancient
  a'\longa
 @end lilypond
 
@@ -3682,8 +3681,8 @@ block:
 @subsection Ancient clefs
 
 LilyPond supports a variety of clefs, many of them ancient. These can
-be selected from the @code{ancient} font family, by setting
-@code{Staff.clefGlyph}) to one of the following values
+be selected by setting @code{Staff.clefGlyph}) to one of the following
+values
 
 @table @code
 @item clefs-C

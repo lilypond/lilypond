@@ -127,27 +127,17 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 {
   Font_metric *fm = 0;
   
-  for (int i = 0; ; i++)
-    {
-      if (!fm || y > fm->get_char (fm->count ()-1)[Y_AXIS].length ())
-	{
-	  /* We go through the style sheet to lookup the font file
-	     name.  This is better than using find_font directly,
-	     esp. because that triggers mktextfm for non-existent
-	     fonts. */
-	  SCM br = ly_symbol2scm ("braces");
-	  SCM fam = gh_cons (ly_symbol2scm ("font-family"), br);
-	  SCM sz = gh_cons (ly_symbol2scm ("font-relative-size"), gh_int2scm (i));
-
-	  SCM alist = scm_list_n (fam, sz, SCM_UNDEFINED);
-	  fm = Font_interface::get_font (me, scm_list_n (alist, SCM_UNDEFINED));
-	  /* Hmm, if lookup fails, we get cmr10 anyway */
-	  if (ly_scm2string (ly_car (fm->description_)) == "cmr10")
-	    break;
-	}
-      else
-	break;
-    }
+  /* We go through the style sheet to lookup the font file
+     name.  This is better than using find_font directly,
+     esp. because that triggers mktextfm for non-existent
+     fonts. */
+  SCM br = ly_symbol2scm ("braces");
+  SCM fam = gh_cons (ly_symbol2scm ("font-family"), br);
+  SCM sz = gh_cons (ly_symbol2scm ("font-relative-size"), ly_symbol2scm ("*"));
+  
+  SCM alist = scm_list_n (fam, sz, SCM_UNDEFINED);
+  fm = Font_interface::get_font (me, scm_list_n (alist, SCM_UNDEFINED));
+  
 
   int lo = 0;
 
@@ -166,13 +156,11 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
     }
   while (hi - lo > 1);
       
-  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (lo), SCM_UNDEFINED);
-  at = fontify_atom (fm, at);
-  
-  b = fm->get_char (lo);
+  Molecule m (fm->get_char_molecule (lo));
+  b=m.extent_box();
   b[X_AXIS] = Interval (0,0);
 
-  return Molecule (b, at);
+  return Molecule (b, m.get_expr());
 }
   
 

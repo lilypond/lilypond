@@ -262,7 +262,7 @@ dumped in the output file.")
 }
 
 SCM
-fontify_atom (Font_metric * met, SCM f)
+fontify_atom (Font_metric const * met, SCM f)
 {
   if (f == SCM_EOL)
     return f;

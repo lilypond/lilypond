@@ -17,10 +17,12 @@ class Virtual_font_metric : public Font_metric
 {
   SCM font_list_;
 public:
-  Virtual_font_metric (SCM namelist);
+  Virtual_font_metric (SCM namelist, Real, Paper_def*);
 
   virtual int count () const;
   virtual Box get_char (int ascii) const;
+  virtual Molecule get_char_molecule (int ascii) const;
+  
   virtual Molecule find_by_name (String) const;
 
 protected:

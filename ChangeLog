@@ -1,3 +1,20 @@
+2002-09-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/tab-staff.ly: removed.
+	
+	* lily/paper-def.cc (find_font): load virtual font for a list of
+	font names.
+
+	* scm/font.scm (paper20-style-sheet-alist): equate ancient and
+	music font-families.
+
+	* lily/virtual-font-metric.cc (get_char_molecule): new function
+
+	* lily/system-start-delimiter.cc (staff_brace): use virtual fonts
+	for the list of braces
+
+	* lily/font-metric.cc (get_char_molecule): new function.
+
 2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/virtual-font-metric.cc: new file

@@ -89,7 +89,7 @@ public:
 
 
 DECLARE_UNSMOB(Molecule,molecule);
-SCM fontify_atom (Font_metric*, SCM atom);
+SCM fontify_atom (Font_metric const*, SCM atom);
 
 Molecule create_molecule (SCM brew_molecule);
 

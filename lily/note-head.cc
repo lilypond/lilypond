@@ -127,8 +127,8 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   String font_family = ly_scm2string (scm_font_family);
 
   me->set_grob_property("font-family", ly_symbol2scm (font_family.to_str0 ()));
-  Molecule out =
-    Font_interface::get_default_font (me)->find_by_name (font_char);
+  Font_metric * fm = Font_interface::get_default_font (me);
+  Molecule out = fm->find_by_name (font_char);
   if (out.empty_b())
     {
       me->warning (_f ("Symbol `%s' not found in family `%s'",

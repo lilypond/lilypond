@@ -116,7 +116,7 @@ Font_metric::mark_smob (SCM s)
 {
   Font_metric * m = (Font_metric*) SCM_CELL_WORD_1 (s);
 
-  do_derived_mark();
+  m->derived_mark();
   return m->description_;
 }
 
@@ -174,3 +174,16 @@ number-pairs.")
 }
 
 
+
+
+  
+Molecule
+Font_metric::get_char_molecule (int code)  const
+{
+  Molecule  m ;
+  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
+		       SCM_UNDEFINED);
+  at = fontify_atom (this, at);
+  Box b = get_char (code);
+  return Molecule (b, at);
+}

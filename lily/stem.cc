@@ -823,11 +823,7 @@ Stem::calc_stem_info (Grob *me)
 		    me->get_grob_property ("beamed-minimum-free-lengths")))
     * staff_space;
   
-  int my_beam_count = Stem::beam_multiplicity (me).length () + 1;
-#if 0
-  Real height_of_my_beams = beam_thickness
-    + (my_beam_count - 1) * beam_translation;
-#else
+
   /* UGH
      It seems that also for ideal minimum length, we must use
      the maximum beam count (for this direction):
@@ -837,7 +833,6 @@ Stem::calc_stem_info (Grob *me)
      must be horizontal. */
   Real height_of_my_beams = beam_thickness
     + (beam_count - 1) * beam_translation;
-#endif
 
   Real ideal_minimum_length = ideal_minimum_free
     + height_of_my_beams
