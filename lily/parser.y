@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.56"
+#define MUDELA_VERSION "0.0.57"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -807,7 +807,10 @@ close_plet_parens:
 	;
 
 close_request_parens:
-	'('	{ 
+	'~'	{
+		$$ = '~';
+	}
+	| '('	{ 
 		$$='(';
 	}
 	| ']'	{ 

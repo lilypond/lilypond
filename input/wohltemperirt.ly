@@ -1,14 +1,14 @@
-%
-% title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
-% description: 
-% composer(s): JS Bach
-% entered-by: HWN
-% copyright:Public Domain 
-%
-% Tested Features:stem direction, multivoice.
-%
+%{
+ title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
+ description: 
+ composer(s): JS Bach
+ entered-by: HWN
+ copyright:Public Domain 
 
-\version "0.0.56";
+ Tested Features:stem direction, multivoice.
+%}
+
+\version "0.0.57";
 
 global = \melodic{
  	\meter 4/4 ;
@@ -26,7 +26,7 @@ dux = \melodic  {
 	[g c'16 b] [c'8 d'] [f16 g] as4 [g16 f]	|
 	[es c' b a] [ g f es d] [c8 es' d' c'] |
 	[bes a bes c'] [fis g a fis] |
-	g4 r16 [c d es] [f g as8(] [)as16 d es f ]|
+	g4 r16 [c d es] [f g as8~] [as16 d es f ]|
 	[g a bes8(] [)bes16 es f g ] [as g f es] [d8 c'16 b]|
 	c'4 r4 r8 [f' es' d'] 
 	r8 [as g f] [g f16 es] [f8 d] | 
@@ -50,12 +50,12 @@ dux = \melodic  {
 	[es d es f] [B c d B] |
 	c4 r8 e8 [f f16 e] [f8 c] |
 	d4 r8 d8 [es8 es16 d] [es8 Bes] |
-	c2 () [c8 d16 es][ f es f d] |
+	c2 ~  [c8 d16 es][ f es f d] |
 	B8 r8 r B c r r es |
-	d r r f()f r r f |
+	d r r f~ f r r f |
 	[es as g f] [es d es f] |
 	[B c d B] [B c] r c |
-	[f16 d es c]()[c8 B] c4 r8 e |
+	[f16 d es c]~ [c8 B] c4 r8 e |
 	f4 r8 <f8 as b> [f es16 d] [es8 <f a] > |
 	<B d> r <B d> r <G2 c> |
 }
@@ -122,7 +122,7 @@ bassdux = \melodic  {
 	r [es d c] [d c16 Bes] [c8 d] |
 	[G8 bes16 a] [bes8 d] [es c'16 bes] [c'8 e] |
 	[f d'16 c'] [d'8 fis] g4 r16 [G A B] |
-	[c16 d es8]()[es16 A Bes c] [d es f8]()[f16 'b c d]|
+	[c16 d es8]~ [es16 A Bes c] [d es f8]~ [f16 'b c d]|
 %%20	
 	es8 r r e [f F Es D] |
 	r [As G F] [G F16 Es] [F8 G] |
@@ -135,8 +135,8 @@ bassdux = \melodic  {
 	[F16 G] As4 [G16 F] Es4 r8 es |
 	[d c g G] 
 	< \multivoice 
-	{ \stem 1; c2 (|)c1(|) c1 }
-	{ \stem -1; C2(|)C1(|) C1 }
+	{ \stem 1; c2 ~ |c1~ | c1 }
+	{ \stem -1; C2~ |C1~ | C1 }
 	>
 
 }

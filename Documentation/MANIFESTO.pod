@@ -29,6 +29,11 @@ Generate high-quality output. Ideally it should be of a professional
 quality. We'd like to render Herbert Chlapiks words, "Fine music
 setting is not possible without a knowledgeable printer,"  untrue.
 
+=item *
+
+Make a  which system which fully tweakable. It should be possible to
+typeset a book on how not to typeset music. 
+
 =back 
 
 =head1 LILYPOND

@@ -8,26 +8,21 @@
 #define SLUR_HH
 
 #include "directional-spanner.hh"
-#include "fproto.hh"
+#include "lily-proto.hh"
 #include "varray.hh"
+#include "bow.hh"
 
-struct Slur : Directional_spanner {
+class Slur : public Bow {
+public:
+    Array<Note_column*> encompass_arr_;
 
-    Array<Notehead*> encompass;
-
-    bool open_left, open_right;			
-
-    /* *************** */
-    Offset center() const;
-    Slur();
     void do_post_processing();
     void do_pre_processing();
-    void add(Notehead*);
+    void add(Note_column*);
     void set_default_dir();
 
     Spanner* do_break_at( PCol*, PCol*) const; 
 private:
-    Molecule*brew_molecule_p()const;
     NAME_MEMBERS(Slur);
 };
 

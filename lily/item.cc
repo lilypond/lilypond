@@ -31,3 +31,9 @@ Item::hpos_f()const
 {
     return pcol_l_->hpos + offset().x;
 }
+
+Line_of_score *
+Item::line_l()const
+{
+    return pcol_l_->line_l_;
+}

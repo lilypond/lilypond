@@ -17,7 +17,7 @@ struct Directional_spanner : Spanner{
 
     /// offset of "center" relative to left-column/0-pos of staff
     virtual Offset center() const=0;
-    virtual void set_default_dir()=0;
+    virtual void set_default_dir();
     Directional_spanner();
     
 };

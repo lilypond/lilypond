@@ -240,6 +240,20 @@ error for this reason.
 				% NO nesting!
 	[c8 c8 c8]2/3		% a triplet
 
+
+=head2 Slurs and Ties
+
+Ties connect the noteheads of adjecent notes. They are entered as follows:
+
+	a4 ~ a4
+
+Slurs connect whole chords, and try to avoid crossing stems. They are
+entered as follows:
+
+	a4(  )a4
+
+=head2 Scripts
+
 Symbols which can be put at either side (above or below) of a staff
 are entered as follows:
 

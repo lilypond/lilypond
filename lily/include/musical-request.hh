@@ -10,6 +10,7 @@
 #ifndef MUSICALREQUESTS_HH
 #define MUSICALREQUESTS_HH
 
+#include "lily-proto.hh"
 #include "request.hh"
 #include "duration.hh"
 
@@ -24,6 +25,7 @@ public:
     virtual Skip_req* skip() { return 0; }
     virtual Dynamic_req* dynamic() { return 0; }
     virtual Absolute_dynamic_req * absdynamic() { return 0; }
+    virtual Tie_req * tie() { return 0; }
     virtual Subtle_req * subtle() { return 0; }
     virtual Span_dynamic_req * span_dynamic() { return 0; }
     REQUESTMETHODS(Musical_req, musical);
@@ -189,6 +191,14 @@ public:
      REQUESTMETHODS(Beam_req,beam);
 
     Beam_req();
+};
+
+/**
+  Start a tie at this voice element, end it at the next
+ */
+class Tie_req : public Musical_req {
+public:
+    REQUESTMETHODS(Tie_req, tie);
 };
 
 /// a slur

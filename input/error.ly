@@ -1,4 +1,4 @@
-\version "0.0.56";
+\version "0.0.57";
 
 \include "this-is-hopefully-a-nonexisting-file"
 
@@ -9,7 +9,7 @@ mwa = \melodic{
 	[ a8 a8 a8 a8 a8 ]	% 
 	[ a8 ]	% 
 %       segfault
-	< { [ bes^"1"( )a bes-. g-. ] a4-.^"4" } { [ e ] } { [ c ] } > |
+	< { [ bes^"1"~  a bes-. g-. ] a4-.^"4" } { [ e ] } { [ c ] } > |
 	a ) b ] c 	% warning
 	&   		% ok; error
 	a b ) ] 	% ok; error

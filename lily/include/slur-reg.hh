@@ -20,6 +20,7 @@ class Slur_register :public Request_register {
 protected:
     virtual ~Slur_register();
     virtual bool try_request(Request*);
+    virtual bool acceptable_request_b(Request*);
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);
     virtual void pre_move_processing();

@@ -1,3 +1,11 @@
+pl 59
+	- Slur now into voicegroups, and take stems into account.
+	- bf: rest size in table.
+	- split Slur in baseclass Bow
+	- Tie, Tie_req, Tie_register
+
+******
+may 2
 pl 58
 	- lexer cleanup
 	- national chars in lyrics
@@ -20,7 +28,7 @@ pl 57.jcn2
 	- small toccata-fuga-E.ly fixes
 	- \bar "||"; is now doublebar, "|." is finishbar
 	- collision hshift fix, with on-line assistance
-
+******
 pl 57
 	- lots of TODO doco
 	- text alignment bugfix
@@ -62,7 +70,7 @@ pl 55
 	- script-on-rest bug
 	- doc update
 	- transpose syntax
-
+******
 pl 54
 	- bugfix Colhpos.cc::OK assert fail.
 	- Inclusion of MusixTeX MF files, 

@@ -24,6 +24,7 @@ Spanner::broken_at(PCol*c1, PCol *c2)const
     
     span_p->left_col_l_ = c1;
     span_p->right_col_l_ = c2;
+    span_p->pstaff_l_ = pstaff_l_;
     
     return span_p;
 }

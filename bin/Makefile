@@ -7,6 +7,7 @@ include $(depth)/make/Include.make
 # list of distribution files:
 
 SCRIPTS = clearlily cpgento genheader make_patch \
+	lily.efence\
 	make_version make_website release convert-mudela show-latest
 EXTRA_DISTFILES = $(SCRIPTS)
 #

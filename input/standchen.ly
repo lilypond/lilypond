@@ -1,15 +1,17 @@
-% standchen.ly
-%
-% St\"andchen (Serenade) "Leise flehen meine Lieder" D.957 No.4
-% Franz Schubert (1797-1828)
-% Text by Ludwig Rellstab (1799-1860)
-%
-% Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jandigicash.com>
-% 
-% The purpose of this file is to demonstrate features of LilyPond.
-% (there is an accompanying LaTeX file, standchen.tex)
-%
-\version "0.0.56";
+%{
+standchen.ly
+
+ St\"andchen (Serenade) "Leise flehen meine Lieder" D.957 No.4
+ Franz Schubert (1797-1828)
+ Text by Ludwig Rellstab (1799-1860)
+
+ Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jandigicash.com>
+ 
+ The purpose of this file is to demonstrate features of LilyPond.
+ (there is an accompanying LaTeX file, standchen.tex)
+
+%}
+\version "0.0.57";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -40,30 +42,30 @@ melodie = \melodic{
 %%4
 	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
 %%5
-	[ a()bes a ]2/3 d'4. a |
+	[ a~ bes a ]2/3 d'4. a |
 %%6
-	[ g()a g ]2/3 d'4 g r |
+	[ g~ a g ]2/3 d'4 g r |
 
 %%7
-	a4.^> g [ g()f e ]2/3 |
+	a4.^> g [ g~ f e ]2/3 |
 %%8
 	f2 r4 |
 %%9
 
-	< { a'4.( )g' [ g'( f' )e' ]2/3 }
+	< { a'4.~  g' [ g'( f' )e' ]2/3 }
 	{ cis'4. e'_"dolce" \plet 2/3; e' \plet 1/1; } > |
 %%10
 	< f'2. d'2. > |
 %%11
-	[ a (\pp )bes a ]2/3 f'4. a |
+	[ a ~  bes a ]2/3 f'4. a |
 %%12
-	[ g( ) a g ]2/3 e'4. d' |
+	[ g~   a g ]2/3 e'4. d' |
 %%13
-	c'4. bes [ bes( ) a g ]2/3 |
+	c'4. bes [ bes~   a g ]2/3 |
 %%14
 	a2 r 
-	< { d'( | )c'4. g [ bes a g ]2/3 }
-	{ f \p ( | )e4._"dolce" bes 
+	< { d'~  c'4. g [ bes a g ]2/3 }
+	{ f \p ~  e4._"dolce" bes 
 		\plet 2/3; g
 		\plet 1/1; 
 	} > |
@@ -77,12 +79,12 @@ melodie = \melodic{
 	[ d'8. a16 ] f4. d |
 %%19
 %#%	c'\grace\stemup
-	[ bes (\pp ) a bes ]2/3 d'4. bes |
+	[ bes ~   a bes ]2/3 d'4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
-	[ g( )fis g ]2/3 bes4.^> g |
+	[ g~  fis g ]2/3 bes4.^> g |
 %%22
 	f!2. |
 %%23
@@ -90,16 +92,16 @@ melodie = \melodic{
 %%24
 	[ d'8. a16 ] fis4. d |
 %%25
-	[ b \mf( ) ais b ]2/3 d'4. b |
+	[ b \mf~   ais b ]2/3 d'4. b |
 %%26
 	< a2. fis2. > |
 %%27
-	[ e' \f( )dis' e' ]2/3 g'4. cis' |
+	[ e' \f~  dis' e' ]2/3 g'4. cis' |
 %%28
 	< d'2. fis2. > |
 %#%\volta1
 %%29
-	< { bes2( [ d'8.( ))g16 ] }
+	< { bes2( [ d'8.~ )g16 ] }
 	{ g2 \mf [ bes8. bes16 ] } > |
 %%30
 	< { a4. [ a-. a-. a-. ] }
@@ -110,7 +112,7 @@ melodie = \melodic{
 %%32
 	< a2 fis2 \pp > < a4 fis4 > |
 %%33
-	< { b2( [ d'8.( ) )g16 ] }
+	< { b2( [ d'8.~  g16 ] }
 	{ g2 [ b8. b16 ] } > |
 %%34
 	< { a4. [ a-. a-. a-. ] }
@@ -124,14 +126,14 @@ melodie = \melodic{
 %%37
 	[ a8. a16 ] [ cis'8. cis'16 ] [ e'8. e'16 ] |
 %%38
-	d'4( )cis'4 r4 |
+	d'4~  cis'4 r4 |
 %%39
 %#%	> a4. [ cis' e'8. >! d'16 ] |
 	a4. \> [ cis' e'8. \! d'16 ] |
 %%40
 	cis'2 r4 |
 %%41
-	< fis'4. \> cis'4. \f > e' [ e'( )d' \! cis' ]2/3 |
+	< fis'4. \> cis'4. \f > e' [ e'~  d' \! cis' ]2/3 |
 %%42
 	[ b8. cis'16 ] d'4^> b r |
 %%43
@@ -140,16 +142,16 @@ melodie = \melodic{
 %%44
 	[ b8. \> cis'16 ] d'4^> b \! r |
 %%45
-	[ b \p ( )ais b ]2/3 d'4. b |
+	[ b \p ~  ais b ]2/3 d'4. b |
 %%46
 	<a!2. fis2. > |
 %%47
-	[ e' \f( )dis' e' ]2/3 g'4.^> cis' |
+	[ e' \f~  dis' e' ]2/3 g'4.^> cis' |
 %%48
 	\textstyle "italic";
 	< 
-	{ fis2.( \group "+1"; \stem -1; )f2. }
-	{ d'2. ( \stem 1; )d'4 r4_"decresc." d'4 } 
+	{ fis2.~  \group "+1"; \stem -1; f2. }
+	{ d'2. ~ \stem 1; d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
 %%50

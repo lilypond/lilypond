@@ -193,6 +193,9 @@ My_lily_parser::get_parens_request(char c)
     Request* req_p=0;
     switch (c) {
 
+    case '~':
+	req_p = new Tie_req;
+	break;
     case '[':
     case ']':
     {

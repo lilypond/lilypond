@@ -11,7 +11,13 @@
 #include "slur-reg.hh"
 #include "slur.hh"
 #include "debug.hh"
-#include "notehead.hh"
+#include "note-column.hh"
+
+bool
+Slur_register::acceptable_request_b(Request*req_l)
+{
+    return req_l->musical() && req_l->musical()->slur();
+}
 
 bool
 Slur_register::try_request(Request *req_l)
@@ -26,12 +32,12 @@ Slur_register::try_request(Request *req_l)
 void
 Slur_register::acknowledge_element(Staff_elem_info info)
 {
-    if (info.elem_l_->name() == Notehead::static_name()) { 
-	Notehead *head_p =(Notehead*) info.elem_l_ ;// ugh
+    if (info.elem_l_->name() == Note_column::static_name()) { 
+	Note_column *col_l =(Note_column*) info.elem_l_ ;// ugh
 	for (int i = 0; i < slur_l_stack_.size(); i++)
-	    slur_l_stack_[i]->add(head_p );
+	    slur_l_stack_[i]->add(col_l );
 	for (int i = 0; i < end_slur_l_arr_.size(); i++)
-	    end_slur_l_arr_[i]->add(head_p);
+	    end_slur_l_arr_[i]->add(col_l);
     }
 }
 /*
