@@ -47,7 +47,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.7");
-Mudela_version version ("1.0.10");
+Mudela_version version ("1.0.11");
 
 
 // needed for bison.simple's malloc() and free()
@@ -187,7 +187,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token NOTENAMES
 %token NOTES
 %token OCTAVE
-%token OUTPUT
 %token PAPER
 %token PARTIAL
 %token PENALTY
@@ -290,7 +289,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block
-%expect 3
+%expect 4
 
 
 %left '-' '+'
@@ -747,11 +746,10 @@ Alternative_music: {
 	}
 	;
 
-Repeated_music: REPEAT unsigned '{' Music '}' Alternative_music	{
-		// s/r conflicts -> '{' '}' 
-		Music_sequence* m = dynamic_cast <Music_sequence*> ($6);
+Repeated_music: REPEAT unsigned Music Alternative_music	{
+		Music_sequence* m = dynamic_cast <Music_sequence*> ($4);
 		assert (m);
-		$$ = new Repeated_music ($4, $2, m);
+		$$ = new Repeated_music ($3, $2 >? 1, m);
 	}
 	;
 

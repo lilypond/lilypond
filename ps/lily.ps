@@ -83,6 +83,10 @@
 	/volta_w exch def
 	staffheight 2 div /volta_h exch def
 	volta_t setlinewidth
+% urg: the only Level-2 PS, check effect in print
+%	true setstrokeadjust
+	1 setlinecap
+	1 setlinejoin
 	0 0 moveto
 	0 volta_h lineto
 	volta_w volta_h lineto

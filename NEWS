@@ -1,3 +1,35 @@
+pl 10
+
+pl 9.jcn3
+	- property: unfoldRepeats; unfolding still broken
+	- volta spanner y-collision
+	- bf: volta number,dot placement
+	- bf's: init/table16,20
+	- small additions to init/lily.scm to enable some testing
+	- junked extra repeat braces
+
+
+pl 9.uu2
+	- bib stuff
+	- removed \output from parser/lexer
+
+pl 9.jcn2
+	- bf/redo: slur.cc, encompass-info: setting of encompass array.  
+	- switched tuplet-engaver off (core dumps)
+
+pl 9.jcn1	
+	- bf (urg): no |: at start of piece
+	- bf?: text defs without width
+	- alignment absolute dynamics
+	- mutopia/opus-130.ly (excerpt, triggered by GUIDO)
+	- bf: crescendo symbol
+
+
+pl 9.uu1
+	- added faq entry
+	- copertina (thanks Maurizio)
+
+	
 pl 9
 	- fixed \relative
 

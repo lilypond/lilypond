@@ -18,13 +18,13 @@ class Volta_spanner : public Directional_spanner
 public:
   Volta_spanner ();
  
-//  void add_column (Note_column*);
+  void add_column (Note_column*);
   void add_column (Bar*);
  
   P<Text_def>  number_p_;
   P<Text_def>  dot_p_;
-//  Link_array<Note_column> column_arr_;
   Link_array<Bar> column_arr_;
+  Link_array<Note_column> note_column_arr_;
   bool last_b_;
  
 protected:

@@ -441,7 +441,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
   Atom a;  
   Real height = paper_l_->staffheight_f () / 6;
 
-  String hairpin = String (decresc ? "de" : "") + "crescendo\n";
+  String hairpin = String (decresc ? "de" : "") + "crescendo";
   a.lambda_ = gh_list (ly_symbol (hairpin),
 		       gh_double2scm (width),
 		       gh_double2scm (height),
@@ -521,7 +521,8 @@ Lookup::volta (Real w, bool last_b) const
 		       SCM_UNDEFINED);
   a.str_ = "volta";
   Real interline_f = paper_l_->interline_f ();
-  a.dim_[Y_AXIS] = Interval (-interline_f / 2, interline_f / 2);
+//  a.dim_[Y_AXIS] = Interval (0, 2 * interline_f);
+  a.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
   a.dim_[X_AXIS] = Interval (0, w);
   return a;
 }
