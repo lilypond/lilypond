@@ -1,3 +1,12 @@
+1.5.11.jcn1
+===========
+
+* Add -p flag to package-diff.py's diff invocation, to show changed function.
+
+* Add configure checks for python headers.
+
+* Make midi module.
+
 1.5.11.hwn1
 ===========
 
@@ -6,20 +15,10 @@
 * Bugfix: don't give up when there is one entirely unspaceable
 measure/line.
 
-* Some GH deprecation.
+* Midi module: many bugfixes.
 
-* Midi module: add timestamps.
+* midi2ly python blurble.
 
-1.5.11.jcn2
-===========
-
-* guile > 1.4 fixes.
-
-* Add -p flag to package-diff.py's diff invocation, to show changed function.
-
-* Add configure checks for python headers.
-
-* Make midi module.
 
 1.5.11
 ======

@@ -44,6 +44,9 @@
 /* define if you have python2/Python.h header */
 #define HAVE_PYTHON2_PYTHON_H 0
 
+/* define if you have python1.5/Python.h */
+#define HAVE_PYTHON1_5_PYTHON_H 0
+
 /* define if you have python/Python.h header */
 #define HAVE_PYTHON_PYTHON_H 0
 

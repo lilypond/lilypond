@@ -23,6 +23,8 @@ midi.parse (s)
 /* urg */
 #if HAVE_PYTHON2_PYTHON_H
 #include <python2/Python.h>
+#elif HAVE_PYTHON1_5_PYTHON_H
+#include <python1.5/Python.h>
 #elif HAVE_PYTHON_PYTHON_H
 #define assert(x)
 #include <python/Python.h>
@@ -274,9 +276,12 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("%s", "\n");
   
   track_size = track_end - *track;
+#if 0
   /* need this for direct midi.parse_track (s) on midi file */
   if (strcmp (*track, "MTrk"))
     *track = memmem (*track, track_size - 1, "MTrk", 4);
+#endif
+
   debug_print ("%s", "\n");
   assert (!strcmp (*track, "MTrk"));
   *track += 4;

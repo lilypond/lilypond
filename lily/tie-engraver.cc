@@ -164,7 +164,7 @@ Tie_engraver::create_grobs ()
 	  if (!i)
 	    return;
 	  
-	  SCM pair = scm_list_n_ref (head_list, gh_int2scm (i/2));
+	  SCM pair = scm_list_ref (head_list, gh_int2scm (i/2));
 	  
 	  Spanner * p = new Spanner (basic);
 
