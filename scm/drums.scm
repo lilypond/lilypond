@@ -1,4 +1,4 @@
-;;;; drum-"hack". See input/tricks/drums.ly and ly/drumpitch.ly
+;;;; drum-"hack". See input/regression/drums.ly and ly/drumpitch-init.ly
 ;;;; 2001/03/25 Rune Zedeler <rune@zedeler.dk>
 
 ;;;; changed eval to primitive-eval for guile 1.4/1.4.1 compatibility --jcn
@@ -172,7 +172,7 @@
 ;; adds the articulation script x to m if x is not #f.
 (define (add-articulation-script m x)
   (if x
-   (if (and x (equal? (ly:music-name m) "Event_chord"))
+   (if (and x (equal? (ly:get-mus-property m 'name) 'EventChord))
      (ly:set-mus-property! m 'elements
        (cons (make-articulation-script x) (ly:get-mus-property m 'elements))
      )
@@ -254,7 +254,7 @@
      (cond ((eq? pitches '())
 	      (begin
 	       (ly:warn (string-append "Kit `" (symbol->string kit) "' doesn't contain drum `" n
-				       "'\nSee lily/drumpitch.ly for supported drums."))
+				       "'\nSee ly/drumpitch-init.ly for supported drums."))
 	       (cdar (primitive-eval kit))
 	     ))
            ((eq? n (caar pitches))  (cdar pitches) )
@@ -267,7 +267,7 @@
 ;; converts a midi-pitched (ly/drumpitch.ly) file to paper output.
 (define-public ((drums->paper kit) music)
   (begin
-   (if (equal? (ly:music-name music) "Event_chord")
+   (if (equal? (ly:get-mus-property music 'name) 'EventChord)
     (set! music (make-drum-head kit music))
     (let* ((es (ly:get-mus-property music 'elements))
            (e (ly:get-mus-property music 'element))
