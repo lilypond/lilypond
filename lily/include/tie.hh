@@ -16,6 +16,7 @@ class Tie : public Bow {
     virtual Spanner* do_break_at(PCol*,PCol*)const;
     virtual void do_add_processing();
     virtual void do_post_processing();
+    virtual void set_default_dir();
 public:
     Notehead * left_head_l_;
     Notehead * right_head_l_;
