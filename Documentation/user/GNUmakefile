@@ -99,7 +99,7 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
 	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
-	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly
+	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
 # symbolic links to save space 
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
 

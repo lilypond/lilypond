@@ -45,6 +45,7 @@ extern bool make_ps;
 extern bool make_pdf;
 extern bool make_tex;
 extern bool make_preview;
+extern bool make_pages;
 
 /* misc */
 extern Array<String> failed_files;

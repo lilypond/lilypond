@@ -68,6 +68,7 @@ bool make_dvi = false;
 bool make_ps = false;
 bool make_png = false;
 bool make_preview = false;
+bool make_pages = true;
 bool make_tex = false;
 
 /*
@@ -135,6 +136,7 @@ static Long_option_init options_static[] =
     {0, "no-layout", 'm',  _i ("produce MIDI output only")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
     {0, "preview", 'p',  _i ("generate a preview")},
+    {0, "no-pages", 0,  _i ("don't generate full pages")},
     {0, "png", 0,  _i ("generate PNG")},
     {0, "ps", 0,  _i ("generate PostScript")},
     {0, "dvi", 0,  _i ("generate DVI")},
@@ -386,6 +388,8 @@ parse_argv (int argc, char **argv)
 	    make_tex = true;
 	  else if (String (opt->longname_str0_) == "preview")
 	    make_preview = true;
+	  else if (String (opt->longname_str0_) == "no-pages")
+	    make_pages = false;
 	  break;
 	  
 	case 'v':

@@ -170,21 +170,23 @@ Paper_book::output (String outname)
 	scopes = scm_cons (header_, scopes);
   
       String mod_nm = "scm framework-" + format;
-      
+
       SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-      SCM func = scm_c_module_lookup (mod, "output-framework");
+      if (make_pages)
+	{
+	  SCM func = scm_c_module_lookup (mod, "output-framework");
 
-      func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_n (out->self_scm (),
-				     self_scm (),
-				     scopes,
-				     dump_fields (),
-				     scm_makfrom0str (outname.to_str0 ()),
-				     SCM_UNDEFINED));
-      out->close ();
-      scm_gc_unprotect_object (out->self_scm ());
-
-      post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
+	  func = scm_variable_ref (func);
+	  scm_apply_0 (func, scm_list_n (out->self_scm (),
+					 self_scm (),
+					 scopes,
+					 dump_fields (),
+					 scm_makfrom0str (outname.to_str0 ()),
+					 SCM_UNDEFINED));
+	  out->close ();
+	  scm_gc_unprotect_object (out->self_scm ());
+	  post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
+	}
       
       if (make_preview)
 	{
