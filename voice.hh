@@ -2,7 +2,7 @@
 #define VOICE_HH
 
 
-#include "list.hh"
+#include "plist.hh"
 #include "request.hh"
 
 /// class for  horizontal stuff.
@@ -28,7 +28,7 @@ struct Voicegroup {
     /// don't know how to identify these.
 };
 
-/// 
+/// one horizontal bit. 
 struct Voice_element {
     Real duration;
     const Voicegroup *group;
@@ -37,6 +37,9 @@ struct Voice_element {
 
     List<const Item *> granted_items;
     List<const Spanner *> granted_spanners;
+
+    /****************/
+    
     void add(Request*);
     Voice_element();
 
