@@ -66,7 +66,7 @@ Book::process (String outname, Output_def *default_def)
 {
   bool error = false;
   for (int i = 0; i < scores_.size(); i++)
-    error |= scores_[i]->error_found_;
+    error = error || scores_[i]->error_found_;
 
   if (error)
     return 0;
