@@ -231,6 +231,7 @@ is the  first to satisfy CRIT
        "music-functions.scm"
        "music-property-description.scm"
        "auto-beam.scm"
+       "new-markup.scm"
        "basic-properties.scm"
        "chord-name.scm"
        "grob-description.scm"
@@ -238,6 +239,7 @@ is the  first to satisfy CRIT
        "script.scm"
        "drums.scm"
        "midi.scm"
-       "new-markup.scm"
        ))
 
+
+       

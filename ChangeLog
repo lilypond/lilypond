@@ -1,3 +1,7 @@
+2002-12-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm: partial move to new markup texts.
+
 2002-12-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/grob-description.scm (all-grob-descriptions): small bass figures.

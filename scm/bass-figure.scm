@@ -25,7 +25,7 @@
     (if (number? acc)
 	(set! mol
 	      (ly:combine-molecule-at-edge
-	       mol 0 1 (ly:find-glyph-by-name mf (string-append "accidentals-" (number->string acc)))
+	       mol X RIGHT (ly:find-glyph-by-name mf (string-append "accidentals-" (number->string acc)))
 	       0.2))
 	)
     (if (ly:molecule? mol)
