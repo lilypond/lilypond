@@ -15,7 +15,7 @@ $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
 
 $(outdir)/latin1.enc: GNUmakefile
 	echo '/ISOLatin1Encoding ' > $@ 
-	echo 'ISOLatin1Encoding pstack' | gs -quiet -  >> $@
+	echo 'ISOLatin1Encoding pstack' | gs -sDEVICE=nullpage  -quiet -  >> $@
 	echo ' def ' >> $@
 
 all: $(INSTALLATION_FILES)

@@ -70,8 +70,11 @@ SCM
 Paper_outputter::file ()
 {
   if (file_ == SCM_EOL)
-    file_ = scm_open_file (scm_makfrom0str (filename_.to_str0 ()),
-			   scm_makfrom0str ("w"));
+    if (filename_ == "-")
+      file_ = scm_current_output_port();
+    else
+      file_ = scm_open_file (scm_makfrom0str (filename_.to_str0 ()),
+			     scm_makfrom0str ("w"));
   return file_;
 }
 

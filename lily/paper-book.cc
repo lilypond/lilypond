@@ -158,7 +158,11 @@ Paper_book::output (String outname)
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
       String format = ly_scm2string (ly_car (s));
-      String file_name = outname + "." + format;
+      String file_name = outname;
+      
+      if (file_name != "-")
+	file_name += "." + format;
+      
       Paper_outputter *out = get_paper_outputter (file_name, format);
   
       SCM scopes = SCM_EOL;

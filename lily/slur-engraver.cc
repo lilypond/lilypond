@@ -89,13 +89,16 @@ Slur_engraver::acknowledge_grob (Grob_info info)
     }
   else
     {
-      for (int i = slurs_.size (); i--; )
-	New_slur::add_extra_encompass (slurs_[i], e);
-      for (int i = end_slurs_.size (); i--; )
-	New_slur::add_extra_encompass (end_slurs_[i], e);
+      if (Tie::has_interface (e)
+	  || to_boolean (e->get_property ("inside-slur")))
+	{
+	  for (int i = slurs_.size (); i--; )
+	    New_slur::add_extra_encompass (slurs_[i], e);
+	  for (int i = end_slurs_.size (); i--; )
+	    New_slur::add_extra_encompass (end_slurs_[i], e);
+	}
     }
 }
-
 void
 Slur_engraver::finalize ()
 {
@@ -147,6 +150,6 @@ ENTER_DESCRIPTION (Slur_engraver,
   /* descr */       "Build slurs grobs from slur events",
   /* creats*/       "Slur",
   /* accepts */     "slur-event",
-  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface",
+  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface tie-interface",
   /* reads */       "slurMelismaBusy doubleSlurs",
   /* write */       "");

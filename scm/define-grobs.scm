@@ -22,8 +22,7 @@
 	))
     
     (AccidentalPlacement
-     . (
-	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
+     . ((X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.2)
 
 	;; this is quite small, but it is very ugly to have

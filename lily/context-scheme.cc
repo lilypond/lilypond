@@ -33,6 +33,20 @@ LY_DEFINE (ly_context_name, "ly:context-name",
   return ly_symbol2scm (tr->context_name ().to_str0 ()); 
 }
 
+LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
+	   1, 0, 0, (SCM context, SCM name),
+	   "Return the definition of @var{name} (a symbol) within @var{context} "
+	   "as an alist")
+{
+  Context *tr = unsmob_context (context);
+  SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+
+    
+  return updated_grob_properties (tr, name);
+}
+
+
 LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 	   3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
 	   "Do a single @code{\\override} or @code{\\revert} operation "

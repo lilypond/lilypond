@@ -82,6 +82,9 @@
        plain " " coding-vector " /" command " reencode-font\n"
        "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
 
+  (define (standard-tex-font? x)
+    (or (equal? (substring x 0 2) "ms")
+	(equal? (substring x 0 2) "cm")))
  
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
@@ -100,6 +103,11 @@
 	   (ops (ly:output-def-lookup bookpaper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
+      ;; Bluesky pfbs have UPCASE names (sigh.)
+      ;;
+      (if (standard-tex-font? fontname)
+	  (set! fontname (string-upcase fontname)))
+      
       ;; debugging: [output]encoding is broken
       ;; found so far: coding-alist is empty!
       (pdebug "font: ~S\n" font)
@@ -252,9 +260,11 @@
       ((defs (ly:paper-book-book-paper book))
        (size (ly:output-def-lookup defs 'papersize)))
 
-    (postscript->pdf (if (string? size) size "a4")
-		     name)))
-
+    (if (equal? name "-")
+	(ly:warn "Can't convert <stdout> to PDF")
+	(postscript->pdf (if (string? size) size "a4")
+			 name))))
+  
 (define-public (convert-to-png book name)
   (let*
       ((defs (ly:paper-book-book-paper book))

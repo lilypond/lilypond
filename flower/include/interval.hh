@@ -35,6 +35,15 @@ struct Interval_t : public Drul_array<T>
     elem_ref (RIGHT) += t;    
   }
   
+  T distance (T t) const
+  {
+    if (t > elem (RIGHT))
+      return T (t - elem (RIGHT));
+    else if (t < elem (LEFT))
+      return T (elem (LEFT) - t);
+    else
+      return T (0);
+  }
   /**
     PRE
     *this and h are comparable

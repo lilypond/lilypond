@@ -563,12 +563,12 @@ possibly turned off."
 	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
 
     (newline (current-error-port))
-    (display (format (_ "Converting to ~s...") output-name)
+    (display (format (_ "Converting to `~a'...") output-name)
 	     (current-error-port))
     (newline (current-error-port))
     
     (if (ly:get-option 'verbose)
-	(display (format "Invoking `~s'..." cmd) (current-error-port)))
+	(display (format "Invoking `~a'..." cmd) (current-error-port)))
 
   (system cmd)))
 
@@ -585,7 +585,7 @@ possibly turned off."
 	   name)))
     (if (ly:get-option 'verbose)
 	(begin
-	  (display (format (_ "Invoking `~s'...") cmd) (current-error-port))
+	  (display (format (_ "Invoking `~a'...") cmd) (current-error-port))
 	  (newline (current-error-port))))
     (system cmd)))
 
