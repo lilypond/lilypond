@@ -82,7 +82,7 @@ extents of strings of text.
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with
 all pages (systems) including fonts.
 
-This mode  is used by default by lilypond-book.
+This mode is used by default by lilypond-book.
 
 @item svg
  for SVG (Scalable Vector Graphics)

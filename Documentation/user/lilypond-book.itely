@@ -573,11 +573,12 @@ version, the format @code{texi-html} must be used instead.
 
 @item -F @var{filter}
 @itemx --filter=@var{filter}
-Pipe snippets through @var{filter}.
+Pipe snippets through @var{filter}.  @code{lilypond-book} will
+not --filter and --process at the same time.
 
 Example:
 @example
-lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
+lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 @end example
 
 @item -h
@@ -605,7 +606,8 @@ cd out
 @item -P @var{process}
 @itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
-@code{lilypond}.
+@code{lilypond}.  @code{lilypond-book} will not --filter and --process
+at the same time.
 
 @item -V
 @itemx --verbose
