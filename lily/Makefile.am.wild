@@ -11,8 +11,14 @@ SUBDIRS = include
 bin_PROGRAMS = lilypond
 
 nowildcard: lexer.cc parser.cc
- 
+
 lilypond_SOURCES = $(wildcard *.cc *.ll *.yy)
+
+# howto do this? info is not all that clear...
+# OMIT_DEPENDENCIES = lexer.cc parser.cc
+# lilypond_OMIT_DEPENDENCIES = lexer.cc parser.cc
+# lilypondOMIT_DEPENDENCIES = lexer.cc parser.cc
+
 noinst_HEADERS = parser.hh
 
 #lilypond_LDADD = -llily -lflower @LEXLIB@
@@ -20,7 +26,7 @@ lilypond_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower
 
 lilypond_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
 
-INCLUDES =  -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include 
+INCLUDES =  -I$(top_srcdir)/lily/include -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include 
 
 EXTRA_DIST = Makefile.am.wild GNUmakefile Stable.make VERSION
 
@@ -38,11 +44,14 @@ parser.hh: parser.yy
 	mv $<.tab.h $@
 	mv $<.tab.c $(shell basename $@ .hh).cc
 
+distclean-local:
+	-rm -rf .deps
+
 # override default target for all-am: to get an extra dependency
 all-am: Makefile $(PROGRAMS) wild-check
 
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
 
-distclean-local:
-	-rm -rf .deps
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+make-in-build:

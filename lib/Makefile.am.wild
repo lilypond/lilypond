@@ -13,10 +13,10 @@ lib_LTLIBRARIES = liblily.la
 
 liblily_la_SOURCES = $(wildcard *.cc)
 
-INCLUDES = -Iinclude -I../flower/include
+INCLUDES = -I$(top_srcdir)/lib/include -I$(top_srcdir)/flower/include
 MODULE_CXXFLAGS += -D_REENTRANT
 
-EXTRA_DIST = Makefile.am.wild
+EXTRA_DIST = Makefile.am.wild GNUmakefile
 
 distclean-local:
 	-rm -rf .deps
