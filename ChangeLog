@@ -1,3 +1,19 @@
+2004-03-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc: Cleanups.
+	(setup_localisation): New function.
+	(sane_putenv): Remove.
+	(main_with_guile): New name (Was: main_prog).  Remove musings
+	about possible preparation for GUILE heavy memory usage and
+	practical uselessness.  Do not set environment variables
+	GUILE_INIT_SEGMENT_SIZE_1, GUILE_MAX_SEGMENT_SIZE.  Remove file
+	name juggling.
+	(parse_argv): New function.
+	(copyright): New function.  It's 2004 already.
+
+	* lily/input-file-results.cc (do_one_file): Add file name juggling.
+	(distill_inname): Move from main.
+
 2004-03-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* GNUmakefile.in (EXTRA_DIST_FILES): remove VIM stuff.
@@ -9,9 +25,10 @@
 	* lily/include/audio-element.hh (class Audio_element): remove grace_b_
 
 	* lily/score-performer.cc (finish): call Translator::finalize ().
+
 2004-03-05  Heikki Junes <hjunes@cc.hut.fi>
 
-        * GNUmakefile.in: update VIM_FILES.
+	* GNUmakefile.in: update VIM_FILES.
 
 2004-03-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

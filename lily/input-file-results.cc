@@ -154,10 +154,73 @@ Input_file_results::Input_file_results (String init, String in_file, String out_
   do_deps (out_file);
 }
 
-
-void
-do_one_file (String init, String in_file, String out_file) 
+/* Distill full input file name from command argument.  PATH describes
+   file name with added default extension, ".ly" if none.  "-" is
+   STDIN.  */
+Path
+distill_inname (String str)
 {
+  Path p = split_path (str);
+  if (str.is_empty () || str == "-")
+    p.base = "-";
+  else
+    {
+      String orig_ext = p.ext;
+      char const *extensions[] = {"ly", "", 0};
+      for (int i = 0; extensions[i]; i++)
+	{
+	  p.ext = orig_ext;
+	  if (*extensions[i] && !p.ext.is_empty ())
+	    p.ext += ".";
+	  p.ext += extensions[i];
+	  if (!global_path.find (p.to_string ()).is_empty ())
+	      break;
+	}
+      /* Reshuffle extension */
+      p = split_path (p.to_string ());
+    }
+  return p;
+}
+
+/* ugr. */
+void
+do_one_file (char const *file)
+{
+  String infile (file);
+  Path inpath = distill_inname (infile);
+  
+  /* By default, use base name of input file for output file name */
+  Path outpath = inpath;
+  if (inpath.to_string () != "-")
+    outpath.ext = output_format_global;
+  
+  /* By default, write output to cwd; do not copy directory part
+     of input file name */
+  outpath.root = "";
+  outpath.dir = "";
+  
+  if (!output_name_global.is_empty ())
+    outpath = split_path (output_name_global);
+  
+  String init;
+  if (!init_name_global.is_empty ())
+    init = init_name_global;
+  else
+    init = "init.ly";
+  
+  String in_file = inpath.to_string ();
+  String out_file = outpath.to_string ();
+  
+#if 0
+  /* Code to debug memory leaks.  Cannot call from within .ly
+     since then we get the protects from the parser state too. */
+  static SCM proc ;
+  if (!proc)
+	proc = scm_c_eval_string ("dump-gc-protects");
+  scm_gc ();
+  scm_call_0 (proc);
+#endif
+      
   if (init.length () && global_path.find (init).is_empty ())
     {
       warning (_f ("can't find file: `%s'", init));

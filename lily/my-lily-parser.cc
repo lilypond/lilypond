@@ -33,7 +33,7 @@ My_lily_parser::~My_lily_parser ()
     scm_gc_unprotect_object (default_header_->self_scm());
 }
 
-
+/* Process one .ly file, or book.  */
 void
 My_lily_parser::parse_file (String init, String in_file, String out_file)
 {
@@ -46,6 +46,9 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
 
   set_yydebug (0);
   lexer_->new_input (init, &input_file_->sources_);
+
+  /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
+     OUT_FILE (unless IN_FILE redefines output file name).  */
   do_yyparse ();
 
   progress_indication ("\n");
