@@ -116,6 +116,7 @@ and the note names they define are:
                         Note Names               sharp       flat
 nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
 english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
+                                               -x (double)
 deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
 norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
 svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess

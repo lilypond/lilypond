@@ -335,7 +335,7 @@ LyricsContext = \translator {
 	%% To get folded repeats right.
 	\consists Vertical_align_engraver 
 
-	\consistsend "Hara_kiri_engraver"
+%	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = ##f
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
