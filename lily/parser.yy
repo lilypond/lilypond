@@ -379,10 +379,9 @@ or
 %type <i>	sub_quotes sup_quotes
 %type <music>	toplevel_music
 %type <music>	simple_element event_chord command_element
-%type <music>	Composite_music Simple_music
+%type <music>	Composite_music Simple_music Prefix_composite_music Grouped_music_list
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
-//%type <scm>     Composite_music_list
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
@@ -831,17 +830,6 @@ Alternative_music:
 	}
 	;
 
-/*
-Composite_music_list: {};
- Too many s/r r/r problems
-	Composite_music {
-		$$ = scm_cons ($1, SCM_EOL);
-	}
-	| '{' Music_list '}' {
-		$$ = $2;
-	}
-	;
-*/
 
 Repeated_music:
 	REPEAT string bare_unsigned Music Alternative_music
@@ -971,7 +959,18 @@ context_mod_list:
 	}
 	;
 
+
 Composite_music:
+	Prefix_composite_music { $$ = $1 ; }
+	| Grouped_music_list { $$ = $1 }
+	;
+
+Grouped_music_list:
+	Simultaneous_music		{ $$ = $1; }
+	| Sequential_music		{ $$ = $1; }
+	;
+	
+Prefix_composite_music:
 	AUTOCHANGE Music	{
 		SCM proc = ly_scheme_function ("make-autochange-music");
 	
@@ -1075,8 +1074,6 @@ basic music objects too, since the meaning is different.
 
 	}
 	| Repeated_music		{ $$ = $1; }
-	| Simultaneous_music		{ $$ = $1; }
-	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords Music {
 		$$ = MY_MAKE_MUSIC ("TransposedMusic");
 		Music *p = $4;
@@ -1178,15 +1175,17 @@ relative_music:
 	}
 	;
 
-/*
 new_lyrics:
-	NEWLYRICS Music {
+	NEWLYRICS Grouped_music_list {
+	/*
+		Can also use Music at the expensive of two S/Rs
+similar to \repeat \alternative
+	*/
 	}
-	| new_lyrics NEWLYRICS Music {
+	| new_lyrics NEWLYRICS Grouped_music_list {
 		
 	}
 	;
-*/
 
 re_rhythmed_music:
 	ADDLYRICS Music Music {
@@ -1197,7 +1196,7 @@ re_rhythmed_music:
 		scm_gc_unprotect_object ($2->self_scm ());
 		$$ = m;
 	}
-/*	| Music new_lyrics {
+	| Grouped_music_list new_lyrics {
 		THIS->lexer_->pop_state ();
 
 		Music *music = $1;
@@ -1208,7 +1207,6 @@ re_rhythmed_music:
 			SCM_EOL);
 		scm_gc_unprotect_object (music->self_scm ());
 	}
-*/
 	| LYRICSTO string Music {
 		Music *music = $3;
 		SCM name = $2;
