@@ -1010,15 +1010,13 @@ AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
 
 
 AC_DEFUN(STEPMAKE_TEXMF, [
-    # urg, never know what names these teTeX guys will think up
-
     STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
-    STEPMAKE_PROGS(INIMETAFONT, inimf inimfont, $1)
+    # STEPMAKE_PROGS(INIMETAFONT, inimf inimfont "$METAFONT -ini", $1)
 
     AC_MSG_CHECKING(for working metafont mode)
     modelist='ljfour lj4 lj3 lj2 ljet laserjet'
     for MFMODE in $modelist; do
-    	$METAFONT "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
+    	$METAFONT -progname=mf "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
 	if test -f mfput.tfm; then
 	    break;
 	fi
