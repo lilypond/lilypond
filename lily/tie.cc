@@ -20,6 +20,7 @@
 #include "molecule.hh"
 #include "bezier-bow.hh"
 #include "stem.hh"
+#include "note-head.hh"
 
 /*
   tie: Connect two noteheads.
@@ -130,13 +131,37 @@ Tie::get_control_points (SCM smob)
   
   Score_element* l = me->get_bound (LEFT);
   Score_element* r = me->get_bound (RIGHT);  
-  Real width = r->relative_coordinate (commonx, X_AXIS)
-    + r->extent (X_AXIS)[LEFT]
-    - l->relative_coordinate (commonx, X_AXIS)
-    - l->extent (X_AXIS)[RIGHT]
-    -2* x_gap_f;
 
-  Real left_x = l->extent (X_AXIS)[RIGHT] + x_gap_f;
+  Real left_x;
+  if (Note_head::has_interface (me->get_bound (LEFT)))
+    left_x = l->extent (X_AXIS)[RIGHT] + x_gap_f;
+  else
+    left_x = l->extent (X_AXIS).length () / 2;
+
+  Real width;
+  if (Note_head::has_interface (me->get_bound (LEFT))
+      && Note_head::has_interface (me->get_bound (RIGHT)))
+    {
+      width = r->relative_coordinate (commonx, X_AXIS)
+	+ r->extent (X_AXIS)[LEFT]
+	- l->relative_coordinate (commonx, X_AXIS)
+	- l->extent (X_AXIS)[RIGHT]
+	-2 * x_gap_f;
+    }
+  else
+    {
+      if (Note_head::has_interface (me->get_bound (LEFT)))
+	width = r->relative_coordinate (commonx, X_AXIS)
+	  - l->relative_coordinate (commonx, X_AXIS)
+	  - l->extent (X_AXIS)[RIGHT]
+	  - 2 * x_gap_f;
+      else
+	width = r->relative_coordinate (commonx, X_AXIS)
+	  - l->extent (X_AXIS).length () / 2
+	  + r->extent (X_AXIS)[LEFT]
+	  - l->relative_coordinate (commonx, X_AXIS)
+	  - 2 * x_gap_f;
+    }
   
   Direction dir = Directional_element_interface (me).get();
   

@@ -267,7 +267,7 @@ Lookup::text (String style, String text, Paper_def *paper_l)
     }
 
   SCM l = scm_assoc (ly_str02scm (style.ch_C()),
-		     scm_eval (ly_symbol2scm ("cmr-alist")));
+		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
 
   if (l != SCM_BOOL_F)
     {

@@ -74,10 +74,11 @@ Note_head::brew_molecule (SCM smob)
 
   // ugh: use gh_call ()
   Molecule out = me->lookup_l()->afm_find (String ("noteheads-") + 
-		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("find-notehead-symbol"),
+		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm("find-notehead-symbol"),
 						  me->get_elt_property ("duration-log"),
 						  ly_quote_scm(style),
-						  SCM_UNDEFINED))));
+						  SCM_UNDEFINED),
+					  SCM_EOL)));
 
   if (streepjes_i) 
     {

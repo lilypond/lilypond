@@ -29,6 +29,11 @@
 ;; do nothing in .scm output
 (define (comment s) "")
 
+;; URG guile-1.3/1.4 compatibility
+(define (ly-eval x) (eval2 x #f))
+
+(define (comment s) "")
+
 (define (mm-to-pt x)
   (* (/ 72.27 25.40) x)
   )
@@ -945,13 +950,13 @@
 	   (gulp-file name))))
 
 (define (scm-tex-output)
-  (eval (tex-scm 'all-definitions)))
+  (ly-eval (tex-scm 'all-definitions)))
 				
 (define (scm-ps-output)
-  (eval (ps-scm 'all-definitions)))
+  (ly-eval (ps-scm 'all-definitions)))
 
 (define (scm-as-output)
-  (eval (as-scm 'all-definitions)))
+  (ly-eval (as-scm 'all-definitions)))
 	
 (define (index-cell cell dir)
   (if (equal? dir 1)

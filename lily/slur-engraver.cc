@@ -71,7 +71,14 @@ Slur_engraver::do_removal_processing ()
 {
   for (int i = 0; i < slur_l_stack_.size (); i++)
     {
+#if 0
       typeset_element (slur_l_stack_[i]);
+#else
+      /*
+	Let's not typeset unterminated stuff
+       */
+      slur_l_stack_[i]->suicide ();
+#endif     
     }
   slur_l_stack_.clear ();
   SCM wg = get_property ("weAreGraceContext");
@@ -94,8 +101,8 @@ Slur_engraver::do_process_music ()
       if (slur_req_l->span_dir_ == STOP)
 	{
 	  if (slur_l_stack_.empty ())
-
-	    slur_req_l->origin ()->warning (_f ("can't find both ends of %s", _ ("slur")));
+	    slur_req_l->origin ()->warning (_f ("can't find start of %s",
+						_ ("slur")));
 	  else
 	    {
 	      Score_element* slur = slur_l_stack_.pop ();

@@ -104,54 +104,6 @@ Slur::get_default_dir (Score_element*me)
 }
 
 
-
-
-
-Offset
-Slur::encompass_offset (Score_element*me,
-			Score_element* col,
-			Score_element **common) 
-{
-  Offset o;
-  Score_element* stem_l = unsmob_element (col->get_elt_property ("stem"));
-  
-  Direction dir = Directional_element_interface (me).get ();
-  
-  if (!stem_l)
-    {
-      warning (_ ("Slur over rest?"));
-      o[X_AXIS] = col->relative_coordinate (common[X_AXIS], X_AXIS);
-      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
-      return o;  
-    }
-  Direction stem_dir = Directional_element_interface (stem_l).get ();
-  o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
-
-  /*
-    Simply set x to middle of notehead
-   */
-
-  o[X_AXIS] -= 0.5 * stem_dir * col->extent (X_AXIS).length ();
-
-  if ((stem_dir == dir)
-      && !stem_l->extent (Y_AXIS).empty_b ())
-    {
-      o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
-      o[Y_AXIS] += stem_l->extent (Y_AXIS)[dir];
-    }
-  else
-    {
-      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
-      o[Y_AXIS] += col->extent (Y_AXIS)[dir];
-    }
-
-  /*
-   leave a gap: slur mustn't touch head/stem
-   */
-  o[Y_AXIS] += dir * me->paper_l ()->get_var ("slur_y_free");
-  return o;
-}
-
 MAKE_SCHEME_CALLBACK (Slur, after_line_breaking);
 SCM
 Slur::after_line_breaking (SCM smob)
@@ -180,7 +132,8 @@ Slur::set_extremities (Score_element*me)
 	{
 	  
 	  // for (SCM s = get_elt_property ("slur-extremity-rules"); s != SCM_EOL; s = gh_cdr (s))
-	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
+	  for (SCM s = scm_eval2 (ly_symbol2scm ("slur-extremity-rules"),
+				  SCM_EOL);
 	       s != SCM_EOL; s = gh_cdr (s))
 	    {
 	      SCM r = gh_call2 (gh_caar (s), me->self_scm (),
@@ -197,13 +150,75 @@ Slur::set_extremities (Score_element*me)
   while (flip (&dir) != LEFT);
 }
 
+Real
+Slur::get_first_notecolumn_y (Score_element *me, Direction dir)
+{
+  Score_element *col = dir == LEFT
+    ? unsmob_element (gh_car (scm_reverse (me->get_elt_property
+					   ("note-columns"))))
+    : unsmob_element
+    (gh_car (me->get_elt_property ("note-columns")));
+  
+  Score_element *common[] =
+  {
+    0,
+    me->common_refpoint (col, Y_AXIS)
+  };
+  Real y;
+  if (col == ((Spanner*)me)->get_bound (dir))
+    {
+      y = get_attachment (me, dir, common)[Y_AXIS];
+    }
+  else
+    {
+      y = encompass_offset (me, col, common)[Y_AXIS]
+	- me->relative_coordinate (common[Y_AXIS], Y_AXIS); 
+    }
+  return y;
+}
+
+Offset
+Slur::broken_trend_offset (Score_element *me, Direction dir)
+{
+  /*
+    A broken slur should maintain the same vertical trend
+    the unbroken slur would have had.
+  */
+  Offset o;
+  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_l_))
+    {
+      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size ();
+	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i;
+	   dir == LEFT ? i++ : --i)
+	{
+	  if (mother->broken_into_l_arr_[i - dir] == me)
+	    {
+	      Score_element *neighbour = mother->broken_into_l_arr_[i];
+	      if (dir == RIGHT)
+		neighbour->set_elt_property ("direction",
+					     me->get_elt_property ("direction"));
+	      Real neighbour_y = get_first_notecolumn_y (neighbour, dir);
+	      Real y = get_first_notecolumn_y (me, -dir);
+	      o = Offset (0, (y + neighbour_y) / 2);
+	      break;
+	    }
+	}
+    }
+  return o;
+}
+
 Offset
 Slur::get_attachment (Score_element*me,Direction dir,
 		      Score_element **common) 
 {
-  Spanner*sp = dynamic_cast<Spanner*>(me);
   SCM s = me->get_elt_property ("attachment");
+  if (!gh_symbol_p (index_cell (s, dir)))
+    {
+      set_extremities (me);
+      s = me->get_elt_property ("attachment");
+    }
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
+  Spanner*sp = dynamic_cast<Spanner*>(me);
   String str = ly_symbol2string (a);
   Real ss = Staff_symbol_referencer::staff_space ((Score_element*)me);
   Real hs = ss / 2.0;
@@ -255,8 +270,18 @@ Slur::get_attachment (Score_element*me,Direction dir,
       SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
       if (ly_symbol2string (other_a) != "loose-end")
 	{
+#if 0
+	  /*
+	    The braindead way: horizontal
+	  */
 	  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
+#else
+	  o = broken_trend_offset (me, dir);
+#endif
+
+	  
 	}
+	
     }
 	  
   SCM l = scm_assoc
@@ -264,7 +289,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
 		  gh_int2scm (Directional_element_interface (me).get () * dir),
 		  SCM_UNDEFINED),
-     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
+     scm_eval2 (ly_symbol2scm ("slur-extremity-offset-alist"), SCM_EOL));
   
   if (l != SCM_BOOL_F)
     {
@@ -281,6 +306,51 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
+  return o;
+}
+
+Offset
+Slur::encompass_offset (Score_element*me,
+			Score_element* col,
+			Score_element **common) 
+{
+  Offset o;
+  Score_element* stem_l = unsmob_element (col->get_elt_property ("stem"));
+  
+  Direction dir = Directional_element_interface (me).get ();
+  
+  if (!stem_l)
+    {
+      warning (_ ("Slur over rest?"));
+      o[X_AXIS] = col->relative_coordinate (common[X_AXIS], X_AXIS);
+      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
+      return o;  
+    }
+  Direction stem_dir = Directional_element_interface (stem_l).get ();
+  o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
+
+  /*
+    Simply set x to middle of notehead
+   */
+
+  o[X_AXIS] -= 0.5 * stem_dir * col->extent (X_AXIS).length ();
+
+  if ((stem_dir == dir)
+      && !stem_l->extent (Y_AXIS).empty_b ())
+    {
+      o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
+      o[Y_AXIS] += stem_l->extent (Y_AXIS)[dir];
+    }
+  else
+    {
+      o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
+      o[Y_AXIS] += col->extent (Y_AXIS)[dir];
+    }
+
+  /*
+   leave a gap: slur mustn't touch head/stem
+   */
+  o[Y_AXIS] += dir * me->paper_l ()->get_var ("slur_y_free");
   return o;
 }
 

@@ -153,7 +153,7 @@ All_font_metrics::find_font (String name)
   
   String def_name = default_font_sz_;
   SCM l = scm_assoc (ly_str02scm ("default"),
-		     scm_eval (ly_symbol2scm ("cmr-alist")));
+		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
   
   if (l != SCM_BOOL_F)
     def_name = ly_scm2string (gh_cdr (l));

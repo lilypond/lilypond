@@ -175,15 +175,27 @@ Translator::get_property (SCM sym) const
   return daddy_trans_l_->get_property (sym);
 }
 
+void
+Translator:: do_pre_move_processing ()
+{
+}
 
+void
+Translator::do_post_move_processing ()
+{
+}
 
 void
-Translator:: do_pre_move_processing(){}
+Translator::do_process_music ()
+{
+}
+
 void
-Translator::do_post_move_processing(){}
+Translator::do_creation_processing ()
+{
+}
+
 void
-Translator::do_process_music () {}
-void
-Translator::do_creation_processing() {}
-void
-Translator::do_removal_processing(){}
+Translator::do_removal_processing ()
+{
+}

@@ -113,8 +113,12 @@ Chord_tremolo_engraver::do_removal_processing ()
   if (beam_p_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
+#if 0
       finished_beam_p_ = beam_p_;
       typeset_beam ();
+#else
+      beam_p_->suicide ();
+#endif
     }
 }
 

@@ -45,7 +45,7 @@ ly_parse_scm (char const* s, int* n)
 {
   SCM str = gh_str02scm ((char*)s);
   SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
-                            "scm_eval_0str");
+                            "ly_eval_scm_0str");
   SCM from = scm_ftell (port);
 
   SCM form;
@@ -53,7 +53,7 @@ ly_parse_scm (char const* s, int* n)
 
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_eval_x (form);
+    answer = scm_eval_3 (form, 1, SCM_EOL);
 
   /*
    After parsing

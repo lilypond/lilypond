@@ -167,11 +167,12 @@ Chord_name::brew_molecule (SCM smob)
     bass = SCM_BOOL_F;
 
   SCM pitches =  sc->get_elt_property ("pitches");
-  SCM text = scm_eval (gh_list (ly_symbol2scm ("chord::user-name"),
+  SCM text = scm_eval2 (gh_list (ly_symbol2scm ("chord::user-name"),
 				style,
 				ly_quote_scm (pitches),
 				ly_quote_scm (gh_cons (inversion, bass)),
-				SCM_UNDEFINED));
+				SCM_UNDEFINED),
+			SCM_EOL);
 
   return ly_text2molecule (sc, text).create_scheme ();
 }

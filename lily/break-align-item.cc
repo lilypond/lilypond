@@ -107,7 +107,7 @@ Break_align_item::do_alignment (Score_element *me)
       SCM e = scm_assoc (scm_listify (current_origin,
 				      next_origin,
 				      SCM_UNDEFINED),
-			 scm_eval (ly_symbol2scm ("space-alist")));
+			 scm_eval2 (ly_symbol2scm ("space-alist"), SCM_EOL));
       
       SCM extra_space;
       if (e != SCM_BOOL_F)

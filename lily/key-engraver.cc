@@ -78,7 +78,8 @@ Key_engraver::create_key (bool def)
 
   if (!def)
     item_p_->set_elt_property ("visibility-lambda",
-			       scm_eval (ly_symbol2scm  ("all-visible")));
+			       scm_eval2 (ly_symbol2scm  ("all-visible"),
+					  SCM_EOL));
 
 }      
 

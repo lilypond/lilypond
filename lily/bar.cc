@@ -142,10 +142,11 @@ Bar::before_line_breaking  (SCM smob)
       if (bsd)
 	{
 	  SCM breakdir = gh_int2scm (bsd);
-	  g = scm_eval (gh_list (ly_symbol2scm ("break-barline"),
+	  g = scm_eval2 (gh_list (ly_symbol2scm ("break-barline"),
 				 g,
 				 breakdir,
-				 SCM_UNDEFINED));
+				 SCM_UNDEFINED),
+			 SCM_EOL);
 	}
     }
   else

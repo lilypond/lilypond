@@ -169,7 +169,7 @@ just after the preferatory matter, and on the right to the end of the
 staff.  A slur should follow the same vertical direction it would have
 in unbroken state.
 
-@mudelafile{slur-broken.ly}
+@mudelafile{slur-broken-trend.ly}
 
 Ties are strictly horizontal.  They are placed in between note heads.
 The horizontal middle should not overlap with a staffline.

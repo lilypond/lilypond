@@ -260,7 +260,8 @@ Stem::get_default_stem_end_position (Score_element*me)
     }
   else
     {
-      s = scm_eval (ly_symbol2scm ((type_str + "stem-length").ch_C()));
+      s = scm_eval2 (ly_symbol2scm ((type_str + "stem-length").ch_C()),
+		     SCM_EOL);
       for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
 	a.push (gh_scm2double (gh_car (q)));
 		
@@ -270,7 +271,8 @@ Stem::get_default_stem_end_position (Score_element*me)
 
 
   a.clear ();
-  s = scm_eval (ly_symbol2scm ((type_str + "stem-shorten").ch_C()));
+  s = scm_eval2 (ly_symbol2scm ((type_str + "stem-shorten").ch_C()),
+		 SCM_EOL);
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
 
@@ -547,14 +549,15 @@ Stem::calc_stem_info (Score_element*me)
   SCM s;
   String type_str = grace_b ? "grace-" : "";
   
-  s = scm_eval (ly_symbol2scm ((type_str + "beamed-stem-minimum-length").ch_C()));
+  s = scm_eval2 (ly_symbol2scm ((type_str + "beamed-stem-minimum-length").ch_C()), SCM_EOL);
   a.clear ();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
 
 
   Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
-  s = scm_eval (ly_symbol2scm ((type_str + "beamed-stem-length").ch_C()));
+  s = scm_eval2 (ly_symbol2scm ((type_str + "beamed-stem-length").ch_C()),
+		 SCM_EOL);
 
   a.clear();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
