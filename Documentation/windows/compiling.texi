@@ -1,7 +1,3 @@
-@html
-<!--- @@WEB-TITLE@@=Windows Compilation --->
-@end html
-
 @section Obtaining LilyPond
 
 You can get the latest version of LilyPond at
@@ -44,32 +40,39 @@ needs a number of extra tricks.  All code for these tricks can be found
 in the source package directory @file{Documentation/windows}.
 
 @table @asis
-@item @file{guile-1.4-gnu-windows.patch}
+@item @var{guile-1.4-gnu-windows.patch}
 You may (Cygwin gets better every day) need this patch to compile GUILE.
-@item @file{cygwin-installer.patch}
+@item @var{cygwin-installer.patch}
 Apply this patch to the @file{cinstall} directory of
 @file{winsup-src/cinstall}, to get the LilyPond installer.
 
 Compiling @file{setup.exe} has been complicated a bit with the
-introduction of the bzip2 feature:
+introduction of the non-feature bzip2.  Here's how I did it:
 @quotation
 @example
-    mkdir cygwin-20010709
-    cd cygwin-20010709
-    tar xjf cygwin-src-20010709.tar.bz2 
-    cd winsup/cinstall
+    mkdir cygwin-20011202 && cd cygwin-20011202
+    export CVSROOT=:pserver:anoncvs@@anoncvs.cygnus.com:/cvs/src
+    touch $HOME/.cvspass
+    cvs login
+    cvs -z3 co -D20011202 winsup
+    cd src/winsup/cinstall
     patch < $HOME/usr/src/lilypond/Documentation/windows/cygwin-installer.patch
+    autoconf
     cd ../bz2lib
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
     make
     cd -
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
-    cp $HOME/usr/src/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
-    make w32api_lib=/home/cygwin/cygwin-1.3.2/usr/lib/w32api \
-        CXX='g++ -L/home/cygwin/cygwin-1.3.2/usr/lib/mingw'
+    CYGWIN=$HOME/usr/src/cygwin/cygwin-1.3.5
+    cp $CYGWIN/usr/lib/mingw/crt2.o .
+    cp $HOME/usr/src/lilypond/Documentation/windows/LilyPond.ico .
+    make w32api_lib=$CYGWIN/usr/lib/w32api \
+        CXX="g++ -L$CYGWIN/usr/lib/mingw"
+    cp -pv setup.exe $CYGWIN/dist/cygwin-1.3.5/new-setup.exe
+    strip $CYGWIN/dist/cygwin-1.3.5/new-setup.exe
 @end example
 @end quotation
-@item @file{--prefix=/usr/lilypond-x.y.x}
+@item @var{--prefix=/usr/lilypond-x.y.x}
 The standard binary installation installs LilyPond into its own prefix.
 We think it's silly, but do this is on special request of Windows users.
 @item @file{fix-suffixes.sh}

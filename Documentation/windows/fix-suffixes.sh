@@ -27,6 +27,6 @@ function fix_extension ()
 
 for i in `/bin/ls -d1 $*`; do
 	fix_extension $i .exe '.*Windows.*\(executable\).*'
-	fix_extension $i .py '.*\(python\).*'
+#	fix_extension $i .py '.*\(python\).*'
 done
 

@@ -2,10 +2,6 @@
 @setfilename installing.info
 @settitle LilyPond on Windows
 
-@html
-<!--- @@WEB-TITLE@@=Windows Installation --->
-@end html
-
 @node Top
 @top
 
@@ -15,34 +11,45 @@ This document explains how to install the binary release for windows
 on a Microsoft Windows 95, 98, NT or 2000 machine.
 
 This release is a free extra service of the developers to assist windows
-users.  Please remember that we (the developers) rather dislike windows,
-and none of us use it.  Don't complain to us that installing LilyPond is
-too difficult; rather, if you know something about your Windows, send us
-code that works better (see @uref{compiling.html,compiling}).
-Nevertheless, detailed bug reports are appreciated; before you send a
-report, make sure to read the section on bugreports below. 
-
+users.  When reporting problems,  please keep in mind that we (the developers)
+do not use Windows.  In fact,  if you know something about Windows, and
+are able to write code, please send us code that works better (see
+@uref{compiling.html,compiling}).
 
 @section Windows binary setup 
 
+Apart from LilyPond itself, you need Cygwin, GUILE, Python and a TeX
+installation, but all this software be installed by running setup.exe:
 
-All the software you need is installed by downloading and running
-@uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}.  You
-will be asked some questions. If you are unsure just click "Next".  Do
-not change the default install directory @file{c:/cygwin}.
+@table @asis
+@item LilyPond
+Download and run
+@c let's do http, so that people read the README
+@uref{http://www.lilypond.org/gnu-windows/setup.exe, setup.exe}
+to install LilyPond.
 
-This installs LilyPond, and Cygwin, GUILE, Python, MiKTeX and GSView If
-you already have some of that software under @file{c:/cygwin}, then
-don't worry: nothing will be installed twice.
+This will install the minimal set of cygwin tools needed to run
+LilyPond.  Make sure to install in the default place, @file{c:/cygwin},
+and install everything.
 
-If you want to install any of this software by hand, do this
-@strong{before} you run @file{setup.exe}, otherwise your LilyPond setup
-will not work.
+As of version 1.3.150, you also have the option to install MiKTeX and
+GSView from this installer, which is recommended.  If you choose to
+install these by hand (see below), make sure to install them
+@strong{before} you install LilyPond, otherwise your LilyPond setup will
+be broken.
 
-@section Testing LilyPond
+If you already have cygwin installed, don't worry: nothing will be
+installed twice.  To expand on this minimal set, click
+@uref{http://sources.redhat.com/cygwin/setup.exe,here}, or visit a
+Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
+@end table
 
-Open a LilyPond shell (To open a a lilypond shell, click the "GNU
-LilyPond" icon), and type
+
+@section Windows running setup
+
+If you're lucky, after running @file{setup.exe} you're all set up.
+
+Open a LilyPond shell (or any bash shell), and type
 
 @quotation
 @example
@@ -50,7 +57,7 @@ lilypond --help
 @end example
 @end quotation
 
-You should see something similar to
+If you don't see something similar to
 
 @quotation
 @example
@@ -68,71 +75,25 @@ Options:
 @end example
 @end quotation
 
-Then, prepare a file called @file{foo.ly}, by issuing
-@example
-notepad foo.ly
-@end example
-Enter the following into the file
-@example
+you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
+do:
 
-\score @{ \notes @{ c4 ( ) c4 @} @}
-
-@end example
-Close the file and save it. Run the following command a few times until
-it says @code{PS output to `foo.ps', DVI output to `foo.dvi'}.
-@example
-
-ly2dvi -P foo
-
-@end example
-You can now view the file using the following command
-@example
-
-gsview32 foo.ps
-
-@end example
-
-If this works, then you can head to the
-@uref{../../user/out-www/lilypond/Tutorial.html,Tutorial} to start using
-LilyPond.
-
-
-
-@section Removing LilyPond
-
-Start @file{setup.exe}, click Next, select "Install from Local
-Directory". Then click next until you reach "Select packages to
-install". Click "View". Now, for every package, click on the recycle
-icon until it says "Uninstall". Then, click Next.
-
-(If you find this too tedious, you can also simply remove
-@file{c:/cygwin}. This also removes the @file{/home/} directories under
-cygwin (i.e. @file{C:\CYGWIN\HOME}, so make sure that you bring
-important files in safety first.)
-
-@section Troubleshooting
-
-
-@unnumberedsubsec invoking lilypond --help doesn't work
-
-Open the shell, and try adding @file{/usr/lilypond-x.y.z/bin} to your
-@var{PATH}, do:
 @quotation
 @example
 PATH=/usr/lilypond-1.4.2/bin:$PATH
 @end example
 @end quotation
 
-Now, invoke @file{lilypond --help}
+and try again.
+
+
+@subsection Trouble
 
 For problems and solutions see
 @uref{http://lilypond.org/wiki?TroubleshootingWindows,Troubleshooting
 Windows}
 
 
-
-
-@ignore
 @subsection Additional software
 
 LilyPond needs a number of software packages to be really useful.  These
@@ -176,7 +137,10 @@ Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
 or visit the
 @uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+
 @end table
+
+
 
 [TODO:
 
@@ -185,6 +149,9 @@ or visit the
 emacs-on-cygwin setup.
 
 ]
+
+
+@ignore 
 
   guile -v
   Guile 1.4.1
@@ -217,19 +184,4 @@ in each corner.
 
 @end ignore
 
-@ignore
-@c irrelevant.
 
-If you want to install more of cygwnTo expand on this minimal set,
-@section If you already have MikTeX, GSView or
-
-If you already have cygwin installed, don't worry: nothing will be
-installed twice.  To expand on this minimal set, click
-@uref{http://sources.redhat.com/cygwin/setup.exe,here}, or visit a
-Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
-
-
-This will install the minimal set of cygwin tools needed to run
-LilyPond.  Make sure to install in the default place, @file{c:/cygwin},
-and install everything. 
-@end ignore
