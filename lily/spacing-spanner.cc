@@ -41,6 +41,11 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 {
   Moment shortest;
   Moment mean_shortest;
+
+  /*
+    space as if this duration  is present. 
+   */
+  Moment base_shortest_duration = *unsmob_moment (me->get_elt_property ("maximum-duration-for-spacing"));
   shortest.set_infinite (1);
 
   int n = 0;
@@ -94,11 +99,11 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	   // 2nd condition should be (i+1 < col_count()), ie. not the last column in score.  FIXME
 	  else if (!lc->musical_b() && i+1 < cols.size ()) 
 	    {
-	      left_distance= default_bar_spacing (me,lc,rc,shortest);
+	      left_distance= default_bar_spacing (me,lc,rc,shortest <? base_shortest_duration);
 	    }
 	  else if (lc->musical_b())
 	    {
-	      left_distance  = note_spacing (me,lc, rc, shortest);
+	      left_distance  = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
 	    }
 
 	  s.distance_f_ = left_distance;
@@ -209,7 +214,7 @@ Spacing_spanner::default_bar_spacing (Score_element*me, Score_element *lc, Score
 Real
 Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest) 
 {
-  Real log = log_2 (Moment (1,8) <? shortest);
+  Real log =  log_2 (shortest);
   Real k=   me->paper_l ()->get_var ("arithmetic_basicspace")
     - log;
   
@@ -218,7 +223,8 @@ Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest
 
 
 Real
-Spacing_spanner::note_spacing (Score_element*me, Score_element *lc, Score_element *rc, Moment shortest) 
+Spacing_spanner::note_spacing (Score_element*me, Score_element *lc, Score_element *rc,
+			       Moment shortest) 
 {
   Moment shortest_playing_len = 0;
   SCM s = lc->get_elt_property ("shortest-playing-duration");
