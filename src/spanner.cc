@@ -33,7 +33,11 @@ Spanner::preprocess()
 Interval
 Spanner::width()const
 {
-    return Interval(0,right->hpos - left->hpos);
+    Real r =right->hpos,
+	l= left->hpos;
+    assert(r>=l);
+	
+    return Interval(0, r-l);
 }
 
 Paperdef*
