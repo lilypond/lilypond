@@ -12,22 +12,10 @@
 	;((6 . 0) . ("H" ""))
 	;((6 . -1) . ("B" ("feta-1" . "")))
 
-	; urg, temp hack for accidental size: can't set from Chord::
-	((0 . 1) . ("C" ("feta-1" . "")))
-	((1 . 1) . ("D" ("feta-1" . "")))
-	((2 . 1) . ("E" ("feta-1" . "")))
-	((3 . 1) . ("F" ("feta-1" . "")))
-	((4 . 1) . ("G" ("feta-1" . "")))
-	((5 . 1) . ("A" ("feta-1" . "")))
-	((6 . 1) . ("B" ("feta-1" . "")))
-
-	((0 . -1) . ("C" ("feta-1" . "")))
-	((1 . -1) . ("D" ("feta-1" . "")))
-	((2 . -1) . ("E" ("feta-1" . "")))
-	((3 . -1) . ("F" ("feta-1" . "")))
-	((4 . -1) . ("G" ("feta-1" . "")))
-	((5 . -1) . ("A" ("feta-1" . "")))
-	((6 . -1) . ("B" ("feta-1" . "")))
+	; C-p/C-r current feta chars for sharp/flat
+	; don't use them: ly2dvi breaks (inputenc package)
+	;((0 . 1) . ("C" ("feta-1" . "")))
+	;((0 . -1) . ("C" ("feta-1" . "")))
 	)
       pitch-names-alist))
 

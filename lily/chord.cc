@@ -494,9 +494,8 @@ Chord::pitch2molecule (Musical_pitch p) const
 
   Molecule mol = lookup_l ()->text ("", p.str ().left_str (1).upper_str (), paper_l ());
   if (p.accidental_i_)
-    // urg, how to select the feta-1 font?
     mol.add_at_edge (X_AXIS, RIGHT, 
-		     lookup_l ()->accidental (p.accidental_i_, 0), 0);
+		     paper_l ()->lookup_l (-2)->accidental (p.accidental_i_, 0), 0);
   return mol;
 }
 
@@ -575,23 +574,11 @@ Chord::banter (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
       int accidental = p.accidental_i_ - scale[(step - 1) % 7].accidental_i_;
       if ((step < 16) && (has[step] != -1))
         has[step] = accidental == -1 ? -1 : 1;
+      // only from guile table ?
       if ((step == 3) && (accidental == -1))
 	{
 	  mod_str = "m";
 	}
-      /*
-        urg.
-	This routine gets a lot simpler, if we don't try to be catch
-	the 'dim' chords.  However, we'll have to list every exceptional
-	'dim' chord in scm: otherwise we'll get stuff like Cdim7-, iso
-	Cdim7, etc
-       */
-#ifdef SMART_DIM
-      else if ((step == 5) && (accidental == -1) && (has[3] == -1))
-	{
-	  mod_str = "dim";
-	}
-#endif
       else if (accidental
 	       || (!(step % 2) 
 	       || ((i == add_arr.size () - 1) && (step > 5))))
@@ -603,26 +590,11 @@ Chord::banter (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
               add_str += "maj7";
 	    }
 	  else
-#ifdef SMART_DIM
 	    {
-	      if ((step % 2) && (accidental == -1) 
-	         && (has[3] == -1) && (has[5] == -1))
-		{		
-	          if (i != add_arr.size () - 1)
-		    sep_str = "";
-		  else
-		    add_str += to_str (step);
-		}
-	      else
-#endif
-	        {
-		  add_str += to_str (step);
-		  if (accidental)
-		    add_str += accidental < 0 ? "-" : "+";
-		}
-#ifdef SMART_DIM
+	      add_str += to_str (step);
+	      if (accidental)
+		add_str += accidental < 0 ? "-" : "+";
 	    }
-#endif
 	}
     }
 
@@ -652,7 +624,12 @@ Chord::banter (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
     }
 }
 
-
+/*
+  This routine tries to guess tonic in a possibly inversed chord, ie
+  <e g c'> should produce: C.
+  This is only used for chords that are entered as simultaneous notes,
+  chords entered in \chord mode are fully defined.
+ */
 int
 Chord::find_tonic_i (Array<Musical_pitch> const* pitch_arr_p)
 {

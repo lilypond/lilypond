@@ -468,7 +468,7 @@ class Properties:
         t=''
 	if os.environ.has_key ('MFINPUTS'):
                t = os.environ['MFINPUTS'] 
-        os.environ['MFINPUTS'] = os.pathsep + t + \
+        os.environ['MFINPUTS'] = t + os.pathsep + \
                                  os.path.join(this.get('root'), 'mf')
 
         if os.environ.has_key('TMP'):

@@ -1,3 +1,8 @@
+pl 4.jcn1
+	- junked some chord guessing code
+	- bf: lookup size (-1) for chord-name accidentals
+	- bf: ly2dvi's MFINPUTS setting
+
 pl 2.jcn3
 	- chords:
 	  * Chord is item
