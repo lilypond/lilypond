@@ -1,5 +1,8 @@
 2004-06-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm: don't do piece, it should be in score-title
+	only.
+
 	* lily/lexer.ll: lex \score separately.
 
 	* lily/paper-book.cc: junk stencil2line.
