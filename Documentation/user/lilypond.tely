@@ -44,23 +44,23 @@ HINTS FOR STYLE
 * Try not to use punctuation between introductocing sentence and
 display material (verbatim, music, example code).
 
-* don't refer to LilyPond in the text. The reader knows what the
-manual is about
+* Do not refer to LilyPond in the text.  The reader knows what the
+manual is about.
 
-* if you do, capitalization is LilyPond.
+* If you do, capitalization is LilyPond.
 
-* don't explicitly refer to the reader/user.  There is no one else
+* Do not explicitly refer to the reader/user.  There is no one else
 besides the reader and the writer.
 
-* don't use abbreviations (don't, won't, etc.)
+* Do not use abbreviations (don't, won't, etc.).
 
-* avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'') 
+* Avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'') 
 
-* avoid long stretches of input code. Noone is go to read  them in
-print. Instead refer to an example input file (@inputfileref), these
+* Avoid long stretches of input code.  Noone is going to read them in
+print.  Instead refer to an example input file (@inputfileref), these
 are clickable in HTML.
 
-* abbrevs in caps, e.g. HTML, DVI, MIDI, etc.
+* Abbrevs in caps, e.g. HTML, DVI, MIDI, etc.
 
 @end ignore
 
