@@ -29,7 +29,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   lexer_p_ = 0;
   default_duration_.durlog_i_ = 2;
   error_level_i_ = 0;
-  extender_req = 0;
+
   fatal_error_i_ = 0;
   default_header_p_ =0;
 }
@@ -101,7 +101,7 @@ My_lily_parser::set_last_duration (Duration const *d)
   default_duration_ = *d;
 }
 
-
+// junk me
 Simultaneous_music*
 My_lily_parser::get_word_element (String s, Duration * duration_p)
 {
@@ -118,7 +118,7 @@ My_lily_parser::get_word_element (String s, Duration * duration_p)
   return velt_p;
 }
 
-
+// junk me
 Simultaneous_music *
 My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 {
@@ -146,6 +146,7 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
   return velt_p;
 }
 
+// junk me
 Simultaneous_music *
 My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Duration d)
 {
@@ -170,6 +171,7 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   return v;
 }
 
+// junk me
 Simultaneous_music *
 My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 {
@@ -184,90 +186,6 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
   return v;
 }
 
-
-/*
-  UGH.
- */
-Link_array<Request>*
-My_lily_parser::get_parens_request (int t)
-{
-  Link_array<Request>& reqs = *new Link_array<Request>;
-  switch (t)
-    {
-    case '~':
-      reqs.push (new Tie_req);
-      break;
-
-    case '[':
-    case ']':
-      {
-	reqs.push (new Beam_req);
-      }
-      break;
-
-    case '>':
-    case '!':
-    case '<':
-      reqs.push (new Span_dynamic_req);
-      break;
-
-    case ')':
-    case '(':
-      {
-	reqs.push (new Slur_req);
-      }
-      break;
-    default:
-      assert (false);
-      break;
-    }
-
-  switch (t)
-    {
-    case '<':
-    case '>':
-    case '(':
-    case '[':
-      dynamic_cast<Span_req*> (reqs[0])->spantype_ = START;
-      break;
-      
-    case '!':
-    case ')':
-    case ']':
-      dynamic_cast<Span_req*> (reqs[0])->spantype_ = STOP;
-      break;
-
-    default:
-      break;
-    }
-
-  for (int i = 0; i < reqs.size (); i++)
-    if (dynamic_cast<Span_dynamic_req*> (reqs[i]))
-      {
-	Span_dynamic_req* s_l= dynamic_cast<Span_dynamic_req*> (reqs[i]);
-	s_l->dynamic_dir_ = (t == '<') ? UP:DOWN;
-      }
-
-  // ugh? don't we do this in the parser too?
-  reqs[0]->set_spot (here_input());
-  return &reqs;
-}
-
-void
-My_lily_parser::add_requests (Simultaneous_music*v)
-{
-  for (int i = 0; i < pre_reqs.size(); i++)
-    {
-      v->add_music (pre_reqs[i]);
-    }
-  pre_reqs.clear();
-  for (int i = 0; i <post_reqs.size(); i++)
-    {
-      v->add_music (post_reqs[i]);
-    }
-
-  post_reqs.clear();
-}
 
 Input
 My_lily_parser::pop_spot()

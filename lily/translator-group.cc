@@ -401,7 +401,8 @@ Translator_group::do_add_processing ()
 }
 
 Scalar
-Translator_group::get_property (String id, Translator_group  **where_l) const
+Translator_group::get_property (String id,
+				Translator_group **where_l) const
 {
   if (properties_dict_.elem_b (id))
     {

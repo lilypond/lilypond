@@ -115,7 +115,8 @@ Dynamic_engraver::do_process_requests()
 	  announce_element (Score_element_info (text_p_, dreq_l));
 	  announce_element (Score_element_info (staff_side_p_, dreq_l));
 	}
-      else if (Span_dynamic_req *span_l = dynamic_cast <Span_dynamic_req *> (dreq_l))
+      else if (Span_dynamic_req *span_l
+	       = dynamic_cast <Span_dynamic_req *> (dreq_l))
 	{
 	  if (span_l->spantype_ == STOP)
 	    {

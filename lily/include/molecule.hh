@@ -19,8 +19,12 @@
 /** a group of individually translated symbols. You can add molecules
     to the top, to the right, etc.  */
 class Molecule {
+#ifdef ATOM_SMOB
+  SCM atom_list_;
+#else
   //  Protected_scm atom_list_;	// change to List<Atom>?
   Cons<Atom> *atom_list_;
+#endif
   friend class Paper_outputter;
 public:
   Box dim_;

@@ -156,7 +156,7 @@ public:
 };
 
 /// an extender line
-class Extender_req : public Musical_span_req  {
+class Extender_req : public Request  {
 public:
   REQUESTMETHODS(Extender_req);
   Extender_req ();

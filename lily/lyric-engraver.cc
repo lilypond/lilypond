@@ -18,6 +18,8 @@ ADD_THIS_TRANSLATOR (Lyric_engraver);
 
 Lyric_engraver::Lyric_engraver()
 {
+  text_p_ =0;
+  req_l_ =0;
 }
 
 bool
@@ -25,7 +27,9 @@ Lyric_engraver::do_try_music (Music*r)
 {
   if (Lyric_req* l = dynamic_cast <Lyric_req *> (r))
     {
-      lyric_req_l_arr_.push (l);
+      if (req_l_)
+	return false;
+      req_l_ =l;
       return true;
     }
   return false;
@@ -34,39 +38,32 @@ Lyric_engraver::do_try_music (Music*r)
 void
 Lyric_engraver::do_process_requests()
 {
-  if (text_p_arr_.size ())
-    return;
-
-  for (int i=0; i < lyric_req_l_arr_.size (); i++)
+  if (req_l_)
     {
-      Lyric_req* request_l = lyric_req_l_arr_[i];
-      G_text_item* item_p =  new G_text_item;
-      item_p->text_str_ = request_l->text_str_;
+      text_p_=  new G_text_item;
+      text_p_->text_str_ = req_l_->text_str_;
 
       Scalar style = get_property ("textstyle", 0);
       if (style.length_i ())
-	item_p->style_str_ = style;
-      if (i)
-	{
-	  Real dy = paper ()->lookup_l (0)-> text
-	    (item_p->style_str_, String ("Cg")).dim_. y ().length ();
-	  dy *= 1.1;
-	  item_p->translate_axis (-i * dy, Y_AXIS);
-	}
+	text_p_->style_str_ = style;
       
-      text_p_arr_.push (item_p);
-      announce_element (Score_element_info (item_p, request_l));
+      announce_element (Score_element_info (text_p_, req_l_));
     }
 }
 
 void
 Lyric_engraver::do_pre_move_processing()
 {
-  for (int i=0; i < text_p_arr_.size (); i++)
+  if (text_p_)
     {
-      typeset_element (text_p_arr_[i]);
+      typeset_element (text_p_);
+      text_p_ =0;
     }
-  text_p_arr_.clear ();
-  lyric_req_l_arr_.clear ();
+}
+
+void
+Lyric_engraver::do_post_move_processing ()
+{
+  req_l_ =0;
 }
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -13,8 +13,15 @@
 #include "line-group-group-engraver.hh"
 
 /**
-  Just as Line_group_engraver, but won't disgrace Lily by typesetting 
-  an empty line (for orchestral scores).
+  Just as Line_group_engraver, Find interesting items for
+  Hara_kiri_line_group_engraver.
+
+
+
+  @see
+  Hara_kiri_vertical_group_spanner
+  
+
   */
 class Hara_kiri_line_group_engraver : public Line_group_engraver_group
 {

@@ -143,9 +143,9 @@ Item*
 Item::find_prebroken_piece (Direction breakstatus) const
 {
   if (!breakstatus)
-    return (Item *)(this);	// ugh
+    return (Item *) (this);	// ugh
   else
-    return dynamic_cast<Item*>( broken_to_drul_[breakstatus]);
+    return dynamic_cast<Item*> (broken_to_drul_[breakstatus]);
 }
 
 void

@@ -20,8 +20,9 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
+	# CC=egcc LIBS=-lqthreads
 	CC=egcc ./configure --disable-checking --disable-debugging \
-		--enable-printing --prefix=/usr --enable-optimise \
+		--enable-printing --prefix=/usr --disable-optimise \
 		--enable-shared
 	$(MAKE) all
 	# $(MAKE) htmldoc
@@ -36,9 +37,9 @@ clean:
 
 	# Correct the owner of the out/dummy.dep files when built with sudo.
 	if [ -n "$$SUDO_USER" -a -n "$$SUDO_GID" ]; then \
-		find . -user root | xargs -r chown $$SUDO_USER.$$SUDO_GID; \
+		find . -user root | xargs -r chown --dereference $$SUDO_USER.$$SUDO_GID; \
 	else \
-		find . -user root | xargs -r chown $$LOGNAME; \
+		find . -user root | xargs -r chown --dereference $$LOGNAME; \
 	fi
 
 	# Remove the following line once the *.make files are fixed
@@ -73,7 +74,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	cp -av mudela-mode.el $(r)/usr/lib/emacs/site-lisp
-	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 NEWS* DEDICATION \
+	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 NEWS-* DEDICATION \
 		BUGS TODO *.txt \
 		Documentation/pictures/*.xpm \
 		Documentation/out/*.txt \
@@ -89,12 +90,9 @@ binary-arch: build install
 #	dh_installcron
 #	dh_installmanpages
 #	dh_undocumented
-	dh_installchangelogs
+	dh_installchangelogs -k NEWS
 #	dh_strip
 	dh_compress
-	( cd $(r)/$(d) && \
-		if [ -f NEWS ]; then gzip -9vf NEWS; fi )
-	ln -s NEWS.gz $(r)/$(d)/changelog.gz
 	dh_fixperms
 	dh_suidregister
 	dh_installdeb

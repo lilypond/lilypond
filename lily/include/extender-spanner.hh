@@ -1,7 +1,7 @@
 /*
   extender-spanner.hh -- part of GNU LilyPond
 
-  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef EXTENDER_SPANNER_HH
@@ -27,7 +27,6 @@
   extend beond, lasting the whole duration of the melissima
   (as in MUP, urg).
   */
-
 class Extender_spanner : public Directional_spanner
 {
 public:

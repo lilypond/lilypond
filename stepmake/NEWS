@@ -1,3 +1,9 @@
+pl 69
+	- package_depth detection fix
+
+pl 68
+	- support for install-libraries
+
 pl 66
 	- check for tbl and gmake
 
