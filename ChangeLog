@@ -1,3 +1,8 @@
+2004-02-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/tutorial.itely: Add some lost `relative'
+	ly-options.
+
 2004-02-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (do_file):  fix latex output.
@@ -46,10 +51,6 @@
 
 	* Documentation/bibliography/engraving.bib (donemus1982):
 	update entry.
-
-2004-02-07  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* scripts/lilypond.py (option_definitions): Fix typo.
 
 2004-02-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

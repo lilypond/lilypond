@@ -938,7 +938,7 @@ For more information on
 Chords can be made by
 surrounding pitches with @code{<} and @code{>}:
 @quotation
-@lilypond[,fragment,verbatim]
+@lilypond[relative,fragment,verbatim]
 r4 <c e g>4 <c f a>8
 @end lilypond
 @end quotation
@@ -948,7 +948,7 @@ r4 <c e g>4 <c f a>8
 You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
 @quotation
-@lilypond[,fragment,verbatim]
+@lilypond[relative,fragment,verbatim]
 r4 <c e g>8[ <c f a>]~ <c f a>
 @end lilypond
 @end quotation
@@ -957,7 +957,7 @@ r4 <c e g>8[ <c f a>]~ <c f a>
 @example
 r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end example
-@lilypond[,fragment]
+@lilypond[relative,fragment]
 \slurUp
 r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end lilypond
@@ -989,7 +989,7 @@ arguments: a fraction and a piece of music.  The duration of the piece
 of music is multiplied by the fraction.  Triplets make notes occupy
 2/3 of their notated duration, so  a triplet has  2/3 as its fraction:
 @c
-@lilypond[,verbatim,fragment]
+@lilypond[relative,verbatim,fragment]
   \times 2/3 { f8 g a }
   \times 2/3 { c r c }
 @end lilypond 
@@ -1383,7 +1383,7 @@ but now this entire expression must be interpreted as a
 
 Here is a full-fledged example:
 
-@lilypond[,fragment]
+@lilypond[relative,fragment]
 \new PianoStaff
  << \new Staff { \time 2/4
      c4 c g' g  }
