@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-25 13:09+0100\n"
+"POT-Creation-Date: 2005-03-01 15:24+0100\n"
 "PO-Revision-Date: 2004-06-20 15:42+0300\n"
 "Last-Translator: Olcay Yıldırım <olcayyildirim2003@yahoo.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "lilylib module"
 msgstr "lilylib birimi"
 
-#: lilylib.py:65 lilypond-book.py:88 lilypond-latex.py:109 midi2ly.py:100
-#: mup2ly.py:75 ps2png.py:40 main.cc:130
+#: lilylib.py:65 lilypond-book.py:88 midi2ly.py:100 mup2ly.py:75 ps2png.py:40
+#: main.cc:127
 msgid "print this help"
 msgstr "bu yardımı yazdır"
 
@@ -58,12 +58,13 @@ msgstr "Mevcut (%d)..."
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Kullanım: %s (SEÇENEKLER)... DOSYA"
 
-#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:200
+#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:196
 #, c-format
 msgid "Options:"
 msgstr "Seçenekler:"
 
-#: lilylib.py:208 convert-ly.py:68 midi2ly.py:231 mup2ly.py:227 main.cc:204
+#: lilylib.py:208 convert-ly.py:68 lilypond-pdfpc-helper.py:28 midi2ly.py:231
+#: mup2ly.py:227 main.cc:200
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr ""
@@ -80,12 +81,12 @@ msgstr " %s ikilisi,  %s sürümünde, %s sürümü aranıyor"
 msgid "Opening pipe `%s'"
 msgstr "`%s' veri yolu açılıyor"
 
-#: lilylib.py:277 lilypond-book.py:1111
+#: lilylib.py:277 lilypond-book.py:1119
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' başarısız (%d)"
 
-#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1112 lilypond-latex.py:466
+#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1120
 msgid "The error log is as follows:"
 msgstr "Hata günlüğü aşağıdaki gibidir:"
 
@@ -156,7 +157,7 @@ msgid ""
 "  -v, --version          print program version"
 msgstr ""
 
-#: convert-ly.py:75 main.cc:89
+#: convert-ly.py:75 lilypond-pdfpc-helper.py:34 main.cc:86
 #, fuzzy, c-format, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -186,32 +187,32 @@ msgstr ""
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convert-ly.py:2455
+#: convert-ly.py:2459
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:2467
+#: convert-ly.py:2471
 #, python-format
 msgid "%s: error while converting"
 msgstr ""
 
-#: convert-ly.py:2470 score-engraver.cc:110
+#: convert-ly.py:2474 score-engraver.cc:112
 msgid "Aborting"
 msgstr ""
 
-#: convert-ly.py:2491
+#: convert-ly.py:2495
 #, fuzzy, python-format
 msgid "Processing `%s'... "
 msgstr "`%s' işleniyor..."
 
-#: convert-ly.py:2593
+#: convert-ly.py:2597
 #, fuzzy, python-format
 msgid "%s: cannot determine version for `%s'"
 msgstr "%s için biçem saptanamıyor"
 
-#: convert-ly.py:2602
+#: convert-ly.py:2606
 #, fuzzy, python-format
-msgid "%s: skipping: `%s' "
+msgid "%s: skipping: `%s'"
 msgstr "böyle bir ayar yok: `%s'"
 
 #: lilypond-book.py:70
@@ -235,7 +236,7 @@ msgstr ""
 
 #  Bug in option parser: --output=foe is taken as an abbreviation
 #  for --output-format.
-#: lilypond-book.py:82 main.cc:124
+#: lilypond-book.py:82 main.cc:121
 msgid "EXT"
 msgstr "EXT"
 
@@ -254,7 +255,7 @@ msgstr "SÜZGEÇ"
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "küçük parçaları [convert-ly -n -] SÜZGEÇi aracılığıyla borular"
 
-#: lilypond-book.py:89 lilypond-book.py:91 lilypond-latex.py:114 main.cc:132
+#: lilypond-book.py:89 lilypond-book.py:91 main.cc:129
 msgid "DIR"
 msgstr "DIR (DİZİN)"
 
@@ -274,8 +275,7 @@ msgstr "KOMUT"
 msgid "process ly_files using COMMAND FILE..."
 msgstr "KOMUT DOSYASInı kullanarak ly_files'ı işle..."
 
-#: lilypond-book.py:96 lilypond-latex.py:133 midi2ly.py:105 mup2ly.py:78
-#: ps2png.py:41 main.cc:145
+#: lilypond-book.py:96 midi2ly.py:105 mup2ly.py:78 ps2png.py:41 main.cc:141
 msgid "be verbose"
 msgstr "daha fazla bilgi ver"
 
@@ -283,300 +283,104 @@ msgstr "daha fazla bilgi ver"
 msgid "print version information"
 msgstr "sürüm bilgisini yazdır"
 
-#: lilypond-book.py:100 lilypond-latex.py:135 midi2ly.py:107 mup2ly.py:80
-#: main.cc:146
+#: lilypond-book.py:100 midi2ly.py:107 mup2ly.py:80 main.cc:142
 msgid "show warranty and copyright"
 msgstr "garantiyi ve telif hakkını göster"
 
-#: lilypond-book.py:699
+#: lilypond-book.py:703
 #, fuzzy, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
 
-#: lilypond-book.py:702
+#: lilypond-book.py:706
 #, fuzzy, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "uyumluluk kipi çevirisi: %s"
 
-#: lilypond-book.py:706
+#: lilypond-book.py:710
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "artık kullanılmayan ly-seçeneği kullanıldı: %s"
 
-#: lilypond-book.py:709
+#: lilypond-book.py:713
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "uyumluluk kipi çevirisi: %s"
 
-#: lilypond-book.py:728
+#: lilypond-book.py:732
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "bilinmeyen ly seçeneği yok sayılıyor: %s"
 
-#: lilypond-book.py:761
+#: lilypond-book.py:769
 #, python-format
 msgid "file not found: %s"
 msgstr "dosya bulunamadı: %s"
 
-#: lilypond-book.py:1094
+#: lilypond-book.py:1102
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "`%s' süzgeci açılıyor"
 
-#: lilypond-book.py:1236
+#: lilypond-book.py:1244
 msgid "Writing snippets..."
 msgstr "Küçük parçalar yazılıyor..."
 
-#: lilypond-book.py:1241
+#: lilypond-book.py:1249
 #, fuzzy
-msgid "Processing...\n"
+msgid "Processing..."
 msgstr "İşleniyor..."
 
-#: lilypond-book.py:1244
+#: lilypond-book.py:1253
 msgid "All snippets are up to date..."
 msgstr "Bütün küçük parçalar güncellenmiştir..."
 
-#: lilypond-book.py:1254
+#: lilypond-book.py:1263
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "%s için biçem saptanamıyor"
 
-#: lilypond-book.py:1299
+#: lilypond-book.py:1308
 msgid "Output would overwrite input file; use --output."
 msgstr "Çıktı girdi dosyasının üzerine yazılacak; --output'u kullan."
 
-#: lilypond-book.py:1306
+#: lilypond-book.py:1315
 #, python-format
 msgid "Reading %s..."
 msgstr "%s okunuyor..."
 
-#: lilypond-book.py:1322
+#: lilypond-book.py:1331
 msgid "Dissecting..."
 msgstr "Açımlanıyor..."
 
-#: lilypond-book.py:1353
+#: lilypond-book.py:1362
 #, python-format
 msgid "Compiling %s..."
 msgstr "%s derleniyor..."
 
-#: lilypond-book.py:1361
+#: lilypond-book.py:1370
 #, python-format
 msgid "Processing include: %s"
 msgstr "İçerim işleniyor: %s"
 
-#: lilypond-book.py:1371
+#: lilypond-book.py:1380
 #, fuzzy, python-format
 msgid "Removing `%s'"
 msgstr "`%s' çağrılıyor"
 
-#: lilypond-book.py:1386 lilypond-latex.py:576 midi2ly.py:1017 ps2png.py:51
+#: lilypond-book.py:1395 midi2ly.py:1017 ps2png.py:51
 #, python-format
 msgid "getopt says: `%s'"
 msgstr "getopt çıktısı: `%s'"
 
-#  # FIXME
-#  # do -P or -p by default?
-#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#. # FIXME
-#. # do -P or -p by default?
-#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#: lilypond-latex.py:104
-#, fuzzy
-msgid "Run LilyPond, generate printable document."
-msgstr "LilyPond'u çalıştır, başlık ekle, yazdırılabilir belge üret."
-
-#: lilypond-latex.py:110
-msgid "use LaTeX for formatting"
+#: lilypond-pdfpc-helper.py:72
+msgid "Not in FILE:LINE:COL format: "
 msgstr ""
 
-#: lilypond-latex.py:111
-msgid "print even more output"
-msgstr "daha da fazla çıktı yazdır"
-
-#: lilypond-latex.py:112 lilypond-latex.py:123 midi2ly.py:102 main.cc:133
-#: main.cc:135
-msgid "FILE"
-msgstr "DOSYA"
-
-#: lilypond-latex.py:112
-msgid "find pfa fonts used in FILE"
-msgstr "DOSYAda kullanılan pfa yazı tiplerini bul"
-
-#: lilypond-latex.py:114
-msgid "add DIR to LilyPond's search path"
-msgstr "DIR'ı (DİZİN) LilyPond'un arama yoluna ekle"
-
-#: lilypond-latex.py:116
-#, python-format
-msgid "keep all output, output to directory %s.dir"
-msgstr "bütün çıktıyı sakla, çıktıyı %s dizinine yönlendir"
-
-#. junkme?
-#: lilypond-latex.py:119
-msgid "don't run LilyPond"
-msgstr "LilyPond'u çalıştırma"
-
-#. junkme?
-#: lilypond-latex.py:121 main.cc:134
-msgid "produce MIDI output only"
-msgstr "sadece MIDI çıktısı üret"
-
-#: lilypond-latex.py:123 main.cc:135
-#, fuzzy
-msgid "write output to FILE (suffix will be added)"
-msgstr "çıktıyı DOSYAya yaz"
-
-#: lilypond-latex.py:124 ps2png.py:42
-msgid "RES"
-msgstr "RES"
-
-#: lilypond-latex.py:125 ps2png.py:43
-msgid "set the resolution of the preview to RES"
-msgstr "önizlemenin çözünürlüğünü RES'e ayarla"
-
-#: lilypond-latex.py:126
-msgid "generate PDF output"
-msgstr "PDF çıktısı üret"
-
-#: lilypond-latex.py:127
-msgid "generate PostScript output"
-msgstr "PostScript çıktısı üret"
-
-#: lilypond-latex.py:128
-msgid "generate PNG page images"
-msgstr "PNG sayfa görüntülerini  üret"
-
-#: lilypond-latex.py:129
-msgid "make a picture of the first system"
-msgstr "ilk sistemin bir resmini yap"
-
-#: lilypond-latex.py:130
-msgid "generate PS.GZ"
-msgstr "PS.GZ üret"
-
-#: lilypond-latex.py:131
-msgid "run in safe-mode"
-msgstr "emniyetli kipte çalıştır"
-
-#: lilypond-latex.py:132
-msgid "KEY=VAL"
-msgstr "KEY=VAL"
-
-#: lilypond-latex.py:132
-msgid "change global setting KEY to VAL"
-msgstr "genel ayar KEY'e VAL değerini ata"
-
-#: lilypond-latex.py:134 midi2ly.py:106 mup2ly.py:79 main.cc:144
-msgid "print version number"
-msgstr "sürüm numarasını yazdır"
-
-#: lilypond-latex.py:203
-#, python-format
-msgid "no such setting: `%s'"
-msgstr "böyle bir ayar yok: `%s'"
-
-#: lilypond-latex.py:247
-#, python-format
-msgid "LilyPond crashed (signal %d)."
-msgstr "LilyPond çöktü (%d sinyali)."
-
-#: lilypond-latex.py:248
-msgid "Please submit a bug report to bug-lilypond@gnu.org"
-msgstr ""
-"Lütfen bug-lilypond@gnu.org adresine bir yazılım hatası raporu gönderin"
-
-#: lilypond-latex.py:255
-#, python-format
-msgid "LilyPond failed on input file %s (exit status %d)"
+#: lilypond-pdfpc-helper.py:100
+#, fuzzy, python-format
+msgid "Command failed: `%s' (status %d)"
 msgstr "LilyPond %s girdi dosyasında başarısız oldu (çıkış durumu %d)"
-
-#: lilypond-latex.py:259
-#, python-format
-msgid "LilyPond failed on an input file (exit status %d)"
-msgstr "LilyPond bir girdi dosyasında başarısız oldu (çıkış durumu %d)"
-
-#: lilypond-latex.py:260
-msgid "Continuing..."
-msgstr "Devam ediliyor..."
-
-#: lilypond-latex.py:270
-#, python-format
-msgid "Analyzing %s..."
-msgstr "%s çözümleniyor..."
-
-#: lilypond-latex.py:324
-#, python-format
-msgid "no LilyPond output found for `%s'"
-msgstr "`%s' için hiçbir LilyPond çıktısı bulunamadı"
-
-#: lilypond-latex.py:465
-msgid "LaTeX failed on the output file."
-msgstr "LaTeX çıktı dosyasında başarısız oldu."
-
-#: lilypond-latex.py:513
-msgid ""
-"Trying create PDF, but no PFA fonts found.\n"
-"Using bitmap fonts instead. This will look bad."
-msgstr ""
-"PDF oluşturulmaya çalışılıyor, ancak hiçbir PFA yazı tipi bulunamadı. \n"
-"Bunun yerine bitmap yazı tipi kullanılıyor. Bu kötü görünecek."
-
-#  no ps header?
-#. no ps header?
-#: lilypond-latex.py:556
-#, python-format
-msgid "not a PostScript file: `%s'"
-msgstr "bir PostScript dosyası değil: `%s'"
-
-#: lilypond-latex.py:666
-msgid "pseudo filter"
-msgstr "sahte süzgeç"
-
-#: lilypond-latex.py:669
-msgid "pseudo filter only for single input file"
-msgstr "sadece tek girdi dosyası için sahte süzgeç"
-
-#: lilypond-latex.py:674
-msgid "no files specified on command line"
-msgstr "komut satırında hiçbir dosya belirtilmedi"
-
-#: lilypond-latex.py:706
-#, python-format
-msgid "filename should not contain spaces: `%s'"
-msgstr "dosyaadı boşluk içermemeli: `%s'"
-
-#: lilypond-latex.py:744
-msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-msgstr ""
-"LilyPond'un çalıştırılması başarısız. İzlemek için\n"
-"--verbose seçeneği ile yeniden çalıştırın."
-
-#: lilypond-latex.py:786
-msgid "Failed to make PS file. Rerun with --verbose for a trace."
-msgstr ""
-"PS dosyası oluşturulamadı. İzlemek için\n"
-"--verbose seçeneği ile yeniden çalıştırın."
-
-#: lilypond-latex.py:815
-#, python-format
-msgid "%s output to <stdout>..."
-msgstr "%s çıktısı <stdout>a..."
-
-#: lilypond-latex.py:820 includable-lexer.cc:57 kpath.cc:129 lily-guile.cc:90
-#: lily-parser-scheme.cc:92
-#, c-format, python-format
-msgid "can't find file: `%s'"
-msgstr "dosya bulunamıyor: `%s'"
-
-#: lilypond-latex.py:843
-#, python-format
-msgid "%s output to %s..."
-msgstr "%s çıktısı %s'ye..."
-
-#: lilypond-latex.py:846
-#, python-format
-msgid "can't find file: `%s.%s'"
-msgstr "dosya bulunamıyor: `%s.%s'"
 
 #  temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 #  original_dir = os.getcwd ()
@@ -613,6 +417,10 @@ msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr ""
 "anahtarı ayarla: ALT=+sharps (diyezler) veya -flats (bemoller); MINOR=1"
 
+#: midi2ly.py:102 main.cc:130 main.cc:131
+msgid "FILE"
+msgstr "DOSYA"
+
 #: midi2ly.py:102 mup2ly.py:76
 msgid "write output to FILE"
 msgstr "çıktıyı DOSYAya yaz"
@@ -628,6 +436,10 @@ msgstr "DUR*NUM/DEN"
 #: midi2ly.py:104
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr "DUR*NUM/DEN tuplet sürelerine izin ver"
+
+#: midi2ly.py:106 mup2ly.py:79 main.cc:140
+msgid "print version number"
+msgstr "sürüm numarasını yazdır"
 
 #: midi2ly.py:108
 msgid "treat every text as a lyric"
@@ -699,6 +511,14 @@ msgstr "`%s' yazılıyor..."
 #: ps2png.py:35
 msgid "Convert PostScript to PNG image."
 msgstr ""
+
+#: ps2png.py:42
+msgid "RES"
+msgstr "RES"
+
+#: ps2png.py:43
+msgid "set the resolution of the preview to RES"
+msgstr "önizlemenin çözünürlüğünü RES'e ayarla"
 
 #. # FIXME: silly message containing %d
 #: ps2png.py:72
@@ -801,7 +621,7 @@ msgstr "Öntanımlı yazı tipi yükleniyor "
 msgid "can't find default font: `%s'"
 msgstr "öntanımlı yazı tipi bulunamıyor: `%s'"
 
-#: all-font-metrics.cc:296 includable-lexer.cc:59 lily-parser-scheme.cc:85
+#: all-font-metrics.cc:296 includable-lexer.cc:59 lily-parser-scheme.cc:69
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(arama yolu: `%s')"
@@ -871,7 +691,7 @@ msgid "No spacing entry from %s to `%s'"
 msgstr "%s'den `%sy'e kadar hiçbir boşluk girişi yok"
 
 #: change-iterator.cc:22
-#, c-format
+#, fuzzy, c-format
 msgid "can't change `%s' to `%s'"
 msgstr "`%s' `%s'ye dönüştürülemiyor "
 
@@ -917,18 +737,17 @@ msgstr "bilinmeyen küme tarzı `%s'"
 
 #: coherent-ligature-engraver.cc:84
 #, fuzzy, c-format
-msgid "gotcha: ptr =%ul"
+msgid "gotcha: ptr=%ul"
 msgstr "hata: ptr=%ul"
 
 #: coherent-ligature-engraver.cc:96
 #, fuzzy, c-format
-msgid "distance =%f"
+msgid "distance=%f"
 msgstr "uzaklık=%f"
 
 #: coherent-ligature-engraver.cc:139
 #, fuzzy, c-format
-msgid ""
-"Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr =%ul"
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
 "Tutarlı_bağ_nakkaş: boşluk bırakma artışı 0,01'e ayarlanıyor\n"
 "(spacing-increment=0.01): ptr=%ul"
@@ -1081,6 +900,12 @@ msgstr "sonlandırılmamış kısa çizgi; kaldırılıyor"
 msgid "include files are not allowed in safe mode"
 msgstr "dosyaların içerilmesine izin verilmiyor"
 
+#: includable-lexer.cc:57 kpath.cc:129 lily-guile.cc:90
+#: lily-parser-scheme.cc:76
+#, c-format
+msgid "can't find file: `%s'"
+msgstr "dosya bulunamıyor: `%s'"
+
 #: input.cc:116
 msgid "non fatal error: "
 msgstr "hiçbir onulmaz hata yok: "
@@ -1093,19 +918,14 @@ msgstr "konum bilinmiyor"
 msgid "FIXME: key change merge"
 msgstr "FIXME: anahtar değişim birleşimi"
 
-#: kpath.cc:56
+#: kpath.cc:56 kpath.cc:80
 #, fuzzy, c-format
-msgid "kpathsea can not find AFM file `%s'"
-msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
-
-#: kpath.cc:80
-#, c-format
-msgid "kpathsea can not find TFM file: `%s'"
+msgid "kpathsea can't find %s file: `%s'"
 msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
 
 #: kpath.cc:124
 #, fuzzy, c-format
-msgid "kpathsea can not find file: `%s'"
+msgid "kpathsea can't find file: `%s'"
 msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
 
 #: ligature-engraver.cc:153
@@ -1171,12 +991,12 @@ msgstr "Tanıtıcı adı bir anahtar kelime: `%s' "
 msgid "error at EOF: %s"
 msgstr "EOF'ta hata: %s"
 
-#: lily-parser-scheme.cc:84
+#: lily-parser-scheme.cc:68
 #, fuzzy, c-format
 msgid "can't find init file: `%s'"
 msgstr "dosya bulunamıyor: `%s'"
 
-#: lily-parser-scheme.cc:101
+#: lily-parser-scheme.cc:85
 #, fuzzy, c-format
 msgid "Processing `%s'"
 msgstr "`%s' işleniyor..."
@@ -1189,7 +1009,7 @@ msgstr "Ayrıştırılıyor..."
 msgid "Braces don't match"
 msgstr "Ayraçlar eşleşmiyor"
 
-#: main.cc:95
+#: main.cc:92
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1220,15 +1040,15 @@ msgstr ""
 "Free Software Foundation, Inc., 59 Temple Place - 330Suite \n"
 "Boston, MA 02111 - 1307 , USA adresine yazın. \n"
 
-#: main.cc:124
+#: main.cc:121
 msgid "select backend to use"
 msgstr ""
 
-#: main.cc:125
+#: main.cc:122
 msgid "EXPR"
 msgstr "EXPR"
 
-#: main.cc:126
+#: main.cc:123
 #, fuzzy
 msgid "set option, use -e '(ly:option-usage)' for help"
 msgstr ""
@@ -1238,71 +1058,76 @@ msgstr ""
 #  for --output-format.
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:129
+#: main.cc:126
 #, fuzzy
 msgid "EXTs"
 msgstr "EXT"
 
-#: main.cc:129
+#: main.cc:126
 msgid "list of formats to dump"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:128
 msgid "FIELD"
 msgstr "ALAN"
 
-#: main.cc:131
+#: main.cc:128
 msgid "write header field to BASENAME.FIELD"
 msgstr "başlık alanını TEMELAD.ALANa yaz"
 
-#: main.cc:132
+#: main.cc:129
 msgid "add DIR to search path"
 msgstr "arama yoluna DİZİN'i ekle"
 
-#: main.cc:133
+#: main.cc:130
 msgid "use FILE as init file"
 msgstr "DOSYAyı init dosyası olarak kullanır"
 
-#: main.cc:136
+#: main.cc:131
+#, fuzzy
+msgid "write output to FILE (suffix will be added)"
+msgstr "çıktıyı DOSYAya yaz"
+
+#: main.cc:132
 #, fuzzy
 msgid "generate a preview"
 msgstr "PNG sayfa görüntülerini  üret"
 
-#: main.cc:137
+#: main.cc:133
 #, fuzzy
 msgid "don't generate full pages"
 msgstr "resim üretme"
 
-#: main.cc:138
+#: main.cc:134
 #, fuzzy
 msgid "generate PNG"
 msgstr "PS.GZ üret"
 
-#: main.cc:139
+#: main.cc:135
 #, fuzzy
 msgid "generate PostScript"
 msgstr "PostScript çıktısı üret"
 
-#: main.cc:140
+#: main.cc:136
 #, fuzzy
 msgid "generate DVI"
 msgstr "PS.GZ üret"
 
-#: main.cc:141
+#: main.cc:137
 #, fuzzy
 msgid "generate PDF (default)"
 msgstr "PDF çıktısı üret"
 
-#: main.cc:142
+#: main.cc:138
 #, fuzzy
 msgid "generate TeX"
 msgstr "PS.GZ üret"
 
-#: main.cc:143
+#: main.cc:139
 msgid "run in safe mode"
 msgstr "emniyetli kipte çalıştır"
 
-#: main.cc:166
+#: main.cc:162
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1313,22 +1138,22 @@ msgstr ""
 
 #  No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:192
+#: main.cc:188
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Kullanım: %s [SEÇENEKLER]... DOSYA..."
 
-#: main.cc:194
+#: main.cc:190
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Müziği diz ve/ya da DOSYAdan MIDIyi üret."
 
-#: main.cc:196
+#: main.cc:192
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond güzel müzik notasyonları üretir."
 
-#: main.cc:198
+#: main.cc:194
 #, c-format
 msgid "For more information, see %s"
 msgstr "Daha fazla bilgi için, %s'e bakın"
@@ -1489,9 +1314,9 @@ msgstr "Grafik nesneler önişleme tabi tutuluyor..."
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GULIE burada başlayan ifadede bir hata olduğunu bildiriyor"
 
-#: pdf.cc:259
-#, fuzzy, c-format
-msgid "Can't open file %s"
+#: pdf.cc:253 source-file.cc:47
+#, c-format
+msgid "can't open file: `%s'"
 msgstr "dosya açılamıyor: `%s'"
 
 #: percent-repeat-engraver.cc:100
@@ -1609,27 +1434,27 @@ msgstr ""
 msgid "No such internal option: %s"
 msgstr "Bilinmeyen iç seçenek!"
 
-#: score-engraver.cc:106 score-engraver.cc:115 score-engraver.cc:117
+#: score-engraver.cc:106 score-engraver.cc:117 score-engraver.cc:119
 #, fuzzy, c-format
 msgid "cannot find `%s'"
 msgstr "`%s' bulunamıyor"
 
 #: score-engraver.cc:108
 #, fuzzy
-msgid "Music font has not been installed properly.\n"
+msgid "Music font has not been installed properly."
 msgstr "Yazı tipleri uygun biçimde yüklenmedi. Durduruluyor"
 
-#: score-engraver.cc:109
+#: score-engraver.cc:110
 #, fuzzy, c-format
-msgid "Search path `%s'\n"
+msgid "Search path `%s'"
 msgstr "(arama yolu: `%s')"
 
-#: score-engraver.cc:119
+#: score-engraver.cc:121
 #, c-format
 msgid "Install the ec-fonts-mftraced package from: %s."
 msgstr ""
 
-#: score-engraver.cc:122
+#: score-engraver.cc:124
 msgid "Aborting."
 msgstr ""
 
@@ -1675,11 +1500,6 @@ msgstr "sonlandırılmamış ses kaydırma imi"
 #, fuzzy
 msgid "No slur to end"
 msgstr "Bitirmek için volta anahtarı yok"
-
-#: source-file.cc:47
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "dosya açılamıyor: `%s'"
 
 #: source-file.cc:60
 #, c-format
@@ -1973,17 +1793,17 @@ msgstr "Hatalı lilypond sürümü: %s (%s, %s)"
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Girdiyi convert-ly betiği ile güncellemeyi dikkate alınız"
 
-#: backend-library.scm:20
+#: backend-library.scm:19
 #, fuzzy, lisp-format
-msgid "Invoking `~a'...n"
+msgid "Invoking `~a'..."
 msgstr "`%s' çağrılıyor"
 
-#: backend-library.scm:26
-#, lisp-format
-msgid "Error invoking `~a'. Return value ~a"
-msgstr ""
+#: backend-library.scm:24
+#, fuzzy, lisp-format
+msgid "`~a' failed (~a)"
+msgstr "`%s' başarısız (%d)"
 
-#: backend-library.scm:47
+#: backend-library.scm:45 framework-tex.scm:366 framework-tex.scm:387
 #, fuzzy, lisp-format
 msgid "Converting to `~a'..."
 msgstr "`%s' yazılıyor..."
@@ -2002,24 +1822,163 @@ msgstr ""
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: framework-tex.scm:366
-#, fuzzy, lisp-format
-msgid "Converting to `~a.ps'..."
-msgstr "`%s' yazılıyor..."
-
-#: framework-tex.scm:386
+#: lily-library.scm:356
 #, lisp-format
-msgid "Converting to `~a.dvi'..."
+msgid "No \\version statement found.  Please add~afor future compatibility."
 msgstr ""
 
-#: lily.scm:94
+#: lily.scm:95
 #, lisp-format
-msgid "wrong type for argument ~a. Expecting ~a, found ~s"
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:312
+#: lily.scm:313
 msgid "error: failed files: "
 msgstr ""
+
+#: page-layout.scm:426
+#, fuzzy
+msgid "Calculating page breaks..."
+msgstr "Satır bölünmeleri sayılıyor..."
+
+#, fuzzy
+#~ msgid "kpathsea can not find %s file: `%s'"
+#~ msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
+
+#, fuzzy
+#~ msgid "kpathsea can not find AFM file `%s'"
+#~ msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
+
+#~ msgid "kpathsea can not find TFM file: `%s'"
+#~ msgstr "kpathsea TMF dosyasını bulamıyor: `%s'"
+
+#, fuzzy
+#~ msgid "Can't open file %s"
+#~ msgstr "dosya açılamıyor: `%s'"
+
+#, fuzzy
+#~ msgid "Cannot switch translators, I'm there already"
+#~ msgstr "Çevirmenler değiştirilemiyor, zaten oradayım"
+
+#, fuzzy
+#~ msgid "Converting to `~a.ps'..."
+#~ msgstr "`%s' yazılıyor..."
+
+#  # FIXME
+#  # do -P or -p by default?
+#  #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#, fuzzy
+#~ msgid "Run LilyPond, generate printable document."
+#~ msgstr "LilyPond'u çalıştır, başlık ekle, yazdırılabilir belge üret."
+
+#~ msgid "print even more output"
+#~ msgstr "daha da fazla çıktı yazdır"
+
+#~ msgid "find pfa fonts used in FILE"
+#~ msgstr "DOSYAda kullanılan pfa yazı tiplerini bul"
+
+#~ msgid "add DIR to LilyPond's search path"
+#~ msgstr "DIR'ı (DİZİN) LilyPond'un arama yoluna ekle"
+
+#~ msgid "keep all output, output to directory %s.dir"
+#~ msgstr "bütün çıktıyı sakla, çıktıyı %s dizinine yönlendir"
+
+#~ msgid "don't run LilyPond"
+#~ msgstr "LilyPond'u çalıştırma"
+
+#~ msgid "produce MIDI output only"
+#~ msgstr "sadece MIDI çıktısı üret"
+
+#~ msgid "generate PDF output"
+#~ msgstr "PDF çıktısı üret"
+
+#~ msgid "generate PostScript output"
+#~ msgstr "PostScript çıktısı üret"
+
+#~ msgid "generate PNG page images"
+#~ msgstr "PNG sayfa görüntülerini  üret"
+
+#~ msgid "make a picture of the first system"
+#~ msgstr "ilk sistemin bir resmini yap"
+
+#~ msgid "generate PS.GZ"
+#~ msgstr "PS.GZ üret"
+
+#~ msgid "run in safe-mode"
+#~ msgstr "emniyetli kipte çalıştır"
+
+#~ msgid "KEY=VAL"
+#~ msgstr "KEY=VAL"
+
+#~ msgid "change global setting KEY to VAL"
+#~ msgstr "genel ayar KEY'e VAL değerini ata"
+
+#~ msgid "no such setting: `%s'"
+#~ msgstr "böyle bir ayar yok: `%s'"
+
+#~ msgid "LilyPond crashed (signal %d)."
+#~ msgstr "LilyPond çöktü (%d sinyali)."
+
+#~ msgid "Please submit a bug report to bug-lilypond@gnu.org"
+#~ msgstr ""
+#~ "Lütfen bug-lilypond@gnu.org adresine bir yazılım hatası raporu gönderin"
+
+#~ msgid "LilyPond failed on an input file (exit status %d)"
+#~ msgstr "LilyPond bir girdi dosyasında başarısız oldu (çıkış durumu %d)"
+
+#~ msgid "Continuing..."
+#~ msgstr "Devam ediliyor..."
+
+#~ msgid "Analyzing %s..."
+#~ msgstr "%s çözümleniyor..."
+
+#~ msgid "no LilyPond output found for `%s'"
+#~ msgstr "`%s' için hiçbir LilyPond çıktısı bulunamadı"
+
+#~ msgid "LaTeX failed on the output file."
+#~ msgstr "LaTeX çıktı dosyasında başarısız oldu."
+
+#~ msgid ""
+#~ "Trying create PDF, but no PFA fonts found.\n"
+#~ "Using bitmap fonts instead. This will look bad."
+#~ msgstr ""
+#~ "PDF oluşturulmaya çalışılıyor, ancak hiçbir PFA yazı tipi bulunamadı. \n"
+#~ "Bunun yerine bitmap yazı tipi kullanılıyor. Bu kötü görünecek."
+
+#  no ps header?
+#~ msgid "not a PostScript file: `%s'"
+#~ msgstr "bir PostScript dosyası değil: `%s'"
+
+#~ msgid "pseudo filter"
+#~ msgstr "sahte süzgeç"
+
+#~ msgid "pseudo filter only for single input file"
+#~ msgstr "sadece tek girdi dosyası için sahte süzgeç"
+
+#~ msgid "no files specified on command line"
+#~ msgstr "komut satırında hiçbir dosya belirtilmedi"
+
+#~ msgid "filename should not contain spaces: `%s'"
+#~ msgstr "dosyaadı boşluk içermemeli: `%s'"
+
+#~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
+#~ msgstr ""
+#~ "LilyPond'un çalıştırılması başarısız. İzlemek için\n"
+#~ "--verbose seçeneği ile yeniden çalıştırın."
+
+#~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
+#~ msgstr ""
+#~ "PS dosyası oluşturulamadı. İzlemek için\n"
+#~ "--verbose seçeneği ile yeniden çalıştırın."
+
+#~ msgid "%s output to <stdout>..."
+#~ msgstr "%s çıktısı <stdout>a..."
+
+#~ msgid "%s output to %s..."
+#~ msgstr "%s çıktısı %s'ye..."
+
+#~ msgid "can't find file: `%s.%s'"
+#~ msgstr "dosya bulunamıyor: `%s.%s'"
 
 #~ msgid "write Makefile dependencies for every input file"
 #~ msgstr "her girdi dosyası için Makefile bağımlılıklarını yaz"

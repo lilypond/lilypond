@@ -14,7 +14,7 @@
 /*
 
 The problem, as far as I can tell, is that MacOS X has its getopt
-prototype in <unistd.h>, while I think other operating systems have it
+prototype in <unistd.h>, whinole I think other operating systems have it
 in other places. <unistd.h> is included by kpathsea.h, so you end up
 renaming both conflicting prototypes to YAKLUDGE.
 
@@ -53,7 +53,7 @@ kpathsea_find_afm (char const *name)
     return afm;
 #if 0 /* Do not mutter about afms, since we try to find them first, and
 	 lots of TFMs don't have AFMs. */
-  warning (_f ("kpathsea can not find AFM file `%s'", name));
+  warning (_f ("kpathsea can't find %s file: `%s'", "AFM", name));
 #endif
 #endif
   return "";
@@ -77,7 +77,7 @@ kpathsea_find_tfm (char const *name)
 	 be generated on the fly. */
       if (char *tfm = kpse_find_file (name, kpse_tfm_format, false))
 	return tfm;
-      warning (_f ("kpathsea can not find TFM file: `%s'", name));
+      warning (_f ("kpathsea can't find %s file: `%s'", "TFM", name));
     }
 #endif
   return file_name;
@@ -121,7 +121,7 @@ kpathsea_gulp_file_to_string (String name)
       if (p)
 	file_name = p;
       else
-	warning (_f ("kpathsea can not find file: `%s'", name));
+	warning (_f ("kpathsea can't find file: `%s'", name));
     }
 #endif
 

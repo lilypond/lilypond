@@ -21,12 +21,13 @@ tagline = \markup {
 bookTitleMarkup = \markup {
 
   \column {
+      \override #'(baseline-skip . 3)
     \fill-line { \fromproperty #'header:dedication }
     \fill-line {
-      \huge \bigger \bigger \bigger \bold \fromproperty #'header:title
+      \huge \bigger \bigger \bold \fromproperty #'header:title
     }
     \fill-line {
-      \override #'(baseline-skip . 3)
+      \override #'(baseline-skip . 6)
       \column {
 	\fill-line {
 	  \huge \bigger \bigger
@@ -36,6 +37,11 @@ bookTitleMarkup = \markup {
 	  \huge \bigger
 	  \bold \fromproperty #'header:subsubtitle
 	}
+%% From 2.4:
+%%	\column {
+%%	  \override #'(baseline-skip . 5)
+%%	  ""
+%%	}
       }
     }
     \fill-line {

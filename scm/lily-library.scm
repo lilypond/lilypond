@@ -349,3 +349,12 @@ possibly turned off."
      header
      binary-data
      footer)))
+
+(define-public (version-not-seen-message)
+  (ly:warn
+   (format #f
+	   (_ "No \\version statement found.  Please add~afor future compatibility.")
+	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
+  (newline (current-error-port)))
+  
+

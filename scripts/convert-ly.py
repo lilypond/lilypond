@@ -2603,7 +2603,7 @@ for f in files:
 			do_one_file (f)
 			from_version = fv
 		else:
-			sys.stderr.write (_ ("%s: skipping: `%s' ") \
+			sys.stderr.write (_ ("%s: skipping: `%s'") \
 					  % (program_name,  f))
 		pass
 

@@ -45,9 +45,9 @@ Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
   Paper_system *p = (Paper_system*) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
-  scm_puts (" ", port);
+  scm_puts ("n ", port);
   scm_puts (to_string (p->number_).to_str0 (), port);
-  scm_puts ("p ", port);
+  scm_puts (", p ", port);
   scm_puts (to_string (p->break_before_penalty_).to_str0 (), port);
   if (p->is_title ())
     scm_puts (" t", port);

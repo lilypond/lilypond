@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-25 13:09+0100\n"
+"POT-Creation-Date: 2005-03-01 15:24+0100\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -18,8 +18,8 @@ msgstr ""
 msgid "lilylib module"
 msgstr ""
 
-#: lilylib.py:65 lilypond-book.py:88 lilypond-latex.py:109 midi2ly.py:100
-#: mup2ly.py:75 ps2png.py:40 main.cc:130
+#: lilylib.py:65 lilypond-book.py:88 midi2ly.py:100 mup2ly.py:75 ps2png.py:40
+#: main.cc:127
 msgid "print this help"
 msgstr ""
 
@@ -56,12 +56,13 @@ msgstr "Genero le voci..."
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Uso: %s [OPZIONE]... [FILE]"
 
-#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:200
+#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:196
 #, c-format
 msgid "Options:"
 msgstr "Opzioni: "
 
-#: lilylib.py:208 convert-ly.py:68 midi2ly.py:231 mup2ly.py:227 main.cc:204
+#: lilylib.py:208 convert-ly.py:68 lilypond-pdfpc-helper.py:28 midi2ly.py:231
+#: mup2ly.py:227 main.cc:200
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr ""
@@ -76,12 +77,12 @@ msgstr ""
 msgid "Opening pipe `%s'"
 msgstr "Genero le voci..."
 
-#: lilylib.py:277 lilypond-book.py:1111
+#: lilylib.py:277 lilypond-book.py:1119
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1112 lilypond-latex.py:466
+#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1120
 msgid "The error log is as follows:"
 msgstr ""
 
@@ -151,7 +152,7 @@ msgid ""
 "  -v, --version          print program version"
 msgstr ""
 
-#: convert-ly.py:75 main.cc:89
+#: convert-ly.py:75 lilypond-pdfpc-helper.py:34 main.cc:86
 #, c-format, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -177,32 +178,32 @@ msgstr ""
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convert-ly.py:2455
+#: convert-ly.py:2459
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:2467
+#: convert-ly.py:2471
 #, python-format
 msgid "%s: error while converting"
 msgstr ""
 
-#: convert-ly.py:2470 score-engraver.cc:110
+#: convert-ly.py:2474 score-engraver.cc:112
 msgid "Aborting"
 msgstr ""
 
-#: convert-ly.py:2491
+#: convert-ly.py:2495
 #, fuzzy, python-format
 msgid "Processing `%s'... "
 msgstr "Elaboro..."
 
-#: convert-ly.py:2593
+#: convert-ly.py:2597
 #, python-format
 msgid "%s: cannot determine version for `%s'"
 msgstr ""
 
-#: convert-ly.py:2602
+#: convert-ly.py:2606
 #, fuzzy, python-format
-msgid "%s: skipping: `%s' "
+msgid "%s: skipping: `%s'"
 msgstr "% strumento:"
 
 #: lilypond-book.py:70
@@ -215,7 +216,7 @@ msgid ""
 "   lilypond-book --process='lilypond -I include' BOOK\n"
 msgstr ""
 
-#: lilypond-book.py:82 main.cc:124
+#: lilypond-book.py:82 main.cc:121
 msgid "EXT"
 msgstr ""
 
@@ -233,7 +234,7 @@ msgstr ""
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr ""
 
-#: lilypond-book.py:89 lilypond-book.py:91 lilypond-latex.py:114 main.cc:132
+#: lilypond-book.py:89 lilypond-book.py:91 main.cc:129
 msgid "DIR"
 msgstr ""
 
@@ -254,8 +255,7 @@ msgstr ""
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:96 lilypond-latex.py:133 midi2ly.py:105 mup2ly.py:78
-#: ps2png.py:41 main.cc:145
+#: lilypond-book.py:96 midi2ly.py:105 mup2ly.py:78 ps2png.py:41 main.cc:141
 msgid "be verbose"
 msgstr ""
 
@@ -263,296 +263,107 @@ msgstr ""
 msgid "print version information"
 msgstr ""
 
-#: lilypond-book.py:100 lilypond-latex.py:135 midi2ly.py:107 mup2ly.py:80
-#: main.cc:146
+#: lilypond-book.py:100 midi2ly.py:107 mup2ly.py:80 main.cc:142
 #, fuzzy
 msgid "show warranty and copyright"
 msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
 
-#: lilypond-book.py:699
+#: lilypond-book.py:703
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:702
+#: lilypond-book.py:706
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:706
+#: lilypond-book.py:710
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: lilypond-book.py:709
+#: lilypond-book.py:713
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: lilypond-book.py:728
+#: lilypond-book.py:732
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: lilypond-book.py:761
+#: lilypond-book.py:769
 #, python-format
 msgid "file not found: %s"
 msgstr ""
 
-#: lilypond-book.py:1094
+#: lilypond-book.py:1102
 #, fuzzy, python-format
 msgid "Opening filter `%s'"
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1236
+#: lilypond-book.py:1244
 #, fuzzy
 msgid "Writing snippets..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1241
+#: lilypond-book.py:1249
 #, fuzzy
-msgid "Processing...\n"
+msgid "Processing..."
 msgstr "Elaboro..."
 
-#: lilypond-book.py:1244
+#: lilypond-book.py:1253
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1254
+#: lilypond-book.py:1263
 #, fuzzy, python-format
 msgid "cannot determine format for: %s"
 msgstr "non trovo il file: `%s'"
 
-#: lilypond-book.py:1299
+#: lilypond-book.py:1308
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:1306
+#: lilypond-book.py:1315
 #, fuzzy, python-format
 msgid "Reading %s..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1322
+#: lilypond-book.py:1331
 #, fuzzy
 msgid "Dissecting..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1353
+#: lilypond-book.py:1362
 #, fuzzy, python-format
 msgid "Compiling %s..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1361
+#: lilypond-book.py:1370
 #, fuzzy, python-format
 msgid "Processing include: %s"
 msgstr "Elaboro..."
 
-#: lilypond-book.py:1371
+#: lilypond-book.py:1380
 #, fuzzy, python-format
 msgid "Removing `%s'"
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1386 lilypond-latex.py:576 midi2ly.py:1017 ps2png.py:51
+#: lilypond-book.py:1395 midi2ly.py:1017 ps2png.py:51
 #, python-format
 msgid "getopt says: `%s'"
 msgstr ""
 
-#. # FIXME
-#. # do -P or -p by default?
-#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#: lilypond-latex.py:104
-msgid "Run LilyPond, generate printable document."
+#: lilypond-pdfpc-helper.py:72
+msgid "Not in FILE:LINE:COL format: "
 msgstr ""
 
-#: lilypond-latex.py:110
-msgid "use LaTeX for formatting"
-msgstr ""
-
-#: lilypond-latex.py:111
-msgid "print even more output"
-msgstr ""
-
-#: lilypond-latex.py:112 lilypond-latex.py:123 midi2ly.py:102 main.cc:133
-#: main.cc:135
-msgid "FILE"
-msgstr ""
-
-#: lilypond-latex.py:112
-msgid "find pfa fonts used in FILE"
-msgstr ""
-
-#: lilypond-latex.py:114
-#, fuzzy
-msgid "add DIR to LilyPond's search path"
-msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
-
-#: lilypond-latex.py:116
+#: lilypond-pdfpc-helper.py:100
 #, python-format
-msgid "keep all output, output to directory %s.dir"
+msgid "Command failed: `%s' (status %d)"
 msgstr ""
-
-#. junkme?
-#: lilypond-latex.py:119
-msgid "don't run LilyPond"
-msgstr ""
-
-#. junkme?
-#: lilypond-latex.py:121 main.cc:134
-#, fuzzy
-msgid "produce MIDI output only"
-msgstr "  -M, --no-paper         produce solo output midi\n"
-
-#: lilypond-latex.py:123 main.cc:135
-msgid "write output to FILE (suffix will be added)"
-msgstr ""
-
-#: lilypond-latex.py:124 ps2png.py:42
-msgid "RES"
-msgstr ""
-
-#: lilypond-latex.py:125 ps2png.py:43
-msgid "set the resolution of the preview to RES"
-msgstr ""
-
-#: lilypond-latex.py:126
-#, fuzzy
-msgid "generate PDF output"
-msgstr "vincoli degenerati"
-
-#: lilypond-latex.py:127
-#, fuzzy
-msgid "generate PostScript output"
-msgstr "vincoli degenerati"
-
-#: lilypond-latex.py:128
-msgid "generate PNG page images"
-msgstr ""
-
-#: lilypond-latex.py:129
-msgid "make a picture of the first system"
-msgstr ""
-
-#: lilypond-latex.py:130
-#, fuzzy
-msgid "generate PS.GZ"
-msgstr "vincoli degenerati"
-
-#: lilypond-latex.py:131
-msgid "run in safe-mode"
-msgstr ""
-
-#: lilypond-latex.py:132
-msgid "KEY=VAL"
-msgstr ""
-
-#: lilypond-latex.py:132
-msgid "change global setting KEY to VAL"
-msgstr ""
-
-#: lilypond-latex.py:134 midi2ly.py:106 mup2ly.py:79 main.cc:144
-msgid "print version number"
-msgstr ""
-
-#: lilypond-latex.py:203
-#, fuzzy, python-format
-msgid "no such setting: `%s'"
-msgstr "% strumento:"
-
-#: lilypond-latex.py:247
-#, python-format
-msgid "LilyPond crashed (signal %d)."
-msgstr ""
-
-#: lilypond-latex.py:248
-msgid "Please submit a bug report to bug-lilypond@gnu.org"
-msgstr ""
-
-#: lilypond-latex.py:255
-#, python-format
-msgid "LilyPond failed on input file %s (exit status %d)"
-msgstr ""
-
-#: lilypond-latex.py:259
-#, python-format
-msgid "LilyPond failed on an input file (exit status %d)"
-msgstr ""
-
-#: lilypond-latex.py:260
-#, fuzzy
-msgid "Continuing..."
-msgstr "Genero le voci..."
-
-#: lilypond-latex.py:270
-#, fuzzy, python-format
-msgid "Analyzing %s..."
-msgstr "Genero le voci..."
-
-#: lilypond-latex.py:324
-#, fuzzy, python-format
-msgid "no LilyPond output found for `%s'"
-msgstr "Output di Lily in %s..."
-
-#: lilypond-latex.py:465
-msgid "LaTeX failed on the output file."
-msgstr ""
-
-#: lilypond-latex.py:513
-msgid ""
-"Trying create PDF, but no PFA fonts found.\n"
-"Using bitmap fonts instead. This will look bad."
-msgstr ""
-
-#. no ps header?
-#: lilypond-latex.py:556
-#, fuzzy, python-format
-msgid "not a PostScript file: `%s'"
-msgstr "non posso aprire il file: `%s'"
-
-#: lilypond-latex.py:666
-msgid "pseudo filter"
-msgstr ""
-
-#: lilypond-latex.py:669
-msgid "pseudo filter only for single input file"
-msgstr ""
-
-#: lilypond-latex.py:674
-msgid "no files specified on command line"
-msgstr ""
-
-#: lilypond-latex.py:706
-#, python-format
-msgid "filename should not contain spaces: `%s'"
-msgstr ""
-
-#: lilypond-latex.py:744
-msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-msgstr ""
-
-#: lilypond-latex.py:786
-msgid "Failed to make PS file. Rerun with --verbose for a trace."
-msgstr ""
-
-#: lilypond-latex.py:815
-#, fuzzy, python-format
-msgid "%s output to <stdout>..."
-msgstr "L'output MIDI è inviato a %s..."
-
-#: lilypond-latex.py:820 includable-lexer.cc:57 kpath.cc:129 lily-guile.cc:90
-#: lily-parser-scheme.cc:92
-#, c-format, python-format
-msgid "can't find file: `%s'"
-msgstr "non trovo il file: `%s'"
-
-#: lilypond-latex.py:843
-#, fuzzy, python-format
-msgid "%s output to %s..."
-msgstr "L'output MIDI è inviato a %s..."
-
-#: lilypond-latex.py:846
-#, fuzzy, python-format
-msgid "can't find file: `%s.%s'"
-msgstr "non trovo il file: `%s'"
 
 #. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 #. original_dir = os.getcwd ()
@@ -587,6 +398,10 @@ msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr ""
 " -k, --key=ACC[:MINOR]  imposta l'armatura: ACC +diesis/-bemolli; :1 minore\n"
 
+#: midi2ly.py:102 main.cc:130 main.cc:131
+msgid "FILE"
+msgstr ""
+
 #: midi2ly.py:102 mup2ly.py:76
 msgid "write output to FILE"
 msgstr ""
@@ -601,6 +416,10 @@ msgstr ""
 
 #: midi2ly.py:104
 msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr ""
+
+#: midi2ly.py:106 mup2ly.py:79 main.cc:140
+msgid "print version number"
 msgstr ""
 
 #: midi2ly.py:108
@@ -672,6 +491,14 @@ msgstr "Genero le voci..."
 #. ugr.
 #: ps2png.py:35
 msgid "Convert PostScript to PNG image."
+msgstr ""
+
+#: ps2png.py:42
+msgid "RES"
+msgstr ""
+
+#: ps2png.py:43
+msgid "set the resolution of the preview to RES"
 msgstr ""
 
 #. # FIXME: silly message containing %d
@@ -771,7 +598,7 @@ msgstr ""
 msgid "can't find default font: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: all-font-metrics.cc:296 includable-lexer.cc:59 lily-parser-scheme.cc:85
+#: all-font-metrics.cc:296 includable-lexer.cc:59 lily-parser-scheme.cc:69
 #, fuzzy, c-format
 msgid "(search path: `%s')"
 msgstr "(Il path di caricamento è `%s'"
@@ -842,7 +669,7 @@ msgid "No spacing entry from %s to `%s'"
 msgstr "traduttore sconosciuto `%s'"
 
 #: change-iterator.cc:22
-#, c-format
+#, fuzzy, c-format
 msgid "can't change `%s' to `%s'"
 msgstr "non posso cambiare `%s' in `%s'"
 
@@ -886,18 +713,17 @@ msgstr "tipo di chiave sconosciuto"
 
 #: coherent-ligature-engraver.cc:84
 #, c-format
-msgid "gotcha: ptr =%ul"
+msgid "gotcha: ptr=%ul"
 msgstr ""
 
 #: coherent-ligature-engraver.cc:96
 #, c-format
-msgid "distance =%f"
+msgid "distance=%f"
 msgstr ""
 
 #: coherent-ligature-engraver.cc:139
 #, c-format
-msgid ""
-"Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr =%ul"
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
 
 #: context-def.cc:111
@@ -1058,6 +884,12 @@ msgstr "beam non terminato"
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
+#: includable-lexer.cc:57 kpath.cc:129 lily-guile.cc:90
+#: lily-parser-scheme.cc:76
+#, c-format
+msgid "can't find file: `%s'"
+msgstr "non trovo il file: `%s'"
+
 #: input.cc:116
 #, fuzzy
 msgid "non fatal error: "
@@ -1071,19 +903,14 @@ msgstr "posizione sconosciuta"
 msgid "FIXME: key change merge"
 msgstr ""
 
-#: kpath.cc:56
+#: kpath.cc:56 kpath.cc:80
 #, fuzzy, c-format
-msgid "kpathsea can not find AFM file `%s'"
-msgstr "non trovo il file: `%s'"
-
-#: kpath.cc:80
-#, fuzzy, c-format
-msgid "kpathsea can not find TFM file: `%s'"
-msgstr "non trovo il file: `%s'"
+msgid "kpathsea can't find %s file: `%s'"
+msgstr "Non trovo il file `%s'"
 
 #: kpath.cc:124
 #, fuzzy, c-format
-msgid "kpathsea can not find file: `%s'"
+msgid "kpathsea can't find file: `%s'"
 msgstr "Non trovo il file `%s'"
 
 #: ligature-engraver.cc:153
@@ -1151,12 +978,12 @@ msgstr "Il nome dell'identificatore è una parola chiave (`%s')"
 msgid "error at EOF: %s"
 msgstr "errore alla fine del file: %s"
 
-#: lily-parser-scheme.cc:84
+#: lily-parser-scheme.cc:68
 #, fuzzy, c-format
 msgid "can't find init file: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: lily-parser-scheme.cc:101
+#: lily-parser-scheme.cc:85
 #, fuzzy, c-format
 msgid "Processing `%s'"
 msgstr "Elaboro..."
@@ -1170,7 +997,7 @@ msgstr "Analisi..."
 msgid "Braces don't match"
 msgstr "le bretelle no si accoppiano"
 
-#: main.cc:95
+#: main.cc:92
 #, fuzzy
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
@@ -1203,84 +1030,88 @@ msgstr ""
 "Cambridge, MA 02136\n"
 "USA.\n"
 
-#: main.cc:124
+#: main.cc:121
 msgid "select backend to use"
 msgstr ""
 
-#: main.cc:125
+#: main.cc:122
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:126
+#: main.cc:123
 msgid "set option, use -e '(ly:option-usage)' for help"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:129
+#: main.cc:126
 msgid "EXTs"
 msgstr ""
 
-#: main.cc:129
+#: main.cc:126
 msgid "list of formats to dump"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:128
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:128
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:132
+#: main.cc:129
 #, fuzzy
 msgid "add DIR to search path"
 msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
 
-#: main.cc:133
+#: main.cc:130
 #, fuzzy
 msgid "use FILE as init file"
 msgstr "  -i, --init=NOMEFILE    usa NOMEFILE come file iniziale\n"
 
-#: main.cc:136
+#: main.cc:131
+msgid "write output to FILE (suffix will be added)"
+msgstr ""
+
+#: main.cc:132
 msgid "generate a preview"
 msgstr ""
 
-#: main.cc:137
+#: main.cc:133
 msgid "don't generate full pages"
 msgstr ""
 
-#: main.cc:138
+#: main.cc:134
 #, fuzzy
 msgid "generate PNG"
 msgstr "vincoli degenerati"
 
-#: main.cc:139
+#: main.cc:135
 #, fuzzy
 msgid "generate PostScript"
 msgstr "vincoli degenerati"
 
-#: main.cc:140
+#: main.cc:136
 #, fuzzy
 msgid "generate DVI"
 msgstr "vincoli degenerati"
 
-#: main.cc:141
+#: main.cc:137
 #, fuzzy
 msgid "generate PDF (default)"
 msgstr "vincoli degenerati"
 
-#: main.cc:142
+#: main.cc:138
 #, fuzzy
 msgid "generate TeX"
 msgstr "vincoli degenerati"
 
-#: main.cc:143
+#: main.cc:139
 msgid "run in safe mode"
 msgstr ""
 
-#: main.cc:166
+#: main.cc:162
 #, fuzzy, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1288,22 +1119,22 @@ msgid ""
 msgstr "Copyright (c) %s di"
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:192
+#: main.cc:188
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
-#: main.cc:194
+#: main.cc:190
 #, fuzzy, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>."
 
-#: main.cc:196
+#: main.cc:192
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:198
+#: main.cc:194
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
@@ -1461,9 +1292,9 @@ msgstr "Pre-elaborazione..."
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr ""
 
-#: pdf.cc:259
-#, fuzzy, c-format
-msgid "Can't open file %s"
+#: pdf.cc:253 source-file.cc:47
+#, c-format
+msgid "can't open file: `%s'"
 msgstr "non posso aprire il file: `%s'"
 
 #: percent-repeat-engraver.cc:100
@@ -1584,26 +1415,26 @@ msgstr ""
 msgid "No such internal option: %s"
 msgstr "% strumento:"
 
-#: score-engraver.cc:106 score-engraver.cc:115 score-engraver.cc:117
+#: score-engraver.cc:106 score-engraver.cc:117 score-engraver.cc:119
 #, fuzzy, c-format
 msgid "cannot find `%s'"
 msgstr "non trovo `%s'"
 
 #: score-engraver.cc:108
-msgid "Music font has not been installed properly.\n"
+msgid "Music font has not been installed properly."
 msgstr ""
 
-#: score-engraver.cc:109
+#: score-engraver.cc:110
 #, fuzzy, c-format
-msgid "Search path `%s'\n"
+msgid "Search path `%s'"
 msgstr "(Il path di caricamento è `%s'"
 
-#: score-engraver.cc:119
+#: score-engraver.cc:121
 #, c-format
 msgid "Install the ec-fonts-mftraced package from: %s."
 msgstr ""
 
-#: score-engraver.cc:122
+#: score-engraver.cc:124
 msgid "Aborting."
 msgstr ""
 
@@ -1647,11 +1478,6 @@ msgstr "slur non terminato"
 #: slur-engraver.cc:123
 msgid "No slur to end"
 msgstr ""
-
-#: source-file.cc:47
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "non posso aprire il file: `%s'"
 
 #: source-file.cc:60
 #, fuzzy, c-format
@@ -1943,17 +1769,17 @@ msgstr "versione di mudela errata: %s (%s, %s)"
 msgid "Consider updating the input with the convert-ly script"
 msgstr ""
 
-#: backend-library.scm:20
+#: backend-library.scm:19
+#, fuzzy, lisp-format
+msgid "Invoking `~a'..."
+msgstr "Genero le voci..."
+
+#: backend-library.scm:24
 #, lisp-format
-msgid "Invoking `~a'...n"
+msgid "`~a' failed (~a)"
 msgstr ""
 
-#: backend-library.scm:26
-#, lisp-format
-msgid "Error invoking `~a'. Return value ~a"
-msgstr ""
-
-#: backend-library.scm:47
+#: backend-library.scm:45 framework-tex.scm:366 framework-tex.scm:387
 #, fuzzy, lisp-format
 msgid "Converting to `~a'..."
 msgstr "Genero le voci..."
@@ -1972,24 +1798,96 @@ msgstr ""
 msgid "Writing header field `~a' to `~a'..."
 msgstr "scrivo il file delle dipendenze: `%s'..."
 
-#: framework-tex.scm:366
-#, fuzzy, lisp-format
-msgid "Converting to `~a.ps'..."
-msgstr "Genero le voci..."
-
-#: framework-tex.scm:386
+#: lily-library.scm:356
 #, lisp-format
-msgid "Converting to `~a.dvi'..."
+msgid "No \\version statement found.  Please add~afor future compatibility."
 msgstr ""
 
-#: lily.scm:94
+#: lily.scm:95
 #, lisp-format
-msgid "wrong type for argument ~a. Expecting ~a, found ~s"
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:312
+#: lily.scm:313
 msgid "error: failed files: "
 msgstr ""
+
+#: page-layout.scm:426
+#, fuzzy
+msgid "Calculating page breaks..."
+msgstr "Calcolo delle posizioni della colonne..."
+
+#, fuzzy
+#~ msgid "kpathsea can not find %s file: `%s'"
+#~ msgstr "Non trovo il file `%s'"
+
+#, fuzzy
+#~ msgid "kpathsea can not find AFM file `%s'"
+#~ msgstr "non trovo il file: `%s'"
+
+#, fuzzy
+#~ msgid "kpathsea can not find TFM file: `%s'"
+#~ msgstr "non trovo il file: `%s'"
+
+#, fuzzy
+#~ msgid "Can't open file %s"
+#~ msgstr "non posso aprire il file: `%s'"
+
+#, fuzzy
+#~ msgid "Converting to `~a.ps'..."
+#~ msgstr "Genero le voci..."
+
+#, fuzzy
+#~ msgid "add DIR to LilyPond's search path"
+#~ msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
+
+#, fuzzy
+#~ msgid "produce MIDI output only"
+#~ msgstr "  -M, --no-paper         produce solo output midi\n"
+
+#, fuzzy
+#~ msgid "generate PDF output"
+#~ msgstr "vincoli degenerati"
+
+#, fuzzy
+#~ msgid "generate PostScript output"
+#~ msgstr "vincoli degenerati"
+
+#, fuzzy
+#~ msgid "generate PS.GZ"
+#~ msgstr "vincoli degenerati"
+
+#, fuzzy
+#~ msgid "no such setting: `%s'"
+#~ msgstr "% strumento:"
+
+#, fuzzy
+#~ msgid "Continuing..."
+#~ msgstr "Genero le voci..."
+
+#, fuzzy
+#~ msgid "Analyzing %s..."
+#~ msgstr "Genero le voci..."
+
+#, fuzzy
+#~ msgid "no LilyPond output found for `%s'"
+#~ msgstr "Output di Lily in %s..."
+
+#, fuzzy
+#~ msgid "not a PostScript file: `%s'"
+#~ msgstr "non posso aprire il file: `%s'"
+
+#, fuzzy
+#~ msgid "%s output to <stdout>..."
+#~ msgstr "L'output MIDI è inviato a %s..."
+
+#, fuzzy
+#~ msgid "%s output to %s..."
+#~ msgstr "L'output MIDI è inviato a %s..."
+
+#, fuzzy
+#~ msgid "can't find file: `%s.%s'"
+#~ msgstr "non trovo il file: `%s'"
 
 #, fuzzy
 #~ msgid "write dependencies"

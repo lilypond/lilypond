@@ -363,7 +363,8 @@
 	  (delete-file ps-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
-	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
+	  (format (current-error-port) (_ "Converting to `~a'...")
+		  (string-append base ".dvi"))
 	  (newline (current-error-port))))
     (ly:system cmd)))
 
@@ -383,7 +384,8 @@
 	  (delete-file dvi-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
-	  (format (current-error-port) (_ "Converting to `~a.dvi'...") base)
+	  (format (current-error-port) (_ "Converting to `~a'...")
+		  (string-append base ".dvi"))
 	  (newline (current-error-port))))
 
     ;; fixme: set in environment?

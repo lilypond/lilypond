@@ -10,20 +10,18 @@
 
 (define-public (ly:system command)
   (let* ((status 0)
-
 	 (silenced
 	  (string-append command (if (ly:get-option 'verbose)
 				     ""
 				     " > /dev/null 2>&1 "))))
-    
+
     (if (ly:get-option 'verbose)
-	(format  (current-error-port) (_ "Invoking `~a'...\n") command))
+	(format (current-error-port) (_ "Invoking `~a'...") command))
     
     (set! status (system silenced))
     (if (> status 0)
 	(begin
-	  (format (current-error-port)
-		  (_ "Error invoking `~a'. Return value ~a") silenced status)
+	  (format (current-error-port) (_ "`~a' failed (~a)") command status)
 	  (newline (current-error-port))))))
 
 (define-public (sanitize-command-option str)
