@@ -7,6 +7,9 @@
 
 	* input/test/ fake-grace.ly figured-bass.ly : removed file.
 
+	* Documentation/topdoc/INSTALL.texi: removed false warnings
+	about gcc 3.3.
+
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/spanner-after-break-tweak.ly (texidoc): new file.
