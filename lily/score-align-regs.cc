@@ -17,7 +17,8 @@ class C ## _align_register : public Score_align_register		\
 {									\
 public:									\
     NAME_MEMBERS();							\
-    C ## _align_register() : Score_align_register(T::static_name()) {\
+    C ## _align_register() : Score_align_register() \
+    { type_ch_C_ = T::static_name();\
     priority_i_ = p;}	\
 };									\
 IMPLEMENT_STATIC_NAME(C ## _align_register)	;			\

@@ -14,12 +14,12 @@
 
 class Score_align_register: public Request_register
 {
-    
-    const char* type_ch_C_;
     Horizontal_group_item  * align_p_;
 public:
+    
+    const char* type_ch_C_;
     int priority_i_;
-    Score_align_register(char const*);
+    Score_align_register();
     NAME_MEMBERS();
 protected:
     virtual void acknowledge_element(Score_elem_info);
