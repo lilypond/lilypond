@@ -2056,15 +2056,16 @@ edition by Schott/Universal Edition:
 
 @lilypondfile{brahms-tweaked.ly}
 
-@cindex tuning grob behavior
+@cindex tuning graphical objects
 
-Fine tuning involves overriding the defaults of the printing system.  
+Fine tuning involves overriding the defaults of the printing system.
 We do this by setting variables which control how Lilypond prints
-symbols.  Printed symbols are called @emph{grobs} (GRaphical OBjects).  
-Each grob is described by a bunch of settings.  Every setting is a
-variable: it has a name and a value which you can change.  These values
-determine the fonts, offsets, sub-routines to be called on the grob,
-etc.  The initial values of these settings are set in the Scheme file
+symbols.  Printed symbols are called graphical objects (often
+abbreviated to @emph{grob}). Each object is described by a bunch of
+settings.  Every setting is a variable: it has a name and a value
+which you can change.  These values determine the fonts, offsets,
+sub-routines to be called on the object, etc.  The initial values of
+these settings are set in the Scheme file
 @file{scm/grob-description.scm}.
 
 @cindex slur attachments
@@ -2084,15 +2085,15 @@ object in the current @code{Voice}.  The variable @code{attachment} is
 set to the pair of symbols @code{'(stem . stem)}. 
 
 Although this fixes the slur, it isn't very helpful for fine tuning in
-general: the lilypond back-end supports approximately 240 variables like
-@code{attachment}, each with their own meaning and own type
+general: the lilypond back-end supports approximately 240 variables
+like @code{attachment}, each with their own meaning and own type
 (eg. number, symbol, list, etc).  Besides slur, LilyPond has 80
-different types of Grobs, that may be created in 14 different context
-types besides Voice.
+different types of graphical objects, that may be created in 14
+different context types besides Voice.
 
 @cindex internal documentation
-@cindex finding grobs
-@cindex grob descriptions 
+@cindex finding graphical objects
+@cindex graphical object descriptions 
 
 The interesting information is how you can figure out which properties
 to tune for your own scores. To discover this, you must have a copy of
@@ -2122,11 +2123,11 @@ The grob for this object is @internalsref{Slur}, generally in
 @internalsref{Voice} context.
 @end quotation
 
-So the grob for this object is called @code{Slur}, and slurs are
-created in the @code{Voice} context.  If you are reading this tutorial
-in the HTML version, then you can simply click Slur, otherwise, you
-should look it up the internal documentation: click ``grob overview''
-and select ``slur'' (the list is alphabetical).
+So the graphical object for this object is called @code{Slur}, and
+slurs are created in the @code{Voice} context.  If you are reading
+this tutorial in the HTML version, then you can simply click Slur,
+otherwise, you should look it up the internal documentation: click
+``grob overview'' and select ``slur'' (the list is alphabetical).
 
 Now you get a list of all the properties that the slur object
 supports, along with their default values.  Among the properties we
@@ -2149,19 +2150,20 @@ definition of @code{\stemUp}:
 @separate
 
 Next we want to move the fingering `3'.  In the printed edition it is
-not above the stem, but a little lower and slightly left of the
-stem.  From the user manual we find that the associated grob is called
-@code{Fingering}, but how do we know if we should use @code{Voice} or
-@code{Staff}?  In many cases, @code{Voice} is a safe bet, but you can
-also deduce this information from the internals documentation: if you
-visit the documentation of @code{Fingering}, you will notice
+not above the stem, but a little lower and slightly left of the stem.
+From the user manual we find that the associated graphical object is
+called @code{Fingering}, but how do we know if we should use
+@code{Voice} or @code{Staff}?  In many cases, @code{Voice} is a safe
+bet, but you can also deduce this information from the internals
+documentation: if you visit the documentation of @code{Fingering}, you
+will notice
 @example
 Fingering grobs are created by: Fingering_engraver
 @end example
 
 Clicking @code{Fingering_engraver} will show you the documentation of
 the module responsible for interpreting the fingering instructions and
-translating them to a @code{Fingering} grob.  Such a module is called
+translating them to a @code{Fingering} object.  Such a module is called
 an @emph{engraver}.  The documentation of the @code{Fingering_engraver}
 says
 @example
@@ -2179,13 +2181,12 @@ or
 Since the @code{TabVoice} is only used for tab notation, we see that
 the first guess @code{Voice} was indeed correct.
 
-@cindex setting grob properties
+@cindex setting object properties
 @cindex @code{extra-offset}
 
-For shifting the fingering, we use the grob property
-@code{extra-offset}.  The following command manually adds an offset to
-the object.  We move it a little to the left, and 1.8 staff space
-downwards.
+For shifting the fingering, we use the property @code{extra-offset}.
+The following command manually adds an offset to the object.  We move
+it a little to the left, and 1.8 staff space downwards.
 @example
  \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
 @end example	   
@@ -2193,15 +2194,14 @@ The @code{extra-offset} is a low-level feature: it moves around
 objects in the printout; the formatting engine is completely oblivious
 to these offsets.  The unit of these offsets are staff-spaces.  The
 first number controls left-right movement; a positive number will move
-the object (they're called grobs, remember?) to the right.  The second
-number controls up-down movement; a positive number will move the grob
-higher.
+the object to the right.  The second number controls up-down movement;
+a positive number will move it higher.
 
-@cindex reverting grob properties
-@cindex undoing grob properties
+@cindex reverting object properties
+@cindex undoing object properties
 
-We only want to offset a single grob, so after the F-sharp we must
-undo the setting. The technical term is to revert the grob property.
+We only want to offset a single object, so after the F-sharp we must
+undo the setting. The technical term is to revert the property.
 @example
   \property Voice.Fingering \revert #'extra-offset
 @end example
@@ -2251,10 +2251,10 @@ dynamics, we notice that ``Vertical positioning of these symbols is
 handled by the @internalsref{DynamicLineSpanner} grob.''.  If we turn
 to the documentation of @code{DynamicLineSpanner}, we find that
 @code{DynamicLineSpanner} supports several so-called `interfaces'.  This
-grob not only puts dynamic objects next to the staff
+object not only puts dynamic objects next to the staff
 (@code{side-position-interface}), but it also groups dynamic objects
 (@code{axis-group-interface}), is considered a dynamic sign
-itself (@code{dynamic-interface}), and is a grob.  It has the standard
+itself (@code{dynamic-interface}), and is an object.  It has the standard
 @code{grob-interface} with all the variables that come with it.
 
 For the moment we are interested in side positioning:
@@ -2265,7 +2265,7 @@ For the moment we are interested in side positioning:
   support).  In this case, the direction signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
-Between the grob and its support (in this case the notes in the voice
+Between the object and its support (in this case the notes in the voice
 going down), there should be more space.  This space is controlled by
 @code{padding}, so we increase it.
 @example
@@ -2274,7 +2274,7 @@ going down), there should be more space.  This space is controlled by
 
 This command is almost like the command for setting slur attachments,
 but subtly different in its details.  Grob properties can be
-manipulated with two commands: @code{\override} extends the grob
+manipulated with two commands: @code{\override} extends the 
 variables with a setting, and @code{\revert} releases this
 setting.  This has a certain theoretical appeal: the operations are
 simple and symmetric.  But for practical use, it can be cumbersome.  The
@@ -2292,10 +2292,17 @@ different voice, and blank the stem.  This is done in the following
 snippet of code.
 
 @example
-	  \property Voice.Stem \set #'transparent = ##t
+	 \property Voice.Stem \set #'transparent = ##t
 	  d'
-	  \property Voice.Stem \revert #'transparent
 @end example
+Blanking the stem should be done for only one object. One of the ways
+to achieve that, is by setting the property before a note. Reverting
+it afterwards is tedious, so for setting a property only once, we have
+the syntax @code{\once}: it reverts the property directly before
+proceeding to the next step in time.
+
+The @code{\once} keyword is added to @code{\property}.
+
 
 Finally, the last tie is forced up using @code{\tieUp}.
 
@@ -2539,12 +2546,12 @@ All staves are simultaneous and use the same global settings.
 @end example
 LilyPond prints bar numbers at the start of each line, but
 unfortunately they end up a bit too close to the staff in this
-example.  In LilyPond, a bar number is a Grob called @var{BarNumber}.
-BarNumber Grobs can be manipulated through their
+example.  In LilyPond, a bar number is called @var{BarNumber}.
+BarNumber objects can be manipulated through their
 @var{side-position-interface}.  One of the properties of a
 @var{side-position-interface} that can be tweaked is @var{padding}:
-the amount of extra space that is put between this Grob
-and other Grobs.  We set the padding to three staff spaces.
+the amount of extra space that is put between this and other objects.
+We set the padding to three staff spaces.
 
 You can find information on all these kind of properties in LilyPond's
 automatically generated documentation in

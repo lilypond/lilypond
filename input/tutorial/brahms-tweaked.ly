@@ -19,7 +19,7 @@
 	    \stemUp
 	    \clef treble g ~ < g8 )e> } \\
         { s16
-          \property Voice.Stem \set #'transparent = ##t
+	  \property Voice.Stem \set #'transparent = ##t
           d'
           \property Voice.Stem \revert #'transparent
           ~ < d4 b4  > }

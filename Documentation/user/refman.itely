@@ -4008,6 +4008,24 @@ LilyPond may crash.
 @node Tuning per object 
 @subsection Tuning per object 
 
+Tuning a single object is most often done with @code{\property}. The
+form,
+@example
+        \once \property @dots{}
+@end example
+@c
+applies a setting only during one moment in the score: notice how the
+original setting for stem thickness is restored automatically in the
+following example
+@c
+@lilypond[verbatim, fragment, relative=1]
+  c4 
+  \once \property Voice.Stem \set #'thickness = #4
+  c4
+  c4
+@end lilypond
+
+@cindex \once
 @cindex \outputproperty
 
 A second way of tuning objects is the more arcane @code{\outputproperty}
