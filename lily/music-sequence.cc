@@ -79,7 +79,7 @@ SCM
 Music_sequence::cumulative_length_callback (SCM m)
 {
   Music* me = unsmob_music (m);
-  return maximum_length (me->get_property ("elements")).smobbed_copy();
+  return cumulative_length (me->get_property ("elements")).smobbed_copy();
 }
 
 Pitch
