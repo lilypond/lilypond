@@ -220,7 +220,7 @@ def system (cmd, ignore_error = 0):
 def cleanup_temp ():
 	if not keep_temp_dir_p:
 		if verbose_p:
-			progress (_ ("Cleaning %s...") % temp_dir)
+			progress (_ ("Cleaning `%s'...") % temp_dir)
 		system ('rm -rf %s' % temp_dir)
 
 
@@ -362,7 +362,7 @@ def copy_url (url, dir):
 
 
 def find_latest (url):
-	progress (_ ("listing %s...") % url)
+	progress (_ ("Listing `%s'...") % url)
 	list = map (split_package, list_url (url))
 	list.sort ()
 	return join_package (list[-1])
@@ -432,7 +432,7 @@ if 1:
 		os.chdir (patch_dir)
 		if not os.path.isfile (latest + '.diff.gz'):
 			get = get_base + latest + '.diff.gz'
-			progress (_ ("fetching %s...") % get)
+			progress (_ ("Fetching `%'s...") % get)
 			copy_url (get, '.')
 
 	if not os.path.isdir (build_root):
@@ -445,7 +445,7 @@ if 1:
 	os.chdir (release_dir)
 	if not os.path.isfile (latest + '.tar.gz'):
 		get = get_base + latest + '.tar.gz'
-		progress (_ ("fetching %s...") % get)
+		progress (_ ("Fetching `%s'...") % get)
 		copy_url (get, '.')
 
 	if os.path.isdir (os.path.join (build_root, package_name)):
@@ -454,7 +454,7 @@ if 1:
 	else:
 		previous = 0
 
-	progress (_ ("building %s...") % latest)
+	progress (_ ("Building `%s'...") % latest)
 	os.chdir (build_root)
 	if not build (latest):
 		if previous and remove_previous_p:

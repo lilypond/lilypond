@@ -1197,7 +1197,7 @@ for f in files:
 	elif f and not os.path.isfile (f):
 		f = strip_extension (f, '.mup') + '.mup'
 		h = open (f)
-	progress ( _("Processing %s..." % f))
+	progress ( _("Processing `%s'..." % f))
 	raw_lines = h.readlines ()
 	p = Pre_processor (raw_lines)
 	if only_pre_process_p:
@@ -1216,7 +1216,7 @@ for f in files:
 	else:
 		out_h = open (output, 'w')
 
-	progress (_ ("Writing %s...") % output)
+	progress (_ ("Writing `%s'...") % output)
 
 	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
 	if only_pre_process_p:

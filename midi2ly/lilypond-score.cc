@@ -105,7 +105,7 @@ Lilypond_score::get_column_l (Rational mom)
 void
 Lilypond_score::output (String filename_str)
 {
-  LOGOUT (NORMAL_ver) << _f ("Lily output to %s...", filename_str) << endl;
+  LOGOUT (NORMAL_ver) << _f ("LY output to `%s'...", filename_str) << endl;
   
   // ugh, ugly midi type 1 fix
   if ( (lilypond_staff_p_list_.size_i () == 1)

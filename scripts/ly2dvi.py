@@ -787,7 +787,7 @@ if files and files[0] != '-':
 else:
 	# FIXME
 	help ()
-	errorport.write ("ly2dvi: error: " + _ ("no files specified on command line.\n"))
+	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
 
 
