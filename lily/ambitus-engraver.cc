@@ -64,6 +64,7 @@ class Ambitus_engraver : public Engraver
 {
 public:
 TRANSLATOR_DECLARATIONS(Ambitus_engraver);
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void finalize ();
@@ -71,51 +72,65 @@ TRANSLATOR_DECLARATIONS(Ambitus_engraver);
 private:
   void create_ambitus ();
   Item *ambitus_p_;
-  int isActive;
+  int/*bool*/ is_typeset;
   Pitch pitch_min, pitch_max;
 };
 
 Ambitus_engraver::Ambitus_engraver ()
 {
-  ambitus_p_ = 0; isActive = 0;
+  ambitus_p_ = 0;
+  is_typeset = 0;
 
-  // (pitch_min > pitch_max) means that pitches are not yet
-  // initialized
+  /*
+   * (pitch_min > pitch_max) means that pitches are not yet
+   * initialized
+   */
   pitch_min = Pitch (0, 0, +1);
   pitch_max = Pitch (0, 0, -1);
 }
 
 void
-Ambitus_engraver::stop_translation_timestep ()
+Ambitus_engraver::process_music ()
 {
+  /*
+   * Ensure that ambitus is created in the very first timestep (on
+   * which lily does not call start_translation_timestep ()).
+   * Otherwise, if a voice begins with a rest, the ambitus grob will
+   * be placed after the rest.
+   */
   if (!ambitus_p_) {
-    // Create ambitus not before stopping timestep.  centralCPosition
-    // will then be the same as that for the first timestep.
-    //
-    // TODO: is this really a good idea?  At least, creating the
-    // ambitus in start_translation_timestep is a *bad* idea, since we
-    // may then oversee a clef that is defined in a staff context if
-    // we are in a voice context; centralCPosition would then be
-    // assumed to be 0.
     create_ambitus ();
   }
-  if (ambitus_p_ && isActive)
+}
+
+void
+Ambitus_engraver::stop_translation_timestep ()
+{
+  if (ambitus_p_ && !is_typeset)
     {
+      /*
+       * Evaluate centralCPosition not until now, since otherwise we
+       * may then oversee a clef that is defined in a staff context if
+       * we are in a voice context; centralCPosition would then be
+       * assumed to be 0.
+       */
+      SCM c0 = get_property ("centralCPosition");
+      ambitus_p_->set_grob_property ("centralCPosition", c0);
+
+      /*
+       * Similar for keySignature.
+       */
       SCM key_signature = get_property ("keySignature");
       ambitus_p_->set_grob_property ("keySignature", key_signature);
+
       typeset_grob (ambitus_p_);
-      isActive = 0;
+      is_typeset = 1;
     }
 }
 
 void
 Ambitus_engraver::acknowledge_grob (Grob_info info)
 {
-  if (!ambitus_p_) {
-    create_ambitus ();
-  }
-  if (!ambitus_p_)
-    return;
   Item *item = dynamic_cast <Item *>(info.grob_l_);
   if (item)
     {
@@ -148,9 +163,7 @@ void
 Ambitus_engraver::create_ambitus ()
 {
   SCM basicProperties = get_property ("Ambitus");
-  SCM c0 = get_property ("centralCPosition");
-  ambitus_p_ = new Item (basicProperties); isActive = 1;
-  ambitus_p_->set_grob_property ("centralCPosition", c0);
+  ambitus_p_ = new Item (basicProperties); is_typeset = 0;
   announce_grob (ambitus_p_, SCM_EOL);
 }
 
@@ -168,9 +181,11 @@ Ambitus_engraver::finalize ()
 	}
       else // have not seen any pitch, so forget about the ambitus
 	{
-	  // Do not print a warning on empty ambitus range, since this
-	  // most probably arises from an empty voice, such as shared
-	  // global timesig/clef definitions.
+	  /*
+	   * Do not print a warning on empty ambitus range, since this
+	   * most probably arises from an empty voice, such as shared
+	   * global timesig/clef definitions.
+	   */
 #if 0
 	  ambitus_p_->warning("empty ambitus range [ignored]");
 #endif

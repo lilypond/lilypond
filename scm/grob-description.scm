@@ -303,6 +303,7 @@
 	(X-extent-callback . ,Grob::point_dimension_callback)
 	(breakable . #t)
 	(space-alist . (
+			(custos . (extra-space . 0.0))
 			(ambitus . (extra-space . 2.0))
 			(time-signature . (extra-space . 0.0)) 
 			(staff-bar . (extra-space . 0.0))

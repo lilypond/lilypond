@@ -1,3 +1,8 @@
+2002-07-23  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/ambitus-engraver.cc: bugfix: create ambitus grob during
+	process_music phase
+
 2002-07-23  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/separation-item.cc (width): cache extent in extent-X
