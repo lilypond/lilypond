@@ -39,6 +39,7 @@
 	     filledbox
 	     round-filled-box
 	     text
+	     white-text
 	     tuplet
 	     polygon
 	     draw-line
@@ -251,6 +252,11 @@
      (string-join (reverse commands)))
     ))
   
+
+(define (white-text s)
+   (let ((mystring (string-append "(" s ")" " /Helvetica-bold" " draw_white_text")))
+  mystring))
+
 (define (unknown) 
   "\n unknown\n")
 

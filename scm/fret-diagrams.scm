@@ -5,7 +5,6 @@
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
-(define fontify-text-white fontify-text)  ;  temporary until fontify-text-white works properly (see draw-dots for usage)
 
 ;;TODO -- Change font interface from name, magnification to family, weight, size
 ;      Right now, using the desired interface gives an error, so we use name, magnification
@@ -146,7 +145,6 @@
          (finger-yoffset (chain-assoc-get 'finger-yoffset props (- size)))
 ;part of deprecated font interface 
          (label-font-name (chain-assoc-get 'label-font-name props "cmss8"))
-         (white-dot-font-mag (* scale-dot-radius (chain-assoc-get 'white-dot-font-mag props 1.8))) 
          (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.2)))
          (string-label-font-mag (* size (chain-assoc-get 'string-label-font-mag props 0.6)))
          (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
@@ -177,9 +175,6 @@
 ; deprecated font interface
 ;         (dot-circle-font (ly:paper-get-font paper `(((font-magnification . ,dot-circle-font-mag)
 ;                                                      (font-name . ,label-font-name)))))
-; deprecated font interface
-         (white-dot-font (ly:paper-get-font paper `(((font-magnification . ,white-dot-font-mag)
-                                                      (font-name . ,label-font-name)))))
          (dotstencil  (if (eq? dot-color 'white)
                           (begin
                           (ly:make-stencil (list 'white-dot 0 0 scale-dot-radius) extent extent))
@@ -262,22 +257,29 @@
      (let* ((string1 (caar barre-list))
             (string2 (cadar barre-list))
             (fret    (caddar barre-list))
+            (barre-type (chain-assoc-get 'barre-type props 'curved))
+            (scale-dot-radius (* size dot-radius))
             (barre-vertical-offset (chain-assoc-get 'barre-vertical-offset props 0.5))
             ; 2 is 1 for empty fret at bottom of figure + 1 for interval (top-fret - fret + 1) -- not an arbitrary constant
-            (bottom (+ (* size (- (+ 2 (- (cadr fret-range) fret))dot-position) ) (* size barre-vertical-offset dot-radius)))
+            (dot-center-y (* size (- (+ 2 (- (cadr fret-range) fret))dot-position) ))
+            (bottom (+  dot-center-y (* barre-vertical-offset scale-dot-radius)))
             (left (* size (- string-count string1)))
             (right (* size (- string-count string2)))
             (bezier-thick (chain-assoc-get 'bezier-thickness props 0.1))
             (bezier-height (chain-assoc-get 'bezier-height props 0.5))
             (bezier-list (make-bezier-sandwich-list left right bottom (* size bezier-height) (* size bezier-thick)))
-            (sandwich-stencil (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick) )
-                                  (cons 0 right)
-                                  (cons 0 (+ bottom (* size bezier-height))))))
+            (barre-stencil (if (eq? barre-type 'straight)
+                              (ly:make-stencil (list 'draw-line (* size dot-radius) left dot-center-y right dot-center-y)
+                                               (cons left right)
+                                               (cons (- dot-center-y scale-dot-radius) (+ dot-center-y scale-dot-radius))) 
+                              (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick) )
+                                  (cons left right)
+                                  (cons bottom (+ bottom (* size bezier-height)))))))
         (if (not (null? (cdr barre-list)))
-            (ly:stencil-add sandwich-stencil
+            (ly:stencil-add barre-stencil
                  (draw-barre paper props string-count fret-range size finger-code dot-circle-font-mag
                       dot-position dot-radius (cdr barre-list)))
-            sandwich-stencil ))))
+            barre-stencil ))))
 
   
 (define (stepmag mag)
@@ -349,9 +351,11 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
 ;TODO -- adjust padding for fret label?  it appears to be too close to dots
          (string-count (chain-assoc-get 'string-count props 6)) ; needed for everything
          (fret-count (chain-assoc-get 'fret-count props 4)) ; needed for everything
-         (dot-position (chain-assoc-get 'dot-position props 0.6)) ; needed for both draw-dots and draw-barre
-         (dot-radius (chain-assoc-get 'dot-radius props 0.25))  ; needed for both draw-dots and draw-barre
          (finger-code (chain-assoc-get 'finger-code props 'none))  ; needed for both draw-dots and draw-barre
+         (default-dot-radius (if (eq? finger-code 'in-dot) 0.45 0.25))  ; bigger dots if labeled
+         (default-dot-position (if (eq? finger-code 'in-dot) 0.5 0.6))  ; move up to make room for bigger if labeled
+         (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
+         (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
          (dot-circle-font-mag (* size (chain-assoc-get 'dot-circle-font-mag props .75))) ; needed for both draw-dots and draw-barre
          (th (* (ly:paper-lookup paper 'linethickness)
                 (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
