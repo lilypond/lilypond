@@ -71,7 +71,7 @@ Add a ref if REF is set
   (string-append
    "\n" (cdr (assoc level texi-section-alist)) " "
    (if ref
-       (string-append "@ref{" name "}") 
+       (ref-ify name)
        name)
    "\n"))
 
@@ -103,7 +103,7 @@ Add a ref if REF is set
   ;; Menus don't appear in html, so we make a list ourselves
   "\n@ignore\n"
   "\n@ifhtml\n"
-  (description-list->texi (map (lambda (x) (cons (reffy (car x)) (cdr x)))
+  (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
 			 items-alist))
   "\n@end ifhtml\n"
   "\n@end ignore\n"))
@@ -133,18 +133,18 @@ Add a ref if REF is set
    ))
 
 (define (context-name name)
-  (string-append "Context " name))
+  name)
 
 (define (engraver-name name)
   name)
 
 (define (grob-name name)
-  (string-append "Grob " name))
+  name)
 
 (define (interface-name name)
   name)
 
-(define (reffy x)
+(define (ref-ify x)
   (string-append "@ref{" x "}"))
 
 (define (human-listify l)

@@ -89,11 +89,10 @@
 	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(caddr e))
 	   )
-	  ,(if (not (equal? oct 0))
-	       `((symbol . clefOctavation)
+	  ((symbol . clefOctavation)
 		 (iterator-ctor . ,Property_iterator::constructor)
 		 (value . ,oct)
-	       ))
+	       )
 	  )
 	(begin
 	  (ly-warn (string-append "Unknown clef type `" cl "'\nSee scm/lily.scm for supported clefs"))

@@ -70,7 +70,6 @@
 		 (flag-width-function . ,default-beam-flag-width-function)
 		 (space-function . ,default-beam-space-function)
 		 (damping . 1)
-		 (auto-knee-gap . 7)
 		 (meta . ,(grob-description "Beam" beam-interface))
 		 ))
 	 

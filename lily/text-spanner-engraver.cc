@@ -86,7 +86,6 @@ Text_spanner_engraver::try_music (Music *m)
 void
 Text_spanner_engraver::create_grobs ()
 {
-  /////
   if (req_drul_[STOP])
     {
       if (!span_)
@@ -103,6 +102,7 @@ Text_spanner_engraver::create_grobs ()
 	  finished_ = span_;
 	  span_ = 0;
 	  current_req_ = 0;
+	  req_drul_[STOP] = 0;
 	}
     }
 
@@ -126,7 +126,9 @@ Text_spanner_engraver::create_grobs ()
 	  Side_position::set_axis (span_, Y_AXIS);
 	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
+	  
 	  announce_grob (span_, req_drul_[START]);
+	  req_drul_[START] = 0;
 	}
     }
 }

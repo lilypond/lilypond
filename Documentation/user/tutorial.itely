@@ -930,7 +930,7 @@ hoomPah  = \notes \repeat unfold 8 \transpose c' { c8 \stemdown c'8 \stemup }
 
 bassvoices = \notes \relative c' {
 	c4 g8. b,16
-	\autochange Staff \hoomPah o
+	\autochange Staff \hoomPah 
 	\translator Staff = down
 	\stemdown [c8 c'8] r4
 	<g d'> r4

@@ -337,6 +337,9 @@ class TeXOutput:
 
         outfile=this.__base + '.dvi'
         if Props.get('output') != '':
+	    if not os.path.exists(Props.get('output')):
+		    os.mkdir(Props.get('output'))
+
             outfile = os.path.join(Props.get('output'), outfile )
             
         this.write(r"""

@@ -4,7 +4,8 @@ providing custom glyphs for notation elements.  A simple example is
 adding parentheses to existing molecule callbacks.
 
 The parenthesized beam is less successful due to implementation of the
-Beam.
+Beam. The note head is also rather naive, since the extent of the
+parens are also not seen by accidentals.
 ";
 	
 	 }

@@ -31,7 +31,7 @@
 (define (document-grob-property sym grob-description )
   (let* ((handle (assoc sym grob-description))
 	 (defval (if (eq? handle #f)
-		     ""
+		     "(unset)"
 		   (scm->texi (cdr handle))))
 	 (propdoc (backend-property->texi sym)))
 	 
@@ -97,7 +97,7 @@
 			 engraver-description-alist))))
        (string-append
 	name " grobs are created by: "
-	(human-listify (map reffy
+	(human-listify (map ref-ify
 			    (map engraver-name
 				 (map symbol->string engravers))))))
 

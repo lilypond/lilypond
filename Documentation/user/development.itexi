@@ -1009,6 +1009,11 @@ TODO file, listed on the homepage of Jan and
 @uref{http://www.cs.uu.nl/~hanwen/lily-devel,Han-Wen}.  Modifying
 LilyPond almost always requires patches to the C++ part.
 
+If you still don't have any idea what to do, you might want to browse
+the mailing lists; Users do lots of feature requests, and you could
+implement any of them.
+
+
 There are also numerous other interesting projects that are more or less
 related  to LilyPond
 

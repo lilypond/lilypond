@@ -23,6 +23,7 @@
 	(list
 	 (list 'beamSlopeDamping number? 'damping)
 	 (list 'autoKneeGap number? 'auto-knee-gap)
+	 (list 'autoInterstaffKneeGap number? 'auto-interstaff-knee-gap)
 	 (list 'beamDirAlgorithm symbol? 'beam-dir-algorithm)
 	 (list 'beamHeight number? 'height-hs)
 	 (list 'beamVerticalPosition number? 'y-position-hs)

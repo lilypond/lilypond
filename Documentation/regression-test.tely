@@ -239,5 +239,7 @@ signatures.
 
 @lilypondfile[printfilename]{between-systems.ly}
 
+@lilypondfile{molecule-hacking.ly}
+
 @bye
 

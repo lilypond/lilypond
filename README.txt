@@ -12,7 +12,7 @@ Versioning
 
    LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
-For development versions 'y' is odd.  Sh, in theory, version 1.2 is
+For development versions 'y' is odd.  So, in theory, version 1.2 is
 stable, which means that there are no glaring errors in it. In practice
 1.2.x is also unmaintained.
 
@@ -109,11 +109,4 @@ Bugs
 use <help-gnu-music@gnu.org> and <gnu-music-discuss@gnu.org>.  Please
 consult the FAQ and installation instructions before mailing your
 problems.
-
-CDROM distributions
-===================
-
-   If you have received LilyPond on a cdrom, chances are that
-development has moved some patchlevels up.  Please check the latest
-version of LilyPond before reporting bugs.
 
