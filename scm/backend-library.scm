@@ -60,7 +60,7 @@
 		      (if (ly:get-option 'verbose) " --verbose " "")
 		      name)))
     ;; Do not try to guess the name of the png file
-    (format (current-error-port) (_ "Converting to `~a'...") "png")
+    (format (current-error-port) (_ "Converting to `~a'...") (format "~a.png" name))
     (ly:system cmd)))
 
 (define-public (postprocess-output paper-book module filename formats)
