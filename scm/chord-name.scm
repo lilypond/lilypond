@@ -939,7 +939,10 @@ inline use in .ly file"
      ((american)
       (chord-name-style-setter chord->markup-american
 			       chord::exception-alist-american))
-     
+
+     ((ignatzek)
+      (chord-name-style-setter ignatzek-chord-names
+			       '()))
      ((double-plus-new-banter)
       (chord-name-style-setter double-plus-new-chord->markup-banter
        chord::exception-alist-banter))
@@ -959,6 +962,8 @@ inline use in .ly file"
     (context-spec-music
      (make-sequential-music 
       (list (make-property-set 'chordNameFunction function)
+
+	    ;; urg , misuse of chordNameExceptions function.
 	    (make-property-set 'chordNameExceptions options)))
      "ChordNames"))
 
@@ -969,3 +974,4 @@ inline use in .ly file"
      
      ((jazz)
       (chord-name-style-setter double-plus-new-chord->markup-jazz)))))
+

@@ -25,12 +25,12 @@
 
 (define (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging, possibly turned off."
-;;  (display message) (write x) (newline) x)
-  x)
+  (display message) (write x) (newline) x)
+;;  x)
 
 (define (tail lst)
   "Return tail element of LST."
-  (car (reverse lst)))
+  (car (last-pair lst)))
 
 (define (list-minus a b)
   "Return list of elements in A that are not in B."
@@ -82,8 +82,12 @@
 
 ;; Generic PITCH/MARKUP functions
 (define (ly:pitch-diff pitch root)
-  "Return pitch with value PITCH - ROOT, ie,
+  "Return pitch with value DELTA =  PITCH - ROOT, ie,
 ROOT == (ly:pitch-transpose root delta)."
+
+
+  ;; a little kludgy? Do this in C++ ? --hwn
+  
   (let ((simple-octave (- (ly:pitch-octave pitch) (ly:pitch-octave root)))
 	(simple-notename
 	 (- (ly:pitch-notename pitch) (ly:pitch-notename root))))
@@ -349,3 +353,188 @@ input/test/dpncnt.ly).
        (else empty-markup))))
 
   
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; jazz-part 2
+;;
+;; after Klaus Ignatzek,   Die Jazzmethode fuer Klavier 1.
+;; 
+
+
+(define natural-chord-alterations
+  '(
+    (2 . 0)
+    (3 . 0)
+    (4 . 0)
+    (5 . 0)
+    (6 . 0)
+    
+    (7 . -1)
+    (9 . 0)
+    (11 . 0)
+    (13 . 0))
+    )
+
+(define natural-7-up-alterations
+  (butfirst-n 5 natural-chord-alterations) )
+
+(define-public (ignatzek-chord-names
+		in-pitches bass inversion options)
+
+  (let*
+     (
+      (root (car in-pitches))
+      (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
+      (suffixes '())
+      (add-steps '())
+      (body '())
+      (7-and-up '())
+      (sequential-7-to-13 '())
+      (sequential-count 0)
+      (alterations '())
+      (unaltered-count 0)
+      )
+  
+  (define (get-step x ps)
+    "Does PS have the X step? Return that step if it does."
+    (if (null? ps)
+	#f
+	(if (= (- x 1) (ly:pitch-steps (car ps)))
+	    (car ps) 
+	    (get-step x (cdr ps)))
+	))
+
+  (define (name-step pitch)
+    (define (step-alteration pitch)
+      (- (ly:pitch-alteration pitch)
+	 (assoc-get-default (+ 1  (ly:pitch-steps pitch)) natural-chord-alterations 0))
+      )
+      
+    (make-line-markup
+     (list
+      (accidental->markup (step-alteration pitch))
+      (make-simple-markup (number->string (+ 1 (ly:pitch-steps pitch)))))))
+
+  
+  (define (count-leading-true bs)
+    "For the list of booleans BS, count with how many #t's it starts."
+    (if (null? bs)
+	0
+	(if (car bs)
+	    (+ 1 (count-leading-true (cdr bs)))
+	    0)
+    ))
+
+  (define (remove-step x ps)
+    "Copy PS, but leave out the Xth step."
+    (if (null? ps)
+	'()
+	(let*
+	    (
+	     (t (remove-step x (cdr ps)))
+	     )
+
+	  (if (= (- x 1) (ly:pitch-steps (car ps)))
+	       t
+	       (cons (car ps) t)
+	       ))
+	   
+    ))
+
+  (define (remove-uptil-step x ps)
+    "Copy PS, but leave out everything below the Xth step."
+    (if (null? ps)
+	'()
+	(if (< (ly:pitch-steps (car ps)) (- x 1))
+	    (remove-uptil-step x (cdr ps))
+	    ps)
+	)
+    )
+
+
+
+  (write-me "*****************\nchord " in-pitches)
+
+  ;; handle sus4 suffix.
+  (if (get-step 4 pitches)
+      (begin
+	(if (get-step 3 pitches)
+	    (begin
+	      (set! add-steps (cons (get-step 3 pitches) add-steps))
+	      (set! pitches (remove-step 3 pitches))
+	    ))
+	(set! suffixes  (cons "sus4" suffixes))
+      )
+  )
+
+  ;; handle sus2 suffix.
+  (if (get-step 2 pitches)
+      (begin
+	(if (get-step 3 pitches)
+	    (begin
+	      (set! add-steps (cons (get-step 3 pitches) add-steps))
+	      (set! pitches (remove-step 3 pitches))
+	    ))
+	(set! suffixes  (cons "sus2" suffixes))
+      )
+  )
+
+  (if (and (get-step 3 pitches)
+	   (= (ly:pitch-alteration (get-step 3 pitches)) -1))
+      (set! body (cons "m" body))
+      )
+
+  (if (get-step 6 pitches)
+      (set! body (cons "6" body ))
+      )
+
+  (if (>= (ly:pitch-steps (tail pitches))  6)
+      (begin
+
+	;; TODO: filter 6, 8, 10, 12, 14
+	(set! 7-and-up (remove-uptil-step 7 pitches))
+	(set! sequential-count
+	      (count-leading-true
+	       (map
+		(lambda (x)
+		  (get-step (car x) 7-and-up))
+		natural-7-up-alterations
+		)
+	       ))
+
+	(set! sequential-7-to-13
+	      (first-n sequential-count  7-and-up))
+
+	(set! add-steps (append add-steps
+				(butfirst-n sequential-count 7-and-up)))
+
+	(set! unaltered-count    
+	      (count-leading-true
+	       (map (lambda (x)
+		      (= (ly:pitch-alteration (get-step (car x) sequential-7-to-13))
+			 (cdr x)))
+		    (first-n (length sequential-7-to-13) natural-7-up-alterations)
+		    )))
+
+	(write-me "sequential-7-to-13 " sequential-7-to-13)
+	(if (pair? sequential-7-to-13)
+	    (set! body
+		  (cons (name-step
+			 (list-ref sequential-7-to-13 (max 0 (- unaltered-count 1))))
+			body)))
+
+	(set! alterations (butfirst-n unaltered-count sequential-7-to-13))
+	))
+  
+  (write-me "alterations " alterations)
+  (write-me "add-steps " add-steps)
+  (write-me "body " body)
+  (write-me "suffixes " suffixes)
+
+  
+  (make-simple-markup "bla")
+  
+  ))
+
