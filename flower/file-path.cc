@@ -28,7 +28,7 @@
 #endif
 
 Array<String>
-File_path::paths () const
+File_path::directories () const
 {
   return *this;
 }

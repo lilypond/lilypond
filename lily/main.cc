@@ -25,17 +25,16 @@
 
 #include "all-font-metrics.hh"
 #include "file-name.hh"
+#include "freetype.hh"
 #include "getopt-long.hh"
 #include "global-ctor.hh"
-#include "kpath.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"
-#include "version.hh"
 #include "misc.hh"
 #include "output-def.hh"
-#include "warn.hh"
-#include "freetype.hh"
 #include "string-convert.hh"
+#include "version.hh"
+#include "warn.hh"
 
 /*
  * Global options that can be overridden through command line.
@@ -437,7 +436,7 @@ add_output_format (String format)
 static void
 parse_argv (int argc, char **argv)
 {
-  bool help_b = false;
+  bool show_help = false;
   option_parser = new Getopt_long (argc, argv, options_static);
   while (Long_option_init const *opt = (*option_parser) ())
     {
@@ -499,7 +498,7 @@ parse_argv (int argc, char **argv)
 	  init_name_global = option_parser->optional_argument_str0_;
 	  break;
 	case 'h':
-	  help_b = true;
+	  show_help = true;
 	  break;
 	case 'V':
 	  be_verbose_global = true;
@@ -518,7 +517,7 @@ parse_argv (int argc, char **argv)
 	}
     }
 
-  if (help_b)
+  if (show_help)
     {
       identify (stdout);
       usage ();
