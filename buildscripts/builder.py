@@ -1,6 +1,7 @@
 # -*-python-*-
 
 import os
+import re
 import string
 
 Import ('env')
@@ -199,6 +200,23 @@ a = ('%(PYTHON)s %(DIFF_PY)s%(verbose)s'\
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
 
-#ball = Builder (prefix = env['ballprefix'] + '/',
-#action = 'ln $SOURCE $TARGET')
-#env.Append (BUILDERS = {'BALL': ball})
+# ughr
+def ln (target, source, env):
+	base = os.path.splitext (source[0].name)[0]
+	suf = os.path.splitext (str (source[0]))[1]
+	if suf:
+		target = [target[0].path + suf,]
+	source = [re.sub ('/' + env['out'] + '/', '/', base + suf)]
+	return (target, source)
+
+def baller (dir_name, sources, env):
+	ballprefix = os.path.join (env['ballprefix'], dir_name)
+	ball = Builder (prefix = ballprefix + '/',
+			action = 'ln $SOURCE $TARGET',
+			emitter = ln)
+	et = env.Copy (BUILDERS = {'BALL': ball})
+	ballize = map (et.BALL, sources)
+	return env.Tar (env['tarball'],
+			map (lambda x: os.path.join (ballprefix, x), sources))
+
+env['baller'] = baller
