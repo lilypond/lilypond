@@ -16,7 +16,7 @@
 Interval
 Text_def::width (Paper_def * p) const
 {
-  Atom a = get_atom (p,0);
+  Atom a = get_atom (p,CENTER);
 
   Real guess_width_f = text_str_.length_i() * a.sym_.dim.x ().length (); // ugh
   Interval i (0, guess_width_f);
@@ -47,7 +47,7 @@ Text_def::do_equal_b (General_script_def const *gdef) const
 }
 
 Atom
-Text_def::get_atom (Paper_def *p, int) const
+Text_def::get_atom (Paper_def *p, Direction) const
 {
   return p->lookup_l()->text (style_str_, text_str_, -align_i_);
 }

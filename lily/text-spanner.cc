@@ -44,13 +44,13 @@ void
 Text_spanner::do_post_processing()
 {
   text_off_ = support_span_l_->center() +
-	Offset (0,support_span_l_->dir_i_ * paper()->internote_f () * 4); // todo
+	Offset (0,support_span_l_->dir_ * paper()->internote_f () * 4); // todo
 }
 
 Molecule*
 Text_spanner::brew_molecule_p() const
 {
-  Atom tsym (spec_p_->get_atom (paper(),0));
+  Atom tsym (spec_p_->get_atom (paper(),CENTER));
   tsym.translate (text_off_);
 
   Molecule*output = new Molecule;
@@ -61,13 +61,11 @@ Text_spanner::brew_molecule_p() const
 void
 Text_spanner::do_pre_processing()
 {
-  right_col_l_ = support_span_l_->right_col_l_;
-  left_col_l_ = support_span_l_->left_col_l_;
-  assert (left_col_l_ && right_col_l_);
+  spanned_drul_ = support_span_l_->spanned_drul_;
 }
 
 Interval
-Text_spanner::height()const
+Text_spanner::height() const
 {
   return brew_molecule_p()->extent ().y ();
 }
