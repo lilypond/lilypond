@@ -35,7 +35,7 @@ Bar_line::print (SCM smob)
       String str  =ly_scm2string (s);
       SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
       Real sz = robust_scm2double (siz, 0);
-      if (sz < 0)
+      if (sz <= 0)
 	return SCM_EOL;
       
       return compound_barline (me, str, sz).smobbed_copy ();
@@ -59,7 +59,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   thinkern *= staffline;
   hair *= staffline;
   fatline *= staffline;
-  
+
   Stencil thin = simple_barline (me, hair, h);
   Stencil thick = simple_barline (me, fatline, h);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
@@ -142,9 +142,12 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 }
 
 Stencil
-Bar_line::simple_barline (Grob *me,Real w, Real h) 
+Bar_line::simple_barline (Grob *me,
+			  Real w,
+			  Real h) 
 {
   Real blot = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)), blot);
 }
 
