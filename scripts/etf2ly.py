@@ -22,7 +22,9 @@
 #  * beams (better use autobeam?)
 #  * more robust: try entertainer.etf (freenote)
 #  * dynamics
+#  * automatic `deletion' of invalid items
 #
+
 
 program_name = 'etf2ly'
 version = '@TOPLEVEL_VERSION@'
@@ -343,14 +345,17 @@ class Measure:
 		self.finale = []
 		self.global_measure = None
 		self.staff = None
+		self.valid = 1
 		
 	def add_finale_entry (self, entry):
 		self.finale.append (entry)
 
+	def valid (self):
+		return self.valid
 	def calculate (self):
 		if len (self.finale) < 2:
 			sys.stderr.write ("Measure %d in staff %d  has incomplete information.\n" % (self.number, self.staff.number))
-			
+			self.valid = 0
 			return 
 			
 		f0 = self.finale[0]
@@ -445,7 +450,7 @@ class Staff:
 		last_clef = None
 		gap = (0,1)
 		for m in self.measures[1:]:
-			if not m :
+			if not m or not m.valid:
 				continue # ugh.
 			
 			g = m.global_measure
@@ -482,7 +487,7 @@ class Staff:
 			first_frame = None
 			gap = (0,1)
 			for m in self.measures[1:]:
-				if not m:
+				if not m or not m.valid:
 					continue
 				
 				
@@ -657,7 +662,7 @@ class Etf_file:
 		self.frames = [None]
 		self.tuplets = [None]
 		self.staffs = [None]
-		self.slurs = [None]
+		self.slur_dict = {}
 		self.articulations = [None]
 		self.syllables = [None]
 		self.verses = [None]
@@ -760,12 +765,16 @@ class Etf_file:
 		if m:
 			slurno = string.atoi (m.group (1))
 
-			if len (self.slurs) == slurno:
-				self.slurs.append (Slur (slurno))
+			sl = None
+			try:
+				sl = self.slur_dict[slurno]
+			except KeyError:
+				sl = Slur (slurno)
+				self.slur_dict[slurno] = sl
 
 			params = list (m.groups ()[1:])
 			params = map (string.atoi, params)
-			self.slurs[-1].append_entry (params)
+			sl.append_entry (params)
 
 		return m	
 	def try_GF(self, l):
@@ -859,9 +868,13 @@ class Etf_file:
 				if not m:
 					continue
 				
-				m.global_measure = self.measures[mno]
 				m.calculate()
-
+				try:
+					m.global_measure = self.measures[mno]
+				except IndexError:
+					sys.stderr.write ("non-existent global measure %d" % mno)
+					continue
+				
 				frame_obj_list = [None]
 				for frno in m.frames:
 					fr = self.frames[frno]
@@ -888,7 +901,7 @@ class Etf_file:
 		for t in self.tuplets[1:]:
 			t.calculate (self.chords)
 			
-		for s in self.slurs [1:]:
+		for s in self.slur_dict.values():
 			s.calculate (self.chords)
 		for s in self.articulations[1:]:
 			s.calculate (self.chords)
@@ -896,7 +909,15 @@ class Etf_file:
 	def get_thread (self, startno, endno):
 
 		thread = []
-		c = self.chords[startno]
+
+		c = None
+		try:
+			c = self.chords[startno]
+		except IndexError:
+			sys.stderr.write ("Huh? Frame has invalid bounds (%d,%d)\n" % (startno, endno))
+			return []
+
+		
 		while c and c.number () <> endno:
 			thread.append (c)
 			c = c.next
@@ -996,7 +1017,6 @@ for opt in options:
 
 identify()
 
-# header['tagline'] = 'Lily was here %s -- automatically converted from ABC' % version
 for f in files:
 	if f == '-':
 		f = ''
