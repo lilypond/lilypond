@@ -275,7 +275,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request> request_with_dir request_that_take_dir verbose_request
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
-%type <music>	Alternative_music Repeated_music
+%type <music>	Repeated_music
+%type <scm>     Alternative_music
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
@@ -296,7 +297,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	duration_length fraction
 
 %type <scm>  embedded_scm scalar
-%type <music>	Music Sequential_music Simultaneous_music Music_sequence
+%type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
 %type <music>	property_def translator_change
 %type <scm> Music_list
@@ -663,6 +664,13 @@ tempo_request:
 	}
 	;
 
+/*
+The representation of a  list is the
+
+  (LIST . LAST-CONS)
+
+ to have  efficient append.
+*/
 Music_list: /* empty */ {
 		$$ = gh_cons (SCM_EOL, SCM_EOL);
 	}
@@ -688,41 +696,35 @@ Music:
 
 Alternative_music:
 	/* empty */ {
-		$$ = 0;
+		$$ = SCM_EOL;
 	}
-	| ALTERNATIVE Music_sequence {
-		$$ = $2;
-		$2->set_spot (THIS->here_input ());
+	| ALTERNATIVE '{' Music_list '}' {
+		$$ = $3;
 	}
 	;
-
-
-
 
 Repeated_music:
 	REPEAT string bare_unsigned Music Alternative_music
 	{
-		Music_sequence* alts = dynamic_cast <Music_sequence*> ($5);
-		if (alts && $3 < alts->length_i ())
-			$5->origin ()->warning (_ ("More alternatives than repeats.  Junking excess alternatives."));
 		Music *beg = $4;
 		int times = $3;
+		SCM alts = gh_pair_p ($5) ? gh_car ($5) : SCM_EOL;
+		if (times < scm_ilength (alts)) {
+		  unsmob_music (gh_car (alts))
+		    ->origin ()->warning (
+		    _("More alternatives than repeats.  Junking excess alternatives."));
+		  alts = ly_truncate_list (times, alts);
+		}
 
 		Repeated_music * r = new Repeated_music (SCM_EOL);
-
 		if (beg)
 			{
-			r-> set_mus_property ("body", beg->self_scm ());
+			r-> set_mus_property ("element", beg->self_scm ());
 			scm_gc_unprotect_object (beg->self_scm ());
 			}
 		r->set_mus_property ("repeat-count", gh_int2scm (times >? 1));
 
-		if (alts)
-			{
-			alts->truncate (times);
-			r-> set_mus_property ("alternatives", alts->self_scm ());
-			scm_gc_unprotect_object (alts->self_scm ());  
-			}
+		r-> set_mus_property ("elements",alts);
 		SCM func = scm_primitive_eval (ly_symbol2scm ("repeat-name-to-ctor"));
 		SCM result = gh_call1 (func, $2);
 
@@ -730,12 +732,6 @@ Repeated_music:
 
 		r->set_spot (*$4->origin ());
 		$$ = r;
-	}
-	;
-
-Music_sequence: '{' Music_list '}'	{
-		$$ = new Music_sequence (SCM_EOL);
-		$$->set_mus_property ("elements", ly_car ($2));
 	}
 	;
 
@@ -852,8 +848,6 @@ Composite_music:
 		$$->set_mus_property ("element", $2->self_scm ());
 		scm_gc_unprotect_object ($2->self_scm ());
 #endif
-
-
 	}
 	| CONTEXT string '=' string Music {
 		Context_specced_music *csm =  new Context_specced_music (SCM_EOL);
@@ -971,8 +965,7 @@ relative_music:
 re_rhythmed_music:
 	ADDLYRICS Music Music {
 	  Lyric_combine_music * l = new Lyric_combine_music (SCM_EOL);
-	  l->set_mus_property ("music", $2->self_scm ());
-	  l->set_mus_property ("lyrics", $3->self_scm ());
+	  l->set_mus_property ("elements", gh_list ($2->self_scm (), $3->self_scm (), SCM_UNDEFINED));
 	  scm_gc_unprotect_object ($3->self_scm ());
 	  scm_gc_unprotect_object ($2->self_scm ());
 	  $$ = l;
@@ -984,12 +977,10 @@ part_combined_music:
 		Part_combine_music * p = new Part_combine_music (SCM_EOL);
 
 		p->set_mus_property ("what", $2);
-		p->set_mus_property ("one", $3->self_scm ());
-		p->set_mus_property ("two", $4->self_scm ());  
+		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
 
 		scm_gc_unprotect_object ($3->self_scm ());
 		scm_gc_unprotect_object ($4->self_scm ());  
-
 
 		$$ = p;
 	}

@@ -11,29 +11,6 @@
 #include "pitch.hh"
 
 
-void
-Music_sequence::truncate (int k)
-{
-  SCM l = get_mus_property ("elements");
-  if (k == 0)
-    {
-      l = SCM_EOL;
-    }
-  else
-    {
-      SCM s = l;
-      k--;
-      for (; gh_pair_p (s) && k--; s = ly_cdr (s))
-	;
-
-      if (gh_pair_p (s))
-	{
-	  gh_set_cdr_x (s, SCM_EOL);
-	}
-    }
-  set_mus_property ("elements", l);
-}
-
 SCM
 Music_sequence::music_list ()const
 {
@@ -59,20 +36,23 @@ Music_sequence::Music_sequence (SCM l)
 void
 Music_sequence::transpose (Pitch rq)
 {
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  transpose_list (music_list (), rq);
+}
+
+void
+Music_sequence::transpose_list (SCM l,  Pitch rq)
+{
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->transpose (rq);    
 }
 
-
-
-
 Moment
-Music_sequence::cumulative_length () const
+Music_sequence::cumulative_length (SCM l) 
 {
   Moment cumulative;
-  
-  Moment last_len ; 
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  Moment last_len; 
+
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       Moment l = unsmob_music (ly_car (s))->length_mom ();
       if (last_len.grace_part_ && l.main_part_)
@@ -97,10 +77,10 @@ Music_sequence::to_relative_octave (Pitch p)
 
 
 Moment
-Music_sequence::maximum_length () const
+Music_sequence::maximum_length (SCM l)
 {
   Moment dur = 0;
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       Music * m = unsmob_music (ly_car (s));
       Moment l = m->length_mom ();
@@ -109,11 +89,7 @@ Music_sequence::maximum_length () const
 
   return dur;
 }
-int
-Music_sequence::length_i () const
-{
-  return scm_ilength (music_list ());
-}
+
 
 Pitch
 Music_sequence::do_relative_octave (Pitch p, bool ret_first)
@@ -138,7 +114,13 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 void
 Music_sequence::compress (Moment m)
 {
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  compress_list (music_list (), m);
+}
+
+void
+Music_sequence::compress_list (SCM l, Moment m)
+{
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->compress (m);
 }
 
@@ -151,11 +133,11 @@ Music_sequence::Music_sequence ()
 }
 
 Moment
-Music_sequence::minimum_start () const
+Music_sequence::minimum_start (SCM l)
 {
   Moment m;
   
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       m = m <? unsmob_music (ly_car (s))->start_mom ();
     }
@@ -163,11 +145,11 @@ Music_sequence::minimum_start () const
 }
 
 Moment
-Music_sequence::first_start () const
+Music_sequence::first_start (SCM l) 
 {
   Moment m;
   
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
     {
       Music * mus = unsmob_music (ly_car (s));
       Moment l = mus->length_mom ();

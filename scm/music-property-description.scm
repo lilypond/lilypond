@@ -25,7 +25,6 @@
 (music-property-description 'duration duration? "Duration of this note/lyric.")
 (music-property-description 'metronome-count number? "How many beats in a minute?")
 (music-property-description 'span-type symbol? "What kind of spanner should be created?")
-(music-property-description 'alternatives music? "Music_sequence of alternatives for repeated music.")
 (music-property-description 'articulation-type symbol? "key for scriptDefinitions alist")
 (music-property-description 'bass boolean? "Set if this note is a bass note in a chord")
 (music-property-description 'body music? "The body of a repeat ")
@@ -37,18 +36,16 @@
 (music-property-description 'denominator integer? "denominator in a time signature")
 (music-property-description 'direction dir? "Print this up or down?")
 (music-property-description 'text-type symbol? "Particular type of text script (eg. finger, dynamic).")
-(music-property-description 'element music? "The single child of a Music_wrapper music object.")
+(music-property-description 'element music? "The single child of a Music_wrapper music object, or the body of a repeat.")
+(music-property-description 'elements list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
+(music-property-description 'force-accidental boolean? "If set, a cautionary accidental should always be printed on this note")
 (music-property-description 'grob-property symbol? "The symbol of the grob property to set. ")
 (music-property-description 'grob-value scheme? "The value of the grob property to set")
-(music-property-description 'elements list? "A list of elements for sequential of simultaneous music")
-(music-property-description 'force-accidental boolean? "If set, a cautionary accidental should always be printed on this note")
 (music-property-description 'inversion boolean? "If set, this chord note is inverted.")
 (music-property-description 'label string? "label of a mark.")
 (music-property-description 'last-pitch pitch? "The last pitch after relativization.")
 (music-property-description 'length procedure? "How to compute the duration of this music")
-(music-property-description 'lyrics music? "second argument of a addlyrics")
 (music-property-description 'numerator integer? "numerator of a time signature")
-(music-property-description 'one music? "first argument of partcombine."); part-combine, fixme, naming.
 (music-property-description 'origin ly-input-location? "where was this piece of music defined?")
 (music-property-description 'penalty number? "Penalty for break hint.")
 (music-property-description 'pitch pitch? "the pitch of this note")
@@ -60,6 +57,5 @@
 (music-property-description 'symbols list? "List of Grob names (symbols) to perform an override/revert on.")
 (music-property-description 'text string? "markup expression to be printed");; markup?
 (music-property-description 'tremolo-type integer? "")
-(music-property-description 'two music? "2nd argument of a part-combine"); part-combine, fixme, naming.
 
 (music-property-description 'what string? "What to change for auto-change. FIXME, naming")

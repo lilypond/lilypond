@@ -19,12 +19,12 @@ Sequential_music::Sequential_music ()
 Moment
 Sequential_music::length_mom () const
 {
-  return cumulative_length ();
+  return Music_sequence::cumulative_length (get_mus_property ("elements"));
 }
 ADD_MUSIC (Sequential_music);
 
 Moment
 Sequential_music::start_mom () const
 {
-  return first_start ();
+  return Music_sequence::first_start (get_mus_property ("elements"));
 }

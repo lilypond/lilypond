@@ -50,7 +50,7 @@ class Repeated_music : public Music
 {
 public:
   Music * body () const;
-  Music_sequence * alternatives () const;
+  SCM alternatives () const;
 
   /// how often do we repeat?
   int repeat_count ( ) const;

@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>		// isinf
-
+#include <math.h>   /* isinf */
+#include <string.h> /* strdup, strchr */
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
@@ -391,7 +391,7 @@ ly_number2string (SCM s)
 
   char str[400];			// ugh.
 
-  if (scm_integer_p (s) == SCM_BOOL_F)
+  if (scm_exact_p (s) == SCM_BOOL_F)
     {
       Real r (gh_scm2double (s));
 
@@ -518,4 +518,27 @@ parse_symbol_list (const char * list)
 
   free (orig);
   return create_list;
+}
+
+
+SCM
+ly_truncate_list (int k, SCM l )
+{
+  if (k == 0)
+    {
+      l = SCM_EOL;
+    }
+  else
+    {
+      SCM s = l;
+      k--;
+      for (; gh_pair_p (s) && k--; s = ly_cdr (s))
+	;
+
+      if (gh_pair_p (s))
+	{
+	  gh_set_cdr_x (s, SCM_EOL);
+	}
+    }
+  return l;
 }
