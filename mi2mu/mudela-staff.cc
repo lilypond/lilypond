@@ -100,6 +100,8 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
   mudela_stream_r << _("% midi copyright:") << copyright_str_ << "\n";
   mudela_stream_r << _("% instrument:") << instrument_str_ << "\n";
 
+  // don't use last duration mode
+  mudela_stream_r << "\\duration 4;\n";
   if  (mudela_voice_p_list_.size() == 1)
     mudela_voice_p_list_.top()->output (mudela_stream_r);
   else

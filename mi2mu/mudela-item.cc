@@ -192,10 +192,10 @@ Mudela_note::str ()
     = mudela_column_l_->mudela_score_l_->mudela_key_l_->notename_str (pitch_i_);
 
   if (simple_plet_b_s)
-	return name_str + Duration_convert::dur2_str (dur) + " ";
+    return name_str + Duration_convert::dur2_str (dur) + " ";
 
-  //ugh
   String str;
+  //ugh
   if (dur.plet_b ())
 	str += String ("\\[")
 	    + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)

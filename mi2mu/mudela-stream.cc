@@ -81,7 +81,7 @@ Mudela_stream::header()
   *os_p_ << filename_str_g;
   *os_p_ << "\n\n";
   // ugh
-  *os_p_ << "\\version \"0.1.8\";\n";
+  *os_p_ << "\\version \"0.1.9\";\n";
 }
 
 void

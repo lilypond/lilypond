@@ -7,7 +7,7 @@ copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "0.1.8";
+\version "0.1.9";
 
 \score{
 	\melodic { \multi 3 < 

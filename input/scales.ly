@@ -12,7 +12,7 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "0.1.8";
+\version "0.1.9";
 blah = 	\melodic {
 		\meter 6/8;	
 		\octave  'c ;
