@@ -174,25 +174,22 @@ My_lily_parser::here_input () const
  */
 bool store_locations_global_b;
 
-/*
-  no ! suffix since it doesn't modify 1st argument.
- */
+/* Do not append `!' suffix, since 1st argument is not modified. */
 LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
 	  (SCM what),
 	  "Set the options for Point-and-click source specials output. The\n"
 "argument is a symbol.  Possible options are @code{none} (no source specials),\n"
 "@code{line} and @code{line-column}")
 {
-  /*
-    UGH.
-   */
+  /* UGH. */
   SCM val = SCM_BOOL_F;
   if (ly_symbol2scm ("line-column") == what)
     val = scm_c_eval_string ("line-column-location");
   else if (what == ly_symbol2scm ("line"))
     val = scm_c_eval_string ("line-location");
 
-  scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"), val);
+  scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"),
+		     val);
   store_locations_global_b = ly_c_procedure_p (val);
   return SCM_UNSPECIFIED;
 }
@@ -282,6 +279,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       progress_indication ("\n");
 
       My_lily_parser *parser = new My_lily_parser (&sources);
+      scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
+			 parser->self_scm ());
       parser->parse_file (init, in_file, out_file);
 
       bool error = parser->error_level_;
@@ -305,8 +304,31 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   Sources sources;
   sources.set_path (&global_path);
   My_lily_parser *parser = new My_lily_parser (&sources);
+  scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
+		     parser->self_scm ());
   parser->parse_string (ly_scm2string (ly_code));
   parser = 0;
+  
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
+	   2, 0, 0,
+	   (SCM parser_smob, SCM ly_code),
+	   "Parse the string LY_CODE with PARSER_SMOB."
+	   "Upon failure, throw @code{ly-file-failed} key.")
+{
+#if 0
+  SCM_ASSERT_TYPE (ly_c_parser_p (parser), music, SCM_ARG1, __FUNCTION__, "parser");
+#endif
+  SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
+
+#if 1
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+#else
+  /* New parser, copy vars but no state?  */
+#endif
+  parser->parse_string (ly_scm2string (ly_code));
   
   return SCM_UNSPECIFIED;
 }

@@ -45,6 +45,8 @@
 
 (define-public point-and-click #f)
 
+(define-public parser #f)
+
 (define-public (lilypond-version)
   (string-join
    (map (lambda (x) (if (symbol? x)
