@@ -39,16 +39,11 @@ Tie_engraver::do_post_move_processing()
 }
 
 bool
-Tie_engraver::acceptable_request_b (Request*r)
-{
-  return r->musical() && r->musical ()->tie ();
-}
-
-bool
 Tie_engraver::do_try_request (Request*r)
 {
-  if (!acceptable_request_b (r))
+  if (! (r->musical() && r->musical ()->tie ()))
     return false;
+  
   if (req_l_)
     {
       return false;
