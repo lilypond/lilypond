@@ -1,5 +1,11 @@
-1.4.7.jcn1
+1.4.7.jcn2
 ==========
+
+* Fixed off by one error for point and click.
+
+* po update.
+
+* windows doc update.
 
 * Add mktextfm wrapper for windows (thanks Mats).
 
