@@ -531,7 +531,7 @@ Slur::height (SCM smob, SCM ax)
   SCM mol = me->get_uncached_molecule ();
   Interval ext;
   if (Molecule * m = unsmob_molecule (mol))
-    ext = m->extent (a);
+    ext = m->extent= (a);
   return ly_interval2scm (ext);
 }
 

@@ -371,6 +371,7 @@ L1 is copied, L2 not.
        "new-markup.scm"
        "bass-figure.scm"
        "music-functions.scm"
+       "part-combiner.scm"
        "define-music-properties.scm"
        "auto-beam.scm"
        "chord-name.scm"
