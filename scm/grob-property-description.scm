@@ -65,7 +65,7 @@ the grob to the nearest open space.
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
-(grob-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
+(grob-property-description 'axis number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
 (grob-property-description 'align-dir ly:dir? "Which side to align? -1: left side, 0: around center of width, 1: right side.")
 (grob-property-description 'alignment-done boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once).")
 (grob-property-description 'all-elements grob-list? "list of all grobs in this line. Needed for protecting grobs from GC.")
@@ -178,6 +178,7 @@ mean centre distance weighted per note
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
 (grob-property-description 'extra-X-extent number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-Y-extent number-pair? "see @code{extra-Y-extent}.")
+(grob-property-description 'extent number-pair? "the extent of the text: (WIDTH . HEIGHT)")
 (grob-property-description 'X-extent number-pair? "Store extent. internal use only. ")
 (grob-property-description 'Y-extent number-pair? "Store extent. internal use only. ")
 (grob-property-description 'extra-offset number-pair? "pair of reals
@@ -294,7 +295,6 @@ work: @code{\override} is processed after the StaffSymbol is created,
 and will have no effect.
 ")
 (grob-property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name.")
-(grob-property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts.")
 (grob-property-description 'maximum-length number? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
 (grob-property-description 'measure-length ly:moment? "Length of a

@@ -195,7 +195,7 @@
 
 ;; text: list of word
 ;; word: string + optional list of property
-;; property: align, kern, font (?), size
+;; property: axis, kern, font (?), size
 
 (define chord::minor-major-vec (list->vector '(0 -1 -1 0 -1 -1 0)))
 

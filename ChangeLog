@@ -1,3 +1,14 @@
+2002-11-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/backend-documentation-lib.scm (check-dangling-properties):
+	Fix error message.
+
+	* lily/text-item.cc (ADD_INTERFACE): Remove align, magnify.  Add
+	axis, extent.
+
+	* scm/grob-property-description.scm (magnify): Remove.
+	(extent, axis): Add.
+
 2002-11-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py: more uniformization substitutions.
