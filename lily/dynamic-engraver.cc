@@ -100,6 +100,7 @@ class Dynamic_engraver : public Engraver
   Drul_array<Span_req*> span_req_l_drul_;
 
   Dynamic_line_spanner* line_spanner_;
+  Dynamic_line_spanner* finished_line_spanner_;
   Moment last_request_mom_;
 
   Note_column* pending_column_;
@@ -138,6 +139,7 @@ Dynamic_engraver::Dynamic_engraver ()
   text_p_ = 0;
   finished_cresc_p_ = 0;
   line_spanner_ = 0;
+  finished_line_spanner_ = 0;
   span_start_req_l_ = 0;
   cresc_p_ =0;
   pending_column_ = 0;
@@ -223,14 +225,14 @@ Dynamic_engraver::do_process_music ()
 	with the hairpin.  When axis-group code is in place, the \p
 	should move below the hairpin, which is probably better?
        */
-      if (now > last_request_mom_)
+      if (now_mom () > last_request_mom_)
 #else
       /*
 	During a (de)crescendo, pending request will not be cleared,
 	and a line-spanner will always be created, as \< \! are already
 	two requests.
        */
-      if (now > last_request_mom_ && !span_start_req_l_)
+      if (now_mom () > last_request_mom_ && !span_start_req_l_)
 #endif	
 	{
 	  for (int i = 0; i < pending_element_arr_.size (); i++)
@@ -261,6 +263,8 @@ Dynamic_engraver::do_process_music ()
 		e->set_elt_property ("minimum-space", s);
 	    }
 	  pending_element_arr_.clear ();
+	  finished_line_spanner_ = line_spanner_;
+	  line_spanner_ = 0;
 	}
     } 
 
@@ -415,11 +419,12 @@ Dynamic_engraver::typeset_all ()
       * break when group of dynamic requests ends
       * break now 
       * continue through piece */
-  if (line_spanner_ && last_request_mom_ < now_mom ())
+  //  if (line_spanner_ && last_request_mom_ < now_mom ())
+  if (finished_line_spanner_)
     {
-      side_position (line_spanner_).add_staff_support ();
-      typeset_element (line_spanner_);
-      line_spanner_ = 0;
+      side_position (finished_line_spanner_).add_staff_support ();
+      typeset_element (finished_line_spanner_);
+      finished_line_spanner_ = 0;
     }
 }
 
