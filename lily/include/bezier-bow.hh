@@ -41,8 +41,6 @@ public:
 
   Real vertical_offset_needed () const;
   
-
-  SCM ugly_scm () const;
   Bezier_bow (Array<Offset> points, Direction dir);
   void calculate ();
   Bezier get_curve () const;

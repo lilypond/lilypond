@@ -19,6 +19,8 @@
 #include "stem.hh"
 #include "dimension-cache.hh"
 #include "group-interface.hh"
+#include "atom.hh"
+
 
 Volta_spanner::Volta_spanner ()
 {
@@ -65,8 +67,20 @@ Volta_spanner::do_brew_molecule_p () const
   Real dx = half_staff_space;
   Real w = spanner_length() - dx - get_broken_left_end_align ();
   Real h = paper_l()->get_var ("volta_spanner_height");
-  Molecule volta (lookup_l ()->volta (h, w, t, no_vertical_start, no_vertical_end));
 
+  Molecule volta; 
+
+  Atom *at = new Atom(gh_list (ly_symbol2scm ("volta"),
+		     gh_double2scm (h),
+		     gh_double2scm (w),
+		     gh_double2scm (t),
+		     gh_int2scm (no_vertical_start),
+		     gh_int2scm (no_vertical_end),
+		     SCM_UNDEFINED));
+
+  volta.dim_[Y_AXIS] = Interval (- h/2, h/2);
+  volta.dim_[X_AXIS] = Interval (0, w);
+  volta.add_atom (at->self_scm_);
   
   Molecule num (lookup_l ()->text ("volta",
 				   ly_scm2string (get_elt_property("text")),

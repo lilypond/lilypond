@@ -18,6 +18,39 @@
 
 
 
+/*
+  build a ledger line for small pieces.
+ */
+Molecule
+Note_head::ledger_line (Interval xwid) const
+{
+  Drul_array<Molecule> endings;
+  endings[LEFT] = lookup_l()->afm_find ("noteheads-ledgerending");
+  Molecule * e = &endings[LEFT];
+  endings[RIGHT] = *e;
+  
+  Real thick = e->dim_[Y_AXIS].length();
+  Real len = e->dim_[X_AXIS].length () - thick;
+
+  Molecule total;
+  Direction d = LEFT;
+  do {
+    endings[d].translate_axis (xwid[d] - endings[d].dim_[X_AXIS][d], X_AXIS);
+    total.add_molecule (endings[d]);    
+  } while ((flip(&d)) != LEFT);
+
+  Real xpos = xwid [LEFT] + len;
+
+  while (xpos + len + thick /2 <= xwid[RIGHT])
+    {
+      e->translate_axis (len, X_AXIS);
+      total.add_molecule (*e);
+      xpos += len;
+    }
+
+  return total;
+}
+
 
 void
 Note_head::do_pre_processing ()
@@ -76,9 +109,8 @@ Note_head::do_brew_molecule_p() const
       Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
-      Molecule ledger
-	= lookup_l ()->ledger_line  (Interval (hd[LEFT] - hw,
-					       hd[RIGHT] + hw));
+      Molecule ledger (ledger_line  (Interval (hd[LEFT] - hw,
+					       hd[RIGHT] + hw)));
       
       int parity =  abs(int (p)) % 2;
       
