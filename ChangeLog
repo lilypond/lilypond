@@ -1,5 +1,8 @@
 2004-08-08  Carl Sorensen  <carldsorensen@comcast.net>
 
+	* scm/fret-diagrams.scm : change sans-serif font encoding from 
+	TeX-text to ec (uses ecss fonts instead of cmss fonts)
+
 	* scm/define-grob-interfaces.scm (fret-diagram-interface): add
 	number-type and label-dir
 
