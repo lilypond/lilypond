@@ -5,19 +5,21 @@
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
-
+#include "fproto.hh"
+#include "string.hh"
+class istream;
 /// class for reading and mapping a file. 
 class Source_file
 {
 public:
     /** Ugh! filename gets changed! The path to the opened file may
        change, since it might be searched in multiple directories.  */
-    Source_file( String& filename_str_r );
+    Source_file( String filename_str_r );
     virtual ~Source_file();
 
-    char const* ch_c_l();
+    char const* ch_C();
     virtual String error_str( char const* pos_ch_c_l );
-    istream* istream_l();
+    istream * istream_l();
     bool in_b( char const* pos_ch_c_l );
     off_t length_off();
     virtual int line_i( char const* pos_ch_c_l );
