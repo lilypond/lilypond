@@ -8,7 +8,7 @@
 #define AUDIO_STAFF_HH
 
 #include "proto.hh"
-#include "plist.hh"
+#include "parray.hh"
 #include "lily-proto.hh"
 #include "audio-element.hh"
 
@@ -16,8 +16,7 @@ struct Audio_staff : public Audio_element {
     void add_audio_item (Audio_item*  l);
     void output (Midi_stream& midi_stream_r, int track_i);
 
-    Link_list<Audio_item*> audio_item_l_list_;
-    
+    Link_array<Audio_item> audio_item_l_arr_;
 };
 
 #endif // AUDIO_STAFF_HH
