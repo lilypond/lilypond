@@ -1,4 +1,21 @@
+2002-04-06  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+
+	* lily/stem-engraver.cc (acknowledge_grob): Revert to old way of
+	finding out the duration. Fixes chord tremolo bug. 
+
+	* lily/completion-note-heads-engraver.cc (process_music): Set
+	correct duration for all requests of the broken notes.
+
+	* input/regression/completion-heads.ly: Added example of
+	Completion_heads_engraver.
+
+	* lilypond-mode.el: Added "2Midi" command
+
 2002-04-05  Han-Wen  <hanwen@cs.uu.nl>
+
+
+	* patches from Chris Jackson for pedals.
+
 
 	* mf/cmbase.mf: remove file. -- do without s and z signs for now.
 

@@ -169,6 +169,7 @@ in LilyPond-include-path."
 
     ("2Dvi" . ("ly2dvi %s" . "View"))
     ("2PS" . ("ly2dvi -P %s" . "View"))
+    ("2Midi" . ("lilypond -m %s" . "View"))
 
     ("Book" . ("lilypond-book %x" . "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
