@@ -3482,54 +3482,53 @@ The definition of lyrics mode is too complex.
 @node The Lyrics context
 @subsection  The Lyrics context
 
-Lyrics are printed by interpreting them in @internalsref{Lyrics} context:
+Lyrics are printed by interpreting them in @internalsref{LyricsVoice} context:
 @example
- \context Lyrics \lyrics @dots{}
+ \context LyricsVoice \lyrics @dots{}
 @end example
 
 @cindex automatic syllable durations
-@cindex @code{\addlyrics}
+@cindex @code{\lyricsto}
 @cindex lyrics and melodies
 
 This will place the lyrics according to the durations that were
 entered. The lyrics can also be aligned under a given melody
 automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
-melody and the lyrics with the @code{\addlyrics} expression:
+melody and the lyrics with the @code{\lyricsto} expression:
 @example
-\addlyrics
-  \notes @dots{}
-  \context Lyrics @dots{} 
+\lyricsto @var{name} \new LyricsVoice @dots{} 
 @end example
 
-@cindex staff order, with @code{\addlyrics}
+This aligns the lyrics to the notes of the @internalsref{Voice}
+context called @var{name}, which has to exist. Therefore, normally
+the @code{Voice} is specified first, and then the lyrics are specified
+with @code{\lyricsto}. 
 
-Normally, this will put the lyrics below the staff. For different or
-more complex orderings, the best way is to setup the hierarchy of
-staves and lyrics first, e.g.
+For different or more complex orderings, the best way is to setup the
+hierarchy of staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <<
-  \context Lyrics = sopr @{ s1 @}
-  \context Staff = soprStaff @{ s1 @}
-  \context Lyrics = tenor @{ s1 @}
-  \context Staff = tenorStaff @{ s1 @}
+  \context LyricsVoice = sopranoLyrics @{ s1 @}
+  \context Voice = soprano @{ @emph{music} @}
+  \context LyricsVoice = tenor @{ s1 @}
+  \context Voice = tenorLyrics @{ @emph{music} @}
 >>
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
-  \addlyrics
-    \context Staff = soprStaff  @emph{the music}
-    \context Lyrics = sopr @emph{the lyrics}
+  \lyricsto "soprano" \new LyricsVoice @emph{the lyrics}
 @end example
 
-putting both together, you would get
-@example
-\context ChoirStaff \notes <<
-  \context Lyrics = @dots{}
-  \context Staff =  @dots{}
-  \addlyrics @dots{}
->>
-@end example
+An example is in @inputfileref{input/template,satb.ly}.
+
+When multiple stanzas are put on the same melody, it can happen that
+two stanzas have melismata in different locations. This can be
+remedied by switching off melismata for one
+@internalsref{LyricsVoice}. This is achieved by setting
+the @code{ignoreMelismata} property to @code{#t}. An example is shown
+in @inputfileref{input/regression,lyric-combine-new.ly}.
+
 
 @cindex SATB
 @cindex choral score
@@ -3541,18 +3540,17 @@ A complete example of a SATB score setup is in the file
 
 Internals: @internalsref{LyricCombineMusic}, @internalsref{Lyrics}
 
-Examples: @inputfileref{input/template,satb.ly}.
-
+Examples: @inputfileref{input/template,satb.ly},
+@inputfileref{input/regression,lyric-combine-new.ly}.
+ 
 @refbugs
 
-@code{\addlyrics} is not automatic enough: melismata are not detected
-automatically, and melismata are not stopped when they hit a rest.  A
-melisma on the last note in a melody is not printed.
+@code{\lyricsto} is not automatic enough: melismata are not detected
+automatically, and melismata are not stopped when they hit a rest.
 
 
 @node More stanzas
 @subsection More stanzas
-
 
 @cindex phrasing, in lyrics
 
@@ -3582,17 +3580,15 @@ that identity followed by a dash.  In the preceding example, the
 The complete example is shown here:
 @lilypond[singleline,verbatim]
 \score {
-\addlyrics
-  \notes \relative c'' \context Voice = duet { \time 3/4
+  << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
-  \lyrics \context Lyrics <<
-  \context LyricsVoice = "duet-1" {
-    \property LyricsVoice . stanza = "Bert"
-    Hi, my name is bert.    }
-  \context LyricsVoice = "duet-2" {
-    \property LyricsVoice . stanza = "Ernie" 
+  \lyrics << \lyricsto "duet" \new LyricsVoice {
+    \property LyricsVoice . stanza = "1"
+    Hi, my name is bert. }
+  \lyricsto "duet" \new LyricsVoice {
+    \property LyricsVoice . stanza = "2" 
     Ooooo, ch\'e -- ri, je t'aime. }
-  >>
+  >> >>
 }
 @end lilypond
 
@@ -7333,7 +7329,6 @@ entering the chant, as the following short excerpt demonstrates:
 @lilypond[raggedright,verbatim,noindent]
 \include "gregorian-init.ly"
 \score {
-  \addlyrics
   \context VaticanaVoice {
     \property Score.BarNumber \set #'transparent = ##t
     \notes {
@@ -7342,7 +7337,7 @@ entering the chant, as the following short excerpt demonstrates:
       \[ c'( c' \flexa a \] \[ a \flexa \deminutum g) \] f \divisioMinima
     }
   }
-  \context Lyrics \lyrics {
+  \lyricsto "" \new LyricsVoice \lyrics {
     San- ctus, San- ctus, San- ctus
   }
 }
@@ -8454,15 +8449,64 @@ There is no convenient mechanism to manually override spacing.
 @cindex staff size, setting
 @cindex @code{paper} file
 
-The Feta font provides musical symbols at seven different sizes.
-These fonts are 11 point, 13 point, 16 point, 20 point, 23 point, and
-26 point.  The point size of a font is the height of the corresponding
-staff (excluding line thicknesses).
+The Feta font provides musical symbols at eight seven different
+sizes. Each font is tuned for a different staff size, which are listed
+in the following table:
 
-Definitions for these sizes are the files @file{paperSZ.ly}, where
+@multitable @columnfractions  .3 .3 .4  
+
+@item @b{name}
+@tab @b{staff height (pt)}
+@tab @b{staff height (mm)}
+@tab @b{use}
+
+@item feta11
+@tab 11.22
+@tab 3.9 
+@tab pocket scores
+
+@item feta13
+@tab 12.60pt
+@tab 4.4mm
+@tab
+
+@item feta14
+@tab 14.14pt
+@tab 5.0mm
+@tab 
+
+@item feta16
+@tab 15.87pt
+@tab 5.6mm
+@tab 
+
+@item feta18
+@tab 17.82pt
+@tab 6.3mm
+@tab song books
+
+@item feta20
+@tab 17.82pt
+@tab 7.0mm
+@tab standard parts 
+
+@item feta23
+@tab 22.45 pt
+@tab 7.9mm
+@tab 
+
+@item feta20
+@tab 25.2 pt
+@tab 8.9mm
+@tab
+@c modern rental material  ?
+
+@end multitable
+
+These standard sizes can be used by including the file @file{paperSZ.ly}, where
 @code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include any
 of these files, the variables @code{paperEleven},
-@code{paperThirteen}, @code{paperSixteen}, 
+@code{paperThirteen}, @code{paperSixteen},  @code{paperEightteen}, 
 @code{paperTwenty}, @code{paperTwentythree}, and @code{paperTwentysix}
 are defined respectively.  The default @code{\paper} block is also
 set. These files should be imported at toplevel, i.e.
@@ -8471,9 +8515,20 @@ set. These files should be imported at toplevel, i.e.
         \score @{  ... @}
 @end example
 
+Sizes can also be
+
+
 The default font size settings for each staff heights are generated
 from the 20pt style sheet. For more details, see the file
 @file{scm/font.scm}.
+
+
+  of starting from 11 point
+(.  These fonts are 11 point, 13 point, 16 point, 20 point, 23 point,
+and 26 point.  The point size of a font is the height of the
+corresponding staff (excluding line thicknesses).
+
+Definitions for these sizes are the files
 
 
 @node Line breaking

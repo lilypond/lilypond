@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.10"
 \header
 {
     texidoc = "Popsong format: chords, melody and lyrics."
@@ -24,7 +24,7 @@ accompaniment = \chords {
 	\autoBeamOff
         \melody
     }
-    \newaddlyrics "one" \new LyricsVoice \text
+    \lyricsto "one" \new LyricsVoice \text
   >>
   \paper { }
   \midi  { }

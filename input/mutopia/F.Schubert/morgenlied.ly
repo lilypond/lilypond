@@ -26,14 +26,13 @@
 
 }
 
-\version "2.1.7"
+\version "2.1.10"
 manuscriptBreak = { \break }
+
+
+
 \paper  {
-    staffheight = 6.0 \mm
-    
-    #(define fonts (scale-font-list (/ (* 6 mm) (* 20 pt)) ))
-    
-    \include "params-init.ly"
+    #(set-staff-size (* 6.0 1 ))
     linewidth = #(* mm 160)
     indent = 8\mm
     interscoreline = 2.\mm
@@ -150,12 +149,12 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 \score {
 
     << \time 6/8
-     \new Staff {
+     \new Staff <<
 	 \context Staff \modernAccidentals
-	 \melody }
+	 \melody >>
      \new Lyrics <<
-	 \newaddlyrics "singer" \new LyricsVoice \firstVerse
-	 \newaddlyrics "singer" \new LyricsVoice \secondVerse
+	 \lyricsto "singer" \new LyricsVoice \firstVerse
+	 \lyricsto "singer" \new LyricsVoice \secondVerse
 	 >>
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {

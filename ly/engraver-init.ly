@@ -499,7 +499,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	  time-signature
 	  custos
 	)
-	barCheckSynchronize = ##t
+	barCheckSynchronize = ##f
 	
 	%% chord names:
 	chordNameFunction = #ignatzek-chord-names

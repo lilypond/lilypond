@@ -117,9 +117,10 @@ ly_module_lookup (SCM module, SCM sym)
   SCM_VALIDATE_MODULE (1, module);
 
   return scm_sym2var (sym, scm_module_lookup_closure (module), SCM_BOOL_F);
+#undef FUNC_NAME
 }
 
-SCM export_function ;
+SCM export_function;
 
 void
 ly_export (SCM module, SCM namelist)

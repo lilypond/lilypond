@@ -7,7 +7,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 @code{caesura}.
 " }
 
-\version "2.1.7"
+\version "2.1.10"
 
 \include "gregorian-init.ly"
 
@@ -40,7 +40,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 	    \caesura
             g4( a) g e( f) e
 	}
-	\newaddlyrics "" \new  LyricsVoice \lyrics {
+	\lyricsto "" \new  LyricsVoice \lyrics {
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.

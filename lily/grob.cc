@@ -231,14 +231,13 @@ Grob::get_molecule ()  const
   if (!live())
     {
       return 0;
-      
     }
   
   SCM mol = get_grob_property ("molecule");
   if (unsmob_molecule (mol))
     return unsmob_molecule (mol);
 
-  mol =  get_uncached_molecule ();
+  mol = get_uncached_molecule ();
   
   if (live ())
     {

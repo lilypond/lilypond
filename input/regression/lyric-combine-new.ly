@@ -1,3 +1,4 @@
+\version "2.1.10"
 \header {
 
     texidoc = "With the newaddlyrics mechanism, individual lyric lines
@@ -12,8 +13,8 @@
 	\autoBeamOff
 	c2( d4) e8[ c b c] f4
     }
-    \newaddlyrics "bla" \lyrics \new LyricsVoice { bla ab blob blob }
-    \newaddlyrics "bla" \lyrics \new LyricsVoice {
+    \lyricsto "bla" \lyrics \new LyricsVoice { bla ab blob blob }
+    \lyricsto "bla" \lyrics \new LyricsVoice {
 	bla 
 
 	\property LyricsVoice . ignoreMelismata = ##t
@@ -27,7 +28,7 @@
 	blob
     }
     
-    \new Lyrics <<  \newaddlyrics "bla" \lyrics \new LyricsVoice { nes ted lyrics voice with more words than no tes } >>
+    \new Lyrics <<  \lyricsto "bla" \lyrics \new LyricsVoice { nes ted lyrics voice with more words than no tes } >>
     >>
 
     }

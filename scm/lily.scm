@@ -378,6 +378,8 @@ L1 is copied, L2 not.
        "define-grob-properties.scm"
        "define-grobs.scm"
        "define-grob-interfaces.scm"
+
+       "paper.scm"
        ))
 
 

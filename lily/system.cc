@@ -94,11 +94,14 @@ uniquify_list (SCM l)
       if (i && arr[i] == arr[i-1])
 	continue;
 
-      SCM_SETCAR(s, arr[i]);      
-      s = SCM_CDR(s);
+      SCM_SETCAR(s, arr[i]);
+
+      if (i < len - 1)
+	s = SCM_CDR(s);
     }
 
   SCM_SETCDR(s, SCM_EOL);
+  delete arr;
   
   return l; 
 }
@@ -175,15 +178,12 @@ System::output_lines ()
    */
   for (int i=0; i < broken_intos_.size (); i++)
     {
-      SCM al = broken_intos_[i]->get_grob_property ("all-elements");
-
       /*
 	don't do this: strange side effects.
        */
+      //    SCM al = broken_intos_[i]->get_grob_property ("all-elements");
       //      al  = uniquify_list (al); 
     }
-  
-
   
   if (verbose_global_b)
     progress_indication (_f ("Element count %d.",  count + element_count ()));
@@ -430,6 +430,11 @@ System::pre_processing ()
     }
 }
 
+
+  const int LAYER_COUNT= 3;
+
+
+
 void
 System::post_processing (bool last_line)
 {
@@ -458,11 +463,23 @@ System::post_processing (bool last_line)
     generate all molecules  to trigger all font loads.
 
     (ugh. This is not very memory efficient.)  */
+
+  SCM all = get_grob_property ("all-elements")  ;
+  all = uniquify_list (all);
+
+  /*
+    triger font loads first.
+
+    This might seem inefficient, but Molecules are cached per grob
+    anyway.
+    */
   this->get_molecule();
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
     {
-      unsmob_grob (ly_car (s))->get_molecule ();
+      Grob * g = unsmob_grob (ly_car (s));
+      g->get_molecule ();
     }
+  
   /*
     font defs;
    */

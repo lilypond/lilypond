@@ -43,19 +43,71 @@ melismaEnd = \property Staff.melismaBusy = ##f
 
 % Do units first; must be done before any units are specified.
 \paper {
-	unit = "mm"
-	mm = 1.0
-	in = 25.4
-	pt = #(/  in 72.27)
-	cm = #(* 10 mm)
+    unit = "mm"
+    mm = 1.0
+    in = 25.4
+    pt = #(/  in 72.27)
+    cm = #(* 10 mm)
+
+    texsetting = ""
+    pssetting = ""
+    scmsetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n"% UGH. 
+
+
+    #(define font-defaults
+      '((font-family . music)
+	(font-shape . upright)
+	(baseline-skip . 2)
+	(word-space . 0.6)
+	(font-series . medium)
+    ))
+    
+    #(set-paper-size "a4")
+    \include "engraver-init.ly"
 }
 
-papersize = "a4"
-paperfile = \papersize + "-init.ly"
 
-\include "generic-paper-init.ly"
-\include "paper20-init.ly"
+%{
 
+; note:
+; you can add fonts manually  in the paper block by issuing
+
+#(set! fonts (append ...myfonts... fonts))
+
+for the format of myfonts, see font.scm
+
+%}
+
+
+paperEleven = \paper {
+    #(paper-set-staff-size (* 11.0 pt))
+}
+
+paperThirteen = \paper {
+    #(paper-set-staff-size (* 13.0 pt))
+}
+
+paperSixteen = \paper {
+    #(paper-set-staff-size (* 16.0 pt))
+}
+
+paperEightteen = \paper {
+    #(paper-set-staff-size (* 18.0 pt))
+}
+
+paperTwenty = \paper {
+    #(paper-set-staff-size (* 20.0 pt))
+}
+
+paperTwentythree = \paper {
+    #(paper-set-staff-size (* 23.0 pt))
+}
+
+paperTwentysix = \paper {
+    #(paper-set-staff-size (* 26.0 pt))
+}
+
+\paper { \paperTwenty }
 
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
