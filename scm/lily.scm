@@ -115,10 +115,6 @@
 (define-public default-toplevel-music-handler print-music-as-book)
 (define-public default-toplevel-book-handler ly:parser-print-book)
 (define-public default-toplevel-score-handler print-score-as-book)
-;;(define-public toplevel-music-handler print-music-as-book)
-;;(define-public toplevel-music-handler toplevel-music-functions)
-;;(define-public toplevel-music-handler
-;;  (lambda (x y) (print-music-as-book x y)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

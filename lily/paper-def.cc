@@ -78,12 +78,7 @@ Paper_def::get_paper_outputter (String outname) const
 {
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
-
-  Paper_outputter * po = new Paper_outputter (outname);
-  Path p = split_path (outname);
-  p.ext = "";
-  po->basename_ = p.to_string ();
-  return po;
+  return new Paper_outputter (outname);
 }
 
 Font_metric*

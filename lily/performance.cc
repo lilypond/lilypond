@@ -7,20 +7,21 @@
 */
 
 #include <time.h>
-#include "warn.hh"
-#include "string.hh"
-#include "string-convert.hh"
+
+#include "audio-column.hh"
+#include "audio-item.hh"
+#include "audio-staff.hh"
+#include "file-name.hh"
+#include "lily-version.hh"
 #include "main.hh"
 #include "midi-def.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
-#include "audio-column.hh"
-#include "audio-item.hh"
-#include "audio-staff.hh"
 #include "performance.hh"
 #include "score.hh"
-#include "file-path.hh"
-#include "lily-version.hh"
+#include "string-convert.hh"
+#include "string.hh"
+#include "warn.hh"
 
 #include "killing-cons.tcc"
 
@@ -163,9 +164,9 @@ Performance::process (String out)
     out = "lelie.midi";
   
   /* Maybe a bit crude, but we had this before */
-  Path p = split_path (out);
-  p.ext = "midi";
-  out = p.to_string ();
+  File_name file_name (out);
+  file_name.ext_ = "midi";
+  out = file_name.to_string ();
   
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));

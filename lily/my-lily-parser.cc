@@ -8,6 +8,7 @@
 */
 
 #include "book.hh"
+#include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
@@ -221,35 +222,6 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
   return SCM_UNSPECIFIED;
 }
 
-
-/* Distill full input file name from command argument.  PATH describes
-   file name with added default extension, ".ly" if none.  "-" is
-   STDIN.  */
-Path
-distill_inname (String str)
-{
-  Path p = split_path (str);
-  if (str.is_empty () || str == "-")
-    p.base = "-";
-  else
-    {
-      String orig_ext = p.ext;
-      char const *extensions[] = {"ly", "", 0};
-      for (int i = 0; extensions[i]; i++)
-	{
-	  p.ext = orig_ext;
-	  if (*extensions[i] && !p.ext.is_empty ())
-	    p.ext += ".";
-	  p.ext += extensions[i];
-	  if (!global_path.find (p.to_string ()).is_empty ())
-	      break;
-	}
-      /* Reshuffle extension */
-      p = split_path (p.to_string ());
-    }
-  return p;
-}
-
 LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   1, 0, 0,
 	   (SCM name),
@@ -258,22 +230,21 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 {
   SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   char const *file = SCM_STRING_CHARS (name);
-  
-  String infile (file);
-  Path inpath = distill_inname (infile);
+  char const *extensions[] = {"ly", "", 0};
+  String file_name = global_path.find (file, extensions);
   
   /* By default, use base name of input file for output file name */
-  Path outpath = inpath;
-  if (inpath.to_string () != "-")
-    outpath.ext = output_format_global;
+  File_name out_file_name (file_name);
+  if (file_name != "-")
+    out_file_name.ext_ = output_format_global;
   
   /* By default, write output to cwd; do not copy directory part
      of input file name */
-  outpath.root = "";
-  outpath.dir = "";
+  out_file_name.root_ = "";
+  out_file_name.dir_ = "";
   
   if (!output_name_global.is_empty ())
-    outpath = split_path (output_name_global);
+    out_file_name = File_name (output_name_global);
   
   String init;
   if (!init_name_global.is_empty ())
@@ -281,9 +252,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   else
     init = "init.ly";
   
-  String in_file = inpath.to_string ();
-  String out_file = outpath.to_string ();
-
+  String out_file = out_file_name.to_string ();
 
   if (init.length () && global_path.find (init).is_empty ())
     {
@@ -292,30 +261,31 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       exit (2);
     }
 
-  if ((in_file != "-") && global_path.find (in_file).is_empty ())
+  if ((file_name != "-") && global_path.find (file_name).is_empty ())
     {
-      warning (_f ("can't find file: `%s'", in_file));
-      scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_1 (scm_makfrom0str (in_file.to_str0 ())));
+      warning (_f ("can't find file: `%s'", file_name));
+      scm_throw (ly_symbol2scm ("ly-file-failed"),
+		 scm_list_1 (scm_makfrom0str (file_name.to_str0 ())));
     }
   else
     {
       Sources sources;
       sources.set_path (&global_path);
   
-      progress_indication (_f ("Now processing `%s'", in_file.to_str0 ()));
+      progress_indication (_f ("Now processing `%s'", file_name.to_str0 ()));
       progress_indication ("\n");
 
       My_lily_parser *parser = new My_lily_parser (&sources);
       scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
 			 parser->self_scm ());
-      parser->parse_file (init, in_file, out_file);
+      parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
       parser = 0;
       if (error)
 	/* TODO: pass renamed input file too.  */
 	scm_throw (ly_symbol2scm ("ly-file-failed"),
-		   scm_list_1 (scm_makfrom0str (in_file.to_str0 ())));
+		   scm_list_1 (scm_makfrom0str (file_name.to_str0 ())));
     }
   return SCM_UNSPECIFIED;
 }
@@ -386,10 +356,10 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM header = is_module (score->header_) ? score->header_
     : parser->header_.to_SCM ();
   
-  Path outname = split_path (parser->output_basename_);
+  File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
   if (*c)
-    outname.base += "-" + to_string (*c);
+    outname.base_ += "-" + to_string (*c);
   (*c)++;
 
   SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
@@ -419,10 +389,10 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   Book *book = unsmob_book (book_smob);
   
   SCM header = parser->header_;
-  Path outname = split_path (parser->output_basename_);
+  File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
   if (*c)
-    outname.base += "-" + to_string (*c);
+    outname.base_ += "-" + to_string (*c);
   (*c)++;
   Music_output_def *paper = get_paper (parser);
   book->process (outname.to_string (), paper, header);
