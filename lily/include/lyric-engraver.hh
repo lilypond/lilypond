@@ -20,7 +20,6 @@ protected:
   virtual void do_pre_move_processing();
   virtual bool do_try_music (Music*);
   virtual void do_process_requests();
-  virtual void do_post_move_processing();
 
 public:
   Lyric_engraver();

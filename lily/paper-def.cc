@@ -102,7 +102,7 @@ Paper_def::duration_to_dist (Moment d,Real k) const
 
 
 /**
-  Get the measure wide constant for arithmetic.
+  Get the measure wide constant for arithmetic spacing.
 
   @see
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
@@ -120,13 +120,6 @@ Real
 Paper_def::arithmetic_spacing (Moment d ,Real k) const
 {
   return (log_2 (d) + k)* get_var ("arithmetic_multiplier");
-}
-
-Real
-Paper_def::geometric_spacing (Moment d) const
-{
-  Real dur_f = (d) ?pow (get_var ("geometric"), log_2 (d)) : 0;
-  return get_var ("basicspace") + get_var ("unitspace")  * dur_f;
 }
 
 void
