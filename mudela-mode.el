@@ -27,13 +27,14 @@
 ;; * handle lexer modes (\header, \melodic, \lyric) etc.
 ;; * indentation
 ;; * notenames?
-;; * fontlock: \melodic \melodic 
+;; * fontlock: \melodic \melodic
+;; 
 
 (defconst mudela-font-lock-keywords
   (let* ((keywords '(
 		   "accepts" "break" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
 		   "duration" "absdynamic" "in" "translator" "type" "lyric" "key"
-		   "melodic" "melodic_request" "meter" "midi" "mm" "multi" "header"
+		   "maininput" "melodic" "melodic_request" "meter" "midi" "mm" "multi" "header"
 		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt" "shape"
 		   "include"
 		   "score" "script" "skip" "staff" "table" "spandynamic" "symboltables"
@@ -108,8 +109,13 @@
 	    ( ?\" . "\"" )
 	    ( ?\% . "<")	
 	    ( ?\n . ">")
-	    
-	    )))	
+
+; FIXME
+;	    ( ?%  .  ". 124b" )
+:	    ( ?{  .  ". 23" )
+	    ))
+
+  )	
 
 (defconst mu-stringlit-re
    "\"\\([^\"\n\\]\\|\\\\.\\)*\""	; double-quoted
