@@ -10,22 +10,41 @@
 
 ;; alist of property descriptions
 
+;;
+"
+TODO:
 
-;;;;;; TODO: sort out symbol vs. string stuff.
-;;;;;; TODO: use flatten write iso. string-append; might be possible to fold
-;;;;;; in symbol->string integrally.
+
+Grob bla
+
+Created by:
+
+  * preset properties + explanation
+
+Interfaces:
+
+  * properties available.
+
+"
+
 
 (define (interface-doc-string interface grob-description)
-  (let* ((name (car interface))
-	 (desc (cadr interface))
-	 (props (sort (caddr interface) symbol<?))
-	 (docfunc (lambda (pr)
-		    (document-property
-		     pr 'backend grob-description )))
-	 (propdocs (map docfunc props)))
-
+  (let*
+      (
+       (name (car interface))
+       (desc (cadr interface))
+       (props (sort (caddr interface) symbol<?))
+       (docfunc (lambda (pr)
+		  (document-property
+		   pr 'backend grob-description )))
+       (propdocs (map docfunc props))
+       )
+    
+    (string-append
      desc
-     (description-list->texi propdocs)))
+     (description-list->texi propdocs))
+
+    ))
 
 ;; First level Interface description
 (define (interface-doc interface)
@@ -34,7 +53,6 @@
       #:name name
       #:text (interface-doc-string (cdr interface) #f))))
 
-;; First level grob description
 (define (grob-doc description)
   (let*
       (
