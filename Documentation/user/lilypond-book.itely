@@ -173,8 +173,8 @@ smaller music font size (eg. 11 pt or 13 pt)
 @item intertext="@var{text}"
     Used in conjunction with @code{verbatim} option: this puts
 @var{text} between the code and the music.
-@item filename=@var{FILENAME}
-    Save the lilypond code to @var{FILENAME}. By default, a hash value
+@item filename="@var{filename}"
+    Save the lilypond code to @var{filename}. By default, a hash value
 of the code is used.
 
 @item @code{11pt}
@@ -216,10 +216,16 @@ of the code is used.
   Produce a single naturally spaced, unjustified line. (i.e.: linewidth = -1).
 @item multiline
   The opposite of @code{singleline}: justify and break lines.
+@item linewidth=@var{size}@var{unit}
+    Set linewidth to @var{size}, where @var{unit} = cm, mm, in or pt.
 @item fragment
 @item nofragment
     Override @command{lilypond-book} auto detection of what type of code is in the
     lilypond block, voice contents or complete code.
+@item indent=@var{size}@var{unit}
+    Set first line indent to @var{size}, where @var{unit} = cm, mm, in or pt.
+@item noindent
+    Set first line indent to zero.
 @item printfilename
     Prints the file name before the music example. Useful in conjunction
 with @code{\lilypondfile}.

@@ -431,6 +431,9 @@ output_dict= {
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
 		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-noinline': r'''
+%% generated: %(fn)s.eps
+''',
 		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
 		'pagebreak': r'\pagebreak',
 		},
@@ -445,6 +448,9 @@ output_dict= {
 		  'output-lilypond-fragment': """@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond """,
+		  'output-noinline': r'''
+@c generated: %(fn)s.png		  
+''',
 		  'pagebreak': None,
 		  'output-verbatim': r"""@example
 %s
@@ -590,6 +596,8 @@ def compose_full_body (body, opts):
 	Add stuff to BODY using OPTS as options."""
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
+	indent = ''
+	linewidth = ''
 	for o in opts:
 		if g_force_lilypond_fontsize:
 			music_size = g_force_lilypond_fontsize
@@ -601,6 +609,16 @@ def compose_full_body (body, opts):
 		m = re.match ('latexfontsize=([0-9]+)pt', o)
 		if m:
 			latex_size = string.atoi (m.group (1))
+			
+		m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt)', o)
+		if m:
+			f = float (m.group (1))
+			indent = 'indent = %f\\%s' % (f, m.group (2))
+			
+		m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt)', o)
+		if m:
+			f = float (m.group (1))
+			linewidth = 'linewidth = %f\\%s' % (f, m.group (2))
 
 	if re.search ('\\\\score', body):
 		is_fragment = 0
@@ -613,10 +631,15 @@ def compose_full_body (body, opts):
 
 	if is_fragment and not 'multiline' in opts:
 		opts.append('singleline')
+		
 	if 'singleline' in opts:
-		l = -1.0;
-	else:
-		l = __main__.paperguru.get_linewidth()
+		linewidth = 'linewidth = -1.0'
+	elif not linewidth:
+		l = __main__.paperguru.get_linewidth ()
+		linewidth = 'linewidth = %f\pt' % l
+
+	if 'noindent' in opts:
+		indent = 'indent = 0.0\mm'
 
 	for o in opts:
 		m= re.search ('relative(.*)', o)
@@ -637,20 +660,23 @@ def compose_full_body (body, opts):
 			body = '\\relative %s { %s }' %(pitch, body)
 	
 	if is_fragment:
-		body = r"""\score { 
+		body = r'''\score { 
  \notes { %s }
   \paper { }  
-}""" % body
+}''' % body
 
 	opts = uniq (opts)
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
-	body = r"""
+	body = r'''
 %% Generated automatically by: lilypond-book.py
 %% options are %s  
 \include "paper%d.ly"
-\paper  { linewidth = %f \pt } 
-""" % (optstring, music_size, l) + body
+\paper  {
+  %s
+  %s
+} 
+''' % (optstring, music_size, linewidth, indent) + body
 
 	# ughUGH not original options
 	return body
@@ -986,7 +1012,10 @@ def schedule_lilypond_block (chunk):
 		m = re.search ('intertext="(.*?)"', o)
 		if m:
 			newbody = newbody  + m.group (1) + "\n\n"
-	if format == 'latex':
+	
+	if 'noinline' in opts:
+		s = 'output-noinline'
+	elif format == 'latex':
 		if 'eps' in opts:
 			s = 'output-eps'
 		else:
