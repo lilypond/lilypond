@@ -3,6 +3,7 @@
 
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <ctype.h>
 
 #include "rhythmic-head.hh"
 #include "paper-def.hh"
@@ -93,8 +94,18 @@ Note_heads_engraver::create_grobs ()
 	  dot_p_arr_.push (d);
 	}
 
-      note_p->set_grob_property("staff-position",  gh_int2scm (unsmob_pitch (req->get_mus_property ("pitch"))->steps ()));
+      Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
+      note_p->set_grob_property("staff-position",  gh_int2scm (pit->steps ()));
 
+      if (to_boolean (get_property ("easyPlay")))
+	{
+	  char s[2] = "a";
+	  s[0] = (pit->notename_i_ + 2)%7 + 'a';
+
+	  s[0] = toupper (s[0]);
+	  note_p->set_grob_property ("note-character", ly_str02scm (s));
+	}
+      
       announce_grob (note_p,req);
       note_p_arr_.push (note_p);
     }

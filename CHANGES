@@ -1,3 +1,33 @@
+1.3.132.jcn3
+============
+
+* Tied notes at a linebreak repeat their accidental.
+
+* Removed some cruft from lily/include/.
+
+* Bugfix: tied notes in chords sometimes got stuck in MIDI output
+(thanks Mats).
+
+* Added some example bug files, taken from Coriolan
+
+* a2-engraver: \property noDirection: don't force direction when part-combining (for StaffCombining).
+
+* text-spanner: don't repeat edge text for broken edge.
+
+* Coriolan fixes, titling, font setting, header info, cello octave
+(yes, notated different from bass; all agree) at end.
+
+1.3.132.hwn1
+============
+
+* Allow declared repeat variant string
+
+* Bugfix: break alignment at right edge.
+
+* Easy-notation: letters in circular note heads.  
+
+* Debian patch by Anthony Fok.
+
 1.3.131.jcn2
 ============
 

@@ -372,9 +372,6 @@ ScoreContext = \translator {
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
 
-	%devNullThread = #'unisolo
-	%devNullVoice = #'unisolo
-
 	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
 
 	barAuto = ##t
@@ -441,5 +438,10 @@ ScoreContext = \translator {
 
 OrchestralScoreContext= \translator {
 	\ScoreContext
+}
+EasyNotation =  \translator {
+	\ScoreContext
+	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
+	easyPlay = ##t
 }
 

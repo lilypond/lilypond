@@ -121,6 +121,7 @@ can enter and edit them in manageable chunks.
 * Defining pitch names::        
 * Durations::                   
 * Notes::                       
+* Note head tweaks::            
 * Rests::                       
 * Skip::                        
 @end menu
@@ -302,7 +303,7 @@ a quarter note is assumed.  The duration can be followed by a dot
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
-  a'4. b'4.
+  a'4. b'4. c'2..
 @end lilypond
 @cindex @code{r}
 @cindex @code{s}
@@ -336,6 +337,43 @@ question mark `@code{?}' after the pitch.
 @lilypond[fragment,verbatim,center]
   cis' d' e' cis'  c'? d' e' c'!
 @end lilypond
+
+
+@node Note head tweaks
+@subsection Note head tweaks
+
+[TODO]
+
+The note head style can be adjusted with  the @code{style} property of
+@code{NoteHead}.
+
+@lilypond[fragment,singleline,relative,verbatim]
+c'4
+\property Voice.NoteHead \set #'style = #'cross
+c'4
+@end lilypond
+
+[discuss more options]
+
+@cindex easy notation
+@cindex Hal Leonard
+
+A entirely different type of note head is the "easyplay" note head: a
+note head that includes a note name.  It is used in some publications by
+the Hal-Leonard Corporation (a music publishing company).
+
+@lilypond[singleline,verbatim]
+\score {
+        \notes { c'2 e'4 f' | g'1 }
+        \paper { \translator { \EasyNotation } } 
+}
+@end lilypond
+
+Note that @code{EasyNotation} overrides a @code{Score} context.  You
+probably will want to print it with magnification to make it better
+readable.
+
+Limitations: The staff-lines show through the letters.
 
 
 @c .  {Rests}
@@ -1593,7 +1631,7 @@ The symbols that are printed can be modified by setting pedalXStrings,
 where one of the pedal types. Refer to the generaetd documentation for
 more information.
 
-Currently, brackets are not supported, only text markings (ie. Ped*
+Currently, brackets are not supported, only text markings (ie. *Ped
 style).
 
 
@@ -2753,7 +2791,7 @@ where each of the items is one of
   @item  An assignment.  The assignment must be terminated by a
        semicolon.  
 
-  @item  A context definition.  See Section @ref{Notation contexts} for
+  @item  A context definition.  See Section @ref{Notation Contexts} for
        more information on context definitions.
 
   @item  \stylesheet  declaration.  Its syntax is
