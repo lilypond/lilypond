@@ -4,7 +4,7 @@ redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))
     whenhtml(sc(ARG1)))
 
 
-redef(mycode)(1)(tt(ARG1))
+redef(code)(1)(tt(ARG1))
 
 
 COMMENT( This document contains Mudela fragments.  You need at least
@@ -31,7 +31,7 @@ COMMENT(whenlatex(notableofcontents()))
 whentexinfo(notableofcontents())
 
 article(Mudela Reference Manual)
-      (Andrew Moriano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
+      (Adrian Moriano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
 COMMENT(
@@ -860,7 +860,7 @@ If var(bartype) is set to code("empty") then nothing is printed, but a
 line break is allowed at that spot.  Note that the printing of special bars
 has no effect on the MIDI output.
 
-dit(mycode(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
+dit(code(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
 of bar lines.  If var(togglevalue) is 0 then bar line generation is
 turne off.   If var(togglevalue) is  1  then a bar is  immediately
 printed and bar generation is turned  on.
@@ -1292,7 +1292,7 @@ dit(code(timeSignatureStyle)) Changes the default two-digit layout
       digit, e.g. 3/2 is written as 3.
       dit(code(C2/2,C4/4, old2/2, old3/2, old3/4, old4/4, old6/4 or
       old9/4)): Tells Lilypond to use a specific symbol as time
-      signature.
+      signature, independently of the actual time signature.
    )
 
 The different time signature characters are shown below with
@@ -1300,16 +1300,20 @@ their names:
 mudela(fragment,center)(
 \relative c'' {
 \property Voice.textstyle = typewriter
-\property Staff.timeSignatureStyle = "C"
-\time 2/2; a2^"C" a2 \time 2/2;
-\property Staff.timeSignatureStyle = "old3_2"
-a2_"old3\_2" a2 \time 2/2;
-\property Staff.timeSignatureStyle = "oldC"
-a2^"oldC" a2 \time 2/2;
-\property Staff.timeSignatureStyle = "old6_4"
-a2_"old6\_4" a2 \time 2/2;
-\property Staff.timeSignatureStyle = "old9_4"
-a2^"old9\_4" a2
+\property Staff.timeSignatureStyle = "C2/2"
+\time 2/2; a2^"C2/2" a2 
+\property Staff.timeSignatureStyle = "C4/4"
+\time 2/2; a2^"C4/4" a2 
+\property Staff.timeSignatureStyle = "old2/2"
+\time 2/2; a2^"old2/2" a2 
+\property Staff.timeSignatureStyle = "old3/2"
+\time 2/2; a2^"old3/2" a2 
+\property Staff.timeSignatureStyle = "old4/4"
+\time 2/2; a2^"old4/4" a2 
+\property Staff.timeSignatureStyle = "old6/4"
+\time 2/2; a2^"old6/4" a2 
+\property Staff.timeSignatureStyle = "old9/4"
+\time 2/2; a2^"old9/4" a2 
 }
 )
 

@@ -1,3 +1,54 @@
+pl 13.uu1
+	- bfs for footer
+	- bf: init/{book,center}-fragment.ly, YODL nofooter stuff. 
+	- bf: redeclaration
+	- bf: doc fixes
+	- bfs: egcs 1.1
+
+pl 13.mb1
+	- bf: Lookup::afm_find, the width was undefined for the feta fonts.
+	- bf: refman.yo
+
+pl 13.jcn5
+	- bf: init/paper* missing `;'
+	- lilyponddefs.ps fixes
+	- crude output name fix, see scores.cc
+
+pl 13.jcn4
+	- some ps output fixes
+	- lilyponddefs.ps: some sane implemenations
+	- removed (some) ghostscript internals
+
+pl 13.jcn3
+	- PostScript output version 0.0; do
+	      export GS_LIB=$HOME/usr/src/lilypond/tex
+	      export GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
+	      make -C mf pfa
+	      lilypond -t example-1  # or try: lilypond -t twinkle :-)
+	      gv lelie.ps
+	- ps:
+	  * lots of output fixes, chars, strings
+	  * tex/lilyponddefs.ps: added rather braindead defs
+
+pl 13.jcn2
+	- tex/lily-ps-defs.ps (./tex?)
+	- grand output rehack
+	  * dropped {dimen,tex}.{cc,hh}
+	  * {ps,tex} stuf to {Ps,Tex}_lookup
+	  * init/table*.ly: added #parameters
+	- ps fonts:
+	  * ps-to-pfa.py generates valid type-3 fonts
+	  * do: make -C mf pfa
+	  * set: GS_FONT=GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
+
+pl 13.jcn1
+	- crude postscript type 3 font: 
+	   make sure to have mfplain.mem metapost precompiled macros
+	   make -C mf ps
+	   gv out/feta20.sp
+
+********
+
 pl 12.mb1
 	- bf: feta-timesig.mf Added horizontal space, minor corrections.
 	- Changed meaning of Staff.timeSignatureStyle:
