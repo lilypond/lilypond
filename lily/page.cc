@@ -107,6 +107,7 @@ Page::to_stencil () const
   return scm_call_1 (proc, self_scm ());
 }
 
+//urg
 Real
 Page::left_margin () const
 {
@@ -122,7 +123,7 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
   SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
   
   Stencil stencil;
-  Offset o (p->paper_->get_dimension (ly_symbol2scm ("left-margin")),
+  Offset o (p->left_margin (),
 	    p->paper_->get_dimension (ly_symbol2scm ("top-margin")));
 
   Real vfill = (p->line_count_ > 1

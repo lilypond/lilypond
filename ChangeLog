@@ -5,6 +5,8 @@
 
 2004-04-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/include/page.hh (class Page): Declare left_margin ().
+
 	* lily/page.cc: Remove paper var caching.
 
 2004-04-28  Jan Nieuwenhuizen  <janneke@gnu.org>
