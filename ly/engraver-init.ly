@@ -240,6 +240,7 @@ LyricsVoiceContext= \translator{
 	\consists "Extender_engraver"
 	\consists "Hyphen_engraver"
 	\consists "Stanza_number_engraver"
+	\consists "Skip_req_swallow_translator"
 	phrasingPunctuation = #".,:!?\""
 	
 }

@@ -7,11 +7,12 @@ textNonEmpty is used to respect the horizontal size of text.
 "
 }
 \score { \notes {
-\property Voice.TextScript \override #'no-spacing-rods = ##f
-c4_"very wide and long text" c4
+c2_"very wide and long text" c | \break
+\fatText  % short for \property Voice.textNonEmpty = ##t
+c_"very wide and long text" c
 }
 
 \paper {
-  linewidth  = -1.0
+  linewidth  = 3.\cm
   }
 }

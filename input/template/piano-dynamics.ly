@@ -26,11 +26,7 @@ lower = \notes\relative c {
 }
 
 dynamics = \notes {
-  \outputproperty #(make-type-checker 'dynamic-interface)
-    #'extra-offset = #'(0 . 2.5)
   s2\fff\> s4
-  \outputproperty #(make-type-checker 'dynamic-interface)
-    #'extra-offset = #'(0 . 2.5)
   \!s\pp
 }
 
@@ -67,6 +63,8 @@ pedal = \notes {
 
       TextScript \override #'font-relative-size = #1
       TextScript \override #'font-shape = #'italic
+      DynamicText \override #'extra-offset = #'(0 . 2.5)
+      Hairpin \override #'extra-offset = #'(0 . 2.5)
 
       \consists "Skip_req_swallow_translator"
 

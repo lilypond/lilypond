@@ -26,15 +26,18 @@
 	        d-#'(lines "Violoncello" "    e" "Contrabasso")
 	        e-#'((lines (baselineskip . 0) (kern . 1.5)) "Violoncello" "    e" "Contrabasso")
 	        e-#'(((baselineskip . 0) (kern . 1.5) lines) "Violoncello" "    e" "Contrabasso")
+  		g-"≈÷ƒ‹«’"
 		}
 	\paper{
 		linewidth = -1.\mm
-		\translator{
+	        fontenc = "T1"
+  		\translator{
 			\ScoreContext
 			TextScript \override #'font-family = #'roman
 			TextScript \override #'font-shape = #'upright
 			TextScript \revert #'no-spacing-rods
 			TextScript \override #'direction = #1
-		}
+			TextScript \override #'font-encoding = #'T1
+  	}
 	}
 }
