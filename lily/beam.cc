@@ -223,7 +223,8 @@ Beam::connect_beams (Grob *me)
 	    }
 	  while (flip (&d) != LEFT);
 
-	  last_int =  new_slice;
+	  if (!new_slice.empty_b())
+	    last_int =  new_slice;
 	}
       else
 	{
@@ -1366,11 +1367,15 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french)
   Real stem_y = stem_y_beam0;
   if (french)
     {
-      stem_y += beam_space * where_are_the_whole_beams (beaming)[-my_dir];
+      Slice bm = where_are_the_whole_beams (beaming);
+      if (!bm.empty_b())
+	stem_y += beam_space * bm[-my_dir];
     }
   else
     {
-      stem_y += (Stem::beam_multiplicity(s)[my_dir]) * beam_space;
+      Slice bm = Stem::beam_multiplicity(s);
+      if (!bm.empty_b())
+	stem_y +=bm[my_dir] * beam_space;
     }
 
   return stem_y;
