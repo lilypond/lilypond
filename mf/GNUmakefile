@@ -24,7 +24,8 @@ PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) 
 OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))) \
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
-SVG_FILES = $(OTF_FILES:%.otf=%.svg)
+SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
+
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
@@ -66,15 +67,14 @@ $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(
 $(outdir)/aybabtu.subfonts: 
 	 echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS):
-	$(PYTHON) $(buildscript-dir)/gen-bigcheese-scripts.py --dir=$(outdir)
+$(PE_SCRIPTS): $(buildscript-dir)/gen-bigcheese-scripts.py
+	$(PYTHON) $< --dir=$(outdir)
 
 include $(outdir)/bigcheese20.dep
 
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
-PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
@@ -209,17 +209,17 @@ local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
 
-afm: $(AFM_FILES)
-pfa: afm $(PFA_FILES) fontdir
-pfb: afm $(PFB_FILES) fontdir
-
-
-# stupid trick to have separate rules for each PFA font ;
-# otherwise building PFAs is all-or-nothing.
-
-
-$(outdir)/%.pfa: $(outdir)/%.bla
-	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
+#afm: $(AFM_FILES)
+#pfa: afm $(PFA_FILES) fontdir
+#pfb: afm $(PFB_FILES) fontdir
+#
+#
+## stupid trick to have separate rules for each PFA font ;
+## otherwise building PFAs is all-or-nothing.
+#
+#
+#$(outdir)/%.pfa $(outdir)/%.svg: $(outdir)/%.bla
+#	$(MFTRACE) -I $(outdir)/ --formats=pfa,svg --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.enc.in: %.enc
 	cp $< $@

@@ -29,15 +29,9 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
-$(outdir)/%.pfa: %.mf
-	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --simplify $(basename $(@F))
+$(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
+	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg --simplify $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
-
-$(outdir)/%.pfb: %.mf
-	$(MFTRACE)  $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --pfb --simplify  $(basename $(@F))
-	-mv $(basename $(@F)).pfa $(outdir)
-	mv $(basename $(@F)).pfb $(outdir)
-
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
 #	mv $@ $@.in

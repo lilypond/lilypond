@@ -52,7 +52,7 @@ STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 # mftrace for generating pfa's, pfb's
-STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.0.27)
+STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.1.0)
 
 # mftrace for generating pfa's, pfb's
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20041208)
