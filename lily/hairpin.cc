@@ -133,19 +133,31 @@ Hairpin::brew_molecule (SCM smob)
   /*
     TODO: set line style.
    */
-  Molecule mol  = Lookup::dashed_line (thick,
-				Offset (0, starth),
-				Offset (width, endh),
-				period, fraction);
-  mol.add_molecule (Lookup::dashed_line (thick,
-				  Offset (0, -starth),
-				  Offset (width, -endh),
-				  period, fraction));
-  
+  Molecule mol;
+  if (fraction < 1.0)
+    {
+      mol  = Lookup::dashed_line (thick,
+				  Offset (0, starth),
+				  Offset (width, endh),
+				  period, fraction);
+      mol.add_molecule (Lookup::dashed_line (thick,
+					     Offset (0, -starth),
+					     Offset (width, -endh),
+					     period, fraction));
+    }
+  else
+    {
+      mol  = Lookup::line (thick,
+			   Offset (0, starth),
+			   Offset (width, endh));
+      mol.add_molecule (Lookup::line (thick,
+				      Offset (0, -starth),
+				      Offset (width, -endh)
+				      ));
+    }
   mol.translate_axis (x_points[LEFT]
 		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
 		      X_AXIS);
-
   return mol.smobbed_copy ();
 }
 
