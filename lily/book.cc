@@ -106,8 +106,8 @@ Book::process (String outname, Output_def *default_def)
 	     titling? */
 	  if (scm_is_vector (systems))
 	    {
-	      if (ly_c_module_p (header_))
-		paper_book->add_score (header_);
+	      if (ly_c_module_p (score->header_))
+		paper_book->add_score (score->header_);
 	      paper_book->add_score (systems);
 	    }
 	}

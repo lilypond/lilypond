@@ -28,6 +28,7 @@ class Paper_book
 
 public:
   SCM header_;
+  SCM header_0_;
   SCM scores_;
   Output_def *paper_;
   

@@ -84,4 +84,3 @@
    '("tex" "dvi" "ps" "pdf" "png"))
 
   new-fmts)
-

@@ -20,6 +20,7 @@
 Paper_book::Paper_book ()
 {
   header_ = SCM_EOL;
+  header_0_ = SCM_EOL;
   pages_ = SCM_BOOL_F;
   scores_ = SCM_EOL;
   systems_ = SCM_BOOL_F;
@@ -43,6 +44,7 @@ Paper_book::mark_smob (SCM smob)
   if (b->paper_)
     scm_gc_mark (b->paper_->self_scm ());
   scm_gc_mark (b->header_);
+  scm_gc_mark (b->header_0_);
   scm_gc_mark (b->pages_);
   scm_gc_mark (b->scores_);
   return b->systems_;
@@ -124,16 +126,12 @@ Paper_book::classic_output (String outname)
   /* Generate all stencils to trigger font loads.  */
   systems ();
 
-  // ugh code dup
   SCM scopes = SCM_EOL;
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
-#if 0
-  if (ly_c_module_p (scores_[0].header_))
-    scopes = scm_cons (scores_[0].header_, scopes);
-#endif  
-  //end ugh
+  if (ly_c_module_p (header_0_))
+    scopes = scm_cons (header_0_, scopes);
 
   String format = output_backend_global;
   String mod_nm = "scm framework-" + format;
@@ -251,10 +249,16 @@ Paper_book::systems ()
   for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
       if (ly_c_module_p (scm_car (s)))
-	header = scm_car (s);
+	{
+	  header = scm_car (s);
+	  if (header_0_ == SCM_EOL)
+	    header_0_ = header;
+	}
       else if (scm_is_vector (scm_car (s)))
 	{
 	  Stencil title = score_title (header);
+	  if (title.is_empty ())
+	    title = score_title (header_);
 	  if (!title.is_empty ())
 	    {
 	      Paper_system *ps = new Paper_system (title, true);
