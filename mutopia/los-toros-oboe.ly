@@ -8,22 +8,9 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.16";
+\version "1.0.19";
 
-%{
-Silly latex file dropped; use ly2dvi
 
-Converted to relative octave from los-toros-oboe.ly:
-    :s/[^\}'/'x/g
-    :s/'x//g
-    (511 substitutions on 155 lines)
-
-    lilypond -f los-toros-oboe 2> bla
-    wc -l bla
-    138
-    138 / 3 =  46 octave quotes of 511 remain!
-
-%}
 
 \include "paper16.ly"
 
@@ -299,7 +286,7 @@ $staff_hoboone = \context Staff = hoboonestaff <
 	\global
 	\property Staff.instrument = "oboe"
 	% don't expand multi-bar rest
-	\property Score.SkipBars = 1
+	\property Score.skipBars = 1
 	\hoboone
 >
 

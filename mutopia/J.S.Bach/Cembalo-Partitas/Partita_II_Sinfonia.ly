@@ -10,7 +10,7 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 global = \notes {
 	\time 4/4;

@@ -151,6 +151,8 @@ usage ()
     "\n";
 
   ;
+
+  print_mudela_versions (cout);
 }
 
 void

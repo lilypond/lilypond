@@ -1,3 +1,11 @@
+pl 74
+	- avoid buggy /bin/sh on hp-ux
+	- bf: make/stepmake.make
+	- simple prolog support
+
+pl 73
+	- bf: invoke sed only once
+
 pl 72
 	- bf: mfplain dependency
 	- inimf, inimf checking (sigh)

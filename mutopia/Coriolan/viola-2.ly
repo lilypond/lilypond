@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 viola2 = \notes \relative c {
 	% starts on (actualy, most part is on) same staff as viola1
@@ -32,7 +32,7 @@ viola2 = \notes \relative c {
 
 % $viola2_staff = \context Staff = viola_2 <
 $viola2_staff = \context Staff = violaii <
-	\property Staff.midi_instrument = "viola"
+	\property Staff.midiInstrument = "viola"
 	\property Staff.instrument = "Viola II"
 	\property Staff.instr = "Vla. II"
 	\clef "alto";

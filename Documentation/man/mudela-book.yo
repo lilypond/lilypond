@@ -50,6 +50,10 @@ dit(verbatim)
     CONTENTS is copied into the TeX source enclosed in a verbatim block.
 dit(11pt, 13pt, 16pt, 20pt, 26pt)
     set the fontsize to use for the music
+dit(singleline)
+  linewidth = -1.
+dit(multiline)
+  linewidth = textwidth
 dit(fragment)
 dit(nonfragment)
     Override mudela-book autodetection of what type of code is in the
@@ -97,7 +101,6 @@ music in \footnote{...} or \marginpar{...}.
 
 Ignores almost all LaTeX commands that changes margins and linewidths.
 
-file(\begin{verbatim}) is ignored.
 manpageauthor()
 
 nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl), lurl(http://www.cs.uu.nl/people/hanwen)

@@ -24,7 +24,6 @@ public:
   Duration duration_;
   virtual void do_print () const;
 
-
   bool do_equal_b (Request*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
@@ -129,67 +128,11 @@ public:
 class Multi_measure_rest_req : public Rhythmic_req  {
 public:
   VIRTUAL_COPY_CONS(Music);
-
-};
-
-
-/** 
- Start / stop an abbreviation beam at this note. 
- */
-class Abbreviation_beam_req : public Span_req  {
-public:
-  VIRTUAL_COPY_CONS(Abbreviation_beam_req);
-
-  Abbreviation_beam_req ();
-
-  int type_i_;
-};
-
-
-
-/// a slur
-class Slur_req  : public Span_req  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-
 };
 
 /// an extender line
 class Extender_req : public Request  {
 public:
-  VIRTUAL_COPY_CONS(Music);
-
-};
-
-
-class Dynamic_req  : public virtual Request  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-/*
-   merge with Articulation_req? 
- */
-class Absolute_dynamic_req  : public Dynamic_req  {
-public:
-  String loudness_str_;
-  Absolute_dynamic_req();
-
-protected:
-  virtual void do_print () const;
-  virtual bool do_equal_b (Request*) const;
-  VIRTUAL_COPY_CONS(Music);
-};
-
-class Span_dynamic_req  : public Dynamic_req, public Span_req  {
-public:
-
-  /// Grow or shrink the volume: 1=cresc, -1 = decresc 
-  Direction dynamic_dir_;
-
-  Span_dynamic_req();
-protected:
-  virtual bool do_equal_b (Request*) const;
-  virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
 };
 

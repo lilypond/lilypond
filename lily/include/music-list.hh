@@ -1,5 +1,6 @@
 /*
-  music-list.hh -- declare Music_sequence, Simultaneous_music and Sequential_music
+  music-list.hh -- declare Music_sequence,
+  Simultaneous_music and Sequential_music
 
   source file of the GNU LilyPond music typesetter
 
@@ -41,10 +42,10 @@ public:
   virtual void compress (Moment);
   void add_music (Music *music_p);
 
-
   Moment cumulative_length () const;
   Moment maximum_length () const;
 protected:
+  virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void do_print() const;
 };
 
@@ -83,10 +84,8 @@ public:
 class Sequential_music : public Music_sequence
 {
 public:
-  
   VIRTUAL_COPY_CONS(Music);
 
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
   Sequential_music(Music_list*);
   virtual Moment length_mom () const;
 };

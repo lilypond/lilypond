@@ -14,7 +14,6 @@
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
-#include "repeated-music.hh"
 
 Bar_engraver::Bar_engraver()
 {

@@ -25,7 +25,7 @@
 class Translator : public Input {
 public:
   Music_output_def * output_def_l_;
-  String  type_str_;
+  String type_str_;
   
   virtual const char *name() const;
   bool is_alias_b (String) const;

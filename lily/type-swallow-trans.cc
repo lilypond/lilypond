@@ -21,4 +21,3 @@ Type_swallow_translator::do_try_music (Music*r)
 
 
 DECLARE_REQUEST_SWALLOWER(Skip_req);
-DECLARE_REQUEST_SWALLOWER(Beam_req);

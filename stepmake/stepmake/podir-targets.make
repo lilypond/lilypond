@@ -6,9 +6,9 @@ $(outdir)/%.mo: %.po
 	$(MSGFMT) -o $@ $<
 
 # sed-pofile = sed 's/^. \#: .*//'
-sed-pofile = sed 's/^\#: .*//'
-sed-makestuff = sed 's/[a-zA-Z_/]*make\[[0-9]*\].*//'
-sed-edstuff = sed 's/[ \.,adic0-9]*//' | sed 's/---//' | sort -u
+sed-pofile = -e 's/^\#: .*//'
+sed-makestuff = -e 's/[a-zA-Z_/]*make\[[0-9]*\].*//'
+sed-edstuff = -e 's/[ \.,adic0-9]*//' -e 's/---//' | sort -u
 
 po-update:
 	$(foreach i,$(CATALOGS), \
@@ -16,7 +16,7 @@ po-update:
 	  tupdate $(po-dir)/$(outdir)/$(package).po $(po-dir)/$(i).po \
 	    > $(po-dir)/$(outdir)/$(i).po && ) true
 	$(foreach i,$(CATALOGS), \
-	  changes=`$(MAKE) --silent -C $(po-dir) LANGUAGE=$$i po-changes $(ERROR_LOG) | $(sed-makestuff)`; \
+	  changes=`$(MAKE) --silent -C $(po-dir) LANGUAGE=$$i po-changes $(ERROR_LOG) | sed $(sed-makestuff)`; \
 	  if test "$$changes" != "" ; then \
 	    echo "*** Changes for language $$i; check po/$(outdir)/$$i.po ***"; \
 	    echo -e "changes: \`$$changes'";\
@@ -25,4 +25,4 @@ po-update:
 
 po-changes:
 	diff -e $(po-dir)/$(outdir)/$(LANGUAGE).po $(po-dir)/$(LANGUAGE).po \
-	  | $(sed-pofile) | $(sed-edstuff)
+	  | sed $(sed-pofile) $(sed-edstuff)

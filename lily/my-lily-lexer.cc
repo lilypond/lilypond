@@ -21,7 +21,7 @@
 #include "scope.hh"
 
 static Keyword_ent the_key_tab[]={
-  {"absdynamic", ABSDYNAMIC},
+  {"spanrequest", SPANREQUEST},
   {"accepts", ACCEPTS},
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
@@ -64,7 +64,7 @@ static Keyword_ent the_key_tab[]={
   {"script", SCRIPT},
   {"shape", SHAPE},
   {"skip", SKIP},
-  {"spandynamic", SPANDYNAMIC},
+  {"textscript", TEXTSCRIPT},
   {"tempo", TEMPO},
   {"translator", TRANSLATOR},
   {"transpose", TRANSPOSE},

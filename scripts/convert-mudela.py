@@ -287,10 +287,41 @@ if 1:
 		newlines =[]
 		for x in lines:
 			x =  re.sub ('\\\\type','\\\\context', x)
+			x =  re.sub ('textstyle','textStyle', x)
 			newlines.append (x)
 		return newlines
 	
-	conversions.append ((1,0,16), conv, '\\type -> \\context')
+	conversions.append ((1,0,16), conv, '\\type -> \\context, textstyle -> textStyle')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		found = None
+		for x in lines:
+			found = re.search ('\\\\repeat',x)
+			newlines.append (x)
+			if found: break
+		if found:
+			sys.stderr.write ('\nNot smart enough to convert \\repeat')
+			raise FatalConversionError()
+		return newlines
+	
+	conversions.append ((1,0,18), conv,
+			    '\\repeat NUM Music Alternative -> \repeat FOLDSTR Music Alternative')
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('SkipBars','skipBars', x)
+			x =  re.sub ('fontsize','fontSize', x)
+			x =  re.sub ('midi_instrument','midiInstrument', x)			
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,0,19), conv,
+			    'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars')
 
 
 

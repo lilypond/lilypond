@@ -6,7 +6,7 @@ copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "1.0.16";
+\version "1.0.19";
 
 \score{
 	<

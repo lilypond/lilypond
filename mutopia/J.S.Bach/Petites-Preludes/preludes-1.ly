@@ -12,7 +12,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 % upper = \context Staff \notes\relative c {
 upper = \context Staff=upper \notes\relative c {

@@ -33,7 +33,7 @@ of a certain tune (Jazz, Real Book, for example), like
 	\context ChordNames \chords{
 		\property Score.chordInversion = 1
 		\property Score.barAtLineStart = 1
-		\repeat 2 {
+		\repeat semi 2 {
 			f1-maj f-maj f-7 bes-7
 			c-maj c-maj es es
 			d-7 g-7 b2-7/fis e-7 a1-7\break
@@ -57,4 +57,4 @@ of a certain tune (Jazz, Real Book, for example), like
 	}
 }
 
-\version "1.0.16";
+\version "1.0.18";

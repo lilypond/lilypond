@@ -9,34 +9,29 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
-. * rewrite context defs using Scheme
+. * junk separate mudela versioning. 
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
 . * devise standard for functioning of Vertical_align_element.
-. * staff size for post/prebreaks
-. * .ly files
-.  * input/star-spangled-banner
 . * midi key.
-. * P.P.S. It can be cool in mudela-book to distinguish in
-pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
-this fragment is floating eps, than 1, otherwise 2). say
-preMudelaExample[eps]{}, and change it in document body sometimes.
+
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * tremolo stuff
-. * fix height of / collisions with lyrics (chords), 
-see input/test/vertical-text.ly; input/test/repeat.ly
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
 . * mudela-book.py
 .  * fix \mudelafile{} to have decent functionality
+.  * P.P.S. It can be cool in mudela-book to distinguish in
+pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
+this fragment is floating eps, than 1, otherwise 2). say
+preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * use less RE's
-. * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * slurs colllide with lyrics.
 . * Is there any reasonable way to do this: I would like to have one file
 that can generate the same tune in two different modes without having
@@ -58,10 +53,27 @@ There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 . * rest collision minimum dist.
+. * 1. is there a "no key signature mode" for lily yet so that i can just
+enter the notes without worrying about it instead of having to
+remember to put a "!" after each accidental?
+
+a note with a circle after it, meaning:
+
+   note + circle = note + 1/4 of its length
+
+   the circle is like a dot that's not filled in.  for example, on
+   page three, the c-sharp on the second line should be a quarter with 
+   a circle, not a quarter tied to a sixteenth.  is this at all
+   possible with lily?
+tuplets that are written as "number : note", for example
+   "3 : [image of a half note here]".  possible?
+"p+" and "p-" for dynamic markings.  possible?
+. * repeat engraver, gallina.ly
+
 . * Matanya's tips: 
 .  * spacing for prefatory matter
 .  * The line length is 7.5 inch (19.05
-> cm) and the height of normal size is equivalent to the traditional raster 1
+cm) and the height of normal size is equivalent to the traditional raster 1
 > size. (The Schott company sells Letraset sheets of musical symbols which are
 > measured in raster sizes). It is agreed among most engravers I know that the
 > standard size for adult readers in solo music should 70% of raster 1.  Jeff's
@@ -91,9 +103,8 @@ In the orchestscore.ly file, I tried:
 
 .* Cleanups needed
 . * Beam
-. * Stem + Notehead
+. * Stem
 . * Slur
-. * Repeats
 . * Rhythmic_grouping
 . * Duration
 . * Spring generation
@@ -102,12 +113,10 @@ In the orchestscore.ly file, I tried:
 . * clef grav prop's 
 
 .* TODO before 1.2
-. * \selectmusic to cut pieces from music. 
 . * Morally pure LilyPond.
 .  * Remove mutopia ramblings.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
-. * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
@@ -140,7 +149,6 @@ where XX corresponds to the size. I don't know where (or even if) they
 are installed but they are generated in the mf/out/ directory during the
 compilation.
 . * make dependencies () a virtual function.
-. * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
 . * store req -> element, element -> element causes for warnings
 . * include examples in RPM.
@@ -202,6 +210,9 @@ compilation.
 . * compulsory hshift
 . * Give # lines in linebreaking.  
 . * arrows on slurs.
+. * rewrite context defs using Scheme
+. * \selectmusic to cut pieces from music. 
+. * TODO: merge atom & molecule; make  tree from molecule.
 . * Align_element::padding  ?
 . * uniformise property names...
 .  * ydirection <-> yDirection
@@ -249,6 +260,7 @@ gs: Operand stack:
 . * fix title/instrument placements; see input/test/title.ly
 . * <\voiceone c4. \voicetwo c4>
 . * add full cello suites to web site (kom op, Maarten!)
+. * add mudela-book-doc source to webstie.
 . * Rethink Time_description
 \cadenza , \meter, \grouping should all be \properties
 . * rename
@@ -284,8 +296,6 @@ touching it.
 . * timesig C: fat yet less curved.  Check out relations. 
 . * design decent macro for bulbed endings
 . * printer dependencies.
-. * y-refpoint for rests should be the 4th staffline (gclef: b')
-. * clean-up eight+ rests
 . * versioning	
 . * lo-res fixes.
 . * work out sizes of character fonts.
@@ -386,7 +396,6 @@ languages:
 . * add to MIDI output:
 .  * tempo change
 .  * ornaments (and trills?)
-.  * repeat/volta
 .  * slurs
 .  * accents
 .  * dynamics
@@ -561,7 +570,7 @@ hesitate to ask.
 
 .* SMALLISH PROJECTS
 
-. * Faulenzer sign (% repeat)
+. * Faulenzer sign (% repeat).  Perhaps also use \repeat syntax?
 
 . * fix confusing naming in Engraver vs Engraver_group_engraver (context)
 

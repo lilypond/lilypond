@@ -40,23 +40,8 @@
 	("accBayanbaseE" . ((accordion "Bayanbase" "E") #f 0 -1 0))
 	("accBayanbaseTE" . ((accordion "Bayanbase" "TE") #f 0 -1 0))
 	("accBayanbaseEE" . ((accordion "Bayanbase" "EE") #f 0 -1 0))
-	("accBayanbaseTEE" . ((accordion "Bayanbase" "TFEE") #f 0 -1 0))
-;; I don't know what naming of standard base registers is best?
-;; The 'tenor-piano' style of names has been used in some old accordion
-;; scores I have seen. But you never name the registers. These four are
-;; the symbols that are most used then typesetting music, but in the real
-;; world it differs a lot from instrument to instrument what registers
-;; are available.
+	("accBayanbaseTEE" . ((accordion "Bayanbase" "TEE") #f 0 -1 0))
 	("accStdbase" . ((accordion "Stdbase" "") #f 0 -1 0))
-;; tenor-piano
-	("accStdbaseTp" . ((accordion "Stdbase" "FE") #f 0 -1 0))
-;; tenor
-	("accStdbaseT" . ((accordion "Stdbase" "TFE") #f 0 -1 0))
-;; bass-piano
-	("accStdbaseBp" . ((accordion "Stdbase" "MES") #f 0 -1 0))
-;; master  (changed from accStdbaseM)
-	("accStdbaseMa" . ((accordion "Stdbase" "TFMES") #f 0 -1 0))
-
 	("accStdbaseFE" . ((accordion "Stdbase" "FE") #f 0 -1 0))
 	("accStdbaseTFE" . ((accordion "Stdbase" "TFE") #f 0 -1 0))
 	("accStdbaseMES" . ((accordion "Stdbase" "MES") #f 0 -1 0))

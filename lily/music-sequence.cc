@@ -57,6 +57,13 @@ Music_sequence::cumulative_length () const
   return  last;
 }
 
+Musical_pitch
+Music_sequence::to_relative_octave (Musical_pitch p)
+{
+  return do_relative_octave (p, false);
+}
+
+
 Moment
 Music_sequence::maximum_length () const
 {

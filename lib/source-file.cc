@@ -13,7 +13,6 @@
 
 #include "string.hh"
 #include "proto.hh"
-#include "plist.hh"
 #include "warn.hh"
 #include "thank-you-cygnus.hh"
 #include "source-file.hh"

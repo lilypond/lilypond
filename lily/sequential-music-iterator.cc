@@ -23,6 +23,7 @@ Sequential_music_iterator::Sequential_music_iterator ()
   cursor_ = 0;
   here_mom_ = 0;
   iter_p_ =0;
+  per_elt_b_ = false;
 }
 
 void
@@ -80,6 +81,9 @@ Sequential_music_iterator::~Sequential_music_iterator()
 void
 Sequential_music_iterator::do_process_and_next (Moment until)
 {
+  if (!iter_p_)
+    return;
+
   while (1) 
     {
       Moment local_until = until - here_mom_;
@@ -91,7 +95,7 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	    
 	  iter_p_->process_and_next (local_until);
 	}
-
+      
       if (!iter_p_->ok()) 
 	{
 	  leave_element();
@@ -100,6 +104,9 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	    {
 	      start_next_element();
 	      set_sequential_music_translator();
+
+	      if (per_elt_b_)
+		goto loopexit;	// ugh.
 	    }
 	  else 
 	    {

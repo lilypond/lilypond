@@ -28,9 +28,12 @@ Beam_engraver::Beam_engraver ()
 bool
 Beam_engraver::do_try_music (Music *m)
 {
-  if (Beam_req * c = dynamic_cast<Beam_req*>(m))
+  if (Span_req * c = dynamic_cast<Span_req*>(m))
     {
-      Direction d =c->spantype_;
+      if (c->span_type_str_ != "beam")
+	return false;
+      
+      Direction d =c->span_dir_;
 
       if (d == STOP && !beam_p_)
 	{

@@ -20,9 +20,10 @@
 #include "music-wrapper-iterator.hh"
 #include "time-scaled-music-iterator.hh"
 #include "time-scaled-music.hh"
-#include "repeated-music.hh"
-#include "repeated-music-iterator.hh"
 #include "context-specced-music.hh"
+#include "new-repeated-music.hh"
+#include "folded-repeat-iterator.hh"
+#include "unfolded-repeat-iterator.hh"
 
 void
 Music_iterator::do_print() const
@@ -107,9 +108,10 @@ Music_iterator::ok() const
 }
 
 Music_iterator*
-Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_l)
+Music_iterator::static_get_iterator_p (Music const *m)
 {
   Music_iterator * p =0;
+  
   if (dynamic_cast<Request_chord  const *> (m))
     p = new Request_chord_iterator;
   else if (dynamic_cast<Simultaneous_music  const *> (m)) 
@@ -124,32 +126,45 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
     p = new Time_scaled_music_iterator;
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
-  else if (dynamic_cast<Repeated_music const *> (m))
-    p = new Repeated_music_iterator;
+  else if (New_repeated_music const * n = dynamic_cast<New_repeated_music const *> (m))
+    {
+      if (n->fold_b_)
+	p = new Folded_repeat_iterator;
+      else
+	p = new Unfolded_repeat_iterator;
+    }
   else
     assert (0);
 
-  p->music_l_ = m;
 
+  p->music_l_ = m;
+  return p;
+}
+
+void
+Music_iterator::init_translator (Music const *m, Translator_group  *report_l)
+{
+  music_l_ = m;
   if (Context_specced_music const * csm =dynamic_cast<Context_specced_music const*>(m))
     {
       Translator_group* a =report_l->
 	find_create_translator_l (csm->translator_type_str_, csm->translator_id_str_);
-      p->set_translator (a);
+
+      set_translator (a);
+      
     }
 
-  if (! p->report_to_l())
-    p ->set_translator (report_l);
-
-  
-  return p;
+  if (! report_to_l())
+    set_translator (report_l);
 }
 
 
 Music_iterator*
 Music_iterator::get_iterator_p (Music const*m) const
 {
-  Music_iterator*p = static_get_iterator_p (m, report_to_l());
+  Music_iterator*p = static_get_iterator_p (m);
+  p->init_translator (m, report_to_l());
+  
   p->construct_children();
   return p;
 }

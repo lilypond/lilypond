@@ -85,7 +85,7 @@
 
 
 	\name Score;
-	instrument = piano;
+	instrument = "bright acoustic";
 	\accepts Staff;
 	\accepts GrandStaff;
 	\accepts PianoStaff;

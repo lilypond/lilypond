@@ -5,11 +5,14 @@
 
   (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
            Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+
+  UGH. Duration is broken.
 */
 
 #include <assert.h>
+
 #include "proto.hh"
-#include "plist.hh"
 #include "string.hh"
 #include "source-file.hh"
 #include "source.hh"

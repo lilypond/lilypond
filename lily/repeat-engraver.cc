@@ -14,43 +14,30 @@
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
-#include "repeated-music.hh"
+#include "new-repeated-music.hh"
 #include "time-description.hh"
 #include "volta-spanner.hh"
 #include "note-column.hh"
 #include "paper-def.hh"
-
+#include "music-list.hh"
 
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
-Repeat_engraver::Repeat_engraver ()
-{
-}
-
 /*
-  urg. Way too complicated. needs redesign.
+  Urg. Hairy.  Needs redesign?
  */
 bool
 Repeat_engraver::do_try_music (Music* m)
 {
-  if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
+  if (New_repeated_music* r = dynamic_cast<New_repeated_music *> (m))
     {
-      r->unfold_b_ = get_property ("unfoldRepeats", 0).to_bool ();
-      if (r->unfold_b_)
-        return true;
- 
-      Music_sequence* alt = r->alternative_p_;
-      Moment repeat_length_mom = r->repeat_p_->length_mom ();
+      Music_sequence* alt = r->alternatives_p_;
+      Moment repeat_length_mom = r->repeat_body_p_->length_mom ();
       Moment stop_mom = now_mom () + repeat_length_mom;
       Moment alt_mom = now_mom () + repeat_length_mom;
       if (repeat_length_mom)
 	{
-	  for (Cons<Music> *i (alt->music_p_list_p_->head_); i && i->next_; i = i->next_)
-	    {
-	      stop_mom += i->car_->length_mom ();
-	      if (dynamic_cast<Simultaneous_music *> (alt))
-		break;
-	    }
+	  stop_mom += r->alternatives_length_mom ();
 	  repeated_music_arr_.push (r);
 	  stop_mom_arr_.push (stop_mom);
 	}
@@ -187,9 +174,3 @@ Repeat_engraver::do_pre_move_processing ()
 	}
     }
 }
-
-void 
-Repeat_engraver::do_post_move_processing ()
-{
-}
-

@@ -30,8 +30,8 @@ class Dynamic_engraver : public Engraver
   
   Crescendo * to_end_cresc_p_;
   Crescendo * cresc_p_;
-  Span_dynamic_req * cresc_req_l_;
-  Array<Dynamic_req*> dynamic_req_l_arr_;
+  Span_req * cresc_req_l_;
+  Array<Request*> dynamic_req_l_arr_;
   void  typeset_all ();
 public:
   VIRTUAL_COPY_CONS(Translator);
@@ -64,27 +64,41 @@ Dynamic_engraver::do_post_move_processing()
 }
 
 bool
-Dynamic_engraver::do_try_music (Music * r)
+Dynamic_engraver::do_try_music (Music * m)
 {
-  if(Dynamic_req * d = dynamic_cast <Dynamic_req *> (r))
+  Request * r = dynamic_cast<Request*> (m);
+
+  if(Text_script_req * d = dynamic_cast <Text_script_req *> (r))
     {
-      for (int i=0; i < dynamic_req_l_arr_.size (); i++)
-	if (d->equal_b (dynamic_req_l_arr_[i]))
-	  return true;
-      
-      dynamic_req_l_arr_.push (d);
-      return true;
+      if (d->style_str_ != "dynamic")
+	return false;
     }
-  return false;
+  else if (Span_req * s =  dynamic_cast <Span_req*> (r))
+    {
+      if (s-> span_type_str_ != "crescendo"
+	  && s->span_type_str_ != "decrescendo")
+	return false;
+    }
+  else
+    return false;
+  
+  for (int i=0; i < dynamic_req_l_arr_.size (); i++)
+    if (r->equal_b (dynamic_req_l_arr_[i]))
+      return true;
+  
+  dynamic_req_l_arr_.push (r);
+  return true;
 }
+
+
 void
 Dynamic_engraver::do_process_requests()
 {
   Crescendo*  new_cresc_p=0;
   for (int i=0; i < dynamic_req_l_arr_.size(); i++)
     {
-      Dynamic_req *dreq_l = dynamic_req_l_arr_[i];
-      if (Absolute_dynamic_req *absd = dynamic_cast<Absolute_dynamic_req *> (dreq_l))
+      if (Text_script_req *absd =
+	  dynamic_cast<Text_script_req *> ( dynamic_req_l_arr_[i]))
 	{
 	  if (text_p_)
 	    {
@@ -92,7 +106,7 @@ Dynamic_engraver::do_process_requests()
 	      continue;
 	    }
 	  
-	  String loud = absd->loudness_str_;
+	  String loud = absd->text_str_;
 
 	  text_p_ = new G_text_item;
 	  text_p_->text_str_ =  loud; // ugh
@@ -115,13 +129,13 @@ Dynamic_engraver::do_process_requests()
 	    }
 
 
-	  announce_element (Score_element_info (text_p_, dreq_l));
-	  announce_element (Score_element_info (staff_side_p_, dreq_l));
+	  announce_element (Score_element_info (text_p_, absd));
+	  announce_element (Score_element_info (staff_side_p_, absd));
 	}
-      else if (Span_dynamic_req *span_l
-	       = dynamic_cast <Span_dynamic_req *> (dreq_l))
+      else if (Span_req *span_l
+	       = dynamic_cast <Span_req *> (dynamic_req_l_arr_[i]))
 	{
-	  if (span_l->spantype_ == STOP)
+	  if (span_l->span_dir_ == STOP)
 	    {
 	      if (!cresc_p_)
 		{
@@ -140,12 +154,12 @@ Dynamic_engraver::do_process_requests()
 		  
 		}
 	    }
-	  else if (span_l->spantype_ == START)
+	  else if (span_l->span_dir_ == START)
 	    {
 	      cresc_req_l_ = span_l;
 	      assert (!new_cresc_p);
 	      new_cresc_p  = new Crescendo;
-	      new_cresc_p->grow_dir_ = span_l->dynamic_dir_;
+	      new_cresc_p->grow_dir_ = (span_l->span_type_str_ == "crescendo")  ? BIGGER : SMALLER;
 	      announce_element (Score_element_info (new_cresc_p, span_l));
 	    }
 	}

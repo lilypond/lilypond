@@ -35,6 +35,11 @@ textalignment		-1	left alignment of text
 textalignment		0	center alignment of text
 textalignment		1	right alignment of text
 
+beamAuto                0/1     auto-beam on/off
+beamAutoEnd		"num/den"    end auto-beam
+beamAutoEnd_8		"num/den"    end auto-beam of 8ths
+beamAutoEnd_16		"num/den"    end auto-beam of 16ths
+
 [Score?]
 beamslopedamping	0	no damping		\beamslopeproportional	
 beamslopedamping	1	damping1)		\beamslopedamped
@@ -59,11 +64,6 @@ barAuto			1	auto-generate bar every measure
 barAtLineStart		0/1     generate bar at beginning of line
 
 [Staff]
-beamAuto                0/1     auto-beam on/off
-beamAutoEnd		"num/den"    end auto-beam
-beamAutoEnd_8		"num/den"    end auto-beam of 8ths
-beamAutoEnd_16		"num/den"    end auto-beam of 16ths
-
 timeSignatureStyle	C	Use C and stroked C for 4/4,2/2
 timeSignatureStyle	old	Use old style mensuration marks
 timeSignatureStyle	1	Use single number

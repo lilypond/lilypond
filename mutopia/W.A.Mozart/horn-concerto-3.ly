@@ -9,7 +9,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.16";
+\version "1.0.19";
 
 allegro =
 	\notes
@@ -370,7 +370,7 @@ rondo = \notes 	\relative c'
 
 \score
 {
-	{ 	\property Score.SkipBars = 1
+	{ 	\property Score.skipBars = 1
 		\romanze
 	}
 		\paper{ \tempo 4 = 70; }	

@@ -24,8 +24,10 @@ global = \notes {
 	\key g;
 	\time 3/8;
 	< 
-	        \dynamics 
-		\repeat 2 { s4.*8 } 
+	        \dynamics
+		s4. *  8
+		s4. *  8
+		% \repeat semi 2 { s4.*8 } 
 	>
 }
 

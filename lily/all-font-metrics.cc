@@ -1,4 +1,4 @@
-#include "pointer.hh"
+
 #include "main.hh"
 #include "all-fonts.hh"
 #include "debug.hh"
@@ -8,13 +8,10 @@
 
 const char * default_font_sz_ = "cmr10";
 
-
-
 All_font_metrics::All_font_metrics (String path)
 {
   search_path_.parse_path (path);
 }
-
 
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)

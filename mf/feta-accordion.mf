@@ -1,6 +1,6 @@
 % -*- Fundamental -*-
 
-accreg_dot_size# := .6interline#;
+accreg_dot_size# := .5interline#;
 accreg_linethickness# := 1.3stafflinethickness#;
 
 % This dimention is the same on all registersymbols.

@@ -293,13 +293,19 @@ String
 Midi_instrument::str () const
 {
   Byte program_byte = 0;
-  for (int i = 0; instrument_name_sz_a_[i]; i++)
+  bool found = false;
+  for (int i = 0; !found && instrument_name_sz_a_[i]; i++)
     if (instrument_str_ == String (instrument_name_sz_a_[ i ])) 
       {
 	program_byte = (Byte)i;
-	break;
+	found = true;
       }
 
+  if (!found)
+    {
+      warning (_f("No such instrument: `%s'", instrument_str_.ch_C ()));
+    }
+  
   String str = to_str ((char) (0xc0 + channel_i_));
   str += to_str ((char)program_byte);
   return str;

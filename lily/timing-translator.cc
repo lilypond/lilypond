@@ -131,7 +131,7 @@ Timing_translator::do_pre_move_processing()
 
 
   /* allbars == ! skipbars */
-  bool allbars = ! get_property ("SkipBars", 0).to_bool ();
+  bool allbars = ! get_property ("skipBars", 0).to_bool ();
 
   // urg: multi bar rests: should always must process whole of first bar?
   if (!time_.cadenza_b_ && allbars)

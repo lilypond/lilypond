@@ -17,7 +17,7 @@
 class Repeat_engraver : public Engraver 
 {
 public:
-  Repeat_engraver ();
+
   VIRTUAL_COPY_CONS(Translator);
   
 protected:
@@ -26,12 +26,11 @@ protected:
   virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
 
 private:
-  Link_array<Repeated_music> repeated_music_arr_;
+  Link_array<New_repeated_music> repeated_music_arr_;
   Link_array<Music> alternative_music_arr_;
-  //  Link_array<Bar> bar_p_arr_;
+
   Array<bool> bar_b_arr_;
   Link_array<Volta_spanner> volta_p_arr_;
   Array<Moment> stop_mom_arr_;

@@ -14,8 +14,10 @@
 bool
 Slur_engraver::do_try_music (Music *req_l)
 {
-  if (Slur_req *sl = dynamic_cast <Slur_req *> (req_l))
+  if (Span_req *sl = dynamic_cast <Span_req *> (req_l))
     {
+      if (sl->span_type_str_ != "slur")
+	return false;
       new_slur_req_l_arr_.push (sl);
       return true;
     }
@@ -55,9 +57,9 @@ Slur_engraver::do_process_requests()
   Array<Slur*> start_slur_l_arr_;
   for (int i=0; i< new_slur_req_l_arr_.size(); i++)
     {
-      Slur_req* slur_req_l = new_slur_req_l_arr_[i];
+      Span_req* slur_req_l = new_slur_req_l_arr_[i];
       // end slur: move the slur to other array
-      if (slur_req_l->spantype_ == STOP)
+      if (slur_req_l->span_dir_ == STOP)
 	{
 	  if (slur_l_stack_.empty())
 
@@ -68,7 +70,7 @@ Slur_engraver::do_process_requests()
 	      requests_arr_.pop();
 	    }
 	}
-      else  if (slur_req_l->spantype_ == START)
+      else  if (slur_req_l->span_dir_ == START)
 	{
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)

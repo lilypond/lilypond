@@ -1,8 +1,8 @@
-\version "1.0.16";
+\version "1.0.19";
 
 viI=\notes\relative c'' {
 
-\property Staff."midi_instrument" = "violin"
+\property Staff."midiInstrument" = "violin"
 
 r4 r [g8.-> \mf ( a16 ] |
 ) g4 r c, \p |
@@ -261,7 +261,7 @@ f ( |
 
 viII=\notes\relative c' {
 
-\property Staff."midi_instrument" = "violin"
+\property Staff."midiInstrument" = "violin"
 
 r4 r e->  \mf ~ |
 e r e ( \p |
@@ -564,7 +564,7 @@ es \< es4 \! d8 \f |
 vla=\notes\relative c' {
 \clef "alto";
 
-\property Staff."midi_instrument" = "viola"
+\property Staff."midiInstrument" = "viola"
 
 [c8. \f ( d16 ] ) c2_"dim." |
 \context Staff <{\voiceone s4 c2 |
@@ -838,7 +838,7 @@ a r c-. r |
 vlc=\notes\relative c' {
 \clef "bass";
 
-\property Staff."midi_instrument" = "cello"
+\property Staff."midiInstrument" = "cello"
 
 r4 r [bes8. \mf ( c16] |
 ) bes4 r bes \p ( |
@@ -1108,7 +1108,7 @@ f ( |
 cb=\notes\relative c {
 \clef "bass";
 
-\property Staff."midi_instrument" = "contrabass"
+\property Staff."midiInstrument" = "contrabass"
 
 r4 r c-> \mf ~ |
 c r c \p ( |

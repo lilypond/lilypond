@@ -266,4 +266,4 @@ s1
 \paper{barsize=50.0; \translator {\StaffContext \consists
 Bar_number_engraver;}}
 }
-\version "1.0.16";
+\version "1.0.19";

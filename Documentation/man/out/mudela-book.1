@@ -48,6 +48,10 @@ the middle of a text line, not only as a separate paragraph
 CONTENTS is copied into the TeX source enclosed in a verbatim block\&.
 .IP "11pt, 13pt, 16pt, 20pt, 26pt" 
 set the fontsize to use for the music
+.IP "singleline" 
+linewidth = -1\&.
+.IP "multiline" 
+linewidth = textwidth
 .IP "fragment" 
 .IP "nonfragment" 
 Override mudela-book autodetection of what type of code is in the
@@ -91,7 +95,6 @@ music in \efootnote{\&.\&.\&.} or \emarginpar{\&.\&.\&.}\&.
 .PP 
 Ignores almost all LaTeX commands that changes margins and linewidths\&.
 .PP 
-\fB\ebegin{verbatim}\fP is ignored\&.
 .SH "AUTHOR" 
 .PP 
 Han-Wen Nienhuys <hanwen@cs\&.uu\&.nl>, http://www\&.cs\&.uu\&.nl/people/hanwen

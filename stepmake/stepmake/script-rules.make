@@ -1,19 +1,14 @@
-# Scripts.make
-
-
-
 
 $(outdir)/%: %.pl
-	cat $< | $(sed-atvariables) > $@
+	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
 #FIXME.  Check for bash?
 $(outdir)/%: %.sh
-	cat $< | $(sed-atvariables) > $@
+	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-
 $(outdir)/%: %.py
-	cat $< | $(sed-atvariables) > $@
+	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
