@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 name = 'ly2dvi'
-version = '0.0.1'
+version = '0.0.2'
 
 import sys
 import os
@@ -166,8 +166,12 @@ class TeXOutput:
 \\end{document}
 """)
         this.__fd.close()
-        stat = os.system('latex \'\\nonstopmode \\input %s\'' %
-                         (this.__outfile))
+        if ( os.name == 'posix' ):
+            stat = os.system('latex \'\\nonstopmode \\input %s\'' %
+                             (this.__outfile))
+        else: # Windows shells don't eat the single quotes
+            stat = os.system('latex \\nonstopmode \\input %s' %
+                             (this.__outfile))
         if stat:
             sys.exit('ExitBadLatex')
         if os.path.isfile(outfile):
@@ -190,10 +194,10 @@ class Properties:
 
     def get_texfile_path (this, var):
 	    path =''
-	    cmd =('kpsewhich tex %s' % var)
+	    cmd =('kpsewhich tex %s 2>&1' % var)
 	    pipe = os.popen (cmd, 'r')
 	    path = pipe.readline ()[:-1] # chop off \n
-	    if not path:
+	    if pipe.close():
 		    path = os.path.join(this.get('root'), 'texmf', 'tex', 'lilypond', var)
 
 	    fd = open(path, 'r')
@@ -251,6 +255,7 @@ class Properties:
             p=os.path.split(p[0])
             this.__set('root',p[0],'init')
 
+        t=''
 	if os.environ.has_key ('TEXINPUTS'):
 		t = os.pathsep + os.environ['TEXINPUTS']
         os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'texmf',
@@ -681,7 +686,7 @@ def main():
             infile.open(file)
             infile.setVars() # first pass set variables
             infile.close()
-            Props.printProps()
+#            Props.printProps()
             if firstfile:
                 outfile.start(file)
             else:

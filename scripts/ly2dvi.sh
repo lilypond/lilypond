@@ -5,12 +5,12 @@
 # Written by Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>
 #  Sat Nov 22 22:26:43 CET 1997
 #
-# $Id: ly2dvi.sh,v 1.2 1998/08/14 11:16:34 fred Exp $
+# $Id: ly2dvi.sh,v 1.3 1998/08/21 22:05:30 fred Exp $
 #
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.12.jcn1"
+VERSION="0.12"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
@@ -21,11 +21,9 @@ echo "$IDENTIFICATION" 1>&2
 
 # NEWS
 
-# 0.12.jcn1
-#  - mudelaDefs really fixed (sorry, PC)
-
 # 0.12
 #  - -S/--sourcedir switch
+#
 
 #
 #0.11.jcn3
@@ -614,10 +612,11 @@ shift `expr $OPTIND - 1`
 if [ "$SOURCEDIR" != "" ]; then
 # apparently MakeTeXTFM can't handle relative dirs
 	SOURCEDIR=`cd $SOURCEDIR; pwd`
-	export LILYINCLUDE="$SOURCEDIR/init:$SOURCEDIR/mf/out:$LILYINCLUDE"
-	export TEXINPUTS="$SOURCEDIR/tex:$TEXINPUTS:"
-	export MFINPUTS="$SOURCEDIR/mf:$MFINPUTS:"
-	export LILYPOND_EXECUTABLE="$SOURCEDIR/lily/out/lilypond"
+	LILYINCLUDE="$SOURCEDIR/init:$SOURCEDIR/mf/out:$LILYINCLUDE"
+	TEXINPUTS="$SOURCEDIR/tex:$TEXINPUTS:"
+	MFINPUTS="$SOURCEDIR/mf:$MFINPUTS:"
+	LILYPOND_EXECUTABLE="$SOURCEDIR/lily/out/lilypond"
+	export MFINPUTS LILYPOND_EXECUTABLE TEXINPUTS SOURCEDIR 
 fi
 
 #
@@ -637,27 +636,19 @@ regexp_quote(){
 #
 mudelaDefs(){
 # Include \def\mudela-definitions
-# The aim here is to pick up the definition for the 
-# current file, then any other file.
 #
-mudelatmp=$TMP/mudelaDefs$$
-# Use `cat' to prevent filenames being prepended
-# 
-cat "$File" $OF | fgrep "$MU_DEF" > $mudelatmp
 for L in $MU_DEF
 do
-    # This converts \def\mudelatitle{fred}
-    # to \mudelatitle{fred} or to
-    # \def\mudelatitle{fred}
-    # and stops after the first one found.
-    sed -n '/\\def\\'"$L"'{\([^}]*\)}.*$/{
-	s//'"`regexp_quote \"$1\"`"'\\'"$L"'{\1}%/p
-	q
-    }'  $mudelatmp  >> $LatF
+  for F in "$File" "$OF"
+  do
+    LL=`sed -n 's/\\\\def\\\\'"$L"'{\([^}]*\)}.*$/\1/p' "$F"`
+    [ "$LL" ] && {
+	  Echo "$1\\"$L'{'"$LL"'}%'                                >> $LatF
+	  break
+    }
+  done
 done
-rm -f $mudelatmp
 }
-#
 #
 startFile(){
 #

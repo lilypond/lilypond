@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 # Bootstrap the init proces.  List a file identifies your package.
 AC_INIT(make/lilypond.lsm.in)
-AC_CONFIG_HEADER($CONFIGFILE.hh:config.hh.in)
+AC_CONFIG_HEADER($CONFIGFILE.h:config.hh.in)
 
 # Bootstrap StepMake configure
 AC_STEPMAKE_INIT

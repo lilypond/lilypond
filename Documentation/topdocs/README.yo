@@ -17,6 +17,12 @@ if you have downloaded a
 
 version, then this is version is *not* meant for producing nice output
 (but to keep your patchsets up to date).  It might not even compile.
+The same goes for a version with a 4th version number, eg
+
+	1.2.3.mypatch2
+
+It will be safer if you download 1.2.3 or wait for 1.2.4.
+
 
 
 sect(REQUIREMENTS)

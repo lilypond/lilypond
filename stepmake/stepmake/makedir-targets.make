@@ -1,0 +1,6 @@
+
+
+spec: $(OUTSPEC_FILES)
+
+$(OUTSPEC_FILES): $(depth)/VERSION 
+$(OUTLSM_FILES): $(depth)/VERSION
