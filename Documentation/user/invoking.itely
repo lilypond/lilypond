@@ -409,7 +409,7 @@ version number.  In most cases, to upgrade your input file it is sufficient
 to run
 
 @example
-covert-ly -e myfile.ly
+convert-ly -e myfile.ly
 @end example
 
 If there are no changes to myfile.ly and file called myfile.ly.NEW
