@@ -127,7 +127,7 @@
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry\n"
    "@documentlanguage en\n"
-   "@documentencoding ISO-8859-1\n"))
+   "@documentencoding utf-8\n"))
 
 (define (context-name name)
   name)
