@@ -40,7 +40,7 @@ po-dir = $(src-depth)/po
 $(package)_bindir = $(depth)/bin
 step-bindir = $(stepmake)/bin
 
-group-dir = $(shell cd $(DEPTH)/..; pwd)
+group-dir = $(shell cd $(DEPTH);pwd)/..
 release-dir = $(group-dir)/releases
 patch-dir = $(group-dir)/patches
 #
