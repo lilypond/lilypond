@@ -86,8 +86,8 @@ public:
   void do_print() const;
   void set_stemend (Real);
   Direction get_default_dir();
-  int get_center_distance_from_top();
-  int get_center_distance_from_bottom();
+
+  int get_center_distance(Direction);
   void set_default_dir();
   void set_default_stemlen();
   void set_default_extents();
@@ -101,8 +101,7 @@ public:
   bool invisible_b() const;
     
   /// heads that the stem encompasses (positions)
-  int max_head_i() const;
-  int min_head_i() const;
+  Interval_t<int> head_positions() const;
 protected:
   virtual void do_substitute_dependency (Score_elem*,Score_elem*);
   virtual void do_pre_processing();
