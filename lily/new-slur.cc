@@ -481,9 +481,8 @@ New_slur::set_end_points (Grob *me)
 		    scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
 #endif
   
-  Bezier b
-    = avoid_staff_line  (me,common, extremes, scores[opt_idx].curve_);
-  
+
+  Bezier b = scores[opt_idx].curve_;
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     {
@@ -613,6 +612,9 @@ New_slur::generate_curves (Grob *me, Grob **common,
   for (int i = 0; i < scores->size(); i++)
     {
       Bezier bez= get_bezier (me, (*scores)[i].attachment_, r_0, h_inf);
+      bez = avoid_staff_line (me, common, extremes, bez);
+      (*scores)[i].attachment_[LEFT] = bez.control_[0];
+      (*scores)[i].attachment_[RIGHT] = bez.control_[3];
       (*scores)[i].curve_ = bez;
     }
 }
@@ -647,8 +649,12 @@ New_slur::avoid_staff_line (Grob *me, Grob **common,
 	  && (int (fabs (round (p))) % 2
 	      != Staff_symbol_referencer::line_count (staff) % 2))
 	{
+	  Direction resolution_dir =  - get_grob_direction (me);
+	  // 	    (distance ?  :sign (p - round(p)))
+
 	  // TODO: parameter
-	  Real newp = round (p) + get_grob_direction (me) * 5 * thick;
+	  Real newp = round (p) + resolution_dir
+	    * 5 * thick;
 	  Real dy = (newp - p) * staff_space / 2.0;
 	  bez.translate (Offset (0, dy));
 	}
@@ -796,11 +802,17 @@ New_slur::score_encompass (Grob *me, Grob *common[],
 		}
 	    }	  
 
-	  if (edge
-	      && ((l_edge && dir == UP)
+	  if (dir * (y - infos[j].stem_) < 0)
+	    {
+	      Real stem_dem =score_param->STEM_ENCOMPASS_PENALTY ; 
+	      if ((l_edge && dir == UP)
 		  || (r_edge && dir == DOWN))
-	      && (dir * (y - infos[j].stem_) < 0))
-	    demerit += score_param->STEM_ENCOMPASS_PENALTY;
+		{
+		  stem_dem /= 5;
+		}
+
+	      demerit +=  stem_dem;
+	    }
 	  else if (!edge)
 	    {
 	      Interval ext;
@@ -875,6 +887,7 @@ New_slur::score_slopes (Grob *me, Grob *common[],
     = (extremes[LEFT].stem_ && Stem::get_beam (extremes[LEFT].stem_))
     || (extremes[RIGHT].stem_ && Stem::get_beam (extremes[RIGHT].stem_));
 
+  Direction dir = get_grob_direction (me);
   Real dy = ys[RIGHT] - ys[LEFT];
   for (int i = 0; i < scores->size (); i++)
     {
@@ -882,10 +895,21 @@ New_slur::score_slopes (Grob *me, Grob *common[],
 	-  (*scores)[i].attachment_[LEFT];
       Real slur_dy = slur_dz[Y_AXIS]; 
       Real demerit = 0.0;
-      if (!has_beams)
-	/* 0.2: account for staffline offset. */
-	demerit += score_param->STEEPER_SLOPE_FACTOR * ((fabs (slur_dy) - (fabs (dy) + 0.2)) >? 0); 
 
+      demerit += ((fabs (slur_dy/slur_dz[X_AXIS])
+		   - score_param->MAX_SLOPE) >? 0)
+	* score_param->MAX_SLOPE_FACTOR;
+
+	/*
+	  0.2: account for staffline offset.
+	*/
+      Real max_dy = (fabs (dy) + 0.2);
+      if (has_beams)
+	max_dy += 1.0; 
+      
+      demerit += score_param->STEEPER_SLOPE_FACTOR * ((fabs (slur_dy) -max_dy) >? 0); 
+
+      
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS]) - score_param->MAX_SLOPE)>?0)  * score_param->MAX_SLOPE_FACTOR;
       
       if (sign (dy) == 0 &&

@@ -26,10 +26,10 @@
 			  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
 			 } >
 	   \fill-line < #(ly:export (string-append "It has been typeset and placed in the public "
-			  "domain by"  maintainer  "."))  >
+			  "domain by "  maintainer  "."))  >
 	   \fill-line < #(ly:export (string-append "Unrestricted modification and redistribution"
-			  "is permitted and encouraged---copy this music"
-			  "and share it!")) >
+			  " is permitted and encouraged---copy this music"
+			  " and share it!")) >
 	   >
        }
 }
