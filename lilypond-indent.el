@@ -331,7 +331,8 @@ slur-paren-p defaults to nil.
   (let ( (test-point (point))
 	 (level 0) )
     (save-excursion 
-      (if (or (and (= (char-after (point)) ?\()
+      (if (or (and (/= (point) (point-max))
+		   (= (char-after (point)) ?\()
 		   (or (= (char-after (- (point) 1)) ?#)
 		       (and (= (char-after (- (point) 2)) ?#)
 			    (= (char-after (- (point) 1)) ?`))))
