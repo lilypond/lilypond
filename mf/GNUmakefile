@@ -56,7 +56,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 #MAKE_PFB_FILES=1
 
 SAUTER_FONTS = cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
-	cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17
+	cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17 cmtt6
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 

@@ -168,6 +168,7 @@ release:
 
 local-WWW:
 local-WWW-post:
+local-web-post:
 
 WWW: local-WWW
 	$(LOOP)
@@ -175,6 +176,7 @@ WWW: local-WWW
 
 web:
 	$(MAKE) out=www WWW
+	$(MAKE) local-web-post
 
 local-help: www-targets-help
 

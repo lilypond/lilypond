@@ -1,3 +1,15 @@
+2003-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/header.html.in (src): tweaks.
+
+	* Documentation/pictures: remove all but lelie-logo.xpm.
+
+	* stepmake/stepmake/texinfo-vars.make (MAKEINFO): unset LANG
+	before running makeinfo.
+
+	* lily/include/music-iterator.hh (IMPLEMENT_CTOR_CALLBACK): add
+	@code{}
+
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/bar-number-regular-interval.ly: rename.

@@ -16,17 +16,5 @@ local-dist: $(package-icon)
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)
 
-# local-WWW: $(OUTGIF_FILES)
 local-WWW: $(OUTPNG_FILES)
-
-xicon: $(outdir)/lelie-icon.gif
-	cp $< $(depth)/$(outdir)/$(package)-icon.gif
-
-icon: $(package-icon)
-
-#$(package-icon): $(outdir)/lelie-icon.png 
-#	cp $< $@
-
-$(package-icon): lelie-icon.xpm
-	cp $< $@
 

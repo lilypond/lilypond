@@ -16,4 +16,4 @@ local-check: $(addsuffix .dvi, $(addprefix $(outdir)/, $(examples)))
 
 
 local-WWW-post:
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/input/examples.html ./

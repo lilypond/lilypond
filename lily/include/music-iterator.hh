@@ -128,7 +128,7 @@ private:
 LY_DEFINE_MEMBER_FUNCTION(Class,constructor, #Class "::constructor",\
 	  0,0,0,\
 	  (),\
-	  "Construct a " #Class " music iterator")\
+	  "Construct a @code{" #Class "} music iterator")\
 {						\
   SCM val = (new Class)->self_scm();   \
   scm_gc_unprotect_object (val);\

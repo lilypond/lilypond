@@ -6,8 +6,6 @@ $(outdir)/%.info: $(outdir)/%.texi
 
 $(outdir)/%.html: $(outdir)/%.texi
 	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
-# we want footers even if website builds (or is built) partly
-	$(footify) $@
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -21,8 +19,6 @@ $(outdir)/%.ps.gz.omf: %.texi
 # Generic rule not possible?
 $(outdir)/%/%.html: $(outdir)/%.texi
 	$(MAKEINFO) --output=$@ --html $<
-# we want footers even if website builds (or is built) partly
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 $(outdir)/%.dvi: $(outdir)/%.texi
 	cd $(outdir); texi2dvi --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)

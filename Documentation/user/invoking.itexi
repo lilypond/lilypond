@@ -206,35 +206,14 @@ This selects the language for the warning messages
 @cindex bugs
 @cindex reporting bugs
 
-
-
-Since there is no finder's fee which doubles every year, there is no
-need to wait for the prize money to grow. Send a bug report today!
-
-Development moves quickly, so if you have a problem, it is
-wise to check if it has been fixed in a newer release.  If not, please
-send in a bugreport.  When you send us a bugreport, we have to
-diagnose the problem and if necessary, duplicate it.  To make this
-possible, it is important that you include the following information
-in your report:
-
-@itemize @bullet
-
-@item A sample input which causes the error.  Please have mercy on the
-developers, send a @emph{small} sample file.
-
-@item The version number
-
-@item A description of the platform you use (i.e., operating system,
-system libraries, whether you downloaded a binary release)
-
-@item If necessary, send a description of the bug itself.  If you
-include output a ly2dvi run, please use @code{--debug} option of
-ly2dvi.
-
-@end itemize
-
-You can send the report to @email{bug-lilypond@@gnu.org}.
+If you have input that results in a crash or an erroneous output, then
+that is a bug. We try respond to bug-reports promptly, and fix them as
+soon as possible. For this, we need to replicate and isolate the
+problem. Please help us by sending a good bug-report: an input file
+that will reproduce the problem. Please make it small, so we can
+easily isolate the problem. Don't forget to tell which version you
+use, and on which platform you run it.  Send the report to
+@email{bug-lilypond@@gnu.org}.
 
 @node Point and click
 @section Point and click

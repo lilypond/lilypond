@@ -54,14 +54,15 @@ final-install:
 
 web-ext = gz html midi pdf png txt ly
 
-local-WWW-post: 
-	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
-	$(footify-all-command)
+footify=$(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
+
+local-web-post: 
+	$(footify) `$(FIND) . -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="2;URL=Documentation/out-www/">' > $(builddir)/index.html
+	echo '<META HTTP-EQUIV="refresh" content="2;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
