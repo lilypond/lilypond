@@ -39,15 +39,15 @@ Input_staff::parse(PointerList<Input_command*> score_wide)
     else if (type == "rhythmic")
 	p = new Rhythmic_staff;
 
-    for (PCursor<Input_music*> i(music_); i.ok(); i++) {
+    for (iter_top(music_,i); i.ok(); i++) {
 	Voice_list vl = i->convert();
 	p->add(vl);
     }
 
     Input_commands commands;
-    for (PCursor<Input_command*> i(score_wide); i.ok(); i++) 
+    for (iter_top(score_wide,i); i.ok(); i++) 
 	commands.add(**i);
-    for (PCursor<Input_command*> i(commands_); i.ok(); i++) 
+    for (iter_top(commands_,i); i.ok(); i++) 
 	commands.add(**i);
 
     p->staff_commands_ = commands.parse();
@@ -57,9 +57,9 @@ Input_staff::parse(PointerList<Input_command*> score_wide)
 
 Input_staff::Input_staff(Input_staff&s)
 {
-    for (PCursor<Input_command*> i(s.commands_); i.ok(); i++)
+    for (iter_top(s.commands_,i); i.ok(); i++)
 	commands_.bottom().add(new Input_command(**i));
-    for (PCursor<Input_music*> i(s.music_); i.ok(); i++)
+    for (iter_top(s.music_,i); i.ok(); i++)
 	add(i);
 
     type = s.type;
@@ -70,9 +70,9 @@ Input_staff::print() const
 {
 #ifndef NPRINT
     mtor << "Input_staff {\n";
-    for (PCursor<Input_command*> i(commands_); i.ok(); i++)
+    for (iter_top(commands_,i); i.ok(); i++)
 	i->print();
-    for (PCursor<Input_music*> i(music_); i.ok(); i++)
+    for (iter_top(music_,i); i.ok(); i++)
 	i->print();
     mtor << "}\n";
 #endif
