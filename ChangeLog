@@ -6,6 +6,8 @@
 
 	* Documentation/user/refman.itely: spelling fix.
 
+	* lilypond-mode.el, lilypond-indent.el: restrusture and comment.
+
 2003-07-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/template/jazz-combo.ly: new file.
