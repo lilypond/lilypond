@@ -1,5 +1,7 @@
 2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/beam.cc (calc_stem_y): fix beams on quarter notes.
+
 	* lily/stem-tremolo.cc (brew_molecule): add code for stem tremolos.
 
 	* lily/auto-beam-engraver.cc (create_beam_p): remember Beam
@@ -22,7 +24,7 @@
 	(quanting): add french beaming support (property french-beaming)
 	(stem_beams): removed.
 
-2002-07-12  Mats Bengtsson  <matsb@s3.kth.se>
+i2002-07-12  Mats Bengtsson  <matsb@s3.kth.se>
 
 	* lily/beam.cc (after_line_breaking): Set correct stem lengths
 	also when beam positions are set manually.

@@ -5,7 +5,7 @@
 \score { \notes
 \relative c'
 	 {
-
+	     \property Voice.Beam \set #'auto-knee-gap = #7
 	     \property Voice.subdivideBeams = ##t	     
 	     \time 8/8
 	     [c,16  g'''16  

@@ -146,7 +146,7 @@
 	(slope-limit . 0.2)
 	(flag-width-function . ,default-beam-flag-width-function)
 	(damping . 1)
-;;	(auto-knee-gap . 7)
+	(auto-knee-gap . 7)
 	
 	(font-name . "cmr10")
 	(space-function . ,Beam::space_function)
