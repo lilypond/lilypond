@@ -33,11 +33,11 @@
 
 struct Stem_info {
     Real x;
-    Real idealy;
-    Real miny;
-    int no_beams;
+    int dir_i_;
+    Real idealy_f_;
+    Real miny_f_;
+    int beams_i_;
 
-    
     Stem_info(){}
     Stem_info(Stem const *);
 };
@@ -45,15 +45,50 @@ struct Stem_info {
 Stem_info::Stem_info(Stem const *s)
 {
     x = s->hpos_f();
-    int dir = s->dir_i_;
-    idealy  = dir * s->stem_end_f();
-    miny = dir * s->stem_start_f() + 2;	// ugh
-    assert(miny <= idealy);
+    dir_i_ = s->dir_i_;
+    beams_i_ = intlog2( s->flag_i_ ) - 2;
+
+    /*
+     [todo] 
+         * get algorithm
+	 * runtime
+
+     Breitkopf + H\"artel:
+         miny_f_ = interline + #beams * interbeam
+	 ideal8 = 2 * interline + interbeam
+	 ideal16,32,64,128 = 1.5 * interline + #beams * interbeam
+
+     * B\"arenreiter:
+         miny_f_ = interline + #beams * interbeam
+	 ideal8,16 = 2 interline + #beams * interbeam
+	 ideal32,64,128 = 1.5 interline + #beams * interbeam
+         
+     */
+
+    Real notehead_y = s->paper()->interline_f();
+    // huh? why do i need the / 2
+//    Real interbeam_f = s->paper()->interbeam_f();
+    Real interbeam_f = s->paper()->interbeam_f() / 2;
+    Real interline_f = s->paper()->interline_f();
+           
+    /* well eh, huh?
+    idealy_f_  = dir_i_ * s->stem_start_f() + beams_i_ * interbeam_f; 
+    if ( beams_i_ < 3 )
+	idealy_f_ += 2 * interline_f;
+    else
+	idealy_f_ += 1.5 * interline_f;
+    */
+
+    idealy_f_  = dir_i_ * s->stem_end_f();
+
+    miny_f_ = dir_i_ * s->stem_start_f() + notehead_y + beams_i_ * interbeam_f;
+
+    idealy_f_ =  miny_f_ >? idealy_f_;
+//    assert(miny_f_ <= idealy_f_);
 }
 
 
 /* *************** */
-
 
 
 Offset
@@ -114,7 +149,12 @@ Beam::set_default_dir()
 
 /*
   should use minimum energy formulation (cf linespacing)
-  */
+
+  [todo]
+  the y of the (start) of the beam should be quantisized,
+  so that no stafflines appear just in between two beam-flags
+
+*/
 void
 Beam::solve_slope()
 {
@@ -133,14 +173,14 @@ Beam::solve_slope()
     Least_squares l;
     for (int i=0; i < sinfo.size(); i++) {
 	sinfo[i].x -= leftx;
-	l.input.push(Offset(sinfo[i].x, sinfo[i].idealy));
+	l.input.push(Offset(sinfo[i].x, sinfo[i].idealy_f_));
     }
 
     l.minimise(slope, left_pos);
     Real dy = 0.0;
     for (int i=0; i < sinfo.size(); i++) {
 	Real y = sinfo[i].x * slope + left_pos;
-	Real my = sinfo[i].miny;
+	Real my = sinfo[i].miny_f_;
 
 	if (my - y > dy)
 	    dy = my -y;	
@@ -173,6 +213,11 @@ Beam::set_stemlens()
 void
 Beam::do_post_processing()
 {
+    if ( stems.size() < 2) {
+	warning("Beam with less than 2 stems");
+	transparent_b_ = true;
+	return ;
+    }
     solve_slope();    
     set_stemlens();
 }
@@ -213,7 +258,6 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 void
 Beam::do_pre_processing()
 {
-    assert(stems.size()>1);
     if (!dir_i_)
 	set_default_dir();
 
@@ -235,7 +279,8 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 {
     assert( !next || next->hpos_f() > here->hpos_f()  );
     assert( !prev || prev->hpos_f() < here->hpos_f()  );
-    Real dy=paper()->internote_f()*2;
+//    Real dy=paper()->internote_f()*2;
+    Real dy = paper()->interbeam_f();
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote_f();
     paper()->lookup_l()->beam(sl, 20 PT);
@@ -293,9 +338,11 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 Molecule*
 Beam::brew_molecule_p() const 
 {
-    Molecule *out=0;
-    Real inter=paper()->internote_f();
-    out = new Molecule;
+ 
+    Molecule *mol_p = new Molecule;
+    // huh? inter-what
+//    Real inter_f = paper()->interbeam_f();
+    Real inter_f = paper()->internote_f();
     Real x0 = stems[0]->hpos_f();
     for (int j=0; j <stems.size(); j++) {
 	Stem *i = stems[j];
@@ -304,11 +351,11 @@ Beam::brew_molecule_p() const
 
 	Molecule sb = stem_beams(i, next, prev);
 	Real  x = i->hpos_f()-x0;
-	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
-	out->add(sb);
+	sb.translate(Offset(x, (x * slope  + left_pos)* inter_f));
+	mol_p->add(sb);
     }
-    out->translate_x(x0 - left_col_l_->hpos);
-    return out;
+    mol_p->translate_x(x0 - left_col_l_->hpos);
+    return mol_p;
 }
 
 IMPLEMENT_STATIC_NAME(Beam);
@@ -322,12 +369,13 @@ Beam::do_print()const
     Spanner::print();
 #endif
 }
-
+/*
+  duh. The stem is not a dependency but a dependent
+ */
 void
 Beam::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
-    int i;
-    while ((i=stems.find_i((Stem*)o->item())) >=0) 
-	   if (n) stems[i] = (Stem*) n->item();
-	   else stems.del(i);
+    if (o->is_type_b( Stem::static_name() )) {
+	stems.substitute( (Stem*)o->item(),  n?(Stem*) n->item():0);
+    }
 }
