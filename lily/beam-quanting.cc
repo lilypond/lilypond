@@ -20,8 +20,8 @@
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-const int INTER_QUANT_PENALTY = 1000; 
-const int SECONDARY_BEAM_DEMERIT  = 15;
+const int INTER_QUANT_PENALTY = 1000;
+const int SECONDARY_BEAM_DEMERIT  = 5;
 const int STEM_LENGTH_DEMERIT_FACTOR = 5;
 
 // possibly ridiculous, but too short stems just won't do
@@ -222,7 +222,6 @@ Beam::quanting (SCM smob)
 				     beam_count, ldir, rdir); 
       }
 
-  //  ; /* silly gdb thinks best_idx is inside for loop. */
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
@@ -234,7 +233,6 @@ Beam::quanting (SCM smob)
 				 qscores[i].yl, qscores[i].yr);
       }
 
-  //  ; /* silly gdb thinks best_idx is inside for loop. */
   int best_idx = best_quant_score_idx (qscores);
   me->set_grob_property ("positions",
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
@@ -341,6 +339,12 @@ my_modf (Real x)
   return x - floor (x);
 }
 
+
+/*
+  TODO: The fixed value SECONDARY_BEAM_DEMERIT is probably flawed:
+   because for 32nd and 64th beams the forbidden quants are relatively
+   more important than stem lengths.
+*/
 Real
 Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real radius,
