@@ -5,6 +5,7 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "staff-symbol-referencer.hh"
@@ -92,8 +93,8 @@ Local_key_item::after_line_breaking (SCM smob)
 	    {
 	      /* there should be a better way to delete part of me */
 	      scm_set_car_x (s, scm_list_n (ly_caar (s),
-					 ly_symbol2scm ("deleted"),
-					 SCM_UNDEFINED));
+					    ly_symbol2scm ("deleted"),
+					    SCM_EOL));
 	      me->set_grob_property ("molecule", SCM_EOL);
 	    }
 	}

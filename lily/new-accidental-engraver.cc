@@ -305,7 +305,11 @@ New_accidental_engraver::create_grobs ()
 	       */
 	      
 	      if (tie_break_reminder)
-		;		// TODO.
+		{
+		  // TODO.
+		  a->set_grob_property ("tie", tie_break_reminder->self_scm());
+		}
+	      
 	      
 	      support_l->set_grob_property ("accidental-grob", a->self_scm ());
 

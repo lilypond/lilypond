@@ -1,3 +1,14 @@
+2002-05-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/accidental.cc (after_line_breaking): add break tie
+	reminders.
+
+	* lily/text-engraver.cc (try_music): don't typeset fingerings
+
+2002-05-05  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Handle \breve as a note (rest) duration.
+
 2002-05-04  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/*.cc: change gh_str02scm() to ly_str02scm().
@@ -1086,7 +1097,7 @@
 
 2002-03-12 Rune Zedeler <rune@zedeler.dk>
 
- 	* lily/beam.cc lily/stem.cc lily/beam-engraver.cc allow for
+ 	* lily/beam.cc lily/stem.cc lily/beam-engraver.cc: allow for
  	stemLeftBeamCount and stemRightBeamCount to equal 0.
  	Fixes [c8 c4 c8]
       

@@ -37,6 +37,7 @@ bool
 Text_engraver::try_music (Music *m)
 {
   if (dynamic_cast<Text_script_req*> (m)
+      && m->get_mus_property ("text-type") != ly_symbol2scm ("finger")
       && m->get_mus_property ("text-type") != ly_symbol2scm ("dynamic"))
     {
       reqs_.push (dynamic_cast<Text_script_req*> (m));

@@ -258,7 +258,7 @@ Dynamic_engraver::process_music ()
 		  cresc_p_->set_grob_property ("edge-text",
 					       gh_cons (s, ly_str02scm ("")));
 		  daddy_trans_l_->set_property ((start_type + "Text").ch_C(),
-						SCM_UNDEFINED);
+						SCM_EOL);
 		}
 	    }
 

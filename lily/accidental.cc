@@ -14,6 +14,7 @@ class Accidental_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));  
   static bool has_interface (Grob*);
 };
 
@@ -28,6 +29,21 @@ parenthesize (Grob*me, Molecule m)
   return m;
 }
 
+
+MAKE_SCHEME_CALLBACK (Accidental_interface,after_line_breaking,1);
+SCM
+Accidental_interface::after_line_breaking (SCM smob)
+{
+  Grob *me  = unsmob_grob (smob);
+  Grob *tie = unsmob_grob (me->get_grob_property ("tie"));
+
+  if (tie && !tie->original_l_)
+    {
+      me->suicide ();
+    }
+  return SCM_UNSPECIFIED;
+}
+  
 MAKE_SCHEME_CALLBACK (Accidental_interface,brew_molecule,1);
 SCM
 Accidental_interface::brew_molecule (SCM smob)
@@ -77,4 +93,4 @@ Accidental_interface::brew_molecule (SCM smob)
 
 ADD_INTERFACE(Accidental_interface, "accidental-interface",
 	      "a single accidental",
-	      "style accidentals");
+	      "style tie accidentals");
