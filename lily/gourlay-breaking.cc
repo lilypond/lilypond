@@ -6,6 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>		// rint
+#include <stdio.h>
 
 #include "gourlay-breaking.hh"
 #include "column-x-positions.hh"
@@ -167,6 +168,10 @@ Gourlay_breaking::do_solve () const
       i = prev;
     }
 
+  if (verbose_global_b)
+    printf("Optimal demerits: %f\n", optimal_paths.top().demerits_f_); 
+
+  
   if (optimal_paths.top ().demerits_f_ >= infinity_f)
     warning (_ ("No feasible line breaking found"));
   

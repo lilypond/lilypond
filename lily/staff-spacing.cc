@@ -168,8 +168,6 @@ Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
   return last_grob;  
 }
 
-/*
-*/
 void
 Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 {
@@ -200,7 +198,10 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 						 &last_ext);
   if (!last_grob)
     {
-      programming_error ("empty break column? --fixme");
+      /*
+	we used to have a warning here, but itgenerates a lot of
+	spurious error messages.
+      */
       return ;
     }
 
