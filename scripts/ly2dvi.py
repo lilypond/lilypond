@@ -79,12 +79,16 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 # generate ps ?
 postscript_p = 0
 
+# be verbose?
+verbose_p = 0
+
 option_definitions = [
 	('', 'h', 'help', _ ("this help")),
 	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
+	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	('DIR', '', 'outdir', _ ("dump all final output into DIR")),
@@ -108,10 +112,12 @@ NO WARRANTY.'''))
 
 
 
+def star_progress (s):
+	'''Progress messages that stand out between lilypond stuff'''
+	progress ('*** ' + s)
+
 def progress (s):
-	'''Make the progress messages stand out between lilypond stuff'''
-	# Why should they have to stand out?  Blend in would be nice too.
-	sys.stderr.write ('*** ' + s+ '\n')
+	sys.stderr.write (s + '\n')
 
 def warning (s):
 	sys.stderr.write (_ ("warning: ") + s)
@@ -140,7 +146,7 @@ def find_file (name):
 		except IOError:
 			pass
 	if f:
-		sys.stderr.write (_ ("Reading `%s'") % nm)
+		sys.stderr.write (_ ("Reading %s...") % nm)
 		sys.stderr.write ('\n');
 		return (f.read (), nm)
 	else:
@@ -245,12 +251,13 @@ def setup_temp ():
 	os.environ['TFMFONTS'] =  original_dir + fp
 
 	os.chdir (temp_dir)
-	progress (_ ('Temp directory is `%s\'\n') % temp_dir) 
+	if verbose_p:
+		progress (_ ('Temp directory is `%s\'\n') % temp_dir) 
 
 	
 def system (cmd, ignore_error = 0):
-	sys.stderr.write (_ ("Invoking `%s\'") % cmd)
-	sys.stderr.write ('\n')
+	if verbose_p:
+		progress (_ ("Invoking `%s\'") % cmd)
 	st = os.system (cmd)
 	if st:
 		msg =  ( _ ("error: ") + _ ("command exited with value %d") % st)
@@ -263,7 +270,8 @@ def system (cmd, ignore_error = 0):
 
 def cleanup_temp ():
 	if not keep_temp_dir:
-		progress (_ ('Cleaning up `%s\'') % temp_dir)
+		if verbose_p:
+			progress (_ ('Cleaning up `%s\'') % temp_dir)
 		system ('rm -rf %s' % temp_dir)
 	
 
@@ -528,6 +536,8 @@ for opt in options:
 		set_setting (extra_init, ss[0], ss[1])
 	elif o == '--dependencies' or o == '-d':
 		track_dependencies_p = 1
+	elif o == '--verbose' or o == '-V':
+		verbose_p = 1
 	elif o == '--version' or o == '-v':
 		identify ()
 		sys.exit (0)
@@ -577,7 +587,8 @@ if files:
 	if outdir != '.':
 		system ('mkdir -p %s' % outdir)
 	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
-	system ('cp *.midi %s' % outdir, ignore_error = 1)
+	if re.match ('[.]midi', string.join (os.listdir ('.'))):
+		system ('cp *.midi %s' % outdir, ignore_error = 1)
 
 	depfile = os.path.join (outdir, base + '.dep')
 
@@ -589,7 +600,7 @@ if files:
 
 	# most insteresting info last
 	progress (_ ("dependencies output to %s...") % depfile)
-	progress (_ ("%s file left in `%s'") % (type, dest))
+	progress (_ ("%s output to %s...") % (type, dest))
 
 
 

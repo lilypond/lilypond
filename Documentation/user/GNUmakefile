@@ -93,15 +93,17 @@ deep-symlinks:
 endif
 
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
+local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-dir
+
+local-WWW-clean: deep-WWW-clean
+
+deep-WWW-clean:
+	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
+
+info-dir:
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
 	$(MAKE) deep-footify
-
-#	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
-#	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
-#	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
-
 
 
 $(outdir)/%.bib: %.bib
@@ -112,9 +114,6 @@ $(outdir)/%.bib: %.bib
 local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
-
-backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 
 # when cross-compiling, we don't have lilypond
 ifneq ($(CROSS),yes)

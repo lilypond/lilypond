@@ -114,7 +114,7 @@ static Long_option_init options_static[] = {
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
-  {_i ("EXPR"), "evaluate", 'e',_i ("evalute  EXPR as Scheme after .scm init is read")},
+  {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   {0,0,0,0}
 };
 

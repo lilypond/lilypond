@@ -1,11 +1,9 @@
 
 default:
 
+include $(stepdir)/www-targets.make
 
 local-WWW: $(OUTHTML_FILES) footify
-
-local-web:
-	$(MAKE) out=www local-WWW
 
 footify:
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
