@@ -1,4 +1,17 @@
+pl 2.uu1
+       - solaris 2.6 compile/make website fixes.
+       - rm'd WWW.make
+       - stepmake .43
+       - pcnov095.win.tue.nl -> ftp.cs.uu.nl
+ 
+pl 2.hwn1
+      - mi2mu naming of track output
+      - bf: do key restore sign only once
+      - ly2dvi32 preliminary version (JBR)
+ 
+*********
 pl 2
+	- bf index.html link
 	- bf mudela-book.py
 	- scalar compile stuff
 	- bf install directory
