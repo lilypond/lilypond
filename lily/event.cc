@@ -33,24 +33,23 @@ Event::compress (Moment m)
 void
 Event::transpose (Pitch delta)
 {
-  /*
-    TODO: should change music representation such that
-    _all_ pitch values are transposed automatically.
-   */
-  
-  Pitch *p = unsmob_pitch (get_property ("pitch"));
-  if (!p)
-    return ;
-
-  Pitch np = p->transposed (delta);
-  
-  if (abs (np.get_alteration ()) > DOUBLE_SHARP)
+  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = ly_cdr (s))
     {
-	warning (_f ("Transposition by %s makes alteration larger than two",
-	  delta.to_string ()));
-    }
+      SCM entry = ly_car (s);
+      SCM val = ly_cdr (entry);
 
-  set_property ("pitch", np.smobbed_copy ());
+      if (Pitch * p = unsmob_pitch (val))
+	{
+	  Pitch transposed =  p->transposed (delta);
+	  scm_set_cdr_x (entry, transposed.smobbed_copy ());
+
+	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
+	    {
+	      warning (_f ("Transposition by %s makes alteration larger than two",
+			   delta.to_string ()));
+	    }
+	}
+    }
 }
 
 Pitch
