@@ -15,7 +15,6 @@
 #include "lily-version.hh"
 
 #include "all-font-metrics.hh"
-#include "proto.hh"
 #include "getopt-long.hh"
 #include "misc.hh"
 #include "string.hh"
@@ -33,6 +32,9 @@
 #include <libintl.h>
 #endif
 
+extern "C" {
+#include <kpathsea/kpathsea.h>
+}
 
 bool verbose_global_b = false;
 bool no_paper_global_b = false;
@@ -308,6 +310,12 @@ main (int argc, char **argv)
    */
   setenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", 0);
   setenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", 0);
+
+  /*
+   initialize kpathsea
+   */
+  kpse_set_program_name(argv[0], NULL);
+  kpse_maketex_option("tfm", TRUE);
 
   oparser_global_p = new Getopt_long(argc, argv,theopts);
   while (Long_option_init const * opt = (*oparser_global_p)())
