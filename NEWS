@@ -1,3 +1,46 @@
+pl 40
+	- release
+
+pl 39-5
+	- own versioning for mi2mu
+	- some file renaming mi2mu
+pl 39-4
+	- all of the above
+
+pl 39-hwn2
+	- last bar bugfix
+Internal
+	- simple dynamics
+	- experimental RPM spec.
+	- doco update.
+
+pl 39-3
+	- all of the above
+	- m2m renamed to mi2mu
+	- better line breaking in mi2mu
+	- (somewhat broken) progress indicator for mi2mu 
+	- mi2mu output === lily input (in names and durations,
+	  always assuming voices > 1 though)
+
+Bugfix
+	- midi: note on/off only once per pitch per track 
+	  (sending all note-on events introduces cool mi2mu feature)
+	- make clean removes deps too
+	- mi2mu notename/accidental/octave, and key fixed
+
+Internal
+	- auto create of out-dirs, config headers, using tag file .GENERATE
+
+Examples
+	- stanchen.ly debugged
+
+pl 39-2
+	- configure script help and in topdir again, duh.
+	- auto configure upon virgin make
+	- configured makefile stuff in make/out/
+
+
+********
 pl 39-1
 	- doze target (for 16 bit dos xcompiler: gcc-go32)
 Internal
@@ -34,7 +77,7 @@ Bugfix
 pl 38-5
 	- all of the below, e.g. new filenames and new makefile 
 	  structure patches merged
-
+******
 pl 38
 
 Internal
