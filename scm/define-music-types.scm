@@ -409,6 +409,13 @@ goes down).")
 	(iterator-ctor . ,Quote_iterator::constructor)
 	(types . (general-music))
 	))
+    (NewQuoteMusic
+     . (
+	(description . "Quote preprocessed snippets of music. ")
+	(internal-class-name . "Music") ;;  so we get Event::get_length ().
+	(iterator-ctor . ,New_quote_iterator::constructor)
+	(types . (general-music))
+	))
     
     (RelativeOctaveCheck
      . ((description . "Check if a pitch is in the correct octave.")

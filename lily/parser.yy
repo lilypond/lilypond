@@ -1016,6 +1016,11 @@ Generic_prefix_music_scm:
 	}  embedded_scm embedded_scm {
 		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4);
 	}
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC {
+		THIS->push_spot (); 
+	}  embedded_scm embedded_scm Music {
+		$$ = scm_list_5 ($1, make_input (THIS->pop_spot ()), $3, $4, $5->self_scm ());
+	}
 	| MUSIC_FUNCTION_MARKUP_MUSIC {
 		THIS->push_spot (); 
 	}  full_markup Music {

@@ -1,8 +1,12 @@
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/lily.scm (sanitize-command-option): new function.
+	* lily/parser.yy (Generic_prefix_music_scm): add
+	MUSIC_FUNCTION_SCM_SCM_MUSIC
 
-	* scm/framework-tex.scm (header): sanitize TeX paper size. 
+	* scm/lily.scm (sanitize-command-option): new function. (backportme)
+
+	* scm/framework-tex.scm (header): sanitize TeX paper size.
+	(backportme)
 
 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
