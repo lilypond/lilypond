@@ -2,7 +2,8 @@
 
 \header {
  title="Flower of Scotland"
- texidoc = "bagpipe music "
+ texidoc = "@cindex Bagpipe Music
+bagpipe music"
 }
 
 #(add-to-grace-init "Voice" 'Stem 'length 6)

@@ -1,10 +1,6 @@
 \header {
-    texidoc = "Bar numbers can also be printed at regular intervals.
-
-
-
-"
-
+    texidoc = "@cindex Bar Number Every Fifth
+Bar numbers can also be printed at regular intervals."
 
 }
 \version "1.7.18"

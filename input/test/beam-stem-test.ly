@@ -1,6 +1,7 @@
 \version "1.7.18"
 \header {
-  texidoc="Beam-stem attachment test.  Helper file for ps/dvips problems."
+  texidoc="@cindex Beam Stem Test
+Beam-stem attachment test.  Helper file for ps/dvips problems."
 }
 	
 \score {

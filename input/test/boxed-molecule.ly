@@ -1,12 +1,11 @@
 \version "1.7.18"
 \header {
+texidoc = "@cindex Boxed Molecule
+You can override the molecule callback to draw a box around
+arbitrary grobs.
 
-texidoc = "overriding the molecule callback can also be used to draw a
- box around arbitrary grobs.
-
- TODO:  circled molecules.
-  
- "
+TODO:  circled molecules."
+% TODO: check that this one actually works.
 }
 
 

@@ -1,7 +1,8 @@
 \version "1.7.18"
 \header {
 
-	 texidoc = "Broken spanners can be adjusted individually, but
+	 texidoc = "@cindex Broken Spanner Adjustment
+Broken spanners can be adjusted individually, but
 this requires complicated scheme code.
   "
 

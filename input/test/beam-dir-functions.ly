@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-  texidoc = "
+  texidoc = "@cindex Beam Dir Functions
 
 There are several ways to calculate the direction of a beam.
 @table @code
