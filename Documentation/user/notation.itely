@@ -1277,7 +1277,7 @@ is set to a string, a bar line of that type is created.
 
 A bar line is created whenever the @code{whichBar} property is set.
 At the start of a measure it is set to the contents of
-@code{defaultBarType}.  The contents of @code{repeatCommands} are used
+@code{defaultBarType} (as defined in the Score context).  The contents of @code{repeatCommands} are used
 to override default measure bars.
 
 @cindex @code{whichBar}
