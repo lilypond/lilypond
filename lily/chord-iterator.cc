@@ -74,10 +74,11 @@ IMPLEMENT_IS_TYPE_B1(Chord_iterator,Music_iterator);
 Moment
 Chord_iterator::next_moment() const
 {
-  Moment next_ = infinity_mom;
+  Moment next;
+  next.set_infinite (1);
   for (PCursor<Music_iterator*> i (children_p_list_.top()); i.ok (); i++)
-    next_ = next_ <? i->next_moment() ;
-  return next_;
+    next = next <? i->next_moment() ;
+  return next;
 }
 
 

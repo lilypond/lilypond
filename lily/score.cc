@@ -74,7 +74,8 @@ Score::run_translator (Music_output_def *odef_l)
 
   while (iter->ok() || trans_p->moments_left_i ())
     {
-      Moment w = infinity_mom;
+      Moment w;
+      w.set_infinite (1);
       if (iter->ok())
 	{
 	  w = iter->next_moment();
