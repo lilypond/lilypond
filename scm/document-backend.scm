@@ -128,7 +128,7 @@ node."
 
 (define (all-grobs-doc)
   (make <texi-node>
-    #:name "All Graphical objects"
+    #:name "All layout objects"
     #:desc "Description and defaults for all Grobs"
     #:children
     (map (lambda (x) (grob-doc (cdr x)))  all-grob-descriptions)))
