@@ -34,12 +34,8 @@
    "\""))
 
 (define-public (postscript->pdf papersizename name)
-  (let* ((cmd (string-append "ps2pdf "
-			     (string-append
-			      " -sPAPERSIZE="
-			      (sanitize-command-option papersizename)
-			      " "
-			      name)))
+  (let* ((cmd (format #f "ps2pdf -sPAPERSIZE=~a '~a'"
+		      (sanitize-command-option papersizename) name))
 	 (pdf-name (string-append (basename name ".ps") ".pdf" )))
 
     (if (access? pdf-name W_OK)
@@ -48,16 +44,12 @@
     (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
     (ly:system cmd)))
 
-(define-public (postscript->png resolution papersize name)
-  (let ((cmd (string-append
-	      "ps2png --resolution="
-	      (if (number? resolution)
-		  (number->string resolution)
-		  "90 ")
-	      " --papersize=" (if (string? papersize) papersize "a4")
-	      (if (ly:get-option 'verbose)
-		  " --verbose "
-		  " ")
+(define-public (postscript->png resolution papersizename name)
+  (let ((cmd (format #f
+	      "ps2png --resolution=~S --papersize=~a~a '~a'"
+	      resolution
+	      (sanitize-command-option papersizename)
+	      (if (ly:get-option 'verbose) " --verbose " "")
 	      name)))
     ;; Do not try to guess the name of the png file
     (format (current-error-port) (_ "Converting to `~a'...") "png")
