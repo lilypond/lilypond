@@ -1,4 +1,4 @@
-# flower/GNUmakefile
+# test/GNUmakefile
 #
 # This file helps maintainers to keep their Makefile.am automatically
 # up to date using GNU make features.
@@ -19,7 +19,7 @@ biltdir=.
 else
 
 #ugh
-biltdir=../../build/flower
+biltdir=../flowertest
 
 make-in-build: wild-check
 	exec $(MAKE) -C $(biltdir)
@@ -27,27 +27,18 @@ make-in-build: wild-check
 # include Makefile
 include $(biltdir)/Makefile
 
-clean: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
-dist: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
-distclean: wild-check
-	exec $(MAKE) -C $(biltdir) $@
-
 endif
 
-# Makefile.am.wild: libflower_la_SOURCES = $(wildcard *.cc)
-CURRENT_libflower_la_SOURCES = $(wildcard *.cc)
+# Makefile.am.wild: TEST_SCRIPTS = $(wildcard *.sh)
+CURRENT_TEST_SCRIPTS = $(wildcard *.sh)
 
-wild-check: check-flower-la-sources
+wild-check: check-test-scripts
 
-check-flower-la-sources:
-ifneq ($(libflower_la_SOURCES),$(CURRENT_libflower_la_SOURCES))
-	@echo \"$(libflower_la_SOURCES)\"
-	@echo \"$(CURRENT_libflower_la_SOURCES)\"
-	@echo  libflower_la_SOURCES changed: rerunning make-wild.
+check-test-scripts:
+ifneq ($(TEST_SCRIPTS),$(CURRENT_TEST_SCRIPTS))
+	@echo \"$(TEST_SCRIPTS)\"
+	@echo \"$(CURRENT_TEST_SCRIPTS)\"
+	@echo  TEST_SCRIPTS changed: rerunning make-wild.
 	@-rm -f Makefile.am
 	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif
