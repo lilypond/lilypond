@@ -47,7 +47,7 @@ set_debug (bool b)
 #ifdef MEMORY_PARANOID
   if (check_malloc_b)
     if (mcheck (0))
-      warning (_ ("Can't set mem-checking!"));
+      warning (_ ("can't set mem-checking!"));
 #endif
 }
 

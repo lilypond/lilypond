@@ -103,7 +103,7 @@ void
 Break_algorithm::problem_OK () const
 {
   if (pscore_l_->col_l_arr_.empty ())
-    error (_("Score does not have any columns"));
+    error (_("score does not have any columns"));
   OK ();
 }
 

@@ -233,7 +233,7 @@ Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shorte
   
   if (! shortest_playing_len)
     {
-      programming_error ("Can't find a ruling note at " + lc->when_mom ().str ());
+      programming_error ("can't find a ruling note at " + lc->when_mom ().str ());
       shortest_playing_len = 1;
     }
   

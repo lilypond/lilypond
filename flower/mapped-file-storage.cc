@@ -71,7 +71,7 @@ Mapped_file_storage::map ()
   data_caddr_ = (caddr_t)mmap ((void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0);
 
   if ((int)data_caddr_ == -1)
-    warning (_ ("Can't map file") + ": " + strerror (errno));
+    warning (_ ("can't map file") + ": " + strerror (errno));
 
 #endif
 }
@@ -84,7 +84,7 @@ Mapped_file_storage::open (String name_str)
 
   if (fildes_i_ == -1)
     {
-      warning (_f ("Can't open file: `%s'", name_str)
+      warning (_f ("can't open file: `%s'", name_str)
 	+ ": " + strerror (errno));
       return;
     }

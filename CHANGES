@@ -1,3 +1,12 @@
+1.3.34.jcn2
+===========
+
+* Print a friendly message if the manual pages failed to build.
+
+* Bugfix: dynamicDirection now overrides verticalDirection setting.
+
+* Warning messages and nl.po
+
 1.3.34.jcn1
 ===========
 

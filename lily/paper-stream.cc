@@ -22,7 +22,7 @@ Paper_stream::Paper_stream (String filename)
     //    os = new ostream (cout.ostreambuf ());
     os = new ostream (cout._strbuf);
   if (!*os)
-    error (_f ("Can't open file: `%s'", filename));
+    error (_f ("can't open file: `%s'", filename));
   nest_level = 0;
   line_len_i_ = 0;
   outputting_comment_b_=false;

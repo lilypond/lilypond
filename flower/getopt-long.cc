@@ -140,11 +140,11 @@ Getopt_long::report (Errorcod c)
   switch (c)
     {
     case E_ARGEXPECT:
-      str += _f ("Option `%s' requires an argument",
+      str += _f ("option `%s' requires an argument",
 	found_option_l_->str ());
       break;
     case  E_NOARGEXPECT:
-      str += _f ("Option `%s' doesn't allow an argument",
+      str += _f ("option `%s' doesn't allow an argument",
 	found_option_l_->str ());
       break;
     case E_UNKNOWNOPTION:
