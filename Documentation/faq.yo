@@ -284,7 +284,7 @@ lurl(http://harmonia.scar.utoronto.ca).  There is also a GUI package
 RoseGarden that could be extended to output mudela.
 
 If you want to work on this, please send e-mail to the mailing list
-email(gnu-misc-discuss@gnu.org).
+email(gnu-music-discuss@gnu.org).
 
 
 question(I want to implement XXXX!  How should I do this?)
@@ -353,16 +353,16 @@ LilyPond already compiles into a different directory ((the different
 directory is called out/, there is one in every source directory).
 make distclean essentially reduces to file(rm -f out/*) in every directory
 
-
 question(gdb crashes when I debug!)
 
 Upgrade to 4.17.
 
-question(Why do I need g++ >= 2.7?)
+question(Why do I need g++ >= 2.8 / EGCS-1.1 ?)
 
-By using g++, GNU LilyPond is portable to all platforms which support
-g++ (there are quite a few).  Not having to support other compilers
-saves us a em(lot) of trouble. 
+Supporting more compilers then EGCS/G++ 2.8 is unlikely to make
+LilyPond run on more platforms.  It would give us an enormous headache
+in detecting and catering for every variant of every compiler: not
+having to support other compilers saves us a em(lot) of trouble.
 
 
 sect(Running)
@@ -414,11 +414,81 @@ done, and as a method of proof"reading" the input.  The MIDI support
 is by no means finished.  Patches appreciated.
 
 
-sect(Other)
+sect(Copyright)
 
-question(How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?)
+question(How does copyright for sheet music work? Can I enter and
+spread my newly bought Bach urtext?)
 
-(ummm... unanswered as yet)
+
+Silas S. Brown <ssb22@hermes.cam.ac.uk>:
+
+There are several aspects to sheet music copyright:
+
+1.  The music itself - copyright for the composer's life plus 70 years (so
+not applicable to Bach).
+
+2.  If the music is an arrangement, then the arranger holds copyright on
+that arrangement.  However, you can produce your own arrangement using
+that arrangement as a reference point.  Obviously your arrangement must be
+sufficently different to be called your own arrangement - you need to do
+more than change one note!
+
+3.  In some countries, the same applies for editions.  This could be
+relevant to the Bach example.  If a modern person has edited the music,
+then they hold the copyright on the edition.  This does not stop you from
+removing the editorial features - remove all editorial slurs, phrasemarks,
+ornaments etc and only leave those that you know to be original.  You can
+then add some of your own if you want to be your own editor.
+
+4.  If there are lyrics, then the lyricist also holds copyright.  This
+does not stop you from using the music without the lyrics if it is
+otherwise out of copyright.
+
+5.  The copyright of the printed page is held by the publisher for 30
+years after printing (25 in some countries).  This stops you from
+photocopying (unless it's "fair use" eg. you're partially sighted and need
+to enlarge the music) or otherwise reproducing the typesetting that is
+used on it.  But the copyright is only held over the typesetting work, not
+the music itself.  Since Mudela specifies the notes, independently of any
+typesetting work that went into your reference copy, you are not
+duplicating any of the publisher's work.
+
+6.  If you want to violate copyright, there are two main cases where you
+may do so: fair use, and with permission.  The former is rather fuzzily
+defined, but it includes such things as including small extracts of a
+score in a critique, and making a large print or Braille copy for a blind
+or partially-sighted performer (many people argue that in this case it
+should always be kept with the original copy and/or destroyed after it is
+no longer needed).  The latter is obvious: You can always write to the
+composer, arranger, editor, lyricist or publisher in question and ask if
+you can do whatever it is you're trying to do.  Some will respond more
+readily than others, but anything that they say will override any copying 
+restrictions imposed on you.
+
+
+References - best one I know is the UK-based Performing Right Society,
+http://www.prs.co.uk/ (especially "membership") and their links to other
+international equivalents.  
+
+
+
+Juergen Reuter <reuterj@ira.uka.de>:
+
+[More information can be had at: ]
+
+lurl(http://lcweb.loc.gov/copyright/)
+(USA copyright law)
+
+lurl(http://fairuse.stanford.edu/)
+(meta site about copyright with many links to other resources)
+
+lurl(http://host.mpa.org/crc.html)
+(copyright from the viewpoint of the USA music publishers' association)
+
+lurl(http://www.wipo.int)
+(World Intellectual Property Organization (a UNO agency); with
+information about international copyright)
+
 
 sect(Windows32)
 
