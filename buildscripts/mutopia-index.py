@@ -145,7 +145,7 @@ def gen_list(inputs, filename):
 		composer = read_dict('composer', '')
 		desc = read_dict('description', '')
 		list.write('<hr>\n')
-		list.write('<h1>example file: %s</h1>\n' % head);
+		list.write('<h1>%s</h1>\n' % head);
 		if composer <> '':
 			list.write('<h2>%s</h2>\n' % composer)
 		if desc <> '':

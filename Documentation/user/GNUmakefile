@@ -69,14 +69,14 @@ extra-local-help:
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
+	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
-	-cp -f $(outdir)/lilypond/index.html $@
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --html $<
+	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond-internals
-	-cp -f $(outdir)/lilypond-internals/index.html $@
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 

@@ -41,7 +41,7 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="../user/out-www/lilypond.html#Tutorial">Tutorial</a>
+	    <a class="title" href="../user/out-www/lilypond/lilypond.html#Tutorial">Tutorial</a>
 	      <br>(start here)
 	  </ul>
 	  </td>
@@ -50,7 +50,7 @@
 	  
             <li>
 	    <a class="title" href="../topdocs/out-www/NEWS.html">NEWS</a>
-	    <br>(changes since the last major release)
+ 	    <br>(changes since the last major release)
 	  </ul>
 	  </td>
         </tr>
@@ -61,7 +61,7 @@
 	    <li>
 <a class="title" href="../user/out-www/lilypond/lilypond.html">User manual</a>
 (in <a class="title" href="../user/out-www/lilypond.pdf">PDF</a>, in
-<a class="title" href="../user/out-www/lilypond.html">one big page</a>)
+<a class="title" href="../user/out-www/lilypond/lilypond.html">one big page</a>)
 
      <br>(everything about LilyPond)
      
