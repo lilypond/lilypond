@@ -254,17 +254,29 @@ Modified_font_metric::text_dimension (String text)
   return b;
 }
 
-
-LY_DEFINE (ly_font_enccoding, "ly:font-encoding", 1 , 0, 0,
-	  (SCM font),
+LY_DEFINE (ly_font_encoding, "ly:font-encoding",
+	   1, 0, 0,
+	   (SCM font),
 	   "Given the Modified_font_metric @var{font}, return a "
 	   "list containing (input-coding, output-coding, permutation).")
 {
-  Modified_font_metric * fm
+  Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
   
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
   return scm_list_3 (fm->coding_vector_,
 		     fm->coding_table_,
 		     fm->coding_permutation_);
+}
+
+LY_DEFINE (ly_font_coding_name, "ly:font-coding-name",
+	   1, 0, 0,
+	   (SCM font),
+	   "Return the CODING-NAME of the Modified_font_metric @var{font}.")
+{
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
+  
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  return scm_makfrom0str (fm->coding_scheme ().to_str0 ());
 }
