@@ -1,3 +1,8 @@
+2004-01-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* buildscripts/lilypond-login.sh: Avoid warning about undefined
+	TEXMF if it's previously unset.
+
 2004-01-29  Heikki Junes <hjunes@cc.hut.fi>
 
 	* scm/chord-name.scm (german-markup): bugfix: use SEMI-TONE.
