@@ -1,7 +1,10 @@
 2004-05-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/music-functions-init.ly (TODO): new file.
+
 	* lily/parser.yy (Generic_prefix_music_scm): add more
 	music_function symbols.
+	(Prefix_composite_music): change \apply to music-function   
 
 	* lily/include/music-function.hh: rename to music-function
 
