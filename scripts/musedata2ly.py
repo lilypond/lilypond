@@ -13,6 +13,11 @@
 # * tuplets
 #
 
+#
+# I completely forgot how this was supposed to work --hwn 5/2002 
+#
+#
+
 import re
 import sys
 import string
@@ -154,6 +159,16 @@ attr_dict = {
 	'I': get_num_instruments,
 	}
 
+class Attribute_set:
+	def __init__ (self, dict):
+		self.dict = dict
+	def dump (self):
+		s = ''
+		if self. dict.has_key ('T'):
+			s = s+ get_timesig  (self.dict['T'])
+		
+		return s
+
 
 script_table = {
 'v': '\\upbow',
@@ -174,11 +189,6 @@ script_table = {
 'E': '\\fermata',
 }
 
-class Attribute_set:
-	def __init__ (self, dict):
-		self.dict = dict
-	def dump (self):
-		return ''
 
 class Chord:
 	def __init__ (self):
@@ -213,12 +223,17 @@ class Chord:
 			sd = '\\breve'
 		else:
 			sd = '%d' % self.basic_duration
-			
-		sd = sd + '.' * self.dots 
+
+		sd = sd + '.' * self.dots
+
+		str = ')' * len (self.slurstart) + str
+		
 		for p in self.pitches:
 			if str:
 				str = str + ' ' 
 			str = str + pitch_to_lily_string (p) + sd
+		str = str + '(' * len (self.slurstart)
+		
 
 		for s in self.scripts:
 			str = str + '-' + s
@@ -233,6 +248,10 @@ class Chord:
 		str = self.chord_prefix + str + self.chord_suffix
 		
 		return str
+
+class Measure_start:
+	def dump (self):
+		return ' |\n'
 	
 class Parser:
 	def append_entry (self, e):
@@ -251,8 +270,10 @@ class Parser:
 			}
 		self.entries = []
 		self.chords = []
+
 		
 		lines = open (fn).readlines ()
+		lines = map (lambda x: re.sub ("\r$", '', x), lines)
 		lines = self.parse_header (lines)
 		lines = self.append_lines (lines)
 		str = string.join (lines, '\n')
@@ -348,6 +369,14 @@ class Parser:
 			pittup = (oct, name ,alter)
 			ch.add_pitch (pittup)
 
+		ch.dots = 0
+		
+		dot_str = l[17:18]
+		if dot_str  == '.':
+			ch.dots = 1
+		elif dot_str == ':':
+			ch.dots = 2
+
 		base_dur = None
 		if ch.cue or ch.grace:
 			c = di[2]
@@ -357,19 +386,18 @@ class Parser:
 				base_dur = 0.5
 			else:
 				base_dur = 1 << (9 - (ord (c) - ord ('0')))
-		else:		
-			base_dur =  (4 * self.divs_per_q) / string.atoi (di)
+		else:
+			fact  = (1,1)
+			if ch.dots == 1:
+				fact = (2,3)
+			elif ch.dots == 2:
+				fact = (4, 7)
+			
+			base_dur =  (4 * self.divs_per_q* fact[1]) / (string.atoi (di)* fact[0])
 			ch.set_duration (base_dur)
 
 		ch.tied = ch.tied or tied 
-		dots = 0
-		
-		
-		if l[18:19] == '.':
-			dots = 1
-		elif l[18:19] == ':':
-			dots = 2
-
+	
 		if l[26:27] == '[':
 			ch.start_beam = 1
 		elif l[26:27] == ']':
@@ -378,13 +406,13 @@ class Parser:
 
 		additional = l[32:44]
 		for c in additional:
-			try:
-				s = list('([{z').index (c)
-				ch.slurstart.append( s)
-				sluropen = list(')]}x').index (c)
-				ch.slurstop.append( s)
-			except ValueError:
-				pass
+			if c in '([{z':
+				ch.slurstart.append( 0)
+				continue
+			elif c in ')]}x':
+				ch.slurstop.append( 0)
+				continue
+			
 			if c == '*':
 				ch.start_tuplet = 1
 				continue
@@ -414,7 +442,7 @@ class Parser:
 
 			
 	def parse_measure_line (self,l):
-		pass
+		self.append_entry (Measure_start())
 
 
 	def parse_duration (l):
@@ -467,7 +495,8 @@ class Parser:
 	def parse_body (self,lines):
 		comment_switch = 0
 		for l in lines:
-			
+			if not l:
+				continue
 			
 			c = l[0]
 			if c == '&':
@@ -519,6 +548,8 @@ encoded in so-called Musedata format
 musedata2ly converts a set of musedata files to one .ly file, and will
 include a \header field if a .ref file is supplied 
 
+This converter is not complete -- this is left to the user as an excercise.
+
 Report bugs to bug-lilypond@gnu.org.
 
 Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -539,7 +570,7 @@ def identify():
 
 
 
-(options, files) = getopt.getopt (sys.argv[1:], 'r:vo:h', ['ref=', 'help','version', 'output='])
+(options, files) = getopt.getopt (sys.argv[1:], 'r:vo:h', ['verbose', 'ref=', 'help','version', 'output='])
 out_filename = None
 ref_file = None
 for opt in options:
@@ -555,6 +586,8 @@ for opt in options:
 		ref_file = a 
 	elif o == '--output' or o == '-o':
 		out_filename = a
+	elif o == '--verbose' :
+		verbose = 1
 	else:
 		print o
 		raise getopt.error
@@ -567,6 +600,7 @@ ly = ''
 
 
 found_ids = ''
+
 for f in files:
 	if f == '-':
 		f = ''
@@ -577,6 +611,12 @@ for f in files:
 
 	id = os.path.basename (f)
 	id = re.sub ('[^a-zA-Z0-9]', 'x', id)
+
+	def num2let (match):
+		return chr (ord (match.group ()) - ord('0') + ord('A'))
+		
+	id = re.sub ('[0-9]', num2let, id)
+	
 	id = 'voice%s' % id
 	ly =ly + '\n\n%s = \\context Staff = "%s" %s\n\n' % (id, id, e.dump ())
 

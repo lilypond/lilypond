@@ -1,3 +1,8 @@
+2002-05-31  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scripts/musedata2ly.py (Parser.parse_note_line): add dots. Add
+	note that missing features are excercise for user.
+
 2002-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/beam.cc (score_stem_lengths): Bugfix for knees: use correct
