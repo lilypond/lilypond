@@ -190,3 +190,39 @@ LY_DEFINE (ly_grob_translate_axis_x,
   return SCM_UNDEFINED;
 }
 
+
+
+LY_DEFINE (ly_spanner_p,
+	  "ly:spanner?", 1, 0, 0,
+	   (SCM g),
+	   "Is  @var{g} a spanner object?")
+{
+  Grob *me = unsmob_grob (g);
+  bool b = dynamic_cast<Spanner*> (me);
+
+  return gh_bool2scm (b);
+}
+
+LY_DEFINE (ly_item_p,
+	  "ly:item?", 1, 0, 0,
+	   (SCM g),
+	   "Is  @var{g} a item object?")
+{
+  Grob *me = unsmob_grob (g);
+  bool b = dynamic_cast<Item*> (me);
+
+  return gh_bool2scm (b);
+}
+
+
+LY_DEFINE (ly_item_break_dir,
+	  "ly:item-break-dir", 1, 0, 0,
+	   (SCM it),
+	   "The break status dir of  @var{it}.")
+{
+  Item * me = dynamic_cast<Item*> ( unsmob_grob (it));
+  SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
+  
+   return gh_int2scm (me->break_status_dir ());
+}
+

@@ -77,13 +77,13 @@ Mark_engraver::stop_translation_timestep ()
 
 
 void
-Mark_engraver::create_items (Music *rq)
+Mark_engraver::create_items (Music *ev)
 {
   if (text_)
     return;
 
   text_ = new Item (get_property ("RehearsalMark"));
-  announce_grob(text_, rq->self_scm());
+  announce_grob(text_, ev->self_scm());
 }
 
 

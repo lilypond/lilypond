@@ -496,6 +496,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	  ambitus
 	  breathing-sign
 	  clef
+	  rehearsal-mark
 	  staff-bar
 	  key-signature
 	  time-signature
