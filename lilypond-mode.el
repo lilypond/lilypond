@@ -20,14 +20,15 @@
 ;;; 
 
 (load-library "lilypond-font-lock")
+(load-library "lilypond-indent")
 
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.3.143"
+(defconst LilyPond-version "1.4.10"
   "`LilyPond-mode' version number.")
 
-(defconst LilyPond-help-address "bug-gnu-music@gnu.org"
+(defconst LilyPond-help-address "bug-lilypond@gnu.org"
   "Address accepting submission of bug reports.")
 
 (defvar LilyPond-mode-hook nil
@@ -85,6 +86,11 @@ in LilyPond-include-path."
   (and process
        (eq (process-status process) 'run))))
 
+(defun Midi-running ()
+  (let ((process (get-process "midi")))
+  (and process
+       (eq (process-status process) 'run))))
+
 (defun LilyPond-kill-job ()
   "Kill the currently running LilyPond job."
   (interactive)
@@ -133,6 +139,12 @@ in LilyPond-include-path."
 
 (defcustom LilyPond-xdvi-command "xdvik"
   "Command used to display DVI files."
+
+  :group 'LilyPond
+  :type 'string)
+
+(defcustom LilyPond-gv-command "gv -watch"
+  "Command used to display PS files."
 
   :group 'LilyPond
   :type 'string)
@@ -275,6 +287,12 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
 
+(defun LilyPond-command-lilypond ()
+  "Run lilypond for the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file)
+)
+
 (defun LilyPond-command-formatdvi ()
   "Format the dvi output of the current document."
   (interactive)
@@ -306,10 +324,47 @@ Must be the car of an entry in `LilyPond-command-alist'."
 )
 
 (defun LilyPond-command-midi ()
-  "View the ps output of current document."
+  "Play midi corresponding to the current document."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
 )
+
+(defun count-rexp (start end rexp)
+  "Print number of found regular expressions in the region."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (goto-char (point-min))
+      (count-matches rexp))))
+
+(defun count-midi-words ()
+  "Print number of scores before the curser."
+  (interactive)
+  (count-rexp (point-min) (point-max) "\\\\midi"))
+ 
+(defun count-midi-words-backwards ()
+  "Print number of scores before the curser."
+  (interactive)
+  (count-rexp (point-min) (point) "\\\\midi"))
+ 
+(defun LilyPond-command-next-midi ()
+  "Play next midi score of the current document."
+  (interactive)
+  (if (Midi-running)
+      (quit-process (get-process "midi") t)
+    (LilyPond-compile-file 
+     (let ((fname (LilyPond-master-file))
+	   (allcount (string-to-number (substring (count-midi-words) 0 -12)))
+	   (count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
+       (concat  LilyPond-midi-command " "
+		(substring fname 0 -3) ; suppose ".ly"
+		(if (and (> allcount 1) (> count 0)) ; not first score
+		    (if (eq count allcount)          ; last score
+			(concat "-" (number-to-string (+ count -1)))
+		      (concat "-" (number-to-string count))))
+		".midi"))
+     "Midi")))
 
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
@@ -416,6 +471,7 @@ command."
 (if LilyPond-mode-map
     ()
   (setq LilyPond-mode-map (make-sparse-keymap))
+  (define-key LilyPond-mode-map "\C-c\C-l" 'LilyPond-command-lilypond)
   (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
@@ -425,15 +481,15 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
-  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-midi)
-  (define-key LilyPond-mode-map "\C-cn" 'lilypond-notes)
-  (define-key LilyPond-mode-map "\C-cs" 'lilypond-score)
+  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
+  (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
+  (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   )
 
 ;;; Menu Support
 
-(define-skeleton lilypond-notes
-  "Lilypond notes tag."
+(define-skeleton LilyPond-insert-tag-notes
+  "LilyPond notes tag."
   nil
 ;  (if (bolp) nil ?\n)
   "\\notes"
@@ -441,8 +497,8 @@ command."
       (concat " \\relative " (skeleton-read "Relative: " "" str)))
   " { " _ " }")
 
-(define-skeleton lilypond-score
-  "Lilypond score tag."
+(define-skeleton LilyPond-insert-tag-score
+  "LilyPond score tag."
   nil
   (if (bolp) nil ?\n)
   "\\score {\n"
@@ -489,15 +545,15 @@ command."
 	       :keys "C-c C-r" :style radio
 	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
 	  '(("Insert"
-	     [ "\\notes..."  lilypond-notes
+	     [ "\\notes..."  LilyPond-insert-tag-notes
 	       :keys "C-c n" ]
-	     [ "\\score..."  lilypond-score
+	     [ "\\score..."  LilyPond-insert-tag-score
 	       :keys "C-c s" ]
 	     ))
 ;	  (let ((file 'LilyPond-command-on-current))
 ;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
-	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) ])
+	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-master-file) :keys "C-c C-l"])
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
 	  '([ "2Dvi" (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file) :keys "C-c C-d"])
 	  '([ "2PS" (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file) :keys "C-c C-f"])
@@ -506,7 +562,7 @@ command."
 	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
-	  '([ "Midi" (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file) :keys "C-c C-m"])
+	  '([ "Midi (off)" (LilyPond-command-next-midi) :keys "C-c C-m"])
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
@@ -578,8 +634,8 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq block-comment-end   "%}")
 
   (make-local-variable 'indent-line-function)
-  (setq indent-line-function 'indent-relative-maybe)
- 
+  (setq indent-line-function 'LilyPond-indent-line)
+
     (set-syntax-table LilyPond-mode-syntax-table)
   (setq major-mode 'LilyPond-mode)
   (setq mode-name "LilyPond")

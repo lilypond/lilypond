@@ -94,6 +94,7 @@ Lilypond_stream::header()
       time_t t (time (0));
       *os_p_ << ctime (&t) << "%\n";
     }
+  /* xgettext:no-c-format */
   *os_p_ << _ ("% from input file: ");
   //  *os_p_ << midi_parser_l_g->filename_str_;
   // ugh

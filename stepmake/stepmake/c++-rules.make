@@ -1,24 +1,27 @@
-# title	   C++ rules
-# file	   make/C++_rules.make
+.SUFFIXES: .cc .dep .hh .ll .o .so .yy
 
-.SUFFIXES: .cc .o .hh .yy .ll  .dep
-
-# compile rules:
-#
 $(outdir)/%.o: %.cc
-	$(DO_CXX_COMPILE)
+	$(DO_O_DEP) $(CXX) -c $(CXXFLAGS) -o $@ $<
 
 $(outdir)/%.o: $(outdir)/%.cc
-	$(DO_CXX_COMPILE)
+	$(DO_O_DEP) $(CXX) -c $(CXXFLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.cc
+	$(DO_LO_DEP) $(CXX) -c $(CXXFLAGS) $(PIC_FLAGS) -o $@ $<
+
+$(outdir)/%.lo: $(outdir)/%.cc
+	$(DO_LO_DEP) $(CXX) -c $(CXXFLAGS) $(PIC_FLAGS) -o $@ $<
 
 $(outdir)/%.cc: %.yy
 	$(BISON) $<
-	mv $<.tab.c $@
+	@-mv -f $(*F).yy.tab.c $(*F).tab.cc  # bison < 1.30
+	mv $(*F).tab.cc $@
 
 $(outdir)/%.hh: %.yy
 	$(BISON) -d $<
-	mv $<.tab.h $@
-	rm $<.tab.c		# if this happens in the wrong order it triggers recompile of the .cc file 
+	@-mv -f $(*F).yy.tab.h $(*F).tab.hh  # bison < 1.30
+	mv $(*F).tab.hh $@
+	rm -f $(*F).tab.c $(*F).tab.cc	# if this happens in the wrong order it triggers recompile of the .cc file 
 
 $(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -t $< > $@

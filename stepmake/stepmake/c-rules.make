@@ -1,23 +1,25 @@
-# stepmake/C_rules.make
-
-.SUFFIXES: .c .o .h .y .l .dep
+.SUFFIXES: .c .dep .h .l .lo .o .so .y
 
 $(outdir)/%.o: %.c
-	$(DO_C_COMPILE)
+	$(DO_O_DEP) $(CC) -c $(CFLAGS) -o $@ $<
 
 $(outdir)/%.o: $(outdir)/%.c
-	$(DO_C_COMPILE)
+	$(DO_O_DEP) $(CC) -c $(CFLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.c
+	$(DO_LO_DEP) $(CC) -c $(CFLAGS) $(PIC_FLAGS) -o $@ $<
+
+$(outdir)/%.lo: %.c
+	$(DO_LO_DEP) $(CC) -c $(CFLAGS) $(PIC_FLAGS) -o $@ $<
 
 $(outdir)/%.c: %.y
 	$(BISON) $<
-#	mv $<.tab.c $@
-	mv parser.tab.c $@
+	mv $(*F).tab.c $@
 
 $(outdir)/%.h: %.y
 	$(BISON) -d $<
-#	mv $<.tab.h $@
-	mv parser.tab.h $@
-	mv parser.tab.c $(basename $@).c
+	mv $(*F).tab.h $@
+	rm -f $(*F).tab.c # if this happens in the wrong order it triggers recompile of the .cc file 
 
 $(outdir)/%.c: %.l
 	$(FLEX) -Cfe -p -p -t $< > $@

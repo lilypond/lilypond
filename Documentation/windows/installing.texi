@@ -6,10 +6,6 @@
 <!--- @@WEB-TITLE@@=Windows Installation --->
 @end html
 
-@html
-<!--- @@WEB-TITLE@@=Windows Installation --->
-@end html
-
 @node Top
 @top
 
@@ -28,7 +24,7 @@ All the software you need is installed by downloading and running
 will be asked some questions. If you are unsure just click "Next".  Do
 not change the default install directory @file{c:/cygwin}.
 
-This installs LilyPond, and Cygwin, GUILE, Python, MiKTeX and GSView. If
+This installs LilyPond, and Cygwin, GUILE, Python, teTeX and GSView.  If
 you already have some of that software under @file{c:/cygwin}, then
 don't worry: nothing will be installed twice.
 
@@ -159,10 +155,12 @@ These software packages are included in the LilyPond installation:
 @table @asis
 @item A full TeX installation.
 
-Currently, only MikTeX is supported.  Download and install
-@uref{http://downloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
-or visit @uref{http://www.miktex.org,www.miktex.org}.
-@c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
+As of LilyPond versions 1.4.11 (and 1.5.29), only Cygwin's teTeX
+installation is supported (packages tetex-beta and texmf-base).  It is
+part of Cygwin and much more robust for use with LilyPond than MiKTeX.
+See @file{/usr/doc/Cygwin/tetex-beta-20001218.README} and
+@file{/usr/doc/Cygwin/texmf-20000804-2.README} for details.
+
 
 @item Ghostview.
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.4.9\n"
-"POT-Creation-Date: 2001-09-09 17:30+0200\n"
+"POT-Creation-Date: 2002-01-29 23:12+0100\n"
 "PO-Revision-Date: 2001-11-30 12:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -13,175 +13,180 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ly2dvi.py:106
-msgid "Generate .dvi with LaTeX for LilyPond"
-msgstr "Générer un fichier .dvi à l'aide de LaTeX pour LilyPond"
-
-#: data-file.cc:118 input.cc:85 ly2dvi.py:191 midi-parser.cc:100 mup2ly.py:93
+#: data-file.cc:118 input.cc:85 ly2dvi.py:112 midi-parser.cc:100 mup2ly.py:93
 #: update-lily.py:118 warn.cc:23
 msgid "warning: "
 msgstr "AVERTISSEMENT: "
 
-#: input.cc:90 ly2dvi.py:206 ly2dvi.py:639 ly2dvi.py:657 ly2dvi.py:848
+#: input.cc:90 ly2dvi.py:115 ly2dvi.py:131 ly2dvi.py:682 ly2dvi.py:700
 #: mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9
 #: warn.cc:17
 msgid "error: "
 msgstr "Erreur: "
 
-#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:132 mup2ly.py:100 update-lily.py:125
 msgid "Exiting ... "
 msgstr "Fin d'exécution... "
 
-#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:190 mup2ly.py:158 update-lily.py:183
 #, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Usage: %s [OPTION]... FICHIER"
 
-#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:194 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:187
 msgid "Options:"
 msgstr "Options:"
 
-#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:198 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:191
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Rapporter toutes anomalies à %s"
 
-#: ly2dvi.py:306 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:226 mup2ly.py:185 update-lily.py:208
 #, c-format
 msgid "Invoking `%s'"
 msgstr "Invocation de `%s'"
 
-#: ly2dvi.py:310 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:230 mup2ly.py:188 update-lily.py:211
 #, c-format
 msgid "command exited with value %d"
 msgstr "fin de la commande avec l'état %d"
 
-#: ly2dvi.py:312 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:232 mup2ly.py:190 update-lily.py:213
 msgid "(ignored)"
 msgstr "(ignoré)"
 
-#: ly2dvi.py:322
+#: ly2dvi.py:242
 #, c-format
 msgid "Cleaning %s..."
 msgstr "Nettoyage de %s..."
 
-#: ly2dvi.py:337 mup2ly.py:214 update-lily.py:237
-#, c-format
-msgid "no such setting: %s"
-msgstr ""
+#: ly2dvi.py:302
+msgid "Generate .dvi with LaTeX for LilyPond"
+msgstr "Générer un fichier .dvi à l'aide de LaTeX pour LilyPond"
 
-#: ly2dvi.py:350 main.cc:113
+#: ly2dvi.py:305 main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr ""
 
-#: ly2dvi.py:351 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:306 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:251
 msgid "this help"
 msgstr "cette aide"
 
-#: ly2dvi.py:352 main.cc:111 main.cc:116
+#: ly2dvi.py:307 main.cc:111 main.cc:116
 msgid "DIR"
 msgstr "RÉP"
 
-#: ly2dvi.py:352
+#: ly2dvi.py:307
 msgid "add DIR to LilyPond's search path"
 msgstr "ajouter le RÉPERTOIRE au chemin de recherche de LilyPond"
 
-#: ly2dvi.py:353
+#: ly2dvi.py:308
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr "conserver toutes les sortie et nommer le répertoire %s.dir"
 
-#: ly2dvi.py:354
+#: ly2dvi.py:309
 msgid "don't run LilyPond"
 msgstr "ne pas exécuter LilyPond"
 
-#: ly2dvi.py:355 main.cc:114
+#: ly2dvi.py:310 main.cc:114
 msgid "produce MIDI output only"
 msgstr "produire une sortie MIDI seulement"
 
-#: ly2dvi.py:356 ly2dvi.py:357 main.cc:99 main.cc:112 main.cc:115
+#: ly2dvi.py:311 ly2dvi.py:312 main.cc:99 main.cc:112 main.cc:115
 msgid "FILE"
 msgstr "FICHIER"
 
-#: ly2dvi.py:356
+#: ly2dvi.py:311
 msgid "write ouput to FILE"
 msgstr "produire la sortie dans le FICHIER"
 
-#: ly2dvi.py:357
+#: ly2dvi.py:312
 msgid "find pfa fonts used in FILE"
 msgstr "repérer les fontes pfa utilisées dans le FICHIER"
 
-#: ly2dvi.py:359
+#: ly2dvi.py:314
 msgid "generate PostScript output"
 msgstr "générer une sortie PostScript"
 
-#: ly2dvi.py:360
+#: ly2dvi.py:315
 msgid "KEY=VAL"
 msgstr "CLÉ=VALEUR"
 
-#: ly2dvi.py:360
+#: ly2dvi.py:315
 msgid "change global setting KEY to VAL"
 msgstr "modifier le paramètre globale de la CLÉ à VAL"
 
-#: ly2dvi.py:361 main.cc:119 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:316 main.cc:119 mup2ly.py:1120 update-lily.py:255
 msgid "verbose"
 msgstr ""
 
-#: ly2dvi.py:362 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:317 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:256
 msgid "print version number"
 msgstr "afficher le numéro de version"
 
-#: ly2dvi.py:363 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:318 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:258
 msgid "show warranty and copyright"
 msgstr ""
 
-#: ly2dvi.py:385 ly2dvi.py:580 ly2dvi.py:605
+#: ly2dvi.py:397 mup2ly.py:214 update-lily.py:237
+#, c-format
+msgid "no such setting: %s"
+msgstr ""
+
+#: ly2dvi.py:425 ly2dvi.py:623 ly2dvi.py:648
 #, c-format
 msgid "Running %s..."
 msgstr "Exécution de %s..."
 
-#: ly2dvi.py:398
+#: ly2dvi.py:440
 #, c-format
 msgid "Analyzing %s..."
 msgstr "Analyse de %s..."
 
-#: ly2dvi.py:454
+#: ly2dvi.py:496
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr "aucune sortie n'a été trouvée pour %s"
 
-#: ly2dvi.py:496
+#: ly2dvi.py:538
 #, c-format
 msgid "invalid value: %s"
 msgstr "valeur invalide: %s"
 
-#: ly2dvi.py:639
+#: ly2dvi.py:682
 #, c-format
 msgid "not a PostScript file: `%s'"
 msgstr "n'est pas un fichier PostScript: `%s'"
 
-#: ly2dvi.py:657
+#: ly2dvi.py:700
 #, c-format
 msgid "getopt says: `%s'"
 msgstr ""
 
-#: ly2dvi.py:824 scores.cc:44
+#: ly2dvi.py:811
+#, fuzzy, c-format
+msgid "filename should not contain spaces: `%s'"
+msgstr "Contient déjà: `%s'"
+
+#: ly2dvi.py:876 scores.cc:44
 #, c-format
 msgid "dependencies output to `%s'..."
 msgstr ""
 
-#: ly2dvi.py:835
+#: ly2dvi.py:887
 #, c-format
 msgid "%s output to `%s'..."
 msgstr ""
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:837
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:889
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "ne peut repérer le fichier: `%s'"
 
-#: ly2dvi.py:848
+#: ly2dvi.py:900
 msgid "no files specified on command line."
 msgstr "aucun fichier spéficié sur la ligne de commande."
 
@@ -192,7 +197,8 @@ msgstr "Conversion de mup vers ly"
 #: mup2ly.py:166
 #, c-format
 msgid "%s is far from completed.  Not all constructs are recognised."
-msgstr "%s est loin d'être complet. Tous les construits n'ont pas été reconnus."
+msgstr ""
+"%s est loin d'être complet. Tous les construits n'ont pas été reconnus."
 
 #: mup2ly.py:964
 #, c-format
@@ -343,7 +349,7 @@ msgstr "position inconnue"
 msgid "can't map file"
 msgstr ""
 
-#: lilypond-stream.cc:111 mapped-file-storage.cc:87 paper-stream.cc:45
+#: lilypond-stream.cc:112 mapped-file-storage.cc:87 paper-stream.cc:45
 #: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
@@ -392,7 +398,9 @@ msgid "does not match: `%s'"
 msgstr "ne concorde pas: `%s'"
 
 #: all-font-metrics.cc:102
-msgid " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths."
+msgid ""
+" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
+"to show font paths."
 msgstr ""
 
 #: all-font-metrics.cc:167
@@ -421,6 +429,11 @@ msgstr "Abandon"
 #: auto-change-iterator.cc:43 change-iterator.cc:59
 #: part-combine-music-iterator.cc:97
 msgid "Can't switch translators, I'm there already"
+msgstr ""
+
+#: bar-check-iterator.cc:53
+#, c-format
+msgid "barcheck failed at: %s"
 msgstr ""
 
 #: beam-engraver.cc:91 beam-engraver.cc:124
@@ -497,7 +510,7 @@ msgstr ""
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: collision.cc:127
+#: collision.cc:286
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr ""
 
@@ -779,7 +792,7 @@ msgstr ""
 msgid ", at "
 msgstr ", à "
 
-#: paper-outputter.cc:232
+#: paper-outputter.cc:233
 #, c-format
 msgid "writing header field `%s' to `%s'..."
 msgstr ""
@@ -852,7 +865,7 @@ msgid "can't find start of phrasing slur"
 msgstr ""
 
 #: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154
-#: piano-pedal-performer.cc:87
+#: piano-pedal-performer.cc:86
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr ""
@@ -950,7 +963,7 @@ msgstr ""
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr ""
 
-#: stem.cc:116
+#: stem.cc:101
 msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
@@ -999,11 +1012,6 @@ msgstr ""
 msgid "no one to print a tuplet start bracket"
 msgstr ""
 
-#: timing-translator.cc:38
-#, c-format
-msgid "barcheck failed at: %s"
-msgstr ""
-
 #: translator-ctors.cc:40
 #, c-format
 msgid "unknown translator: `%s'"
@@ -1040,7 +1048,9 @@ msgstr ""
 
 #: translator-group.cc:414
 #, c-format
-msgid "Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway."
+msgid ""
+"Can't find property type-check for `%s'.  Perhaps you made a typing error? "
+"Doing assignment anyway."
 msgstr ""
 
 #: translator-group.cc:428
@@ -1086,32 +1096,32 @@ msgstr ""
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1263
+#: parser.yy:1266
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1273
+#: parser.yy:1276
 msgid "Can't specify direction for this request"
 msgstr ""
 
-#: parser.yy:1398
+#: parser.yy:1401
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1409
+#: parser.yy:1412
 msgid "Must have duration object"
 msgstr ""
 
-#: parser.yy:1418 parser.yy:1426
+#: parser.yy:1421 parser.yy:1429
 msgid "Have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1579 parser.yy:1636
+#: parser.yy:1584 parser.yy:1637
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:1645
+#: parser.yy:1648
 msgid "Have to be in Note mode for notes"
 msgstr ""
 
@@ -1221,11 +1231,11 @@ msgstr ""
 msgid "Settling columns..."
 msgstr ""
 
-#: lilypond-staff.cc:209
+#: lilypond-staff.cc:141
 msgid "% MIDI copyright:"
 msgstr ""
 
-#: lilypond-staff.cc:210
+#: lilypond-staff.cc:142
 msgid "% MIDI instrument:"
 msgstr ""
 
@@ -1243,8 +1253,8 @@ msgstr ""
 msgid "% Automatically generated"
 msgstr "% automatiquement généré"
 
-#: lilypond-stream.cc:97
-#, c-format
+#: lilypond-stream.cc:98
+#, no-c-format
 msgid "% from input file: "
 msgstr ""
 
@@ -1371,18 +1381,18 @@ msgstr ""
 msgid "invalid running status"
 msgstr "état d'exécution invalide"
 
-#: midi-track-parser.cc:328
+#: midi-track-parser.cc:324
 msgid "unimplemented MIDI meta-event"
 msgstr "méta-événement MIDI non implanté"
 
-#: midi-track-parser.cc:333
+#: midi-track-parser.cc:329
 msgid "invalid MIDI event"
 msgstr "événement MIDI invalide"
 
-#: midi-track-parser.cc:348
+#: midi-track-parser.cc:344
 msgid "MIDI track expected"
 msgstr "piste MIDI attendue"
 
-#: midi-track-parser.cc:353
+#: midi-track-parser.cc:349
 msgid "invalid track length"
 msgstr "longueur de piste invalide"

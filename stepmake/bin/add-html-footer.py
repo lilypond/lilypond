@@ -38,12 +38,11 @@ default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
-
 built = r"""<hr>
 <p><font size="-1">
 This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@) by<br>
 </font>
-<address><font size="-1">@GCOS@ &lt;<a href="mailto:%s">@MAILADDRESS@</a>&gt;,
+<address><font size="-1">@GCOS@ &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;,
 @LOCALTIME@.</font></address>"""
 
 
@@ -138,6 +137,49 @@ footer = compose (default_footer, footer_file) + built
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
 
+# Python < 1.5.2 compatibility
+#
+# On most platforms, this is equivalent to
+#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+if os.path.__dict__.has_key ('abspath'):
+	abspath = os.path.abspath
+else:
+	def abspath (path):
+		return os.path.normpath (os.path.join (os.getcwd (), path))
+
+
+def remove_self_ref (s):	
+	self_url = abspath (os.getcwd () + '/' + f)
+	#sys.stderr.write ('url0: %s\n' % self_url)
+
+	# self_url = re.sub ('.*?' + string.lower (package_name) + '[^/]*/',
+	#		 '', self_url)
+	# URG - this only works when source tree is unpacked in `src/' dir
+	# For some reason, .*? still eats away
+	#     /home/fred/usr/src/lilypond-1.5.14/Documentation/user/out-www/lilypond/
+	# instead of just
+	#
+	#     /home/fred/usr/src/lilypond-1.5.14/
+	#
+	#     Tutorial.html
+	self_url = re.sub ('.*?src/' + string.lower (package_name) + '[^/]*/',
+			 '', self_url)
+
+	#sys.stderr.write ('url1: %s\n' % self_url)
+	
+	#urg, ugly lily-specific toplevel index hack
+	self_url = re.sub ('.*topdocs/out-www/index.html', 'index.html', self_url)
+	#sys.stderr.write ('url2: %s\n' % self_url)
+
+	m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
+		      s, re.DOTALL)
+	while m:
+		#sys.stderr.write ('self: %s\n' % m.group (2))
+		s = s[:m.start (1)] + m.group (2) + s[m.end (3):]
+		m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
+			      s, re.DOTALL)
+	return s
+
 def do_file (f):
 	s = gulp_file (f)
 
@@ -176,6 +218,7 @@ def do_file (f):
 		else:
 			s = s + footer
 
+
 	#URUGRGOUSNGUOUNRIU
 	index = index_url
 	top = top_url
@@ -204,6 +247,24 @@ def do_file (f):
 	s = re.sub ('@LOCALTIME@', localtime, s)
 	s = re.sub ('@MAILADDRESS@', mail_address, s)
 	s = re.sub ('@BRANCH@', branch_str, s)	
+  
+	m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
+	while m:
+		at_var = m.group (1)
+		at_val = m.group (2)
+		#sys.stderr.write ('at: %s -> %s\n' % (at_var, at_val))
+		s = re.sub (at_var, at_val, s)
+		m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
+
+	# urg
+	# maybe find first node?
+	fallback_web_title = '-- --'
+	m = re.match ('.*?<title>\(.*?\)</title>', s, re.DOTALL)
+	if m:
+		fallback_web_title = m.group (1)
+	s = re.sub ('@WEB-TITLE@', fallback_web_title, s)
+	
+	s = remove_self_ref (s)
 
 	open (f, 'w').write (s)
 

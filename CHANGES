@@ -1,3 +1,20 @@
+1.4.10.jcn1
+===========
+
+* po: regenerate.
+
+* lilypond-1.4.10/midi2ly/lilypond-stream.cc (header): Add xgettext
+helper comment.
+
+* stepmake/bin: backport from 1.5
+
+* Documentation/windows/installing.texi:
+* Documentation/windows/compiling.texi: Update for Cygwin's teTeX.
+
+* Documentation/windows/gs-profile.sh: previously lily-gs.sh
+
+1.4.10
+======
 
 1.4.9.uu2
 =========
