@@ -647,6 +647,7 @@ def make_html_menu_file (html_file, files_found):
 
 	html_str += "\n\n</li>"
 	ly.progress (_("Writing HTML menu `%s'") % html_file)
+ 	ly.progress ('\n')
 	open (html_file, 'w').write (html_str)
 	
 ################################################################
