@@ -87,9 +87,9 @@ stablecc=request.cc bar.cc boxes.cc break.cc  \
 	voice.cc wordwrap.cc spanner.cc 
 
 
-# m2m headers
+# mi2mu headers
 #
-mym2mhh=\
+mymi2muhh=\
  duration.hh\
  lily-stream.hh\
  midi-event.hh\
@@ -102,16 +102,16 @@ mym2mhh=\
 
 #
 
-# m2m shared headers
+# mi2mu shared headers
 #
-mym2msharedhh=\
+mymi2musharedhh=\
  binary-source-file.hh\
 
 #
 
-# m2m source
+# mi2mu source
 #
-mym2mcc=\
+mymi2mucc=\
  duration.cc\
  lily-stream.cc\
  midi-event.cc\
@@ -125,9 +125,9 @@ mym2mcc=\
 
 #
 
-# m2m shared source
+# mi2mu shared source
 #
-mym2msharedcc=\
+mymi2musharedcc=\
  binary-source-file.cc\
  inputfile.cc\
  sourcefile.cc\

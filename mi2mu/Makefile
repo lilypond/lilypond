@@ -1,7 +1,7 @@
 #
 # project  LilyPond -- the musical typesetter
-# title	   makefile for m2m
-# file	   m2m/Makefile 
+# title	   makefile for mi2mu
+# file	   mi2mu/Makefile 
 #
 # Copyright (c) 1997 by
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -13,22 +13,17 @@
 depth = ..
 #
 
-# identify module:
-#
-NAME = m2m
-MODULE_NAME = m2m
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-# include ./$(depth)/m2m/.version
-build = ./$(depth)/lily/.build
-#
-
 # generic variables:
 #
 include ./$(depth)/make/Variables.make 
+#
+
+# identify module:
+#
+NAME = mi2mu
+MODULE_NAME = mi2mu
+include $(mi2mu-dir)/.version
+build = $(mi2mu-dir)/.build
 #
 
 # descent order into subdirectories:
@@ -38,22 +33,22 @@ SUBDIRS = include
 
 # to be remade each build:
 #
-VERSION_DEPENDENCY = $(lily-version)
+VERSION_DEPENDENCY = $(mi2mu-version)
 #
 
 # list of c++ header files:
 # 
-HHFILES = # $(shell ls include/*.hh)
+HHFILES = $(shell ls *.hh $(ERROR_LOG))
 #
 
 # list of c++ source files:
 #
-CCFILES = $(shell ls *.cc)
+CCFILES = $(shell ls *.cc $(ERROR_LOG))
 #
 
 # list of other source files:
 #
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l)
+EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
 #
 
 # list of distribution files:
@@ -89,11 +84,23 @@ include ./$(depth)/make/Rules.make
 # explicit dependencies: (how to do auto?)
 #
 midi-lexer.l:	$(outdir)/midi-parser.hh
-midi-main.cc:	check-flower-version $(lily-version)
+version.cc:	check-flower-version $(mi2mu-version)
+#
+
+# version:
+#
+mi2mu-version: $(mi2mu-dir)/$(genout) $(mi2mu-version)
+$(mi2mu-version): $(mi2mu-dir)/$(genout) $(mi2mu-dir)/.version ./$(bindir)/make_version $(build)
+	./$(bindir)/make_version "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
+#
+
+# list of depend files:
+#
+DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
 #
 
 # auto dependencies:
 #
--include ./$(outdir)/*.dep
+-include $(DEPFILES)
 #
 

@@ -7,6 +7,7 @@
 
 #ifndef IDENTIFIER_HH
 #define IDENTIFIER_HH
+
 #include "identparent.hh"
 #include "symtable.hh"
 #include "input-staff.hh"
@@ -14,11 +15,12 @@
 #include "notename.hh"
 #include "lookup.hh"
 #include "script-def.hh"
+#include "request.hh"
 
 #define make_id_class(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
     virtual const char *classname() { return #Class; }\
-    Idclass(String s, Class*st):Identifier(s) { data = st; }\
+    Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
     virtual Class* accessor(bool copy) {\
 	if (copy)\
 	    return new Class(* (Class*) data);\
@@ -37,6 +39,7 @@ make_id_class(Staff_id, Input_staff, staff);
 make_id_class(M_chord_id, Music_general_chord, mchord);
 make_id_class(M_voice_id, Music_voice, mvoice);
 make_id_class(Notetab_id, Notename_tab, notename_tab);
+make_id_class(Request_id, Request, request);
 
 #endif // IDENTIFIER_HH
 

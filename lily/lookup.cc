@@ -44,7 +44,7 @@ Lookup::print()const
 }
 
 Symbol
-Lookup::text(String style, String text, int dir)
+Lookup::text(String style, String text, int dir) const
 {
     Array<String> a;
  
@@ -60,13 +60,13 @@ Lookup::text(String style, String text, int dir)
 
 
 Real
-Lookup::internote()
+Lookup::internote() const
 {
     return ball(4).dim.y.length()/2;
 }
 
 Symbol
-Lookup::ball(int j)
+Lookup::ball(int j) const
 {
     if (j > 4)
 	j = 4;
@@ -76,13 +76,13 @@ Lookup::ball(int j)
 }
 
 Symbol
-Lookup::rest(int j)
+Lookup::rest(int j) const
 {
     return (*symtables_)("rests")->lookup(String(j));
 }
 
 Symbol
-Lookup::fill(Box b)
+Lookup::fill(Box b) const
 {
     Symbol s( (*symtables_)("param")->lookup("fill"));
     s.dim = b;
@@ -90,32 +90,38 @@ Lookup::fill(Box b)
 }
 
 Symbol
-Lookup::accidental(int j)
+Lookup::accidental(int j) const
 {
     return (*symtables_)("accidentals")->lookup(String(j));
 }
 
 
 Symbol
-Lookup::bar(String s)
+Lookup::bar(String s) const
 {
     return (*symtables_)("bars")->lookup(s);
 }
 
 Symbol
-Lookup::script(String s)
+Lookup::script(String s) const
 {
     return (*symtables_)("scripts")->lookup(s);
 }
 
 Symbol
-Lookup::clef(String s)
+Lookup::dynamic(String s) const
+{
+    return (*symtables_)("dynamics")->lookup(s);
+}
+
+Symbol
+Lookup::clef(String s) const
 {
     return (*symtables_)("clefs")->lookup(s);
 }
  
 Symbol
-Lookup::dots(int j)
+Lookup::dots(int j) const
 {
     if (j>3)
 	error("max 3 dots");	// todo
@@ -123,13 +129,13 @@ Lookup::dots(int j)
 }
 
 Symbol
-Lookup::flag(int j)
+Lookup::flag(int j) const
 {
     return (*symtables_)("flags")->lookup(j);
 }
 
 Symbol
-Lookup::streepjes(int i)
+Lookup::streepjes(int i) const
 {
     assert(i);
     
@@ -153,7 +159,7 @@ Lookup::streepjes(int i)
 }
 
 Symbol
-Lookup::hairpin(Real &wid, bool decresc)
+Lookup::hairpin(Real &wid, bool decresc) const
 {
     int idx = int(rint(wid / 6 PT));
     if(!idx) idx ++;
@@ -169,7 +175,7 @@ Lookup::hairpin(Real &wid, bool decresc)
 }
 
 Symbol
-Lookup::linestaff(int lines, Real wid) 
+Lookup::linestaff(int lines, Real wid) const
 {
     Symbol s;
     s.dim.x = Interval(0,wid);
@@ -188,7 +194,7 @@ Lookup::linestaff(int lines, Real wid)
 
 
 Symbol
-Lookup::meter(Array<Scalar> a)
+Lookup::meter(Array<Scalar> a) const
 {
     Symbol s;
     s.dim.x = Interval( 0 PT, 10 PT);
@@ -200,7 +206,7 @@ Lookup::meter(Array<Scalar> a)
 
 
 Symbol
-Lookup::stem(Real y1,Real y2)
+Lookup::stem(Real y1,Real y2) const
 {
     if (y1 > y2) {
 	Real t = y1;

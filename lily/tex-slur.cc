@@ -26,7 +26,7 @@ char direction_char(int y_sign)
 }
 
 Symbol
-Lookup::half_slur_middlepart(Real &dx, int dir)
+Lookup::half_slur_middlepart(Real &dx, int dir) const
 {
     if (dx >= 400 PT) {// todo
 	WARN<<"halfslur too large" <<print_dimen(dx)<< "shrinking (ugh)\n";
@@ -61,7 +61,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
     return s;
 }
 Symbol
-Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
+Lookup::half_slur(int dy, Real &dx, int dir, int xpart) const
 {
     Real orig_dx = dx;
     if (!xpart)
@@ -111,7 +111,7 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
 }
 
 Symbol
-Lookup::slur (int dy , Real &dx, int dir)
+Lookup::slur (int dy , Real &dx, int dir) const
 {
     assert(dx >=0 && abs(dir) <= 1);
     int y_sign = sign(dy);
@@ -176,7 +176,7 @@ Lookup::slur (int dy , Real &dx, int dir)
 }
 
 Symbol
-Lookup::big_slur(int dy , Real &dx, int dir)
+Lookup::big_slur(int dy , Real &dx, int dir) const
 {
     assert(dx >= 24 PT);
     Real slur_extra =abs(dy)  /2.0 + 2; 

@@ -5,7 +5,7 @@
 #include "assoc-iter.hh"
 #include "lexer.hh"
 #include "input-file.hh"
-#include "parser.hh"
+#include "out/parser.hh"
 #include "keyword.hh"
 #include "assoc.hh"
 #include "lexer.hh"
@@ -20,8 +20,9 @@ static Keyword_ent the_key_tab[]={
     "clef", CLEF,
     "cm", CM_T,
     "command", COMMAND,
-    "commands", COMMANDS,
+    "commands", COMMANDS,    
     "duration", DURATIONCOMMAND,
+    "dynamic", DYNAMIC,
     "geometric", GEOMETRIC,
     "goto", GOTO,
     "in", IN_T,

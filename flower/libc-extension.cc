@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include <stdarg.h>
 #include <string.h>
 #include <ctype.h>
 #include "libc-extension.hh"
@@ -13,7 +13,7 @@
 /*
   compensate for lacking libc functions.
  */
- char* 
+char* 
 strnlwr( char* start_l ,int n)
 {
     char * p = start_l + n;
@@ -23,7 +23,7 @@ strnlwr( char* start_l ,int n)
     return start_l;
 }
 
- char* 
+char* 
 strnupr( char* start_l, int n)
 {
     char * p = start_l + n;
@@ -33,13 +33,15 @@ strnupr( char* start_l, int n)
     return start_l;
 }
 
+#ifndef HAVE_MEMMEM
+
 /** locate a substring. #memmem# finds the first occurrence of
   #needle# in #haystack#
   */
 
-  char *
-memmem(const Byte * haystack, const Byte *needle,
-       int haystack_len, int needle_len)
+char *
+memmem(const Byte * haystack, int haystack_len,
+       const Byte *needle,int needle_len)
 {
     const Byte * end_haystack = haystack + haystack_len - needle_len;
     const Byte * end_needle = needle + needle_len ;
@@ -61,6 +63,7 @@ memmem(const Byte * haystack, const Byte *needle,
     }
     return 0;
 }
+#endif
 
 Byte *
 memrchr(const Byte * p, int n, char c)
@@ -96,3 +99,15 @@ strrev( Byte* byte_l, int length_i )
   }
   return byte_l;
 }
+
+#ifndef HAVE_SNPRINTF
+int snprintf ( char *str, size_t n,
+	       const char *format, ... )
+{
+    va_list ap;
+    va_start(ap, format);
+    int i = vsprintf(str, format, ap);
+    va_end(ap);
+    return i;
+}
+#endif

@@ -1,6 +1,6 @@
 %{
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -25,7 +25,7 @@
 %token SEQUENCE
 %token END_OF_TRACK TEMPO SMPTE_OFFSET TIME KEY SSME
 
-%token<i> INT8 INT16 INT32 INT7_8UNSET INT7_8SET VARINT
+%token<i> I8 U8 INT16 INT32 INT7_8UNSET INT7_8SET VARINT
 %token<i> RUNNING_STATUS DATA_ENTRY ALL_NOTES_OFF
 %token<i> NOTE_OFF NOTE_ON 
 %token<i> POLYPHONIC_AFTERTOUCH CONTROLMODE_CHANGE PROGRAM_CHANGE 
@@ -75,6 +75,7 @@ header:
 
 track: 
 	TRACK INT32 {
+		mtor << "\ntrack " << midi_parser_l_g->track_i_++ << ": " << flush;
 		$$ = new Midi_track( midi_parser_l_g->track_i_++,
 			// silly, cause not set yet!
 			midi_parser_l_g->copyright_str_,
@@ -100,6 +101,12 @@ event:
 varint:
 	VARINT {
 		midi_parser_l_g->forward( $1 );
+		if ( $1 ) {
+			int bars_i = (int)( midi_parser_l_g->mom() / midi_parser_l_g->midi_time_p_->bar_mom() );
+			if ( bars_i > midi_parser_l_g->bar_i_ )
+				mtor << '[' << midi_parser_l_g->bar_i_++ 
+					<< ']' << flush; 
+		}
 	}
 	;
 
@@ -117,7 +124,7 @@ meta_event:
 		$$ = $2;
 	}
 	|
-	META_EVENT INT8 INT8 INT8 {
+	META_EVENT U8 U8 U8 {
 		$$ = 0;
 	}
 	;
@@ -151,20 +158,20 @@ the_meta_event:
 	| END_OF_TRACK {
 		$$ = 0;
 	}
-	| TEMPO INT8 INT8 INT8 { 
+	| TEMPO U8 U8 U8 { 
 		$$ = new Midi_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
 		dtor << $$->mudela_str( false ) << endl;
 		midi_parser_l_g->set_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
 	}
-	| SMPTE_OFFSET INT8 INT8 INT8 INT8 INT8 { 
+	| SMPTE_OFFSET U8 U8 U8 U8 U8 { 
 		$$ = 0;
 	}
-	| TIME INT8 INT8 INT8 INT8 { 
+	| TIME U8 U8 U8 U8 { 
 		$$ = new Midi_time( $2, $3, $4, $5 );
 		dtor << $$->mudela_str( true ) << endl;
 		midi_parser_l_g->set_time( $2, $3, $4, $5 );
 	}
-	| KEY INT8 INT8 { 
+	| KEY I8 I8 { 
 		$$ = new Midi_key( $2, $3 );
 		midi_parser_l_g->set_key( $2, $3  );
 	}
@@ -222,25 +229,25 @@ midi_event:
 	;
 
 running_status:
-	RUNNING_STATUS INT8 { //INT8 {
+	RUNNING_STATUS U8 { //U8 {
 		$$ = 0;
 	}
 	;
 
 data_entry:
-	DATA_ENTRY INT8 {
+	DATA_ENTRY U8 {
 		$$ = 0;
 	}
 	;
 
 all_notes_off:
-	ALL_NOTES_OFF INT8 INT8 {
+	ALL_NOTES_OFF U8 U8 {
 		$$ = 0;
 	}
 	;
 
 note_off:
-	NOTE_OFF INT8 INT8 {
+	NOTE_OFF U8 U8 {
 		int i = $1;
 		i = i & ~0x80;
 		$$ = midi_parser_l_g->note_end_midi_event_p( $1 & ~0x80, $2, $3 );
@@ -248,7 +255,7 @@ note_off:
 	;
 
 note_on:
-	NOTE_ON INT8 INT8 {
+	NOTE_ON U8 U8 {
 		int i = $1;
 		i = i & ~0x90;
 		$$ = 0;
@@ -257,31 +264,31 @@ note_on:
 	;
 
 polyphonic_aftertouch:
-	POLYPHONIC_AFTERTOUCH INT8 INT8 {
+	POLYPHONIC_AFTERTOUCH U8 U8 {
 		$$ = 0;
 	}
 	;
 
 controlmode_change:
-	CONTROLMODE_CHANGE INT8 INT8 {
+	CONTROLMODE_CHANGE U8 U8 {
 		$$ = 0;
 	}
 	;
 
 program_change:
-	PROGRAM_CHANGE INT8 {
+	PROGRAM_CHANGE U8 {
 		$$ = 0;
 	}
 	;
 
 channel_aftertouch:
-	CHANNEL_AFTERTOUCH INT8 INT8 {
+	CHANNEL_AFTERTOUCH U8 U8 {
 		$$ = 0;
 	}
 	;
 
 pitchwheel_range:
-	PITCHWHEEL_RANGE INT8 INT8 {
+	PITCHWHEEL_RANGE U8 U8 {
 		$$ = 0;
 	}
 	;
@@ -290,7 +297,7 @@ sysex_event:
 	SYSEX_EVENT1 DATA {
 		$$ = 0;
 	}
-	| SYSEX_EVENT2 DATA { // INT8 ?
+	| SYSEX_EVENT2 DATA { // U8 ?
 		$$ = 0;
 	}
 	;

@@ -2,7 +2,7 @@
 // midi-lexer.l
 
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 #include "midi-parser.hh"
 
 %}
@@ -17,14 +17,16 @@
 
 %x data
 %x event
-%x int8
+%x i8
+%x u8
 %x int16
 %x int32
 %x meta_event
 %x track
 
-INT8		[\x00-\xff]
-INT16		{INT8}{INT8}
+U8		[\x00-\xff]
+I8		{U8}
+INT16		{U8}{U8}
 INT32		{INT16}{INT16}
 INT7_8UNSET	[\x00-\x7f]
 INT7_8SET	[\x80-\xff]
@@ -83,12 +85,12 @@ SSME		[\0x7f][\x03]
 	yy_push_state( int32 ); 
 	return TRACK;
 }
-{INT8}	{
+{U8}	{
 	error( String( "top level: illegal byte: " )
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
 }
-<int32>{INT32}	{
+<int32>{INT32}	{ // really signed? 
 	dtor << "lex: int32" << endl;
 	assert( YYLeng() == 4 );
 	String str( (Byte const*)YYText(), YYLeng() );
@@ -96,7 +98,7 @@ SSME		[\0x7f][\x03]
 	yy_pop_state();
 	return INT32;
 }
-<int16>{INT16}	{
+<int16>{INT16}	{ // really signed?
 	dtor << "lex: int16" << endl;
 	assert( YYLeng() == 2 );
 	String str( (Byte const*)YYText(), YYLeng() );
@@ -104,13 +106,21 @@ SSME		[\0x7f][\x03]
 	yy_pop_state();
 	return INT16;
 }
-<int8>{INT8}	{
-	dtor << "lex: int8" << endl;
+<i8>{I8}	{
+	dtor << "lex: i8" << endl;
+	assert( YYLeng() == 1 );
+//	yylval.byte = *(signed char*)YYText();
+	yylval.i = *(signed char*)YYText();
+	yy_pop_state(); 
+	return I8;
+}
+<u8>{U8}	{
+	dtor << "lex: u8" << endl;
 	assert( YYLeng() == 1 );
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	return INT8;
+	return U8;
 }
 
 <track>{VARINT} {
@@ -122,7 +132,7 @@ SSME		[\0x7f][\x03]
 	yy_push_state( event ); 
 	return VARINT;
 }
-<track>{INT8}	{
+<track>{U8}	{
 	error( String( "track: illegal byte: " ) 
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
@@ -132,8 +142,8 @@ SSME		[\0x7f][\x03]
 	yylval.i = *(Byte*)YYText();
 	dtor << String ( "lex: running status: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
-//	yy_push_state( int8 );
-	yy_push_state( int8 );
+//	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return RUNNING_STATUS;
 }
 <event>{DATA_ENTRY}	{
@@ -141,7 +151,7 @@ SSME		[\0x7f][\x03]
 	yylval.i = *(Byte*)YYText();
 	dtor << String ( "lex: undefined data entry: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
-	yy_push_state( int8 );
+	yy_push_state( u8 );
 	return DATA_ENTRY;
 }
 <event>{ALL_NOTES_OFF}	{
@@ -150,8 +160,8 @@ SSME		[\0x7f][\x03]
 	yylval.i = *(Byte*)YYText();
 	dtor << String ( "lex: all notes off: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return ALL_NOTES_OFF;
 }
 <event>{NOTE_OFF}	{
@@ -159,8 +169,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return NOTE_OFF;
 }
 <event>{NOTE_ON}	{
@@ -168,8 +178,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return NOTE_ON;
 }
 <event>{POLYPHONIC_AFTERTOUCH}	{
@@ -177,8 +187,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return POLYPHONIC_AFTERTOUCH;
 }
 <event>{CONTROLMODE_CHANGE}	{
@@ -186,8 +196,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return CONTROLMODE_CHANGE;
 }
 <event>{PROGRAM_CHANGE}	{
@@ -195,7 +205,7 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
+	yy_push_state( u8 );
 	return PROGRAM_CHANGE;
 }
 <event>{CHANNEL_AFTERTOUCH}	{
@@ -203,8 +213,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return CHANNEL_AFTERTOUCH;
 }
 <event>{PITCHWHEEL_RANGE} {
@@ -212,8 +222,8 @@ SSME		[\0x7f][\x03]
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return PITCHWHEEL_RANGE;
 }
 <event>{SYSEX_EVENT1} {	// len data
@@ -225,7 +235,7 @@ SSME		[\0x7f][\x03]
 <event>{SYSEX_EVENT2} {	// len data
 	dtor << "lex: sysex2" << endl;
 	yy_pop_state(); 
-//	yy_push_state( int8 ); //?
+//	yy_push_state( u8 ); //?
 	yy_push_state( data );
 	return SYSEX_EVENT2;
 }
@@ -234,7 +244,7 @@ SSME		[\0x7f][\x03]
 	yy_push_state( meta_event );
 	return META_EVENT;
 }
-<event>{INT8}	{
+<event>{U8}	{
 	error( String( "event: illegal byte: " ) 
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );
@@ -313,38 +323,38 @@ SSME		[\0x7f][\x03]
 	dtor << "lex: tempo" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return TEMPO;
 }
 <meta_event>{SMPTE_OFFSET}	{ 		// hr mn se fr ff
 	dtor << "lex: smpte offset" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return SMPTE_OFFSET;
 }
 <meta_event>{TIME}	{		// nn dd cc bb
 	dtor << "lex: time" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
+	yy_push_state( u8 );
 	return TIME;
 }
 <meta_event>{KEY}	{	// sf mi
 	dtor << "lex: key" << endl;
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int8 );
-	yy_push_state( int8 );
+	yy_push_state( i8 );
+	yy_push_state( i8 );
 	return KEY;
 }
 <meta_event>{SSME}	{	// len data
@@ -361,15 +371,15 @@ SSME		[\0x7f][\x03]
 	yy_pop_state();
 	return END_OF_TRACK;
 }
-<meta_event>{INT8} {
+<meta_event>{U8} {
 	warning( String( "meta_event: unimplemented event: " )
 		+ String_convert::bin2hex_str( String( *YYText() ) ),
 		this->here_ch_c_l() );
 	yy_pop_state();
 	yy_pop_state();
-	yy_push_state( int8 ); 
-	yy_push_state( int8 );
-	return INT8;
+	yy_push_state( u8 ); 
+	yy_push_state( u8 );
+	return U8;
 }
 
 <data>{VARINT} {
@@ -383,7 +393,7 @@ SSME		[\0x7f][\x03]
 	yy_pop_state();
 	return DATA;
 }
-<data>{INT8}	{
+<data>{U8}	{
 	error( String( "data: illegal byte: " )
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
 	exit( 1 );

@@ -158,7 +158,7 @@ Stem::width()const
     if (!print_flag || abs(flag) <= 4)
 	return Interval(0,0);	// TODO!
     Paper_def*p= paper();
-    Interval r(p->lookup_p_->flag(flag).dim.x);
+    Interval r(p->lookup_l()->flag(flag).dim.x);
     r+= stem_xoffset;
     return r;
 }
@@ -172,13 +172,13 @@ Stem::brew_molecule_p()const return out;
     Paper_def *p =paper();
 
     Real dy = p->internote();
-    Symbol ss =p->lookup_p_->stem(bot*dy,top*dy);
+    Symbol ss =p->lookup_l()->stem(bot*dy,top*dy);
 
     
     out = new Molecule(Atom(ss));
 
     if (print_flag&&abs(flag) > 4){
-	Symbol fl = p->lookup_p_->flag(flag);
+	Symbol fl = p->lookup_l()->flag(flag);
 	Molecule m(fl);
 	if (flag < -4){		
 	    out->add_bottom(m);

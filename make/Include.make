@@ -25,17 +25,17 @@ include ./$(depth)/make/Variables.make
 
 # list of c++ header files:
 # 
-HHFILES = $(shell ls *.hh)
+HHFILES = $(shell ls *.hh $(ERROR_LOG))
 #
 
 # list of c++ inline files:
 # 
-INLFILES = $(shell ls *.inl)
+INLFILES = $(shell ls *.inl $(ERROR_LOG))
 #
 
 # list of c++ template files:
 # 
-TCCFILES = $(shell ls *.tcc)
+TCCFILES = $(shell ls *.tcc $(ERROR_LOG))
 #
 
 # list of distribution files:

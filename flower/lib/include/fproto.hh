@@ -7,6 +7,13 @@
 #ifndef FPROTO_HH
 #define FPROTO_HH
 
+// what the F*** is "int" ?
+// depreciate int, long, etc., use i32, i64, remember: linux-16/linux-64 ?
+/// (i32)
+typedef int i32;
+/// (i64)
+typedef long long I64;
+
 #include "flower-config.hh"
 
 template<class T> struct Array;
@@ -19,7 +26,9 @@ template<class T> struct Cursor;
 template<class T> struct PCursor;
 template<class T> struct Link;
 template<class T> struct Handle;
-template<class T>struct Interval_t;
+template<class T> struct Interval_t;
+template<class T,class Q> struct PQueue;
+
 #include "real.hh"
 
 typedef Interval_t<Real> Interval;

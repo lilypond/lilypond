@@ -65,7 +65,7 @@ int fatal_error_i = 0;
     Text_def * textdef;
 }
 
-%token VOICE STAFF SCORE TITLE  BAR  OUTPUT MULTIVOICE
+%token VOICE STAFF SCORE TITLE  BAR  OUTPUT MULTIVOICE DYNAMIC
 %token CM_T IN_T PT_T MM_T PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF  TABLE  VOICES STEM
@@ -74,7 +74,7 @@ int fatal_error_i = 0;
 %token  GOTO
 %token MIDI TEMPO
 
-%token <id>  IDENTIFIER
+%token <id>  IDENTIFIER REAL_IDENTIFIER REQUEST_IDENTIFIER 
 %token <string> PITCHMOD DURATION RESTNAME
 %token <ii> NOTENAME 
 %token <real> REAL 
@@ -98,7 +98,7 @@ int fatal_error_i = 0;
 %type <staff> staff_block staff_init staff_body
 %type <i> int
 %type <intvec> intastint_list
-%type <request> post_request pre_request command_req
+%type <request> post_request pre_request command_req 
 %type <string> pitchmod
 %type <music> music 
 %type <chord> music_chord music_chord_body
@@ -113,7 +113,7 @@ int fatal_error_i = 0;
 %type <notename_tab> notename_tab notename_tab_body
 %type <i> script_dir
 %type <script> script_definition script_body mudela_script
-%type <request> script_req textscript_req
+%type <request> script_req textscript_req dynamic_req basic_request
 %type <textdef> mudela_text
 
 
@@ -146,35 +146,39 @@ declarable_identifier:
 
 declaration:
 	declarable_identifier '=' staff_block  {
-		$$ = new Staff_id(*$1, $3);
+		$$ = new Staff_id(*$1, $3, IDENTIFIER);
 		delete $1; 
 	}
 	| declarable_identifier '=' music_voice {
-		$$ = new M_voice_id(*$1, $3);
+		$$ = new M_voice_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' script_definition {
-		$$ = new Script_id(*$1, $3);
+		$$ = new Script_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' music_chord  {
-		$$ = new M_chord_id(*$1, $3);
+		$$ = new M_chord_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' symtables {
-		$$ = new Lookup_id(*$1, $3);
+		$$ = new Lookup_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' notename_tab {
-		$$ = new Notetab_id(*$1, $3);
+		$$ = new Notetab_id(*$1, $3, IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier '=' real	{
-		$$ = new Real_id(*$1, new Real($3));
+		$$ = new Real_id(*$1, new Real($3), REAL_IDENTIFIER);
 		delete $1;
 	}
 	| declarable_identifier error '}' {
 
+	}
+	| declarable_identifier '=' basic_request {
+		$$ = new Request_id(*$1, $3, REQUEST_IDENTIFIER);
+		delete $1;
 	}
 	;
 
@@ -328,11 +332,14 @@ music_voice:  MUSIC '{' music_voice_body '}'	{ $$ = $3; }
 	;
 
 music_voice_body:
-	/* */ 	{
+	IDENTIFIER {
+		$$ = $1->mvoice(true);
+	}
+	| /* */ 	{
 		$$ = new Music_voice;
 	}
-	| music_voice_body IDENTIFIER {
-		$$->concatenate($2->mvoice(true));
+	| music_voice_body '+' IDENTIFIER {
+		$$->concatenate($3->mvoice(true));
 	}
 	| music_voice_body full_element {
 		$$->add_elt($2);
@@ -350,14 +357,17 @@ music_chord:  '{' music_chord_body '}'	{ $$ = $2; }
 	;
 
 music_chord_body:
-	/* */	{
+	IDENTIFIER {
+		$$=$1->mchord(true);
+	}
+	| /* */	{
 		$$ = new Voice_group_chord;
 	}
 	| MULTIVOICE {
 		$$ = new Multi_voice_chord;
 	}
-	| music_chord_body IDENTIFIER {
-		$$->concatenate($2->mchord(true));
+	| music_chord_body '+' IDENTIFIER {
+		$$->concatenate($3->mchord(true));
 	}
 	| music_chord_body music {
 		$$->add($2);
@@ -369,6 +379,11 @@ music_chord_body:
 	}
 	;
 
+basic_request:
+	command_req
+	| pre_request
+	| post_request
+	;
 
 /*
 	VOICE ELEMENTS
@@ -464,6 +479,18 @@ post_request:
 	}
 	| script_req
 	| textscript_req
+	| dynamic_req
+	| REQUEST_IDENTIFIER	{
+		$$ = $1->request(false)->clone();
+	}
+	;
+
+dynamic_req:
+	DYNAMIC '{' int '}'	{
+		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
+		ad_p ->loudness_ = $3;
+		$$ =ad_p;
+	}
 	;
 
 close_plet_parens:
@@ -698,7 +725,7 @@ real:
 	| REAL		{
 		$$ = $1;
 	}
-	| IDENTIFIER		{
+	| REAL_IDENTIFIER		{
 		$$ = * $1->real(0);		
 	}
 	;

@@ -19,6 +19,9 @@
  */
 struct Musical_req : virtual Request {
     virtual Skip_req* skip() { return 0; }
+    virtual Dynamic_req* dynamic() { return 0; }
+    virtual Absolute_dynamic_req * absdynamic() { return 0; }
+    virtual Subtle_req * subtle() { return 0; }
     REQUESTMETHODS(Musical_req, musical);
 };
 
@@ -177,9 +180,9 @@ struct Slur_req : Span_req {
 };
 
 
-/**Put a script above or below this ``note''. eg upbow, downbow. Why a
-request? These symbols may conflict with slurs and brackets, so this
-also a request */
+/** Put a script above or below this ``note''. eg upbow, downbow. Why
+  a request? These symbols may conflict with slurs and brackets, so
+  this also a request */
 struct Script_req : Musical_req {
     int dir_i_;
     Script_def *scriptdef_p_;
@@ -192,7 +195,31 @@ struct Script_req : Musical_req {
     Script_req(Script_req const&);
 };
 
+/** A helper in the hierarchy. Each dynamic is bound to one note ( a
+    crescendo spanning multiple notes is thought to be made of two
+    "dynamics": a start and a stop).  Dynamic changes can occur in a
+    smaller time than the length of its note, therefore fore each
+    Dynamic request carries a time, measured from the start of its
+    note.
+ */
+struct Subtle_req : virtual Musical_req {
+    Moment subtime_;
+    REQUESTMETHODS(Subtle_req, subtle);
+};
 
+struct Dynamic_req : Subtle_req {
+    /// for absolute dynamics
+    enum Loudness {
+	FFF, FF, F, MF, MP, P, PP, PPP
+    };
+    static String loudness_str(Loudness);
+    REQUESTMETHODS(Dynamic_req, dynamic);
+};
 
+struct Absolute_dynamic_req : Dynamic_req {
+    Loudness loudness_;
+    Absolute_dynamic_req();
+    REQUESTMETHODS(Absolute_dynamic_req, absdynamic);
+};
 
 #endif // MUSICALREQUESTS_HH

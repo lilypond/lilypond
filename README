@@ -9,11 +9,13 @@ version, then this is version is *not* meant for producing nice output
 
 ====================
 
-Please refer to the directory Documentation/, Documentation/README.*
+Please refer to the directory Documentation/, Documentation/README.*. 
 
 To generate the pretty-printed docs, do this:
 
 	make doc
+
+You can also simply read the .pod source. It is ASCII text.
 
 ======================
 

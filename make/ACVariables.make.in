@@ -1,0 +1,16 @@
+# -*-Makefile-*-
+
+# @AUTOHEADER@
+
+#CXXFLAGS=@CXXFLAGS@
+#CXX=@CXX@
+bindir=@bindir@
+includedir=@includedir@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+DEFS=@DEFS@
+#SET_MAKE=@SET_MAKE@
+DEFINES=@DEFINES@
+COMPILEINFO=@COMPILEINFO@
+BISON=@BISON@
+FLEX=@FLEX@

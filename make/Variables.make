@@ -20,10 +20,17 @@ bindir = ./$(depth)/bin
 distdir = ./$(depth)/$(DIST_NAME)
 module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
-libdir = $(outdir)
 flowerout = ./$(depth)/flower/lib/$(outdir)
 libout = ./$(depth)/lib/$(outdir)
-# flower-dir = ./$(depth)/flower
+libdir = $(outdir)
+lilyout = ./$(depth)/lily/$(outdir)
+mi2muout = ./$(depth)/mi2mu/$(outdir)
+makeout = ./$(depth)/make/$(outdir)
+flower-dir = ./$(depth)/flower/lib
+lib-dir = ./$(depth)/lib
+lily-dir = ./$(depth)/lily
+mi2mu-dir = ./$(depth)/mi2mu
+make-dir = ./$(depth)/make
 include-lib = ./$(depth)/lib/include
 include-flower = ./$(depth)/flower/lib/include
 #
@@ -80,19 +87,41 @@ OFILEY = $(OFILEL:.y=.o)
 OFILES = $(patsubst %,$(outdir)/%,$(OFILEY))
 #
 
+# dummydeps
+#
+DUMMYDEPS=\
+ $(flowerout)/dummy.dep\
+ $(libout)/dummy.dep\
+ $(lilyout)/dummy.dep\
+ $(mi2muout)/dummy.dep\
+
+#
+
 # clean file lists:
 #
-allexe = $(bindir)/lilypond $(bindir)/m2m
-allobs = $(shell find $(outdir) -name "*.o" )
-allibs = $(shell find $(libdir) -name "*.lib" )
-alldeps = $(shell find $(outdir) -name "*.dep" )
-allout = $(shell find . -name "$(outdir)" )
+ERROR_LOG = 2> /dev/null
+allexe = $(bindir)/lilypond $(bindir)/mi2mu
+allcc = $(shell find -name "*.cc" $(ERROR_LOG))
+allobs = $(shell find $(outdir) -name "*.o" $(ERROR_LOG))
+allibs = $(shell find $(libdir) -name "*.lib" $(ERROR_LOG))
+alldeps = $(shell find $(outdir) -name "*.dep" $(ERROR_LOG))
+allout = $(shell find . -name "$(outdir)" $(ERROR_LOG))
+allgen = $(shell find . -name $(genout) -o -name .build $(ERROR_LOG))
+#
+
+# config stuff:
+#
+# cannot let targets depend upon (out)directory -> will always be out of date!
+genout = .GENERATE
+flower-config = $(flowerout)/flower-config.hh
+lily-config = $(libout)/config.hh
 #
 
 # version stuff:
 #
 flower-version = $(flowerout)/fversion.hh
-lily-version = $(libout)/version.hh
+lily-version = $(lilyout)/version.hh
+mi2mu-version = $(mi2muout)/version.hh
 #
 
 # custom libraries:

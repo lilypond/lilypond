@@ -89,14 +89,15 @@
 \def\dynf{f\kern-.1ex}
 \def\dynm{f\kern-.15ex}
 \def\dynp{p\kern-.15ex}
-\def\ppp{\dynfont\dynp\dynp p}
-\def\pp{\dynfont\dynp p}
-\def\p{\dynfont p}
-\def\mp{\dynfont\dynm p}
-\def\mf{\dynfont\dynm f}
-\def\f{\dynfont f}
-\def\ff{\dynfont\dynf f}
-\def\fff{\dynfont\dynf\dynf f}
+
+\def\dynppp{\dynfont\dynp\dynp p}
+\def\dynpp{\dynfont\dynp p}
+\def\dynp{\dynfont p}
+\def\dynmp{\dynfont\dynm p}
+\def\dynmf{\dynfont\dynm f}
+\def\dynf{\dynfont f}
+\def\dynff{\dynfont\dynf f}
+\def\dynfff{\dynfont\dynf\dynf f}
 
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
@@ -249,3 +250,4 @@
 \def\decrescendosym#1{\count0=116\advance\count0 by #1}
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
+\def\setdynamic#1{\dynfont #1}

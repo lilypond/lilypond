@@ -21,12 +21,13 @@
   */
 class Midi_walker : public PCursor<Staff_column*> {
     Midi_track *track_l_;
+    
     PQueue<Melodic_req*, Moment> stop_notes;
     Moment last_moment_;
 
     /* *************** */
     void do_stop_notes(Moment);
-    
+    void do_start_note(Note_req *note_l);
     void output_event(Midi_item&, Moment);
 public:
     

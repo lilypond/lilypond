@@ -6,6 +6,7 @@
 
 
 #include <assert.h>
+#include <limits.h>
 #include "libc-extension.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -62,11 +63,11 @@ String_convert::dec2_i( String dec_str )
 }
 
 String
-String_convert::longlong_str(long long ll, char const* fmt)
+String_convert::i64_str( I64 i64, char const* fmt)
 {
     char buffer[STRING_BUFFER_LEN];
     snprintf(buffer, STRING_BUFFER_LEN,
-	     (fmt ? fmt : "%Ld"), ll );     // assume radix 10
+	     (fmt ? fmt : "%Ld"), i64 );     // assume radix 10
     return String(buffer);
 
 }
@@ -143,18 +144,32 @@ String_convert::i2dec_str( int i, int length_i, char ch )
 
 // stupido.  Should use int_str()
 String 
-String_convert::i2hex_str( int i, int length_i, char ch )
+String_convert::u2hex_str( unsigned u, int length_i, char fill_ch )
 {
     String str;
-    if ( !i )
+    if ( !u )
 	str = "0";
-    while ( i ) {
-	str = String( ( i % 16 )["0123456789abcdef"] ) + str;
-	i /= 16;
+
+#if 1 // both go...
+    while ( u ) {
+	str = String( (char)( ( u % 16 )["0123456789abcdef"] ) ) + str;
+	u /= 16;
     }
-    if ( str.length_i() < length_i )
-	str = String( ch, length_i - str.length_i() ) + str;
+#else
+    str += int_str( u, "%x" );
+#endif
+
+    str = String( fill_ch, length_i - str.length_i() ) + str;
+    while ( ( str.length_i() > length_i ) &&  ( str[ 0 ] == 'f' ) )
+    	str = str.mid_str( 2, INT_MAX );
+
     return str;
+}
+
+String 
+String_convert::i2hex_str( int i, int length_i, char fill_ch )
+{
+    return u2hex_str( (unsigned)i, length_i, fill_ch );
 }
 
 Byte
@@ -230,6 +245,6 @@ String_convert::rational_str(Rational r)
 String
 String_convert::pointer_str(const void *l)
 {
-    long long int ill = (long long int )l;
-    return String_convert::longlong_str(ill,  "0x%0Lx");
+    I64 i64 = (I64)l;
+    return String_convert::i64_str(i64,  "0x%0Lx");
 }

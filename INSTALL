@@ -29,7 +29,7 @@ INSTALL:
 
     to make LilyPond under, brr, aargh, well, simply type:
 
-	    bash bin/configure
+	    bash configure
 	    make win32
     \end{masochist}
 

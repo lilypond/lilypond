@@ -31,15 +31,15 @@ public:
 
     Moment when() const;
     void set_cols(Score_column *c1, Score_column *c2);
-    void add(Voice_element*ve);
+    void add(Voice_element*ve, PQueue<Subtle_req *, Moment> &subtle_req_pq );
     void OK() const;
     ~Staff_column();
     void typeset_breakable_items(Array<Item *> &pre_p_arr,
 				 Array<Item *> &nobreak_p_arr,
 				 Array<Item *> &post_p_arr);
     void typeset_musical_item(Item *i);
+    void setup_one_request(Request*);
 protected:
-     void setup_one_request(Request*);
 };
 
 

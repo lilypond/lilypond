@@ -102,7 +102,7 @@ Symbol
 Script::symbol()const
 {
     String preidx_str = (symdir < 0) ?"-" :"";
-    return paper()->lookup_p_->script(preidx_str + specs_l_->symidx);
+    return paper()->lookup_l()->script(preidx_str + specs_l_->symidx);
 }
 
 void

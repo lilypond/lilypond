@@ -12,6 +12,7 @@
 #include "input-score.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
+#include "identparent.hh"
 
 %}
 
@@ -89,7 +90,7 @@ COMMENT		[%#].*\n
 	Identifier * id = lookup_identifier(c);
 	if (id) {		
 		yylval.id = id;
-		return IDENTIFIER;
+		return id->token_code_i_;
 	}
 	String *sp = new String( c);
 	yylval.string=sp;

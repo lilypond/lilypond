@@ -10,10 +10,7 @@
 #include "fproto.hh"
 #include "real.hh"
 
-/// (i64)
-typedef long long Int64;
-
-struct Absdynamic_req;
+struct Absolute_dynamic_req;
 struct Accidental;
 struct Atom;
 struct Bar;
@@ -22,6 +19,7 @@ struct Barcheck_req;
 struct Bar_req;
 struct Beam;
 struct Beam_req;
+struct Blank_req;
 struct Box;
 struct Bracket_req;
 struct Cadenza_req;
@@ -41,6 +39,7 @@ struct Duration;
 struct Duration_iterator;
 struct Durational_req;
 struct Dynamic;
+struct Dynamic_req;
 struct Group_change_req;
 struct Group_feature_req;
 struct Idealspacing;
@@ -88,11 +87,11 @@ struct Midi_track;
 struct Midi_voice;
 struct Midi_walker;
 struct Mixed_qp;
-class My_midi_lexer;
-class My_midi_parser;
-class Midi_event;
-class Midi_score;
-class Midi_track;
+struct My_midi_lexer;
+struct My_midi_parser;
+struct Midi_event;
+struct Midi_score;
+struct Midi_track;
 struct Molecule;
 struct Musical_req;
 struct Music_general_chord;
@@ -137,7 +136,7 @@ struct Source_file;
 struct Spacing_req ;
 struct Span_req;
 struct Spanner;
-struct Blank_req;
+struct Subtle_req;
 struct Staff;
 struct Staff_column;
 struct Staff_elem;

@@ -31,7 +31,7 @@ Symtable::lookup(String s) const
     if (elt_query(s))
 	return (*this)[s];
     else {
-	error( "Unknown symbol `" +s+"'\n");
+	error( "Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");
     }
     Symbol sy;			// unreachable
     return sy;
@@ -59,3 +59,9 @@ Symtable::print() const
     }
 }
 	
+void
+Symtables::add(String s, Symtable*p)
+{
+    p-> id_str = s;
+    Assoc<String, Symtable*>::add(s,p);
+}

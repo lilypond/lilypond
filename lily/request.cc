@@ -71,7 +71,9 @@ Spacing_req::Spacing_req()
 void
 Spacing_req::do_print()const
 {
+#ifndef NPRINT
     mtor << "next " << next << "dist " << distance << "strength\n";
+#endif
 }
 
 void
@@ -297,4 +299,46 @@ Request::voice_l()
 	return 0;
     else
 	return (Voice*)elt_l_->voice_l_;
+}
+/* *************** */
+
+void
+Subtle_req::do_print() const
+{
+    mtor << " subtime " <<  subtime_;
+}
+
+void
+Dynamic_req::do_print() const
+{
+    Subtle_req::do_print();
+}
+
+void
+Absolute_dynamic_req::do_print() const
+{
+    Dynamic_req::do_print();
+    mtor << " loudness_" <<loudness_;
+}
+
+String
+Dynamic_req::loudness_str(Loudness l) 
+{
+    switch (l) {
+    case FFF: return "fff";
+    case FF: return "ff";
+    case F: return "f";
+    case MF: return "mf";
+    case MP: return "mp";
+    case P: return "p";
+    case PP: return "pp";
+    case PPP: return "ppp";
+    }
+    assert(false);
+    return "";
+}
+
+Absolute_dynamic_req::Absolute_dynamic_req()
+{
+    loudness_ = MF;
 }

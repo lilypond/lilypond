@@ -60,7 +60,7 @@ Local_key_item::brew_molecule_p()const
 	    octmol= new Molecule;
 	}
 	lastoct = accs[i].octave;
-	Symbol s =paper()->lookup_p_->accidental(accs[i].acc);   
+	Symbol s =paper()->lookup_l()->accidental(accs[i].acc);   
 	Atom a(s);
 	Real dy = (accs[i].name + c0_position) * paper()->internote();
 	a.translate(Offset(0,dy));

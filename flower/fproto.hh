@@ -7,6 +7,8 @@
 #ifndef FPROTO_HH
 #define FPROTO_HH
 
+#include "flower-config.hh"
+
 template<class T> struct Array;
 template<class T> struct sstack;
 template<class T,class K> struct Assoc;

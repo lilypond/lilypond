@@ -22,6 +22,6 @@ Lyric_item::do_pre_processing()
 {
 
     // test context-error
-    if ( tdef_l_->text_str_.index_i( "Gates" ) >=0)// :-)
-    	warning( "foul word", tdef_l_->defined_ch_c_l_ );
+    if ( tdef_l()->text_str_.index_i( "Gates" ) >=0)// :-)
+    	warning( "foul word", tdef_l()->defined_ch_c_l_ );
 }

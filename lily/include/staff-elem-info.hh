@@ -12,13 +12,13 @@
 
 #include "proto.hh"
 #include "varray.hh"
+
 /// data container.
 struct Staff_elem_info {
     Staff_elem * elem_p_;
     Request*req_l_;
     const Voice * voice_l_;
     Array<Request_register*> origin_reg_l_arr_;
-
 
     /* *** */
     Staff_elem_info(Staff_elem*, Request*);
@@ -30,6 +30,7 @@ struct Staff_info {
     Staff_walker *walk_l_;
     const Time_description *time_c_l_;
     const Rhythmic_grouping *rhythmic_c_l_;
+    bool break_allowed_b_;
 };
 
 

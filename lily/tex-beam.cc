@@ -14,7 +14,7 @@
 #include "lookup.hh"
 
 Symbol
-Lookup::beam_element(int sidx, int widx, Real slope)
+Lookup::beam_element(int sidx, int widx, Real slope) const
 {
     Symbol bs=(*symtables_)("beamslopes")->lookup("slope");
     
@@ -48,7 +48,7 @@ slope_index(Real &s)
 }
 
 Symbol
-Lookup::rule_symbol(Real height, Real width)
+Lookup::rule_symbol(Real height, Real width) const
 {
     Symbol bs=(*symtables_)("beamslopes")->lookup("horizontal");    
     Array<String> args;
@@ -61,7 +61,7 @@ Lookup::rule_symbol(Real height, Real width)
 }
 
 Symbol
-Lookup::beam(Real &slope, Real width)
+Lookup::beam(Real &slope, Real width) const
 {        
     int sidx = slope_index(slope);
     if (!slope)

@@ -1,6 +1,6 @@
 # THIS IS A TEMPLATE FOR SUB-PROJECT MAKEFILES
 # should we make Include-dir and Stuff-dir templates too?
-
+#
 # project  LilyPond -- the musical typesetter
 # title	   makefile for ...
 # file	   ../Makefile 
@@ -15,21 +15,22 @@
 depth = ..
 #
 
+# generic variables:
+#
+include ./$(depth)/make/Variables.make 
+#
+
 # identify module:
 #
 NAME = ...
+MODULE_NAME = 
 # include ./$(depth)/$(NAME)/.version
 MAJOR_VERSION = 0
 MINOR_VERSION = 0
 PATCH_LEVEL = 0
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = # include separator: "-1" or ".a"
-build = ./$(depth)/lily/.build
-#
-
-# generic variables:
-#
-include ./$(depth)/make/Variables.make 
+build = $(lily-dir)/.build
 #
 
 # descent order into subdirectories:
@@ -51,22 +52,22 @@ EXTRA_LDFLAGS =
 
 # list of c++ header files:
 # 
-HHFILES = $(shell ls *.hh)
+HHFILES = $(shell ls *.hh $(ERROR_LOG))
 #
 
 # list of c++ source files:
 #
-CCFILES = $(shell ls *.cc)
+CCFILES = $(shell ls *.cc $(ERROR_LOG))
 #
 
 # list of other source files:
 #
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l)
+EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
 #
 
 # list of distribution files:
 #
-DISTFILES = $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
+DISTFILES = Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
 #
 
 # list of custom libraries:
@@ -90,8 +91,13 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
+# list of depend files:
+#
+DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
+#
+
 # auto dependencies:
 #
-include ./$(outdir)/*.dep
+-include $(DEPFILES)
 #
 

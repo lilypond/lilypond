@@ -8,20 +8,25 @@ sub
     }
 }
 
+sub all_refs
+{
+    print "resetting refs.\n";
+
+    foreach $a (<*.html>)
+    {
+	rename $a, "$a~";
+	open HTMLIN, "$a~";
+	open HTMLOUT, ">$a";
+	set_hrefs;
+    }
+}
+
 local $base="lilypond/";
 local @examples=("wohltemperirt");
 
 system  'pod2html';
 
-print "resetting refs.\n";
-
-foreach $a (<*.html>)
-{
-    rename $a, "$a~";
-    open HTMLIN, "$a~";
-    open HTMLOUT, ">$a";
-    set_hrefs;
-}
+print "generating examples";
 
 foreach $a (@examples) {
     $texfile="test";

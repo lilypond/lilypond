@@ -19,6 +19,7 @@
 #include "item.hh"
 #include "pcol.hh"
 #include "voice-element.hh"
+#include "pqueue.hh"
 
 void
 Staff_column::OK() const
@@ -37,7 +38,8 @@ Staff_column::when() const
 }
 
 void
-Staff_column::add(Voice_element*ve)
+Staff_column::add(Voice_element*ve,
+		  PQueue<Subtle_req *, Moment> &subtle_req_pq )
 {
     for (iter_top(ve->reqs,j); j.ok(); j++) {
 	if (j->command()) {
@@ -54,8 +56,17 @@ Staff_column::add(Voice_element*ve)
 	    if (j->rhythmic()) {
 		musical_column_l_->add_duration(j->rhythmic()->duration());
 	    }
-	    if (!j->musical()->skip())
-		setup_one_request(j);
+	    if (j->musical()) {
+		Musical_req*m = j->musical();
+		if(m->skip())
+		    continue;
+		Subtle_req * s = m->subtle() ;
+		if (s&& s->subtime_) {
+		    subtle_req_pq.enter(s, s->subtime_ + when());
+		    continue ; 
+		}
+	    }
+	    setup_one_request(j);
 	}
     }
 }

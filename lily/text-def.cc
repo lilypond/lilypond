@@ -20,7 +20,7 @@ Text_def::compare(const Text_def&def)
 Atom
 Text_def::create_atom(Paper_def*p) const
 {
-    return p->lookup_p_->text(style_str_, text_str_, -align_i_);
+    return p->lookup_l()->text(style_str_, text_str_, -align_i_);
 }
 
 void

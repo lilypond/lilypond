@@ -48,11 +48,11 @@ Notehead::brew_molecule_p() const return out;
     Paper_def *p = paper();
 
     Real dy = p->internote();
-    Symbol s = p->lookup_p_->ball(balltype);
+    Symbol s = p->lookup_l()->ball(balltype);
     
     out = new Molecule(Atom(s));
     if (dots) {
-	Symbol d = p->lookup_p_->dots(dots);
+	Symbol d = p->lookup_l()->dots(dots);
 	Molecule dm;
 	dm.add(Atom(d));
 	if (!(position %2))
@@ -64,7 +64,7 @@ Notehead::brew_molecule_p() const return out;
     if (streepjes) {
 	int dir = sign(position);
 	int s =(position<-1) ? -((-position)/2): (position-staff_size)/2;
-	Symbol str = p->lookup_p_->streepjes(s);
+	Symbol str = p->lookup_l()->streepjes(s);
 	Molecule sm;
 	sm.add(Atom(str));
 	if (position % 2)

@@ -87,3 +87,14 @@ MIDI output
 The DOC++ documentation of the C++ sources.
 </a
 >
+
+=item *
+<a href=ftp://pcnov095.win.tue.nl/pub/lilypond
+>
+Get it!
+</a
+>
+
+=head1 AUTHOR
+
+Han-Wen Nienhuys <hanwen@stack.nl>, for this page
