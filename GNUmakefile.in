@@ -76,7 +76,9 @@ local-web: fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 top-web:
 	rm -f `find . -name \*.html~ -print`
-	find `find Documentation input mutopia *.png index.html -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' | tar -czf $(outdir)/web.tar.gz  -T -
+	find `find Documentation input mutopia *.png index.html -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' > $(outdir)/weblist
+	ls *.png *.html >> $(outdir)/weblist
+	cat $(outdir)/weblist | tar -czf $(outdir)/web.tar.gz  -T -
 
 #WWW: local-WWW
 
