@@ -12,9 +12,9 @@ texidoc = "The flags of 8th notes take some space, but not
 }
 \paper {
 %stafflinethickness = 0.0
-linewidth = -1
+raggedright = ##t
     }
      }
 
-\version "1.7.6"
+\version "1.7.16"
 %% new-chords-done %%

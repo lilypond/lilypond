@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 
 texidoc="
@@ -31,7 +31,7 @@ are used then a different symbol is used.
 		\ScoreContext
 		skipBars = ##t
 	}
-	linewidth = -1.	
+	raggedright = ##t	
 	}
 }
 %% new-chords-done %%

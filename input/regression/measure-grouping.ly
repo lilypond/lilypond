@@ -7,7 +7,7 @@ of Steve Martland's Dance Works. "
 
 }
 
-\version "1.7.6"
+\version "1.7.16"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.
@@ -24,7 +24,7 @@ of Steve Martland's Dance Works. "
 	     g8 a4 g a->
 	 }
 	 \paper  {
-	     linewidth = -1.0 
+	     raggedright = ##t
 	     \translator { \StaffContext
 			   \consists "Measure_grouping_engraver"
 			   }

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     
     texidoc ="Broken matter at the end of line does not upset the

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "The staff is a grob, and may be adjusted as well: this one
  shows a staff with 6 thick line, and a slightly large staffspace.
@@ -14,7 +14,7 @@ Beams remain correctly quantized.
     c'4 g'4 b'8  b'8  b'8  b'8  
 }
 	 
-\paper  { linewidth = -1.
+\paper  { raggedright = ##t
 
 
       } 

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
 texidoc=" Funky kneed beams with beamlets also work. The beamlets
@@ -15,7 +15,7 @@ should be pointing to the note head.
      c16 c,,8 c16          
      
   }
-  \paper { linewidth = -1 }
+  \paper { raggedright = ##t}
 }
 	  
 %% new-chords-done %%

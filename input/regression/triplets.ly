@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110

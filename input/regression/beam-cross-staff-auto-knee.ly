@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 
@@ -20,7 +20,7 @@ with explicit staff switches)."
     }
   >
   \paper{
-    linewidth = -1.0
+    raggedright = ##t
   }
 }
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc = "Cross staff  (kneed) beams
 don't cause extreme slopes"
@@ -28,7 +28,7 @@ don't cause extreme slopes"
     \context Staff = down {
         \time 3/8 \clef bass s4.*3 }
     >
-    \paper { linewidth = -1. }
+    \paper { raggedright = ##t}
 }
 
 %% new-chords-done %%

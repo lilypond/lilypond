@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 
@@ -31,7 +31,7 @@ brackets for analysis start and end.
 	\translator {
 	    \StaffContext \consists "Horizontal_bracket_engraver"
 	}
-	linewidth = -1.0
+	raggedright = ##t
     }
 }
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc = "Rests get a little less space, since they are narrower.
 However, the feta quarter rest is relatively wide, causing this effect to be
@@ -11,7 +11,7 @@ very small.
 }
 \paper {
 %stafflinethickness = 0.0
-linewidth = -1
+raggedright = ##t
     }
      }
 %% new-chords-done %%

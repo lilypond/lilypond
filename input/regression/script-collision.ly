@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 
@@ -13,6 +13,6 @@
   < \context Voice = VA { \voiceOne c4^^ }
     \context Voice = VB { \voiceTwo d4_^} >
     }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
     }
 %% new-chords-done %%

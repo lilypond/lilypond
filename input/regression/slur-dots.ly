@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="Slurs should not get confused by augmentation dots.  We use a lot
 of dots here, to make problems more visible."
@@ -8,7 +8,7 @@ of dots here, to make problems more visible."
     c4.............()c
   }
   \paper {
-    linewidth = -1.
+    raggedright = ##t
   }
 } 
 %% new-chords-done %%

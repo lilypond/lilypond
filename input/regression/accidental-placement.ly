@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc ="Accidentals are placed as closely as possible.
 Accidentals in corresponding octaves are aligned.
@@ -24,6 +24,6 @@ flats in a sixth shoudl be staggered.  "
     <<bes! c d f >>    
     <<bes,! c d f >>
 }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
      }
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
     texidoc = "clef changes at the start of a line get much more space
@@ -16,7 +16,7 @@ than clef changes halfway the line."
 	  c4 c4 c4 
       }>
     }
-    \paper { linewidth  = -1.
+    \paper { raggedright = ##t
 \translator { \StaffContext
 	      TimeSignature = \turnOff
 	 }

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
     texidoc = "Completion heads are broken across bar lines. This was

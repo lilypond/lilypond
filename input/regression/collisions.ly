@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="
 Normal collisions. We have support for polyphony, where the
@@ -30,46 +30,25 @@ twovoicechords = \context Staff \notes <
 
 
 threevoice =  \context Staff \notes <
-	\context Voice=i { \stemUp g4 f e f g a g2 }
-	\context Voice=ii { \stemUp \shiftOn
-		e4 e e e e e e e  }
-	\context Voice=iii { \stemDown c4 d e d c d es }
+	 { g4 f e f g a g2 } \\
+	 {  c4 d e d c d es } \\
+	 { e4 e e e e e e e  }
 >
 
-hairyChord =  \context Staff \notes\relative c' <
-     \context Voice=one {
-\shiftOff
-	\stemUp 
-	e4 
-     }
-     
-     \context Voice=two {
-	\stemUp
-	\shiftOn
- \property Voice.NoteColumn \override #'horizontal-shift = #1
-	cis
-     }
-     
-     \context Voice=three {	\shiftOnn
-	\stemUp 
-	ais
-     }
-     
-     \context Voice=four {
-        \stemDown
-	\shiftOn
-
-	fis
-     }
->
+hairyChord =  \context Staff \notes \relative c''
+    < e \\
+      fis, \\
+      cis' \\
+      \\
+      ais
+    i>
 
 
 \score{
-	\notes \transpose c c' {
+	\notes { \transpose c c' {
 	   \twovoice
 	   \twovoicechords
-	
-	\threevoice 
+	   \threevoice   }
 	 \hairyChord
 	}
 	

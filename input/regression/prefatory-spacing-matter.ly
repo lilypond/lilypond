@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "prefatory spacing
 
@@ -12,6 +12,6 @@ TODO: show all common combinations to check for spacing anomalies.
 	\key cis \major
 	cis4 cis4 cis4 cis4 \clef bass  cis4 cis4 cis4 
 }
-\paper  { linewidth = -1. }
+\paper  { raggedright = ##t}
 }
 %% new-chords-done %%

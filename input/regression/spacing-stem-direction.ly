@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 
@@ -18,7 +18,7 @@ much to correct."
 	
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
 }
 %% new-chords-done %%

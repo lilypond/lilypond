@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -19,7 +19,7 @@ be on normal staves, but also on compound staves, like the PianoStaff
     \context Staff = bass { \property Staff.instrument = "Left " \clef bass c4 }>
 
 \paper {
-linewidth=-1.0
+raggedright = ##t
 }}
 
 %% new-chords-done %%

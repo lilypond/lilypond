@@ -25,7 +25,6 @@
 * Fine tuning a piece::         
 * An orchestral score::         Conductor's score and individual parts
 * Integrating text and music::  Integrating text and music
-* End of tutorial::             The end
 @end menu
 
 Operating lilypond is done through text files: To print a piece of

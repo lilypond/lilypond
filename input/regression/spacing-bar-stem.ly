@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar
@@ -20,6 +20,6 @@ su = \property Voice.Stem \set #'direction = #1
 \sd c4 \su c4
 \sd f c,4  c'4 cis4 \stemUp c4
 }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 }
 %% new-chords-done %%

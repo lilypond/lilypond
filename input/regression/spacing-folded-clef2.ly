@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -11,7 +11,7 @@ show where columns are in the score."
 	\context Staff = SB { \clef bass c,2 \clef treble  c'2 }
 	>
 
-	\paper { linewidth = -1.
+	\paper { raggedright = ##t
 
 	\translator { \ScoreContext
 	  NonMusicalPaperColumn \override #'molecule-callback = #Paper_column::brew_molecule

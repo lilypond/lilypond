@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -19,7 +19,7 @@ notes, and up for low notes.
 	
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
   \midi { }
 }

@@ -1,9 +1,9 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc="Manual hack for slur and staccato."
 }
 
-\paper { linewidth = -1.0 }
+\paper { raggedright = ##t}
 
 \score {
   \context Staff \notes\relative c'' {

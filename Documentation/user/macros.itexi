@@ -131,3 +131,15 @@ internals document,  @internalsref{\NAME\}
 @internalsref{\NAME\}
 @end macro
 @end ifnottex
+
+@macro refbugs
+@strong{BUGS}
+@end macro
+
+@macro seealso
+@strong{SEE ALSO}
+@end macro
+
+@macro syntax
+@strong{SYNTAX}
+@end macro

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc =
 "
@@ -15,5 +15,5 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 	    e
 	   >>4
     >
-    }\paper {linewidth = -1. }}
+    }\paper {raggedright = ##t}}
 %% new-chords-done %%

@@ -1,10 +1,11 @@
 
 
+
 \header { texidoc = "collision resolution tries to put notes with dots
   on the right side."
 }
 
-\version "1.7.6"
+\version "1.7.16"
 
 \score{
         \context Staff \notes <

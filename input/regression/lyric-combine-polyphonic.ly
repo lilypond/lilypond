@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
 texidoc ="polyphonic rhythms and rests don't disturb
@@ -36,6 +36,6 @@ texidoc ="polyphonic rhythms and rests don't disturb
          }
        >
     }
-    \paper { linewidth=-1.0 }
+    \paper { raggedright = ##t}
 }
 %% new-chords-done %%

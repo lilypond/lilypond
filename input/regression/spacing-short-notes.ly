@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     
 texidoc = "Notes that are shorter than the common shortest note, Get a
@@ -19,6 +19,6 @@ eighth note. "
 
 }
 
-	 \paper { linewidth = -1. }
+	 \paper { raggedright = ##t}
 }
 %% new-chords-done %%
