@@ -1,7 +1,6 @@
 \version "1.9.1"
 
 
-
 %
 % setup for Request->Element conversion. Guru-only
 %
@@ -366,7 +365,6 @@ RemoveEmptyStaffContext = \translator {
 	\StaffContext
 	\remove "Axis_group_engraver"
 	\consistsend "Hara_kiri_engraver"
-	\consists "Instrument_name_engraver"
 	\accepts "Voice"
 
 	% hara kiri & auto knee don't work together.

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.1"
 \header {
         title = "Song"
@@ -237,10 +236,6 @@ drums = \context Staff = drums {
         \paper {
                 linewidth = 15.0 \cm
                 \translator { \RemoveEmptyStaffContext }
-                \translator {
-                        \StaffContext
-                        \consists Instrument_name_engraver
-                }
                 \translator {
                         \ScoreContext
                         BarNumber \override #'padding = #3
