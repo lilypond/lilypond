@@ -12,4 +12,5 @@ int lookup_keyword(String s);
 
 Identifier* lookup_identifier(String s);
 void add_identifier(Identifier*i);
+void delete_identifiers();
 #endif
