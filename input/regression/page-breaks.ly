@@ -3,7 +3,7 @@
 \header {
 
   texidoc = "Stress optimal page breaking.  This should look
-    nice on 4 a6 pages. "
+    nice and even on 4 a6 pages. "
 
   
   copyright = "Copyright by /me"
@@ -69,9 +69,7 @@
 	"www.lilypond.org"
       }
     }
-}
-
-
+  }
 }
 
 #(set-default-paper-size "a6" 'portrait)
@@ -80,7 +78,11 @@
   \score {
     \new Staff \relative c' {
       %% 19: ideally cramped
-      \repeat unfold 19 { a b c d \break }
+      %% Calculating page breaks...[6][11][16]
+      %%\repeat unfold 19 { a b c d \break }
+      %% 15: test even distribution
+      %% Calculating page breaks...[5][9][13]
+      \repeat unfold 15 { a b c d \break }
     }
   }
 }
