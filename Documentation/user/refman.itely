@@ -1892,11 +1892,12 @@ c'4 \breathe d4
 @end lilypond
 
 The glyph of the breath mark can be tweaked by overriding the
-@code{text} property of the @code{BreathingSign} layout object with the name of
-any glyph of @ref{The Feta font}.  For example,
+@code{text} property of the @code{BreathingSign} layout object with
+any markup text.   For example,
 @lilypond[fragment,verbatim,relative]
 c'4
-\property Voice.BreathingSign \override #'text = #"scripts-rvarcomma"
+\property Voice.BreathingSign \override #'text
+ = #(make-musicglyph-markup "scripts-rvarcomma")
 \breathe
 d4
 @end lilypond
@@ -2264,6 +2265,8 @@ for example,
     g4
 }
 @end lilypond
+
+@noindent
 The overrides should also be reverted inside the grace section.
 
 If the layout of grace sections must be changed throughout the music,
@@ -2756,7 +2759,7 @@ down = \notes { bassdrum4 snare8 bd r bd sn4 }
 
 @end lilypond
 In the above example the music was transformed using the list @code{'drums}.
-Currently the following lists are defined in @file{scm/drums.scm}:
+The following lists are defined in @file{scm/drums.scm}:
 @table @code
 @item 'drums
 to typeset a typical drum kit on a five-line staff:
@@ -3552,7 +3555,7 @@ beginning of a piece, e.g. nearby the initial clef or time signature of
 each staff.  The range is graphically specified by two noteheads, that
 represent the minimum and maximum pitch.  Some publishers use a textual
 notation: they put the range in words in front of the corresponding
-staff.  LilyPond currently only supports the graphical ambitus notation.
+staff.  LilyPond only supports the graphical ambitus notation.
 
 To apply, add the @internalsref{Ambitus_engraver} to the
 @internalsref{Voice} context, i.e.
@@ -4600,7 +4603,7 @@ output:
 
 Support for ancient notation is still under heavy development.
 Regardless of all of the current limitations (see the bugs section
-below for details), it currently includes features for mensural
+below for details), it includes features for mensural
 notation and Gregorian Chant notation.  There is also limited support
 for figured bass notation.
 
@@ -4651,7 +4654,7 @@ correctly align with ligatures.
 Accidentals must not be printed within a ligature, but instead need to
 be collected and printed in front of it.
 
-Augmentum dots within ligatures are currently not handled correctly.
+Augmentum dots within ligatures are  not handled correctly.
 
 
 @node Ancient note heads
@@ -4705,7 +4708,7 @@ frequently used in contemporary music notation.
 @syntax
 
 Use the @code{style} property of grob @internalsref{Accidental} to
-select ancient accidentals.  Currently supported styles are
+select ancient accidentals.   Supported styles are
 @code{mensural}, @code{vaticana}, @code{hufnagel} and @code{medicaea}.
 
 @lilypond[singleline,26pt]
@@ -4778,7 +4781,7 @@ signatures.
 @syntax
 
 Use the @code{style} property of grob @internalsref{Rest} to select
-ancient accidentals.  Currently supported styles are @code{classical},
+ancient accidentals.   Supported styles are @code{classical},
 @code{neo_mensural} and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks like
 a horizontally mirrored 8th rest.  The @code{neo_mensural} style suits
@@ -5034,7 +5037,7 @@ For modern clefs, see @ref{Clef}.  For the percussion clef, see
 
 Use the @code{flag-style} property of grob @internalsref{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
-currently only @code{mensural} style is supported:
+ only @code{mensural} style is supported:
 
 @lilypond[fragment,singleline,verbatim]
   \property Voice.Stem \set #'flag-style = #'mensural
@@ -5075,7 +5078,7 @@ Gregorian Chant notation.
 
 @syntax
 
-There is limited support for mensural time signatures.  Currently, the
+There is limited support for mensural time signatures.   The
 glyphs are hard-wired to particular time fractions.  In other words,
 to get a particular mensural signature glyph with the @code{\time n/m}
 command, @code{n} and @code{m} have to be chosen according to the
@@ -5131,7 +5134,7 @@ following table:
 @end lilypond
 
 Use the @code{style} property of grob @internalsref{TimeSignature} to
-select ancient time signatures.  Currently supported styles are
+select ancient time signatures.  Supported styles are
 @code{neo_mensural} and @code{mensural}.  The above table uses the
 @code{neo_mensural} style.  This style is appropriate e.g. for the
 incipit of transcriptions of mensural pieces.  The @code{mensural}
@@ -5147,7 +5150,7 @@ signatures.
 
 @refbugs
 
-Mensural signature glyphs are currently mapped to time fractions in a
+Mensural signature glyphs are  mapped to time fractions in a
 hard-wired way.  This mapping is sensible, but still arbitrary: given
 a mensural time signature, the time fraction represents a modern meter
 that usually will be a good choice when transcribing a mensural piece
@@ -5155,10 +5158,10 @@ of music.  For a particular piece of mensural music, however, the
 mapping may be unsatisfactory.  In particular, the mapping assumes a
 fixed transcription of durations (e.g. brevis = half note in 2/2,
 i.e. 4:1).  Some glyphs (such as the alternate glyph for 6/8 meter)
-are currently not at all accessible through the @code{\time} command.
+are  not at all accessible through the @code{\time} command.
 
 Mensural time signatures are supported typographically, but not yet
-musically.  The internal representation of durations is currently
+musically.  The internal representation of durations is 
 based on a purely binary system; a ternary division such as 1 brevis =
 3 semibrevis (tempus perfectum) or 1 semibrevis = 3 minima (cum
 prolatione maiori) is not correctly handled: event times in ternary
@@ -5395,7 +5398,7 @@ square bracket above the ligature:
 
 To select a specific style of ligatures, a proper ligature engraver
 has to be added to the @internalsref{Voice} context, as explained in
-the following subsections.  Currently, only white mensural ligatures
+the following subsections.   Only white mensural ligatures
 are supported with certain limitations.  Support for Editio Vaticana
 will be added in the future.
 
@@ -5411,7 +5414,7 @@ will be added in the future.
 @cindex White mensural ligatures
 
 There is limited support for white mensural ligatures.  The
-implementation is still experimental; it currently may output strange
+implementation is still experimental; it may output strange
 warnings or even crash in some cases or produce weird results on more
 complex ligatures.
 

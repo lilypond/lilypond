@@ -1,3 +1,7 @@
+2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/*.itely: manual tweaks
+
 2003-09-13  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-clefs.mf: still more set_char_box() fixes and code
