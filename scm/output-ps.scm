@@ -287,7 +287,9 @@
 	out-vec))))))
 
 ;;(define text old-text)
-(define text new-text)
+(define (text font str)
+  (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
+  "")
 
 ;; FIXME: BARF helvetica?
 (define (white-text scale s)

@@ -40,8 +40,6 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
     return find_scaled_font (mod->parent_, f, m);
   
   Real lookup_mag = m / output_scale (mod);
-
-  
   
   SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_BOOL_F);
