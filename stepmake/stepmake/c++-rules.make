@@ -13,15 +13,15 @@ $(outdir)/%.lo: $(outdir)/%.cc
 	$(DO_LO_DEP) $(CXX) -c $(ALL_CXXFLAGS) $(PIC_FLAGS) -o $@ $<
 
 $(outdir)/%.cc: %.yy
-	$(BISON) $<
-	@-mv -f $(*F).yy.tab.c $(*F).tab.cc  # bison < 1.30
-	mv $(*F).tab.cc $@
+	$(BISON) -o $@ $<
+	-mv -f $(*F).yy.tab.c $@ # bison < 1.30
 
 $(outdir)/%.hh: %.yy
-	$(BISON) -d $<
-	@-mv -f $(*F).yy.tab.h $(*F).tab.hh  # bison < 1.30
-	mv $(*F).tab.hh $@
-	rm -f $(*F).tab.c $(*F).tab.cc	# if this happens in the wrong order it triggers recompile of the .cc file 
+	$(BISON) -o$(outdir)/$(*F).cc -d $<
+	-mv -f $(*F).yy.tab.h $@  # bison < 1.30
+	-mv $(*F).tab.hh $@
+	rm -f $(*F).tab.c $(*F).tab.cc # bison < 1.30
+	rm -f $(outdir)/$(*F).cc # avoid recompiling the .cc file 
 
 $(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -t $< > $@

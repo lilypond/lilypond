@@ -111,6 +111,7 @@ make_span_req (SCM name)
 
 #define YYERROR_VERBOSE 1
 
+My_lily_parser* my_lily_parser;
 #define YYPARSE_PARAM my_lily_parser
 #define YYLEX_PARAM my_lily_parser
 #define THIS\
@@ -1401,7 +1402,6 @@ verbose_event:
 		$$->set_spot (THIS->here_input ());
 	}
 	| SPANREQUEST bare_int STRING {
-
  		Music * sp = make_span_req ($3);
 		sp->set_mus_property ("span-direction", gh_int2scm ( $2));
 		sp->set_spot (THIS->here_input ());
