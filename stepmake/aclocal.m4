@@ -273,6 +273,15 @@ dnl	export INSTALL="\$\(depth\)/bin/install-sh"
 dnl    fi
 
     AC_CHECK_PROGS(TAR, tar, error)
+
+    if test "x`uname`" = "xHP-UX"; then
+	AC_STEPMAKE_WARN(avoiding buggy /bin/sh)
+	AC_CHECK_PROGS(SHELL, bash, /bin/ksh)
+    else
+	SHELL=/bin/sh
+	AC_SUBST(SHELL)
+    fi
+
     AC_CHECK_PROGS(BASH, bash, /bin/sh)
 
     AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)

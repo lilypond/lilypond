@@ -1,4 +1,42 @@
-pl 41.hwn2
+
+
+pl 41.hwn3
+       - reinstated \property inheritance
+       - \property SkipBars -> skipBars
+       - \property midi_instrument -> midiInstrument
+       - \property fontsize -> fontSize (mudela 1.0.18).
+       - bf: add a space after lyrics.
+       - junked flower DLL classes
+       - rewrote repeat music and iterators (mudela 1.0.17)
+         * Folded_repeat_iterator
+         * Unfolded_repeat_iterator
+         * New_repeated_music
+         * syntax change: \repeat FOLDSTRING NUMBER Music [ALTERNATIVE Music_se
+quence]
+       - data struct simplification: junked Dynamic_req,
+Absolute_dynamic_req, Span_dynamic_req, Slur_req, Beam_req. Use
+Span_reqs and Text_script_reqs with type fields instead. 
+
+
+
+pl 42.tca1
+ 	- updated mudela-book documentation
+ 	- misc mudela-book.py
+ 	- accordion: smaller dots + little script renaming
+
+
+pl 42.jcn1
+	- bf: hp-u(rg)x: user build; sm 73
+ 	- bf: hp-u(rg)x: sm74
+
+pl 41.mb1
+	- convert-mudela: convert textstyle -> textStyle
+	- refman.yo: properties moved to correct contexts.
+	- mudela-book.py: Added singleline, multiline options. 
+	  Fixed default line width bug.
+
+***************
+pl 41.hwn2 (may 10, 1999)
 	- bf: Score bar line thickness.
 	- more paper writing
 	- website tweaks.

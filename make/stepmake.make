@@ -23,7 +23,10 @@ else
 outdir=out
 endif
 
+# user package
 stepdir = $(stepmake)/stepmake
+# for stepmake packageg
+# stepdir = $(depth)/stepmake
 
 STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES) 
 LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)

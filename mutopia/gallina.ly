@@ -97,7 +97,7 @@ vi1=\context Staff = vi1 <
   r8 [d16 a ][ b8 b16 c] a2 |
   b1 | 
   
-  \repeat 2 {
+  \repeat "semi" 2 {
   r4 d d d d d |
   e1. |
   r4 c c c c c |
@@ -115,7 +115,7 @@ vi1=\context Staff = vi1 <
   a [d,8 c] b4 [c8 d] a2 |
   }
 
-  \repeat 2 {
+  \repeat "semi" 2 {
   b1 |
   [d8 d d d] d4 [a16 b c a] |
   [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
@@ -167,7 +167,7 @@ vi2=\context Staff = vi2 <
   a4 g2 fis4 |
   g1 |
 
-  \repeat 2 {
+  \repeat "semi" 2 {
   r1. |
   r4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
   a,1. |
@@ -185,7 +185,7 @@ vi2=\context Staff = vi2 <
   fis2 g fis! |
   }
 
-  \repeat 2 {
+  \repeat "semi" 2 {
   g1 |
   r1 | r1 |
   [g'8 g g g] g4 [d16 e f d] |
@@ -225,7 +225,7 @@ bc=\context Staff = bc <
   c B c G | d1^"3 4 3" |
   G1 |
 
-  \repeat 2 {
+  \repeat "semi" 2 {
   g1. | c |
   f | d^"\\textsharp" |
   g | c |
@@ -236,7 +236,7 @@ bc=\context Staff = bc <
   d1.^"3 4 3" |
   }
 
-  \repeat 2 {
+  \repeat "semi"  2 {
   G1 |
   g2 fis | g G |
   g1^"3 4 3" | c |
