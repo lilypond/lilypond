@@ -55,7 +55,7 @@ Piano_pedal_performer::initialize ()
   info_alist_ = new Pedal_info[4];
   Pedal_info *p = info_alist_;
 
-  char * names [] = { "Sostenuto", "Sustain", "UnaChorda", 0  };
+  char * names [] = { "Sostenuto", "Sustain", "UnaCorda", 0  };
   char **np = names ;
   do
     {

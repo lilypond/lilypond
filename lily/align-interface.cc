@@ -110,7 +110,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 
 /*
   Hairy function to put elements where they should be. Can be tweaked
-  from the outside by setting minimum-space and extra-space in its
+  from the outside by setting minimum-space-pair and extra-space in its
   children
 
   We assume that the children the refpoints of the children are still
@@ -159,7 +159,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	  Grob *e =dynamic_cast<Grob*> (all_grobs[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
-	  SCM min_dims = e->remove_grob_property ("minimum-space");
+	  SCM min_dims = e->remove_grob_property ("minimum-space-pair");
 	  if (gh_pair_p (min_dims) &&
 	      gh_number_p (ly_car (min_dims))
 	      && gh_number_p (ly_cdr (min_dims)))

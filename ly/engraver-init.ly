@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.33"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -66,7 +66,7 @@ InnerChoirStaffContext = \translator {
 	\name InnerChoirStaff
 	alignmentReference = #0
 	\consists "System_start_delimiter_engraver"
-	SystemStartDelimiter = #'SystemStartBracket
+	systemStartDelimiter = #'SystemStartBracket
 
 	\accepts "Staff"
 	\accepts "RhythmicStaff"
@@ -178,7 +178,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "System_start_delimiter_engraver"
-	SystemStartDelimiter = #'SystemStartBrace
+	systemStartDelimiter = #'SystemStartBrace
 	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff"
 }
@@ -190,8 +190,8 @@ PianoStaffContext = \translator{
 	\consists "Vertical_align_engraver"
 	\consists "Instrument_name_engraver"
 	
-	instrument = ##f
-	instr = ##f
+	instrument = #'()
+	instr = #'()
 	
 	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
 	VerticalAlignment \override #'forced-distance = #12
@@ -206,7 +206,7 @@ InnerStaffGroupContext= \translator {
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "Output_property_engraver"	
-	SystemStartDelimiter = #'SystemStartBracket
+	systemStartDelimiter = #'SystemStartBracket
 
 	\consists "System_start_delimiter_engraver"
 	\accepts "Staff"
@@ -355,9 +355,9 @@ ScoreContext = \translator {
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
-	SystemStartDelimiter =#'SystemStartBar
-	barAuto = ##t
-	voltaVisibility = ##t
+	systemStartDelimiter =#'SystemStartBar
+
+
 	%  name, glyph id, clef position 
 	% where is c0 in this clef?
 
@@ -366,7 +366,7 @@ ScoreContext = \translator {
 	centralCPosition = #-6
 	
         automaticPhrasing = ##t
-	alignmentReference = #-1   % \down
+
 	defaultBarType = #"|"
 
 	explicitClefVisibility = #all-visible
