@@ -8,8 +8,6 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-// split into 4?
-
 #include "proto.hh"
 #include "plist.hh"
 #include "string.hh"
@@ -17,14 +15,27 @@
 #include "source.hh"
 #include "moment.hh"
 #include "duration.hh"
-#include "debug.hh"  //ugh
 #include "duration-convert.hh"
 
 // statics Duration
 int Duration::division_1_i_s = 384 * 4;
 
+bool
+Duration::duration_type_b(int t)
+{
+    int bit_i=0;
+    while (t > 0)
+    {
+	int rem = t % 2;
+	t /= 2;
+	bit_i += (rem == 1);
+    }
+    return bit_i == 1;
+}
+
 Duration::Duration( int type_i, int dots_i = 0)
 {
+    assert(duration_type_b(type_i));
 	type_i_ = type_i;
 	dots_i_ = dots_i;
 	ticks_i_ = 0;

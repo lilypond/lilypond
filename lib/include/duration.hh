@@ -36,15 +36,15 @@ struct Plet {
   (dur)
   */
 struct Duration {
-    /* actually i hate it when other people use default arguments,
-       because it makes you easily loose track of what-s really
-       happening; in the routine-s implementation you-re not aware
-       of this defaultness (who sets this stupid value?).*/
+    /**
+      Ctor of Duration. type_i should be a power of 2. 
+       */
     Duration( int type_i = 1, int dots_i = 0);
     /// is the "plet factor" of this note != 1 ?
     bool plet_b();
     String str()const;
     void set_plet(int,int );
+    static bool duration_type_b(int t);
     void set_ticks( int ticks_i );
     Moment length() const ;	// zo naai mij
     static int division_1_i_s;
