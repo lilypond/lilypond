@@ -1,4 +1,4 @@
-\version "1.8.0"
+\version "1.9.0"
 % possible rename to ancient-something.
 
 \header { texidoc	= "Ancient Vaticana

@@ -38,6 +38,8 @@ int testing_level_global;
   Backwards compatibility.
  */
 bool lily_1_8_relative = true;
+bool lily_1_8_compatibility_used = false;
+
 /*
   crash if internally the wrong type is used for a grob property.
  */
@@ -75,7 +77,7 @@ don't timestamp the output
 
 @item -t,--test
 Switch on any experimental features.  Not for general public use. */
-LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
+LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	    "Set a global option value.  Supported options include\n"
 "\n"
 "@table @code\n"
@@ -95,8 +97,11 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
 "@end table\n"
 "\n"
 "This function is useful to call from the command line: @code{lilypond -e\n"
-"\"(ly-set-option 'midi-debug #t)\"}.\n")
+"\"(ly-set-option 'midi-debug #t_)\"}.\n")
 {
+  if (val == SCM_UNDEFINED)
+    val = SCM_BOOL_T;
+
   if (var == ly_symbol2scm ("help"))
     {
       /* lilypond -e "(ly-set-option 'help #t)" */
@@ -121,6 +126,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = true;
+      lily_1_8_compatibility_used = false; 
     }
   else if (var == ly_symbol2scm ("new-relative"))
     {
@@ -135,3 +141,28 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
 }
 
 
+LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
+	    "Get a global option setting.  Supported options include\n"
+	   "@table @code\n"
+	   "@item old-relative-used\n"
+	   "Report whether old-relative compatibility mode is necessary\n"
+	   "@item old-relative\n"
+	   "Report whether old-relative compatibility mode is used\n"
+	   "@end table\n"
+	   "\n")
+{
+  if (var == ly_symbol2scm ("old-relative-used"))
+    {
+      return gh_bool2scm (lily_1_8_compatibility_used);
+    }
+  if (var == ly_symbol2scm ("old-relative"))
+    {
+      return gh_bool2scm (lily_1_8_relative);
+    }
+  else
+    {
+      warning (_("Unknown internal option!"));
+    }
+
+  return SCM_UNSPECIFIED;
+}

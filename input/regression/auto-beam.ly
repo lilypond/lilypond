@@ -1,10 +1,11 @@
+#(ly:set-option 'old-relative)
 \header {
 
 texidoc="Test automatic beamer: the last measure should have a single beam."
 
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 
 

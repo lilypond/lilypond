@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header{
 texidoc="
 Key signatures appear on key  changes. They may also

@@ -5,6 +5,51 @@
 @node Top, , , 
 @top
 
+@chapter        New features in 1.9 since 1.8
+
+@itemize
+
+@item
+Octave checks make octave errors easier to correct.
+The syntax is 
+@example
+  \octave @var{pitch}
+@end example
+
+This checks that @var{pitch} (without octave) yields @var{pitch} (with
+octave) in \relative mode. If not, a warning is printed, and the
+octave is corrected.
+
+@item
+All articulations must now be entered postfix. For example,
+
+@example
+	c8[( d8]) 
+@end example
+is a pair of beamed slurred eighth notes.
+
+@item
+The definition of @code{\relative} has been simplified.  Octaves are
+now always propagated in the order that music is entered. In the
+following example,  
+@example
+  PRE
+  \repeat "unfold" 3  BODY \alternative { ALT1 ALT2 ALT3 }
+  POST
+@end example
+the octave of BODY is based on PRE, the starting octave of ALT1 on
+BODY, the starting octave of ALT2 on ALT1, etc.
+
+The same mechanism is used for all other music expressions, except the
+chord. Backwards compatibility is retained through a special option,
+which is invoked as
+
+@example
+  #(ly:set-option 'old-relative)
+@end example
+
+
+
 
 @chapter        New features in 1.8 since 1.6
 

@@ -1,6 +1,9 @@
-
-\version "1.7.23"
-
+\version "1.9.0"
+\header {
+    title = "Screech and boink"
+    subtitle = "Random complex notation"
+    composer = "Han-Wen Nienhuys"
+    }
 
 \score {
 \notes \context PianoStaff <

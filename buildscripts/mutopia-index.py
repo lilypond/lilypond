@@ -213,7 +213,5 @@ allfiles = []
 for d in dirs:
 	allfiles = allfiles + find ('*.ly.txt', d)
 
-print allfiles
-
 gen_list (allfiles, outfile)
 

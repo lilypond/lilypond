@@ -1,4 +1,5 @@
-\version "1.8.0"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
     texidoc = "@cindex Rests
 

@@ -1054,7 +1054,7 @@ of the 20th century
 	\property Staff.Custos \set #'adjust-if-on-staffline = ##t
 
 	\property Staff.Custos \set #'style = #'hufnagel
-	c'1^"Custos style = \#'hufnagel"
+	c'1
 	\break << d' a' f''>>1
     }
     \paper {

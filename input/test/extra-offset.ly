@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header { texidoc = "@cindex Scheme Move Notehead
 You can move objects around with scheme.  This example shows how to
 move noteheads around. " }

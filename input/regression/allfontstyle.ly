@@ -1,4 +1,5 @@
-\version "1.5.68"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header{
 texidoc="
@@ -16,7 +17,7 @@ Different text styles are used for various purposes.
 			\property Voice.TextScript \set #'font-style = #'large
 			 f4-\ff^""^"Largo" \mark "B" g 
 	}
-	\paper { linewidth = -1.0
+	\paper { raggedright = ##t
 	% \translator {\BarNumberingStaffContext} }
 	}
 }

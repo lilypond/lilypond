@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \include  "mozart-hrn3-defs.ly"
 
 allegro =
@@ -25,7 +26,7 @@ allegro =
 	dis4 ( e4-) r8  c8-[-. c-. c-.]
 	c4.(  d16-[ e]  f4  e-)
 	a,( d g, c-)
-	d-. d-. \grace e16( [ d8.-) c16 d8. e16]
+	d-. d-. \grace e16( d8.[) c16 d8. e16]
 	c4 r r2
 	R1*3
 	c,2 ~  c8-[ e g c]
@@ -40,7 +41,7 @@ allegro =
 	 b-[( a-)] a4 r8  a-[ a a]
 	a4( cis e  g-)
 	\grace { \longgrace g16( \endlonggrace }
-	[  fis8-)( e16  d-)] d4-. r2 | 
+	 fis8[)( e16  d-)] d4-. r2 | 
 	\mark "B"
 	R1*3
 	r2 r4  d8-[-(_\markup { \italic \bold "con espressione" } b-) ]
@@ -98,7 +99,7 @@ allegro =
 	a, ( d g,  c-)
 	d d 
 	    \grace { e8( }
-	   [ d8.-) c16 d8. e16] 
+	   d8.[) c16 d8. e16] 
 	c4 r r2
 	\mark "F"
 	R1*3
@@ -107,7 +108,7 @@ allegro =
 	 c,8-[ e g c ]  e-[ ( g-) e c]
 	 c-[( b-)] b4 r2
 	c2 (bes  a-)  a8-[(b c  cis-)]
-	d2( ~  d8-[ e16 d] \grace { \longgrace d16( \endlonggrace } [ c8-) b16  c-)]
+	d2( ~  d8-[ e16 d] \grace { \longgrace d16( \endlonggrace } c8[) b16  c-)]
 	\grace { \longgrace c16 \endlonggrace } b8-[( a16  g-)] g4 r2 |
 	R1*3
 	r2 r4  g'8-[( e-)]
@@ -127,7 +128,7 @@ allegro =
 
 	
 	f4. ( d8-)  f8-[ ( d-) f d]
-	 c-[ (e]  g2-) \grace  { \longgrace f16(  \endlonggrace }  [ e8-)( d16  c-)]
+	 c-[ (e]  g2-) \grace  { \longgrace f16(  \endlonggrace }  e8[)( d16  c-)]
 
 	< d1-\trill (
 	  { s2 \grace {  c16-[ d] } } >

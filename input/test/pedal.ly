@@ -1,4 +1,5 @@
-\version "1.7.28"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header{ texidoc = "@cindex Pedal
 Piano pedal symbols merge stop and start.  The strings are configurable. 

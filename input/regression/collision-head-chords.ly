@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
 texidoc = "Note heads in collisions should be merged if
 they have the same positions in the extreme note heads.  

@@ -1,3 +1,41 @@
+2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py
+	(FatalConversionError.articulation_substitute): add
+	convert-new-chords code. Remove convert-new-chords.py
+
+	* Documentation/user/refman.itely (Octave check): document
+	\octave.
+
+	* Documentation/topdocs/NEWS.texi: add \octave, postfix and
+	\relative changes.
+
+	* lily/parser.yy (command_element): octave check:
+
+	   \octave PITCH
+
+	checks that PITCH (without octave) yields PITCH (with octave) in
+	\relative
+
+	* lily/relative-octave-music.cc (to_relative_octave): octave check.
+
+	* lily/scm-option.cc: ly:set-option now has the default argument
+	#t.
+
+	* lily/lexer.ll: add \renameinput
+
+	* python/lilylib.py (command_name): robustifications.
+
+	* scripts/ly2dvi.py (run_latex): use >& for redirection iso. of
+	/dev/stderr. This is ash compatible.
+
+	* ly/init.ly: add warning if compatibility was not necessary.
+
+	* lily/scm-option.cc (LY_DEFINE): add ly:get-option
+
+	* flower/include/string-handle.icc: formatting cleanups, rename
+	references by ref_count_.
+
 2003-08-25  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: syncronize the spec file with
@@ -5,11 +43,6 @@
 	package libs separately, fix conflicting php variable out=/dev/vc/
 	invoking `unset out', declare menus, use only one icon-file, fix
 	doc-path in menu.
-
-2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
-
-	* flower/include/string-handle.icc: formatting cleanups, rename
-	references by ref_count_.
 
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

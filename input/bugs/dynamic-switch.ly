@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header{
 % what's the problem?
 % well, that's elementary my dear watson
@@ -5,7 +6,7 @@ texidoc="The decrescendo disappears when the part combiner decides that
 the a2 and c2 should be a chord in one voice.  Using the commented
 version, with a c2 instead of a2, the decrescendo reappears."
 }
-\version "1.7.18"
+\version "1.9.0"
 
 \score{
 	\context Staff <

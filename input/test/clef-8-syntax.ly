@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
     texidoc = "@cindex Chord Octavation
 Appending @code{_8} or @code{^8} to a clef name will

@@ -560,6 +560,7 @@ shown on screen. See @ref{Point and click} for more information.
 
 @menu
 * Relative octaves::            
+* Octave check::                
 * Bar check::                   
 * Skipping corrected music::    
 * Automatic note splitting ::   
@@ -630,6 +631,44 @@ The relative conversion will not affect @code{\transpose},
 @code{\chords} or @code{\relative} sections in its argument.  If you
 want to use relative within transposed music, you must place an
 additional @code{\relative} inside the @code{\transpose}.
+
+@node Octave check
+@subsection Octave check
+
+
+Octave checks make octave errors easier to correct.
+The syntax is 
+@example
+  \octave @var{pitch}
+@end example
+
+This checks that @var{pitch} (without octave) yields @var{pitch} (with
+octave) in \relative mode. If not, a warning is printed, and the
+octave is corrected, for example, the first check is passed
+successfully.  The second check fails with an error message.  The
+octave is adjusted so the following notes are in the correct octave
+once again.
+@example
+   \relative c' @{
+     e
+     \octave a'
+     \octave b'
+   @}
+@end example
+
+
+The octave of a note following an octave check is determined  with
+respect to the note preceding it. In the next fragment, the last note
+is  a @code{a'}, above central C. 
+
+@lilypond[verbatim,fragment] 
+   \relative c' {
+     e
+     \octave b
+     a        
+   }
+@end lilypond
+
 
 
 @node Bar check
@@ -1791,7 +1830,7 @@ indicate a musical sentence. It is started using @code{\(} and @code{\)}
 respectively:
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4 c'-\(  d( e) f( e)  d-\) 
+  \time 6/4 c'\(  d( e) f( e)  d\) 
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a
@@ -1890,7 +1929,7 @@ properties:
  \relative c' {  c1 
   \property Voice.TextSpanner \set #'direction = #-1
   \property Voice.TextSpanner \set #'edge-text = #'("rall " . "")
-  c2-\startTextSpan b c-\stopTextSpan a }
+  c2\startTextSpan b c\stopTextSpan a }
 @end lilypond
 
 
@@ -1916,10 +1955,10 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 
 @lilypond[singleline,verbatim]
 \score { \notes \relative c'' {  
-	c4-\startGroup-\startGroup
-	c4-\stopGroup
-	c4-\startGroup
-        c4-\stopGroup-\stopGroup
+	c4\startGroup\startGroup
+	c4\stopGroup
+	c4\startGroup
+        c4\stopGroup\stopGroup
   }
   \paper { \translator {
 	    \StaffContext \consists "Horizontal_bracket_engraver"
@@ -1959,8 +1998,15 @@ put them up:
 @end lilypond
 
 Other symbols can be added using the syntax
-@var{note}@code{-\}@var{name}, e.g. @code{c4-\fermata}. Again, they
-can be forced up or down using @code{^} and @code{_}:
+@var{note}@code{\}@var{name}, e.g. @code{c4\fermata}. Again, they
+can be forced up or down using @code{^} and @code{_},
+eg.
+
+@lilypond[verbatim,fragment,relative 2]
+  c\fermata c^\fermata c_\fermata
+@end lilypond
+
+
 
 @cindex accent
 @cindex marcato
@@ -4394,14 +4440,6 @@ appearance of the affected graphical objects can be accomodated for a
 specific notation flavour without need for introducing any new
 notational concept.
 
-@menu
-* Ancient note heads::          
-* Ancient accidentals::         
-* Ancient rests::               
-* Ancient clefs::               
-* Ancient flags::               
-* Ancient time signatures::     
-@end menu
 
 Other aspects of ancient notation can not that easily be expressed as
 in terms of just changing a style property of a graphical object.
@@ -4409,11 +4447,19 @@ Therefore, some notational concepts are introduced specifically for
 ancient notation, see @ref{Custodes}, @ref{Divisiones},
 @ref{Ligatures}, and @ref{Figured bass}.
 
+
 @menu
+* Ancient note heads::          
+* Ancient accidentals::         
+* Ancient rests::               
+* Ancient clefs::               
+* Ancient flags::               
+* Ancient time signatures::     
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
 * Figured bass::                
+* Vaticana style contexts::     
 @end menu
 
 If this all is way too much of documentation for you, and you just
@@ -4422,10 +4468,6 @@ details on how to customize a context, then you may have a look at the
 predefined contexts (see @ref{Vaticana style contexts}).  Use them to
 set up predefined style-specific voice and staff contexts, and
 directly go ahead with the note entry.
-
-@menu
-* Vaticana style contexts::
-@end menu
 
 @refbugs
 

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % candidate for regression.  -gp
 \header {
   texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py should be minimal."

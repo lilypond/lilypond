@@ -1,5 +1,6 @@
+#(ly:set-option 'old-relative)
 
-\version "1.7.18"
+\version "1.9.0"
 
 \score { 
   \context Voice \notes\relative c {

@@ -33,6 +33,7 @@
 #include <iostream>
 using namespace std;
 
+#include "source-file.hh"
 #include "parse-scm.hh"
 #include "lily-guile.hh"
 #include "string.hh"
@@ -97,6 +98,7 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
+%x renameinput
 %x version
 %x chords
 %x incl
@@ -161,16 +163,31 @@ HYPHEN		--
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
+<INITIAL,chords,lyrics,notes,figures>\\renameinput{WHITE}*	{
+	yy_push_state (renameinput);
+}
 <version>\"[^"]*\"     { /* got the version number */
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('\"'));
 
-	yy_pop_state ();
-	if (!valid_version_b (s))
+	yy_pop_state();
+	 if (!valid_version_b (s))
 		return INVALID;
 }
+<renameinput>\"[^"]*\"     { /* got the version number */
+	String s (YYText ()+1);
+	s = s.left_string (s.index_last ('\"'));
+
+	yy_pop_state();
+	this->here_input().source_file_->name_ = s; 
+}
+
 <version>. 	{
 	LexerError ("No quoted string found after \\version");
+	yy_pop_state ();
+}
+<renameinput>. 	{
+	LexerError ("No quoted string found after \\renameinput");
 	yy_pop_state ();
 }
 <longcomment>{
@@ -728,8 +745,8 @@ strip_trailing_white (String&s)
 
 
 
-/* 1.3.146 == removal of ; */ 
-Lilypond_version oldest_version ("1.3.146");
+/* 1.9.0 == postfix articulations */ 
+Lilypond_version oldest_version ("1.9.0");
 
 
 bool

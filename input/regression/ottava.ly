@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header
 {
 texidoc = "Ottava brackets are supported, through the
@@ -5,7 +6,7 @@ use of the scheme function @code{set-octavation}.
 "
 
 }
-\version "1.7.18"
+\version "1.9.0"
 
 
 \paper { raggedright = ##t} 

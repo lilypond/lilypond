@@ -841,7 +841,6 @@ that contains no spaces can be written without the quotes.  Strings can
 be concatenated with the @code{+} operator.
 
 
-
 @node Output details
 @section Output details
 

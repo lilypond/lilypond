@@ -50,7 +50,7 @@ TODO:
 #include <stdlib.h>
 
 
-
+#include "scm-option.hh"
 #include "translator-def.hh"
 #include "lily-guile.hh"
 #include "misc.hh"
@@ -265,6 +265,7 @@ yylex (YYSTYPE *s,  void * v)
 %token COMMANDSPANREQUEST
 %token TEMPO
 %token OUTPUTPROPERTY
+%token OCTAVE
 %token TIME_T
 %token TIMES
 %token TRANSLATOR
@@ -273,7 +274,6 @@ yylex (YYSTYPE *s,  void * v)
 %token UNSET
 %token CONTEXT
 %token REST
-
 %token CHORD_OPEN
 %token CHORD_CLOSE
 
@@ -1314,10 +1314,17 @@ command_element:
 	command_req {
 		$$ = MY_MAKE_MUSIC("EventChord");
 		$$->set_mus_property ("elements", scm_cons ($1->self_scm (), SCM_EOL));
-  	  scm_gc_unprotect_object ($1->self_scm());
+		scm_gc_unprotect_object ($1->self_scm());
 
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
+	}
+	| OCTAVE { THIS->push_spot (); }
+ 	  pitch {
+		Music *l = MY_MAKE_MUSIC("RelativeOctaveCheck");
+		$$ = l;
+		$$->set_spot (THIS->pop_spot ());
+		$$->set_mus_property ("pitch", $3);
 	}
 	| E_LEFTSQUARE {
 		Music *l = MY_MAKE_MUSIC("LigatureEvent");

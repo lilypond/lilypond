@@ -1,9 +1,10 @@
+#(ly:set-option 'old-relative)
 
 \header { texidoc= " Rehearsal marks are printed over barlines. They
 can be incremented automatically or manually.  "}
 
 
-\version "1.7.18"
+\version "1.9.0"
 
 
 global =  \notes {

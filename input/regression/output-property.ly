@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header { texidoc = "
 
 Setting @code{\outputproperty} is a clumsy and deprecated way of changing
@@ -10,7 +11,7 @@ possible to use @code{\override} would shift both texts.
 
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))

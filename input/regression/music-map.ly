@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
 
 texidoc =
@@ -10,7 +11,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.

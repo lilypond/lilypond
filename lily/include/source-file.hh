@@ -58,8 +58,9 @@ public:
   char const* pos_str0_;
 
   SCM get_port()const { return str_port_; }
+  String name_;
+
 private:
-  String name_string_;
   Link_array<char> newline_locations_; 
   std::istream* istream_;
   char  * contents_str0_;

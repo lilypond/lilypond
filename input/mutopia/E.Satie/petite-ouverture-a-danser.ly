@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
   title =       "Petite Ouverture \\`a danser"
   subtitle =	"4"
@@ -7,7 +8,7 @@
   copyright =   "Public Domain"
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 \include "nederlands.ly"
 

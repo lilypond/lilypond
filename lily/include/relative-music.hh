@@ -21,6 +21,6 @@ public:
   virtual Pitch to_relative_octave (Pitch);
 };
 
-
 #endif /* RELATIVE_MUSIC_HH */
+
 

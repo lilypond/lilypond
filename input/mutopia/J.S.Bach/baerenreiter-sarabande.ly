@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.9.0"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -62,19 +62,19 @@ sarabandeA =  \context Voice \notes \relative c {
   %% check spacing without accs: 
   %%	c4.-\trill bes8-[ a g] |
   
-  \relative c < { d'8. e16 e4.-\trill d16 e |
+  < { d'8. e16 e4.-\trill d16 e |
       f4. d8-[ e f] }
     \\
     { <<a, f>>4 a2 <<a d,>>4.  } > |
 
   %%7
   g8 bes16(a-) c(bes-) a(g-) d'8 f, |
-  \relative c <  e4.-\trill
+  <  e4.-\trill
     \\ <<c, g'>>4 >
   d8-[ c bes]
 
   %%9
-  \relative c < { f8 g16(a-) a4. g16(f-)  |
+  < { f'8 g16(a-) a4. g16(f-)  |
       g8 a16(bes-) bes4. c16(d-) }
     \\
     { a,4 <<bes d >>4. r8 bes4 <<g f'>>2  }
@@ -82,7 +82,7 @@ sarabandeA =  \context Voice \notes \relative c {
   \forcedBreak
 
   %% 11
-  e'8-[ f] c,-[ g'] f'-[ e] |
+  e,8-[ f] c,-[ g'] f'-[ e] |
   f4 f,2 |
   < {  a'4 a4.-\trill bes8 
        c bes16 a } \\
@@ -115,13 +115,13 @@ sarabandeA =  \context Voice \notes \relative c {
   \stemBoth
   \forcedLastBreak
   %%25
-  \relative c' < { a16(b c b-) c4. b16(a-) |
+  < { a16(b c b-) c4. b16(a-) |
       b cis d cis d4. e16(f-) | }
     \\
     { f,4 fis4. s8 |
       <<d g,>>4 gis4.   } >
   \voiceOne
-  d'16(cis  d-) f,
+  d16(cis  d-) f,
   a,8-[ e']
   \oneVoice
   d'-[ cis] |

@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
   title =       "Fuga a 3 voci"
   opus =        "BWV 847-Fuga"
@@ -37,7 +38,7 @@
 %}
 
 
-\version "1.7.18"
+\version "1.9.0"
 
 
 

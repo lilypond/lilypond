@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Simple customised music apply. "

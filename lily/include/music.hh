@@ -72,6 +72,4 @@ DECLARE_UNSMOB(Music,music);
 
 Music* make_music_by_name (SCM sym);
 
-extern bool lily_1_8_relative;
-
 #endif // MUSIC_HH

@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header
 {
 
@@ -7,7 +8,7 @@ of Steve Martland's Dance Works. "
 
 }
 
-\version "1.7.18"
+\version "1.9.0"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.

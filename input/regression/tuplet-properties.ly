@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
 texidoc = "Tuplet bracket formatting supports numerous options:
 NB should have no bracket, B should have bracket.
@@ -5,7 +6,7 @@ NB should have no bracket, B should have bracket.
 }
  
 
-\version "1.7.18"
+\version "1.9.0"
 
 
 \score { 

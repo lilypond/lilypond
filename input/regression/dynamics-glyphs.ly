@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header {texidoc = "Dynamic letters are kerned, and their weight
 matches that of the hairpin signs.  The dynamic scripts should be

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header {
     texidoc = "Rests get a little less space, since they are narrower.
 However, the feta quarter rest is relatively wide, causing this effect to be

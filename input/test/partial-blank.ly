@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
 When entering half music (i.e. for students to complete by hand)

@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 \header { texidoc = "@cindex Bar line lyric only
 You can move around @code{Bar_engraver} and
 @code{Span_bar_engraver} if you want bar lines on lyrics. "

@@ -1,5 +1,6 @@
+#(ly:set-option 'old-relative)
 
-\version "1.7.18"
+\version "1.9.0"
 \include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
@@ -11,7 +12,7 @@ romanze = \notes \relative c' {
 		 f8-) a,4 a
 	 bes8-[( c d bes]  g4-) r8 g
 	a r bes r c r  d-[( bes-)]
-	a2( [ g8-) a( bes  b-)]
+	a2(  g8[-) a( bes  b-)]
 	c4. ( f8-) a,4 a |
 	% 6 
 	 bes8-[ (c d bes-)] g4 r8 c,

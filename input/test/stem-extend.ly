@@ -1,4 +1,5 @@
-\version "1.7.18"
+#(ly:set-option 'old-relative)
+\version "1.9.0"
 
 \header { texidoc = "@cindex Stem Extend
 You can stop LilyPond from extending stems to the center line. "

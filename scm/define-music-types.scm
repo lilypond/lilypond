@@ -341,6 +341,12 @@ goes down).")
 	(types . (general-music pes-or-flexa-event event))
 	))
 
+    (RelativeOctaveCheck
+     . ((description . "Check if a pitch is in the correct octave.")
+	(internal-class-name . "Relative_octave_check")
+	(types . (general-music relative-octave-check))
+	))
+    
     (RepeatedMusic
      . (
 	(description .  "Repeat music in different ways")

@@ -1,6 +1,6 @@
 % paper-as5-init.ly
 
-\version "1.7.18"
+\version "1.9.0"
 
 paperAsFive = \paper {
 	staffheight = 5.\char

@@ -1,3 +1,4 @@
+#(ly:set-option 'old-relative)
 \header {
 
 texidoc = "The flags of 8th notes take some space, but not
@@ -16,5 +17,5 @@ raggedright = ##t
     }
      }
 
-\version "1.7.18"
+\version "1.9.0"
 
