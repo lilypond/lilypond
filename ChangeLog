@@ -1,3 +1,8 @@
+2004-05-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/percent-repeat-engraver.cc (try_music): add moments for
+	barlines too. Fixes: skipbars-percent-repeat.ly.
+
 2004-05-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/context-def.cc (filter_performers): don't go to cdrloc if
