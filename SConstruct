@@ -1,13 +1,33 @@
 # -*-python-*-
-#
-# Experimental scons building
+
+'''
+Experimental scons (www.scons.org) building:
+
+Usage:
+    scons
+    scons install
+    scons -c              # clean
+    scons -h              # help
+
+    scons build=DIR       # scrdir build, write to new tree =build
+    scons out=DIR         # write output to deeper dir DIR
+
+Optionally, make a custom.py.  I have
+
+import os
+out='out-scons'
+optimising=0
+debugging=1
+prefix=os.getcwd ()
+
+
+'''
+
+
 # TODO:
-#   * install
-#   * build in out/ ?
-#   * mf, Documentation, ly etc.
-#   * --srcdir ?  (mkdir =build; cd =build; scons -Y .. ;
-#     ===> os.chdir (Dir ('.').srcdir ()); glob.glob (*.cc); os.chdir (cwd) ?
-# 
+#   * mf: pfa
+#   *, Documentation, ly etc.
+
 
 import re
 import glob
@@ -17,9 +37,11 @@ import string
 
 env = Environment ()
 
-opts = Options (None, ARGUMENTS)
+# put your favourite stuff in custom.py
+opts = Options ('custom.py', ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
-opts.Add ('outdir', 'Output directory', 'out')
+opts.Add ('out', 'Output directory', 'out-scons')
+opts.Add ('build', 'Build directory', '.')
 opts.AddOptions (
 	BoolOption ('warnings', 'compile with -Wall and similiar',
 		   1),
@@ -37,6 +59,20 @@ Help (opts.GenerateHelpText (env))
 
 env = Environment (options = opts)
 
+env.CacheDir (os.path.join (env['build'], '=build-cache'))
+
+#ugh
+sys.path.append (os.path.join ('.', 'stepmake', 'bin'))
+import packagepython
+package = packagepython.Package ('.')
+
+env['version'] = packagepython.version_tuple_to_str (package.version)
+env['bindir'] = os.path.join (env['prefix'], 'bin')
+env['sharedir'] = os.path.join (env['prefix'], 'share')
+env['libdir'] = os.path.join (env['prefix'], 'lib')
+env['lilypondprefix'] = os.path.join (env['sharedir'], 'lilypond',
+				      env['version'])
+
 if env['debugging']:
 	env.Append (CFLAGS = '-g')
 	env.Append (CXXFLAGS = '-g')
@@ -46,6 +82,8 @@ if env['optimising']:
 if env['warnings']:
 	env.Append (CFLAGS = '-W -Wall')
 	env.Append (CXXFLAGS = '-W -Wall -Wconversion')
+
+env['MFMODE'] = 'ljfour'
 
 conf = Configure (env)
 
@@ -88,43 +126,49 @@ if conf.CheckLib ('dl'):
 if conf.CheckLib ('kpathsea'):
 	defines['KPATHSEA'] = '1'
 
-# ugh?
-config = open ('config.h', 'w')
-sort_helper = defines.keys ()
-sort_helper.sort ()
-#for i in defines.keys ():
-for i in sort_helper:
-	config.write ('#define %s %s\n' % (i[1:], defines[i]))
-config.close ()
 env = conf.Finish ()
-
-os.system (sys.executable \
-	   + ' ./stepmake/bin/make-version.py VERSION > version.hh')
 
 Export ('env')
 
 #this could happen after flower...
 env.ParseConfig ('guile-config compile')
 
-builddir = ''
-outdir = env['outdir']
+build = env['build']
+out = env['out']
+##reldir = str (Dir ('.').srcnode ())
+reldir = os.getcwd ()
+outdir = os.path.join (env['build'], reldir, env['out'])
+if not os.path.exists (outdir):
+	os.mkdir (outdir)
+
+config = open (os.path.join (outdir, 'config.h'), 'w')
+sort_helper = defines.keys ()
+sort_helper.sort ()
+for i in sort_helper:
+	config.write ('#define %s %s\n' % (i[1:], defines[i]))
+config.close ()
+
+os.system (sys.executable \
+	   + ' ./stepmake/bin/make-version.py VERSION > '\
+	   + os.path.join (build, 'version.hh'))
 
 if os.path.exists ('parser'):
 	env.Append (LIBPATH = ['#/flower', '#/lily', '#/parser', '#/gui',],
-		    CPPPATH = ['#',])
+		    CPPPATH = [outdir, '#',])
 else:	
-	env.Append (LIBPATH = ['#/flower/' + outdir,],
-		    CPPPATH = ['#',])
+	env.Append (LIBPATH = ['#/flower/' + out,],
+		    CPPPATH = [outdir, '#',])
 
-
-#ugh: remove make config output
-if os.path.exists ('lily/out/config.h'):
-	os.unlink ('lily/out/config.h')
-
-subdirs = ('flower', 'lily',)
+subdirs = ('flower', 'lily', 'mf')
+#subdirs = ('mf',)
 #subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
 for d in subdirs:
-	alias = os.path.join (builddir, d, outdir)
-	env.BuildDir (alias, d)
-	SConscript (os.path.join (alias, 'SConscript'))
+	b = os.path.join (build, d, out)
+	# Support clean sourctree build (srcdir build)
+	# and outdir build.
+	# TODO: figure out SConscript (dir, builddir, duplicate)) feature
+	if (build and build != '.') \
+	   or (out and out != '.'):
+		env.BuildDir (b, d, duplicate=0)
+	SConscript (os.path.join (b, 'SConscript'))
 

@@ -1,0 +1,95 @@
+# -*-python-*-
+
+import glob
+import os
+import string
+import sys
+
+here = os.getcwd ()
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
+#mf_sources = reduce (+,
+mf_sources = reduce (lambda x, y: x + y,
+		     map (glob.glob,
+			  ('feta[0-9]*.mf',
+			   'feta-braces-[a-z].mf',
+			   'feta-din*[0-9].mf',
+			   'feta-nummer*[0-9].mf',
+			   'parmesan[0-9]*.mf',)))
+os.chdir (here)
+
+Import ('env')
+MFMODE = env['MFMODE']
+#ugh
+outdir = os.path.join (env['build'], reldir, env['out'])
+tfm = Builder (action = ('cd ' + outdir + ' && ' \
+			 + '(MFINPUTS=:' + str (Dir ('#/mf')) \
+			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
+			 + ' input $$(basename $SOURCE);"' \
+			 + ' | grep -v "@\\|>>")') % vars (),
+	       suffix = '.tfm',
+	       src_suffix = '.mf')
+
+afm = Builder (action = (sys.executable
+			 + ' buildscripts/mf-to-table.py ' \
+			 + ' --package=. --outdir=%(outdir)s '\
+			 + ' --afm %(outdir)s/$$(basename $TARGET .afm).afm' \
+			 + ' --enc %(outdir)s/$$(basename $TARGET .afm).enc' \
+			 + ' --tex %(outdir)s/$$(basename $TARGET .afm).tex' \
+			 + ' --ly %(outdir)s/$$(basename $TARGET .afm).ly'\
+			 + ' %(outdir)s/$$(basename $SOURCE)') % vars (),
+	       suffix = '.afm',
+	       src_suffix = '.log')
+
+# UGH, should fix --output option for mftrace
+pfa = Builder (action = ('mftrace -I%(outdir)s --pfa --simplify --keep-trying'\
+			 + ' $$(basename $SOURCE .mf) ' \
+			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
+	       suffix = '.pfa',
+	       src_suffix = '.mf')
+
+e = env.Copy (BUILDERS = {'Tfm' : tfm, 'Afm' : afm, 'Pfa' : pfa},
+	      MFINPUTS = '#/mf')
+
+mf_sources = ('feta16.mf',)
+sources = map (lambda x: os.path.splitext (x)[0], mf_sources)
+
+##t = map (e.Tfm, mf_sources)
+#a = map (e.Afm, map (lambda x: outdir + os.path.splitext (x)[0] + '.log',
+#		     mf_sources))
+#p = map (e.Pfa, mf_sources)
+
+out_sources = map (lambda x: os.path.join (outdir, x), sources)
+
+#t = e.Tfm (os.path.join (outdir, 'feta16.tfm'))
+#a = e.Afm (os.path.join (outdir, 'feta16.afm'))
+#p = e.Pfa (os.path.join (outdir, 'feta16.pfa'))
+#t = e.Tfm ('feta16.tfm'))
+#a = e.Afm ('feta16.afm'))
+#p = e.Pfa ('feta16.pfa'))
+
+t = e.Tfm (os.path.join (outdir, 'feta16'))
+a = e.Afm (os.path.join (outdir, 'feta16'))
+p = e.Pfa (os.path.join (outdir, 'feta16'))
+
+#t = map (e.Tfm, out_sources)
+#a = map (e.Afm, out_sources)
+#p = map (e.Pfa, out_sources)
+
+e.Depends ('feta16.log', 'feta16.tfm')
+e.Depends ('feta16.afm', 'feta16.log')
+
+#map (lambda x: e.Depends (x + '.log', x + '.tfm'), out_sources)
+#map (lambda x: e.Depends (x + '.afm', x + '.log'), out_sources)
+
+tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
+afmdir = os.path.join (env['lilypondprefix'], 'afm')
+pfadir = os.path.join (env['lilypondprefix'], 'fonts/type1')
+env.Install (tfmdir, t)
+env.Install (afmdir, a)
+env.Install (pfadir, p)
+env.Alias ('install', tfmdir)
+env.Alias ('install', afmdir)
+env.Alias ('install', pfadir)
+
+
