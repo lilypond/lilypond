@@ -85,7 +85,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	return ;
 
       SCM align_name = item->get_property ("break-align-symbol");
-      if (!ly_c_symbol_p (align_name))
+      if (!scm_is_symbol (align_name))
 	return ;
 
       if (!align_)

@@ -184,7 +184,7 @@ Context::default_child_context_name () const
 bool
 Context::is_bottom_context () const
 {
-  return !ly_c_symbol_p (default_child_context_name ());
+  return !scm_is_symbol (default_child_context_name ());
 }
 
 Context*

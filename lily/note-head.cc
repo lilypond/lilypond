@@ -28,7 +28,7 @@ static Stencil
 internal_print (Grob *me)
 {
   SCM style  = me->get_property ("style");
-  if (!ly_c_symbol_p (style))
+  if (!scm_is_symbol (style))
     {
       return Stencil ();
     }
@@ -147,7 +147,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (brewer == Note_head::print_proc)
     {
       SCM style  = me->get_property ("style");
-      if (!ly_c_symbol_p (style))
+      if (!scm_is_symbol (style))
 	{
 	  return 0.0;
 	}
@@ -189,7 +189,7 @@ int
 Note_head::get_balltype (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return ly_c_number_p (s) ? scm_to_int (s) <? 2 : 0;
+  return scm_is_number (s) ? scm_to_int (s) <? 2 : 0;
 }
 
 ADD_INTERFACE (Note_head,"note-head-interface",

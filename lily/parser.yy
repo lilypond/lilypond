@@ -71,7 +71,7 @@ void
 tag_music (Music *m, SCM tag, Input ip)
 {
 	SCM tags = m->get_property ("tags");
-	if (ly_c_symbol_p (tag))
+	if (scm_is_symbol (tag))
 		tags = scm_cons (tag, tags);
 	else if (ly_c_list_p (tag))
 		tags = ly_append2 (tag, tags);
@@ -104,7 +104,7 @@ SCM
 make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-	if (ly_c_symbol_p (encoding))
+	if (scm_is_symbol (encoding))
 		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
 			   encoding, a);
 	return scm_list_2 (simple, a);
@@ -1479,7 +1479,7 @@ chord_body_element:
 			SCM arts = scm_reverse_x (post, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
-		if (ly_c_number_p (check))
+		if (scm_is_number (check))
 		{
 			int q = scm_to_int (check);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
@@ -2090,7 +2090,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter = m->get_property ("alteration");
-			int alter = ly_c_number_p (salter) ? scm_to_int (salter) : 0;
+			int alter = scm_is_number (salter) ? scm_to_int (salter) : 0;
 			m->set_property ("alteration",
 				scm_int2num (alter + $2));
 		} else {
@@ -2153,7 +2153,7 @@ simple_element:
 		n->set_property ("pitch", $1);
 		n->set_property ("duration", $5);
 
-		if (ly_c_number_p ($4))
+		if (scm_is_number ($4))
 		{
 			int q = scm_to_int ($4);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
@@ -2562,7 +2562,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	if (scm_is_string (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
-	} else if (ly_c_number_p (sid)) {
+	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
 	} else if (unsmob_context_def (sid)) {
@@ -2662,7 +2662,7 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	scm_gc_unprotect_object (m->self_scm ());
 
 	csm->set_property ("context-type",
-		ly_c_symbol_p (type) ? type : scm_string_to_symbol (type));
+		scm_is_symbol (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
 
 	if (scm_is_string (id))

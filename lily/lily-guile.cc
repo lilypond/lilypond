@@ -201,7 +201,7 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
 {
-  if (ly_c_number_p (s))
+  if (scm_is_number (s))
     {
       int i = scm_to_int (s);
       return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
@@ -213,7 +213,7 @@ bool
 is_number_pair (SCM p)
 {
   return ly_c_pair_p (p)
-    && ly_c_number_p (ly_car (p)) && ly_c_number_p (ly_cdr (p));
+    && scm_is_number (ly_car (p)) && scm_is_number (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -257,7 +257,7 @@ ly_scm_hash (SCM s)
 bool
 is_direction (SCM s)
 {
-  if (ly_c_number_p (s))
+  if (scm_is_number (s))
     {
       int i = scm_to_int (s);
       return i>= -1 && i <= 1; 
@@ -268,7 +268,7 @@ is_direction (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (ly_c_number_p (s))
+  if (scm_is_number (s))
     {
       int i = scm_to_int (s);
       return i== 0 || i == 1;
@@ -304,7 +304,7 @@ ly_interval2scm (Drul_array<Real> i)
 bool
 to_boolean (SCM s)
 {
-  return ly_c_boolean_p (s) && ly_scm2bool (s);
+  return scm_is_bool (s) && ly_scm2bool (s);
 }
 
 /* Appendable list L: the cdr contains the list, the car the last cons
@@ -344,7 +344,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
-  SCM_ASSERT_TYPE (ly_c_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (scm_is_number (s), s, SCM_ARG1, __FUNCTION__, "number");
 
   char str[400];			// ugh.
 
@@ -537,7 +537,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
-  if (!ly_c_symbol_p (sym))
+  if (!scm_is_symbol (sym))
 #if 0
     return false;
 #else
@@ -709,7 +709,7 @@ int_list_to_slice (SCM l)
   Slice s;
   s.set_empty ();
   for (; ly_c_pair_p (l); l = ly_cdr (l))
-    if (ly_c_number_p (ly_car (l)))
+    if (scm_is_number (ly_car (l)))
       s.add_point (scm_to_int (ly_car (l))); 
   return s;
 }
@@ -729,7 +729,7 @@ robust_list_ref (int i, SCM l)
 Real
 robust_scm2double (SCM k, double x)
 {
-  if (ly_c_number_p (k))
+  if (scm_is_number (k))
     x = scm_to_double (k);
   return x;
 }

@@ -41,7 +41,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   SCM shape_scm = me->get_property ("style");
   String shape;
 
-  if (ly_c_symbol_p (shape_scm))
+  if (scm_is_symbol (shape_scm))
     {
       shape = ly_symbol2string (shape_scm);
     }

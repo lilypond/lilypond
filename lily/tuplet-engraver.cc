@@ -1,13 +1,11 @@
 /*   
-  plet-engraver.cc --  implement Tuplet_engraver
+  tuplet-engraver.cc --  implement Tuplet_engraver
   
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
-
 
 #include "tuplet-bracket.hh"
 #include "note-column.hh"
@@ -17,44 +15,51 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
+struct Tuplet_description
+{
+  Music *music_;
+  Rational stop_;
+  Rational span_stop_;
+  Spanner *spanner_;
+  Tuplet_description()
+  {
+    music_ = 0;
+    spanner_ = 0;
+  }
+};
+
 class Tuplet_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
-  Link_array<Music> time_scaled_musics_;
-  /// when does the scaled music stop? Array order is synced with time_scaled_musics_
-  Array<Rational> stop_moments_;
-  /// when does the current spanner stop? Array order is synced with time_scaled_musics_
-  Array<Rational> span_stop_moments_;
-  
-  /// The spanners. Array order is synced with time_scaled_musics_
-  Link_array<Spanner> started_spanners_;
+  Array<Tuplet_description> tuplets_;
 
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*r);
   virtual void start_translation_timestep ();
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
 };
 
 bool
-Tuplet_engraver::try_music (Music *c)
+Tuplet_engraver::try_music (Music *music)
 {
-  if (c->is_mus_type ("time-scaled-music"))
+  if (music->is_mus_type ("time-scaled-music"))
     {
-      Music *el = unsmob_music (c->get_property ("element"));
+      Music *el = unsmob_music (music->get_property ("element"));
       if (el && !el->is_mus_type ("event-chord"))
 	{
-	  time_scaled_musics_.push (c);
-	  Rational m = now_mom ().main_part_ + c->get_length ().main_part_;
-	  stop_moments_.push (m);
-
+	  Tuplet_description d;
+	  d.music_ = music;
+	  d.stop_  = now_mom ().main_part_ + music->get_length ().main_part_;
+	  d.span_stop_ = d.stop_;
+	  
 	  SCM s = get_property ("tupletSpannerDuration");
 	  if (unsmob_moment (s))
-	    m = m <? (now_mom () + *unsmob_moment (s)).main_part_;
+	    d.span_stop_ = d.span_stop_ <? (now_mom () + *unsmob_moment (s)).main_part_;
 	  
-	  span_stop_moments_.push (m);
+	  tuplets_.push (d);
 	}
       return true;
     }
@@ -62,28 +67,23 @@ Tuplet_engraver::try_music (Music *c)
 }
 
 void
-Tuplet_engraver::process_acknowledged_grobs ()
+Tuplet_engraver::process_music ()
 {
-  for (int i= 0; i < time_scaled_musics_.size (); i++)
+  for (int i= 0; i < tuplets_.size (); i++)
     {
-      if (i < started_spanners_.size () && started_spanners_[i])
+      if (tuplets_[i].spanner_)
 	continue;
 
-      Spanner* glep = make_spanner ("TupletBracket", time_scaled_musics_ [i]->self_scm ());
-
-      if (i >= started_spanners_.size ())
-	started_spanners_.push (glep);
-      else
-	started_spanners_[i] = glep;
-      
+      Spanner* spanner = make_spanner ("TupletBracket",
+				       tuplets_[i].music_->self_scm ());
+      tuplets_[i].spanner_ = spanner;
 
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (ly_c_procedure_p (proc))
 	{
-	  SCM t = scm_apply_0 (proc, scm_list_n (time_scaled_musics_[i]->self_scm (), SCM_UNDEFINED));
-	  glep->set_property ("text", t);
+	  SCM t = scm_apply_0 (proc, scm_list_1 (tuplets_[i].music_->self_scm ()));
+	  spanner->set_property ("text", t);
 	}
-      
     }
 }
 
@@ -92,9 +92,10 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.grob_))
     {
-      for (int j =0; j < started_spanners_.size (); j++)
-	if (started_spanners_[j]) 
-	  Tuplet_bracket::add_column (started_spanners_[j], dynamic_cast<Item*> (i.grob_));
+      for (int j =0; j < tuplets_.size (); j++)
+	if (tuplets_[j].spanner_) 
+	  Tuplet_bracket::add_column (tuplets_[j].spanner_,
+				      dynamic_cast<Item*> (i.grob_));
     }
 }
 
@@ -108,28 +109,25 @@ Tuplet_engraver::start_translation_timestep ()
   if (unsmob_moment (s))
     tsd = unsmob_moment (s)->main_part_;
 
-  for (int i= started_spanners_.size (); i--;)
+  for (int i = tuplets_.size (); i--;)
     {
-      if (now.main_part_ >= span_stop_moments_[i])
+      if (now.main_part_ >= tuplets_[i].span_stop_)
 	{
-	  if (Spanner *sp = started_spanners_[i])
+	  if (Spanner *sp = tuplets_[i].spanner_)
 	    {
 	      if (!sp->get_bound (RIGHT))
 		sp->set_bound (RIGHT, sp->get_bound (LEFT));
 	      
-	      started_spanners_[i] =0;
+	      tuplets_[i].spanner_ = 0;
 	    }
 	  
 	  if (tsd.to_bool ())
-	    span_stop_moments_[i] += tsd.main_part_;
+	    tuplets_[i].span_stop_ += tsd.main_part_;
 	}
 
-      if (now.main_part_ >= stop_moments_[i])
+      if (now.main_part_ >= tuplets_[i].span_stop_)
 	{
-	  started_spanners_.del (i);
-	  stop_moments_.del (i);
-	  span_stop_moments_.del (i);
-	  time_scaled_musics_.del (i);
+	  tuplets_.del (i);
 	}
     }
 }

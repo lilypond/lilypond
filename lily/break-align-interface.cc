@@ -186,7 +186,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	reason.
       */
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !ly_c_symbol_p (rsym) && ly_c_pair_p (s); s = ly_cdr (s))
+	   !scm_is_symbol (rsym) && ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob * elt =unsmob_grob (ly_car (s));
 
@@ -197,14 +197,14 @@ Break_align_interface::do_alignment (Grob *grob)
 	edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
-      if (ly_c_symbol_p (rsym))
+      if (scm_is_symbol (rsym))
 	entry = scm_assq (rsym, alist);
 
       bool entry_found = ly_c_pair_p (entry);
       if (!entry_found)
 	{
 	  String sym_string;
-	  if (ly_c_symbol_p (rsym))
+	  if (scm_is_symbol (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;

@@ -45,7 +45,7 @@ Staff_symbol::print (SCM smob)
   do
     {
       SCM width_scm = me->get_property ("width");
-      if (d == RIGHT && ly_c_number_p (width_scm))
+      if (d == RIGHT && scm_is_number (width_scm))
 	{
 	  /*
 	    don't multiply by Staff_symbol_referencer::staff_space (me),
@@ -97,7 +97,7 @@ int
 Staff_symbol::line_count (Grob*me) 
 {
   SCM c = me->get_property ("line-count");
-  if (ly_c_number_p (c))
+  if (scm_is_number (c))
     return scm_to_int (c);
   else
     return 0;

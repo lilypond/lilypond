@@ -71,7 +71,7 @@ Slur::print (SCM smob)
     TODO: replace dashed with generic property.
   */
   SCM d =  me->get_property ("dashed");
-  if (ly_c_number_p (d))
+  if (scm_is_number (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,

@@ -33,7 +33,7 @@ void
 execute_pushpop_property (Context * trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
-  if (ly_c_symbol_p (prop) && ly_c_symbol_p (eltprop))
+  if (scm_is_symbol (prop) && scm_is_symbol (eltprop))
     {
       if (val != SCM_UNDEFINED)
 	{
@@ -152,7 +152,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 SCM
 updated_grob_properties (Context * tg, SCM sym)
 {
-  assert (ly_c_symbol_p (sym));
+  assert (scm_is_symbol (sym));
   
   tg = tg->where_defined (sym);
   if (!tg)

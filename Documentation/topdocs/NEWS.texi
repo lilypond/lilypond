@@ -8,6 +8,10 @@
 
 @itemize @bullet
 
+@item Key signature cancellations are now printed before the bar line,
+and their appearance has been improved.
+
+
 @item The automatic staff changer, which is invoked with
 @code{\autochange}, now creates the @code{up} and @code{down} staff
 automatically, and uses bass clef for the bottom staff.

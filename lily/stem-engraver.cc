@@ -73,7 +73,7 @@ Stem_engraver::make_stem (Grob_info gi)
       SCM f = get_property ("tremoloFlags");
       if (!requested_type)
 	{
-	  if (ly_c_number_p (f))
+	  if (scm_is_number (f))
 	    requested_type = scm_to_int (f);
 	  else
 	    requested_type = 8;
@@ -139,13 +139,13 @@ Stem_engraver::stop_translation_timestep ()
     {
       /* FIXME: junk these properties.  */
       SCM prop = get_property ("stemLeftBeamCount");
-      if (ly_c_number_p (prop))
+      if (scm_is_number (prop))
 	{
 	  Stem::set_beaming (stem_,scm_to_int (prop),LEFT);
 	  context ()->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
-      if (ly_c_number_p (prop))
+      if (scm_is_number (prop))
 	{
 	  Stem::set_beaming (stem_,scm_to_int (prop), RIGHT);
 	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));

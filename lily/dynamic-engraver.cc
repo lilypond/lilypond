@@ -223,7 +223,7 @@ Dynamic_engraver::process_music ()
 	    start_type = "crescendo";
 	  
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
-	  if (!ly_c_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
+	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_  = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("grow-direction",
@@ -396,7 +396,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 
 	DynamicText doesn't really have a script-priority field.
        */
-      if (ly_c_number_p (p)
+      if (scm_is_number (p)
 	  && scm_to_int (p)
 	  < scm_to_int (script_->get_property ("script-priority")))
 	Side_position_interface::add_support (line_spanner_, info.grob_);

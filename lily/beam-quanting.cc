@@ -108,7 +108,7 @@ Beam::quanting (SCM smob)
   Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
   SCM sdy = me->get_property ("least-squares-dy");
-  Real dy_mus = ly_c_number_p (sdy) ? scm_to_double (sdy) : 0.0;
+  Real dy_mus = scm_is_number (sdy) ? scm_to_double (sdy) : 0.0;
   
   Real straddle = 0.0;
   Real sit = (thickness - slt) / 2;

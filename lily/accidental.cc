@@ -48,7 +48,7 @@ Accidental_interface::after_line_breaking (SCM smob)
 }
 
 Array<Box>
-Accidental_interface::accurate_boxes (Grob *a,Grob**common)
+Accidental_interface::accurate_boxes (Grob *a, Grob**common)
 {
   Box b;
   b[X_AXIS] = a->extent (a, X_AXIS);
@@ -65,7 +65,7 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
 
   SCM accs = a->get_property ("accidentals");
   SCM scm_style = a->get_property ("style");
-  if (!ly_c_symbol_p (scm_style)
+  if (!scm_is_symbol (scm_style)
       && !parens
       && scm_ilength (accs) == 1)
     {
@@ -180,7 +180,7 @@ Accidental_interface::print (SCM smob)
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (ly_c_symbol_p (scm_style))
+  if (scm_is_symbol (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }

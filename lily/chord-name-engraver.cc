@@ -86,7 +86,7 @@ Chord_name_engraver::process_music ()
   if (inversion_event)
     {
       SCM oct = inversion_event->get_property ("octavation");
-      if (ly_c_number_p (oct))
+      if (scm_is_number (oct))
 	{
 	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
 	  int octavation =  scm_to_int (oct);

@@ -400,7 +400,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	  SCM sh
 	    = clashes[i]->get_property ("horizontal-shift");
 
-	  if (ly_c_number_p (sh))
+	  if (scm_is_number (sh))
 	    shift.push (scm_to_int (sh));
 	  else
 	    shift.push (0);
@@ -486,7 +486,7 @@ Note_collision_interface::forced_shift (Grob *me)
       Grob * se = unsmob_grob (ly_car (s));
 
       SCM force =  se->get_property ("force-hshift");
-      if (ly_c_number_p (force))
+      if (scm_is_number (force))
 	{
 	  tups = scm_cons (scm_cons (se->self_scm (), force),
 			  tups);

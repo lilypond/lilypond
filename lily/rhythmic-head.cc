@@ -45,7 +45,7 @@ int
 Rhythmic_head::duration_log (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return ly_c_number_p (s) ? scm_to_int (s) : 0;
+  return scm_is_number (s) ? scm_to_int (s) : 0;
 }
 
 ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",

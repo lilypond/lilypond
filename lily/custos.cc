@@ -34,7 +34,7 @@ Custos::print (SCM smob)
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (ly_c_symbol_p (scm_style))
+  if (scm_is_symbol (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }

@@ -15,7 +15,7 @@ void
 Script_column::add_staff_sided (Grob *me, Item *i)
 {
   SCM p = i->get_property ("script-priority");
-  if (!ly_c_number_p (p))
+  if (!scm_is_number (p))
     return;
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"),i);

@@ -29,16 +29,16 @@ Text_item::interpret_string (SCM paper_smob,
 		   __FUNCTION__, "Paper definition");
   SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
 		   __FUNCTION__, "string");
-  SCM_ASSERT_TYPE (input_encoding == SCM_EOL || ly_c_symbol_p (input_encoding),
+  SCM_ASSERT_TYPE (input_encoding == SCM_EOL || scm_is_symbol (input_encoding),
 		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
   String str = ly_scm2string (markup);
-  if (!ly_c_symbol_p (input_encoding))
+  if (!scm_is_symbol (input_encoding))
     {
       SCM enc = paper->lookup_variable (ly_symbol2scm ("inputencoding"));
       if (scm_is_string (enc))
 	input_encoding = scm_string_to_symbol (enc);
-      else if (ly_c_symbol_p (enc))
+      else if (scm_is_symbol (enc))
 	input_encoding = enc;
     }
   

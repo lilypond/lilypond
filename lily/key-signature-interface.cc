@@ -102,7 +102,7 @@ Key_signature_interface::print (SCM smob)
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (ly_c_symbol_p (scm_style))
+  if (scm_is_symbol (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }
@@ -116,7 +116,7 @@ Key_signature_interface::print (SCM smob)
 
   SCM c0s = me->get_property ("c0-position");
   int c0p = 0;
-  if (ly_c_number_p (c0s))
+  if (scm_is_number (c0s))
     c0p = scm_to_int (c0s);
 
   /*
@@ -150,21 +150,13 @@ Key_signature_interface::print (SCM smob)
     {
       SCM old = me->get_property ("old-accidentals");
       
-      /*
-	Add half a space between  cancellation and key sig.
-
-	As suggested by [Ross], p.148.
-       */
-      Interval x (0, inter);
-      Interval y (0,0);
-
-      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)), 0, 0);
-
       Stencil natural;
       if (ly_c_pair_p (old))
 	natural=Font_interface::get_default_font (me)->
 	    find_by_name (String ("accidentals-") + style + String ("0"));
       
+
+      int last_pos = -100;
       for (; ly_c_pair_p (old); old = ly_cdr (old))
         {
 	  SCM found = scm_assoc (ly_caar (old), newas);
@@ -183,8 +175,13 @@ Key_signature_interface::print (SCM smob)
 		has vertical edges on both sides. A little padding is
 		needed to prevent collisions.
 	       */
-	      Real padding = 0.1 ;
+	      Real padding = 0.0;
+	      if (last_pos < pos + 2
+		  &&  last_pos> pos - 6)
+		padding = 0.3;
+	      
 	      mol.add_at_edge (X_AXIS, LEFT, m, padding, 0);
+	      last_pos = pos;
             }
         }
     }

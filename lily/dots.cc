@@ -24,7 +24,7 @@ Dots::print (SCM d)
   
   SCM c = sc->get_property ("dot-count");
 
-  if (ly_c_number_p (c))
+  if (scm_is_number (c))
     {
       Stencil d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
