@@ -39,11 +39,11 @@ public:
   static Real score_slopes_dy (Grob*, Real,Real,Real,Real);
   static Real score_stem_lengths (Link_array<Grob>,
 				  Array<Stem_info>,
-				  Array<Real>, Array<Real>, Array<int>,
+				  Array<Real>, Array<Real>, 
 				  bool,Grob*,Real , Real);
   static Real score_forbidden_quants (Grob*, Real, Real,
 				      Real, Real, Real, Real,
-				      int);
+				      int, Direction, Direction);
   
   
   static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev,
@@ -51,8 +51,8 @@ public:
 
 private:
   static Direction get_default_dir (Grob*);
-  static void set_stem_directions (Grob*);
-  static void consider_auto_knees (Grob*);
+  static void set_stem_directions (Grob*, Direction );
+  static void consider_auto_knees (Grob*, Direction d);
   static void set_stem_shorten (Grob*);
   static Real calc_stem_y (Grob*, Grob* s, Interval pos);
   static void set_stem_lengths (Grob*);

@@ -90,6 +90,9 @@ Beam::get_interbeam (Grob *me)
   return gh_scm2double (s);
 }
 
+/*
+  Maximum multiplicity.
+ */
 int
 Beam::get_multiplicity (Grob *me) 
 {
@@ -166,13 +169,13 @@ Beam::before_line_breaking (SCM smob)
     }
   if (count >= 1)
     {
-      if (!Directional_element_interface::get (me))
-	Directional_element_interface::set (me, get_default_dir (me));
-      
-      consider_auto_knees (me);
-      set_stem_directions (me);
+      Direction d = get_default_dir (me);
+
+      consider_auto_knees (me, d);
+      set_stem_directions (me, d);
       set_stem_shorten (me);
     }
+
   return SCM_EOL;
 }
 
@@ -222,11 +225,10 @@ Beam::get_default_dir (Grob *me)
    Urg: non-forced should become `without/with unforced' direction,
    once stem gets cleaned-up. */
 void
-Beam::set_stem_directions (Grob *me)
+Beam::set_stem_directions (Grob *me, Direction d)
 {
   Link_array<Item> stems
     =Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
-  Direction d = Directional_element_interface::get (me);
   
   for (int i=0; i <stems.size (); i++)
     {
@@ -243,7 +245,7 @@ Beam::set_stem_directions (Grob *me)
   `Forced' stem directions are ignored.  If you don't want auto-knees,
   don't set, or unset auto-knee-gap. */
 void
-Beam::consider_auto_knees (Grob *me)
+Beam::consider_auto_knees (Grob *me, Direction d)
 {
   SCM scm = me->get_grob_property ("auto-knee-gap");
 
@@ -254,7 +256,7 @@ Beam::consider_auto_knees (Grob *me)
       Real staff_space = Staff_symbol_referencer::staff_space (me);
       Real gap = gh_scm2double (scm) / staff_space;
 
-      Direction d = Directional_element_interface::get (me);
+
       Link_array<Item> stems=
 	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
       
@@ -338,8 +340,9 @@ Beam::set_stem_shorten (Grob *m)
 
   /* your similar cute comment here */
   shorten_f *= forced_fraction;
-  
-  me->set_grob_property ("shorten", gh_double2scm (shorten_f));
+
+  if (shorten_f)
+    me->set_grob_property ("shorten", gh_double2scm (shorten_f));
 }
 
 /*  Call list of y-dy-callbacks, that handle setting of
@@ -428,8 +431,47 @@ Beam::quanting (SCM smob)
 
   */
 
-  const int REGION_SIZE = 2;
-  for (int i  = -REGION_SIZE ; i < REGION_SIZE; i++)
+
+  
+  /*
+    Do stem computations.  These depend on YL and YR linearly, so we can
+    precompute for every stem 2 factors.
+   */
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+  Array<Stem_info> stem_infos;
+  Array<Real> lbase_lengths;
+  Array<Real> rbase_lengths;  
+
+  Drul_array<bool> dirs_found(0,0);
+  for (int i= 0; i < stems.size(); i++)
+    {
+      Grob*s = stems[i];
+      stem_infos.push( Stem::calc_stem_info (s));
+
+      Real b = calc_stem_y (me, s, Interval (1,0));
+      lbase_lengths.push (b);
+
+      b = calc_stem_y (me, s, Interval (0,1));
+      rbase_lengths.push (b);
+
+      dirs_found [stem_infos.top().dir_] = true;
+    }
+
+  Direction ldir = Direction (stem_infos[0].dir_);
+  Direction rdir = Direction (stem_infos.top ().dir_);
+  bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
+
+  
+  int REGION_SIZE = 2;
+
+  /*
+    Knees are harder, lets try some more possibilities for knees. 
+   */
+  if (knee_b)
+    REGION_SIZE += 2 ;
+  
+  for (int i = -REGION_SIZE ; i < REGION_SIZE; i++)
     for (int j = 0; j < num_quants; j++)
       {
 	quantsl.push (i + quants[j] + int (yl));
@@ -477,48 +519,17 @@ Beam::quanting (SCM smob)
 	qscores[i].demerits
 	  += score_forbidden_quants (me, qscores[i].yl, qscores[i].yr,
 				     rad, slt, thickness, interbeam,
-				     multiplicity); 
+				     multiplicity, ldir, rdir); 
       }
 
 
-  /*
-    Do stem lengths.  These depend on YL and YR linearly, so we can
-    precompute for every stem 2 factors.
-   */
-  Link_array<Grob> stems=
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
-  Array<Stem_info> stem_infos;
-  Array<Real> lbase_lengths;
-  Array<Real> rbase_lengths;  
-
-  Array<int> directions;
-  
-  Drul_array<bool> dirs_found(0,0);
-
-  for (int i= 0; i < stems.size(); i++)
-    {
-      Grob*s = stems[i];
-      stem_infos.push( Stem::calc_stem_info (s));
-
-      Real b = calc_stem_y (me, s, Interval (1,0));
-      lbase_lengths.push (b);
-
-      b = calc_stem_y (me, s, Interval (0,1));
-      rbase_lengths.push (b);
-
-      Direction d = Directional_element_interface::get( s);
-      directions.push( d);
-      dirs_found [d] = true;
-    }
-
-  bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < 100)
       {
 	qscores[i].demerits
 	  += score_stem_lengths (stems, stem_infos,
 				 lbase_lengths, rbase_lengths,
-				 directions, knee_b,
+				 knee_b,
 				 me, qscores[i].yl, qscores[i].yr);
       }
 
@@ -556,12 +567,15 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  Array<Stem_info> stem_infos,
 			  Array<Real> left_factor,
 			  Array<Real> right_factor,
-			  Array<int> directions,
 			  bool knee, 
-			  Grob*me, Real yl, Real yr)
+			  Grob*me,
+			  Real yl, Real yr)
 {
   Real demerit_score = 0.0 ;
-  
+  Real pen = STEM_LENGTH_LIMIT_PENALTY;
+  if (knee)
+    pen = sqrt(pen);
+
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
@@ -572,16 +586,11 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 	yl * left_factor[i] + right_factor[i]* yr;
 
       Stem_info info = stem_infos[i];
-      Direction d = Direction (directions[i]);
+      Direction d = info.dir_;
 
-      Real pen = STEM_LENGTH_LIMIT_PENALTY;
-      if (knee)
-	pen = sqrt(pen);
-      
-      demerit_score += pen * ( 0 >? (info.min_y - d * current_y));
-      demerit_score += pen * ( 0 >? (d * current_y  - info.max_y));
-
-      demerit_score += STEM_LENGTH_DEMERIT_FACTOR * shrink_extra_weight (d * current_y  - info.ideal_y);
+      demerit_score += pen * ( 0 >? (info.dir_ *(info.shortest_y_ - current_y)));
+      demerit_score += STEM_LENGTH_DEMERIT_FACTOR
+	* shrink_extra_weight (d * current_y  - info.dir_ * info.ideal_y_);
     }
 
   demerit_score *= 2.0 / stems.size (); 
@@ -590,7 +599,8 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 }
 
 Real
-Beam::score_slopes_dy (Grob *me, Real yl, Real yr,
+Beam::score_slopes_dy (Grob *me,
+		       Real yl, Real yr,
 		       Real dy_mus, Real dy_damp)
 {
   Real dy = yr - yl;
@@ -602,9 +612,8 @@ Beam::score_slopes_dy (Grob *me, Real yl, Real yr,
     }
 
    dem += MUSICAL_DIRECTION_FACTOR * (0 >? (fabs (dy) - fabs (dy_mus)));
-  
-
    dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* IDEAL_SLOPE_FACTOR;
+
    return dem;
 }
 
@@ -620,7 +629,8 @@ Beam::score_forbidden_quants (Grob*me,
 			      Real rad,
 			      Real slt,
 			      Real thickness, Real interbeam,
-			      int multiplicity)
+			      int multiplicity,
+			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
 
@@ -639,11 +649,11 @@ Beam::score_forbidden_quants (Grob*me,
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
       
-      Direction dir = Directional_element_interface::get (me);
-      if (fabs (yl - dir * interbeam) < rad
+
+      if (fabs (yl - ldir * interbeam) < rad
 	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
-      if (fabs (yr - dir * interbeam) < rad
+      if (fabs (yr - rdir * interbeam) < rad
 	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
 
@@ -660,48 +670,48 @@ Beam::score_forbidden_quants (Grob*me,
 
 
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - dir * interbeam) < rad + inter)
+      if (fabs (yl - ldir * interbeam) < rad + inter)
 	{
-	  if (dir == UP && dy <= eps
+	  if (ldir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
 	    dem += SECONDARY_BEAM_DEMERIT;
 	  
-	  if (dir == DOWN && dy >= eps
+	  if (ldir == DOWN && dy >= eps
 	      && fabs (my_modf (yl) - hang) < eps)
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
 
-      if (fabs (yr - dir * interbeam) < rad + inter)
+      if (fabs (yr - rdir * interbeam) < rad + inter)
 	{
-	  if (dir == UP && dy >= eps
+	  if (rdir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
 	    dem += SECONDARY_BEAM_DEMERIT;
 	  
-	  if (dir == DOWN && dy <= eps
+	  if (rdir == DOWN && dy <= eps
 	      && fabs (my_modf (yr) - hang) < eps)
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
       
       if (multiplicity >= 3)
 	{
-	  if (fabs (yl - 2 * dir * interbeam) < rad + inter)
+	  if (fabs (yl - 2 * ldir * interbeam) < rad + inter)
 	    {
-	      if (dir == UP && dy <= eps
+	      if (ldir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
 		dem += SECONDARY_BEAM_DEMERIT;
 	      
-	      if (dir == DOWN && dy >= eps
+	      if (ldir == DOWN && dy >= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
 		dem += SECONDARY_BEAM_DEMERIT;
 	}
 	  
-	  if (fabs (yr - 2 * dir * interbeam) < rad + inter)
+	  if (fabs (yr - 2 * rdir * interbeam) < rad + inter)
 	    {
-	      if (dir == UP && dy >= eps
+	      if (rdir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
 		dem += SECONDARY_BEAM_DEMERIT;
 	      
-	      if (dir == DOWN && dy <= eps
+	      if (rdir == DOWN && dy <= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
 		dem += SECONDARY_BEAM_DEMERIT;
 	    }
@@ -727,11 +737,9 @@ Beam::least_squares (SCM smob)
       me->set_grob_property ("positions", ly_interval2scm (pos));
       return SCM_UNSPECIFIED;
     }
-  
-  Direction dir = Directional_element_interface::get (me);
 
-  Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).ideal_y,
-		  Stem::calc_stem_info (last_visible_stem (me)).ideal_y);
+  Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).ideal_y_,
+		  Stem::calc_stem_info (last_visible_stem (me)).ideal_y_);
   
   if (!ideal.delta ())
     {
@@ -749,16 +757,18 @@ Beam::least_squares (SCM smob)
       /* Make simple beam on middle line have small tilt */
       if (!ideal[LEFT] && chord.delta () && count == 2)
 	{
-	  Direction d = (Direction) (sign (chord.delta ()) * dir);
-	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2
-	    * dir;
+
+	  /*
+	    FIXME. -> UP
+	  */
+	  Direction d = (Direction) (sign (chord.delta ()) * UP);
+	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2;
+	  //	  	    * dir;
 	  pos[-d] = - pos[d];
 	}
       else
 	{
 	  pos = ideal;
-	  pos[LEFT] *= dir ;
-	  pos[RIGHT] *= dir ;
 	}
     }
   else
@@ -776,7 +786,7 @@ Beam::least_squares (SCM smob)
 	  if (Stem::invisible_b (s))
 	    continue;
 	  ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0,
-			       Stem::calc_stem_info (s).ideal_y));
+			       Stem::calc_stem_info (s).ideal_y_));
 	}
       Real y; 
       Real dydx;
@@ -784,9 +794,9 @@ Beam::least_squares (SCM smob)
 
       Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
       Real dy = dydx * dx;
-      me->set_grob_property ("least-squares-dy", gh_double2scm (dy * dir));
+      me->set_grob_property ("least-squares-dy", gh_double2scm (dy));
 
-      pos = Interval (y*dir, (y+dy) * dir);
+      pos = Interval (y, (y+dy));
     }
 
   me->set_grob_property ("positions", ly_interval2scm (pos));
@@ -851,16 +861,26 @@ Beam::check_concave (SCM smob)
 
     
   /* Concaveness #2: Sum distances of inner noteheads that fall
-     outside the interval of the two outer noteheads */
+     outside the interval of the two outer noteheads.
+
+     We only do this for beams where first and last stem have the same
+     direction. --hwn.
+
+
+     Note that "convex" stems compensate for "concave" stems.
+     (is that intentional?) --hwn.
+  */
+  
   Real concaveness2 = 0;
   SCM thresh = me->get_grob_property ("concaveness-threshold");
   Real r2 = infinity_f;
-  if (!concaveness1 && gh_number_p (thresh))
+  if (!concaveness1 && gh_number_p (thresh)
+      && Stem::get_direction(stems.top ())
+         == Stem::get_direction(stems[0]))
     {
       r2 = gh_scm2double (thresh);
-      
-      Direction dir = Directional_element_interface::get (me);  
 
+      Direction dir = Stem::get_direction(stems.top ());
       Real concave = 0;
       Interval iv (Stem::chord_start_y (stems[0]),
 		   Stem::chord_start_y (stems.top ()));
@@ -870,22 +890,25 @@ Beam::check_concave (SCM smob)
       
       for (int i = 1; i < stems.size () - 1; i++)
 	{
-	  Real c = 0;
 	  Real f = Stem::chord_start_y (stems[i]);
-	  if ((c = f - iv[MAX]) > 0)
-	    concave += c;
-	  else if ((c = f - iv[MIN]) < 0)
-	    concave += c;
+	  concave += ((f - iv[MAX] ) >? 0) +
+	    ((f - iv[MIN] ) <? 0);
 	}
-      /*
-	Ugh. This will mess up with knees. Direction should be
-	determined per stem.
-       */
       concave *= dir;
-
       concaveness2 = concave / (stems.size () - 2);
-      /* ugh: this is the a kludge to get input/regression/beam-concave.ly
-	 to behave as baerenreiter. */
+      
+      /* ugh: this is the a kludge to get
+	 input/regression/beam-concave.ly to behave as
+	 baerenreiter. */
+
+      /*
+	huh? we're dividing twice (which is not scalable) meaning that
+	the longer the beam, the more unlikely it will be
+	concave. Maybe you would even expect the other way around??
+
+	--hwn.
+	
+       */
       concaveness2 /= (stems.size () - 2);
     }
   
@@ -958,17 +981,41 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
 		 * dy
 		 : 0) + pos[LEFT];
 
-  /* knee */
-  Direction dir  = Directional_element_interface::get (me);
-  Direction sdir = Directional_element_interface::get (s);
-  
-  /* knee */
-  if (dir!= sdir)
+
+  Direction first_dir = Directional_element_interface::get (first_visible_stem (me));
+  Direction my_dir = Directional_element_interface::get (s);
+
+  if (my_dir != first_dir)
     {
-      stem_y -= dir * (thick / 2 + (beam_multiplicity - 1) * interbeam);
+      /*
+	WTF is happening here ?
+
+	 It looks as if this is some kind of fixup for multiple kneed
+	 beams to get a piece of stem at the #.
+	 
+
+                x
+	        |
+         =======|
+	 |======#
+	 |
+	 |
+	x 
+
+	Rules for this kind of stuff are hairy. In any event, the
+	current stem should look at the multiplicity of its
+	predecessor.
+
+	--hwn.
+	
+       */
+      stem_y += my_dir * (thick / 2 + (beam_multiplicity - 1) * interbeam);
 
       // huh, why not for first visible?
 
+      /*
+	What the heck is happening here?? 
+       */
       Grob *last_visible = last_visible_stem (me);
       if (last_visible)
 	{
@@ -1002,11 +1049,18 @@ Beam::set_stem_lengths (Grob *me)
     if (!Stem::invisible_b (stems[i]))
       common = common->common_refpoint (stems[i], Y_AXIS);
 
-  Direction dir = Directional_element_interface::get (me);
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  /*
+    DOCUMENT THIS.
+   */
+#if 0
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Direction dir = Directional_element_interface::get (me);
   bool ps_testing = to_boolean (ly_symbol2scm ("ps-testing"));
+#endif
+  
   for (int i=0; i < stems.size (); i++)
     {
       Item* s = stems[i];
@@ -1015,10 +1069,12 @@ Beam::set_stem_lengths (Grob *me)
 
       Real stem_y = calc_stem_y (me, s, pos);
 
+#if 0
       // doesn't play well with dvips
       if (ps_testing)
 	if (Stem::get_direction (s) == dir)
 	  stem_y += Stem::get_direction (s) * thick / 2;
+#endif
       
       /* caution: stem measures in staff-positions */
       Real id = me->relative_coordinate (common, Y_AXIS)
@@ -1057,7 +1113,12 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 /*
   beams to go with one stem.
 
-  FIXME: clean me up.
+  FIXME: clean me up:
+
+  The beam should be constructed by one function that knows where the
+  X and Y points are, and only inspects the stems to obtain
+  multiplicity and stem directions.
+  
   */
 Molecule
 Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
@@ -1090,12 +1151,8 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
     }
 
 
-  Direction dir = Directional_element_interface::get (me);
-
   /* [Tremolo] beams on whole notes may not have direction set? */
- if (dir == CENTER)
-    dir = Directional_element_interface::get (here);
-
+  Direction dir = Directional_element_interface::get (here);
 
   /* half beams extending to the left. */
   if (prev)
@@ -1195,8 +1252,6 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
     }
   leftbeams.add_molecule (rightbeams);
 
-  /* Does beam quanting think  of the asymetry of beams? 
-     Refpoint is on bottom of symbol. (FIXTHAT) --hwn. */
   return leftbeams;
 }
 
@@ -1237,15 +1292,22 @@ Beam::brew_molecule (SCM smob)
   Real dy = pos.delta ();
   Real dydx = dy && dx ? dy/dx : 0;
 
+
+  Direction firstdir = Directional_element_interface::get ( Beam::first_visible_stem (me) );
+  
   for (int i=0; i < stems.size (); i++)
     {
       Item *item = stems[i];
       Item *prev = (i > 0)? stems[i-1] : 0;
       Item *next = (i < stems.size ()-1) ? stems[i+1] :0;
 
+
+      
       Molecule sb = stem_beams (me, item, next, prev, dydx);
       Real x = item->relative_coordinate (0, X_AXIS) - x0;
       sb.translate (Offset (x, x * dydx + pos[LEFT]));
+
+      Direction sd = Stem::get_direction (item);      
       mol.add_molecule (sb);
     }
   
@@ -1436,5 +1498,6 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions space-function thickness");
+  "position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
+
 

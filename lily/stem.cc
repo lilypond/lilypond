@@ -756,41 +756,28 @@ Stem::calc_stem_info (Grob*me)
     {
       Stem_info si ;
 
-      si.ideal_y = gh_scm2double (gh_car (scm_info)); 
-      si.max_y = gh_scm2double (gh_cadr (scm_info)); 
-      si.min_y = gh_scm2double (gh_caddr (scm_info));
+      si.dir_ = Directional_element_interface::get(me); 
+      si.ideal_y_ = gh_scm2double (gh_car (scm_info)); 
+      si.shortest_y_ = gh_scm2double (gh_cadr (scm_info));
 
       return si;
     }
-    
-  Grob * beam = beam_l (me);
 
-  Direction beam_dir = Directional_element_interface::get (beam);
-  if (!beam_dir)
-    {
-      programming_error ("Beam dir not set.");
-      beam_dir = UP;
-    }
-    
-
+  Direction mydir = Directional_element_interface::get (me);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
-  
+
+  Grob * beam = beam_l (me);
   int multiplicity = Beam::get_multiplicity (beam);
   Real interbeam_f = Beam::get_interbeam (beam);
 
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
-  Stem_info info; 
-  info.ideal_y = chord_start_y (me);
-
-  // for simplicity, we calculate as if dir == UP
-
-  /*
-    UGH. This confuses issues more. fixme. --hwn
-   */
-  info.ideal_y *= beam_dir;
+  
+  Real ideal_y = chord_start_y (me);
+  ideal_y *= mydir;
   SCM grace_prop = me->get_grob_property ("grace");
 
+  
   bool grace_b = to_boolean (grace_prop);
   
   Array<Real> a;
@@ -810,82 +797,71 @@ Stem::calc_stem_info (Grob*me)
     a.push (gh_scm2double (ly_car (q)));
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
+  Real shortest_y = ideal_y; 
 
+  if (multiplicity)
+    {
+      ideal_y += thick + (multiplicity - 1) * interbeam_f;
+    }
+
+
+  ideal_y += stem_length;
+  shortest_y += minimum_length;
 
   /*
-    This sucks -- On a kneed beam, *all* stems are kneed, not half of them.
-   */
-  if (!beam_dir || (beam_dir == Directional_element_interface::get (me)))
-    /* normal beamed stem */
-    {
-      if (multiplicity)
-	{
-	  info.ideal_y += thick + (multiplicity - 1) * interbeam_f;
-	}
-      info.min_y = info.ideal_y;
-      info.max_y = 1000;  // INT_MAX;
+    lowest beam of (UP) beam must never be lower than second staffline
 
-      info.ideal_y += stem_length;
-      info.min_y += minimum_length;
+    Hmm, reference (Wanske?)
 
-      /*
-	lowest beam of (UP) beam must never be lower than second staffline
-
-	Hmm, reference (Wanske?)
-
-	Although this (additional) rule is probably correct,
-	I expect that highest beam (UP) should also never be lower
-	than middle staffline, just as normal stems.
+    Although this (additional) rule is probably correct,
+    I expect that highest beam (UP) should also never be lower
+    than middle staffline, just as normal stems.
 	
-      */
-      bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-      if (!grace_b && !no_extend_b)
-	{
-	  /* highest beam of (UP) beam must never be lower than middle
-	     staffline
-	     lowest beam of (UP) beam must never be lower than second staffline
-	   */
-	  info.min_y =
-	    info.min_y >? 0
-	    >? (- 2 * half_space - thick
-		+ (multiplicity > 0) * thick
-		+ interbeam_f * (multiplicity - 1));
-	}
-    }
-  else
-    /* knee */
+  */
+  bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
+  if (!grace_b && !no_extend_b)
     {
-      info.ideal_y -= thick + stem_length;
-      info.max_y = info.ideal_y - minimum_length;
-
-      /*
-	We shouldn't invert the stems, so we set minimum at 0. 
-       */
-      info.min_y = 0.5;
+      /* highest beam of (UP) beam must never be lower than middle
+	 staffline
+	 lowest beam of (UP) beam must never be lower than second staffline
+      */
+      shortest_y =
+	shortest_y >? 0
+	>? (- 2 * half_space - thick
+	    + (multiplicity > 0) * thick
+	    + interbeam_f * (multiplicity - 1));
     }
+    
   
-  info.ideal_y = (info.max_y <? info.ideal_y) >? info.min_y;
+  ideal_y = ideal_y >? shortest_y;
 
   s = beam->get_grob_property ("shorten");
   if (gh_number_p (s))
-    info.ideal_y -= gh_scm2double (s);
+    ideal_y -= gh_scm2double (s);
 
   Grob *common = me->common_refpoint (beam, Y_AXIS);
-  Real interstaff_f = beam_dir *
+  Real interstaff_f = mydir *
     (me->relative_coordinate (common, Y_AXIS)
      - beam->relative_coordinate (common, Y_AXIS));
   
-  info.ideal_y += interstaff_f;
-  info.min_y += interstaff_f;
-  info.max_y += interstaff_f ;
+  ideal_y += interstaff_f;
+  shortest_y += interstaff_f;
 
-  me->set_grob_property ("stem-info",
-			 scm_list_n (gh_double2scm (info.ideal_y),
-				     gh_double2scm (info.max_y),
-				     gh_double2scm (info.min_y),
-				     SCM_UNDEFINED));
+
+  ideal_y *= mydir;
+  shortest_y *= mydir; 
   
-  return info;
+  me->set_grob_property ("stem-info",
+			 scm_list_n (gh_double2scm (ideal_y),
+				     gh_double2scm (shortest_y),
+				     SCM_UNDEFINED));
+
+  Stem_info si;
+  si.dir_ = mydir;
+  si.shortest_y_ = shortest_y;
+  si.ideal_y_ = ideal_y;
+  
+  return si;
 }
 
 ADD_INTERFACE (Stem,"stem-interface",
