@@ -254,7 +254,7 @@ saves the LilyPond code to @var{filename}.  By default, a hash value
 of the code is used.
 
 @item 11pt
-@lilypond[11pt, eps]
+@lilypond[11pt]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
   d16[ g, a b] c[ a b g] d'8[ g f\prall g]
@@ -262,7 +262,7 @@ of the code is used.
 @end lilypond
 
 @item 13pt
-@lilypond[13pt, eps]
+@lilypond[13pt]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
   d16[ g, a b] c[ a b g] d'8[ g f\prall g]
@@ -270,21 +270,21 @@ of the code is used.
 @end lilypond
 
 @item 16pt
-@lilypond[16pt, eps]
+@lilypond[16pt]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
 @item 20pt
-@lilypond[20pt, eps]
+@lilypond[20pt]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }
 @end lilypond
 
 @item 26pt
-@lilypond[26pt, eps]
+@lilypond[26pt]
 \relative c' {
   r16 c[ d e] f[ d e c] g'8[ c] b[\prall c] |
 }

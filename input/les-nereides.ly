@@ -62,11 +62,12 @@ treble = \new Voice \notes\relative c''{
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+	\property Voice.Stem \override #'stroke-style = #"grace"
   
          cis8
 	 
          %\stemBoth Hmm
+	
 	 \property Voice.Stem \set #'direction = #0
 	 
           a16[-5( fis dis]
@@ -76,7 +77,8 @@ treble = \new Voice \notes\relative c''{
 	 % the small grace in lower staff comes after us
 	 s32
     
-  \property Voice.Stem \revert #'stroke-style }
+	\property Voice.Stem \revert #'stroke-style
+    }
 
 
     \stemUp
@@ -180,18 +182,18 @@ bass =  \new Voice \notes\relative c{
     >>
     
     \grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+	\property Voice.Stem \override #'stroke-style = #"grace"
   
         s8
         s16 s s
  	s32 s s
 	s s s
 	\clef bass
-        \property Voice.fontSize = #-3
 	<e,,, e,>32(
     
-  \property Voice.Stem \revert #'stroke-style }
- <gis' e>2)
+	\property Voice.Stem \revert #'stroke-style
+    }
+    <gis' e>2)
     
     | %5
     \slurUp

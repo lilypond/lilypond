@@ -1223,6 +1223,7 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
 	(meta . ((interfaces . (align-interface axis-group-interface spanner-interface))))
 	))
@@ -1231,6 +1232,7 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	
 	(meta . ((interfaces . (axis-group-interface spanner-interface))))
 	))

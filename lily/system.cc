@@ -439,7 +439,7 @@ System::post_processing (bool last_line)
    */
   Interval j (extent (this, X_AXIS));
   Real length = j[RIGHT];
-  
+    
   output_scheme (scm_list_n (ly_symbol2scm ("start-system"),
 			  gh_double2scm (length),
 			  gh_double2scm (height),
@@ -447,7 +447,6 @@ System::post_processing (bool last_line)
   
   /* Output elements in three layers, 0, 1, 2.
      The default layer is 1. */
-
   {
     Molecule *m = this->get_molecule();
     if (m)
