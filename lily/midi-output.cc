@@ -58,6 +58,7 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     int accidentals_i = 0;
     int minor_i = 0;
 
+#ifdef UGR
     // uph, sorry, wanna test this...
     // menuetto in F
     if ( ( infile_str_g.index_i( "scsii-menuetto" ) >= 0 )
@@ -67,6 +68,7 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     // standchen in d	
     if ( ( infile_str_g.index_i( "standchen" ) >= 0 ) )
     	minor_i = 1;
+#endif
 
     Midi_key midi_key( accidentals_i, minor_i ); 
     midi_track.add( Moment( 0.0 ), &midi_key );
@@ -91,7 +93,7 @@ Midi_output::header()
     time_t t = time( 0 );
 
     // perhaps multiple text events?
-    String str = String( "Creator: " ) + get_version() + "\n";
+    String str = String( "Creator: " ) + get_version_str() + "\n";
 
     Midi_text creator( Midi_text::TEXT, str );
     midi_track.add( Moment( 0.0 ), &creator );
@@ -111,6 +113,10 @@ Midi_output::header()
     Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( 0, 0, '0' ) );
     midi_track.add( Moment( 0.0 ), &track_name );
 
+#if 0
+    /*
+	shouldn't impose copyright on output.
+	*/
     struct tm* tm_l = gmtime( &t );
     String year_str = String_convert::i2dec_str( 1900 + tm_l->tm_year, 4, '0' );
 	    
@@ -124,6 +130,7 @@ Midi_output::header()
 	
     Midi_text authors( Midi_text::COPYRIGHT, str );
     midi_track.add( Moment( 0.0 ), &authors );
+#endif
     *midi_stream_l_  << midi_track;
 }
 
