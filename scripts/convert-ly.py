@@ -1112,6 +1112,17 @@ if 1:
 		str = re.sub (r'([^_^-])\\(%s)\b' % origstr, r'\1-\\\2', str)
 		return str
 	conversions.append (((1,7,6), conv, 'note\\script -> note-\script'))
+
+
+if 1:
+	def conv(str):
+		str = re.sub (r"\\property *ChordNames *\. *ChordName *\\(set|override) *#'style *= *#('[a-z]+)",
+			      r"#(set-chord-name-style \2)", str)
+		str = re.sub (r"\\property *ChordNames *\. *ChordName *\\revert *#'style",
+			      r"", str)
+		return str
+	conversions.append (((1,7,10), conv, "\property ChordName #'style -> #(set-chord-name-style 'style)"))
+	
 	
 
 ################################
