@@ -516,7 +516,7 @@ def try_parse_header_line (ln, state):
 					check_clef(m.group(2))
 				else:
 					__main__.global_key  =compute_key (a)# ugh.
-					voices_append ('\\key %s;' % lily_key(a))
+					voices_append ('\\key %s \\major;' % lily_key(a))
 		if g == 'O': # Origin
 			header ['origin'] = a
 		if g == 'X': # Reference Number
