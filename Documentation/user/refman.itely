@@ -6595,15 +6595,12 @@ reasonable to specify a cluster as the envelope of a set of notes.
 
 @syntax
 
-A cluster is engraved as the envelope of a set of notes. The starting
-note is marked with @code{\startCluster}, and the ending note with
-@code{\stopCluster}, e.g.,
-
-@example
-  c4-\startCluster
-     ...
-  f4-\stopCluster 
-@end example
+A cluster is engraved as the envelope of a set of cluster-notes. This
+is achieved by applying the function @code{notes-to-cluster} to a
+sequence of chords, eg.
+@lilypond[relative 2]
+    \apply #notes-to-cluster {  << c e >> <<b f'>>  }
+@end lilypond
 
 The following example (from
 @inputfileref{input/regression,cluster.ly}) shows what the result

@@ -90,7 +90,7 @@
 	     cn)
       music))
 
-(define-public (notes-to-cluster music)
+(define-public (notes-to-clusters music)
   (music-map note-to-cluster music))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
