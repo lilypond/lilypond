@@ -1,0 +1,18 @@
+/*
+  minterval.hh -- declare MInterval
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef MINTERVAL_HH
+#define MINTERVAL_HH
+
+#include "interval.hh"
+#include "moment.hh"
+
+typedef Interval_t<Moment> MInterval;
+
+#endif // MINTERVAL_HH

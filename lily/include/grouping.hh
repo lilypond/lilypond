@@ -7,11 +7,8 @@
 #ifndef GROUPING_HH
 #define GROUPING_HH
 
-#include "moment.hh"
-#include "interval.hh"
+#include "minterval.hh"
 #include "varray.hh"
-
-typedef Interval_t<Moment> MInterval;
 
 /** data structure which represents rhythmic units   this is a tree. It groupes notes according to rules
 
