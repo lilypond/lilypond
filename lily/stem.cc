@@ -804,7 +804,7 @@ Stem::calc_stem_info (Grob*me)
   Real half_space = staff_space / 2;
 
   Grob * beam = get_beam (me);
-  int beam_count = beam_multiplicity(me).length()+1;
+  int beam_count = Beam::get_direction_beam_count (beam, mydir);
   Real beam_translation= Beam::get_beam_translation (beam);
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
   Real note_start = chord_start_y (me);

@@ -48,11 +48,12 @@ public:
 				      Real, Real, Real, Real,
 				      int, Direction, Direction);
   
-  
+
+  static int get_direction_beam_count (Grob *me, Direction d);
 private:
   static Direction get_default_dir (Grob*);
   static void set_stem_directions (Grob*, Direction );
-  static void consider_auto_knees (Grob*, Direction d);
+  static void consider_auto_knees (Grob*);
   static void set_stem_shorten (Grob*);
   static Real calc_stem_y (Grob*, Grob* s, Grob**c,
 			   Real, Real,

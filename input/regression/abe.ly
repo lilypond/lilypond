@@ -15,7 +15,7 @@ texidoc="Automatic beamer behaves nicely."
     \translator {
       \StaffContext
 	\remove "Clef_engraver"
-	\remove "Staff_symbol_engraver"
+%%	\remove "Staff_symbol_engraver"
     }
   }
 }

@@ -161,7 +161,7 @@ Beam::before_line_breaking (SCM smob)
     {
       Direction d = get_default_dir (me);
 
-      consider_auto_knees (me, d);
+      consider_auto_knees (me);
       set_stem_directions (me, d);
 
       connect_beams (me);
@@ -625,7 +625,7 @@ struct Int_set
   knee-beams, should set the directions manually.
  */
 void
-Beam::consider_auto_knees (Grob* me, Direction d)
+Beam::consider_auto_knees (Grob* me)
 {
   SCM scm = me->get_grob_property ("auto-knee-gap");
   if (!gh_number_p (scm))
@@ -636,7 +636,6 @@ Beam::consider_auto_knees (Grob* me, Direction d)
   Int_set gaps;
 
   gaps.set_full ();
-  
 
   Link_array<Grob> stems=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
@@ -1444,7 +1443,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 }
 
 bool
-Beam::knee_b (Grob*me)
+Beam::knee_b (Grob* me)
 {
   SCM k = me->get_grob_property ("knee");
   if (gh_boolean_p (k))
@@ -1468,6 +1467,26 @@ Beam::knee_b (Grob*me)
 
   return knee;
 }
+
+int
+Beam::get_direction_beam_count (Grob *me, Direction d )
+{
+  Link_array<Grob>stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+  int bc = 0;
+  
+  for (int i = stems.size (); i--;)
+    {
+      /*
+	Should we take invisible stems into account?
+       */
+      if (Stem::get_direction (stems[i]) == d)
+        bc = bc >? (Stem::beam_multiplicity (stems[i]).length () + 1);
+    }
+
+  return bc;
+}
+
 
 ADD_INTERFACE (Beam, "beam-interface",
   "A beam.
