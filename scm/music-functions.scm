@@ -35,45 +35,34 @@
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(define-public (shift-duration-log music shift dot)
-  "Recurse through music, adding SHIFT to ly:duration-log and optionally 
+(define (shift-one-duration-log music shift dot)
+  "  add SHIFT to ly:duration-log and optionally 
   a dot to any note encountered. This scales the music up by a factor 
   2^shift * (2 - (1/2)^dot)"
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
-         (n  (ly:music-name music))
-	 (f  (lambda (x)  (shift-duration-log x shift dot)))
-	 (d (ly:get-mus-property music 'duration))
-	 )
 
-    ;; FIXME: broken by the great music rename.
+  (let*
+      (
+       (d (ly:get-mus-property music 'duration))
+       )
     (if (ly:duration? d)
 	(let* (
 	       (cp (ly:duration-factor d))
 	       (nd (ly:make-duration (+ shift (ly:duration-log d))
-				  (+ dot (duration-dot-count d))
-				  (car cp)
-				  (cdr cp)))
+				     (+ dot (ly:duration-dot-count d))
+				     (car cp)
+				     (cdr cp)))
 	       
 	       )
 	  (ly:set-mus-property! music 'duration nd)
 	  ))
-    
-    (if (pair? es)
-        (ly:set-mus-property!
-         music 'elements
-         (map f es)))
-    
-    (if (ly:music? e)
-        (ly:set-mus-property!
-         music 'element
-         (f e)))
-    
     music))
 
 
 
+(define-public (shift-duration-log music shift dot)
+  (music-map (lambda (x) (shift-one-duration-log x shift dot))
+	     music))
+  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repeats.
