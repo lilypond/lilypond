@@ -29,5 +29,5 @@ mymemmove( void* dest, void const* src, size_t n )
 
 #include "string-handle.hh"
 #include "string-data.hh"
-#include "string-data.inl"
-#include "string-handle.inl"
+#include "string-data.icc"
+#include "string-handle.icc"

@@ -83,7 +83,7 @@ class List
     Link<T>* bottom_;
 };
 
-#include "list.inl"
+#include "list.icc"
 #include "cursor.hh"
 
 // instantiate a template:  explicit instantiation.

@@ -33,6 +33,6 @@ private:
     Link<T>* next_;
 };
 
-#include "link.inl"
+#include "link.icc"
 
 #endif // __LINK_HH //
