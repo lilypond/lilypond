@@ -2163,6 +2163,9 @@ to note heads:
 @subsection Text scripts
 @cindex Text scripts
 
+@cindex text items, non-empty
+@cindex non-empty texts
+
 It is possible to place arbitrary strings of text or markup text (see
 @ref{Text markup}) above or below notes by using a string:
 @code{c^"text"}.  By default, these indications do not influence the
@@ -2177,11 +2180,17 @@ It is possible to use @TeX{} commands in the strings, but this should
 be avoided because the exact dimensions of the string can then no
 longer be computed.
 
+@refcommands
+
+@refcommand{fatText}, @refcommand{emptyText}.
+
 
 @seealso
 
-@internalsref{TextScriptEvent}, @internalsref{TextScript}, and
-@ref{Text markup}.
+In this manual: @ref{Text markup}.
+
+Internals: @internalsref{TextScriptEvent}, @internalsref{TextScript}
+
 
 
 

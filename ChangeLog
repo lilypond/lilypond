@@ -1,4 +1,14 @@
+2004-01-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/tab-note-heads-engraver.cc: listen to string number events
+	inside < > too. (backportme).
+
+	* Documentation/user/refman.itely (Text scripts): add fatText to
+	index.
+
 2004-01-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: 2.1.8
 
 	* stepmake/bin/add-html-footer.py (built): add Wiki links to
 	footer.
