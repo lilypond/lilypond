@@ -83,17 +83,30 @@ height   <indent>
   
   */
 
+void
+get_slur_indent_height (Real * indent, Real *height,
+			Real width, Real h_inf, Real r_0)
+{
+  *height =  slur_height (width, h_inf, r_0);
+  *indent = (width/(h_inf+ width)*1.5 + 0.5) * (*height);
+}
+
+
+
+
 Bezier
 slur_shape (Real width, Real h_inf, Real r_0)
 {
-  Bezier curve;
-  Real height =  slur_height (width, h_inf, r_0);
-  Real indent = (width/(h_inf+ width)*1.5 + 0.5) * height;
+  Real indent;
+  Real height;
+  
+  get_slur_indent_height (&indent, &height,
+			  width,  h_inf,  r_0);
 
+  Bezier curve;
   curve.control_[0] = Offset (0, 0);
   curve.control_[1] = Offset (indent, height);
   curve.control_[2] = Offset (width - indent, height);
   curve.control_[3] = Offset (width, 0);
   return curve;
 }
-

@@ -126,11 +126,6 @@ New_slur::add_extra_encompass (Grob*me, Grob*n)
 }
 
 
-ADD_INTERFACE (New_slur, "new-slur-interface",
-	       "A slur",
-	       "encompass-objects control-points dashed details direction height-limit note-columns ratio thickness");
-
-
 
 MAKE_SCHEME_CALLBACK (New_slur, outside_slur_callback, 2);
 SCM
@@ -181,3 +176,9 @@ New_slur::outside_slur_callback (SCM grob, SCM axis)
     }
   return scm_make_real (0.0);
 }
+
+
+ADD_INTERFACE (New_slur, "new-slur-interface",
+	       "A slur",
+	       "excentricity encompass-objects control-points dashed details direction height-limit note-columns ratio thickness");
+

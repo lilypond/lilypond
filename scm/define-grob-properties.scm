@@ -195,7 +195,9 @@ mean center distance weighted per note
 the vertical edges '(@var{left-height} . @var{right-height}).")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges '(@var{left-text} . @var{right-text}).")
-     (expand-limit ,integer? "maximum number of measures expanded in church rests.")
+     (excentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
+     
+(expand-limit ,integer? "maximum number of measures expanded in church rests.")
 
      ;; remove me? 
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
