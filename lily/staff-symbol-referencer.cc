@@ -120,7 +120,7 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 
 /*  This sets the position relative to the center of the staff symbol.
 
-The function is hairy, because it can be callled in two situations:
+The function is hairy, because it can be called in two situations:
 
 1. There is no staff yet; we must set staff-position
 
@@ -142,9 +142,7 @@ Staff_symbol_referencer::set_position (Grob *me, Real p)
   else
     me->set_property ("staff-position", scm_make_real (p));
 
-  if (!me->has_offset_callback (Staff_symbol_referencer::callback_proc,
-				Y_AXIS))
-    me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
+  me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }
 
 /* Half of the height, in staff space, i.e. 2.0 for a normal staff. */

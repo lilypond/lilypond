@@ -138,9 +138,6 @@ Grob::Grob (Grob const&s)
 
 Grob::~Grob ()
 {
-  /*
-    do nothing scm-ish and no unprotecting here.
-   */
 }
 
 
@@ -164,13 +161,22 @@ Grob::get_paper ()  const
  return pscore_ ? pscore_->paper_ : 0;
 }
 
+
+/*
+  Recursively track all dependencies of this Grob.  The
+  status_ field is used as a mark-field.  It is marked with
+  BUSY during execution of this function, and marked with FINAL
+  when finished.
+
+  FUNCPTR is the function to call to update this element.
+*/
 void
 Grob::calculate_dependencies (int final, int busy, SCM funcname)
 {
   if (status_ >= final)
     return;
 
-  if (status_== busy)
+  if (status_ == busy)
     {
       programming_error ("Element is busy, come back later");
       return;
@@ -190,7 +196,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   if (ly_c_procedure_p (proc))
     scm_call_1 (proc, this->self_scm ());
  
-  status_= final;
+  status_ = final;
 }
 
 Stencil *
@@ -280,7 +286,6 @@ Grob::add_dependency (Grob*e)
   else
     programming_error ("Null dependency added");
 }
-
 
 void
 Grob::handle_broken_dependencies ()
@@ -592,7 +597,7 @@ Grob::has_offset_callback (SCM cb, Axis a)const
 void
 Grob::set_extent (SCM dc, Axis a)
 {
-  dim_cache_[a].dimension_ =dc;
+  dim_cache_[a].dimension_ = dc;
 }
 
 void

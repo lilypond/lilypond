@@ -48,6 +48,9 @@ Script_column::before_line_breaking (SCM smob)
     {
       Grob *sc = unsmob_grob (ly_car (s));
 
+      /*
+	Don't want to consider scripts horizontally next to notes.
+       */
       if (!sc->has_offset_callback (Side_position_interface::aligned_side_proc,
 				    X_AXIS))
 	staff_sided.push (sc);

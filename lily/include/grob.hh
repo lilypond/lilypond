@@ -40,17 +40,13 @@ protected:
   friend class Spanner;
   
   void substitute_mutable_properties(SCM,SCM);
-
+  char status_;
 public:
   Grob *original_;
 
-  /**
-    Administration: Where are we?. This is mainly used by Super_element and
-    Grob::calcalute_dependencies ()
-
-    0 means ORPHAN,
+  /*
+    TODO: junk this member.
    */
-  char status_;
   Paper_score *pscore_;
   Dimension_cache dim_cache_[NO_AXES];
 
@@ -69,25 +65,10 @@ public:
   void warning (String)const;
   void programming_error (String)const;
   
-  /*
-    related classes.
-   */
   Output_def *get_paper () const;
-
-  /**
-    add a dependency. It may be the 0 pointer, in which case, it is ignored.
-    */
   void add_dependency (Grob*);    
-  virtual System * get_system () const;
+  virtual System *get_system () const;
 
-  /**
-     Recursively track all dependencies of this Grob.  The
-     status_ field is used as a mark-field.  It is marked with
-     #busy# during execution of this function, and marked with #final#
-     when finished.
-
-     #funcptr# is the function to call to update this element.
-   */
   void calculate_dependencies (int final, int busy, SCM funcname);
 
 
