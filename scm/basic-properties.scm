@@ -46,3 +46,5 @@
      )
    )
      
+
+(define (default-bar-number-visibility n) (> n 1))

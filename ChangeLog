@@ -1,3 +1,10 @@
+2002-09-07  Rune Zedeler  <rune@zedeler.dk>
+
+	* scm/basic-properties.scm: (default-bar-number-visibility) added
+
+	* ly/engraver-init.ly (ScoreContext) set barNumberVisibility to
+	#default-bar-number-visibility
+	
 2002-09-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/poly-metric.ly: update to use Timing.
