@@ -6,6 +6,7 @@
   (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "input-smob.hh"
 #include "axis-group-interface.hh"
 #include "debug.hh"
 #include "line-of-score.hh"
@@ -35,8 +36,6 @@ Line_of_score::Line_of_score(SCM s)
   : Spanner (s)
 {
   rank_i_ = 0;
-  set_elt_property ("columns", SCM_EOL);
-  set_elt_property ("all-elements", SCM_EOL);
 
   Axis_group_interface::set_interface (this);
   Axis_group_interface::set_axes (this, Y_AXIS,X_AXIS);
@@ -103,7 +102,7 @@ Line_of_score::output_lines ()
 
       if (verbose_global_b)
 	progress_indication ("[");
-      line_l->post_processing ();
+      line_l->post_processing (i+1 == broken_into_l_arr_.size ());
 
       if (verbose_global_b)
 	{
@@ -149,37 +148,73 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
 }
 
 
+#define GLOBAL_SYMBOL(cname, name)  \
+SCM cname ;					\
+void \
+cname ## _init_func ()				\
+{						\
+  cname = ly_symbol2scm (name);			\
+  scm_permanent_object (cname);			\
+}						\
+ADD_SCM_INIT_FUNC(cname,cname ## _init_func);\
+
+
+GLOBAL_SYMBOL( offset_sym , "translate-molecule");
+GLOBAL_SYMBOL( placebox_sym , "placebox");
+GLOBAL_SYMBOL( combine_sym , "combine-molecule");
+GLOBAL_SYMBOL( no_origin_sym , "no-origin");
+GLOBAL_SYMBOL( define_origin_sym , "define-origin");
+
+
+
 void
 Line_of_score::output_molecule (SCM expr, Offset o)
 {
-  SCM offset_sym = ly_symbol2scm ("translate-molecule");
-  SCM combine_sym = ly_symbol2scm ("combine-molecule");
-enter:
 
-  if (!gh_pair_p (expr))
-    return;
+  while (1)
+    {
+      if (!gh_pair_p (expr))
+	return;
   
-  SCM head =gh_car (expr);
-  if (head == offset_sym)
-    {
-      o += ly_scm2offset (gh_cadr (expr));
-      expr = gh_caddr (expr);
-      goto enter;
-    }
-  else if (head == combine_sym)
-    {
-      output_molecule (gh_cadr (expr), o);
-      expr = gh_caddr (expr);
-      goto enter;		// tail recursion
-    }
-  else
-    {
-      pscore_l_->outputter_l_->
-	output_scheme (gh_list (ly_symbol2scm ("placebox"),
-				gh_double2scm (o[X_AXIS]),
-				gh_double2scm (o[Y_AXIS]),
-				expr,
-				SCM_UNDEFINED));
+      SCM head =gh_car (expr);
+      if (unsmob_input (head))
+	{
+	  Input * ip = unsmob_input (head);
+      
+
+	  pscore_l_->outputter_l_->output_scheme (gh_list (define_origin_sym,
+							   ly_str02scm (ip->file_str ().ch_C()),
+							   gh_int2scm (ip->line_number ()),
+							   gh_int2scm (ip->column_number ()),
+							   SCM_UNDEFINED));
+	  expr = gh_cadr (expr);
+	}
+      else  if (head ==  no_origin_sym)
+	{
+	  pscore_l_->outputter_l_->output_scheme (gh_list (no_origin_sym, SCM_UNDEFINED));
+	  expr = gh_cadr (expr);
+	}
+      else if (head == offset_sym)
+	{
+	  o += ly_scm2offset (gh_cadr (expr));
+	  expr = gh_caddr (expr);
+	}
+      else if (head == combine_sym)
+	{
+	  output_molecule (gh_cadr (expr), o);
+	  expr = gh_caddr (expr);
+	}
+      else
+	{
+	  pscore_l_->outputter_l_->
+	    output_scheme (gh_list (placebox_sym,
+				    gh_double2scm (o[X_AXIS]),
+				    gh_double2scm (o[Y_AXIS]),
+				    expr,
+				    SCM_UNDEFINED));
+
+	  return;
+	}
     }
 }
 
@@ -242,7 +277,7 @@ Line_of_score::pre_processing ()
 }
 
 void
-Line_of_score::post_processing ()
+Line_of_score::post_processing (bool last_line)
 {
   for (SCM s = get_elt_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
@@ -309,7 +344,14 @@ Line_of_score::post_processing ()
 
       output_molecule (m.get_expr (), o);
     }
-  output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+  if (last_line)
+    {
+      output_scheme (gh_list (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
+    }
+  else
+    {
+      output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+    }
 }
 
 
@@ -366,3 +408,4 @@ Line_of_score::column_l_arr ()const
     }
   return acs;
 }
+  
