@@ -245,8 +245,6 @@ class TeXOutput:
             pageheight = Props.get('pageheight')
             pagewidth = Props.get('pagewidth')
                             	 
-        horizontalMarginArg =  ( (pagewidth - linewidth)/2 )   
-        verticalMarginArg =  ( (pageheight - textheight)/2  )
 
         top= r"""
 %% Creator: %s
@@ -265,16 +263,7 @@ class TeXOutput:
 %%\headheight9pt
 %%\headsep0pt
 %% Maybe this is too drastic, but let us give it a try.
-\headheight0pt
-\headsep2mm
-\footskip2mm
-%%
-%%\addtolength{\oddsidemargin}{-1cm} 
-%%\addtolength{\topmargin}{-1cm} 
-%%\setlength{\textwidth}{%s} 
-%%\setlength{\textheight}{%s} 
-%%
-\geometry{width=%spt, left=%spt, height=%spt, top=%spt} 
+\geometry{width=%spt, height=%spt,headheight=2mm,headsep=0pt,footskip=2mm} 
 \input lilyponddefs 
 \input titledefs 
 %s
@@ -286,9 +275,8 @@ class TeXOutput:
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
 \begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
-        Props.get('language'), Props.get('pagenumber'), linewidth, textheight,
-        linewidth, horizontalMarginArg, textheight, verticalMarginArg,
-        Props.get('header') )
+        Props.get('language'), Props.get('pagenumber'), linewidth,
+        textheight, Props.get('header') )
         
         base, ext = os.path.splitext(file)
         this.__base = base

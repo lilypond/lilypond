@@ -4,7 +4,8 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
+
+    Mats Bengtsson <matsb@s3.kth.se>  (the ugly TeX parsing in text_dimension)
  */
 
 #include <math.h>
@@ -22,23 +23,29 @@ Font_metric::text_dimension (String text) const
   for (int i = 0; i < text.length_i (); i++) 
     {
       
-      if (text[i]=='\\') 
+      switch (text[i]) 
 	{
-	  for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
+	case '\\':
+	  for (i++; (i < text.length_i ()) && !isspace(text[i]) 
+		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;
 	  // ugh.
 	  i--; // Compensate for the increment in the outer loop!
-	}
-      else
-	{
+	  break;
+	case '{':  // Skip '{' and '}'
+	case '}':
+	  break;
+	
+	default: 
 	  Box b = get_char ((unsigned char)text[i],false);
-
+	  
 	  // Ugh, use the width of 'x' for unknown characters
 	  if (b[X_AXIS].length () == 0) 
 	    b = get_char ((unsigned char)'x',false);
 	  
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]);
+	  break;
 	}
     }
   if (ydims.empty_b ())
@@ -72,7 +79,6 @@ Font_metric::Font_metric ()
 Font_metric::Font_metric (Font_metric const &)
 {
 }
-
 
 
 Box 
