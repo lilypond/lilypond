@@ -1,5 +1,7 @@
 2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PACKAGE_NAME): release 2.5.15
+
 	* scm/output-{pdf,pdftex,sketch}.scm (Module): remove bitrotted files.
 
 	* scm/framework-svg.scm (output-framework): put scaling in

@@ -28,11 +28,6 @@
  (srfi srfi-13))
 
 
-(if #t
-    (begin
-      (debug-enable 'debug)
-      (debug-enable 'backtrace)
-      (read-enable 'positions)))
 (define lily-unit-length 1.75)
 
 (define (dispatch expr)
