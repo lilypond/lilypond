@@ -141,7 +141,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 
       if (tie_column_)
 	for (int i = ties_.size (); i--;)
-	  Tie_column::add_tie (tie_column_, ties_ [i]);
+	  Tie_column::add_tie (tie_column_, ties_[i]);
     }
 }
 
