@@ -26,6 +26,10 @@ int
 Midi_score::output_mudela( String filename_str )
 {
 	tor( NORMAL_ver ) << "Lily output to " << filename_str << " ..." << endl;
+	
+	// ugh, ugly midi type 1 fix
+	if ( ( midi_track_p_list_.size() == 1 ) && !midi_track_p_list_.top()->number_i_ )
+		midi_track_p_list_.top()->number_i_ = 1;
 
 	int track_i = 0;
 	Lily_stream lily_stream( filename_str );

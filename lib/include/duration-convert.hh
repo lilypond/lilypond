@@ -12,6 +12,8 @@
 #define DURATION_CONVERT_HH
 #include "duration.hh"
 #include "string.hh"
+//#include "array.hh"
+#include "varray.hh"
 
 /**
 	Duration_convert handles all conversions to -n fro Duration (dur).
@@ -24,6 +26,10 @@
 	SUGGESTION: currently a moment in time is called moment too;
 	let-s typedef Rational When too, so that we get 
 	When Staff_column::when(), Moment Voice_element::mom().
+
+	[todo]
+	move all statics to real members, instantiate Duration_convert
+	object(s).
 */
 struct Duration_convert {
 	
@@ -34,6 +40,7 @@ struct Duration_convert {
     static bool no_double_dots_b_s;
     static bool no_triplets_b_s;
     static int no_smaller_than_i_s;
+    static Array<Duration> dur_array_s;
 
 //	/// Most used division in MIDI, all fine with me.
 //	static int const division_1_c_i = 384;
@@ -64,6 +71,8 @@ struct Duration_convert {
   
     /// Return plet factor (not a Moment: should use Rational?).
     static Moment plet_factor_mom( Duration dur );
+
+    static void set_array();
 
     /** Return synchronisation factor for mom, so that
       mom2_dur( mom / sync_f ) will return the duration dur.		
