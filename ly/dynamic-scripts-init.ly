@@ -7,7 +7,7 @@
 #(define (make-dynamic-script str)
    (make-music 'AbsoluteDynamicEvent
               'text str))
-ppppp = #(make-dynamic-script "pppp")
+ppppp = #(make-dynamic-script "ppppp")
 pppp = #(make-dynamic-script "pppp")
 ppp = #(make-dynamic-script "ppp")
 pp = #(make-dynamic-script "pp")

@@ -1,3 +1,7 @@
+2004-11-22  Erik Sandberg  <ersa9195@student.uu.se>
+
+	* ly/dynamic-scripts-init.ly: Fixed typo.
+
 2004-11-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (fill-line): use stack-stencils
