@@ -1,3 +1,16 @@
+1.3.46.jcn2
+===========
+
+* Drastically reduced vertical space used by headers/footers, when using
+  ly2dvi.  See input/test/fill-a4.ly.
+
+* Fixed bug with colons appearing on repeat span-bars.
+
+* Added Bar_number_engraver to standard Score context
+
+* Construct octavation scripts in the clef-engraver; this fixes the
+hara + clef8 problem
+
 1.3.46
 ======
 

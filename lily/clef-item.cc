@@ -52,42 +52,4 @@ Clef_item::before_line_breaking ()
 }
 
 
-void
-Clef_item::do_add_processing ()
-{
-  if (!break_status_dir ())	// broken stuff takes care of their own texts
-    {
-      Text_item *g =0;
-
-      SCM octave_dir = remove_elt_property ("octave-dir");
-      if (isdir_b (octave_dir))
-	{
-	  g = new Text_item;
-	  Side_position_interface spi (g);
-	  spi.set_axis (Y_AXIS);
-	  
-	  pscore_l_->line_l_->typeset_element (g);
-      
-	  spi.add_support (this);
-	  g->set_elt_property ("text", ly_str02scm ( "8"));
-	  g->set_elt_property ("style", gh_str02scm ("italic"));
-	  g->set_parent (this, Y_AXIS);
-	  g->set_parent (this, X_AXIS);
-	  
-	  g->set_elt_property ("self-alignment-X", gh_int2scm (0));
-	  g->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
-	  g->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
-
-	  g->set_elt_property ("direction", octave_dir);
-	  
-	  add_dependency (g);	// just to be sure.
-	  SCM my_vis = get_elt_property ("visibility-lambda");
-	  if (gh_procedure_p (my_vis))
-	    g->set_elt_property ("visibility-lambda", my_vis);
-			
-	}
-
-    }
-}
-
 

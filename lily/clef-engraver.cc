@@ -9,6 +9,7 @@
 */
 
 #include <ctype.h>
+
 #include "staff-symbol-referencer.hh"
 #include "bar.hh"
 #include "clef-item.hh"
@@ -21,11 +22,15 @@
 #include "array.hh"
 #include "engraver.hh"
 #include "direction.hh"
+#include "side-position-interface.hh"
+#include "text-item.hh"
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
   Clef_item * clef_p_;
+  Text_item * octavate_p_;
   Clef_change_req * clef_req_l_;
+  
   void create_clef();
   bool set_type (String);
 protected:
@@ -55,6 +60,7 @@ Clef_engraver::Clef_engraver()
   c0_position_i_ = 0;
   clef_position_i_ = 0;
   octave_dir_ = CENTER;
+  octavate_p_ = 0;
 }
 
 bool
@@ -177,7 +183,21 @@ Clef_engraver::create_clef()
   si.set_position (clef_position_i_);
   if (octave_dir_)
     {
-      clef_p_->set_elt_property ("octave-dir", gh_int2scm (octave_dir_));
+      Text_item * g = new Text_item;
+      Side_position_interface spi (g);
+      spi.set_axis (Y_AXIS);
+      spi.add_support (clef_p_);
+      g->set_elt_property ("text", ly_str02scm ( "8"));
+      g->set_elt_property ("style", gh_str02scm ("italic"));
+      g->set_parent (clef_p_, Y_AXIS);
+      g->set_parent (clef_p_, X_AXIS);
+	  
+      g->set_elt_property ("self-alignment-X", gh_int2scm (0));
+      g->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
+      g->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
+      g->set_elt_property ("direction", gh_int2scm (octave_dir_));
+      octavate_p_ = g;
+      announce_element (Score_element_info (octavate_p_, clef_req_l_));
     }
 }
 
@@ -198,11 +218,19 @@ Clef_engraver::do_pre_move_processing()
   if (clef_p_)
     {
       if(to_boolean (clef_p_->remove_elt_property("non-default")))
-	 clef_p_->set_elt_property("visibility-lambda",
-				   scm_eval (ly_symbol2scm ("all-visible")));
-      
+	{
+	  SCM all = scm_eval (ly_symbol2scm ("all-visible"));
+	  clef_p_->set_elt_property("visibility-lambda", all);
+	  if (octavate_p_)
+	    octavate_p_->set_elt_property("visibility-lambda", all);
+	}
       typeset_element (clef_p_);
       clef_p_ =0;
+
+      if (octavate_p_)
+	typeset_element(octavate_p_);
+
+      octavate_p_ = 0;
     }
 }
 
@@ -211,9 +239,6 @@ Clef_engraver::do_post_move_processing()
 {
   clef_req_l_ = 0;
 }
-
-
-
 
 ADD_THIS_TRANSLATOR(Clef_engraver);
 
