@@ -24,8 +24,8 @@ list is alphabetically ordered.
  accordion symbols, some lilypond-book.py
 @item  @email{jiba@@tuxfamily.org,Jean-Baptiste Lamy }
    Tablature support
-@item @email{matsb@@s3.kth.se, Mats Bengtsson},
-    @uref{http://www.s3.kth.se/~matsb/}
+@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
+    @uref{http://www.s3.kth.se/~mabe/}
     lots of testing, fixes, general comments and contributions.
 @item Laura Conrad (lconrad@@laymusic.org)
     fixes to abc2ly
