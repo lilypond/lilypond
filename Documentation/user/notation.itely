@@ -5642,8 +5642,8 @@ properties.
   \set Score.soloIIText = #"ni"
   \set Score.aDueText = #"tachi"
   \partcombine
-    \relative g' { g a( b) r }
-    \relative g' { g r4 r f }
+    \relative g' { g4 g a( b) r }
+    \relative g' { g4 g r r f }
 >>
 @end lilypond
 
