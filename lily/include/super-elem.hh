@@ -11,10 +11,10 @@
 #define SUPER_ELEM_HH
 
 #include "score-elem.hh"
-/** The toplevel element. The PScore contains this element, and any
+/** The toplevel element. The Paper_score contains this element, and any
   element shoud be a dependency for the super element.
   */
-class Super_elem : public virtual Score_elem {
+class Super_elem : public Score_elem {
 public:
     Link_array<Line_of_score> lines_arr_;
     Line_of_score * line_of_score_l_;
