@@ -13,22 +13,20 @@
 
 class Slur_bezier_bow
 {
-
-protected:
   Array<Offset> encompass_;
 
-private:
   void to_canonical_form ();
   Direction dir_;
   Real alpha_;
   Offset origin_;
   Real h_inf_, r_0_;
+
 public:
+
   /**
      The canonical bezier.
    */
   Bezier curve_;
-
 
   Slur_bezier_bow (Array<Offset> encompass, Direction dir,
 		   Real hinf, Real r0);

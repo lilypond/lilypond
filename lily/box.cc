@@ -68,3 +68,10 @@ Box::add_point (Offset o)
   interval_a_[X_AXIS].add_point (o[X_AXIS]);
   interval_a_[Y_AXIS].add_point (o[Y_AXIS]);  
 }
+
+Offset
+Box::center () const
+{
+  return Offset (interval_a_[X_AXIS].center(),
+		 interval_a_[Y_AXIS].center()); 
+}

@@ -93,6 +93,8 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
   bb->curve_.assert_sanity ();
 }
 
+
+
 Direction
 Slur::get_default_dir (Grob*me) 
 {
@@ -131,6 +133,7 @@ Slur::after_line_breaking (SCM smob)
 void
 Slur::check_slope (Grob *me)
 {
+
   /*
     Avoid too steep slurs.
    */
@@ -169,6 +172,7 @@ Slur::check_slope (Grob *me)
 					 ly_offset2scm (o[RIGHT])));
 	}
     }
+
 }
 
 /*
@@ -278,6 +282,11 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
   return o;
 }
 
+/*
+  COMMON is size-2 array with common refpoints.
+
+UGH: this routine delivers offsets which are *not* relative to COMMON.
+*/ 
 Offset
 Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
@@ -455,15 +464,7 @@ Slur::get_encompass_offset_arr (Grob *me)
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (LEFT), X_AXIS);
   
-  Link_array<Grob>  encompass_arr;
-  while (gh_pair_p (eltlist))
-    {
-      encompass_arr.push (unsmob_grob (ly_car (eltlist)));      
-      eltlist =ly_cdr (eltlist);
-    }
-  encompass_arr.reverse ();
-
-  
+  Link_array<Grob>  encompass_arr = list_to_grob_array (eltlist);
   Array<Offset> offset_arr;
 
   Offset origin (me->relative_coordinate (common[X_AXIS], X_AXIS),
@@ -577,6 +578,7 @@ Slur::set_control_points (Grob*me)
   Slur_bezier_bow bb (get_encompass_offset_arr (me),
 		      Directional_element_interface::get (me),
 		      h_inf, r_0);
+
 
   if (bb.fit_factor () > 1.0)
     {
