@@ -13,7 +13,6 @@ srcdir=`dirname $0`
 # advertises itself as autoconf 2.13.
 # If you have such a setup, invoke this script as:
 #   autoconf=autoconf ./autogen.sh
-set -x
 for i in in autoconf autoconf2.50 false; do
   version=`$i --version 2>/dev/null | head -1 | awk '{print $NF}' | awk -F. '{print $1 * 100 + $2}'`
   if test "0$version" -ge 250; then

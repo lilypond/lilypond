@@ -23,14 +23,13 @@
 #include "spring.hh"
 #include "paper-column.hh"
 #include "spaceable-grob.hh"
+#include "break-align-interface.hh"
+
+
+
 
 /*
   paper-column:
-
-  Don't be confused by right-items: each spacing wish can also contain
-  a number of items, with which a spacing constraint may be kept. It's
-  a little baroque, but it might come in handy later on?
-    
  */
 class Spacing_spanner
 {
@@ -104,6 +103,28 @@ loose_column (Grob *l, Grob *c, Grob *r)
   if (!l_neighbor || !r_neighbor)
     return false;
 
+
+  /*
+    A rather hairy check, but we really only want to move around clefs. (anything else?)
+
+    in any case, we don't want to move bar lines.
+   */
+  for (SCM e = c->get_grob_property ("elements"); gh_pair_p (e); e = gh_cdr (e))
+    {
+      Grob * g = unsmob_grob (gh_car (e));
+      if (g && Break_align_interface::has_interface (g))
+	{
+	  for (SCM s = g->get_grob_property ("elements"); gh_pair_p (s);
+	       s = gh_cdr (s))
+	    {
+	      Grob *h = unsmob_grob (gh_car (s));
+
+	      if (h  && h->get_grob_property ("break-align-symbol") == ly_symbol2scm ("bar-line"))
+		return false;
+	    }
+	}
+    }
+  
   /*
     Only declare loose if the bounds make a little sense.  This means
     some cases (two isolated, consecutive clef changes) won't be

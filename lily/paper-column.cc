@@ -36,6 +36,7 @@ ADD_INTERFACE (Paper_column, "paper-column-interface",
   Don't be confused by right-items: each spacing wish can also contain
   a number of items, with which a spacing constraint may be kept. It's
   a little baroque, but it might come in handy later on?
+
 ",
   "between-cols between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");
 
