@@ -1,61 +1,64 @@
 @c -*-texinfo-*-
+@c This file is part of lilypond.tely
 
 @node Introduction
 @chapter Introduction
 
 LilyPond is a system for formatting music prettily.  This chapter
-discusses the backgrounds of LilyPond. It explains the problem of
+discusses the backgrounds of LilyPond.  It explains the problem of
 printing music with computers, and our approach to solving those
 problems.
 
 
 @menu
-* Engraving::                   
-* Automated engraving::         
-* What symbols to engrave?::    
-* Music representation::        
-* Example applications::        
-* About this manual::           
+* Engraving::
+* Automated engraving::
+* What symbols to engrave?::
+* Music representation::
+* Example applications::
+* About this manual::
 @end menu
 
 
 @node Engraving
 @section Engraving
 
-The art of music typography is called @emph{(plate) engraving}. The
-term derives from the traditional process of music printing. Only a
+The art of music typography is called @emph{(plate) engraving}.  The
+term derives from the traditional process of music printing.  Just a
 few decades ago, sheet music was made by cutting and stamping the
-music into zinc or pewter plates in mirror image. The plate would be
-inked, and the depressions caused by the cutting and stamping would
-hold ink. An image was formed by pressing paper to the plate. The
-stamping and cutting was completely done by hand. Making corrections
-was cumbersome, so engraving had to be done correctly in one go. Of
-course, this was a highly specialized skill, and a craftsman had to
-complete around 10 years of practical training before he could be a
-master engraver.
+music into a zinc or pewter plate in mirror image.  The plate would be
+inked, the depressions caused by the cutting and stamping would hold
+ink.  An image was formed by pressing paper to the plate.  The
+stamping and cutting was completely done by hand.  Making a correction
+was cumbersome, if possible at all, so the engraving had to be perfect
+in one go.  Engraving was a highly specialized skill, a craftsman had
+to complete around ten years of practical training before he could be
+a master engraver.
 
+Nowadays, all newly printed music is produced with computers.  This
+has obvious advantages; prints are cheaper to make, editorial work can
+be delivered by email.  Unfortunately, the pervasive use of computers
+has also decreased the graphical quality of scores.  Computer
+printouts have a bland, mechanical look, which makes them unpleasant
+to play from.  The most important features of a music print is the
+font, i.e, the symbols or glyphs, and the placement or spacing of the
+symbols.
 
-Nowadays, all newly printed music is produced on computers. This has
-obvious advantages: prints are cheaper to make, and editorial work can
-be done over e-mail. Unfortunately, the pervasive use of computers has
-also decreased the graphical quality of scores. Computer printouts
-have a bland, mechanical look, which makes them unpleasant to play
-from.
-
+@c introduce illustrating aspects of engraving, font...
 The images below illustrate the difference between traditional
 engraving and typical computer output, and the third picture shows how
-LilyPond mimics the traditional look. The left picture shows a scan
-of a flat symbol from a Henle edition published in 2000. In the center
-show symbol from a hand engraved B@"{a}renreiter edition of the same
-music. The left scan illustrates typical flaws of computer print: the
-staff line are thin, the weight of the symbol matches the light lines,
-and the glyph has a straight layout with sharp corners. By contrast,
-the B@"{a}renreiter has a bold and almost voluptuous rounded look.
-Our flat symbol is designed after, among others, this one.  It is
-rounded, and its weight harmonizes with the thickness of our staff
-lines, which are also much thicker than Henle's lines.
+LilyPond mimics the traditional look.  The left picture shows a scan
+of a flat symbol from a Henle edition published in 2000.  In the
+center show symbol from a hand engraved B@"{a}renreiter edition of the
+same music.  The left scan illustrates typical flaws of computer
+print: the staff lines are thin, the weight of the flat symbol matches
+the light lines and it has a straight layout with sharp corners.  By
+contrast, the B@"{a}renreiter flat has a bold, almost voluptuous
+rounded look.  Our flat symbol is designed after, among others, this
+one.  It is rounded, and its weight harmonizes with the thickness of
+our staff lines, which are also much thicker than Henle's lines.
 
-@multitable @columnfractions  .1 .3 .3 .3
+@multitable @columnfractions  .05 .3 .3 .3 .05
 @item @tab
 @ifnotinfo
 @iftex
@@ -101,68 +104,70 @@ LilyPond Feta font (2003)
 @cindex blackness
 @cindex balance
 
+@c introduce illustrating aspects of engraving, spacing...
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the durations
-with mathematical precision, and that leads to a poor result. In the
-next example, a motive is printed twice. It is printed using exact
-mathematical spacing, and with some corrections. Can you spot which
-fragment is which?
+with mathematical precision, which leads to a poor result.  In the
+next example a motive is printed twice.  It is printed once using
+exact mathematical spacing, and once with corrections.  Can you
+spot which fragment is which?
 
 @cindex optical spacing
+@quotation
 @lilypond[noindent]
-    \score { \notes {
-      \override Staff.NoteSpacing   #'stem-spacing-correction
-     = #0.6
-      c'4 e''4 e'4 b'4 |
-       \stemDown b'4 e''4 a'4 e''4| \stemBoth
-       \bar "||"
-      \override Staff.NoteSpacing   #'stem-spacing-correction
-   = #0.0
-      \override Staff.StaffSpacing   #'stem-spacing-correction
-   = #0.0
-      c'4 e''4 e'4 b'4 |
-      \stemDown b'4 e''4 a'4 e''4|
-    }
-    \paper { raggedright = ##t } }
+\score {
+  \notes {
+    \override Staff.NoteSpacing #'stem-spacing-correction = #0.6
+    c'4 e''4 e'4 b'4 |
+    \stemDown b'4 e''4 a'4 e''4 | \bar "||"
+    \override Staff.NoteSpacing #'stem-spacing-correction = #0.0
+    \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
+    \stemBoth c'4 e''4 e'4 b'4 |
+    \stemDown b'4 e''4 a'4 e''4 |
+  }
+  \paper { raggedright = ##t }
+}
 @end lilypond
+@end quotation
 
 @cindex regular rhythms
 @cindex regular spacing
 
 The fragment only uses quarter notes: notes that are played in a
-constant rhythm. The spacing should reflect that. Unfortunately, the
-eye deceives us a little: not only does it notice the distance between
+constant rhythm.  The spacing should reflect that.  Unfortunately, the
+eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
-consecutive stems. As a result, the notes of an up-stem/down-stem
+consecutive stems.  As a result, the notes of an up-stem/down-stem
 combination should be put farther apart, and the notes of a down-up
 combination should be put closer together, all depending on the
-combined vertical positions of the notes. The first two measures are
-printed with this correction, the last two measures without. The notes
+combined vertical positions of the notes.  The first two measures are
+printed with this correction, the last two measures without.  The notes
 in the last two measures form down-stem/up-stem clumps of notes.
 
 @cindex typography
 
-Musicians are usually more absorbed with performing the music than
-with studying its looks, so this nitpicking about typographical
-details may seem academical. That is not justified. In larger pieces
-with monotonous rhythms, spacing corrections lead to subtle variations
-in the layout of every line, giving each one a distinct visual
-signature. Without this signature, all lines would look the same, they
-become like a labyrinth. If the musician looks away once or has a
-lapse in his concentration, he will be lost on the page.
+Musicians are usually more absorbed with performing than with studying
+the looks of piece of music; nitpicking about typographical details
+may seem academical.  But it is not.  In larger pieces with monotonous
+rhythms, spacing corrections lead to subtle variations in the layout
+of every line, giving each one a distinct visual signature.  Without
+this signature all lines would look the same, they become like a
+labyrinth.  If the musician looks away once or has a lapse in his
+concentration, he will be lost on the page.
+@c he/she
 
 Similarly, the strong visual look of bold symbols on heavy staff lines
 stands out better when music is far away from reader, for example, if
 it is on a music stand.  A careful distribution of white space allows
 music to be set very tightly without cluttering symbols together.  The
-result minimizes the number of page turns,
+result minimizes the number of page turns, which is a great advantage.
 
-This is a common characteristic of typography. Layout should be
+This is a common characteristic of typography.  Layout should be
 pretty, not only for its own sake, but especially because it helps the
-reader in his task. For performance material like sheet music, this is
-doubly important: musicians have a limited amount of attention. The
+reader in his task.  For performance material like sheet music, this is
+doubly important: musicians have a limited amount of attention.  The
 less attention they need for reading, the more they can focus on
-playing itself. In other words, better typography translates to better
+playing itself.  In other words, better typography translates to better
 performances.
 
 Hopefully, these examples also demonstrate that music typography is an
@@ -184,142 +189,141 @@ How do we go about implementing typography?  If craftsmen need over
 ten years to become true masters, how could we simple hackers ever
 write a program to take over their jobs?
 
-The answer is: we cannot. Typography relies on human judgment of
-appearance, so people cannot be replaced ultimately. However, much of
-the dull work can be automated. If LilyPond solves most of the common
-situations correctly, then this will be a huge improvement over
-existing software. The remaining cases can be tuned by hand. Over the
-course of years, the software can be refined to do more and more
+The answer is: we cannot.  Typography relies on human judgment of
+appearance, so people cannot be replaced ultimately.  However, much of
+the dull work can be automated.  If LilyPond solves most of the common
+situations correctly, this will be a huge improvement over existing
+software.  The remaining cases can be tuned by hand.  Over the course
+of years, the software can be refined to do more and more
 automatically, so manual overrides are less and less necessary.
 
-When we started, we wrote the program in C++. With this design, the
-program functionality was set in stone stone by us developers. That
-proved to be unsatisfactory:
-
+When we started we wrote the LilyPond entirely using the C++
+programming language, the program's functionality was set in stone by
+the developers.  That proved to be unsatisfactory for a number of
+reasons:
 
 @itemize @bullet
 @item When LilyPond makes mistakes,
  users need to override formatting decisions.  Therefore, the user
-must access to the formatting engine. Hence, rules and settings cannot
+must access to the formatting engine.  Hence, rules and settings cannot
 be fixed by us at compile time, but they must be accessible for users
 at run-time.
 
 @item Engraving is a matter of visual judgment, and therefore a matter of
-taste. As knowledgeable as we are, users can disagree with our
-personal decisions. Therefore, the definitions of typographical style
+taste.  As knowledgeable as we are, users can disagree with our
+personal decisions.  Therefore, the definitions of typographical style
 must also be accessible to the user.
 
 @item  Finally, we continually refine the formatting algorithms, so we
-need a flexible approach to rules. The C++ language forces a certain
+need a flexible approach to rules.  The C++ language forces a certain
 method of grouping rules that do not match well with how music
 notation works.
 
 @end itemize
 
-The formatting architecture of LilyPond addresses these needs.  It is
-built around the notion graphical objects, carrying variables.  The
-architecture encompasses formatting rules, typographical style and
-individual formatting decisions.
+These problems have been addressed by integrating the GUILE
+interpreter for the scheme programming language and rewriting parts of
+LilyPond in scheme.  The new, flexible formatting is built around the
+notion of graphical objects, described by scheme variables and
+functions.  This architecture encompasses formatting rules,
+typographical style and individual formatting decisions.  The user has
+direct access to most of these controls.
 
-Variables control layout decisions. For example, many objects have a
-direction variable that encodes the choice between up and down (or
-left and right). Here you see two chords, with accents and
-arpeggio. In the first chord, the objects have all directions down (or
-left). The second chord has all directions up (right).
+Scheme variables control layout decisions.  For example, many
+graphical objects have a direction variable that encodes the choice
+between up and down (or left and right).  Here you see two chords,
+with accents and arpeggio.  In the first chord, the graphical objects
+have all directions down (or left).  The second chord has all
+directions up (right).
 
+@quotation
 @lilypond[raggedright,relative=1]
 \new Score \with {
-	 \override SpacingSpanner #'spacing-increment = #3
-         \override TimeSignature #'transparent = ##t 
-} {
-	\stemDown 
-	<e g b>4_>-\arpeggio
-
-	\override Arpeggio #'direction = #RIGHT
-	\stemUp
-	<e g b>4^>-\arpeggio
+  \override SpacingSpanner #'spacing-increment = #3
+  \override TimeSignature #'transparent = ##t
+  } {
+  \stemDown <e g b>4_>-\arpeggio
+  \override Arpeggio #'direction = #RIGHT
+  \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
+@end quotation
 
-The process of formatting a score consists of reading and
-writing object variables.
+The process of formatting a score consists of reading and writing the
+variables of graphical objects.
 
-Some variables have a preset value. For example, the thickness of many
-lines ---a characteristic of typographical style--are preset
-variables. Changing them gives a different typographical impression:
+Some variables have a preset value.  For example, the thickness of many
+lines---a characteristic of typographical style---are preset
+variables.  Changing them gives a different typographical impression
 
-@lilypond[]
-frag= \notes {
-    \clef bass f8 as8
-    c'4-~ c'16 as g f e16 g bes c' des'4
-    }
-\paper { raggedright = ##t }
-
+@quotation
+@lilypond[raggedright]
+fragment = \notes {
+  \clef bass f8 as8
+  c'4-~ c'16 as g f e16 g bes c' des'4
+}
 \score {
-<<   \new Staff \frag
-   \new Staff \with {
-        \override Beam #'thickness = #0.3
-        \override Stem #'thickness = #0.5
-        \override Bar #'thickness = #3.6
-        \override Tie #'thickness = #2.2
-        \override StaffSymbol #'thickness = #3.0
-        \override Tie #'extra-offset = #'(0 . 0.3)
-   } \frag
+  <<
+    \new Staff \fragment
+    \new Staff \with {
+      \override Beam #'thickness = #0.3
+      \override Stem #'thickness = #0.5
+      \override Bar #'thickness = #3.6
+      \override Tie #'thickness = #2.2
+      \override StaffSymbol #'thickness = #3.0
+      \override Tie #'extra-offset = #'(0 .  0.3)
+   } \fragment
    >>
 }
 @end lilypond
+@end quotation
 
 Formatting rules are also preset variables: each object has variables
-containing procedures. These procedure perform the actual formatting,
-and by substituting different ones, we can change behavior. In the
+containing procedures.  These procedure perform the actual formatting,
+and by substituting different ones, we can change behavior.  In the
 following example, the rule that note head objects use to produce
-their symbol is changed during the music fragment:
+their symbol is changed during the music fragment
 
-
+@quotation
 @lilypond[raggedright]
-#(define  (mc-squared gr org cur)
-  (let*
-      ((ifs (ly:grob-property gr 'interfaces))
-       (sp (ly:grob-property gr 'staff-position)) )
-  (if (and (memq 'note-head-interface ifs)
-	   (memq sp '(-2 -3 -5)))
-      (begin
-	(ly:grob-set-property! gr 'print-function brew-new-markup-stencil)
-	(ly:grob-set-property! gr 'font-family 'roman)
-	(ly:grob-set-property!
-	 gr 'text
-	 (make-raise-markup -0.5
-			    (case sp
-			      ((-5) (make-simple-markup "m"))
-			      ((-3) (make-simple-markup "c "))
-			      ((-2) (make-smaller-markup (make-bold-markup "2")))
-			      (else (make-simple-markup "bla"))
-			      ))))
-      )))
+#(define (mc-squared grob orig current)
+  (let ((interfaces (ly:grob-property grob 'interfaces))
+	(pos (ly:grob-property grob 'staff-position)))
+    (if (and (memq 'note-head-interface interfaces)
+	     (memq pos '(-2 -3 -5)))
+	(begin
+	  (ly:grob-set-property! grob 'print-function brew-new-markup-stencil)
+	  (ly:grob-set-property! grob 'font-family 'roman)
+	  (ly:grob-set-property!
+	   grob 'text
+	   (make-raise-markup
+	    -0.5
+	    (case pos
+	      ((-5) (make-simple-markup "m"))
+	      ((-3) (make-simple-markup "c "))
+	      ((-2) (make-smaller-markup (make-bold-markup "2")))
+	      (else (make-simple-markup "bla")))))))))
 
 \score {
-       \notes \context Voice \relative  c'
-       {
-       \stemUp
-       \set autoBeaming = ##f
-       \time 2/4 
-          { <d f g>4
-     \once \override NoteHead #'print-function 
-       = #Note_head::brew_ez_stencil
-     <d f g>
-     \once \override NoteHead #'style
-       = #'cross
-     <d f g>
-     \applyoutput #mc-squared
-     <d f g>
-     << { d8[ es-( fis^^ g] fis2-) }
-       \repeat unfold 5 { \applyoutput #mc-squared s8 }  >>
-
-   }
-              
-   }
+  \notes \context Voice \relative  c' {
+    \stemUp
+    \set autoBeaming = ##f
+    \time 2/4
+    <d f g>4
+    \once \override NoteHead #'print-function = #Note_head::brew_ez_stencil
+    <d f g>
+    \once \override NoteHead #'style = #'cross
+    <d f g>
+    \applyoutput #mc-squared
+    <d f g>
+    <<
+      { d8[ es-( fis^^ g] fis2-) }
+      \repeat unfold 5 { \applyoutput #mc-squared s8 }
+    >>
+  }
 }
 @end lilypond
+@end quotation
 
 
 
@@ -330,20 +334,20 @@ their symbol is changed during the music fragment:
 @cindex typography
 
 The formatting process in LilyPond decides where to place
-symbols. However, this can only be done once it is decided @emph{what}
+symbols.  However, this can only be done once it is decided @emph{what}
 symbols should be printed, in other words what notation to use.
 
 Common music notation is a system of recording music that has evolved
-over the past 1000 years. The form that is now in common use, dates
-from the early renaissance. Although, the basic form (i.e. note heads on a
+over the past 1000 years.  The form that is now in common use, dates
+from the early renaissance.  Although, the basic form (i.e.  note heads on a
 5-line staff) has not changed, the details still change to express the
 innovations of contemporary notation.  Hence, it encompasses some 500
-years of music. Its applications range from monophonic melodies to
+years of music.  Its applications range from monophonic melodies to
 monstrous counterpoint for large orchestras.
 
 How can we get a grip on such a many-headed beast, and force it into
 the confines of a computer program?  We have broken up the problem of
-notation (as opposed to engraving, i.e. typography) into digestible
+notation (as opposed to engraving, i.e.  typography) into digestible
 and programmable chunks: every type of symbol is handled by a separate
 module, a so-called plug-in.  Each plug-in is completely modular and
 independent, so each can be developed and improved separately.  People
@@ -353,233 +357,261 @@ engravers, so by analogy, each plug-in is called @code{engraver}.
 In the following example, we see how we start out with a plug-in for
 note heads, the @code{Note_heads_engraver}.
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 
-\score { \topVoice
-\paper {
-       \context { \VoiceContext
-       \remove "Stem_engraver"
-       \remove "Phrasing_slur_engraver"
-       \remove "Slur_engraver"
-       \remove "Script_engraver"
-       \remove "Beam_engraver"
-       \remove "Auto_beam_engraver"
-       
-       }
-       \context { \StaffContext
-       \remove "Accidental_engraver"
-       \remove "Key_engraver"
-       \remove "Clef_engraver"
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
-       \remove "Staff_symbol_engraver"
-       \consists "Pitch_squash_engraver"
-        }
-       
-} 
+\score {
+  \topVoice
+  \paper {
+    \context {
+      \VoiceContext
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \StaffContext
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \consists "Pitch_squash_engraver"
+    }
+  }
 }
 @end lilypond
+@end quotation
 
-Then a @code{Staff_symbol_engraver} adds the staff:
+@noindent
+Then a @code{Staff_symbol_engraver} adds the staff
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 
-\score { \topVoice
-\paper {
-       \context { \VoiceContext
-       \remove "Stem_engraver"
-       \remove "Phrasing_slur_engraver"
-       \remove "Slur_engraver"
-       \remove "Script_engraver"
-       \remove "Beam_engraver"
-       \remove "Auto_beam_engraver"
-       
-       }
-       \context { \StaffContext
-       \remove "Accidental_engraver"
-       \remove "Key_engraver"
-       \remove "Clef_engraver"
-       \remove "Bar_engraver"
-       \consists "Pitch_squash_engraver"
-       \remove "Time_signature_engraver"
-        }
-       
-} 
+\score {
+  \topVoice
+  \paper {
+    \context {
+      \VoiceContext
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \StaffContext
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \consists "Pitch_squash_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
 }
 @end lilypond
+@end quotation
 
- The @code{Clef_engraver} defines a reference point for the staff:
+@noindent
+The @code{Clef_engraver} defines a reference point for the staff
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 
-\score { \topVoice
-\paper {
-       \context { \VoiceContext
-       \remove "Stem_engraver"
-       \remove "Phrasing_slur_engraver"
-       \remove "Slur_engraver"
-       \remove "Script_engraver"
-       \remove "Beam_engraver"
-       \remove "Auto_beam_engraver"
-       }
-       \context { \StaffContext
-       \remove "Accidental_engraver"
-       \remove "Key_engraver"
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
-        }
-       
-} 
+\score {
+  \topVoice
+  \paper {
+    \context {
+      \VoiceContext
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \StaffContext
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
 }
 @end lilypond
+@end quotation
 
-And the @code{Stem_engraver} adds stems:
+@noindent
+And the @code{Stem_engraver} adds stems
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 
-\score { \topVoice
-\paper {
-       \context { \VoiceContext
-       \remove "Phrasing_slur_engraver"
-       \remove "Slur_engraver"
-       \remove "Script_engraver"
-       \remove "Beam_engraver"
-       \remove "Auto_beam_engraver"
-       }
-       \context { \StaffContext
-       \remove "Accidental_engraver"
-       \remove "Key_engraver"
-       \remove "Bar_engraver"
-       \remove "Time_signature_engraver"
-        }
-} 
+\score {
+  \topVoice
+  \paper {
+    \context {
+      \VoiceContext
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \StaffContext
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
 }
 @end lilypond
+@end quotation
 
 The @code{Stem_engraver} is notified of any note head coming along.
 Every time one (or more, for a chord) note head is seen, a stem
 object is created and connected to the note head.
-
 By adding engravers for beams, slurs, accents, accidentals, bar lines,
 time signature, and key signature, we get a complete piece of
 notation.
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
-
 \score { \topVoice }
 @end lilypond
-
-
+@end quotation
 
 This system works well for monophonic music, but what about
-polyphony? In polyphonic notation, many voices can share a staff.
+polyphony?  In polyphonic notation, many voices can share a staff.
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 \score { \context Staff << \topVoice \\ \botVoice >> }
 @end lilypond
+@end quotation
 
 In this situation, the accidentals and staff are shared, but the
-stems, slurs, beams, etc. are private to each voice. Hence, engravers
-should be grouped. The engravers for note heads, stems, slurs, etc. go
+stems, slurs, beams, etc.  are private to each voice.  Hence, engravers
+should be grouped.  The engravers for note heads, stems, slurs, etc.  go
 into a group called ``Voice context,'' while the engravers for key,
-accidental, bar, etc. go into a group called ``Staff context.'' In the
+accidental, bar, etc.  go into a group called ``Staff context.'' In the
 case of polyphony, a single Staff context contains more than one Voice
-context.  In polyphonic notation, many voices can share a staff:
-Similarly, more Staff contexts can be put into a single Score context.
+context.  In polyphonic notation, many voices can share a staff.
+Similarly, more Staff contexts can be put into a single Score context
 
-@lilypond[]
+@quotation
+@lilypond[raggedright]
 \include "engraver-example.lyinc"
 \score {
-<< \new Staff << \topVoice \\ \botVoice >>
-\new Staff << \pah \\ \hoom >>
+  <<
+    \new Staff << \topVoice \\ \botVoice >>
+    \new Staff << \pah \\ \hoom >>
   >>
 }
 @end lilypond
+@end quotation
 
 @node Music representation
 @section Music representation
 
 Ideally, the input format for any high-level formatting system is an
-abstract description of the content. In this case, that would be the
-music itself. This poses a formidable problem: how can we define what
+abstract description of the content.  In this case, that would be the
+music itself.  This poses a formidable problem: how can we define what
 music really is? Instead of trying to find an answer, we have reversed
 the question.  We write a program capable of producing sheet music,
-and adjust the format to be as lean as possible. When the format can
+and adjust the format to be as lean as possible.  When the format can
 no longer be trimmed down, by definition we are left with content
 itself.  Our program serves as a formal definition of a music
 document.
 
-
-The syntax is also the user-interface for LilyPond, hence it is easily typable, e.g.,
+The syntax is also the user-interface for LilyPond, hence it is easy
+to type
 @example
-  c'4 d'8
+c'4 d'8
 @end example
-Are a quarter note C (middle C) and eighth note D1 (D above middle C),
-as in this example:
-
+a quarter note C1 (middle C) and eighth note D1 (D above middle C)
+@quotation
 @lilypond[fragment]
-  c'4 d'8
+c'4 d'8
 @end lilypond
+@end quotation
 
-On a microscopic scale, such syntax is easy to use. On a larger scale,
-syntax also needs structure. How else can you enter complex pieces
-like symphonies and operas? The structure is formed by the concept of
-music expressions: by combining small fragments of music into larger
-ones, more complex music can be expressed. For example,
+On a microscopic scale, such syntax is easy to use.  On a larger
+scale, syntax also needs structure.  How else can you enter complex
+pieces like symphonies and operas?  The structure is formed by the
+concept of music expressions: by combining small fragments of music
+into larger ones, more complex music can be expressed.  For example
 
+@quotation
 @lilypond[verbatim,fragment,relative=1]
 c4
 @end lilypond
+@end quotation
 
-Combine this simultaneously with two other notes by enclosing in << and >>.
+Combine this simultaneously with two other notes by enclosing in << and >>
 
-@verbatim
-  <<c4 d4 e4>>
-@end verbatim
+@example
+<<c4 d4 e4>>
+@end example
+@quotation
 @lilypond[fragment,relative=1]
-  \new Staff <<c4 d4 e4>>
+\new Voice { <<c4 d4 e4>> }
 @end lilypond
+@end quotation
 
+This expression is put in sequence by enclosing it in curly braces
+@code{@{ @dots{} @}}
 
-	
-This expression is put in sequence by enclosing it in braces, i.e.,
+@example
+@{ <<c4 d4 e4>> f4 @}
+@end example
 
-@verbatim
-   { <<c4 d4 e4>> f4  }
-@end verbatim
-
+@quotation
 @lilypond[relative=1]
-   \new Voice { <<c4 d4 e4>> f4  }
+\new Voice { <<c4 d4 e4>> f4 }
 @end lilypond
+@end quotation
 	
 The above is another expression, and therefore, it many combined again
-with a simultaneous expression (in this case, a half note).
+with a simultaneous expression; in this case, a half note
 
-@verbatim
-  << { <<c4 d4 e4>> f4 } g2 >> 
-@end verbatim
-@lilypond[fragment,relative=1]
-<< g2 \\ { <c d e>4 f4 }  >> 
+@example
+<< @{ <<c4 d4 e4>> f4 @} g2 >>
+@end example
+@quotation
+@lilypond[fragment,relative=2]
+\new Voice { << g2 \\ { <c d e>4 f4 } >> }
 @end lilypond
+@end quotation
 	
 
 Such recursive structures can be specified neatly and formally in a
-context-free grammar. The parsing code is also generated from this
-grammar. In other words, the syntax of LilyPond is clearly and
+context-free grammar.  The parsing code is also generated from this
+grammar.  In other words, the syntax of LilyPond is clearly and
 unambiguously defined.
 
 User-interfaces and syntax are what people see and deal with
-most. They are partly a matter of taste, and also subject of much
-discussion. Although discussions on taste do have their merit, they
-are not very productive. In the larger picture of LilyPond, the
+most.  They are partly a matter of taste, and also subject of much
+discussion.  Although discussions on taste do have their merit, they
+are not very productive.  In the larger picture of LilyPond, the
 importance of input syntax is small: inventing neat syntax is easy,
-writing decent formatting code is much harder. This is also
+writing decent formatting code is much harder.  This is also
 illustrated by the line-counts for the respective components: parsing
 and representation take up less than 10% of the code.
 
@@ -588,41 +620,52 @@ and representation take up less than 10% of the code.
 @section Example applications
 
 We have written LilyPond as an experiment of how to condense the art
-of music engraving into a computer program. Thanks to all that hard
+of music engraving into a computer program.  Thanks to all that hard
 work, the program can now be used to perform useful tasks.  The
-simplest application is printing notes:
+simplest application is printing notes
 
+@quotation
 @lilypond[relative=1]
-  \time 2/4 c4 c g'4 g a4 a g2  
+\time 2/4 c4 c g'4 g a4 a g2
 @end lilypond
+@end quotation
 
-By adding chord names and lyrics we obtain a lead sheet:
+@noindent
+By adding chord names and lyrics we obtain a lead sheet
 
+@quotation
 @lilypond[raggedright]
-\score { <<
-  \context ChordNames \chords  { c2 c f2 c }
-  \new Staff \notes \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-  \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 } >> }
+\score {
+  <<
+    \context ChordNames \chords  { c2 c f2 c }
+    \new Staff \notes \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
+    \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 }
+  >>
+}
 @end lilypond
+@end quotation
 
-Polyphonic notation and piano music can also be printed. The following
-example combines some more exotic constructs:
 
-@lilypondfile{screech-boink.ly}
+Polyphonic notation and piano music can also be printed.  The following
+example combines some more exotic constructs
+
+@quotation
+@lilypondfile[raggedright]{screech-boink.ly}
+@end quotation
 
 The fragments shown above have all been written by hand, but that is
-not a requirement. Since the formatting engine is mostly automatic, it
+not a requirement.  Since the formatting engine is mostly automatic, it
 can serve as an output means for other programs that manipulate
-music. For example, it can also be used to convert databases of
+music.  For example, it can also be used to convert databases of
 musical fragments to images for use on websites and multimedia
 presentations.
 
-This manual also shows an application: the input format is plain text,
-and can therefore be easily embedded in other text-based formats, such
-as La@TeX{}, HTML or in the case of this manual, Texinfo.  By means of a
-special program, the input fragments can be replaced by music images in
-the resulting PostScript or HTML output files. This makes it easy to
-mix music and text in documents.
+This manual also shows an application: the input format is text, and
+can therefore be easily embedded in other text-based formats such as
+La@TeX{}, HTML or in the case of this manual, Texinfo.  By means of a
+special program, the input fragments can be replaced by music images
+in the resulting PostScript or HTML output files.  This makes it easy
+to mix music and text in documents.
 
 
 
@@ -631,58 +674,61 @@ mix music and text in documents.
 
 The manual is divided into the following chapters:
 @itemize @bullet
+
 @item
-@ifhtml The 
+@ifhtml
+The
 @end ifhtml
 @emph{@ref{Tutorial}}
-gives a  gentle introduction to typesetting music.
-First time users should start here. 
+gives a gentle introduction to typesetting music.
+First time users should start here.
+
 @item
 @ifhtml
 The
 @end ifhtml
 @emph{@ref{Notation manual}}
-discusses topics grouped by notation construct. Once you master the
+discusses topics grouped by notation construct.  Once you master the
 basics, this is the place to look up details.
+
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{Changing defaults}}
+explains how to fine tune layout.
+@item
+@ifhtml
+The chapter
+@end ifhtml
+@emph{@ref{Invoking LilyPond}} shows how to run LilyPond and its helper
+programs.
+
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{lilypond-book manual}}
+explains  the details behind creating documents with in-line music
+examples (like this manual).
+
+@item
+@ifhtml
+The chapter
+@end ifhtml
+@emph{@ref{Converting from other formats}}
+explains how to run the conversion programs.  These programs
+are supplied with the LilyPond package, and convert a variety of music
+formats to the @code{.ly}  format.  In addition, this section explains
+how to upgrade input files from previous versions of LilyPond.
+
 @item
 @ifhtml
 The
 @end ifhtml
 @emph{@ref{Literature list}}
  contains a set of useful reference books, for those who wish to know
- more  on notation and engraving. 
-@item
-@ifhtml
- The
- @end ifhtml
-@emph{@ref{Changing defaults}}
-@c
-Explains how to fine tune layout.
-@item
-@ifhtml
-The chapter
-@end ifhtml
-@emph{@ref{Invoking LilyPond}}  explains how to run LilyPond and its helper
-programs.
-
-@item
-@ifhtml
-The 
-@end ifhtml
-@emph{@ref{lilypond-book manual}}
-explains  the details behind creating documents with in-line music
-examples (like this manual).
-
-
-@item
-@ifhtml
-The chapter 
-@end ifhtml
-@emph{@ref{Converting from other formats}}
-explains how to run the conversion programs. These programs
-are supplied with the LilyPond package, and convert a variety of music
-formats to the @code{.ly}  format. In addition, this section explains
-how to upgrade input files from previous versions of LilyPond.
+ more  on notation and engraving.
 
 @end itemize
 
@@ -693,7 +739,7 @@ that case, please file a bug report.}, but the document is also
 available in
 @ifnothtml
 a big HTML page,
-@end ifnothtml 
+@end ifnothtml
 @ifhtml
 @uref{../lilypond.html, a big HTML page}
 @end ifhtml
@@ -702,11 +748,12 @@ browser.
 @cindex search in manual
 @cindex using the manual
 
-
+@c FIXME:
+@c add/integrate glossary, put in list above
 If you are not familiar with music notation or music terminology
-(especially if you are a non-native English speaker), then it is
-advisable to consult the glossary as well. The glossary explains
-musical terms, and includes translations to various languages. It is a
+(especially if you are a non-native English speaker), it is advisable
+to consult the glossary as well.  The glossary explains musical terms,
+and includes translations to various languages.  It is a
 @ifhtml
 @uref{../music-glossary.html,separate document}.
 @end ifhtml
@@ -720,7 +767,7 @@ separate document, available in HTML and PDF.
 @cindex language
 
 
-This manual is not complete without a number of other documents. They
+This manual is not complete without a number of other documents.  They
 are not available in print, but should be included with the
 documentation package for your platform:
 
@@ -737,9 +784,9 @@ class, object and function.  It is produced directly from the
 formatting definitions used.
 
 Almost all formatting functionality that is used internally, is
-available directly to the user. For example, all variables that
+available directly to the user.  For example, all variables that
 control thicknesses, distances, etc, can be changed in input
-files. There are a huge number of formatting options, and all of them
+files.  There are a huge number of formatting options, and all of them
 are described in the generated documentation.  Each section of the
 notation manual has a @b{See also} subsection, which refers to the
 the generated documentation.  In the HTML document, these subsections
@@ -752,10 +799,10 @@ have clickable links.
 @end ifhtml
 
 After you have gone through the tutorial, you should be able to write
-input files. In practice, writing files from scratch turns out to be
+input files.  In practice, writing files from scratch turns out to be
 intimidating.  To give you a head start, we have collected a number of
 often-used formats in example files.  These files can be used as a
-start: simply copy the template, and add notes in the appropriate
+start; simply copy the template and add notes in the appropriate
 places.
 
 @item
@@ -765,9 +812,9 @@ places.
 @end ifhtml
 @cindex snippets
 
-These small files show various tips and tricks, and are available as a
-big HTML document, with pictures and explanatory texts included.
-
+This collection of files shows various tips and tricks, and is
+available as a big HTML document, with pictures and explanatory texts
+included.
 
 @item
   The regression tests
@@ -776,9 +823,9 @@ big HTML document, with pictures and explanatory texts included.
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of
-LilyPond in one file. The collection is primarily there to help us
+LilyPond in one file.  The collection is primarily there to help us
 debug problems, but it can be instructive to see how we exercise the
-program. The format is like the tips and tricks document.
+program.  The format is similar to the the tips and tricks document.
 
 @end itemize
 
@@ -790,11 +837,11 @@ the image.
 The location of the documentation files that are mentioned here can
 vary from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
-input files relative to the top-directory of the source archive. For
+input files relative to the top-directory of the source archive.  For
 example, @file{input/test/bla.ly} may refer to the file
 @file{lilypond-1.7.19/input/test/bla.ly}.  On binary packages for the
 Unix platform, the documentation and examples can typically be found
-somewhere below @file{/usr/share/doc/lilypond/}. Initialization files,
+somewhere below @file{/usr/share/doc/lilypond/}.  Initialization files,
 for example @file{scm/lily.scm}, or @file{ly/engraver-init.ly}, are
 usually found in the directory @file{/usr/share/lilypond/}.
 
@@ -812,5 +859,5 @@ Finally, this and all other manuals, are available online both as PDF
 files and HTML from the web site, which can be found at
 @uref{http://www.lilypond.org/}.
 
-@cindex website 
+@cindex website
 @cindex URL
