@@ -15,16 +15,11 @@ Idealspacing*
 PScore::get_spacing(PCol*l, PCol*r)
 {
     assert(l!=r);
-    for (iter_top(suz,ic); ic.ok(); ic++) {
-	if (ic->left == l && ic->right == r){
-	    return ic;
-	}
-    }
-    
-    Idealspacing*ip =new Idealspacing(l,r);
-    suz.bottom().add(ip);
 
-    return ip;
+    Idealspacing*i_p =new Idealspacing(l,r);
+    suz.bottom().add(i_p);
+
+    return i_p;
 }
 
 
@@ -53,11 +48,10 @@ PScore::do_connect(PCol *c1, PCol *c2, Real d, Real h)
     if (!c1 || !c2 )
 	return;
     Idealspacing*s_l=get_spacing(c1,c2);
-	
-    if (!s_l->hooke){
-	s_l->hooke = h;
-	s_l->space =d;
-    }
+
+    
+    s_l->hooke = h;
+    s_l->space =d;
 }
 
 void
@@ -73,7 +67,7 @@ void
 PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
 {
     assert(c && i && s);
-//    assert(!breakstat != 4 || c->breakable() );
+
     if (breakstat == 0) {
 	typeset_item(i, c->prebreak_p_, s);
 	return;
@@ -254,10 +248,10 @@ void
 PScore::process()
 {
     clean_cols();
-    *mlog << "Preprocessing" << endl;
+    *mlog << "Preprocessing ... " <<flush;
     preprocess();
-    *mlog << "Calculating" << endl;
+    *mlog << "\nCalculating column positions ... " <<flush;
     calc_breaking();
-    *mlog << "Postprocessing" << endl;
+    *mlog << "\nPostprocessing ..." << endl;
     postprocess();
 }
