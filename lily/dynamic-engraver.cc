@@ -30,47 +30,9 @@
 /*
   TODO:
 
-  * direction of text-dynamic-request if not equalt to direction
-  of line-spanner
-
-  * FIXME: this has gotten a bit too hairy.
- */
-
-class Dynamic_line_spanner : public Spanner
-{
-public:
-  Dynamic_line_spanner (SCM);
-  VIRTUAL_COPY_CONS(Score_element);
-  void add_column (Note_column*);
-  void add_element (Score_element*);
-};
-
-Dynamic_line_spanner::Dynamic_line_spanner (SCM s)
-  : Spanner (s)
-{
-  Side_position_interface (this).set_axis (Y_AXIS);
-  Axis_group_interface (this).set_interface ();
-  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
-}
-
-void
-Dynamic_line_spanner::add_column (Note_column* n)
-{
-  if (!get_bound (LEFT))
-    set_bound (LEFT, n);
-  else
-    set_bound (RIGHT, n);
-
-  add_dependency (n);
-}
-
-
-void
-Dynamic_line_spanner::add_element (Score_element* e)
-{
-  e->set_parent (this, Y_AXIS);
-  Axis_group_interface (this).add_element (e); 
-}
+  * direction of text-dynamic-request if not equal to direction of
+  line-spanner
+*/
 
 /**
    print text & hairpin dynamics.
@@ -82,25 +44,23 @@ class Dynamic_engraver : public Engraver
   Crescendo * cresc_p_;
 
   Text_script_req* text_req_l_;
-  Span_req * span_start_req_l_;
-  Drul_array<Span_req*> span_req_l_drul_;
+  
+  Span_req * current_cresc_req_;
+  Drul_array<Span_req*> accepted_spanreqs_drul_;
 
-  Dynamic_line_spanner* line_spanner_;
-  Dynamic_line_spanner* finished_line_spanner_;
-  Moment last_request_mom_;
+  Spanner* line_spanner_;
+  Spanner* finished_line_spanner_;
 
-  Array<Note_column*> pending_column_arr_;
+  Link_array<Note_column> pending_column_arr_;
   Link_array<Score_element> pending_element_arr_;
   
-  void  typeset_all ();
+  void typeset_all ();
 
 public:
   VIRTUAL_COPY_CONS(Translator);
   Dynamic_engraver ();
   
 protected:
-  void announce_element (Score_element_info);
-  
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music *req_l);
@@ -111,14 +71,6 @@ protected:
 
 ADD_THIS_TRANSLATOR (Dynamic_engraver);
 
-void
-Dynamic_engraver::announce_element (Score_element_info i)
-{
-  Group_interface (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
-  
-  Engraver::announce_element (i);
-}
-
 
 Dynamic_engraver::Dynamic_engraver ()
 {
@@ -126,20 +78,20 @@ Dynamic_engraver::Dynamic_engraver ()
   finished_cresc_p_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
-  span_start_req_l_ = 0;
+  current_cresc_req_ = 0;
   cresc_p_ =0;
 
   text_req_l_ = 0;
-  span_req_l_drul_[START] = 0;
-  span_req_l_drul_[STOP] = 0;
+  accepted_spanreqs_drul_[START] = 0;
+  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 void
 Dynamic_engraver::do_post_move_processing ()
 {
   text_req_l_ = 0;
-  span_req_l_drul_[START] = 0;
-  span_req_l_drul_[STOP] = 0;
+  accepted_spanreqs_drul_[START] = 0;
+  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 bool
@@ -158,7 +110,7 @@ Dynamic_engraver::do_try_music (Music * m)
       if ((s->span_type_str_ == "crescendo"
 	   || s->span_type_str_ == "decrescendo"))
 	{
-	  span_req_l_drul_[s->span_dir_] = s;
+	  accepted_spanreqs_drul_[s->span_dir_] = s;
 	  return true;
 	}
     }
@@ -168,39 +120,36 @@ Dynamic_engraver::do_try_music (Music * m)
 void
 Dynamic_engraver::do_process_music ()
 {
-  if ((span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
-      && !line_spanner_
-      && pending_element_arr_.size ())
+  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || text_req_l_)
+    
     {
-      line_spanner_ = new Dynamic_line_spanner (get_property ("basicDynamicLineSpannerProperties"));
-      for (int i = 0; i < pending_column_arr_.size (); i++)
-	line_spanner_->add_column (pending_column_arr_[i]);
-      pending_column_arr_.clear ();
-      announce_element (Score_element_info
-			(line_spanner_,
-			 text_req_l_ ? text_req_l_ : span_req_l_drul_[START]));
+      if (!line_spanner_)
+	{
+	  line_spanner_ = new Spanner (get_property ("basicDynamicLineSpannerProperties"));
 
-    }
+	  Side_position_interface (line_spanner_).set_axis (Y_AXIS);
+	  Axis_group_interface (line_spanner_).set_interface ();
+	  Axis_group_interface (line_spanner_).set_axes (Y_AXIS, Y_AXIS);
+	  announce_element (Score_element_info
+			    (line_spanner_,
+			     text_req_l_ ? text_req_l_ : accepted_spanreqs_drul_[START]));
 
-  if (line_spanner_ && pending_element_arr_.size ())
-    {
-      for (int i = 0; i < pending_element_arr_.size (); i++)
-	line_spanner_->add_element (pending_element_arr_[i]);
-      pending_element_arr_.clear ();
+	}
     }
 
   /*
-    TODO: This should be optionised:
-      * break when group of dynamic requests ends
-      * break now  (only if no cresc. in progress)
-      * continue through piece */
-  if (span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
+    TODO: should finish and create new spanner if vertical dyn-direction is changed.
+   */
+  else if (!accepted_spanreqs_drul_[START] && !text_req_l_)
     {
-      last_request_mom_ = now_mom ();
+      finished_line_spanner_ = line_spanner_;
+      line_spanner_ = 0;
     }
-  else
-    {
-      /*
+
+	/*
+	todo: resurrect  dynamic{direction, padding,minimumspace}
+	*/
+	/*
 	During a (de)crescendo, pending request will not be cleared,
 	and a line-spanner will always be created, as \< \! are already
 	two requests.
@@ -208,7 +157,7 @@ Dynamic_engraver::do_process_music ()
 	Maybe always creating a line-spanner for a (de)crescendo (see
 	below) is not a good idea:
 
-            a\< b\p \!c
+	    a\< b\p \!c
 
 	the \p will be centred on the line-spanner, and thus clash
 	with the hairpin.  When axis-group code is in place, the \p
@@ -216,47 +165,8 @@ Dynamic_engraver::do_process_music ()
 
 	Urg, but line-spanner must always have at least same duration
 	as (de)crecsendo, b.o. line-breaking.
-       */
-      if (now_mom () > last_request_mom_ && !span_start_req_l_)
-	{
-	  for (int i = 0; i < pending_element_arr_.size (); i++)
-	    {
-	      Score_element* e = pending_element_arr_[i];
-	      Side_position_interface (e).set_axis (Y_AXIS);
-	      Side_position_interface (e).add_staff_support ();
+	*/
 
-	      /*
-		UGH UGH 
-	      */
-	      Direction d = directional_element (e).get ();
-	      if (!d)
-		{
-		  SCM s = get_property ("dynamicDirection");
-		  if (!isdir_b (s))
-		    s = get_property ("verticalDirection");
-		  if (isdir_b (s))
-		    d = to_dir (s);
-		  directional_element (e).set (d);
-		}
-	  
-	      SCM s = get_property ("dynamicPadding");
-	      if (gh_number_p (s))
-		e->set_elt_property ("padding", s);
-	      s = get_property ("dynamicMinimumSpace");
-	      if (gh_number_p (s))
-		e->set_elt_property ("minimum-space", s);
-	    }
-	  pending_element_arr_.clear ();
-	  if (line_spanner_)
-	    {
-	      for (int i = 0; i < pending_column_arr_.size (); i++)
-		line_spanner_->add_column (pending_column_arr_[i]);
-	      pending_column_arr_.clear ();
-	      finished_line_spanner_ = line_spanner_;
-	      line_spanner_ = 0;
-	    }
-	}
-    } 
 
   if (text_req_l_)
     {
@@ -265,59 +175,60 @@ Dynamic_engraver::do_process_music ()
       text_p_ = new Item (get_property ("basicDynamicTextProperties"));
       text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
       if (Direction d=text_req_l_->get_direction ())
-	directional_element (text_p_).set (d);
-      pending_element_arr_.push (text_p_);
+	Directional_element_interface (line_spanner_).set (d);
+
+      Axis_group_interface (line_spanner_).add_element (text_p_);
 
       text_p_->add_offset_callback (Side_position_interface::aligned_on_self,
 				    Y_AXIS);
       announce_element (Score_element_info (text_p_, text_req_l_));
     }
 
-  if (span_req_l_drul_[STOP])
+  if (accepted_spanreqs_drul_[STOP])
     {
       if (!cresc_p_)
 	{
-	  span_req_l_drul_[STOP]->warning
+	  accepted_spanreqs_drul_[STOP]->warning
 	    (_ ("can't find start of (de)crescendo"));
 	}
       else
 	{
 	  assert (!finished_cresc_p_);
-	  cresc_p_->set_bound (RIGHT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound (RIGHT, unsmob_element (get_property ("currentMusicalColumn")));
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
-	  span_start_req_l_ = 0;
+	  current_cresc_req_ = 0;
 	}
     }
 
-  if (span_req_l_drul_[START])
+  if (accepted_spanreqs_drul_[START])
     {
-      if (span_start_req_l_)
+      if (current_cresc_req_)
 	{
-	  span_req_l_drul_[START]->warning
-	    (span_start_req_l_->span_dir_ == 1
+	  accepted_spanreqs_drul_[START]->warning
+	    (current_cresc_req_->span_dir_ == 1
 	     ?
 	     _ ("already have a crescendo")
 	     : _ ("already have a decrescendo"));
 	}
       else
 	{
-	  span_start_req_l_ = span_req_l_drul_[START];
+	  current_cresc_req_ = accepted_spanreqs_drul_[START];
 	  cresc_p_  = new Crescendo (get_property ("basicCrescendoProperties"));
 	  cresc_p_->set_elt_property
 	    ("grow-direction",
-	     gh_int2scm ((span_req_l_drul_[START]->span_type_str_ == "crescendo")
+	     gh_int2scm ((accepted_spanreqs_drul_[START]->span_type_str_ == "crescendo")
 			 ? BIGGER : SMALLER));
 	      
-	  SCM s = get_property ((span_req_l_drul_[START]->span_type_str_ + "Text").ch_C());
+	  SCM s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Text").ch_C());
 	  if (gh_string_p (s))
 	    {
 	      cresc_p_->set_elt_property ("start-text", s);
-	      daddy_trans_l_->set_property (span_req_l_drul_[START]->span_type_str_
+	      daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
 					    + "Text", SCM_UNDEFINED);
 	    }
 
-	  s = get_property ((span_req_l_drul_[START]->span_type_str_ + "Spanner").ch_C());
+	  s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Spanner").ch_C());
 
 
 	  /*
@@ -326,11 +237,11 @@ Dynamic_engraver::do_process_music ()
 	  if (gh_string_p (s)) //&& ly_scm2string (s) != "hairpin")
 	    {
 	      cresc_p_->set_elt_property ("spanner", s);
-	      daddy_trans_l_->set_property (span_req_l_drul_[START]->span_type_str_
+	      daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
 					    + "Spanner", SCM_UNDEFINED);
 	    }
 
-	  cresc_p_->set_bound (LEFT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound (LEFT, unsmob_element (get_property ("currentMusicalColumn")));
 
 
 	  /* 
@@ -348,7 +259,7 @@ Dynamic_engraver::do_process_music ()
 	      it is not a special symbol, like Crescendo.
 	  */
 
-	     
+	  
 	  if (text_p_)
 	    {
 	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
@@ -357,11 +268,12 @@ Dynamic_engraver::do_process_music ()
 		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
 				RIGHT, SCM_BOOL_T);
 	    }
-	  pending_element_arr_.push (cresc_p_);
+
+	  Axis_group_interface (line_spanner_).add_element (cresc_p_);
 	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
 	  cresc_p_->add_offset_callback
 	    (Side_position_interface::aligned_on_self, Y_AXIS);
-	  announce_element (Score_element_info (cresc_p_, span_req_l_drul_[START]));
+	  announce_element (Score_element_info (cresc_p_, accepted_spanreqs_drul_[START]));
 	}
     }
 }
@@ -375,19 +287,19 @@ Dynamic_engraver::do_pre_move_processing ()
 void
 Dynamic_engraver::do_removal_processing ()
 {
+  typeset_all ();
+  
   if (cresc_p_)
     {
       typeset_element (cresc_p_ );
-      span_start_req_l_->warning (_ ("unterminated (de)crescendo"));
-      cresc_p_ =0;
+      finished_cresc_p_ = cresc_p_;
+      current_cresc_req_->warning (_ ("unterminated (de)crescendo"));
     }
-  typeset_all ();
   if (line_spanner_)
     {
-      Side_position_interface (line_spanner_).add_staff_support ();
-      typeset_element (line_spanner_);
-      line_spanner_ = 0;
+      finished_line_spanner_ = line_spanner_;
     }
+  typeset_all ();
 }
 
 void
@@ -407,6 +319,18 @@ Dynamic_engraver::typeset_all ()
   if (finished_line_spanner_)
     {
       Side_position_interface (finished_line_spanner_).add_staff_support ();
+
+      if (!finished_line_spanner_->get_bound (LEFT))
+	{
+	  Score_element * cmc
+	    = unsmob_element (get_property ("currentMusicalColumn"));
+	  finished_line_spanner_->set_bound (LEFT, cmc);
+	}
+      if (!finished_line_spanner_->get_bound (RIGHT))
+	finished_line_spanner_->set_bound (RIGHT,
+					   finished_line_spanner_->get_bound (LEFT));
+      
+      
       typeset_element (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }
@@ -420,11 +344,7 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
       if (line_spanner_)
 	{
 	  Side_position_interface (line_spanner_).add_support (n);
-	  line_spanner_->add_column (n);
-	}
-      else
-	{
-	  pending_column_arr_.push (n);
+	  add_bound_item (line_spanner_,n);
 	}
     }
 }
