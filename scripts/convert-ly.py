@@ -1131,6 +1131,19 @@ if 1:
 		
 		return str
 	conversions.append (((1,7,11), conv, "transpose-pitch -> pitch-transpose"))
+
+if 1:
+	def conv(str):
+		str = re.sub (r"ly:get-molecule-extent", "ly:molecule-get-extent", str)
+		str = re.sub (r"ly:set-molecule-extent!", "ly:molecule-set-extent!", str)
+		str = re.sub (r"ly:add-molecule", "ly:molecule-add", str)
+		str = re.sub (r"ly:combine-molecule-at-edge", "ly:molecule-combine-at-edge", str)
+		str = re.sub (r"ly:align-to!", "ly:molecule-align-to!", str)
+		
+		return str
+	
+	conversions.append (((1,7,13), conv, "ly:XX-molecule-YY -> ly:molecule-XX-YY"))	
+
 	
 
 ################################

@@ -19,17 +19,17 @@
     (if (number? fig)
 	(begin
 	  (set! mol   (fontify-text nf (number->string fig)))
-	  (ly:align-to! mol Y CENTER)
+	  (ly:molecule-align-to! mol Y CENTER)
 	))
     
     (if (number? acc)
 	(set! mol
-	      (ly:combine-molecule-at-edge
+	      (ly:molecule-combine-at-edge
 	       mol X RIGHT (ly:find-glyph-by-name mf (string-append "accidentals-" (number->string acc)))
 	       0.2))
 	)
     (if (ly:molecule? mol)
-	(ly:align-to! mol X CENTER)
+	(ly:molecule-align-to! mol X CENTER)
 	)
     mol))
 
@@ -68,19 +68,19 @@
 		     )
 		(brew-complete-figure
 		 grob (cdr gather-todo)
-		 (ly:combine-molecule-at-edge mol Y dir br-mol kerning)
+		 (ly:molecule-combine-at-edge mol Y dir br-mol kerning)
 		 )
 		)
 	      (brew-complete-figure
 	       grob (cdr figs)
-	       (ly:combine-molecule-at-edge mol Y dir (brew-one-figure grob (car figs))
+	       (ly:molecule-combine-at-edge mol Y dir (brew-one-figure grob (car figs))
 					    kerning))
 	      )
 	  ))
 
     
     (set! mol (brew-complete-figure grob (reverse figs) mol))
-    (ly:align-to! mol Y (- dir))
+    (ly:molecule-align-to! mol Y (- dir))
     mol
     ))
 

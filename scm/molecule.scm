@@ -4,7 +4,7 @@
   (if (null? mols)
       '()
       (if (pair? mols)
-	  (ly:combine-molecule-at-edge (car mols) axis dir 
+	  (ly:molecule-combine-at-edge (car mols) axis dir 
 				       (stack-molecules axis dir padding (cdr mols))
 				       padding
 				       )
@@ -18,7 +18,7 @@
       '()
       (if (null? (cdr mols))
 	  (car mols)
-	  (ly:combine-molecule-at-edge (car mols) Y dir 
+	  (ly:molecule-combine-at-edge (car mols) Y dir 
 				       (stack-lines dir padding baseline (cdr mols))
 				       padding baseline
 				       )
@@ -36,12 +36,12 @@
   "Add brackets around MOL, producing a new molecule."
 
   (let* (
-	 (ext (ly:get-molecule-extent mol axis))
+	 (ext (ly:molecule-get-extent mol axis))
 	 (lb (ly:bracket axis ext thick (- protusion)))
 	 (rb (ly:bracket axis ext thick protusion))
 	 )
-    (set! mol (ly:combine-molecule-at-edge mol (other-axis  axis) 1 lb padding))
-    (set! mol (ly:combine-molecule-at-edge mol (other-axis  axis) -1 rb padding))
+    (set! mol (ly:molecule-combine-at-edge mol (other-axis  axis) 1 lb padding))
+    (set! mol (ly:molecule-combine-at-edge mol (other-axis  axis) -1 rb padding))
     mol
   ))
 
@@ -64,9 +64,9 @@ encloses the contents.
 	 (thick 0.1)
 	 )
 
-    (set! mol (ly:add-molecule mol (box-molecule xext (cons (- (car yext) thick) (car yext) ))))
-    (set! mol (ly:add-molecule mol (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))))
-    (set! mol (ly:add-molecule mol (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)))
-    (set! mol (ly:add-molecule mol (box-molecule (cons (- (car xext) thick) (car xext)) yext)))
+    (set! mol (ly:molecule-add mol (box-molecule xext (cons (- (car yext) thick) (car yext) ))))
+    (set! mol (ly:molecule-add mol (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))))
+    (set! mol (ly:molecule-add mol (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)))
+    (set! mol (ly:molecule-add mol (box-molecule (cons (- (car xext) thick) (car xext)) yext)))
     mol
   ))
