@@ -52,7 +52,7 @@
   (let* ((level (if (eq? where 'grob) 3 2))
 	 (name (car interface))
 	 (desc (cadr interface))
-	 (props (caddr interface))
+	 (props (sort (caddr interface) symbol<?))
 	 (docfunc (lambda (pr)
 		    (document-grob-property
 		     pr grob-description )))

@@ -172,7 +172,7 @@ Text_spanner::brew_molecule (SCM smob)
     m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0);
   if (!line.empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, line,
-		   edge_line[LEFT].empty_b () ? 0 : - thick/2);
+		   edge_line[LEFT].empty_b () ? 0 : -thick/2);
   if (!edge_line[RIGHT].empty_b ())
     m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], -thick/2);
   if (!edge[RIGHT].empty_b ())
@@ -202,25 +202,13 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       thick *=  gh_scm2double (st);
     }  
 
-  Drul_array<bool> w, broken;
+  Drul_array<bool> broken;
   Drul_array<Real> height, width, shorten, r;
 
-  /*
-    FIXME: too many new property names.
-   */
   SCM pa = me->get_grob_property ("if-text-padding");
   SCM ew = me->get_grob_property ("edge-width");
   SCM eh = me->get_grob_property ("edge-height");
   SCM sp = me->get_grob_property ("shorten-pair");
-  SCM wl = me->get_grob_property ("left-widen");
-  SCM wr = me->get_grob_property ("right-widen");
-
-  // Pedal has an angled left edge \__  or an angled right edge __/ 
-  w[LEFT] = w[RIGHT] = false;
-  if (gh_boolean_p (wl) )  
-    w[LEFT]   = to_boolean (wl);
-  if (gh_boolean_p (wr) )  
-    w[RIGHT]  = to_boolean (wr);
   
   Direction d = LEFT;
   Interval e;
@@ -240,12 +228,12 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
     width[d]  =  0;
     height[d] =  0;
     shorten[d] = 0;
-    if ( w[d] && gh_pair_p (ew) )
+    if ( gh_pair_p (ew) )
       width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
     if ( !broken[d] && (gh_pair_p (eh) ) )
-      height[d] = gh_scm2double (index_cell (eh, d));
+      height[d] += gh_scm2double (index_cell (eh, d));
     if ( gh_pair_p (sp) )
-      shorten[d] =  gh_scm2double (index_cell (sp, d));
+      shorten[d] +=  gh_scm2double (index_cell (sp, d));
   }
   while (flip (&d) != LEFT);
   
@@ -257,12 +245,6 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       height[LEFT] = 0;
       Grob * textbit = me->get_parent(Y_AXIS);
       extra_short = padding;
-      if (textbit->has_interface(ly_symbol2scm("piano-pedal-interface")))
-	// for pretty Ped. scripts. 
-	{
-	  e = textbit->extent(textbit, Y_AXIS);
-	  extra_short += e.length();
-	}
       if (textbit->has_interface(ly_symbol2scm("text-interface"))) 
 	// for plain text, e.g., Sost. Ped.
 	{
@@ -276,16 +258,19 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       shorten[RIGHT] -= thick;
     }
 
-  // Shorten a \____ on the left so that it will touch an adjoining ___/ 
-  shorten[LEFT] += abs(width[LEFT]) * 2   +  extra_short ;
+  shorten[LEFT] += extra_short ;
   
   if (broken[LEFT]) {
-    shorten[LEFT] -= me->get_broken_left_end_align () ;
-    shorten[RIGHT] -= r[RIGHT];
+    shorten[LEFT]  -=  me->get_broken_left_end_align () ;
+    shorten[RIGHT]  +=  abs(width[RIGHT])  +  thick  -  r[RIGHT];
   }
-  else 
-    // Shorten bracket on the right so it ends just before the spanned note.
-    shorten[RIGHT]  +=  thick  -  (r[LEFT]  +  r[RIGHT]);
+
+  else {
+    // Shorten a ____/ on the right so that it will touch an adjoining \___
+    shorten[RIGHT]  +=  abs(width[LEFT])  +  abs(width[RIGHT])  +  thick;
+    // Also shorten so that it ends just before the spanned note.
+    shorten[RIGHT]  -=  (r[LEFT]  +  r[RIGHT]);
+  }
 
   me->set_grob_property ("edge-height", gh_cons ( gh_double2scm ( height[LEFT] ) , 
 						  gh_double2scm ( height[RIGHT]) ) );

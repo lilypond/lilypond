@@ -957,7 +957,7 @@ IMPLEMENT_TYPE_P (Grob, "ly-grob?");
 ADD_INTERFACE (Grob, "grob-interface",
   "All grobs support this",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
-Y-extent-callback molecule-callback font-relative-size extra-offset
-staff-symbol interfaces dependencies no-spacing-rods extra-extent-X causes
-layer extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
+Y-extent-callback molecule-callback extra-offset
+staff-symbol interfaces dependencies extra-extent-X causes
+layer before-line-breaking-callback after-line-breaking-callback extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
 

@@ -488,6 +488,9 @@ command."
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c;" 'comment-region)
+  (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   )
 
 ;;; Menu Support
