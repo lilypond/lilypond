@@ -71,7 +71,8 @@ Paper_stream::Paper_stream (String filename)
 Paper_stream::~Paper_stream ()
 {
   close_file_stream (os_);
-  assert (nest_level == 0);
+  if (nest_level != 0)
+    programming_error ("Brace nesting in paper output doesn't match");
 }
 
 // print string. don't forget indent.

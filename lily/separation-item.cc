@@ -60,6 +60,14 @@ Separation_item::my_width (Grob *me)
 	}
     }
 
+  SCM pad = me->get_grob_property ("padding");
+
+  if (gh_number_p (pad))
+  {
+    w[RIGHT] += gh_scm2double (pad)/2;
+    w[LEFT] -= gh_scm2double (pad)/2;    
+  }
+  
   return w;
  // add this->offset_ ? this-> relative_coordinate ()? 
 }

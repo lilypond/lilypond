@@ -98,7 +98,7 @@ Moment::compare (Moment const &a, Moment const &b)
   if (c)
     return c;
 
-  return Rational::compare (a.grace_mom_, b.grace_mom_);
+  return Rational::compare (a.grace_part_, b.grace_part_);
 }
 
 Moment::Moment ()
@@ -109,32 +109,32 @@ Moment::Moment ()
 Moment::Moment (int m)
 {
   main_part_ = Rational(m);
-  grace_mom_  = Rational( 0);
+  grace_part_  = Rational( 0);
 }
 
 Moment::Moment (int m, int n)
 {
   main_part_ = Rational (m,n);
-  grace_mom_  = Rational (0);
+  grace_part_  = Rational (0);
 }
 
 Moment::Moment (Rational m)
 {
   main_part_ = m;
-  grace_mom_  = Rational (0);
+  grace_part_  = Rational (0);
 }
 
 void
 Moment::operator += (Moment const &src)
 {
   main_part_ +=src.main_part_ ;
-  grace_mom_ += src.grace_mom_;
+  grace_part_ += src.grace_part_;
 }
 void
 Moment::operator -= (Moment const &src)
 {
   main_part_ -= src.main_part_ ;
-  grace_mom_ -= src.grace_mom_;
+  grace_part_ -= src.grace_part_;
 }
 
 /*
@@ -144,7 +144,7 @@ void
 Moment::operator *= (Moment const &src)
 {
   main_part_ *= src.main_part_ ;
-  grace_mom_ *= src.main_part_;
+  grace_part_ *= src.main_part_;
 }
 
 /*
@@ -154,7 +154,7 @@ void
 Moment::operator /= (Moment const &src)
 {
   main_part_ /= src.main_part_ ;
-  grace_mom_ /= src.main_part_;
+  grace_part_ /= src.main_part_;
 }
 
 
@@ -174,7 +174,7 @@ Moment::num () const { return main_part_.num (); }
 
 Moment::operator bool ()
 {
-  return main_part_ || grace_mom_;
+  return main_part_ || grace_part_;
 }
 
 void
@@ -187,5 +187,19 @@ Moment::set_infinite (int k)
 String
 Moment::str () const
 {
-  return main_part_.str ();
+  String s =  main_part_.str ();
+  if (grace_part_)
+    {
+      s += "G" + grace_part_.str ();
+    }
+  return s;
+}
+
+Moment
+Moment::operator - ( ) const
+{
+  Moment m;
+  m.grace_part_ = -grace_part_;
+  m.main_part_ = -main_part_;
+  return m;
 }

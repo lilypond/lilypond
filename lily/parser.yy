@@ -806,7 +806,7 @@ Composite_music:
 		chm->set_spot (*$3->origin ());
 	}
 	| GRACE Music {
-#if 1
+#if 0
 	/*
 		The other version is for easier debugging  of
 		Sequential_music_iterator in combination with grace notes.

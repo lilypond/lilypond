@@ -1,6 +1,6 @@
 
 \header {
- texidoc = "Dots should remain close to the heads they belong to, but should not overlap.";
+ texidoc = "Dots should remain close to the heads they belong to, but should not overlap."
 }
 
 

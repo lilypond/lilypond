@@ -538,7 +538,8 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
-		s = s + '\\pagestyle{plain}\n'
+		s = s + '\setcounter{page}{%s}\n' % (extra['pagenumber'][-1])
+                s = s + '\\pagestyle{plain}\n'
 	else:
 		s = s + '\\pagestyle{empty}\n'
 

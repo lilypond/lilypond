@@ -1,10 +1,15 @@
-1.5.3.jcn1
+1.5.3.hwn1
 ==========
 
-* Fixes for PostScript beams and stems.
+* midi2ly bugfixes: don't print ';' in .ly output.
 
-1.5.3
-=====
+* small cleanup of input/bugs/
+
+* bugfix: nested grace notes; added input/regression/grace-nest.ly
+
+* Bugfix: add double alterations to keyAccidentalOrder (Mats)
+
+* Fixes for PostScript beams and stems.
 
 1.5.2.hwn1
 ==========
