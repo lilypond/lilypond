@@ -28,7 +28,6 @@ protected:
 private:
   Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;
-  Link_array<Audio_note> delayeds_;
 };
 
 void 
@@ -65,21 +64,6 @@ Note_performer::stop_translation_timestep ()
 {
   // why don't grace notes show up here?
   // --> grace notes effectively do not get delayed
-  Global_context * global = get_global_context ();
-  for (int i = 0; i < notes_.size (); i++)
-    {
-      Audio_note* n = notes_[i];
-      Moment m = n->delayed_until_mom_;
-      if (m.to_bool ())
-	{
-	  global->add_moment_to_process (m);
-	  delayeds_.push (n);
-	  notes_[i] = 0;
-	  notes_.del (i);
-	  i--;
-	}
-    }
-
   Moment now = now_mom ();
   for (int i = 0; i < notes_.size (); i++)
     {
@@ -87,17 +71,6 @@ Note_performer::stop_translation_timestep ()
     }
   notes_.clear ();
   note_evs_.clear ();
-  for (int i = 0; i < delayeds_.size (); i++)
-    {
-      Audio_note* n = delayeds_[i];
-      if (n->delayed_until_mom_ <= now)
-	{
-	  play_element (n);
-	  delayeds_[i] = 0;
-	  delayeds_.del (i);
-	  i--;
-	}
-    }
 }
  
 bool

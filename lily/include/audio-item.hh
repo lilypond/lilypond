@@ -61,8 +61,6 @@ public:
 
   Pitch pitch_;
   Moment length_mom_;
-  Moment delayed_mom_;
-  Moment delayed_until_mom_;
   int transposing_;
   Audio_note* tied_;
 };
