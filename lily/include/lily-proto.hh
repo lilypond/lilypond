@@ -62,6 +62,7 @@ struct Change_iterator;
 struct Change_translator;
 struct Chord;
 struct Chord_name_engraver;
+struct CHyphen_req;
 struct Clef_change_req;
 struct Clef_item;
 struct Clef_engraver;

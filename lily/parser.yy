@@ -143,6 +143,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CADENZA
 %token CHORDMODIFIERS
 %token CHORDS
+%token HYPHEN
 %token CLEF
 %token CM_T
 %token CONSISTS
@@ -252,6 +253,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request>	post_request 
 %type <request> command_req verbose_command_req
 %type <request>	extender_req
+%type <request> hyphen_req
 %type <string>	string
 %type <score>	score_block score_body
 %type <intarr>	shape_array
@@ -904,6 +906,9 @@ abbrev_command_req:
 	extender_req {
 		$$ = $1;
 	}
+	| hyphen_req {
+		$$ = $1;
+	}
 	| '|'				{
 		$$ = new Barcheck_req;
 	}
@@ -1155,6 +1160,14 @@ extender_req:
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
 		$$ = new Extender_req;
+	}
+	;
+
+hyphen_req:
+	HYPHEN {
+		if (!THIS->lexer_p_->lyric_state_b ())
+			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
+		$$ = new Hyphen_req;
 	}
 	;
 
