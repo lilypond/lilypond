@@ -103,7 +103,7 @@ Line_of_score::output_lines ()
 
       if (verbose_global_b)
 	progress_indication ("[");
-      line_l->post_processing ();
+      line_l->post_processing (i+1 == broken_into_l_arr_.size ());
 
       if (verbose_global_b)
 	{
@@ -242,7 +242,7 @@ Line_of_score::pre_processing ()
 }
 
 void
-Line_of_score::post_processing ()
+Line_of_score::post_processing (bool last_line)
 {
   for (SCM s = get_elt_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
@@ -309,7 +309,14 @@ Line_of_score::post_processing ()
 
       output_molecule (m.get_expr (), o);
     }
-  output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+  if (last_line)
+    {
+      output_scheme (gh_list (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
+    }
+  else
+    {
+      output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+    }
 }
 
 

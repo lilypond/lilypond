@@ -31,7 +31,7 @@ class Line_of_score : public Spanner
 {
 public:
   int rank_i_;
-  void post_processing();
+  void post_processing(bool);
 
   Protected_scm output_;
   Line_of_score(SCM);
