@@ -142,9 +142,9 @@ Simultaneous_music_iterator::run_always () const
 Music_iterator*
 Simultaneous_music_iterator::try_music_in_children (Music *m) const
 {
-  Music_iterator * b= 0;
+  Music_iterator * b = 0;
   for (SCM s = children_list_; !b && scm_is_pair (s); s = scm_cdr (s))
-    b =unsmob_iterator (scm_car (s))->try_music (m);
+    b = unsmob_iterator (scm_car (s))->try_music (m);
   return b;
 }
 

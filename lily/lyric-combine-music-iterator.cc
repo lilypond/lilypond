@@ -168,7 +168,7 @@ Lyric_combine_music_iterator::process (Moment m)
 
   if (get_busy_status () && !melisma_busy () && lyric_iter_->ok ())
     {
-      Moment m= lyric_iter_->pending_moment ();
+      Moment m = lyric_iter_->pending_moment ();
       lyric_iter_->process (m);
     }
 }

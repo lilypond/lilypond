@@ -89,7 +89,7 @@ Engraver_group_engraver::pending_grob_count () const
     {
       Context *c = unsmob_context (scm_car (s));
       Engraver_group_engraver * group
-	=dynamic_cast<Engraver_group_engraver*> (c->implementation ());
+	= dynamic_cast<Engraver_group_engraver*> (c->implementation ());
 
       if (group)
 	count += group->pending_grob_count (); 
@@ -202,7 +202,7 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
     }
 
   for (SCM s = c->children_contexts () ; scm_is_pair (s);
-       s =scm_cdr (s))
+       s = scm_cdr (s))
     {
       recurse_down_engravers (unsmob_context (scm_car (s)), ptr, context_first);
     }

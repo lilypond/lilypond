@@ -313,7 +313,7 @@ Tie::get_control_points (SCM smob)
 
 
   SCM controls = SCM_EOL;
-  for (int i= 4; i--;)
+  for (int i = 4; i--;)
     controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
   return controls;
 }
@@ -341,7 +341,7 @@ Tie::print (SCM smob)
 
   Bezier b;
   int i = 0;
-  for (SCM s= cp; s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = cp; s != SCM_EOL; s = scm_cdr (s))
     {
       b.control_[i] = ly_scm2offset (scm_car (s));
       i++;

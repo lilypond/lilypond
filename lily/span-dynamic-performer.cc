@@ -147,7 +147,7 @@ Span_dynamic_performer::stop_translation_timestep ()
 	}
       Moment start_mom = finished_dynamic_tuples_[0].mom_;
       Moment dt = finished_dynamic_tuples_.top ().mom_ - start_mom;
-      for (int i= 0; i < finished_dynamic_tuples_.size (); i++)
+      for (int i = 0; i < finished_dynamic_tuples_.size (); i++)
 	{
 	  Audio_dynamic_tuple* a = &finished_dynamic_tuples_[i];
 	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom).main_part_

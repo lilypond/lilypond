@@ -81,7 +81,7 @@ Cluster_spanner_engraver::process_music ()
       
       for (int i = 0; i <cluster_notes_.size (); i++)
 	{
-	  Pitch *pit =unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
+	  Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 
 	  int p =( pit ? pit->steps () : 0) + c0;
 

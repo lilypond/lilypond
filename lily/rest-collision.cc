@@ -120,7 +120,7 @@ Rest_collision::do_shift (Grob *me)
 	center one should be centered on the staff.
        */
       Drul_array< Link_array <Grob > > ordered_rests;
-      for (int i= 0; i < rests.size (); i++)
+      for (int i = 0; i < rests.size (); i++)
 	{
 	  Grob * r = Note_column::get_rest (rests[i]);
 	  
@@ -190,7 +190,7 @@ Rest_collision::do_shift (Grob *me)
       Grob * rcol = 0;
       Direction dir = CENTER;
 
-      for (int i= rests.size (); !rcol && i--;)
+      for (int i = rests.size (); !rcol && i--;)
 	if (Note_column::dir (rests[i]))
 	  {
 	    dir = Note_column::dir (rests[i]);

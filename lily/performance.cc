@@ -144,7 +144,7 @@ Performance::output_header_track (Midi_stream& midi_stream)
 void
 Performance::add_element (Audio_element *p)
 {
-  if (Audio_staff*s=dynamic_cast<Audio_staff *> (p)) 
+  if (Audio_staff*s = dynamic_cast<Audio_staff *> (p)) 
     {
       audio_staffs_.push (s);
     }

@@ -294,7 +294,7 @@ HYPHEN		--
 		error_level_ = 1;
  	}
 
-	for (int i= 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		yyinput ();
 	}
@@ -564,7 +564,7 @@ HYPHEN		--
 }
 {REAL}		{
 	Real r;
-	int cnv=sscanf (YYText (), "%lf", &r);
+	int cnv = sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
 
 	yylval.scm = scm_make_real (r);
@@ -592,7 +592,7 @@ HYPHEN		--
 }
 
 <INITIAL,lyrics,notes,figures>\\. {
-    char c= YYText ()[1];
+    char c = YYText ()[1];
 
     switch (c) {
     case '>':
@@ -772,7 +772,7 @@ Lily_lexer::is_figure_state () const
 void
 strip_leading_white (String&s)
 {
-	int i= 0;
+	int i = 0;
 	for (;  i < s.length (); i++) 
 		if (!isspace (s[i]))
 			break;
@@ -783,7 +783,7 @@ strip_leading_white (String&s)
 void
 strip_trailing_white (String&s)
 {
-	int i=s.length ();	
+	int i = s.length ();	
 	while (i--) 
 		if (!isspace (s[i]))
 			break;
@@ -818,7 +818,7 @@ is_valid_version (String s)
 String
 lyric_fudge (String s)
 {
-  char  * chars  =s.get_copy_str0 ();
+  char  * chars  = s.get_copy_str0 ();
 
   for (char * p = chars; *p ; p++)
     {
@@ -830,7 +830,7 @@ lyric_fudge (String s)
   delete[] chars;
 
   int i = 0;	
-  if ((i=s.index ("\\,")) != -1)   // change "\," to TeX's "\c "
+  if ((i = s.index ("\\,")) != -1)   // change "\," to TeX's "\c "
     {
       * (s.get_str0 () + i + 1) = 'c';
       s = s.left_string (i+2) + " " + s.right_string (s.length ()-i-2);
@@ -886,7 +886,7 @@ lookup_markup_command (String s)
 int
 music_function_type (SCM func)
 {
-	SCM type= scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
+	SCM type = scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
 	if (type == ly_symbol2scm ("scm"))
 	{
 		return MUSIC_FUNCTION_SCM;

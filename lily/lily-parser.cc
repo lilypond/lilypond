@@ -358,7 +358,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
   SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
 
-  SCM val= parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
+  SCM val = parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
   if (val != SCM_UNDEFINED)
     return val;
   else

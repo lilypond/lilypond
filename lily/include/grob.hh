@@ -18,7 +18,7 @@
    for administration of what was done already
 */
 enum Grob_status {
-  ORPHAN= 0,			// not yet added to Paper_score
+  ORPHAN = 0,			// not yet added to Paper_score
   PRECALCING,
   PRECALCED,		// calcs before spacing done
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.

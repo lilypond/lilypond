@@ -414,7 +414,7 @@ Stem::position_noteheads (Grob *me)
   for (int i = 1; i < heads.size (); i ++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
-      Real dy =fabs (lastpos- p);
+      Real dy = fabs (lastpos- p);
 
       /*
        dy should always be 0.5, 0.0, 1.0, but provide safety margin
@@ -502,7 +502,7 @@ Stem::height (SCM smob, SCM ax)
   /*
     ugh. - this dependency should be automatic.
   */
-  Grob *beam= get_beam (me);
+  Grob *beam = get_beam (me);
   if (beam)
     {
       Beam::after_line_breaking (beam->self_scm ());
@@ -513,7 +513,7 @@ Stem::height (SCM smob, SCM ax)
   Interval iv;
   if (mol != SCM_EOL)
     iv = unsmob_stencil (mol)->extent (a);
-  if (Grob *b =get_beam (me))
+  if (Grob *b = get_beam (me))
     {
       Direction d = get_direction (me);
       iv[d] += d * Beam::get_thickness (b) * 0.5 ;
@@ -896,7 +896,7 @@ Stem::calc_stem_info (Grob *me)
 Slice
 Stem::beam_multiplicity (Grob *stem)
 {
-  SCM beaming= stem->get_property ("beaming");
+  SCM beaming = stem->get_property ("beaming");
   Slice le = int_list_to_slice (scm_car (beaming));
   Slice ri = int_list_to_slice (scm_cdr (beaming));
   le.unite (ri);

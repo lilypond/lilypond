@@ -224,8 +224,8 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     {
       Real x = state.encompass_infos_[j].x_;
 
-      bool l_edge = j== 0;
-      bool r_edge = j==state.encompass_infos_.size ()-1;
+      bool l_edge = j == 0;
+      bool r_edge = j == state.encompass_infos_.size ()-1;
       bool edge =  l_edge || r_edge;
 
       if (! (x < attachment_[RIGHT][X_AXIS]
@@ -274,7 +274,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 
       if (state.dir_ * (y - state.encompass_infos_[j].stem_) < 0)
 	{
-	  Real stem_dem =state.parameters_.stem_encompass_penalty_ ;
+	  Real stem_dem = state.parameters_.stem_encompass_penalty_ ;
 	  if ((l_edge && state.dir_ == UP)
 	      || (r_edge && state.dir_ == DOWN))
 	    stem_dem /= 5;

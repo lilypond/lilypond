@@ -85,7 +85,7 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
     {
       SCM ax = scm_cons (sa1, SCM_EOL);
       if (a1 != a2)
-	ax= scm_cons (sa2, ax);
+	ax = scm_cons (sa2, ax);
       me->set_property ("axes", ax);
     }
 

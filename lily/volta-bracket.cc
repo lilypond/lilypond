@@ -58,7 +58,7 @@ Volta_bracket_interface::print (SCM smob)
     (strcmp (cs,":|")!= 0 && strcmp (cs,"|:")!= 0 && strcmp (cs,"|.")!= 0
      && strcmp (cs,":|:")!= 0 && strcmp (cs,".|")!= 0);
 
-  Output_def * layout =me->get_layout ();
+  Output_def * layout = me->get_layout ();
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);

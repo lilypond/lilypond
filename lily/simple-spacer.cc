@@ -108,7 +108,7 @@ Simple_spacer::add_rod (int l, int r, Real dist)
   Real block_force = c * block_stretch;
   force_ = force_ >? block_force;
 
-  for (int i=l; i < r; i++)
+  for (int i = l; i < r; i++)
     springs_[i].block_force_ = block_force >?
       springs_[i].block_force_ ;
 }
@@ -117,7 +117,7 @@ Real
 Simple_spacer::range_ideal_len (int l, int r)   const
 {
   Real d = 0.;
-  for (int i=l; i < r; i++)
+  for (int i = l; i < r; i++)
     d += springs_[i].ideal_;
   return d;
 }
@@ -126,7 +126,7 @@ Real
 Simple_spacer::range_stiffness (int l, int r) const
 {
   Real den = 0.0;
-  for (int i=l; i < r; i++)
+  for (int i = l; i < r; i++)
     {
       if (springs_[i].is_active_)
 	den += 1 / springs_[i].hooke_;
@@ -139,7 +139,7 @@ Real
 Simple_spacer::active_blocking_force () const
 {
   Real bf = - infinity_f; 
-  for (int i= 0; i < springs_.size (); i++)
+  for (int i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_)
       {
 	bf = bf >? springs_[i].block_force_;
@@ -160,7 +160,7 @@ Simple_spacer::active_springs_stiffness () const
 
       Real max_block_force = -infinity_f;
       int max_i = -1;
-      for (int i= 0; i < springs_.size (); i++)
+      for (int i = 0; i < springs_.size (); i++)
 	{
 	  if (springs_[i].block_force_ > max_block_force)
 	    {
@@ -178,7 +178,7 @@ void
 Simple_spacer::set_active_states ()
 {
   /* float comparison is safe, since force is only copied.  */
-  for (int i= 0 ; i <springs_.size (); i++)
+  for (int i = 0 ; i <springs_.size (); i++)
     if (springs_[i].is_active_
 	&& springs_[i].block_force_ >= force_)
       {
@@ -191,7 +191,7 @@ Real
 Simple_spacer::configuration_length () const
 {
   Real l = 0.;
-  for (int i= 0; i < springs_.size (); i++)
+  for (int i = 0; i < springs_.size (); i++)
     l += springs_[i].length (force_);
 
   return l;
@@ -320,7 +320,7 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
       force_return = SCM_BOOL_F;
     }
 
-  SCM retval= SCM_EOL;
+  SCM retval = SCM_EOL;
   for (int i = posns.size(); i--;)
     {
       retval = scm_cons (scm_from_double (posns[i]), retval); 
@@ -390,7 +390,7 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
     fucked up wtk1-fugue2 (taking 3 full pages.)
   */
   positions->config_.push (spacer_->indent_);
-  for (int i= 0; i < spacer_->springs_.size (); i++)
+  for (int i = 0; i < spacer_->springs_.size (); i++)
     {
       Real  l = spacer_->springs_[i].length ((ragged) ? 0.0 : spacer_->force_);
       positions->config_.push (positions->config_.top () + l);
@@ -487,7 +487,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
       }
   
   spaced_cols_ = cols;
-  for (int i= 0; i < cols.size () - 1; i++)
+  for (int i = 0; i < cols.size () - 1; i++)
     {
       Spring_smob *spring = 0;
 
@@ -513,7 +513,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
       spacer_->add_spring (ideal, hooke);
     }
   
-  for (int i= 0; i < cols.size () - 1; i++)
+  for (int i = 0; i < cols.size () - 1; i++)
     {
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   scm_is_pair (s); s = scm_cdr (s))

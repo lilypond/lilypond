@@ -60,7 +60,7 @@ LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
   Offset o = ly_scm2offset (offset);
 
   SCM new_s = s->smobbed_copy ();
-  Stencil *q =unsmob_stencil (new_s);
+  Stencil *q = unsmob_stencil (new_s);
   q->translate (o);
   return new_s;
 }

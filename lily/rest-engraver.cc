@@ -63,7 +63,7 @@ Rest_engraver::process_music ()
       rest_->set_property ("duration-log",
 				  scm_int2num (durlog));
 
-      int dots =unsmob_duration (rest_req_->get_property ("duration"))->dot_count ();
+      int dots = unsmob_duration (rest_req_->get_property ("duration"))->dot_count ();
       
       if (dots)
 	{
@@ -83,7 +83,7 @@ Rest_engraver::process_music ()
        */
       if (p)
 	{
-	  int pos= p->steps ();
+	  int pos = p->steps ();
 	  SCM c0 = get_property ("middleCPosition");
 	  if (scm_is_number (c0))
 	    pos += scm_to_int (c0);

@@ -64,7 +64,7 @@ Staff_symbol::print (SCM smob)
 
       span_points[d] -= d* t/2;
     }
-  while (flip (&d) !=LEFT);
+  while (flip (&d) != LEFT);
 
 
   int l = Staff_symbol::line_count (me);
@@ -76,7 +76,7 @@ Staff_symbol::print (SCM smob)
 			     t);
 
   Stencil m;
-  for (int i= 0; i < l; i++)
+  for (int i = 0; i < l; i++)
     {
       Stencil b(a);
       b.translate_axis (height - i * staff_space (me), Y_AXIS);

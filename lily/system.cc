@@ -113,7 +113,7 @@ System::get_lines ()
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
   int count = 0;
-  for (int i= 0; i < broken_intos_.size (); i++)
+  for (int i = 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
       SCM all = se->get_property ("all-elements");
@@ -216,7 +216,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       Real rx =	right->extent (common, X_AXIS)[LEFT];
       Real lx = left->extent (common, X_AXIS)[RIGHT];
       Real total_dx = rx - lx;
-      Interval cval =col->extent (col, X_AXIS);
+      Interval cval = col->extent (col, X_AXIS);
 
       /* Put it in the middle.  This is not an ideal solution -- the
 	 break alignment code inserts a fixed space before the clef
@@ -422,7 +422,7 @@ System::get_line ()
  
   Paper_system *pl = new Paper_system (sys_stencil, false);
   pl->staff_refpoints_ = staff_refpoints;
-  Item * break_point =this->get_bound(LEFT);
+  Item * break_point = this->get_bound(LEFT);
   pl->break_before_penalty_ =
     robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
   

@@ -73,7 +73,7 @@ protected:
 
 Volta_repeat_iterator::Volta_repeat_iterator ()
 {
-  done_count_ = alt_count_ = rep_count_= 0;
+  done_count_ = alt_count_ = rep_count_ = 0;
   first_time_ = true;
 }
 

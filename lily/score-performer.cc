@@ -39,7 +39,7 @@ Score_performer::~Score_performer ()
 void
 Score_performer::play_element (Audio_element * p)
 {
-  if (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
+  if (Audio_item * i = dynamic_cast<Audio_item *> (p)) 
     {
       audio_column_->add_audio_item (i);
     }

@@ -163,7 +163,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 {
   Link_array<Grob> newcols;
   Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
-  for (int i= 0; i < cols->size ();  i++)
+  for (int i = 0; i < cols->size ();  i++)
     {
       if (Item::is_breakable (cols->elem (i)) || Paper_column::is_musical (cols->elem (i)))
 	{
@@ -192,8 +192,8 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	    Set distance constraints for loose columns
 	  */
 	  Drul_array<Grob*> next_door;
-	  next_door[LEFT] =cols->elem (i - 1);
-	  next_door[RIGHT] =cols->elem (i + 1);	  
+	  next_door[LEFT] = cols->elem (i - 1);
+	  next_door[RIGHT] = cols->elem (i + 1);	  
 	  Direction d = LEFT;
 	  Drul_array<Real> dists (0,0);
 
@@ -264,14 +264,14 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 void
 Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 {
-  for (int i= 0; i < cols.size (); i++)
+  for (int i = 0; i < cols.size (); i++)
     {
       SCM right_neighbors = SCM_EOL;
       int min_rank = 100000;	// inf.
 
 
-      SCM wishes=  cols[i]->get_property ("spacing-wishes");
-      for (SCM s =wishes; scm_is_pair (s); s = scm_cdr (s))
+      SCM wishes =  cols[i]->get_property ("spacing-wishes");
+      for (SCM s = wishes; scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Item * wish = dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
 
@@ -292,7 +292,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	  if (right_rank <= min_rank)
 	    {
 	      if (right_rank < min_rank)
-		right_neighbors  =SCM_EOL;
+		right_neighbors  = SCM_EOL;
 	      
 	      min_rank = right_rank;
 	      right_neighbors = scm_cons (wish->self_scm (), right_neighbors);
@@ -475,7 +475,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 
   int max_idx = -1;
   int max_count = 0;
-  for (int i =durations.size (); i--;)
+  for (int i = durations.size (); i--;)
     {
       if (counts[i] >= max_count)
 	{
@@ -509,7 +509,7 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob*me,
 {
 
   Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
-  for (int i= 0; i < cols->size () - 1; i++)
+  for (int i = 0; i < cols->size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols->elem (i));
       Item * r =  dynamic_cast<Item*> (cols->elem (i+1));

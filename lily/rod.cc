@@ -34,7 +34,7 @@ Rod::columnize ()
     Paper_column * pc = item_l_drul_[d]->get_column ();
     distance_ += - d * item_l_drul_[d]->relative_coordinate (pc, X_AXIS);
     item_l_drul_[d] = pc;
-  } while ((flip (&d))!=LEFT);
+  } while ((flip (&d))!= LEFT);
 
 }
 

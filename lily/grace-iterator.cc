@@ -28,7 +28,7 @@ Grace_iterator::process (Moment m)
 Moment
 Grace_iterator::pending_moment () const
 {
-  Moment cp =Music_wrapper_iterator::pending_moment ();
+  Moment cp = Music_wrapper_iterator::pending_moment ();
 
   Moment pending;
   pending.grace_part_ =  start_mom_.grace_part_ + cp.main_part_;

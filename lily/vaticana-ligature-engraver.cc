@@ -348,9 +348,9 @@ void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 					     Array<Grob_info> primitives)
 {
-  Real flexa_width= robust_scm2double ( ligature->get_property ("flexa-width"), 2);
+  Real flexa_width = robust_scm2double ( ligature->get_property ("flexa-width"), 2);
 
-  Real thickness= robust_scm2double ( ligature->get_property ("thickness"), 1);
+  Real thickness = robust_scm2double ( ligature->get_property ("thickness"), 1);
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
@@ -569,7 +569,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   Item *first_primitive = dynamic_cast<Item*> (primitives[0].grob_);
   Paper_column *paper_column = first_primitive->get_column ();
   paper_column->warning (_f ("Vaticana_ligature_engraver: "
-			     "setting `spacing-increment = %f': ptr=%ul",
+			     "setting `spacing-increment = %f': ptr =%ul",
 			     ligature_width, paper_column));
   paper_column->
     set_property ("forced-spacing", scm_make_real (ligature_width));

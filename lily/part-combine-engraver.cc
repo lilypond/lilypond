@@ -53,7 +53,7 @@ Part_combine_engraver::process_music ()
       SCM text = SCM_EOL;
       if (what == ly_symbol2scm ("solo1"))
 	text = get_property ("soloText");
-      else if (what== ly_symbol2scm ("solo2"))
+      else if (what == ly_symbol2scm ("solo2"))
 	text = get_property ("soloIIText");
       else if (what == ly_symbol2scm ("unisono"))
 	text = get_property ("aDueText");

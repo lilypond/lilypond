@@ -61,7 +61,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Rhythmic_head::has_interface (inf.grob_))
     {
-      Music * note_ev =inf.music_cause ();
+      Music * note_ev = inf.music_cause ();
       if (!note_ev)
 	return;
       
@@ -111,12 +111,12 @@ New_fingering_engraver::add_script (Grob * head,
 {
   Finger_tuple ft ;
 
-  Grob * g=  make_item ("Script", event->self_scm () );
+  Grob * g =  make_item ("Script", event->self_scm () );
   make_script_from_event (g, &ft.follow_into_staff_, context (),
 			  event->get_property ("articulation-type"), 0);
   if (g)
     {
-      ft.script_ =g ;
+      ft.script_ = g ;
       
       articulations_.push (ft);
  

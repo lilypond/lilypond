@@ -36,7 +36,7 @@ compare (Midi_note_event const& left, Midi_note_event const& right)
 Midi_walker::Midi_walker (Audio_staff* audio_staff, Midi_track* track)
 {
   track_ = track;
-  index_= 0;
+  index_ = 0;
   items_ = &audio_staff->audio_items_;
 
   last_mom_ = 0;
@@ -58,7 +58,7 @@ Midi_walker::do_start_note (Midi_note* note)
   Moment stop_mom = note->get_length () + ptr->audio_column_->at_mom ();
 
   bool play_start = true;
-  for (int i= 0; i < stop_note_queue.size (); i++) 
+  for (int i = 0; i < stop_note_queue.size (); i++) 
     {
       /* if this pith already in queue */
       if (stop_note_queue[i].val->get_pitch () == note->get_pitch ()) 

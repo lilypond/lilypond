@@ -274,7 +274,7 @@ Line_spanner::print (SCM smob)
 	    + bound[RIGHT]->extent (common[X_AXIS], ax).center ()
 	    - bound[LEFT]->extent (common[X_AXIS], ax).center ();
 
-	  my_off[ax] =me->relative_coordinate (common[a], ax);
+	  my_off[ax] = me->relative_coordinate (common[a], ax);
 	  his_off[ax] = bound[LEFT]->relative_coordinate (common[a], ax);
 	  
 	}

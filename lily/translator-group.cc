@@ -121,7 +121,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
     }
 
   for (SCM s = c->children_contexts () ; scm_is_pair (s);
-       s =scm_cdr (s))
+       s = scm_cdr (s))
     {
       recurse_over_translators (unsmob_context (scm_car (s)), ptr, dir);
     }

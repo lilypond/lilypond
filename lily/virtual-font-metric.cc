@@ -127,7 +127,7 @@ Virtual_font_metric::name_to_index (String glyph) const
   int total = 0; 
   for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = scm_cdr (s))
     {
-      Font_metric *m =unsmob_metrics (scm_car (s));
+      Font_metric *m = unsmob_metrics (scm_car (s));
       int k = m->name_to_index (glyph);
       if (k >= 0)
 	return total + k;

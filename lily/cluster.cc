@@ -31,7 +31,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me)/2;
 
-  Real padding =robust_scm2double ( me->get_property ("padding"), 0.0);
+  Real padding = robust_scm2double ( me->get_property ("padding"), 0.0);
 
   Offset vpadding = Offset (0, padding);
   Offset hpadding = Offset (0.5 * blotdiameter, 0);
@@ -141,7 +141,7 @@ Cluster::print (SCM smob)
   Item *right_bound = spanner->get_bound (RIGHT);
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
-  SCM cols  =me->get_property ("columns");
+  SCM cols  = me->get_property ("columns");
 
   if (!scm_is_pair (cols))
     {

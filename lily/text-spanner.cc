@@ -36,7 +36,7 @@ MAKE_SCHEME_CALLBACK (Text_spanner, print, 1);
 SCM
 Text_spanner::print (SCM smob) 
 {
-  Grob *me= unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   
   /* Ugh, must be same as Hairpin::print.  */
@@ -148,7 +148,7 @@ Text_spanner::print (SCM smob)
 
   if (!span_points.is_empty ())
     {
-      Stencil l =Line_spanner::line_stencil (me, Offset (span_points[LEFT], 0),
+      Stencil l = Line_spanner::line_stencil (me, Offset (span_points[LEFT], 0),
 					       Offset (span_points[RIGHT], 0));
       m.add_stencil (l);
     }

@@ -162,7 +162,7 @@ public:
   SCM encoding_table_;
   
 private:
-  Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
+  Tex_font_char_metric const *find_ascii (int ascii, bool warn = true) const;
   Tex_font_metric ();
 };
 

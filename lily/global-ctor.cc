@@ -24,6 +24,6 @@ add_constructor (Global_ctor c)
 void
 call_constructors ()
 {
-  for (int i= 0; i < ctor_global_statics_->size (); i++)
+  for (int i = 0; i < ctor_global_statics_->size (); i++)
     (ctor_global_statics_->elem (i)) ();
 }

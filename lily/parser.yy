@@ -1338,7 +1338,7 @@ re_rhythmed_music:
 
 context_change:
 	CHANGE STRING '=' STRING  {
-		Music*t= MY_MAKE_MUSIC ("ContextChange");
+		Music*t = MY_MAKE_MUSIC ("ContextChange");
 		t-> set_property ("change-to-type", scm_string_to_symbol ($2));
 		t-> set_property ("change-to-id", $4);
 
@@ -1661,7 +1661,7 @@ command_element:
 		$$->set_spot (THIS->here_input ());
 	}
 	| '|'      {
-		SCM pipe =THIS->lexer_->lookup_identifier ("pipeSymbol");
+		SCM pipe = THIS->lexer_->lookup_identifier ("pipeSymbol");
 
 		if (Music * m = unsmob_music (pipe))
 			$$ = m->clone ();
@@ -1706,7 +1706,7 @@ command_element:
 		$$ = unsmob_music (result);
 	}
 	| TIME_T fraction  {
-		SCM proc= ly_scheme_function ("make-time-signature-set");
+		SCM proc = ly_scheme_function ("make-time-signature-set");
 
 		SCM result = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 		scm_gc_protect_object (result);
@@ -1733,12 +1733,12 @@ command_req:
 		$$ = $1;
 	}
 	| KEY DEFAULT {
-		Music *key= MY_MAKE_MUSIC ("KeyChangeEvent");
+		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent");
 		$$ = key;
 	}
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
 
-		Music *key= MY_MAKE_MUSIC ("KeyChangeEvent");
+		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent");
 		if (scm_ilength ($3) > 0)
 		{		
 			key->set_property ("pitch-alist", $3);

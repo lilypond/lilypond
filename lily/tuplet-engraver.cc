@@ -69,7 +69,7 @@ Tuplet_engraver::try_music (Music *music)
 void
 Tuplet_engraver::process_music ()
 {
-  for (int i= 0; i < tuplets_.size (); i++)
+  for (int i = 0; i < tuplets_.size (); i++)
     {
       if (tuplets_[i].spanner_)
 	continue;

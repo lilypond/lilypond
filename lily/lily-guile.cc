@@ -306,7 +306,7 @@ is_axis (SCM s)
   if (scm_is_number (s))
     {
       int i = scm_to_int (s);
-      return i== 0 || i == 1;
+      return i == 0 || i == 1;
     }
   return false;
 }
@@ -732,7 +732,7 @@ display_list (SCM s)
   SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; scm_is_pair (s); s =scm_cdr (s))
+  for (; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_display (scm_car (s), p);
       scm_puts (" ", p);      

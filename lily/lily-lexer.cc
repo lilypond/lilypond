@@ -264,7 +264,7 @@ Lily_lexer::escaped_char (char c) const
 Input
 Lily_lexer::here_input () const
 {
-  Source_file * f= get_source_file ();
+  Source_file * f = get_source_file ();
   return Input (f, (char*)here_str0 ());
 }
 

@@ -13,14 +13,14 @@
 void
 Box::translate (Offset o)
 {
-  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
+  for (Axis i = X_AXIS; i < NO_AXES; incr (i))
     interval_a_[i] += o[i];
 }
 
 void
 Box::unite (Box b)
 {
-  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
+  for (Axis i = X_AXIS; i < NO_AXES; incr (i))
     interval_a_[i].unite (b[i]);
 }
 

@@ -141,7 +141,7 @@ Beam::quanting (SCM smob)
     Do stem computations.  These depend on YL and YR linearly, so we can
     precompute for every stem 2 factors.
    */
-  Link_array<Grob> stems=
+  Link_array<Grob> stems =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
   Array<Stem_info> stem_infos;
   Array<Real> base_lengths;
@@ -165,7 +165,7 @@ Beam::quanting (SCM smob)
     stem_y != 0.0, when we're cross staff.
     
    */
-  for (int i= 0; i < stems.size (); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob*s = stems[i];
 
@@ -182,7 +182,7 @@ Beam::quanting (SCM smob)
       stem_xposns.push (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
 
-  bool xstaff= false;
+  bool xstaff = false;
   if (lvs && fvs)
     {
       Grob *commony = fvs->common_refpoint (lvs, Y_AXIS);
@@ -268,7 +268,7 @@ Beam::quanting (SCM smob)
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
-	Real d=score_stem_lengths (stems, stem_infos,
+	Real d = score_stem_lengths (stems, stem_infos,
 				 base_lengths, stem_xposns,
 				 xl, xr,
 				 is_knee,
@@ -294,11 +294,11 @@ Beam::quanting (SCM smob)
       Real mindist = 1e6;
       for (; i < qscores.size (); i ++)
 	{
-	  Real d =fabs (qscores[i].yl- ins[LEFT]) + fabs (qscores[i].yr - ins[RIGHT]);
+	  Real d = fabs (qscores[i].yl- ins[LEFT]) + fabs (qscores[i].yr - ins[RIGHT]);
 	  if (d < mindist)
 	    {
 	      best_idx = i;
-	      mindist= d;
+	      mindist = d;
 	    }
 	}
       if (mindist > 1e5)
@@ -336,7 +336,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
   
-  for (int i= 0; i < stems.size (); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
       if (Stem::is_invisible (s))

@@ -91,7 +91,7 @@ Break_align_interface::ordered_elements (Grob *grob)
     {
       SCM sym = scm_car (order);
       
-      for (SCM s =elts; scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *g = unsmob_grob (scm_car (s));
 	  if (g && sym == g->get_property ("break-align-symbol"))
@@ -120,7 +120,7 @@ Break_align_interface::do_alignment (Grob *grob)
   Array<Interval> extents;
 
   int last_nonempty = -1; 
-  for (int i= 0; i < elems.size (); i++) 
+  for (int i = 0; i < elems.size (); i++) 
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push (y);
@@ -134,7 +134,7 @@ Break_align_interface::do_alignment (Grob *grob)
   
   Array<Real> offsets;
   offsets.set_size (elems.size ());
-  for (int i= 0; i < offsets.size ();i ++)
+  for (int i = 0; i < offsets.size ();i ++)
     offsets[i] = 0.0;
 
 
@@ -169,10 +169,10 @@ Break_align_interface::do_alignment (Grob *grob)
 		== ly_symbol2scm ( "left-edge"))
 	      edge_idx = idx;
 	    
-	    SCM l =elt->get_property ("space-alist");
+	    SCM l = elt->get_property ("space-alist");
 	    if (scm_is_pair (l))
 	      {
-		alist= l;
+		alist = l;
 		break;
 	      }
 	  }
@@ -187,7 +187,7 @@ Break_align_interface::do_alignment (Grob *grob)
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
 	   !scm_is_symbol (rsym) && scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Grob * elt =unsmob_grob (scm_car (s));
+	  Grob * elt = unsmob_grob (scm_car (s));
 
 	  rsym = elt->get_property ("break-align-symbol");
 	}

@@ -15,7 +15,7 @@
 Sources::Sources ()
 {
   sourcefile_list_ = 0;
-  path_= 0;
+  path_ = 0;
   is_binary_ = false;
 }
 

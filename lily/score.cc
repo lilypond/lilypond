@@ -80,7 +80,7 @@ Score::Score (Score const &s)
 
   smobify_self ();
 
-  Music *m =unsmob_music (s.music_);
+  Music *m = unsmob_music (s.music_);
   music_ = m ? m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
   

@@ -124,7 +124,7 @@ Completion_heads_engraver::next_barline_moment ( )
 Duration  
 Completion_heads_engraver::find_nearest_duration (Rational length)
 {
-  int log_limit= 6;
+  int log_limit = 6;
 
   Duration d (0,0);
 
@@ -224,7 +224,7 @@ Completion_heads_engraver::process_music ()
       note->set_property ("duration-log",
 			  scm_int2num (note_dur.duration_log ()));
       
-      int dots= note_dur.dot_count ();
+      int dots = note_dur.dot_count ();
       if (dots)
 	{
 	  Item * d = make_item ("Dots", SCM_EOL);
@@ -240,7 +240,7 @@ Completion_heads_engraver::process_music ()
 	  dots_.push (d);
 	}
 
-      Pitch *pit =unsmob_pitch (req->get_property ("pitch"));
+      Pitch *pit = unsmob_pitch (req->get_property ("pitch"));
 
       int pos = pit->steps ();
       SCM c0 = get_property ("middleCPosition");
@@ -253,7 +253,7 @@ Completion_heads_engraver::process_music ()
   
   if (prev_notes_.size () == notes_.size ())
     {
-      for (int i= 0; i < notes_.size (); i++)
+      for (int i = 0; i < notes_.size (); i++)
 	{
 	  Grob * p = make_spanner ("Tie", SCM_EOL);
 	  Tie::set_interface (p); // cannot remove yet!

@@ -154,7 +154,7 @@ Sequential_iterator::construct_children ()
 void
 Sequential_iterator::next_element (bool)
 {
-  Moment len =iter_->music_get_length () - iter_->music_start_mom ();
+  Moment len = iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
   if (len.main_part_

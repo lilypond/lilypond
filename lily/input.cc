@@ -15,8 +15,8 @@
 
 Input::Input (Source_file*s, char const *cl)
 {
-  source_file_=s;
-  defined_str0_=cl;
+  source_file_ = s;
+  defined_str0_ = cl;
 }
 
 Input::Input ()

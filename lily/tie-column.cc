@@ -97,7 +97,7 @@ Tie_column::old_directions (Grob*me)
   ties.del (0);
   
   set_grob_direction (ties.pop (), UP);
-  for (int i=ties.size (); i--;)
+  for (int i = ties.size (); i--;)
     {
       Grob *  t = ties[i];
       Real p = Tie::get_position (t);
