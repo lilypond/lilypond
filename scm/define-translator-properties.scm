@@ -35,6 +35,7 @@ context. Don't mess with this.")
 				 "If true allow line breaks during beams.")
 (translator-property-description 'associatedVoice string? "Name of the
 Voice that has the melody for this LyricsVoice.")
+(translator-property-description 'associatedVoiceContext ly:context? "The context object of the Voice that has the melody for this LyricsVoice.")
 (translator-property-description 'autoBeamSettings list? "Specifies
 when automatically generated beams should begin and end.  The elements
 have the format:

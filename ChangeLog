@@ -1,5 +1,7 @@
 2004-01-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/new-markup.scm (left-align-markup): bugfix. 
+
 	* Documentation/user/refman.itely (Ottava brackets): more doco for
 	ottava.
 

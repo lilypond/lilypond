@@ -32,6 +32,7 @@ TODO: consider making type into symbol")
 (music-property-description 'articulation-type string? "key for script definitions alist.
 
 TODO: consider making type into symbol ")
+(music-property-description 'associated-context string? "Name of the Voice context associated with this \\newaddlyrics section")
 (music-property-description 'bass boolean? "Set if this note is a bass note in a chord")
 (music-property-description 'cautionary boolean? "If set, this alteration needs cautionary accidental")
 (music-property-description 'change-to-id string? "name of the context to change to ")

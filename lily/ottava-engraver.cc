@@ -115,6 +115,7 @@ Ottava_spanner_engraver::finalize ()
   if (span_)
     finished_ = span_;
   typeset_all();
+  last_ottavation_ = SCM_EOL;
 }
 
 ENTER_DESCRIPTION(Ottava_spanner_engraver,

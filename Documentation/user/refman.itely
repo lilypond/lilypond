@@ -8184,6 +8184,7 @@ their center lines:
  c1^\markup { \line < a b c > }
 @end lilypond
 
+
 Markups can be stored in variables, and these variables
 may be attached to notes, like
 @verbatim
@@ -8195,9 +8196,18 @@ The markup mechanism is extensible.  Refer to
 @file{scm/new-markup.scm} for more information.
 
 
+Some objects have alignment procedures of their own, which cancel out
+any effects of alignments applied to their markup arguments as a
+whole.  For example, the @internalsref{RehearsalMark} is horizontally
+centered, so using @code{\mark \markup @{ \left-align .. @}} has no
+effect. Similarly, whole texts over notes cannot be moved vertically
+with @code{\raise}. For moving and aligning complete objects, grob
+properties should be used.
+
 @seealso
 
-Internals: @internalsref{Markup-functions},
+Internals: @internalsref{Markup-functions} contains a complete list of
+all markup commands.
 
 Init files:  @file{scm/new-markup.scm}.
 
@@ -8215,6 +8225,8 @@ Syntax errors for markup mode are confusing.
 Markup texts cannot be used in the titling of the @code{\header}
 field. Titles are made by La@TeX{}, so La@TeX{} commands should be used
 for formatting.
+
+
 
 
 
