@@ -35,7 +35,12 @@ class List
     /// put thing before #before_me#
     void insert( const T& thing, Cursor<T> before_me );
     virtual void remove( Cursor<T> me );
+    /**
+      Remove link pointed to by me.
 
+      POST
+      none; WARNING: do not use #me#.
+     */
     int size_;
     Link<T>* top_;
     Link<T>* bottom_;
