@@ -1,5 +1,7 @@
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/misc/GNUmakefile: restore misc directory.
+
 	* input/mutopia/J.S.Bach/bwv940.ly: add 1 petite prelude
 
 	* input/mutopia/J.S.Bach/GNUmakefile (EXTRA_DIST_FILES): remove
@@ -17,7 +19,7 @@
 	others.
 
 	* lily/parser.yy (gen_text_def): remove support for #'(italic )
-	style markups.
+	style markup entry.
 
 	* lily/parser.yy: all articulations postfix; remove obligatory -
 	for [,  ) and \!
