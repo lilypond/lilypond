@@ -1,14 +1,14 @@
 \version "1.7.18"
+% remove?  -hwn
 
 \header{ texidoc = "@cindex Two Slurs
-You can print a slur in each voice. "
+You can print a slur in each voice.  DELETE?"
 }
 
 % We'd want to combine the stems, but have two slurs too...
 % Looks like the a-due engraver
 
 
-% remove?  -hwn
 
 \score{
 	\context Staff <

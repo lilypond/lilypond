@@ -1,6 +1,5 @@
 \version "1.7.18"
-% regression or delete.  -gp
-% regression -hwn
+\header {texidoc = "Tests tuplet rests. "}
 
 \score {
   \context Voice \notes \relative c'' {
