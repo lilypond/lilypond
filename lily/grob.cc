@@ -56,6 +56,20 @@ Grob::Grob (SCM basicprops)
 
   smobify_self ();
 
+
+  SCM meta = get_grob_property ("meta");
+  if (gh_pair_p (meta))
+    {
+      SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
+
+      /*
+	do it directly to bypass interface checks.
+       */
+      mutable_property_alist_ = gh_cons (gh_cons (ly_symbol2scm ("interfaces"),
+						  gh_cdr (ifs)),
+					 mutable_property_alist_);
+    }
+  
   /*
     TODO:
 
@@ -94,18 +108,6 @@ Grob::Grob (SCM basicprops)
       dim_cache_[a].dimension_ = cb;
     }
 
-  SCM meta = get_grob_property ("meta");
-  if (gh_pair_p (meta))
-    {
-      SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
-
-      /*
-	do it directly to bypass interface checks.
-       */
-      mutable_property_alist_ = gh_cons (gh_cons (ly_symbol2scm ("interfaces"),
-						  gh_cdr (ifs)),
-					 mutable_property_alist_);
-    }
 }
 
 Grob::Grob (Grob const&s)
@@ -129,6 +131,25 @@ Grob::~Grob ()
 }
 
 
+
+extern void check_interfaces_for_property (Grob const *me, SCM sym);
+
+void
+Grob::internal_set_grob_property (SCM s, SCM v)
+{
+#ifndef NDEBUG
+  if (internal_type_checking_global_b)
+    {
+      assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+      check_interfaces_for_property(this, s);
+    }
+#endif
+
+  
+  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
+}
+
+
 SCM
 Grob::internal_get_grob_property (SCM sym) const
 {
@@ -137,6 +158,15 @@ Grob::internal_get_grob_property (SCM sym) const
     return ly_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
+  
+#ifndef NDEBUG
+  if (internal_type_checking_global_b && gh_pair_p (s))
+    {
+      assert (type_check_assignment (sym, gh_cdr (s), ly_symbol2scm ("backend-type?")));
+      check_interfaces_for_property(this, sym);
+    }
+#endif
+
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
@@ -154,44 +184,6 @@ Grob::remove_grob_property (const char* key)
   return val;
 }
 
-
-#if 0
-/*
-  Puts the k, v in the immutable_property_alist_, which is convenient for
-  storing variables that are needed during the breaking process. (eg.
-  System::rank : int)
- */
-void
-Grob::set_immutable_grob_property (const char*k, SCM v)
-{
-  SCM s = ly_symbol2scm (k);
-  set_immutable_grob_property (s, v);
-}
-
-void
-Grob::set_immutable_grob_property (SCM s, SCM v)
-{
-  immutable_property_alist_ = gh_cons (gh_cons (s,v), mutable_property_alist_);
-  mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, s);
-}
-#endif
-
-extern void check_interfaces_for_property (Grob *me, SCM sym);
-
-void
-Grob::internal_set_grob_property (SCM s, SCM v)
-{
-#ifndef NDEBUG
-  if (internal_type_checking_global_b)
-    {
-      assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
-      check_interfaces_for_property(this, s);
-    }
-#endif
-
-  
-  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
-}
 
 
 MAKE_SCHEME_CALLBACK (Grob,molecule_extent,2);
@@ -259,15 +251,11 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 	->calculate_dependencies (final, busy, funcname);
     }
 
-  // ughugh.
-  String s = ly_symbol2string (funcname);
-  SCM proc = get_grob_property (s.ch_C ());
+  
+  SCM proc = internal_get_grob_property (funcname);
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
-  else if (gh_list_p (proc))
-    for (SCM i = proc; gh_pair_p (i); i = ly_cdr (i))
-      gh_call1 (ly_car (i), this->self_scm ());
-  
+ 
   status_c_= final;
 }
 
@@ -958,6 +946,6 @@ ADD_INTERFACE (Grob, "grob-interface",
   "All grobs support this",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
 Y-extent-callback molecule-callback extra-offset
-staff-symbol interfaces dependencies extra-extent-X causes
+staff-symbol interfaces dependencies extra-extent-X causes meta
 layer before-line-breaking-callback after-line-breaking-callback extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
 

@@ -768,5 +768,5 @@ gets 2 note heads width (i.e. the space following a note is 1 note
 head width) A 16th note is followed by 0.5 note head width. The
 quarter note is followed by  3 NHW, the half by 4 NHW, etc.
 ",
-  "spacing-increment shortest-duration-space");
+  "grace-space-factor spacing-increment shortest-duration-space");
 

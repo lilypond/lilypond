@@ -245,4 +245,4 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 
 ADD_INTERFACE (Staff_spacing,"staff-spacing-interface",
   "",
-  "left-items right-items");
+  "stem-spacing-correction left-items right-items");

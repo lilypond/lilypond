@@ -43,6 +43,6 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
 ENTER_DESCRIPTION(Font_size_engraver,
 /* descr */       "Puts fontSize into font-relative-size grob property.",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* acks  */       "font-interface",
 /* reads */       "fontSize",
 /* write */       "");

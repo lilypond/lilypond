@@ -353,6 +353,7 @@ Beam::after_line_breaking (SCM smob)
   for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
     gh_call1 (ly_car (i), smob);
 
+  set_stem_lengths (me);  
   return SCM_UNSPECIFIED;
 }
 
@@ -884,16 +885,6 @@ Beam::slope_damping (SCM smob)
       
       me->set_grob_property ("positions", ly_interval2scm (pos));
     }
-    return SCM_UNSPECIFIED;
-}
-
-MAKE_SCHEME_CALLBACK (Beam, end_after_line_breaking, 1);
-SCM
-Beam::end_after_line_breaking (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  set_stem_lengths (me);
-  
   return SCM_UNSPECIFIED;
 }
 

@@ -1,3 +1,15 @@
+2002-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/grob.cc (internal_get_grob_property): also typecheck
+	property reads. Catches even more undocced properties. Bugfixing
+	left for the uninspired masses.
+
+	* lily/beam.cc: remove end_after_line_breaking().
+
+	* lily/grob.cc (calculate_dependencies): remove list support for callbacks.
+
+	* lily/font-size-engraver.cc: only do font-interface.
+
 2002-04-10  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Handle notes with cautionary accidentals.
