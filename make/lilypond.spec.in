@@ -41,6 +41,7 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/man/man1/mudela-book.1
 /usr/man/man1/convert-mudela.1
 /usr/lib/texmf/texmf/tex/lilypond/
+/usr/lib/texmf/texmf/fonts/source/lilypond
 /usr/share/lilypond/
 %post
 
