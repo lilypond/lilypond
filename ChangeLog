@@ -1,5 +1,7 @@
 2002-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.5.68
+
 	* scripts/lilypond-book.py: fixes by Tom Cato Amundsen.
 
 2002-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
@@ -7,7 +9,6 @@
 	* lily/beam-quanting.cc (score_forbidden_quants): split beam
 	quanting functionality.
 	(quanting): argh. Forgot how linear interpolation works. Bugfix.
-	
 
 	* Documentation/index.texi (Top): add whole-big-page documentation.
 
@@ -75,6 +76,8 @@
 
 2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.67 released.
+	
 	* lily/beam.cc (calc_stem_y): fix beams on quarter notes.
 
 	* lily/stem-tremolo.cc (brew_molecule): add code for stem tremolos.
