@@ -31,8 +31,10 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
-SAUTER_FONTS = cmbxti6 cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
-        cmcsc7 cmcsc8 cmcsc12 cmbx14 cmbx17 \
+SAUTER_FONTS = cmr10 \
+	cmbxti6 cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
+        cmcsc7 cmcsc8 cmcsc10 cmcsc12 \
+	cmcsc12 cmbx14 cmbx17 \
 	cmtt5 cmtt6 cmtt7 cmtt17 \
         cmti5 cmti6 \
 	cmss5 cmss6 cmss7 cmss8

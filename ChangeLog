@@ -1,5 +1,7 @@
 2004-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/font.scm (paper20-font-vector): cmcsc klugdge.
+
 	* scm/output-ps.scm (output-stencil): New function.
 
 	* scripts/lilypond-book.py (do_file): Bugfix: change search order
