@@ -23,7 +23,7 @@ struct Local_acc {
   update item if Items are removed
  */
 struct Local_key_item : Item {
-    NAME_MEMBERS(Local_key_item);
+    NAME_MEMBERS();
     Array<Local_acc> accs;
     Link_array<Item> support_items_;
     int c0_position;
@@ -31,7 +31,7 @@ struct Local_key_item : Item {
     /* *************** */
     
     Local_key_item(int c0position);
-    void add(Item*);
+    void add_support(Item*);
     void add(int oct, int pitch, int acc);
     void add(Melodic_req*);
 public:

@@ -23,7 +23,7 @@ Local_key_item::Local_key_item(int i)
 }
 
 void
-Local_key_item::add(Item*head_l)
+Local_key_item::add_support(Item*head_l)
 {
     support_items_.push(head_l);
     add_dependency(head_l);
