@@ -1,0 +1,162 @@
+\header {
+    title = "LilyPond demo"
+    enteredby="Han-Wen Nienhuys"
+    maintainer="hanwen@xs4all.nl"
+
+    texidoc = "
+heavily mutilated Edition Peters Morgenlied by Schubert"
+
+}
+
+\version "2.4.0"
+
+ignoreMelisma =	\set ignoreMelismata = ##t
+ignoreMelismaOff = \unset ignoreMelismata 
+
+#(set-global-staff-size 21)
+
+\paper  {
+%#(set-global-staff-size (* 5.8 mm))
+  indent = #(* mm 4)
+  linewidth = #(* mm 140)
+  interscoreline = 2.\mm
+  betweensystemspace = 15\mm
+  raggedbottom = ##t 
+}
+
+modernAccidentals = {
+  \set Staff.extraNatural =  ##f
+  \set Staff.autoAccidentals =  #'(Staff (same-octave . 1) (any-octave . 0))
+  \set Staff.autoCautionaries =  #'()  
+}
+
+
+melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
+    \time 6/8
+    \autoBeamOff
+    s1*0^\markup {  \bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
+  R2.
+  r4 r8 c4 g8 |
+ \acciaccatura { f16( }  e4) c8
+    <<
+	\new Voice { \stemUp f8. g16 }
+	{ \stemDown f8.[ g16] } >> \stemNeutral a8 |
+  fis4  g8 c16[ b a g] f[ e] |
+  d4 f8
+    \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
+  g4. r8 gis gis |
+  a4 a16.[ b32] c8[( a]) fis8 |
+  g4.~ g8-\fermata
+}
+
+
+firstVerse = \lyricmode {
+    \set stanza = "1."
+    
+    Sü -- ßes Licht! Aus
+    \ignoreMelisma
+    gol --
+    \ignoreMelismaOff
+
+    de -- nen  Pfor -- ten brichst du __ | 
+    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ 
+    }
+
+secondVerse = \lyricmode {
+    \set stanza = "2."
+  いろはに כיף та та ほへど ちり  ぬるを
+    
+  Жъл  дю ля זה
+    
+  いろ はに כיף та та ほへ ちり ぬる
+    
+  Жъл дю ля __
+    }
+
+pianoRH =  \relative c''' \repeat volta 2\new Voice {
+    #(set-accidental-style 'modern)
+    \voiceOne
+    g16( fis a g fis g f e d c b
+    \oneVoice
+    a ) | 
+    <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r | 
+    r8 c'( e,) f r a |
+    \once \override DynamicLineSpanner   #'padding =#3
+    r8
+	<< { fis( g) } \\
+	<< { a4 } { s8\> s8\! }    >> >> r8 <e c g>8[  <e c g>] |
+    <d c a>4. r8 \clef bass  <d b f> <d b f> |
+    \setTextCresc
+    e,16_" "\<
+    g c g e g d gis b gis d gis |
+    c, e a e c e a,-\f\! d fis d a d |
+    b d g  d b g e16. r32\fermata
+}
+
+pianoLH =  \relative c'' \repeat volta 2\new Voice {
+    #(set-accidental-style 'modern)
+    \voiceTwo
+    g16(_\p fis a g fis g
+
+    f e d c b
+
+    \change Staff = down
+	\oneVoice
+    d,) | 
+     g4.( c,8) r r
+    \clef treble \grace s16 r8 <bes'>8-> <bes c>8->([ <a c>)] r <f c'> |
+    \clef bass
+    r8 dis( e) r c c |
+    f,4.  g8[ r8 g] |
+    <c, c,>4. <e e,>4. |
+    a,4. <d d,>4. |
+    g,8 r r g16 r16\fermata 
+    }
+
+\book {
+    \score {
+	<< \time 6/8
+	   \new Staff \with {
+	     fontSize = #-3
+	     \override StaffSymbol #'staff-space = #(magstep -3)
+	   } <<
+	       \context Staff #(set-accidental-style 'modern)
+	       \melody >>
+	   \lyricsto "singer" \new Lyrics \firstVerse
+	   \lyricsto "singer" \new Lyrics \secondVerse
+	   \new PianoStaff << 
+	       \set PianoStaff.instrument = \markup {
+		   \bold
+		   \bigger\bigger\bigger\bigger \huge "2." \hspace #1.0 }
+	       \context Staff = up <<
+		 \pianoRH
+		 \pianoLH
+		 >>
+	       \context Staff = down { \clef bass \skip 1*2 }
+	   >> 
+       >>
+
+	\layout {
+	    \context {
+		\Lyrics
+		minimumVerticalExtent = #'(-0.85 . 2.2)
+		\override LyricText #'font-size = #-1
+	    }
+	    \context {
+		\Score
+		\override Beam #'thickness = #0.55
+		\override SpacingSpanner #'spacing-increment = #1.0
+		\override Stem #'stemlet-length = #0.5
+		\override Slur #'height-limit = #1.5
+	    }
+	    \context {
+		\PianoStaff
+		\override VerticalAlignment #'forced-distance = #10
+	    }
+	}
+	\midi {
+	    \tempo 4 = 70
+	}
+    }
+}
+
