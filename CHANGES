@@ -1,3 +1,26 @@
+pl 4.uu1
+	- input/test/ \property fixes.
+	- gcc 2.95 fix
+
+pl 4.hwn1
+	- Break_align_engraver,
+	break align order from  \property breakAlignOrder
+	- junked Score_priority_engraver
+	- moved Time_description into Timing_translator
+	- use properties for timing, see input/test/timing.fly
+	* removed \cadenza ; now use \property Score.timing
+	* \property measurePosition
+	* \property measureLength
+	* \property currentBarNumber
+	- Note_name_engraver , \context NoteNames
+
+
+pl 4.jcn1
+	- junked some chord guessing code
+	- bf: lookup size (-1) for chord-name accidentals
+	- bf: ly2dvi's MFINPUTS setting
+
+*************
 pl 2.jcn3
 	- chords:
 	  * Chord is item
