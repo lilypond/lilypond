@@ -1,3 +1,12 @@
+2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/bin/add-html-footer.py (do_file): remove wiki links. 
+
+2004-10-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/lyric-extender.cc (print): remove check for right-bound
+	non-broken. This fixes a crash.
+
 2004-09-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Defining new

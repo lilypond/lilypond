@@ -46,7 +46,7 @@ Lyric_extender::print (SCM smob)
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
 								  "heads"));
 
-  if (!heads.size () && r->break_status_dir () == CENTER)
+  if (!heads.size ())
     return SCM_EOL;
 
   common = common_refpoint_of_array (heads, common, X_AXIS);
