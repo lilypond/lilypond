@@ -484,6 +484,8 @@ HYPHEN		--
 			SCM tag = gh_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))
 				return MARKUP_HEAD_MARKUP0;
+			if (tag == ly_symbol2scm("empty"))
+				return MARKUP_HEAD_EMPTY;
 			else if (tag == ly_symbol2scm ("markup0-markup1"))
 				return MARKUP_HEAD_MARKUP0_MARKUP1;
 			else if (tag == ly_symbol2scm ("markup-list0"))

@@ -344,6 +344,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %token MARKUP
 %token <scm> MARKUP_HEAD_MARKUP0
+%token <scm> MARKUP_HEAD_EMPTY
 %token <scm> MARKUP_HEAD_MARKUP0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0
 %token <scm> MARKUP_HEAD_SCM0_MARKUP1
@@ -2221,6 +2222,9 @@ This should be done more dynamically if possible.
 markup:
 	STRING {
 		$$ = make_simple_markup ($1);
+	}
+	| MARKUP_HEAD_EMPTY {
+		$$ = scm_list_n ($1, SCM_UNDEFINED);
 	}
 	| MARKUP_HEAD_MARKUP0 markup {
 		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
