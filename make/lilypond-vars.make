@@ -46,8 +46,8 @@ LILYPOND_BOOK_FORMAT = texi
 LY2DVI = $(script-dir)/ly2dvi.py
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
 
-
 else
+
 ### some versions apparently choke on $(message)
 ### $(message running from installed stepmake)
 

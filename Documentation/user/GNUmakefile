@@ -20,7 +20,10 @@ PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 INFO_DOCS = lilypond lilypond-internals music-glossary
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
-STEPMAKE_TEMPLATES=tex texinfo documentation
+STEPMAKE_TEMPLATES=tex texinfo omf documentation
+
+OMF_FILES += $(outdir)/lilypond-internals.html.omf
+
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 
@@ -142,4 +145,5 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
 $(outdir)/interfaces.itexi:
 	cp dummy-interfaces.itexi $@
 endif
+
 

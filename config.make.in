@@ -34,15 +34,24 @@ program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 stepmake = @stepmake@
+docdir = $(datadir)/doc/
+omfdir = $(datadir)/omf/
 
 # move out of config.make.in?
 package_datadir = $(datadir)/$(package)
 package_libdir = $(libdir)/$(package)
+package_docdir = $(docdir)/$(package)
+package_omfdir = $(omfdir)/$(package)
+
 local_package_datadir = $(lilypond_datadir)/$(TOPLEVEL_VERSION)
 local_package_libdir = $(lilypond_libdir)/$(TOPLEVEL_VERSION)
+local_package_docdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
+local_package_omfdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
 
 lilypond_datadir = $(package_datadir)
 lilypond_libdir = $(package_libdir)
+lilypond_docdir = $(package_docdir)
+
 local_lilypond_datadir = $(local_package_datadir)
 local_lilypond_libdir = $(local_package_libdir)
 

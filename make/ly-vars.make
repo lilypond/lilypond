@@ -4,6 +4,9 @@
 
 # huh ? these are for documentation?!
 TELY_FILES := $(wildcard *.tely)
+
+OMF_FILES += $(foreach format, html pdf ps.gz, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
+
 ITELY_FILES := $(wildcard *.itely)
 ITEXI_FILES := $(wildcard *.itexi)
 LY_FILES := $(wildcard *.ly)

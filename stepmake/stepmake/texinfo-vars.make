@@ -6,3 +6,6 @@ ALL_SOURCES += $(TEXI_FILES)
 TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
+
+GENERATE_OMF = $(PYTHON) $(depth)/buildscripts/texi2omf.py
+

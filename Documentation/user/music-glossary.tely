@@ -20,6 +20,16 @@ PostScript} and @uref{music-glossary.pdf,PDF}.
 Copyright @copyright{} 1999--2002 by the authors
 @end titlepage
 
+
+
+@ignore
+@omfcreator Christian Mondrup
+@omfdescription Glossary of musical terms with translations
+@omftype user manual
+@omfcategory Music 
+@end ignore
+
+
 @ifnottex
 @node Top
 @top
@@ -30,8 +40,6 @@ Copyright @copyright{} 1999--2002 by the authors
 
 @ifnottex
 Christian Mondrup
-@*
-spanish by Davi Gonz@'alez
 @*
 Copyright 1999-2002 by the authors
 

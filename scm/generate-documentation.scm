@@ -73,6 +73,16 @@
 @end macro
 @end ifinfo
 
+
+@ignore
+@omftitle LilyPond internals
+@omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
+@omfdescription Programmer's reference of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Music 
+@end ignore
+
+
 ") out-port)
 
 (define top-node

@@ -52,6 +52,8 @@ make -C Documentation
 
 # make  html
 make web-doc top-web 
+make -C Documentation/user/ omf
+
 
 %install
 
@@ -77,10 +79,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
+make prefix="$RPM_BUILD_ROOT%{_prefix}" web-doc-install
+make -C Documentation/user/  prefix="$RPM_BUILD_ROOT%{_prefix}" omf-install
 
-# again, make sure that main package installs even if doco fails
-mkdir -p web/out
-tar -C web -xzf out/web.tar.gz 
 
 
 %post
@@ -94,9 +95,12 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 
 chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
+scrollkeeper-update
+
 echo 'Please logout first before using LilyPond.'
 
 %preun
+scrollkeeper-update
 
 %if %{info}
 if [ $1 = 0 ]; then
@@ -141,11 +145,16 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %{_datadir}/lilypond/@TOPLEVEL_VERSION@/
 %{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
+
+%{docdir}/lilypond/@TOPLEVEL_VERSION@
+%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
+
 /etc/profile.d/lilypond.*
 
-%files documentation
-%defattr(-, root, root)
 
-%doc web/
+# % files documentation
+
+# % defattr(-, root, root)
+
 
 
