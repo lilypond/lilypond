@@ -1,9 +1,0 @@
-#!/bin/sh
-
-LILYTOPDIR=$1
-shift
-export LILYINCLUDE="$LILYTOPDIR/init:$LILYTOPDIR/mf/out:$LILYINCLUDE"
-export TEXINPUTS="$LILYTOPDIR/tex:$TEXINPUTS"
-export MFINPUTS="$LILYTOPDIR/mf:$TEXINPUTS"
-
-$LILYTOPDIR/lily/out/lilypond $*
