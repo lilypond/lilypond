@@ -165,7 +165,7 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 	   2, 0, 0,
 	  (SCM font, SCM name),
-	   "Return the index for @{name} in @var{font}.")
+	   "Return the index for @var{name} in @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
@@ -189,7 +189,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 	   2, 0, 0,
 	  (SCM font, SCM name),
-	   "Return the character code for glyph @{name} in @var{font}.")
+	   "Return the character code for glyph @var{name} in @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");

@@ -1,3 +1,7 @@
+2004-12-17  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* lily/font-metric.cc (LY_DEFINE): Fix the docstring.
+
 2004-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-tex.scm (otf-font-load-command): Bugfix: subfonts
