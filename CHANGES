@@ -1,7 +1,9 @@
-1.4.6.jcn1
+1.4.6.jcn2
 ==========
 
 * Fixes for PostScript beams and stems.
+
+* Use Cygwin included Python; drop Windows Python and workarounds.
 
 1.4.6
 =====
