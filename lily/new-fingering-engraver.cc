@@ -67,9 +67,9 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 
       SCM arts = note_ev->get_property ("articulations");
 
-      for (SCM s = arts; gh_pair_p (s); s = gh_cdr  (s))
+      for (SCM s = arts; ly_pair_p (s); s = ly_cdr  (s))
 	{
-	  Music * m = unsmob_music (gh_car (s));
+	  Music * m = unsmob_music (ly_car (s));
 
 	  if (!m)
 	    continue;
@@ -138,7 +138,7 @@ New_fingering_engraver::add_fingering (Grob * head,
   
   Side_position_interface::add_support (ft.script_, head);
 
-  int d = gh_scm2int (event->get_property ("digit"));
+  int d = ly_scm2int (event->get_property ("digit"));
   
   /*
     TODO:
@@ -154,7 +154,7 @@ New_fingering_engraver::add_fingering (Grob * head,
        */
       event->origin ()->warning (_("music for the martians."));
     }
-  SCM sstr = scm_number_to_string (gh_int2scm (d), gh_int2scm (10)) ;
+  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10)) ;
   ft.script_->set_property ("text", sstr);
        
   ft.finger_event_ = event;
@@ -179,7 +179,7 @@ New_fingering_engraver::position_scripts ()
   */
   for (int i = 0; i < fingerings_.size (); i++)
     {      
-      fingerings_[i].position_ = gh_scm2int (fingerings_[i].head_ -> get_property ( "staff-position"));
+      fingerings_[i].position_ = ly_scm2int (fingerings_[i].head_ -> get_property ( "staff-position"));
     }
 
   for (int i = fingerings_.size (); i--;)
@@ -247,7 +247,7 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
 
-      f->set_property ("direction", gh_int2scm (hordir));
+      f->set_property ("direction", scm_int2num (hordir));
       typeset_grob (f);
     }
 
@@ -258,12 +258,12 @@ New_fingering_engraver::position_scripts ()
       Grob* f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    gh_int2scm (finger_prio + i));
+			    scm_int2num (finger_prio + i));
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       
-      f->set_property ("direction", gh_int2scm (UP));
+      f->set_property ("direction", scm_int2num (UP));
 
       typeset_grob (f);
     }
@@ -274,12 +274,12 @@ New_fingering_engraver::position_scripts ()
       Grob* f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    gh_int2scm (finger_prio + down.size () - i));
+			    scm_int2num (finger_prio + down.size () - i));
 
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
-      f->set_property ("direction", gh_int2scm (DOWN));
+      f->set_property ("direction", scm_int2num (DOWN));
       typeset_grob (f);
     }
 }
@@ -304,7 +304,7 @@ New_fingering_engraver::stop_translation_timestep ()
 	sc->set_property ("direction-source", stem_->self_scm ());
       
       SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), articulations_[i].description_);
-      if (gh_pair_p (follow) && to_boolean (gh_cdr (follow)))
+      if (ly_pair_p (follow) && to_boolean (ly_cdr (follow)))
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding" , SCM_EOL);

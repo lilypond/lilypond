@@ -41,7 +41,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   SCM shape_scm = me->get_property ("style");
   String shape;
 
-  if (gh_symbol_p (shape_scm))
+  if (ly_symbol_p (shape_scm))
     {
       shape = ly_symbol2string (shape_scm);
     }
@@ -144,7 +144,7 @@ Cluster::print (SCM smob)
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
   SCM cols  =me->get_property ("columns");
 
-  if (!gh_pair_p (cols))
+  if (!ly_pair_p (cols))
     {
       me->warning ("junking empty cluster");
       me->suicide ();
@@ -165,7 +165,7 @@ Cluster::print (SCM smob)
     line with the center of the note heads?
     
    */
-  for (SCM s = cols; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = cols; ly_pair_p (s); s = ly_cdr (s))
     {
       Grob * col = unsmob_grob (ly_car (s));
       Interval yext = col->extent (commony, Y_AXIS);
@@ -186,7 +186,7 @@ Cluster::print (SCM smob)
 	{
 	  Spanner * next = orig->broken_intos_[spanner->get_break_index () + 1];
 	  SCM cols = next->get_property ("columns");
-	  if (gh_pair_p (cols))
+	  if (ly_pair_p (cols))
 	    {
 	      Grob *next_commony = common_refpoint_of_list (cols, next, Y_AXIS);
 	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));

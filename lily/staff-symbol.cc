@@ -42,14 +42,14 @@ Staff_symbol::print (SCM smob)
   do
     {
       SCM width_scm = me->get_property ("width");
-      if (d == RIGHT && gh_number_p (width_scm))
+      if (d == RIGHT && ly_number_p (width_scm))
 	{
 	  /*
 	    don't multiply by Staff_symbol_referencer::staff_space (me),
 	    since that would make aligning staff symbols of different sizes to
 	    one right margin hell.
 	  */      
-	  span_points[RIGHT] = gh_scm2double (width_scm);
+	  span_points[RIGHT] = ly_scm2double (width_scm);
 	}
       else
 	{
@@ -95,8 +95,8 @@ int
 Staff_symbol::line_count (Grob*me) 
 {
   SCM c = me->get_property ("line-count");
-  if (gh_number_p (c))
-    return gh_scm2int (c);
+  if (ly_number_p (c))
+    return ly_scm2int (c);
   else
     return 0;
 }

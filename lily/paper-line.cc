@@ -71,7 +71,7 @@ LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return gh_double2scm (pl->dim ()[Y_AXIS]);
+  return scm_make_real (pl->dim ()[Y_AXIS]);
 }
 
 LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
@@ -80,7 +80,7 @@ LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return gh_int2scm (pl->number_);
+  return scm_int2num (pl->number_);
 }
 
 LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
@@ -89,5 +89,5 @@ LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return gh_int2scm (int (pl->is_title ()) * TITLE_PENALTY);
+  return scm_int2num (int (pl->is_title ()) * TITLE_PENALTY);
 }

@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
-  if (gh_string_p (markup))
+  if (ly_string_p (markup))
     {
       String str = ly_scm2string (markup);
       
@@ -44,10 +44,10 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       
       return Stencil (b, lst).smobbed_copy ();
     }
-  else if (gh_pair_p (markup))
+  else if (ly_pair_p (markup))
     {
-      SCM func = gh_car (markup);
-      SCM args = gh_cdr (markup);
+      SCM func = ly_car (markup);
+      SCM args = ly_cdr (markup);
       if (!markup_p (markup))
 	programming_error ("Markup head has no markup signature.");
       
@@ -75,9 +75,9 @@ bool
 Text_item::markup_p (SCM x)
 {
   return
-    gh_string_p (x) ||
-    (gh_pair_p (x)
-     && SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature")));
+    ly_string_p (x) ||
+    (ly_pair_p (x)
+     && SCM_BOOL_F != scm_object_property (ly_car (x), ly_symbol2scm ("markup-signature")));
 }
 
 ADD_INTERFACE (Text_item,"text-interface",

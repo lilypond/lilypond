@@ -30,10 +30,10 @@ Bar_line::print (SCM smob)
 
   SCM s = me->get_property ("glyph");
   SCM barsiz_proc = me->get_property ("bar-size-procedure");
-  if (gh_string_p (s) && gh_procedure_p (barsiz_proc))
+  if (ly_string_p (s) && ly_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
-      SCM siz = gh_call1 (barsiz_proc, me->self_scm ());
+      SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
       Real sz = robust_scm2double (siz, 0);
       if (sz < 0)
 	return SCM_EOL;
@@ -157,20 +157,20 @@ Bar_line::before_line_breaking (SCM smob)
   SCM g = me->get_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
-  if (gh_string_p (g) && bsd)
+  if (ly_string_p (g) && bsd)
     {
       SCM proc = me->get_property ("break-glyph-function");
-      g = gh_call2 (proc, g, scm_int2num (bsd));
+      g = scm_call_2 (proc, g, scm_int2num (bsd));
     }
   
-  if (!gh_string_p (g))
+  if (!ly_string_p (g))
     {
       me->set_property ("print-function", SCM_EOL);
       me->set_extent (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }
 
-  if (! gh_equal_p (g, orig))
+  if (! ly_equal_p (g, orig))
     me->set_property ("glyph", g);
 
   return SCM_UNSPECIFIED;
@@ -186,8 +186,8 @@ Bar_line::get_staff_bar_size (SCM smob)
   Grob*me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_property ("bar-size");
-  if (gh_number_p (size))
-    return gh_double2scm (gh_scm2double (size)*ss);
+  if (ly_number_p (size))
+    return scm_make_real (ly_scm2double (size)*ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*
@@ -195,7 +195,7 @@ Bar_line::get_staff_bar_size (SCM smob)
 	calculation. That's a nonsense value, which would collapse the
 	barline so we return 0.0 in the next alternative.
       */
-      return gh_double2scm ((Staff_symbol_referencer::line_count (me) -1) * ss);
+      return scm_make_real ((Staff_symbol_referencer::line_count (me) -1) * ss);
     }
   else
     return scm_int2num (0);

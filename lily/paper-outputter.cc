@@ -118,7 +118,7 @@ Paper_outputter::output_scheme (SCM scm)
   if (output_format_global == PAGE_LAYOUT)
     scm_display (scm_eval (scm, output_module_), file_);
   else
-    gh_call2 (output_func_, scm, file_);
+    scm_call_2 (output_func_, scm, file_);
 }
 
 void
@@ -127,7 +127,7 @@ Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--; )
     fields
-      = gh_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
+      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
 		 fields);
   output_scheme (scm_list_n (ly_symbol2scm ("output-scopes"),
 			     paper->self_scm (),
@@ -180,8 +180,8 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 
   if (output_format_global != PAGE_LAYOUT)
     output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
-			       gh_double2scm (dim[X_AXIS]),
-			       gh_double2scm (dim[Y_AXIS])));
+			       scm_make_real (dim[X_AXIS]),
+			       scm_make_real (dim[Y_AXIS])));
   else
     {
       output_scheme (scm_list_3 (ly_symbol2scm ("new-start-system"),
@@ -191,7 +191,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
     }
 
   SCM between = SCM_EOL;
-  for (SCM s = pl->stencils (); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = pl->stencils (); ly_pair_p (s); s = ly_cdr (s))
     {
       Stencil *stil = unsmob_stencil (ly_car (s));
       if (stil)
@@ -224,7 +224,7 @@ Paper_outputter::output_expr (SCM expr, Offset o)
 {
   while (1)
     {
-      if (!gh_pair_p (expr))
+      if (!ly_pair_p (expr))
 	return;
   
       SCM head =ly_car (expr);
@@ -234,8 +234,8 @@ Paper_outputter::output_expr (SCM expr, Offset o)
       
 	  output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
 				     scm_makfrom0str (ip->file_string ().to_str0 ()),
-				     gh_int2scm (ip->line_number ()),
-				     gh_int2scm (ip->column_number ()),
+				     scm_int2num (ip->line_number ()),
+				     scm_int2num (ip->column_number ()),
 				     SCM_UNDEFINED));
 	  expr = ly_cadr (expr);
 	}
@@ -257,8 +257,8 @@ Paper_outputter::output_expr (SCM expr, Offset o)
       else
 	{
 	  output_scheme (scm_list_n (ly_symbol2scm ("placebox"),
-				     gh_double2scm (o[X_AXIS]),
-				     gh_double2scm (o[Y_AXIS]),
+				     scm_make_real (o[X_AXIS]),
+				     scm_make_real (o[Y_AXIS]),
 				     expr,
 				     SCM_UNDEFINED));
 	  return;

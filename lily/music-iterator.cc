@@ -78,9 +78,9 @@ Music_iterator::get_static_get_iterator (Music *m)
 
   SCM ctor = m->get_property ("iterator-ctor") ;
   SCM iter = SCM_EOL;
-  if (gh_procedure_p (ctor))
+  if (ly_procedure_p (ctor))
     {
-      iter = gh_call0 (ctor);
+      iter = scm_call_0 (ctor);
       p = unsmob_iterator (iter);
     }
   else

@@ -102,9 +102,9 @@ Multi_measure_rest::print (SCM smob)
 
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (gh_number_p (m))
+  if (ly_number_p (m))
     {
-      measures = gh_scm2int (m);
+      measures = ly_scm2int (m);
     }
 
   mol.translate_axis (x_off, X_AXIS);
@@ -118,16 +118,16 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (gh_number_p (m))
+  if (ly_number_p (m))
     {
-      measures = gh_scm2int (m);
+      measures = ly_scm2int (m);
     }
   if (measures <= 0)
     return Stencil ();
   
 
   SCM limit = me->get_property ("expand-limit");
-  if (measures > gh_scm2int (limit))
+  if (measures > ly_scm2int (limit))
     {
       Real padding = 0.15;  
       Stencil s =  big_rest (me, (1.0 - 2*padding) * space);
@@ -239,7 +239,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 
 	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
 	  symbols_width += r.extent (X_AXIS).length ();
-	  mols = gh_cons (r.smobbed_copy (), mols);
+	  mols = scm_cons (r.smobbed_copy (), mols);
 	}
        else
 	{
@@ -267,7 +267,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	      r.translate_axis (staff_space, Y_AXIS);
 	    }
 	  symbols_width += r.extent (X_AXIS).length ();
-	  mols = gh_cons (r.smobbed_copy (), mols);
+	  mols = scm_cons (r.smobbed_copy (), mols);
 	}
       count ++;
     }
@@ -282,9 +282,9 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
     }
   
   Stencil mol; 
-  for (SCM  s = mols; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM  s = mols; ly_pair_p (s); s = ly_cdr (s))
     {
-      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (gh_car (s)), inner_padding, 0);
+      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (ly_car (s)), inner_padding, 0);
     }
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor *  inner_padding, X_AXIS);

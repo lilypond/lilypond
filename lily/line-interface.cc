@@ -24,11 +24,11 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real off = dash_period - on;
   
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-			gh_double2scm (thick), 
-			gh_double2scm (on),
-			gh_double2scm (off),
-			gh_double2scm (to[X_AXIS] - from[X_AXIS]),
-			gh_double2scm (to[Y_AXIS] - from[Y_AXIS]),
+			scm_make_real (thick), 
+			scm_make_real (on),
+			scm_make_real (off),
+			scm_make_real (to[X_AXIS] - from[X_AXIS]),
+			scm_make_real (to[Y_AXIS] - from[Y_AXIS]),
 			SCM_UNDEFINED);
   
   Box box;
@@ -47,11 +47,11 @@ Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-			gh_double2scm (th), 
-			gh_double2scm (from[X_AXIS]),
-			gh_double2scm (from[Y_AXIS]),
-			gh_double2scm (to[X_AXIS]),
-			gh_double2scm (to[Y_AXIS]),
+			scm_make_real (th), 
+			scm_make_real (from[X_AXIS]),
+			scm_make_real (from[Y_AXIS]),
+			scm_make_real (to[X_AXIS]),
+			scm_make_real (to[Y_AXIS]),
 			SCM_UNDEFINED);
 
   Box box;
@@ -73,7 +73,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   SCM type = me->get_property ("style");
 
   SCM dash_fraction = me->get_property ("dash-fraction");
-  if (gh_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
+  if (ly_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
       
       Real fraction

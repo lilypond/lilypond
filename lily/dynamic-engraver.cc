@@ -220,11 +220,11 @@ Dynamic_engraver::process_music ()
 	    start_type = "crescendo";
 	  
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
-	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
+	  if (!ly_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_  = make_spanner ("Hairpin");
 	      cresc_->set_property ("grow-direction",
-					   gh_int2scm ((start_type == "crescendo")
+					   scm_int2num ((start_type == "crescendo")
 						       ? BIGGER : SMALLER));
 	      
 	    }
@@ -245,10 +245,10 @@ Dynamic_engraver::process_music ()
 	      /*
 		FIXME: use get_markup () to check type.
 	      */
-	      if (gh_string_p (s) || gh_pair_p (s))
+	      if (ly_string_p (s) || ly_pair_p (s))
 		{
 		  cresc_->set_property ("edge-text",
-					     gh_cons (s, scm_makfrom0str ("")));
+					     scm_cons (s, scm_makfrom0str ("")));
 		  daddy_context_->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
 		}
@@ -400,8 +400,8 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
       if (script_ && !script_->get_parent (X_AXIS))
 	{
 	  SCM head = scm_last_pair (i.grob_->get_property ("note-heads"));
-	  if (gh_pair_p (head))
-	    script_->set_parent (unsmob_grob (gh_car (head)),  X_AXIS);
+	  if (ly_pair_p (head))
+	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
       
     }
@@ -414,8 +414,8 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 
 	DynamicText doesn't really have a script-priority field.
        */
-      if (gh_number_p (p)
-	  && gh_scm2int (p) < gh_scm2int (script_->get_property ("script-priority")))
+      if (ly_number_p (p)
+	  && ly_scm2int (p) < ly_scm2int (script_->get_property ("script-priority")))
 	{
 	  Side_position_interface::add_support (line_spanner_, i.grob_);
 

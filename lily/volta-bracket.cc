@@ -56,7 +56,7 @@ Volta_bracket_interface::print (SCM smob)
   SCM glyph = endbar->get_property ("glyph");
   
   String str;
-  if (gh_string_p (glyph))
+  if (ly_string_p (glyph))
     str = ly_scm2string (glyph);
   else
     return SCM_EOL;

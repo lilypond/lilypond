@@ -91,7 +91,7 @@ do_break_substitution (SCM src)
  
   if (unsmob_grob (src))
     return substitute_grob (unsmob_grob (src));
-  else if (gh_vector_p (src))
+  else if (ly_vector_p (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
@@ -111,7 +111,7 @@ do_break_substitution (SCM src)
       SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
-	  && (gh_pair_p (oldcdr) || oldcdr == SCM_EOL))
+	  && (ly_pair_p (oldcdr) || oldcdr == SCM_EOL))
 	{
 	  /*
 	    This is tail-recursion, ie. 
@@ -142,13 +142,13 @@ substitute_grob_list (SCM grob_list)
   SCM l = SCM_EOL;
   SCM * tail = &l;
 
-  for (SCM s = grob_list; gh_pair_p (s); s =  gh_cdr (s))
+  for (SCM s = grob_list; ly_pair_p (s); s =  ly_cdr (s))
     {
-      SCM n= substitute_grob (unsmob_grob (gh_car (s)));
+      SCM n= substitute_grob (unsmob_grob (ly_car (s)));
 
       if (n != SCM_UNDEFINED)
 	{
-	  *tail = gh_cons (n, SCM_EOL);
+	  *tail = scm_cons (n, SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	}
     }
@@ -350,9 +350,9 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   
   int sp_index = len;
   int it_index = 0;
-  for (SCM s = grob_list; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = grob_list; ly_pair_p (s); s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (gh_car (s));
+      Grob * g = unsmob_grob (ly_car (s));
 
       Slice sr = grob_system_range (g);
       sr.intersect (system_range);
@@ -467,10 +467,10 @@ substitute_mutable_property_alist (SCM alist)
 
   SCM l = SCM_EOL;
   SCM *tail = &l;
-  for (SCM s = alist; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = alist; ly_pair_p (s); s = ly_cdr (s))
     {
-      SCM sym = gh_caar (s);
-      SCM val = gh_cdar (s);
+      SCM sym = ly_caar (s);
+      SCM val = ly_cdar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
 
       if (type == grob_list_p)
@@ -478,7 +478,7 @@ substitute_mutable_property_alist (SCM alist)
       else
 	val = do_break_substitution (val);
 
-      *tail = gh_cons (gh_cons (sym, val), SCM_EOL);
+      *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 

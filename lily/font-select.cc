@@ -34,7 +34,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
 {
   Paper_def *pap = unsmob_paper (paper);
   SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
-  return gh_double2scm (pap->get_dimension (name));
+  return scm_make_real (pap->get_dimension (name));
 }
 
 bool
@@ -110,20 +110,20 @@ select_font (Paper_def *paper, SCM chain)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
-  if (!gh_pair_p (name) || !gh_string_p (gh_cdr (name)))
+  if (!ly_pair_p (name) || !ly_string_p (ly_cdr (name)))
     {
       SCM fonts = paper->lookup_variable (ly_symbol2scm ("fonts"));
       name = properties_to_font_size_family (fonts, chain);
     }
   else
-    name  = gh_cdr (name);
+    name  = ly_cdr (name);
 
 
-  if (gh_string_p (name))
+  if (ly_string_p (name))
     {
       SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
   
-      Real rmag = gh_pair_p (mag) ? robust_scm2double (gh_cdr (mag), 1.0) : 1;
+      Real rmag = ly_pair_p (mag) ? robust_scm2double (ly_cdr (mag), 1.0) : 1;
 
       Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
       
@@ -137,11 +137,11 @@ select_font (Paper_def *paper, SCM chain)
       
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
       Real req = 0.0;
-      if (gh_pair_p (font_size))
-	req = gh_scm2double (ly_cdr (font_size));
+      if (ly_pair_p (font_size))
+	req = ly_scm2double (ly_cdr (font_size));
 
       return get_font_by_mag_step (paper, req,
-				   vec, gh_scm2double (base_size));
+				   vec, ly_scm2double (base_size));
     }
 
   assert (0);

@@ -167,7 +167,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	  
       if (Stem::duration_log (s) != 1)
 	{
-	  beam_->set_property ("gap-count", gh_int2scm (flags_ - total_duration_flags_));
+	  beam_->set_property ("gap-count", scm_int2num (flags_ - total_duration_flags_));
 	}
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))

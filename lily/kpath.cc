@@ -145,7 +145,7 @@ LY_DEFINE (ly_kpathsea_gulp_file, "ly:kpathsea-gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path and kpathsea.")
 {
-  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str
     (kpathsea_gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }

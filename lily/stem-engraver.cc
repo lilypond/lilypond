@@ -67,7 +67,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	{
 	  stem_ = make_item ("Stem");
 
-	  stem_->set_property ("duration-log", gh_int2scm (duration_log));
+	  stem_->set_property ("duration-log", scm_int2num (duration_log));
 
 	  if (tremolo_ev_)
 	    {
@@ -80,15 +80,15 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int requested_type = gh_scm2int (tremolo_ev_->get_property ("tremolo-type"));
+	      int requested_type = ly_scm2int (tremolo_ev_->get_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
 	      if (!requested_type)
-		if (gh_number_p (f))
-		  requested_type = gh_scm2int (f);
+		if (ly_number_p (f))
+		  requested_type = ly_scm2int (f);
 		else
 		  requested_type = 8; 
 	      else
-		daddy_context_->set_property ("tremoloFlags", gh_int2scm (requested_type));
+		daddy_context_->set_property ("tremoloFlags", scm_int2num (requested_type));
 
 	      int tremolo_flags = intlog2 (requested_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
@@ -109,7 +109,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		    itself.
 		   */
 		  tremolo_->set_property ("flag-count",
-					       gh_int2scm (tremolo_flags));
+					       scm_int2num (tremolo_flags));
 		  tremolo_->set_parent (stem_, X_AXIS);
 		  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
 		  tremolo_->set_property ("stem",
@@ -149,15 +149,15 @@ Stem_engraver::stop_translation_timestep ()
 	toDO: junk these properties.
        */
       SCM prop = get_property ("stemLeftBeamCount");
-      if (gh_number_p (prop))
+      if (ly_number_p (prop))
 	{
-	  Stem::set_beaming (stem_,gh_scm2int (prop),LEFT);
+	  Stem::set_beaming (stem_,ly_scm2int (prop),LEFT);
 	  daddy_context_->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
-      if (gh_number_p (prop))
+      if (ly_number_p (prop))
 	{
-	  Stem::set_beaming (stem_,gh_scm2int (prop), RIGHT);
+	  Stem::set_beaming (stem_,ly_scm2int (prop), RIGHT);
 	  daddy_context_->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
 

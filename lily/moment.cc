@@ -59,17 +59,17 @@ LY_DEFINE (make_moment,"ly:make-moment", 2,2,0, (SCM n, SCM d, SCM gn, SCM gd),
   if (gn != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (SCM_INUMP (gn), gn, SCM_ARG3, __FUNCTION__, "integer");
-      grace_num = gh_scm2int (gn);
+      grace_num = ly_scm2int (gn);
     }
 
   int grace_den = 1;
   if (gd != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (SCM_INUMP (gd), gd, SCM_ARG4, __FUNCTION__, "integer");
-      grace_den = gh_scm2int (gd);
+      grace_den = ly_scm2int (gd);
     }
 
-  return Moment (Rational (gh_scm2int (n), gh_scm2int (d)),
+  return Moment (Rational (ly_scm2int (n), ly_scm2int (d)),
 		 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
@@ -120,7 +120,7 @@ LY_DEFINE (ly_moment_less_p,"ly:moment<?", 2,0,0, (SCM a, SCM b),
   SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
   SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
 
-  return gh_bool2scm (*ma <  *mb);
+  return ly_bool2scm (*ma <  *mb);
 }
 
 

@@ -53,7 +53,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* compute common refpoint of elements */
   Grob *refp = me;
-  for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
+  for (SCM elts = first_elt; ly_pair_p (elts); elts = ly_cdr (elts))
     {
       SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
@@ -65,7 +65,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
     between. */
-  if (!gh_string_p (glyph))
+  if (!ly_string_p (glyph))
     return SCM_EOL;
   
   String glyph_string = ly_scm2string (glyph);
@@ -74,7 +74,7 @@ Span_bar::print (SCM smobbed_me)
   Stencil span_bar_mol;
 
   Interval prev_extent;
-  for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
+  for (SCM elts = first_elt; ly_pair_p (elts); elts = ly_cdr (elts))
     {
       SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
@@ -114,7 +114,7 @@ SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
   Grob *se = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (scm_axis);
+  Axis a = (Axis) ly_scm2int (scm_axis);
   assert (a == X_AXIS);
   String gl = ly_scm2string (se->get_property ("glyph"));
 
@@ -145,7 +145,7 @@ SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
@@ -155,10 +155,10 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   if (i.is_empty ())
     {
       me->suicide ();
-      return gh_double2scm (0.0);
+      return scm_make_real (0.0);
     }
   
-  return gh_double2scm (i.center ());
+  return scm_make_real (i.center ());
 }
 
 void
@@ -167,7 +167,7 @@ Span_bar::evaluate_empty (Grob*me)
   /* TODO: filter all hara-kiried out of ELEMENS list, and then
      optionally do suicide. Call this cleanage function from
      center_on_spanned_callback () as well. */
-  if (!gh_pair_p (me->get_property ("elements")))
+  if (!ly_pair_p (me->get_property ("elements")))
     {
       me->suicide ();
     }
@@ -178,17 +178,17 @@ Span_bar::evaluate_glyph (Grob*me)
 {
   SCM gl = me->get_property ("glyph");
 
-  if (gh_string_p (gl))
+  if (ly_string_p (gl))
     return ;
   
   for (SCM s = me->get_property ("elements");
-       !gh_string_p (gl) && gh_pair_p (s); s = gh_cdr (s))
+       !ly_string_p (gl) && ly_pair_p (s); s = ly_cdr (s))
     {
-      gl = unsmob_grob (gh_car (s))
+      gl = unsmob_grob (ly_car (s))
 	->get_property ("glyph");
     }
 
-  if (!gh_string_p (gl))
+  if (!ly_string_p (gl))
     {
       me->suicide ();
       return;
@@ -218,7 +218,7 @@ Interval
 Span_bar::get_spanned_interval (Grob*me) 
 {
   return ly_scm2interval (Axis_group_interface::group_extent_callback
-			  (me->self_scm (), gh_int2scm (Y_AXIS))); 
+			  (me->self_scm (), scm_int2num (Y_AXIS))); 
 }
 
 
@@ -232,9 +232,9 @@ Span_bar::get_bar_size (SCM smob)
     {
       /* This happens if the bars are hara-kiried from under us. */
       me->suicide ();
-      return gh_double2scm (-1);
+      return scm_make_real (-1);
     }
-  return gh_double2scm (iv.length ());
+  return scm_make_real (iv.length ());
 }
 
 

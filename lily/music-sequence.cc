@@ -24,7 +24,7 @@ void
 Music_sequence::append_music (Music *m)
 {
   set_property ("elements",
-		    gh_append2 (music_list (), gh_cons (m->self_scm (), SCM_EOL)));
+		    ly_append2 (music_list (), scm_cons (m->self_scm (), SCM_EOL)));
   scm_gc_unprotect_object (m->self_scm ());
 }
 
@@ -36,7 +36,7 @@ Music_sequence::Music_sequence ( )
 void
 transpose_music_list (SCM l,  Pitch rq)
 {
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->transpose (rq);    
 }
 
@@ -46,7 +46,7 @@ Music_sequence::cumulative_length (SCM l)
   Moment cumulative;
   Moment last_len; 
 
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     {
       Moment l = unsmob_music (ly_car (s))->get_length ();
       if (last_len.grace_part_ && l.main_part_)
@@ -67,7 +67,7 @@ Moment
 Music_sequence::maximum_length (SCM l)
 {
   Moment dur = 0;
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     {
       Music * m = unsmob_music (ly_car (s));
       Moment l = m->get_length ();
@@ -84,7 +84,7 @@ music_list_to_relative (SCM l,Pitch p, bool ret_first)
   int count=0;
 
   Pitch last = p;
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     {
       if (Music *m = unsmob_music (ly_car (s)))
 	{
@@ -101,7 +101,7 @@ music_list_to_relative (SCM l,Pitch p, bool ret_first)
 void
 compress_music_list (SCM l, Moment m)
 {
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     unsmob_music (ly_car (s))->compress (m);
 }
 
@@ -112,7 +112,7 @@ Music_sequence::minimum_start (SCM l)
 {
   Moment m;
   
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     {
       m = m <? unsmob_music (ly_car (s))->start_mom ();
     }
@@ -124,7 +124,7 @@ Music_sequence::first_start (SCM l)
 {
   Moment m;
   
-  for (SCM s = l; gh_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = l; ly_pair_p (s);  s = ly_cdr (s))
     {
       Music * mus = unsmob_music (ly_car (s));
       Moment l = mus->get_length ();

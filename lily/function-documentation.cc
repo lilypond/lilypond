@@ -23,15 +23,15 @@ void ly_add_function_documentation (SCM func,
   if (!strlen (doc))
     return ; 
     
-  if (!gh_vector_p (doc_hash_table ))
-    doc_hash_table = scm_make_vector (gh_int2scm (59), SCM_EOL);
+  if (!ly_vector_p (doc_hash_table ))
+    doc_hash_table = scm_make_vector (scm_int2num (59), SCM_EOL);
 
   String s = String (" - ") + "LilyPond procedure: " + fname + " " + varlist
     + "\n" + doc ;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
 				scm_makfrom0str (s.to_str0 ()));
-  SCM entry = gh_cons (scm_makfrom0str (varlist), scm_makfrom0str (doc));
+  SCM entry = scm_cons (scm_makfrom0str (varlist), scm_makfrom0str (doc));
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 

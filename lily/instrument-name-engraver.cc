@@ -108,7 +108,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 	   && Axis_group_interface::has_axis (i.grob_, Y_AXIS)))
       && !Align_interface::has_interface (i.grob_))
     {
-      SCM nl = gh_cons (i.grob_->self_scm (),
+      SCM nl = scm_cons (i.grob_->self_scm (),
 			get_property ("instrumentSupport"));
 
       daddy_context_->set_property ("instrumentSupport", nl);
@@ -122,7 +122,7 @@ Instrument_name_engraver::process_music ()
     Also create text if barlines in other groups. This allows
     a name to be attached to lyrics or chords. 
    */
-  if (gh_string_p (get_property ("whichBar")))
+  if (ly_string_p (get_property ("whichBar")))
     create_text ();
 }
 

@@ -79,10 +79,10 @@ Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_property ("space-function");
 
-  if (gh_procedure_p (func))
+  if (ly_procedure_p (func))
     {
-      SCM s = gh_call2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
-      return gh_scm2double (s);
+      SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
+      return ly_scm2double (s);
     }
   else
     {
@@ -95,7 +95,7 @@ int
 Beam::get_beam_count (Grob *me) 
 {
   int m = 0;
-  for (SCM s = me->get_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
     {
       Grob *stem = unsmob_grob (ly_car (s));
       m = m >? (Stem::beam_multiplicity (stem).length () + 1);
@@ -117,11 +117,11 @@ Beam::space_function (SCM smob, SCM beam_count)
   Real line = Staff_symbol_referencer::line_thickness (me);
   Real thickness = get_thickness (me);
   
-  Real beam_translation = gh_scm2int (beam_count) < 4
+  Real beam_translation = ly_scm2int (beam_count) < 4
     ? (2*staff_space + line - thickness) / 2.0
     : (3*staff_space + line - thickness) / 3.0;
   
-  return gh_double2scm (beam_translation);
+  return scm_make_real (beam_translation);
 }
 
 
@@ -155,7 +155,7 @@ Beam::before_line_breaking (SCM smob)
 	{
 	  me->warning (_ ("removing beam with less than two stems"));
 
-	  unsmob_grob (gh_car (stems))->set_property ("beam", SCM_EOL);
+	  unsmob_grob (ly_car (stems))->set_property ("beam", SCM_EOL);
 	  me->suicide ();
 
 	  return SCM_UNSPECIFIED;
@@ -201,7 +201,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
 				    Direction left_dir,
 				    Direction right_dir)
 {
-  Slice lslice = int_list_to_slice (gh_cdr (left_beaming));
+  Slice lslice = int_list_to_slice (ly_cdr (left_beaming));
 
   int best_count = 0;
   int best_start = 0;
@@ -209,9 +209,9 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
        (i - lslice[left_dir])* left_dir <= 0 ; i+= left_dir) 
     {
       int count =0;
-      for ( SCM s = gh_car (right_beaming); gh_pair_p (s); s = gh_cdr (s))
+      for ( SCM s = ly_car (right_beaming); ly_pair_p (s); s = ly_cdr (s))
 	{
-	  int k = - right_dir * gh_scm2int (gh_car (s)) + i;
+	  int k = - right_dir * ly_scm2int (ly_car (s)) + i;
 	  if (scm_c_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
 	    count ++;
 	}
@@ -242,7 +242,7 @@ Beam::connect_beams (Grob *me)
       SCM this_beaming = this_stem->get_property ("beaming");
 
       Direction this_dir = get_grob_direction (this_stem);
-      if (gh_pair_p (last_beaming) && gh_pair_p (this_beaming))
+      if (ly_pair_p (last_beaming) && ly_pair_p (this_beaming))
 	{
 	  int start_point = position_with_maximal_common_beams
 	    (last_beaming, this_beaming,
@@ -257,13 +257,13 @@ Beam::connect_beams (Grob *me)
 	      
 	      new_slice.set_empty ();
 	      SCM s = index_get_cell (this_beaming, d);
-	      for (; gh_pair_p (s); s = gh_cdr (s))
+	      for (; ly_pair_p (s); s = ly_cdr (s))
 		{
 		  int new_beam_pos =
-		    start_point - this_dir * gh_scm2int (gh_car (s));
+		    start_point - this_dir * ly_scm2int (ly_car (s));
 
 		  new_slice.add_point (new_beam_pos);
-		  gh_set_car_x (s, scm_int2num (new_beam_pos));
+		  scm_set_car_x (s, scm_int2num (new_beam_pos));
 		}
 
 
@@ -275,22 +275,22 @@ Beam::connect_beams (Grob *me)
 	}
       else
 	{
-	  gh_set_car_x ( this_beaming, SCM_EOL);
-	  SCM s = gh_cdr (this_beaming);
-	  for (; gh_pair_p (s); s = gh_cdr (s))
+	  scm_set_car_x ( this_beaming, SCM_EOL);
+	  SCM s = ly_cdr (this_beaming);
+	  for (; ly_pair_p (s); s = ly_cdr (s))
 	    {
-	      int np = - this_dir * gh_scm2int (gh_car (s));
-	      gh_set_car_x (s, scm_int2num (np));
+	      int np = - this_dir * ly_scm2int (ly_car (s));
+	      scm_set_car_x (s, scm_int2num (np));
 	      last_int.add_point (np);
 	    }
 	}
 
       if (i == stems.size () -1)
 	{
-	  gh_set_cdr_x (this_beaming, SCM_EOL);
+	  scm_set_cdr_x (this_beaming, SCM_EOL);
 	}
 
-      if (scm_ilength (gh_cdr (this_beaming)) > 0)
+      if (scm_ilength (ly_cdr (this_beaming)) > 0)
 	{
 	  last_beaming = this_beaming;
 	  last_dir = this_dir;
@@ -369,18 +369,18 @@ Beam::print (SCM grob)
 	right from the left stem, and rfliebertjes pointing left from
 	right stem.
        */
-      SCM left = (i>0) ? gh_cdr (last_beaming) : SCM_EOL;
-      SCM right = st ? gh_car (this_beaming) : SCM_EOL;
+      SCM left = (i>0) ? ly_cdr (last_beaming) : SCM_EOL;
+      SCM right = st ? ly_car (this_beaming) : SCM_EOL;
 
       Array<int> full_beams;
       Array<int> lfliebertjes;
       Array<int> rfliebertjes;	  
 
       for (SCM s = left;
-	   gh_pair_p (s); s =gh_cdr (s))
+	   ly_pair_p (s); s =ly_cdr (s))
 	{
-	  int b = gh_scm2int (gh_car (s));
-	  if (scm_c_memq (gh_car (s), right) != SCM_BOOL_F)
+	  int b = ly_scm2int (ly_car (s));
+	  if (scm_c_memq (ly_car (s), right) != SCM_BOOL_F)
 	    {
 	      full_beams.push (b);
 	    }
@@ -390,10 +390,10 @@ Beam::print (SCM grob)
 	    }
 	}
       for (SCM s = right;
-	   gh_pair_p (s); s =gh_cdr (s))
+	   ly_pair_p (s); s =ly_cdr (s))
 	{
-	  int b = gh_scm2int (gh_car (s));
-	  if (scm_c_memq (gh_car (s), left) == SCM_BOOL_F)
+	  int b = ly_scm2int (ly_car (s));
+	  if (scm_c_memq (ly_car (s), left) == SCM_BOOL_F)
 	    {
 	      rfliebertjes.push (b);
 	    }
@@ -421,9 +421,9 @@ Beam::print (SCM grob)
       Stencil gapped;
 
       int gap_count = 0;
-      if (gh_number_p (me->get_property ("gap-count")))
+      if (ly_number_p (me->get_property ("gap-count")))
 	{
-	  gap_count = gh_scm2int (me->get_property ("gap-count"));
+	  gap_count = ly_scm2int (me->get_property ("gap-count"));
 	  gapped = Lookup::beam (dydx, w - 2 * gap_length, thick, blot);
 
 	  full_beams.sort (default_compare);
@@ -456,8 +456,8 @@ Beam::print (SCM grob)
 	      int t = Stem::duration_log (st); 
 
 	      SCM proc = me->get_property ("flag-width-function");
-	      SCM result = gh_call1 (proc, scm_int2num (t));
-	      nw_f = gh_scm2double (result);
+	      SCM result = scm_call_1 (proc, scm_int2num (t));
+	      nw_f = ly_scm2double (result);
 	    }
 	  else
 	    nw_f = break_overshoot / 2;
@@ -511,7 +511,7 @@ Beam::print (SCM grob)
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
   if (debug_beam_quanting_flag
-      && gh_string_p (quant_score))
+      && ly_string_p (quant_score))
     {
       
       /*
@@ -564,13 +564,13 @@ Beam::get_default_dir (Grob *me)
     } while (flip (&d) != DOWN);
   
   SCM func = me->get_property ("dir-function");
-  SCM s = gh_call2 (func,
-		    gh_cons (scm_int2num (count[UP]),
+  SCM s = scm_call_2 (func,
+		    scm_cons (scm_int2num (count[UP]),
 			     scm_int2num (count[DOWN])),
-		    gh_cons (scm_int2num (total[UP]),
+		    scm_cons (scm_int2num (total[UP]),
 			     scm_int2num (total[DOWN])));
 
-  if (gh_number_p (s) && gh_scm2int (s))
+  if (ly_number_p (s) && ly_scm2int (s))
     return to_dir (s);
   
   /* If dir is not determined: get default */
@@ -666,10 +666,10 @@ void
 Beam::consider_auto_knees (Grob* me)
 {
   SCM scm = me->get_property ("auto-knee-gap");
-  if (!gh_number_p (scm))
+  if (!ly_number_p (scm))
     return ;
 
-  Real threshold = gh_scm2double (scm);
+  Real threshold = ly_scm2double (scm);
   
   Int_set gaps;
 
@@ -791,13 +791,13 @@ Beam::set_stem_shorten (Grob *me)
   
   SCM shorten_elt =
     robust_list_ref (beam_count -1, shorten_list);
-  Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
+  Real shorten_f = ly_scm2double (shorten_elt) * staff_space;
 
   /* your similar cute comment here */
   shorten_f *= forced_fraction;
 
   if (shorten_f)
-    me->set_property ("shorten", gh_double2scm (shorten_f));
+    me->set_property ("shorten", scm_make_real (shorten_f));
 }
 
 /*  Call list of y-dy-callbacks, that handle setting of
@@ -830,8 +830,8 @@ Beam::position_beam (Grob *me)
     {
       // one wonders if such genericity is necessary  --hwn.
       SCM callbacks = me->get_property ("position-callbacks");
-      for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
-	gh_call1 (ly_car (i), me->self_scm ());
+      for (SCM i = callbacks; ly_pair_p (i); i = ly_cdr (i))
+	scm_call_1 (ly_car (i), me->self_scm ());
     }
 
   set_stem_lengths (me);  
@@ -918,7 +918,7 @@ Beam::least_squares (SCM smob)
 	 where the second part goes.
        */
       me->set_property ("least-squares-dy",
-			     gh_double2scm (pos[RIGHT] - pos[LEFT]));
+			     scm_make_real (pos[RIGHT] - pos[LEFT]));
     }
   else
     {
@@ -937,7 +937,7 @@ Beam::least_squares (SCM smob)
       minimise_least_squares (&dydx, &y, ideals);
 
       dy = dydx * dx;
-      me->set_property ("least-squares-dy", gh_double2scm (dy));
+      me->set_property ("least-squares-dy", scm_make_real (dy));
       pos = Interval (y, (y+dy));
     }
 
@@ -1101,9 +1101,9 @@ Beam::check_concave (SCM smob)
   */
   bool is_concave1 = false;
   SCM gap = me->get_property ("concaveness-gap");
-  if (gh_number_p (gap))
+  if (ly_number_p (gap))
     {
-      Real r1 = gh_scm2double (gap);
+      Real r1 = ly_scm2double (gap);
       Real dy = Stem::chord_start_y (stems.top ())
 	- Stem::chord_start_y (stems[0]);
 
@@ -1138,9 +1138,9 @@ Beam::check_concave (SCM smob)
   Real concaveness2 = 0;
   SCM thresh = me->get_property ("concaveness-threshold");
   Real r2 = infinity_f;
-  if (!is_concave1 && gh_number_p (thresh))
+  if (!is_concave1 && ly_number_p (thresh))
     {
-      r2 = gh_scm2double (thresh);
+      r2 = ly_scm2double (thresh);
       
       Interval iv;
       iv.add_point (Stem::chord_start_y (stems[0]));
@@ -1164,7 +1164,7 @@ Beam::check_concave (SCM smob)
 
       r /= Staff_symbol_referencer::staff_space (me);
       me->set_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));
-      me->set_property ("least-squares-dy", gh_double2scm (0));
+      me->set_property ("least-squares-dy", scm_make_real (0));
     }
 
   return SCM_UNSPECIFIED;
@@ -1183,7 +1183,7 @@ Beam::slope_damping (SCM smob)
     return SCM_UNSPECIFIED;
 
   SCM s = me->get_property ("damping"); 
-  int damping = gh_scm2int (s);
+  int damping = ly_scm2int (s);
 
   if (damping)
     {
@@ -1223,11 +1223,11 @@ where_are_the_whole_beams (SCM beaming)
 {
   Slice l; 
   
-  for ( SCM s = gh_car (beaming); gh_pair_p (s) ; s = gh_cdr (s))
+  for ( SCM s = ly_car (beaming); ly_pair_p (s) ; s = ly_cdr (s))
     {
-      if (scm_c_memq (gh_car (s), gh_cdr (beaming)) != SCM_BOOL_F)
+      if (scm_c_memq (ly_car (s), ly_cdr (beaming)) != SCM_BOOL_F)
 	
-	l.add_point (gh_scm2int (gh_car (s)));
+	l.add_point (ly_scm2int (ly_car (s)));
     }
 
   return l;
@@ -1297,8 +1297,8 @@ Beam::set_stem_lengths (Grob *me)
 
   bool gap = false;
   Real thick =0.0;
-  if (gh_number_p (me->get_property ("gap-count"))
-      &&gh_scm2int (me->get_property ("gap-count")))
+  if (ly_number_p (me->get_property ("gap-count"))
+      &&ly_scm2int (me->get_property ("gap-count")))
     {
       gap = true;
       thick = get_thickness (me);
@@ -1453,26 +1453,26 @@ SCM
 Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
   Grob *rest = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
 
-  if (gh_number_p (rest->get_property ("staff-position")))
-    return gh_int2scm (0);
+  if (ly_number_p (rest->get_property ("staff-position")))
+    return scm_int2num (0);
   
   assert (a == Y_AXIS);
 
   Grob *st = unsmob_grob (rest->get_property ("stem"));
   Grob *stem = st;
   if (!stem)
-    return gh_double2scm (0.0);
+    return scm_make_real (0.0);
   Grob *beam = unsmob_grob (stem->get_property ("beam"));
   if (!beam
       || !Beam::has_interface (beam)
       || !Beam::visible_stem_count (beam))
-    return gh_double2scm (0.0);
+    return scm_make_real (0.0);
 
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
-  if (gh_pair_p (s) && gh_number_p (ly_car (s)))
+  if (ly_pair_p (s) && ly_number_p (ly_car (s)))
     pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1518,19 +1518,19 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
       < rad)
     shift = ceil (fabs (shift)) *sign (shift);
 
-  return gh_double2scm (staff_space * shift);
+  return scm_make_real (staff_space * shift);
 }
 
 bool
 Beam::is_knee (Grob* me)
 {
   SCM k = me->get_property ("knee");
-  if (gh_boolean_p (k))
-    return gh_scm2bool (k);
+  if (ly_boolean_p (k))
+    return ly_scm2bool (k);
 
   bool knee = false;
   int d = 0;
-  for (SCM s = me->get_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
     {
       Direction dir = get_grob_direction (unsmob_grob (ly_car (s)));
       if (d && d != dir)
@@ -1541,7 +1541,7 @@ Beam::is_knee (Grob* me)
       d = dir;
     }
   
-  me->set_property ("knee", gh_bool2scm (knee));
+  me->set_property ("knee", ly_bool2scm (knee));
 
   return knee;
 }

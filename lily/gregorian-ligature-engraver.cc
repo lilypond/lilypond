@@ -186,7 +186,7 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
     /* all other combinations should be valid (unless I made a
        mistake) */
 
-    primitive->set_property ("prefix-set", gh_int2scm (prefix_set));
+    primitive->set_property ("prefix-set", scm_int2num (prefix_set));
   }
 }
 
@@ -205,7 +205,7 @@ provide_context_info (Array<Grob_info> primitives)
     Music *music_cause = primitives[i].music_cause ();
     int context_info = 0;
     int pitch = unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
-    int prefix_set = gh_scm2int (primitive->get_property ("prefix-set"));
+    int prefix_set = ly_scm2int (primitive->get_property ("prefix-set"));
 
     if (prefix_set & PES_OR_FLEXA)
       if (!i) // ligature may not start with 2nd head of pes or flexa
@@ -235,7 +235,7 @@ provide_context_info (Array<Grob_info> primitives)
 
     if (prev_primitive)
       prev_primitive->set_property ("context-info",
-					 gh_int2scm (prev_context_info));
+					 scm_int2num (prev_context_info));
     prev_primitive = primitive;
     prev_prefix_set = prefix_set;
     prev_context_info = context_info;
@@ -243,7 +243,7 @@ provide_context_info (Array<Grob_info> primitives)
   }
   if (prev_primitive)
     prev_primitive->set_property ("context-info",
-				       gh_int2scm (prev_context_info));
+				       scm_int2num (prev_context_info));
 }
 
 void

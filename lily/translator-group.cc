@@ -29,7 +29,7 @@ Translator_group::get_daddy_translator () const
 void
 translator_each (SCM list, Translator_method method)
 {
-  for (SCM p = list; gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = list; ly_pair_p (p); p = ly_cdr (p))
     (unsmob_translator (ly_car (p))->*method) ();
 }
 
@@ -37,7 +37,7 @@ translator_each (SCM list, Translator_method method)
 void
 Translator_group::initialize ()
 {
-  SCM tab = scm_make_vector (gh_int2scm (19), SCM_BOOL_F);
+  SCM tab = scm_make_vector (scm_int2num (19), SCM_BOOL_F);
   daddy_context_->set_property ("acceptHashTable", tab);
 }
 
@@ -47,7 +47,7 @@ translator_accepts_any_of (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
 			   tr->translator_description ());
-  ack_ifs = gh_cdr (ack_ifs);
+  ack_ifs = ly_cdr (ack_ifs);
   for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
     if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
@@ -76,10 +76,10 @@ Translator_group::try_music (Music* m)
   SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
 			      m->get_property_alist (false));
 
-  if (!gh_pair_p (name))
+  if (!ly_pair_p (name))
     return false;
 
-  name = gh_cdr (name);
+  name = ly_cdr (name);
   SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
   if (accept_list == SCM_BOOL_F)
     {
@@ -88,7 +88,7 @@ Translator_group::try_music (Music* m)
       scm_hashq_set_x (tab, name, accept_list);
     }
 
-  for (SCM p = accept_list; gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = accept_list; ly_pair_p (p); p = ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
       if (t && t->try_music (m))
@@ -101,7 +101,7 @@ SCM
 names_to_translators (SCM namelist, Context*tg)
 {
   SCM l = SCM_EOL;
-  for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
+  for (SCM s = namelist; ly_pair_p (s) ; s = ly_cdr (s))
     {
       Translator * t = get_translator (ly_car (s));
       if (!t)
@@ -110,7 +110,7 @@ names_to_translators (SCM namelist, Context*tg)
 	{
 	  Translator * tr = t->clone ();
 	  SCM str = tr->self_scm ();
-	  l = gh_cons (str, l);
+	  l = scm_cons (str, l);
 
 	  tr->daddy_context_ = tg;
 	  scm_gc_unprotect_object (str);
@@ -144,10 +144,10 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->context_list_ ; gh_pair_p (s);
-       s =gh_cdr (s))
+  for (SCM s = c->context_list_ ; ly_pair_p (s);
+       s =ly_cdr (s))
     {
-      recurse_over_translators (unsmob_context (gh_car (s)), ptr, dir);
+      recurse_over_translators (unsmob_context (ly_car (s)), ptr, dir);
     }
 
   if (dir == UP)

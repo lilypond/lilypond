@@ -19,7 +19,7 @@ SCM
 Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (scm_axis);
+  Axis a = (Axis) ly_scm2int (scm_axis);
 
   assert (a == Y_AXIS);
   consider_suicide (me);
@@ -32,7 +32,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob*me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM worth = me->get_property ("items-worth-living");
-  if (gh_pair_p (worth))
+  if (ly_pair_p (worth))
     return ;
 
   if (!to_boolean (me->get_property ("remove-first"))
@@ -63,10 +63,10 @@ SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == Y_AXIS);
   consider_suicide (me);
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 
@@ -75,10 +75,10 @@ SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
   Grob *daughter = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->get_parent (a)->self_scm (), axis);
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 void

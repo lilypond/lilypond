@@ -51,10 +51,10 @@ Timing_translator::initialize ()
    */
   daddy_context_->add_alias (ly_symbol2scm ("Timing"));
   daddy_context_->set_property ("timing" , SCM_BOOL_T);  
-  daddy_context_->set_property ("currentBarNumber" , gh_int2scm (1));
+  daddy_context_->set_property ("currentBarNumber" , scm_int2num (1));
 
   daddy_context_->set_property ("timeSignatureFraction",
-				gh_cons (gh_int2scm (4), gh_int2scm (4)));
+				scm_cons (scm_int2num (4), scm_int2num (4)));
   /*
     Do not init measurePosition; this should be done from global
     context.
@@ -133,9 +133,9 @@ Timing_translator::start_translation_timestep ()
   
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
-  if (gh_number_p (barn))
+  if (ly_number_p (barn))
     {
-      b = gh_scm2int (barn);
+      b = ly_scm2int (barn);
     }
 
   SCM cad = get_property ("timing");
@@ -148,7 +148,7 @@ Timing_translator::start_translation_timestep ()
       b ++;
     }
 
-  daddy_context_->set_property ("currentBarNumber", gh_int2scm (b));
+  daddy_context_->set_property ("currentBarNumber", scm_int2num (b));
   daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 

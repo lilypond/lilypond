@@ -52,14 +52,14 @@ Recording_group_engraver::start_translation_timestep ()
 void
 Recording_group_engraver::start ()
 {
-  if (!gh_pair_p (accumulator_))
-    accumulator_ = gh_cons (SCM_EOL, SCM_EOL);
-  if (!gh_pair_p (gh_car (accumulator_)))
+  if (!ly_pair_p (accumulator_))
+    accumulator_ = scm_cons (SCM_EOL, SCM_EOL);
+  if (!ly_pair_p (ly_car (accumulator_)))
     {
       /*
 	Need to store transposition for every moment; transposition changes during pieces.
        */
-      scm_set_car_x (accumulator_, gh_cons (gh_cons (now_mom ().smobbed_copy (),
+      scm_set_car_x (accumulator_, scm_cons (scm_cons (now_mom ().smobbed_copy (),
 						     get_property ("instrumentTransposition")),
 						     SCM_EOL));
     }
@@ -69,7 +69,7 @@ void
 Recording_group_engraver::stop_translation_timestep ()
 {
   Engraver_group_engraver::stop_translation_timestep ();
-  scm_set_cdr_x (accumulator_, gh_cons (gh_car (accumulator_), gh_cdr (accumulator_)));
+  scm_set_cdr_x (accumulator_, scm_cons (ly_car (accumulator_), ly_cdr (accumulator_)));
 
   scm_set_car_x (accumulator_, SCM_EOL);
 }
@@ -80,8 +80,8 @@ Recording_group_engraver::finalize ()
   Engraver_group_engraver::finalize ();
   SCM proc = get_property ("recordEventSequence");
 
-  if (gh_procedure_p (proc))
-    scm_call_2  (proc, daddy_context_->self_scm (), gh_cdr (accumulator_));
+  if (ly_procedure_p (proc))
+    scm_call_2  (proc, daddy_context_->self_scm (), ly_cdr (accumulator_));
 
   accumulator_ = SCM_EOL;
 }
@@ -91,11 +91,11 @@ Recording_group_engraver::try_music (Music  *m)
 {
   bool retval = Translator_group::try_music (m);
 
-  SCM seq = gh_cdar (accumulator_);
-  seq = gh_cons (gh_cons  (m->self_scm (), gh_bool2scm (retval)),
+  SCM seq = ly_cdar (accumulator_);
+  seq = scm_cons (scm_cons  (m->self_scm (), ly_bool2scm (retval)),
 		 seq);
   
-  scm_set_cdr_x  (gh_car (accumulator_), seq);
+  scm_set_cdr_x  (ly_car (accumulator_), seq);
 
   return retval;
 }

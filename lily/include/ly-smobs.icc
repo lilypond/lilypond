@@ -68,7 +68,7 @@ SCM CL::smobbed_copy () const					\
 {								\
   CL * ptr  = new CL (*this);\
   SCM s;							\
-  s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));	\
+  s = scm_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));	\
   scm_gc_register_collectable_memory ((CL*)this, sizeof (CL), #CL " smob"); \
 								\
   return s;							\

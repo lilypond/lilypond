@@ -45,7 +45,7 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 
   if (handle != SCM_BOOL_F)
     {
-      gh_set_cdr_x (handle, gh_cons (thing, gh_cdr (handle)));
+      scm_set_cdr_x (handle, scm_cons (thing, ly_cdr (handle)));
     }
   else
     {
@@ -54,10 +54,10 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 	mutable prop list.
       */
       handle = scm_sloppy_assq (sym, immutable_property_alist_);
-      SCM tail = (handle != SCM_BOOL_F) ? gh_cdr (handle) : SCM_EOL;
-      SCM val = gh_cons (thing, tail);
+      SCM tail = (handle != SCM_BOOL_F) ? ly_cdr (handle) : SCM_EOL;
+      SCM val = scm_cons (thing, tail);
 
-      mutable_property_alist_ = gh_cons (gh_cons (sym, val),
+      mutable_property_alist_ = scm_cons (scm_cons (sym, val),
 					 mutable_property_alist_);
     }
 }
@@ -92,9 +92,9 @@ Grob::internal_get_property (SCM sym) const
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
   
-  if (internal_type_checking_global_b && gh_pair_p (s))
+  if (internal_type_checking_global_b && ly_pair_p (s))
     {
-      if (!type_check_assignment (sym, gh_cdr (s),
+      if (!type_check_assignment (sym, ly_cdr (s),
 				  ly_symbol2scm ("backend-type?")))
 	abort ();
 

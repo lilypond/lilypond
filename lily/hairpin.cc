@@ -41,7 +41,7 @@ Hairpin::print (SCM smob)
   /*
     Ugh. property name is not general.
    */
-  Real padding = gh_scm2double (me->get_property ("if-text-padding"));
+  Real padding = ly_scm2double (me->get_property ("if-text-padding"));
  
   Drul_array<bool> broken;
   Drul_array<Item*> bounds ;

@@ -21,13 +21,13 @@
 Stencil
 System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
-  Real arc_height = gh_scm2double (me->get_property ("arch-height")) ;
+  Real arc_height = ly_scm2double (me->get_property ("arch-height")) ;
   
   SCM at = scm_list_n (ly_symbol2scm ("bracket"),
 		    me->get_property ("arch-angle"),
 		    me->get_property ("arch-width"),
-		    gh_double2scm (arc_height),
-		    gh_double2scm (height),
+		    scm_make_real (arc_height),
+		    scm_make_real (height),
 		    me->get_property ("arch-thick"),
 		    me->get_property ("thickness"),
 		    SCM_UNDEFINED);
@@ -75,7 +75,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_property ("glyph");
-  if (gh_equal_p (gl,scm_makfrom0str ("bar-line")))
+  if (ly_equal_p (gl,scm_makfrom0str ("bar-line")))
     {
       int count = 0;
 
@@ -84,9 +84,9 @@ System_start_delimiter::after_line_breaking (SCM smob)
       */
       SCM elts = me->get_property ("elements");
       Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
-      for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
+      for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
 	{
-	  Interval v = unsmob_grob (gh_car (s))->extent (common, Y_AXIS);
+	  Interval v = unsmob_grob (ly_car (s))->extent (common, Y_AXIS);
 
 	  if (!v.is_empty ())
 	    count ++;
@@ -109,13 +109,13 @@ System_start_delimiter::print (SCM smob)
   Grob * me = unsmob_grob (smob);
 
   SCM s = me->get_property ("glyph");
-  if (!gh_string_p (s))
+  if (!ly_string_p (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback
- (me->self_scm (), gh_int2scm (Y_AXIS)));
+ (me->self_scm (), scm_int2num (Y_AXIS)));
   Real l = ext.length () / staff_space;
   
   if (ext.is_empty ()
@@ -147,7 +147,7 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
      name.  This is better than using find_font directly,
      esp. because that triggers mktextfm for non-existent
      fonts. */
-  SCM fam = gh_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("braces"));
+  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("braces"));
   
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
   fm = select_font (me->get_paper (), scm_list_n (alist, SCM_UNDEFINED));

@@ -28,7 +28,7 @@ String
 Music::name () const
 {
   SCM nm = get_property ("name");
-  if (gh_symbol_p (nm))
+  if (ly_symbol_p (nm))
     {
       return ly_symbol2string (nm);
     }
@@ -87,9 +87,9 @@ Music::get_length () const
   SCM lst = get_property ("length");
   if (unsmob_moment (lst))
     return *unsmob_moment (lst);
-  else if (gh_procedure_p (lst))
+  else if (ly_procedure_p (lst))
     {
-      SCM res = gh_call1 (lst, self_scm ());
+      SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);
     }
 
@@ -100,9 +100,9 @@ Moment
 Music::start_mom () const
 {
   SCM lst = get_property ("start-moment-function");
-  if (gh_procedure_p (lst))
+  if (ly_procedure_p (lst))
     {
-      SCM res = gh_call1 (lst, self_scm ());
+      SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);
     }
 
@@ -114,7 +114,7 @@ void
 print_alist (SCM a, SCM port)
 {
   /* SCM_EOL  -> catch malformed lists.  */
-  for (SCM s = a; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = a; ly_pair_p (s); s = ly_cdr (s))
     {
       scm_display (ly_caar (s), port);
       scm_puts (" = ", port);
@@ -130,7 +130,7 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   Music* m = unsmob_music (s);
 
   SCM nm = m->get_property ("name");
-  if (gh_symbol_p (nm) || gh_string_p (nm))
+  if (ly_symbol_p (nm) || ly_string_p (nm))
     scm_display (nm, p);
   else
     scm_puts (classname (m),p);
@@ -231,7 +231,7 @@ LY_DEFINE (ly_music_property,
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }
@@ -242,7 +242,7 @@ LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
@@ -275,7 +275,7 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 	  "for creating music objects. "
 	  )
 {
-  SCM_ASSERT_TYPE (gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
   SCM s = make_music (ly_scm2string (type))->self_scm ();
   unsmob_music (s)->immutable_property_alist_ = props;
   scm_gc_unprotect_object (s);
@@ -301,11 +301,11 @@ LY_DEFINE (ly_music_list_p,"ly:music-list?",
 	   "of music objects.")
 {
   if (scm_list_p (lst) == SCM_BOOL_T)
-    while (gh_pair_p (lst))
+    while (ly_pair_p (lst))
       {
-	if (!unsmob_music (gh_car (lst)))
+	if (!unsmob_music (ly_car (lst)))
 	  return SCM_BOOL_F;
-	lst = gh_cdr (lst);
+	lst = ly_cdr (lst);
       }
 
   return SCM_BOOL_T;
@@ -321,8 +321,8 @@ LY_DEFINE (ly_deep_mus_copy, "ly:music-deep-copy",
       copy = unsmob_music (m)->clone ()->self_scm ();
       scm_gc_unprotect_object (copy);
     }
-  else if (gh_pair_p (m))
-    copy = gh_cons (ly_deep_mus_copy (ly_car (m)),
+  else if (ly_pair_p (m))
+    copy = scm_cons (ly_deep_mus_copy (ly_car (m)),
 		    ly_deep_mus_copy (ly_cdr (m)));
   return copy;
 }

@@ -268,19 +268,19 @@ Score_engraver::try_music (Music*r)
       gotcha = true;
 
       SCM pen = command_column_->get_property ("penalty");
-      Real total_penalty = gh_number_p (pen)
-	? gh_scm2double (pen)
+      Real total_penalty = ly_number_p (pen)
+	? ly_scm2double (pen)
 	: 0.0;
 
       SCM rpen = r->get_property ("penalty");
-      if (gh_number_p (rpen))
-	total_penalty +=  gh_scm2double (rpen);
+      if (ly_number_p (rpen))
+	total_penalty +=  ly_scm2double (rpen);
 	  
       if (total_penalty > 10000.0) //  ugh. arbitrary.
 	forbid_breaks ();
 
       command_column_->set_property ("penalty",
-					  gh_double2scm (total_penalty));
+					  scm_make_real (total_penalty));
     }
   return gotcha;
 }

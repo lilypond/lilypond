@@ -167,7 +167,7 @@ Page::output (Paper_outputter *out, bool is_last)
   if (get_footer ())
     out->output_line (stencil2line (get_footer ()), &o, is_last);
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
-				  gh_bool2scm (is_last && !get_footer ())));
+				  ly_bool2scm (is_last && !get_footer ())));
   progress_indication ("]");
 }
 
@@ -406,10 +406,10 @@ Paper_book::pages ()
 
   SCM all = lines ();
   SCM proc = paper->get_scmvar ("page-breaking");
-  SCM breaks = scm_apply_0 (proc, scm_list_n (all, gh_double2scm (height_),
-					    gh_double2scm (text_height),
-					    gh_double2scm (-copy_height),
-					    gh_double2scm (-tag_height),
+  SCM breaks = scm_apply_0 (proc, scm_list_n (all, scm_make_real (height_),
+					    scm_make_real (text_height),
+					    scm_make_real (-copy_height),
+					    scm_make_real (-tag_height),
 					    SCM_UNDEFINED));
 
   /* Copyright on first page.  */
@@ -424,7 +424,7 @@ Paper_book::pages ()
       if (i)
 	page = new Page (paper, i+1);
       int next = i + 1 < page_count
-	? gh_scm2int (scm_vector_ref (breaks, gh_int2scm (i))) : 0;
+	? ly_scm2int (scm_vector_ref (breaks, scm_int2num (i))) : 0;
       while ((!next && all != SCM_EOL) || line <= next)
 	{
 	  SCM s = ly_car (all);
@@ -462,13 +462,13 @@ c_ragged_page_breaks (SCM lines, Real book_height, Real text_height,
       h += pl->dim ()[Y_AXIS];
       if (!pl->is_title () && h > page_height)
 	{
-	  breaks = ly_snoc (gh_int2scm (number), breaks);
+	  breaks = ly_snoc (scm_int2num (number), breaks);
 	  page_number++;
 	  page_height = text_height + (page_number == page_count) * last;
 	  h = 0;
 	}
       if (ly_cdr (s) == SCM_EOL)
-	breaks = ly_snoc (gh_int2scm (pl->number_), breaks);
+	breaks = ly_snoc (scm_int2num (pl->number_), breaks);
     }
 
   return scm_vector (breaks);
@@ -479,12 +479,12 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 	   "Return a vector with line numbers of page breaks.")
 {
   SCM_ASSERT_TYPE (scm_pair_p (lines), lines, SCM_ARG1, __FUNCTION__, "list");
-  SCM_ASSERT_TYPE (gh_number_p (book), book, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (gh_number_p (text), text, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (gh_number_p (first), first, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (gh_number_p (last), last, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (ly_number_p (book), book, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (ly_number_p (text), text, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (ly_number_p (first), first, SCM_ARG2, __FUNCTION__, "real");
+  SCM_ASSERT_TYPE (ly_number_p (last), last, SCM_ARG2, __FUNCTION__, "real");
 
   return c_ragged_page_breaks (lines,
-			       gh_scm2double (book), gh_scm2double (text),
-			       gh_scm2double (first), gh_scm2double (last));
+			       ly_scm2double (book), ly_scm2double (text),
+			       ly_scm2double (first), ly_scm2double (last));
 }

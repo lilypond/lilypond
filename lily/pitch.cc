@@ -303,7 +303,7 @@ LY_DEFINE (make_pitch, "ly:make-pitch",
   SCM_ASSERT_TYPE (scm_integer_p (note)== SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE (scm_integer_p (alter)== SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
 
-  Pitch p (gh_scm2int (octave), gh_scm2int (note), gh_scm2int (alter));
+  Pitch p (ly_scm2int (octave), ly_scm2int (note), ly_scm2int (alter));
   return p.smobbed_copy ();
 }
 
@@ -313,7 +313,7 @@ LY_DEFINE (pitch_steps, "ly:pitch-steps", 1, 0, 0,
 {
   Pitch *pp = unsmob_pitch (p);
   SCM_ASSERT_TYPE (pp, p, SCM_ARG1, __FUNCTION__, "Pitch");
-  return gh_int2scm (pp->steps ());
+  return scm_int2num (pp->steps ());
 }
 
 LY_DEFINE (pitch_octave, "ly:pitch-octave",
@@ -323,7 +323,7 @@ LY_DEFINE (pitch_octave, "ly:pitch-octave",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_octave ();
-  return gh_int2scm (q);
+  return scm_int2num (q);
 }
 
 LY_DEFINE (pitch_alteration, "ly:pitch-alteration",
@@ -334,7 +334,7 @@ LY_DEFINE (pitch_alteration, "ly:pitch-alteration",
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_alteration ();
 
-  return gh_int2scm (q);
+  return scm_int2num (q);
 }
 
 LY_DEFINE (pitch_notename, "ly:pitch-notename",
@@ -344,7 +344,7 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_notename ();
-  return gh_int2scm (q);
+  return scm_int2num (q);
 }
 
 LY_DEFINE (ly_pitch_quartertones,  "ly:pitch-quartertones",
@@ -354,7 +354,7 @@ LY_DEFINE (ly_pitch_quartertones,  "ly:pitch-quartertones",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->quartertone_pitch ();
-  return gh_int2scm (q);
+  return scm_int2num (q);
 }
 
 LY_DEFINE (ly_pitch_semitones,  "ly:pitch-semitones",
@@ -364,7 +364,7 @@ LY_DEFINE (ly_pitch_semitones,  "ly:pitch-semitones",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->semitone_pitch ();
-  return gh_int2scm (q);
+  return scm_int2num (q);
 }
 
 LY_DEFINE (pitch_less, "ly:pitch<?",

@@ -54,13 +54,13 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
    */
   SCM val = SCM_BOOL_F;
   if (ly_symbol2scm ("line-column") == what)
-    val = gh_eval_str ("line-column-location");
+    val = scm_c_eval_string ("line-column-location");
   else if (what == ly_symbol2scm ("line"))
-    val = gh_eval_str ("line-location");
+    val = scm_c_eval_string ("line-location");
 
   scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"), val);
 
-  store_locations_global_b =gh_procedure_p (val);
+  store_locations_global_b =ly_procedure_p (val);
   return SCM_UNSPECIFIED;
 }
 

@@ -81,8 +81,8 @@ Global_context::now_mom () const
 Score_context*
 Global_context::get_score_context () const
 {
-  return (gh_pair_p (context_list_))
-    ? dynamic_cast<Score_context*> (unsmob_context (gh_car (context_list_)))
+  return (ly_pair_p (context_list_))
+    ? dynamic_cast<Score_context*> (unsmob_context (ly_car (context_list_)))
     : 0;
 }
 
@@ -166,9 +166,9 @@ Global_context::apply_finalizations ()
 {
   SCM lst = get_property ("finalizations");
   set_property ("finalizations" , SCM_EOL); 
-  for (SCM s = lst ; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = lst ; ly_pair_p (s); s = ly_cdr (s))
     {
-      scm_primitive_eval (gh_car (s)); // TODO: make safe.
+      scm_primitive_eval (ly_car (s)); // TODO: make safe.
     }
 }
 

@@ -59,7 +59,7 @@ ly_write2scm (SCM s)
   SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
   
   // scm_apply (write, port, SCM_EOL);
-  gh_call2 (write, s, port);
+  scm_call_2 (write, s, port);
   return scm_strport_to_string (port);
 }
 
@@ -73,7 +73,7 @@ ly_quote_scm (SCM s)
 String
 ly_symbol2string (SCM s)
 {
-  assert (gh_symbol_p (s));
+  assert (ly_symbol_p (s));
   return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
 
@@ -107,7 +107,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
-  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
@@ -117,19 +117,42 @@ extern "C" {
 void
 ly_display_scm (SCM s)
 {
-  gh_display (s);
-  gh_newline ();
+  scm_display (s, scm_current_output_port ());
+  scm_newline (scm_current_output_port ());
 }
 };
 
 String
 ly_scm2string (SCM s)
 {
-  assert (gh_string_p (s));
+  assert (ly_string_p (s));
 
   char *p = SCM_STRING_CHARS (s);
   String r (p);
   return r;
+}
+
+char *
+ly_scm2newstr (SCM str, size_t *lenp)
+{
+  char *new_str;
+  size_t len;
+
+  SCM_ASSERT_TYPE (ly_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+
+  len = SCM_STRING_LENGTH (str);
+  new_str = (char *) malloc ((len + 1) * sizeof (char));
+  
+  if (new_str == NULL)
+    return NULL;
+
+  memcpy (new_str, SCM_STRING_CHARS (str), len);
+  new_str[len] = '\0';
+
+  if (lenp != NULL)
+      *lenp = len;
+
+  return new_str;
 }
 
 SCM
@@ -144,16 +167,16 @@ SCM
 index_set_cell (SCM s, Direction d, SCM v)
 {
   if (d == LEFT)
-    gh_set_car_x (s, v);
+    scm_set_car_x (s, v);
   else if (d == RIGHT)
-    gh_set_cdr_x (s, v);
+    scm_set_cdr_x (s, v);
   return s;
 }
   
 LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   (SCM str), "Scheme callable function to issue the warning @code{msg}.")
 {
-  SCM_ASSERT_TYPE (gh_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
@@ -164,9 +187,9 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
 {
-  if (gh_number_p (s))
+  if (ly_number_p (s))
     {
-      int i = gh_scm2int (s);
+      int i = ly_scm2int (s);
       return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
     }
   return SCM_BOOL_F;
@@ -175,7 +198,7 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 bool
 is_number_pair (SCM p)
 {
-  return gh_pair_p (p) && gh_number_p (ly_car (p)) && gh_number_p (ly_cdr (p));
+  return ly_pair_p (p) && ly_number_p (ly_car (p)) && ly_number_p (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -222,9 +245,9 @@ unsigned int ly_scm_hash (SCM s)
 bool
 is_direction (SCM s)
 {
-  if (gh_number_p (s))
+  if (ly_number_p (s))
     {
-      int i = gh_scm2int (s);
+      int i = ly_scm2int (s);
       return i>= -1 && i <= 1; 
     }
   return false;
@@ -234,9 +257,9 @@ is_direction (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (gh_number_p (s))
+  if (ly_number_p (s))
     {
-      int i = gh_scm2int (s);
+      int i = ly_scm2int (s);
       return i== 0 || i == 1;
     }
   return false;
@@ -245,32 +268,32 @@ is_axis (SCM s)
 Direction
 to_dir (SCM s)
 {
-  return SCM_INUMP (s) ? (Direction) gh_scm2int (s) : CENTER;
+  return SCM_INUMP (s) ? (Direction) ly_scm2int (s) : CENTER;
 }
 
 Interval
 ly_scm2interval (SCM p)
 {
-  return Interval (gh_scm2double (ly_car (p)), gh_scm2double (ly_cdr (p)));
+  return Interval (ly_scm2double (ly_car (p)), ly_scm2double (ly_cdr (p)));
 }
 
 Drul_array<Real>
 ly_scm2realdrul (SCM p)
 {
-  return Drul_array<Real> (gh_scm2double (ly_car (p)),
-			   gh_scm2double (ly_cdr (p)));
+  return Drul_array<Real> (ly_scm2double (ly_car (p)),
+			   ly_scm2double (ly_cdr (p)));
 }
 
 SCM
 ly_interval2scm (Drul_array<Real> i)
 {
-  return gh_cons (gh_double2scm (i[LEFT]), gh_double2scm (i[RIGHT]));
+  return scm_cons (scm_make_real (i[LEFT]), scm_make_real (i[RIGHT]));
 }
 
 bool
 to_boolean (SCM s)
 {
-  return gh_boolean_p (s) && gh_scm2bool (s);
+  return ly_boolean_p (s) && ly_scm2bool (s);
 }
 
 /* Appendable list L: the cdr contains the list, the car the last cons
@@ -278,8 +301,8 @@ to_boolean (SCM s)
 SCM
 appendable_list ()
 {
-  SCM s = gh_cons (SCM_EOL, SCM_EOL);
-  gh_set_car_x (s, s);
+  SCM s = scm_cons (SCM_EOL, SCM_EOL);
+  scm_set_car_x (s, s);
   
   return s;
 }
@@ -287,24 +310,24 @@ appendable_list ()
 void
 appendable_list_append (SCM l, SCM elt)
 {
-  SCM newcons = gh_cons (elt, SCM_EOL);
+  SCM newcons = scm_cons (elt, SCM_EOL);
   
-  gh_set_cdr_x (ly_car (l), newcons);      
-  gh_set_car_x (l, newcons);
+  scm_set_cdr_x (ly_car (l), newcons);      
+  scm_set_car_x (l, newcons);
 }
 
 
 SCM
 ly_offset2scm (Offset o)
 {
-  return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm (o[Y_AXIS]));
+  return scm_cons (scm_make_real (o[X_AXIS]), scm_make_real (o[Y_AXIS]));
 }
 
 Offset
 ly_scm2offset (SCM s)
 {
-  return Offset (gh_scm2double (ly_car (s)),
-		 gh_scm2double (ly_cdr (s)));
+  return Offset (ly_scm2double (ly_car (s)),
+		 ly_scm2double (ly_cdr (s)));
 }
 
    
@@ -312,13 +335,13 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
-  SCM_ASSERT_TYPE (gh_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
 
   char str[400];			// ugh.
 
   if (scm_exact_p (s) == SCM_BOOL_F)
     {
-      Real r (gh_scm2double (s));
+      Real r (ly_scm2double (s));
 
       if (my_isinf (r) || my_isnan (r))
 	{
@@ -329,7 +352,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
       sprintf (str, "%08.4f", r);
     }
   else
-    sprintf (str, "%d", gh_scm2int (s));
+    sprintf (str, "%d", ly_scm2int (s));
 
   return scm_makfrom0str (str);
 }
@@ -362,7 +385,7 @@ LY_DEFINE (ly_version,  "ly:version", 0, 0, 0, (),
 {
   char const* vs = "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
   
-  return gh_eval_str ((char*)vs);
+  return scm_c_eval_string ((char*)vs);
 }
 
 LY_DEFINE (ly_unit,  "ly:unit", 0, 0, 0, (),
@@ -394,15 +417,15 @@ ADD_SCM_INIT_FUNC (funcs, init_functions);
 SCM
 ly_deep_copy (SCM src)
 {
-  if (gh_pair_p (src))
-    return gh_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
-  else if (gh_vector_p (src))
+  if (ly_pair_p (src))
+    return scm_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
+  else if (ly_vector_p (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (int i  =0 ; i < len ; i++)
 	{
-	  SCM si = gh_int2scm (i);
+	  SCM si = scm_int2num (i);
 	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si))); 
 	}
     }
@@ -415,10 +438,10 @@ ly_deep_copy (SCM src)
 SCM
 ly_assoc_chain (SCM key, SCM achain)
 {
-  if (gh_pair_p (achain))
+  if (ly_pair_p (achain))
     {
       SCM handle = scm_assoc (key, ly_car (achain));
-      if (gh_pair_p (handle))
+      if (ly_pair_p (handle))
 	return handle;
       else
 	return ly_assoc_chain (key, ly_cdr (achain));
@@ -449,14 +472,14 @@ corresponds to call
 SCM
 ly_assoc_cdr (SCM key, SCM alist)
 {
-  if (gh_pair_p (alist))
-  {
-    SCM trykey = ly_caar (alist);
-    if (gh_pair_p (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
-    return ly_car (alist);
-    else
-    return ly_assoc_cdr (key, ly_cdr (alist));
-  }
+  if (ly_pair_p (alist))
+    {
+      SCM trykey = ly_caar (alist);
+      if (ly_pair_p (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
+	return ly_car (alist);
+      else
+	return ly_assoc_cdr (key, ly_cdr (alist));
+    }
   return SCM_BOOL_F;
 }
 
@@ -486,7 +509,7 @@ parse_symbol_list (char const *lst)
       if (next)
 	*next++ = 0;
 
-      create_list = gh_cons (ly_symbol2scm (s), create_list);
+      create_list = scm_cons (ly_symbol2scm (s), create_list);
       s = next;
     }
 
@@ -503,11 +526,11 @@ ly_truncate_list (int k, SCM lst)
     {
       SCM s = lst;
       k--;
-      for (; gh_pair_p (s) && k--; s = ly_cdr (s))
+      for (; ly_pair_p (s) && k--; s = ly_cdr (s))
 	;
 
-      if (gh_pair_p (s))
-	gh_set_cdr_x (s, SCM_EOL);
+      if (ly_pair_p (s))
+	scm_set_cdr_x (s, SCM_EOL);
     }
   return lst;
 }
@@ -537,7 +560,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
-  if (!gh_symbol_p (sym))
+  if (!ly_symbol_p (sym))
 #if 0
     return false;
 #else
@@ -554,7 +577,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (type != SCM_EOL && !gh_procedure_p (type))
+  if (type != SCM_EOL && !ly_procedure_p (type))
       {
 	warning (_f ("Can't find property type-check for `%s' (%s).",
 		     ly_symbol2string (sym).to_str0 (),
@@ -570,13 +593,13 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   else
     {
       if (val != SCM_EOL
-	  && gh_procedure_p (type)
-	  && gh_call1 (type, val) == SCM_BOOL_F)
+	  && ly_procedure_p (type)
+	  && scm_call_1 (type, val) == SCM_BOOL_F)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
 	  SCM typefunc = ly_scheme_function ("type-name");
-	  SCM type_name = gh_call1 (typefunc, type);
+	  SCM type_name = scm_call_1 (typefunc, type);
 
 	 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
@@ -602,11 +625,11 @@ SCM
 ly_unique (SCM list)
 {
   SCM unique = SCM_EOL;
-  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
+  for (SCM i = list; ly_pair_p (i); i = ly_cdr (i))
     {
-      if (!gh_pair_p (ly_cdr (i))
-	  || !gh_equal_p (ly_car (i), ly_cadr (i)))
-	unique = gh_cons (ly_car (i), unique);
+      if (!ly_pair_p (ly_cdr (i))
+	  || !ly_equal_p (ly_car (i), ly_cadr (i)))
+	unique = scm_cons (ly_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
 }
@@ -615,7 +638,7 @@ ly_unique (SCM list)
 SCM
 ly_snoc (SCM s, SCM list)
 {
-  return gh_append2 (list, scm_list_n (s, SCM_UNDEFINED));
+  return ly_append2 (list, scm_list_n (s, SCM_UNDEFINED));
 }
 
 /* Split list at member s, removing s.
@@ -625,15 +648,15 @@ ly_split_list (SCM s, SCM list)
 {
   SCM before = SCM_EOL;
   SCM after = list;
-  for (; gh_pair_p (after);)
+  for (; ly_pair_p (after);)
     {
       SCM i = ly_car (after);
       after = ly_cdr (after);
-      if (gh_equal_p (i, s))
+      if (ly_equal_p (i, s))
 	break;
-      before = gh_cons (i, before);
+      before = scm_cons (i, before);
     }
-  return gh_cons ( scm_reverse_x (before, SCM_EOL),  after);
+  return scm_cons ( scm_reverse_x (before, SCM_EOL),  after);
   
 }
 
@@ -655,9 +678,9 @@ display_list (SCM s)
   SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; gh_pair_p (s); s =gh_cdr (s))
+  for (; ly_pair_p (s); s =ly_cdr (s))
     {
-      scm_display (gh_car (s), p);
+      scm_display (ly_car (s), p);
       scm_puts (" ", p);      
     }
   scm_puts (")", p);
@@ -669,9 +692,9 @@ int_list_to_slice (SCM l)
 {
   Slice s;
   s.set_empty ();
-  for (; gh_pair_p (l); l = gh_cdr (l))
-    if (gh_number_p (gh_car (l)))
-      s.add_point (gh_scm2int (gh_car (l))); 
+  for (; ly_pair_p (l); l = ly_cdr (l))
+    if (ly_number_p (ly_car (l)))
+      s.add_point (ly_scm2int (ly_car (l))); 
   return s;
 }
 
@@ -682,16 +705,16 @@ int_list_to_slice (SCM l)
 SCM
 robust_list_ref (int i, SCM l)
 {
-  while (i-- > 0 && gh_pair_p (gh_cdr (l)))
-    l = gh_cdr (l);
-  return gh_car (l);
+  while (i-- > 0 && ly_pair_p (ly_cdr (l)))
+    l = ly_cdr (l);
+  return ly_car (l);
 }
 
 Real
 robust_scm2double (SCM k, double x)
 {
-  if (gh_number_p (k))
-    x = gh_scm2double (k);
+  if (ly_number_p (k))
+    x = ly_scm2double (k);
   return x;
 }
 
@@ -726,7 +749,7 @@ int
 robust_scm2int (SCM k, int o)
 {
   if (scm_integer_p (k) == SCM_BOOL_T)
-    o = gh_scm2int (k);
+    o = ly_scm2int (k);
   return o;
 }
 
@@ -735,10 +758,10 @@ alist_to_hashq (SCM alist)
 {
   int i = scm_ilength (alist);
   if (i < 0)
-    return scm_make_vector (gh_int2scm (0), SCM_EOL);
+    return scm_make_vector (scm_int2num (0), SCM_EOL);
 	  
-  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
-  for (SCM s = alist; gh_pair_p (s); s = ly_cdr (s))
+  SCM tab = scm_make_vector (scm_int2num (i), SCM_EOL);
+  for (SCM s = alist; ly_pair_p (s); s = ly_cdr (s))
     {
       SCM pt = ly_cdar (s);
       scm_hashq_set_x (tab, ly_caar (s), pt);

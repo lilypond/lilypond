@@ -68,11 +68,11 @@ Text_spanner::print (SCM smob)
 	    span_points[d] = b->extent (common, X_AXIS).linear_combination (d * encl);
 
 	    if (is_number_pair (shorten))
-	      span_points -= d * gh_scm2double (index_get_cell (shorten, d));
+	      span_points -= d * ly_scm2double (index_get_cell (shorten, d));
 	  }
       
       if (is_number_pair (flare))
-	span_points -= d * gh_scm2double (index_get_cell (flare, d));
+	span_points -= d * ly_scm2double (index_get_cell (flare, d));
     }
   while (flip (&d) != LEFT);
 
@@ -80,7 +80,7 @@ Text_spanner::print (SCM smob)
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM edge_text = me->get_property ("edge-text");
   Drul_array<Stencil> edge;
-  if (gh_pair_p (edge_text))
+  if (ly_pair_p (edge_text))
     {
       Direction d = LEFT;
       do
@@ -112,7 +112,7 @@ Text_spanner::print (SCM smob)
 	  
 	  Real dx = 0.0;
 	  if (is_number_pair (flare))
-	    dx = gh_scm2double (index_get_cell (flare, d)) * d;
+	    dx = ly_scm2double (index_get_cell (flare, d)) * d;
 
 	  Real dy = - dir * edge_height[d] ;
 	  if (dy)

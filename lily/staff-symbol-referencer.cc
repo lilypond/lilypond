@@ -93,9 +93,9 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) -pos) < 1e-6) // ugh.
-    return gh_int2scm ((int) my_round (pos));
+    return scm_int2num ((int) my_round (pos));
   else
-    return gh_double2scm (pos);
+    return scm_make_real (pos);
 }
 
 
@@ -108,14 +108,14 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 
   SCM pos = me->get_property ("staff-position");
   Real off = 0.0;
-  if (gh_number_p (pos))
+  if (ly_number_p (pos))
     {
       Real space = Staff_symbol_referencer::staff_space (me);
-      off = gh_scm2double (pos) * space / 2.0;
-      me->set_property ("staff-position", gh_int2scm (0));
+      off = ly_scm2double (pos) * space / 2.0;
+      me->set_property ("staff-position", scm_int2num (0));
     }
 
-  return gh_double2scm (off);
+  return scm_make_real (off);
 }
 
 /*  This sets the position relative to the center of the staff symbol.
@@ -137,10 +137,10 @@ Staff_symbol_referencer::set_position (Grob *me, Real p)
   if (st && me->common_refpoint (st, Y_AXIS))
     {
       Real oldpos = get_position (me);
-      me->set_property ("staff-position", gh_double2scm (p - oldpos));
+      me->set_property ("staff-position", scm_make_real (p - oldpos));
     }
   else
-    me->set_property ("staff-position", gh_double2scm (p));
+    me->set_property ("staff-position", scm_make_real (p));
 
   if (!me->has_offset_callback (Staff_symbol_referencer::callback_proc,
 				Y_AXIS))

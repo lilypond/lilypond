@@ -26,10 +26,10 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
   
   SCM desc = m->description_;
 
-  Real total_mag = magn * gh_scm2double (ly_cdr (desc));
+  Real total_mag = magn * ly_scm2double (ly_cdr (desc));
   assert (total_mag);
   
-  description_ = gh_cons (ly_car (desc), gh_double2scm (total_mag));
+  description_ = scm_cons (ly_car (desc), scm_make_real (total_mag));
   orig_ = m;
 
   if (coding_scheme_ != "TeX"
@@ -39,7 +39,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
 				   scm_makfrom0str (coding_scheme_.to_str0 ()));
 
-      if (!gh_vector_p (coding_vector_))
+      if (!ly_vector_p (coding_vector_))
 	{
 	  programming_error ("get-coding-vector  should return vector");
 	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));

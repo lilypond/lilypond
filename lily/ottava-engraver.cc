@@ -46,7 +46,7 @@ Ottava_spanner_engraver::process_music ()
     {
       finished_= span_;
       span_ = 0;
-      if (gh_string_p (ott))
+      if (ly_string_p (ott))
 	{
 	  span_  = make_spanner ("OttavaBracket");
 	  span_->set_property ("text", ott);
@@ -55,7 +55,7 @@ Ottava_spanner_engraver::process_music ()
 	  SCM c0 (get_property ("middleCPosition"));
 	  SCM oc0 (get_property ("originalCentralCPosition"));
 	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
-	    span_->set_property ("direction", gh_int2scm (DOWN));
+	    span_->set_property ("direction", scm_int2num (DOWN));
 	}
     }
   last_ottavation_ = ott;

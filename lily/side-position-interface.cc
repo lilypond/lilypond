@@ -54,7 +54,7 @@ SCM
 Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
 
   return general_side_position (me, a, true);
 }
@@ -73,7 +73,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   bool include_staff = (st
 			&& a == Y_AXIS
-			&& gh_number_p (me->get_property ("staff-padding")));
+			&& ly_number_p (me->get_property ("staff-padding")));
 
   Interval dim;
   if (include_staff)
@@ -121,7 +121,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
 
   
   
-  return gh_double2scm (total_off);
+  return scm_make_real (total_off);
 }
 
 /*
@@ -132,7 +132,7 @@ SCM
 Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
 {
   Grob *me = unsmob_grob (smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
 
   return general_side_position (me, a, false); 
 }
@@ -184,9 +184,9 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 	  rp += d;
 	}
       
-      return gh_double2scm ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
+      return scm_make_real ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
     }
-  return gh_double2scm (0.0);
+  return scm_make_real (0.0);
 }
 
 /*
@@ -197,11 +197,11 @@ SCM
 Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+  Axis a = (Axis) ly_scm2int (axis);
   
   Direction d = Side_position_interface::get_direction (me);
   
-  Real o = gh_scm2double (aligned_on_support_extents (element_smob,axis));
+  Real o = ly_scm2double (aligned_on_support_extents (element_smob,axis));
 
   Interval iv =  me->extent (me, a);
 
@@ -222,11 +222,11 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
  */
   Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
   if (st && a == Y_AXIS
-      && gh_number_p (me->get_property ("staff-padding")))
+      && ly_number_p (me->get_property ("staff-padding")))
     {
       Real padding=
       Staff_symbol_referencer::staff_space (me)
-      * gh_scm2double (me->get_property ("staff-padding"));
+      * ly_scm2double (me->get_property ("staff-padding"));
   
       Grob *common = me->common_refpoint (st, Y_AXIS);
       
@@ -236,7 +236,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
       o += (d*  (diff >? 0));
     }
       
-  return gh_double2scm (o);
+  return scm_make_real (o);
 }
 
 

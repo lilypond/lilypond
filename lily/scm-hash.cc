@@ -32,7 +32,7 @@ Scheme_hash_table::Scheme_hash_table ()
 {
   hash_tab_ = SCM_EOL;
   smobify_self ();
-  hash_tab_ = scm_make_vector (gh_int2scm (119), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_int2num (119), SCM_EOL);
   elt_count_ = 0;
 }
 
@@ -44,7 +44,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
   elt_count_ = 0;
   smobify_self ();
 
-  hash_tab_ = scm_make_vector (gh_int2scm (src.elt_count_ >? 11 ), SCM_EOL);  
+  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11 ), SCM_EOL);  
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -54,7 +54,7 @@ Scheme_hash_table::operator = (Scheme_hash_table const & src)
   if (&src == this)
     return;
   
-  hash_tab_ = scm_make_vector (gh_int2scm (src.elt_count_ >? 11), SCM_EOL);  
+  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);  
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -101,21 +101,21 @@ Scheme_hash_table::contains (SCM k) const
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
-  assert (gh_symbol_p (k));
+  assert (ly_symbol_p (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
   if (ly_cdr (handle) == SCM_UNDEFINED)
     {
       elt_count_++;
     }
   
-  gh_set_cdr_x (handle, v);
+  scm_set_cdr_x (handle, v);
 
   /*
     resize if getting too large.
   */
   if (elt_count_ > 2 * SCM_VECTOR_LENGTH (hash_tab_))
     {
-      SCM nh = scm_make_vector (gh_int2scm (3* elt_count_+1), SCM_EOL);
+      SCM nh = scm_make_vector (scm_int2num (3* elt_count_+1), SCM_EOL);
       elt_count_ = copy_scm_hashes (nh, hash_tab_);
       hash_tab_ = nh;
     }
@@ -150,7 +150,7 @@ Scheme_hash_table::to_alist () const
 {
   SCM l = SCM_EOL;
   for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, gh_int2scm (i)); ly_pair_p (s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); ly_pair_p (s); s = ly_cdr (s))
       {
 	l = scm_acons (ly_caar (s), ly_cdar (s), l);
       }

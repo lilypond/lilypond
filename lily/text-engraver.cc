@@ -93,13 +93,13 @@ Text_engraver::process_acknowledged_grobs ()
       // Hmm
       int priority = 200;
       SCM s = text->get_property ("script-priority");
-      if (gh_number_p (s))
-	priority = gh_scm2int (s);
+      if (ly_number_p (s))
+	priority = ly_scm2int (s);
       
       /* see script-engraver.cc */
       priority += i;
       
-      text->set_property ("script-priority", gh_int2scm (priority));
+      text->set_property ("script-priority", scm_int2num (priority));
 
       Direction dir = to_dir (r->get_property ("direction"));
       if (dir)

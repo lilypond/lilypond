@@ -166,29 +166,29 @@ LY_DEFINE (make_duration, "ly:make-duration",
     {
       SCM_ASSERT_TYPE (scm_integer_p (dotcount) == SCM_BOOL_T,
 		       dotcount, SCM_ARG2, __FUNCTION__, "integer");
-      dots = gh_scm2int (dotcount);
+      dots = ly_scm2int (dotcount);
     }
 
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (ly_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
       compress = true;
     }
   else
-    num = gh_int2scm (1);
+    num = scm_int2num (1);
 
   if (den != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (ly_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
       compress = true;
     }
   else
-    den = gh_int2scm (1);
+    den = scm_int2num (1);
 
-  Duration p (gh_scm2int (length), dots);
+  Duration p (ly_scm2int (length), dots);
   if (compress)
-    p = p.compressed (Rational (gh_scm2int (num), gh_scm2int (den)));
+    p = p.compressed (Rational (ly_scm2int (num), ly_scm2int (den)));
 
   return p.smobbed_copy ();
 }
@@ -198,7 +198,7 @@ LY_DEFINE (duration_log, "ly:duration-log",
 	  "Extract the duration log from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  return gh_int2scm (unsmob_duration (dur)->duration_log ());
+  return scm_int2num (unsmob_duration (dur)->duration_log ());
 }
 
 LY_DEFINE (dot_count_log, "ly:duration-dot-count", 1, 0, 0, (SCM dur),
@@ -206,7 +206,7 @@ LY_DEFINE (dot_count_log, "ly:duration-dot-count", 1, 0, 0, (SCM dur),
 )
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  return gh_int2scm (unsmob_duration (dur)->dot_count ());
+  return scm_int2num (unsmob_duration (dur)->dot_count ());
 }
 
 
@@ -214,9 +214,9 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 	   1, 0, 0, (SCM d),
 	  "The 2-logarithm of 1/@var{d}.")
 {
-  SCM_ASSERT_TYPE (gh_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
-  int log = intlog2 (gh_scm2int (d));
-  return gh_int2scm (log);
+  SCM_ASSERT_TYPE (ly_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
+  int log = intlog2 (ly_scm2int (d));
+  return scm_int2num (log);
 }
 
 LY_DEFINE (compression_factor, "ly:duration-factor",
@@ -225,7 +225,7 @@ LY_DEFINE (compression_factor, "ly:duration-factor",
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   Rational r = unsmob_duration (dur)->factor ();
-  return gh_cons (gh_int2scm (r.num ()), gh_int2scm (r.den ()));
+  return scm_cons (scm_int2num (r.num ()), scm_int2num (r.den ()));
 }
 
 int

@@ -163,8 +163,8 @@ Piano_pedal_engraver::try_music (Music *m)
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
 	  String nm = p->name_ + String ("Event");
-	  if (gh_equal_p (m->get_property ("name") ,
-			  scm_str2symbol (nm.to_str0())))
+	  if (ly_equal_p (m->get_property ("name") ,
+			  scm_str2symbol(nm.to_str0())))
 	    {
 	      Direction d = to_dir (m->get_property ("span-direction"));
 	      p->event_drul_[d] = m;
@@ -291,7 +291,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	}
     }
       
-  if (gh_string_p (s))
+  if (ly_string_p (s))
     {
       String propname = String (p->name_) + "Pedal";
 
@@ -340,8 +340,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->event_drul_[START])
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (gh_car (flare),
-								gh_double2scm (0)));
+	  p->bracket_->set_property ("bracket-flare", scm_cons (ly_car (flare),
+								scm_make_real (0)));
 	}
 
       p->finished_bracket_ = p->bracket_;
@@ -364,7 +364,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (gh_double2scm (0),gh_cdr (flare)));
+	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0),ly_cdr (flare)));
 	}
 
 

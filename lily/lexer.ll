@@ -189,7 +189,7 @@ HYPHEN		--
 	progress_indication ("\n");
 	progress_indication (_f ("input renamed to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
-	scm_module_define (gh_car (scopes_),
+	scm_module_define (ly_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (s.to_str0()));
 
@@ -251,7 +251,7 @@ HYPHEN		--
 	  s = s.left_string (s.length () - 1);
 
 	SCM sid = lookup_identifier (s);
-	if (gh_string_p (sid)) {
+	if (ly_string_p (sid)) {
 		new_input (ly_scm2string (sid), &global_input_file->sources_);
 		yy_pop_state ();
 	} else { 
@@ -469,9 +469,9 @@ HYPHEN		--
 		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
-		if (gh_pair_p (s) && gh_symbol_p (gh_cdr (s)) ) {
-			yylval.scm = gh_car(s);
-			SCM tag = gh_cdr(s);
+		if (ly_pair_p (s) && ly_symbol_p (ly_cdr (s)) ) {
+			yylval.scm = ly_car(s);
+			SCM tag = ly_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))
 				return MARKUP_HEAD_MARKUP0;
 			if (tag == ly_symbol2scm("empty"))
@@ -538,7 +538,7 @@ HYPHEN		--
 	int cnv=sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
 
-	yylval.scm = gh_double2scm (r);
+	yylval.scm = scm_make_real (r);
 	return REAL;
 }
 
@@ -601,7 +601,7 @@ HYPHEN		--
 void
 My_lily_lexer::push_note_state (SCM tab)
 {
-	pitchname_tab_stack_ = gh_cons (tab, pitchname_tab_stack_);
+	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
 	yy_push_state (notes);
 }
 
@@ -613,7 +613,7 @@ My_lily_lexer::push_figuredbass_state()
 void
 My_lily_lexer::push_chord_state (SCM tab)
 {
-	pitchname_tab_stack_ = gh_cons (tab, pitchname_tab_stack_);
+	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
 	yy_push_state (chords);
 }
 
@@ -633,7 +633,7 @@ void
 My_lily_lexer::pop_state ()
 {
 	if (YYSTATE == notes || YYSTATE == chords)
-		pitchname_tab_stack_ = gh_cdr (pitchname_tab_stack_);
+		pitchname_tab_stack_ = ly_cdr (pitchname_tab_stack_);
 	yy_pop_state ();
 }
 
@@ -677,14 +677,14 @@ My_lily_lexer::scan_bare_word (String str)
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
-		if (gh_pair_p (pitchname_tab_stack_))
-			handle = scm_hashq_get_handle (gh_car (pitchname_tab_stack_), sym);
+		if (ly_pair_p (pitchname_tab_stack_))
+			handle = scm_hashq_get_handle (ly_car (pitchname_tab_stack_), sym);
 		
-		if (gh_pair_p (handle)) {
+		if (ly_pair_p (handle)) {
 			yylval.scm = ly_cdr (handle);
 			if (unsmob_pitch (yylval.scm)) 
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-			else if (gh_symbol_p (yylval.scm))
+			else if (ly_symbol_p (yylval.scm))
 			    return DRUM_PITCH;
 		}
 		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
@@ -809,7 +809,7 @@ scan_fraction (String frac)
 
 	int n = String_convert::dec2int (left);
 	int d = String_convert::dec2int (right);
-	return gh_cons (gh_int2scm (n), gh_int2scm (d));
+	return scm_cons (scm_int2num (n), scm_int2num (d));
 }
 
 // Breaks for flex 2.5.31

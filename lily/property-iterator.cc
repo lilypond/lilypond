@@ -21,7 +21,7 @@ void
 Property_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
-  if (gh_symbol_p (sym))
+  if (ly_symbol_p (sym))
     {
       SCM val = get_music ()->get_property ("value");
       bool ok= true;
@@ -82,7 +82,7 @@ check_grob (Music *mus, SCM sym)
 {
   if (!list_p)
     {
-      list_p = gh_eval_str ("list?");
+      list_p = scm_c_eval_string ("list?");
     }
   
   

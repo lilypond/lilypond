@@ -21,7 +21,7 @@ SCM
 Rest::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int bt = gh_scm2int (me->get_property ("duration-log"));
+  int bt = ly_scm2int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
   if (lc % 2)
@@ -40,12 +40,12 @@ Rest::after_line_breaking (SCM smob)
   if (d && bt > 4) // UGH.
     {
       d->set_property ("staff-position",
-			    gh_int2scm ((bt == 7) ? 4 : 3));
+			    scm_int2num ((bt == 7) ? 4 : 3));
     }
   if (d && bt >= -1 && bt <= 1) // UGH again.
     {
       d->set_property ("staff-position",
-      			    gh_int2scm ((bt == 0) ? -1 : 1));
+      			    scm_int2num ((bt == 0) ? -1 : 1));
     }
   return SCM_UNSPECIFIED;
 }
@@ -120,14 +120,14 @@ Rest::brew_internal_stencil (SCM smob)
   Grob* me = unsmob_grob (smob);
 
   SCM balltype_scm = me->get_property ("duration-log");
-  if (!gh_number_p (balltype_scm))
+  if (!ly_number_p (balltype_scm))
     return Stencil ().smobbed_copy ();
 
-  int balltype = gh_scm2int (balltype_scm);
+  int balltype = ly_scm2int (balltype_scm);
   
   String style; 
   SCM style_scm = me->get_property ("style");
-  if (gh_symbol_p (style_scm))
+  if (ly_symbol_p (style_scm))
     style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);
@@ -151,7 +151,7 @@ MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
 SCM
 Rest::extent_callback (SCM smob, SCM ax)
 {
-  Axis a = (Axis) gh_scm2int (ax);
+  Axis a = (Axis) ly_scm2int (ax);
   SCM m = brew_internal_stencil (smob);
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
@@ -161,14 +161,14 @@ SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
   Grob* me = unsmob_grob (smob);
-  if (gh_number_p (me->get_property ("staff-position")))
-    return gh_double2scm (0);
+  if (ly_number_p (me->get_property ("staff-position")))
+    return scm_make_real (0);
 
   Direction d = get_grob_direction (me);
   Real off = 2* d ;
   if (off)
     off *= Staff_symbol_referencer::staff_space (me);
-  return gh_double2scm (off);
+  return scm_make_real (off);
 }
 
 ADD_INTERFACE (Rest,"rest-interface",

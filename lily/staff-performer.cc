@@ -99,7 +99,7 @@ Staff_performer::stop_translation_timestep ()
 {
   SCM proc = ly_scheme_function ("percussion?");
   
-  SCM drums = gh_call1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
+  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
   audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1 );
   if (name_)
     {
@@ -130,7 +130,7 @@ Staff_performer::new_instrument_string ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property ("midiInstrument");
 
-  if (!gh_string_p (minstr)
+  if (!ly_string_p (minstr)
       || ly_scm2string (minstr) == instrument_string_)
     return "";
 

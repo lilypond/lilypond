@@ -24,7 +24,7 @@ Dots::print (SCM d)
   
   SCM c = sc->get_property ("dot-count");
 
-  if (gh_number_p (c))
+  if (ly_number_p (c))
     {
       Stencil d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
@@ -40,7 +40,7 @@ Dots::print (SCM d)
       mol = Lookup::blank (Box (Interval (0,0),
 				Interval (0,0)));
   
-      for (int i = gh_scm2int (c); i--;)
+      for (int i = ly_scm2int (c); i--;)
 	{
 	  d.translate_axis (2*dw,X_AXIS);
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw, 0);

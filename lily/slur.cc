@@ -69,9 +69,9 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
       Real f = default_height / length;
       SCM up = me->get_property ("de-uglify-parameters");
       
-      Real c1 = gh_scm2double (ly_car (up));
-      Real c2 = gh_scm2double (ly_cadr (up));
-      Real c3 = gh_scm2double (ly_caddr (up)); 
+      Real c1 = ly_scm2double (ly_car (up));
+      Real c2 = ly_scm2double (ly_cadr (up));
+      Real c3 = ly_scm2double (ly_caddr (up)); 
       
       if (h > c1 * f)
 	{
@@ -120,7 +120,7 @@ Slur::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
   set_extremities (me);
-  if (!gh_pair_p (me->get_property ("control-points")))
+  if (!ly_pair_p (me->get_property ("control-points")))
     set_control_points (me);
   return SCM_UNSPECIFIED;
 } 
@@ -133,7 +133,7 @@ Slur::check_slope (Grob *me)
     Avoid too steep slurs.
    */
   SCM s = me->get_property ("slope-limit");
-  if (gh_number_p (s))
+  if (ly_number_p (s))
     {
       Array<Offset> encompass = get_encompass_offsets (me);
       Drul_array<Offset> attachment;
@@ -147,12 +147,12 @@ Slur::check_slope (Grob *me)
       
       Real slope = slope = abs (dy / dx);
 
-      Real limit = gh_scm2double (s);
+      Real limit = ly_scm2double (s);
 
       if (slope > limit)
 	{
 	  Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
-	  Direction dir = (Direction)gh_scm2int (me->get_property ("direction"));
+	  Direction dir = (Direction)ly_scm2int (me->get_property ("direction"));
 	  Direction d = (Direction) (- dir * (sign (dy)));
 	  SCM a = me->get_property ("attachment-offset");
 	  Drul_array<Offset> o;
@@ -163,7 +163,7 @@ Slur::check_slope (Grob *me)
 	  o[d][Y_AXIS] *= get_grob_direction (me);
 
 	  me->set_property ("attachment-offset",
-				gh_cons (ly_offset2scm (o[LEFT]),
+				scm_cons (ly_offset2scm (o[LEFT]),
 					 ly_offset2scm (o[RIGHT])));
 	}
     }
@@ -182,10 +182,10 @@ Slur::set_extremities (Grob *me)
   SCM att = me->get_property ("attachment");
       /*
        */
-      if (!gh_pair_p (att))
+      if (!ly_pair_p (att))
 	{
 	  programming_error ("attachment is not a cons?!");
-	  att = gh_cons (SCM_EOL, SCM_EOL);
+	  att = scm_cons (SCM_EOL, SCM_EOL);
 	  me->set_property ("attachment", att);
 	}
       
@@ -193,15 +193,15 @@ Slur::set_extremities (Grob *me)
   do 
     {
     
-      if (!gh_symbol_p (index_get_cell (att, dir)))
+      if (!ly_symbol_p (index_get_cell (att, dir)))
 	{
 	  SCM p = me->get_property ("extremity-function");
 	  SCM res = ly_symbol2scm ("head");
 	  
-	  if (gh_procedure_p (p))
-	    res =  gh_call2 (p, me->self_scm (), gh_int2scm (dir));
+	  if (ly_procedure_p (p))
+	    res =  scm_call_2 (p, me->self_scm (), scm_int2num (dir));
 
-	  if (gh_symbol_p (res))
+	  if (ly_symbol_p (res))
 	    index_set_cell (att, dir, res);
 	}
     }
@@ -218,7 +218,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_property ("note-columns");
 
-  if (!gh_pair_p (cols))
+  if (!ly_pair_p (cols))
     {
       programming_error ("No note-columns in slur?");
       me->suicide ();
@@ -288,7 +288,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_property ("attachment");
-  if (!gh_pair_p (s) || !gh_symbol_p (index_get_cell (s, dir)))
+  if (!ly_pair_p (s) || !ly_symbol_p (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
@@ -374,8 +374,8 @@ Slur::get_attachment (Grob *me, Direction dir,
   int stemdir = stem ? Stem::get_direction (stem) : 1;
   SCM l = scm_assoc
     (scm_list_n (a,
-		  gh_int2scm (stemdir * dir),
-		  gh_int2scm (slurdir * dir),
+		  scm_int2num (stemdir * dir),
+		  scm_int2num (slurdir * dir),
                   SCM_UNDEFINED), alist);
 
   if (l != SCM_BOOL_F)
@@ -524,7 +524,7 @@ MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
 Slur::height (SCM smob, SCM ax)
 {
-  Axis a = (Axis)gh_scm2int (ax);
+  Axis a = (Axis)ly_scm2int (ax);
   Grob * me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
@@ -565,7 +565,7 @@ Slur::print (SCM smob)
     TODO: replace dashed with generic property.
    */
   SCM d =  me->get_property ("dashed");
-  if (gh_number_p (d))
+  if (ly_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
@@ -584,7 +584,7 @@ Slur::set_control_points (Grob*me)
   SCM r_0_scm = me->get_property ("ratio");
 
   Real r_0 = robust_scm2double (r_0_scm, 1);
-  Real h_inf = staff_space * gh_scm2double (h_inf_scm);
+  Real h_inf = staff_space * ly_scm2double (h_inf_scm);
   
   Slur_bezier_bow bb (get_encompass_offsets (me),
 		      get_grob_direction (me),
@@ -598,14 +598,14 @@ Slur::set_control_points (Grob*me)
 
       SCM ssb = me->get_property ("beautiful");
       Real sb = 0;
-      if (gh_number_p (ssb))
-	sb = gh_scm2double (ssb);
+      if (ly_number_p (ssb))
+	sb = ly_scm2double (ssb);
 
       bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
-      if (gh_pair_p (sbf) && gh_number_p (ly_cdr (sbf)))
-	  bff = gh_scm2double (ly_cdr (sbf));
+      if (ly_pair_p (sbf) && ly_number_p (ly_cdr (sbf)))
+	  bff = ly_scm2double (ly_cdr (sbf));
 
       bb.curve_.control_[1][Y_AXIS] *= bff;
       bb.curve_.control_[2][Y_AXIS] *= bff;
@@ -628,7 +628,7 @@ Slur::set_control_points (Grob*me)
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
     {
-      controls = gh_cons (ly_offset2scm (b.control_[i]), controls);
+      controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
       /*
 	BRRR WHURG.
 	All these null control-points, where do they all come from?
@@ -650,16 +650,16 @@ Slur::get_curve (Grob*me)
   int i = 0;
 
   SCM attach = me->get_property ("attachment");
-  if (!gh_pair_p (attach))
+  if (!ly_pair_p (attach))
     attach = set_extremities (me);
 
   
   if (!get_grob_direction (me)
-      || ! gh_symbol_p (index_get_cell (attach, LEFT))
-      || ! gh_symbol_p (index_get_cell (attach, RIGHT)))
+      || ! ly_symbol_p (index_get_cell (attach, LEFT))
+      || ! ly_symbol_p (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
-  if (!gh_pair_p (me->get_property ("control-points")))
+  if (!ly_pair_p (me->get_property ("control-points")))
     set_control_points (me);
 
   // set_control_points may suicide

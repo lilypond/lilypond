@@ -101,7 +101,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
     {
       SCM glyph = bar_grob->get_property ("glyph");
       
-      String glyph_string = gh_string_p (glyph) ? ly_scm2string (glyph) : "";
+      String glyph_string = ly_string_p (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
@@ -128,14 +128,14 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
   Real max_corr =0.0;
 
   for (SCM s = me->get_property ("right-items");
-       gh_pair_p (s);  s = gh_cdr (s))
+       ly_pair_p (s);  s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (gh_car (s));
+      Grob * g = unsmob_grob (ly_car (s));
 
       max_corr = max_corr >?  next_note_correction (me, g,  bar_size);
       for (SCM t = g->get_property ("elements");
-	   gh_pair_p (t); t  = gh_cdr (t))
-	max_corr = max_corr >? next_note_correction (me, unsmob_grob (gh_car (t)), bar_size);
+	   ly_pair_p (t); t  = ly_cdr (t))
+	max_corr = max_corr >? next_note_correction (me, unsmob_grob (ly_car (t)), bar_size);
       
     }
   
@@ -152,9 +152,9 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");
-       gh_pair_p (s); s = gh_cdr (s))
+       ly_pair_p (s); s = ly_cdr (s))
     {
-      Grob * cand = unsmob_grob (gh_car (s));
+      Grob * cand = unsmob_grob (ly_car (s));
       if (cand && Separation_item::has_interface (cand))
 	separation_item = cand ;
     }
@@ -197,20 +197,20 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   if (me_item->break_status_dir () == CENTER)
     {
       SCM nndef = scm_sloppy_assq (ly_symbol2scm ("next-note"), alist);
-      if (gh_pair_p (nndef))
+      if (ly_pair_p (nndef))
 	space_def = nndef;
     }
   
   
-  if (!gh_pair_p (space_def))
+  if (!ly_pair_p (space_def))
     {
       programming_error ("Unknown prefatory spacing. "); 
       return; 
     }
 
-  space_def = gh_cdr (space_def);
-  Real distance = gh_scm2double (gh_cdr (space_def));
-  SCM type = gh_car (space_def) ;
+  space_def = ly_cdr (space_def);
+  Real distance = ly_scm2double (ly_cdr (space_def));
+  SCM type = ly_car (space_def) ;
 
   *fixed = last_ext[RIGHT];
   if (type == ly_symbol2scm ("fixed-space"))
