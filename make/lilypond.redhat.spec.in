@@ -71,7 +71,8 @@ gzip -9fn $RPM_BUILD_ROOT%{_infodir}/*
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-install -m 644 elisp/lilypond-init.el $RPM_BUILD_ROOT/%{_datadir}/emacs/site-lisp/site-start.d
+install -m 755 -d  $RPM_BUILD_ROOT/etc/emacs/site-start.d
+install -m 644 elisp/lilypond-init.el $RPM_BUILD_ROOT/etc/emacs/site-start.d
 
 gzip -9fn $RPM_BUILD_ROOT%{_mandir}/man1/*
 
@@ -118,7 +119,7 @@ scrollkeeper-update
 %files
 %defattr(-, root, root)
 %{_datadir}/emacs/site-lisp/lilypond*
-%{_datadir}/emacs/site-lisp/site-start.d/lilypond-*
+/etc/emacs/site-start.d/lilypond-*
 
 %{_bindir}/abc2ly
 %{_bindir}/as2text
