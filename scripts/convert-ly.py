@@ -1712,6 +1712,16 @@ def conv (str):
 
 conversions.append (((2,1,14), conv, """style = dotted -> dash-fraction = 0"""))
 
+def conv (str):
+	str =re.sub (r'LyricsVoice\s*\.\s*instrument\s*=\s*("[^"]*")',
+		     r'LyricsVoice . vocalName = \1', str)
+	
+	str =re.sub (r'LyricsVoice\s*\.\s*instr\s*=\s*("[^"]*")',
+		     r'LyricsVoice . vocNam = \1', str)
+	return str
+
+conversions.append (((2,1,15), conv, """LyricsVoice . instr(ument) -> vocalName"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

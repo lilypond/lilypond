@@ -1,5 +1,9 @@
 2004-01-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): add instrument rule.
+
+	* lily/instrument-name-engraver.cc: add Vocal_name_engraver.
+
 	* lily/side-position-interface.cc: remove add_staff_support ()
 	Change all callers to use staff-padding.
 

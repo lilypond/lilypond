@@ -487,6 +487,11 @@ and therefore only work in contexts which contain an
 @code{Axis_group_engraver}.
 ")
 
+(translator-property-description 'vocalName markup?
+				 "Name of a vocal line.")
+(translator-property-description 'vocNam markup?
+				 "Name of a vocal line, short version.")
+
 (translator-property-description 'voltaOnThisStaff boolean?
  "Normally, volta brackets are put only on the topmost staff. Setting
 this variable to true, will force a bracket to be on this staff as

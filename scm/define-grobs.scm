@@ -434,6 +434,24 @@
 	(font-family . roman)
 	(meta . ((interfaces . (font-interface self-alignment-interface side-position-interface text-interface break-aligned-interface item-interface ))))
 	))
+    
+    (InstrumentName
+     . (
+	(breakable . #t)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_on_support_refpoints))
+	(direction . 0)
+	(space-alist . ((left-edge . (extra-space . 1.0))
+			))
+	(molecule-callback . ,Text_item::brew_molecule)		
+	(break-align-symbol . instrument-name)
+	(break-visibility . ,begin-of-line-visible)
+	(baseline-skip . 2)
+	(font-family . roman)
+	(meta . ((interfaces . (font-interface
+				self-alignment-interface
+				side-position-interface text-interface
+				break-aligned-interface item-interface ))))
+	))
 
     (KeySignature
      . (
