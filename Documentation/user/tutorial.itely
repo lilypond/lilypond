@@ -78,7 +78,7 @@ a1 a2 a4 a16 a32
 \transpose c c' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
-If you don't specify a @rglos{duration}, the previous one is used: 
+If you do not specify a @rglos{duration}, the previous one is used: 
 
 @example
 a4 a a2 a
@@ -428,7 +428,7 @@ s16_" "
 @end quotation
 @separate
 
-@c Tim wants to move this quotes example just before the: quotes-don't-work
+@c Tim wants to move this quotes example just before the: quotes-do not-work
 @c score, but we'd need to remove quotes from the other two (key and
 @c tie) examples...
 
@@ -527,10 +527,10 @@ This example shows notes, ties, octave marks, and rests in action.
 
 @c accidentals...
 There are some interesting points to note in this example.
-Accidentals (sharps and flats) don't have to be marked explicitly: you
+Accidentals (sharps and flats) do not have to be marked explicitly: you
 just enter the note name, and LilyPond determines whether or not to
 print an accidental.  Bar lines and beams are drawn automatically.
-LilyPond calculates line breaks for you; it doesn't matter where you
+LilyPond calculates line breaks for you; it does not matter where you
 make new lines in the source file. Finally, the order of time, key and
 clef changes is not relevant: lilypond will use standard notation
 conventions for ordering these items.
@@ -542,12 +542,12 @@ and is also a potential source of errors.
 The solution is to use ``relative octave'' mode.  In practice, this is
 the most convenient way to copy existing music.  To use relative mode,
 add @code{\relative} before the piece of music.  You must also give a
-note from which relative starts, in this case @code{c''}.  If you don't
-use octavation quotes (ie don't add ' or , after a note), relative mode
+note from which relative starts, in this case @code{c''}.  If you do not
+use octavation quotes (ie do not add ' or , after a note), relative mode
 chooses the note that is closest to the previous one.  Since most music
 has small intervals, you can write quite a lot in relative mode without
 using octavation quotes.
-@c don't use commas or quotes in this sentence
+@c do not use commas or quotes in this sentence
 For example: @code{c f} goes up; @code{c g} goes down:
 
 @quotation
@@ -575,7 +575,7 @@ For example: @code{c f} goes up; @code{c g} goes down:
 You can make larger intervals by adding octavation quotes.  Note that
 quotes or commas do not determine the absolute height of a note;
 the height of a note is relative to the previous one.
-@c don't use commas or quotes in this sentence
+@c do not use commas or quotes in this sentence
 For example: @code{c f,} goes down; @code{f, f} are both the same;
 @code{c' c} are the same; and @code{c g'} goes up:
 
@@ -714,8 +714,8 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 @c lousy example
 @c ? --hwn
 @c fragment of 1st hrn in Adams' The Chairman Dances, with creative
-@c chromatic thing pasted in front.  (admittedly the original doesn't
-@c have a phrasing slur. The problem is that we don't want the slur
+@c chromatic thing pasted in front.  (admittedly the original does not
+@c have a phrasing slur. The problem is that we do not want the slur
 @c and the Phrasing slur to collide. We're trying to make a good
 @c impression here.
 
@@ -726,7 +726,7 @@ a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
 @end quotation
 @separate
 
-Beams are drawn automatically, but if you don't like the choices, you
+Beams are drawn automatically, but if you do not like the choices, you
 can enter beams by hand. Mark the first note to be beamed with
 @code{[} and the last one with @code{]}:
 @quotation
@@ -751,7 +751,7 @@ demonstrated here:
 @end quotation
 
 In this example, @code{staffA} and @code{staffB} are names that are
-given to the staves.  It doesn't matter what names you give, as long
+given to the staves.  It does not matter what names you give, as long
 as each staff has a different name. If you give them the same name,
 LilyPond will assume that you only want one staff, and will but both
 pieces of music on the same staff.
@@ -833,7 +833,7 @@ r4 <<c e g>>8-[ <<c f a>>-]-~ <<c f a>>
 @ignore
 When you want to combine chords with slurs and dynamics, technical
 detail crops up: you have type these commands next to the notes, which
-means that they have to be inside the @code{< >}.  Don't get confused
+means that they have to be inside the @code{< >}.  Do Not get confused
 by the chord @code{< >} and the dynamic @code{\< \>}!
 @end ignore
 
@@ -1045,7 +1045,7 @@ contexts'.  Interpretation contexts exist for generating notation
 context').  These objects only exist while LilyPond is executing.
 
 When LilyPond interprets music, it will create a Staff context.
-We don't want that default here, because we want lyric.  The
+We do not want that default here, because we want lyric.  The
 command
 @example
   \context Lyrics
@@ -1053,7 +1053,7 @@ command
 explicitly creates an interpretation context of 
 @code{Lyrics} type to interpret the song text that we entered.
 
-The melody of the song doesn't offer anything new:
+The melody of the song does not offer anything new:
 @example
  \notes \relative c' @{
     \time 7/4
@@ -1330,7 +1330,7 @@ When LilyPond interprets music, it will create a Staff context.  If
 the @code{%} sign in the previous line were removed, you could see
 that mechanism in action.
 
-We don't want that default here, because we want chord names.  The
+We do not want that default here, because we want chord names.  The
 command above explicitly creates an interpretation context of 
 @code{ChordNames} type to interpret the music @code{\accompaniment}. 
 
@@ -1567,7 +1567,7 @@ as shown above.
 @end example
 
 A paper block at top level (i.e. not in a @code{\score} block) sets the
-default page layout.  The following @code{\score} blocks don't have
+default page layout.  The following @code{\score} blocks do not have
 @code{\paper} sections, so the settings of this block are used.
 
 The variable @code{linewidth} normally sets the length of the systems
@@ -1597,7 +1597,7 @@ comments are delimited by @code{%@{} and @code{%@}}.
 In previous examples, most notes were specified in relative octaves 
 (i.e. each note was put in the octave that is closest to its
 predecessor).  Besides relative, there is also absolute octave
-specification, which you get when you don't include @code{\relative} in
+specification, which you get when you do not include @code{\relative} in
 your input file.  In this input mode, the middle C is denoted by
 @code{c'}. Going down, you get @code{c} @code{c,} @code{c,,} etc.  
 Going up, you get @code{c''} @code{c'''} etc.
@@ -1747,7 +1747,7 @@ s1 s2. r4
 @end example 
 @code{s} is a spacer rest.  It does not print anything, but it does have
 the duration of a rest. It is useful for filling up voices that
-temporarily don't play. In this case, the viola doesn't come until one
+temporarily do not play. In this case, the viola does not come until one
 and a half measure later.
 
 @separate
@@ -1799,7 +1799,7 @@ three chords.
 < 
 @end example 
 At this point, the homophonic music splits into two rhythmically
-different parts.  We can't use a sequence of chords to enter this, so
+different parts.  We cannot use a sequence of chords to enter this, so
 we make a "chord of sequences" to do it.  We start with the upper
 voice, which continues with upward stems:
 @separate
@@ -2010,7 +2010,7 @@ More precisely, this command modifies the definition of the @code{Slur}
 object in the current @code{Voice}.  The variable @code{attachment} is
 set to the pair of symbols @code{'(stem . stem)}. 
 
-Although this fixes the slur, it isn't very helpful for fine tuning in
+Although this fixes the slur, it is not very helpful for fine tuning in
 general: the lilypond back-end supports approximately 240 variables
 like @code{attachment}, each with their own meaning and own type
 (eg. number, symbol, list, etc).  Besides slur, LilyPond has 80
@@ -2164,7 +2164,7 @@ of fingering instructions.
 
 Normally one would specify all dynamics in the same voice, so that
 dynamics (such as @b{f} and @b{p}) will be aligned with hairpins.  But
-in this case, we don't want the decrescendo to be aligned with the
+in this case, we do not want the decrescendo to be aligned with the
 piano sign.  We achieve this by putting the dynamic markings in different
 voices.  The crescendo should be above the upper staff.  This can be
 forced by using the precooked command 
@@ -2269,7 +2269,7 @@ another @code{\score} block may be for all the strings, and yet another
 This orchestral score example consists of three input files.  In the
 first file, @file{os-music.ly}, we define the music for all
 instruments.  This file will be used for producing the score and
-the separate parts, but the file doesn't produce any sheet music
+the separate parts, but the file does not produce any sheet music
 itself.  Other files reference this file by doing @code{\include
 "os-music.ly"}.
 
@@ -2602,7 +2602,7 @@ property @var{transposing}.
 @example
         \notes \key bes \major
 @end example
-Since the horn is transposing, it's in a different key.
+Since the horn is transposing, it is in a different key.
 
 @separate
 @example
@@ -2688,7 +2688,7 @@ we were preparing the score for an orchestra.
     \flautoII
 @end example
 In this individual part the second flute has a whole staff for itself,
-so we don't want to force stem or tie directions.
+so we do not want to force stem or tie directions.
 
 @separate
 @example
@@ -2729,7 +2729,7 @@ fragments, run LilyPond on them, and put back the resulting
 notation.  This program is fully described in the chapter
 @ref{Integrating text and music with lilypond-book}.  Here we show a
 small example.  Since the example also contains explanatory text, we
-won't comment on the contents.
+will not comment on the contents.
 
 @example
 \documentclass[a4paper]@{article@}
@@ -2797,7 +2797,7 @@ $ xdvi lilbook
 @end example
 
 Notice the @code{outdir} option to lilypond-book. Running lilypond-book
-and running latex creates a lot of temporary files, and you wouldn't want
+and running latex creates a lot of temporary files, and you would not want
 those to clutter up your working directory. Hence, we have them created
 in a separate subdirectory.
 
@@ -2858,7 +2858,7 @@ hacker.  From here you should try fiddling with input files or making your
 own input files.  Come back to the reference manual for more information
 if you get stuck!
 
-Don't forget to check out the 
+Do not forget to check out the 
 @ifhtml
 @uref{../../../../input/template/out-www/template.html,templates},
 @uref{../../../../input/test/out-www/test.html,examples} and 

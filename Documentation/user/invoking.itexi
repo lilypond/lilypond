@@ -220,7 +220,7 @@ ly2dvi.
 @end itemize
 
 You can send the report to @email{bug-lilypond@@gnu.org}. This is a
-mailinglist, but you don't have to be subscribed to it to post.
+mailinglist, but you do not have to be subscribed to it to post.
 
 @node Website
 @section Website
@@ -272,8 +272,8 @@ through @code{ps2pdf} producing a PDF file.
 @cindex PDF
 @cindex Scalable fonts
     
-    If you use lilypond-book or your own wrapper files, don't use
-@code{\usepackage[[T1]@{fontenc@}} in the file header but don't forget
+    If you use lilypond-book or your own wrapper files, do not use
+@code{\usepackage[[T1]@{fontenc@}} in the file header but do not forget
 @code{\usepackage[latin1]@{inputenc@}} if you use any other
 non-anglosaxian characters.
 

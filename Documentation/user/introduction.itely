@@ -10,7 +10,9 @@ musical codes in a file.  Then you run LilyPond on the file, and the
 music is produced without any further intervention.  For example,
 something like this:
 
-@lilypond[fragment,verbatim, relative 1, intertext="produces this"]
+@lilypond[fragment,verbatim, relative 1, intertext="produces this
+
+"]
 \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
@@ -21,8 +23,8 @@ intimidating or even clumsy at first. Nevertheless, when you take the
 effort to learn the codes and the program you will find that it is
 easier than it seems.  Entering music can be done quickly, and you
 never have to remember how you made the program do something
-complicated: it's all in the input code, and you only have to read the
-file to see how it works. Moreover, when you use LilyPond, you are
+complicated: it is all in the input code, and you only have to read
+the file to see how it works. Moreover, when you use LilyPond, you are
 rewarded with very nicely looking output.
 
 In this chapter, we will explain the reasoning behind this unusual
@@ -51,6 +53,8 @@ UNIX operating system, where it is very common to use compilers to
 achieve computing tasks, so our computerized music engraving
 experiment took on the form of a compiler.
 
+
+@ignore
 @cindex free software
 @cindex sharing software
 
@@ -64,6 +68,7 @@ computing solutions with free (as in ``Libre'') variants. We jumped on
 that bandwagon, and released LilyPond as free software.  That is the
 reason that you can get LilyPond at no cost and without any strings
 attached.
+@end ignore
 
 
 @node Music engraving
@@ -86,28 +91,25 @@ plate. Stamping and cutting was completely done by hand. Making
 corrections was cumbersome, so engraving had to be done correctly in
 one go. As you can imagine this was a highly specialized skill, much
 more so than the traditional process of printing books.
-
 @cindex craftsmanship
 @cindex master
-
-The following fact illustrates that. In the traditional German
-craftsmanship six years of full-time training, more than any other
-craft, were required before a student could call himself a master of
-the art. After that many more years of practical experience were
-needed to become an established music engraver.  Even today, with the
-use of high-speed computers and advanced software, music requires lots
-of manual fine tuning before it acceptable to be published.
+In the traditional German craftsmanship six years of full-time
+training, more than any other craft, were required before a student
+could call himself a master of the art. After that many more years of
+practical experience were needed to become an established music
+engraver.  Even today, with the use of high-speed computers and
+advanced software, music requires lots of manual fine tuning before it
+acceptable to be published.
 
 When we wanted to write a computer program to do create music
 typography, we encountered the first problem: there were no sets of
 musical symbols available: either they were not available freely, or
-they didn't look well to our taste. Not let down, we decided to try
+they did not look well to our taste. Not let down, we decided to try
 font design ourselves. We created a font of musical symbols, relying
-on nice printouts of hand-engraved music.  It was a good decision to
-design our own font. The experience helped develop a typographical
-taste, and it made us appreciate subtle design details. Without that
-experience, we would not have realized how ugly the fonts were that we
-admired at first.
+on nice printouts of hand-engraved music.  The experience helped
+develop a typographical taste, and it made us appreciate subtle design
+details. Without that experience, we would not have realized how ugly
+the fonts were that we admired at first.
 
 
 @lilypond[noindent]
@@ -198,26 +200,36 @@ into a computer program.
 One of the big questions when making programs, is what kind of input
 the program should expect. Many music notation programs offer a
 graphical interface that shows notation, and allow you to enter the
-music by placing notes on a staff. Although this is a obvious way to
-design a program, from our point of view, it is cheating. After all,
-the core message of a piece of music notation simply is the music
-itself. If you start by offering notation to the user, you have
-already skipped one conversion, even if it is implicit. If we want to
-generate music notation from something else, then the obvious
-candidate for the source is the music itself.
+music by placing notes on a staff. From our point of view, this design
+is a form of cheating. After all, the core message of a piece of music
+notation simply is the music itself. If you start by offering notation
+to the user, you have already skipped one conversion, even if it is
+implicit. If we want to generate music notation from something else,
+then the obvious candidate for the source is the music itself.
 
 On paper this theory sounds very good. In practice, it opens a can of
 worms. What really @emph{is} music? Many philosophical treatises must
-have been written on the subject. Even if you are more practically
+have been written on the subject.  Fortunately, we have a concrete
+application, so we do not run the risk of losing ourselves in
+philosophical arguments over the essence of music.  We want to produce
+a printed score from a music representation, so this gives us a nice
+guide for designing a format: we need a format containing mainly
+musical elements, such as pitch and duration, but also enough
+information to print a score.  Our users have to key in the music into
+the file directly, so the input format should have a friendly
+syntax. Finally, we as programmers and scientists want a clean formal
+definition. After all, producing music notation is a difficult
+problem, and in the scientific world, problems can only be solved if
+they are well-specified. Moreover, formally defined formats are easier
+to write programs for.
+
+@ignore
+Even if you are more practically
 inclined, you will notice that there exist an enormous number of ways
 to represent music in a computer, and they are much more incompatible
 than the formats for word processors and spreadsheets.  Anyone who has
 tried to exchange data files from between different notation programs
 can attest to this.
-
-@cindex music representation
-@cindex music expressions
-@cindex input format
 
 This problem is caused by the two-dimensional nature of music: in
 polyphonic music, notes have time and pitch as their two coordinates,
@@ -227,19 +239,13 @@ characters. When you represent music in a file, then you have to
 flatten this two-dimensional information breaking either timing or
 pitch relations, and there is no universal agreement on how to do
 this.
+@end ignore
 
-Fortunately, we have a concrete application, so we don't run the risk
-of losing ourselves in philosophical arguments over the essence of
-music.  We want to produce a printed score from a music
-representation, so this gives us a nice guide for designing a format:
-we need a format containing mainly musical elements, such as pitch and
-duration, but also enough information to print a score.  Our users
-have to key in the music into the file directly, so the input format
-should have a friendly syntax. Finally, we as programmers and
-scientists want a clean formal definition. After all, producing music
-notation is a difficult problem, and in the scientific world, problems
-can only be solved if they are well-specified. Moreover, formally
-defined formats are easier to write programs for.
+
+@cindex music representation
+@cindex music expressions
+@cindex input format
+
 
 These ideas shaped our music representation: it is a compact format
 that can easily be typed by hand. It complex musical constructs from
@@ -317,7 +323,7 @@ which gives more detailed information on all features. If you're new
 to lilypond, then you should start reading the tutorial, and
 experiment for yourself.  If you already have some experience, then
 you can simply use the manual as reference: there is an extensive
-index@footnote{If you are looking for something, and you can't find it
+index@footnote{If you are looking for something, and you cannot find it
 by using the index, that is considered a bug.  In that case, please
 file a bug report}, but the document is also available in One Big Page,
 @c should have hyperlink?

@@ -250,7 +250,7 @@ which will work outside of those two modes:
 }
 @end lilypond
 
-The skip command is merely an empty musical placeholder.  It doesn't
+The skip command is merely an empty musical placeholder.  It does not
 produce any output, not even transparent output.
 
 
@@ -266,10 +266,10 @@ produce any output, not even transparent output.
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers
 and dots: durations are entered as their reciprocal values.  For example,
-a quarter note is entered using a @code{4} (since it's a 1/4 note), while
-a half note is entered using a @code{2} (since it's a 1/2 note).  For notes
+a quarter note is entered using a @code{4} (since it is a 1/4 note), while
+a half note is entered using a @code{2} (since it is a 1/2 note).  For notes
 longer than a whole you must use identifiers.
-@c FIXME: what's an identifier?  I don't think it's been introduced yet.
+@c FIXME: what's an identifier?  I do not think it's been introduced yet.
 @c and if it has, I obviously skipped that part.     - Graham
 
 @example 
@@ -314,7 +314,7 @@ note lengths:
 
 You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
-won't affect the appearance of the notes or rests produced.
+will not affect the appearance of the notes or rests produced.
 
 @lilypond[fragment,verbatim]
   a'2*2 b'4*2 a'8*4 a'4*3/2 gis'4*3/2 a'4*3/2 a'4
@@ -387,7 +387,7 @@ Switching staves when a tie is active will not work.
 
 @node Automatic note splitting 
 @subsection Automatic note splitting
-@c FIXME: This subsection doesn't belong in @ref{Note entry}.
+@c FIXME: This subsection does not belong in @ref{Note entry}.
 
 LilyPond can automatically converting long notes to tied notes.  This
 is done by replacing the @code{Note_heads_engraver} by the
@@ -642,7 +642,7 @@ additional @code{\relative} inside the @code{\transpose}.
 
 
 Whenever a bar check is encountered during interpretation, a warning
-message is issued if it doesn't fall at a measure boundary.  This can
+message is issued if it does not fall at a measure boundary.  This can
 help you find errors in the input.  Depending on the value of
 @code{barCheckSynchronize}, the beginning of the measure will be
 relocated, so this can also be used to shorten measures.
@@ -1611,7 +1611,7 @@ Each rule cosists of
       In which context is the rule applied. I.e. if context is
       @internalsref{Score} then all staves share accidentals, and if
       context is @internalsref{Staff} then all voices in the same
-      staff share accidentals, but staves don't - like normally.
+      staff share accidentals, but staves do not - like normally.
 @item Octavation:
       Whether the accidental changes all octaves or only the current
       octave.
@@ -2054,7 +2054,7 @@ c4^"longtext" \fatText c4_"longlongtext" c4 }
 It is possible to use @TeX{} commands in the strings, but this should be
 avoided because it makes it impossible for LilyPond to compute the
 exact length of the string, which may lead to collisions.  Also, @TeX{}
-commands won't work with direct PostScript output.
+commands will not work with direct PostScript output.
 @c (see @ref{PostScript output}).
 
 Text scripts are created in form of @internalsref{TextScript} objects, in
@@ -2158,7 +2158,7 @@ A @code{\grace} section has some default values, and LilyPond will
 use those default values unless you specify otherwise inside the
 @code{\grace} section.  For example, if you specify \slurUp
 @emph{before} your @code{\grace} section, a slur which starts inside
-the @code{\grace} won't be forced up, even if the slur ends outside
+the @code{\grace} will not be forced up, even if the slur ends outside
 of the @code{\grace}.  Note the difference between the first and
 second bars in this example:
 
@@ -2404,7 +2404,7 @@ Folded repeats look like this:
 
 @end lilypond
 
-If you don't give enough alternatives for all of the repeats, then
+If you do not give enough alternatives for all of the repeats, then
 the first alternative is assumed to be repeated often enough to equal
 the specified number of repeats.
 
@@ -2766,7 +2766,7 @@ mus = \notes  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
-If you don't like any of the predefined lists you can define your own
+If you do not like any of the predefined lists you can define your own
 list at the top of your file:
 
 @lilypond[singleline, verbatim]
@@ -2805,7 +2805,7 @@ list:
 @subsubsection Percussion staves with normal staves
 When you include @file{drumpitch-init.ly} then the default pitches
 are overridden so that you after the inclusion cannot use the common
-dutch pitch names anymore. Hence you might wan't to reinclude
+dutch pitch names anymore. Hence you might want to reinclude
 @file{nederlands.ly} after the drum-pattern-definitions:
 @lilypond[singleline,verbatim]
 \include "drumpitch-init.ly"
@@ -5244,7 +5244,7 @@ The following font change commands are defined:
 @table @code
 @item \dynamic
 This changes to the font used for dynamic signs. Note that this font
-doesn't contain all characters of the alphabet.
+does not contain all characters of the alphabet.
 @item \number
 This changes to the font used for time signatures. It only contains
 numbers and a few punctuation marks.

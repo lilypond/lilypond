@@ -38,6 +38,20 @@ Distributions will want to install lilypond.info doing:
 @end ignore
 
 
+@ignore
+
+HINTS FOR STYLE
+
+* don't refer to LilyPond in the text. The reader knows what the
+manual is about
+
+* don't explicitly refer to the reader/user.  There is no one else
+besides the reader and the writer.
+
+* don't use abbreviations (don't, won't, etc.)
+
+
+@end ignore
 
 @ifhtml
 This document is also available in @uref{../lilypond.ps.gz,gzipped

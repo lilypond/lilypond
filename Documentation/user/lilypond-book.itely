@@ -311,7 +311,7 @@ Set linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
 This option affects LilyPond output, not the text layout.
 
 @item notime
-Don't print time signature.
+Do not print time signature.
 
 @item fragment
 @itemx nofragment
@@ -412,16 +412,16 @@ Write dependencies to @file{filename.dep}.
 Prepend @var{pref} before each @option{-M} dependency.
 
 @item @option{-n}, @option{--no-lily}
-Don't run LilyPond, but do generate the @code{.ly} files.
+Do not run LilyPond, but do generate the @code{.ly} files.
 
 @item @option{--no-music}
 Strip all  LilyPond blocks from the file.
 
 @item @option{--no-pictures}
-Don't generate pictures when processing Texinfo.
+Do not generate pictures when processing Texinfo.
 
 @item @option{--read-lys}
-Don't write ly files.  This way you can do
+Do not write ly files.  This way you can do
 
 @example
 lilypond-book file.tely
