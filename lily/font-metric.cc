@@ -13,6 +13,7 @@
 #include <math.h>
 #include <cctype>
 
+#include "dimensions.hh"
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
 #include "stencil.hh"
@@ -24,7 +25,7 @@
 Real
 Font_metric::design_size () const
 {
-  return 1.0;
+  return 1.0 * point_constant;
 }
 
 String

@@ -1,3 +1,13 @@
+2005-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (output-variables): separately scale the
+	page to mm 
+
+	* lily/pango-font.cc (Pango_font): fix scaling.
+
+	* lily/font-metric.cc (design_size): design_size returns a
+	dimension now as well.
+
 2004-12-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/GNUmakefile ($(outdir)/%.otf-table): use findstring. Fixes

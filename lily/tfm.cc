@@ -111,7 +111,7 @@ Tex_font_metric::make_tfm (String file_name)
 Real
 Tex_font_metric::design_size () const
 {
-  return info_.design_size;
+  return info_.design_size * point_constant;
 }
 
 String

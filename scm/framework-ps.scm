@@ -156,14 +156,16 @@
      (value->string (ly:output-def-lookup layout ly-key)) " def \n"))
 
   (string-append
-   "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter \n"
+   "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter
+lily-output-units lily-output-units scale
+"
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
    (output-entry "paper-size" 'papersizename)
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
    (number->string (ly:output-def-lookup layout 'outputscale))
-   " lily-output-units mul def \n"
+   " def \n"
    (output-entry "page-height" 'vsize)
    (output-entry "page-width" 'hsize)))
 

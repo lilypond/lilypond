@@ -29,10 +29,16 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
     ? PANGO_DIRECTION_LTR
     : PANGO_DIRECTION_RTL;
   context_ =
-    pango_ft2_get_context (PANGO_DPI, PANGO_DPI);
+    pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
   //  context_ = pango_ft2_font_map_create_context (fontmap);  
   attribute_list_= pango_attr_list_new();
-  scale_ = inch_constant / (Real (PANGO_SCALE) * Real (PANGO_DPI));
+
+  /*
+    urgh. I don't understand this. Why isn't this 1/(scale * resolution)
+
+    --hwn
+   */
+  scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION));
   
   pango_context_set_language (context_, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (context_, pango_dir);
@@ -105,7 +111,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
-    /  (Real (PANGO_SCALE)) ;
+    /  (Real (PANGO_SCALE));
       
   FcPattern *fcpat = fcfont->font_pattern;
   char *filename = 0;

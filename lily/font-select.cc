@@ -8,6 +8,7 @@
 
 #include <math.h>
 
+#include "dimensions.hh"
 #include "all-font-metrics.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
@@ -47,11 +48,6 @@ wild_compare (SCM field_val, SCM val)
 	  || field_val == val);
 }
 
-/*
-  TODO: this triggers a great number of font-loads (feta11 upto
-  parmesan23). We could make a Delayed_load_font_metric for which the
-  design size is specced in advance.
- */
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
 			 SCM font_vector,
@@ -144,7 +140,8 @@ select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
       SCM font_encoding
 	= scm_cdr (ly_chain_assoc (ly_symbol2scm ("font-encoding"), chain));
 
-      return get_font_by_mag_step (layout, req, vec, scm_to_double (base_size),
+      return get_font_by_mag_step (layout, req, vec,
+				   scm_to_double (base_size) * point_constant,
 				   font_encoding, input_encoding);
     }
 

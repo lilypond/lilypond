@@ -176,7 +176,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
   Box b (Interval (-hb, m.width - hb),
 	 Interval (-vb, m.height - vb));
 
-  b.scale (design_size () * Real (point_constant) / face_->units_per_EM);
+  b.scale (design_size ()  / Real (face_->units_per_EM));
   return b;
 }
 
@@ -214,7 +214,7 @@ Open_type_font::design_size () const
 			       quickly. --hwn.
 			      */
 			     scm_from_int (1));
-  return scm_to_double (entry);
+  return scm_to_double (entry) * Real (point_constant);
 }
 
 
