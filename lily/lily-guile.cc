@@ -430,7 +430,7 @@ static void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, (Scheme_function_unknown)ly_warning);
-  scm_make_gsubr ("ly-version", 0, 0, 0, (Scheme_function_unknown)ly_warning);  
+  scm_make_gsubr ("ly-version", 0, 0, 0, (Scheme_function_unknown)ly_version);  
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (Scheme_function_unknown)ly_gulp_file);
   scm_make_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
 

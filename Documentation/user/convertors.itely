@@ -8,11 +8,23 @@
 Midi2ly translates a MIDI input file to a LilyPond source file.
 Midi2ly is part of the GNU LilyPond music typesetting package.
 
+
+Human players usually are rhythmically not very exact when they record
+MIDI files.  midi2ly tries to compensate for these errors, but is not
+very good at this. It is therefore not recommended to use midi2ly for
+human-generated midi files. Correcting the quantization mistakes of the
+human player takes a lot of time.
+
+Hackers who know about signal processing are invited to write  a more
+robust midi2ly.
+
 @subsection Invoking midi2ly
 
 @example
         midi2ly [options] midi-file
 @end example
+
+@unnumberedsec Options
 
 @table @code
 @item -b, --no-quantify,
@@ -69,7 +81,7 @@ version information
 @end table
 
 Enigma Transport Format is a format used by Coda Music Technology's
-Finale product. This program will convert a subset of ETF to a
+Finale product. This program will convert part of an ETF file to a
 ready-to-use lilypond file.
 
 Report bugs to bug-gnu-music@@gnu.org

@@ -1,8 +1,4 @@
 @ifinfo
-@macro rgrob {word}
-@ref{ (lilypond-internals)\word\, \word\ },
-
-@end macro
 @macro reng {word}
 @ref{ (lilypond-internals)Engraver \word\, \word\ },
 
@@ -10,10 +6,6 @@
 @end ifinfo
 
 @ifnotinfo
-@macro rgrob {word}
-@ref{ (lilypond-internals)\word\, \word\ }
-
-@end macro
 @macro reng {word}
 @ref{ (lilypond-internals)Engraver \word\, \word\ }
 
@@ -46,7 +38,8 @@
 @unnumberedsubsubsection \word\
 @end macro
 
-@end ignore
-
 @macro c_ {word}
 @end macro
+
+@end ignore
+

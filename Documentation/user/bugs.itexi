@@ -19,9 +19,6 @@ verify your problem.
 @item which LilyPond version you use. Without this, we can not verify
 your problem.
 
-
-This information tells us if you've found a new bug, or an old one.
-
 @item A description of the platform you use (i.e., operating system,
 system libraries, whether you downloaded a binary release)
 

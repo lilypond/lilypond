@@ -36,16 +36,12 @@ yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
 
 @menu
 * Manual beam settings::        Manual beam settings
-* Slur attachments::            Slur attachments
 * Engraver hacking::            Engraver hacking
 * Part combiner::               Part combiner
 * Markup text::                 Markup text
-* Output property::             Output property
 * Apply hacking::               Apply hacking
 * Embedded TeX::                Embedded TeX
 * Embedded PostScript::         Embedded PostScript
-@c * Index::                          Checking Feature index
-* Index::                       Checking Feature index
 @end menu
 
 
@@ -59,65 +55,6 @@ yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
 @c auto knees
 
 
-
-
-
-@cindex @code{]}
-
-In some cases it may be necessary to override LilyPond's automatic
-beaming algorithm.  For example, the auto beamer will not beam over
-rests, so if you want that, specify the begin and end point manually
-using @code{[} and @code{]}:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \context Staff {
-    r4 [r8 g'' a]
-  }
-@end lilypond
-@end quotation
-
-Similarly, for beams over bar lines:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \context Staff {
-    a''8 r a2 r8 [a a]
-  }
-@end lilypond
-@end quotation
-@cindex @code{stemLeftBeamCount}
-
-If you have specific wishes for the number of beams, you can fully
-control the number of beams through the properties
-@code{Voice.stemLeftBeamCount};
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \context Staff {
-    [f'8 r16 f g a]
-    [f8 r16 \property Voice.stemLeftBeamCount = #1 f g a]
-  }
-@end lilypond
-@end quotation
-@cindex @code{stemRightBeamCount}
-
-and @code{Voice.stemRightBeamCount}:
- 
-@quotation
-@lilypond[fragment,relative,verbatim]
-  f'32 g a b b a g f
-
-  \property Voice.autoBeamSettings
-    \set #'(end * * * *) = #(make-moment 1 4)
-  f32 g a b b a g f
-
-  f32 g a
-  \property Voice.stemRightBeamCount = #1 b
-  \property Voice.stemLeftBeamCount = #1 b
-  a g f
-@end lilypond
-@end quotation
 @cindex @code{no-stem-extend}
 
 Conventionally, stems and beams extend to the middle staff line.  This
@@ -133,26 +70,26 @@ extension can be controlled through @code{Voice.Stem}'s grob-property
 @end quotation
 
 The beam symbol can be tweaked through @code{Voice.Beam}'s
-grob-properties @code{height-hs} and @code{y-position-hs}.
+grob-properties @code{height} and @code{staff-position},
+in staff-spaces.
 
-Set @code{height-hs} to zero, to get horizontal beams:
+Set @code{height} to zero, to get horizontal beams:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'direction = #1
-  \property Voice.Beam \set #'height-hs = #0
+  \property Voice.Beam \set #'height = #0
   [a''8 e' d c]
 @end lilypond
 @end quotation
 
-Both are in half spaces.  Here's how you'd specify a weird looking beam
-that instead of being horizontal, falls two staff spaces (ie, four half
-spaces):
+Here's how you'd specify a weird looking beam that instead of being
+horizontal, falls two staff spaces:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'y-position-hs = #4
-  \property Voice.Beam \set #'height-hs = #-4
+  \property Voice.Beam \set #'staff-position = #2
+  \property Voice.Beam \set #'height = #-2
   [c'8 c] 
 @end lilypond
 @end quotation
@@ -207,94 +144,6 @@ examples:
 These beam direction functions are defined in @file{scm/beam.scm}.  If
 your favourite algorithm isn't one of these, you can hook up your own.
 
-
-
-@node Slur attachments
-@section Slur attachments
-
-The ending of a slur should whenever possible be attached to a note
-head.  Only in some instances where beams are involved, LilyPond may
-attach a slur to a stem end.  In some cases, you may want to override
-LilyPond's decision, e.g., to attach the slur to the stem end.  This can
-be done through @code{Voice.Slur}'s grob-property @code{attachment}:
-@c FIXME: make @ref{} to backend doco
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \property Voice.Slur \set #'direction = #1
-  \property Voice.Stem \set #'length = #5.5
-  g''8(g)g4
-  \property Voice.Slur \set #'attachment = #'(stem . stem)
-  g8(g)g4
-@end lilypond
-@end quotation
-
-Similarly, slurs can be attached to note heads even when beams are
-involved:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \property Voice.Slur \set #'direction = #1
-  \property Voice.Slur \set #'attachment = #'(head . head)
-  g''16()g()g()g()d'()d()d()d
-@end lilypond
-@end quotation
-
-If a slur would strike through a stem or beam, LilyPond will move the
-slur away vertically (upward or downward).  In some cases, this may
-cause ugly slurs that you may want to correct:
-
-@quotation
-@lilypond[fragment,relative,verbatim]
-  \property Voice.Stem \set #'direction = #1
-  \property Voice.Slur \set #'direction = #1
-  d'32( d'4 )d8..
-  \property Voice.Slur \set #'attachment = #'(stem . stem)
-  d,32( d'4 )d8..
-@end lilypond
-@end quotation
-
-LilyPond will increase the curvature of a slur trying to stay free of
-note heads and stems.  However, if the curvature would increase too much,
-the slur will be reverted to its default shape.  This decision is based
-on @code{Voice.Slur}'s grob-property @code{beautiful} value.  In some
-cases, you may find ugly slurs beautiful, and tell LilyPond so by
-increasing the @code{beautiful} value:
-
-[hoe  gedefd?? wat betekent beautiful = X?]
-
-@quotation
-@lilypond[verbatim]
-\score {
-  \notes \context PianoStaff <
-    \time 6/4;
-    \context Staff=up { s1 * 6/4 }
-    \context Staff=down <
-      \clef bass;
-      \autochange Staff \context Voice
-        \notes \relative c {
-          d,8( a' d f a d f d a f d )a
-        }
-    >
-  >
-  \paper {
-    linewidth = -1.;
-    \translator {
-      \VoiceContext
-      Slur \override #'beautiful = #5.0
-      Slur \override #'direction = #1
-      Stem \override #'direction = #-1
-      autoBeamSettings \override #'(end * * * *)
-        = #(make-moment 1 2)
-    }
-    \translator {
-      \PianoStaffContext
-      VerticalAlignment \override #'threshold = #'(5 . 5)
-    }
-  }
-}
-@end lilypond
-@end quotation
 
 
 @node Engraver hacking
@@ -416,32 +265,6 @@ Metrome hack...
 @end lilypond
 
 
-@node Output property
-@section Output property
-
-@lilypond[fragment,relative,verbatim]
-    \outputproperty #(make-type-checker 'note-head-interface) 
-      #'extra-offset = #'(2 . 3)
-    c''2 c
-@end lilypond
-
-Don't move the finger 2, only text "m.d." ...
-@lilypond[verbatim]
-#(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
-
-\score {    
-  \notes\relative c''' {
-    \property Voice.Stem \set #'direction = #1
-    \outputproperty #(make-text-checker "m.d.")
-      #'extra-offset = #'(-3.5 . -4.5)
-    a^2^"m.d."    
-  }
-  \paper { linewidth = -1.; }
-}
-@end lilypond
-
-
 @c  equalizer
 
 
@@ -499,15 +322,3 @@ Arbitrary lines and curves not supported...
   \paper { linewidth = 70 * \staffspace; }
 }
 @end lilypond
-
-@ignore 
-@node Index
-@section Checking Feature index
-
-@printindex cp
-
-
-@bye
-@end ignore
-
-

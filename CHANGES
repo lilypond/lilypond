@@ -1,5 +1,42 @@
-1.3.126.jcn2
+1.3.127.jcn3
 ============
+* Mutopia preparations and Coriolan fixes.
+
+* Small beam cleanup, changed y-position-hs,height-hs user overrides to
+  staff-position,height (height:name suggestions?), now in staff-spaces.
+
+* Beam (y, dy) calculations now as list of scm functions.
+
+* Added cleaned-up excerpt from Coriolan for tutorial.
+
+* Bugfix: beam looks at smallest gap for auto knees.
+
+* Property-description-fix: allow auto-knee-gap to be set to false.
+
+* Small doco fixes.
+
+* Bugfix: repeats without alternatives.
+
+1.3.127.uu3
+============
+
+* Bugfix: staccato dot on outer staff lines.
+
+* Documentation: lots of updates and revisions.
+
+* \repeat tremolo for single notes, \repeat tremolo 4 c16
+produces the same effect as c4:16
+
+1.3.126.mb1
+===========
+
+* ly2dvi: bugfix --number.
+Added header field latexpackages, see input/test/orchestscore.ly
+
+* \mark: add possibility to use font selection markup, see input/test/mark.ly
+
+1.3.127
+=======
 
 * Grand Refman restructuring, featuring outline mode.
 

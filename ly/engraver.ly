@@ -292,12 +292,6 @@ ChordNamesContext = \translator {
 	}
 
 
-ScoreWithNumbers = \translator {
- 	\type "Score_engraver";
-
-	% uncomment to bar numbers on a whole system.
-	\consists "Bar_number_engraver";
-}
 
 StupidScore = \translator {
  	\type "Score_engraver";
@@ -307,10 +301,6 @@ StupidScore = \translator {
 
 
 
-BarNumberingStaffContext = \translator {
-	\StaffContext
-	\consists "Mark_engraver";
-}
 
 HaraKiriStaffContext = \translator {
 	\StaffContext
@@ -326,10 +316,8 @@ HaraKiriStaffContext = \translator {
   %\translator { \HaraKiriStaffContext }
 %}
 
-OrchestralPartStaffContext = \translator {
-	\StaffContext
-	\consists "Mark_engraver";
-}
+
+
 
 ScoreContext = \translator {
 	\type Score_engraver;

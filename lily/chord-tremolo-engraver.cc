@@ -20,6 +20,8 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "chord-tremolo-iterator.hh"
+#include "stem-tremolo.hh"
+#include "music-list.hh"
 
 /**
   This acknowledges repeated music with "tremolo" style.  It typesets
@@ -52,17 +54,18 @@ protected:
   Moment beam_start_location_;
 
   int note_head_i_;
-  
+
+  bool sequential_body_b_;
   Spanner * beam_p_;
   Spanner * finished_beam_p_;
-  
+  Item * stem_tremolo_;
 protected:
   virtual void finalize();
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep();
-  virtual void create_grobs ();
+  virtual void process_music ();
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver()
@@ -70,6 +73,8 @@ Chord_tremolo_engraver::Chord_tremolo_engraver()
   beam_p_  = finished_beam_p_ = 0;
   repeat_ =0;
   note_head_i_ = 0;
+  stem_tremolo_ = 0;
+  sequential_body_b_ = false;
 }
 
 bool
@@ -84,32 +89,50 @@ Chord_tremolo_engraver::try_music (Music * m)
       repeat_ = rp;
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;
+      sequential_body_b_ = dynamic_cast<Sequential_music*> (rp->body ());
 
       // ugh. should generate dots, triplet beams.      
       note_head_i_ = l.den () <? 4; 
       return true;
     }
+
   return false;
 }
 
 void
-Chord_tremolo_engraver::create_grobs ()
+Chord_tremolo_engraver::process_music ()
 {
-  if (repeat_ && !beam_p_)
+  if (repeat_)
     {
-      beam_p_ = new Spanner (get_property ("Beam"));
-      Beam::set_interface (beam_p_);
-      beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
+      if (sequential_body_b_ && !beam_p_)
+	{
+	  beam_p_ = new Spanner (get_property ("Beam"));
+	  Beam::set_interface (beam_p_);
+	  beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
 
-      SCM smp = get_property ("measurePosition");
-      Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-      beam_start_location_ = mp;
-      announce_grob (beam_p_, repeat_);
+	  SCM smp = get_property ("measurePosition");
+	  Moment mp
+	    =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+	  beam_start_location_ = mp;
+	  announce_grob (beam_p_, repeat_);
+	}
+      else if (!sequential_body_b_ && !stem_tremolo_)
+	{
+	  int flags = intlog2(note_head_i_ * repeat_->repeat_count ()) -2;
+	  if (flags)
+	    {
+	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
+	      Stem_tremolo::set_interface (stem_tremolo_);
+
+	      announce_grob (stem_tremolo_, repeat_);
+	      stem_tremolo_->set_grob_property ("tremolo-flags",
+						gh_int2scm (flags));
+
+	    }
+	}
     }
 }
-
-
 void
 Chord_tremolo_engraver::finalize ()
 {
@@ -117,12 +140,7 @@ Chord_tremolo_engraver::finalize ()
   if (beam_p_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
-#if 0
-      finished_beam_p_ = beam_p_;
-      typeset_beam ();
-#else
       beam_p_->suicide ();
-#endif
     }
 }
 
@@ -182,10 +200,18 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 		::warning (s);
 	    }
 	}
-      if (Note_head::has_interface (info.elem_l_))
-	{
-	  info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
-	}
+    }
+  else if (stem_tremolo_ && Stem::has_interface (info.elem_l_))
+    {
+       Stem_tremolo::set_stem (stem_tremolo_, info.elem_l_);
+
+       info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+    }
+
+  
+  if (repeat_ && Note_head::has_interface (info.elem_l_))
+    {
+      info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
     }
 }
 
@@ -207,6 +233,13 @@ void
 Chord_tremolo_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
+
+  if (stem_tremolo_)
+    {
+      typeset_grob (stem_tremolo_);
+      stem_tremolo_ = 0;
+    }
+  
 }
 
 ADD_THIS_TRANSLATOR(Chord_tremolo_engraver);

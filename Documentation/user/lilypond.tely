@@ -71,8 +71,9 @@ this and other documentation.
 * Bug reports:: 	           Where to report bugs.
 * ly2dvi::                         Generating nice output with titles.
 * convert-ly::                     Upgrading input files.
-* Conversion tools::                        Converting from MIDI input.
+* Conversion tools::               Converting from MIDI input.
 * Internals::                      How it all works.
+* Literature::                     additional reading
 * Index of internals:(lilypond-internals).  Auto generated detailed documentation.
 * Index::                  Unified index.
 * Function Index::         Function index.
