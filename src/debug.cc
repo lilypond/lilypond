@@ -1,5 +1,6 @@
 #include <fstream.h>
 #include <std/new.h>
+#include <stdlib.h>
 #include "debug.hh"
 #include "dstream.hh"
 #include "vector.hh"
@@ -33,3 +34,34 @@ set_debug(bool b)
 {
     check_debug =b;
 }
+
+
+#if 0 // want to debug mem functions
+
+
+/// 
+static
+void foobulize(void *p , size_t s)
+{
+//    assert(s < 2000000);
+    memset(p, 0xf0, s);
+}
+/**
+  trash a portion of memory. Make sure access to deleted stuff is bogus.
+  */
+void *
+operator new (size_t s)
+{
+    void *p = malloc(s);
+    assert(p);
+//    foobulize(p,s);
+    return p;
+}
+
+void
+operator delete(void *p, size_t s)
+{
+    foobulize(p,s);
+    free(p);
+}
+#endif
