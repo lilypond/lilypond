@@ -13,7 +13,10 @@ SHELL = /bin/sh
 r = debian/$(package)
 r_data = debian/$(package)-data
 r_doc = debian/$(package)-doc
+
+# FIXME: /usr
 d = usr/share/doc/$(package)
+info = /usr/share/info/$(package)
 
 include VERSION
 VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
@@ -104,10 +107,13 @@ binary-indep: build-doc install
 	dh_testroot
 	# Install LilyPond web documentation...
 	$(MAKE) prefix=$(PWD)/$(r_doc)/usr webdir=$(PWD)/$(r_doc)/$(d)/html out=www web-install
-	# Add symlinks to the PostScript docs and LilyPond logo PNGs ...
+	# Add symlinks to the PostScript docs and LilyPond logo PNGs for HTML...
 	cd $(r_doc)/$(d) \
 	    && cp -s `find html/Documentation -name '*.ps.gz'` . \
 	    && cp -s html/Documentation/pictures/out-www/*.png .
+	# Add symlinks to the PostScript docs and LilyPond logo PNGs for info...
+	cd $(r_doc)/$(info) \
+	    && cp -s ../../doc/$(package)/html/Documentation/user/out-www/*.png .
 #	# Copy the DVI docs too ...
 #	cp -a `find Documentation -name '*.dvi' ! -name 'lily-[0-9]*.dvi'` \
 #		$(r_doc)/$(d)/
