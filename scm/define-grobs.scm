@@ -5,7 +5,7 @@
 ;;;; (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;;; distances are given in stafflinethickness (thicknesses) and
+;;;; distances are given in linethickness (thicknesses) and
 ;;;; staffspace (distances)
 
 ;;;; WARNING: the meta field should be the last one.
@@ -480,7 +480,7 @@
     (LyricExtender
      . (
 	(molecule-callback . ,Lyric_extender::brew_molecule)
-	(thickness . 0.8) ; stafflinethickness;
+	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-extender-interface spanner-interface))))
@@ -1206,7 +1206,7 @@
 	(padding . 1)
 	(font-family . number)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(thickness . 1.6)  ;  stafflinethickness
+	(thickness . 1.6)  ;  linethickness
 	(height . 2.0) ; staffspace;
 	(minimum-space . 5)
 	(font-family . number)

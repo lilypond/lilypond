@@ -1,4 +1,4 @@
-\version "2.1.13"
+\version "2.1.14"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -97,7 +97,7 @@ verba = \context Lyrics = verba \lyrics {
     \verba
   >>
   \paper {
-    stafflinethickness = \staffspace / 7.0
+    linethickness = \staffspace / 7.0
     linewidth = 137.0\mm
     width = 137.0\mm
     indent = 0.0

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.14"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -219,7 +219,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 % do we want to keep these settings? -gp
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
-	stafflinethickness = #(/ staffspace 5.0)
+	linethickness = #(/ staffspace 5.0)
 	indent = 0.0
 	\translator {
 	    \ScoreContext

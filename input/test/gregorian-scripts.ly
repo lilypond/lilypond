@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.14"
 \header {
     title	= "Gregorian Scripts"
     texidoc     = "@cindex Gregorian Scripts
@@ -40,7 +40,7 @@ FIXME: padding/minimum-distance is fragile.
   }
   \paper {
     linewidth = 70.0
-    stafflinethickness = \staffspace / 5.0
+    linethickness = \staffspace / 5.0
     width = 60.0
     indent = 0.0
     raggedright = ##t

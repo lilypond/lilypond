@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 
 /**
-  TODO: add stafflinethickness as parameter.
+  TODO: add linethickness as parameter.
   */
 class Staff_symbol 
 {

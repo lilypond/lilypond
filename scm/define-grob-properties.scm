@@ -255,7 +255,7 @@ name of character within font.")
 (grob-property-description 'gap-count integer? "Number of gapped beams for tremolo.")
 
 (grob-property-description 'grow-direction ly:dir? "crescendo or decrescendo?.")
-(grob-property-description 'hair-thickness number? "thickness, measured in stafflinethickness.")
+(grob-property-description 'hair-thickness number? "thickness, measured in linethickness.")
 (grob-property-description 'head-pair pair? "Pair of grob pointers, pointing to the two heads of the tie.")
 (grob-property-description 'heads grob-list? "List of note heads.")
 (grob-property-description 'height ly:dimension? "in staffspace.")
@@ -460,8 +460,8 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 			   "Repeat text on broken text-spanner?")
 (grob-property-description 'text markup? "Text markup.  See the
 notation manual for more information.")
-(grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")
-(grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
+(grob-property-description 'thick-thickness number? "thickness, measured in linethickness.")
+(grob-property-description 'thickness number? "thickness, measured in linethickness.")
 (grob-property-description 'thin-kern number? "space after a hair-line.")
 (grob-property-description 'forced-distance ly:dimension? "forced distance for an alignment.")
 
