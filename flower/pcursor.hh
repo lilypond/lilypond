@@ -18,8 +18,8 @@ struct PCursor : private Cursor<void *> {
     void junk();
 public:
     Cursor<void*>::ok;
-    void del() { junk(); Cursor<void*>::del(); }
-    void backspace() { junk(); Cursor<void*>::backspace(); }
+    Cursor<void*>::del;
+    Cursor<void*>::backspace;
     T get() {
 	T p = ptr();
 	Cursor<void*>::del();
