@@ -19,7 +19,7 @@ PCol::rank() const
 {
     if(!pscore_)
 	return -1;
-    PCursor<PCol*> me=pscore_->find_col(this);
+    PCursor<PCol*> me=pscore_->find_col( (PCol*)this);
     if (!me.ok())
 	return -1;
     PCursor<PCol*> bot(pscore_->cols.top());
@@ -51,7 +51,7 @@ PCol::print() const
 int
 PCol::compare(const PCol &c1, const PCol &c2)
 {
-    return c1.pscore_->compare_pcols(&c1,&c2);
+    return c1.pscore_->compare_pcols((PCol*)&c1,(PCol*)&c2);
 }
 
 void
