@@ -693,7 +693,15 @@ score_body:
 		$$->header_ = $2;
 	}
 	| score_body output_def {
-		$$->defs_.push ($2);
+		if ($2->lookup_variable (ly_symbol2scm ("is-bookpaper")) =  SCM_BOOL_T)
+		{
+			THIS->parser_error (_("\\bookpaper cannot be in \\score. Use \\paper instead"));
+		
+		}
+		else
+		{
+			$$->defs_.push ($2);
+		}
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| score_body error {

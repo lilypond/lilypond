@@ -23,7 +23,14 @@ Global_context::Global_context (Output_def *o, Moment final)
   output_def_ = o;
   final_mom_ = final;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
-  unsmob_context_def (definition_)->apply_default_property_operations (this);
+
+  Context_def *globaldef  =  unsmob_context_def (definition_);
+  if (!globaldef)
+    {
+      programming_error ("No `Global' context found.");
+    }
+  else
+    globaldef->apply_default_property_operations (this);
   accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));
 }
 
