@@ -298,7 +298,7 @@ S: ambitus,
 FI: ambitus, @"a@"aniala, soitinala.
 
 The term ambit (from latin: ambitus, plural: ambitus) denotes a range
-of pitches for a given voice in a part of music. It also may denote
+of pitches for a given voice in a part of music. It may also denote
 the pitch range that a musical instrument is capable of playing.
 
 @aitem{ancient minor scale}
@@ -309,6 +309,8 @@ NL: authentieke mineurtoonladder,
 DK: ren mol,
 S: ren mollskala,
 FI: luonnollinen molliasteikko.
+
+@aref{diatonic scale} (ancient minor).
 
 @lilypond[notime]
 \set Score.automaticBars = ##f
@@ -339,7 +341,7 @@ S: f@"orslag,
 FI: appoggiatura, etuhele.
 
 Ornamental note, usually a second, that is melodically connected with the main
-note that follows it.  In music before the 19th century a. were usually
+note following it.  In music before the 19th century a. were usually
 performed on the beat, after that mostly before the beat.  While the short
 a. is performed as a short note regardless of the duration of the main note
 the duration of the long a. is proportional to that of the main note.
@@ -449,7 +451,7 @@ FI: k@"asinkirjoitettu nuotti.
 
 1. A manuscript in the composer's own hand.
 2. Music prepared for photoreproduction by freehand drawing,
-with only the aid of a straightedge ruler and T-square,
+with the aid of a straightedge ruler and T-square only,
 which attempts to emulate engraving.
 This required more skill than did engraving.
 
@@ -2149,7 +2151,7 @@ of such two forms an octave.
   < g c >^"perfect" s
   < g cis >^"augm"  s
   < g d' >^"perfect"  s
-  < g des' > ^"dim" s
+  < g des' > ^"dimin" s
   < gis es' >^"dimin"  s
   < g! es' >^"minor"  s
   < g e'! >^"major"  s
@@ -2297,8 +2299,8 @@ DK: legato,
 S: legato,
 FI: legato, sitoen.
 
-To be performed (a) without any perceptible interruption between the notes 
-unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
+To be performed (a) without any perceptible interruption between the notes, 
+unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 (d) @aref{staccato}.
 
 @lilypond[notime]
