@@ -1779,6 +1779,26 @@ Breath marks are entered using @code{\breathe}.  See also
 c'4 \breathe d4
 @end lilypond
 
+The glyph of the breath mark can be tweaked by overriding the
+@code{text} property of the @code{BreathingSign} grob with the name of
+any glyph of @ref{The Feta font}.  For example,
+
+@example
+  \property Voice.BreathingSign \override #'text = #"scripts-rvarcomma"
+  \breathe
+@end example
+
+gives the following result:
+
+@lilypond[fragment,relative]
+c'4
+\property Voice.BreathingSign \override #'text = #"scripts-rvarcomma"
+\breathe
+d4
+@end lilypond
+
+The default value for the @code{text} property is
+@code{scripts-rcomma}.
 
 @c .  {Tempo}
 @node Tempo

@@ -5,6 +5,9 @@
 	* buildscripts/mf-to-table.py: replaced \char -> \musicglyph to
 	work around font selection problem
 
+	* Documentation/user/refman.itely: BreathingSign: added docu for
+	property "text"
+
 2003-04-09  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* Documentation/topdocs/AUTHORS.texi (AUTHORS): Updated contact
