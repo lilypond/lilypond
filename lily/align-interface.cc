@@ -185,13 +185,16 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
     prevent ugly cyclic dependencies that arise when you combine
     self-alignment on a child with alignment of children.
   */
+ static SCM  prop_syms[2];
 
-  String s ("self-alignment-");
-
-  s += (a == X_AXIS) ? "X" : "Y";
-
-  SCM align (me->get_grob_property (s.ch_C ()));
-     
+  if (!prop_syms[0])
+    {
+      prop_syms[X_AXIS] = ly_symbol2scm ("self-alignment-X");
+      prop_syms[Y_AXIS] = ly_symbol2scm ("self-alignment-Y");
+    }
+  
+  SCM align (me->internal_get_grob_property (prop_syms[a]));
+  
   Array<Real> translates ;
   Interval total;
   Real where_f=0;

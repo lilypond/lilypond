@@ -100,9 +100,8 @@ Concaveness is calculated as the sum of the vertical distances of
 inner noteheads that fall outside the interval of the two outer
 noteheads, to the vertically nearest outer notehead, divided by the
 square of the inner notes involved.")
-(grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
-(grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
-(grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")
+(grob-property-description 'collapse-height number? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
+
 (grob-property-description 'columns list? "list of grobs, typically containing paper-columns.")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
@@ -452,3 +451,5 @@ columns.
 
 (grob-property-description 'if-text-padding number? "padding in case texts are there.")
 (grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")
+(grob-property-description 'position-callbacks list? "list of
+functions set spanner positions.")

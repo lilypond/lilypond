@@ -89,8 +89,6 @@ Mark_engraver::create_items (Request *rq)
   text_p_ = new Item (s);
 
 
-  Side_position_interface::set_axis (text_p_, Y_AXIS);
-
   announce_grob(text_p_, rq->self_scm());
 }
 

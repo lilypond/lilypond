@@ -284,4 +284,4 @@ ADD_INTERFACE (Side_position_interface,"side-position-interface",
   "Position a victim object (this one) next to other objects (the support).
 #'direction = where to put the victim object (left or right?)
 ",
-  "side-support-elements direction-source direction side-relative-direction minimum-space padding self-alignment-X self-alignment-Y");
+  "side-support-elements direction-source direction side-relative-direction minimum-space padding");

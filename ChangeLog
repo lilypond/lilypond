@@ -1,5 +1,9 @@
 2002-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/include/grob-interface.hh (ADD_INTERFACE): make
+	implementation for Class::has_interface automatically. Junk all
+	other implementations.
+
 	* lily/grob.cc (internal_get_grob_property): also typecheck
 	property reads. Catches even more undocced properties. Bugfixing
 	left for the uninspired masses.
