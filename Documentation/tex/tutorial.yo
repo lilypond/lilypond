@@ -187,7 +187,7 @@ remedy this, LilyPond has a ``relative'' octave entry mode.  In this
 mode, octaves of notes without quotes are chosen such that a note is
 as close as possible (graphically, on the staff) to the the preceding
 note.  If you add a high-quote an extra octave is added.  The lowered
-quote (a comma) will substract an extra octave.  Because the first note
+quote (a comma) will subtract an extra octave.  Because the first note
 has no predecessor, you have to give the (absolute) pitch of the note
 to start with.COMMENT(
 
@@ -596,7 +596,7 @@ code(3-), so code(d-min) is a minor code(d) chord.COMMENT(
 
 )A named modifier code(min) and a normal modifier code(7) do not have
 to be separated by a dot.  Tones from a chord are removed with chord
-substractions.  Substractions are started with a caret, and they are
+subtractions.  Subtractions are started with a caret, and they are
 also separated by dots.  In this example, code(g-7^3.5) produces a
 minor seventh.  The brace ends the sequential music. COMMENT(
 
@@ -795,7 +795,7 @@ bassvoices = \notes \relative c' {
         \midi { }
         \paper {
           indent = 0.0;
-          linewidth = 14.5 \cm; }
+          linewidth = 15.0 \cm; }
 })
 
 If it looks like incomprehensible gibberish to you... Then you are
@@ -987,7 +987,8 @@ beaming right.  It is called code(PianoStaff).COMMENT(
 )verb(indent = 0.0;)COMMENT(
 
 )To make some more room on the line, the first (in this case the only)
-line is not indented.
+line is not indented.  The line still looks is very cramped, but that is due
+to the format of this tutorial.
 
 This example shows a lot of features, but the organisation isn't
 perfect.  For example, it would be less confusing to use a chord

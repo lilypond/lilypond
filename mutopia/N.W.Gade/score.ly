@@ -8,7 +8,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 		"Statens Musikbibliotek, Stockholm, Sweden";
 }
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "global.ly"
 \include "wood.ly"
@@ -142,7 +142,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textStyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
-	beamAuto = 0; % Beams inserted explicitly as in the original.
+	noAutoBeaming = "1"; % Beams inserted explicitly as in the original.
     }
   }
 }

@@ -41,6 +41,7 @@ class Script_req : public virtual Request
 public:
   Direction dir_;
   VIRTUAL_COPY_CONS(Music);
+  Script_req ();
 };
 
 

@@ -7,7 +7,7 @@ enteredby = 	"Maarten Storm";
 instrument=	"Violoncello";
 }
 
-\version "1.1.66";
+\version "1.2.0";
 
 % this is an example of extreme dynamics
 

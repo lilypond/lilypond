@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "paper16.ly";
 \include "paper13.ly";

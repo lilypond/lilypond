@@ -199,3 +199,9 @@ Articulation_req::do_equal_b (Request*r) const
   
   return a &&  articulation_str_ == a->articulation_str_;
 }
+
+
+Script_req::Script_req ()
+{
+  dir_ = CENTER;
+}

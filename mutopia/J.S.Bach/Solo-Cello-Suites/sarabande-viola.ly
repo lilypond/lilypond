@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "sarabande-urtext.ly";
 
@@ -23,9 +23,9 @@ sarabande_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
-	\repeat "semi" 2 {
+	\repeat "volta" 2 {
 		s2.*12
-	} \repeat "semi" 2 {
+	} \repeat "volta" 2 {
 		s2.*16
 	}
 }

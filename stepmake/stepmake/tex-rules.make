@@ -10,7 +10,7 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 	  latex \\nonstopmode \\input $(<F)&&\
 	  (bibtex $(basename $(<F)) || true) && \
 	  latex \\nonstopmode \\input $(<F)&&\
-kk	  (makeindex $(basename $(<F)) || true) && \
+	  (makeindex $(basename $(<F)) || true) && \
 	  latex \\nonstopmode \\input $(<F) )
 
 $(outdir)/%.ps: $(outdir)/%.dvi

@@ -389,7 +389,7 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  re.sub ('\\repeat *\"?semi\"?','\\repeat "volta"', x)
+			x =  re.sub ('\\\\repeat *\"?semi\"?','\\\\repeat "volta"', x)
 			newlines.append (x)
 		return newlines
 
@@ -406,7 +406,18 @@ if 1:
 		return newlines
 
 	conversions.append ((1,1,67), conv,
-			    'beamAuto -> noAutoBeaming, automaticMelismas -> automaticMelismata',)
+			    'beamAuto -> noAutoBeaming')
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('automaticMelismas', 'automaticMelismata', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,2,0), conv,
+			    'automaticMelismas -> automaticMelismata')
 
 
 ############################

@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features: cadenza mode
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 
 cad = \notes  \relative c' {

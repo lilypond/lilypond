@@ -53,7 +53,7 @@ bassvoices = \notes \relative c' {
 	\midi { }
 	\paper {
 	  indent = 0.0;
-	  linewidth = 14.5 \cm; }
+	  linewidth = 15.0 \cm; }
 }
 
 	

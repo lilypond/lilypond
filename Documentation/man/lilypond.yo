@@ -4,6 +4,16 @@ COMMENT(
 	(PIPETHROUGH(echo -n `date '+%d/%b/%y'|tr '[a-z]' '[A-Z]'`)())
 )
 
+redef(cindex)(1)(\
+    whenlatex(latexcommand(\index{)ARG1+latexcommand(}))\
+    whentexinfo(XXnl()texinfocommand(@cindex )ARG1XXnl())\
+)
+
+redef(cindex)(1)(\
+    whenlatex(latexcommand(\index{)ARG1+latexcommand(}))\
+    whentexinfo(XXnl()texinfocommand(@cindex )ARG1XXnl())\
+)
+
 manpage(LilyPond)
        (1)
 	(1999)
@@ -121,7 +131,7 @@ dit(file(init.ly))
     file(PREFIX/share/lilypond/ly/). (file(PREFIX) typically is file(/usr/local)
 ))
 
-manspagesection(environment)
+manpagesection(environment)
 
 description(
 dit(LILYINCLUDE)
@@ -185,7 +195,7 @@ manpageauthor()
 cindex(Author)
 
 itemize(
-it()nemail(Han-wen Nienhuys)(hanwen@cs.uu.nl)
+it()nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl)
     lurl(http://www.cs.uu.nl/people/hanwen)
 it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org)
     lurl(http://www.xs4all.nl/~jantien)

@@ -10,7 +10,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.1.66";
+\version "1.2.0";
 upper = \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "italic"

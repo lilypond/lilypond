@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "gigue-urtext.ly";
 
@@ -23,13 +23,13 @@ gigue_cello_global = \notes{
 	\time 3/8;
 	\key f;
 	\clef bass;
-	\repeat "semi" 2 {
+	\repeat "volta" 2 {
 		\partial 8;
 		s8
 		s4.*31
 		s4
 		%\partial 4;
-	} \repeat "semi" 2 {
+	} \repeat "volta" 2 {
 		% urg
 		%s16 \partial 8; s16
 		s8

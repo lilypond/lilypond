@@ -15,20 +15,16 @@ version this was.
 nsubsect(Documentation: Introduction)
 
 itemize(
-it()url(The announcement of 0.1)(ANNOUNCE-0.1.html)
 it()url(DEDICATION)(DEDICATION.html)
 it()url(FAQs)(faq.html)
 it()url(The README)(DOEXPAND(tops)/README.html)
 it()url(The installation instructions)(DOEXPAND(tops)/INSTALL.html)
-it()url(Microsoft Windows instructions)(README-W32.html)
 )
 
 nsubsect(Why: Background Information)
 
 itemize(
 it() url(Why?)(AIMS.html)
-it() url(Design criteria)(MANIFESTO.html)
-it()url(The GNU Music project)(gnu-music.html)
 it()url(The lilypond
   logo (Big, format: .png))(DOEXPAND(pics)/lelieblond.png)
 it()url(The lilypond
@@ -43,7 +39,7 @@ it()url(User documentation)(../tex/DOEXPAND(outdir)/index.html)
 it()url(Hacker documentation)(../metadoc/DOEXPAND(outdir)/index.html)
 it()url(Manual pages)(../man/DOEXPAND(outdir)/index.html)
 it()url(Bibliography)(../bibliography/DOEXPAND(outdir)/)
-it()url(Musical vocabulary)(../tex/DOEXPAND(outdir)/vocabulary.html)
+it()url(Musical vocabulary)(../tex/DOEXPAND(outdir)/glossary.html)
 )
 
 nsubsect(The program)

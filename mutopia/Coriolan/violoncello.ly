@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.1.66";
+\version "1.2.0";
 
 violoncello = \notes \relative c {
 	c1\ff ~ | c | f,4-. r r2 | r1 | c'1\ff ~ | c | f,4-. r r2 |

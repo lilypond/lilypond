@@ -1,7 +1,7 @@
 % paper23.ly
 
 
-\version "1.1.66";
+\version "1.2.0";
 
 paper_twentythree = \paper {
 	staffheight = 23.0\pt;

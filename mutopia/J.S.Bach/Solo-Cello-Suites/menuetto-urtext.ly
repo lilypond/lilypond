@@ -110,8 +110,8 @@ menuetto_i_b_voice_urg_urg = \notes<
 >
 
 menuetto_i = \context Staff \notes<
-	\repeat "semi" 2 { \$menuetto_i_a_voice_urg_urg }
-	\repeat "semi" 2 { \$menuetto_i_b_voice_urg_urg }
+	\repeat "volta" 2 { \$menuetto_i_a_voice_urg_urg }
+	\repeat "volta" 2 { \$menuetto_i_b_voice_urg_urg }
 >
 
 menuetto_ii = \context Staff\notes \relative c {
@@ -148,4 +148,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	d2.
 }
 
-\version "1.1.66";
+\version "1.2.0";
