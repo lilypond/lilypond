@@ -233,9 +233,9 @@ Building the website requires some additional tools:
 
 @itemize @bullet
 @item The netpbm utilities, see @uref{http://netpbm.sourceforge.net/}
-@item pktrace 1.0 or newer, needed for generating PostScript Type1
-fonts. Get it from @uref{http://www.cs.uu.nl/~hanwen/pktrace/}.  You
-will need to install some additional packages to get pktrace to work.
+@item mftrace 1.0 or newer, needed for generating PostScript Type1
+fonts. Get it from @uref{http://www.cs.uu.nl/~hanwen/mftrace/}.  You
+will need to install some additional packages to get mftrace to work.
 @end itemize
 
 @section Building  LilyPond
@@ -349,7 +349,7 @@ with the sources.  You can make the rpm by issuing
 
 For compilation on a Red Hat system you need these packages, in
 addition to the those needed for running: glibc-devel, gcc-c++,
-libstdc++-devel, guile-devel, flex, bison, texinfo, groff, pktrace,
+libstdc++-devel, guile-devel, flex, bison, texinfo, groff, mftrace,
 netpbm-progs, autotrace, t1utils.
 
 

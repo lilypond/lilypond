@@ -27,7 +27,7 @@ list is alphabetically ordered.
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~matsb/}
     lots of testing, fixes, general comments and contributions.
-@item Laura Conrad (lconrad@@world.std.com)
+@item Laura Conrad (lconrad@@laymusic.org)
     fixes to abc2ly
 @item @email{Jan.A.Fagertun@@trondheim.online.no, Jan Arne Fagertun},
     @TeX{} titling and lytodvi.sh
@@ -40,19 +40,15 @@ list is alphabetically ordered.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Piano pedals, Emacs mode indentation, directed arpeggios.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
-    parts of Documentation/Vocab*
+    Glossary translations.
 @item @email{heikki.junes@@hut.fi, Heikki Junes}. 
     Finnish note names, updates to Emacs-mode
-@item Donald Ervin Knuth,  @uref{http://www-cs-staff.stanford.edu/~knuth/}
-    mf/ital-*.mf (these were taken from the CM fonts)
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     breathing signs
 @item @email{dlatt@@datenrat.de, Dirk Lattermann},
 	minor improvements on accidentals/ties/multi measure rests
 @item @email{wl@@gnu.org, Werner Lemberg},
     misc bugfixes, some Beam and Stem code. 
-@item @email{drl@@vuse.vanderbilt.edu, David R. Linn},
-    Mailing list maintenance.
 @item @email{,Adrian Mariano}
     Reference manual, tutorial fixes, glossary.
 @item @email{scancm@@biobase.dk,Christian Mondrup}
@@ -68,7 +64,7 @@ list is alphabetically ordered.
     testing
 @item @email{pinard@@iro.umontreal.ca, Francois Pinard},
     @uref{http://www.iro.umontreal.ca/~pinard/}
-    parts of Documentation/Vocab*, started internationalization stuff
+    parts of Documentation/user/glossary*, started internationalization stuff
 @c urg: @c,{} in @email{} barfs.
 @item @email{gperciva@@sfu.ca, Graham Percival},
     @uref{http://www.sfu.ca/~gperciva/}
@@ -82,8 +78,6 @@ list is alphabetically ordered.
 @item @email{reuterj@@ira.uka.de, Juergen Reuter}
         Ancient notation  support (custos, porrectus, mensural notation,
         ancient clefs, etc.)
-@item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
-    Windows-NT support.
 @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
 @item @email{rune@@zedeler.dk, Rune Zedeler}
