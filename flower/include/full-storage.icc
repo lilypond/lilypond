@@ -27,6 +27,7 @@ Full_storage::valid (int i, int j) const
 
 INLINE
 Full_storage::Full_storage (Full_storage const&s)
+  : Matrix_storage (s)
 {
   init();
   (*this) = s;
