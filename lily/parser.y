@@ -95,6 +95,7 @@ yylex(YYSTYPE *s,  void * v_l)
 
 %token BAR
 %token CADENZA
+%token CLEAR
 %token CLEF
 %token CM_T
 %token DURATIONCOMMAND
@@ -114,6 +115,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token MM_T
 %token MULTIVOICE
 %token NOTE
+%token NOTENAMES
 %token OCTAVECOMMAND
 %token OUTPUT
 %token PAPER
@@ -137,8 +139,12 @@ yylex(YYSTYPE *s,  void * v_l)
 %token UNITSPACE
 %token WIDTH
 
+/* escaped */
+%token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
+
 %token <i>	DOTS
 %token <i>	INT
+%token <melreq>	NOTENAME_ID
 %token <id>	REGS_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER 
@@ -179,7 +185,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
-%type <request>	post_request pre_request command_req 
+%type <request>	post_request pre_request command_req verbose_command_req abbrev_command_req
 %type <request>	pure_post_request pure_post_request_choice
 %type <request>	script_req textscript_req dynamic_req 
 %type <score>	score_block score_body
@@ -205,9 +211,23 @@ mudela:	/* empty */
 	}
 	| mudela add_declaration { }
 	| mudela error
+	| mudela add_notenames { }
 	;
 
-
+add_notenames:
+	NOTENAMES '{' notenames_body '}'
+	;
+notenames_body:
+	/**/	{
+	}
+	| notenames_body CLEAR	{
+		THIS->clear_notenames();
+	}
+	| notenames_body STRING '=' melodic_request {
+		THIS->add_notename(*$2, $4);
+		delete $2;
+	}
+	;
 /*
 	DECLARATIONS
 */
@@ -225,7 +245,7 @@ declarable_identifier:
 	}
 	| old_identifier { 
 		THIS->remember_spot();
-		$$ = new String($1->name); 
+		$$ = new String($1->name_str_); 
 		THIS->here_input().warning("redeclaration of `" + *$$ + "'");
 	}
 	;
@@ -424,7 +444,10 @@ staff_block:
 
 
 staff_init:
-	REGS_IDENTIFIER {
+	 STAFF_IDENTIFIER {
+		$$ = $1->staff(true);
+	}
+	| REGS_IDENTIFIER {
 		$$ = new Input_staff;
 		$$->ireg_p_ = $1->iregs(true);
 	}
@@ -502,7 +525,7 @@ music_voice_body:
 	| music_voice_body full_element {
 		$$->add_elt($2);
 	}
-	| music_voice_body voice_command {
+	| music_voice_body voice_command ';' {
 	}
 	| music_voice_body music_chord	{
 		$$->add($2);
@@ -565,7 +588,7 @@ command_elt:
 		$$-> set_spot( THIS->here_input());
 	}
 /* cont: */
-	command_req	{
+	command_req {
 		$2-> set_spot( THIS->here_input());
 		$$->add($2);
 
@@ -573,52 +596,60 @@ command_elt:
 	;
 
 command_req:
+	abbrev_command_req	
+	| verbose_command_req ';'	{ $$ = $1; }
+	;
+
+abbrev_command_req:
 	 '|'				{ 
 		$$ = new Barcheck_req;
 	}
-	| BAR STRING 			{
+	;
+
+verbose_command_req:
+	BAR STRING 			{
 		$$ = new Bar_req(*$2);
 		delete $2;
 	}
-	| METER '{' int '/' int '}'	{
+	| METER int '/' int 	{
 		Meter_change_req *m = new Meter_change_req;
-		m->set($3,$5);
+		m->set($2,$4);
 		// sorry hw, i need meter at output of track,
 		// but don-t know where to get it... statics should go.
 		// HW : default: 4/4, meterchange reqs may change it.
 		
-		Midi_def::num_i_s = $3;
-		Midi_def::den_i_s = $5;
+		Midi_def::num_i_s = $2;
+		Midi_def::den_i_s = $4;
 		$$ = m;
 	}
-	| SKIP '{' duration_length '}' {
+	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_ = *$3;
-		delete $3;
+		skip_p->duration_ = *$2;
+		delete $2;
 		$$ = skip_p;
 	}
-	| CADENZA '{' int '}'	{
-		$$ = new Cadenza_req($3);
+	| CADENZA int	{
+		$$ = new Cadenza_req($2);
 	}
-	| PARTIAL '{' duration_length '}'	{
-		$$ = new Partial_measure_req(*$3);
-		delete $3;
+	| PARTIAL duration_length 	{
+		$$ = new Partial_measure_req(*$2);
+		delete $2;
 	}
-	| STEM '{' int '}'		{
-		$$ = get_stemdir_req($3);
+	| STEM int 	{
+		$$ = get_stemdir_req($2);
 	}
 	| CLEF STRING {
 		$$ = new Clef_change_req(*$2);
 		delete $2;
 	}
-	| KEY '{' pitch_list '}' 	{	
+	| KEY pitch_list 	{	
 		Key_change_req *key_p= new Key_change_req;
-		key_p->melodic_p_arr_ = *$3;
+		key_p->melodic_p_arr_ = *$2;
 		$$ = key_p;
-		delete $3;
+		delete $2;
 	}
-	| GROUPING '{' intastint_list '}' {
-		$$ = get_grouping_req(*$3); delete $3;
+	| GROUPING intastint_list {
+		$$ = get_grouping_req(*$2); delete $2;
 	}
 	| GROUP STRING		{
 		$$ = new Group_change_req;
@@ -669,8 +700,8 @@ pure_post_request_choice:
 	URG!!
 */
 steno_melodic_req:
-	MELODIC_REQUEST_IDENTIFIER	{
-		$$ = $1->request(false)->clone()->melodic();
+	NOTENAME_ID	{
+		$$ = $1->clone()->melodic();
 		$$->octave_i_ += THIS->default_octave_i_;
 	}
 	| steno_melodic_req POST_QUOTES 	{  
@@ -730,16 +761,27 @@ close_request_parens:
 	| ']'	{ 
 		$$ = ']';
 	}
+	| E_SMALLER {
+		$$ = '<';
+	}
+	| E_BIGGER {
+		$$ = '>';
+	}
 	;
   
 open_request_parens:
-	')'	{ 
+	E_EXCLAMATION 	{
+		$$ = '!';
+	}
+	| ')'	{ 
 		$$=')';
 	}
 	| '['	{
 		$$='[';
 	}
 	;
+
+
 
 script_definition:
 	SCRIPT '{' script_body '}' 	{ $$ = $3; }
@@ -813,21 +855,30 @@ pre_request:
 	;
 
 voice_command:
-	PLET	'{' INT '/' INT '}'		{
-		THIS->default_duration_.set_plet($3,$5);
+	PLET	 INT '/' INT {
+		THIS->default_duration_.set_plet($2,$4);
 	}
-	| DURATIONCOMMAND '{' STRING '}'	{
-		THIS->set_duration_mode(*$3);
-		delete $3;
+	| DURATIONCOMMAND STRING {
+		THIS->set_duration_mode(*$2);
+		delete $2;
 	}
-	| DURATIONCOMMAND '{' notemode_duration '}'	{
-		THIS->default_duration_ = *$3;
-		delete $3;
+	| DURATIONCOMMAND notemode_duration {
+		THIS->default_duration_ = *$2;
+		delete $2;
 	}
-	| OCTAVECOMMAND { THIS->default_octave_i_ = 2; }
+	| OCTAVECOMMAND { 
+		/*
+			This is weird, but default_octave_i_
+			is used in steno_note_req too
+
+			c' -> default_octave_i_ == 1
+		*/
+		/* why can't we have \oct{0} iso \oct{c'}*/
+		THIS->default_octave_i_ = 1; }
 /* cont */
-	'{' steno_melodic_req '}'	{
-		THIS->default_octave_i_ = $4->octave_i_;
+	steno_melodic_req {
+		THIS->default_octave_i_ = $3->octave_i_;
+		delete $3;
 	}
 	| TEXTSTYLE STRING 	{
 		THIS->textstyle_str_ = *$2;
@@ -861,7 +912,10 @@ notemode_duration:
 explicit_duration:
 	int		{
 		$$ = new Duration;
-		$$->type_i_ = $1;
+		if ( !Duration::duration_type_b($1) )
+			THIS->parser_error("Not a duration");
+		else 
+			$$->type_i_ = $1;
 	}
 	| explicit_duration DOTS 	{
 		$$->dots_i_ = $2;
@@ -901,8 +955,8 @@ lyrics_elt:
 pitch_list:			{
 		$$ = new Array<Melodic_req*>;
 	}
-	| pitch_list MELODIC_REQUEST_IDENTIFIER	{
-		$$->push($2->request(false)->clone()->melodic());
+	| pitch_list NOTENAME_ID	{
+		$$->push($2->clone()->melodic());
 	}
 	;
 
