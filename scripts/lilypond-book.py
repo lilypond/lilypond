@@ -1,9 +1,9 @@
 #!@PYTHON@
 # vim: set noexpandtab:
 # TODO:
-# * junk --outdir for --output 
+# * junk --outdir for --output
 # * Figure out clean set of options.
-# * 
+# *
 # * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
 # * texinfo: add support for @pagesize
 
@@ -13,8 +13,8 @@
 #       fix it.)
 
 #
-# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips. 
-# 
+# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips.
+#
 
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
@@ -54,7 +54,7 @@ import __main__
 ## python 2.2 has another bug, see Sf.net bugtracker
 ##
 ## https://sourceforge.net/tracker/?func=detail&aid=604803&group_id=5470&atid=105470
-## 
+##
 
 if float (sys.version[0:3]) <= 2.1:
 	try:
@@ -98,7 +98,7 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 	program_version = '1.6.0'
 
 # if set, LILYPONDPREFIX must take prevalence
-# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+# if datadir is not set, we're doing a build and LILYPONDPREFIX
 datadir = '@local_lilypond_datadir@'
 
 if os.environ.has_key ('LILYPONDPREFIX') :
@@ -136,7 +136,7 @@ def setup_environment ():
 	# $TEXMF is special, previous value is already taken care of
 	if os.environ.has_key ('TEXMF'):
 		del os.environ['TEXMF']
- 
+
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
@@ -322,7 +322,7 @@ option_definitions = [
 	('EXT', 'f', 'format', 'use output format EXT (texi [default], latex, html)'),
 	('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
 	('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
-	('OPT', '', 'extra-options' , 'Pass OPT quoted to the lilypond command line'),
+	('OPT', '', 'extra-options' , 'pass OPT quoted to the lilypond command line'),
 	('DIM', '', 'force-music-fontsize', 'force fontsize for all inline lilypond. DIM is assumed be to in points'),
 	('DIM', '', 'force-lilypond-fontsize', 'deprecated, use --force-music-fontsize'),
 	('', 'h', 'help', 'this help'),
@@ -341,37 +341,38 @@ option_definitions = [
 
 # format specific strings, ie. regex-es for input, and % strings for output
 output_dict= {
-	'html' : {'output-lilypond': '''<lilypond%s>
+	'html' : {
+		'output-lilypond': '''<lilypond%s>
 %s
 </lilypond>''',
 		'output-filename' : r'''
 <!-- %s >
 <a href="%s">
-<pre>%s</pre></a>:''',	  
-		  'output-lilypond-fragment': '''<lilypond%s>
+<pre>%s</pre></a>:''',	
+		'output-lilypond-fragment': '''<lilypond%s>
 \context Staff\context Voice{ %s }
 </lilypond>''',
-		  'output-noinline': r'''
+		'output-noinline': r'''
 <!-- generated: %(fn)s.png !-->
 ''',
-		  ## maybe <hr> ?
-		  'pagebreak': None,
-		  'output-verbatim': r'''<pre>
+		## maybe <hr> ?
+		'pagebreak': None,
+		'output-verbatim': r'''<pre>
 %s
 </pre>''',
-  		  'output-small-verbatim': r'''<font size=-1><pre>
+		'output-small-verbatim': r'''<font size=-1><pre>
 %s
 </pre></font>''',
 
-		  ## Ugh we need to differentiate on origin:
-		  ## lilypond-block origin wants an extra <p>, but
-		  ## inline music doesn't.
-		  ## possibly other center options?
-		  'output-all': r'''
+		## Ugh we need to differentiate on origin:
+		## lilypond-block origin wants an extra <p>, but
+		## inline music doesn't.
+		## possibly other center options?
+		'output-all': r'''
 <a href="%(fn)s.png">
 <img align="center" valign="center" border="0" src="%(fn)s.png" alt="[picture of music]"></a>
 ''',
-		  },
+		},
 	'latex': {
 		'output-lilypond-fragment' : r'''\begin[eps,singleline,%s]{lilypond}
   \context Staff <
@@ -403,9 +404,10 @@ output_dict= {
 		'pagebreak': r'\pagebreak',
 		},
 	
-	'texi' : {'output-lilypond': '''@lilypond[%s]
+	'texi' : {
+		'output-lilypond': '''@lilypond[%s]
 %s
-@end lilypond 
+@end lilypond
 ''',
 		'output-filename' : r'''
 @ifnothtml
@@ -414,19 +416,19 @@ output_dict= {
 @ifhtml
 @uref{%s,@file{%s}}
 @end ifhtml
-''',	  
-		  'output-lilypond-fragment': '''@lilypond[%s]
+''',	
+		'output-lilypond-fragment': '''@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond ''',
-		  'output-noinline': r'''
-@c generated: %(fn)s.png		  
+		'output-noinline': r'''
+@c generated: %(fn)s.png		
 ''',
-		  'pagebreak': None,
-		  'output-small-verbatim': r'''@smallexample
+		'pagebreak': None,
+		'output-small-verbatim': r'''@smallexample
 %s
 @end smallexample
 ''',
-		  'output-verbatim': r'''@example
+		'output-verbatim': r'''@example
 %s
 @end example
 ''',
@@ -439,8 +441,8 @@ output_dict= {
 # should also support fragment in
 
 # ugh, the <p> below breaks inline images...
-		  
-		  'output-all': r'''
+		
+		'output-all': r'''
 @tex
 \catcode`\@=12
 \input lilyponddefs
@@ -484,7 +486,7 @@ def output_verbatim (body, small):
 
 # (?P  -- name parameter
 # *? -- match non-greedily.
-# (?m)  -- ?  
+# (?m)  -- ?
 re_dict = {
 	'html': {
 		 'include':  no_match,
@@ -611,6 +613,7 @@ def compose_full_body (body, opts):
 		music_size = g_force_music_fontsize
 	indent = ''
 	linewidth = ''
+	notime = ''
 	for o in opts:
 		if not g_force_music_fontsize:
 			m = re.match ('([0-9]+)pt', o)
@@ -641,12 +644,22 @@ def compose_full_body (body, opts):
 		
 	if 'singleline' in opts:
 		linewidth = 'linewidth = -1.0'
+		if not indent:
+			indent = 'indent = 0.0\mm'
 	elif not linewidth:
 		l = __main__.paperguru.get_linewidth ()
 		linewidth = 'linewidth = %f\pt' % l
 
 	if 'noindent' in opts:
 		indent = 'indent = 0.0\mm'
+
+	if 'notime' in opts:
+		notime = r'''
+\translator {
+  \StaffContext
+  \remove Time_signature_engraver
+}
+'''
 
 	for o in opts:
 		m= re.search ('relative(.*)', o)
@@ -667,23 +680,27 @@ def compose_full_body (body, opts):
 			body = '\\relative %s { %s }' %(pitch, body)
 	
 	if is_fragment:
-		body = r'''\score { 
- \notes { %s }
-  \paper { }  
-}''' % body
+		body = r'''
+\score {
+  \notes {
+%s
+  }
+}
+''' % body
 
 	opts = uniq (opts)
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
 	body = r'''
 %% Generated automatically by: lilypond-book.py
-%% options are %s  
+%% options are %s
 \include "paper%d.ly"
 \paper  {
   %s
   %s
-} 
-''' % (optstring, music_size, linewidth, indent) + body
+  %s
+}
+''' % (optstring, music_size, linewidth, indent, notime) + body
 
 	# ughUGH not original options
 	return body
@@ -824,7 +841,7 @@ def do_include_file(m):
 	"m: MatchObject"
 	return [('input', get_output ('pagebreak'))] \
 	     + read_doc_file(m.group('filename')) \
-	     + [('input', get_output ('pagebreak'))] 
+	     + [('input', get_output ('pagebreak'))]
 
 def do_input_file(m):
 	return read_doc_file(m.group('filename'))
@@ -834,7 +851,7 @@ def make_lilypond(m):
 		options = m.group('options')
 	else:
 		options = ''
-	return [('input', get_output('output-lilypond-fragment') % 
+	return [('input', get_output('output-lilypond-fragment') %
 			(options, m.group('code')))]
 
 def make_lilypond_file(m):
@@ -1257,11 +1274,12 @@ def options_help_str (opts):
 
 def help():
 	sys.stdout.write('''Usage: lilypond-book [options] FILE\n
-Generate hybrid LaTeX input from Latex + lilypond
+Generate hybrid LaTeX input from latex + lilypond.\n
 Options:
 ''')
 	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write (r'''Warning all output is written in the CURRENT directory
+	sys.stdout.write (r'''
+Warning: All output is written in the CURRENT directory.
 
 
 

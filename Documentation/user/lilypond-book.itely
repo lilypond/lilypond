@@ -264,6 +264,8 @@ of the code is used.
   The opposite of @code{singleline}: justify and break lines.
 @item linewidth=@var{size}@var{unit}
     Set linewidth to @var{size}, where @var{unit} = cm, mm, in or pt.
+@item notime
+    Don't print time signature.
 @item fragment
 @item nofragment
     Override @command{lilypond-book} auto detection of what type of code is in the

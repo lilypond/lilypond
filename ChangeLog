@@ -1,3 +1,17 @@
+2002-09-22  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py: Add option `notime' to suppress
+	printing of a time signature.  Specify default indentation of 0pt
+	if single line fragment.  Don't emit redundant `\paper{ }'.
+
+	* Documentation/user/lilypond-book.itely: Updated.
+
+	* Documentation/user/glossary.tely: Completely reformatting.
+
+2002-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in (top-web): generate (possibly empty) examples.html
+
 2002-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/tutorial.itely: Fix links.
@@ -76,9 +90,8 @@
 	* tex/lilyponddefs.tex: New dimension `\scoreshift'.
 
 	* Documentation/user/internals.itely: Improved formatting, fixing
-	typos
-	Added a section `Output details' to describe how the TeX code
-	looks like.
+	typos.  Added a section `Output details' to describe how the TeX
+	code looks like.
 
 2002-09-17  Rune Zedeler  <rune@zedeler.dk>
 

@@ -89,7 +89,7 @@ to compile them ourselves, they are not updated for every version
 released.
 
 @itemize @bullet
-@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat/RPMS/, Red Hat i386}
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat-7.x/, Red Hat i386}
 @item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE, SuSE}
 @item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/,
 LinuxPPC}
