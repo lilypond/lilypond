@@ -80,8 +80,6 @@ than the names being similar :-)"
 @node Top, , , (dir)
 @chapter GNU LilyPond --- The music typesetter
 
-@contents
-
 @menu
 * Tutorial::                       A tutorial introduction to lilypond.
 * Invoking LilyPond::              Operation.
@@ -95,6 +93,8 @@ than the names being similar :-)"
 @c the index can't refer to that.
 * Index::                          Unified index.
 @end menu
+
+@contents
 
 @macro keyindex {word}
 @cindex \word\

@@ -49,6 +49,7 @@ localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 
 backdoc-WWW: $(outdir)/lilypond-internals.html
+	$(MAKE) footify
 
 #ugh. lily/OUT/lilypond hardcoded.
 # when cross-compiling, we don't have lilypond
