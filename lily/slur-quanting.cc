@@ -73,7 +73,7 @@ struct Slur_score_parameters
   - better scoring.
   - short-cut: try a smaller region first.
   - collisions with accidentals
-  - collisions with scripts (staccato!)
+  - collisions with articulations (staccato, portato, sforzato, ...)
   - 
 */
 struct Encompass_info

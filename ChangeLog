@@ -1,3 +1,7 @@
+2004-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (EXTRA_DIST_FILES): Add SConstruct.
+
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* make/ly-vars.make (EXTRA_DIST_FILES): 
