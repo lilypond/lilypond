@@ -41,7 +41,7 @@ $(outdir)/%.log: %.mf
 	rm $(basename $< ).*gf
 
 $(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
-	mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
+	$(depth)/bin/$(outdir)/mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 localinstall:
 	$(INSTALL) -d $(MFDIR)/lilypond
