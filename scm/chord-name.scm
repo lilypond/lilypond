@@ -41,28 +41,32 @@
 (define-public chord::names-alist-banter '())
 (set! chord::names-alist-banter
       (append 
-	'(
+       `(
 	; C iso C.no3.no5
-	(((0 . 0)) . #f)
+	(((0 . 0)) . (,simple-markup ""))
 	; C iso C.no5
-	(((0 . 0) (2 . 0)) . #f)
+	(((0 . 0) (2 . 0)) . (,simple-markup ""))
 	; Cm iso Cm.no5
-	(((0 . 0) (2 . -1)) . ("m"))
+	(((0 . 0) (2 . -1)) . (,simple-markup "m"))
 	; C2 iso C2.no3
-	(((0 . 0) (1 . 0) (4 . 0)) . ("" (super "2") " "))
+	(((0 . 0) (1 . 0) (4 . 0)) . (,super-markup (,simple-markup "2 ")))
 	; C4 iso C4.no3
-	(((0 . 0) (3 . 0) (4 . 0)) . ("" (super "4") " " ))
+	(((0 . 0) (3 . 0) (4 . 0)) . (,super-markup (,simple-markup "4 ")))
 	;; Cdim iso Cm5-
-	(((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
+	(((0 . 0) (2 . -1) (4 . -1)) . (,simple-markup "dim"))
 	; URG: Simply C:m5-/maj7 iso Cdim maj7
-	(((0 . 0) (2 . -1) (4 . -1) (6 . 0)) . ("m" (super "5-/maj7" " ")))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . 0)) . (,line-markup ((,simple-markup "m") (,super-markup "5-/maj7 "))))
 	; URG: Simply C:m5-/7 iso Cdim7
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . ("m" (super "5-/7" " ")))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (,line-markup ((,simple-markup "m") (,super-markup "5-/7 "))))
 	; Co iso C:m5-/7-
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") " "))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (,super-markup (,simple-markup "o ")))
 	; Cdim9
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9") " "))
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" (super "11") " "))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . (,line-markup ((,simple-markup "dim")
+									(,simple-markup "9 "))))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1))
+	 . (,line-markup ((,simple-markup "dim")
+			  (,super-markup (,simple-markup "11 ")))))
+	
 	)
       chord::names-alist-banter))
 
@@ -85,14 +89,20 @@
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
 
+(define (accidental-markup acc)
+  (if (= acc 0)
+      (list simple-markup "")
+      (list musicglyph-markup (string-append "accidentals-" (number->string acc)))
+  ))
+
 (define (pitch->text pitch)
-  (text-append
+  (list line-markup
    (list
-    '(font-relative-size . 2)
-    (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
-   (accidental->text-super (caddr pitch))))
-
-
+    (list simple-markup
+	  (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
+    (list normal-size-superscript-markup
+	  (accidental-markup (caddr pitch))))))
+  
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly
 
@@ -120,14 +130,14 @@
 (define (step->text-banter pitch)
   (if (= (cadr pitch) 6)
       (case (caddr pitch)
-	((-2) '("7-"))
-	((-1) '("7"))
-	((0) '("maj7"))
-	((1) '("7+"))
-	((2) '("7+")))
+	((-2) (list simple-markup "7-"))
+	((-1) (list simple-markup "7"))
+	((0) (list simple-markup "maj7"))
+	((1) (list simple-markup "7+"))
+	((2) (list simple-markup "7+")))
       (step->text pitch)))
 
-(define pitch::semitone-vec (list->vector '(0 2 4 5 7 9 11)))
+(define pitch::semitone-vec #(0 2 4 5 7 9 11))
 
 (define (pitch::semitone pitch)
   (+ (* (car pitch) 12) 
@@ -163,32 +173,6 @@
 (define (chord::text? text)
   (not (or (not text) (null? text) (unspecified? text))))
 
-;; FIXME: remove need for me, use text-append throughout
-(define (chord::text-cleanup dirty)
-  "
-   Recursively remove '() #f, and #<unspecified> from markup text tree.
-   This allows us to leave else parts of (if # #) off.
-   Otherwise, you'd have to do (if # # '()), and you'd have to
-   filter-out the '() anyway.
-  "
-  (if (pair? dirty)
-      (let ((r (car dirty)))
-	(if (chord::text? r)
-	    (cons (if (pair? r) (chord::text-cleanup r) r)
-		  (chord::text-cleanup (cdr dirty)))
-	    (chord::text-cleanup (cdr dirty))))
-      (if (chord::text? dirty)
-	  dirty
-	  '())))
-
-(define (text-append l . r)
-  (if (not (chord::text? r))
-      l
-      (if (not (chord::text? l))
-	  r
-	  (if (null? (cdr r))
-	      (list 'columns l (car r))
-	      (text-append (list 'columns l (car r)) (cdr r))))))
 	   
 (define (chord::step tonic pitch)
  (- (pitch::note-pitch pitch) (pitch::note-pitch tonic)))
@@ -275,35 +259,47 @@
 
 (define (chord::additions->text-banter additions subtractions)
   (if (pair? additions)
-      (text-append
-       (let ((step (step->text-banter (car additions))))
-	 (if (or (pair? (cdr additions))
-		 (pair? subtractions))
-	     (text-append step "/")
-	     step))
-      (chord::additions->text-banter (cdr additions) subtractions))
-  '()))
+      (list line-markup
+	    (list 
+	     (let ((step (step->text-banter (car additions))))
+	       (if (or (pair? (cdr additions))
+		       (pair? subtractions))
+		   (list line-markup
+			 (list step (list simple-markup "/")))
+		   step))
+	     
+	     (chord::additions->text-banter (cdr additions) subtractions)))
+      (list simple-markup "")
+
+      ))
 
 (define (chord::subtractions->text-banter subtractions)	 
   (if (pair? subtractions)
-      (text-append
-       '("no")
-       (let ((step (step->text-jazz (car subtractions))))
-	 (if (pair? (cdr subtractions))
-			(text-append step "/")
-			step))
-       (chord::subtractions->text-banter (cdr subtractions)))
-      '()))
+      (list line-markup 
+	    (list simple-markup "no")
+	    (let ((step (step->text-jazz (car subtractions))))
+	      (if (pair? (cdr subtractions))
+		  (list line-markup (list  step (list simple-markup "/")))
+		  step))
+	    (chord::subtractions->text-banter (cdr subtractions)))
+      (list simple-markup "")
+      ))
 
 (define (chord::bass-and-inversion->text-banter bass-and-inversion)
   (if (and (pair? bass-and-inversion)
 	   (or (car bass-and-inversion)
 	       (cdr bass-and-inversion)))
-      (list "/" (if (car bass-and-inversion)
-		    (pitch->note-name-text-banter
-		     (car bass-and-inversion))
-		    (pitch->note-name-text-banter
-		     (cdr bass-and-inversion))))))
+      (list
+       line-markup
+       (list
+	(list simple-markup "/")
+	(pitch->note-name-text-banter	
+	 (if (car bass-and-inversion)
+	     (car bass-and-inversion)
+	     (cdr bass-and-inversion)))
+	))
+      (list simple-markup "")
+      ))
 
 ;; FIXME: merge this function with inner-name-jazz, -american
 ;;        iso using chord::bass-and-inversion->text-banter,
@@ -317,18 +313,26 @@
 				  bass-and-inversion steps)
   (let* ((tonic-text (pitch->chord-name-text-banter tonic steps))
 	 (except-text exception-part)
-	 (sep-text (if (and (string-match "super" (format "~s" except-text))
-			    (or (pair? additions)
-				(pair? subtractions)))
-		       (list simple-super "/")))
+	 (sep-text (list simple-markup
+			 (if (and (string-match "super" (format "~s" except-text))
+				  (or (pair? additions)
+				      (pair? subtractions)))
+			     "/" "") 
+		       ))
 	 (adds-text (chord::additions->text-banter additions subtractions))
 	 (subs-text (chord::subtractions->text-banter subtractions))
 	 (b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
-    (text-append
-     tonic-text except-text sep-text
-     ;;(list (list simple-super) adds-text subs-text)
-     (list (list '((raise . 1) (font-relative-size . -1))) adds-text subs-text)
-     b+i-text)))
+    
+    `(,line-markup
+      (,tonic-text
+       ,except-text
+       ,sep-text
+       (,raise-markup 0.3
+	(,line-markup (,adds-text ,subs-text))
+	)
+       ,b+i-text
+       ))
+    ))
 
 (define (c++-pitch->scm p)
   (if (ly:pitch? p)
@@ -339,14 +343,17 @@
 			    bass-and-inversion steps)
    (let ((additions (chord::additions unmatched-steps))
 	 (subtractions (chord::subtractions unmatched-steps)))
+     
      (chord::inner-name-banter tonic exception-part additions subtractions
 			       bass-and-inversion steps)))
 
 
 (define (chord::restyle name style)
-  (primitive-eval (string->symbol
-	    (string-append (symbol->string name)
-			   (symbol->string style)))))
+  (primitive-eval ;;   "UGGHGUGHUGHG"
+
+   (string->symbol
+    (string-append (symbol->string name)
+		   (symbol->string style)))))
 
 ;; check exceptions-alist for biggest matching part of try-steps
 ;; return (MATCHED-EXCEPTION . UNMATCHED-STEPS)
@@ -398,9 +405,14 @@
   (let* ((lookup (chord::exceptions-lookup style steps))
 	 (exception-part (car lookup))
 	 (unmatched-steps (cadr lookup)))
-    (chord::text-cleanup
-     ((chord::restyle 'chord::name- style)
-      tonic exception-part unmatched-steps bass-and-inversion steps))))
+    
+    ((chord::restyle 'chord::name- style)
+      tonic exception-part unmatched-steps bass-and-inversion steps)))
+
+(define (mydisplay x)
+  (display x)
+  (newline)
+  x)
 
 ;; C++ entry point
 ;; 
@@ -422,10 +434,7 @@
 					 (pitch::transpose x diff))
 				       (cdr pitches))
 		    '())))
-;    (display (chord::name->text style (car pitches) steps bass-and-inversion))
     (chord::name->text style (car pitches) steps bass-and-inversion)
-
-
     ))
 
 ;;;
@@ -846,3 +855,31 @@ If we encounter a chromatically altered step, turn on list-step
 	)
       ;; '()))
       chord::names-alist-american))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(define-public (new-chord-name-brew-molecule grob)
+  (let*
+      (
+       (style-prop (ly:get-grob-property grob 'style))
+       (style (if (symbol? style-prop) style-prop  'banter))
+       (chord (ly:get-grob-property grob 'chord))
+       (chordf (ly:get-grob-property grob 'chord-name-function))
+       (ws (ly:get-grob-property grob 'word-space))
+       (markup (chordf style chord))
+       (molecule (interpret-markup grob
+				   (cons '((word-space . 0.0))
+					 (Font_interface::get_property_alist_chain grob))
+				   markup))
+       )
+
+
+    ;;;  TODO: BUG : word-space is in local staff-space (?)
+    (if (number? ws)
+	(ly:combine-molecule-at-edge  molecule
+	 X RIGHT (ly:make-molecule "" (cons 0 ws) '(-1 . 1) )
+	 0.0)
+	molecule)
+	))
+

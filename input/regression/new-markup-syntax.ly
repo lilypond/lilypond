@@ -22,7 +22,9 @@ texidoc = "New markup syntax."
 		\combine "o" "/"
 		"$\\emptyset$"
 		\italic Norsk
+		\super "2"
 		\dynamic sfzp
+		\sub "alike"
 	}	
     c''4
     }

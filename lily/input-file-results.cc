@@ -36,7 +36,7 @@
 /*
   no ! suffix since it doesn't modify 1st argument.
  */
-LY_DEFINE(ly_set_point_and_click_x, "ly:set-point-and-click", 1, 0, 0,
+LY_DEFINE(ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
 	  (SCM what),
 	  "Set the options for Point-and-click source specials output. The\n"
 "argument is a symbol.  Possible options are @code{none} (no source specials),\n"

@@ -101,17 +101,30 @@
 (define-public (char-markup grob props . rest)
   "Syntax: \\char NUMBER. "
   (ly:get-glyph  (ly:get-font grob props) (car rest))
-		 
   )
+
 (define-public (raise-markup grob props  . rest)
   "Syntax: \\raise AMOUNT MARKUP. "
-  (ly:molecule-translate-axis (interpret-markup grob props (cadr rest))
+  (ly:molecule-translate-axis (interpret-markup
+			       grob
+			       props
+			       (cadr rest))
 			      (car rest) Y)
+  )
+
+(define-public (normal-size-superscript-markup grob props . rest)
+  (ly:molecule-translate-axis (interpret-markup
+			       grob
+			       props (car rest))
+			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
+			      Y)
   )
 
 (define-public (super-markup grob props  . rest)
   "Syntax: \\super MARKUP. "
-  (ly:molecule-translate-axis (interpret-markup grob props (car rest))
+  (ly:molecule-translate-axis (interpret-markup
+			       grob
+			       (cons '((font-relative-size . -2)) props) (car rest))
 			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
@@ -125,7 +138,10 @@
 
 (define-public (sub-markup grob props  . rest)
   "Syntax: \\sub MARKUP."
-  (ly:molecule-translate-axis (interpret-markup grob props (car rest))
+  (ly:molecule-translate-axis (interpret-markup
+			       grob
+			       (cons '((font-relative-size . -2)) props)
+			       (car rest))
 			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
@@ -160,12 +176,9 @@
       (cons sub-markup 'markup0)
       (cons super-markup 'markup0)
       (cons number-markup 'markup0)
-
       (cons column-markup 'markup-list0)
       (cons line-markup  'markup-list0)
-
       (cons combine-markup 'markup0-markup1)
-
       (cons simple-markup 'markup0)
       (cons musicglyph-markup 'scm0)
       (cons translate-markup 'scm0-markup1)
@@ -178,7 +191,6 @@
       (cons fontsize-markup 'scm0-markup1)
       (cons translate-markup 'scm0-markup1)
       ))
-
 
 (define markup-module (current-module))
 
@@ -218,3 +230,5 @@
 
 (define (markup-function? x)
 	(object-property 'markup-signature? x))
+
+
