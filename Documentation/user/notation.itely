@@ -4995,6 +4995,8 @@ c1 \mark \default
 @c umm, is the manual the right place for feature requests?  :)  -gp
 @c FIXME - should make that tunable.
 
+To use boxed bar numbers instead of letters, see @ref{Bar numbers}.
+
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
 manually.  The value to use is stored in the property
@@ -5070,7 +5072,7 @@ Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
 @subsection Bar numbers
 
 
-@cindex bar numbers
+@cindex Bar numbers
 @cindex measure numbers
 @cindex @code{currentBarNumber}
 
@@ -5084,6 +5086,20 @@ whose source is available as
 @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
 
 @lilypondfile[raggedright,quote]{bar-number-regular-interval.ly}
+
+Bar numbers can be typeset manually by tweaking the
+@code{markFormatter} property
+
+@lilypond[verbatim,raggedright,quote]
+\relative c' {
+  \set Score.markFormatter
+    = #(lambda (mark context)
+      (make-bold-markup
+        (make-box-markup (number->string (ly:context-property context 'currentBarNumber)))))
+
+  c1 \bar "||" \mark \default c1 c1 \mark \default c1 \bar "|."
+}
+@end lilypond
 
 Bar numbers can be manually changed by setting the
 @code{Staff.currentBarNumber} property
