@@ -2,23 +2,8 @@
 @setfilename ly2dvi.info
 @settitle ly2dvi
 
-@node  Top, , , 
-@menu
-* Ly2dvi DESCRIPTION::            Ly2dvi DESCRIPTION
-* Ly2dvi SYNOPSIS::               Ly2dvi SYNOPSIS
-* Ly2dvi OPTIONS::                Ly2dvi OPTIONS
-* Ly2dvi Features::               Ly2dvi Features
-* Ly2dvi Environment::            Ly2dvi Environment
-* Ly2dvi Files::                  Ly2dvi Files
-* Ly2dvi Initialization Sequence::Ly2dvi Initialization Sequence
-* Ly2dvi See Also::               Ly2dvi See Also
-* Ly2dvi Bugs::                   Ly2dvi Bugs
-* Ly2dvi Remarks::                Ly2dvi Remarks
-* Ly2dvi Authors::                Ly2dvi Authors
-@end menu
 @chapter Ly2dvi
 
-@node  Ly2dvi DESCRIPTION, , , Top
 @section DESCRIPTION
 ly2dvi is a Python script which creates input file for LaTeX,
 based on information from the output files from LilyPond.
@@ -32,12 +17,11 @@ one or more DVI files.
 The majority of this utility came from a bourne script written by Jan
 Arne Fagertun name @file{ly2dvi}. 
 
-@node  Ly2dvi SYNOPSIS, , , Top
 @section SYNOPSIS
 
         ly2dvi [options] inputfile[.ly] [....]
 
-@node  Ly2dvi OPTIONS, , , Top
+
 @section OPTIONS
 
 @table @samp
@@ -85,7 +69,7 @@ Arne Fagertun name @file{ly2dvi}.
     DVI file for each.
 @end table
 
-@node  Ly2dvi Features, , , Top
+
 @section Features
 
 ly2dvi responds to several parameters specified in the mudela
@@ -104,7 +88,6 @@ file. They are overridden by corresponding command line options.
     Specify name of papersize.
 @end table
 
-@node  Ly2dvi Environment, , , Top
 @section Environment
 
 @table @samp
@@ -116,7 +99,6 @@ file. They are overridden by corresponding command line options.
     Temporary directory name. Default is /tmp
 @end table
 
-@node  Ly2dvi Files, , , Top
 @section Files
 
 @file{titledefs.tex} is inspected for definitions used to extract
@@ -218,7 +200,6 @@ present.  Possible value is a valid directory specification that is
 writable to the user.
 @end table
 
-@node  Ly2dvi Initialization Sequence, , , Top
 @section Initialization Sequence
 The initialization process reads inputs for several sources.  Below is
 a list of priorities for lowest to hightest proirity.
@@ -236,12 +217,10 @@ a list of priorities for lowest to hightest proirity.
 Note that this differs slightly from the original bourne shell
 version. 
 
-@node  Ly2dvi See Also, , , Top
 @section See Also
 
 lilypond(1), tex(1), latex(1)
 
-@node  Ly2dvi Bugs, , , Top
 @section Bugs
 
 If you have found a bug, you should send a bugreport.
@@ -255,7 +234,6 @@ If you have found a bug, you should send a bugreport.
     to this mailinglist).
 @end itemize
 
-@node  Ly2dvi Remarks, , , Top
 @section Remarks
 
 Many papersizes are now supported. Information on other sizes
@@ -268,7 +246,6 @@ a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
 archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
 letter, note
 
-@node  Ly2dvi Authors, , , Top
 @section Authors
 Python Version author:
 @email{daboys@@austin.rr.com, Jeffrey B. Reed},

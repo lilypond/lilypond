@@ -14,6 +14,7 @@ StaffContext = \translator {
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
 	\consists "Tempo_performer";
+%	\consists "Span_dynamic_performer";
 	dynamicStyle = #"dynamic"
 };
 \translator { \StaffContext }
@@ -43,6 +44,7 @@ VoiceContext = \translator {
 	\name Voice;
 % All notes fall to Grace if you leave Thread out (huh?)
 	\consists "Dynamic_performer";   % must come before text_engraver.
+	\consists "Span_dynamic_performer";
 	\consists "Grace_position_performer";
 	\accepts Thread;
 	\accepts Grace;

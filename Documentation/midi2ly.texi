@@ -2,21 +2,15 @@
 @setfilename midi2ly.info
 @settitle midi2ly
 
-@node  midi2ly, , , Top
-@menu
-* midi2ly DESCRIPTION::           midi2ly DESCRIPTION
-* midi2ly OPTIONS::               midi2ly OPTIONS
-@end menu
+
 @chapter midi2ly
 
-@node  midi2ly DESCRIPTION, , , midi2ly
 @section DESCRIPTION
 midi2ly translates a MIDI input file to Mudela (GNU LilyPond source
 format).  midi2ly is part of the GNU LilyPond music typesetting package.
 
 	midi2ly [options] midi-file
 
-@node  midi2ly OPTIONS, , , midi2ly
 @section OPTIONS
 
 @table @samp

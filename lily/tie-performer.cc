@@ -23,10 +23,13 @@ Tie_performer::Tie_performer()
 bool
 Tie_performer::do_try_music (Music *m)
 {
-  if (Tie_req * c = dynamic_cast<Tie_req*> (m))
+  if (!req_l_)
     {
-      req_l_ = c;
-      return true;
+      if (Tie_req * c = dynamic_cast<Tie_req*> (m))
+	{
+	  req_l_ = c;
+	  return true;
+	}
     }
   return false;
 }

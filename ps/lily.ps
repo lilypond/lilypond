@@ -104,7 +104,7 @@
 } bind def 
 % 
 % this is for drawing slurs. 
-/draw_bezier_sandwich  % thickness  
+/draw_bezier_sandwich  % thickness controls 
 { 
 	setlinewidth 
 	moveto 
@@ -117,7 +117,18 @@
 	stroke 
 } bind def 
 % 
-/draw_dashed_slur 
+/draw_dashed_line % dash thickness width
+{ 
+	1 setlinecap 
+	1 setlinejoin 
+	setdash 
+	setlinewidth 
+	0 0 moveto
+	0 lineto
+	stroke 
+} bind def 
+%
+/draw_dashed_slur % dash thickness controls
 { 
 	1 setlinecap 
 	1 setlinejoin 
