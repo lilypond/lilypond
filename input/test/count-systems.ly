@@ -8,9 +8,9 @@
 }
 
 #(define (display-systemno smob)
-  (let* ((this-system (get-system smob))
-	 (systems (get-broken-into
-		   (get-original this-system))))
+  (let* ((this-system (ly:get-system smob))
+	 (systems (ly:get-broken-into
+		   (ly:get-original this-system))))
     (display smob)
     (display (list-index systems this-system))
     (newline)))
@@ -18,9 +18,9 @@
 
 #(define (display-system-count smob)
   (display (length
-	    (get-broken-into
-	     (get-original
-	      (get-system smob))))))
+	    (ly:get-broken-into
+	     (ly:get-original
+	      (ly:get-system smob))))))
 
   
   

@@ -1,8 +1,8 @@
-
+\version "1.7.3"
 
 fooBar = \notes { < c''4 \\ g'4 > }
 
-#(ly-set-parse-protect #f)
+#(ly:set-parse-protect #f)
 #(load-from-path "to-xml.scm")
 
 #(music-to-xml fooBar (current-output-port))

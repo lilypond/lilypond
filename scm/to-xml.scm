@@ -91,7 +91,7 @@ is then separated.
 (define (dump-duration d port)
  (display (open-tag 'duration
 	    `((log . ,(ly:duration-log d))
-	      (dots . ,(duration-dot-count d))
+	      (dots . ,(ly:duration-dot-count d))
 	      (numer . ,(car (ly:duration-factor d)))
 	      (denom . ,(cdr (ly:duration-factor d)))
 	      )

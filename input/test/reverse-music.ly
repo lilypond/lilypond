@@ -21,7 +21,7 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
          music 'element
          (reverse-music e)))
 
-    (if (dir? span-dir)
+    (if (ly:dir? span-dir)
         (ly:set-mus-property! music 'span-direction (- span-dir)))
 
     (map reverse-music reversed)
