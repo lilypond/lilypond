@@ -42,6 +42,7 @@ struct Identifier : public Input {
     IDACCESSOR(Request, request)
     IDACCESSOR(Score, score)
     IDACCESSOR(int, intid)
+    IDACCESSOR(Duration, duration)
 
 protected:
     virtual void do_print()const=0;
@@ -61,6 +62,7 @@ struct Idclass : Identifier {\
 
 
 DECLARE_ID_CLASS(Input_translator_id, Input_translator, input_translator);
+DECLARE_ID_CLASS(Duration_id, Duration, duration);
 DECLARE_ID_CLASS(Real_id, Real, real);
 DECLARE_ID_CLASS(Script_id, General_script_def, script);
 DECLARE_ID_CLASS(Lookup_id, Lookup, lookup);

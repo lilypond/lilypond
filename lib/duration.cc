@@ -22,22 +22,25 @@ int Duration::division_1_i_s = 384 * 4;
 
 Duration::Duration()
 {
-	type_i_ = 1;
-	dots_i_ = 0;
-	ticks_i_ = 0;
+  durlog_i_ = 0;
+  dots_i_ = 0;
+  ticks_i_ = 0;
+}
+
+Duration::Duration( int type_i, int dots_i = 0 )
+{
+  durlog_i_ = type_i;
+  dots_i_ = dots_i;
+  ticks_i_ = 0;
 }
 
 bool
 Duration::duration_type_b(int t)
 {
-    int bit_i=0;
-    while (t > 0)
-    {
-	int rem = t % 2;
-	t /= 2;
-	bit_i += (rem == 1);
-    }
-    return bit_i == 1;
+  /*
+    ugh. Assuming behavior of conversion funcs on broken input.
+   */
+  return t == Duration_convert::type2_i( Duration_convert::i2_type(t));
 }
 
 // ugh, what's this?
@@ -45,58 +48,40 @@ Duration::duration_type_b(int t)
 Moment
 Duration::length() const
 {
-    return Duration_convert::dur2_mom(*this);
+  return Duration_convert::dur2_mom(*this);
 }
 
 void
 Duration::set_plet(int i, int t)
 {
-    plet_.iso_i_ = i; 
-    plet_.type_i_ = t;
+  plet_.iso_i_ = i; 
+  plet_.type_i_ = t;
 }
 
 void
 Duration::set_plet(Duration d)
 {
-    plet_.iso_i_ = d.plet_.iso_i_; 
-    plet_.type_i_ = d.plet_.type_i_;
+  plet_.iso_i_ = d.plet_.iso_i_; 
+  plet_.type_i_ = d.plet_.type_i_;
 }
 
 void
 Duration::set_ticks( int ticks_i )
 {
-	assert( !type_i_ );
-	assert( !dots_i_ );
-	ticks_i_ = ticks_i;
+  assert( durlog_i_ <10 );
+  assert( !dots_i_ );
+  ticks_i_ = ticks_i;
 }
 
 String
 Duration::str()const
 {
-    return Duration_convert::dur2_str(*this);
+  return Duration_convert::dur2_str(*this);
 }
 
-Plet::Plet()
-{
-    type_i_ = 1;
-    iso_i_ = 1;
-}
-
-Moment
-Plet::mom()const
-{
-    return  Moment( iso_i_, type_i_ );
-}
 
 bool
 Duration::plet_b()
 {
-    return !plet_.unit_b();
+  return !plet_.unit_b();
 }
-
-bool
-Plet::unit_b()const
-{
-    return type_i_ == 1 && iso_i_ == 1;
-}
-
