@@ -1,3 +1,22 @@
+2003-09-09  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/vaticana-ligature-engraver.cc: bugfix: fixed programming
+	error message "flexa-width undefined"
+
+	* lily/vaticana-ligature-engraver.cc, lily/gregorian-ligature.cc,
+	lily/include/gregorian-ligature.hh: print warning when ignoring
+	head prefixes on flexa shapes
+
+	* lily/vaticana-ligature-engraver.cc: bugfix: always add an extra
+	space before a series of inclinatum heads
+
+	* lily/vaticana-ligature-engraver.cc, lily/gregorian-ligature.cc,
+	lily/include/gregorian-ligature.hh: junked AFTER_VIRGA; small
+	cleanups
+
+	* mf/parmesan-custodes.mf: redesigned custos; fixed stem length
+	and char_box
+
 2003-09-08  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/breathing-sign.ly: tiny fixes

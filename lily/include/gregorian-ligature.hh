@@ -9,6 +9,12 @@
 #ifndef GREGORIAN_LIGATURE_HH
 #define GREGORIAN_LIGATURE_HH
 
+class Gregorian_ligature {
+public:
+  static bool has_interface (Grob *);
+  static String prefixes_to_str (Grob *);
+};
+
 /*
  * Head prefixes: these bit-mask constants are used to represent
  * attributes immediately derived from user input (e.g. by the user
@@ -46,7 +52,6 @@
 			       // descending melody
 #define FLEXA_RIGHT     0x0008 // this is a head after "\~" in a
 			       // descending melody
-#define AFTER_VIRGA     0x0010 // previous head was a virga
 #define AFTER_DEMINUTUM 0x0020 // previous head was a deminutum
 
 #endif /* GREGORIAN_LIGATURE_HH */
