@@ -1,3 +1,16 @@
+1.3.25.jcn1
+===========
+
+* Added ascii slur and volta.  There seems to be a Lily bug in volta placement.
+
+* Bugfix: print identification string 'GNU LilyPond ...' onto stderr
+
+* Bugfix: default font now user settable
+
+* as2text: handle plain ascii font, read from stdin, you can now do:
+
+  echo "\time 4/4; g''1 g2 g4. g8" | lilypond -f as -i init-as.fly - | as2text
+
 1.3.24.jcn4
 ===========
 

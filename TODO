@@ -10,6 +10,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * control paper-size/-file from commandline ?
+  lilypond --paper=paper16 foo.ly
+  lilypond --paper=paper20 foo.ly
+  lilypond --paper=paper-as9 foo.ly
 . * fix tremolos.
 . * change ) c4  to c4-)
 . * internationalize GUILE msgs.

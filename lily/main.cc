@@ -130,7 +130,7 @@ _(
 void
 identify ()
 {
-  cout << gnu_lilypond_version_str () << endl;
+  cerr << gnu_lilypond_version_str () << endl;
 }
 
 void

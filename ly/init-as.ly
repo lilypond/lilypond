@@ -9,6 +9,7 @@
   '(("bold" . "cmbx") 
     ("brace" . "as-braces")
     ("dynamic" . "cmr") 
+    ("default" . "as-dummy") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 
     ("feta-2" . "feta") 
