@@ -71,7 +71,7 @@ TODO:
 #include "input-smob.hh"
 #include "event.hh"
 #include "text-item.hh"
-
+#include "music-list.hh"
 
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
@@ -794,17 +794,30 @@ Repeated_music:
 		r->set_mus_property ("repeat-count", gh_int2scm (times >? 1));
 
 		r-> set_mus_property ("elements",alts);
-		if (gh_equal_p ($2, scm_makfrom0str ("tremolo")))
-		{
-		/*
-		we can not get durations and other stuff correct down the line, so we have to
-		add to the duration log here.
-		*/
-			SCM func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
-			if (($3 % 3) == 0)
-			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3*2/3)),gh_int2scm(1));
-			else
-			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)), gh_int2scm(0));
+		if (gh_equal_p ($2, scm_makfrom0str ("tremolo"))) {
+			/*
+			we can not get durations and other stuff correct down the line, so we have to
+			add to the duration log here.
+			*/
+			static SCM func;
+
+			if (!func)
+				func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
+
+			int dots = ($3 % 3) ? 0 : 1;
+			int shift = -intlog2 ((dots) ? ($3*2/3) : $3);
+
+			Sequential_music * seq = dynamic_cast<Sequential_music*> ($4);
+			
+			if (seq) {
+				int list_len =scm_ilength (seq->music_list ());
+				if (list_len != 2)
+					seq->origin ()->warning ("Chord tremolo must have 2 elements.");
+				shift -= 1;
+				r->compress (Moment (Rational (1,list_len)));
+				}
+			gh_call3 (func, r->self_scm (), gh_int2scm(shift),gh_int2scm(dots));
+
 		}
 		r->set_spot (*$4->origin ());
 

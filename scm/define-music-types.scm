@@ -607,7 +607,7 @@ For example, transposed music.")
 	(types . (general-music repeated-music percent-repeated-music))
 	))
     
-    (TremoloRepeteadMusic
+    (TremoloRepeatedMusic
      . (
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
 	(description .  "Repeated notes denoted by tremolo beams.")
@@ -682,7 +682,7 @@ For example, transposed music.")
 		'(("volta" . VoltaRepeatedMusic)
 		  ("unfold" . UnfoldedRepeatedMusic)
 		  ("percent" . PercentRepeatedMusic)
-		  ("tremolo" . TremoloRepeteadMusic)
+		  ("tremolo" . TremoloRepeatedMusic)
 		  ("fold" . FoldedRepeatedMusic)
 		  )))
        (music-name

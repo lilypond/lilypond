@@ -1,5 +1,11 @@
 2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (Repeated_music): bug fix beam multiplicity was
+	completely borked 
+
+	* lily/chord-tremolo-engraver.cc (try_music): warnings for user-errors.
+	(try_music): bug fix: beam multiplicity was completely borked.
+
 	* scm/lily.scm: remove tail, filter-list, filter-out-list,
 	first-n, butfirst-n in favor of srfi-1 functions.
 	remove string-join, string-pad in favor of srfi-13 functions.
