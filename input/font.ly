@@ -30,8 +30,8 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		\multi 2 < { \stemup c1 } {\stemdown r1}>		
 		\stemboth
 		
-		c8_. c''8-> c16^^ c16_^ 
-		c32 _| c32^| g''32-\ltoe g''32-\lheel
+		e8_. g'8-> e16^^ g'16_^ 
+		e32 _| g'32^| g''32-\ltoe g''32-\lheel
 		}
 	\paper{ 
 	    gourlay_maxmeasures =5.;
@@ -42,6 +42,6 @@ TestedFeatures =	 "This file tests the Feta music-font"
 	    \output "lelie20.tex";
 	}
 % oeps
-	\midi{ }
+%	\midi{ }
 }
 
