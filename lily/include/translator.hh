@@ -44,7 +44,7 @@ public:
   
   Translator_group * daddy_trans_ ;
   void removal_processing ();
-  Music_output_def *get_output_def () const;
+  virtual Music_output_def *get_output_def () const;
 
   SCM internal_get_property (SCM symbol) const;
   
