@@ -80,6 +80,7 @@ There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 . * spacing of mmrests.
+. * mem leak: redo p-score object deletion.
 
 .* Cleanups needed
 . * Beam

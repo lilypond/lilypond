@@ -1,3 +1,9 @@
+pl 38.uu1
+	- bf: clef_8
+	- bf: barnumbers.
+
+********
+pl 38 (april 6)
 pl 37.script2
 	- bf: AFM for BlueSky AFM files.
 	- \penalty = 4278 -> \penalty 4278

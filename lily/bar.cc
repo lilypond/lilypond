@@ -24,7 +24,12 @@ void
 Bar::do_print () const
 {
 #ifndef NPRINT
-    //  DOUT << type_str_; "{[" confuse  indenter.
+  String s = type_str_;
+  if (s  == "{")
+    s = "brace";
+  if (s == "[")
+    s = "bracket";
+  DOUT << "type = " << s;
 #endif
 }
 
