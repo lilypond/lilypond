@@ -973,7 +973,7 @@ music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
 @lilypond[fragment,staffsize=11]
-\set Score.TimeSignature =\turnOff
+\override Score.TimeSignature #'break-visibility = #all-invisible
 \context PianoStaff <<
   \context Staff = SA \relative c' {
     \key bes \major
@@ -2665,7 +2665,7 @@ The briefest intelligible and self-contained fragment of a musical theme or
 subject.
 
 @lilypond[fragment]
-\set Score.TimeSignature = \turnOff
+\override Score.TimeSignature #'break-visibility = #all-invisible
 %\override Score.TextScript #'font-style = #'large
 \relative c'' {
   \time 4/4

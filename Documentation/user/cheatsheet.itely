@@ -18,7 +18,7 @@
 @tab
 @lilypond[fragment,relative=2,notime]
 \set Staff.autoBeaming = ##f
-\set Staff.Clef = \turnOff
+\override Staff.Clef #'break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
 
@@ -26,7 +26,7 @@ c1 c2 c8 c16
 @tab augmentation dots
 @tab
 @lilypond[fragment,relative=2,notime]
-\set Staff.Clef = \turnOff
+\override Staff.Clef #'break-visibility = #all-invisible
 c4. c4..  
 @end lilypond
 
@@ -70,7 +70,7 @@ s16_" "
 @tab rest 
 @tab
 @lilypond[relative=2,notime,fragment]
-\set Staff.Clef = \turnOff
+\override Staff.Clef #'break-visibility = #all-invisible
 r4 r8
 @end lilypond
 
@@ -116,7 +116,7 @@ c c,
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c( d e)
 @end lilypond
@@ -127,7 +127,7 @@ c( d e)
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c\(  c( d) e\)
 @end lilypond
@@ -138,7 +138,7 @@ c\(  c( d) e\)
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a8-[ b-]
 @end lilypond
@@ -157,7 +157,7 @@ a8-[ b-]
 @tab articulations
 @tab
 @lilypond[fragment,relative=2]
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 c-> c-.
 @end lilypond
 
@@ -166,7 +166,7 @@ c-> c-.
 @tab dynamics
 @tab
 @lilypond[fragment,relative=2]
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 c\mf c\sfz
 @end lilypond
 
@@ -176,7 +176,7 @@ c\mf c\sfz
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\< a \!a
 @end lilypond
@@ -186,7 +186,7 @@ a\< a \!a
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+\override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\> a a\!
 @end lilypond
