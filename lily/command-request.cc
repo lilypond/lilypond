@@ -13,6 +13,7 @@
 void
 Command_script_req::do_print() const
 {}
+Command_script_req::Command_script_req(){}
 
 IMPLEMENT_IS_TYPE_B1(Command_script_req,Command_req);
 
@@ -22,7 +23,17 @@ IMPLEMENT_IS_TYPE_B1(Cadenza_req, Timing_req);
 void
 Cadenza_req::do_print()const
 {
+#ifndef NPRINT
     mtor << on_b_;
+#endif
+}
+
+bool
+Cadenza_req::do_equal_b(Request*r)const
+{
+    Cadenza_req*cad =  r->command()->timing()->cadenza();
+    
+    return cad->on_b_ == on_b_;
 }
 
 Cadenza_req::Cadenza_req(bool b)
@@ -32,10 +43,11 @@ Cadenza_req::Cadenza_req(bool b)
 /* *************** */
 
 
-int
-Bar_req::compare(Bar_req const &c1)const
+bool
+Bar_req::do_equal_b(Request*r)const
 {
-    return type_str_ == c1.type_str_;
+    Bar_req * b = r->command()->bar();
+    return type_str_ == b->type_str_;
 }
 
 
@@ -56,7 +68,14 @@ Partial_measure_req::Partial_measure_req(Moment m)
 {
     duration_ =m;
 }
-/* *************** */
+
+bool
+Partial_measure_req::do_equal_b(Request* r)const
+{
+    Partial_measure_req *p = r->command()->timing()->partial();
+
+    return p->duration_ == duration_;
+}
 
 
 IMPLEMENT_IS_TYPE_B1(Timing_req,Command_req);
@@ -83,6 +102,11 @@ IMPLEMENT_IS_TYPE_B1(Barcheck_req,Timing_req);
 void
 Barcheck_req::do_print() const{}
 
+bool
+Barcheck_req::do_equal_b(Request*)const
+{
+    return true;
+}
 /* *************** */
 
 IMPLEMENT_IS_TYPE_B1(Clef_change_req,Command_req);
@@ -128,13 +152,18 @@ IMPLEMENT_IS_TYPE_B1(Meter_change_req,Timing_req);
 void
 Meter_change_req::do_print() const
 {
+#ifndef NPRINT
     mtor << beats_i_ << "/" << one_beat_i_;
+#endif
 }
 
-int
-Meter_change_req::compare(Meter_change_req const &m)
+bool
+Meter_change_req::do_equal_b(Request * r)const
 {
-    return m.beats_i_ == beats_i_ && one_beat_i_ == m.one_beat_i_;
+    Meter_change_req * m = r->command()->timing()->meterchange();
+    
+    return m->beats_i_ == beats_i_ 
+	&& one_beat_i_ == m->one_beat_i_;
 }
 
 Meter_change_req::Meter_change_req()
@@ -150,6 +179,28 @@ Meter_change_req::set(int b,int o)
     one_beat_i_=o;
 }
 
+
+Tempo_req::Tempo_req()
+{
+    metronome_i_ = 60;
+    dur_. type_i_ = 4;
+}
+
+void
+Tempo_req::do_print()const
+{
+    mtor << dur_.str() << " = " <<metronome_i_ ;
+}
+IMPLEMENT_IS_TYPE_B1(Tempo_req, Timing_req);
+
+bool
+Tempo_req::do_equal_b(Request *r)const
+{
+    Tempo_req *t = r->command()->timing()->tempo();
+    
+    return t->dur_.length()== dur_.length() && metronome_i_ == t->metronome_i_;
+}
+
 /* *************** */
 
 
@@ -162,6 +213,14 @@ Measure_grouping_req::do_print() const
 	mtor << beat_i_arr_[i] <<"*" << elt_length_arr_[i]<<" ";
     }
 }
+
+
+bool 
+Measure_grouping_req::do_equal_b(Request*)const
+{
+    return false;		// todo
+}
+
 /* *************** */
 
 void
