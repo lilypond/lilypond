@@ -7,15 +7,15 @@
   
  */
 
-#ifndef NGRACE_MUSIC_HH
-#define NGRACE_MUSIC_HH
+#ifndef GRACE_MUSIC_HH
+#define GRACE_MUSIC_HH
 
 #include "music-wrapper.hh"
 
 class Grace_music : public Music_wrapper
 {
 public:
-  Music *clone () const { return Grace_music (*this); } 
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Grace_music);
   Grace_music ();
 protected:
   virtual Moment get_length () const;

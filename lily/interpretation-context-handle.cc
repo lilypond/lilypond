@@ -21,13 +21,6 @@ Interpretation_context_handle::Interpretation_context_handle (Interpretation_con
     up (s.outlet_);
 }
 
-Interpretation_context_handle*
-Interpretation_context_handle::clone () const
-{
-  Interpretation_context_handle* handle = new Interpretation_context_handle;
-  handle->outlet_ = this->outlet_;
-  return handle;
-}
 
 Interpretation_context_handle::~Interpretation_context_handle ()
 {
