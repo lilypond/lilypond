@@ -15,10 +15,10 @@
 
 /*
   TODO:
-  
-  ALGRGRRGRG
 
-  Derive this from Slur_engraver. This code is completely duplicate.
+  copy from new slur engraver. This code handles nesting (which
+  doesn't exist for slurs)
+  
 */
 class Phrasing_slur_engraver : public Engraver
 {
