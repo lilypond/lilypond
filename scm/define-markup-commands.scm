@@ -83,7 +83,7 @@ determines the space between each markup in @var{args}."
                     arg))
 
 (def-markup-command (fontsize paper props mag arg) (number? markup?)
-  "This sets the relative font size, eg.
+  "This sets the relative font size, e.g.
 @example
 A \\fontsize #2 @{ B C @} D
 @end example
@@ -163,8 +163,8 @@ some punctuation. It doesn't have any letters.  "
 
 (def-markup-command (dynamic paper props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
-@b{z}, @b{p}, and @b{r}.  When producing phrases, like ``piu @b{f}'', the
-normal words (like ``piu'') should be done in a different font.  The
+@b{z}, @b{p}, and @b{r}.  When producing phrases, like ``più @b{f}'', the
+normal words (like ``più'') should be done in a different font.  The
 recommend font for this is bold and italic"
   (interpret-markup
    paper (prepend-alist-chain 'font-encoding 'dynamic props) arg))
@@ -394,7 +394,7 @@ and/or @code{extra-offset} properties. "
     (lambda (z) (inexact->exact (/ (log z) divisor)))))
 
 (define (parse-simple-duration duration-string)
-  "Parse the `duration-string', eg ''4..'' or ''breve.'', and return a (log dots) list."
+  "Parse the `duration-string', e.g. ''4..'' or ''breve.'', and return a (log dots) list."
   (let ((match (regexp-exec (make-regexp "(breve|longa|maxima|[0-9]+)(\\.*)") duration-string)))
     (if (and match (string=? duration-string (match:substring match 0)))
         (let ((len  (match:substring match 1))

@@ -63,7 +63,7 @@ the attachments to prevent ugly slurs.  [fixme: we need more
 documentation here].")
 
 
-     (auto-knee-gap ,ly:dimension? "If a gap is found between noteheads
+     (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
 where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
      (axes ,list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
@@ -106,7 +106,7 @@ called before line breaking, but after splitting breakable items at
 potential line breaks.")
      (between-cols ,pair? "Where to attach a loose column to")
      (between-system-string ,string? "string
- to dump between two systems. Useful for forcing pagebreaks.")
+ to dump between two systems. Useful for forcing page breaks.")
      (bracket-thick ,number? "width of a system start bracket.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
@@ -126,10 +126,10 @@ Clefs are put after key signatures by setting
 	  time-signature))
 @end example")
      (break-glyph-function ,procedure? "This function determines the
-appearance of a barline at the line break.  It takes a glyph and
+appearance of a bar line at the line break.  It takes a glyph and
 break-direction and returns the glyph at a line break.")
      (breakable ,boolean? "Can this object appear at a line break,
-like clefs and barlines?")
+like clefs and bar lines?")
      (c0-position ,integer? "An integer indicating the position of
 middle C.")
      (cautionary-style ,symbol? "How to print cautionary
@@ -138,14 +138,14 @@ accidentals. Choices are @code{smaller} or
      (cautionary ,boolean? "Is this a cautionary accidental?")
      (concaveness-gap ,ly:dimension? "A beam is printed horizontally
 if its concaveness-gap is larger than this value.  The concaveness-gap
-is the distance of an inner notehead to the line between two outer
-noteheads. ")
+is the distance of an inner note head to the line between two outer
+note heads. ")
      (concaveness-threshold ,number? "A beam is printed horizontally
 if its concaveness is bigger than this threshold.
 
 Concaveness is calculated as the sum of the vertical distances of
-inner noteheads that fall outside the interval of the two outer
-noteheads, to the vertically nearest outer notehead, divided by the
+inner note heads that fall outside the interval of the two outer
+note heads, to the vertically nearest outer note head, divided by the
 square of the inner notes involved.")
      (collapse-height ,ly:dimension? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
@@ -187,7 +187,7 @@ mean center distance weighted per note
      
      (direction ,ly:dir? "Up or down, left or right?")
      (dot-count ,integer? "The number of dots.")
-     (duration-log ,integer? "The 2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
+     (duration-log ,integer? "The 2-log of the note head duration, i.e. 0=whole note, 1 = half note, etc.")
      (edge-height ,pair? "A pair of number specifying the heights of
 the vertical edges '(@var{left-height} . @var{right-height}).")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
@@ -212,7 +212,7 @@ engine is completely oblivious to it.")
 
       ;; docme.
      (extremity-offset-alist ,list? "The offset adds to the centre of
-the notehead, or stem.
+the note head, or stem.
 
 Format: alist (attachment stem-dir*dir slur-dir*dir) -> offset.
 ")
@@ -273,7 +273,7 @@ within font, to use for printing a symbol.")
 of the @code{spacing-increment}.")
 
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
-     (hair-thickness ,number? "Thickness of the thin line in a barline.")
+     (hair-thickness ,number? "Thickness of the thin line in a bar line.")
      (height ,ly:dimension? "Height of an object in staffspace.")
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
 slur, the closer it is to this height.")
@@ -282,7 +282,7 @@ slur, the closer it is to this height.")
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
      (kern ,ly:dimension? "Amount of extra white space to add. For
-barline, this is the amount of space after a thick line.")
+bar line, this is the amount of space after a thick line.")
      (knee ,boolean? "Is this beam kneed?")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams. Set between 0 for no correction and
@@ -292,7 +292,7 @@ of printing objects. Objects in lower layers are overprinted by
 objects in higher layers.")
      (ledger-line-thickness ,number-pair?
 			    "The thickness of ledger lines: it is the
-sum of 2 numbers.  The first is the factor for linethickness, and the
+sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
      (left-position ,number? "Vertical position of left part of spanner.")
      (left-padding ,ly:dimension? "The amount of space that is put
@@ -308,12 +308,12 @@ measure. Used in some spacing situations.")
      (measure-count ,integer? "The number of measures for a
 multimeasure rest.")
      (merge-differently-headed ,boolean? "Merge
-noteheads in collisions, even if they have different note heads. The
+note heads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
 @internalsref{note-collision-interface} .")
 
-     (merge-differently-dotted ,boolean? "Merge noteheads in
+     (merge-differently-dotted ,boolean? "Merge note heads in
 collisions, even if they have a different number of dots. This normal
 notation for some types of polyphonic music. ")
 
@@ -381,7 +381,7 @@ text-spanner on both sides, for example a pedal bracket")
 			       "The most common shortest note length.
 This is used in spacing. Enlarging this will set the score tighter.")
      (shortest-duration-space ,ly:dimension? "Start with this much
-space for the shortest duration. This is explessed in
+space for the shortest duration. This is expressed in
 @code{spacing-increment} as unit. See also
 @internalsref{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the shortest playing here.")
@@ -396,7 +396,7 @@ object.")
 steeper than this.")
 
      (space-alist ,list? "A table that specifies distances between
-prefatory itmes, like clef and time-signature. The format is an alist
+prefatory items, like clef and time-signature. The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
@@ -420,7 +420,7 @@ staff spaces, counted from the middle line.")
 staff lines.")
 
      (stem-attachment-function ,procedure? "A function that calculates
-where a stem attaches to the notehead? This is a fallback when this
+where a stem attaches to the note head? This is a fallback when this
 information is not specified in the font.  The function takes a grob
 and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
 location in terms of note head bounding box.")
@@ -475,9 +475,9 @@ happen?")
      (word-space ,ly:dimension? "space to insert between lyrics or
 words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
-     (x-gap ,ly:dimension? "The horizontal gap between notehead and tie.")
+     (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
      (y-free ,ly:dimension? "The minimal vertical gap between slur and
-noteheads or stems.")
+note heads or stems.")
      (y-offset ,ly:dimension? "Extra vertical offset for ties away
 from the center line.")
      (zigzag-length ,ly:dimension? "The length of the lines of a
@@ -534,7 +534,7 @@ set, which grob to get the direction from .")
      (rest ,ly:grob? "the staff symbol grob that we're in.")
      (rest-collision ,ly:grob? "rest collision that a rest is in.")
      (accidental-grob ,ly:grob? "Accidental for this note.")
-     (bars ,grob-list? "list of barline pointers.")
+     (bars ,grob-list? "list of bar line pointers.")
      (bounded-by-me ,grob-list? "list of spanners that have this
 column as start/begin point. Only columns that have grobs or act as bounds are spaced.")
      (columns ,grob-list? "list of grobs, typically containing
@@ -632,7 +632,7 @@ than a whole rest.")
      (deminutum ,boolean? "is this neume deminished?")
      (flexa-height ,ly:dimension? "height of a flexa shape in a ligature grob in staff_space.")
      (flexa-width ,ly:dimension? "width of a flexa shape in a ligature grob in staff_space.")
-     (join-heads ,boolean? "Whether to join the noteheads of an ambitus grob with a vertical line.")
+     (join-heads ,boolean? "Whether to join the note heads of an ambitus grob with a vertical line.")
      (linea ,boolean? "attach vertical lines to this neume?")
   
  

@@ -611,7 +611,7 @@ without context specification. Called  from parser."
 
 (define-public (set-accidental-style style . rest)
   "Set accidental style to STYLE. Optionally takes a context argument,
-eg. 'Staff or 'Voice. The context defaults to Voice, except for piano styles, which
+e.g. 'Staff or 'Voice. The context defaults to Voice, except for piano styles, which
 use PianoStaff as a context. "
   (let ((context (if (pair? rest)
 		     (car rest) 'Staff))

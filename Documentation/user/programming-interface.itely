@@ -278,7 +278,7 @@ instance. This proves useful when defining new markup commands (see
 
 One can not feed the @code{#:line} (resp @code{#:center},
 @code{#:column}) command with a variable or the result of a function
-call. Eg:
+call. E.g.:
 @lisp
 (markup #:line (fun-that-returns-markups))
 @end lisp

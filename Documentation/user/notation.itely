@@ -1162,7 +1162,7 @@ In this manual: @ref{Repeats}.
 
 Program reference: the bar line objects that are created at
 @internalsref{Staff} level are called @internalsref{BarLine}, the bar
-lines that span staves are @internalsref{SpanBar}s.
+lines that span staves are @internalsref{SpanBar} objects.
 
 @cindex bar lines at start of system
 @cindex start of system
@@ -3447,7 +3447,7 @@ that identity followed by a dash.  In the preceding example, the
 @internalsref{Lyrics}s are marked @code{duet-1} and @code{duet-2}:
 @example
   \context Lyrics = "duet-1" @{
-    Hi, my name is bert. @}
+    Hi, my name is Bert. @}
   \context Lyrics = "duet-2" @{
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
@@ -3459,7 +3459,7 @@ The complete example is shown here:
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
     \set vocNam = "Bert"
-    Hi, my name is bert. }
+    Hi, my name is Bert. }
   \lyricsto "duet" \new Lyrics {
     \set vocNam = "Ernie"
     Ooooo, ch\'e -- ri, je t'aime.
@@ -3479,7 +3479,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.
      g2 e4 a2 f4 g2.  }
    \lyrics \lyricsto "duet" \new Lyrics {
        \set vocNam = "1. "
-       Hi, my name is bert.
+       Hi, my name is Bert.
    }
 >>
 @end lilypond
@@ -7400,7 +7400,7 @@ correct result.
 @cindex Sound
 
 Entered music can also be converted to MIDI output.  The performance
-is intented for proof-hearing the music for errors.
+is intended for proof-hearing the music for errors.
 
 Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic

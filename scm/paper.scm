@@ -49,7 +49,7 @@
 ;; todo: take dimension arguments.
 
 (define (set-paper-dimensions m w h)
-  "M is a module (ie. paper->scope_ )"
+  "M is a module (i.e. paper->scope_ )"
   (let* ((mm (eval 'mm m)))
     (module-define! m 'hsize w)
     (module-define! m 'vsize h)

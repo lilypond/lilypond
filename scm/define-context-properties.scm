@@ -30,7 +30,7 @@
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks for  beams over barlines.")
+     (allowBeamBreak ,boolean? "If true allow line breaks for  beams over bar lines.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -104,7 +104,8 @@ to produce the formatting for a @code{BassFigure} grob. It takes a
 list of @code{BassFigureEvent}s, a context, and the grob to format.")
      (beatLength ,ly:moment? "The length of one beat in this time signature.")
      (beatGrouping ,list?
-		   "List of beatgroups. Eg. in 5/8 time @code{'(2 3)}.")
+		   "List of beatgroups, e.g., in 5/8 time @code{'(2
+3)}.")
 
 
 
@@ -142,11 +143,11 @@ symbol go, measured in half staff spaces from the center of the staff.")
      (connectArpeggios ,boolean? " If set, connect arpeggios across
 piano staff.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever the clef is changed.")
-     (crescendoText ,markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
+     (crescendoText ,markup? "Text to print at start of non-hairpin crescendo, i.e.: @samp{cresc.}")
      (crescendoSpanner ,symbol? "Type of spanner to be used for crescendi.
 One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},
 @samp{dotted-line}.  If unset, hairpin type is used.")
-     (decrescendoText ,markup? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+     (decrescendoText ,markup? "Text to print at start of non-hairpin decrescendo, i.e.: @samp{dim.}")
 
      (drumPitchTable ,hash-table? "A table mapping percussion
 instruments (symbols) to pitches.")
@@ -156,12 +157,12 @@ drums to layout settings.  Predefined values: @samp{drums-style},
 @samp{timbales-style}, @samp{congas-style}, @samp{bongos-style} and
 @samp{percussion-style}.
 
-The layout style is a hash table, containing the drum-pitches (eg. the
+The layout style is a hash table, containing the drum-pitches (e.g. the
 symbol @samp{hihat}) as key, and a list (@var{notehead-style}
 @var{script} @var{vertical-position}) as values.
  ")
      (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at
-every barline.
+every bar line.
 ")
      (defaultBarType ,string? "Sets the default type of bar line.
 See @code{whichBar} for information on available bar types.
@@ -334,7 +335,7 @@ at beat positions by only drawing one beam over the beat.")
 the system/staff? Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
 
-     (tablatureFormat ,procedure? "Function formatting a tab notehead; it
+     (tablatureFormat ,procedure? "Function formatting a tab note head; it
 takes a string number, a list of string tunings and Pitch object. It
 returns the text as a string.")
 
@@ -399,7 +400,7 @@ alternative is very large.")
 
      (whichBar
       ,string?
-      "This property is read to determine what type of barline to create.
+      "This property is read to determine what type of bar line to create.
 
 Example:
 @example
@@ -448,9 +449,9 @@ pairs. It is reset at every bar line."  )
      (finalizations ,list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
      (busyGrobs ,list? "a queue of (@var{end-moment} . @var{GROB})
 conses. This is for internal (C++) use only.  This property contains
-the grobs which are still busy (eg. noteheads, spanners, etc.)
+the grobs which are still busy (e.g. note heads, spanners, etc.)
 ")
-     (barCheckLastFail ,ly:moment? "Where in  the measurze did the last barcheck fail?") 
+     (barCheckLastFail ,ly:moment? "Where in  the measure did the last barcheck fail?") 
      (associatedVoiceContext ,ly:context? "The context object of the Voice that has the melody for this Lyrics.")
      (acceptHashTable ,vector? "Internal
 variable: store table with MusicName to Engraver entries.")

@@ -130,7 +130,7 @@ Use `markup*' in a \\notes block."
   
   
 (define (compile-all-markup-expressions expr)
-  "Return a list of canonical markups expressions, eg:
+  "Return a list of canonical markups expressions, e.g.:
   (#:COMMAND1 arg11 arg12 #:COMMAND2 arg21 arg22 arg23)
   ===>
   ((make-COMMAND1-markup arg11 arg12)
@@ -143,12 +143,12 @@ Use `markup*' in a \\notes block."
              (set! rest r))))
 
 (define (keyword->make-markup key)
-  "Transform a keyword, eg. #:COMMAND, in a make-COMMAND-markup symbol."
+  "Transform a keyword, e.g. #:COMMAND, in a make-COMMAND-markup symbol."
   (string->symbol (string-append "make-" (symbol->string (keyword->symbol key)) "-markup")))
 
 (define (compile-markup-expression expr)
   "Return two values: the first complete canonical markup expression found in `expr',
-eg (make-COMMAND-markup arg1 arg2 ...), and the rest expression."
+e.g. (make-COMMAND-markup arg1 arg2 ...), and the rest expression."
   (cond ((and (pair? expr)
               (keyword? (car expr)))
          ;; expr === (#:COMMAND arg1 ...)

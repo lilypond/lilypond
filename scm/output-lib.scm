@@ -226,7 +226,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			  ("|:" . ("|" . "|:"))
 			  ("|." . ("|." . ()))
 
-			  ;; hmm... should we end with a barline here?
+			  ;; hmm... should we end with a bar line here?
 			  (".|" . ("|" . ".|"))
 			  (":|" . (":|" . ()))
 			  ("||" . ("||" . ()))
