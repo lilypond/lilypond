@@ -1051,7 +1051,7 @@
 
     (TextScript
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
@@ -1072,7 +1072,6 @@
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
 	(width-correct . -1)
-
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
