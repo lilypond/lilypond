@@ -1,3 +1,10 @@
+2004-12-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm: remove all encoding code. 
+	load pfb/pfa for PangoFont too.
+	
+	* lily/lily-guile.cc (ly_chain_assoc_get): new function.
+
 2004-12-22  Werner Lemberg  <wl@gnu.org>
 
 	Prepare glyph shapes for mf2pt1 conversion.

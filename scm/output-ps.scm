@@ -299,3 +299,15 @@
 
 (define (no-origin)
   "")
+
+(define-public (glyph-string psname items)
+  (apply
+   string-append
+   (cons
+    (format " /~a findfont setfont " psname)
+    (map (lambda  (item)
+	   (format " ~a ~a rmoveto /~a glyphshow "
+		   (car item)
+		   (cadr item)
+		   (caddr item)))
+	 items))))

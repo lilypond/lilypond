@@ -54,8 +54,17 @@ File_path::find (String name) const
 {
   if (!name.length () || (name == "-") )
     return name;
-  int n = size ();
-  for (int i = 0; i < n; i++)
+
+  /*
+    TODO:  should check for absolute path
+   */
+  if (FILE *f =fopen (name.to_str0 (), "r"))
+    {
+      fclose (f);
+      return name;
+    }
+       
+  for (int i = 0; i < size (); i++)
     {
       String file_name = elem (i);
       String sep = ::to_string (DIRSEP);

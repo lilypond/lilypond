@@ -227,7 +227,13 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return scm_car (fm->description_);
+  return fm->font_file_name();
+}
+
+SCM 
+Font_metric::font_file_name () const
+{
+  return scm_car (description_);
 }
 
 String

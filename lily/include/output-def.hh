@@ -58,7 +58,7 @@ public:
   void set_variable (SCM sym, SCM val);
   Real get_dimension (SCM symbol) const;
 };
-
+SCM get_font_table (Output_def *def);
 void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);
 

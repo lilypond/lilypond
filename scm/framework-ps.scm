@@ -26,19 +26,12 @@
 
 (define-public (ps-font-command font . override-coding)
   (let* ((name (ly:font-file-name font))
-	 (magnify (ly:font-magnification font))
-	 (coding-alist (ly:font-encoding-alist font))
-	 (input-encoding (assoc-get 'input-name coding-alist))
-	 (font-encoding (assoc-get 'output-name coding-alist))
-	 (coding-command (if (null? override-coding)
-			     (if (equal? input-encoding font-encoding)
-				 #f font-encoding)
-			     (car override-coding))))
+	 (magnify (ly:font-magnification font)))
 
     (string-append
      "magfont" (string-encode-integer (hashq  name 1000000))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
-     (if (not coding-command) "" (string-append "e" coding-command)))))
+     )))
 
 (define (tex-font? fontname)
   (or
@@ -67,7 +60,7 @@
     font-set-name font-set-name version (string-length binary-data)
     )
     binary-data
-   "%%EndData
+   "\n%%EndData
 %%EndResource
 %%EOF
 "
@@ -77,16 +70,30 @@
 
 (define (load-fonts paper)
   (let* ((fonts (ly:paper-fonts paper))
-	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
+	 (all-font-names
+	   (map
+		     (lambda (font)
+		       (if (string? (ly:font-file-name font))
+			   (list (ly:font-file-name font))
+			   (ly:font-sub-fonts font)))
+
+		     fonts))
+	 (font-names
+	  (uniq-list
+	   (sort (apply append all-font-names) string<?)))
 	 (pfas (map
 		(lambda (x)
-		  (let* ((cffname (string-append x ".cff"))
+		  (let* ((bare-file-name (ly:find-file x))
+			 (cffname (string-append x ".cff"))
 			 (aname (string-append x ".pfa"))
 			 (bname (string-append x ".pfb"))
 			 (cff-file-name (ly:find-file cffname))
 			 (a-file-name (ly:kpathsea-find-file aname))
 			 (b-file-name (ly:kpathsea-find-file bname)))
 		    (cond
+		     (bare-file-name (if (string-match "\\.pfb" bare-file-name)
+					 (ly:pfb->pfa bare-file-name)
+					 (ly:gulp-file bare-file-name)))
 		     (cff-file-name (ps-embed-cff (ly:gulp-file cff-file-name) x 0))
 		     (a-file-name (ly:gulp-file a-file-name))
 		     (b-file-name (ly:pfb->pfa b-file-name))
@@ -98,18 +105,12 @@
     (string-join pfas "\n")))
 
 (define (define-fonts paper)
-
+  
   (define font-list (ly:paper-fonts paper))
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "
      (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
-
-  (define (reencode-font fontname encoding scaling command)
-    (let ((coding-vector (get-coding-command encoding)))
-      (string-append
-       "/" fontname " findfont " coding-vector " /" command " reencode-font\n"
-       "/" command "{ /" command " findfont " (ly:number->string scaling) " output-scale div scalefont } bind def\n")))
 
   (define (standard-tex-font? x)
     (or (equal? (substring x 0 2) "ms")
@@ -120,11 +121,8 @@
 	   (fontname (if specced-font-name
 			 specced-font-name
 			 (ly:font-file-name font)))
-	
-	   (coding-alist (ly:font-encoding-alist font))
-	   (input-encoding (assoc-get 'input-name coding-alist))
-	   (font-encoding (assoc-get 'output-name coding-alist))
 	   (command (ps-font-command font))
+	   
 	   ;; FIXME -- see (ps-font-command )
 	   (plain (ps-font-command font #f))
 	   (designsize (ly:font-design-size font))
@@ -132,42 +130,19 @@
 	   (ops (ly:output-def-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
+      
       ;; Bluesky pfbs have UPCASE names (sigh.)
       ;;
       (if (standard-tex-font? fontname)
 	  (set! fontname (string-upcase fontname)))
       
-      ;; debugging: [output]encoding is broken
-      ;; found so far: coding-alist is empty!
-      (pdebug "font: ~S\n" font)
-      (pdebug "fontname: ~S\n" fontname)
-      (pdebug "input-encoding:~S\n" input-encoding)
-      (pdebug "font-encoding:~S\n" font-encoding)
-
-      (pdebug "coding-alist:~S\n" coding-alist)
       
-      (string-append
-       (define-font plain fontname scaling)
-       (if (equal? input-encoding font-encoding)
-	   ""
-	   (reencode-font fontname input-encoding scaling command)))))
+      (define-font plain fontname scaling)))
 
-  (define (font-load-encoding encoding)
-    (let ((file-name (get-coding-file-name encoding)))
-      (ly:gulp-file (ly:kpathsea-find-file file-name))))
-
-  (let* ((encoding-list (map (lambda (x)
-			       (assoc-get 'input-name
-					  (ly:font-encoding-alist x)))
-			     font-list))
-	 (encodings (uniq-list (sort-list (filter string? encoding-list)
-					  string<?))))
-
-    (pdebug "encodings:~S\n" encodings)
-    (string-append
-     (apply string-append (map font-load-encoding encodings))
-     (apply string-append
-	    (map (lambda (x) (font-load-command x)) font-list)))))
+  (apply string-append
+	 (map (lambda (x) (font-load-command x))
+	      (filter (lambda (x) (not (ly:pango-font? x)))
+		      font-list))))
 
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
