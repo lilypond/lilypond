@@ -1393,7 +1393,7 @@ fonts.
 
 @itemize @bullet
 @item @code{font-encoding}
-is a symbol that sets layout of the glyphs. This should only be set to
+is a symbol that sets layout of the glyphs.  This should only be set to
 select different types of non-text fonts, eg.
 
 @code{fetaBraces} for piano staff braces, @code{fetaMusic} the
@@ -1486,7 +1486,7 @@ For clarity, you can also do this for single arguments, e.g.,
 
 
 In markup mode you can compose expressions, similar to mathematical
-expressions, XML documents, and music expressions. You can stack
+expressions, XML documents, and music expressions.  You can stack
 expressions grouped vertically with the command @code{\column}.
 Similarly, @code{\center-align} aligns texts by their center lines:
 
@@ -1570,8 +1570,8 @@ and Cyrillic lyrics,
 @lilypondfile{utf8.ly}
 
 
-The @TeX{} backend does not handle encoding specially at all. Strings
-in the input are put in the output as-is. Extents of text items in the
+The @TeX{} backend does not handle encoding specially at all.  Strings
+in the input are put in the output as-is.  Extents of text items in the
 @TeX{} backend, are determined by reading a file created via the
 @file{texstr} backend,
 
@@ -1905,7 +1905,7 @@ book and the title of a piece).
 
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
-systems. This is often used for orchestral scores.
+systems.  This is often used for orchestral scores.
 
 The markup command @code{\slashSeparator} is provided as a sensible
 default,  for example
@@ -2455,17 +2455,17 @@ Different fonts may be selected for each element by using
 @end example
 
 A more advanced option is to change the definitions of the following
-variables in the @code{\paper} block. The init file
+variables in the @code{\paper} block.  The init file
 @file{ly/titling-init.ly} lists the default layout.
 
 @table @code
 @item bookTitleMarkup
-  This is the title put over an entire @code{\book} block. Typically,
+  This is the title put over an entire @code{\book} block.  Typically,
   it has the composer and the title of the piece
   
 @item scoreTitleMarkup
   This is the title put over a @code{\score} block within a
-@code{\book}. Typically, it has the name of the movement (@code{piece}
+@code{\book}.  Typically, it has the name of the movement (@code{piece}
 field).
 
 @item oddHeaderMarkup

@@ -474,9 +474,9 @@ automatic note splitting (see @ref{Automatic note splitting}).  This
 mechanism automatically splits long notes, and ties them across bar
 lines.
 
-Ties are sometimes used to write out arpeggios. In this case, two tied
+Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the
-@code{tieWaitForNote} property to true. For example,
+@code{tieWaitForNote} property to true.  For example,
 
 @lilypond[fragment,verbatim,relative=1,raggedright]
 \set tieWaitForNote = ##t
@@ -1437,23 +1437,28 @@ a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
 @menu
-* Writing polyphonic music::    
+* Basic polyphony::    
+* Explicitly instantiating voices::
+* Collision Resolution::
 @end menu
 
-@node Writing polyphonic music
-@subsection Writing polyphonic music
+@node Basic polyphony
+@subsection Basic polyphony
 @cindex polyphony
 
 The easiest way to enter fragments with more than one voice on a staff
-is to split chords using the separator @code{\\}.  You can use it for
-small, short-lived voices or for single chords
+is to enter each voice as a sequence (with @code{@{...@}}), and combine 
+them simultaneously, separating the voices with @code{\\}
 
 @cindex @code{\\}
 
-@lilypond[quote,raggedright,verbatim,fragment]
-\context Staff \relative c'' {
-  c4 << { f d e } \\ { b c2 } >>
-  c4 << g' \\ b, \\ f' \\ d >>
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+	c16 d e f
+	<< { g4 f e | d2 e2 } \\
+	{ r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+	{ s2. | s4 b4 c2 }
+	>>
 }
 @end lilypond
 
@@ -1462,8 +1467,47 @@ voices are sometimes called ``layers'' in other notation packages}
 @cindex layers
 to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc., is set
-appropriately.  Specifically,
+appropriately.  
 
+These voices are all seperate from the voice that contains the notes just 
+outside the @code{<< \\ >>} construct.  This should be noted when making 
+changes at the voice level.  This also means that slurs and ties cannot go 
+into or out of a @code{<< \\ >>} construct.  
+Conversely, parallel voices from separate @code{<< \\ >>} constructs on the 
+same staff are the the same voice.  
+Here is the same example, with different noteheads for each voice.  
+Note that the change to the note-head style in the main voice does not affect
+the inside of the @code{<< \\ >>} constructs.  Also, the change to the second
+voice in the first @code{<< \\ >>} construct is effective in the second
+@code{<< \\ >>}, and the voice is tied accross the two constructs.
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+	\override NoteHead #'style = #'cross
+	c16 d e f
+	<< 	
+		{ g4 f e } \\
+		{ \override NoteHead #'style = #'triangle
+			r8 e4 d c8 ~ 
+		}
+	>> |
+	<<
+		{ d2 e2 } \\ 
+		{ c8 b16 a b8 g ~ g2 } \\
+		{ \override NoteHead #'style = #'slash s4 b4 c2 }
+	>>
+}
+@end lilypond
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+@internalsref{Voice} contexts can also also be instantiated manually
+inside a @code{<< >>} block to create polyphonic music, using 
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions 
+and a horizontal shift for each part.
+
+Specifically,
 @example
 << \upper \\ \lower >>
 @end example
@@ -1481,28 +1525,88 @@ is equivalent to
 @cindex @code{\voiceOne}
 @cindex @code{\voiceFour}
 
-This can also be done by instantiating @internalsref{Voice} contexts
-by hand, and using @code{\voiceOne}, up to @code{\voiceFour} to assign
-a stem directions and horizontal shift for each part
-@c
-
-@lilypond[quote,raggedright,verbatim]
-\relative c''
-\context Staff <<
-  \new Voice { \voiceOne cis2 b }
-  \new Voice { \voiceThree b4 ais ~ ais4 gis4 }
-  \new Voice { \voiceTwo fis4~ fis4 f ~ f } >>
-@end lilypond
-
-@noindent
+The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
+articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
+these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
+make them point downwards.  
 The command @code{\oneVoice} will revert back to the normal setting.
 @cindex @code{\oneVoice}
 
-Defining voices (either with the separator @code{\\} or with
-@code{\voiceXXX}) will set the direction of stems, slurs, ties,
-articulations, text annotations, augmentation dots of dotted
-notes, and fingerings.  @code{\voiceOne} makes these objects
-point upwards, while @code{\voiceTwo} makes them point down.
+An expression that appears directly inside a @code{<< >>} belongs to 
+the main voice.  This is useful when extra voices appear while the main
+voice is playing.  Here is a more correct rendition of the example from
+the previous section.  The crossed noteheads demonstrate that the main
+melody is now in a single voice context.
+
+@lilypond[quote,raggedright,verbatim]
+\new Staff \relative c' {
+	\override NoteHead #'style = #'cross
+	c16 d e f 
+	\voiceOne
+	<< 	
+		{ g4 f e | d2 e2}
+		\context Voice="1" { \voiceTwo
+			r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+			\oneVoice
+		}
+		\new Voice { \voiceThree 
+			s2. | s4 b4 c2 
+			\oneVoice
+		}
+	>>
+	\oneVoice
+}
+@end lilypond
+
+The correct definition of the voices allows the melody to be slurred.
+@lilypond[quote,raggedright,verbatim]
+\new Staff \relative c' {
+	c16^( d e f 
+	\voiceOne
+	<< 	
+		{ g4 f e | d2 e2) }  
+		\context Voice="1" { \voiceTwo
+			r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+			\oneVoice
+		}
+		\new Voice { \voiceThree 
+			s2. s4 b4 c2 
+			\oneVoice
+		}
+	>>
+	\oneVoice
+}
+@end lilypond
+
+Avoiding the @code{\\} seperator also allows nesting polyphony 
+constructs, which in some case might be a more natural way to typeset
+the music.
+
+@lilypond[quote,raggedright,verbatim]
+\new Staff \relative c' {
+	c16^( d e f 
+	\voiceOne
+	<< 	
+		{ g4 f e | d2 e2) }  
+		\context Voice="1" { \voiceTwo
+			r8 e4 d c8 ~ | 
+			<<
+				{c8 b16 a b8 g ~ g2} 
+				\new Voice { \voiceThree 
+					s4 b4 c2 
+					\oneVoice
+				}
+			>>
+			\oneVoice
+		}
+	>>
+	\oneVoice
+}
+@end lilypond
+
+@node Collision Resolution
+@subsection Collision Resolution
 
 Normally, note heads with a different number of dots are not merged, but
 when the object property @code{merge-differently-dotted} is set in
@@ -2591,7 +2695,7 @@ every eighth grace note
 
 
 If you want to end a note with a grace, use the @code{\afterGrace}
-command. It takes two arguments: the main note, and the grace notes
+command.  It takes two arguments: the main note, and the grace notes
 following the main note. 
 
 @lilypond[raggedright, verbatim,relative=2,fragment]
@@ -2599,7 +2703,7 @@ c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
 This will put the grace notes after a ``space'' lasting 3/4 of the
-length of the main note. The fraction 3/4 can be changed by setting
+length of the main note.  The fraction 3/4 can be changed by setting
 @code{afterGraceFraction}, ie.
 
 @example
@@ -5954,9 +6058,9 @@ The syntax is
 @end example
 
 This will insert notes from the part @var{name} into a
-@internalsref{Voice} called @code{cue}. This happens simultaneously
+@internalsref{Voice} called @code{cue}.  This happens simultaneously
 with @var{music}, which usually is a rest.  When the cue notes start,
-the staff in effect becomes polyphonic for a moment. The argument
+the staff in effect becomes polyphonic for a moment.  The argument
 @var{updown} determines whether the cue notes should be notated as a
 first or second voice.
 
@@ -6006,16 +6110,16 @@ Cue notes have smaller font sizes.
 
  @c really?  Are you sure about that last point?  I'll check after 3.0 -gp
 
-@c Yes, this is good practice. Otherwise, the start of the original
-@c part can only be seen from the font size. This is not good enough
-@c for sight-reading. It is possilbe to use other
+@c Yes, this is good practice.  Otherwise, the start of the original
+@c part can only be seen from the font size.  This is not good enough
+@c for sight-reading.  It is possilbe to use other
 @c markers (eg. a big close-bracket over the staff) to indicate the cue notes are
 @c finished.
 @c -hwn
 
 
  any other changes introduced by the cued part should also be
-undone. For example, if the cued instrument plays in a different clef,
+undone.  For example, if the cued instrument plays in a different clef,
 the original clef should be stated once again.
 
 @end itemize
@@ -8325,7 +8429,7 @@ as possible.
 @subsection Shaped note heads 
 
 In shaped note head notation, the shape of the note head corresponds
-to the harmonic function of a note in the scale. This notation was
+to the harmonic function of a note in the scale.  This notation was
 popular in the 19th century American song books.
 
 Shaped note heads can be produced by setting @code{\aikenHeads} or
@@ -8347,9 +8451,9 @@ scale is determined by  the @code{\key} command
 @findex \sacredHarpHeads
 
 Shaped note heads are implemented through the @code{shapeNoteStyles}
-property. Its value is a vector of symbols. The k-th element indicates
-the style to use for the k-th step of the scale. Arbitrary
-combinations  are possible, eg.,
+property.  Its value is a vector of symbols.  The k-th element indicates
+the style to use for the k-th step of the scale.  Arbitrary
+combinations are possible, eg.,
 
 
 @lilypond[verbatim,relative=1,fragment]
