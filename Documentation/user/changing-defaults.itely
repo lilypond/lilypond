@@ -172,7 +172,7 @@ This is useful if the context is referred to later on.  For example, when
 setting lyrics the melody is in a named context
 
 @example
-\context Voice = "@b{tenor}" @var{music}
+\CONtext Voice = "@b{tenor}" @var{music}
 @end example
 
 @noindent
@@ -623,6 +623,21 @@ will also work.
 
 It is not possible to collect context changes in a variable, and apply
 them to one @code{\context} definition by referring to that variable.
+
+The @code{\RemoveEmptyStaffContext} will override your current
+@code{\Staff} variable.  If you wish to change the defaults for a
+staff that uses @code{\RemoveEmptyStaffContext}, you must do so
+after calling @code{\RemoveemptyStaffContext}, ie
+
+@example
+\layout @{
+  \context @{
+    \RemoveEmptyStaffContext
+
+    \override Stem #'thickness = #4.0
+  @}
+@}
+@end example
 
 
 @node Defining new contexts
