@@ -1,3 +1,8 @@
+2002-10-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/part-combine-music-iterator.cc (get_state): cleanup
+	(get_music_info): cleanup.
+
 2002-10-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/backend-documentation-lib.scm (interface-doc-string):
