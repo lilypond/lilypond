@@ -377,6 +377,26 @@ Stem::before_line_breaking (SCM smob)
 }
 
 
+/*
+  ugh.
+  When in a beam with tuplet brackets, brew_mol is called early,
+  caching a wrong value.
+ */
+MAKE_SCHEME_CALLBACK (Stem, height, 2);
+SCM
+Stem::height (SCM smob, SCM ax)
+{
+  Axis a = (Axis)gh_scm2int (ax);
+  Grob * me = unsmob_grob (smob);
+  assert ( a == Y_AXIS);
+
+  SCM mol = me->get_uncached_molecule ();
+  Interval iv;
+  if (mol != SCM_EOL)
+    iv = unsmob_molecule (mol)->extent (a);
+  return ly_interval2scm (iv);
+}
+
 
 /**
    set stem directions for hinting the optical spacing correction.

@@ -494,6 +494,7 @@
 		(default-neutral-direction . 1)
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
+		(Y-extent-callback . ,Stem::height)
 		(meta . ,(grob-description  "Stem" stem-interface  font-interface))
 	))
 

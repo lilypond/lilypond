@@ -10,12 +10,12 @@ deb:
 #  ln -sf debian DEBIAN; )
 # su -c 'dpkg-deb -b $(depth)/../debian/$(distname)'
 # urg, why aren't there any decent manual pages for dpkg or rpm?
-	su -c '(cd $(depth)/../debian; \
+	(cd $(depth)/../debian; \
 	  rm -rf $(distname) $(distname).deb;\
 	  tar xz -C $(depth)/../debian -f $(release-dir)/$(distname).tar.gz; \
 	  cd $(distname);\
-	  dpkg-buildpackage -b; \
-	)'
+	  dpkg-buildpackage -b -rfakeroot; \
+	)
 
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 

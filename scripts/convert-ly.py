@@ -576,7 +576,7 @@ if 1:
 	def conv (str):
 		str = re.sub ('LyricVoice', 'LyricsVoice', str)
 		# old fix
-		str = re.sub ('ChordNames*.ChordNames*', 'Chordnames.Chordname', str)
+		str = re.sub ('Chord[Nn]ames*.Chord[Nn]ames*', 'ChordNames.ChordName', str)
 		return str
 	
 	conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))

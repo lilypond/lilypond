@@ -22,7 +22,7 @@ $(outdir)/%.dvi: $(outdir)/%.texi
 	cd $(outdir); texi2dvi --batch ../$< 
 
 $(outdir)/%.txt: $(outdir)/%.texi
-	$(MAKEINFO) -I../ -I $(outdir) --no-split --no-headers --output $@ $<
+	$(MAKEINFO) --force -I../ -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
 	rm -f $@

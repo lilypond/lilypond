@@ -120,49 +120,53 @@
 			       names))
      doc)))
 
-;; testin.. -- how to do this
-(eval-string (ly-gulp-file "interface-description.scm"))
-(define xinterface-description-alist
-      `(
-	(general-grob . ,general-grob-interface)
-	(beam . ,beam-interface)
-	(clef . ,clef-interface)
-	(slur . ,slur-interface)
-	))
-
-;; burp, need these for running outside of LilyPond
-(if #f
+;; ugh, this works standalone, but not anymore with lily
+(if (not (defined? 'standalone))
     (begin
 
       (debug-enable 'backtrace)
 
+      (load "standalone.scm")
+
       (define (number-pair?  x)
 	(and (pair? x) (number? (car x)) (number? (cdr x))))
       
-      (define (ly-gulp-file x) "")
       (define (ly-grob? x) #f)
       (define (ly-input-location? x) #f)
       (define (dir? x) #f)
       (define (moment? x) #f)
-      (load "lily.scm")))
+      ))
 
 (use-modules (ice-9 string-fun))
 
 (define interface-file-str (string-append (ly-gulp-file "interface-description.scm") "\n(define "))
 
-(define (list-interface-names)
+;;(define (list-interface-names)
+(define (ugh-standalone-list-interface-names)
   (let* ((text interface-file-str)
-	 (r (make-regexp 
-	     "\n[(](define *([a-z-]*-interface)*)*[^\n]*"))
-	 (t (regexp-substitute/global #f r text 2 " " 'post))
-	 (ugh (regexp-substitute/global #f "#f *" t 'pre 'post))
+	 (t1 (regexp-substitute/global #f "\n" text 'pre 'post))
+	 (t (regexp-substitute/global #f "[^\t ]*[ \t]([a-z-]+interface)" 
+				      t1 1 " " 'post))
+	 (ugh (regexp-substitute/global #f "  .*" t 'pre 'post))
 	 (l (separate-fields-discarding-char #\  ugh list)))
     (reverse (cdr (reverse l)))))
 
+(if standalone
+  (begin
+    (display "(define (list-interface-names) '") 
+    (write (ugh-standalone-list-interface-names))
+    (display ")")
+    (exit 0)))
 
+;; Ugh
+;; This list is generated manually, by doing:
+;; guile
+;; guile> (load "backend-documentation-lib.scm")
+;; For some reason, this can't be generated when lilypond is loaded;
+;; the regexp stuff behaves weird.
+(define (list-interface-names) '("general-grob-interface" "general-grob-interface" "beam-interface" "clef-interface" "axis-group-interface" "note-column-interface" "stem-interface" "slur-interface" "side-position-interface" "accidentals-interface" "line-of-score-interface" "note-head-interface" "note-name-interface" "rhythmic-head-interface" "rest-interface" "tuplet-bracket-interface" "align-interface" "aligned-interface" "align-interface" "break-aligned-interface" "chord-name-interface" "time-signature-interface" "bar-line-interface" "hairpin-interface" "arpeggio-interface" "note-collision-interface" "custos-interface" "dot-interface" "font-interface" "text-interface" "dot-column-interface" "dynamic-interface" "finger-interface" "separation-spanner-interface" "text-script-interface" "grace-alignment-interface" "hara-kiri-group-interface" "line-spanner-interface" "lyric-hyphen-interface" "key-signature-interface" "lyric-extender-interface" "lyric-syllable-interface" "mark-interface" "multi-measure-rest-interface" "font-interface" "paper-column-interface" "spaceable-element-interface" "rest-collision-interface" "script-interface" "script-column-interface" "spacing-spanner-interface" "staff-symbol-interface" "stem-tremolo-interface" "separation-item-interface" "sustain-pedal-interface" "system-start-delimiter-interface" "text-spanner-interface" "tie-interface" "tie-column-interface" "volta-bracket-interface"))
 
-
-(eval (ly-gulp-file "interface-description.scm"))
+(eval-string (ly-gulp-file "interface-description.scm"))
 
 (define interface-description-alist
   (map (lambda (x) (cons (string->symbol x) (eval-string x)))

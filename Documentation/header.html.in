@@ -71,8 +71,8 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td><font size=-1>
 	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/">RedHat i386</a><br>
 	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/ppc">LinuxPPC</a><br>
-	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex">Debian i386</a><br>
-	<a href="ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex">Debian PowerPC</a><br>
+	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond">Debian Stable</a><br>
+	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond1.3">Debian Unstable</a><br>
 	<a href="http://home.austin.rr.com/jbr/jeff/lilypond/">Windows Stable</a><br>
 	<a href="http://appel.lilypond.org/lilypond/gnu-windows">Windows Testing</a><br>
 	<br>

@@ -115,8 +115,8 @@
     ((-1 bold italic dynamic feta-din 12) . "feta-din12")
     ((-2 bold italic dynamic feta-din 9) . "feta-din9")
     ((-3 bold italic dynamic feta-din 8) . "feta-din8")
-    ((-4 bold italic dynamic feta-din 7) . "feta-din5")
-    ((-5 bold italic dynamic feta-din 6) . "feta-din4")
+    ((-4 bold italic dynamic feta-din 7) . "feta-din7")
+    ((-5 bold italic dynamic feta-din 6) . "feta-din6")
 
     ((2 medium upright music feta 26) . "feta26")
     ((1 medium upright music feta 23) . "feta23")

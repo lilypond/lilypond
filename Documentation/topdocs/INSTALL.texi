@@ -312,7 +312,7 @@ You can make the rpm by issuing
  
 @end example 
 
-Precompiled i386 RedHat RPMS are available from
+Precompiled RedHat-7.0 i386 RPMS are available from
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/}.
 
 For compilation on a RedHat system you need these packages,

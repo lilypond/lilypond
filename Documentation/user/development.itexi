@@ -7,7 +7,7 @@
 * Engraver::
 * Music_iterator::
 * Music::
-* Molecule::                       Molecule are stand-alone descriptions of output
+* Molecules::                       Molecules are stand-alone descriptions of output
 @end menu
 
 
@@ -143,7 +143,7 @@ grobs are created, and they are linked into a giant network of objects.
 This network of grobs forms the "specification" of the print
 problem. This problem is then solved: configurations, directions,
 dimensions, line breaks, etc.  are calculated. Finally,   the printing
-description in the form of Molecules (@ref{Molecule})  is extracted from
+description in the form of Molecules (@ref{Molecules})  is extracted from
 the network. These are then dumped into the output file
 
 @node Callbacks, , , Grobs
@@ -324,7 +324,7 @@ so that spanner grob will only reference other grobs in the same line.
 
 @node Music, , , Internals
 
-@node Molecule, , , Internals
+@node Molecules, , , Internals
 
 The objective of any typesetting system is to put ink on paper in the
 right places. For LilyPond, this final stage is left to the TeX and the
@@ -367,11 +367,12 @@ Molecule.
 @chapter Development
 
 @menu
-* Coding standards::
+* CodingStyle::
 * Making patches::
 * Localisation::
 @end menu
 
+@node CodingStyle, , , Development
 @section CodingStyle - standards while programming for GNU LilyPond
 
 As a general rule, you should always try to continue computations, even
@@ -600,7 +601,7 @@ files, doing a release.
 
 Use them.
 
-@node Making patches, , , Top
+@node Making patches, , , Development
 
 
 @unnumberedsec  Track and distribute your code changes
@@ -700,7 +701,7 @@ and don't forget to make automatically generated files:
  
 @end example 
 
-@node Localisation, , , Top
+@node Localisation, , , Development
 
 @chapter Localisation - User messages in LilyPond
 
