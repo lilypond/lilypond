@@ -1,7 +1,9 @@
-1.5.22.jcn1
+1.5.22.jcn2
 ===========
 
 * Resurrected experimental sketch output, now with dispatch.
+
+* Documented Linux-2.4.0, Guile-1.4 --with-threads bug.
 
 1.5.22
 ======
