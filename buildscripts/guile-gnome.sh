@@ -213,6 +213,7 @@ Before using with Lily, do
 
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
     export GUILE_LOAD_PATH=$GUILE_LOAD_PATH
+    export PKG_CONFIG_PATH=$PKG_CONFIG_PATH
 EOF
 
 # simple test -- fails atm
