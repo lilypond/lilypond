@@ -690,15 +690,17 @@ There is also a syntax that is separate from the notes.  The syntax
 \octave @var{pitch}
 @end example
 
-
-@c FIXME: what is the second sentence trying to say?  \octave check  -gp
-
 This checks that @var{pitch} (without quotes) yields @var{pitch} (with
 quotes) in \relative mode.  If not, a warning is printed, and the
-octave is corrected, for example, the first check is passed
-successfully.  The second check fails with an error message.  The
-octave is adjusted so the following notes are in the correct octave
+octave is corrected.
+
+In the example below, the first check passes without incident, since
+the @code{e} (in relative mode) is within a fifth of @code{a'}.  However,
+the second check produces a warning, since the @code{e} is not within
+a fifth of @code{b'}.  The warning message is printed, and the octave
+is adjusted so that the following notes are in the correct octave
 once again.
+
 @example
 \relative c' @{
   e
@@ -764,13 +766,11 @@ used.  It is described in the next section.
 It is also possible to redefine the meaning of @code{|}.  This is done
 by assigning a music expression to @code{pipeSymbol},
 
-FIXME: example removed to allow doc builds.  Needs to be fixed soon.  -gp
+@lilypond[quote,raggedright,verbatim]
+pipeSymbol = \bar "||"
 
-@c @lilypond[quote,fragment,raggedright,verbatim]
-@c pipeSymbol = \bar "||"
-
-@c { c'2 c' | c'2 c }
-@c @end lilypond 
+{ c'2 c' | c'2 c }
+@end lilypond 
 
 
 @node Skipping corrected music
