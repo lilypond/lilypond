@@ -171,6 +171,9 @@ class LatexPaper:
 		re_dim = re.compile (r"\\(\w+)\s+(\d+\.\d+)")
 
 		cmd = "latex '\\nonstopmode \input %s'" % fname
+	        # Ugh.  (La)TeX writes progress and error messages on stdout
+		# Redirect to stderr
+		cmd += ' 1>/dev/stderr'
 		status = ly.system (cmd, ignore_error = 1)
 		signal = 0xf & status
 		exit_status = status >> 8
@@ -1112,7 +1115,7 @@ def compile_all_files (chunks):
 		texfiles = string.join (tex)
 		cmd = string.join ((lilypond_cmd, lilyopts, g_extra_opts,
 				    texfiles))
-		ly.system (cmd)
+		ly.system (cmd, ignore_error = 0, progress_p = 1)
 
 		#
 		# Ugh, fixing up dependencies for .tex generation
@@ -1132,7 +1135,11 @@ def compile_all_files (chunks):
 				f.close ()
 
 	def to_eps (file):
-		ly.system (r"latex '\nonstopmode \input %s'" % file)
+		cmd = r"latex '\nonstopmode \input %s'" % file
+	        # Ugh.  (La)TeX writes progress and error messages on stdout
+		# Redirect to stderr
+		cmd += ' 1>/dev/stderr'
+		ly.system (cmd)
 		ly.system ("dvips -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
 

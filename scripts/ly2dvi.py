@@ -246,16 +246,7 @@ def run_lilypond (files, dep_prefix):
 		ly.print_environment ()
 
 	cmd = string.join ((lilypond_cmd,opts, fs))
-	
-	# We set verbose, because we always want to see lily's
-	# progess on stderr
-	save_verbose = verbose_p
-	
-	# Ugh, this gives ugly full Invoking ... command
-	verbose_p = 1
-	status = ly.system (cmd, ignore_error = 1)
-	verbose_p = save_verbose
-
+	status = ly.system (cmd, ignore_error = 1, progress_p = 1)
 	signal = 0x0f & status
 	exit_status = status >> 8
 
