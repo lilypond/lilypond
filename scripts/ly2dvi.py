@@ -359,17 +359,13 @@ track_dependencies_p = 0
 dependency_files = []
 
 
-#
-# Try to cater for bad installations of LilyPond, that have
-# broken TeX setup.  Just hope this doesn't hurt good TeX
-# setups.  Maybe we should check if kpsewhich can find
-# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
-#
+
+kpse = os.popen ('kpsexpand \$TEXMF').read()
+kpse = re.sub('[ \t\n]+$','', kpse)
+
 environment = {
-	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + '.:'
-		+ os.getcwd() + ':',
-	'TFMFONTS' : datadir + '/tfm' + ':',
+	## todo: prevent multiple addition.
+	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
 }
