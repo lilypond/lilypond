@@ -15,6 +15,9 @@ set -ex
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
 
+# What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
+EXTRA=${EXTRA-libgnomecanvas}
+
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
 export AUTOCONF=$(which autoconf2.50)
@@ -55,8 +58,8 @@ cd ../..
 
 export PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
-# 3.  Still do not use GUILE CVS yet
-PATH=/usr/bin:$PATH
+# 3. Not for the faint of heart: GUILE CVS seems to be OK 
+## PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
@@ -104,8 +107,10 @@ cd guile-gnome
 tla build-config -r configs/gnu.org/dev
 cd src
 
-## 6.  get the gnome canvas module
-tla get guile-gnome-devel@gnu.org--2004/libgnomecanvas--dev libgnomecanvas
+## 6.  get extra modules (gnome canvas)
+for i in $EXTRA; do
+    tla get guile-gnome-devel@gnu.org--2004/$i--dev $i
+done
 
 rm -rf $OPT/guile-gnome
 sh autogen.sh --noconfigure
