@@ -61,6 +61,7 @@ static Keyword_ent the_key_tab[] = {
   {"midi", MIDI},
   {"name", NAME},
   {"new", NEWCONTEXT},
+  {"newlyrics", NEWLYRICS},
   {"notes", NOTES},
   {"octave", OCTAVE},
   {"once", ONCE},

@@ -16,7 +16,7 @@
 
 	* Grok \relative COMPOSITE_MUSIC, make relative on middleC.
 
-	* \addlyrics is a shortcut for \context Lyrics \lyricsto "" \lyrics
+	* \newlyrics is a shortcut for \context Lyrics \lyricsto "" \lyrics
 
 	* input/simple.ly: New file.
 	
