@@ -23,6 +23,10 @@
 #include "paper-def.hh"
 
 
+/*
+  TODO: junkme.
+ */
+
 Score::Score()
   : Input()
 {
