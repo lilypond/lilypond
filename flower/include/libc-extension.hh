@@ -10,6 +10,7 @@
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 #include "fproto.hh"
+
 #include "config.hh"
 
 char* strnlwr (char* start_l ,int n);

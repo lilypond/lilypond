@@ -3,3 +3,7 @@
 
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
+
+/* the version string of the flower lib */
+#define MODULE_VERSION "0.0.0"
+

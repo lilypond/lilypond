@@ -1,10 +1,13 @@
-#include "version.hh"	// urg
 #include <stdio.h>
 
-static char *s = "FlowerLib " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
+#include "config.hh"
+
+// static char *s = "FlowerLib " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
+static char *s = "FlowerLib " MODULE_VERSION " #%d";
 
 static const int build=
-#include ".build"
+//#include ".build"
+0
 ;
 
 char const * 

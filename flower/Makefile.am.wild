@@ -1,0 +1,21 @@
+# project  FlowerSoft C++ library
+# title	   top level makefile for FlowerLib
+# file	   flower/Makefile.am.wild
+#
+# Copyright (c) 1997 by    
+#   	Jan Nieuwenhuizen <jan@digicash.com>
+#	Han-Wen Nienhuys <hanwen@stack.nl>
+#		...your sort order here, or how to comment-out a comment
+
+SUBDIRS = include test 
+
+lib_LIBRARIES = libflower.a
+# lib_LIBRARIES = libflower.la
+
+README_FILES = ONEWS NEWS README TODO VERSION
+EXTRA_DIST = Makefile.am.wild aclocal.m4 configure config.hh.in configure.in $(README_FILES)
+
+libflower_a_SOURCES = $(wildcard *.cc)
+
+INCLUDES = -Iinclude
+
