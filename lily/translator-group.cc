@@ -169,7 +169,8 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
     ret = daddy_trans_->find_create_translator (n, id, operations);
   else
     {
-      warning (_f ("can't find or create `%s' called `%s'", ly_symbol2string (n).to_str0 (), id));
+      warning (_f ("Cannot find or create `%s' called `%s'",
+		   ly_symbol2string (n).to_str0 (), id));
       ret =0;
     }
   return ret;
