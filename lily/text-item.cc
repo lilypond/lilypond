@@ -284,6 +284,9 @@ Text_item::interpret_new_markup (SCM grob, SCM achain,
   static SCM proc;
   if (!proc)
     proc = scm_c_eval_string ("interpret-markup");
-  
-  return *unsmob_molecule (scm_call_3 (proc, grob, achain, markup));
+
+  if (new_markup_p (markup))
+    return *unsmob_molecule (scm_call_3 (proc, grob, achain, markup));
+  else
+    return Molecule();
 }

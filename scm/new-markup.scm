@@ -671,7 +671,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 
 (define-public empty-markup (make-simple-markup ""))
 
-(define-public (interpret-markup  grob props markup)
+(define-public (interpret-markup grob props markup)
   (if (string? markup)
       (simple-markup grob props markup)
       (let*

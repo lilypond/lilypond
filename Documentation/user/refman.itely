@@ -7291,6 +7291,12 @@ See @ref{The Feta font} for  a complete listing of the possible glyphs.
 This produces a single character, e.g. @code{\char #65} produces the 
 letter 'A'.
 
+@item \note
+@cindex \note @var{log} @var{dots} @var{dir}
+
+This produces a note with a stem pointing in @var{dir} direction, with
+duration log @var{log} and @var{dots} augmentation dots.
+
 @item \hspace #@var{amount}
 @cindex \hspace
 This produces a invisible object taking horizontal space.
@@ -7331,7 +7337,7 @@ A \magnify #1.1 @{ A @} A
 This overrides a  formatting property for its argument. The argument
 should be a key/value pair, e.g.
 @example
-m \override #'(font-family . math) m m
+  m \override #'(font-family . math) m m
 @end example
 @end table
 
