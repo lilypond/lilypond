@@ -123,10 +123,14 @@ Midi_note::Midi_note( Melodic_req* melreq_l, int channel_i, bool on_bo  )
     assert(melreq_l);
     pitch_i_ = melreq_l->pitch() + c0_pitch_i_c_;   
     channel_i_ = channel_i;
-
-    // poor man-s staff dynamics:
-    dynamic_byte_ =  (melreq_l)? 0x64 - 0x10 * channel_i_:0;
+    
     on_b_ = on_bo;
+
+    dynamic_byte_ = 0x64;
+    if ( on_b_ ) // poor man-s staff dynamics:
+	dynamic_byte_ -= 0x10 * channel_i_;
+    else
+    	dynamic_byte_ += 0x32; // 0x64 is supposed to be neutral, but let-s try
 }
 
 String
