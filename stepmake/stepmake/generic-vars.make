@@ -101,8 +101,6 @@ CTAGS_FLAGS =
 
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 
-DEP_FILES := $(wildcard $(outdir)/*.dep)
-
 IN_FILES := $(wildcard *.in)
 SOURCE_FILES += $(IN_FILES)
 

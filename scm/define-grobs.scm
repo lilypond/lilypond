@@ -197,7 +197,7 @@
 						 staff
 						 time-signature custos)
 				(instrument-name left-edge ambitus breathing-sign
-						 clef key-signature staff-bar
+						 clef  staff-bar key-signature
 						 time-signature custos)
 
 				))

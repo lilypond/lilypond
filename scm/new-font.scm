@@ -7,7 +7,7 @@
 ;;
 ;; should dump tree to .texi as internal documentation
 ;; 
-
+;; * should extract design sizes from fonts.
 
 (define font-tree-record
   (make-record-type
@@ -123,8 +123,7 @@
 					   def) alist-chain)))
 	 )
       font))
-   (else node))
-   )
+   (else node)))
 
 (define-public (make-font-tree factor)
   (let*
@@ -137,12 +136,13 @@
 		 (list (cons 'font-encoding (car x)))
 		 (cons (* factor (cadr x))
 		       (caddr x))))
-     '((number 10 #((4.0  . "feta-nummer4")
-		    (6.0  . "feta-nummer6")
-		    (8.0  . "feta-nummer8")
-		    (10.0  . "feta-nummer10")
-		    (12.0  . "feta-nummer12")
-		    (16.0  . "feta-nummer16")))
+     '((number 10
+	       #((3.82  . "feta-nummer4")
+		 (5.5  . "feta-nummer6")
+		 (8.0  . "feta-nummer8")
+		 (10.0  . "feta-nummer10")
+		 (12.0  . "feta-nummer12")
+		 (16.0  . "feta-nummer16")))
        (dynamic 14.0  #((6.0 . "feta-din6")
 			(8.0 . "feta-din8")
 			(10.0 . "feta-din10")
@@ -162,15 +162,15 @@
 		(25.20 . ("feta26" "parmesan26"))
 		))
        (braces 10 #((10.0 . ("feta-braces00"
-			      "feta-braces10"
-			      "feta-braces20"
-			      "feta-braces30"
-			      "feta-braces40"
-			      "feta-braces50"
-			      "feta-braces60"
-			      "feta-braces70"
-			      "feta-braces80"))
-		     ))))
+			     "feta-braces10"
+			     "feta-braces20"
+			     "feta-braces30"
+			     "feta-braces40"
+			     "feta-braces50"
+			     "feta-braces60"
+			     "feta-braces70"
+			     "feta-braces80"))
+		    ))))
 
     (for-each
      (lambda (x)
@@ -182,7 +182,7 @@
 	  (font-family . ,(vector-ref (car x) 0)))
 	(cons (* factor (cadr x))
 	      (cddr x))
-       ))
+	))
      '((#(roman upright medium) .
 	(10.0 . #((6.0 . "cmr6")
 		  (8.0 . "cmr8") 

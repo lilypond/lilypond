@@ -20,6 +20,9 @@
 #include "ly-smobs.icc"
 #include "score-context.hh"
 
+#include "performer.hh"
+#include "engraver.hh"
+
 int
 Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
 {
@@ -259,6 +262,34 @@ Context_def::get_translator_names (SCM user_mod) const
 }
 
 
+SCM
+filter_performers (SCM l)
+{
+  for (SCM *tail = &l; gh_pair_p (*tail); tail = SCM_CDRLOC (tail))
+    {
+      if (dynamic_cast<Performer*> (unsmob_translator (gh_car (*tail))))
+	{
+	  *tail = gh_cdr (*tail);
+	}
+    }
+  return l;
+}
+
+
+SCM
+filter_engravers (SCM l)
+{
+  for (SCM *tail = &l; gh_pair_p (*tail) ; tail = SCM_CDRLOC (tail))
+    {
+      if (dynamic_cast<Engraver*> (unsmob_translator (gh_car (*tail))))
+	{
+	  *tail = gh_cdr (*tail);
+	}
+    }
+  return l;
+}
+
+
 Context *
 Context_def::instantiate (SCM ops)
 {
@@ -278,6 +309,11 @@ Context_def::instantiate (SCM ops)
   
   g->simple_trans_list_ = names_to_translators (trans_names, tg);
   tg->implementation_ = g->self_scm ();
+  if (dynamic_cast<Engraver*> (g))
+    g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
+  else if (dynamic_cast<Performer*> (g))
+    g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
+	
   g->daddy_context_ = tg;
   tg->aliases_ = context_aliases_ ;
   

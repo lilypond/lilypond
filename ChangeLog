@@ -1,3 +1,12 @@
+2004-03-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* buildscripts/mf-to-table.py (base): use %d for TfmCheckSum
+
+	* stepmake/stepmake/generic-targets.make: rewrite hack so no
+	warning is issued about dummy.dep.
+
+	* scm/new-font.scm: fix design sizes of nummer
+
 2004-03-21  Werner Lemberg  <wl@gnu.org>
 
 	* stepmake/bin/install-sh: Updated (from gnulib).  This removes

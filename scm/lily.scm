@@ -436,8 +436,7 @@ L1 is copied, L2 not.
        "beam.scm"
        "clef.scm"
        "slur.scm"
-;       "font.scm"
-       "new-font.scm"
+       "font.scm"
        
        "define-markup-commands.scm"
        "define-grob-properties.scm"
