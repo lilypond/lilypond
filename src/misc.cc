@@ -1,17 +1,18 @@
 #include "misc.hh"
 #include "glob.hh"
+#include "moment.hh"
 
 #include <math.h>
 
-Real
+Moment
 wholes(int dur, int dots)
 {
     if (!dur)
 	return 0.0;
 
     // stupid Intel: doesn't crash if !dur
-    Real f = 1.0/Real(dur);
-    Real delta = f;
+    Moment f = 1/Moment(dur);
+    Moment delta = f;
 
     while (dots--) {
 	delta /= 2.0;

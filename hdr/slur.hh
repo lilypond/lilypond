@@ -7,19 +7,20 @@
 #ifndef SLUR_HH
 #define SLUR_HH
 
-#include "spanner.hh"
+#include "directionalspanner.hh"
 #include "fproto.hh"
 #include "vray.hh"
 
-struct Slur : Spanner {
+struct Slur : Directional_spanner {
 
     svec<Notehead*> encompass;
-    int dir;
+    //int dir;
 
     bool open_left,open_right;			
 
     /****************/
-
+    Offset center() const;
+    void calculate();
     void print()const;    
     void preprocess();
     void add(Notehead*);
