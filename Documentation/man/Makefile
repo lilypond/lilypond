@@ -13,3 +13,5 @@ INSTALLATION_OUT_FILES=$(MANGROFF)
 INSTALLATION_DIR=$(mandir)/man$(SECTION)
 
 include $(depth)/make/Install_outfiles.make
+
+WWW: $(OUTPODFILES:.pod=.html)
