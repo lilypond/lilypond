@@ -15,12 +15,6 @@
 	     (srfi srfi-13)
 	     (ice-9 regex))
 
-(if #t
-    (begin
-      (debug-enable 'debug)
-      (debug-enable 'backtrace)
-      (read-enable 'positions)))
-
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.svg" basename))
 	 (outputter  (ly:make-paper-outputter filename
