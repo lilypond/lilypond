@@ -96,7 +96,15 @@ ly_parse_scm (char const* s, int* n)
 SCM
 ly_quote_scm (SCM s)
 {
+#if 0
+  /*
+    This internal quote symbol breaks list->string and display,
+    and thus scm output.
+   */
   return scm_m_quote (scm_cons2 (SCM_EOL, s, SCM_EOL) ,SCM_EOL);
+#else
+  return gh_list (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
+#endif
 }
 
 
