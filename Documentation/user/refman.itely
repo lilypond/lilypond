@@ -3846,8 +3846,6 @@ NoteHead object to @code{mensural}. There is also a note head style
 @node Ancient clefs 
 @subsection Ancient clefs
 
-[TODO: condense clef lists in a convenient chart] 
-
 LilyPond supports a variety of clefs, many of them ancient.
 
 For modern clefs, see section @ref{Clef}.  For the percussion clef, see
@@ -3855,12 +3853,13 @@ section @ref{Percussion staves}.  For the @code{TAB} clef, see section
 @ref{Tablatures}.
 
 The following table shows all ancient clefs that are supported via the
-@code{\clef} command.  Some of the clefs use the same glyph, but differ
-only with respect to the line they are printed on.  In such cases, a
-trailing number in the name is used to enumerate these clefs.  Still,
-you can manually force a clef glyph to be typeset on an arbitrary line,
-as described in section @ref{Clef}.  The note printed to the right side
-of each clef denotes the @code{c'} with respect to the clef.
+@code{\clef} command.  Some of the clefs use the same glyph, but
+differ only with respect to the line they are printed on.  In such
+cases, a trailing number in the name is used to enumerate these clefs.
+Still, you can manually force a clef glyph to be typeset on an
+arbitrary line, as described in section @ref{Clef}.  The note printed
+to the right side of each clef in the example column denotes the
+@code{c'} with respect to that clef.
 
 @c --- This should go somewhere else: ---
 @c @item modern style G clef (glyph: @code{clefs-G})
@@ -4113,61 +4112,73 @@ of the first note(s) of the following line and thus helps the player
 or singer to manage line breaks during performance, thus enhancing
 readability of a score.
 
-Custodes were frequently used in music notation until the 17th century.
-There were different appearances for different notation styles.
-Nowadays, they have survived only in special forms of musical notation
-such as via the @emph{editio vaticana} dating back to the beginning of
-the 20th century.
-
-
+Custodes were frequently used in music notation until the 17th
+century.  Nowadays, they have survived only in a few particular forms
+of musical notation such as contemporary editions of Gregorian chant
+like the @emph{editio vaticana}.  There are different custos glyphs
+used in different flavours of notational style.
 
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
 @internalsref{Staff} context when declaring the @code{\paper} block,
 as shown in the following example.
+
 @example
 \paper @{
   \translator @{
-      \StaffContext
-      \consists Custos_engraver
-      Custos \override #'style = #'mensural
+     \StaffContext
+     \consists Custos_engraver
+     Custos \override #'style = #'mensural
   @}
 @}
 @end example
+
 The result looks like this:
+
 @lilypond
 \score {
-  \notes { c'1 \break
-        \property Staff.Custos \set #'style = #'mensural
-        d' }
-  \paper {
-    \translator {
-      \StaffContext
-      \consists Custos_engraver
+    \notes {
+	a'1
+	\property Staff.Custos \set #'style = #'mensural
+	\break
+	g'
     }
-    linewidth = 4.0 \cm
-  }
+    \paper {
+	\translator {
+	    \StaffContext
+	    \consists Custos_engraver
+	}
+	linewidth = 4.0\cm
+    }
 }
 @end lilypond
 
-The appearance of the custos symbol is controlled by it @code{style}
-property. The styles supported are @code{vaticana}, @code{medicaea},
-@code{hufnagel} and @code{mensural}. They are demonstrated in the
-following fragment:
+The custos glyph is selected by the @code{style} property. The styles
+supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
+@code{mensural}.  They are demonstrated in the following fragment:
 
 @lilypond
 \score {
     \notes {
         \fatText
         s
-        ^\markup { \column << "vaticana" 
-			      { " " \musicglyph #"custodes-vaticana-u0" }  >>
-		   \column << "medicaea"
-			      { " " \musicglyph #"custodes-medicaea-u0" } >> 
-		   \column <<  "hufnagel"
-			       { " "\musicglyph #"custodes-hufnagel-u0" } >>
-		   \column <<  "mensural"
-			       { " " \musicglyph #"custodes-mensural-u0" } >>
-		   }
+        ^\markup {
+            \column <<
+                "vaticana" 
+                { " " \musicglyph #"custodes-vaticana-u0" }
+            >>
+	    \column <<
+                "medicaea"
+		{ " " \musicglyph #"custodes-medicaea-u0" }
+            >>
+	    \column <<
+                "hufnagel"
+		{ " " \musicglyph #"custodes-hufnagel-u0" }
+            >>
+            \column <<
+                "mensural"
+                { " " \musicglyph #"custodes-mensural-u0" }
+            >>
+        }
     }
     \paper {
 	raggedright = ##t 
