@@ -334,17 +334,17 @@ void set_delta_pitch (Item *primitive, Grob_info info1, Grob_info info2)
 }
 
 /*
- * A MensuralLigature grob consists of a bunch of LigatureHead grobs
- * that are glued together.  It (a) does not make sense to change
+ * A MensuralLigature grob consists of a bunch of NoteHead grobs that
+ * are glued together.  It (a) does not make sense to change
  * properties like thickness or flexa-width from one head to the next
  * within a ligature (this would totally screw up alignment), and (b)
  * some of these properties (like flexa-width) are specific to
  * e.g. the MensuralLigature (as in contrast to e.g. LigatureBracket),
- * and therefore should not be handled in the generic LigatureHead
- * (which is also used by LigatureBracket).  Therefore, we let the
- * user control these properties via the concrete Ligature grob (like
+ * and therefore should not be handled in the NoteHead code (which is
+ * also used by LigatureBracket).  Therefore, we let the user control
+ * these properties via the concrete Ligature grob (like
  * MensuralLigature) and then copy these properties as necessary to
- * each of the LigatureHead grobs.  This is what
+ * each of the NoteHead grobs.  This is what
  * propagate_properties() does.
  */
 void
@@ -470,6 +470,6 @@ ENTER_DESCRIPTION (Mensural_ligature_engraver,
 /* descr */       "Handles Mensural_ligature_events by glueing special ligature heads together.",
 /* creats*/       "MensuralLigature",
 /* accepts */     "ligature-event abort-event",
-/* acks  */      "ligature-head-interface note-head-interface rest-interface",
+/* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

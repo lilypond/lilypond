@@ -7,12 +7,12 @@
   
  */
 #include "ligature-engraver.hh"
-#include "ligature-head.hh"
 #include "spanner.hh"
 #include "score-engraver.hh"
 #include "note-head.hh"
 #include "rest.hh"
 #include "warn.hh"
+#include "translator-group.hh"
 
 /*
  * This abstract class provides the general framework for ligatures of
@@ -103,29 +103,78 @@ Ligature_engraver::create_ligature_spanner ()
   return 0;
 }
 
+/*
+ * This method should do something that comes close to the following
+ * .ly snippet:
+ *
+ * \property Voice.NoteHead \override #'molecule-callback =
+ *     < value of #'ligature-primitive-callback of Voice.NoteHead >
+ *
+ * TODO: What we are doing here on the c++ level, should actually be
+ * performed on the SCM level.  However, I do not know how to teach
+ * lilypond to apply an \override and \revert on #'molecule-callback,
+ * whenever lily encounters a \[ and \] in an .ly file, respectively.
+ * Also encounter, that lily should not crash if a user erronously
+ * nests \[ and \].
+ */
+void
+Ligature_engraver::override_molecule_callback ()
+{
+  SCM symbol = ly_symbol2scm ("NoteHead");
+  SCM target_callback = ly_symbol2scm ("molecule-callback");
+  SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
+  SCM noteHeadProperties = daddy_trans_->get_property ("NoteHead");
+  SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
+  daddy_trans_->execute_single_pushpop_property (symbol, target_callback, value);
+}
+
+/*
+ * This method should do something that comes close to the following
+ * .ly snippet:
+ *
+ * \property Voice.NoteHead \revert #'molecule-callback
+ *
+ * TODO: What we are doing here on the c++ level, should actually be
+ * performed on the SCM level.  However, I do not know how to teach
+ * lilypond to apply an \override and \revert on #'molecule-callback,
+ * whenever lily encounters a \[ and \] in an .ly file, respectively.
+ * Also encounter, that lily should not crash if a user erronously
+ * nests \[ and \].
+ */
+void
+Ligature_engraver::revert_molecule_callback ()
+{
+  SCM symbol = ly_symbol2scm ("NoteHead");
+  SCM key = ly_symbol2scm ("molecule-callback");
+  daddy_trans_->execute_single_pushpop_property (symbol, key, SCM_UNDEFINED);
+}
+
 void
 Ligature_engraver::process_music ()
 {
   if (reqs_drul_[STOP])
     {
       if (!ligature_)
-	reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
+	{
+	  reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
+	  return;
+	}
+
+      if (!last_bound_)
+	{
+	  reqs_drul_[STOP]->origin ()->warning (_ ("no right bound"));
+	}
       else
 	{
-	  if (!last_bound_)
-	    {
-	      reqs_drul_[STOP]->origin ()->warning (_ ("no right bound"));
-	    }
-	  else
-	    {
-	      ligature_->set_bound (RIGHT, last_bound_);
-	    }
+	  ligature_->set_bound (RIGHT, last_bound_);
 	}
+
       prev_start_req_ = 0;
       finished_primitives_ = primitives_;
       finished_ligature_ = ligature_;
       primitives_.clear ();
       ligature_ = 0;
+      revert_molecule_callback ();
     }
   last_bound_ = unsmob_grob (get_property ("currentMusicalColumn"));
 
@@ -134,6 +183,7 @@ Ligature_engraver::process_music ()
       // TODO: maybe forbid breaks only if not transcribing
       top_engraver ()->forbid_breaks ();
     }
+
   if (reqs_drul_[START])
     {
       if (ligature_)
@@ -164,6 +214,7 @@ Ligature_engraver::process_music ()
       ligature_start_mom_ = now_mom ();
       
       announce_grob(ligature_, reqs_drul_[START]->self_scm());
+      override_molecule_callback ();
     }
 }
 
@@ -223,13 +274,10 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
       if (Note_head::has_interface (info.grob_))
 	{
 	  primitives_.push (info);
-	}
-      if (Ligature_head::has_interface (info.grob_))
-	{
-	  info.grob_->set_grob_property ("ligature-primitive-callback",
+	  info.grob_->set_grob_property ("molecule-callback",
 					 brew_ligature_primitive_proc);
 	}
-      else if (Rest::has_interface (info.grob_))
+      if (Rest::has_interface (info.grob_))
 	{
 	  info.music_cause ()->origin ()->warning (_ ("ligature may not contain rest; ignoring rest"));
 	  prev_start_req_->origin ()->warning (_ ("ligature was started here"));
@@ -243,6 +291,6 @@ ENTER_DESCRIPTION (Ligature_engraver,
 /* descr */       "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 /* creats */      "",
 /* accepts */     "ligature-event abort-event",
-/* acks  */      "ligature-head-interface rest-interface",
+/* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

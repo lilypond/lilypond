@@ -1,3 +1,27 @@
+2003-05-13  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/coherent-ligature-engraver.cc: fixed typo
+
+	* lily/coherent-ligature-engraver.cc,
+	lily/gregorian-ligature-engraver.cc,
+	lily/ligature-bracket-engraver.cc, lily/ligature-engraver.cc,
+	lily/mensural-ligature-engraver.cc, lily/note-heads-engraver.cc,
+	lily/vaticana-ligature-engraver.cc,
+	lily/include/ligature-engraver.hh, ly/gregorian-init.ly,
+	scm/grob-description.scm: cleanup: junked LigatureHead grob and
+	removed all ligature specific stuff from NoteHead code
+
+	* lily/ligature-head.cc, lily/include/ligature-head.hh: removed;
+	ligatures now use regular noteheads
+
+	* lily/vaticana-ligature.cc: tiny code cleanups
+
+	* lily/vaticana-ligature-engraver.cc: bugfix: insert additional
+	space between two adjacent noteheads of the same pitch
+
+	* scm/grob-description.scm: bugfix: VaticanaLigature: interface
+	description; cleanup: removed obsolete font-family settings
+
 2003-05-11  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/coherent-ligature-engraver.cc,

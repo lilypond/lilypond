@@ -50,9 +50,8 @@
  * any further accidental for that pitch within that ligature
  * (actually, in such a case, the user should split the ligature into
  * two separate ligatures).  Similarly, any object that, in ordinary
- * notation, may be put to the left or to the right of a
- * note-head/ligature-head, should be collected and put before or
- * after the ligature.
+ * notation, may be put to the left or to the right of a note-head,
+ * should be collected and put before or after the ligature.
  *
  * TODO: make spacing more robust: do not screw up spacing if user
  * erroneously puts rest in ligature.
@@ -173,7 +172,7 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *, Array<Grob_info>)
 void
 Coherent_ligature_engraver::build_ligature (Spanner *, Array<Grob_info>)
 {
-  programming_error ("Cohrent_ligature_engraver::build_ligature (): "
+  programming_error ("Coherent_ligature_engraver::build_ligature (): "
 		     "this is an abstract method that should not be called, "
 		     "but overridden by a subclass");
 }
@@ -197,6 +196,6 @@ ENTER_DESCRIPTION (Coherent_ligature_engraver,
 /* descr */       "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
 /* creats*/       "",
 /* accepts */     "ligature-event abort-event",
-/* acks  */      "ligature-head-interface note-head-interface rest-interface",
+/* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

@@ -264,7 +264,6 @@
 	(neutral-direction . -1)
 	(adjust-if-on-staffline . #t)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(font-family . ancient)
 	(space-alist . (
 			(first-note . (minimum-space . 0.0))
 			(right-edge . (extra-space . 0.1))
@@ -455,21 +454,6 @@
 	(meta .  ((interfaces . (tuplet-bracket-interface spanner-interface))))
 	))
 
-    (LigatureHead
-     . (
-	(ligature-primitive-callback . ,Note_head::brew_molecule)
-	(molecule-callback . ,Ligature_head::brew_molecule)
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-	(stem-attachment-function . ,note-head-style->attachment-coordinates)
-	(font-family . ancient)
-	(style . default)
-	(glyph-name-procedure . ,find-notehead-symbol)
-	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface
-							rhythmic-grob-interface
-							font-interface
-							note-head-interface staff-symbol-referencer-interface))))
-	))
-
     (LyricHyphen
      . (
 	(thickness . 1.0)
@@ -513,7 +497,6 @@
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Mensural_ligature::brew_ligature_primitive)
 	(molecule-callback . ,Mensural_ligature::brew_molecule)
-	(font-family . ancient)
 	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
 	))
 
@@ -604,6 +587,7 @@
      . (
 	(style . default)
 	(molecule-callback . ,Note_head::brew_molecule)
+	(ligature-primitive-callback . ,Note_head::brew_molecule)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
@@ -1176,8 +1160,7 @@
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Vaticana_ligature::brew_ligature_primitive)
 	(molecule-callback . ,Vaticana_ligature::brew_molecule)
-	(font-family . ancient)
-	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
+	(meta . ((interfaces . (vaticana-ligature-interface font-interface))))
 	))
 
     (VoltaBracket

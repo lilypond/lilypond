@@ -151,6 +151,14 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	   */
 	  next_distance += 2 * join_thickness;
 	}
+      else if (pitch_delta == 0)
+	{
+	  /*
+	   * Make a small space between two adjacent notes with the
+	   * same pitch.
+	   */
+	  next_distance += 2 * join_thickness;
+	}
 
       /*
        * Horizontally line-up this head to form a ligature.
@@ -356,6 +364,6 @@ ENTER_DESCRIPTION (Vaticana_ligature_engraver,
 /* descr */       "Handles ligatures by glueing special ligature heads together.",
 /* creats*/       "VaticanaLigature",
 /* accepts */     "ligature-event abort-event",
-/* acks  */      "ligature-head-interface note-head-interface rest-interface",
+/* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

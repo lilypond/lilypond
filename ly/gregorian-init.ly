@@ -8,31 +8,31 @@
 % declare head prefix shortcuts
 %
 virga =
-  \once \property Voice.LigatureHead \override #'virga = ##t
+  \once \property Voice.NoteHead \override #'virga = ##t
 stropha =
-  \once \property Voice.LigatureHead \override #'stropha = ##t
+  \once \property Voice.NoteHead \override #'stropha = ##t
 inclinatum =
-  \once \property Voice.LigatureHead \override #'inclinatum = ##t
+  \once \property Voice.NoteHead \override #'inclinatum = ##t
 auctum =
-  \once \property Voice.LigatureHead \override #'auctum = ##t
+  \once \property Voice.NoteHead \override #'auctum = ##t
 aucta =
-  \once \property Voice.LigatureHead \override #'auctum = ##t
+  \once \property Voice.NoteHead \override #'auctum = ##t
 descendens =
-  \once \property Voice.LigatureHead \override #'descendens = ##t
+  \once \property Voice.NoteHead \override #'descendens = ##t
 ascendens =
-  \once \property Voice.LigatureHead \override #'ascendens = ##t
+  \once \property Voice.NoteHead \override #'ascendens = ##t
 pes =
-  \once \property Voice.LigatureHead \override #'pes-or-flexa = ##t
+  \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
 flexa =
-  \once \property Voice.LigatureHead \override #'pes-or-flexa = ##t
+  \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
 semivocalis =
-  \once \property Voice.LigatureHead \override #'semivocalis = ##t
+  \once \property Voice.NoteHead \override #'semivocalis = ##t
 oriscus =
-  \once \property Voice.LigatureHead \override #'oriscus = ##t
+  \once \property Voice.NoteHead \override #'oriscus = ##t
 quilisma =
-  \once \property Voice.LigatureHead \override #'quilisma = ##t
+  \once \property Voice.NoteHead \override #'quilisma = ##t
 deminutum =
-  \once \property Voice.LigatureHead \override #'deminutum = ##t
+  \once \property Voice.NoteHead \override #'deminutum = ##t
 
 %
 % declare divisiones shortcuts

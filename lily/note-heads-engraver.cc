@@ -19,14 +19,6 @@
   make balls and rests
  */
 
-/*
- * TODO: junk bool in_ligature (and all the messy code around it).
- * This can be done by also junking LigatureHead in
- * scm/grob-description.scm.  Instead, NoteHead should be used
- * throughout typesetting of ligatures; ligature-(start/stop)-events
- * should simply modify NoteHead properties values of
- * molecule-callback ligature-primitive-callback.  --jr
- */
 class Note_heads_engraver : public Engraver
 {
   Link_array<Item> notes_;
@@ -43,14 +35,10 @@ protected:
   virtual void process_music ();
 
   virtual void stop_translation_timestep ();
-
-private:
-  bool in_ligature;
 };
 
 Note_heads_engraver::Note_heads_engraver()
 {
-  in_ligature = 0;
 }
 
 bool
@@ -63,19 +51,6 @@ Note_heads_engraver::try_music (Music *m)
     }
   else if (m->is_mus_type ("busy-playing-event"))
     return note_reqs_.size ();
-  else if (m->is_mus_type ("abort-event"))
-    {
-      in_ligature = 0;
-    }
-  else if (m->is_mus_type ("ligature-event"))
-    {
-      /*
-	Urg ; this is not protocol. We should accept and return
-	true, or ignore.
-      */
-      in_ligature = (to_dir (m->get_mus_property("span-direction")) == START);
-      return false;
-    }
   
   return false;
 }
@@ -86,8 +61,7 @@ Note_heads_engraver::process_music ()
 {
   for (int i=0; i < note_reqs_.size (); i++)
     {
-      Item *note =
-	new Item (get_property ((in_ligature) ? "LigatureHead" : "NoteHead"));
+      Item *note = new Item (get_property ("NoteHead"));
 
       Music * req = note_reqs_[i];
       
@@ -146,8 +120,8 @@ Note_heads_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Note_heads_engraver,
-/* descr */       "Generate noteheads (also serves a double functions: makes ligatures.",
-/* creats*/       "NoteHead LigatureHead Dots",
+/* descr */       "Generate noteheads.",
+/* creats*/       "NoteHead Dots",
 /* accepts */     "note-event busy-playing-event ligature-event abort-event",
 /* acks  */      "",
 /* reads */       "centralCPosition",
