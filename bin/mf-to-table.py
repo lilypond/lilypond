@@ -181,7 +181,7 @@ class Log_reader:
 	self.texfile = Indentable_file(texfile_nm, 'w')
 
 
-	headerstr = '%% generated automatically by %s\n%% on %s\n%% Do not edit' % \
+	headerstr = '%% Creator: %s\n%% Automatically generated on %s\n%% Do not edit' % \
 		   (program_id(), today_str())
 
 	self.lyfile.write(headerstr)
