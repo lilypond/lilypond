@@ -21,12 +21,9 @@ convert-ly on book:
 classic lilypond-book:
      filter-lilypond-book --process="lilypond-bin" BOOK.tely
 
-  options in .tely/.lytex must be converted (or grokked by me :-)
-     (([0-9][0-9])*pt) -> staffsize=\2
+   must substitute:
      @mbinclude foo.itely -> @include foo.itely
      \mbinput -> \input
-     relative X -> relative=X
-     singleline -> raggedright
      
 '''
 
