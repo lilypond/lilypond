@@ -16,7 +16,7 @@
 
 
 /**
-  A request which is coupled to a #Voice_element#
+  A request which is coupled to a #Request_chord#
   Base class only
  */
 class Musical_req  : public virtual Request  {

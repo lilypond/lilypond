@@ -69,12 +69,12 @@ protected:
     virtual bool ok()const;
 };
 
-class Voice_element_iterator : public Music_iterator {
-    const Voice_element * elt_l_;
+class Request_chord_iterator : public Music_iterator {
+    const Request_chord * elt_l_;
     Moment elt_duration_;
     bool last_b_;
 public:
-    Voice_element_iterator(Voice_element*);
+    Request_chord_iterator(Request_chord*);
     NAME_MEMBERS();
 
 protected:

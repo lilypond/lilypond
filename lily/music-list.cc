@@ -18,9 +18,9 @@ Music_list::Music_list(Music_list const&s)
 	add(i->clone());
 }
 
-IMPLEMENT_STATIC_NAME(Music_list);
-IMPLEMENT_STATIC_NAME(Chord);
-IMPLEMENT_STATIC_NAME(Voice);
+
+
+
 IMPLEMENT_IS_TYPE_B1(Music_list, Music);
 IMPLEMENT_IS_TYPE_B1(Voice,Music_list);
 IMPLEMENT_IS_TYPE_B1(Chord,Music_list);
@@ -97,10 +97,10 @@ Music_list::do_print()const
 #endif 
 }
 
-IMPLEMENT_IS_TYPE_B1(Voice_element, Chord);
-IMPLEMENT_STATIC_NAME(Voice_element);
+IMPLEMENT_IS_TYPE_B1(Request_chord, Chord);
 
-Voice_element::Voice_element()
+
+Request_chord::Request_chord()
 {
     multi_level_i_ =0;
 }
