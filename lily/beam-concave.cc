@@ -13,7 +13,7 @@
 #include "staff-symbol-referencer.hh"
 
 bool
-is_concave_single_notes (Array<int> positions, Direction beam_dir)
+is_concave_single_notes (Array<int> const &positions, Direction beam_dir)
 {
   Interval covering;
   covering.add_point (positions[0]);
@@ -60,6 +60,29 @@ is_concave_single_notes (Array<int> positions, Direction beam_dir)
   return concave;
 }
 
+Real
+calc_concaveness (Array<int> const &positions, Direction beam_dir)
+{
+  Real dy = positions.top () - positions[0];
+  Real slope = dy / Real (positions.size() - 1);
+  Real concaveness = 0.0;
+  for (int i = 1; i < positions.size() - 1; i++)
+    {
+      Real line_y = slope * i + positions[0];
+
+      concaveness += (beam_dir * (positions[i] - line_y)) >? 0.0;
+    }
+
+  concaveness /= positions.size () ;
+
+  /*
+    Normalize. For dy = 0, the slope ends up as 0 anyway, so the
+    scaling of concaveness doesn't matter much.
+  */
+  if (dy)
+    concaveness /= dy;
+  return concaveness;
+}
 
 MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
 SCM
@@ -89,7 +112,8 @@ Beam::check_concave (SCM smob)
     return SCM_UNSPECIFIED;
 
 
-  Array<int> positions;
+  Array<int> close_positions;
+  Array<int> far_positions;
   for (int i= 0; i < stems.size (); i++)
     {
       /*
@@ -100,12 +124,13 @@ Beam::check_concave (SCM smob)
 	the beam.
 	
        */
-      Real pos = Stem::head_positions (stems[i])[-beam_dir];
+      Interval posns = Stem::head_positions (stems[i]);
       
-      positions.push ((int) rint (pos));
+      close_positions.push ((int) rint (posns[beam_dir]));
+      far_positions.push ((int) rint (posns[-beam_dir]));
     }
 
-  if (is_concave_single_notes (positions, beam_dir)) 
+  if (is_concave_single_notes (far_positions, beam_dir)) 
     {
       Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       Real r = linear_combination (pos, 0.0);
@@ -116,24 +141,9 @@ Beam::check_concave (SCM smob)
     }
   else
     {
-      Real dy = positions.top () - positions[0];
-      Real slope = dy / Real (positions.size() - 1);
-      Real concaveness = 0.0;
-      for (int i = 1; i < positions.size() - 1; i++)
-	{
-	  Real line_y = slope * i + positions[0];
-
-	  concaveness += (beam_dir * (positions[i] - line_y)) >? 0.0;
-	}
-
-      concaveness /= positions.size () ;
-
-      /*
-	Normalize. For dy = 0, the slope ends up as 0 anyway, so the
-	scaling of concaveness doesn't matter much.
-       */
-      if (dy)
-	concaveness /= dy; 
+      Real concaveness = (calc_concaveness (far_positions, beam_dir)
+			  + calc_concaveness (close_positions, beam_dir))/2;
+      
 
       me->set_property ("concaveness", scm_from_double (concaveness));
     }

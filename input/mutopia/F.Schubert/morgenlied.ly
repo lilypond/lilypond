@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.3.4"
+\version "2.3.16"
 manuscriptBreak = { \break }
 
 
@@ -39,6 +39,8 @@ manuscriptBreak = { \break }
     linewidth = #(* mm 160)
     indent = 8\mm
     interscoreline = 2.\mm
+    betweensystemspace = 15\mm
+    raggedbottom = ##t 
     }
 
 modernAccidentals = {
@@ -80,7 +82,7 @@ ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
 
 
-firstVerse = \lyrics {
+firstVerse = \lyricmode {
     \set stanza = "1."
     
     Sü -- ßes Licht! Aus
@@ -95,7 +97,7 @@ firstVerse = \lyrics {
     dei -- ne Ro -- sen -- pracht, grüß __ ich __ dei -- ne Ro -- sen -- pracht. 
     }
 
-secondVerse = \lyrics {
+secondVerse = \lyricmode {
     \set stanza = "2."
     Ach, der Lie -- be sanf
     -- tes We -- hen schwellt mir |
@@ -110,7 +112,7 @@ pianoRH =  \relative c''' \repeat volta 2 {
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
     \once \override DynamicLineSpanner   #'padding =#3
-    r8_\> << { s8 s8-\! }  << { fis( g)
+    r8 << { s8 s8 }  << { fis(\> g)\!
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
     e,16_" "_\markup { \bold\italic cresc. } g c g e g d gis b gis d gis |
@@ -148,47 +150,48 @@ pianoLH =  \relative c'' \repeat volta 2 {
     <c g e c>8 <c e g> <c e g>     <c e g> <c e g> <c e g> |
     <c e g> r r <c, c,>8 r r\fermata \clef treble
     }
-\book {
-  \score {
-    << \time 6/8
-     \new Staff <<
-	 \context Staff #(set-accidental-style 'modern)
-	 \melody >>
-	 \lyricsto "singer" \new Lyrics \firstVerse
-	 \lyricsto "singer" \new Lyrics \secondVerse
-     \new PianoStaff << 
-	 \set PianoStaff.instrument = \markup {
-	     \bold
-	     \bigger\bigger\bigger\bigger \huge "2.  " }
-	 \new Staff \pianoRH
-	 \new Staff \pianoLH
-	>> 
-    >>
 
-    \paper {
-	\context {
-	    \Lyrics
-	    minimumVerticalExtent = #'(-1.0 . 0)
+\book {
+    \score {
+	<< \time 6/8
+	   \new Staff <<
+	       \context Staff #(set-accidental-style 'modern)
+	       \melody >>
+	   \lyricsto "singer" \new Lyrics \firstVerse
+	   \lyricsto "singer" \new Lyrics \secondVerse
+	   \new PianoStaff << 
+	       \set PianoStaff.instrument = \markup {
+		   \bold
+		   \bigger\bigger\bigger\bigger \huge "2.  " }
+	       \new Staff \pianoRH
+	       \new Staff \pianoLH
+	   >> 
+       >>
+
+	\paper {
+	    \context {
+		\Lyrics
+		minimumVerticalExtent = #'(-1.0 . 0)
+	    }
+	    \context {
+		\Score
+		\override Beam #'thickness = #0.55
+		\override SpacingSpanner #'spacing-increment = #1.0
+		\override Slur #'height-limit = #1.5
+	    }
+	    \context {
+		\PianoStaff
+		\override VerticalAlignment #'forced-distance = #10
+	    }
+	    \context {
+		\Staff
+		minimumVerticalExtent = #'(-3. . 6)
+	    }
+	    inputencoding = "latin1"
 	}
-	\context {
-	    \Score
-	    \override Beam #'thickness = #0.55
-	    \override SpacingSpanner #'spacing-increment = #1.0
-	    \override Slur #'height-limit = #1.5
+	\midi {
+	    \tempo 4 = 70
 	}
-	\context {
-	    \PianoStaff
-	    \override VerticalAlignment #'forced-distance = #10
-	}
-	\context {
-	    \Staff
-	    minimumVerticalExtent = #'(-3. . 6)
-	}
-	inputencoding = "latin1"
     }
-    \midi {
-	\tempo 4 = 70
-	}
-}
 }
 

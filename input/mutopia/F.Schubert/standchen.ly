@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.3.4"
+\version "2.3.16"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -115,7 +115,7 @@ vocalThrough = \relative c{
 	e2 r4 |
 }
 
-lyricVerseOne = \lyrics {
+lyricVerseOne = \lyricmode {
 	Lei -- se fle -- hen mei -- ne Lie -- der
 	durch die Nacht zu dir;
 	in den stil -- len Hain her nie -- der,
@@ -130,7 +130,7 @@ lyricVerseOne = \lyrics {
 	fürch -- te, Hol -- de, nicht.
 }
 	
-lyricVerseTwo = \lyrics{
+lyricVerseTwo = \lyricmode{
 	Hörst die Nach -- ti -- gal -- len schla -- gen?
 	ach! sie fle -- hen dich, 
 	mit der Tö -- ne sü -- "\ss en" Kla -- gen
@@ -145,7 +145,7 @@ lyricVerseTwo = \lyrics{
 	jed -- es wei -- che Herz.
 }
 
-lyricThrough = \lyrics{
+lyricThrough = \lyricmode{
 	La\ss auch dir die Brust be -- we -- gen 
 	Lieb -- chen, hö -- re mich! 
 	be -- bend harr' ich dir ent -- ge -- gen! 
