@@ -40,7 +40,7 @@
 #include "scope.hh"
 #include "relative-music.hh"
 #include "transposed-music.hh"
-#include "compressed-music.hh"
+#include "time-scaled-music.hh"
 #include "repeated-music.hh"
 
 // mmm
@@ -707,7 +707,13 @@ Music:
 	;
 
 Alternative_music:
-	ALTERNATIVE Simultaneous_music {
+	/* empty */ {
+
+		/* UGH*/
+               Music_list* m = new Music_list;
+               $$ = new Sequential_music (m);
+	}
+	| ALTERNATIVE Simultaneous_music {
 		$$ = $2;
 	}
 	| ALTERNATIVE Sequential_music {
@@ -739,10 +745,10 @@ Simple_music:
 	| translator_change
 	| Simple_music '*' unsigned '/' unsigned 	{
 		/* urg */
-		$$ = new Compressed_music ($3, $5, $1);
+		$$ = new Time_scaled_music ($3, $5, $1);
 	}
 	| Simple_music '*' unsigned		 {
-		$$ = new Compressed_music ($3, 1, $1);
+		$$ = new Time_scaled_music ($3, 1, $1);
 	}
 	;
 
@@ -767,7 +773,7 @@ Composite_music:
 		unsigned '/' unsigned Music 	
 
 	{
-		$$ = new Compressed_music ($3, $5, $6);
+		$$ = new Time_scaled_music ($3, $5, $6);
 		$$->set_spot (THIS->pop_spot ());
 	}
 	| Repeated_music		{ $$ = $1; }
@@ -1308,8 +1314,8 @@ simple_element:
 		delete $1;
 		n->duration_ = *$4;
 		delete $4;
-		n->forceacc_b_ = $2 % 2;
 		n->cautionary_b_ = $3 % 2;
+		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 
 		Simultaneous_music*v = new Request_chord;
 		v->set_spot (THIS->here_input ());
