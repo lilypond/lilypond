@@ -59,7 +59,6 @@ public:
     JUNKME
    */
   Real get_realvar (SCM symbol) const;
-  Real get_var (String id) const;
   void reinit ();
   Paper_def ();
   Paper_def (Paper_def const&);

@@ -127,7 +127,7 @@ Paper_column::brew_molecule (SCM p)
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);
   
-  Molecule l = Lookup::filledbox (Box (Interval (-0.01, 0.01),
+  Molecule l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
 
   t.add_molecule (l);

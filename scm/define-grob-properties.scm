@@ -300,7 +300,6 @@ use @code{\outputproperty}. @code{\property .. \override} will not
 work: @code{\override} is processed after the StaffSymbol is created,
 and will have no effect.
 ")
-(grob-property-description 'maximum-length ly:dimension? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
 (grob-property-description 'measure-length ly:moment? "Length of a
 measure. Used in some spacing situations.")

@@ -57,7 +57,7 @@ brew_flexa (Grob *me,
 	-0.5*height - cauda_box_y.length();
 
       Box cauda_box (cauda_box_x, cauda_box_y);
-      Molecule cauda = Lookup::filledbox (cauda_box);
+      Molecule cauda = Lookup::filled_box (cauda_box);
       cauda.translate_axis (y_correction, Y_AXIS);
       molecule.add_molecule (cauda);
     }

@@ -28,6 +28,13 @@
 #include "break-align-interface.hh"
 #include "spacing-interface.hh"
 
+
+/*
+  TODO: this file/class is too complex. Should figure out how to chop
+  this up even more.
+   
+ */
+
 class Spacing_spanner
 {
 public:
@@ -661,7 +668,6 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 				   Real * fixed, Real * space,
 				   Moment shortest)
 {
- 
   *fixed = 0.0;
   Direction d = LEFT;
   Drul_array<Item*> cols(l,r);
@@ -675,10 +681,12 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 	    what happens if we do this for non musical columns only.
 	   */
 	  Interval lext = cols[d]->extent (cols [d], X_AXIS);
-	  *fixed += -d * lext[-d];
+	  if (!lext.is_empty ())
+	    *fixed += -d * lext[-d];
 	}
     }
   while (flip (&d) != LEFT);
+  
 
   if (l->breakable_b (l) && r->breakable_b(r))
     {
@@ -694,91 +702,92 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
   else
     {
       Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
-      bool dummy;
 
-      *space = *fixed + get_duration_space (me, dt, shortest.main_part_, &dummy);
+      if (dt == Moment (0,0))
+	{
+	  /*
+	    In this case, Staff_spacing should handle the job,
+	    using dt when it is 0 is silly.
+	   */
+	  *space = *fixed + 0.5; 
+	}
+      else
+	{
+	  bool dummy;
+	  *space = *fixed + get_duration_space (me, dt, shortest.main_part_, &dummy);
+	}
     }
 }
 
 
 /*
   Read hints from L and generate springs.
- */
+*/
 void
 Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shortest)
 {
-  Real max_fixed = -infinity_f;
-  Real max_space = -infinity_f;
+  Real compound_fixed = 0.0;
+  Real compound_space = 0.0;
+  int wish_count = 0;
 
-  standard_breakable_column_spacing (me, l, r, &max_fixed, &max_space ,
-				     shortest);
-  
-  for (SCM s = l->get_grob_property ("spacing-wishes");
-       gh_pair_p (s); s = gh_cdr (s))
+  Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+
+  if (dt == Moment (0,0))
     {
-      Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
-
-      if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
-	continue;
-
-      Real space;
-      Real fixed_space;
-
-      /*
-	column for the left one settings should be ok due automatic
-	pointer munging.
-
-      */
-      assert (spacing_grob-> get_column () == l);
-
-      Staff_spacing::get_spacing_params (spacing_grob,
-					 &space, &fixed_space);
-
-      if (Paper_column::when_mom (r).grace_part_)
+      for (SCM s = l->get_grob_property ("spacing-wishes");
+	   gh_pair_p (s); s = gh_cdr (s))
 	{
+	  Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
+
+	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
+	    continue;
+
+	  Real space;
+	  Real fixed_space;
+
 	  /*
-	    Correct for grace notes.
+	    column for the left one settings should be ok due automatic
+	    pointer munging.
 
-	    Ugh. The 0.8 is arbitrary.
-	   */
-	  space *= 0.8;
+	  */
+	  assert (spacing_grob-> get_column () == l);
+
+	  Staff_spacing::get_spacing_params (spacing_grob,
+					     &space, &fixed_space);
+
+	  if (Paper_column::when_mom (r).grace_part_)
+	    {
+	      /*
+		Correct for grace notes.
+
+		Ugh. The 0.8 is arbitrary.
+	      */
+	      space *= 0.8;
+	    }
+
+
+	  compound_space += space;
+	  compound_fixed += fixed_space;
+	  wish_count ++ ;
 	}
-      if (space > max_space)
-	{
-	  max_space = space;
-	  max_fixed = fixed_space;
-	}
     }
 
-  
-  
-    
-  if (isinf (max_space))
+  if (compound_space <= 0.0 || !wish_count)
     {
-    /*
-      One situation where this can happen is when there is a column
-      that only serves as a spanning point for a short staff-symbol.
-
-     ===============X===
-
-         |=======Y
-
-
-      (here no StaffSpacing from Y to X is found.)
-    */      
-      warning ("No spacing wishes found. Does your score have a staff?");
-      max_space = 2.0;
-      max_fixed = 1.0;
+      standard_breakable_column_spacing (me, l, r, &compound_fixed, &compound_space ,
+					 shortest);
+      wish_count = 1;
     }
+  else
+    {
+      compound_space /= wish_count;
+      compound_fixed /= wish_count;
+    }
+
+  assert (!isinf (compound_space));
+
 
   
-  if (l->break_status_dir() == RIGHT
-      && Paper_column::when_mom (l) == Paper_column::when_mom (r))
-    {
-      /* Start of line: this space is not stretchable */
-      max_fixed = max_space;
-    }
-
   /*
     Hmm.  we do 1/0 in the next thing. Perhaps we should check if this
     works on all architectures.
@@ -791,8 +800,8 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
     Do it more cleanly, or rename the property. 
     
    */
-  Real strength = 1 / (max_space - max_fixed);
-  Real distance =  max_space;
+  Real strength = 1 / (compound_space - compound_fixed);
+  Real distance = compound_space;
   Spaceable_grob::add_spring (l, r, distance, strength, false);
 }
 

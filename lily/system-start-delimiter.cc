@@ -62,9 +62,10 @@ Will not fix it since I'm not sure.
 Molecule
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
-  Real w = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) *
-    gh_scm2double (me->get_grob_property ("thickness"));
-  return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
+  Real lt =me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) ;
+  Real w = lt * gh_scm2double (me->get_grob_property ("thickness"));
+  return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
+				   lt);
 }
 
 MAKE_SCHEME_CALLBACK (System_start_delimiter,after_line_breaking,1);

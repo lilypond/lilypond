@@ -21,7 +21,6 @@ public:
   static void get_spacing_params (Grob*,Real*,Real*);
 
   static Interval bar_y_positions (Grob*);
-  static  Grob*  extremal_break_aligned_grob (Grob*,Direction, Interval*);
 };
 
 #endif /* STAFF_SPACING_HH */

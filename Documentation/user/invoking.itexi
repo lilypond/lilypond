@@ -84,7 +84,8 @@ in the files. Possible keys: @code{language}, @code{latexheaders},
 @item -v,--version
 Show version information.
 @item -V,--verbose
-Be verbose.
+Be verbose. This prints out commands as they are executed, and more
+information about the formatting process is printed.
 @item --debug
 Print even more information. This is useful when generating bugreports.
 @item -w,--warranty

@@ -269,7 +269,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 		      it = it->find_prebroken_piece (rcolumn->break_status_dir ());
 		    }
 		  
-		  Grob *last = Staff_spacing::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
+		  Grob *last = Separation_item::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
 
 		  if (last)
 		    bar_yextent = Staff_spacing::bar_y_positions (last);

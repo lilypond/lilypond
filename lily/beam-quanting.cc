@@ -30,6 +30,8 @@ const int DAMPING_DIRECTIION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 
+#define DEBUG_QUANTING 1
+
 
 static Real
 shrink_extra_weight (Real x, Real fac)
@@ -43,6 +45,10 @@ struct Quant_score
   Real yl;
   Real yr;
   Real demerits;
+
+#if DEBUG_QUANTING
+  String score_card_;
+#endif
 };
 
 
@@ -203,9 +209,13 @@ Beam::quanting (SCM smob)
      parameters outside of the loop, we can save a lot of time. */
   for (int i = qscores.size (); i--;)
     {
-      qscores[i].demerits
-	+= score_slopes_dy (qscores[i].yl, qscores[i].yr,
-			    dy_mus, yr- yl, xstaff); 
+      Real d =  score_slopes_dy (qscores[i].yl, qscores[i].yr,
+				 dy_mus, yr- yl, xstaff);
+      qscores[i].demerits += d;
+
+#if DEBUG_QUANTING
+      qscores[i].score_card_ += to_string ("S%.2f",d);
+#endif
     }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
@@ -216,34 +226,43 @@ Beam::quanting (SCM smob)
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
-	qscores[i].demerits
-	  += score_forbidden_quants (qscores[i].yl, qscores[i].yr,
+	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
 				     rad, slt, thickness, beam_translation,
 				     beam_count, ldir, rdir); 
+	qscores[i].demerits += d;
+
+#if DEBUG_QUANTING
+	qscores[i].score_card_ += to_string (" F %.2f", d);
+#endif
       }
 
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
-	qscores[i].demerits
-	  += score_stem_lengths (stems, stem_infos,
+	Real d=score_stem_lengths (stems, stem_infos,
 				 base_lengths, stem_xposns,
 				 xl, xr,
 				 knee_b,
 				 qscores[i].yl, qscores[i].yr);
+	qscores[i].demerits +=  d;
+
+#if DEBUG_QUANTING
+	qscores[i].score_card_ += to_string (" L %.2f", d);
+#endif
       }
 
   int best_idx = best_quant_score_idx (qscores);
+
+  
   me->set_grob_property ("positions",
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
 				  gh_double2scm (qscores[best_idx].yr))
 			 );
 
 #if DEBUG_QUANTING
-
   // debug quanting
   me->set_grob_property ("quant-score",
-			 gh_double2scm (qscores[best_idx].demerits));
+			 scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
   me->set_grob_property ("best-idx", scm_int2num (best_idx));
 #endif
 

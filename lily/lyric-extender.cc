@@ -42,7 +42,8 @@ Lyric_extender::brew_molecule (SCM smob)
 
   Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
   
-  Molecule  mol (Lookup::filledbox (Box (Interval (0,w), Interval (0,h))));
+  Molecule  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),
+					   0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }

@@ -1,4 +1,38 @@
+2004-01-03  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (brew_molecule): rewrite debug output: split up scores.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use semi-fixed
+	space after barline.
+
+	* mf/feta-eindelijk.mf (tracingvariables): make top of 8th rest fatter.
+
+	* lily/spacing-spanner.cc (breakable_column_spacing): take average
+	of spacing wishes, not maximum. Only do this for delta-t == 0. In
+	the other case, take standard column-breakable spacing. Do not
+	warn about "no spacing wishes".
+
+	This fixes wide spaces after barlines in very loose lines.
+
+	* lily/multi-measure-rest.cc (big_rest): bugfix for blots.
+
 2004-01-02  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/stanza-number-engraver.cc (acknowledge_grob): bugfix:
+	acknowledge_grob lyric-syllable, not lyric-text.
+
+	* lily/hyphen-spanner.cc (brew_molecule): rewrite. Make multiple
+	dashes of length #'length separated by #'dash-period. 
+
+	* lily/lyric-extender.cc (brew_molecule): idem
+
+	* lily/multi-measure-rest.cc (big_rest): idem
+
+	* lily/system-start-delimiter.cc (simple_bar): idem
+
+	* lily/bar-line.cc (simple_barline): use rounded box
+
+	* VERSION: release 2.1.5
 
 	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
 	music): move note about dvips to more visible place.

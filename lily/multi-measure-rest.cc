@@ -171,23 +171,26 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 }
 
 
-
+/*
+  WIDTH can also be 0 to determine the minimum size of the object.
+ */
 Molecule
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real tthick = gh_scm2double (me->get_grob_property ("thick-thickness"));
+  Real thick_thick = gh_scm2double (me->get_grob_property ("thick-thickness"));
   Real hair_thick = gh_scm2double (me->get_grob_property ("hair-thickness"));
 
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  
   Real slt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  Real y = slt * tthick/2 * ss;
+  Real y = slt * thick_thick/2 * ss;
   Real ythick = hair_thick * slt * ss;
-  Box b(Interval (0, width - 2 * ythick), Interval (-y, y));
+  Box b(Interval (0,  0 >? (width - 2 * ythick)), Interval (-y, y));
   
-  Molecule m =  Lookup::filledbox (b);
-  Molecule yb = Lookup::filledbox (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)));
+  Real blot = width ? (.8 * (y <? ythick)) : 0.0;
+  
+  Molecule m =  Lookup::round_filled_box (b, blot);
+  Molecule yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)), blot);
 
   m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
   m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);

@@ -168,12 +168,12 @@ vaticana_brew_flexa (Grob *me,
        */
       Box left_edge_box (Interval (0, line_thickness),
 			 Interval (-0.5*left_height, +0.5*left_height));
-      Molecule left_edge = Lookup::filledbox (left_edge_box);
+      Molecule left_edge = Lookup::filled_box (left_edge_box);
       molecule.add_molecule(left_edge);
 
       Box right_edge_box (Interval (-line_thickness, 0),
 			  Interval (-0.5*right_height, +0.5*right_height));
-      Molecule right_edge = Lookup::filledbox (right_edge_box);
+      Molecule right_edge = Lookup::filled_box (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
       right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
       molecule.add_molecule(right_edge);

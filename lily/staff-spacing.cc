@@ -142,40 +142,6 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
   return max_corr;
 }
 
-/*
-  Try to find the break-aligned symbol in SEPARATION_ITEM that is
-  sticking out at direction D. The x size is put in LAST_EXT
-*/
-Grob*
-Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
-					    Interval * last_ext)
-{
-  Grob *col = dynamic_cast<Item*> (separation_item)->get_column ();
-  last_ext->set_empty ();
-  Grob *last_grob = 0;
-  for (SCM s = separation_item->get_grob_property ("elements");
-       gh_pair_p (s); s = gh_cdr (s))
-    {
-      Grob * break_item = unsmob_grob (gh_car (s));
-      
-      if (!gh_symbol_p (break_item->get_grob_property ("break-align-symbol")))
-	continue;
-
-      Interval ext = break_item->extent (col, X_AXIS);
-
-      if (ext.is_empty ())
-	continue;
-      if (!last_grob
-	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0) )
-	{
-	  *last_ext = ext;
-	  last_grob = break_item; 
-	}
-    }
-
-  return last_grob;  
-}
-
 void
 Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 {
@@ -202,7 +168,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
     }
 
   Interval last_ext;
-  Grob *last_grob = extremal_break_aligned_grob (separation_item, RIGHT,
+  Grob *last_grob = Separation_item::extremal_break_aligned_grob (separation_item, RIGHT,
 						 &last_ext);
   if (!last_grob)
     {
@@ -231,7 +197,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   if (me_item->break_status_dir () == CENTER)
     {
       SCM nndef = scm_sloppy_assq (ly_symbol2scm ("next-note"), alist);
-      if (gh_pair_p (nndef ))
+      if (gh_pair_p (nndef))
 	space_def = nndef;
     }
   
@@ -247,11 +213,30 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   SCM type = gh_car (space_def) ;
 
   *fixed = last_ext[RIGHT];
-  if (type == ly_symbol2scm ("extra-space"))
-    *space = *fixed + distance;
+  if (type == ly_symbol2scm ("fixed-space"))
+    {
+     *fixed += distance;
+     *space = *fixed;
+    }
+  else if (type == ly_symbol2scm ("extra-space")) 
+    {
+      *space = *fixed + distance;
+    }
+  else if (type == ly_symbol2scm ("semi-fixed-space"))
+    {
+      *fixed += distance / 2; 
+      *space =  *fixed + distance/2;
+    }
   else if (type == ly_symbol2scm("minimum-space"))
-    *space = last_ext[LEFT] + (last_ext.length () >? distance);
-
+    {
+      *space = last_ext[LEFT] + (last_ext.length () >? distance);
+    }
+  else if (type == ly_symbol2scm("minimum-fixed-space"))
+    {
+      *space = last_ext[LEFT] + (last_ext.length () >? distance);
+      *fixed = *space;
+    }
+  
   *space += next_notes_correction (me, last_grob);
 }
 

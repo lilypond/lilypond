@@ -44,7 +44,7 @@ Notes:
 #include "warn.hh"
 
 
-#define DEBUG_QUANTING 0
+#define DEBUG_QUANTING 1
 
 
 #if DEBUG_QUANTING
@@ -492,18 +492,10 @@ Beam::brew_molecule (SCM grob)
 	parameters.
       */
       String str;
-      if (1)
-	{
-	  str += to_string (gh_scm2int (me->get_grob_property ("best-idx")));
-	  str += ":";
-	}
-      str += to_string (gh_scm2double (me->get_grob_property ("quant-score")),
-		     "%.2f");
-
       SCM properties = Font_interface::font_alist_chain (me);
 
-      Molecule tm = Text_item::interpret_new_markup
-	(me->self_scm(),  properties, scm_makfrom0str (str.to_str0 ()));
+      Molecule tm = *unsmob_molecule (Text_item::interpret_markup
+	(me->get_paper ()->self_scm (), properties, me->get_grob_property ("quant-score")));
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
     }
 #endif

@@ -121,15 +121,15 @@ for the reader.
 
 
 (define-public huge-markup
-  (font-markup 'font-relative-size 2))
+  (font-markup 'font-size 2))
 (define-public large-markup
-  (font-markup 'font-relative-size 1))
+  (font-markup 'font-size 1))
 (define-public small-markup
-  (font-markup 'font-relative-size -1))
+  (font-markup 'font-size -1))
 (define-public tiny-markup
-  (font-markup 'font-relative-size -2))
+  (font-markup 'font-size -2))
 (define-public teeny-markup
-  (font-markup 'font-relative-size -3))
+  (font-markup 'font-size -3))
 (define-public dynamic-markup
   (font-markup 'font-family 'dynamic))
 (define-public italic-markup

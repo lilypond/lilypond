@@ -51,13 +51,14 @@ Horizontal_bracket::brew_molecule (SCM smob)
   ext.unite (gs[0]->extent (cx, X_AXIS));
 
   Direction d = get_grob_direction (me);
-  Real t = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real lt =me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real t = lt;
 
   SCM lthick = me->get_grob_property ("thickness");
   if (gh_number_p (lthick))
     t *= gh_scm2double (lthick);
   
-  Molecule b = Lookup::bracket (X_AXIS, ext, t, - d* 1.0); 
+  Molecule b = Lookup::bracket (X_AXIS, ext, t, - d* 1.0, lt); 
   
   b.translate_axis ( - sp->get_bound (LEFT)->relative_coordinate (cx, X_AXIS), X_AXIS);
 

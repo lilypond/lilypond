@@ -20,48 +20,24 @@
 #include "item.hh"
 
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner,set_spacing_rods,1);
-SCM
-Hyphen_spanner::set_spacing_rods (SCM smob)
-{
-  Grob*me = unsmob_grob (smob);
-
-  Rod rod;
-  Spanner*sp = dynamic_cast<Spanner*> (me);
-  Item * l = sp->get_bound (LEFT);
-  Item * r =  sp->get_bound (RIGHT);
-  rod.item_l_drul_[LEFT] = l;
-  rod.item_l_drul_[RIGHT] =r;
-  rod.distance_ =
-    gh_scm2double (me->get_grob_property ("minimum-length"))
-    + l->extent (l, X_AXIS)[RIGHT]
-    - r->extent (r, X_AXIS)[LEFT];
-
-  rod.add_to_cols ();
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (Hyphen_spanner,brew_molecule,1)
 SCM 
 Hyphen_spanner::brew_molecule (SCM smob)
 {
   Spanner * sp = unsmob_spanner (smob);
+  Drul_array<Item*> bounds (sp->get_bound (LEFT),
+			    sp->get_bound (RIGHT));
+  
+  Grob * common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
 
-  Grob * common = sp;
+  Interval span_points;
   Direction d = LEFT;
   do
     {
-      common = common->common_refpoint (sp->get_bound (d), X_AXIS);
-    }
-  while (flip (&d) != LEFT);
-  Interval bounds;
-  
-  do
-    {
-      Interval iv = sp->get_bound (d)->extent (common, X_AXIS);
+      Interval iv = bounds[d]->extent (common, X_AXIS);
 
-      bounds[d] = iv.is_empty ()
-	? sp->get_bound (d)->relative_coordinate (common, X_AXIS)
+      span_points[d] = iv.is_empty ()
+	? bounds[d]->relative_coordinate (common, X_AXIS)
 	: iv[-d];
     }
   while (flip (&d) != LEFT);
@@ -71,81 +47,44 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Real h = gh_scm2double (sp->get_grob_property ("height"));
 
   // interval?
-  Real x = gh_scm2double (sp->get_grob_property ("maximum-length"));
-  SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
+  
+  Real dp = gh_scm2double (sp->get_grob_property ("dash-period"));
+  Real dl = gh_scm2double (sp->get_grob_property ("length"));
 
-  Real word_space  = 1.0;
-  if (gh_number_p (space))
-    {
-      word_space = gh_scm2double (space);
-    }
+  if (dp < dl)
+    dp = 1.5 * dl;
+
+  Real l = span_points.length ();
+  int n = int (ceil (l/dp - 0.5));
+  if (n <= 0)
+    n = 1;
+
+  Real space_left = l - dl - (n-1)* dp;
 
   /*
-    We remove word space from the distance so it doesn't look like an extender.
-    
+    If there is not enough space, the hyphen should disappear.
    */
-  Real l = (gh_scm2double (sp->get_grob_property ("minimum-length"))
-    - word_space ) >? word_space;
+  if (space_left < 0)
+    return SCM_EOL;
   
-  
-  /*
-    we should probably do something more intelligent when bounds is
-    empty, but at least this doesn't crash.
-  */      
-  Real w  = bounds.is_empty () ? 0 : bounds.length ();
-  
-  /* for length, use a geometric mean of the available space and some minimum
-   */
-  if (l < w)
-    {
-      l = sqrt (l*w);
-      if (l > x)
-	l = x;
-    }
-  else
-    {
-      /* OK, we have a problem. Usually this means that we're on the
-         first column, and we have a long lyric which extends to near
-         the offset for stuff */
-      /* This test for being on the first column has been shamelessly
-         ripped from spanner.cc */
-      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound (LEFT)->get_column ());
-      if (sc != NULL &&
-	  sc->break_status_dir () == RIGHT)
-	{
-	  /* We are on the first column, so it's probably harmless to
-             get the minimum length back by extending leftwards into
-             the space under the clef/key sig/time sig */
-	  bounds[LEFT] = bounds[RIGHT] - l;
-	}
-      else 
-	{
-	  /* We can't get the length desired. Maybe we should warn. */
-	  l = w;
-	}
-    }
-  Box b (Interval (-l/2,l/2), Interval (h,h+th));
-  Molecule mol (Lookup::filledbox (b));
-  Real ct = bounds.is_empty () ? 0 : bounds.center () ;
-  mol.translate_axis (ct -sp->relative_coordinate (common, X_AXIS), X_AXIS);
-  return mol.smobbed_copy ();
-}
-  
-void
-Hyphen_spanner::set_textitem (Direction d, Grob* b)
-{
-  elt_->set_bound (d, b);
-  elt_->add_dependency (b);
-}
+  Box b (Interval (0, dl), Interval (h,h+th));
+  Molecule dash_mol (Lookup::round_filled_box (b, 0.8 * lt));
 
-Hyphen_spanner::Hyphen_spanner (Spanner*s)
-{
-  elt_ = s;
+  Molecule total;
+  for (int i = 0; i < n; i++)
+    {
+      Molecule m (dash_mol);
+      m.translate_axis (span_points[LEFT] + i * dp + space_left / 2, X_AXIS);
+      total.add_molecule (m);
+    }
+
+  total.translate_axis ( -sp->relative_coordinate (common, X_AXIS), X_AXIS);
+  return total.smobbed_copy ();
 }
 
 
 
 ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
 	       "A centred hyphen is a simple line between lyrics used to divide syllables",
-	       "thickness height minimum-length maximum-length word-space");
+	       "thickness height dash-period length");
 
