@@ -8,8 +8,8 @@
 #include "melodicstaff.hh"
 #include "rhythmstaff.hh"
 #include "lyricstaff.hh"
-#include "complexmelodicstaff.hh"
 #include "staff.hh"
+#include "complexstaff.hh"
 
 void
 Input_staff::add(Array<Input_command*> &s)
@@ -36,10 +36,10 @@ Input_staff::parse(Score*score_l)
 {
     Staff *p=0;
 
-    if (type == "complex")
-	p = new Complex_melodic_staff;
-    else if (type == "melodic")
+    if (type == "simple")
 	p = new Melodic_staff;
+    else if (type == "melodic")
+	p = new Complex_staff;
     else if (type == "rhythmic")
 	p = new Rhythmic_staff;
     else if (type == "lyric")
