@@ -3,7 +3,7 @@
 # title	   generic variables
 # file	   make/Variables.make
 # abstract do not change this file for site-wide extensions;
-# please edit settings in User.make 
+#          please edit settings in User.make 
 #
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -14,6 +14,10 @@
 include ./$(depth)/.version
 #
 include ./$(depth)/make/out/Configure_variables.make
+
+# ugh, for win32 make
+# leave me up here, or i won-t work
+export CXX
 
 ifeq (0,${MAKELEVEL})
 MAKE:=$(MAKE) --no-builtin-rules
@@ -33,6 +37,7 @@ libdir = $(outdir)
 lilyout = ./$(depth)/lily/$(outdir)
 mi2muout = ./$(depth)/mi2mu/$(outdir)
 makeout = ./$(depth)/make/$(outdir)
+doc-dir = ./$(depth)/Documentation
 flower-dir = ./$(depth)/flower
 lib-dir = ./$(depth)/lib
 lily-dir = ./$(depth)/lily
@@ -40,6 +45,8 @@ mi2mu-dir = ./$(depth)/mi2mu
 make-dir = ./$(depth)/make
 include-lib = ./$(depth)/lib/include
 include-flower = ./$(depth)/flower/include
+#
+rpm-sources = /usr/src/redhat/SOURCES
 #
 
 # user settings:
@@ -52,9 +59,6 @@ include ./$(depth)/make/User.make
 BUILD = $(shell cat $(build))
 INCREASE_BUILD = echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
 #
-
-# ugh, for win32 make
-export CXX
 
 # the version:
 #
@@ -122,7 +126,7 @@ CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
 LDFLAGS = $(EXTRA_LDFLAGS)
-LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES)
+LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES) -lg++ # need lg++ for win32, really!
 #
 
 # librarian:
@@ -171,7 +175,14 @@ STRIPDEBUG=true #replace to do stripping of certain objects
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
-
-progdocs=$(allhh) $(allcc) 
+# .hh should be first. Don't know why
+progdocs=$(shell find -name '*.hh' |egrep -v 'obsolete/|out/') $(shell find -name '*.cc'|egrep -v 'out/|obsolete/')
 pod2groff=pod2man --center="LilyPond documentation" --section="0"\
 	--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
+STRIP=strip --strip-debug
+ifdef stablecc
+ STABLEOBS=$(addprefix $(outdir)/,$(stablecc:.cc=.o))
+endif
+stablecc=
+DO_STRIP=true
+

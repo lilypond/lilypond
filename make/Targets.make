@@ -32,7 +32,9 @@ EXECUTABLE = $(lily_bindir)/$(NAME)
 $(EXECUTABLE): $(build) $(OFILES) $(CUSTOMLIBES) 
 	$(INCREASE_BUILD)
 	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
-#	$(STRIPDEBUG) $(STABLEOBS)
+ifdef STABLEOBS
+	$(DO_STRIP) $(STABLEOBS)
+endif
 	$(LD_COMMAND) $(OFILES) $(LOADLIBES)
 
 exe: $(EXECUTABLE)
@@ -61,8 +63,12 @@ ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
 
-distclean: clean
-	rm -rf Makefile $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen)
+distclean: localdistclean 
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i localdistclean; done
+endif
+
+localdistclean:
 
 
 # configure:
@@ -107,7 +113,7 @@ doc:
 
 # doc++ documentation of classes
 doc++: $(progdocs)	
-	doc++ -kp -d $(DOCDIR) $^
+	doc++ -k -p -d $(DOCDIR) $^
 
 dist:
 	-mkdir $(distdir)
@@ -191,5 +197,16 @@ check-doc-deps:
 
 $(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
+#
+
+# RedHat rpm package:
+#
+#rpm:	dist
+#	mv ./$(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
+rpm:
+	cp ./$(depth)/../releases/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
+	cp $(doc-dir)/*.gif $(rpm-sources)
+	$(MAKE) -C $(make-dir) spec
+	rpm -ba $(makeout)/lilypond.spec
 #
 
