@@ -532,7 +532,7 @@ None.
 
 
 	if 'PDF' in targets:
-		where = ly.read_pipe ('kpsewhich feta20.pfa')
+		where = ly.read_pipe ('kpsewhich feta20.pfa').strip()
 
 		pfa_file  = None
 		if where:
