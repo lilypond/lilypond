@@ -99,8 +99,9 @@ sarabandeA =  \context Voice \notes \relative c {
       <d4 g,> gis4.   } >
   \stemUp
   d16(cis)d f,
+  [a,8 e']
   \stemBoth
-  [a,8 e'] [d' cis] |
+  [d' cis] |
   d4 d,,2 |
 }
 

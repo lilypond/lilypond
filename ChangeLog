@@ -1,4 +1,27 @@
+2002-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/beam.scm (default-beam-y-quants): Bugfix: lower beam-sit by
+	1 staff-line-thickness.  Sadly, this makes dy quanting problems
+	(dy quants allowed should depend on actual left y) more visible.
+
 2002-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (quantise_dy): Bugfix: sign (0) = 0.  Hmm.
+
+	* scm/grob-property-description.scm (concaveness-threshold): Add
+	typecheck and description.
+
+	* scm/grob-description.scm (Beam): Remove obsolete properties, add
+	concaveness-threshold (previously concaveness).
+
+	* lily/beam.cc (check_concave): Remove choices and debugging
+	stuff: use best concaveness calculation.
+	(quantise_dy): Remove choice.  Try to never make a slope steeper
+	by quantising, but certainly never quantise a slope away.
+	(check_stem_length_f): Remove choice.  In case of lengthening
+	alowed, always lengthen to ideal length.
+
+	* Documentation/index.texi: Fix FAQ url.
 
 	* Documentation/topdocs/INSTALL.texi: Add information about fink,
 	compile fix and 1.4 specific fix that doesn't hurt 1.5.

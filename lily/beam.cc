@@ -329,20 +329,35 @@ MAKE_SCHEME_CALLBACK (Beam, least_squares, 1);
 SCM
 Beam::least_squares (SCM smob)
 {
- Grob *me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
- if (visible_stem_count (me) <= 1)
-   return SCM_UNSPECIFIED;
+  int count = visible_stem_count (me);
+  if (count <= 1)
+    return SCM_UNSPECIFIED;
 
   Real y = 0;
   Real dy = 0;
+  Direction dir = Directional_element_interface::get (me);
 
   /* Stem_info, and thus y,dy in this function are corrected for beam-dir */
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   if (first_ideal == Stem::calc_stem_info (last_visible_stem (me)).idealy_f_)
     {
-      y = first_ideal;
-      dy = 0;
+      Real left = Stem::chord_start_f (first_visible_stem (me));
+      Real right = Stem::chord_start_f (last_visible_stem (me));
+      
+      /* Make simple beam on middle line have small tilt */
+      if (!first_ideal && left != right && count == 2)
+	{
+	  int d = sign (right - left) * dir;
+	  dy = gh_scm2double (me->get_grob_property ("thickness")) * d;
+	  y = 0;
+	}
+      else
+	{
+	  y = first_ideal;
+	  dy = 0;
+	}
     }
   else
     {
@@ -369,13 +384,11 @@ Beam::least_squares (SCM smob)
     }
 
   /* Store true, not dir-corrected values */
-  Direction dir = Directional_element_interface::get (me);
   me->set_grob_property ("y", gh_double2scm (y * dir));
   me->set_grob_property ("dy", gh_double2scm (dy * dir));
   return SCM_UNSPECIFIED;
 }
 
-#include <stdio.h>
 MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
 SCM
 Beam::check_concave (SCM smob)
@@ -396,80 +409,33 @@ Beam::check_concave (SCM smob)
   if (stems.size () < 3)
     return SCM_UNSPECIFIED;
 
-  /* TODO: find-out what makes beam concave (#1, #2, #3, #4 or
-     something else) */
-  SCM s = me->get_grob_property ("concaveness-no-slope");
-
+  /* Concaveness try #2: Sum distances of inner noteheads that
+     fall outside the interval of the two outer noteheads */
   Real concave = 0;
-  if (!to_boolean (s))
-    {
-      /* Concaveness try #1: Sum distances of inner noteheads to line
-	 between two outer noteheads.  */
-
-      s = me->get_grob_property ("concave-if-bigger-than-two");
-      
-      Real dy = Stem::chord_start_f (stems.top ())
-	- Stem::chord_start_f (stems[0]);
-      Real slope = dy / (stems.size () - 1);
-      
-      Real y0 = Stem::chord_start_f (stems[0]);
-      for (int i = 1; i < stems.size () - 1; i++)
-	{
-	  Real c = (Stem::chord_start_f (stems[i]) - y0) - i * slope;
-
-	  /* try #4: (Han-Wen): neem maximum afstand lijn - tot
-	     extreme notehead (in geval van akkoorden). Als die
-	     afstand >= 2.0 ss was, dan moest hij recht (of blijkbaar:
-	     vrijwel recht, zie m 17, 18). Dat was nl. wat stolba zei:
-	     als afstand lijn-noot >= 2.0 dan recht. */
-	  
-	  if (to_boolean (s) && c >= 2.0)
-	    {
-	      concave = 1000 * Directional_element_interface::get (me);
-	      break;
-	    }
-	  
-	  concave += c;
-	}
-
-    }
-  else
-    {
-      /* Concaveness try #2: Sum distances of inner noteheads that
-         fall outside the interval of the two outer noteheads */
-	 
-      Interval iv = Interval (Stem::chord_start_f (stems[0]),
-			      Stem::chord_start_f (stems.top ()));
-
-      if (iv[MAX] < iv[MIN])
-	//	iv.swap ();
-	iv = Interval (iv[MAX], iv[MIN]);
-      
-      for (int i = 1; i < stems.size () - 1; i++)
-	{
-	  Real c = 0;
-	  Real f = Stem::chord_start_f (stems[i]);
-	  if ((c = f - iv[MAX]) > 0)
-	    concave += c;
-	  else if ((c = f - iv[MIN]) < 0)
-	    concave += c;
-	}
-    }
+  Interval iv = Interval (Stem::chord_start_f (stems[0]),
+			  Stem::chord_start_f (stems.top ()));
   
+  if (iv[MAX] < iv[MIN])
+    //	iv.swap ();
+    iv = Interval (iv[MAX], iv[MIN]);
+  
+  for (int i = 1; i < stems.size () - 1; i++)
+    {
+      Real c = 0;
+      Real f = Stem::chord_start_f (stems[i]);
+      if ((c = f - iv[MAX]) > 0)
+	concave += c;
+      else if ((c = f - iv[MIN]) < 0)
+	concave += c;
+    }
   concave *= Directional_element_interface::get (me);
       
   Real concaveness = concave / (stems.size () - 2);
-
   /* ugh: this is the a kludge to get input/regression/beam-concave.ly
-     to behave as baerenreiter.
-
-    try #3 (add-on to #2): */
-  s = me->get_grob_property ("concaveness-square");
-  if (to_boolean (s))
-    concaveness /= (stems.size () - 2);
+     to behave as baerenreiter. */
+  concaveness /= (stems.size () - 2);
   
-  s = me->get_grob_property ("concaveness");
-  Real r = gh_scm2double (s);
+  Real r = gh_scm2double (me->get_grob_property ("concaveness-threshold"));
 
   /* TODO: some sort of damping iso -> plain horizontal */
   if (concaveness > r)
@@ -484,19 +450,6 @@ Beam::check_concave (SCM smob)
       me->set_grob_property ("dy", gh_double2scm (0)); 
     }
 
-  s = me->get_grob_property ("debug-concave");
-  if (to_boolean (s))
-    {
-#if 0
-      Item *text = new Item (me->get_property ("TextScript"));
-      text->set_grob_property ("text",
-			       ly_str02scm (to_str (concaveness).ch_C ())),
-      Side_position_interface::add_support (text, stem[0]);
-#else
-      printf ("concaveness: %.2f\n", concaveness);
-#endif
-    }
-  
   return SCM_UNSPECIFIED;
 }
 
@@ -553,7 +506,7 @@ Beam::quantise_dy (SCM smob)
     return SCM_UNSPECIFIED;
 
   Array<Real> a;
-  SCM proc = me->get_grob_property ("height-quants");
+  SCM proc = me->get_grob_property ("height-quant-function");
   SCM quants = gh_call2 (proc, me->self_scm (),
 			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
 					/ 1.0));
@@ -571,15 +524,16 @@ Beam::quantise_dy (SCM smob)
       Real staff_space = Staff_symbol_referencer::staff_space (me);
       
       Interval iv = quantise_iv (a, abs (dy)/staff_space) * staff_space;
+
+#if 0      
       Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
 	? iv[SMALLER]
 	: iv[BIGGER];
-
-      if (to_boolean (me->get_grob_property ("quantise-dy-never-steeper"))
-	  && iv[SMALLER] != 0)
-	q = iv[SMALLER];
+#else
+      Real q = (!dy || iv[SMALLER] != 0) ? iv[SMALLER] : iv[BIGGER];
+#endif
 	  
-      Real quantised_dy = q * sign (dy);
+      Real quantised_dy = q * (dy != 0 ? sign (dy) : 1);
       Real adjusted_y = y + (dy - quantised_dy) * 0.5;
       /* Store true, not dir-corrected values */
       me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
@@ -716,7 +670,7 @@ Beam::calc_stem_y_f (Grob*me,Item* s, Real y, Real dy)
    Optionally (testing): try to lengthen more, to reach more ideal
    stem lengths */
 Real
-Beam::check_stem_length_f (Grob*me,Real y, Real dy) 
+Beam::check_stem_length_f (Grob *me, Real y, Real dy) 
 {
   Real shorten = 0;
   Real lengthen = 0;
@@ -725,8 +679,11 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
   Link_array<Item> stems=
     Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
+  bool knee = false;
   int ideal_lengthen_count = 0;
   Real ideal_lengthen = 0;
+  int ideal_shorten_count = 0;
+  Real ideal_shorten = 0;
   
   for (int i=0; i < stems.size (); i++)
     {
@@ -734,38 +691,40 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
       if (Stem::invisible_b (s))
 	continue;
 
+      knee |= dir != Directional_element_interface::get (s);
+
       Real stem_y = calc_stem_y_f (me, s, y, dy);
-	
+      
       stem_y *= dir;
       Stem_info info = Stem::calc_stem_info (s);
 
-      // if (0 > info.maxy_f_ - stem_y)
       shorten = shorten <? info.maxy_f_ - stem_y;
-      // if (0 < info.miny_f_ - stem_y)
       lengthen = lengthen >? info.miny_f_ - stem_y;
 
       if (info.idealy_f_ - stem_y > 0)
 	{
-	  ideal_lengthen += (info.idealy_f_ - stem_y);
-	  ideal_lengthen_count++;
-	}
-      // too long is not so bad as too short
-      else if (0) //info.idealy_f_ - stem_y < 0)
-	{
 	  ideal_lengthen += info.idealy_f_ - stem_y;
 	  ideal_lengthen_count++;
 	}
+      else if (info.idealy_f_ - stem_y < 0)
+	{
+	  ideal_shorten += info.idealy_f_ - stem_y;
+	  ideal_shorten_count++;
+	}
     }
-
+  
   if (lengthen && shorten)
     me->warning (_ ("weird beam vertical offset"));
 
-  if (to_boolean (me->get_grob_property ("ideal-lengthen"))
-      && ideal_lengthen_count)
+  if (ideal_lengthen_count)
     lengthen = (ideal_lengthen / ideal_lengthen_count) >? lengthen;
-      
-  /* when all stems are too short, normal stems win */
-  return dir * ((shorten) ?  shorten : lengthen);
+  if (knee && ideal_shorten_count)
+    shorten = (ideal_shorten / ideal_shorten_count) <? shorten;
+
+  if (lengthen && shorten)
+    return dir * (lengthen + shorten);
+    
+  return dir * (shorten ? shorten : lengthen);
 }
 
 /*

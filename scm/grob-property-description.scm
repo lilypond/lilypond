@@ -96,6 +96,12 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
+(grob-property-description 'concaveness-threshold number? "A beam is
+considered to be concave is concaveness is bigger than this threshold.
+Concaveness is calculated as the sum of the vertical distances of
+inner noteheads that fall outside the interval of the two outer
+noteheads, to the vertically nearest outer notehead, divided by the
+square of the inner notes involved.")
 (grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
 (grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
 (grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")

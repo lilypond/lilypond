@@ -98,11 +98,7 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(molecule-callback . ,Beam::brew_molecule)
-;;	(concaveness . 0.8)
-	(concaveness . 0.08)
-	(concaveness-no-slope . #t)
-	(concaveness-square . #t)
-	(ideal-lengthen . #t)
+	(concaveness-threshold . 0.08)
 	(y-dy-callbacks . (,Beam::least_squares
 			   ,Beam::check_concave
 			   ,Beam::slope_damping
@@ -115,7 +111,7 @@
 	(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
-	(height-quants .  ,default-beam-dy-quants)
+	(height-quant-function .  ,default-beam-dy-quants)
 	(vertical-position-quant-function . ,default-beam-y-quants)
 	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
