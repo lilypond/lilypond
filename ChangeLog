@@ -1,3 +1,8 @@
+2004-10-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/part-combiner.scm (determine-split-list): remove playing1
+	and playing2.
+
 2004-10-02  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/index.html.in: remove link to templates.
