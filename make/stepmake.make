@@ -33,7 +33,7 @@ all:
 
 -include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(LOCALSTEPMAKE_TEMPLATES)))
 
--include $(addprefix $(depth)/make/,$(addsuffix -inclusions.make, $(STEPMAKE_TEMPLATES)))
+-include $(addprefix $(stepdir)/,$(addsuffix -inclusions.make, $(STEPMAKE_TEMPLATES)))
 
 
 include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
