@@ -20,6 +20,12 @@ c4 c2 c8  c16 c16  c1
       { \property Thread.noteHeadStyle = "harmonic" d16 }
     
   >
+ \context Voice <\context Thread = TA { c4 c4 }
+\context Thread = TB {
+  \property Thread.noteHeadStyle = "harmonic"
+  c'4 \stemdown c
+} >
+
 }
 
     \paper {
