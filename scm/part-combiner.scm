@@ -505,7 +505,7 @@ the mark when there are no spanners active."
 				     part-combine-listener))
 	 (first-voice-handle (last-pair noticed)))
 
-    ; (display (last-pair noticed))
+    ;; (display (last-pair noticed))
     (if (pair? first-voice-handle)
 	(hash-set! tab name
 		   ;; cdr : skip name string

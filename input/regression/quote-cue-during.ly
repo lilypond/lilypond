@@ -1,11 +1,6 @@
-\header
-{
-
-    texidoc = "With @code{\\cueDuring} and @code{\\quoteDuring},
-fragments of previously entered music may be
-quoted. @code{quotedEventTypes} will determines what things are
-quoted. In this example, a 16th rests is not quoted, since
-@code{rest-event} is not in @code{quotedEventTypes}."
+\header { texidoc = " The @code{cueDuring} form of quotation will set
+stem directions on both quoted and main voice, and deliver the quoted
+voice in the @code{cue} @code{Voice}."
 
 }
 \version "2.4.0"
@@ -29,10 +24,17 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	\original
     }
     \new Staff \relative c'' <<
+
+	% setup cue note layout.
+	\context Voice = cue  {
+	    \set fontSize = #-4
+	    \override Stem #'lengths = #'(2.5 2.5 3.0 3.0)
+	    \skip 1
+	    }
 	
 	\set Staff.instrument = "orig+quote"	
 	\set Staff.quotedEventTypes = #'(note-event articulation-event)
 	\original
-	{ s4 \quoteDuring #"quoteMe" { s2. } }
+	{ s4 \cueDuring #"quoteMe"  #1 { r2. } }
     >>
 >>

@@ -183,8 +183,6 @@
      sequential-music-to-chord-exceptions
      set-default-paper-size
      set-part-combine-listener
-     set-start-grace-properties
-     set-stop-grace-properties
 
      Accidental_interface::after_line_breaking
      Accidental_interface::print
