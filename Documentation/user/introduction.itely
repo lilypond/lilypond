@@ -539,9 +539,11 @@ c4
 
 Combine this simultaneously with two other notes by enclosing in << and >>.
 
-
-@lilypond[verbatim,fragment,relative=1]
+@verbatim
   <<c4 d4 e4>>
+@end verbatim
+@lilypond[fragment,relative=1]
+  \new Staff <<c4 d4 e4>>
 @end lilypond
 
 
