@@ -279,16 +279,10 @@
 	 (ly:get-option 'resolution))
      (string-append (basename name ".tex") ".ps"))))
 
-
-;;
-;; ugh  -   double check this. We are leaking
-;; untrusted (user-settable) info to a command-line 
-;;
-
-
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
+
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
 	 (base (basename name ".tex"))
@@ -297,6 +291,8 @@
 				 " -E "
 				 (string-append
 				  " -t "
+				  
+				  ;; careful: papersizename is user-set.
 				  (sanitize-command-option papersizename)))
 				 
 			     (if landscape?

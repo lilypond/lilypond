@@ -241,6 +241,6 @@ Slur::after_line_breaking (SCM smob)
 
 ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
-	       "quant-score excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
+	       "positions quant-score excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
 
 
