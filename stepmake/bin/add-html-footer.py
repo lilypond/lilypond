@@ -42,7 +42,7 @@ built = r"""<hr>
 <p><font size="-1">
 This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ by<br>
 </font>
-<address><font size="-1">@GCOS@ &lt;<a href="mailto:%s">@MAIL_ADDRESS@</a>&gt;,
+<address><font size="-1">@GCOS@ &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;,
 @LOCALTIME@.</font></address>"""
 
 
@@ -151,8 +151,20 @@ else:
 def remove_self_ref (s):	
 	self_url = abspath (os.getcwd () + '/' + f)
 	#sys.stderr.write ('url0: %s\n' % self_url)
-	self_url = re.sub ('.*' + string.lower (package_name) + '[^/]*/',
+
+	# self_url = re.sub ('.*?' + string.lower (package_name) + '[^/]*/',
+	#		 '', self_url)
+	# URG - this only works when source tree is unpacked in `src/' dir
+	# For some reason, .*? still eats away
+	#     /home/fred/usr/src/lilypond-1.5.14/Documentation/user/out-www/lilypond/
+	# instead of just
+	#
+	#     /home/fred/usr/src/lilypond-1.5.14/
+	#
+	#     Tutorial.html
+	self_url = re.sub ('.*?src/' + string.lower (package_name) + '[^/]*/',
 			 '', self_url)
+
 	#sys.stderr.write ('url1: %s\n' % self_url)
 	
 	#urg, ugly lily-specific toplevel index hack
@@ -226,7 +238,7 @@ def do_file (f):
 	s = re.sub ('@WEBMASTER@', webmaster, s)
 	s = re.sub ('@GCOS@', gcos, s)
 	s = re.sub ('@LOCALTIME@', localtime, s)
-	s = re.sub ('@MAIL_ADDRESS@', mail_address, s)
+	s = re.sub ('@MAILADDRESS@', mail_address, s)
 
 	m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
 	while m:
