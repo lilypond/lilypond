@@ -359,7 +359,7 @@ enddef;
 
 fet_beginchar("Trill (`tr')","trill","trill")
 	
-	save start_angle,  ascender_extra, ex, hair_thick, fatness,
+	save start_nib_angle,  ascender_extra, ex, hair_thick, fatness,
 	  slant_angle, slant, t_fatness, r_fatness, kerning, t_overshoot, 
 	  uitschieter, bulb_size;
 	;
@@ -369,6 +369,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	ascender# = ascender_extra# + ex#;
 	ex# = 1.5 interline#;
 	kerning# = .75 ex#;
+	start_nib_angle = 20;
 
 	define_pixels(ex, ascender_extra, ascender, kerning);
 
@@ -387,10 +388,10 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	y1 = ascender;
 	x1l = 0;
 	x1r = t_fatness;
-	penpos1(start_nib_wid, 25);
+	penpos1(start_nib_wid, start_nib_angle);
 	
 	z2 = (x1, 7/18 ex);
-	penpos2(start_nib_wid, 25);
+	penpos2(start_nib_wid, start_nib_angle);
 
 	z3l = (11/10 t_fatness, - t_overshoot);
 

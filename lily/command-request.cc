@@ -32,7 +32,7 @@ bool
 Cadenza_req::do_equal_b (Request*r) const
 {
   Cadenza_req*cad =  r->command()->timing ()->cadenza ();
-  
+
   return cad->on_b_ == on_b_;
 }
 
@@ -150,8 +150,8 @@ bool
 Meter_change_req::do_equal_b (Request * r) const
 {
   Meter_change_req * m = r->command()->timing ()->meterchange ();
-  
-  return m->beats_i_ == beats_i_ 
+
+  return m->beats_i_ == beats_i_
     && one_beat_i_ == m->one_beat_i_;
 }
 
@@ -186,7 +186,7 @@ bool
 Tempo_req::do_equal_b (Request *r) const
 {
   Tempo_req *t = r->command()->timing ()->tempo ();
-  
+
   return t->dur_.length()== dur_.length () && metronome_i_ == t->metronome_i_;
 }
 
@@ -198,14 +198,14 @@ IMPLEMENT_IS_TYPE_B1(Measure_grouping_req,Timing_req);
 void
 Measure_grouping_req::do_print() const
 {
-  for (int i=0; i < elt_length_arr_.size(); i++) 
+  for (int i=0; i < elt_length_arr_.size(); i++)
     {
       DOUT << beat_i_arr_[i] <<"*" << elt_length_arr_[i]<<" ";
     }
 }
 
 
-bool 
+bool
 Measure_grouping_req::do_equal_b (Request*) const
 {
   return false;		// todo
@@ -216,8 +216,8 @@ Measure_grouping_req::do_equal_b (Request*) const
 void
 Key_change_req::transpose (Melodic_req const & d) const
 {
-  WARN << "don't know how to transpose a key. \n";
-  for (int i=0; i < melodic_p_arr_.size(); i++) 
+  WARN << _("don't know how to transpose a key. \n");
+  for (int i=0; i < melodic_p_arr_.size(); i++)
     {
       melodic_p_arr_[i]->transpose (d);
     }
@@ -228,7 +228,7 @@ IMPLEMENT_IS_TYPE_B1(Key_change_req,Command_req);
 void
 Key_change_req::squash_octaves()
 {
-  for (int i=0; i < melodic_p_arr_.size(); i++) 
+  for (int i=0; i < melodic_p_arr_.size(); i++)
     {
       melodic_p_arr_[i]->octave_i_ = 0;
     }
@@ -238,7 +238,7 @@ void
 Key_change_req::do_print() const
 {
 #ifndef NPRINT
-  for (int i=0; i < melodic_p_arr_.size(); i++) 
+  for (int i=0; i < melodic_p_arr_.size(); i++)
     {
       melodic_p_arr_[i]->print();
     }
@@ -253,7 +253,7 @@ Key_change_req::Key_change_req()
 
 Key_change_req::Key_change_req (Key_change_req const&c)
 {
-  for (int i=0; i < c.melodic_p_arr_.size(); i++) 
+  for (int i=0; i < c.melodic_p_arr_.size(); i++)
     melodic_p_arr_.push (c.melodic_p_arr_[i]->clone()->musical ()->melodic ());
   minor_b_ = c.minor_b_;
   multi_octave_b_ = c.multi_octave_b_;
@@ -269,7 +269,7 @@ int
 Key_change_req::flats_i()
 {
   int flats_i = 0;
-  for (int i = 0; i < melodic_p_arr_.size(); i++) 
+  for (int i = 0; i < melodic_p_arr_.size(); i++)
     {
       Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
       assert (mel_l);
@@ -282,14 +282,14 @@ Key_change_req::flats_i()
 int
 Key_change_req::minor_b()
 {
-  return minor_b_;	
+  return minor_b_;
 }
 
 int
 Key_change_req::sharps_i()
 {
   int sharps_i = 0;
-  for (int i = 0; i < melodic_p_arr_.size(); i++) 
+  for (int i = 0; i < melodic_p_arr_.size(); i++)
     {
       Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
       assert (mel_l);
@@ -298,4 +298,3 @@ Key_change_req::sharps_i()
     }
   return sharps_i;
 }
-

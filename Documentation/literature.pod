@@ -29,11 +29,15 @@ Association of the United States Inc., 1993.
 Ted Ross. ``Teach yourself the art of music engraving and processing''
 (3rd edition). Hansen House, Miami Beach, FLorida.
 
-[This is about I<engraving> i.e. professional music typesetting, and
-includes some good spacing tables MB]
+[This is about engraving, i.e. the real thing with metal plates, but
+it also contains directions on good typesetting. It includes some good
+spacing tables HWN]
 
 Gardner Read. ``Modern Rhythmic Notation.'' Indiana University Press,
 1978.
+
+[Sound (boring) review of the various hairy rhythmic notations used by
+avant-garde composers HWN]
 
 Gardner Read. ``Music Notation'' (2nd edition). Taplinger Publishing,
 New York.

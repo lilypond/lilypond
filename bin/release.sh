@@ -50,7 +50,7 @@ patch=patch-$LILYVER.gz
 mv  $tarball $releasedir/
 
 cd ../test
-sh $heredir/bin/make-patch.sh $LASTVER $NEWVER lilypond
+python $heredir/bin/make-patch.py
 gzip -f9 patch-$NEWVER
 mv $patch $patchdir//
 

@@ -14,42 +14,42 @@
    @return 4 components of the path. They can be empty
 */
 void
-split_path (String path, 
+split_path (String path,
 	   String &drive, String &dirs, String &filebase, String &extension)
 {
   // peel off components, one by one.
   int di = path.index_i (':');
-  if (di >= 0) 
+  if (di >= 0)
 	{
 	drive = path.left_str (di + 1);
 	path = path.right_str (path.len() - di -1);
 	  }
   else
 	drive = "";
-  
+
   di = path.index_last_i (PATHSEP);
-  if (di >=0) 
+  if (di >=0)
 	{
 	dirs = path.left_str (di + 1);
 	path = path.right_str (path.len()-di -1);
 	  }
   else
 	dirs = "";
-  
+
   di = path.index_last_i ('.');
-  if (di >= 0) 
+  if (di >= 0)
 	{
 	filebase = path.left_str (di);
-	extension =path.right_str (path.len()-di);	
+	extension =path.right_str (path.len()-di);
 	  }
-  else 
+  else
 	{
-	extension = "";   
+	extension = "";
 	filebase = path;
 	  }
 }
 
-/** find a file. 
+/** find a file.
   It will search in the current dir, in the construction-arg, and
   in any other added path, in this order.
   */
@@ -57,23 +57,23 @@ String
 File_path::find (String nm) const
 
 {
-  fdebug << "looking for " << nm << ": ";
+  fdebug << _("looking for ") << nm << ": ";
   if (!nm.length_i() || (nm == "-") )
 	return nm;
-  for (int i=0; i < size(); i++) 
+  for (int i=0; i < size(); i++)
     {
 
 	 String path  = elem(i);
 	 if (path.length_i() )
 	     path += "/";
-	 
+
 	 path += nm;
 
 	 fdebug << path << "? ";
 	 FILE *f = fopen (path.ch_C(), "r"); // ugh!
-	 if (f) 
+	 if (f)
 	   {
-	     fdebug << "found\n";
+	     fdebug << _("found\n");
 	     fclose (f);
 	     return path;
 	   }

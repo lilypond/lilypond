@@ -6,13 +6,13 @@
 % These examples are inspired by [Wanske], see literature list
 
 
+save black_notehead_width;
+numeric black_notehead_width;
+
 fet_begingroup("balls");
 
 noteheight#:=interline#+ (1 + overdone_heads) *stafflinethickness#;
-
 define_pixels(noteheight);
-
-
 
 def draw_brevis =
 	save beamheight, head_width;
@@ -191,6 +191,7 @@ fet_beginchar("Quart notehead", "2", "quartball")
 	a_w:=1.09;
 
 	notehead_calc;
+	black_notehead_width# := wd#;
 	notehead_draw;
 fet_endchar;
 
@@ -199,3 +200,4 @@ fet_endchar;
 
 fet_endgroup("balls");
 
+define_pixels(black_notehead_width);

@@ -3,19 +3,21 @@
 
    this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@stack.nl>
  */
+
 #include <stdio.h>
 #include <iostream.h>
 #include <assert.h>
 #include "lgetopt.hh"
+#include "international.hh"
 
 long
 Getopt_long::argument_to_i()
 {
   long l;
-  if (!optional_argument_ch_C_ 
+  if (!optional_argument_ch_C_
       || sscanf (optional_argument_ch_C_, "%ld", &l) != 1)
     report (E_ILLEGALARG);
-  
+
   return l;
 }
 
@@ -24,23 +26,23 @@ Getopt_long::parselong()
 {
   char const *optnm = arg_value_ch_a_a_[array_index_i_] + 2 ;
   assert (*optnm);
-  
+
   char const *endopt = strchr (optnm, '=');
   int searchlen  = (endopt) ? endopt - optnm : strlen (optnm);
-  
+
   found_option_l_=0;
-  for (int i=0; i< table_len_i_; i++) 
+  for (int i=0; i< table_len_i_; i++)
     {
       char const *ln = option_a_[i].longname;
 
-      if (ln && !strncmp (ln, optnm, searchlen)) 
+      if (ln && !strncmp (ln, optnm, searchlen))
 	{
 	  found_option_l_ = option_a_+i;
 	  break;
 	}
-    }	
+    }
 
-  if (!found_option_l_) 
+  if (!found_option_l_)
     {
       report (E_UNKNOWNOPTION);
       return 0;
@@ -48,12 +50,12 @@ Getopt_long::parselong()
   array_index_i_++;
   argument_index_i_ = 0;
 
-  
-  if (found_option_l_->take_arg) 
+
+  if (found_option_l_->take_arg)
     {
       if (endopt)
 	optional_argument_ch_C_ = endopt +1; // a '='
-      else 
+      else
 	{
 	  optional_argument_ch_C_ = arg_value_ch_a_a_[array_index_i_];
 	  array_index_i_++;
@@ -62,13 +64,13 @@ Getopt_long::parselong()
 	report (E_ARGEXPECT);
 
     }
-  else 
+  else
     {
       optional_argument_ch_C_ = 0;
       if (endopt)
 	report (E_NOARGEXPECT);
     }
-  
+
   return found_option_l_;
 }
 
@@ -76,11 +78,11 @@ Getopt_long::parselong()
 void
 Long_option_init::printon (ostream &errorout) const
 {
-  if (shortname)	
+  if (shortname)
     errorout <<"-" << shortname;
   if (shortname && longname)
     errorout << ", ";
-  if (longname)	
+  if (longname)
     errorout << "`--" << longname << "'";
 }
 
@@ -93,20 +95,20 @@ Getopt_long::report (Errorcod c)
     return;
 
   *error_ostream_l_ << arg_value_ch_a_a_[0] << ": ";
-  switch (c) 
+  switch (c)
     {
     case E_ARGEXPECT:
-      *error_ostream_l_<< "option ";
+      *error_ostream_l_<< _("option ");
       found_option_l_->printon (*error_ostream_l_);
-      *error_ostream_l_ << "requires an argument"<<endl;
+      *error_ostream_l_ << _("requires an argument")<<endl;
       break;
     case  E_NOARGEXPECT:
-      *error_ostream_l_ << "option `--" <<
-	found_option_l_->longname << "' does not allow an argument"<<endl;
+      *error_ostream_l_ << _("option `--") <<
+	found_option_l_->longname << _("' does not allow an argument")<<endl;
       break;
-	
+
     case E_UNKNOWNOPTION:
-      *error_ostream_l_ << "unrecognized option ";
+      *error_ostream_l_ << _("unrecognized option ");
       if (argument_index_i_)
 	*error_ostream_l_ << "-" << arg_value_ch_a_a_[array_index_i_][argument_index_i_] << endl;
       else
@@ -114,24 +116,24 @@ Getopt_long::report (Errorcod c)
 
       break;
     case E_ILLEGALARG:
-      *error_ostream_l_ << "illegal argument `" << optional_argument_ch_C_ << "\'to option ";
+      *error_ostream_l_ << _("illegal argument `") << optional_argument_ch_C_ << _("\'to option ");
       found_option_l_->printon (*error_ostream_l_);
       *error_ostream_l_ << '\n';
     default:
       assert (false);
     }
-  exit (2); 
+  exit (2);
 }
-  
+
 const Long_option_init *
 Getopt_long::parseshort()
 {
   char c=arg_value_ch_a_a_[array_index_i_][argument_index_i_];
   found_option_l_=0;
   assert (c);
-  
+
   for (int i=0; i < table_len_i_; i++)
-    if (option_a_[i].shortname == c) 
+    if (option_a_[i].shortname == c)
       {
 	found_option_l_  = option_a_+i;
 	break;
@@ -153,35 +155,35 @@ Getopt_long::parseshort()
 
   array_index_i_ ++;
   argument_index_i_ = 0;
-  
-  if (!optional_argument_ch_C_[0]) 
+
+  if (!optional_argument_ch_C_[0])
     {
       optional_argument_ch_C_ = arg_value_ch_a_a_[array_index_i_];
       array_index_i_ ++;
     }
-  if (!optional_argument_ch_C_) 
+  if (!optional_argument_ch_C_)
     {
       report (E_ARGEXPECT);
     }
-  
+
   return found_option_l_;
 }
 
 const Long_option_init *
-Getopt_long::operator()() 
+Getopt_long::operator()()
 {
   if (!ok())
     return 0;
-  
+
   next();
   if (!ok ())
     return 0;
-  
+
   if (argument_index_i_)
     return parseshort();
-  
+
   const char * argument_C = arg_value_ch_a_a_[array_index_i_];
-  
+
   if (argument_C[0] != '-')
     return 0;
 
@@ -191,14 +193,14 @@ Getopt_long::operator()()
     else
       return 0;
   }
-  else 
+  else
     {
-      if (argument_C[ 1 ]) 
+      if (argument_C[ 1 ])
 	{
 	  argument_index_i_ = 1;
 	  return parseshort();
 	}
-      else 
+      else
 	{
 	  return 0;
 	}
@@ -231,13 +233,13 @@ Getopt_long::next()
 {
   error_ = E_NOERROR;
   while (array_index_i_ < argument_count_i_
-	 && !arg_value_ch_a_a_[array_index_i_][argument_index_i_]) 
+	 && !arg_value_ch_a_a_[array_index_i_][argument_index_i_])
     {
       array_index_i_++;
       argument_index_i_ = 0;
     }
 }
-   
+
 char const *
 Getopt_long::current_arg()
 {
@@ -251,7 +253,7 @@ char const *
 Getopt_long::get_next_arg()
 {
   char const * a = current_arg();
-  if (a) 
+  if (a)
     {
       array_index_i_ ++;
       argument_index_i_= 0;

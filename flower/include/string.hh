@@ -17,6 +17,13 @@
 
 #include "string-handle.hh"
 
+/**
+  technically incorrect, but lets keep it here: this is a
+  catch all place for this stuff.
+  */
+  
+#include "international.hh"
+
 /** 
  
   Intuitive string class. provides 

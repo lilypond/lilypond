@@ -23,14 +23,14 @@ Tie_req::do_print() const{}
 
 
 /* *************** */
-   
+
 
 
 
 IMPLEMENT_IS_TYPE_B1(Span_req,Musical_req);
 
 void
-Span_req::do_print() const    
+Span_req::do_print() const
 {
 #ifndef NPRINT
   DOUT << spantype ;
@@ -93,7 +93,7 @@ Melodic_req::transpose (Melodic_req const & delta)
   int delta_pitch = delta.pitch();
   octave_i_ += delta.octave_i_;
   notename_i_ += delta.notename_i_;
-  while  (notename_i_ >= 7) 
+  while  (notename_i_ >= 7)
     {
 	notename_i_ -= 7;
 	octave_i_ ++;
@@ -101,11 +101,11 @@ Melodic_req::transpose (Melodic_req const & delta)
 
   int new_pitch = pitch();
   int delta_acc = new_pitch - old_pitch - delta_pitch;
-  
+
   accidental_i_ -= delta_acc;
-  if (abs (accidental_i_) > 2) 
+  if (abs (accidental_i_) > 2)
     {
-	delta.warning ("transposition makes accidental larger than 2");
+	delta.warning (_("transposition makes accidental larger than 2"));
     }
 }
 
@@ -124,7 +124,7 @@ Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
   int o=  m1.octave_i_ - m2.octave_i_;
   int n = m1.notename_i_ - m2.notename_i_;
   int a = m1.accidental_i_ - m2.accidental_i_;
-  
+
   if (o)
 	return o;
   if (n)
@@ -138,7 +138,7 @@ void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "notename: " << notename_i_ 
+  DOUT << "notename: " << notename_i_
 	 << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 #endif
 }
@@ -152,7 +152,7 @@ Melodic_req::height() const
 /*
   should be settable from input to allow "viola"-mode
  */
-static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };	
+static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 int
 Melodic_req::pitch() const
@@ -198,7 +198,7 @@ Rhythmic_req::do_print() const
 
 
 Moment
-Rhythmic_req::duration() const {    
+Rhythmic_req::duration() const {
   return duration_.length();
 }
 /* *************** */
@@ -215,7 +215,7 @@ IMPLEMENT_IS_TYPE_B2(Lyric_req,Musical_req,Rhythmic_req);
 
 void
 Lyric_req::do_print() const
-{    
+{
   Rhythmic_req::do_print();
   Text_req::do_print();
 }
@@ -240,7 +240,7 @@ Note_req::do_print() const
 {
 #ifndef NPRINT
   Melodic_req::do_print();
-  if (forceacc_b_) 
+  if (forceacc_b_)
     {
 	DOUT << " force accidental\n";
     }
@@ -315,14 +315,14 @@ Script_req::Script_req (Script_req const&s)
 
 /*
   don't check dirs?
-  
+
   (d1.dir_ == d2.dir_)
  */
 bool
 Script_req::do_equal_b (Request*r) const
 {
   Script_req * s = r->script();
-  
+
   return  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
 
@@ -373,7 +373,7 @@ Text_req::Text_req (Text_req const& src)
   dir_ = src.dir_;
 }
 
-Text_req::Text_req (int dir_i, Text_def* tdef_p)	
+Text_req::Text_req (int dir_i, Text_def* tdef_p)
 {
   dir_ = Direction(dir_i);
   tdef_p_ = tdef_p;
@@ -428,9 +428,9 @@ Absolute_dynamic_req::do_print() const
 }
 
 String
-Dynamic_req::loudness_static_str (Loudness l) 
+Dynamic_req::loudness_static_str (Loudness l)
 {
-  switch (l) 
+  switch (l)
     {
     case FFF: return "fff";
     case FF: return "ff";
@@ -454,8 +454,8 @@ Absolute_dynamic_req::loudness_str () const
   if (s.empty_b ())
     {
       s = "mf";
-      warning (String ("Never heard of dynamic scale ") 
-	       + loudness_ + " assuming mf");
+      warning (String (_("Never heard of dynamic scale "))
+	       + loudness_ + _(" assuming mf"));
     }
   return s;
 }
@@ -486,5 +486,3 @@ Span_dynamic_req::do_print() const
 
 
 IMPLEMENT_IS_TYPE_B1(Tie_req,Musical_req);
-
-

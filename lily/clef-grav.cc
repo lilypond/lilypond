@@ -26,25 +26,25 @@ bool
 Clef_engraver::set_type (String s)
 {
   clef_type_str_  = s;
-  if (clef_type_str_ == "violin") 
+  if (clef_type_str_ == "violin")
     {
       c0_position_i_= -6;
     }
-  else if (clef_type_str_ == "alto") 
+  else if (clef_type_str_ == "alto")
     {
       c0_position_i_= 0;
     }
-  else if (clef_type_str_ == "tenor") 
+  else if (clef_type_str_ == "tenor")
     {
       c0_position_i_= 2;
     }
-  else if (clef_type_str_ == "bass") 
+  else if (clef_type_str_ == "bass")
     {
       c0_position_i_= 6;
     }
-  else 
+  else
     return false;
-  
+
   return true;
 }
 
@@ -54,16 +54,16 @@ Clef_engraver::fill_staff_info (Staff_info &i)
   i.c0_position_i_l_ = &c0_position_i_;
 }
 
-void 
+void
 Clef_engraver::read_req (Clef_change_req*c_l)
 {
   if (!set_type (c_l->clef_str_))
-    c_l->error ("unknown clef type ");
+    c_l->error (_("unknown clef type "));
 }
 void
 Clef_engraver::acknowledge_element (Score_elem_info info)
 {
-  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_.length_i()) 
+  if (info.elem_l_->name() == Bar::static_name () && clef_type_str_.length_i())
     {
       create_clef();
       if (!clef_req_l_)
@@ -89,15 +89,15 @@ Clef_engraver::do_try_request (Request * r_l)
   if (!creq_l || !creq_l->clefchange())
     return false;
 
-  clef_req_l_ = creq_l->clefchange();  
-  read_req (clef_req_l_); 
+  clef_req_l_ = creq_l->clefchange();
+  read_req (clef_req_l_);
   return true;
 }
 
-void 
+void
 Clef_engraver::create_clef()
 {
-  if (!clef_p_) 
+  if (!clef_p_)
     {
       clef_p_ = new Clef_item;
       announce_element (Score_elem_info (clef_p_,clef_req_l_));
@@ -108,7 +108,7 @@ Clef_engraver::create_clef()
 void
 Clef_engraver::do_process_requests()
 {
-  if (clef_req_l_) 
+  if (clef_req_l_)
     {
       create_clef();
       clef_p_->default_b_ = false;

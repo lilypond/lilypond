@@ -27,7 +27,7 @@ Tie_engraver::Tie_engraver()
 void
 Tie_engraver::do_post_move_processing()
 {
-  if (tie_p_ && now_moment () == end_mom_) 
+  if (tie_p_ && now_moment () == end_mom_)
     {
       end_tie_p_ = tie_p_;
       end_req_l_ = req_l_;
@@ -49,7 +49,7 @@ Tie_engraver::do_try_request (Request*r)
 {
   if (!acceptable_request_b (r))
     return false;
-  if (req_l_) 
+  if (req_l_)
     {
       return false;
     }
@@ -63,7 +63,7 @@ void
 Tie_engraver::do_process_requests()
 {
   dir_ = (Direction) int (get_property ("ydirection"));
-  if (req_l_ && ! tie_p_) 
+  if (req_l_ && ! tie_p_)
     {
       tie_p_ = new Tie;
     }
@@ -72,15 +72,15 @@ Tie_engraver::do_process_requests()
 void
 Tie_engraver::acknowledge_element (Score_elem_info i)
 {
-  if (i.elem_l_->name() == Note_head::static_name ()) 
+  if (i.elem_l_->name() == Note_head::static_name ())
     {
-      if (tie_p_) 
+      if (tie_p_)
 	{
 	  tie_p_->set_head (LEFT, (Note_head*)i.elem_l_->item());
 	  melodic_req_l_ = i.req_l_->musical()->melodic ();
 	}
 
-      if (end_tie_p_) 
+      if (end_tie_p_)
 	{
 	  end_tie_p_->set_head (RIGHT, (Note_head*)i.elem_l_->item());
 	  if (!Melodic_req::compare (*end_melodic_req_l_, *melodic_req_l_))
@@ -93,11 +93,11 @@ Tie_engraver::acknowledge_element (Score_elem_info i)
 void
 Tie_engraver::do_pre_move_processing()
 {
-  if (end_tie_p_) 
+  if (end_tie_p_)
     {
       if (dir_)
 	end_tie_p_->dir_ =  dir_;
-	
+
       typeset_element (end_tie_p_);
       end_tie_p_ =0;
       end_req_l_ =0;
@@ -108,9 +108,9 @@ void
 Tie_engraver::do_removal_processing ()
 {
   do_pre_move_processing ();
-  if (tie_p_) 
+  if (tie_p_)
     {
-      req_l_->warning ("unended Tie");
+      req_l_->warning (_("unended Tie"));
       tie_p_->unlink ();
       delete tie_p_;
     }

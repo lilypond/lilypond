@@ -43,7 +43,7 @@ void
 usage()
 {
   cout <<
-    "Usage: lilypond [options] [mudela-file]\n"
+    _("Usage: lilypond [options] [mudela-file]\n"
     "Typeset and or produce midi output from mudela-file or stdin\n"
     "\n"
     "Options:\n"
@@ -56,9 +56,9 @@ usage()
     "  -M, --midi             produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
     "\n"
-    "GNU LilyPond was compiled with the following settings:\n"
+    "GNU LilyPond was compiled with the following settings:\n")
 #ifdef NDEBUG
-    "NDEBUG "	
+    "NDEBUG "
 #endif
 #ifdef NPRINT
     "NPRINT "
@@ -66,20 +66,20 @@ usage()
 #ifdef STRING_UTILS_INLINED
     "STRING_UTILS_INLINED "
 #endif
-    "datadir= " DIR_DATADIR 
+    "datadir= " DIR_DATADIR
 
     "\n";
-	
+
   ;
-  
-  
+
+
 }
 
-void 
+void
 notice()
 {
   cout <<
-    "\n"
+    _("\n"
     "GNU LilyPond -- The GNU Project music typesetter.\n"
     "Copyright 1996,97 by\n"
     "  Han-Wen Nienhuys <hanwen@stack.nl>\n"
@@ -97,7 +97,7 @@ notice()
     "    You should have received a copy (refer to the file COPYING) of the\n"
     "GNU General Public License along with this program; if not, write to\n"
     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-    "USA.\n";
+    "USA.\n");
 }
 
 
@@ -106,19 +106,19 @@ static File_path path;
 void
 do_one_file (String init_str, String file_str)
 {
-  if (init_str.length_i () && path.find (init_str).empty_b ()) 
+  if (init_str.length_i () && path.find (init_str).empty_b ())
     {
-      error ("Can not find `" + init_str +"\'");
+      error (_("Can not find `") + init_str +"\'");
       return ;
     }
   if (file_str.length_i () && path.find (file_str).empty_b ())
     {
-      error ("Can not find `" + file_str + "'");
+      error (_("Can not find `") + file_str + "'");
       return ;
     }
-  
+
   Sources sources;
-  source_l_g = &sources; 
+  source_l_g = &sources;
   source_l_g->set_path (&path);
   {
     My_lily_parser parser (source_l_g);
@@ -132,26 +132,26 @@ do_one_file (String init_str, String file_str)
 
 int
 main (int argc, char **argv)
-{    
+{
   debug_init();		// should be first
 
 
   // must override (come before) "/usr/local/share/lilypond"!
   char const * env_l=getenv ("LILYINCLUDE");
-  if (env_l) 
+  if (env_l)
     {
       path.add (env_l);
     }
   path.add ("");
   path.add (String (DIR_DATADIR) + "/init/");
-  
+
   path.push (DIR_DATADIR);
 
   Getopt_long oparser (argc, argv,theopts);
   cout << get_version_str() << endl;
   String init_str ("symbol.ly");
-  
-  while (Long_option_init const * opt = oparser()) 
+
+  while (Long_option_init const * opt = oparser())
     {
       switch (opt->shortname)
 	{
@@ -189,16 +189,16 @@ main (int argc, char **argv)
 
   int p=0;
   const char *arg ;
-  while ((arg= oparser.get_next_arg())) 
+  while ((arg= oparser.get_next_arg()))
     {
       String f (arg);
       destill_inname (f);
       do_one_file (init_str,f);
       p++;
     }
-  if (!p) 
+  if (!p)
     {
-      do_one_file (init_str, "");	
+      do_one_file (init_str, "");
     }
 
   return exit_status_i_;
@@ -210,17 +210,16 @@ destill_inname (String &name_str_r)
 {
   if (name_str_r.length_i())
     {
-      if (name_str_r[ 0 ] != '-') 
+      if (name_str_r[ 0 ] != '-')
 	{
 	  String a,b,c,d;
 	  split_path (name_str_r,a,b,c,d);
 
 	  // add extension if not present.
-	  if (d.empty_b ()) 
+	  if (d.empty_b ())
 	    d = ".ly";
 	  name_str_r = a+b+c+d;
 	}
     }
-  else name_str_r = "";   
+  else name_str_r = "";
 }
-

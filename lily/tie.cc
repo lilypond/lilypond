@@ -40,8 +40,8 @@ void
 Tie::do_add_processing()
 {
   if (!(head_l_drul_[LEFT] && head_l_drul_[RIGHT]))
-    warning ("Lonely tie.. ");
-  
+    warning (_("Lonely tie.. "));
+
   set_bounds(LEFT,head_l_drul_[LEFT]);
   set_bounds(RIGHT,head_l_drul_[RIGHT]);
 }
@@ -53,16 +53,16 @@ Tie::do_post_processing()
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
   Direction d = LEFT;
-  do 
+  do
     {
-      pos_i_drul_[d] =  (head_l_drul_[d])? 
+      pos_i_drul_[d] =  (head_l_drul_[d])?
 	head_l_drul_[d]->position_i_ : head_l_drul_[(Direction)-d]->position_i_;
     }
   while ((d *= -1) != LEFT);
 
-  do 
+  do
     {
-      if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_) 
+      if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
 	{
 	  pos_i_drul_[d] += 2*dir_;
 	  dx_f_drul_[d] += d * 0.25;
@@ -72,7 +72,7 @@ Tie::do_post_processing()
       else
 	{
 	  pos_i_drul_[d] = pos_i_drul_[(Direction) -d];
-	  dx_f_drul_[d] = -d 
+	  dx_f_drul_[d] = -d
 	    *(spanned_drul_[d]->width ().length ()/nw_f -0.5);
 	}
     }

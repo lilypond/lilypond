@@ -83,27 +83,27 @@ Paper_score::add_column (Paper_column *p)
 
 void
 Paper_score::print () const
-{    
+{
 #ifndef NPRINT
   if (!check_debug)
     return ;
   DOUT << "Paper_score { ";
   DOUT << "\n elements: ";
-  for (iter_top (elem_p_list_,cc); cc.ok (); cc++)	
+  for (iter_top (elem_p_list_,cc); cc.ok (); cc++)
     cc->print ();
   DOUT << "\n unbroken spanners: ";
   for (iter (span_p_list_.top (), i); i.ok  (); i++)
     i->print ();
-  
+
   DOUT << "}\n";
-#endif 
+#endif
 }
 
 PCursor<Paper_column *>
 Paper_score::find_col (Paper_column const *c) const
 {
   Paper_column const *what = c;
-  
+
   return col_p_list_.find ((Paper_column*)what);
 }
 
@@ -115,10 +115,10 @@ Paper_score::set_breaking (Array<Col_hpositions> const &breaking)
   super_elem_l_->break_processing ();
 
 
-  for (iter (span_p_list_.top (),i); i.ok  ();) 
+  for (iter (span_p_list_.top (),i); i.ok  ();)
     {
       Spanner *span_p = i.remove_p ();
-      if (span_p->broken_b ()) 
+      if (span_p->broken_b ())
 	{
 	  span_p->unlink ();
 	  delete span_p;
@@ -127,10 +127,10 @@ Paper_score::set_breaking (Array<Col_hpositions> const &breaking)
 	    typeset_broken_spanner (span_p);
 	  }
     }
-  for (iter (elem_p_list_.top (),i); i.ok  () ;) 
+  for (iter (elem_p_list_.top (),i); i.ok  () ;)
     {
       Item *i_l =i->item ();
-      if (i_l && !i_l->line_l ()) 
+      if (i_l && !i_l->line_l ())
 	{
 	  i_l->unlink ();
 	  delete i.remove_p ();
@@ -147,21 +147,21 @@ Paper_score::calc_breaking ()
   Array<Col_hpositions> sol;
   bool try_wrap = ! paper_l_->get_var ("castingalgorithm");
 
-  if (!try_wrap) 
+  if (!try_wrap)
     {
       algorithm_p = new Gourlay_breaking ;
       algorithm_p->set_pscore (this);
       sol = algorithm_p->solve ();
       delete algorithm_p;
-      if (! sol.size ()) 
+      if (! sol.size ())
 	{
-	  warning ("Can not solve this casting problem exactly; revert to Word_wrap");
+	  warning (_("Can not solve this casting problem exactly; revert to Word_wrap"));
 	  try_wrap = true;
 	}
     }
-  if  (try_wrap) 
+  if  (try_wrap)
     {
-      algorithm_p = new Word_wrap;    
+      algorithm_p = new Word_wrap;
       algorithm_p->set_pscore (this);
       sol = algorithm_p->solve ();
       delete algorithm_p;
@@ -174,12 +174,12 @@ Paper_score::process ()
 {
   clean_cols ();
   print ();
-  *mlog << "Preprocessing elements... " <<flush;
+  *mlog << _("Preprocessing elements... ") <<flush;
   super_elem_l_->breakable_col_processing ();
   super_elem_l_->pre_processing ();
-  *mlog << "\nCalculating column positions ... " <<flush;
+  *mlog << _("\nCalculating column positions ... ") <<flush;
   calc_breaking ();
-  *mlog << "\nPostprocessing elements..." << endl;
+  *mlog << _("\nPostprocessing elements...") << endl;
   super_elem_l_->post_processing ();
   tex_output ();
 }
@@ -192,20 +192,20 @@ Paper_score::tex_output ()
   String outname = paper_l_->outfile_str_ ;
   if (outname.empty_b ())
     outname = default_out_str_+ ".tex";
-  
-  *mlog << "TeX output to " <<  outname << " ...\n";
-  
+
+  *mlog << _("TeX output to ") <<  outname << " ...\n";
+
   Tex_stream tex_out (outname);
   Tex_outputter interfees (&tex_out);
 
   outputter_l_ = &interfees;
-  
-  tex_out << "% outputting Score, defined at: " << origin_str_ << "\n";
-  if (header_l_) 
+
+  tex_out << _("% outputting Score, defined at: ") << origin_str_ << "\n";
+  if (header_l_)
     {
       tex_out << header_l_->TeX_string();
     }
-  
+
   tex_out << "\n "<<  paper_l_->lookup_l ()->texsetting << "%(Tex id)\n";
   super_elem_l_->output_all ();
   tex_out << "\n\\EndLilyPondOutput";
@@ -224,7 +224,7 @@ Paper_score::breakable_col_range (Paper_column*l,Paper_column*r) const
   /*
     ugh! windows-suck-suck-suck.
     */
-  while (PCursor<Paper_column*>::compare (start,stop) < 0) 
+  while (PCursor<Paper_column*>::compare (start,stop) < 0)
     {
       if (start->breakable_b_)
 	ret.push (start);
@@ -237,11 +237,11 @@ Link_array<Paper_column>
 Paper_score::col_range (Paper_column*l, Paper_column*r) const
 {
   Link_array<Paper_column> ret;
-  
+
   PCursor<Paper_column*> start (l ? find_col (l)+1 : col_p_list_.top ());
   PCursor<Paper_column*> stop (r ? find_col (r) : col_p_list_.bottom ());
   ret.push (l);
-  
+
   /*
     ugh! windows-suck-suck-suck.
     */
@@ -257,20 +257,20 @@ Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
   Link_array<Item> ret;
   Item const*l=l_item_l;
   Item const*r=r_item_l;
-  
-  while (! l->is_type_b(Paper_column::static_name ())) 
+
+  while (! l->is_type_b(Paper_column::static_name ()))
     l = l->axis_group_l_a_[X_AXIS]->item ();
-  
-  while (! r->is_type_b(Paper_column::static_name ())) 
+
+  while (! r->is_type_b(Paper_column::static_name ()))
     r = r->axis_group_l_a_[X_AXIS]->item ();
-   
+
   PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());
   PCursor<Paper_column*> stop (r ? find_col ((Paper_column*)r) : col_p_list_.bottom ());
-  
+
   /*
     ugh! windows-suck-suck-suck.
     */
-  while (PCursor<Paper_column*>::compare (start,stop) < 0) 
+  while (PCursor<Paper_column*>::compare (start,stop) < 0)
     {
       if (start->breakable_b_ && !start->line_l_)
 	ret.push (start);

@@ -60,9 +60,9 @@ String
 Midi_parser::get_str (int n)
 {
   assert (n >= 0);
-  if (!n) 
-    warning ("Zero length string encountered");
-  
+  if (!n)
+    warning (_("Zero length string encountered"));
+
   Byte const* p = forward_byte_L (n);
   return String (p, n);
 }
@@ -87,7 +87,7 @@ Midi_parser::get_var_i ()
 String
 Midi_parser::message (String str)
 {
-  return String ("mi2mu: ") 
+  return String ("mi2mu: ")
     + info_l_->source_l_->name_str () + ": "
     + String_convert::i2dec_str (info_l_->source_l_->line_i ((char const*)info_l_->byte_L_), 0, 0) + ": "
     + str + "\n"
@@ -97,5 +97,5 @@ Midi_parser::message (String str)
 void
 Midi_parser::warning (String str)
 {
-  ::message (message (String ("warning: ") + str));
+  ::message (message (String (_("warning: ")) + str));
 }

@@ -17,8 +17,8 @@ void
 Atom::print() const
 {
 #ifndef NPRINT
-  DOUT << "texstring: " <<tex_<<"\n";    
-  
+  DOUT << "texstring: " <<tex_<<"\n";
+
   DOUT << "dim:";
     for (Axis i=X_AXIS; i < NO_AXES; incr(i))
       DOUT << axis_name_str(i) << " = " << dim_[i].str();
@@ -50,9 +50,9 @@ Atom::Atom (String s, Box b)
 
 
 String
-Atom::str() const 
+Atom::str() const
 {
-  return "Atom (\'"+tex_+"\', (" + dim_.x().str () + ", " 
+  return "Atom (\'"+tex_+"\', (" + dim_.x().str () + ", "
     + dim_.y ().str () + "))";
 }
 
@@ -68,10 +68,10 @@ Atom::TeX_string() const
       Axis ax = (Axis)a;
       if (abs (off[ax]) >= 100 CM)
 	{
-	  warning ("ridiculous dimension " + axis_name_str (ax)  + ", " 
+	  warning (_("ridiculous dimension ") + axis_name_str (ax)  + ", "
 		   +print_dimen(off[ax]));
 	  off[ax] = 0.0;
-	  tex_str += "\errormark"; 
+	  tex_str += "\errormark";
 	}
     }
   // whugh.. Hard coded...
@@ -85,7 +85,7 @@ Atom::TeX_string() const
 void
 Atom::translate_axis (Real r, Axis a)
 {
-  off_[a] += r; 
+  off_[a] += r;
 }
 
 void

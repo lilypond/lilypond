@@ -25,19 +25,19 @@ IMPLEMENT_IS_TYPE_B(Identifier);
 Identifier::~Identifier()
 {
   if (!accessed_b_ && !init_b_)
-	warning ("Variable not used");
+	warning (_("Variable not used"));
 }
 void
 Identifier::error (String expect)
 {
-  String e ("Wrong identifier type: ");
-  e += String (name()) + "(expected " + expect + ")";
+  String e (_("Wrong identifier type: "));
+  e += String (name()) + _("(expected ") + expect + ")";
   ::error (e);
 }
 
 Identifier::Identifier (int code)
 {
-  token_code_i_ = code; 
+  token_code_i_ = code;
   accessed_b_ = 0;
   init_b_ = 0;
 }

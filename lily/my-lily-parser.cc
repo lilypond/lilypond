@@ -37,7 +37,7 @@ My_lily_parser::~My_lily_parser()
   delete lexer_p_;
   delete default_header_p_;
 }
-  
+
 
 void
 My_lily_parser::clear_notenames()
@@ -55,7 +55,7 @@ My_lily_parser::set_debug()
 {
 #ifndef NPRINT
   String s = "";
-  if (init_parse_b_) 
+  if (init_parse_b_)
     s = "Init";
   set_yydebug (!monitor->silence (s+"Parser") && check_debug);
   lexer_p_->set_debug (!monitor->silence (s+"Lexer") && check_debug);
@@ -67,14 +67,14 @@ My_lily_parser::print_declarations()
 {
 #ifndef NPRINT
   String s = "";
-  
-  if (init_parse_b_) 
+
+  if (init_parse_b_)
     s = "Init";
-  if (!monitor->silence (s+"Declarations") && check_debug) 
+  if (!monitor->silence (s+"Declarations") && check_debug)
     {
       lexer_p_->print_declarations (init_parse_b_);
     }
-#endif   
+#endif
 }
 
 void
@@ -82,9 +82,9 @@ My_lily_parser::parse_file (String init, String s)
 {
   lexer_p_ = new My_lily_lexer;
   init_str_ = init;
-  
-  *mlog << "Parsing ... ";
-  
+
+  *mlog << _("Parsing ... ");
+
   init_parse_b_ = true;
   set_debug();
   lexer_p_->new_input (init, source_l_);
@@ -92,7 +92,7 @@ My_lily_parser::parse_file (String init, String s)
 
   if (error_level_i_)
     {
-      error ("Found errors in init files");
+      error (_("Found errors in init files"));
     }
   print_declarations();
 
@@ -102,10 +102,10 @@ My_lily_parser::parse_file (String init, String s)
   do_yyparse();
   print_declarations();
 
-  
+
   if (!define_spot_array_.empty())
     {
-      warning ("Braces don't match.");
+      warning (_("Braces don't match."));
       error_level_i_ = 1;
     }
 }
@@ -116,7 +116,7 @@ My_lily_parser::remember_spot()
   define_spot_array_.push (here_input());
 }
 
-char const * 
+char const *
 My_lily_parser::here_ch_C() const
 {
   return lexer_p_->here_ch_C();
@@ -165,7 +165,7 @@ Chord*
 My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
 {
   Chord* velt_p = new Request_chord;
-  
+
   Lyric_req* lreq_p = new Lyric_req (tdef_p);
 
   lreq_p->duration_ = *duration_p;
@@ -179,7 +179,7 @@ My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
 
 Chord *
 My_lily_parser::get_rest_element (String s,  Duration * duration_p)
-{    
+{
   Chord* velt_p = new Request_chord;
   velt_p->set_spot (here_input());
 
@@ -191,12 +191,12 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
       skip_p->set_spot (here_input());
       velt_p->add (skip_p);
     }
-  else 
+  else
     {
       Rest_req * rest_req_p = new Rest_req;
       rest_req_p->duration_ = *duration_p;
       rest_req_p->set_spot (here_input());
-	
+
       velt_p->add (rest_req_p);
     }
 
@@ -211,7 +211,7 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
   v->set_spot (here_input ());
 
   v->add (rq);
-  
+
   // too bad parser reads (default) duration via member access,
   // this hack will do for now..
   if (abbrev_beam_type_i_)
@@ -229,7 +229,7 @@ Request*
 My_lily_parser::get_parens_request (char c)
 {
   Request* req_p=0;
-  switch (c) 
+  switch (c)
     {
 
     case '~':
@@ -262,7 +262,7 @@ My_lily_parser::get_parens_request (char c)
     case '<':
       req_p = new Span_dynamic_req;
       break;
-  
+
     case ')':
     case '(':
       req_p = new Slur_req;
@@ -271,8 +271,8 @@ My_lily_parser::get_parens_request (char c)
       assert (false);
       break;
     }
-  
-  switch (c) 
+
+  switch (c)
     {
     case '<':
     case '>':
@@ -285,12 +285,12 @@ My_lily_parser::get_parens_request (char c)
     case ']':
       req_p->span()->spantype = Span_req::STOP;
       break;
-	
+
     default:
       break;
     }
 
-  if (req_p->musical()->span_dynamic ()) 
+  if (req_p->musical()->span_dynamic ())
     {
       Span_dynamic_req* s_l= (req_p->musical()->span_dynamic ()) ;
       s_l->dynamic_dir_ = (c == '<') ? UP:DOWN;
@@ -303,12 +303,12 @@ My_lily_parser::get_parens_request (char c)
 void
 My_lily_parser::add_requests (Chord*v)
 {
-  for (int i = 0; i < pre_reqs.size(); i++) 
+  for (int i = 0; i < pre_reqs.size(); i++)
     {
       v->add (pre_reqs[i]);
     }
   pre_reqs.clear();
-  for (int i = 0; i <post_reqs.size(); i++) 
+  for (int i = 0; i <post_reqs.size(); i++)
     {
       v->add (post_reqs[i]);
     }

@@ -27,9 +27,9 @@ Midi_stream::~Midi_stream()
   *os_p_ << flush;		// ugh. Share with tex_stream.
   if (!*os_p_)
     {
-      warning("error syncing file (disk full?)");
+      warning(_("error syncing file (disk full?)"));
       exit_status_i_ = 1;
-    }  
+    }
   delete os_p_;
 }
 
@@ -38,7 +38,7 @@ Midi_stream::operator <<(String str)
 {
   if (check_debug && !monitor->silence("Midistrings"))
     str = String_convert::bin2hex_str (str);
-  
+
   *os_p_ << str;
 
   if (check_debug && !monitor->silence("Midistrings"))
@@ -70,5 +70,5 @@ Midi_stream::open()
 {
   os_p_ = new ofstream (filename_str_.ch_C ());
   if (!*os_p_)
-    error ("can't open `" + filename_str_ + "\'");
+    error (_("can't open `") + filename_str_ + "\'");
 }

@@ -30,19 +30,19 @@ Abbreviation_beam_engraver::do_try_request (Request*r)
   Musical_req* mus_l = r->musical ();
   if (!mus_l)
     return false;
-  
+
   Abbreviation_beam_req * b = mus_l->abbrev_beam ();
 
   if (!b)
     return false;
-    
+
   if (bool (abeam_p_) == bool (b->spantype == Span_req::START))
     return false;
-  
+
   Direction d = (!abeam_p_) ? LEFT : RIGHT;
   if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (mus_l))
     return false;
-  
+
   span_reqs_drul_[d] = b;
   return true;
 }
@@ -71,9 +71,9 @@ Abbreviation_beam_engraver::do_pre_move_processing ()
 void
 Abbreviation_beam_engraver::do_removal_processing ()
 {
-  if (abeam_p_) 
+  if (abeam_p_)
     {
-      span_reqs_drul_[LEFT]->warning ("unterminated beam");
+      span_reqs_drul_[LEFT]->warning (_("unterminated beam"));
       typeset_element (abeam_p_);
       abeam_p_ = 0;
     }
@@ -86,7 +86,7 @@ Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
     return;
 
   Stem* s = (Stem*)i.elem_l_->item ();
-  
+
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;
   if (span_reqs_drul_[RIGHT])
@@ -96,6 +96,6 @@ Abbreviation_beam_engraver::acknowledge_element (Score_elem_info i)
 
   if (s->type_i () != 1) // no abbrev gaps on half note
     s->beam_gap_i_ = s->flag_i_ - ((s->type_i () >? 2) - 2);
-  
+
   abeam_p_->add (s);
-} 
+}

@@ -13,7 +13,7 @@ parse_dimen (String dim)
       i--;
     }
   String unit (s + i+1);
-  return convert_dimen (dim.value_f(), unit); 
+  return convert_dimen (dim.value_f(), unit);
 }
 
 
@@ -28,7 +28,7 @@ convert_dimen (Real quant, String unit)
     return quant*CM_TO_PT/10;
   if (unit == "in")
     return quant * INCH_TO_PT;
-  error ("unknown length unit: `" + unit+"'");
+  error (_("unknown length unit: `") + unit+"'");
 }
 
 String

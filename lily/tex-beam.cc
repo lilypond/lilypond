@@ -25,7 +25,7 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
 {
   String name = String("slope");
   Atom bs=(*symtables_)("beamslopes")->lookup (name);
-  
+
   Array<String> args;
   args.push (sidx);
   args.push (widx);
@@ -41,7 +41,7 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
 Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Atom bs=(*symtables_)("beamslopes")->lookup ("horizontal");    
+  Atom bs=(*symtables_)("beamslopes")->lookup ("horizontal");
   Array<String> args;
   args.push (print_dimen (height));
   args.push (print_dimen (width));
@@ -53,34 +53,34 @@ Lookup::rule_symbol (Real height, Real width) const
 
 Atom
 Lookup::beam (Real &slope, Real width) const
-{        
+{
   int sidx = 0;
   if (abs (slope) > 1.0)
     {
-      WARN << "beam steeper than 1.0 (" << slope << ")\n";
+      WARN << _("beam steeper than 1.0 (") << slope << ")\n";
       slope = sign (slope);
     }
 
   sidx = int (rint (slope *  20.0));
   slope = sidx / 20.0;
-  
+
   Interval xdims = (*symtables_)("beamslopes")->lookup ("slope").dim_[X_AXIS];
   Real min_wid = xdims[LEFT];
   Real max_wid = xdims[RIGHT];
   assert(max_wid > 0);
   int widths = intlog2 (int (max_wid/min_wid)) + 1;
-  
-  if (width < min_wid) 
+
+  if (width < min_wid)
     {
-      WARN<<"Beam too narrow. (" << print_dimen (width) <<")\n";
+      WARN<<_("Beam too narrow. (") << print_dimen (width) <<")\n";
       width = min_wid;
     }
-  
+
   Real elemwidth = max_wid;
-  
+
   int widx  =widths - 1;
   Molecule m;
-  while (elemwidth > width) 
+  while (elemwidth > width)
     {
       widx --;
       elemwidth /= 2.0;
@@ -90,7 +90,7 @@ Lookup::beam (Real &slope, Real width) const
   Real x = overlap;
   Atom elem (beam_element (sidx * widths, widx, slope));
   m.add (elem);
-  while (x < last_x) 
+  while (x < last_x)
     {
       Atom a(elem);
       a.translate (Offset (x-overlap, (x-overlap)*slope));
@@ -100,13 +100,11 @@ Lookup::beam (Real &slope, Real width) const
   Atom a(elem);
   a.translate (Offset (last_x, (last_x) * slope));
   m.add (a);
-  
+
   Atom ret;
   ret.tex_ = m.TeX_string();
   ret.dim_.y() = Interval (0,width*slope);
   ret.dim_.x() = Interval (0,width);
-  
+
   return ret;
 }
-
-

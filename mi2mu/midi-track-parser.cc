@@ -1,5 +1,5 @@
 /*
-  midi-track-parser.cc -- implement 
+  midi-track-parser.cc -- implement
 
   source file of the GNU LilyPond music typesetter
 
@@ -53,9 +53,9 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 
   assert (col_l);
 
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); ) 
+  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); )
     {
-      if ((i->pitch_i_ == pitch_i) && (i->channel_i_ == channel_i)) 
+      if ((i->pitch_i_ == pitch_i) && (i->channel_i_ == channel_i))
 	{
 	  i->end_column_l_ = col_l;
 	  // LOGOUT(DEBUG_ver) << "Note: " << pitch_i;
@@ -67,17 +67,17 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
       else
 	i++;
     }
-  warning (String ("junking note-end event: ")
-	   + " channel = " + String_convert::i2dec_str (channel_i, 0, ' ')
-	   + ", pitch = " + String_convert::i2dec_str (pitch_i, 0, ' '));
+  warning (String (_("junking note-end event: "))
+	   + _(" channel = ") + String_convert::i2dec_str (channel_i, 0, ' ')
+	   + _(", pitch = ") + String_convert::i2dec_str (pitch_i, 0, ' '));
 }
 
 void
-Midi_track_parser::note_end_all (Mudela_column* col_l) 
+Midi_track_parser::note_end_all (Mudela_column* col_l)
 {
-  // find 
+  // find
   assert (col_l);
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); ) 
+  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); )
     {
       i->end_column_l_ = col_l;
       i.remove_p ();
@@ -112,18 +112,18 @@ Midi_track_parser::parse_delta_time ()
   if (eot ())
     return;
   int delta_i = get_var_i ();
-  at_mom_ += Moment (delta_i, info_l_->division_1_i_);	
+  at_mom_ += Moment (delta_i, info_l_->division_1_i_);
 }
 
 Mudela_item*
 Midi_track_parser::parse_event (Mudela_column* col_l)
-{ 
+{
   Byte byte = peek_byte ();
   // RUNNING_STATUS	[\x00-\x5f]
-  if (byte <= 0x5f) 
+  if (byte <= 0x5f)
     {
-      if (running_byte_ <= 0x5f) 
-	exit ("Invalid running status");
+      if (running_byte_ <= 0x5f)
+	exit (_("Invalid running status"));
       /*
 	'running status' rather means 'missing status'.
 	we'll just pretend we read the running status byte.
@@ -163,7 +163,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
       int pitch_i = (int)next_byte ();
       int dyn_i = (int)next_byte ();
       /*
-	sss: some broken devices encode NOTE_OFF as 
+	sss: some broken devices encode NOTE_OFF as
 	NOTE_ON with zero volume
 	*/
       if (dyn_i)
@@ -233,7 +233,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  next_byte ();
 	  get_i (2);
 	}
-      // YYTEXT		[\x01] 
+      // YYTEXT		[\x01]
       // YYCOPYRIGHT	[\x02]
       // YYTRACK_NAME	[\x03]
       // YYINSTRUMENT_NAME	[\x04]
@@ -249,7 +249,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  Mudela_text::Type t = (Mudela_text::Type)byte;
 	  Mudela_text* p = new Mudela_text (t, str);
 	  item_p = p;
-	  if (t == Mudela_text::COPYRIGHT) 
+	  if (t == Mudela_text::COPYRIGHT)
 	     mudela_staff_p_->copyright_str_ = p->text_str_;
 	  else if (t == Mudela_text::TRACK_NAME)
 	     mudela_staff_p_->name_str_ = p->text_str_;
@@ -324,12 +324,12 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	    {
 	      next_byte ();
 	      next_byte ();
-	      warning ("Unimplemented MIDI meta-event");
+	      warning (_("Unimplemented MIDI meta-event"));
 	    }
 	}
     }
   else
-    exit ("Invalid MIDI event");
+    exit (_("Invalid MIDI event"));
 
   if (item_p)
     item_p->mudela_column_l_ = col_l;
@@ -341,15 +341,15 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 
 void
 Midi_track_parser::parse_header ()
-{ 
+{
   String str = get_str (4);
   if ( str != "MTrk" )
-    exit ("MIDI track expected");
+    exit (_("MIDI track expected"));
 
   int length_i = get_i (4);
   // is this signed?
   if (length_i < 0)
-    exit ("Invalid track length");
+    exit (_("Invalid track length"));
   assert (!track_info_p_);
   track_info_p_ = new Midi_parser_info (*info_l_);
   track_info_p_->end_byte_L_ = track_info_p_->byte_L_ + length_i;
@@ -357,4 +357,3 @@ Midi_track_parser::parse_header ()
 //  forward_byte_L (length_i-1);
   info_l_ = track_info_p_;
 }
-

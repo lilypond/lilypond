@@ -98,7 +98,7 @@ command
 When LilyPond starts working it will produce various ``operator
 pacification'' messages, which you can safely ignore for now.  The run
 should have left a file called \file{lelie.tex} in your working
-directory.  You can process that file with TeX, and it will look like
+directory.  You can process that file with \TeX, and it will look like
 this:
 
 \begin{mudela}

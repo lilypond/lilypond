@@ -56,7 +56,7 @@ static Keyword_ent the_key_tab[]={
   {"skip", SKIP},
   {"staff", STAFF},
   {"table", TABLE},
-  {"spandynamic", SPANDYNAMIC}, 
+  {"spandynamic", SPANDYNAMIC},
   {"symboltables", SYMBOLTABLES},
   {"tempo", TEMPO},
   {"texid", TEXID},
@@ -87,7 +87,7 @@ My_lily_lexer::lookup_identifier (String s)
 {
   if (!identifier_p_dict_p_->elt_b (s))
     return 0;
-  
+
   return (*identifier_p_dict_p_)[s];
 }
 
@@ -96,9 +96,9 @@ void
 My_lily_lexer::set_identifier (String name_str, Identifier*i)
 {
   Identifier *old = lookup_identifier (name_str);
-  if  (old) 
+  if  (old)
     {
-      old->warning("redeclaration of \\" + name_str);
+      old->warning(_("redeclaration of \\") + name_str);
       delete old;
     }
   (*identifier_p_dict_p_)[name_str] = i;
@@ -109,7 +109,7 @@ My_lily_lexer::~My_lily_lexer()
   delete keytable_p_;
 
   for (Assoc_iter<String,Identifier*>
-	 ai (*identifier_p_dict_p_); ai.ok(); ai++) 
+	 ai (*identifier_p_dict_p_); ai.ok(); ai++)
     {
       DOUT << "deleting: " << ai.key()<<'\n';
       delete ai.val();
@@ -121,9 +121,9 @@ void
 My_lily_lexer::print_declarations (bool init_b) const
 {
   for (Assoc_iter<String,Identifier*> ai (*identifier_p_dict_p_);
-       ai.ok(); ai++) 
+       ai.ok(); ai++)
     {
-      if (ai.val()->init_b_ == init_b) 
+      if (ai.val()->init_b_ == init_b)
 	{
 	  DOUT << ai.key() << '=';
 	  ai.val()->print ();
@@ -134,11 +134,11 @@ My_lily_lexer::print_declarations (bool init_b) const
 void
 My_lily_lexer::LexerError (char const *s)
 {
-  if (include_stack_.empty()) 
+  if (include_stack_.empty())
     {
-      *mlog << "error at EOF" << s << '\n';
+      *mlog << _("error at EOF") << s << '\n';
     }
-  else 
+  else
     {
       errorlevel_i_ |= 1;
       Input spot (source_file_l(),here_ch_C());
@@ -174,7 +174,7 @@ My_lily_lexer::escaped_char(char c) const
       return '\n';
     case 't':
       return '\t';
-      
+
     case '\'':
     case '\"':
     case '\\':

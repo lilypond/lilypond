@@ -20,18 +20,18 @@ String default_out_fn = "lelie";
 void
 do_scores()
 {
-  for (int i=0; i < global_score_array.size(); i++) 
+  for (int i=0; i < global_score_array.size(); i++)
     {
       Score *&is_p = global_score_array[i];
       if (is_p->header_p_)
-	is_p->header_p_->lily_id_str_ = "Lily was here, " + 
+	is_p->header_p_->lily_id_str_ = "Lily was here, " +
 	  get_version_number_str();
-      if (is_p->errorlevel_i_) 
+      if (is_p->errorlevel_i_)
 	{
-	  is_p->warning ("Score contains errors. Will not process it. ");
+	  is_p->warning (_("Score contains errors. Will not process it. "));
 	  exit_status_i_ |= 1;
 	}
-      else 
+      else
 	{
 	  is_p->process();
 	}
@@ -53,4 +53,3 @@ set_default_output (String s)
 {
   default_out_fn = s;
 }
-

@@ -36,7 +36,7 @@ void
 usage()
 {
   LOGOUT(NORMAL_ver) <<
-	"Usage: mi2mu [options] midi-file\n"
+	_("Usage: mi2mu [options] midi-file\n"
   "Translate midi-file to mudela\n"
   "\n"
   "Options:\n"
@@ -52,7 +52,7 @@ usage()
   "  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
   "  -v, --verbose          be verbose\n"
   "  -w, --warranty         show warranty and copyright\n"
-  "  -x, --no-double-dots   assume no double dotted notes\n"
+  "  -x, --no-double-dots   assume no double dotted notes\n")
   ;
 }
 
@@ -61,12 +61,12 @@ identify()
 {
   LOGOUT(NORMAL_ver) << mi2mu_version_str() << endl;
 }
-  
-void 
+
+void
 notice()
 {
   LOGOUT(NORMAL_ver) <<
-  "\n"
+  _("\n"
   "Mi2mu, translate midi to mudela.\n"
   "Copyright (C) 1997 by\n"
   "  Jan Nieuwenhuizen <jan@digicash.com>\n"
@@ -84,16 +84,16 @@ notice()
   "    You should have received a copy (refer to the file COPYING) of the\n"
   "GNU General Public License along with this program; if not, write to\n"
   "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-  "USA.\n";
+  "USA.\n");
 }
 
 int
 main (int argc_i, char* argv_sz_a[])
 {
   Mudela_key key (0, 0);
-  rat_printer = print_rat;	
+  rat_printer = print_rat;
 
-  Long_option_init long_option_init_a[] = 
+  Long_option_init long_option_init_a[] =
     {
 	{0, "no-quantify", 'b'},
 	{0, "debug", 'd'},
@@ -113,7 +113,7 @@ main (int argc_i, char* argv_sz_a[])
 
   String output_str;
   while (Long_option_init const* long_option_init_p = getopt_long())
-	switch (long_option_init_p->shortname) 
+	switch (long_option_init_p->shortname)
 	  {
 	case 'b':
 	    Duration_convert::no_quantify_b_s = true;
@@ -130,7 +130,7 @@ main (int argc_i, char* argv_sz_a[])
 //	    path->push (getopt_long.optional_argument_ch_C_);
 //	    break;
 	case 'k':
-	  { 
+	  {
 	    String str = getopt_long.optional_argument_ch_C_;
 	    int i = str.index_i (':');
 	    i = (i >=0 ? i : str.length_i ());
@@ -152,16 +152,16 @@ main (int argc_i, char* argv_sz_a[])
 	case 'q':
 	    level_ver = QUIET_ver;
 	    break;
-	case 's': 
+	case 's':
 	  {
 		int i = String_convert::dec2_i (getopt_long.optional_argument_ch_C_);
-		if (!i) 
+		if (!i)
 		  {
 		    identify();
 		    usage();
 		    exit (2); //usage
 		  }
-		Duration_convert::no_smaller_than_i_s = 
+		Duration_convert::no_smaller_than_i_s =
 		  Duration_convert::i2_type(i);
 	      }
 	    break;
@@ -180,7 +180,7 @@ main (int argc_i, char* argv_sz_a[])
 	    assert (0);
 	    break;
 	    }
-  
+
   // flag -q must be checked first
   identify();
 
@@ -189,7 +189,7 @@ main (int argc_i, char* argv_sz_a[])
   source.set_path (&path);
 
   char const* arg_sz = 0;
-  while ( (arg_sz = getopt_long.get_next_arg ())) 
+  while ( (arg_sz = getopt_long.get_next_arg ()))
     {
 	filename_str_g = arg_sz;
 	Midi_score_parser midi_parser;
@@ -203,7 +203,7 @@ main (int argc_i, char* argv_sz_a[])
 	mudela_score_l_g = score_p;
 	score_p->process();
 
-	if (!output_str.length_i ()) 
+	if (!output_str.length_i ())
 	  {
 	    String d, dir, base, ext;
 	    split_path (arg_sz, d, dir, base, ext);

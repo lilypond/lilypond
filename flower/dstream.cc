@@ -14,7 +14,7 @@
 #include "string-convert.hh"
 #include "assoc-iter.hh"
 
-/// indent of each level 
+/// indent of each level
 const INDTAB = 2;
 
 /*
@@ -26,7 +26,7 @@ strip_pretty (String pretty_str)
   int i = pretty_str.index_i ('(');
   if (i>=0)
     pretty_str = pretty_str.left_str (i);
-  
+
   int l = pretty_str.index_last_i (' '); // strip until last ' '
   if (l>=0)
     pretty_str = pretty_str.nomid_str (0,l+1);
@@ -47,21 +47,21 @@ Dstream::identify_as (String name)
 {
   if (!os_l_)
     return *this;
-  
+
   String mem (strip_pretty (name));
   String cl (strip_member (mem));
   String idx = cl;
-  
+
   if (silent_assoc_p_->elt_b (mem))
     idx  = mem;
   else if (silent_assoc_p_->elt_b (cl))
     idx = cl;
-  else 
+  else
     {
       (*silent_assoc_p_)[idx] = false;
     }
   local_silence_b_ = (*silent_assoc_p_)[idx];
-  if (current_classname_str_ != idx && !local_silence_b_) 
+  if (current_classname_str_ != idx && !local_silence_b_)
     {
       current_classname_str_=idx;
       if (!(*silent_assoc_p_)["Dstream"])
@@ -104,33 +104,33 @@ Dstream::output (String s)
 {
   if (local_silence_b_|| !os_l_)
     return ;
-  
+
   for (char const *cp = s.ch_C (); *cp; cp++)
-    switch (*cp) 
+    switch (*cp)
       {
       case '{':
       case '[':
       case '(': indent_level_i_ += INDTAB;
-	*os_l_ << *cp;		
+	*os_l_ << *cp;
 	break;
-		
+
       case ')':
       case ']':
       case '}':
 	indent_level_i_ -= INDTAB;
 	*os_l_ << *cp		;
-		
+
 	assert  (indent_level_i_>=0) ;
 	break;
-		
+
       case '\n':
 	*os_l_ << '\n' << String (' ', indent_level_i_) << flush;
-	break;	      
+	break;
       default:
 	*os_l_ << *cp;
 	break;
       }
-  return ;    
+  return ;
 }
 
 
@@ -141,7 +141,7 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
   indent_level_i_ = 0;
   if (!os_l_)
     return;
-  
+
   char const * fn =cfg_nm ? cfg_nm : ".dstreamrc";
   {
     ifstream ifs (fn);	// can't open
@@ -150,11 +150,11 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
   }
 
   Text_db cfg (fn);
-  while (! cfg.eof()){	     
+  while (! cfg.eof()){
     Text_record  r (cfg++);
-    if (r.size() != 2) 
+    if (r.size() != 2)
       {
-	r.message ("not enough fields in Dstream init.");
+	r.message (_("not enough fields in Dstream init."));
 	continue;
       }
     (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
@@ -164,15 +164,15 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 
 
 Dstream::~Dstream()
-{    
+{
   delete silent_assoc_p_;
   assert (!indent_level_i_) ;
 }
 
 void
-Dstream::clear_silence() 
+Dstream::clear_silence()
 {
-  for (Assoc_iter<String, bool> i (*silent_assoc_p_); i.ok(); i++) 
+  for (Assoc_iter<String, bool> i (*silent_assoc_p_); i.ok(); i++)
     {
       i.val() = false;
     }

@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Tue Oct 14 23:56:57 1997
+% on Mon Oct 20 01:50:48 1997
 % Do not edit
 % input from out/font-en-tja16.log
 % name=\symboltables {
@@ -52,7 +52,9 @@
         "pedaltoe"	"\\pedaltoe"	-2.00\pt	2.00\pt	-0.00\pt	6.00\pt	
         }
     "floogbars"	 = \table {
-        "3u"	"\\eighthflag"	-0.20\pt	4.18\pt	-12.77\pt	0.20\pt	
-        "3d"	"\\deighthflag"	-0.20\pt	4.18\pt	-0.20\pt	12.77\pt	
+        "3u"	"\\eighthflag"	-0.20\pt	4.16\pt	-12.83\pt	0.20\pt	
+        "3d"	"\\deighthflag"	-0.20\pt	4.60\pt	-0.20\pt	12.83\pt	
+        "4u"	"\\sixteenthflag"	-0.20\pt	4.16\pt	-13.00\pt	0.20\pt	
+        "4d"	"\\dsixteenthflag"	-0.20\pt	4.60\pt	-0.20\pt	12.00\pt	
         }
     %  } % $name

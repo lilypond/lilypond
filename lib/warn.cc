@@ -4,8 +4,8 @@
 void
 error(String s)
 {
-    cerr <<  "error: " << s << "\n";
-	
+    cerr <<  _("error: ") << s << "\n";
+
     exit(1);
 }
 
@@ -13,7 +13,7 @@ error(String s)
 void
 warning(String m)
 {
-    cerr << "warning: " <<m <<endl;
+    cerr << _("warning: ") <<m <<endl;
 
 }
 

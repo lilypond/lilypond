@@ -13,12 +13,12 @@ ostream * nulldev =0;
 
 // ugh
 struct _Dinit {
-  _Dinit() 
+  _Dinit()
     {
 	nulldev = new ofstream ("/dev/null");
 	monitor = new Dstream (&cout,".dstreamrc");
     }
-  ~_Dinit() 
+  ~_Dinit()
     {
 	delete nulldev;
 	delete monitor;
@@ -39,7 +39,7 @@ mynewhandler()
 void
 float_handler (int)
 {
-  cerr << "Floating point exception .. \n"<< flush;
+  cerr << _("Floating point exception .. \n")<< flush;
   assert (false);
 }
 
@@ -49,14 +49,14 @@ static void (*rat_printer)(Moment const&);
 void
 debug_init()
 {
-  rat_printer = print_rat;	
+  rat_printer = print_rat;
 #ifndef NDEBUG
   set_new_handler (&mynewhandler);
 #endif
   set_flower_debug (*monitor, check_debug);
-  
+
   signal (SIGFPE, float_handler);
-}   
+}
 
 bool check_debug=false;
 
@@ -66,5 +66,3 @@ set_debug (bool b)
   check_debug =b;
   set_flower_debug (*monitor, check_debug);
 }
-
-

@@ -12,7 +12,6 @@ grep for TODO and ugh/ugr
 
 	* standchen: warning: Excentric column (Meter dims?)
 
-
 	* optimal pagebreaking.
 
 	* put errorlevel in Input class
@@ -69,7 +68,7 @@ PROJECTS
 	- examples to go with it.
 
 	* Spring_spacer:
-	- write a faster Spring_spacer ( without matrices if possible )
+	- write a faster Spring_spacer (without matrices if possible)
 	- use straight QP to find minimal "fitting force"
 	- relate energybound to linelen unitspace fontsize etc.
 	- used fixed point fp

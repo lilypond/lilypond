@@ -25,7 +25,7 @@ void
 Script::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   Staff_side::do_substitute_dependency (o,n);
-  if (o == stem_l_) 
+  if (o == stem_l_)
     {
       stem_l_ = n ? (Stem*)n->item() : 0;
     }
@@ -40,7 +40,7 @@ Script::set_stem (Stem*st_l)
 
 
 Script::Script()
-{    
+{
   specs_l_ = 0;
   inside_staff_b_ = false;
   stem_l_ = 0;
@@ -51,17 +51,17 @@ void
 Script::set_default_dir()
 {
   int s_i=specs_l_->rel_stem_dir();
-  if (s_i) 
+  if (s_i)
     {
       if (stem_l_)
 	dir_ = stem_l_->dir_ * s_i;
       else
 	{
-	  specs_l_->warning ("Script needs stem direction");
+	  specs_l_->warning (_("Script needs stem direction"));
 	  dir_ = DOWN;
 	}
     }
-  else 
+  else
     {
       dir_ =specs_l_->staff_dir();
     }
@@ -78,12 +78,12 @@ Script::do_width() const
 void
 Script::do_pre_processing()
 {
-  if  (breakable_b_ && break_status_i() != 1) 
+  if  (breakable_b_ && break_status_i() != 1)
     {
       transparent_b_ = true;
       set_empty (true);
     }
-  
+
   if (!dir_)
     set_default_dir();
   inside_staff_b_ = specs_l_->inside_b();
@@ -100,7 +100,7 @@ Script::brew_molecule_p() const
 {
   Real dy = paper()->internote_f ();
   Real dx = paper()->note_width()/2;
-  
+
   Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_));
   out->translate_axis (dy * pos_i_, Y_AXIS);
   out->translate_axis (dx, X_AXIS);	// FIXME! ugh
@@ -110,9 +110,8 @@ Script::brew_molecule_p() const
 
 IMPLEMENT_IS_TYPE_B2(Script,Item,Staff_side);
 
-int 
-Script::compare (Script  *const&l1, Script *const&l2) 
+int
+Script::compare (Script  *const&l1, Script *const&l2)
 {
   return l1->specs_l_->priority_i() - l2->specs_l_->priority_i ();
 }
-  

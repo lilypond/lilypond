@@ -3,21 +3,21 @@
 Text_stream::Text_stream (String fn)
 {
   ios::sync_with_stdio();
-  if (fn == "") 
+  if (fn == "")
 	    {
-	    name = "<STDIN>";	    
+	    name = _("<STDIN>");
 	    f = stdin;
 	      }
-	
-	else 
+
+	else
 	    {
-	    name = fn;	    
+	    name = fn;
 	    f = fopen (fn.ch_C (), "r");
 	      }
-	
-	if (!f) 
+
+	if (!f)
 	  {
-	    cerr <<__FUNCTION__<< ": can't open `" << fn << "'\n";
+	    cerr <<__FUNCTION__<< _(": can't open `") << fn << "'\n";
 	    exit (1);
 	  }
 
@@ -29,4 +29,3 @@ Text_stream::message (String s)
 {
   cerr << "\n"<<get_name() << ": " << line ()<<": "<<s<<endl;
 }
-

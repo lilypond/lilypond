@@ -44,9 +44,9 @@ Time_description::OK() const
 void
 Time_description::set_cadenza (bool b)
 {
-  if (cadenza_b_ && !b) 
+  if (cadenza_b_ && !b)
     {
-	if (whole_in_measure_) 
+	if (whole_in_measure_)
 	  {
 	    bars_i_ ++;		// should do?
 	    whole_in_measure_ = 0;
@@ -72,8 +72,8 @@ Time_description::add (Moment dt)
   assert (dt >= Rational (0));
   when_ +=  dt;
   whole_in_measure_ += dt;
-	
-  while (!cadenza_b_ && whole_in_measure_ >= whole_per_measure_) 
+
+  while (!cadenza_b_ && whole_in_measure_ >= whole_per_measure_)
     {
 	whole_in_measure_ -= whole_per_measure_;
 	bars_i_ ++;
@@ -96,16 +96,16 @@ Time_description::allow_meter_change_b()
 
 /**
   retrieve error messages.
-  @return 
+  @return
   error messages if not possible, "" if possible
   */
 String
 Time_description::try_set_partial_str (Moment p) const
 {
   if (p<Rational (0))
-	return ("Partial must be non-negative");
+	return (_("Partial must be non-negative"));
   if (p > whole_per_measure_)
-	return ("Partial measure too large");
+	return (_("Partial measure too large"));
   return "";
 }
 
@@ -127,7 +127,7 @@ Time_description::compare (Time_description const &t1,  Time_description const&t
 {
   int i = sign (t1.when_-t2.when_);
 
-  if (!i) 
+  if (!i)
     {
 	assert (t1.bars_i_==t2.bars_i_);
 	assert (t1.one_beat_ == t2.one_beat_);
@@ -143,4 +143,3 @@ Time_description::next_bar_moment() const
 {
   return when_ + barleft();
 }
-
