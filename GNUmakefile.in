@@ -82,22 +82,14 @@ lily: lily/$(outdir)/lilypond
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: web-doc $(TOP_HTMLS:%=%) footify do-top-doc top-web
+local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
+web-ext = gz html midi pdf png txt
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
-	cd $(builddir) && find `find Documentation input mutopia -type d -name 'out-www' -print` \
-		-not -name '*.dvi' -not -name '*ly' -not -name '*.tex' \
-		-not -name '*.ps' -not -name '*.eps' -not -name '*pk' \
-		-not -name '*.aux' -not -name '*.cp' -not -name '*.fn' \
-		-not -name '*.vr' -not -name '*.yp' -not -name '*.ky' \
-		-not -name '*.pg' -not -name '*.tmp' -not -name '*.toc' \
-		-not -name '*.fns' -not -name '*.cps' -not -name '*.nexi' \
-		-not -name '*.texi' -not -name '*.texidoc' -not -name '*.tp' \
-		-not -name '*.pdfps' -not -name '*.eps.bbox' \
-		-not -name '*.log' -not -name 'out-www' -not -name '*.dep' \
-		-print \
-	    > $(outdir)/weblist
+	cd $(builddir) && find Documentation input mutopia \
+		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
+		> $(outdir)/weblist
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 

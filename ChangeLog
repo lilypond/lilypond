@@ -2,6 +2,7 @@
 
 	* GNUmakefile.in (short-examples):
 	(long-examples): Bugfix for --srcdir build.
+	(top-web): Rewrite weblist find command.
 
 	* stepmake/bin/config.sub: 
 	* stepmake/bin/config.guess: Update from latest autotools.
