@@ -1,5 +1,7 @@
 2003-03-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.15 released
+	
 	* Documentation/user/lilypond.tely: omf updates.
 
 	* buildscripts/texi2omf.py (omf_vars): include version.date
