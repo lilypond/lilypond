@@ -116,8 +116,7 @@ Align_note_column_engraver::create_grobs ()
       
   if (now_column_l_)
     {
-	
-      Align_interface::add_element (align_item_p_,now_column_l_);
+      Align_interface::add_element (align_item_p_,now_column_l_, Align_interface::alignment_callback_proc);
       now_column_l_ =0;
     }
 }

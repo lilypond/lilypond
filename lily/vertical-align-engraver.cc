@@ -62,7 +62,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 {
   if (qualifies_b (i))
     {
-      Align_interface::add_element (valign_p_,i.elem_l_);
+      Align_interface::add_element (valign_p_,i.elem_l_, get_property ("verticalAlignmentChildCallback"));
     }
 }
 

@@ -208,7 +208,8 @@ PianoStaffContext = \translator{
 	\consists "Vertical_align_engraver";
 
 	alignmentReference = \center;
-	VerticalAlignment \override #'threshold = #'(12 . 12) 
+	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
+	VerticalAlignment \override #'forced-distance = #12
 
 %	\consistsend "Axis_group_engraver";
 }
@@ -398,6 +399,8 @@ ScoreContext = \translator {
 	explicitKeySignatureVisibility = #all-visible
 	
 	scriptDefinitions = #default-script-alist
+
+	verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
 	startSustain = #"Ped."
 	stopSustain = #"*"

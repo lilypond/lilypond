@@ -158,7 +158,6 @@ text text text text text text text text text text text text
 text text text text text text text text text text text text 
 text text text text text text text text text text text text 
 
-%% need to use an -I ../../../input/test to find the file
-%% \lilypondfile{tie.ly}
+
 
 \end{document}

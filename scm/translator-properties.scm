@@ -253,6 +253,10 @@ context Voice 	imes 2/3 @{
 (translator-property-description 'unirhythm boolean? "set if unirhythm is detected")
 (translator-property-description 'unisilence boolean? "set if unisilence is detected")
 (translator-property-description 'unison boolean? "set if unisono is detected  ")
+(translator-property-description 'verticalAlignmentChildCallback
+procedure? "what callback to add to children of a vertical alignment.
+It determines what alignment procedure is used on the alignment
+itself.  ")
 (translator-property-description 'voltaSpannerDuration moment? "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by

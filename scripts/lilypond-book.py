@@ -4,12 +4,8 @@
 # * Figure out clean set of options. Hmm, isn't it pretty ok now?
 # * add support for .lilyrc
 # * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
-# * texinfo: add support for @pagesize
 
-# todo: dimension handling (all the x2y) is clumsy. (tca: Thats
-#       because the values are taken directly from texinfo.tex,
-#       geometry.sty and article.cls. Give me a hint, and I'll
-#       fix it.)
+# todo: dimension handling (all the x2y) is clumsy. 
 
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
@@ -42,7 +38,7 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.113'
+	program_version = '1.3.106'	
 
 include_path = [os.getcwd()]
 
@@ -254,7 +250,7 @@ class LatexPaper:
 
 class TexiPaper:
 	def __init__(self):
-		self.m_papersize = 'letterpaper'
+		self.m_papersize = 'a4'
 		self.m_fontsize = 12
 	def get_linewidth(self):
 		return texi_linewidths[self.m_papersize][self.m_fontsize]
@@ -282,11 +278,10 @@ latex_linewidths = {
 	'executivepaper':{10: 345, 11: 360, 12: 379}}
 
 texi_linewidths = {
-	'afourpaper': {12: mm2pt(160)},
-	'afourwide': {12: in2pt(6.5)},
-	'afourlatex': {12: mm2pt(150)},
-	'smallbook': {12: in2pt(5)},
-	'letterpaper': {12: in2pt(6)}}
+	'a4': {12: 455},
+	'a4wide': {12: 470},
+	'smallbook': {12: 361},
+	'texidefault': {12: 433}}
 
 option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
@@ -434,8 +429,6 @@ def get_re (name):
 	return  re_dict[format][name]
 
 def bounding_box_dimensions(fname):
-	if g_outdir:
-		fname = os.path.join(g_outdir, fname)
 	try:
 		fd = open(fname)
 	except IOError:
@@ -569,10 +562,12 @@ def scan_texi_preamble (chunks):
 	idx = 0
 	while 1:
 		if chunks[idx][0] == 'input':
-			for s in ('afourpaper', 'afourwide', 'letterpaper',
-				  'afourlatex', 'smallbook'):
-				if string.find(chunks[idx][1], "@%s" % s) != -1:
-					paperguru.m_papersize = s
+			if string.find(chunks[idx][1], "@afourpaper") != -1:
+				paperguru.m_papersize = 'a4'
+			elif string.find(chunks[idx][1], "@afourwide") != -1:
+				paperguru.m_papersize = 'a4wide'
+			elif string.find(chunks[idx][1], "@smallbook") != -1:
+				paperguru.m_papersize = 'smallbook'
 		idx = idx + 1
 		if idx == 10 or idx == len(chunks):
 			break

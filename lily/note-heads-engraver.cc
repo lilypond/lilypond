@@ -122,7 +122,7 @@ Note_heads_engraver::start_translation_timestep ()
 {
   /* TODO:make this settable?
    */
-  if (note_end_mom_ > now_mom())
+  if (note_end_mom_ > now_mom() )
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();
