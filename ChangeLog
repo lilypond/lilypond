@@ -1,5 +1,8 @@
 2005-03-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/aclocal.m4: check dynamic link, by checking if kpathsea
+	executable is < 40k
+
 	* lily/main.cc (setup_paths): remove tfm1 tfm2 tfm3 include path
 	hack.
 
