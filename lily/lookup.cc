@@ -78,6 +78,9 @@ Lookup::afm_find (String s, String str) const
   Adobe_font_char_metric m = afm_p_->find_char (s);
 
   Atom a;
+  if (m.width () ==0)
+    return a;
+  
   a.dim_ = m.B_;
   a.dim_[X_AXIS] *= 1 / 1000.0;
   a.dim_[Y_AXIS] *= 1 / 1000.0;
@@ -190,10 +193,18 @@ Lookup::script (String str) const
 }
 
 Atom
-Lookup::special_time_signature (String s) const
+Lookup::special_time_signature (String s, Array<Scalar> arr) const
 {
-  Atom a (afm_find ("timesig-"+ s));
-  return a;
+  String symbolname="timesig-"+s+"%/%";
+  Atom a (afm_find (substitute_args(symbolname,arr)));
+  if (!a.empty()) 
+    return a;
+  // Try if the full name was given
+  a=afm_find ("timesig-"+s);
+  if (!a.empty()) 
+    return a;
+  // Resort to default layout with numbers
+  return time_signature(arr);
 }
 
 Atom

@@ -10,6 +10,12 @@ grep for TODO and ugh/ugr/urg
 
 BUGS:
 
+	* fix \n after proccing
+
+ Summary of minor spelling irregularities:
+>   capitalization/use of underscores in property names
+>   \lyric vs \notes  \lyric vs \type Lyrics  (\lyric should have an -s)
+
 	* fix Score.skipBars
 
 	* repeat bars: need distance after ":|" and before "|:"
@@ -30,8 +36,6 @@ BUGS:
 	* egcs-1.1 support
 
 	* make engraver hacking robust.
-
-	* fix LOCALE settings, and \def\foo{2,000pt} output
 
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.

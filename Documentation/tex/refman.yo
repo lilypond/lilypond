@@ -1257,6 +1257,9 @@ dit(code(barAlways)) If set to 1 a bar line is drawn after each note.
 dit(code(defaultBarType)) Sets the default type of bar line.  See
 code(\bar) keyword.
 
+
+
+
 dit(code(keyoctaviation)) If set to 1, then keys are the same in all
 octaves.  If set to 0 then the key signature for different octaves can
 be different and is specified independently: code(\keysignature bes
@@ -1276,8 +1279,23 @@ dit(code(createKeyOnClefChange)) Set to a nonempty string if you want key
 signatures to be printed when the clef changes.  Set to the empty string (the
 default) if you do not want key signatures printed.
 
-dit(code(timeSignatureStyle)) Specify a character to print for the time
-signature.  The different time signature characters are shown below with
+
+dit(code(timeSignatureStyle)) Changes the default two-digit layout
+   for time signatures. The following values are recognized:
+   description(
+      dit(code(C)): 4/4 and 2/2 are typeset as C and struck C,
+      respectively. All other time signatures are written with two digits.
+      dit(code(old)): 2/2, 3/2, 3/4, 4/4, 6/4 and 9/4 are typeset with
+      old-style mensuration marks. All other time signatures are 
+      written with two digits.
+      dit(code(1)): All time signatures are typeset with a single
+      digit, e.g. 3/2 is written as 3.
+      dit(code(C2/2,C4/4, old2/2, old3/2, old3/4, old4/4, old6/4 or
+      old9/4)): Tells Lilypond to use a specific symbol as time
+      signature.
+   )
+
+The different time signature characters are shown below with
 their names:
 mudela(fragment,center)(
 \relative c'' {
@@ -1296,6 +1314,7 @@ a2^"old9\_4" a2
 )
 
 COMMENT( timeSignatureSymbol?  timeSignatureChar? )
+
 
 )
    

@@ -35,7 +35,7 @@
 		     "accepts" "accidentals" "break" "bar" "cadenza" 
 		     "clef" "cm" "consists" "contains" "duration" "absdynamic" 
 		     "in" "translator" "type" "lyric" "key" "maininput" "notes"
-		     "musical_pitch" "meter" "midi" "mm" "header"
+		     "musical_pitch" "time" "midi" "mm" "header"
 		     "notenames" "octave" "output" "partial" "paper" "plet"
 		     "property" "pt" "shape" "relative" "include" "score"
 		     "script" "skip"  "table" "spandynamic" "symboltables"

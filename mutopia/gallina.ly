@@ -227,6 +227,7 @@ bc=\notes\transpose c'{
 
 \score{
   \type StaffGroup <
+    \property StaffGroup.timeSignatureStyle = "old"
     \vi1
     \vi2
     \bc

@@ -114,3 +114,9 @@ Atom::translate (Offset o)
   off_ += o;
   check_infinity_b ();
 }
+
+bool
+Atom::empty() const
+{
+  return (dim_.y().length() == 0);
+}

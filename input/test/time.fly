@@ -1,23 +1,111 @@
-
-
 \property Staff.timeSignatureStyle = "C"
-\time 12/8;
-
-[c8 c c][c8 c c][c8 c c][c8 c c]
-
+\time 1/1;
+c''1^"timeSignatureStyle = \"C\"" |
 \time 2/2;
-\property Staff.timeSignatureStyle = "old3_2"
-c2 c2
-
+c1 |
+\time 3/4;
+c2. |
+\time 4/4;
+c1 |
+\time 5/4;
+c2. c2 |
+\time 6/4;
+c1. |
+\time 3/2;
+c1. |
+\time 7/4;
+c1 c2. |
+\time 8/4;
+c\breve |
+\time 9/4;
+c2. c2. c2. |
+\break
+\property Staff.timeSignatureStyle = "old"
+\time 1/1;
+c1^"timeSignatureStyle = \"old\"" |
 \time 2/2;
-\property Staff.timeSignatureStyle = "oldC"
-c2 c2
-
+c1 |
+\time 3/4;
+c2. |
+\time 4/4;
+c1 |
+\time 5/4;
+c2. c2 |
+\time 6/4;
+c1. |
+\time 3/2;
+c1. |
+\time 7/4;
+c1 c2. |
+\time 8/4;
+c\breve |
+\time 9/4;
+c2. c2. c2. |
+\break
+\property Staff.timeSignatureStyle = ""
+\time 1/1;
+c1^"timeSignatureStyle = \"\"" |
 \time 2/2;
-\property Staff.timeSignatureStyle = "old6_4"
-c2 c2
-
+c1 |
+\time 3/4;
+c2. |
+\time 4/4;
+c1 |
+\time 5/4;
+c2. c2 |
+\time 6/4;
+c1. |
+\time 3/2;
+c1. |
+\time 7/4;
+c1 c2. |
+\time 8/4;
+c\breve |
+\time 9/4;
+c2. c2. c2. |
+\break
+\property Staff.timeSignatureStyle = "1"
+\time 1/1;
+c1^"timeSignatureStyle = \"1\"" |
 \time 2/2;
-\property Staff.timeSignatureStyle = "old9_4"
-c2 c2
+c1 |
+\time 3/4;
+c2. |
+\time 4/4;
+c1 |
+\time 5/4;
+c2. c2 |
+\time 6/4;
+c1. |
+\time 3/2;
+c1. |
+\time 7/4;
+c1 c2. |
+\time 8/4;
+c\breve |
+\time 9/4;
+c2. c2. c2. |
+\break
+\property Staff.timeSignatureStyle = "old9/4"
+\property Staff.textalignment = \center
+\time 1/1;
+c1^"old9/4" |
+\property Staff.timeSignatureStyle = "old6/4"
+\time 2/2;
+c1^"old6/4" |
+\property Staff.timeSignatureStyle = "old3/2"
+\time 3/4;
+c2.^"old3/2" |
+\property Staff.timeSignatureStyle = "old4/4"
+\time 4/4;
+c1^"old4/4" |
+\property Staff.timeSignatureStyle = "old2/2"
+\time 5/4;
+c2.^"old2/2" c2 |
+\property Staff.timeSignatureStyle = "C4/4"
+\time 6/4;
+c1.^"C4/4" |
+\property Staff.timeSignatureStyle = "C2/2"
+\time 3/2;
+c1.^"C2/2" |
 

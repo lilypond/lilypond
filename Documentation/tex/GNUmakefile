@@ -21,11 +21,11 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)
 STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
-
+export BIBINPUTS:=$(shell pwd)//$(PATHSEP)$(BIBINPUTS)
 include $(depth)/make/stepmake.make 
 
 
-export BIBINPUTS:="$(topdir)/Documentation/tex//"$(PATHSEP)$(BIBINPUTS)
+
 
 
 
@@ -39,6 +39,15 @@ default:
 
 GENHTMLS = engraving colorado glossary computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
+
+#urg should generalise and move Lilypond -> StepMake
+# URG.  Lilypond specific. Move out. 
+$(outdir)/%.html: %.data $(depth)/VERSION
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ $<
+	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $@
+
+$(outdir)/%.tex: %.data $(depth)/VERSION
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
 
 
 $(outdir)/glossary.dvi: $(outdir)/glossary-table.tex

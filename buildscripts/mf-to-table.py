@@ -59,6 +59,7 @@ class Feta_file(File):
 	    if begin_autometric_re.search(line) == -1:
 		line = ''
 	    line = line + regsub.sub('\n','', suf)
+            line = regsub.sub('\r','', line)
 
 	if self.eof():
 	   return ''

@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.4'
+version = '0.0.5'
 errorlog = ''
 
 import sys
@@ -504,14 +504,18 @@ class Properties:
         locate and open titledefs.tex file
         """
 
-        path =''
-        cmd =('kpsewhich tex %s %s' % (var,errorlog))
-        pipe = os.popen (cmd, 'r')
-        path = pipe.readline ()[:-1] # chop off \n
-	return_status =  pipe.close()
-	if return_status and not path:
+        if os.name == 'nt':
             path = os.path.join(this.get('root'), 'texmf', 'tex',
                                 'lilypond', var)
+        else:
+            path =''
+            cmd =('kpsewhich tex %s %s' % (var,errorlog))
+            pipe = os.popen (cmd, 'r')
+            path = pipe.readline ()[:-1] # chop off \n
+            return_status =  pipe.close()
+            if return_status and not path:
+                path = os.path.join(this.get('root'), 'texmf', 'tex',
+                                    'lilypond', var)
 	fd = open(path, 'r')
         return fd
 

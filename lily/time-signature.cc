@@ -24,7 +24,16 @@ Time_signature::brew_molecule_p () const
   Atom s;
   if (time_sig_type_str_.length_i ())
     {
-      s = lookup_l ()-> special_time_signature (time_sig_type_str_);
+      if (time_sig_type_str_[0]=='1')
+	{
+	  Array<Scalar> tmparr=args_;
+	  tmparr[1]=Scalar(0);
+	  s = lookup_l ()->time_signature (tmparr);
+	}
+      else
+	{
+	  s = lookup_l ()-> special_time_signature (time_sig_type_str_,args_);
+	}
     }
   else
     s = lookup_l ()->time_signature (args_);

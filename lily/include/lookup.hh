@@ -31,7 +31,7 @@ public:
   Atom accidental (int) const;
   void add (String, Symtable*);
   virtual Atom afm_find (String s) const = 0;
-  Atom afm_find (String, String) const; 
+  Atom afm_find (String, String) const;
   Atom ball (int) const;
   Atom bar (String, Real height) const;
   Atom beam (Real,Real, Real) const;
@@ -55,7 +55,7 @@ public:
   Atom text (String style, String text) const;
   Atom vbrace (Real &dy) const;
   virtual Atom vbracket (Real &dy) const = 0;
-  Atom special_time_signature (String) const;
+  Atom special_time_signature (String, Array<Scalar>) const;
   Atom time_signature (Array<Scalar>) const;
 
   Paper_def * paper_l_;

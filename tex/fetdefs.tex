@@ -90,23 +90,10 @@
 
 \def\generalmeter#1#2{%
   \ifnum #2 = 0\relax
-    \ifcase #1
-    \or\or
-      % 2
-      \allabreve
-    \or
-      % 3
-      \threetwometer    % tempus perfectum cum prolatione imperfecta
-    \or
-      % 4
-      \fourfourmeter    % tempus imperfectum cum prolatione imperfecta
-    \or\or
-      % 6
-      \sixfourmeter     % tempus imperfectum cum prolatione perfecta
-    \or\or\or
-      % 9
-      \ninefourmeter    % tempus perfectum cum prolatione perfecta
-    \fi
+    \vbox to 0pt{%
+      \vss
+      \hbox to 0.45\staffheight{\hss \fetanummer #1\hss}%
+      \vss}%
   \else
     \vbox to 0pt{%
       \vss

@@ -32,5 +32,6 @@ public:
   Box extent() const;
   void print() const;
   bool check_infinity_b () const;
+  bool empty() const;
 };
 #endif

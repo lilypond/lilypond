@@ -48,6 +48,14 @@ beamquantisation	2	quantise avoide wedge2)	\beampostraditional
 keyoctaviation	0	Key signature only for specified octave	\specialkey
 keyoctaviation	1	Key signature for all octaves	\normalkey
 
+timeSignatureStyle	C	Use C and stroked C for 4/4,2/2
+timeSignatureStyle	old	Use old style mensuration marks
+timeSignatureStyle	1	Use single number
+timeSignatureStyle	""	Use normal two-digit time signature
+timeSignatureStyle	Cn/m	Set symbol explicitly, n/m=2/2 or 4/4	
+timeSignatureStyle	oldn/m	Set symbol explicitly,
+				n/m=2/2,3/2,3/4,4/4,6/4	or 9/4.
+
 
 [Staff?]
 instrument		ascii	midi instrument table lookup

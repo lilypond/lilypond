@@ -7,7 +7,7 @@
 (setq forms-number-of-fields 7)
 (setq forms-read-only nil)                 ; to make sure
 (setq forms-field-sep "@")
-(setq forms-multi-line nil)
+(setq forms-multi-line "\C-m")
 
 (setq forms-format-list
       (list
