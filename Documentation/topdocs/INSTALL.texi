@@ -25,7 +25,7 @@ involved process, so if possible, download a precompiled binary from
 
 @subsection Source code
 
-Download source tarballs from here:
+Download source tarballs from
 @itemize @bullet
 @item Download development releases from
 @uref{http://lilypond.org/download/} by HTTP.
@@ -35,9 +35,11 @@ Download source tarballs from here:
 
 Use Xdelta to patch tarballs, e.g. to patch  
 @file{lilypond-1.4.2.tar.gz} to @file{lilypond-1.4.3.tar.gz}, do
+@quotation
 @example
-	xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
+xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
 @end example
+@end quotation
 
 For information on packaging and CVS, see  
 @uref{http://lilypond.org/}, under ``development''.
@@ -52,23 +54,24 @@ binary packages.
 @subsection Font problems
 
 If you are upgrading from a previous version of LilyPond, be sure to
-remove all old font files. These include @file{.pk} and @file{.tfm} files
-that may be located in @file{/var/lib/texmf}, @file{/var/spool/texmf},
-@file{/var/tmp/texmf} or @file{@var{prefix}/share/lilypond/fonts/}.  A
-script automating this has been included, see
-@file{buildscripts/out/clean-fonts}.
-
-
+remove all old font files.  These include @file{.pk} and @file{.tfm}
+files that may be located in @file{/var/lib/texmf},
+@file{/var/spool/texmf}, @file{/var/tmp/texmf} or
+@file{@var{prefix}/share/lilypond/fonts/}.  A script automating this
+has been included, see @file{buildscripts/out/clean-fonts}.
 
 
 @section Requirements
 
 @subsection Compilation
 
-You need the following packages to compile LilyPond:
+In addition to the packages needed for running Lilypond (see below),
+you need the following extra packages for building.
+
+When installing a binary package FOO, you may need to install the
+FOO-devel or libFOO-dev package too.
 
 @itemize
-
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20041211 or newer.
 
@@ -79,10 +82,10 @@ You will need to install some additional packages to get mftrace to
 work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
- (version 1.6.5 or newer).  If you are installing a binary packages,
-you may need to install guile-devel or guile-dev or libguile-dev too.
+ (version 1.6.5 or newer).  If you are installing binary packages, you
+may need to install guile-devel or guile-dev or libguile-dev too.
 
-@item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
+@item @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
 WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
@@ -91,7 +94,7 @@ lexer-gcc-3.1.sh in the source directory.
 
 @item @TeX{}.
 
-@TeX{} is used as an output backend.
+@TeX{} is used as an optional output backend.
 
 Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 @file{.afm}, @file{.tfm}).  Make sure you have tetex 1.0 or newer
@@ -118,37 +121,38 @@ newer, but not 1.50 or 1.75).
 
 @subsection Running requirements
 
-GNU LilyPond does use a lot of resources. For operation you need the
-following software:
+Running LilyPond requires proper installation of the following software
 
 @itemize @bullet
 
-@item @uref{http://www.freetype.org/,Freetype} (version 2)
-@item @uref{http://www.pango.org/,Pango}  (version 1.6 or newer).
+@item @uref{http://www.freetype.org/,Freetype} (version 2).
+@item @uref{http://www.pango.org/,Pango} (version 1.6 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
 (version 1.6.5 or newer).
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
-newer)
+newer).
 @end itemize
 
-You have to help @TeX{} and MetaFont find LilyPond support
-files. After compiling, scripts to do this can be found in
+You have to help @TeX{} and MetaFont find LilyPond support files.
+After compiling, scripts to do this can be found in
 @file{buildscripts/out/lilypond-profile} and
 @file{buildscripts/out/lilypond-login}.
 
 @subsection Building documentation
 
 You can view the documentation online at
-@uref{http://lilypond.org/doc/}, but you can also build it
-locally. This process requires a successful compile of lilypond. The
-documentation is built by issuing:
+@uref{http://lilypond.org/doc/}, but you can also build it locally.
+This process requires a successful compile of lilypond.  The
+documentation is built by issuing
+@quotation
 @example 
-	make web
+make web
 @end example 
+@end quotation
 
-Building the website requires some additional tools and packages:
+Building the website requires some additional tools and packages
 
 @itemize @bullet
 @item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
@@ -159,41 +163,49 @@ Building the website requires some additional tools and packages:
 The HTML files can be installed into the standard documentation path
 by issuing
 
+@quotation
 @example
-        make out=www web-install
+make out=www web-install
 @end example
+@end quotation
 
 
 @section Building LilyPond
 
 To install GNU LilyPond, type
+@quotation
 @example 
 gunzip -c lilypond-x.y.z | tar xf -
 cd lilypond-x.y.z
-./configure		# run with --help to see appropriate options
+./configure		# run with --help for applicable options
 make
 make install
 sh buildscripts/clean-fonts.sh      
 @end example 
+@end quotation
 
 The most time-consuming part of compiling LilyPond is tracing the
 Type1 fonts. You can shortcut this operation by issuing
-one of the following commands:
+one of the following commands
 
+@quotation
 @example
-  make -C mf get-pfa                # requires rpm2cpio
-  make -C mf get-debian-pfa         # may not be up to date   
+make -C mf get-pfa                # requires rpm2cpio
+make -C mf get-debian-pfa         # may not be up to date   
 @end example
+@end quotation
 
 If you are doing an upgrade, you should remove all @file{feta}
 @code{.pk} and @code{.tfm} files.  A script has been provided to do the
 work for you, see @file{buildscripts/out/clean-fonts}.
 
 If you are not root, you should choose a @code{--prefix} argument that
-points into your home directory, e.g.:
+points into your home directory, e.g.
+@quotation
 @example 
-	./configure --prefix=$HOME/usr
+./configure --prefix=$HOME/usr
 @end example 
+@end quotation
 
 In this case, you have to insert the contents of
 @code{buildscripts/out/lilypond-login} or
@@ -207,24 +219,27 @@ hand.
 If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the @code{--enable-config=CONF}
 option of configure.  You should use @samp{make conf=CONF} to generate
-the output in @file{out-CONF}.  Example: Suppose I want to build with
-and without profiling.  Then I'd use the following for the normal
-build:
+the output in @file{out-CONF}.  Example: Suppose you want to build
+with and without profiling, then use the following for the normal
+build
 
+@quotation
 @example 
-	./configure --prefix=$HOME/usr/ --enable-checking
-	make
-	make install
+./configure --prefix=$HOME/usr/ --enable-checking
+make
+make install
 @end example 
+@end quotation
 
-and for the profiling version, I specify a different configuration:
+and for the profiling version, specify a different configuration
 
+@quotation
 @example 
-	./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
-	make conf=prof
-	make conf=prof install
+./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
+make conf=prof
+make conf=prof install
 @end example 
-
+@end quotation
 
 
 @section Emacs mode
@@ -237,7 +252,7 @@ to your @file{~/.emacs} or @file{~/.emacs.el}.
 
 As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
 your @var{load-path} by appending the following line (as modified) to your 
-@file{~/.emacs}:
+@file{~/.emacs}
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @quotation
 @example
@@ -256,23 +271,27 @@ complete the following two steps.
 For earlier versions (and if @code{$VIM} environment variable does not
 fall-back to @file{/usr/local/share/vim}, see @code{:version} in vim), 
 the LilyPond file type is detected if your file @file{~/.vim/filetype.vim} @c
-has the following content:
+has the following content
+@quotation
 @example
-	if exists("did_load_filetypes")
-  	  finish
-	endif
-	augroup filetypedetect
-  	  au! BufNewFile,BufRead *.ly           setf lilypond
-	augroup END
+if exists("did_load_filetypes")
+  finish
+endif
+augroup filetypedetect
+  au! BufNewFile,BufRead *.ly           setf lilypond
+augroup END
 @end example
+@end quotation
 If Vim has been (pre-)installed to @file{/usr/...} (or any other place) 
 instead of @file{/usr/local/...}, then @file{/usr/local/share/vim} may not 
 be specified in your @code{$VIMRUNTIME} environment variable and you have to 
 include this path explicitly by appending the following line to your 
-@file{~/.vimrc}:
+@file{~/.vimrc}
+@quotation
 @example
-	set runtimepath+=/usr/local/share/vim/
+set runtimepath+=/usr/local/share/vim/
 @end example
+@end quotation
 
 @section Problems
 
@@ -285,22 +304,24 @@ Bugs that are not fault of LilyPond are documented here.
 
 There is a bug in bison-1.875: compilation fails with "parse error
 before `goto'" in line 4922 due to a bug in bison. To fix, either
-recompile bison 1.875 with the following fix:
+recompile bison 1.875 with the following fix
 
+@quotation
 @example
-   $ cd lily; make out/parser.cc
-   $ vi +4919 out/parser.cc
-   # append a semicolon to the line containing "__attribute__ ((__unused__))
-   # save
-   $ make
+$ cd lily; make out/parser.cc
+$ vi +4919 out/parser.cc
+# append a semicolon to the line containing "__attribute__ ((__unused__))
+# save
+$ make
 @end example
+@end quotation
 
 @subsection Linking to kpathsea
 
 If kpathsea and the corresponding header files are installed in some
 directory where GCC does not search by default, for example in
 @file{/usr/local/lib/} and @file{/usr/local/include/} respectively,
-you have to explicitly tell configure where to find it. To do this:
+you have to explicitly tell configure where to find it.  To do this
 
 @itemize
 @item @code{rm config.cache}
@@ -322,20 +343,22 @@ Gcc 3.0.4 is flaky; upgrade GCC.
 Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
 LilyPond with gcc-3.1.1 or higher you may do
 
+@quotation
 @example
-	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-	CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
-	    ./configure --enable-config=gcc-3.1
-	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-	make conf=gcc-3.1
+CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
+./configure --enable-config=gcc-3.1
+CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+make conf=gcc-3.1
 @end example
+@end quotation
 
 
 @unnumberedsubsec OpenBSD
 
 @itemize @bullet
 @item
- Refer to the section ``Linking to kpathsea'': GCC on OpenBSD doesn't
+Refer to the section ``Linking to kpathsea'': GCC on OpenBSD doesn't
 set include paths for kpathsea.
 @end itemize
 
@@ -353,14 +376,18 @@ Upgrade to flex-2.5.4a.
 
 @file{./configure} needs a POSIX compliant shell.  On Solaris7,
 @file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
-is.   Run configure like:
+is.  Run configure like
+@quotation
 @example
 	CONFIG_SHELL=/bin/ksh ksh -c ./configure
 @end example
-or:
+@end quotation
+or
+@quotation
 @example
 	CONFIG_SHELL=/bin/bash bash -c ./configure
 @end example
+@end quotation
 
 @end itemize
 
