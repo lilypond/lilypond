@@ -1,7 +1,7 @@
 MAJOR_VERSION=1
 MINOR_VERSION=1
-PATCH_LEVEL=39
+PATCH_LEVEL=40
+
 # use to send patches, always empty for released version:
-# include separator: "-1" or ".a"
 #
 MY_PATCH_LEVEL=
