@@ -96,9 +96,6 @@ Audio_text::midi_item_p()
   return text_str_.length_i() ? new Midi_text(this) : 0;
 }
 
-
-
-
 void
 Audio_item::do_print () const
 {

@@ -9,7 +9,6 @@
 #include "musical-request.hh"
 #include "misc.hh"
 #include "debug.hh"
-
 #include "music-list.hh"
 
 void

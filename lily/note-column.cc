@@ -114,7 +114,7 @@ Note_column::add_head (Rhythmic_head *h)
 }
 
 /**
-  translate the rest symbols
+  translate the rest symbols vertically by amount DY_I.
  */
 void
 Note_column::translate_rests (int dy_i)
@@ -139,16 +139,16 @@ Note_column::set_dotcol (Dot_column *d)
   add_element (d);
 }
 
-  /*
-    [TODO]
-    handle rest under beam (do_post: beams are calculated now)
-    what about combination of collisions and rest under beam.
+/*
+  [TODO]
+  handle rest under beam (do_post: beams are calculated now)
+  what about combination of collisions and rest under beam.
 
-    Should lookup
+  Should lookup
     
-      rest -> stem -> beam -> interpolate_y_position ()
+    rest -> stem -> beam -> interpolate_y_position ()
     
-   */
+*/
 
 void
 Note_column::do_post_processing ()
@@ -157,26 +157,25 @@ Note_column::do_post_processing ()
     return;
 
   Beam * b = stem_l_->beam_l_;
-  if (!b)
+  if (!b || !b->stems_.size ())
     return;
-      
-      /* ugh. Should be done by beam. */
-  Real x = stem_l_->hpos_f ();
+  
+  /* ugh. Should be done by beam. */
   Direction d = stem_l_->get_dir ();
-  Real beamy = x * b->slope_f_ + b->left_y_;
-  Interval restdim = extent (Y_AXIS);
+  Real beamy = (stem_l_->hpos_f () - b->stems_[0]->hpos_f ()) * b->slope_f_ + b->left_y_;
 
   Real staff_space = rest_l_arr_[0]->staff_line_leading_f ();      
-  Real internote_f = staff_space/2;
+  Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;
+
   Real minimum_dist
-    = paper_l ()->get_var ("restcollision_minimum_beamdist") * internote_f;
+    = paper_l ()->get_var ("restcollision_minimum_beamdist") ;
   Real dist =
-    minimum_dist +  -d  * (beamy - restdim[d]) >? 0;
+    minimum_dist +  -d  * (beamy - rest_dim) >? 0;
 
   int stafflines = rest_l_arr_[0]->lines_i ();
-      
+
   // move discretely by half spaces.
-  int discrete_dist = int (ceil (dist / (0.5 *staff_space)));
+  int discrete_dist = int (ceil (dist ));
 
   // move by whole spaces inside the staff.
   if (discrete_dist < stafflines+1)

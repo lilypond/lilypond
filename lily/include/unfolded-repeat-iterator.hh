@@ -24,6 +24,7 @@ public:
    */
   int done_count_;
 
+  
   /// are we busy doing the body?
   bool do_main_b_;
 
@@ -31,8 +32,10 @@ public:
       This excludes the elt currently being iterated.
   */
   Moment done_mom_;
-  
+  int alternative_count_i_;
   Music_iterator * current_iter_p_;
+  
+  /// pointer to the alternative that will be processed next.
   Cons<Music> *alternative_cons_l_;
   ~Unfolded_repeat_iterator();
   Unfolded_repeat_iterator ();

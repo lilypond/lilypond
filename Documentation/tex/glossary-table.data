@@ -21,13 +21,15 @@ backfall, forefall@accent, chute, port de voix@Vorschlag@@korte voorslag@appogia
 bar line@barre (de mesure)@Taktstrich@@maatstreep@stanghetta@
 bar; measure@mesure@Takt@@maat, maatstreep@@
 baritone@bariton@Bariton@@bariton@@
-bass clef@clé de fa@Bass-Schlüssel, F-Schlüssel@@F sleutel, bas sleutel@chiave di basso@
+@@F-Schlüssel@@F sleutel@@A clef shaped as a curl with two dots.  The position between the dots is theline of the F below central C.
+bass clef@clé de fa@Bass-Schlüssel@@bas sleutel@chiave di basso@A clef setting with central C on the first top ledger line.
 bass@basse@Bass@@bas@@
 beam@barre@Balken@@waardestreep/balk@barra@
 beat@temps@Takt(-schlag)@@tel@@
 brace@accolade@Klammer@@accolade, haak@accolada@Symbol at the start of a system that connects staffs.
 brass@@Blechbläser@@koper (blazers)@@
-C clef@clé d'ut@Altschlüssel, C-Schlüssel@@C sleutel, alt sleutel@chiave di tenore@
+alto clef@clé d'ut@Altschlüssel@@alt sleutel@chiave di tenore@Clef setting that has central C on the middle staff line.  
+C clef@@@@C sleutel. @@A clef symbol that looks like a horizontally mirrored 3.  Itindicates the position of the central C. Used in differentpositions.
 C@do@c@@C@@
 C@ut@c@@@@
 cadence@cadence@Kadenz@@cadens@@
@@ -231,7 +233,8 @@ tonality@tonalité@Tonalität@@tonaliteit@@
 tone@ton@Ton@@toon@@
 tonic@tonique@Tonika@@tonica@@
 transposition@transposition@Transposition@@transpositie@@Shifting a melody up or down in pitch, while keeping the same relative pitches.
-treble clef@clé de sol@Violinschlüssel, G-Schlüssel@@G sleutel, viool sleutel@chiave di violino@
+G clef@@@@G sleutel@@A clef symbol with a loop at the top and a spiral in the center.  The center of the spiral indicates the G above central C.
+treble clef@clé de sol@Violinschlüssel@@viool sleutel@chiave di violino@Clef setting where the second lowest line is the G above central C.
 tremolo@trèmolo@Tremolo@@tremolo@tremolo@
 trill; shake@trille, tremblement, battement (cadence)@Triller@@triller@trillo@
 triple meter@temps ternaire@@@driedelige maatsoort@@
