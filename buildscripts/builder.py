@@ -183,7 +183,7 @@ def add_enc_ly_tex_target (target, source, env):
 	return (target + [base + '.enc', base + '.tex', base + 'list.ly'],
 		source)
 a = 'cd ${TARGET.dir} && \
-MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir} \
+MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir}: \
 mf "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
 | grep -v "@\|>>"'
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
