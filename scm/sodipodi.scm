@@ -17,16 +17,12 @@
 
 (debug-enable 'backtrace)
 
-
 (define-module (scm sodipodi))
 (define this-module (current-module))
 
 (use-modules
  (guile)
  (lily))
-
-
-
 
 ;;; Lily output interface --- cleanup and docme
 
@@ -51,15 +47,12 @@
 ;;;    comment
 ;;;    stop-last-system
 
-
-
 ;; Module entry
 ;;(define-public (sodipodi-output-expression expr port)
 ;;  (display (eval expr this-module) port))
 
 (define-public (sodipodi-output-expression expr port)
   (display (dispatch expr) port))
-
 
 (define (dispatch expr)
   (let ((keyword (car expr)))

@@ -31,7 +31,8 @@
   (or (number? x) (string? x)))
 
 (define-public (markup? x)
-  (or (string? x) (list? x)))
+  (or (string? x) (list? x)
+      (new-markup? x)))
 
 (define-public (scheme? x) #t)
 
