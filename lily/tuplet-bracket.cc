@@ -163,7 +163,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
 	lt *= gh_scm2double (thick);
       
       SCM gap = me->get_grob_property ("gap");
-      SCM ew = me->get_grob_property ("edge-width");
+      SCM ew = me->get_grob_property ("edge-widen");
       SCM eh = me->get_grob_property ("edge-height");
       SCM sp = me->get_grob_property ("shorten-pair");
       
@@ -172,9 +172,9 @@ Tuplet_bracket::brew_molecule (SCM smob)
       do {
 	width[d] =  height[d] = shorten[d] = 0.0;
 	if ( ly_number_pair_p (ew) )
-	  width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
+	  width[d] +=  gh_scm2double (index_cell (ew, d));
 	if ( ly_number_pair_p (eh) )
-	  height[d] += gh_scm2double (index_cell (eh, d));
+	  height[d] += gh_scm2double (index_cell (eh, d)) * - dir;
 	if ( ly_number_pair_p (sp) )
 	  shorten[d] +=  gh_scm2double (index_cell (sp, d));
       }
@@ -182,10 +182,10 @@ Tuplet_bracket::brew_molecule (SCM smob)
       
       Molecule brack = make_bracket (Y_AXIS,
 				     w, ry - ly, lt,
-				     -height[LEFT]*dir, -height[RIGHT]*dir,
+				     height,
 				     gh_scm2double (gap),
-				     width[LEFT], width[RIGHT],
-				     shorten[LEFT], shorten[RIGHT]);
+				     width,
+				     shorten);
       mol.add_molecule (brack);
     }
   
@@ -196,46 +196,43 @@ Tuplet_bracket::brew_molecule (SCM smob)
 
 /*
   should move to lookup?
-
-  argh. this interface is confusing : we have a shorten as well as a
-  widen.
-
-  arg. should use drul_arrays here.
  */
 Molecule
 Tuplet_bracket::make_bracket (Axis protusion_axis,
-			      Real dx, Real dy, Real thick, Real left_height,
-			      Real right_height,
+			      Real dx, Real dy, Real thick, Drul_array<Real> height,
 			      Real gap,
-			      Real left_widen, Real right_widen,
-			      Real left_shorten, Real right_shorten)
+			      Drul_array<Real> widen,
+			      Drul_array<Real> shorten)
 {
   Real len = Offset (dx,dy).length ();
   Real gapx = dx * (gap /  len);
   Real gapy = dy * (gap /  len);
-  Real lshortx = dx * (left_shorten /  len);
-  Real lshorty = dy * (left_shorten /  len);
-  Real rshortx = dx * (right_shorten /  len);
-  Real rshorty = dy * (right_shorten /  len);
+  Drul_array<Real> shortx, shorty;
+  Direction d = LEFT;
+  do {
+    shortx[d] = dx * (shorten[d] /  len);
+    shorty[d] = dy * (shorten[d] /  len);
+  }
+  while (flip (&d) != LEFT);
   Axis other = other_axis (protusion_axis);
   
-  Molecule l1 = Lookup::line (thick, Offset(lshortx, lshorty),
+  Molecule l1 = Lookup::line (thick, Offset(shortx[LEFT], shorty[LEFT]),
 			      Offset ( (dx - gapx)/2, (dy - gapy)/2 ));
 
   Molecule l2 = Lookup::line (thick, Offset((dx + gapx) / 2,(dy + gapy) / 2),
-			      Offset (dx - rshortx, dy - rshorty));
+			      Offset (dx - shortx[RIGHT], dy - shorty[RIGHT]));
 
   Offset protusion;
-  protusion[other] = -left_widen;
-  protusion[protusion_axis] = left_height;
+  protusion[other] = -widen[LEFT];
+  protusion[protusion_axis] = height[LEFT];
   Molecule p1 = Lookup::line (thick, 
-			      Offset(lshortx, lshorty), 
-			      Offset(lshortx, lshorty) + protusion);
-  protusion[other] = right_widen;
-  protusion[protusion_axis] = right_height;
+			      Offset(shortx[LEFT], shorty[LEFT]), 
+			      Offset(shortx[LEFT], shorty[LEFT]) + protusion);
+  protusion[other] = widen[RIGHT];
+  protusion[protusion_axis] = height[RIGHT];
   Molecule p2 = Lookup::line (thick, 
-			      Offset(dx - rshortx, dy - rshorty), 
-			      Offset(dx - rshortx, dy - rshorty) + protusion);  
+			      Offset(dx - shortx[RIGHT], dy - shorty[RIGHT]), 
+			      Offset(dx - shortx[RIGHT], dy - shorty[RIGHT]) + protusion);  
 
   Molecule m;
   m.add_molecule (p1);
@@ -489,5 +486,5 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
 
 ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
   "A bracket with a number in the middle, used for tuplets.",
-  "note-columns edge-width edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
+  "note-columns edge-widen edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
 

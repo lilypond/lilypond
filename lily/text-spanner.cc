@@ -144,7 +144,7 @@ Text_spanner::brew_molecule (SCM smob)
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");
-  SCM ew = me->get_grob_property ("edge-width");
+  SCM ew = me->get_grob_property ("edge-widen");
   if (gh_pair_p (s))
     {
       Direction d = LEFT;
@@ -152,7 +152,7 @@ Text_spanner::brew_molecule (SCM smob)
       do
 	{
 	  Real dx = ( gh_pair_p (ew)  ? 
-		      gh_scm2double (index_cell (ew, d)) * - dir  :  
+		      gh_scm2double (index_cell (ew, d)) * d :  
 		      0 );
 	  Real dy = gh_scm2double (index_cell (s, d)) * - dir;
 	  if (dy)
@@ -206,7 +206,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   Drul_array<Real> height, width, shorten, r;
 
   SCM pa = me->get_grob_property ("if-text-padding");
-  SCM ew = me->get_grob_property ("edge-width");
+  SCM ew = me->get_grob_property ("edge-widen");
   SCM eh = me->get_grob_property ("edge-height");
   SCM sp = me->get_grob_property ("shorten-pair");
   
@@ -230,7 +230,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       height[d] =  0;
       shorten[d] = 0;
       if ( ly_number_pair_p (ew) )
-	width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
+	width[d] +=  gh_scm2double (index_cell (ew, d));
       if ( !broken[d] && (ly_number_pair_p (eh) ) )
 	height[d] += gh_scm2double (index_cell (eh, d));
       if ( ly_number_pair_p (sp) )
@@ -276,7 +276,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
     }
 
   me->set_grob_property ("edge-height", ly_interval2scm (height));
-  me->set_grob_property ("edge-width",  ly_interval2scm(width));
+  me->set_grob_property ("edge-widen",  ly_interval2scm(width));
   me->set_grob_property ("shorten-pair", ly_interval2scm (shorten));
 }
 
@@ -287,9 +287,9 @@ struct Pianopedal
 };
 ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
 	       "",
-	       "pedal-type edge-width edge-height shorten-pair text-start left-widen right-widen");
+	       "pedal-type edge-widen edge-height shorten-pair text-start left-widen right-widen");
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-length edge-height edge-width edge-text shorten-pair type");
+	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair type");
 
