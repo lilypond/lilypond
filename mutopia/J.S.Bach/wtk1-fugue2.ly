@@ -45,20 +45,22 @@ dux = \notes \relative c''{
 %%10   
   as4 r8 a [bes bes16 a] [bes8 f] |
   g4 r8 g [as as g f] |
+  r8 
   \translator Staff = bass \stemup 
-   r8 [as, bes c ] r8 [as16 g] [as8 f8] |
+  [as, bes c ] r8 [as16 g] [as8 f8] |
   [bes8 c  bes as] [bes g f es] |
   [f des'  c  bes] [c  as g f] |
 %%15
   g8
-   \translator Staff = treble \stemdown
-   [g'16 fis] [g8 c,] [es g16 fis!] [g8 a] |
+  [g'16 fis] [g8 c,] 
+  [es \translator Staff = treble \stemdown g16 fis!] [g8 a] |
   [d, g16 fis] [g8 a!] [c,16 d] es4 [d16 c] |         % forced accident!
   bes8 r8 r16 [d e fis] [g a bes8] ~ [bes16 e, f g] |
   [a bes c8] ~ [c16 fis,16 g a] [bes8 es,!16 d] [es8 g, ] |
   [as  f'16 es] [f8 a,8] [bes  g'16 f] [g8 b, ] |
 %%20
-  [c16 f es d] [c bes! as g] [f8 as' g f] |
+  [c16 f \translator Staff = bass \stemup es d] [c bes! as g] 
+  [f8 \translator Staff = treble \stemdown as' g f] |
   [es d es f] [b, c d b] |
   c4 r8 e8 [f f16 e] [f8 c] |
   d4 r8 d8 [es8 es16 d] [es8 bes] |
@@ -77,8 +79,8 @@ dux = \notes \relative c''{
 
 comes = \notes \relative c''  {
   \voiceone
-  r1 |
-  r1 |
+  R1 |
+  R1 |
   r8 [g'16 fis] [g8 c,] [es g16 fis] [g8 a] |
   [d,8 g16 fis] [g8 a] [c,16 d] es4 [d16 c] |
 %%5
@@ -120,13 +122,13 @@ comes = \notes \relative c''  {
 bassdux = \notes \relative c' {
   \clef bass;
 
-  r1 |
-  r |
-  r |
-  r |
+  R1 |
+  R |
+  R |
+  R |
 %%5
-  r |
-  r1 |
+  R |
+  R1 |
   r8 [c16 b] [c8 g] [as c16 b] [c8 d] |
   [g, c16 b] [c8 d] [f,16 g] as4 [g16 f] | 
  [es c'  b a] [g f es d] [c d es d] [c bes! as! g] |
@@ -144,7 +146,8 @@ bassdux = \notes \relative c' {
   [f d'16 c ] [d8 fis,] g4 r16 [g, a b] |
   [c16 d es8~] [es16 a, bes c] [d es f8~] [f16 b,  c d] |
 %%20    
-  es8 r r e [f f, es! d] |                           % -> \classic_accidentals
+%   es8 r r e [f f, es! d] |                           % -> \classic_accidentals
+  es8 r r e \stemdown [f f, es! d] \stemboth |
   r [as' g f] [g f16 es] [f8 g] |
   [c16 d  es d] [c bes as g] [f bes' as g] [f es d c] |
   [bes c d c] [bes as g f] [es as' g f] [es d c bes] |
@@ -188,7 +191,13 @@ bassdux = \notes \relative c' {
     %hmm
 %    \translator { \BarNumberingScoreContext }
 %    \translator { \BarNumberingStaffContext }
-  \translator{ \OrchestralScoreContext }
+%  \translator{ \OrchestralScoreContext }
+    \translator{ \OrchestralScoreContext }
+    \translator{ 
+      \GrandStaffContext
+      minVerticalAlign = 3.0*\staffheight;
+      maxVerticalAlign = 3.0*\staffheight;
+    }
   }
   \header{
 	  opus = "BWV 847";

@@ -164,41 +164,32 @@ Stem::set_default_dir ()
 void
 Stem::set_default_stemlen ()
 {
-  /*
-   TODO
-   urg; this should be handled by Stem_info
-   */
-
-  Real length_f = paper ()->get_var ("stem_length");
-  Real shorten_f = paper ()->get_var ("forced_stem_shorten");
-
   Real internote_f = paper ()->internote_f ();
-  length_f /= internote_f;
-  shorten_f /= internote_f;
+  Real length_f = paper ()->get_var ("stem_length0") / internote_f;
+  Real shorten_f = paper ()->get_var ("forced_stem_shorten0") / internote_f;
 
-  Real len = length_f;
   if (!dir_)
     set_default_dir ();
   /* 
     stems in unnatural (forced) direction should be shortened, 
     accoding to [Roush & Gourlay]
    */
-  else if (dir_ != get_default_dir ())
-    len -= shorten_f / internote_f;
+  if (((int)chord_start_f ())
+      && (dir_ != get_default_dir ()))
+    length_f -= shorten_f;
 
   if (flag_i_ >= 5)
-    len += 2.0;
+    length_f += 2.0;
   if (flag_i_ >= 6)
-    len += 1.0;
+    length_f += 1.0;
   
-  set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + len :
-	       head_positions()[SMALLER] - len);
+  set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + length_f:
+	       head_positions()[SMALLER] - length_f);
 
   if (dir_ * stem_end_f () < 0)
-    {
-      set_stemend (0);
-    }
+    set_stemend (0);
 }
+
 //xxx
 void
 Stem::set_default_extents ()

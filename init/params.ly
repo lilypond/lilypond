@@ -16,20 +16,31 @@ beam_thickness = 0.52 * (\interline - \staffline);
 interbeam = (2.0 * \interline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
-
 % stems and beams
 %
-% not used for beams
-stem_length = 3.5*\interline;
-
+% poor man's array size
+stem_max = 3.0;
 %
+stem_length0 = 3.5*\interline;
+stem_length1 = 2.5 * \interline;
+stem_length2 = 2.0 * \interline;
+stem_length3 = 1.5 * \interline;
+
+% only used for beams
+minimum_stem_length0 = 0.0; % not used
+minimum_stem_length1 = 1.5 * \interline;
+minimum_stem_length2 = 1.25 * \interline;
+minimum_stem_length3 = 1.0 * \interline;
+
 % stems in unnatural (forced) direction should be shortened,
 % according to [Roush & Gourlay].  Their suggestion to knock off
-% a whole staffspace seems a bit drastical though?
+% a whole staffspace seems a bit drastical: we'll do half.
 %
-forced_stem_shorten = 1.0 * \interline;
+forced_stem_shorten0 = 0.5 * \interline;
+forced_stem_shorten1 = \forced_stem_shorten0;
+forced_stem_shorten2 = \forced_stem_shorten1;
+forced_stem_shorten3 = \forced_stem_shorten2;
 
-%
 % there are several ways to calculate the direction of a beam
 % 
 % * MAJORITY : number count of up or down notes
@@ -46,21 +57,11 @@ MEDIAN = 4.0;
 % [Ross]: majority
 beam_dir_algorithm = \MAJORITY;
 
-%
-%
-% some beam-stemlength settings...
-%
-%    beam_*1 : multiplicity < beam_multiple_break
-%    beam_*2 : multiplicity >= beam_multiple_break
-%
-beam_multiple_break = 3.0;
-beam_minimum_stem1 = 0.75 * \interline;
-beam_ideal_stem1 = 1.75 * \interline;
-beam_minimum_stem2 = 0.75 * \interline;
-beam_ideal_stem2 = 1.25 * \interline;
-
-% beam_slope_damp_correct_factor = 2.0;
-beam_slope_damp_correct_factor = 0.0;
+% catch suspect beam slopes, set slope to zero if
+% outer stem is lengthened more than
+beam_lengthened = 0.2 * \interline;
+% and slope is running away steeper than
+beam_steep_slope = 0.2 / 1.0;
 
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;

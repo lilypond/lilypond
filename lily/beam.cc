@@ -37,7 +37,6 @@
 Beam::Beam ()
 {
   slope_f_ = 0;
-  solved_slope_f_ = 0;
   left_y_ = 0;
   damping_i_ = 1;
   quantisation_ = NORMAL;
@@ -77,6 +76,10 @@ Beam::do_brew_molecule_p () const
     }
   mol_p->translate_axis (x0 
     - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
+
+  // correct if last note (and therefore reference point of beam)
+  // is on different staff
+  mol_p->translate_axis (- sinfo_.top ().interstaff_f_ * internote_f, Y_AXIS);
 
   return mol_p;
 }
@@ -156,18 +159,6 @@ Beam::set_default_dir ()
 
     } while (flip(&d) != DOWN);
   
-#if 0
-   /*
-     urg?  consider [b''16 a]: will get stem down!
-     i'll leave this 'fix' commented-out in case something breaks.
-     jcn
-    */
-   do {
-    if (!total[d])
-      count[d] = 1;
-  } while (flip(&d) != DOWN);
-#endif
-  
   /* 
      [Ross] states that the majority of the notes dictates the
      direction (and not the mean of "center distance")
@@ -214,164 +205,159 @@ Beam::set_default_dir ()
  */
 
 void
-Beam::solve_slope (Array<Stem_info>& sinfo)
+Beam::solve_slope ()
 {
   /*
     should use minimum energy formulation (cf linespacing)
   */
-  assert (sinfo.size () > 1);
+  assert (sinfo_.size () > 1);
   DOUT << "Beam::solve_slope: \n";
 
-  Real staffline_f = paper ()->rule_thickness ();
-  Real epsilon_f = staffline_f / 8;
-
-  Real leftx = sinfo[0].x_;
   Least_squares l;
-  for (int i=0; i < sinfo.size (); i++)
+  for (int i=0; i < sinfo_.size (); i++)
     {
-      sinfo[i].x_ -= leftx;
-      l.input.push (Offset (sinfo[i].x_, sinfo[i].idealy_f_));
+      l.input.push (Offset (sinfo_[i].x_, sinfo_[i].idealy_f_));
     }
-
-  // l.input[0].y () += left_y_;
-  l.input[0].y () += left_y_ / 2;
   l.minimise (slope_f_, left_y_);
-
-  solved_slope_f_ = dir_ * slope_f_;
-
-  /*
-    This neat trick is by Werner Lemberg, damped = tanh (slope_f_) corresponds
-    with some tables in [Wanske]
-    */
-  if (damping_i_)
-    slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
-
-  /* 
-    [TODO]
-    think
-
-    dropping lq for stemlengths solves [d d d] [d g d] "bug..."
-
-    but may be a bit too crude, and result in lots of 
-    too high beams...
-
-    perhaps only if slope = 0 ?
-    */
-
-  if (abs (slope_f_) < epsilon_f)
-    left_y_ = (sinfo[0].idealy_f_ + sinfo.top ().idealy_f_) / 2;
-  else
-    /* 
-      symmetrical, but results often in having stemlength = minimal 
-
-    left_y_ = sinfo[0].dir_ == dir_ ? sinfo[0].miny_f_ : sinfo[0].maxy_f_;
-
-      what about
-    */
-    {
-      Real dx = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-      if (sinfo[0].dir_ == sinfo.top ().dir_)
-	left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
-      // knee
-      else
-	left_y_ = sinfo[0].idealy_f_;
-    }
 }
 
 Real
-Beam::check_stemlengths_f (Array<Stem_info>& sinfo)
+Beam::check_stemlengths_f (bool set_b)
 {
-  /*
-   find shortest stem and adjust left_y accordingly
-   */
-  Real dy = 0.0;
-  for (int i=0; i < sinfo.size (); i++)
+  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
+  Real internote_f = paper ()->internote_f (); 
+  Real beam_f = paper ()->beam_thickness_f ();
+  Real staffline_f = paper ()->rule_thickness ();
+  Real epsilon_f = staffline_f / 8;
+  Real dy_f = 0.0;
+  for (int i=0; i < sinfo_.size (); i++)
     {
-      Real y = sinfo[i].x_ * slope_f_ + left_y_;
-      Real my = sinfo[i].miny_f_;
+      Real y = sinfo_[i].x_ * slope_f_ + left_y_;
 
-      if (my - y > dy)
-	dy = my -y;
+      // correct for knee
+      if (dir_ != sinfo_[i].dir_)
+	{
+	  y -= dir_ * (beam_f / 2
+		       + (sinfo_[i].mult_i_ - 1) * interbeam_f) / internote_f;
+	  if (!i && sinfo_[i].stem_l_->staff_sym_l_ !=
+	      sinfo_.top ().stem_l_->staff_sym_l_)
+	    y += dir_ * (multiple_i_ - (sinfo_[i].stem_l_->flag_i_ - 2) >? 0)
+	      * interbeam_f / internote_f;
+	}
+
+      if (set_b)
+	sinfo_[i].stem_l_->set_stemend (y - sinfo_[i].interstaff_f_);
+	
+      y *= dir_;
+      if (y > sinfo_[i].maxy_f_)
+	dy_f = dy_f <? sinfo_[i].maxy_f_ - y;
+      if (y < sinfo_[i].miny_f_)
+	{ 
+	  // when all too short, normal stems win..
+	  if (dy_f < -epsilon_f)
+	    warning (_ ("weird beam shift, check your knees"));
+	  dy_f = dy_f >? sinfo_[i].miny_f_ - y;
+	}
     }
-  return dy;
+  return dy_f;
+}
+
+void
+Beam::set_steminfo ()
+{
+  assert (multiple_i_);
+  int total_count_i = 0;
+  int forced_count_i = 0;
+  for (int i=0; i < stems_.size (); i++)
+    {
+      Stem *s = stems_[i];
+      s->mult_i_ = multiple_i_;
+      s->set_default_extents ();
+      if (s->invisible_b ())
+	continue;
+      if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
+        forced_count_i++;
+      total_count_i++;
+    }
+
+  Real internote_f = paper ()->internote_f ();
+  int stem_max = (int)rint(paper ()->get_var ("stem_max"));
+  Real shorten_f = paper ()->get_var (String ("forced_stem_shorten"
+					      + to_str (multiple_i_ <? stem_max)))
+    / internote_f;
+    
+  Real leftx = 0;
+  for (int i=0; i < stems_.size (); i++)
+    {
+      Stem *s = stems_[i];
+      if (s->invisible_b ())
+	continue;
+
+      Stem_info info (s);
+      if (leftx == 0)
+	leftx = info.x_;
+      info.x_ -= leftx;
+      if (info.dir_ == dir_)
+        {
+	  if (forced_count_i == total_count_i)
+	    info.idealy_f_ -= shorten_f;
+	  else if (forced_count_i > total_count_i / 2)
+	    info.idealy_f_ -= shorten_f / 2;
+	}
+      sinfo_.push (info);
+    }
 }
 
 void
 Beam::calculate_slope ()
 {
-  Real interline_f = paper ()->interline_f ();
-  Real staffline_f = paper ()->rule_thickness ();
-  Real epsilon_f = staffline_f / 8;
-
-  assert (multiple_i_);
-  Array<Stem_info> sinfo;
-  for (int i=0; i < stems_.size (); i++)
-    {
-      Stem *s = stems_[i];
-
-      s->mult_i_ = multiple_i_;
-      s->set_default_extents ();
-      if (s->invisible_b ())
-	continue;
-
-      Stem_info info (s);
-      sinfo.push (info);
-    }
-
-  if (! sinfo.size ())
+  set_steminfo ();
+  if (!sinfo_.size ())
     slope_f_ = left_y_ = 0;
-  else if (sinfo.size () == 1)
+  else if (sinfo_[0].idealy_f_ == sinfo_.top ().idealy_f_)
     {
       slope_f_ = 0;
-      left_y_ = sinfo[0].idealy_f_;
+      left_y_ = sinfo_[0].idealy_f_;
+      left_y_ *= dir_;
     }
   else
     {
-      Real y;
-      Real s;
-      Array <Stem_info> local_sinfo;
-      local_sinfo = sinfo;
-      for (int i = 0; i < 5; i++)
-        {
-	  y = left_y_;
-	  solve_slope (sinfo);
-	  Real dy = check_stemlengths_f (sinfo);
-	  left_y_ += dy;
+      solve_slope ();
+      Real solved_slope_f = slope_f_;
 
-	  // only consider recalculation if long stem adjustments
-	  if (!i && (left_y_ - sinfo[0].idealy_f_ < 0.5 * interline_f))
-	    break;
-	
-	  if (!i)
-	    s = slope_f_;
-	  // never allow slope to tilt the other way
-	  else if (sign (slope_f_) != sign (s))
-	    {
-	      left_y_ = 0;
-	      slope_f_ = 0;
-	      sinfo = local_sinfo;
-	      Real dy = check_stemlengths_f (sinfo);
-	      left_y_ += dy;
-	      break;
-	    }
-	  // or become steeper
-	  else if (abs (slope_f_) > abs (s))
-	    {
-	      slope_f_ = s;
-	      sinfo = local_sinfo;
-	      Real dy = check_stemlengths_f (sinfo);
-	      left_y_ += dy;
-	      break;
-	    }
-	  if (abs (dy) < epsilon_f)
-	    break;
+      /*
+	steep slope running against lengthened stem is suspect
+      */
+      Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+
+      // urg, these y internote-y-dimensions
+      Real internote_f = paper ()->internote_f ();
+      Real lengthened = paper ()->get_var ("beam_lengthened") / internote_f;
+      Real steep = paper ()->get_var ("beam_steep_slope") / internote_f;
+      if (((left_y_ - sinfo_[0].idealy_f_ > lengthened)
+	   && (slope_f_ > steep))
+	  || ((left_y_ + slope_f_ * dx_f - sinfo_.top ().idealy_f_ > lengthened)
+	      && (slope_f_ < -steep)))
+	{
+	  slope_f_ = 0;
 	}
+
+      /*
+	This neat trick is by Werner Lemberg,
+	damped = tanh (slope_f_)
+	corresponds with some tables in [Wanske]
+      */
+      if (damping_i_)
+	slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
+      
+      quantise_dy ();
+
+      Real damped_slope_dy_f = (solved_slope_f - slope_f_) * dx_f / 2;
+      left_y_ += damped_slope_dy_f;
+
+      left_y_ *= dir_;
+      slope_f_ *= dir_;
     }
-
-  left_y_ *= dir_;
-  slope_f_ *= dir_;
-
-  quantise_dy ();
 }
 
 void
@@ -505,7 +491,7 @@ Beam::quantise_left_y (bool extend_b)
       if (test_pos == 0)
         {
 	allowed_position.push (hang);
-	cout << "hang" << hang << endl;
+	cout << "hang" << hang << "\n";
 	}
       else if (test_pos==1)
         {
@@ -524,13 +510,6 @@ Beam::quantise_left_y (bool extend_b)
 	}
     }
 
-#if 0
-  // this currently never happens
-  Real q = (dy_f / interline_f - dy_i) * interline_f;
-  if ((quantisation_ < NORMAL) && (q < interline_f / 3 - beam_f / 2))
-    allowed_position.push (inter);
-#endif
-
   Interval iv = quantise_iv (allowed_position, interline_f, dy_f);
 
   Real quanty_f = dy_f - iv.min () <= iv.max () - dy_f ? iv.min () : iv.max ();
@@ -545,88 +524,19 @@ void
 Beam::set_stemlens ()
 {
   Real staffline_f = paper ()->rule_thickness ();
-  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
-  Real internote_f = paper ()->internote_f (); 
-  Real beam_f = paper ()->beam_thickness_f ();
-
   // enge floots
   Real epsilon_f = staffline_f / 8;
 
-  /* 
-
-   Damped and quantised slopes, esp. in monotone scales such as
-
-      [c d e f g a b c]
-
-   will soon produce the minimal stem-length for one of the extreme 
-   stems, which is wrong (and ugly).  The minimum stemlength should
-   be kept rather small, in order to handle extreme beaming, such as
-
-      [c c' 'c]  %assuming no knee
-      
-   correctly.
-   To avoid these short stems for normal cases, we'll correct for
-   the loss in slope, if necessary.
-
-   [TODO]
-   ugh, another hack.  who's next?
-   Writing this all down, i realise (at last) that the Right Thing to
-   do is to assign uglyness to slope and stem-lengths and then minimise
-   the total uglyness of a beam.
-   Steep slopes are ugly, shortened stems are ugly, lengthened stems
-   are ugly.
-   How to do this?
-   
-   */
-
-  Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-  Real damp_correct_f = paper ()->get_var ("beam_slope_damp_correct_factor");
-  Real damped_slope_dy_f = (solved_slope_f_ - slope_f_) * dx_f
-    * sign (slope_f_);
-  damped_slope_dy_f *= damp_correct_f;
-  if (damped_slope_dy_f <= epsilon_f)
-    damped_slope_dy_f = 0;
-
   DOUT << "Beam::set_stemlens: \n";
-  Real x0 = stems_[0]->hpos_f ();
-  Real dy_f = 0;
-  // urg
-  for (int jj = 0; jj < 10; jj++)
+  Real dy_f = check_stemlengths_f (false);
+  for (int i = 0; i < 2; i++)
     { 
       left_y_ += dy_f * dir_;
       quantise_left_y (dy_f);
-      dy_f = 0;
-      for (int i=0; i < stems_.size (); i++)
-	{
-	  Stem *s = stems_[i];
-	  if (s->transparent_b_)
-	    continue;
-
-	  Real x = s->hpos_f () - x0;
-	  // urg move this to stem-info
-	  Real sy = left_y_ + slope_f_ * x;
- 	  if (dir_ != s->dir_)
- 	    sy -= dir_ * (beam_f / 2
- 	      + (s->mult_i_ - 1) * interbeam_f) / internote_f;
-	  s->set_stemend (sy);
-	  Real y = s->stem_end_f () * dir_;
-	  Stem_info info (s);
-	  if (y > info.maxy_f_)
-	    dy_f = dy_f <? info.maxy_f_ - y;
-	  if (y < info.miny_f_)
-	    { 
-	      // when all too short, normal stems win..
-	      if (dy_f < -epsilon_f)
-		warning (_ ("weird beam shift, check your knees"));
-	      dy_f = dy_f >? info.miny_f_ - y;
-	    }
-	}
-      if (damped_slope_dy_f && (dy_f >= 0))
-	dy_f += damped_slope_dy_f;
-      damped_slope_dy_f = 0;
+      dy_f = check_stemlengths_f (true);
       if (abs (dy_f) <= epsilon_f)
         {
-	  DOUT << "Beam::set_stemlens: " << jj << " iterations\n";
+	  DOUT << "Beam::set_stemlens: " << i << " iterations\n";
 	  break;
 	}
     }

@@ -20,14 +20,8 @@
 #include "stem.hh"
 #include "text-def.hh"
 
-/*
-   Hmm, should probably make generic Bracket_spanner,
-   or and derive Plet and volta spanner from that.
- */
-
 Volta_spanner::Volta_spanner ()
 {
-  dir_ = UP;
   last_b_ = false;
   number_p_.set_p (new Text_def);
   number_p_->align_dir_ = LEFT;
@@ -40,38 +34,38 @@ Volta_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
-  if (column_arr_.size ())
-    {
-      Real internote_f = paper ()->internote_f ();
-      Real dx = internote_f;
-      Real w = extent (X_AXIS).length () - 2 * dx;
-      Atom volta (lookup_l ()->volta (w, last_b_));
-      Real h = volta.dim_.y ().length ();
-      Atom num (number_p_->get_atom (paper (), LEFT));
-      Atom dot (dot_p_->get_atom (paper (), LEFT));
-      Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_] > 
-	column_arr_[0]->extent (Y_AXIS) [dir_];
-      dy += 2 * h;
+  if (!column_arr_.size ())
+    return mol_p;
 
-      /*
-	UGH.  Must use extent  ()[dir_]
-       */
-      for (int i = 0; i < note_column_arr_.size (); i++)
-        dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
-      dy -= h;
+  Real internote_f = paper ()->internote_f ();
+  Real dx = internote_f;
+  Real w = extent (X_AXIS).length () - 2 * dx;
+  Atom volta (lookup_l ()->volta (w, last_b_));
+  Real h = volta.dim_.y ().length ();
+  Atom num (number_p_->get_atom (paper (), LEFT));
+  Atom dot (dot_p_->get_atom (paper (), LEFT));
+  Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
+    column_arr_[0]->extent (Y_AXIS) [UP];
+  dy += 2 * h;
 
-      Real gap = num.dim_.x ().length () / 2;
-      Offset off (num.dim_.x ().length () + gap, 
-        (h - num.dim_.y ().length ()) / internote_f - gap);
-      num.translate (off);
-      Real dotheight = dot.dim_.y ().length () / 7;
-      off -= Offset (0, dotheight);
-      dot.translate (off);
-      mol_p->add_atom (volta);
-      mol_p->add_atom (num);
-      mol_p->add_atom (dot);
-      mol_p->translate (Offset (dx, dy));
-    }
+  /*
+    UGH.  Must use extent  ()[dir_]
+   */
+  for (int i = 0; i < note_column_arr_.size (); i++)
+    dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
+  dy -= h;
+
+  Real gap = num.dim_.x ().length () / 2;
+  Offset off (num.dim_.x ().length () + gap, 
+    (h - num.dim_.y ().length ()) / internote_f - gap);
+  num.translate (off);
+  Real dotheight = dot.dim_.y ().length () / 7;
+  off -= Offset (0, dotheight);
+  dot.translate (off);
+  mol_p->add_atom (volta);
+  mol_p->add_atom (num);
+  mol_p->add_atom (dot);
+  mol_p->translate (Offset (dx, dy));
   return mol_p;
 }
   
@@ -91,8 +85,8 @@ Volta_spanner::do_add_processing ()
 void
 Volta_spanner::do_post_processing ()
 {
-    if (column_arr_.size())
-    	translate_axis (column_arr_[0]->extent (Y_AXIS)[dir_], Y_AXIS);
+  if (column_arr_.size())
+    translate_axis (column_arr_[0]->extent (Y_AXIS)[UP], Y_AXIS);
 }
 
 void

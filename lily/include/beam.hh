@@ -40,7 +40,10 @@ public:
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 
+  /// vertical align distance between staffs
+  Real vertical_align_f_;
 
+  Array<Stem_info> sinfo_;
   
   Beam();
   void add_stem (Stem*);
@@ -53,6 +56,7 @@ protected:
   virtual Interval do_width () const;    
   Offset center () const;
   void set_default_dir ();
+  void set_steminfo ();
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
   virtual void do_substitute_dependent (Score_element*, Score_element*);
@@ -62,8 +66,8 @@ protected:
   virtual void quantise_left_y (bool extend_b);
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
   virtual void calculate_slope ();
-  virtual Real check_stemlengths_f (Array<Stem_info>& sinfo);
-  virtual void solve_slope (Array<Stem_info>& sinfo);
+  virtual Real check_stemlengths_f (bool set_b);
+  virtual void solve_slope ();
   virtual void quantise_dy ();
   virtual Molecule*do_brew_molecule_p () const;
 };

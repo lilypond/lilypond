@@ -42,7 +42,7 @@ public:
     
 
   Moment when() {  return when_; }
-  Score_column (Moment when);       
+  Score_column (Moment when, bool musical_b=false);
   void add_duration (Moment);
   void preprocess();
   bool musical_b() { return musical_b_; }

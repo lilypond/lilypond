@@ -15,111 +15,80 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem-info.hh"
+#include "beam.hh"
 
 Stem_info::Stem_info ()
 {
 }
 
-Stem_info::Stem_info (Stem const *s)
+Stem_info::Stem_info (Stem*s)
 {
-  x_ = s->hpos_f ();
-  dir_ = s->dir_;
-  beam_dir_ = s->beam_dir_;
-  mult_i_ = s->mult_i_;
+  stem_l_ = s;
+  x_ = stem_l_->hpos_f ();
+  dir_ = stem_l_->dir_;
+  beam_dir_ = stem_l_->beam_dir_;
+  mult_i_ = stem_l_->mult_i_;
+  interstaff_f_ = 0;
 
-  /*
-    [TODO]
-    make this runtime
-
-    Breitkopf + H\"artel:
-    miny_f_ = interline + #beams * interbeam
-    ideal8 = 2 * interline + interbeam
-    ideal16,32,64,128 = 1.5 * interline + #beams * interbeam
-
-    * B\"arenreiter:
-    miny_f_ = interline + #beams * interbeam
-    ideal8,16 = 2 interline + #beams * interbeam
-    ideal32,64,128 = 1.5 interline + #beams * interbeam
-       
-    */
-
-  Real internote_f = s->paper ()->internote_f ();
-  Real interbeam_f = s->paper ()->interbeam_f (mult_i_);
-  Real beam_f = s->paper ()->beam_thickness_f ();
+  Paper_def* paper_l = stem_l_->paper ();
+  Real internote_f = paper_l->internote_f ();
+  Real interbeam_f = paper_l->interbeam_f (mult_i_);
+  Real beam_f = paper_l->beam_thickness_f ();
          
-
   {
       static int i = 1;
       DOUT << "******" << i++ << "******\n" 
-	   << "begin_f: " << s->stem_begin_f () * dir_ 
-	   << "\nchord_f/i: " << s->chord_start_f () * dir_ / internote_f << '\n';
+	   << "begin_f: " << stem_l_->stem_begin_f () * dir_ 
+	   << "\nchord_f/i: " << stem_l_->chord_start_f () * dir_ / internote_f << '\n';
   }
 
-  /*
-    For simplicity, we'll assume dir = UP and correct if 
-    dir = DOWN afterwards.
-   */
-  idealy_f_ = s->chord_start_f () * beam_dir_ / internote_f;
+  // strangely enough, dim(chord_start_f) == pt (and not internote!)
+  idealy_f_ = stem_l_->chord_start_f () / internote_f;
+
+  // calculate using dim(y) == pt
   idealy_f_ *= internote_f;
 
-  Real break_i = (int)rint (s->paper ()->get_var ("beam_multiple_break"));
-  Real min_stem1_f = s->paper ()->get_var ("beam_minimum_stem1");
-  Real min_stem2_f = s->paper ()->get_var ("beam_minimum_stem2");
-  Real ideal_stem1_f = s->paper ()->get_var ("beam_ideal_stem1");
-  Real ideal_stem2_f = s->paper ()->get_var ("beam_ideal_stem2");
-  Real shorten_f = s->paper ()->get_var ("forced_stem_shorten");
+  // for simplicity, we calculate as if dir == UP
+  idealy_f_ *= beam_dir_;
+  
+  int stem_max = (int)rint(paper_l->get_var ("stem_max"));
+  Real min_stem_f = paper_l->get_var (String ("minimum_stem_length")
+				     + to_str (mult_i_ <? stem_max));
+  Real stem_f = paper_l->get_var (String ("stem_length")
+				 + to_str (mult_i_ <? stem_max));
 
   if (!beam_dir_ || (beam_dir_ == dir_))
+    /* normal beamed stem */
     {
-      idealy_f_ += interbeam_f * mult_i_;
+      if (mult_i_)
+	{
+	  idealy_f_ += beam_f;
+	  idealy_f_ += (mult_i_ - 1) * interbeam_f;
+	}
       miny_f_ = idealy_f_;
       maxy_f_ = INT_MAX;
 
-      if (mult_i_ < break_i)
-        {
-	  idealy_f_ += ideal_stem1_f;
-	  miny_f_ += min_stem1_f;
-	}
-      else
-        {
-	  idealy_f_ += ideal_stem2_f;
-	  miny_f_ += min_stem2_f;
-	}
-
-      /*
-        stems in unnatural (forced) direction are shortened
-        central line is never 'forced'
-       */
-      if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
- 	{
-	  idealy_f_ -= shorten_f;
-	  miny_f_ = miny_f_ <? idealy_f_ + internote_f;
-	}
+      idealy_f_ += stem_f;
+      miny_f_ += min_stem_f;
 
       // lowest beam of (UP) beam must never be lower than second staffline
       miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
 	+ (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
     }
   else
+    /* knee */
     {
       idealy_f_ -= beam_f;
+      // idealy_f_ -= (mult_i_ - 1) * interbeam_f;
+      // idealy_f_ += (mult_i_ - stem_l_->flag_i_ >? 0) * interbeam_f;
       maxy_f_ = idealy_f_;
       miny_f_ = -INT_MAX;
 
-      // B"arenreiter
-      if (mult_i_ < break_i)
-        {
-	  idealy_f_ -= ideal_stem1_f;
-	  maxy_f_ -= min_stem1_f;
-	}
-      else
-        {
-	  idealy_f_ -= ideal_stem2_f;
-	  maxy_f_ -= min_stem2_f;
-	}
+      idealy_f_ -= stem_f;
+      maxy_f_ -= min_stem_f;
     }
 
-
+  // set dim(y) == internote
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
   maxy_f_ /= internote_f;
@@ -132,5 +101,21 @@ Stem_info::Stem_info (Stem const *s)
 
   idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;
+
+  // interstaff beam
+  Beam* beam_l_ = stem_l_->beam_l_;
+  if (beam_l_->sinfo_.size ()
+      && stem_l_->staff_sym_l_ != beam_l_->sinfo_[0].stem_l_->staff_sym_l_)
+    {
+      // hmm, perhaps silly now to have vertical_align in Beam
+      interstaff_f_ = beam_l_->vertical_align_f_ / internote_f;
+      // urg, guess staff order:
+      // if our stem ends higher, our staff is probably lower...
+      if (idealy_f_ * beam_dir_ > beam_l_->sinfo_[0].idealy_f_ * beam_dir_)
+	interstaff_f_ *= -1;
+      idealy_f_ += interstaff_f_ * beam_dir_;
+      miny_f_ += interstaff_f_ * beam_dir_;
+      maxy_f_ += interstaff_f_ * beam_dir_;
+    }
 }
 
