@@ -16,7 +16,8 @@
 
 
 ;; debugging.
-(define (mydisplay x) (display x) x)
+;;(define (write-me x) (write x) (newline) x)
+(define (write-me x) x)
 
 
 "
@@ -92,9 +93,10 @@ dump reinterpret the markup as a molecule. " ; "
 (define (accidental-markup acc)
   "ACC is an int, return a markup making an accidental."
   (if (= acc 0)
-      empty-markup
-      `(,smaller-markup (,musicglyph-markup ,(string-append "accidentals-" (number->string acc))))
-  ))
+      `(,line-markup (,empty-markup))
+      `(,smaller-markup (,musicglyph-markup
+			 ,(string-append "accidentals-"
+					 (number->string acc))))))
 
 (define (pitch->markup pitch)
   `(,line-markup
@@ -309,17 +311,17 @@ dump reinterpret the markup as a molecule. " ; "
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
 	 (except-markup
 
-	  ;; see below.
-	  (if exception-part exception-part `(,simple-markup "fixme")))
+	  (if exception-part exception-part empty-markup))  ;;`(,simple-markup "")))
 	 (sep-markup (list simple-markup
-			 (if (and (string-match "super" (format "~s" except-markup))
+			 (if (and (string-match "super"
+						(format "~s" except-markup))
 				  (or (pair? additions)
 				      (pair? subtractions)))
-			     "/" "") 
-		       ))
+			     "/" "")))
 	 (adds-markup (chord::additions->markup-banter additions subtractions))
 	 (subs-markup (chord::subtractions->markup-banter subtractions))
-	 (b+i-markup (chord::bass-and-inversion->markup-banter bass-and-inversion)))
+	 (b+i-markup (chord::bass-and-inversion->markup-banter
+		      bass-and-inversion)))
     
     `(,line-markup
       (,tonic-markup
@@ -424,8 +426,10 @@ dump reinterpret the markup as a molecule. " ; "
 
 
 (define (chord::name->markup style tonic steps bass-and-inversion)
-  (let* ((lookup (chord::exceptions-lookup style steps))
-	 (exception-part (car lookup))
+  (write-me tonic)
+  (write-me steps)
+  (let* ((lookup (write-me (chord::exceptions-lookup style steps)))
+	 (exception-part (write-me (car lookup)))
 	 (unmatched-steps (cadr lookup))
 	 (func (chord::restyle 'chord::name- style))
 	 )
@@ -703,7 +707,8 @@ dump reinterpret the markup as a molecule. " ; "
 (define (step->markup-alternate-jazz pitch)
   `(,line-markup
     (,(accidental-markup (caddr pitch))
-     (,simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))))
+     (,simple-markup ,(number->string (+ (cadr pitch)
+					(if (= (car pitch) 0) 1 8)))))))
 
 (define (step->markup-jazz pitch)
   (if (= (cadr pitch) 6)
@@ -715,7 +720,8 @@ dump reinterpret the markup as a molecule. " ; "
 		  (,simple-markup "7"))
 		 )))
 	((-1) `(,simple-markup "7"))
-	((0) `(,simple-markup "maj7"))
+	;;;((0) `(,simple-markup "maj7"))
+	((0) `(,line-markup (,simple-markup "maj7")))
 	((1) `(,line-markup
 	       (,(accidental-markup 1)
 		(,simple-markup "7"))))
@@ -785,22 +791,15 @@ Compose markup of all additions
     (,(if (not (null? subtractions))
 	  `(,simple-markup "add")
 	  empty-markup)
-     ,(if #t
-	  ;; FIXME
-	  `(,simple-markup "fixme")
-	  ;; this is totally incomprehensible. Fix me, and docme.
-	  (let
-	      ((radds (reverse additions)))
-	   
-	    (reverse (chord::additions>5->markup-jazz-helper
-		      radds
-		      subtractions
-		      (if (or (null? subtractions) (null? radds))
-			  #f (car radds)))))
-	  
-	  )
-
-     )))
+     ;; this is totally incomprehensible. Fix me, and docme.
+     ,(let* ((radds (reverse additions))
+	     (rmarkups (chord::additions>5->markup-jazz-helper
+			radds
+			subtractions
+			(if (or (null? subtractions) (null? radds))
+			    #f (car radds)))))
+	(if (null? rmarkups) empty-markup
+	    (car (reverse rmarkups)))))))
   
 (define (chord::additions>5->markup-jazz-helper additions subtractions list-step)
   "
