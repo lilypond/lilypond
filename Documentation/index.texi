@@ -22,12 +22,13 @@
 @item @uref{programs.html,`Manual pages'}
 @item @uref{../user/out-www/index.html,User documentation}
 @item @uref{../metadoc/out-www/index.html,Hacker documentation}
-@item @uref{../bibliography/out-www/,Bibliography}
+@item @uref{../bibliography/out-www/index.html,Bibliography}
 @item @uref{../misc/out-www/index.html,Miscellaneous texts}
 @end itemize
 
 
-@unnumberedsubsec{Status}
+@unnumberedsubsec Status
+
 @itemize
 @item @uref{TODO.txt, Thing to do}
 @item @uref{CHANGES.txt, Things recently done}

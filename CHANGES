@@ -1,3 +1,6 @@
+pl 15.jcn2
+	- small website fixes
+
 pl 15.jcn1
 	- bfs: initialise members of Column-x-positions and Break_node
 	- bf: Documentation/misc: don't include backups
