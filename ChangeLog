@@ -1,5 +1,12 @@
 2005-02-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm (TAGLINE): add www.lilypond.org with URL to
+	tagline.
+	
+	* scm/output-tex.scm (url-link): stub.
+
+	* scm/output-ps.scm (url-link): new function.
+
 	* lily/lily-parser-scheme.cc (LY_DEFINE): deprecate
 	ly:set-point-and-click
 

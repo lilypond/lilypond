@@ -16,6 +16,20 @@
   "Stencil as markup"
   stil)
 
+
+(def-markup-command (with-url layout props url arg) (string? markup?)
+  "Insert a link to @var{url} in the output."
+  (let*
+      ((stil (interpret-markup layout props arg))
+       (xextent (ly:stencil-extent stil X))
+       (yextent (ly:stencil-extent stil X))
+       (old-expr (ly:stencil-expr stil))
+       (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
+    
+    (ly:stencil-add
+     (ly:make-stencil url-expr xextent yextent)
+     stil)))
+
 (def-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
   (let* ((systems (ly:score-embedded-format score layout)))
