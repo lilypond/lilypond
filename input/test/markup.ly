@@ -23,7 +23,7 @@
     f-#'(finger "3")
     g-#'(music (named "noteheads-2"
     ((kern . -0.1) "flags-stem")
-    (((kern . -0.1) (raise . 3.5)) "flags-u3"))))
+    (((kern . -0.1) (raise . 3.5)) "flags-u3")))
     b-#'(columns "a" (((kern . 3) (raise . 2)) "b") "c")
     c-#'(columns "1" (((raise . -2) (kern . -1)) "2") "3")
 				% }
@@ -50,6 +50,8 @@
     
     c^#'(columns "foe" ((raise . 3) "bar"))
     c^#'(columns "foe" (super "12") (sub "3 4"))
+    %% UGHUGH
+    c^#'(columns "foe" (super ((raise . 1) "12")) (sub ((raise . -1) "3 4")))
     c^#'(columns "foe" (super (overstrike "o") "/") (sub "x"))
     c^#'(columns "foe" (overstrike "o") "/")
     c^#'(columns "foe" ((bold roman overstrike) "o") "/")

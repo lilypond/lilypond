@@ -145,6 +145,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (ly_cdr (r)))
     raise = gh_scm2double (ly_cdr (r)) * staff_space;
+  
 
   Interval extent;
   bool extent_b = false;
@@ -157,13 +158,19 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
     }
 
   Offset o (kern[X_AXIS], raise - kern[Y_AXIS]);
-
   
   Molecule mol = Lookup::filledbox (Box (Interval (0,0), Interval (0,0)));
+
+  SCM cp = ly_deep_copy (p);
+  if (raise)
+    {
+      SCM cr = ly_assoc_chain (ly_symbol2scm ("raise"), cp);
+      scm_set_cdr_x (cr, gh_int2scm (0));
+    }
   
   while (gh_pair_p (text))
     {
-      Molecule m = text2molecule (me, ly_car (text), p);
+      Molecule m = text2molecule (me, ly_car (text), cp);
 
       if (!m.empty_b ())
 	{
@@ -174,6 +181,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 	}
       text = ly_cdr (text);
     }
+  
   
   /* Set extend to markup requested value. */
   if (extent_b)
