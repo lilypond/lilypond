@@ -1,5 +1,7 @@
 2004-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/regression/slur-script.ly: More collision tests.
+
 	* GNUmakefile.in (EXTRA_DIST_FILES): Add SConstruct.
 
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>

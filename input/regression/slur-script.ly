@@ -12,8 +12,11 @@ have a different configuration, the scripts must be moved manually."
     \once \override Script #'padding = #1.2
     b8-.( b-.
     \once \override Script #'padding = #1.2
-
     b-.)
-    b-.( b-.
-    b-.)
+    
+    b-.( b-. b-.)
+    b--( b-- b--)
+    b->( b-> b->)
+    b-.--( b-.-- b-.--)
+    b---.( b---. b---.)
 }
