@@ -13,6 +13,7 @@
 #include "beam.hh"
 #include "directional-element-interface.hh"
 #include "group-interface.hh"
+#include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "new-slur.hh"
 #include "note-column.hh"
@@ -576,7 +577,7 @@ get_base_attachments (Spanner *me,
 	    * 2.0 / Staff_symbol::staff_space (extremes[d].staff_);
 
 	  /* start off staffline. */
-	  if (fabs (pos - round (pos)) < 0.2
+	  if (fabs (pos - my_round (pos)) < 0.2
 	      && Staff_symbol_referencer::on_staffline (head, (int) rint (pos))
 	      && Staff_symbol_referencer::line_count (head) - 1 >= rint (pos)
 	      )
@@ -637,18 +638,18 @@ avoid_staff_line (Grob *me, Grob **common,
       Real p = 2 * (y - staff->relative_coordinate (common[Y_AXIS], Y_AXIS))
 	/ staff_space;
 
-      Real distance = fabs (round (p) - p);	//  in halfspaces
+      Real distance = fabs (my_round (p) - p);	//  in halfspaces
       if (distance < 4 * thick
-	  && (int) fabs (round (p))
+	  && (int) fabs (my_round (p))
 	  <= 2 * Staff_symbol_referencer::staff_radius (staff) + 0.1
-	  && (int (fabs (round (p))) % 2
+	  && (int (fabs (my_round (p))) % 2
 	      != Staff_symbol_referencer::line_count (staff) % 2))
 	{
 	  Direction resolution_dir =
-	    (distance ?  get_grob_direction (me) : Direction (sign (p - round(p))));
+	    (distance ?  get_grob_direction (me) : Direction (sign (p - my_round(p))));
 
 	  // TODO: parameter
-	  Real newp = round (p) + resolution_dir
+	  Real newp = my_round (p) + resolution_dir
 	    * 5 * thick;
 	
 	  Real dy = (newp - p) * staff_space / 2.0;
