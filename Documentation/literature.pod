@@ -1,6 +1,6 @@
 =head1 NAME
 
-Lily Literature -- reading on music engraving/typesetting/etc.
+Literature -- reading on music engraving, typesetting, etc.
 
 =head1 DESCRIPTION
 
@@ -40,7 +40,7 @@ Gardner Read. ``Modern Rhythmic Notation.'' Indiana University Press,
 avant-garde composers HWN]
 
 Gardner Read. ``Music Notation: a Manual of Modern Practice'' (2nd
-edition). Taplinger Publishing, New York.
+edition). Taplinger Publishing, New York. (Out of print)
 
 [This is as close to the ``standard'' reference work for music
 notation issues as one is likely to get. MB]

@@ -158,17 +158,17 @@ enddef;
 % center_factor: typically .5, the larger, the larger the radius of the bulb
 % radius factor: how much the bulb curves inward
 %
-def draw_bulb(expr turndir, zl, zr, center_factor, radius_factor)=
+def draw_bulb(expr turndir, zl, zr, bulb_rad, radius_factor)=
 	begingroup;
 	clearxy;
 	save rad, ang;
 
 	ang = angle(zr-zl);
-	z0 = center_factor [zr, zl];
-	rad =  length(zr - z0);
-	
+	z0 = zr + bulb_rad * (zl-zr)/length(zr -zl);
+	rad =  bulb_rad;
+
 	z1 = z0 + radius_factor* rad * dir(ang + turndir* 100);
-	z2 = z0 + rad * dir(ang  + turndir*270);
+	z2 = z0 + rad * dir(ang  + turndir*300);
 	labels(0,1,2);
 	fill zr{dir (ang + turndir* 90)} .. z1 .. z2 -- cycle;
 

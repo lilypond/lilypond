@@ -31,12 +31,7 @@ def draw_bass_clef(expr reduction, center) =
 	z1r = (center, 0);
 	z5 = (x3l +  dot_sep * dot_size * interline, .5 interline);
 	
-	%
-	% [Wanske] says that the extreme x point should be exactly between 
-	% the dots, but her picture shows that the extreme is ~ 0.2 ss lower
-	% hence 170 (and not 180).  (.2 is  a big amount, but because of 
-	% the near vertical shape, it is not very clear.
-	%
+	
 	penpos3(right_fat * reduced_il, 180);
 
 	penlabels(1,3);
@@ -56,13 +51,66 @@ def draw_bass_clef(expr reduction, center) =
 enddef;
 
 
-fet_beginchar("F clef", "bass", "ughbassclef")
-	draw_bass_clef(1.0, .5 interline); % .5 -> silly hack to accomodate 
-	% motex 
+%
+% Inspired by Baerenreiter, Auf dem Strom
+% 
+% FIXME: dims
+% FIXME: right vertical tangent seems to be lower than the F-line
+% FIXME: bulb curve smoothly into "long curve" on the  inside
+%
+%
+% [Wanske] says that the extreme x point should be exactly between 
+% the dots, but her picture shows that the extreme is ~ 0.2 ss lower
+
+def draw_bass_klef(expr reduction) = 
+	save reduced_il, left_tilt, left_thick;
+	reduced_il# = interline# * reduction;
+	left_tilt = 10;
+
+	define_pixels(reduced_il);
+	left_thick = .25  reduced_il;
+	
+	set_char_box(0, 2.7 reduced_il#, 2.5 reduced_il#, reduced_il#);
+	x1r - x1l = left_thick;
+	x1l = 0;
+	y1l = 0;
+
+	y2 = reduced_il;
+
+	x3r = x1l + 12/7 reduced_il;
+	x2 = .5 [x1,x3];
+	x3l - x3r = .48 reduced_il;
+	y3l = -0.05 interline;
+	x4 = x1l - stafflinethickness;
+	y4 = -2.2  reduced_il;
+	z5 = (x3l +  1/3 reduced_il, .5 reduced_il);
+
+	penpos1(whatever, left_tilt);
+	penpos2(1.2 stafflinethickness, -90);
+	penpos3(whatever,  185);
+	penpos4(stafflinethickness, 135);
+
+	draw_bulb(1, z1r,  z1l, .45 reduced_il, 1.0);
+
+
+	fill z1r{up} .. z2r{right} .. tension .9 .. z3r{down}  .. {curl 0} 
+		simple_serif(z4r, z4l, 90) {curl 0}
+		.. z3l{up} .. tension .9 .. z2l{left} 
+		.. z1l{dir (-90 + left_tilt)} -- cycle;
+	labels(2,4);
+	penlabels(1,2,3,4);
+
+	pickup pencircle scaled (1/3 reduced_il);
+	draw z5;
+	draw z5 yscaled -1;
+enddef;
+
+fet_beginchar("F clef ", "bass", "bassclef")
+	draw_bass_klef(1.0);
+fet_endchar;
+fet_beginchar("F clef (reduced)", "bass_change", "cbassclef")
+	draw_bass_klef(0.8);
 fet_endchar;
 
-fet_beginchar("reduced F clef", "bass_change", "ughcbassclef")
-	draw_bass_clef(.8, .5 interline);
-fet_endchar;
 
 fet_endgroup("klef");

@@ -188,7 +188,8 @@
 \def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
 \def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
 \def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}
-\def\rulesym#1#2{\vrule height #1 width #2}
+\def\rulesym#1#2{\dimen0=#1%
+        \vrule height .5\dimen0 depth .5\dimen0 width #2}
 \def\settext#1{\normaltextfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
