@@ -1,3 +1,10 @@
+2004-10-26  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* Documentation/user/notation.itely (Fret diagrams): Remove raggedright
+	from options for the example so fret-diagrams won't overlap
+	one another.
+	
+
 2004-10-26  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.py: Some additional formatting for
@@ -205,6 +212,9 @@
 	* cygwin/lilypond.hint: Update.
 
 2004-10-18  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* Documentation/user/notation.itely (Fret diagrams): Add documentation
+	for fret diagram markups to user manual
 
 	* scm/fret-diagrams.scm (fret-diagram-terse): Fix mistake in internal
 	documentation for fret-diagram-terse
