@@ -43,6 +43,10 @@ testing, general comments.
 Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes, some
 Beam and Stem code. 
 
+=item *
+
+Alexandre Oliva <oliva@dcc.unicamp.br>
+
 =back
 
 Your name could be here! If you want to help, then take a look at the
