@@ -1,5 +1,10 @@
 2004-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/metafont-rules.make: make single SVG/PFA/PFB
+	rule.
+
+	* configure.in (gui_b): bump mftrace requirement to 1.1.0
+
 	* mf/feta-bolletjes.mf (triangle): add s to 0triangle.
 
 	* mf/GNUmakefile (ALL_GEN_FILES): make SVG files too.
