@@ -1,3 +1,4 @@
+#(set! point-and-click #t)
 \header{
 filename = 	 "violino-viola.ly";
 title = 	 	 "Vier Duette";
@@ -8,7 +9,7 @@ enteredby = 	 "jcn";
 copyright = 	 "Public Domain";
 }
 
-\version "1.3.117";
+\version "1.3.122";
 
 % { 
 \include "violino-i.ly";

@@ -30,7 +30,7 @@
 	    (ly-warn (string-append
 		      "Programming error: No such font known "
 		      (car name-mag-pair) " "
-		      (number->string (cdr name-mag-pair))
+		      (ly-number->string (cdr name-mag-pair))
 		      ))
 	    "") ; issue no command
 	  (string-append "\\" (cddr c)))
@@ -64,7 +64,7 @@
      "\\font\\" command "="
      (car name-mag)
      " scaled "
-     (number->string (inexact->exact (* 1000  (cdr name-mag))))
+     (ly-number->string (inexact->exact (* 1000  (cdr name-mag))))
      "\n"))
 
   (define (ez-ball c l b)
@@ -107,6 +107,7 @@
      "}"
      "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 
+  ;; Note: this string must match the string in ly2dvi.py!!!
   (define (header creator generate) 
     (string-append
      "% Generated automatically by: " creator generate "\n"))
@@ -180,8 +181,11 @@
   (define (define-origin file line col)
     ; use this for column positions
     (if point-and-click
-     (string-append "\\special{src:" (number->string line) ":"
-        (number->string col) " " file "}"
+	; ly-number->string breaks point-and-click
+	(string-append "\\special{src:"
+		       (number->string line) ":"
+		       (number->string col) " "
+		       file "}"
 	 ;; arg, the clueless take over the mailing list...
 ;	 "\\special{-****-These-warnings-are-harmless-***}"
 ;	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"
