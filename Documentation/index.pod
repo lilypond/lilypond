@@ -8,6 +8,9 @@ GNU LilyPond is a program which converts music definition files into
 visual or auditive output: it can typeset formatted sheet music to a
 TeX file and and (mechanical) performances to MIDI files.
 
+This is not a Fanmail/Hype page. These pages were entirely created from
+the LilyPond package-sources
+
 =head2 Examples
 
 <a href=example_output.html
@@ -107,6 +110,14 @@ The GNU Music project
 >
 
 =item *
+<a href=mutopia.html
+>
+Mutopia -- Music To the People
+</a
+>
+
+
+=item *
 <a href=ANNOUNCE.txt
 >
 The announce of 0.1
@@ -141,7 +152,7 @@ The Change log
 >
 
 =item *
-<a href=lilygut.html
+<a href=internals.html
 >
 internal structures.
 </a
@@ -175,7 +186,7 @@ AUTHORS
 =over 5
 
 =item *
-<a href=lilyliterature.html
+<a href=literature.html
 >
 Papers, books and online-resources on music typesetting
 </a
