@@ -88,7 +88,8 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_grob_property ("merge-differently-headed")))
     merge_possible = false;
 
-  /* Can never merge quarter and half notes. */
+  /* Should never merge quarter and half notes, as this would make
+     them indistinguishable.  */
   if (merge_possible
       && ((Rhythmic_head::duration_log (nu) == 1
 	   && Rhythmic_head::duration_log (nd) == 2)
