@@ -30,15 +30,15 @@ instrument = "Piano"
   copyright = "Public Domain"
   maintainer = "Jan Nieuwenhuizen"
   maintainerEmail = "janneke@gnu.org"
-  lastupdated =	 "2001/Apr/26"
-  mutopiapublicdomain = "\\parbox{\\hsize}{\\thefooter\\quad\\small
+  lastupdated =	 "2001/Apr/27"
+  mutopiapublicdomain = "\\parbox[b]{\\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it.}"
  tagline = \mutopiapublicdomain
- footer = "Mutopia-2001/04/26-xx"
+ footer = "Mutopia-2001/04/27-xx"
 } 
 
 \version "1.3.146"
@@ -159,7 +159,7 @@ trebleVerseOne =  \notes\relative c{
 	<c2. es> |
 	r8 <g, c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
-	r8 <f as bes> <as bes d> <f g bes> <as bes d> <f as bes> |
+	r8 <f as bes> <as bes d> <f as bes> <as bes d> <f as bes> |
 	% manual beam override bug
 	% r8 < [ es g bes> <g bes es> <es g bes> <g bes es ] > 
 	r8 < { [ es g es g ] } { g bes g bes } { bes es bes es } >
@@ -363,6 +363,7 @@ global =  \notes{
 allLyrics = \lyrics {
 	% maybe should be bigger by default, in grob-description.scm ?
 	\property Lyrics . LyricText \override #'font-relative-size = #1
+	\property Lyrics . LyricHyphen \override #'maximum-length = #1.5
 	\lyricVerseOne
 	\lyricVerseTwo
 	\lyricThrough
@@ -451,15 +452,16 @@ grandStaff =  \context PianoStaff <
 		\grandStaff
 	>
 	\paper {
-		% arg, if it weren't for the mutopia margins, this would
-		% fit on three a4 pages, like the original
-		% Mandatory Mutopia settings:
+		% Use
+		%   textheight = 280.\mm
+		%   linewidth = 190.\mm
+		% to get this on 3 pages of a4.
+		
+		% Mandatory Mutopia settings yield 4 pages :-(
 		textheight = 270.0\mm
 		linewidth = 180.0\mm
 
-		\translator {
-			\HaraKiriStaffContext
-		}
+		\translator { \HaraKiriStaffContext }
 	}
 	\midi{
 		\tempo 4 = 54
