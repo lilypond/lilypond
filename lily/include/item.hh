@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #ifndef ITEM_HH
 #define ITEM_HH
@@ -48,6 +48,10 @@ public:
   Protected_scm visibility_lambda_;
   /// should be put in a breakable col.
   bool breakable_b_;
+
+  /// I am really  to  be broken?
+  virtual bool breakable_b () const;
+  
   Direction break_status_dir_;
   int break_priority_i_;
   

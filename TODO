@@ -1,23 +1,22 @@
--*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil-*-
+-*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
 * GNU LilyPond TODO
+Features you cannot find in the doco as working, should be
+mentioned here.  This is an assorted collection of stuff that will be
+done, might be done, or is an idea that I want to think about
 
-	Features you cannot find in the doco as working, should be
-	mentioned here.  This is an assorted collection of stuff that will be
-	done, might be done, or is an idea that I want to think about
-
-	Most of the items are marked in the code as well, with full
-explanation.
-	grep for TODO and ugh/ugr/urg
+Most of the items are marked in the code as well, with full explanation. 
+grep for TODO and ugh/ugr/urg
 
 .* BUGS
 . * .ly files
 .  * input/praeludium-fuga-E.ly
+.  * input/font20
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * fix: text on rests: rediculous dims
 . * fix midi output:
-.  * default duration?
-	      duration must be not entered explicitely on first note.
+.  * default duration?  d
+     duration must be not entered explicitely on first note.
 . * fix singleStaffBracket
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
@@ -25,7 +24,7 @@ explanation.
 . * tremolo stuff
 . * gallina barlines.
 . * fix height of / collisions with lyrics (chords), 
-	     see input/test/vertical-text.ly; input/test/repeat.ly
+    see input/test/vertical-text.ly; input/test/repeat.ly
 . * latex bla.tex broken (titles / \lilyfooter stuff?)
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * fix "I've been drinking too much"
@@ -34,7 +33,42 @@ explanation.
 . * declaring \score	
 . * is \break broken? input/test/hara-kiri.ly
 . * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
+. *
+\score{
+	\type Staff \notes\relative c''{
+		\property Staff.instrument = "Toeters"
+		c c c c(\break
+		)c c c c ~\break
+		c c c c\break
+	}
+	\paper{
+		linewidth=60.0\mm;
+%		\translator { \HaraKiriStaffContext }
+		\translator { \OrchestralScoreContext }
+		\translator {
+			\StaffContext
+			\consists "Staff_margin_engraver";
+		}
+	}
+}
+
+. *
+Phrasing:  Indicating the textual underlay of a piece, or
+		otherwise dividing a piece into phrases.
+
+There are distinct ways of specifying the first two (although at
+present, they're not properly distinguished) but no distinct way to
+specify the third.  Should there be?
+
 .* TODO before 1.2
+. *
+> Yes.  I want ties to tie only notes of the same pitch, so that
+> 	< a~  a,>  a
+> works as you'd expect it to.
+. * 1. Can Lily be told where to start numbering?
+. * The timpani part has rests the full first line. Is it possible
+   to force lilypond to print all parts on the first page of the score
+   but use the hara-kiri mechanism on the remaining pages?
 . * do scaled fonts.
 . * profile atom smobs
 . * make ly2dvi test page.
@@ -43,9 +77,9 @@ explanation.
 . * fix Repeated_music_iterator::ok() (constness.)
 . * one big ly2dvi input that includes *all* tests.
 . * Don't use boolean properties (0,1), instead check existence
-	of property.
+of property.
 . * store req -> element, element -> element causes for warnings
-. * junk Text_def, use G_text_item instead.
+. * junk Text_def, use G_text_item in stead.
 . * junk Script_def
 . * fix partial measures in meaningful way.
 . * fix AFM for BlueSky AFM files.
@@ -63,80 +97,80 @@ explanation.
 . * doc Single_malt_grouping_item
 . * ly2dvi/lilypond logfile.
 . * How can I specify a chord whose duration is longer than a whole note?
-	 \type ChordNames { \chord{ A1*2-min } }
+ \type ChordNames { \chord{ A1*2-min } }
 
-	gives me a parse error.  And \times doesn't work either.  I can't use
-	a spacer note.  So it seems to be impossible to have long chords of
-	general length.  Of course, in the example above I can use \breve.
-	But what if I want a chord that lasts for 3 whole notes?  Or what
-	about 2.5 whole notes?  Is there a mechanism for getting this kind of
-	length?  
-
-
-	Why does my second extender request get junked in the following:
-
-	\score{
-	< \notes \relative c''{ 
-	      a4()b()c()d c()d()b()a }
-	    \type Lyrics \lyrics {
-	      foo1 __  bar2. __ _4 }
-	> }
-
-	It seems that \cr and \decr don't work any more.  
-
-	\score{
-	  \notes{
-	     a \cr b \rc c }
-	  \paper{linewidth=-1.;}
-	}
-
-	Gives me 
-
-	qq.ly:3:9: warning: can't find (de)crescendo to end:
-	     a \cr
-		   b \rc c }
+gives me a parse error.  And \times doesn't work either.  I can't use
+a spacer note.  So it seems to be impossible to have long chords of
+general length.  Of course, in the example above I can use \breve.
+But what if I want a chord that lasts for 3 whole notes?  Or what
+about 2.5 whole notes?  Is there a mechanism for getting this kind of
+length?  
 
 
+Why does my second extender request get junked in the following:
 
-	Use of semicolons is still rather confusing.  They are obligatory
-	after some types of assignments and illegal after others.  
+\score{
+< \notes \relative c''{ 
+     a4()b()c()d c()d()b()a }
+   \type Lyrics \lyrics {
+     foo1 __  bar2. __ _4 }
+> }
 
-	  \property foo=bar               illegal
-	  foo = 3 at top level            illegal
-	  foo = 3 inside \paper           obligatory               
-	  foo = \notes{ ...} top level    illegal
-	  foo = \translator{ } in \paper  obligatory
+It seems that \cr and \decr don't work any more.  
 
-	As far as I can tell, the sole accomplishment of this syntactic
-	irregularity is to keep the user as confused as possible.  
+\score{
+  \notes{
+    a \cr b \rc c }
+  \paper{linewidth=-1.;}
+}
+
+Gives me 
+
+qq.ly:3:9: warning: can't find (de)crescendo to end:
+    a \cr
+          b \rc c }
 
 
-	I was trying to get interstaff beams to work and did this:
 
-	\score{
-	\type GrandStaff <
-	\type Staff=one \notes\relative c'{
-	  \stemup
-	  [c8 c \translator Staff=two \stemup c c]
-	  \translator Staff=one
-	  \stemdown 
-	  [ b8 \translator Staff=two a8]
-	  \translator Staff=one 
-	  c4 
-	  }
-	\type Staff=two \notes{ \clef bass; s1 }
-	>
-	\paper{
-			 \translator{
-				 \GrandStaffContext
-				 minVerticalAlign = 3.0*\staffheight;
-				 maxVerticalAlign = 3.0*\staffheight;
-			 }
-	  linewidth = -1.;
-	}
-	}
+Use of semicolons is still rather confusing.  They are obligatory
+after some types of assignments and illegal after others.  
 
-	The beams are at the right angle, but they aren't in the right place.
+  \property foo=bar               illegal
+  foo = 3 at top level            illegal
+  foo = 3 inside \paper           obligatory               
+  foo = \notes{ ...} top level    illegal
+  foo = \translator{ } in \paper  obligatory
+
+As far as I can tell, the sole accomplishment of this syntactic
+irregularity is to keep the user as confused as possible.  
+
+
+I was trying to get interstaff beams to work and did this:
+
+\score{
+\type GrandStaff <
+\type Staff=one \notes\relative c'{
+  \stemup
+  [c8 c \translator Staff=two \stemup c c]
+  \translator Staff=one
+  \stemdown 
+  [ b8 \translator Staff=two a8]
+  \translator Staff=one 
+  c4 
+  }
+\type Staff=two \notes{ \clef bass; s1 }
+>
+\paper{
+		\translator{
+			\GrandStaffContext
+			minVerticalAlign = 3.0*\staffheight;
+			maxVerticalAlign = 3.0*\staffheight;
+		}
+  linewidth = -1.;
+}
+}
+
+The beams are at the right angle, but they aren't in the right place.
 . * fractional chord durs.
 . * hang Item on Spanner
 . * remove Interval dim_ from Dimension_cache and rename the struct.
@@ -144,7 +178,7 @@ explanation.
 . * convert-mudela --output
 . * Staff_margin (with a partial measure.)
 . * fix "I've been drinking too much"
-	r * fix pletvisibility properties:
+. * fix pletvisibility properties:
 .  * bracket on/off/no-bracket-when-beam
 .  * num on/off/no-num-when-beam
 . * fix: standchen.
@@ -153,8 +187,8 @@ explanation.
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
 . * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
-		  and=20
-		  { \voicetwo  d'4 d'2.*2/3 } spacing
+	 and=20
+	 { \voicetwo  d'4 d'2.*2/3 } spacing
 . * tied notes for MIDI
 . * sharp /flat on trills (in MIDI ??)
 . * scm-ify \property values.
@@ -167,27 +201,30 @@ explanation.
 . * formatting of input stuff. 
 . * \notes{ a \< b \cr } vs \notes{ a \< b \! }
 . * if possible, it might be nice for a warning to appear if someone does
-		 \translator with no name and without assigning it to an
-		 identifier.  
+	\translator with no name and without assigning it to an
+	identifier.  
 . * space after bars?
 . * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
 . * \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
 . * repeat bars: need distance after ":|" and before "|:"
-.* SPELLING IRREGULARITIES
-. * capitalization/use of underscores in property names
+.* Summary of minor spelling irregularities:
+. *  capitalization/use of underscores in property names
 . * fix SkipBars  -> skipBars
+
 . * fix marks/barnumbers/marginal notes
 . * broken scripts:
-		 lbheel = \script { "bheel" 0 0 -1  0 0 }
-		 rbheel = \script { "bheel" 0 0 1 0 0 }
-		 lbtoe = \script { "btoe" 0 0 -1 0 0 }
-		 rbtoe = \script { "btoe" 0 0 1 0 0 }
-		 lfheel = \script { "fheel" 0 0 -1  0 0 }
-		 rfheel = \script { "fheel" 0 0 1 0 0 }
-		 lftoe = \script { "ftoe" 0 0 -1 0 0 }
-		 rftoe = \script { "ftoe" 0 0 1 0 0 }
-		 and also
-		 portato= \script { "portato" 0 -1 0 1 0 }
+	lbheel = \script { "bheel" 0 0 -1  0 0 }
+	rbheel = \script { "bheel" 0 0 1 0 0 }
+	lbtoe = \script { "btoe" 0 0 -1 0 0 }
+	rbtoe = \script { "btoe" 0 0 1 0 0 }
+	lfheel = \script { "fheel" 0 0 -1  0 0 }
+	rfheel = \script { "fheel" 0 0 1 0 0 }
+	lftoe = \script { "ftoe" 0 0 -1 0 0 }
+	rftoe = \script { "ftoe" 0 0 1 0 0 }
+	
+	and also
+	
+	portato= \script { "portato" 0 -1 0 1 0 }
 . * ly2dvi
 .  * bottomnote for ly2dvi
 .  * cf'able ly2dvi  tagline.
@@ -199,10 +236,10 @@ explanation.
 . * uniformise property names...
 .  * ydirection <-> yDirection
 .  * rather allow '_' in identifiers first (i.e. junk ^ and _),
-		     and do y_direction?
+	    and do y_direction?
 .  * typo checks on property names?
 . * use streambufs and iostream
-		 to provide IO handling for TeX stream, mudela stream, data-file.
+	to provide IO handling for TeX stream, mudela stream, data-file.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
@@ -225,39 +262,39 @@ explanation.
 . * stable make/config stuff
 . * $DEPENDENCIES_OUTPUT support
 . * Xdvi zooming ?! Try to understand GS garbage collection.
-			 gs: Error: /undefined in draw_beam
-			 gs: Operand stack:
+		gs: Error: /undefined in draw_beam
+		gs: Operand stack:
 . * fix vertical alignment and stafflines
 . * GrandStaff needs more work -- I want a single word
-		 `harpsichord' to the left of the grandstaff, not one on each
-		 stave.  (Organ staff -- with separate pedal -- but common
-		 properties may be something to think about.  Of course for
-		 organ you want to be able to give stop indications on the way
-		 through, so the \property Voice.Instrument would be a stop,
-		 and \property GrandStaff.instrument would be PipeOrgan...)
+	`harpsichord' to the left of the grandstaff, not one on each
+	stave.  (Organ staff -- with separate pedal -- but common
+	properties may be something to think about.  Of course for
+	organ you want to be able to give stop indications on the way
+	through, so the \property Voice.Instrument would be a stop,
+	and \property GrandStaff.instrument would be PipeOrgan...)
 . * revise the Score_priority_align_engraver concept.  It sucks. 
 . * make new VoiceOne, VoiceTwo, VoiceThree contexts with
-	ydirection and hshift preset
+ydirection and hshift preset
 . * *.yo: fix pod manpage layout legacy
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
 . * fix placement of beam-less abbrev
 . * \meter 3/4;
-		 <{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
-		  {\voicetwo cis,4 r r | r2. | r1 }> |
-		 }
+	<{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
+	 {\voicetwo cis,4 r r | r2. | r1 }> |
+	}
 . * try to use template<Type> iso MACRO(Type)
 .  * NEWS: ... Musical_pitch (analogous to Duration and Rhythmic_req)
-		   think about, analogous to pitch: 
-		   * { a4 a16 } c <-- duration of c?
-		   * < a4 b8 > c <-- duration of c?
+	  think about, analogous to pitch: 
+	   * { a4 a16 } c <-- duration of c?
+	   * < a4 b8 > c <-- duration of c?
 . * \tempo 4. = 90;
 . * fix audio-items (don't use (input) requests, but copy data)
 . * make sure all ex's have a mudela-version
 . * do rest-collisions for Multi_measure_rests as well.
 . * split error/warning in error/warning/non_fatal_error
 . * add a Duration_convert member to Duration_iter to set parameters.
-		 Junk global duration settings. 
+	Junk global duration settings. 
 . * minimum length second part broken tie
 . * en-,discouraged linebreaking: 
 .  * handle DISALLOW < penalty > FORCE
@@ -267,7 +304,7 @@ explanation.
 . * <\voiceone c4. \voicetwo c4>
 . * add full cello suites to web site (kom op, Maarten!)
 . * Rethink Time_description
-		  * \cadenza , \meter, \grouping should all be \properties
+	  * \cadenza , \meter, \grouping should all be \properties
 . * rename
 .  * measure -> bar
 .  * abbrev -> tremolo
@@ -290,47 +327,50 @@ explanation.
 .  * more manpages?
 . * versioning for Feta
 . * the warning about the negative slur/tie length appears twice
-		 which is irritating.
+	which is irritating.
 . * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
-		 in the middle:
+	in the middle:
 . * the bracket is ugly (wings are too parabolic, should be more circular)
 . * better hshift (dots, distance, head dependent)
-	        * clefs (AG): The "8" should appear closer to the actual clef,
-	          touching it.
+        * clefs (AG): The "8" should appear closer to the actual clef,
+          touching it.
 . * put errorlevel in Input class
 . * junk nesting slurs
 . * integrate midi-elts from mi2mu and lily?
 .* 3RD PARTY BUGS
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * glibc 2.0:
-		   f = fopen ("/dev/null", "r")
-		   assert (feof (f))
+	  f = fopen ("/dev/null", "r")
+	  assert (feof (f))
 .* 3RD PARTY PROJECTS:
 . * make GCC warn about ctor that leaves member vars  uninitialised.
 . * GNU patch 
 .  * 'double-fix' mode: ignore identical fix, rather than suggest 
-		     to revert patch direction when (more or less? exactly) the same 
-		     thing is fixed
+	    to revert patch direction when (more or less? exactly) the same 
+	    thing is fixed
 .* PROJECTS
 . * Scripts:
 .  * fix position of bar number
 .  * stack scripts in chords:
-		   % fingering:        footing:
-		     < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
+	  % fingering:        footing:
+	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
 .  * script-spacing
 .  * slur parts as a script
 .  * stack parameterised scripts for fingering and footing:
+
 . * convert-mudela:
 .  * automatically add  a \version if not present.
 .  * better parsing
 .  * make smarter
 .  * convert-mudela -e empty.ly
+
 . * emacs mudela-mode
 .  *  should handle block comments too.
 .  *  handle lexer modes (\header, \melodic, \lyric) etc.
 .  *  indentation
 .  *  notenames?
 .  *  fontlock: \melodic \melodic
+
 . * use properties for:
 .  * plet?
 .  * Staff_sym size
@@ -338,42 +378,51 @@ explanation.
 .  * font size
 .  * bartypes (get rid of derived Span_bar_engravers)
 .  * cadenza mode? 
+
 . * page handling:
 .  * PS output
 .  * optimal pagebreaking.
+
 . * Unicode support? -> man 7 unicode
 .  * 16 bit Strings
 .  * -u switch
 .  * detect of 16/8 bit files
 .  * examples to go with it.
+
 . * Spring_spacer:
 .  * write a faster Spring_spacer (without matrices if possible)
 .  * relate energybound to linelen unitspace fontsize etc.
 .  * used fixed point fp?
+
 . * \header
 .  * output header info to MIDI too.
+
 . * a musical dictionary. See Documentation/vocabulary-*, other
-		 languages:
+	languages:
 .  * explanations
 .  * italian
 .  * german
 .  * dutch
 .  * swedish
-		 .. ?
+	 .. ?
+
 . * chords
 .  * guitar chords (fret diagrams)
 .  * other chord name styles (american(?) style)
 .  * basso continuo
 .  * MIDI output?
+
 . * Debug logs:
 .  * derive lily_stream, Dstream, texstream from ostream?
 .  * indentable stream as baseclass for TeX stream, lily stream, Dstream.
 .  * use dstream feature in mi2mu
 .  * integrate IO checking into stream class
+
 . * input converters
 .  * NIFF?
 .  * ABC? 
 .  * SMDL?
+
 . * add to MIDI output:
 .  * tempo change
 .  * ornaments (and trills?)
@@ -383,11 +432,14 @@ explanation.
 .  * dynamics
 .  * account for rhythmic position in measure
 .  * etc.
+
 . * grace notes
 .  * make separate class for Grace_*_engravers 
-		 (which is at Voice_gravs level)
+	(which is at Voice_gravs level)
 .  * make encapsulated spacing problems.
+
 . * accidentals per Voice_group
+
 . * Output class, handles : (smallish)
 .  * help text /(c) notice?
 .  * version line
@@ -395,51 +447,63 @@ explanation.
 .  * abort on error/warning; exit status
 .  * quiet/ignore-version options
 .  * logfile output
+
 . * elaborate Staff_side baseclass:
 .  * scripts
 .  * text
 .  * slur start/end
+
 . * PS 
 .  * speed up PS code.
 .  * PS lines to .eps files
 .  * write custom prolog
+
 . * Output an output format independent (ofi) typeset file; and 
-		   make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
-		   Ascii... interpreters. (difficult)
+	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
+	  Ascii... interpreters. (difficult)
 
 .  * NIFF ?
 .  * Common Music Notation
 .  * PostScript output (esp. Beams, Slurs, etc)
 .  * Move all Score_elems, into libmutype.a
 .  * SGML
+
 . * Documentation
 .  * Doc (C) stuff of sheet music
 .  * a better format?  SGML?  TeX?  Info?
 .  * a better tutorial
+
 . * more spanners (smallish)
 .  * Glissando
 .  * trill
+
 . * Rewrite Stem, Beam and Rhythmic_grouping (hairy)
 .  * [c8. c32 c32]
-	  * * doc on Rhythmic_grouping
+ **** doc on Rhythmic_grouping
 .  * general shaving on Beam and Stem
 .  * use plet grouping
 .  * separate visual from rhythmic info even more
 .  * beams over bars
+
 . * lines:
 .  * Ledger lines, should be separate item: Ledger_lines, Ledger_lines
 .  * set different line sizes / thicknesses
 .  * beam stem showthrough, inter beam sizes (french vs german style)
+
 . * Collisions
 .  * left/right note balls should be handled by Collision:
-		 < \multi 2; { \stem 1; <b c> } { <f as b> } >
+	< \multi 2; { \stem 1; <b c> } { <f as b> } >
+
 . * Keys:
 .  * merge key{item} & localkey{item}?
 .  * spacing, national styles?
+
 . * Support for TAB
 .  * redo Notehead to allow digits as heads
 .  * add a \tablature {} lexer mode for easy entering
+
 . * should adjust stemlength for flag number.
+
 . * breaking:
 .  * caching breakpoints
 .  * saving them
@@ -448,47 +512,72 @@ explanation.
 
 . * c4 4 4 4 for c4 c4 c4 c4?
 . * neatly (and readably) expressing concurrent
-		 voices
+	voices
 . * <c f a>4 ?
 . * Viola mode?
-			 @c c g e g 
-		 for
-			 c g es g, 
-			 @A c g e g
-		 for
-			 cis gis e gis
+
+		@c c g e g 
+	for
+		c g es g, 
+
+		@A c g e g
+	for
+		cis gis e gis
 . * relative mode for pitch entering
 . * configure pitch_byte
 . * rest name configurable
+
+
 .* SMALLISH PROJECTS
+
 . * limit memory usage; the full coriolan takes up too much resources.
+
 . * fix confusing naming in Engraver vs Engraver_group_engraver (context)
+
 . * progress when creating MIDI elts.
+
 . * A range for context errors (eg. mark both { and }. )
+
 . * lyric in staff  (sharpsharp in staff, text below)
+
 . * half sharps/flats
+
 . * write Dynamic_line (to group dynamics horizontally)
+
 . * use Real for all y positions.
+
 . * half-sharps, half-flats
+
 . * adaptive accidental spacing.
+
 . * handle EOF graciously in error messages.
+
 . * declare notenametab?
+
 . * midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
+
 . * stafftypes: voice names/ instrument names.
+
 . * lily \tempo
+
 . * C meter iso 4/4, idem for alla breve, etc.
+
 . * textspanner: center position
 
-	        *   % toe to bheel   four to five
-		    %   ^_u            4_5  
-		    %     -                           
-		    %  --|x--         --|x--
-		    %  --|---         --|---
-		    %  --|---         --|---
-	          (where "to" is a tiny bow)
+        *   % toe to bheel   four to five
+	    %   ^_u            4_5  
+	    %     -                           
+	    %  --|x--         --|x--
+	    %  --|---         --|---
+	    %  --|---         --|---
+          (where "to" is a tiny bow)
+
 . * auxilliary file for caching info.
+
 . * Text_crescendo
+
 . * clean solution for staffsize in items.
+
 . * revise calcideal
 .* IDEAS
 . * Output data structures of Mudela in XML/SGML.
@@ -505,135 +594,121 @@ explanation.
 . * Klavarskribo?
 . * dynamic loading of engravers? 
 .* SMOBS
-. * Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
-	> mcmanus@IDT.NET writes:
-	> > > I want different C++ objects (with scheme embedded) to be linked by
-	> > > C++ pointers.  I want to access these other objects from the Scheme
-	> > > code, and I want access to these pointers from C++.
-	> > 
-	> > You can do this with a  combination of smob's and primitive functions,
-	> > though it may not be  be exactly what you wanted.   You would have one
-	> > smob  for each class in  your application, and then  you would write a
-	> > primitive function that would return the objects  that are linked to a
-	> > base object.
-	> 
-	> And the smob and the C++ class are interlinked?  Like
-	> 
-	> 	class Foo_class {
-	> 		Foo_smob *smob_ptr_;
-	> 	}
-	> 
-	> 	struct Foo_smob {
-	> 		Foo_class *class_ptr_
-	> 	}
-	Usually you can get away without having this interlinked structure.
-	One piece of information you need when exporting objects to scheme is
-	the smob tag for your class.  You might store this value (a long) into
-	a class static variable, or a file static variable.  I'll use a class
-	static variable in this example.
-	I typically use code that works like this (untested code ahead):
-	class Foo_class {
-	static long *Foo_smob_tag;
-	SCM obj; // representation as a scheme object, description comes later
-	}
-	// call this once on startup
-	void init_Foo_class {
-	static scm_smobfuns type_rec;
-	type_rec.mark = foo_mark;
-	type_rec.free = foo_free;
-	type_rec.print = foo_display;
-	type_rec.equalp = 0;
-	Foo_class::Foo_smob_tag = new int(scm_new_smob(type_rec));
-	}
-	When you want to export an object to scheme, you put a pointer to the
-	object itself in the cdr of the cell, and the tag in the car of the
-	cell.  The code looks like this:
-	// Is this a Foo?
-	static int
-	foo_p(SCM obj)
-	{
-	return(SCM_NIMP(obj) && SCM_CAR(obj) == Foo_class::Foo_smob_tag);
-	}
-	// given a Scheme representation, return, a C++ representation
-	static Foo_class *
-	foo_unbox(SCM obj)
-	{
-	return((Foo_class*)SCM_CDR(obj));
-	}
-	// the SCM representation of the object is stored inside itself
-	// this will become useful when destructor gets called
-	static SCM
-	foo_box(Foo_class *foo)
-	{
-	SCM_DEFER_INTS;
-	SCM_NEWCELL(foo->obj);
-	SCM_SETCAR(foo->obj, Foo_class::Foo_smob_tag);
-	SCM_SETCDR(foo->obj, (SCM)foo);
-	SCM_ALLOW_INTS;
-	return foo->obj;
-	}
-	> C++ determines life time, so what is the strategy?
-	What happens now when the destructor gets called?  Lets set the cdr to
-	NULL, and then check for that in all of the primitive functions that
-	use your smob.  We'll call this notion 'live'; a scheme object is
-	'live' if the C++ representation still exists, it's dead if the C++
-	object is gone.  You can still have references to dead objects in
-	scheme code; it's just an error to use them.  This idea is stolen from
-	Emacs's handling of buffers ('buffer-live-p' and friends).
-	Add another function, foo_live_p:
-	static int
-	foo_live_p(SCM obj)
-	{
-	return(foo_p(obj) && SCM_CDR(obj) != NULL);
-	}
-	In you destructor, you need to do:
-	~Foo_class()
-	{
-	SCM_CDR(this->obj, NULL);
-	}
-	When writing new primitives, now just check foo_live_p().
-	I hope the above helps,
-	-russ
-	--
-	"Even if you are on the right track, you'll get run over 
-	if you just sit there."  
-	--Will Rogers (1879-1935)
-. * I am still muddling along with integrating GUILE in LilyPond, and I
-	> have a question.  I want to replace an existing C++ implementation of
-	> identifier tables by GUILE's code.  I've managed to replace
-	> 
-	> 	Hash_table<String,Identifier*>
-	> 
-	> by
-	> 
-	> 	Hash_table<SCM, Identifier*>
-	> 
-	> and use interning and GUILE symbols for doing the identifier lookup.
-	> But I'd like to use GUILE's hash tables as well, and that's were my
-	> question comes in: is there an interface that allows me to iterate
-	> through the entries of a GUILE hash table?
-	I use the following, which should definitely be provided somewhere
-	in guile, but isn't, AFAIK:
-	(define (hash-table-for-each fn ht)
-	(do ((i 0 (+ 1 i)))
-	((= i (vector-length ht)))
-	(do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-	(fn (car (car alist)) (cdr (car alist))))))
-	(define (hash-table-map fn ht)
-	(do ((i 0 (+ 1 i))
-	(ret-ls '()))
-	((= i (vector-length ht)) (reverse ret-ls))
-	(do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-	(set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
-	If you want a C version, you can run the above code through hobbit, or
-	tranlate it to C by hand.
-	-russ
-	--
-	"Whenever you find yourself on the side of the majority, it is time to
-	pause and reflect."
-	-- Mark Twain
+Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
+
+> mcmanus@IDT.NET writes:
+> > > I want different C++ objects (with scheme embedded) to be linked by
+> > > C++ pointers.  I want to access these other objects from the Scheme
+> > > code, and I want access to these pointers from C++.
+> > 
+> > You can do this with a  combination of smob's and primitive functions,
+> > though it may not be  be exactly what you wanted.   You would have one
+> > smob  for each class in  your application, and then  you would write a
+> > primitive function that would return the objects  that are linked to a
+> > base object.
+> 
+> And the smob and the C++ class are interlinked?  Like
+> 
+> 	class Foo_class {
+> 		Foo_smob *smob_ptr_;
+> 	}
+> 
+> 	struct Foo_smob {
+> 		Foo_class *class_ptr_
+> 	}
+
+Usually you can get away without having this interlinked structure.
+One piece of information you need when exporting objects to scheme is
+the smob tag for your class.  You might store this value (a long) into
+a class static variable, or a file static variable.  I'll use a class
+static variable in this example.
+
+I typically use code that works like this (untested code ahead):
+
+class Foo_class {
+    static long *Foo_smob_tag;
+    SCM obj; // representation as a scheme object, description comes later
+}
+
+// call this once on startup
+void init_Foo_class {
+    static scm_smobfuns type_rec;
+
+    type_rec.mark = foo_mark;
+    type_rec.free = foo_free;
+    type_rec.print = foo_display;
+    type_rec.equalp = 0;
+    Foo_class::Foo_smob_tag = new int(scm_new_smob(type_rec));
+}
+
+When you want to export an object to scheme, you put a pointer to the
+object itself in the cdr of the cell, and the tag in the car of the
+cell.  The code looks like this:
+
+// Is this a Foo?
+static int
+foo_p(SCM obj)
+{
+    return(SCM_NIMP(obj) && SCM_CAR(obj) == Foo_class::Foo_smob_tag);
+}
+
+// given a Scheme representation, return, a C++ representation
+static Foo_class *
+foo_unbox(SCM obj)
+{
+    return((Foo_class*)SCM_CDR(obj));
+}
+
+// the SCM representation of the object is stored inside itself
+// this will become useful when destructor gets called
+static SCM
+foo_box(Foo_class *foo)
+{
+    SCM_DEFER_INTS;
+    SCM_NEWCELL(foo->obj);
+    SCM_SETCAR(foo->obj, Foo_class::Foo_smob_tag);
+    SCM_SETCDR(foo->obj, (SCM)foo);
+    SCM_ALLOW_INTS;
+    return foo->obj;
+}
+
+> C++ determines life time, so what is the strategy?
+
+What happens now when the destructor gets called?  Lets set the cdr to
+NULL, and then check for that in all of the primitive functions that
+use your smob.  We'll call this notion 'live'; a scheme object is
+'live' if the C++ representation still exists, it's dead if the C++
+object is gone.  You can still have references to dead objects in
+scheme code; it's just an error to use them.  This idea is stolen from
+Emacs's handling of buffers ('buffer-live-p' and friends).
+
+Add another function, foo_live_p:
+
+static int
+foo_live_p(SCM obj)
+{
+    return(foo_p(obj) && SCM_CDR(obj) != NULL);
+}
+
+In you destructor, you need to do:
+
+~Foo_class()
+{
+    SCM_CDR(this->obj, NULL);
+}
+
+When writing new primitives, now just check foo_live_p().
+
+I hope the above helps,
+
+-russ
+
+
+--
+"Even if you are on the right track, you'll get run over 
+if you just sit there."  
+             --Will Rogers (1879-1935)
+
 * OUTLINE SETUP
 .* .EMACS
 ;;; from outline.el
@@ -660,6 +735,6 @@ explanation.
 	    (make-local-variable 'font-lock-defaults)
 	    (setq font-lock-defaults '(outline-font-lock-keywords t))
 	    (font-lock-mode (global-font-lock-mode))))
-
+ 
 (require 'allout)
 (outline-init 't)

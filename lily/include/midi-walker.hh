@@ -1,7 +1,7 @@
 /*
   midi-walker.hh -- declare Midi_walker
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+  (c) 1996,  1997--1999 Han-Wen Nienhuys  <hanwen@cs.uu.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
  */
 

@@ -1,7 +1,7 @@
 /*
   audio-item.hh -- declare Audio_items
 
-  (c) 1996,  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996,  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef AUDIO_ITEM_HH

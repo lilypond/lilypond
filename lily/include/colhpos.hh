@@ -1,7 +1,7 @@
 /*
   colhpos.hh -- part of GNU LilyPond
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef COLHPOS_HH

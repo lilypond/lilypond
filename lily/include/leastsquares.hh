@@ -1,7 +1,7 @@
 /*
   leastsquare.hh -- part of GNU LilyPond
 
-  (c) 1996--1998 Han-Wen Nienhuys
+  (c) 1996--1999 Han-Wen Nienhuys
 */
 
 #ifndef LEASTSQUARE_HH

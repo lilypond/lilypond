@@ -1,7 +1,7 @@
 /*
   curve.hh -- declare point and curve
 
-  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef CURVE_HH

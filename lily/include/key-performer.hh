@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef KEY_PERFOMER_HH

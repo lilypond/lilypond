@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -29,6 +29,8 @@
   */
 
 class Paper_column : public Horizontal_group_item { 
+protected:
+  virtual bool breakable_b () const;
 public:
   
   VIRTUAL_COPY_CONS(Score_element);
