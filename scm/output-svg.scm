@@ -106,13 +106,29 @@
 
 (define (svg-font font)
   (let* ((encoding (ly:font-encoding font))
-	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start)))
-   (format #f "font-family:~a;font-size:~a;text-anchor:~S;"
-	   (otf-name-mangling font (font-family font))
+	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start))
+	 (family (font-family font)))
+   (format #f "font-family:~a;font-weight:~a;font-size:~a;text-anchor:~S;"
+	   (otf-name-mangling font family)
+	   (otf-weight-mangling font family)
 	   (font-size font) anchor)))
 
 (define (fontify font expr)
    (tagify "text" expr (cons 'style (svg-font font))))
+
+(define-public (otf-name-mangling font family)
+  ;; Hmm, family is bigcheese20/26?
+  (if (string=? (substring family 0 (min (string-length family) 9))
+		"bigcheese")
+      "LilyPond"
+      family))
+
+(define-public (otf-weight-mangling font family)
+  ;; Hmm, family is bigcheese20/26?
+  (if (string=? (substring family 0 (min (string-length family) 9))
+		"bigcheese")
+      (substring family 9)
+      "Regular"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters

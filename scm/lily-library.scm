@@ -342,13 +342,3 @@ possibly turned off."
 	  ;;(stderr "font-file-name: ~S\n" (ly:font-file-name font))
 	  (ly:font-file-name font)))))
 
-(define-public (char->unicode-index font char)
-  (ly:font-index-to-charcode font (char->integer char)))
-
-(define-public (otf-name-mangling font family)
-  ;; Hmm, family is bigcheese20/26?
-  (if (string=? (substring family 0 (min (string-length family) 9))
-		"bigcheese")
-      "LilyPond"
-      family))
-
