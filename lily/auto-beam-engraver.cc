@@ -291,7 +291,8 @@ Auto_beam_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      finished_grouping_p_->beamify ();
+      finished_grouping_p_->beamify(*unsmob_moment (get_property ("beatLength")),
+				    (bool)gh_scm2bool(get_property("subdivideBeams")));
       Beam::set_beaming (finished_beam_p_, finished_grouping_p_);
       typeset_grob (finished_beam_p_);
       finished_beam_p_ = 0;
