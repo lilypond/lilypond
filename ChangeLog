@@ -1,5 +1,7 @@
 2004-01-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/output-ascii-script.scm (bracket): rounding bfs.
+
 	* scripts/convert-ly.py (conv): add \include "paper" rule. 
 
 	* ly/paper*.ly: remove files. 
