@@ -326,6 +326,7 @@ to flip the direction of custos stem.")
 . @var{accidental})} pairs.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
+     (no-ledgers ,boolean? "If set, don't draw ledger lines on this object.")
      (no-spacing-rods ,boolean? "Items with this property do not cause
 spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
