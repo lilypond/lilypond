@@ -1,29 +1,23 @@
-diff -urN ../cinstall/Makefile.in ./Makefile.in
---- ../cinstall/Makefile.in	Thu Feb  8 05:55:22 2001
-+++ ./Makefile.in	Thu Apr 12 11:41:37 2001
-@@ -130,11 +130,15 @@
- 	@chmod a-x $@
- 
- clean:
--	rm -f *.o *.rc $(PROGS)
--	$(MAKE) -C zlib clean
-+	rm -f *.o $(PROGS)
-+	$(MAKE) -C zlib $@
+Binary files ../cinstall/LilyPond.ico and ./LilyPond.ico differ
+diff -purN ../cinstall/Makefile.in ./Makefile.in
+--- ../cinstall/Makefile.in	Fri Jun  1 05:56:01 2001
++++ ./Makefile.in	Thu Sep 13 21:38:27 2001
+@@ -135,8 +135,9 @@ clean:
+ 	$(MAKE) -C zlib clean
  
  realclean: clean
 -	rm -f  Makefile config.cache
+-
 +	rm -f Makefile *.d
 +	rm -f config.cache config.log config.status 
-+	rm -f inilex.c iniparse.c iniparse.h version.c
-+
-+distclean: realclean
- 
++ 
  install: all
  	$(SHELL) $(updir1)/mkinstalldirs $(bindir) $(etcdir)
-diff -urN ../cinstall/desktop.cc ./desktop.cc
---- ../cinstall/desktop.cc	Sat Nov 11 05:55:16 2000
-+++ ./desktop.cc	Thu Apr 12 11:39:52 2001
-@@ -79,9 +79,7 @@
+ 	for i in $(PROGS) ; do \
+diff -purN ../cinstall/desktop.cc ./desktop.cc
+--- ../cinstall/desktop.cc	Tue Aug 14 05:55:37 2001
++++ ./desktop.cc	Thu Sep 13 21:37:38 2001
+@@ -76,9 +76,7 @@ static char *etc_profile[] = {
    "done",
    "",
    "export MAKE_MODE=unix",
@@ -34,7 +28,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
    "",
    "cd \"$HOME\"",
    "",
-@@ -197,6 +195,30 @@
+@@ -194,6 +192,30 @@ make_cygwin_bat ()
  }
  
  static void
@@ -64,23 +58,20 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
 +static void
  make_etc_profile ()
  {
-   char *fname = concat (get_root_dir (), "/etc/profile", 0);
-@@ -299,11 +321,11 @@
+   char *fname = cygpath ("/etc/profile", 0);
+@@ -290,9 +312,9 @@ make_passwd_group ()
  }
  
  static void
 -save_icon ()
 +save_icon (char* iconfile, char* iconres)
  {
--  iconname = backslash (concat (get_root_dir (), "/cygwin.ico", 0));
+-  iconname = backslash (cygpath ("/cygwin.ico", 0));
 +  iconname = backslash (concat (get_root_dir (), iconfile, 0));
  
--  HRSRC rsrc = FindResource (NULL, "CYGWIN.ICON", "FILE");
-+  HRSRC rsrc = FindResource (NULL, iconres, "FILE");
+   HRSRC rsrc = FindResource (NULL, "CYGWIN.ICON", "FILE");
    if (rsrc == NULL)
-     {
-       fatal ("FindResource failed");
-@@ -323,7 +345,7 @@
+@@ -314,7 +336,7 @@ save_icon ()
  static void
  do_desktop_setup()
  {
@@ -89,7 +80,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
  
    make_cygwin_bat ();
    make_etc_profile ();
-@@ -335,6 +357,17 @@
+@@ -326,6 +348,17 @@ do_desktop_setup()
  
    if (root_desktop) {
      desktop_icon ("Cygwin", batname);
@@ -107,10 +98,10 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
    }
  }
  
-diff -urN ../cinstall/ini.cc ./ini.cc
---- ../cinstall/ini.cc	Thu Oct  5 05:55:27 2000
-+++ ./ini.cc	Thu Apr 12 11:39:52 2001
-@@ -174,7 +174,7 @@
+diff -purN ../cinstall/ini.cc ./ini.cc
+--- ../cinstall/ini.cc	Thu Jun 14 05:55:26 2001
++++ ./ini.cc	Thu Sep 13 21:27:48 2001
+@@ -175,7 +175,7 @@ fprintf (FILE *f, const char *fmt, ...)
  	{
  	  *nl = 0;
  	  /*OutputDebugString (stderrbuf);*/
@@ -118,11 +109,11 @@ diff -urN ../cinstall/ini.cc ./ini.cc
 +	  MessageBox (0, buf, "GNU LilyPond Cygwin Setup", 0);
  	  stderrbuf[0] = 0;
  	}
-       
-diff -urN ../cinstall/msg.cc ./msg.cc
+ 
+diff -purN ../cinstall/msg.cc ./msg.cc
 --- ../cinstall/msg.cc	Sat Aug 26 05:55:14 2000
-+++ ./msg.cc	Thu Apr 12 11:39:52 2001
-@@ -44,7 +44,7 @@
++++ ./msg.cc	Thu Sep 13 21:27:48 2001
+@@ -44,7 +44,7 @@ mbox (char *name, int type, int id, va_l
  
    vsprintf (buf, fmt, args);
    log (0, "mbox %s: %s", name, buf);
@@ -131,10 +122,10 @@ diff -urN ../cinstall/msg.cc ./msg.cc
  }
  
  void
-diff -urN ../cinstall/res.rc ./res.rc
---- ../cinstall/res.rc	Wed Mar  7 18:13:31 2001
-+++ ./res.rc	Fri Apr 13 16:06:40 2001
-@@ -30,10 +30,10 @@
+diff -purN ../cinstall/res.rc ./res.rc
+--- ../cinstall/res.rc	Thu Jul  5 05:55:22 2001
++++ ./res.rc	Thu Sep 13 21:36:25 2001
+@@ -30,10 +30,10 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_U
  
  IDD_SOURCE DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -144,11 +135,15 @@ diff -urN ../cinstall/res.rc ./res.rc
  BEGIN
 -    ICON            IDI_CYGWIN,-1,5,5,20,20
 +    ICON            IDI_LILYPOND,-1,5,5,20,20
-     CONTROL         "&Download from Internet",IDC_SOURCE_DOWNLOAD,"Button",
-                     BS_AUTORADIOBUTTON,55,15,152,10
      CONTROL         "&Install from Internet",IDC_SOURCE_NETINST,"Button",
-@@ -49,7 +49,7 @@
- CAPTION "Local package directory"
+                     BS_AUTORADIOBUTTON,55,15,75,10
+     CONTROL         "&Download from Internet",IDC_SOURCE_DOWNLOAD,"Button",
+@@ -46,10 +46,10 @@ END
+ 
+ IDD_LOCAL_DIR DIALOG DISCARDABLE  0, 0, 215, 95
+ STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+-CAPTION "Cygwin Setup"
++CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
 -    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
@@ -156,7 +151,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      PUSHBUTTON      "B&rowse...",IDC_LOCAL_DIR_BROWSE,150,10,34,14
      LTEXT           "Local Package &Directory",IDC_STATIC,55,15,85,11
      EDITTEXT        IDC_LOCAL_DIR,55,25,127,12,ES_AUTOHSCROLL
-@@ -60,10 +60,10 @@
+@@ -60,10 +60,10 @@ END
  
  IDD_ROOT DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -169,7 +164,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      PUSHBUTTON      "B&rowse...",IDC_ROOT_BROWSE,150,10,34,14
      LTEXT           "Select install root &directory",IDC_STATIC,55,15,85,11
      EDITTEXT        IDC_ROOT_DIR,55,25,127,12,ES_AUTOHSCROLL
-@@ -84,10 +84,10 @@
+@@ -84,10 +84,10 @@ END
  
  IDD_SITE DIALOG DISCARDABLE  0, 0, 222, 206
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -182,7 +177,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      LTEXT           "Select Download &Site",IDC_STATIC,55,5,135,11
      LISTBOX         IDC_URL_LIST,55,20,160,155,LBS_NOINTEGRALHEIGHT | 
                      WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
-@@ -98,10 +98,10 @@
+@@ -98,10 +98,10 @@ END
  
  IDD_OTHER_URL DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -195,9 +190,9 @@ diff -urN ../cinstall/res.rc ./res.rc
      LTEXT           "Select &URL to download from",IDC_STATIC,55,15,135,11
      EDITTEXT        IDC_OTHER_URL,55,25,127,12,ES_AUTOHSCROLL
      DEFPUSHBUTTON   "&Next -->",IDOK,100,75,45,15
-@@ -111,10 +111,10 @@
+@@ -111,10 +111,10 @@ END
  
- IDD_NET DIALOG DISCARDABLE  0, 0, 215, 95
+ IDD_NET DIALOGEX 0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
@@ -205,10 +200,10 @@ diff -urN ../cinstall/res.rc ./res.rc
  BEGIN
 -    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
 +    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     CONTROL         "Use &IE5 Settings",IDC_NET_IE5,"Button",
-                     BS_AUTORADIOBUTTON,55,10,69,10
      CONTROL         "&Direct Connection",IDC_NET_DIRECT,"Button",
-@@ -135,10 +135,10 @@
+                     BS_AUTORADIOBUTTON,55,10,73,10
+     CONTROL         "Use &IE5 Settings",IDC_NET_IE5,"Button",
+@@ -135,10 +135,10 @@ END
  IDD_DLSTATUS DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | 
      WS_CAPTION | WS_SYSMENU
@@ -221,7 +216,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
      LTEXT           "Downloading...",IDC_STATIC,55,5,135,8
      LTEXT           "(URL)",IDC_DLS_URL,55,15,150,8
-@@ -157,10 +157,10 @@
+@@ -157,10 +157,10 @@ END
  IDD_INSTATUS DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | 
      WS_CAPTION | WS_SYSMENU
@@ -234,7 +229,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
      LTEXT           "Installing...",IDC_INS_ACTION,55,5,135,8
      LTEXT           "(PKG)",IDC_INS_PKG,55,15,150,8
-@@ -178,10 +178,10 @@
+@@ -178,10 +178,10 @@ END
  
  IDD_PROXY_AUTH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -247,7 +242,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      LTEXT           "Proxy &User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
                      WS_EX_RIGHT
      EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
-@@ -195,10 +195,10 @@
+@@ -195,10 +195,10 @@ END
  
  IDD_NET_AUTH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -260,7 +255,7 @@ diff -urN ../cinstall/res.rc ./res.rc
      LTEXT           "&User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
                      WS_EX_RIGHT
      EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
-@@ -212,26 +212,25 @@
+@@ -212,27 +212,25 @@ END
  
  IDD_SPLASH DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -270,32 +265,33 @@ diff -urN ../cinstall/res.rc ./res.rc
  BEGIN
 -    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
 -    LTEXT           "Cygwin Net Release Setup Program",IDC_STATIC,55,10,114,
+-                    8
+-    LTEXT           "Version (unknown)",IDC_VERSION,55,25,120,10
+-    LTEXT           "Copyright 2000, 2001 Red Hat Inc.",IDC_STATIC,55,35,
+-                    120,8
+-    LTEXT           "http://sources.redhat.com/cygwin/",IDC_STATIC,55,50,112,
 +    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
 +    LTEXT           "GNU LilyPond GNU LilyPond Setup Program",IDC_STATIC,55,10,114,
                      8
--    LTEXT           "Version (unknown)",IDC_VERSION,55,25,120,10
--    LTEXT           "Copyright (C) 2000 Red Hat Inc",IDC_STATIC,55,35,135,8
--    LTEXT           "http://sources.redhat.com/cygwin/",IDC_STATIC,55,50,150,
--                    10
-+    LTEXT           "Version (1.4pre)",IDC_VERSION,55,25,120,10
++    LTEXT           "Version (1.5)",IDC_VERSION,55,25,120,10
 +    LTEXT           "Copyright (C) 2000-2001 Red Hat Inc",IDC_STATIC,55,35,135,8
 +    LTEXT           "                (C) 2001 Jan Nieuwenhuizen <janneke@gnu.org>",IDC_STATIC,55,45,135,8
      DEFPUSHBUTTON   "&Next -->",IDOK,100,75,45,15
      PUSHBUTTON      "Cancel",IDCANCEL,165,75,45,15
  END
  
- IDD_CHOOSE DIALOG DISCARDABLE  0, 0, 292, 206
+ IDD_CHOOSE DIALOG DISCARDABLE  0, 0, 430, 207
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 -CAPTION "Cygwin Setup"
 +CAPTION "GNU LilyPond Setup"
  FONT 8, "MS Sans Serif"
  BEGIN
--    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
-+    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
-     LTEXT           "Select packages to install",IDC_STATIC,55,5,85,8
+-    ICON            IDI_CYGWIN,IDC_STATIC,5,5,21,20
++    ICON            IDI_LILYPOND,IDC_STATIC,5,5,21,20
+     LTEXT           "Select packages to install",IDC_CHOOSE_INST_TEXT,55,5,
+                     99,8
      CONTROL         "",IDC_LISTVIEW_POS,"Static",SS_BLACKFRAME | NOT 
-                     WS_VISIBLE,55,15,230,155
-@@ -249,10 +248,10 @@
+@@ -255,10 +253,10 @@ END
  
  IDD_DESKTOP DIALOG DISCARDABLE  0, 0, 215, 95
  STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
@@ -308,7 +304,16 @@ diff -urN ../cinstall/res.rc ./res.rc
      CONTROL         "Create Desktop &Icon",IDC_ROOT_DESKTOP,"Button",
                      BS_AUTOCHECKBOX,55,25,100,8
      CONTROL         "Add to &Start Menu",IDC_ROOT_MENU,"Button",
-@@ -298,6 +297,7 @@
+@@ -273,7 +271,7 @@ STYLE DS_MODALFRAME | DS_CENTER | WS_POP
+ CAPTION "Cygwin Setup"
+ FONT 8, "MS Sans Serif"
+ BEGIN
+-    ICON            IDI_CYGWIN,IDC_STATIC,5,5,20,20
++    ICON            IDI_LILYPOND,IDC_STATIC,5,5,20,20
+     LTEXT           "&User ID",IDC_STATIC,5,28,55,15,SS_CENTERIMAGE,
+                     WS_EX_RIGHT
+     EDITTEXT        IDC_NET_USER,65,28,145,12,ES_AUTOHSCROLL
+@@ -322,6 +320,7 @@ END
  
  // Icon with lowest ID value placed first to ensure application icon
  // remains consistent on all systems.
@@ -316,7 +321,7 @@ diff -urN ../cinstall/res.rc ./res.rc
  IDI_CYGWIN              ICON    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -305,6 +305,7 @@
+@@ -329,6 +328,7 @@ IDI_CYGWIN              ICON    DISCARDA
  // FILE
  //
  
@@ -324,7 +329,7 @@ diff -urN ../cinstall/res.rc ./res.rc
  CYGWIN.ICON             FILE    DISCARDABLE     "cygwin.ico"
  
  /////////////////////////////////////////////////////////////////////////////
-@@ -354,7 +355,8 @@
+@@ -383,7 +383,8 @@ STRINGTABLE DISCARDABLE 
  BEGIN
      IDS_ROOT_SLASH          "Warning: we recommend you do NOT use the root of your hard drive as the cygwin root.  Proceed anyway?"
      IDS_ROOT_SPACE          "You should not choose a root path that include spaces in directory names.  Proceed anyway?"
@@ -334,10 +339,10 @@ diff -urN ../cinstall/res.rc ./res.rc
      IDS_DIALOG_FAILED       "Unable to create Dialog Box"
      IDS_CYGWIN_FUNC_MISSING "Error: unable to find function `%s' in %s"
      IDS_DOWNLOAD_SHORT      "Download error: %s too short (%d, wanted %d)"
-diff -urN ../cinstall/resource.h ./resource.h
---- ../cinstall/resource.h	Thu Mar  1 05:55:20 2001
-+++ ./resource.h	Thu Apr 12 11:39:52 2001
-@@ -47,11 +47,12 @@
+diff -purN ../cinstall/resource.h ./resource.h
+--- ../cinstall/resource.h	Mon Jul  2 05:55:40 2001
++++ ./resource.h	Thu Sep 13 21:29:51 2001
+@@ -47,12 +47,13 @@
  #define IDB_SPIN                        118
  #define IDB_RTARROW                     119
  #define IDI_SPIN                        120
@@ -347,21 +352,14 @@ diff -urN ../cinstall/resource.h ./resource.h
  #define IDB_CHECK_YES                   123
  #define IDB_CHECK_NO                    124
  #define IDB_CHECK_NA                    125
-+#define IDI_CYGWIN                      126
+ #define IDD_FTP_AUTH                    126
++#define IDI_CYGWIN                      127
  #define IDC_SOURCE_DOWNLOAD             1000
  #define IDC_SOURCE_NETINST              1001
  #define IDC_SOURCE_CWD                  1002
-diff -urN ../cinstall/zlib/Makefile.in ./zlib/Makefile.in
---- ../cinstall/zlib/Makefile.in	Tue Aug  8 05:55:18 2000
-+++ ./zlib/Makefile.in	Thu Apr 12 11:42:10 2001
-@@ -299,6 +299,10 @@
- 
- clean: clean-am
- 
-+realclean: clean
-+	rm -f Makefile *.d
-+	rm -f config.cache config.log config.status 
-+
- distclean-am:  distclean-noinstLIBRARIES distclean-compile \
- 		distclean-tags distclean-generic clean-am
- 
+diff -purN ../cinstall/version.c ./version.c
+--- ../cinstall/version.c	Thu Jan  1 01:00:00 1970
++++ ./version.c	Mon Sep 17 18:44:46 2001
+@@ -0,0 +1,2 @@
++char *version = "2.96.jcn1";
++static char *id = "\n%%% setup-version 2.96.jcn1\n";

@@ -8,7 +8,6 @@
 */
 #include <assert.h>
 #include "duration-convert.hh"
-#include "duration-iter.hh"
 #include "warn.hh"
 
 // statics Duration_convert
@@ -39,8 +38,11 @@ Duration_convert::dur2_str (Duration dur)
      }
   str += to_str ('.', dur.dots_i_);
   if (dur.plet_b ())
-    str += String ("*") + to_str (dur.plet_.iso_i_)
-      + String ("/") + to_str (dur.plet_.type_i_);
+    {
+      str += String ("*") + to_str (dur.plet_.iso_i_);
+      if (dur.plet_.type_i_ != 1)
+	str += String ("/") + to_str (dur.plet_.type_i_);
+    }
   return str;
 }
 
@@ -110,48 +112,57 @@ Duration_convert::mom2_dur (Rational mom)
   return mom2standardised_dur (mom);
 }
 
+
 Duration
 Duration_convert::mom2standardised_dur (Rational mom)
 {
-  //	if (!dur_array_s.length_i ())
-  if (!dur_array_s.size ())
-    set_array ();
-  assert (dur_array_s.size ());
-  for (int i = 0; i < dur_array_s.size () - 1; i++) 
+  Duration dur;
+
+  if (mom == Rational (0))
+    return dur;
+
+  int d = no_smaller_than_i_s ? no_smaller_than_i_s : 7;
+  int i = type2_i (d);
+  int n = (mom / Rational (1, i)).to_int ();
+  
+  int tuplet = 1;
+  if (!no_tuplets_b_s)
     {
-      Rational lower_mom = dur2_mom (dur_array_s[ i ]);
-      if (mom <= lower_mom) 
+      // ugh: 8
+      int m = n;
+      int tup = 1;
+      while (tup < 8 && 
+	     mom != Rational (m, i * tup))
 	{
-	  // all arbitrary, but 3/4 will get rid of the noise...
-	  // kinda ok
-	  if (i || (mom / lower_mom > Rational (3, 4)))
-	    return dur_array_s[ i ];
-	  else 
-	    {
-	      Duration d;
-	      d.durlog_i_ = -100;
-	      return d;
-	    }
+	  tup += 2;
+	  m = (mom / Rational (1, i * tup)).to_int ();
 	}
-      Rational upper_mom = dur2_mom (dur_array_s[ i + 1 ]);
-      if ((mom < upper_mom)
-	  && ((mom - lower_mom) / lower_mom
-	      < (upper_mom - mom) / upper_mom))
-	return dur_array_s[ i ];
+
+      if (tuplet < 8)
+	{
+	  n = m;
+	  tuplet = tup;
+	}
     }
-  return dur_array_s[ dur_array_s.size () - 1 ];
+      
+  if (!n)
+    return dur;
+  
+  if (mom - Rational (n, i)
+      > Rational (1, i * 2 * tuplet))
+    n++;
+  
+  while (!(n & 1))
+    {
+      n >>= 1;
+      d--;
+    }
+  
+  dur.durlog_i_ = d;
+  dur.plet_.iso_i_ = n;
+  dur.plet_.type_i_ = tuplet;
+  return dur;
 }
-
-void
-Duration_convert::set_array ()
-{
-  dur_array_s.clear ();
-
-  Duration_iterator i;
-  while (i.ok ())
-    dur_array_s.push (i.forward_dur ());
-}
-
 
 Rational
 Duration_convert::plet_factor_mom (Duration dur)

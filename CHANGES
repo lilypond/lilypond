@@ -1,5 +1,7 @@
-1.5.10.jcn1
+1.5.10.jcn2
 ==========
+
+* midi2ly: support chords, duration conversion rewrite.
 
 * parser.yy: Guile > 1.4 compilation fix; scm_unprotect_object is deprecated.
 

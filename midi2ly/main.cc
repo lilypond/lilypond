@@ -1,7 +1,7 @@
 //
 // main.cc -- implement  main () entry point
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <stdlib.h>
 #include <iostream.h>

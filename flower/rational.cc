@@ -301,6 +301,12 @@ Rational::str () const
 }
 
 int
+Rational::to_int () const
+{
+  return num () / den ();
+}
+
+int
 sign (Rational r)
 {
   return r.sign ();

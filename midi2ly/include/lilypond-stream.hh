@@ -1,7 +1,7 @@
 //
 //  lilypond-stream.hh -- part of LilyPond
 //
-//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+//  (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 // should i be named Lilypond_stream?
 

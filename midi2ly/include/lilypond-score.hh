@@ -1,7 +1,7 @@
 //
 // lilypond-score.hh -- declare Lilypond_score
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef LILYPOND_SCORE_HH
 #define LILYPOND_SCORE_HH

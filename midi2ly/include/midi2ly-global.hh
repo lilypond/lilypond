@@ -1,7 +1,7 @@
 //
 // midi2ly-global.hh -- declare global stuff for midi2ly
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MIDI2LY_GLOBAL_HH
 #define MIDI2LY_GLOBAL_HH
