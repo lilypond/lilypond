@@ -65,7 +65,7 @@
        (apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
-  (format #f " ~S,~S" (car o) (cdr o)))
+  (format #f " ~S,~S" (car o)  (- (cdr o))))
 
 (define (svg-bezier lst close)
   (let* ((c0 (car (list-tail lst 3)))
@@ -90,15 +90,23 @@
   (apply string-append
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
-(define pango-description-regexp
-  (make-regexp "^([^,]+)+, ?([-a-zA-Z_]*) ([0-9.]+)$"))
+(define pango-description-regexp-comma
+  (make-regexp "^([^,]+), ?([-a-zA-Z_]*) ([0-9.]+)$"))
+
+(define pango-description-regexp-nocomma
+  (make-regexp "^([^ ]+) ([-a-zA-Z_]*) ?([0-9.]+)$"))
 
 (define (pango-description-to-svg-font str)
   (let*
       ((size 4.0)
        (family "Helvetica")
        (style #f)
-       (match (regexp-exec pango-description-regexp str)))
+       (match-1 (regexp-exec pango-description-regexp-comma str))
+       (match-2 (regexp-exec pango-description-regexp-nocomma str))
+       (match (if match-1
+		  match-1
+		  match-2))
+       )
 
     (if (regexp-match? match)
 	(begin
@@ -134,7 +142,9 @@
 		size anchor))))
 
 (define (fontify font expr)
-  (entity 'text expr (cons 'style (svg-font font))))
+  (entity 'text expr
+	  `(style . ,(svg-font font))
+	  ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -166,7 +176,7 @@
 	    `(width . ,width)
 	    `(height . ,(+ thick (* (abs z) (/ thick 2))))
 	    `(rx . ,(/ blot-diameter 2))
-	    `(transform . ,(format #f "matrix (1, ~f, 0, 1, 0, 0)" (- z))
+	    `(transform . ,(format #f "matrix (1, ~f, 0, 1, 0, 0)"  z)
 			   ))))
 
 (define (beam width slope thick blot-diameter)
@@ -228,21 +238,23 @@
 (define-public (comment s)
   (string-append "<!-- " s " !-->\n"))
 
-(define (dashed-line thick on off dx dy)
-  (draw-line thick 0 0 dx dy))
+(define (draw-line thick x1 y1 x2 y2 . alist)
+  
+  (apply entity 'line ""
+	 (append
+	  `((stroke-linejoin . "round")
+	    (stroke-linecap . "round")
+	    (stroke-width . ,thick)
+	    (stroke . "black")
+	    ;;'(fill . "black")
+	    (x1 . ,x1)
+	    (y1 . ,y1)
+	    (x2 . ,x2)
+	    (y2 . ,y2))
+	  alist)))
 
-(define (draw-line thick x1 y1 x2 y2)
-  (entity 'line ""
-	  '(stroke-linejoin . "round")
-	  '(stroke-linecap . "round")
-	  `(stroke-width . ,thick)
-	  '(stroke . "black")
-	  ;;'(fill . "black")
-	  `(x1 . ,x1)
-	  `(y1 . ,y1)
-	  `(x2 . ,x2)
-	  `(y2 . ,y2)
-	  ))
+(define (dashed-line thick on off dx dy)
+  (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
@@ -263,8 +275,8 @@
 	  ;;(dispatch expr)
 	  expr
 	  `(transform . ,(format #f "translate (~f, ~f)"
-				 x
-				 (-  y)))))
+				 x (- y)))))
+
 
 (define (polygon coords blot-diameter)
   (entity 'polygon ""

@@ -44,13 +44,14 @@
 	      `(width . ,(format #f "~s" page-width))
 	      `(height . ,(format #f "~s" page-height))))
     
-    (dump (dump-fonts outputter paper))
+;    (dump (dump-fonts outputter paper))
     (dump
      (string-append
       ;; FIXME: only use pages if there are more than one, pageSet is
       ;; not supported by all SVG applications yet.
       (if page-set? (eo 'pageSet) "")
-      (eo 'g `(transform . ,(format "scale(~a,~a)" output-scale output-scale)))))
+      (eo 'g `(transform . ,(format "scale(~a, ~a) "
+				    output-scale output-scale)))))
     
     (for-each
      (lambda (page)
@@ -75,7 +76,7 @@
 	   (eo 'page '(page-orientation . "270"))
 	   (eo 'page))))
   
-  (dump (string-append (eo 'g)))
+  (dump (string-append (eo 'g )))
   (ly:outputter-dump-stencil outputter page)
   (dump (string-append (ec 'g)))
   (if (or landscape? page-set?)
