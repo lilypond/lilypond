@@ -18,7 +18,11 @@
 		  (italic "three"))
 		f-\textscript #'(finger "3")
 		g-\textscript #'(music (named "noteheads-2" "flags-u3"))
-	}
+		
+		b-#'(rows "a" ((kern . 3) ((raise . 2) "b")) "c")
+		c-#'(rows "1" ((kern . -3) ((raise . -2) "2")) "3")
+		
+		}
 	\paper{
 		linewidth = -1.\mm;
 		\translator{

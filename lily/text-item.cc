@@ -28,7 +28,7 @@
  */
 
 /*
-  TODO:
+  FIXME:
 
   rewrite routines and syntax to be like
 
@@ -128,13 +128,6 @@ Molecule
 Text_item::markup_sentence2molecule (Grob *me, SCM markup_sentence,
 				     SCM alist_chain)
 {
-  /*
-    FIXME
-
-    huh?
-   */
-  // return Molecule ();
-  
   SCM sheet = me->paper_l ()->style_sheet_;
   SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   
@@ -159,17 +152,32 @@ Text_item::markup_sentence2molecule (Grob *me, SCM markup_sentence,
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
+#if 0
   Offset o (align == X_AXIS ? kern : 0,
 	    (align == Y_AXIS ? - kern : 0) + raise);
-
+#else
+  Offset o (0, (align == Y_AXIS ? - kern : 0) + raise);
+#endif
+ 
   Molecule mol;
   while (gh_pair_p (sentence))
     {
+      /* Ugh: this (kerning) only works if 'kern' is the first modifier of a
+	 markup.  I guess the only solution is to rewrite markup definition,
+	 see above. */
       Molecule m = text2molecule (me, gh_car (sentence), p);
+      Real m_kern = 0;
+      SCM m_p = SCM_EOL;
+      if (gh_pair_p (gh_car (sentence)))
+	m_p = gh_cons  (gh_call2 (f, sheet, gh_caar (sentence)), alist_chain);
+      SCM m_k = ly_assoc_chain (ly_symbol2scm ("kern"), m_p);
+      if (gh_pair_p (m_k) && gh_number_p (gh_cdr (m_k)))
+	m_kern = gh_scm2double (gh_cdr (m_k)) * staff_space;
+
       if (!m.empty_b ())
 	{
 	  m.translate (o);
-	  mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, 0);
+	  mol.add_at_edge (align, align == X_AXIS ? RIGHT : DOWN, m, m_kern);
 	}
       sentence = gh_cdr (sentence);
     }

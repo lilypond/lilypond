@@ -96,8 +96,8 @@
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N"))
-	 ;; slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-relative-size . -3) "/"))) "7")) ; slashed o
+	 ;; ugh, kludge slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((kern . -0.85) ((raise . 0.57) ((font-relative-size . -3) "/"))) "7")) ; slashed o
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows "7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
