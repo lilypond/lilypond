@@ -1,5 +1,9 @@
 2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/font-select.cc: new file handle font selection routines.
+
+	* lily/parser.yy: add ; (Patrick Atamaniuk)
+
 	* input/test/time-signature-double.ly: use markups for double time
 	sigs.
 
@@ -13,8 +17,8 @@
 	offsets. Fixes overflow errors in the PFA. 
 
 	* scm/new-markup.scm (strut-markup): change calling interface for
-	markup. Pass paper-def, not grob. This would \markup to be used
-	separately from grobs.
+	markup. Pass paper-def, not grob. This would allow \markup to be
+	used separately from grobs.
 
 	* lily/paper-def.cc: new function ly:paper-font; this function
 	replaces ly:get-font.
