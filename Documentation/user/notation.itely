@@ -3439,8 +3439,6 @@ The definition of lyrics mode is too complex.
 @subsection  The Lyrics context
 
 
-@c TODO: document \newlyrics
-
 Lyrics are printed by interpreting them in a @internalsref{Lyrics} context
 @example
  \context Lyrics \lyrics @dots{}

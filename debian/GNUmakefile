@@ -7,13 +7,12 @@ at-dir = $(outdir)/
 at-ext =
 
 CONF_FILES = changelog control copyright emacsen-startup \
-	preinst postinst postrm prerm rules watch
+	preinst  rules watch
 EXTRA_DIST_FILES = README.Debian $(CONF_FILES) \
 	control.foka control.potato \
-	lilypond.dirs lilypond.doc-base \
+	lilypond.doc-base \
 	lilypond-doc.dirs lilypond-doc.doc-base lilypond-doc.README.Debian \
 	lilypond1.3.copyright \
-	lilypond1.7.dirs lilypond1.7-doc.dirs
 #OUTCONF_FILES = $(addprefix $(outdir)/, $(basename $(CONF_FILES))) $(OUTIN_FILES)
 OUTCONF_FILES = $(OUTIN_FILES)
 OUT_DIST_FILES = $(OUTIN_FILES)
