@@ -1,5 +1,5 @@
 # -*-Makefile-*-
--# title	   specific top level makefile for LilyPond  
+# title	   specific top level makefile for LilyPond  
 
 # subdir level:
 #
