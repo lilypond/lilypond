@@ -246,6 +246,7 @@ String_convert::rational_str(Rational r)
 String
 String_convert::pointer_str(void const *l)
 {
-    I64 i64 = (I64)l;
-    return String_convert::i64_str(i64,  "0x%0Lx");
+    char buffer[STRING_BUFFER_LEN];
+    snprintf(buffer, STRING_BUFFER_LEN, "%p", l );     // assume radix 10
+    return String(buffer);
 }
