@@ -16,8 +16,8 @@ define_pixels (accreg_dot_size, accreg_linethickness, accreg_lh);
 
 
 fet_beginchar ("accDiscant", "accDiscant")
-	save r, p, lh, lt;
-	path p;
+	save r, pat, lh, lt;
+	path pat;
 
 	r# = 3/2 accreg_lh#;
 	define_pixels (r);
@@ -61,15 +61,15 @@ fet_beginchar ("accDiscant", "accDiscant")
 		     .. cycle;
 	fi;
 
-	p := z4{right}
-	     .. z1{up}
-	     .. {left}z2;
+	pat := z4{right}
+	       .. z1{up}
+	       .. {left}z2;
 
 	pickup penrazor scaled lt rotated 90;
 
-	top z5 = p intersectionpoint ((0, lh + lt) -- (w, lh + lt));
+	top z5 = pat intersectionpoint ((0, lh + lt) -- (w, lh + lt));
 	z6 = z5 xscaled -1;
-	bot z7 = p intersectionpoint ((0, 2 lh) -- (w, 2 lh));
+	bot z7 = pat intersectionpoint ((0, 2 lh) -- (w, 2 lh));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);
@@ -95,8 +95,7 @@ fet_endchar;
 
 
 fet_beginchar ("accFreebase", "accFreebase")
-	save r, p, lh, lt;
-	path p;
+	save r, lh, lt;
 
 	r# = accreg_lh#;
 	define_pixels (r);
@@ -149,7 +148,7 @@ fet_endchar;
 
 fet_beginchar ("accStdbase", "accStdbase")
 	save r, p, lh, lt;
-	path p;
+	path pat;
 
 	r# = 2 accreg_lh#;
 	define_pixels (r);
@@ -193,15 +192,15 @@ fet_beginchar ("accStdbase", "accStdbase")
 		     .. cycle;
 	fi;
 
-	p := z4{right}
-	     .. z1{up}
-	     .. {left}z2;
+	pat := z4{right}
+	       .. z1{up}
+	       .. {left}z2;
 
 	pickup penrazor scaled lt rotated 90;
 
-	top z5 = p intersectionpoint ((0, lh + lt) -- (w, lh + lt));
+	top z5 = pat intersectionpoint ((0, lh + lt) -- (w, lh + lt));
 	z6 = z5 xscaled -1;
-	bot z7 = p intersectionpoint ((0, 3 lh) -- (w, 3 lh));
+	bot z7 = pat intersectionpoint ((0, 3 lh) -- (w, 3 lh));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);

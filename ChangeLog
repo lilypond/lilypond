@@ -1,3 +1,12 @@
+2005-01-19  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-accordion.mf, mf/feta-klef.mf, mf/feta-pendaal.mf,
+	mf/feta-schrift.mf: s/p/pat/ if a path variable.
+
+	* mf/feta-autometric.mf	(set_char_box): Add code which emits
+	specials for mf2pt1 if run with metapost.
+	(to_bp): New macro for mf2pt1.
+
 2005-01-18  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/changing-defaults: added info on
@@ -180,10 +189,6 @@
 	(flare_path): Updated.
 	Make it work with `filldraw' (but only circular pens).
 	(hfloor, vfloor, hceiling, vceiling): New macros.
-
-	* mf/feta-params.mf (to_bp): New macro for mf2pt1.
-	(set_char_box): Updated.
-	Add code which emits specials for mf2pt1 if run with metapost.
 
 	* mf/feta-accordion.mf ("accDiscant", "accFreebase", "accStdbase"):
 	Use `draw' again in mf mode to have good pixel dropout control.
