@@ -116,7 +116,7 @@ Molecule::add_top(const Molecule &m)
 }
 
 void
-Molecule::add_bot(const Molecule &m)
+Molecule::add_bottom(const Molecule &m)
 {
     if (!ats.size()) {
 	add(m);
