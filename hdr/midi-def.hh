@@ -1,5 +1,5 @@
 /*
-  mididef.hh -- declare 
+  midi-def.hh -- declare 
 
   source file of the LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 //
-//  sourcefile.hh -- declare Source_file
+//  source-file.hh -- declare Source_file
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
@@ -10,11 +10,9 @@
 class Source_file
 {
 public:
-    /**
-      @return path to opened file.
-     */
-    // jcn: ugh! filename gets changed!, why?
-    Source_file( String& filename_str );
+    /** Ugh! filename gets changed! The path to the opened file may
+       change, since it might be searched in multiple directories.  */
+    Source_file( String& filename_str_r );
     virtual ~Source_file();
 
     char const* ch_c_l();

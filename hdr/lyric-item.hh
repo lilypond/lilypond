@@ -1,5 +1,5 @@
 //
-//  lyricitem.hh -- part of LilyPond
+//  lyric-item.hh -- part of LilyPond
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 

@@ -1,5 +1,5 @@
 //
-// mididef.cc -- implement midi output
+// midi-def.cc -- implement midi output
 //
 // source file of the LilyPond music typesetter
 //
@@ -7,7 +7,7 @@
 
 #include <math.h>
 #include "misc.hh"
-#include "mididef.hh"
+#include "midi-def.hh"
 #include "debug.hh"
 
 // classes, alphasorted

@@ -1,5 +1,5 @@
 //
-// midiitem.cc
+// midi-item.cc
 //
 // source file of the LilyPond music typesetter
 //
@@ -13,8 +13,9 @@
 #include "request.hh"
 #include "musicalrequest.hh"
 #include "voice.hh"
-#include "midiitem.hh"
-#include "midistream.hh"
+#include "midi-item.hh"
+#include "midi-stream.hh"
+#include "string-convert.hh"
 
 Midi_chunk::Midi_chunk()
 {

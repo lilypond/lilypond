@@ -1,5 +1,5 @@
 //
-//  midiitem.hh -- part of LilyPond
+//  midi-item.hh -- part of LilyPond
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 

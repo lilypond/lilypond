@@ -1,5 +1,5 @@
 //
-// midistream.cc
+// midi-stream.cc
 //
 // source file of the LilyPond music typesetter
 //
@@ -9,9 +9,10 @@
 #include <time.h>
 #include "main.hh"
 #include "misc.hh"
-#include "midiitem.hh"
-#include "midistream.hh"
+#include "midi-item.hh"
+#include "midi-stream.hh"
 #include "debug.hh"
+#include "string-convert.hh"
 
 Midi_stream::Midi_stream( String filename_str, int tracks_i, int clocks_per_4_i ) 
 {
