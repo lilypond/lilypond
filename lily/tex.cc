@@ -35,10 +35,6 @@ substitute_args (String source, Array<String> args)
   String retval (source);
   for (int i = 0 ; i < args.size(); i++)
       substitute_arg (retval, args[i]);
-  /*
-  while (retval.index_i ('%') >= 0)
-      substitute_arg (retval, "");
-	*/
   return retval;
 }
 
