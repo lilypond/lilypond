@@ -1,3 +1,8 @@
+2003-03-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/post-lilypond.sh: Add FHS-specified path for fonts to
+	clean out.
+
 2003-03-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chords-ignatzek.scm (alteration->text-accidental-markup):
