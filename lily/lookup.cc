@@ -24,6 +24,17 @@
 #include "main.hh"
 #include "lily-guile.hh"
 
+SCM
+array_to_list (SCM *a , int l)
+{
+  SCM list = SCM_EOL;
+  for (int i= l; i--;  )
+    {
+      list =  gh_cons (a[i], list);
+    }
+  return list;
+}
+
 
 Lookup::Lookup ()
 {
@@ -97,8 +108,6 @@ Lookup::afm_find (String s, bool warn) const
   a.dim_ = m.B_;
   a.dim_[X_AXIS] *= 1 / 1000.0;
   a.dim_[Y_AXIS] *= 1 / 1000.0;
-  Array<Real> arr;
-  arr.push (m.code ());
 
   
   a.lambda_ = gh_list (ly_symbol ("char"),
@@ -121,8 +130,7 @@ Lookup::ball (int j) const
 Atom
 Lookup::bar (String str, Real h) const
 {
-  Array<Real> arr;
-  arr.push (h);
+
   Atom a = (*symtables_p_) ("bars")->lookup (str);
   
   
@@ -143,14 +151,13 @@ Lookup::beam (Real slope, Real width, Real thick) const
   Real min_y = (0 <? height) - thick/2;
   Real max_y = (0 >? height) + thick/2;
 
-  Array<Real> arr;
-  arr.push (width);
-  arr.push (slope);
-  arr.push (thick);
-
   Atom a;
-  a.lambda_ =  (lambda_scm ("beam", arr));
-  a.str_ = "beam";
+  a.lambda_ =   gh_list (ly_symbol ("beam"),
+	   gh_double2scm (width),
+	   gh_double2scm (slope),
+	   gh_double2scm (thick),
+	   SCM_UNDEFINED);
+
   a.dim_[X_AXIS] = Interval (0, width);
   a.dim_[Y_AXIS] = Interval (min_y, max_y);
   return a;
@@ -189,12 +196,11 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
       sc[i] =  offset2scm (controls[i]);
     }
 
-  // (lambda (o) (dashed-slur o thick dash '(stuff))
   a.lambda_ = 
     gh_list (ly_symbol ("dashed-slur"),
 	     gh_double2scm (thick), 
 	     gh_double2scm (dash),
-	     gh_list (sc[1], sc[2], sc[3], sc[0], SCM_UNDEFINED),
+	     ly_quote_scm (array_to_list (sc, 4)),
 	     SCM_UNDEFINED);
 
   a.str_ = "dashed_slur";
@@ -217,9 +223,9 @@ Atom
 Lookup::extender (Real width) const
 {
   Atom a = (*symtables_p_) ("param")->lookup ("extender");
-  Array<Real> arr;
-  arr.push (width);
-  a.lambda_ = (lambda_scm (a.str_, arr));
+  a.lambda_ = gh_list (ly_symbol (a.str_),
+		       gh_double2scm (width),
+		       SCM_UNDEFINED);
   a.str_ = "extender";
   a.font_ = font_;
   return a;
@@ -311,16 +317,14 @@ Lookup::stem (Real y1, Real y2) const
   a.dim_.x () = Interval (0,0);
   a.dim_.y () = Interval (y1,y2);
 
-  Array<Real> arr;
-
   Real stem_width = paper_l_->get_var ("stemthickness");
 
-  gh_list (ly_symbol ("stem"),
-	   gh_double2scm(-stem_width /2),
-	   gh_double2scm(stem_width),
-	   gh_double2scm(y2),
-	   gh_double2scm(-y1),
-	   SCM_UNDEFINED);
+  a.lambda_ = gh_list (ly_symbol ("stem"),
+		       gh_double2scm(-stem_width /2),
+		       gh_double2scm(stem_width),
+		       gh_double2scm(y2),
+		       gh_double2scm(-y1),
+		       SCM_UNDEFINED);
 
   a.font_ = font_;
   return a;
@@ -341,16 +345,15 @@ Dictionary<Adobe_font_metric*> afm_p_dict;
 Atom
 Lookup::text (String style, String text) const
 {
-  Array<Scalar> arr;
-
-  arr.push (text);
   Atom a =  (*symtables_p_) ("style")->lookup (style);
-  a.lambda_ = lambda_scm (a.str_, arr);
+
+  a.lambda_ = gh_list(ly_symbol (a.str_),
+		      gh_str02scm (text.ch_C()),
+		      SCM_UNDEFINED);
+  
   Real font_w = a.dim_.x ().length ();
   Real font_h = a.dim_.y ().length ();
 
-// urg
-//  if (!cmr_dict.length_i ())
   if (!cmr_dict.elem_b ("roman"))
     {
       //brrrr
@@ -403,7 +406,6 @@ Lookup::text (String style, String text) const
     }
   DOUT << "\n" << to_str (w) << "\n";
   a.dim_.x () = Interval (0, w);
-  a.str_ = "text";
   a.font_ = font_;
   return a;
 }
@@ -413,43 +415,21 @@ Atom
 Lookup::time_signature (Array<int> a) const
 {
   Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
-  s.lambda_ =  (lambda_scm (s.str_, a));
-
+  s.lambda_ = gh_list (ly_symbol (s.str_),
+		       gh_int2scm (a[0]),
+		       gh_int2scm (a[1]),
+		       SCM_UNDEFINED);
   return s;
 }
 
-/*
-  should be handled via Tex_ code and Lookup::bar ()
- */
 Atom
 Lookup::vbrace (Real &y) const
 {
-  Atom a = (*symtables_p_) ("param")->lookup ( "brace");
-  Interval ydims = a.dim_[Y_AXIS];
-  Real min_y = ydims[LEFT];
-  Real max_y = ydims[RIGHT];
-  Real step = 1.0 PT;
- 
-  if (y < min_y)
-    {
-      warning (_ ("piano brace") 
-	       + " " + _ ("too small") +  " (" + print_dimen (y) + ")");
-      y = min_y;
-    }
-  if (y > max_y)
-    {
-      warning (_ ("piano brace")
-	       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
-      y = max_y;
-    }
-
-  
-  int idx = int (rint ( (y- min_y)/step)) + 1;
-  
-  Array<Real> arr;
-  arr.push (idx);
-  a.lambda_ = (lambda_scm (a.str_, arr));
-  a.str_ = "brace";
+  Atom a;
+  a.lambda_ = gh_list (ly_symbol ("pianobrace"),
+		       gh_double2scm (y),
+		       SCM_UNDEFINED
+		       );
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
   a.font_ = font_;
   return a;
@@ -460,13 +440,13 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 {
   Atom a;  
   Real height = paper_l_->staffheight_f () / 6;
-  Array<Real> arr;
-  arr.push (width);
-  arr.push (height);
-  arr.push (continued ? height/2 : 0);
+
   String hairpin = String (decresc ? "de" : "") + "crescendo\n";
-  a.lambda_ = lambda_scm (hairpin, arr);
-  a.str_ = "hairpin";
+  a.lambda_ = gh_list (ly_symbol (hairpin),
+		       gh_double2scm (width),
+		       gh_double2scm (height),
+		       gh_double2scm (continued ? height/2 : 0.0),
+		       SCM_UNDEFINED);
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (-2*height, 2*height);
   a.font_ = font_;
@@ -476,26 +456,14 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 Atom
 Lookup::plet (Real dy , Real dx, Direction dir) const
 {
-  Array<Real> arr;
-  arr.push (dx);
-  arr.push (dy);
-  arr.push (dir);
   Atom a;
-  a.lambda_ = (lambda_scm ("tuplet", arr));
-  a.str_ = "plet";
+  a.lambda_ = gh_list(ly_symbol ("tuplet"),
+		      gh_double2scm (dx),
+		      gh_double2scm (dy),
+		      gh_int2scm (dir));
   return a;
 }
 
-SCM
-array_to_list (SCM *a , int l)
-{
-  SCM list = SCM_EOL;
-  for (int i= l; i--;  )
-    {
-      list =  gh_cons (a[i], list);
-    }
-  return list;
-}
 
 Atom
 Lookup::slur (Array<Offset> controls) const
@@ -513,7 +481,7 @@ Lookup::slur (Array<Offset> controls) const
 
 
   a.lambda_ =gh_list (ly_symbol ("slur"),
-		      array_to_list (scontrols, 8),
+		      ly_quote_scm (array_to_list (scontrols, 8)),
 		      SCM_UNDEFINED);
 
   a.dim_[X_AXIS] = Interval (0, dx);
@@ -533,9 +501,10 @@ Lookup::vbracket (Real &y) const
 	       + " " + _ ("too small") +  " (" + print_dimen (y) + ")");
       //      y = min_y;
     }
-  Array<Real> arr;
-  arr.push (y);
-  a.lambda_ =  (lambda_scm ("bracket", arr));
+
+  a.lambda_ =  gh_list (ly_symbol ("bracket"),
+			gh_double2scm (y),
+			SCM_UNDEFINED);
   a.str_ = "vbracket";
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
   a.dim_[X_AXIS] = Interval (0,4 PT);
@@ -545,11 +514,11 @@ Lookup::vbracket (Real &y) const
 Atom
 Lookup::volta (Real w, bool last_b) const
 {
-  Array<Real> arr;
-  arr.push (w);
-  arr.push (last_b);
   Atom a;
-  a.lambda_ = (lambda_scm ("volta", arr));
+  a.lambda_ = gh_list (ly_symbol ("volta"),
+		       gh_double2scm (w),
+		       gh_int2scm (last_b),
+		       SCM_UNDEFINED);
   a.str_ = "volta";
   return a;
 }

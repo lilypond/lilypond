@@ -63,13 +63,10 @@
 
 ;;;;;;;; TeX
 
-
-
 (define (tex-scm action-name)
 
   (define (unknown) 
     "%\n\\unknown%\n")
-
 
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
@@ -142,6 +139,13 @@
      "\\placebox{"
      (number->dim y) "}{" (number->dim x) "}{" s "}"))
 
+  (define (pianobrace y)
+    (define step 1.0)
+    (define minht mudelapaperstaffheight)
+    (define maxht (* 6 minht))
+    (string-append
+     "{\\bracefont " (char  (/  (- (max y (- maxht step)) minht)   step)) "}"))
+  
   (define (rulesym h w) 
     (string-append 
      "\\vrule height " (number->dim (/ h 2))
@@ -209,6 +213,7 @@
 	   (define experimental-on  ,experimental-on)
 	   (define char  ,char)
 	   (define maatstreep ,maatstreep)
+	   (define pianobrace ,pianobrace)
 	   ))
 
 	((eq? action-name 'experimental-on) experimental-on)
@@ -390,10 +395,4 @@
 )
 
 
-(define 
-  (unknown-ps) 
-  "\n unknown\n")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; output definitions
 

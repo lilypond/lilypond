@@ -10,6 +10,7 @@
 #include <time.h>
 #include <fstream.h>
 
+#include "dictionary-iter.hh"
 #include "virtual-methods.hh"
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
@@ -20,6 +21,8 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "main.hh"
+#include "scope.hh"
+#include "identifier.hh"
 
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
@@ -38,7 +41,6 @@ Paper_outputter::output_header ()
 {
   String s = String ("(eval (") + output_global_ch + "-scm 'all-definitions))";
   gh_eval_str (s.ch_C());
-
   
   String creator;
   if (no_timestamps_global_b)
@@ -155,11 +157,42 @@ Paper_outputter::output_scheme (SCM scm)
       free (c);
     }
 }
+
 void
-Paper_outputter::output_string (String str)
+Paper_outputter::output_scope (Scope *scope, String prefix)
 {
-  // urg
-  *outstream_l_ << str;
+  for (Dictionary_iter<Identifier*> i (*scope); i.ok (); i++)
+    {
+      if (dynamic_cast<String_identifier*> (i.val ()))
+	{
+	  String val = *i.val()->access_content_String (false);
+
+	  output_String_def (prefix + i.key (), val);
+	}
+      else if(dynamic_cast<Real_identifier*> (i.val ()))
+	{
+	  Real val  = *i.val ()->access_content_Real (false);
+
+	  output_Real_def (prefix + i.key (), val);	  
+	}
+      else if (dynamic_cast<int_identifier*> (i.val ()))
+	{
+	  int val  = *i.val ()->access_content_int (false);	  
+	  
+	  output_int_def (prefix + i.key (), val);	  
+	}
+    }
+}
+
+void
+Paper_outputter::output_version ()
+{
+  String id_str = "Lily was here";
+  if (no_timestamps_global_b)
+    id_str += ".";
+  else
+    id_str += String (", ") + get_version_str ();
+  output_String_def ( "LilyIdString", id_str);
 }
 
 void
@@ -194,12 +227,50 @@ Paper_outputter::start_line ()
 void
 Paper_outputter::output_font_def (int i, String str)
 {
-  SCM scm =gh_list (ly_symbol ("font-def"),
-		    gh_int2scm (i),
-		    gh_str02scm (str.ch_l ()),
-		    SCM_UNDEFINED);
-				 
+  SCM scm = gh_list (ly_symbol ("font-def"),
+		     gh_int2scm (i),
+		     gh_str02scm (str.ch_l ()),
+		     SCM_UNDEFINED);
+
   output_scheme (scm);
+}
+
+void
+Paper_outputter::output_Real_def (String k, Real v)
+{
+  
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (to_str(v).ch_l ()),
+		     SCM_UNDEFINED);
+  output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_double2scm (v));
+}
+
+void
+Paper_outputter::output_String_def (String k, String v)
+{
+  
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (v.ch_l ()),
+		     SCM_UNDEFINED);
+  output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_str02scm (v.ch_l ()));
+}
+
+void
+Paper_outputter::output_int_def (String k, int v)
+{
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (to_str (v).ch_l ()),
+		     SCM_UNDEFINED);
+  output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_int2scm (v));
 }
 
 void

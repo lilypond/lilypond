@@ -45,18 +45,6 @@ Paper_score::Paper_score ()
 
 Paper_score::~Paper_score ()
 {
-#if 0
-  for (int i=0; i< line_l_arr_.size (); i++)
-    line_l_arr_[i]->unlink_all ();
-
-  for (PCursor<Score_element*> i(elem_p_list_.top()); i.ok(); i++)
-    {
-
-      if (i->linked_b())
-	i->unlink ();
-      assert (! i->linked_b ());
-    }
-#endif
 }
 
 void

@@ -68,9 +68,5 @@ table_sixteen=
      }
 
 
-     "beamslopes" = \table {
-	"slope"		"beamslope"	2  2.0\pt 64.0\pt 0.0\pt 0.0\pt
-	"horizontal"	"rulesym"	2	
-     }
 }
 
