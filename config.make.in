@@ -34,6 +34,7 @@ includedir = @includedir@
 datadir = @datadir@
 localedir = @localedir@
 EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
+TEX_TFMDIR = @TEX_TFMDIR@
 RANLIB = @RANLIB@
 DEFS = @DEFS@
 #SET_MAKE = @SET_MAKE@
