@@ -1,0 +1,3 @@
+% Test parser error
+
+\score{
