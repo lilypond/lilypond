@@ -29,11 +29,15 @@ class List
 
     void concatenate(List<T> const &s);
     
-
     /// make *this empty
     void set_empty();
     /**
-      WARNING: contents lost, and not deleted.
+
+      POST:
+      size == 0
+      
+      WARNING:
+      contents lost, and not deleted.
       */
     
     /// add after after_me
@@ -41,13 +45,20 @@ class List
 
     /// put thing before #before_me#
     void insert( const T& thing, Cursor<T> &before_me );
-    virtual void remove( Cursor<T> me );
-    /**
-      Remove link pointed to by me.
+    
+    void remove( Cursor<T> me );
+    /** Remove link pointed to by me. Destructor of contents called
+      (nop for pointers)
 
       POST
-      none; WARNING: do not use #me#.
-     */
+      none;
+
+
+      WARNING: do not use #me# after calling
+      */
+
+    /****************/
+    
     int size_;
     Link<T>* top_;
     Link<T>* bottom_;

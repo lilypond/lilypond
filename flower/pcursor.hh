@@ -13,10 +13,22 @@
 template<class T>
 struct PCursor : private Cursor<void *> {
     friend class IPointerList<T>;
+
+    /// delete contents
+    void junk();
 public:
     Cursor<void*>::ok;
-    Cursor<void*>::del;
-    Cursor<void*>::backspace;
+    void del() { junk(); Cursor<void*>::del(); }
+    void backspace() { junk(); Cursor<void*>::backspace(); }
+    T get() {
+	T p = ptr();
+	Cursor<void*>::del();
+	return p;
+    }
+    T get_prev() {
+	(*this)--;
+	return get();
+    }
     
     PointerList<T> &list() { return (PointerList<T>&)Cursor<void*>::list(); }
     PCursor<T> operator++(int) { return Cursor<void*>::operator++(0);}
