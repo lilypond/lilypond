@@ -1,0 +1,16 @@
+% beam-control.fly
+
+% from upper staffline to centre
+\property Voice.beamVerticalPosition = #2
+\property Voice.beamHeight = #2
+[c'8 c] 
+
+% from one above centre to centre
+\property Voice.beamVerticalPosition = #2
+\property Voice.beamHeight = #-1
+[c c]
+
+% normal beam-algorithm
+\property Voice.beamHeight = ##f
+\property Voice.beamVerticalPosition = ##f
+[c e] [e c]

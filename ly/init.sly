@@ -6,7 +6,7 @@
 \include "declarations.ly"
 
 \score { 
-  \notes\relative c {
+  \context Voice \notes\relative c {
     \maininput
   }
   \paper {

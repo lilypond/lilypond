@@ -284,18 +284,22 @@ Beam::do_post_processing ()
   y *= directional_element (this).get ();
   dy *= directional_element (this).get ();
 
-  /* set or read dy as necessary */
-  SCM s = get_elt_property ("height");
-  if (gh_number_p (s))
-    dy = gh_scm2double (s);
-  else
-    set_elt_property ("height", gh_double2scm (dy));
+  Staff_symbol_referencer_interface st (this);
+  Real staff_space = st.staff_space ();
 
-  /* set or read y as necessary */
-  s = get_elt_property ("y-position");
+  /* check for user-override of dy */
+  SCM s = remove_elt_property ("Height");
   if (gh_number_p (s))
     {
-      y = gh_scm2double (s);
+      dy = gh_scm2double (s) * staff_space;
+    }
+  set_elt_property ("height", gh_double2scm (dy));
+
+  /* check for user-override of y */
+  s = remove_elt_property ("verticalPosition");
+  if (gh_number_p (s))
+    {
+      y = gh_scm2double (s) * staff_space;
       set_stem_length (y, dy);
     }
   else
@@ -307,7 +311,6 @@ Beam::do_post_processing ()
       set_stem_length (y, dy);
       y_shift = check_stem_length_f (y, dy);
 
-      Staff_symbol_referencer_interface st (this);
       Real half_space = st.staff_space () / 2;
       if (y_shift > half_space / 4)
 	{
@@ -323,10 +326,10 @@ Beam::do_post_processing ()
 	  y = quantise_y_f (y, dy, quant_dir);
 	  set_stem_length (y, dy);
 	}
-
-      // UGH. Y is not in staff position unit?
-      set_elt_property ("y-position", gh_double2scm (y)); 
     }
+  // UGH. Y is not in staff position unit?
+  // Ik dacht datwe daar juist van weg wilden?
+  set_elt_property ("y-position", gh_double2scm (y)); 
 }
 
 /*

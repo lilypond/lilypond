@@ -184,9 +184,9 @@
   (let ((basename "emacs-lily")
 	(suffix (if (string-match "^[\\]score" (buffer-substring start end))
 		    ".ly"
-		  (if (> 50 (abs (- start end)))
-		      ".fly")
-		      ".sly")))
+		  (if (< 50 (abs (- start end)))
+		      ".fly"
+		      ".sly"))))
     (write-region start end (concat basename suffix) nil 'nomsg)
     (lily-compile-file lily-command lily-parameters (concat basename suffix))))
 
