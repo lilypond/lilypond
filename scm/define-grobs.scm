@@ -494,6 +494,7 @@
 	(self-alignment-X . 0)
 	(word-space . 0.6)
 	(font-family . roman)
+	(font-series . bold-narrow)
 	(font-shape . upright)
 	
 	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))

@@ -31,7 +31,6 @@ const int DAMPING_DIRECTIION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 
-// #define DEBUG_QUANTING 1
 extern bool debug_beam_quanting_flag;
 
 static Real
@@ -277,8 +276,6 @@ Beam::quanting (SCM smob)
 	}
       if (mindist > 1e5)
 	programming_error ("Could not find quant.");
-      else
-	qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
     }
 #endif
   
@@ -288,6 +285,8 @@ Beam::quanting (SCM smob)
 #if DEBUG_QUANTING
   if (debug_beam_quanting_flag)
     {
+      qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
+      
       // debug quanting
       me->set_grob_property ("quant-score",
 			     scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
@@ -401,17 +400,49 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
-
-  Real extra_demerit = SECONDARY_BEAM_DEMERIT / beam_count;
+  Drul_array<Real> y(yl,yr);
+  Drul_array<Direction> dirs(ldir,rdir);
   
+  Real extra_demerit = SECONDARY_BEAM_DEMERIT / beam_count;
+
+  /*
+    Inside the staff, inter quants are forbidden.
+   */
   Real dem = 0.0;
-  for (int i = 0; i < 2; i++)
+  Direction d = LEFT;
+  do
     {
-      Real y = i? yl : yr;
-      if (fabs (y) <= (radius + 0.5) && fabs ( my_modf (y) - 0.5) < 1e-3)
+      if (fabs (y[d]) <= (radius + 0.5) && fabs (my_modf (y[d]) - 0.5) < 1e-3)
 	dem += INTER_QUANT_PENALTY;
     }
+  while ((flip (&d))!= LEFT); 
 
+
+  for (int j = 1; j <= beam_count; j++)
+    {
+      do
+	{
+	  /*
+	    see if the outer staffline falls in a beam-gap
+	    
+	    This test is too weak; we should really check all lines.
+	   */
+	  Direction stem_dir = dirs[d];
+	  Real gap1 =  y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2 );
+	  Real gap2 = y[d] - stem_dir * (j * beam_translation - thickness / 2 + slt/2);
+
+	  Interval gap;
+	  gap.add_point (gap1);
+	  gap.add_point (gap2);
+
+	  if (gap.elem_b (radius))
+	    dem += extra_demerit;
+	}
+      while ((flip (&d))!= LEFT); 
+    }
+
+
+  
   // todo: use beam_count of outer stems.
   if (beam_count >= 2)
     {
@@ -420,69 +451,52 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
 
-      if (fabs (yl - ldir * beam_translation) < radius
-	  && fabs (my_modf (yl) - inter) < 1e-3)
-	dem += extra_demerit;
-      if (fabs (yr - rdir * beam_translation) < radius
-	  && fabs (my_modf (yr) - inter) < 1e-3)
-	dem += extra_demerit;
-
       Real eps = 1e-3;
 
-      /*
-	Can't we simply compute the distance between the nearest
-	staffline and the secondary beam? That would get rid of the
-	silly case analysis here (which is probably not valid when we
-	have different beam-thicknesses.)
-
-	--hwn
-       */
-
-
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - ldir * beam_translation) < radius + inter)
+      if (fabs (y[LEFT] - dirs[LEFT] * beam_translation) < radius + inter)
 	{
-	  if (ldir == UP && dy <= eps
-	      && fabs (my_modf (yl) - sit) < eps)
+	  if (dirs[LEFT] == UP && dy <= eps
+	      && fabs (my_modf (y[LEFT]) - sit) < eps)
 	    dem += extra_demerit;
 	  
-	  if (ldir == DOWN && dy >= eps
-	      && fabs (my_modf (yl) - hang) < eps)
+	  if (dirs[LEFT] == DOWN && dy >= eps
+	      && fabs (my_modf (y[LEFT]) - hang) < eps)
 	    dem += extra_demerit;
 	}
 
-      if (fabs (yr - rdir * beam_translation) < radius + inter)
+      if (fabs (y[RIGHT] - dirs[RIGHT] * beam_translation) < radius + inter)
 	{
-	  if (rdir == UP && dy >= eps
-	      && fabs (my_modf (yr) - sit) < eps)
+	  if (dirs[RIGHT] == UP && dy >= eps
+	      && fabs (my_modf (y[RIGHT]) - sit) < eps)
 	    dem += extra_demerit;
 	  
-	  if (rdir == DOWN && dy <= eps
-	      && fabs (my_modf (yr) - hang) < eps)
+	  if (dirs[RIGHT] == DOWN && dy <= eps
+	      && fabs (my_modf (y[RIGHT]) - hang) < eps)
 	    dem += extra_demerit;
 	}
       
       if (beam_count >= 3)
 	{
-	  if (fabs (yl - 2 * ldir * beam_translation) < radius + inter)
+	  if (fabs (y[LEFT] - 2 * dirs[LEFT] * beam_translation) < radius + inter)
 	    {
-	      if (ldir == UP && dy <= eps
-		  && fabs (my_modf (yl) - straddle) < eps)
+	      if (dirs[LEFT] == UP && dy <= eps
+		  && fabs (my_modf (y[LEFT]) - straddle) < eps)
 		dem += extra_demerit;
 	      
-	      if (ldir == DOWN && dy >= eps
-		  && fabs (my_modf (yl) - straddle) < eps)
+	      if (dirs[LEFT] == DOWN && dy >= eps
+		  && fabs (my_modf (y[LEFT]) - straddle) < eps)
 		dem += extra_demerit;
 	    }
 	  
-	  if (fabs (yr - 2 * rdir * beam_translation) < radius + inter)
+	  if (fabs (y[RIGHT] - 2 * dirs[RIGHT] * beam_translation) < radius + inter)
 	    {
-	      if (rdir == UP && dy >= eps
-		  && fabs (my_modf (yr) - straddle) < eps)
+	      if (dirs[RIGHT] == UP && dy >= eps
+		  && fabs (my_modf (y[RIGHT]) - straddle) < eps)
 		dem += extra_demerit;
 	      
-	      if (rdir == DOWN && dy <= eps
-		  && fabs (my_modf (yr) - straddle) < eps)
+	      if (dirs[RIGHT] == DOWN && dy <= eps
+		  && fabs (my_modf (y[RIGHT]) - straddle) < eps)
 		dem += extra_demerit;
 	    }
 	}
