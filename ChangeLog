@@ -1,5 +1,7 @@
 2003-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/trip.ly: remove
+	
 	* input/regression/spacing-note-flags.ly (raggedright): remove
 	stafflinethickness
 
