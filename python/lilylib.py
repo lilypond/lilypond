@@ -422,10 +422,10 @@ def setup_environment ():
 		
 		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
 		
-		# FIXME: check if these can be fully reset.
-		#'GS_FONTPATH' : "", #type1_paths,
-		'GS_FONTPATH' : datadir + '/fonts/type1',
-		'GS_LIB' : datadir + '/ps',
+		# 'GS_FONTPATH' : type1_paths,
+		# 'GS_LIB' : datadir + '/ps',
+		'GS_FONTPATH' : "",
+		'GS_LIB' : "",
 		}
 	
 	# $TEXMF is special, previous value is already taken care of
