@@ -14,8 +14,11 @@ TODO:
   
   - Determine auto knees based on positions if it's set by the user.
 
-  - rounded corners.
+  - the code is littered with * and / staff_space calls for
+    #'positions. Consider moving to real-world coordinates?
 
+    Problematic issue is user tweaks (user tweaks are in staff-coordinates.) 
+  
 Notes:
 
 
@@ -108,7 +111,7 @@ Beam::space_function (SCM smob, SCM beam_count)
   Grob *me = unsmob_grob (smob);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real line = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real line = Staff_symbol_referencer::line_thickness (me);
   Real thickness = get_thickness (me);
   
   Real beam_translation = gh_scm2int (beam_count) < 4
@@ -292,6 +295,10 @@ Beam::connect_beams (Grob *me)
     }
  }
 
+
+/*
+  TODO: should not make beams per stem, but per Y-level.
+ */
 MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
 SCM
 Beam::brew_molecule (SCM grob)
@@ -326,6 +333,8 @@ Beam::brew_molecule (SCM grob)
   else
     pos= ly_scm2interval (posns);
 
+
+  pos *= Staff_symbol_referencer::staff_space (me); 
   Real dy = pos.delta ();
   Real dydx = (dy && dx) ? dy/dx : 0;
   
@@ -890,12 +899,6 @@ Beam::least_squares (SCM smob)
 	 where the second part goes.
        */
 
-      y = pos[LEFT];
-      dy = pos[RIGHT]- y;
-      dydx = dy/dx;
-
-
-
     }
   else
     {
@@ -918,6 +921,11 @@ Beam::least_squares (SCM smob)
       pos = Interval (y, (y+dy));
     }
 
+  /*
+    "position" is relative to the staff.
+   */
+  pos *= 1/ Staff_symbol_referencer::staff_space (me); 
+  
   me->set_grob_property ("positions", ly_interval2scm (pos));
  
   return SCM_UNSPECIFIED;
@@ -967,6 +975,9 @@ Beam::shift_region_to_valid (SCM grob)
   Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
   Interval pos = ly_scm2interval ( me->get_grob_property ("positions"));
+
+  pos  *= Staff_symbol_referencer::staff_space (me);
+  
   Real dy = pos.delta();
   Real y = pos[LEFT];
   Real dydx =dy/dx;
@@ -1018,7 +1029,10 @@ Beam::shift_region_to_valid (SCM grob)
       else
 	y = feasible_left_point.center ();
     }
+  
   pos = Interval (y, (y+dy));
+  pos *= 1/ Staff_symbol_referencer::staff_space (me);
+  
   me->set_grob_property ("positions", ly_interval2scm (pos));
   return SCM_UNSPECIFIED;
 }
@@ -1142,6 +1156,8 @@ Beam::check_concave (SCM smob)
     {
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
       Real r = pos.linear_combination (0);
+
+      r /= Staff_symbol_referencer::staff_space (me);
       me->set_grob_property ("positions", ly_interval2scm (Interval (r, r)));
       me->set_grob_property ("least-squares-dy", gh_double2scm (0));
     }
@@ -1167,6 +1183,8 @@ Beam::slope_damping (SCM smob)
   if (damping)
     {
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
+      pos *= Staff_symbol_referencer::staff_space (me);
+      
       Real dy = pos.delta ();
 
       Grob *fvs  = first_visible_stem (me);
@@ -1183,6 +1201,8 @@ Beam::slope_damping (SCM smob)
       Real damped_dy = dydx * dx;
       pos[LEFT] += (dy - damped_dy) / 2;
       pos[RIGHT] -= (dy - damped_dy) / 2;
+
+      pos *= 1/ Staff_symbol_referencer::staff_space (me);
       
       me->set_grob_property ("positions", ly_interval2scm (pos));
     }
@@ -1268,6 +1288,7 @@ Beam::set_stem_lengths (Grob *me)
   
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
+  pos  *= staff_space;
 
   bool gap = false;
   Real thick =0.0;
@@ -1448,57 +1469,49 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   SCM s = beam->get_grob_property ("positions");
   if (gh_pair_p (s) && gh_number_p (ly_car (s)))
     pos = ly_scm2interval (s);
+  Real staff_space = Staff_symbol_referencer::staff_space (rest);
+
+  pos  *= staff_space;
+  
 
   Real dy = pos.delta ();
+  
   // ugh -> use commonx
   Real x0 = first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
   Real dx = last_visible_stem (beam)->relative_coordinate (0, X_AXIS) - x0;
   Real dydx = dy && dx ? dy/dx : 0;
   
   Direction d = Stem::get_direction (stem);
-  Real stem_y = (pos[LEFT]
-		 + (stem->relative_coordinate (0, X_AXIS) - x0) * dydx)
-    * d;
+  Real stem_y = pos[LEFT] + (stem->relative_coordinate (0, X_AXIS) - x0) * dydx;
   
   Real beam_translation = get_beam_translation (beam);
-  Real beam_thickness = gh_scm2double (beam->get_grob_property ("thickness"));
+  Real beam_thickness = Beam::get_thickness (beam);
+  
   int beam_count = get_direction_beam_count (beam, d);
-  Real height_of_my_beams = beam_thickness
+  Real height_of_my_beams = beam_thickness / 2
     + (beam_count - 1) * beam_translation;
-  Real beam_y = stem_y - height_of_my_beams + beam_thickness / 2.0;
+  Real beam_y = stem_y - d * height_of_my_beams;
 
-  Real staff_space = Staff_symbol_referencer::staff_space (rest);
+  Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
-  /* Better calculate relative-distance directly, rather than using
-     rest_dim? */
-  Grob *common_x = rest->common_refpoint (beam, Y_AXIS);
-  Real rest_dim = rest->extent (common_x, Y_AXIS)[d] / staff_space * d;
-
+  Real rest_dim = rest->extent (common_y, Y_AXIS)[d];
   Real minimum_distance =
-    staff_space * robust_scm2double
-    (rest->get_grob_property ("minimum-beam-collision-distance"), 1);
+    staff_space * robust_scm2double (rest->get_grob_property ("minimum-distance"), 0.0);
 
-  Real distance = beam_y - rest_dim;
-  Real shift = 0;
-  if (distance < 0)
-    shift = minimum_distance - distance;
-  else if (minimum_distance > distance)
-    shift = minimum_distance - distance;
+  Real shift =d * (((beam_y - d * minimum_distance) - rest_dim) * d  <? 0.0);
 
   shift /= staff_space;
-  
   Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
 
   /* Always move discretely by half spaces */
-  shift = ceil (shift * 2.0) / 2.0;
+  shift = ceil (fabs (shift * 2.0)) / 2.0 * sign (shift);
 
   /* Inside staff, move by whole spaces*/
-  
-  if ((rest->extent (common_x, Y_AXIS)[d] + staff_space * shift) * d
+  if ((rest->extent (common_y, Y_AXIS)[d] + staff_space * shift) * d
       < rad
-      || (rest->extent (common_x, Y_AXIS)[-d] + staff_space * shift) * -d
+      || (rest->extent (common_y, Y_AXIS)[-d] + staff_space * shift) * -d
       < rad)
-    shift = ceil (shift);
+    shift = ceil (fabs (shift)) *sign (shift);
 
   return gh_double2scm (-d * staff_space * shift);
 }

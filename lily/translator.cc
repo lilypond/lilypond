@@ -10,7 +10,7 @@
 #include "translator.hh"
 #include "warn.hh"
 #include "translator-group.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 #include "moment.hh"
 #include "ly-smobs.icc"

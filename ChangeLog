@@ -1,9 +1,31 @@
+2004-01-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/context-def.hh: rename from translator-def.hh
+
 2004-01-21  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* input/template/piano-dynamics.ly (pedal): Updated definition of
 	Dynamics such that \cresc works, for example.
 
 2004-01-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/stem.cc (calc_stem_info): use
+	Staff_symbol_referencer::staff_space
+
+	* lily/beam-quanting.cc (quanting): scale Stem_info 
+
+	* lily/beam.cc (rest_collision_callback): use minimum-distance
+	property for rest/beam collisions.
+	(rest_collision_callback): bugfixes.
+
+	* lily/system.cc (post_processing): extra-offset is now relative
+	to the size of the current staff.
+
+	* scm/music-functions.scm (notice-the-events-for-pc): record all
+	voices, only analyze "one" and "two".
+
+	* lily/recording-group-engraver.cc (finalize): bugfix: want self,
+	not parent. 
 
 	* lily/new-part-combine-iterator.cc (construct_children): create
 	Devnull from Voice context

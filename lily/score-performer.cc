@@ -14,7 +14,7 @@
 #include "midi-stream.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 
 

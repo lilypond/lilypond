@@ -12,7 +12,7 @@
 #include "warn.hh"
 #include "moment.hh"
 #include "scm-hash.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "main.hh"
 #include "music.hh"
 

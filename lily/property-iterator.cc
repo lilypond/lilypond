@@ -8,7 +8,7 @@
 
 #include "property-iterator.hh"
 #include "music.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "translator-group.hh"
 #include "global-translator.hh"
 

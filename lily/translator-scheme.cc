@@ -8,7 +8,7 @@
  */
 
 #include "translator.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 #include "translator-group.hh"
 #include "lily-guile.hh"
@@ -139,14 +139,39 @@ LY_DEFINE(ly_context_properties,
 
 LY_DEFINE(ly_translator_name,
 	  "ly:translator-name", 1,0,0,  (SCM trans),
-	  "Return the type name of the translator @var{trans}. The name is a symbol.")
+	  "Return the type name of the translator object @var{trans}. The name is a symbol.")
 {
-  Translator* tr =  unsmob_translator (trans);
-  SCM_ASSERT_TYPE(tr, trans, SCM_ARG1, __FUNCTION__, "Context");
+  Translator * tr =  unsmob_translator (trans);
+  SCM_ASSERT_TYPE(tr, trans, SCM_ARG1, __FUNCTION__, "Translator");
 
   char const* nm = classname (tr);
   return ly_symbol2scm (nm);
 }
+
+
+LY_DEFINE(ly_context_id,
+	  "ly:context-id", 1,0,0,  (SCM context),
+	  "Return the id string of @var{context}, i.e. for @code{\\context Voice "
+"= one .. } it will return the string @code{one}.")
+{
+  Translator_group* tr =  dynamic_cast<Translator_group*> (unsmob_translator (context));
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
+
+  return scm_makfrom0str (tr->id_string_. to_str0 ());
+}
+
+
+LY_DEFINE(ly_context_name,
+	  "ly:context-name", 1,0,0,  (SCM context),
+	  "Return the name of @var{context}, i.e. for @code{\\context Voice "
+"= one .. } it will return the symbol @code{Voice}.")
+{
+  Translator_group* tr =  dynamic_cast<Translator_group*> (unsmob_translator (context));
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
+
+  return unsmob_context_def (tr->definition_)->get_context_name (); 
+}
+
 
 LY_DEFINE(ly_translator_description,
 	  "ly:translator-description",

@@ -114,7 +114,7 @@ My_lily_parser::here_input () const
 }
 
 #include "paper-def.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 
 My_lily_parser * current_parser;
 

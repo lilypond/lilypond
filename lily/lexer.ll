@@ -47,7 +47,7 @@ using namespace std;
 #include "main.hh"
 #include "version.hh"
 #include "lilypond-input-version.hh"
-#include "translator-def.hh"
+#include "context-def.hh"
 #include "identifier-smob.hh"
 
 /*

@@ -21,6 +21,7 @@
 #include "molecule.hh"
 #include "all-font-metrics.hh"
 #include "spacing-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 // todo: use map.
 void
@@ -531,8 +532,10 @@ System::post_processing (bool last_line)
 	SCM e = sc->get_grob_property ("extra-offset");
 	if (gh_pair_p (e))
 	  {
-	    o[X_AXIS] += gh_scm2double (ly_car (e));
-	    o[Y_AXIS] += gh_scm2double (ly_cdr (e));      
+	    Offset z = ly_scm2offset (e);
+	    z *= Staff_symbol_referencer::staff_space (sc);
+	    
+	    o += z;
 	  }
 	
 	output_molecule (m->get_expr (), o);

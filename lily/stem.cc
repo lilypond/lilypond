@@ -847,7 +847,7 @@ Stem::calc_stem_info (Grob *me)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
   Real beam_translation = Beam::get_beam_translation (beam);
-  Real beam_thickness = robust_scm2double (beam->get_grob_property ("thickness"), 1);
+  Real beam_thickness = Beam::get_thickness (beam);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
 
 
@@ -889,7 +889,7 @@ Stem::calc_stem_info (Grob *me)
   Real note_start =
     /* staff positions */
     head_positions (me)[my_dir] * 0.5
-    * my_dir;
+    * my_dir * staff_space;
   Real ideal_y = note_start + ideal_length;
 
 
@@ -973,3 +973,18 @@ ADD_INTERFACE (Stem,"stem-interface",
 	       "no-stem-extend stroke-style");
 
 
+
+/****************************************************************/
+
+Stem_info::Stem_info()
+{
+  ideal_y_ = shortest_y_ =0;
+  dir_ = CENTER;
+}
+
+void
+Stem_info::scale (Real x)
+{
+  ideal_y_ *= x;
+  shortest_y_ *= x;
+}

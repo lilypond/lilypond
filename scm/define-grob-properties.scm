@@ -338,7 +338,8 @@ The alist contains the following entries: name, interfaces.
 
 
 ")
-(grob-property-description 'minimum-distance ly:dimension? "minimum distance between notes and rests.")
+(grob-property-description 'minimum-distance ly:dimension? "Minimum distance between rest and notes or beam.")
+
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
 
 (grob-property-description 'minimum-X-extent number-pair? "minimum size in X dimension, measured in staff space.")
@@ -385,7 +386,10 @@ as a real penalty.")
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'quilisma boolean? "is this neume a quilisma?.")
-(grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
+(grob-property-description 'positions pair? "cons of staff coordinates
+(LEFT . RIGHT, where both LEFT and right are in the staff-space unit
+of the current staff.
+")
 (grob-property-description 'prefix-set number? "DOCME")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'remove-first boolean?
@@ -557,9 +561,6 @@ functions set spanner positions.")
 (grob-property-description 'delta-pitch number? "the interval between this and the next note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
 (grob-property-description 'head-width ly:dimension? "width of this ligature head")
 (grob-property-description 'primitive integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. [TODO: change this]")
-(grob-property-description 'minimum-beam-collision-distance ly:dimension?
-"Minimum distance to beam for a rest collision.")
-
 (grob-property-description 'avoid-note-head boolean? "if set, the stem of a chord does not pass through all note head, but start at the last note head. Used by tablature.")
 
 (grob-property-description 'use-breve-rest boolean? "boolean that

@@ -1,5 +1,5 @@
 /*   
-  translator-def.hh -- declare Context_def
+  context-def.hh -- declare Context_def
   
   source file of the GNU LilyPond music typesetter
   
@@ -27,7 +27,6 @@ private:
   SCM translator_mods_;
   SCM accept_mods_;
   SCM property_ops_;
-
   SCM description_;
   SCM context_name_;
   SCM context_aliases_;

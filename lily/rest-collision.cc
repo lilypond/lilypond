@@ -203,7 +203,7 @@ Rest_collision::do_shift (Grob *me)
 
       Real staff_space = Staff_symbol_referencer::staff_space (rcol);
 
-      Real minimum_dist = gh_scm2double (me->get_grob_property ("minimum-distance")) * staff_space;
+      Real minimum_dist = robust_scm2double (me->get_grob_property ("minimum-distance"), 1.0) * staff_space;
 
 
       Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
