@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.1";
+\version "1.0.2";
 
 clarinetto2 = \melodic \relative c { 
 	R1*2 bes''4-.\ff r r2 | R1*3 | cis4-. r r2 | R1 *3 | 

@@ -13,7 +13,7 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "1.0.1";
+\version "1.0.2";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 

@@ -56,7 +56,6 @@ IMPLEMENT_IS_TYPE_B(Music);
   
 Music::Music()
 {
-  parent_music_l_ =0;
 }
 
 Musical_pitch

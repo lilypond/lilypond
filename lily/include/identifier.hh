@@ -12,8 +12,27 @@
 #include "input.hh"
 #include "virtual-methods.hh"
 
+
+#define DECLARE_TYPE_NAME(Class)
+class Translator_identifier;
+class Music_identifier;
+class General_script_def_identifier;
+class Symtables_identifier;
+class Midi_def_identifier;
+class Paper_def_identifier;
+class Lookup_identifier;
+class Real_identifier;
+class int_identifier;
+class String_identifier;
+class Request_identifier;
+class Score_identifier;
+class Duration_identifier;
+
+
+
 #define IDACCESSOR(Class)\
-virtual Class *  access_ ## Class (bool=true) const { error (#Class  + String ("_identifier")); return 0; }
+virtual Class *  access_ ## Class (bool=true) const { error (#Class  + String ("_identifier")); return 0; }\
+virtual Class ## _identifier * access_ ## Class ## _identifier () { return 0; }
 
 /**
    A declarable data structure in mudela. 
@@ -60,6 +79,10 @@ struct Class ## _identifier : Identifier {\
 			     Class ## _identifier (Class ## _identifier const&);\
 			     Class ## _identifier (Class*st, int code);\
 			     VIRTUAL_COPY_CONS (Class ## _identifier, Identifier);\
+			     virtual Class ## _identifier * access_ ## Class ## _identifier ()\
+    {\
+      return this;\
+    }\
 			     virtual Class* access_ ## Class (bool copy_b = true) const;\
 			     ~Class ## _identifier();\
 			     virtual void do_print () const; \

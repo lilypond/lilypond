@@ -1,5 +1,5 @@
 /*   
-  linear-programming.hh -- declare 
+  linear-programming.hh -- declare Linear_programming
   
   source file of the GNU LilyPond music typesetter
   
@@ -14,6 +14,8 @@
 
 /**
 
+   Solve the following problem:
+   
    min c* x
 
    constraints_[i] * x = constraint_rhss_ [i]
@@ -26,12 +28,15 @@ class Linear_programming
   Array<Vector> constraints_;
   Array<Real> constraint_rhss_;
   Vector cost_vec_;
-
+  int dim_;
 public:
-  Vector constraint_solve (Vector initial) const;
+  Vector constraint_solve (Vector initial_basic_solution) const;
+
   int dim () const;
   Vector solve (Vector) const;
   void add_constraint (Vector c, double r);
+
+  
   Linear_programming (int n);
   void set_cost (Vector);
   void print () const;

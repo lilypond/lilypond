@@ -7,11 +7,12 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+	* egcs-1.1a support
+
 	* fix LOCALE settings, and \def\foo{2,000pt} output
 
-
-	* use streambufs to provide IO handling for TeX stream, mudela stream,
-data-file.
+	* use streambufs and iostream
+	to provide IO handling for TeX stream, mudela stream, data-file.
 
 	* seriously buffer TeX output (do profile of writing .5 mb TeX file.)
 
@@ -21,11 +22,30 @@ data-file.
 
 	* repeat bars: need distance after ":|" and before "|:"
 
-	* doco should not depend on a4
-
 	* text continuationss
 
-	* fix plain tex footer line.
+	* revise documentation
+
+	* abbrev -> tremolo
+
+	* Language:
+	- general plet mechanism.
+
+		\plet 2/3 { c8 c8 c8 }
+
+	ie.
+
+		Music: PLET int '/' int Music
+
+	- \type -> \context ?
+	- \translator -> ?
+	- fix \partial 
+	- \melodic -> \notes
+	- \bla {} vs \bla ; 
+	- mix engraver hacking with music ?
+	- \once\property  KEY = VAL
+	- \addtranslator, \removetranslator
+	- junk ^ and _ for scripts
 
 	* install TeX stuff into tex/generic directory.
 
@@ -76,24 +96,21 @@ data-file.
 
 	* fix vertical alignment and stafflines
 
-	*GrandStaff needs more work -- I want a single word `harpsichord' to the
-	   left of the grandstaff, not one on each stave.
-	   (Organ staff -- with separate pedal -- but common properties may be
-	   something to think about.  Of course for organ you want to be able
-	   to give stop indications on the way through, so the \property
-	   Voice.Instrument would be a stop, and \property
-	   GrandStaff.instrument would be PipeOrgan...)
-
+	* GrandStaff needs more work -- I want a single word
+	`harpsichord' to the left of the grandstaff, not one on each
+	stave.  (Organ staff -- with separate pedal -- but common
+	properties may be something to think about.  Of course for
+	organ you want to be able to give stop indications on the way
+	through, so the \property Voice.Instrument would be a stop,
+	and \property GrandStaff.instrument would be PipeOrgan...)
 
 	* make Tie_req a "command" { <c g> ~ <c g> }
 
 	* bib ep1988
 
-	* mix engraver hacking with music ?
-
 	* revise the Score_priority_align_engraver concept.  It sucks. 
 
-	* ly2xdvi
+	* ly2xdvi, ly2ps
 
 	* make new VoiceOne, VoiceTwo, VoiceThree contexts with
 ydirection and hshift preset
@@ -273,8 +290,6 @@ ydirection and hshift preset
 
 	* xdvi: PS in magnifying glass.
 
-	* GNU patch 2.1: hardcoded limit of 1024 to the linelength
-
 	* GNU diff 2.7: diff -rN does not see a new directory with empty file
 
 	* GNU patch 2.1: <must find simple example> if patch chokes on a
@@ -294,7 +309,6 @@ ydirection and hshift preset
 	* GNU make: move hardcoded builtin rules to runtime ?
 
 	* GNU patch 
-	  - rewrite ? -> check out GNU patch 2.5
 	  - 'double-fix' mode: ignore identical fix, rather than suggest 
 	    to revert patch direction when (more or less? exactly) the same 
 	    thing is fixed
@@ -325,16 +339,12 @@ PROJECTS
  
 
 	* use properties for:
-	- Text_style
-	- default_octave
 	- plet?
 	- Staff_sym size
 	- default tempo.
 	- font size
 	- bartypes (get rid of derived Span_bar_engravers)
 	- cadenza mode? 
-	- MIDI instrument
-	- staff title
 
 	* page handling:
 	- PS output
@@ -355,11 +365,9 @@ PROJECTS
 	* \header
 	- output header info to MIDI too.
 
-	* Add mudela-output to Rosegarden. (contact Derek Wyatt)
-
 	* a musical dictionary. See Documentation/vocabulary-*, other
 	languages:
-	- explanation
+	- explanations
 	- italian
 	- german
 	- dutch
@@ -526,7 +534,7 @@ SMALLISH PROJECTS
 	* write Dynamic_line (to group dynamics horizontally)
 
 	* use Real for all y positions.
-	- use translate_axis( .. ,Y_AXIS) 
+	- use translate_axis( .. ,Y_AXIS)  iso separate variables.
 
 	* half-sharps, half-flats
 
@@ -535,9 +543,6 @@ SMALLISH PROJECTS
 	* handle EOF graciously in error messages.
 
 	* centered whole rest
-
-        * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
-	- use tors feature in lily (?)
 
 	* declare notenametab?
 
@@ -558,10 +563,7 @@ SMALLISH PROJECTS
 
 	* textspanner: center position
 
-	* Brackets
-	
-
-            % toe to bheel   four to five
+        *   % toe to bheel   four to five
 	    %   ^_u            4_5  
 	    %     -                           
 	    %  --|x--         --|x--
@@ -611,12 +613,9 @@ IDEAS
 
 	* versioning stuff (cvt mudela, mudela, etc.)
 
-	* padded vertical alignment (rods for vertical placement)
-
-	* use String iso Text_def for lyrics.
-
 	* Klavarskribo?
 
 	* lyrics in chords still fuck up.
 
 	* Use hooks/dependency graphs for properties
+

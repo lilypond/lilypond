@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.1";
+\version "1.0.2";
 
 violino1 = \melodic \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |

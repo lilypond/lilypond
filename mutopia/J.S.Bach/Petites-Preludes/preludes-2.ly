@@ -14,7 +14,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.1";
+\version "1.0.2";
 one = \melodic\relative c{
 	\property Voice . textstyle =  "italic"
 	r8\mf [c'-1( e-2 g-4] [e-2 c-1 bes'-5 g-3] |

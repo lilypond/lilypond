@@ -45,7 +45,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.1");
-Mudela_version version ("1.0.1");
+Mudela_version version ("1.0.2");
 
 
 // needed for bison.simple's malloc() and free()
@@ -84,12 +84,12 @@ Paper_def* current_paper = 0;
     Array<String> * strvec;
     Array<int> *intvec;
     Box *box;
-    Chord * chord;
+    Simultaneous_music *chord;
     Duration *duration;
     Identifier *id;
     Translator* trans;
     Music *music;
-    Music_list *musiclist;
+    Music_list *music_list;
     Score *score;
     Header *header;
     Interval *interval;
@@ -204,7 +204,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	IDENTIFIER
 
 %token <id>	MUSIC_IDENTIFIER
-%token <id>	VOICE_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
 %token <id>	SCRIPT_IDENTIFIER
 %token <id>	COMMAND_IDENTIFIER
@@ -247,10 +246,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration>	duration_length
 
 %type <scalar>  scalar
-%type <music>	Music transposed_music relative_music
+%type <music>	Music transposed_music relative_music Sequential_music Simultaneous_music
 %type <music>	property_def translator_change
-%type <musiclist> Voice Voice_body
-%type <chord>	Chord Chord_body
+%type <music_list> Music_list
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	real_mult_expression real_primary
@@ -271,7 +269,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <symtable>	symtable symtable_body
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
-%type <string>	concat_strings
 
 %expect 1
 
@@ -326,7 +323,7 @@ mudela_header_body:
 		{
 		$$ = new Header;
 	}
-	| mudela_header_body STRING '=' concat_strings ';' {
+	| mudela_header_body STRING '=' string ';' {
 		(*$$)[*$2] = *$4;
 		delete $2;
 		delete $4;
@@ -338,15 +335,6 @@ mudela_header:
 		$$ = $3;
 	}
 	;
-
-
-concat_strings:
-		{
-		$$ = new String;
-	}
-	| concat_strings STRING	{
-		*$$ += *$2;
-	}
 
 
 /*
@@ -429,10 +417,21 @@ translator_spec_body:
 		$$ = t;
 		delete $2;
 	}
-	| translator_spec_body STRING '=' scalar ';'	{ 
-		$$-> set_property (*$2, *$4);
-		delete $2;
+	| translator_spec_body STRING '=' simple_identifier_init ';'	{ 
+		Identifier* id = $4;
+		String_identifier *s = id->access_String_identifier ();
+		Real_identifier *r= id->access_Real_identifier ();
+		int_identifier *i = id->access_int_identifier ();
+	
+		String str;
+		if (s) str = *s->access_String (false); 
+		if (i) str = to_str (*i->access_int (false));
+		if (r) str = to_str (*r->access_Real (false));
+		if (!s && !i && !r)
+			THIS->parser_error (_("Wrong type for property value"));
+
 		delete $4;
+		$$->set_property (*$2, str);
 	}
 	| translator_spec_body CONSISTS STRING ';' {
 		$$->group_l ()->consists_str_arr_.push (*$3);
@@ -641,25 +640,26 @@ tempo_request:
 	}
 	;
 
-Voice:
-	'{' Voice_body '}'	{
-		$$ = $2;
-	}
-	;
-
-Voice_body:
-	/**/		{
-		$$ = new Voice;
-		$$->set_spot (THIS->here_input ());
-	}
-	| Voice_body Music	{
-		$$->add ($2);
-	}
-	| Voice_body error			{
+Music_list: /* empty */ {
 		$$ = new Music_list;
 	}
+	| Music_list Music {
+		$$->add_music ($2);
+	}
+	| Music_list error {
+	}
 	;
 
+
+Sequential_music: '{' Music_list '}'		{
+		$$ = new Sequential_music ($2);
+	}
+	;
+
+Simultaneous_music: '<' Music_list '>'	{
+		$$ = new Simultaneous_music ($2);
+	}
+	;
 Music:
 	request_chord		{ $$ = $1; }
 	| TYPE STRING Music	{
@@ -674,8 +674,8 @@ Music:
 		delete $2;
 		delete $4;
 	}
-	| Voice		{ $$ = $1; }
-	| Chord			{ $$ = $1; }
+	| Simultaneous_music		{ $$ = $1; }
+	| Sequential_music		{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
 	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
 	| MELODIC
@@ -737,24 +737,6 @@ scalar:
 	;
 
 
-Chord:
-	'<' Chord_body '>'	{ $$  = $2; }
-	;
-
-Chord_body:
-	/**/	{
-		$$ = new Chord;
-		$$-> multi_level_i_ = 0;
-		$$->set_spot (THIS->here_input ());
-	}
-	| Chord_body Music {
-		$$->add ($2);
-	}
-	| Chord_body error {
-		$$ = new Chord;
-	}
-	;
-
 transposed_music:
 	TRANSPOSE musical_pitch Music {
 		$$ = $3;
@@ -764,12 +746,9 @@ transposed_music:
 	;
 
 
-/*
-	VOICE ELEMENTS
-*/
 request_chord:
 	pre_requests simple_element post_requests	{
-	 	THIS->add_requests ((Chord*)$2);//ugh
+	 	THIS->add_requests ((Simultaneous_music*)$2);//ugh
  		$$ = $2;
 	}
 	| command_element
@@ -783,7 +762,7 @@ command_element:
 		$$ = new Request_chord;
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
-		((Chord*)$$) ->add ($1);//ugh
+		((Simultaneous_music*)$$) ->add_music ($1);//ugh
 
 	}
 	;
@@ -900,13 +879,9 @@ post_request:
 		$$ = $1;
 	}
 	| abbrev_type	{
-#if 1 // re-instating
 		Abbreviation_req* a = new Abbreviation_req;
 		a->type_i_ = $1;
 		$$ = a;
-#else // and disabling just created ugly sticky abbrev_req
-		THIS->default_abbrev_i_ = $1;
-#endif
 	}
 	;
 
@@ -930,17 +905,14 @@ sub_quotes:
 steno_musical_pitch:
 	NOTENAME_PITCH	{
 		$$ = $1;
-		// $$->octave_i_ += THIS->default_octave_i_;
 	}
 	| NOTENAME_PITCH sup_quotes 	{
 		$$ = $1;
-		// $$->octave_i_ += THIS->default_octave_i_ + $2;
 		$$->octave_i_ +=  $2;
 	}
 	| NOTENAME_PITCH sub_quotes	 {
 		$$ = $1;
 		$$->octave_i_ += - $2;
-		// $$->octave_i_ += THIS->default_octave_i_ - $2;
 	}
 	;
 
@@ -1189,7 +1161,6 @@ pre_requests:
 absolute_musical_pitch:
 	steno_musical_pitch	{
 		$$ = $1;
-		// $$->octave_i_ -=  THIS->default_octave_i_;
 	}
 	;
 
@@ -1280,9 +1251,9 @@ simple_element:
 		m->duration_ = *$2;
 		delete $2;
 
-		Chord*velt_p = new Request_chord;
+		Simultaneous_music*velt_p = new Request_chord;
 		velt_p->set_spot (THIS->here_input ());
-		velt_p->add (m);
+		velt_p->add_music (m);
 		$$ = velt_p;
 
 	}

@@ -117,27 +117,27 @@ My_lily_parser::set_last_duration (Duration const *d)
 }
 
 
-Chord*
+Simultaneous_music*
 My_lily_parser::get_word_element (String s, Duration * duration_p)
 {
-  Chord* velt_p = new Request_chord;
+  Simultaneous_music* velt_p = new Request_chord;
 
   Lyric_req* lreq_p = new Lyric_req;
   lreq_p ->text_str_ = s;
   lreq_p->duration_ = *duration_p;
   lreq_p->set_spot (here_input());
 
-  velt_p->add (lreq_p);
+  velt_p->add_music (lreq_p);
 
   delete  duration_p;
   return velt_p;
 }
 
 
-Chord *
+Simultaneous_music *
 My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 {
-  Chord* velt_p = new Request_chord;
+  Simultaneous_music* velt_p = new Request_chord;
   velt_p->set_spot (here_input());
 
   if (s=="s")
@@ -146,7 +146,7 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
       skip_p->duration_ = *duration_p;
 
       skip_p->set_spot (here_input());
-      velt_p->add (skip_p);
+      velt_p->add_music (skip_p);
     }
   else
     {
@@ -154,20 +154,20 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
       rest_req_p->duration_ = *duration_p;
       rest_req_p->set_spot (here_input());
 
-      velt_p->add (rest_req_p);
+      velt_p->add_music (rest_req_p);
     }
 
   delete duration_p;
   return velt_p;
 }
 
-Chord *
+Simultaneous_music *
 My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 {
-  Chord*v = new Request_chord;
+  Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
 
-  v->add (rq);
+  v->add_music (rq);
 
   // too bad parser reads (default) duration via member access,
   // this hack will do for now..
@@ -280,25 +280,18 @@ My_lily_parser::get_parens_request (int t)
 }
 
 void
-My_lily_parser::add_requests (Chord*v)
+My_lily_parser::add_requests (Simultaneous_music*v)
 {
   for (int i = 0; i < pre_reqs.size(); i++)
     {
-      v->add (pre_reqs[i]);
+      v->add_music (pre_reqs[i]);
     }
   pre_reqs.clear();
   for (int i = 0; i <post_reqs.size(); i++)
     {
-      v->add (post_reqs[i]);
+      v->add_music (post_reqs[i]);
     }
-#if 0 //disabling...
-  if (default_abbrev_i_)
-    {
-      Abbreviation_req* a = new Abbreviation_req;
-      a->type_i_ = default_abbrev_i_;
-      v->add (a);
-    }
-#endif
+
   post_reqs.clear();
 }
 

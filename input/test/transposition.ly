@@ -22,7 +22,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.1";
+\version "1.0.2";
 
 vOne = \melodic \relative c''{
         \clef"violin";

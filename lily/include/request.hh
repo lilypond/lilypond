@@ -21,7 +21,7 @@
 
 
 /**
- a voice element wants something printed.
+   An atom of musical information .
  Hungarian postfix: req
  @see lilygut manpage
  */

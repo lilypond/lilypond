@@ -8,7 +8,7 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "1.0.1";
+\version "1.0.2";
 
 global = 
     \melodic {

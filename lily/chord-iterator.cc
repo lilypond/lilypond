@@ -1,5 +1,5 @@
 /*
-  chord-iter.cc -- implement Chord_iterator
+  Simultaneous_music-iter.cc -- implement Simultaneous_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,27 +13,27 @@
 #include "music-list.hh"
 
 
-Chord_iterator::~Chord_iterator()
+Simultaneous_music_iterator::~Simultaneous_music_iterator()
 {
 }
 
-Chord_iterator::Chord_iterator (Chord const *chord_C)
+Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music const *simultaneous_music_C)
 {
-  chord_C_ = chord_C;
+  simultaneous_music_C_ = simultaneous_music_C;
 }
 
 void
-Chord_iterator::construct_children()
+Simultaneous_music_iterator::construct_children()
 {
   int j = 0;
-  for (PCursor<Music*> i (chord_C_->music_p_list_.top());  
+  for (PCursor<Music*> i (simultaneous_music_C_->music_p_list_p_->top());  
        i.ok(); j++, i++) 
     {
       Music_iterator * mi = get_iterator_p (i.ptr());
       if (mi->ok()) 
 	{
-	  if  (chord_C_->translator_type_str_.empty_b ())
-	    set_translator (mi->report_to_l()->ancestor_l (chord_C_->multi_level_i_));
+	  if  (simultaneous_music_C_->translator_type_str_.empty_b ())
+	    set_translator (mi->report_to_l()->ancestor_l (simultaneous_music_C_->multi_level_i_));
 	  children_p_list_.bottom().add (mi);
 	}
       else 
@@ -43,7 +43,7 @@ Chord_iterator::construct_children()
 
 
 void
-Chord_iterator::do_print() const
+Simultaneous_music_iterator::do_print() const
 {
 #ifndef NPRINT
   for (PCursor<Music_iterator*> i (children_p_list_.top()); i.ok (); i++) 
@@ -54,7 +54,7 @@ Chord_iterator::do_print() const
 }
 
 void
-Chord_iterator::process_and_next (Moment until)
+Simultaneous_music_iterator::process_and_next (Moment until)
 {
   for (PCursor<Music_iterator*> i (children_p_list_.top()); i.ok ();) 
     {
@@ -71,10 +71,10 @@ Chord_iterator::process_and_next (Moment until)
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Chord_iterator,Music_iterator);
+IMPLEMENT_IS_TYPE_B1(Simultaneous_music_iterator,Music_iterator);
 
 Moment
-Chord_iterator::next_moment() const
+Simultaneous_music_iterator::next_moment() const
 {
   Moment next;
   next.set_infinite (1);
@@ -86,7 +86,7 @@ Chord_iterator::next_moment() const
 
 
 bool
-Chord_iterator::ok() const
+Simultaneous_music_iterator::ok() const
 {
   return children_p_list_.size();
 }

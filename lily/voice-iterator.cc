@@ -1,5 +1,5 @@
 /*
-  voice-iter.cc -- implement Voice_iterator
+  Sequential_music-iter.cc -- implement Sequential_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,22 +13,22 @@
 
 
 void
-Voice_iterator::do_print() const
+Sequential_music_iterator::do_print() const
 {
   if (iter_p_)
     iter_p_->print();
 }
 
-Voice_iterator::Voice_iterator (Voice const*v)
-  : PCursor<Music*> (v->music_p_list_)
+Sequential_music_iterator::Sequential_music_iterator (Sequential_music const*v)
+  : PCursor<Music*> (*v->music_p_list_p_)
 {
   here_mom_ = v->offset_mom_;
-  voice_C_ = v;
+  sequential_music_C_ = v;
   iter_p_ =0;
 }
 
 void
-Voice_iterator::construct_children()
+Sequential_music_iterator::construct_children()
 {
   while (PCursor<Music*>::ok()) 
     {
@@ -39,14 +39,14 @@ Voice_iterator::construct_children()
 	}
       else 
 	{
-	  set_voice_translator();
+	  set_Sequential_music_translator();
 	  break;
 	}
     }
 }
 
 void 
-Voice_iterator::leave_element()
+Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
@@ -57,29 +57,29 @@ Voice_iterator::leave_element()
 }
 
 void
-Voice_iterator::start_next_element()
+Sequential_music_iterator::start_next_element()
 {
   assert (!iter_p_);
   iter_p_ = get_iterator_p (ptr());
 }
 
 void
-Voice_iterator::set_voice_translator()
+Sequential_music_iterator::set_Sequential_music_translator()
 {
   if (iter_p_->report_to_l()->depth_i () > report_to_l ()->depth_i ())
     set_translator (iter_p_->report_to_l());
 }
 
-Voice_iterator::~Voice_iterator()
+Sequential_music_iterator::~Sequential_music_iterator()
 {
   assert (! iter_p_);
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Voice_iterator,Music_iterator);
+IMPLEMENT_IS_TYPE_B1(Sequential_music_iterator,Music_iterator);
 
 void
-Voice_iterator::process_and_next (Moment until)
+Sequential_music_iterator::process_and_next (Moment until)
 {
   while (1) 
     {
@@ -100,7 +100,7 @@ Voice_iterator::process_and_next (Moment until)
 	  if (PCursor<Music*>::ok()) 
 	    {
 	      start_next_element();
-	      set_voice_translator();
+	      set_Sequential_music_translator();
 	    }
 	  else 
 	    {
@@ -115,13 +115,13 @@ loopexit:
 }
 
 Moment
-Voice_iterator::next_moment() const
+Sequential_music_iterator::next_moment() const
 {
   return iter_p_->next_moment() + here_mom_;
 }
 
 bool
-Voice_iterator::ok() const
+Sequential_music_iterator::ok() const
 {
   return iter_p_;
 }

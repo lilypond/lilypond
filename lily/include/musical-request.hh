@@ -194,7 +194,7 @@ public:
 };
 
 /**
-  Start a tie at this voice element, end it at the next
+  Start a tie at this note, end it at the next
  */
 class Tie_req : public Musical_req {
 public:

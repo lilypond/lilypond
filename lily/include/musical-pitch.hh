@@ -13,10 +13,11 @@
 #include "lily-proto.hh"
 #include "input.hh"
 
-/** The pitch as it figures in diatonal western music (12 semitones in
-   an octave).
+/** A "tonal" pitch. This is a pitch as it figures in diatonal western
+   music (12 semitones in an octave), as opposed to a frequence in Hz
+   or a integer number of semitones.
 
-   It is not Music because, it has to duration associated
+   It is not Music because, it has no duration associated.
 */
 struct Musical_pitch : public Input
 {

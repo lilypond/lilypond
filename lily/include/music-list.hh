@@ -1,5 +1,5 @@
 /*
-  music-list.hh -- declare Music_list, Chord and Voice
+  music-list.hh -- declare Music_sequence, Simultaneous_music and Sequential_music
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,46 +7,53 @@
 */
 
 
-#ifndef MUSIC_LIST_HH
-#define MUSIC_LIST_HH
+#ifndef Music_sequence_HH
+#define Music_sequence_HH
 
 #include "music.hh"
 #include "plist.hh"
 
 
+class Music_list : public Pointer_list<Music*>
+{
+public:
+  Musical_pitch do_relative_octave (Musical_pitch, bool); 
+  void add_music (Music*);
+  Music_list (Music_list const&);
+  Music_list ();
+};
+
+
 /**
   Music can be a list of other "Music" elements
  */
-class Music_list : public Music
+class Music_sequence : public Music
 {
     
 public:
   int multi_level_i_;
-
-  Musical_pitch do_relative_octave (Musical_pitch, bool); 
-  Music_list (Music_list const&);
-  Music_list();
+  Music_list * music_p_list_p_;
+  
+  Music_sequence (Music_sequence const&);
+  Music_sequence (Music_list *l_p);
   DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Music_list,Music);
-  virtual void add (Music*);
+  VIRTUAL_COPY_CONS(Music_sequence,Music);
+
   virtual void transpose (Musical_pitch );
-    
-  Pointer_list<Music*> music_p_list_;
+  void add_music (Music *music_p);
 protected:
- 
   virtual void do_print() const;
 };
 
 /**
-  Chord is a list of music-elements which happen simultaneously
+  Simultaneous_music is a list of music-elements which happen simultaneously
  */
-
-class Chord : public Music_list
+class Simultaneous_music : public Music_sequence
 {
 public:
-  Chord();
+  Simultaneous_music(Music_list *);
   DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Chord,Music);
+  VIRTUAL_COPY_CONS(Simultaneous_music,Music);
   
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void translate (Moment dt);
@@ -57,7 +64,7 @@ public:
   The request is a collection of Requests. A note that you enter in mudela is 
   one Request_chord, one syllable of lyrics is one Request_chord
  */
-class Request_chord : public Chord
+class Request_chord : public Simultaneous_music
 {
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
@@ -66,18 +73,18 @@ public:
   VIRTUAL_COPY_CONS(Request_chord, Music);
 };
 /**
-  Voice is a list of music-elements which are placed behind each other.
+  Sequential_music is a list of music-elements which are placed behind each other.
  */
-class Voice : public Music_list
+class Sequential_music : public Music_sequence
 {
     
 public:
   Moment offset_mom_;
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  Voice();
+  Sequential_music(Music_list*);
   DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Voice, Music);
+  VIRTUAL_COPY_CONS(Sequential_music, Music);
   virtual void translate (Moment dt);
   virtual MInterval time_int() const;
 };
-#endif // MUSIC_LIST_HH
+#endif // Music_sequence_HH

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.1";
+\version "1.0.2";
 
 global = \melodic {
 	\time 4/4;
