@@ -325,6 +325,15 @@ setup_localisation ()
 }
 
 static void
+add_output_format (String format)
+{
+  if (output_name_global != "")
+    output_name_global += ",";
+  output_name_global += format;
+}
+
+
+static void
 parse_argv (int argc, char **argv)
 {
   bool help_b = false;
@@ -334,16 +343,14 @@ parse_argv (int argc, char **argv)
       switch (opt->shortname_char_)
 	{
 	case 0:
-	  if (String (opt->longname_str0_) == "png")
-	    make_png = true;
-	  else if (String (opt->longname_str0_) == "pdf")
-	    make_pdf = true;
-	  else if (String (opt->longname_str0_) == "ps")
-	    make_ps = true;
-	  else if (String (opt->longname_str0_) == "dvi")
-	    make_dvi = true;
-	  else if (String (opt->longname_str0_) == "tex")
-	    make_tex = true;
+	  if (String (opt->longname_str0_) == "png"
+	      || String (opt->longname_str0_) == "pdf"
+	      || String (opt->longname_str0_) == "ps"
+	      || String (opt->longname_str0_) == "dvi"
+	      || String (opt->longname_str0_) == "tex")
+	    {
+	      add_output_format (opt->longname_str0_);
+	    }
 	  else if (String (opt->longname_str0_) == "preview")
 	    make_preview = true;
 	  else if (String (opt->longname_str0_) == "no-pages")
