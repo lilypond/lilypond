@@ -11,7 +11,6 @@
 
 #include "warn.hh"
 
-
 void
 message (String s)
 {

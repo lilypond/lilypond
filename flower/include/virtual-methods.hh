@@ -12,7 +12,7 @@
 
 #include <typeinfo>
 
-#define classname(class_ptr)   demangle_classname (typeid (* (class_ptr)))
+#define classname(class_ptr) demangle_classname (typeid (*(class_ptr)))
 
 const char *
 demangle_classname (std::type_info const &);

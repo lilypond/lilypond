@@ -18,17 +18,10 @@
 
 #include "ly-smobs.icc"
 
-
-Offset
-Stencil::origin () const
+Stencil::Stencil ()
 {
-  return origin_;
-}
-
-Interval
-Stencil::extent (Axis a) const
-{
-  return dim_[a];
+  expr_ = SCM_EOL;
+  set_empty (true);
 }
 
 Stencil::Stencil (Box b, SCM func)
@@ -37,10 +30,35 @@ Stencil::Stencil (Box b, SCM func)
   dim_ = b;
 }
 
-Stencil::Stencil ()
+int
+Stencil::print_smob (SCM, SCM port, scm_print_state *)
 {
-  expr_ = SCM_EOL;
-  set_empty (true);
+  scm_puts ("#<Stencil ", port);
+  scm_puts (" >", port);
+  return 1;
+}
+
+SCM
+Stencil::mark_smob (SCM smob)
+{
+  Stencil *s = (Stencil*) ly_cdr (smob);
+  return s->expr_;
+}
+
+IMPLEMENT_SIMPLE_SMOBS (Stencil);
+IMPLEMENT_TYPE_P (Stencil, "ly:stencil?");
+IMPLEMENT_DEFAULT_EQUAL_P (Stencil);
+
+Interval
+Stencil::extent (Axis a) const
+{
+  return dim_[a];
+}
+
+Offset
+Stencil::origin () const
+{
+  return origin_;
 }
 
 void
@@ -77,8 +95,7 @@ Stencil::translate_axis (Real x, Axis a)
 void
 Stencil::add_stencil (Stencil const &s)
 {
-  expr_ = scm_list_n (ly_symbol2scm ("combine-stencil"),
-		      s.expr_, expr_, SCM_UNDEFINED);
+  expr_ = scm_list_3 (ly_symbol2scm ("combine-stencil"), s.expr_, expr_);
   dim_.unite (s.dim_);
 }
 
@@ -107,10 +124,8 @@ Stencil::align_to (Axis a, Real x)
   translate_axis (-i.linear_combination (x), a);
 }
 
-/*
-  TODO: unintuitive naming, you would expect *this to be moved.  Kept
-  API for compat with add_at_edge ().
-*/
+/* FIXME: unintuitive naming, you would expect *this to be moved.
+   Kept (keeping?) API for compat with add_at_edge ().  */
 Stencil
 Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
 			Real minimum) const
@@ -122,7 +137,7 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
   Real his_extent;
   if (i.is_empty ())
     {
-      programming_error ("Stencil::move_to_edge: adding empty stencil.");
+      programming_error ("Stencil::moved_to_edge: adding empty stencil.");
       his_extent = 0.0;
     }
   else
@@ -147,7 +162,7 @@ void
 Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 		      Real minimum)
 {
-  add_stencil (moved_to_edge (a,d,s,padding, minimum));
+  add_stencil (moved_to_edge (a, d, s, padding, minimum));
 }
 
 /* Hmm... maybe this is not such a good idea ; stuff can be empty,
@@ -169,22 +184,3 @@ Stencil::extent_box () const
 {
   return dim_;
 }
-
-int
-Stencil::print_smob (SCM , SCM port, scm_print_state *)
-{
-  scm_puts ("#<Stencil ", port);
-  scm_puts (" >", port);
-  return 1;
-}
-
-SCM
-Stencil::mark_smob (SCM s)
-{
-  Stencil  *r = (Stencil *) ly_cdr (s);
-  return r->expr_;
-}
-
-IMPLEMENT_SIMPLE_SMOBS (Stencil);
-IMPLEMENT_TYPE_P (Stencil, "ly:stencil?");
-IMPLEMENT_DEFAULT_EQUAL_P (Stencil);
