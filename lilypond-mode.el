@@ -10,9 +10,6 @@
 ;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
 ;;;    * Autocompletion & Info (23rd Nov 2002)
-;;;
-;;; Changed 2002 Carlos Betancourt <carlos.betancourt@chello.be>
-;;;    * Added spanish-note-replacements
 
 ;;; Inspired on auctex
 
@@ -22,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.25"
+(defconst LilyPond-version "1.7.30"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -681,7 +678,8 @@ command."
   (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
   (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
-  (define-key LilyPond-mode-map "\C-ci" 'LilyPond-quick-note-insert)
+  ;; the following will should be overriden by Lilypond Quick Insert Mode
+  (define-key LilyPond-mode-map "\C-cq" 'LilyPond-quick-insert-mode)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
@@ -697,110 +695,23 @@ command."
 
 ;;; Menu Support
 
-(defun LilyPond-quick-note-insert()
+;;; This mode was originally LilyPond-quick-note-insert by Heikki Junes.
+;;; The original version has been junked since CVS-1.97,
+;;; in order to merge the efforts done by Nicolas Sceaux.
+;;; LilyPond Quick Insert Mode is a major mode, toggled by C-c q.
+(defun LilyPond-quick-insert-mode ()
   "Insert notes with fewer key strokes by using a simple keyboard piano."
   (interactive)
-  (setq dutch-notes
-       '(("k" "a") ("l" "b") ("a" "c") ("s" "d")
-         ("d" "e") ("f" "f") ("j" "g") ("r" "r")))
-  (setq dutch-note-ends '("eses" "es" "" "is" "isis"))
-  (setq dutch-note-replacements '("" ""))
-  (setq finnish-note-replacements
-       '(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
-         ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
-                             ; add more translations of the note names
-  (setq spanish-note-replacements
-       '(("c" "do") ("d" "re") ("e" "mi") ("f" "fa") ("g" "sol") ("a" "la") ("b
-" "si")
-      ("cis" "dos") ("cisis" "doss") ("ces" "dob") ("ceses" "dobb")
-      ("dis" "res") ("disis" "ress") ("des" "reb") ("deses" "rebb")
-      ("eis" "mis") ("eisis" "miss") ("ees" "mib") ("eeses" "mibb")
-      ("fis" "fas") ("fisis" "fass") ("fes" "fab") ("feses" "fabb")
-      ("gis" "sols") ("gisis" "solss") ("ges" "solb") ("geses" "solbb")
-      ("ais" "las") ("aisis" "lass") ("aes" "lab") ("aeses" "labb")
-      ("bis" "sis") ("bisis" "siss") ("bes" "sib") ("beses" "sibb")))
-  (setq other-keys "(<~>)}|")
-  (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
-
-  (message "Press h for help.") (sit-for 0 750)
-
-  (setq note-replacements dutch-note-replacements)
-  (setq xkey 0) (setq xinitpoint (point))
-  (< xinitpoint (point))
-  (while (not (= xkey 27)) ; esc to quit
-    (message (format " a[]s[]d f[]j[]k[]l r with %4s%-4s%3s%-4s ie ,' 12345678 . 0 /%sb\\b\\n Esc"
-		     (nth (+ accid 2) dutch-note-ends)
-		     (make-string (abs octav) (if (> octav 0) ?' ?,))
-		     durat
-		     (if (string= durat "") "" (make-string dots ?.))
-		     other-keys))
-    (setq xkey (read-char-exclusive))
-    (setq x (char-to-string xkey))
-    (setq note (cdr (assoc x dutch-notes)))
-    (cond
-     ((string= x "q") (progn (setq xkey 27))) ; quit
-     ((= xkey 13) (progn (insert "\n") (LilyPond-indent-line))) ; return
-     ((or (= xkey 127)     ; backspace is recognized as a char only in Emacs
-	  (string= x "b")) ; so, we need to define an another char for XEmacs
-      (progn (narrow-to-region xinitpoint (point))
-	     (backward-kill-word 1)
-	     (widen)))
-     ((and (string< x "9") (string< "0" x))
-      (progn (setq durat (int-to-string (expt 2 (- (string-to-int x) 1))))
-             (setq dots 0)))
-     ((string= x " ") (insert " "))
-     ((string= x "/") (progn (insert "\\times ")
-			     (message "Insert a number for the denominator (\"x/\")")
-                             (while (not (and (string< x "9") (string< "0" x)))
-                               (setq x (char-to-string (read-char-exclusive))))
-                             (insert (format "%s/" x)) (setq x "/")
-			     (message "Insert a number for the numerator (\"/y\")")
-                             (while (not (and (string< x "9") (string< "0" x)))
-                               (setq x (char-to-string (read-char-exclusive))))
-                             (insert (format "%s { " x))))
-     ((string= x "0") (progn (setq accid 0) (setq octav 0)
-                             (setq durat "") (setq dots 0)))
-     ((string= x "i") (setq accid (if (= accid 2) 0 (max (+ accid 1) 1))))
-     ((string= x "e") (setq accid (if (= accid -2) 0 (min (+ accid -1) -1))))
-     ((string= x "'") (setq octav (if (= octav 4) 0 (max (+ octav 1) 1))))
-     ((string= x ",") (setq octav (if (= octav -4) 0 (min (+ octav -1) -1))))
-     ((string= x ".") (setq dots (if (= dots 4) 0 (+ dots 1))))
-     ((not (null (member x (split-string other-keys ""))))
-      (insert (format "%s " x)))
-     ((not (null note))
-      (progn
-        (setq note
-              (format "%s%s" (car note) (if (string= "r" (car note)) ""
-                                          (nth (+ accid 2) dutch-note-ends))))
-        (setq notetwo (car (cdr (assoc note note-replacements))))
-        (if (not (null notetwo)) (setq note notetwo))
-        (insert
-         (format "%s%s%s%s "
-                 note
-                 (if (string= "r" note) ""
-                     (make-string (abs octav) (if (> octav 0) ?' ?,)))
-                 durat
-                 (if (string= durat "") "" (make-string dots ?.))))
-        (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)))
-     ((string= x "t") (progn (setq note-replacements dutch-note-replacements)
-                             (message "Selected Dutch notes")
-                             (sit-for 0 750)))
-     ((string= x "n") (progn (setq note-replacements finnish-note-replacements)
-                             (message "Selected Finnish/Deutsch notes")
-                             (sit-for 0 750)))
-                              ; add more translations of the note names
-     ((string= x "p") (progn (setq note-replacements spanish-note-replacements)
-                             (message "Selected Spanish notes")
-                             (sit-for 0 750)))
-     ((string= x "h")
-      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0)
-             (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0)
-             (message "There are Du(t)ch, Fin(n)ish/Deutsch (hit 'n') and S(p)anish note names.") (sit-for 5 0)
-             (message "(B)ackspace deletes last note, Ret starts a new indented line and Esc (q)uits.") (sit-for 5 0)
-             (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0)
-             (message "This mode is experimental. Use normal mode to add further details.") (sit-for 5 0)))
-     (t (progn (message "Quick notes mode. Press Esc or q to quit.") (sit-for 0 500)))))
-  (message "Normal editing mode."))
+  (progn 
+    (message "Invoke C-c q from keyboard. If you still see this message,") (sit-for 5 0)
+    (message "then you have not installed LilyPond Quick Insert Mode.") (sit-for 5 0)
+    (message "Download lyqi from http://nicolas.sceaux.free.fr/lilypond/lyqi.html") (sit-for 5 0)
+    (message "See installation instructions from lyqi's README -file.") (sit-for 5 0)
+    (message "You need also eieio (Enhanced Integration of Emacs Interpreted Objects).") (sit-for 5 0)
+    (message "Download eieio from lyqi from http://cedet.sourceforge.net/eieio.shtml") (sit-for 5 0)
+    (message "See installation instructions from eieio's INSTALL -file.") (sit-for 5 0)
+    (message "")
+    ))    
 
 (defun LilyPond-pre-word-search ()
   "Fetch the alphabetic characters and \\ in front of the cursor."
@@ -992,13 +903,13 @@ command."
 	  '(("Insert"
 	     [ "\\notes..."  LilyPond-insert-tag-notes t]
 	     [ "\\score..."  LilyPond-insert-tag-score t]
-	     ["Quick Notes"  LilyPond-quick-note-insert t]
 	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ))
 	  '(("Miscellaneous"
 	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
 	     ["Add index menu" LilyPond-add-imenu-menu]
+	     ["Quick Insert Mode"  LilyPond-quick-insert-mode :keys "C-c q"]
  	     ))
 	  '(("Info"
 	     ["LilyPond" LilyPond-info t]
