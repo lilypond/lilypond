@@ -1,3 +1,8 @@
+2005-03-12  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* input/regression/mensural-ligatures.ly: new file (with examples
+	compiled by Pal Benko).
+
 2005-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): switch off
