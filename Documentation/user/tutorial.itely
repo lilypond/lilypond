@@ -1461,8 +1461,8 @@ object. However, many layout objects share properties, which can be
 used to apply generic tweaks.  We mention a couple of these:
 
 @itemize @bullet
-@cindex @code{extra-offset}
 @item The @code{extra-offset} property, which
+@cindex @code{extra-offset}
 has a pair of numbers as value, moves around objects in the printout.
 The first number controls left-right movement; a positive number will
 move the object to the right.  The second number controls up-down
@@ -1509,6 +1509,7 @@ in that voice, the tie appears to cross voices:
 
 @item
 The @code{padding} property for objects with
+@cindex @code{padding}
 @code{side-position-interface} can be set to increase distance between
 symbols that are printed above or below notes. We only give an
 example; a more elaborate explanation is in @ref{Constructing a

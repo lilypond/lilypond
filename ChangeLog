@@ -1,5 +1,8 @@
 2003-08-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Text markup): add note about
+	raise/lower with ^ or _ .
+	
 	* po/fi.po: fix \\apply strings.
 
 	* lily/parser.yy (open_event): warn for prefix articulations.

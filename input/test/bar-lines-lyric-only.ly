@@ -38,5 +38,9 @@ You can move around @code{Bar_engraver} and
   \StaffGroupContext
   \remove "Span_bar_engraver"
 }
+	\translator {
+	    \StaffContext
+	    \remove "Bar_engraver"
+	    }
 }}
 
