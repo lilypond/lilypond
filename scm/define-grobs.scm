@@ -222,12 +222,12 @@
 	(break-align-orders . #(; end-of-line:
 				(instrument-name
 				 left-edge ambitus breathing-sign
-				 clef key-cancellation staff-bar key-signature
+				 clef staff-bar key-cancellation key-signature
 				 time-signature custos)
 
 				; unbroken
 				(instrument-name left-edge ambitus breathing-sign
-						 clef key-cancellation staff-bar key-signature
+						 clef staff-bar key-cancellation key-signature
 						 staff
 						 time-signature custos)
 				; begin of line
