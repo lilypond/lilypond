@@ -14,9 +14,6 @@ This is a placeholder until I can write a nice intro for this chapter.
 * Global layout::               
 * File structure::              
 * Sound::                       
-* Creating MIDI files::         
-* MIDI block::                  
-* MIDI instrument names::       
 @end menu
 
 
@@ -1016,7 +1013,7 @@ output.  Players that are known to work include
 @end menu
 
 @node Creating MIDI files
-@section Creating MIDI files 
+@subsection Creating MIDI files 
 
 To create a MIDI from a music piece of music, add a @code{\midi} block
 to a score, for example,
@@ -1060,7 +1057,7 @@ setting @code{instrumentEqualizer}.
 
 
 @node MIDI block
-@section MIDI block
+@subsection MIDI block
 @cindex MIDI block
 
 
@@ -1090,7 +1087,7 @@ The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
 
 
 @node MIDI instrument names
-@section MIDI instrument names
+@subsection MIDI instrument names
 
 @cindex instrument names
 @cindex @code{Staff.midiInstrument}
