@@ -36,7 +36,7 @@
 	 f[ a]
     }
     \paper{
-	linewidth = 0.0
+	raggedright = ##t
     }
 }
 
