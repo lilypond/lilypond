@@ -76,7 +76,7 @@ get_voice_to_lyrics (Context *lyrics)
   SCM voice_name = lyrics->get_property ("associatedVoice");
   String nm = lyrics->id_string_;
 
-  if (is_string (voice_name))
+  if (ly_c_string_p (voice_name))
     nm = ly_scm2string (voice_name);
   else
     {
@@ -111,7 +111,7 @@ Grob *
 get_current_note_head (Context * voice)
 {
   for (SCM s = voice->get_property ("busyGrobs");
-       is_pair (s); s = ly_cdr (s))
+       ly_c_pair_p (s); s = ly_cdr (s))
     {
       Item*g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
 	  

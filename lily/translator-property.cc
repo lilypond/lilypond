@@ -54,7 +54,7 @@ execute_pushpop_property (Context * trg,
 	  else
 	    prev = trg->internal_get_property (prop);
 	  
-	  if (!is_pair (prev))
+	  if (!ly_c_pair_p (prev))
 	    {
 	      programming_error ("Grob definition should be cons.");
 	      return ;
@@ -62,7 +62,7 @@ execute_pushpop_property (Context * trg,
 
 	  SCM prev_alist = ly_car (prev);
 	  
-	  if (is_pair (prev_alist) || prev_alist == SCM_EOL)
+	  if (ly_c_pair_p (prev_alist) || prev_alist == SCM_EOL)
 	    {
 	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
 
@@ -124,7 +124,7 @@ void
 apply_property_operations (Context *tg, SCM pre_init_ops)
 {
   SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; is_pair (s); s = ly_cdr (s))
+  for (SCM s = correct_order; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM entry = ly_car (s);
       SCM type = ly_car (entry);
@@ -133,7 +133,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
 	{
 	  SCM val = ly_cddr (entry);
-	  val = is_pair (val) ? ly_car (val) : SCM_UNDEFINED;
+	  val = ly_c_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
 	  execute_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
 	}
@@ -164,7 +164,7 @@ updated_grob_properties (Context * tg, SCM sym)
   
   SCM props  = tg->internal_get_property (sym);
 
-  if (!is_pair (props))
+  if (!ly_c_pair_p (props))
     {
       programming_error ("grob props not a pair?");
       return SCM_EOL;

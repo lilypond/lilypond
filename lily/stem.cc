@@ -40,7 +40,7 @@ Stem::set_beaming (Grob*me, int beam_count,  Direction d)
 {
   SCM pair = me->get_property ("beaming");
   
-  if (!is_pair (pair))
+  if (!ly_c_pair_p (pair))
     {
       pair = scm_cons (SCM_EOL, SCM_EOL);
       me->set_property ("beaming", pair);
@@ -189,7 +189,7 @@ Stem::extremal_heads (Grob*me)
   Drul_array<Grob *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
-  for (SCM s = me->get_property ("note-heads"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
 
@@ -222,7 +222,7 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
-  for (SCM s = me->get_property ("note-heads"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
@@ -296,7 +296,7 @@ Stem::get_default_stem_end_position (Grob*me)
   else
     {
       s = me->get_property ("lengths");
-      if (is_pair (s))
+      if (ly_c_pair_p (s))
 	{
 	  length = 2* ly_scm2double (robust_list_ref (durlog -2, s));
 	}
@@ -317,7 +317,7 @@ Stem::get_default_stem_end_position (Grob*me)
   if (dir * head_positions (me)[dir] >= 0)
     {
       SCM sshorten = me->get_property ("stem-shorten");
-      SCM scm_shorten = is_pair (sshorten) ?
+      SCM scm_shorten = ly_c_pair_p (sshorten) ?
 	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
       Real shorten = 2* robust_scm2double (scm_shorten,0);
       
@@ -649,7 +649,7 @@ Stem::flag (Grob*me)
     }
 
   SCM stroke_style_scm = me->get_property ("stroke-style");
-  if (is_string (stroke_style_scm))
+  if (ly_c_string_p (stroke_style_scm))
     {
       String stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.is_empty ())
@@ -824,7 +824,7 @@ Stem::get_stem_info (Grob *me)
 {
   /* Return cached info if available */
   SCM scm_info = me->get_property ("stem-info");
-  if (!is_pair (scm_info))
+  if (!ly_c_pair_p (scm_info))
     {
       calc_stem_info (me);
       scm_info = me->get_property ("stem-info");

@@ -173,7 +173,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 			     ly_quote_scm (ly_offset2scm (*origin)),
 			     ly_quote_scm (ly_offset2scm (dim))));
 
-  for (SCM s = pl->stencils (); is_pair (s); s = ly_cdr (s))
+  for (SCM s = pl->stencils (); ly_c_pair_p (s); s = ly_cdr (s))
     output_expr (unsmob_stencil (ly_car (s))->get_expr (), Offset (0, 0));
 
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
@@ -196,7 +196,7 @@ Paper_outputter::output_expr (SCM expr, Offset o)
 {
   while (1)
     {
-      if (!is_pair (expr))
+      if (!ly_c_pair_p (expr))
 	return;
   
       SCM head =ly_car (expr);

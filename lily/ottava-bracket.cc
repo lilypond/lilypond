@@ -88,7 +88,7 @@ Ottava_bracket::print (SCM smob)
       Interval ext;
       if (Note_column::has_interface (b))
 	{
-	  for (SCM s = b->get_property ("note-heads"); is_pair (s); s =ly_cdr (s))
+	  for (SCM s = b->get_property ("note-heads"); ly_c_pair_p (s); s =ly_cdr (s))
 	    ext.unite (unsmob_grob (ly_car (s))->extent (common, X_AXIS));
 	}
 

@@ -26,7 +26,7 @@ Virtual_font_metric::Virtual_font_metric (SCM font_list)
   SCM name_list = SCM_EOL;
   SCM *name_tail = &name_list;
   
-  for (SCM s = font_list; is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list; ly_c_pair_p (s); s = ly_cdr (s))
     {
       if (Font_metric *fm = unsmob_metrics (ly_car (s)))
 	{
@@ -61,7 +61,7 @@ int
 Virtual_font_metric::count () const
 {
   int k = 0;
-  for (SCM s = font_list_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; ly_c_pair_p (s); s = ly_cdr (s))
       k += unsmob_metrics (ly_car (s))->count ();
   return k;
 }
@@ -70,7 +70,7 @@ Stencil
 Virtual_font_metric::find_by_name (String glyph) const
 {
   Stencil m;  
-  for (SCM s = font_list_; m.is_empty () && is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && ly_c_pair_p (s); s = ly_cdr (s))
     {
       m = unsmob_metrics (ly_car (s))->find_by_name (glyph);
     }
@@ -96,7 +96,7 @@ Offset
 Virtual_font_metric::get_indexed_wxwy (int code)  const
 {
   int total = 0;
-  for (SCM s = font_list_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Font_metric *fm = unsmob_metrics (ly_car (s));
       if (code < total + fm->count ())
@@ -110,7 +110,7 @@ Box
 Virtual_font_metric::get_indexed_char (int code)  const
 {
   int total = 0;
-  for (SCM s = font_list_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Font_metric *fm = unsmob_metrics (ly_car (s));
       if (code < total + fm->count ())
@@ -125,7 +125,7 @@ Virtual_font_metric::name_to_index (String glyph) const
 {
   Stencil m;
   int total = 0; 
-  for (SCM s = font_list_; m.is_empty () && is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && ly_c_pair_p (s); s = ly_cdr (s))
     {
       Font_metric *m =unsmob_metrics (ly_car (s));
       int k = m->name_to_index (glyph);
@@ -143,7 +143,7 @@ Virtual_font_metric::get_indexed_char_stencil (int code)  const
   Stencil  m ;  
   int total = 0;
   
-  for (SCM s = font_list_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = font_list_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Font_metric *fm = unsmob_metrics (ly_car (s));
       if (code < total + fm->count ())

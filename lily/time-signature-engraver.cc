@@ -44,7 +44,7 @@ Time_signature_engraver::process_music ()
   SCM fr= get_property ("timeSignatureFraction");
   if (!time_signature_
       && last_time_fraction_ != fr
-      && is_pair (fr))
+      && ly_c_pair_p (fr))
     {
       int den = ly_scm2int (ly_cdr (fr));
       if (den != (1 << intlog2 (den)))

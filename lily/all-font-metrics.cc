@@ -211,7 +211,7 @@ LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 	   (SCM name),
 	   "Load the font @var{name}. ")
 {
-  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
 
   Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
 

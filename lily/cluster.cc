@@ -144,7 +144,7 @@ Cluster::print (SCM smob)
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
   SCM cols  =me->get_property ("columns");
 
-  if (!is_pair (cols))
+  if (!ly_c_pair_p (cols))
     {
       me->warning ("junking empty cluster");
       me->suicide ();
@@ -165,7 +165,7 @@ Cluster::print (SCM smob)
     line with the center of the note heads?
     
    */
-  for (SCM s = cols; is_pair (s); s = ly_cdr (s))
+  for (SCM s = cols; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob * col = unsmob_grob (ly_car (s));
       Interval yext = col->extent (commony, Y_AXIS);
@@ -186,7 +186,7 @@ Cluster::print (SCM smob)
 	{
 	  Spanner * next = orig->broken_intos_[spanner->get_break_index () + 1];
 	  SCM cols = next->get_property ("columns");
-	  if (is_pair (cols))
+	  if (ly_c_pair_p (cols))
 	    {
 	      Grob *next_commony = common_refpoint_of_list (cols, next, Y_AXIS);
 	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));

@@ -107,7 +107,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
-  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
@@ -125,7 +125,7 @@ ly_display_scm (SCM s)
 String
 ly_scm2string (SCM s)
 {
-  assert (is_string (s));
+  assert (ly_c_string_p (s));
 
   char *p = SCM_STRING_CHARS (s);
   String r (p);
@@ -138,7 +138,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
   char *new_str;
   size_t len;
 
-  SCM_ASSERT_TYPE (is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
 
   len = SCM_STRING_LENGTH (str);
   new_str = (char *) malloc ((len + 1) * sizeof (char));
@@ -176,7 +176,7 @@ index_set_cell (SCM s, Direction d, SCM v)
 LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   (SCM str), "Scheme callable function to issue the warning @code{msg}.")
 {
-  SCM_ASSERT_TYPE (is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
@@ -198,7 +198,7 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 bool
 is_number_pair (SCM p)
 {
-  return is_pair (p) && is_number (ly_car (p)) && is_number (ly_cdr (p));
+  return ly_c_pair_p (p) && is_number (ly_car (p)) && is_number (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -384,7 +384,7 @@ LY_DEFINE (ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
 SCM
 ly_deep_copy (SCM src)
 {
-  if (is_pair (src))
+  if (ly_c_pair_p (src))
     return scm_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
   else if (is_vector (src))
     {
@@ -405,10 +405,10 @@ ly_deep_copy (SCM src)
 SCM
 ly_assoc_chain (SCM key, SCM achain)
 {
-  if (is_pair (achain))
+  if (ly_c_pair_p (achain))
     {
       SCM handle = scm_assoc (key, ly_car (achain));
-      if (is_pair (handle))
+      if (ly_c_pair_p (handle))
 	return handle;
       else
 	return ly_assoc_chain (key, ly_cdr (achain));
@@ -439,10 +439,10 @@ corresponds to call
 SCM
 ly_assoc_cdr (SCM key, SCM alist)
 {
-  if (is_pair (alist))
+  if (ly_c_pair_p (alist))
     {
       SCM trykey = ly_caar (alist);
-      if (is_pair (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
+      if (ly_c_pair_p (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
 	return ly_car (alist);
       else
 	return ly_assoc_cdr (key, ly_cdr (alist));
@@ -493,10 +493,10 @@ ly_truncate_list (int k, SCM lst)
     {
       SCM s = lst;
       k--;
-      for (; is_pair (s) && k--; s = ly_cdr (s))
+      for (; ly_c_pair_p (s) && k--; s = ly_cdr (s))
 	;
 
-      if (is_pair (s))
+      if (ly_c_pair_p (s))
 	scm_set_cdr_x (s, SCM_EOL);
     }
   return lst;
@@ -592,9 +592,9 @@ SCM
 ly_unique (SCM list)
 {
   SCM unique = SCM_EOL;
-  for (SCM i = list; is_pair (i); i = ly_cdr (i))
+  for (SCM i = list; ly_c_pair_p (i); i = ly_cdr (i))
     {
-      if (!is_pair (ly_cdr (i))
+      if (!ly_c_pair_p (ly_cdr (i))
 	  || !is_equal (ly_car (i), ly_cadr (i)))
 	unique = scm_cons (ly_car (i), unique);
     }
@@ -654,7 +654,7 @@ ly_split_list (SCM s, SCM list)
 {
   SCM before = SCM_EOL;
   SCM after = list;
-  for (; is_pair (after);)
+  for (; ly_c_pair_p (after);)
     {
       SCM i = ly_car (after);
       after = ly_cdr (after);
@@ -684,7 +684,7 @@ display_list (SCM s)
   SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; is_pair (s); s =ly_cdr (s))
+  for (; ly_c_pair_p (s); s =ly_cdr (s))
     {
       scm_display (ly_car (s), p);
       scm_puts (" ", p);      
@@ -698,7 +698,7 @@ int_list_to_slice (SCM l)
 {
   Slice s;
   s.set_empty ();
-  for (; is_pair (l); l = ly_cdr (l))
+  for (; ly_c_pair_p (l); l = ly_cdr (l))
     if (is_number (ly_car (l)))
       s.add_point (ly_scm2int (ly_car (l))); 
   return s;
@@ -711,7 +711,7 @@ int_list_to_slice (SCM l)
 SCM
 robust_list_ref (int i, SCM l)
 {
-  while (i-- > 0 && is_pair (ly_cdr (l)))
+  while (i-- > 0 && ly_c_pair_p (ly_cdr (l)))
     l = ly_cdr (l);
   return ly_car (l);
 }
@@ -767,7 +767,7 @@ alist_to_hashq (SCM alist)
     return scm_make_vector (scm_int2num (0), SCM_EOL);
 	  
   SCM tab = scm_make_vector (scm_int2num (i), SCM_EOL);
-  for (SCM s = alist; is_pair (s); s = ly_cdr (s))
+  for (SCM s = alist; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM pt = ly_cdar (s);
       scm_hashq_set_x (tab, ly_caar (s), pt);

@@ -28,7 +28,7 @@ Context::is_removable () const
 void
 Context::check_removal ()
 {
-  for (SCM p = context_list_; is_pair (p); p = ly_cdr (p))
+  for (SCM p = context_list_; ly_c_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
 
@@ -175,7 +175,7 @@ Context::find_create_context (SCM n, String id,
 SCM
 Context::default_child_context_name () const
 {
-  return is_pair (accepts_list_)
+  return ly_c_pair_p (accepts_list_)
     ? ly_car (scm_last_pair (accepts_list_))
     : SCM_EOL;
 }
@@ -245,7 +245,7 @@ bool
 Context::is_alias (SCM sym) const
 {
   if (sym == ly_symbol2scm ("Bottom")
-      && !is_pair (accepts_list_))
+      && !ly_c_pair_p (accepts_list_))
     return true;
   if (sym == unsmob_context_def (definition_)->get_context_name ())
     return true;
@@ -309,7 +309,7 @@ find_context_below (Context * where,
   
   Context * found = 0;
   for (SCM s = where->children_contexts ();
-       !found && is_pair (s); s = ly_cdr (s))
+       !found && ly_c_pair_p (s); s = ly_cdr (s))
     {
       Context * tr = unsmob_context (ly_car (s));
 

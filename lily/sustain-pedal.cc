@@ -42,7 +42,7 @@ Sustain_pedal::print (SCM smob)
   
   Stencil mol;
   SCM glyph = e->get_property ("text");
-  if (!is_string (glyph))
+  if (!ly_c_string_p (glyph))
     return mol.smobbed_copy ();
   
   String text = ly_scm2string (glyph);

@@ -76,7 +76,7 @@ Clef_engraver::acknowledge_grob (Grob_info info)
   if (item)
     {
       if (Bar_line::has_interface (info.grob_)
-	  && is_string (get_property ("clefGlyph")))
+	  && ly_c_string_p (get_property ("clefGlyph")))
 	create_clef ();
     } 
 }

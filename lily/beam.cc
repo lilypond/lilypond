@@ -95,7 +95,7 @@ int
 Beam::get_beam_count (Grob *me) 
 {
   int m = 0;
-  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob *stem = unsmob_grob (ly_car (s));
       m = m >? (Stem::beam_multiplicity (stem).length () + 1);
@@ -209,7 +209,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
        (i - lslice[left_dir])* left_dir <= 0 ; i+= left_dir) 
     {
       int count =0;
-      for ( SCM s = ly_car (right_beaming); is_pair (s); s = ly_cdr (s))
+      for ( SCM s = ly_car (right_beaming); ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  int k = - right_dir * ly_scm2int (ly_car (s)) + i;
 	  if (scm_c_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
@@ -242,7 +242,7 @@ Beam::connect_beams (Grob *me)
       SCM this_beaming = this_stem->get_property ("beaming");
 
       Direction this_dir = get_grob_direction (this_stem);
-      if (is_pair (last_beaming) && is_pair (this_beaming))
+      if (ly_c_pair_p (last_beaming) && ly_c_pair_p (this_beaming))
 	{
 	  int start_point = position_with_maximal_common_beams
 	    (last_beaming, this_beaming,
@@ -257,7 +257,7 @@ Beam::connect_beams (Grob *me)
 	      
 	      new_slice.set_empty ();
 	      SCM s = index_get_cell (this_beaming, d);
-	      for (; is_pair (s); s = ly_cdr (s))
+	      for (; ly_c_pair_p (s); s = ly_cdr (s))
 		{
 		  int new_beam_pos =
 		    start_point - this_dir * ly_scm2int (ly_car (s));
@@ -277,7 +277,7 @@ Beam::connect_beams (Grob *me)
 	{
 	  scm_set_car_x ( this_beaming, SCM_EOL);
 	  SCM s = ly_cdr (this_beaming);
-	  for (; is_pair (s); s = ly_cdr (s))
+	  for (; ly_c_pair_p (s); s = ly_cdr (s))
 	    {
 	      int np = - this_dir * ly_scm2int (ly_car (s));
 	      scm_set_car_x (s, scm_int2num (np));
@@ -377,7 +377,7 @@ Beam::print (SCM grob)
       Array<int> rfliebertjes;	  
 
       for (SCM s = left;
-	   is_pair (s); s =ly_cdr (s))
+	   ly_c_pair_p (s); s =ly_cdr (s))
 	{
 	  int b = ly_scm2int (ly_car (s));
 	  if (scm_c_memq (ly_car (s), right) != SCM_BOOL_F)
@@ -390,7 +390,7 @@ Beam::print (SCM grob)
 	    }
 	}
       for (SCM s = right;
-	   is_pair (s); s =ly_cdr (s))
+	   ly_c_pair_p (s); s =ly_cdr (s))
 	{
 	  int b = ly_scm2int (ly_car (s));
 	  if (scm_c_memq (ly_car (s), left) == SCM_BOOL_F)
@@ -511,7 +511,7 @@ Beam::print (SCM grob)
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
   if (debug_beam_quanting_flag
-      && is_string (quant_score))
+      && ly_c_string_p (quant_score))
     {
       
       /*
@@ -830,7 +830,7 @@ Beam::position_beam (Grob *me)
     {
       // one wonders if such genericity is necessary  --hwn.
       SCM callbacks = me->get_property ("position-callbacks");
-      for (SCM i = callbacks; is_pair (i); i = ly_cdr (i))
+      for (SCM i = callbacks; ly_c_pair_p (i); i = ly_cdr (i))
 	scm_call_1 (ly_car (i), me->self_scm ());
     }
 
@@ -1223,7 +1223,7 @@ where_are_the_whole_beams (SCM beaming)
 {
   Slice l; 
   
-  for ( SCM s = ly_car (beaming); is_pair (s) ; s = ly_cdr (s))
+  for ( SCM s = ly_car (beaming); ly_c_pair_p (s) ; s = ly_cdr (s))
     {
       if (scm_c_memq (ly_car (s), ly_cdr (beaming)) != SCM_BOOL_F)
 	
@@ -1472,7 +1472,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
-  if (is_pair (s) && is_number (ly_car (s)))
+  if (ly_c_pair_p (s) && is_number (ly_car (s)))
     pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1530,7 +1530,7 @@ Beam::is_knee (Grob* me)
 
   bool knee = false;
   int d = 0;
-  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Direction dir = get_grob_direction (unsmob_grob (ly_car (s)));
       if (d && d != dir)

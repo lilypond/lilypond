@@ -104,7 +104,7 @@ Context_def::add_context_mod (SCM mod)
     }
 
   SCM sym = ly_cadr (mod);
-  if (is_string (sym))
+  if (ly_c_string_p (sym))
     sym = scm_string_to_symbol (sym);
   
   if (ly_symbol2scm ("consists") == tag
@@ -161,7 +161,7 @@ Context_def::get_accepted (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (accept_mods_),
 			    user_mod);
   SCM acc = SCM_EOL;
-  for (SCM s = mods; is_pair (s); s = ly_cdr (s))
+  for (SCM s = mods; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM tag = ly_caar (s);
       SCM sym = ly_cadar (s);
@@ -182,7 +182,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
   SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
-  for (SCM s = accepted; is_pair (s); s = ly_cdr (s))
+  for (SCM s = accepted; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Context_def *t = unsmob_context_def (odef->find_context_def (ly_car (s)));
       if (!t)
@@ -239,12 +239,12 @@ Context_def::get_translator_names (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_),
 			    user_mod);
   
-  for (SCM s = mods; is_pair (s); s = ly_cdr (s))
+  for (SCM s = mods; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM tag = ly_caar (s);
       SCM arg = ly_cadar (s);
 
-      if (is_string (arg))
+      if (ly_c_string_p (arg))
 	arg = scm_string_to_symbol (arg);
       
       if (ly_symbol2scm ("consists") == tag)
@@ -265,7 +265,7 @@ Context_def::get_translator_names (SCM user_mod) const
 SCM
 filter_performers (SCM l)
 {
-  for (SCM *tail = &l; is_pair (*tail); tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; ly_c_pair_p (*tail); tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
@@ -279,7 +279,7 @@ filter_performers (SCM l)
 SCM
 filter_engravers (SCM l)
 {
-  for (SCM *tail = &l; is_pair (*tail) ; tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; ly_c_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
 	{
@@ -309,7 +309,7 @@ Context_def::instantiate (SCM ops)
   
   g->simple_trans_list_ =  SCM_EOL;
 
-  for (SCM s = trans_names; is_pair (s) ; s = ly_cdr (s))
+  for (SCM s = trans_names; ly_c_pair_p (s) ; s = ly_cdr (s))
     {
       Translator * t = get_translator (ly_car (s));
       if (!t)

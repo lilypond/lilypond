@@ -48,7 +48,7 @@ Break_align_engraver::finalize ()
 void
 Break_align_engraver::stop_translation_timestep ()
 {
-  for (SCM p = column_alist_; is_pair (p); p = ly_cdr (p))
+  for (SCM p = column_alist_; ly_c_pair_p (p); p = ly_cdr (p))
     {
       SCM pair = ly_car (p);
       add_column (ly_cdr (pair));

@@ -321,7 +321,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     return 0.0;
   
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));
-  if (!is_pair (result))
+  if (!ly_c_pair_p (result))
     return 0.0;
 
   result = (a == X_AXIS) ? ly_car (result) : ly_cdr (result);

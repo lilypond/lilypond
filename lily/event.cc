@@ -142,11 +142,11 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
   SCM newlist = SCM_EOL;
   Pitch *p = unsmob_pitch (pit);
   
-  for (SCM s = l; is_pair (s); s = ly_cdr (s))
+  for (SCM s = l; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM alter = ly_cdar (s);
-      if (is_pair (key))
+      if (ly_c_pair_p (key))
 	{
 	  Pitch orig (ly_scm2int (ly_car (key)),
 		      ly_scm2int (ly_cdr (key)),
@@ -188,7 +188,7 @@ bool
 alist_equal_p (SCM a, SCM b)
 {
   for (SCM s = a;
-       is_pair (s); s = ly_cdr (s))
+       ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM val = ly_cdar (s);

@@ -136,7 +136,7 @@ Multi_measure_rest_engraver::process_music ()
 	= ly_scm2int (get_property ("currentBarNumber"));
     }
 
-  bar_seen_ = is_string (get_property ("whichBar"));
+  bar_seen_ = ly_c_string_p (get_property ("whichBar"));
 }
 
 void

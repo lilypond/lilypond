@@ -45,7 +45,7 @@ Bar_number_engraver::process_music ()
 
   SCM wb = get_property ("whichBar");
   
-  if (is_string (wb))
+  if (ly_c_string_p (wb))
     {
       SCM smp = get_property ("measurePosition");
       

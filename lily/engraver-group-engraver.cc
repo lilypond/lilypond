@@ -44,7 +44,7 @@ Engraver_group_engraver::acknowledge_grobs ()
       
       SCM meta = info.grob_->internal_get_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
-      if (is_pair (nm))
+      if (ly_c_pair_p (nm))
 	nm = ly_cdr (nm);
       else
 	{
@@ -67,7 +67,7 @@ Engraver_group_engraver::acknowledge_grobs ()
 	  scm_hashq_set_x (tab, nm, acklist);
 	}
 
-      for (SCM p = acklist; is_pair (p); p = ly_cdr (p))
+      for (SCM p = acklist; ly_c_pair_p (p); p = ly_cdr (p))
 	{
 	  Translator * t = unsmob_translator (ly_car (p));
 	  Engraver * eng = dynamic_cast<Engraver*> (t);
@@ -126,7 +126,7 @@ engraver_valid (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description ());
   ack_ifs = ly_cdr (ack_ifs);
-  for (SCM s = ifaces; is_pair (s); s = ly_cdr (s))
+  for (SCM s = ifaces; ly_c_pair_p (s); s = ly_cdr (s))
     if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
   return false;
@@ -140,7 +140,7 @@ find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
   SCM ifaces = ly_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta_alist));
 
   SCM l = SCM_EOL;
-  for (SCM s = gravlist; is_pair (s);  s = ly_cdr (s))
+  for (SCM s = gravlist; ly_c_pair_p (s);  s = ly_cdr (s))
     {
       Translator* tr = unsmob_translator (ly_car (s));
       if (engraver_valid (tr, ifaces))
@@ -168,7 +168,7 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->children_contexts () ; is_pair (s);
+  for (SCM s = c->children_contexts () ; ly_c_pair_p (s);
        s =ly_cdr (s))
     {
       recurse_down_engravers (unsmob_context (ly_car (s)), ptr, context_first);
@@ -186,7 +186,7 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
 void
 engraver_each (SCM list, Engraver_method method)
 {
-  for (SCM p = list; is_pair (p); p = ly_cdr (p))
+  for (SCM p = list; ly_c_pair_p (p); p = ly_cdr (p))
     {
       Engraver * e = dynamic_cast<Engraver*>(unsmob_translator (ly_car (p)));
       if (e)

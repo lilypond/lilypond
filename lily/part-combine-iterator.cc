@@ -370,7 +370,7 @@ Part_combine_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
-  for (; is_pair (split_list_); split_list_ = ly_cdr (split_list_))
+  for (; ly_c_pair_p (split_list_); split_list_ = ly_cdr (split_list_))
     {
       splitm = unsmob_moment (ly_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)

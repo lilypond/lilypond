@@ -73,7 +73,7 @@ static void
 set_property_on_children (Context * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
-  for (SCM p = trans->children_contexts (); is_pair (p); p = ly_cdr (p))
+  for (SCM p = trans->children_contexts (); ly_c_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
       set_property_on_children (trg, sym, ly_deep_copy (val));
@@ -127,7 +127,7 @@ number_accidentals_from_sig (bool *different,
     prev = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
 
   /* should really be true unless prev == SCM_BOOL_F */
-  if (is_pair (prev) && is_pair (ly_cdr (prev)))
+  if (ly_c_pair_p (prev) && ly_c_pair_p (ly_cdr (prev)))
     {
       accbarnum_i = ly_scm2int (ly_cddr (prev));
       prev = scm_cons (ly_car (prev), ly_cadr (prev));
@@ -163,15 +163,15 @@ number_accidentals (bool *different,
   int number = 0;
 
   *different = false;
-  if (is_pair (accidentals) && !is_symbol (ly_car (accidentals)))
+  if (ly_c_pair_p (accidentals) && !is_symbol (ly_car (accidentals)))
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
 		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
-  for (; is_pair (accidentals) && origin; accidentals = ly_cdr (accidentals))
+  for (; ly_c_pair_p (accidentals) && origin; accidentals = ly_cdr (accidentals))
     {
       // If pair then it is a new accidentals typesetting rule to be checked
       SCM rule = ly_car (accidentals);
-      if (is_pair (rule))
+      if (ly_c_pair_p (rule))
 	{
 	  SCM type = ly_car (rule);
 	  SCM lazyness = ly_cdr (rule);

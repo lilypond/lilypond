@@ -44,7 +44,7 @@ Script_column::before_line_breaking (SCM smob)
   Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided;
   
-  for (SCM s = me->get_property ("scripts"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("scripts"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob *sc = unsmob_grob (ly_car (s));
 
@@ -74,7 +74,7 @@ Script_column::before_line_breaking (SCM smob)
       ss = scm_stable_sort_x (ss, grob_script_priority_less_proc);
       
       Grob * last = 0;
-      for (SCM s = ss; is_pair (s); s = ly_cdr (s))
+      for (SCM s = ss; ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob *g = unsmob_grob (ly_car (s));
 	  if (last)

@@ -282,7 +282,7 @@ Beam::quanting (SCM smob)
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
   if (debug_beam_quanting_flag
-      && is_pair (inspect_quants))
+      && ly_c_pair_p (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
 

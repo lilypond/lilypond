@@ -245,7 +245,7 @@ Dynamic_engraver::process_music ()
 	      /*
 		FIXME: use get_markup () to check type.
 	      */
-	      if (is_string (s) || is_pair (s))
+	      if (ly_c_string_p (s) || ly_c_pair_p (s))
 		{
 		  cresc_->set_property ("edge-text",
 					     scm_cons (s, scm_makfrom0str ("")));
@@ -400,7 +400,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
       if (script_ && !script_->get_parent (X_AXIS))
 	{
 	  SCM head = scm_last_pair (i.grob_->get_property ("note-heads"));
-	  if (is_pair (head))
+	  if (ly_c_pair_p (head))
 	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
       
