@@ -337,5 +337,5 @@ this is not an override
   (list check-start-chords
 	voicify-music
 
-; switch-on-debugging
+;; switch-on-debugging
 	))
