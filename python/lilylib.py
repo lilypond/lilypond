@@ -421,7 +421,10 @@ def setup_environment ():
 		#         and thus may break tex run?
 		
 		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
-		'GS_FONTPATH' : type1_paths,
+		
+		# FIXME: check if these can be fully reset.
+		#'GS_FONTPATH' : "", #type1_paths,
+		'GS_FONTPATH' : datadir + '/fonts/type1',
 		'GS_LIB' : datadir + '/ps',
 		}
 	
