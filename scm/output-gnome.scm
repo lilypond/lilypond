@@ -8,7 +8,10 @@
 ;;;
 ;;;  * font selection: name, size, design size
 ;;;  * font scaling
-;;;  * .cff MUST NOT be in fc's fontpath?
+;;;;  * .cff MUST NOT be in fc's fontpath.
+;;;;    - workaround: remove mf/out from ~/.fonts.conf,
+;;;;      instead add ~/.fonts and symlink all /mf/out/*otf there.
+;;;;    - bug in fontconfig/freetype/pango?
 
 ;;;  * check: blot+scaling
 ;;;  * Figure out and fix font scaling and character placement
@@ -137,14 +140,13 @@ lilypond -fgnome input/simple-song.ly
    (map (lambda (x) (char->utf8-string x)) (string->list string))))
 
 (define (music-font? font)
-  (let ((family (font-family font)))
+  (let ((family (car (font-name-style font))))
     (string=? (substring family 0 (min (string-length family) 10))
 	      "emmentaler")))
 
 (define (pango-font-name font)
   (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
-  ;;(debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
-  (font-family font))
+  (apply format (append '(#f "~a, ~a") (font-name-style font))))
 
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
@@ -328,7 +330,6 @@ lilypond -fgnome input/simple-song.ly
 		 #:parent (canvas-root)
 		 #:x 0.0 #:y 0.0
 		 #:anchor 'west
-		 ;;#:font postscript-font-name
 		 #:font (pango-font-name font)
 		 #:size-points 12
 		 #:size-set #t
@@ -387,8 +388,8 @@ lilypond -fgnome input/simple-song.ly
       #:join-style 'round)))
 
 (define (text font s)
-  (stderr "FONT:~S\n" font)
-  (stderr "FONT:~S\n" (pango-font-name font))
+  (debugf "FONT:~S\n" font)
+  (debugf "FONT:~S\n" (pango-font-name font))
 
   (make <gnome-canvas-text>
     #:parent (canvas-root)
