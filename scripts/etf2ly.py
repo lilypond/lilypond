@@ -355,14 +355,13 @@ class Measure:
 	def calculate (self):
 		fs = []
 
-		
 		if len (self.finale) < 2:
 			fs = self.finale[0]
 			fs = map (string.atoi, list (fs))
 			self.clef = fs[1]
 			self.frames = [fs[0]]
 		else:
-			fs = self.finale[0:2]
+			fs = self.finale[0] + self.finale[1]
 			
 			fs = map (string.atoi, list (fs))
 			self.clef = fs[0]
