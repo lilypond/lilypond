@@ -1,3 +1,7 @@
+Prebuilt Documentation and packages are available from:
+
+    http://lilypond.org
+
 LilyPond development is hosted at:
 
     http://savannah.gnu.org/projects/lilypond
@@ -5,34 +9,39 @@ LilyPond development is hosted at:
 Here is a simple explanation of the directory layout for LilyPond's
 source files.
 
+   .			Toplevel READMEs, ChangeLog, build bootstrapping,
+			patches for third party programs
    Documentation/
-     bibliography/		.bib files with references to books and articles
-     windows/			building on windows
-     pictures/			.xpms of the logo
-     topdocs/			sources for the toplevel files
-				  (README.txt, INSTALL.txt, etc.)
-     user/			User manuals
-   buildscripts/		Scripts used during the build process
-   debian/			Files for building .deb packages
-   flower/			A generic library
+       bibliography/	.bib files with references to books and articles
+       misc		Old announcements, ChangeLogs and NEWS
+       pictures/	The logo
+       topdocs/		Sources for the toplevel READMEs
+		  	(README.txt, INSTALL.txt, NEWS.txt etc.)
+       user/		User manuals
+   buildscripts/	Scripts for the build process
+   cygwin/		Cygwin (Windows) package support
+   debian/		Debian package support
+   elisp/		Emacs LilyPond mode and syntax coloring
+   flower/		A simple c++ library
+       include/
+   input/		Music input examples
+       bugs/		Buggy or problematic notation
+       mutopia/		Real music, more at www.mutopiaproject.org
+       no-notation/	Examples or bugs that do not produce output
+       regression/	Testing of [all] features, one test per file
+       templates/	Boilerplates for typical music layouts
+       test/		Tips and tricks
+       tutorial/	Examples from the tutorial 
+   lily/		C++ sources for LilyPond (lilypond-bin)
      include/
-   input/			Various input files
-     test/			Test features: one file per feature
-     mutopia/                   Real examples of music.
-     bugs/			Show bugs
-     no-notation/		Examples or bugs that do not produce output
-     regression/		Various features for regression test
-     tutorial/			Examples from the tutorial 
-   lily/			Source code for LilyPond
-     include/
-   ly/				Standard include files.
-   make/			LilyPond specific make subroutine files, spec
-				  files.
-   mf/				MetaFont sources for the feta font
-   python/			python MIDI module
-   po/				translations
-   ps/				postscript library files
-   tex/				TeX library files
-   scm/				Scheme initialisation and subroutine files
-   scripts/			End-user scripts
-   stepmake/			Generic make subroutine files
+   ly/			System music include files
+   make/		Specific make subroutines and packaging for
+			Red Hat-like distributions (.spec files)
+   mf/			MetaFont sources for the feta font
+   po/			Translations
+   ps/			PostScript library files
+   python/		Python modules, MIDI module
+   scm/			Scheme sources for LilyPond and subroutine files
+   scripts/		End-user scripts
+   stepmake/		Generic make subroutine files
+   tex/			TeX library files
