@@ -1,5 +1,12 @@
 2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* GNUmakefile.in (local-WWW-post): footify build fix.
+
+	* configure.in: require GUILE 1.6.4
+
+	* Documentation/user/GNUmakefile: don't copy *.png for
+	lilypond-internals
+
 	* GNUmakefile.in (local-WWW-post): move mutopia-index to toplevel
 	local-WWW-post target.
 	(rsync-web): add rsync-web target

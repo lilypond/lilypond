@@ -100,6 +100,8 @@ The syntax for this feature is
 @example
 	\applyoutput #SCHEME-FUNCTION
 @end example
+
+@noindent
 SCHEME-FUNCTION takes a single argument, and is called for every grob
 that is created in the current context.
 

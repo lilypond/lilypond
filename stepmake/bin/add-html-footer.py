@@ -40,10 +40,10 @@ of @PACKAGE_NAME@
 
 built = r"""<hr>
 <p><font size="-1">
-This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@) by<br>
+This page is for @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@). <br>
 </font>
-<address><font size="-1">@GCOS@ &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;,
-@LOCALTIME@.</font></address>"""
+<address><font size="-1">
+Report errors to &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;</font></address>"""
 
 
 def gulp_file (f):
