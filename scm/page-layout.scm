@@ -72,7 +72,11 @@
 
 (define-public (default-page-make-stencil
 		 lines offsets layout scopes number last? )
-  "Construct a stencil representing the page from LINES.  "
+  "Construct a stencil representing the page from LINES.
+
+ Offsets is a list of increasing numbers. They must be negated to
+create offsets.
+ "
   (let* ((topmargin  (ly:output-def-lookup layout 'topmargin))
        
        ;; TODO: naming vsize/hsize not analogous to TeX.
