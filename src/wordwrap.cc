@@ -59,7 +59,7 @@ Word_wrap::solve()
 	    i++;
 	}
 	mtor << "Adding cols~, next breakpoint " << i << '\n';
-	breaking.add(minimum);
+	breaking.push(minimum);
     }
     
     return breaking;
