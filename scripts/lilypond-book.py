@@ -5,10 +5,7 @@ TODO:
       ly-options: intertext, quote ?
       --linewidth?
       eps in latex?
-      check latex parameters, twocolumn
-      multicolumn?
-      papersizes?
-      ly2dvi/notexidoc?
+      check latex parameters, twocolumn, multicolumn?
       
 Example usage:
 
@@ -110,14 +107,20 @@ default_ly_options = {}
 
 AFTER = 'after'
 BEFORE = 'before'
+FRAGMENT = 'fragment'
 HTML = 'html'
 LATEX = 'latex'
 LINEWIDTH = 'linewidth'
+NOFRAGMENT = 'nofragment'
 NOTES = 'body'
 OUTPUT = 'output'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
+RAGGEDRIGHT = 'raggedright'
+RELATIVE = 'relative'
+STAFFSIZE = 'staffsize'
+TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
 
@@ -182,7 +185,7 @@ format_res = {
 
 ly_options = {
 	NOTES: {
-	'relative': r'''\relative c%(relative_quotes)s''',
+	RELATIVE: r'''\relative c%(relative_quotes)s''',
 	},
 	PAPER: {
 	'indent' : r'''
@@ -196,12 +199,12 @@ ly_options = {
         \StaffContext
         \remove Time_signature_engraver
     }''',
-	'raggedright' : r'''
+	RAGGEDRIGHT : r'''
     indent = 0.0\mm
     raggedright = ##t''',
 	},
 	PREAMBLE: {
-	'staffsize': r'''
+	STAFFSIZE: r'''
 #(set-global-staff-size %(staffsize)s)''',
 	},
 	}
@@ -275,7 +278,7 @@ texi_linewidths = { 'afourpaper': '160 \\mm',
 
 def classic_lilypond_book_compatibility (o):
 	if o == 'singleline':
-		return 'raggedright'
+		return RAGGEDRIGHT
 	m = re.search ('relative\s*([-0-9])', o)
 	if m:
 		return 'relative=%s' % m.group (1)
@@ -300,10 +303,9 @@ def compose_ly (code, options):
 	
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
-		      or not 'nofragment' in options \
-		      or 'fragment' in options):
-		if 'raggedright' not in options:
-			options.append ('raggedright')
+		      or not NOFRAGMENT in options or FRAGMENT in options):
+		if RAGGEDRIGHT not in options:
+			options.append (RAGGEDRIGHT)
 		body = FRAGMENT_LY
 	else:
 		body = FULL_LY
@@ -340,13 +342,13 @@ def compose_ly (code, options):
 			preamble_options.append (ly_options[PREAMBLE][key])
 		elif key in ly_options[PAPER].keys ():
 			paper_options.append (ly_options[PAPER][key])
-		elif key not in ('fragment', 'nofragment', 'printfilename',
-				 'relative', 'verbatim', 'texidoc'):
+		elif key not in (FRAGMENT, NOFRAGMENT, PRINTFILENAME,
+				 RELATIVE, VERBATIM, TEXIDOC):
 			ly.warning (_("ignoring unknown ly option: %s") % i)
 
 	#URGS
-	if 'relative' in override.keys () and override['relative']:
-		relative = string.atoi (override['relative'])
+	if RELATIVE in override.keys () and override[RELATIVE]:
+		relative = string.atoi (override[RELATIVE])
 
 	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative+4]
 	program_name = __main__.program_name
@@ -430,7 +432,7 @@ class Include_snippet (Snippet):
 	def processed_filename (self):
 		f = self.substring ('filename')
 		return os.path.splitext (f)[0] + format2ext[format]
-		
+
 	def replacement_text (self):
 		s = self.match.group (0)
 		f = self.substring ('filename')
@@ -532,16 +534,14 @@ class Lilypond_snippet (Snippet):
 			filename = self.substring ('filename')
 			str = output[format][PRINTFILENAME] % vars ()
 		return str
-	
+
 	def output_texinfo (self):
-		##  Ugh, this breaks texidoc.
-		## str = self.output_print_filename (TEXINFO)
 		str = ''
 		base = self.basename ()
-		if 'texidoc' in self.options :
+		if TEXIDOC in self.options:
 			texidoc = base + '.texidoc'
 			if os.path.exists (texidoc):
-				str += '@include %s\n' % texidoc
+				str += '@include %(texidoc)s\n' % vars ()
 
 		if  VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
@@ -721,25 +721,20 @@ def do_file (input_filename):
 			ly.error (_ ("cannot determine format for: %s" \
 				     % input_filename))
 
-	ly.progress (_ ("Reading %s...") % input_filename)
 	if not input_filename or input_filename == '-':
 		in_handle = sys.stdin
+		input_fullname = '<stdin>'
 	else:
-		in_handle = open (input_filename)
-
-	ly.progress ('\n')
-
-	ly.progress (_ ("Dissecting..."))
-	snippet_types = (
-		'lilypond_block',
-#		'verb',
-		'verbatim',
-		'singleline_comment',
-		'multiline_comment',
-		'lilypond_file',
-		'include',
-		'lilypond', )
-	
+		if os.path.exists (input_filename):
+			input_fullname = input_filename
+		elif format == LATEX:
+			# urg python interface to libkpathsea?
+			input_fullname = ly.read_pipe ('kpsewhich '
+						       + input_filename)[:-1]
+		else:
+			input_fullname = find_file (input_filename)
+		in_handle = open (input_fullname)
+		
 	if input_filename == '-':
 		input_base = 'stdin'
 	else:
@@ -763,7 +758,20 @@ def do_file (input_filename):
 		if output_name:
 			os.chdir (output_name)
 
+	ly.progress (_ ("Reading %s...") % input_fullname)
 	source = in_handle.read ()
+	ly.progress ('\n')
+	
+	snippet_types = (
+		'lilypond_block',
+#		'verb',
+		'verbatim',
+		'singleline_comment',
+		'multiline_comment',
+		'lilypond_file',
+		'include',
+		'lilypond', )
+	ly.progress (_ ("Dissecting..."))
 	chunks = find_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 

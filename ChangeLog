@@ -1,5 +1,13 @@
 2004-02-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/lilypond-book.py (do_file): Look for input_file in
+	include path, or ask kpathsea if LATEX.
+
+	* input/template/GNUmakefile (LILYPOND_BOOK_FLAGS): 
+	* input/test/GNUmakefile (LILYPOND_BOOK_FLAGS):
+	* input/regression/GNUmakefile (LILYPOND_BOOK_FLAGS): Use
+	--header=texidoc.
+
 	* Documentation/user/tutorial.itely (Fine tuning layout): Add lost
 	relative.
 
