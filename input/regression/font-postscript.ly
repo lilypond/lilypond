@@ -3,12 +3,10 @@
     texidoc = "This file demonstrates how to load different
     (postscript) fonts. The file @file{font.scm} shows how to define
     the scheme-function called."
-
 }
 
 \bookpaper
 {
-
     #(define text-font-defaults
       '((font-encoding . latin1)
 	(baseline-skip . 2)
@@ -16,6 +14,11 @@
 
     #(set! fonts (make-century-schoolbook-tree 1.0))
 }
+
+%ugh.
+% do this here so we don't forget the connection with
+% this file.
+#(system "afm2tfm `kpsewhich uncb8a.afm` uncb8a.tfm") 
 
 \paper {
     linewidth = 160 \mm - 2.0 * 9.0 \mm

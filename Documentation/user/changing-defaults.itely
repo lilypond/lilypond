@@ -433,7 +433,7 @@ entered separately,
 
 @verbatim
 music = \notes { c4 c4 }
-arts = \notes  { s4-. s4-> }
+arts = \notes { s4-. s4-> }
 @end verbatim
 
 They are combined by sending both to the same @context{Voice} context,
@@ -444,7 +444,7 @@ They are combined by sending both to the same @context{Voice} context,
   >>
 @end verbatim
 @lilypond[raggedright]
-music = \notes { c4 c4 }
+music = \notes { c4  50 c4 }
 arts = \notes  { s4-. s4-> }
 \score {
   \notes \relative c''  << \new Staff \context Voice = "A" \music

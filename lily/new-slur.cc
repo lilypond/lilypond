@@ -36,8 +36,7 @@
   - curve around flag/stem for x coordinate
   - better scoring.
   
- */
-
+*/
 struct Encompass_info {
   Real x_;
   Real stem_;
@@ -87,7 +86,7 @@ const Real NON_HORIZONTAL_PENALTY = 15;
 const Real HEAD_STRICT_FREE_SPACE = 0.2;
 const Real MAX_SLOPE = 1.1;
 const Real MAX_SLOPE_FACTOR = 10;
-
+const Real FREE_HEAD_DISTANCE = 0.5 ;
 
 #define DEBUG_SLUR_QUANTING 1
 
@@ -115,6 +114,10 @@ public:
 			    Drul_array<Offset> base_attach,
 			    Array<Slur_score> * scores);
   
+  static void score_edges (Grob * me,  Grob *common[],
+		  Drul_array<Bound_info> extremes,
+		  Drul_array<Offset> base_attach,
+		  Array<Slur_score> * scores);
   static  void score_encompass (Grob * me,  Grob *common[],
 				Drul_array<Bound_info>,
 				Drul_array<Offset>, Array<Slur_score> * scores);
@@ -488,8 +491,9 @@ New_slur::set_end_points (Grob *me)
       }
   }
   
-  score_encompass (me, common, extremes, base_attachment, &scores);
+  score_edges (me, common, extremes, base_attachment, &scores);
   score_slopes (me, common, extremes, base_attachment, &scores);
+  score_encompass (me, common, extremes, base_attachment, &scores);
 
   Real opt = 1e6;
   int opt_idx = 0;
@@ -501,6 +505,38 @@ New_slur::set_end_points (Grob *me)
 	  opt_idx = i;
 	}
     }
+  
+
+#if DEBUG_SLUR_QUANTING
+  SCM inspect_quants = me->get_property ("inspect-quants");
+  if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
+      && ly_c_pair_p (inspect_quants))
+    {
+      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+      int i = 0;
+
+      Real mindist = 1e6;
+      for (; i < scores.size (); i ++)
+	{
+	  Real d =fabs (scores[i].attachment_[LEFT][Y_AXIS] - ins[LEFT])
+	    + fabs (scores[i].attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
+	  if (d < mindist)
+	    {
+	      opt_idx = i;
+	      mindist= d;
+	    }
+	}
+      if (mindist > 1e5)
+	programming_error ("Could not find quant.");
+    }
+  
+  
+ scores[opt_idx].score_card_ += to_string ("i%d", opt_idx);
+
+ // debug quanting
+ me->set_property ("quant-score",
+		   scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
+#endif
   
   Bezier const &b =  scores[opt_idx].curve_;
   
@@ -516,14 +552,6 @@ New_slur::set_end_points (Grob *me)
 
   me->set_property ("control-points", controls);
 
-#if DEBUG_SLUR_QUANTING
- scores[opt_idx].score_card_ += to_string ("i%d", opt_idx);
-      
- // debug quanting
- me->set_property ("quant-score",
-		   scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
-#endif
-  
 }
 
 void
@@ -550,13 +578,24 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 	  Real x = infos[j].x_;
 
 	  if (!(x < scores->elem (i).attachment_[RIGHT][X_AXIS]
-		&&x > scores->elem (i).attachment_[LEFT][X_AXIS]))
+		&& x > scores->elem (i).attachment_[LEFT][X_AXIS]))
 	    continue;
 	  
 	  Real y = bez.get_other_coordinate (X_AXIS, x);
+	  Real head_dy = (y - infos[j].head_);
+	  if (dir * head_dy < 0)
+	    {
+	      demerit += HEAD_ENCOMPASS_PENALTY;
+	    }
+	  else 
+	    {
+	      Real hd =  
+		(head_dy) ? (1/(fabs (head_dy)  - 1/FREE_HEAD_DISTANCE))
+		: HEAD_ENCOMPASS_PENALTY;
+	      hd = (hd >? 0)<? HEAD_ENCOMPASS_PENALTY; 
 
-	  if (dir * (y - infos[j].head_) < 0)
-	    demerit += HEAD_ENCOMPASS_PENALTY;
+	      demerit += hd;	  
+	    }
 	  
 	  if (dir * (y - infos[j].stem_) < 0)
 	    demerit += STEM_ENCOMPASS_PENALTY;
@@ -571,29 +610,64 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 	    }
 	}
 
-      Direction d = LEFT;
-      do {
-	Real attr =
-	  EDGE_ATTRACTION_FACTOR
-	  * fabs (scores->elem (i).attachment_[d][Y_AXIS] - base_attach[d][Y_AXIS]);
-
-	if (extremes[d].stem_
-	    && extremes[d].stem_dir_ == dir
-	    && !Stem::get_beaming (extremes[d].stem_, -d)
-	    )
-	  attr /= 5;
-	
-	demerit += attr;
-      } while (flip (&d) != LEFT);
-
 #if DEBUG_SLUR_QUANTING
-      (*scores)[i].score_card_ += to_string ("E%.2f", demerit);
+      (*scores)[i].score_card_ += to_string ("C%.2f", demerit);
 #endif
       
       (*scores)[i].score_ += demerit;
     }
 }
 
+
+void
+New_slur::score_edges (Grob * me,  Grob *common[],
+			Drul_array<Bound_info> extremes,
+			Drul_array<Offset> base_attach,
+			Array<Slur_score> * scores)
+{
+   Direction dir = get_grob_direction (me);
+ 
+  for (int i =0 ; i < scores->size (); i++)
+    {
+  
+      Direction d = LEFT;
+      do {
+	Real y = scores->elem (i).attachment_[d][Y_AXIS];
+	Real dy = fabs (y - base_attach[d][Y_AXIS]);
+	
+	Real factor = EDGE_ATTRACTION_FACTOR;
+
+#if 0
+	if (extremes[d].stem_ && extremes[d].stem_dir_ == dir)
+	  {
+	    if (!extremes[d].stem_extent_[Y_AXIS].contains (y))
+	      {
+		dy = fabs (extremes[d].stem_extent_[Y_AXIS][dir] - y);
+	      }
+	    else
+	      factor *= 0.3; 
+	  }
+	Real demerit = dy * factor;
+#else
+	Real demerit =
+ 	  EDGE_ATTRACTION_FACTOR
+ 	  * fabs (scores->elem (i).attachment_[d][Y_AXIS] - base_attach[d][Y_AXIS]);
+ 
+ 	if (extremes[d].stem_
+ 	    && extremes[d].stem_dir_ == dir
+ 	    && !Stem::get_beaming (extremes[d].stem_, -d)
+ 	    )
+ 	  demerit /= 5;
+  	
+#endif
+	
+	(*scores)[i].score_ += demerit;
+#if DEBUG_SLUR_QUANTING
+	(*scores)[i].score_card_ += to_string ("E%.2f", demerit);
+#endif
+      } while (flip (&d) != LEFT);
+    }
+}
 
 void
 New_slur::score_slopes (Grob * me,  Grob *common[],
@@ -715,7 +789,7 @@ New_slur::print (SCM smob)
 #if DEBUG_SLUR_QUANTING
   SCM quant_score = me->get_property ("quant-score");
   
-  if (debug_beam_quanting_flag      &&
+  if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-slur-quanting"))) &&
       ly_c_string_p (quant_score))
     {
       String str;

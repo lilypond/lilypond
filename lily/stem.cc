@@ -499,6 +499,16 @@ Stem::height (SCM smob, SCM ax)
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
+  /*
+    ugh. - this dependency should be automatic.
+  */
+  Grob *beam= get_beam (me);
+  if (beam)
+    {
+      Beam::after_line_breaking (beam->self_scm ());
+    }
+  
+
   SCM mol = me->get_uncached_stencil ();
   Interval iv;
   if (mol != SCM_EOL)

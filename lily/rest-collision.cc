@@ -28,15 +28,16 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
   Axis a = (Axis) ly_scm2int (axis);
   assert (a == Y_AXIS);
 
-  Grob * rc = unsmob_grob (them->get_property ("rest-collision"));
+  if (Note_column::has_rests (them))
+    {  
+      Grob * rc = unsmob_grob (them->get_property ("rest-collision"));
 
-  if (rc && !to_boolean (rc->get_property ("positioning-done")))
-    {
-      rc->set_property ("positioning-done", SCM_BOOL_T);
-
-      do_shift (rc);
-    }
-  
+      if (rc && !to_boolean (rc->get_property ("positioning-done")))
+	{
+	  rc->set_property ("positioning-done", SCM_BOOL_T);
+	  do_shift (rc);
+	}
+    }  
   return scm_make_real (0.0);
 }
 
