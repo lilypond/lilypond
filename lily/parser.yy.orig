@@ -1031,10 +1031,6 @@ steno_notepitch:
 	| steno_notepitch  '!' 		{
 		$$->forceacc_b_ = ! $$->forceacc_b_;
 	}
-	| steno_notepitch  '?' 		{
-		$$->forceacc_b_ = ! $$->forceacc_b_;
-		$$->cautionary_b_ = ! $$->cautionary_b_;
-	}
 	;
 
 

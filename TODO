@@ -531,7 +531,6 @@ PROJECTS
 
 	* Keys:
 	- merge key{item} & localkey{item}?
-	- Major/Minor
 	- spacing, national styles?
 
 	* Support for TAB
