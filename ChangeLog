@@ -1,5 +1,9 @@
 2004-05-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/tie-performer.cc (stop_translation_timestep): reset
+	ties_created_. Fixes bugs/midi-tie.ly,
+	bugs/midi-lyrics-barcheck.ly
+	
 	* scm/define-grobs.scm (all-grob-descriptions): remove
 	break-visibility. Should fix: bugs/piano-repeat.ly
 

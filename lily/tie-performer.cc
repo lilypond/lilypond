@@ -99,6 +99,7 @@ Tie_performer::stop_translation_timestep ()
     {
       heads_to_tie_.clear ();
       last_event_ = 0;
+      ties_created_ = false;
     }
   
   if (event_)
