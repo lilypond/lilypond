@@ -16,6 +16,9 @@
 
 (debug-enable 'backtrace)
 
+
+(define point-and-click #f)
+
 ;;; library funtions
 
 (use-modules (ice-9 regex))
@@ -391,18 +394,19 @@
 
   (define (define-origin file line col)
     ; use this for column positions
+    (if point-and-click
      (string-append "\\special{src:" (number->string line) ":"
         (number->string col) " " file "}"
 	 ;; arg, the clueless take over the mailing list...
 ;	 "\\special{-****-These-warnings-are-harmless-***}"
 ;	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"
 	)
+     "")
 
      ; line numbers only:
     ;(string-append "\\special{src:" (number->string line) " " file "}")
 )
-    ; no origin  info: return empty string
-    ; ""
+
   ; no-origin not yet supported by Xdvi
   (define (no-origin) "")
   

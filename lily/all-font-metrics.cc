@@ -75,7 +75,24 @@ All_font_metrics::find_afm (String name)
 
       afm_p_dict_->set (sname,val);
 
-      scm_unprotect_object (val);      
+      scm_unprotect_object (val);
+
+
+      Adobe_font_metric *afm
+	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val) );
+      Tex_font_metric * tfm = find_tfm (name);
+
+      if (tfm->info_.checksum != afm->checksum_)
+	{
+	  String s = _("Font checksum mismatch");
+	  s+= "\n";
+	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
+	  s += " AFM: " + to_str ((int) afm->checksum_);
+	  s += "\n";
+	  s += _(" Rebuild all AFM files, and remove all .pk and .tfm files");
+
+	  error (s);
+	}
     }
   
   return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));

@@ -377,6 +377,7 @@
 	(Script . (
 		(molecule-callback . ,Script::brew_molecule)
 		(X-offset-callbacks . (,Side_position::centered_on_parent))
+		(after-line-breaking-callback . ,Script::after_line_breaking)
 		(meta . ,(element-description "Script" script-interface side-position-interface font-interface))
 	))
 	

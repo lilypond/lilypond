@@ -193,7 +193,7 @@ Mark_engraver::create_grobs ()
 	    }
 	}
       SCM st = ly_symbol2scm (style.ch_C());
-      text_p_->set_grob_property ("style",  st);
+      text_p_->set_grob_property ("font-style",  st);
     }
 }
 

@@ -59,9 +59,9 @@ Script_engraver::create_grobs ()
       Articulation_req* l=script_req_l_arr_[i];
 
       SCM alist = get_property ("scriptDefinitions");
-      SCM list = scm_assoc (l->get_mus_property ("articulation-type"), alist);
+      SCM art = scm_assoc (l->get_mus_property ("articulation-type"), alist);
 
-      if (list == SCM_BOOL_F)
+      if (art == SCM_BOOL_F)
 	{
 	  String a = ly_scm2string (l->get_mus_property ("articulation-type"));
 	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.ch_C()));
@@ -70,28 +70,30 @@ Script_engraver::create_grobs ()
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Grob *p =new Item (get_property ("Script"));
-      list = gh_cdr (list);
+      art = gh_cdr (art);
       p->set_grob_property ("molecule",
-			   gh_car (list));
+			   gh_car (art));
 
-      list = gh_cdr(list);
-      bool follow_staff = gh_scm2bool (gh_car (list));
-      list = gh_cdr(list);
-      SCM relative_stem_dir = gh_car (list);
-      list = gh_cdr(list);
+      art = gh_cdr(art);
+      bool follow_staff = gh_scm2bool (gh_car (art));
+      art = gh_cdr(art);
+      SCM relative_stem_dir = gh_car (art);
+      art = gh_cdr(art);
 
       SCM force_dir = l->get_mus_property ("direction");
-      if (!isdir_b (force_dir))
-	force_dir = gh_car (list);
-      list = gh_cdr(list);
-      SCM priority = gh_car (list);
-
+      if (isdir_b (force_dir) && to_dir (force_dir))
+	force_dir = gh_car (art);
       
-      if (!isdir_b (force_dir)
-	  && to_dir (relative_stem_dir))
-	p->set_grob_property ("side-relative-direction", relative_stem_dir);
-      else
+      art = gh_cdr(art);
+      SCM priority = gh_car (art);
+
+
+      if (isdir_b (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);
+      else if (to_dir (relative_stem_dir))
+	p->set_grob_property ("side-relative-direction", relative_stem_dir);
+      
+
 
       /*
 	FIXME: should figure this out in relation with basic props! 

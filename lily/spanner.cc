@@ -110,18 +110,6 @@ Spanner::do_break_processing ()
 	      || bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ())
 	    {
 	      programming_error ("bounds of spanner are invalid");
-#if 0
-	      /*
-		lily crashes upon displaying this ...
-		
-	       */
-	      
-	      gh_display (ly_str02scm ("\nspanner:mutable_property_alist_\n"));
-	      gh_display (mutable_property_alist_);
-	      gh_display (ly_str02scm ("\nspanner:immutable_property_alist_\n"));
-	      gh_display (immutable_property_alist_);
-	      gh_newline ();
-#endif
 	      span_p->suicide ();
 	    }
 	  else
@@ -168,6 +156,10 @@ Spanner::get_bound (Direction d) const
   return spanned_drul_ [d];
 }
 
+/*
+  Set the items that this spanner spans. If D == LEFT, we also set the
+  X-axis parent of THIS to S.
+*/
 void
 Spanner::set_bound(Direction d, Grob*s)
 {
@@ -202,7 +194,6 @@ Spanner::set_bound(Direction d, Grob*s)
     }
 }
 
-
 Spanner::Spanner (SCM s)
   : Grob (s)
 {
@@ -215,7 +206,6 @@ Spanner::Spanner (Spanner const &s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
 }
-
 
 Real
 Spanner::spanner_length() const
@@ -383,7 +373,5 @@ extend_spanner_over_elements (Grob*s)
   Grob* p2 = unsmob_grob (gh_cdr (pair));
   sp->set_bound (LEFT,p1);
   sp->set_bound (RIGHT, p2);
-
-  //extra precaution.
 }
 
