@@ -6,91 +6,25 @@ grep for TODO and ugh/ugr
 
 IMPORTANT
 
-	* remove silly #warning using midi_voice list
+	* fix parser: either 
+	   - parse into midi-items (merge with lily/midi-*) and pass
+	     these nealy up, same for track and score.  look at all
+	     tracks a time (vertically through score), creating columns 
+	     and mudela items in time-order (no searching for columns).
+	  or
+	   - junk lex/yacc altogether, parse on byte level, straight
+	     from memore, vertically through score.  there might be no
+	     need for midi-items, here.
 
-	* add mi2mu example output (.midi.ly and .gif) to website
+	* get rid of (last few?) midi-specifics in mudela-*
 
-	* important? lily is important, go work on lily!
+	* find / remove trend (tempo) of mudela columns
 
-	* faq about mi2mu midi t1. ?
-
-PROJECTS
+	* get rid of Duration_* statics
 
 	* junk one in list vs. array
 
-	* write something interesting in mi2mu manual page
-
-	* check/use type 0 / 1 / 2 of midi file
-
-	* create Indentable_stream (see Tex_stream) as base for Lily_stream
-
-	* use dynamic info
-
-	* use aftertouch info (to guess slurs/ties, scripts (staccato?))
-
-	* lyric events
-
-	* parse all midi events
-
-	* handle time based midi files
-
-	* use dstream feature from lily
-
-	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
-
-	* read unsigned words as U16 (not as I16)
-
-	* check use of integral and unsigned in lexer
-	
-	* get rid of ugly statics in Duration_convert
-
-	* change option double-dots to max-dots
-
-	* set Key, Meter, ... command line options
-
-BUGS
-
-	* mi2mu nonexist.midi ?
-
-	* output of 0 duration c'0
-
-	* no output on certain midis
-
-	* silly progress indicator upon mudela output
-
-	* check for illegal track names, e.g. "Piano________ = \melodic"
-
-	* array memleaks(?): use Link_array / create Pointer_array? 
-
-	* fix "#undef MEVENT_LIST" source tree: Array<Midi_event*> 
-
-	* split notes that cross bar limit
-
-FUTURE
-
-	* guess plets (i.e.: only use plet-duration *2/3 if there's a 
-	  whole plet)
-
-	* merge midi-events with lily's midi-items?
-
-	* guess beams
-
-	* guess / follow tempo changes
-
-	* check out NIFF / analogies?
-
-	* steal good ideas of other gpl midi parsers
-
-	* lily: add mudela info into midi as specials
-	  mi2mu: use special info
-
-# mi2mu/TODO
-
-Most of the items are marked in the code as well, with full explanation. 
-grep for TODO and ugh/ugr
-
-
-IMPORTANT
+	* add mi2mu example output (.midi.ly and .gif) to website
 
 	* important? lily is important, go work on lily!
 
