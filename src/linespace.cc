@@ -8,7 +8,7 @@
 
 const Real COLFUDGE=1e-3;
 
-//#define COLFUDGE 1e-3
+
 bool
 Spacing_problem::contains(const PCol *w)
 {
@@ -239,7 +239,7 @@ Spacing_problem::print() const
     
 }
 
-/*****************/
+/* **************** */
 
 void
 Colinfo::print() const
