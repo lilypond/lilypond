@@ -91,6 +91,7 @@
 (define generic-voice-properties
   (list
    generic-stem-properties
+   generic-breathing-sign-properties
    generic-tie-properties
    generic-rest-properties
    generic-slur-properties
