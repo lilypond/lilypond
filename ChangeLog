@@ -1,3 +1,42 @@
+2002-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/refman.itely: Compile fix for \mark #'(music ...).
+
+	* Documentation/user/internals.itely: Use ly-set-mus-property!.
+
+	* cygwin/mknetrel: New file.
+
+	* cygwin: New directory.  Moved Cygwin stuff from
+	Documentation/windows.
+	
+	* Documentation/windows/fix-suffixes.sh:
+	* buildscripts/walk.sh: Junk.
+
+	* aclocal.m4: Regenerate.
+
+	* buildscripts/walk.sh: Remove.
+
+	* stepmake/stepmake/topdocs-targets.make: 
+	* stepmake/stepmake/help2man-rules.make: 
+	* stepmake/stepmake/generic-vars.make: 
+	* stepmake/make/stepmake.make: 
+	* Documentation/user/GNUmakefile: 
+	* make/stepmake.make: 
+	* make/lilypond-vars.make: 
+	* GNUmakefile.in: 
+	* stepmake/aclocal.m4: Remove builddir cruftyness.
+	
+	* stepmake/stepmake/c++-rules.make: Use ALL_CXXFLAGS, to guard
+	agains user override of CXXFLAGS.
+	
+	* stepmake/stepmake/c++-vars.make (ALL_CXXFLAGS): Include CXXFLAGS.
+	
+	* stepmake/stepmake/c-rules.make: Use ALL_CFLAGS, to guard
+	against user override of CFLAGS.
+	
+	* stepmake/stepmake/c-vars.make (ALL_CFLAGS): Include CFLAGS.
+
+
 2002-07-17  Han-Wen  <hanwen@cs.uu.nl>
 
 	* GNUmakefile.in: distribute lexer-gcc-3.1.sh  as well

@@ -285,7 +285,7 @@ AC_DEFUN(STEPMAKE_END, [
 
     # regular in-place build
     # test for srcdir_build = yes ?
-    if test "$builddir" = "."; then
+    if test "$srcdir_build" = "yes"; then
 	rm -f $srcdir/GNUmakefile
 	cp $srcdir/GNUmakefile.in $srcdir/GNUmakefile
 	chmod 444 $srcdir/GNUmakefile
@@ -468,13 +468,13 @@ AC_DEFUN(STEPMAKE_INIT, [
 	AC_MSG_RESULT(Stepmake package!)
 
 	AC_MSG_CHECKING(builddir)
+	builddir="`pwd`"
 	if test "$srcdir" = "."; then
-	    builddir=.
+	    srcdir_build=yes
 	else
-	    absolute_builddir="`pwd`"
-	    package_absolute_builddir="`dirname $absolute_builddir`"
+	    srcdir_build=no
+	    package_builddir="`dirname $builddir`"
 	    package_srcdir="`dirname  $srcdir`"
-	    builddir="`dirname $package_srcdir`/`basename $package_absolute_builddir`/`basename $absolute_builddir`"
 	fi
 	AC_MSG_RESULT($builddir)
 
@@ -486,31 +486,20 @@ AC_DEFUN(STEPMAKE_INIT, [
         AC_MSG_RESULT($PACKAGE)
 
 	AC_MSG_CHECKING(builddir)
+	builddir="`pwd`"
 	if test "$srcdir" = "."; then
-	    builddir=.
-	    srcdir_build=no
-	else
-	    absolute_builddir="`pwd`"
-#	    builddir="`dirname  $srcdir`/`basename $absolute_builddir`"
-	    builddir="`bash $srcdir/buildscripts/walk.sh \"$srcdir\"`"
 	    srcdir_build=yes
+	else
+	    srcdir_build=no
 	fi
 	AC_MSG_RESULT($builddir)
-	if expr "$srcdir" : '/' > /dev/null 2>&1; then
-	    absolute_srcdir=yes
-	    STEPMAKE_WARN(Absolute --srcdir specified: $srcdir)
-	fi
 
 	AC_MSG_CHECKING(for stepmake)
 	# Check for installed stepmake
 	if test -d $stepmake; then
 	    AC_MSG_RESULT($stepmake)
 	else
-	    if test "$absolute_srcdir" != "yes"; then
-		stepmake='$(depth)'/$srcdir/stepmake
-	    else
-		stepmake=$srcdir/stepmake
-	    fi
+	    stepmake="`cd $srcdir/stepmake; pwd`"
 	    AC_MSG_RESULT($srcdir/stepmake  ($datadir/stepmake not found))
 	fi
 

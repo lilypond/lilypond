@@ -3087,7 +3087,8 @@ To print a  rehearsal mark, use the @code{\mark} command.
   c1 \mark \default 
   c1 \mark "12"
   c1 \mark \default
-  c1 \mark #'(music "scripts-segno") 
+%% FIXME  
+%%  c1 \mark #'(music "scripts-segno") 
   c1
 }
 @end lilypond
