@@ -20,8 +20,7 @@ struct Identifier
     virtual const char*classname() { return "new Identifier"; }
     void error();
     virtual Input_staff * staff(bool = false) { error(); return 0; }
-    virtual Horizontal_music*hmusic(bool = false) { error(); return 0; }
-    virtual Vertical_music*vmusic(bool = false) { error(); return 0; }
+    virtual Input_music *music(bool = false) { error(); return 0; }
     virtual Music_voice *mvoice(bool = false) { error(); return 0; }
     virtual Symtables *symtables(bool = false) { error(); return 0; }
     virtual Music_general_chord *mchord(bool = false) { error(); return 0; }
