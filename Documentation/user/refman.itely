@@ -784,6 +784,33 @@ Usually this is used to switch staffs in Piano music, e.g.
 @end example
 
 
+@cindex output properties
+
+
+These allow you to tweak what is happening in the back-end
+directly. If you want to control every detail of the output
+formatting, this is the feature to use. The downside to this is that
+you need to know exactly how the backend works. Example:
+
+
+@mudela[fragment,verbatim]
+\relative c'' { c4
+	\context Staff \outputproperty
+		#(make-type-checker 'Note_head)
+		#'extra-offset = #'(5.0 . 7.5)
+<c8 e g> }
+@end mudela
+
+This selects all note heads occurring at current staff level, and sets
+the extra-offset of those heads to (5,7.5), shifting them up and
+right.
+
+Use of this feature is entirely on your own risk: if you use this, the
+result will depend very heavily on the implentation of the backend,
+which we change unscrupulously.
+
+
+
 
 @cindex commands
 

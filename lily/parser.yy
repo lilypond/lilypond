@@ -41,6 +41,7 @@
 #include "mudela-version.hh"
 #include "grace-music.hh"
 #include "auto-change-music.hh"
+#include "output-property.hh"
 
 // mmm
 Mudela_version oldest_version ("1.3.4");
@@ -111,7 +112,6 @@ of the parse stack onto the heap. */
     Translator_group* trans;
     char c;
     int i;
-    int ii[10];
 }
 %{
 
@@ -182,6 +182,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SPANREQUEST
 %token COMMANDSPANREQUEST
 %token TEMPO
+%token OUTPUTPROPERTY
 %token TIME_T
 %token TIMES
 %token TRANSLATOR
@@ -558,13 +559,13 @@ paper_def_body:
 		if (!gh_symbol_p ($2))
 			THIS->parser_error ("expect a symbol as lvalue");
 		else
-			$$->default_properties_[$2] = $4;
+			$$->default_properties_.set ($2, $4);
 	}
 	| paper_def_body SCM_T '=' real semicolon {
 		if (!gh_symbol_p ($2))
 			THIS->parser_error ("expect a symbol as lvalue");
 		else
-			$$->default_properties_[$2] = gh_double2scm ($4);
+			$$->default_properties_.set ($2, gh_double2scm ($4));
 	}
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
@@ -742,6 +743,20 @@ Simultaneous_music:
 
 Simple_music:
 	request_chord		{ $$ = $1; }
+	| OUTPUTPROPERTY embedded_scm embedded_scm '=' embedded_scm	{
+		SCM pred = $2;
+		if (!gh_symbol_p ($3))
+		{
+			THIS->parser_error (_("Second argument must be a symbol")); 
+		}
+		/*hould check # args */
+		if (!gh_procedure_p (pred))
+		{
+			THIS->parser_error (_("First argument must be a procedure taking 1 argument"));
+		}
+	
+		$$ = new Output_property (pred,$3, $5);
+	}
 	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
 	| property_def
 	| translator_change
