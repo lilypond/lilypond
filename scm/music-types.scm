@@ -366,7 +366,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Event_chord")
+	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
 	(types . (general-music event-chord simultaneous-music))
 	)
