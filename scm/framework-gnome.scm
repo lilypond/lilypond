@@ -85,6 +85,7 @@
 (define PANELS-HEIGHT 80)
 
 (define PIXELS-PER-UNIT 2)
+;; 2.5??
 (define OUTPUT-SCALE (* 2.5 PIXELS-PER-UNIT))
 (define-public output-scale OUTPUT-SCALE)
 

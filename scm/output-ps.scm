@@ -209,13 +209,6 @@
     (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-
-(define (stem breapth width depth height) ; FIXME: use draw_round_box.
-  (string-append
-   (ly:numbers->string (list breapth width depth height))
-   " draw_box" ))
-
-
 (define (text font s)
   (let*
       

@@ -256,12 +256,14 @@ static void
 determine_output_options ()
 {
   bool found_gnome = false;
+  bool found_svg = false;
   bool found_tex = false;
   SCM formats = ly_output_formats ();
   for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
     {
-      found_tex = found_tex || (ly_scm2string (scm_car (s)) == "tex");
       found_gnome = found_gnome || ly_scm2string(scm_car (s)) == "gnome";
+      found_svg = found_gnome || ly_scm2string(scm_car (s)) == "svg";
+      found_tex = found_tex || (ly_scm2string (scm_car (s)) == "tex");
     }
 
   if (make_pdf || make_png)
@@ -277,6 +279,7 @@ determine_output_options ()
       make_tex = true;
     }
   if (!found_gnome
+      && !found_svg
       && !(make_dvi
 	   || make_tex
 	   || make_ps
@@ -293,7 +296,7 @@ determine_output_options ()
     }
 }
 
-void init_global_tweak_registry();
+void init_global_tweak_registry ();
 
 static void
 main_with_guile (void *, int, char **)
