@@ -1,4 +1,21 @@
+pl 46
+	- span-bar at upstep.
+	- bf: \score { \score_identifier }
+	- tenor clef (MB)
 
+pl 45.jcn2
+	- preludes-4,5,6
+	- bf's denneboom (oeps, see loop)
+
+pl 44.jcn7
+	- text-item.cc: try to get fingers just above note...
+	- set minimum space between columns
+	- bff: mf/Makefile out/*log required: new .ly .tex's with make-dist :-(
+	- bf's midi ascii-debug output
+	- bf: property instrument 
+
+*******
+feb 12
 pl 45
 	- bf: translator switching 
 	- SunOS and IRIX patches (AO)
@@ -6,8 +23,7 @@ pl 45
 	- shared lib numbering (AF)
 	- various fixes for debian (AF)
 	- ly2dvi .6.jaf (JAF)
-
-pl 44.jcn5
+pl 44.jcn6
 	- bf: crescendo.cc: bigger and use bar_size
 	- slur: guess extra height for height limit for extending notes/stems
 	- ps: adjustable slur height limit, bf crescendo
