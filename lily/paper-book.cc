@@ -133,13 +133,19 @@ Page::output (Paper_outputter *out, bool is_last)
       out->output_line (stencil2line (get_header ()), &o, false);
       o[Y_AXIS] += head_sep_;
     }
-  for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
     {
       SCM line = ly_car (s);
       out->output_line (line, &o,
-			is_last && gh_pair_p (ly_cdr (s)) && !get_copyright ()
+			is_last && ly_cdr (s) != SCM_EOL && !get_copyright ()
 			&& !get_tagline () && !get_footer ());
-      if (gh_pair_p (ly_cdr (s)) && unsmob_paper_line (line)->is_title ())
+      
+      /* Do not put vfill between title and its music, */
+      if (scm_pair_p (ly_cdr (s)) && !unsmob_paper_line (line)->is_title ())
+	o[Y_AXIS] += vfill;
+      /* rather put extra just before the title.  */
+      if (ly_cdr (s) != SCM_EOL
+	  && unsmob_paper_line (ly_cadr (s))->is_title ())
 	o[Y_AXIS] += vfill;
     }
 
@@ -390,8 +396,6 @@ Paper_book::pages ()
 
   SCM all = lines ();
   SCM proc = paper->get_scmvar ("page-breaking");
-  //  SCM proc = paper->scm_primitive_eval (ly_symbol2scm ("page-breaking"));
-  //  SCM proc = scm_primitive_eval (ly_symbol2scm ("page-breaking"));
   SCM breaks = scm_apply_0 (proc, scm_list_n (all,
 					      gh_double2scm (height_),
 					      gh_double2scm (text_height),
@@ -414,7 +418,10 @@ Paper_book::pages ()
 	? gh_scm2int (scm_vector_ref (breaks, gh_int2scm (i))) : 0;
       while ((!next && all != SCM_EOL) || line <= next)
 	{
-	  page->lines_ = ly_snoc (ly_car (all), page->lines_);
+	  SCM s = ly_car (all);
+	  page->lines_ = ly_snoc (s, page->lines_);
+	  page->height_ += unsmob_paper_line (s)->dim ()[Y_AXIS];
+	  page->line_count_++;
 	  all = ly_cdr (all);
 	  line++;
 	}
@@ -471,89 +478,3 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 			       gh_scm2double (book), gh_scm2double (text),
 			       gh_scm2double (first), gh_scm2double (last));
 }
-
-#if 0
-Link_array<Page>*
-Paper_book::ragged_pages ()
-{
-  Link_array<Page> *pages = new Link_array<Page>;
-  int score_count = scores_.size ();
-
-  /* Calculate the full book height.  Hmm, can't we cache system
-     heights while making stencils?  */
-  Real book_height = 0;
-  for (int i = 0; i < score_count; i++)
-    {
-      Stencil *title = this->title (i);
-      if (title)
-	book_height += title->extent (Y_AXIS).length ();
-
-      int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
-      for (int j = 0; j < line_count; j++)
-	{
-	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
-	  book_height += ly_scm2offset (ly_car (line))[Y_AXIS];
-	}
-    }
-
-  Paper_def *paper = papers_[0];
-  SCM scopes = this->scopes (0);
-
-  SCM make_tagline = scm_primitive_eval (ly_symbol2scm ("make-tagline"));
-  SCM tagline = scm_call_2 (make_tagline, paper->self_scm (), scopes);
-  Real tag_height = 0;
-  if (Stencil *s = unsmob_stencil (tagline))
-    tag_height = s->extent (Y_AXIS).length ();
-  book_height += tag_height;
-
-  SCM make_copyright = scm_primitive_eval (ly_symbol2scm ("make-copyright"));
-  SCM copyright = scm_call_2 (make_copyright, paper->self_scm (), scopes);
-  Real copy_height = 0;
-  if (Stencil *s = unsmob_stencil (copyright))
-    copy_height = s->extent (Y_AXIS).length ();
-  book_height += copy_height;
-  
-  Page::page_count_ = 0;
-  int page_number = 0;
-  Page *page = new Page (paper, ++page_number);
-  int page_count = int (book_height / page->text_height () + 0.5);
-  if (unsmob_stencil (copyright))
-    page->copyright_ = copyright;
-  if (unsmob_stencil (tagline) && page_number == page_count)
-    page->tagline_ = tagline;
-
-  /* Simplistic page breaking.  */
-  Real text_height = page->text_height ();
-  for (int i = 0; i < score_count; i++)
-    {
-      Real h = 0;
-      Stencil *title = this->title (i);
-      if (title)
-	h = title->extent (Y_AXIS).length ();
-
-      int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
-      for (int j = 0; j < line_count; j++)
-	{
-	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
-	  h += unsmob_paper_line (line)->dim ()[Y_AXIS];
-	  if (page->height_ + h > text_height)
-	    {
-	      pages->push (page);
-	      page = new Page (paper, ++page_number);
-	      if (unsmob_stencil (tagline_) && page_number == page_count)
-		page->tagline_ = tagline_;
-	      text_height = page->text_height ();
-	    }
-	  if (j == 0 && title)
-	    page->lines_ = ly_snoc (stencil2line (title, true), page->lines_);
-	  page->lines_ = ly_snoc (line, page->lines_);
-	  page->line_count_++;
-	  page->height_ += h;
-	  h = 0;
-	}
-    }
-
-  pages->push (page);
-  return pages;
-}
-#endif
