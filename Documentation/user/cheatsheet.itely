@@ -258,7 +258,7 @@ twinkle
 @tab printing chord names 
 @tab
 @lilypond[fragment,relative=2]
-\context ChordNames \chordmode { c:dim f:maj7 }
+\chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\@{c d@}>>}
