@@ -1,3 +1,11 @@
+2003-07-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el (LilyPond-paren-set-mode): From XEmacs' paren.el:
+	Disable buffer-locally default paren hook and make a new one. 
+
+	* lilypond-mode.el: Turn off locally paren-mode, but turn on
+	locally LilyPond-paren-mode. Add todo for mouse double-click.
+
 2003-07-10  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el (LilyPond-show-paren-mode): From Emacs' paren.el:

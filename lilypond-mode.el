@@ -1002,7 +1002,7 @@ command."
 	     ["LilyPond Paren Mode" 
 	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
 		  (LilyPond-show-paren-mode (not LilyPond-show-paren-mode))
-		(paren-set-mode (and (not paren-mode) 'paren)))
+		(LilyPond-paren-set-mode (if (not paren-mode) 'paren -1)))
 	      :style toggle :selected 
 	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
 		  LilyPond-show-paren-mode paren-mode)]
@@ -1142,11 +1142,9 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
 	(make-local-variable 'LilyPond-show-paren-mode)
 	(LilyPond-show-paren-mode t))
     (progn 
-      (make-local-variable 'show-paren-mode)
-      (paren-set-mode 'paren)
-      ;;  don't redefine Xemacs functions. It breaks other modes.
-      ;;  should have an own idle-timer instead
-      ;; (defun paren-highlight () (LilyPond-paren-highlight)) ; for testing
+      (make-local-variable 'paren-mode) ; used in LilyPond-paren-set-mode
+      (paren-set-mode -1)               ; disable default hook
+      (LilyPond-paren-set-mode 'paren)  ; define buffer-local hook
       ))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
