@@ -111,7 +111,7 @@ Clef_engraver::create_clef ()
       g->set_parent (clef_, Y_AXIS);
       g->set_parent (clef_, X_AXIS);
 
-      g->set_grob_property ("direction", gh_int2scm (sign (gh_scm2int (oct))));
+      g->set_grob_property ("direction", scm_int2num (sign (gh_scm2int (oct))));
       octavate_ = g;
       announce_grob(octavate_, SCM_EOL);
     }

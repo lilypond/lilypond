@@ -132,7 +132,7 @@ Accidental_interface::brew_molecule (SCM smob)
       SCM ac = Font_interface::font_alist_chain (me);
       ac = gh_cons (gh_cons (gh_cons
 			     (ly_symbol2scm ("font-relative-size"),
-			      gh_int2scm (-1)), SCM_EOL),
+			      scm_int2num (-1)), SCM_EOL),
 		    ac);
       fm = Font_interface::get_font (me, ac);
     }

@@ -129,10 +129,10 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   Moment one_beat = *unsmob_moment (get_property ("beatLength"));
   int num = int ((*unsmob_moment (get_property ("measureLength")) / one_beat).main_part_);
   int den = one_beat.den ();
-  SCM time = scm_list_n (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
+  SCM time = scm_list_n (scm_int2num (num), scm_int2num (den), SCM_UNDEFINED);
 
-  SCM type = scm_list_n (gh_int2scm (test_mom.num ()),
-		      gh_int2scm (test_mom.den ()), SCM_UNDEFINED);
+  SCM type = scm_list_n (scm_int2num (test_mom.num ()),
+		      scm_int2num (test_mom.den ()), SCM_UNDEFINED);
 
   SCM settings = get_property ("autoBeamSettings");
   

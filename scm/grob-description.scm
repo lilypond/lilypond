@@ -24,7 +24,10 @@
      . (
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.3)
-	(right-padding . 0.3)
+
+	;; this is quite small, but it is very ugly to have
+	;; accs closer to the previous note than to the next one.
+	(right-padding . 0.15)
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))
 	))
 
@@ -934,6 +937,7 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(no-spacing-rods . #t)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
 	(padding . 0.5)
 	(script-priority . 200)

@@ -893,6 +893,18 @@ if 1:
 	conversions.append (((1,5,62), conv,
 	'visibility-lambda -> break-visibility'))
 	
+
+if 1:
+	def conv (str):
+		if re.search (r'\addlyrics',str) \
+		       and re.search ('automaticMelismata', str)  == None:
+			sys.stderr.write  ('automaticMelismata is turned on by default since 1.5.67. Please fix this by hand.')
+			raise FatalConversionError()
+		return str
+
+	conversions.append (((1,5,67), conv,
+			     'automaticMelismata turned on by default'))
+
 if 1:
 	def conv (str):
 		str = re.sub ('ly-set-grob-property', 'ly-set-grob-property!', str)
@@ -901,6 +913,32 @@ if 1:
 	
 	conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))
 
+if 1:
+	def conv (str):
+		break_dict = {
+ 		"Instrument_name": "instrument-name",
+ 		"Left_edge_item": "left-edge",
+ 		"Span_bar": "span-bar",
+ 		"Breathing_sign": "breathing-sign",
+ 		"Staff_bar": "staff-bar",
+ 		"Clef_item": "clef",
+ 		"Key_item": "key-signature",
+ 		"Time_signature": "time-signature",
+ 		"Custos": "custos"
+ 		}
+		def func(match):
+			props =  m.group (1)
+			for (k,v) in break_dict.items():
+				props = re.sub (k, v, props)
+
+			
+			return  "breakAlignOrder = #'( %s )" % props
+		str = re.sub (r"breakAlignOrder *= *#'\(([a-z_A-Z ]+)\)", func, str)
+		return str
+
+	# 40 ? 
+	conversions.append (((1,5,40), conv, 'breakAlignOrder property names'))
+	
 
 ################################
 #	END OF CONVERSIONS	

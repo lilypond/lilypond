@@ -123,7 +123,9 @@ Stem::set_stemend (Grob*me, Real se)
 
 /*
   Note head that determines hshift for upstems
- */ 
+
+  WARNING: triggers direction
+*/ 
 Grob*
 Stem::support_head (Grob*me)
 {
@@ -152,7 +154,9 @@ Stem::head_count (Grob*me)
 
 /*
   The note head which forms one end of the stem.  
- */
+
+  WARNING: triggers direction
+*/
 Grob*
 Stem::first_head (Grob*me)
 {
@@ -246,7 +250,8 @@ Stem::add_head (Grob*me, Grob *n)
 bool
 Stem::invisible_b (Grob*me)
 {
-  return ! (head_count (me) && Note_head::get_balltype (support_head (me)) >= 1);
+  return ! (head_count (me)
+	    && gh_scm2int (me->get_grob_property ("duration-log")) >= 1);
 }
 
 Direction
