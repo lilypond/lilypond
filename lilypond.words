@@ -142,6 +142,7 @@ InnerChoirStaff
 \\keys
 \\keysignature
 \\lag
+\\legato
 \\legniGroup
 \\lheel
 \\linebreak
@@ -230,6 +231,7 @@ PianoStaff
 \\PianoStaffContext
 \\pitch
 \\pitchnames
+\\portato
 \\pp
 \\pper
 \\ppp
