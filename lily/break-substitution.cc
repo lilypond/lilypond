@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include  "grob.hh"
 #include "item.hh"
@@ -343,7 +344,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 
   if (vec_room < len)
     {
-      vec = (Substitution_entry*) scm_realloc (vec, sizeof (Substitution_entry) * len);
+      vec = (Substitution_entry*) realloc (vec, sizeof (Substitution_entry) * len);
       vec_room = len;
     }
   

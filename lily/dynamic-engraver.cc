@@ -246,7 +246,7 @@ Dynamic_engraver::process_music ()
 	      cresc_  = new Spanner (get_property ("TextSpanner"));
 	      cresc_->set_grob_property ("type", s);
 	      daddy_trans_->set_property ((start_type
-					    + "Spanner").to_str0 (), SCM_UNDEFINED);
+					    + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
 	      /*
 		FIXME: use get_markup () to check type.
@@ -412,6 +412,11 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     {
       SCM p = i.grob_->get_grob_property ("script-priority");
 
+      /*
+	UGH.
+
+	DynamicText doesn't really have a script-priority field.
+       */
       if (gh_number_p (p)
 	  && gh_scm2int (p) < gh_scm2int (script_->get_grob_property ("script-priority")))
 	{
