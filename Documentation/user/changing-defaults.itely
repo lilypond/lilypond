@@ -2015,10 +2015,11 @@ more systems onto one page.
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
 property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
-if you want to make it smaller than its default, then you could set
+if you want to make it smaller than its default @code{#'(-4 . 4)},
+then you could set
 
 @example
-\set Staff.minimumVerticalExtent = #'(-4 . 4)
+\set Staff.minimumVerticalExtent = #'(-3 . 3)
 @end example
 
 @noindent
