@@ -13,5 +13,5 @@ regtool remove '/root/LilyPond'
 
 # cleanup old fonts
 touch /tmp/.lilypond-install
-rm $(find /var/lib/texmf /var/spool/texmf -name /var/cache/fonts 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm')
+rm $(find /var/lib/texmf /var/spool/texmf /var/cache/fonts -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm')
 rm -f /tmp/.lilypond-install
