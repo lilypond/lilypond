@@ -1,7 +1,12 @@
-1.5.17.jcn1
+1.5.17.jcn2
 ===========
 
 * Some more random hacking at midi2ly.py.
+
+* Bugfix: Key_change_req::transpose: don't deliver reversed list.
+
+* Bugfix: Key_performer::create_audio_elements: transpose list to
+`do', before determining tonality.
 
 1.5.17
 ======

@@ -196,7 +196,7 @@ read_string (unsigned char **track, unsigned char *end)
     length = end - *track;
 
   *track += length;
-  return Py_BuildValue ("s", ((*track) -length));
+  return Py_BuildValue ("s#", ((*track) -length), length);
 }
 
 typedef PyObject* (*Read_midi_event)
@@ -215,14 +215,8 @@ read_f0_byte (unsigned char **track, unsigned char *end,
       unsigned char z = (*track)[0 ];
       *track += 1;
       debug_print ("%x:%s", z, "f0-event\n");
-      
-      if (z == 0x2f && (*track)[0] == 0x00) /* end of track */
-	{
-	  *track += 1;
-	  return 0;
-	}
-      else
-	return Py_BuildValue ("(iiO)", x, z, read_string (track, end));
+
+      return Py_BuildValue ("(iiO)", x, z, read_string (track, end));
     }
 
   return Py_BuildValue ("(iO)", x, read_string (track, end));

@@ -1278,7 +1278,7 @@ verbose_command_req:
 		Key_change_req *key_p= new Key_change_req;
 		
 		key_p->set_mus_property ("pitch-alist", $3);
- ((Music* )key_p)->transpose (* unsmob_pitch ($2));
+ 		((Music*)key_p)->transpose (* unsmob_pitch ($2));
 		$$ = key_p; 
 	}
 	;

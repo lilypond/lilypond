@@ -56,7 +56,7 @@ Key_change_req::transpose (Pitch p)
 	}
     }
 
-  set_mus_property ("pitch-alist", newlist);
+  set_mus_property ("pitch-alist", gh_reverse (newlist));
 }
 
 

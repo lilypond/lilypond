@@ -60,12 +60,13 @@ class Note:
 	def dump (self):
 		# major scale: do-do
 		# minor scale: la-la  (= + 5) '''
-	
-		n = self.names[self.pitch % 12]
-		a = self.accidentals[(key.minor * 5 + self.pitch) % 12]
+
+		n = self.names[(self.pitch) % 12]
+ 		a = self.accidentals[(self.pitch) % 12]
+
 		if a and key.flats:
-			a = -a
-			n = (n + 1) % 7
+			a = - self.accidentals[(self.pitch) % 12]
+			n = (n - a) % 7
 
 		name = chr ((n + 2)  % 7 + ord ('a'))
 
@@ -98,6 +99,8 @@ class Note:
 		#
 		#  --jcn
 
+		o = self.pitch / 12 - 4
+
 		if key.minor:
 			if key.sharps == 0 and key.flats == 0 and name == 'as':
 				name = 'gis'
@@ -111,15 +114,21 @@ class Note:
 				name = 'cisis'
 			elif key.sharps == 7 and name == 'a':
 				name = 'gisis'
-				
-			if key.flats >= 6 and name == 'b':
-				name = 'ces'
-			if key.sharps >= 7 and name == 'e':
-				name = 'fes'
+
+		if key.flats >= 6 and name == 'b':
+ 			name = 'ces'
+			o = o + 1
+		if key.flats >= 7 and name == 'e':
+ 			name = 'fes'
+
+		if key.sharps >= 3 and name == 'f':
+ 			name = 'eis'
+		if key.sharps >= 4 and name == 'c':
+ 			name = 'bis'
+			o = o - 1
 
                 s = name
 		
-		o = self.pitch / 12 - 4
 		if o > 0:
 			s = s + "'" * o
 		elif o < 0:
@@ -257,17 +266,14 @@ def events_on_channel (channel):
 				den = 2 ** dur 
 				events.append ((t, Time (num, den)))
 			elif e[1][1] == midi.KEY_SIGNATURE:
-				if len (e[1][2]) != 2:
-					# circumvent lilypond bug
-					(accidentals, minor) = (0,0)
-				else:	
-					(accidentals, minor) = map (ord, e[1][2])
+ 				(accidentals, minor) = map (ord, e[1][2])
 				sharps = 0
 				flats = 0
 				if accidentals < 127:
 					sharps = accidentals
 				else:
 					flats = 256 - accidentals
+
 				events.append ((t, Key (sharps, flats, minor)))
 			elif e[1][1] >= midi.SEQUENCE_NUMBER and e[1][1] <= midi.CUE_POINT:
 				events.append ((t, Text (e[1][1], e[1][2])))
@@ -378,7 +384,8 @@ def dump_channel (thread):
 
 	lines = ['']
 	for ch in chs:
-		if len (lines[-1]) > LINE_BELL:
+		i = string.rfind (lines[-1], '\n')
+		if len (lines[-1][i:]) > LINE_BELL:
 			lines.append ('')
 			
 		t = ch[0]
