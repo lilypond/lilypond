@@ -306,12 +306,15 @@ MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
 Beam::print (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Spanner *me = unsmob_spanner (grob);
   position_beam (me);
   
   Link_array<Grob> stems=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
   Grob* xcommon = common_refpoint_of_array (stems, me, X_AXIS);
+
+  xcommon = me->get_bound (LEFT)->common_refpoint (xcommon, X_AXIS);
+  xcommon = me->get_bound (RIGHT)->common_refpoint (xcommon, X_AXIS);
 
   Real x0, dx;
   if (visible_stem_count (me))
@@ -400,7 +403,7 @@ Beam::print (SCM grob)
 	how much to stick out for beams across linebreaks
        */
       Real break_overshoot = 3.0;
-      Real w = (i > 0 && st) ? xposn - last_xposn : break_overshoot;
+      Real w = (i > 0 && st) ? (xposn - last_xposn) : break_overshoot;
 
       Real stem_offset =0.0;
       if (i > 0)
@@ -443,8 +446,6 @@ Beam::print (SCM grob)
 
 	  the_beam.add_stencil (b);	      
 	}
-
-      
 	  
       if (lfliebertjes.size() || rfliebertjes.size())
 	{
@@ -459,26 +460,41 @@ Beam::print (SCM grob)
 	      nw_f = gh_scm2double (result);
 	    }
 	  else
-	    nw_f = break_overshoot;
+	    nw_f = break_overshoot / 2;
 	      
 	  /* Half beam should be one note-width,
 	     but let's make sure two half-beams never touch */
-	  Real w = (i>0 && st) ? (xposn - last_xposn) : break_overshoot;
-	  w = w/2 <? nw_f;
+	  Real lw = nw_f;
+	  Real rw = nw_f;
+	  if (i > 0)
+	    rw = nw_f <? ((xposn - last_xposn) / 2);
+	  else
+	    /*
+	      TODO: 0.5 is a guess.
+	    */
+	    rw = xposn - me->get_bound (LEFT)->extent (xcommon, X_AXIS)[RIGHT]
+	      - 0.5;
+	  
+	  if (st)
+	    lw = nw_f <? ((xposn - last_xposn) / 2);
+	  else
+	    lw = me->get_bound(RIGHT)->relative_coordinate (xcommon, X_AXIS)
+	      - last_xposn;
 
-	  Stencil half = Lookup::beam (dydx, w, thick, blot);
+	  Stencil rhalf = Lookup::beam (dydx, rw, thick, blot);
+	  Stencil lhalf = Lookup::beam (dydx, lw, thick, blot);
 	  for (int j = lfliebertjes.size(); j--;)
 	    {
-	      Stencil b (half);
+	      Stencil b (lhalf);
 	      b.translate_axis (last_xposn -  x0, X_AXIS);
 	      b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);	      
 	    }
 	  for (int j = rfliebertjes.size(); j--;)
 	    {
-	      Stencil b (half);
-	      b.translate_axis (xposn -  x0 - w , X_AXIS);
-	      b.translate_axis (dydx * (xposn-x0 -w) + bdy * rfliebertjes[j], Y_AXIS);
+	      Stencil b (rhalf);
+	      b.translate_axis (xposn -  x0 - rw , X_AXIS);
+	      b.translate_axis (dydx * (xposn-x0 -rw) + bdy * rfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);	      
 	    }
 	}
