@@ -4399,12 +4399,6 @@ music, e.g. for the incipit.  The @code{mensural} style finally
 produces note heads that mimick the look of note heads in historic
 printings of the 16th century.
 
-To get a longa note head, you have to use mensural note heads. This
-is accomplished by setting the @code{style} property of the
-NoteHead object to @code{mensural}. There is also a note head style
-@code{baroque} which gives mensural note heads for @code{\longa} and
-@code{\breve} but standard note heads for shorter notes:
-
 The following example demonstrates the @code{neo_mensural} style:
 
 @lilypond[fragment,singleline,verbatim]
