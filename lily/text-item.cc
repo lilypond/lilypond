@@ -75,6 +75,8 @@ Text_item::brew_molecule_p () const
   if (dir_<0)		// should do something better anyway.
     mol_p->translate_axis (mol_p->extent ().y ().left , Y_AXIS);
   mol_p->translate_axis (coordinate_offset_f_, Y_AXIS);
+  // fine for one lyric, urg for lyric chord
+  mol_p->translate_axis (a.dim_.y ().length (), Y_AXIS);
 
   return mol_p;
 }

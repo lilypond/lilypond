@@ -29,10 +29,24 @@ Repeat_engraver::do_try_music (Music* m)
 {
   if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
     {
-      repeated_music_arr_.push (r);
-      stop_mom_arr_.push (now_moment () + r->repeat_p_->duration () 
-        + r->alternative_p_->music_p_list_p_->top ()->duration ());
+      Moment stop_mom = now_moment () + r->repeat_p_->duration () 
+        + r->alternative_p_->music_p_list_p_->top ()->duration ();
       Moment alt_mom = now_moment () + r->repeat_p_->duration ();
+      /*
+        TODO: 
+	  figure out what we don't want.
+
+	  we don't want to print more than one set of
+	  |: :| and volta brackets on one staff.
+
+	  counting nested repeats, it seems safest to forbid
+	  two pieces of alternative music to start at the same time.
+       */
+      for (int i = 0; i < alternative_start_mom_arr_.size (); i++)
+        if (alternative_start_mom_arr_[i] == alt_mom)
+	  return false;
+      repeated_music_arr_.push (r);
+      stop_mom_arr_.push (stop_mom);
       for (PCursor<Music*> i (r->alternative_p_->music_p_list_p_->top ()); i.ok (); i++)
         {
 	  alternative_music_arr_.push (i.ptr ());

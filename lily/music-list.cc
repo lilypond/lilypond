@@ -59,15 +59,20 @@ Sequential_music::duration () const
 Musical_pitch
 Sequential_music::to_relative_octave (Musical_pitch p)
 {
-  return music_p_list_p_->do_relative_octave (p, false);
+  return do_relative_octave (p, false);
 }
 
 Musical_pitch
 Simultaneous_music::to_relative_octave (Musical_pitch p)
 {
-  return music_p_list_p_->do_relative_octave (p, true);
+  return do_relative_octave (p, true);
 }
 
+Musical_pitch
+Music_sequence::do_relative_octave (Musical_pitch p, bool b)
+{
+  return music_p_list_p_->do_relative_octave (p, b);  
+}
 
 Musical_pitch 
 Music_list::do_relative_octave (Musical_pitch last, bool ret_first)

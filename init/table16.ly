@@ -58,7 +58,7 @@ table_sixteen=
 
      % dims ignored for this table
      "param" = \table {
-	"brace"	"pianobrace"	1	0.0\pt	0.0\pt	32.0\pt	80.0\pt
+	"brace"	"pianobrace"	1	0.0\pt	0.0\pt	32.0\pt	112.0\pt
 	"bracket"	"staffbracket"	1	0.0\pt	4.0\pt	16.0\pt	128.0\pt
 	"extender"	"extender"	1	0.0\pt	0.0\pt	1.0\pt	160.0\pt
 	"time_signature"	"generalmeter"	2	0.0\pt	10.0\pt	-8.0\pt	8.0\pt

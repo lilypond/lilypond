@@ -49,3 +49,10 @@ Music_wrapper::duration () const
 {
   return element_p_->duration ();
 }
+
+
+Musical_pitch
+Music_wrapper::to_relative_octave (Musical_pitch p)
+{
+  return element_p_->to_relative_octave (p);
+}

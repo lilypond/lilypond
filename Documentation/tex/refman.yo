@@ -15,6 +15,12 @@ TODO:
    the explanation of how lyrics mode parses words seems ridiculous.  
      Is there a simple way to explain this, or is the behavior
      too complicated for a reasonable explanation?
+   \relative and \tranpose and \times make it necessary to specify
+       an explicit \type staff, or bizarre things happen. 
+   catalan.ly
+   accordion symbols
+   extender*  (see extender.ly)
+   \repeat & \alternative  -> probably should have an example
 )
 
 
@@ -40,7 +46,7 @@ latexlayoutcmds(
 
 whentexinfo(notableofcontents())
 
-article(Mudela 1.0.7 / LilyPond 1.0.15 Reference Manual)
+article(Mudela 1.0.7 / LilyPond 1.1.8 Reference Manual)
       (Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
@@ -113,6 +119,11 @@ file(init.)var(ext) and process this file.  The file
 file(init.)var(ext) must contain the code(\maininput) keyword or LilyPond
 will not read the user specified file.
 
+When LilyPond processes file(filename.ly) it will produce file(filename.tex) as
+output.  If file(filename.ly) contains a second code(\paper) keyword, then
+LilyPond will produce file(filename-1.tex) as well.  Subsequent code(\paper)
+keywords will produces sequentially numbered file names.  Several files can be
+specified; they will each be processed independently.
 
 sect(Syntax)
 
@@ -213,16 +224,16 @@ will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic   header         musicalpitch   remove         times
-accepts      in             name           score          translator
-bar          include        notenames      script         transpose 
-cadenza      key            notes          shape          type      
-clef         keysignature   paper          skip        	  version   
-cm           lyrics         partial        spandynamic 
-consists     maininput      penalty        symboltables
-duration     mark           property       table       
-font         midi           pt             tempo       
-grouping     mm             relative       time)
+verb(absdynamic    grouping       mm              relative     symboltables
+accepts       header         musicalpitch    remove       table
+alternative   in             name            repeat       tempo
+bar           include        notenames       scm          time
+cadenza       key            notes           scmfile      times
+clef          keysignature   paper           score        translator
+cm            lyrics         partial         script       transpose
+consists      maininput      penalty         shape        type
+duration      mark           property        skip         version
+font          midi           pt              spandynamic)
 
 The right hand side of an identifier assignment is parsed completely
 when the assignment is made.  It therefore must have any context
@@ -332,6 +343,11 @@ Leise DOEXPAND(Fl\)DOEXPAND("u\)ss{}teren meine Sapfe       % 4 words
 _ _ _ _         % 4 words, each one a space
 ))
 
+It is possible to create words that break the rules by prefixing them with the
+dollar sign code($).  Regardless of the context, a word beginning with code($)
+extends until the next white space character.  Such words can contain numbers
+(even in Note mode), or other forbidden characters.  The dollar sign can be
+used to create and access identifiers that could not otherwise be used.  
 
 COMMENT(
 These modes are of a lexical nature. Normal and Note mode largely
@@ -454,6 +470,10 @@ code([) and code(]).
 mudela(fragment,verbatim,center)(
 [a'8 a'] [a'16 a' a' a']
 )
+If you want to put beams over chords, you will find that the obvious
+construction does not work.  You must do the following:
+mudela(fragment,verbatim,center)(<[a'8 c''> b' <c'' e''> <a' c'']>)
+The bracket characters must appear immediately adjacent to a note. 
 
 In order to create triplets, you must use a length multiplier after
 the brackets.  An open bracket code([) followed by a fraction
@@ -529,13 +549,13 @@ mudela()(
           c''-\open  c''-\flageolet  c''-\reverseturn 
           c''-\trill
           c''-\prall c''-\mordent c''-\prallprall  c''-\prallmordent
-          c''-\upprall c''-\downprall }
+          c''-\upprall c''-\downprall c''-\thumb}
   \type Lyrics \lyrics{  
         accent      marcato      staccatissimo fermata stopped
            staccato tenuto upbow downbow lheel rheel ltoe rtoe  turn
            open  flageolet reverseturn 
              trill  prall
-           mordent prallprall prallmordent uprall  downprall }>
+           mordent prallprall prallmordent uprall  downprall thumb}>
   \paper{linewidth  = 5.875\in;
          indent = 0.0;
         }
@@ -576,6 +596,13 @@ code(\rc).  A decrescendo mark is started with code(\decr) and
 terminated with code(\rced).  There are also shorthands for these
 marks.  A crescendo can be started with code(\<) and a decrescendo can
 be started with code(\>).  Either one can be terminated with code(\!).
+Note that code(\!) must go before the last note of the dynamic mark whereas
+code(\rc) and code(\rced) go after the last note.  Because these marks are
+bound to notes, if you want to get several marks during one note, you must use
+spacer notes. 
+mudela(fragment,verbatim,center)(
+c'' \< \! c''   d'' \decr e'' \rced 
+< f''1 {s4 \< \! s4 \> \! s2 } >)
 
 Tremolo marks can be printed by a note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
@@ -868,6 +895,9 @@ dit(code(\accepts) var(string)code(;)) This keyword can appear only within a
 code(\translator) block.  It specifies what contexts are allowed with the
 context that is being defined.  See Section ref(translators).  
 
+dit(code(\alternative) code({) var(music1) var(music2) ... code(}))
+Specifies alternative endings.  Must come after a code(\repeat) keyword.  
+
 dit(code(\bar) var(bartype)code(;)) Prints a special bar symbol, or at
 measure boundaries, replaces the regular bar symbol with a special
 symbol.  The argument var(bartype) is a string which specifies the
@@ -906,6 +936,7 @@ mudela(center)(
 mudela(center)(
 \score{
   \notes{\cadenza 1; \clef alto;    c'4_"\kern -10mm alto"
+           \clef scarlatti;    c'4_"\kern -4mm scarlatti"
            \clef mezzosoprano; c'4^"\kern -10mm mezzosoprano"
            \clef soprano;  c'4_"\kern -10mm soprano"
            \clef treble;  c'4^"\kern -6mm treble"
@@ -943,8 +974,9 @@ Specifies information about the music.  A header should appear at the
 top of the file describing the file's contents.  If a file has
 multiple code(\score) blocks, then a header should appear in
 each score block describing its contents.  Tools like code(ly2dvi) can
-use this information for generating titles.   Some possible key values
-are: title, opus, description, composer, enteredby, and copyright.
+use this information for generating titles.   Key values that are used
+by ly2dvi are: title, subtitle, composer, opus, poet, instrument,
+metre, arranger, and piece.  
 
 dit(code(\in)) Specify a dimension in inches.  
 
@@ -1040,6 +1072,16 @@ chord.  See Section ref(relative).
 dit(code(\remove) var(string)code(;)) Can appear only in a
 code(\translator) block.  Specifies that a performer or engraver named
 var(string) should be removed.  See Section ref(translators).  
+
+dit(code(\repeat) var(count) code({) var(music) code(}))
+Repeats the specified
+music var(count) times.  Alternative endings can be specified by adding a
+code(\alternative) keyword after the code(\repeat).  
+
+dit(code(\scm) var(scheme)code(;)) Embeds specified Scheme code.  
+
+dit(code(\scmfile) var(filename)code(;)) Reads Scheme code from the specified
+file.  
 
 dit(code(\score) var(statementlist)) Create a Score context.  This
 is the top level notation context.  
@@ -1255,6 +1297,10 @@ dit(code(slurydirection)) Set to code(\free) for free choice of slur
 direction, set to code(\up) to force slurs up, set to code(\down) to
 force slurs down.  The shorthands code(\slurup), code(\slurdown), and
 code(\slurboth) are available.
+
+dit(code(tieYDirection)) Set to code(\free) for free choice of tie
+direction, set to code(\up) to force ties up, set to code(\down) to
+force ties down.  
 
 dit(code(slurdash)) Set to 0 for normal slurs, 1 for dotted slurs, and
 a larger value for dashed slurs.  Identifiers code(\slurnormal) and
@@ -1786,9 +1832,6 @@ dit(code(Local_key_engraver))
 dit(code(Lyric_engraver)) Engraves lyrics.  Normally in code(LyricVoice).
 dit(code(Multi_measure_rest_engraver)) Engraves multi-measure rests that are
 produced with code(R).  Normally in code(Voice).
-dit(code(Note_heads_engraver)) Engraves note heads.  Normally in code(Voice).
-Removing this gives a fatal error.  
-COMMENT(Perhaps should be Note_head_engraver)
 dit(code(Piano_bar_engraver))
 dit(code(Pitch_squash_engraver)) Treat all pitches as middle C.  Used in
 code(RhythmicStaff).  Note that the notes move, but the locations of
@@ -1799,6 +1842,8 @@ dit(code(Plet_swallow_engraver)) Swallows tuplet requests without any output.
 In code(LyricVoice).  
 COMMENT( Should this be named Plet_req_swallow_translator? )
 dit(code(Priority_horizontal_align_engraver))
+dit(code(Repeat_engraver)) Handles repeats? In code(Staff) and 
+   code(RhythmicStaff).
 dit(code(Rest_collision_engraver)) Handles collisions of rests. In code(Staff).
 dit(code(Rest_engraver)) Engraves rests.  Normally in code(Voice).
 dit(code(Rhythmic_column_engraver))
@@ -1824,6 +1869,7 @@ code(Staff) and code(RhythmicStaff).
 dit(code(Timing_engraver)) Responsible for synchronizing timing information
 from staffs.  Normally in code(Score).  In order to create polyrhythmic music,
 this engraver should be removed from code(Score) and placed in code(Staff).
+dit(code(Tuplet_engraver)) Engraves tuplet brackets?  In code(Staff).
 dit(code(Vertical_align_engraver)) 
 )
 

@@ -58,6 +58,7 @@ Lyric_engraver::do_process_requests()
       // urg
       // item_p->translate (Offset (0, (i - 1) * item_p->height ().length_i ()));
 //      if (i && ((Text_def*)text_p_arr_[i - 1]->tdef_p_)->text_str_.length_i ())
+      // urg, when/how can one get the heigt of this thing?
       item_p->translate (Offset (0, - i * 12 PT));
       text_p_arr_.push (item_p);
       announce_element (Score_element_info (item_p, request_l));

@@ -520,6 +520,9 @@ Lookup::volta (Real w, bool last_b) const
 		       gh_int2scm (last_b),
 		       SCM_UNDEFINED);
   a.str_ = "volta";
+  Real interline_f = paper_l_->interline_f ();
+  a.dim_[Y_AXIS] = Interval (-interline_f / 2, interline_f / 2);
+  a.dim_[X_AXIS] = Interval (0, w);
   return a;
 }
 

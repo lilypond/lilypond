@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.1.8
+Version: 1.1.9
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.8.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.9.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -31,7 +31,9 @@ make htmldoc || true
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
-tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
+mkdir htmldocs
+tar -C htmldocs -xzf out/htmldoc.tar.gz
+#tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
 
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
@@ -42,7 +44,7 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
 %files
 
-%doc /tmp/lilypond-rpm-doc
+%doc htmldocs/
 
 # hairy to hook it in (possibly non-existing) emacs
 %doc mudela-mode.el

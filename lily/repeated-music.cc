@@ -62,3 +62,23 @@ Repeated_music::duration () const
   return m;
 }
 
+
+Musical_pitch
+Repeated_music::to_relative_octave (Musical_pitch p)
+{
+  p = repeat_p_->to_relative_octave (p);
+
+  p = alternative_p_->do_relative_octave (p, false); 
+  return p;
+  
+  /* ugh.  Should 
+     \relative c'' \repeat 2  { c4 } { < ... > }
+
+     and 
+     
+     \relative c'' \repeat 2  { c4 }
+     { { ...} }
+
+     behave differently?
+   */
+}
