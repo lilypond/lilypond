@@ -1363,9 +1363,7 @@ done
 ac_given_srcdir=$srcdir
 ac_given_INSTALL="$INSTALL"
 
-trap 'rm -fr `echo "make/out/Configure_variables.make:make/Configure_variables.make.in
-    Makefile:make/Toplevel.make.in
-    " | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
+trap 'rm -fr `echo "make/out/Configure_variables.make:make/Configure_variables.make.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
 EOF
 cat >> $CONFIG_STATUS <<EOF
 
@@ -1454,9 +1452,7 @@ EOF
 
 cat >> $CONFIG_STATUS <<EOF
 
-CONFIG_FILES=\${CONFIG_FILES-"make/out/Configure_variables.make:make/Configure_variables.make.in
-    Makefile:make/Toplevel.make.in
-    "}
+CONFIG_FILES=\${CONFIG_FILES-"make/out/Configure_variables.make:make/Configure_variables.make.in"}
 EOF
 cat >> $CONFIG_STATUS <<\EOF
 for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
@@ -1630,7 +1626,7 @@ fi
 eval "DIR_DATADIR=$datadir"
 DIR_DATADIR="$DIR_DATADIR/lilypond"
 echo $ac_n "checking ""... $ac_c" 1>&6
-echo "configure:1634: checking " >&5
+echo "configure:1630: checking " >&5
 
 cat << EOF > lib/out/config.hh
 
