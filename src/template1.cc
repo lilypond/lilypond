@@ -12,14 +12,14 @@
 #include "plist.cc"
 #include "cursor.cc"
 
-#define PLC_instantiate(a) PL_instantiate(a); PL_instantiate(const a)
+#define IPLC_instantiate(a) IPL_instantiate(a); PL_instantiate(const a)
 
-L_instantiate(Stem*);
-PLC_instantiate(Line_of_score);
-PLC_instantiate(Line_of_staff);
-PLC_instantiate(Item);
-PLC_instantiate(Spanner);
-PLC_instantiate(PStaff);
-PLC_instantiate(Idealspacing);
-PLC_instantiate(PCol);
+IPLC_instantiate(Stem*);
+IPLC_instantiate(Line_of_score);
+IPLC_instantiate(Line_of_staff);
+IPLC_instantiate(Item);
+IPLC_instantiate(Spanner);
+IPLC_instantiate(PStaff);
+IPLC_instantiate(Idealspacing);
+IPLC_instantiate(PCol);
 

@@ -27,7 +27,7 @@ Request::Request()
 
 Note_req::Note_req()
 {
-    name = 'c';
+    name = 0;
     octave = 0;
     accidental = 0;
     forceacc = false;
@@ -36,10 +36,7 @@ Note_req::Note_req()
 int
 Note_req::height() const
 {
-    int s = name -'c';
-    if (s < 0)
-	s+=7;
-    return  s + octave*7;
+    return  name + octave*7;
 }
 
 Rhythmic_req::Rhythmic_req()

@@ -10,10 +10,11 @@
 #include "list.cc"
 #include "plist.cc"
 #include "cursor.cc"
-PL_instantiate(Score_column);
-PL_instantiate(Staff_column);
-PL_instantiate(Staff);
-PL_instantiate(Voice_element);
-PL_instantiate(Voice);
+
+IPL_instantiate(Score_column);
+IPL_instantiate(Staff_column);
+IPL_instantiate(Staff);
+IPL_instantiate(Voice_element);
+IPL_instantiate(Voice);
 
 

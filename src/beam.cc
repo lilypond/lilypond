@@ -15,6 +15,8 @@ struct Stem_info {
     Real miny;
     int no_beams;
 
+    ///////////////
+    
     Stem_info(){}
     Stem_info(const Stem*);
 };
@@ -58,7 +60,9 @@ Beam::set_default_dir()
 	sc->dir = dir;
     }
 }
-
+/*
+  should use minimum energy formulation (cf linespacing)
+  */
 void
 Beam::solve_slope()
 {
@@ -88,13 +92,14 @@ Beam::solve_slope()
     left_pos *= dir;    
     slope *= dir;
     
-    {Real inter =paper()->interline()/2;
-    Real unitslope = slope*inter;
+    {
+	Real inter =paper()->interline()/2;
+	Real unitslope = slope*inter;
 
-    // set beamslope, for setting stems correctly
-    // ignoring return.
-    Symbol sy = paper()->lookup_->beam(unitslope, width().length());
-    slope =unitslope / inter;
+	// set beamslope, for setting stems correctly
+	// ignoring return.
+	Symbol sy = paper()->lookup_->beam(unitslope, width().length());
+	slope =unitslope / inter;
     }
 }
 
