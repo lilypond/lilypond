@@ -21,6 +21,7 @@
 
 class Beam_engraver : public Engraver
 {
+protected:  
   Drul_array<Span_req*> reqs_drul_;
   
   Spanner *finished_beam_p_;
@@ -40,7 +41,11 @@ class Beam_engraver : public Engraver
 
   void typeset_beam ();
   void set_melisma (bool);
-protected:
+
+  Moment last_stem_added_at_;
+  
+
+
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
@@ -49,9 +54,28 @@ protected:
   virtual bool try_music (Music*);
   virtual void process_music ();
 
+  virtual bool valid_start_moment();
+  virtual bool valid_end_moment ();
+  
 public:
   TRANSLATOR_DECLARATIONS(  Beam_engraver );
 };
+
+
+
+bool
+Beam_engraver::valid_start_moment()
+{
+  Moment n = now_mom ();
+
+  return n.grace_part_ == Rational (0);
+}
+
+bool
+Beam_engraver::valid_end_moment()
+{
+  return last_stem_added_at_.grace_part_ == Rational(0);
+}
 
 
 Beam_engraver::Beam_engraver ()
@@ -80,11 +104,17 @@ Beam_engraver::try_music (Music *m)
 	  beam_p_ = 0;
 	}
       else if (scm_equal_p (c->get_mus_property ("span-type"),
-		       ly_str02scm ("beam")) == SCM_BOOL_T)
+			    ly_str02scm ("beam")) == SCM_BOOL_T)
 	{
-      
 	  Direction d =c->get_span_dir ();
 
+
+      	  if (d == STOP && !valid_end_moment())
+	    return false;
+
+	  if (d == START && !valid_start_moment ())
+	    return false;
+	  
 	  if (d == STOP)
 	    {
 	      SCM m = get_property ("automaticMelismata");
@@ -113,8 +143,6 @@ Beam_engraver::process_music ()
 {
   if (reqs_drul_[STOP])
     {
-      if (!beam_p_)
-	reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of beam"));
       prev_start_req_ =0;
       finished_beam_p_ = beam_p_;
       finished_beam_info_p_ = beam_info_p_;
@@ -223,7 +251,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	{
 	  Moment now = now_mom();
 
-	  if(bool (now.grace_part_ ) != bool (beam_start_mom_.grace_part_))
+	  if (!valid_start_moment ())
 	    return ;
 	  
 	  Item *stem_l = dynamic_cast<Item*> (info.grob_l_);
@@ -242,7 +270,9 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	      return;
 	    }
 
-      int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log ();
+
+	  last_stem_added_at_ = now;
+	  int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log ();
 	  if (durlog <= 2)
 	    {
 	      rhythmic_req->origin ()->warning (_ ("stem doesn't fit in beam"));
@@ -275,3 +305,46 @@ printed with flags instead of beams.",
 /* acks  */       "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy subdivideBeams",
 /* write */       "");
+
+
+class Grace_beam_engraver : public Beam_engraver
+{
+public:
+  TRANSLATOR_DECLARATIONS(Grace_beam_engraver);  
+
+protected:
+  virtual bool valid_start_moment();
+  virtual bool valid_end_moment ();
+};
+
+Grace_beam_engraver::Grace_beam_engraver()
+{
+}
+
+bool
+Grace_beam_engraver::valid_start_moment()
+{
+  Moment n = now_mom ();
+
+  return n.grace_part_ != Rational (0);
+}
+
+
+bool
+Grace_beam_engraver::valid_end_moment ()
+{
+  return beam_p_ && last_stem_added_at_.grace_part_ != Rational(0);
+}
+
+
+
+ENTER_DESCRIPTION(Grace_beam_engraver,
+/* descr */       "Handles Beam_requests by engraving Beams.  If omitted, then notes will
+be printed with flags instead of beams. Only engraves beams when we
+are at grace points in time.
+",
+/* creats*/       "Beam",
+/* acks  */       "stem-interface rest-interface",
+/* reads */       "beamMelismaBusy subdivideBeams",
+/* write */       "");
+

@@ -13,8 +13,10 @@ URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
 
 # add lots of Buildreq: flex, bison, tetex, tetex-devel, tetex-latex, texinfo
-# better prereqs: tetex-latex, python, (mpost?) etc.
-Prereq: tetex t1utils bison flex pktrace texinfo tetex-latex gcc-c++ python 
+Prereq: tetex  tetex-latex gcc-c++ python 
+
+#
+Buildreq:  t1utils bison flex pktrace texinfo
 
 %description
 LilyPond lets you create music notation.  It produces
