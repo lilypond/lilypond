@@ -4,6 +4,8 @@
 1.5.1.jcn2
 ==========
 
+* Make blot work without -fps too.
+
 * Use blot diameter for postscript beams and boxes.
 
 * Guile-1.5.0-cvs updates and Guile-1.4.x compatibility.
