@@ -1,5 +1,14 @@
+/*
+  lilypond, (c) 1996 Han-Wen Nienhuys
+*/
+#ifndef SYMTABLE_HH
+#define SYMTABLE_HH
+#include "assoc.hh"
+#include "string.hh"
+#include "symbol.hh"
+
 struct  Symtable : public Assoc<String, Symbol> {
-    const Symbol * lookup(String)const;
+    Symbol lookup(String)const;
 };
 
 
@@ -13,4 +22,7 @@ struct Symtables : private Assoc<String, Symtable*> {
     Symtable* operator()(String s);
 
 };
+
+
+#endif
 
