@@ -293,7 +293,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (!gh_procedure_p (v))
     return 0.0;
   
-  SCM result = scm_call_2 (v, me->self_scm(), gh_int2scm (axis));
+  SCM result = scm_call_2 (v, me->self_scm(), gh_int2scm (a));
   if (!gh_pair_p (result))
     return 0.0;
 
@@ -301,6 +301,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   
   return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }
+
 int
 Note_head::get_balltype (Grob*me) 
 {

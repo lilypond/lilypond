@@ -57,7 +57,7 @@ def draw_outside_ellipse (expr ellipsidity, tilt, superness,
 
 	% attachment Y
 	charwy := ypart (right_point) * scaling#;
-	charwx := xpart (right_point) * scaling#;
+	charwx := width# ;
 
 	p := p scaled scaling shifted (width/2, 0) ;
 	if test_outlines = 1:
