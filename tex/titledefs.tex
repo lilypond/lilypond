@@ -1,195 +1,100 @@
-% titledefs.tex
-%
-% LilyPond titling for LaTeX
-%
-% Note:
-%
-%    Defining a value, but leaving it empty:
-%        \def\lilypondfoo{}
-%    makes LaTeX break on the \\ in:
-%        \ifx\lilypondfoo\undefined\else{\lilypondfoo\\}\fi
-%
-\edef\titledefsELC{\the\endlinechar}%
-\endlinechar -1\relax
-
+%%
+%% LilyPond titling for LaTeX
+%%
+%% Note
+%%
+%%    Defining a value, but leaving it empty:
+%%        \def\lilypondfoo{}
+%%    makes LaTeX break on the \\ in:
+%%        \ifx\lilypondfoo\undefined\else{\lilypondfoo\\}\fi
+%%
 % The feta characters for use in titles
 \input feta20.tex
-
+%
 \font\fetasixteen=feta16
 \def\fetafont{\fetasixteen}
 \def\fetachar#1{\hbox{\fetasixteen#1}}
-
-\def\makelilypondtitle{
+%
+\def\makelilypondtitle
+{
   \begin{center}
-    \ifx\lilyponddedication\undefined
-    \else
-      {\normalfont\lilyponddedication\\}
-    \fi
-
-    \bfseries
-
-    \ifx\lilypondtitle\undefined
-    \else
-      {\huge\lilypondtitle\\}
-    \fi
-
-    \ifx\lilypondsubtitle\undefined
-    \else
-      {\Large\lilypondsubtitle\\}
-    \fi
-
-    \ifx\lilypondsubsubtitle\undefined
-    \else
-      {\large\lilypondsubsubtitle\\}
-    \fi
+        \ifx\lilyponddedication\undefined\else{\normalfont\lilyponddedication\\}\fi
+        \bfseries
+        \ifx\lilypondtitle\undefined\else{\huge\lilypondtitle\\}\fi
+        \ifx\lilypondsubtitle\undefined\else{\Large\lilypondsubtitle\\}\fi
+        \ifx\lilypondsubsubtitle\undefined\else{\large\lilypondsubsubtitle\\}\fi
   \end{center}
-
   \bigskip
-
+  % urg
+  \edef\saveparskip{\parskip}\parskip-5mm
   \begin{minipage}[t]{0.45\textwidth}
-    \ifx\lilypondpoet\undefined
-    \else
-      {\lilypondpoet\\}
-    \fi
-
-    \ifx\lilypondtexttranslator\undefined
-    \else
-      {\lilypondtexttranslator\\}
-    \fi
-
-    \ifx\lilypondmeter\undefined
-    \else
-      {\lilypondmeter\\}
-    \fi
-  \end{minipage}
-
-  \hspace*{\fill}
-
+        \ifx\lilypondpoet\undefined\else{\lilypondpoet\\}\fi
+        \ifx\lilypondtexttranslator\undefined\else{\lilypondtexttranslator\\}\fi
+        \ifx\lilypondmeter\undefined\else{\lilypondmeter\\}\fi
+  \end{minipage}\hspace*{\fill}
   \begin{minipage}[t]{0.45\textwidth}
-    \begin{flushright}
-      \ifx\lilypondcomposer\undefined
-      \else
-        {\large\normalfont\scshape\lilypondcomposer\\}
-      \fi
-
-      \ifx\lilypondopus\undefined
-      \else
-        {\lilypondopus\\}
-      \fi
-
-      \ifx\lilypondarranger\undefined
-      \else
-        {\lilypondarranger\\}
-      \fi
-    \end{flushright}
-  \end{minipage}
-
-  \par
-
-  \ifx\lilypondinstrument\undefined
-  \else
-    {\center{\large\lilypondinstrument}
-     \par}
-  \fi
-
-  \ifx\lilypondpiece\undefined
-  \else
-    {\flushleft{\large\normalfont\scshape\lilypondpiece}
-     \par}
-  \fi
-
-% \leavevmode
-
-  \global\let\lilypondopus\relax
-  \global\let\lilypondpiece\relax
-  \global\let\mustmakelilypondtitle\undefined
+      \begin{flushright}
+          \ifx\lilypondcomposer\undefined\else{\large\normalfont\scshape\lilypondcomposer\\}\fi
+          \ifx\lilypondopus\undefined\else{\lilypondopus\\}\fi
+          \ifx\lilypondarranger\undefined\else{\lilypondarranger\\}\fi
+        \end{flushright}%
+  \end{minipage}\par
+  \parskip\saveparskip
+  \ifx\lilypondinstrument\undefined\else{\center{\large\lilypondinstrument}\par}\fi
+  \ifx\lilypondpiece\undefined\else{\flushleft{\large\normalfont\scshape\lilypondpiece}\par}\fi
+%  \leavevmode
+  \global\let\lilypondopus\relax%
+  \global\let\lilypondpiece\relax%
+  \global\let\mustmakelilypondtitle\undefined%
 }
-
-\def\makelilypondpiecetitle{
+%
+\def\makelilypondpiecetitle
+{
   \bigskip\myfilbreak
-
-  \ifx\lilypondopus\undefined
-  \else
-    {\flushright{\lilypondopus}
-     \par}
-  \fi
-
-  \ifx\lilypondpiece\undefined
-  \else
-    {\flushleft{\large\normalfont\scshape\lilypondpiece}
-     \par}
-  \fi
-
-  \nopagebreak
-
-  \global\let\lilypondopus\relax
-  \global\let\lilypondpiece\relax
-  \global\let\mustmakelilypondpiecetitle\undefined
+  \ifx\lilypondopus\undefined\else{\flushright{\lilypondopus}\par}\fi
+  \ifx\lilypondpiece\undefined\else{\flushleft{\large\normalfont\scshape\lilypondpiece}\par}\fi
+  \nopagebreak%
+  \global\let\lilypondopus\relax%
+  \global\let\lilypondpiece\relax%
+  \global\let\mustmakelilypondpiecetitle\undefined%
 }
-
 % header -- head ?
-% these names can't be changed: they're used in mutopia headers
-
-\def\theheader{
-  \ifx\lilypondhead\undefined
-  \else
-    \lilypondhead
-  \fi
+% these names can't be changed: they're uses in mutopia headers
+\def\theheader
+{
+  \ifx\lilypondhead\undefined\relax\else%
+    \lilypondhead\fi
 }
-
-\def\thefooter{
-  \ifx\lilypondfooter\undefined
-  \else
-    \lilypondfooter
-  \fi
+\def\thefooter
+{
+  \ifx\lilypondfooter\undefined\relax\else%
+    \lilypondfooter\fi
 }
-
-\def\makelilypondtagline{
-  \ifx\undefined\lilypondtagline
-  \else
-    \lilypondtagline
-  \fi
+\def\makelilypondtagline
+{
+  \ifx\undefined\lilypondtagline\relax\else\lilypondtagline\fi
 }
-
-\def\thecopyright{
-  \ifx\lilypondcopyright\undefined
-    \thefooter
-  \else
-    \lilypondcopyright
-  \fi
+\def\thecopyright
+{
+  \ifx\lilypondcopyright\undefined\thefooter\else%
+    \lilypondcopyright\fi
 }
-
+%
 % Moved header and footer definitions here from the ly2dvi script.
 % Separate page styles for first, last and ordinary (plain) pages.
-
 \makeatletter
-
 \renewcommand{\ps@plain}{
-  \renewcommand{\@oddfoot}{
-    \parbox{\textwidth}{\mbox{}\thefooter}}
-  \renewcommand{\@evenfoot}{
-    \@oddfoot}
-  \renewcommand{\@evenhead}{
-    \hbox to \textwidth{\textbf{\thepage}\hfill{\small\theheader}}}
-  \renewcommand{\@oddhead}{
-    \hbox to \textwidth{{\small\theheader}\hfill\textbf{\thepage}}}
-}
-
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}%
+  \renewcommand{\@evenhead}{\hbox to\textwidth{\textbf{\thepage}\hfill{\small\theheader}}}
+  \renewcommand{\@oddhead}{\hbox to
+  \textwidth{{\small\theheader}\hfill\textbf{\thepage}}}}
 \newcommand{\ps@firstpage}{
-  \renewcommand{\@oddfoot}{
-    \parbox{\textwidth}{\mbox{}\thecopyright}}
-  \renewcommand{\@evenfoot}{
-    \@oddfoot}
-}
-
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thecopyright}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}}
 \newcommand{\ps@lastpage}{
-  \renewcommand{\@oddfoot}{
-    \parbox{\textwidth}{\mbox{}\makelilypondtagline}}
-  \renewcommand{\@evenfoot}{
-    \@oddfoot}
-}
-
+  \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \renewcommand{\@evenfoot}{\@oddfoot}}
 \makeatother
-
-\endlinechar \titledefsELC
 \endinput
+

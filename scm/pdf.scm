@@ -221,7 +221,7 @@
 		     (* (- y1 y2) (- y1 y2)))) 2))))
 
 
-(define (start-system width height) "")
+(define (start-system height) "")
 
 (define (stem breadth width depth height) 
   (filledbox breadth width depth height))

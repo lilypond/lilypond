@@ -1,27 +1,17 @@
-% lily-pdf-defs.tex
-%
-% Define an \embeddedpdf command so that we can do the right thing.
-%
-\edef\lilypdfdefsELC{\the\endlinechar}%
-\endlinechar -1\relax
+% Defines an embeddedpdf command so that we can do the right thing.
 
 \def\lilySpace{ }
-
-\def\turnOnPostScript{
-  % This sets CTM so that you get to the currentpoint
-  % by executing a 0 0 moveto
-  \def\embeddedpdf##1{
-    \pdfliteral{
-      q \lilypondpaperoutputscale\lilySpace 0 0 %
-        \lilypondpaperoutputscale\lilySpace 0 0 cm %
-        \lilyoutputscalefactor\lilySpace 0 0 %
-        \lilyoutputscalefactor\lilySpace 0 0 cm %
-      ##1 Q
-    }
-  }
+\def\turnOnPostScript{%
+        % This sets CTM so that you get to the currentpoint
+        % by executing a 0 0 moveto
+        \def\embeddedpdf##1{%
+                \pdfliteral{q \lilypondpaperoutputscale\lilySpace 0 0 %
+                        \lilypondpaperoutputscale\lilySpace 0 0 cm %
+			\lilyoutputscalefactor\lilySpace 0 0 %
+			\lilyoutputscalefactor\lilySpace 0 0 cm %
+                        ##1 Q}%
+        }
 }
 
 \def\turnOnExperimentalFeatures{}
 
-\endlinechar \lilypdfdefsELC
-\endinput

@@ -1,38 +1,27 @@
-% lily-ps-defs.tex
 %
-\edef\lilypsdefsELC{\the\endlinechar}%
-\endlinechar -1\relax
+% WARNING: don't leave blank lines in the PS-code; they are
+% transformed into \par 
+%
 
-% Header info (macros/defs, etc) should go into a \special{! ... };
+%
+% header info (macros/defs, etc) should go into a \special{! ... }, 
 % note the ! sign.  See dvips.info for details.
 %
-% Escape the colon with \string to avoid problems with French while using
-% the Babel package.
-
-\def\PSsetTeXdimen#1{
-  \expandafter\special{
-    ! /#1 (\csname #1\endcsname) set_tex_dimen
-  }
-}
-
+% escape the colon with \string to avoid problems with french babel
+%
+\def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\csname #1\endcsname) set_tex_dimen}}
 \def\lilySpace{ }
-
-\def\turnOnPostScript{
-  % This sets CTM so that you get to the currentpoint
-  % by executing a 0 0 moveto
-  \def\embeddedps##1{
-    \special{
-      ps\string: @beginspecial @setspecial %
-                 \lilypondpaperoutputscale\lilySpace\scaletounit %
-                 \lilypondpaperoutputscale\lilySpace\scaletounit %
-                 % FUCKING REDHAT XDVI -- ARG!
-                 skeel ##1 @endspecial
-    }
-  }
-  \PSsetTeXdimen{lilypondpaperblotdiameter}
+\def\turnOnPostScript{%
+        % This sets CTM so that you get to the currentpoint
+        % by executing a 0 0 moveto
+        \def\embeddedps##1{%
+                \special{ps\string: @beginspecial @setspecial
+                        \lilypondpaperoutputscale\lilySpace\scaletounit
+                        \lilypondpaperoutputscale\lilySpace\scaletounit
+                        % FUCKING REDHAT XDVI -- ARG!
+                        skeel ##1 @endspecial}%
+        }
+        \PSsetTeXdimen{lilypondpaperblotdiameter}
 }
-
 \def\turnOnExperimentalFeatures{}
 
-\endlinechar \lilypsdefsELC
-\endinput

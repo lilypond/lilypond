@@ -1,46 +1,26 @@
-% lilypond-latex.tex
-%
-\edef\lilypondlatexELC{\the\endlinechar}%
-\endlinechar -1\relax
-
 \message{LaTeX definitions}
-
 \def\texsuffix{LaTeX}
-
 \def\lilyfooterLaTeX{
-  \let\nopagenumbers\relax
-
-  %% FIXME
-  \def\ps@plain{
-    \renewcommand{\@oddhead}{}
-    \renewcommand{\@evenfoot}{}
-    \renewcommand{\@evenhead}{}
-    \renewcommand{\@oddfoot}{
-      \ifnum\thepage = 1\relax
-        {\hfil \lilypondtagline}
-      \else
-        {foo\hfil \the\pageno \hfil}
-      \fi
-    }
-  }
-
-  \def\ps@empty{
-    \renewcommand{\@oddhead}{}
-    \renewcommand{\@evenfoot}{}
-    \renewcommand{\@evenhead}{}
-    \renewcommand{\@oddfoot}{
-      \ifnum\thepage = 1\relax
-        {\hfil \lilypondtagline}
-      \else
-        {foo\hfil \the\pageno \hfil}
-      \fi
-    }
-  }
-
-  \nopagenumbers
+\let\nopagenumbers\relax
+        %% FIXME
+        \def\ps@plain{
+                \renewcommand{\@oddhead}{}%
+                \renewcommand{\@evenfoot}{}%
+                \renewcommand{\@evenhead}{}%
+                \renewcommand{\@oddfoot}{%
+                        \ifnum\thepage=1{\hfil \lilypondtagline}%
+                        \else{%
+                                foo\hfil\the\pageno\hfil}%
+                        \fi}}
+        \def\ps@empty{
+                \renewcommand{\@oddhead}{}%
+                \renewcommand{\@evenfoot}{}%
+                \renewcommand{\@evenhead}{}%
+                \renewcommand{\@oddfoot}{%
+                        \ifnum\thepage=1{\hfil \lilypondtagline}%
+                        \else{foo\hfil\the\pageno\hfil}%
+                        \fi}}%
+\nopagenumbers
 }
 
 \def\nolilyfooterLaTeX{}
-
-\endlinechar \lilypondlatexELC
-\endinput

@@ -247,9 +247,9 @@ layer('Layer 1',1,1,0,0,(0,0,0))
    sketch-beziers (list x y (primitive-eval l) thick)))
 
 ; TODO: use HEIGHT argument
-(define (start-system width height)
+(define (start-system height)
    "G()\n"
-)
+   )
 
 ;;  r((520.305,0,0,98.0075,51.8863,10.089))
 ;;  width, 0, 0, height, x, y

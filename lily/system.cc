@@ -442,10 +442,7 @@ System::post_processing (bool last_line)
   /*
     line preamble.
    */
-  Interval j (extent (this, X_AXIS));
-  Real length = j[RIGHT];
   output_scheme (scm_list_n (ly_symbol2scm ("start-system"),
-			  gh_double2scm (length),
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   

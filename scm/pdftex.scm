@@ -20,7 +20,7 @@
 
 (define this-module (current-module))
 (define (unknown) 
-  "%\n\\unknown\n")
+  "%\n\\unknown%\n")
 
 
 (define (select-font name-mag-pair)
@@ -113,7 +113,7 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "%\n\\EndLilyPondOutput\n"
+    (string-append "\n\\EndLilyPondOutput"
 					; Put GC stats here.
 		   )))
 
@@ -163,10 +163,9 @@
 		    ((equal? (ly-unit) "pt") (/ 72.0  72.27))
 		    (else (error "unknown unit" (ly-unit)))
 		    ))
-   "}%\n"
-   "\\input lilyponddefs\n"
-   "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\turnOnPostScript\n"
+   "}\n"
+   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
+   "\\turnOnPostScript"
    "\\pdfcompresslevel=0"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
@@ -197,7 +196,7 @@
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}%\n"))))
+	(string-append "\\def\\" tex-key "{" tex-val "}\n"))))
 
 (define (number->dim x)
   (string-append
@@ -215,21 +214,13 @@
 (define (bezier-sandwich l thick)
   (embedded-pdf (list 'bezier-sandwich  `(quote ,l) thick)))
 
-(define (start-system wd ht)
-  (string-append "\\leavevmode\n"
-		 "\\scoreshift = " (number->dim (* ht 0.5)) "\n"
-		 "\\ifundefined{lilypondscoreshift}%\n"
-		 "\\else\n"
-		 "  \\advance\\scoreshift by -\\lilypondscoreshift\n"
-		 "\\fi\n"
-		 "\\hbox to " (number->dim wd) "{%\n"
-		 "\\lower\\scoreshift\n"
-		 "\\vbox to " (number->dim ht) "{\\hbox{%\n"))
+(define (start-system ht)
+  (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
 
 (define (stop-system) 
-  "}\\vss}\\hss}\\interscoreline\n")
+  "}\\vss}\\interscoreline\n")
 (define (stop-last-system)
-  "}\\vss}\\hss}")
+  "}\\vss}")
 (define (filledbox breapth width depth height) 
   (string-append 
    "\\kern" (number->dim (- breapth))
