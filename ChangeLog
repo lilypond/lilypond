@@ -1,5 +1,8 @@
 2004-09-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* lily/phrasing-slur-engraver.cc (process_music): Create
+	PhrasingSlur instead of Slur.
+
 	* Documentation/user/changing-defaults.itely (Defining new
 	contexts): Fixed misprinted context name.
 
