@@ -1,3 +1,12 @@
+2004-10-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* flower/include/direction.hh (enum Direction): add
+	DIRECTION_LIMIT
+
+2004-10-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/fr.po: new po file.
+
 2004-10-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Do not construct external

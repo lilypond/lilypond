@@ -25,6 +25,17 @@ enum Direction
   BIGGER=1,
   START = -1,
   STOP = 1,
+
+  /*
+    This is necessary to safely write loops,
+    since
+    
+      dir <= RIGHT
+
+    is otherwise transformed into true unconditionally.
+   */
+  DIRECTION_LIMIT = 2,
+  DIRECTION_NEG_LIMIT = -2,
 };
 
 inline Direction
