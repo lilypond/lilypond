@@ -135,7 +135,7 @@ $(builddir)/share/lilypond-force:
 		ln -s ../../mf/$(outconfbase) tfm && \
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
-		ln -s ../../python/out python && \
+		ln -s ../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
 	@cd $(builddir)/share/lilypond/tex && \
 		ln -s $(abs-srcdir)/tex source && \
