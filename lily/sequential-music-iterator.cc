@@ -139,3 +139,11 @@ Sequential_music_iterator::try_music_in_children (Music *m) const
 { 
   return iter_p_ ? iter_p_->try_music (m) : 0;
 }
+
+Music*
+Sequential_music_iterator::get_next_music ()
+{
+  if (cursor_ && gh_pair_p (cursor_))
+    return unsmob_music (gh_car (cursor_));
+  return 0;
+}

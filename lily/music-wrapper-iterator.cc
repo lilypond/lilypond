@@ -63,3 +63,10 @@ Music_wrapper_iterator::try_music_in_children (Music *m) const
 {
   return child_iter_p_->try_music (m);
 }
+
+
+Music*
+Music_wrapper_iterator::get_next_music ()
+{
+  return child_iter_p_->get_next_music ();
+}

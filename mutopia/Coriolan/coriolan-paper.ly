@@ -94,7 +94,7 @@
 		\consists "Script_engraver";
 		\consists "Script_column_engraver";
 		\consists "Rhythmic_column_engraver";
-		\consists "Slur_engraver";
+%%		\consists "Slur_engraver";
 		\consists "Tie_engraver";
 	}
 	\translator {

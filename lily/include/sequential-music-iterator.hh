@@ -25,6 +25,8 @@ public:
   virtual Moment next_moment () const;
   virtual bool ok () const;
 
+  virtual Music* get_next_music ();
+
 protected:
   virtual void do_print() const;
   virtual void do_process_and_next (Moment);
