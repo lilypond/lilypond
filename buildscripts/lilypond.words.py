@@ -97,7 +97,7 @@ for name in [
 
 # (short) drum names
 for name in [
-'share/lilypond/scm/drums.scm'
+'scm/drums.scm'
 ]:
     F = open(name, 'r')
     for line in F.readlines():
