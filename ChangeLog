@@ -1,5 +1,7 @@
 2003-07-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/font-name.ly: add file.
+
 	* scm/document-backend.scm (grob-doc): remove <hr> from
 	lilypond-internals
 
