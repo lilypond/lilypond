@@ -29,7 +29,7 @@ than can be plugged into the backend directly. See the init file
 deprecated.
 ")
 (translator-property-description 'aDueText string? "text for begin of a due")
-(translator-property-description 'associatedVoice string? "")
+(translator-property-description 'associatedVoice string? "Name of the Voice that has the melody for this LyricsVoice.")
 (translator-property-description 'autoBeamSettings list? "
 Specifies when automatically generated beams should begin and end.  The elements have the format:
 
@@ -60,6 +60,7 @@ The head of the list:
     )
 
 @end example")
+
 (translator-property-description 'automaticPhrasing boolean? " If set,
 the @ref{Lyric_phrasing_engraver} will match note heads of context
 called Voice X to syllables from LyricsVoice called
@@ -71,6 +72,7 @@ file @file{lyrics-multi-stanza.ly}.
 set, \addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
+
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckNoSynchronize boolean? "If set, don't reset measurePosition when finding a bbarcheck. This
@@ -82,7 +84,6 @@ makes bar-checks for polyphonic music easier.")
     count if this property is set to zero.
 ")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
-(translator-property-description 'beamMelismaBusy boolean? "")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:
@@ -113,19 +114,18 @@ this much extra octavation. Values of 7 and -7 are common.")
 set, connect all arpeggios that are found.  In this way, you can make
 arpeggios that cross staffs.
 ")
-(translator-property-description 'createKeyOnClefChange boolean? "")
-(translator-property-description 'currentBarNumber integer? "this is read to determine
- the number to put on the bar ")
+(translator-property-description 'createKeyOnClefChange boolean? "Print a key signature whenever the clef is changed.")
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")
-(translator-property-description 'currentCommandColumn ly-grob? "")
-(translator-property-description 'currentMusicalColumn ly-grob? "")
+(translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
+(translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
 (translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME]
 ")
 (translator-property-description 'drarnChords boolean? "")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
-(translator-property-description 'explicitKeySignatureVisibility procedure? "")
+(translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
+(translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed.")
 (translator-property-description 'forgetAccidentals boolean? "do
 not set localKeySignature when a note alterated differently from
 localKeySignature is found.
@@ -144,22 +144,34 @@ remembered for the duration of a measure.
     property is used to label subsequent lines.  If the
     @code{midiInstrument} property is not set, then @code{instrument}
     is used to determine the instrument for MIDI output.")
-(translator-property-description 'keyAccidentalOrder list? "")
-(translator-property-description 'keyOctaviation boolean? "")
-(translator-property-description 'keySignature list? "")
-(translator-property-description 'keySignature list? "")
-(translator-property-description 'localKeySignature list? "the key signature at this point  in the measure")
-(translator-property-description 'measureLength moment? "  How long does one measure in the current time signature last?")
-(translator-property-description 'measurePosition moment? "
-  How much of the current measure (measured in whole notes) have we had?
-
-Set this  manually to  create  incomplete measures (anacrusis, upbeat), eg. at the start of 
-the music.
+(translator-property-description 'keyAccidentalOrder list? "
+Alist that defines in what order  alterations should be printed.
+The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
 ")
-(translator-property-description 'melismaBusy boolean? "")
-(translator-property-description 'melismaEngraverBusy boolean? "")
-(translator-property-description 'midiInstrument string? "")
-(translator-property-description 'noAutoBeaming boolean? "  If set to true then beams are not generated automatically.
+(translator-property-description 'keyOctaviation boolean? "")
+(translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2 ")
+
+(translator-property-description 'localKeySignature list? "the key
+signature at this point in the measure.  The format is an alist with
+entries of the form (NAME . ALTER) 
+or ((OCTAVE . NAME)  . ALTER), 
+where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2" 
+) 
+
+(translator-property-description 'measureLength moment? "Length of one
+measure in the current time signature last?")
+(translator-property-description 'measurePosition moment? " How much
+of the current measure (measured in whole notes) have we had.  This
+can be set manually to create incomplete measures (anacrusis, upbeat),
+the start of the music.
+")
+(translator-property-description 'melismaBusy boolean? "Signifies
+whether a melisma is active. This can be used to signal melismas on
+top of those automatically detected. ")
+(translator-property-description 'melismaEngraverBusy boolean? "See @ref{melismaBusy}. This is set automatically.")
+(translator-property-description 'midiInstrument string? "Name of the
+MIDI instrument to use ")
+(translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
 ")
 (translator-property-description 'noResetKey boolean? "Do not
 reset local key to the value of keySignature at the start of a measure,
@@ -170,76 +182,81 @@ printed only once and are in effect until overridden, possibly many
 measures later.
 ")
 (translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
+(translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
+ (UP UPDOWN DOWN), where each of the three is the string to print when
+this is done with the pedal.")
+(translator-property-description 'pedalUnaChordaStrings string? "see pedalSustainStrings.")
+(translator-property-description 'pedalSostenutoStrings string? "see pedalSustainStrings.")
+
 (translator-property-description 'phrasingPunctuation string? "")
 (translator-property-description 'rehearsalMark number-or-string? "")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 (translator-property-description 'repeatCommands list? "")
 (translator-property-description 'scriptDefinitions list? "
-Description of scripts to use.  (fixme) 
+Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
 ")
-(translator-property-description 'scriptHorizontal boolean? "    Put scripts left or right of note heads.  Support for this is
-    limited.  Accidentals will collide with scripts.
-    
-")
-(translator-property-description 'scriptHorizontal boolean? "    Put scripts left or right of note heads.  Support for this is
-    limited.  Accidentals will collide with scripts.
-    
-")
-(translator-property-description 'skipBars boolean? " Set to true to skip the empty bars that are produced by
-    multimeasure notes and rests.  These bars will not appear on the
-    printed output.  If not set (the default)  multimeasure
-    notes and rests expand into their full length, printing the appropriate
-    number of empty bars so that synchronization with other voices is
-    preserved.
 
-@c my @vebatim patch would help...
+(translator-property-description 'scriptHorizontal boolean? "  Put
+scripts left or right of note heads.  Support for this is limited.
+Accidentals will collide with scripts.
+")
+(translator-property-description 'scriptHorizontal boolean? "  Put
+scripts left or right of note heads.  Support for this is limited.
+Accidentals will collide with scripts.
+")
+
+(translator-property-description 'skipBars boolean? " Set to true to
+skip the empty bars that are produced by multimeasure notes and rests.
+These bars will not appear on the printed output.  If not set (the
+default) multimeasure notes and rests expand into their full length,
+printing the appropriate number of empty bars so that synchronization
+with other voices is preserved.
+
+
 @example
 @@lilypond[fragment,verbatim,center]
-r1 r1*3 R1*3property Score.skipBars=1 r1*3 R1*3
+r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 
 @@end lilypond
 @end example
 
 ")
-(translator-property-description 'slurBeginAttachment symbol? "translates to the car of grob-property 'attachment.")
-(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment.")
-(translator-property-description 'slurMelismaBusy boolean? "")
+(translator-property-description 'slurBeginAttachment symbol?
+"translates to the car of grob-property 'attachment of NoteColumn. See
+@ref{Grob Slur}.")
+
+(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{Grob Slur}.")
 (translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set")
-(translator-property-description 'solo boolean? "set if solo is detected")
-(translator-property-description 'soloADue boolean? "set Solo/A due texts?")
-(translator-property-description 'soloIIText string? "text for begin of solo for voice ``two''")
-(translator-property-description 'soloText string? "text for begin of solo")
+(translator-property-description 'solo boolean? "set if solo is detected by the part combiner")
+(translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?")
+(translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining")
+(translator-property-description 'soloText string? "text for begin of solo when part-combining")
 (translator-property-description 'sparseTies boolean? "only create one tie per chord.")
-(translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals")
+(translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals when part-combining")
 (translator-property-description 'squashedPosition integer? " Vertical position of
-squashing.")
+squashing for Pitch_squash_engraver.")
 (translator-property-description 'staffsFound list? "list of all staff-symbols found.")
-(translator-property-description 'staffsFound list? "")
-(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse")
-(translator-property-description 'startSustain string? "")
-(translator-property-description 'startUnaChorda string? "")
+(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+
+
 (translator-property-description 'stemLeftBeamCount integer? "
 Specify the number of beams to draw on the left side of the next note.
 Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 ")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side")
-(translator-property-description 'stopStartSustain string? "")
-(translator-property-description 'stopSustain string? "")
-(translator-property-description 'stopUnaChorda string? "")
-(translator-property-description 'stz string? "")
+(translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
-have zero width.  @code{fatText} and @code{emptyText} are predefined
+have zero width.  @code{\fatText} and @code{\emptyText} are predefined
 settings.
 ")
-(translator-property-description 'tieMelismaBusy boolean? "")
 (translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set")
 (translator-property-description 'timeSignatureFraction number-pair? "
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
-(translator-property-description 'tremoloFlags integer? "")
+(translator-property-description 'tremoloFlags integer? "Number of tremolo flags to add if none is specified.")
 (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off
 entirely. This has the same effect as setting both
@@ -260,9 +277,9 @@ context Voice 	imes 2/3 @{
 @@end lilypond
 @end example
 ")
-(translator-property-description 'unirhythm boolean? "set if unirhythm is detected")
-(translator-property-description 'unisilence boolean? "set if unisilence is detected")
-(translator-property-description 'unison boolean? "set if unisono is detected  ")
+(translator-property-description 'unirhythm boolean? "set if unirhythm is detected by the part combiner.")
+(translator-property-description 'unisilence boolean? "set if unisilence is detected by the part combiner.")
+(translator-property-description 'unison boolean? "set if unisono is detected  by the part combiner. ")
 (translator-property-description 'verticalAlignmentChildCallback
 procedure? "what callback to add to children of a vertical alignment.
 It determines what alignment procedure is used on the alignment
@@ -277,15 +294,21 @@ have odd effects if the specified duration is longer than the music
 given in an @code{\\alternative}.
 ")
 (translator-property-description 'weAreGraceContext boolean? "")
-(translator-property-description 'whichBar string? "This property is read to determine what type of barline to create.
+(translator-property-description 'whichBar string?
+				 "This property is read to determine what type of barline to create.
+
 Example:
 @example
 \\property Staff.whichBar = \"|:\"
 @end example
-will create a start-repeat bar in this staff only 
+
+This will create a start-repeat bar in this staff only.
+
+If not set explicitly (by property or @code{\bar}), this is set
+according to values of @code{defaultBarType}, @code{barAlways},
+@code{barNonAuto} and @code{measurePosition}.
+
+Legal values are described in @ref{(lilypond-internals)bar-line-interface}.
+
 ")
-(translator-property-description 'whichBar string? "")
-(translator-property-description 'whichBar string? "if not set
-explicitly (by property or bar), this is set according to values of
-defaultBarType, barAlways, barNonAuto and measurePosition.
- ")
+

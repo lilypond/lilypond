@@ -60,9 +60,9 @@
   (define (comment s)
     (string-append "% " s))
 
-  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
+  (define (bracket arch_angle arch_width arch_height  height arch_thick thick)
     (string-append
-     (numbers->string (list arch_angle arch_width arch_height width height arch_thick thick)) " draw_bracket" ))
+     (numbers->string (list arch_angle arch_width arch_height height arch_thick thick)) " draw_bracket" ))
 
   (define (char i)
     (invoke-char " show" i))

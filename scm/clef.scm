@@ -37,7 +37,7 @@
 	  ("hufnagel_do3" . ("clefs-hufnagel_do" 3 0))
 	  ("hufnagel_fa1" . ("clefs-hufnagel_fa" -1 0))
 	  ("hufnagel_fa2" . ("clefs-hufnagel_fa" 1 0))
-	  ("hufnagel" . ("clefs-hufnagel_do_fa" 4 0))
+	  ("hufnagel_do_fa" . ("clefs-hufnagel_do_fa" 4 0))
 	  ("mensural1_c1" . ("clefs-mensural1_c" -4 0))
 	  ("mensural1_c2" . ("clefs-mensural1_c" -2 0))
 	  ("mensural1_c3" . ("clefs-mensural1_c" 0 0))
@@ -51,7 +51,9 @@
 	  ("mensural3_c2" . ("clefs-mensural3_c" 0 0))
 	  ("mensural3_c3" . ("clefs-mensural3_c" 2 0))
 	  ("mensural3_c4" . ("clefs-mensural3_c" 4 0))
-	  ("mensural_f" . ("clefs-mensural_f" 2 0))
+	  ("mensural1_f" . ("clefs-mensural1_f" 2 0))
+	  ("mensural2_f" . ("clefs-mensural2_f" 2 0))
+	  ("mensural_g" . ("clefs-mensural_g" -2 0))
 	)
 )
 
@@ -77,6 +79,12 @@
 	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(cadr e))
 	   )
+	  
+;	  ((symbol . forceClef)
+;	   (iterator-ctor . ,Property_iterator::constructor)
+;	   (value . #t)
+;	   )
+
 	  ((symbol . clefPosition)
 	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(caddr e))

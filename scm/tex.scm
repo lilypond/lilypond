@@ -37,8 +37,8 @@
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
 
-  (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
-    (embedded-ps ((ps-scm 'bracket) arch_angle arch_width arch_height width height arch_thick thick)))
+  (define (bracket arch_angle arch_width arch_height height arch_thick thick)
+    (embedded-ps ((ps-scm 'bracket) arch_angle arch_width arch_height height arch_thick thick)))
 
   (define (dashed-slur thick dash l)
     (embedded-ps ((ps-scm 'dashed-slur)  thick dash l)))

@@ -386,7 +386,9 @@ ScoreContext = \translator {
 	  ("clefs-mensural1_c" . 0)
 	  ("clefs-mensural2_c" . 0)
 	  ("clefs-mensural3_c" . 0)
-	  ("clefs-mensural_f" . 0))
+	  ("clefs-mensural1_f" . 4)
+	  ("clefs-mensural2_f" . 4)
+	  ("clefs-mensural_g" . -4))
 
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
@@ -402,19 +404,10 @@ ScoreContext = \translator {
 
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
-	startSustain = #"Ped."
-	stopSustain = #"*"
-	stopStartSustain = #"*Ped."
-	startUnaChorda = #"una chorda"
-	stopUnaChorda = #"tre chorde"
-	% should make separate lists for stopsustain and startsustain 
+	pedalSustainStrings = #'("Ped." "*Ped." "*")
+	pedalUnaChordaStrings = #'("una chorda" "" "tre chorde")
+	pedalSostenutoStrings = #'()  % FIXME
 
-
-       %
-       % what order to print accs.  We could compute this, 
-       % but computing is more work than putting it here.
-       %
-       % Flats come first, then sharps.
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
 	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
@@ -434,10 +427,6 @@ ScoreContext = \translator {
 
 
 	\elementdescriptions #all-grob-descriptions
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	% TODO: uniform naming.;  
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
 }
 
 OrchestralScoreContext= \translator {

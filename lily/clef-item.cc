@@ -28,9 +28,9 @@ Clef::before_line_breaking (SCM smob)
     {
       String str = ly_scm2string (glyph);
 
-      if (to_boolean (s->get_grob_property ("non-default")) &&
-	  s->break_status_dir() != RIGHT &&
-	  to_boolean (s->get_grob_property ("full-size-change")))
+      if (to_boolean (s->get_grob_property ("non-default"))
+	  && s->break_status_dir() != RIGHT
+	  && !to_boolean (s->get_grob_property ("full-size-change")))
 	{
 	  str += "_change";
 	  s->set_grob_property ("glyph-name", ly_str02scm (str.ch_C()));	  
