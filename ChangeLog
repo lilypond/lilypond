@@ -1,5 +1,7 @@
 2003-03-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* buildscripts/texi2omf.py: new file.
+
 	* mf/feta-beugel.mf: include font count, not staffsize (16) in
 	font-name
 
