@@ -1,3 +1,16 @@
+2002-12-30  Juergen Reuter  <reuter@ipd.uka.de>
+
+        * Documentation/user/refman.itely: added docu for ambitus and
+        clusters
+
+        * lily/lookup.cc, scm/tex.scm: cleanup: avoid nasty double
+        ly_quote_scm() in lookup.cc
+
+        * mf/parmesan-clefs.mf: set_char_box fix
+
+        * lily/cluster-engraver.cc: junk implicit protection; use
+        Protected_scm instead
+
 2002-12-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/chord-name.scm: Junk "`(," constructs, use make-FOO-markup
