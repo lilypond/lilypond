@@ -40,16 +40,14 @@ vector of symbols."
 		(vector-ref permutation (char->integer chr)))
 	      str))
 
-(define-public (make-encoding-permutation input-encoding
-					  output-encoding)
-
+(define-public (make-encoding-permutation input-encoding output-encoding)
   "Contruct a permutation by applying output-encoding after input-encoding "
   (list->vector
    (map
     (lambda (byte)
-      (let*
-	  ((new-char (hash-ref output-encoding
-			       (vector-ref input-encoding byte) #f)))
+      (let ((new-char (hash-ref
+		       output-encoding (vector-ref input-encoding byte) #f)))
+		       ;;input-encoding (vector-ref output-encoding byte) #f)))
 
 	;; substitute space for unknown characters.
 	(if (char? new-char)
@@ -60,10 +58,8 @@ vector of symbols."
 
 (define (get-coding-from-file filename)
   "Read FILENAME, return a list containing encoding vector and table"
-  
-  (let*
-      ((vec (read-encoding-file filename))
-       (tab (make-encoding-table vec)))
+   (let* ((vec (read-encoding-file filename))
+	  (tab (make-encoding-table vec)))
     (list vec tab)))
 
 ;; coding-alist maps NAME -> (list VECTOR TAB)
