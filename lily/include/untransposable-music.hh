@@ -19,7 +19,6 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Music, Untransposable_music);
 
   virtual Pitch to_relative_octave (Pitch);
-  virtual void transpose (Pitch); 
 };
 
 

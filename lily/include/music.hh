@@ -51,8 +51,8 @@ public:
   void print () const;
 
   /// Transpose, with the interval central C to #p#
-  virtual void transpose (Pitch p);
-
+  void transpose (Pitch p);
+  
   /// Scale the music in time by #factor#.
   void compress (Moment factor);
   
