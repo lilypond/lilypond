@@ -26,7 +26,7 @@ private:
   Drul_array<Music*> reqs_drul_;
   Pitch pitch_min_, pitch_max_;
   Spanner *cluster_;
-  SCM columns_scm_;
+  Protected_scm columns_scm_;
 };
 
 void reset_min_max (Pitch *pitch_min, Pitch *pitch_max)
@@ -139,7 +139,6 @@ Cluster_engraver::stop_translation_timestep ()
 	      segment = scm_list_n (segment, SCM_UNDEFINED);
 	      columns_scm_ = (columns_scm_ != SCM_EOL) ?
 		gh_append2 (columns_scm_, segment) : segment;
-	      cluster_->set_grob_property ("segments", columns_scm_); // Urrgh!
 	    }
 	  else
 	    {

@@ -9,7 +9,7 @@
 
 @macro refbugs
 @strong{BUGS}
-@end macro
+g@end macro
 
 
 @c .{Reference Manual}
@@ -41,10 +41,12 @@ this manual.
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
+* Vocal music::                 
 * Tablatures::                  
 * Chords::                      
 * Writing parts::               
-* Ancient notation ::           
+* Ancient notation::           
+* Contemporary notation::      
 * Tuning output::               
 * Global layout::               
 * Sound::                       
@@ -3038,6 +3040,116 @@ can be printed automatically. This is enabled if the property
 The associated object is @internalsref{VoiceFollower}.
 
 
+@node Vocal music
+@section Vocal music
+
+For a discussion of how to put lyrics into a score, see section
+@code{Printing lyrics} in the tutorial.
+
+[TODO: Move lyrics section from tutorial to here?]
+
+See also the sections on @ref{Slurs} and @ref{Breath marks}.
+
+[TODO: Move slurs / breath marks section to here?]
+
+[TODO: Write subsection upon usage of ChoirStaff.]
+
+@menu
+* Ambitus::
+@end menu
+
+@node Ambitus
+@subsection Ambitus
+@cindex ambitus
+
+The term @emph{ambitus} denotes a range of pitches for a given voice a
+part of music.  It also may denote the pitch range that a musical
+instrument is capable of playing.  Most musical instruments have their
+ambitus standardized (or at least there is agreement upon the minimal
+ambitus of a particular type of instrument), such that a composer or
+arranger of a piece of music can easily meet the ambitus constraints of
+the targeted instrument.  However, the ambitus of the human voice
+depends on individual physiological state, including education and
+training of the voice.  Therefore, a singer potentially has to check for
+each piece of music if the ambitus of that piece meets his individual
+capabilities.  This is why the ambitus of a piece may be of particular
+value to vocal performers.
+
+The ambitus is typically notated on a per-voice basis at the very
+beginning of a piece, e.g. nearby the initial clef or time signature of
+each staff.  The range is graphically specified by two noteheads, that
+represent the minimum and maximum pitch.  Some publishers use a textual
+notation: they put the range in words in front of the corresponding
+staff.  Lilypond currently only supports the graphical ambitus notation.
+
+To apply, simply add the @internalsref{Ambitus_engraver} to the
+@internalsref{Voice} context, as shown in the below example:
+
+@lilypond[singleline,verbatim]
+upper = \notes \relative c {
+  \clef "treble"
+  \key c \minor
+  as'' c e2 bes f cis d4 e f2 g
+}
+lower = \notes \relative c {
+  \clef "treble"
+  \key e \major
+  e'4 b g a c es fis a cis b a g f e d2
+}
+\score {
+  \context ChoirStaff {
+    <
+      \context Staff = one { \upper }
+      \context Staff = three { \lower }
+    >
+  }
+  \paper {
+    \translator {
+      \VoiceContext
+      \consists Ambitus_engraver
+    }
+  }
+}
+@end lilypond
+
+The shape of the note heads to use can be changed via the
+@code{note-head-style} property, which holds the glyph name of the note
+head (see also @ref{Ancient note heads}).  The vertical line between the
+upper and lower head can be switched on or off via the @code{join-heads}
+property.  Example:
+
+@example
+\translator @{
+  \VoiceContext
+  \consists Ambitus_engraver
+  Ambitus \set #'note-head-style = #'noteheads-2mensural
+  Ambitus \set #'join-heads = ##f
+@}
+@end example
+
+By default, the ambitus grob is put before the clef.  You can control
+this behaviour through the @code{breakAlignOrder} property of the score
+context by redefining the order, e.g. with the following addition to the
+paper block:
+
+@example
+\translator @{
+  \ScoreContext
+  breakAlignOrder = #'(
+    instrument-name
+    left-edge
+    span-bar
+    breathing-sign
+    clef
+    ambitus
+    key-signature
+    staff-bar
+    time-signature
+    custos
+  )
+@}
+@end example
+
 @node Tablatures
 @section Tablatures
 
@@ -4327,6 +4439,105 @@ numbers, and then prints the numbers you entered. There is no
 conversion to pitches, and no realizations of the bass are played in
 the MIDI file.
 
+
+@c . {Contemporary notation}
+@node Contemporary notation
+@section Contemporary notation
+
+@menu
+* Clusters::
+@end menu
+
+@node Clusters
+@subsection Clusters
+
+@cindex cluster
+
+In musical terminology, a @emph{cluster} denotes a range of
+simultaneously sounding pitches that may change over time.  The set of
+available pitches to apply usually depends on the accoustic source.
+Thus, in piano music, a cluster typically consists of a continous range
+of the semitones as provided by the piano's fixed set of a chromatic
+scale.  In choral music, each singer of the choir typically may sing an
+arbitrary pitch within the cluster's range that is not bound to any
+diatonic, chromatic or other scale.  In electronic music, a cluster
+(theoretically) may even cover a continuous range of pitches, thus
+resulting in coloured noise, such as pink noise.
+
+Clusters can be notated in the context of ordinary staff notation by
+engraving simple geometrical shapes that replace ordinary notation of
+notes.  Ordinary notes as musical events specify starting time and
+duration of pitches; however, the duration of a note is expressed by the
+shape of the note head rather than by the horizontal graphical extent of
+the note symbol.  In contrast, the shape of a cluster geometrically
+describes the development of a range of pitches (vertical extent) over
+time (horizontal extent).  Still, the geometrical shape of a cluster
+covers the area in wich any single pitch contained in the cluster would
+be notated as an ordinary note.  From this point of view, it is
+reasonable to specify a cluster as the envelope of a set of notes.  This
+is exactly how to construct a cluster with lilypond.
+
+@lilypond[singleline,verbatim]
+\score {
+    \context PianoStaff <
+        \context Voice = voiceI { % same as voiceII, but with ordinary notes
+            \notes \relative c' {
+                c4 f4
+                a4 <e4 d'4> | \break
+                < g8 a8 > < e8 a8 > a4 c1 < d4 b4 > e4 |
+                c4 a4 f4 g4 a4
+            }
+        }
+        \context Voice = voiceII { % same as voiceI, but with cluster notation
+            \notes \relative c' {
+
+                % hide notes, accidentals, etc.
+                \property Thread.NoteHead \set #'transparent = ##t
+                \property Voice.Stem \set #'transparent = ##t
+                \property Voice.Beam \set #'transparent = ##t
+                \property Staff.Accidental \set #'transparent = ##t
+
+                \property Voice.Cluster \set #'padding = #0.01
+                \property Voice.Cluster \set #'shape = #'ramp
+
+                c4 f4
+                \startCluster
+                a4 <e4 d'4> | \break
+                < g8 a8 > < e8 a8 > a4 c1 < d4 b4 > e4 |
+                c4 \stopCluster a4 f4 g4 a4
+            }
+        }
+    >
+}
+@end lilypond
+
+Note that the second voice differs from the first one only by the
+additional keywords @code{\startCluster} and @code{\stopCluster} and the
+fact that notes, accidentals, etc. are hidden.  A future version of
+lilypond may automatically hide notes, accidentals, etc. within the
+scope of clusters.
+
+Also note that a music expression like @code{< @{ g8 e8 @} a4 >} is
+illegal; in such a case, you can instead use the expression @code{< g8
+a8 > < e8 a8 >}.
+
+By default, cluster engraver is in the voice context.  This allows
+putting ordinary notes and clusters together in the same staff, even
+simultaneously.  However, in such a case no attempt is made to
+automatically avoid collisions between ordinary notes and clusters.
+
+The geometrical shape can be further controlled with grob properties
+@code{padding} and @code{shape}.  @code{padding} adds to the vertical
+extent of the shape (top and bottom) and is expressed in units of
+staffspace.  Since the pitch range of a single pitch is infinitely
+small, if padding is set to @code{0.0}, this possibly results in an
+invisible shape, if you,for example, say @code{ \startCluster c d e
+\endCluster}.  The default value for @code{padding} therefore is
+@code{0.25}, such that a single pitch roughly shows the same height as a
+note head.  Property @code{shape} controls how the overall shape of the
+cluster is constructed from the set of notes.  Currently supported
+values are @code{leftsided-stairs}, @code{rightsided-stairs},
+@code{centered-stairs}, and @code{ramp}.
 
 @c . {Tuning output}
 @node Tuning output

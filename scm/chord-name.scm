@@ -767,6 +767,7 @@ dump reinterpret the markup as a molecule. " ; "
 		    (make-simple-markup "7")))))
       (step->markup-alternate-jazz pitch)))
 
+;; removeme ?
 (define (xchord::additions->markup-jazz additions subtractions)
   (if (pair? additions)
       (make-line-markup

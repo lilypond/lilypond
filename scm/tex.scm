@@ -267,7 +267,7 @@
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
 
 (define (polygon points blotdiameter)
-  (embedded-ps (list 'polygon points blotdiameter)))
+  (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
 
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))

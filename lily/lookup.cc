@@ -297,7 +297,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
       box.add_point (points[i]);
     }
   SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
-				ly_quote_scm (ly_quote_scm (shrinked_points_scm)),
+				ly_quote_scm (shrinked_points_scm),
 				gh_double2scm (blotdiameter),
 				SCM_UNDEFINED);
 

@@ -695,7 +695,7 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 	% inspired by Josquin Desprez, "Stabat Mater", Libro tertio,
 	% 1519, printed by Petrucci, in: MGG, volume 7, Table 11.
 
-	set_char_box(0.6 staff_space#, 0.8 staff_space#, 0.6 staff_space#, 
+	set_char_box(1.0 staff_space#, 0.5 staff_space#, 0.6 staff_space#, 
 	  4.0 staff_space#);
 
 	save reduced_il, reduced_slt;
