@@ -2,6 +2,10 @@
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
+@html
+<!--- @@WEB-TITLE@@=Installation Instructions --->
+@end html
+
 @node Top, , , (dir)
 @top
 
@@ -503,8 +507,9 @@ For Debian 2.2:
 For Debian in development ("unstable", the future 2.3 or 3.0):
 
 @example
-	apt-get install task-debian-devel task-c++-dev \
-		python-base libguile9-dev tetex-bin libkpathsea-dev \
+	apt-get install binutils cpp gcc libc6-dev \
+        	g++ libstdc++2.10-dev \
+		python-base libguile-dev tetex-bin libkpathsea-dev \
 		tetex-extra flex bison texinfo bibtex2html groff gs \
 		netpbm m4 gettext
 @end example

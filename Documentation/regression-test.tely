@@ -2,6 +2,10 @@
 @setfilename regression-test.info
 @settitle LilyPond Regression test
 
+@html
+<!--- @@WEB-TITLE@@=Regression Test --->
+@end html
+
 @c fool ls-latex
 @ignore
 @author Han-Wen Nienhuys and Jan Nieuwenhuizen

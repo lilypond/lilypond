@@ -2,10 +2,13 @@
 
 @c TODO: LilyPond LilyPond LilyPond
 
-
 @node Tutorial
 @chapter Tutorial
-  
+
+@html
+<!--- @@WEB-TITLE@@=Tutorial --->
+@end html
+
 @menu
 * First steps::                 Music language of LilyPond
 * Simple legend::               Small table of music language symbols

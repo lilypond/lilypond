@@ -2,6 +2,10 @@
 @setfilename installing.info
 @settitle LilyPond on Windows
 
+@html
+<!--- @@WEB-TITLE@@=Windows Installation --->
+@end html
+
 @node Top
 @top
 

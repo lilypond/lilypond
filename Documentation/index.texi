@@ -2,6 +2,10 @@
 @setfilename index.info
 @settitle Index to LilyPond documentation
 
+@html
+<!--- @@WEB-TITLE@@=Documentation --->
+@end html
+
 @node Top, , , (dir)
 @top
 

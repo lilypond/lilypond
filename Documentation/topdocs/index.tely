@@ -2,6 +2,10 @@
 @setfilename index.info
 @settitle LilyPond homepage
 
+@html
+<!--- @@WEB-TITLE@@=Welcome to the home of the GNU Music Typesetter --->
+@end html
+
 @node Top, , , (dir)
 @top
 

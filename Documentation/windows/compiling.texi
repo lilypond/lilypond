@@ -1,3 +1,7 @@
+@html
+<!--- @@WEB-TITLE@@=Windows Compilation --->
+@end html
+
 @section Obtaining LilyPond
 
 You can get the latest version of LilyPond at
@@ -8,7 +12,7 @@ ftp://ftp.lilypond.org/pub/LilyPond/}.
 You need the following packages to compile Lilypond on Windows.
 
 @table @code
-@item The GNU + Cygnus tools, 1.1.7 or newer.
+@item The GNU + Cygnus tools, 1.3.2 or newer.
 Check out the @uref{http://sources.redhat.com/cygwin,Cygwin webpage}.
 You can get the latest version of the GNU + Cygnus tools from cygnus
 @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
@@ -23,8 +27,8 @@ included in LilyPond's source distribution.
 
 These binaries are cross compiled for Windows on a GNU/Linux box.  You
 may want to check out the
-@uref{http://www.lilypond.org/gnu-windows/cross.tar.gz,cross compilation
-scripts}.
+@uref{http://www.lilypond.org/gnu-windows/cygwin-cross.tar.gz,cross
+compilation scripts}.
 
 @subsection Compiling on Windows
 
@@ -50,17 +54,17 @@ Compiling @file{setup.exe} has been complicated a bit with the
 introduction of the bzip2 feature:
 @quotation
 @example
-    tar xjf cygwin-src-20010531.tar.bz2 
-    tar xjf winsup-src-20010531.tar.bz2 
-    tar xzf mingw-20010424-1.tar.gz
+    mkdir cygwin-20010709
+    cd cygwin-20010709
+    tar xjf cygwin-src-20010709.tar.bz2 
     cd winsup/cinstall
-    patch < ../../cygwin-installer.patch
+    patch < $HOME/usr/src/lilypond/Documentation/windows/cygwin-installer.patch
     cd ../bz2lib
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
     make
     cd -
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
-    cp /home/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
+    cp $HOME/usr/src/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
     make w32api_lib=/home/cygwin/cygwin-1.3.2/usr/lib/w32api \
         CXX='g++ -L/home/cygwin/cygwin-1.3.2/usr/lib/mingw'
 @end example
