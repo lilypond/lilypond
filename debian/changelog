@@ -1,22 +1,49 @@
-lilypond1.7 (1.7.16-1) unstable; urgency=low
+lilypond (1.7.29-1) unstable; urgency=medium
 
-  * New upstream release.
-  * Change package name to lilypond1.7.
-  * Add Conflicts with lilypond.
+  * New upstream release, preparing for lilypond-1.8.  :-)
+  * stepmake/bin/add-html-footer.py: Use LOGNAME only if it exists.
+    pbuilder unsets LOGNAME and Python returns KeyError.
+    Thanks to Daniel Schepler for the report.  (Closes: Bug#193065)
+  * debian/rules: Revert to calling ./configure rather than ./autogen.sh.
+  * An issue with autoconf <= 2.57 and g++ >= 3.3 has been preventing
+    getopt-long.cc from compiling.  A workaround was checked in by upstream
+    author Jan Nieuwenhuizen on 2003-06-08, and the fix in aclocal.m4 was
+    backported from 1.7.29.  (Closes: Bug#197761)
+  * Mark Brown says 1.7.27 has fixed FTBFS on m86k too.  Thanks for the
+    note!  (Closes: Bug#200510)
+  * Run dh_scrollkeeper to register *.omf files.
 
- -- Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 15 Apr 2003 16:39:26 +0200
+ -- Anthony Fok <foka@debian.org>  Fri,  1 Aug 2003 05:40:04 +0800
 
-lilypond (1.6.9-1) unstable; urgency=low
+lilypond (1.6.9-2) unstable; urgency=medium
 
-  * New upstream release.
-  * Depend on mftrace iso pktrace.
-  * Add guile-1.6-dev as alternative dependency to libguile-dev
-  * Install lilypond.words too.
-  * Bugfix for docdir when with changed package name.
-  * Remove netpbm, bibtex2html dependencies.
-  * Remove gcc-3.x/lexer kludge.
+  * CVS updates as of 2003-04-29.  (Thanks, Jan!)
+  * "Empty midi2ly.1" problem has been fixed upstream.  (Closes: Bug#181927)
+  * Build-Depends: autoconf2.13 and run autogen.sh in debian/rules
+    to ensure this package passes the auto-build daemons.  :-)
 
- --  Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 15 Apr 2003 14:25:54 +0200
+ -- Anthony Fok <foka@debian.org>  Thu,  1 May 2003 13:18:57 +0800
+
+lilypond (1.6.9-1) unstable; urgency=medium
+
+  * New upstream release with CVS updates as of 2003-04-15.
+    Jan Nieuwenhuizen has backported fixes to deal with build problems
+    with flex (>= 2.5.29).
+  * Rebuild with guile-1.6 packages.
+  * Merged debian/* fixes by upstream author Jan Nieuwenhuizen (Thanks!):
+    - Depend on mftrace (>= 1.0.17-1) instead of pktrace.
+    - Add guile-1.6-dev as alternative dependency to libguile-dev
+    - Bugfix for docdir when with changed package name.
+    - Remove bibtex2html dependencies.  (LilyPond has come with its own
+      bib2html for some time now.  However, xpmtoppm and pnmtopng from
+      netpbm is still needed - foka)
+    - Remove gcc-3.x/lexer kludge.
+  * midi2ly.1 was empty because help2man calls midi2ly but it couldn't
+    "import midi": python/out/midi.so wasn't built until later.  Added
+    a kludge in debian/rules to regenerate midi2ly.1 manually.
+    Thanks to Colin Watson for reporting the bug.  (See Bug#181927)
+
+ -- Anthony Fok <foka@debian.org>  Mon, 28 Apr 2003 03:50:50 +0800
 
 lilypond (1.6.6-2) unstable; urgency=high
 
