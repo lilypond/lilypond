@@ -352,6 +352,8 @@ printing of a single line of lyrics.  "
     \type "Engraver_group_engraver"
     \name ChordNames
     \description "Typesets chord names."
+
+    \consists "Volta_engraver"
     
     \consists "Rest_swallow_translator" 
     \consists "Output_property_engraver"	
@@ -360,6 +362,7 @@ printing of a single line of lyrics.  "
     \consists "Skip_event_swallow_translator"
     \consistsend "Hara_kiri_engraver"
     
+    voltaOnThisStaff = ##f
     minimumVerticalExtent = #'(0 . 2.5)
     extraVerticalExtent = ##f
     \override SeparatingGroupSpanner #'padding = #0.8

@@ -37,12 +37,6 @@ SCM
 Volta_bracket_interface::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Item> bars
-    = Pointer_group_interface__extract_grobs (me, (Item*)0, "bars");
-
-  if (!bars.size ())
-    return SCM_EOL;
-
   Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_);
 
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner*)me);
@@ -52,14 +46,14 @@ Volta_bracket_interface::print (SCM smob)
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
   SCM s = me->get_property ("bars");
-  Grob * endbar =   unsmob_grob (ly_car (s));
-  SCM glyph = endbar->get_property ("glyph");
+  Grob * endbar = ly_c_pair_p (s) ?  unsmob_grob (ly_car (s)) : 0;
+  SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
   
   String str;
   if (ly_c_string_p (glyph))
     str = ly_scm2string (glyph);
   else
-    return SCM_EOL;
+    str = "|";
   
   const char* cs = str.to_str0 ();
   no_vertical_end |=

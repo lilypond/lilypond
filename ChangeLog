@@ -1,3 +1,15 @@
+2004-07-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): change voltaOnThisStaff
+	definition. Backport? 
+
+	* lily/volta-engraver.cc (stop_translation_timestep): set bounds
+	if necessary.
+
+	* lily/volta-bracket.cc (print): handle volta brackets without
+	bars. 
+
 2004-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/abc2ly.py (try_parse_chord_delims): Bugfix: update to

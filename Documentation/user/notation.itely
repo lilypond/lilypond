@@ -2546,6 +2546,13 @@ c1
 }
 @end lilypond
 
+@seealso
+
+Brackets for the repeat are normally only printed over the topmost
+staff. This can be adjusted by setting the @code{voltaOnThisStaff}
+property @inputfileref{input/regression,volta-multi-staff.ly},
+@inputfileref{input/regression,volta-chord-names.ly}
+
 @refbugs
 
 A nested repeat like
@@ -2563,6 +2570,16 @@ having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
 @cindex ambiguity
 
+
+
+Timing information is not remembered at the start of an alternative,
+so after a repeat timing information must be reset by hand, for
+example by setting @code{Score.measurePosition} or entering
+@code{\partial}.  Similarly, slurs or ties are also not repeated.
+
+
+
+
 @node Repeats and MIDI
 @subsection Repeats and MIDI
 
@@ -2571,13 +2588,6 @@ For clarity, it is advisable to use braces in such situations.
 For instructions on how to expand repeats for MIDI output, see the
 example file @inputfileref{input/test,unfold-all-repeats.ly}.
 
-
-@refbugs
-
-Timing information is not remembered at the start of an alternative,
-so after a repeat timing information must be reset by hand, for
-example by setting @code{Score.measurePosition} or entering
-@code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
 @node Manual repeat commands
@@ -3670,24 +3680,6 @@ Program reference: Layout objects @internalsref{LyricText} and
 @internalsref{VocalName}.  Music expressions
 @internalsref{LyricEvent}.
 
-@refbugs
-
-@cindex ambiguity
-
-Input for lyrics introduces a syntactical ambiguity
- 
-@example 
-foo = bar 
-@end example 
-
-@noindent
-is interpreted as assigning a string identifier @code{\foo} such that
-it contains @code{"bar"}.  However, it could also be interpreted as
-making or a music identifier @code{\foo} containing the syllable
-`bar'.  The force the latter interpretation, use
-@example
-foo = \lyrics bar4
-@end example
 
 
 @node Ambitus
@@ -4361,6 +4353,9 @@ names, for example
    { c''1 }
 }
 @end lilypond
+
+For longer instrument names, it may be useful to increase the
+@code{indent} setting in the @code{\paper} block.
 
 @seealso
 
@@ -7593,6 +7588,10 @@ slurring, etc., are not translated to MIDI.
 The MIDI output allocates a channel for each Staff, and one for global
 settings.  Hence, the MIDI file should not have more than 15 staves
 (or 14 if you do not use drums). Other staves will remain silent.
+
+Not all MIDI players correctly handle tempo change in the MIDI
+output. Players that are known to work include
+@uref{timidity,http://timidity.sourceforge.net/}
 
 
 @menu

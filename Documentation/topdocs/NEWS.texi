@@ -26,7 +26,11 @@ following code may be used.
 @end example
 
 @item A new block, @code{\bookpaper} has been introduced to
-hold settings for paper size and output scaling.
+hold settings for paper size and output scaling. Further options
+include @code{raggedbottom} (if set, systems are not vertically filled
+to reach the bottom of the page), and @code{raggedlastbottom}.
+
+
 
 @item Support for fret diagrams  has been contributed by Carl
 D. Sorensen. @file{input/test/fret-diagram.ly} contains an example.
