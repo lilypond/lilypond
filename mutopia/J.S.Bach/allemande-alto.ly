@@ -4,6 +4,7 @@ title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Allemande";
 % opus =	 "BWV 1008";
+opus =	 "";
 composer =	 "Johann Sebastian Bach(1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
@@ -28,9 +29,11 @@ allemande_alto_global = \melodic{
 	\key bes;
 	\partial 16;
 	\clef alto;
-	\skip 1*12;
+	\skip 1*11;
+	s2. s8.
 	\bar ":|:";
-	\skip 1*12;
+	\skip 1*11;
+	s2. s4 s8
 	\bar ":|";
 }
 
