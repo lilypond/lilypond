@@ -27,16 +27,19 @@ Paper_score::Paper_score ()
 {
   paper_l_ =0;
   outputter_l_ =0;
-  line_l_ = new Line_of_score;
-  element_smob_list_ = SCM_EOL;
-  typeset_line (line_l_);
+  line_l_ = 0;
+  main_smob_ = SCM_EOL;
 }
 
 void
 Paper_score::typeset_line (Line_of_score *l)
 {
-  line_l_->pscore_l_ = this;
-  element_smob_list_ = gh_cons (l->self_scm_, element_smob_list_);
+  if (!line_l_)
+    {
+      line_l_ = l;		// ugh.
+    }
+  main_smob_ = gh_cons (l->self_scm_, main_smob_);
+  l->pscore_l_ = this;
 }
 
 Paper_score::Paper_score (Paper_score const &s)

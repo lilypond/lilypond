@@ -9,22 +9,21 @@
 
 #ifndef STAFFSYM_HH
 #define STAFFSYM_HH
-#include "spanner.hh"
+
+#include "lily-guile.hh"
 
 /**
   This spanner draws the lines of a pstaff.
   The bottom line is position 0.
   */
-class Staff_symbol : public Spanner
+class Staff_symbol 
 {
 public:
-  Real staff_space () const;
-  int steps_i() const;
-  int line_count () const;
-  Staff_symbol (SCM s);
-   static SCM brew_molecule (SCM);
-  VIRTUAL_COPY_CONS(Score_element);
-  SCM member_brew_molecule() const;
-
+  static Real staff_space (Score_element*) ;
+  static int steps_i(Score_element*) ;
+  static int line_count (Score_element*);
+  static SCM brew_molecule (SCM);
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);
 };
 #endif // STAFFSYM_HH

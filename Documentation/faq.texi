@@ -75,35 +75,6 @@ yourself:
 @end example 
 
 
-@subsubsection Some of your neat scripts fail, what directories do you use:
-
-[This only applies if you don't do @code{make install}, and run out
-of the source directory]
-
-I have a directory which contains all our development projects
-@example 
-
-    ~/usr/
- 
-@end example 
-
-which looks like @file{/usr/}
-@example 
-
-    bin/
-    share
-    lib/
-    share/
-    src/
-
-    etc....
- 
-@end example 
-
-@file{~/usr/bin/} is in the variable PATH, and contains symbolic links
-to the compiled executables. Unpacked sources, releases and patches are
-in subdirectories under @file{~/usr/src/}.
-
 @subsubsection Is there an emacs mode?
 
 Yes.  It is included with the source archive as @file{lilypond-mode.el}.

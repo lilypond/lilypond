@@ -8,7 +8,7 @@
 #include <math.h>
 #include <libc-extension.hh>
 
-#include "dimension-cache.hh"
+
 #include "debug.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
@@ -134,11 +134,11 @@ Spanner::spanned_rank_iv ()
 
   if (spanned_drul_[LEFT])
     {
-      iv[LEFT] = spanned_drul_[LEFT]->column_l ()->rank_i ();
+      iv[LEFT] = Paper_column::rank_i (spanned_drul_[LEFT]->column_l ());
     }
   if (spanned_drul_[RIGHT])
     {
-      iv[RIGHT] = spanned_drul_[RIGHT]->column_l ()->rank_i ();
+      iv[RIGHT] = Paper_column::rank_i (spanned_drul_[RIGHT]->column_l ());
     }
   return iv;
 }
@@ -223,7 +223,7 @@ Spanner::find_broken_piece (Line_of_score*l) const
 int
 Spanner::compare (Spanner * const &p1, Spanner * const &p2)
 {
-  return p1->line_l ()->rank_i_ - p2->line_l ()->rank_i_;
+  return  p1->line_l ()->rank_i_ - p2->line_l ()->rank_i_;
 }
 
 bool
@@ -300,6 +300,9 @@ Spanner::do_derived_mark ()
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm_);
   while (flip (&d) != LEFT);
+
+  for (int i= broken_into_l_arr_.size () ; i--;)
+    scm_gc_mark (broken_into_l_arr_[i]->self_scm_);
 }
 
 void

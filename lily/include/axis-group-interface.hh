@@ -28,18 +28,15 @@
 */
 struct Axis_group_interface 
 {
-  Score_element *elt_l_;
-  Axis_group_interface (Score_element*);
-
   static Interval group_extent_callback (Score_element *,Axis);
   static Interval relative_group_extent (Axis, Score_element * common, SCM list);
 
-  void add_element (Score_element*);
-  void set_axes (Axis,Axis);
-  bool axis_b (Axis)const;
-  Link_array<Score_element> get_children ();
-  bool has_interface_b ();
-  void set_interface ();
+  static void add_element (Score_element* me, Score_element*);
+  static void set_axes (Score_element*,Axis,Axis);
+  static bool axis_b (Score_element*,Axis);
+  static Link_array<Score_element> get_children (Score_element*);
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);
   
 };
 

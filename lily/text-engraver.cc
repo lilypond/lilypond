@@ -7,14 +7,13 @@
   
  */
 
-#include "dimension-cache.hh"
+
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
 #include "musical-request.hh"
-
 #include "stem.hh"
-#include "staff-symbol.hh"
+#include "note-head.hh"
 
 /**
    typeset directions that are  plain text.
@@ -49,23 +48,22 @@ Text_engraver::do_try_music (Music *m)
 void
 Text_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (to_boolean (inf.elem_l_->get_elt_property ("note-head-interface")))
+  if (Note_head::has_interface (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position_interface st (texts_[i]);
-	  st.add_support (inf.elem_l_);
-	  if (st.get_axis( ) == X_AXIS
-	      && !texts_[i]->parent_l (Y_AXIS))
-	    texts_[i]->set_parent (inf.elem_l_, Y_AXIS);
+	  Score_element*t = texts_[i];
+	  Side_position::add_support (t,inf.elem_l_);
+	  if (Side_position::get_axis( t) == X_AXIS
+	      && !t->parent_l (Y_AXIS))
+	    t->set_parent (inf.elem_l_, Y_AXIS);
 	}
     }
-  if (Stem *n = dynamic_cast<Stem*> (inf.elem_l_))
+  if (Stem::has_interface (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position_interface st(texts_[i]);
-	  st.add_support (n);
+	  Side_position::add_support(texts_[i],inf.elem_l_);
 	}
     }
 }
@@ -78,16 +76,11 @@ Text_engraver::do_process_music ()
       Text_script_req * r = reqs_[i];
 
       Item *text = new Item (get_property ("basicTextScriptProperties"));
-      Side_position_interface stafy (text);
+      
 
       SCM axisprop = get_property ("scriptHorizontal");
-      if (to_boolean (axisprop))
-	{
-	  stafy.set_axis (X_AXIS);
-	  //	  text->set_parent (ss, Y_AXIS);
-	}
-      else
-	stafy.set_axis (Y_AXIS);
+
+      Side_position::set_axis (text, to_boolean (axisprop) ? X_AXIS : Y_AXIS);
 
       /*
 	make sure they're in order by adding i to the priority field.
@@ -96,7 +89,7 @@ Text_engraver::do_process_music ()
 			    gh_int2scm (200 + i));
 
       if (r->get_direction ())
-	stafy.set_direction (r->get_direction ());
+	Side_position::set_direction (text, r->get_direction ());
       
       text->set_elt_property ("text",
 			      ly_str02scm ( r->text_str_.ch_C ()));
@@ -121,7 +114,7 @@ Text_engraver::do_pre_move_processing ()
   for (int i=0; i < texts_.size (); i++)
     {
       Item *ti = texts_[i];
-      Side_position_interface (ti).add_staff_support ();
+      Side_position::add_staff_support (ti);
       typeset_element (ti);
     }
   texts_.clear ();

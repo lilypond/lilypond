@@ -55,7 +55,7 @@ System_start_delimiter::simple_bar (Real h) const
   return lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(System_start_delimiter,after_line_breaking);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking);
 
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
@@ -69,7 +69,7 @@ System_start_delimiter::try_collapse (Score_element*me)
 {
   SCM   gl = me->get_elt_property ("glyph");
   
-  if (scm_ilength (me->get_elt_pointer ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+  if (scm_ilength (me->get_elt_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
     {
       me->suicide ();
     }
@@ -77,7 +77,7 @@ System_start_delimiter::try_collapse (Score_element*me)
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(System_start_delimiter,brew_molecule);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule);
 
 SCM
 System_start_delimiter::brew_molecule (SCM smob)

@@ -6,10 +6,13 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "dimension-cache.hh"
+
 #include "lily-guile.hh"
+#include "bar.hh"
+#include "item.hh"
 #include "span-bar.hh"
 #include "engraver.hh"
+
 
 /** 
 
@@ -22,8 +25,8 @@
   */
 class Span_bar_engraver : public Engraver
 {
-  Span_bar * spanbar_p_;
-  Link_array<Bar> bar_l_arr_;
+  Item * spanbar_p_;
+  Link_array<Item> bar_l_arr_;
 
 public:
   VIRTUAL_COPY_CONS(Translator);
@@ -31,7 +34,7 @@ public:
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
-  virtual Span_bar* get_span_bar_p(SCM) const;
+
 };
 
 
@@ -40,12 +43,6 @@ Span_bar_engraver::Span_bar_engraver()
   spanbar_p_ =0;
 }
 
-Span_bar*
-Span_bar_engraver::get_span_bar_p(SCM s) const
-{
-  Span_bar * sp= new Span_bar (s);
-  return sp;
-}
 
 
 void
@@ -53,13 +50,15 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 {
   int depth = i.origin_trans_l_arr (this).size();
   if (depth > 1
-      && dynamic_cast<Bar *> (i.elem_l_)) 
+      && Bar::has_interface (i.elem_l_))
     {
-      bar_l_arr_.push (dynamic_cast<Bar *> (i.elem_l_));
+      Item * it = dynamic_cast<Item*>(i.elem_l_);
+      bar_l_arr_.push (it);
 
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	{
-	  spanbar_p_ = get_span_bar_p (get_property ("basicSpanBarProperties"));
+	  spanbar_p_ = new Item (get_property ("basicSpanBarProperties"));
+	  Span_bar::set_interface (spanbar_p_);
 	  spanbar_p_->set_elt_property ("glyph", bar_l_arr_[0]->get_elt_property ("glyph"));
 	  spanbar_p_->set_elt_property ("visibility-lambda",
 					bar_l_arr_[0]->get_elt_property ("visibility-lambda"));	  
@@ -77,7 +76,7 @@ Span_bar_engraver::do_pre_move_processing()
   if (spanbar_p_) 
     {
       for (int i=0; i < bar_l_arr_.size() ; i++)
-	spanbar_p_->add_bar (bar_l_arr_[i]);
+	Span_bar::add_bar( spanbar_p_,bar_l_arr_[i]);
       typeset_element (spanbar_p_);
       spanbar_p_ =0;
     }

@@ -1,3 +1,39 @@
+1.3.68.hwn1
+===========
+
+* Cleanup auto-beam-engraver: use properties for retrieving timing
+information.
+
+* Fixed: Multi measure rests don't cause crashes.
+
+* Fixed: don't invoke Hara_kiri::consider_suicide too early.
+
+* Fixed: property engraver.  
+
+* Fixed: don't crash on multiple ties.
+
+* Cleanups of Beam, should also be a little faster.  
+
+* Reunite properties and pointers. In implementation we make a
+distinction between mutable and immutable properties
+
+* Add {has|set}_interface () static methods to interface classes.
+
+* Made Side_position_interface and Staff_symbol_interface an all
+statics class, and stripped _interface suffix.
+
+* Make Align_interface and Axis_group_interface an all-statics class 
+
+* Rhythmic_head, Staff_symbol, Grace_align_item, Break_align_item,
+Bar, Span_bar are now interfaces, Staff_bar was removed. Use a
+callback for determining barsize.
+
+* Removed all GLUE_SCORE_ELEMENT callbacks. 
+
+* Added test for repeats to trip.ly
+
+* 
+
 1.3.68
 ======
 
@@ -1592,7 +1628,7 @@ pl 15.jcn4
 	- removed old notename2scm conversion
 	- beam-dir-algorithm through scm
 	- bfs paper-scm
-	- bf: knee-stemlengths
+gv	- bf: knee-stemlengths
 
 pl 15.jcn3
 	- moved poor man's stem arrays to scm

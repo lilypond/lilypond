@@ -24,7 +24,6 @@ public:
   static  Molecule get_molecule (Score_element*,Direction d);
   Script (SCM);
   static SCM brew_molecule (SCM);
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
 };
 

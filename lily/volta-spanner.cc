@@ -12,7 +12,6 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
-#include "bar.hh"
 #include "paper-def.hh"
 #include "volta-spanner.hh"
 #include "group-interface.hh"
@@ -23,8 +22,8 @@
 void
 Volta_spanner::set_interface (Score_element*me)
 {
-  me->set_elt_pointer ("bars", SCM_EOL);
-  Side_position_interface (me).set_axis (Y_AXIS);
+  me->set_elt_property ("bars", SCM_EOL);
+  Side_position::set_axis (me, Y_AXIS);
   Directional_element_interface (me).set (UP);
 }
 
@@ -40,13 +39,13 @@ Volta_spanner::set_interface (Score_element*me)
   
 */
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Volta_spanner,brew_molecule);
+MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule);
 SCM
 Volta_spanner::brew_molecule (SCM smob) 
 {
   Score_element *me = unsmob_element (smob);
-  Link_array<Bar> bar_arr
-    = Pointer_group_interface__extract_elements (me, (Bar*)0, "bars");
+  Link_array<Item> bar_arr
+    = Pointer_group_interface__extract_elements (me, (Item*)0, "bars");
 
   if (!bar_arr.size ())
     return SCM_EOL;
@@ -99,12 +98,12 @@ Volta_spanner::add_bar  (Score_element *me, Item* b)
   Pointer_group_interface gi(me, "bars");
   gi.add_element (b);
 
-  Side_position_interface (me).add_support (b);
+  Side_position::add_support (me,b);
   add_bound_item (dynamic_cast<Spanner*>(me), b); 
 }
 
 void
 Volta_spanner::add_column (Score_element*me, Score_element* c)
 {
-  Side_position_interface (me).add_support (c);
+  Side_position::add_support (me,c);
 }

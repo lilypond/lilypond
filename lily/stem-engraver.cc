@@ -67,9 +67,10 @@ Stem_engraver::do_creation_processing ()
 void
 Stem_engraver::acknowledge_element(Score_element_info i)
 {
-  if (Rhythmic_head * h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
+  Score_element* h = i.elem_l_;
+  if (Rhythmic_head::has_interface (h))
     {
-      if (h->stem_l ())
+      if (Rhythmic_head::stem_l (h))
 	return;
       
       Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
@@ -77,7 +78,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       if (!stem_p_) 
 	{
 	  stem_p_ = new Stem (get_property ("basicStemProperties"));
-	  Staff_symbol_referencer_interface::set_interface(stem_p_);
+	  Staff_symbol_referencer::set_interface(stem_p_);
 
 	  
 	  stem_p_->set_elt_property ("duration-log", gh_int2scm (duration_log));
@@ -121,12 +122,12 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  announce_element (Score_element_info (stem_p_, r));
 	}
 
-      if (stem_p_->flag_i () != duration_log)
+      if (Stem::flag_i (stem_p_) != duration_log)
 	{
-	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i ()));
+	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
 	}
 
-      stem_p_->add_head (h);
+      Stem::add_head (stem_p_,h);
     }
 }
 
@@ -145,13 +146,13 @@ Stem_engraver::do_pre_move_processing()
       SCM prop = get_property ("stemLeftBeamCount");
       if (gh_number_p(prop))
 	{
-	  stem_p_->set_beaming (gh_scm2int (prop),LEFT);
+	  Stem::set_beaming (stem_p_,gh_scm2int (prop),LEFT);
 	  daddy_trans_l_->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
       prop = get_property ("stemRightBeamCount");
       if (gh_number_p(prop))
 	{
-	  stem_p_->set_beaming (gh_scm2int (prop), RIGHT);
+	  Stem::set_beaming (stem_p_,gh_scm2int (prop), RIGHT);
 	  daddy_trans_l_->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
 

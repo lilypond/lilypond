@@ -41,10 +41,16 @@ public:
 
     * Put these in Scheme.
    */
-  
+
+
   Array<Column_rod>  minimal_dists_;
   Array<Column_spring > springs_;
 
+
+  /*
+    Not (yet) in scm, because of messy effects when a column commits suicide.
+   */
+  int  rank_i_;
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);
   void add_spring (Paper_column * to, Real dist, Real strength);
@@ -56,7 +62,7 @@ public:
   Line_of_score *line_l_;
 
   /// which  one (left =0)
-  int rank_i() const;
+  static int rank_i(Score_element*);
 
   Paper_column (SCM);
   Moment when_mom ()const;
@@ -64,14 +70,6 @@ public:
   bool musical_b () const;
   bool used_b () const;
   void set_rank (int);
-private:
-    
-  /**
-    The ranking: left is smaller than right 
-    -1 is uninitialised.
-    */
-  int rank_i_;
-
 };
      
 #endif // P_COL_HH

@@ -33,10 +33,10 @@ ADD_THIS_TRANSLATOR(System_start_delimiter_engraver);
 void
 System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (dynamic_cast<Staff_symbol*> (inf.elem_l_))
+  if (Staff_symbol::has_interface (inf.elem_l_))
     {
       /*
-	don't add as Axis_group_interface (delim_).add_element (),
+	don't add as Axis_group_interface::add_element (delim_, ),
 	because that would set the parent as well */
 	  
       Pointer_group_interface (delim_).add_element (inf.elem_l_);

@@ -6,7 +6,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "dimension-cache.hh"
+
 #include "paper-score.hh"
 #include "debug.hh"
 #include "item.hh"
@@ -138,8 +138,8 @@ Item::handle_prebroken_dependencies ()
 {
   if (original_l_)
     {
-      pointer_alist_
-	= handle_broken_smobs (original_l_->pointer_alist_,
+      mutable_property_alist_
+	= handle_broken_smobs (original_l_->mutable_property_alist_,
 			       gh_int2scm (break_status_dir ()));
     }
   

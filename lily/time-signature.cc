@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Time_signature,brew_molecule);
+MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule);
 
 SCM
 Time_signature::brew_molecule (SCM smob) 

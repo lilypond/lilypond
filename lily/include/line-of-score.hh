@@ -30,15 +30,11 @@
 class Line_of_score : public Spanner
 {
 public:
-
-  
+  int rank_i_;
   void post_processing();
 
-  /// -> SCM
-  int rank_i_;
-
   Protected_scm output_;
-  Line_of_score();
+  Line_of_score(SCM);
     
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;

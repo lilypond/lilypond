@@ -9,13 +9,14 @@
 #include "engraver.hh"
 #include "protected-scm.hh"
 #include "break-align-item.hh"
+#include "item.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
-#include "dimension-cache.hh"
+
 
 class Break_align_engraver : public Engraver
 {
-  Break_align_item *align_l_;
+  Item *align_l_;
   Protected_scm column_alist_;
 protected:
   virtual void acknowledge_element(Score_element_info i);
@@ -35,7 +36,7 @@ void
 Break_align_engraver::add_column (SCM smob)
 {
   Score_element * e = unsmob_element (smob);
-  Align_interface (align_l_).add_element (e);
+  Break_align_item::add_element (align_l_,e);
   typeset_element (e);
 }
 
@@ -95,7 +96,8 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
       if (!align_l_)
 	{
-	  align_l_ = new Break_align_item (get_property ("basicBreakAlignProperties"));
+	  align_l_ = new Item (get_property ("basicBreakAlignProperties"));
+	  Break_align_item::set_interface (align_l_);
 	  announce_element (Score_element_info (align_l_,0));
 
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
@@ -109,7 +111,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  */
 	  edge->set_extent_callback (Score_element::point_dimension_callback,X_AXIS);
 	  
-	  align_l_->set_elt_pointer ("group-center-element", edge->self_scm_);
+	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
 
 	  announce_element (Score_element_info(edge, 0));
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm_);
@@ -126,16 +128,16 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	}
       else
 	{
-	  group = new Item (SCM_EOL);
+	  group = new Item (get_property ("basicBreakAlignGroupProperties"));
 
-	  Axis_group_interface (group).set_interface ();
-	  Axis_group_interface (group).set_axes (X_AXIS,X_AXIS);
+	  Axis_group_interface::set_interface (group);
+	  Axis_group_interface::set_axes (group, X_AXIS,X_AXIS);
 
 	  group->set_elt_property ("break-align-symbol", align_name);
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (Score_element_info (group, 0));
 	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm_);
 	}
-      Axis_group_interface (group).add_element (item_l);
+      Axis_group_interface::add_element (group, item_l);
     }
 }

@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+
+#ugh. junkme.
+
 # packagepython.py --  implement general StepMake-wide python stuff
 # 
 # source file of the GNU LilyPond music typesetter

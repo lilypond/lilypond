@@ -8,7 +8,7 @@
  */
 #include "script-column.hh"
 #include "side-position-interface.hh"
-#include "dimension-cache.hh"
+
 #include "group-interface.hh"
 
 void
@@ -34,7 +34,7 @@ staff_side_compare (Score_element * const &i1,
   return gh_scm2int (p1) - gh_scm2int (p2);
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Script_column,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking);
 
 SCM
 Script_column::before_line_breaking (SCM smob)
@@ -47,8 +47,8 @@ Script_column::before_line_breaking (SCM smob)
 				     
   for (int i=0; i < staff_sided.size (); i++)
     {
-      Side_position_interface st (staff_sided[i]);
-      arrs[st.get_direction ()].push (staff_sided[i]);
+      arrs[Side_position::get_direction (staff_sided[i])]
+	.push (staff_sided[i]);
     }
 
   Direction d = DOWN;
@@ -60,11 +60,9 @@ Script_column::before_line_breaking (SCM smob)
     Score_element * last = 0;
     for (int i=0; i < arr.size (); i++)
       {
-	Side_position_interface s (arr[i]);
+
 	if (last)
-	  {
-	    s.add_support (last);
-	  }
+	  Side_position::add_support( arr[i],last);
 	    
 	arr[i]->remove_elt_property ("script-priority");
 	last = arr[i];

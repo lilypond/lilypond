@@ -1,47 +1,49 @@
 /*
-  staffsym.cc -- implement Staff_symbol
+  staff-symbol.cc -- implement Staff_symbol
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "staff-symbol.hh"
+
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "debug.hh"
 #include "item.hh"
+#include "staff-symbol.hh"
+#include "spanner.hh"
 
 
-
-
-GLUE_SCORE_ELEMENT(Staff_symbol,brew_molecule);
+MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule);
 
 SCM
-Staff_symbol::member_brew_molecule () const
+Staff_symbol::brew_molecule (SCM smob)
 {
+  Score_element *me = unsmob_element (smob);
+  Spanner* sp = dynamic_cast<Spanner*> (me);
   Score_element * common
-    = get_bound (LEFT)->common_refpoint (get_bound (RIGHT), X_AXIS);
+    = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
   Real width =
     // right_shift     - left_shift
-    + get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
-    - get_bound (LEFT)->relative_coordinate (common, X_AXIS)
+    + sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
+    - sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
     ;
 
-  Real t = paper_l ()->get_var ("stafflinethickness");
-  int l = line_count ();
+  Real t = me->paper_l ()->get_var ("stafflinethickness");
+  int l = Staff_symbol::line_count (me);
   
-  Real height = (l-1) * staff_space () /2;
-  Molecule  m;
+  Real height = (l-1) * staff_space (me) /2;
+  Molecule m;
   for (int i=0; i < l; i++)
     {
       Molecule a =
-	lookup_l ()->filledbox (Box (Interval (0,width),
-				     Interval (-t/2, t/2)));
+	me->lookup_l ()->filledbox (Box (Interval (0,width),
+					 Interval (-t/2, t/2)));
 
-      a.translate_axis (height - i * staff_space (), Y_AXIS);
+      a.translate_axis (height - i * staff_space (me), Y_AXIS);
       m.add_molecule (a);
     }
 
@@ -49,25 +51,34 @@ Staff_symbol::member_brew_molecule () const
 }
 
 int
-Staff_symbol::steps_i() const
+Staff_symbol::steps_i(Score_element*me) 
 {
-  return line_count () * 2;
+  return line_count (me) * 2;
 }
 
 int
-Staff_symbol::line_count () const
+Staff_symbol::line_count (Score_element*me) 
 {
-  return gh_scm2int (get_elt_property ("line-count"));
+  SCM c = me->get_elt_property ("line-count");
+  if (gh_number_p (c))
+    return gh_scm2int (c);
+  else
+    return 0;
 }
 
 Real
-Staff_symbol::staff_space ()const
+Staff_symbol::staff_space (Score_element*me )
 {
-  return gh_scm2double (get_elt_property ("staff-space")) *
-    paper_l ()->get_var ("staffspace");
+  Real ss = me->paper_l ()->get_var ("staffspace");
+  
+  SCM s = me->get_elt_property ("staff-space");
+  if (gh_number_p (s))
+    ss *= gh_scm2double (s);
+  return ss;
 }
 
-Staff_symbol::Staff_symbol( SCM s)
-  : Spanner (s)
+bool
+Staff_symbol::has_interface (Score_element*m)
 {
+  return m && m->has_interface (ly_symbol2scm ("staff-symbol-interface"));
 }

@@ -19,7 +19,6 @@ struct Column_spring {
   Real strength_f_;
   
   Column_spring ();
-  static int compare (const Column_spring &r1, const Column_spring &r2);
 };
 
 struct Spring{

@@ -43,59 +43,53 @@
 class Stem : public Item
 {
 public:
- static SCM brew_molecule (SCM);
-  
-
+  static SCM brew_molecule (SCM);
 
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
-  int flag_i () const;
+  static  int flag_i (Score_element*) ;
 
-  int beam_count (Direction) const;
-  void set_beaming (int,  Direction d);
+  static int beam_count (Score_element*,Direction) ;
+  static void set_beaming (Score_element*,int,  Direction d);
   /** 
-    don't print flag when in beam.
-    our beam, for aligning abbrev flags
-   */
-  Beam* beam_l () const;
-  Rhythmic_head * first_head () const;
-  Drul_array<Rhythmic_head*> extremal_heads () const;
+      don't print flag when in beam.
+      our beam, for aligning abbrev flags
+  */
+  static Beam * beam_l (Score_element*);
+  static Score_element * first_head (Score_element*) ;
+  static Drul_array<Score_element*> extremal_heads (Score_element*);
 
-  Score_element * support_head () const;
+  static Score_element * support_head (Score_element*) ;
   Stem (SCM);
 
   /// ensure that this Stem also encompasses the Notehead #n#
-  void add_head (Rhythmic_head*n);
+  static void add_head (Score_element*me, Score_element*n);
 
-  Stem_info calc_stem_info () const;
+  static Stem_info calc_stem_info (Score_element *) ;
 
-  Real chord_start_f () const;
-  Direction get_direction () const;
-  int type_i () const;
-  void set_stemend (Real);
-  Direction get_default_dir() const;
+  static Real chord_start_f (Score_element *) ;
+  static Direction get_direction (Score_element*) ;
+  static int type_i (Score_element *) ;
+  static void set_stemend (Score_element *,Real);
+  static Direction get_default_dir(Score_element *) ;
+  static int get_center_distance(Score_element *,Direction) ;
+  static int heads_i (Score_element *) ;
 
-  int get_center_distance(Direction) const;
-  int heads_i () const;
-
-  bool invisible_b() const;
-    
+  static bool invisible_b(Score_element *) ;
+ 
   /// heads that the stem encompasses (positions)
-  Interval head_positions() const;
+  static Interval head_positions(Score_element *) ;
 
-public:
-  friend class Stem_tremolo;	// ugh.
-  Real get_default_stem_end_position () const;
-  void position_noteheads();
 
-  Real stem_end_position () const;
+  static Real get_default_stem_end_position (Score_element*me) ;
+  static void position_noteheads(Score_element*);
+  static Real stem_end_position (Score_element*) ;
   static Real off_callback (Score_element *, Axis);
-  Molecule flag () const;
-
-  SCM member_before_line_breaking ();
+  static Molecule flag (Score_element*);
   static SCM before_line_breaking (SCM);
   static Interval dim_callback (Score_element *,Axis);
-  SCM member_brew_molecule() const;
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);
 
-  void set_spacing_hints () ;
+  static void set_spacing_hints (Score_element*me) ;
 };
 #endif

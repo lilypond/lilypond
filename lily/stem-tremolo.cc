@@ -14,7 +14,7 @@
 #include "lookup.hh"
 #include "stem.hh"
 #include "offset.hh"
-#include "dimension-cache.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
@@ -26,26 +26,26 @@
 void
 Stem_tremolo::set_interface (Score_element *me)
 {
-me->set_elt_pointer ("stem", SCM_EOL);
+me->set_elt_property ("stem", SCM_EOL);
 }
 
 
 Interval
 Stem_tremolo::dim_callback (Score_element * se, Axis )
 {
-  Real space = Staff_symbol_referencer_interface (se).staff_space ();
+  Real space = Staff_symbol_referencer::staff_space (se);
   return Interval (-space, space);
 }
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Stem_tremolo,brew_molecule);
+MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {
   Score_element *me= unsmob_element (smob);
-  Stem * stem = dynamic_cast<Stem*> (unsmob_element (me->get_elt_pointer ("stem")));
-  Beam * beam = stem->beam_l ();
+  Score_element * stem = unsmob_element (me->get_elt_property ("stem"));
+  Beam * beam = Stem::beam_l (stem);
   
   Real dydx;
   if (beam)
@@ -62,7 +62,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     // urg
     dydx = 0.25;
 
-  Real ss = Staff_symbol_referencer_interface (stem).staff_space ();
+  Real ss = Staff_symbol_referencer::staff_space (stem);
   Real thick = gh_scm2double (me->get_elt_property ("beam-thickness"));
   Real width = gh_scm2double (me->get_elt_property ("beam-width"));
   width *= ss;
@@ -93,9 +93,9 @@ Stem_tremolo::brew_molecule (SCM smob)
   if (beam)
     {
       // ugh, rather calc from Stem_tremolo_req
-      int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
+      int beams_i = Stem::beam_count(stem, RIGHT) >? Stem::beam_count (stem, LEFT);
       mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
-			    stem->stem_end_position () * ss / 2 - 
+			    Stem::stem_end_position (stem ) * ss / 2 - 
 			    Directional_element_interface (beam).get () * beams_i * interbeam_f));
     }
   else
@@ -103,16 +103,16 @@ Stem_tremolo::brew_molecule (SCM smob)
       /*
 	Beams should intersect one beamthickness below stem end
       */
-      Real dy = stem->stem_end_position () * ss / 2;
-      dy -= mol.extent (Y_AXIS).length () / 2 *  stem->get_direction ();
+      Real dy = Stem::stem_end_position (stem ) * ss / 2;
+      dy -= mol.extent (Y_AXIS).length () / 2 *  Stem::get_direction (stem );
 
       /*
 	uhg.  Should use relative coords and placement
       */
       Real whole_note_correction;
-      if (stem->invisible_b ())
-	whole_note_correction = -stem->get_direction ()
-	  * stem->support_head ()->extent (X_AXIS).length () / 2;
+      if (Stem::invisible_b (stem ))
+	whole_note_correction = -Stem::get_direction (stem )
+	  * Stem::support_head (stem )->extent (X_AXIS).length () / 2;
       else
 	whole_note_correction = 0;
 	 
@@ -127,6 +127,6 @@ Stem_tremolo::brew_molecule (SCM smob)
 void
 Stem_tremolo::set_stem (Score_element*me,Score_element *s)
 {
-  me->set_elt_pointer ("stem", s->self_scm_);
+  me->set_elt_property ("stem", s->self_scm_);
 }
 

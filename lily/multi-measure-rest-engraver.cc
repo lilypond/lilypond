@@ -14,6 +14,7 @@
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
 #include "moment.hh"
+#include "spanner.hh"
 
 /**
    The name says it all: make multi measure rests 
@@ -38,8 +39,8 @@ private:
   int start_measure_i_;
   Moment start_moment_;
   
-  Multi_measure_rest *mmrest_p_;
-  Multi_measure_rest *lastrest_p_;
+  Spanner *mmrest_p_;
+  Spanner *lastrest_p_;
 };
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
@@ -54,12 +55,13 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 void
 Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
+  Item * item = dynamic_cast<Item*> (i.elem_l_); 
+  if (item && Bar::has_interface (item))
     {
       if (mmrest_p_)
-	Multi_measure_rest::add_column (mmrest_p_,c);
+	Multi_measure_rest::add_column (mmrest_p_,item);
       if (lastrest_p_)
-	Multi_measure_rest::add_column (mmrest_p_,c);
+	Multi_measure_rest::add_column (lastrest_p_,item);
     }
 }
 
@@ -111,7 +113,7 @@ Multi_measure_rest_engraver::do_process_music ()
     {
       mmrest_p_ = new Multi_measure_rest (get_property ("basicMultiMeasureRestProperties"));
       Multi_measure_rest::set_interface (mmrest_p_);
-      Staff_symbol_referencer_interface::set_interface (mmrest_p_);
+      Staff_symbol_referencer::set_interface (mmrest_p_);
 
       announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
       start_measure_i_
@@ -127,7 +129,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
     && !mp
-    && (scm_ilength (mmrest_p_->get_elt_pointer ("columns")) >= 2))
+    && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
     {
       typeset_element (mmrest_p_);
       /*

@@ -17,6 +17,7 @@ class Stem_tremolo
 {
 public:
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static Interval dim_callback (Score_element*, Axis);
   static SCM brew_molecule (SCM);
   static void set_stem (Score_element*me, Score_element *st);

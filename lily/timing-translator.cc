@@ -125,7 +125,7 @@ Timing_translator::do_creation_processing()
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
   daddy_trans_l_->set_property ("measurePosition", smobify (new Moment));
-  daddy_trans_l_->set_property ("oneBeat", smobify (new Moment (1,4)));
+  daddy_trans_l_->set_property ("beatLength", smobify (new Moment (1,4)));
   daddy_trans_l_->set_property ("measureLength", smobify (new Moment (1)));
 }
 
@@ -133,22 +133,10 @@ Moment
 Timing_translator::measure_length () const
 {
   SCM l = get_property("measureLength");
-  if (SMOB_IS_TYPE_B(Moment, l))
-    return *SMOB_TO_TYPE (Moment, l);
+  if (unsmob_moment(l))
+    return *unsmob_moment (l);
   else
     return Moment (1);
-}
-
-
-void
-Timing_translator::get_time_signature (int *n, int *d) const
-{
-  Moment one_beat (1,4);
-  SCM one = get_property ("beatLength");
-  if (SMOB_IS_TYPE_B (Moment, one))
-    one_beat = *SMOB_TO_TYPE (Moment, one);
-  *n = measure_length () / one_beat;
-  *d = one_beat.den_i ();
 }
 
 

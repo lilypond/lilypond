@@ -12,7 +12,7 @@
 #include "lookup.hh"
 #include "side-position-interface.hh"
 #include "paper-def.hh"
-#include "dimension-cache.hh"
+
 
 Script ::Script (SCM s)
   : Item (s)
@@ -43,20 +43,20 @@ Script::get_molecule(Score_element * me, Direction d)
 
 
 
-
-GLUE_SCORE_ELEMENT(Script,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Script,after_line_breaking);
 SCM
-Script::member_after_line_breaking ()
+Script::after_line_breaking (SCM smob)
 {
-  Side_position_interface i (this);
-  Direction d =  i.get_direction ();
-  i.set_direction (d);
+  Score_element * me = unsmob_element (smob);
+
+  Direction d = Side_position::get_direction (me);
+  Side_position::set_direction (me,d);
 
   return SCM_UNDEFINED;
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Script,brew_molecule);
+MAKE_SCHEME_CALLBACK(Script,brew_molecule);
 
 SCM
 Script::brew_molecule (SCM smob)

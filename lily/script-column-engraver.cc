@@ -56,12 +56,12 @@ Script_column_engraver::do_post_move_processing ()
 void
 Script_column_engraver::acknowledge_element( Score_element_info inf) 
 {
-  if (Side_position_interface (inf.elem_l_).has_interface_b ())
+  if (Side_position::has_interface (inf.elem_l_))
     {
       Item *thing = dynamic_cast<Item*> (inf.elem_l_);
       if (thing
 	  && !thing->breakable_b ()
-	  && Side_position_interface (inf.elem_l_).get_axis () == Y_AXIS)
+	  && Side_position::get_axis (inf.elem_l_) == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);
 	}
@@ -74,7 +74,7 @@ Script_column_engraver::process_acknowledged ()
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
       scol_p_ = new Item (get_property ("basicScriptColumnProperties"));
-      scol_p_->set_elt_pointer ("scripts", SCM_EOL);  
+      scol_p_->set_elt_property ("scripts", SCM_EOL);  
 
       announce_element (Score_element_info (scol_p_, 0));
     }

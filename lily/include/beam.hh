@@ -17,27 +17,25 @@
   beam and that point in the correct direction (urg?)
 
    elt_properties:
-   y-position: real  (position of left edge)
-   height: real  (dy)
+   
+   y-position -- real  (position of left edge)
 
-   damping: amount of beam slope damping. (int)
+   height -- real  (dy)
+
+   damping -- amount of beam slope damping. (int)
    should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 */
 class Beam : public Spanner
 {
 public:
-  static SCM brew_molecule (SCM);
-  
 
-  int stem_count () const;
-  Stem* stem (int) const;
-  Stem* stem_top () const;
+
   int visible_stem_count () const;
-  Stem* first_visible_stem () const;
-  Stem* last_visible_stem () const;
+  Item* first_visible_stem () const;
+  Item* last_visible_stem () const;
   static Real rest_collision_callback (Score_element *,Axis);
   Beam (SCM);
-  void add_stem (Stem*);
+  void add_stem (Score_element*);
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_beaming (Beaming_info_list *);
   void set_stemlens ();
@@ -45,15 +43,11 @@ public:
 
   int get_multiplicity () const;
 
-public:
- 
-  SCM member_before_line_breaking ();
+  static SCM brew_molecule (SCM);
   static SCM before_line_breaking (SCM);
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  SCM member_brew_molecule () const;
 
-  Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
+  Molecule stem_beams (Item *here, Item *next, Item *prev) const;
 private:
   Direction get_default_dir () const;
   void set_stem_directions ();
@@ -63,7 +57,7 @@ private:
   void calc_default_position_and_height (Real* y, Real* dy) const;
   bool suspect_slope_b (Real y, Real dy) const;
   Real calc_slope_damping_f (Real dy) const;
-  Real calc_stem_y_f (Stem* s, Real y, Real dy) const;
+  Real calc_stem_y_f (Item* s, Real y, Real dy) const;
   Real check_stem_length_f (Real y, Real dy) const;
   void set_stem_length (Real y, Real dy);
   Real quantise_dy_f (Real dy) const;

@@ -40,12 +40,12 @@ public:
   SCM last_keysig_;
   
   Link_array<Note_req> mel_l_arr_;
-  Link_array<Item> support_l_arr_;
+  Link_array<Score_element> support_l_arr_;
   Link_array<Item> forced_l_arr_;
-  Link_array<Item> tied_l_arr_;
+  Link_array<Score_element> tied_l_arr_;
   Local_key_engraver();
 
-  Grace_align_item * grace_align_l_;
+  Item * grace_align_l_;
 };
 
 Local_key_engraver::Local_key_engraver()
@@ -73,7 +73,7 @@ Local_key_engraver::process_acknowledged ()
       bool forget = to_boolean (f);
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
-	  Item * support_l = support_l_arr_[i];
+	  Score_element * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
 	  int n = note_l->pitch_.notename_i_;
@@ -98,9 +98,9 @@ Local_key_engraver::process_acknowledged ()
 	      if (!key_item_p_) 
 		{
 		  key_item_p_ = new Local_key_item (get_property ("basicLocalKeyProperties"));
-		  Side_position_interface (key_item_p_).set_axis (X_AXIS);
-		  Side_position_interface (key_item_p_).set_direction (LEFT);
-		  Staff_symbol_referencer_interface::set_interface (key_item_p_);
+		  Side_position::set_axis (key_item_p_, X_AXIS);
+		  Side_position::set_direction (key_item_p_, LEFT);
+		  Staff_symbol_referencer::set_interface (key_item_p_);
 			 
 		  announce_element (Score_element_info (key_item_p_, 0));
 		}
@@ -113,7 +113,7 @@ Local_key_engraver::process_acknowledged ()
 	      key_item_p_->add_pitch (note_l->pitch_,
 	  			      note_l->cautionary_b_,
 				      extra_natural);
-	      Side_position_interface (key_item_p_).add_support (support_l);
+	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  
 	  if (!forget)
@@ -148,7 +148,7 @@ Local_key_engraver::process_acknowledged ()
   
   if (key_item_p_ && grace_align_l_)
     {
-      Side_position_interface (grace_align_l_).add_support (key_item_p_);
+      Side_position::add_support (grace_align_l_,key_item_p_);
       grace_align_l_ =0;
     }
   
@@ -166,7 +166,7 @@ Local_key_engraver::do_pre_move_processing()
   if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
-	Side_position_interface (key_item_p_).add_support (support_l_arr_[i]);
+	Side_position::add_support (key_item_p_,support_l_arr_[i]);
 
       typeset_element (key_item_p_);
       key_item_p_ =0;
@@ -187,25 +187,24 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
   bool he_gr = to_boolean (info.elem_l_->get_elt_property ("grace"));
 
-  Grace_align_item * gai = dynamic_cast<Grace_align_item*> (info.elem_l_);  
-  if (he_gr && !selfgr && gai)
+  Item * item = dynamic_cast<Item*> (info.elem_l_);  
+  if (he_gr && !selfgr && item && Grace_align_item::has_interface (item))
     {
-      grace_align_l_ = gai;
+      grace_align_l_ = item;
     }
   if (he_gr != selfgr)
     return;
   
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
-  Rhythmic_head * note_head = dynamic_cast<Rhythmic_head *> (info.elem_l_);
 
-  if (note_l && note_head)
+  if (note_l && Rhythmic_head::has_interface (info.elem_l_))
     {
       mel_l_arr_.push (note_l);
-      support_l_arr_.push (note_head);
+      support_l_arr_.push (info.elem_l_);
     }
-  else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
+  else if (Tie::has_interface (info.elem_l_))
     {
-      tied_l_arr_.push (Tie::head (tie_l, RIGHT));
+      tied_l_arr_.push (Tie::head (info.elem_l_, RIGHT));
     }
 }
 

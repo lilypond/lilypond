@@ -6,7 +6,7 @@
   Han-Wen Nienhuys
 */
 
-#include "dimension-cache.hh"
+
 #include "box.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -16,7 +16,7 @@
 #include "lyric-extender.hh"
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Lyric_extender,brew_molecule)
+MAKE_SCHEME_CALLBACK(Lyric_extender,brew_molecule)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
 {

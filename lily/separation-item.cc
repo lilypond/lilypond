@@ -15,7 +15,7 @@
 void
 Separation_item::set_interface (Score_element*s)
 {
-  s->set_elt_pointer ("elements", SCM_EOL);
+  s->set_elt_property ("elements", SCM_EOL);
   s->set_extent_callback (0, X_AXIS);
   s->set_extent_callback (0,  Y_AXIS);
 }
@@ -35,7 +35,7 @@ Separation_item::my_width (Score_element *me)
   Paper_column * pc = item->column_l ();
   Interval w;
   
-  for (SCM s =  me->get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s =  me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
       if (!SMOB_IS_TYPE_B(Score_element, elt))

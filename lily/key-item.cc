@@ -71,15 +71,14 @@ Key_item::calculate_position(Score_element *ki, SCM pair)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Key_item,brew_molecule);
+MAKE_SCHEME_CALLBACK(Key_item,brew_molecule);
 SCM
 Key_item::brew_molecule (SCM smob)
 {
   Score_element*me =unsmob_element (smob);
 
 
-  Staff_symbol_referencer_interface si (me);
-  Real inter = si.staff_space ()/2.0;
+  Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
   
   SCM newas = me->get_elt_property ("new-accidentals");  
   Molecule mol;
@@ -136,3 +135,15 @@ Key_item::brew_molecule (SCM smob)
 
 
 
+
+bool
+Key_item::has_interface (Score_element*m)
+{
+  return m && m->has_interface (ly_symbol2scm ("key-signature-interface"));
+}
+
+void
+Key_item::set_interface (Score_element*m)
+{
+  m->set_interface (ly_symbol2scm ("key-signature-interface"));
+}

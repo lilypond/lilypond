@@ -17,7 +17,6 @@
 typedef Interval (*Extent_callback)(Score_element *,Axis);
 typedef Real (*Offset_callback)(Score_element *,Axis);
 
-#define READONLY_PROPS		// FIXME.
 
 
 /**
@@ -69,11 +68,9 @@ class Score_element  {
 
   */
 public:				// ugh.
-  SCM property_alist_;
-  SCM pointer_alist_;
-#ifndef READONLY_PROPS
-  SCM basic_property_list_;
-#endif
+  SCM immutable_property_alist_;
+  SCM mutable_property_alist_;
+
 public:
   Score_element *original_l_;
 
@@ -99,31 +96,14 @@ public:
   /*
     properties
    */
-  SCM get_elt_property (String nm) const;
-  void set_elt_property (String, SCM val);
-
-  /**
-     Pointers are like properties, but they are subject to    a substitution
-     after line breaking.
-   */
-  SCM get_elt_pointer (const char*) const;
+  SCM get_elt_property (const char*) const;
+  SCM get_elt_property (SCM) const;
+  void set_elt_property (const char * , SCM val);
+  void set_immutable_elt_property (const char * , SCM val);
+  void set_immutable_elt_property (SCM key, SCM val);  
+  void set_elt_property (SCM , SCM val);  
   void set_elt_pointer (const char*, SCM val);
   friend class Property_engraver; //  UGHUGHUGH.
-  /**
-     UGH! JUNKME ?
-
-     This gets messy because it changes state
-
-     calling 
-
-     Bar::proc ()
-     {
-       s->remove_elt_property ("foo")
-     } 
-
-     twice may do weird things if Bar::foo has a default set.
-     
-   */
   SCM remove_elt_property (const char* nm);
 
   /*
@@ -182,10 +162,13 @@ protected:
   static Interval dim_cache_callback (Dimension_cache const*);
   
 public:
-  SCM member_brew_molecule ()const;
-  
   static SCM ly_set_elt_property (SCM, SCM,SCM);
   static SCM ly_get_elt_property (SCM, SCM);  
+
+  bool has_interface (SCM intf);
+  void set_interface (SCM intf);
+
+
   static SCM brew_molecule (SCM);
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
@@ -235,30 +218,10 @@ public:
   void set_parent (Score_element* e, Axis);
   
   Score_element *parent_l (Axis a) const;
-  void fixup_refpoint ();
+  static SCM fixup_refpoint (SCM);
 };
 
 Score_element * unsmob_element (SCM);
-
-#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(TYPE, FUNC) \
-void								\
-TYPE ## _ ## FUNC ## _init_functions ()					\
-{								\
-  scm_make_gsubr (#TYPE "::" #FUNC, 1, 0, 0,		\
-  (SCM(*)(...))TYPE :: FUNC); 				\
-}								\
-								\
-ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _scelt, TYPE ## _ ## FUNC ## _init_functions);	\
-
-#define GLUE_SCORE_ELEMENT(TYPE, FUNC) \
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(TYPE,FUNC);\
-SCM \
-TYPE::FUNC (SCM smob) \
-{  \
-  TYPE * b = dynamic_cast<TYPE*> (unsmob_element (smob));	\
-  return b ?   b->member_ ## FUNC () : SCM_UNDEFINED; \
-}  \
-
 
 #endif // STAFFELEM_HH
 

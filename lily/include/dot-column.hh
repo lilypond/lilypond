@@ -21,6 +21,7 @@ public:
   static int compare (Score_element * const&,Score_element * const&);
   static void add_head (Score_element * dotcol, Score_element* rh );
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static Real force_shift_callback (Score_element * , Axis);
   static SCM do_shifts (SCM dotlist);
 };

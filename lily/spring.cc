@@ -34,9 +34,4 @@ Column_spring::Column_spring ()
 }
 
 
-int
-Column_spring::compare (Column_spring const & r1, Column_spring const &r2)
-{
-  return r1.other_l_->rank_i() - r2.other_l_->rank_i();
-}
 

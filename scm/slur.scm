@@ -1,12 +1,12 @@
 
 (define (attached-to-stem slur dir)
-  (let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
+  (let* ((note-columns (ly-get-elt-property slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-	 (stem (ly-get-elt-pointer col 'stem)))
+	 (stem (ly-get-elt-property col 'stem)))
     (and
      (eq? col (ly-get-spanner-bound slur dir))
      stem
-     (ly-get-elt-pointer stem 'heads))))
+     (ly-get-elt-property stem 'heads))))
 
 
 ;; Slur-extremity-rules is a list of rules.  Each rule is a pair 
@@ -27,9 +27,9 @@
   (list
    (cons (lambda (slur dir)
 	   ;; urg, code dup
-	   (let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
+	   (let* ((note-columns (ly-get-elt-property slur 'note-columns))
 		  (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		  (stem (ly-get-elt-pointer col 'stem)))
+		  (stem (ly-get-elt-property col 'stem)))
 	     (and stem
 		  (not (= (ly-get-elt-property slur 'direction) 
 			  (ly-get-elt-property stem 'direction))))))  'head)
@@ -39,11 +39,11 @@
 	   (and (attached-to-stem slur dir)
 		;; and got beam
 		;; urg, code dup
-		(let* ((note-columns (ly-get-elt-pointer slur 'note-columns))
+		(let* ((note-columns (ly-get-elt-property slur 'note-columns))
 		       (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		       (stem (ly-get-elt-pointer col 'stem)))
+		       (stem (ly-get-elt-property col 'stem)))
 		  (and stem
-		       (ly-get-elt-pointer stem 'beam)
+		       (ly-get-elt-property stem 'beam)
 		       ;; and beam on same side as slur
 		       (let ((beaming (ly-get-elt-property stem 'beaming)))
 			 (if (pair? beaming)

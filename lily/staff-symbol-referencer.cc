@@ -11,15 +11,12 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "paper-def.hh"
-#include "dimension-cache.hh"
 
-Staff_symbol_referencer_interface::Staff_symbol_referencer_interface (Score_element const *sc)
-{
-  elt_l_ = (Score_element*)sc;
-}
+
+
 
 void
-Staff_symbol_referencer_interface::set_interface (Score_element * e)
+Staff_symbol_referencer::set_interface (Score_element * e)
 {
   if (!gh_number_p (e->get_elt_property ("staff-position")))
       e->set_elt_property ("staff-position", gh_double2scm (0.0));
@@ -28,56 +25,56 @@ Staff_symbol_referencer_interface::set_interface (Score_element * e)
 }
 
 bool
-Staff_symbol_referencer_interface::has_interface_b (Score_element*e)
+Staff_symbol_referencer::has_interface (Score_element*e)
 {
-  return unsmob_element (e->get_elt_pointer ("staff-symbol"))
+  return unsmob_element (e->get_elt_property ("staff-symbol"))
     || gh_number_p (e->get_elt_property ("staff-position"));
 }
 
 
 int
-Staff_symbol_referencer_interface::line_count () const
+Staff_symbol_referencer::line_count (Score_element*me) 
 {
-  Staff_symbol *st = staff_symbol_l ();
-  return st  ?  st->line_count () : 0;
+  Score_element *st = staff_symbol_l (me);
+  return st  ?  Staff_symbol::line_count (st) : 0;
 }
 
-Staff_symbol*
-Staff_symbol_referencer_interface::staff_symbol_l () const
+Score_element*
+Staff_symbol_referencer::staff_symbol_l (Score_element*me) 
 {
-  SCM st = elt_l_->get_elt_pointer ("staff-symbol");
-  return dynamic_cast<Staff_symbol* > (unsmob_element(st));
+  SCM st = me->get_elt_property ("staff-symbol");
+  return unsmob_element(st);
 }
 
 Real
-Staff_symbol_referencer_interface::staff_space () const
+Staff_symbol_referencer::staff_space (Score_element*me) 
 {
-  Staff_symbol * st = staff_symbol_l ();
+  Score_element * st = staff_symbol_l (me);
   if (st)
-    return st->staff_space ();
-  else if (elt_l_->pscore_l_ && elt_l_->paper_l ())
-    return elt_l_->paper_l ()->get_var ("interline");
+    return Staff_symbol::staff_space (st);
+  else if (me->pscore_l_ && me->paper_l ())
+    return me->paper_l ()->get_var ("interline");
  
   return 0.0;
 }
 
 
 Real
-Staff_symbol_referencer_interface::position_f () const
+Staff_symbol_referencer::position_f (Score_element*me) 
 {
   Real p =0.0;
-  Staff_symbol * st = staff_symbol_l ();
-  Score_element * c = st ? elt_l_->common_refpoint (st, Y_AXIS) : 0;
+  Score_element * st = staff_symbol_l (me);
+  Score_element * c = st ? me->common_refpoint (st, Y_AXIS) : 0;
   if (st && c)
     {
-      Real y = elt_l_->relative_coordinate (c, Y_AXIS)
+      Real y = me->relative_coordinate (c, Y_AXIS)
 	- st->relative_coordinate (c, Y_AXIS);
 
-      p += 2.0 * y / st->staff_space ();
+      p += 2.0 * y / Staff_symbol::staff_space (st);
     }
   else
     {
-      SCM pos = elt_l_->get_elt_property ("staff-position");
+      SCM pos = me->get_elt_property ("staff-position");
       if (gh_number_p (pos))
 	return gh_scm2double (pos);
     }
@@ -91,7 +88,7 @@ Staff_symbol_referencer_interface::position_f () const
   should use offset callback!
  */
 Real
-Staff_symbol_referencer_interface::callback (Score_element * sc,Axis )
+Staff_symbol_referencer::callback (Score_element * sc,Axis )
 {
   Score_element* me = (Score_element*)sc; // UGH.
   
@@ -99,7 +96,7 @@ Staff_symbol_referencer_interface::callback (Score_element * sc,Axis )
   Real off =0.0;
   if (gh_number_p (pos))
     {
-      Real space = Staff_symbol_referencer_interface (sc).staff_space ();
+      Real space = Staff_symbol_referencer::staff_space (sc);
       off = gh_scm2double (pos) * space/2.0;
     }
 
@@ -124,33 +121,31 @@ Staff_symbol_referencer_interface::callback (Score_element * sc,Axis )
   
  */
 void
-Staff_symbol_referencer_interface::set_position (Real p)
+Staff_symbol_referencer::set_position (Score_element*me,Real p)
 {
-  Staff_symbol * st = staff_symbol_l ();
-  if (st && elt_l_->common_refpoint(st, Y_AXIS))
+  Score_element * st = staff_symbol_l (me);
+  if (st && me->common_refpoint(st, Y_AXIS))
     {
-      Real oldpos = position_f ();
-      elt_l_->set_elt_property ("staff-position", gh_double2scm (p - oldpos));
+      Real oldpos = position_f (me);
+      me->set_elt_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else
     {
-      elt_l_->set_elt_property ("staff-position",
+      me->set_elt_property ("staff-position",
 				gh_double2scm (p));
 
     }
 
-  if (elt_l_->has_offset_callback_b (callback, Y_AXIS))
+  if (me->has_offset_callback_b (callback, Y_AXIS))
     return ; 
 
-  elt_l_->add_offset_callback (callback, Y_AXIS);
+  me->add_offset_callback (callback, Y_AXIS);
 }
 
 
 int
 compare_position (Score_element *const  &a, Score_element * const &b)
 {
-  Staff_symbol_referencer_interface s1(a);
-  Staff_symbol_referencer_interface s2(b);      
-
-  return sign(s1.position_f () - s2.position_f ());
+  return sign (Staff_symbol_referencer::position_f((Score_element*)a) - 
+    Staff_symbol_referencer::position_f((Score_element*)b));
 }

@@ -26,17 +26,17 @@ Dots::quantised_position_callback (Score_element * me, Axis a)
       if (!Directional_element_interface (me).get ())
 	Directional_element_interface (me).set (UP);
 
-      Staff_symbol_referencer_interface si (me);
-      int pos = int (si.position_f ());
+
+      int pos = int (Staff_symbol_referencer::position_f (me));
       if (!(pos % 2))
-	return si.staff_space () / 2.0 * Directional_element_interface (me).get ();
+	return Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface (me).get ();
     }
 
   return  0.0;
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,brew_molecule);
+MAKE_SCHEME_CALLBACK(Dots,brew_molecule);
 SCM  
 Dots::brew_molecule (SCM d)
 {

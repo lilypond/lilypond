@@ -24,15 +24,15 @@ Rest_collision::force_shift_callback (Score_element *them, Axis a)
 {
   assert (a == Y_AXIS);
 
-  Score_element * rc = unsmob_element (them->get_elt_pointer ("rest-collision"));
+  Score_element * rc = unsmob_element (them->get_elt_property ("rest-collision"));
 
   if (rc)
     {
       /*
 	Done: destruct pointers, so we do the shift only once.
       */
-      SCM elts = rc->get_elt_pointer ("elements");
-      rc->set_elt_pointer ("elements", SCM_EOL);
+      SCM elts = rc->get_elt_property ("elements");
+      rc->set_elt_property ("elements", SCM_EOL);
 
       do_shift (rc, elts);
     }
@@ -41,48 +41,27 @@ Rest_collision::force_shift_callback (Score_element *them, Axis a)
 }
 
 void
-Rest_collision::add_column (Note_column *p)
+Rest_collision::add_column (Score_element*me,Note_column *p)
 {
-  elt_l_->add_dependency (p);
-  Pointer_group_interface gi (elt_l_);  
+  me->add_dependency (p);
+  Pointer_group_interface gi (me);  
   gi.add_element (p);
 
   p->add_offset_callback (&Rest_collision::force_shift_callback, Y_AXIS);
-  p->set_elt_pointer ("rest-collision", elt_l_->self_scm_);
+  p->set_elt_property ("rest-collision", me->self_scm_);
 }
 
-/*
-  these 3 have to go, because they're unnecessary complications.
- */
-static Duration
-to_duration (int type, int dots)
+static SCM
+head_characteristic (Score_element * col)
 {
-  Duration d;
-  d.durlog_i_ = type;
-  d.dots_i_ = dots;
-  return d;
+  Score_element * s = unsmob_element (col->get_elt_property ("rest"));
+
+  if (!s)
+    return SCM_BOOL_F;
+  else
+    return gh_cons (s->get_elt_property ("duration-log"),
+		    gh_int2scm (Rhythmic_head::dot_count (s)));
 }
-
-/*
-  UGH
-
-  elt_l_ should be "duration" independent
- */
-static Moment
-rhythmic_head2mom (Rhythmic_head* r)
-{
-  return to_duration (r->balltype_i (), r->dot_count ()).length_mom ();
-}
-
-/*
-  ugh
- */
-static Rhythmic_head*
-col2rhythmic_head (Score_element* c)
-{
-  return dynamic_cast<Rhythmic_head*> (unsmob_element (c->get_elt_pointer ("rest")));
-}
-
 
 /*
   TODO: fixme, fucks up if called twice on the same set of rests.
@@ -99,7 +78,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * e = unsmob_element (gh_car (s));
-      if (e && unsmob_element (e->get_elt_pointer ("rest")))
+      if (e && unsmob_element (e->get_elt_property ("rest")))
 	rests.push (dynamic_cast<Note_column*> (e));
       else
 	notes.push (dynamic_cast<Note_column*> (e));
@@ -126,12 +105,16 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
   // meisjes met meisjes
   if (!notes.size()) 
     {
-      Moment m = rhythmic_head2mom (col2rhythmic_head (rests[0]));
+
+      /*
+	FIXME: col2rhythmic_head and rhythmic_head2mom sucks bigtime.
+	
+      */
+      SCM characteristic = head_characteristic  (rests[0]);
       int i = 1;
       for (; i < rests.size (); i++)
 	{
-	  Moment me = rhythmic_head2mom (col2rhythmic_head (rests[i]));
-	  if (me != m)
+	  if (!gh_equal_p (head_characteristic  (rests[i]), characteristic))
 	    break;
 	}
 
@@ -148,8 +131,12 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	{
 	  display_count = gh_scm2int (s);
 	  for (; i > display_count; i--)
-	    col2rhythmic_head (rests[i-1])
-	      ->set_elt_property ("molecule-callback", SCM_BOOL_T);
+	    {
+	      Score_element* r = unsmob_element (rests[i-1]->get_elt_property ("rest"));
+	      if (r)
+		r->suicide ();
+	      rests[i-1]->suicide ();
+	    }
 	}
       else
 	display_count = rests.size ();
@@ -210,7 +197,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 
       // FIXME
       //int stafflines = 5; // rcol->rests[0]->line_count;
-      int stafflines = Staff_symbol_referencer_interface (me).line_count ();
+      int stafflines = Staff_symbol_referencer::line_count (me);
       // hurg?
       stafflines = stafflines != 0 ? stafflines : 5;
       
@@ -227,14 +214,10 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 }
 
 void
-Rest_collision::set_interface ()
+Rest_collision::set_interface (Score_element*me)
 {
-  elt_l_->set_extent_callback (0, X_AXIS);
-  elt_l_->set_extent_callback (0, Y_AXIS);
-  elt_l_->set_elt_pointer ("elements", SCM_EOL);
+  me->set_extent_callback (0, X_AXIS);
+  me->set_extent_callback (0, Y_AXIS);
+  me->set_elt_property ("elements", SCM_EOL);
 }
 
-Rest_collision::Rest_collision (Score_element* c)
-{
-  elt_l_ = c;
-}

@@ -30,8 +30,9 @@ class Hara_kiri_group_spanner
 public:
   static Real force_hara_kiri_callback (Score_element * , Axis);
   static void set_interface (Score_element*me);
+  static bool has_interface (Score_element*);
   static void consider_suicide (Score_element*me);
-  static void add_interesting_item (Score_element * me , Item* n);
+  static void add_interesting_item (Score_element * me , Score_element* n);
 };
 
 

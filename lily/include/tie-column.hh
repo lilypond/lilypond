@@ -19,6 +19,7 @@ public:
   Tie_column (SCM s);
   VIRTUAL_COPY_CONS (Score_element);
   static void set_interface (Score_element*me);
+  static bool has_interface (Score_element*);
   static void add_tie (Score_element*me,Tie*);
 
   static SCM after_line_breaking (SCM);

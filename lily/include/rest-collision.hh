@@ -16,12 +16,9 @@
 class Rest_collision		// interface
 {
 public:
-  Score_element *elt_l_;
-  
-  void add_column (Note_column*);
-  Rest_collision(Score_element*);
-  void set_interface ();
-
+  static void add_column (Score_element*me,Note_column*);
+  static void set_interface (Score_element*me);
+  static bool has_interface (Score_element*);
   static Real force_shift_callback (Score_element *, Axis);
   static SCM do_shift (Score_element*,SCM);
 };

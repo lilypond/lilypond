@@ -1,5 +1,5 @@
 /*   
-  separating-line-group-grav.cc --  implement Separating_line_group_engraver
+  separating-line-group-engraver.cc --  implement Separating_line_group_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -39,7 +39,7 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 void
 Separating_line_group_engraver::do_creation_processing ()
 {
-  sep_span_p_ = new Separating_group_spanner (SCM_EOL);
+  sep_span_p_ = new Separating_group_spanner (get_property ("basicSeparatingGroupSpannerProperties"));
   announce_element (Score_element_info (sep_span_p_, 0));
   sep_span_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 }
@@ -64,9 +64,8 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
 
       if (!p_ref_)
 	{
-	  p_ref_
-	    = new Item
-	    (get_property ("basicSingleMaltGroupingItemProperties"));
+	  p_ref_ = new Item
+	    (get_property ("basicSeparationItemProperties"));
 	  
 	  if (ib)
 	    p_ref_->set_elt_property ("breakable", SCM_BOOL_T);
@@ -81,14 +80,14 @@ Separating_line_group_engraver::do_pre_move_processing ()
 {
   if (break_malt_p_)
     {
-      sep_span_p_->add_spacing_unit (break_malt_p_);
+      Separating_group_spanner::add_spacing_unit (sep_span_p_, break_malt_p_);
       
       typeset_element (break_malt_p_);
       break_malt_p_ =0;
     }
   if (nobreak_malt_p_)
     {
-      sep_span_p_->add_spacing_unit (nobreak_malt_p_);
+      Separating_group_spanner::add_spacing_unit (sep_span_p_, nobreak_malt_p_);
       typeset_element (nobreak_malt_p_);
       nobreak_malt_p_ =0;
     }
@@ -96,5 +95,5 @@ Separating_line_group_engraver::do_pre_move_processing ()
 
 
 
-ADD_THIS_TRANSLATOR( Separating_line_group_engraver);
+ADD_THIS_TRANSLATOR(Separating_line_group_engraver);
 

@@ -51,9 +51,8 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
 			   gh_list (inf.elem_l_->self_scm_, SCM_UNDEFINED));
       if (to_boolean (result))
 	{
-	  Score_element::ly_set_elt_property (inf.elem_l_->self_scm_,
-					      gh_cadr (o->pred_sym_val_list_),
-					      gh_caddr (o->pred_sym_val_list_));
+	  inf.elem_l_->set_elt_property (gh_cadr (o->pred_sym_val_list_),
+					 gh_caddr (o->pred_sym_val_list_));
 	}
     }
 }

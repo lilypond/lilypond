@@ -13,7 +13,7 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
-#include "dimension-cache.hh"
+
 #include "staff-symbol-referencer.hh"
 
 /*
@@ -50,19 +50,17 @@ Note_head::ledger_line (Interval xwid, Score_element *me)
 }
 
 
-
-
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Note_head,brew_molecule);
+MAKE_SCHEME_CALLBACK(Note_head,brew_molecule);
 
 SCM
 Note_head::brew_molecule (SCM smob)  
 {
   Score_element *me = unsmob_element (smob);
-  Staff_symbol_referencer_interface si (me);
+
   
-  Real inter_f = si.staff_space ()/2;
-  int sz = si.line_count ()-1;
-  Real p = si.position_f ();
+  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
+  int sz = Staff_symbol_referencer::line_count (me)-1;
+  Real p = Staff_symbol_referencer::position_f (me);
   int streepjes_i = abs (p) < sz 
     ? 0
     : (abs((int)p) - sz) /2;
@@ -100,4 +98,10 @@ Note_head::brew_molecule (SCM smob)
 	}
     }
   return out.create_scheme();
+}
+
+bool
+Note_head::has_interface (Score_element*m)
+{
+  return m&& m->has_interface (ly_symbol2scm ("note-head-interface"));
 }

@@ -32,7 +32,7 @@ public:
   Group_interface (Score_element const*, String);
   int count ();
   void add_thing (SCM);
-  bool has_interface_b ();
+  bool has_interface ();
   void set_interface ();
 };
 
@@ -44,7 +44,8 @@ public:
   Pointer_group_interface (Score_element const*, String);
   int count ();
   void set_interface ();
-  bool has_interface_b ();
+  static bool has_interface (Score_element*);
+  bool has_interface ();
   void add_element (Score_element*);
 };
 /** 
@@ -56,7 +57,7 @@ Pointer_group_interface__extract_elements (Score_element const *elt, T *, const 
 {
   Link_array<T> arr;
 
-  for (SCM s = elt->get_elt_pointer (name); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = elt->get_elt_property (name); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e = gh_car (s);
       arr.push (dynamic_cast<T*> (unsmob_element (e)));

@@ -7,16 +7,16 @@
   
  */
 #include "staff-symbol-referencer.hh"
-
+#include "note-head.hh"
 #include "pitch-squash-engraver.hh"
 #include "rhythmic-head.hh"
 
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 {
-  if (to_boolean (i.elem_l_->get_elt_property ("note-head-interface")))
+  if (Note_head::has_interface (i.elem_l_))
     {
-      Staff_symbol_referencer_interface (i.elem_l_).set_position(0);
+      Staff_symbol_referencer::set_position (i.elem_l_,0);
     }
 }
 

@@ -22,12 +22,10 @@ public:
   void add_column (Note_column*);
  static SCM brew_molecule (SCM);
   
-  SCM member_brew_molecule () const;
   Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
   Direction get_default_dir () const;
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
   Array<Rod> get_rods () const;
   Offset get_attachment (Direction dir, Score_element**common) const;

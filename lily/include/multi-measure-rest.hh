@@ -19,6 +19,7 @@ public:
   Multi_measure_rest (SCM);
   
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   static SCM brew_molecule (SCM);
   static  void add_column (Score_element*,Item*);
   VIRTUAL_COPY_CONS (Score_element);

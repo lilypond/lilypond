@@ -5,17 +5,19 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include "item.hh"
 #include "staff-symbol-referencer.hh"
 #include "musical-request.hh"
 #include "dots.hh"
 #include "rhythmic-head.hh"
 #include "engraver.hh"
 
+
 class Rest_engraver : public Engraver
 {
   Rest_req *rest_req_l_;
   Item * dot_p_;
-  Rhythmic_head * rest_p_;
+  Score_element* rest_p_;
 protected:
   virtual bool do_try_music (Music *);
   virtual void do_pre_move_processing ();
@@ -64,8 +66,9 @@ Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
-      rest_p_ = new Rhythmic_head (get_property ("basicRestProperties"));
-      Staff_symbol_referencer_interface::set_interface (rest_p_);
+      rest_p_ = new Item (get_property ("basicRestProperties"));
+      Rhythmic_head::set_interface (rest_p_);
+      Staff_symbol_referencer::set_interface (rest_p_);
 
       
       rest_p_->set_elt_property ("duration-log",
@@ -75,10 +78,8 @@ Rest_engraver::do_process_music ()
 	{
 	  dot_p_ = new Item (get_property ("basicDotsProperties"));
 
-	  Staff_symbol_referencer_interface::set_interface (dot_p_);
-
-	  
-	  rest_p_->set_dots (dot_p_);
+	  Staff_symbol_referencer::set_interface (dot_p_);
+	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
 	  dot_p_->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
 	  dot_p_->set_elt_property ("dot-count",

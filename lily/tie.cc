@@ -24,7 +24,7 @@ void
 Tie::set_head (Score_element*me,Direction d, Item * head_l)
 {
   assert (!head (me,d));
-  index_set_cell (me->get_elt_pointer ("heads"), d, head_l->self_scm_);
+  index_set_cell (me->get_elt_property ("heads"), d, head_l->self_scm_);
   
   dynamic_cast<Spanner*> (me)->set_bound (d, head_l);
   me->add_dependency (head_l);
@@ -39,24 +39,29 @@ Tie::Tie(SCM s)
 void
 Tie::set_interface (Score_element*me)
 {
-  me->set_elt_pointer ("heads", gh_cons (SCM_EOL, SCM_EOL));
+  me->set_elt_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
+  me->set_interface (ly_symbol2scm ("tie-interface"));
+}
+bool
+Tie::has_interface (Score_element*me)
+{
+  return me->has_interface (ly_symbol2scm ("tie-interface"));
 }
 
-Rhythmic_head* 
+Score_element*
 Tie::head (Score_element*me, Direction d) 
 {
-  SCM c = me->get_elt_pointer ("heads");
+  SCM c = me->get_elt_property ("heads");
   c = index_cell (c, d);
 
-  return dynamic_cast<Rhythmic_head*> (unsmob_element (c));  
+  return unsmob_element (c);
 }
 
 Real
 Tie::position_f (Score_element*me) 
 {
-  return head (me,LEFT)
-    ? Staff_symbol_referencer_interface (head (me,LEFT)).position_f ()
-    : Staff_symbol_referencer_interface (head (me,RIGHT)).position_f () ;  
+  Direction d = head (me,LEFT) ? LEFT:RIGHT;
+  return Staff_symbol_referencer::position_f (head (me,d));
 }
 
 
@@ -66,8 +71,8 @@ Tie::position_f (Score_element*me)
 Direction
 Tie::get_default_dir (Score_element*me) 
 {
-  Stem * sl =  head(me,LEFT) ? head (me,LEFT)->stem_l () :0;
-  Stem * sr =  head(me,RIGHT) ? head (me,RIGHT)->stem_l () :0;  
+  Item * sl =  head(me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
+  Item * sr =  head(me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
 
   if (sl && Directional_element_interface (sl).get () == UP
       && sr && Directional_element_interface (sr).get () == UP)
@@ -78,7 +83,7 @@ Tie::get_default_dir (Score_element*me)
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tie,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Tie,after_line_breaking);
 SCM
 Tie::after_line_breaking (SCM smob)
 {
@@ -94,7 +99,7 @@ Tie::after_line_breaking (SCM smob)
   if (!Directional_element_interface (me).get ())
     Directional_element_interface (me).set (Tie::get_default_dir (me));
   
-  Real staff_space = Staff_symbol_referencer_interface (me).staff_space ();
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
   Real x_gap_f = me->paper_l ()->get_var ("tie_x_gap");
   Real y_gap_f = me->paper_l ()->get_var ("tie_y_gap");
@@ -178,7 +183,7 @@ Tie::get_rods () const
   return a;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tie,brew_molecule);
+MAKE_SCHEME_CALLBACK(Tie,brew_molecule);
 
 SCM
 Tie::brew_molecule (SCM smob) 
@@ -206,7 +211,7 @@ Tie::get_curve () const
   Direction d (Directional_element_interface (me).get ());
   Bezier_bow b (get_encompass_offset_arr (), d);
 
-  Real staff_space = Staff_symbol_referencer_interface (me).staff_space ();
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real h_inf = paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
   Real r_0 = paper_l ()->get_var ("tie_ratio");
 

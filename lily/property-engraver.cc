@@ -76,18 +76,17 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_sym = gh_caddr (entry);
 
-      SCM preset = scm_assq(elt_prop_sym, e->property_alist_);
-      if (preset != SCM_BOOL_F)
+      SCM preset = e->get_elt_property (elt_prop_sym); // scm_assq(elt_prop_sym, e->property_alist_);
+      if (preset != SCM_UNDEFINED)
 	continue;
   
       SCM val = get_property (prop_sym);
-
      
       if (val == SCM_UNDEFINED)
 	;			// Not defined in context.
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
-	e->set_elt_property (ly_symbol2string (elt_prop_sym), val);
+	e->set_elt_property (elt_prop_sym, val);
       else
 
 	/*

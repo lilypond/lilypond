@@ -9,9 +9,8 @@
 #include "side-position-interface.hh"
 #include "musical-request.hh"
 #include "stem.hh"
-#include "staff-symbol.hh"
 #include "rhythmic-head.hh"
-#include "dimension-cache.hh"
+
 
 #include "engraver.hh"
 
@@ -72,9 +71,7 @@ Script_engraver::do_process_music()
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Script *p =new Script (get_property ("basicScriptProperties"));
 
-      p->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
-      Side_position_interface stafy (p);
-      
+      p->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
       
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
@@ -93,23 +90,21 @@ Script_engraver::do_process_music()
       if (relative_stem_dir)
 	  p->set_elt_property ("side-relative-direction", gh_int2scm (relative_stem_dir));
       else
-	  stafy.set_direction ((Direction)force_dir);
+	Side_position::set_direction (p,(Direction)force_dir);
 
       if (l->get_direction ())
-	stafy.set_direction (l->get_direction ());
+	Side_position::set_direction (p, l->get_direction ());
 
       SCM axisprop = get_property ("scriptHorizontal");
       bool xaxis = to_boolean (axisprop);
-      if (xaxis)
-	stafy.set_axis (X_AXIS);
-      else
-	stafy.set_axis (Y_AXIS);
+      Side_position::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
       
       if (!follow_staff && ! xaxis)
 	p->set_elt_property ("staff-support", SCM_BOOL_T);
 
       if (!xaxis && follow_staff)
-	stafy.set_quantised (Y_AXIS);
+	p->add_offset_callback (Side_position::quantised_position, Y_AXIS);
+      
       
       p->set_elt_property ("script-priority", priority);
   
@@ -128,30 +123,31 @@ Script_engraver::acknowledge_element (Score_element_info inf)
   if (us_grace != them_grace)
     return;
   
-  if (Stem *s = dynamic_cast<Stem*>(inf.elem_l_))
+  if (Stem::has_interface (inf.elem_l_))
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Side_position_interface stafy (script_p_arr_[i]);
-	  stafy.elt_l_->set_elt_property ("direction-source", s->self_scm_);
-	  stafy.add_support (s);
+	  Score_element*e = script_p_arr_[i];
+
+	  e->set_elt_property ("direction-source", inf.elem_l_->self_scm_);
+	  Side_position::add_support (e, inf.elem_l_);
 	}
     }
-  else if (Rhythmic_head * rh = dynamic_cast<Rhythmic_head*>(inf.elem_l_))
+  else if (Rhythmic_head::has_interface (inf.elem_l_))
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Side_position_interface stafy(script_p_arr_[i]);
+	  Score_element *e = script_p_arr_[i];
 	  
-	  if (!stafy.elt_l_->parent_l (X_AXIS))
+	  if (!e->parent_l (X_AXIS))
 	    {
-	      stafy.elt_l_->set_parent (inf.elem_l_, X_AXIS);
+	      e->set_parent (inf.elem_l_, X_AXIS);
 	    }
-	  if (stafy.get_axis () == X_AXIS
-	      && !stafy.elt_l_->parent_l (Y_AXIS))
-	    stafy.elt_l_->set_parent (rh, Y_AXIS);
+	  if (Side_position::get_axis (e) == X_AXIS
+	      && !e->parent_l (Y_AXIS))
+	    e->set_parent (inf.elem_l_, Y_AXIS);
 	  
-	  stafy.add_support (rh);
+	  Side_position::add_support (e,inf.elem_l_);
 	}
     }  
 }
@@ -164,7 +160,7 @@ Script_engraver::do_pre_move_processing()
       Script * sc = script_p_arr_[i];
       if (to_boolean (sc->remove_elt_property ("staff-support")))
 	{
-	  Side_position_interface (sc).add_staff_support ();
+	  Side_position::add_staff_support (sc);
 	}
       typeset_element (sc);
     }

@@ -77,6 +77,20 @@ SCM index_set_cell (SCM cellp, Direction d, SCM val);
  */
 void add_scm_init_func (void (*)());
 
+
+
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC) \
+static SCM TYPE ## _ ## FUNC ## _scm;\
+void								\
+TYPE ## _ ## FUNC ## _init_functions ()					\
+{								\
+  TYPE ## _ ## FUNC ## _scm = gh_new_procedure1_0 (#TYPE "::" #FUNC, \
+  (SCM(*)(...))TYPE :: FUNC); 				\
+}								\
+								\
+ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
+
+
 #define ADD_SCM_INIT_FUNC(name, func)\
 class name ## _scm_initter {			\
 public:\

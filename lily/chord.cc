@@ -16,9 +16,10 @@
 
 /*
   FIXME: should use SCM iso. arrays and have-to-delete pointers.
+
+  FIXME: this contains memleaks.
  */
   
-
 /*
   construct from parser output
 */

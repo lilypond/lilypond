@@ -73,7 +73,7 @@ void
 Bar_number_engraver::acknowledge_element (Score_element_info inf)
 {
   Score_element * s = inf.elem_l_;
-  if (dynamic_cast<Staff_symbol*> (s))
+  if (Staff_symbol::has_interface (s))
     {
       staffs_ = gh_cons (inf.elem_l_->self_scm_, staffs_);
     }
@@ -93,7 +93,7 @@ Bar_number_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_pointer ("side-support-elements", staffs_);
+      text_p_->set_elt_property ("side-support-elements", staffs_);
       typeset_element (text_p_);
       text_p_ =0;
     }
@@ -108,8 +108,7 @@ Bar_number_engraver::create_items ()
 
   SCM b = get_property ("basicBarNumberProperties");
   text_p_ = new Item (b);
-  Side_position_interface staffside(text_p_);
-  staffside.set_axis (Y_AXIS);
+  Side_position::set_axis(text_p_,Y_AXIS);
 
   SCM prop = get_property ("barNumberDirection");
   if (!isdir_b (prop))

@@ -22,8 +22,9 @@ public:
   Tie (SCM);
   static void set_head (Score_element*,Direction, Item*head_l);
   static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
   VIRTUAL_COPY_CONS(Score_element);
-  static Rhythmic_head* head (Score_element*,Direction) ;
+  static Score_element * head (Score_element*,Direction) ;
   static Real position_f (Score_element*) ;
   static SCM brew_molecule (SCM);
   static Direction get_default_dir(Score_element*) ;

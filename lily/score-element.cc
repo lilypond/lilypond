@@ -50,12 +50,14 @@ Score_element::Score_element(SCM basicprops)
   status_i_ = 0;
   self_scm_ = SCM_EOL;
   original_l_ = 0;
-  property_alist_ = basicprops;
-  pointer_alist_ = SCM_EOL;
-  
+  immutable_property_alist_ =  basicprops;
+  mutable_property_alist_ = SCM_EOL;
+
   smobify_self ();
-  set_elt_pointer ("dependencies", SCM_EOL);
-  set_elt_property ("interfaces", SCM_EOL);
+  set_elt_property ("dependencies", SCM_EOL);
+
+  if (get_elt_property ("interfaces") == SCM_UNDEFINED)
+    set_elt_property ("interfaces", SCM_EOL);
 }
 
 
@@ -64,9 +66,8 @@ Score_element::Score_element (Score_element const&s)
 {
   self_scm_ = SCM_EOL;
   original_l_ =(Score_element*) &s;
-  property_alist_ = s.property_alist_;
-
-  pointer_alist_ = SCM_EOL;
+  immutable_property_alist_ = s.immutable_property_alist_;
+  mutable_property_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
   lookup_l_ = s.lookup_l_;
@@ -87,25 +88,21 @@ Score_element::~Score_element()
 
 
 SCM
-Score_element::get_elt_pointer (const char *nm) const
+Score_element::get_elt_property (const char *nm) const
 {
-  SCM sym =  ly_symbol2scm (nm);
-  SCM s = scm_assq(sym, pointer_alist_);
-
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+  SCM sym = ly_symbol2scm (nm);
+  return get_elt_property (sym);
 }
 
-// should also have one that takes SCM arg. 
 SCM
-Score_element::get_elt_property (String nm) const
+Score_element::get_elt_property (SCM sym) const
 {
-  SCM sym =  ly_symbol2scm (nm.ch_C());
-  SCM s = scm_assq(sym, property_alist_);
-
+  SCM s = scm_assq(sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
-    return gh_cdr (s); 
+    return gh_cdr (s);
 
-  return SCM_UNDEFINED;
+  s = scm_assq (sym, immutable_property_alist_);
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
 }
 
 /*
@@ -123,17 +120,34 @@ Score_element::remove_elt_property (const char* key)
 }
 
 void
-Score_element::set_elt_property (String k, SCM val)
+Score_element::set_elt_property (const char* k, SCM v)
 {
-  SCM sym = ly_symbol2scm (k.ch_C ());
-  property_alist_ = gh_cons (gh_cons (sym, val), property_alist_);
+  SCM s = ly_symbol2scm (k);
+  set_elt_property (s, v);
+}
+
+/*
+  Puts the k, v in the immutable_property_alist_, which is convenient for
+  storing variables that are needed during the breaking process. (eg.
+  Line_of_score::rank : int )
+ */
+void
+Score_element::set_immutable_elt_property (const char*k, SCM v)
+{
+  SCM s = ly_symbol2scm (k);
+  set_immutable_elt_property (s, v);
 }
 
 void
-Score_element::set_elt_pointer (const char* k, SCM v)
+Score_element::set_immutable_elt_property (SCM s, SCM v)
 {
-  SCM s = ly_symbol2scm (k);
-  pointer_alist_ = scm_assq_set_x (pointer_alist_, s, v);
+  immutable_property_alist_ = gh_cons (gh_cons (s,v), mutable_property_alist_);
+  mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, s);
+}
+void
+Score_element::set_elt_property (SCM s, SCM v)
+{
+  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
 
@@ -214,7 +228,7 @@ Score_element::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_i_= busy;
 
-  for (SCM d=  get_elt_pointer ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
+  for (SCM d=  get_elt_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
       unsmob_element (gh_car (d))
 	->calculate_dependencies (final, busy, funcname);
@@ -262,7 +276,7 @@ Score_element::do_add_processing()
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Score_element,brew_molecule)
+MAKE_SCHEME_CALLBACK(Score_element,brew_molecule)
 
 /*
   ugh.
@@ -395,8 +409,8 @@ Score_element::handle_broken_dependencies()
 	{
 	  Score_element * sc = s->broken_into_l_arr_[i];
 	  Line_of_score * l = sc->line_l ();
-	  sc->pointer_alist_ =
-	    handle_broken_smobs (pointer_alist_,
+	  sc->mutable_property_alist_ =
+	    handle_broken_smobs (mutable_property_alist_,
 				 l ? l->self_scm_ : SCM_UNDEFINED);
 	}
     }
@@ -406,13 +420,13 @@ Score_element::handle_broken_dependencies()
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
-      pointer_alist_
-	= handle_broken_smobs (pointer_alist_,
+      mutable_property_alist_
+	= handle_broken_smobs (mutable_property_alist_,
 			       line ? line->self_scm_ : SCM_UNDEFINED);
     }
   else if (dynamic_cast <Line_of_score*> (this))
     {
-      pointer_alist_ = handle_broken_smobs (pointer_alist_,
+      mutable_property_alist_ = handle_broken_smobs (mutable_property_alist_,
 					    SCM_UNDEFINED);
     }
   else
@@ -437,8 +451,8 @@ Score_element::handle_broken_dependencies()
 void
 Score_element::suicide ()
 {
-  property_alist_ = SCM_EOL;
-  pointer_alist_ = SCM_EOL;
+  mutable_property_alist_ = SCM_EOL;
+  immutable_property_alist_ = SCM_EOL;
   set_extent_callback (0, Y_AXIS);
   set_extent_callback (0, X_AXIS);
 
@@ -643,24 +657,26 @@ Score_element::set_parent (Score_element *g, Axis a)
   dim_cache_[a].parent_l_ = g;
 }
 
-void
-Score_element::fixup_refpoint ()
+MAKE_SCHEME_CALLBACK(Score_element,fixup_refpoint);
+SCM
+Score_element::fixup_refpoint (SCM smob)
 {
+  Score_element *me = unsmob_element (smob);
   for (int a = X_AXIS; a < NO_AXES; a ++)
     {
       Axis ax = (Axis)a;
-      Score_element * parent = parent_l (ax);
+      Score_element * parent = me->parent_l (ax);
 
       if (!parent)
 	continue;
       
-      if (parent->line_l () != line_l () && line_l ())
+      if (parent->line_l () != me->line_l () && me->line_l ())
 	{
-	  Score_element * newparent = parent->find_broken_piece (line_l ());
-	  set_parent (newparent, ax);
+	  Score_element * newparent = parent->find_broken_piece (me->line_l ());
+	  me->set_parent (newparent, ax);
 	}
 
-      if (Item * i  = dynamic_cast<Item*> (this))
+      if (Item * i  = dynamic_cast<Item*> (me))
 	{
 	  Item *parenti = dynamic_cast<Item*> (parent);
 
@@ -670,11 +686,12 @@ Score_element::fixup_refpoint ()
 	      if (my_dir!= parenti->break_status_dir())
 		{
 		  Item *newparent =  parenti->find_prebroken_piece (my_dir);
-		  set_parent (newparent, ax);
+		  me->set_parent (newparent, ax);
 		}
 	    }
 	}
     }
+  return smob;
 }
 
 
@@ -697,7 +714,7 @@ Score_element::mark_smob (SCM ses)
       programming_error ("SMOB marking gone awry");
       return SCM_EOL;
     }
-  scm_gc_mark (s->pointer_alist_);
+  scm_gc_mark ( s->immutable_property_alist_);
 
   s->do_derived_mark ();
   if (s->parent_l (Y_AXIS))
@@ -705,7 +722,7 @@ Score_element::mark_smob (SCM ses)
   if (s->parent_l (X_AXIS))
     scm_gc_mark (s->parent_l (X_AXIS)->self_scm_);
 
-  return s->property_alist_;
+  return s->mutable_property_alist_;
 }
 
 int
@@ -741,7 +758,7 @@ Score_element::equal_p (SCM a, SCM b)
 
 
 SCM
-Score_element::ly_set_elt_property (SCM elt, SCM sym, SCM val)
+ly_set_elt_property (SCM elt, SCM sym, SCM val)
 {
   Score_element * sc = unsmob_element (elt);
 
@@ -754,7 +771,7 @@ Score_element::ly_set_elt_property (SCM elt, SCM sym, SCM val)
 
   if (sc)
     {
-      sc->property_alist_ = scm_assq_set_x (sc->property_alist_, sym, val);
+      sc->set_elt_property (sym, val);
     }
   else
     {
@@ -767,18 +784,13 @@ Score_element::ly_set_elt_property (SCM elt, SCM sym, SCM val)
 
 
 SCM
-Score_element::ly_get_elt_property (SCM elt, SCM sym)
+ly_get_elt_property (SCM elt, SCM sym)
 {
   Score_element * sc = unsmob_element (elt);
   
   if (sc)
     {
-      SCM s = scm_assq(sym, sc->property_alist_);
-
-      if (s != SCM_BOOL_F)
-	return gh_cdr (s); 
-      else
-	return SCM_UNDEFINED;
+      return sc->get_elt_property (sym);
     }
   else
     {
@@ -795,36 +807,50 @@ Score_element::discretionary_processing()
 }
 
 
+
 SCM
 spanner_get_bound (SCM slur, SCM dir)
 {
   return dynamic_cast<Spanner*> (unsmob_element (slur))->get_bound (to_dir (dir))->self_scm_;
 }
 
-SCM
-score_element_get_pointer (SCM se, SCM name)
-{
-  SCM s = scm_assq (name, unsmob_element (se)->pointer_alist_);
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
-}
 
-SCM
-score_element_get_property (SCM se, SCM name)
-{
-  SCM s = scm_assq (name, unsmob_element (se)->property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
-}
 
+static SCM interfaces_sym;
 
 static void
 init_functions ()
 {
-  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(...))Score_element::ly_get_elt_property);
-  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(...))Score_element::ly_set_elt_property);
-  scm_make_gsubr ("ly-get-elt-pointer", 2 , 0, 0,  
-		  (SCM(*)(...)) score_element_get_pointer);
-  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0,  
-		  (SCM(*)(...)) spanner_get_bound);
+  interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
+  
+  scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (SCM(*)(...))ly_get_elt_property);
+  scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (SCM(*)(...))ly_set_elt_property);
+  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (SCM(*)(...)) spanner_get_bound);
 }
+
+bool
+Score_element::has_interface (SCM k)
+{
+  if (mutable_property_alist_ == SCM_EOL)
+    return false;
+  
+  SCM ifs = get_elt_property (interfaces_sym);
+
+  return scm_memq (k, ifs) != SCM_BOOL_F;
+}
+
+void
+Score_element::set_interface (SCM k)
+{
+  if (has_interface (k))
+    return ;
+  else
+    {
+      set_elt_property (interfaces_sym,
+			gh_cons  (k, get_elt_property (interfaces_sym)));
+    }
+}
+
+
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
 

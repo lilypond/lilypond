@@ -1,3 +1,4 @@
+
 /*   
   auto-beam-engraver.cc --  implement Auto_beam_engraver
   
@@ -7,13 +8,54 @@
   
  */
 #include "beaming.hh"
-#include "auto-beam-engraver.hh"
 #include "musical-request.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "debug.hh"
-#include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
+#include "bar.hh"
+#include "rest.hh"
+#include "engraver.hh"
+
+class Auto_beam_engraver : public Engraver
+{
+public:
+  Auto_beam_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+
+protected:
+  virtual bool do_try_music (Music*);
+  virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
+  virtual void do_removal_processing ();
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_process_music ();
+  virtual void process_acknowledged ();
+private:
+  void begin_beam ();
+  void consider_end_and_begin (Moment test_mom);
+  Beam* create_beam_p ();
+  void end_beam ();
+  void junk_beam ();
+  bool same_grace_state_b (Score_element* e);
+  void typeset_beam ();
+
+  Moment shortest_mom_;
+  Beam *finished_beam_p_;
+  Link_array<Item>* stem_l_arr_p_;
+  
+  Moment last_add_mom_;
+  Moment extend_mom_;
+  Moment beam_start_moment_;
+  Moment beam_start_location_;
+  
+  // We act as if beam were created, and start a grouping anyway.
+  Beaming_info_list*grouping_p_;  
+  Beaming_info_list*finished_grouping_p_;
+};
+
+
+
 
 ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
@@ -29,15 +71,8 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
-  timer_l_ =0;
 }
 
-void
-Auto_beam_engraver::do_creation_processing ()
-{
-  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
-  timer_l_ = dynamic_cast<Timing_engraver*> (t);
-}
 
 bool
 Auto_beam_engraver::do_try_music (Music*) 
@@ -54,12 +89,11 @@ Auto_beam_engraver::do_process_music ()
 void
 Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 {
-  if (!timer_l_)
-    return;
-  
-  int num;
-  int den;
-  timer_l_->get_time_signature (&num, &den);
+  Moment one_beat = *unsmob_moment( get_property ("beatLength"));
+
+  int num = *unsmob_moment (get_property("measureLength")) / one_beat;
+  int den = one_beat.den_i ();
+
   
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
 
@@ -168,7 +202,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 
   Rational r;
   if (end_mom)
-    r = timer_l_->measure_position ().mod_rat (end_mom);
+    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (end_mom);
   else
     r = Moment (1);
 
@@ -183,7 +217,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     return;
 
   if (begin_mom)
-    r = timer_l_->measure_position ().mod_rat (begin_mom);
+    r =     unsmob_moment (get_property ("measurePosition"))->mod_rat (begin_mom);
   if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
@@ -193,11 +227,11 @@ void
 Auto_beam_engraver::begin_beam ()
 {
   assert (!stem_l_arr_p_);
-  stem_l_arr_p_ = new Array<Stem*>;
+  stem_l_arr_p_ = new Link_array<Item>;
   assert (!grouping_p_);
   grouping_p_ = new Beaming_info_list;
   beam_start_moment_ = now_mom ();
-  beam_start_location_ = timer_l_->measure_position ();
+  beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
 }
 
 Beam*
@@ -210,7 +244,7 @@ Auto_beam_engraver::create_beam_p ()
       /*
 	watch out for stem tremolos and abbreviation beams
        */
-      if ((*stem_l_arr_p_)[i]->beam_l ())
+      if (Stem::beam_l ((*stem_l_arr_p_)[i]))
 	{
 	  return 0;
 	}
@@ -299,7 +333,7 @@ Auto_beam_engraver::same_grace_state_b (Score_element* e)
 void
 Auto_beam_engraver::acknowledge_element (Score_element_info info)
 {
-  if (!same_grace_state_b (info.elem_l_) || !timer_l_)
+  if (!same_grace_state_b (info.elem_l_))
     return;
   
   if (stem_l_arr_p_)
@@ -308,18 +342,20 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  end_beam ();
 	}
-      else if (to_boolean (info.elem_l_->get_elt_property ("bar-interface")))
+      else if (Bar::has_interface (info.elem_l_))
 	{
 	  end_beam ();
 	}
-      else if (to_boolean (info.elem_l_->get_elt_property ("rest-interface")))
+      else if (Rest::has_interface (info.elem_l_))
 	{
 	  end_beam ();
 	}
     }
   
-  if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+  if (Stem::has_interface (info.elem_l_))
     {
+      Item* stem_l = dynamic_cast<Item *> (info.elem_l_);
+				       
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
       if (!rhythmic_req)
 	{
@@ -330,14 +366,14 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
       /*
 	Don't (start) auto-beam over empty stems; skips or rests
 	*/
-      if (!stem_l->heads_i ())
+      if (!Stem::heads_i (stem_l))
 	{
 	  if (stem_l_arr_p_)
 	    end_beam ();
 	  return;
 	}
 
-      if (stem_l->beam_l ())
+      if (!Stem::beam_l (stem_l))
 	{
 	  if (stem_l_arr_p_)
 	    junk_beam ();

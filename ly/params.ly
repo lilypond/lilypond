@@ -228,9 +228,6 @@ will cause scores to be set looser
 
 compression_energy_factor = 0.6;
 
-% if stem is on middle line, choose this direction.
-stem_default_neutral_direction = 1.0;
-
 % in staffspace
 articulation_script_padding_default = 1.0;
 

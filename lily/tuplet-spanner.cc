@@ -26,15 +26,15 @@
 void
 Tuplet_spanner::set_interface (Score_element*me)
 {
-  me-> set_elt_pointer ("beams", SCM_EOL);
-  me->set_elt_pointer ("columns", SCM_EOL);
+  me-> set_elt_property ("beams", SCM_EOL);
+  me->set_elt_property ("columns", SCM_EOL);
 }
 
 /*
   TODO. 
  */
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tuplet_spanner,brew_molecule);
+MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule);
 
 SCM
 Tuplet_spanner::brew_molecule (SCM smob) 
@@ -63,7 +63,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
   
-  if (gh_pair_p (me->get_elt_pointer ("columns")))
+  if (gh_pair_p (me->get_elt_property ("columns")))
     {
       Link_array<Note_column> column_arr=
 	Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
@@ -127,7 +127,7 @@ Tuplet_spanner::calc_position_and_height (Score_element*me,Real *offset, Real * 
     Pointer_group_interface__extract_elements (me, (Note_column*)0, "columns");
 
 
-  Score_element * common = me->common_refpoint (me->get_elt_pointer ("columns"), Y_AXIS);
+  Score_element * common = me->common_refpoint (me->get_elt_property ("columns"), Y_AXIS);
   
   Direction d = Directional_element_interface (me).get ();
 
@@ -188,7 +188,7 @@ Tuplet_spanner::calc_dy (Score_element*me,Real * dy)
   *dy = column_arr.top ()->extent (Y_AXIS) [d]
     - column_arr[0]->extent (Y_AXIS) [d];
 }
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tuplet_spanner,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking);
 
 SCM
 Tuplet_spanner::after_line_breaking (SCM smob)
@@ -220,9 +220,9 @@ Tuplet_spanner::after_line_breaking (SCM smob)
 
   me->translate_axis (offset, Y_AXIS);
   
-  if (scm_ilength (me->get_elt_pointer ("beams")) == 1)
+  if (scm_ilength (me->get_elt_property ("beams")) == 1)
     {
-      SCM bs = me->get_elt_pointer ("beams");
+      SCM bs = me->get_elt_property ("beams");
       Score_element *b = unsmob_element (gh_car (bs));
       Beam * beam_l = dynamic_cast<Beam*> (b);
       if (!sp->broken_b () 
@@ -247,7 +247,7 @@ Tuplet_spanner::get_default_dir (Score_element*me)
     }
 
   d = UP ;
-  for (SCM s = me->get_elt_pointer ("columns"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element (gh_car (s));
       Note_column * nc = dynamic_cast<Note_column*> (sc);

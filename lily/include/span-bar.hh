@@ -10,7 +10,8 @@
 #ifndef SPAN_BAR_HH
 #define SPAN_BAR_HH
 
-#include "bar.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /**
    This is a barline that is spanned across other bar lines.  This is
@@ -21,23 +22,18 @@
    to span a Score_element.  Perhaps this can be used for large time
    sigs?
 */
-class Span_bar : public Bar
+class Span_bar
 {
-  Interval get_spanned_interval () const;
 public:
-  Span_bar (SCM);
-    
-  VIRTUAL_COPY_CONS(Score_element);
-  void add_bar (Score_element*);
-  void evaluate_empty ();
-
+  static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);  
+  static Interval get_spanned_interval (Score_element*);
+  static void add_bar (Score_element*,Score_element*);
+  static void evaluate_empty (Score_element*);
   static Interval width_callback(Score_element *, Axis) ;
-  
-  virtual Real get_bar_size () const;
-  SCM member_before_line_breaking ();
+  static SCM get_bar_size (SCM);
   static SCM before_line_breaking (SCM);
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
+  static Real center_on_spanned_callback (Score_element*,Axis);
 };
 
 #endif // SPAN_BAR_HH

@@ -111,18 +111,17 @@ Piano_pedal_engraver::acknowledge_element (Score_element_info info)
     {
       if (p->item_p_)
 	{
-	  if (Rhythmic_head* n = dynamic_cast<Rhythmic_head*> (info.elem_l_))
+	  if (Rhythmic_head::has_interface (info.elem_l_))
 	    {
-	      Side_position_interface st (p->item_p_);
-	      st.add_support (n);
-	      if (st.get_axis( ) == X_AXIS
+	      Side_position::add_support (p->item_p_, info.elem_l_);
+
+	      if (Side_position::get_axis(p->item_p_) == X_AXIS
 		  && !p->item_p_->parent_l (Y_AXIS))
-		p->item_p_->set_parent (n, Y_AXIS);
+		p->item_p_->set_parent (info.elem_l_, Y_AXIS);
 	    }
-	  if (Stem* s = dynamic_cast<Stem*> (info.elem_l_))
+	  if (Stem::has_interface (info.elem_l_))
 	    {
-	      Side_position_interface st (p->item_p_);
-	      st.add_support (s);
+	      Side_position::add_support (p->item_p_,info.elem_l_);
 	    }
 	}
     }
@@ -195,12 +194,11 @@ Piano_pedal_engraver::do_process_music ()
 	  p->item_p_->set_elt_property ("text", s);
 	  // guh
 
-	  Side_position_interface si (p->item_p_);
-	  si.set_axis (Y_AXIS);
+	  Side_position::set_axis (p->item_p_,Y_AXIS);
 
 	  // todo: init with basic props.
-	  p->item_p_->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
-	  p->item_p_->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
+	  p->item_p_->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
+	  p->item_p_->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
 	  announce_element (Score_element_info (p->item_p_,
 						p->req_l_drul_[START]
 						? p->req_l_drul_[START]
@@ -223,7 +221,7 @@ Piano_pedal_engraver::do_pre_move_processing ()
     {
       if (p->item_p_)
 	{
-	  Side_position_interface (p->item_p_).add_staff_support ();
+	  Side_position::add_staff_support (p->item_p_);
 	  /*
 	    Hmm.
 	  */
@@ -231,8 +229,7 @@ Piano_pedal_engraver::do_pre_move_processing ()
 	    {
 	      if (sustain)
 		{
-		  Side_position_interface st (p->item_p_);
-		  st.add_support (sustain);
+		  Side_position::add_support (p->item_p_,sustain);
 		}
 	    }
 	  typeset_element (p->item_p_);

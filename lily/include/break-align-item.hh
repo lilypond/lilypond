@@ -24,13 +24,14 @@
    TODO: remove this as a class, and make interface.
  */
 
-class Break_align_item : public Item
+class Break_align_item
 {
 public:
-  SCM member_before_line_breaking ();
   static SCM before_line_breaking (SCM);
-
-  Break_align_item (SCM s);
-  VIRTUAL_COPY_CONS(Score_element);
+  static void do_alignment (Score_element*);
+  static void set_interface (Score_element*);
+  static bool has_interface (Score_element*);
+  static void add_element (Score_element*me, Score_element*add);
+  static Real alignment_callback (Score_element*, Axis);
 };
 #endif // BREAK_ALIGN_ITEM_HH
