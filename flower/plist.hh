@@ -44,7 +44,7 @@ class PointerList : public List<T>
 
 
 template<class T>
-void PL_copy(PointerList<T> &dst,PointerList<T> const&src);
+void PL_copy(PointerList<T*> &dst,PointerList<T*> const&src);
 
 #define PL_instantiate(a) L_instantiate(a *); template class PointerList<a*>
 

@@ -25,18 +25,17 @@ template<class T>
 inline void
 PointerList_print( PointerList<T> const & l  ) 
 {
-    List<T>& promises_to_be_const = (List<T>&) l;
-    for ( Cursor<T> c( promises_to_be_const ); c.ok(); c++ )
-        (*c)->print();  
+    for (PCursor<T> c(l ); c.ok(); c++ )
+        c->print();  
 }
 
 template<class T>
 inline void
-PL_copy(PointerList<T> &to,PointerList<T> const&src)
+PL_copy(PointerList<T*> &to,PointerList<T*> const&src)
 {
-    for (PCursor<T> pc(src); pc.ok(); pc++) {
-	T q = pc;
-	T p=new typeof(*q) (*q) ; // argh, how do i do this in ANSI-C++
+    for (PCursor<T*> pc(src); pc.ok(); pc++) {
+	T *q = pc;
+	T *p=new T(*q) ; // argh, how do i do this in ANSI-C++
 	to.bottom().add(p);
     }
 }
