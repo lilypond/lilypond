@@ -9,7 +9,7 @@
   TODO: This is way too hairy
 */
 
-#include <math.h>		// m_pi
+#include <math.h>		// rint
 
 #include "lookup.hh"
 #include "directional-element-interface.hh"
@@ -753,6 +753,10 @@ Stem::calc_stem_info (Grob*me)
   info.ideal_y = chord_start_f (me);
 
   // for simplicity, we calculate as if dir == UP
+
+  /*
+    UGH. This confuses issues more. fixme. --hwn
+   */
   info.ideal_y *= beam_dir;
   SCM grace_prop = me->get_grob_property ("grace");
 
@@ -776,6 +780,10 @@ Stem::calc_stem_info (Grob*me)
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
+
+  /*
+    This sucks -- On a kneed beam, *all* stems are kneed, not half of them.
+   */
   if (!beam_dir || (beam_dir == Directional_element_interface::get (me)))
     /* normal beamed stem */
     {
@@ -816,12 +824,13 @@ Stem::calc_stem_info (Grob*me)
   else
     /* knee */
     {
-      info.ideal_y -= thick;
-      info.max_y = info.ideal_y;
-      info.min_y = - 1000 ; // INT_MAX;
+      info.ideal_y -= thick + stem_length;
+      info.max_y = info.ideal_y - minimum_length;
 
-      info.ideal_y -= stem_length;
-      info.max_y -= minimum_length;
+      /*
+	We shouldn't invert the stems, so we set minimum at 0. 
+       */
+      info.min_y = 0.5;
     }
   
   info.ideal_y = (info.max_y <? info.ideal_y) >? info.min_y;

@@ -1,3 +1,7 @@
+2002-05-18  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc (calc_stem_info): bugfix for less ugly knees.
+
 2002-05-17  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (re_dict): fix regexps; don't combine ?
