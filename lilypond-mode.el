@@ -62,8 +62,8 @@ Finds file lilypond-words from load-path."
       (if (not (file-readable-p fn)) 
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     (if (not fn)
-	(progn (message "Error (shown for 12 seconds; press a key to skip):\n\n File `lilypond.words' containing keywords to be autocompleted and fontified,\n was not found. Place it to your `load-path' (see `lilypond-init.el').\n")
-	       (sit-for 12 0)))
+	(progn (message "Warning: `lilypond.words' not found in `load-path'. See `lilypond-init.el'.")
+	       (sit-for 5 0)))
     fn))
 
 (defun LilyPond-add-dictionary-word (x)
@@ -713,9 +713,7 @@ command."
   (setq xkey 0) (setq xinitpoint (point))
   (< xinitpoint (point))
   (while (not (= xkey 27)) ; esc to quit
-    (message (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)/}b\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
-		     (if (string= (car(cdr(assoc "b" note-replacements))) "h")
-			 "h" "b")
+    (message (format " a[]s[]d f[]j[]k[]l r with %4s%-4s%3s%-4s ie ,' 12345678 . 0 (<~>)/}b\\b\\n Esc"
 		     (nth (+ accid 2) dutch-note-ends)
 		     (make-string (abs octav) (if (> octav 0) ?' ?,))
 		     durat
@@ -724,6 +722,7 @@ command."
     (setq x (char-to-string xkey))
     (setq note (cdr (assoc x dutch-notes)))
     (cond
+     ((string= x "q") (progn (setq xkey 27))) ; quit
      ((= xkey 13) (progn (insert "\n") (LilyPond-indent-line))) ; return
      ((or (= xkey 127) (string= x "b")) ; backspace is a char only in Emacs
       (progn (narrow-to-region xinitpoint (point))
@@ -779,10 +778,10 @@ command."
      ((string= x "h")
       (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0)
              (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0)
-             (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names. Hit 'p' for S(p)anish note names") (sit-for 5 0 1)
-             (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0)
+             (message "There are Du(t)ch, Fin(n)ish/Deutsch (hit 'n') and S(p)anish note names.") (sit-for 5 0)
+             (message "(B)ackspace deletes last note, Ret starts a new indented line and Esc (q)uits.") (sit-for 5 0)
              (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0)
-             (message "Remember to add all other details as well.") (sit-for 5 0)))))
+             (message "This mode is experimental. Use normal mode to add further details.") (sit-for 5 0)))))
   (message "Normal editing mode."))
 
 (defun LilyPond-pre-word-search ()
