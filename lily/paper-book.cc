@@ -42,15 +42,17 @@ public:
   Paper_def *paper_;
   int number_;
 
-  SCM lines_;
-  SCM protect_;
-  Stencil *header_;
-  Stencil *footer_;
+  Protected_scm lines_;
+  Protected_scm header_;
+  Protected_scm footer_;
+  
+  Stencil *get_header () { return unsmob_stencil (header_); }
+  Stencil *get_footer () { return unsmob_stencil (footer_); }
 
   /* actual height filled with text.  */
   Real height_;
   
-  //HMMM all this size stuff to paper/paper-outputter?
+  // HMMM all this size stuff to paper/paper-outputter?
   Real hsize_;
   Real vsize_;
   Real top_margin_;
@@ -82,40 +84,36 @@ Page::Page (Paper_def *paper, int number)
   SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
   SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
 
-  header_ = unsmob_stencil (scm_call_2 (make_header, paper_->smobbed_copy (),
-					scm_int2num (number_)));
-  protect_ = SCM_EOL;
-  // ugh, how to protect a Stencil from the outside?
-  protect_ = scm_cons (header_->get_expr (), protect_);
-  if (header_)
-    header_->align_to (Y_AXIS, UP);
+  header_ = scm_call_2 (make_header, paper_->smobbed_copy (),
+					scm_int2num (number_));
+  if (get_header ())
+    get_header ()->align_to (Y_AXIS, UP);
     
   // FIXME: tagline/copyright
-  footer_ = unsmob_stencil (scm_call_2 (make_footer, paper_->smobbed_copy (),
-					scm_int2num (number_)));
-  // ugh, how to protect a Stencil from the outside?
-  protect_ = scm_cons (footer_->get_expr (), protect_);
-  if (footer_)
-    footer_->align_to (Y_AXIS, UP);
+  footer_ = scm_call_2 (make_footer, paper_->smobbed_copy (),
+			scm_int2num (number_));
+
+  if (get_footer ())
+    get_footer ()->align_to (Y_AXIS, UP);
 }
 
 void
 Page::output (Paper_outputter *out, bool is_last)
 {
-  if (header_)
+  if (get_header ())
     {
-      out->output_line (stencil2line (header_), false);
+      out->output_line (stencil2line (get_header ()), false);
       out->output_line (height2line (head_sep_), false);
     }
   out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
     out->output_line (ly_car (s), is_last && gh_pair_p (ly_cdr (s)));
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
-				  gh_bool2scm (is_last && !footer_)));
-  if (footer_)
+				  gh_bool2scm (is_last && !get_footer ())));
+  if (get_footer ())
     {
       out->output_line (height2line (foot_sep_), false);
-      out->output_line (stencil2line (footer_), is_last);
+      out->output_line (stencil2line (get_footer ()), is_last);
     }
 }
 
@@ -123,10 +121,10 @@ Real
 Page::text_height ()
 {
   Real h = vsize_ - top_margin_ - bottom_margin_;
-  if (header_)
-    h -= header_->extent (Y_AXIS).length () + head_sep_;
-  if (footer_)
-    h -= footer_->extent (Y_AXIS).length () + foot_sep_;
+  if (get_header ())
+    h -= get_header ()->extent (Y_AXIS).length () + head_sep_;
+  if (get_footer ())
+    h -= get_footer ()->extent (Y_AXIS).length () + foot_sep_;
   return h;
 }
 

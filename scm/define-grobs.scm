@@ -892,15 +892,6 @@
 	(meta . ((interfaces . (spacing-interface note-spacing-interface item-interface ))))
 	))
 
-    (StaffSymbol
-     . (
-	(print-function . ,Staff_symbol::print)
-	(line-count . 5)
-	(ledger-line-thickness  . (1.0 . 0.1))
-	(layer . 0)
-	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
-	))
-
     (SostenutoPedal
      . (
 	(print-function . ,Text_item::print)
@@ -925,6 +916,15 @@
 	(minimum-space . 1.0)
 	(direction . -1)
 	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface  spanner-interface))))
+	))
+
+    (StaffSymbol
+     . (
+	(print-function . ,Staff_symbol::print)
+	(line-count . 5)
+	(ledger-line-thickness  . (1.0 . 0.1))
+	(layer . 0)
+	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
 	))
 	
     (Stem
@@ -972,7 +972,6 @@
 	(X-extent-callback . ,Stem::dim_callback)	
 	(Y-extent-callback . ,Stem::height)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(adjust-if-on-staffline . #t)
 	(font-family . music)	   
 	(meta . ((interfaces . (stem-interface  font-interface item-interface ))))
 	))

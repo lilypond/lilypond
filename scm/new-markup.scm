@@ -419,7 +419,7 @@ Also set markup-signature and markup-keyword object properties."
 	       (ly:stencil? (cadr stencils)))
           (let* ((tail (stack-stencil-line  space (cdr stencils)))
                  (head (car stencils))
-                 (xoff (+ space (cdr (ly:stencil-get-extent head X)))))
+                 (xoff (+ space (cdr (ly:stencil-extent head X)))))
             (ly:stencil-add head
                              (ly:stencil-translate-axis tail xoff X)))
           (car stencils))

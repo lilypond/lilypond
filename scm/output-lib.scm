@@ -50,8 +50,8 @@
     (let ((slur (Slur::print grob))
           (text (fontify-text (ly:get-default-font grob) letter)))
     
-      (let ((x (/ (- (cdr (ly:stencil-get-extent slur 0)) 
-                     (/ (cdr (ly:stencil-get-extent text 0)) 2.0)
+      (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
+                     (/ (cdr (ly:stencil-extent text 0)) 2.0)
                      )
                   -2.0)))
       
@@ -75,8 +75,8 @@
   (let*
    (
     (mol    (callback grob))
-    (x-ext (interval-widen (ly:stencil-get-extent mol 0) x-padding))
-    (y-ext (interval-widen (ly:stencil-get-extent mol 1) y-padding))
+    (x-ext (interval-widen (ly:stencil-extent mol 0) x-padding))
+    (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
     (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
                               (cons 0 line-thick)))
     (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext))

@@ -80,6 +80,11 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
 	    really close.
 	  */
 	  stem[X_AXIS][RIGHT] *= .5;
+
+	  /*
+	    To prevent vertical alignment for 6ths
+	   */
+	  stem[Y_AXIS]  *= 1.1;  
 	  bulb[Y_AXIS][UP] *= .35;
 
 	  boxes.push (bulb);

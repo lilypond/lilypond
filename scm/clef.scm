@@ -110,7 +110,7 @@
     (if (pair? e)
 	(let* ((musics (map make-prop-set  
 			    `(((symbol . clefGlyph) (value . ,(cadr e)))
-			      ((symbol . centralCPosition)
+			      ((symbol . middleCPosition)
 			       (value . ,(+ oct
 					    (caddr e)
 					    (cdr (assoc (cadr e) c0-pitch-alist)))))

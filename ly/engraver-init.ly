@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 
 \context {
     \name Global
@@ -452,7 +452,7 @@ AncientRemoveEmptyStaffContext = \context {
     
     clefGlyph = #"clefs-G"
     clefPosition = #-2
-    centralCPosition = #-6
+    middleCPosition = #-6
     
     defaultBarType = #"|"
     barNumberVisibility = #default-bar-number-visibility
@@ -711,7 +711,7 @@ EasyNotation = \context {
 
   % Choose vaticana do clef on 3rd line as default.
   clefGlyph = #"clefs-vaticana_do"
-  centralCPosition = #1
+  middleCPosition = #1
   clefPosition = #1
   clefOctavation = #0
 

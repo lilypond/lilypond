@@ -17,6 +17,21 @@
 #include "lookup.hh"
 
 /*
+  UGH UGH UGH
+
+  This does 3 things at one:
+
+  - acc positioning
+  - drawing accidentals
+  - drawing note heads
+
+  It confuses interpretation & formatting.
+
+  UGH.
+  --hwn.
+ */
+
+/*
  * TODO: note-head collision handling
  *
  * TODO: accidentals collision handling
@@ -238,6 +253,7 @@ Ambitus::print (SCM smob)
     {
       accidentals_style = String ("");
     }
+  
   int num_acc;
   num_acc = number_accidentals (key_signature, pitch_min, true, false);
   add_accidentals (me, &head_min, num_acc, pitch_min,
@@ -255,4 +271,4 @@ Ambitus::print (SCM smob)
 
 ADD_INTERFACE (Ambitus, "ambitus-interface",
   "An object that represents the pitch range of a voice.",
-  "c0-position pitch-min pitch-max accidentals note-head-style join-heads");
+  "c0-position pitch-min pitch-max accidentals note-head-style accidentals-style join-heads");

@@ -153,14 +153,6 @@ line).")
 center of the staff.")
 
      ;; todo: why is this tunable?
-     (neutral-position ,number? "Position (in half staff spaces) where
-to flip the direction of stems: by default, custodes above this
-position get their stems downwards; custodes below this position get
-their stems upwards.  A value of 0 designates the center of the staff.
-Use property neutral-direction to control the behaviour of stems on
-the neutral position itself.  (Note: currently, neutral-position is
-supported only for custodes; for stems of note heads, neutral-position
-is currently fixed to 0, i.e. the middle of the staff.)")
      (dir-function ,procedure? "The function to determine the
 direction of a beam. Choices include: 
 
@@ -338,8 +330,8 @@ this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions
 as a real penalty.")
      
-     (pitch-max ,ly:pitch? "FIXME, JUNKME")
-     (pitch-min ,ly:pitch? "FIXME, JUNKME")
+     (pitch-max ,ly:pitch? "Top pitch for ambitus.")
+     (pitch-min ,ly:pitch? "Bottom pitch for ambitus.")
 
      (positions ,pair?
 		"Pair of staff coordinates @code{(@var{left}
@@ -471,7 +463,7 @@ zigzag, relative to @code{zigzag-width}. A value of 1 gives 60-degree
 zigzags.")
      (zigzag-width ,ly:dimension? "The width of one
 zigzag-squiggle. This number will be adjusted slightly so that the
-line can be constructed from a whole number of squiggles.")
+glissando line can be constructed from a whole number of squiggles.")
 
      (avoid-note-head ,boolean? "If set, the stem of a chord does not
 pass through all note heads, but starts at the last note head. ")
@@ -638,6 +630,8 @@ than a whole rest.")
      
      ;; end ancient notation
 
+     ; ugh.
+     (accidentals-style ,symbol? "style for ambitus.")
      
      )))
 
