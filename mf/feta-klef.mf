@@ -301,13 +301,13 @@ def draw_gclef (expr exact_center, reduction)=
 enddef;
 
 
-fet_beginchar("G clef", "violin", "violinclef")
+fet_beginchar("G clef", "treble", "trebleclef")
 	if test = 1:
 		draw_staff(-1,3);
 	fi;
 	draw_gclef((1.7 interline#,0), 1.0);
 fet_endchar;
-fet_beginchar("G clef", "violin_change", "cviolinclef")
+fet_beginchar("G clef", "treble_change", "ctrebleclef")
 	draw_gclef((1.3 interline#,0), .8);
 fet_endchar;
 

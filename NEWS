@@ -1,4 +1,18 @@
-pl 2.jcn2
+--- ../lilypond-1.1.2/NEWS	Thu Nov  5 20:51:37 1998
+++ b/NEWS	Fri Nov  6 00:10:46 1998
+@@ -1,6 +1,11 @@
+pl 2.hwn1
+	- scm cleanups, chop-decimal
+	- scarlatti clef.
+
+
+ pl 1.mb1
+         - Support for cautionary accidentals. , i.e. accidentals 
+-          within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
+          within parentheses. Syntax: 'cis?'. Try input/test/accid.fly
+           Note that the font has changed.
+         - bf: No unnecessary warnings about time signatures
+         - Added optional second argument of \key. Set to \major or \minor pl 2.jcn2
 
 pl 2.jcn1
 	- commented-out Level-2 PostScript in lily.ps (J. Buehler)

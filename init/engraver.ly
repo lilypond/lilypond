@@ -147,7 +147,7 @@ VoiceContext = \translator {
 ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
-	defaultClef = violin;
+	defaultClef = treble;
 
 	\consists "Timing_engraver";
 
@@ -231,7 +231,7 @@ OrchestralScoreContext= \translator {
 	markScriptPadding = "4.0";
 	barColumnPriority = "-4";
 	markBreakPriority = "-4";
-	defaultClef = violin;
+	defaultClef = treble;
 
 	\consists "Timing_engraver";
 	\consists "Bar_column_engraver";

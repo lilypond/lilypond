@@ -11,32 +11,21 @@
 
 #include "config.hh"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef HAVE_LIBGUILE
-extern "C" { 
-#include <guile/gh.h> 
-}
-#else
-typedef long SCM;
-#endif
+#include <guile/gh.h>
+#include <libguile.h>
 
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
 SCM ly_lambda_o ();
 SCM ly_list1 (SCM a);
-SCM ly_list2(SCM a, SCM b);
 SCM ly_quote ();
+SCM ly_quote_scm (SCM s);
 
-#ifdef __cplusplus
-}
-#endif
 
 #include "array.hh"
 #include "scalar.hh"
+
 SCM lambda_scm (String str, Array<int> args_arr);
 SCM lambda_scm (String str, Array<Real> args_arr);
 SCM lambda_scm (String str, Array<Scalar> args_arr);

@@ -4,16 +4,14 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
+
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <stdio.h>
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 SCM
 ly_append (SCM a, SCM b)
@@ -28,15 +26,15 @@ ly_list1 (SCM a)
 }
 
 SCM
-ly_list2(SCM a, SCM b)
-{
-  return gh_call2 (gh_eval_str ("list"), a, b);
-}
-
-SCM
 ly_quote ()
 {
   return gh_eval_str ("'quote");
+}
+
+SCM
+ly_quote_scm (SCM s)
+{
+  return gh_list (ly_quote (), s, SCM_UNDEFINED);
 }
 
 SCM
@@ -54,14 +52,11 @@ ly_lambda_o ()
 SCM
 ly_func_o (char const* name)
 {
-  char buf[200];
+  char buf[200];		// ugh.
   snprintf (buf, 200, "'(%s o)", name);
   return gh_eval_str (buf);
 }
 
-#ifdef __cplusplus
-}
-#endif
 
 SCM
 lambda_scm (String str, Array<int> args_arr)

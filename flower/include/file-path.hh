@@ -31,6 +31,7 @@ public:
 
   /// add to end of path.
   Array<String>::push;
+  String str ()const;
   void add (String str);
   void parse_path (String);
 };

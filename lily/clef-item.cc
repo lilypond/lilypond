@@ -28,29 +28,26 @@ Clef_item::do_pre_processing()
     }
 }
 
+/*
+  FIXME
+*/
 Clef_item::Clef_item()
 {
   breakable_b_ =true;
   default_b_ = false;
   change_b_ = true;
   octave_dir_ = CENTER;
-  symbol_ = "violin";
+  symbol_ = "treble";
   y_position_i_ = -2;
   
   // Ugh: This should be const, I guess.
-  octave_marker_td_p_.set_p (new Text_def());
+  octave_marker_td_p_.set_p (new Text_def());// UGH!
   octave_marker_td_p_->text_str_ = "8";
   octave_marker_td_p_->style_str_ = "italic";
 }
 
 
-void
-Clef_item::read (Clef_engraver const &k)
-{
-  symbol_ = k.clef_type_str_;
-  y_position_i_ = k.clef_position_i_;
-  octave_dir_ = k.octave_dir_;
-}
+
 
 Molecule*
 Clef_item::brew_molecule_p() const

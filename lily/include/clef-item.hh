@@ -38,7 +38,6 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEMENT_CLONE(Clef_item);
   Clef_item();
-  void read (Clef_engraver const&);
 };
 
 #endif // CLEFITEM_HH

@@ -18,8 +18,6 @@
   (apply string-append 
   (map (lambda (n) (string-append (number->string n) " ")) l)))
 
-(define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
-
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
          (n64 (quotient n 64))
@@ -36,7 +34,7 @@
 (define 
   (number->dim-tex x)
   (string-append 
-   (number->string (chop-decimal x)) "pt "))
+   (number->string x) "pt "))
 
 (define
   (control->string c)

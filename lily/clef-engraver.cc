@@ -20,13 +20,38 @@
 
 Clef_engraver::Clef_engraver()
 {
-  clef_p_ = 0;
   clef_req_l_ = 0;
   clef_type_str_ = "";
   c0_position_i_ = 0;
   clef_position_i_ = 0;
   octave_dir_ = CENTER;
 }
+
+struct Clef_settings {
+  char const *name;
+  char const *cleftype;
+  int position;
+} clef_settings[] = {
+  {"treble", "treble", -2},
+  {"violin", "treble", -2},
+  {"G", "treble", -2},
+  {"G2", "treble", -2},  
+  {"scarlatti", "scarlatti", 0 },
+  {"french", "treble",-4 },
+  {"soprano", "alto",-4 },
+  {"mezzosoprano", "alto",-2 },
+  {"alto", "alto",0 },
+  {"tenor", "alto",2 },
+  {"baritone", "alto",4 },
+  {"varbaritone", "bass",0 },
+  {"bass" , "bass",2 },
+  {"F", "bass", 2},
+  {"subbass", "bass",4},
+  {0,0,0}
+};
+
+
+
 
 /*
   Ugh.  Should have support for Dictionaries in mudela.
@@ -46,59 +71,18 @@ Clef_engraver::set_type (String s)
     }
   else
     octave_dir_ = CENTER;
-  if (s == "treble" ||
-      s == "violin" ||
-      s == "G" || s == "G2")
+
+  bool found = 0;
+  for (Clef_settings *c = clef_settings; !found && c->name; c++)
     {
-      clef_type_str_ = "violin";
-      clef_position_i_ = -2;
-    }
-  else if (s == "french")
-    {
-      clef_type_str_ = "violin";
-      clef_position_i_ = -4;
-    }
-  else if (s == "soprano")
-    {
-      clef_type_str_ = "alto";
-      clef_position_i_ = -4;
-    }
-  else if (s == "mezzosoprano")
-    {
-      clef_type_str_ = "alto";
-      clef_position_i_ = -2;
-    }
-  else if (s == "alto")
-    {
-      clef_type_str_ = "alto";
-      clef_position_i_ = 0;
-    }
-  else if (s == "tenor")
-    {
-      clef_type_str_ = "alto";
-      clef_position_i_ = 2;
-    }
-  else if (s == "baritone")
-    {
-      clef_type_str_ = "alto";
-      clef_position_i_ = 4;
-    }
-  else if (s == "varbaritone")
-    {
-      clef_type_str_ = "bass";
-      clef_position_i_ = 0;
-    }
-  else if (s == "bass" || s == "F")
-    {
-      clef_type_str_ = "bass";
-      clef_position_i_ = 2;
-    }
-  else if (s == "subbass")
-    {
-      clef_type_str_ = "bass";
-      clef_position_i_ = 4;
-    }
-  else 
+      if (c->name == s)
+	{
+	  clef_type_str_ = c->cleftype;
+	  clef_position_i_ = c->position;
+	  found = 1;
+	}
+      }
+  if (!found)
     {
       switch(toupper (s[0]))
 	{
@@ -106,7 +90,7 @@ Clef_engraver::set_type (String s)
 	  clef_type_str_ = "bass";
 	  break;
 	case  'G':
-	  clef_type_str_ = "violin";
+	  clef_type_str_ = "treble";
 	  break;
 	case 'C': 
 	  clef_type_str_ = "alto";
@@ -116,15 +100,17 @@ Clef_engraver::set_type (String s)
 	}
       clef_position_i_ = 2 * (s[1] - '0') - 6;
     }
-  if (clef_type_str_ == "violin")
+
+  if (clef_type_str_ == "treble")
     c0_position_i_ = clef_position_i_ - 4;
   else if (clef_type_str_ == "alto")
     c0_position_i_ = clef_position_i_;
   else if (clef_type_str_ == "bass")
     c0_position_i_ = clef_position_i_ + 4;
+  else if (clef_type_str_ == "scarlatti")
+    c0_position_i_ = 0;
   else
     assert (false);
-
       
   c0_position_i_ -= (int) octave_dir_ * 7;
   
@@ -151,7 +137,11 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     {
       create_clef();
       if (!clef_req_l_)
-	clef_p_->default_b_ = true;
+	for (int i=0; i < clef_p_arr_.size (); i++)
+	  {
+	    clef_p_arr_[i]->default_b_ = true;
+	  }
+
     }
 
   /* ugh; should make Clef_referenced baseclass */
@@ -183,7 +173,9 @@ Clef_engraver::do_creation_processing()
   if (clef_type_str_.length_i ())
     { 
       create_clef();
-      clef_p_->default_b_ = false;
+	for (int i=0; i < clef_p_arr_.size (); i++)
+
+	    clef_p_arr_[i]->default_b_ = false;
     }
 }
 
@@ -204,14 +196,39 @@ Clef_engraver::do_try_request (Request * r_l)
 void
 Clef_engraver::create_clef()
 {
-  if (!clef_p_)
+  if (clef_type_str_ == "scarlatti")
     {
-      clef_p_ = new Clef_item;
-      clef_p_->break_priority_i_ = -2; // ugh
-      announce_element (Score_element_info (clef_p_,clef_req_l_));
+      while (clef_p_arr_.size () < 2)
+	{
+	  Clef_item *ct= new Clef_item;
+	  ct->break_priority_i_ =  -2; // UGH
+	  announce_element (Score_element_info (ct, clef_req_l_));
+	  clef_p_arr_.push (ct);
+	}
+      clef_p_arr_[0]->symbol_ = "treble";
+      clef_p_arr_[0]->y_position_i_ = 4;
+      clef_p_arr_[1]->symbol_ = "bass";
+      clef_p_arr_[1]->y_position_i_ = -4;
     }
-  clef_p_->read (*this);
+  else
+    {
+      if (!clef_p_arr_.size ())
+	{
+	  Clef_item *c= new Clef_item;
+	  c->break_priority_i_ = -2; // ugh
+	  announce_element (Score_element_info (c, clef_req_l_));
+	  clef_p_arr_.push (c);
+	}
+
+      for (int i=0; i < clef_p_arr_.size (); i++)
+	{
+	  clef_p_arr_[i]->symbol_ = clef_type_str_;
+	  clef_p_arr_[i]->y_position_i_ = clef_position_i_;
+	  clef_p_arr_[i]->octave_dir_ = octave_dir_;
+	}
+    }
 }
+
 
 void
 Clef_engraver::do_process_requests()
@@ -219,19 +236,21 @@ Clef_engraver::do_process_requests()
   if (clef_req_l_)
     {
       create_clef();
-      clef_p_->default_b_ = false;
+      for (int i=0; i < clef_p_arr_.size (); i++)
+	clef_p_arr_[i]->default_b_ = false;
     }
 }
 
 void
 Clef_engraver::do_pre_move_processing()
 {
-  if (clef_p_)
+  for (int i=0; i <clef_p_arr_.size (); i++)
     {
-      typeset_element (clef_p_);
-      clef_p_ = 0;
+      typeset_element (clef_p_arr_[i]);
     }
+  clef_p_arr_.clear ();
 }
+
 void
 Clef_engraver::do_post_move_processing()
 {
@@ -241,11 +260,9 @@ Clef_engraver::do_post_move_processing()
 void
 Clef_engraver::do_removal_processing()
 {
-  if (clef_p_)
+  if (clef_p_arr_.size ())
     {
-      clef_p_->unlink ();	
-      delete clef_p_;
-      clef_p_ =0;
+      assert (false);
     }
 }
 
