@@ -1,5 +1,10 @@
 2004-02-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/regression/collision-dots-move.ly: New test.
+
+	* lily/note-collision.cc (check_meshing_chords): Move dots on left
+	hand side note head of non-merged collision to the right.
+
 	* lily/new-lyric-combine-music-iterator.cc (start_new_syllable):
 	Construct children before accessing property from emtpy
 	lyrics_context_.

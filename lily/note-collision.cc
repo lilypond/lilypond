@@ -15,6 +15,8 @@
 #include "axis-group-interface.hh"
 #include "item.hh"
 #include "stem.hh"
+#include "side-position-interface.hh"
+#include "dot-column.hh"
 
 MAKE_SCHEME_CALLBACK (Note_collision_interface,force_shift_callback,2);
 
@@ -168,12 +170,10 @@ check_meshing_chords (Grob *me,
   if (touch)
     shift_amount *= -1;
 
-  /*
-    for full collisions, the right hand head may obscure dots, so
-    make sure the dotted heads go to the right.
-   */
-  if ((Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd)
-       && full_collide))
+  /* For full collisions, the right hand head may obscure dots, so
+     make sure the dotted heads go to the right.  */
+  if (Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd)
+      && full_collide)
     shift_amount = 1;
 
   if (merge_possible)
@@ -217,6 +217,18 @@ check_meshing_chords (Grob *me,
     shift_amount *= 0.1;
   else
     shift_amount *= 0.25;
+
+  /* For full or close half collisions, the right hand head may
+     obscure dots.  Move dots to the right.  */
+  if (abs (shift_amount) > 1e-6
+      && Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu)
+      && (full_collide || close_half_collide))
+    {
+      Grob *d = unsmob_grob (nd->get_grob_property ("dot"));
+      Grob *parent = d->get_parent (X_AXIS);
+      if (Dot_column::has_interface (parent))
+	Side_position_interface::add_support (parent, nu);
+    }
 
   Direction d = UP;
   do
@@ -387,8 +399,9 @@ Note_collision_interface::automatic_shift (Grob *me,
   do
     {
       for (int i=0; i < clash_groups[d].size (); i++)
-	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm (), gh_double2scm (offsets[d][i])),
-				 tups);
+	tups = gh_cons (gh_cons (clash_groups[d][i]->self_scm (),
+				 gh_double2scm (offsets[d][i])),
+			tups);
     }
   while (flip (&d) != UP);
   return tups;
