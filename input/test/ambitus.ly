@@ -1,3 +1,7 @@
+\header {
+    texidoc = "Ambituses indicate pitch ranges for voices."
+}
+
 \version "1.5.68"
 
 upper = \notes \relative c {

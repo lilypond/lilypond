@@ -1,3 +1,9 @@
+\header {
+texidoc = "Accidentals are available in different ancient styles. This
+files lists all of them."
+
+}
+
 \version "1.5.68"
 
 \score { 

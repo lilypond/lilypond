@@ -1,3 +1,10 @@
+
+\header
+{
+
+    texidoc = "Bar numbers can also be printed at regular intervals."
+}
+
 \score {
     \context Staff \notes \transpose c'' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible

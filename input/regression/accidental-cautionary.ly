@@ -2,11 +2,14 @@
 \header {
 
 texidoc = "Cautionary accidentals are indicated using either
-smaller accidentals (default) or parentheses."
+smaller accidentals (default) or parentheses.
+
+"
 
 }
 
-\score { \notes {
+\score {
+    \notes {
     c''4
     cis''?4
     \property Staff.Accidental \override #'style = #'parentheses

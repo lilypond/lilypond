@@ -1,4 +1,7 @@
 \version "1.5.68"
+\header {
+    texidoc = "Different types of bar lines demonstrated."
+}
 
 
 \score

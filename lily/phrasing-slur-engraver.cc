@@ -18,7 +18,7 @@
   ALGRGRRGRG
 
   Derive this from Slur_engraver. This code is completely duplicate.
- */
+*/
 class Phrasing_slur_engraver : public Engraver
 {
   Link_array<Music> eventses_;
@@ -50,18 +50,18 @@ Phrasing_slur_engraver::try_music (Music *ev)
 {
   if (ev->is_mus_type ("abort-event"))
     {
-	  for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
-	    {
-	      phrasing_slur_l_stack_[i]->suicide ();
-	    }
-	  phrasing_slur_l_stack_.clear ();
-	  for (int i = 0; i < end_phrasing_slurs_.size (); i++)
-	    {
-	      end_phrasing_slurs_[i]->suicide ();
-	    }
-	  end_phrasing_slurs_.clear ();
-	  eventses_.clear ();
-	  new_phrasing_slur_evs_.clear ();
+      for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
+	{
+	  phrasing_slur_l_stack_[i]->suicide ();
+	}
+      phrasing_slur_l_stack_.clear ();
+      for (int i = 0; i < end_phrasing_slurs_.size (); i++)
+	{
+	  end_phrasing_slurs_[i]->suicide ();
+	}
+      end_phrasing_slurs_.clear ();
+      eventses_.clear ();
+      new_phrasing_slur_evs_.clear ();
     }
   else if (ev->is_mus_type ("phrasing-slur-event"))
     {
@@ -69,7 +69,7 @@ Phrasing_slur_engraver::try_music (Music *ev)
 	Let's not start more than one phrasing slur per moment.
       */
       
-    Direction d = to_dir (ev->get_mus_property ("span-direction"));
+      Direction d = to_dir (ev->get_mus_property ("span-direction"));
  	  
       if (d == START)
 	{
@@ -112,16 +112,16 @@ Phrasing_slur_engraver::finalize ()
 #else
       /*
 	Let's not typeset unterminated stuff
-       */
+      */
       phrasing_slur_l_stack_[i]->suicide ();
 #endif     
     }
   phrasing_slur_l_stack_.clear ();
 
-    for (int i=0; i < eventses_.size (); i++)
-      {
-	eventses_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
-      }
+  for (int i=0; i < eventses_.size (); i++)
+    {
+      eventses_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
+    }
 }
 
 void
@@ -188,7 +188,7 @@ Phrasing_slur_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Phrasing_slur_engraver,
-/* descr */       "Print phrasing slurs. Similar to Slur_engraver",
+/* descr */       "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 /* creats*/       "PhrasingSlur",
 /* accepts */     "phrasing-slur-event",
 /* acks  */       "note-column-interface",

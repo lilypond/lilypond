@@ -1,3 +1,7 @@
+\header {
+    texidoc = "Absolute dynamics have effect in MIDI files."
+}
+
 \version "1.5.68"
 
 \score{
