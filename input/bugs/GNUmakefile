@@ -4,6 +4,7 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc 
 EXTRA_DIST_FILES=README
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
-TITLE=Assorted Possible Bugs
+TITLE=LilyPond Assorted Possible Bugs
+

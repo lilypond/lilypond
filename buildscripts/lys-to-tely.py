@@ -1,5 +1,16 @@
 #!@PYTHON@
 
+
+'''
+TODO:
+
+  * Add @nodes, plit at sections?
+  * Less kludged first introduction file
+  * include *.texi files for text at start of section?
+
+'''
+
+
 import sys
 import os
 import string 

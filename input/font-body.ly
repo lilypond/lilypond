@@ -68,6 +68,7 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			c2\sustainDown c\sustainUp |
 		}
 }
+
 \score {
 	\FontBody
 }

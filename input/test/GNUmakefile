@@ -1,10 +1,16 @@
-# input/test/Makefile
 
 depth = ../..
-examples=  font20  ancient-font
-LOCALSTEPMAKE_TEMPLATES=ly mutopia 
+
+STEPMAKE_TEMPLATES=documentation texinfo tex
+LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+
+## Hmm, would this work?  No -- if we really want examples, move
+## to other dir (input/) comes to mind.
+## examples = font20 ancient-font
+## LOCALSTEPMAKE_TEMPLATES += ly mutopia 
 
 EXTRA_DISTFILES=features.abc
 
 include $(depth)/make/stepmake.make 
 
+TITLE=LilyPond Feature Tests

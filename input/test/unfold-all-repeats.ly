@@ -18,7 +18,7 @@ mel = \notes \context Staff {
 
 \score { \notes {
   \mel \break
-  \apply #unfold-repeats \mel
+%%  \apply #unfold-repeats \mel  FIXME
  }
 }
 
