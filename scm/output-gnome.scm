@@ -24,15 +24,12 @@
 ;;;  
 ;;;   * Use latin1 encoding for gnome backend, do
 ;;;
-;;;       make -C mf conf=g16 clean
-;;;       make -C mf conf=g16 ENCODING_FILE=$(kpsewhich cork.enc)
-;;;       (cd mf/out && mkfontdir)i
-;;;       xset +fp $(pwd)/mf/out
 "
-       make -C mf clean
-       make -C mf ENCODING_FILE=$(kpsewhich cork.enc)
-       (cd mf/out && mkfontdir)
-       xset +fp $(pwd)/mf/out
+       ./configure --prefix=$(pwd) --enable-config=g16
+       make -C mf conf=g16 clean
+       make -C mf conf=g16 ENCODING_FILE=$(kpsewhich cork.enc)
+       (cd mf-g16/out && mkfontdir)
+       xset +fp $(pwd)/mf-g16/out
 "
 ;;;
 ;;;   * Setup environment
