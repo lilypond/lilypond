@@ -271,8 +271,9 @@ LyricsVoiceContext= \translator{
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
 	\consists "Hyphen_engraver";
-
-	phrasingPunctuation = #".,;:!?"
+	\consists "Stanza_number_engraver";
+	phrasingPunctuation = #".,;:!?\""
+	
 };
 \translator{ \LyricsVoiceContext }
 
@@ -374,13 +375,14 @@ ScoreContext = \translator {
 	  Key_item
 	  Staff_bar
 	  Time_signature
+	  Stanza_number
 	)
 	\consists "Spacing_engraver";
 
 	\consists "Vertical_align_engraver";
 
 	\consists "Lyric_phrasing_engraver";
-        automaticPhrasing = ##f;
+        automaticPhrasing = ##t;
 
 	\consists "Bar_number_engraver";
 	alignmentReference = \down;
@@ -724,6 +726,12 @@ ScoreContext = \translator {
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
 		(interfaces . (volta-spanner-interface))
+	)
+	basicStanzaNumberProperties = #`(
+		(breakable . #t)
+		(molecule-callback . ,Text_item::brew_molecule)		
+		(break-align-symbol . Clef_item)
+		(visibility-lambda . ,begin-of-line-visible)
 	)
 	
 	\accepts "Staff";

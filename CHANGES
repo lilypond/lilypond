@@ -1,3 +1,16 @@
+* Improved default handling of Lyric_phrasing_engraver and made it on by 
+default.
+
+* Beginnings of a stanza number engraver (\property LyricVoice.stanza = 
+#"1:" etc.)
+
+* fixed bug in script.cc so fermata (and other scripts) get flipped 
+correctly when they are above the staff.
+
+
+
+1.3.74
+======
 * Small bugfix: also do a deep copy on  submusices
 
 * Fixed:  \autochange doesn't crash anymore.

@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "scm-hash.hh"
+#include "ly-smobs.icc"
 
 
 
@@ -116,7 +117,6 @@ Scheme_hash_table::to_alist () const
 }
 
 
-#include "ly-smobs.icc"
 IMPLEMENT_UNSMOB(Scheme_hash_table,scheme_hash);
 IMPLEMENT_SMOBS(Scheme_hash_table);
 IMPLEMENT_DEFAULT_EQUAL_P(Scheme_hash_table);

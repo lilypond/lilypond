@@ -81,6 +81,7 @@ private:
   /** association list of Voice_alist_entry smobs
   */
   Protected_scm voice_alist_;
+  Score_element * any_notehead_l_;
 };
 
 
@@ -89,8 +90,8 @@ class Voice_alist_entry
   bool first_in_phrase_b_;
   Score_element * notehead_l_;
   Link_array<Score_element> lyric_list_;
-  int longest_lyric_;
-  int shortest_lyric_;
+  Score_element * longest_lyric_l_;
+  Score_element * shortest_lyric_l_;
   int alignment_i_;
 
 public:
@@ -100,7 +101,7 @@ public:
   void add_lyric(Score_element * lyric);
   void clear();
   bool is_empty();
-  bool set_lyric_align(const char *punc);
+  bool set_lyric_align(const char *punc, Score_element *default_notehead_l);
   int appropriate_alignment(const char *punc);
   void next_lyric();
 private:

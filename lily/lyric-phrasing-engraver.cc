@@ -21,6 +21,7 @@ ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
 Lyric_phrasing_engraver::Lyric_phrasing_engraver()
 {
   voice_alist_ = SCM_EOL;
+  any_notehead_l_ = 0;
 }
 
 Lyric_phrasing_engraver::~Lyric_phrasing_engraver()
@@ -52,8 +53,8 @@ Lyric_phrasing_engraver::record_notehead(const String &context_id, Score_element
 {
   Voice_alist_entry * v = lookup_context_id(context_id);
   v->set_notehead(notehead);
-  //  voice_alist_ = 
-  //    scm_assoc_set_x(voice_alist_, ly_str02scm(context_id.ch_C()), smobify(v));
+  if(!any_notehead_l_)
+    any_notehead_l_ = notehead;
 }
   
 void 
@@ -61,8 +62,6 @@ Lyric_phrasing_engraver::record_lyric(const String &context_id, Score_element * 
 {
   Voice_alist_entry * v = lookup_context_id(context_id);
   v->add_lyric(lyric);
-  //  voice_alist_ = 
-  //  scm_assoc_set_x(voice_alist_, ly_str02scm(context_id.ch_C()), smobify(v));
 }
 
 
@@ -136,15 +135,13 @@ void Lyric_phrasing_engraver::process_acknowledged ()
   */
   Voice_alist_entry *entry;
   String punc;
-  if (punc.empty_b()) {
-    SCM sp = get_property("phrasingPunctuation");
-    punc = gh_string_p(sp) ? ly_scm2string(sp) : ".,;?!"; 
-  }
-
+  SCM sp = get_property("phrasingPunctuation");
+  punc = gh_string_p(sp) ? ly_scm2string(sp) : ".,;:?!\""; 
+  
   for(unsigned v=0; v < gh_length(voice_alist_); v++) {
     entry = unsmob_voice_entry(gh_cdr(gh_list_ref(voice_alist_, gh_int2scm(v))));
-    if(! entry->set_lyric_align(punc.ch_C()))
-      warning (_ ("lyrics found without matching notehead ... aligning on self"));
+    if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
+      warning (_ ("lyrics found without any matching notehead"));
   }
 }
 
@@ -157,6 +154,7 @@ Lyric_phrasing_engraver::do_pre_move_processing ()
     entry = unsmob_voice_entry(gh_cdr(gh_list_ref(voice_alist_, gh_int2scm(v))));
     entry->next_lyric();
   }
+  any_notehead_l_ = 0;
 }
 
 
@@ -181,8 +179,8 @@ Voice_alist_entry::clear()
 {
   notehead_l_=0;
   lyric_list_.clear();
-  longest_lyric_=-1;
-  shortest_lyric_=-1;
+  longest_lyric_l_=0;
+  shortest_lyric_l_=0;
 }
   
 void 
@@ -202,22 +200,20 @@ Voice_alist_entry::set_notehead(Score_element * notehead)
 void 
 Voice_alist_entry::add_lyric(Score_element * lyric)
 {
-  int this_lyric = lyric_list_.size();
   lyric_list_.push(lyric);
   /* record longest and shortest lyrics */
-  if(longest_lyric_>-1) {
-    Real this_length = (lyric->extent(X_AXIS)).length();
-    if(this_length > (lyric_list_[longest_lyric_]->extent(X_AXIS)).length())
-      longest_lyric_ = this_lyric;
-    if(this_length < (lyric_list_[shortest_lyric_]->extent(X_AXIS)).length())
-      shortest_lyric_ = this_lyric;
+  if( longest_lyric_l_ ) {
+    if(lyric->extent(X_AXIS).length() > (longest_lyric_l_->extent(X_AXIS)).length())
+      longest_lyric_l_ = lyric;
+    if(lyric->extent(X_AXIS).length() < (shortest_lyric_l_->extent(X_AXIS)).length())
+      shortest_lyric_l_ = lyric;
   }
   else
-    longest_lyric_ = shortest_lyric_ = this_lyric;
+    longest_lyric_l_ = shortest_lyric_l_ = lyric;
 }
   
 bool 
-Voice_alist_entry::set_lyric_align(const char *punc)
+Voice_alist_entry::set_lyric_align(const char *punc, Score_element *default_notehead_l)
 {
   if(lyric_list_.size()<2) {
     /* Only for multi-stanza songs ... if we've only a single lyric (or none at all) we
@@ -236,48 +232,37 @@ Voice_alist_entry::set_lyric_align(const char *punc)
     lyric = lyric_list_[l];
     lyric->set_elt_property("self-alignment-X", gh_int2scm(alignment_i_));
 
-    // centre on notehead 
-
-    if(notehead_l_) {
+    // centre on notehead ... if we have one. If there was no notehead in the matching
+    // voice context, use the first notehead caught from any voice context (any port in a storm).
+    if(notehead_l_ || default_notehead_l) {
       /* set the parent of each lyric to the notehead,
 	 set the offset callback of each lyric to centered_on_parent,
       */
-      lyric->set_parent(notehead_l_, X_AXIS);
+      Score_element * parent_nh = notehead_l_ ? notehead_l_ : default_notehead_l;
+      lyric->set_parent(parent_nh, X_AXIS);
       lyric->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
       /* reference is on the right of the notehead; move it left half way */
-      lyric->translate_axis (-(notehead_l_->extent(X_AXIS)).center(), X_AXIS);
-    }
-    else {
-      /* No matching notehead: just align to the first lyric, and
-	  issue a warning about lyric without matching notehead
-      */
-      if(l) {
-	lyric->set_parent(lyric_list_[0], X_AXIS);
-	lyric->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
-      }
-      else
-	lyric->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-    }
+      lyric->translate_axis (-(parent_nh->extent(X_AXIS)).center(), X_AXIS);
 
-    if(alignment_i_ != CENTER) {
-      // right or left align ... 
-      /* If length of longest lyric < 2 * length of shortest lyric,
-	   - centre longest lyric on notehead
-	 Otherwise
-	   - move so shortest lyric just reaches notehead centre
-      */
-      // FIXME: do we really know the lyric extent here? Some font sizing comes later?
-      Real translate;
-      if((lyric_list_[longest_lyric_]->extent(X_AXIS)).length() <
-	 (lyric_list_[shortest_lyric_]->extent(X_AXIS)).length() * 2 )
-	translate = alignment_i_*(lyric_list_[longest_lyric_]->extent(X_AXIS)).length()/2;
-      else
-	translate = alignment_i_*(lyric_list_[shortest_lyric_]->extent(X_AXIS)).length();
-      lyric->translate_axis (translate, X_AXIS);	  
+      if(alignment_i_ != CENTER) {
+	// right or left align ... 
+	/* If length of longest lyric < 2 * length of shortest lyric,
+	     - centre longest lyric on notehead
+	   Otherwise
+	     - move so shortest lyric just reaches notehead centre
+	*/
+	// FIXME: do we really know the lyric extent here? Some font sizing comes later?
+	Real translate;
+	if((longest_lyric_l_->extent(X_AXIS)).length() <
+	   (shortest_lyric_l_->extent(X_AXIS)).length() * 2 )
+	  translate = alignment_i_*(longest_lyric_l_->extent(X_AXIS)).length()/2;
+	else
+	  translate = alignment_i_*(shortest_lyric_l_->extent(X_AXIS)).length();
+	lyric->translate_axis (translate, X_AXIS);	  
       }
     }
-
-  return (notehead_l_ != 0);
+  }
+  return (notehead_l_ || default_notehead_l);
 }
 
 /** determine what alignment we want.
