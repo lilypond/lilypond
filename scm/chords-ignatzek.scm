@@ -163,9 +163,10 @@ work than classifying the pitches."
     (define (filter-main-name p)
     "The main name: don't print anything for natural 5 or 3."
     (if
-     (and (is-natural-alteration? p)
+     (or (not (ly:pitch? p))
+	 (and (is-natural-alteration? p)
 	  (or (= (pitch-step p) 5)
-	      (= (pitch-step p) 3)))
+	      (= (pitch-step p) 3))))
      '()
      (list (name-step p))
      ))
@@ -329,6 +330,7 @@ work than classifying the pitches."
 	 ;; etc. are named by the top pitch, without any further
 	 ;; alterations.
 	 (if (and
+	      (ly:pitch? main-name)
 	      (= 7 (pitch-step main-name))
 	      (is-natural-alteration? main-name)
 	      (pair? (remove-uptil-step 7 alterations))
