@@ -5383,13 +5383,13 @@ to an articulation, for example,
 
 This defines a note with a conditional fingering indication.
 
-By applying the @code{\onlyWithTag} command, tagged expressions
+By applying the @code{\keepWithTag} command, tagged expressions
 can be filtered.  For example,
 @example
 <<
   @var{the music}
-  \onlyWithTag #'score @var{the music}
-  \onlyWithTag #'part @var{the music}
+  \keepWithTag #'score @var{the music}
+  \keepWithTag #'part @var{the music}
 >>
 @end example
 would yield
