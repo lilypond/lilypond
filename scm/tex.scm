@@ -142,7 +142,7 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "%\n\\EndLilyPondOutput\n"
+    (string-append "%\n\\endgroup\\EndLilyPondOutput\n"
 					; Put GC stats here.
 		   )))
 
@@ -181,7 +181,7 @@
    "}"
    "\\input lilyponddefs\n"
    "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\turnOnPostScript\n"))
+   "\\turnOnPostScript\\begingroup\\parindent0pt\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 

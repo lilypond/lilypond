@@ -40,6 +40,9 @@
 
 \ifundefined{documentclass}
   \input lilypond-plaintex
+
+%% make plain work ok Out Of The Box 
+  \hsize=\lilypondpaperlinewidth\lilypondpaperunit
 \else
   \input lilypond-latex
 \fi
