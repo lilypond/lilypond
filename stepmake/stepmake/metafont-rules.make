@@ -33,9 +33,9 @@ MFTRACE_FORMATS = pfa pfb svg
 $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
 	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
 #	-mv $(MFTRACE_FORMATS:%=$(basename $(@F).%)) $(outdir)
-	mv $(basename $(@F).%).pfa $(outdir)
-	mv $(basename $(@F).%).pfb $(outdir)
-	mv $(basename $(@F).%).svg $(outdir)
+	-mv $(basename $(@F)).pfa $(outdir)
+	-mv $(basename $(@F)).pfb $(outdir)
+	-mv $(basename $(@F)).svg $(outdir)
 
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
