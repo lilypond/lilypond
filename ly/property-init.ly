@@ -248,3 +248,20 @@ fermataMarkup = \markup { \musicglyph #"scripts-ufermata" }
 setMmRestFermata =
   \once \property Voice.MultiMeasureRestNumber \override #'text =
     #fermataMarkup 
+
+
+hideNotes =\sequential {
+                % hide notes, accidentals, etc.
+                \property Voice.NoteHead \override #'transparent = ##t
+                \property Voice.Stem \override #'transparent = ##t
+                \property Voice.Beam \override #'transparent = ##t
+                \property Staff.Accidental \override #'transparent = ##t
+}
+
+
+unHideNotes =  \sequential {
+\property Voice.NoteHead \revert #'transparent
+\property Voice.Stem \revert #'transparent
+\property Voice.Beam \revert #'transparent
+\property Staff.Accidental \revert #'transparent
+}

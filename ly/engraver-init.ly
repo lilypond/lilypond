@@ -480,6 +480,8 @@ FiguredBassContext = \translator {
 	\consists "Figured_bass_engraver"
 	\consists "Rest_swallow_translator"
 	\consists "Note_swallow_translator"
+	\consists "Separating_line_group_engraver"
+	
 	\consistsend "Hara_kiri_engraver"
 }
 

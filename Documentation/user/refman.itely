@@ -342,8 +342,11 @@ note splitting (See @ref{Automatic note splitting}).
 
 @seealso 
 
-@seeinternals{Tie}, @ref{Automatic note splitting}. If you want less
-ties created for a chord, see @inputfileref{input/test/,tie-sparse.ly}.
+@internalsref{TieEvent}, @internalsref{NewTieEvent},
+@internalsref{Tie}, @ref{Automatic note splitting}.
+
+If you want less
+ties created for a chord, see @inputfileref{input/test,tie-sparse.ly}.
 
 @refbugs
 
@@ -686,14 +689,14 @@ The standard mode names @code{\ionian},
 @code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
 @code{\phrygian}, and @code{\dorian} are also defined.
 
-@seealso
-
 This command sets the context property
 @internalsref{Staff}.@code{keySignature}.  Non-standard key signatures
 can be specified by setting this property directly.
 
-The printed signature is a @internalsref{KeySignature} object, typically
-created in @internalsref{Staff} context.
+
+@seealso
+
+@internalsref{KeyChangeEvent}, @internalsref{KeySignature}, 
 
 @cindex @code{keySignature}
 
@@ -754,7 +757,7 @@ when any of these properties are changed.
 
 @seealso
 
-The object for this symbol is @internalsref{Clef}. 
+The object for this symbol is @internalsref{Clef}.
 
 
 
@@ -777,9 +780,11 @@ command.
  \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
 
-The actual symbol that is printed can be customized with the @code{style}
-property. Setting it to @code{#'()} uses fraction style for 4/4 and
-2/2 time.
+The actual symbol that is printed can be customized with the
+@code{style} property. Setting it to @code{#'()} uses fraction style
+for 4/4 and 2/2 time.  There are many more options for its layout.
+See @inputfileref{input/test,time.ly} for more examples.
+
 
 This command sets the property @code{timeSignatureFraction},
 @code{beatLength} and @code{measureLength} in the @code{Timing}
@@ -813,9 +818,8 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 
 @seealso
 
-The object for this symbol is @internalsref{TimeSignature}.  There are
-many more options for its layout.  See
-@inputfileref{input/test,time.ly} for more examples.
+@internalsref{TimeSignature}, @internalsref{Timing_engraver}.
+
 
 @refbugs
 
@@ -919,14 +923,22 @@ a measure it is set to @code{defaultBarType}. The contents of
 @cindex repeatCommands
 @cindex defaultBarType
 
-
-@seealso
-
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
 
-The bar line objects that are created at @internalsref{Staff} are
-called @internalsref{BarLine}, the bar lines that span staffs are
+
+
+@seealso
+
+@ref{Repeats}, @internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic},
+@internalsref{UnfoldedRepeatedMusic}
+@internalsref{TremoloRepeteadMusic},
+@internalsref{FoldedRepeatedMusic}.
+
+
+The bar line objects that are created at @internalsref{Staff} level
+are called @internalsref{BarLine}, the bar lines that span staffs are
 @internalsref{SpanBar}s.
 
 
@@ -994,11 +1006,11 @@ LilyPond also vertically shifts rests that are opposite of a stem.
 
 The objects responsible for resolving collisions are
 @internalsref{NoteCollision} and @internalsref{RestCollision}.  See
-also example files @inputfileref{input/regression/,collision-dots.ly},
-@inputfileref{input/regression/,collision-head-chords.ly},
-@inputfileref{input/regression/,collision-heads.ly},
-@inputfileref{input/regression/,collision-mesh.ly}, and
-@inputfileref{input/regression/,collisions.ly}.
+also example files @inputfileref{input/regression,collision-dots.ly},
+@inputfileref{input/regression,collision-head-chords.ly},
+@inputfileref{input/regression,collision-heads.ly},
+@inputfileref{input/regression,collision-mesh.ly}, and
+@inputfileref{input/regression,collisions.ly}.
 
 
 @refbugs
@@ -1414,7 +1426,8 @@ voices in the same staff share accidentals, but staves do not.
 
 @seealso
 
-@internalsref{Accidental_engraver},
+@internalsref{Accidental_engraver}, @internalsref{Accidental},
+@internalsref{AccidentalPlacement}.
 
 
 @refbugs
@@ -1502,7 +1515,7 @@ stems might look better:
 
 @seealso
 
-@seeinternals{Slur}.
+@seeinternals{Slur}, @internalsref{SlurEvent}.
 
 
 @refbugs
@@ -1540,8 +1553,13 @@ will only affect normal slurs and not phrasing slurs.
 
 @seealso
 
-See also @seeinternals{PhrasingSlur}. Phrasing slurs have the same
-limitations in their formatting.
+See also @internalsref{PhrasingSlur},
+@internalsref{PhrasingSlurEvent}.
+
+@refbugs
+
+Phrasing slurs have the same limitations in their formatting as normal
+slurs.
 
 @node Breath marks
 @subsection Breath marks
@@ -1565,8 +1583,8 @@ d4
 
 @seealso 
 
-@seeinternals{BreathingSign},
-@inputfileref{input/regression/,breathing-sign.ly}.
+@internalsref{BreathingSign}, @internalsref{BreathingSignEvent},
+@inputfileref{input/regression,breathing-sign.ly}.
 
 
 @node Tempo
@@ -1584,6 +1602,10 @@ Metronome settings can be entered as follows:
 
 For example, @code{\tempo 4 = 76} requests output with 76 quarter notes
 per minute.
+
+@seealso
+
+@internalsref{TempoEvent}
   
 @refbugs
   
@@ -1623,7 +1645,8 @@ An application is to fake octavation indications.
 
 @seealso
 
-@internalsref{TextSpanner}, @inputfileref{input/regression/,text-spanner.ly}.
+@internalsref{TextSpanEvent},
+@internalsref{TextSpanner}, @inputfileref{input/regression,text-spanner.ly}.
 
 
 @node Analysis brackets
@@ -1759,7 +1782,8 @@ finger changes, use markup texts:
         
 @seealso
 
-@internalsref{Script} and @internalsref{Fingering}.
+@internalsref{ScriptEvent}, 
+@internalsref{Script}, @internalsref{FingerEvent} and @internalsref{Fingering}.
 
 @refbugs
 
@@ -1786,12 +1810,11 @@ avoided because it makes it impossible for LilyPond to compute the
 exact length of the string, which may lead to collisions.  Also, @TeX{}
 commands will not work with direct PostScript output.
 
+
 @seealso
 
-@internalsref{TextScript} objects.
-
-@ref{Text markup} describes how to change the font or access
-special symbols in text scripts.
+@internalsref{TextScriptEvent}, @internalsref{TextScript},
+@ref{Text markup}.
 
 
 
@@ -1904,6 +1927,10 @@ second bars in this example:
 @end lilypond
 
 
+@seealso
+
+@internalsref{GraceMusic}.
+
 @refbugs
 
 Grace notes can not be used in the smallest size (@file{paper11.ly}).
@@ -1943,7 +1970,7 @@ a note:
 
 @seealso
 
-@seeinternals{Glissando}.
+@internalsref{Glissando}, @internalsref{GlissandoEvent}.
 
 
 @refbugs
@@ -2039,6 +2066,9 @@ You can also supply your own texts:
 @cindex diminuendo
 
 @seealso
+
+@internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent},
+@internalsref{AbsoluteDynamicEvent}.
 
 Dynamics are objects of @internalsref{DynamicText} and
 @internalsref{Hairpin}. Vertical positioning of these symbols is
@@ -2213,7 +2243,7 @@ alphabetic characters.
 
 @seealso
 
-Repeat brackets are @internalsref{VoltaBracket} objects.
+@internalsref{VoltaBracket}
 
 @node Tremolo repeats
 @subsection Tremolo repeats
@@ -2235,7 +2265,8 @@ style.
 @seealso
 
 Tremolo beams are @internalsref{Beam} objects. Single stem tremolos are
-@internalsref{StemTremolo}. 
+@internalsref{StemTremolo}.  @internalsref{TremoloEvent}.
+
 
 @refbugs
 
@@ -2283,8 +2314,10 @@ patterns that divide the measure length are replaced by slashes.
 
 @seealso
 
-@internalsref{RepeatSlash}, @internalsref{PercentRepeat}, and
+@internalsref{RepeatSlash}, @internalsref{PercentRepeat},
+@internalsref{PercentRepeatedMusic}, and
 @internalsref{DoublePercentRepeat}.
+
 
 @refbugs
 
@@ -2938,7 +2971,7 @@ lower = \notes \relative c {
 
 @seealso
 
-@internalsref{Ambitus}, @inputfileref{input/regression/,ambitus.ly}.
+@internalsref{Ambitus}, @inputfileref{input/regression,ambitus.ly}.
 
 @node Tablatures
 @section Tablatures
@@ -2999,7 +3032,8 @@ frag = \notes {
 
 @seealso
 
-@internalsref{TabStaff}, @internalsref{TabVoice}
+@internalsref{TabStaff}, @internalsref{TabVoice}, and
+@internalsref{StringNumberEvent}.
 
 @refbugs
 
@@ -3264,13 +3298,13 @@ through the following properties:
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
 For an example, see
-@inputfileref{input/regression/,chord-name-exceptions.ly}.
+@inputfileref{input/regression,chord-name-exceptions.ly}.
 
 @item majorSevenSymbol
 This property contains the markup object used for the 7th step, when
 it is major. Predefined options are @code{whiteTriangleMarkup},
 @code{blackTriangleMarkup}.  See
-@inputfileref{input/regression/,chord-name-major7.ly} for an example.
+@inputfileref{input/regression,chord-name-major7.ly} for an example.
 
 @item chordNameSeparator
 Different parts of a chord name are normally separated by a
@@ -3300,8 +3334,9 @@ in lower case for the base note.
 
 @seealso
 
-@inputfileref{input/regression/,chord-name-major7.ly},
-@inputfileref{input/regression/,chord-name-exceptions.ly},
+@inputfileref{input/regression,chord-name-major7.ly},
+@inputfileref{input/regression,chord-name-exceptions.ly},
+@inputfileref{input/test,chord-names-german.ly},
 @file{scm/chords-ignatzek.scm}, @file{scm/chord-entry.scm}
 
 
@@ -3374,6 +3409,9 @@ beginning. Use the following to force that behavior
   #'break-visibility = #begin-of-line-invisible
 @end example
 
+See @inputfileref{input/test,boxed-molecule.ly}.  for putting boxes
+around the marks.
+
 @cindex fermatas
 @cindex coda
 @cindex segno
@@ -3381,9 +3419,8 @@ beginning. Use the following to force that behavior
 
 @seealso
 
-The object is @internalsref{RehearsalMark} in @internalsref{Score}
-context. See @inputfileref{input/test,boxed-molecule.ly} for putting
-boxes around the marks.
+@internalsref{MarkEvent}, @internalsref{RehearsalMark}, 
+@inputfileref{input/test,boxed-molecule.ly}.
 
 
 @node Bar numbers
@@ -3402,12 +3439,12 @@ which is normally updated automatically for every measure.
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line. This is illustrated in the following example,
 whose source is available as
-@inputfileref{input/test/,bar-number-every-fifth.ly}
+@inputfileref{input/test,bar-number-every-fifth.ly}
 
 @lilypondfile[notexidoc]{bar-number-every-fifth.ly}
 
 The start of that numbering can also be reset, as demonstrated in
-@inputfileref{input/test/,bar-number-every-5-reset.ly}.
+@inputfileref{input/test,bar-number-every-5-reset.ly}.
 
 @lilypondfile[notexidoc]{bar-number-every-5-reset.ly}
 
@@ -3415,8 +3452,8 @@ The start of that numbering can also be reset, as demonstrated in
 @seealso
 
 @internalsref{BarNumber}.
-@inputfileref{input/test/,bar-number-every-5-reset.ly}.
-@inputfileref{input/test/,bar-number-every-fifth.ly}
+@inputfileref{input/test,bar-number-every-5-reset.ly}.
+@inputfileref{input/test,bar-number-every-fifth.ly}
 
 @refbugs
 
@@ -3456,6 +3493,10 @@ names.
   }
 @end lilypond
 
+
+@seealso
+
+@internalsref{InstrumentName}
 
 @refbugs
 
@@ -3560,9 +3601,14 @@ adding fermatas.
 
 @seealso
 
-The object for this object is @internalsref{MultiMeasureRest},
-@internalsref{MultiMeasureRestNumber} (for the default number), and
-@internalsref{MultiMeasureRestText} (for user specified texts).
+@internalsref{MultiMeasureRestEvent},
+@internalsref{MultiMeasureTextEvent},
+@internalsref{MultiMeasureRestMusicGroup},
+@internalsref{MultiMeasureRest}.
+
+The graphical object @internalsref{MultiMeasureRestNumber} is for the
+default number, and @internalsref{MultiMeasureRestText} for user
+specified texts.
 
 @refbugs
 
@@ -3648,9 +3694,9 @@ may set the property @var{soloADue} to false.
 
 @seealso
 
- Look at the documentation of the responsible engravers,
-@code{Thread_devnull_engraver}, @code{Voice_devnull_engraver} and
-@code{A2_engraver}.
+@internalsref{PartCombineMusic},
+@internalsref{Thread_devnull_engraver},
+@internalsref{Voice_devnull_engraver} and @internalsref{A2_engraver}.
 
 @refbugs
 
@@ -3981,24 +4027,10 @@ beams, depending on which staffline it was printed.
 @cindex custodes
 
 A @emph{custos} (plural: @emph{custodes}; latin word for `guard') is a
-staff context symbol that appears at the end of a staff line.  It
-anticipates the pitch of the first note(s) of the following line and
-thus helps the player or singer to manage line breaks during
-performance, thus enhancing readability of a score.
-
-@lilypond[verbatim]
-\score {
-  \notes { c'1 \break
-        \property Staff.Custos \set #'style = #'mensural
-        d' }
-  \paper {
-    \translator {
-      \StaffContext
-      \consists Custos_engraver
-    }
-  }
-}
-@end lilypond
+symbol that appears at the end of a staff.  It anticipates the pitch
+of the first note(s) of the following line and thus helps the player
+or singer to manage line breaks during performance, thus enhancing
+readability of a score.
 
 Custodes were frequently used in music notation until the 17th century.
 There were different appearances for different notation styles.
@@ -4006,12 +4038,11 @@ Nowadays, they have survived only in special forms of musical notation
 such as via the @emph{editio vaticana} dating back to the beginning of
 the 20th century.
 
-For typesetting custodes, just put a @code{Custos_engraver} into the
-Staff context when declaring the @code{\paper} block, as shown in the
-following example.  In the @code{\paper} block, you can also globally
-control the appearance of the custos symbol by setting the custos
-@code{style} property.
 
+
+For typesetting custodes, just put a @internalsref{Custos_engraver} into the
+@internalsref{Staff} context when declaring the @code{\paper} block,
+as shown in the following example.
 @example
 \paper @{
   \translator @{
@@ -4021,43 +4052,48 @@ control the appearance of the custos symbol by setting the custos
   @}
 @}
 @end example
+The result looks like this:
+@lilypond
+\score {
+  \notes { c'1 \break
+        \property Staff.Custos \set #'style = #'mensural
+        d' }
+  \paper {
+    \translator {
+      \StaffContext
+      \consists Custos_engraver
+    }
+    linewidth = 4.0 \cm
+  }
+}
+@end lilypond
 
-The property can also be set locally, for example in a @code{\notes}
-block:
-
-@example
-\notes @{
-  \property Staff.Custos \override #'style = #'vaticana
-  c'1 d' e' d' \break c' d' e' d'
-@}
-@end example
-
-Currently, the following styles are supported:
+The appearance of the custos symbol is controlled by it @code{style}
+property. The styles supported are @code{vaticana}, @code{medicaea},
+@code{hufnagel} and @code{mensural}. They are demonstrated in the
+following fragment:
 
 @lilypond
 \score {
     \notes {
         \fatText
         s
-        ^\markup { "vaticana" }
-        ^\markup { \musicglyph #"custodes-vaticana-u0" }
-        s
-        ^\markup { "medicaea" }
-        ^\markup { \musicglyph #"custodes-medicaea-u0" }
-        s
-        ^\markup { "hufnagel" }
-        ^\markup { \musicglyph #"custodes-hufnagel-u0" }
-        s
-        ^\markup { "mensural" }
-        ^\markup { \musicglyph #"custodes-mensural-u0" }
+        ^\markup { \column << "vaticana" 
+			      { " " \musicglyph #"custodes-vaticana-u0" }  >>
+		   \column << "medicaea"
+			      { " " \musicglyph #"custodes-medicaea-u0" } >> 
+		   \column <<  "hufnagel"
+			       { " "\musicglyph #"custodes-hufnagel-u0" } >>
+		   \column <<  "mensural"
+			       { " " \musicglyph #"custodes-mensural-u0" } >>
+		   }
     }
     \paper {
-        raggedright = ##t
+	raggedright = ##t 
         interscoreline = 1
         \translator {
             \ScoreContext
             \remove "Bar_number_engraver"
-            TextScript \override #'extra-X-extent = #'(-1 . 1)
         }
         \translator{
             \StaffContext
@@ -4073,14 +4109,14 @@ Currently, the following styles are supported:
 
 If the boolean property @code{adjust-if-on-staffline} is set to
 @code{#t} (which it is by default), lily typesets slightly different
-variants of the custos glyph, depending on the pitch of the custos,
-i.e. depending on the glyph being typeset either on a staffline or
-between two stafflines.  The idea is that the glyph will optically fit
-well into the staff, with the appendage on the right of the custos
-always ending at the same vertical position between two stafflines
-regardless of the pitch.  If you set @code{adjust-if-on-staffline} to
-@code{#f}, then lily takes regardless of the pitch always a glyph that
-is a compromise of the former two variants.
+variants of the custos glyph, depending on whether the custos, is
+typeset on or between stafflines.  The idea is that the glyph will
+optically fit well into the staff, with the appendage on the right of
+the custos always ending at the same vertical position between two
+stafflines regardless of the pitch.  If you set
+@code{adjust-if-on-staffline} to @code{#f}, then lily takes regardless
+of the pitch always a glyph that is a compromise of the former two
+variants.
 
 Just like stems can be attached to noteheads in two directions
 @emph{up} and @emph{down}, each custos glyph is available with its
@@ -4096,18 +4132,12 @@ will point downwards.  If set to @code{1}, the appendage will point
 upwards.  Other values such as @code{0} are reserved for future
 extensions and should not be used.
 
-Example:
+@seealso
 
-@example
-\notes @{
-    \property Staff.Custos \set #'neutral-position = #4
-    \property Staff.Custos \set #'neutral-direction = #-1
-    \property Staff.Custos \set #'adjust-if-on-staffline = ##t
 
-    ...
+@internalsref{Custos}, @inputfileref{input/test,custos-style.ly} and
+@inputfileref{input/regression,custos.ly}.
 
-@}
-@end example
 
 @node Divisiones
 @subsection Divisiones
@@ -4125,74 +4155,23 @@ can be characterized as short, medium and long pause, somewhat like
 a chant, but is also frequently used within a single
 antiphonal/responsorial chant to mark the end of each section.
 
-To use divisiones, just include the file @code{gregorian-init.ly}.  It
+@syntax
+
+To use divisiones, include the file @code{gregorian-init.ly}.  It
 contains definitions that you can apply by just inserting
-@code{\divisiominima}, @code{\divisiomaior}, @code{\divisiomaxima},
-and @code{\finalis} at proper places into your lilypond files.
+@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
+and @code{\finalis} at proper places in the input.  Some editions use
+@emph{virgula} or @emph{caesura} instead of divisio minima.
+Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
+@code{\caesura}.
 
-@lilypond[verbatim]
-\include "gregorian-init.ly"
-\score {
-    \notes {
-	\context Staff = staff \addlyrics \notes \transpose c c' {
-	    \property Score.timing = ##f
-	    \property Score.barAlways = ##t
-	    \property Staff.BarLine \override #'transparent = ##t
-	    \property Voice.Stem \override #'transparent = ##t
-            g4( )a g e( )f e
-            ^\markup { "divisio minima" }
-	    \divisiominima
-            g4( )a g e( )f e
-            ^\markup { "divisio maior" }
-	    \divisiomaior
-            g4( )a g e( )f e
-            ^\markup { "divisio maxima" }
-	    \divisiomaxima
-            g4( )a g e( )f e
-            ^\markup { "finalis" }
-	    \finalis
-            g4( )a g e( )f e
-	}
-	\context Lyrics = lyrics \lyrics {
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	}
-    }
-}
-@end lilypond
 
-Some editions use @emph{virgula} or @emph{caesura} instead of divisio
-minima.  Therefore, @code{gregorian-init.ly} also defines
-@code{\virgula} and @code{\caesura}.
+@lilypondfile[notexidoc]{divisiones.ly}
 
-@lilypond[verbatim]
-\include "gregorian-init.ly"
-\score {
-    \notes {
-	\context Staff = staff \addlyrics \notes \transpose c c' {
-	    \property Score.timing = ##f
-	    \property Score.barAlways = ##t
-	    \property Staff.BarLine \override #'transparent = ##t
-	    \property Voice.Stem \override #'transparent = ##t
-            g4( )a g e( )f e
-            ^\markup { "virgula" }
-	    \virgula
-            g4( )a g e( )f e
-            ^\markup { "caesura" }
-	    \caesura
-            g4( )a g e( )f e
-	}
-	\context Lyrics = lyrics \lyrics {
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	    Blah blub, blah blam.
-	}
-    }
-}
-@end lilypond
+@seealso
+
+@internalsref{BreathingSign}, @internalsref{BreathingSignEvent},
+@inputfileref{input/test,divisiones.ly}, @ref{Breath marks}.
 
 @node Ligatures
 @subsection Ligatures
@@ -4211,7 +4190,7 @@ centuries: In early notation, ligatures where used for monophonic tunes
 (Gregorian chant) and very soon denoted also the way of performance in
 the sense of articulation.  With upcoming multiphony, the need for a
 metric system arised, since multiple voices of a piece have to be
-synchronized some way.  New notation systems were invented, that used
+synchronized some way.  New notation systems were invented that used
 the manifold shapes of ligatures to now denote rhythmical patterns
 (e.g. black mensural notation, mannered notation, ars nova).  With the
 invention of the metric system of the white mensural notation, the need
@@ -4220,6 +4199,8 @@ ligatures were still in use in the mensural system for a couple of
 decades until they finally disappeared during the late 16th / early 17th
 century.  Still, ligatures have survived in contemporary editions of
 Gregorian chant such as the Editio Vaticana from 1905/08.
+
+@syntax
 
 Syntactically, ligatures are simply enclosed by @code{\[} and @code{\]}.
 Some ligature styles (such as Editio Vaticana) may need additional input
@@ -4253,20 +4234,20 @@ added in the future.
 @cindex Mensural ligatures
 @cindex White mensural ligatures
 
-Lilypond has limited support for white mensural ligatures.  The
+There is limited support for white mensural ligatures.  The
 implementation is still experimental; it currently may output strange
 warnings or even crash in some cases or produce weird results on more
 complex ligatures.  To engrave white mensural ligatures, in the paper
-block the @internalsref{MensuralLigature} engraver has to be put into
+block the @internalsref{Mensural_ligature_engraver} has to be put into
 the @internalsref{Voice} context (and you probably want to remove the
-@internalsref{LigatureBracket} engraver).  There is no additional input
-language to describe the shape of a white mensural ligature.  The shape
-is rather determined solely from the pitch and duration of the enclosed
-notes.  While this approach may take a new user quite a while to get
-accustomed, it has a great advantage: this way, lily has full musical
-information about the ligature.  This is not only required for correct
-MIDI output, but also allows for automatic transcription of the
-ligatures.
+@internalsref{Ligature_bracket_engraver}).  There is no additional
+input language to describe the shape of a white mensural ligature.
+The shape is rather determined solely from the pitch and duration of
+the enclosed notes.  While this approach may take a new user a while
+to get accustomed, it has the great advantage that the full musical
+information of the ligature is known internally.  This is not only
+required for correct MIDI output, but also allows for automatic
+transcription of the ligatures.
 
 Example:
 
@@ -4292,11 +4273,11 @@ Example:
 }
 @end lilypond
 
-Without replacing @code{Ligature_bracket_engraver} with
-@code{Mensural_ligature_engraver}, the same music transcribes to the
-following:
+Without replacing @internalsref{Ligature_bracket_engraver} with
+@internalsref{Mensural_ligature_engraver}, the same music transcribes
+to the following:
 
-@lilypond[singleline,verbatim]
+@lilypond[singleline]
 \score {
     \notes \transpose c c' {
 	\property Score.timing = ##f
@@ -4315,6 +4296,8 @@ following:
 @subsection Figured bass
 
 @cindex Basso continuo
+
+@c TODO: musicological blurb about FB
 
 LilyPond has limited support for figured bass:
 
@@ -4352,7 +4335,7 @@ appending @code{-}, @code{!}  and @code{+}.
 @end example
 @lilypond[fragment]
   \context FiguredBass
-\figures { <4- 6+ 7!> }
+    \figures { <4- 6+ 7!> }
 @end lilypond
 
 Spaces or dashes may be inserted by using @code{_}. Brackets are
@@ -4367,18 +4350,31 @@ introduced with @code{[} and @code{]}.
 @end lilypond
 
 Although the support for figured bass may superficially resemble chord
-support, it works much simpler: in figured bass simply stores the
-numbers, and then prints the numbers you entered. There is no
-conversion to pitches, and no realizations of the bass are played in
-the MIDI file.
+support, it works much simpler.  The @code{\figures} mode simply
+stores the numbers , and @internalsref{FiguredBass} context prints
+them as entered. There is no conversion to pitches, and no
+realizations of the bass are played in the MIDI file.
 
-Internally, the code produces markup texts internally. You can use any
-of the markup text properties to override formatting. For example, the
+Internally, the code produces markup texts. You can use any of the
+markup text properties to override formatting. For example, the
 vertical spacing of the figures may be set with @code{baseline-skip}.
+
+@refbugs
+
+Slash notation for alterations is not supported.
 
 
 @node Contemporary notation
 @section Contemporary notation
+
+In the 20th century, composers have greatly expanded the musical
+vocabulary. With this expansion, many innovations in musical notation
+have been tried. For a comprehensive overview, refer to @cite{Stone
+1980} (see @ref{Literature}). In general, the use of new, innovative
+notation makes a piece harder to understand and perform and its use
+should be avoided if possible.  For this reason, support for
+contemporary notation in LilyPond is limited.
+
 
 @menu
 * Clusters::                    
@@ -4401,7 +4397,7 @@ diatonic, chromatic or other scale.  In electronic music, a cluster
 (theoretically) may even cover a continuous range of pitches, thus
 resulting in coloured noise, such as pink noise.
 
-Clusters can be notated in the context of ordinary staff notation by
+Clusters can be denoted in the context of ordinary staff notation by
 engraving simple geometrical shapes that replace ordinary notation of
 notes.  Ordinary notes as musical events specify starting time and
 duration of pitches; however, the duration of a note is expressed by the
@@ -4411,80 +4407,56 @@ describes the development of a range of pitches (vertical extent) over
 time (horizontal extent).  Still, the geometrical shape of a cluster
 covers the area in wich any single pitch contained in the cluster would
 be notated as an ordinary note.  From this point of view, it is
-reasonable to specify a cluster as the envelope of a set of notes.  This
-is exactly how to construct a cluster with lilypond.
+reasonable to specify a cluster as the envelope of a set of notes.
 
-@lilypond[singleline,verbatim]
-\score {
-    \context PianoStaff <
-        \context Voice = voiceI { % same as voiceII, but with ordinary notes
-            \notes \relative c' {
-                c4 f4
-                a4 <e4 d'4> | \break
-                < g8 a8 > < e8 a8 > a4 c1 < d4 b4 > e4 |
-                c4 a4 f4 g4 a4
-            }
-        }
-        \context Voice = voiceII { % same as voiceI, but with cluster notation
-            \notes \relative c' {
+@syntax
 
-                % hide notes, accidentals, etc.
-                \property Thread.NoteHead \set #'transparent = ##t
-                \property Voice.Stem \set #'transparent = ##t
-                \property Voice.Beam \set #'transparent = ##t
-                \property Staff.Accidental \set #'transparent = ##t
+A cluster is engraved as the envelope of a set of notes. The starting
+note is marked with @code{\startCluster}, and the ending note with
+@code{\stopCluster}, e.g.,
 
-                \property Voice.Cluster \set #'padding = #0.01
-                \property Voice.Cluster \set #'shape = #'ramp
+@example
+  c4-\startCluster
+     ...
+  f4-\stopCluster 
+@end example
 
-                c4 f4
-                \startCluster
-                a4 <e4 d'4> | \break
-                < g8 a8 > < e8 a8 > a4 c1 < d4 b4 > e4 |
-                c4 \stopCluster a4 f4 g4 a4
-            }
-        }
-    >
-}
-@end lilypond
+The following example (from
+@inputfileref{input/regression,cluster.ly}) shows what the result
+looks like.
 
-Note that the second voice differs from the first one only by the
-additional keywords @code{\startCluster} and @code{\stopCluster} and the
-fact that notes, accidentals, etc. are hidden.  A future version of
-lilypond may automatically hide notes, accidentals, etc. within the
-scope of clusters.
+@lilypondfile{cluster.ly}
 
-Also note that a music expression like @code{< @{ g8 e8 @} a4 >} is
-illegal; in such a case, you can instead use the expression @code{< g8
-a8 > < e8 a8 >}.
+By default, @internalsref{Cluster_engraver} is in the
+@internalsref{Voice} context.  This allows putting ordinary notes and
+clusters together in the same staff, even simultaneously.  In such a
+case no attempt is made to automatically avoid collisions between
+ordinary notes and clusters.
 
-By default, cluster engraver is in the voice context.  This allows
-putting ordinary notes and clusters together in the same staff, even
-simultaneously.  However, in such a case no attempt is made to
-automatically avoid collisions between ordinary notes and clusters.
+@seealso
 
-The geometrical shape can be further controlled with grob properties
-@code{padding} and @code{shape}.  @code{padding} adds to the vertical
-extent of the shape (top and bottom) and is expressed in units of
-staffspace.  Since the pitch range of a single pitch is infinitely
-small, if padding is set to @code{0.0}, this possibly results in an
-invisible shape, if you,for example, say @code{ \startCluster c d e
-\endCluster}.  The default value for @code{padding} therefore is
-@code{0.25}, such that a single pitch roughly shows the same height as a
-note head.  Property @code{shape} controls how the overall shape of the
-cluster is constructed from the set of notes.  Currently supported
-values are @code{leftsided-stairs}, @code{rightsided-stairs},
-@code{centered-stairs}, and @code{ramp}.
+@internalsref{Cluster}, @inputfileref{input/regression,cluster.ly},
+@internalsref{Cluster_engraver}, @internalsref{ClusterEvent}.
+
+@refbugs
+
+When a cluster is active, note heads must be switched off manually using
+@code{\hideNotes}. 
+
+Music expressions like @code{< @{ g8 e8 @} a4 >} are not printed
+accurately.  Use @code{<<g a>>8 <<e a>>8} instead.
+
+
 
 @node Fermatas
 @subsection Fermatas
 
 @cindex fermatas
 
-Currently, lilypond supports the following fermata symbols that are
-frequently used in contemporary music notation:
+The following fermata symbols,  that are frequently used in contemporary
+music notation, are supported
 
-@lilypond[singleline,verbatim]
+@lilypond[singleline]
 \score {
     \notes {
         \fatText
@@ -4519,10 +4491,10 @@ such as fermatas to a @code{\notes@{@}} block.
 @node Tuning output
 @section Tuning output
 
-LilyPond tries to take as much formatting as possible out of your
-hands. Nevertheless, there are situations where it needs some help, or
-where you want to override its decisions. In this section we discuss
-ways to do just that.
+As much formatting as possible is performed
+automatically. Nevertheless, there are situations where LilyPond needs
+some help, or where you want to override its decisions. In this
+section we discuss ways to do just that.
 
 Formatting is internally done by manipulating so called objects (graphic
 objects). Each object carries with it a set of properties (object
@@ -4542,20 +4514,25 @@ object, and set a object property in that object.
 * Text markup::                 
 @end menu
 
-@node Tuning groups of objects 
-@subsection Tuning groups of objects 
+@node Tuning per object 
+@subsection Tuning per object 
+
+@cindex \once
+Tuning a single object is most often done with @code{\once \property}. The
+form,
+@example
+        \once \property @dots{}
+@end example
+@c
+@c
+
+
+
+
+@node Tuning objects 
+@subsection Tuning objects 
 
 @cindex object description
-
-A object definition is a Scheme association list, that is stored in a
-context property.  By assigning to that property (using plain
-@code{\property}), you can change the resulting objects.
-
-@lilypond[verbatim, fragment,quote]
-c'4 \property Voice.NoteHead  = #'() c'4
-@end lilypond
-This mechanism is fairly crude, since you can only set, but not modify,
-the definition of an object. Also, it will thoroughly confuse LilyPond.
 
 The definition of an object is actually a list of default object
 properties. For example, the definition of the Stem object (available
@@ -4569,40 +4546,82 @@ in @file{scm/grob-description.scm}), includes the following definitions for
         @var{...}
 @end example
 
-You can add a property on top of the existing definition, or remove a
-property, thus overriding the system defaults:
+
+By adding variables on top of these existing definitions, the system
+defaults is overriden, and the appearance of a graphical objects is
+altered.
+
+@syntax
+
+
+Changing a variable for only   one object is commonly achieved with
+@code{\once}:
+
+@example
+\once \property @var{context}.@var{grobname}
+  \override @var{symbol} = @var{value}
+@end example
+Here @var{symbol} is a Scheme expression of symbol type, @var{context}
+and @var{grobname} is a string and @var{value} is a Scheme expression.
+This command applies a setting only during one moment in the score.
+
+In the following example, only one @internalsref{Stem} object is
+changed from its original setting:
+
+@lilypond[verbatim, fragment, relative=1]
+  c4 
+  \once \property Voice.Stem \set #'thickness = #4
+  c4
+  c4
+@end lilypond
+@cindex @code{\once}
+
+For changing more objects, the same command, without @code{\once} can
+be used.
+@example
+\property @var{context}.@var{grobname} \override @var{symbol} = @var{value}
+@end example
+This command adds @code{@var{symbol} = @var{value}} to the definition
+of @var{grobname} in the context @var{context}, and this definition
+stays in place until it is removed.
+
+An existing definition may be removed by the following command
+@c
+@example
+\property @var{context}.@var{grobname} \revert @var{symbol}
+@end example
+@c
+All @code{\override} and @code{\revert} commands should be balanced.
+The @code{\set} shorthand, performs a revert followed by an override,
+and is often more convenient to use
+
+@example
+\property @var{context}.@var{grobname} \set @var{symbol} = @var{value}
+@end example
+
+Some examples: 
 @lilypond[verbatim,quote]
 c'4 \property Voice.Stem \override #'thickness = #4.0
+c'4
 c'4 \property Voice.Stem \revert #'thickness
 c'4
 @end lilypond
-You should balance @code{\override} and @code{\revert}. If that is too
-much work, you can use the @code{\set} shorthand. It performs a revert
-followed by an override. The following example gives exactly the same
-result as the previous one. 
+
+The following example gives exactly the same result as the previous
+one (assuming the system default for stem thickness is 0.8).
+@c
 @lilypond[verbatim,quote]
-c'4 \property Voice.Stem \set #'thickness = #4.0
-c'4 \property Voice.Stem \set #'thickness = #0.8
-c'4
+  c'4 \property Voice.Stem \set #'thickness = #4.0
+  c'4
+  c'4 \property Voice.Stem \set #'thickness = #0.8
+  c'4
 @end lilypond
-If you use @code{\set}, you must explicitly restore the default.
-
-
-Formally the syntax for these constructions is
-@example
-\property @var{context}.@var{grobname} \override @var{symbol} = @var{value}
-\property @var{context}.@var{grobname} \set @var{symbol} = @var{value}
-\property @var{context}.@var{grobname} \revert @var{symbol}
-@end example
-Here @var{symbol} is a Scheme expression of symbol type, @var{context}
-and @var{grobname} are strings and @var{value} is a Scheme expression.
-
 
 If you revert a setting which was not set in the first place, then it
 has no effect. However, if the setting was set as a system default, it
 may remove the default value, and this may give surprising results,
-including crashes.  In other words, @code{\override} and @code{\revert},
-must be carefully balanced.
+including crashes.  In other words, @code{\override} and
+@code{\revert}, must be carefully balanced.
 
 These are examples of correct nesting of @code{\override}, @code{\set},
 @code{\revert}. 
@@ -4630,10 +4649,23 @@ then you can use
 @end example
 
 For the digirati, the object description is an Scheme association
-list. Since a Scheme list is a singly linked list, we can treat it as a
-stack, and @code{\override} and @code{\revert} are just push and pop
-operations. This pushing and popping is also used for overriding
-automatic beaming settings.
+list. Since a Scheme list is a singly linked list, we can treat it as
+a stack, and @code{\override} and @code{\revert} are push and pop
+operations.  The association list is stored in a normal context
+property, hence
+@example
+ \property Voice.NoteHead  = #'() 
+@end example
+will effectively erase @internalsref{NoteHead}s from the current
+@internalsref{Voice}. However, this mechanism is not guaranteed to
+work, and may cause crashes or other anomalous behavior.
+
+@seealso
+
+@internalsref{OverrideProperty}, @internalsref{RevertProperty},
+@internalsref{PropertySet}, @internalsref{backend properties},
+@internalsref{All Graphical Objects}.
+
 
 @refbugs
 
@@ -4643,30 +4675,9 @@ The backend is not very strict in type-checking object properties. If you
 LilyPond may crash.
 
 
+@node Outputproperty
 
 
-@node Tuning per object 
-@subsection Tuning per object 
-
-@cindex \once
-Tuning a single object is most often done with @code{\property}. The
-form,
-@example
-        \once \property @dots{}
-@end example
-@c
-applies a setting only during one moment in the score:  the
-original setting for stem thickness is restored automatically in the
-following example
-@c
-@lilypond[verbatim, fragment, relative=1]
-  c4 
-  \once \property Voice.Stem \set #'thickness = #4
-  c4
-  c4
-@end lilypond
-
-@cindex \once
 @cindex \outputproperty
 
 A second way of tuning objects is the more arcane @code{\outputproperty}
@@ -4674,47 +4685,16 @@ feature.  The syntax is as follows:
 @example
 \outputproperty @var{predicate} @var{symbol} = @var{value}
 @end example
-Here @code{predicate} is a Scheme function taking a object argument, and
+Here @code{predicate} is a Scheme function taking an object argument, and
 returning a boolean.  This statement is processed by the
 @code{Output_property_engraver}.  It instructs the engraver to feed all
 objects that it sees to @var{predicate}. Whenever the predicate returns
 true, the object property @var{symbol} will be set to @var{value}.
 
-This command is only single shot, in contrast to @code{\override} and
-@code{\set}.
-
 You will need to combine this statement with @code{\context} to select
 the appropriate context to apply this to.
-
-In the following example, all note heads occurring at current staff
-level, are shifted up and right by setting their @code{extra-offset}
-property.
-
-@lilypond[fragment,verbatim,singleline]
-\relative c'' { c4
-  \context Staff \outputproperty
-  #(make-type-checker 'note-head-interface)
-  #'extra-offset = #'(0.5 . 0.75)
-  <<c e g>>8 }
-@end lilypond
-
-@cindex @code{extra-offset}
-
-In this example, the predicate checks the @code{text} object property, to
-shift only the `m.d.' text,  but not the fingering instruction "2".
-@lilypond[verbatim,singleline]
-#(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
-
-\score {    
-  \notes\relative c''' {
-    \property Voice.Stem \set #'direction = #1
-    \outputproperty #(make-text-checker "m.d.")
-      #'extra-offset = #'(-3.5 . -4.5)
-    a^2^"m.d."    
-  }
-}
-@end lilypond
+@inputfileref{input/regression,output-property.ly} shows an example of
+the use of @code{\outputproperty}.
 
 @refbugs
 
@@ -4722,23 +4702,29 @@ If possible, avoid this feature: the semantics are not very clean, and
 the syntax and semantics are up for rewrite.
 
 
-
-
 @node Font selection
 @subsection Font selection
 
 The most common thing to change about the appearance of fonts is
-their size. The font size of a @internalsref{Voice},
-@internalsref{Staff} or @internalsref{Thread} context, can be easily
+their size. The font size of any context can be easily
 changed by setting the @code{fontSize} property for that context:
+@c
 @lilypond[fragment,relative=1,verbatim,quote]
   c4 c4 \property Voice.fontSize = #-1
   f4 g4
 @end lilypond
- This command will not change the size of variable symbols, such as
+ This command will set @code{font-relative-size} (see below),
+ and does not change the size of variable symbols, such as
 beams or slurs.  You can use this command to get smaller symbol for
 cue notes, but that involves some more subtleties. An elaborate
 example of those is in @inputfileref{input/test,cue-notes.ly}.
+
+@cindex magnification
+
+The size of the font may be scaled with the object property
+@code{font-magnification}.  For example, @code{2.0} blows up all
+letters by a factor 2 in both directions.
+
 
 @cindex cue notes
 @cindex font size
@@ -4754,6 +4740,7 @@ The font used for printing a object can be selected by setting
 @end example
 You may use any font which is available to @TeX{}, such as foreign
 fonts or fonts that do not belong to the Computer Modern font family.
+
 Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
 can also be adjusted with a more fine-grained mechanism.  By setting
 the object properties described below, you can select a different font.
@@ -4783,6 +4770,11 @@ and @code{bold}.
   with 20pt staff height, relative size -1  corresponds to 16pt staff
   height, and relative size +1 corresponds to 23 pt staff height.
 
+   There are small differences in design between fonts designed for
+different sizes, hence font-relative-size is the preferred way to
+change a font size.
+
+
 @item font-design-size
 A number indicating  the design size of the font. 
 
@@ -4791,7 +4783,7 @@ slightly different design. Smaller design sizes are relatively wider,
 which enhances readability.
 @end table
 
-For any of these properties, the value @code{*} (i.e. the @emph{symbol},
+For any of these properties, the value @code{*} (i.e. the symbol
 @code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
 to override default setting, which are always present. For example:
 @example
@@ -4802,20 +4794,7 @@ to override default setting, which are always present. For example:
 
 @cindex @code{font-style}
 
-There are also pre-cooked font selection qualifiers. These are
-selected through the object property @code{font-style}.  For example,
-the style @code{finger} selects family @code{number} and relative size
-@code{-3}.  Styles available include @code{volta}, @code{finger},
-@code{tuplet}, @code{timesig}, @code{mmrest}, @code{script},
-@code{large}, @code{Large} and @code{dynamic}. The style sheets and
-tables for selecting fonts are located in @file{scm/font.scm}. Refer
-to this file for more information.
 
-@cindex magnification
-
-The size of the font may be scaled with the object property
-@code{font-magnification}.  For example, @code{2.0} blows up all
-letters by a factor 2 in both directions.
 
 @refbugs
 
@@ -4899,7 +4878,9 @@ does not contain all characters of the alphabet.
 This changes to the font used for time signatures. It only contains
 numbers and a few punctuation marks.
 @item \italic
+Changes @code{font-shape} to @code{italic}
 @item \bold
+Changes @code{font-series} to @code{bold}
 @end table
 
 @cindex raising text
@@ -4920,9 +4901,11 @@ Raising and lowering texts can be done with @code{\super} and
 @cindex \raise
 
 If you want to give an explicit amount for lowering or raising, use
-@code{\raise}.  This command takes a Scheme valued argument,
+@code{\raise}.  This command takes a Scheme valued first argument, and
+a markup object as second argument
+@c
 @lilypond[verbatim,fragment,relative=1,quote]
- c1^\markup { C \small \raise #1.0 { "9/7+" }}
+ c1^\markup { C \small \raise #1.0 \bold { "9/7+" }}
 @end lilypond
 The argument to @code{\raise} is the vertical displacement amount,
 measured in (global) staff spaces.
@@ -4931,7 +4914,8 @@ Other commands taking  single arguments include
 @table @code
 
 @item \bracket, \hbracket
- Bracket the argument markup.
+ Bracket the argument markup with normal and horizontal brackets
+respectively.
 
 @item \musicglyph
 @cindex \musicglyph
@@ -5005,6 +4989,7 @@ The markup mechanism is very flexible and extensible.  Refer to
 @file{scm/new-markup.scm} for more information on extending the markup
 mode.
 
+[TODO: generate markup doco automatically.]
 
 @cindex metronome mark
 

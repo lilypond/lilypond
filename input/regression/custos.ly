@@ -30,6 +30,7 @@
 	    \StaffContext
 	    \consists Custos_engraver
 	}
+	
     }
 }
 %% new-chords-done %%

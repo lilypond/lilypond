@@ -1,3 +1,11 @@
+2003-04-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/divisiones.ly: added
+
+	* input/regression/output-property.ly: new file
+
+	* lily/cluster.cc: change cluster-interface to use style property
+
 2003-04-20  Rune Zedeler  <rune@zedeler.dk>
 
 	* input/test/chord-names-german.ly: modified.
@@ -9,6 +17,12 @@
 	* lily/chord-name-engraver.cc: Reads property chordNoteNamer
 	
 2003-04-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py (FatalConversionError.conv):
+	divisiominima -> divisioMinima, etc.
+
+	* ly/engraver-init.ly (FiguredBassContext): add
+	Separating_line_group_engraver to Figured bass context.
 
 	* ly/german-chords-init.ly: remove file
 

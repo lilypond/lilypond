@@ -202,7 +202,7 @@
     (let ((nn (ly:get-context-property context 'chordNoteNamer)))
       (if (eq? nn '())
 	  ; replacing the next line with name-root gives guile-error...? -rz
-	  (ly:get-context-property context 'chordRootNamer)
+	  name-root
 	  nn)))
 
   (define (is-natural-alteration? p)

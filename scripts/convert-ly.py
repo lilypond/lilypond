@@ -1149,8 +1149,20 @@ if 1:
 		str = re.sub (r"linewidth *= *-[0-9.]+ *(\\mm|\\cm|\\in|\\pt)?", 'raggedright = ##t', str )
 		return str
 	
-	conversions.append (((1,7,16), conv, "linewidth = -1 -> raggedright = ##t"))	
+	conversions.append (((1,7,15), conv, "linewidth = -1 -> raggedright = ##t"))	
+
+if 1:
+	def conv(str):
+		str = re.sub ("divisiomaior",
+			      "divisioMaior", str)
+		str = re.sub ("divisiominima",
+			      "divisioMinima", str)
+		str = re.sub ("divisiomaxima",
+			      "divisioMaxima", str)
+		return str
 	
+	conversions.append (((1,7,16), conv, "divisiomaior -> divisioMaior"))
+
 
 ################################
 #	END OF CONVERSIONS	
