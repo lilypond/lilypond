@@ -23,6 +23,8 @@ When lilypond is invoked with @{--safe-mode}, @TeX{} and PostScript
 file output is disallowed, and lilypond-bin is invoked with
 @code{--safe-mode}, the user's Guile expressions are evaluated in a
 safe environment and file inclusion is not allowed.
+
+Be warned that a DOS attack using @TeX{} or PostScript is rather easy.
 (This feature is still experimental.)
 
 @item There is now a Scheme macro for defining markup
