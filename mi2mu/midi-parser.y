@@ -56,6 +56,12 @@ midi_score:
 	}
 	| midi_score track {
 		$$->add_track( $2 );
+		// ugh
+		$2->set_tempo( midi_parser_l_g->midi_tempo_p_->useconds_per_4_i() );
+		$2->set_time( midi_parser_l_g->midi_time_p_->num_i(), 
+			midi_parser_l_g->midi_time_p_->den_i(), 
+			midi_parser_l_g->midi_time_p_->clocks_1_i(), 
+			8 );
 		if ( midi_parser_l_g->copyright_str_.length_i() )
 			$2->copyright_str_ = midi_parser_l_g->copyright_str_;
 		if ( midi_parser_l_g->track_name_str_.length_i() )
@@ -75,7 +81,7 @@ header:
 
 track: 
 	TRACK INT32 {
-		mtor << "\ntrack " << midi_parser_l_g->track_i_++ << ": " << flush;
+		mtor << "\ntrack " << midi_parser_l_g->track_i_ << ": " << flush;
 		$$ = new Midi_track( midi_parser_l_g->track_i_++,
 			// silly, cause not set yet!
 			midi_parser_l_g->copyright_str_,
