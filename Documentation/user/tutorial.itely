@@ -1308,22 +1308,18 @@ discusses in depth how to figure out these statements for yourself, in
 @node Organizing larger pieces
 @section Organizing larger pieces
 
-TODO: discuss identifiers, p&c, .
+TODO: discuss identifiers, include files, \version.
 
 
 
 @node An orchestral part
 @section An orchestral part
 
-
-This command fixes one particular problem with a slur. The rest of
-this section explains how to figure out which properties to tune for
-your own scores. 
-
-
 TODO:
 
-\markup, mmrest, transposing, cue notes, identifiers?.
+\markup, mmrest, transposing, cue notes
+
+
 
 @separate
 @example 

@@ -176,8 +176,11 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
   if (beam_ && Stem::has_interface (info.grob_))
     {
       Grob * s = info.grob_;
-      Stem::set_beaming (s, flags_, LEFT);
-      Stem::set_beaming (s, flags_, RIGHT);
+
+      if (start_mom_ == now_mom())
+	Stem::set_beaming (s, flags_, RIGHT);
+      else
+	Stem::set_beaming (s, flags_, LEFT);
 	  
       SCM d = s->get_grob_property ("direction");
       if (Stem::duration_log (s) != 1)
