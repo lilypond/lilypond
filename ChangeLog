@@ -1,3 +1,8 @@
+2004-08-27  Juergen Reuter   <reuter@ipd.uka.de>
+
+	* Documentation/user/lilypond-book.itely: fix parse error: @LaTeX
+	-> La@TeX
+
 2004-08-26  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/examples.itely: second, third, fourth, and fifth sections added.
