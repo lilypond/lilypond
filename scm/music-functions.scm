@@ -53,13 +53,13 @@ written by Rune Zedeler. "
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
          (n  (ly-music-name music)))
-
+ 
     (if (equal? n "Repeated_music")
         (begin
 	  (if (equal?
 	       (ly-get-mus-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music (- (intlog2 (ly-get-mus-property 'repeat-count music))))
+	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)))
 	      )
           (ly-set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
