@@ -229,7 +229,10 @@
 	   (hh (make-node '() (node-line node) 0 0 height))
 	   (break-score (robust-break-score node))
 	   (density-score (if (null? paths) 0
-			      (* 0 (density-variance
+			      ;; TODO: find out why we need density
+			      ;;       use other height-score parameters?
+			      ;; See: input/test/page-breaks.ly
+			      (* 1 (density-variance
 				    (cons hh (get-path (car paths)))))))
 	   (page-score (height-score page height))
 	   (this-score (add-scores page-score break-score density-score))

@@ -3,6 +3,8 @@
 	* scm/page-layout.scm (ly:optimal-page-breaks): Bugfix: underful
 	solutions are now optimal too.
 
+	* input/test/page-breaks.ly: New file.
+
 	* lily/paper-outputter.cc (Paper_outputter): Import page breaking
 	functions into safe module.
 

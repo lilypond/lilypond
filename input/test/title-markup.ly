@@ -85,7 +85,7 @@ spaceTest = \markup { "two space chars" }
 	%% stress page breaking:
 	%% 35 keep on 3 pages
 	%% 36 spread evenly over 4 pages
-	\repeat unfold 35 { a b c d \break }
+	\repeat unfold 36 { a b c d \break }
 	c1
     }
 }
