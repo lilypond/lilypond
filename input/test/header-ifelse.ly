@@ -1,4 +1,7 @@
 % #(define pieceTagLine "Copyright 2002 (C) Mutopia")
+\version "1.7.20"
+% FIXME: since tagline isn't used in creating the webpage, this example
+% doesn't output anything unusual.
 
 #(define (my-ly-version)
   (let ((version (ly:version)))
@@ -10,8 +13,11 @@
 pieceTagLine = #pieceTagLine
 \header{
 tagline = \pieceTagLine
-texidoc = "High level functionality can be accomplished with GUILE. Semantics aren't nice though." 
+texidoc = "@cindex Header If Else
+High level functionality can be accomplished with GUILE. Semantics aren't nice though." 
 }
 
-\score{ \notes{ c4 } }
+\score{ \notes{ c4 }
+\paper {raggedright=##t}
+}
 %% new-chords-done %%

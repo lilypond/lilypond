@@ -1,4 +1,6 @@
 \version "1.7.18"
+% I think we have other examples of partcombine.  Candidate for delete.  -gp
+\header { texidoc = "" }
 
 \score{
 	\context Staff <

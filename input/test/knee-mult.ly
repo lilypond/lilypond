@@ -1,4 +1,8 @@
 \version "1.7.18"
+% possible rename to piano-foo
+\header { texidoc = "@cindex Knee Piano
+You can spread a ``knee beam'' over a pianostaff. " }
+
 \score{
 	\context PianoStaff <
 	\context Staff=one \notes\relative c'{

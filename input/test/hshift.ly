@@ -1,7 +1,6 @@
 \version "1.7.18"
-
-
-
+\header { texidoc = "@cindex Horizontal Shift
+You can manually shift notes horizontally. " }
 
 shiftI = \property Voice.NoteColumn \override #'horizontal-shift = #0
 shiftII = \property Voice.NoteColumn \override #'horizontal-shift = #1
@@ -20,7 +19,6 @@ shiftV = \property Voice.NoteColumn \override #'horizontal-shift = #4
 		\context Voice =VE  {\stemUp \shiftV f }
 	>	
   }
-  \paper { }  
-  \midi { }
+  \paper { raggedright = ##t }  
 }
 %% new-chords-done %%

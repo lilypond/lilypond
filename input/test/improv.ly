@@ -1,12 +1,10 @@
-
-\header {
-texidoc = "note heads for improvisation have a different shape. "
-}
+\version "1.7.18"
+\header { texidoc = "@cindex Improv
+Noteheads for improvisation have a different shape. " }
 
 %{ TODO: the construct with separet SquashVoice context is a little
  gory. FIXME.  %}
 
-\version "1.7.18"
 
 improOn = \notes {\translator Voice = impro }
 improOff = \notes {\translator SquashVoice = melo }

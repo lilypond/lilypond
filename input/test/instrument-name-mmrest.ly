@@ -1,5 +1,6 @@
 \version "1.7.18"
-
+% candidate for regression.  -gp
+\header { texidoc = "" }
 %{
 
 this combines instrument names and multimeasure rests (there was an
@@ -20,6 +21,7 @@ interesting bug in 1.3.98)
 
 	    }
 	  }
+	\paper { raggedright =  ##t }
 	}
 
 %% new-chords-done %%

@@ -1,9 +1,8 @@
 \version "1.7.19"
-
-\header {
-texidoc = "Hara kiri staves disappear when empty "
-}
-
+% TODO: check if we really need both hara-kiri-switch.ly and
+% hara-kiri.ly.  -gp
+\header { texidoc = "@cindex Hara Kiri
+Hara kiri staves disappear when empty. " }
 
 % todo: use partcombine?, junk?
 
