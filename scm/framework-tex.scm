@@ -75,8 +75,10 @@
 	    (map
 	     (lambda (sub-name)
 	       (string-append
-		"\\font\\" (tex-font-command-raw sub-name (ly:font-magnification font))
-		"=" sub-name
+		"\\font\\" (tex-font-command-raw
+			    (symbol->string sub-name)
+			    (ly:font-magnification font))
+		"=" (symbol->string sub-name)
 		" scaled "
 		(ly:number->string (inexact->exact
 				    (round (* 1000
@@ -84,7 +86,6 @@
 					      (ly:paper-outputscale paper)))))
 		"%\n"))
 	     sub-fonts)))))
-
 
 (define (simple-font-load-command paper font)
   (let* ((coding-alist (ly:font-encoding-alist font))

@@ -1,5 +1,8 @@
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/gen-bigcheese-scripts.py (i): use symbols for
+	subfonts.
+
 	* scm/output-tex.scm (named-glyph): new function. This fixes TeX output.
 
 	* scm/framework-tex.scm (otf-font-load-command): load subfonts.
