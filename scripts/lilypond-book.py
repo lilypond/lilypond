@@ -347,7 +347,7 @@ def compose_ly (code, options):
 	if QUOTE in options and LINEWIDTH in options:
 		options.remove (LINEWIDTH)
 
-	m = re.search (r'''\\score''', code)
+	m = re.search (r'''\\(header|score)''', code)
 	if not m and (not options \
 		      or not NOFRAGMENT in options or FRAGMENT in options):
 		if RAGGEDRIGHT not in options:

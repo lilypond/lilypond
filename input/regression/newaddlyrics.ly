@@ -2,14 +2,6 @@
     texidoc = "newlyrics -- multiple stanzas broken as yet."
 }
 
-%{
-
-UGHr, fool lilypond-book:
-
-\score
-
-%}
-
 %% Testing newlyrics 
 %%\new PianoStaff <<
 <<
