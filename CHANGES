@@ -1,4 +1,14 @@
-1.4.4.jcn3
+--- ../lilypond-1.4.4.stable.jcn1/CHANGES	Fri Jun 29 18:23:09 2001
+++ b/CHANGES	Sun Jul  8 18:51:34 2001
+@@ -1,5 +1,7 @@
+-1.4.4.stable.jcn1
+1.4.4.stable.jcn2
+ =================
+
+* Now really included lexer-gcc-3.0.patch.
+ 
+ * Added feature to ly2dvi to find feta pfa font files used in a
+ postscript file to make printing of direct postscript a bit easier:1.4.4.jcn3
 ==========
 
 TODO: look at other filledbox'es (stafflines and barlines don't match up).
