@@ -1,8 +1,23 @@
+2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-music-types.scm (music-descriptions): add
+	Solo{One,Two}Event and UnisonoEvent
+
+	* lily/new-part-combine-iterator.cc (unisono): add state_
+	variable, signal changes with part-combine-event.
+
+	* input/regression/new-part-combine-text.ly: new file.
+
+	* lily/part-combine-engraver.cc: new file.
+
 2004-02-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py: Handle snippet options.
 
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/music-functions.scm (determine-split-list): detect solo1/2
+	and unisono.
 
 	* lily/new-lyric-combine-music-iterator.cc (construct_children):
 	revert fix, document why.

@@ -139,7 +139,7 @@ c8-[ c c-] c8")
     
     (CrescendoEvent
      . (
-   (description .  "Begins or ends a crescendo.  Syntax: @var{note}\\cr
+	(description .  "Begins or ends a crescendo.  Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
@@ -405,6 +405,26 @@ to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 mea
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
+
+    (SoloOneEvent
+     . (
+	(description . "Print Solo.1")
+	(internal-class-name . "Event")
+	(part-combine-status . solo1)
+	(types . (general-music event part-combine-event))
+	))
+    (SoloTwoEvent
+     . (
+	(description . "Print Solo.2")
+	(internal-class-name . "Event")
+	(part-combine-status . solo2)
+	(types . (general-music event part-combine-event))
+	))
+    (UnisonoEvent
+     . ((description . "Print a2")
+	(internal-class-name .  "Event")
+	(part-combine-status . unisono)
+	(types . (general-music event part-combine-event))))
     
     (SimultaneousMusic
      . (

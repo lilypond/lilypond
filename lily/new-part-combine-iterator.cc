@@ -43,6 +43,12 @@ private:
   bool is_shared_ ;
   SCM split_list_;
 
+  enum  {
+    APART, TOGETHER,
+    SOLO1, SOLO2,
+    UNISONO,
+  } state_;
+
   Interpretation_context_handle one_;
   Interpretation_context_handle two_;
   Interpretation_context_handle null_;
@@ -62,6 +68,7 @@ New_pc_iterator::New_pc_iterator ()
   first_iter_ = 0;
   second_iter_ = 0;
   split_list_ = SCM_EOL;
+  state_ = APART;
 }
 
 void
@@ -137,58 +144,101 @@ New_pc_iterator::ok () const
 void
 New_pc_iterator::chords_together ()
 {
-  first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
-  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-  second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
-  second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+  if (state_ == TOGETHER)
+    return;
+  else
+    {
+      state_ = TOGETHER;
+      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+      second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
+      second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+    }
 }
 
 
 void
 New_pc_iterator::solo1 ()
 {
-  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-  first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+  if (state_ == SOLO1)
+    return;
+  else
+    {
+      state_ = SOLO1;
+      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
 
-  second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
-  second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+      second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
+      second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+
+      static Music* event;
+      if (!event)
+	event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
+
+    first_iter_-> try_music_in_children (event);
+    }
 }
-
 void
 New_pc_iterator::unisono ()
 {
-  /*
-    like solo1, but should set a2 string.
-   */
-  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-  first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+  if (state_ == UNISONO)
+    return;
+  else
+    {
+      state_ = UNISONO;
 
-  second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
-  second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+
+      second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
+      second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+
+
+      static Music* event;
+      if (!event)
+	event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
+
+      first_iter_-> try_music_in_children (event);      
+    }
 }
-
 
 void
 New_pc_iterator::solo2 ()
 {
-  second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-  second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
+  if (state_ == SOLO2)
+    return;
+  else
+    {
+      state_ = SOLO2;
+      second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+      second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
 
-  first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
-  first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+      first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
+      first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+
+      static Music* event;
+      if (!event)
+	event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
+
+      second_iter_-> try_music_in_children (event);
+    }
 }
-
 
 void
 New_pc_iterator::apart ()
 {
-  first_iter_->substitute_outlet (null_.report_to (), one_.report_to ());
-  first_iter_->substitute_outlet (shared_.report_to (), one_.report_to ());
+  if (state_ == APART)
+    return;
+  else
+    {
+      state_ = APART;
   
-  second_iter_->substitute_outlet (null_.report_to (), two_.report_to ());
-  second_iter_->substitute_outlet (shared_.report_to (), two_.report_to ());
+      first_iter_->substitute_outlet (null_.report_to (), one_.report_to ());
+      first_iter_->substitute_outlet (shared_.report_to (), one_.report_to ());
+  
+      second_iter_->substitute_outlet (null_.report_to (), two_.report_to ());
+      second_iter_->substitute_outlet (shared_.report_to (), two_.report_to ());    }
 }
-
 
 void
 New_pc_iterator::construct_children ()

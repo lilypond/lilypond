@@ -844,6 +844,10 @@ Rest can contain a list of beat groupings
     (cdr (vector-ref v i)))
 
   (define chord-threshold 8)
+  (define (get-note-evs v i)
+    (define (f? x)
+      (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+    (filter f? (map car (what v i))))
   
   (define result
     (list->vector
@@ -907,11 +911,7 @@ Rest can contain a list of beat groupings
 		       (helper analyse-tie-end active evs) evs) evs)
        active<?))
     
-    (define (get-note-evs v i)
-      (define (f? x)
-	(equal? (ly:get-mus-property  x 'name) 'NoteEvent))
-      (filter f? (map car (what v i))))
-    
+
     (define (put x . index)
       "Put the result to X, starting from INDEX backwards."
       (let
@@ -981,6 +981,8 @@ Rest can contain a list of beat groupings
 		(cond
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
+		 ((not (= (length notes1) (length notes2)))
+		  (put 'apart))
 		 ((and
 		   (= (length durs1) 1)
 		   (= (length durs2) 1)
@@ -988,36 +990,81 @@ Rest can contain a list of beat groupings
 
 		  (put 'apart))
 		 (else
-		  (if
-		   (and (= (length pitches1) 1) (= (length pitches2) 1) 
-		    (< chord-threshold (ly:pitch-steps
-					(ly:pitch-diff (car pitches1) (car pitches2)))))
-			(put 'apart)
+		  (if (and (= (length pitches1) (length pitches2)))
+		      (if
+		       (and (pair?  pitches1) (pair? pitches2)
+		       (< chord-threshold (ly:pitch-steps
+					   (ly:pitch-diff (car pitches1) (car pitches2)))))
+		       (put 'apart)
 
 
-			;; copy previous split state from spanner state
-			(begin
-			  (map (lambda (key-idx)
-				 (let*
-				     ((idx (cdr key-idx))
-				      (prev (what result  idx))
-				      )
-				   (if (symbol? prev)
-				       (put prev))
-				   )) (append active1 active2))
-			  (if (and (null? new-active1) (null? new-active2))
-			      (put 'chords ri)))
-		    
-		    ))) )
+		       ;; copy previous split state from spanner state
+		       (begin
+			 (map (lambda (key-idx)
+				(let*
+				    ((idx (cdr key-idx))
+				     (prev (what result  idx))
+				     )
+				  (if (symbol? prev)
+				      (put prev))
+				  )) (append active1 active2))
+			 (if (and (null? new-active1) (null? new-active2))
+			     (put 'chords ri))))
+		  
+		  ))))
+	      
 	      ;; active states different: 
-	      (put 'apart) )
-	  (analyse-time-step (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2))
-	 )))))
+	      (put 'apart))
+	  (analyse-time-step (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2)))
+	 ))))
 
 ;; 
-  
-  
+   (define (analyse-solo12 i1 i2 ri)
+     (cond
+      ((= ri (vector-length result)) '())
+      ((= i1 (vector-length ev1)) '())
+      ((= i2 (vector-length ev2)) '())
+      (else
+       (let*
+	  (
+	   (m1 (when ev1 i1))
+	   (m2 (when ev2 i2))
+	   (notes1 (get-note-evs ev1 i1))
+	   (durs1 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
+	   (pitches1 (sort
+		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
+	   (notes2 (get-note-evs ev2 i2))
+	   (durs2 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
+	   (pitches2 (sort
+		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
+	   )
+
+	 (if (equal? (what result ri) 'apart)
+	     (cond
+	      ((and (= 0 (length notes1))
+		   (< 0 (length notes2)))
+	       (set-cdr! (vector-ref result ri) 'solo2))
+	      ((and (< 0 (length notes1))
+		    (= 0 (length notes2)))
+	       (set-cdr! (vector-ref result ri) 'solo1))
+	      ))
+
+	 (if (and
+	      (equal? (what result ri) 'chords)
+	      (pair? pitches1)
+	      (equal? pitches1 pitches2))
+	     (set-cdr! (vector-ref result ri) 'unisono) )
+	 
+	 (cond
+	  ((ly:moment<? m1 m2)
+	   (analyse-solo12 (1+ i1) i2 (1+ ri) ))
+	  ((ly:moment<? m2 m1)
+	   (analyse-solo12 i1 (1+ i2) (1+ ri) ))
+	  (else
+	   (analyse-solo12 (1+ i1) (1+ i2) (1+ ri)))
+	  )))))
 
    (analyse-time-step 0 0  0 '() '())
-;   (display result)
+   (analyse-solo12 0 0 0)
+   (display result)
    (vector->list result))

@@ -1082,7 +1082,22 @@
 	(font-family . roman)
 	(meta . ((interfaces . (text-script-interface text-interface side-position-interface font-interface item-interface ))))
 	))
-
+    (CombineTextScript
+     . (
+	(molecule-callback . ,Text_item::brew_molecule)
+	(no-spacing-rods . #t)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(direction . 1)
+	(padding . 0.5)
+	(staff-padding . 0.5)
+	(script-priority . 200)
+	;; todo: add X self alignment?
+	(baseline-skip . 2)
+	(font-family . roman)
+	(font-series . bold)
+	(meta . ((interfaces . (text-script-interface text-interface  side-position-interface font-interface item-interface ))))
+	))
     (TextSpanner
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
