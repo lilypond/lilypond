@@ -26,7 +26,7 @@ index.html: check-top-web NEWS
 	$(sed-version) < Documentation/topdocs/$(outdir)/topweb.html > $@
 
 WWW-clean: local-WWW-clean
-	$(MAKE) CONFIGSUFFIX='www' clean
+	$(MAKE) out='www' clean
 
 local-WWW-clean:
 

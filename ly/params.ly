@@ -51,21 +51,23 @@ space):
 
                = arithmetic_multiplier * arithmetic_basicspace
 
-   { choose: arithmetic_multiplier = 0.9*quartwidth (why?)}
+   { choose: arithmetic_multiplier = 1.0*quartwidth (why?)}
 
-               = 0.9*quartwidth * arithmetic_basicspace
+               = quartwidth * arithmetic_basicspace
 
    =>	       
 
-   arithmetic_basicspace = 2/0.9 = 2.2
+   arithmetic_basicspace = 2/1 = 2
 
 If you want to space your music wider, use something like:
 
    arithmetic_basicspace = 4.;
 
 %}
+% We use 0.9*\quartwidth, because 1.0 seems to wide.
+% We don't adjust arithmetic_basicspace accordingly (why not?)
 arithmetic_multiplier = 0.9 * \quartwidth ;
-arithmetic_basicspace = 2.2;
+arithmetic_basicspace = 2.0;
 
 
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 

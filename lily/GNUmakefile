@@ -21,5 +21,3 @@ $(outdir)/my-lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 
-
-
