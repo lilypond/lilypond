@@ -121,7 +121,7 @@ Chord_name_engraver::process_music ()
   chord_name_->set_property ("text", markup);
 
   SCM s = get_property ("chordChanges");
-  if (to_boolean (s) && ly_c_pair_p (last_chord_) 
+  if (to_boolean (s) && scm_is_pair (last_chord_) 
       && ly_c_equal_p (chord_as_scm, last_chord_))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 

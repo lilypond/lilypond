@@ -55,9 +55,9 @@ Note_column::head_positions_interval (Grob *me)
   iv.set_empty ();
 
   SCM h = me->get_property ("note-heads");
-  for (; ly_c_pair_p (h); h = ly_cdr (h))
+  for (; scm_is_pair (h); h = scm_cdr (h))
     {
-      Grob *se = unsmob_grob (ly_car (h));
+      Grob *se = unsmob_grob (scm_car (h));
       
       int j = Staff_symbol_referencer::get_rounded_position (se);
       iv.unite (Slice (j,j));
@@ -71,7 +71,7 @@ Note_column::dir (Grob*  me)
   Grob *stem = unsmob_grob (me->get_property ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
-  else if (ly_c_pair_p (me->get_property ("note-heads")))
+  else if (scm_is_pair (me->get_property ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("Note column without heads and stem!");
@@ -100,7 +100,7 @@ Note_column::add_head (Grob*me,Grob *h)
   bool both = false;
   if (Rest::has_interface (h))
     {
-      if (ly_c_pair_p (me->get_property ("note-heads")))
+      if (scm_is_pair (me->get_property ("note-heads")))
 	both = true;
       else
 	me->set_property ("rest", h->self_scm ());
@@ -158,9 +158,9 @@ Note_column::accidentals (Grob *me)
 {
   SCM heads = me->get_property ("note-heads");
   Grob * acc = 0;
-  for (;ly_c_pair_p (heads); heads =ly_cdr (heads))
+  for (;scm_is_pair (heads); heads =scm_cdr (heads))
     {
-      Grob * h = unsmob_grob (ly_car (heads));
+      Grob * h = unsmob_grob (scm_car (heads));
       acc = h ? unsmob_grob (h->get_property ("accidental-grob")) : 0;
       if (acc)
 	break;

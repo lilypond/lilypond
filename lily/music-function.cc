@@ -35,14 +35,14 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   "@code{ly:music?} predicates or other type predicates.")
 {
   String str = "";
-  for (SCM s = signature; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = signature; scm_is_pair (s); s = scm_cdr (s))
     {
       if (str != "")
 	str += "-";
       
-      if (ly_car (s) == Music_type_p_proc)
+      if (scm_car (s) == Music_type_p_proc)
 	str += "music";
-      else if (ly_c_procedure_p (ly_car (s)))
+      else if (ly_c_procedure_p (scm_car (s)))
 	str += "scm";
     }
   if (str == "") str = "noarg";

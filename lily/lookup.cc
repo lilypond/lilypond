@@ -452,8 +452,8 @@ Stencil
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm) 
 {
   Stencil m;
-  String sym = ly_scm2string (ly_car (s));
-  String reg = ly_scm2string (ly_car (ly_cdr (s)));
+  String sym = ly_scm2string (scm_car (s));
+  String reg = ly_scm2string (scm_car (scm_cdr (s)));
 
   if (sym == "Discant")
     {

@@ -83,7 +83,7 @@ Text_spanner::print (SCM smob)
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM edge_text = me->get_property ("edge-text");
   Drul_array<Stencil> edge;
-  if (ly_c_pair_p (edge_text))
+  if (scm_is_pair (edge_text))
     {
       Direction d = LEFT;
       do

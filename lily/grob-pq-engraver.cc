@@ -37,8 +37,8 @@ LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
 	  2, 0 ,0, (SCM a, SCM b), 
 	  "Compare 2 grob priority queue entries. Internal")
 {
-  if (Moment::compare (*unsmob_moment (ly_car (a)),
-		       *unsmob_moment (ly_car (b))) < 0)
+  if (Moment::compare (*unsmob_moment (scm_car (a)),
+		       *unsmob_moment (scm_car (b))) < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -82,9 +82,9 @@ Grob_pq_engraver::stop_translation_timestep ()
   Moment now = now_mom ();
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (ly_c_pair_p (busy) && *unsmob_moment (ly_caar (busy)) == now)
+  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
     {
-      busy = ly_cdr (busy);
+      busy = scm_cdr (busy);
     }
 
   if (start_busy != busy)
@@ -98,13 +98,13 @@ Grob_pq_engraver::start_translation_timestep ()
 
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (ly_c_pair_p (busy) && *unsmob_moment (ly_caar (busy)) < now)
+  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) < now)
     {
       /*
 	The grob-pq-engraver is not water tight, and stuff like
 	tupletSpannerDuration confuses it.
        */
-      busy = ly_cdr (busy);
+      busy = scm_cdr (busy);
     }
 
   if (start_busy != busy)

@@ -41,11 +41,11 @@ Unfolded_repeat_iterator::get_music_list () const
 
       if (alt_count)
 	{
-	  *tail = scm_cons (ly_car (alts), SCM_EOL);
+	  *tail = scm_cons (scm_car (alts), SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	  if (i >= rep_count - alt_count)
 	    
-	    alts = ly_cdr (alts);
+	    alts = scm_cdr (alts);
 	}      
     }
 
@@ -109,7 +109,7 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
 
   Context * where = get_outlet ()->where_defined (reps);
   if (where
-      && current_reps == SCM_EOL || ly_c_pair_p (current_reps))
+      && current_reps == SCM_EOL || scm_is_pair (current_reps))
     {
       current_reps = scm_cons (what, current_reps);
       where->internal_set_property (reps, current_reps);

@@ -80,8 +80,8 @@ copy_property (Grob *g, SCM sym, SCM alist)
   if (g->internal_get_property (sym) == SCM_EOL)
     {
       SCM entry = scm_assoc (sym, alist);
-      if (ly_c_pair_p (entry))
-	g->internal_set_property (sym, ly_cdr (entry));
+      if (scm_is_pair (entry))
+	g->internal_set_property (sym, scm_cdr (entry));
     }
 }
 
@@ -105,22 +105,22 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
       return;
     }
 
-  art = ly_cdr (art);
+  art = scm_cdr (art);
 
   SCM follow_scm = scm_assoc (ly_symbol2scm ("follow-into-staff"),
 			      art);
 
-  *follow = ly_c_pair_p (follow_scm) && to_boolean (ly_cdr (follow_scm));
+  *follow = scm_is_pair (follow_scm) && to_boolean (scm_cdr (follow_scm));
   bool priority_found = false ; 
     
-  for (SCM s = art ; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = art ; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM sym = ly_caar (s);
+      SCM sym = scm_caar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_c_procedure_p (type))
 	continue;
       
-      SCM val = ly_cdar (s);
+      SCM val = scm_cdar (s);
 
       if (sym == ly_symbol2scm ("script-priority"))
 	{

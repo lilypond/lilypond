@@ -313,17 +313,16 @@ Score::set_music (SCM music, SCM parser)
 {
   /* URG? */
   SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-  for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
-    music = scm_call_2 (ly_car (check_funcs), music, parser);
+  for (; scm_is_pair (check_funcs); check_funcs = scm_cdr (check_funcs))
+    music = scm_call_2 (scm_car (check_funcs), music, parser);
 
   if (unsmob_music (music_))
     {
       unsmob_music (music)->origin ()->error (_("Already have music in score"));
       unsmob_music (music_)->origin ()->error (_("This is the previous music"));
     }
-
-  if (Music * m = unsmob_music (music)
-      && to_boolean (m->get_property ("error-found")))
+  Music * m = unsmob_music (music);
+  if (m && to_boolean (m->get_property ("error-found")))
     {
       m->origin()->error (_("Error found in this music expression. Ignoring it"));
       
@@ -331,9 +330,11 @@ Score::set_music (SCM music, SCM parser)
       
     }
 
-  this->music_ = music;
   if (this->error_found_)
     this->music_ = SCM_EOL; 
+  else
+    this->music_ = music;
+
 }
 
 SCM

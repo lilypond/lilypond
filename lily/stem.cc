@@ -40,7 +40,7 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
 {
   SCM pair = me->get_property ("beaming");
 
-  if (!ly_c_pair_p (pair))
+  if (!scm_is_pair (pair))
     {
       pair = scm_cons (SCM_EOL, SCM_EOL);
       me->set_property ("beaming", pair);
@@ -56,7 +56,7 @@ int
 Stem::get_beaming (Grob *me, Direction d)
 {
   SCM pair = me->get_property ("beaming");
-  if (!ly_c_pair_p (pair))
+  if (!scm_is_pair (pair))
     return 0;
 
   SCM lst = index_get_cell (pair, d);
@@ -135,7 +135,7 @@ Stem::support_head (Grob *me)
 {
   if (head_count (me) == 1)
     /* UGH. */
-    return unsmob_grob (ly_car (me->get_property ("note-heads")));
+    return unsmob_grob (scm_car (me->get_property ("note-heads")));
   return first_head (me);
 }
 
@@ -182,10 +182,10 @@ Stem::extremal_heads (Grob *me)
   Drul_array<Grob *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
 
-  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s);
-       s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      Grob *n = unsmob_grob (ly_car (s));
+      Grob *n = unsmob_grob (scm_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       Direction d = LEFT;
@@ -212,10 +212,10 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
-  for (SCM s = me->get_property ("note-heads"); ly_c_pair_p (s);
-       s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      Grob *n = unsmob_grob (ly_car (s));
+      Grob *n = unsmob_grob (scm_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       ps.push (p);
@@ -276,7 +276,7 @@ Stem::get_default_stem_end_position (Grob *me)
   else
     {
       s = me->get_property ("lengths");
-      if (ly_c_pair_p (s))
+      if (scm_is_pair (s))
 	length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
     }
 
@@ -295,7 +295,7 @@ Stem::get_default_stem_end_position (Grob *me)
   if (dir && dir * hp[dir] >= 0)
     {
       SCM sshorten = me->get_property ("stem-shorten");
-      SCM scm_shorten = ly_c_pair_p (sshorten) ?
+      SCM scm_shorten = scm_is_pair (sshorten) ?
 	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
       Real shorten = 2* robust_scm2double (scm_shorten,0);
 
@@ -734,7 +734,7 @@ Stem::get_stem_info (Grob *me)
 {
   /* Return cached info if available */
   SCM scm_info = me->get_property ("stem-info");
-  if (!ly_c_pair_p (scm_info))
+  if (!scm_is_pair (scm_info))
     {
       calc_stem_info (me);
       scm_info = me->get_property ("stem-info");
@@ -742,8 +742,8 @@ Stem::get_stem_info (Grob *me)
 
   Stem_info si;
   si.dir_ = get_grob_direction (me);
-  si.ideal_y_ = scm_to_double (ly_car (scm_info));
-  si.shortest_y_ = scm_to_double (ly_cadr (scm_info));
+  si.ideal_y_ = scm_to_double (scm_car (scm_info));
+  si.shortest_y_ = scm_to_double (scm_cadr (scm_info));
   return si;
 }
 
@@ -865,8 +865,8 @@ Slice
 Stem::beam_multiplicity (Grob *stem)
 {
   SCM beaming= stem->get_property ("beaming");
-  Slice le = int_list_to_slice (ly_car (beaming));
-  Slice ri = int_list_to_slice (ly_cdr (beaming));
+  Slice le = int_list_to_slice (scm_car (beaming));
+  Slice ri = int_list_to_slice (scm_cdr (beaming));
   le.unite (ri);
   return le;
 }

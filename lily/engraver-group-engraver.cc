@@ -44,8 +44,8 @@ Engraver_group_engraver::acknowledge_grobs ()
       
       SCM meta = info.grob_->internal_get_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
-      if (ly_c_pair_p (nm))
-	nm = ly_cdr (nm);
+      if (scm_is_pair (nm))
+	nm = scm_cdr (nm);
       else
 	{
 	  /*
@@ -67,9 +67,9 @@ Engraver_group_engraver::acknowledge_grobs ()
 	  scm_hashq_set_x (tab, nm, acklist);
 	}
 
-      for (SCM p = acklist; ly_c_pair_p (p); p = ly_cdr (p))
+      for (SCM p = acklist; scm_is_pair (p); p = scm_cdr (p))
 	{
-	  Translator * t = unsmob_translator (ly_car (p));
+	  Translator * t = unsmob_translator (scm_car (p));
 	  Engraver * eng = dynamic_cast<Engraver*> (t);
 	  if (eng && eng != info.origin_trans_)
 	    eng->acknowledge_grob (info);
@@ -87,9 +87,9 @@ Engraver_group_engraver::pending_grob_count () const
 {
   int count = announce_infos_.size ();
   for (SCM s = context ()->children_contexts ();
-       ly_c_pair_p (s); s = ly_cdr (s))
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *c = unsmob_context (ly_car (s));
+      Context *c = unsmob_context (scm_car (s));
       Engraver_group_engraver * group
 	=dynamic_cast<Engraver_group_engraver*> (c->implementation ());
 
@@ -104,9 +104,9 @@ Engraver_group_engraver::do_announces ()
 {
   do {
     for (SCM s = context ()->children_contexts ();
-	 ly_c_pair_p (s); s = ly_cdr (s))
+	 scm_is_pair (s); s = scm_cdr (s))
       {
-	Context *c = unsmob_context (ly_car (s));
+	Context *c = unsmob_context (scm_car (s));
 	Engraver_group_engraver * group
 	  = dynamic_cast<Engraver_group_engraver*> (c->implementation ());
 	if (group)
@@ -160,9 +160,9 @@ bool
 engraver_valid (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description ());
-  ack_ifs = ly_cdr (ack_ifs);
-  for (SCM s = ifaces; ly_c_pair_p (s); s = ly_cdr (s))
-    if (scm_c_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
+  ack_ifs = scm_cdr (ack_ifs);
+  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
+    if (scm_c_memq (scm_car (s), ack_ifs) != SCM_BOOL_F)
       return true;
   return false;
 }
@@ -172,12 +172,12 @@ engraver_valid (Translator*tr, SCM ifaces)
 SCM
 find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
 {
-  SCM ifaces = ly_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta_alist));
+  SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta_alist));
 
   SCM l = SCM_EOL;
-  for (SCM s = gravlist; ly_c_pair_p (s);  s = ly_cdr (s))
+  for (SCM s = gravlist; scm_is_pair (s);  s = scm_cdr (s))
     {
-      Translator* tr = unsmob_translator (ly_car (s));
+      Translator* tr = unsmob_translator (scm_car (s));
       if (engraver_valid (tr, ifaces))
 	l = scm_cons (tr->self_scm (), l); 
     }
@@ -203,10 +203,10 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->children_contexts () ; ly_c_pair_p (s);
-       s =ly_cdr (s))
+  for (SCM s = c->children_contexts () ; scm_is_pair (s);
+       s =scm_cdr (s))
     {
-      recurse_down_engravers (unsmob_context (ly_car (s)), ptr, context_first);
+      recurse_down_engravers (unsmob_context (scm_car (s)), ptr, context_first);
     }
 
   if (context_first)
@@ -221,9 +221,9 @@ recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
 void
 engraver_each (SCM list, Engraver_method method)
 {
-  for (SCM p = list; ly_c_pair_p (p); p = ly_cdr (p))
+  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
     {
-      Engraver * e = dynamic_cast<Engraver*>(unsmob_translator (ly_car (p)));
+      Engraver * e = dynamic_cast<Engraver*>(unsmob_translator (scm_car (p)));
       if (e)
 	(e->*method) ();
     }

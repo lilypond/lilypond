@@ -123,7 +123,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (Bar_line::has_interface (info.grob_)
-	   && ly_c_pair_p (get_property ("keySignature")))
+	   && scm_is_pair (get_property ("keySignature")))
     {
       create_key (true);
     }
@@ -152,24 +152,24 @@ void
 Key_engraver::read_ev (Music const * r)
 {
   SCM p = r->get_property ("pitch-alist");
-  if (!ly_c_pair_p (p))
+  if (!scm_is_pair (p))
     return;
 
   SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
   for (SCM s = get_property ("keyAccidentalOrder");
-       ly_c_pair_p (s); s = ly_cdr (s))
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      if (ly_c_pair_p (scm_member (ly_car (s), n)))
+      if (scm_is_pair (scm_member (scm_car (s), n)))
 	{
-	  accs = scm_cons (ly_car (s), accs);
-	  n = scm_delete_x (ly_car (s), n);
+	  accs = scm_cons (scm_car (s), accs);
+	  n = scm_delete_x (scm_car (s), n);
 	}
     }
   
-  for (SCM s = n ; ly_c_pair_p (s); s = ly_cdr (s))
-    if (scm_to_int (ly_cdar (s)))
-      accs = scm_cons (ly_car (s), accs);
+  for (SCM s = n ; scm_is_pair (s); s = scm_cdr (s))
+    if (scm_to_int (scm_cdar (s)))
+      accs = scm_cons (scm_car (s), accs);
 
   context ()->set_property ("keySignature", accs);
   context ()->set_property ("tonic" ,

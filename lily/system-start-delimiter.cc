@@ -85,9 +85,9 @@ System_start_delimiter::after_line_breaking (SCM smob)
       */
       SCM elts = me->get_property ("elements");
       Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
-      for (SCM s = elts; ly_c_pair_p (s); s = ly_cdr (s))
+      for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Interval v = unsmob_grob (ly_car (s))->extent (common, Y_AXIS);
+	  Interval v = unsmob_grob (scm_car (s))->extent (common, Y_AXIS);
 
 	  if (!v.is_empty ())
 	    count ++;
@@ -122,9 +122,9 @@ System_start_delimiter::print (SCM smob)
   Grob * common = common_refpoint_of_list (elts, me, Y_AXIS);
 
   Interval ext;
-  for (SCM s = elts; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Spanner * sp = unsmob_spanner (ly_car (s));
+      Spanner * sp = unsmob_spanner (scm_car (s));
       if (sp &&
 	  sp->get_bound (LEFT) == me->get_bound (LEFT))
 	{

@@ -139,9 +139,9 @@ LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
 	   "returning the first occurence.  "
 	   "If not found, return @var{default}, or @code{#f}.")
 {
-  for (SCM s = modules; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM mod = ly_car (s);      
+      SCM mod = scm_car (s);      
       SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod),
 			   SCM_UNDEFINED);
       if (SCM_VARIABLEP(v) && SCM_VARIABLE_REF(v) != SCM_UNDEFINED)

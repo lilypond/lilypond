@@ -88,13 +88,13 @@ Break_align_interface::ordered_elements (Grob *grob)
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
   Link_array<Grob> new_elts;
-  for (; ly_c_pair_p (order); order = ly_cdr (order))
+  for (; scm_is_pair (order); order = scm_cdr (order))
     {
-      SCM sym = ly_car (order);
+      SCM sym = scm_car (order);
       
-      for (SCM s =elts; ly_c_pair_p (s); s = ly_cdr (s))
+      for (SCM s =elts; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Grob *g = unsmob_grob (ly_car (s));
+	  Grob *g = unsmob_grob (scm_car (s));
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
 	      new_elts.push (g);
@@ -161,9 +161,9 @@ Break_align_interface::do_alignment (Grob *grob)
 	Find the first grob with a space-alist entry.
        */
       for (SCM s = l->get_property ("elements");
-	   ly_c_pair_p (s) ; s = ly_cdr (s))
+	   scm_is_pair (s) ; s = scm_cdr (s))
 	  {
-	    Grob *elt = unsmob_grob (ly_car (s));
+	    Grob *elt = unsmob_grob (scm_car (s));
 
 	    if (edge_idx < 0
 		&& elt->get_property ("break-align-symbol")
@@ -171,7 +171,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	      edge_idx = idx;
 	    
 	    SCM l =elt->get_property ("space-alist");
-	    if (ly_c_pair_p (l))
+	    if (scm_is_pair (l))
 	      {
 		alist= l;
 		break;
@@ -186,9 +186,9 @@ Break_align_interface::do_alignment (Grob *grob)
 	reason.
       */
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !scm_is_symbol (rsym) && ly_c_pair_p (s); s = ly_cdr (s))
+	   !scm_is_symbol (rsym) && scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Grob * elt =unsmob_grob (ly_car (s));
+	  Grob * elt =unsmob_grob (scm_car (s));
 
 	  rsym = elt->get_property ("break-align-symbol");
 	}
@@ -200,7 +200,7 @@ Break_align_interface::do_alignment (Grob *grob)
       if (scm_is_symbol (rsym))
 	entry = scm_assq (rsym, alist);
 
-      bool entry_found = ly_c_pair_p (entry);
+      bool entry_found = scm_is_pair (entry);
       if (!entry_found)
 	{
 	  String sym_string;
@@ -221,10 +221,10 @@ Break_align_interface::do_alignment (Grob *grob)
       
       if (entry_found)
 	{
-	  entry = ly_cdr (entry);
+	  entry = scm_cdr (entry);
 	  
-	  distance = scm_to_double (ly_cdr (entry));
-	  type = ly_car (entry) ;
+	  distance = scm_to_double (scm_cdr (entry));
+	  type = scm_car (entry) ;
 	}
 
       if (r)

@@ -96,11 +96,11 @@ loose_column (Grob *l, Grob *c, Grob *r)
     such a borderline case.)
     
   */  
-  if (!ly_c_pair_p (lns) || !ly_c_pair_p (rns))
+  if (!scm_is_pair (lns) || !scm_is_pair (rns))
     return false;
 
-  Item * l_neighbor = dynamic_cast<Item*>  (unsmob_grob (ly_car (lns)));
-  Item * r_neighbor = dynamic_cast<Item*>  (unsmob_grob (ly_car (rns)));
+  Item * l_neighbor = dynamic_cast<Item*>  (unsmob_grob (scm_car (lns)));
+  Item * r_neighbor = dynamic_cast<Item*>  (unsmob_grob (scm_car (rns)));
 
   if (!l_neighbor || !r_neighbor)
     return false;
@@ -133,15 +133,15 @@ loose_column (Grob *l, Grob *c, Grob *r)
 
     in any case, we don't want to move bar lines.
    */
-  for (SCM e = c->get_property ("elements"); ly_c_pair_p (e); e = ly_cdr (e))
+  for (SCM e = c->get_property ("elements"); scm_is_pair (e); e = scm_cdr (e))
     {
-      Grob * g = unsmob_grob (ly_car (e));
+      Grob * g = unsmob_grob (scm_car (e));
       if (g && Break_align_interface::has_interface (g))
 	{
-	  for (SCM s = g->get_property ("elements"); ly_c_pair_p (s);
-	       s = ly_cdr (s))
+	  for (SCM s = g->get_property ("elements"); scm_is_pair (s);
+	       s = scm_cdr (s))
 	    {
-	      Grob *h = unsmob_grob (ly_car (s));
+	      Grob *h = unsmob_grob (scm_car (s));
 
 	      /*
 		ugh. -- fix staff-bar name? 
@@ -177,16 +177,16 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
       if (loose_column (cols->elem (i-1), c, cols->elem (i+1)))
 	{
 	  SCM lns = c->get_property ("left-neighbors");
-	  lns = ly_c_pair_p (lns) ? ly_car (lns) : SCM_BOOL_F;
+	  lns = scm_is_pair (lns) ? scm_car (lns) : SCM_BOOL_F;
 
 	  SCM rns = c->get_property ("right-neighbors");
-	  rns = ly_c_pair_p (rns) ? ly_car (rns) : SCM_BOOL_F;
+	  rns = scm_is_pair (rns) ? scm_car (rns) : SCM_BOOL_F;
 
 	  /*
 	    Either object can be non existent, if the score ends
 	    prematurely.
 	   */
-	  rns = ly_car (unsmob_grob (rns)->get_property ("right-items"));
+	  rns = scm_car (unsmob_grob (rns)->get_property ("right-items"));
 	  c->set_property ("between-cols", scm_cons (lns,
 							 rns));
 
@@ -206,9 +206,9 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	      Item *rc = dynamic_cast<Item*> (d == LEFT  ? c : next_door[RIGHT]);
 
 	      for (SCM s = lc->get_property ("spacing-wishes");
-		   ly_c_pair_p (s); s = ly_cdr (s))
+		   scm_is_pair (s); s = scm_cdr (s))
 		{
-		  Grob *sp = unsmob_grob (ly_car (s));
+		  Grob *sp = unsmob_grob (scm_car (s));
 		  if (Note_spacing::left_column (sp) != lc
 		      || Note_spacing::right_column (sp) != rc)
 		    continue;
@@ -273,9 +273,9 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 
 
       SCM wishes=  cols[i]->get_property ("spacing-wishes");
-      for (SCM s =wishes; ly_c_pair_p (s); s = ly_cdr (s))
+      for (SCM s =wishes; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Item * wish = dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
+	  Item * wish = dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
 
 	  Item * lc = wish->get_column ();
 	  Grob * right = Note_spacing::right_column (wish);
@@ -305,10 +305,10 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	   */
 	  int maxrank = 0;
 	  SCM left_neighs = rc->get_property ("left-neighbors");
-	  if (ly_c_pair_p (left_neighs)
-	      && unsmob_grob (ly_car (left_neighs)))
+	  if (scm_is_pair (left_neighs)
+	      && unsmob_grob (scm_car (left_neighs)))
 	    {
-	      Item * it = dynamic_cast<Item*> (unsmob_grob (ly_car (left_neighs)));
+	      Item * it = dynamic_cast<Item*> (unsmob_grob (scm_car (left_neighs)));
 	      maxrank = Paper_column::get_rank (it->get_column ());
 	    }
 
@@ -322,7 +322,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	    }
 	}
 
-      if (ly_c_pair_p (right_neighbors))
+      if (scm_is_pair (right_neighbors))
 	{
 	  cols[i]->set_property ("right-neighbors", right_neighbors);
 	}
@@ -348,13 +348,13 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
 	sloppy with typnig left/right-neighbors should take list, but paper-column found instead.
        */
       SCM ln = cols[i] ->get_property ("left-neighbors");
-      if (!ly_c_pair_p (ln) && i ) 
+      if (!scm_is_pair (ln) && i ) 
 	{
 	  cols[i]->set_property ("left-neighbors", scm_cons (cols[i-1]->self_scm (), SCM_EOL));
 	}
 
       SCM rn = cols[i] ->get_property ("right-neighbors");
-      if (!ly_c_pair_p (rn) && i < cols.size () - 1) 
+      if (!scm_is_pair (rn) && i < cols.size () - 1) 
 	{
 	  cols[i]->set_property ("right-neighbors", scm_cons (cols[i + 1]->self_scm (), SCM_EOL));
 	}
@@ -572,9 +572,9 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
     happens after the current note (this is set in the grob
     property SPACING-SEQUENCE.
   */
-  for (SCM s = seq; ly_c_pair_p (s); s = ly_cdr (s))
+  for (SCM s = seq; scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob * wish = unsmob_grob (ly_car (s));
+      Grob * wish = unsmob_grob (scm_car (s));
 
       Item *wish_rcol = Note_spacing::right_column (wish);
       if (Note_spacing::left_column (wish) != lc
@@ -734,9 +734,9 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
   if (dt == Moment (0,0))
     {
       for (SCM s = l->get_property ("spacing-wishes");
-	   ly_c_pair_p (s); s = ly_cdr (s))
+	   scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
+	  Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
 
 	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	    continue;

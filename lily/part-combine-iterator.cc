@@ -351,14 +351,14 @@ Part_combine_iterator::construct_children ()
   one_.set_translator (one);
 
   set_translator (one);
-  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_car (lst))));
+  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
 
 
   Context *two = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "two", props);
   two_.set_translator (two);
   set_translator (two);
-  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (ly_cadr (lst))));
+  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
 
 
   set_translator (tr);
@@ -394,13 +394,13 @@ Part_combine_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
-  for (; ly_c_pair_p (split_list_); split_list_ = ly_cdr (split_list_))
+  for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
-      splitm = unsmob_moment (ly_caar (split_list_));
+      splitm = unsmob_moment (scm_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
 	break ;
 
-      SCM tag = ly_cdar (split_list_);
+      SCM tag = scm_cdar (split_list_);
       
       if (tag == ly_symbol2scm ("chords"))
 	chords_together ();

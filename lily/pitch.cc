@@ -257,7 +257,7 @@ IMPLEMENT_SIMPLE_SMOBS (Pitch);
 int
 Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Pitch *r = (Pitch *) ly_cdr (s);
+  Pitch *r = (Pitch *) scm_cdr (s);
   scm_puts ("#<Pitch ", port);
   scm_display (scm_makfrom0str (r->to_string ().to_str0 ()), port);
   scm_puts (" >", port);
@@ -267,8 +267,8 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 Pitch::equal_p (SCM a , SCM b)
 {
-  Pitch *p = (Pitch *) ly_cdr (a);
-  Pitch *q = (Pitch *) ly_cdr (b);
+  Pitch *p = (Pitch *) scm_cdr (a);
+  Pitch *q = (Pitch *) scm_cdr (b);
 
   bool eq = p->notename_ == q->notename_
     && p->octave_ == q->octave_

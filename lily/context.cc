@@ -27,9 +27,9 @@ Context::is_removable () const
 void
 Context::check_removal ()
 {
-  for (SCM p = context_list_; ly_c_pair_p (p); p = ly_cdr (p))
+  for (SCM p = context_list_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Context *trg =  unsmob_context (ly_car (p));
+      Context *trg =  unsmob_context (scm_car (p));
 
       trg->check_removal ();
       if (trg->is_removable ())
@@ -174,8 +174,8 @@ Context::find_create_context (SCM n, String id,
 SCM
 Context::default_child_context_name () const
 {
-  return ly_c_pair_p (accepts_list_)
-    ? ly_car (scm_last_pair (accepts_list_))
+  return scm_is_pair (accepts_list_)
+    ? scm_car (scm_last_pair (accepts_list_))
     : SCM_EOL;
 }
 
@@ -244,7 +244,7 @@ bool
 Context::is_alias (SCM sym) const
 {
   if (sym == ly_symbol2scm ("Bottom")
-      && !ly_c_pair_p (accepts_list_))
+      && !scm_is_pair (accepts_list_))
     return true;
   if (sym == unsmob_context_def (definition_)->get_context_name ())
     return true;
@@ -308,9 +308,9 @@ find_context_below (Context * where,
   
   Context * found = 0;
   for (SCM s = where->children_contexts ();
-       !found && ly_c_pair_p (s); s = ly_cdr (s))
+       !found && scm_is_pair (s); s = scm_cdr (s))
     {
-      Context * tr = unsmob_context (ly_car (s));
+      Context * tr = unsmob_context (scm_car (s));
 
       found = find_context_below (tr, type, id);
     }
@@ -364,7 +364,7 @@ Context::now_mom () const
 int
 Context::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Context *sc = (Context *) ly_cdr (s);
+  Context *sc = (Context *) scm_cdr (s);
      
   scm_puts ("#<", port);
   scm_puts (classname (sc), port);

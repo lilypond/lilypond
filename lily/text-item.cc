@@ -71,10 +71,10 @@ Text_interface::interpret_markup (SCM paper_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
     return interpret_string (paper_smob, props, SCM_EOL, markup);
-  else if (ly_c_pair_p (markup))
+  else if (scm_is_pair (markup))
     {
-      SCM func = ly_car (markup);
-      SCM args = ly_cdr (markup);
+      SCM func = scm_car (markup);
+      SCM args = scm_cdr (markup);
       if (!markup_p (markup))
 	programming_error ("Markup head has no markup signature.");
       
@@ -99,9 +99,9 @@ bool
 Text_interface::markup_p (SCM x)
 {
   return (scm_is_string (x)
-	  || (ly_c_pair_p (x)
+	  || (scm_is_pair (x)
 	      && SCM_BOOL_F
-	      != scm_object_property (ly_car (x),
+	      != scm_object_property (scm_car (x),
 				      ly_symbol2scm ("markup-signature"))));
 }
 
