@@ -140,69 +140,47 @@ System_start_delimiter::brew_molecule (SCM smob)
 Molecule
 System_start_delimiter::staff_brace (Grob*me, Real y)
 {
-  Font_metric *fm = Font_interface::get_default_font (me);
-  SCM font_defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
-					 me->paper_l ()->style_sheet_));
+  Font_metric *fm = 0;
+  
+  for (int i = 0; ; i++)
+    {
+      if (!fm || y > fm->get_char (fm->count ()-1)[Y_AXIS].length ())
+	{
+	  /* We go through the style sheet to lookup the font file
+	     name.  This is better than using find_font directly,
+	     esp. because that triggers mktextfm for non-existent
+	     fonts. */
+	  SCM alist = gh_list (gh_cons (ly_symbol2scm ("font-family"),
+					ly_symbol2scm ("braces")),
+			       gh_cons (ly_symbol2scm ("font-relative-size"),
+					gh_int2scm (i)),
+			       SCM_UNDEFINED);
+	  fm = Font_interface::get_font (me, gh_list (alist, SCM_UNDEFINED));
+	  /* Hmm, if lookup fails, we get cmr10 anyway */
+	  if (ly_scm2string (gh_car (fm->description_)) == "cmr10")
+	    break;
+	}
+      else
+	break;
+    }
 
-  Box b;
-#if 0
-  b = fm->get_char (0);
-  int count = fm->count () >? 2;
-#else 
-  int count = 255;
-#endif	    
   int lo = 0;
-  int hi = count;
-  int relative_size = 0;
+
+  int hi = (fm->count () - 1) >? 2;
+  Box b;
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   do
-  {
-    int cmp = (lo + hi) / 2;
-    b = fm->get_char (cmp);
-    if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
-      hi = cmp;
-    else
-      lo = cmp;
-
-    if (lo == count - 1 && b[Y_AXIS].length () < y && relative_size < 10)
-      {
-	/*
-	  ugh: 7
-	  We have four fonts: feta-braces0-3.mf
-	  
-	  In the style-sheet, all paper relative sizes need to start
-	  looking at the feta-braces0 font.
-	  
-	  The smallest paper size, feta11 or -3, has to make 5 steps
-	  to get to feta26 or +2.  Only after that, from +3 to +8 are
-	  the real bigger sizes, so worst case we need 11 steps to get
-	  to the font we need. */
-	fm = Font_interface::get_font
-	  (me,
-	   gh_list (gh_list (gh_cons (ly_symbol2scm ("font-relative-size"),
-				      gh_int2scm (++relative_size)),
-			     SCM_UNDEFINED),
-		    me->mutable_property_alist_,
-		    me->immutable_property_alist_,
-		    font_defaults,
-		    SCM_UNDEFINED));
-#if 0
-	b = fm->get_char (0);
-	count = fm->count () >? 2;
-#else
-	count = 255;
-#endif	    
-	lo = 0;
-	hi = count;
-      }
-  }
+    {
+      int cmp = (lo + hi) / 2;
+      b = fm->get_char (cmp);
+      if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
+	hi = cmp;
+      else
+	lo = cmp;
+    }
   while (hi - lo > 1);
-
-  // uRGURGU, why doesn't the height calculation work out??
-  SCM weird = me->get_grob_property ("weird");
-  if (gh_number_p (weird))
-    lo += gh_scm2int (weird);
+      
   SCM at = gh_list (ly_symbol2scm ("char"), gh_int2scm (lo), SCM_UNDEFINED);
   at = fontify_atom (fm, at);
   
