@@ -2,6 +2,7 @@
 #include "tex.hh"
 #include "symbol.hh"
 #include "const.hh"
+#include "vray.hh"
 
 String
 vstrut(Real h)
