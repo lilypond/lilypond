@@ -258,6 +258,11 @@ more than this (in staffspace).")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket .")
 (grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
+(grob-property-description 'penalty number? "Penalty for breaking at
+this column. 10000 or more means forbid linebreak, -10000 or less
+means force linebreak.  Other values influence linebreaking decisions
+as a real penalty.")
+
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")

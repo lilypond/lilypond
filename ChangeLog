@@ -1,3 +1,54 @@
+2001-12-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* bibtools/bib2html.py: Add simple bib2html convertor, and .bst
+	files to have standardised HTML bibliography output. Update build
+	docs to reflect this.
+
+	* lily/include/simple-spacer.hh (struct Simple_spacer): add
+	active_count_, so that we don't have to look for active springs
+	anymore.
+
+	* scm/interface-description.scm,scm/grob-property-description.scm:
+	Add 'penalty
+
+	* lily/simple-spacer.cc (solve): Handle forced line breaks
+	here. Fixes problems when combining linebreaks with non-fitting
+	line configurations
+
+2001-12-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* 1.4.9.jcn3 forward ports.
+	
+	* Really included .cvsignore.
+
+	* Included Han-Wen's uu1 windows fixes.
+
+	* Bugfix: lilypond-profile.sh: append to GS_FONTPATH, GS_LIB.
+
+	* Added Cygwin setup.hint
+
+	* Removed tex, python wrappers and postinstalls to go with Cywgin's
+	tetex/texmf, python installations.
+
+	* Updated cygwin installer.
+
+	* ly2dvi: Don't accept filenames with spaces (+ fix).
+
+2001-12-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* ly/engraver-init.ly (VoiceContext): fix text engraver ordering.
+
+	* lily/translator-def.cc: Remove manual symbol caching.
+
+	* lily/script-column.cc (before_line_breaking): robustness check:
+	don't crash if no direction set.
+
+	* scripts/pmx2ly.py: Key and clef change support (Laura Conrad)
+
+	* scripts/pmx2ly.py (Parser.parse_header): more generic header
+	parsing.
+
+
 2001-12-01  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/note-head.cc (head_extent): added to compute width without
