@@ -107,6 +107,7 @@ they look too intrusive (says Han-Wen).
 @item UK - British English
 @item DK - Danish
 @item S - Swedish
+@item FI - Finnish
 @item N - Norwegian
 @end itemize
 
@@ -124,6 +125,7 @@ D: A, a,
 NL: a,
 DK: a,
 S: a,
+FI: a,
 N: a.
 
 @aitem{accent}
@@ -134,6 +136,7 @@ D: Akzent,
 NL: accent,
 DK: accent,
 S: accent,
+FI: aksentti, korostus,
 N: ?.
 
 The stress of one tone over others.
@@ -148,6 +151,7 @@ D: Vorzeichen, Versetzungszeichen,
 NL: voorteken,
 DK: l@o{}st fortegn,
 S: tillf@"alligt f@"ortecken,
+FI: tilap@"ainen etumerkki,
 N: ?.
 
 @c F: alt@'eration accidentelle,  D: Vorzeichen, Versetzungszeichen,
@@ -179,6 +183,7 @@ D: accelerando, schneller werden,
 NL: accelerando,
 DK: accelerando,
 S: accelerando,
+FI: accelerando,
 N: ?.
 
 Increase tempo.
@@ -191,6 +196,7 @@ D: Adagio, Langsam,
 NL: adagio,
 DK: adagio,
 S: adagio,
+FI: adagio, hitaasti,
 N: adagio.
 
 It. comfortable, easy.
@@ -207,6 +213,7 @@ D: Allegro, Schnell, Fr@"ohlich, Lustig,
 NL: allegro,
 DK: allegro,
 S: allegro,
+FI: allegro, nopeasti,
 N: allegro.
 
 It. cheerful.  Quick tempo.  Also used as a title for pieces in a quick tempo,
@@ -220,6 +227,7 @@ D: Alt,
 NL: alt,
 DK: alt,
 S: alt,
+FI: altto, matala nais@"a@"ani,
 N: alt.
 
 A female voice of low range (@emph{contralto}).  Originally the alto was a high
@@ -235,6 +243,7 @@ D: Altschl@"ussel, Bratschenschl@"ussel,
 NL: alt sleutel,
 DK: altn@o{}gle,
 S: altklav,
+FI: alttoavain,
 N: ?.
 
 C clef setting central C on the middle line of the staff
@@ -247,6 +256,7 @@ D: reines Moll,
 NL: ?,
 DK: ren mol,
 S: ren mollskala,
+FI: luonnollinen molliasteikko,
 N: ?.
 
 @lilypond[13pt,notime]
@@ -263,6 +273,7 @@ D: Andante, Gehend,
 NL: andante,
 DK: andante,
 S: andante,
+FI: andante,
 N: andante.
 
 Walking tempo/character.
@@ -275,6 +286,7 @@ D: Vorschlag,
 NL: voorslag,
 DK: forslag,
 S: f@"orslag,
+FI: appoggiatura,
 N: ?.
 
 Ornamental note, usually a second, that is melodically connected with the main
@@ -331,6 +343,7 @@ D: Arpeggio, Akkordbrechungen, gebrochener Akkord,
 NL: gebroken akoord,
 DK: arpeggio, akkordbrydning,
 S: arpeggio,
+FI: arpeggio, murtaen sointu,
 N: ?.
 
 @lilypond[13pt]
@@ -361,6 +374,7 @@ D: steigendes Intervall,
 NL: stijgend interval,
 DK:@w{ }stigende interval,
 S: stigande intervall,
+FI: nouseva intervalli,
 N: ?.
 
 A distance between a starting lower note and a higher ending note.
@@ -373,6 +387,7 @@ D: @"uberm@"a@ss{}iges Intervall,
 NL: overmatig interval,
 DK: forst@o{}rret interval,
 S: @"overstigande intervall,
+FI: ylinouseva intervalli,
 N: ?.
 
 @aref{interval}.
@@ -384,6 +399,7 @@ D: Autograph, Handschrift,
 NL: manuscript,
 DK: h@aa{}ndskrift, autograf,
 S: handskrift,
+FI: k@"asinkirjoitettu nuotti,
 N: ?.
 
 1. A manuscript in the composer's own hand.
@@ -400,6 +416,7 @@ D: H, h,
 NL: b,
 DK: h,
 S: h,
+FI: H, h,
 N: h.
 
 @aitemii{backfall,forefall}
@@ -413,6 +430,7 @@ D: Taktstrich,
 NL: maatstreep,
 DK: taktstreg,
 S: taktstreck,
+FI: tahtiviiva,
 N: ?.
 
 @aitem{bar}
@@ -426,6 +444,7 @@ D: Bariton,
 NL: bariton,
 DK: baryton,
 S: baryton,
+FI: baritoni,
 N: baryton.
 
 The male voice intermediate between the @aref{bass} and the
@@ -441,6 +460,7 @@ D: Baritonschl@"ussel,
 NL: baritonsleutel,
 DK: barytonn@o{}gle,
 S: barytonklav,
+FI: baritoniavain,
 N: ?.
 
 C or F clef setting central C on the upper staff line.
@@ -454,6 +474,7 @@ D: Bassschl@"ussel,
 NL: bassleutel,
 DK: basn@o{}gle,
 S: basklav,
+FI: bassoavain,
 N: ?.
 
 A clef setting with central C on the first top ledger line.
@@ -466,6 +487,7 @@ D: Bass,
 NL: bas,
 DK: bas,
 S: bas,
+FI: basso, matala mies@"a@"ani,
 N: bas.
 
 1. The lowest of men's voices.
@@ -480,6 +502,7 @@ D: Balken,
 NL: waardestreep,
 DK: bj@ae{}lke,
 S: balk,
+FI: palkki,
 N: ?.
 
 Line connecting a series of notes (shorter than a quarter note).
@@ -503,6 +526,7 @@ D: Takt, Taktschlag, Zeit (im Takt),
 NL: tel,
 DK: (takt)slag,
 S: taktslag,
+FI: aika-arvo,
 N: ?.
 
 Note value used for counting, most often half-, fourth-, and eighth notes.
@@ -528,6 +552,7 @@ D: Klammer, Akkolade,
 NL: accolade, teksthaak,
 DK: klamme,
 S: klammer,
+FI: ?,
 N: ?.
 
 Symbol at the start of a system connecting staves.  Curly braces are used
@@ -555,6 +580,7 @@ NL: koper (blazers),
 F: cuivres,
 DK: messingbl@ae{}sere,
 S: brassinstrument, m@"assingsinstrument,
+FI: vaskisoitin,
 N: ?.
 
 A family of blown musical instruments made of brass all using a cup formed
@@ -568,6 +594,7 @@ D: Atemzeichen, Trennungszeichen,
 NL: repercussieteken,
 DK: vejrtr@ae{}kningstegn,
 S: andningstecken,
+FI: hengitysmerkki,
 N: ?.
 
 Indication of where to breathe in vocal and wind instrument parts.
@@ -580,6 +607,7 @@ D: Brevis,
 NL: brevis,
 DK: brevis,
 S: brevis,
+FI: breve,
 N: ?.
 
 @aref{note value} twice as long as a whole note.  Mainly used
@@ -598,6 +626,7 @@ D: C, c,
 NL: c,
 DK: c,
 S: c,
+FI: C, c,
 N: c.
 
 @aitem{C clef}
@@ -608,6 +637,7 @@ D: C-Schl@"ussel,
 NL: C-sleutel,
 DK: c-n@o{}gle,
 S: c-klav,
+FI: C-avain,
 N: ?.
 
 Clef symbol indicating the position of the central C.  Used on all note
@@ -639,6 +669,7 @@ D: Kadenz,
 NL: cadens,
 DK: kadence,
 S: kadens,
+FI: kadenssi, lopuke,
 N: ?.
 
 @aref{harmonic cadence}, @aref{functional harmony}.
@@ -651,6 +682,7 @@ D: Kadenz,
 NL: cadens,
 DK: kadence,
 S: kadens,
+FI: kadenssi,
 N: ?.
 
 An extended, improvisatory style section inserted near the end of
@@ -667,6 +699,7 @@ D: Kanon,
 NL: canon,
 DK: kanon,
 S: kanon,
+FI: kaanon,
 N: ?.
 
 @aref{counterpoint}.
@@ -679,6 +712,7 @@ D: Cent,
 NL: cent,
 DK: cent,
 S: cent,
+FI: sadasosa,
 N: ?.
 
 Logarithmic unit of measurement.  1 cent is 1/1200 of an octave (1/100 of an
@@ -696,6 +730,7 @@ D: Akkord,
 NL: akkoord,
 DK: akkord,
 S: ackord,
+FI: sointu,
 N: ?.
 
 Three or more tones sounding simultaneously.  In traditional European music the
@@ -734,6 +769,7 @@ D: chromatische Tonleiter,
 NL: chromatische toonladder,
 DK: kromatisk skala,
 S: kromatisk skala,
+FI: kromaattinen asteikko,
 N: ?.
 
 A scale consisting of all 11 @aref{semitone}s.
@@ -751,6 +787,7 @@ D: Chromatik,
 NL: chromatiek,
 DK: kromatik,
 S: kromatik,
+FI: kromatiikka,
 N: ?.
 
 Use of tones extraneous to a @aref{diatonic scale} (minor, major).
@@ -763,6 +800,7 @@ D: Kirchentonart,
 NL: kerktoonladder,
 DK: kirketoneart,
 S: kyrkotonart,
+FI: moodi, kirkkos@"avellaji,
 N: ?.
 
 @aref{diatonic scale}.
@@ -775,6 +813,7 @@ D: Schl@"ussel, Notenschl@"ussel,
 NL: sleutel,
 DK: n@o{}gle,
 S: klav,
+FI: avain, nuottiavain,
 N: ?.
 
 @aref{C clef}, @aref{F clef}, @aref{G clef}.
@@ -786,6 +825,7 @@ D: Komma,
 NL: komma,
 DK: komma,
 S: komma,
+FI: comma,
 N: ?.
 
 Difference in pitch between a note derived from pure tuning and the same note
@@ -802,6 +842,7 @@ D: weites Intervall,
 NL: samengesteld interval,
 DK: sammensat interval,
 S: sammansatt intervall,
+FI: oktaavia laajempi intervalli,
 N: ?.
 
 Intervals larger than an octave.
@@ -815,6 +856,7 @@ D: Komplement@"arintervall,
 NL: complementair interval,
 DK: komplement@ae{}rinterval,
 S: komplement@"arintervall (?),
+FI: ?,
 N: ?.
 
 @aref{inverted interval}.
@@ -827,6 +869,7 @@ D: schrittweise, stufenweise Bewegung,
 NL: ?,
 DK: trinvis bev@ae{}gelse,
 S: stegvis r@"orelse,
+FI: ?,
 N: ?.
 
 Melody moving in the narrow steps of the scale.
@@ -844,6 +887,7 @@ D: Konsonanz,
 NL: consonant,
 DK: konsonans,
 S: konsonans,
+FI: konsonanssi, sopusointi,
 N: ?.
 
 @aref{harmony}.
@@ -856,6 +900,7 @@ D: Alt,
 NL: contralto,
 DK: alt,
 S: alt,
+FI: kontra-altto,
 N: ?.
 
 @aref{alto}.
@@ -868,6 +913,7 @@ D: Kontrapunkt,
 NL: contrapunt,
 DK: kontrapunkt,
 S: kontrapunkt,
+FI: kontrapunkti, @"a@"ani @"a@"ant@"a vastaan,
 N: ?.
 
 From latin @emph{punctus contra punctum}, note against note.  The combination
@@ -923,6 +969,7 @@ D: Countertenor,
 NL: contratenor,
 DK: kontratenor,
 S: kontratenor, counter tenor,
+FI: kontratenori,
 N: kontratenor.
 
 @aref{contralto}.
@@ -942,6 +989,7 @@ D: Crescendo, lauter werden,
 NL: crescendo,
 DK: crescendo,
 S: crescendo,
+FI: cresendo, voimistuen,
 N: crescendo.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge or the
@@ -960,6 +1008,7 @@ D: Stichnoten,
 NL: stichnoten,
 DK: stiknoder,
 S: inprickningar,
+FI: vihjenuotit,
 N: ?.
 
 In a separate part notes belonging to another part with the purpose of hinting
@@ -1007,6 +1056,7 @@ D: D, d,
 NL: d,
 DK: d,
 S: d,
+FI: D, d,
 N: d.
 
 @aitem{da capo}
@@ -1017,6 +1067,7 @@ D: da capo, von Anfang,
 NL: da capo,
 DK: da capo,
 S: da capo,
+FI: da capo, alusta,
 N: ?.
 
 The term indicates repetition of the piece from the beginning to the end or to
@@ -1030,6 +1081,7 @@ D: dal segno,
 NL: dal segno,
 DK: dal segno,
 S: dal segno,
+FI: dal segno, merkkiin asti,
 N: ?.
 
 Abbreviated ``d.s.''.  Repetition, not from the beginning, but from
@@ -1049,6 +1101,7 @@ D: Decrescendo, leiser werden,
 NL: decrescendo,
 DK: decrescendo,
 S: decrescendo,
+FI: decresendo, hiljentyen,
 N: decrescendo.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal wedge
@@ -1069,6 +1122,7 @@ D: fallendes Intervall, absteigendes Intervall,
 NL: dalend interval,
 DK: faldende interval,
 S: fallande intervall,
+FI: laskeva intervalli,
 N: ?.
 
 A distance between a starting higher note and a lower ending note.
@@ -1081,6 +1135,7 @@ D: diatonische Tonleiter,
 NL: diatonische toonladder,
 DK: diatonisk skala,
 S: diatonisk skala,
+FI: diatoninen asteikko,
 N: ?.
 
 A scale consisting of 5@w{ }@aref{whole tone}s and
@@ -1252,6 +1307,7 @@ D: vermindertes Intervall,
 NL: verminderd interval,
 DK: formindsket interval,
 S: f@"orminskat intervall,
+FI: v@"ahennetty intervalli,
 N: ?.
 
 @aref{interval}.
@@ -1264,6 +1320,7 @@ D: Diminuendo,
 NL: diminuendo,
 DK: diminuendo,
 S: diminuendo,
+FI: diminuendo, hiljentyen,
 N: diminuendo.
 
 @aref{decrescendo}.
@@ -1276,6 +1333,7 @@ D: sprunghafte Bewegung,
 NL: ?,
 DK: springende bev@ae{}gelse,
 S: hoppande r@"orelse,
+FI: hyppiv@"a melodian liike,
 N: ?.
 
 Melody moving in steps greater than those of the
@@ -1298,6 +1356,7 @@ D: Dissonanz,
 NL: dissonant interval; dissonant,
 DK: dissonerende interval, dissonans,
 S: dissonans,
+FI: dissonanssi, dissonoiva intervalli, riitasointi,
 N: ?.
 
 @aref{harmony}.
@@ -1309,6 +1368,7 @@ D: Dominantnoneakkord,
 NL: dominant noon akkoord,
 DK: dominantnoneakkord,
 S: dominantnonackord,
+FI: dominanttinoonisointu,
 N: ?.
 
 @aref{chord}, @aref{functional harmony}.
@@ -1321,6 +1381,7 @@ D: Dominantseptakkord,
 NL: dominant septiem akkoord,
 DK: dominantseptimakkord,
 S: dominantseptimackord,
+FI: dominanttiseptimisointu,
 N: ?
 
 @aref{chord}, @aref{functional harmony}.
@@ -1333,6 +1394,7 @@ D: Dominante,
 NL: dominant,
 DK: dominant,
 S: dominant,
+FI: dominantti, huippusointu,
 N: ?.
 
 The fifth @aref{scale degree},
@@ -1346,6 +1408,7 @@ D: dorisch, dorischer Kirchenton,
 NL: dorische toonladder,
 DK: dorisk skala,
 S: dorisk tonart,
+FI: doorinen asteikko,
 N: ?.
 
 @aref{diatonic scale}.
@@ -1358,6 +1421,7 @@ D: Punkt (Verl@"angerungspunkt),
 NL: punt,
 DK: punkt,
 S: punkt,
+FI: piste,
 N: ?.
 
 @aref{dotted note}.
@@ -1370,6 +1434,7 @@ D: punktierte Note,
 NL: gepuncteerde noot,
 DK: punkteret node,
 S: punkterad not,
+FI: pisteellinen nuotti,
 N: ?.
 
 @aref{note value}.
@@ -1382,6 +1447,7 @@ D: doppelter Vorschlag,
 NL: dubbele voorslag,
 DK: dobbelt forslag,
 S: dubbelslag,
+FI: kaksoisappogiatura,
 N: ?.
 
 @aref{appoggiatura}.
@@ -1393,6 +1459,7 @@ D: Doppelstrich,
 NL: dubbele maatstreep,
 DK: dobbeltstreg,
 S: dubbelstreck,
+FI: kaksoistahtiviiva,
 N: ?.
 
 Indicates the end of a section within a movement.
@@ -1405,6 +1472,7 @@ D: doppelt punktierte Note,
 NL: dubbelgepuncteerde noot,
 DK: dob@-belt@-punk@-te@-ret node,
 S: dub@-bel@-punk@-te@-rad not,
+FI: kaksoispisteellinen nuotti,
 N: ?.
 
 @aref{note value}.
@@ -1417,6 +1485,7 @@ D: Doppel-B,
 NL: dubbelmol,
 DK: dob@-belt-b,
 S: dubbelbe,
+FI: kaksoisalennusmerkki,
 N: ?.
 
 @aref{accidental}.
@@ -1429,6 +1498,7 @@ D: Doppelkreuz,
 NL: dubbelkruis,
 DK: dob@-belt@-kryds,
 S: dubbelkors,
+FI: kaksoisylennysmerkki,
 N: ?.
 
 @aref{accidental}.
@@ -1441,6 +1511,7 @@ D: Doppeltriller,
 NL: dubbele triller,
 DK: dobbelttrille,
 S: dubbeldrill,
+FI: kaksoistrilli,
 N: ?.
 
 A simultaneous trill on two notes, usually in the distance of a third.
@@ -1453,6 +1524,7 @@ D: in zwei,
 NL: tweedelige maatsoort,
 DK: todelt takt,
 S: tv@aa{}takt,
+FI: kaksoistempo,
 N: ?.
 
 @aref{meter}.
@@ -1465,6 +1537,7 @@ D: Duole,
 NL: duool,
 DK: duol,
 S: duol,
+FI: duoli,
 N: ?.
 
 @aref{note value}.
@@ -1477,6 +1550,7 @@ D: Dauer, L@"ange,
 NL: duur, lengte,
 DK: varighed,
 S: tonl@"angd,
+FI: kesto, aika-arvo,
 N: ?.
 
 @aref{note value}.
@@ -1492,6 +1566,7 @@ D: E, e,
 NL: e,
 DK: e,
 S: e,
+FI: E, e,
 N: e.
 
 @aitem{eighth note}
@@ -1503,6 +1578,7 @@ D: Achtel, Achtelnote,
 NL: achtste noot,
 DK: ottendedelsnode,
 S: @aa{}ttondelsnot,
+FI: kahdeksasosanuotti,
 N: ?.
 
 @aref{note value}.
@@ -1516,6 +1592,7 @@ D: Achtelpause,
 NL: achtste rust,
 DK: ottendedelspause,
 S: @aa{}ttonddelspaus,
+FI: kahdeksasosatauko,
 N: ?.
 
 @aref{note value}.
@@ -1528,6 +1605,7 @@ D: Notenstechen, Notendruck
 NL: steken,
 DK: nodestik,
 S: nottryck,
+FI: nuotinnus,
 N: ?.
 
 Engraving means incising or etching a metal plate for
@@ -1545,6 +1623,7 @@ D: enharmonisch,
 NL: enharmonisch,
 DK: enharmonisk,
 S: enharmonisk,
+FI: enharmoninen,
 N: ?.
 
 Two notes, intervals, or scales are enharmonic if they have different names
@@ -1571,6 +1650,7 @@ D: gleichschwebende Stimmung,
 NL: ge@-lijk@-zwe@-ven@-de temperatuur,
 DK: ligesv@ae{}vende temperatur,
 S: liksv@"avande temperatur,
+FI: tasavireinen,
 N: ?.
 
 Tuning system dividing the octave into 12 equal @aref{semitone}s
@@ -1584,6 +1664,7 @@ D: Vortragszeichen,
 NL: voordrachtsteken,
 DK: foredragsbetegnelse,
 S: f@"oredragsbeteckning,
+FI: nyanssimerkki, esitysmerkki,
 N: ?.
 
 Performance indications concerning 1. volume, dynamics (for example
@@ -1598,6 +1679,7 @@ D: F, f,
 NL: f,
 DK: f,
 S: f,
+FI: F, f,
 N: f.
 
 @aitem{F clef}
@@ -1608,6 +1690,7 @@ D: F-Schl@"ussel,
 NL: F-sleutel,
 DK: F-n@o{}gle,
 S: f-klav,
+FI: F-avain,
 N: ?.
 
 The position between the dots of the key symbol is the line of the F below
@@ -1654,6 +1737,7 @@ D: Fermate,
 NL: fermate,
 DK: fermat,
 S: fermat,
+FI: fermaatti, pid@"ake,
 N: ?.
 
 Prolonged note or rest of indefinite duration.
@@ -1673,6 +1757,7 @@ D: Quinte,
 NL: kwint,
 DK: kvint,
 S: kvint,
+FI: kvintti,
 N: kvint.
 
 @aref{interval}.
@@ -1688,6 +1773,7 @@ D: Fingersatz,
 NL: vingerzetting,
 DK: fingers@ae{}tning,
 S: fingers@"attning,
+FI: sormitus,
 N: ?.
 
 The methodical use of fingers in the playing of instruments.
@@ -1700,6 +1786,7 @@ D: Fahne, F@"ahnchen,
 NL: vlaggetje,
 DK: fane,
 S: flagga,
+FI: lippu, viiri,
 N: ?.
 
 Ornament at the end of the stem of a note used for notes with values
@@ -1725,6 +1812,7 @@ D: B, b,
 NL: mol,
 DK: b,
 S: bef@"ortecken,
+FI: alennusmerkki,
 N: ?.
 
 @aref{accidental}.
@@ -1740,6 +1828,7 @@ D: forte, laut,
 NL: forte,
 DK: forte,
 S: forte,
+FI: forte, voimakkaasti,
 N: ?.
 
 Loud, abbreviated @b{f}, @emph{fortissimo} (@b{ff}) very loud,
@@ -1753,6 +1842,7 @@ D: Quarte,
 NL: kwart,
 DK: kvart,
 S: kvart,
+FI: kvartti,
 N: ?.
 
 @aref{interval}.
@@ -1765,6 +1855,7 @@ D: Fuge,
 NL: fuga,
 DK: fuga,
 S: fuga,
+FI: fuuga,
 N: ?.
 
 @aref{counterpoint}.
@@ -1777,6 +1868,7 @@ D: Funktionslehre,
 NL: ?,
 DK: funktionsanalyse, funktionsharmonik,
 S: funktionsl@"ara,
+FI: harmoniaj@"arjestelm@"a,
 N: ?.
 
 A system of harmonic analysis.  It is based on the idea that, in a given key,
@@ -1804,6 +1896,7 @@ D: G, g,
 NL: g,
 DK: g,
 S: g,
+FI: G, g,
 N: g.
 
 @aitem{G clef}
@@ -1814,6 +1907,7 @@ D: G-Schl@"ussel, Violinschl@"ussel,
 NL: G-sleutel,
 DK: g-n@o{}gle,
 S: g-klav,
+FI: G-avain,
 N: ?.
 
 A clef symbol indicating the G above central@w{ }C.  Used on the first
@@ -1854,6 +1948,7 @@ D: Glissando,
 NL: glissando,
 DK: glissando,
 S: glissando,
+FI: glissando, liukuen,
 N: glissando.
 
 Letting the pitch slide fluently from one note to the other.
@@ -1866,6 +1961,7 @@ D: Verzierungen, Vorschl@"age, Vorschlagsnoten,
 NL: versieringen,
 DK: forsiringer,
 S: ornament,
+FI: korunuotit,
 N: ?.
 
 Notes printed in small types to indicate that their time values are not
@@ -1878,6 +1974,7 @@ D: Akkolade,
 NL: piano systeem,
 DK: klaversystem,
 S: ackolad, b@"ojd klammer,
+FI: kaksoisnuottiviivasto,
 N: ?.
 
 @aref{brace}.
@@ -1892,6 +1989,7 @@ D: grave, langsam,
 NL: grave, ernstig,
 DK: grave,
 S: grave,
+FI: grave, raskaasti,
 N: ?.
 
 Slow, solemn.
@@ -1905,6 +2003,7 @@ D: Halbe, halbe Note,
 NL: halve noot,
 DK: halvnode,
 S: halvnot,
+FI: puolinuotti,
 N: ?.
 
 @aref{note value}.
@@ -1918,6 +2017,7 @@ D: halbe Pause,
 NL: halve, rust,
 DK: halvnodespause,
 S: halvpaus,
+FI: puolitauko,
 N: ?.
 
 @aref{note value}.
@@ -1930,6 +2030,7 @@ D: Schlusskadenz,
 NL: harmonische cadens,
 DK: harmonisk kadence,
 S: (harmonisk) kadens,
+FI: harmoninen kadenssi,
 N: ?.
 
 Sequence of chords that terminate a musical phrase or
@@ -1965,6 +2066,7 @@ D: Harmonie, Zusammenklang,
 NL: harmonie,
 DK: samklang,
 S: samklang,
+FI: harmonia, yhteissointi,
 N: ?.
 
 Tones sounding simultaneously.  Two note harmonies fall into the categories
@@ -2008,6 +2110,7 @@ D: Homophonie,
 NL: homofonie,
 DK: homofoni,
 S: homofoni,
+FI: homofonia,
 N: ?.
 
 Music in which one voice leads melodically followed by the other voices more
@@ -2021,6 +2124,7 @@ D: Intervall,
 NL: interval,
 DK: interval,
 S: intervall,
+FI: intervalli, s@"avelien korkeusero,
 N: ?.
 
 Difference in pitch between two notes.  Intervals may be perfect, minor, major,
@@ -2100,6 +2204,7 @@ D: umgekehrtes Intervall,
 NL: interval inversie,
 DK: omvendingsinterval,
 S: intervallets omv@"andning,
+FI: k@"a@"anteisintervalli,
 N: ?.
 
 The difference between an interval and an octave.
@@ -2121,6 +2226,7 @@ D: reine Stimmung,
 NL: reine stemming,
 DK: ren stemning,
 S: ren st@"amning,
+FI: puhdas viritys,
 N: ?.
 
 Tuning system in which the notes are obtained by adding and subtracting
@@ -2134,6 +2240,7 @@ D: Tonart,
 NL: toonsoort,
 DK: toneart,
 S: tonart,
+FI: tonaliteetti,
 N: ?.
 
 According to the 12@w{ }tones of the @aref{chromatic scale}
@@ -2148,6 +2255,7 @@ D: Vorzeichen, Tonart,
 NL: toon@-soort (voortekens),
 DK: faste fortegn,
 S: tonartssignatur,
+FI: s@"avellajiosoitus,
 N: ?.
 
 The sharps or flats appearing at the beginning of each staff indicating the
@@ -2161,6 +2269,7 @@ D: Largo, Langsam, Breit,
 NL: largo,
 DK: largo,
 S: largo,
+FI: largo, hitaasti, leve@"asti,
 N: largo.
 
 Very slow in tempo, usually combined with great
@@ -2174,6 +2283,7 @@ D: Leitton,
 NL: leidtoon,
 DK: ledetone,
 S: ledton,
+FI: johtos@"avel,
 N: ?.
 
 The seventh @aref{scale degree}, a @aref{semitone} below
@@ -2188,6 +2298,7 @@ D: Hilfslinie,
 NL: hulplijntje,
 DK: hj@ae{}lpelinie,
 S: hj@"alplinje,
+FI: apuviiva,
 N: ?.
 
 A ledger line is an extension of the staff.
@@ -2205,6 +2316,7 @@ D: legato,
 NL: legato,
 DK: legato,
 S: legato,
+FI: legato, sitoen,
 N: ?.
 
 To be performed without any perceptible interruption between the notes (a)
@@ -2241,6 +2353,7 @@ D: Seerosenteich,
 NL: le@-lie@-vij@-ver,
 DK: liliedam,
 S: liljedamm,
+FI: liljalampi,
 N: ?.
 
 A pond with lilies floating in it, also the name of a music typesetter.
@@ -2253,6 +2366,7 @@ D: Linie, Notenlinie,
 NL: lijn,
 DK: nodelinie,
 S: notlinje,
+FI: nuottiviiva,
 N: ?.
 
 @aref{staff}.
@@ -2264,6 +2378,7 @@ F: appoggiature longue,
 D: langer Vorschlag,
 DK: langt forslag,
 S: l@aa{}ngt f@"orslag,
+FI: pitk@#@"a appoggiatura,
 N: ?.
 
 @aref{appoggiatura}.
@@ -2276,6 +2391,7 @@ D: Longa,
 NL: longa,
 DK: longa,
 S: longa,
+FI: longa,
 N: longa.
 
 Note value: double length of @aref{breve}.
@@ -2297,6 +2413,7 @@ D: .,
 NL: liedtekst,
 DK: .,
 S: .,
+FI, sanoitus,
 N: ..
 
 @aitem{major interval}
@@ -2307,6 +2424,7 @@ D: gro@ss{}es Intervall,
 NL: groot interval,
 DK: stort interval,
 S: stort intervall,
+FI: suuri intervalli,
 N: ?.
 
 @aref{interval}.
@@ -2319,6 +2437,7 @@ D: Dur,
 NL: majeur,
 DK: dur,
 S: dur,
+FI: duuri,
 N: dur.
 
 @aref{diatonic scale}.
@@ -2330,6 +2449,7 @@ D: mittelt@"onige Stimmung,
 NL: ?,
 DK: middeltonetemperatur,
 S: medeltonstemperatur,
+FI: keskis@"avelviritys,
 N: ?.
 
 Temperament yielding acoustically pure thirds by decreasing the natural fifth
@@ -2345,6 +2465,7 @@ D: Takt,
 NL: maat,
 DK: takt,
 S: takt,
+FI: tahti,
 N: takt.
 
 A group of @aref{beat}s (units of musical time) the first of which
@@ -2360,6 +2481,7 @@ NL: mediant,
 D: Mediante,
 DK: mediant,
 S: mediant,
+FI: ?,
 N: ?.
 
 1. The third @b{scale degree}.
@@ -2379,6 +2501,7 @@ D: Taktart, Metrum,
 NL: maatsoort,
 DK: taktart,
 S: taktart,
+FI: aika-arvo,
 N: ?.
 
 The basic scheme of @aref{note value}s and
@@ -2421,6 +2544,7 @@ D: Metronom,
 NL: metronoom,
 DK: me@-tro@-nom,
 S: me@-tro@-nom,
+FI: metronomi,
 N: metronom.
 
 Device indicating the exact tempo of a piece.  @aref{metronomic
@@ -2434,6 +2558,7 @@ D: Metronomangabe,
 NL: metronoom aanduiding,
 DK: metronomtal,
 S: metronomangivelse,
+FI: metronomi osoitus,
 N: ?.
 
 Exact tempo indication (in beats per minute).  Also denoted by
@@ -2447,6 +2572,7 @@ D: Mezzosopran,
 NL: mezzosopraan,
 DK: mezzosopran,
 S: mezzosopran,
+FI: mezzosopraano,
 N: mezzosopran.
 
 The female voice between @aref{soprano} and
@@ -2460,6 +2586,7 @@ D: eingestrichenes@w{ }c,
 NL: centrale@w{ }c,
 DK: enstreget@w{ }c,
 S: ettstruket@w{ }c,
+FI: keski-c,
 N: ?.
 
 First C below the 440 Hz A.
@@ -2482,6 +2609,7 @@ D: Moll,
 NL: mineur,
 DK: mol,
 S: moll,
+FI: molli,
 N: ?.
 
 @aref{diatonic scale}.
@@ -2494,6 +2622,7 @@ D: kleines Intervall,
 NL: klein interval,
 DK: lille interval,
 S: litet intervall,
+FI: pieni intervalli,
 N: ?.
 
 @aref{interval}.
@@ -2506,6 +2635,7 @@ D: Modus,
 NL: modus,
 DK: skala,
 S: modus, skala,
+FI: moodi, s@"avelasteikko,
 N: ?.
 
 @aref{church mode}, @aref{diatonic scale}.
@@ -2518,6 +2648,7 @@ D: Modulation,
 NL: modulatie,
 DK: modulation,
 S: modulering,
+FI: modulaatio, s@"avellajin vaihdos,
 N: ?.
 
 Moving from one @aref{key} to another.  For example, the second
@@ -2532,6 +2663,7 @@ D: Mordent,
 NL: mordent,
 DK: mordent,
 S: mordent,
+FI: mordent,
 N: ?.
 
 @aref{ornament}.
@@ -2544,6 +2676,7 @@ D: Motiv,
 NL: motief,
 DK: motiv,
 S: motiv,
+FI: teema, s@"avelaihe,
 N: ?.
 
 The briefest intelligible and self-contained fragment of a musical theme or
@@ -2569,6 +2702,7 @@ D: Satz,
 NL: deel,
 DK: sats,
 S: sats,
+FI: liike,
 N: ?.
 
 Greater musical works like @aref{symphony} and
@@ -2583,6 +2717,7 @@ NL: meermaats rust,
 D: mehrtaktige Pause,
 DK: flertaktspause,
 S: flertaktspaus,
+FI: monen tahdin pituinen tauko,
 N: ?.
 
 @lilypond[13pt]
@@ -2604,6 +2739,7 @@ D: Aufl@"osungszeichen,
 NL: herstellingsteken,
 DK: op@-l@o{}sningstegn,
 S: @aa{}terst@"allningstecken,
+FI: palautusmerkki,
 N: ?.
 
 @aref{accidental}.
@@ -2619,6 +2755,7 @@ D: None,
 NL: noon,
 DK: none,
 S: nona,
+FI: nooni,
 N: ?.
 
 @aref{interval}.
@@ -2634,6 +2771,7 @@ D: Note,
 NL: noot,
 DK: node,
 S: not,
+FI: nuotti,
 N: ?,
 
 Notes are signs by means of which music is fixed in writing.  The term is also
@@ -2650,6 +2788,7 @@ D: Notenkopf,
 NL: nootballetje,
 DK: nodehovede,
 S: nothuvud,
+FI: nuotin p@"a@"a,
 N: ?.
 
 A head like sign which indicates pitch by its position on a
@@ -2667,6 +2806,7 @@ D: Notenwert,
 NL: nootwaarde,
 DK nodev@ae{}rdi,
 S: notv@"arde,
+FI: nuotin aika-arvo,
 N: ?.
 
 Note values (durations) are measured as fractions, normally 1/2, of the next
@@ -2740,6 +2880,7 @@ D: Oktave,
 NL: octaaf,
 DK: oktav,
 S: oktav,
+FI: oktaavi,
 N: ?.
 
 @aref{interval}.
@@ -2752,6 +2893,7 @@ D: Verzierung, Ornament,
 NL: versiering,
 DK: forsiring,
 S: ornament,
+FI: koru, hele,
 N: ?.
 
 Most commonly used is the @emph{trill}, the rapid alternation of a given note
@@ -2807,6 +2949,7 @@ D: Ossia,
 NL: alternatief,
 DK: ossia,
 S: ossia,
+FI: ossia, vaihtoehtoinen esitystapa,
 N: ?.
 
 Ossia (otherwise) marks an alternative.  It is an added staff or piano
@@ -2821,6 +2964,7 @@ D: Stimme,
 NL: partij,
 DK: stemme,
 S: st@"amma,
+FI: osa,
 N: ?.
 
 1. In instrumental or choral music the music for the single instrument
@@ -2835,6 +2979,7 @@ D: Schlagzeug, Schlagwerk,
 NL: slagwerk,
 DK: slagt@o{}j,
 S: slagverk,
+FI: ly@"om@"asoittimet,
 N: ?.
 
 A family of musical instruments which are played on by striking or
@@ -2851,6 +2996,7 @@ D: reines Intervall,
 NL: rein interval,
 DK: rent interval,
 S: rent intervall,
+FI: puhdas intervalli,
 N: ?.
 
 @aref{interval}.
@@ -2863,6 +3009,7 @@ D: Phrase,
 NL: frase, zin,
 DK: frase,
 S: fras,
+FI: fraasi,
 N: ?.
 
 A natural division of the melodic line, comparable to a sentence of speech.
@@ -2875,6 +3022,7 @@ D: Phrasierung,
 NL: frasering,
 DK: frasering,
 S: fra@-se@-ring,
+FI: fraseeraus,
 N: ?.
 
 The clear rendering in musical performance of the @aref{phrase}s of
@@ -2888,6 +3036,7 @@ D: piano, leise,
 NL: piano,
 DK: piano,
 S: piano,
+FI, piano, hiljaa,
 N: ?.
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
@@ -2901,6 +3050,7 @@ D: Tonh@"ohe,
 NL: toonhoogte,
 DK: toneh@o{}jde,
 S: tonh@"ojd,
+FI: s@"avelkorkeus,
 N: ?.
 
 @aitem{pizzicato}
@@ -2911,6 +3061,7 @@ D: pizzicato,
 NL: pizzicato, getokkeld,
 DK: pizzicato,
 S: pizzicato,
+FI: pizzicato,
 N: ?.
 
 Play by plucking the strings.
@@ -2923,6 +3074,7 @@ D: Polyphonie,
 NL: polyfonie,
 DK: polyfoni,
 S: polyfoni,
+FI: polyfonia, moni@"a@"anisyys,
 N: ?.
 
 Music written in a combination of several simultaneous voices (parts) of a
@@ -2939,6 +3091,7 @@ D: Presto, Sehr schnell,
 NL: presto, Sehr schnell,
 DK: presto,
 S: presto,
+FI: presto, hyvin nopeasti,
 N: ?.
 
 Very quick, i.e. quicker than @aref{allegro}.  @emph{prestissimo}
@@ -2952,6 +3105,7 @@ D: Pythagor@"aisches Komma,
 NL: komma van Pythagoras,
 DK: pythagor@ae{}isk komma,
 S: pytagoreiskt komma,
+FI: pytagorinen pilkku,
 N: ?.
 
 A sequence of fifths starting on@w{ }C eventually circles back to@w{ }C,
@@ -2968,6 +3122,7 @@ D: Quartole,
 NL: kwartool,
 DK: kvartol,
 S: kvartol,
+FI: kvartoli,
 N: ?.
 
 @aref{note value}.
@@ -2981,6 +3136,7 @@ D: Viertel, Viertelnote,
 NL: kwartnoot,
 DK: fjerdedelsnode,
 S: fj@"ardedelsnot,
+FI: nelj@"annesosanuotti,
 N: ?.
 
 @aref{note value}.
@@ -2994,6 +3150,7 @@ D: Viertelpause,
 NL: kwart rust,
 DK:@w{ }fjerdedelspause,
 S: fj@"ardedelspaus,
+FI: nelj@"annesosatauko,
 N: ?.
 
 @aref{note value}.
@@ -3006,6 +3163,7 @@ D: Quintole,
 NL: kwintool,
 DK: kvintol,
 S: kvintol,
+FI: kvintoli,
 N: ?.
 
 @aref{note value}.
@@ -3018,6 +3176,7 @@ D: rallentando, langsamer werden,
 NL: rallentando,
 DK: rallentando,
 S: rallentando,
+FI. rallerdando, hidastuen,
 N: rallentando.
 
 Abbreviation "rall.".  @aref{ritardando}.
@@ -3029,6 +3188,7 @@ F: tonalit@'e relative,
 D: Paralleltonart,
 DK: paralleltoneart,
 S: parallelltonart,
+FI: rinnakkaiss@"avellaji,
 N: ?.
 
 @aref{major} and @aref{minor} @aref{key}
@@ -3061,6 +3221,7 @@ D: Wiederholung,
 NL: herhaling,
 DK: gen@-ta@-gel@-se,
 S: repris,
+FI: toisto,
 N: ?.
 
 @lilypond[13pt]
@@ -3082,6 +3243,7 @@ D: Pause,
 NL: rust,
 DK: pause,
 S: paus,
+FI: tauko,
 N: ?.
 
 @aref{note value}.
@@ -3094,6 +3256,7 @@ D: Rhythmus,
 NL: ritme,
 DK: rytme,
 S: rytm,
+FI: rytmi,
 N: ?.
 
 (a) Metrical rhythm in which every time value is a multiple or fraction of a
@@ -3113,6 +3276,7 @@ D: Ritardando, langsamer werden,
 NL: ritardando,
 DK: ritardando,
 S: ritardando,
+FI. ritardando, hidastuen,
 N: ?.
 
 Gradually slackening in speed.  Mostly abbreviated to rit. or ritard.
@@ -3125,6 +3289,7 @@ D: Ritenuto,
 NL: ritenuto,
 DK: ritenuto,
 S: ritenuto,
+FI: ritenuto, hidastaen,
 N: ?.
 
 Immediate reduction of speed.
@@ -3137,6 +3302,7 @@ D: Tonleiter,
 NL: toonladder,
 DK: Skala,
 S: skala,
+FI: asteikko, s@"avelasteikko,
 N: ?.
 
 @aref{diatonic scale}.
@@ -3149,6 +3315,7 @@ D: Tonleiterstufe,
 NL: trap [van de toonladder],
 DK: skalatrin,
 S: skalsteg (?),
+FI: s@"avelaste,
 N: ?.
 
 Names and symbols used in harmonic analysis to denote tones of the scale as
@@ -3179,6 +3346,7 @@ D: Partitur (full score), Klavierauszug (vocal score)
 NL: partituur,
 DK: partitur,
 S: partitur,
+FI: partituuri,
 N: ?.
 
 A copy of orchestral, choral or chamber music showing what each instrument is
@@ -3193,6 +3361,7 @@ D: Sekund,
 NL: secunde,
 DK: sekund,
 S: sekund,
+FI: sekunti,
 N: ?.
 
 The @aref{interval} between two neigbouring tones of a scale.  A
@@ -3208,6 +3377,7 @@ D: Halbton,
 NL: halve toon,
 DK: halvtone,
 S: halvton,
+FI: puolis@"avel,
 N: ?.
 
 The @aref{interval} of a minor second.  The (usually) smallest
@@ -3229,6 +3399,7 @@ D: Septime,
 NL: septiem,
 DK: septim,
 S: septim,
+FI: septimi,
 N: ?.
 
 @aref{interval}.
@@ -3240,6 +3411,7 @@ D: Sextole,
 NL: sextool,
 DK: sekstol,
 S: sextol,
+FI: sekstoli,
 N: ?.
 
 @aref{note value}.
@@ -3252,6 +3424,7 @@ D: Kreuz,
 NL: kruis,
 DK: kryds,
 S: korsf@"ortecken,
+FI: korotusmerkki,
 N: ?.
 
 @aref{accidental}.
@@ -3268,6 +3441,7 @@ D: Sechzehntel, Sechzehntelnote,
 NL: zes@-ti@-ende noot,
 DK: sekstendedelsnode,
 S: sextondelsnot,
+FI: kuudestoistaosanuotti,
 N: ?.
 
 @aref{note value}.
@@ -3281,6 +3455,7 @@ D: Sechzehntelpause,
 NL: zestiende rust,
 DK: sekstendedelspause,
 S: sextondelspaus,
+FI: kuudesosatauko,
 N: ?.
 
 @aref{note value}.
@@ -3293,6 +3468,7 @@ D: Sexte,
 NL: sext,
 DK: sekst,
 S: sext,
+FI: seksti,
 N: ?.
 
 @aref{interval}.
@@ -3306,6 +3482,7 @@ D: Vierundsechzigstel, Vierundsechzigstelnote,
 NL: vierenzestigste noot,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-no@-de,
 S: sextiofj@"ardedelsnot,
+FI: kuudeskymmenesnelj@"asosanuotti,
 N: ?.
 
 @aref{note value}.
@@ -3319,6 +3496,7 @@ D: Vierundsechzigstelpause,
 NL: vierenzestigste rust,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-pau@-se,
 S: sextiofj@"ardedelspaus,
+FI: kuudeskymmenesnelj@"asosatauko,
 N: ?.
 
 @aref{note value}.
@@ -3331,6 +3509,7 @@ D: Bogen, Bindebogen, Legatobogen, Phrasierungsbogen,
 NL: binding, bindingsboog,
 DK: legatobue, fraseringsbue,
 S: b@aa{}ge,
+FI: kaari,
 N: ?.
 
 A slur above or below a group of notes indicates that they are to be played
@@ -3344,6 +3523,7 @@ D: Solmisation,
 NL: solmizatie,
 DK: solmisation,
 S: solmisation,
+FI: ?,
 N: ?.
 
 General term for systems of designating the degrees of the
@@ -3359,6 +3539,7 @@ D: Sonate,
 NL: sonate,
 DK: sonate,
 S: sonat,
+FI: sonaatti,
 N: ?.
 
 In its present-day meaning a sonata denotes an instrumental composition for
@@ -3373,6 +3554,7 @@ D: Sonatenform,
 NL: hoofdvorm, sonatevorm,
 DK: sonateform,
 S: sonatform,
+FI: sonaattimuoto,
 N: ?.
 
 A form used frequently for single movements of the @aref{sonata},
@@ -3397,6 +3579,7 @@ D: Sopran,
 NL: sopraan,
 DK: sopran,
 S: sopran,
+FI: sopraano, korkea nais@"a@"ani,
 N: ?.
 
 The highest female voice.
@@ -3409,6 +3592,7 @@ D: staccato,
 NL: staccato,
 DK: staccato,
 S: staccato,
+FI: staccato,
 N: ?.
 
 Playing the note(s) short.  Staccato is indicated by a dot above or below the
@@ -3432,6 +3616,7 @@ D: Notenzeile,
 NL: (noten)balk, partij,
 DK: nodesystem,
 S: notsystem,
+FI: nuottiviivasto,
 N: ?.
 
 pl. staves.  A series of (normally@w{ }5) horizontal lines upon and between
@@ -3447,6 +3632,7 @@ D: Hals, Notenhals, Stiel,
 NL: stok,
 DK: hals,
 S: skaft,
+FI: nuottipalkki,
 N: ?.
 
 Vertical line above or below a @aref{note head} shorter than a
@@ -3472,6 +3658,7 @@ D: Streicher,
 NL: strijkers,
 DK: strygere,
 S: str@aa{}kar,
+FI: jouset,
 N: ?.
 
 A family of stringed musical instruments played with a bow.  Strings commonly
@@ -3485,6 +3672,7 @@ D: betonter Taktteil oder Taktschlag,
 NL: thesis,
 D: betonet taktslag,
 S: betonat taktslag,
+FI: tahdin vahva isku,
 N: ?.
 
 @aref{beat}, @aref{accent}, @aref{measure},
@@ -3498,6 +3686,7 @@ D: Subdominante,
 NL: subdominant,
 DK: subdominant,
 S: subdominant,
+FI: subdominantti, alidominantti,
 N: ?.
 
 The fourth @aref{scale degree}.  @aref{functional
@@ -3511,6 +3700,7 @@ D: Submediante,
 NL: submediant,
 DK: Submediant,
 S: submediant,
+FI: ?,
 N: ?.
 
 The sixth @aref{scale degree}.
@@ -3523,6 +3713,7 @@ D: Subtonika,
 NL: subtonica,
 DK: Subtonika,
 S: subtonika,
+FI: subtoonika,
 N: ?.
 
 The seventh @aref{scale degree}.
@@ -3535,6 +3726,7 @@ D: Superdominante,
 NL: superdominant,
 DK: superdominant,
 S: superdominant,
+FI: ylidominantti,
 N: ?.
 
 The sixth @aref{scale degree}.
@@ -3547,6 +3739,7 @@ D: Supertonika,
 NL: supertonica,
 DK: supertonika,
 S: supertonika,
+FI: ylitoonika,
 N: ?.
 
 The second @aref{scale degree}.
@@ -3559,6 +3752,7 @@ D: Sinfonie, Symphonie,
 NL: symfonie,
 DK: symfoni,
 S: symfoni,
+FI: sinfonia,
 N: ?.
 
 A symphony may be defined as a @aref{sonata} for orchestra.
@@ -3571,6 +3765,7 @@ D: Synkope,
 NL: syncope,
 DK: synkope,
 S: synkop,
+FI: synkooppi,
 N: ?.
 
 Any deliberate upsetting of the normal pulse of @aref{meter},
@@ -3596,6 +3791,7 @@ D: syntonisches Komma,
 NL: syntonische komma,
 DK: syntonisk komma,
 S: syntoniskt komma,
+FI: ?,
 N: ?.
 
 Difference between the natural third and the third obtained by Pythagorean
@@ -3608,6 +3804,7 @@ D: Notensystem,
 NL: systeem,
 DK: system,
 S: system,
+FI: nuottij@"arjestelm@"a,
 N: ?.
 
 The collection of staves @aref{staff}, two or more, as used for
@@ -3621,6 +3818,7 @@ D: Stimmung, Temperatur,
 NL: temperament,
 DK: temperatur,
 S: temperatur,
+FI: viritysj@"arjestelm@"a,
 N: ?.
 
 Systems of tuning in which the intervals deviate from the acoustically pure
@@ -3635,6 +3833,7 @@ D: Zeitma@ss{}, Tempobezeichnung,
 NL: tempo aanduiding,
 DK: tempobetegelse,
 S: tempobeteckning,
+FI: tempomerkint@"a,
 N: ?.
 
 The rate of speed of a composition or a section thereof, ranging from the
@@ -3650,6 +3849,7 @@ D: Tenor,
 NL: tenor,
 DK: tenor,
 S: tenor,
+FI: tenori,
 N: ?.
 
 The highest voice of men (apart from @aref{counter tenor}).
@@ -3662,6 +3862,7 @@ D: Dezime,
 NL: deciem,
 DK: decim,
 S: decima,
+FI: desimi,
 N: ?.
 
 @aref{note value}.
@@ -3674,6 +3875,7 @@ D: Terz,
 NL: terts,
 DK: terts,
 S: ters,
+FI: terssi,
 N: ?.
 
 @aref{interval}.
@@ -3687,6 +3889,7 @@ D: Zweiunddreissigstel, Zweiunddreissigstelnote,
 NL: twee-endertig@-ste noot,
 DK: toogtredivtedelsnode,
 S: trettiotv@aa{}ondelsnot,
+FI: kolmanneskymmeneskahdesosanuotti,
 N: ?.
 
 @aref{note value}.
@@ -3700,6 +3903,7 @@ D: Zweiunddreissigstel@-pause,
 NL: 32e rust,
 DK: toogtredivtedelspause,
 S: trettiotv@aa{}ondelspaus,
+FI: kolmanneskymmeneskahdesosatauko,
 N: ?.
 
 @aref{note value}.
@@ -3712,6 +3916,7 @@ D: Generalbass, bezifferter Bass,
 NL: basso continuo,
 DK: generalbas,
 S: generalbas,
+FI: kenraalibasso,
 N: ?.
 
 A method of indicating an accompaniment part by the bass notes only, together
@@ -3755,6 +3960,7 @@ D: Haltebogen,
 NL: overbinding,
 DK: bindebue,
 S: bindeb@aa{}ge, @"overbindning,
+FI: sitominen,
 N: ?.
 
 A curved line, identical in appearance with the @aref{slur}, which
@@ -3774,6 +3980,7 @@ D: Taktangabe, Angabe der Taktart,
 NL: maatsoort,
 DK: taktangivelse,
 S: taktartssignatur,
+FI: tahtiosoitus,
 N: ?.
 
 @aref{meter}.
@@ -3786,6 +3993,7 @@ D: Ton,
 NL: toon,
 DK: tone,
 S: ton,
+FI: @"a@"ani,
 N: ?.
 
 A sound of definite pitch and duration, as distinct from @emph{noise}.
@@ -3800,6 +4008,7 @@ D: Tonika,
 NL: tonica,
 DK: tonika,
 S: tonika,
+FI: toonika,
 N: ?.
 
 The first @aref{scale degree}.
@@ -3813,6 +4022,7 @@ D: Transposition,
 NL: transpositie,
 DK: transposition,
 S: transponering,
+FI: transponointi,
 N: ?.
 
 Shifting a melody up or down in pitch, while keeping the same
@@ -3846,6 +4056,7 @@ D: Violinschl@"ussel, Sopranschl@"ussel,
 NL: viool sleutel,
 DK:@w{ }diskantn@o{}gle,
 S: diskantklav,
+FI: diskanttiavain,
 N: ?.
 
 @aref{G clef}.
@@ -3858,6 +4069,7 @@ D: Tremolo,
 NL: tremolo,
 DK: tremolo,
 S: tremolo,
+FI: tremolo,
 N: ?.
 
 On stringed instruments (@aref{strings}) the quick reiteration of
@@ -3884,6 +4096,7 @@ D: Dreiklang,
 NL: drieklank,
 DK: treklang,
 S: treklang,
+FI: kolmisointu,
 N: ?.
 
 @aref{chord}.
@@ -3896,6 +4109,7 @@ D: Triller,
 NL: triller,
 DK: trille,
 S: drill,
+FI: trilli,
 N: ?.
 
 @aref{ornament}.
@@ -3908,6 +4122,7 @@ D: in drei,
 NL: driedelige maatsoort,
 DK: tredelt takt,
 S: tretakt,
+FI: kolmijakoinen,
 N: ?.
 
 @aref{meter}.
@@ -3920,6 +4135,7 @@ D: Triole,
 NL: triool,
 DK: triol,
 S: triol,
+FI: trioli,
 N: ?.
 
 @aref{note value}.
@@ -3932,6 +4148,7 @@ D: Tritonus,
 NL: tritoon,
 DK: tritonus,
 S: tritonus,
+FI: tritonus,
 N: ?.
 
 @aref{interval}.
@@ -3944,6 +4161,7 @@ D: Stimmgabel,
 NL: stemvork,
 DK: stemmegaffel,
 S: st@"amgaffel,
+FI: viritysavain,
 N: ?.
 
 A two-pronged piece of steel used to indicate absolute pitch.  Tuning forks
@@ -3957,6 +4175,7 @@ D: Doppelschlag,
 NL: dubbelslag,
 DK: dobbeltslag,
 S: dubbelslag,
+FI: ?,
 N: ?.
 
 ???
@@ -3969,6 +4188,7 @@ D: unisono,
 NL: unisono,
 DK: unison,
 S: unison,
+FI: unisoni, yksi@"a@"anisesti,
 N: ?.
 
 Playing of the same notes or the same melody by various instruments (voices)
@@ -3983,6 +4203,7 @@ D: Auftakt,
 NL: opmaat,
 DK: optakt,
 S: upptakt,
+FI: kohotahti,
 N: ?.
 
 Initial note(s) of a melody occurring before the first bar
@@ -4004,6 +4225,7 @@ D: Stimme,
 NL: stem,
 DK: stemme,
 S: st@"amma,
+FI: @"a@"ani, laulu@"a@"ani,
 N: ?,
 
 1. Human voices: @aref{soprano}, @aref{mezzo-soprano},
@@ -4019,6 +4241,7 @@ D: unbetonter Taktteil oder Taktschlag,
 NL: arsis,
 DK: ubetonet taktslag,
 S: obetonat taktslag,
+FI: tahdin heikko osa,
 N: ?.
 
 @aref{beat}, @aref{measure}, @aref{rhythm}.
@@ -4032,6 +4255,7 @@ D: Ganze, ganze Note,
 NL: hele noot,
 DK: helnode,
 S: helnot,
+FI: kokonuotti,
 N: ?.
 
 @aref{note value}.
@@ -4045,6 +4269,7 @@ D: ganze Pause, ganztaktige Pause,
 NL: hele rust,
 DK: helnodespause,
 S: helpaus,
+FI: kokotauko,
 N: ?.
 
 @aref{note value}.
@@ -4057,6 +4282,7 @@ D: Ganzton,
 NL: hele toon,
 DK: heltone,
 S: helton,
+FI: kokoaskel,
 N: ?.
 
 The @aref{interval} of a major second.  The interval between two
@@ -4071,6 +4297,7 @@ D: Holzbl@"aser,
 NL: houtblazers,
 DK tr@ae{}bl@ae{}sere,
 S: tr@"abl@aa{}sare,
+FI: puupuhaltimet,
 N: ?.
 
 A family of blown wooden musical instruments.  Today some of these instruments
