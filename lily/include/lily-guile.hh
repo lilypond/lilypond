@@ -69,6 +69,10 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
 
 #endif
 
+#if GUILE_MINOR_VERSION < 7
+#define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
+#define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
+#endif
 
 #include "direction.hh"
 #include "flower-proto.hh"
