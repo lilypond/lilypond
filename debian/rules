@@ -9,8 +9,9 @@
 # for Debian GNU/Linux.
 
 package = lilypond
-
-SHELL = /bin/bash
+SHELL = /bin/sh
+r = debian/tmp
+d = usr/doc/$(package)
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -19,57 +20,81 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	./configure --disable-checking --disable-debugging \
+	CC=egcc ./configure --disable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --enable-optimise \
 		--enable-shared
 	$(MAKE) all
+	# $(MAKE) htmldoc
 
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
+	rm -f build-stamp install-stamp
 	-$(MAKE) distclean
-	-$(MAKE) local-distclean
+
+	# Correct the owner of the out/dummy.dep files when built with sudo.
+	if [ -n "$$SUDO_USER" -a -n "$$SUDO_GID" ]; then \
+		find . -user root | xargs -r chown $$SUDO_USER.$$SUDO_GID; \
+	else \
+		find . -user root | xargs -r chown $$LOGNAME; \
+	fi
 
 	# Remove the following line once the *.make files are fixed
-	rm -f bin/*.pyc
-	rm -f debian/preinst
+	rm -f stepmake/bin/*.pyc
+	rm -f stepmake/stepmake/stepmake
+	rm -f stepmake/stepmake/bin
+	rm -f GNUmakefile stepmake/GNUmakefile
+	rm -f config.h
+	rm -f wwwlist
 
 	dh_clean
 
-# Build architecture-independent files here.
-binary-indep: build
-# We have nothing to do by default.
-
-binary-arch: build
+install: install-stamp
+install-stamp: build-stamp
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-
 	dh_installdirs usr/lib/texmf/doc \
 		usr/lib/emacs/site-lisp \
 		usr/doc/$(package)/examples
-	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
-	$(MAKE) prefix=`pwd`/debian/tmp/usr install
-	cp -av mudela-mode.el debian/tmp/usr/lib/emacs/site-lisp
-	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 README.txt NEWS ONEWS DEDICATION \
-		BUGS TODO \
+	ln -fs ../../../doc/lilypond $(r)/usr/lib/texmf/doc/lilypond
+
+	$(MAKE) prefix=`pwd`/$(r)/usr install
+
+	touch install-stamp
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	cp -av mudela-mode.el $(r)/usr/lib/emacs/site-lisp
+	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 NEWS* DEDICATION \
+		BUGS TODO *.txt \
 		Documentation/pictures/*.xpm \
 		Documentation/out/*.txt \
 		Documentation/tex/*.doc \
 		Documentation/tex/*.bib
 #	dh_installexamples input
 	cp -aP `find input mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
-		debian/tmp/usr/doc/lilypond/examples
+		$(r)/$(d)/examples
+	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
+		mv -fv $$i/* $$i/..; rmdir $$i; done
 #	dh_installmenu
+#	dh_installemacsen
 #	dh_installcron
 #	dh_installmanpages
 #	dh_undocumented
 	dh_installchangelogs
 #	dh_strip
 	dh_compress
+	( cd $(r)/$(d) && \
+		if [ -f NEWS ]; then gzip -9vf NEWS; fi )
+	ln -s NEWS.gz $(r)/$(d)/changelog.gz
 	dh_fixperms
 	dh_suidregister
 	dh_installdeb
@@ -83,4 +108,4 @@ source diff:
 	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary
+.PHONY: build clean install binary-indep binary-arch binary

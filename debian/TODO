@@ -2,6 +2,3 @@ Fri,  6 Feb 1998 17:24:49 -0700:
  * Compile mudela-mode.el into mudela-mode.elc
  * Install /etc/emacs/site-start.d/50lilypond.el
  * Figure out how to make mudela-mode work on my computer.  :-)
-
-Sun, 26 Apr 1998 21:11:32 -0600:
- * Remove preinst from upstream source

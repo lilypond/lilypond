@@ -53,7 +53,6 @@ protected:
   virtual void announce_element (Score_element_info);
   virtual void do_announces();
   virtual void typeset_element (Score_element*elem_p);
-  virtual void typeset_element (Graphical_lisp_element*elem_p);
   virtual void do_pre_move_processing();
   virtual void do_add_processing ();
 };

@@ -14,8 +14,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-
-#include "key-engraver.hh"
+#include "musical-pitch.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
@@ -28,19 +27,21 @@ Key_item::Key_item ()
 }
 
 void
-Key_item::read (Key_engraver const & key_grav_r)
+Key_item::set (bool multi_octave_b,
+	       Array<Musical_pitch> const &idx_arr,
+	       Array<Musical_pitch> const &old_idx_arr)
 {
-  multi_octave_b_ = key_grav_r.key_.multi_octave_b_;
-  const Array<Musical_pitch> &idx_arr = key_grav_r.accidental_idx_arr_; 
+  multi_octave_b_ =multi_octave_b;
+
   for (int i = 0; i < idx_arr.size(); i++) 
     {
       Musical_pitch m_l =idx_arr[i];
       if (multi_octave_b_)
-	 add (m_l);
+	add (m_l);
       else
 	add (m_l.notename_i_, m_l.accidental_i_);
     }
-  const Array<Musical_pitch> &old_idx_arr = key_grav_r.old_accidental_idx_arr_; 
+
   for (int i = 0 ; i< old_idx_arr.size(); i++) 
     {
       Musical_pitch m_l =old_idx_arr[i];
@@ -66,29 +67,29 @@ Key_item::set_c_position (int c0)
 void
 Key_item::add (int p, int a)
 {
-  pitch.push (p);
-  acc.push (a);
+  pitch_arr_.push (p);
+  acc_arr_.push (a);
 }
 
 void
 Key_item::add (const Musical_pitch& pitch_r)
 {
-  pitch.push (pitch_r.steps());
-  acc.push (pitch_r.accidental_i_);
+  pitch_arr_.push (pitch_r.steps());
+  acc_arr_.push (pitch_r.accidental_i_);
 }
 
 void
 Key_item::add_old (int p, int a)
 {
-  old_pitch.push (p);
-  old_acc.push (a);
+  old_pitch_arr_.push (p);
+  old_acc_arr_.push (a);
 }
 
 void
 Key_item::add_old (const Musical_pitch& pitch_r)
 {
-  old_pitch.push (pitch_r.steps());
-  old_acc.push (pitch_r.accidental_i_);
+  old_pitch_arr_.push (pitch_r.steps());
+  old_acc_arr_.push (pitch_r.accidental_i_);
 }
 
 int
@@ -120,18 +121,20 @@ Key_item::brew_molecule_p() const
   
   int j;
   if ((break_status_dir_ == LEFT || break_status_dir_ == CENTER)
-      || old_pitch.size ())
+      || old_pitch_arr_.size ())
     {
-      for (int i =0; i < old_pitch.size(); i++) 
+      for (int i =0; i < old_pitch_arr_.size(); i++) 
         {
-          for (j =0; (j < pitch.size()) && (old_pitch[i] != pitch[j]); j++) 
+          for (j =0; (j < pitch_arr_.size())
+		 && (old_pitch_arr_[i] != pitch_arr_[j]); j++) 
 	    ;
 	  
-          if (j == pitch.size()
-	      || (old_pitch[i] == pitch[j] && old_acc[i] != acc[j]))
+          if (j == pitch_arr_.size()
+	      || (old_pitch_arr_[i] == pitch_arr_[j]
+		  && old_acc_arr_[i] != acc_arr_[j]))
             {
               Atom a =lookup_l ()->accidental (0);
-              a.translate_axis (calculate_position(old_pitch[i], old_acc[i]) * inter, Y_AXIS);
+              a.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
               Molecule m (a);
               output->add_at_edge (X_AXIS, RIGHT, m);	
             }
@@ -148,14 +151,14 @@ Key_item::brew_molecule_p() const
       output->add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)));
     }
  
-  for (int i =0; i < pitch.size(); i++) 
+  for (int i =0; i < pitch_arr_.size(); i++) 
     {
-      Atom a =lookup_l ()->accidental (acc[i]);
-      a.translate_axis (calculate_position(pitch[i], acc[i]) * inter, Y_AXIS);
+      Atom a =lookup_l ()->accidental (acc_arr_[i]);
+      a.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
       Molecule m (a);
       output->add_at_edge (X_AXIS, RIGHT, m);	
     }
-  if (pitch.size()) 
+  if (pitch_arr_.size()) 
     {
       Molecule m (lookup_l ()->fill (Box (
 					  Interval (0, paper()->note_width ()),

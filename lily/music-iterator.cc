@@ -167,7 +167,7 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
 }
 
 void
-Music_iterator::inherit_info(Music_iterator const *parent)
+Music_iterator::inherit_info(Music_iterator const *)
 {
 }
 

@@ -94,6 +94,27 @@ o    A   PostScript   printer   and/or   viewer   (such   as
      all  embedded  PostScript  too  if you have Ghostscript
      installed.
 
+For running LilyPond successfully you have to help  TeX  and
+MetaFont  find  various files.  The recommended way of doing
+so is adjusting the environment variables  in  the  start-up
+scripts  of  your  shell.   An example is given here for the
+Bourne shell:
+
+
+
+
+     export MFINPUTS="/usr/local/share/lilypond/mf:"
+     export TEXINPUTS="/usr/local/share/lilypond/tex:"
+
+
+
+
+The empty path component represents  and MetaFont's  default
+search  paths.  Scripts with the proper paths for the bourne
+and   C-shell   respectively   are   generated   in   build-
+scripts/out/lilypond-profile  and buildscripts/out/lilypond-
+login during compilation.
+
 
 4: RECOMMENDED
 
@@ -113,50 +134,79 @@ o    Bison    (version    1.25   or   newer).    Check   out
      ftp://ftp.gnu.org or any mirror of this site.
 
 
-o    Python   (version   1.5   or   newer).     Check    out
+o    GUILE (version 1.2) Check  out  http://www.gnu.org/pro-
+     grams/guile.html
+
+
+o    Python    (version    1.5   or   newer).    Check   out
      ftp://ftp.python.org or ftp://ftp.cwi.nl/pub/python.
 
 
-o    Yodl.   All  documentation  will  be in Yodl. (1.30.17)
+o    Yodl.  All documentation will  be  in  Yodl.  (1.30.17)
      ftp://pcnov095.win.tue.nl/pub/yodl
      http://www.cs.uu.nl/~hanwen/yodl
 
 o    Texinfo. (version 3.12 or newer)
 
 
-o    GNU  find  Check out ftp://ftp.gnu.org or any mirror of
+o    GNU find Check out ftp://ftp.gnu.org or any  mirror  of
      this site.
 
 
 o    The geometry package for LaTeX is needed to use ly2dvi.
-     Available           at          ftp://ftp.ctan.org/tex-
+     Available          at           ftp://ftp.ctan.org/tex-
      archive/macros/latex/contrib/supported/geometry  or  at
      mirror site ftp://ftp.dante.de
 
 
 o    A fast computer (a full page of music typically takes 1
-     minute on my 486/133, using the --enable-checking  com-
+     minute  on my 486/133, using the --enable-checking com-
      pile. It's lot slower than most MusiXTeX preprocessors)
 
 
 5: WEBSITE
 
 
-If you want to auto-generate  Lily's  website,  you'll  need
+If  you  want  to  auto-generate Lily's website, you'll need
 some additional conversion tools.
 
 
 o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
-     Hat Linux users: it  is  included  within  the  package
+     Hat  Linux  users:  it  is  included within the package
      libgr-progs).
 
 o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
      Which, in turn depends on man2html for proper installa-
-     tion.    man2html   can   be  had  from  http://askdon-
+     tion.   man2html  can  be   had   from   http://askdon-
      ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
      ing/WWW/Man2html-1.05.
 
      TeTeX users should not forget to rerun texhash.
+
+Building the website requires pnmtopng.  The version of pnm-
+topng  that  is  distributed  with RedHat 5.1 contains a bug
+(pnmtopng is dynamically linked  to  the  wrong  version  of
+libpng).   Recompile  it from source, and make sure that the
+pnmtopng binary is linked statically to the libpng  that  is
+
+
+included in libgr.
+
+
+
+
+
+      tar xzf libgr-2.0.13.tar.gz
+           make
+           cd png
+           rm libpng.so*
+           make pnmtopng
+
+
+
+
+
+You can then install the new pnmtopng into /usr/local/bin/
 
 
 6: CONFIGURING and COMPILING
@@ -168,7 +218,7 @@ to install GNU LilyPond, simply type:
 
 
 
-          configure  --enable-tex-dir=XXXX --enable-mf-dir=YYYY
+          configure
           make
           make install
 
@@ -179,6 +229,9 @@ to install GNU LilyPond, simply type:
 This will install a number of files, something close to:
 
 
+
+
+
           /usr/local/man/man1/mi2mu.1
           /usr/local/man/man1/convert-mudela.1
           /usr/local/man/man1/mudela-book.1
@@ -187,20 +240,12 @@ This will install a number of files, something close to:
           /usr/local/bin/mi2mu
           /usr/local/share/lilypond/*
           /usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
-          /usr/lib/texmf/texmf/tex/lilypond/*
 
 
-
-
-
-You should specify directories that are in 's and MetaFont's
-include  path  with  the  options   (--enable-tex-dir)   and
---enable-mf-dir.   If you don't specify any directories, the
-include directory is detected dynamically, which is  unreli-
-able.   The above assumes that you are root and have the GNU
-development tools, and your make is GNU make.   If  this  is
-not  the  case, you can adjust your environment variables to
-your taste:
+The  above assumes that you are root and have the GNU devel-
+opment tools, and your make is GNU make.  If this is not the
+case,  you  can  adjust  your  environment variables to your
+taste:
 
 
 
@@ -229,24 +274,13 @@ is
           configure --prefix=$HOME/usr
 
 
+
+
+
 In  this  case, you will have to set up MFINPUTS, and TEXIN-
 PUTS accordingly.
 
-If you want to install GNU LilyPond in /usr/local, and  your
-TeX has no default hooks for local stuff, you can do:
-
-
-
-
-
-
-          configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
-
-
-
-
-
-Since  GNU  LilyPond  currently  is beta, you are advised to
+Since GNU LilyPond currently is beta,  you  are  advised  to
 also use
 
 
@@ -258,42 +292,22 @@ also use
           --enable-checking
 
 
+Options to configure include:
 
 
-
-Other options include:
-
-
---enable-shared
-     Make a shared library (gnu/linux, solaris  (?)  only  )
-     (TEMPORARILY OUT OF ORDER)
-
+--enable-guile
+     Link in GUILE (experimental)
 
 --enable-printing
      Enable debugging print routines (lilypond -D option)
 
 --enable-optimise
-     Set maximum optimisation: compile with -O2
+     Set  maximum  optimisation: compile with -O2.  This can
+     be unreliable on  some  compiler/platform  combinations
+     (eg, DEC Alpha and PPC)
 
 --enable-profiling
      Compile with support for profiling.
-
---enable-tex-prefix
-     Set the directory where TeX and Metafont live.
-
---enable-tex-dir
-     Set  then  directory  TeX  input  is  in (detected as a
-
-
-     subdir of tex-prefix).  This should be a directory that
-     is  reachable both for tex and latex.  On my system the
-     best            choice             would             be
-     /usr/lib/texmf/texmf/tex/generic//.
-
---enable-mf-dir
-     Set  the directory metafont input is in (idem).   On my
-     system     the      best      choice      would      be
-     /usr/lib/texmf/texmf/fonts/source/public/.
 
 --enable-config
      Output  to  a different configuration file.  Needed for
@@ -329,13 +343,12 @@ Example: suppose I want to build with and   without  profil-
 ing.  Then I'd use the following for the normal build,
 
 
-
-
-
-
            configure --prefix=~ --disable-optimise --enable-checking
            make
            make install
+
+
+
 
 
 and for the profiling version, I specify a different config-
@@ -384,6 +397,8 @@ CAVEATS
 
 o    The -O2 option to gcc triggers a gcc bug on  DEC  Alpha
      in  dstream.cc.  You should turn off this flag for this
+
+
      file.
 
 
@@ -391,6 +406,10 @@ EXAMPLE
 
 
 This is what I type in my xterm:
+
+
+
+
 
 
           lilypond someinput.ly
@@ -445,6 +464,9 @@ erate this gif file by typing
 
 
           make gifs
+
+
+
 
 
 in the directory Documentation.

@@ -1,5 +1,3 @@
-\version "1.0.7";
-
 \property Staff.timeSignatureStyle = "C"
 \time 1/1;
 c''1^"timeSignatureStyle = \"C\"" |

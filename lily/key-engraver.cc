@@ -29,7 +29,7 @@ Key_engraver::create_key ()
       kit_p_ = new Key_item;
       kit_p_->break_priority_i_ = -1; // ugh
       announce_element (Score_element_info (kit_p_,keyreq_l_));
-      kit_p_->read (*this);
+      kit_p_->set (key_.multi_octave_b_, accidental_idx_arr_, old_accidental_idx_arr_);
     }
 }
 
@@ -95,18 +95,12 @@ Key_engraver::do_pre_move_processing ()
 void
 Key_engraver::read_req (Key_change_req const * r)
 {
-  int modality=0;
   old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
   Scalar prop = get_property ("keyoctaviation");
   if (prop.length_i () > 0)
     {
       key_.multi_octave_b_ = ! prop.to_bool ();
-    }
-  prop = get_property ("keymodality");
-  if (prop.isnum_b ())
-    {
-      modality=(int)prop;
     }
   
   accidental_idx_arr_.clear ();
@@ -122,7 +116,8 @@ Key_engraver::read_req (Key_change_req const * r)
       else
 	{
 	  p = r->pitch_arr_[0].semitone_pitch ();
-	  p += modality;
+	  if (r->minor_b ())
+	    p += 3;
 	}
       /* Solve the equation 7*no_of_acc mod 12 = p, -6 <= no_of_acc <= 5 */
       int no_of_acc = (7*p) % 12;

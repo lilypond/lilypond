@@ -15,7 +15,6 @@ class Slur_engraver :public Engraver {
   Array<Slur_req*> new_slur_req_l_arr_;
   Array<Slur *> slur_l_stack_;
   Array<Slur*> end_slur_l_arr_;
-  Direction dir_;
 
 protected:
   virtual bool do_try_request (Request*);
@@ -27,7 +26,6 @@ protected:
 
 public:
   TRANSLATOR_CLONE(Slur_engraver);
-  Slur_engraver();
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

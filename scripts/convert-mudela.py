@@ -22,11 +22,11 @@ import sys
 import __main__
 import getopt
 from string import *
-import regex
-import regsub
+import re
+
 import time
-mudela_version_re_str ='\\\\version *\"\(.*\)\"'
-mudela_version_re = regex.compile(mudela_version_re_str)
+mudela_version_re_str = '\\\\version *\"(.*)\"'
+mudela_version_re = re.compile(mudela_version_re_str)
 
 def program_id ():
 	return '%s version %s' %(program_name,  version);
@@ -65,8 +65,9 @@ def version_cmp (t1, t2):
 
 def guess_mudela_version(filename):
 	s = gulp_file (filename)
-	if mudela_version_re.search(s) <> -1:
-		return mudela_version_re.group(1)
+	m = mudela_version_re.search (s)
+	if m:
+		return m.group(1)
 	else:
 		return ''
 
@@ -97,7 +98,7 @@ if 1:					# need new a namespace
 	def conv (lines):
 		found =0
 		for x in lines:
-			if regex.search ('\\\\octave', x) <> -1:
+			if re.search ('\\\\octave', x):
 				found = 1
 				break
 		if found:
@@ -114,9 +115,9 @@ if 1:					# need new a namespace
 	def conv (lines):
 		newlines = []
 		for x in lines:
-			x = regsub.gsub ('\\\\textstyle\\([^;]+\\);',
+			x = re.sub ('\\\\textstyle([^;]+);',
 					 '\\\\property Lyrics . textstyle = \\1', x)
-			x = regsub.gsub ('\\\\key\\([^;]+\\);', '\\\\accidentals \\1;', x)
+			x = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', x)
 			newlines.append (x)
 		return newlines
 		
@@ -129,9 +130,9 @@ if 1:					# need new a namespace
 	def conv (lines):
 		newlines = []
 		for x in lines:
-			x = regsub.gsub ('\\\\musical_pitch',
+			x = re.sub ('\\\\musical_pitch',
 					 '\\\\musicalpitch',x)
-			x = regsub.gsub ('\\\\meter',
+			x = re.sub ('\\\\meter',
 					 '\\\\time',x)
 			newlines.append (x)
 		return newlines
@@ -153,11 +154,11 @@ if 1:					# need new a namespace
 	def conv (lines):
 		newlines = []
 		for x in lines:
-			x = regsub.gsub ('\\\\accidentals',
-					 '\\\\keysignature',x)
-			x = regsub.gsub ('specialaccidentals *= *1',
+			x = re.sub ('\\\\accidentals',
+				    '\\\\keysignature',x)
+			x = re.sub ('specialaccidentals *= *1',
 					 'keyoctaviation = 0',x)
-			x = regsub.gsub ('specialaccidentals *= *0',
+			x = re.sub ('specialaccidentals *= *0',
 					 'keyoctaviation = 1',x)
 			newlines.append (x)
 		return newlines
@@ -171,7 +172,7 @@ if 1:
 	def conv(lines):
 		found = 0
 		for x in lines:
-			if regex.search ('\\\\header', x) <> -1:
+			if re.search ('\\\\header', x):
 				found = 1
 				break
 		if found:
@@ -184,7 +185,7 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  regsub.gsub ('\\\\melodic', '\\\\notes',x)
+			x =  re.sub ('\\\\melodic', '\\\\notes',x)
 			newlines.append (x)
 		return newlines
 	
@@ -194,8 +195,8 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  regsub.gsub ('default_paper *=', '',x)
-			x =  regsub.gsub ('default_midi *=', '',x)			
+			x =  re.sub ('default_paper *=', '',x)
+			x =  re.sub ('default_midi *=', '',x)			
 			newlines.append (x)
 		return newlines
 	
@@ -205,8 +206,8 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  regsub.gsub ('ChoireStaff', 'ChoirStaff',x)
-			x =  regsub.gsub ('\\output', 'output = ',x)
+			x =  re.sub ('ChoireStaff', 'ChoirStaff',x)
+			x =  re.sub ('\\output', 'output = ',x)
 			newlines.append (x)
 		return newlines
 	
@@ -215,9 +216,9 @@ if 1:
 if 1:
 	def conv(lines):
 		newlines =[]
-		found = 0
+		found = None
 		for x in lines:
-			found = regex.search ('[a-zA-Z]+ = *\\translator',x) <> -1
+			found = re.search ('[a-zA-Z]+ = *\\translator',x)
 			newlines.append (x)
 			if found: break
 		if found:
@@ -232,7 +233,7 @@ if 1:
 	def conv(lines):
 		newlines =[]
 		for x in lines:
-			x =  regsub.gsub ('\\\\lyric', '\\\\lyrics',x)
+			x =  re.sub ('\\\\lyric', '\\\\lyrics',x)
 			newlines.append (x)
 		return newlines
 	
@@ -270,7 +271,7 @@ def do_conversion (infile, from_version, outfile, to_version):
 
 	for x in lines:
 		if last_conversion:
-			x = regsub.sub (mudela_version_re_str, '\\version \"%s\"' % tup_to_str (last_conversion), x)
+			x = re.sub (mudela_version_re_str, '\\\\version \"%s\"' % tup_to_str (last_conversion), x)
 		outfile.write(x)
 
 class UnknownVersion:
@@ -322,6 +323,7 @@ def do_one_file (infile_name):
 		os.rename (infile_name + '.NEW', infile_name)
 
 	sys.stderr.write ('\n')
+	sys.stderr.flush ()
 
 edit = 0
 to_version = ()

@@ -13,11 +13,14 @@
 
 /// An item which places accidentals at the start of the line
 struct Key_item : Item {
-  Array<int> pitch;
-  Array<int> acc;
-  Array<int> old_pitch;
-  Array<int> old_acc;
+  Array<int> pitch_arr_;
+  Array<int> acc_arr_;
+  Array<int> old_pitch_arr_;
+  Array<int> old_acc_arr_;
+
+  // ugh.  Naming 
   int c_position;
+  // see above.
   int c0_position;
   bool default_b_;
   bool multi_octave_b_;
@@ -30,7 +33,10 @@ struct Key_item : Item {
   void add (const Musical_pitch&);
   void add_old (int pitch, int acc);
   void add_old (const Musical_pitch&);
-  void read (const Key_engraver&);
+  void set (bool multi_octave_b,
+	    Array<Musical_pitch> const &idx_arr,
+	    Array<Musical_pitch> const &old_idx_arr);
+
   void set_c_position (int);
   int Key_item::calculate_position(int p, int a) const;
 

@@ -39,7 +39,8 @@ it() Python 1.5 (Strictly speaking, you shouldn't need Python for
 
 sect(RUNNING)
 
-GNU LilyPond does use a lot of resources. For operation you need the following:
+GNU LilyPond does use a lot of resources. For operation you need the
+following:
 
 itemize(
 it()TeX
@@ -47,6 +48,21 @@ it()A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
 )
+
+
+For running LilyPond successfully you have to help TeX and MetaFont
+find various files.  The recommended way of doing so is adjusting the
+environment variables in the start-up scripts of your shell.  An
+example is given here for the Bourne shell:
+verb(export MFINPUTS="/usr/local/share/lilypond/mf:"
+export TEXINPUTS="/usr/local/share/lilypond/tex:"
+)
+The empty path component
+represents TeX() and MetaFont's default search paths.  Scripts with
+the proper paths for the bourne and C-shell respectively are generated in
+file(buildscripts/out/lilypond-profile) and
+file(buildscripts/out/lilypond-login) during compilation.
+
 
 sect(RECOMMENDED)
 
@@ -63,6 +79,9 @@ or any mirror of this site.
 it()Bison (version 1.25 or newer).
 Check out lurl(ftp://ftp.gnu.org)
 or any mirror of this site.
+
+it()GUILE (version 1.2)
+Check out lurl(http://www.gnu.org/programs/guile.html)
 
 it()Python (version 1.5 or newer).  Check out
 lurl(ftp://ftp.python.org) or lurl(ftp://ftp.cwi.nl/pub/python).
@@ -101,11 +120,26 @@ man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Ne
     TeTeX users should not forget to rerun texhash.
 )
 
+Building the website requires pnmtopng.  The version of file(pnmtopng)
+that is distributed with RedHat 5.1 contains a bug (pnmtopng is
+dynamically linked to the wrong version of libpng).  Recompile it from
+source, and make sure that the pnmtopng binary is linked statically to
+the libpng that is included in libgr.
+
+verb( tar xzf libgr-2.0.13.tar.gz
+      make
+      cd png
+      rm libpng.so*
+      make pnmtopng
+)
+
+You can then install the new pnmtopng into /usr/local/bin/
+
 sect(CONFIGURING and COMPILING)
 
 to install GNU LilyPond, simply type:
 verb(
-	configure  --enable-tex-dir=XXXX --enable-mf-dir=YYYY
+	configure
 	make
 	make install
 )
@@ -120,17 +154,12 @@ verb(
 	/usr/local/bin/mi2mu
 	/usr/local/share/lilypond/*
 	/usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
-	/usr/lib/texmf/texmf/tex/lilypond/* 
 )
 
 
-You should specify directories that are in TeX()'s and MetaFont's
-include path with the options (--enable-tex-dir) and
-bf(--enable-mf-dir).  If you don't specify any directories, the TeX()
-include directory is detected dynamically, which is unreliable.  The
-above assumes that you are root and have the GNU development tools,
-and your make is GNU make.  If this is not the case, you can adjust
-your environment variables to your taste:
+The above assumes that you are root and have the GNU development
+tools, and your make is GNU make.  If this is not the case, you can
+adjust your environment variables to your taste:
 
 verb(
 	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
@@ -149,13 +178,6 @@ verb(
 
 In this case, you will have to set up MFINPUTS, and TEXINPUTS accordingly.
 
-If you want to install GNU LilyPond in file(/usr/local), and your TeX has
-no default hooks for local stuff, you can do:
-
-verb(
-	configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
-)
-
 Since GNU LilyPond currently is beta, you are advised to also use
 
 verb(
@@ -163,29 +185,18 @@ verb(
 	--enable-checking
 )
 
-Other options include:
+Options to configure include:
 
 description(
-dit(bf(--enable-shared))
-    Make a shared library (gnu/linux, solaris (?) only )  (TEMPORARILY
-OUT OF ORDER)
-
+dit(bf(--enable-guile))
+    Link in GUILE (experimental)
 dit(bf(--enable-printing))
     Enable debugging print routines (lilypond bf(-D) option)
 dit(bf(--enable-optimise))
-    Set maximum optimisation: compile with bf(-O2)
+    Set maximum optimisation: compile with bf(-O2).  This can be
+unreliable on some compiler/platform combinations (eg, DEC Alpha and PPC)
 dit(bf(--enable-profiling))
     Compile with support for profiling.
-dit(bf(--enable-tex-prefix))
-    Set the directory where TeX and Metafont live.
-dit(bf(--enable-tex-dir))
-    Set then directory TeX input is in (detected as a subdir of
-    tex-prefix).  This should be a directory that is reachable both for
-    tex and latex.  On my system the best choice would be
-    file(/usr/lib/texmf/texmf/tex/generic//).
-dit(bf(--enable-mf-dir))
-    Set the directory metafont input is in (idem).   On my system the best
-    choice would be file(/usr/lib/texmf/texmf/fonts/source/public/).
 dit(bf(--enable-config))
     Output to a different configuration file.  Needed for multi-platform
     builds

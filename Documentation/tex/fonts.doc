@@ -4,6 +4,8 @@
 \def\kdots{,\ldots,}
 \title{Not the Font-En-Tja font}
 \author{HWN \& JCN} 
+\def\preMudelaExample{}
+\def\postMudelaExample{}
 \begin{document}
 \maketitle
 
@@ -21,6 +23,14 @@ The best references on Music engraving are Wanske\cite{wanske} and
 Ross\cite{ross} quite some of their insights were used.  Although it
 is a matter of taste, I'd say that B\"arenreiter has the finest
 typography of all.
+
+%
+% stupid test to check convert-mudela.py.
+%
+% (so sue me)
+\begin{mudela}[fragment,center]
+  \clef bass; c1 \clef alto; c'2  \clef treble; c''4
+\end{mudela}
 
 
 \section{Bezier curves for slurs}
@@ -289,6 +299,12 @@ position that remains is for the upper beam to hang.
  ib_{4+} &=& (3 il - bt) / 3
 \end{eqnarray*}
 
+
+\section{Layout of the source files}
+
+The main font (with the fixed size music glyphs) uses a the \TeX\
+logfile as a communication device.  Use the specialised macros to
+create and export glyphs.
 
 \bibliographystyle{plain}
 \bibliography{engraving}

@@ -43,9 +43,9 @@ Ps_lookup::~Ps_lookup ()
 }
 
 Atom
-Ps_lookup::afm_find (String s, bool warn) const
+Ps_lookup::afm_find (String s) const
 {
-  return Lookup::afm_find (s, String ("(\\%03o) show "), warn);
+  return Lookup::afm_find (s, String ("(\\%03o) show "));
 }
 
 Atom*
@@ -60,6 +60,40 @@ String
 Ps_lookup::character_str (int i) const
 {
   return to_str (i, "(\\%03o)");
+}
+
+Atom
+Ps_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+{
+  assert (controls.size () == 8);
+
+  String ps;
+  
+  Real dx = controls[3].x () - controls[0].x ();
+  Real dy = controls[3].y () - controls[0].y ();
+
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  ps += String_convert::double_str (controls[0].x ()) + " "
+    + String_convert::double_str (controls[0].y ()) + " ";
+
+  ps += String_convert::double_str (thick) + " ";
+  Real on = dash > 1? thick * dash - thick : 0;
+  Real off = 2 * thick;
+  ps += "[" + String_convert::double_str (on) + " ";
+  ps += String_convert::double_str (off) + "] ";
+  ps += String_convert::int_str (0) + " ";
+  ps += "draw_dashed_slur ";
+
+  Atom a;
+  a.str_ = ps;
+  
+  a.dim_[X_AXIS] = Interval (0, dx);
+  a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  a.font_ = font_;
+  return a;
 }
 
 Atom

@@ -10,8 +10,7 @@
 #include "debug.hh"
 #include "real.hh"
 #include "atom.hh"
-#include "assoc.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 #include "symtable.hh"
 
 Symtables::Symtables()
@@ -24,7 +23,7 @@ Symtables::Symtables (Symtables const &s)
 {
   font_ = s.font_;
   font_path_ = s.font_path_;
-  for (Assoc_iter<String, Symtable*>  i (s); i.ok(); i++)
+  for (Dictionary_iter< Symtable*>  i (s); i.ok(); i++)
     {
       add (i.key(), new Symtable (*i.val ()));
     }
@@ -32,7 +31,7 @@ Symtables::Symtables (Symtables const &s)
 
 Symtables::~Symtables()
 {
-  for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++)
+  for (Dictionary_iter< Symtable*>  i (*this); i.ok(); i++)
     {
       delete i.val();
     }
@@ -71,7 +70,7 @@ Symtables::operator()(String s)
 void
 Symtables::print() const
 {
-  for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++)
+  for (Dictionary_iter<Symtable*>  i (*this); i.ok(); i++)
     {
       DOUT << "table \'" << i.key () << "\' {\n";
       i.val()->print ();
@@ -81,7 +80,7 @@ Symtables::print() const
 void
 Symtable::print() const
 {
-  for (Assoc_iter<String, Atom>  i (*this); i.ok(); i++)
+  for (Dictionary_iter<Atom>  i (*this); i.ok(); i++)
     {
       DOUT << "\'" << i.key() << "\'->" << i.val ().str () << '\n';
     }
@@ -91,5 +90,5 @@ void
 Symtables::add (String s, Symtable*p)
 {
   p-> id_str = s;
-  Dictionary<Symtable*>::add (s,p);
+  Dictionary<Symtable*>::elem  (s) = p;
 }

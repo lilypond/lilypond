@@ -1,5 +1,7 @@
 	* urg, fix flower.py dirname, tarball etc. (package-diff, release)
 
+	* use RE iso REG{SUB,EX} for python stuff.
+
 	* (re-)enable use outside of make system, e.g.
 	  
 	  - /usr/bin/make-patch for direct use on tarballs

@@ -7,7 +7,7 @@ itemize(
 it()nemail(Tom Cato Amundsen)(tomcato@xoommail.com),
     cembalo-partita in mudela.
 it()nemail(Mats Bengtsson)(matsb@s3.kth.se),
-    lurl(http://www.s3.kth.se/~matsb)
+    lurl(http://www.s3.kth.se/~matsb/)
     clef stuff, key stuff, swedish notenames, testing, general
     comments.
 it()nemail(Eric Bullinger)(eric@aut.ee.ethz.ch),
@@ -18,24 +18,22 @@ it()nemail(Anthony Fok)(foka@debian.org),
     debian package: debian/*
 it()nemail(Neil Jerram)(nj104@cus.cam.ac.uk). 
     parts of Documentation/Vocab*
-it()Donald Ervin Knuth,  lurl(http://www.cs-staff.stanford.edu/~knuth)
+it()Donald Ervin Knuth,  lurl(http://www.cs-staff.stanford.edu/~knuth/)
     mf/ital-*.mf (these were taken from the CM fonts)
 it()nemail(Werner Lemberg)(xlwy01@uxp1.hrz.uni-dortmund.de),
     misc bugfixes, some Beam and Stem code. 
 it()nemail(David R. Linn)(drl@vuse.vanderbilt.edu),
     Mailing list maintenance.
-it()nemail(Adrian Moriano)()
-    Documentation fixes, glossary.
+it()nemail(Adrian Mariano)()
+    Reference manual, tutorial fixes, glossary.
 it()nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl), 
-    lurl(http://www.cs.uu.nl/~hanwen)
-    nl()
+    lurl(http://www.cs.uu.nl/~hanwen/)
     Main author (initials: HWN).
 it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org), 
-    lurl(http://www.xs4all.nl/~jantien)
-    nl()
+    lurl(http://www.xs4all.nl/~jantien/)
     Main author (initials: JCN).
 it()nemail(Alexandre Oliva)(oliva@dcc.unicamp.br), 
-    lurl(http://sunsite.unicamp.br/~oliva)
+    lurl(http://sunsite.unicamp.br/~oliva/)
     testing
 it()nemail(Franc,ois Pinard)(pinard@iro.umontreal.ca), 
     parts of Documentation/Vocab*, started internationalization stuff

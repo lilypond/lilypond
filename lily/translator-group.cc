@@ -35,13 +35,13 @@ Translator_group::Translator_group()
 void
 Translator_group::check_removal()
 {
-  for (int i =0; i < group_l_arr ().size();)
+  Link_array<Translator_group> groups (group_l_arr ());
+  
+  for (int i =0; i < groups.size(); i++)
     {
-      group_l_arr ()[i]->check_removal();
-      if (group_l_arr ()[i]->removable_b())
-	terminate_translator (group_l_arr ()[i]);
-      else
-	i++;
+      groups[i]->check_removal();
+      if (groups[i]->removable_b())
+	terminate_translator (groups[i]);
     }
 }
 
@@ -86,7 +86,13 @@ Translator_group::set_element (String s, bool add)
 bool
 Translator_group::removable_b() const
 {
-  return !(iterator_count_ || group_l_arr ().size());
+  for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
+    {
+      if (i->access_Translator_group ())
+	return false;
+    }
+
+  return !iterator_count_;
 }
 
 Translator_group *
@@ -94,10 +100,12 @@ Translator_group::find_existing_translator_l (String n, String id)
 {
   if (is_alias_b (n) && (id_str_ == id || id.empty_b ()))
     return this;
+
+  Link_array<Translator_group> groups (group_l_arr ());
   Translator_group* r = 0;
-  for (int i =0; !r && i < group_l_arr ().size(); i++)
+  for (int i =0; !r && i < groups.size(); i++)
     {
-      r = group_l_arr ()[i]->find_existing_translator_l (n,id);
+      r = groups[i]->find_existing_translator_l (n,id);
     }
 
   return r;
@@ -182,8 +190,11 @@ bool
 Translator_group::do_try_request (Request* req_l)
 {
   bool hebbes_b =false;
-  for (int i =0; !hebbes_b && i < nongroup_l_arr ().size() ; i++)
-    hebbes_b =nongroup_l_arr ()[i]->try_request (req_l);
+
+  Link_array<Translator> nongroups (nongroup_l_arr ());
+  
+  for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
+    hebbes_b =nongroups[i]->try_request (req_l);
   if (!hebbes_b && daddy_trans_l_)
     hebbes_b = daddy_trans_l_->try_request (req_l);
   return hebbes_b ;
@@ -258,10 +269,11 @@ Translator_group::remove_translator_p (Translator*trans_l)
 Translator*
 Translator_group::get_simple_translator (char const *type) const
 {
-  for (int i=0; i < nongroup_l_arr ().size(); i++)
+  Link_array<Translator> nongroups (nongroup_l_arr ());
+  for (int i=0; i < nongroups.size(); i++)
     {
-      if (nongroup_l_arr ()[i]->name() == type)
-	return nongroup_l_arr ()[i];
+      if (nongroups[i]->name() == type)
+	return nongroups[i];
     }
   if (daddy_trans_l_)
     return daddy_trans_l_->get_simple_translator (type);

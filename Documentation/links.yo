@@ -63,6 +63,12 @@ it()lurl(ftp://sca.uwaterloo.ca/pub/lilypond)
 it()[your mirror here]
 )
 
+Debian releases are located at
+lurl(http://cgi.debian.org/www-master/debian.org/Packages/stable/tex/lilypond.html)
+and
+lurl(ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex/lilypond_*.deb)
+
+
 sect(News)
 
 The following newsgroups all contain material relevant to LilyPond
@@ -133,3 +139,5 @@ dit(lurl(http://www.redhat.com/))
     RedHat Software Inc. develops and markets a GNU/Linux distribution (of
     which we are avid users)
 )
+
+

@@ -19,9 +19,10 @@ public:
   Ps_lookup (Symtables const& s);
   virtual ~Ps_lookup ();
 
-  virtual Atom afm_find (String s, bool warn=false) const;
+  virtual Atom afm_find (String s) const;
   virtual Atom* atom_p (String, int, Box) const;
   virtual String character_str (int i) const;
+  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   virtual Atom hairpin (Real width, bool decresc, bool continued) const;
   virtual Lookup* lookup_p (Lookup const&) const;
   virtual Lookup* lookup_p (Symtables const&) const;

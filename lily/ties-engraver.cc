@@ -105,14 +105,14 @@ Ties_engraver::do_pre_move_processing()
     {
       Scalar tie_dir (get_property ("tieYDirection"));
       Scalar y_dir (get_property ("ydirection"));      
-      Direction dir;
-	if (tie_dir.length_i ())
-	  dir = (Direction) sign (int(tie_dir));
-	else if (y_dir.length_i ())
-	  dir = (Direction) sign (int (y_dir));
-  
-	end_tie_p_arr_[i]->dir_ = dir;
-	typeset_element (end_tie_p_arr_[i]);
+      Direction dir = CENTER;
+      if (tie_dir.length_i () && tie_dir.isnum_b ())
+	dir = (Direction) sign (int (tie_dir));
+      else if (y_dir.length_i () && y_dir.isnum_b ())
+	dir = (Direction) sign (int (y_dir));
+      
+      end_tie_p_arr_[i]->dir_ = dir;
+      typeset_element (end_tie_p_arr_[i]);
     }
 
   end_tie_p_arr_ = tie_p_arr_;

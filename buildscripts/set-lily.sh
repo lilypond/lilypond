@@ -52,5 +52,5 @@ then
     ln ../.dstreamrc .
 fi
 
-./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise
+./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise --enable-guile
 

@@ -42,9 +42,9 @@ Tex_lookup::~Tex_lookup()
 }
 
 Atom
-Tex_lookup::afm_find (String s, bool warn) const
+Tex_lookup::afm_find (String s) const
 {
-  return Lookup::afm_find (s, String ("\\char%d"), warn);
+  return Lookup::afm_find (s, String ("\\char%d"));
 }
 
 Atom*
@@ -61,6 +61,12 @@ String
 Tex_lookup::character_str (int i) const
 {
   return Lookup::character_str (i);
+}
+
+Atom
+Tex_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+{
+  return embed (Ps_lookup::dashed_slur (controls, thick, dash));
 }
 
 Atom

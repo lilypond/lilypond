@@ -35,7 +35,5 @@ nobreak = { \penalty = -10000; }
 
 \include "property.ly"
 
-\include "scm.ly"
-
 % music = "\melodic\relative c"
 

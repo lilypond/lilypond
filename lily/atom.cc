@@ -76,14 +76,12 @@ Atom::Atom ()
     But Atom is used as a simple type *everywhere*,
     and we don't have virtual contructors.
    */
-  lambda_ = 0;
   str_ = global_lookup_l->unknown_str ();
 }
 
 Atom::Atom (String s, Box b)
   :  dim_ (b)
 {
-  lambda_ = 0;
   str_ = s;
 }
 

@@ -176,12 +176,11 @@ ScoreWithNumbers = \translator {
 
 };
 
-\translator {
+StupidScore = \translator {
  	\type "Score_engraver";
-	\name StupidScore;
-
-	\consists "Staff_sym_engraver";
-}
+	\name Score;
+	\consists "Note_heads_engraver";
+};
 
 
 

@@ -16,7 +16,6 @@
 #include "score-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
-#include "graphical-lisp-element.hh"
 
 
 Score_engraver::Score_engraver()
@@ -118,14 +117,7 @@ Score_engraver::do_announces()
 void
 Score_engraver::typeset_element (Score_element *elem_p)
 {
-  elem_p_arr_.push (elem_p);
-}
-
-void
-Score_engraver::typeset_element (Graphical_lisp_element* elem_p)
-{
-  *mlog << "not typesetting: " << elem_p->static_name () << "\n";
-  delete elem_p;
+  elem_p_arr_.push(elem_p);
 }
 
 void
@@ -139,7 +131,9 @@ Score_engraver::typeset_all()
 	  Spanner *s = elem_p->access_Spanner ();
 	  pscore_p_->typeset_unbroken_spanner (s);
 
-	    /*
+
+
+	    	  /*
 	    do something sensible if spanner not 
 	    spanned on 2 items.
 	   */
@@ -232,6 +226,7 @@ Score_engraver::get_staff_info() const
   
   return inf;
 }
+
 
 
 Music_output*

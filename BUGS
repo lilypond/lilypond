@@ -3,6 +3,11 @@ This documents serious bugs
 
 ********
 
+[Linux Intel, EGCS-1.1b]
+
+Compiling with -O2 -finline-functions will cause crashes during
+parsing stage.
+
 
 [All platforms] 
 

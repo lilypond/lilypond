@@ -27,7 +27,6 @@ WWW-clean:
 	$(MAKE) CONFIGSUFFIX='www' clean
 
 dist:
-	$(MAKE) update-state-vector
 	rm -rf $(distdir)
 	$(MAKE) local-dist $(distdir)
 	chmod -R a+r $(distdir)

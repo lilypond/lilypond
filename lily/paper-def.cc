@@ -21,8 +21,7 @@
 #include "identifier.hh"
 #include "main.hh"
 #include "scope.hh"
-#include "assoc.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 
 Paper_def::Paper_def ()
 {
@@ -214,7 +213,7 @@ String
 Paper_def::ps_output_settings_str () const
 {
   String s ("\n ");
-  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
+  for (Dictionary_iter<Identifier*> i (*scope_p_); i.ok (); i++)
     s += String ("/mudelapaper") + i.key () 
       + "{" + i.val ()->str () + "} bind def\n";
   s +=  *scope_p_->elem ("pssetting")->access_String ();
@@ -225,7 +224,7 @@ String
 Paper_def::tex_output_settings_str () const
 {
   String s ("\n ");
-  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
+  for (Dictionary_iter<Identifier*> i (*scope_p_); i.ok (); i++)
     s += String ("\\def\\mudelapaper") + i.key () 
       + "{" + i.val ()->str () + "}\n";
   s +=  *scope_p_->elem ("texsetting")->access_String ();

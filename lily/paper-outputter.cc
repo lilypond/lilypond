@@ -27,7 +27,7 @@ Paper_outputter::~Paper_outputter ()
 }
 
 void
-Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm, String s, String output_str)
+Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm, String s)
 {
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
@@ -44,15 +44,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm, St
   
       a.push (global_lookup_l->print_dimen (a_off.y()));
       a.push (global_lookup_l->print_dimen (a_off.x()));
-      if (i->lambda_)
-        {
-	  SCM str_scm = gh_call1 (gh_eval (i->lambda_), gh_eval_str ("'ps"));
-	  char* c = gh_scm2newstr (str_scm, NULL);
-	  a.push (String (c));
-	  free (c);
-	}
-      else
-	a.push (i->str_);
+      a.push (i->str_);
       r += global_lookup_l->substitute_args (s, a);
       *outstream_l_ << r;
     }

@@ -48,11 +48,6 @@ beamquantisation	2	quantise avoide wedge2)	\beampostraditional
 keyoctaviation	0	Key signature only for specified octave	\specialkey
 keyoctaviation	1	Key signature for all octaves	\normalkey
 
-keymodality		0	Major key		\major
-keymodality		3	Minor key		\minor
-keymodality		n	modality n half tones from the major key
-
-
 timeSignatureStyle	C	Use C and stroked C for 4/4,2/2
 timeSignatureStyle	old	Use old style mensuration marks
 timeSignatureStyle	1	Use single number
@@ -276,10 +271,3 @@ specialkey = {
 	\property Staff.keyoctaviation = 0
 }
 
-major = {
-	\property Staff.keymodality = 0
-}
-
-minor = {
-	\property Staff.keymodality = 3
-}

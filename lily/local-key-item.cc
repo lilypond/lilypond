@@ -16,7 +16,7 @@
 
 Local_key_item::Local_key_item ()
 {
-  c0_position_i_  = 0;
+  c0_position_i_ = 0;
 }
 
 void
@@ -31,17 +31,17 @@ Local_key_item::add_support (Item*head_l)
 void
 Local_key_item::add (Musical_pitch p)
 {
-  for (int i=0; i< accs.size(); i++)
-    if (!Musical_pitch::compare (p, accs[i]))
+  for (int i=0; i< accidental_pitch_arr_.size(); i++)
+    if (!Musical_pitch::compare (p, accidental_pitch_arr_[i]))
       return;
   
-  accs.push (p);
+  accidental_pitch_arr_.push (p);
 }
 
 void
 Local_key_item::do_pre_processing()
 {
-  accs.sort (Musical_pitch::compare);
+  accidental_pitch_arr_.sort (Musical_pitch::compare);
 }
 
 Molecule*
@@ -51,10 +51,10 @@ Local_key_item::brew_molecule_p() const
 
   Molecule *octave_mol_p = 0;
   int lastoct = -100;
-  for  (int i = 0; i <  accs.size(); i++) 
+  for  (int i = 0; i <  accidental_pitch_arr_.size(); i++) 
     {
       // do one octave
-      if (accs[i].octave_i_ != lastoct) 
+      if (accidental_pitch_arr_[i].octave_i_ != lastoct) 
 	{
 	  if (octave_mol_p)
 	    {
@@ -65,9 +65,12 @@ Local_key_item::brew_molecule_p() const
 	    }
 	  octave_mol_p= new Molecule;
 	}
-      lastoct = accs[i].octave_i_;
-      Real dy = (accs[i].notename_i_ + c0_position_i_) * paper()->internote_f ();
-      Atom a (lookup_l ()->accidental (accs[i].accidental_i_));
+      
+      lastoct = accidental_pitch_arr_[i].octave_i_;
+      Real dy =
+	(c0_position_i_ + accidental_pitch_arr_[i].notename_i_)
+	* paper()->internote_f ();
+      Atom a (lookup_l ()->accidental (accidental_pitch_arr_[i].accidental_i_));
 
       a.translate_axis (dy, Y_AXIS);
       Molecule m(a);
@@ -82,7 +85,7 @@ Local_key_item::brew_molecule_p() const
       delete octave_mol_p;
     }
   
- if (accs.size()) 
+ if (accidental_pitch_arr_.size()) 
     {
       Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
       Molecule m (lookup_l ()->fill (b));

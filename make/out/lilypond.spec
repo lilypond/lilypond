@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.0.16
+Version: 1.0.17
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.0.16.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.0.17.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -23,7 +23,7 @@ a nice font of musical symbols.
 %prep
 %setup
 %build
-./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
+./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
 make all
 make -C Documentation info || true
 make htmldoc
@@ -35,7 +35,10 @@ tar -C $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc -xzf out/htmldoc.tar.gz
 
 strip lily/out/lilypond mi2mu/out/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
+
+mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
 %files
 
@@ -48,8 +51,6 @@ cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 # %doc input/*.ly
 # verbatim include of input: list the directory without issuing a %dir 
 
-%doc input
-
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
 /usr/bin/ly2dvi
@@ -60,15 +61,12 @@ cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 /usr/man/man1/mudela-book.1
 /usr/man/man1/ly2dvi.1
 /usr/man/man1/convert-mudela.1
-/usr/info/lilypond.info*
-/usr/lib/texmf/texmf/tex/generic/lilypond
-/usr/lib/texmf/texmf/fonts/source/public/lilypond
 /usr/share/lilypond/
 /usr/share/locale/*/LC_MESSAGES/lilypond.mo
-/etc/profile.d/lilypond.sh
+/etc/profile.d/lilypond.*
+
+
 %post
 
-## ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty
-texhash		# takes some time...
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
