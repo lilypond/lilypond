@@ -712,16 +712,7 @@ class Lilypond_snippet (Snippet):
 class Lilypond_file_snippet (Lilypond_snippet):
 	def ly (self):
 		name = self.substring ('filename')
-		contents = open (find_file (name)).read ()
-		checksum =  abs (hash (contents))
-		width = default_ly_options[LINEWIDTH]
-		return r'''
-%% hash of included file:  %(checksum)d
-
-\include "%(name)s"
-''' % locals()
-			   
-	
+		return open (find_file (name)).read ()
 			
 snippet_type_to_class = {
 	'lilypond_file' : Lilypond_file_snippet,

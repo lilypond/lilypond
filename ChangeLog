@@ -1,7 +1,6 @@
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* mf/parmesan*.mf (threequartercircle): change neo_mensural to
-	neomensural.
+	* mf/parmesan*.mf: change neo_mensural to neomensural.
 
 	* input/test/trills.ly: remove.
 
@@ -45,8 +44,6 @@
 	
 	* input/test/count-systems.ly: remove.
 
-	* input/regression/baerenreiter-sarabande.ly: move file.
-	
 	* lily/bar-line.cc (compound_barline): fix : for staff without
 	lines.
 

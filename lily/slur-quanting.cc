@@ -75,7 +75,7 @@ struct Slur_score_parameters
   - short-cut: try a smaller region first.
   - collisions with accidentals
   - collisions with articulations (staccato, portato, sforzato, ...)
-  -
+  - handle non-visible stems better.
 */
 struct Encompass_info
 {
@@ -287,7 +287,11 @@ get_encompass_info (Grob *me,
       ei.stem_ = stem->extent (common[Y_AXIS], Y_AXIS)[dir];
       if (Grob *b = Stem::get_beam (stem))
 	ei.stem_ += stem_dir * 0.5 * Beam::get_thickness (b);
-      ei.x_ = stem->extent (common[X_AXIS], X_AXIS).center ();
+
+      Interval x = stem->extent (common[X_AXIS], X_AXIS);
+      ei.x_ = x.is_empty ()
+	? stem->relative_coordinate (common[X_AXIS], X_AXIS)
+	: x.center ();
     }
   else
     ei.stem_ = ei.head_;
@@ -698,7 +702,10 @@ enumerate_attachments (Grob *me, Grob *common[],
 		      attach_to_stem[d] = true;
 		    }
 		  else if (dir *extremes[d].stem_extent_[Y_AXIS][dir]
-			   < dir * os[d][Y_AXIS])
+			     < dir * os[d][Y_AXIS]
+			   && !extremes[d].stem_extent_[X_AXIS].is_empty()
+			   )
+		    
 		    os[d][X_AXIS] = extremes[d].stem_extent_[X_AXIS].center();
 		}
 	    }
@@ -847,7 +854,6 @@ score_extra_encompass (Grob *me, Grob *common[],
     = Pointer_group_interface__extract_grobs (me, (Grob *)0,
 					      "encompass-objects");
   Direction dir = get_grob_direction (me);
-  Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
   Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
@@ -903,7 +909,6 @@ score_extra_encompass (Grob *me, Grob *common[],
 
   for (int i = 0; i < scores->size (); i++)
     {
-      Bezier const &bez (scores->elem (i).curve_);
       Real demerit = 0.0;
       for (int j = 0; j < xidxs.size(); j++)
 	{
