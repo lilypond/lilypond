@@ -66,7 +66,7 @@ Lyric_voice =
 
 	\consists "Lyric_engraver";
 	\consists "Line_group_engraver";
-	%\consists "Swallow_engraver";
+	\consists "Beam_req_swallow_translator";
 }
 
 Lyrics = \translator {

@@ -26,37 +26,37 @@ void set_lexer();
 
 /// lexer for Mudela
 class My_lily_lexer : public Includable_lexer {
-    int lookup_keyword (String);
-    int scan_bare_word (String);
-    int scan_escaped_word (String);
+  int lookup_keyword (String);
+  int scan_bare_word (String);
+  int scan_escaped_word (String);
 
-    bool post_quotes_b_;
+  bool post_quotes_b_;
+  char escaped_char(char) const;
 public:
-    void * lexval_l;
+  void * lexval_l;
     
-    Notename_table  *note_tab_p_;
-    Dictionary<Identifier*> *identifier_p_dict_p_;
-    Keyword_table * keytable_p_;
-    int errorlevel_i_;
+  Notename_table  *note_tab_p_;
+  Dictionary<Identifier*> *identifier_p_dict_p_;
+  Keyword_table * keytable_p_;
+  int errorlevel_i_;
 
-    /* *************** */
+  /* *************** */
 
-    void clear_notenames();
-    Identifier*lookup_identifier (String s);
-    Melodic_req* lookup_melodic_req_l (String s);
-  void push_header_state();
-    void push_note_state();
-    void push_lyric_state();
-    void pop_state();
-    void LexerError (char const *);
-    My_lily_lexer();
-    void set_identifier (String,Identifier*i);
-    ~My_lily_lexer();
-    int yylex();
-    void print_declarations (bool init_b) const;
-    void add_notename (String, Melodic_req*);
-    bool note_state_b() const;
-    bool lyric_state_b() const;
+  void clear_notenames();
+  Identifier*lookup_identifier (String s);
+  Melodic_req* lookup_melodic_req_l (String s);
+  void push_note_state();
+  void push_lyric_state();
+  void pop_state();
+  void LexerError (char const *);
+  My_lily_lexer();
+  void set_identifier (String,Identifier*i);
+  ~My_lily_lexer();
+  int yylex();
+  void print_declarations (bool init_b) const;
+  void add_notename (String, Melodic_req*);
+  bool note_state_b() const;
+  bool lyric_state_b() const;
 };
 
 #endif
