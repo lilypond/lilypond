@@ -97,6 +97,9 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     if test "$num" -lt "$req"; then
 	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
+    vervar="`echo $1 | tr '[a-z]' '[A-Z]'`_VERSION"
+    eval `echo $vervar=$num`
+##    AC_SUBST(`eval echo $vervar`)
 ])
 
 # Check version of program ($1)
