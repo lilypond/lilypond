@@ -46,7 +46,7 @@ this:
 
 @quotation
 @mudela[fragment,verbatim]
-	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
+	\relative c'' { \key es \major; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 @end mudela 
 @end quotation
 
