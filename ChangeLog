@@ -1,10 +1,10 @@
-2003-07-29  Heikki Junes <hjunes@cc.hut.fi>
+2003-07-30  Heikki Junes <hjunes@cc.hut.fi>
 
 	* buildscripts/{ many }, lily/main.cc, po/{ all }, scripts{ many },
 	stepmake/bin{ many }: polish the `--help's of different scripts;
 	model taken from the core-utils of Linux.
 
-	* flower/getopt-long.cc: add space, see above.
+	* flower/getopt-long.cc, python/lilylib.py: add space, see above.
 
 2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
