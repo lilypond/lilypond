@@ -9,15 +9,11 @@
 
 # this is supposed to clear all suffixes:
 .SUFFIXES:
+
 # so why does make still consider xx.y : RCS/xx.y,v ?
 # there is no suffix ,v anymore!
-.SUFFIXES: .cc .o .hh .y .l .pod .txt .1 .dep
+.SUFFIXES: .cc .o .hh .y .l .pod .txt .1 .dep .html
 
-# cancel implicit rules:
-#
-# shit, how to get rid of these stupid built-in rules?
-# include ./$(depth)/make/Builtin-rules.make
-#
 
 # compile rules:
 #
@@ -47,6 +43,10 @@ $(outdir)/%.text: $(outdir)/%.1
 
 $(depth)/%.text: $(outdir)/%.text
 	cp $< $@
+
+$(outdir)/%.html: %.pod
+	$(pod2html)  $<
+	mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.5: %.pod
 	$(pod2groff)
