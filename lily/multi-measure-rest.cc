@@ -332,6 +332,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
+      rod.distance_ = max(rod.distance_,
+			  gh_scm2double (me->get_grob_property ("minimum-length")));
       rod.add_to_cols ();
     }
   return SCM_UNSPECIFIED;
@@ -342,5 +344,5 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
 ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
-	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest");
+	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest minimum-length");
 
