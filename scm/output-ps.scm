@@ -288,7 +288,14 @@
    "\n" (ly:number->string height)
    " start-system\n"
    "{\n"
-   "set-ps-scale-to-lily-scale"))
+   "set-ps-scale-to-lily-scale\n"
+
+   ;; URG
+   (if (pair? header-stencils)
+       (let ((s (output-stencils header-stencils)))
+	 (set! header-stencils '())
+	 s)
+       "")))
 
 (define (stem breapth width depth height) 
   (string-append
@@ -347,29 +354,11 @@
 (define (output-scopes paper scopes fields basename)
 
   ;; FIXME: customise/generate these
-  (let ((nmp '((("feta20"  . 0.569055118110236) "feta20" . 1.0)
-	       (("cmbx10"  . 0.569055118110236) "cmbx10" . 1.0)
-	       (("cmr10"   . 0.569055118110236) "cmr10" . 1.0)
-	       (("cmr10"   . 0.638742773474948) "cmr10" . 1.0)
-	       (("cmcsc12" . 0.376382788798365) "cmcsc12" . 1.0)
-	       (("cmcsc12" . 0.752765577596731) "cmcsc12" . 1.0)
-	       (("cmcsc12" . 0.948425196850394) "cmcsc12" . 1.0)
-
-	       (("cmr10" . 0.7169645218575) "cmr10" . 1.0)
-	       (("cmr10" . 0.638742773474948) "cmr10" . 1.0)
-
-	       (("cmcsc10" . 0.451659346558038) "cmcsc10" . 1.0)
-	       (("cmcsc10" . 0.638742773474948) "cmcsc10" . 1.0)
-	       (("cmbx8"   . 0.564574183197548) "cmbx8" . 1.0)))
-	       
-	(props '(((font-family . roman)
+  (let ((props '(((font-family . roman)
 		  (word-space . 1)
 		  (baseline-skip . 2)
 		  (font-shape . upright)
-		  ;;(font-size . -2)
-		  (font-size . 0)
-		  ))))
-
+		  (font-size . 0)))))
   
     (define (output-scope scope)
       (apply
@@ -387,16 +376,13 @@
 	     ((string? val) (ps-string-def "lilypond" sym val))
 
 	     ;; output markups ourselves
-	     ((markup? val) (string-append
-			     (write-me "expr:"
-				       ;; siamo bionde :-)
-				       ;;(expression->string
-				       (output-stencil
-					(ly:stencil-get-expr
-					 (interpret-markup paper props val))
-					'(0 . 0)
-					))
-			     "\n"))
+	     ((markup? val) (set! header-stencils
+				  (append header-stencils
+				     (list
+				      (ly:stencil-get-expr
+				       (interpret-markup paper props val)))))
+	      
+	      "")
 	     ((number? val) (ps-number-def
 			     "lilypond" sym (if (integer? val)
 						(number->string val)
@@ -406,9 +392,6 @@
 	scope)))
 
     (string-append
-     ;; urg
-     " 0 0 moveto\n"
-     (define-fonts nmp)
      (apply string-append (map output-scope scopes)))))
 
 (define (add-offsets a b)
@@ -418,6 +401,11 @@
 (define (input? foe)
   #f)
 
+(define header-stencils '())
+
+(define (output-stencils lst)
+  (apply string-append (map (lambda (x) (output-stencil x '(0 . 0))) lst)))
+
 ;; TODO:
 ;; de-urg me
 ;; implement ly:input stuff
@@ -425,17 +413,15 @@
 ;; stencil->string?
 (define (output-stencil expr o)
   (let ((s ""))
-    (format (current-output-port) "output-stencil: ~S\n" expr)
     (while
      (pair? expr)
      (let ((head (car expr)))
-       (format (current-output-port) "head: ~S\n" head)
        (cond ((input? head)
 	      (set! s (string-append
 		       s (define-origin (ly:input-file-string head))))
 	      (set! expr (cadr expr)))
 	     ((eq? head 'no-origin)
-	      (set! s (string-append s expression->string head))
+	      (set! s (string-append s (expression->string head)))
 	      (set! expr (cadr expr)))
 	     ((eq? head 'translate-stencil)
 	      (set! o (add-offsets o (cadr expr)))
@@ -450,5 +436,4 @@
 		       (placebox (car o) (cdr o)
 				 (expression->string expr))))
 	      (set! expr #f)))))
-;;   (set! expr (cadr expr)))
   s))
