@@ -2553,7 +2553,7 @@ echo "configure:2545: checking for working metafont mode" >&5
     #
     # For now let people define these in their environments
     #
-    : ${MFPLAIN_MP='/usr/share/texmf/metapost/base/mfplain.mp'}
+    : ${MFPLAIN_MP=`kpsewhich mfplain.mp`}
     : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
 
     rm -f mfput.*
