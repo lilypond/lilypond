@@ -1,3 +1,7 @@
+pl 49.uu1
+	- ran purify. Fixed some small problems
+
+
 pl 48.hwn1
 	- \property hshift -> \property horizontalNoteShift (mudela 1.0.21)
 	- cleaned up collision.  \property hshift = 2 now supported.

@@ -8,7 +8,10 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
@@ -98,7 +101,8 @@ ly_scm2string (SCM s)
   char * p = gh_scm2newstr (s , &len);
   
   String r (p);
-  delete p;
+  //  delete p;
+  free (p);
   return r;
 }
 

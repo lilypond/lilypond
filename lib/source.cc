@@ -18,6 +18,7 @@
 
 Sources::Sources ()
 {
+  sourcefile_p_list_ = 0;
   path_C_= 0;
   binary_b_ = false;
 }
@@ -64,6 +65,10 @@ Sources::add (Source_file* sourcefile_p)
   sourcefile_p_list_ = new Killing_cons<Source_file> (sourcefile_p, sourcefile_p_list_);
 }
 
+Sources::~Sources ()
+{
+  delete sourcefile_p_list_;
+}
 /**
   search the list for file whose map contains pointer #ch_C#
 

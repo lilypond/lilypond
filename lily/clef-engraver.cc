@@ -27,6 +27,7 @@ Clef_engraver::Clef_engraver()
   c0_position_i_ = 0;
   clef_position_i_ = 0;
   octave_dir_ = CENTER;
+  create_default_b_ = true;
 }
 
 /*
