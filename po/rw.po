@@ -1,0 +1,1913 @@
+# Kinyarwanda translations for lilypond package.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the lilypond package.
+# Steve Murphy <murf@e-tools.com>, 2005.
+# Steve performed initial rough translation from compendium built from translations provided by the following translators:
+# Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
+# Viateur MUGENZI <muvia1@yahoo.fr>, 2005.
+# Noëlla Mupole <s24211045@tuks.co.za>, 2005.
+# Carole Karema <karemacarole@hotmail.com>, 2005.
+# JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>, 2005.
+# Augustin KIBERWA  <akiberwa@yahoo.co.uk>, 2005.
+# Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, 2005.
+# Antoine Bigirimana <antoine@e-tools.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lilypond 2.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-31 16:22+0200\n"
+"PO-Revision-Date: 2005-04-04 10:55-0700\n"
+"Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
+"Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lilylib.py:60
+#, fuzzy
+msgid "lilylib module"
+msgstr "Modire"
+
+#: lilylib.py:63 lilypond-book.py:84 lilypond.py:127 midi2ly.py:100
+#: mup2ly.py:75 old-lilypond-book.py:129 main.cc:140
+#, fuzzy
+msgid "print this help"
+msgstr "Gucapa iyi Ifashayobora"
+
+#: lilylib.py:110 midi2ly.py:136 mup2ly.py:130
+#, fuzzy, python-format
+msgid "Copyright (c) %s by"
+msgstr "C ku"
+
+#: lilylib.py:114 midi2ly.py:141 mup2ly.py:135
+#, fuzzy
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "Bya i"
+
+#: lilylib.py:116 midi2ly.py:142 mup2ly.py:136
+#, fuzzy
+msgid "It comes with NO WARRANTY."
+msgstr "Na:"
+
+#: lilylib.py:123 warn.cc:25
+#, fuzzy, c-format, python-format
+msgid "warning: %s"
+msgstr "Iburira"
+
+#: lilylib.py:126 warn.cc:31
+#, fuzzy, c-format, python-format
+msgid "error: %s"
+msgstr "Ikosa"
+
+#: lilylib.py:130
+#, python-format
+msgid "Exiting (%d)..."
+msgstr ""
+
+#: lilylib.py:190 midi2ly.py:223 mup2ly.py:219
+#, python-format
+msgid "Usage: %s [OPTIONS]... FILE"
+msgstr ""
+
+#: lilylib.py:194 midi2ly.py:227 mup2ly.py:223 main.cc:205
+#, c-format
+msgid "Options:"
+msgstr "Amahitamo:"
+
+#: lilylib.py:198 midi2ly.py:231 mup2ly.py:227 main.cc:209
+#, fuzzy, c-format, python-format
+msgid "Report bugs to %s."
+msgstr "Kuri"
+
+#: lilylib.py:218
+#, fuzzy, python-format
+msgid "Binary %s has version %s, looking for version %s"
+msgstr "Verisiyo kugirango Verisiyo"
+
+#: lilylib.py:252
+#, python-format
+msgid "Opening pipe `%s'"
+msgstr ""
+
+#: lilylib.py:267 lilypond-book.py:767
+#, fuzzy, python-format
+msgid "`%s' failed (%d)"
+msgstr "`%s'Byanze"
+
+#: lilylib.py:272 lilylib.py:331 lilypond-book.py:768 lilypond.py:530
+#: old-lilypond-book.py:228
+#, fuzzy
+msgid "The error log is as follows:"
+msgstr "Ikosa LOG ni Nka"
+
+#: lilylib.py:303 midi2ly.py:259 mup2ly.py:255
+#, python-format
+msgid "Invoking `%s'"
+msgstr ""
+
+#: lilylib.py:305
+#, python-format
+msgid "Running %s..."
+msgstr ""
+
+#: lilylib.py:324
+#, fuzzy, python-format
+msgid "`%s' failed (%s)"
+msgstr "`%s'Byanze"
+
+#: lilylib.py:327 midi2ly.py:265 mup2ly.py:263
+msgid "(ignored)"
+msgstr ""
+
+#: lilylib.py:345 midi2ly.py:275 mup2ly.py:273
+#, python-format
+msgid "Cleaning %s..."
+msgstr ""
+
+#: lilylib.py:509
+#, fuzzy
+msgid "Removing output file"
+msgstr "Ibisohoka IDOSIYE"
+
+#: lilypond-book.py:69
+#, fuzzy
+msgid ""
+"Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.\n"
+"Example usage:\n"
+"\n"
+"   lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
+"   lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
+"   lilypond-book --process='lilypond-bin -I include' BOOK\n"
+"\n"
+msgstr "0."
+
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#: lilypond-book.py:82 old-lilypond-book.py:123 main.cc:139
+msgid "EXT"
+msgstr "EXT"
+
+#: lilypond-book.py:82 old-lilypond-book.py:123
+#, fuzzy
+msgid "use output format EXT (texi [default], texi-html, latex, html)"
+msgstr "Gukoresha Ibisohoka Imiterere Mburabuzi HTML HTML"
+
+#: lilypond-book.py:83
+#, fuzzy
+msgid "FILTER"
+msgstr "Muyunguruzi"
+
+#: lilypond-book.py:83
+#, fuzzy
+msgid "pipe snippets through FILTER [convert-ly -n -]"
+msgstr "Gihinguranya GUHINDURA N"
+
+#: lilypond-book.py:85 lilypond-book.py:87 lilypond.py:131
+#: old-lilypond-book.py:130 main.cc:142 main.cc:147
+msgid "DIR"
+msgstr ""
+
+#: lilypond-book.py:85
+#, fuzzy
+msgid "add DIR to include path"
+msgstr "Kongeramo Kuri Gushyiramo Inzira"
+
+# padmin/source\rtsetup.src:RID_RTS_RTSDIALOG.RID_RTS_RTSDIALOG_TABCONTROL.RID_RTS_COMMANDPAGE.text
+#: lilypond-book.py:86
+#, fuzzy
+msgid "COMMAND"
+msgstr "Icyo wifuza"
+
+#: lilypond-book.py:86
+#, fuzzy
+msgid "process ly_files using COMMAND FILE..."
+msgstr "ikoresha"
+
+#: lilypond-book.py:87
+#, fuzzy
+msgid "write output to DIR"
+msgstr "Kwandika Ibisohoka Kuri"
+
+#: lilypond-book.py:88 lilypond.py:149 midi2ly.py:105 mup2ly.py:78
+#: old-lilypond-book.py:140 main.cc:150
+msgid "be verbose"
+msgstr ""
+
+#: lilypond-book.py:89 old-lilypond-book.py:141
+#, fuzzy
+msgid "print version information"
+msgstr "Gucapa Verisiyo Ibisobanuro"
+
+#: lilypond-book.py:90 lilypond.py:151 midi2ly.py:107 mup2ly.py:80
+#: old-lilypond-book.py:142 main.cc:151
+#, fuzzy
+msgid "show warranty and copyright"
+msgstr "Garagaza Na Uburenganzira bw'umuhimbyi"
+
+#: lilypond-book.py:373
+#, fuzzy, python-format
+msgid "deprecated ly-option used: %s"
+msgstr "Bitemewe. Ihitamo"
+
+#: lilypond-book.py:374
+#, fuzzy, python-format
+msgid "compatibility mode translation: %s"
+msgstr "Bihuye neza Ubwoko Umwandiko wahinduwe ururimi"
+
+#: lilypond-book.py:394
+#, fuzzy, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr "Kitazwi Ihitamo"
+
+#: lilypond-book.py:448
+#, fuzzy, python-format
+msgid "file not found: %s"
+msgstr "Dosiye ntibonetse"
+
+#: lilypond-book.py:750
+#, fuzzy, python-format
+msgid "Opening filter `%s'"
+msgstr "Muyunguruzi..."
+
+#: lilypond-book.py:862
+#, fuzzy, python-format
+msgid "cannot determine format for: %s"
+msgstr "Imiterere kugirango"
+
+#: lilypond-book.py:903
+#, fuzzy
+msgid "Output would overwrite input file; use --output."
+msgstr "Guhindura Iyinjiza IDOSIYE Gukoresha Ibisohoka"
+
+#: lilypond-book.py:910
+#, python-format
+msgid "Reading %s..."
+msgstr ""
+
+#: lilypond-book.py:924
+msgid "Dissecting..."
+msgstr ""
+
+#: lilypond-book.py:952
+msgid "Writing snippets..."
+msgstr ""
+
+#: lilypond-book.py:957
+msgid "Processing..."
+msgstr "Inonosora..."
+
+#: lilypond-book.py:960
+#, fuzzy
+msgid "All snippets are up to date..."
+msgstr "Hejuru Kuri Itariki"
+
+#: lilypond-book.py:963
+#, python-format
+msgid "Compiling %s..."
+msgstr ""
+
+#: lilypond-book.py:971
+#, fuzzy, python-format
+msgid "Processing include: %s"
+msgstr "Gushyiramo"
+
+#: lilypond-book.py:987 lilypond.py:693 midi2ly.py:1017
+#: old-lilypond-book.py:1570
+#, python-format
+msgid "getopt says: `%s'"
+msgstr ""
+
+#. # FIXME
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: lilypond.py:120
+#, fuzzy
+msgid "Run LilyPond, add titles, generate printable document."
+msgstr "Kongeramo Imitwe Gicapika Inyandiko"
+
+#: lilypond.py:126
+#, fuzzy
+msgid "write Makefile dependencies for every input file"
+msgstr "Kwandika kugirango buri Iyinjiza IDOSIYE"
+
+#: lilypond.py:128
+#, fuzzy
+msgid "print even more output"
+msgstr "Gucapa ATARIIGIHARWE Birenzeho Ibisohoka"
+
+#: lilypond.py:129 lilypond.py:136 midi2ly.py:102 old-lilypond-book.py:136
+#: old-lilypond-book.py:137 main.cc:143 main.cc:146
+msgid "FILE"
+msgstr "IDOSIYE"
+
+#: lilypond.py:129
+#, fuzzy
+msgid "find pfa fonts used in FILE"
+msgstr "Gushaka Imyandikire in"
+
+#: lilypond.py:130
+#, fuzzy
+msgid "make HTML file with links to all output"
+msgstr "Ubwoko IDOSIYE Na: amahuza Kuri Byose Ibisohoka"
+
+#: lilypond.py:131
+#, fuzzy
+msgid "add DIR to LilyPond's search path"
+msgstr "Kongeramo Kuri Gushaka Inzira"
+
+#: lilypond.py:133
+#, fuzzy, python-format
+msgid "keep all output, output to directory %s.dir"
+msgstr "Gumana: Byose Ibisohoka Ibisohoka Kuri bushyinguro"
+
+#: lilypond.py:134
+#, fuzzy
+msgid "don't run LilyPond"
+msgstr "Gukoresha"
+
+#: lilypond.py:135 main.cc:145
+#, fuzzy
+msgid "produce MIDI output only"
+msgstr "Ibisohoka"
+
+#: lilypond.py:136 midi2ly.py:102 mup2ly.py:76 main.cc:146
+#, fuzzy
+msgid "write output to FILE"
+msgstr "Kwandika Ibisohoka Kuri"
+
+#: lilypond.py:137 old-lilypond-book.py:138
+msgid "RES"
+msgstr ""
+
+#: lilypond.py:138 old-lilypond-book.py:139
+#, fuzzy
+msgid "set the resolution of the preview to RES"
+msgstr "Gushyiraho i Imikemurire Bya i Igaragazambere Kuri"
+
+#: lilypond.py:139
+#, fuzzy
+msgid "do not generate PDF output"
+msgstr "OYA Ibisohoka"
+
+#: lilypond.py:140
+#, fuzzy
+msgid "do not generate PostScript output"
+msgstr "OYA Ibisohoka"
+
+#: lilypond.py:141
+#, fuzzy
+msgid "generate PDF output"
+msgstr "Ibisohoka"
+
+#: lilypond.py:142
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "Ibisohoka"
+
+#: lilypond.py:143
+#, fuzzy
+msgid "use pdflatex to generate PDF output"
+msgstr "Gukoresha Kuri Ibisohoka"
+
+#: lilypond.py:144
+#, fuzzy
+msgid "generate PNG page images"
+msgstr "Ipaji Ishusho"
+
+#: lilypond.py:145
+#, fuzzy
+msgid "make a picture of the first system"
+msgstr "Ubwoko a() y'Ishusho Bya i Itangira Sisitemu"
+
+#: lilypond.py:146
+msgid "generate PS.GZ"
+msgstr ""
+
+#: lilypond.py:147
+#, fuzzy
+msgid "run in safe-mode"
+msgstr "Gukoresha in Ubwoko"
+
+#: lilypond.py:148
+msgid "KEY=VAL"
+msgstr ""
+
+#: lilypond.py:148
+#, fuzzy
+msgid "change global setting KEY to VAL"
+msgstr "Guhindura>> Igenamiterere Kuri"
+
+#: lilypond.py:150 midi2ly.py:106 mup2ly.py:79 main.cc:149
+#, fuzzy
+msgid "print version number"
+msgstr "Gucapa Verisiyo Umubare"
+
+#: lilypond.py:234
+#, fuzzy, python-format
+msgid "no such setting: `%s'"
+msgstr "Oya Igenamiterere"
+
+#: lilypond.py:284
+#, python-format
+msgid "LilyPond crashed (signal %d)."
+msgstr ""
+
+#: lilypond.py:285
+#, fuzzy
+msgid "Please submit a bug report to bug-lilypond@gnu.org"
+msgstr "Tanga a Icyegeranyo Kuri org"
+
+#: lilypond.py:291
+#, fuzzy, python-format
+msgid "LilyPond failed on input file %s (exit status %d)"
+msgstr "Byanze ku Iyinjiza IDOSIYE Gusohoka Imimerere"
+
+#: lilypond.py:294
+#, fuzzy, python-format
+msgid "LilyPond failed on an input file (exit status %d)"
+msgstr "Byanze ku Iyinjiza IDOSIYE Gusohoka Imimerere"
+
+#: lilypond.py:295
+msgid "Continuing..."
+msgstr ""
+
+#: lilypond.py:306
+#, python-format
+msgid "Analyzing %s..."
+msgstr ""
+
+#: lilypond.py:364
+#, fuzzy, python-format
+msgid "no LilyPond output found for `%s'"
+msgstr "Oya Ibisohoka Byabonetse kugirango"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_VALID_DEFERROR.text
+#: lilypond.py:431
+#, fuzzy, python-format
+msgid "invalid value: `%s'"
+msgstr "Agaciro siko"
+
+#: lilypond.py:529
+#, fuzzy
+msgid "LaTeX failed on the output file."
+msgstr "Byanze ku i Ibisohoka IDOSIYE"
+
+#: lilypond.py:586
+#, fuzzy
+msgid ""
+"Trying create PDF, but no PFA fonts found.\n"
+"Using bitmap fonts instead. This will look bad."
+msgstr "Kurema Oya Imyandikire Byabonetse Bitimapu Imyandikire"
+
+#. no ps header?
+#: lilypond.py:635
+#, fuzzy, python-format
+msgid "not a PostScript file: `%s'"
+msgstr "OYA a IDOSIYE"
+
+#: lilypond.py:680
+#, fuzzy, python-format
+msgid "Writing HTML menu `%s'"
+msgstr "Ibikubiyemo"
+
+#: lilypond.py:800
+#, fuzzy
+msgid "pseudo filter"
+msgstr "Muyunguruzi..."
+
+#: lilypond.py:803
+#, fuzzy
+msgid "pseudo filter only for single input file"
+msgstr "Muyunguruzi... kugirango UMWE Iyinjiza IDOSIYE"
+
+#: lilypond.py:808 old-lilypond-book.py:1643
+#, fuzzy
+msgid "no files specified on command line"
+msgstr "Oya Idosiye ku Komandi: Umurongo"
+
+#: lilypond.py:840
+#, fuzzy, python-format
+msgid "filename should not contain spaces: `%s'"
+msgstr "Izina ry'idosiye: OYA Imyanya"
+
+#: lilypond.py:880
+#, fuzzy
+msgid "Running LilyPond failed. Rerun with --verbose for a trace."
+msgstr "Byanze Na: kugirango a"
+
+#: lilypond.py:921
+#, fuzzy
+msgid "Failed to make PS file. Rerun with --verbose for a trace."
+msgstr "Kuri Ubwoko IDOSIYE Na: kugirango a"
+
+#: lilypond.py:951
+#, fuzzy
+msgid "Running LaTeX failed. Rerun with --verbose for a trace."
+msgstr "Byanze Na: kugirango a"
+
+#: lilypond.py:963 input-file-results.cc:74
+#, fuzzy, c-format, python-format
+msgid "dependencies output to `%s'..."
+msgstr "Ibisohoka Kuri"
+
+#: lilypond.py:974
+#, fuzzy, python-format
+msgid "%s output to <stdout>..."
+msgstr "%sIbisohoka Kuri"
+
+#: lilypond.py:979 includable-lexer.cc:57 input-file-results.cc:217
+#: input-file-results.cc:224 lily-guile.cc:86
+#, fuzzy, c-format, python-format
+msgid "can't find file: `%s'"
+msgstr "Gushaka IDOSIYE"
+
+#: lilypond.py:1002
+#, fuzzy, python-format
+msgid "%s output to %s..."
+msgstr "%sIbisohoka Kuri"
+
+#: lilypond.py:1005
+#, fuzzy, python-format
+msgid "can't find file: `%s.%s'"
+msgstr "Gushaka IDOSIYE"
+
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. original_dir = os.getcwd ()
+#. keep_temp_dir_p = 0
+#: midi2ly.py:94
+#, fuzzy
+msgid "Convert MIDI to LilyPond source."
+msgstr "Kuri Inkomoko"
+
+#: midi2ly.py:97
+#, fuzzy
+msgid "print absolute pitches"
+msgstr "Gucapa"
+
+#: midi2ly.py:98 midi2ly.py:103
+msgid "DUR"
+msgstr ""
+
+#: midi2ly.py:98
+#, fuzzy
+msgid "quantise note durations on DUR"
+msgstr "Impugukirwa ku"
+
+#: midi2ly.py:99
+#, fuzzy
+msgid "print explicit durations"
+msgstr "Gucapa"
+
+#: midi2ly.py:101
+msgid "ALT[:MINOR]"
+msgstr ""
+
+#: midi2ly.py:101
+#, fuzzy
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "Gushyiraho Urufunguzo 1."
+
+#: midi2ly.py:103
+#, fuzzy
+msgid "quantise note starts on DUR"
+msgstr "Impugukirwa ku"
+
+#: midi2ly.py:104
+msgid "DUR*NUM/DEN"
+msgstr ""
+
+#: midi2ly.py:104
+#, fuzzy
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "Kwemerera"
+
+#: midi2ly.py:108
+#, fuzzy
+msgid "treat every text as a lyric"
+msgstr "buri Umwandiko Nka a"
+
+#: midi2ly.py:149 mup2ly.py:143 input.cc:88
+#, fuzzy
+msgid "warning: "
+msgstr "Iburira!"
+
+# starmath/source\smres.src:RID_ERR_IDENT.text
+#: midi2ly.py:164 midi2ly.py:1017 midi2ly.py:1082 mup2ly.py:146 mup2ly.py:160
+#: input.cc:93
+#, fuzzy
+msgid "error: "
+msgstr "IKOSA"
+
+#: midi2ly.py:165 mup2ly.py:161
+msgid "Exiting ... "
+msgstr ""
+
+#: midi2ly.py:263 mup2ly.py:260
+#, fuzzy, python-format
+msgid "command exited with value %d"
+msgstr "Komandi: Na: Agaciro"
+
+#: midi2ly.py:1001
+#, fuzzy, python-format
+msgid "%s output to `%s'..."
+msgstr "%sIbisohoka Kuri"
+
+#: midi2ly.py:1032
+#, fuzzy
+msgid "Example:"
+msgstr "Urugero:"
+
+#: midi2ly.py:1082
+#, fuzzy
+msgid "no files specified on command line."
+msgstr "Oya Idosiye ku Komandi: Umurongo"
+
+#: mup2ly.py:70
+#, fuzzy
+msgid "Convert mup to LilyPond source."
+msgstr "Kuri Inkomoko"
+
+# Debug menu items
+#: mup2ly.py:73
+#, fuzzy
+msgid "debug"
+msgstr "Kosora amakosa"
+
+#: mup2ly.py:74
+#, fuzzy
+msgid "define macro NAME [optional expansion EXP]"
+msgstr "Kugaragaza... Makoro Bitari ngombwa"
+
+#: mup2ly.py:77
+#, fuzzy
+msgid "only pre-process"
+msgstr "Byahawe imiterere mbere"
+
+#: mup2ly.py:1075
+#, fuzzy, python-format
+msgid "no such context: %s"
+msgstr "Oya Imvugiro"
+
+# svtools/source\dialogs\prnsetup.src:STR_SVT_PRNDLG_PROCESSING.text
+#: mup2ly.py:1299
+#, fuzzy, python-format
+msgid "Processing `%s'..."
+msgstr "Inonosora"
+
+#: mup2ly.py:1318
+#, python-format
+msgid "Writing `%s'..."
+msgstr ""
+
+#. # FIXME
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: old-lilypond-book.py:118
+#, fuzzy
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document"
+msgstr "in Cyangwa Inyandiko"
+
+#: old-lilypond-book.py:124 old-lilypond-book.py:125 old-lilypond-book.py:127
+#: old-lilypond-book.py:128
+#, fuzzy
+msgid "DIM"
+msgstr "Byijimye"
+
+#: old-lilypond-book.py:124
+#, fuzzy
+msgid "default fontsize for music.  DIM is assumed to be in points"
+msgstr "Mburabuzi kugirango ni Kuri in Utudomo"
+
+#: old-lilypond-book.py:125
+#, fuzzy
+msgid "deprecated, use --default-music-fontsize"
+msgstr "Bitemewe. Gukoresha Mburabuzi"
+
+#: old-lilypond-book.py:126
+msgid "OPT"
+msgstr ""
+
+#: old-lilypond-book.py:126
+#, fuzzy
+msgid "pass OPT quoted to the lilypond command line"
+msgstr "Kuri i Komandi: Umurongo"
+
+#: old-lilypond-book.py:127
+#, fuzzy
+msgid "force fontsize for all inline lilypond. DIM is assumed to be in points"
+msgstr "kugirango Byose Mumurongo ni Kuri in Utudomo"
+
+#: old-lilypond-book.py:128
+#, fuzzy
+msgid "deprecated, use --force-music-fontsize"
+msgstr "Bitemewe. Gukoresha"
+
+#: old-lilypond-book.py:130
+#, fuzzy
+msgid "include path"
+msgstr "Gushyiramo Inzira"
+
+#: old-lilypond-book.py:131
+#, fuzzy
+msgid "write dependencies"
+msgstr "Kwandika"
+
+#: old-lilypond-book.py:132
+msgid "PREF"
+msgstr ""
+
+#: old-lilypond-book.py:132
+#, fuzzy
+msgid "prepend PREF before each -M dependency"
+msgstr "Mbere"
+
+#: old-lilypond-book.py:133
+#, fuzzy
+msgid "don't run lilypond"
+msgstr "Gukoresha"
+
+#: old-lilypond-book.py:134
+#, fuzzy
+msgid "don't generate pictures"
+msgstr "Amashusho"
+
+#: old-lilypond-book.py:135
+#, fuzzy
+msgid "strip all lilypond blocks from output"
+msgstr "Byose Bivuye Ibisohoka"
+
+#: old-lilypond-book.py:136
+#, fuzzy
+msgid "filename main output file"
+msgstr "Izina ry'idosiye: Ibisohoka IDOSIYE"
+
+#: old-lilypond-book.py:137
+#, fuzzy
+msgid "where to place generated files"
+msgstr "Kuri Idosiye"
+
+#: old-lilypond-book.py:227
+#, fuzzy
+msgid "LaTeX failed."
+msgstr "Byanze"
+
+#: getopt-long.cc:146
+#, fuzzy, c-format
+msgid "option `%s' requires an argument"
+msgstr "Ihitamo"
+
+#: getopt-long.cc:150
+#, fuzzy, c-format
+msgid "option `%s' doesn't allow an argument"
+msgstr "Ihitamo Kwemerera"
+
+#: getopt-long.cc:154
+#, fuzzy, c-format
+msgid "unrecognized option: `%s'"
+msgstr "Ihitamo"
+
+#: getopt-long.cc:161
+#, fuzzy, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "Sibyo Kuri Ihitamo"
+
+#: warn.cc:44
+#, fuzzy, c-format
+msgid "programming error: %s"
+msgstr "Ikosa"
+
+#: warn.cc:45
+msgid "Continuing; crossing fingers"
+msgstr ""
+
+#: accidental.cc:219 key-signature-interface.cc:139
+#, fuzzy, c-format
+msgid "accidental `%s' not found"
+msgstr "OYA Byabonetse"
+
+#: accidental-engraver.cc:167
+#, fuzzy, c-format
+msgid "Accidental typesetting list must begin with context-name: %s"
+msgstr "Urutonde Na: Imvugiro Izina:"
+
+#: accidental-engraver.cc:194
+#, fuzzy, c-format
+msgid "ignoring unknown accidental: %s"
+msgstr "Kitazwi"
+
+#: accidental-engraver.cc:211
+#, fuzzy, c-format
+msgid "Accidental rule must be pair or context-name; Found %s"
+msgstr "Cyangwa Imvugiro Izina:"
+
+#: afm.cc:145
+#, fuzzy, c-format
+msgid "Error parsing AFM file: `%s'"
+msgstr "IDOSIYE"
+
+#: all-font-metrics.cc:100
+#, fuzzy, c-format
+msgid "checksum mismatch for font file: `%s'"
+msgstr "kugirango Intego- nyuguti IDOSIYE"
+
+#: all-font-metrics.cc:102
+#, fuzzy, c-format
+msgid "does not match: `%s'"
+msgstr "OYA BIHUYE"
+
+#: all-font-metrics.cc:107
+#, fuzzy
+msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
+msgstr "Byose Idosiye Na Gukuraho... Byose Na Idosiye"
+
+#: all-font-metrics.cc:109
+#, fuzzy
+msgid "Rerun with -V to show font paths."
+msgstr "Na: V Kuri Garagaza Intego- nyuguti Inzira"
+
+#: all-font-metrics.cc:111
+#, fuzzy
+msgid "A script for removing font-files is delivered with the source-code:"
+msgstr "A IYANDIKA kugirango Intego- nyuguti Idosiye ni Na: i Inkomoko ITEGEKONGENGA"
+
+#: all-font-metrics.cc:192
+#, fuzzy, c-format
+msgid "can't find font: `%s'"
+msgstr "Gushaka Intego- nyuguti"
+
+#: all-font-metrics.cc:193
+#, fuzzy
+msgid "Loading default font"
+msgstr "Mburabuzi Intego- nyuguti"
+
+#: all-font-metrics.cc:208
+#, fuzzy, c-format
+msgid "can't find default font: `%s'"
+msgstr "Gushaka Mburabuzi Intego- nyuguti"
+
+#: all-font-metrics.cc:209 includable-lexer.cc:59 input-file-results.cc:218
+#, fuzzy, c-format
+msgid "(search path: `%s')"
+msgstr "(Gushaka Inzira"
+
+#: all-font-metrics.cc:210
+#, fuzzy
+msgid "Giving up"
+msgstr "Hejuru"
+
+#: auto-change-iterator.cc:62 change-iterator.cc:61
+#, fuzzy
+msgid "Can't switch translators, I'm there already"
+msgstr "Hindura"
+
+#: bar-check-iterator.cc:68
+#, fuzzy, c-format
+msgid "barcheck failed at: %s"
+msgstr "Byanze ku"
+
+#: beam.cc:151
+#, fuzzy
+msgid "beam has less than two visible stems"
+msgstr "Birutwa Kigaragara"
+
+#: beam.cc:156
+#, fuzzy
+msgid "removing beam with less than two stems"
+msgstr "Na: Birutwa"
+
+#: beam.cc:1040
+#, fuzzy
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "Oya Iboneza Byabonetse Gicurasi OYA Gushaka IMANURA"
+
+#: beam-engraver.cc:139
+#, fuzzy
+msgid "already have a beam"
+msgstr "a"
+
+#: beam-engraver.cc:212
+msgid "unterminated beam"
+msgstr ""
+
+#: beam-engraver.cc:245 chord-tremolo-engraver.cc:179
+#, fuzzy
+msgid "stem must have Rhythmic structure"
+msgstr "Imiterere"
+
+#: beam-engraver.cc:259
+#, fuzzy
+msgid "stem doesn't fit in beam"
+msgstr "in"
+
+#: beam-engraver.cc:260
+msgid "beam was started here"
+msgstr ""
+
+#: break-align-interface.cc:214
+#, fuzzy, c-format
+msgid "No spacing entry from %s to `%s'"
+msgstr "Isigamwanya Icyinjijwe Bivuye Kuri"
+
+#: change-iterator.cc:22
+#, fuzzy, c-format
+msgid "can't change `%s' to `%s'"
+msgstr "Guhindura>> Kuri"
+
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#: change-iterator.cc:87
+msgid "I'm one myself"
+msgstr ""
+
+#: change-iterator.cc:90
+#, fuzzy
+msgid "none of these in my family"
+msgstr "Ntacyo Bya in"
+
+#: chord-tremolo-engraver.cc:100
+#, fuzzy, c-format
+msgid "Chord tremolo with %d elements. Must have two elements."
+msgstr "Na: Ibintu Ibintu"
+
+#: chord-tremolo-engraver.cc:141
+msgid "unterminated chord tremolo"
+msgstr ""
+
+#: chord-tremolo-iterator.cc:64
+#, fuzzy
+msgid "no one to print a tremolos"
+msgstr "Oya Kuri Gucapa a"
+
+#: clef.cc:64
+#, fuzzy, c-format
+msgid "clef `%s' not found"
+msgstr "OYA Byabonetse"
+
+#: cluster.cc:123
+#, fuzzy, c-format
+msgid "unknown cluster style `%s'"
+msgstr "Kitazwi IMISUSIRE"
+
+#: coherent-ligature-engraver.cc:84
+#, c-format
+msgid "gotcha: ptr=%ul"
+msgstr ""
+
+# svx/source\dialog\border.src:RID_SVXPAGE_BORDER.FT_SHADOWSIZE.text
+#: coherent-ligature-engraver.cc:96
+#, fuzzy, c-format
+msgid "distance=%f"
+msgstr "Intera"
+
+#: coherent-ligature-engraver.cc:139
+#, fuzzy, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr=%ul"
+msgstr "Igenamiterere Isigamwanya Iyongeragaciro 0"
+
+#: context.cc:180
+#, fuzzy, c-format
+msgid "Cannot find or create `%s' called `%s'"
+msgstr "Gushaka Cyangwa Kurema"
+
+#: context.cc:217
+#, fuzzy, c-format
+msgid "can't find or create: `%s'"
+msgstr "Gushaka Cyangwa Kurema"
+
+#: context-def.cc:115
+#, fuzzy, c-format
+msgid "Program has no such type: `%s'"
+msgstr "Oya Ubwoko"
+
+#: custos.cc:85
+#, fuzzy, c-format
+msgid "custos `%s' not found"
+msgstr "OYA Byabonetse"
+
+#: dimensions.cc:13
+msgid "NaN"
+msgstr ""
+
+#: dynamic-engraver.cc:183 span-dynamic-performer.cc:86
+#, fuzzy
+msgid "can't find start of (de)crescendo"
+msgstr "Gushaka Gutangira Bya"
+
+#: dynamic-engraver.cc:193
+#, fuzzy
+msgid "already have a decrescendo"
+msgstr "a"
+
+#: dynamic-engraver.cc:195
+#, fuzzy
+msgid "already have a crescendo"
+msgstr "a"
+
+#: dynamic-engraver.cc:198
+msgid "Cresc started here"
+msgstr ""
+
+#: dynamic-engraver.cc:305
+msgid "unterminated (de)crescendo"
+msgstr ""
+
+#: event.cc:49
+#, fuzzy, c-format
+msgid "Transposition by %s makes alteration larger than two"
+msgstr "ku Kinini"
+
+#: event.cc:72
+#, fuzzy, c-format
+msgid "octave check failed; expected %s, found: %s"
+msgstr "Kugenzura... Byanze Ikitezwe: Byabonetse"
+
+#: event-chord-iterator.cc:56 output-property-music-iterator.cc:29
+#, fuzzy, c-format
+msgid "Junking event: `%s'"
+msgstr "Icyabaye"
+
+#: extender-engraver.cc:143 extender-engraver.cc:153
+msgid "unterminated extender"
+msgstr ""
+
+#: folded-repeat-iterator.cc:65
+#, fuzzy
+msgid "no one to print a repeat brace"
+msgstr "Oya Kuri Gucapa a Gusubiramo"
+
+#: glissando-engraver.cc:102
+msgid "Unterminated glissando."
+msgstr ""
+
+#: global-context.cc:151
+#, fuzzy, c-format
+msgid "can't find `%s' context"
+msgstr "Gushaka Imvugiro"
+
+#: gourlay-breaking.cc:195
+#, c-format
+msgid "Optimal demerits: %f"
+msgstr ""
+
+#: gourlay-breaking.cc:200
+#, fuzzy
+msgid "No feasible line breaking found"
+msgstr "Umurongo Byabonetse"
+
+#: gregorian-ligature-engraver.cc:59
+#, fuzzy, c-format
+msgid "\\%s ignored"
+msgstr "\\%S"
+
+#: gregorian-ligature-engraver.cc:64
+#, fuzzy, c-format
+msgid "implied \\%s added"
+msgstr "S Kyongewe"
+
+#: hairpin.cc:98
+#, fuzzy
+msgid "decrescendo too small"
+msgstr "Gitoya"
+
+#: hairpin.cc:99
+#, fuzzy
+msgid "crescendo too small"
+msgstr "Gitoya"
+
+#: horizontal-bracket-engraver.cc:57
+#, fuzzy
+msgid "Don't have that many brackets."
+msgstr "Udusodeko"
+
+#: horizontal-bracket-engraver.cc:66
+#, fuzzy
+msgid "Conflicting note group events."
+msgstr "Impugukirwa Itsinda Ibyabaye"
+
+#: hyphen-engraver.cc:96
+msgid "removing unterminated hyphen"
+msgstr ""
+
+#: hyphen-engraver.cc:110
+msgid "unterminated hyphen; removing"
+msgstr ""
+
+#: includable-lexer.cc:50
+#, fuzzy
+msgid "include files are not allowed"
+msgstr "Gushyiramo Idosiye OYA"
+
+#: input.cc:99
+#, fuzzy
+msgid "non fatal error: "
+msgstr "Ikosa"
+
+#: input.cc:107 source-file.cc:147 source-file.cc:240
+#, fuzzy
+msgid "position unknown"
+msgstr "Ibirindiro Kitazwi"
+
+# sfx2/source\appl\app.src:STR_ERR_NOFILE.text
+#: input-file-results.cc:78 source-file.cc:55
+#, fuzzy, c-format
+msgid "can't open file: `%s'"
+msgstr "Ntibishoboka gufungura idosiye$."
+
+#: input-file-results.cc:142
+#, fuzzy, c-format
+msgid "Now processing `%s'"
+msgstr "Inonosora"
+
+#: key-performer.cc:90
+#, fuzzy
+msgid "FIXME: key change merge"
+msgstr "Urufunguzo Guhindura>> Gukomatanya"
+
+#: kpath.cc:75
+#, fuzzy, c-format
+msgid "kpathsea can not find TFM file: `%s'"
+msgstr "OYA Gushaka IDOSIYE"
+
+#: ligature-engraver.cc:152
+#, fuzzy
+msgid "can't find start of ligature"
+msgstr "Gushaka Gutangira Bya"
+
+#: ligature-engraver.cc:158
+#, fuzzy
+msgid "no right bound"
+msgstr "Oya Iburyo:"
+
+#: ligature-engraver.cc:184
+#, fuzzy
+msgid "already have a ligature"
+msgstr "a"
+
+#: ligature-engraver.cc:200
+#, fuzzy
+msgid "no left bound"
+msgstr "Oya Ibumoso:"
+
+#: ligature-engraver.cc:255
+msgid "unterminated ligature"
+msgstr ""
+
+#: ligature-engraver.cc:279
+#, fuzzy
+msgid "ignoring rest: ligature may not contain rest"
+msgstr "Gicurasi OYA"
+
+#: ligature-engraver.cc:280
+msgid "ligature was started here"
+msgstr ""
+
+#: lily-guile.cc:88
+#, fuzzy, c-format
+msgid "(load path: `%s')"
+msgstr "(Ibirimo Inzira"
+
+#: lily-guile.cc:584
+#, fuzzy, c-format
+msgid "Can't find property type-check for `%s' (%s)."
+msgstr "Gushaka indangakintu Ubwoko Kugenzura... kugirango"
+
+#: lily-guile.cc:587
+#, fuzzy
+msgid "Perhaps you made a typing error?"
+msgstr "a Kwandika: Ikosa"
+
+#: lily-guile.cc:593
+#, fuzzy
+msgid "Doing assignment anyway."
+msgstr "Igenera"
+
+#: lily-guile.cc:607
+#, fuzzy, c-format
+msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "Kugenzura... kugirango Byanze Agaciro Bya Ubwoko"
+
+#: lookup.cc:169
+#, fuzzy
+msgid "round filled box horizontal extent smaller than blot; decreasing blot"
+msgstr "IBURUNGUSHURA Byuzuye Agasanduku Gitambitse Kwagura Gitoya"
+
+#: lookup.cc:174
+#, fuzzy
+msgid "round filled box vertical extent smaller than blot; decreasing blot"
+msgstr "IBURUNGUSHURA Byuzuye Agasanduku Bihagaritse Kwagura Gitoya"
+
+#: main.cc:100
+#, fuzzy
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `lilypond-bin --warranty' for more\n"
+"information.\n"
+msgstr "Porogaramu ni Kigenga ni ku i Na Urakaza neza Kuri Guhindura>> Na Cyangwa Gukwirakwiza Amakopi Bya Nka kugirango"
+
+#: main.cc:106
+#, fuzzy
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n"
+msgstr "Porogaramu ni Kigenga Na i Bya i Verisiyo ku i Porogaramu ni in i ATARIIGIHARWE i Cyangwa A i kugirango Birenzeho Birambuye BYAKIRIWE a Gukoporora Kuri i IDOSIYE Bya Na: iyi Porogaramu NIBA OYA Kwandika"
+
+#: main.cc:135
+msgid "EXPR"
+msgstr ""
+
+#: main.cc:136
+#, fuzzy
+msgid "set options, use -e '(ly-option-usage)' for help"
+msgstr "Gushyiraho Amahitamo Gukoresha E Ihitamo Ikoresha: kugirango Ifashayobora"
+
+#: main.cc:139
+#, fuzzy
+msgid "use output format EXT"
+msgstr "Gukoresha Ibisohoka Imiterere"
+
+# wizards/source\formwizard\dbwizres.src:RID_DB_REPORT_WIZARD_START_+_71.text
+#: main.cc:141
+#, fuzzy
+msgid "FIELD"
+msgstr "Umwanya"
+
+#: main.cc:141
+#, fuzzy
+msgid "write header field to BASENAME.FIELD"
+msgstr "Kwandika Umutwempangano Umwanya Kuri"
+
+#: main.cc:142
+#, fuzzy
+msgid "add DIR to search path"
+msgstr "Kongeramo Kuri Gushaka Inzira"
+
+#: main.cc:143
+#, fuzzy
+msgid "use FILE as init file"
+msgstr "Gukoresha Nka IDOSIYE"
+
+#: main.cc:144
+#, fuzzy
+msgid "write Makefile dependencies"
+msgstr "Kwandika"
+
+#: main.cc:147
+#, fuzzy
+msgid "prepend DIR to dependencies"
+msgstr "Kuri"
+
+#: main.cc:148
+#, fuzzy
+msgid "run in safe mode"
+msgstr "Gukoresha in Ubwoko"
+
+#: main.cc:171
+#, fuzzy, c-format
+msgid ""
+"Copyright (c) %s by\n"
+"%s  and others."
+msgstr "C Na Ibindi"
+
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:197
+#, c-format
+msgid "Usage: %s [OPTIONS]... FILE..."
+msgstr ""
+
+#: main.cc:199
+#, fuzzy, c-format
+msgid "Typeset music and/or produce MIDI from FILE."
+msgstr "Na Cyangwa Bivuye"
+
+#: main.cc:201
+#, c-format
+msgid "LilyPond produces beautiful music notation."
+msgstr ""
+
+#: main.cc:203
+#, fuzzy, c-format
+msgid "For more information, see %s"
+msgstr "Birenzeho Ibisobanuro"
+
+#: main.cc:369
+#, fuzzy, c-format
+msgid "This option is for developers only."
+msgstr "Ihitamo ni kugirango"
+
+#: main.cc:370
+#, fuzzy, c-format
+msgid "Read the sources for more information."
+msgstr "i kugirango Birenzeho Ibisobanuro"
+
+#: mensural-ligature.cc:183
+#, fuzzy
+msgid "Mensural_ligature:unexpected case fall-through"
+msgstr "Gihinguranya"
+
+#: mensural-ligature.cc:193
+#, fuzzy
+msgid "Mensural_ligature: (join_left == 0)"
+msgstr "0"
+
+#: mensural-ligature-engraver.cc:248 mensural-ligature-engraver.cc:383
+#, fuzzy
+msgid "unexpected case fall-through"
+msgstr "Gihinguranya"
+
+#: mensural-ligature-engraver.cc:259
+#, fuzzy
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "Na: Birutwa 2. Gusimbuka:%s"
+
+#: mensural-ligature-engraver.cc:279
+#, fuzzy
+msgid "can not determine pitch of ligature primitive -> skipping"
+msgstr "OYA Bya Gusimbuka:%s"
+
+#: mensural-ligature-engraver.cc:302
+#, fuzzy
+msgid "prime interval within ligature -> skipping"
+msgstr "Intera muri Gusimbuka:%s"
+
+#: mensural-ligature-engraver.cc:312
+#, fuzzy
+msgid "mensural ligature: duration none of L, B, S -> skipping"
+msgstr "Igihe- ngombwa Ntacyo Bya Gusimbuka:%s"
+
+#: midi-item.cc:153
+#, fuzzy, c-format
+msgid "no such MIDI instrument: `%s'"
+msgstr "Oya"
+
+#: midi-item.cc:257
+msgid "silly pitch"
+msgstr ""
+
+#: midi-item.cc:273
+#, fuzzy, c-format
+msgid "Experimental: temporarily fine tuning (of %d cents) a channel."
+msgstr "Bya a"
+
+#: midi-stream.cc:40
+#, fuzzy, c-format
+msgid "could not write file: `%s'"
+msgstr "OYA Kwandika IDOSIYE"
+
+#: my-lily-lexer.cc:185
+#, fuzzy, c-format
+msgid "Identifier name is a keyword: `%s'"
+msgstr "Izina: ni a Ijambo- banze"
+
+#: my-lily-lexer.cc:207
+#, fuzzy, c-format
+msgid "error at EOF: %s"
+msgstr "Ikosa ku"
+
+#: my-lily-parser.cc:45
+msgid "Parsing..."
+msgstr ""
+
+#: my-lily-parser.cc:57
+#, fuzzy
+msgid "Braces don't match"
+msgstr "BIHUYE"
+
+#.
+#. music for the softenon children?
+#.
+#: new-fingering-engraver.cc:155
+#, fuzzy
+msgid "music for the martians."
+msgstr "kugirango i"
+
+#: new-fingering-engraver.cc:235
+#, fuzzy
+msgid "Fingerings are also not down?! Putting them down anyway."
+msgstr "OYA Hasi Hasi"
+
+#: new-lyric-combine-music-iterator.cc:172
+#, fuzzy, c-format
+msgid "cannot find Voice: %s"
+msgstr "Gushaka"
+
+#: note-collision.cc:384
+#, fuzzy
+msgid "Too many clashing notecolumns.  Ignoring them."
+msgstr "Kwirengagiza"
+
+#: note-head.cc:139
+#, fuzzy, c-format
+msgid "note head `%s' not found"
+msgstr "Impugukirwa OYA Byabonetse"
+
+#: paper-def.cc:73
+#, fuzzy, c-format
+msgid "paper output to `%s'..."
+msgstr "urupapuro Ibisohoka Kuri"
+
+#: paper-score.cc:72
+#, fuzzy, c-format
+msgid "Element count %d (spanners %d) "
+msgstr "IBARA"
+
+#: paper-score.cc:76
+#, fuzzy
+msgid "Preprocessing graphical objects..."
+msgstr "Ibintu"
+
+#: parse-scm.cc:81
+#, fuzzy
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr "Ikosa kugirango i imvugo Itangiriro"
+
+#: percent-repeat-engraver.cc:110
+#, fuzzy
+msgid "Don't know how to handle a percent repeat of this length."
+msgstr "Kuri a Ku ijana Gusubiramo Bya iyi Uburebure"
+
+#: percent-repeat-engraver.cc:164
+#, fuzzy
+msgid "unterminated percent repeat"
+msgstr "Ku ijana Gusubiramo"
+
+#: percent-repeat-iterator.cc:53
+#, fuzzy
+msgid "no one to print a percent"
+msgstr "Oya Kuri Gucapa a Ku ijana"
+
+#: performance.cc:51
+msgid "Track ... "
+msgstr ""
+
+#: performance.cc:94
+msgid "Creator: "
+msgstr ""
+
+# 345
+#: performance.cc:114
+#, fuzzy
+msgid "at "
+msgstr "ku"
+
+#: performance.cc:172
+#, fuzzy, c-format
+msgid "MIDI output to `%s'..."
+msgstr "Ibisohoka Kuri"
+
+#: phrasing-slur-engraver.cc:105
+msgid "unterminated phrasing slur"
+msgstr ""
+
+#: phrasing-slur-engraver.cc:123
+#, fuzzy
+msgid "can't find start of phrasing slur"
+msgstr "Gushaka Gutangira Bya"
+
+#: piano-pedal-engraver.cc:238
+#, fuzzy
+msgid "Need 3 strings for piano pedals. No pedal made. "
+msgstr "3. Ikurikiranyanyuguti kugirango"
+
+#: piano-pedal-engraver.cc:253 piano-pedal-engraver.cc:268
+#: piano-pedal-performer.cc:82
+#, fuzzy, c-format
+msgid "can't find start of piano pedal: `%s'"
+msgstr "Gushaka Gutangira Bya"
+
+#: piano-pedal-engraver.cc:321
+#, fuzzy, c-format
+msgid "can't find start of piano pedal bracket: `%s'"
+msgstr "Gushaka Gutangira Bya"
+
+#: property-iterator.cc:94
+#, fuzzy, c-format
+msgid "Not a grob name, `%s'."
+msgstr "a Izina:"
+
+#: quote-iterator.cc:181
+#, fuzzy, c-format
+msgid "In quotation: junking event %s"
+msgstr "Gusubiramo ibyavuzwe Icyabaye"
+
+#: relative-octave-check.cc:25
+#, fuzzy
+msgid "Failed octave check, got: "
+msgstr "Kugenzura..."
+
+#: rest.cc:137
+#, fuzzy, c-format
+msgid "rest `%s' not found"
+msgstr "OYA Byabonetse"
+
+#: rest-collision.cc:145
+#, fuzzy
+msgid "rest direction not set.  Cannot resolve collision."
+msgstr "Icyerekezo OYA Gushyiraho"
+
+#: rest-collision.cc:193
+msgid "too many colliding rests"
+msgstr ""
+
+#: scm-option.cc:52
+#, fuzzy, c-format
+msgid "lilypond -e EXPR means:"
+msgstr "E"
+
+#: scm-option.cc:54
+#, fuzzy, c-format
+msgid "  Evalute the Scheme EXPR before parsing any .ly files."
+msgstr "i Mbere Idosiye"
+
+#: scm-option.cc:56
+#, fuzzy, c-format
+msgid "  Multiple -e options may be given, they will be evaluated sequentially."
+msgstr "E Amahitamo Gicurasi"
+
+#: scm-option.cc:58
+#, fuzzy, c-format
+msgid "  The function ly-set-option allows for access to some internal variables."
+msgstr "Umumaro Gushyiraho Ihitamo kugirango Kuri By'imbere Ibihinduka"
+
+#: scm-option.cc:60
+#, fuzzy, c-format
+msgid "Usage: lilypond-bin -e \"(ly-set-option SYMBOL VAL)\""
+msgstr "E Gushyiraho Ihitamo"
+
+#: scm-option.cc:62
+#, fuzzy, c-format
+msgid "Where SYMBOL VAL pair is any of:"
+msgstr "ni Bya"
+
+#: scm-option.cc:143 scm-option.cc:176
+#, fuzzy
+msgid "Unknown internal option!"
+msgstr "By'imbere Ihitamo"
+
+#: score.cc:125
+msgid "Interpreting music... "
+msgstr ""
+
+#: score.cc:135
+#, fuzzy
+msgid "Need music in a score"
+msgstr "in a"
+
+#: score.cc:145
+#, fuzzy, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "Igihe amasogonda"
+
+#: score-engraver.cc:103
+#, fuzzy, c-format
+msgid "can't find `%s'"
+msgstr "Gushaka"
+
+#: score-engraver.cc:104
+#, fuzzy
+msgid "Fonts have not been installed properly.  Aborting"
+msgstr "OYA"
+
+#: score-engraver.cc:189
+#, c-format
+msgid "unbound spanner `%s'"
+msgstr ""
+
+#: script-engraver.cc:96
+#, fuzzy
+msgid "Don't know how to interpret articulation:"
+msgstr "Kuri"
+
+#: script-engraver.cc:97
+#, fuzzy
+msgid "Scheme encoding: "
+msgstr "Imisobekere:"
+
+#. this shouldn't happen, but let's continue anyway.
+#: separation-item.cc:53 separation-item.cc:97
+msgid "Separation_item:  I've been drinking too much"
+msgstr ""
+
+#: simple-spacer.cc:248
+#, fuzzy, c-format
+msgid "No spring between column %d and next one"
+msgstr "Rasoro hagati Inkingi Na Komeza>>"
+
+#: slur-engraver.cc:121
+msgid "unterminated slur"
+msgstr ""
+
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#: slur-engraver.cc:139
+#, fuzzy
+msgid "can't find start of slur"
+msgstr "Gushaka Gutangira Bya"
+
+#: source-file.cc:68
+#, fuzzy, c-format
+msgid "Huh?  Got %d, expected %d characters"
+msgstr "Ikitezwe: Inyuguti"
+
+#: spacing-spanner.cc:385
+#, fuzzy, c-format
+msgid "Global shortest duration is %s"
+msgstr "Igihe- ngombwa ni"
+
+#: spring-smob.cc:32
+#, fuzzy, c-format
+msgid "#<spring smob d= %f>"
+msgstr "#<Rasoro D"
+
+#: stem.cc:119
+#, fuzzy
+msgid "Weird stem size; check for narrow beams"
+msgstr "Ingano Kugenzura... kugirango"
+
+#: stem.cc:648
+#, fuzzy, c-format
+msgid "flag `%s' not found"
+msgstr "Ibendera OYA Byabonetse"
+
+#: stem.cc:661
+#, fuzzy, c-format
+msgid "flag stroke `%s' not found"
+msgstr "Ibendera Akarongo OYA Byabonetse"
+
+#: stem-engraver.cc:97
+#, fuzzy
+msgid "tremolo duration is too long"
+msgstr "Igihe- ngombwa ni"
+
+#: stem-engraver.cc:128
+#, fuzzy, c-format
+msgid "Adding note head to incompatible stem (type = %d)"
+msgstr "Impugukirwa Kuri Ubwoko"
+
+#: stem-engraver.cc:129
+msgid "Don't you want polyphonic voices instead?"
+msgstr ""
+
+#: system.cc:181
+#, fuzzy, c-format
+msgid "Element count %d."
+msgstr "IBARA"
+
+#: system.cc:335
+#, fuzzy, c-format
+msgid "Grob count %d"
+msgstr "IBARA"
+
+#: system.cc:349
+#, fuzzy
+msgid "Calculating line breaks..."
+msgstr "Umurongo Amataruka"
+
+#: text-spanner-engraver.cc:65
+#, fuzzy
+msgid "can't find start of text spanner"
+msgstr "Gushaka Gutangira Bya Umwandiko"
+
+#: text-spanner-engraver.cc:79
+#, fuzzy
+msgid "already have a text spanner"
+msgstr "a Umwandiko"
+
+#: text-spanner-engraver.cc:143
+#, fuzzy
+msgid "unterminated text spanner"
+msgstr "Umwandiko"
+
+#: tfm.cc:83
+#, fuzzy, c-format
+msgid "can't find ascii character: %d"
+msgstr "Gushaka ASCII Inyuguti"
+
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#: tfm-reader.cc:108
+#, fuzzy, c-format
+msgid "TFM header of `%s' has only %u word (s)"
+msgstr "Umutwempangano Bya ijambo S"
+
+#: tfm-reader.cc:142
+#, fuzzy, c-format
+msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
+msgstr "%s:IDOSIYE Ibigenga ni Birenzeho i"
+
+#: tie-engraver.cc:164
+msgid "lonely tie"
+msgstr ""
+
+#: time-scaled-music-iterator.cc:24
+#, fuzzy
+msgid "no one to print a tuplet start bracket"
+msgstr "Oya Kuri Gucapa a Gutangira"
+
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:95
+#, fuzzy, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr "Igihe Isinya IKIMENYETSO OYA Byabonetse Kuri Iriho Imibare IMISUSIRE"
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:57
+#, fuzzy, c-format
+msgid "Found strange time signature %d/%d."
+msgstr "Igihe Isinya"
+
+#: translator-ctors.cc:53
+#, fuzzy, c-format
+msgid "unknown translator: `%s'"
+msgstr "Kitazwi Umusemuzi"
+
+#: translator-group.cc:108
+#, fuzzy, c-format
+msgid "can't find: `%s'"
+msgstr "Gushaka"
+
+#: tuplet-bracket.cc:448
+#, fuzzy
+msgid "Killing tuplet bracket across linebreak."
+msgstr "Kwambukiranya"
+
+#: vaticana-ligature.cc:92
+#, fuzzy
+msgid "ascending vaticana style flexa"
+msgstr "Ubujyejuru IMISUSIRE"
+
+#: vaticana-ligature.cc:181
+#, fuzzy
+msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+msgstr "Zeru 0"
+
+#: vaticana-ligature-engraver.cc:342
+#, fuzzy, c-format
+msgid "ignored prefix (es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "Imbanziriza Bya iyi Kuri Amabwiriza Bya i Byahiswemo IMISUSIRE"
+
+#: vaticana-ligature-engraver.cc:572
+#, fuzzy, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
+msgstr "Igenamiterere Isigamwanya Iyongeragaciro"
+
+#: volta-engraver.cc:140
+#, fuzzy
+msgid "No volta spanner to end"
+msgstr "Kuri Impera"
+
+#: volta-engraver.cc:151
+#, fuzzy
+msgid "Already have a volta spanner.  Stopping that one prematurely."
+msgstr "a"
+
+#: volta-engraver.cc:155
+#, fuzzy
+msgid "Also have a stopped spanner.  Giving up."
+msgstr "a Kyahagariswe Hejuru"
+
+#: parser.yy:114
+#, fuzzy
+msgid "Tag must be symbol or list of symbols."
+msgstr "IKIMENYETSO Cyangwa Urutonde Bya Ibimenyetso"
+
+#: parser.yy:513
+#, fuzzy
+msgid "Identifier should have alphabetic characters only"
+msgstr "Inyuguti"
+
+#: parser.yy:776
+msgid "More alternatives than repeats.  Junking excess alternatives."
+msgstr ""
+
+#: parser.yy:857 parser.yy:864
+#, fuzzy
+msgid "\\applycontext takes function argument"
+msgstr "\\aUmumaro"
+
+#: parser.yy:1014
+#, fuzzy
+msgid "\\apply takes function argument"
+msgstr "\\aUmumaro"
+
+#: parser.yy:1377
+#, fuzzy
+msgid "Can't find music"
+msgstr "Gushaka"
+
+#: parser.yy:1495
+#, fuzzy
+msgid "Second argument must be pitch list."
+msgstr "Urutonde"
+
+#: parser.yy:1532 parser.yy:1537 parser.yy:2070
+#, fuzzy
+msgid "Have to be in Lyric mode for lyrics"
+msgstr "Kuri in Ubwoko kugirango"
+
+#: parser.yy:1622
+#, fuzzy
+msgid "Expecting string as script definition"
+msgstr "Ikurikiranyanyuguti Nka IYANDIKA Insobanuro"
+
+#: parser.yy:1829 parser.yy:1884
+#, fuzzy, c-format
+msgid "not a duration: %d"
+msgstr "OYA a Igihe- ngombwa"
+
+#: parser.yy:1980
+#, fuzzy
+msgid "Have to be in Note mode for notes"
+msgstr "Kuri in Ubwoko kugirango Ibisobanuro"
+
+#: parser.yy:2085
+#, fuzzy
+msgid "Have to be in Chord mode for chords"
+msgstr "Kuri in Ubwoko kugirango"
+
+#: parser.yy:2232
+#, fuzzy
+msgid "need integer number arg"
+msgstr "Umubare wuzuye Umubare"
+
+#: parser.yy:2383
+#, fuzzy
+msgid "Suspect duration found following this beam"
+msgstr "Igihe- ngombwa Byabonetse iyi"
+
+#: lexer.ll:184
+#, fuzzy, c-format
+msgid "input renamed to: `%s'"
+msgstr "Iyinjiza Kuri"
+
+#: lexer.ll:210
+#, fuzzy
+msgid "EOF found inside a comment"
+msgstr "Byabonetse Mo Imbere a Icyo wongeraho"
+
+#: lexer.ll:225
+#, fuzzy
+msgid "\\maininput not allowed outside init files"
+msgstr "\\mOYA Hanze Idosiye"
+
+#: lexer.ll:249
+#, fuzzy, c-format
+msgid "wrong or undefined identifier: `%s'"
+msgstr "Cyangwa kidasobanuye Ikiranga"
+
+#. backup rule
+#: lexer.ll:258
+#, fuzzy
+msgid "Missing end quote"
+msgstr "Impera Gushyiraho akugarizo"
+
+#: lexer.ll:400
+#, fuzzy
+msgid "Brace found at end of lyric.  Did you forget a space?"
+msgstr "Byabonetse ku Impera Bya a Umwanya"
+
+#: lexer.ll:501
+#, fuzzy
+msgid "Brace found at end of markup.  Did you forget a space?"
+msgstr "Byabonetse ku Impera Bya a Umwanya"
+
+#: lexer.ll:584
+#, fuzzy, c-format
+msgid "invalid character: `%c'"
+msgstr "Sibyo Inyuguti"
+
+#: lexer.ll:656 lexer.ll:657
+#, fuzzy, c-format
+msgid "unknown escaped string: `\\%s'"
+msgstr "Kitazwi Ikurikiranyanyuguti"
+
+#: lexer.ll:754 lexer.ll:755
+#, fuzzy, c-format
+msgid "Incorrect lilypond version: %s (%s, %s)"
+msgstr "Verisiyo"
+
+#: lexer.ll:755 lexer.ll:756
+#, fuzzy
+msgid "Consider updating the input with the convert-ly script"
+msgstr "Ivugurura i Iyinjiza Na: i GUHINDURA IYANDIKA"

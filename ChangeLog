@@ -1,5 +1,7 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* po/rw.po (Module): new file, for Kinyarwanda.
+
 	* input/test/spacing-optical.ly (Module): new file.
 
 	* lily/staff-spacing.cc: add same-direction-correction
