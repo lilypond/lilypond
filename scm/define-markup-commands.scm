@@ -451,7 +451,7 @@ and/or @code{extra-offset} properties. "
          (stem-length (* (magstep size) (max 3 (- log 1))))
          (head-glyph (ly:find-glyph-by-name
                   font
-                  (string-append "noteheads-" (number->string (min log 2)))))
+                  (string-append "noteheads-s" (number->string (min log 2)))))
          (stem-thickness 0.13)
          (stemy (* dir stem-length))
          (attachx (if (> dir 0)

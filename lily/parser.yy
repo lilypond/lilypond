@@ -1102,7 +1102,8 @@ Generic_prefix_music:
 
 		SCM m = SCM_EOL;
   		if (ok)
-			m = scm_apply_0 (func, scm_cdr ($1));
+			m = scm_apply_0 (func, scm_cons (THIS->self_scm(),
+							 scm_cdr ($1)));
 
 		if (unsmob_music (m))
 			{

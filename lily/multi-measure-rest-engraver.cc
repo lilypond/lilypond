@@ -152,7 +152,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 
   if (last_command_item_ &&  (mmrest_ || last_rest_))
     {
-          
       if (last_rest_)
 	{
 	  add_bound_item (last_rest_, last_command_item_);
@@ -170,10 +169,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	}
     }
   
-  
-  
   Moment mp(robust_scm2moment (get_property ("measurePosition"),  Moment (0)));
-
   if (last_rest_)
     {
       last_rest_ = 0;

@@ -191,7 +191,7 @@
   (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
 		 "%%Creator: creator time-stamp\n"
 		 "%%BoundingBox: "
-		 (string-join (map number->string bbox) " ") "\n"
+		 (string-join (map ly:number->string bbox) " ") "\n"
 		 "%%Orientation: "
 		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
@@ -252,7 +252,15 @@
 			  (map ly:paper-system-stencil
 			       (append titles (list non-title)))))
 	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y)))
+	 (yext (ly:stencil-extent dump-me Y))
+	 (bbox
+	  (map
+	   (lambda (x)
+	     (if (or (nan? x) (inf? x))
+		 0.0 x))
+	   (list (car xext) (car yext)
+		 (cdr xext) (cdr yext)))	       
+	 ))
     
   (for-each
    (lambda (x)
@@ -263,8 +271,7 @@
 		 (lambda (x)
 		   (inexact->exact
 		    (round (* x scale mm-to-bigpoint))))
-		 (list (car xext) (car yext)
-		       (cdr xext) (cdr yext))))
+		 bbox))
     (preamble paper)))
 
 

@@ -1,3 +1,11 @@
+2004-11-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (note-by-number): add "s" to
+	"noteheads-" glyphname.
+ 
+	* lily/parser.yy (Generic_prefix_music): supply parser argument to
+	music function as well.
+	
 2004-11-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Creating titles):
