@@ -143,7 +143,7 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
 
 // put the constraints into the LP problem
 void
-Spacing_problem::make_constraints(Optimisation_problem& lp) const
+Spacing_problem::make_constraints(Mixed_qp& lp) const
 {    
     int dim=cols.sz();
     for (int j=0; j < dim; j++) {
@@ -172,7 +172,7 @@ Spacing_problem::solve() const
 
     
     /* optimalisatiefunctie */        
-    Optimisation_problem lp(cols.sz());
+    Mixed_qp lp(cols.sz());
     make_matrices(lp.quad,lp.lin, lp.const_term);
     make_constraints(lp);    
     Vector start=find_initial_solution();    
@@ -196,6 +196,7 @@ Spacing_problem::add_column(const PCol *col, bool fixed, Real fixpos)
     Colinfo c;
     c.fixed=fixed;
     c.fixpos=fixpos;
+    assert(col);
     c.col=col;
     cols.add(c);
 }
@@ -219,15 +220,14 @@ Spacing_problem::print_ideal(const Idealspacing*id)const
     int l = col_id(id->left);
     int r = col_id(id->right);
 
-    mtor << "idealspacing { between " << l <<","<<r<<'\n';
-    mtor << "distance "<<id->space<< " strength " << id->hooke << "}\n";
+    mtor << "between " << l <<","<<r<<":" ;
 #endif
 }
 
 void
 Spacing_problem::print() const
 {
-    #ifndef NPRINT
+#ifndef NPRINT
     for (int i=0; i < cols.sz(); i++) {
 	mtor << "col " << i<<' ';
 	cols[i].print();
@@ -235,7 +235,7 @@ Spacing_problem::print() const
     for (int i=0; i < ideals.sz(); i++) {
 	print_ideal(ideals[i]);
     }
-    #endif
+#endif
     
 }
 
@@ -246,9 +246,14 @@ Colinfo::print() const
     mtor << "column { ";
     if (fixed)
 	mtor << "fixed at " << fixpos<<", ";
+    assert(col);
     mtor << "[" << minleft() << ", " << minright() << "]";
     mtor <<"}\n";
 #endif
 }
 
-
+Colinfo::Colinfo()
+{
+    fixed=false;
+    col=0;
+}

@@ -1,5 +1,6 @@
 // utility functions for PScore
 #include "debug.hh"
+#include "dimen.hh"
 #include "line.hh"
 #include "pscore.hh"
 #include "tstream.hh"
@@ -60,7 +61,7 @@ PScore::get_spacing(PCol*l, PCol*r)
     
     Idealspacing*ip =new Idealspacing(l,r);
     suz.bottom().add(ip);
-    //    l->used = r->used = true;
+
     return ip;
 }
 
@@ -80,19 +81,17 @@ PScore::add(PCol *p)
 {
     cols.bottom().add(p);
 }
-/*
-    todo: config of width
-    */
+
 PScore::PScore()
 {
-    linewidth = 15;		// in cm for now
+    linewidth = convert_dimen(15,"cm");
 }
 
 void
 PScore::output(Tex_stream &ts)
 {
     int l=1;
-    ts << "% linewidth " << linewidth * HOR_TO_PT << " pt\n";
+    ts << "% linewidth " << print_dimen(linewidth )+"\n";
     for (PCursor<Line_of_score*> lic(lines); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();
@@ -100,3 +99,42 @@ PScore::output(Tex_stream &ts)
 	    ts << "\\interscoreline\n";
     }	
 }
+
+svec<Item*>
+PScore::select_items(PStaff*ps , PCol*pc)
+{
+    svec<Item*> ret;
+    assert(ps && pc);
+    for (PCursor<const Item*> ic(pc->its); ic.ok(); ic++){
+	if (ic->pstaff_ == ps)
+	    ret.add((Item*)(const Item*)ic);
+    }
+    return ret;
+}
+
+void
+PScore::OK()const
+{
+    for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
+	cc->OK();
+    for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
+	ic->OK();
+    
+}
+void
+PScore::print() const
+{
+    
+     #ifndef NPRINT
+   mtor << "PScore { width "<<print_dimen(linewidth);
+    mtor << "\ncolumns: ";
+    for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
+	cc->print();
+    
+    mtor << "\nideals: ";
+    for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
+	ic->print();
+    mtor << "}\n";
+   #endif 
+}
+
