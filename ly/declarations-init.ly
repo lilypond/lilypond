@@ -34,6 +34,16 @@ melismaEnd = \property Staff.melismaBusy = ##f
 % ugh
 \include "midi-init.ly"
 
+
+% Do units first; must be done before any units are specified.
+\paper {
+	unit = "mm"
+	mm = 1.0
+	in = 25.4
+	pt = #(/  in 72.27)
+	cm = #(* 10 mm)
+}
+
 papersize = "a4"
 paperfile = \papersize + "-init.ly"
 
