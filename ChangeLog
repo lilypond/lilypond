@@ -1,5 +1,10 @@
 2003-04-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/aclocal.m4: Include compile fix for broken flex, as
+	used in includable-lexer.hh.
+
+	* lily/includable-lexer.cc: Bugfix: include config.h.
+
 	* stepmake/aclocal.m4: Check for $GUILE_CONFIG; allows
 	 circumvention of Debian packaging bug.
 

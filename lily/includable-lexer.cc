@@ -7,10 +7,10 @@
 */
 
 #include <sstream>
+#include "config.h"
 
-
-#include "file-path.hh"
 #include "includable-lexer.hh"
+#include "file-path.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "warn.hh"
