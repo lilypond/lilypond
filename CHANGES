@@ -1,3 +1,22 @@
+1.3.43.hwn1
+===========
+
+* Put global element list into Line_of_score, instead of
+Paper_score. post processing (the stage after line breaking) is now
+truly done per-system, and we got rid of an ugly hack to get font
+handling OK.
+
+* Bugfix: set the group-interface of System_start_delimiter.
+
+* Cleanups of Break_algorithm and derived classes, Move
+broken_col_range () to Line_of_score, remove Paper_score::col_l_arr_
+
+* Bugfix for accordion symbols.
+
+* Various patches to prevent crashing when do_brew_molecule gets
+called before after_line_breaking (). This was a problem in Spanner
+classes mostly.
+
 1.3.43
 ======
 
