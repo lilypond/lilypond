@@ -876,8 +876,7 @@ class Properties:
 def getLilyopts():
     inc = ''	
     if len(Props.get('include')) > 0: 
-#        inc = '-I ' + string.join(Props.get('include'),os.pathsep)
-        inc = '-I ' + string.join(Props.get('include'), ' -I ')
+        inc = string.join (map (lambda x: '-I "%s"' % x, Props.get('include')))
     else:
 
         if Props.get('dependencies'):
@@ -1018,13 +1017,24 @@ def main():
             infile.close()
             if type == 'source':
                 cmd = 'lilypond %s %s 2>&1' % (getLilyopts(), file)
-                fd = os.popen( cmd , 'r' )
+		sys.stderr.write ('executing: %s\n'% cmd)
+		
+                fd = os.popen(cmd , 'r')
                 log = ''
-                line=fd.readline()
-                while line:
-                    log = log + line
-                    sys.stderr.write( line )
-                    line=fd.readline()
+		
+		s = fd.readline()
+		while len(s) > 0:
+			sys.stderr.write (s)
+			sys.stderr.flush ()
+			log = log + s
+			s = fd.readline ()
+		if 0:
+			s = fd.read (1)
+			while len(s) > 0:
+				sys.stderr.write (s)
+				sys.stderr.flush ()
+				s = fd.read (1)			
+			log = log + s
                 stat = fd.close()
                 if stat:
                     sys.exit('ExitBadLily', cmd )
