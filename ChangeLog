@@ -10,7 +10,6 @@
 	* lily/regular-spacing-engraver.cc: Add regular-distance-to.
 
 	* input/test/orchestscore.ly:  
-
 	* input/test/part-combine-moments.ly:
 	* input/test/part-combine-staff.ly: markScriptPadding ->
 	RehearsalMark #'padding.

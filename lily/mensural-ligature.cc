@@ -253,6 +253,7 @@ Mensural_ligature::brew_molecule (SCM)
   return SCM_EOL;
 }
 
-ADD_INTERFACE(Mensural_ligature, "mensural-ligature-interface",
-	      "A mensural ligature",
-	      "thickness flexa-width ligature-primitive-callback");
+ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
+	       "A mensural ligature",
+	       "delta-pitch flexa-width head-width join-left "
+	       "ligature-primitive-callback primitive thickness");
