@@ -201,8 +201,8 @@ a\> a a\!
 @tab upstep
 @tab
 @lilypond[fragment,relative=2]
-  \partial 8
-  f8 c2 d e
+\partial 8
+f8 c2 d e
 @end lilypond
 
 
@@ -210,7 +210,7 @@ a\> a a\!
 @tab triplets
 @tab
 @lilypond[relative=1,fragment]
-  \times 2/3 { f8 g a }
+\times 2/3 { f8 g a }
 @end lilypond
 
 
@@ -218,7 +218,7 @@ a\> a a\!
 @tab grace notes
 @tab
 @lilypond[relative=2,fragment]
-\context Voice {  \grace b16 c4 }
+\context Voice { \grace b16 c4 }
 @end lilypond
 
 @item @code{\lyrics @{ twinkle @}}
@@ -231,30 +231,31 @@ a\> a a\!
 @tab
 twinkle
 @lilypond[fragment]
-\lyrics \new Lyrics { twinkle }
+\new Lyrics \lyrics { twinkle }
 @end lilypond
 
 @item @code{twin -- kle}
 @tab lyric hyphen 
 @tab
 @lilypond[fragment,relative=2]
- << \notes { g'4 g }
-    \lyricsto "" \new Lyrics \lyrics {  twin -- kle }
-    >> 
+<<
+  \notes { g'4 g }
+  \lyricsto "" \new Lyrics \lyrics { twin -- kle }
+>> 
 @end lilypond
 
 @item @code{\chords @{ c:dim f:maj7 @}}
 @tab chords 
 @tab
 @lilypond[fragment,relative=2]
-  \chords { c:dim f:maj7 }
+\chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{\context ChordNames}
 @tab printing chord names 
 @tab
 @lilypond[fragment,relative=2]
-  \context ChordNames \chords { c:dim f:maj7 }
+\context ChordNames \chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\@{c d@}>>}
