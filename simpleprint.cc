@@ -9,12 +9,10 @@
 Molecule *
 Simple_column::create_req_mol(Request *rq)
 {
+    assert(rq->rest());
     Symbol s;
     int dots=0;
-
-    if (rq->note())
-	s = staff_->paper()->lookup_->ball(rq->note()->balltype);
-    else if (rq->rest())
+    if (rq->rest())
 	s = staff_->paper()->lookup_->rest(rq->rest()->balltype);
 
     if (rq->rhythmic())
@@ -30,6 +28,7 @@ Simple_column::create_req_mol(Request *rq)
     }
     return m;
 }
+
 Molecule *
 Simple_column::create_command_mol(Command *com)
 {
