@@ -1,3 +1,20 @@
+2004-02-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/music-functions.scm (determine-split-list): further analysis.
+
+	* lily/script-engraver.cc (try_music): discard duplicate
+	articulations.
+
+	* input/regression/new-part-combine-solo.ly: new file
+
+	* input/regression/new-part-combine-a2.ly: new file.
+
+	* ly/performer-init.ly: add Devnull
+
+	* scripts/convert-ly.py (FatalConversionError.sub_acc): add rule
+	for \musicglyph #"accidental-*"
+	(conv): \newpartcombine rule.
+
 2004-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py: Handle @lilypondfile, bugfixes.
@@ -8,6 +25,8 @@
 	textwidth, --output.
 
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/new-markup.scm (doubleflat): add accidental markups.
 
 	* VERSION: release 2.1.17
 	

@@ -43,9 +43,20 @@ Script_engraver::try_music (Music *r)
 {
   if (r->is_mus_type ("articulation-event"))
     {
+      /*
+	Discard double articulations.
+	This is necessary for part-combining.
+       */
+      for (int j = 0; j < scripts_.size (); j++)
+	if (gh_equal_p (scripts_[j]. event_->get_mus_property ("articulation-type"),
+			r->get_mus_property ("articulation-type")
+			))
+	  return true;
+	  
       Script_tuple t;
       t.event_ =r;
       scripts_.push (t);
+      
       return true;
     }
   return false;

@@ -825,17 +825,11 @@ Rest can contain a list of beat groupings
 
 
 ;;
-;; due to a bug in the GUILE evaluator,
-;; stack traces result in core dumps.
-;; therefore we retain debugging code.
-;;
-
-;;
-;; todo: this is too hairy.
+;; todo: this function is rather too hairy and too long.
 ;;
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
-  
+  (define pc-debug #f)
   (define ev1 (list->vector evl1))
   (define ev2 (list->vector evl2))
   (define (when v i)
@@ -1020,40 +1014,70 @@ Rest can contain a list of beat groupings
 
 ;; 
    (define (analyse-solo12 i1 i2 ri)
+     (define (put x)
+       (set-cdr! (vector-ref result ri) x) )
      (cond
       ((= ri (vector-length result)) '())
       ((= i1 (vector-length ev1)) '())
       ((= i2 (vector-length ev2)) '())
       (else
        (let*
-	  (
+	  ((now (when result ri))
 	   (m1 (when ev1 i1))
 	   (m2 (when ev2 i2))
-	   (notes1 (get-note-evs ev1 i1))
+	   (notes1 (get-note-evs ev1
+				 (if (ly:moment<?  now m1)
+				     (1- i1) i1)))
+	   
 	   (durs1 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes1) ly:duration<?))
 	   (pitches1 (sort
 		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
-	   (notes2 (get-note-evs ev2 i2))
+
+	   (notes2 (get-note-evs ev2
+				 (if (ly:moment<? now m2)
+				     (1- i2) i2)))
+	   (n2 (length notes2))
+	   (n1 (length notes1))
 	   (durs2 (sort (map (lambda (x) (ly:get-mus-property x 'duration)) notes2) ly:duration<?))
 	   (pitches2 (sort
 		      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
 	   )
 
+	(if pc-debug (display (list
+			 "\n"
+			 (when result ri) i1 "/" (vector-length ev1)
+			      m1 ":" notes1
+			      i2 "/" (vector-length ev2) m2 ":"
+			      notes2
+			      ri "/" (vector-length result)  " = "
+			      (what  result ri)
+			      "\n"
+			      )))
+    
+
+	
 	 (if (equal? (what result ri) 'apart)
 	     (cond
-	      ((and (= 0 (length notes1))
-		   (< 0 (length notes2)))
-	       (set-cdr! (vector-ref result ri) 'solo2))
-	      ((and (< 0 (length notes1))
-		    (= 0 (length notes2)))
-	       (set-cdr! (vector-ref result ri) 'solo1))
+	      ((and (= 0 n1)
+		    (< 0 n2)
+		    (equal? now m2)
+		    )
+	       (put 'solo2))
+	      ((and (< 0 n1)
+		    (= 0 n2)
+		    (equal? now m1)
+		    )
+	       (put 'solo1))
+	      ((and (= 0 n1)
+		    (= 0 n2))
+	       (put 'apart-silence))
 	      ))
 
 	 (if (and
 	      (equal? (what result ri) 'chords)
-	      (pair? pitches1)
 	      (equal? pitches1 pitches2))
-	     (set-cdr! (vector-ref result ri) 'unisono) )
+	     (put (if (pair? pitches2)
+		      'unisono 'unisilence) ))
 	 
 	 (cond
 	  ((ly:moment<? m1 m2)
@@ -1066,5 +1090,6 @@ Rest can contain a list of beat groupings
 
    (analyse-time-step 0 0  0 '() '())
    (analyse-solo12 0 0 0)
-;   (display result)
+   (if pc-debug (display result))
+   
    (vector->list result))

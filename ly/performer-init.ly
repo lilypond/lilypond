@@ -57,6 +57,11 @@
 
 \translator {
         \type "Performer_group_performer"
+	\name "Devnull"
+	\consists "Swallow_performer"
+}
+\translator {
+        \type "Performer_group_performer"
 	\name "TabStaff"
 	\accepts "TabVoice"
 }
