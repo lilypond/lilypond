@@ -1,3 +1,7 @@
+2004-01-04  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* mf/feta-bolletjes.mf (overdone_heads): fix stem attachments.
+
 2004-01-03  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (brew_molecule): rewrite debug output: split up scores.
