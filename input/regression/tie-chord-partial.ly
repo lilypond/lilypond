@@ -21,11 +21,9 @@ to a different thread."
 \translator {
   \ThreadContext
   \consists "Tie_engraver"
-  \consists "New_tie_engraver"
 }
 \translator { \VoiceContext
   \remove "Tie_engraver"
-  \remove "New_tie_engraver"
 }
 }}
 

@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 % TODO: This file could be old.  Ask about it later.  -gp
 

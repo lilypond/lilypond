@@ -79,7 +79,7 @@ You need the following packages to compile LilyPond:
 @item
  @uref{http://gcc.gnu.org/,
 The GNU c++ compiler} (version 3.1 or newer).
-EGCS 1.1 may work, but is no longer supported.
+EGCS and 2.x are known to cause crashes.
 
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 
@@ -357,6 +357,8 @@ set include paths for kpathsea.
 @item The flex precompiled in NetBSD-1.4.2 is broken.
 Upgrade to flex-2.5.4a.
 
+@ignore
+@c is this current?
 @item The configuration of Gcc (egcs-2.91.60 19981201 (egcs-1.1.1
 release)) does not include @file{/usr/pkg} paths.  Configure it using:
 @example
@@ -364,6 +366,7 @@ release)) does not include @file{/usr/pkg} paths.  Configure it using:
 	CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
 
 @end example
+@end ignore
 
 @end itemize
 

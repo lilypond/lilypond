@@ -18,7 +18,7 @@
   */
 struct Audio_element_info {
   Audio_element * elem_;
-  Music *req_;
+  Music *event_;
   Translator *  origin_trans_;
   Link_array<Translator> origin_transes (Translator*) const;  
 

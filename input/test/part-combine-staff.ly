@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header { texidoc = "@cindex Part Combine Staff
 You can combine parts on two staffs, as well as two voices. "

@@ -19,6 +19,7 @@ VoiceContext = \translator {
 	\name Voice
 	\consists "Dynamic_performer"
 	\consists "Span_dynamic_performer"
+	\consists "Tie_performer"
 	\consists "Piano_pedal_performer"
 	\accepts "Thread"
 }
@@ -27,7 +28,6 @@ ThreadContext = \translator {
 	\type "Performer_group_performer"
 	\name Thread
 	\consists "Note_performer"
-	\consists "Tie_performer"
 }
 
 FiguredBassContext = \translator {

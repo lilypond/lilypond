@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header{ texidoc="@cindex Phrasing Slur Height
 Make PhrasingSlur higher, to avoid colission from other slurs. "

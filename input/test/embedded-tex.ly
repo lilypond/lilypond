@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header{ texidoc="@cindex Embedded Tex
 You can embed Tex commands in your score. "}

@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
