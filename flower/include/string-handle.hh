@@ -60,7 +60,7 @@ public:
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE
-#define INLINE.iccine
+#define INLINE inline
 #endif
 #include "string-handle.icc"
 /* we should be resetting INLINE. oh well. */
