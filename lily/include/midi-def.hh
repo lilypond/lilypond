@@ -16,6 +16,7 @@
 
 
 /** 
+  definitions for midi output. Rather empty
  */
 struct Midi_def {
     // ugh!
@@ -25,7 +26,6 @@ struct Midi_def {
     /// output file name
     String outfile_str_;
 
-    Assoc<String, Real> *real_vars_p_;
     Input_translator* itrans_p_;
 
     /// duration of whole note
@@ -37,11 +37,9 @@ struct Midi_def {
 
     Real duration_to_seconds_f(Moment);
     Global_translator* get_global_translator_p() const;
-    Real get_var( String s ) const;
     int get_tempo_i( Moment moment );
     void print() const;
     void set( Input_translator* itrans_p );
-    void set_var( String s, Real r );
     void set_tempo( Moment moment, int count_per_minute_i );
 };
 

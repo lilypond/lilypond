@@ -17,18 +17,22 @@
 #include "lily-proto.hh"
 #include "string.hh"
 
-/** In Lily, everything that has a length and a pitch (which can be
-  transposed) is considered "music", 
+/** 
+  Anything which has length or pitch.
+  
+  In Lily, everything that can be thought to have a length and a pitch
+  (which has a duration which can be transposed) is considered "music",
 
   Music is hierarchical: 
 
-  @seealso Music_list
+  @see Music_list
+
   */
 class Music:public Input {
 public:
     Music_list * parent_music_l_;
     
-    /** what kind of iterator needed to walk this music?  This doesn't
+    /** The kind of iterator needed to walk this music.  This doesn't
       make sense for simple (ie non-list) music, but it does no harm
       here. Yes, it did harm Music_list: you can forget to copy it.
       

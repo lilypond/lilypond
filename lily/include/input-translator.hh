@@ -24,7 +24,10 @@ struct Input_translator_list : public Pointer_list<Input_translator*>
     ~Input_translator_list(){}
 };
 
-struct Input_translator : Input { 
+/** Define a intereter for music. This is an runtime interface to the
+ typesystem */
+class Input_translator : public Input { 
+public:
     Input_translator_list contains_itrans_p_list_;
     Array<String> consists_str_arr_;
     Array<String> alias_str_arr_;
