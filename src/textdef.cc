@@ -1,6 +1,6 @@
 #include "debug.hh"
 #include "lookup.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "molecule.hh"
 #include "textdef.hh"
 

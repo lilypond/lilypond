@@ -3,7 +3,7 @@
 #include "dimen.hh"
 #include "spanner.hh"
 #include "symbol.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "molecule.hh"
 #include "pcol.hh"
 #include "pscore.hh"

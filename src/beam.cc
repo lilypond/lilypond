@@ -9,7 +9,7 @@
 #include "leastsquares.hh"
 #include "pcol.hh"
 #include "stem.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "lookup.hh"
 #include "grouping.hh"
 

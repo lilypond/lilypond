@@ -2,7 +2,7 @@
 %
 % a 7 bar fragment
 %
-%	Public Domain -- by HWN
+%	Public Domain -- typed by by HWN
 %
 
 dux = music { $
@@ -31,7 +31,7 @@ comes = music { $
 $}
 
 bassdux = music { $
-	r1 r1 r1 r1 r1 r1
+	r1 r r r r r
 	\octave { }
 	r8 [c16 B] [c8 G] [As c16 B] [c8 d] |
 	[G c16 B] [c8 d] [F16 G] As4 [G16 F] | $
@@ -66,3 +66,4 @@ score {
 		%geometric 1.4
 	}
 }
+

@@ -1,6 +1,6 @@
 #include <math.h>
 #include "misc.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "dimen.hh"
@@ -14,6 +14,9 @@ const Real PHI = (1+sqrt(5))/2;
 Real
 Paperdef::duration_to_dist(Moment d)
 {
+    if (!d)
+	return 0;
+    
     return whole_width * pow(geometric_, log_2(d));
 }
 

@@ -1,9 +1,8 @@
 #include "idealspacing.hh"
 #include "score.hh"
 #include "pscore.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "sccol.hh"
-//#include "debug.hh"
 #include "dimen.hh"
 
 
@@ -31,7 +30,8 @@ Score::calc_idealspacing()
 		
 		while (j->when() < d + i->when())
 		    j++;
-		assert( j->when()== d+i->when());
+		Moment delta_desired = j->when() - (d+i->when());
+		dist += paper_p_->duration_to_dist(delta_desired);
 		
 		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist, strength);
 	    }

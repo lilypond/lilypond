@@ -2,7 +2,7 @@
 #include "notehead.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "request.hh"
@@ -17,7 +17,6 @@ Notehead::Notehead(int ss)
     balltype = 0;
     dots = 0;
     extremal = 0;
-    defined_ch_c_l_m = 0;
 }
 
 void
@@ -25,8 +24,6 @@ Notehead::set_rhythmic(Rhythmic_req*r_req_l)
 {
     balltype = r_req_l->balltype;
     dots = r_req_l->dots;
-    if ( r_req_l->defined_ch_c_l_m )
-	defined_ch_c_l_m = r_req_l->defined_ch_c_l_m;
 }
     
 void

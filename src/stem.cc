@@ -1,7 +1,7 @@
 #include "stem.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "notehead.hh"
 #include "lookup.hh"
 #include "molecule.hh"

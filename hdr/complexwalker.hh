@@ -17,6 +17,10 @@
 #include "register.hh"
 #include "localkeyreg.hh"
 
+
+/**
+  A staff walker which uses registers to what to print
+ */
 struct Complex_walker: Staff_walker {
     Local_key local_key_;
     Key key_;

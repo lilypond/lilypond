@@ -1,0 +1,33 @@
+#!/usr/bin/perl -w
+sub
+	set_hrefs
+{
+    while (<HTMLIN>) {
+	s#href=([A-Za-z.]+)#href=$base/$1#g;
+	print HTMLOUT $_;
+    }
+}
+
+local $base="lilypond/";
+local @examples=("wohltemperirt");
+
+system  'make html';
+
+print "resetting refs.\n";
+
+foreach $a (<*.html>)
+{
+    rename $a, "$a~";
+    open HTMLIN, "$a~";
+    open HTMLOUT, ">$a";
+    set_hrefs;
+}
+
+foreach $a (@examples) {
+    $texfile="test";
+    system "cd ..; lilypond input/$a; tex $texfile; dvips $texfile;";    
+    system "mv ../$texfile.ps $a.ps";
+    system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif"
+}
+
+system "tar cfz website.tgz *.html *.gif *.png *.ps " 

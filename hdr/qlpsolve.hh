@@ -1,3 +1,14 @@
+/*
+  qlpsolve.hh -- declare  Active_constraints, Inactive_iter
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef QLPSOLVE_HH
+#define QLPSOLVE_HH
 #include "qlp.hh"
 #include "matrix.hh"
 
@@ -76,3 +87,5 @@ public:
     Real rhs() const { return ac->rhs(constraint_id()); }
     bool ok() const { return j < ac->inactive.size(); }
 };
+
+#endif // QLPSOLVE_HH

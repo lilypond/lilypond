@@ -9,6 +9,7 @@
 
 #include "spanner.hh"
 
+/// a spanner which can be pointing "up" or "down"
 struct Directional_spanner : Spanner{
     
     /// -1 below heads, +1 above heads.

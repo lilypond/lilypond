@@ -14,7 +14,7 @@
 
 struct Input_staff {
     
-    /// defined where?    
+
     const char * defined_ch_c_l_;
     String type;
     IPointerList<Input_command*> commands_;

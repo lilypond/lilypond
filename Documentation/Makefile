@@ -3,7 +3,7 @@ PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
 TXTS=$(PODS:.pod=.txt)
 MANS=$(PODS:.pod=.1)
 HTMLS=$(PODS:.pod=.html)
-DISTFILES=$(PODS) Makefile lelie_logo.png #lelieblond.gif 
+DISTFILES=$(PODS) Makefile lelie_logo.png make_website #lelieblond.gif 
 
 
 default:
@@ -23,5 +23,8 @@ clean:
 	pod2man --center="LilyPond documentation" --section="0"\
 		--release="LilyPond $(MAJVER).$(MINVER).$(PATCHLEVEL)" $< > $@
 
-html: 
+html: $(pod)
 	pod2html
+
+htmldist: html
+	make_website

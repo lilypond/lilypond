@@ -10,6 +10,8 @@
 #include "proto.hh"
 #include "colhpos.hh"
 
+/** Class representation of an algorithm which decides where to put
+  the column, and where to break lines.  */
 struct Break_algorithm {
     PScore &pscore_;
     Real linelength;

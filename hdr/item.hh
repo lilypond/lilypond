@@ -16,7 +16,6 @@
   spacing calculation. 
   
 */
-
 struct Item : Staff_elem {
     /// indirection to the column it is in
     PCol * pcol_l_;

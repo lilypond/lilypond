@@ -1,7 +1,7 @@
 #include "scalar.hh"
 #include "molecule.hh"
 #include "meter.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "lookup.hh"
 NAME_METHOD(Meter);
 Meter::Meter(Array<Scalar>a)

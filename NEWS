@@ -1,3 +1,11 @@
+pl 31
+
+Examples
+	- Coriolan example (JN)
+	- standchen updated
+Bugfix
+	- calcideal assertion bugfix
+
 pl 30
 
 Features
@@ -13,7 +21,7 @@ Internal
 	- split register source files
 	- hardcoded dimensions compile time
 	- Lookup::tex_hairpin
-Bugs
+Bugfix
 	- non G-clef clefs
 	- script junking (2x)
 	- empty files

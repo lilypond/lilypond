@@ -2,7 +2,7 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "spanner.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "molecule.hh"
 #include "dimen.hh"
 #include "scoreline.hh"

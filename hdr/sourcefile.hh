@@ -1,11 +1,12 @@
 //
-//  sourcefile.hh -- part of LilyPond
+//  sourcefile.hh -- declare Source_file
 //
 //  copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
+/// class for reading and mapping a file. 
 class Source_file
 {
 public:

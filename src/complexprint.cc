@@ -2,7 +2,7 @@
 
 #include "request.hh"
 #include "pscore.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "complexstaff.hh"
 #include "sccol.hh"
 #include "debug.hh"

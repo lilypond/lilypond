@@ -2,7 +2,7 @@
 #include "molecule.hh"
 #include "scalar.hh"
 #include "lookup.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "request.hh"
 #include "notehead.hh"
 

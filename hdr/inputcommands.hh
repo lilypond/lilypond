@@ -7,7 +7,6 @@
 #ifndef INPUTCOMMANDS_HH
 #define INPUTCOMMANDS_HH
 
-//#include "pcursor.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "real.hh"

@@ -3,7 +3,7 @@
 #include "inputscore.hh"
 #include "inputstaff.hh"
 #include "score.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "staff.hh"
 
 void

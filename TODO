@@ -26,6 +26,8 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
+	* read from mmap directly: study yy_scan_buffer
+
 	* binsearch for notenames
 
 	* stafftypes: voice names/ instrument names.
@@ -64,6 +66,8 @@ DOC
 	* beam generation.
 
 	* all errors
+
+	* a decent webpage
 
 FUTURE
 

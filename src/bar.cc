@@ -1,7 +1,7 @@
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "lookup.hh"
 
 NAME_METHOD(Bar);

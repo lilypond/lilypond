@@ -1,5 +1,8 @@
 mwa = music {
 	$
+%	[ a8 a8 a8 a8 a8 ]	% assertion fail
+%	[ a8 a8 a8 ]	% assertion fail
+%	[ a8 ]	% assertion fail
 	a ) b ] c 	% warning
 	&   		% ok; error
 	a b ) ] 	% ok; error

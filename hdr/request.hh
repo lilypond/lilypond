@@ -124,7 +124,7 @@ struct Lyric_req : public Rhythmic_req, Text_req {
     REQUESTMETHODS(Lyric_req, lreq_l);
 };
 
-
+/// request which has some kind of pitch
 struct Melodic_req :virtual  Request
 {
     /// 0 is c
@@ -244,21 +244,15 @@ struct Staff_command_req : Request {
 
 #if 0
 
-///Put a lyric above or below (?) this staff.
-struct Lyric_req : Request {
-    String text;
-};
-
-
 
 ///Draw a (Guitar) chord above or below this ``note''
-struct Chord : Request {
-	// don't know how this looks.
-};
 /**
 Why a request?
 Because everything else is done in requests.
 */
+struct Chord : Request {
+	// don't know how this looks.
+};
 
 
 /// for absolute dynamics
@@ -268,13 +262,13 @@ enum Loudness {
 
 
 ///Start / stop a slur or a bracket.
-struct Bracket_req : Span_req {
-    int nplet;			// print a number over the beam.
-};
 /**
 Start/stop a bracket at this note. if #nplet# is set, the staff will
 try to put an appropriate number over the bracket
 */
+struct Bracket_req : Span_req {
+    int nplet;			// print a number over the beam.
+};
 
 struct Subtle_req {
     Moment subtime;

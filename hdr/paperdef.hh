@@ -1,3 +1,14 @@
+/*
+  paperdef.hh -- declare 
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef PAPERDEF_HH
+#define PAPERDEF_HH
 #include "proto.hh"
 #include "real.hh"
 #include "string.hh"
@@ -38,4 +49,6 @@ struct Paperdef {
     void print() const;
     Real duration_to_dist(Moment);
 };
+
+#endif // PAPERDEF_HH
 
