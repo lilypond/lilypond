@@ -21,7 +21,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "debug.hh"
+#include "warn.hh"
 #ifdef mtor
 #undef mtor
 #endif

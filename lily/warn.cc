@@ -21,13 +21,6 @@ ostream &warnout (cerr);
 ostream *mlog(&cerr);
 
 
-void
-error(String s)
-{
-    cerr <<  "error: " << s << "\n";
-	
-    exit(1);
-}
 
 void
 error_t(String const & s, Moment const & r)
@@ -42,17 +35,4 @@ error_t(String const & s, Time_description const &t_tdes)
 {
     String e=s+ " (at t=" + String(t_tdes.bars_i_) + ": " + String(t_tdes.whole_in_measure_) + ")\n";
     error(e);
-}
-
-void
-warning(String m)
-{
-    cerr << "warning" <<m <<endl;
-
-}
-
-void
-message(String m)
-{
-    cerr << m<<endl;
 }
