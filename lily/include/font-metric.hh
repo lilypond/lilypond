@@ -27,12 +27,12 @@ public:
   virtual Box get_indexed_char (int index) const;
   virtual Box get_ascii_char (int ascii) const;
   virtual int name_to_index (String) const;
+  virtual int index_to_ascii (int) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (String) const;
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;
   virtual String coding_scheme () const;
-  //static int get_encoded_index (Font_metric *m, String input_coding, int code);
   
   DECLARE_SMOBS (Font_metric,);
 

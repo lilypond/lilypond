@@ -40,16 +40,16 @@ vector of symbols."
 		(vector-ref permutation (char->integer chr)))
 	      str))
 
-(define-public (encoding-permutation input-encoding
-				     output-encoding)
+(define-public (make-encoding-permutation input-encoding
+					  output-encoding)
 
   "Contruct a permutation by applying output-encoding after input-encoding "
   (list->vector
    (map
-    (lambda (chr)
+    (lambda (byte)
       (let*
 	  ((new-char (hash-ref output-encoding
-			       (vector-ref input-encoding (char->integer chr)) #f)))
+			       (vector-ref input-encoding byte) #f)))
 
 	;; substitute space for unknown characters.
 	(if (char? new-char)
@@ -92,7 +92,7 @@ vector of symbols."
 	 ("latin1" . "cork.enc")
 	 
 	 ;; LilyPond.
-	 ("feta braces" . "feta-braces0.enc")
+	 ("feta braces" . "feta-braces-a.enc")
 	 ("feta number" . "feta-nummer10.enc")
 	 ("feta music" . "feta20.enc")
 	 ("parmesan music" . "parmesan20.enc"))
@@ -101,10 +101,10 @@ vector of symbols."
 (define (get-coding coding-name)
   (force (assoc-get coding-name coding-alist )))
 
-(define (get-coding-vector coding-name)
+(define-public (get-coding-vector coding-name)
   (car (get-coding coding-name)))
 
-(define (get-coding-table coding-name)
+(define-public (get-coding-table coding-name)
   (cadr (get-coding coding-name)))
 
 

@@ -1,5 +1,7 @@
 2004-04-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/performance.cc (output): remap modulo 16.
+
 	* lily/text-item.cc (interpret_markup): whoops, variable
 	shadowing fixed.
 
@@ -7,6 +9,7 @@
 
 	* lily/piano-pedal-performer.cc (try_music): Compare symbols to
 	symbols, not symbols to strings.
+	
 	* lily/piano-pedal-engraver.cc (try_music): Compare symbols to
 	symbols, not symbols to strings.
 

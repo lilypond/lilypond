@@ -138,7 +138,6 @@ struct Tex_font_char_metric
   Array<Tfm_kern> kerns_;
   Array<Tfm_ligature> ligatures_;
 
-  String to_string () const;
   Tex_font_char_metric ();
 
   Box dimensions () const; 
@@ -154,17 +153,18 @@ public:
   virtual Box get_ascii_char (int) const;
   virtual Real design_size () const;
   virtual String coding_scheme () const;
+  virtual void derived_mark () const;
+  virtual int name_to_index (String) const;
   
-  Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
-
-  String to_string () const;
   
   Tfm_info info_;
   Tfm_header header_;
   Array<Tex_font_char_metric> char_metrics_;
   Array<int> ascii_to_metric_idx_;
-
+  SCM encoding_table_;
+  
 private:
+  Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
   Tex_font_metric ();
 };
 

@@ -14,9 +14,13 @@
 #include "string.hh"
 #include "stencil.hh"
 
-Modified_font_metric::Modified_font_metric (Font_metric* m, Real magn)
+Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real magn)
 {
-  coding_vector_ =  SCM_EOL;
+  coding_vector_ = SCM_EOL;
+  coding_permutation_ = SCM_EOL;
+  coding_table_ = SCM_EOL;
+  
+  coding_scheme_ = coding;
   magnification_ = magn;
   SCM desc = m->description_;
 
@@ -28,11 +32,11 @@ Modified_font_metric::Modified_font_metric (Font_metric* m, Real magn)
 }
 
 SCM
-Modified_font_metric::make_scaled_font_metric (Font_metric *m, Real s)
+Modified_font_metric::make_scaled_font_metric (SCM coding, Font_metric *m, Real s)
 {
-  Modified_font_metric *sfm = new Modified_font_metric (m, s);
-
-  sfm->coding_scheme_ = "TeX";
+  String scheme = ly_scm2string (coding);
+  
+  Modified_font_metric *sfm = new Modified_font_metric (scheme, m, s);
   
   return sfm->self_scm ();
 }
@@ -43,15 +47,6 @@ Modified_font_metric::design_size () const
   return orig_->design_size ();
 }
 
-Stencil
-Modified_font_metric::find_by_name (String s) const
-{
-  Stencil m = orig_->find_by_name (s);
-  Box b = m.extent_box ();
-  b.scale (magnification_);
-  Stencil q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
-  return q;
-}
 
 Box 
 Modified_font_metric::get_indexed_char (int i) const
@@ -69,7 +64,6 @@ Modified_font_metric::get_ascii_char (int i) const
   return b;  
 }
 
-
 int
 Modified_font_metric::count () const
 {
@@ -84,9 +78,15 @@ Modified_font_metric::get_indexed_wxwy (int k) const
 }
 
 int
-Modified_font_metric::name_to_index (String s)const
+Modified_font_metric::name_to_index (String s) const
 {
   return orig_->name_to_index (s);
+}
+
+int
+Modified_font_metric::index_to_ascii (int k) const
+{
+  return orig_->index_to_ascii (k);
 }
 
 String
@@ -99,8 +99,9 @@ void
 Modified_font_metric::derived_mark ()
 {
   scm_gc_mark (coding_vector_);
+  scm_gc_mark (coding_table_);
+  scm_gc_mark (coding_permutation_);
 }
-
 
 Box
 Modified_font_metric::tex_kludge (String text) const
@@ -113,11 +114,10 @@ Modified_font_metric::tex_kludge (String text) const
   */  
   for (int i = 0; i < text.length (); i++) 
     {
-      
       switch (text[i]) 
 	{
 	case '\\':
-  // accent marks use width of base letter
+	  // accent marks use width of base letter
          if (i +1 < text.length ())
 	   {
 	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"' ||
@@ -136,6 +136,7 @@ Modified_font_metric::tex_kludge (String text) const
 	  for (i++; (i < text.length ()) && !isspace (text[i]) 
 		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;
+	  
 	  // ugh.
 	  i--; // Compensate for the increment in the outer loop!
 	  break;
@@ -197,6 +198,13 @@ Modified_font_metric::text_dimension (String text)
 	      programming_error ("get-coding-vector  should return vector");
 	      coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
 	    }
+
+	  coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
+				      scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
+	  
+	  coding_permutation_  = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
+					     coding_vector_,
+					     coding_table_);
 	}
 	  
       Interval ydims;
@@ -230,4 +238,18 @@ Modified_font_metric::text_dimension (String text)
   
   b.scale (magnification_);
   return b;
+}
+
+
+LY_DEFINE (ly_font_enccoding, "ly:font-encoding", 1 , 0, 0,
+	  (SCM font),
+	   "Given the Modified_font_metric @var{font}, return a "
+	   "list containing (input-coding, output-coding, permutation).")
+{
+  Modified_font_metric * fm = dynamic_cast<Modified_font_metric *> ( unsmob_metrics (font));
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  
+  return scm_list_3 (fm->coding_vector_,
+		     fm->coding_table_,
+		     fm->coding_permutation_);
 }

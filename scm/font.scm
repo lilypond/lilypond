@@ -65,7 +65,6 @@
     (display "} } \n"))
 
 
-
 (define default-qualifier-order
   '(font-encoding font-family font-shape font-series))
 
@@ -132,8 +131,6 @@
 ;; two step call  is handy for debugging.
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
-
-
 
 ;
 ; Each size family is a vector of fonts, loaded with a delay.

@@ -26,12 +26,13 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       
       Paper_def *pap = unsmob_paper (paper);
       Font_metric *fm = select_font (pap, props);
-      SCM lst = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
-      
+      SCM lst = SCM_EOL;      
       Box b;
       if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
 	{
-	  lst = fontify_atom (mf, lst);
+	  lst = scm_list_3 (ly_symbol2scm ("text"),
+			    mf->self_scm (),
+			    markup);
 	
 	  b = mf->text_dimension (str);
 	}

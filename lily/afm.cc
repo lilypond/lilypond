@@ -98,6 +98,12 @@ Adobe_font_metric::get_ascii_char (int code) const
   return b;
 }
 
+int
+Adobe_font_metric::index_to_ascii (int code) const
+{
+  return font_info_->cmi[code].code;
+}
+
 Box
 Adobe_font_metric::get_indexed_char (int code) const
 {
@@ -159,31 +165,6 @@ Adobe_font_metric::get_indexed_wxwy (int k) const
 {
   AFM_CharMetricInfo const *mi = font_info_->cmi+ k;
   return 1/1000.0 PT * Offset (mi->wx, mi->wy); 
-}
-
-/*
-  return a stencil, without fontification 
- */
-Stencil
-Adobe_font_metric::find_by_name (String s) const
-{
-  AFM_CharMetricInfo const *cm = find_char_metric (s);
-
-  if (!cm)
-    {
-      /* FIXME: Why don't we return empty? */
-      Stencil m;
-      m.set_empty (false);
-      return m;
-    }
-
-  SCM at = (scm_list_2 (ly_symbol2scm ("char"), scm_int2num (cm->code)));
-
-#if 0
-  at = fontify_atom ((Font_metric*) this, at);
-#endif  
-  Box b = afm_bbox_to_box (cm->charBBox);
-  return Stencil (b, at);
 }
 
 Real
