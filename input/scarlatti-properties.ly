@@ -1,5 +1,7 @@
 %  include file for scarlatti-test
 
+\version "1.5.49"
+
 rh=\property Thread.NoteHead \override #'style = #'default
 lh=\property Thread.NoteHead \override #'style = #'diamond
 
@@ -27,5 +29,5 @@ srs= \property Voice.NoteColumn \override  #'force-hshift = #0.22
 
 
 
-ab=\property Voice.noAutoBeaming=##f
-xb=\property Voice.noAutoBeaming=##t
+ab=\property Voice.autoBeaming = ##t
+xb=\property Voice.autoBeaming = ##f

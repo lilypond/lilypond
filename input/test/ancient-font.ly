@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.49"
 \header {
     title	= "ancient font test"
     date	= "2000"
@@ -128,7 +128,7 @@ lowerVoice =  \context Staff = lowerNotes <
       #'line-count = #5
 
     \notes \transpose c' {
-	\property Voice.noAutoBeaming = ##t
+	\property Voice.autoBeaming = ##f
 	\property Staff.Clef \set #'font-family = #'ancient
 	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
@@ -248,12 +248,12 @@ lowerVoice =  \context Staff = lowerNotes <
 	\translator {
 	    \ScoreContext
 %	    \remove System_start_delimiter_engraver
-%	    SystemStartDelimiter \override #'glyph = #'brace
+%	    systemStartDelimiter \override #'glyph = #'brace
 	}
 	\translator {
 	    \ChoirStaffContext
 	    \remove System_start_delimiter_engraver
-%	    SystemStartDelimiter \override #'glyph = #'empty
+%	    systemStartDelimiter \override #'glyph = #'empty
 	}
     }
 }

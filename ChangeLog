@@ -1,3 +1,10 @@
+2002-04-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/spaceable-grob.cc (add_spring): change incorrect spring to
+	unit spring here. Reduces number of warning messages.
+
+	* lily/auto-beam-engraver.cc: change noAutoBeaming to autoBeaming.
+
 2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scm/generic-property.scm: remove generic-property, property-engraver

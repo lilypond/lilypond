@@ -262,8 +262,6 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	{
 	  programming_error ("Insane spring found. Setting to unit spring.");
 
-	  cout << "columns " << Paper_column::rank_i (cols[i])
-	       << " " << Paper_column::rank_i (cols[i+1]) << endl;
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = 1.0;
 	}

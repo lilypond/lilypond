@@ -840,6 +840,13 @@ if 1:
 	
 	conversions.append (((1,5,38), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('noAutoBeaming *= *##f', 'autoBeaming = ##t', str)
+		str = re.sub ('noAutoBeaming *= *##t', 'autoBeaming = ##f', str)
+		return str
+	
+	conversions.append (((1,5,49), conv, 'noAutoBeaming -> autoBeaming'))
 
 ################################
 #	END OF CONVERSIONS	
