@@ -1,6 +1,14 @@
 \version "1.7.18"
 %  We have other examples of partcombine.  Candidate for delete.  -gp
-\header { texidoc = "DELETE ME" }
+%  leave it for now; I need to check some things.
+%{
+Jan:
+> Why remove this?  Do we have another hymn with part-combiner?  Maybe
+> move to template?
+%}
+
+\header { texidoc = "@cindex Hymn
+You can combine two parts on the same staff. " }
 
 \score{
 	\context Staff <
