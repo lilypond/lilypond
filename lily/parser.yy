@@ -315,6 +315,11 @@ or
 %token WITH
 
 /* escaped */
+/* FIXME: this sucks.  The user will get to see these names:
+    syntax error, unexpected E_CHAR:
+		\
+                 %%
+  */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
@@ -2455,6 +2460,7 @@ markup:
 		SCM s = book->to_stencil (paper, THIS->header_);
 		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);
  		scm_gc_unprotect_object (score->self_scm ());
+ 		scm_gc_unprotect_object (book->self_scm ());
 	}
 	;
 

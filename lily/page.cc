@@ -112,7 +112,7 @@ stack_stencils (Stencil &a, Stencil *b, Offset *origin)
 SCM
 Page::to_stencil () const
 {
-  SCM proc = ly_scheme_function ("page-to-stencil");
+  SCM proc = paper_->lookup_variable (ly_symbol2scm ("page-to-stencil"));
   return scm_call_1 (proc, self_scm ());
 }
 
@@ -141,20 +141,11 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
       stack_stencils (stencil, s, &o);
       o[Y_AXIS] += p->head_sep_;
     }
+
   for (SCM s = p->lines_; s != SCM_EOL; s = ly_cdr (s))
     {
       Paper_line *p = unsmob_paper_line (ly_car (s));
-#if 0 // ugh, parse error?
-      Stencil line (Box (Interval (0, p->dim ()[X_AXIS]),
-			 Interval (0, p->dim ()[Y_AXIS])), SCM_EOL);
-#else
-      Box x (Interval (0, p->dim ()[X_AXIS]),
-	     Interval (0, p->dim ()[Y_AXIS]));
-      Stencil line (x, SCM_EOL);
-#endif
-      line.add_stencil (*unsmob_stencil (p->to_stencil ()));
-      stack_stencils (stencil, &line, &o);
-      
+      stack_stencils (stencil, unsmob_stencil (p->to_stencil ()), &o);
       /* Do not put vfill between title and its music, */
       if (ly_cdr (s) != SCM_EOL
 	  && (!p->is_title () || vfill < 0))
@@ -200,3 +191,11 @@ Page::text_height () const
   return h;
 }
 
+LY_DEFINE (ly_page_paper_lines, "ly:page-paper-lines",
+	   1, 0, 0, (SCM page),
+	   "Return paper-lines from PAGE.")
+{
+  Page *p = unsmob_page (page);
+  SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
+  return p->lines_;
+}

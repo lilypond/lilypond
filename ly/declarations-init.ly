@@ -74,6 +74,8 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     #(define page-breaking ly:ragged-page-breaks)
     %%#(define page-breaking ly:optimal-page-breaks)
 
+    #(define page-to-stencil ly:page-header-lines-footer-stencil)
+
     \include "engraver-init.ly"
 }
 
@@ -148,4 +150,6 @@ unusedEntry = \notes { c4 }
 %%#(define-public toplevel-music-handler ly:parser-add-book-and-score)
 #(define toplevel-book-handler default-toplevel-book-handler)
 #(define toplevel-music-handler default-toplevel-music-handler)
+#(define toplevel-score-handler default-toplevel-score-handler)
+
 #(define toplevel-score-handler default-toplevel-score-handler)

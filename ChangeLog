@@ -1,5 +1,16 @@
 2004-04-28  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/stencil-scheme.cc (ly:stencil-expr): Rename (was:
+	ly:stencil-get-expr).  Update callers.
+	(ly:stencil-align-to!):  Return stencil too.
+
+	* lily/paper-outputter.cc (output_page): Bugfix.  Use page
+	stencil.  Remove looped line-based page output.
+	(output_line): Use line stencil.  Remove looped stencil-based line
+	output.
+
+	* lily/page.cc (ly:page-paper-lines): New function.
+
 	* input/test/markup-score.ly: New file.
 
 	* scm/define-markup-commands.scm (stencil): New markup.
