@@ -25,6 +25,7 @@ Stem_info::Stem_info (Stem const *s)
 {
   x_ = s->hpos_f ();
   dir_ = s->dir_;
+  beam_dir_ = s->beam_dir_;
   mult_i_ = s->mult_i_;
 
   /*
@@ -60,35 +61,56 @@ Stem_info::Stem_info (Stem const *s)
     For simplicity, we'll assume dir = UP and correct if 
     dir = DOWN afterwards.
    */
-  idealy_f_ = s->chord_start_f () * dir_ / internote_f;
+  idealy_f_ = s->chord_start_f () * beam_dir_ / internote_f;
   idealy_f_ *= internote_f;
 
-  idealy_f_ += interbeam_f * mult_i_;
 
-  miny_f_ = idealy_f_;
+  if (!beam_dir_ || (beam_dir_ == dir_))
+    {
+      idealy_f_ += interbeam_f * mult_i_;
+      miny_f_ = idealy_f_;
+      maxy_f_ = INT_MAX;
 
-  // B"arenreiter
-  if (mult_i_ < 3)
-    idealy_f_ += 2.0 * interline_f;
+      // B"arenreiter
+      if (mult_i_ < 3)
+	idealy_f_ += 2.0 * interline_f;
+      else
+	idealy_f_ += 1.5 * interline_f;
+
+      miny_f_ += 1.0 * interline_f;
+
+      // lowest beam of (UP) beam must never be lower than second staffline
+      miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
+	+ (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
+    }
   else
-    idealy_f_ += 1.5 * interline_f;
+    {
+      idealy_f_ -= beam_f;
+      maxy_f_ = idealy_f_;
 
-  miny_f_ += 1.0 * interline_f;
+      // B"arenreiter
+      if (mult_i_ < 3)
+	idealy_f_ -= 2.0 * interline_f;
+      else
+	idealy_f_ -= 1.5 * interline_f;
 
-  // lowest beam of (UP) beam must never be lower than second staffline
-  miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
-    + (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
+      maxy_f_ -= 1.0 * interline_f;
+
+      miny_f_ = -INT_MAX;
+    }
 
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
-
+  maxy_f_ /= internote_f;
+  miny_f_ /= internote_f;
 
   DOUT << "dir_: " << dir_ << '\n';
   DOUT << "mult_i_: " << mult_i_ << '\n';
   DOUT << "idealy_f_: " << idealy_f_ << '\n';
   DOUT << "miny_f_: " << miny_f_ << '\n';
+  DOUT << "maxy_f_: " << maxy_f_ << '\n';
 
-
+  idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;
 }
 

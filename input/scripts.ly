@@ -1,47 +1,47 @@
 	
-\version "0.1.10";
+\version "0.1.14";
 
 
 blah = 	\melodic {
 	\octave c';
-	'c4 ->-.-\fermata-"text"
+	c,4 ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"
 	c' ->-.-\fermata-"text"
 	c'' ->-.-\fermata-"text"
 
-	'd ->-.-\fermata-"text"
+	d, ->-.-\fermata-"text"
 	d ->-.-\fermata-"text"
 	d' ->-.-\fermata-"text"
 	d'' ->-.-\fermata-"text"
 
-	'c ^>^.^\fermata^"text"
+	c, ^>^.^\fermata^"text"
 	c ^>^.^\fermata^"text"
 	c' ^>^.^\fermata^"text"
 	c'' ^>^.^\fermata^"text"
 
-	'd ^>^.^\fermata^"text"
+	d, ^>^.^\fermata^"text"
 	d ^>^.^\fermata^"text"
 	d' ^>^.^\fermata^"text"
 	d'' ^>^.^\fermata ^"text"
 
-	'c _>_._\fermata _"text"
+	c, _>_._\fermata _"text"
 	c _>_._\fermata _"text"
 	c' _>_._\fermata _"text"
 	c'' _>_._\fermata _"text"
 
-	'd _>_._\fermata _"text"
+	d, _>_._\fermata _"text"
 	d _>_._\fermata _"text"
 	d' _>_._\fermata _"text"
 	d'' _>_._\fermata _"text"
 			
 	\stemup
-	'b-. c-. d-. e-. f-. g-. a-. b-. c'-.
+	b,-. c-. d-. e-. f-. g-. a-. b-. c'-.
 	\stemdown
 	a-. b-. c'-. d'-. e'-. f'-. g'-. a'-. b'-.
 	\stemup
-	'b-> c-> d-> e-> f-> g-> a-> b-> c'->
+	b,-> c-> d-> e-> f-> g-> a-> b-> c'->
 	\stemup
-	'b---. c---. d---. e---. f---. g---. a---. b---. c'---.
+	b,---. c---. d---. e---. f---. g---. a---. b---. c'---.
 	\stemboth
 
       \meter 4/4;

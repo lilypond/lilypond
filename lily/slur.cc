@@ -9,6 +9,7 @@
 
 /*
   [TODO]
+    * URG: share code with tie
     * begin and end should be treated as a Script.
     * damping
     * slur from notehead to stemend: c''()b''
@@ -126,15 +127,16 @@ Slur::do_post_processing ()
        */
       if (extrema[d] != spanned_drul_[d]) 
 	{
+	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
-	    *(spanned_drul_[d]->width ().length () -0.5 * notewidth_f);
+	    *(spanned_drul_[d]->width ().length () - 0.5 * notewidth_f);
 
 	  // prebreak
 	  if (d == RIGHT)
 	    {
 	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->width ().length ();
 
-	      // urg
+	      // urg -- check if needed
 	      if (encompass_arr_.size () > 1)
 		dx_f_drul_[RIGHT] += notewidth_f;
 	    }
@@ -144,6 +146,7 @@ Slur::do_post_processing ()
        */
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
         {
+	  Real notewidth_f = extrema[d]->width ().length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
 	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	  if (dir_ == extrema[d]->stem_l_->dir_)
@@ -156,10 +159,14 @@ Slur::do_post_processing ()
 	}
       else 
         {
+	  Real notewidth_f = extrema[d]->width ().length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
 	    [dir_]) * internote_f;
+	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	}
       dy_f_drul_[d] += dir_ * interline_f;
+      if (extrema[d]->stem_l_ && (dir_ == extrema[d]->stem_l_->dir_))
+	dy_f_drul_[d] -= dir_ * internote_f;
     }
   while (flip(&d) != LEFT);
 
@@ -190,6 +197,20 @@ Slur::do_post_processing ()
 	}
      }
   while (flip(&d) != LEFT);
+
+  /*
+    Avoid too steep slurs.
+      * slur from notehead to stemend: c''()b''
+   */
+  Real damp_f = paper ()->get_var ("slur_slope_damping");
+  Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
+    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
+  d_off.x () += width ().length ();
+
+  Real ratio_f = abs (d_off.y () / d_off.x ());
+  if (ratio_f > damp_f)
+    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] -=
+      dir_ * (damp_f - ratio_f) * d_off.x ();
 }
 
 Array<Offset>

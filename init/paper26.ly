@@ -4,7 +4,7 @@
 
 paper_twentysix = \paper {
 	staffheight = 20.0\pt;
-	linewidth = 17.0 \cm;
+	papersize = "a4";
 
 	% ugh see table26 for sizes
 	notewidth = 8.59\pt
@@ -16,5 +16,7 @@ paper_twentysix = \paper {
 	
 	\symboltables { \table_twenty }
 	\include "params.ly";
+	linewidth = linewidth20;
+	textheight = textheight20;
 }
 

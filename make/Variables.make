@@ -94,14 +94,19 @@ TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_
 else
 TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)
 endif
-
 #
 
+# ugh, but it gets hairy without extension..
+DOTTEXT=.txt
+
+# for rpmrc only
+LILYPOND_ROOTDIR=$(shell cd $(depth)/..; pwd)
 
 #
 # fix naming, use TOPLEVEL_ prefix _or_ MODULE?
 DIST_NAME = lilypond-$(TOPLEVEL_VERSION)
-NO_DOOS_DIST = bin flower lib lily make mi2mu out
+# NO_DOOS_DIST = bin flower lib lily make mi2mu out
+NO_DOOS_DIST = flower lib lily make mi2mu out
 #
 
 # list of object files:

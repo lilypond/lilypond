@@ -38,10 +38,11 @@
 #include "change-translator.hh"
 #include "file-results.hh"
 #include "mudela-version.hh"
+#include "scope.hh"
 
 // mmm
-Mudela_version oldest_version ("0.1.8");
-Mudela_version version ("0.1.13");
+Mudela_version oldest_version ("0.1.14");
+Mudela_version version ("0.1.14");
 
 
 // needed for bison.simple's malloc() and free()
@@ -191,7 +192,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <i>	dots
 %token <i>	DIGIT
-%token <melreq>	NOTENAME_ID
+%token <melreq>	NOTENAME_IDENTIFIER
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	MELODIC_REQUEST_IDENTIFIER
@@ -201,6 +202,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	SCRIPT_IDENTIFIER
 %token <id>	COMMAND_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
+%token <id>	STRING_IDENTIFIER
 %token <id>	TRANS_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
@@ -211,8 +213,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
 %token <i>	UNSIGNED
-%token <i> 	POST_QUOTES
-%token <i> 	PRE_QUOTES
+
 
 %type <outputdef> output_def
 %type <header> 	mudela_header mudela_header_body
@@ -220,12 +221,12 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	open_request_parens close_request_parens
 %type <i>	open_abbrev_parens
 %type <i>	open_plet_parens close_plet_parens
-%type <i>	post_quotes pre_quotes
+%type <i>	sub_quotes sup_quotes
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	abbrev_type
 %type <i>	int unsigned
 %type <i>	script_dir
-%type <id>	identifier_init
+%type <id>	identifier_init simple_identifier_init
 %type <duration> explicit_steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
@@ -243,14 +244,16 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <musiclist> Voice Voice_body
 %type <chord>	Chord Chord_body
 %type <paper>	paper_block paper_body
-%type <real>	dim real real_expression
-%type <real>	real_add_expression real_mult_expression real_primary
+%type <real>	dim real
+%type <real>	real_mult_expression real_primary
 %type <real>	unit
 %type <request> abbrev_command_req
 %type <request>	post_request structured_post_request
 %type <pair>	plet_fraction
 %type <request> command_req verbose_command_req
 %type <request>	script_req  dynamic_req
+%type <string>	string
+%type <string>	string_primary
 %type <score>	score_block score_body
 %type <intarr>	shape_array
 %type <script>	script_definition script_body mudela_script gen_script_def
@@ -345,7 +348,7 @@ add_declaration:
 	STRING {
 		THIS->remember_spot ();
 	}
-	/* cont */ '=' identifier_init {
+	/* cont */ '=' identifier_init optional_semicolon {
 	    THIS->lexer_p_->set_identifier (*$1, $4);
 	    $4->init_b_ = THIS->init_parse_b_;
 	    $4->set_spot (THIS->pop_spot ());
@@ -354,47 +357,53 @@ add_declaration:
 
 identifier_init:
 	score_block {
-		$$ = new Score_id ($1, SCORE_IDENTIFIER);
+		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
 
 	}
 	| paper_block {
-		$$ = new Paper_def_id ($1, PAPER_IDENTIFIER);
-
+		$$ = new Paper_def_identifier ($1, PAPER_IDENTIFIER);
 	}
 	| midi_block {
-		$$ = new Midi_def_id ($1, MIDI_IDENTIFIER);
+		$$ = new Midi_def_identifier ($1, MIDI_IDENTIFIER);
 
 	}
 	| script_definition {
-		$$ = new Script_id ($1, SCRIPT_IDENTIFIER);
+		$$ = new General_script_def_identifier ($1, SCRIPT_IDENTIFIER);
 
 	}
 	| Music  {
-		$$ = new Music_id ($1, MUSIC_IDENTIFIER);
+		$$ = new Music_identifier ($1, MUSIC_IDENTIFIER);
 
 	}
 	| symtables {
-		$$ = new Lookup_id ($1, IDENTIFIER);
+		$$ = new Lookup_identifier ($1, IDENTIFIER);
 
-	}
-	| real {
-		$$ = new Real_id (new Real ($1), REAL_IDENTIFIER);
-	}
-	| int	{
-		$$ = new Int_id (new int ($1), INT_IDENTIFIER);
 	}
 	| post_request {
-		$$ = new Request_id ($1, POST_REQUEST_IDENTIFIER);
+		$$ = new Request_identifier ($1, POST_REQUEST_IDENTIFIER);
 	}
 	| melodic_request {
-		$$ = new Request_id ($1, MELODIC_REQUEST_IDENTIFIER);
+		$$ = new Request_identifier ($1, MELODIC_REQUEST_IDENTIFIER);
 
 	}
-	| translator_spec {
-		$$ = new Translator_id ($1, TRANS_IDENTIFIER);
-	}
 	| explicit_duration {
-		$$ = new Duration_id ($1, DURATION_IDENTIFIER);
+		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
+	}
+	| simple_identifier_init
+	;
+
+simple_identifier_init:
+	real {
+		$$ = new Real_identifier (new Real ($1), REAL_IDENTIFIER);
+	}
+	| string {
+		$$ = new String_identifier ($1, STRING_IDENTIFIER);
+	}
+	| int	{
+		$$ = new int_identifier (new int ($1), INT_IDENTIFIER);
+	}
+	| translator_spec {
+		$$ = new Translator_identifier ($1, TRANS_IDENTIFIER);
 	}
 	;
 
@@ -413,12 +422,12 @@ translator_spec_body:
 		$$->set_spot (THIS->here_input ());
 		delete $2;
 	}
-	| translator_spec_body STRING '=' scalar ';'	{
+	| translator_spec_body STRING '=' scalar ';'	{ 
 		$$-> set_property (*$2, *$4);
 		delete $2;
 		delete $4;
 	}
-	| translator_spec_body CONSISTS STRING ';'	{
+	| translator_spec_body CONSISTS STRING ';' {
 		$$->group_l ()->consists_str_arr_.push (*$3);
 		delete $3;
 	}
@@ -439,7 +448,7 @@ score_block:
 		$$ = $4;
 		$$->set_spot (THIS->pop_spot ());
 		if (!$$->def_p_arr_.size ())
-			$$->add (THIS->default_paper ());
+			$$->add (THIS->default_paper_p ());
 
 		/* handle error levels. */
 		$$->errorlevel_i_ = THIS->error_level_i_;
@@ -492,8 +501,10 @@ intastint_list:
 	PAPER
 */
 paper_block:
-	PAPER
-	'{' paper_body '}' 	{ $$ = $3; }
+	PAPER '{' paper_body '}' 	{ 
+		$$ = $3;
+		THIS-> lexer_p_->scope_l_arr_.pop ();
+	}
 	;
 
 optional_semicolon:
@@ -503,25 +514,37 @@ optional_semicolon:
 
 paper_body:
 	/* empty */		 	{
-		$$ = THIS->default_paper ();
+		Paper_def *p = THIS->default_paper_p ();
+		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
+		$$ = p;
 	}
 	| PAPER_IDENTIFIER optional_semicolon	{
-		$$ = $1->paperdef ();
+		Paper_def *p = $1->paperdef ();
+		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+		$$ = p;
 	}
 	| paper_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3;
 		delete $3;
 	}
 	| paper_body symtables		{ $$->set ($2); }
-	| paper_body STRING '=' real_expression ';'		{
-		$$->set_var (*$2, $4);
-// ugh, huh?
-		current_paper = $$;
+	| paper_body STRING '=' simple_identifier_init optional_semicolon {
+	    Identifier* id = $4;
+	    id->init_b_ = THIS->init_parse_b_;
+	    if (id->is_type_b (Translator_identifier::static_name ()))
+	      {
+		$$->assign_translator (*$2, id->translator ());
+		delete id;
+	      }
+	    else
+	      THIS->lexer_p_->set_identifier (*$2, id);
 	}
+/*
 	| paper_body STRING '=' translator_spec	{
 		$$-> assign_translator (*$2, $4);
 		delete $2;
 	}
+*/
 	| paper_body SHAPE '=' shape_array ';' {
 		$$->shape_int_a_ = *$4;
 		delete $4;
@@ -532,28 +555,27 @@ paper_body:
 	;
 
 real_primary:
-	real
-	| dim
-	| STRING {
-// ugh, huh?
-//		$$ = THIS->default_paper ()->get_var (*$1);
-		$$ = current_paper->get_var (*$1);
+	REAL		{
+		$$ = $1;
 	}
-	| '(' real_expression ')' {
+	| REAL_IDENTIFIER		{
+		Real *r_p = $1->real ();
+		$$ = * r_p;
+		DOUT << "Lookup real: " << *r_p << "\n";
+		delete r_p;
+	}
+	| dim
+	| '(' real ')' {
 		$$ = $2;
 	}
 	;
 
-real_expression:
-	real_add_expression
-	;
-
-real_add_expression:
+real:
 	real_mult_expression
-	| real_add_expression '+' real_mult_expression {
+	| real '+' real_mult_expression {
 		$$ = $1 + $3;
 	}
-	| real_add_expression '-' real_mult_expression {
+	| real '-' real_mult_expression {
 		$$ = $1 - $3;
 	}
 	;
@@ -586,7 +608,7 @@ midi_block:
 	;
 
 midi_body: /* empty */ 		{
-		$$ = THIS->default_midi ();
+		$$ = THIS->default_midi_p ();
 	}
 	| midi_body STRING '=' translator_spec	{
 		$$-> assign_translator (*$2, $4);
@@ -629,7 +651,7 @@ Voice_body:
 		$$ = new Voice;
 		$$->set_spot (THIS->here_input ());
 	}
-	| Voice_body Music		{
+	| Voice_body Music	{
 		$$->add ($2);
 	}
 	;
@@ -651,8 +673,7 @@ Music:
 	| Voice		{ $$ = $1; }
 	| Chord			{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
-	| MUSIC_IDENTIFIER 	{ $$ = $1->music (); }
-	| MUSIC_IDENTIFIER ';'	{ $$ = $1->music (); }
+	| MUSIC_IDENTIFIER { $$ = $1->music (); }
 	| MELODIC
 		{ THIS->lexer_p_->push_note_state (); }
 	Music
@@ -859,25 +880,20 @@ post_request:
 	}
 	;
 
-pre_quotes:
-	PRE_QUOTES {
-//		int i = $1;
-		$$ = $1;
+sup_quotes:
+	'\'' {
+		$$ = 1;
 	}
-	| pre_quotes PRE_QUOTES {
-//		int i = $1 + $2;
-		$$ =  $1 + $2;
+	| sup_quotes '\'' {
+		$$ ++;
 	}
 	;
-
-post_quotes:
-	POST_QUOTES {
-//		int i = $1;
-		$$ = $1;
+sub_quotes:
+	',' {
+		$$ = 1;
 	}
-	| post_quotes POST_QUOTES {
-//		int i = $1 + $2;
-		$$ = $1 + $2;
+	| sub_quotes ',' {
+		$$++ ;
 	}
 	;
 
@@ -891,17 +907,17 @@ post_quotes:
 	jcn
 */
 steno_melodic_req:
-	NOTENAME_ID	{
+	NOTENAME_IDENTIFIER	{
 		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
 		$$ = THIS->get_melodic_req (m, 0 + THIS->default_octave_i_);
 	}
-	| NOTENAME_ID post_quotes 	{
+	| NOTENAME_IDENTIFIER sup_quotes 	{
 		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
 		$$ = THIS->get_melodic_req (m, $2 + THIS->default_octave_i_);
 	}
-	| pre_quotes NOTENAME_ID	 {
-		Melodic_req* m =  $2->clone ()->musical ()->melodic ();
-		$$ = THIS->get_melodic_req (m, -$1 + THIS->default_octave_i_);
+	| NOTENAME_IDENTIFIER sub_quotes	 {
+		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
+		$$ = THIS->get_melodic_req (m, -$2 + THIS->default_octave_i_);
 	}
 	;
 
@@ -1164,11 +1180,19 @@ voice_command:
 
 			c' -> default_octave_i_ == 1
 		*/
+
 		/* why can't we have \oct 0 iso \oct{c'}*/
-		THIS->default_octave_i_ = 1; }
-/* cont */
+		// because that's silly.
+
+		// for relative octaves, the octave setting is done 
+		// automatically by the parsing of steno_melodic_req!
+		if (!THIS->relative_octave_mode_b_)
+		  THIS->default_octave_i_ = 1; 
+	}
+	/* cont */
 	steno_melodic_req {
-		THIS->default_octave_i_ = $3->octave_i_;
+		if (!THIS->relative_octave_mode_b_)
+		  THIS->default_octave_i_ = $3->octave_i_;
 		delete $3;
 	}
 	| OCTAVE STRING {
@@ -1298,7 +1322,7 @@ lyrics_elt:
 pitch_list:			{
 		$$ = new Array<Melodic_req*>;
 	}
-	| pitch_list NOTENAME_ID	{
+	| pitch_list NOTENAME_IDENTIFIER	{
 		$$->push ($2->clone ()->musical ()->melodic ());
 	}
 	;
@@ -1325,21 +1349,30 @@ int:
 	}
 	;
 
-real:
-	REAL		{
+string_primary:
+	STRING		{
 		$$ = $1;
 	}
-	| REAL_IDENTIFIER		{
-		Real *r_p = $1->real ();
-		$$ = * r_p;
-		delete r_p;
+	| STRING_IDENTIFIER	{
+		String *s_p = $1->string ();
+		// $$ = * r_p;
+		$$ = s_p;
+		DOUT << "Lookup string: " << *s_p << "\n";
 	}
 	;
 
-
+string:
+	string_primary {
+		$$ = $1;
+	}
+	| string '+' string_primary {
+		*$$ += *$3;
+		delete $3;
+	}
+	;
 
 dim:
-	real unit	{ $$ = $1*$2; }
+	real_primary unit	{ $$ = $1*$2; }
 	;
 
 
@@ -1425,19 +1458,5 @@ void
 My_lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
-}
-
-Paper_def*
-My_lily_parser::default_paper ()
-{
-	Identifier *id = lexer_p_->lookup_identifier ("default_paper");
-	return id ? id->paperdef () : new Paper_def ;
-}
-
-Midi_def*
-My_lily_parser::default_midi ()
-{
-	Identifier *id = lexer_p_->lookup_identifier ("default_midi");
-	return id ? id->mididef () : new Midi_def ;
 }
 

@@ -48,13 +48,13 @@ Source_file::istream_l ()
 }
 
 String
-Source_file::file_line_no_str (char const *context_ch_C) const
+Source_file::file_line_column_str (char const *context_ch_C) const
 {
   if  (!ch_C ())
     return _ ("(unknown)");
   else
-    return name_str () + ": "
-      + String (line_i (context_ch_C));
+    return name_str () + ":" + String (line_i (context_ch_C))
+      + ":" + String (position_i (context_ch_C));
 }
 
 String
@@ -70,14 +70,14 @@ Source_file::~Source_file ()
   delete storage_p_;
 }
 
-String
-Source_file::error_str (char const* pos_ch_C) const
+Slice
+Source_file::line_slice (char const* pos_ch_C) const
 {
+  if (!in_b (pos_ch_C))
+    return Slice (0,0);
+
   char const* data_ch_C = ch_C ();
   char const * eof_C_ = data_ch_C + length_i ();
-  if (!in_b (pos_ch_C))
-    return _ ("(position unknown)");
-
 
   if (pos_ch_C == eof_C_)
     pos_ch_C --;
@@ -97,22 +97,63 @@ Source_file::error_str (char const* pos_ch_C) const
 	break;
       }
 
-  //    String (char const* p, int length) is missing!?
-  String line_str ((Byte const*)begin_ch_C, end_ch_C - begin_ch_C);
+  return Slice (begin_ch_C - data_ch_C, end_ch_C - data_ch_C);
+}
 
-  int error_col_i = 0;
-  char const* scan_ch_C = begin_ch_C;
-  while (scan_ch_C < pos_ch_C)
-    if (*scan_ch_C++ == '\t')
-      error_col_i = (error_col_i / 8 + 1) * 8;
+String
+Source_file::line_str (char const* pos_ch_C) const
+{
+  if (!in_b (pos_ch_C))
+    return "";
+
+  Slice line = line_slice (pos_ch_C);
+  char const* data_ch_C = ch_C ();
+  return String ((Byte const*)data_ch_C + line.min (), line.length ());
+}
+
+int
+Source_file::position_i (char const* pos_ch_C) const
+{
+  if (!in_b (pos_ch_C))
+    return 0;
+
+  char const* data_ch_C = ch_C ();
+  return pos_ch_C - (line_slice (pos_ch_C).min () + data_ch_C);
+}
+
+int
+Source_file::column_i (char const* pos_ch_C) const
+{
+  if (!in_b (pos_ch_C))
+    return 0;
+
+  int pos_i = position_i (pos_ch_C);
+  String line = line_str (pos_ch_C);
+
+  int col_i = 0;
+  for (int i = 0; i < pos_i; i++)
+    if (line[i] == '\t')
+      col_i = (col_i / 8 + 1) * 8;
     else
-      error_col_i++;
+      col_i++;
 
-  String str = line_str.left_str (pos_ch_C - begin_ch_C)
+  return col_i;
+}
+
+String
+Source_file::error_str (char const* pos_ch_C) const
+{
+  if (!in_b (pos_ch_C))
+    return _ ("(position unknown)");
+
+  int pos_i = position_i (pos_ch_C);
+  String line = line_str (pos_ch_C);
+  String context = line.left_str (pos_i)
     + String ('\n')
-    + String (' ', error_col_i)
-    + line_str.cut (pos_ch_C - begin_ch_C, INT_MAX); // String::mid should take 0 arg..
-  return str;
+    + String (' ', column_i (pos_ch_C))
+    + line.cut (pos_i, INT_MAX);
+
+  return context;
 }
 
 bool
@@ -120,7 +161,6 @@ Source_file::in_b (char const* pos_ch_C) const
 {
   return (pos_ch_C && (pos_ch_C >= ch_C ()) && (pos_ch_C <= ch_C () + length_i ()));
 }
-
 
 int
 Source_file::line_i (char const* pos_ch_C) const

@@ -8,7 +8,7 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 global = 
     \melodic {
@@ -53,27 +53,27 @@ soprane =
 	r8 [d16 a] [d' d a d'] r8 [d16 a] [d' d a d'] |
 	r8 [d16 f] [b d f b] r8 [d16 f] [b d f b] |
 	r8 [c16 g] [c' c g c'] r8 [c16 g] [c' c g c'] |
-	r8 ['a16 c] [f 'a c f] r8 ['a16 c] [f 'a c f] |
-	r8 ['a16 c] [f 'a c f] r8 ['a16 c] [f 'a c f] |
-	r8 ['g16 'b] [f 'g 'b f] r8 ['g16 'b] [f 'g 'b f] |
-	r8 ['g16 c] [e 'g c e] r8 ['g16 c] [e 'g c e] |
+	r8 ['a16 c] [f a, c f] r8 ['a16 c] [f a, c f] |
+	r8 ['a16 c] [f a, c f] r8 ['a16 c] [f a, c f] |
+	r8 ['g16 b,] [f g, b, f] r8 ['g16 b,] [f g, b, f] |
+	r8 ['g16 c] [e g, c e] r8 ['g16 c] [e g, c e] |
 %% 20
-	r8 ['bes16 c] [e 'bes c e] r8 ['bes16 c] [e 'bes c e] |
-	r8 ['a16 c] [e 'a c e] r8 ['a16 c] [e 'a c e] |
-	r8 ['a16 c] [ees 'a c ees] r8 ['a16 c] [ees 'a c ees] |
-	r8 ['b16 c] [d 'b c d] r8 ['b16 c] [d 'b c d] |
-	r8 ['g16 'b] [d 'g 'b d] r8 ['g16 'b] [d 'g 'b d] |
-	r8 ['g16 c] [e 'g c e] r8 ['g16 c] [e 'g c e] |
-	r8 ['g16 c] [f 'g c f] r8 ['g16 c] [f 'g c f] |
-	r8 ['g16 'b] [f 'g 'b f] r8 ['g16 'b] [f 'g 'b f] |
-	r8 ['a16 c] [fis 'a c fis] r8 ['a16 c] [fis 'a c fis] |
-	r8 ['g16 c] [g 'g c g] r8 ['g16 c] [g 'g c g] |
+	r8 ['bes16 c] [e bes, c e] r8 ['bes16 c] [e bes, c e] |
+	r8 ['a16 c] [e a, c e] r8 ['a16 c] [e a, c e] |
+	r8 ['a16 c] [ees a, c ees] r8 ['a16 c] [ees a, c ees] |
+	r8 ['b16 c] [d b, c d] r8 ['b16 c] [d b, c d] |
+	r8 ['g16 b,] [d g, b, d] r8 ['g16 b,] [d g, b, d] |
+	r8 ['g16 c] [e g, c e] r8 ['g16 c] [e g, c e] |
+	r8 ['g16 c] [f g, c f] r8 ['g16 c] [f g, c f] |
+	r8 ['g16 b,] [f g, b, f] r8 ['g16 b,] [f g, b, f] |
+	r8 ['a16 c] [fis a, c fis] r8 ['a16 c] [fis a, c fis] |
+	r8 ['g16 c] [g g, c g] r8 ['g16 c] [g g, c g] |
 %% 30
-	r8 ['g16 c] [f 'g c f] r8 ['g16 c] [f 'g c f] |
-	r8 ['g16 'b] [f 'g 'b f] r8 ['g16 'b] [f 'g 'b f] |
-	r8 ['g16 'bes] [e 'g 'bes e] r8 ['g16 'bes] [e 'g 'bes e] |
+	r8 ['g16 c] [f g, c f] r8 ['g16 c] [f g, c f] |
+	r8 ['g16 b,] [f g, b, f] r8 ['g16 b,] [f g, b, f] |
+	r8 ['g16 bes,] [e g, bes, e] r8 ['g16 bes,] [e g, bes, e] |
 
-	r8 ['f16 'a] [c f c 'a] [c 'a 'f 'a] ['f 'd 'f 'd] |
+	r8 ['f16 a,] [c f c a,] [c a, f, a,] ['f d, f, d,] |
 	r8 [g16 b] [d' f' d' b] [d' b g b] [d f e d] |
 	<e1 g c'> ||
     }
@@ -124,7 +124,7 @@ bass =
 	r16 c8. ~ c4 r16 c8. ~ c4 |
 
 	r16 c8. ~ c4 ~ c2 |
-	r16 'b8. ~ 'b4 ~ 'b2 |
+	r16 b,8. ~ b,4 ~ b,2 |
 	c1 ||}
 
 	% Bass
@@ -137,27 +137,27 @@ bass =
 	e e |
 	e e |
 	d d |
-	'g 'g |
+	g, g, |
 	c c |
 %% 20
 	c c |
-	'f 'f |
-	'fis 'fis |
-	'aes 'aes |
-	'g 'g |
-	'g 'g |
-	'g 'g |
-	'g 'g |
-	'g 'g |
-	'g 'g |
+	f, f, |
+	fis, fis, |
+	aes, aes, |
+	g, g, |
+	g, g, |
+	g, g, |
+	g, g, |
+	g, g, |
+	g, g, |
 %% 30
-	'g 'g |
-	'g 'g |
-	'c 'c |
+	g, g, |
+	g, g, |
+	c, c, |
 	
-	'c 'c |
-	'c 'c |
-	'c1 }>
+	c, c, |
+	c, c, |
+	c,1 }>
     }
 
         

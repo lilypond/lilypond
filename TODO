@@ -7,6 +7,14 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 0.2:
+	* w32 blurb
+
+	* make sure all ex's have a mudela-version
+
+	* notes almost touch barline: whitespace at the begin of the bar 
+	 should be at fixed at at least (about) one interline.
+	 hack at spring-spacer.cc:662 doen't work anymore
+
 	* do rest-collisions for Multi_measure_rests as well.
 
 	* split error/warning in error/warning/non_fatal_error
@@ -16,7 +24,9 @@ grep for TODO and ugh/ugr/urg
  
 	* deps for ly2dvi
 
-	* depracate \duration
+	* document use of ly2dvi more prominently
+
+	* deprecate \duration
 
 	* clean up abbrev/plet/beam/abbrevbeam/duration mess in parser.
 
@@ -34,15 +44,23 @@ grep for TODO and ugh/ugr/urg
 	* move all hard-coded constants and staffheight dependent to runtime,
 	  i.e. init/params.ly.  e.g.: stem length params, beam positions
 
+	* fix variable define/lookup parser global<->paper
+
  	* fix position of bar number
 
 	* fix position of brace in conjunction with bracket
 
+	* fix title/instrument placements; see input/test/title.ly
+
+	* rename
+	  - plet -> tuplet
+	  - grav -> engraver
+	  - measure -> bar
+	  - abbreviation-beam -> (measured/unmeasured) tremolo
+
 	* libtoolize flowerlib
 
 	* shared lib
-
-	* bf: abbrevbeam? 
 
 	* robustify Beam (in case of no stems, 32nd notes)
 
@@ -51,7 +69,6 @@ grep for TODO and ugh/ugr/urg
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
-
 
 	* nicen examples:
 	- remove all \multi
@@ -84,13 +101,13 @@ grep for TODO and ugh/ugr/urg
 	* the tenuto script is too long and too thin
 
 	* the bracket is ugly (wings are too parabolic, should be more circular)
-
 	* better hshift (dots, distance, head dependent)
 
 	* stem len adjustable
 
 STUFF
  	* convert-mudela:
+	- automatically add  a \version if not present.
 	- better parsing
 	- make smarter
 	- fix convert-mudela -e *.ly ;
@@ -102,6 +119,10 @@ STUFF
 
 
 	* give Items/Spanners access to unbroken originals	
+
+	* generalised scopes for Parser/identifiers.
+
+	* speed up PS code.
 
 	* scoping for properties
 
@@ -151,8 +172,6 @@ STUFF
 	* gcc 2.8.1: see ice and RESIZE_ICE
 
 	* xdvi: PS in magnifying glass.
-
-	* Fix profiling. gprof bugreport?
 
 	* GNU patch 2.1: hardcoded limit of 1024 to the linelength
 
@@ -256,7 +275,6 @@ languages:
 	- Move all Score_elems, into libmutype.a
  
 	* Documentation
-	- Doc Mutopia (Music To The People) 
 	- Doc (C) stuff of sheet music
 	- a better format?  SGML?  TeX?  Info?
 	- a tutorial
@@ -309,7 +327,6 @@ languages:
 	* Rhythmic staff.
 
 	* markers
-
 
 INPUTLANGUAGE
 

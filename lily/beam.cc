@@ -14,7 +14,6 @@
     * centre beam symbol
     * less hairy code
     * redo grouping 
-    * (future) knee: ([\stem 1; c8 \stem -1; c8]
  */
 
 #include <math.h>
@@ -43,6 +42,7 @@ IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
 Beam::Beam ()
 {
   slope_f_ = 0;
+  solved_slope_f_ = 0;
   left_y_ = 0;
   damping_i_ = 1;
   quantisation_ = NORMAL;
@@ -167,16 +167,28 @@ Beam::set_default_dir ()
   } while (flip(&d) != DOWN);
   
   /* 
-
      [Ross] states that the majority of the notes dictates the
      direction (and not the mean of "center distance")
+
+     But is that because it really looks better, or because he
+     wants to provide some real simple hands-on rules.
+     
+     We have our doubts.
   */
+
+  // fixme.  make runtime.
+  // majority
+  // dir_ = (count[UP] > count[DOWN]) ? UP : DOWN;
+
+  // mean centre distance
   dir_ = (total[UP] > total[DOWN]) ? UP : DOWN;
 
   for (int i=0; i <stems_.size (); i++)
     {
-      Stem *sl = stems_[i];
-      sl->dir_ = dir_;
+      Stem *s = stems_[i];
+      s->beam_dir_ = dir_;
+      if (!s->dir_forced_b_)
+	s->dir_ = dir_;
     }
 }
 
@@ -213,7 +225,6 @@ Beam::solve_slope ()
     }
   else
     {
-
       Real leftx = sinfo[0].x_;
       Least_squares l;
       for (int i=0; i < sinfo.size (); i++)
@@ -238,7 +249,7 @@ Beam::solve_slope ()
   left_y_ *= dir_;
 
   slope_f_ *= dir_;
-
+  solved_slope_f_ = slope_f_;
   /*
     This neat trick is by Werner Lemberg, damped = tanh (slope_f_) corresponds
     with some tables in [Wanske]
@@ -247,10 +258,6 @@ Beam::solve_slope ()
     slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
 
   quantise_dy ();
-
-  Real sl = slope_f_ * paper ()->internote_f ();
-  paper ()->lookup_l ()->beam (sl, 20 PT, 1 PT);
-  slope_f_ = sl / paper ()->internote_f ();
 }
 
 void
@@ -287,10 +294,10 @@ Beam::quantise_dy ()
   allowed_fraction[2] = (beam_f + staffline_f);
 
 
-    Interval iv = quantise_iv (allowed_fraction, interline_f, dy_f);
-    quanty_f = (dy_f - iv.min () <= iv.max () - dy_f)
-      ? iv.min ()
-      : iv.max ();
+  Interval iv = quantise_iv (allowed_fraction, interline_f, dy_f);
+  quanty_f = (dy_f - iv.min () <= iv.max () - dy_f)
+    ? iv.min ()
+    : iv.max ();
 
 
   slope_f_ = (quanty_f / dx_f) / internote_f * sign (slope_f_);
@@ -424,16 +431,53 @@ void
 Beam::set_stemlens ()
 {
   Real staffline_f = paper ()->rule_thickness ();
+  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
+  Real internote_f = paper ()->internote_f (); 
+  Real beam_f = paper ()->beam_thickness_f ();
+
+  // enge floots
+  Real epsilon_f = staffline_f / 8;
+
+  /* 
+
+   Damped and quantised slopes, esp. in monotone scales such as
+
+      [c d e f g a b c]
+
+   will soon produce the minimal stem-length for one of the extreme 
+   stems, which is wrong (and ugly).  The minimum stemlength should
+   be kept rather small, in order to handle extreme beaming, such as
+
+      [c c' 'c]  %assuming no knee
+      
+   correctly.
+   To avoid these short stems for normal cases, we'll correct for
+   the loss in slope, if necessary.
+
+   [TODO]
+   ugh, another hack.  who's next?
+   Writing this all down, i realise (at last) that the Right Thing to
+   do is to assign uglyness to slope and stem-lengths and then minimise
+   the total uglyness of a beam.
+   Steep slopes are ugly, shortened stems are ugly, lengthened stems
+   are ugly.
+   How to do this?
+   
+   */
+
+  Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+  Real damped_slope_dy_f = (solved_slope_f_ - slope_f_) * dx_f / 2;
+  if (abs (damped_slope_dy_f) <= epsilon_f)
+    damped_slope_dy_f = 0;
 
   Real x0 = stems_[0]->hpos_f ();
-  Real dy = 0;
-  // ugh, rounding problems! (enge floots)
-  Real epsilon = staffline_f / 8;
-  do
+  Real dy_f = 0;
+  // urg
+  for (int jj = 0; jj < 10; jj++)
     { 
-      left_y_ += dy * dir_;
-      quantise_left_y (dy);
-      dy = 0;
+      left_y_ += dy_f * dir_;
+      quantise_left_y (dy_f);
+      dy_f = 0;
       for (int i=0; i < stems_.size (); i++)
 	{
 	  Stem *s = stems_[i];
@@ -441,13 +485,34 @@ Beam::set_stemlens ()
 	    continue;
 
 	  Real x = s->hpos_f () - x0;
-	  s->set_stemend (left_y_ + slope_f_ * x);
+	  // urg move this to stem-info
+	  Real sy = left_y_ + slope_f_ * x;
+ 	  if (dir_ != s->dir_)
+ 	    sy -= dir_ * (beam_f / 2
+ 	      + (s->mult_i_ - 1) * interbeam_f) / internote_f;
+	  s->set_stemend (sy);
 	  Real y = s->stem_end_f () * dir_;
 	  Stem_info info (s);
+	  if (y > info.maxy_f_)
+	    dy_f = dy_f <? info.maxy_f_ - y;
 	  if (y < info.miny_f_)
-	    dy = dy >? info.miny_f_ - y;
+	    { 
+	      // when all too short, normal stems win..
+	      if (dy_f < -epsilon_f)
+		warning ( _("Weird beam shift, check your knees."));
+	      dy_f = dy_f >? info.miny_f_ - y;
+	    }
 	}
-    } while (abs (dy) > epsilon);
+      if (dy_f && damped_slope_dy_f 
+      	&& (sign (dy_f) == sign (damped_slope_dy_f)))
+	dy_f += damped_slope_dy_f;
+      damped_slope_dy_f = 0;
+      if (abs (dy_f) <= epsilon_f)
+        {
+	  DOUT << "Beam::set_stemlens: " << jj << " iterations\n";
+	  break;
+	}
+    }
 
   test_pos++;
   test_pos %= 4;

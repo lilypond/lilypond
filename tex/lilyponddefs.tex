@@ -80,11 +80,13 @@
                 \font\italicfont=cmti10 scaled \magstep1
                 \font\boldfont=cmbx10
                 \font\largefont=cmbx12
+                \font\hugefont=cmbx15 scaled \magstep 2
         \else
                 \def\settext##1{{\normalfont\normalsize ##1}}
                 \def\setitalic##1{\textit{\normalsize ##1}}
                 \def\setbold##1{\textbf{\normalsize ##1}}
                 \def\setlarge##1{\textbf{\large ##1}}
+                \def\sethuge##1{\textbf{\huge ##1}}
         \fi
   }
   \def\cmrsixteen{
@@ -96,11 +98,31 @@
                 \font\italicfont=cmti9
                 \font\boldfont=cmbx8
                 \font\largefont=cmbx10
+                \font\hugefont=cmbx12 scaled \magstep 2
         \else
                 \def\settext##1{{\normalfont\footnotesize ##1}}
                 \def\setitalic##1{\textit{\small ##1}}
                 \def\setbold##1{\textbf{\footnotesize ##1}}
                 \def\setlarge##1{\textbf{\normalsize ##1}}
+                \def\sethuge##1{\textbf{\huge ##1}}
+        \fi
+  }
+  \def\cmrthirteen{
+          \font\smalltextfont=cmr6
+          \font\meterfont=cmbx9
+          \font\textmusic=cmmi9
+        \ifundefined{documentclass}
+                \font\normaltextfont=cmr7
+                \font\italicfont=cmti7
+                \font\boldfont=cmbx7
+                \font\largefont=cmbx9
+                \font\hugefont=cmbx12
+        \else
+                \def\settext##1{{\normalfont\scriptsize ##1}}
+                \def\setitalic##1{\textit{\scriptsize ##1}}
+                \def\setbold##1{\textbf{\scriptsize ##1}}
+                \def\setlarge##1{\textbf{\small ##1}}
+                \def\sethuge##1{\textbf{\huge ##1}}
         \fi
   }
   \def\cmreleven{
@@ -112,28 +134,13 @@
                 \font\italicfont=cmti6
                 \font\boldfont=cmbx6
                 \font\largefont=cmbx8
+                \font\hugefont=cmbx10
         \else
                 \def\settext##1{{\normalfont\tiny ##1}}
                 \def\setitalic##1{\textit{\tiny ##1}}
                 \def\setbold##1{\textbf{\tiny ##1}}
                 \def\setlarge##1{\textbf{\footnotesize ##1}}
-        \fi
-  }
-  
-  \def\cmrthirteen{
-          \font\smalltextfont=cmr6
-          \font\meterfont=cmbx9
-          \font\textmusic=cmmi9
-        \ifundefined{documentclass}
-                \font\normaltextfont=cmr7
-                \font\italicfont=cmti7
-                \font\boldfont=cmbx7
-                \font\largefont=cmbx9
-        \else
-                \def\settext##1{{\normalfont\scriptsize ##1}}
-                \def\setitalic##1{\textit{\scriptsize ##1}}
-                \def\setbold##1{\textbf{\scriptsize ##1}}
-                \def\setlarge##1{\textbf{\small ##1}}
+                \def\sethuge##1{\textbf{\huge ##1}}
         \fi
   }
 \def\musixsixteendefs{
@@ -256,6 +263,7 @@
         \def\setitalic#1{\italicfont #1}
         \def\setbold#1{\boldfont #1}
         \def\setlarge#1{\largefont #1}
+        \def\sethuge#1{\hugefont #1}
 \fi
 
 \def\setdynamic#1{\dynfont #1}

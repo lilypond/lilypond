@@ -64,7 +64,7 @@ After quarrels,  MusiXTeX has been split into two branches:
 Daniel Taupin's now maintains the branch that still carries 
 the name MusiXTeX.
 
-=item OpusTeX, http://www.inf.ethz.ch/personal/achermann/
+=item OpusTeX, http://www.inf.ethz.ch/personal/acherman/misc.html
 
 Andreas Egler's branch is now called OpusTeX.
 
@@ -202,7 +202,7 @@ publishing, called "Berlioz".
 
 The music font by Adobe.
 
-=item Haskore, http://haskell.systemscz.cs.yale.edu/haskore/onlinetutorial/index.html
+=item Haskore, http://haskell.systemsz.cs.yale.edu/haskore/onlinetutorial/index.html
 
 A programming system for music, based on Haskell, a functional
 programming language.  It outputs MIDI, CSound, NeXTStep MusicKit and

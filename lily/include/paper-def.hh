@@ -34,25 +34,21 @@
 
   Input_engraver should be in here.
  */
-class Paper_def : public Music_output_def {
+class Paper_def : public Music_output_def 
+{
   Lookup *lookup_p_;
-  Dictionary<Real> *real_vars_p_;
+  Scope* scope_p_;
   static int default_count_i_;
+
 protected:
   VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
+
 public:    
   virtual ~Paper_def ();
   DECLARE_MY_RUNTIME_TYPEINFO;
 
   Array<Interval> shape_int_a_;
 
-  /**
-    Set or overwrite a variable
-   */
-  void set_var (String, Real);
-  /**
-    Read a variable.  Crash if it doesn't exist.
-   */
   Real get_var (String) const;
   void reinit ();
   Paper_def ();
@@ -97,6 +93,8 @@ public:
   Real arithmetic_spacing (Moment mom,Real constant) const;
   virtual int get_next_default_count () const;
   String TeX_output_settings_str () const;
+  // urg
+  friend int yyparse (void*);
 };
 
 #endif // Paper_def_HH

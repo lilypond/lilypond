@@ -7,7 +7,7 @@ depth = ..
 
 # descent order into subdirectories:
 #
-SUBDIRS = J.S.Bach Coriolan
+SUBDIRS = J.S.Bach Coriolan W.A.Mozart
 EXTRA_DISTFILES +=  TODO
 
 examples=standchen gallina

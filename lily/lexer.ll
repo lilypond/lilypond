@@ -38,7 +38,6 @@
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
 
-
 #define start_quote()	\
 	yy_push_state (quote);\
 	yylval.string = new String
@@ -144,6 +143,27 @@ TELP		\\\]
 	new_input (s,source_global_l);
 	yy_pop_state ();
 }
+<incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
+	String s = YYText () + 1;
+	strip_trailing_white (s);
+	if (s.length_i () && (s[s.length_i () - 1] == ';'))
+	  s = s.left_str (s.length_i () - 1);
+	DOUT << "#include `\\" << s << "'\n";
+	Identifier * id = lookup_identifier (s);
+	if (id) 
+	  {
+	    String* s_p = id->string ();
+	    DOUT << "#include `" << *s_p << "\'\n";
+	    new_input (*s_p, source_global_l);
+	    delete s_p;
+	    yy_pop_state ();
+	  }
+	else
+	  {
+	    String msg ("Undefined identifier: `" + s + "'");	
+	    LexerError (msg.ch_C ());
+	  }
+}
 <incl>\"[^"]*   { // backup rule
 	cerr << "missing end quote" << endl;
 	exit (1);
@@ -176,18 +196,7 @@ TELP		\\\]
 	exit (1);
 }
 <notes>{
-	{ALPHAWORD}/\'	{
-		post_quotes_b_ = true;
-		return scan_bare_word (YYText ());
-	}
-	\'+		{
-		yylval.i = YYLeng ();
-		if (post_quotes_b_) {
-			post_quotes_b_ = false;
-			return POST_QUOTES;
-		} else
-			return PRE_QUOTES;
-	}
+
 	{ALPHAWORD}	{
 		return scan_bare_word (YYText ());
 
@@ -375,9 +384,11 @@ My_lily_lexer::scan_escaped_word (String str)
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
 		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
-		    return NOTENAME_ID;
+		    return NOTENAME_IDENTIFIER;
 		}
 	}
+	if (check_debug)
+		print_declarations (true);
 	String msg ("Unknown escaped string: `" + str + "'");	
 	LexerError (msg.ch_C ());
 	DOUT << "(string)";
@@ -396,7 +407,7 @@ My_lily_lexer::scan_bare_word (String str)
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
 		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
-		    return NOTENAME_ID;
+		    return NOTENAME_IDENTIFIER;
 		}
 	}
 
@@ -416,8 +427,12 @@ My_lily_lexer::lyric_state_b () const
 	return YY_START == lyrics;
 }
 
+/*
+ urg, belong to String(_convert)
+ and should be generalised 
+ */
 void
-strip_trailing_white (String&s)
+strip_leading_white (String&s)
 {
 	int i=0;
 	for (;  i < s.length_i (); i++) 
@@ -428,7 +443,7 @@ strip_trailing_white (String&s)
 }
 
 void
-strip_leading_white (String&s)
+strip_trailing_white (String&s)
 {
 	int i=s.length_i ();	
 	while (i--) 
@@ -437,3 +452,4 @@ strip_leading_white (String&s)
 
 	s = s.left_str (i+1);
 }
+

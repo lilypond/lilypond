@@ -9,6 +9,11 @@ error (String s)
     exit (1);
 }
 
+void
+non_fatal_error (String s)
+{
+    cerr <<  _ ("error: ") << s << "\n";
+}
 
 void
 warning (String m)

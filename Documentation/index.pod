@@ -14,7 +14,8 @@ version this was.
 =over 4
 
 =item *
-<a href=ANNOUNCE-0.1.txt
+<! urg a href=ANNOUNCE-0.1$(DOTTEXT)>
+<a href=ANNOUNCE-0.1
 >
 The announcement of 0.1
 </a
@@ -22,7 +23,7 @@ The announcement of 0.1
 
 
 =item *
-<a href=DEDICATION.txt
+<a href=DEDICATION
 >
 DEDICATION
 </a
@@ -112,14 +113,14 @@ Manual pages
 =over 5
 
 =item *
-<a href=TODO.txt
+<a href=TODO
 >
 The TODO list.
 </a
 >
 
 =item *
-<a href=NEWS.txt
+<a href=NEWS
 >
 The Change log
 </a

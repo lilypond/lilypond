@@ -18,13 +18,17 @@ make your fix/add your code
 
 =item *
 
+Add changes to NEWS, and add yourself to Documentation/AUTHORS.pod
+
+=item *
+
 generate a patch, 
 
 =item *
 
 e-mail your patch to one of the mailing lists
 gnu-music-discuss@gnu.org or bug-gnu-music@gnu.org
-(or if you're a bit shy, to the maintainer).
+
 
 =back
 
@@ -129,6 +133,6 @@ Then, make a patch as shown above.
 
 =head1 MAINTAINER
 
-Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 Just keep on sending those patches!

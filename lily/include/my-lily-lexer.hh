@@ -30,14 +30,14 @@ class My_lily_lexer : public Includable_lexer {
   int scan_bare_word (String);
   int scan_escaped_word (String);
 
-  bool post_quotes_b_;
   char escaped_char(char) const;
 public:
   String main_input_str_;
   void * lexval_l;
+  Scope * toplevel_scope_p_;
   
   Notename_table  *note_tab_p_;
-  Dictionary<Identifier*> *identifier_p_dict_p_;
+  Array<Scope*> scope_l_arr_;
   Keyword_table * keytable_p_;
   int errorlevel_i_;
 
@@ -52,7 +52,7 @@ public:
   void pop_state();
   void LexerError (char const *);
   My_lily_lexer();
-  void set_identifier (String,Identifier*i);
+  void set_identifier (String str, Identifier* i, bool unique_b = true);
   ~My_lily_lexer();
   int yylex();
   void print_declarations (bool init_b) const;

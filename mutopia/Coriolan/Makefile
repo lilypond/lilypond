@@ -8,5 +8,5 @@ depth = ../..
 #
 include ./$(depth)/make/Mutopia.make
 
-examples=coriolan oboi-part
+#examples=coriolan oboi-part
 include $(depth)/make/WWW.make

@@ -7,8 +7,8 @@
 #   	Jan Nieuwenhuizen <jan@digicash.com>
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 
-.PHONY : all clean config default dist doc doc++ dummy exe help lib TAGS html\
-	check-flower-deps check-lib-deps check-doc-deps
+.PHONY : all clean config default dist doc doc++ dummy exe help html lib TAGS\
+	check-flower-deps check-lib-deps check-doc-deps check-html-deps
 
 # target all:
 #
@@ -46,12 +46,11 @@ $(SHAREDLIBRARY):  $(configheader) $(OFILES) $(MODULE_LIBDEPS)
 lib: $(LIBRARY)
 #
 
-
 outdirs: outdir
 	$(LOOP)
 
 outdir:
-	-mkdir $(outdir)
+	-mkdir -p $(outdir)
 
 # be careful about deletion.
 clean: localclean
@@ -111,8 +110,10 @@ help:
 #
 
 doc:
-	$(MAKE) -C $(depth)/Documentation do-doc
+#	$(MAKE) -C $(depth)/Documentation do-doc
+	$(MAKE) -C $(depth)/Documentation all
 
+html: $(HTMLFILES)
 
 # ugh. should generate in out/
 dist:
@@ -137,11 +138,11 @@ doosdist:
 	chmod -Rf a+rX $(distdir)
 #	ugh, the ugly way, then
 	(cd $(distdir); rm -rf $(NO_DOOS_DIST))
-	cp $(lilyout)/lilypond.exe $(distdir)
-	strip -s $(distdir)/lilypond.exe
-	cp $(mi2muout)/mi2mu.exe $(distdir)
-	strip -s $(distdir)/mi2mu.exe
-	(cd ./$(depth); $(ZIP) $(DIST_NAME).exe.zip $(distdir))
+	ln $(lilyout)/lilypond $(distdir)/bin/lilypond.exe
+	strip -s $(distdir)/bin/lilypond.exe
+	ln $(mi2muout)/mi2mu $(distdir)/bin/mi2mu.exe
+	strip -s $(distdir)/bin/mi2mu.exe
+	(cd ./$(depth); $(ZIP) $(outdir)/$(DIST_NAME).exe.zip $(distdir))
 # should be trapped
 	rm -rf $(distdir)/
 
@@ -209,6 +210,9 @@ check-lib-deps: check-flower-deps
 check-doc-deps:
 	$(MAKE) -C $(depth)/Documentation
 
+check-html-deps:
+	$(MAKE) -C $(depth)/Documentation html
+
 $(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
 
@@ -233,9 +237,6 @@ $(configheader): $(depth)/$(configuration).hh
 
 WWW: local-WWW
 	$(LOOP)
-
-local-WWW:
-
 
 ifneq ($(DEPFILES),)
 include $(DEPFILES)

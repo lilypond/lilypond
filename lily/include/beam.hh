@@ -25,6 +25,8 @@ public:
   Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   
   Real slope_f_;
+  /// the slope as solved; not quantised or damped
+  Real solved_slope_f_;
 
   /// position of leftmost end of beam  
   Real left_y_;

@@ -179,6 +179,7 @@ struct Rhythmic_head;
 struct Rhythmic_grouping_req;
 struct Rhythmic_req;
 struct Single_malt_grouping_item;
+struct Scope;
 struct Separating_group_spanner;
 struct Score;
 struct Score_column;

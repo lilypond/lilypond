@@ -1,6 +1,7 @@
 \header{
 filename =	 "preludes-6.ly";
 title =	 "6";
+piece = "\\numfont 5";
 opus = "BWV 940";
 % blz 11
 % Six Petits Pr'eludes
@@ -11,6 +12,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
+\version "0.1.14";
 one = \melodic{
 	\octave c';
 	\skip 4*4; |
@@ -60,11 +62,11 @@ three = \melodic{
 	a2-2 ~ [a16 a-1( g f] [e-4 f-2 c-5 d] |
 	[e32 d e8 f16] [d8.-4 c16-5] \stemboth )c4.-5 d8-4 |
 	\stemdown
-	e4 ~ [e16 f-2( e-3 d-4] [cis 'a 'b cis-3] [d-4 e-3 f-2 d-4] |
+	e4 ~ [e16 f-2( e-3 d-4] [cis a, b, cis-3] [d-4 e-3 f-2 d-4] |
 	\textstyle "finger";
-	)'bes!2-"5\\_4" 'a ~ |
-	'a 'a |
-	'd cis-5 |
+	)'bes!2-"5\\_4" a, ~ |
+	a, a, |
+	d, cis-5 |
 	a1-2
 	\bar "|.";
 }

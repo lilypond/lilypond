@@ -1,11 +1,11 @@
-\version "0.1.10";
+\version "0.1.14";
 FontBody=	\melodic{ 
 		\octave c';
 		\bar "|:";
 		\meter 4/4;
 		\multi 2  < { \stemup e'\longa a\breve | }
 		{ \stemdown
-		c1 \clef "bass"; ''b \clef "violin"; c' a'
+		c1 \clef "bass"; b,, \clef "violin"; c' a'
 		c2 \clef "alto"; g c' \clef "violin"; a'
 		} >
 		\stemboth
@@ -20,7 +20,7 @@ FontBody=	\melodic{
 		\clef "bass";
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
 		\multi 2 < { \stemup r2 r2} {\stemdown c c }>
-		\multi 2 < { \stemup ''c1 } {\stemdown r1}>		
+		\multi 2 < { \stemup c,,1 } {\stemdown r1}>		
 		\stemboth
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 

@@ -13,7 +13,7 @@ Tested Features: cadenza mode
 Ugh.. Wish we had grace notes....  It adds another dimension to this
 piece of music.  %}
 
-\version "0.1.10";
+\version "0.1.14";
 
 
 cad = \melodic  {
@@ -38,25 +38,25 @@ cad = \melodic  {
 		\bar "" ;
 		r8 [c16 d] [e f g gis]
 
-	a4-> 'f() 'e g
-	f-> 'd() 'cis e
+	a4-> f,() e, g
+	f-> d,() cis, e
 
 	d4^\fermata
 		\bar "" ;
 
-	r8 'a ['b cis]
+	r8 a, [b, cis]
 	[d16 cis d e]
 	f4() [f16 e d c]
-	'b4-\turn
+	b,4-\turn
 	\octave c'; [2/3 d'8 c'8 a8]1/1
 	g2
 		\bar "" ;
 	[g16 c e g] [c' e g c']\octave c''; 
-	[e 'g c e] g4^\fermata 
+	[e g, c e] g4^\fermata 
 		\bar "" ;
 	[g8.(_"a tempo" e16 g8. )e16]
 	a4. g8 [f8 e8 d8 c8]
-	'g2 d2-\trill
+	g,2 d2-\trill
 	c4
 	}}
 \score {

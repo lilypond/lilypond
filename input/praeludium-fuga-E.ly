@@ -19,7 +19,7 @@
    * organ staff...
 %}
 
-\version "0.1.10";
+\version "0.1.14";
 
 noShift = { \property Voice.hshift = 0 }
 Shift = { \property Voice.hshift = 1 }
@@ -77,9 +77,9 @@ praeludium_pedal = \melodic {
   \clef bass;
 
   % 13
-  r4 'fis4-\ltoe 'e4.-\lheel e8-\rheel | 
+  r4 fis,4-\ltoe e,4.-\lheel e8-\rheel | 
   fis4.-\rtoe fis8-\rtoe fis4-\rtoe [e8-\ltoe a8-\rtoe] | 
-  dis4-\ltoe gis4-\rtoe [cis8-\ltoe 'b!8-\lheel 'ais8-\rtoe 'gis8-\ltoe] |
+  dis4-\ltoe gis4-\rtoe [cis8-\ltoe b,!8-\lheel ais,8-\rtoe gis,8-\ltoe] |
   % 16
 }
 
@@ -152,9 +152,9 @@ fuga2_pedal = \melodic {
 
   % 15
   dis4.-\ltoe e8-\rtoe cis4 |
-  'b4.-\lheel [cis8-\ltoe dis8-\rtoe e8-\rheel] |
+  b,4.-\lheel [cis8-\ltoe dis8-\rtoe e8-\rheel] |
   fis4.-\rtoe [e8-\rheel dis8-\rtoe cis8-\ltoe] |
-  dis4-\rtoe e4-\rheel 'e4-\ltoe |
+  dis4-\rtoe e4-\rheel e,4-\ltoe |
   % 19
 }
 

@@ -17,6 +17,10 @@
 #include "stem.hh"
 #include "text-def.hh"
 
+
+/*
+  UHGUGH THIS IS BROKEN! do not derive from Bow
+ */
 IMPLEMENT_IS_TYPE_B1 (Plet_spanner,Bow);
   
 Plet_spanner::Plet_spanner ()
@@ -103,12 +107,20 @@ Plet_spanner::do_post_processing ()
   do
     {
       Stem* s = stem_l_drul_[d] ? stem_l_drul_[d] : stem_l_drul_[(Direction)-d];
+
       dy_f_drul_[d] = dir_ == s->get_dir () ? s->stem_end_f ()
-      	: s->stem_begin_f () + dir_ * nh_f / 2;
+	  : s->stem_begin_f () + dir_ * nh_f / 2;
       dy_f_drul_[d] *= .5 * interline_f;
       dy_f_drul_[d] += dir_ * interline_f;
       if (d == RIGHT)
         dx_f_drul_[d] = nw_f;
+    }
+  while (flip(&d) != LEFT);
+  do {
+    if (stem_l_drul_[d]->empty_b ())
+      {
+	dy_f_drul_[d] = dy_f_drul_[flip (&d)]; // ughugh \[/3 r8 c8 r8 \]/1
+      }
     }
   while (flip(&d) != LEFT);
 }

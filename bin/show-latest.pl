@@ -1,8 +1,10 @@
 #!@PERL@
 # -*-Perl-*-
 
-
-$reldir="/home/hanwen/musix/releases";
+$LILYPOND_SOURCEDIR="$ENV{LILYPOND_SOURCEDIR}";
+$LILYPOND_ROOTDIR=`cd $LILYPOND_SOURCEDIR/..; pwd`;
+chop ($LILYPOND_ROOTDIR);
+$reldir="$LILYPOND_ROOTDIR/releases";
 
 use FileHandle;
 use Getopt::Long;
@@ -35,7 +37,7 @@ my $last= (pop @versions);
 
 
 if (  $opt_print ) {
-    print $last;
+    print $last . "\n";
 }
 
 if ( $opt_latest) {

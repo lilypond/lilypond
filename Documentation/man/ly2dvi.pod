@@ -27,7 +27,17 @@ Set debug mode. There are two levels - in level one some debug
 info is written, in level two the command C<set -x> is run, which
 echoes every command in the ly2dvi script.
 
-=item B<-H,--headers=>
+=item B<-F,--headers=>
+
+Name of additional LaTeX headers file. This is included in the
+tex file at the end of the headers, last line before \begin{document}
+
+=item B<-H,--Heigth=>
+
+Set paper heigth (points). Used together with width and LaTeX name of
+papersize in case of papersize unknown to ly2dvi.
+
+=item B<-F,--headers=>
 
 Name of additional LaTeX headers file. This is included in the
 tex file at the end of the headers, last line before \begin{document}
@@ -47,8 +57,16 @@ Switch off page numbering.
 
 =item B<-O,--orientation=>
 
-Set orientation - portrait is the default.
-(C<-O> landscape produces C<\usepackage[landscape]{article}>)
+Set orientation landscape - obsolete, use C<-L> instead.
+
+=item B<-W,--Width=>
+
+Set paper width (points). Used together with heigth and LaTeX name of
+papersize in case of papersize unknown to ly2dvi.
+
+=item B<-d,--dependencies>
+
+Tell lilypond to make dependencies file.
 
 =item B<-h,--help>
 
@@ -70,7 +88,7 @@ Set output directory.
 =item B<-p,--papersize=>
 
 Specify papersize.
-(C<-p a4paper> produces C<\usepackage[a4paper]{article}>)
+(C<-p a4> produces C<\usepackage[a4paper]{article}>)
 
 =item B<-s,--separate>
 
@@ -105,7 +123,7 @@ Specify the width (pt, mm or cm) of the printed lines.
 
 =item B<papersize="";>
 
-Specify papersize.
+Specify name of papersize.
 
 =back
 
@@ -183,11 +201,19 @@ Set output directory.
 
 =item B<PAPERSIZE=>
 
-Specify papersize.
+Specify name of papersize.
+
+=item B<PHEIGTH=>
+
+Specify paperheight (points - an inch is 72.27, a cm is 28.453 points).
 
 =item B<TMP=>
 
 Temporary directory name.
+
+=item B<PWIDTH=>
+
+Specify paperwidth (points - an inch is 72.27, a cm is 28.453 points).
 
 =back
 
@@ -226,7 +252,12 @@ to this mailinglist).
 
 =head1 REMARKS
 
-Only one papersize is supported, A4. Information on other sizes
+Many papersizes are now supported. Information on other sizes
 (LaTeX names, horizontal and vertical sizes) should be mailed to
 the author or to the mailing list.
 
+Supported papersizes are:
+
+a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
+archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
+letter, note

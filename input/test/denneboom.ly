@@ -7,7 +7,7 @@ TestedFeatures = "This file tests silly line shapes";
 
 \include "paper20.ly"
 
-\version "0.1.10";
+\version "0.1.14";
 
 oden = \lyric{ 
 	O8 |
@@ -35,10 +35,10 @@ ugloeit = \lyric{
 
 oboom = \melodic{
 	\octave c';
-	'g8 |
+	g,8 |
 	c8. c16 c4. d8 | 
 	e8. e16 e4. e8 | 
-	d  e f4 'b | 
+	d  e f4 b, | 
 	d8. c16 c4 r8
 }
 

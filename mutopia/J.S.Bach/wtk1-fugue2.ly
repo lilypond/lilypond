@@ -13,7 +13,7 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.10";
+\version "0.1.14";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -52,9 +52,9 @@ dux = \melodic {
    \translator Staff = treble \stemdown \octave c';
    [g16 fis] [g8 c] [es g16 fis!] [g8 a] |
   [d g16 fis] [g8 a!] [c16 d] es4 [d16 c] |         % forced accident!
-  'bes8 r8 r16 [d e fis] [g a bes8] ~ [bes16 e f g] |
-  [a bes c'8] ~ [c'16 fis16 g a] [bes8 es!16 d] [es8 'g] |
-  ['as f16 es] [f8 'a8] ['bes g16 f] [g8 'b] |
+  bes,8 r8 r16 [d e fis] [g a bes8] ~ [bes16 e f g] |
+  [a bes c'8] ~ [c'16 fis16 g a] [bes8 es!16 d] [es8 g,] |
+  [as, f16 es] [f8 a,8] [bes, g16 f] [g8 b,] |
 %% 20
   [c16 f es d] [c Bes! As G] [F8 as g f] |
   [es d es f] [B c d B] |
@@ -82,15 +82,15 @@ comes = \melodic {
   r8 [g16 fis] [g8 c] [es g16 fis] [g8 a] |
   [d8 g16 fis] [g8 a] [c16 d] es4 [d16 c] |
 %% 5
-  ['bes8 es16 d] [es8 'g8] ['as f16 es] [f8 'a] 
-  ['bes8 g16 f] [g8 'b] [c8 d16 es] f4 ~ |
-  [f8 es16 d] [c16 'bes! 'as 'g] ['f8 as g f] 
-  [es d es f] ['b c d 'b] |
+  [bes,8 es16 d] [es8 g,8] [as, f16 es] [f8 a,] 
+  [bes,8 g16 f] [g8 b,] [c8 d16 es] f4 ~ |
+  [f8 es16 d] [c16 bes,! as, g,] [f,8 as g f] 
+  [es d es f] [b, c d b,] |
   [c g16 fis] [g8 d] es4 r8 e8 |
 %% 10 
   [f f16 e] [f8 c8] d4 r8 d |
-  [es8 es16 d] [es8 'bes] [c es16 d] [es8 f] |
-  \stemboth ['bes es16 d] [es8 f] ['as16 'bes] c4 ['bes16 'as] |
+  [es8 es16 d] [es8 bes,] [c es16 d] [es8 f] |
+  \stemboth [bes, es16 d] [es8 f] [as,16 bes,] c4 [bes,16 as,] |
   [G16 Es F G] [As Bes c d] [es d c d] [es f g a] |
   [bes F G As] [Bes c d e] [f es d es] [ f g a b] |
 %% 15
@@ -100,10 +100,10 @@ comes = \melodic {
   r [fis16 e] fis8 r r [G16 F] G8 r8 |
   r8 [A16 G] A8 r r [B16 A] B8 r |
 %% 20
-  r8 [c16 'b] [c8 'g] [As c16 'b] [c8 d] |
+  r8 [c16 b,] [c8 g,] [As c16 b,] [c8 d] |
   [G c16 B] [c8 d] [F16 G] As4 [G16 F] |
   [Es8 c16 B] [c8 G] As4 r8 A |
-  [Bes8 Bes16 A] [Bes8 F8] 'g4 r8 G ~ |
+  [Bes8 Bes16 A] [Bes8 F8] g,4 r8 G ~ |
   [G As16 Bes] [c B c As] F2 ~ |
 %% 25
   [F8 d16 c] [d8 F] [Es es16 d] [es8 G] |
@@ -112,7 +112,7 @@ comes = \melodic {
   [G F16 Es] [F8 D] [As G] r A |
   [B c] [F16 Es D C] C8 [c16 B] [c8 G] |
 %% 30
-  [As c16 B] [c8 <d 'b! 'as!]> [G8 c16 B] [c8 d] |
+  [As c16 B] [c8 <d b,! as,!]> [G8 c16 B] [c8 d] |
   [F16 G] As4 [G16 F] E2 |
 }
 
@@ -143,7 +143,7 @@ bassdux = \melodic {
   r [es d c] [d c16 Bes] [c8 d] |
   [G8 bes16 a] [bes8 d] [es c'16 bes] [c'8 e] |
   [f d'16 c'] [d'8 fis] g4 r16 [G A B] |
-  [c16 d es8~] [es16 A Bes c] [d es f8~] [f16 'b c d] |
+  [c16 d es8~] [es16 A Bes c] [d es f8~] [f16 b, c d] |
 %% 20    
   es8 r r e [f F Es! D] |                           % -> \classic_accidentals
   r [As G F] [G F16 Es] [F8 G] |

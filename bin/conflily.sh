@@ -14,6 +14,7 @@ fi
 #
 #
 current=`basename \`pwd\``
+# (cd ..; rm -f current)
 (cd ..; rm -f current 2>&1 > /dev/null)
 (cd ..; ln -s $current current)
 #

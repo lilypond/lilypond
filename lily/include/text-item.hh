@@ -27,9 +27,10 @@ public:
     virtual ~Text_item ();
     DECLARE_MY_RUNTIME_TYPEINFO;
 
-protected:
+//protected:
     // ugh: so, are we a text-def, or can this vary?
     General_script_def* tdef_p_;
+protected:
 
     virtual Interval symbol_height () const;
 

@@ -36,18 +36,21 @@ call The Mutopia Project.
 
 =head1 STATUS
 
-This project is still in its vapourware stage, so don't ask questions
-unless you want to put in effort into The GNU Music project.
-
-Just as an aside, the LilyPond package includes the following music:
+This project is still in its infancy:  we have very little amount of
+music available.  The music is partly downloadable from the website.
+All of it is included in the source archive of LilyPond.
 
 =over 4
 
 =item *
 
 J.S. Bach, Das Wohltemperierte Clavier I: C major Prelude & Fugue, C
-minor fugue.  Solo cello suites: suite II, menuetto (alto version).
-Six small preludes: some preludes.
+minor fugue.  Solo cello suites: suite II.  Six small preludes: some
+preludes.
+
+=item *
+
+W. A. Mozart,  Horn concerto 3, solo part + cadenza.
 
 =item *
 
@@ -56,5 +59,9 @@ F. Schubert, St\"andchen (Serenade) "Leise flehen meine Lieder"
 =item *
 
 Tarquinio Merula, La Gallina a 2 violini
+
+=item *
+
+Paul Lacome d'Estalenx, La Feria, Los Toros (oboe 1)
 
 =back

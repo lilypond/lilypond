@@ -1,6 +1,8 @@
 \header{
 filename =	 "preludes-5.ly";
 title =	 "5";
+piece = "\\numfont 5";
+opus = "BWV 926";
 % blz 2
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 4-Praeludium 2
@@ -10,6 +12,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
+\version "0.1.14";
 one = \melodic{
 	\octave c';
 	\textstyle "italic";
@@ -66,9 +69,9 @@ one = \melodic{
 	[cis-1 bes-4 g-2 cis-1 a-5 g-4] |
 	[f-3 a f d a-5 f] |
 	[d-1 a-5 f-3 d-1 cis-2 d-1] |
-	[e-3\< g-5 e-3 'bes-1 g-5 e-3] |
-	['bes-1 g-5 e-3 \!cis-2 'a-1 g-5] |
-	[f16-4\mf d-2 c-1 'bes-3] \stemup 'a-2 s16 s8 s4 |
+	[e-3\< g-5 e-3 bes,-1 g-5 e-3] |
+	['bes-1 g-5 e-3 \!cis-2 a,-1 g-5] |
+	[f16-4\mf d-2 c-1 bes,-3] \stemup a,-2 s16 s8 s4 |
 % ugh
 %	s1 |
 	s4 s4 s4 |
@@ -88,7 +91,7 @@ one = \melodic{
 	[c'-5 a-3 fis-2 bes-4 g e ] |
 	[a-5 fis-"dim. e rall." d g-5 e cis-2] |
 	<
-		{ \voiceone; <fis2-.-5\p 'a> }
+		{ \voiceone; <fis2-.-5\p a,> }
 		{ \voicetwo; [d32( cis d8. ~] ) d2 }
 	> |
 	\bar "|.";
@@ -100,13 +103,13 @@ two = \melodic{
 	\octave c;
 %	[d32( cis )d8.] r4 r |
 	d4-\mordent r r |
-	'd4 r r |
+	d,4 r r |
 	d-\mordent r r |
-	'd4 r r |
+	d,4 r r |
 	d-\mordent r r |
 %	d r r |
-	'd4 r r |
-	[d8-2 'a-5 d-2 f-1 d-4 f-2] |
+	d,4 r r |
+	[d8-2 a,-5 d-2 f-1 d-4 f-2] |
 	[a-1 f-4 a-2 d'-1 a-2 d'-1] |
 	gis4-3 r r |
 	e-4( )gis-2 e |
@@ -121,32 +124,32 @@ two = \melodic{
 	f4-\mordent r r8 e |
 	d4 r8 [f-1 e d] |
 	[e-2 d-3 cis-4 e-1 d-2 cis-3] |
-	d4-2( )c! 'bes-4 |
-	'a( )a 'a |
-	'a( )a 'a |
-	'a( )a 'a |
-	'a( )a 'a |
-	'bes r r |
-	'bes-5( )bes 'bes |
-	'a r r |
-	'a-2( )d-1 'd |
-	'g r r |
-	'g( )g 'g |
-	'g r r |
-	'g( )g 'g |
-	'a r r |
-	'a( )a 'a |
-	'a r r |
-	'a( )a 'a |
-	'cis r r |
-	'cis( )cis 'cis |
-	'd-4 s16
+	d4-2( )c! bes,-4 |
+	a,( )a a, |
+	a,( )a a, |
+	a,( )a a, |
+	a,( )a a, |
+	bes, r r |
+	bes,-5( )bes bes, |
+	a, r r |
+	a,-2( )d-1 d, |
+	g, r r |
+	g,( )g g, |
+	g, r r |
+	g,( )g g, |
+	a, r r |
+	a,( )a a, |
+	a, r r |
+	a,( )a a, |
+	cis, r r |
+	cis,( )cis cis, |
+	d,-4 s16
 	\stemdown
 	[g16-1-"m.g." f e] [f-2 a d-3 f] | 
-	'a
+	a,
 	\stemup
-	[d-5-"m.d." c 'bes] 'a 
-	\stemdown ['g-2 'f-"m.g." 'e] ['d 'f-4 'a-2 d-1] |
+	[d-5-"m.d." c bes,] a, 
+	\stemdown ['g-2 f,-"m.g." e,] ['d f,-4 a,-2 d-1] |
 	\stemup
 %	[f-2\ped a]
 	[f-2-"Ped." a]
@@ -158,18 +161,18 @@ two = \melodic{
 %	r1 |
 	r4 r r |
 %{
-  	ugh, 'forget' the 8 below:
-	[cis-3( e cis 'a] [d16-1 c 'bes 'a] |
+  	ugh, forget,' the 8 below:
+	[cis-3( e cis a,] [d16-1 c bes, a,] |
 	and lily dumps koor
 lilypond: ../flower/include/varray.hh:116: struct Rhythmic_grouping *& Array<Rhythmic_grouping *>::elem(int) const: Assertion `i >=0&&i<size_' failed.
 Aborted (core dumped)
 %}
-	[cis8-3( e cis 'a] [d16-1 c 'bes 'a] |
-	[)'g8 g a-2( g-3 a-1 'a] |
+	[cis8-3( e cis a,] [d16-1 c bes, a,] |
+	[)'g8 g a-2( g-3 a-1 a,] |
 	)d4-3 d'-1 d |
 	d r r |
-	'd( )d 'd |
-	'd2. |
+	d,( )d d, |
+	d,2. |
 	\bar "|.";
 }
 

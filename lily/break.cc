@@ -177,9 +177,9 @@ Break_algorithm::solve () const
   Array<Col_hpositions> h= do_solve ();
 
   if (approx_stats_.count_i_)
-    *mlog << _ ("\nApproximated: ") << approx_stats_.str () << "\n";
+    *mlog << _ ("\n(Approximated: ") << approx_stats_.str () << ")\n";
   if (exact_stats_.count_i_)
-    *mlog << _ ("Calculated exactly: ") << exact_stats_.str () << "\n";
+    *mlog << _ ("(Calculated exactly: ") << exact_stats_.str () << ")\n";
   *mlog << _ ("Time: ") << String (timer.read (), "%.2f") << _ (" seconds\n");
 
   return h;

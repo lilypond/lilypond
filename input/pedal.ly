@@ -24,7 +24,7 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "0.1.10";
+\version "0.1.14";
 
 \score{
 		\melodic {
@@ -34,10 +34,10 @@
 			\octave c;
 			% silly chord testing...
 % these should be stacked...
-%			< 'c-\ltoe 'e-\lheel > < c'-\rtoe e'-\rheel>
-%			< 'c-\lheel 'e-\ltoe > < c'-\rheel e'-\rtoe> |
-			< 'c-\ltoe-\lheel 'e > < c'-\rtoe-\rheel e' >
-			< 'c-\lheel-\ltoe 'e > < c'-\rheel-\rtoe e' > |
+%			< c,-\ltoe e,-\lheel > < c'-\rtoe e'-\rheel>
+%			< c,-\lheel e,-\ltoe > < c'-\rheel e'-\rtoe> |
+			< c,-\ltoe-\lheel e, > < c'-\rtoe-\rheel e' >
+			< c,-\lheel-\ltoe e, > < c'-\rheel-\rtoe e' > |
 			% 46
 
 			[d16-\lfheel e-\rbtoe fis-\ltoe e-\rbtoe]

@@ -27,7 +27,8 @@ class Key
 {
   /** for each octave a key. Has to be private since octave 0 isn't member 0.
    */
-  Array<Octave_key> octaves;
+  Array<Octave_key> octaves_;
+  int octave_to_index (int) const;
 public:
   bool multi_octave_b_;
   

@@ -29,8 +29,8 @@ include VERSION
 SCRIPTS = configure configure.in aclocal.m4
 README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE \
  COPYING ONEWS NEWS README TODO \
- INSTALL.txt AUTHORS.txt PATCHES.txt
-EXTRA_DISTFILES = config.make.in config.hh.in .dstreamrc mudela-mode.el VERSION $(README_FILES) $(SCRIPTS) 
+ INSTALL$(DOTTEXT) AUTHORS$(DOTTEXT) PATCHES$(DOTTEXT)
+EXTRA_DISTFILES = config.make.in config.hh.in .dstreamrc mudela-mode.el vimrc VERSION $(README_FILES) $(SCRIPTS) 
 
 
 
@@ -64,26 +64,26 @@ Makefile: make/Toplevel.make.in
 	cat $< >> $@
 	chmod -w $@
 
-
-website:
+website: examples
 	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
-	tar cfz $(outdir)/htmldoc.tar.gz  `find Documentation -type d -name 'out-www' -print` out-www
+	rm -f `find . -name \*.html~ -print`
+	tar cfz $(outdir)/htmldoc.tar.gz  `find Documentation -type d -name 'out-www' -print` out-www index.html
 
 examples:
+	$(MAKE) CONFIGSUFFIX='www' outdirs
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
+local-WWW: index.html
 
-
-
-
-local-WWW: $(outdir)/index.html
-
-$(outdir)/index.html: Documentation/$(outdir)/topweb.html NEWS
+index.html: Documentation/$(outdir)/topweb.html NEWS
 	cp Documentation/$(outdir)/topweb.html $@
 	add-html-footer --news=NEWS $@
 
 Documentation/$(outdir)/topweb.html: 
 	make -C Documentation/ html
+
+WWW-clean:
+	$(MAKE) CONFIGSUFFIX='www' clean

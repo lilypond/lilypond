@@ -20,6 +20,7 @@
 #include "source-file.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
+#include "scope.hh"
 
 static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
@@ -72,9 +73,9 @@ static Keyword_ent the_key_tab[]={
 My_lily_lexer::My_lily_lexer()
 {
   keytable_p_ = new Keyword_table (the_key_tab);
-  identifier_p_dict_p_ = new Dictionary<Identifier*>;
+  toplevel_scope_p_ = new Scope;
+  scope_l_arr_.push (toplevel_scope_p_);
   errorlevel_i_ = 0;
-  post_quotes_b_ = false;
   note_tab_p_ = new Notename_table;
 }
 
@@ -87,10 +88,10 @@ My_lily_lexer::lookup_keyword (String s)
 Identifier*
 My_lily_lexer::lookup_identifier (String s)
 {
-  if (!identifier_p_dict_p_->elt_b (s))
-    return 0;
-
-  return (*identifier_p_dict_p_)[s];
+  for (int i = scope_l_arr_.size (); i--; )
+    if (scope_l_arr_[i]->elt_b (s))
+      return (*scope_l_arr_[i])[s];
+  return 0;
 }
 
 void
@@ -107,41 +108,34 @@ My_lily_lexer::start_main_input ()
 }
 
 void
-My_lily_lexer::set_identifier (String name_str, Identifier*i)
+My_lily_lexer::set_identifier (String name_str, Identifier* i, bool unique_b)
 {
   Identifier *old = lookup_identifier (name_str);
   if  (old)
     {
-      old->warning(_("redeclaration of \\") + name_str);
+      if (unique_b)
+	old->warning(_("redeclaration of \\") + name_str);
       delete old;
     }
-  (*identifier_p_dict_p_)[name_str] = i;
+  (*scope_l_arr_.top ())[name_str] = i;
 }
 
 My_lily_lexer::~My_lily_lexer()
 {
   delete keytable_p_;
+  delete toplevel_scope_p_ ;
 
-  for (Assoc_iter<String,Identifier*>
-	 ai (*identifier_p_dict_p_); ai.ok(); ai++)
-    {
-      DOUT << "deleting: " << ai.key()<<'\n';
-      delete ai.val();
-    }
+
   delete note_tab_p_;
-  delete identifier_p_dict_p_;
 }
+
 void
 My_lily_lexer::print_declarations (bool init_b) const
 {
-  for (Assoc_iter<String,Identifier*> ai (*identifier_p_dict_p_);
-       ai.ok(); ai++)
+  for (int i=scope_l_arr_.size (); i--; )
     {
-      if (ai.val()->init_b_ == init_b)
-	{
-	  DOUT << ai.key() << '=';
-	  ai.val()->print ();
-	}
+      DOUT << "Scope no. " << i << "\n";
+      scope_l_arr_[i]->print ();
     }
 }
 

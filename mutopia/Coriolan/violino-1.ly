@@ -9,14 +9,14 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 violino1 = \melodic{
 	\octave c';	
 	c1\ff ~ | c | <as'4-. c'-. f-.> r r2 | r1 |
 	c1 ~ | c | <d''4-. d'-. d-.> r r2 | r1 |
 	c1 ~ | c | <es''4-. es'-.> r r2 | r1 |
-	<g'4-. c'-. es-.> r r2 | <b4-. d-. 'g-.> r r2 |
+	<g'4-. c'-. es-.> r r2 | <b4-. d-. g,-.> r r2 |
 	[c8-.\p es-.] [es()d] [d-. g-.] g4-"ten." |
 	[c8-. es-.] [es()d] [d-. g-.] g4-"ten." |
 	[c8-. es-.] [es()d] [d-. as-.] [as()g] |

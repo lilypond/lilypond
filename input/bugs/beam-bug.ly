@@ -10,7 +10,7 @@ one = \melodic{
 	\octave c';
 %	      [e'16 c'' g' f']
 	[e'32 c'' g' f']
-	[c32 c] ['b 'b]
+	[c32 c] ['b b,]
 	[c8 c]
 	[e8 g b]
 	[e16 g b] c c c
@@ -21,7 +21,7 @@ one = \melodic{
 	[e'8 c'' g' f']
 	[e'16 c'' g' f']
 	[e'32 c'' g' f']
-	[c32 c] ['b 'b]
+	[c32 c] ['b b,]
 	[c8 c]
 	[e8 g b]
 	[e16 g b] c

@@ -6,7 +6,7 @@ copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "0.1.10";
+\version "0.1.14";
 
 \score{
 	<
@@ -41,11 +41,11 @@ TestedFeatures =	 "beams and beamflags";
 		\melodic { 
 			\octave c';  
 			\meter 8/4;
-			\stemdown [a'8 'a c e]
-			\stemdown [a'16 'a c e]
-			\stemdown [a'32 'a c e]
-			\stemdown [a'64 'a c e]
-			\stemdown [a'128 'a c e]
+			\stemdown [a'8 a, c e]
+			\stemdown [a'16 a, c e]
+			\stemdown [a'32 a, c e]
+			\stemdown [a'64 a, c e]
+			\stemdown [a'128 a, c e]
 			r32
 
 			\octave c;

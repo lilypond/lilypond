@@ -34,14 +34,14 @@ and the ftp site.
 =over 4
 
 =item *
-<a href=../input/out-www/index.html
+<a href=input/out-www/index.html
 >
 short examples of what LilyPond can do: MIDI, PS, .gif and input.
 </a
 >
 
 =item *
-<a href=../mutopia/out-www/index.html
+<a href=mutopia/out-www/index.html
 >
 examples of what LilyPond can do
 with real music: MIDI, PS, .gif and input 
@@ -61,7 +61,7 @@ top_of_NEWS
 =over 4
 
 =item *
-<a href=../Documentation/out-www/index.html
+<a href=Documentation/out-www/index.html
 >
 All of the LilyPond documentation.
 </a
