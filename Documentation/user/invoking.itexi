@@ -126,7 +126,9 @@ to generate titling; an example demonstrating all these fields is in
 @code{header}, because @code{\header} is a reserved word in LilyPond.
 @item copyright
     A text to print in the footer of the first page. Default is to 
-    print the standard footer also on the first page.
+    print the standard footer also on the first page. Note that if the
+    score is only page, the first page is also the last page and in this
+    case, the tagline is printed instead of the copyright.
 @item footer
     A text to print in the footer of all but the last page.
 @item tagline
