@@ -19,7 +19,7 @@ def draw_fermata =
 
 	radius# + crook_fatness#/2 = h#;
 	radius# + crook_thinness#/2 = w#;
-	set_char_box(w#, w#, 0, h#);
+	set_char_box(w#, w#, crook_thinness#/2, h#);
 	
 	define_pixels(radius, crook_thinness, crook_fatness);
 	dot_diam = 4/3 crook_fatness;
@@ -269,9 +269,9 @@ fet_beginchar("Downbow", "downbow", "downbow")
 fet_endchar;
 
 %
-% FIXME the middle part (NW -> SE) may have some more (ok; it is
-% negative: less) slope
+% Inspired by a computer-set version of auf dem Strom by Baerenreiter. 
 %
+
 fet_beginchar("Turn","turn","turn")
 	save thin, thick, ball_diam, darkness;
 	save wd, ht, thick_nibangle, ball_nib_thick;
@@ -280,7 +280,7 @@ fet_beginchar("Turn","turn","turn")
 
 	wd# = 35/16 interline#;
 	ht# = 18/17 interline#;
-	darkness = 1.3 stafflinethickness;
+	darkness = 1.25 stafflinethickness;
 
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
 
@@ -324,6 +324,116 @@ fet_beginchar("Turn","turn","turn")
 
 	penlabels(5,6,7);
 	
+fet_endchar;
+
+
+ 
+
+def draw_bulb(expr zl, zr, center_factor, radius_factor)=
+	begingroup;
+	clearxy;
+	save rad, ang;
+
+	ang = angle(zr-zl);
+	z0 = center_factor [zr, zl];
+	rad = center_factor * length(zr-zl);
+	
+	z1 = z0 + radius_factor* rad * dir(ang - 100);
+	z2 = z0 + rad * dir(ang - 270);
+	labels(0,1,2);
+	fill zr{dir (ang - 90)} .. z1 .. z2 -- cycle;
+
+	endgroup
+enddef;
+
+fet_beginchar("Trill (`tr')","utrill","utrill")
+	
+	save start_angle,  ascender_extra, ex, hair_thick, fatness,
+	  slant_angle, slant, t_fatness, r_fatness, kerning;
+	pair slant_vec;
+
+	define_pixels(ex, ascender_extra, ascender);
+	ascender_extra# = 1/2 ex#;
+	ascender# = ascender_extra# + ex#;
+	ex# = interline#;
+
+	fatness = 12/40 ex;
+	t_fatness = 8/10 fatness;
+	r_fatness = 8/10 fatness;
+
+	hair_thick = 2/3 blot_diameter;
+
+
+	y1 = ascender;
+	x1l = 0;
+	x1r = t_fatness;
+	penpos1(start_nib_wid, 25);
+	
+	z2 = (x1, 7/18 ex);
+	penpos2(start_nib_wid, 25);
+
+	z3l = (11/10 t_fatness, 0);
+
+	z4l = (13/6 t_fatness, 3/8 ex);
+	penpos4(hair_thick, 180);
+
+	1.9 [z3l, z3r] = z4r;
+	z3 = .5 [z3l, z3r];
+
+
+	
+	save t_p, krul_p;
+	path t_p, krul_p, r_p;
+
+
+	t_p := z1l -- z2l{down} .. z3l{right} .. z4l{up} -- z4r{down} 
+		.. z3r{left} .. z2r{up} .. z1r -- cycle;
+	fill t_p ;
+
+	krul_ang = 32;
+
+	pickup pencircle scaled hair_thick;
+
+	z5 = (t_fatness/2, 2/3 ex);
+	
+	lft x6 = -18/40 ex;
+	y6 =  y5 - 1/20 ex;
+
+	z7 = (2 t_fatness, ex);
+
+	krul_p := z4{up} .. tension 1.1 .. z5  .. {down}z6
+		.. tension 1.1 .. z5 --- z7;
+	draw krul_p;
+
+	penpos7(hair_thick, angle (z7-z5) + 90);
+
+	z8l = (2 t_fatness + 2 hair_thick, ex);
+	penpos8(2 hair_thick, 35);
+
+	y9 = 3/4 ex;
+	x9l = 2.8 t_fatness;
+	penpos9(r_fatness, 0);
+
+	x10 = x9;
+	y10 = 0;
+	penpos10(r_fatness, 0);
+
+	r_p := z7l{z7-z5} .. z8l{right} .. z9l{down} --- z10l -- z10r
+		--- z9r{up} 
+		..  z8r{left} ..  z7r{z5-z7} -- cycle;
+	fill r_p;
+	set_char_box(0,2 interline#, 0,ascender#);
+
+
+	penpos11(1/4 r_fatness, -20);
+	z11r = z9r;
+	
+	z13 = (x9 + 2 r_fatness, y11 + 1/16 ex);
+	penpos13(r_fatness, 180);
+	fill z11r{dir 70} .. z13r{down} -- z13l{up} .. z11l{dir 250} -- cycle;
+	penlabels(range 1 thru 15);
+
+	draw_bulb(z13r, z13l, 0.5, 1.5);
 fet_endchar;
 
 fet_endgroup("foobars");

@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.3
-% on Wed Oct  8 16:18:16 1997
+% on Thu Oct  9 11:15:50 1997
 % Do not edit
 
 % input from out/font-en-tja20.log
@@ -34,7 +34,7 @@
         "2" "\quartball" -0.00\pt 6.61\pt -2.75\pt 2.75\pt 
         }
     "foobars"  = \table {
-        "ufermata" "\ufermata" -7.88\pt 7.88\pt -0.00\pt 8.50\pt 
+        "ufermata" "\ufermata" -7.88\pt 7.88\pt -0.38\pt 8.50\pt 
         "dfermata" "\dfermata" -7.88\pt 7.88\pt -8.50\pt 0.00\pt 
         "accent" "\sforzatoaccent" -4.50\pt 4.50\pt -2.50\pt 2.50\pt 
         "staccato" "\staccato" -0.63\pt 0.63\pt -0.63\pt 0.63\pt 
@@ -48,6 +48,7 @@
         "upbow" "\upbow" -3.25\pt 3.25\pt -0.00\pt 9.75\pt 
         "downbow" "\downbow" -4.38\pt 4.38\pt -0.00\pt 5.00\pt 
         "turn" "\turn" -5.47\pt 5.47\pt -2.65\pt 2.65\pt 
+        "utrill" "\utrill" -0.00\pt 10.00\pt -0.00\pt 7.50\pt 
         }
     "floogbars"  = \table {
         "3u" "\eighthflag" -0.25\pt 6.46\pt -15.91\pt 0.25\pt 
