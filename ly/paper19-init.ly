@@ -4,8 +4,8 @@
 \version "1.9.8"
 
 paperNineteen = \paper {
-	staffheight = 19.0\pt
-	#(define fonts (make-font-list 'paper19))
+	staffheight = 18.0\pt
+	#(define fonts (scale-font-list  (/ 18.0 20.0) ))
 
 	\include "params-init.ly"
 }

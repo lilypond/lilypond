@@ -80,6 +80,8 @@ fet_endchar;
 
 % code := 44;  % - = 45
 
+%% ugh. rounded corners!
+
 fet_beginchar("Pedal dash", "-", "pedaldash")
 	set_char_box(0, 3penw#, 0, pedalbh#);
 	pickup pencircle scaled penh;
