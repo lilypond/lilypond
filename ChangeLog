@@ -1,3 +1,8 @@
+2003-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Beaming): add note about
+	allowBeamBreak
+
 2003-08-18  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lilypond.words, ly/engraver-init.ly, ly/params-init.ly: added
@@ -115,7 +120,7 @@
 2003-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): change GUILE
-	requirements.
+	requirements to plain 1.6.
 
 	* buildscripts/mutopia-index.py (read_lilypond_header): update
 	mutopia-index.py to 1.4 syntax [sic]

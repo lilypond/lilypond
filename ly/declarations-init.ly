@@ -18,8 +18,14 @@ stop = 1
 smaller = -1
 bigger = 1
 center=0
-	
-break = #(make-event-chord (list (make-penalty-music -10001)))
+
+%{
+
+should also set allowBeamBreak, but how to do it "portably"? (ie. also
+working with lyric sections)
+
+%}
+break =#(ly:export make-event-chord (list (make-penalty-music -10001)))
 noBreak =  #(make-event-chord (list (make-penalty-music 10001)))
 
 \include "scale-definitions-init.ly"
