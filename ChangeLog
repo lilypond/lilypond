@@ -1,5 +1,9 @@
 2002-06-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.60 released
+
+	* lily/beam.cc: tremolo fix.
+
 	* scripts/convert-ly.py:  add tuplet-X-visibility rules.
 	add VerticalExtent -> verticalExtent rules.
 
