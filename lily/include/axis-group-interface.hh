@@ -25,7 +25,7 @@ struct Axis_group_interface
   static bool axis_b (Grob*,Axis);
   static Link_array<Grob> get_children (Grob*);
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);
+  
   
 };
 

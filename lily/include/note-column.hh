@@ -40,7 +40,7 @@ public:
   static void add_head (Grob*me,Grob*);
   static bool rest_b (Grob*me);
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);
+  
   static Item *stem_l (Grob*);
 };
 

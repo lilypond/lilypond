@@ -17,21 +17,6 @@
 #include "tie.hh"
 #include "lookup.hh"
 
-static SCM
-pitch_less (SCM p1, SCM p2)
-{
-  return Pitch::less_p (ly_car (p1),  ly_car (p2));
-}
-
-static SCM pitch_less_proc;
-
-void
-init_pitch_funcs ()
-{
-  pitch_less_proc = gh_new_procedure2_0 ("pitch-less", &pitch_less);
-}
-
-ADD_SCM_INIT_FUNC (lkpitch,init_pitch_funcs);
 
 
 void
@@ -172,7 +157,6 @@ Local_key_item::brew_molecule (SCM smob)
 	  oct_b = true; 
 	}
       
-
       lastoct = p.octave_i () ;
 
       bool cautionary = (scm_memq (ly_symbol2scm ("cautionary"), opts) != SCM_BOOL_F);
@@ -180,7 +164,6 @@ Local_key_item::brew_molecule (SCM smob)
       SCM caut_siz = me->get_grob_property("cautionary-size");
       int frs = (gh_exact_p(font_rel_siz) ? gh_scm2int(font_rel_siz) : 0);
       int cs = (gh_exact_p(caut_siz) ? gh_scm2int(caut_siz) : 0);
-
 
       // Ugh. This will only work if only called once on each grob. --rz
       if (cautionary && caut_siz!=0)

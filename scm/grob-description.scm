@@ -26,6 +26,24 @@
 	(font-family . music)
 	(meta . ((interfaces . (accidentals-interface staff-symbol-referencer-interface font-interface side-position-interface))))
 	))
+    (Accidental
+     . (
+	(molecule-callback . ,Accidental_interface::brew_molecule)
+	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+;	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
+	(direction . -1)
+	(left-padding . 0.2)
+	(right-padding . 0.5)
+	(paren-cautionaries . #t)
+	(font-family . music)
+	(meta . ((interfaces . (accidental-interface staff-symbol-referencer-interface font-interface side-position-interface))))
+	))
+    (AccidentalPlacement
+     . (
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
+;	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
+	(meta . ((interfaces . (accidental-placement-interface))))
+	))
 
     (Arpeggio
      . (

@@ -17,7 +17,7 @@ class Break_align_interface
 public:
   static void do_alignment (Grob*);
   static void new_do_alignment (Grob*);  
-  static void set_interface (Grob*);
+  
   static bool has_interface (Grob*);
   static void add_element (Grob*me, Grob*add);
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));

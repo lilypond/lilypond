@@ -75,7 +75,6 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 void
 Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
 {
-  // set_interface () ?
   SCM sa1= gh_int2scm (a1);
   SCM sa2 = gh_int2scm (a2);
 

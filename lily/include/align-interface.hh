@@ -23,7 +23,7 @@ struct Align_interface {
   static Axis axis (Grob*) ;
   static void add_element (Grob*,Grob*, SCM callback);
   static int get_count (Grob*,Grob*);
-  static void set_interface (Grob*);
+
   static bool has_interface (Grob*);
 };
 

@@ -19,7 +19,6 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static void add_pitch (Grob*me, Pitch, bool cautionary, bool natural, Grob *tie_break_cautionary);
   static bool has_interface (Grob*);
-  static void set_interface (Grob*);  
 };
 
 

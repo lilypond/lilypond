@@ -27,7 +27,7 @@ StaffContext=\translator {
 	\consists "Staff_symbol_engraver"
 	\consists "Collision_engraver"
 	\consists "Rest_collision_engraver"
-	\consists "Accidental_engraver"
+	\consists "New_accidental_engraver"
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
 	\consists "Grob_pq_engraver"

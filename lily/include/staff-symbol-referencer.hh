@@ -21,7 +21,7 @@
 class Staff_symbol_referencer 
 {
 public:
-  static void set_interface (Grob*);
+  
   static bool has_interface (Grob*);
   static bool ugly_hack (Grob*);  
   static void set_position (Grob*,Real);

@@ -348,6 +348,13 @@ pitch_semitones (SCM pp)
 
   return gh_int2scm (q);
 }
+SCM pitch_less_proc;
+static SCM
+pitch_less (SCM p1, SCM p2)
+{
+  return Pitch::less_p (ly_car (p1),  ly_car (p2));
+}
+
 
 static void
 add_funcs ()
@@ -359,6 +366,7 @@ add_funcs ()
   scm_c_define_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
   scm_c_define_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
   scm_c_define_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
+  pitch_less_proc = gh_new_procedure2_0 ("pitch-less", &pitch_less);
 }
 
 ADD_SCM_INIT_FUNC (pitch, add_funcs);
@@ -387,3 +395,4 @@ Pitch::alteration_i () const
 {
   return alteration_i_;
 }
+
