@@ -3,7 +3,7 @@
 
 .PHONY : all clean config default dist doc doc++  exe help html lib TAGS\
 	 po
-VPATH=$(outdir)/		#ugh?
+# VPATH=$(outdir)/		#ugh?
 # target all:
 #
 all:	 default
@@ -123,7 +123,7 @@ TAGS:
 $(outdir)/VERSION: $(depth)/VERSION
 	cp $< $@
 
-$(outdir)/version.hh: VERSION
+$(outdir)/version.hh: $(outdir)/VERSION
 	sh ./$(step-bindir)/make-version.sh $< > $@
 
 # should this be in Rules?
@@ -157,6 +157,8 @@ installextradoc:
 
 WWW: local-WWW
 	$(LOOP)
+
+local-WWW:
 
 include $(stepdir)/package.make
 

@@ -7,18 +7,19 @@
 
 \include "paper16.ly";
 
- \paper { 
+\paper { 
   \paper_sixteen
-  linewidth = 7.\cm;
+    linewidth = -1.0\cm;
+    castingalgorithm = \Wordwrap;
+    "unusedentry" = "}\\def\\nolilyfooter{";
 }
+
 
 \score { 
 %  \notes\relative c {
   \notes {
     \maininput
   }
-  \paper { 
-    linewidth = -1.0\cm;
-    castingalgorithm = \Wordwrap;
-  }
+  \paper { }
+
 }
