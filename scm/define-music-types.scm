@@ -11,7 +11,7 @@
     (AbsoluteDynamicEvent
      . (
    (description . "Creates a dynamic mark.  Syntax: @var{note}@code{\\x},
-where x is one of \@\{\\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.\@\}")
+where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
 	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
@@ -226,7 +226,7 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	))
     (MarkEvent
      . (
-	(description .  "Insert a rehearsal mark. Syntax: @code{\mark} @var{marker},
+	(description .  "Insert a rehearsal mark. Syntax: @code{\\mark} @var{marker},
 e.g. @code{\\mark \"A\"}.")
 
 	(internal-class-name . "Event")
@@ -306,7 +306,7 @@ as separate voices.")
      . (
 	(description .  "Set a context property.
 
-Syntax: @code{\property @var{context}.@var{prop} = @var{scheme-val}}.")
+Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_iterator::constructor)
@@ -315,7 +315,7 @@ Syntax: @code{\property @var{context}.@var{prop} = @var{scheme-val}}.")
     
     (PropertyUnset
      . (
-	(description .  "Remove the definition of a context @code{\property}.")
+	(description .  "Remove the definition of a context @code{\\property}.")
 
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))

@@ -72,10 +72,10 @@ For chord inversions, this is negative.")
 (music-property-description 'pop-first boolean? "Do a revert before we try to do a override on some grob property.")
 (music-property-description 'procedure procedure?
 			    "The function to run with \\applycontext. It must take a single argument, being the context.")
-(music-property-description 'predicate procedure? "the predicate of a \outputproperty")
+(music-property-description 'predicate procedure? "the predicate of a \\outputproperty")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
 (music-property-description 'types list? "The types of this music object. Determines iteration in some cases.")
-(music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
+(music-property-description 'repeat-count  integer? "do a @code{\\repeat} how ofen?")
 (music-property-description 'span-direction ly:dir? "Does this start or stop a spanner?")
 
 (music-property-description 'start-moment-function procedure? "Function to compute the negative length of

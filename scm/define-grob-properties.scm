@@ -42,7 +42,7 @@ direction.
 Offset callbacks can be stacked, i.e.
 
 @example
-        \property .... \override #'Y-offset-callbacks = #(list
+        \\property .... \\override #'Y-offset-callbacks = #(list
                 callback1 callback2 callback3)
 
 @end example
@@ -296,8 +296,8 @@ length of a note with N flags.
 (grob-property-description 'linea boolean? "attach vertical lines to this neume?.")
 (grob-property-description 'line-count integer? "Number of staff
 lines.  If you want to override this for staffs individually, you must
-use @code{\outputproperty}. @code{\property .. \override} will not
-work: @code{\override} is processed after the StaffSymbol is created,
+use @code{\\outputproperty}. @code{\\property .. \\override} will not
+work: @code{\\override} is processed after the StaffSymbol is created,
 and will have no effect.
 ")
 (grob-property-description 'maximum-length ly:dimension? "don't make Grob longer than this")

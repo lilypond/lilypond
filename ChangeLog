@@ -1,3 +1,11 @@
+2004-01-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/*.scm (grob-property-description): fix escape sequences for
+	new GUILE.
+
+	* lily/paper-outputter.cc (output_scope):  use scm_integer_p for
+	dumping ints.
+
 2004-01-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/mark-engraver.cc (process_music): fix typechecking bug.

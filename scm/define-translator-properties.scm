@@ -243,7 +243,7 @@ Do nothing.
 
 (translator-property-description 'explicitKeySignatureVisibility
 procedure? "visibility-lambda function for explicit Key changes;
-\override of #'break-visibility will set the visibility for normal
+\\override of #'break-visibility will set the visibility for normal
 (ie. at the start of the line) key signatures.")
 
 (translator-property-description 'extraNatural boolean? "Whether to typeset an
@@ -500,7 +500,7 @@ Example:
 
 This will create a start-repeat bar in this staff only.
 
-If not set explicitly (by property or @code{\bar}), this is set
+If not set explicitly (by property or @code{\\bar}), this is set
 according to values of @code{defaultBarType}, @code{barAlways},
 @code{barNonAuto} and @code{measurePosition}.
 
