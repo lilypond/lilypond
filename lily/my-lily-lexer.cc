@@ -118,7 +118,6 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   sources_ = src.sources_;
   scopes_ = src.scopes_;
   error_level_ = src.error_level_; 
-  //  main_input_b_ = false;
   main_input_b_ = src.main_input_b_;
 }
 
