@@ -98,9 +98,9 @@
    (ly:numbers->string (list slope width thick blot)) " draw_beam" ))
 
 ;; two beziers
-(define (bezier-sandwich l thick)
+(define (bezier-sandwich lst thick)
   (string-append 
-   (string-join (map ly:number-pair->string l) " ")
+   (string-join (map ly:number-pair->string lst) " ")
    " "
    (ly:number->string thick)
    " draw_bezier_sandwich"))

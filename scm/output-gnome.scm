@@ -90,6 +90,40 @@ lilypond -fgnome input/simple-song.ly
     (use-modules (gnome gw libgnomecanvas)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Wrappers from guile-gnome TLA
+;;; guile-gnome-devel@gnu.org--2004
+;;; http://arch.gna.org/guile-gnome/archive-2004
+;;;
+;;; janneke@gnu.org--2004-gnome
+;;; http://lilypond.org/~janneke/{arch}/2004-gnome
+;;;
+(if (not (defined? '<gnome-canvas-path-def>))
+    (begin
+      (define-class <gnome-canvas-path-def> (<gobject>)
+	(closure #:init-value (gnome-canvas-path-def-new)
+		 #:init-keyword #:path-def
+		 #:getter get-def #:setter set-def))
+      
+      (define-method (moveto (this <gnome-canvas-path-def>) x y)
+	(gnome-canvas-path-def-moveto (get-def this) x y))
+      (define-method (curveto (this <gnome-canvas-path-def>) x1 y1 x2 y2 x3 y3)
+	(gnome-canvas-path-def-curveto (get-def this)  x1 y1 x2 y2 x3 y3))
+      (define-method (lineto (this <gnome-canvas-path-def>) x y)
+	(gnome-canvas-path-def-lineto (get-def this) x y))
+      (define-method (closepath (this <gnome-canvas-path-def>))
+	(gnome-canvas-path-def-closepath (get-def this)))
+      
+      (define -set-path-def set-path-def)
+      (define -get-path-def get-path-def)
+      
+      (define-method (set-path-def (this <gnome-canvas-shape>)
+				   (def <gnome-canvas-path-def>))
+	(-set-path-def this (get-def def)))
+      
+      (define-method (get-path-def (this <gnome-canvas-shape>))
+	(make <gnome-canvas-path-def> #:path-def (-get-path-def this)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 
@@ -105,11 +139,12 @@ lilypond -fgnome input/simple-song.ly
 ;; helper functions
 
 (define (stderr string . rest)
-  ;; debugging
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+(define (debugf string . rest)
   (if #f
-      (begin
-	(apply format (cons (current-error-port) (cons string rest)))
-	(force-output (current-error-port)))))
+      (apply stderr (cons string rest))))
 
 (define (utf8 i)
   (cond
@@ -156,13 +191,38 @@ lilypond -fgnome input/simple-song.ly
       (ly:all-stencil-expressions)
       (ly:all-output-backend-commands)))
 
+;; two beziers
+(define (bezier-sandwich lst thick)
+  (let* ((def (make <gnome-canvas-path-def>))
+	 (bezier (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units thick)))
+    
+    ;; cl cr r l  0 1 2 3 
+    ;; cr cl l r  4 5 6 7
+    
+     (moveto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
+     (curveto def (car (list-ref lst 0)) (- (cdr (list-ref lst 0)))
+ 	     (car (list-ref lst 1)) (- (cdr (list-ref lst 1)))
+ 	     (car (list-ref lst 2)) (- (cdr (list-ref lst 2))))
 
+     (lineto def (car (list-ref lst 7)) (- (cdr (list-ref lst 7))))
+     (curveto def (car (list-ref lst 4)) (- (cdr (list-ref lst 4)))
+ 	     (car (list-ref lst 5)) (- (cdr (list-ref lst 5)))
+ 	     (car (list-ref lst 6)) (- (cdr (list-ref lst 6))))
+     (lineto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
+
+    (closepath def)
+    (set-path-def bezier def)
+    bezier))
 
 (define (char font i)
   (text font (utf8 i)))
 
 (define (placebox x y expr)
-  (stderr "item: ~S\n" expr)
+  (debugf "item: ~S\n" expr)
   (let ((item expr))
     ;;(if item
     ;; FIXME ugly hack to skip #unspecified ...
@@ -204,10 +264,10 @@ lilypond -fgnome input/simple-song.ly
 	 (ops 2.61)
 	 
 	 (scaling (* ops magnification designsize)))
-    (stderr "OPS:~S\n" ops)
-    (stderr "scaling:~S\n" scaling)
-    (stderr "magnification:~S\n" magnification)
-    (stderr "design:~S\n" designsize)
+    (debugf "OPS:~S\n" ops)
+    (debugf "scaling:~S\n" scaling)
+    (debugf "magnification:~S\n" magnification)
+    (debugf "design:~S\n" designsize)
     
     scaling))
 
