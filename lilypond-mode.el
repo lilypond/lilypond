@@ -691,6 +691,7 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "]" 'LilyPond-electric-close-paren)
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
     (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
