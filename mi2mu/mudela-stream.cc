@@ -33,7 +33,7 @@ Mudela_stream::~Mudela_stream()
 {
   delete os_p_;
   if  (indent_i_)
-	warning ("lily indent level: " + String (indent_i_));
+    warning ("lily indent level: " + String (indent_i_));
 }
 
 Mudela_stream&
@@ -42,12 +42,12 @@ Mudela_stream::operator << (String str)
   static String word_sep_str = "{} \t\n";
   while  (str.length_i()) 
     {
-	int i = str.index_any_i (word_sep_str) + 1;
-	if  (!i)
-	    i = str.length_i();
-	String word = str.left_str (i);
-	str = str.mid_str (i, str.length_i());
-	output_wrapped (word);
+      int i = str.index_any_i (word_sep_str) + 1;
+      if  (!i)
+	i = str.length_i();
+      String word = str.left_str (i);
+      str = str.mid_str (i, str.length_i());
+      output_wrapped (word);
     }
   return *this;
 }
@@ -87,9 +87,9 @@ Mudela_stream::header()
 void
 Mudela_stream::open()
 {
-  os_p_ = new ofstream (filename_str_);
+  os_p_ = new ofstream (filename_str_.ch_C ());
   if  (!*os_p_)
-	error  ("can't open: `" + filename_str_ + "\'");
+    error  ("can't open: `" + filename_str_ + "\'");
 }
 
 void
@@ -97,50 +97,50 @@ Mudela_stream::output (String str)
 {
   for  (int i = 0; i < str.length_i(); i++) 
     {
-	char c = str[ i ];
-	switch  (c) 
-	  {
-	    case '{' :
-	    case '<' :
-		handle_pending_indent();
-		if  (column_i_ == indent_i_ * INDENT_i)
-		    output ("\t");
-		indent_i_++;
-		*os_p_ << c;
-		column_i_++;
-		break;
-	    case '}' :
-	    case '>' :
-		assert (indent_i_);
-		indent_i_--;
-		if  (pending_indent_i_)
-		    pending_indent_i_--;
-		handle_pending_indent();
-		*os_p_ << c;
-		column_i_++;
-		break;
-	    case '%' :
-		handle_pending_indent();
-		comment_mode_b_ = true;
-		*os_p_ << c;
-		column_i_++;
-		break;
-	    case '\t' :
-		handle_pending_indent();
-		*os_p_ << c;
-		column_i_ += INDENT_i;
-		break;
-	    case '\n' :
-		*os_p_ << endl;
-		pending_indent_i_ = indent_i_;
-		column_i_ = 0;
-		comment_mode_b_ = false;
-		break;
-	    default :
-		handle_pending_indent();
-		*os_p_ << c;
-		column_i_++;
-		break;
+      char c = str[ i ];
+      switch  (c) 
+	{
+	case '{' :
+	case '<' :
+	  handle_pending_indent();
+	  if  (column_i_ == indent_i_ * INDENT_i)
+	    output ("\t");
+	  indent_i_++;
+	  *os_p_ << c;
+	  column_i_++;
+	  break;
+	case '}' :
+	case '>' :
+	  assert (indent_i_);
+	  indent_i_--;
+	  if  (pending_indent_i_)
+	    pending_indent_i_--;
+	  handle_pending_indent();
+	  *os_p_ << c;
+	  column_i_++;
+	  break;
+	case '%' :
+	  handle_pending_indent();
+	  comment_mode_b_ = true;
+	  *os_p_ << c;
+	  column_i_++;
+	  break;
+	case '\t' :
+	  handle_pending_indent();
+	  *os_p_ << c;
+	  column_i_ += INDENT_i;
+	  break;
+	case '\n' :
+	  *os_p_ << endl;
+	  pending_indent_i_ = indent_i_;
+	  column_i_ = 0;
+	  comment_mode_b_ = false;
+	  break;
+	default :
+	  handle_pending_indent();
+	  *os_p_ << c;
+	  column_i_++;
+	  break;
 	}	
     }
 }
@@ -151,23 +151,23 @@ Mudela_stream::output_wrapped (String str)
   // enough room left -> doit
   if  (column_i_ + str.length_i() <= wrap_column_i_) 
     {
-	output (str);
-	return;
+      output (str);
+      return;
     }
 
   // we're at BOL already; this will never fit -> doit
   if  (column_i_ == indent_i_ * INDENT_i) 
     {
-	output (str);
-	return;
+      output (str);
+      return;
     }
   
   // ok, let's wrap
   // preserve comment mode
   if  (comment_mode_b_)
-	output (String ("\n%"));
+    output (String ("\n%"));
   else 
-	output (String ("\n"));
+    output (String ("\n"));
   
   output (str);
 }
