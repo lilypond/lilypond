@@ -30,9 +30,7 @@
 MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 
 /*
-  TODO: this function is too long, too hairy.
-
-  TODO: document this. What the heck is happening here?
+  TODO: this function is too long
 */
 SCM
 Text_spanner::brew_molecule (SCM smob) 
