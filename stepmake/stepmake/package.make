@@ -1,7 +1,5 @@
 # stepmake/Package.make
 
-package-icon=$(outdir)/$(package)-icon.gif
-
 deb:
 	$(MAKE) -C $(depth)/debian
 
@@ -26,6 +24,7 @@ diff:
 release: 
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
 
-rpm: $(depth)/$(package-icon) dist
+# rpm: $(depth)/$(package-icon) dist
+rpm: dist
 	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
 

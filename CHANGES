@@ -1,4 +1,18 @@
---- ../lilypond-1.3.144/CHANGES	Wed Mar 28 01:27:11 2001
+--- ../lilypond-1.3.144.jcn3/CHANGES	Thu Mar 29 15:57:17 2001
+++ b/CHANGES	Fri Mar 30 12:30:41 2001
+@@ -1,3 +1,12 @@
+1.3.144.jcn4
+============
+
+* Build fixes for icon, this fixes 'rpm' target.  Tried to reinclude
+in rpm using (.png and) .xpm, but latest LinuxPPC release's rpm
+(3.0.6) Icon: tag handling is broken.
+
+* Fixes for update-lily script.
+
+ 1.3.144.jcn3
+ ============
+ --- ../lilypond-1.3.144/CHANGES	Wed Mar 28 01:27:11 2001
 ++ b/CHANGES	Thu Mar 29 21:17:09 2001
 @@ -1,3 +1,8 @@
 1.3.144.mb1

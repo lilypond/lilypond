@@ -44,23 +44,25 @@ _ = gettext.gettext
 program_name = 'build-lily'
 package_name = 'lilypond'
 help_summary = _("Fetch and rebuild from latest source package")
-obuild_command = '(./configure --prefix=$HOME/usr && make all web) >> log.txt 2>&1'
+build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
+release_dir = build_root + '/releases'
+patch_dir = build_root + '/patches'
+notify = 0
+
 build_command = '''
-cd $HOME/usr/src &&
-[ -d %n-%v ] && exit 1;
+cd %b &&
+[ -d %n-%v ] && exit 1 || true;
 (
-tar xzf %t &&
+tar xzf %r/%t &&
 rm -f building &&
 ln -s %n-%v building &&
 cd %n-%v &&
 ./configure --prefix=$HOME/usr && make all web
-) >> log.txt 2>&1 &&
+) >> %n-%v/log.txt 2>&1 &&
 rm -f %n &&
 ln -s %n%-%v %n
 '''
 
-release_dir = build_root + '/releases'
-patch_dir = build_root + '/patches'
 
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
@@ -233,12 +235,15 @@ def set_setting (dict, key, val):
 option_definitions = [
 	('DIR', 'b', 'build-root', _ ("unpack and build in DIR [%s]") % build_root),
 	('COMMAND', 'c', 'command', _ ("execute COMMAND, subtitute:") \
-	 + '\n                            ' + _ ("%%n: package name") \
-	 + '\n                            ' + _ ("%%v: package version") \
-	 + '\n                            ' + _ ("%%t: tarball") \
+	 + '\n                            ' + _ ("%b: build root") \
+	 + '\n                            ' + _ ("%n: package name") \
+	 + '\n                            ' + _ ("%r: release directory") \
+	 + '\n                            ' + _ ("%t: tarball") \
+	 + '\n                            ' + _ ("%v: package version") \
 	 ),
 	('', 'h', 'help', _ ("this help")),
         ('', 'k', 'keep', _ ("keep all output, and name the directory %s") % temp_dir),
+        ('EMAIL', 'n', 'notify', _ ("upon failure notify EMAIL[,EMAIL]"),
 	('', 'r', 'remove-previous', _ ("remove previous build")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
@@ -358,15 +363,17 @@ def build (p):
 	(tar_name, tar_version) = split_package (tar_ball)
 	
 	expand = {
+		'%b' : build_root,
 		'%n' : tar_name,
-		'%t' : tar_ball,
+		'%r' : release_dir,
 		'%v' : version_tuple_to_str (tar_version),
+		'%t' : tar_ball,
 		}
 
 	c = build_command
 	for i in expand.keys ():
 		c = re.sub (i, expand[i], c)
-	return system (c)
+	return system (c, 1)
 
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
@@ -387,6 +394,8 @@ for opt in options:
 		build_root = a
 	elif o == '--command' or o == '-c':
 		build_command = a
+	elif o == '--notify' or o == '-n':
+		notify = a
 	elif o == '--remove-previous' or o == '-r':
 		remove_previous_p = 1
 	elif o == '--url' or o == '-u':
@@ -428,16 +437,20 @@ if 1:
 		progress (_ ("fetching %s...") % get)
 		copy_url (get, '.')
 
-	if os.path.isdir (os.path.join (build_command, package_name)):
-		os.chdir (os.path.join (build_command, package_name))
+	if os.path.isdir (os.path.join (build_root, package_name)):
+		os.chdir (os.path.join (build_root, package_name))
 		previous = os.getcwd ()
 	else:
 		previous = 0
 
-	progress (_ ("building %s...") % get)
+	progress (_ ("building %s...") % latest)
 	os.chdir (build_root)
-	if not build (latest) and previous and remove_previous_p:
+	if build (latest) previous and remove_previous_p:
 		system ('rm -rf %s' % os.path.join (build_root, previous))
+	else:
+		if notify:
+			system ('(date; uname -a) | mail -s "%s failed" %s' % (program_name, notify)
+		sys.exit (1)
 		
 	os.chdir (original_dir)
 	if release_dir != temp_dir:

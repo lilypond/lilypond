@@ -16,6 +16,7 @@
 
 @unnumberedsec What is LilyPond?
 
+@c also use keywords: music notation software
 LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input. It excels at typesetting
 classical music, but you can also print pop-songs.  With LilyPond we

@@ -6,12 +6,15 @@ Release: 1
 License: GPL
 Group: Applications/Publishing
 Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+# music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
-# Icon: @package@-icon.gif
+# rpm: 4.0: broken for -ta builds: rpm doesn't look in tarball for xpm
+# Icon: @package@-icon.xpm
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
 
+# use keywords: music notation software
 %description
 LilyPond is a music typesetter.  It produces beautiful
 sheet music using a high level description file as input.  LilyPond is
