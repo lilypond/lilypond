@@ -41,7 +41,7 @@ upperVoice =  \context Staff = upperVoice <
 %	\property Staff.clefOctavation = #0 
 	\clef "vaticana_do2"
 
-	\property Voice.NoteHead \override #'style = #'vaticana_subbipunctum
+	\property Voice.NoteHead \override #'style = #'vaticana_inclinatum
 	a! b!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 	\property Voice.NoteHead \override #'style = #'vaticana_virga

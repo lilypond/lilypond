@@ -3,7 +3,7 @@ grob-pitch-tuple.cc --  implement Grob_pitch_tuple
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2001--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 #include "grob-pitch-tuple.hh"

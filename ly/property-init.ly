@@ -156,8 +156,8 @@ autoBeamOn = \property Voice.noAutoBeaming = ##f
 emptyText = \property Voice.textNonEmpty = ##f
 fatText = \property Voice.textNonEmpty = ##t
 
-showStaffSwitch = \property PianoStaff.followVoice = ##t
-hideStaffSwitch = \property PianoStaff.followVoice = ##f
+showStaffSwitch = \property Voice.followVoice = ##t
+hideStaffSwitch = \property Voice.followVoice = ##f
 
 % FIXME: Move this docu (to where?)
 

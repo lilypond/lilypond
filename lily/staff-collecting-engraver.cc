@@ -3,7 +3,7 @@ staff-collecting-engraver.cc --  implement Staff_collecting_engraver
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2001--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 #include "staff-symbol.hh"

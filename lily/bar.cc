@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <math.h>
 
@@ -53,8 +53,9 @@ Bar::compound_barline (Grob*me, String str, Real h)
   Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
 
   Real staffline = me->paper_l ()->get_var ("stafflinethickness");
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staffspace = me->paper_l ()->get_var ("staffspace")
-    * Staff_symbol_referencer::staff_space (me);
+    * staff_space;
 
   kern *= staffline;
   thinkern *= staffline;
@@ -65,7 +66,8 @@ Bar::compound_barline (Grob*me, String str, Real h)
   Molecule thick = simple_barline (me, fatline, h);
   Molecule colon;
   Molecule dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
-  Real dist = (2-(Staff_symbol_referencer::line_count (me) & 1))*staffspace;
+  Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
+		staff_space<2 ? 2 : .5 ) * staffspace;
   dot.translate_axis(dist/2,Y_AXIS);
   colon.add_molecule(dot);
   dot.translate_axis(-dist,Y_AXIS);

@@ -119,7 +119,7 @@ def identify ():
 def warranty ():
 	identify ()
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001'))
+	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001--2002'))
 	sys.stdout.write ('\n')
 	sys.stdout.write ('  Han-Wen Nienhuys')
 	sys.stdout.write ('  Jan Nieuwenhuizen')

@@ -1,7 +1,7 @@
 /*
   accidental-engraver.cc -- implement accidental_engraver
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Modified 2001 by Rune Zedeler <rz@daimi.au.dk>
 */
 

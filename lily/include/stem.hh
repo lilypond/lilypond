@@ -1,7 +1,7 @@
 /*
   stem.hh -- declare Stem
 
-  (c) 1996--2001 Han-Wen Nienhuys
+  (c) 1996--2002 Han-Wen Nienhuys
 */
 
 #ifndef STEM_HH

@@ -17,7 +17,7 @@ list is alphabetically ordered.
 
    * Laura Conrad (lconrad@world.std.com)     fixes to abc2ly
 
-   * Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,     TeX
+   * Jan Arne Fagertun <Jan.A.Fagertun@trondheim.online.no>,     TeX
      titling and lytodvi.sh
 
    * Anthony Fok <foka@debian.org>,     Debian package: debian/*
@@ -26,6 +26,9 @@ list is alphabetically ordered.
      gnu-windows testing
 
    * Bjoern Jacke <bjoern.jacke@gmx.de>     German glossary stuff.
+
+   * Chris Jackson <chris@fluffhouse.org.uk>,     Emacs mode
+     indentation, directed arpeggios.
 
    * Neil Jerram <nj104@cus.cam.ac.uk>.      parts of
      Documentation/Vocab*

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
@@ -60,7 +60,7 @@ Rest::glyph_name (Grob * me, int balltype, String style)
       ledger_b = ledger_b || (balltype == 1 &&
 			      (pos  <= -rad -2 || pos > rad));
     }
-  
+
   return ("rests-") + to_str (balltype)
     + (ledger_b ? "o" : "") + style;
 }
@@ -88,8 +88,14 @@ Rest::brew_internal_molecule (SCM smob)
       style = ly_scm2string (scm_symbol_to_string (style_sym));
     }
 
-  String idx = glyph_name (me, balltype, style);
-  return Font_interface::get_default_font (me)->find_by_name (idx).smobbed_copy ();
+  for(;;) {
+    String idx = glyph_name (me, balltype, style);
+    Molecule res = Font_interface::get_default_font (me)->find_by_name (idx);
+    if(res.empty_b() && style!="")
+      style="";
+    else	      
+      return res.smobbed_copy();
+  }
 }
 
 SCM 

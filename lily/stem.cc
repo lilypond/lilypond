@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
@@ -563,7 +563,7 @@ Stem::brew_molecule (SCM smob)
 
   // dy?
   Real dy = Staff_symbol_referencer::staff_space (me) * 0.5;
-    
+
   if (Grob *hed = support_head (me))
     {
       /*
@@ -573,7 +573,7 @@ Stem::brew_molecule (SCM smob)
       Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      stem_y[Direction (-d)] += d * 2*y_attach;
+      stem_y[Direction (-d)] += d * y_attach/dy;
     }
   
   if (!invisible_b (me))

@@ -3977,11 +3977,17 @@ A bar check is entered using the bar symbol, @code{|}:
   \time 3/4 c2 e4 | g2.
 @end example
 
+
+
 @cindex skipTypesetting
 
-Bar checks are not affected by @code{skipTypesetting}, so if you are
-debugging a large score, you are advised to run it with skipTypesetting
-first to correct all overfull and underfull measures.
+Failed bar checks are most often caused by entering incorrect
+durations. Incorrect durations often completely garble up the score,
+especially if it is polyphonic, so you should start correcting the score
+by scanning for failed bar checks and incorrect durations.  To speed up
+this process, you can use @code{skipTypesetting} (See @ref{Skipping
+corrected music})). Bar
+
 
 @c .  {Point and click}
 @node Point and click

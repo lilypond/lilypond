@@ -6,7 +6,7 @@ define_pixels(dot_diam);
 
 fet_beginchar("duration dot","dot", "dot")
 	pickup pencircle scaled dot_diam;
-	draw (dot_diam/2,0);
+	drawdot (dot_diam/2,0);
 	set_char_box(0, dot_diam#, dot_diam#/2, dot_diam#/2);
 fet_endchar;
 

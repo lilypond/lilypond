@@ -1042,7 +1042,7 @@ note have real pitch @code{g'}.  The @code{8} represents an eight note.
 @end example 
 Two more notes, with pitch @code{a} and @code{b}.  Because their
 duration is the same as the @code{g,8}, there is no need to enter the
-duration, but you may enter it anyway, i.e., @code{a4 b4}
+duration, but you may enter it anyway, i.e., @code{a8 b8}
 @separate
 @example 
 

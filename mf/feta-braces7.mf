@@ -3,7 +3,7 @@
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 
-% (c) 1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% (c) 1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 % 
 
 font_count := 7;

@@ -1,5 +1,8 @@
 
 stafflines = 5;
+% [reuter] URG!  This is not always true.  One of the effects of
+% keeping this a constant is that, for notation with less stafflines,
+% stafflinethickness gets too small.
 
 staff_space#:=staffsize#/(stafflines-1);
 

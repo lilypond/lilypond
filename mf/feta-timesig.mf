@@ -3,7 +3,7 @@
 % 
 % source file of the Feta (not an abbreviation of Font-En-Tja) music font
 % 
-% (c) 1998--2001 Mats Bengtsson <matsb@s3.kth.se>,
+% (c) 1998--2002 Mats Bengtsson <matsb@s3.kth.se>,
 %		 Christian Mondrup <scancm@biobase.dk>
 
 fet_begingroup("timesig");
@@ -67,128 +67,6 @@ fet_beginchar ("2/2 meter", "C2/2", "allabreve")
 	excentricity = (-1.25 stafflinethickness, 0);
 
 	draw_block((- .75 stafflinethickness, -d) + excentricity, (.75 stafflinethickness , h) + excentricity);
-fet_endchar;
-
-path threequartercircle;
-threequartercircle = halfcircle & quartercircle rotated 180;
-
-save Cdiameter,Cthickness;
-Cdiameter# := 3/2 staff_space#;
-Cthickness# := 2 stafflinethickness#;
-define_pixels(Cdiameter,Cthickness);
-
-%% tempus imperfectum cum prolatione imperfecta
-fet_beginchar ("Mensural 4/4 meter", "old4/4", "oldfourfourmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 45 scaled Cdiameter;
-fet_endchar;
-
-%% tempus imperfectum cum prolatione imperfecta proportio dupla
-fet_beginchar ("Mensural 2/2 meter", "old2/2", "oldallabreve")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		staff_space#, staff_space#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 45 scaled Cdiameter;
-	draw_block((-Cthickness, -d), (0, h));
-fet_endchar;
-
-%% tempus perfectum cum prolatione imperfecta
-fet_beginchar ("Mensural 3/2 meter", "old3/2", "oldthreetwometer")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw fullcircle scaled Cdiameter;
-fet_endchar;
-
-%% tempus imperfectum cum prolatione perfecta
-fet_beginchar ("Mensural 6/4 meter", "old6/4", "oldsixfourmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 45 scaled Cdiameter;
-	pickup pencircle scaled 4 stafflinethickness;
-	draw (0,0);
-fet_endchar;
-
-%% tempus perfectum cum prolatione perfecta
-fet_beginchar ("Mensural 9/4 meter", "old9/4", "oldninefourmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw fullcircle scaled Cdiameter;
-	pickup pencircle scaled 4 stafflinethickness;
-	draw (0,0);
-fet_endchar;
-
-%% tempus perfectum cum prolatione imperfecta proportio dupla
-fet_beginchar ("Mensural 3/4 meter", "old3/4", "oldthreefourmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		staff_space#, staff_space#);
-	
-	pickup pencircle scaled Cthickness;
-	draw fullcircle scaled Cdiameter;
-	draw_block((-Cthickness/2, -d), (Cthickness/2, h));
-fet_endchar;
-
-%% tempus imperfectum cum prolatione perfecta proportio dupla
-fet_beginchar ("Mensural 6/8 meter", "old6/8", "oldsixeightmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		 staff_space#, staff_space#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 45 scaled Cdiameter;
-	pickup pencircle scaled 4 stafflinethickness;
-	draw (0,0);
-	draw_block((-Cthickness/2, -d), (Cthickness/2, h));
-fet_endchar;
-
-%% tempus perfectum cum prolatione perfecta proportio dupla
-fet_beginchar ("Mensural 9/8 meter", "old9/8", "oldnineeight")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		staff_space#, staff_space#);
-	
-	pickup pencircle scaled Cthickness;
-	draw fullcircle scaled Cdiameter;
-	pickup pencircle scaled 4 stafflinethickness;
-	draw (0,0);
-	draw_block((-Cthickness/2, -d), (Cthickness/2, h));
-fet_endchar;
-
-%% tempus imperfectum cum prolatione imperfecta diminutio simplex
-fet_beginchar ("Mensural 4/8 meter", "old4/8", "oldfoureightmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-	.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 225 scaled Cdiameter;
-fet_endchar;
-
-%% tempus imperfectum cum prolatione perfecta diminutio simplex
-fet_beginchar ("Mensural 6/8 meter", "old6/8alt", "oldsixeightmeteralt")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		.5 Cdiameter#, .5 Cdiameter#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 225 scaled Cdiameter;
-	pickup pencircle scaled 4 stafflinethickness;
-	draw (0,0);
-fet_endchar;
-
-%% tempus imperfectum cum prolatione imperfecta diminutio duplex
-fet_beginchar ("Mensural 2/4 meter", "old2/4", "oldtwofourmeter")
-	set_char_box(.5 Cdiameter# + staff_space#, .5 Cdiameter# + staff_space#, 
-		staff_space#, staff_space#);
-	
-	pickup pencircle scaled Cthickness;
-	draw threequartercircle rotated 225 scaled Cdiameter;
-	draw_block((-Cthickness, -d), (0, h));
 fet_endchar;
 
 fet_endgroup("timesig");

@@ -519,7 +519,7 @@ encoded in so-called Musedata format
 musedata2ly converts a set of musedata files to one .ly file, and will
 include a \header field if a .ref file is supplied 
 
-Report bugs to bug-gnu-music@gnu.org.
+Report bugs to bug-lilypond@gnu.org.
 
 Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """)
@@ -532,7 +532,7 @@ This is free software.  It is covered by the GNU General Public License,
 and you are welcome to change it and/or distribute copies of it under
 certain conditions.  Invoke as `midi2ly --warranty' for more information.
 
-Copyright (c) 2000 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Copyright (c) 2000--2002 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """ % version)
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))

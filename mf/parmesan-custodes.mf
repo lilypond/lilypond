@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (C) 2000 Juergen Reuter <reuterj@ira.uka.de>
+% (C) 2000, 2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 save black_notehead_width;
@@ -102,17 +102,18 @@ fet_beginchar("Custos Med.", "medicaea", "medicaea")
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
+
+	% head
+	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
+	z1 = (0.0wd, 0.0ht);
+	z2 = z1 + (1.0wd - blot_diameter/2, 0);
+	draw z1 .. z2;
+
+	% stem
 	pickup pencircle scaled stafflinethickness;
-
-	z1 = (0.0wd, +0.0ht);
-	z2 = (1.0wd + 0.5stafflinethickness, +0.0ht);
-	penpos1(1.0ht, 90);
-	penpos2(1.0ht, 90);
-	penstroke z1e{z2 - z1} .. {right}z2e;
-
-	z3=(1.0wd, +0.0ht);
-	z4=(1.0wd, +1.0ht);
-	draw z3 -- z4;
+	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
+	z4 = z3 + (0, +1.0ht);
+	draw z3 .. z4;
 fet_endchar;
 
 
@@ -132,17 +133,18 @@ fet_beginchar("Reverse Custos Med.", "rmedicaea", "rmedicaea")
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
+
+	% head
+	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
+	z1 = (0.0wd, 0.0ht);
+	z2 = z1 + (1.0wd - blot_diameter/2, 0);
+	draw z1 .. z2;
+
+	% stem
 	pickup pencircle scaled stafflinethickness;
-
-	z1 = (0.0wd, +0.0ht);
-	z2 = (1.0wd + 0.5stafflinethickness, -0.0ht);
-	penpos1(1.0ht, 90);
-	penpos2(1.0ht, 90);
-	penstroke z1e{z2 - z1} .. {right}z2e;
-
-	z3=(1.0wd, -0.0ht);
-	z4=(1.0wd, -1.0ht);
-	draw z3 -- z4;
+	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
+	z4 = z3 + (0, -1.0ht);
+	draw z3 .. z4;
 fet_endchar;
 
 

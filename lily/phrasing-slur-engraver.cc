@@ -1,7 +1,7 @@
 /*
   phrasing-slur-engraver.cc -- implement Phrasing_slur_engraver
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "musical-request.hh"

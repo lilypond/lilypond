@@ -1,7 +1,7 @@
 /*
   midi-stream.hh -- declare Midi_stream
 
-  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef MIDI_STREAM_HH

@@ -1,0 +1,17 @@
+% feta20.mf
+% part of LilyPond's pretty-but-neat music font
+
+staffsize#:=20pt#;
+
+input feta-autometric;
+fet_beginfont("feta", 20);
+
+% AFBLIJVEN! Gebruik feta-test16/20, anders verneuk je de distributie.
+test := 0;
+
+input parmesan-generic;
+
+fet_endfont("feta");
+
+end.
+

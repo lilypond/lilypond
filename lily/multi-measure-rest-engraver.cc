@@ -1,7 +1,7 @@
 /*
   multi_measure_rest-engraver.cc -- implement Multi_measure_rest_engraver
 
-  (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2002 Jan Nieuwenhuizen <janneke@gnu.org>
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 

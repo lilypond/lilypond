@@ -1,7 +1,7 @@
 /*
   script-engraver.cc -- implement Script_engraver
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "script.hh"

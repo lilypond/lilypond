@@ -1,7 +1,7 @@
 /*
   grob.hh -- declare Grob
 
-  (c) 1996-1999--2001 Han-Wen Nienhuys
+  (c) 1996-1999--2002 Han-Wen Nienhuys
 */
 
 #ifndef STAFFELEM_HH
