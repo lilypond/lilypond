@@ -1,5 +1,7 @@
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* GNUmakefile.in (EXTRA_DIST_FILES): dist lilypond.vim too.
+
 	* scm/chord-ignatzek-names.scm: backport 1.9 fix for base notes. 
 
 	* lily/glissando-engraver.cc (stop_translation_timestep): backport
