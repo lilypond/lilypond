@@ -326,7 +326,6 @@ for the reader.
     (bracketify-molecule m Y th (* 2.5 th) th)  
 ))
 
-
 ;; todo: fix negative space
 (define (hspace-markup grob props . rest)
   "Syntax: \\hspace NUMBER."
@@ -505,7 +504,8 @@ for the reader.
    ;; size
    (cons smaller-markup (list markup?))
    (cons bigger-markup (list markup?))
-
+;   (cons char-number-markup (list string?))
+   
    ;; 
    (cons sub-markup (list markup?))
    (cons normal-size-sub-markup (list markup?))
