@@ -1,4 +1,8 @@
-\paper { 
+\paper {
 	\translator { \OrchestralPartStaffContext }
-	\translator { \ScoreContext skipBars = 1; }
+	\translator { \ScoreContext
+		SkipBars = 1;
+	}
+	castingalgorithm = \Wordwrap;
+	
 }

@@ -39,10 +39,10 @@ BUGS:
 
 	* The time signature warnings still remain, will be fixed later.
 
-	Summary of minor spelling irregularities:
+ii	Summary of minor spelling irregularities:
 	-  capitalization/use of underscores in property names
 
-	* fix Score.skipBars
+	* fix SkipBars  -> skipBars
 
 	* repeat bars: need distance after ":|" and before "|:"
 

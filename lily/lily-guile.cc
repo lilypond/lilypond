@@ -25,9 +25,7 @@
 SCM
 ly_quote_scm (SCM s)
 {
-  //  return scm_m_quote (s, SCM_UNDEFINED);
   return scm_cons2 (scm_i_quote, s, SCM_EOL);
-  
 }
 
 /*

@@ -57,8 +57,21 @@
   1)
 
 ;;;;;;;;
-  (define (emptybar h)
-    (string-append ""))
+
+  (define (empty) 
+    "")
+
+  (define (empty1 a)
+    "")
+
+  (define (empty2 a b )
+    "")
+  
+
+(define emptybar empty1)
+(define setdynamic empty1)
+(define settext empty1)
+(define setnumber empty1)
 
 
 ;;;;;;;; TeX
@@ -89,10 +102,7 @@
 
   (define (end-output) 
     "\n\\EndLilyPondOutput")
-
-  (define (empty) 
-    "%\n\\empty%\n")
-
+  
   (define (experimental-on) "\\turnOnExperimentalFeatures")
 
   (define (extender o h)
