@@ -413,6 +413,13 @@ The MIDI output was originally put in as a proof that MIDI could be
 done, and as a method of proof"reading" the input.  The MIDI support
 is by no means finished.  Patches appreciated.
 
+
+sect(Other)
+
+question(How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?)
+
+(ummm... unanswered as yet)
+
 sect(Windows32)
 
 question(I downloaded the windows32 port, and it doesn't match the website!)

@@ -598,13 +598,16 @@ def main():
             break
         except:
             continue
-    if std_init_filename == '':
-        print "error: Can't find mudela-book-defs.py"
-        os.exit(-1)
-    f = open(std_init_filename)
-    s = f.read()
-    f.close()
-    defined_mudela_cmd = eval(s)
+    defined_mudela_cmd_re = {}
+    try:
+	f = open(std_init_filename)
+	s = f.read()
+	f.close()
+	defined_mudela_cmd = eval(s)	# UGH
+    except IOError, w:
+        sys.stderr.write("%s (`%s')\n" % (w[1], std_init_filename))
+#        sys.exit(1)
+
 
     if initfile != '':
         f = open(initfile)

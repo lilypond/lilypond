@@ -10,3 +10,8 @@ $(outdir)/%.pfa: %.mf
 	rm -f $(basename $(@F)).[0-9]*
 	rm -f $(basename $<).log $(basename $<).tfm
 
+
+
+#dokkum:~/usr/src/lilypond/mf$ inimpost /usr/share/texmf/metapost/base/mfplain.mp
+#[....] \dump
+

@@ -268,9 +268,9 @@ year = 1997,
 
 
 @TechReport {parish87,
-  note = {A brief overview of MusiCopy HWN},
+  note = {A brief overview of {MusiCopy} HWN},
   year =  {1987},
-  title = {MusiCopy: An automated Music Formatting System},
+  title = {{MusiCopy}: An automated Music Formatting System},
   author = {Allen Parish and Wael A. Hegazy and John S. Gourlay and Dean K. Roush and F. Javier Sola},
   totalentry = {OSU-CISRC-10/87-TR29},
   institution ={Department of Computer and Information Science, The Ohio State University},
@@ -294,12 +294,38 @@ The Ohio State University},
 
 
 @TechReport {hegazy87,
-  note = {Describes the "parser" which converts MusiCopy MDL  to MusiCopy Simultaneities & columns HWN},
   year =  {1987},
-  title = {On the Implementation of the MusiCopy Language Processor,},
+  title = {On the Implementation of the {MusiCopy} Language Processor,},
   author = {Wael A. Hegazy},
   number = {OSU-CISRC-10/87-TR34},
   institution={Department of Computer and Information Science, The Ohio State University},
+
+  note = {Describes the "parser" which converts {MusiCopy} MDL to
+  MusiCopy Simultaneities and columns.
+
+MDL is short for Music Description Language\cite{gourlay86}. It
+accepts music descriptions that are organised into measures filled
+with voices, those filled notes. The measures can be arranged
+simultaneously or sequentially.  To address the 2-dimensionality,
+almost all constructs in MDL must be labeled.
+
+MDL uses begin/end markers for attribute values and spanners.
+Rightfully the author concludes that MusiCopy must administrate a
+"state" variable containing both properties and current spanning symbols.
+
+MusiCopy attaches graphic information to the objects constructed in
+the input: the elements of the input are partially complete graphic
+objects.
+
+Since the design goals of both LilyPond and MusiCopy were roughly the
+same, both systems have superficial similarities: the details of the
+input format, the notation of "musical state".  However, LilyPond
+stresses extensibility, modularity and separation between content and
+presentation much more, and this shows: LilyPond is more flexible.  To
+be fair: development of MusiCopy was abandoned in 1987, so it is not
+surprising that LilyPond is more mature.
+},
+
 }
 
 
@@ -316,7 +342,7 @@ The Ohio State University},
 @TechReport {roush87,
   note = {User manual of MusiCopy. Includes an impressive example piece.  HWN},
   year =  {1987},
-  title = {Using MusiCopy},
+  title = {Using {MusiCopy}},
   author = {Dean K. Roush},
   number = {OSU-CISRC-18/87-TR31},
   institution={Department of Computer and Information Science, The Ohio State University},
@@ -354,7 +380,7 @@ The Ohio State University},
 
 
 @Article {gourlay86,
-  note = {This paper describes the MusiCopy musicsetting system and an input language to go with it. HWN},
+  note = {This paper describes the {MusiCopy} musicsetting system and an input language to go with it. HWN},
   year =  {1986},
   title = {A language for music printing},
   author = {John. S. Gourlay},
@@ -482,8 +508,13 @@ The Ohio State University},
 
 
 
-@Book {Langston90,
-  note = {This paper deals with some command-line tools for music editing and playback. It doesn't mention notation issues, but does come with the grand idea (not) of using music to monitor complex systems. Imagine your nuclear plant supervisor to use AC/DC for checking the reactor HWN},
+@Article {Langston90,
+  note = {This paper deals with some command-line
+  tools for music editing and playback. It doesn't mention notation
+  issues, but does come with the grand idea (not) of using music to
+  monitor complex systems. Imagine your nuclear plant supervisor to
+  use AC/DC for checking the reactor HWN},
+
   year =  {1990},
   title = {Unix music tools at Bellcore},
   author = {Peter S. Langston},
@@ -550,8 +581,6 @@ accepts the axiom that notation is too difficult to generate
 automatically.  The result is that a notation program should be a
 WYSIWYG editor that allows one to tweak everything.
 
-
-
 The implementation therefore is quite "weak".  The introductory
 chapters on engraving and notation are well structured and clear,
 though.}
@@ -585,7 +614,7 @@ formulated by eg. \cite{wanske}} }
   note = {A lot rules for what is in the title are formulated.  The
 descriptions are long and verbose.  The verbosity shows that
 formulating specific rules is not the proper way to approach the
-problem.  In stead, the formulated rules should follow from more
+problem.  Instead, the formulated rules should follow from more
 general rules, similar to\cite{parrish87-simultaneities}},
 }
 
@@ -595,5 +624,6 @@ general rules, similar to\cite{parrish87-simultaneities}},
   institution =  {Department of informatics, University of Oslo},
   year = 	 1989,
   number =	 135,
-  note =	 {Placement of accidentals crystallised in an enormous set of rules. Same remarks as for \cite{grover89-twovoices} applies}
-}
+
+note = {Placement of accidentals crystallised in an enormous set of
+rules.  Same remarks as for \cite{grover89-twovoices} applies} }

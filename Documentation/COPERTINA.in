@@ -1,8 +1,10 @@
-LilyPond è il tipografo musicale del progetto GNU.  Questo programma
-può stampare delle belle partiture a partire da un documento di
-definizioni musicali.  Può anche creare meccaniche rappresentazioni
-della partitura in un documento in formato MIDI.  Le caratteristiche del
-programma includono pentagrammi multipli, segni di divisione, chiavi,
-tasti, parole, versatile linguaggio di definizione, cadenze, legature,
-acciaccature, terzine, segni di formattazione, estrazione delle
-parte.  È compresa una seria completa di caratteri musicali.
+LilyPond è il programma di notazione musicale del progetto
+GNU. Questo programma può generare delle ottime partiture musicali
+a partire da un file contenente la descrizione della musica. Può
+anche generare esecuzioni meccaniche della partitura in formato
+MIDI. Le caratteristiche del programma includono un versatile
+linguaggio di descrizione musicale, pentagrammi multipli, segni di
+divisione, chiavi, tasti, parole, cadenze, legature, acciaccature,
+terzine, segni di formattazione ed estrazione delle parte. Nella
+distribuzione è compreso anche un fort di simboli musicali.
+
