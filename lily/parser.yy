@@ -1624,7 +1624,7 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		Request_chord * rqc2 = new Request_chord (SCM_EOL);
 		rqc2->set_mus_property ("elements", gh_list (sk->self_scm (), SCM_UNDEFINED));;
 		Request_chord * rqc3 = new Request_chord(SCM_EOL);
-		rqc2->set_mus_property ("elements", gh_list (sp2->self_scm (), SCM_UNDEFINED));;
+		rqc3->set_mus_property ("elements", gh_list (sp2->self_scm (), SCM_UNDEFINED));;
 
 		SCM ms = gh_list (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
 

@@ -31,6 +31,7 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info i);
   virtual bool try_music (Music*);
+  virtual void process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
@@ -93,9 +94,9 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 }
 
 void
-Multi_measure_rest_engraver::create_grobs ()
+Multi_measure_rest_engraver::process_music ()
 {
-  if (new_req_l_ && stop_req_l_)
+    if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
 
   if (new_req_l_)
@@ -112,6 +113,12 @@ Multi_measure_rest_engraver::create_grobs ()
       busy_span_req_l_ = new_req_l_;
       new_req_l_ =0;
     }
+
+}
+
+void
+Multi_measure_rest_engraver::create_grobs ()
+{
 
   if (busy_span_req_l_ && !mmrest_p_)
     {
@@ -138,7 +145,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
     {
       typeset_grob (mmrest_p_);
       /*
-	must keep mmrest_p_ around to set measures_i_
+	we must keep mmrest_p_ around to set measure-count.
        */
     }
   if (lastrest_p_)
