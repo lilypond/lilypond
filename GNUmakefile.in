@@ -38,10 +38,13 @@ footify:
 fonts:
 	$(MAKE) -C $(depth)/mf
 
-doc: lily fonts
+run-reqs: builddir-setup fonts lily
+web-reqs: run-reqs pfa-fonts
+
+doc: run-reqs
 	$(MAKE) -C Documentation
 
-web-doc:  pfa-fonts
+web-doc: web-reqs
 	$(MAKE) out=www -C Documentation WWW
 	$(MAKE) footify
 
@@ -66,12 +69,12 @@ endif
 
 TOP_HTMLS = index.html short-examples.html long-examples.html
 
-short-examples: pfa-fonts
+short-examples: web-reqs
 	$(MAKE) out=www -C input WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
 
 
-long-examples: pfa-fonts
+long-examples: web-reqs
 	$(MAKE) out=www -C mutopia WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
 
@@ -80,7 +83,7 @@ lily: lily/$(outdir)/lilypond
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: fontpaths fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
+local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
@@ -100,9 +103,9 @@ top-web:
 
 #WWW: local-WWW
 
-html-doc: local-web
 web: local-web
-index: local-web
+html-doc: web
+index: web
 
 local-WWW-clean: top-WWW-clean
 
@@ -115,15 +118,30 @@ top-WWW-clean:
 	rm -f $(TOP_HTMLS) lily-[0-9]*.png
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 
-
-
 WWW:
 
-fontpaths:
-	-ln -s $(depth)/mf/out dvips
-	-mkdir -p fonts
-	-rm fonts/source
-	-ln -s ../$(depth)/mf fonts/source
-	-ln -s ../$(depth)/mf/out fonts/afm
-	-ln -s ../$(depth)/mf/out fonts/tfm
-	-ln -s ../$(depth)/mf/out fonts/type1
+default: builddir-setup
+
+builddir-setup: $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force
+
+$(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
+	# Preparing LilyPond tree for builddir exec
+	@cd $(depth)/$(builddir) && rm -rf share
+	@cd $(depth)/$(builddir) && mkdir -p share/lilypond
+	@cd $(depth)/$(builddir)/share/lilypond && mkdir -p $(TOPLEVEL_VERSION)
+	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+		ln -s ../../../$(srcdir)/ly ly && \
+		ln -s ../../../mf/$(outconfbase) dvips && \
+		ln -s ../../../mf/$(outconfbase) afm && \
+		ln -s ../../../mf/$(outconfbase) tfm && \
+		ln -s ../../../$(srcdir)/mf && \
+		ln -s ../../../$(srcdir)/ps && \
+		ln -s ../../../$(srcdir)/scm && \
+		ln -s ../../../$(srcdir)/tex
+	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+		mkdir fonts
+	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/fonts && \
+		ln -s ../../../../$(srcdir)/mf source && \
+		ln -s ../../../../mf/$(outconfbase) afm && \
+		ln -s ../../../../mf/$(outconfbase) tfm && \
+		ln -s ../../../../mf/$(outconfbase) type1
