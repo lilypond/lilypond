@@ -129,7 +129,7 @@ def exit (i):
 	if __main__.verbose_p:
 		raise _ ('Exiting (%d)...') % i
 	else:
-		sys.exit (1)
+		sys.exit (i)
 		
 def getopt_args (opts):
 	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''

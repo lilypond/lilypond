@@ -135,8 +135,12 @@ Paper_book::output (String outname)
   
       String func_nm = format;
       func_nm = "output-framework-" + func_nm;
-	
-      SCM func = ly_scheme_function (func_nm.to_str0 ());
+      String mod_nm = "scm framework-" + format;
+      
+      SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+      SCM func = scm_c_module_lookup (mod, func_nm.to_str0 ());
+
+      func = scm_variable_ref (func);
       scm_apply_0 (func, scm_list_n (out->self_scm (),
 				     self_scm (),
 				     scopes,

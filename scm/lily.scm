@@ -373,15 +373,6 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
 
-
-;; only load modules necessary.
-(eval
- (cons use-modules
-       (map (lambda (x)
-	      (list 'scm (string->symbol (string-append "framework-" x))))
-	    (ly:output-formats)))
- (current-module))
-       
    
 (define output-tex-module
   (make-module 1021 (list (resolve-interface '(scm output-tex)))))
