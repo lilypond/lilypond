@@ -164,14 +164,24 @@
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
    (number->string (ly:output-def-lookup paper 'outputscale))
-   " lily-output-units mul def \n"))
+   " lily-output-units mul def \n"
+   (output-entry "page-height" 'vsize)
+   (output-entry "page-width" 'hsize)
+   ))
 
-(define (dump-page outputter page page-number page-count)
+(define (dump-page outputter page page-number page-count landscape?) 
   (ly:outputter-dump-string outputter
    (string-append
     "%%Page: "
     (number->string page-number) " " (number->string page-count) "\n"
-    "0 0 start-system { "
+
+    "%%BeginPageSetup\n"
+    (if landscape?
+	"page-width output-scale mul 0 translate 90 rotate\n"
+	"")
+    "%%EndPageSetup\n"
+
+    "start-system { "
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter page)
@@ -182,6 +192,10 @@
 		 "%%Creator: creator time-stamp\n"
 		 "%%BoundingBox: "
 		 (string-join (map number->string bbox) " ") "\n"
+		 "%% Orientation: "
+		 (if (eq? (ly:output-def-lookup bookpaper 'landscape) #t)
+		     "Landscape\n"
+		     "Portrait\n")
 		 "%%EndComments\n"))
 
 (define (page-header bookpaper page-count)
@@ -198,13 +212,18 @@
    (ly:gulp-file "music-drawing-routines.ps")
    (ly:gulp-file "lilyponddefs.ps")
    (load-fonts bookpaper)
-   (define-fonts bookpaper)))
+   (define-fonts bookpaper)
+
+
+   ))
 
 (define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
+	 (landscape? (eq? (ly:output-def-lookup bookpaper 'landscape?) #t))
 	 (page-number (1- (ly:output-def-lookup bookpaper 'firstpagenumber)))
 	 (page-count (length pages)))
+    
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
@@ -215,8 +234,9 @@
   (for-each
    (lambda (page)
      (set! page-number (1+ page-number))
-     (dump-page outputter page page-number page-count))
+     (dump-page outputter page page-number page-count landscape?))
    pages)
+  
   (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
 (define-public (output-preview-framework outputter book scopes fields basename)
@@ -248,7 +268,7 @@
 
 
   (ly:outputter-dump-string outputter
-			    (string-append "0 0 start-system { "
+			    (string-append "start-system { "
 					   "set-ps-scale-to-lily-scale "
 					   "\n"))
 

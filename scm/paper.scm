@@ -94,7 +94,10 @@
     (module-define! m 'firstpagenumber 1)
     (module-define! m 'rightmargin (* 10 mm))))
 
-(define (internal-set-paper-size module name)
+(define (internal-set-paper-size module name landscape?)
+  (define (swap x)
+    (cons (cdr x) (car x)))
+  
   (let* ((entry (assoc name paper-alist))
 	 (is-bookpaper? (module-defined? module 'is-bookpaper))
 	 (mm (eval 'mm module)))
@@ -104,23 +107,34 @@
       (ly:warning "This is not a \\paper {} object, ~S"
 		   module))
      ((pair? entry)
-      (set! entry (eval  (cdr entry) module))
-	  (set-paper-dimensions module (car entry) (cdr entry))
-	  (module-define! module 'papersize name)
-	  (module-define! module 'papersizename name)
-	  (set-paper-dimensions module (car entry) (cdr entry)))
+
+	    
+
+      (set! entry (eval (cdr entry) module))
+      (if landscape?
+	  (set! entry (swap entry)))
+      (set-paper-dimensions module (car entry) (cdr entry))
+      (module-define! module 'papersize name)
+      (module-define! module 'papersizename name)
+      (if landscape?
+	  (module-define! module 'landscape #t))
+      )
      (else
       (ly:warn (string-append "Unknown papersize: " name))))
 
     ))
 
-(define-public (set-default-paper-size name)
-  (internal-set-paper-size (ly:output-def-scope (eval '$defaultbookpaper (current-module)))
-			   name))
+(define-public (set-default-paper-size name . rest)
+  (internal-set-paper-size
+   (ly:output-def-scope (eval '$defaultbookpaper (current-module)))
+   name
+   (memq 'landscape rest)
+   ))
 
-(define-public (set-paper-size name)
+(define-public (set-paper-size name . rest)
   (if (module-defined? (current-module) 'is-paper)
-      (internal-set-paper-size (current-module) name)
+      (internal-set-paper-size (current-module) name
+			       (memq 'landscape rest))
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc

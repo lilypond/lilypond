@@ -1,3 +1,9 @@
+2004-09-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (output-framework): handle landscape settings.
+
+	* ps/lilyponddefs.ps: cleanup.
+
 2004-09-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): unset
