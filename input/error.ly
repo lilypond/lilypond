@@ -2,7 +2,7 @@ include "this-is-hopefully-a-nonexisting-file"
 
 
 mwa = \melodic{
-	\meter{3/4}
+	\meter 3/4;
 	[ a8 a8 a8 a8 a8 ]	% 
 	[ a8 ]	% 
 %       segfault
