@@ -161,7 +161,7 @@ def write_fontlist (file, global_info, charmetrics):
 """)
 	for m in charmetrics:
 		escapedname=re.sub('_','\\\\\\\\_', m['name'])
-		file.write ('s^#\'(lines (music \"%s\") \"%s\")\n' % (m['name'], escapedname))
+		file.write ('s^\\markup { \\musicglyph #"%s" "%s" }\n' % (m['name'], escapedname))
 	file.write (r"""
 }
   \paper{

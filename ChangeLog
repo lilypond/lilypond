@@ -1,5 +1,7 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* buildscripts/mf-to-table.py (write_fontlist): use new markup syntax
+
 	* python/lilylib.py (make_page_images): add function.
 
 	* scripts/ly2dvi.py (run_latex): include title in preview image.
