@@ -1,5 +1,5 @@
 
 $(outdir)/%: %.in
 	rm -f $@
-	cat $< | $(sed-atfiles) | $(sed-atvariables) > $@
+	cat $< | sed $(sed-atfiles) $(sed-atvariables) > $@
 
