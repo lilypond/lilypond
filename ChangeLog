@@ -1,3 +1,7 @@
+2004-08-21  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/stencil.scm: remove fontify-text and fontify-text-white
+
 2004-08-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/part-combiner.scm: skip name string. Fixes segfault problem.
