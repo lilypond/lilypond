@@ -1586,6 +1586,16 @@ def conv (str):
 
 conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
 
+
+def conv (str):
+	if re.search ("up-to-staff", str) :
+		sys.stderr.write ("up-to-staff was removed. Use stem-end-position instead. ")
+		raise FatalConversionError ()
+	
+	return str
+
+conversions.append (((2,0,1), conv, """dash-length -> dash-fraction"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

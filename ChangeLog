@@ -1,14 +1,15 @@
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (conv): add up-to-staff conversion rule.
+
 	* lily/include/directional-element-interface.hh:
 	junk class, make {get,set}_grob_direction functions.
 
 	* lily/slur.cc (get_attachment): do something sensible when
 	attaching to stem without heads (eg. a rest).
 
-	* lily/stem.cc: remove #'up-to-staff ; use #'stem-end for forcing
-	up to staff. Add #'rests.
-	remove #'support-head property
+	* lily/stem.cc: remove #'up-to-staff ; use #'stem-end-position for
+	forcing up to staff.  remove #'support-head property
 	(brew_molecule): small cleanup.
 	(flag): remove #'grace property.
 
