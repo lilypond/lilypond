@@ -86,3 +86,4 @@ Scope::try_retrieve (SCM k , SCM *v)const
 {
   return id_dict_->try_retrieve (k, v);
 }
+

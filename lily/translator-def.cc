@@ -304,3 +304,18 @@ Translator_def::default_child_context_name ()
   SCM d = accepts_name_list_;
   return gh_pair_p (d) ? gh_car (scm_last_pair (d)) : SCM_EOL;
 }
+
+SCM
+Translator_def::to_alist ()const
+{
+  SCM l =  SCM_EOL;
+
+  l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  consists_name_list_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("end-consists"),  end_consists_name_list_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  accepts_name_list_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("type-name"),  type_name_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
+
+  return l;  
+}

@@ -57,14 +57,6 @@ Font_metric::text_dimension (String text) const
 }
 
 
-Box
-Scaled_font_metric::text_dimension (String t) const
-{
-  Box b (orig_l_->text_dimension (t));
-
-  b.scale (magnification_f_);
-  return b;
-}
 
 Font_metric::~Font_metric ()
 {

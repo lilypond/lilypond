@@ -766,5 +766,5 @@
   (eval-string (ly-gulp-file "generic-property.scm"))
   (eval-string (ly-gulp-file "basic-properties.scm"))
   (eval-string (ly-gulp-file "chord-names.scm"))
-  (eval-string (ly-gulp-file "element-descriptions.scm"))  
+  (eval-string (ly-gulp-file "element-descriptions.scm"))
  )

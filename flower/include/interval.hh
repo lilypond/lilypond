@@ -58,13 +58,16 @@ struct Interval_t : public Drul_array<T> {
     return *this;
   }
   Interval_t<T> &operator *=(T r) {
-    elem (LEFT) *= r;
-    elem (RIGHT) *= r;
-    if (r < T(0)) {
-      T t = elem (LEFT);
-      elem (LEFT) = elem (RIGHT);
-      elem (RIGHT) = t;
-    }
+    if (!empty_b ())
+      {
+	elem (LEFT) *= r;
+	elem (RIGHT) *= r;
+	if (r < T(0)) {
+	  T t = elem (LEFT);
+	  elem (LEFT) = elem (RIGHT);
+	  elem (RIGHT) = t;
+	}
+      }
     return *this;
   }
 

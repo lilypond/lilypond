@@ -29,6 +29,13 @@ Request::Request ()
   set_mus_property ("type", ly_symbol2scm ("request"));
 }
 
+
+
+Script_req::Script_req ()
+{
+  set_direction (CENTER);
+}
+
 void
 Script_req::set_direction (Direction d)
 {

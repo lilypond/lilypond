@@ -20,8 +20,8 @@
  */
 class Music_output_def  
 {
-  Scope *translator_p_dict_p_;
 public:
+  Scope *translator_p_dict_p_;
   Scope *scope_p_;
 
   VIRTUAL_COPY_CONS(Music_output_def);
