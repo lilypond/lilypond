@@ -288,14 +288,15 @@ def run_lilypond (files, dep_prefix):
 		ly.exit (status)
 			
 	if status:
+		global lilypond_error_p
 		sys.stderr.write ('\n')
 		if len (files) == 1:
 			ly.error (_ ("LilyPond failed on input file %s (exit status %d)") % (files[0], exit_status))
+			lilypond_error_p = 1
 			ly.exit (status)
 		else:
 			ly.error (_ ("LilyPond failed on an input file (exit status %d)") % exit_status)
 			ly.error (_ ("Continuing..."))
-			global lilypond_error_p
 			lilypond_error_p = 1
 		
 

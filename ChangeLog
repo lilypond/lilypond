@@ -1,5 +1,7 @@
 2004-06-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond.py (make_include_option): set lilypond_error_p.
+
 	* lily/bar-line.cc (compound_barline): backport ||: fix.
 
 2004-06-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
