@@ -19,6 +19,7 @@ struct Key_register : Request_register {
     Key_item * kit_p_;
     Array<int> accidental_idx_arr_;
     bool default_key_b_;
+    bool change_key_b_;
     
     virtual bool try_request(Request *req_l);
     virtual void process_requests();
