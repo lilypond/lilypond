@@ -1,3 +1,9 @@
+2005-03-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/bin/add-html-footer.py (do_file): make wiki link optional.
+
+	* lily/pdf.cc: remove PDF related files
+
 2005-03-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/deutsch.ly: add quarter tones, patch by Arno Waschk.
