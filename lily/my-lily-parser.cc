@@ -86,6 +86,7 @@ void
 Lily_parser::parse_file (String init, String name, String out_name)
 {
   lexer_ = new Lily_lexer (sources_);
+  scm_gc_unprotect_object (lexer_->self_scm ());
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
@@ -111,8 +112,6 @@ Lily_parser::parse_file (String init, String name, String out_name)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
-
-  scm_gc_unprotect_object (lexer_->self_scm ());
   lexer_ = 0;
 }
 
@@ -122,6 +121,7 @@ Lily_parser::parse_string (String ly_code)
   Lily_lexer *parent = lexer_;
   lexer_ = (parent == 0 ? new Lily_lexer (sources_)
 	    : new Lily_lexer (*parent));
+  scm_gc_unprotect_object (lexer_->self_scm ());
 
 
   SCM oldmod = scm_current_module ();
@@ -159,7 +159,6 @@ Lily_parser::parse_string (String ly_code)
     }
 
   scm_set_current_module (oldmod);
-  scm_gc_unprotect_object (lexer_->self_scm ());
   lexer_ = 0;
 }
 
@@ -302,6 +301,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
+      scm_gc_unprotect_object (parser->self_scm ());
       parser = 0;
       if (error)
 	/* TODO: pass renamed input file too.  */
@@ -324,6 +324,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
 		     parser->self_scm ());
   parser->parse_string (ly_scm2string (ly_code));
+  scm_gc_unprotect_object (parser->self_scm ());
   parser = 0;
   
   return SCM_UNSPECIFIED;

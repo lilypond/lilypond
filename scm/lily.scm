@@ -531,8 +531,7 @@ L1 is copied, L2 not.
        (outfile    (open-file (string-append
 	       "gcstat-" (number->string gc-protect-stat-count)
 	       ".scm"
-	       ) "w"))
-       )
+	       ) "w")))
 
     (display "DUMPING...\n")
     (display
@@ -593,7 +592,10 @@ L1 is copied, L2 not.
   (let* ((failed '())
 	 (handler (lambda (key arg) (set! failed (cons arg failed)))))
     (for-each
-     (lambda (f) (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler))
+     (lambda (f)
+       (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler)
+       (dump-gc-protects)
+       )
      files)
 
     (if (pair? failed)
