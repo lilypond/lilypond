@@ -1,3 +1,10 @@
+2002-06-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (shift_region_to_valid): fix stupido bug. 
+
+	* buildscripts/lilypond-profile.sh: override settings if
+	LILYPONDPREFIX is set.
+
 2002-06-04  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scripts/ly2dvi.py (non_path_environment): Fix typo
