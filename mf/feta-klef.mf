@@ -3,21 +3,82 @@
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 
-% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
-% 
+% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>,
+% Jan Nieuwenhuizen <jan@digicash.com>
 
-fet_begingroup("klef");
-
+fet_begingroup("clefs");
 
 def draw_staff(expr first, last)=
 	pickup pencircle scaled stafflinethickness;
 	for i:= first step 1 until last:
 		draw (- interline, i* interline) .. (4 interline, i* interline);
 	endfor
+	enddef;
 
- enddef;
+% [Wanske] says the bulbs should be positioned about 1/4 right of the
+% "arrow"
+def draw_c_clef (expr reduction) = 
+	save hair, norm, reduced_il;
+	reduced_il#=interline#*reduction;
+	norm#:=2/3reduced_il#;
+	hair#:=1/6norm#;
+	define_pixels (hair,norm,reduced_il);
+	set_char_box (0, 5/2reduced_il#, 2 reduced_il#, 2 reduced_il#);
+	draw_block ((0,-d), (1/2reduced_il,h));
+	draw_block ((1/2reduced_il+stafflinethickness,-d), 
+	  (1/2reduced_il+2stafflinethickness,h));
+	
+	save xoff;
+	xoff=1/2reduced_il+2hair;
+	penpos1(hair,-90);
+	z1l=(xoff+norm+hair,h);
+	penpos2(norm-hair,180);
+	z2l=(w,h/2);
+	penpos3(hair,90);
+	z3=(((w-xoff)/2)+xoff,2hair);
 
+	penpos4(hair,0);
+	z4=(xoff+1/2norm+1/2hair,reduced_il-hair);
+	
+	penpos5(4hair,0);
+	z5=(xoff+5/4hair,0);
 
+	penpos6(norm-hair,90);
+	z6=(xoff+3/4norm,0);
+
+	penpos7(hair,-90);
+	z7r=(x1,-d);
+
+	save t; t=0.833;
+	save p; path p;
+%	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
+%		..z1r{left}..z1l{right}..z2l{down}
+%		..z3l{left}..z5r{down};
+	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
+		..z1r{left}..z1l{right}..z2l{down}
+		..z3l{left}..z6r..z5r{down};
+	pickup pencircle scaled 1pt#;
+	filldraw p..(reverse p yscaled -1)..cycle;
+	penlabels (1,2,3,4,5,6);
+
+	% ugh, should be bulb, not flare?
+	draw_flare(z1l,180,90,hair,norm-1/4hair);
+	draw_flare(z7r,180,-90,hair,norm-1/4hair);
+	enddef;
+
+fet_beginchar ("C clef", "alto", "altoclef")
+	if test = 1:
+		draw_staff (-2,2);
+	fi;
+	draw_c_clef (1.0);
+fet_endchar;
+
+fet_beginchar ("C clef", "alto_change", "caltoclef")
+	if test = 1:
+		draw_staff (-2,2);
+	fi;
+	draw_c_clef (.8);
+fet_endchar;
 
 %
 % Inspired by Baerenreiter and Breitkopf
@@ -97,7 +158,6 @@ fet_endchar;
 % FIXME bulb should curve (see bass clef)
 % FIXME start (inside) should be little thinner
 % FIXME parametrise.
-% FIXME should be a bit more upright
 %
 
 % Beste lezers, kijk,
@@ -124,20 +184,20 @@ def draw_gclef (expr exact_center, reduction)=
 	downstroke_dir = (14, -75);
 	breapth_factor = 11/7;
 	inner_thick_end = 45;
-	inner_start_angle = angle(-1,-2);
+	inner_start_angle = downstroke_angle - 43;
 	thickness = .4 reduced_il - hair;
 
 	thinnib = thinness - hair;
 	thinpen = thinness;
-	set_char_box(-xpart exact_center + breapth_factor* reduced_il#, 
+	set_char_box(-xpart exact_center + 1.1 * breapth_factor* reduced_il#, 
 		xpart exact_center + .66 breapth_factor* reduced_il#,
 		-ypart exact_center + 3 * reduced_il#,
 		ypart exact_center + 5 * reduced_il#);
 	
 	pickup pencircle scaled hair;
-
 	downstroke_angle = angle downstroke_dir;
-	z1 = center + whatever * dir inner_start_angle;
+
+	z1 = center + whatever * dir (inner_start_angle);
 	x1 = xpart center -.28 reduced_il;
 	
 	top z2r = center + (0,reduced_il + stafflinethickness/2);
@@ -219,10 +279,10 @@ fet_beginchar("G clef", "violin", "violinclef")
 	if test = 1:
 		draw_staff(-1,3);
 	fi;
-	draw_gclef((1.6 interline#,0), 1.0);
+	draw_gclef((1.7 interline#,0), 1.0);
 fet_endchar;
 fet_beginchar("G clef", "violin_change", "cviolinclef")
 	draw_gclef((1.3 interline#,0), .8);
 fet_endchar;
 
-fet_endgroup("klef");
+fet_endgroup("clefs");
