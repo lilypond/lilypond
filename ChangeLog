@@ -1,5 +1,20 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/gen-emmentaler-scripts.py (i): generate
+	emmentaler-X.fontname as well.
+
+	* buildscripts/ps-embed-cff.py: new script
+
+	* scm/lily-library.scm: remove ps-embed-cff.
+
+	* scm/framework-ps.scm (write-preamble): don't use kpathsea for
+	font loading. 
+
+	* scm/font.scm (add-music-fonts): load dynamics/numbers through
+	fontconfig as well.
+
+	* lily/font-config.cc (init_fontconfig): add cff/ too.
+
 	* mf/GNUmakefile: generate .commonff to not confuse fontconfig.
 
 	* ly/generate-embedded-cff.ly: capitalize.
