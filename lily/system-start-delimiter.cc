@@ -1,10 +1,10 @@
-/*   
+/* 
   system-start-delimiter.cc --  implement System_start_delimiter
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
+
  */
 #include <math.h>
 
@@ -20,10 +20,10 @@
 #include "lookup.hh"
 
 Stencil
-System_start_delimiter::staff_bracket (Grob*me,Real height)  
+System_start_delimiter::staff_bracket (Grob*me,Real height)
 {
   Real arc_height = scm_to_double (me->get_property ("arch-height")) ;
-  
+
   SCM at = scm_list_n (ly_symbol2scm ("bracket"),
 		    me->get_property ("arch-angle"),
 		    me->get_property ("arch-width"),
@@ -35,7 +35,7 @@ System_start_delimiter::staff_bracket (Grob*me,Real height)
 
 /*
 TODO: sort this out.
-    
+  
 Another thing:
 In system-start-delimiter.cc I see the line
 
@@ -48,7 +48,7 @@ But I really think that you mean
 (arc_height changes the x-axis-size of arc ; arc_width changes the
 y-axis-size)
 Will not fix it since I'm not sure.
-  
+
    */
 
   Real h = height + 2 * arc_height;
@@ -92,8 +92,8 @@ System_start_delimiter::after_line_breaking (SCM smob)
 	  if (!v.is_empty ())
 	    count ++;
 	}
-  
-  
+
+
       if (count <=  1)
 	{
 	  me->suicide ();
@@ -103,19 +103,19 @@ System_start_delimiter::after_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (System_start_delimiter,print,1);
+MAKE_SCHEME_CALLBACK (System_start_delimiter, print, 1);
 SCM
 System_start_delimiter::print (SCM smob)
 {
-  Spanner * me = unsmob_spanner (smob);
+  Spanner *me = unsmob_spanner (smob);
   if (!me)
     return SCM_EOL;
-  
+
   SCM s = me->get_property ("glyph");
   if (!scm_is_string (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
-  
+
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   SCM elts = me->get_property ("elements");
@@ -135,11 +135,11 @@ System_start_delimiter::print (SCM smob)
     }
 
   ext -= me->relative_coordinate (common, Y_AXIS);
-  
-  Real l = ext.length () / staff_space;
-  
+
+  Real len = ext.length () / staff_space;
+
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= l))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= len))
     {
       me->suicide ();
       return SCM_EOL;
@@ -148,33 +148,32 @@ System_start_delimiter::print (SCM smob)
   Stencil m;
 
   if (gsym== ly_symbol2scm ("bracket"))
-    m = staff_bracket (me,l);
+    m = staff_bracket (me, len);
   else if (gsym == ly_symbol2scm ("brace"))
-    m =  staff_brace (me,l);
+    m = staff_brace (me, len);
   else if (gsym == ly_symbol2scm ("bar-line"))
-    m = simple_bar (me,l);
-  
+    m = simple_bar (me, len);
+
   m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();
 }
 
 Stencil
-System_start_delimiter::staff_brace (Grob*me, Real y)
+System_start_delimiter::staff_brace (Grob *me, Real y)
 {
   Font_metric *fm = 0;
-  
+
   /* We go through the style sheet to lookup the font file
      name.  This is better than using find_font directly,
      esp. because that triggers mktextfm for non-existent
      fonts. */
-  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("fetaBraces"));
-  
+  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
+		      ly_symbol2scm ("fetaBraces"));
+
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
   fm = select_font (me->get_layout (), scm_list_n (alist, SCM_UNDEFINED));
-  
 
   int lo = 0;
-
   int hi = (fm->count () - 1) >? 2;
   Box b;
 
@@ -197,8 +196,6 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 
   return Stencil (b, stil.expr ());
 }
-  
-
 
 
 ADD_INTERFACE (System_start_delimiter,"system-start-delimiter-interface",

@@ -335,7 +335,7 @@
 (ly:clear-keys)
 (ly:define-keys `~S)
 ;;; TWEAKS \n
-(ly:clear-tweaks)
+(ly:clear-twbeaks)
 (ly:define-tweaks `~S)"
 
 		  (ly:dumper-definitions dumper)

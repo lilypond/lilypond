@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.4.0"
 \encoding "latin1"
 \header {
