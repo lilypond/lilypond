@@ -9,7 +9,7 @@
 /// a symbol which is attached between two columns.
 struct Spanner {
     const PCol *left, *right;
-    Stretchable_symbol *strets;
+    Parametric_symbol *strets;
     PStaff * pstaff_;
     ///      clone a piece of  this spanner.
     Spanner *broken_at(const PCol *c1, const PCol *c2) const; 
@@ -33,7 +33,7 @@ struct Item {
     virtual Interval width() const;    
     virtual Interval height() const;
     const PCol * col;
-    Output *output;
+    Molecule *output;
     
     PStaff *pstaff_;
     /** needed for knowing at which staff to output this item
