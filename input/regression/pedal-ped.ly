@@ -7,10 +7,8 @@ at the end of the melody."
 
 }
 
-
 \score{
     \context Staff \notes\relative c'{
-
         c4 d e f g
         \sustainDown b c
         c, d16[  c  c c]  e[ e \sustainUp \sustainDown e e ] f4 \sustainUp 
@@ -19,8 +17,5 @@ at the end of the melody."
         \override Staff.SustainPedal   #'padding = #-2
         c, \sustainDown d e \sustainUp \sustainDown f
         \sustainUp g b c
-
-
-
     }
 }

@@ -46,8 +46,8 @@ half way in measure 13 has been forgotten.
 }
 
 
-sarabandeA = \context Voice \notes \relative c {
-  \override Staff.NoteCollision   #'merge-differently-dotted = ##t
+sarabandeA =  \context Voice \notes \relative c {
+  \override Staff.NoteCollision  #'merge-differently-dotted = ##t
 
   
   << { d8. e16 e4.\trill d16 e } \\
@@ -121,9 +121,14 @@ sarabandeA = \context Voice \notes \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
+<<<<<<< baerenreiter-sarabande.ly
+  \override NoteHead  #'after-line-breaking-callback
+  = #(lambda (smob) (assert-system-count smob 6))
+=======
   \override NoteHead
     #'after-line-breaking-callback
  = #(lambda (smob) (assert-system-count smob 6))
+>>>>>>> 1.30
   d,,2 |
 }
 

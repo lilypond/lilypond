@@ -22,12 +22,12 @@ lipbreaker = \notes \relative c'
 	 c[ c c]  c[ c c]
 }
 
-rightsixteenth = { \set stemLeftBeamCount = 1
-  \set stemRightBeamCount = 2 }
-leftsixteenth = { \set stemLeftBeamCount = 2
-  \set stemRightBeamCount = 1 }
-bothsixteenth = { \set stemLeftBeamCount = 2
-  \set stemRightBeamCount = 2 }
+rightsixteenth = { \set stemLeftBeamCount =  1
+  \set stemRightBeamCount =  2 }
+leftsixteenth = { \set stemLeftBeamCount =  2
+  \set stemRightBeamCount =  1 }
+bothsixteenth = { \set stemLeftBeamCount =  2
+  \set stemRightBeamCount =  2 }
 
 rondo = \notes 	\relative c'
 {
@@ -48,13 +48,21 @@ rondo = \notes 	\relative c'
 	R2.*7
 	\mark  "A"
 	c4.\p \grace {
+<<<<<<< mozart-hrn3-rondo.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.15
    e16( 
   \revert Stem #'stroke-style }
   d8[) c d]
 	c4 r8 r4 r8
 	e4. \grace {
+<<<<<<< mozart-hrn3-rondo.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.15
    g16( 
   \revert Stem #'stroke-style }
   f8[) e f]
@@ -172,7 +180,11 @@ rondo = \notes 	\relative c'
 	
 	<< d2.(\trill
 	  { s2 	\grace {
+<<<<<<< mozart-hrn3-rondo.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.15
      c16[ d] 
   \revert Stem #'stroke-style }
  } >>

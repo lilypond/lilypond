@@ -30,7 +30,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.1.7"
+\version "2.1.22"
 
 \include "mozart-hrn3-defs.ly"
 \include "mozart-hrn3-allegro.ly"

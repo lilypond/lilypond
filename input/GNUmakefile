@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS=test regression tutorial no-notation ascii-art template mutopia 
+SUBDIRS=test regression tutorial no-notation template mutopia 
 
 examples= les-nereides puer-fragment
 

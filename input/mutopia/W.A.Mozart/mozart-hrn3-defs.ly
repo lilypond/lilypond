@@ -1,6 +1,6 @@
 % #(ly:set-point-and-click 'line-column)
 
-longgrace = \override Stem   #'stroke-style = #'()
+longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
@@ -8,8 +8,8 @@ ritenuto = \markup { \italic  "rit." }
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
-    \set crescendoText = \markup { \italic \bold "cresc." }
-    \set crescendoSpanner = #'dashed-line
+    \set crescendoText =  \markup { \italic \bold "cresc." }
+    \set crescendoSpanner =  #'dashed-line
 }
 
 %%

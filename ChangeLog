@@ -1,3 +1,7 @@
+2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/GNUmakefile (SUBDIRS): remove ascii-art
+
 2004-02-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/: Convert ly files that still had \property.  Fixes make
