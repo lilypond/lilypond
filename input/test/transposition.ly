@@ -35,7 +35,7 @@ vOne = \notes \relative c''{
         c4 c |
 }
 
-vTwo = \notes \relative c''\transpose d' { \vOne }
+vTwo = \notes \transpose d' { \vOne }
 
 vThree = \notes \relative c''{
         \clef"violin";
@@ -48,7 +48,7 @@ vThree = \notes \relative c''{
         cis4 ais4 |
 }
 
-vFour = \notes \relative c''\transpose d' \vThree
+vFour = \notes \transpose d' \vThree
 
 \score {
   \type StaffGroup <
