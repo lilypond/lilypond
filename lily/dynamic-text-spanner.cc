@@ -86,8 +86,12 @@ Dynamic_text_spanner::print (SCM smob)
 	      pad = robust_scm2double (me->get_property ("bound-padding"), 0.0);
 	      encl = -d;
 	    }
-	  
-	  span_points[d] = -d  * pad + b->extent (common, X_AXIS).linear_combination (encl);
+
+	  Interval ext  = b->extent (common, X_AXIS);
+	  span_points[d] = -d  * pad +
+	    (ext.is_empty ())
+	    ? b->relative_coordinate (common, X_AXIS) 
+	    : ext.linear_combination (encl);
 	}
     }
   while (flip (&d) != LEFT);
