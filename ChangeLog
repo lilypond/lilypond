@@ -1,3 +1,11 @@
+2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/duration.cc (var): backport SCM_ASSERT_TYPE sideeffect fix. 
+
+	* lily/parser.yy (Repeated_music): backport tremolo fix.
+
+	* lily/chord-tremolo-engraver.cc: idem.
+
 2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/topdocs/index.tely (Top): typo

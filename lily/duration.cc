@@ -164,7 +164,10 @@ dots.
     num = gh_int2scm (1);
   
   if (den != SCM_UNDEFINED)
-    SCM_ASSERT_TYPE(gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
+    {
+      SCM_ASSERT_TYPE(gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
+      compress = true;
+    }
   else
     den = gh_int2scm (1);
   
