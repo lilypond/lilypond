@@ -45,21 +45,6 @@ public:
     virtual Translator * get_req_translator_l();
 };
 
-// duh.
-class Request_iterator : public Music_iterator {
-    Request  *req_l_;
-    bool last_b_;
-public:
-    Request_iterator(Request const *);
-    NAME_MEMBERS();
-protected:
-    virtual bool ok() const;
-    virtual Moment next_moment() const;
-    
-    virtual void do_print()const;
-    virtual void process_and_next(Moment);
-};
-
 class Change_iterator : public Music_iterator {
     Change_reg * change_l_;
 public:
@@ -73,6 +58,7 @@ class Chord_iterator : public Music_iterator
     const Chord *chord_C_;
     Pointer_list<Music_iterator*> children_p_list_;
 public:
+    ~Chord_iterator();
     Chord_iterator(Chord const*);
     NAME_MEMBERS();
 protected:
@@ -83,13 +69,20 @@ protected:
     virtual bool ok()const;
 };
 
-class Voice_element_iterator : public Chord_iterator {
-
-protected:
-    virtual void construct_children();
+class Voice_element_iterator : public Music_iterator {
+    const Voice_element * elt_l_;
+    Moment elt_duration_;
+    bool last_b_;
 public:
     Voice_element_iterator(Voice_element*);
     NAME_MEMBERS();
+
+protected:
+    virtual void process_and_next(Moment);
+    virtual Moment next_moment()const;
+    virtual void construct_children();
+    virtual bool ok()const;
+    virtual void do_print()const;
 };
 
 
