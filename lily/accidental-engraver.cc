@@ -239,7 +239,9 @@ Accidental_engraver::process_acknowledged_grobs ()
       SCM accidentals =  get_property ("autoAccidentals");
       SCM cautionaries =  get_property ("autoCautionaries");
       SCM barnum = get_property ("currentBarNumber");
-
+      SCM smp = get_property("measurePosition");
+      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      if(mp<0 && gh_number_p(barnum)) barnum = gh_int2scm(gh_scm2int(barnum)-1);
       bool extra_natural_b = get_property ("extraNatural") == SCM_BOOL_T;
       for (int i = 0; i  < accidentals_.size (); i++) 
 	{
