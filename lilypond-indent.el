@@ -340,7 +340,7 @@ slur-paren-p defaults to nil.
 	(setq paren-regexp (concat (mapconcat 'car (mapcar 'cdr regexp-alist) "\\|") "\\|"
 				   (mapconcat 'cdr (mapcar 'cdr regexp-alist) "\\|")))))
     (if (and (eq dir 1)
-	     (memq (char-after oldpos) '(?[ ?{)))
+	     (memq (char-after oldpos) '(?[ ?{ ?\()))
 	(forward-char 1))
     (while (and (if (not (eq dir 1)) 
 		    (> level 0) 
@@ -374,7 +374,8 @@ slur-paren-p defaults to nil.
 	(progn
 	  (if (sequencep bracket-type)
 	      (if (looking-at "..[][)(]") (forward-char 1)))
-	  (if (looking-at ".[][><)(]") (forward-char 1)))
+	  (if (and (not (looking-at "[)(]"))
+		   (looking-at ".[][><)(]")) (forward-char 1)))
       (backward-char 1))
     (if (= level 0) 
 	(point)
@@ -505,14 +506,19 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (interactive)
   (let ((oldpos (point)))
     (self-insert-command 1)
-    (if (and blink-matching-paren
-	     (not (LilyPond-inside-string-or-comment-p))
-	     (save-excursion (re-search-backward 
-			      (concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
-			     (eq oldpos (1- (match-end 0)))))
-	(progn (backward-char 1)
-	       (LilyPond-blink-matching-paren)
-	       (forward-char 1)))))
+    ;; Refontify buffer if a block-comment-ender '%}' is inserted
+    (if (and (eq (char-before (point)) ?})
+	     (eq (char-before (- (point) 1)) ?%))
+	(font-lock-fontify-buffer)
+      ;; Match paren if the cursor is not inside string or comment.
+      (if (and blink-matching-paren
+	       (not (LilyPond-inside-string-or-comment-p))
+	       (save-excursion (re-search-backward 
+				(concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
+			       (eq oldpos (1- (match-end 0)))))
+	  (progn (backward-char 1)
+		 (LilyPond-blink-matching-paren)
+		 (forward-char 1))))))
 
 ;;; REDEFINITIONS
 (defun scan-sexps (pos dir) 

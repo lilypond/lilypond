@@ -1,3 +1,8 @@
+2003-06-10  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: Match better slurs in scheme expressions.
+	Refontify buffer if a block-comment-ender, '}' after '%', is inserted.
+
 2003-06-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/chord-name.scm (set-chord-name-style): Update for 'ignatzek.
