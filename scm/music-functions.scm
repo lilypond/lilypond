@@ -278,7 +278,6 @@ a property set for MultiMeasureRestNumber."
 	     music 'elements
 	     (cons (make-event-chord texts) others)
 	    ))
-	(display-music music)
       ))
   music
   )

@@ -3889,14 +3889,18 @@ rest centered in the measure, regardless of the time signature.
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax.  An identifier
-is provided for a fermata. 
+@var{note}-@code{markup} syntax.  In this case, the number is
+replaced. If you need both texts and the number, you must add the
+number by hand. An identifier (@code{fermataMarkup}) is provided for
+adding fermatas.
+
 
 @lilypond[verbatim,fragment]
   \time 3/4
   R2._\markup { "Ad lib" }
   R2.^\fermataMarkup
 @end lilypond
+
 
 @cindex whole rests for a full measure 
 
