@@ -6,8 +6,8 @@
 paper_twentythree = \paper {
 	staffheight = 23.0\pt;
 
-	font_large = 12.;
 	font_Large = 12.;	
+	font_large = 12.;
 	font_normal = 10.;
 	font_script = 8.;
 

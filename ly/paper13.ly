@@ -1,5 +1,7 @@
 % paper13.ly
 
+\version "1.3.59";
+
 paper_thirteen = \paper {
 	staffheight = 13.0\pt;
 
@@ -8,8 +10,8 @@ paper_thirteen = \paper {
 	wholewidth = 6.44\pt;
 
 
-	font_large = 8.;
-	font_Large = 6.;
+	font_Large = 8.;
+	font_large = 6.;
 	font_normal = 5.;
 	font_script = 4.;
 
