@@ -558,7 +558,9 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
   Real strength = (ragged) ? 1.0 : 1 / (max_note_space - max_fixed_note_space);
   Real distance = (ragged) ? max_fixed_note_space : max_note_space;
-  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
+  //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
+  
+  Spaceable_grob::add_spring (lc, rc, distance, strength, false);  
 }
 
 void

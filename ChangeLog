@@ -1,3 +1,14 @@
+2002-05-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (My_lily_parser): uncomment code. (Causes
+	problems  with recent bison releases).
+
+	* make/lilypond.redhat.spec.in: add pfa fonts to X. 
+
+2002-05-07  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Fixes the order of the note name list.
+
 2002-05-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py: Add html/dtml output, pseudo-filter

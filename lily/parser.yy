@@ -116,9 +116,6 @@ set_music_properties (Music *p, SCM a)
 #include <stdlib.h>
 
 
-#ifndef NDEBUG
-#define YYDEBUG 1
-#endif
 
 #define YYERROR_VERBOSE 1
 
@@ -1511,7 +1508,8 @@ close_request:
 		$$ = $1;
 		dynamic_cast<Span_req*> ($$)->set_span_dir ( START);
 	}
-	
+	;
+ 
 close_request_parens:
 	'('	{
 		Span_req* s= new Span_req;
@@ -2115,9 +2113,9 @@ questions:
 %%
 
 void
-My_lily_parser::set_yydebug (bool b)
+My_lily_parser::set_yydebug (bool )
 {
-#ifdef YYDEBUG
+#if 0
 	yydebug = b;
 #endif
 }
