@@ -12,19 +12,19 @@
 
 /set-ps-scale-to-lily-scale { output-scale output-scale scale } bind def
 
-
 /init-paper {
-	gsave
- 	.1 setlinewidth
- 	clippath pathbbox newpath
- 	/vsize exch def
- 	/hsize exch def pop pop pop pop
-	% FIXME
-	/top-margin 2 def
+ 	gsave
+  	.1 setlinewidth
+  	clippath pathbbox newpath
+  	/vsize exch def
+  	/hsize exch def pop pop pop 
+ 	% FIXME
+ 	/top-margin 2 def
 	hsize line-width sub 2 div /left-margin exch def
-	grestore
+ 	grestore
 } bind def
 
+  
 /place-box
 {
 	/object exch def
@@ -65,8 +65,8 @@
 /start-system % x y
 {
     gsave
-    exch output-scale mul exch
-    output-scale mul vsize exch sub translate
+    0
+    vsize translate
 } bind def
 
 /stop-system
@@ -82,10 +82,9 @@
 
 staff-line-thickness setlinewidth
 
-% set postscript paper size
-paper-size
 
-% initialise paper dimensions
 staff-height init-paper
+ 
+
 
 % end lilyponddefs.ps

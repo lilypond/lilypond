@@ -22,7 +22,7 @@ texidoc = "Stress optimal page breaking.  This should look
     piece = "Piece"
 }
 
-#(set-default-paper-size "a6")
+#(set-default-paper-size "a6" 'portrait)
 
 
 pattern =  { a b c d \break }

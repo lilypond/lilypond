@@ -82,7 +82,7 @@ global _;_=ly._
 global re;re = ly.re
 
 # lilylib globals
-program_name = 'lilypond'
+program_name = 'lilypond-latex'
 program_version = '@TOPLEVEL_VERSION@'
 # input without \book, use classic latex definitions
 classic_p = 0
@@ -157,6 +157,7 @@ lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
+lilypond_binary += ' --format=tex ' 
 
 ## Init to empty; values here take precedence over values in the file
 extra_init = {
