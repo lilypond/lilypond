@@ -55,11 +55,16 @@ bassdux = \melodic{
 }
 
 % every "melody" declared in a staff has its own "voicegroup"
-trebstaf = \staff{ global dux comes }	
-
+trebstaf = \staff{ 
+	\inputregister{ melodicregs}
+	global dux comes 
+}
+	
 \score{
 	trebstaf
-	\staff{ bassdux global }
+	\staff{ \inputregister{ melodicregs}
+		bassdux global 
+	}
 	\paper{}
 	\midi{
 		\tempo 4:90
