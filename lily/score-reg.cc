@@ -18,29 +18,44 @@
 #include "musical-request.hh"
 #include "score-column.hh"
 
-int
-Score_register::depth_i()const
-{
-    return 0;
-}
 
 void
 Score_register::set_score(Score *s)
 {
-    score_l_ = s;
+    Global_acceptor::set_score(s);
     scoreline_l_ = s->pscore_p_->super_elem_l_->line_of_score_l_;
-    last_mom_ = score_l_->music_p_->time_int().max();
 }
 
 Score_register::Score_register()
 {
-    score_l_ = 0;
     scoreline_l_ =0;
     command_column_l_ =0;
     musical_column_l_ =0;
 }
 
  
+void
+Score_register::prepare(Moment w)
+{
+    Score_column* c1 = new Score_column(w);
+    Score_column* c2 = new Score_column(w);
+    
+    c1->musical_b_ = false;
+    c2->musical_b_ = true;
+    
+    score_l_->cols_.bottom().add(c1);
+    score_l_->cols_.bottom().add(c2);
+    set_cols(c1,c2);
+
+
+    post_move_processing();
+}
+void
+Score_register::finish()
+{
+    check_removal();
+    do_removal_processing();
+}
 
 void
 Score_register::do_creation_processing()
@@ -66,6 +81,14 @@ Score_register::do_removal_processing()
     typeset_all();
 }
 
+void
+Score_register::process()
+{
+    	process_requests();
+	do_announces();
+	pre_move_processing();
+	check_removal();
+}
 
 void
 Score_register::announce_element(Score_elem_info info)
@@ -120,6 +143,7 @@ Score_register::typeset_breakable_item(Item * nobreak_p)
 	nobreak_item_p_arr_.push(nobreak_p);
     }
 }
+
 void
 Score_register::typeset_all()
 {
@@ -190,14 +214,3 @@ IMPLEMENT_IS_TYPE_B1(Score_register,Register_group_register);
 IMPLEMENT_STATIC_NAME(Score_register);
 ADD_THIS_REGISTER(Score_register);
 
-void
-Score_register::add_moment_to_process(Moment m)
-{
-    if (m  > last_mom_)
-	return;
-    
-    for (int i=0; i <  extra_mom_pq_.size(); i++)
-	if (extra_mom_pq_[i] == m)
-	    return;
-    extra_mom_pq_.insert(m);
-}

@@ -11,11 +11,11 @@
 #define SCORE_REG_HH
 
 #include "register-group.hh"
-#include "pqueue.hh"
+#include "global-acceptor.hh"
 
-class Score_register : public Register_group_register {
+class Score_register : public Register_group_register, public Global_acceptor {
     Line_of_score * scoreline_l_;
-    Score * score_l_;
+
     
     Array<Item*> nobreak_item_p_arr_;
     Link_array<Score_elem> musical_item_p_arr_;
@@ -27,18 +27,22 @@ class Score_register : public Register_group_register {
     void set_cols(Score_column*,Score_column*);
     void typeset_all();
     
-    PQueue<Moment> extra_mom_pq_;
-    Moment last_mom_;
 public:
     NAME_MEMBERS();
 
-    void add_moment_to_process(Moment);
     Score_register();
-    int depth_i() const;
-protected:   
-    void set_score(Score * score_l);
-    
 
+protected:   
+    /* Global_acceptor interface */
+    virtual void set_score(Score * score_l);
+    virtual void prepare(Moment);
+    virtual void finish();
+    virtual void process();
+    virtual int depth_i() const { return Global_acceptor::depth_i();}
+    virtual Acceptor* ancestor_l(int l) { return Global_acceptor::ancestor_l(l);}
+
+protected:
+    /* Register_group_register interface */
     virtual Staff_info get_staff_info()const;
     virtual bool do_try_request(Request*);
     virtual void do_creation_processing();
@@ -49,7 +53,6 @@ protected:
     virtual void typeset_element(Score_elem*elem_p);
     virtual Paper_def * paper() const;
     virtual void do_pre_move_processing();
-    
 };
 
 #endif // SCORE_REG_HH

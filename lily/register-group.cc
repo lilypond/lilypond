@@ -42,7 +42,6 @@ Register_group_register::removable_b()const
 Register_group_register::Register_group_register()
 {
     ireg_l_ =0;
-    iterator_count_ =0;
 }
 
 void
@@ -162,7 +161,7 @@ Register_group_register::terminate_register(Request_register*r_l)
     delete reg_p;
 }
 
-IMPLEMENT_IS_TYPE_B1(Register_group_register,Request_register);
+IMPLEMENT_IS_TYPE_B2(Register_group_register,Request_register, Acceptor);
 IMPLEMENT_STATIC_NAME(Register_group_register);
 ADD_THIS_REGISTER(Register_group_register);
 
@@ -190,19 +189,28 @@ Register_group_register::find_register_l(String n, String id)
     return r;
 }
 
-Register_group_register*
-Register_group_register::find_get_reg_l(String n,String id)
+Acceptor*
+Register_group_register::find_get_acceptor_l(String n,String id)
 {
-    Register_group_register * ret=0;
-    if (ireg_l_-> find_ireg_l( n )) {
+    Acceptor * ret=0;
+    Input_register * ireg_l= ireg_l_-> recursive_find ( n );
+    if (ireg_l ) {
 	ret = find_register_l(n,id);
 	if (!ret) {
-	    ret = ireg_l_-> find_ireg_l(n) -> get_group_register_p();
-	    add (  ret );
-	    ret ->id_str_ = id;
+	    Register_group_register * group = 
+		ireg_l-> get_group_register_p();
+	    
+	    add(group);
+	    ret = group;
+	    
+	    if (group->ireg_l_->is_name_b( n ) )
+		ret ->id_str_ = id;
+	    else
+		return ret->find_get_acceptor_l(n,id);
+
 	}
     } else if (daddy_reg_l_)
-	ret =daddy_reg_l_->find_get_reg_l(n,id);
+	ret =daddy_reg_l_->find_get_acceptor_l(n,id);
     else {
 	warning("Can't find or create `" + n + "' called `" + id + "'\n");
 	ret =0;
@@ -216,7 +224,7 @@ Register_group_register::depth_i()const
     return daddy_reg_l_->depth_i()  + 1;
 }
 
-Register_group_register*
+Acceptor*
 Register_group_register::ancestor_l(int l)
 {
     if (!l || !daddy_reg_l_)
@@ -273,7 +281,7 @@ Register_group_register::get_staff_info()const
     return inf;
 }
 
-Register_group_register*
+Acceptor*
 Register_group_register::get_default_interpreter()
 {
     if ( interpreter_l() )
