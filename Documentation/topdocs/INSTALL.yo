@@ -58,6 +58,10 @@ it()The geometry package for LaTeX is needed to use ly2dvi.
 Available at 
 lurl(ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
 or at mirror site lurl(ftp://ftp.dante.de)
+
+it()MetaPost, if you want to use direct PostScript output. Please
+note  that  tetex-0.4pl8 (included with Redhat 5.x) does not include
+file(mfplain.mp), which is needed  for producing the scaleable font files.
 )
 
 

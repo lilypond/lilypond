@@ -4,12 +4,12 @@ STEPMAKE_TEMPLATES=documentation
 TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
 PLAIN_FILES=angels.ly guile.patch
 
-EXTRA_DIST_FILES += $(PLAIN_FILES)
+EXTRA_DIST_FILES = $(PLAIN_FILES)
 
 
 include $(depth)/make/stepmake.make 
 
-default: do-doc 
+default: do-doc dist-plain
 
 $(outdir)/%.html: %.yo
 	$(sed-version) < $< > $<.out

@@ -234,7 +234,7 @@ allegroEn = \notes\relative c''{
 	c4~ [c16 g' des c] [bes es bes as] |
 	[g as bes c] [des8 bes] g'4~ | 
 	[g8 c,16 bes] [as f' bes, as] [g des' g, f] |
-	[e f g as] [bes8 g] [e'.-\prallprall d32 e] |
+	[e f g as] [bes8 g] [e'8.-\prallprall d32 e] |
 %78
 	[f8 f,16 g] [as8 bes c d] | 
 	[es16 d c d] [es8 f g as] |

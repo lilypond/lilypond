@@ -63,6 +63,11 @@ if ! make -C Documentation/man WWW ; then
     exit 1
 fi
 
+if ! make -C Documentation/ntweb WWW ; then
+    echo "make -C documentation/ntweb WWW failed"
+    exit 1
+fi
+
 #
 # Post install clean up
 #

@@ -1,3 +1,7 @@
+%
+% What's this ?  --hwn
+%
+
 % feta.mp
 
 batchmode; 

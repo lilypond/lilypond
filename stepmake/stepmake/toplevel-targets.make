@@ -3,6 +3,7 @@
 
 local-dist: configure 
 
+# urg!: this gets into every package (ie: yodl)
 local-distclean: 
 	rm -f config.h config.hh config.make Makefile GNUmakefile \
 		config.cache config.status config.log index.html \

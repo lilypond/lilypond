@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.12'
+version = '0.0.13'
 errorlog = ''
 
 import sys
@@ -24,6 +24,7 @@ import re
 import string
 import time
 import glob
+import tempfile
 
 
 class Input:
@@ -260,9 +261,12 @@ class TeXOutput:
         linewidth, horizontalMarginArg, textheight, verticalMarginArg,
         Props.get('header') )
         
-        pathcomp = os.path.splitext(file)
-        this.__base = pathcomp[0]
-        this.__outfile = '%s.%d%s' % (pathcomp[0], os.getpid(), pathcomp[1])
+        base, ext = os.path.splitext(file)
+        this.__base = base
+        tempfile.template= base + '_ly'
+        this.__outfile = tempfile.mktemp(ext)
+        base, ext = os.path.splitext(this.__outfile)
+        this.__tmpbase = base
         try:
             this.__fd = open(this.__outfile,"w")
         except:
@@ -333,7 +337,7 @@ class TeXOutput:
         if stat:
             sys.exit('ExitBadLatex')
         if not os.path.isfile(outfile):
-		os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)
+		os.rename(this.__tmpbase + '.dvi', outfile)
 		
         sys.stderr.write('\n' + program_id() + ': dvi file name is %s\n\n'
 			 % (outfile))
@@ -793,7 +797,7 @@ class Properties:
     #
     # Set or Clear Dependencies flag to generate makefile dependencies
     #
-    def setDependencies(this, requester):	
+    def setDependencies(this, value, requester):	
         """
         Set or Clear dependencies flag
         """
@@ -886,15 +890,17 @@ def getLilyopts():
     else:
 
         if Props.get('dependencies'):
-            dep=' -d'
+            dep=' -M'
         else:
             dep=''
 	return inc + dep
     return inc
 
-def writeLilylog(contents):
+def writeLilylog(file,contents):
     if Props.get('keeplilypond'):
-        file='lilylog.' + str(os.getpid())
+        base, ext = os.path.splitext(file)
+        tempfile.template=base + "_li"
+        file=tempfile.mktemp('.log')
         output = Props.get('output')
         if output != '':
             file = os.path.join( output, file )
@@ -958,7 +964,7 @@ def help ():
         '  -O,--orientation=    set orientation (obsolete - use -L instead)\n'
         '  -P,--postscript      generate postscript file\n'
         '  -W,--Width=          set paper width (points) (see manual page)\n'
-        '  -d,--dependencies    tell lilypond make a dependencies file\n'
+        '  -M,--dependencies    tell lilypond make a dependencies file\n'
         '  -h,--help            this help text\n'
         '  -k,--keeply2dvi      keep ly2dvi output files\n'
         '  -l,--language=       give LaTeX language (babel)\n'
@@ -981,9 +987,10 @@ def main():
     infile = Input()
     outfile = TeXOutput()
     texInputFiles=[]
+    tempfile.tempdir=""
 
     (options, files) = getopt.getopt (sys.argv[1:],
-                                      'DF:H:I:KLNPW:dhkl:o:p:s',
+                                      'DF:H:I:KLNPW:Mhkl:o:p:s',
                                       ['debug', 'headers=', 'Height=',
                                        'include=', 'keeplilypond', 'landscape',
                                        'nonumber', 'Width=', 'dependencies',
@@ -1009,7 +1016,7 @@ def main():
 	    Props.setNonumber(1,'commandline')
         elif o == '--Width' or o == '-W':
 	    Props.setLineWidth(a,'commandline')
-        elif o == '--dependencies' or o == '-d':
+        elif o == '--dependencies' or o == '-M':
 	    Props.setDependencies(1,'commandline')
         elif o == '--help' or o == '-h':
             help()
@@ -1060,7 +1067,7 @@ def main():
                 if stat:
                     sys.exit('ExitBadLily', cmd )
                 texFiles=getTeXFile(log)
-                writeLilylog(log)
+                writeLilylog(file,log)
                 Props.addLilyOutputFiles(texFiles,'program')
                 texInputFiles = texInputFiles + texFiles
             else:
@@ -1074,7 +1081,7 @@ def main():
             if Props.get('debug'):
                 Props.printProps()
             if firstfile:
-                outfile.start(file)
+                outfile.start(file)  # allow for specified name
             else:
                 outfile.next()
             outfile.write("""\
@@ -1115,7 +1122,7 @@ def cleanup():
     if not Props.get('keeplilypond'):
         lilyfiles = Props.get('lilyOutputFiles')
     if not Props.get('keeply2dvi'):
-        tmpfiles = glob.glob('*.' + str(os.getpid()) + '.*' )
+        tmpfiles = glob.glob('*_ly[0-9]*.*')
     for file in lilyfiles + tmpfiles:
         if os.path.isfile(file):
             os.remove(file)

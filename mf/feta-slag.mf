@@ -119,6 +119,10 @@ fet_endchar;
 
 input feta-sleur;
 
+%
+% URG.   The attached slurs look weird, and discontinuous in their connection to the 
+% main part.  --hwn
+
 fet_beginchar("upprall", "upprall", "upprall")
 %	trills := 4;
 	trills := 3;

@@ -101,20 +101,12 @@ prelude_b = \notes \relative c {
 	a'2. a a a <a d,>
 }
 
-%{
-properties, urg!
+
 fig1 = \notes{ s16( s s )s }
 fig2 = \notes{ s16( s ) s s }
 fig3 = \notes{ s16 s( s )s }
 fig4 = \notes{ s16( s s s s s s )s }
 fig5 = \notes{ s8.()s16 }
-%}
-
-fig1 = \notes{ \slurnormal s16( s s )s }
-fig2 = \notes{ \slurnormal s16( s ) s s }
-fig3 = \notes{ s16 \slurnormal s( s )s }
-fig4 = \notes{ \slurnormal s16( s s s s s s )s }
-fig5 = \notes{ \slurnormal s8.()s16 }
 
 % of course, i just type fig1, and add the \ and the silly $ later
 prelude_slurs = \notes{
@@ -192,87 +184,10 @@ prelude_slurs = \notes{
 	s4 \$fig3 s4 |
 }
 
-fig1 = \notes{ \slurdotted s16( s s )s }
-fig2 = \notes{ \slurdotted s16( s ) s s }
-fig3 = \notes{ s16 \slurdotted s( s )s }
-fig4 = \notes{ \slurdotted s16( s s s s s s )s }
-fig5 = \notes{ \slurdotted s8.()s16 }
-fig6 = \notes{ \slurdotted s16()s \slurdotted s()s }
-
-prelude_suggested_slurs = \notes{
-	\context Voice=i
-	\slurdotted
-	s2. |
-	s2. |
-	s4 \$fig5 s4 |
-	s2. |
-	%5
-	s4 \$fig5 \$fig1 |
-	\$fig1 \$fig1 \$fig2 |
-	s4 \$fig5 s4 |
-	\$fig1 \$fig1 s4 |
-	\$fig2 \$fig5 s4 |
-	%10
-	s2. |
-	s2 \$fig2 |
-	s4 \$fig3 \$fig2 |
-	s2. |
-	s2. |
-	%15
-	\$fig2 s4 \$fig3 |
-	s2 \$fig3 |
-	\$fig1 \$fig1 \$fig1 |
-	s4 \$fig5 s4 |
-	\$fig1 \$fig5 s4 |
-	%20
-	s4 \$fig5 s4 |
-	\$fig3 s2 |
-	s2. |
-	\$fig3 \$fig3 s4 |
-	\$fig1 \$fig1 \$fig1 |
-	%25
-	s4 \$fig5 s4 |
-	s2. |
-	s2. |
-	s2 \$fig3 |
-	s2. |
-	%30
-	s2. |
-	s2. |
-	\$fig3 \$fig3 \$fig2 |
-	\$fig2 s2 |
-	s2. |
-	%35
-	s4 \$fig3 \$fig3 |
-	s2 \$fig3 |
-	s2. |
-	\$fig2 s2 |
-	\$fig2 s2 |
-	%40
-	s2. |
-	s2. |
-	s2. |
-	s2. |
-	% check !
-	\$fig3 \$fig2 s4 |
-	%45
-	\$fig3 \$fig2 s4 |
-	% check!
-	\$fig3 s2 |
-	s2. |
-	s2. |
-	s2 \$fig2 |
-	%50
-	\$fig1 \$fig5 s4 |
-	s4 \$fig6 \$fig6 |
-	\$fig3 \$fig1 \$fig1 |
-	\$fig3 s2 |
-}
-
 prelude_a = \notes<
 	\$prelude_notes
-	\$prelude_slurs
-	\$prelude_suggested_slurs
+	% Han-Wen: help:  adding slurs breaks auto-beaming??
+	%\$prelude_slurs
 >
 
 prelude = \context Staff \notes<
@@ -280,4 +195,4 @@ prelude = \context Staff \notes<
 	\$prelude_b
 >
 
-\version "1.1.52";
+\version "1.1.55";

@@ -114,8 +114,8 @@ two = \context Staff \notes\relative c{
 	a'8~ |
 	a g-3~  g16 e fis8~  fis16 d8.~  d8. cis!16 |
 	\translator Staff=lower \stemup
-	<
-		{ \stemup  d8-2 a~ a4 }
+	\context Staff <
+		\context Voice=i { \stemup  d8-2 a~ a4 }
 		\context Voice=ii { \stemdown  a8-1 g  fis16-2 e-1 fis-2 d-1 }
 	>
 	\stemup 
@@ -177,8 +177,8 @@ four = \context Staff \notes\relative c{
 	%15
 	\stemdown
 	d1 ~ | 
-	d ~ | 
-	d, ~
+	d | 
+	d, ~ |
 	d2 d2
 }
 

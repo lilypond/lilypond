@@ -7,9 +7,6 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-n = { \slurnormal }
-d = { \slurdotted }
-
 %
 % this must be redone a bit:
 % 
@@ -25,8 +22,7 @@ gigue_notes = \context Staff \notes \relative c {
 	f4-\trill a8 | b,()g' cis, | d f16( c bes )a | g8()es' a, |
 	bes d16( a g )f | e!8()cis' bes' a g16( f e)d |
 	%15
-	%\stemup e(f g e f)d \stemboth e8()a,\comma c''! |
-	\stemup e(f g e f)d \stemboth e8()a,^"\\sethuge{\\ \\ '}" c'! |
+	\stemup e(f g e f)d \stemboth e8()a, c'! |
 	\stemup c16(d es c d)a bes8 r bes |
 	bes16(c d bes c)g a8 r a |
 	%21
@@ -106,4 +102,4 @@ gigue = \notes<
 	\$gigue_b
 >
 
-\version "1.1.52";
+\version "1.1.55";

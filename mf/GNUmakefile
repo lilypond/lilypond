@@ -4,7 +4,9 @@ depth = ..
 
 STEPMAKE_TEMPLATES=metafont metapost install install-out
 
-EXTRA_DIST_FILES += README feta.mp mfplain.ini
+EXTRA_DIST_FILES += README feta.mp
+
+# wtf is feta.mp ?
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
 

@@ -17,7 +17,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.16";
+\version "1.1.55";
 
 \include "menuetto-urtext.ly";
 
@@ -25,15 +25,16 @@ menuetto_i_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\skip 2.*8;
 		\clef violin;
 		\skip 2.*1;
-	} \repeat 2 {
+	} \repeat "semi" 2 {
 		\slurdotted
 		\skip 2.*3;
 		\clef alto;
 		\skip 2.*11;
+		\property Voice.textEmptyDimension = 1
 		s2._"Fine"
 	}
 }
@@ -78,12 +79,13 @@ menuetto_ii_viola_global = \notes{
 	\time 3/4;
 	\key D;
 	\clef alto;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\skip 2.*8;
-	} \repeat 2 {
+	} \repeat "semi" 2 {
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
+		\property Voice.textEmptyDimension = 1
 		s2._"Menuetto I da Capo"
 	}
 }

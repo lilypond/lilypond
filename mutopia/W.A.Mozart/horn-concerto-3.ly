@@ -16,7 +16,7 @@ allegro =
 	\relative c'
 {
 	\time 4/4;
-	\partial 4;
+	r4 |
 	R1*4
 	c'2^"tutti" g
 	c, r
