@@ -81,8 +81,7 @@ or
      (10.0 . #((10.0 . "cmb10")
 	       )))
     (#(medium caps roman) .
-     ;; FIXME? ps-header output
-     (20.0 . #((10.0 . "cmcsc10")
+     (10.0 . #((10.0 . "cmcsc10")
 	       (12.0 . "cmcsc12"))))
     (#(* * dynamic) .
      (14.0 .  #((6.0 . "feta-din6")

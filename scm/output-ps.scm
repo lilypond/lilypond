@@ -99,15 +99,23 @@
 	 cmbx17
 	 cmbxti12
 	 cmbxti14
+	 cmbxti6
 	 cmbxti7
 	 cmbxti8
 	 cmcsc12
 	 cmcsc7
+	 cmcsc8
+	 cmss5
+	 cmss6
+	 cmss7
+	 cmti5
+	 cmti6
 	 cmtt17
-	 
-	 ;;; FIXME: added
-	 cmbx8)))
-  
+	 cmtt5
+	 cmtt6
+	 cmtt7)))
+
+
 (define (define-fonts internal-external-name-mag-pairs)
 
   (define (font-load-command name-mag command)
@@ -117,7 +125,12 @@
       (cond
        ((and (equal? (substring name 0 2) "cm")
 	     (not (member name lily-traced-cm-fonts)))
-	(string-upcase name))
+	
+	;; huh, how is this supposed to work?
+	;;(string-upcase name)
+	
+	(string-append name ".pfb"))
+       
        ((equal? (substring name 0 4) "feta")
 	(regexp-substitute/global #f "feta([a-z-]*)([0-9]+)" name 'pre "GNU-LilyPond-feta" 1 "-" 2 'post))
        (else name)))
@@ -294,7 +307,7 @@
    (if (pair? header-stencils)
        (let ((s (output-stencils header-stencils)))
 	 (set! header-stencils '())
-	 s)
+	 (string-append s (stop-system) (start-system width height)))
        "")))
 
 (define (stem breapth width depth height) 
@@ -354,9 +367,12 @@
 (define (output-scopes paper scopes fields basename)
 
   ;; FIXME: customise/generate these
-  (let ((props '(((font-family . roman)
+  (let ((props '((;;(linewidth . 120)
+		  (font-family . roman)
 		  (word-space . 1)
 		  (baseline-skip . 2)
+		  (font-series . medium)
+		  (font-style . roman)
 		  (font-shape . upright)
 		  (font-size . 0)))))
   
@@ -404,7 +420,7 @@
 (define header-stencils '())
 
 (define (output-stencils lst)
-  (apply string-append (map (lambda (x) (output-stencil x '(0 . 0))) lst)))
+  (apply string-append (map (lambda (x) (output-stencil x '(10 . -10))) lst)))
 
 ;; TODO:
 ;; de-urg me

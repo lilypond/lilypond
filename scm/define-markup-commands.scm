@@ -141,6 +141,11 @@ this is bold and italic
   (interpret-markup
    paper (prepend-alist-chain 'font-family 'typewriter props) arg))
 
+(def-markup-command (upright paper props arg) (markup?)
+  "Set font shape to @code{upright}."
+  (interpret-markup
+   paper (prepend-alist-chain 'font-shape 'upright props) arg))
+
 (def-markup-command (doublesharp paper props) ()
   (interpret-markup paper props (markup #:musicglyph "accidentals-4")))
 (def-markup-command (threeqsharp paper props) ()

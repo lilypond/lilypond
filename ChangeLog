@@ -1,5 +1,9 @@
 2004-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/define-markup-commands.scm (upright): New markup command.
+
+	* lily/parser.yy (markup): Add STRING_IDENTIFIER.
+
 	* scm/font.scm (paper20-font-vector): cmcsc klugdge.
 
 	* scm/output-ps.scm (output-stencil): New function.
@@ -22,7 +26,7 @@
 	* mf/GNUmakefile (Fontmap, Fontmap.lily): Add Fontmap for GS.
 	(SAUTER_FONTS): Reinstate.
 
-	* scm/define-markup-commands.scm (smallcaps): New markup command.
+	* scm/define-markup-commands.scm (caps): New markup command.
 
 	* scm/output-ps.scm (output-scopes): Experimental markup output.
 
