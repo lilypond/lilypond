@@ -17,8 +17,8 @@ struct Local_key_register : Request_register {
     Key const *key_C_;
     Array<Note_req* > mel_l_arr_;
     Array<Item* > support_l_arr_;
-    Link_array<Item * > forced_l_arr_;
-    Link_array<Item *> tied_l_arr_;
+    Link_array<Item  > forced_l_arr_;
+    Link_array<Item > tied_l_arr_;
     /* *************** */
     virtual void process_requests();
     virtual void acknowledge_element(Score_elem_info);
