@@ -1,4 +1,4 @@
-# mi2mu/TODO
+# midi2ly/TODO
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
@@ -16,15 +16,15 @@ IMPORTANT
 
 	* junk one in list vs. array
 
-	* add mi2mu example output (.midi.ly and .gif) to website
+	* add midi2ly example output (.midi.ly and .gif) to website
 
 	* important? lily is important, go work on lily!
 
-	* faq about mi2mu midi t1. ?
+	* faq about midi2ly midi t1. ?
 
 PROJECTS
 
-	* write something interesting in mi2mu manual page
+	* write something interesting in midi2ly manual page
 
 	* check/use type 0 / 1 / 2 of midi file
 
@@ -80,5 +80,5 @@ FUTURE
 	* steal good ideas of other gpl midi parsers
 
 	* lily: add mudela info into midi as specials
-	  mi2mu: use special info
+	  midi2ly: use special info
 

@@ -230,32 +230,27 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 	draw (0, 0) .. (0,-2 interline);
 fet_endchar;
 
-fet_beginchar("grace 8th Flag (up)", "u3grace", "graceeighthflag")
+fet_beginchar("grace dash (up)", "ugrace", "gracedash")
 	save flare, 
 		hip_depth_ratio, hip_width,
-		foot_depth, foot_width_ratio;
+		foot_depth;
 
 	flare# = 1.0 interline#;
 	hip_depth_ratio = .72; 
-	foot_width_ratio = .8;
 	hip_width# = upflag_width# - hip_thickness#/2;
 
 	foot_depth# =  3 interline#;
 
-	set_char_box(hip_width# * hip_depth_ratio,
-	  hip_width# + stemthickness#/2 + right_upflag_space#, 
-	  foot_depth# + foot_thickness#/2, stemthickness#/2)
-
 	define_pixels(flare, hip_width, hip_thickness,
 		foot_depth, foot_thickness);
-	draw_flag((stemthickness/2,0), flare, 
-		(hip_width, foot_depth), 
-		hip_depth_ratio, foot_width_ratio, hip_thickness, foot_thickness);
+
+	set_char_box(hip_width# * hip_depth_ratio,
+	  hip_width# + stemthickness#/2 + right_upflag_space#, 
+	  foot_depth# * hip_depth_ratio, -flare#)
 
 	pickup pencircle scaled 1.5 stemthickness;
-	draw (0, 0) .. (0,-2 interline);
-	draw (-b ,-foot_depth * hip_depth_ratio) ..
-	  (w, -flare);
+	draw (-b ,-d) ..
+	  (w, h);
 fet_endchar;
 
 fet_beginchar("8th (down)", "d3", "deighthflag")
@@ -411,10 +406,8 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 fet_endchar;
 
 
-fet_beginchar("grace 8th (down)", "d3grace", "dgraceeighthflag")
-	save flare, 
-		hip_depth_ratio, hip_width,
-		foot_depth, foot_width_ratio;
+fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
+	save flare, hip_depth_ratio, hip_width,	foot_depth;
 	save flagspace, total_depth, flag_count;
 	
 	flag_count = 1;
@@ -427,22 +420,15 @@ fet_beginchar("grace 8th (down)", "d3grace", "dgraceeighthflag")
 
 	foot_width_ratio = .8;
 
+	define_pixels(flare, hip_width, hip_thickness,
+		flagspace, foot_depth);
+
 	set_char_box(hip_width# * hip_depth_ratio,
 	  hip_width# + stemthickness#/2 + right_downflag_space#,
-	  total_depth# + foot_thickness#/2, stemthickness#/2)
-
-	define_pixels(flare, hip_width, hip_thickness,
-		flagspace,
-		foot_depth,  foot_thickness);
-
-	draw_flag((stemthickness/2,- (flag_count-1) *flagspace), flare, 
-		(hip_width, foot_depth), 
-		hip_depth_ratio,foot_width_ratio, hip_thickness, foot_thickness);
-
+	  foot_depth# * hip_depth_ratio, -flare#)
 
 	pickup pencircle scaled 1.5 stemthickness;
-	draw (0, 0) .. (0,-2 interline);
-	draw (-b, -foot_depth * hip_depth_ratio) .. (w,-flare);
+	draw (-b, -d) .. (w,h);
 	y_mirror_char;
 fet_endchar;
 

@@ -1,58 +1,9 @@
 \message{LilyPond Plain TeX settings}
         \def\texsuffix{PlainTeX}
 
-\def\cmrtwentyPlainTeX{
-        \font\normaltextfont=cmr10 %\textfont is a primitive
-        \font\italicfont=cmti10 scaled \magstep1
-        \font\boldfont=cmbx10
-        \font\largefont=cmbx12
-        \font\typewriterfont=cmtt10
-        \font\Largefont=cmbx12 scaled \magstep 2
-        \font\hugefont=cmbx12 scaled \magstep 3
-}
-\def\cmrsixteenPlainTeX{
-        \font\normaltextfont=cmr8 %\textfont is a primitive
-        \font\italicfont=cmti9
-        \font\boldfont=cmbx8
-        \font\typewriterfont=cmtt9
-        \font\largefont=cmbx10
-        \font\Largefont=cmbx12
-        \font\hugefont=cmbx12 scaled \magstep 2
-}
-\def\cmrthirteenPlainTeX{
-        \font\normaltextfont=cmr7
-        \font\italicfont=cmti7
-        \font\boldfont=cmbx7
-        \font\largefont=cmbx9
-        \font\typewriterfont=cmtt7
-        \font\Largefont=cmbx10
-        \font\hugefont=cmbx12
-}
-
-\def\cmrelevenPlainTeX{
-        \font\normaltextfont=cmr6
-        \font\italicfont=cmti6
-        \font\boldfont=cmbx6
-        \font\typewriterfont=cmtt6
-        \font\largefont=cmbx8
-        \font\Largefont=cmbx9
-        \font\hugefont=cmbx10
-}   
-
 \def\lilyfooterPlainTeX{
           \footline={\ifnum\pageno=1\smalltextfont\mudelacopyright\hfil \mudelatagline
                 \else\hfil\the\pageno\hfil\fi}%
 }
 \advance\hoffset by -.6in
-
-
-\def\settext#1{\normaltextfont #1}
-\def\setitalic#1{\italicfont #1}
-\def\setbold#1{\boldfont #1}
-\def\settypewriter#1{\typewriterfont #1}
-\def\setlarge#1{\largefont #1}
-\def\setLarge#1{\Largefont #1}
-\def\sethuge#1{\hugefont #1}
-
-\def\nolilyfooterPlainTeX{\nopagenumbers
-}
+\def\nolilyfooterPlainTeX{\nopagenumbers}

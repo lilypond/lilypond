@@ -364,7 +364,7 @@ HYPHEN		--
 }
 
 <*>.		{
-	String msg = _f ("illegal character: `%c\'", YYText ()[0]);
+	String msg = _f ("invalid character: `%c\'", YYText ()[0]);
 	LexerError (msg.ch_C ());
 	return YYText ()[0];
 }

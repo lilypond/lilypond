@@ -120,11 +120,14 @@ verb( tar xzf libgr-2.0.13.tar.gz
       make pnmtopng
 )
 
-You can then install the new pnmtopng into /usr/local/bin/
+You can then install the new pnmtopng into file(/usr/local/bin/)
 
 it()Bib2html lurl(http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
     Which, in turn depends on man2html for proper installation.
 man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
+
+The website will build without this utility, but you will not see our
+hypertextified bibliography.
 
     TeTeX users should not forget to rerun texhash.
 )

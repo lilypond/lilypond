@@ -19,4 +19,5 @@
 Atom::Atom(SCM s)
 {
   func_ = s;
+  magn_ = gh_int2scm (0);
 }

@@ -49,6 +49,7 @@ class Axis_group_spanner;
 class Spanner : public virtual Score_element {
 public:
   Drul_array<Item*> spanned_drul_;
+  Array<Breaking_information> broken_info_;
   void set_bounds (Direction d, Item*);
 
   
@@ -68,7 +69,6 @@ protected:
     */
   virtual void break_into_pieces ();
 
-  Array<Breaking_information> broken_info_;
   friend Axis_group_spanner; // UGH
 
   virtual void do_space_processing ();

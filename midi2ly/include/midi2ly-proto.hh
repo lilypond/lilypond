@@ -1,14 +1,14 @@
 /*
-  mi2mu-proto.hh -- declare type names in mi2mu
+  midi2ly-proto.hh -- declare type names in midi2ly
 
-  source file of mi2mu, part of the GNU LilyPond package,
+  source file of midi2ly, part of the GNU LilyPond package,
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
-#ifndef MI2MU_PROTO_HH
-#define MI2MU_PROTO_HH
+#ifndef MIDI2LY_PROTO_HH
+#define MIDI2LY_PROTO_HH
 
 class Midi_parser;
 struct Midi_parser_info;
@@ -26,4 +26,4 @@ class Mudela_staff;
 class Mudela_voice;
 class Mudela_column;
 
-#endif // MI2MU_PROTO_HH
+#endif // MIDI2LY_PROTO_HH

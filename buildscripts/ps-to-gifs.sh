@@ -75,13 +75,13 @@ fi
 rm -f $BASE{.ppm,.$GIF} $BASE-page*{.ppm,.$GIF}
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
-cat $FILE | gs -sDEVICE=ppmraw $SIZE -sOutputFile="$BASE-page%d.ppm" -r180 -dNOPAUSE - -c quit $FILE
+cat $FILE | gs -sDEVICE=pgm $SIZE -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -sOutputFile="$BASE-page%d.ppm" -r90 -dNOPAUSE - -c quit $FILE
 # quant is soo slow
 # cat $PPMFILE | ppmquant 2 | pnmscale 0.3333 | pnmcrop | $PNMTOGIF $color > $OUTFILE
 PPMS=`ls $BASE*ppm`
 for i in $PPMS; do
     o=`dirname $i`/`basename $i .ppm`.$GIF
-    cat $i | pnmscale 0.5 | $CROP | $PNMTOGIF $color > $o
+    cat $i | $CROP | $PNMTOGIF $color > $o
     rm $i
 done
 

@@ -8,7 +8,7 @@
 #ifndef MUDELA_STREAM_HH
 #define MUDELA_STREAM_HH
 
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "string.hh"
 #include "scalar.hh"
 

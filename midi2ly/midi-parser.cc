@@ -9,7 +9,7 @@
 #include <assert.h>
 #include "string-convert.hh"
 #include "source-file.hh"
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "midi-parser.hh"
 
 Midi_parser_info::Midi_parser_info ()
@@ -87,7 +87,7 @@ Midi_parser::get_var_i ()
 String
 Midi_parser::message (String str)
 {
-  return String ("mi2mu: ")
+  return String ("midi2ly: ")
     + info_l_->source_l_->name_str () + ": "
     + String_convert::i2dec_str (info_l_->source_l_->line_i ((char const*)info_l_->byte_L_), 0, 0) + ": "
     + str + "\n"

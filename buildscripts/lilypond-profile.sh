@@ -2,8 +2,8 @@
 
 
 # set environment for LilyPond.  To be installed in /etc/profile.d/
-GS_LIB="@datadir@/afm"
-GS_FONTPATH="@datadir@/ps"
+GS_LIB="@datadir@/ps"
+GS_FONTPATH="@datadir@/afm"
 # bit silly. for ly2dvi, overrules compiled-in datadir...
 LILYPONDPREFIX="@datadir@"
 

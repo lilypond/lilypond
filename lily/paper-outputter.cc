@@ -141,6 +141,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 	{
 	  output_scheme (gh_list (ly_symbol ("select-font"),
 				  gh_str02scm (symbol_to_string (i->font_).ch_C()),
+				  SCM (i->magn_),
 				  SCM_UNDEFINED));
 	}
 

@@ -46,7 +46,7 @@ public:
   Molecule text (String style, String text, Paper_def*) const;
   Molecule staff_brace (Real dy, int) const;
   Molecule staff_bracket (Real dy) const;
-  Molecule volta (Real h, Real w,  Real thick,  bool last_b) const;
+  Molecule volta (Real h, Real w,  Real thick,  bool vert_start, bool vert_end) const;
   Molecule special_time_signature (String, int,int, Paper_def*) const;
   Molecule time_signature (int n,int d, Paper_def*) const;
 

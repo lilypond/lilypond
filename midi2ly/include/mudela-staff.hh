@@ -6,7 +6,7 @@
 #ifndef MUDELA_STAFF_HH
 #define MUDELA_STAFF_HH
 
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "proto.hh"
 #include "cons.hh"
 #include "string.hh"

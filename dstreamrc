@@ -2,7 +2,15 @@
 # rename to .dstreamrc and place in the directory where you're doing
 # the debugging.
 
+# Set this to 1 to get default silence for unlisted classes
+Dstream_default_silence 0
+
+# In any case: for listed classes:  
+# 0: verbose
+# 1: silent
+
 # class name		silence?
+
 Dstream			0
 
 # yydebug
@@ -29,7 +37,8 @@ Absolute_dynamic_req	1
 Atom			1
 Axis_group_administration	1
 Axis_group_spanner	1
-Auto_beam_engraver	0
+Articulation_req	1
+Auto_beam_engraver	1
 Audio_column		1
 Audio_element		1
 Audio_item		1
@@ -57,6 +66,7 @@ Duration_identifier	1
 Engraver		1
 Engraver_group_engraver 1
 General_script_def	1
+Global_translator	1
 Graphical_element	1
 Graphical_axis_group	1
 Group_change_req	1
@@ -86,6 +96,7 @@ Note_head		1
 Note_performer		1
 Note_req		1
 Paper_column		1
+Paper_outputter		1
 Paper_score			1
 Paper_def		1
 Partial_measure_req	1
@@ -121,7 +132,7 @@ Skip_req		1
 Staff_commands		1
 Staff_symbol		1
 Stem			1
-Stem_info		1
+Stem_info		0
 Stem_req		1
 String_identifier	1
 Relative_octave_music	1
@@ -131,6 +142,7 @@ Symtables		1
 Text_def		1
 Text_item		1
 Text_req		1
+Text_script_req		1
 Time_description	1
 Time_signature_change_req	1
 Translation_property	1

@@ -10,6 +10,7 @@ copyright =	 "Public Domain";
 
 \version "1.1.52";
 
+% { 
 \include "violino-i.ly";
 \include "viola-i.ly";
 
@@ -30,6 +31,7 @@ copyright =	 "Public Domain";
   }
 }
 
+% }
 
 \include "violino-ii.ly";
 \include "viola-ii.ly";

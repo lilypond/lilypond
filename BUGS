@@ -3,41 +3,33 @@ This documents serious bugs
 
 ********
 
-[Linux ppc, egcs-1.0.2]
+[LinuxPPC-R5, egcs-1.1.2-12c]
+
+Serious egcs-1.1.2-12c (stock LinuxPPC R5) bug on ppc:
+
+	*dest++ = *src++;
+
+Bug report filed, fixed in egcs-1.1.2-12f.
+Although we've currently got a workaround in place, the compiler
+is buggy; you should upgrade:
+
+	ftp://dev.linuxppc.org/users/fsirl/R5/RPMS/ppc/ 
+
+
+[LinuxPPC-R4, egcs-1.0.2]
 
 All compiling with -O2 is suspect, in particular guile-1.3, and
 Lily herself will break.
 
 
+[LinuxPPC, egcs-1.1b]
+
+Lilypond 1.1.35-1.1.51,...:  Wierd errors in guile scm_gc_mark ()
+
+
 [All platforms] 
 
-When dealing with beaming that is not correct (eg quarter notes in
-beams.), you can get the following assert.  This is a serious bug, but
-a good solution is quite a lot of work.
-
-	\score{
-		\melodic{
-			[c2 c]
-		}
-	}
-
-results in
-
-	lilypond: ../flower/include/varray.hh:141: struct Rhythmic_grouping *& Array<Rhythmic_grouping *>::elem(int) const: Assertion `i >=0&&i<size_' failed.
-
-And this
-
-	\score{
-		\melodic{
-			[c]
-		}
-	}
-
-in
-
-	lilypond: ../flower/include/cursor.tcc:104: int Cursor<void *>::operator -(class Cursor<void *>) const: Assertion `c.ok()' failed.
-	Aborted (core dumped)
-
+Some bugs may be captured in input/bugs/*y
 
 [Linux libg++ 2.7]
 

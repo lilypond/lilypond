@@ -15,9 +15,24 @@
         \def\SkipLilydefs{}
 \fi
 \SkipLilydefs
+
+% need to do some stuff to turn pagenumbering off
+\ifundefined{documentclass}
+        \input lilypond-plaintex
+\else
+        \input lilypond-latex
+\fi
+
+
 %
 \def\botalign#1{\vbox to 0pt{\vss #1}}
 \def\leftalign#1{\hbox to 0pt{#1\hss}}
+\font\textmusic=cmmi10
+\def\textsharp{\raise.4ex\hbox{\textmusic\char"5D}}
+\def\textnatural{\raise.4ex\hbox{\textmusic\char"5C}}
+\def\textflat{\raise.2ex\hbox{\textmusic\char"5B}}
+
+
 
 
 % stacked horizontal lines
@@ -27,9 +42,20 @@
 \input lily-ps-defs
 \def\EndLilyPondOutput{%
   \csname bye\endcsname
-  }
-  
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+}
 \def\postheader{}
-\noindent
+
+% need to do some stuff to turn pagenumbering off
+% they seriously mess up  your fragments.
+
+\ifx\csname nolilyfooter\endcsname\relax
+        \message{[footer defined]}%
+        \csname lilyfooter\texsuffix\endcsname%
+\else
+        \message{[footer empty]}
+        \csname%
+        nolilyfooter\texsuffix\endcsname
+\fi
+
+
+\endinput

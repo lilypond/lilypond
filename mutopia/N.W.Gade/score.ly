@@ -33,13 +33,13 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \oboe
     >
     \context Voice = clarI <
-      \property Staff.instrument = "Clarinetto I"
+      \property Staff.instrument = "Clar. I in B\\flat  "
       \property Staff.instr = "Cl. I"
       \globalNoKey
       \clarI
     >
     \context Voice = clarII <
-      \property Staff.instrument = "Clarinetto II"
+      \property Staff.instrument = "Clar. II  in B\\flat  "
       \property Staff.instr = "Cl. II"
       \globalNoKey
       \clarII
@@ -66,7 +66,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       }
     >
     \context Staff = trp <
-      \property Staff.instrument = "2 Trp. in B\\textflat  "
+      \property Staff.instrument = "2 Trp. in B\\flat  "
       \property Staff.instr = "Trp."
       \context Voice = trpI <
 	\globalNoKey
@@ -133,6 +133,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
         marginScriptPadding = "15.0";
+        dynamicPadding = 3.0;
 	textStyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;

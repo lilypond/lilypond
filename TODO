@@ -8,47 +8,95 @@ done, might be done, or is an idea that I want to think about
 Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
-.* BUGS
+.* TODO before 1.2
+. * rename abc2ly mup2ly
+. * rename 'staff_line_leading' (who is being lead where?) to
+staff_space, interline; (or other meaningful name) and use throughout lily
+. * rename files to class-name:
+.  * heads-engraver
+.  * request-iterator
+.  * p-score
+.  * engraver-group
+. * standardise(d) switches: -v, --version; -d, --debug,
+. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
+. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
+.  * Rename illegal to invalid
+.  * Mats:
+
+- The Postscript output is still very experimental
+
+- The reference manual contain a number of exampels that don't
+  pass lilypond, among other the chord syntax.
+
+- Accidentals for grace notes are drawn at the wrong place. See
+  comment in grace.ly
+
+- It is impossible to typeset two textual scripts that are stacked
+  on top of eachother and avoids note collisions and at the same
+  time are typeset with different textStyle. I tried to move around
+  the text_engraver and other engravers between Voice and Thread 
+  but the granularity is not fine enough, the scripts have to 
+  share the same engraver in order to be get correct vertical 
+  position but than they cannot have different style.
+  In my opinion, all scripts that share the same staff, should
+  be stacked vertically, avoiding collisions with the notes
+  in all voices.
+
+- If an \alternative is directly followed by a new \repeat, 
+  Lily gives an assertion failure. See the comment in volta.fly
+
+- I'd like to change the \repetitions command to Jan's suggested
+  syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
+  I understand the implementation of repeats well enough.
+
+- The paper11/13/26 files have to be updated.
+. * Grace_slur_engraver.
+. * Break_req handling is silly (break_forbid () + \break fucks up.)
+. * hangOnClef with non-breakable clefs.
+. * do scaled fonts generally 
+. * fix partial measures in meaningful way.
+. * relative mode for midi2ly
+. * uniformise recent feta contributions.
+.  * bigger and fatter 4/4 C
+. * sort out directory stuff.
+.  * --prefix option?
+.  * -I option per filetype?
+.  * kpathsea?
+. * ly2dvi/lilypond logfile.
+. * fractional chord durs.
+. * hang Item on Spanner
+. * do --safe for PS output?
+. * convert-mudela --output
+. * Staff_margin (with a partial measure.)
+. * fix convert-mudela manpage
+. * decimal point in \paper {}
+. * msgfmt -o check?
+. * add new glyphs to font.ly
+. * formatting of input stuff. 
+.  * deps for ly2dvi
+. * decide wether to junk _ in lyrics. 
 . * sane strategy for extensions (assume .ly):
 02:22:24 appel ~/usr/src/lilypond$ lilypond foo
 GNU LilyPond 1.1.54.
 [/home/fred/usr/src/lilypond/scm/lily.scm]
 warning: can't find file: `init'
 . * indent = 0.0 with linewidth=-1.0
+. * auto-beaming in input/test/spacing.ly.
+huh, snap niks van: gewone beam gaat wel goed.  hoe kan abe nu
+invloed hebben op beam-creatie, stopt toch gewoon stokken in?
 . * music ending in grace notes.
 . * PostScript
 .  * half notes in pfa
 . * didot / big point.
-. * check EGCS version
-. * input/test/stem-spacing.ly: 12/4 touches first note
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
-. * dots & rest collisions?
 . * behavior of  "that the obvious solution
 \lyrics { foo1*4 __ _ }" is unintuitive.
 . * Lyrics and scripts collide.
-. * a note with a circle after it, meaning:
-
-   note + circle = note + 1/4 of its length
-
-   the circle is like a dot that's not filled in.  for example, on
-   page three, the c-sharp on the second line should be a quarter with 
-   a circle, not a quarter tied to a sixteenth.  is this at all
-   possible with lily?
 . * grace_align_item -> stackingdir = left, weird placement.
-. * grace before triplet, see standchen
-. * tuplets that are written as "number : note", for example
-   "3 : [image of a half note here]".  possible?
-
 . * filenames : junk lily.x 
-
-. * Matanya's tips: 
-.  * don't  shorten stems/staffs closer to each other.
-.  * accidentals closer to note head
-.  * to space the staffs/staffgroups contained in the score.  
-.  * heavier beams?
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
@@ -64,58 +112,35 @@ warning: can't find file: `init'
 . * clef engraver 
 . * parser
 
-.* TODO before 1.2
-. * rename midi2ly, abc2ly mup2ly
-. * Grace_slur_engraver.
-. * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * Morally pure LilyPond.
-.  * Remove non-free software links.
-.  * Remove meta article LilyPond.
+.* BUGS
+. * [c8. c16 c16 c16] in 6/8 timesig. 
+
+.* STUFF
 . * break priority setting from SCM.
-. * hangOnClef with non-breakable clefs.
+. * Matanya's tips: 
+.  * don't  shorten stems/staffs closer to each other.
+.  * accidentals closer to note head
+.  * to space the staffs/staffgroups contained in the score.  
+.  * heavier beams?
+
+. * tuplets that are written as "number : note", for example
+   "3 : [image of a half note here]".  possible?
+. * a note with a circle after it, meaning:
+
+   note + circle = note + 1/4 of its length
+
+   the circle is like a dot that's not filled in.  for example, on
+   page three, the c-sharp on the second line should be a quarter with 
+   a circle, not a quarter tied to a sixteenth.  is this at all
+   possible with lily?
+. * scm-ify \property values.
+. * make dependencies () a virtual function.
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
-. * do scaled fonts generally 
-. * make dependencies () a virtual function.
 . * store req -> element, element -> element causes for warnings
-. * include examples in RPM.
-. * fix partial measures in meaningful way.
-. * relative mode for mi2mu
-. * uniformise recent feta contributions.
-.  * bigger and fatter 4/4 C
-. * sort out directory stuff.
-.  * --prefix option?
-.  * -I option per filetype?
-.  * kpathsea?
-. * ly2dvi/lilypond logfile.
-. * fractional chord durs.
-. * hang Item on Spanner
-. * do --safe for PS output?
-. * convert-mudela --output
-. * Staff_margin (with a partial measure.)
-. * fix convert-mudela manpage
-. * decimal point in \paper {}
-. * scm-ify \property values.
-. * move class Lookup {} into scm
-. * msgfmt -o check?
-. * add new glyphs to font.ly
-. * formatting of input stuff. 
-. * broken scripts:
-	lbheel = \script { "bheel" 0 0 -1  0 0 }
-	rbheel = \script { "bheel" 0 0 1 0 0 }
-	lbtoe = \script { "btoe" 0 0 -1 0 0 }
-	rbtoe = \script { "btoe" 0 0 1 0 0 }
-	lfheel = \script { "fheel" 0 0 -1  0 0 }
-	rfheel = \script { "fheel" 0 0 1 0 0 }
-	lftoe = \script { "ftoe" 0 0 -1 0 0 }
-	rftoe = \script { "ftoe" 0 0 1 0 0 }
-.  * deps for ly2dvi
-
-. * decide wether to junk _ in lyrics. 
-
-.* STUFF
 . * compulsory hshift
+. * dots & rest collisions?
 . * 
 My wish list for lyrics. I dream of a time when I will have enough time to
 become familiar enough with the source code to be able to implement some of
@@ -131,9 +156,6 @@ set to the left of the first note. It would also be nice (but not as
 important) to be able to have some form of automatic numbering at the
 beginning of each new line. This would make it easier to follow songs with a
 large number of stanzas.
-
-2. Hyphens between syllables. At the moment there appears to be no easy way
-to position a hyphen mid-way between the syllables it breaks.
 
 3. Notes centred above/below lyrics rather than left-aligned.
 
@@ -161,7 +183,7 @@ repeated section with different words for each repeat.
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
 . * junking \skip req in lyrics
-. * mi2mu empty staffs.
+. * midi2ly empty staffs.
 . * use Fourier transformation for rhythmic quantisation.
 . * horizontal centering of dynamics 
 . * $DEPENDENCIES_OUTPUT support
@@ -263,12 +285,7 @@ touching it.
 . * tetex: mfplain.mem
 . * timesig: sometimes bottom digit  too high: Xdvi doesn't handle
     newly created fonts correctly.
-.* 3RD PARTY PROJECTS:
-. * make GCC warn about ctor that leaves member vars  uninitialised.
-. * GNU patch 
-.  * 'double-fix' mode: ignore identical fix, rather than suggest 
-	    to revert patch direction when (more or less? exactly) the same 
-	    thing is fixed
+
 .* PROJECTS
 . * Scripts:
 .  * stack scripts in chords:
@@ -338,7 +355,7 @@ languages:
 . * Debug logs:
 .  * derive lily_stream, Dstream, texstream from ostream?
 .  * indentable stream as baseclass for TeX stream, lily stream, Dstream.
-.  * use dstream feature in mi2mu
+.  * use dstream feature in midi2ly
 .  * integrate IO checking into stream class
 
 . * input converters
@@ -460,7 +477,6 @@ hesitate to ask.
 .  * input property
 .  * abstract grammar.
 . * Figure out semicolons.
-. * c4 4 4 4 for c4 c4 c4 c4?
 . * <c f a>4 ?
 . * Viola mode?
 

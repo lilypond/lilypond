@@ -28,6 +28,7 @@ my_paper = \paper {
     skipBars = 1;
     markScriptPadding = "6.0";
     barNumberScriptPadding = "11.0";
+    dynamicPadding = 3.0;
     textScriptPadding = 5.0;
     textStyle = "italic";
     textEmptyDimension = 1;
@@ -83,7 +84,7 @@ my_paper = \paper {
     \clarI
   >
   \header{
-    instrument = "Clarinetto I in B\\textflat";
+    instrument = "Clarinetto I in B\\flat";
   }
   \paper{
     \my_paper
@@ -101,7 +102,7 @@ my_paper = \paper {
     \clarII
   >
   \header{
-    instrument = "Clarinetto II in B\\textflat";
+    instrument = "Clarinetto II in B\\flat";
   }
   \paper{
     \my_paper
@@ -182,7 +183,7 @@ my_paper = \paper {
     \context Voice = help \trpIhelp
   >
   \header{
-    instrument = "Tromba I in B\\textflat";
+    instrument = "Tromba I in B\\flat";
   }
   \paper{
     \my_paper
@@ -203,7 +204,7 @@ my_paper = \paper {
     \context Voice = help \trpIIhelp
   >
   \header{
-    instrument = "Tromba II in B\\textflat";
+    instrument = "Tromba II in B\\flat";
   }
   \paper{
     \my_paper

@@ -37,7 +37,7 @@
 
 #include "proto.hh"
 #include "moment.hh"
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 
 struct Midi_parser_info
 {

@@ -1,3 +1,49 @@
+pl 55.uu1
+	- use GS' anti aliasing
+
+pl 55.jcn1
+	- auto-beamer: consider current duration first in ending/starting beam
+	  this way, you can have 16ths auto-beamed, in some way, but 8ths never
+	    beamAutoEnd_16 = 1;
+	    beamAutoEnd_8 = 1/8;
+	- added some classes and few lines of doco to .dstreamrc
+	- refman:
+	  * comment out broken
+	  * commented out stale tex macros (tex/* dir too)
+	  * bfs/new syntax: chords
+	- more midi2ly renaming stuff
+	- bf: make info (midi2ly and other renaming)
+
+pl 54.jcn2
+	- bf: auto-beamer: don't beam over skips
+	- update BUGS
+
+
+pl 55.mb2
+	- Font update: added more mensural style time signatures, 
+	  old2/4, old6/8alt, old4/8 thanks to Christian Mondrup.
+	- bf: correct indentation of first line (removed \leavevmode)
+	  plain TeX still gives wrong indentation
+	- bf: volta brackets broken over several lines get open end.
+	  Final bracket gets vertical end if it stops at double bar.
+	- Dashed grace flags also for durations shorter than 8.
+	- N.W.Gade: fixed some details
+
+pl 55.mb1
+	- bf: font magnification also in PS output
+	- bf: set the GS_* variables correctly in buildscripts/lilypond-*.sh
+	- bf, lily.scm: errors in (de)crescendo
+	- bf, lilyponddefs: removed \noindent 
+
+
+pl 55.hwn1
+	- fixes: horn-concerto-3.ly
+	- bf: grace before tuplet.
+	- bf: decrescendo
+	- bf: multimeasrest numbers centered.
+
+****************
+
 pl 53.jbr2
         - Documentation/ntweb/index.html: Updated nt distribution web page
 

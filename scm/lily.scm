@@ -175,8 +175,8 @@
     (string-append
      "\\lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
-    
-  (define (select-font font-name)
+
+  (define (select-font font-name magnification)
       (if (not (equal? font-name current-font))
 	  (begin
 	    (set! current-font font-name)
@@ -188,7 +188,12 @@
 		  (set! font-count (+ 1 font-count))
 		  (if (equal? font-name "")
 		      (error "Empty fontname -- SELECT-FONT"))
-		  (string-append "\\font" font-cmd "=" font-name font-cmd))
+		  (if (> magnification 0)
+		      (string-append "\\font" font-cmd "=" font-name 
+				     " scaled \\magstep " 
+				     (number->string magnification) font-cmd)
+		      (string-append "\\font" font-cmd "=" font-name font-cmd)))
+		
 		(cdr font-cmd)))
 	  ""				;no switch needed
 	  ))
@@ -202,14 +207,14 @@
   (define (dashed-slur thick dash l)
     (embedded-ps ((ps-scm 'dashed-slur)  thick dash l)))
 
-  (define (crescendo w h cont)
-    (embedded-ps ((ps-scm 'crescendo) w h cont)))
+  (define (crescendo thick w h cont)
+    (embedded-ps ((ps-scm 'crescendo) thick w h cont)))
 
   (define (char i)
     (string-append "\\char" (inexact->string i 10) " "))
   
-  (define (decrescendo w h cont)
-    (embedded-ps ((ps-scm 'decrescendo) w h cont)))
+  (define (decrescendo thick w h cont)
+    (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
 
    ;This sets CTM so that you get to the currentpoint
   ; by executing a 0 0 moveto
@@ -287,7 +292,7 @@
 	   (maxht (* 7 minht))
 	   )
       (string-append
-       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))))
+       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
        (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
       )
     )
@@ -327,8 +332,8 @@
   (define (tuplet ht gapx dx dy thick dir)
     (embedded-ps ((ps-scm 'tuplet) ht gapx dx dy thick dir)))
 
-  (define (volta h w thick last)
-    (embedded-ps ((ps-scm 'volta) h w thick last)))
+  (define (volta h w thick vert_start vert_end)
+    (embedded-ps ((ps-scm 'volta) h w thick vert_start vert_end)))
 
   ;; TeX
   ;; The procedures listed below form the public interface of TeX-scm.
@@ -409,8 +414,19 @@
     (string-append
      "lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
-
-  (define (select-font font-name)
+    
+  (define (mag-to-size m)
+    (number->string (case m 
+		      ('0 12)
+		      ('1 12)
+		      ('2 14) ; really: 14.400
+		      ('3 17) ; really: 17.280
+		      ('4 21) ; really: 20.736
+		      ('5 24) ; really: 24.888
+		      ('6 30) ; really: 29.856
+		      )))
+  
+  (define (select-font font-name magnification)
       (if (not (equal? font-name current-font))
 	  (begin
 	    (set! current-font font-name)
@@ -421,8 +437,9 @@
 		  (set! font-alist (acons font-name font-cmd font-alist))
 		  (set! font-count (+ 1 font-count))
 		  (string-append "\n/" font-cmd " {/"
-				 font-name
-				 " findfont 12 scalefont setfont} bind def \n"
+				 font-name " findfont " 
+				 (mag-to-size magnification)
+				 " scalefont setfont} bind def \n"
 				 font-cmd " \n"))
 		(string-append (cdr font-cmd) " ")))
 	  ; font-name == current-font no switch needed
@@ -439,7 +456,7 @@
   (define (char i)
     (invoke-char " show" i))
 
-  (define (crescendo w h cont thick)
+  (define (crescendo thick w h cont )
     (string-append 
      (numbers->string (list w h (inexact->exact cont) thick))
      " draw_crescendo"))
@@ -453,7 +470,7 @@
      (number->string (* 2 thick))
      " ] 0 draw_dashed_slur"))
 
-  (define (decrescendo thick w h cont)
+  (define (decrescendo w h cont thick)
     (string-append 
      (numbers->string (list w h (inexact->exact cont) thick))
      " draw_decrescendo"))
@@ -510,7 +527,7 @@
 	   (maxht (* 7 minht))
 	   )
       (string-append
-       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))))
+       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
        (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
       )
     )
@@ -544,9 +561,9 @@
     (string-append "(" s ") show  "))
 
 
-  (define (volta h w thick last)
+  (define (volta h w thick vert_start vert_end)
     (string-append 
-     (numbers->string (list h w thick (inexact->exact last)))
+     (numbers->string (list h w thick (inexact->exact vert_start) (inexact->exact vert_end)))
      " draw_volta"))
 
   (define (tuplet ht gap dx dy thick dir)

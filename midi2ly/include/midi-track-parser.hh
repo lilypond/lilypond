@@ -13,7 +13,7 @@
 #include "proto.hh"
 #include "cons.hh"
 #include "moment.hh"
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "midi-parser.hh"
 
 class Midi_track_parser : public Midi_parser

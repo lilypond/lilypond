@@ -19,6 +19,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
+  virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
@@ -28,7 +29,7 @@ protected:
   virtual void do_creation_processing ();
 private:
   void begin_beam ();
-  void consider_end_and_begin ();
+  void consider_end_and_begin (Moment test_mom);
   Beam* create_beam_p ();
   void end_beam ();
   void junk_beam ();

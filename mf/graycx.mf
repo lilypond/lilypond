@@ -3,6 +3,6 @@
 
 font_identifier "GRAYCX";
 
-boolean lightweight;
+%boolean lightweight;
 
 input grayf

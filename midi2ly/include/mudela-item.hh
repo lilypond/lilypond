@@ -6,7 +6,7 @@
 #ifndef MUDELA_ITEM_HH
 #define MUDELA_ITEM_HH
 
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "string.hh"
 #include "moment.hh"
 #include "duration.hh"

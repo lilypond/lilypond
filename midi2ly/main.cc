@@ -13,7 +13,7 @@
 #include "duration-convert.hh"
 #include "source.hh"
 
-#include "mi2mu-global.hh"
+#include "midi2ly-global.hh"
 #include "midi-score-parser.hh"
 #include "mudela-item.hh"
 #include "mudela-score.hh"
@@ -40,7 +40,7 @@ Verbose level_ver = NORMAL_ver;
 void
 usage()
 {
-  cout << _f ("Usage: %s [OPTION]... [FILE]", "mi2mu");
+  cout << _f ("Usage: %s [OPTION]... [FILE]", "midi2ly");
   cout << '\n';
   cout << _ ("Translate midi-file to mudela");
   cout << '\n';
@@ -95,14 +95,14 @@ usage()
 void
 identify()
 {
-  LOGOUT(NORMAL_ver) << mi2mu_version_str() << endl;
+  LOGOUT(NORMAL_ver) << midi2ly_version_str() << endl;
 }
 
 void
 notice()
 {
   LOGOUT(NORMAL_ver) << '\n';
-  LOGOUT(NORMAL_ver) << _ ("Mi2mu, translate midi to mudela");
+  LOGOUT(NORMAL_ver) << _ ("Midi2ly, translate midi to mudela");
   LOGOUT(NORMAL_ver) << '\n';
   LOGOUT(NORMAL_ver) << _f ("Copyright (c) %s by", "1997, 1998");
   LOGOUT(NORMAL_ver) << '\n';

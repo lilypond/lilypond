@@ -6,7 +6,7 @@
 #ifndef MUDELA_SCORE_HH
 #define MUDELA_SCORE_HH
 
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "proto.hh"
 #include "cons.hh"
 #include "parray.hh"

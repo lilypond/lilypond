@@ -22,7 +22,7 @@ $(outdir)/%.texinfo: %.yo
 	$(YODL2TEXINFO) -doutdir=$(outdir) --live-data=3 -o $@ $<
 
 $(outdir)/%.txt: %.yo
-	$(YODL2TXT) -doutdir=$(outdir) --live-data=3 -o $@ $<
-#	$(YODL2MSLESS) -doutdir=$(outdir) --live-data=3 $< > $@
+#	$(YODL2TXT) -doutdir=$(outdir) --live-data=3 -o $@ $<
+	$(YODL2MSLESS) -doutdir=$(outdir) --live-data=3 $< > $@
 #	rm -f $(basename $<).ms
 

@@ -1,298 +1,326 @@
 
-TITLE INFORMATION: INSTALL - compiling and installing GNU LilyPond 
-AUTHOR INFORMATION: HWN & JCN 
+      INSTALL - compiling and installing GNU LilyPond
 
-Contents 
+                         HWN & JCN
 
-1: ABSTRACT 
-2: OBTAINING 
-3: PREREQUISITES 
-4: RUNNING 
-5: WEBSITE 
-6: CONFIGURING and COMPILING 
-7: CONFIGURING FOR MULTIPLE PLATFORMS 
-8: INSTALLING 
-9: REDHAT LINUX 
-10: DEBIAN GNU/LINUX 
-11: WINDOWS NT/95 
-12: AUTHORS 
+Contents
+
+     1: ABSTRACT
+2: OBTAINING
+3: PREREQUISITES
+4: RUNNING
+5: WEBSITE
+6: CONFIGURING and COMPILING
+7: CONFIGURING FOR MULTIPLE PLATFORMS
+8: INSTALLING
+9: REDHAT LINUX
+10: DEBIAN GNU/LINUX
+11: WINDOWS NT/95
+12: AUTHORS
 
 1: ABSTRACT
 
-This document explains what you need to install LilyPond, and what you
-should do.  If you are going to compile and install LilyPond often,
-e.g. when doing development, you might want to check out the 
-buildscripts/set-lily.sh script.  It sets some environment 
-variables and symlinks, which comes in handly when you have to compile 
-LilyPond more often.  
+This  document  explains  what you need to install LilyPond,
+and what you should do.  If you are  going  to  compile  and
+install  LilyPond  often,  e.g.  when doing development, you
+might want to check out the buildscripts/set-lily.sh script.
+It sets some environment variables and symlinks, which comes
+in handly when you have to compile LilyPond more often.
 
 2: OBTAINING
 
-You can get the latest version of LilyPond at
-ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/.  Refer to the links
+You  can   get   the   latest   version   of   LilyPond   at
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/.   Refer  to  the links
 document for mirror sites.
 
-If you upgrade by patching do remember to rerun autoconf after
-applying the patch.
+If you upgrade by patching do  remember  to  rerun  autoconf
+after applying the patch.
 
 3: PREREQUISITES
 
 For compilation you need:
 
-o A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
-    (PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix and
-Solaris.
+o    A GNU system: GNU LilyPond is known to run on these GNU
+     systems: Linux (PPC, intel),  FreeBSD,  AIX,  NeXTStep,
+     IRIX, Digital Unix and Solaris.
 
-o Lots of disk space: LilyPond takes between 30 and 100 mb to
-compile if you use debugging information.  If you are short on
-disk-space run configure with --disable-debugging.
+o    Lots  of  disk space: LilyPond takes between 30 and 100
+     mb to compile if you use debugging information.  If you
+     are  short  on disk-space run configure with --disable-
+     debugging.
 
-Although we recommend to use Unix, LilyPond is known to run on Windows
-NT/95/98 as well.  See Section [w32].
+     Although we recommend to use Unix, LilyPond is known to
+     run on Windows NT/95/98 as well.  See Section 11.
 
-o  EGCS 1.1 or newer.
+o    EGCS 1.1 or newer.
 
-o  Python 1.5,
-Check out
-ftp://ftp.python.org or ftp://ftp.cwi.nl/pub/python.
+o    Python   1.5,   Check   out   ftp://ftp.python.org   or
+     ftp://ftp.cwi.nl/pub/python.
 
-o  GUILE 1.3,  check out http://www.gnu.org/software/guile/guile.html.
+o    GUILE   1.3,    check   out    http://www.gnu.org/soft-
+     ware/guile/guile.html.
 
-o GNU make. 
-Check out ftp://ftp.gnu.org.
+o    GNU make.  Check out ftp://ftp.gnu.org.
 
-o Flex (version 2.5.4 or newer). 
-Check out ftp://ftp.gnu.org.
+o    Flex    (version    2.5.4   or   newer).    Check   out
+     ftp://ftp.gnu.org.
 
-o Bison (version 1.25 or newer).
-Check out ftp://ftp.gnu.org.
+o    Bison   (version   1.25   or   newer).     Check    out
+     ftp://ftp.gnu.org.
 
-o Yodl.  All documentation will be in Yodl. (1.30.17)
-ftp://ftp.lilypond.org/pub/yodl
+o    Yodl.   All  documentation  will  be in Yodl. (1.30.17)
+     ftp://ftp.lilypond.org/pub/yodl
 
-o The geometry package for LaTeX is needed to use ly2dvi.  
-Available at 
-ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry
-or at mirror site ftp://ftp.dante.de
+o    The geometry package for LaTeX is needed to use ly2dvi.
+     Available           at          ftp://ftp.ctan.org/tex-
+     archive/macros/latex/contrib/supported/geometry  or  at
+     mirror site ftp://ftp.dante.de
 
 4: RUNNING
 
-GNU LilyPond does use a lot of resources. For operation you need the
-following software
+GNU  LilyPond does use a lot of resources. For operation you
+need the following software
 
-o TeX
-o A PostScript printer and/or viewer (such as Ghostscript) is strongly
-    recommended.  Xdvi will show all embedded PostScript too if you have
-    Ghostscript installed.
-o  GUILE 1.3, check out http://www.gnu.org/programs/guile.html
+o    TeX
 
-For running LilyPond successfully you have to help TeX and MetaFont
-find various files.  The recommended way of doing so is adjusting the
-environment variables in the start-up scripts of your shell.  An
-example is given here for the Bourne shell:
-export MFINPUTS="/usr/local/share/lilypond/mf:"
-export TEXINPUTS="/usr/local/share/lilypond/tex:/usr/local/share/lilypond/ps:"
+o    A   PostScript   printer   and/or   viewer   (such   as
+     Ghostscript)  is  strongly recommended.  Xdvi will show
+     all embedded PostScript too  if  you  have  Ghostscript
+     installed.
 
-The empty path component
-represents TeX and MetaFont's default search paths.  Scripts with
-the proper paths for the bourne and C-shell respectively are generated in
-buildscripts/out/lilypond-profile and
-buildscripts/out/lilypond-login during compilation. 
+o    GUILE    1.3,    check    out   http://www.gnu.org/pro-
+     grams/guile.html
 
-LilyPond is a hideously slow program.  A fast CPU and plenty of RAM is
-recommended for comfortable use.
+For running LilyPond successfully you have to help  TeX  and
+MetaFont  find  various files.  The recommended way of doing
+so is adjusting the environment variables  in  the  start-up
+scripts  of  your  shell.   An example is given here for the
+Bourne shell:
+
+     export MFINPUTS="/usr/local/share/lilypond/mf:"
+     export TEXINPUTS="/usr/local/share/lilypond/tex:/usr/local/share/lilypond/ps:"
+
+The empty path component represents  and MetaFont's  default
+
+search  paths.  Scripts with the proper paths for the bourne
+and   C-shell   respectively   are   generated   in   build-
+scripts/out/lilypond-profile  and buildscripts/out/lilypond-
+login during compilation.
+
+LilyPond is a hideously slow program.  A fast CPU and plenty
+of RAM is recommended for comfortable use.
 
 5: WEBSITE
 
-If you want to auto-generate Lily's website, you'll need some additional
-conversion tools.
+If  you  want  to  auto-generate Lily's website, you'll need
+some additional conversion tools.
 
-o xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
-	     users: it is included within the package libgr-progs).
-	the original is at
-ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz
+o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
+     Hat  Linux  users:  it  is  included within the package
+     libgr-progs).  the original is at  ftp://ftp.x.org/con-
+     trib/utilities/netpbm-1mar1994.p1.tar.gz
 
-o pnmtopng, which is also in libgr-progs for RedHat. The original is
-at
-ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz.i
+o    pnmtopng,  which is also in libgr-progs for RedHat. The
+     original                     is                      at
+     ftp://swrinde.nde.swri.edu/pub/png/applications/pnm-
+     topng-2.37.2.tar.gz.i
 
-The version of pnmtopng that is distributed with RedHat 5.1 and
-5.2 contains a bug: pnmtopng is dynamically linked to the wrong
-version of libpng.  Recompile it from source, and make sure that the
-pnmtopng binary is linked statically to the libpng that is included in
-libgr.  RedHat 6.0 does not have this problem.
+     The version of pnmtopng that is distributed with RedHat
+     5.1  and  5.2  contains  a bug: pnmtopng is dynamically
+     linked to the wrong version of  libpng.   Recompile  it
+     from  source, and make sure that the pnmtopng binary is
+     linked statically to the libpng  that  is  included  in
+     libgr.  RedHat 6.0 does not have this problem.
 
- tar xzf libgr-2.0.13.tar.gz
-      make
-      cd png
-      rm libpng.so*
-      make pnmtopng
+           tar xzf libgr-2.0.13.tar.gz
+                make
+                cd png
+                rm libpng.so*
+                make pnmtopng
 
-You can then install the new pnmtopng into /usr/local/bin/
+     You   can   then   install   the   new   pnmtopng  into
+     /usr/local/bin/
 
-o Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
-    Which, in turn depends on man2html for proper installation.
-man2html can be had from http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05.
+o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
+     Which,   in   turn   depends  on  man2html  for  proper
 
-    TeTeX users should not forget to rerun texhash.
+     installation.  man2html can be had from  http://askdon-
+     ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
+     ing/WWW/Man2html-1.05.
 
-You also have to install buildscripts/out/ps-to-gifs in a
+     The website will build without this  utility,  but  you
+     will not see our hypertextified bibliography.
+
+     TeTeX users should not forget to rerun texhash.
+
+You  also  have  to install buildscripts/out/ps-to-gifs in a
 directory that is in the path.
 
 6: CONFIGURING and COMPILING
 
 to install GNU LilyPond, simply type:
 
-	gunzip -c lilypond-x.y.z | tar xf -
-	cd lilypond-x.y.z
-	./configure		# fill in your standard prefix with --prefix
-	make
-	make install
+          gunzip -c lilypond-x.y.z | tar xf -
+          cd lilypond-x.y.z
+          ./configure         # fill in your standard prefix with --prefix
+          make
+          make install
 
 This will install a number of files, something close to:
 
-	/usr/local/man/man1/mi2mu.1
-	/usr/local/man/man1/convert-mudela.1
-	/usr/local/man/man1/mudela-book.1
-	/usr/local/man/man1/lilypond.1
-	/usr/local/bin/lilypond
-	/usr/local/bin/mi2mu
-	/usr/local/share/lilypond/*
-	/usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
+          /usr/local/man/man1/mi2mu.1
+          /usr/local/man/man1/convert-mudela.1
+          /usr/local/man/man1/mudela-book.1
+          /usr/local/man/man1/lilypond.1
+          /usr/local/bin/lilypond
+          /usr/local/bin/mi2mu
+          /usr/local/share/lilypond/*
+          /usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
 
-The above assumes that you are root and have the GNU development
-tools, and your make is GNU make.  If this is not the case, you can
-adjust your environment variables to your taste:
+The above assumes that you are root and have the GNU  devel-
+opment tools, and your make is GNU make.  If this is not the
+case, you can adjust  your  environment  variables  to  your
 
-	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
-	./configure
+taste:
 
-CPPFLAGS are the preprocessor flags. 
+          export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
+          ./configure
+
+CPPFLAGS are the preprocessor flags.
 
 The configure script is Cygnus configure, and it will accept
---help. If you are not root, you will probably have to make it
-with a different --prefix option.  Our favourite location is
+--help. If you are not root, you will probably have to  make
+it with a different --prefix option.  Our favourite location
+is
 
-	./configure --prefix=$HOME/usr
+          ./configure --prefix=$HOME/usr
 
-In this case, you will have to set up MFINPUTS, and TEXINPUTS accordingly.
+In this case, you will have to set up MFINPUTS,  and  TEXIN-
+PUTS accordingly.
 
-Since GNU LilyPond currently is beta, you are advised to also use
+Since  GNU  LilyPond  currently  is beta, you are advised to
+also use
 
-	--enable-debugging
-	--enable-checking
+          --enable-debugging
+          --enable-checking
 
 Options to configure include:
 
-o --enable-printing
-    Enable debugging print routines (lilypond -D option)
-o --enable-optimise
-    Set maximum optimisation: compile with -O2.  This can be
-unreliable on some compiler/platform combinations (eg, DEC Alpha and PPC)
-o --enable-profiling
-    Compile with support for profiling.
-o --enable-config
-    Output to a different configuration file.  Needed for multi-platform
-    builds
+--enable-printing
+     Enable debugging print routines (lilypond -D option)
 
-All options are documented in the configure help
-The option --enable-optimise is recommended for Real Life usage.
+--enable-optimise
+     Set maximum optimisation: compile with -O2.   This  can
+     be  unreliable  on  some compiler/platform combinations
+     (eg, DEC Alpha and PPC)
+
+--enable-profiling
+     Compile with support for profiling.
+
+--enable-config
+     Output to a different configuration file.   Needed  for
+     multi-platform builds
+
+All  options are documented in the configure help The option
+--enable-optimise is recommended for Real Life usage.
 
 If you do
 
-	make all
+          make all
 
-everything will be compiled, but nothing will be installed.  The
-resulting binaries can be found in the subdirectories out/ (which
-contain all files generated during compilation).
+everything will be compiled, but nothing will be  installed.
+The  resulting  binaries  can be found in the subdirectories
+out/ (which contain all files generated during compilation).
 
 7: CONFIGURING FOR MULTIPLE PLATFORMS
 
-If you want to compile LilyPond with different configuration settings,
-then, you can use the --enable-config option.  Example: suppose I
-want to build with and   without profiling.  Then I'd use the
-following for the normal build, 
+If you want to compile LilyPond with different configuration
+settings, then, you  can  use  the  --enable-config  option.
+Example:  suppose I want to build with and   without profil-
+ing.  Then I'd use the following for the normal build,
 
-      ./configure --prefix=~ --disable-optimise --enable-checking
-      make
-      make install
+           ./configure --prefix=~ --disable-optimise --enable-checking
+           make
+           make install
 
-and for the profiling version, I specify a different configuration.
+and for the profiling version, I specify a different config-
+uration.
 
-      ./configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
-      make config=optprof
-      make config=optprof install
+           ./configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+           make config=optprof
+           make config=optprof install
 
 8: INSTALLING
 
 If you have done a successful make, then a simple
 
-	make install
+          make install
 
 should do the trick.
 
-If you are doing an upgrade, please remember to remove obsolete
-.pk and .tfm files of the fonts.  A script has been
+If you are doing an upgrade, please remember to remove obso-
+lete .pk and .tfm files of the fonts.   A  script  has  been
 provided to do the work for you, see bin/clean-fonts.sh.
 
 CAVEATS
 
-o The -O2 option  triggers  bugs on various platforms (PowerPC, Alpha).
-    If you experience problems, you  should first try  turning off
-    this.
-o  On PPC you need at least EGCS-1.1.2f.
+o    The  -O2  option   triggers   bugs on various platforms
+     (PowerPC, Alpha).   If  you  experience  problems,  you
+     should first try  turning off this.
+
+o    On PPC you need at least EGCS-1.1.2f.
 
 EXAMPLE
 
 This is what I type in my xterm:
 
-	lilypond someinput.ly
-	tex someinput.tex
-	xdvi someinput&
+          lilypond someinput.ly
+          tex someinput.tex
+          xdvi someinput&
 
 This is what the output looks like over here:
 
-	GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
-	Parsing ... [/home/hw/share/lilypond/init//
-		<..etc..>
-		init//performer.ly]]][input/kortjakje.ly]
-	Creating elements ...[8][16][24][25]
-	Preprocessing elements... 
-	Calculating column positions ... [14][25]
-	Postprocessing elements...
-	TeX output to someinput.tex ...
-	Creating MIDI elements ...MIDI output to someinput.midi ...
+          GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
+          Parsing ... [/home/hw/share/lilypond/init//
+               <..etc..>
+               init//performer.ly]]][input/kortjakje.ly]
+          Creating elements ...[8][16][24][25]
+          Preprocessing elements...
+          Calculating column positions ... [14][25]
+          Postprocessing elements...
+          TeX output to someinput.tex ...
+          Creating MIDI elements ...MIDI output to someinput.midi ...
 
-	hw:~/musix/spacer$ xdvi someinput&
-	[1] 855
+          hw:~/musix/spacer$ xdvi someinput&
+          [1] 855
 
-Check out the input files, some of them have comments
-Please refer to the man page for more information.
+Check out the input files, some of them have comments Please
+refer to the man page for more information.
 
 9: REDHAT LINUX
 
-RedHat Linux users can compile an RPM. A spec file is in
-make/out/lilypond.spec, it is distributed along with the
+RedHat Linux users can compile an RPM. A  spec  file  is  in
+make/out/lilypond.spec,  it  is  distributed  along with the
 sources.
 
 You can make the rpm by issuing
 
-	rpm -tb lilypond-x.y.z.tar.gz
-	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
+          rpm -tb lilypond-x.y.z.tar.gz
+          rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
-Precompiled i386 RedHat RPMS are available from
+Precompiled   i386   RedHat   RPMS   are   available    from
 http://linux.umbc.edu/software/lilypond/rpms/.
 
 10: DEBIAN GNU/LINUX
 
-A Debian package is also available; contact Anthony Fok
-foka@debian.org.  The build scripts are in the subdirectory
+A  Debian  package  is  also  available; contact Anthony Fok
+foka@debian.org.  The build scripts are in the  subdirectory
 debian/.
 
 11: WINDOWS NT/95
 
-Separate instructions on building for W32 are avaible
-in the file README-W32.yo.
+Separate instructions on building for W32 are avaible in the
+file README-W32.yo.
 
 12: AUTHORS
 

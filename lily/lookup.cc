@@ -120,6 +120,8 @@ Lookup::afm_find (String s, bool warn) const
 		    gh_int2scm (cm.code ()),
 		    SCM_UNDEFINED));
   at.font_ = ly_symbol (font_name_.ch_C());
+  at.magn_ = gh_int2scm (0);
+  
   m.dim_ = cm.dimensions();
   m.add_atom (&at);
   return m;
@@ -373,7 +375,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   if (style.empty_b ())
     style = "roman";
   
-  int font_mag = 1;
+  int font_mag = 0;
   Real font_h = paper_l->get_var ("font_normal");
   if (paper_l->scope_p_->elem_b ("font_" + style))
     {
@@ -427,7 +429,6 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   if (font_mag > 1 && font_mag < 7 )
     {
       /* UGH  */ 
-      style = style + String(" scaled \\magstep ") + to_str (font_mag);
       w *= mag_steps[font_mag];
       ydims *= mag_steps[font_mag];
     }
@@ -456,6 +457,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 		     gh_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));
   at.font_ = ly_symbol (style);
+  at.magn_ = gh_int2scm (font_mag);
   
   m.add_atom (&at);
   return m;
@@ -508,10 +510,10 @@ Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continu
 
   String hairpin = String (decresc ? "de" : "") + "crescendo";
   Atom at  (gh_list (ly_symbol (hairpin),
+		     gh_double2scm (thick),
 		     gh_double2scm (width),
 		     gh_double2scm (height),
 		     gh_double2scm (continued ? height/2 : 0.0),
-		     gh_double2scm (thick),
 		     SCM_UNDEFINED));
   m.dim_.x () = Interval (0, width);
   m.dim_.y () = Interval (-2*height, 2*height);
@@ -581,7 +583,7 @@ Lookup::staff_bracket (Real y) const
 }
 
 Molecule
-Lookup::volta (Real h, Real w, Real thick, bool last_b) const
+Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
 {
   Molecule m; 
 
@@ -589,7 +591,8 @@ Lookup::volta (Real h, Real w, Real thick, bool last_b) const
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (thick),
-		     gh_int2scm (last_b),
+		     gh_int2scm (vert_start),
+		     gh_int2scm (vert_end),
 		     SCM_UNDEFINED));
 
   m.dim_[Y_AXIS] = Interval (- h/2, h/2);

@@ -3,7 +3,8 @@
 % 
 % source file of the Feta (not an abbreviation of Font-En-Tja) music font
 % 
-% (c) 1998 Mats Bengtsson <matsb@s3.kth.se>
+% (c) 1998--1999 Mats Bengtsson <matsb@s3.kth.se>,
+%		Christian Mondrup <scancm@biobase.dk>
 
 fet_begingroup("timesig");
 
@@ -157,6 +158,36 @@ fet_beginchar ("Mensural 9/8 meter", "old9/8", "oldnineeight")
 	pickup pencircle scaled 4 stafflinethickness;
 	draw (0,0);
 	draw_block((-Cthickness/2, -d), (Cthickness/2, h));
+fet_endchar;
+
+%% tempus imperfectum cum prolatione imperfecta diminutio simplex
+fet_beginchar ("Mensural 4/8 meter", "old4/8", "oldfoureightmeter")
+	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+	.5 Cdiameter#, .5 Cdiameter#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 225 scaled Cdiameter;
+fet_endchar;
+
+%% tempus imperfectum cum prolatione perfecta diminutio simplex
+fet_beginchar ("Mensural 6/8 meter", "old6/8alt", "oldsixeightmeteralt")
+	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+		.5 Cdiameter#, .5 Cdiameter#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 225 scaled Cdiameter;
+	pickup pencircle scaled 4 stafflinethickness;
+	draw (0,0);
+fet_endchar;
+
+%% tempus imperfectum cum prolatione imperfecta diminutio duplex
+fet_beginchar ("Mensural 2/4 meter", "old2/4", "oldtwofourmeter")
+	set_char_box(.5 Cdiameter# + interline#, .5 Cdiameter# + interline#, 
+		interline#, interline#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 225 scaled Cdiameter;
+	draw_block((-Cthickness, -d), (0, h));
 fet_endchar;
 
 fet_endgroup("timesig");

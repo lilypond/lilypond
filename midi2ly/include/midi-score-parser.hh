@@ -12,7 +12,7 @@
 
 #include "midi-parser.hh"
 #include "proto.hh"
-#include "mi2mu-proto.hh"
+#include "midi2ly-proto.hh"
 #include "parray.hh"
 
 class Midi_score_parser : public Midi_parser
