@@ -2109,6 +2109,11 @@ To whom the piece is dedicated.
 
 @item piece
 Name of the piece, flush-left below the instrument.
+
+
+@cindex page breaks, forcing
+@item breakbefore
+  This forces the title to start on a new page.
 @end table
 
 Here is a demonstration of the fields available, 
@@ -2183,7 +2188,7 @@ field).
   By default, headers are defined such that the page number is on the
   outside edge, and the instrument is centered.
 
-  @item oddFooterMarkup
+@item oddFooterMarkup
   This is the page footer for odd-numbered pages. 
   
 @item evenFooterMarkup
@@ -2200,6 +2205,20 @@ field).
 @cindex footer
 @cindex page layout
 @cindex titles
+
+The following definition will put the title flush left, and the
+composer flush right on a single line.
+
+@verbatim
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line <
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   >
+  }
+}
+@end verbatim
 
 
 

@@ -99,7 +99,7 @@
      ly:layout-def?
      ly:paper-get-font
      ly:paper-get-number
-     ly:paper-system-break-penalty
+     ly:paper-system-break-before-penalty
      ly:paper-system-extent
      ly:paper-system-number
      ly:paper-system-stencil

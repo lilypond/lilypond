@@ -56,7 +56,10 @@ This file is best viewed outside the collated files document.
                 \repeat unfold 4 {c4}
             }
         }
-        \header {piece = "Piece II"}
+        \header {
+	  breakbefore = ##f
+	  piece = "Piece II"
+	}
         \layout {linewidth = 9\cm}
     }
 }
