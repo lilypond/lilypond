@@ -23,9 +23,6 @@ Bar_engraver::Bar_engraver()
   do_post_move_processing();
 }
 
-
-
-
 void
 Bar_engraver::create_bar ()
 {
