@@ -1,3 +1,12 @@
+2002-12-14  Rune Zedeler  <rz@localhost.localdomain>
+
+	* scm/output-lib.scm (set-bar-number-visibility): Context-function
+	Added.
+
+	* Documentation/user/refman.itely (Bar numbers):
+	set-bar-number-visibility added, modulo-bar-number removed again
+	(sorry).
+
 2002-12-14  Heikki Junes <hjunes@cc.hut.fi>
 
 	* scm/output-lib.scm (modulo-bar-number-visible): add function.
