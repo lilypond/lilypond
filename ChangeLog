@@ -1,5 +1,7 @@
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (ly:system): add > /dev/null 2>&1 
+
 	* lily/recording-group-engraver.cc (derived_mark): mark
 	now_events_. (backportme)
 

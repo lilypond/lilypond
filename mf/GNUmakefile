@@ -125,7 +125,6 @@ get-deb-pfa: $(outdir)/$(debian-package)
 	rm -rf $(outdir)/./usr
 	ar p $< data.tar.gz | \
 		tar -C $(outdir) -zvxf - '*.pfa'
-	touch $(addprefix $(outdir)/, $(addsuffix .bla,$(SAUTER_FONTS)))
 	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
 
 
@@ -136,7 +135,6 @@ $(outdir)/$(redhat-package):
 get-rpm-pfa: $(outdir)/$(redhat-package)
 	cd $(outdir) ; rm -rf usr/ # (root alert!) 
 	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa'
-	touch $(addprefix $(outdir)/, $(addsuffix .bla,$(SAUTER_FONTS)))
 	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
 
 # change this dependency 
