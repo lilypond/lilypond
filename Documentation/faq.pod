@@ -6,6 +6,8 @@ FAQ - LilyPond FAQs
 
 Some questions that have been answered before.
 
+=head2 language
+
 Q: I can type
 
 	<a c> <e g>
@@ -21,7 +23,7 @@ instead of
 
 to generate slurs between the chords?
 
-A L1: When you type 
+A: When you type 
 
 	<a c> <e g>
 
@@ -40,38 +42,38 @@ formatting:
 	>
 
 
-Q L2: Why are [] around the notes, and () inbetween?
+Q: Why are [] around the notes, and () inbetween?
 
-A L2: [] designate beams, a note can only be in one beam at the same
+A: [] designate beams, a note can only be in one beam at the same
 time. () is a slur, which connects notes.  You need to be able to 
 specify
 
 	a()a()a
 
-Q L3: Why shouldn't I put all commands (\clef, \meter) inside the music?
+Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
 
-A L3: You should do what you like, but at some time we will enable
+A: You should do what you like, but at some time we will enable
 quoting of music ("Stichnoten"). Besides if you are going to type an
 orchestral score, then you'd probably want to enter most of the meter,
 repeat commands only once.
 
-=head2 MISCELLANEOUS
+=head2 Miscellaneous
 
-Q M1: Why GPL?
+Q: Why GPL?
 
-A M1: Yes.
+A: Yes.
 
-Q M2: Could you implement feature XXXX? It is really easy, just extend
+Q: Could you implement feature XXXX? It is really easy, just extend
 the syntax to allow YYYY!
 
-A M2: If it is reasonable, I'll add XXXX to the TODO list. In general
+A: If it is reasonable, I'll add XXXX to the TODO list. In general
 finding a cute syntax (such as YYYY) isn't very hard. The complicated
 issue how to adapt the internals to do XXXX. The parser is really  a
 simple front end to the complicated internals. 
 
-Q M3: Why do I need g++ >= 2.7?
+Q: Why do I need g++ >= 2.7?
 
-A M3: By using g++ LilyPond is portable to all platforms which support
+A: By using g++ LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
 saves us a I<lot> of trouble. LilyPond and FlowerLib use:
 
@@ -100,27 +102,36 @@ named return values
 
 =back
 
+=head2 Running
+
+Q: I get 
+
+	can't load library 'libflower.so'
+
+A: You are using the dynamically compiled Flower library. Please set
+LD_LIBRARY_PATH to a directory containing F<libflower.so>
+
 =head2 DOZE
 
-Q D1: I want a DOS/NT/W95 port.
+Q: I want a DOS/NT/W95 port.
 
-A D1.0: Reconsider.  Try Linux.  It's fun!
+A.0: Reconsider.  Try Linux.  It's fun!
 
-A D1.1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
+A.1: Currently (patchlevel 27), LilyPond (and flowerLib) compiles, links
 and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 
 I (JCN) only had to make a minor workaround for missing library calls.  
 Have a look at http://www.cygnus.com/gnu-win32.  To make LilyPond type
 C<make $OSTYPE>. (I am not promising to maintain this platform, it is just 
 that when having to use doze, i-m sometimes too lazy to reboot.)
 
-A D1.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
+A.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
 libg++, mind you) to DOS/win (in rpm, please :).
 
 
-Q D2: I-m dozed enough to run the (sometimes bit stale) .exe-s you distribute. 
+Q: I-m dozed enough to run the (sometimes bit stale) .exe-s you distribute. 
 Why do i need cygwin.dll?
 
-A D2: It-s all in this cut-n-paste:
+A: It-s all in this cut-n-paste:
 
 Minimalist GNU-Win32 Readme                   
 version 0.1.3                           
