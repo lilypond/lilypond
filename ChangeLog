@@ -1,10 +1,15 @@
+2002-04-13  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Prevent recoloring strings and comments.
+
+	* lilypond-font-lock.el: Handle block comments: block comments
+	can have also ordinary comments inside.
+	
 2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/regression/tie-grace.ly: new file.
 
 	* lily/tie-engraver.cc (create_grobs): fix tied graces.
-
-2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/note-spacing.cc (stem_dir_correction): set fixed space for
 	knee correction. Fixes tight spacing for knees.

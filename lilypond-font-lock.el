@@ -9,8 +9,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.5.51
-;; Last Modified: 12APR2002
+;; Version:       1.5.52
+;; Last Modified: 13APR2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -150,11 +150,11 @@
 ;; highlight scheme; Urgh. should count '(':s, then continue up to last ')'
       '("[_^-]?#\\(#[ft]\\|['`](lines[^)]*))\\|['`][a-zA-Z-:]+\\|['`]?([^)]*)\\|-?[0-9.]+\\|\"[^\"]*\"\\)" 0 font-lock-string-face t)
 
-;; (re)highlight strings
+;; highlight strings
       '("[_^-]?\"[^\"]*\"" 0 font-lock-string-face t)
 
-;; (re)highlight comments
-      '("\\(%.*\\)" 0 font-lock-comment-face t)
+;; highlight (block) comments; urgh. block comments should be updatable
+      '("\\(%\\({[^%]*%\\(}\\|\\([^}][^%]*%\\)+}\\)\\|.*\\)\\)" 0 font-lock-comment-face t)
 
       )
     )
