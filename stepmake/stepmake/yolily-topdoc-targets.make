@@ -11,6 +11,6 @@ $(outdir)/%.html: %.yo
 local-WWW:
 	-cp $(outdir)/*png $(outdir)/index.html $(depth)  # don't fail if not making website
 
-copy-to-top: 
+copy-to-top:  $(TO_TOP_FILES)
 	$(foreach i, $(TO_TOP_FILES), \
 	  cp $(i) $(depth)/ && ) true
