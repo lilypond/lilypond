@@ -23,7 +23,7 @@ Request_column::add_reqs(int idx , Array<Request*> const & req_l_arr)
     staff_col_l_arr_[idx]->add_reqs(req_l_arr);
 }
 
-Request_column::Request_column(PointerList<Staff*> const& list )
+Request_column::Request_column(Pointer_list<Staff*> const& list )
 {
     musical_column_l_ = command_column_l_ =0;
     iter(list.top(), j);
