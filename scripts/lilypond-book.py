@@ -567,9 +567,11 @@ def output_verbatim (body):
 
 #warning: this uses extended regular expressions. Tread with care.
 
-# legenda (?P  name parameter
-# *? match non-greedily.
+# legenda
 
+# (?P  -- name parameter
+# *? -- match non-greedily.
+# (?m)  -- ?  
 re_dict = {
 	'html': {
 		 'include':  no_match,
@@ -579,9 +581,9 @@ re_dict = {
 		 'landscape': no_match,
 		 'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
 		 'verb': r'''(?P<code><pre>.*?</pre>)''',
-		 'lilypond-file': '(?m)(?P<match><lilypondfile(?P<options>[^>]*)?>\s*(?P<filename>.*?)\s*</lilypondfile>)',
+		 'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
 		 'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
-		 'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]*)?>(?P<code>.*?)</lilypond>)''',
+		 'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
 		  'option-sep' : '\s*',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
