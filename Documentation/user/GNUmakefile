@@ -9,7 +9,11 @@ LATEX_FILES =$(wildcard *.latex)
 DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
 
 EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES)
-# IMAGES=$(wildcard *-suite1-line.*)
+IMAGES=$(wildcard *.png)
+
+OUT_EPS_IMAGES=$(addprefix $(outdir)/,$(IMAGES:.png=.eps))
+OUT_PNG_IMAGES=$(addprefix $(outdir)/,$(IMAGES))
+
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)
@@ -34,9 +38,6 @@ include $(depth)/make/stepmake.make
 # lilypond.tely uses mbinclude
 TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
 
-outimages:
-	true
-#	cp $(IMAGES) $(outdir)
 
 dvi: $(DVI_FILES)
 
@@ -65,7 +66,7 @@ extra-local-help:
 
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
-$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi outimages
+$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
 	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
@@ -80,6 +81,14 @@ $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-interna
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
+
+$(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
+
+$(outdir)/%.png: %.png
+	cp $< $@
+
+$(outdir)/%.eps: %.png
+	convert $< $@
 
 DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
 
