@@ -50,7 +50,7 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
     \context StaffGroup = percussion <\context Staff = timpani <
       \property Staff.instrument = "Timpani"
       \property Staff.instr = "Timp."
-      \m
+      \notes{c''1 R1*8}
     >
   >
   \context StaffGroup = strings <
@@ -93,7 +93,7 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
         minVerticalAlign = 2.2*\staffheight;
 
     }
-    \translator { \StaffContext
+    \translator { \HaraKiriStaffContext
 	\consists "Instrument_name_engraver";
         marginScriptPadding = 15.0;
     }
