@@ -14,8 +14,10 @@
 #include "pitch.hh"
 #include "ly-smobs.icc"
 
-SCM
-ly_deep_mus_copy (SCM m)
+
+LY_DEFINE(ly_deep_mus_copy,
+	  "ly:music-deep-copy", 1,0,0, (SCM m),
+	  "Copy @var{m} and all sub expressions of @var{m}")
 {
   if (unsmob_music (m))
     {

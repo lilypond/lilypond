@@ -68,7 +68,11 @@ PostScript} and @uref{../lilypond.pdf,PDF}.
 @titlepage
 @title GNU LilyPond
 @subtitle The music typesetter
-@author    
+@author Han-Wen Nienhuys
+@author Jan Nieuwenhuizen
+@author J@"{u}gen Reuter
+@author Rune Zedeler
+
 
 
 Copyright @copyright{} 1999--2002 by the authors
@@ -83,7 +87,6 @@ Copyright @copyright{} 1999--2002 by the authors
 
 @end titlepage
 
-@c Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano, Tom Cato Amundsen.
 
 @ifnottex
 This file documents GNU LilyPond.
