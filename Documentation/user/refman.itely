@@ -451,7 +451,7 @@ readable.
 @cindex ghostscript
 
 If you view the result with Xdvi, then staff lines will show through
-the letters.  Printing the postscript file obtained with ly2dvi does
+the letters.  Printing the PostScript file obtained with ly2dvi does
 produce the correct result.
 
 
