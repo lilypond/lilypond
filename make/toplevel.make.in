@@ -1,0 +1,35 @@
+# -*-Makefile-*-
+# title	   specific top level makefile for LilyPond  
+
+# subdir level:
+#
+depth = .
+#
+
+# descent order into subdirectories:
+#
+SUBDIRS = scripts buildscripts  flower lib lily mf mi2mu po debian \
+	Documentation init input tex make mutopia test intl stepmake
+#
+
+SCRIPTS = configure aclocal.m4
+README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCEMENT \
+ COPYING NEWS-0.1 NEWS-0.0 NEWS  TODO
+README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt PATCHES.txt
+IN_FILES := $(wildcard *.in)
+EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)
+NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
+
+# bootstrap stepmake:
+#
+STEPMAKE_TEMPLATES=toplevel yolily-toplevel
+include $(depth)/make/stepmake.make 
+#
+
+website: examples htmldoc doc++
+
+examples:
+	$(MAKE) CONFIGSUFFIX='www' -C input WWW
+	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
+	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
+

@@ -68,7 +68,7 @@ DISTFILES.gettext = $(DISTFILES.common) libintl.glibc libintl.inst
 .c.o:
 	$(COMPILE) $<
 
-INCLUDES = -I.. -I. -I$(top_srcdir)/intl -I$(top_srcdir)/lib
+INCLUDEs = -i.. -i. -i$(top_srcdir)/intl -i$(top_srcdir)/lib
 
 all: libintl.a
 
