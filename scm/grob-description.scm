@@ -500,7 +500,7 @@
 		 ))
 	      
 	(SpacingSpanner . (
-		(spacing-procedure . ,Spacing_spanner::set_springs)
+		(spacing-procedure . ,New_spacing_spanner::set_springs)
 		(stem-spacing-correction . 0.5)
 		(grace-space-factor . 0.8)
 
