@@ -9,8 +9,7 @@
 
 #include "score-element-callback.hh"
 
-
-static long callback_tag;
+static SCM callback_tag;
 
 static
 SCM mark_smob (SCM)
@@ -49,8 +48,8 @@ smobify_callback (Score_element_callback cb )
   SCM z;
   
   SCM_NEWCELL(z);
-  SCM_SETCDR(z, cb);
-  SCM_SETCAR(z, callback_tag);
+  SCM_SETCDR (z, (SCM)cb);
+  SCM_SETCAR (z, (SCM)callback_tag);
 
   return z;
 }
