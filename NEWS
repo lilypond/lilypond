@@ -1,3 +1,10 @@
+pl 14.jcn1
+	- moved most ugly lookup stuff
+	- {Ps,Tex}_{def,score}.{cc,hh}
+
+*********
+pl 14
+
 pl 13.uu1
 	- bfs for footer
 	- bf: init/{book,center}-fragment.ly, YODL nofooter stuff. 

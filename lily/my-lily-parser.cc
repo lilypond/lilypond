@@ -314,7 +314,7 @@ Paper_def*
 My_lily_parser::default_paper_p ()
 {
   Identifier *id = lexer_p_->lookup_identifier ("$defaultpaper");
-  return id ? id->access_Paper_def () : new Paper_def ;
+  return id ? id->access_Paper_def () : (Paper_def*)global_paper_l->clone ();
 }
 
 Midi_def*

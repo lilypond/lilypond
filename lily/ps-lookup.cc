@@ -112,53 +112,6 @@ Ps_lookup::hairpin (Real width, bool decresc, bool continued) const
   return a;
 }
 
-Lookup*
-Ps_lookup::lookup_p (Lookup const& l) const
-{
-  return new Ps_lookup (l);
-}
-
-Lookup*
-Ps_lookup::lookup_p (Symtables const& s) const
-{
-  return new Ps_lookup (s);
-}
-
-Paper_outputter*
-Ps_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* header_l, String origin_str) const
-{
-  if (header_global_p)
-    *os_p << header_global_p->ps_string ();
-  
-  *os_p << _ ("\n% outputting Score, defined at: ") << origin_str << '\n';
-
-  if (header_l)
-    *os_p << header_l->ps_string ();
-  *os_p << paper_l->ps_output_settings_str ();
-
-  if (experimental_features_global_b)
-    *os_p << "turnOnExperimentalFeatures\n";
-
-  return new Ps_outputter (os_p);
-}
-
-Paper_stream*
-Ps_lookup::paper_stream_p () const
-{
-#if 1
-  String outname = base_output_str ();
-#else
-  String outname = "lelie";
-#endif
-
-  if (outname != "-")
-    outname += ".ps";
-  *mlog << _f ("PostScript output to %s...", 
-	       outname == "-" ? String ("<stdout>") : outname ) << endl;
-  target_str_global_array.push (outname);
-  return new Ps_stream (outname);
-}
-
 Atom
 Ps_lookup::plet (Real dy , Real dx, Direction dir) const
 {
@@ -231,12 +184,6 @@ Atom
 Ps_lookup::text (String style, String text) const
 {
   return Lookup::text (style, "(" + text + ")");
-}
-
-String
-Ps_lookup::unknown_str () const
-{
-  return "unknown ";
 }
 
 Atom

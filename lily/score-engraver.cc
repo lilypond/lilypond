@@ -16,6 +16,7 @@
 #include "score-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
+#include "main.hh"
 
 
 Score_engraver::Score_engraver()
@@ -267,8 +268,23 @@ void
 Score_engraver::do_add_processing ()
 {
   Translator_group::do_add_processing ();
-  assert (output_def_l_->is_type_b (Paper_def::static_name ()));
+  //assert (output_def_l_->is_type_b (Paper_def::static_name ()));
+  // urg
+  pscore_p_ = output_def_l_->paper_score_p ();
+  //  assert (pscore_p_);
+  // urg, via parser a Paper_def gets constructed
+  // this should never happen, but can't be prevented (Paper_def can't be
+  // abstract bo virtual_copy_cons etc.
+  if (!pscore_p_)
+    {
+      printf ("\nBRAAK\n");
+      output_def_l_ = global_paper_l->paper_l ()->clone ();
+      //      pscore_p_ = output_def_l_->paper_score_p ();
+      pscore_p_ = global_paper_l->paper_score_p ();
+      pscore_p_->paper_l_ = global_paper_l->paper_l ();
+    }
+  else
+    pscore_p_->paper_l_ = output_def_l_->paper_l ();
+  assert (pscore_p_->paper_l_);
   assert (!daddy_trans_l_);
-  pscore_p_ = new Paper_score;
-  pscore_p_->paper_l_ = (Paper_def*)output_def_l_;
 }

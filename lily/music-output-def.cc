@@ -82,6 +82,18 @@ Music_output_def::get_global_translator_p ()
   return g;
 }
 
+Paper_def*
+Music_output_def::paper_l ()
+{
+  return 0;
+}
+
+Paper_score*
+Music_output_def::paper_score_p () const
+{
+  return 0;
+}
+ 
 void
 Music_output_def::print () const
 {

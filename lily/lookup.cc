@@ -109,21 +109,6 @@ Lookup::bar (String str, Real h) const
   return s;
 }
 
-String
-Lookup::base_output_str () const
-{
-  assert (paper_l_);
-  String str = paper_l_->get_default_output ();
-
-  if (str.empty_b ())
-    {
-      str = default_outname_base_global;
-      int def = paper_l_->get_next_default_count ();
-      if (def)
-	str += "-" + to_str (def);
-    }
-  return str;
-}
 
 Atom 
 Lookup::beam (Real slope, Real width, Real thick) const
@@ -190,13 +175,7 @@ Lookup::print () const
 String
 Lookup::print_dimen (Real r) const
 {
-  String s = to_str (r, "%.3f");
-  if (s.index_i ("NaN") != -1)
-    {
-      warning (_ ("NaN"));
-      s = "0.0";
-    }
-  return s;
+  return paper_l_->dimension_str (r);
 }
 
 Atom

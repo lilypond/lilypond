@@ -125,6 +125,7 @@ do_one_file (String init_str, String file_str)
     parser.set_version_check (version_ignore_global_b);
     parser.parse_file (init_str, file_str);
 
+#if 0
     /*
        urg
        when calling {Ps,Tex}_lookup::paper_stream_p (),
@@ -134,6 +135,7 @@ do_one_file (String init_str, String file_str)
        (deleted without being reset maybe?)
      */
     global_lookup_l->paper_l_ = parser.default_paper_p ();
+#endif
 
     if (parser.error_level_i_)
       {

@@ -58,6 +58,22 @@ Paper_score::~Paper_score ()
 #endif
 }
 
+String
+Paper_score::base_output_str () const
+{
+  assert (paper_l_);
+  String str = paper_l_->get_default_output ();
+
+  if (str.empty_b ())
+    {
+      str = default_outname_base_global;
+      int def = paper_l_->get_next_default_count ();
+      if (def)
+	str += "-" + to_str (def);
+    }
+  return str;
+}
+
 void
 Paper_score::typeset_element (Score_element * elem_p)
 {
@@ -208,8 +224,8 @@ Paper_score::process ()
 
   Array<Column_x_positions> breaking = calc_breaking ();
 
-  Paper_stream* paper_stream_p = global_lookup_l->paper_stream_p ();
-  outputter_l_ = global_lookup_l->paper_outputter_p (paper_stream_p, paper_l_, header_l_, origin_str_);
+  Paper_stream* pstream_p = paper_stream_p ();
+  outputter_l_ = paper_outputter_p (pstream_p);
 
   Link_array<Line_of_score> lines;
   for (int i=0; i < breaking.size (); i++)
@@ -238,7 +254,7 @@ Paper_score::process ()
 
   // huh?
   delete outputter_l_;
-  delete paper_stream_p;
+  delete pstream_p;
   outputter_l_ = 0;
 }
 

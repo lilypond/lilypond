@@ -9,6 +9,7 @@
 
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
+#include "paper-def.hh"
 #include "molecule.hh"
 #include "atom.hh"
 #include "array.hh"
@@ -42,8 +43,8 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm, St
       Array<String> a;
       String r;
   
-      a.push (global_lookup_l->print_dimen (a_off.y()));
-      a.push (global_lookup_l->print_dimen (a_off.x()));
+      a.push (global_paper_l->dimension_str (a_off.y()));
+      a.push (global_paper_l->dimension_str (a_off.x()));
       a.push (i->str_);
       r += global_lookup_l->substitute_args (s, a);
       *outstream_l_ << r;

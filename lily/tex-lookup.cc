@@ -86,69 +86,6 @@ Tex_lookup::plet (Real dy , Real dx, Direction dir) const
   return embed (Ps_lookup::plet (dy, dx, dir));
 }
 
-Lookup*
-Tex_lookup::lookup_p (Lookup const& l) const
-{
-  return new Tex_lookup (l);
-}
-
-Lookup*
-Tex_lookup::lookup_p (Symtables const& s) const
-{
-  return new Tex_lookup (s);
-}
-
-Paper_outputter*
-Tex_lookup::paper_outputter_p (Paper_stream* os_p, Paper_def* paper_l, Header* header_l, String origin_str) const
-{
-  if (header_global_p)
-    *os_p << header_global_p->tex_string ();
-  
-  *os_p << _ ("\n% outputting Score, defined at: ") << origin_str << '\n';
-
-  if (header_l)
-    *os_p << header_l->tex_string();
-  *os_p << paper_l->tex_output_settings_str ();
-  
-  if (experimental_features_global_b)
-    *os_p << "\\turnOnExperimentalFeatures%\n";
-
-  *os_p << "\\turnOnPostScript%\n";
-
-  return new Tex_outputter (os_p);
-}
-
-Paper_stream *
-Tex_lookup::paper_stream_p () const
-{
-#if 1
-  String outname = base_output_str ();
-#else
-  String outname = "lelie";
-#endif
-
-  Paper_stream* p;
-  if (outname != "-")
-    outname += ".tex";
-  *mlog << _f ("TeX output to %s...", 
-	       outname == "-" ? String ("<stdout>") : outname ) << endl;
-  p = new Tex_stream (outname);
-  target_str_global_array.push (outname);
-  return p;
-}
-
-String
-Tex_lookup::print_dimen (Real r) const
-{
-  String s = to_str (r, "%.3f");
-  if (s.index_i ("NaN") != -1)
-    {
-      warning (_ ("NaN"));
-      s = "0.0";
-    }
-  return Lookup::print_dimen (r) + "pt";
-}
-
 Atom
 Tex_lookup::ps_beam (Real slope, Real width, Real thick) const
 {
@@ -171,12 +108,6 @@ Atom
 Tex_lookup::text (String style, String text) const
 {
   return Lookup::text (style, text);
-}
-
-String
-Tex_lookup::unknown_str () const
-{
-  return "\\unknown";
 }
 
 Atom

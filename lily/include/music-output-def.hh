@@ -38,6 +38,9 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   virtual void print () const;
 
+  virtual Paper_def* paper_l ();
+  virtual Paper_score* paper_score_p () const;
+
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;
     String get_default_output () const;

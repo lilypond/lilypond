@@ -16,8 +16,6 @@
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
-#include "ps-lookup.hh"
-#include "tex-lookup.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
 #include "paper-def.hh"
@@ -564,7 +562,7 @@ paper_def_body:
 		$$ = p;
 	}
 	| paper_def_body int '=' symtables		{ // ugh, what a syntax
-		Lookup * l = global_lookup_l->lookup_p (*$4);
+		Lookup * l = THIS->default_paper_p ()->lookup_p (*$4);
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body STRING '=' simple_identifier_init ';' {

@@ -9,7 +9,9 @@
 
 #ifndef FILE_RESULTS_HH
 #define FILE_RESULTS_HH
-#include "fproto.hh"
+
+#include "lily-proto.hh"
+#include "string.hh"
 
 void do_one_file (String init_str, String file_str);
 extern Header *header_global_p;
