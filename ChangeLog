@@ -1,13 +1,20 @@
+2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* mf/feta-bolletjes.mf: rewrite note head MF code.
+	(test_outlines): make heads more rotund for smaller sizes. 
+
 2003-12-29  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* mf/feta-params.mf (stafflines): fix stafflinethickness at 0.5 pt
-	throughout. Many fixes.
+	throughout. Font scaling fixes throughout.
 
 	* mf/feta-sleur,slur.mf: remove. 
 
 	* mf/feta-slag.mf: rewrite.
 
 2003-12-24  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* VERSION: release 2.1.3
 
 	* stepmake/stepmake/toplevel-targets.make: remove pfa targets
 

@@ -12,6 +12,15 @@ staff_space#:=staffsize#/(stafflines-1);
 % independent on staff size, and generally 0.5 pt.
 stafflinethickness#  :=0.5 pt#; 
 
+%
+% bigger puff_up_factor, relatively thicker stafflines.
+% 20 pt = puff_up_factor 0.
+% 10 pt = puff_up_factor 1
+%
+puff_up_factor =  (stafflinethickness# - 0.1 staff_space#) / (.1 staff_space#);
+
+
+
 stemthickness# := 1.3 stafflinethickness#;
 ledgerlinethickness# := 2 stafflinethickness#;
 

@@ -19,100 +19,85 @@ numeric black_notehead_width;
 
 fet_begingroup("noteheads");
 
+test_outlines := 0;
+
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
-define_pixels(noteheight);
+
 
 %
-
-%%% TODO: Document these!
+% SLANT moves both extremes on the long axis (by SLANT * ELLIPSIDITY,
+% so SLANT = -1, puts the extreme on the long axis next to the short axis one.)
 %
 
-% setup user vars
-def setup_notehead_vars =
-	save a_b,err_y_a,tilt,superness;
-	save ai_a,ai_bi,err_y_ai,err_x_bi,inner_tilt,inner_superness;
-	save b_h,a_w;
-	enddef;
+def draw_outside_ellipse (expr ellipsidity, tilt, superness,
+			slant) =
+	save p;
+	path p;
 
-% setup addititional vars and calc them
-def notehead_calc =
-	save a,beta,ai,bi, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	ai# = a# * ai_a;
-	bi# = ai#/ai_bi;
-	define_pixels(a,beta);
-	define_pixels(ai,bi);
-	set_char_box(0, wd#, .5 ht#, .5 ht#);
-	enddef;
+	p := superellipse ((ellipsidity, 0), (-slant * ellipsidity, 1.0),
+			(- ellipsidity, 0), (slant * ellipsidity, -1.0), superness);
 
+	p := p rotated tilt;
 
-% a: x diameter
-% b: y diameter
-% err_x: drift of y axis at top
-% err_y: drift of x axis at right
-def distorted_ellipse(expr a,b,err_y,err_x,super) =
-	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
-	enddef;
+	save top_point, right_point;
+	pair top_point, right_point;
 
+	top_point := directionpoint left of p;
+	right_point := directionpoint up of p;
 
+	save scaling, width, height;
 
-% draw the outer and inner ellipse.
-def notehead_draw =
-	path black,white;
-	black=distorted_ellipse(a,beta,a*err_y_a,0,superness);
-	white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,inner_superness);
-if test > 1: %fixme
-		save x;
-		x1=-x3=a; x2=x4=0; y1=y3=0; y2=-y4=b;
-		penlabels(1,2,3,4);
-		test_grid;
-else:
-		black:=black rotated tilt;
-		black:=black shifted (w/2,0);
-		white:=white rotated inner_tilt;
-		white:=white shifted (w/2,0);
-fi
+	scaling# = noteheight# /(2 ypart (top_point));
+	width# := 2 xpart (right_point) * scaling#;
 
-	if test = 1:
-		pickup pencircle scaled 1;
-		draw black;
-		draw white;
-	else:
-		fill black;
-		unfill white;
-	fi	
-
-		
-	enddef;
-
-def draw_whole_head =
-	setup_notehead_vars;
+	define_pixels (width, scaling);
 	
-	a_b:=1.80;
-	err_y_a:=0; % no slant
-	tilt:=0;
-	superness:=0.707;
-	ai_a:=0.508;
-	% ai_bi:=1.23;
-	ai_bi:=1.30; % jcn
-	% err_y_ai:=0.0938;
-	% err_x_bi:=0;
-	err_y_ai:=0;
-	err_x_bi:=0.115;
-	% inner_tilt:=135;
-	inner_tilt:=125; % jcn
-	% inner_superness:=0.69;
-	inner_superness:=0.68; % jcn
-	b_h:=1; %no rotate-> no height correction
-	a_w:=1; % no rotate-> no width correction
+	set_char_box (0, width#, noteheight#/2, noteheight#/2);
 
-	notehead_calc;
-	whole_notehead_width# := wd#;
-	notehead_draw;
+	p := p scaled scaling shifted (width/2, 0) ;
+	if test_outlines = 1:
+		pickup pencircle scaled 1 ; draw p;
+	else:
+		fill p;
+	fi;
 enddef;
+
+
+def undraw_inside_ellipse (expr ellipsidity, tilt, superness, clearance,
+			center) =
+begingroup
+	save p;
+	path p;
+
+	p := superellipse ((ellipsidity, 0), (0, 1.0),
+			(- ellipsidity, 0), (0, -1.0), superness);
+
+	p := p rotated tilt;
+
+	save top_point, right_point;
+	pair top_point, right_point;
+
+	top_point := directionpoint left of p;
+	right_point := directionpoint up of p;
+
+	save height, scaling;
+
+	height# = staff_space# + stafflinethickness# - clearance;
+	scaling# = height# /(2 ypart (top_point));
+
+	define_pixels (scaling);
+	p := (p scaled scaling) shifted center;
+
+	if test_outlines = 1:
+		pickup pencircle scaled 1; draw p;
+	else:
+		unfill p;
+	fi
+endgroup;
+enddef;
+
+
+
 
 
 %
@@ -124,7 +109,9 @@ fet_beginchar ("Brevis notehead", "-1", "brevishead");
 	fudge = blot_diameter /2;
 	stemthick# = 2 stafflinethickness#;
 
-	draw_whole_head;
+	draw_outside_ellipse (1.80, 0, 0.707, 0);
+	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#,
+				(w /2, 0));
 
 	pickup pencircle scaled stemthick;
 
@@ -140,170 +127,71 @@ fet_beginchar ("Brevis notehead", "-1", "brevishead");
 
 	draw_gridline(z1,z2,stemthick);
 	draw_gridline(z3,z4,stemthick);
+
 fet_endchar;
+
+
 
 % whole note
 % Wanske, p.38
 fet_beginchar("Whole notehead", "0", "wholehead")
-	draw_whole_head;
-fet_endchar;
+	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
+	undraw_inside_ellipse (1.30, 125 - puff_up_factor *10,
+			0.68, 2 stafflinethickness#,
+			(w /2, 0));
 
+%	draw_staff_outline (-2, 2, 0.5);
+
+fet_endchar;
 
 
 % half note
 % Wanske, p.39
-fet_beginchar("Half notehead", "1", 
-	"halfhead")
-	setup_notehead_vars;
-	% a_b:=1.49; % after text
-	a_b:=1.50; % after drawing
-	err_y_a:=0.157;
-	tilt:=34;
+fet_beginchar("Half notehead", "1", "halfhead")
+	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
+	undraw_inside_ellipse (3.25, 33, 0.81,
+		2.5 stafflinethickness#, (w/2, 0));
 
-	% superness:=0.66;
-	superness:=0.67; % jcn
-
-	% ai_a:=0.863;
-	% was 0.85
-	% set to 0.83 to avoid stem entering white part.
-	ai_a:=0.830; 
-	% ai_bi:=3.14;
-	ai_bi:=3.25;
-	err_y_ai:=0;
-	err_x_bi:=-0.12;
-	inner_tilt:=tilt;
-	inner_superness:=0.80;
-	b_h:=0.935;
-	a_w:=1.12;
-
-	notehead_calc;
-	half_notehead_width# := wd#;
-	notehead_draw;
-
-	define_pixels (wd);
-	if test = 1:
-		pickup penrazor scaled stemthickness;
-		draw (.5 stemthickness, -2 staff_space) ..
-		    (.5 stemthickness, - wd * (ypart dir (inner_tilt - 10)) /2);
-	fi;
 fet_endchar;
-
-
-
+	
 % quarter note
 % Wanske p.38
 fet_beginchar("Quart notehead", "2", "quarthead")
-	setup_notehead_vars;
-	% a_b:=1.57; % after text
-	a_b:=1.54; % after drawing
-	err_y_a:=0.044;
-	tilt:=32;
-	superness:=0.707;
-	ai_a:=0;
-	ai_bi:=1;
-	err_y_ai:=0;
-	err_x_bi:=0;
-	inner_tilt:=0;
-	inner_superness:=0.707;
-	b_h:=0.85;
-	a_w:=1.09;
-
-	notehead_calc;
-	black_notehead_width# := wd#;
-	notehead_draw;
+	draw_outside_ellipse (1.54 - puff_up_factor / 2.0, 32, 0.707, 0);
+	black_notehead_width# := charwd;
 fet_endchar;
 
 
-% whole note
-% Wanske, p.38
+
+
 fet_beginchar("Whole diamondhead", "0diamond", "wholediamondhead")
-	setup_notehead_vars;
-	
-	a_b:=1.80;
-	err_y_a:=0; % no slant
-	tilt:=0;
-	superness:=0.495;
-	ai_a:=0.350;
-	% ai_bi:=1.23;
-	ai_bi:=1.30; % jcn
-	% err_y_ai:=0.0938;
-	% err_x_bi:=0;
-	err_y_ai:=0;
-	err_x_bi:=0.115;
-	% inner_tilt:=135;
-	inner_tilt:=125; % jcn
-	% inner_superness:=0.69;
-	inner_superness:=0.6; % jcn
-	b_h:=1; %no rotate-> no height correction
-	a_w:=1; % no rotate-> no width correction
+	draw_outside_ellipse (1.80, 0, 0.495, 0);
+	undraw_inside_ellipse (1.30, 125, 0.6,
+			.4 staff_space# +  stafflinethickness#,
+				(w /2, 0));
 
-	notehead_calc;
-	whole_notehead_width# := wd#;
-	notehead_draw;
 fet_endchar;
-
 
 % half note
 % Wanske, p.39
 fet_beginchar("Half diamondhead", "1diamond", 
 	"halfdiamondhead")
-	setup_notehead_vars;
 
-	a_b := 1.50; % after drawing
-	err_y_a:=0.157;
+	draw_outside_ellipse (1.50, 34, 0.49, 0.17);
+	undraw_inside_ellipse (3.5, 33, 0.80,
+		.3 staff_space# + 1.5 stafflinethickness#, (w/2, 0));
 
-	tilt:=34;
-	superness:=0.49; % jcn
-	ai_a:=0.550; % jcn
-	ai_bi:=3.30; % jcn
-
-	err_y_ai:=0;
-	err_x_bi:=-0.12;
-	inner_tilt:=tilt;
-	inner_superness:=0.80;
-
-	b_h:= 1.03;
-	a_w:= 1.2;
-
-	notehead_calc;
-	half_notehead_width# := wd#;
-	notehead_draw;
 fet_endchar;
-
 
 % quarter note
 % Wanske p.38
-fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
-	set_char_box(0, black_notehead_width#, noteheight#/2, noteheight#/2);
-	save a_b,err_y_a,tilt,superness;
-	save b_h,a_w;
-	save a,beta,ai,bi, ht, wd;
-
-	a_b:= 1.8;
-	err_y_a:=-0.044;
-	b_h:=0.90;
-	a_w:=1.1;
-	tilt:=35;
-	superness:=0.495;
-
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-
-	define_pixels(a,beta);
-
-	black := distorted_ellipse(.72 noteheight, .45 noteheight, -.2 noteheight ,   0, superness)
-				
-%			beta,a*err_y_a,0,superness);
-
-	black:=black rotated tilt;
-	black:=black shifted (w/2,0);
-	fill black;
+fet_beginchar("Quart diamondheadh", "2diamondh", "diamondheadh")
+	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 fet_endchar;
 
 
-save pent;
-pen_thick# = 2stafflinethickness#;
+save pen_thick;
+pen_thick# = stafflinethickness#  + .1 staff_space#;
 define_pixels(pen_thick);
 
 

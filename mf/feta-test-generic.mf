@@ -13,6 +13,6 @@ input feta-bolletjes;
 %	input feta-schrift;
 %	input feta-haak;
 %	input feta-timesig;
-	input feta-pendaal;
+%	input feta-pendaal;
 %	input feta-accordion;
 %	input feta-solfa;

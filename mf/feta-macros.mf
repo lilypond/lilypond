@@ -27,6 +27,21 @@ fi;
 
 enddef;
 
+% draw the outline of the stafflines. For fine tuning. 
+def draw_staff_outline(expr first, last, offset)=
+if test <> 0:
+	save p;
+	path p;
+	pickup pencircle scaled 2;
+	for i:= first step 1 until last:
+		p := (- staff_space,  (i + offset) * staff_space) .. (4 staff_space,( i+ offset)* staff_space);
+
+		draw p shifted (0, .5 stafflinethickness);
+		draw p shifted (0, -.5 stafflinethickness);
+	endfor
+fi;
+
+enddef;
 
 %
 % Transforms
