@@ -19,6 +19,7 @@
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "string-convert.hh"
 
 void
 Side_position_interface::add_support (Grob*me, Grob*e)
@@ -62,12 +63,10 @@ Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 }
 
 
-/*
- Puts the element next to the support, optionally taking in
- account the extent of the support.
-*/
+/* Put the element next to the support, optionally taking in
+   account the extent of the support.  */
 SCM
-Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
+Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM support = me->get_property ("side-support-elements");
@@ -86,7 +85,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
     
   for (SCM s = support; s != SCM_EOL; s = scm_cdr (s))
     {
-      Grob * e  = unsmob_grob (scm_car (s));
+      Grob *e = unsmob_grob (scm_car (s));
       if (e)
 	if (use_extents)
 	  dim.unite (e->extent (common, a));
@@ -98,14 +97,12 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
     }
 
   if (dim.is_empty ())
-    {
-      dim = Interval (0,0);
-    }
+    dim = Interval (0, 0);
 
   Direction dir = Side_position_interface::get_direction (me);
     
-  Real off =  me->get_parent (a)->relative_coordinate (common, a);
-  Real  minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"),  -1);
+  Real off = me->get_parent (a)->relative_coordinate (common, a);
+  Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"),  -1);
 
   Real total_off = dim.linear_combination (dir) - off;
   total_off += dir * ss * robust_scm2double (me->get_property ("padding"), 0);
@@ -113,15 +110,11 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   if (minimum_space >= 0
       && dir
       && total_off * dir < minimum_space)
-    {
-      total_off = minimum_space * dir;
-    }
+    total_off = minimum_space * dir;
 
+  /* FIXME: 100CM should relate to paper size.  */
   if (fabs (total_off) > 100 CM)
-    programming_error ("Huh ? Improbable staff side dim.");
-
-
-  
+    programming_error (String_convert::form_string ("Improbable offset for grob %s: %f%s", me->name (), total_off, INTERNAL_UNIT));
   
   return scm_make_real (total_off);
 }

@@ -291,7 +291,7 @@
 (define-public (add-ec-fonts node factor)
   (for-each
    (lambda (x) (add-font node
-			 `((font-encoding . ec)
+			 `((font-encoding . Extended-TeX-Font-Encoding---Latin)
 			   (font-series . ,(vector-ref (car x) 2))
 			   (font-shape . ,(vector-ref (car x) 1))
 			   (font-family . ,(vector-ref (car x) 0)))

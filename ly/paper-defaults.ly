@@ -69,7 +69,7 @@
     #(define text-font-defaults
       `((font-encoding
 	 . ,(if (and (not (ly:kpathsea-find-file "ecrm10.pfa"))
-		 (ly:kpathsea-find-file "cork-lm.enc")) 'cork-lm 'ec))
+		 (ly:kpathsea-find-file "cork-lm.enc")) 'cork-lm 'Extended-TeX-Font-Encoding---Latin))
 	(baseline-skip . 2)
 	(word-space . 0.6)))
 
