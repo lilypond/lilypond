@@ -85,8 +85,8 @@ All_font_metrics::find_afm (String name)
 
       if (tfm->info_.checksum != afm->checksum_)
 	{
-	  String s = _f ("checksum mismatch for font file: `%s'", path.ch_C ());
-	  s += _f ("does not match: `%s'", tfm->path_.ch_C()); // FIXME
+	  String s = _f ("checksum mismatch for font file:\n`%s'", path.ch_C ());
+	  s += " " + _f ("does not match: `%s'", tfm->path_.ch_C()); // FIXME
 	  s += "\n";
 	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
 	  s += " AFM: " + to_str ((int) afm->checksum_);
@@ -138,7 +138,7 @@ All_font_metrics::find_tfm (String name)
 
       scm_unprotect_object (val);
     }
-    
+
   return
     dynamic_cast<Tex_font_metric*> (unsmob_metrics (val));
 }

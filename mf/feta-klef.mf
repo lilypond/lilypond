@@ -1050,5 +1050,22 @@ fet_beginchar("Hufnagel do/fa clef", "hufnagel_do_fa_change",
 	draw_hufnagel_do_fa_clef((0,0), .8);
 fet_endchar;
 
+def draw_percussion_clef(expr reduction) =
+	save reduced_il;
+	reduced_il# = staff_space# * reduction;
+	define_pixels(reduced_il);
+	set_char_box(0,.6reduced_il#,reduced_il#,reduced_il#);
+        pickup pencircle scaled 1.5 stafflinethickness;
+	draw (b,h) -- (b,-d);
+	draw (w,h) -- (w,-d);
+enddef;
+
+fet_beginchar("percussion clef", "percussion", "percussionclef")
+	draw_percussion_clef(1.0);
+fet_endchar;
+
+fet_beginchar("percussion clef", "percussion_change", "cpercussionclef")
+	draw_percussion_clef(.8);
+fet_endchar;
 
 fet_endgroup("clefs");

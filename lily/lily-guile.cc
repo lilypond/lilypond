@@ -289,6 +289,8 @@ ly_interval2scm (Interval i)
 }
 
 
+
+
 bool
 to_boolean (SCM s)
 {

@@ -44,6 +44,21 @@ Font_interface::get_default_font (Grob*me)
   return fm;
 }
 
+
+SCM
+ly_font_interface_get_default_font (SCM grob)
+{
+  Grob * gr  = unsmob_grob (grob);
+
+  if (!gr)
+    {
+      warning ("ly_font_interface_get_default_font (): invalid argument");
+      return SCM_UNDEFINED;
+    }
+
+  return Font_interface::get_default_font (gr)->self_scm ();
+}
+
 Font_metric *
 Font_interface::get_font (Grob *me, SCM chain)
 {
@@ -59,7 +74,6 @@ Font_interface::get_font (Grob *me, SCM chain)
   SCM font_name = gh_call2 (proc, fonts, chain);
 
   Font_metric *fm = me->paper_l ()->find_font (font_name, 1.0);
-
   return fm;
 }
 
@@ -112,7 +126,10 @@ init_syms ()
   rel_sz_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
   pt_sz_sym = scm_permanent_object (ly_symbol2scm ("font-point-size"));
   wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
+
+  scm_make_gsubr ("ly-get-default-font", 1 , 0, 0, (Scheme_function_unknown) ly_font_interface_get_default_font);
 }
+
 
 bool
 Font_interface::wild_compare(SCM field_val, SCM val)

@@ -11,6 +11,7 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "warn.hh"
 #include "molecule.hh"
 #include "ly-smobs.icc"
 #include "font-metric.hh"
@@ -112,4 +113,24 @@ Font_metric::find_by_name (String) const
 }
 
 
+SCM
+ly_find_glyph_by_name (SCM font, SCM name)
+{
+  if (!unsmob_metrics (font) || !gh_string_p (name))
+    {
+      warning ("ly-find-glyph-by-name: invalid argument.");
+      Molecule m;
+      return m.smobbed_copy ();
+    }
 
+  return unsmob_metrics (font)->find_by_name (ly_scm2string (name)).smobbed_copy ();
+}
+
+
+static void
+font_metric_init ()
+{
+   scm_make_gsubr ("ly-find-glyph-by-name", 2 , 0, 0, (Scheme_function_unknown) ly_find_glyph_by_name);
+}
+
+ADD_SCM_INIT_FUNC(font_metric_init, font_metric_init);

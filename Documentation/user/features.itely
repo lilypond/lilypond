@@ -578,18 +578,7 @@ music = \notes { c'4 d'4( e'4 f'4 }
 }
 @end lilypond
 
-
-LilyPond is more flexible than some users realise.  Han-Wen could be
-very rich.
-
-Just too funny not to include.
-
 @example
-@quotation
-    I've just entered a request on cosource.com :
-@quotation
-        http://www.cosource.com/cgi-bin/cos.pl/wish/info/387
-@end quotation
     Here's a copy of my feature request :
 @quotation
         Your task, if you accept it is to implement a \smarttranspose
@@ -597,13 +586,8 @@ Just too funny not to include.
         notations. Double accidentals should be removed, as well as #E
         (-> F), bC (-> B), bF (-> E), #B (-> C).
 @end quotation
-@end quotation
+
 You mean like this. (Sorry 'bout the nuked indentation.)
-
-Add IMPLEMENT_TYPE_P(Music, "music?"); to music.cc, and presto, done.
-
-That's an easy $ 100; if I'd make $ 200/hour for every hour I worked
-on Lily, I'd be very rich :)
 @end example
 
 

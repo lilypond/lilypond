@@ -1,5 +1,26 @@
-1.3.122.mb2
+1.3.123.hwn1
+============
+
+* Tutorial fragment on ly2dvi.
+
+* Bugfix: also print path of mismatched .TFM file.
+
+* Some callbacks to allow manipulation of fonts and molecules from
+Scheme.  See input/test/molecule-hacking.ly ; allows for a kludged
+"parenthesize notehead" command.
+
+
+1.3.123.mb1
 ===========
+
+* Added percussion clef. Note: font updated!
+
+* Bugfix: font style Large works regardless of font-shape.
+
+
+
+1.3.123
+=======
 
 * Added macro \turnOff to remove volta brackets or any other 
   graphical objects, see input/test/volta.ly or mutopia/J.S.Bach/pa.ly
