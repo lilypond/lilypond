@@ -343,5 +343,4 @@ possibly turned off."
 	  (ly:font-file-name font)))))
 
 (define-public (char->unicode-index font char)
-  ;;(ly:font-index-to-charcode (char->integer char))
-   (char->integer char))
+  (ly:font-index-to-charcode font (char->integer char)))
