@@ -37,7 +37,8 @@ Timing_engraver::do_post_move_processing( )
 
   SCM which = get_property ("whichBar");
   if (!gh_string_p (which))
-    which = now_mom () ? SCM_EOL : ly_str02scm ("|");
+    which = now_mom ()
+      ? SCM_EOL : ly_str02scm ("|");
   
   if (!gh_string_p (which) && !to_boolean (nonauto))
     {

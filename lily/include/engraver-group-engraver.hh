@@ -32,9 +32,13 @@ protected:
   
 public:
   VIRTUAL_COPY_CONS(Translator);
-    
+
   virtual void do_announces();
   virtual void announce_element (Score_element_info);
+
+private:
+  void process_acknowledged ();
+  void acknowledge_elements ();
 };
 
 #endif // ENGRAVERGROUP_HH

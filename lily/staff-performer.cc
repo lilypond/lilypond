@@ -55,7 +55,7 @@ Staff_performer::deprecated_process_music ()
       instrument_p_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_p_, 0));
     }
-  Performer_group_performer::deprecated_process_music ();
+  //  Performer_group_performer::deprecated_process_music ();
 }
 
 void

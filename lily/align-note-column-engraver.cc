@@ -110,8 +110,13 @@ Align_note_column_engraver::process_acknowledged ()
 	}
     }
 
+  if (now_column_l_ && !align_item_p_)
+    programming_error ("Align_note_column_engraver:: urg\n");
+  else
+      
   if (now_column_l_)
     {
+	
       Align_interface::add_element (align_item_p_,now_column_l_);
       now_column_l_ =0;
     }

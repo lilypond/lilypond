@@ -66,11 +66,9 @@ public:
 
   Translator_group*get_default_interpreter();
   
-protected:
+public:
   bool try_music_on_nongroup_children (Music *m);
   
-
-  void deprecated_process_music ();
   virtual void do_announces ();
   virtual void do_add_processing ();
   virtual bool do_try_music (Music* req_l);       

@@ -19,8 +19,8 @@
   */
 class Time_signature_engraver : public Engraver {
 protected:
-  void deprecated_process_music();
   virtual void do_pre_move_processing();
+  virtual void process_acknowledged ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Item * time_signature_p_;
@@ -36,7 +36,7 @@ Time_signature_engraver::Time_signature_engraver()
 }
 
 void
-Time_signature_engraver::deprecated_process_music()
+Time_signature_engraver::process_acknowledged()
 {
   /*
     not rigorously safe, since the value might get GC'd and
@@ -47,11 +47,14 @@ Time_signature_engraver::deprecated_process_music()
       last_time_fraction_ = fr; 
       time_signature_p_ = new Item (get_property ("TimeSignature"));
       time_signature_p_->set_elt_property ("fraction",fr);
+
+      if (time_signature_p_)
+	announce_element (time_signature_p_, 0);
     }
   
-  if (time_signature_p_)
-    announce_element (time_signature_p_, 0);
 }
+
+
 
 void
 Time_signature_engraver::do_pre_move_processing()

@@ -32,20 +32,27 @@ Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
 
-  set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
-	       new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
-  
-  command_column_l_->set_elt_property ("when", w.smobbed_copy());
-  musical_column_l_->set_elt_property ("when", w.smobbed_copy());
-  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
-  
-  Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
 
-  i1.origin_trans_l_ = this;
-  i2.origin_trans_l_ = this;
-  announce_element (i1);
-  announce_element (i2);
+  /*
+    ugh.
+   */
+  if (!command_column_l_
+      || *unsmob_moment (command_column_l_->get_elt_property ("when")) != w)
+    {
+      set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
+		   new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
   
+      command_column_l_->set_elt_property ("when", w.smobbed_copy());
+      musical_column_l_->set_elt_property ("when", w.smobbed_copy());
+      command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
+
+      Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
+
+      i1.origin_trans_l_ = this;
+      i2.origin_trans_l_ = this;
+      announce_element (i1);
+      announce_element (i2);
+    }
   post_move_processing();
 }
 
@@ -65,6 +72,7 @@ Score_engraver::finish()
 void
 Score_engraver::do_creation_processing ()
 {
+  prepare (Moment (0));
   scoreline_l_ = pscore_p_->line_l_;
 
   scoreline_l_->set_bound(LEFT, command_column_l_);
@@ -123,7 +131,11 @@ Score_engraver::do_announces()
 void
 Score_engraver::typeset_element (Score_element *elem_p)
 {
-  elem_p_arr_.push (elem_p);
+  if (!elem_p)
+    programming_error ("Score_engraver: empty elt\n");
+  else
+
+    elem_p_arr_.push (elem_p);
 }
 
 

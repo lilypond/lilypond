@@ -26,6 +26,35 @@ Performer_group_performer::announce_element (Audio_element_info info)
 
 
 void
+Performer_group_performer::process_acknowledged ()
+{
+  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
+    {
+      Translator * t = unsmob_translator (gh_car (p));
+      Performer * eng = dynamic_cast<Performer*> (t);
+      if (eng)
+	eng->process_acknowledged ();
+    }
+}
+
+void
+Performer_group_performer::acknowledge_elements ()
+{
+  for (int j =0; j < announce_info_arr_.size(); j++)
+    {
+      Audio_element_info info = announce_info_arr_[j];
+
+      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
+	{
+	  Translator * t = unsmob_translator (gh_car (p));
+	  Performer * eng = dynamic_cast<Performer*> (t);
+	  if (eng && eng!= info.origin_trans_l_)
+	    eng->acknowledge_element (info);
+	}
+    }
+}
+
+void
 Performer_group_performer::do_announces()
 {
   for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
@@ -33,41 +62,25 @@ Performer_group_performer::do_announces()
       Translator * t = unsmob_translator (gh_car (p));
       dynamic_cast<Performer_group_performer*> (t)->do_announces ();
     }
+
   
+  process_acknowledged ();
+    
   // debug
   int i = 0;
-  do
-  {
-    i++;
-    for (int j =0; j < announce_info_arr_.size(); j++)
-      {
-	Audio_element_info info = announce_info_arr_[j];
-
-	if (i > 10)
-	  {
-	    printf ("elt: %s\n",
-		    classname (announce_info_arr_[j].elem_l_));
-	    announce_info_arr_.clear ();
-	  }
-
-	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
-	    {
-	      Translator * t = unsmob_translator (gh_car (p));
-	      Performer * eng = dynamic_cast<Performer*> (t);
-	      if (eng && eng!= info.origin_trans_l_)
-		eng->acknowledge_element (info);
-	    }
-	}
+  while (announce_info_arr_.size () && i++ < 5)
+    {
+      acknowledge_elements ();
       announce_info_arr_.clear ();
-      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
-	{
-	  Translator * t = unsmob_translator (gh_car (p));
-	  Performer * eng = dynamic_cast<Performer*> (t);
-	  if (eng)
-	    eng->process_acknowledged ();
-	}
+      process_acknowledged ();
     }
-  while (announce_info_arr_.size ());
+
+  if (announce_info_arr_.size ())
+    {
+      printf ("do_announces: elt: %s\n",
+	      classname (announce_info_arr_[0].elem_l_));
+      announce_info_arr_.clear ();
+    }
 }
 
 

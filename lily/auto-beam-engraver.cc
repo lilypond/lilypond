@@ -29,13 +29,12 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
-  virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  void deprecated_process_music ();
   virtual void process_acknowledged ();
+
 private:
   void begin_beam ();
   void consider_end_and_begin (Moment test_mom);
@@ -68,18 +67,6 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
-}
-
-bool
-Auto_beam_engraver::do_try_music (Music*) 
-{
-  return false;
-} 
-
-void
-Auto_beam_engraver::deprecated_process_music ()
-{
-  consider_end_and_begin (shortest_mom_);
 }
 
 void
@@ -189,9 +176,9 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   else
     r = Moment (1);
 
-  if (stem_l_arr_p_ && !r)
+  if (stem_l_arr_p_ && stem_l_arr_p_->size () > 1 && !r)
     end_beam ();
-     
+
   /*
     Allow already started autobeam to end
    */
@@ -204,19 +191,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
-
       
-void
-Auto_beam_engraver::begin_beam ()
-{
-  assert (!stem_l_arr_p_);
-  stem_l_arr_p_ = new Link_array<Item>;
-  assert (!grouping_p_);
-  grouping_p_ = new Beaming_info_list;
-  beam_start_moment_ = now_mom ();
-  beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
-}
-
 Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
@@ -238,6 +213,30 @@ Auto_beam_engraver::create_beam_p ()
   announce_element (beam_p, 0);
 
   return beam_p;
+}
+
+void
+Auto_beam_engraver::begin_beam ()
+{
+  assert (!stem_l_arr_p_);
+  stem_l_arr_p_ = new Link_array<Item>;
+  assert (!grouping_p_);
+  grouping_p_ = new Beaming_info_list;
+  beam_start_moment_ = now_mom ();
+  beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
+}
+
+
+void
+Auto_beam_engraver::junk_beam () 
+{
+  assert (stem_l_arr_p_);
+  
+  delete stem_l_arr_p_;
+  stem_l_arr_p_ = 0;
+  delete grouping_p_;
+  grouping_p_ = 0;
+  shortest_mom_ = Moment (1, 8);
 }
 
 void
@@ -293,6 +292,19 @@ Auto_beam_engraver::do_post_move_processing ()
 void
 Auto_beam_engraver::do_pre_move_processing ()
 {
+  if (stem_l_arr_p_)
+    {
+      Moment now = now_mom ();
+      if ((extend_mom_ < now)
+	  || ((extend_mom_ == now) && (last_add_mom_ != now )))
+	{
+	  end_beam ();
+	}
+      else if (!stem_l_arr_p_->size ())
+	{
+	  junk_beam ();
+	}
+    }
   typeset_beam ();
 }
 
@@ -403,32 +415,8 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Auto_beam_engraver::junk_beam () 
-{
-  assert (stem_l_arr_p_);
-  
-  delete stem_l_arr_p_;
-  stem_l_arr_p_ = 0;
-  delete grouping_p_;
-  grouping_p_ = 0;
-  shortest_mom_ = Moment (1, 8);
-}
-
-void
 Auto_beam_engraver::process_acknowledged ()
 {
-  deprecated_process_music ();
-  if (stem_l_arr_p_)
-    {
-      Moment now = now_mom ();
-      if ((extend_mom_ < now)
-	  || ((extend_mom_ == now) && (last_add_mom_ != now )))
-	{
-	  end_beam ();
-	}
-      else if (!stem_l_arr_p_->size ())
-	{
-	  junk_beam ();
-	}
-    }
+   if (!stem_l_arr_p_)
+     consider_end_and_begin (shortest_mom_);
 }

@@ -27,7 +27,6 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
-  status_ = ORPHAN;
   simple_trans_list_ = SCM_EOL;
   trans_group_list_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
@@ -76,11 +75,7 @@ Translator::now_mom () const
 void
 Translator::add_processing ()
 {
-  if (status_ > ORPHAN)
-    return;
-  
   do_add_processing ();
-  status_ = VIRGIN;
 }
 
 void
@@ -88,77 +83,28 @@ Translator::do_add_processing ()
 {
 }
 
-void
-Translator::creation_processing ()
-{
-  if (status_ >= CREATION_INITED)
-    return ;
-  
-  do_creation_processing ();
-  status_ = CREATION_INITED;
-}
 
 void
 Translator::post_move_processing ()
 {
-  if (status_ >= MOVE_INITED)
-    return;
-
-  creation_processing ();
   do_post_move_processing ();
-  status_ = MOVE_INITED;
 }
 
 void
 Translator::removal_processing ()
 {
-  if (status_ == ORPHAN)
-    return;
-  creation_processing ();
   do_removal_processing ();
 }
 
 bool
 Translator::try_music (Music * r)
 {
-  if (status_ < MOVE_INITED)
-    post_move_processing ();
-
   return do_try_music (r);
 }
 
-
-void
-Translator::process_music ()
-{
-  assert (0);
-  if (status_ < PROCESSED_REQS)
-    post_move_processing ();
-  else if (status_ >= PROCESSED_REQS)
-    return; 
-  
-  status_ = PROCESSED_REQS;
-  deprecated_process_music ();
-}
-
-//////////
-static int te_vroeg = 0;
 void
 Translator::announces ()
 {
-  #if 0
-  if (te_vroeg && te_vroeg < 2)
-    {
-      do_creation_processing ();
-      te_vroeg++;
-    }
-  #endif
-  if (status_ < PROCESSED_REQS)
-    post_move_processing ();
-  else if (status_ >= PROCESSED_REQS)
-    return;
-  
-  status_ = PROCESSED_REQS;
   do_announces ();
 }
 
@@ -167,7 +113,6 @@ void
 Translator::pre_move_processing ()
 {
   do_pre_move_processing ();
-  status_ = CREATION_INITED;
 }
 
 
@@ -201,20 +146,13 @@ Translator::do_post_move_processing ()
 }
 
 void
-Translator::deprecated_process_music ()
-{
-}
-
-void
 Translator::do_announces ()
 {
 }
 
-////////////
 void
 Translator::do_creation_processing ()
 {
-  te_vroeg++;
 }
 
 void

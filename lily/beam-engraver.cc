@@ -23,6 +23,9 @@ class Beam_engraver : public Engraver
 {
   Drul_array<Span_req*> reqs_drul_;
 
+  Link_array<Stem> stems_;
+  
+  
   Spanner *finished_beam_p_;
   Spanner *beam_p_;
   Span_req * prev_start_req_;
@@ -128,7 +131,7 @@ Beam_engraver::deprecated_process_music ()
     }
 
 
-  if (beam_p_  &&  !to_boolean (get_property ("weAreGraceContext")))
+  if (beam_p_ && !to_boolean (get_property ("weAreGraceContext")))
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();

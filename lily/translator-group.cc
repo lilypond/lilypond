@@ -71,7 +71,7 @@ Translator_group::add_translator (SCM list, Translator *t)
   t->daddy_trans_l_ = this;
   t->output_def_l_ = output_def_l_;
   t->add_processing ();
-
+  t->do_creation_processing ();
   return list;
 }
 void
@@ -418,13 +418,6 @@ Translator_group::do_post_move_processing ()
 }
 
 void
-Translator_group::deprecated_process_music ()
-{
-  assert (0);
-  each (&Translator::process_music);
-}
-
-void
 Translator_group::do_announces ()
 {
   each (&Translator::announces);
@@ -433,7 +426,7 @@ Translator_group::do_announces ()
 void
 Translator_group::do_creation_processing ()
 {
-  each (&Translator::creation_processing);
+  each (&Translator::do_creation_processing);
 }
 
 void

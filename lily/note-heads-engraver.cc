@@ -54,18 +54,6 @@ Note_heads_engraver::do_try_music (Music *m)
       
       return true;
     }
-  else if ( dynamic_cast<Tonic_req*> (m))
-    {
-      return true;
-    }
-  else if ( dynamic_cast<Inversion_req*> (m))
-    {
-      return true;
-    }
-  else if (dynamic_cast<Bass_req*> (m))
-    {
-      return true;
-    }
   else if (dynamic_cast<Busy_playing_req*> (m))
     {
       return now_mom () < note_end_mom_;
