@@ -7,7 +7,7 @@
 
 /// class for  horizontal stuff.
 struct Voice {
-    PointerList<Voice_element *> elts;
+    IPointerList<Voice_element *> elts;
     Real start;
 
     /****************/
@@ -34,10 +34,10 @@ struct Voice_element {
     Real duration;
     const Voicegroup *group;
     const Voice *voice;
-    PointerList<Request*> reqs;
+    IPointerList<Request*> reqs;
 
-    List<const Item *> granted_items;
-    List<const Spanner *> granted_spanners;
+   PointerList<const Item *> granted_items;
+    PointerList<const Spanner *> granted_spanners;
 
     /****************/
     
