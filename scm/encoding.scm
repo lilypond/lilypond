@@ -39,7 +39,7 @@ vector of symbols."
     h))
 
 (define-public (reencode-string permutation str)
-  "Apply PERMUTATION (a vector of [0..256) -> [0..256) to STR"
+  "Apply PERMUTATION, a vector of [0..256) -> char, to STR"
   (string-map (lambda (chr)
 		(vector-ref permutation (char->integer chr)))
 	      str))
