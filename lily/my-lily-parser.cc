@@ -45,7 +45,7 @@ My_lily_parser::My_lily_parser (My_lily_parser const &src)
 {
   book_count_ = src.book_count_;
   score_count_ = src.score_count_;
-  lexer_ = src.lexer_;
+  lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
   error_level_ = src.error_level_;
@@ -53,11 +53,12 @@ My_lily_parser::My_lily_parser (My_lily_parser const &src)
   header_ = src.header_;
 
   smobify_self ();
+  lexer_ = new My_lily_lexer (*src.lexer_);
 }
 
 My_lily_parser::~My_lily_parser ()
 {
-  delete lexer_;
+  // FIXME: Memleak: del lexer
 }
 
 IMPLEMENT_SMOBS (My_lily_parser);
@@ -108,6 +109,8 @@ My_lily_parser::parse_file (String init, String name, String out_name)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
+  delete lexer_;
+  lexer_ = 0;
 }
 
 void
