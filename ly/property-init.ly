@@ -125,8 +125,6 @@ emptyText = \property Voice.TextScript \set #'no-spacing-rods  = ##t
 showStaffSwitch = \property Voice.followVoice = ##t
 hideStaffSwitch = \property Voice.followVoice = ##f
 
-% FIXME: Move this docu (to where?)
-
 % accidentals as they were common in the 18th century.
 defaultAccidentals = {
   \property Current.extraNatural = ##t
