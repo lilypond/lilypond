@@ -73,8 +73,11 @@ ly_quote_scm (SCM s)
 String
 ly_symbol2string (SCM s)
 {
-  assert (ly_c_symbol_p (s));
-  return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
+  /*
+    Ugh. this is not very efficient.
+   */
+  SCM str = scm_symbol_to_string (s);
+  return ly_scm2string (str);
 }
 
 String
@@ -122,18 +125,11 @@ ly_display_scm (SCM s)
 }
 };
 
-char const *
-ly_scm2str0 (SCM string)
-{
-  SCM_ASSERT_TYPE (ly_c_string_p (string), string, SCM_ARG1,
-		   __FUNCTION__, "string");
-  return SCM_STRING_CHARS (string);
-}
-
 String
-ly_scm2string (SCM string)
+ly_scm2string (SCM str)
 {
-  return ly_scm2str0 (string);
+  return String ((Byte*)scm_i_string_chars (str),
+		 (int) scm_i_string_length (str));
 }
 
 char *
@@ -144,7 +140,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
   size_t len = SCM_STRING_LENGTH (str);
   if (char *new_str = (char *) malloc ((len + 1) * sizeof (char)))
     {
-      memcpy (new_str, SCM_STRING_CHARS (str), len);
+      memcpy (new_str, scm_i_string_chars (str), len);
       new_str[len] = '\0';
 
       if (lenp)
@@ -824,5 +820,5 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 {
   SCM_ASSERT_TYPE (ly_c_string_p (string), string, SCM_ARG1,
 		   __FUNCTION__, "string");
-  return scm_makfrom0str (gettext (ly_scm2str0 (string)));
+  return scm_makfrom0str (gettext (scm_i_string_chars (string)));
 }

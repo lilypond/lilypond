@@ -257,7 +257,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
   SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
-  char const *file = SCM_STRING_CHARS (name);
+  char const *file = scm_i_string_chars (name);
   char const *extensions[] = {"ly", "", 0};
 
   String file_name = global_path.find (file, extensions);
