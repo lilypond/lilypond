@@ -4,6 +4,8 @@ STEPMAKE_TEMPLATES=documentation
 TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
 PLAIN_FILES=angels.ly guile.patch
 
+EXTRA_DIST_FILES += $(PLAIN_FILES)
+
 
 include $(depth)/make/stepmake.make 
 
@@ -18,7 +20,7 @@ $(outdir)/%.html: %.yo
 	--news=$(depth)/NEWS $@
 
 dist-plain: 
-	cp $(PLAIN_FILES) $(out-dir)
+	cp $(PLAIN_FILES) $(outdir)
 
 local-WWW:
 
