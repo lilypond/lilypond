@@ -2,7 +2,7 @@
 \version "2.1.22"
 
 \header {
-texidoc="Slurs play well with phrasing slur."
+texidoc="Ordinary slurs should work well with phrasing slur."
 }
 
 \score {

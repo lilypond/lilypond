@@ -1,8 +1,8 @@
 \version "2.1.22"
 \header
 {
-    texidoc = "Piano pedals: the standard style is with Ped symbols.
-The string can be tuned. This example shows the shorter tilde/P variant
+    texidoc = "The standard piano pedals style comes with Ped symbols.
+The pedal string can be also tuned, for example, to a shorter tilde/P variant
 at the end of the melody."
 
 }

@@ -1,7 +1,7 @@
 
 \version "2.1.22"
 \header {
-    texidoc = "Another nested grace situation."
+    texidoc = "Graces notes may have the same duration as the main note."
     }
 
 \score

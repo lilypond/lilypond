@@ -1,7 +1,8 @@
 
 \version "2.1.22"
 \header { texidoc = "The magnification can be set for any font. Note
-that this doesn't change variable symbols such as beams or slurs. " }
+that this does not change variable symbols such as beams or slurs. 
+" }
 
 \score {
 \notes \relative c'' \context Voice {

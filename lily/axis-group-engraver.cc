@@ -186,7 +186,7 @@ Hara_kiri_engraver::Hara_kiri_engraver()
 }
 
 ENTER_DESCRIPTION(Hara_kiri_engraver,
-/* descr */       "Like Axis_group_engraver, but make a hara kiri spanner, and add "
+/* descr */       "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 "interesting items (ie. note heads, lyric syllables and normal rests) ",
 /* creats*/       "RemoveEmptyVerticalGroup",
 /* accepts */     "",

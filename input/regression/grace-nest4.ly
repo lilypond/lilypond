@@ -1,6 +1,6 @@
 \version "2.1.22"
 \header {
-texidoc = "Another combination of grace note nesting."
+texidoc = "Also in the nested syntax here, grace notes appear rightly."
 }
 
 \score { \notes \context Voice \relative c'' {

@@ -2,8 +2,8 @@
 \version "2.1.22"
 
 \header{
-    texidoc=" Text is set with empty horizontal dimensions.  The
-boolean property @code{no-spacing-rods} in @code{TextScript} is used
+    texidoc=" By default, text is set with empty horizontal dimensions.  
+The boolean property @code{no-spacing-rods} in @code{TextScript} is used
 to control the horizontal size of text.  " }
 
 \score{

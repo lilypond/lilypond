@@ -3,7 +3,7 @@
 \header{
 texidoc="
 Adding a @code{Bar_engraver} to the Lyrics context makes sure that
-lyrics don't collide with barlines.
+lyrics do not collide with barlines.
 "
 }
 

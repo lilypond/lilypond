@@ -1,8 +1,7 @@
 \version "2.1.22"
 \header {
 
-texidoc = "Lyric phrasing:
-
+texidoc = "
   Normally, the lyric is centered on the note head. However, on
   melismata, the text is left aligned on the left-side of the note head.
 

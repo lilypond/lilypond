@@ -1,3 +1,11 @@
+2004-02-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lily/align-interface.cc, lily/axis-group-engraver.cc: spell
+	it hara-kiri.
+
+	* input/regression/{many}.ly: improve descriptions trying to figure
+	out what is tested.
+
 2004-02-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/slur.cc (broken_trend_offset): robustness fix.

@@ -2,7 +2,7 @@
 \version "2.1.22"
 \header {
 
-texidoc = "With the new chord syntax it's possible to associate
+texidoc = "With the new chord syntax, it is possible to associate
 fingerings uniquely with notes. This makes horizontal fingering much
 easier to process."
 

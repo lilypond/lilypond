@@ -1,7 +1,7 @@
 \version "2.1.22"
 \header {
-    texidoc = "Grace notes and unfolded repeats.
-Line breaks may happen before  grace  notes.
+    texidoc = "When grace notes are entered with unfolded repeats,
+line breaks take place before  grace  notes.
 "
 }
     

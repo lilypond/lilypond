@@ -1,9 +1,9 @@
 
 \version "2.1.22"
 
-\header { texidoc = "Key signatures can be set per pitch
-individually. This can be done by setting @code{Staff.keySignature}
-directly."
+\header { texidoc = "By setting @code{Staff.keySignature} directly,
+key signatures can be set invidually per pitch.
+"
 
 }
 \score { \notes

@@ -2,7 +2,7 @@
 
 \header {
 
-texidoc =" The A is atop an invisible barline. The barline
+texidoc =" The A is atop an invisible barline. The barline,
 although invisible, is also translated because it is the last one of
 the break alignment."
     

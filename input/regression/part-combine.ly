@@ -1,11 +1,10 @@
 
 \header {
-    texidoc ="The new part combiner.
-Apart for:
+    texidoc ="The new part combiner stays apart from:
 @itemize @bullet
-@item different durations (start points)
-@item different articulations (only slur/beam/tie work)
-@item wide pitch ranges
+@item different durations,
+@item different articulations (taking into account only slur/beam/tie), and
+@item wide pitch ranges.
 @end itemize
 "
     }

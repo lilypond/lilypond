@@ -2,8 +2,9 @@
 \version "2.1.22"
 \header{
        texidoc = "
+The line-spanners connects to the Y position of the note  on the next line.
 When put across line breaks, only the part before the line break is
-printed. The line-spanners connects to the Y position of the note  on the next line.
+printed. 
 "
 
 }

@@ -3,8 +3,8 @@
 \header
 {
     
-texidoc = "Ottava brackets behave properly at line breaks: no vertical
-line, and the horizontal line doesn't stick out."
+texidoc = "Ottava brackets behave properly at line breaks: there is 
+no vertical line and the horizontal line does not stick out."
 
 
 }

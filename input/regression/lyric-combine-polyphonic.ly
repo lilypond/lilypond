@@ -1,7 +1,7 @@
 \version "2.1.22"
 \header {
 
-texidoc ="Polyphonic rhythms and rests don't disturb
+texidoc ="Polyphonic rhythms and rests do not disturb
 @code{\lyricsto}."
 
 }
