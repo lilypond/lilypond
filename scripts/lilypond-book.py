@@ -467,7 +467,11 @@ re_dict = {
 		 'verb': r"""(?P<code>@code{.*?})""",
 		 'lilypond-file': '(?m)^(?!@c)(?P<match>@lilypondfile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
 		 'lilypond' : '(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+# pyton2.2b2 barfs on this
 		 'lilypond-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s))""",
+
+# 1.5.2 barfs on this. 
+# 'lilypond-block': r"""(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s)""",
 		  'option-sep' : ',\s*',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
@@ -511,8 +515,8 @@ def bounding_box_dimensions(fname):
 	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
-		return (int(s.group(3))-int(s.group(1)), 
-			int(s.group(4))-int(s.group(2)))
+		return (int (s.group (3) - s.group (1) + 0.5),
+			int (s.group (4) - s.group (2) + 0.5))
 	else:
 		return (0,0)
 
