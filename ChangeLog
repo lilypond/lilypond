@@ -1,3 +1,7 @@
+2002-12-10  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: add shortcut for 2midi
+
 2002-12-10  Rune Zedeler  <rz@daimi.au.dk>
 
 	* scm/drums.scm : use 1.7.x names.

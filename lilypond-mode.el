@@ -472,6 +472,12 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file)
 )
 
+(defun LilyPond-command-formatmidi ()
+  "Format the midi output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)
+)
+
 (defun LilyPond-command-smartview ()
   "View the dvi output of current document."
   (interactive)
@@ -634,6 +640,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-jobs)
   (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
+  (define-key LilyPond-mode-map "\C-cm" 'LilyPond-command-formatmidi)
   (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
   (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
@@ -927,7 +934,7 @@ command."
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
 	  '([ "2Dvi" LilyPond-command-formatdvi t])
 	  '([ "2PS" LilyPond-command-formatps t])
-	  '([ "2Midi" (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)])
+	  '([ "2Midi" LilyPond-command-formatmidi t])
 	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
 	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
 	  '([ "Kill jobs" LilyPond-kill-jobs t])
