@@ -7,9 +7,6 @@
 #include "symtable.hh"
 
 
-
-
-
 Symbol 
 Symtable::lookup(String s) const
 {
@@ -25,21 +22,16 @@ Symtable::lookup(String s) const
 Symtable* 
 Symtables::operator()(String s) 
 {
-    if (!done_reading){	// read on demand
-	*mlog << '(' << fname ;
-	read();
-	done_reading = true;
-	*mlog << ")\n";
-    }
     return Assoc<String, Symtable*>::operator[](s);
 } 
 
 void
-Symtables::read()
+Symtables::read(Text_db &symini)
 {
-     Text_db symini(fname);
      while (!symini.eof()) {
 	 Text_record  r(  symini++);
+	 if (r[0] == "end" )
+	     return;
 	 assert (r[0] == "table");
 	 
 	 String tabnam = r[1];
