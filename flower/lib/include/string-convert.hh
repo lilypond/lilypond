@@ -30,14 +30,16 @@ public:
     static int dec2_i( String dec_str );
     static double dec2_f( String dec_str );
     static String double_str(double f, char const* fmt=0);
-    static int hex2int_i( String str );
+    static int hex2_i( String str );
+    static unsigned hex2_u( String str );
     static String hex2bin_str( String str );
     static String int_str(int i, char const *fmt=0  );
     static String i2hex_str( int i, int length_i, char ch );
+    static String u2hex_str( unsigned u, int length_i, char ch );
     static String i2dec_str( int i, int length_i, char ch );
     static String rational_str(Rational);
     static String pointer_str(const void *);
-    static String longlong_str(long long , char const * fmt = 0);
+    static String i64_str(I64, char const * fmt = 0);
 };
 
 #endif // __STRING_CONVERT_HH //
