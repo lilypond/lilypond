@@ -1,5 +1,7 @@
 2003-01-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mf/feta-toevallig.mf: make flat heavier.
+
 	* lily/cluster-engraver.cc: clean up Cluster engraver
 
 	* lily/cluster.cc (brew_molecule): cleaned up Cluster code and
