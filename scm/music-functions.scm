@@ -14,8 +14,6 @@ This function replaces all repeats  with unfold repeats. It was
 written by Rune Zedeler. "
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
-         (body (ly-get-mus-property music 'body))
-         (alts (ly-get-mus-property music 'alternatives))
          (n  (ly-music-name music)))
 
     (if (equal? n "Repeated_music")
@@ -29,16 +27,6 @@ written by Rune Zedeler. "
         (ly-set-mus-property
          music 'elements
          (map unfold-repeats es)))
-
-    (if (music? alts)
-        (ly-set-mus-property
-         music 'alternatives
-         (unfold-repeats alts)))
-
-    (if (music? body)
-        (ly-set-mus-property
-         music 'body
-         (unfold-repeats body)))
 
     (if (music? e)
         (ly-set-mus-property

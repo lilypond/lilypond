@@ -97,7 +97,6 @@ voiceTwo = {
   \slurDown
   \tieDown
   \dotsDown  
-
 }
    
 voiceThree = {
@@ -160,8 +159,51 @@ fatText = \property Voice.textNonEmpty = ##t
 showStaffSwitch = \property PianoStaff.followVoice = ##t
 hideStaffSwitch = \property PianoStaff.followVoice = ##f
 
+% FIXME: Move this docu (to where?)
 
-% To remove a Volta bracet or some other graphical object,
+% accidentals as they were common in the 18th century.
+defaultAccidentals = {
+  \property Score.extraNatural = ##t
+  \property Score.autoAccidentals = #'((measure-same-octave . 0))
+  \property Score.autoCautionaries = #'()  
+}
+
+% accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
+% This includes all the default accidentals, but accidentals also needs cancelling
+% in other octaves and in the next measure.
+modernAccidentals = {
+  \property Score.extraNatural = ##f
+  \property Score.autoAccidentals = #'((measure-same-octave . 0) (measure-any-octave . 0) (measure-any-octave . 1))
+  \property Score.autoCautionaries = #'()  
+}
+
+% the accidentals that Stone adds to the old standard as cautionaries
+modernCautionaries = {
+  \property Score.extraNatural = ##f
+  \property Score.autoAccidentals = #'((measure-same-octave . 0))
+  \property Score.autoCautionaries = #'((measure-any-octave . 0) (measure-any-octave . 1))  
+}
+
+% Do not reset the key at the start of a measure.  Accidentals will be
+% printed only once and are in effect until overridden, possibly many
+% measures later.
+noResetKey = {
+  \property Score.autoAccidentals = #'((measure-same-octave . #t))
+  \property Score.autoCautionaries = #'()
+}
+
+% do not set localKeySignature when a note alterated differently from
+% localKeySignature is found.
+% Causes accidentals to be printed at every note instead of
+% remembered for the duration of a measure.
+% accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
+forgetAccidentals = {
+  \property Score.autoAccidentals = #'((measure-same-octave . -1))
+  \property Score.autoCautionaries = #'()  
+}
+
+
+% To remove a Volta bracket or some other graphical object,
 % set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff
 
 turnOff = #'()

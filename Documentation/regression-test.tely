@@ -35,13 +35,22 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{dots.ly}
 
-@lilypondfile[printfilename]{accidental.ly}
-
 @lilypondfile[printfilename]{multi-measure-rest.ly}
 
 @lilypondfile[printfilename]{mm-rests2.ly}
 
+
+@section Accidentals
+
+Accidentals are currently in a development stage.
+
+@lilypondfile[printfilename]{accidental.ly}
+
 @lilypondfile[printfilename]{accidental-single-double.ly}
+
+@lilypondfile[printfilename]{accidentals.ly}
+
+@lilypondfile[printfilename]{accidental-octave.ly}
 
 
 @section Stems
