@@ -78,59 +78,6 @@ ly_split_list (SCM s, SCM list)
   return gh_cons (gh_reverse (before), after);
 }
 
-
-/* Construct from list of pitches and requests:
-
-  (PITCHES . (INVERSION . BASS))
-
-
-  Note, the pitches here, are all inclusive.
-  We must identify tonic, filter-out (and maybe detect) inversion and bass. */
-
-SCM
-Chord::pitches_and_requests_to_chord (SCM pitches,
-				      SCM tonic_req,
-				      SCM inversion_req,
-				      SCM bass_req,
-				      bool find_inversion_b)
-{
-  pitches = scm_sort_list (pitches, Pitch::less_p_proc);
-			   
-  if (bass_req != SCM_EOL)
-    {
-      assert (unsmob_pitch (gh_car (pitches))->notename_i_
-	      == unsmob_pitch (bass_req)->notename_i_);
-      pitches = gh_cdr (pitches);
-    }
-    
-  if (inversion_req != SCM_EOL)
-    {
-      assert (unsmob_pitch (gh_car (pitches))->notename_i_
-	      == unsmob_pitch (inversion_req)->notename_i_);
-      /* huh ? */
-      assert (tonic_req != SCM_EOL);
-      
-      SCM tonic = member_notename (tonic_req, pitches);
-      if (tonic != SCM_EOL)
-	pitches = add_above_tonic (gh_car (pitches), gh_cdr (pitches));
-    }
-  else if (find_inversion_b)
-    {
-      SCM tonic = (tonic_req != SCM_EOL)
-	? member_notename (pitches, tonic_req)
-	: guess_tonic (pitches);
-	
-      if (tonic != SCM_EOL)
-	pitches = add_above_tonic (gh_car (pitches), gh_cdr (pitches));
-    }
-
-  if (tonic_req != SCM_EOL)
-      assert (unsmob_pitch (gh_car (pitches))->notename_i_
-	      == unsmob_pitch (tonic_req)->notename_i_);
-
-  return gh_cons (pitches, gh_cons (inversion_req, bass_req));
-}
-
 /*
   JUNKME. 
   do something smarter.
@@ -237,23 +184,18 @@ Chord::member_pitch (SCM p, SCM pitches)
   return member;
 }
 
-
-
-int
-Chord::step_i (Pitch tonic, Pitch p)
-{
-  int i = p.notename_i_ - tonic.notename_i_
-    + (p.octave_i ()  - tonic.octave_i () ) * 7;
-  while (i < 0)
-    i += 7;
-  i++;
-  return i;
-}
-
 SCM
 Chord::step_scm (SCM tonic, SCM p)
 {
-  return gh_int2scm (step_i (*unsmob_pitch (tonic), *unsmob_pitch (p)));
+  /* De Pitch intervaas is nog beetje sleutelgat? */
+  int i = unsmob_pitch (p)->notename_i_
+    - unsmob_pitch (tonic)->notename_i_
+    + (unsmob_pitch (p)->octave_i_
+       - unsmob_pitch (tonic)->octave_i_ ) * 7;
+  while (i < 0)
+    i += 7;
+  i++;
+  return gh_int2scm (i);
 }
 
 /*
@@ -315,60 +257,6 @@ Chord::missing_thirds (SCM pitches)
   return lower_step (tonic, missing, gh_int2scm (7));
 }
 
-
-/* Mangle
-
-     (PITCHES . (INVERSION . BASS))
- 
- into full list of pitches.
-
- This means:
-   - delete INVERSION and add as lowest note of PITCHES
-   - add BASS as lowest note of PITCHES */
-
-SCM
-Chord::to_pitches (SCM chord)
-{
-  SCM pitches = gh_car (chord);
-  SCM modifiers = gh_cdr (chord);
-  SCM inversion = gh_car (modifiers);
-  SCM bass = gh_cdr (modifiers);
-
-  if (inversion != SCM_EOL)
-    {
-      /* If inversion requested, check first if the note is part of chord */
-      SCM s = member_pitch (inversion, pitches);
-      if (s != SCM_BOOL_F)
-	{
-	  /* Then, delete and add as base note, ie: the inversion */
-	  scm_delete (s, pitches);
-	  pitches = add_below_tonic (s, pitches);
-	}
-      else
-	warning (_f ("invalid inversion pitch: not part of chord: %s",
-		     unsmob_pitch (inversion)->str ()));
-    }
-
-  /* Bass is easy, just add if requested */
-  if (bass != SCM_EOL)
-    pitches = add_below_tonic (bass, pitches);
-    
-  return pitches;
-}
-
-/*
-  This routine tries to guess tonic in a possibly inversed chord, ie
-  <e g c'> should produce: C.
-  This is only used for chords that are entered as simultaneous notes,
-  chords entered in \chord mode are fully defined.
- */
-
-SCM
-Chord::guess_tonic (SCM pitches)
-{
-  return gh_car (scm_sort_list (pitches, Pitch::less_p_proc)); 
-} 
-
 /* Return PITCHES with PITCH added not as lowest note */
 SCM
 Chord::add_above_tonic (SCM pitch, SCM pitches)
@@ -399,16 +287,13 @@ Chord::add_below_tonic (SCM pitch, SCM pitches)
 
       Construct from parser output:
 
-      (PITCHES . (INVERSION . BASS))
-
       PITCHES is the plain chord, it does not include bass or inversion
 
       Part of Chord:: namespace for now, because we do lots of
       chord-manipulating stuff. */
 
 SCM
-Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
-					    SCM inversion, SCM bass)
+Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 {
   /* urg: catch dim modifier: 3rd, 5th, 7th, .. should be lowered */
   bool dim_b = false;
@@ -486,66 +371,57 @@ Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
     warning (_f ("invalid subtraction: not part of chord: %s",
 		 unsmob_pitch (gh_car (i))->str ()));
 
-  return gh_cons (pitches, gh_cons (inversion, bass));
+  return pitches;
 }
 
 
-/*
-  --Het lijkt me dat dit in het paarse gedeelte moet.
-
-  Zo-en-zo, lijktme dat je ipv. Inversion_req een (inversion . #t) aan
-  de betreffende Noot_req kan hangen
-*/
-
+/* --Het lijkt me dat dit in het paarse gedeelte moet. */
 Simultaneous_music *
 Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 {
-  SCM chord = tonic_add_sub_inversion_bass_to_scm (tonic, add, sub,
-						   inversion, bass);
-						   
-  Tonic_req* t = new Tonic_req;
-  t->set_mus_property ("pitch",  tonic);
-  SCM l = gh_cons (t->self_scm (), SCM_EOL);
-
-  SCM modifiers = gh_cdr (chord);
-  inversion = gh_car (modifiers);
-  bass = gh_cdr (modifiers);
-
-  /* This sucks.
-     Should add (inversion . #t) to the pitch that is an inversion
-   */
+  SCM pitches = tonic_add_sub_to_pitches (tonic, add, sub);
+  SCM list = SCM_EOL;
   if (inversion != SCM_EOL)
     {
-      Inversion_req* i = new Inversion_req;
-      i->set_mus_property ("pitch",  inversion);
-      l = gh_cons (i->self_scm (), l);
-      scm_unprotect_object (i->self_scm ());
+      /* If inversion requested, check first if the note is part of chord */
+      SCM s = member_pitch (inversion, pitches);
+      if (s != SCM_BOOL_F)
+	{
+	  /* Then, delete and add as base note, ie: the inversion */
+	  pitches = scm_delete (s, pitches);
+	  Note_req* n = new Note_req;
+	  n->set_mus_property ("pitch", gh_car (add_below_tonic (s, pitches)));
+	  n->set_mus_property ("duration", dur);
+	  n->set_mus_property ("inversion", SCM_BOOL_T);
+	  list = gh_cons (n->self_scm (), list);
+	  scm_unprotect_object (n->self_scm ());
+	}
+      else
+	warning (_f ("invalid inversion pitch: not part of chord: %s",
+		     unsmob_pitch (inversion)->str ()));
     }
 
-  /*
-    Should add (base . #t) to the pitch that is an added base
-   */
+  /* Bass is easy, just add if requested */
   if (bass != SCM_EOL)
     {
-      Bass_req* b = new Bass_req;
-      b->set_mus_property ("pitch", bass);
-
-      l = gh_cons (b->self_scm (), l);
-      scm_unprotect_object (b->self_scm ());      
+      Note_req* n = new Note_req;
+      n->set_mus_property ("pitch", gh_car (add_below_tonic (bass, pitches)));
+      n->set_mus_property ("duration", dur);
+      n->set_mus_property ("bass", SCM_BOOL_T);
+      list = gh_cons (n->self_scm (), list);
+      scm_unprotect_object (n->self_scm ());
     }
-
-  SCM pitches = Chord::to_pitches (chord);
+  
   for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
     {
       Note_req* n = new Note_req;
       n->set_mus_property ("pitch", gh_car (i));
       n->set_mus_property ("duration", dur);
-      l = gh_cons (n->self_scm (), l);
-
+      list = gh_cons (n->self_scm (), list);
       scm_unprotect_object (n->self_scm ());
     }
 
-  Simultaneous_music*v = new Request_chord (l);
+  Simultaneous_music*v = new Request_chord (list);
 
   return v;
 }

@@ -48,17 +48,9 @@ Chord_name::brew_molecule (SCM smob)
   if (!gh_string_p (style))
     style = ly_str02scm ("banter");
 
-  SCM inversion = me-> get_elt_property ("inversion");
-  if (inversion == SCM_EOL)
-    inversion = SCM_BOOL_F;
-
-  SCM bass =  me->get_elt_property ("bass");
-  if (bass == SCM_EOL)
-    bass = SCM_BOOL_F;
-
-  SCM pitches =  me->get_elt_property ("pitches");
+  SCM chord = me-> get_elt_property ("chord");
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
-  SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
+  SCM text = gh_call2 (func, style, chord);
 
   SCM properties = Font_interface::font_alist_chain (me);
   Molecule mol = Text_item::text2molecule (me, text, properties);

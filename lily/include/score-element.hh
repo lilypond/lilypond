@@ -34,7 +34,10 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
 class Score_element  {
 public:
   SCM immutable_property_alist_;
+
+  // rename me to ``property_alist_''
   SCM mutable_property_alist_;
+  
   Score_element *original_l_;
 
   /**
