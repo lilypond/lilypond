@@ -1,6 +1,6 @@
 2002-09-07  Rune Zedeler  <rune@zedeler.dk>
 
-	* scm/basic-properties.scm: (default-bar-number-visibility) added
+	* scm/output-lib.scm: (default-bar-number-visibility) added
 
 	* ly/engraver-init.ly (ScoreContext) set barNumberVisibility to
 	#default-bar-number-visibility

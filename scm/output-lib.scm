@@ -221,6 +221,4 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (string-encode-integer (quotient i 26))))))
 
 
-
-
-
+(define (default-bar-number-visibility n) (> n 1))
