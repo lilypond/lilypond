@@ -88,6 +88,9 @@ Finds file lilypond-words from load-path."
 	(LilyPond-add-dictionary-word (list copy)))
       (kill-buffer b)))
 
+(defvar LilyPond-insert-tag-current ""
+  "The last command selected from the LilyPond-Insert -menu.")
+
 (defconst LilyPond-menu-keywords 
   (let ((wordlist '()) ; add syntax entries to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ())))
@@ -699,6 +702,7 @@ command."
   (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
   (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
+  (define-key LilyPond-mode-map "\C-ci" 'LilyPond-insert-tag-current)
   ;; the following will should be overriden by Lilypond Quick Insert Mode
   (define-key LilyPond-mode-map "\C-cq" 'LilyPond-quick-insert-mode)
   (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
@@ -809,10 +813,21 @@ command."
     (LilyPond-info)
     (Info-index str)))
 
-(defun LilyPond-insert-tag (word)
-  "Insert syntax for given word. The definition is in lilypond.words."
+(defun LilyPond-insert-tag-current (&optional word)
+  "Set the current tag to be inserted."
+  (interactive)
+  (if word
+      (setq LilyPond-insert-tag-current word))
+  (if (memq LilyPond-insert-tag-current LilyPond-menu-keywords)
+      (LilyPond-insert-tag)
+    (message "No tag was selected from LilyPond->Insert tag-menu.")))
+
+(defun LilyPond-insert-tag ()
+  "Insert syntax for given tag. The definitions are in lilypond.words."
+  (interactive)
   (setq b (find-file-noselect (LilyPond-words-filename) t t))
-  (let ((found nil)
+  (let ((word LilyPond-insert-tag-current)
+	(found nil)
 	(p nil)
 	(query nil)
         (m (set-marker (make-marker) 1 (get-buffer b)))
@@ -913,7 +928,7 @@ command."
 
 (defun LilyPond-menu-keywords (arg)
   "Make vector for LilyPond-mode-menu."
-  (vector arg (list 'LilyPond-insert-tag arg)))
+  (vector arg (list 'LilyPond-insert-tag-current arg) :style 'radio :selected (list 'eq 'LilyPond-insert-tag-current arg)))
 
 ;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
 (easy-menu-define LilyPond-mode-menu
@@ -921,8 +936,11 @@ command."
   "Menu used in LilyPond mode."
   (append '("LilyPond")
 	  '(["Add index menu" LilyPond-add-imenu-menu])
-	  (list (cons "Insert" (mapcar 'LilyPond-menu-keywords 
-				       (reverse LilyPond-menu-keywords))))
+	  (list (cons "Insert tag" 
+                (cons ["Previously selected" LilyPond-insert-tag-current t] 
+                (cons "-----"
+		      (mapcar 'LilyPond-menu-keywords 
+			      (reverse LilyPond-menu-keywords))))))
 	  '(("Miscellaneous"
 	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ["(Un)comment Region" LilyPond-comment-region t]
