@@ -232,7 +232,8 @@ Tie::get_curve () const
       Real ry = rint (y/staff_space) * staff_space;
       Real diff = ry - y;
       Real newy = y;
-      if (fabs (diff) < paper_l ()->get_var ("tie_staffline_clearance"))
+      if (fabs (y) <= 2.0
+	  && fabs (diff) < paper_l ()->get_var ("tie_staffline_clearance"))
 	{
 	  newy = ry - 0.5 * staff_space * sign (diff) ;
 	}
