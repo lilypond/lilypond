@@ -97,9 +97,9 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION, [
 ])
 
 # Check version of program ($1)
-# If version is greater than or equals requested ($3),
+# If version is greater than or equals unsupported ($3),
 # add entry to unsupported list ($2, 'UNSUPPORTED')
-AC_DEFUN(STEPMAKE_CHECK_VERSION_SUPPORT, [
+AC_DEFUN(STEPMAKE_CHECK_VERSION_UNSUPPORTED, [
     r="`eval echo '$'"$1"`"
     AC_MSG_CHECKING([$r version])
     exe=`STEPMAKE_GET_EXECUTABLE($r)`
@@ -308,13 +308,13 @@ AC_DEFUN(STEPMAKE_END, [
         echo "ERROR: Please use older version of programs: $UNSUPPORTED"
     fi
     
-    if test -n "$OPTIONAL$REQUIRED"; then
+    if test -n "$OPTIONAL$REQUIRED$UNSUPPORTED"; then
 	echo
 	echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
 	echo "Remove config.cache before rerunning ./configure"
     fi
     
-    if test -n "$REQUIRED"; then
+    if test -n "$REQUIRED$UNSUPPORTED"; then
 	rm -f $srcdir/GNUmakefile
         exit 1
     fi
@@ -403,7 +403,7 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     # Use a workaround until this is resolved:
     # for g++ >= 3.3, select C language.
     GCC_UNSUPPORTED=
-    STEPMAKE_CHECK_VERSION_SUPPORT(CXX, GCC_UNSUPPORTED, 3.3)
+    STEPMAKE_CHECK_VERSION_UNSUPPORTED(CXX, GCC_UNSUPPORTED, 3.3)
     if test -n "$GCC_UNSUPPORTED"; then
 	AC_MSG_WARN([autoconf <= 2.57 with g++ >= 3.3 gettext test broken.])
 	AC_MSG_WARN([Trying gcc, cross thumbs.])

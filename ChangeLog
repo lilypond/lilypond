@@ -1,6 +1,6 @@
 2003-06-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* stepmake/aclocal.m4 (STEPMAKE_CHECK_VERSION_SUPPORT): New
+	* stepmake/aclocal.m4 (STEPMAKE_CHECK_VERSION_UNSUPPORTED): New
 	function.
 	(STEPMAKE_GETTEXT): If g++ >= 3.3, use gcc for gettext checking.
 
