@@ -179,27 +179,6 @@ Line_of_score::add_column (Paper_column*p)
   typeset_element (p);
 }
 
-Link_array<Paper_column>
-Line_of_score::column_l_arr ()const
-{
-  Link_array<Paper_column> acs
-    = Pointer_group_interface__extract_elements (this, (Paper_column*) 0, "columns");
-  bool bfound = false;
-  for (int i= acs.size (); i -- ; )
-    {
-      bool brb = acs[i]->breakable_b();
-      bfound = bfound || brb;
-
-      /*
-	the last column should be breakable. Weed out any columns that
-	seem empty. We need to retain breakable columns, in case
-	someone forced a breakpoint.
-      */
-      if (!bfound || !acs[i]->used_b ())
-	acs.del (i);
-    }
-  return acs;
-}
 
 void
 fixup_refpoints (SCM s)
@@ -344,5 +323,28 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   return ret;
 }
 
+/**
+   Return all columns, but filter out any unused columns , since they might
+   disrupt the spacing problem.
+ */
+Link_array<Paper_column>
+Line_of_score::column_l_arr ()const
+{
+  Link_array<Paper_column> acs
+    = Pointer_group_interface__extract_elements (this, (Paper_column*) 0, "columns");
+  bool bfound = false;
+  for (int i= acs.size (); i -- ; )
+    {
+      bool brb = acs[i]->breakable_b();
+      bfound = bfound || brb;
 
-
+      /*
+	the last column should be breakable. Weed out any columns that
+	seem empty. We need to retain breakable columns, in case
+	someone forced a breakpoint.
+      */
+      if (!bfound || !acs[i]->used_b ())
+	acs.del (i);
+    }
+  return acs;
+}

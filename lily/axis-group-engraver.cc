@@ -24,7 +24,11 @@ Axis_group_engraver::do_creation_processing ()
   staffline_p_ = get_spanner_p ();
   Axis_group_interface (staffline_p_).set_interface ();
   Axis_group_interface (staffline_p_).set_axes (Y_AXIS, Y_AXIS);
-  staffline_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+
+  Item *  it = get_staff_info().command_pcol_l ();
+  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+  staffline_p_->set_bound(LEFT,it);
+
   announce_element (Score_element_info (staffline_p_, 0));
 }
 
@@ -57,8 +61,11 @@ Axis_group_engraver::do_removal_processing ()
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_elt_property ("extra-extent-Y", dims);
 
-  
-  staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
+  Item *  it = get_staff_info().command_pcol_l ();
+
+  Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
+  staffline_p_->set_bound(RIGHT,it);
+
   typeset_element (staffline_p_);
   staffline_p_ = 0;
 }

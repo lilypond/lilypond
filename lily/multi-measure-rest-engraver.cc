@@ -109,7 +109,7 @@ Multi_measure_rest_engraver::do_process_music ()
 
   if (busy_span_req_l_ && !mmrest_p_)
     {
-      mmrest_p_ = new Multi_measure_rest (SCM_EOL);
+      mmrest_p_ = new Multi_measure_rest (get_property ("basicMultiMeasureRestProperties"));
       Staff_symbol_referencer_interface si (mmrest_p_);
       si.set_interface ();
 

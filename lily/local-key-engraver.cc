@@ -124,7 +124,7 @@ Local_key_engraver::process_acknowledged ()
 	    {
 	      if (!key_item_p_) 
 		{
-		  key_item_p_ = new Local_key_item (SCM_EOL);
+		  key_item_p_ = new Local_key_item (get_property ("basicLocalKeyProperties"));
 		  Side_position_interface (key_item_p_).set_axis (X_AXIS);
 		  Side_position_interface (key_item_p_).set_direction (LEFT);
 		  staff_symbol_referencer(key_item_p_).set_interface ();

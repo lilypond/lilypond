@@ -310,7 +310,9 @@
     (string-append "% " s))
   
   (define (end-output) 
-    "\n\\EndLilyPondOutput")
+    (string-append "\n\\EndLilyPondOutput"
+		   ; Put GC stats here.
+		   ))
   
   (define (experimental-on)
     "")
@@ -917,7 +919,7 @@
 	content))
 
 ;; urg: Use when standalone, do:
-;; (define (ly-gulp-file name) (scm-gulp-file name))
+;; (define ly-gulp-file scm-gulp-file)
 (define (scm-gulp-file name)
   (set! %load-path 
 	(cons (string-append (getenv 'LILYPONDPREFIX) "/ly")

@@ -465,6 +465,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Lyric_extender::scheme_molecule)
 	)
 	basicLyricTextProperties = #`(
+		(molecule-callback . ,Text_item::scheme_molecule)
 		(non-rhythmic . #t)
 	)
 	basicMarkProperties = #`(
@@ -472,16 +473,20 @@ ScoreContext = \translator {
 	  (breakable . #t)
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
+	basicMultiMeasureRestProperties = #`(
+		(molecule-callback . ,Multi_measure_rest::scheme_molecule)
+		(staff-position . 0)
+	)
 	basicNoteColumnProperties = #`(
 		(axes 0 1)
 	)
 	basicNoteHeadProperties = #`(
 		(molecule-callback . ,Note_head::scheme_molecule)
 	)
-
 	basicOctavateEightProperties  = #`(
 		(self-alignment-X . 0)
 		(text . "8")
+		(visibility-lambda . ,begin-of-line-visible) 
 		(molecule-callback . ,Text_item::scheme_molecule)
 		(style . "italic")
 	)
@@ -495,7 +500,7 @@ ScoreContext = \translator {
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::scheme_molecule)
 	)
-		
+ 		
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::scheme_molecule)
 	)
@@ -508,10 +513,14 @@ ScoreContext = \translator {
 		(molecule-callback . ,Stem::scheme_molecule)
 	)
 	staffSymbolBasicProperties = #`(
-	   (molecule-callback . ,Staff_symbol::scheme_molecule)
-	   (staff-space . 1.0 )
-	   (line-count . 5 )
-	 )
+		(molecule-callback . ,Staff_symbol::scheme_molecule)
+		(staff-space . 1.0 )
+		(line-count . 5 )
+	)
+	basicTextScriptProperties = #`(
+		(molecule-callback . ,Text_item::scheme_molecule)
+		(no-spacing-rods . #t)
+	)
 	basicTimeSignatureProperties = #`(
 		(molecule-callback . ,Time_signature::scheme_molecule)
 		(break-align-symbol . Time_signature)
@@ -538,7 +547,7 @@ ScoreContext = \translator {
 	)
 	basicInstrumentNameProperties = #`(
 		(breakable . #t)
-		(molecule-callback . Text_item::scheme_molecule)		
+		(molecule-callback . ,Text_item::scheme_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
