@@ -122,16 +122,20 @@ Break_req::Break_req ()
 {
 }
 
-Mark_req::Mark_req (String s)
-{
-  str_ = s;
-}
 
 void
 Mark_req::do_print () const
 {
   DEBUG_OUT << str_;
 }
+
+bool
+Mark_req::do_equal_b (Request const * r) const
+{
+  Mark_req const * other = dynamic_cast<Mark_req const*> (r);
+  return other && other->str_ == str_;
+}
+
 void
 Key_change_req::transpose (Musical_pitch p)
 {

@@ -42,6 +42,7 @@ protected:
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
+  virtual void typeset_element (Score_element*);
 };
 
 
@@ -114,7 +115,6 @@ Dynamic_engraver::do_process_requests()
 	  text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
 	  text_p_->set_elt_property ("script-priority",
 				     gh_int2scm (100));
-	  text_p_->set_elt_property ("staff-support", SCM_BOOL_T);
 	  
 	  Side_position_interface (text_p_).set_axis (Y_AXIS);
 
@@ -170,10 +170,7 @@ Dynamic_engraver::do_process_requests()
 		->set_elt_property ("grow-direction",
 				    gh_int2scm ((span_l->span_type_str_ == "crescendo") ? BIGGER : SMALLER));
 	      
-	      new_cresc_p->set_elt_property ("staff-support", SCM_BOOL_T);
-
-
-	      Side_position_interface (new_cresc_p).set_axis (Y_AXIS);
+	      side_position (new_cresc_p).set_axis (Y_AXIS);
 	      announce_element (Score_element_info (new_cresc_p, span_l));
 	    }
 	}
@@ -184,7 +181,6 @@ Dynamic_engraver::do_process_requests()
       if (cresc_p_)
 	{
 	  ::warning (_ ("Too many crescendi here"));
-
 
 	  typeset_element (cresc_p_);
 
@@ -247,6 +243,12 @@ Dynamic_engraver::typeset_all ()
     }
 }
 
+void
+Dynamic_engraver::typeset_element (Score_element * e)
+{
+  side_position(e).add_staff_support ();
+  Engraver::typeset_element (e);
+}
 
 void
 Dynamic_engraver::acknowledge_element (Score_element_info i)

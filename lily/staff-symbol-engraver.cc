@@ -64,14 +64,6 @@ Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 {
   s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm_);
   s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
-
-  SCM ss =s.elem_l_->remove_elt_property ("staff-support");
-  if (to_boolean (ss))
-    {
-      Side_position_interface si (s.elem_l_);
-      if (si.has_interface_b ())
-	si.add_support (span_p_);
-    }
 }
 
 

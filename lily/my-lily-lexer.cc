@@ -25,6 +25,7 @@
 static Keyword_ent the_key_tab[]={
   {"autochange", AUTOCHANGE},
   {"spanrequest", SPANREQUEST},
+  {"commandspanrequest", COMMANDSPANREQUEST},  
   {"simultaneous", SIMULTANEOUS},
   {"sequential", SEQUENTIAL},
   {"accepts", ACCEPTS},

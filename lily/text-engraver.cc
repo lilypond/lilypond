@@ -6,8 +6,8 @@
   (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "dimension-cache.hh"
 
+#include "dimension-cache.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "text-item.hh"
@@ -118,6 +118,7 @@ Text_engraver::do_pre_move_processing ()
 {
   for (int i=0; i < texts_.size (); i++)
     {
+      side_position (texts_[i]).add_staff_support ();
       typeset_element (texts_[i]);
     }
   texts_.clear ();

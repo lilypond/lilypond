@@ -22,7 +22,6 @@ class Multi_measure_rest_engraver : public Engraver
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
-  
   Multi_measure_rest_engraver ();
 
 protected:
@@ -31,14 +30,16 @@ protected:
   virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
-
+  virtual void do_removal_processing ();
 private:
-  Drul_array<Moment> rest_moments_;
-  
+  Span_req * new_req_l_;
+  Span_req * busy_span_req_l_;
+  Span_req * stop_req_l_;
   int start_measure_i_;
-  Rhythmic_req* multi_measure_req_l_;
-  Multi_measure_rest* mmrest_p_;
-  Multi_measure_rest* lastrest_p_;
+  Moment start_moment_;
+  
+  Multi_measure_rest *mmrest_p_;
+  Multi_measure_rest *lastrest_p_;
 };
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
@@ -46,12 +47,8 @@ ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
   start_measure_i_ = 0;
-  rest_moments_[START] =
-    rest_moments_[STOP] =0;
-  multi_measure_req_l_ = 0;
-
-  lastrest_p_ =0;
-  mmrest_p_ = 0;
+  mmrest_p_  = lastrest_p_ =0;
+  new_req_l_ = busy_span_req_l_ = stop_req_l_ =0;
 }
 
 void
@@ -59,7 +56,7 @@ Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
 {
   if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
     {
-      if (mmrest_p_) 
+      if (mmrest_p_)
 	mmrest_p_->add_column (c);
       if (lastrest_p_)
 	lastrest_p_->add_column (c);
@@ -69,36 +66,49 @@ Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
 bool
 Multi_measure_rest_engraver::do_try_music (Music* req_l)
 {
-  Rhythmic_req *r=0;
-  if (Multi_measure_rest_req *mr = 
-      dynamic_cast<Multi_measure_rest_req *> (req_l))
-    r=mr;
-  else if (Repetitions_req *rr = 
-	   dynamic_cast<Repetitions_req *> (req_l))
-    r=rr;
-  if (r)
+  if (Span_req * sp = dynamic_cast<Span_req*> (req_l))
     {
-      if (multi_measure_req_l_)
-	if (!multi_measure_req_l_->equal_b (r)
-	    || rest_moments_[START] != now_mom ())
-	  return false;
-      
-      multi_measure_req_l_ = r;
-      rest_moments_[START] = now_mom ();
-      
-      rest_moments_[STOP] = rest_moments_[START] +
-	multi_measure_req_l_->duration_.length_mom ();
-      return true;
+      if (sp->span_type_str_ == "rest")
+	{
+	  if (sp->span_dir_ == STOP)
+	    {
+	      stop_req_l_ = sp;
+	    }
+	  else if (sp->span_dir_ == START && !new_req_l_)
+	    {
+	      new_req_l_ = sp;
+	    }
+	  return true;
+	}
     }
   return false;
 }
 
+
+
 void
 Multi_measure_rest_engraver::do_process_requests ()
 {
-  if (multi_measure_req_l_ && !mmrest_p_)
-    {
+  if (new_req_l_ && stop_req_l_)
+    stop_req_l_ = 0;
 
+  if (new_req_l_)
+    start_moment_ = now_mom ();
+
+  if (stop_req_l_)
+    {
+      busy_span_req_l_ =0;
+      stop_req_l_ = 0;
+    }
+  
+  if (new_req_l_)
+    {
+      busy_span_req_l_ = new_req_l_;
+      new_req_l_ =0;
+    }
+
+  if (busy_span_req_l_ && !mmrest_p_)
+    {
       Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
       Timing_translator * time = dynamic_cast<Timing_translator*> (tr);
 
@@ -106,14 +116,7 @@ Multi_measure_rest_engraver::do_process_requests ()
       Staff_symbol_referencer_interface si (mmrest_p_);
       si.set_interface ();
 
-
-      /*
-	UGH. JUNKME
-       */
-      if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
-	mmrest_p_->set_elt_property ("alt-symbol", 
-				     ly_str02scm ("scripts-repeatsign"));
-      announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
+      announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
       start_measure_i_
 	= gh_scm2int (time->get_property ("currentBarNumber", 0));
     }
@@ -126,8 +129,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
   Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
   Timing_translator * time  = dynamic_cast<Timing_translator*> (tr);
 
-
-  if (mmrest_p_ && (now >= rest_moments_[START]) 
+  if (mmrest_p_ && (now >= start_moment_) 
     && !time->measure_position ()
     && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
     {
@@ -141,6 +143,13 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
       typeset_element (lastrest_p_);
       lastrest_p_ = 0;
     }
+
+  if (new_req_l_)
+    {
+      busy_span_req_l_ = new_req_l_;
+      new_req_l_ =0;
+    }
+  
 }
 
 void
@@ -158,12 +167,14 @@ Multi_measure_rest_engraver::do_post_move_processing ()
 	= gh_scm2int (time->get_property ("currentBarNumber", 0)) - start_measure_i_;
       mmrest_p_ = 0;
     }
-
-  if (now >= rest_moments_[STOP])
-    {
-      multi_measure_req_l_ = 0;
-      mmrest_p_ = 0;
-    }
 }
 
 
+void
+Multi_measure_rest_engraver::do_removal_processing ()
+{
+  if (mmrest_p_)
+    typeset_element (mmrest_p_);
+  if (lastrest_p_)
+    typeset_element (lastrest_p_);
+}

@@ -26,9 +26,9 @@ protected:
 
 class Mark_req : public Request {
 public:
-  Mark_req (String);
   String str_;
 protected:
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print () const;  
   VIRTUAL_COPY_CONS(Music);
 };

@@ -27,6 +27,7 @@ public:
   void set_spot (Input const &);
   Input spot () const;
   String location_str () const;
+  String line_number_str () const;
   Input (Source_file*, char const*);
   Input ();
 };
