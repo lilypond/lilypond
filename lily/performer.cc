@@ -11,11 +11,6 @@
 #include "performer-group-performer.hh"
 #include "warn.hh"
 
-void
-Performer::do_announces ()
-{
-}
-
 void 
 Performer::play_element (Audio_element* p) 
 { 
@@ -52,10 +47,4 @@ Performer::announce_element (Audio_element_info i)
   if (!i.origin_trans_)
     i.origin_trans_= this;
   get_daddy_performer ()->announce_element (i);
-}
-
-void
-Performer::process_music ()
-{
-  
 }

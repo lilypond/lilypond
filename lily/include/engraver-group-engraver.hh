@@ -36,7 +36,6 @@ private:
 
 typedef void (Engraver::*Engraver_method) (void);
 
-void recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first);
 void engraver_each (SCM list, Engraver_method method);
 
 #endif // ENGRAVERGROUP_HH

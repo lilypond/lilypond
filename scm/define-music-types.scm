@@ -250,9 +250,17 @@ e.g. @code{\\mark \"A\"}.")
 	))
     (MelismaPlayingEvent
      . (
-	(description .  "Used internally to signal melismas")
+	(description .  "Used internally to signal melismas.")
 	(internal-class-name . "Event")
 	(types . (general-music melisma-playing-event event))
+	))
+    (ManualMelismaEvent
+     . (
+	(description .  "Start or stop a melisma.
+
+Syntax:@code{c4\\melisma d\\melismaEnd}.")
+	(internal-class-name . "Event")
+	(types . (general-music melisma-span-event event))
 	))
     
     (MultiMeasureRestEvent

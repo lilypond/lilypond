@@ -71,36 +71,6 @@ Performer_group_performer::Performer_group_performer()
 {
 }
 
-/* c&p engraver-group.cc */
-void
-recurse_down_performers (Context * c, Performer_method ptr, bool context_first)
-{
-  Performer_group_performer * tg
-    = dynamic_cast<Performer_group_performer*> (unsmob_translator (c->implementation_));
-
-
-  if (!context_first)
-    {
-      performer_each (tg->get_simple_trans_list (),
-		     ptr);
-
-      (tg->*ptr) ();
-    }
-
-  for (SCM s = c->context_list_ ; gh_pair_p (s);
-       s =gh_cdr (s))
-    {
-      recurse_down_performers (unsmob_context (gh_car (s)), ptr, context_first);
-    }
-
-  if (context_first)
-    {
-      performer_each (tg->get_simple_trans_list (),
-		     ptr);
-      (tg->*ptr) ();
-    }
-}
-
 
 void
 performer_each (SCM list, Performer_method method)

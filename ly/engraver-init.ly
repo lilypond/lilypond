@@ -188,7 +188,7 @@
     \consists "Chord_tremolo_engraver"
     \consists "Percent_repeat_engraver"
     \consists "Slash_repeat_engraver"
-    \consists "Melisma_engraver"
+    \consists "Melisma_translator"
     \consists "Part_combine_engraver"
 
 %{
@@ -333,6 +333,7 @@ printing of a single line of lyrics.  "
     \consists "Stanza_number_engraver"
     \consists "Vocal_name_engraver"
     \consists "Skip_event_swallow_translator"
+    \consists "Font_size_engraver"
     \override SeparationItem #'padding = #0.2
 }
 

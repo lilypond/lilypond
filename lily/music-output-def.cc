@@ -25,9 +25,9 @@ Music_output_def::Music_output_def ()
   translator_tab_ = new Scheme_hash_table;
   scope_ = SCM_EOL;
   smobify_self ();
-  scm_gc_unprotect_object (translator_tab_->self_scm ());
 
-  scope_ =   ly_make_anonymous_module();
+  scm_gc_unprotect_object (translator_tab_->self_scm ());
+  scope_ = ly_make_anonymous_module();
 }
 
 Music_output_def::~Music_output_def ()
@@ -37,11 +37,11 @@ Music_output_def::~Music_output_def ()
 Music_output_def::Music_output_def (Music_output_def const &s)
 {
   scope_ = SCM_EOL;
-  translator_tab_ = new Scheme_hash_table (*s.translator_tab_);
-
+  translator_tab_ = 0;
   scaled_fonts_ = SCM_EOL;
-
   smobify_self ();
+
+  translator_tab_ =   new Scheme_hash_table (*s.translator_tab_);  
   scm_gc_unprotect_object (translator_tab_->self_scm ());  
   
   scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
@@ -59,7 +59,8 @@ SCM
 Music_output_def::mark_smob (SCM m)
 {
   Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
-  scm_gc_mark (mo->translator_tab_->self_scm ());
+  if (mo->translator_tab_)
+    scm_gc_mark (mo->translator_tab_->self_scm ());
   scm_gc_mark (mo->scope_);
 
   return mo->scaled_fonts_;

@@ -28,8 +28,6 @@ private:
   void acknowledge_audio_elements ();
 };
 
-void recurse_down_performers (Context * c, Performer_method ptr,
-			       bool context_first);
 void performer_each (SCM list, Performer_method method);
 
 #endif // PERFORMER_GROUP_PERFORMER_HH

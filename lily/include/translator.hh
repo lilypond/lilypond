@@ -61,6 +61,8 @@ public:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void initialize () ;
+  virtual void process_music ();
+  virtual void do_announces ();
   virtual void finalize ();
 };
 

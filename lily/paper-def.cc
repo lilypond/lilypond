@@ -117,8 +117,9 @@ Paper_def::find_font (SCM fn, Real m)
       f = all_fonts_global->find_font (ly_scm2string (fn));
       SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
       scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
-      f = unsmob_metrics (val);
       scm_gc_unprotect_object (val);
+      
+      f = unsmob_metrics (val);
     }
 
   return f;

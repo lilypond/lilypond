@@ -32,9 +32,8 @@ noBreak = #(make-event-chord (list (make-penalty-music 10001)))
 
 \include "scale-definitions-init.ly"
 
-melisma = \set Staff.melismaBusy = ##t
-melismaEnd = \set Staff.melismaBusy = ##f
-
+melisma = #(make-span-event 'ManualMelismaEvent START)
+melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 \include "grace-init.ly"
 
