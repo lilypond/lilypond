@@ -36,7 +36,7 @@ Stem::set_beaming (Grob*me ,int i,  Direction d)
   
   if (!gh_pair_p (pair))
     {
-      pair = gh_cons (gh_int2scm (0),gh_int2scm (0));
+      pair = gh_cons (gh_int2scm (-1),gh_int2scm (-1));
       me->      set_grob_property ("beaming", pair);
     }
   index_set_cell (pair, d, gh_int2scm (i));
@@ -49,7 +49,7 @@ Stem::beam_count (Grob*me,Direction d)
   if (gh_pair_p (p))
     return gh_scm2int (index_cell (p,d));
   else
-    return 0;
+    return -1;
 }
 
 Interval

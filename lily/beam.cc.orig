@@ -832,7 +832,7 @@ Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
       do
 	{
 	  /* Don't overwrite user override (?) */
-	  if (Stem::beam_count (stems[i], d) == -1
+	  if (Stem::beam_count (stems[i], d) == 0
 	      /* Don't set beaming for outside of outer stems */
 	      && ! (d == LEFT && i == 0)
 	      && ! (d == RIGHT && i == stems.size () -1))
