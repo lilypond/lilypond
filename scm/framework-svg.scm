@@ -41,7 +41,7 @@
 	 (page-set? (or (> page-count 1) landscape?)))
 
     (ly:outputter-output-scheme outputter
-				`(set! lily-unit-length ,unit-length))
+				`(begin (set! lily-unit-length ,unit-length) ""))
     (dump (eo 'svg
 	      '(xmlns . "http://www.w3.org/2000/svg")
 	      '(version . "1.2")
