@@ -18,8 +18,16 @@
 
 2004-03-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/test/title-markup.ly: Stress breaking harder.
+
+	* scm/page-layout.scm (height-score): Overfull page scores twice
+	as bad as underfull (was: by a power).
+	(walk-lines): Omit first walk-path round (breaking after new node,
+	without lines).
+
 	* lily/paper-book.cc (pages): Bugfix: copy_height and tag_height
 	diff values are negative.
+	(output): Bugfix: treat negative vfill differently.
 
 	* Documentation/user/lilypond.tely (direntry): Add note about why
 	`info lilypond' brings up `Invoking LilyPond' node.

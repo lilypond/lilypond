@@ -141,11 +141,12 @@ Page::output (Paper_outputter *out, bool is_last)
 			&& !get_tagline () && !get_footer ());
       
       /* Do not put vfill between title and its music, */
-      if (scm_pair_p (ly_cdr (s)) && !unsmob_paper_line (line)->is_title ())
+      if (scm_pair_p (ly_cdr (s))
+	  && (!unsmob_paper_line (line)->is_title () || vfill < 0))
 	o[Y_AXIS] += vfill;
       /* rather put extra just before the title.  */
       if (ly_cdr (s) != SCM_EOL
-	  && unsmob_paper_line (ly_cadr (s))->is_title ())
+	  && (unsmob_paper_line (ly_cadr (s))->is_title () && vfill > 0))
 	o[Y_AXIS] += vfill;
     }
 
