@@ -16,18 +16,17 @@
 
   properties:
 
-  nondefault: not set because of existence of a bar
+  nondefault -- not set because of existence of a bar?
 
-  octave_dir: should we print an octave symbol (8), and where? (up=1, down=-1)?
+  change -- is this a change clef (smaller size)?
 
-  change: is this a change clef (smaller size)?
+  glyph -- a string determining what glyph is typeset
   
  */
 class Clef_item : public Item
 {
 protected:
   virtual void before_line_breaking ();
-  virtual void do_add_processing ();
 public:
   VIRTUAL_COPY_CONS(Score_element);
 };

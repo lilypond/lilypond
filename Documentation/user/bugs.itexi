@@ -1,5 +1,5 @@
-@node Reporting Bugs
-@chapter Bug reports
+@node Reporting Bugs, , , Top
+@section Bug reports
 
 There is an extensive list of todoes and bugs.  See the file
 @file{TODO} distributed with the sources.  If you have a problem you

@@ -87,8 +87,8 @@ public:
   String type_str_;
   Bar_req (String);
 protected:
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print () const;
-  bool do_equal_b (Request const *) const;
 
   VIRTUAL_COPY_CONS(Music);
 };

@@ -8,9 +8,9 @@ $(outdir)/%.html: %.yo
 	$(sed-version) < $@.in > $@
 	rm -f $@.in
 
-local-WWW:
-	-cp $(outdir)/*png $(outdir)/index.html $(depth)  # don't fail if not making website
+local-WWW: copy-to-top
 
 copy-to-top:  $(TO_TOP_FILES)
 	$(foreach i, $(TO_TOP_FILES), \
 	  cp $(i) $(depth)/ && ) true
+	-cp $(outdir)/*png $(outdir)/index.html $(depth)  # don't fail if not making website

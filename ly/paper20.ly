@@ -14,6 +14,7 @@ paper_twenty = \paper {
 	font_finger = 5.;
 	font_volta = 8.;
 	font_number = 10.;
+	font_timesig = 10.;
 	font_mark = 12.;
 
 	% what about:

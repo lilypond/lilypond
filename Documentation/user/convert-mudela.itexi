@@ -1,4 +1,4 @@
-@node convert-mudela
+@node convert-mudela, , ,Top
 @chapter convert-mudela
 @code{convert-mudela} sequentially applies different
 mudela-conversions to upgrade a Mudela input file.  It uses
