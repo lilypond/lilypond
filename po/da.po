@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.6.0\n"
 "POT-Creation-Date: 2002-08-18 17:05+0200\n"
-"PO-Revision-Date: 2002-09-07 21:00+0200\n"
+"PO-Revision-Date: 2003-01-17 21:00+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "Kør %s..."
 
 #: ly2dvi.py:118
 msgid "Distributed under terms of the GNU General Public License.  It comes with NO WARRANTY."
-msgstr ""
+msgstr "Distribueret under betingelserne i GNU Generelle Offentlige Licens (GLP). Den leveres UDEN NOGEN GARANTIER."
 
 #: ly2dvi.py:125 midi2ly.py:148 mup2ly.py:143 update-lily.py:137 input.cc:87
 msgid "warning: "
@@ -274,9 +274,8 @@ msgid "ALT[:MINOR]"
 msgstr ""
 
 #: midi2ly.py:99
-#, fuzzy
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "sæt toneart: TONE +forhøjelser/-sænkninger; :1 mol"
+msgstr "sæt toneart: TONE=+forhøjelser/-sænkninger; mol=1"
 
 #: midi2ly.py:101
 msgid "quantise note starts on DUR"

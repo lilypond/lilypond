@@ -1,3 +1,8 @@
+2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/source-file.cc (get_line): backport off by two fix from
+	development release.
+
 2002-11-21  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* lily/volta-engraver.cc (process_acknowledged_grobs): 
