@@ -41,7 +41,4 @@ extern File_path global_path;
 extern int score_count_global;
 extern Sources* source_global_l;
 
-#include <iostream.h> /* gcc 3.0 */
-
-
 #endif /* MAIN_HH */

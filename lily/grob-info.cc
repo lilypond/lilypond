@@ -5,10 +5,10 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "grob.hh"
 #include "grob-info.hh"
-#include "request.hh"
-#include "translator.hh"
+#include "music.hh"
 #include "translator-group.hh"
 
 Grob_info::Grob_info (Grob*s_l)

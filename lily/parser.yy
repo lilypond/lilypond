@@ -570,6 +570,13 @@ score_body:
 		SCM m = $1->self_scm ();
 		scm_gc_unprotect_object (m);
 		$$->music_ = m;
+
+		/*
+			guh.
+		*/
+		SCM check_func = scm_c_eval_string ("check-start-chords");
+		gh_call1 (check_func, m);
+		
 	}
 	| SCORE_IDENTIFIER {
 		$$ = new Score (*unsmob_score ($1));
@@ -741,10 +748,12 @@ Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
 		$$ = new Sequential_music (SCM_EOL);
 		$$->set_mus_property ("elements", ly_car ($3));
+		$$->set_spot(THIS->here_input());
 	}
 	| '{' Music_list '}'		{
 		$$ = new Sequential_music (SCM_EOL);
 		$$->set_mus_property ("elements", ly_car ($2));
+		$$->set_spot(THIS->here_input());
 	}
 	;
 
@@ -752,11 +761,13 @@ Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
 		$$ = new Simultaneous_music (SCM_EOL);
 		$$->set_mus_property ("elements", ly_car ($3));
+		$$->set_spot(THIS->here_input());
 
 	}
 	| '<' Music_list '>'	{
 		$$ = new Simultaneous_music (SCM_EOL);
 		$$->set_mus_property ("elements", ly_car ($2));
+		$$->set_spot(THIS->here_input());
 	}
 	;
 

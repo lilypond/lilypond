@@ -240,3 +240,52 @@ this is not an override
      ))
 
 ;;;
+
+;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+
+(define (has-request-chord elts)
+  (reduce (lambda (x y) (or x y)) (map (lambda (x) (equal? (ly-music-name x)
+							   "Request_chord")) elts)
+  ))
+
+(define (ly-music-message music msg)
+  (let* (
+      (ip (ly-get-mus-property music 'origin))
+      )
+
+    (if (ly-input-location? ip)
+	(ly-input-message ip msg)
+	(ly-warn msg))
+  ))
+  
+(define (check-start-chords music)
+  "Check music expression for a Simultaneous_music containing notes
+(ie. Request_chords), without context specification.
+
+Called  from parser.
+"
+     (let*
+       ((es (ly-get-mus-property music 'elements))
+	(e (ly-get-mus-property music 'element))
+	(name (ly-music-name music)) 
+	)
+
+       (cond 
+	 ((equal? name "Context_specced_music") #t)
+	 ((equal? name "Simultaneous_music")
+
+	  (if (has-request-chord es)
+	      (ly-music-message music "Starting score with a chord.
+Please insert an explicit \\context before chord")
+	      (map check-start-chords es)))
+	 
+	 ((equal? name "Sequential_music")
+	   (if (pair? es)
+	       (check-start-chords (car es))))
+	  (else (if (music? e) (check-start-chords e )))
+       
+       ))
+
+     music
+     )

@@ -11,7 +11,7 @@
 #define OUTPUT_PROPERTY_HH
 
 #include "music.hh"
-//#include "protected-scm.hh"
+
 
 /*
   

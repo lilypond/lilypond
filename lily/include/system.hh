@@ -8,7 +8,7 @@
 #ifndef SCORELINE_HH
 #define SCORELINE_HH
 
-#include "protected-scm.hh" 
+
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
