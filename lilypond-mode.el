@@ -5,10 +5,10 @@
 ;;; 
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; 
-;;; Changed 29th Aug 2001 Heikki Junes <heikki.junes@hut.fi>
-;;;    * Add PS-compilation, PS-viewing and MIDI-play
-;;; Changed 12th Sep 2001 Heikki Junes
-;;;    * Keyboard shortcuts
+;;; Changed 2001 Heikki Junes <heikki.junes@hut.fi>
+;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
+;;;    * Keyboard shortcuts (12th Sep 2001)
+;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
 
 ;;; Inspired on auctex
 
@@ -426,9 +426,39 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-midi)
+  (define-key LilyPond-mode-map "\C-cn" 'lilypond-notes)
+  (define-key LilyPond-mode-map "\C-cs" 'lilypond-score)
   )
 
 ;;; Menu Support
+
+(define-skeleton lilypond-notes
+  "Lilypond notes tag."
+  nil
+;  (if (bolp) nil ?\n)
+  "\\notes"
+  (if (y-or-n-p "Set \"\\relative\" attribute? ")
+      (concat " \\relative " (skeleton-read "Relative: " "" str)))
+  " { " _ " }")
+
+(define-skeleton lilypond-score
+  "Lilypond score tag."
+  nil
+  (if (bolp) nil ?\n)
+  "\\score {\n"
+  "   " _ "\n"
+  "   \\paper {  }\n"
+  (if (y-or-n-p "Insert \"\\header\" field? ")
+      (concat "   \\header {\n      " 
+	      (skeleton-read "Piece: " "piece = " str) "\n"
+	      (if (y-or-n-p "Insert \"opus\" field? ")
+		  (concat "      " (skeleton-read "Opus: " "opus = " str) "\n"))
+	      "   }\n"))
+  (if (y-or-n-p "Insert \"\\midi\" field? ")
+      (concat "   \\midi { " 
+	      (skeleton-read "Midi: " "\\tempo 4 = " str)  
+	      " }\n"))
+  "}\n")
 
 (defun LilyPond-command-menu-entry (entry)
   ;; Return LilyPond-command-alist ENTRY as a menu item.
@@ -458,6 +488,12 @@ command."
 	     [ "Region" LilyPond-command-select-region
 	       :keys "C-c C-r" :style radio
 	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
+	  '(("Insert"
+	     [ "\\notes..."  lilypond-notes
+	       :keys "C-c n" ]
+	     [ "\\score..."  lilypond-score
+	       :keys "C-c s" ]
+	     ))
 ;	  (let ((file 'LilyPond-command-on-current))
 ;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
@@ -471,8 +507,7 @@ command."
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
 	  '([ "Midi" (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file) :keys "C-c C-m"])
-  ))
-
+	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
   "Regexp matching Identifier definitions.")

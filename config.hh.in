@@ -41,6 +41,9 @@
 /* define if you have kpse_find_tfm */
 #define HAVE_KPSE_FIND_TFM 0
 
+/* define if you have python2.1/Python.h header */
+#define HAVE_PYTHON2_1_PYTHON_H 0
+
 /* define if you have python2.0/Python.h header */
 #define HAVE_PYTHON2_0_PYTHON_H 0
 
