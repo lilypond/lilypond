@@ -1,13 +1,15 @@
-# mutopia/j.s.bach/Makefile
+# mutopia/J.S.Bach/Makefile
 
-
-# descent order into subdirectories:
-#
-SUBDIRS = 
 # subdir level:
 #
 depth = ../..
 #
+
+# descent order into subdirectories:
+#
+SUBDIRS = 
+# 
+
 # generic stuff/Makefile
 #
 include ./$(depth)/make/Include.make
@@ -18,6 +20,10 @@ include ./$(depth)/make/Include.make
 # 
 LYFILES = $(wildcard *.ly)
 TEXFILES = $(wildcard *.tex)
-DISTFILES = Makefile $(LYFILES) $(TEXFILES) $(wildcard *.m4)
+M4FILES = $(wildcard *.m4)
+DISTFILES = Makefile $(LYFILES) $(TEXFILES) $(M4FILES)
 #
 
+OUTFILES = $(addprefix $(outdir)/,$(M4FILES:%.m4=%))
+
+all: $(OUTFILES)

@@ -24,6 +24,7 @@ Plet_spanner::Plet_spanner ()
 {
   stem_l_drul_[RIGHT] =0;
   stem_l_drul_[LEFT] =0;
+  visibility_i_ = 3;
 
   tdef_p_ = new Text_def;
   tdef_p_->align_i_ = CENTER;
@@ -35,6 +36,7 @@ Plet_spanner::Plet_spanner (Plet_spanner const& c)
 {
   tdef_p_ = new Text_def (*c.tdef_p_);
   stem_l_drul_ = c.stem_l_drul_;
+  visibility_i_ = c.visibility_i_;
 }
 
 Plet_spanner::~Plet_spanner ()
@@ -46,6 +48,7 @@ Molecule*
 Plet_spanner::brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
+
   Real w = width ().length ();
   
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
@@ -55,14 +58,18 @@ Plet_spanner::brew_molecule_p () const
   Atom a = paper ()->lookup_l ()->plet (dy_f, w, dir_);
 
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
-  mol_p->add (a);
+
+  if (visibility_i_ >= 2)
+      mol_p->add (a);
 
   Real interline_f = paper ()->interline_f ();
   Real numy_f = (dir_ > 0 ? 0 : -interline_f) + dir_ * interline_f / 2;
   Atom num (tdef_p_->get_atom (paper (), CENTER));
   num.translate (Offset (width ().length ()/ 2 + dx_f_drul_[LEFT], 
     dy_f_drul_[LEFT] + dy_f / 2 + numy_f));
-  mol_p->add (num);
+
+  if (visibility_i_ >= 1)
+    mol_p->add (num);
 
   return mol_p;
 }

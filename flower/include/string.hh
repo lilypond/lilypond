@@ -171,11 +171,6 @@ public:
   /// the length of the string
   int length_i () const;
 
-  // ***** depreciated
-  int len () const {
-    return length_i ();
-  }
-
   /// convert to an integer
   int value_i () const;
 

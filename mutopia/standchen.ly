@@ -14,7 +14,7 @@ multiple \paper{}s in one \score
 %}
 
 \include "paper20.ly"
-\version "0.1.8";
+\version "0.1.9";
 
 commands = \melodic{
 	\skip 2.*4;

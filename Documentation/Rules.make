@@ -43,18 +43,6 @@ $(outdir)/%.gz: $(outdir)/%
 	gzip -c9 $< > $@
 
 name-stem= $(notdir $(basename $<))
-$(outdir)/%.dvi: $(depth)/input/%.ly $(depth)/VERSION
-	(cd $(outdir); \
-	lilypond -I/  ../$< )
-	(cd $(outdir); \
-	if [ -f ../$(basename $< ).tex ]; \
-	then \
-		latex ../$(basename $< ) ;\
-	else \
-		tex $(name-stem) ;\
-	fi)
-
-
 
 $(outdir)/%.gif: $(outdir)/%.ps
 	sh $(depth)/bin/ps-to-gifs.sh $<

@@ -22,6 +22,7 @@ public:
  
   Text_def* tdef_p_;
   Drul_array<Stem *> stem_l_drul_;
+  int visibility_i_;
  
 protected:
   virtual Molecule* brew_molecule_p () const;

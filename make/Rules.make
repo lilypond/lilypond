@@ -37,6 +37,9 @@ $(outdir)/%.cc: %.l
 # could be faster:
 #	$(FLEX) -8 -Cf -t $< > $@
 
+$(outdir)/%: %.m4
+	$(M4) $< > $@
+
 # outdirs:
 #
 # ?$(outdir)/%.dep:

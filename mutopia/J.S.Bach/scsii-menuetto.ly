@@ -1,6 +1,6 @@
 \header{
 filename =	 "scsii-menuetto.ly";
-title =	 "Cello Suite II";
+title =	 "Cello Suite II, Menuetto I";
 subtitle = "Part V";
 instrument = "Menuetto I";		% duh
 description =	 "Cello suite transcribed for Viola";
@@ -15,7 +15,7 @@ copyright =	 "public domain";
  Tested Features:breaking algorithm, chords, multivoice, accents
 %}
 
-\version "0.1.8";
+\version "0.1.9";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
@@ -165,10 +165,10 @@ IImenuetto = \melodic{
 		arithmetic_basicspace = 3.2;
 		% how can multiplier have dim?
 		arithmetic_mulitplier = 9.\pt;
-		\output "scsii-menuetto.out";
+		%\output "scsii-menuetto.out";
 	}
 	\midi{ 
 		\tempo 4 = 120;
-		\output "scsii-menuetto.midi";
+		%\output "scsii-menuetto.midi";
 	}
 }

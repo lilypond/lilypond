@@ -27,7 +27,7 @@ ln -sf $lelie/current/mi2mu/out/mi2mu bin/out/mi2mu
 
 if [ "x$LILYINCLUDE" = "x" ]; then
 	echo you should make add the following to your login script
-	echo "export LILYINCLUDE=$lelie/current/init:$lelie/current/input:$lelie/current/mutopia:$lelie/current/mutopia/j.s.bach"
+	echo "export LILYINCLUDE=$lelie/current/init:$lelie/current/input:$lelie/current/mutopia:$lelie/current/mutopia/out:$lelie/current/input:$lelie/current/mutopia/J.S.Bach:$lelie/current/mutopia/J.S.Bach/out"
 	echo "export PATH=$PATH:$lelie/current/bin/out/"
 	echo "export MFINPUTS=$MFINPUTS:$lelie/current/mf"
 fi

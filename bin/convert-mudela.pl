@@ -159,6 +159,12 @@ sub convert_0_1_7_to_0_1_8
     s/\\plet *([1-9][0-9]*) *\/ *([2-9][0-9]*) *;/\\[$1\/$2/;    
 }  
 
+sub convert_0_1_8_to_0_1_9
+{
+# sticky plet shorthand...
+#  print "introduced plet and finger shorthands...\n";
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -207,6 +213,7 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 "0.1.6" => \&convert_0_1_5_to_0_1_6
 			 ,"0.1.7" => \&convert_0_1_6_to_0_1_7
 			 ,"0.1.8" => \&convert_0_1_7_to_0_1_8
+			 ,"0.1.9" => \&convert_0_1_8_to_0_1_9
 			 );
 
  

@@ -38,7 +38,7 @@ part of the basso continuo --HWN
 
 %} 
 
-\version "0.1.8";
+\version "0.1.9";
 
 vi1=\melodic{
   \meter 4/4;
@@ -227,7 +227,7 @@ bc=\melodic{
   >
   \paper{
     %linewidth=18.\cm;
-     \output "gallina.out";
+     %\output "gallina.out";
     gourlay_maxmeasures=7.;
   }
   \midi{ 

@@ -26,7 +26,7 @@ split_path (String path,
   if (di >= 0)
     {
       drive = path.left_str (di + 1);
-      path = path.right_str (path.len() - di -1);
+      path = path.right_str (path.length_i () - di -1);
     }
   else
     drive = "";
@@ -35,7 +35,7 @@ split_path (String path,
   if (di >=0)
     {
       dirs = path.left_str (di + 1);
-      path = path.right_str (path.len()-di -1);
+      path = path.right_str (path.length_i ()-di -1);
     }
   else
     dirs = "";
@@ -44,7 +44,7 @@ split_path (String path,
   if (di >= 0)
     {
       filebase = path.left_str (di);
-      extension =path.right_str (path.len()-di);
+      extension =path.right_str (path.length_i ()-di);
     }
   else
     {
@@ -77,7 +77,6 @@ File_path::parse_path (String p)
   */
 String
 File_path::find (String nm) const
-
 {
   fdebug << _("looking for ") << nm << ": ";
   if (!nm.length_i() || (nm == "-") )
@@ -85,8 +84,10 @@ File_path::find (String nm) const
   for (int i=0; i < size(); i++)
     {
       String path  = elem(i);
-      if (path.length_i() )
-	path += "/";
+      String sep (DIRSEP);
+      String right(path.right_str (1));
+      if (path.length_i () && right != sep)
+	path += DIRSEP;
 
       path += nm;
 
@@ -101,4 +102,10 @@ File_path::find (String nm) const
     }
   fdebug << "\n";
   return "";
+}
+
+void
+File_path::add (String s)
+{
+   push (s); 
 }

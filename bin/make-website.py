@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+# (c) 1997, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
 # 
 
 """ 
@@ -30,7 +30,7 @@ import glob
 
 depth = ''
 makewebsite_id = "<!make_website!>";
-id_str = "make-website 0.7";
+id_str = "make-website 0.8";
 tar = "tar";
 make = "make";
 mailaddress = "unknown"
@@ -38,11 +38,14 @@ fullname = "unknown"
 footstr = ""
 lilyversion= ''
 
+include_path=[ 'input', 'mutopia' , 'mutopia/J.S.Bach', 
+	       'mutopia/J.S.Bach/out' ]
+
 def set_vars():
     __main__.lilyversion =  version_tuple_to_str(lilydirs.version_tuple())
     os.environ["TEXINPUTS"] = os.environ["TEXINPUTS"] + ":%s/input/:" % depth;
-    os.environ["LILYINCLUDE"] = "%s/input/:%s/mutopia/:%s/mutopia/J.S.Bach" \
-				% ((depth, ) *3);
+    
+    os.environ["LILYINCLUDE"] = join (':', __main__.include_path)
     os.environ["LILYTOP"] = depth;
     __main__.mailaddress= os.environ['MAILADDRESS']
     pw = pwd.getpwuid (os.getuid());
@@ -92,9 +95,9 @@ examples=["twinkle-pop",
 	  "multi"]
 
 mutopia_examples = [ "wtk1-fugue2",
-		     "standchen-16", 
-		     "standchen-20", 
 		     "standje",
+		     "preludes-1",
+		     "preludes-2",
 		     "wtk1-prelude1",
 		     "gallina",	  
 		     "scsii-menuetto"]
@@ -107,9 +110,19 @@ def gen_html():
 
 def gen_examples(inputs):
     print 'generating examples:\n'
-    list = map(lambda x: 'out/%s.ps.gz out/%s.gif out/%s.ly.txt' % (x,x,x), inputs)
+    outputs = []
+    for i in inputs:
+	located = multiple_find ([i + '.ly'], include_path) [0]
+
+	outputs.append (located)
+	if not file_exist_b(i + '.dvi'):
+	    my_system (['ly2dvi %s' % located])
+	if not file_exist_b(i + '.ly.txt'):
+	    os.link (located, i + ".ly.txt")
+    list = map(lambda x: 'out/%s.ps.gz out/%s.gif' % (x,x), inputs)
     my_system (['make -C .. ' + join(' ', list)])
 
+    return outputs
 
 def gen_list(inputs, filename):
     print "generating HTML list %s\n" % filename;
@@ -122,7 +135,9 @@ def gen_list(inputs, filename):
      'files have been scaled to eliminate aliasing.\n');
 
     for ex in inputs:
+	print '%s, ' % ex
 	header  = read_mudela_header(ex + '.ly.txt')
+	
 	def read_dict(s, default, h =header):
 		try:
 		    ret = h[s]
@@ -251,20 +266,23 @@ def edit_html():
 		       '<TITLE>LilyPond WWW: \\1</TITLE>', s)
 	dump_file (f,s)
 
+
+def do_examples (examples, filename):
+    located_files = gen_examples (examples)
+    gen_list (examples, filename)
 def main():
     identify();
 
     os.chdir (lilydirs.topdir + 'Documentation/out')
     __main__.depth = "../../";
+    __main__.include_path = map(lambda p: __main__.depth + '/' + 
+				p, __main__.include_path)
 
     set_vars();
     gen_html();
     copy_files();
-    gen_examples(examples);
-    gen_list(examples, 'examples_output.html');
-
-    gen_examples(mutopia_examples);
-    gen_list(mutopia_examples, 'mutopiaexamples_output.html');
+    do_examples (examples, 'examples_output.html');
+    do_examples (mutopia_examples, 'mutopiaexamples_output.html');
     gen_manuals();
     #set_images();
     edit_html();

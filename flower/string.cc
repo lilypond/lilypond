@@ -155,11 +155,12 @@ String::compare_i (String const& s1, String const& s2)
   if (p1 == p2)
     return 0;
 
-  int i1 = s1.length_i();
-  int i2 = s2.length_i();
-
-  int result=  memcmp (p1, p2, i1 <? i2);
-  return result ? result : i1-i2;
+  /*
+    don't forget the terminating '\0'
+   */
+  int f = (s1.length_i() <? s2.length_i());
+  int cmp_length = 1+ f;
+  return memcmp (p1, p2, cmp_length);
 }
 
 
