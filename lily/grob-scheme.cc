@@ -176,7 +176,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (is_spanner, "ly:spanner?",
+LY_DEFINE (ly_spanner_p, "ly:spanner?",
 	   1, 0, 0, (SCM g),
 	   "Is  @var{g} a spanner object?")
 {
@@ -186,7 +186,7 @@ LY_DEFINE (is_spanner, "ly:spanner?",
   return ly_bool2scm (b);
 }
 
-LY_DEFINE (is_item, "ly:item?",
+LY_DEFINE (ly_item_p, "ly:item?",
 	   1, 0, 0, (SCM g),
 	   "Is @var{g} an @code{Item} object?")
 {

@@ -301,7 +301,7 @@ Context *
 find_context_below (Context * where,
 		    SCM type, String id)
 {
-  if (where->is_alias (ly_symbol2scm (type.to_str0 ())))
+  if (where->is_alias (type))
     {
       if (id == "" || where->id_string_ == id)
 	return where;
