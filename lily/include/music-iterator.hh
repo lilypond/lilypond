@@ -45,12 +45,6 @@
     * Typically this reports the music to an interpretation context,
     thus changing the state of the interpretation context.
 
-  get_pending_events (M) -- return all events starting at M (pre: no events
-    before M). No side-effects
-
-  skip (M) -- remove all events starting before M (leave the ones that
-    start M).  no side-effects on interpretation context
-
 
   TODO:
 
@@ -81,7 +75,7 @@ public:
   /**
     The translation unit that we this iterator is reporting  to now.
    */
-  Translator_group* report_to () const;
+  Translator_group* get_outlet () const;
 
   void set_translator (Translator_group*);
   
@@ -97,10 +91,7 @@ public:
   virtual bool ok () const;
 
   virtual bool run_always () const; 
-  virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
-  virtual void skip (Moment until);
-
   virtual void derived_mark ()const;
   virtual void construct_children ();
   

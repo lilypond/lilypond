@@ -26,8 +26,8 @@ Change_iterator::error (String reason)
     GUHG!
    */
   String warn2= "Change_iterator::process (): " 
-    + report_to ()->context_name () + " = `"
-    + report_to ()->id_string_ + "': ";
+    + get_outlet ()->context_name () + " = `"
+    + get_outlet ()->id_string_ + "': ";
   warning (warn2);
   get_music ()->origin ()->warning (warn1);
 }
@@ -38,7 +38,7 @@ Change_iterator::error (String reason)
 void
 Change_iterator::process (Moment m)
 {
-  Translator_group * current = report_to ();
+  Translator_group * current = get_outlet ();
   Translator_group * last = 0;
 
   SCM to_type = get_music ()->get_mus_property ("change-to-type");
@@ -65,7 +65,7 @@ Change_iterator::process (Moment m)
     if (last)
       {
 	Translator_group * dest = 
-	  report_to ()->find_create_translator (to_type, to_id, SCM_EOL);
+	  get_outlet ()->find_create_translator (to_type, to_id, SCM_EOL);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }

@@ -24,12 +24,12 @@ Event_chord_iterator::Event_chord_iterator (Event_chord_iterator const &src)
 Translator_group*
 Event_chord_iterator::get_req_translator ()
 {
-  assert (report_to ());
-  if (report_to ()->is_bottom_context ())
-    return report_to ();
+  assert (get_outlet ());
+  if (get_outlet ()->is_bottom_context ())
+    return get_outlet ();
 
-  set_translator (report_to ()->get_default_interpreter ());
-  return report_to ();
+  set_translator (get_outlet ()->get_default_interpreter ());
+  return get_outlet ();
 }
 
 void
@@ -45,24 +45,9 @@ Event_chord_iterator::get_elt () const
   return (Event_chord*) get_music ();
 }
 
-SCM
-Event_chord_iterator::get_pending_events (Moment) const
-{
-  SCM s = SCM_EOL;
-  if (last_processed_mom_ < Moment (0))
-    {
-      Music_sequence * ms = dynamic_cast<Music_sequence*> (get_music ());
-     
-      for (SCM m = ms->music_list (); gh_pair_p (m); m = ly_cdr (m))
-	{
-	  s = gh_cons (ly_car (m) , s);
-	}
-    }
-  return s;
-}
 
 void
-Event_chord_iterator::process (Moment m)
+Event_chord_iterator::process (Moment )
 {
   if (last_processed_mom_ < Moment (0))
     {
@@ -76,7 +61,6 @@ Event_chord_iterator::process (Moment m)
 	    mus->origin ()->warning (_f ("Junking event: `%s'", mus->name()));
 	}
     }
-  skip (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Event_chord_iterator);

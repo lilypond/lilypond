@@ -30,7 +30,7 @@ Property_iterator::process (Moment m)
       if (val != SCM_EOL)
 	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
       if (ok)
-	report_to ()->internal_set_property (sym, val);
+	get_outlet ()->internal_set_property (sym, val);
     }
   Simple_music_iterator::process (m);
 }
@@ -40,7 +40,7 @@ Property_unset_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_mus_property ("symbol");
   type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));  
-  report_to ()->unset_property (sym);
+  get_outlet ()->unset_property (sym);
 
   Simple_music_iterator::process (m);
 }
@@ -63,10 +63,10 @@ Property_iterator::do_quit ()
 {
   if (to_boolean (get_music ()->get_mus_property  ("once")))
     {
-      SCM trans = report_to()->self_scm();
+      SCM trans = get_outlet ()->self_scm();
       SCM music = get_music()->self_scm();
 
-      Global_translator * tg=  report_to()->top_translator ();
+      Global_translator * tg=  get_outlet ()->top_translator ();
 
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
@@ -111,9 +111,9 @@ Push_property_iterator::process (Moment m)
       if (to_boolean (get_music ()->get_mus_property ("pop-first"))
 	  && !to_boolean (get_music ()->get_mus_property ("once"))
 	  )
-	report_to()->execute_pushpop_property (sym, eprop, SCM_UNDEFINED);
+	get_outlet ()->execute_pushpop_property (sym, eprop, SCM_UNDEFINED);
 
-      report_to()->execute_pushpop_property (sym, eprop, val);
+      get_outlet ()->execute_pushpop_property (sym, eprop, val);
     }
   Simple_music_iterator::process (m);
 }
@@ -140,10 +140,10 @@ Push_property_iterator::do_quit ()
 {
   if (to_boolean (get_music ()->get_mus_property  ("once")))
     {
-      SCM trans = report_to()->self_scm();
+      SCM trans = get_outlet ()->self_scm();
       SCM music = get_music ()->self_scm();
 
-      Global_translator * tg=  report_to()->top_translator ();
+      Global_translator * tg=  get_outlet ()->top_translator ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }
@@ -157,7 +157,7 @@ Pop_property_iterator::process (Moment m)
   if (check_grob (get_music (), sym))
     {
       SCM eprop = get_music ()->get_mus_property ("grob-property");
-      report_to()->execute_pushpop_property (sym, eprop, SCM_UNDEFINED);
+      get_outlet ()->execute_pushpop_property (sym, eprop, SCM_UNDEFINED);
     }  
   Simple_music_iterator::process (m);
 }

@@ -17,6 +17,14 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+
+@item The automatic staff changer was internally rewritten. The new
+syntax  for this  is
+
+@example
+  \autochange @var{the music}
+@end example
+
 @item The ergonomic syntax of @code{\markup} now has an equivalent in
 Scheme. The @code{markup*} macro creates such objects; the following
 two markup commands are equivalent:
@@ -52,7 +60,7 @@ sizes.
 @item A  more cleanly constructed part combiner has been installed.
 It is more robust and less buggy. The part-combiner can be used with
 @example
-  \newpartcombine @var{mus1} @var{mus2}
+  \partcombine @var{mus1} @var{mus2}
 @end example
 
 @noindent

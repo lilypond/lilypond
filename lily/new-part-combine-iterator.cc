@@ -31,7 +31,6 @@ protected:
   virtual void do_quit(); 
   virtual void process (Moment);
 
-  virtual SCM get_pending_events (Moment)const;
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
@@ -152,10 +151,10 @@ New_pc_iterator::chords_together ()
     {
       playing_state_ = TOGETHER;
       state_ = TOGETHER;
-      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
-      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-      second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
-      second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
+      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
+      second_iter_->substitute_outlet (two_.get_outlet (), shared_.get_outlet ());
+      second_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
     }
 }
 
@@ -181,13 +180,13 @@ New_pc_iterator::solo1 ()
   else
     {
       state_ = SOLO1;
-      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
+      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
 
-      second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
-      second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
-      kill_mmrest (two_.report_to ());
-      kill_mmrest (shared_.report_to ());
+      second_iter_->substitute_outlet (two_.get_outlet (), null_.get_outlet ());
+      second_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
+      kill_mmrest (two_.get_outlet ());
+      kill_mmrest (shared_.get_outlet ());
 
       if (playing_state_ != SOLO1)
 	{
@@ -210,13 +209,13 @@ New_pc_iterator::unisono (bool silent)
   else
     {
 
-      first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-      first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
+      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
 
-      second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
-      second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
-      kill_mmrest (two_.report_to ());
-      kill_mmrest (shared_.report_to ());
+      second_iter_->substitute_outlet (two_.get_outlet (), null_.get_outlet ());
+      second_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
+      kill_mmrest (two_.get_outlet ());
+      kill_mmrest (shared_.get_outlet ());
 
       if (playing_state_ != UNISONO
 	  && newstate == UNISONO)
@@ -241,13 +240,13 @@ New_pc_iterator::solo2 ()
     {
       state_ = SOLO2;
       
-      second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
-      second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
+      second_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
+      second_iter_->substitute_outlet (two_.get_outlet (), shared_.get_outlet ());
 
-      first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
-      first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
-      kill_mmrest (one_.report_to ());
-      kill_mmrest (shared_.report_to ());
+      first_iter_->substitute_outlet (one_.get_outlet (), null_.get_outlet ());
+      first_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
+      kill_mmrest (one_.get_outlet ());
+      kill_mmrest (shared_.get_outlet ());
       
       if (playing_state_ != SOLO2)
 	{
@@ -273,11 +272,11 @@ New_pc_iterator::apart (bool silent)
     {
       state_ = APART;
   
-      first_iter_->substitute_outlet (null_.report_to (), one_.report_to ());
-      first_iter_->substitute_outlet (shared_.report_to (), one_.report_to ());
+      first_iter_->substitute_outlet (null_.get_outlet (), one_.get_outlet ());
+      first_iter_->substitute_outlet (shared_.get_outlet (), one_.get_outlet ());
   
-      second_iter_->substitute_outlet (null_.report_to (), two_.report_to ());
-      second_iter_->substitute_outlet (shared_.report_to (), two_.report_to ());    }
+      second_iter_->substitute_outlet (null_.get_outlet (), two_.get_outlet ());
+      second_iter_->substitute_outlet (shared_.get_outlet (), two_.get_outlet ());    }
 }
 
 void
@@ -292,13 +291,13 @@ New_pc_iterator::construct_children ()
 			  SCM_UNDEFINED);
 
   Translator_group *tr
-    =  report_to ()->find_create_translator (ly_symbol2scm ("Voice"),
+    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
   shared_ .set_translator (tr); 
   set_translator (tr);
   Translator_group *null
-    =  report_to ()->find_create_translator (ly_symbol2scm ("Devnull"),
+    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Devnull"),
 					     "", SCM_EOL);
 
   if (!null)
@@ -351,7 +350,7 @@ New_pc_iterator::construct_children ()
 void
 New_pc_iterator::process (Moment m)
 {
-  Moment now = report_to ()->now_mom ();
+  Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
   for (; gh_pair_p (split_list_); split_list_ = gh_cdr (split_list_))
@@ -399,18 +398,6 @@ New_pc_iterator::try_music_in_children (Music *m) const
     return i;
   else
     return second_iter_->try_music (m);
-}
-
-
-SCM
-New_pc_iterator::get_pending_events (Moment m)const
-{
-  SCM s = SCM_EOL;
-  if (first_iter_)
-    s = gh_append2 (s,first_iter_->get_pending_events (m));
-  if (second_iter_)
-    s = gh_append2 (second_iter_->get_pending_events (m),s);
-  return s;
 }
 
 IMPLEMENT_CTOR_CALLBACK (New_pc_iterator);

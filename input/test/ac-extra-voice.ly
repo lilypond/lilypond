@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.18"
 
 %% I don't know what this example is supposed to do.  delete it?
 %% It shows how to use the autochange feature together with an extra
@@ -40,7 +40,7 @@ accompany = \repeat unfold 4  \basloopje
 	\context Staff=down<<
 	    \global
 	    \clef bass
-	    \autochange Staff \context Voice \accompany
+	    \autochange  \context Voice \accompany
 	>>
     >>
 

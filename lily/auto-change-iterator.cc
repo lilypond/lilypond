@@ -37,7 +37,7 @@ void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 				 String to_id)
 {
-  Translator_group * current = it->report_to ();
+  Translator_group * current = it->get_outlet ();
   Translator_group * last = 0;
 
   /*
@@ -66,7 +66,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to ()->find_create_translator (to_type_sym, to_id, SCM_EOL);
+	  it->get_outlet ()->find_create_translator (to_type_sym, to_id, SCM_EOL);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }
@@ -89,7 +89,7 @@ Auto_change_iterator::process (Moment m)
   Music_wrapper_iterator::process (m);
 
   
-  Moment now = report_to ()->now_mom ();
+  Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
   
   for (; gh_pair_p (split_list_); split_list_ = gh_cdr (split_list_))

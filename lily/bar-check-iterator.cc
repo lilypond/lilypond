@@ -37,7 +37,7 @@ Bar_check_iterator::process (Moment m)
   Simple_music_iterator::process(m);
   if (!m.to_bool ())
     {
-      Translator_group *tr = report_to ();
+      Translator_group *tr = get_outlet ();
 
       SCM mp = tr->get_property ("measurePosition");
       SCM sync= tr->get_property ("barCheckSynchronize");

@@ -20,7 +20,7 @@ Time_scaled_music_iterator::process (Moment m)
     {
       Music_iterator *yeah = try_music (get_music ());
       if (yeah)
-	set_translator (yeah->report_to ());
+	set_translator (yeah->get_outlet ());
       else
 	get_music ()->origin ()->warning (_ ("no one to print a tuplet start bracket"));
     }

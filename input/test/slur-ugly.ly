@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.18"
 
 \header { texidoc="@cindex Slur Ugly
 You can get ugly slurs, if you want. "
@@ -15,7 +15,7 @@ baseWalk = \notes \relative c {
     \context Staff=up { s1 * 6/4 }
     \context Staff=down <<
       \clef bass
-      \autochange Staff \context Voice \baseWalk
+      \autochange  \context Voice \baseWalk
     >>
   >>
   \paper {

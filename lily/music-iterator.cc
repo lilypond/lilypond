@@ -40,9 +40,9 @@ Music_iterator::~Music_iterator ()
 }
 
 Translator_group* 
-Music_iterator::report_to () const
+Music_iterator::get_outlet () const
 {
-  return handle_.report_to ();
+  return handle_.get_outlet ();
 }
 
 void
@@ -73,16 +73,7 @@ Music_iterator::ok () const
   return false;
 }
 
-void
-Music_iterator::skip (Moment)
-{
-}
 
-SCM
-Music_iterator::get_pending_events (Moment)const
-{
-  return SCM_EOL;
-}
 
 SCM
 Music_iterator::get_static_get_iterator (Music *m)
@@ -132,14 +123,14 @@ Music_iterator::init_translator (Music *m, Translator_group *report)
 {
   music_ = m;
   assert (m);
-  if (! report_to ())
+  if (! get_outlet ())
     set_translator (report);
 }
 
 void
 Music_iterator::substitute_outlet (Translator_group*f, Translator_group *t)
 {
-  if (report_to () == f)
+  if (get_outlet () == f)
     set_translator (t);
   derived_substitute (f,t);
 }
@@ -155,7 +146,7 @@ Music_iterator::get_iterator (Music *m) const
   SCM ip = get_static_get_iterator (m);
   Music_iterator*p = unsmob_iterator (ip);
   
-  p->init_translator (m, report_to ());
+  p->init_translator (m, get_outlet ());
   
   p->construct_children ();
   return ip;
@@ -169,7 +160,7 @@ Music_iterator::get_iterator (Music *m) const
 Music_iterator*
 Music_iterator::try_music (Music *m) const
 {
-  bool b = report_to ()->try_music ((Music*)m); // ugh
+  bool b = get_outlet ()->try_music ((Music*)m); // ugh
   Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
@@ -206,8 +197,8 @@ Music_iterator::mark_smob (SCM smob)
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
    */
-  if (mus->report_to())
-    scm_gc_mark (mus->report_to()->self_scm());
+  if (mus->get_outlet ())
+    scm_gc_mark (mus->get_outlet ()->self_scm());
   if (mus->music_)
     scm_gc_mark (mus->music_->self_scm());
   
