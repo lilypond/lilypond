@@ -451,28 +451,13 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   
   Real extra_demerit = SECONDARY_BEAM_DEMERIT / (beam_counts[LEFT] >? beam_counts[RIGHT]);
 
-  /*
-    Inside the staff, inter quants are forbidden.
-   */
-  Real dem = 0.0;
   Direction d = LEFT;
-  do
-    {
-      if (fabs (y[d]) <= (radius + 0.5) && fabs (my_modf (y[d]) - 0.5) < BEAM_EPS)
-	dem += INTER_QUANT_PENALTY;
-    }
-  while ((flip (&d))!= LEFT); 
-
-
+  Real dem = 0.0;
+  
   do
     {
       for (int j = 1; j <= beam_counts[d]; j++)
 	{
-	  /*
-	    see if the outer staffline falls in a beam-gap
-	    
-	    This test is too weak; we should really check all lines.
-	   */
 	  Direction stem_dir = dirs[d];
 
 	  /*

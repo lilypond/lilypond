@@ -27,9 +27,12 @@
        {r8  <as es> r <f des> r }
    >>
     s4
-    
-    f'=''16( e)    d( c)
-    s2.
+
+    g='8[( a b b! ]  c4  bes) 
+    bes='8( f' des bes) as4( bes)
+    r8 d( f e d c b a)
+    cis=''4( d)  f'=''16( e)    d( c)
+    s4
     
     c'=''2(~c8 d16 c b8 a)
     

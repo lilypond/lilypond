@@ -28,6 +28,7 @@
 #include "stem.hh"
 #include "stencil.hh"
 #include "warn.hh"
+#include "beam.hh"
 
 /*
   TODO:
@@ -296,6 +297,11 @@ New_slur::get_encompass_info (Grob *me,
       && !stem->extent (stem, Y_AXIS).is_empty ())
     {
       ei.stem_ = stem->extent (common[Y_AXIS], Y_AXIS)[dir];
+      if (Grob * b = Stem::get_beam (stem))
+	{
+	  ei.stem_ += stem_dir * 0.5  *Beam::get_thickness (b);
+	}
+      
     }
   else
     ei.stem_ = ei.head_;
@@ -630,7 +636,8 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 	      {
 		if (extremes[d].stem_extent_[Y_AXIS].contains (os[d][Y_AXIS]))
 		  {
-		    os[d][X_AXIS] -=  d * extremes[d].slur_head_extent_.length ();
+		    os[d][X_AXIS] =  extremes[d].slur_head_extent_[-d]
+		      - d * 0.3;
 		  }
 		else if (dir *extremes[d].stem_extent_[Y_AXIS][dir] < dir * os[d][Y_AXIS])
 		  {
@@ -693,21 +700,24 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 	    continue;
 	  
 	  Real y = bez.get_other_coordinate (X_AXIS, x);
-	  Real head_dy = (y - infos[j].head_);
-	  if (dir * head_dy < 0)
-	    {
-	      demerit += score_param->HEAD_ENCOMPASS_PENALTY;
-	    }
-	  else 
-	    {
-	      Real hd =  
-		(head_dy) ? (1/(fabs (head_dy)  - 1/score_param->FREE_HEAD_DISTANCE))
-		: score_param->HEAD_ENCOMPASS_PENALTY;
-	      hd = (hd >? 0)<? score_param->HEAD_ENCOMPASS_PENALTY; 
 
-	      demerit += hd;	  
-	    }
-	  
+	  if (j && j < infos.size () -1)
+	    {
+	      Real head_dy = (y - infos[j].head_);
+	      if (dir * head_dy < 0)
+		{
+		  demerit += score_param->HEAD_ENCOMPASS_PENALTY;
+		}
+	      else 
+		{
+		  Real hd =  
+		    (head_dy) ? (1/fabs (head_dy)  - 1/score_param->FREE_HEAD_DISTANCE)
+		    : score_param->HEAD_ENCOMPASS_PENALTY;
+		  hd = (hd >? 0)<? score_param->HEAD_ENCOMPASS_PENALTY; 
+
+		  demerit += hd;	  
+		}
+	    }	  
 	  if (dir * (y - infos[j].stem_) < 0)
 	    demerit += score_param->STEM_ENCOMPASS_PENALTY;
 	  else if (j && j < encompasses.size () - 1)  
@@ -803,7 +813,10 @@ New_slur::score_slopes (Grob * me,  Grob *common[],
       Real demerit = 0.0;
 
       if (!has_beams)
-	demerit += score_param->STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy)) >? 0);
+	/*
+	  0.2: account for staffline offset.
+	 */
+	demerit += score_param->STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy + 0.2)) >? 0); 
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS]) - score_param->MAX_SLOPE)>?0)  * score_param->MAX_SLOPE_FACTOR;
       
