@@ -109,7 +109,7 @@ Beam::space_function (SCM smob, SCM beam_count)
   Grob *me = unsmob_grob (smob);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real line = me->get_paper ()->get_var ("linethickness");
+  Real line = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real thickness = get_thickness (me);
   
   Real beam_translation = gh_scm2int (beam_count) < 4
@@ -338,7 +338,7 @@ Beam::brew_molecule (SCM grob)
 
   SCM gap = me->get_grob_property ("gap");
   Molecule the_beam;
-  Real lt = me->get_paper ()->get_var ("linethickness");
+  Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   
   for (int i = 0; i<= stems.size(); i++)
     {

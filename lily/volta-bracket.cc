@@ -65,27 +65,27 @@ Volta_bracket_interface::brew_molecule (SCM smob)
     (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
      && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
-  Real staff_thick = me->get_paper ()->get_var ("linethickness");  
+  Real staff_thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
 
   /*
     not a start, but really broken in two
-   */
+  */
   Real left =0.;  
   if (bound->break_status_dir () == RIGHT)
-  {
-    Paper_column *pc = bound->get_column ();
-    left = pc->extent (pc, X_AXIS)[RIGHT]   - bound->relative_coordinate (pc, X_AXIS);
-  }
+    {
+      Paper_column *pc = bound->get_column ();
+      left = pc->extent (pc, X_AXIS)[RIGHT]   - bound->relative_coordinate (pc, X_AXIS);
+    }
   else
-  {
-    /*
-      the volta spanner is attached to the bar-line, which is moved
-      to the right. We don't need to compensate for the left edge.
-    */
-  }
+    {
+      /*
+	the volta spanner is attached to the bar-line, which is moved
+	to the right. We don't need to compensate for the left edge.
+      */
+    }
 
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
   Real h =  gh_scm2double (me->get_grob_property ("height"));
@@ -133,6 +133,6 @@ Volta_bracket_interface::add_column (Grob*me, Grob* c)
 }
 
 ADD_INTERFACE (Volta_bracket_interface,"volta-bracket-interface",
-  "Volta bracket with number",
-  "bars thickness height");
+	       "Volta bracket with number",
+	       "bars thickness height");
 

@@ -230,16 +230,7 @@
   (append size-independent-fonts
 	  (cdr (assoc sym font-list-alist))))
 
-(define (qualifiers-to-fontnames  qualifiers font-descr-alist)
-  " reduce the font list by successively applying a font-qualifier."
-  (if (null? qualifiers)
-      font-descr-alist
-      
-      (qualifiers-to-fontnames
-       (cdr qualifiers)
-       (filter-field (caar qualifiers) (cdar qualifiers) font-descr-alist)
-      )
-  ))
+
 
 (define (wild-eq? x y)
   (or (eq? x y)
@@ -349,7 +340,6 @@ and warn if the selected font is not unique.
 	   (display (filter pair? '(1 2 (1 2) (1 .2)))
 		    (display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
 		    
-		    (display (qualifiers-to-fontname '((font-name . cmbx)) paper20-style-sheet-alist))
 		    (display (style-to-font-name 'paper20 'large)))
 	   )))
 

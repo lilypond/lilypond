@@ -63,7 +63,7 @@ Breathing_sign::railtracks (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Real space = Staff_symbol_referencer::staff_space (me);
-  Real th = me->get_paper ()->get_var ("linethickness");
+  Real th = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM lt =  me->get_grob_property ("thickness");
   if (gh_number_p (lt))
     th *= gh_scm2double (lt);
@@ -88,7 +88,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_var ("linethickness");
+  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM lt =  me->get_grob_property ("thickness");
   if (gh_number_p (lt))
     thickness *= gh_scm2double (lt);
@@ -99,7 +99,7 @@ Breathing_sign::divisio_minima (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
+  Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   /*
    * Draw a small vertical line through the uppermost (or, depending
@@ -122,7 +122,7 @@ Breathing_sign::divisio_maior (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_var ("linethickness");
+  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM lt =  me->get_grob_property ("thickness");
   if (gh_number_p (lt))
     thickness *= gh_scm2double (lt);
@@ -133,7 +133,7 @@ Breathing_sign::divisio_maior (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
+  Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   /*
    * Draw a vertical line that is vertically centered in the staff
@@ -163,7 +163,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_var ("linethickness");
+  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM lt =  me->get_grob_property ("thickness");
   if (gh_number_p (lt))
     thickness *= gh_scm2double (lt);
@@ -174,7 +174,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
+  Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   // like a "|" type bar
   Interval xdim (0, thickness);
@@ -194,7 +194,7 @@ Breathing_sign::finalis (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_var ("linethickness");
+  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM lt =  me->get_grob_property ("thickness");
   if (gh_number_p (lt))
     thickness *= gh_scm2double (lt);
@@ -205,7 +205,7 @@ Breathing_sign::finalis (SCM smob)
   else
     staff_size = 0.0;
 
-  Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
+  Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   // like a "||" type bar
   Interval xdim (0, thickness);

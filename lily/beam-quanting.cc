@@ -86,7 +86,7 @@ Beam::quanting (SCM smob)
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thickness = gh_scm2double (me->get_grob_property ("thickness")) / ss;
-  Real slt = me->get_paper ()->get_var ("linethickness") / ss;
+  Real slt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) / ss;
 
 
   SCM sdy = me->get_grob_property ("least-squares-dy");

@@ -12,9 +12,9 @@ source file of the GNU LilyPond music typesetter
 
 
 
-String ly_find_afm (char const * name);
-String ly_find_tfm (char const * name);
-void ly_init_kpath (char *av0);
+String kpathsea_find_afm (char const * name);
+String kpathsea_find_tfm (char const * name);
+void init_kpath (char *av0);
 
 
 

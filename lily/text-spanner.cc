@@ -115,7 +115,7 @@ Text_spanner::brew_molecule (SCM smob)
       span_points[RIGHT] -= gh_scm2double (ly_cdr (ew));
     }
   
-  Real thick = me->get_paper ()->get_var ("linethickness");  
+  Real thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
     {

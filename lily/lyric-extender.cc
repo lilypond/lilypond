@@ -26,7 +26,7 @@ Lyric_extender::brew_molecule (SCM smob)
   
   Real leftext = l->extent (l, X_AXIS).length ();
 
-  Real sl = sp->get_paper ()->get_var ("linethickness");  
+  Real sl = sp->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
   Real righttrim = 0.5; // default to half a space gap on the right
 
 

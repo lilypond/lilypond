@@ -346,7 +346,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 				   "assuming 1.4 linethickness");
       join_thickness = 1.4;
     }
-  join_thickness *= ligature->get_paper ()->get_var ("linethickness");
+  join_thickness *= ligature->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;

@@ -356,7 +356,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      if (st)
 		{
 		  Real thick = gh_scm2double (st->get_grob_property ("thickness"))
-		    * st->get_paper ()->get_var ("linethickness");
+		    * st->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
 		  note_head_width -= thick;
 		}

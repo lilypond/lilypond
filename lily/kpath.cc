@@ -41,7 +41,7 @@ extern "C" {
 #include "warn.hh"
 
 String
-ly_find_afm (char const * name)
+kpathsea_find_afm (char const * name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
   char * name_ptr =  kpse_find_file (name, kpse_afm_format, true);
@@ -62,7 +62,7 @@ ly_find_afm (char const * name)
 }
 
 String
-ly_find_tfm (char const * name)
+kpathsea_find_tfm (char const * name)
 {
   String p = global_path.find (String (name) + ".tfm");
 
@@ -84,7 +84,7 @@ ly_find_tfm (char const * name)
 
 
 void
-ly_init_kpath (char *av0)
+init_kpath (char *av0)
 {
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
   /*

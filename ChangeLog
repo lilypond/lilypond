@@ -9,7 +9,15 @@
 
 2003-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* input/trip.ly: remove
+	* lily/all-font-metrics.cc (find_font): load AFM files first only
+	for feta fonts. This fixes problems with TeXlive and other TeX
+	distros that include AFM files for the CM fonts. 
+
+	* scm/font.scm (qualifiers-to-font-name): remove.
+
+	* lily/paper-def.cc: remove get_var.
+
+	* input/trip.ly: remove file.
 	
 	* input/regression/spacing-note-flags.ly (raggedright): remove
 	stafflinethickness

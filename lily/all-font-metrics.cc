@@ -1,4 +1,5 @@
-/*   
+/*
+  
   all-font-metrics.cc --  implement All_font_metrics
   
   source file of the GNU LilyPond music typesetter
@@ -34,6 +35,11 @@ All_font_metrics::~All_font_metrics ()
   scm_gc_unprotect_object (tfm_p_dict_->self_scm ());
 }
 
+/*
+  TODO: our AFM handling is broken: the units in an AFM file are
+  relative to the design size (1000 units = 1 designsize). Hence we
+  should include design size when generating an AFM metric. 
+ */
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
@@ -52,7 +58,7 @@ All_font_metrics::find_afm (String name)
 
       if (path.empty_b ())
 	{
-	  String p = ly_find_afm (name.to_str0 ());
+	  String p = kpathsea_find_afm (name.to_str0 ());
 	  if (p.length ())
 	    path = p;
 	}
@@ -84,7 +90,6 @@ All_font_metrics::find_afm (String name)
       */
       if (afm->checksum_)
 	{
-	  
 	  Tex_font_metric * tfm = find_tfm (name);
 	  
 	  /* FIXME: better warning message
@@ -124,7 +129,7 @@ All_font_metrics::find_tfm (String name)
       
       if (path.empty_b ())
 	{
-	  String p = ly_find_tfm (name.to_str0 ());
+	  String p = kpathsea_find_tfm (name.to_str0 ());
 	  if (p.length ())
 	    path = p;
 	}
@@ -134,9 +139,9 @@ All_font_metrics::find_tfm (String name)
       if (path.empty_b ())
 	return 0;
 
-      
       if (verbose_global_b)
 	progress_indication ("[" + path);
+      
       val = Tex_font_metric::make_tfm (path);
 
       if (verbose_global_b)
@@ -158,13 +163,26 @@ All_font_metrics::find_tfm (String name)
 Font_metric *
 All_font_metrics::find_font (String name)
 {
-  Font_metric * f= find_afm (name);
-  if (f)
-    return f;
-
-  f = find_tfm (name);
-  if (f)
-    return f;
+  if (name.left_string (4) == "feta") 
+    {
+      Font_metric * f = find_afm (name);
+      if (f)
+	return f;
+      else
+      f =find_tfm (name);
+      if (f)
+	return f ;
+    }
+  else
+    {
+      Font_metric * f = find_tfm (name);
+      if (f)
+	return f;
+      else
+      f =find_afm (name);
+      if (f)
+	return f ;
+    }
 
   warning (_f ("can't find font: `%s'", name.to_str0 ()));
   warning (_ ("Loading default font"));
@@ -174,7 +192,7 @@ All_font_metrics::find_font (String name)
   /*
     we're in emergency recovery mode here anyway, so don't try to do
     anything smart that runs the risk of failing.  */
-  f= find_afm (def_name);
+  Font_metric*  f= find_afm (def_name);
   if (f)
     return f;
 

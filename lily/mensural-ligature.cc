@@ -153,7 +153,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	  programming_error (_f ("Mensural_ligature:"
 				 "thickness undefined on flexa %d; assuming 1.4",
 				 primitive));
-	  thickness = 1.4 * me->get_paper ()->get_var ("linethickness");
+	  thickness = 1.4 * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 	}
     }
 
@@ -223,7 +223,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       int join_left = gh_scm2int (join_left_scm);
       if (!join_left)
 	programming_error (_f ("Mensural_ligature: (join_left == 0)"));
-      Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
+      Real blotdiameter = (me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
       Interval x_extent = Interval (0, thickness);
       Interval y_extent = (join_left > 0) ?
 	Interval (-join_left * 0.5 * staff_space, 0) :

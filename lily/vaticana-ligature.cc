@@ -219,7 +219,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
       programming_error (_f ("Vaticana_ligature:"
 			     "thickness undefined; assuming 1.4",
 			     me));
-      thickness = 1.4 * me->get_paper ()->get_var ("linethickness");
+      thickness = 1.4 * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
     }
 
   Real x_offset = 0.0;
@@ -256,7 +256,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 	  int delta_pitch = gh_scm2int (delta_pitch_scm);
 	  if (!delta_pitch)
 	    programming_error (_f ("Vaticana_ligature: (delta_pitch == 0)"));
-	  Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
+	  Real blotdiameter = (me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
 	  Interval x_extent = Interval (0, thickness);
 	  Interval y_extent = (delta_pitch > 0) ?
 	    Interval (-delta_pitch * 0.5 * staff_space, 0) : // ascending join
