@@ -94,7 +94,9 @@ Add @var{directory} to the search path for input files.
 Set init file to @var{file} (default: @file{init.ly}).
 
 @item -o,--output=@var{FILE}
-Set the default output file to @var{FILE}.
+Set the default output file to @var{FILE}.  The appropriate
+suffix will be added (ie @code{.pdf} for pdf, @code{.tex}
+for tex, etc).
 
 @item --ps
 Generate PostScript.
