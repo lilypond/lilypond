@@ -1,3 +1,43 @@
+
+"
+Internally markup is stored as lists, whose head is a function.
+
+  (FUNCTION ARG1 ARG2 ... )
+
+When it is applied, then FUNCTION is called as follows
+
+  (FUNCTION GROB PROPS ARG1 ARG2 ... ) 
+
+The function should return a molecule (i.e. a formatted, ready to
+print object).
+
+To add a function,
+
+1. It should be named  COMMAND-markup
+
+2. It should have an object property set that describes it's
+signature. This is to allow the parser to figure out how many
+arguments to expect:
+
+  (set-object-property! COMMAND-markup  scm0-markup1)
+
+3. The command is now available in markup mode, e.g.
+
+
+  \markup { .... \COMMAND #1 argument ... }
+
+
+BUGS:
+
+At present, markup functions must be defined in this
+file. Implementing user-access for markup functions is an excercise
+for the reader.
+
+
+ 
+
+"
+
 (define-public (simple-markup grob props . rest)
   (Text_item::text_to_molecule grob props (car rest))
   )
@@ -195,30 +235,44 @@
        (set-object-property! (car x) 'markup-signature (cdr x))
        )
      (list
-      (cons bold-markup 'markup0)
+
+      ;; abs size
       (cons teeny-markup 'markup0)
       (cons tiny-markup 'markup0)
       (cons small-markup 'markup0)
-      (cons smaller-markup 'markup0)
-      (cons bigger-markup 'markup0)
-      (cons italic-markup 'markup0)
       (cons dynamic-markup 'markup0)
       (cons large-markup 'markup0) 
-      (cons huge-markup 'markup0) 
+      (cons huge-markup 'markup0)
+
+      ;; size
+      (cons smaller-markup 'markup0)
+      (cons bigger-markup 'markup0)
+
+      ;; 
       (cons sub-markup 'markup0)
       (cons super-markup 'markup0)
+      
+      (cons bold-markup 'markup0)
+      (cons italic-markup 'markup0)
+      
       (cons number-markup 'markup0)
+      
       (cons column-markup 'markup-list0)
       (cons line-markup  'markup-list0)
+
       (cons combine-markup 'markup0-markup1)
       (cons simple-markup 'markup0)
       (cons musicglyph-markup 'scm0)
+
       (cons translate-markup 'scm0-markup1)
       (cons override-markup 'scm0-markup1)
-      (cons lookup-markup 'scm0)
-      (cons raise-markup 'scm0-markup1)
       (cons char-markup 'scm0)
+      (cons lookup-markup 'scm0)
+      
+      
       (cons hspace-markup 'scm0)
+
+      (cons raise-markup 'scm0-markup1)
       (cons magnify-markup 'scm0-markup1)
       (cons fontsize-markup 'scm0-markup1)
       (cons translate-markup 'scm0-markup1)

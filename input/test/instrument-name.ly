@@ -1,14 +1,23 @@
+\header {
+texidoc = "Instrument names are  
+set with Staff.instrument and Staff.instr"
+}
+
+
 \version "1.7.6"
 
 
 \score {
+  \notes \context Staff = treble {
+    \property Staff.instrument
+	= \markup { \column << "Clarinetti" { "in B" \smaller \musicglyph #"accidentals--1" } >> }
+    \property Staff.instr
+	= \markup { \smaller  { "Cl(B" \smaller \musicglyph #"accidentals--1" ")" } }
 
-  \notes     \context Staff = treble    {
-      \property Staff.instrument = "instr " { c''4 }}
+    { c''1 \break c'' }
 
-\paper {
-linewidth=-1.0
-\translator { \StaffContext \consists "Instrument_name_engraver" }
-}}
+  }
+  \paper { linewidth= 8.0\cm }
+}
 
 %% new-chords-done %%

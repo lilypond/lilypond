@@ -1159,6 +1159,7 @@ scalar:
         string          { $$ = $1; }
         | bare_int      { $$ = gh_int2scm ($1); }
         | embedded_scm  { $$ = $1; }
+	| full_markup {  $$ = $1; }
         ;
 
 
@@ -2208,7 +2209,7 @@ markup:
 	;
 
 markup_list:
-	'<' markup_list_body '>' { $$ = scm_reverse_x ($2, SCM_EOL); }
+	CHORD_OPEN markup_list_body CHORD_CLOSE { $$ = scm_reverse_x ($2, SCM_EOL); }
 	;
 
 markup_line:

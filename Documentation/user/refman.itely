@@ -3589,13 +3589,13 @@ names:
 
 
 @lilypond[verbatim,singleline]
-#(define text-flat
-  '((font-relative-size . -2 ) (music "accidentals--1")))
-
-\score { \notes {
-  \property Staff.instrument = #`((kern . 0.5) (lines
-    "2 Clarinetti" (columns "     (B" ,text-flat ")")))
-    c'' 4 }
+\score {
+  \notes \context Staff = treble {
+    \property Staff.instrument
+	= \markup { \column << "Clarinetti" { "in B" \smaller \musicglyph #"accidentals--1" } >> }
+    { c''1 }
+  }
+  \paper { linewidth= 8.0\cm }
 }
 @end lilypond
 
@@ -4657,86 +4657,169 @@ family, and the style sheet can not be modified easiyl.
 @cindex text markup
 @cindex markup text
 
-LilyPond has an internal mechanism to typeset texts. You can
-form text markup expressions by composing scheme expressions
-in the following way.
 
-@lilypond[verbatim, singleline]
- \relative c' {
-    \fatText
-    a^#"upright"
-    b_#'(bold "bold")
-    c^#'(italic "italic")
-    d_#'((bold italic) "ff")
-    e^#'(dynamic "ff")
-    f_#'(lines "one" (bold "two"))
-    g^#'(music "noteheads-2" ((raise . 2.4) "flags-u3"))
-  }
+@cindex typeset text
+
+LilyPond has an internal mechanism to typeset texts. You can access it
+with the keyword @code{\markup}. Within markup mode, you can enter texts
+similar to lyrics: simply enter them, surrounded by spaces. 
+@cindex markup
+
+@lilypond[verbatim,fragment,relative=1]
+ c1^\markup { hello }
+ c1_\markup { hi there }
+ c1^\markup { hi \bold there, is \italic anyone home? }
 @end lilypond
 
-Normally, the Scheme markup text is stored in the @code{text} property
-of a object.  Formally, it is defined as follows:
+@cindex font switching
 
+The line of the example demonstrates font switching commands. Notice
+that the command only apply to the first following word; enclose a set
+of texts with braces to apply a command to more words.
 @example
-text: string | (head? text+)
-head: markup | (markup+)
-markup-item: property | abbrev
-property: (@var{key} . @var{value})
-abbrev: @code{columns lines roman music bold italic named super sub}
-        @code{overstrike text finger volta timesig mmrest mark script}
-        @code{large Large dynamic}
+  \markup { \bold { hi there } }
+@end example
+For clarity, you can also do this for single arguments, e.g.
+@example
+  \markup { is \italic { anyone } home }
 @end example
 
-The markup is broken down and converted into a list of object properties,
-which are prepended to the property list.  The @var{key}-@var{value}
-pair is a object property. A list of properties available is included in
-the generated documentation for @internalsref{text-interface}.
+@cindex font size, texts
 
-The following abbreviations are defined:
+
+The following size commands set abolute sizes
+
+@cindex \teeny
+@cindex \tiny
+@cindex \small
+@cindex \large
+@cindex \huge
+
 @table @code
-@item columns
- horizontal mode: set all text on one line (default)
-@item lines
- vertical mode: set every text on a new line
-@item roman
- select roman font
-@item music
- selects the Feta font (the standard font for music notation glyphs),
-and uses named lookup
+@item \teeny
+@item \tiny
+@item \small
+@item \large
+@item \huge
+@end \itemize
+You can also make letter larger or smaller relative to their neighbors,
+with the commands @code{\larger} and @code{\smaller}.
+@cindex smaller
+@cindex larger
 
-@item bold
- select bold series
-@item italic
- select italic shape
-@item named
- lookup by character name
-@item text
- plain text lookup (by character value)
-@item super
- superscript
-@item sub
- subscript
-@item overstrike
- the next text or character overstrikes this one
-@item finger
- select fingering number fontstyle
-@item volta
- select volta number fontstyle
-@item timesig
- select time signature number fontstyle
-@item mmrest
- select multi measure rest number fontstyle
-@item mark
- select mark number fontstyle
-@item script
- select scriptsize roman fontstyle
-@item large
- select large roman fontstyle
-@item Large
- select Large roman fontstyle
-@item dynamic
- select dynamics fontstyle
+@cindex font style, for texts
+@cindex \bold
+@cindex \dynamic
+@cindex \number
+@cindex \italic
+
+The following font change commands are defined:
+@table @code
+@item \dynamic
+This changes to the font used for dynamic signs. Note that this font
+doesn't contain all characters of the alphabet.
+@item \number
+This changes to the font used for time signatures. It only contains
+numbers and a few punctuation marks.
+@item \italic
+@item \bold
 @end table
+
+@cindex raising text
+@cindex lowering text
+@cindex moving text
+@cindex translating text
+
+@cindex \sub
+@cindex \super
+
+Raising and lowering texts can be done with @code{\super} and
+@code{\sub}.
+
+@lilypond[verbatim,fragment,relative=1]
+ c1^\markup { E "=" mc \super "2" }
+@end lilypond
+
+@cindex \raise
+
+If you want to give an explicit amount for lowering or raising, use
+@code{\raise}.  This command takes a Scheme valued argument,
+@lilypond[verbatim,fragment,relative=1]
+ c1^\markup { C \small \raise #1.0 { "9/7+" }}
+@end lilypond
+The argument to @code{\raise} is the vertical displacement amount,
+measured in (global) staff spaces.
+
+Other commands taking  single arguments include
+@table @code
+
+@item \musicglyph
+@cindex \musicglyph
+  This is converted to a musical symbol, e.g. @code{\musicglyph
+#"accidentals-0"} will select the natural sign from the music font.
+See @ref{The Feta font} for  a complete listing of the possible glyphs.
+@item \char
+This produces a single character, e.g. @code{\char #65} produces the 
+letter 'A'.
+
+@item \hspace #@var{amount}
+@cindex \hspace
+This produces a invisible object taking horizontal space.
+@example 
+\markup { A \hspace #2.0 B } 
+@end example
+will put extra space between A and B. Note that lilypond 
+inserts space before and after @code{\hspace}. 
+
+@item \fontsize #@var{size}
+@cindex \fontsize
+This sets the relative font size, eg.
+@example
+A \fontsize #2 { B C } D
+@end example
+
+This will enlarge the B and the C by two steps.
+@item  \translate #(cons @var{x} @var{y})
+@cindex  \translate
+This translates an object. It's first argument is a cons of numbers
+@example
+A \translate #(cons 2 -3) { B C } D
+@end example
+This moves `B C' 2 spaces to the right, and 3 down.
+
+@item \magnify  #@var{mag}
+@cindex \magnify
+This sets the font magnification for the its argument. In the following
+example, the middle A will be 10% larger.
+@example
+A \magnify #1.1 { A } A
+@end example
+
+
+@item \override #(@var{key} . @var{value})
+@cindex \override
+This overrides a  formatting property for its argument. The argument
+should be a key/value pair, e.g.
+@example
+m \override #'(font-family . math) m m
+@end example
+@end table
+
+
+In markup mode you can compose expressions, similar to mathematical
+expressions, XML documents and music expressions.  The braces group
+notes into horizontal lines. Other types of lists also exist: you can
+stack expressions grouped with @code{<<}, and @code{>>} vertically with
+the command @code{\column}. The @code{@{} and @code{@}} produce
+@code{\line} commands:
+
+@lilypond[verbatim,fragment,relative=1]
+ c1^\markup { \column << a b c >> }
+ c1^\markup { \line << a b c >> }
+@end lilypond
+
+The markup mechanism is very flexible and extensible. Refer to
+@file{scm/new-markup.scm} for more information.
 
 
 @cindex metronome mark
@@ -4745,36 +4828,25 @@ One practical application of complicated markup is to fake a metronome
 marking:
 
 @lilypond[verbatim]
-#(define note '(columns
-  (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
-#(define eight-note `(columns ,note ((kern . -0.1)
-  (music ((raise . 3.5) "flags-u3")))))
-#(define dotted-eight-note
-  `(columns ,eight-note (music "dots-dot")))
+eigthStem = \markup \combine
+	\musicglyph #"flags-stem"
+	\translate #'(0.0 . 3.5) \musicglyph #"flags-u3"
+eighthNote = \markup
+	\override #'(word-space . 0.0)
+	{ \musicglyph #"noteheads-2"
+	  \translate #'(-0.05 . 0.1) \eigthStem }
 
 \score {
   \notes\relative c'' {
-    a1^#`((columns (font-relative-size . -1))
-           ,dotted-eight-note " = 64")
-  }
-  \paper {
-    linewidth = -1.
-    \translator{
-      \ScoreContext
-      TextScript \override #'font-shape = #'upright
-    }
+    a1^\markup { \magnify #0.9 \eighthNote " = 64" }
   }
 }
-@end lilypond
-
 @refbugs
 
-The syntax and semantics of markup texts are not clean, and both
-syntax and semantics are slated for a rewrite.
+LilyPond account for kerning in its text formatting engine, so it spaces
+texts slightly too wide.
 
-LilyPond does not do kerning, and there generally spaces texts
-slightly too wide.
-
+Syntax errors for markup mode are confusing.
 
 
 @node Global layout

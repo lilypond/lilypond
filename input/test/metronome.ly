@@ -7,10 +7,8 @@
 % Warning
 %  
 % This is not a feature, it is a hack.  If you change anything,
-% it will probably break (that's because scm markup text is a
-% bit broken and needs fixing).  Chances are, it's already
-% broken by the time you read this.  Don't complain.
-%
+% it will probably break
+
 % FIXME: put in an item, and typeset by an engraver.
 
 eigthStem = \markup \combine

@@ -1,5 +1,9 @@
 2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Text markup): rewrite manual section.
+
+	* lily/parser.yy (scalar): allow \markup { } as property value. 
+
 	* scm/chord-name.scm: complete new markup usage
 
 	* scm/grob-description.scm (all-grob-descriptions): use new markup
