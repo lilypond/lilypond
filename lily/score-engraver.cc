@@ -85,7 +85,6 @@ void
 Score_engraver::announce_element (Score_element_info info)
 {
   announce_info_arr_.push (info);
-  info.origin_trans_l_arr_.push (this);
   pscore_p_->typeset_element (info.elem_l_);
 }
 

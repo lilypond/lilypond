@@ -179,6 +179,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SCRIPT
 %token SKIP
 %token SPANREQUEST
+%token COMMANDSPANREQUEST
 %token TEMPO
 %token TIME_T
 %token TIMES
@@ -873,10 +874,14 @@ scalar:
 request_chord:
 	pre_requests simple_element post_requests	{
 		Music_sequence *l = dynamic_cast<Music_sequence*>($2);
-		for (int i=0; i < $1->size(); i++)
-			l->add_music ($1->elem(i));
-		for (int i=0; i < $3->size(); i++)
-			l->add_music ($3->elem(i));
+		if (l) {
+			for (int i=0; i < $1->size(); i++)
+				l->add_music ($1->elem(i));
+			for (int i=0; i < $3->size(); i++)
+				l->add_music ($3->elem(i));
+			}
+		else
+			programming_error ("Need Sequence to add music to");
  		$$ = $2;
 		
 	}
@@ -962,15 +967,27 @@ abbrev_command_req:
 
 
 verbose_command_req:
+	
 	BAR STRING 			{
 		$$ = new Bar_req (ly_scm2string ($2));
 	}
+	| COMMANDSPANREQUEST int STRING {
+		Span_req * sp_p = new Span_req;
+		sp_p-> span_dir_  = Direction($2);
+		sp_p->span_type_str_ = ly_scm2string ($3);
+		sp_p->set_spot (THIS->here_input ());
+		$$ = sp_p;
+	}	
 	| MARK STRING {
-		$$ = new Mark_req (ly_scm2string ($2));
+		Mark_req *m = new Mark_req;
+		m->str_ = ly_scm2string ($2);
+		$$ = m;
 
 	}
 	| MARK unsigned {
-		$$ = new Mark_req (to_str ($2));
+		Mark_req *m = new Mark_req;
+		m->str_ =  to_str ($2);
+		$$ = m;
 	}
 	| TIME_T unsigned '/' unsigned 	{
 		Time_signature_change_req *m = new Time_signature_change_req;
@@ -1013,7 +1030,6 @@ verbose_command_req:
 		$$ = key_p;
 		delete $2;
 	}
-
 	;
 
 post_requests:
@@ -1367,9 +1383,7 @@ simple_element:
 		Note_req *n = new Note_req;
 		
 		n->pitch_ = *$1;
-		delete $1;
 		n->duration_ = *$4;
-		delete $4;
 		if (THIS->abbrev_beam_type_i_)
 		  {
 		    if (n->duration_.plet_b ())
@@ -1381,58 +1395,63 @@ simple_element:
 		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 
 		Simultaneous_music*v = new Request_chord;
-		v->set_spot (THIS->here_input ());
-		n->set_spot (THIS->here_input ());
+		v->set_spot ($1->spot ());
+		n->set_spot ($1->spot ());
 
 		v->add_music (n);
 
 		$$ = v;
+
+		delete $1;
+		delete $4;
+
 	}
 	| RESTNAME optional_notemode_duration		{
-  Simultaneous_music* velt_p = new Request_chord;
-  velt_p->set_spot (THIS->here_input());
+		  Simultaneous_music* velt_p = new Request_chord;
+		  velt_p->set_spot (THIS->here_input());
 
-  if (ly_scm2string ($1) =="s")
-    { /* Space */
-      Skip_req * skip_p = new Skip_req;
-      skip_p->duration_ = *$2;
+		  if (ly_scm2string ($1) =="s")
+		    { /* Space */
+		      Skip_req * skip_p = new Skip_req;
+		      skip_p->duration_ = *$2;
 
-      skip_p->set_spot (THIS->here_input());
-      velt_p->add_music (skip_p);
-    }
-  else
-    {
-      Rest_req * rest_req_p = new Rest_req;
-      rest_req_p->duration_ = *$2;
-      rest_req_p->set_spot (THIS->here_input());
+		      skip_p->set_spot (THIS->here_input());
+		      velt_p->add_music (skip_p);
+		    }
+		  else
+		    {
+		      Rest_req * rest_req_p = new Rest_req;
+		      rest_req_p->duration_ = *$2;
+		      rest_req_p->set_spot (THIS->here_input());
 
-      velt_p->add_music (rest_req_p);
-    }
+		      velt_p->add_music (rest_req_p);
+		    }
 
-  delete $2;
-  $$ = velt_p;
-
-
+		  delete $2;
+		  $$ = velt_p;
 	}
 	| MEASURES optional_notemode_duration  	{
-		Multi_measure_rest_req* m = new Multi_measure_rest_req;
-		m->duration_ = *$2;
-		delete $2;
+		Skip_req * sk = new Skip_req;
+		sk->duration_ = *$2;
+		Music_list * ms = new Music_list;
+		Request_chord * rqc1 = new Request_chord;
+		Request_chord * rqc2 = new Request_chord;
+		Request_chord * rqc3 = new Request_chord;
 
-		Simultaneous_music*velt_p = new Request_chord;
-		velt_p->set_spot (THIS->here_input ());
-		velt_p->add_music (m);
-		$$ = velt_p;
-	}
-	| REPETITIONS optional_notemode_duration  	{
-		Repetitions_req* r = new Repetitions_req;
-		r->duration_ = *$2;
-		delete $2;
+		Span_req *sp1 = new Span_req;
+		Span_req *sp2 = new Span_req;
+		sp1-> span_dir_ = START;
+		sp2-> span_dir_ = STOP;
+		sp1->span_type_str_ = sp2->span_type_str_ = "rest";
+		rqc1->add_music (sp1);
+		rqc2->add_music (sk);
+		rqc3->add_music (sp2);
+		
+		ms->add_music (rqc1);
+		ms->add_music (rqc2);
+		ms->add_music (rqc3);
 
-		Simultaneous_music*velt_p = new Request_chord;
-		velt_p->set_spot (THIS->here_input ());
-		velt_p->add_music (r);
-		$$ = velt_p;
+		$$ = new Sequential_music (ms);
 	}
 	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())

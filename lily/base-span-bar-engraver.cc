@@ -28,7 +28,7 @@ Base_span_bar_engraver::get_span_bar_p() const
 void
 Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 {
-  int depth = i.origin_trans_l_arr_.size();
+  int depth = i.origin_trans_l_arr (this).size();
   if (depth > 1
       && dynamic_cast<Bar *> (i.elem_l_)) 
     {

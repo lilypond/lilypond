@@ -33,6 +33,11 @@ Mark_engraver::do_try_music (Music* r_l)
 {
   if (Mark_req *mr = dynamic_cast <Mark_req *> (r_l))
     {
+      
+      if (mark_req_l_ && mr->equal_b (mark_req_l_))
+	return true;
+      if (mark_req_l_)
+	return false;
       mark_req_l_ = mr;
       return true;
     }

@@ -22,5 +22,8 @@ Audio_element_info::Audio_element_info()
   req_l_ = 0;
 }
 
-
-
+Link_array<Translator>
+Audio_element_info::origin_trans_l_arr (Translator*) const
+{
+  return origin_trans_l_arr_;
+}

@@ -150,6 +150,7 @@
    generic-text-properties
    generic-note-column-properties
    generic-crescendo-properties
+   generic-script-properties
    generic-All-properties
    ))
 

@@ -146,7 +146,6 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 void
 Tuplet_spanner::do_post_processing ()
 {
-
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
 
@@ -160,7 +159,7 @@ Tuplet_spanner::do_post_processing ()
   Direction d =   directional_element (this).get ();
   if (!d)
     {
-      d = UP;
+      d = get_default_dir ();
       directional_element (this).set (d);
 
     }

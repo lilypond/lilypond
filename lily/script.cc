@@ -51,8 +51,9 @@ Script::do_pre_processing ()
 void
 Script::do_post_processing ()
 {
-  Direction d =  Side_position_interface (this).get_direction ();
-  Molecule m (get_molecule(d));
+  Side_position_interface i (this);
+  Direction d =  i.get_direction ();
+  i.set_direction (d);
 }
 
 Molecule*

@@ -4,7 +4,7 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "script-engraver.hh"
+
 #include "script.hh"
 #include "side-position-interface.hh"
 #include "musical-request.hh"
@@ -12,6 +12,25 @@
 #include "staff-symbol.hh"
 #include "rhythmic-head.hh"
 #include "dimension-cache.hh"
+
+#include "engraver.hh"
+
+class Script_engraver : public Engraver {
+  Link_array<Script> script_p_arr_;
+  Link_array<Articulation_req> script_req_l_arr_;
+
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Script_engraver();
+protected:
+  virtual bool do_try_music (Music*);
+  virtual void do_process_requests ();
+  virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
+  virtual void acknowledge_element (Score_element_info);
+};
+
 
 Script_engraver::Script_engraver()
 {
@@ -138,6 +157,8 @@ Script_engraver::do_pre_move_processing()
 {
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
+      if (to_boolean (script_p_arr_[i]->remove_elt_property ("staff-support")))
+	side_position (script_p_arr_[i]).add_staff_support ();
       typeset_element (script_p_arr_[i]);
     }
   script_p_arr_.clear();

@@ -135,22 +135,6 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
-/**
- Part: typeset a measure with the number of measures rest
- Score: typeset all individual measures as full rests
- */
-class Multi_measure_rest_req : public Rhythmic_req  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-
-/**
- Typeset a repetition sign in each bar.
- */
-class Repetitions_req : public Rhythmic_req  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
 
 /// an extender line
 class Extender_req : public Request  {

@@ -28,7 +28,7 @@ Crescendo::do_brew_molecule_p () const
   Real absdyn_dim = paper_l ()-> get_var ("crescendo_shorten");
   Real extra_left =  get_broken_left_end_align ();
 
-  SCM dir = get_elt_property("grow-dir");
+  SCM dir = get_elt_property("grow-direction");
   SCM dyns = get_elt_property ("dynamic-drul");
 
   if (!isdir_b (dir) || !gh_pair_p (dyns))

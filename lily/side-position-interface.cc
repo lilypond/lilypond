@@ -189,8 +189,15 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
   return o;
 }
 
-
-
+void
+Side_position_interface::add_staff_support ()
+{
+  Staff_symbol_referencer_interface si (elt_l_);
+  if (si.staff_symbol_l ())
+    {
+      add_support (si.staff_symbol_l ());
+    }
+}
 
 void
 Side_position_interface::set_axis (Axis a)
@@ -241,4 +248,12 @@ Side_position_interface::supported_b () const
 {
   SCM s =elt_l_->get_elt_property  ("side-support"); 
   return s != SCM_UNDEFINED && s != SCM_EOL;
+}
+
+
+Side_position_interface
+side_position (Score_element* e)
+{
+  Side_position_interface si (e);
+  return si;
 }

@@ -47,7 +47,7 @@ time3_4beamAutoEnd_16 = #(make-moment 1 4)
 %time3_4beamAutoBegin_32 = #(make-moment 1 8)
 time3_4beamAutoEnd_32 = #(make-moment 1 8)
 
-time3_8beamAutoBegin = #(make-moment 1 8)
+time3_8beamAutoBegin_16 = #(make-moment 1 8)
 time3_8beamAutoEnd = #(make-moment 3 8)
 
 % in common time:

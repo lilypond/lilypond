@@ -29,11 +29,13 @@ public:
   bool supported_b () const;
   bool has_interface_b () const;
   void add_support (Score_element*);
-  
+
+  void add_staff_support ();
   Direction get_direction () const;
   void set_direction (Direction);
 };
 
+Side_position_interface side_position (Score_element*);
 
 #endif /* SIDE_POSITION_INTERFACE_HH */
 

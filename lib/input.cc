@@ -106,3 +106,11 @@ Input::location_str () const
     return "(" + _ ("position unknown") + ")";
 }
 
+String
+Input::line_number_str () const
+{
+  if (source_file_l_)
+    return to_str (source_file_l_->line_i (defined_ch_C_));
+  else
+    return "?";
+}

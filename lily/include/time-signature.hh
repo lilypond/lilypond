@@ -23,6 +23,10 @@ protected:
   virtual Molecule*do_brew_molecule_p() const;
 public:
   Time_signature () ;
+
+  /*
+    TODO: make this SCM!
+   */
   Array<int> args_;
   
   VIRTUAL_COPY_CONS(Score_element);
