@@ -1,4 +1,4 @@
-s\version "1.7.18"
+\version "1.7.18"
 
 %
 % setup for Request->Element conversion. Guru-only
