@@ -14,8 +14,6 @@ are turned off for brevity.
 "
 
 }
-% There are three references, but only two ways to print chord names?
-% Which refers to where? -HJJ
 
 chs = \notes \transpose c' c' 
 {
