@@ -29,6 +29,7 @@ struct Getopt_long ;
 struct Matrix ;
 struct StringData ;
 struct String_handle ;
+struct String;
 struct virtual_smat ;
 struct Vector  ;
 class Text_stream;
