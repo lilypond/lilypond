@@ -19,7 +19,9 @@ paper_twenty = \paper {
 	"font_number-1" = 8.;
 	%"font_number" = 10.;
 	"font_number+1" = 12.;
-
+	
+	% Ugh
+	magnification_dynamic = 2.;
 	
 	% ugh see table20 for sizes
 	quartwidth =  6.61\pt;
