@@ -1,6 +1,8 @@
 %
 % Cadenza to Mozart Horn/3
 %
+% author: unknown. Copyright: none
+%
 
 cad = music { $
 	\duration { 8}

@@ -83,7 +83,7 @@ text2 = music {
 	@
 	\textstyle "roman"
 	When the bla- zing sun is gone,2
-	When he no- thing shine- s upon,2
+	When he no- thing shines up- on,2
 	Then you show your lit- tle light,2
 	Twin- kle, twin- kle, all the night.2
 	Twin- kle, twin- kle, lit- tle star,2
@@ -96,7 +96,7 @@ text3 = music {
 	\textstyle "roman"
 	Then the tra- veler in the dark2
 	Thanks you for your ti- ny spark;2
-	He could not see which way to_go,2
+	He_could not see which way to go,2
 	If you did not twin- kle so.2
 	Twin- kle, twin- kle, lit- tle star,2
 	How I won- der what you are!2
@@ -106,13 +106,13 @@ text3 = music {
 mstaf = staff {
 	melodic
 	music { melodie }
-	commands { clef violin }
+	commands { clef "violin" }
 }
 
 bass_staf = staff {
 	melodic
 	music { begeleiding }
-	commands { clef bass }
+	commands { clef "bass" }
 }
 
 

@@ -12,7 +12,6 @@
 
 static Keyword_ent the_key_tab[]={
     "bar", BAR,
-    "bass", BASS,
     "cadenza", CADENZA,
     "clef", CLEF,
     "cm", CM,
@@ -48,7 +47,6 @@ static Keyword_ent the_key_tab[]={
     "chord", CHORD,
     "multi", MULTI,
     "unitspace", UNITSPACE,
-    "violin", VIOLIN,
     "voice", VOICE,
     "voices", VOICES,
     "width", WIDTH,

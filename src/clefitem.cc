@@ -16,6 +16,10 @@ Clef_item::read(String t)
     type = t;
     if (type == "violin")
 	y_off = 2;
+    if (type == "alto")
+	y_off = 4;
+    if (type == "tenor")
+	y_off = 6;
     if (type == "bass")
 	y_off = 6;
 }

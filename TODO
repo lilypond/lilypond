@@ -1,8 +1,5 @@
-
 BUGS
 	* first clef
-
-	* position of key acc's
 
 SEVERELY LACKING:
 
@@ -54,8 +51,6 @@ SMALLISH PROJECTS
 
 	* fix symbols in parser.o: `Warning: size of symbol'
 
-	* Viola clef
-
 DOC
 
 	* beam generation.
@@ -66,8 +61,6 @@ FUTURE
 	* Command_req
 	
 	* scrap stem_request?
-
-	* Text_pstaff/Lyric_staff
 
 	* put requests on barcommands 
 

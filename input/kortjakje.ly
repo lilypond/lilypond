@@ -52,7 +52,7 @@ bstaf = staff {
 	melodic
 	music { begeleiding }	% use the declared music
 		commands {	% commands with Staff-wide impact.
-			clef bass	% bass-clef
+			clef "bass"	% bass-clef
 		}
 	}
 
@@ -60,7 +60,7 @@ bstaf = staff {
 vstaf = staff {
 	melodic
 		music { melodie }
-		commands { clef violin }
+		commands { clef "violin" }
 				% default clef is violin clef
 	}
 

@@ -30,7 +30,7 @@ multiple stafftypes (melodic, rhythmic)
 =item *
 beams, slurs, chords, super/subscripts (accents and text),
 triplets,  general n-plet (triplet,
-quadruplets, etc.)
+quadruplets, etc.), lyrics
 
 =item *
 multiple scores within one input file. Each score is output to
@@ -49,7 +49,8 @@ LilyPond was written with some considerations in mind:
 
 =over 5
 
-=item * Describing a well-defined language for defining music. We call
+=item *
+Describing a well-defined language for defining music. We call
 this language (rather arrogantly) The Musical Definition Language
 (mudela for short). LilyPond reads a mudela sourcefile and outputs a
 TeX file.  This musical definition language should:

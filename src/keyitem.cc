@@ -4,7 +4,10 @@
 #include "molecule.hh"
 #include "paper.hh"
 #include "lookup.hh"
+#include "clef.hh"
 
+const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
+const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
 Keyitem::Keyitem(int c)
 {
@@ -22,9 +25,20 @@ Keyitem::read(Array<int> s)
     }
 }
 
+void 
+Keyitem::read(const Clef& c)
+{
+    c_position=(c.c0_pos+70)%7;
+}
+
+
 void
 Keyitem::add(int p, int a)
 {
+    if ((a<0 && p>FLAT_TOP_PITCH) ||
+        (a>0 && p>SHARP_TOP_PITCH)) {
+      p=p-7; /* Typeset below c_position */
+    }
     pitch.add(p);
     acc.add(a);
 }

@@ -17,7 +17,6 @@
 #include "debug.hh"
 #include "keyitem.hh"
 #include "clefitem.hh"
-#include "keyitem.hh"
 #include "slur.hh"
 #include "localkeyitem.hh"
 #include "textitem.hh"
@@ -98,6 +97,7 @@ Simple_walker::do_TYPESET_command(Command*com)
 	return;
 
     if (com->args[0] == "KEY") {
+	((Keyitem*) i)->read(clef_);
 	if (oldkey_undo) {
 	    ((Keyitem*) i)->read(*oldkey_undo);
 	    delete oldkey_undo;
