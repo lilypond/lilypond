@@ -1,5 +1,7 @@
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/lily.scm (postscript->png): show commands for --verbose.
+
 	* flower/include/getopt-long.hh: opps. short option should be
 	char, not int.
 
