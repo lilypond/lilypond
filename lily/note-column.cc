@@ -68,7 +68,7 @@ Note_column::do_pre_processing()
 	dir_ = stem_l_->dir_;
       else if (head_l_arr_.size ())
 	{
-	  assert (false);	// looks obsolete?
+	  //	  assert (false);	// looks obsolete?
 	  dir_ = sign (head_positions_interval().center ());
 	}
     }
