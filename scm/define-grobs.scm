@@ -1089,6 +1089,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
+	(extra-offset . (-1 . 0)) 
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)

@@ -1722,6 +1722,35 @@ def conv (str):
 
 conversions.append (((2,1,15), conv, """LyricsVoice . instr(ument) -> vocalName"""))
 
+def conv (str):
+	def sub_acc (m):
+		d = {
+		'4': 'doublesharp',
+		'3': 'threeqsharp',
+		'2': 'sharp',
+		'1': 'semisharp',
+		'0': 'natural',
+		'-1': 'semiflat',
+		'-2': 'flat',
+		'-3': 'threeqflat',
+		'-4': 'doubleflat'}
+		return '\\%s' %  d[m.group (1)]
+		     
+	str = re.sub (r'\\musicglyph\s*#"accidentals-([0-9-]+)"',
+		      sub_acc, str)
+	return str
+
+conversions.append (((2,1,16), conv, """\\musicglyph #"accidentals-NUM" -> \\sharp/flat/etc."""))
+
+
+def conv (str):
+	str = re.sub (r'\\context\s+Voice\s*=\s*one\s*\\partcombine\s+Voice\s*\\context\s+Thread\s*=\s*one(.*)\s*'
+		      + r'\\context\s+Thread\s*=\s*two',
+		      '\\\\newpartcombine\n\\1\n', str)
+	return str
+
+conversions.append (((2,1,17), conv, """\\partcombine -> \\newpartcombine"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

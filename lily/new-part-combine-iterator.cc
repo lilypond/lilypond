@@ -1,10 +1,10 @@
 /*   
-  new-part-combine-music-iterator.cc -- implement New_pc_iterator
+     new-part-combine-music-iterator.cc -- implement New_pc_iterator
 
-  source file of the GNU LilyPond music typesetter
+     source file of the GNU LilyPond music typesetter
   
-  (c) 2004 Han-Wen Nienhuys
- */
+     (c) 2004 Han-Wen Nienhuys
+*/
 
 #include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
@@ -40,14 +40,16 @@ protected:
 private:
   Music_iterator * first_iter_;
   Music_iterator * second_iter_;
-  bool is_shared_ ;
+  
   SCM split_list_;
 
-  enum  {
+  enum Status  {
     APART, TOGETHER,
     SOLO1, SOLO2,
-    UNISONO,
-  } state_;
+    UNISONO, UNISILENCE,
+  };
+  Status state_;
+  Status playing_state_;
 
   Interpretation_context_handle one_;
   Interpretation_context_handle two_;
@@ -55,20 +57,20 @@ private:
   Interpretation_context_handle shared_;
 
   void chords_together ();
-  void apart ();
   void solo1 ();
   void solo2 ();
-  void unisono ();
+  void apart (bool silent);
+  void unisono (bool silent);
 };
 
 
 New_pc_iterator::New_pc_iterator ()
 {
-  is_shared_  =false;
   first_iter_ = 0;
   second_iter_ = 0;
   split_list_ = SCM_EOL;
   state_ = APART;
+  playing_state_ = APART;
 }
 
 void
@@ -148,6 +150,7 @@ New_pc_iterator::chords_together ()
     return;
   else
     {
+      playing_state_ = TOGETHER;
       state_ = TOGETHER;
       first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
       first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
@@ -171,21 +174,26 @@ New_pc_iterator::solo1 ()
       second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
       second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
 
-      static Music* event;
-      if (!event)
-	event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
+      if (playing_state_ != SOLO1)
+	{
+	  static Music* event;
+	  if (!event)
+	    event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
 
-    first_iter_-> try_music_in_children (event);
+	  first_iter_-> try_music_in_children (event);
+	}
+      playing_state_ = SOLO1;
     }
 }
 void
-New_pc_iterator::unisono ()
+New_pc_iterator::unisono (bool silent)
 {
-  if (state_ == UNISONO)
-    return;
+  Status newstate = (silent) ? UNISILENCE : UNISONO;
+  
+  if (newstate == state_)
+    return; 
   else
     {
-      state_ = UNISONO;
 
       first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
       first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
@@ -193,12 +201,17 @@ New_pc_iterator::unisono ()
       second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
       second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
 
+      if (playing_state_ != UNISONO
+	  && newstate == UNISONO)
+	{
+	  static Music* event;
+	  if (!event)
+	    event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
 
-      static Music* event;
-      if (!event)
-	event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
-
-      first_iter_-> try_music_in_children (event);      
+	  first_iter_-> try_music_in_children (event);      
+	  playing_state_ = UNISONO;
+	}
+      state_ = newstate;
     }
 }
 
@@ -210,23 +223,31 @@ New_pc_iterator::solo2 ()
   else
     {
       state_ = SOLO2;
+      
       second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
       second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
 
       first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
       first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
 
-      static Music* event;
-      if (!event)
-	event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
+      if (playing_state_ != SOLO2)
+	{
+	  static Music* event;
+	  if (!event)
+	    event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
 
-      second_iter_-> try_music_in_children (event);
+	  second_iter_-> try_music_in_children (event);
+	  playing_state_ = SOLO2;
+	}
     }
 }
 
 void
-New_pc_iterator::apart ()
+New_pc_iterator::apart (bool silent)
 {
+  if (!silent)
+    playing_state_ = APART;
+
   if (state_ == APART)
     return;
   else
@@ -260,6 +281,10 @@ New_pc_iterator::construct_children ()
   Translator_group *null
     =  report_to ()->find_create_translator (ly_symbol2scm ("Devnull"),
 					     "", SCM_EOL);
+
+  if (!null)
+    programming_error ("No Devnull found?");
+  
   null_.set_translator (null);
 
   Translator_group *one = tr->find_create_translator (ly_symbol2scm ("Voice"),
@@ -320,10 +345,13 @@ New_pc_iterator::process (Moment m)
       
       if (tag == ly_symbol2scm ("chords"))
 	chords_together ();
-      else if (tag == ly_symbol2scm ("apart"))
-	apart ();
+      else if (tag == ly_symbol2scm ("apart")
+	       || tag == ly_symbol2scm ("apart-silence"))
+	apart (tag == ly_symbol2scm ("apart-silence"));
       else if (tag == ly_symbol2scm ("unisono"))
-	unisono ();
+	unisono (false);
+      else if (tag == ly_symbol2scm ("unisilence"))
+	unisono (true);
       else if (tag == ly_symbol2scm ("solo1"))
 	solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))

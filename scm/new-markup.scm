@@ -461,6 +461,26 @@ Also set markup-signature and markup-keyword object properties."
 (def-markup-command typewriter (markup?)
   (font-markup 'font-family 'typewriter))
 
+(def-markup-command (doublesharp paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals-4")))
+(def-markup-command (threeqsharp paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals-3")))
+(def-markup-command (sharp paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals-2")))
+(def-markup-command (semisharp paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals-1")))
+(def-markup-command (natural paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals-0")))
+(def-markup-command (semiflat paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals--1")))
+(def-markup-command (flat paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals--2")))
+(def-markup-command (threeqflat paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals--3")))
+(def-markup-command (doubleflat paper props) ()
+  (interpret-markup paper props (markup #:musicglyph "accidentals--4")))
+
+
 (def-markup-command (column paper props mrkups) (markup-list?)
   (stack-lines
    -1 0.0 (cdr (chain-assoc 'baseline-skip props))
