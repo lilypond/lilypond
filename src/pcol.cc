@@ -37,7 +37,7 @@ PCol::print() const
 	mtor << "rank: " << rank() << '\n';
 
     mtor << "# symbols: " << its.size() ;
-    if (breakable()){
+    if (breakable_b()){
 	mtor << "\npre,post: ";
 	prebreak_p_->print();
 	postbreak_p_->print();
@@ -76,7 +76,7 @@ PCol::OK() const
 void
 PCol::set_breakable()
 {
-    if (breakable())
+    if (breakable_b())
 	return;
 
     prebreak_p_ = new PCol(this);
@@ -86,7 +86,7 @@ PCol::set_breakable()
 }
 
 bool
-PCol::breakable() const
+PCol::breakable_b() const
 {
     return prebreak_p_||postbreak_p_;
 }
@@ -117,5 +117,5 @@ PCol::add( Item *i)
 bool
 PCol::used()const
 {
-    return breakable() || its.size();
+    return breakable_b() || its.size();
 }
