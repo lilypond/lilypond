@@ -1,3 +1,109 @@
+2005-01-12  Werner Lemberg  <wl@gnu.org>
+
+	This patch addresses the following problems in the feta sources
+	files which contribute to the fetaXX fonts.
+
+	. Many fixes for rasterization at low resolutions (consistent use of
+	  `vround' and `hround', integer shift values for paths, applying
+	  `eps' for mirrored paths, use of `define_whole_pixels' and
+	  friends, etc.) -- while this probably looks like a waste of time
+	  it has revealed deficiencies in some glyph shapes.  See comment at
+	  the end of feta-params.mf how vertical symmetry is achieved.
+
+	. The `---' operator has been replaced everywhere with `--'; this
+	  both improves and considerably reduces the font size after
+	  conversion with mf2pt1.
+
+	These change aren't explicitly mentioned below since virtually all
+	glyphs are affected.
+
+	Other notable differences:
+
+	. Glyphs from feta-accordion.mf now have charboxes around the
+	  outline.
+
+	. Fixed incorrect charbox for `accDot'.
+
+	. The `rcomma' and `lcomma' glyphs were distorted due to a typo.
+
+	. Fixed position of the bow in the `upprall' glyph and its siblings.
+
+	. The bulb size in the `2/2 meter' and `4/4 meter' glyphs is now
+	  dependent on the staff line thickness to avoid touching the middle
+	  staff line at smaller sizes.
+
+	. Largely extended output for feta-testXX: Where useful, glyphs
+	are shown both between and on staff lines.
+
+
+	* mf/feta-params.mf (staff_space_rounded,
+	stafflinethickness_rounded, linethickness_rounded,
+	ledgerlinethickness_rounded, stemthickness_rounded): New variables.
+	Update all code which uses them where appropriate.
+	(feta_eps, feta_shift, feta_space_shift, feta_offset, feta_fillpen):
+	New variables used to control rasterization at low resolutions.  Set
+	to zert if feta code is processed with metapost.
+
+	* mf/feta-macros.mf (draw_staff, draw_staff_outline): Updated.
+	(draw_rounded_block, draw_square_block): Updated to use `--' only.
+	(flare_path): Updated.
+	Make it work with `filldraw' (but only circular pens).
+	(hfloor, vfloor, hceiling, vceiling): New macros.
+
+	* mf/feta-params.mf (to_bp): New macro for mf2pt1.
+	(set_char_box): Updated.
+	Add code which emits specials for mf2pt1 if run with metapost.
+
+	* mf/feta-accordion.mf ("accDiscant", "accFreebase", "accStdbase"):
+	Use `draw' again in mf mode to have good pixel dropout control.
+	Fix intersection points of horizontal lines with circle.
+	("accDot"): Fix parameters for set_char_box.
+	("accOldEE"): Use `draw' again in mf mode to have good pixel dropout
+	control.
+
+	* mf/feta-banier.mf: Updated.
+
+	* mf/feta-bolletjes.mf (remember_pic): New variable, used for
+	testing.
+	(undraw_inside_ellipse): Remove `center' argument.  Update all
+	callers.
+	(draw_brevis): New macro, called by "Brevis notehead".
+	(draw_whole_triangle_head): New macro, called by "Whole
+	trianglehead".
+	(draw_small_triangle_head): Use `filldraw'.
+
+	* mf/feta-eindelijk.mf: Remove useless global group.
+	Updated.
+
+	* mf/feta-klef.mf (draw_c_clef): Correct point positions for using
+	`filldraw'.
+
+	* mf/feta-pendaal.mf: Updated.
+
+	* mf/feta-puntje.mf: Updated.
+
+	* mf/feta-schrift.mf (draw_very_long_fermata): Simplified to use
+	less points.
+	("Flageolet"): Use `draw' again in mf mode to have good pixel
+	dropout control.
+	("Varied Coda"): Use `draw_block'.
+	(draw_comma): Fix typo.
+	(draw_arpeggio_arrow): Use `draw' also in mf mode to have good
+	pixel dropout control.
+
+	* mf/feta-slag.mf ("upprall", "downprall", "lineprall"): Fix start
+	position of bow.
+
+	* mf/feta-timesig.mf (draw_C): Reduce bulb size for smaller design
+	sizes.
+
+	* mf/feta-toevallig.mf (remember_pic): New variable, used for
+	testing.
+	(draw_meta_sharp): Much simplified.
+	("Sharp", "1/2 Sharp", "3/4 Sharp"): Don't rotate but shift.
+
+	* mf/feta-test-generic.mf: Include all files as in feta-generic.mf.
+
 2005-01-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/notation.itely (Ancient rests): Fix typo

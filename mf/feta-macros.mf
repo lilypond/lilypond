@@ -36,8 +36,10 @@ def draw_staff (expr first, last, offset) =
 		pickup pencircle scaled stafflinethickness;
 
 		for i := first step 1 until last:
-			draw (-staff_space, (i + offset) * staff_space)
-			     .. (4 staff_space, (i + offset) * staff_space);
+			draw (-staff_space,
+			      (i + offset) * staff_space_rounded)
+			     -- (4 staff_space,
+				 (i + offset) * staff_space_rounded);
 		endfor;
 	fi;
 enddef;
@@ -55,8 +57,10 @@ def draw_staff_outline (expr first, last, offset) =
 		pickup pencircle scaled 2;
 
 		for i := first step 1 until last:
-			p := (-staff_space, (i + offset) * staff_space)
-			     .. (4 staff_space, (i + offset) * staff_space);
+			p := (-staff_space,
+			      (i + offset) * staff_space_rounded)
+			     -- (4 staff_space,
+				 (i + offset) * staff_space_rounded);
 
 			draw p shifted (0, .5 stafflinethickness);
 			draw p shifted (0, -.5 stafflinethickness);
@@ -178,31 +182,33 @@ enddef;
 
 def draw_rounded_block (expr bottom_left, top_right, roundness) =
 begingroup;
-	save round;
+	save size;
 	save x, y;
 
-	round = floor min (roundness,
-			   xpart (top_right - bottom_left),
-			   ypart (top_right - bottom_left));
+	% Originally, there was `floor' instead of `round', but this is
+	% not correct because pens use `round' also.
+	size = round min (roundness,
+			  xpart (top_right - bottom_left),
+			  ypart (top_right - bottom_left));
 
-	pickup pencircle scaled round;
-
-	z2 + (round / 2, round / 2) = top_right;
-	z4 - (round / 2, round / 2) = bottom_left;
+	z2 + (size / 2, size / 2) = top_right;
+	z4 - (size / 2, size / 2) = bottom_left;
 	y3 = y2;
 	y4 = y1;
 	x2 = x1;
 	x4 = x3;
 
-	fill bot z1
-	     .. rt z1
-	     --- rt z2
-	     .. top z2
-	     --- top z3
-	     .. lft z3
-	     --- lft z4
-	     .. bot z4
-	     --- cycle;
+	pickup pencircle scaled size;
+
+	fill bot z1{right}
+	     .. rt z1{up}
+	     -- rt z2{up}
+	     .. top z2{left}
+	     -- top z3{left}
+	     .. lft z3{down}
+	     -- lft z4{down}
+	     .. bot z4{right}
+	     -- cycle;
 endgroup;
 enddef;
 
@@ -221,10 +227,10 @@ def draw_square_block (expr bottom_left, top_right) =
 	y2 = ypart top_right;
 
 	fill (x1, y1)
-	     --- (x2, y1)
-	     --- (x2, y2)
-	     --- (x1, y2)
-	     --- cycle;
+	     -- (x2, y1)
+	     -- (x2, y2)
+	     -- (x1, y2)
+	     -- cycle;
 enddef;
 
 
@@ -284,34 +290,44 @@ enddef;
 % line = diameter of line attachment
 % direction = is ink on left or right side (1 or -1)
 %
+% Note that `currentpen' must be set correctly -- only circular pens
+% are supported properly.
 
 def flare_path (expr pos, alpha, beta, line, flare, direction) =
 begingroup;
+	save thick;
+
+	thick = pen_top + pen_bot;
+
 	clearxy;
 
-	penpos1 (line, 180 + beta + alpha);
-	z1r = pos;
+	penpos1' (line - thick, 180 + beta + alpha);
+	top z1'r = pos;
 
-	penpos2 (flare, 180 + beta + alpha);
-	z2 = z3;
+	penpos2' (flare - thick, 180 + beta + alpha);
+	z2' = z3';
 
-	penpos3 (flare, 0 + alpha);
-	z3l = z1r + (1/2 + 0.43) * flare * dir (alpha + beta);
+	penpos3' (flare - thick, 0 + alpha);
+	rt x3'l = hround (x1'r
+			  + (1/2 + 0.43) * flare * xpart dir (alpha + beta));
+	bot y2'l = vround (y1'r
+			   + (1 + 0.43) * flare * ypart dir (alpha + beta));
 
-	z4 = z2r - line * dir (alpha);
+	rt x4' = x2'r - line * xpart dir (alpha);
+	y4' = y2'r - line * ypart dir (alpha);
 
-	penlabels (1, 2, 3, 4);
+	penlabels (1', 2', 3', 4');
 
 	save t, p;
 	t = 0.833;
 	path p;
 
-	p := z1r{dir (alpha)}
-	     .. z3r{dir (180 + alpha - beta)}
-	     .. z2l{dir (alpha + 180)}
-	     .. z3l{dir (180 + alpha + beta)}
-	     ..tension t.. z4{dir (180 + alpha + beta)}
-	     .. z1l{dir (alpha + 180)};
+	p := z1'r{dir (alpha)}
+	     .. z3'r{dir (180 + alpha - beta)}
+	     .. z2'l{dir (alpha + 180)}
+	     .. z3'l{dir (180 + alpha + beta)}
+	     ..tension t.. z4'{dir (180 + alpha + beta)}
+	     .. z1'l{dir (alpha + 180)};
 
 	if direction <> 1:
 		p := reverse p;
@@ -404,7 +420,7 @@ begingroup;
 
 	rad = bulb_rad;
 
-	z1' = z0' + radius_factor* rad * dir (ang + turndir * 100);
+	z1' = z0' + radius_factor * rad * dir (ang + turndir * 100);
 	z2' = z0' + rad * dir (ang + turndir * 300);
 
 	labels (0', 1', 2');
@@ -416,4 +432,23 @@ begingroup;
 endgroup
 enddef;
 
+
 pi := 3.14159;
+
+
+%
+% To get symmetry at low resolutions we need to shift some points and
+% paths, but not if mf2pt1 is used.
+%
+
+if known miterlimit:
+	vardef hfloor primary x = x enddef;
+	vardef vfloor primary y = y enddef;
+	vardef hceiling primary x = x enddef;
+	vardef vceiling primary y = y enddef;
+else:
+	vardef hfloor primary x = floor x enddef;
+	vardef vfloor primary y = (floor y.o_)_o_ enddef;
+	vardef hceiling primary x = ceiling x enddef;
+	vardef vceiling primary y = (ceiling y.o_)_o_ enddef;
+fi;

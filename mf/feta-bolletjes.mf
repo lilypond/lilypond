@@ -11,6 +11,10 @@
 test_outlines := 0;
 
 
+save remember_pic;
+picture remember_pic;
+
+
 % Most beautiful noteheads are pronounced, not circular,
 % and not even symmetric.
 % These examples are inspired by [Wanske]; see literature list.
@@ -39,12 +43,13 @@ slash_thick# := 2/3 * 0.48 staff_space#;
 %
 % Hand-engraved music often has balls extending above and below
 % the lines.  If you like that, modify overdone heads (unit:
-% stafflinethickness)
+% stafflinethickness).
 %
 overdone_heads = 0.0;
 noteheight# := staff_space# + (1 + overdone_heads) * stafflinethickness#;
 
-define_pixels (slash_thick, noteheight);
+define_pixels (slash_thick);
+define_whole_vertical_pixels (noteheight);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -60,7 +65,7 @@ def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
 	path p;
 
 	p := superellipse ((ellipticity, 0), (-slant * ellipticity, 1.0),
-			   (- ellipticity, 0), (slant * ellipticity, -1.0),
+			   (-ellipticity, 0), (slant * ellipticity, -1.0),
 			   superness);
 	p := p rotated tilt;
 
@@ -70,22 +75,25 @@ def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
 	top_point := directionpoint left of p;
 	right_point := directionpoint up of p;
 
-	save scaling, width, height;
+	save scaling, width;
 
 	scaling# = noteheight# / (2 ypart (top_point));
 	width# := 2 xpart (right_point) * scaling#;
-
-	define_pixels (width, scaling);
+	define_pixels (scaling, width);
 
 	set_char_box (0, width#, noteheight# / 2, noteheight# / 2);
+
+	d := d - feta_space_shift;
 
 	% attachment Y
 	charwy := ypart (right_point) * scaling#;
 	charwx := width#;
 
-	p := p scaled scaling shifted (width / 2, 0);
+	p := p scaled scaling shifted (w / 2, .5 (h - d));
+
+	width := hround width;
+
 	if test_outlines = 1:
-		pickup pencircle scaled 1;
 		draw p;
 	else:
 		fill p;
@@ -93,8 +101,7 @@ def draw_outside_ellipse (expr ellipticity, tilt, superness, slant) =
 enddef;
 
 
-def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance,
-			   center) =
+def undraw_inside_ellipse (expr ellipticity, tilt, superness, clearance) =
 begingroup
 	save p;
 	path p;
@@ -114,12 +121,10 @@ begingroup
 
 	height# = staff_space# + stafflinethickness# - clearance;
 	scaling# = height# / (2 ypart (top_point));
-
 	define_pixels (scaling);
-	p := (p scaled scaling) shifted center;
+	p := (p scaled scaling) shifted (w / 2, .5 (h - d));
 
 	if test_outlines = 1:
-		pickup pencircle scaled 1;
 		draw p;
 	else:
 		unfill p;
@@ -131,15 +136,16 @@ enddef;
 %
 % dimensions aren't entirely right.
 %
-fet_beginchar ("Brevis notehead", "s-1");
+def draw_brevis =
 	save stemthick, fudge;
-	define_pixels (stemthick);
-	fudge = blot_diameter / 2;
+
 	stemthick# = 2 stafflinethickness#;
+	define_whole_blacker_pixels (stemthick);
+
+	fudge = hround (blot_diameter / 2);
 
 	draw_outside_ellipse (1.80, 0, 0.707, 0);
-	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#,
-			       (w / 2, 0));
+	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
 
 	pickup pencircle scaled stemthick;
 
@@ -155,53 +161,143 @@ fet_beginchar ("Brevis notehead", "s-1");
 
 	draw_gridline (z1, z2, stemthick);
 	draw_gridline (z3, z4, stemthick);
+enddef;
+
+
+fet_beginchar ("Brevis notehead", "s-1");
+	draw_brevis;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Whole notehead", "s0")
+if test > 0:
+	fet_beginchar ("Brevis notehead", "s-1");
+		draw_brevis;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Whole notehead", "s0");
 	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
-			       0.68, 2 stafflinethickness#, (w / 2, 0));
+			       0.68, 2 stafflinethickness#);
 
-%	draw_staff_outline (-2, 2, 0.5);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half notehead", "s1")
+if test > 0:
+	fet_beginchar ("Whole notehead", "s0");
+		draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0,
+				      0.707, 0);
+		undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
+				       0.68, 2 stafflinethickness#);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Half notehead", "s1");
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
-	undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#,
-			       (w / 2, 0));
+	undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
-fet_beginchar ("Quart notehead", "s2")
+
+if test > 0:
+	fet_beginchar ("Half notehead", "s1");
+		draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34,
+				      0.66, 0.17);
+		undraw_inside_ellipse (3.25, 33, 0.81,
+				       2.5 stafflinethickness#);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Quart notehead", "s2");
 	% used to have 32. With 31, they are slightly bolder.
 	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
 	black_notehead_width# := charwd;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
+
+
+if test > 0:
+	fet_beginchar ("Quart notehead", "s2");
+		draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31,
+				      0.707, 0);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-fet_beginchar ("Whole diamondhead", "s0diamond")
+fet_beginchar ("Whole diamondhead", "s0diamond");
 	draw_outside_ellipse (1.80, 0, 0.495, 0);
 	undraw_inside_ellipse (1.30, 125, 0.6,
-			       .4 staff_space# +  stafflinethickness#,
-			       (w / 2, 0));
+			       .4 staff_space# + stafflinethickness#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half diamondhead", "s1diamond")
+if test > 0:
+	fet_beginchar ("Whole diamondhead", "s0diamond");
+		draw_outside_ellipse (1.80, 0, 0.495, 0);
+		undraw_inside_ellipse (1.30, 125, 0.6,
+				       .4 staff_space# + stafflinethickness#);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Half diamondhead", "s1diamond");
 	draw_outside_ellipse (1.50, 34, 0.49, 0.17);
 	undraw_inside_ellipse (3.5, 33, 0.80,
-			       .3 staff_space# + 1.5 stafflinethickness#,
-			       (w / 2, 0));
+			       .3 staff_space# + 1.5 stafflinethickness#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Quart diamondhead", "s2diamond")
+if test > 0:
+	fet_beginchar ("Half diamondhead", "s1diamond");
+		draw_outside_ellipse (1.50, 34, 0.49, 0.17);
+		undraw_inside_ellipse (3.5, 33, 0.80,
+				       .3 staff_space#
+				       + 1.5 stafflinethickness#);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Quart diamondhead", "s2diamond");
 	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
+
+
+if test > 0:
+	fet_beginchar ("Quart diamondhead", "s2diamond");
+		draw_outside_ellipse (1.80, 35, 0.495, -0.25);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,7 +335,8 @@ def define_triangle_shape (expr stemdir) =
 
 	save pen_thick;
 	pen_thick# = stafflinethickness# + .1 staff_space#;
-	define_pixels (pen_thick, llap);
+	define_pixels (llap);
+	define_blacker_pixels (pen_thick);
 
 	left_up_dir = llap# * dir (90 + tilt);
 
@@ -339,7 +436,7 @@ def define_triangle_shape (expr stemdir) =
 enddef;
 
 
-fet_beginchar ("Whole trianglehead", "s0triangle")
+def draw_whole_triangle_head =
 	save hei, xs;
 	save llap;
 	save tilt;
@@ -352,7 +449,23 @@ fet_beginchar ("Whole trianglehead", "s0triangle")
 	define_triangle_shape (1);
 	fill triangle_out;
 	unfill triangle_in;
+enddef;
+
+
+fet_beginchar ("Whole trianglehead", "s0triangle");
+	draw_whole_triangle_head;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
+
+
+if test > 0:
+	fet_beginchar ("Whole trianglehead", "s0triangle");
+		draw_whole_triangle_head;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
 
 
 def draw_small_triangle_head (expr dir) =
@@ -365,18 +478,25 @@ def draw_small_triangle_head (expr dir) =
 	xs = 1.2;
 	caveness := 0.1;
 	define_triangle_shape (dir);
-	fill triangle_out;
-	unfill triangle_in;
+
+	pickup feta_fillpen;
+
+	filldraw triangle_out;
+	unfilldraw triangle_in;
 enddef;
 
 
-fet_beginchar ("Half trianglehead", "d1triangle")
+fet_beginchar ("Half trianglehead", "d1triangle");
 	draw_small_triangle_head (-1);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half trianglehead", "u1triangle")
+fet_beginchar ("Half trianglehead", "u1triangle");
 	draw_small_triangle_head (1);
+
+	draw_staff (-2, 2, 0.5);
 fet_endchar;
 
 
@@ -394,13 +514,17 @@ def draw_closed_triangle_head (expr dir) =
 enddef;
 
 
-fet_beginchar ("Quart trianglehead", "u2triangle")
+fet_beginchar ("Quart trianglehead", "u2triangle");
 	draw_closed_triangle_head (1);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Quart trianglehead", "d2triangle")
+fet_beginchar ("Quart trianglehead", "d2triangle");
 	draw_closed_triangle_head (-1);
+
+	draw_staff (-2, 2, 0.5);
 fet_endchar;
 
 
@@ -422,6 +546,9 @@ def draw_slash (expr hwid_hash) =
 	charwy := charht;
 
 	clearxy;
+
+	d := d - feta_shift;
+
 	pickup pencircle scaled blot_diameter;
 
 	bot y1 = -d;
@@ -434,16 +561,17 @@ def draw_slash (expr hwid_hash) =
 	y4 = y1;
 	x3 - x2 = x4 - x1;
 
-	ne_dir := unitvector (z3  - z4);
-	fill bot z1
-	     .. lft z1
-	     --- lft z2
-	     .. top z2
-	     --- top z3
-	     .. rt z3
-	     --- rt z4
-	     .. bot z4
-	     --- cycle;
+	ne_dir := unitvector (z3 - z4);
+
+	fill bot z1{left}
+	     .. lft z1{ne_dir}
+	     -- lft z2{ne_dir}
+	     .. top z2{right}
+	     -- top z3{right}
+	     .. rt z3{-ne_dir}
+	     -- rt z4{-ne_dir}
+	     .. bot z4{left}
+	     -- cycle;
 
 	if hwid_hash > 2 slash_thick#:
 		save th;
@@ -469,18 +597,24 @@ def draw_slash (expr hwid_hash) =
 enddef;
 
 
-fet_beginchar ("Whole slashhead", "s0slash")
+fet_beginchar ("Whole slashhead", "s0slash");
 	draw_slash (4 slash_thick# + 0.5 staff_space#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half slashhead", "s1slash")
+fet_beginchar ("Half slashhead", "s1slash");
 	draw_slash (3.0 slash_thick# + 0.15 staff_space#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Quart slashhead", "s2slash")
+fet_beginchar ("Quart slashhead", "s2slash");
 	draw_slash (1.5 slash_thick#);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
@@ -493,12 +627,18 @@ def draw_cross (expr thick) =
 	save ne_dir, nw_dir;
 	save horz_dist, vert_dist;
 	save crz_in, crz_out;
+	save thickness;
 	pair ne_dir, nw_dir;
 	path crz_in, crz_out;
 
 	pen_thick# := 1.2 stafflinethickness#;
-	define_pixels (pen_thick);
+	thickness# := thick * stafflinethickness#;
+	define_pixels (thickness);
+	define_blacker_pixels (pen_thick);
+
 	pickup pencircle scaled pen_thick;
+
+	h := h - feta_shift;
 
 	top y3 = h;
 	ne_dir := unitvector ((1, (2 h - pen_thick) / (w - pen_thick)));
@@ -509,8 +649,8 @@ def draw_cross (expr thick) =
 	z6 - z3 = whatever * ne_dir;
 	z3 - z4 = whatever * (ne_dir yscaled -1);
 
-	z4 - z3 = whatever * (ne_dir)
-		  + (ne_dir rotated -90) * thick * stafflinethickness;
+	z4 - z3 = whatever * (ne_dir) + (ne_dir rotated -90) * thickness;
+
 
  	x1 = charwd / 2 - .5 pen_thick#;
 	z1 = whatever * ne_dir
@@ -521,111 +661,214 @@ def draw_cross (expr thick) =
 	nw_dir = unitvector (z3 - z4);
 
 	vert_dist = 0.5 pen_thick / cosd (angle (ne_dir));
-	horz_dist = 0.5 pen_thick / sind (angle (nw_dir));
+	horz_dist = 0.5 pen_thick / sind (angle (ne_dir));
+
+	x4' := x4;
+	x5' := x5;
+	y6' := y6;
+
+	x4 := hround (x4' + .5 pen_thick) - .5 pen_thick;
+	x5 := hfloor (x5' + horz_dist) - horz_dist;
+	y6 := vfloor (y6' + vert_dist) - vert_dist;
 
 	crz_out = (z6 + up * vert_dist)
-		  --- (z3 + nw_dir * 0.5 pen_thick)
+		  -- (z3 + nw_dir * 0.5 pen_thick){ne_dir}
 		  .. (top z3)
-		  .. (z3 + ne_dir * 0.5 pen_thick)
-		  --- (z4 + ne_dir * 0.5 pen_thick)
+		  .. (z3 + ne_dir * 0.5 pen_thick){-nw_dir}
+		  -- (z4 + ne_dir * 0.5 pen_thick){-nw_dir}
 		  .. (rt z4)
-		  .. (z4 - nw_dir * 0.5 pen_thick)
-		  --- (z5 + right * horz_dist);
-	crz_out := crz_out
-		   & reverse crz_out yscaled -1;
-	crz_out := crz_out
-		   & reverse crz_out xscaled -1
-		   & cycle;
-	fill crz_out;
+		  .. (z4 - nw_dir * 0.5 pen_thick){-ne_dir}
+		  -- (z5 + right * horz_dist);
+	crz_out := crz_out shifted (0, feta_shift)
+		   -- reverse crz_out yscaled -1 shifted (0, -feta_eps);
+	fill crz_out
+	     -- reverse crz_out xscaled -1 shifted (-feta_eps, 0)
+	     -- cycle;
 
 	if (thick > 1):
+		x4 := hround (x4' - horz_dist) + horz_dist;
+		x5 := hceiling (x5' - .5 pen_thick) + .5 pen_thick;
+		y6 := vfloor (y6' - .5 pen_thick) + .5 pen_thick;
+
 		crz_in = (bot z6){right}
-			 .. (z6 - nw_dir * 0.5 pen_thick)
-			 --- (z3 + down * vert_dist)
-			 --- (z4 + left * horz_dist)
-			 --- (z5 + nw_dir * 0.5 pen_thick)
+			 .. (z6 - nw_dir * 0.5 pen_thick){ne_dir}
+			 -- (z3 + down * vert_dist)
+			 -- (z4 + left * horz_dist)
+			 -- (z5 + nw_dir * 0.5 pen_thick){-ne_dir}
 			 .. {down}(lft z5);
-		crz_in := crz_in
-			  .. reverse crz_in yscaled -1;
-		crz_in := crz_in
-			  .. reverse crz_in xscaled -1
-			  .. cycle;
-		unfill crz_in;
+		crz_in := crz_in shifted (0, feta_shift)
+			  -- reverse crz_in yscaled -1 shifted (0, -feta_eps);
+		unfill crz_in
+		       -- reverse crz_in xscaled -1 shifted (-feta_eps, 0)
+		       -- cycle;
 	fi
 
 	% ugh
-	currentpicture := currentpicture shifted (w / 2, 0);
+	currentpicture := currentpicture shifted (hround (w / 2), 0);
 
 	charwx := charwd;
-	charwy := y1;
+	charwy := y1 + feta_shift;
+
 	z12 = (charwx * hppp, y1 * vppp);
+
 	labels (12);
 enddef;
 
 
-fet_beginchar ("Whole Crossed notehead", "s0cross")
+fet_beginchar ("Whole Crossed notehead", "s0cross");
+	save wid, hei;
+
 	wid# := black_notehead_width# + 4 stafflinethickness#;
 	hei# := noteheight# + stafflinethickness#;
 
 	set_char_box (0, wid#, hei# / 2, hei# / 2);
 
 	draw_cross (3.75);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half Crossed notehead", "s1cross")
+if test > 0:
+	fet_beginchar ("Whole Crossed notehead", "s0cross");
+		save wid, hei;
+
+		wid# := black_notehead_width# + 4 stafflinethickness#;
+		hei# := noteheight# + stafflinethickness#;
+
+		set_char_box (0, wid#, hei# / 2, hei# / 2);
+
+		currentpicture := remember_pic;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Half Crossed notehead", "s1cross");
+	save wid, hei;
+
 	wid# := black_notehead_width# + 2 stafflinethickness#;
 	hei# := noteheight# + stafflinethickness# / 2;
 
 	set_char_box (0, wid#, hei# / 2, hei# / 2);
 
 	draw_cross (3.0);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Crossed notehead", "s2cross")
+if test > 0:
+	fet_beginchar ("Half Crossed notehead", "s1cross");
+		save wid, hei;
+
+		wid# := black_notehead_width# + 2 stafflinethickness#;
+		hei# := noteheight# + stafflinethickness# / 2;
+
+		set_char_box (0, wid#, hei# / 2, hei# / 2);
+
+		currentpicture := remember_pic;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("Crossed notehead", "s2cross");
 	wid# := black_notehead_width#;
 	hei# := noteheight#;
 	set_char_box (0, wid#, hei# / 2, hei# / 2);
 
 	draw_cross (1.0);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("X-Circled notehead", "s2xcircle")
+if test > 0:
+	fet_beginchar ("Crossed notehead", "s2cross");
+		wid# := black_notehead_width#;
+		hei# := noteheight#;
+		set_char_box (0, wid#, hei# / 2, hei# / 2);
+
+		currentpicture := remember_pic;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+fet_beginchar ("X-Circled notehead", "s2xcircle");
+	save wid, hei;
+	save cthick, cxd, cyd, dy;
+
 	wid# := black_notehead_width# * sqrt (sqrt2);
 	hei# := noteheight# * sqrt (sqrt2);
 
 	set_char_box (0, wid#, hei# / 2, hei# / 2);
 
-	cthick := (1.2 + 1/4) * stafflinethickness;
-	cxr := w / 2 - cthick / 2;
-	cyr := h - cthick / 2;
+	d := d - feta_space_shift;
+
+	cthick# := (1.2 + 1/4) * stafflinethickness#;
+	define_blacker_pixels (cthick);
+
+	cxd := w - cthick;
+	cyd := h + d - cthick / 2;
+
+	dy = .5 (h - d);
 
 	pickup pencircle scaled cthick;
 
-	fill fullcircle xscaled (2 cxr + cthick)
-			yscaled (2 cyr + cthick)
-			shifted (w / 2, 0);
-	unfill fullcircle xscaled (2 cxr - cthick)
-			  yscaled (2 cyr - cthick)
-			  shifted (w / 2, 0);
+	fill fullcircle xscaled (cxd + cthick)
+			yscaled (cyd + cthick)
+			shifted (w / 2, dy);
+	unfill fullcircle xscaled (cxd - cthick)
+			  yscaled (cyd - cthick)
+			  shifted (w / 2, dy);
 
-	xpos := cxr / sqrt2;
-	ypos := cyr / sqrt2;
+	xpos := .5 cxd / sqrt2;
+	ypos := .5 cyd / sqrt2;
 
 	pickup penrazor scaled cthick rotated (angle (xpos, ypos) + 90);
-	draw (-xpos + w / 2, -ypos) -- (xpos + w / 2, ypos);
+	draw (-xpos + w / 2, -ypos + dy) -- (xpos + w / 2, ypos + dy);
 
 	pickup penrazor scaled cthick rotated (angle (xpos, -ypos) + 90);
-	draw (-xpos + w / 2, ypos) -- (xpos + w / 2, -ypos);
+	draw (-xpos + w / 2, ypos + dy) -- (xpos + w / 2, -ypos + dy);
 
 	charwx := charwd;
 	charwy := 0;
 
 	z12 = (charwx * hppp, charwy * vppp);
 	labels (12);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
+
+
+if test > 0:
+	fet_beginchar ("X-Circled notehead", "s2xcircle");
+		save wid, hei;
+		save cthick, cxr, cyr;
+
+		wid# := black_notehead_width# * sqrt (sqrt2);
+		hei# := noteheight# * sqrt (sqrt2);
+
+		set_char_box (0, wid#, hei# / 2, hei# / 2);
+
+		currentpicture := remember_pic;
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
 
 
 %%%%%%%%
@@ -635,7 +878,7 @@ fet_endchar;
 
 save solfa_pen_thick;
 solfa_pen_thick# = 2 stafflinethickness#;
-define_pixels (solfa_pen_thick);
+define_blacker_pixels (solfa_pen_thick);
 
 
 def draw_do_head (expr width_factor, dir) =
@@ -668,15 +911,15 @@ def draw_do_head (expr width_factor, dir) =
 		-- cycle;
 
 	p_out := bot z1
-		 --- bot z2
-		 .. rt z2
-		 .. (z2 + right_dist)
-		 --- (z3 + right_dist)
-		 .. top z3
-		 .. (z3 + left_dist)
-		 --- (z1 + left_dist)
-		 .. lft z1
-		 .. cycle;
+		 -- bot z2{right}
+		 .. rt z2{up}
+		 .. (z2 + right_dist){z3 - z2}
+		 -- (z3 + right_dist){z3 - z2}
+		 .. top z3{left}
+		 .. (z3 + left_dist){z1 - z3}
+		 -- (z1 + left_dist){z1 - z3}
+		 .. lft z1{down}
+		 .. {right}cycle;
 		 
 
 	labels (1, 2, 3);
@@ -689,34 +932,34 @@ def draw_do_head (expr width_factor, dir) =
 enddef;
 
 
-fet_beginchar ("Whole dohead", "s0do")
+fet_beginchar ("Whole dohead", "s0do");
 	draw_do_head (1.8, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half dohead", "d1do")
+fet_beginchar ("Half dohead", "d1do");
 	draw_do_head (1.5, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half dohead", "s1do")
+fet_beginchar ("Half dohead", "s1do");
 	draw_do_head (1.5, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quart dohead", "d2do")
+fet_beginchar ("Quart dohead", "d2do");
 	draw_do_head (1.55, -1);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Quart dohead", "s2do")
+fet_beginchar ("Quart dohead", "s2do");
 	draw_do_head (1.55, 1);
 	fill p_out;
 fet_endchar;
@@ -745,7 +988,7 @@ def draw_re_head (expr width_factor, dir) =
 	y1 = y5;
 	x1 = x2;
 	y2 = curve_start [y3, y1];
-	bot y3 = - d;
+	bot y3 = -d;
 	x3 = .5 [x2, x4];
 	rt x4 = w;
 	y4 = y2;
@@ -755,58 +998,58 @@ def draw_re_head (expr width_factor, dir) =
 	labels (range 1 thru 5);
 
 	p_in := (z1 + 0.5 solfa_pen_thick * (1, -1))
-		--- rt z2
-		.. top z3{right}
-		.. lft z4
-		--- (z5 + 0.5 solfa_pen_thick * (-1, -1))
-		--- cycle;
+		-- rt z2{down}
+		.. top z3
+		.. lft z4{up}
+		-- (z5 + 0.5 solfa_pen_thick * (-1, -1))
+		-- cycle;
 
 	p_out := lft z1
-		 --- lft z2
-		 .. bot z3{right}
-		 .. rt z4
-		 --- rt z5
-		 .. top z5
-		 --- top z1
-		 .. cycle;
+		 -- lft z2{down}
+		 .. bot z3
+		 .. rt z4{up}
+		 -- rt z5{up}
+		 .. top z5{left}
+		 -- top z1{left}
+		 .. {down}cycle;
 
 	charwx := charwd;
 	charwy := curve_start [-chardp, charht];
 
 	if dir = -1:
-		charwy := - charwy;
+		charwy := -charwy;
 	fi;
 enddef;
 
 
-fet_beginchar ("Whole rehead", "s0re")
+fet_beginchar ("Whole rehead", "s0re");
 	draw_re_head (1.8, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up rehead", "u1re")
+fet_beginchar ("Half up rehead", "u1re");
 	draw_re_head (1.5, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down rehead", "d1re")
+fet_beginchar ("Half down rehead", "d1re");
 	draw_re_head (1.5, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quart rehead", "u2re")
+fet_beginchar ("Quart rehead", "u2re");
 	draw_re_head (1.55, 1);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Quart rehead", "d2re")
+fet_beginchar ("Quart rehead", "d2re");
 	draw_re_head (1.55, -1);
 	fill p_out;
 fet_endchar;
@@ -814,9 +1057,9 @@ fet_endchar;
 
 def draw_mi_head (expr width_factor) =
 	save path_out, path_in;
-	save ne_dist, nw_dist;
+	save ne_dist, se_dist, ne, se;
 	path path_out, path_in;
-	pair ne_dist, nw_dist;
+	pair ne_dist, se_dist, ne, se;
 
 	set_char_box (0, width_factor * noteheight#,
 		      0.5 noteheight#, 0.5 noteheight#);
@@ -837,11 +1080,14 @@ def draw_mi_head (expr width_factor) =
 	z8 - z5 = whatever * (z4 - z1);
 	z6 - z7 = whatever * (z4 - z1);
 
-	ne_dist = (unitvector (z4 - z1) rotated 90) * 0.5 solfa_pen_thick;
-	nw_dist = (unitvector (z1 - z2) rotated 90) * 0.5 solfa_pen_thick;
+	ne = unitvector (z4 - z1);
+	se = unitvector (z1 - z2);
+
+	ne_dist = (ne rotated 90) * 0.5 solfa_pen_thick;
+	se_dist = (se rotated 90) * 0.5 solfa_pen_thick;
 
 	z5 = whatever [z1, z4] - ne_dist;
-	z5 = whatever [z1, z2] - 1.5 nw_dist;
+	z5 = whatever [z1, z2] - 1.5 se_dist;
 
 	z5 - z1 = -(z7 - z3);
 
@@ -854,36 +1100,36 @@ def draw_mi_head (expr width_factor) =
 		   -- cycle;
 
 	path_out := lft z1
-		    .. (z1 + nw_dist)
-		    --- (z2 + nw_dist)
+		    .. (z1 + se_dist){-se}
+		    -- (z2 + se_dist){-se}
 		    .. bot z2
-		    .. (z2 - ne_dist)
-		    --- (z3 - ne_dist)
+		    .. (z2 - ne_dist){ne}
+		    -- (z3 - ne_dist){ne}
 		    .. rt z3
-		    .. (z3 - nw_dist)
-		    --- (z4 - nw_dist)
+		    .. (z3 - se_dist){se}
+		    -- (z4 - se_dist){se}
 		    .. top z4
-		    .. (z4 + ne_dist)
-		    --- (z1 + ne_dist)
+		    .. (z4 + ne_dist){-ne}
+		    -- (z1 + ne_dist){-ne}
 		    .. cycle;
 enddef;
 
 
-fet_beginchar ("Whole mihead", "s0mi")
+fet_beginchar ("Whole mihead", "s0mi");
 	draw_mi_head (1.8);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Half mihead", "s1mi")
+fet_beginchar ("Half mihead", "s1mi");
 	draw_mi_head (1.6);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
-fet_beginchar ("Quart mihead", "s2mi")
+fet_beginchar ("Quart mihead", "s2mi");
 	draw_mi_head (1.65);
 	fill path_out;
 fet_endchar;
@@ -893,9 +1139,9 @@ def draw_fa_head (expr width_factor) =
 	set_char_box (0, width_factor * noteheight#,
 		      0.5 noteheight#, 0.5 noteheight#);
 
-	save p_down_in, p_down_out, p_up_in, p_up_out, nw_dist;
+	save p_down_in, p_down_out, p_up_in, p_up_out, nw_dist, nw;
 	path p_down_in, p_down_out, p_up_in, p_up_out;
-	pair nw_dist;
+	pair nw_dist, nw;
 
 	pickup pencircle scaled solfa_pen_thick;
 
@@ -910,26 +1156,27 @@ def draw_fa_head (expr width_factor) =
 	y4 = y3;
 	x4 = x1;
 
-	labels (range 1 thru 4);
+	labels (1, 2, 3, 4);
 
-	nw_dist = (unitvector (z1 - z3) rotated 90) * 0.5 solfa_pen_thick;
+	nw = unitvector (z1 - z3);
+	nw_dist = (nw rotated 90) * 0.5 solfa_pen_thick;
 
 	p_up_in := (((z1 - nw_dist) -- (z3 - nw_dist)) intersectionpoint
 		     (bot z1 -- bot z2))
 		   -- (((z1 - nw_dist) -- (z3 - nw_dist)) intersectionpoint
 			(lft z3 -- lft z2))
 		   -- (z2 + 0.5 solfa_pen_thick * (-1, -1))
-		   --- cycle;
+		   -- cycle;
 
-	p_up_out := lft z1
-		    .. (z1 + nw_dist)
-		    --- (z3 + nw_dist)
-		    .. bot z3
-		    .. rt z3
-		    --- rt z2
-		    .. top z2
-		    --- top z1
-		    .. cycle;
+	p_up_out := lft z1{down}
+		    .. (z1 + nw_dist){-nw}
+		    -- (z3 + nw_dist){-nw}
+		    .. bot z3{right}
+		    .. rt z3{up}
+		    -- rt z2{up}
+		    .. top z2{left}
+		    -- top z1{left}
+		    .. {down}cycle;
 
 	p_down_in := p_up_in rotated 180 shifted (w, 0);
 	p_down_out := p_up_out rotated 180 shifted (w, 0);
@@ -939,41 +1186,41 @@ def draw_fa_head (expr width_factor) =
 enddef;
 
 
-fet_beginchar ("Whole fa up head", "d0fa")
+fet_beginchar ("Whole fa up head", "d0fa");
 	draw_fa_head (1.8);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole fa down head", "u0fa")
+fet_beginchar ("Whole fa down head", "u0fa");
 	draw_fa_head (1.8);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("half fa up head", "d1fa")
+fet_beginchar ("half fa up head", "d1fa");
 	draw_fa_head (1.5);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half fa down head", "u1fa")
+fet_beginchar ("Half fa down head", "u1fa");
 	draw_fa_head (1.5);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
-fet_beginchar ("Quarter fa up head", "u2fa")
+fet_beginchar ("Quarter fa up head", "u2fa");
 	draw_fa_head (1.55);
 	fill p_up_out;
 fet_endchar;
 
 
-fet_beginchar ("Quarter fa down head", "d2fa")
+fet_beginchar ("Quarter fa down head", "d2fa");
 	draw_fa_head (1.55);
 	fill p_down_out;
 fet_endchar;
@@ -1007,32 +1254,32 @@ def draw_la_head (expr width_factor) =
 		-- cycle;
 
 	p_out := top z1
-		 --- top z2
-		 .. rt z2
-		 --- rt z3
-		 .. bot z3
-		 --- bot z4
-		 .. lft z4
-		 --- lft z1
+		 -- top z2{right}
+		 .. rt z2{down}
+		 -- rt z3{down}
+		 .. bot z3{left}
+		 -- bot z4{left}
+		 .. lft z4{up}
+		 -- lft z1{up}
 		 .. cycle;
 enddef;
 
 
-fet_beginchar ("Whole lahead", "s0la")
+fet_beginchar ("Whole lahead", "s0la");
 	draw_la_head (1.8);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half lahead", "s1la")
+fet_beginchar ("Half lahead", "s1la");
 	draw_la_head (1.5);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quart lahead", "s2la")
+fet_beginchar ("Quart lahead", "s2la");
 	draw_la_head (1.55);
 	fill p_out;
 fet_endchar;
@@ -1042,9 +1289,9 @@ def draw_ti_head (expr width_factor, dir) =
 	set_char_box (0, width_factor * noteheight#,
 		      0.5 noteheight#, 0.5 noteheight#);
 	save p_in, p_out, p_top;
-	save left_dist, right_dist;
+	save nw_dist, sw_dist, nw, sw;
 	path p_in, p_out, p_top;
-	pair left_dist, right_dist;
+	pair nw_dist, sw_dist, nw, sw;
 	save cone_height;
 	cone_height = 0.64;
 
@@ -1061,68 +1308,73 @@ def draw_ti_head (expr width_factor, dir) =
 
 	labels (range 1 thru 4);
 
-	left_dist = (unitvector (z2 - z1) rotated 90) * 0.5 solfa_pen_thick;
-	right_dist = (unitvector (z1 - z4) rotated 90) * 0.5 solfa_pen_thick;
+	nw = unitvector (z2 - z1);
+	sw = unitvector (z1 - z4);
 
-	p_top := (z2 - right_dist) .. (top z3){right} .. (z4 - left_dist);
+	nw_dist = (nw rotated 90) * 0.5 solfa_pen_thick;
+	sw_dist = (sw rotated 90) * 0.5 solfa_pen_thick;
 
-	p_in := (((z1 - left_dist) -- (z2 - left_dist)) intersectionpoint
-		  ((z1 - right_dist) -- (z4 - right_dist)))
-		-- (((z1 - left_dist) -- (z2 - left_dist)) intersectionpoint
-		     ((z2 + right_dist) .. {right}(bot z3)))
+	p_top := (z2 - sw_dist)
+		 .. (top z3){right}
+		 .. (z4 - nw_dist);
+
+	p_in := (((z1 - nw_dist) -- (z2 - nw_dist)) intersectionpoint
+		  ((z1 - sw_dist) -- (z4 - sw_dist)))
+		-- (((z1 - nw_dist) -- (z2 - nw_dist)) intersectionpoint
+		     ((z2 + sw_dist) .. {right}(bot z3)))
 		.. bot z3
-		.. (((bot z3){right} .. (z4 + left_dist)) intersectionpoint
-		     ((z1 - right_dist) -- (z4 - right_dist)))
+		.. (((bot z3){right} .. (z4 + nw_dist)) intersectionpoint
+		     ((z1 - sw_dist) -- (z4 - sw_dist)))
 		-- cycle;
 
 	p_out := bot z1
-		 .. (z1 + left_dist)
-		 --- (z2 + left_dist)
+		 .. (z1 + nw_dist)
+		 -- (z2 + nw_dist)
 		 .. lft z2
-		 .. (z2 - right_dist){direction 0 of p_top}
+		 .. (z2 - sw_dist){direction 0 of p_top}
 		 & p_top
-		 & {direction infinity of p_top}(z4 - left_dist)
+		 & {direction infinity of p_top}(z4 - nw_dist)
 		 .. rt z4
-		 .. (z4 + right_dist)
-		 --- (z1 + right_dist)
+		 .. (z4 + sw_dist)
+		 -- (z1 + sw_dist)
 		 .. cycle;
 
 	charwx := charwd;
 	charwy := cone_height [-chardp, charht];
 	if dir = -1:
-		charwy := - charwy;
+		charwy := -charwy;
 	fi;
 enddef;
 
 
-fet_beginchar ("Whole up tihead", "s0ti")
+fet_beginchar ("Whole up tihead", "s0ti");
 	draw_ti_head (1.8, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half up tihead", "u1ti")
+fet_beginchar ("Half up tihead", "u1ti");
 	draw_ti_head (1.5, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Half down tihead", "d1ti")
+fet_beginchar ("Half down tihead", "d1ti");
 	draw_ti_head (1.5, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
-fet_beginchar ("Quart up tihead", "u2ti")
+fet_beginchar ("Quart up tihead", "u2ti");
 	draw_ti_head (1.55, 1);
 	fill p_out;
 fet_endchar;
 
 
-fet_beginchar ("Quart down tihead", "d2ti")
+fet_beginchar ("Quart down tihead", "d2ti");
 	draw_ti_head (1.55, -1);
 	fill p_out;
 fet_endchar;

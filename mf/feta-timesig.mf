@@ -24,38 +24,42 @@ fet_begingroup ("timesig");
 def draw_C =
 	save hair, bulb_rad, left_fatness;
 	save left_width, right_width;
-	save width;
+	save width, lower_offset;
 
 	width# := 1.8 staff_space# - stafflinethickness#;
-	define_pixels (width);
 
-	left_width# := 1.0 staff_space#;
-	right_width# := 0.8 staff_space#;
-	define_pixels (left_width, right_width);
+	left_width := 1.0 staff_space;
+	right_width := 0.8 staff_space;
 
-	hair# := stafflinethickness#;
-	bulb_rad# := 0.4 staff_space#;
-	define_pixels (hair, bulb_rad);
-	left_fatness = 0.55;
+	hair := stafflinethickness;
 
-	x1r - x3r = width;
-	x3r = 0.0;
-	y1r = .45 staff_space;
-	y2 = -y4 = staff_space;
+	bulb_rad := 0.40 staff_space - .6 stafflinethickness;
+	left_fatness := 0.55 * staff_space;
+	lower_offset := 0.3 stafflinethickness;
+
+	set_char_box (0, width#, staff_space#, staff_space#);
+
+	d := d - feta_shift;
+
+	x1r = w;
+	x3r = 0;
+	y1r = .45 h;
+	y2r = h + vround (.5 stafflinethickness_rounded);
+	y4r = -d - vround (.5 stafflinethickness_rounded);
 	x2 = x4;
-	x2 = x3r + staff_space;
-	y3r = 0;
+	x2 = x3r + h;
+	y3r = .5 (h - d);
 
-	x5r = x1r + 0.3 stafflinethickness;
-	y5r = -0.37 staff_space;
+	x5r = x1r + lower_offset;
+	y5r = -0.37 h;
 
 	penpos1 (hair, 10);
-	penpos2 (stafflinethickness, 90);
-	penpos3 (left_fatness * staff_space, 180);
-	penpos4 (stafflinethickness, -90);
+	penpos2 (stafflinethickness_rounded, 90);
+	penpos3 (left_fatness, 180);
+	penpos4 (stafflinethickness_rounded, -90);
 	penpos5 (hair, -13);
 
-	draw_bulb (-1, z1l,  z1r, bulb_rad, .8);
+	draw_bulb (-1, z1l, z1r, bulb_rad, .8);
 
 	save s;
 	s := 0.735;
@@ -73,31 +77,32 @@ def draw_C =
 	     .. {dir (-80)}z1r
 	     -- cycle;
 
-	set_char_box (0, width#, staff_space#, staff_space#);
-
 	penlabels (1, 2, 3, 4, 5);
+
+	draw_staff (-2, 2, 0);
 enddef;
 
 
-fet_beginchar ("4/4 meter", "C44")
+fet_beginchar ("4/4 meter", "C44");
 	draw_C;
 fet_endchar;
 
 
-fet_beginchar ("2/2 meter", "C22")
-	save excentricity, stemlen, thick;
-	pair excentricity;
+fet_beginchar ("2/2 meter", "C22");
+	save excentricity, top_stemlen, bottom_stemlen, thick, left_pos;
 
 	draw_C;
 
-	xpart excentricity = x2 - 1.25 stafflinethickness;
-	ypart excentricity = 0;
+	excentricity = -1.75 stafflinethickness - 0.025 staff_space;
+	top_stemlen# = bottom_stemlen# = 1.4 staff_space#;
+	thick# = stafflinethickness# + 0.05 staff_space#;
+	define_whole_pixels (top_stemlen, bottom_stemlen);
+	define_whole_blacker_pixels (thick);
 
-	stemlen = 1.4 staff_space;
-	thick = stafflinethickness / 2 + 0.025 staff_space;
+	bottom_stemlen := bottom_stemlen - feta_shift;
 
-	draw_block ((-thick, -stemlen) + excentricity,
-		    (thick, stemlen) + excentricity);
+	draw_block ((x2 + excentricity, -bottom_stemlen),
+		    (x2 + excentricity + thick, top_stemlen));
 fet_endchar;
 
 fet_endgroup ("timesig");

@@ -2,17 +2,17 @@
 % test stuff.
 % in a separate file to avoid tainting non-test font files for testing.
 %
-%
 
+input feta-eindelijk;
+input feta-toevallig;
+input feta-puntje;
 input feta-bolletjes;	
-%input feta-banier;
-%input feta-slag;
-%input feta-eindelijk;
-%input feta-klef;
-%	input feta-toevallig;
-%	input feta-schrift;
+input feta-schrift;
+input feta-banier;
+%	input feta-slag;
+input feta-klef;
 %	input feta-haak;
-%	input feta-timesig;
-%	input feta-pendaal;
-%	input feta-accordion;
+input feta-timesig;
+input feta-pendaal;
+input feta-accordion;
 %	input feta-solfa;

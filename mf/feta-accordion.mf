@@ -1,60 +1,78 @@
 % -*- Fundamental -*-
 
-fet_begingroup ("accordion")
+fet_begingroup ("accordion");
+
+
+%
+% These dimensions are the same for all register symbols.
+% The different symbols should calculate their other dimensions from them.
+%
 
 accreg_dot_size# := .5 staff_space#;
 accreg_linethickness# := 1.3 stafflinethickness#;
-
-%
-% This dimension is the same for all register symbols.
-% The different symbols should calculate their other
-% dimensions from this and accreg_dot_size.
-%
-
 accreg_lh# := 1.0 staff_space#;
 
 define_pixels (accreg_dot_size, accreg_linethickness, accreg_lh);
 
 
 fet_beginchar ("accDiscant", "accDiscant")
-	save r, p;
+	save r, p, lh, lt;
 	path p;
 
 	r# = 3/2 accreg_lh#;
 	define_pixels (r);
 
-	set_char_box (r#, r#, 0, 2 r#);
+	set_char_box (r# + accreg_linethickness# / 2,
+		      r# + accreg_linethickness# / 2,
+		      0, 2 r# + 0.7 accreg_linethickness#);
 
-	penpos1 (accreg_linethickness, 0);
-	penpos2 (0.7 accreg_linethickness, 90);
-	penpos3 (accreg_linethickness, 180);
-	penpos4 (0.7 accreg_linethickness, 270);
+	lh = vround (2/3 r);
+	lt = vround (0.7 accreg_linethickness);
 
-	z1 = (r, r);
-	z2 = (0, 2 r);
-	z3 = (-r, r);
-	z4 = (0, 0);
+	h := 3 lh + lt;
+	b := w := (3 lh + hround accreg_linethickness) / 2;
+
+	penpos1 (hround accreg_linethickness, 0);
+	penpos2 (lt, 90);
+	penpos3 (hround accreg_linethickness, 180);
+	penpos4 (lt, 270);
+
+	z1r = (w, h / 2);
+	z2r = (0, h);
+	z3r = (-b, h / 2);
+	z4r = (0, 0);
 
 	penlabels (1, 2, 3, 4);
 
-	penstroke z1e
-		  .. z2e
-		  .. z3e
-		  .. z4e
-		  .. cycle;
+	% mf doesn't handle pixel dropouts in outline objects, so we use
+	% `draw' if not called by mpost
+	if known miterlimit:
+		penstroke z1e
+			  .. z2e
+			  .. z3e
+			  .. z4e
+			  .. cycle;
+	else:
+		pickup pencircle xscaled accreg_linethickness yscaled lt;
+		draw z1
+		     .. z2
+		     .. z3
+		     .. z4
+		     .. cycle;
+	fi;
 
 	p := z4{right}
 	     .. z1{up}
 	     .. {left}z2;
 
-	z5 = p intersectionpoint ((0, 4/3 r) -- (r, 4/3 r));
+	pickup penrazor scaled lt rotated 90;
+
+	top z5 = p intersectionpoint ((0, lh + lt) -- (w, lh + lt));
 	z6 = z5 xscaled -1;
-	z7 = p intersectionpoint ((0, 2/3 r) -- (r, 2/3 r));
+	bot z7 = p intersectionpoint ((0, 2 lh) -- (w, 2 lh));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);
-
-	pickup penrazor scaled 0.7 accreg_linethickness rotated 90;
 
 	draw z5
 	     -- z6;
@@ -64,42 +82,65 @@ fet_endchar;
 
 
 fet_beginchar ("accDot", "accDot")
-	set_char_box (accreg_dot_size#, accreg_dot_size#, 0, 0);
+	set_char_box (accreg_dot_size# / 2, accreg_dot_size# / 2,
+		      accreg_dot_size# / 2, accreg_dot_size# / 2);
 
 	pickup pencircle scaled accreg_dot_size;
 
-	drawdot (0, 0);
+	rt x0 = hround (accreg_dot_size / 2);
+	top y0 = vround (accreg_dot_size / 2);
+
+	drawdot z0;
 fet_endchar;
 
 
 fet_beginchar ("accFreebase", "accFreebase")
-	save r, p;
+	save r, p, lh, lt;
 	path p;
 
 	r# = accreg_lh#;
 	define_pixels (r);
 
-	set_char_box (r#, r#, 0, 2 r#);
+	set_char_box (r# + accreg_linethickness# / 2,
+		      r# + accreg_linethickness# / 2,
+		      0, 2 r# + 0.7 accreg_linethickness#);
 
-	penpos1 (accreg_linethickness, 0);
-	penpos2 (0.7 accreg_linethickness, 90);
+	lh = vround r;
+	lt = vround (0.7 accreg_linethickness);
+
+	h := 2 lh + lt;
+	b := w := (2 lh + hround accreg_linethickness) / 2;
+
+	penpos1 (hround accreg_linethickness, 0);
+	penpos2 (lt, 90);
 	penpos3 (accreg_linethickness, 180);
-	penpos4 (0.7 accreg_linethickness, 270);
+	penpos4 (lt, 270);
 
-	z1 = (r, r);
-	z2 = (0, 2 r);
-	z3 = (-r, r);
-	z4 = (0, 0);
+	z1r = (w, h / 2);
+	z2r = (0, h);
+	z3r = (-b, h / 2);
+	z4r = (0, 0);
 
 	penlabels (1, 2, 3, 4);
 
-	penstroke z1e
-		  .. z2e
-		  .. z3e
-		  .. z4e
-		  .. cycle;
+	% mf doesn't handle pixel dropouts in outline objects, so we use
+	% `draw' if not called by mpost
+	if known miterlimit:
+		penstroke z1e
+			  .. z2e
+			  .. z3e
+			  .. z4e
+			  .. cycle;
+	else:
+		pickup pencircle xscaled accreg_linethickness yscaled lt;
+		draw z1
+		     .. z2
+		     .. z3
+		     .. z4
+		     .. cycle;
+	fi;
 
-	pickup penrazor scaled 0.7 accreg_linethickness rotated 90;
+	pickup penrazor scaled lt rotated 90;
 
 	draw z1
 	     -- z3;
@@ -107,44 +148,63 @@ fet_endchar;
 
 
 fet_beginchar ("accStdbase", "accStdbase")
-	save r, p;
+	save r, p, lh, lt;
 	path p;
 
 	r# = 2 accreg_lh#;
 	define_pixels (r);
 
-	set_char_box (r#, r#, 0, 2 r#);
+	set_char_box (r# + accreg_linethickness# / 2,
+		      r# + accreg_linethickness# / 2,
+		      0, 2 r# + 0.7 accreg_linethickness#);
 
-	penpos1 (accreg_linethickness, 0);
-	penpos2 (0.7 accreg_linethickness, 90);
-	penpos3 (accreg_linethickness, 180);
-	penpos4 (0.7 accreg_linethickness, 270);
+	lh = vround (1/2 r);
+	lt = vround (0.7 accreg_linethickness);
 
-	z1 = (r, r);
-	z2 = (0, 2 r);
-	z3 = (-r, r);
-	z4 = (0, 0);
+	h := 4 lh + lt;
+	b := w := (4 lh + hround accreg_linethickness) / 2;
+
+	penpos1 (hround accreg_linethickness, 0);
+	penpos2 (lt, 90);
+	penpos3 (hround accreg_linethickness, 180);
+	penpos4 (lt, 270);
+
+	z1r = (w, h / 2);
+	z2r = (0, h);
+	z3r = (-b, h / 2);
+	z4r = (0, 0);
 
 	penlabels (1, 2, 3, 4);
 
-	penstroke z1e
-		  .. z2e
-		  .. z3e
-		  .. z4e
-		  .. cycle;
+	% mf doesn't handle pixel dropouts in outline objects, so we use
+	% `draw' if not called by mpost
+	if known miterlimit:
+		penstroke z1e
+			  .. z2e
+			  .. z3e
+			  .. z4e
+			  .. cycle;
+	else:
+		pickup pencircle xscaled accreg_linethickness yscaled lt;
+		draw z1
+		     .. z2
+		     .. z3
+		     .. z4
+		     .. cycle;
+	fi;
 
 	p := z4{right}
 	     .. z1{up}
 	     .. {left}z2;
 
-	z5 = p intersectionpoint ((0, 3/2 r) -- (r, 3/2 r));
+	pickup penrazor scaled lt rotated 90;
+
+	top z5 = p intersectionpoint ((0, lh + lt) -- (w, lh + lt));
 	z6 = z5 xscaled -1;
-	z7 = p intersectionpoint ((0, 1/2 r) -- (r, 1/2 r));
+	bot z7 = p intersectionpoint ((0, 3 lh) -- (w, 3 lh));
 	z8 = z7 xscaled -1;
 
 	labels (5, 6, 7, 8);
-
-	pickup penrazor scaled 0.7 accreg_linethickness rotated 90;
 
 	draw z1
 	     -- z3;
@@ -156,18 +216,40 @@ fet_endchar;
 
 
 fet_beginchar ("accBayanbase", "accBayanbase")
-	save lh;
-	lh = accreg_lh;
+	save lh, lt;
 
-	set_char_box (accreg_lh#, accreg_lh#, 0, 3 accreg_lh#);
+	lh = vround accreg_lh;
+	lt = vround accreg_linethickness;
 
-	draw_gridline ((-w, 0), (w, 0), accreg_linethickness);
-	draw_gridline ((-w, lh),(w, lh), accreg_linethickness);
-	draw_gridline ((-w, 2 lh), (w, 2 lh), accreg_linethickness);
-	draw_gridline ((-w, 3 lh), (w, 3 lh), accreg_linethickness);
+	set_char_box (accreg_lh# + accreg_linethickness# / 2,
+		      accreg_lh# + accreg_linethickness# / 2,
+		      0, 3 accreg_lh# + accreg_linethickness#);
 
-	draw_gridline ((-w, 0), (-w, 3 lh), accreg_linethickness);
-	draw_gridline ((w, 0), (w, 3 lh), accreg_linethickness);
+	h := 3 lh + lt;
+
+	draw_rounded_block ((-w, 0), (-w + lt, h), lt);
+	draw_rounded_block ((w - lt, 0), (w, h), lt);
+
+	pickup penrazor scaled lt rotated 90;
+
+	bot z1 = (-w + lt / 2, 0);
+	bot z2 = (-w + lt / 2, lh);
+	bot z3 = (-w + lt / 2, 2 lh);
+	bot z4 = (-w + lt / 2, 3 lh);
+
+	bot z5 = (w - lt / 2, 0);
+	bot z6 = (w - lt / 2, lh);
+	bot z7 = (w - lt / 2, 2 lh);
+	bot z8 = (w - lt / 2, 3 lh);
+
+	draw z1
+	     -- z5;
+	draw z2
+	     -- z6;
+	draw z3
+	     -- z7;
+	draw z4
+	     -- z8;
 fet_endchar;
 
 
@@ -262,19 +344,24 @@ enddef;
 
 
 fet_beginchar ("accOldEE", "accOldEE")
-	save pp;
+	save r, pp, ir, lh, lt, stroke_width;
 
-	set_char_box (staff_space#, staff_space#, 0, 2 staff_space#);
+	r# = staff_space#;
+	define_pixels (r);
 
-	r = staff_space;
 	lr = .4 staff_space - linethickness;
 	ir = .6 staff_space;
+	stroke_width = .05 staff_space + .5 linethickness;
+
+	set_char_box (r# + accreg_linethickness# / 2,
+		      r# + accreg_linethickness# / 2,
+		      0, 2 r# + 0.7 accreg_linethickness#);
 
 	z1 = (0, 0);
 	z2 = (0, ir);
 
 	penpos1 (blot_diameter, 0);
-	penpos2 (.05 staff_space + .5 linethickness + blot_diameter, 0);
+	penpos2 (stroke_width + blot_diameter, 0);
 
 	pickup pencircle scaled (lr + blot_diameter);
 
@@ -285,30 +372,48 @@ fet_beginchar ("accOldEE", "accOldEE")
 			   -- z2e) rotated pp;
 	endfor;
 
-	penpos3 (accreg_linethickness, 0);
-	penpos4 (0.7 accreg_linethickness, 90);
-	penpos5 (accreg_linethickness, 180);
-	penpos6 (0.7 accreg_linethickness, 270);
-
-	z3 = (r, 0);
-	z4 = (0, r);
-	z5 = (-r, 0);
-	z6 = (0, -r);
-
-	% penlabels (1, 2, 3, 4, 5, 6);
-
-	penstroke z3e
-		  .. z4e
-		  .. z5e
-		  .. z6e
-		  .. cycle;
-
 	pickup pencircle scaled lr;
 
 	drawdot (0, 0);
 
-	currentpicture := currentpicture shifted (0, r);
+	currentpicture := currentpicture shifted (0, h / 2);
+
+	lh = vround (2 r);
+	lt = vround (0.7 accreg_linethickness);
+
+	h := lh + lt;
+	b := w := (lh + hround accreg_linethickness) / 2;
+
+	penpos3 (hround accreg_linethickness, 0);
+	penpos4 (lt, 90);
+	penpos5 (hround accreg_linethickness, 180);
+	penpos6 (lt, 270);
+
+	z3r = (w, h / 2);
+	z4r = (0, h);
+	z5r = (-b, h / 2);
+	z6r = (0, 0);
+
+	% penlabels (1, 2, 3, 4, 5, 6);
+
+	% mf doesn't handle pixel dropouts in outline objects, so we use
+	% `draw' if not called by mpost
+	if known miterlimit:
+		penstroke z3e
+			  .. z4e
+			  .. z5e
+			  .. z6e
+			  .. cycle;
+	else:
+		pickup pencircle xscaled accreg_linethickness yscaled lt;
+		draw z3
+		     .. z4
+		     .. z5
+		     .. z6
+		     .. cycle;
+	fi;
+
 fet_endchar;
 
 
-fet_endgroup ("accordion")
+fet_endgroup ("accordion");
