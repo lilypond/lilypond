@@ -1,0 +1,27 @@
+/*
+  rhythmstaf.hh -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef MELODICSTAFF_HH
+#define MELODICSTAFF_HH
+
+#include "simplestaff.hh"
+
+/// five line staff, no multiple voices
+struct Melodic_staff : public Simple_staff
+{
+    
+    /****************/
+
+    virtual void set_output(PScore *);
+    virtual Melodic_staff*clone()const;
+
+    virtual Stem * get_stem(Stem_req *rq);
+    virtual Notehead * get_notehead(Note_req *rq);
+};
+
+#endif // MELODICSTAFF_HH
+
+
