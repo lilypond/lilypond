@@ -64,7 +64,7 @@ menuetto_i_viola_staff = \context Staff <
 
 menuetto_ii_viola_global = \notes{
 	\time 3/4;
-	\key D;
+	\key d;
 	\clef alto;
 	\repeat "volta" 2 {
 		\skip 2.*8;
