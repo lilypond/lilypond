@@ -43,15 +43,6 @@ Span_bar::do_substitute_dependency(Score_elem*o, Score_elem*n)
     spanning_l_arr_.substitute( bold , b);
 }
 
-/*
-  A no-op if not yet output: the span_bar slavish follows what it spans
- */
-void
-Span_bar::translate_y(Real y)
-{
-    if (status() == OUTPUT)
-	Score_elem::translate_y(y);
-}
 
 void
 Span_bar::set(Vertical_align_element *a)
@@ -63,7 +54,7 @@ Span_bar::set(Vertical_align_element *a)
 Interval
 Span_bar::do_width() const
 {
-    return paper()->lookup_l()->bar(type_str_, 40 PT).dim.x; // ugh
+    return paper()->lookup_l()->bar(type_str_, 40 PT).dim.x(); // ugh
 }
 void
 Span_bar::do_pre_processing()
@@ -91,18 +82,31 @@ Span_bar::get_bar_sym(Real dy) const
     return paper()->lookup_l()->bar(type_str_, dy);
 }
 
+
 Molecule*
 Span_bar::brew_molecule_p()const
 {
-    Interval y;
-    for (int i=0; i < spanning_l_arr_.size(); i++)
-	y.unite( spanning_l_arr_[i]->height() );
-    Symbol s = get_bar_sym(y.length());
-        Molecule*output = new Molecule(Atom(s));
-    output->translate_y (  y[-1] );
+    Interval y_int;
+    for (int i=0; i < spanning_l_arr_.size(); i++) {
+	Axis_group_element *common = 
+	    common_group(spanning_l_arr_[i], Y_AXIS);
+	
+	Real y = spanning_l_arr_[i]->relative_coordinate(common, Y_AXIS)  
+	    -relative_coordinate(common,Y_AXIS);
 
+	y_int.unite( y + spanning_l_arr_[i]->height() );
+    }
+
+    Symbol s = get_bar_sym(y_int.length());
+    Molecule*output = new Molecule(Atom(s));
+    output->translate (  y_int[-1], Y_AXIS );
     return output;
 }
 
 
 IMPLEMENT_IS_TYPE_B1(Span_bar,Bar);
+
+Span_bar::Span_bar()
+{
+    type_str_ = "";
+}
