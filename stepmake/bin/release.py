@@ -2,13 +2,14 @@
 # release.py
 
 import os
-import sys
+import packagepython
 import getopt
+import string
+import sys
+import time
 
-topdir = ''
-outdir = '.'
-
-(options, files) = getopt.getopt(sys.argv[1:], 'ho:p:', ['help', 'outdir=', 'package=']) 
+(options, files) = getopt.getopt (sys.argv[1:], 'ho:p:',
+				  ['help', 'outdir=', 'package='])
 
 def help ():
 	sys.stdout.write (r"""Usage: release [OPTIONS]...
@@ -16,14 +17,18 @@ Make a tarball and patch.
 
 Options:
   -o, --outdir=DIR       specify where to leave patches
-  -h, --help             print this help
+  -h, --help	         print this help
   -p, --package=DIR      specify package"""
 )
 	sys.exit (0)
 
+
+topdir = ''
+outdir = '.'
+
 for opt in options:
-        o = opt[0]
-        a = opt[1]
+	o = opt[0]
+	a = opt[1]
 	if o == '-h' or o == '--help':
 		help ()
 	elif o == '-p' or o == '--package':
@@ -31,50 +36,68 @@ for opt in options:
 	elif o == '--outdir' or o == '-o':
 		outdir = a
 	    
-
 sys.path.append (topdir + '/stepmake/bin')
-from packagepython import *
-package = Package (topdir)
-os.chdir(package.topdir)
 
-try:
-	os.system ('set -x; rm ' + os.path.join (outdir, package.name + '*gz'))
-except:
-	pass
+package = packagepython.Package (topdir)
+os.chdir (package.topdir)
 
+release_version = packagepython.version_tuple_to_str (package.version)
+basename = string.join ((package.name, release_version), '-')
+tarball = basename + '.tar.gz'
+out_tarfile = os.path.join (outdir, tarball)
+release_tarfile = os.path.join (package.release_dir, tarball)
 
+if os.path.exists (out_tarfile):
+	os.unlink (out_tarfile)
 
-status = os.system('make dist')
+changelog_name = os.path.join (topdir, 'ChangeLog')
+lines = open (changelog_name).readlines ()
+release_marker = '\t* VERSION: %(release_version)s' % vars ()
+if not package.version[3] \
+   and lines[2][0:len (release_marker) - 1] != release_marker:
+	sys.stderr.write ("warning: ChangeLog: adding VERSION: %s\n" \
+			  % release_version)
+	user_changelog_entry = time.strftime ('%Y-%m-%d') \
+			       + '  ' + os.environ['EMAIL']
+	changelog = open (changelog_name, 'w')
+	changelog.write (user_changelog_entry)
+	changelog.write ('\n\n')
+	changelog.write (release_marker)
+	changelog.write ('\n\n')
+	changelog.writelines (lines)
+	changelog.close ()
+
+status = os.system ('make dist')
 if status:
 	raise 'make dist failed'
 
-cur_ver = package.version
+if os.path.exists (release_tarfile):
+	os.unlink (release_tarfile)
+	
+os.link (out_tarfile, release_tarfile)
 
+diff_py = package.topdir + '/stepmake/bin/package-diff.py'
+diff_py_options = '--outdir=%(outdir)s --package=%(topdir)s' % vars ()
+status = os.system (string.join ((sys.executable, diff_py, diff_py_options)))
+if status:
+	raise 'make diff failed'
 
-pn = '%s-%s' % (package.name, version_tuple_to_str (cur_ver))
-tarball = pn + '.tar.gz'
-orig  = os.path.join (outdir, tarball)
-try:
-	os.remove(os.path.join (package.release_dir, tarball))
-except:
-	pass
-os.link(orig,  os.path.join (package.release_dir, tarball))
+previous_tuple = packagepython.prev_version (package.version)
+previous_version = packagepython.version_tuple_to_str (previous_tuple)
 
-# urg: howto check exit code?
-os.system(sys.executable + ' ' + package.topdir + '/stepmake/bin/package-diff.py --outdir=%s --package=%s' % (outdir, topdir))
+diff_base = string.join ((package.name, previous_version, release_version),
+			 '-')
+diff_name = diff_base + '.diff.gz'
 
-prev_ver = prev_version (cur_ver)
-dn = '%s-%s-%s' % (package.name, version_tuple_to_str (prev_ver),
-		   version_tuple_to_str (cur_ver))
-diffname = dn + '.diff.gz'
-rel_pn = package.patch_dir + diffname
+out_diff = os.path.join (outdir, diff_name)
+release_diff = os.path.join (package.patch_dir, diff_name)
 
-diffname = os.path.join (outdir, diffname)
-
-try:
-	os.rename(diffname, rel_pn)
-except:
-	sys.stderr.write ("Can't find diff: %s\n" % diffname)
+if not os.path.exists (out_diff):
+	sys.stderr.write ("error: cannot open: %s\n" % out_diff)
 	sys.exit (1)
-os.link(rel_pn, diffname)
+
+if os.path.exists (release_diff):
+	os.unlink (release_diff)
+
+os.link (out_diff, release_diff)
 
