@@ -3,10 +3,14 @@
 @node Introduction
 @chapter Introduction
 
-This manual 
+LilyPond is a system for formatting music prettily.  This chapter
+discusses the backgrounds of LilyPond. It explains the problem of
+printing music with computers, and our approach to solving those
+problems.
 
 
 @menu
+* Engraving::                   
 * Automated engraving::         
 * What symbols to engrave?::    
 * Music representation::        
