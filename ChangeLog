@@ -1,3 +1,11 @@
+2004-04-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/part-combiner.scm (determine-split-list): bugfix: if no
+	solo-state (at end of solo), we can set the solo status
+	too. (backportme.)
+
+	* input/regression/part-combine-solo-end.ly: new file.
+
 2004-04-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/abc2ly.py (parse_file): Strip \r from lines.  Fixes DOS
@@ -183,9 +191,9 @@
 
 2004-04-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* po/fr.po: update.
+	* po/fr.po: update. (backportme).
 
-	* po/nl.po: update
+	* po/nl.po: update. (backportme). 
 
 	* mf/feta-beugel.mf: document why design size is not fixed.
 
@@ -201,7 +209,7 @@
 
 2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* po/de.po: update.
+	* po/de.po: update. (backportme).
 
 	* scm/output-tex.scm (font-command): use ly: functions to
 	construct name.
