@@ -171,6 +171,21 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
 }
 
 
+LY_DEFINE (ly_kpathsea_expand_variable, "ly:kpathsea-expand-variable",
+	   1, 0, 0, (SCM var),
+	   "Return the expanded version  @var{var}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (var), var, SCM_ARG1, __FUNCTION__, "string");
+
+  String nm = ly_scm2string (var);
+  char *result =  kpse_var_expand (nm.to_str0 ());
+  SCM ret =  scm_makfrom0str (result);
+  delete[] result;
+
+  return ret;
+}
+
+
 void
 initialize_kpathsea (char *av0)
 {
