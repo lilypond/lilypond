@@ -1,5 +1,5 @@
 /*   
-  quote-iterator.cc --  implement New_quote_iterator
+  quote-iterator.cc --  implement Quote_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -17,10 +17,10 @@
 #include "warn.hh"
 #include "interpretation-context-handle.hh"
 
-class New_quote_iterator : public Music_wrapper_iterator
+class Quote_iterator : public Music_wrapper_iterator
 {
 public:
-  New_quote_iterator ();
+  Quote_iterator ();
   Moment vector_moment (int idx) const;
   Interpretation_context_handle quote_outlet_;
 
@@ -44,7 +44,7 @@ protected:
 };
 
 bool
-New_quote_iterator::accept_music_type (Music *mus) const
+Quote_iterator::accept_music_type (Music *mus) const
 {
   SCM accept = get_outlet()->get_property ("quotedEventTypes");
   for (SCM s =  mus->get_property ("types");
@@ -59,12 +59,12 @@ New_quote_iterator::accept_music_type (Music *mus) const
 
 
 void
-New_quote_iterator::derived_mark () const
+Quote_iterator::derived_mark () const
 {
   scm_gc_mark (transposed_musics_ );
 }
 
-New_quote_iterator::New_quote_iterator ()
+Quote_iterator::Quote_iterator ()
 {
   transposed_musics_ = SCM_EOL;
   event_vector_ = SCM_EOL;
@@ -98,7 +98,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
 
 
 void
-New_quote_iterator::construct_children ()
+Quote_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
 
@@ -130,7 +130,7 @@ New_quote_iterator::construct_children ()
 
 
 bool
-New_quote_iterator::ok () const
+Quote_iterator::ok () const
 {
   return
     Music_wrapper_iterator::ok()
@@ -138,7 +138,7 @@ New_quote_iterator::ok () const
 }
 
 bool
-New_quote_iterator::quote_ok () const
+Quote_iterator::quote_ok () const
 {
   return (event_idx_ >= 0
 	  && ly_c_vector_p (event_vector_)
@@ -152,7 +152,7 @@ New_quote_iterator::quote_ok () const
 }
 
 Moment
-New_quote_iterator::pending_moment () const
+Quote_iterator::pending_moment () const
 {
   Rational infty;
   infty.set_infinite (1);
@@ -172,14 +172,14 @@ New_quote_iterator::pending_moment () const
 }
 
 Moment
-New_quote_iterator::vector_moment (int idx) const
+Quote_iterator::vector_moment (int idx) const
 {
   SCM entry = SCM_VECTOR_REF (event_vector_, idx);
   return *unsmob_moment (scm_caar (entry));
 }
 
 void
-New_quote_iterator::process (Moment m)
+Quote_iterator::process (Moment m)
 {
   if (Music_wrapper_iterator::ok())
     Music_wrapper_iterator::process (m);
@@ -259,4 +259,4 @@ New_quote_iterator::process (Moment m)
     }
 }
 
-IMPLEMENT_CTOR_CALLBACK (New_quote_iterator);
+IMPLEMENT_CTOR_CALLBACK (Quote_iterator);

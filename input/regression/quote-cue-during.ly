@@ -9,7 +9,7 @@ voice in the @code{cue} @code{Voice}."
 }
 
 
-quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff }
+quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff  c4 }
 
 \addquote quoteMe \quoteMe 
 original = \relative c'' { c8 d s2 es8 gis8 }

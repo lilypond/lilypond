@@ -14,7 +14,7 @@ quoted. In this example, a 16th rests is not quoted, since
 }
 
 
-quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff }
+quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff c }
 
 \addquote quoteMe \quoteMe 
 original = \relative c'' { c8 d s2 es8 gis8 }
