@@ -2,7 +2,7 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation texinfo
 TO_TOP_FILES=$(addprefix $(outdir)/, $(README_TOP_FILES))
-PLAIN_FILES=angels.ly guile.patch
+PLAIN_FILES=angels.ly $(wildcard *.patch)
 
 EXTRA_DIST_FILES = $(PLAIN_FILES)
 
