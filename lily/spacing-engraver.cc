@@ -125,10 +125,13 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (int i=0; i < playing_durations_.size (); i++)
     {
-      Moment m = (playing_durations_[i].info_.music_cause ())->get_length ();
-      shortest_playing = shortest_playing <? m;
+      Music * mus = playing_durations_[i].info_.music_cause ();
+      if (mus)
+	{
+	  Moment m = mus->get_length ();
+	  shortest_playing = shortest_playing <? m;
+	}
     }
-  
   Moment starter;
   starter.set_infinite (1);
 
