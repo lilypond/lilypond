@@ -130,7 +130,7 @@ Paper_outputter::output_scope (SCM mod, String prefix)
 void
 Paper_outputter::output_version ()
 {
-  String id_string = "Lily was here";
+  String id_string = "Engraved by LilyPond";
   id_string += String_convert::pad_to (String (", ") + version_string (), 40);
 
   output_String_def ("lilypondtagline", id_string);

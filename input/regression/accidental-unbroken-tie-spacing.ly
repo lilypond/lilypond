@@ -5,19 +5,12 @@ the spacing when unbroken."
 }
 
 \version "1.9.2"
-\include "deutsch.ly"
 
 rechts = \notes \relative c' {
   \clef treble
   \time 3/4
-  \context Voice {
-    c8 h2  <<g h des f>>8 ~ |
-    <<g h des f>>8
-  }
-}
-
-Rechts = \context Staff \notes {
-  rechts
+    c8 b2  <<g b des f>>8 ~ |
+    <<g b des f>>8
 }
 
 \score {
