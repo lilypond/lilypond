@@ -17,7 +17,7 @@ EndMudelaHeader
 \version "0.0.61";
 
 melody = \melodic{
-	\clef\violin;
+	\clef violin;
 	\octave c';
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
@@ -31,7 +31,7 @@ melody = \melodic{
 }
 
 accompany = \melodic {
-	\clef \bass;
+	\clef "bass";
 	\octave'c;
 	\duration 4;
 	c4 c' | e' c' | f' c' | e' c' | 
