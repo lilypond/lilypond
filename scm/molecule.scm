@@ -45,7 +45,7 @@
     mol
   ))
 
-(define-public (box-molecule xext yext)
+(define-public (make-filled-box-molecule xext yext)
   "Make a filled box."
   
   (ly:make-molecule
@@ -63,10 +63,10 @@ encloses the contents.
 	 (yext (ly:get-extent grob grob 1))
 	 (thick 0.1))
 
-    (ly:molecule-add (box-molecule xext (cons (- (car yext) thick) (car yext) ))
-		     (box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))
-		     (box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)
-		     (box-molecule (cons (- (car xext) thick) (car xext)) yext))))
+    (ly:molecule-add (make-filled-box-molecule xext (cons (- (car yext) thick) (car yext) ))
+		     (make-filled-box-molecule xext (cons  (cdr yext) (+ (cdr yext) thick) ))
+		     (make-filled-box-molecule (cons (cdr xext) (+ (cdr xext) thick)) yext)
+		     (make-filled-box-molecule (cons (- (car xext) thick) (car xext)) yext))))
 
 
 ;; TODO merge this and prev function. 
@@ -75,9 +75,9 @@ encloses the contents.
   (let* (
 	 (x-ext (widen-interval (ly:molecule-get-extent mol 0) padding))
 	 (y-ext (widen-interval (ly:molecule-get-extent mol 1) padding))
-	 (x-rule (box-molecule (widen-interval x-ext thick)
+	 (x-rule (make-filled-box-molecule (widen-interval x-ext thick)
 			       (cons 0 thick)))
-	 (y-rule (box-molecule (cons 0 thick) y-ext)))
+	 (y-rule (make-filled-box-molecule (cons 0 thick) y-ext)))
     
     (set! mol (ly:molecule-combine-at-edge mol 0 1 y-rule (* 0.5 padding)))
     (set! mol (ly:molecule-combine-at-edge mol 0 -1  y-rule (* 0.5 padding)))

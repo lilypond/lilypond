@@ -31,6 +31,8 @@ nicely looking output.
 In this chapter, we will explain the reasoning behind this unusual
 design, and how this approach affects you as a user.
 
+
+
 @menu
 * Batch processing::            
 * Music engraving::             
@@ -459,6 +461,7 @@ browser.
 @cindex search in manual
 @cindex using the manual
 
+@c  TODO: advise to buy a book on notation? 
 
 If you are not familiar with music notation, or music terminology
 (especially if you are a foreigner), then it is advisable to consult
