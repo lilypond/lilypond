@@ -1,3 +1,8 @@
+2004-11-11  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely: add short warning about
+	\lilypond{} in LaTeX docs.
+
 2004-11-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Barf if kpathsea/kpathsea.h is not
