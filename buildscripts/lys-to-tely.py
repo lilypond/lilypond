@@ -63,6 +63,7 @@ if files:
 @setfilename %s.info
 @settitle %s
 
+@documentencoding utf-8
 @iftex
 @afourpaper
 @end iftex
