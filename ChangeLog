@@ -1,5 +1,12 @@
+2005-01-02    Tatsuya Ono <tats_ono@infoseek.jp>
+
+	* scm/define-markup-commands.scm :  fix glyph-strings of
+	accidentals and \note-by-number
+	
 2005-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: 2.5.6 released.
+	
 	* ps/lilyponddefs.ps: put mm -> pt scaling in here.
 
 	* input/regression/new-markup-scheme.ly: oops. font-family=music

@@ -280,36 +280,36 @@ recommend font for this is bold and italic"
 (def-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol."
 
-  (interpret-markup layout props (markup #:musicglyph "accidentals-4")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.4")))
 (def-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals-3")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.3")))
 
 (def-markup-command (sharp layout props) ()
   "Draw a sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals-2")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.2")))
 (def-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals-1")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.1")))
 (def-markup-command (natural layout props) ()
   "Draw a natural symbol."
 
-  (interpret-markup layout props (markup #:musicglyph "accidentals-0")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.0")))
 (def-markup-command (semiflat layout props) ()
   "Draw a semiflat."
-  (interpret-markup layout props (markup #:musicglyph "accidentals--1")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.M1")))
 (def-markup-command (flat layout props) ()
   "Draw a flat symbol."
   
-  (interpret-markup layout props (markup #:musicglyph "accidentals--2")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.M2")))
 (def-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol."
   
-  (interpret-markup layout props (markup #:musicglyph "accidentals--3")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.M3")))
 (def-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol."
 
-  (interpret-markup layout props (markup #:musicglyph "accidentals--4")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
 
 
 (def-markup-command (column layout props args) (markup-list?)
@@ -444,7 +444,7 @@ and/or @code{extra-offset} properties. "
          (stem-length (* (magstep size) (max 3 (- log 1))))
          (head-glyph (ly:font-get-glyph
 		      font
-		      (string-append "noteheads-s" (number->string (min log 2)))))
+		      (string-append "noteheads.s" (number->string (min log 2)))))
          (stem-thickness 0.13)
          (stemy (* dir stem-length))
          (attachx (if (> dir 0)
@@ -468,7 +468,7 @@ and/or @code{extra-offset} properties. "
          (flaggl (and (> log 2)
                       (ly:stencil-translate
                        (ly:font-get-glyph font
-					  (string-append "flags-"
+					  (string-append "flags."
 							 (if (> dir 0) "u" "d")
 							 (number->string log)))
                        (cons (+ attachx (/ stem-thickness 2)) stemy)))))
