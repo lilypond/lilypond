@@ -99,11 +99,11 @@ stich = \notes \relative c'' {
   s8 s s2 s4 s2 s4 s s8
   s8 s4 s s s s2.
 
-  s4 g8 fis g a s2 s2 s4 s s8
+  s4 g8[ fis g a] s2 s2 s4 s s8
   s8 e8[ fis]
 }
 
-text = \lyrics {
+modernText = \lyrics {
   Wil -- hel -- mus van Nas -- sou -- we
   ben ik van duit -- sen bloed,
 
@@ -115,6 +115,17 @@ text = \lyrics {
 
   den ko -- ning van His -- pan -- je
   heb ik al -- tijd ge -- eerd.
+}
+
+text = \lyrics {
+  Wil -- hel -- mus van Nas -- sou -- we
+  Ben ick van duyt -- schen bloet,
+  Den Va -- der -- landt ghe -- trou -- we,
+  blyf ick tot in den doot!
+  Een Prin -- ce van O -- ran -- gien
+  Ben ick, vry, on -- ver -- veert;
+  Den Co -- ninck van His -- pan -- gien
+  Heb ick al -- tijt ghe -- eert.
 }
 
 oneHalfNoteTime = \markup {
@@ -135,6 +146,7 @@ linebreaks = \notes {
   \context Score <<
     \context Staff <<
       \override Staff.StaffSymbol #'width = #'80
+      \set Staff.autoBeaming = ##f
       \margins
       \smallBarLines
 
