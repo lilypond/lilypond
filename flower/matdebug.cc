@@ -37,7 +37,7 @@ Vector::operator String() const
     String s("vector [");
 #ifndef NPRINT
     for (int i=0; i < dim(); i++) {
-	s += String(dat[i], "%6f") + ' ';
+	s += String(dat[i], "%6f") + String(' ');
     }
 #endif
     s+="]";
