@@ -17,6 +17,7 @@ depth = ..
 #
 NAME = flower
 MODULE_NAME = flower
+include out/Flower-flags.make
 #
 # edit .version only
 include ./$(depth)/.version
@@ -27,8 +28,8 @@ include ./$(depth)/flower/.version
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 
+
 #
-CXXFLAGS+=-O2
 # descent order into subdirectories:
 #
 SUBDIRS = include test 
@@ -38,7 +39,7 @@ SUBDIRS = include test
 #
 SCRIPTS = 
 README_FILES = NEWS README TODO
-EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(SCRIPTS)
+EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(SCRIPTS) Flower-flags.make.in
 #
 
 
@@ -47,6 +48,9 @@ EXTRA_DISTFILES= configure config.hh.in configure.in .version $(README_FILES) $(
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
+default: shared-lib
+
+shared-lib: $(SHAREDLIBRARY) 
 
 # version:
 #
@@ -58,3 +62,11 @@ localdist: configure
 
 localdistclean:
 	rm -f config.cache config.status
+
+localinstall: $(LIBFLOWER)
+	$(INSTALL) -d $(libdir)
+	$(INSTALL) $(LIBFLOWER) $(libdir)
+#	ln -s $(libdir)/libflower.so.$(VERSION) $(libdir
+
+localuninstall:
+	rm -f $(libdir)/libflower.{so,a}

@@ -74,6 +74,7 @@ to install LilyPond, simply type:
 This will install the following files:
 
 	/usr/local/man/man1/lilypond.1
+	/usr/local/lib/libflower.{so,a}
 	/usr/local/bin/lilypond
 	/usr/local/bin/mi2mu
 	/usr/local/share/lilypond/*
@@ -102,6 +103,7 @@ Since LilyPond currently is beta, You are advised to also use
 
 other options include:
 
+	--enable-shared
 	--enable-printing
 	--enable-optimise
 	--enable-profiling
