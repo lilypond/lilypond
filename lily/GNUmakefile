@@ -1,7 +1,7 @@
 
 depth = ..
 
-NAME = lilypond-bin
+NAME = lilypond
 SUBDIRS = include
 
 MODULE_LIBS=$(depth)/flower 

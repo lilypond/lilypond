@@ -122,6 +122,7 @@ Paper_book::post_processing (SCM module,
     bool do_it_;
     char const *func_name_;
   } settings[] = {
+    {make_tex, "convert-to-tex"},
     {make_dvi, "convert-to-dvi"},
     {make_ps, "convert-to-ps"},
     {make_pdf, "convert-to-pdf"},

@@ -65,9 +65,10 @@ String init_scheme_code_string = "(begin #t ";
 
 bool make_pdf = false;
 bool make_dvi = false;
-bool make_ps = true;
+bool make_ps = false;
 bool make_png = false;
 bool make_preview = false;
+bool make_tex = false;
 
 /*
  * Miscellaneous global stuff.
@@ -137,7 +138,8 @@ static Long_option_init options_static[] =
     {0, "png", 0,  _i ("generate PNG")},
     {0, "ps", 0,  _i ("generate PostScript")},
     {0, "dvi", 0,  _i ("generate DVI")},
-    {0, "pdf", 0,  _i ("generate PDF")},
+    {0, "pdf", 0,  _i ("generate PDF (default)")},
+    {0, "tex", 0,  _i ("generate TeX")},
     {0, "safe-mode", 's',  _i ("run in safe mode")},
     {0, "version", 'v',  _i ("print version number")},
     {0, "verbose", 'V', _i ("be verbose")},
@@ -251,6 +253,7 @@ prepend_load_path (String dir)
 static void
 determine_output_options ()
 {
+  
   bool found_tex = false;
   SCM formats = ly_output_formats ();
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
@@ -258,6 +261,7 @@ determine_output_options ()
       found_tex = found_tex || (ly_scm2string (ly_car (s)) == "tex");
     }
 
+      
   if (make_ps && found_tex)
     {
       make_dvi = true;
@@ -266,6 +270,16 @@ determine_output_options ()
     {
       make_ps = true;
     }
+  if (make_dvi && found_tex)
+    {
+      make_tex = true;
+    }
+  if (!(make_dvi
+	|| make_tex
+	|| make_ps
+	|| make_png
+	|| make_pdf))
+    make_pdf = true;
 }
 
 static void

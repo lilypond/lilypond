@@ -1,13 +1,13 @@
 #!@PYTHON@
-# lilypond.py -- frontend for lilypond-bin
+# lilypond.py -- frontend for lilypond
 #
 # source file of the GNU LilyPond music typesetter
 # 
 # (c) 1998--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
-# Run lilypond-bin, generate printable document
-# Invokes: lilypond-bin, latex (or pdflatex), dvips, ps2pdf, gs
+# Run lilypond, generate printable document
+# Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
 # 
 
 # This is the third incarnation of ly2dvi, renamed to lilypond.
@@ -87,7 +87,7 @@ program_version = '@TOPLEVEL_VERSION@'
 # input without \book, use classic latex definitions
 classic_p = 0
 verbose_p = 0
-latex_p = 0
+latex_p = 1
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
@@ -151,11 +151,11 @@ tex_extension = '.tex'  ## yuk.
 
 #lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
-lilypond_binary = os.path.join ('@bindir@', 'lilypond-bin')
+lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 
 # only use installed binary  when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
-	lilypond_binary = 'lilypond-bin'
+	lilypond_binary = 'lilypond'
 
 
 ## Init to empty; values here take precedence over values in the file
@@ -401,7 +401,7 @@ def global_latex_preamble (extra):
 
  	unit = extra['unit'][-1]
 
-	# FIXME, must (only) from lilypond-bin
+	# FIXME, must (only) from lilypond
 	s += r'''
 \usepackage{inputenc}
 \pagestyle{empty}
@@ -487,7 +487,7 @@ def run_dvips (outbase, extra):
 	'''Run dvips using the correct options taken from EXTRA,
 leaving a PS file in OUTBASE.ps
 '''
-	#FIXME: papersize, orientation must come from lilypond-bin
+	#FIXME: papersize, orientation must come from lilypond
 	opts = ''
 	if extra['papersize']:
 		opts = ' -t%s' % extra['papersize'][0]

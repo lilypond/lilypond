@@ -13,121 +13,6 @@ This chapter details the technicalities of running LilyPond.
 * Editor support::              
 * Point and click::             
 @end menu
-
-@node Invoking lilypond
-@section Invoking lilypond
-
-Nicely titled output is created through a separate program:
-@file{@code{lilypond}} is a script that uses the LilyPond formatting
-engine (which is in a separate program) and La@TeX{} to create a
-nicely titled piece of sheet music, in PDF (Portable Document Format)
-format.
-
-@example
-        @code{lilypond} [@var{option}]@dots{} @var{file}@dots{}
-@end example
-
-To have @code{lilypond} read from stdin, use a dash @code{-} for
-@var{file}.  The program supports the following options.
-
-@cindex stdin, reading
-
-@table @code
-@item -k,--keep
-    Keep the temporary directory with all output
-files. The temporary directory is created in the current directory as @code{@code{lilypond}.dir}.
-@item -h,--help
-    Print usage help.
-@item -I,--include=@var{dir}
-    Add @var{dir} to LilyPond's include path.
-@item -o,--output=@var{file}
-    Generate output to @var{file}.  The extension of @var{file} is ignored.
-@item --png
-    Also generate pictures of each page, in PNG format. 
-@item --preview
-    Also generate a picture of the first system of the score.
-
-@cindex preview
-@cindex picture
-@cindex bitmap
-@cindex pixmap
-@cindex thumbnail
-@cindex screen shot
-    
-@item -s,--set=@var{key}=@var{val}
-    Add @var{key}= @var{val} to the settings, overriding those specified
-in the files. Possible keys: @code{language}, @code{latexheaders},
-@code{latexpackages}, @code{latexoptions}, @code{papersize},
-@code{linewidth}, @code{orientation},
-@code{textheight}.
-@item -v,--version
-Show version information.
-@item -V,--verbose
-Be verbose. This prints out commands as they are executed, and more
-information about the formatting process is printed.
-@item --debug
-Print even more information. This is useful when generating bug reports.
-@item -w,--warranty
-Show the warranty with which GNU LilyPond comes. (It comes with 
-@strong{NO WARRANTY}!)
-@end table
-
-
-
-@subsection Additional parameters
-
-The @code{lilypond} program responds to several parameters specified
-in a @code{\paper} section of the input file. They can be overridden
-by supplying a @code{--set} command line option.
-
-@table @code
-@item language
-    Specify La@TeX{} language: the @code{babel} package will be
-included.  Default: unset.
-
-        Read from the @code{\header} block.
-
-@item latexheaders
-    Specify additional La@TeX{} headers file.
-<
-        Normally read from the @code{\header} block. Default value: empty.
-
-@item latexpackages
-    Specify additional La@TeX{} packages file. This works cumulative,
-so you can add multiple packages using multiple @code{-s=latexpackages} options.
-       Normally read from the @code{\header} block. Default value:
-@code{geometry}.
-
-@item latexoptions
-    Specify additional options for the La@TeX{}
-@code{\documentclass}. You can put any valid value here. This was
-designed to allow @code{lilypond} to produce output for double-sided
-paper, with balanced margins and page numbers on alternating sides. To
-achieve this specify @code{twoside}.
-
-@item orientation
-    Set orientation. Choices are @code{portrait} or @code{landscape}. Is
-read from the @code{\paper} block, if set.
-        
-@item textheight
-    The vertical extension of the music on the page. It is normally 
-    calculated automatically, based on the paper size.
-
-@item linewidth
-        The music line width. It is normally read from the @code{\paper}
-block.
-
-@item papersize
-   The paper size (as a name, e.g. @code{a4}). It is normally read from
-the @code{\paper} block.
-  
-@item fontenc
-     The font encoding, should be set identical to the @code{font-encoding}
-     property in the score.
-@end table
-
-
-
 @node Invoking the lilypond binary
 @section Invoking the lilypond binary
 @cindex Invoking LilyPond
@@ -137,7 +22,7 @@ the @code{\paper} block.
 
 
 The formatting system consists of two parts: a binary executable
-(@file{lilypond-bin}), which is responsible for the formatting
+(@file{lilypond}), which is responsible for the formatting
 functionality, and support scripts, which post-process the resulting
 output. Normally, the support scripts are called, which in turn invoke
 the @code{lilypond-bin} binary. However, @code{lilypond-bin} may be
@@ -581,5 +466,118 @@ with the following line:
 @cindex line-column-location
 and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
 users can set @var{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
+
+
+
+@node Invoking lilypond-latex
+@section Invoking lilypond-latex
+
+Before LilyPond 3.0, the task of generating nicely titled output was
+relegated to a separate program. This wrapper script
+@code{lilypond-latex} uses the LilyPond program and La@TeX{} to create
+a nicely titled piece of sheet music.
+
+@example
+        @code{lilypond} [@var{option}]@dots{} @var{file}@dots{}
+@end example
+
+To have @code{lilypond} read from stdin, use a dash @code{-} for
+@var{file}.  The program supports the following options.
+
+@cindex stdin, reading
+
+@table @code
+@item -k,--keep
+    Keep the temporary directory with all output
+files. The temporary directory is created in the current directory as @code{@code{lilypond}.dir}.
+@item -h,--help
+    Print usage help.
+@item -I,--include=@var{dir}
+    Add @var{dir} to LilyPond's include path.
+@item -o,--output=@var{file}
+    Generate output to @var{file}.  The extension of @var{file} is ignored.
+@item --png
+    Also generate pictures of each page, in PNG format. 
+@item --preview
+    Also generate a picture of the first system of the score.
+
+@cindex preview
+@cindex picture
+@cindex bitmap
+@cindex pixmap
+@cindex thumbnail
+@cindex screen shot
+    
+@item -s,--set=@var{key}=@var{val}
+    Add @var{key}= @var{val} to the settings, overriding those specified
+in the files. Possible keys: @code{language}, @code{latexheaders},
+@code{latexpackages}, @code{latexoptions}, @code{papersize},
+@code{linewidth}, @code{orientation},
+@code{textheight}.
+@item -v,--version
+Show version information.
+@item -V,--verbose
+Be verbose. This prints out commands as they are executed, and more
+information about the formatting process is printed.
+@item --debug
+Print even more information. This is useful when generating bug reports.
+@item -w,--warranty
+Show the warranty with which GNU LilyPond comes. (It comes with 
+@strong{NO WARRANTY}!)
+@end table
+
+
+
+@subsection Additional parameters
+
+The @code{lilypond} program responds to several parameters specified
+in a @code{\paper} section of the input file. They can be overridden
+by supplying a @code{--set} command line option.
+
+@table @code
+@item language
+    Specify La@TeX{} language: the @code{babel} package will be
+included.  Default: unset.
+
+        Read from the @code{\header} block.
+
+@item latexheaders
+    Specify additional La@TeX{} headers file.
+        Normally read from the @code{\header} block. Default value: empty.
+
+@item latexpackages
+    Specify additional La@TeX{} packages file. This works cumulative,
+so you can add multiple packages using multiple @code{-s=latexpackages} options.
+       Normally read from the @code{\header} block. Default value:
+@code{geometry}.
+
+@item latexoptions
+    Specify additional options for the La@TeX{}
+@code{\documentclass}. You can put any valid value here. This was
+designed to allow @code{lilypond} to produce output for double-sided
+paper, with balanced margins and page numbers on alternating sides. To
+achieve this specify @code{twoside}.
+
+@item orientation
+    Set orientation. Choices are @code{portrait} or @code{landscape}. Is
+read from the @code{\paper} block, if set.
+        
+@item textheight
+    The vertical extension of the music on the page. It is normally 
+    calculated automatically, based on the paper size.
+
+@item linewidth
+        The music line width. It is normally read from the @code{\paper}
+block.
+
+@item papersize
+   The paper size (as a name, e.g. @code{a4}). It is normally read from
+the @code{\paper} block.
+  
+@item fontenc
+     The font encoding, should be set identical to the @code{font-encoding}
+     property in the score.
+@end table
+
 
 
