@@ -2077,6 +2077,9 @@ conversions.append (((2, 3, 1), conv,
 		     '''\\apply -> \\applymusic'''))
 
 def conv (str):
+	if re.search ('textheight', str):
+		sys.stderr.write("\nWarning: tuning of page layout has changed. See reference manual.\n")
+		
 	str = re.sub (r'\\OrchestralScoreContext', '\\Score', str)
 	def func(m):
 		if m.group(1) not in ['RemoveEmptyStaff',
@@ -2106,6 +2109,15 @@ conversions.append (((2, 3, 4), conv,
 
 
 def conv (str):
+	str = re.sub (r'lastpagefill\s*=\s*"?1"', 'raggedlastbottom = ##t', str)
+	return str
+
+conversions.append (((2, 3, 6), conv,
+		     '''lastpagefill -> raggedlastbottom'''))
+
+
+
+def conv (str):
 	str = re.sub (r'\\consistsend', '\\consists', str)
 	str = re.sub (r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
 		      r'\\lyricsto \1 \2', str)
@@ -2127,6 +2139,8 @@ conversions.append (((2, 3, 9), conv,
 def conv (str):
 	str = re.sub (r'\\addlyrics', r'\\oldaddlyrics', str)
 	str = re.sub (r'\\newlyrics', r'\\addlyrics', str)
+	if re.search (r"\\override\s*TextSpanner", str):
+		sys.stderr.write ("\nWarning: TextSpanner has been split into DynamicTextSpanner and TextSpanner\n") 
 	return str
 
 conversions.append (((2, 3, 10), conv,
@@ -2157,6 +2171,8 @@ def conv (str):
 	str = re.sub ('soloADue', 'printPartCombineTexts', str)
 	str = re.sub (r'\\applymusic\s*#notes-to-clusters',
 		      '\\makeClusters', str)
+
+	str = re.sub (r'pagenumber\s*=', 'firstpagenumber', str)
 	return str
 
 conversions.append (((2, 3, 12), conv,
@@ -2206,7 +2222,16 @@ conversions.append (((2, 3, 18),
 def conv (str):
 	str = re.sub (r'\\paper', r'\\layout', str)
 	str = re.sub (r'\\bookpaper', r'\\paper', str)
-	str = re.sub (r'paper-set-staff-size', r'layout-set-staff-size', str)
+	if re.search ('paper-set-staff-size', str):
+		sys.stderr.write ('''\nWarning: staff size should be changed at top-level
+with
+
+  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)
+
+''')
+		
+		
+	str = re.sub (r'#\(paper-set-staff-size', '%Use set-global-staff-size at toplevel\n% #(layout-set-staff-size', str)
 	return str
 
 conversions.append (((2, 3, 22),
@@ -2226,13 +2251,15 @@ conversions.append (((2, 3, 23),
 		     '''\context Foo = NOTENAME -> \context Foo = "NOTENAME"'''))
 
 
-# nothing, just to make version numbers look good.
 def conv (str):
 	return str
 
 conversions.append (((2, 4, 0),
 		     conv,
 		     ''))
+
+
+
 
 ################################
 #	END OF CONVERSIONS	

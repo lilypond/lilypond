@@ -1,26 +1,4 @@
 
-Release 2.5
-***********
-
-
-DEVELOPMENT TEAM
-
-Han-Wen Nienhuys  - Core development
-Jan Nieuwenhuizen - Core development
-Erik Sandberg     - Bug Meister
-Pedro Kroger      - Build Meister
-Graham Percival   - Documentation Editor
-
-CONTRIBUTORS
-
-Werner Lemberg
-Heikki Junes
-
-BUG HUNTERS/SUGGESTIONS
-
-Fernando Pablo Lopez-Lezcano
-Jack O'Quin
-
 Release 2.4
 ***********
 
@@ -49,6 +27,7 @@ Werner Lemberg
 
 BUG HUNTERS/SUGGESTIONS
 
+Arjan Bos
 Antti Kaihola
 Bertalan Fodor
 Brian Clements

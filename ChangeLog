@@ -1,76 +1,35 @@
-2004-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+2004-11-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* lily/grace-engraver.cc (start_translation_timestep): split
-	scm_cadddr
+	* scm/define-markup-commands.scm (fill-line): use stack-stencils
+	iso. stack-stencils-line. Fixes putting centered objects into
+	fill-line.
+
+	* lily/bar-line.cc (get_staff_bar_size): backport for bar y-size
+	fix.
+
+2004-11-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (conv): backport convert-ly warnings.
+
+2004-11-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/parser.yy:
+	(re_rhythmed_music): search for first Voice with context-id. This
+	fixes addlyrics-second-staff.ly
 	
 2004-11-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-
-	* lily/quote-iterator.cc (Module): remove old quote-iterator
-
-	* scm/define-music-types.scm (music-descriptions): move
-	NewQuoteMusic over QuoteMusic
-
-	* Documentation/user/notation.itely (Formatting cue notes): use
-	\cueDuring.
-
-	* lily/new-quote-iterator.cc (quote_ok): new function.
-
-	* input/regression/quote-cue-during.ly: new file.
-
-	* input/regression/quote-grace.ly: new file.
-
-	* scm/define-context-properties.scm (Module): change definition of
-	graceSettings
-
-	* lily/context-property.cc (Module): rename from
-	translator-property.cc
-
-	* lily/context.cc (context_name_symbol): new function
-
-	* lily/grace-engraver.cc: new file. Set properties for grobs based
-	on the grace-ness of now_moment().
-
-	* scm/music-functions.scm (add-grace-property): use list
-	iso. vector for graceSettings
-	remove set-{start,stop}-grace-properties. 
-
-	* lily/new-quote-iterator.cc (construct_children): set
-	quote_outlet_ if no quoted-context-{id,type} specified.
-
-	* scripts/convert-ly.py (conv): \quote -> \quoteDuring.
-
-	* lily/parser.yy (command_element): remove \quote.
-
-	* ly/music-functions-init.ly (location): add quoteDuring music
-	function. 
 
 	* lily/lexer.ll: allow \encoding in lyrics as well.  Remove
 	optional semicolon. (backportme)
 
+	* VERSION: release 2.4.2
+	
 2004-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/GNUmakefile (STEPMAKE_TEMPLATES): Unset USER_LDFLAGS, no
 	need to link to GUILE et al.
 
 2004-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-
-	* scm/define-music-properties.scm (all-music-properties): add
-	quoted-context-type, quoted-context-id.
-
-	* scm/lily.scm (type-check-list): new function.
-	
-	* scm/lily-library.scm: new file. Generic library routines.
-
-	* lily/parser.yy (Generic_prefix_music): move typechecking out of
-	parser.
-
-	* ly/music-functions-init.ly: add quoteDuring function.
-
-	* lily/include/music-iterator.hh (class Music_iterator): rename
-	set_translator -> set_context
-
-	* lily/parser.yy (Generic_prefix_music_scm): add
-	MUSIC_FUNCTION_SCM_SCM_MUSIC
 
 	* scm/lily.scm (sanitize-command-option): new function. (backportme)
 
@@ -110,11 +69,11 @@
 
 2004-11-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* mf/GNUmakefile: use Fedora-3 in download link. (backportme.)
+	* mf/GNUmakefile: use Fedora-3 in download link. 
 
 	* scm/framework-tex.scm (convert-to-dvi): use ly:system for
-	invoking latex. (backportme.)
-
+	invoking latex.
+	
 	* lily/stem.cc (off_callback): center stems for all rest stems.
 
 2004-11-05  Werner Lemberg  <wl@gnu.org>
@@ -139,19 +98,7 @@
 	PACKAGE_NAME defined in the VERSION file.
 
 2004-11-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-  
-	* lily/beam.cc (rest_collision_callback): use local beam
-	multiplicity.
 
-	* input/regression/stem-stemlet.ly: new file.
-
-	* lily/stem.cc (add_head): store rests as well.
-
-	* scm/define-grob-properties.scm (all-user-grob-properties): add
-	stemlet-length
-
-	* lily/stem.cc: store rests as well.
-	
 	* input/regression/new-slur.ly: mention forcing.
 
 2004-11-04  Werner Lemberg  <wl@gnu.org>

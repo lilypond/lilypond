@@ -204,7 +204,9 @@ Bar_line::get_staff_bar_size (SCM smob)
 	calculation. That's a nonsense value, which would collapse the
 	barline so we return 0.0 in the next alternative.
       */
-      return scm_make_real ((Staff_symbol_referencer::line_count (me) -1) * ss);
+      Real ysize = (Staff_symbol_referencer::line_count (me) -1);
+      ysize = ysize * ss  + Staff_symbol_referencer::line_thickness (me);
+      return scm_make_real (ysize);
     }
   else
     return scm_int2num (0);

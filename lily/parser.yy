@@ -100,6 +100,20 @@ is_regular_identifier (SCM id)
   return v;
 }
 
+
+SCM
+get_first_context_id (SCM type, Music *m)
+{
+	SCM id = m->get_property ("context-id");
+	if (SCM_BOOL_T == scm_equal_p (m->get_property ("context-type"), type)
+	    && scm_is_string (m->get_property ("context-id"))
+	    && scm_c_string_length (id) > 0)
+	{
+		return id;
+	}
+	return SCM_EOL;
+}
+
 SCM
 make_simple_markup (SCM encoding, SCM a)
 {
@@ -1266,11 +1280,15 @@ new_lyrics:
 
 re_rhythmed_music:
 	Grouped_music_list new_lyrics {
-
-		SCM name = $1->get_property ("context-id");
-		//if (name == SCM_EOL)
+		Music * voice = $1;
+		SCM name = get_first_context_id (scm_makfrom0str ("Voice"), voice); 
 		if (!scm_is_string (name))
-			name = scm_makfrom0str ("");
+		{
+			name = get_next_unique_context ();
+			voice = context_spec_music (scm_makfrom0str ("Voice"),
+						    name,
+						    voice, SCM_EOL);
+		}
 
 		SCM context = scm_makfrom0str ("Lyrics");
 		Music *all = MY_MAKE_MUSIC ("SimultaneousMusic");
@@ -1284,12 +1302,10 @@ re_rhythmed_music:
 				get_next_unique_context (), com, SCM_EOL);
 			lst = scm_cons (csm->self_scm (), lst);
 		}
-		/* FIXME: only first lyric music is accepted,
-			  the rest is junked */
-		all->set_property ("elements", scm_cons ($1->self_scm (),
+		all->set_property ("elements", scm_cons (voice->self_scm (),
 			lst));
 		$$ = all;
-		scm_gc_unprotect_object ($1->self_scm ());
+		scm_gc_unprotect_object (voice->self_scm ());
 	}
 	| LYRICSTO {
 		THIS->lexer_->push_lyric_state ();

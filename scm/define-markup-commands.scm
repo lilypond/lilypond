@@ -113,7 +113,7 @@ gsave /ecrm10 findfont
 				      (make-stencil-markup (car stencils))
 				      (make-simple-markup "")))
 				stencils)))
-    (stack-stencil-line fill-space line-stencils)))
+    (stack-stencils X RIGHT fill-space line-stencils)))
   
 (define (font-markup qualifier value)
   (lambda (layout props arg)
