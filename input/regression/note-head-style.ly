@@ -11,7 +11,7 @@ either up or down stems.
 "
 }
 
-\score { \notes \relative c''{
+\score { \notes \relative c'{ \clef C
 % \property Voice.Stem \override #'thickness = #5.0
 \property Voice.NoteHead \set #'style = #'default
 c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
@@ -22,6 +22,8 @@ c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'cross
 c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'xcircle
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
+\property Voice.NoteHead \set #'style = #'triangle
 c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'slash
 c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break

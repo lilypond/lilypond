@@ -66,6 +66,7 @@
     ("clefs-C" . 0)
     ("clefs-F" . 4)
     ("clefs-percussion" . 0)
+    ("clefs-tab" . 0 )
     ("clefs-vaticana_do" . 0)
     ("clefs-vaticana_fa" . 4)
     ("clefs-medicaea_do" . 0)
