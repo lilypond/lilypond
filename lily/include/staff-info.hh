@@ -1,5 +1,5 @@
 /*
-  staff-info.hh -- declare 
+  staff-info.hh -- declare Staff_info
 
   source file of the LilyPond music typesetter
 
@@ -19,6 +19,8 @@ struct Staff_info {
     /// when is now?
     Time_description const *time_C_;
     Rhythmic_grouping const *rhythmic_C_;
+
+    ///
     bool break_allowed_b_;
 
     Moment when();
