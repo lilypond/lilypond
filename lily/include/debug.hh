@@ -12,8 +12,8 @@
 #include "lily-proto.hh"
 #include "warn.hh"
 
-void error_t(const String& s, Time_description const &  t_tdes);
-void error_t(String const &s, const Moment &when);
+void error_t (const String& s, Time_description const &  t_tdes);
+void error_t (String const &s, const Moment &when);
 
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
 extern ostream &warnout ;
@@ -24,11 +24,13 @@ extern ostream *mlog;
 // debugging
 extern Dstream *monitor; // monitor
 
-
 #ifdef NPRINT
-#define mtor if (0) *monitor	// clever hack 
+/** 
+  Global debug output. Compare with cin, cout, cerr, DOUT is DEBUG OUTPUT
+ */
+#define DOUT if (0) *monitor	// clever hack 
 #else
-#define mtor if (check_debug) monitor->identify_as(__PRETTY_FUNCTION__)
+#define DOUT if (check_debug) monitor->identify_as (__PRETTY_FUNCTION__)
 #endif
 
 extern bool check_debug;
