@@ -93,10 +93,11 @@ or @command{texi2dvi}.
 The result is a text document with formatted music integrated.
 
 @command{lilypond-book} will do its best to try to align the music to
-the left and right margins. Currently the most used papersizes and
-one- and twocolumn mode is supported. But if you use some more
-advances features, like the geometry-package or change the margins in
-La@TeX{} or use @code{@@pagesize} in texinfo, will break.
+the left and right margins. Currently all papersizes, one- and
+twocolumn mode and the @code{geometry} package is supported. 
+The TeXinfo command @code{pagesize} is on the TODO list for Lilypond 1.4.
+But changing the linewidth in other ways will not give you a straight
+right margin.
 
 This document assumes you have basic knowledge of GNU LilyPond and
 La@TeX{} or texinfo.
@@ -120,10 +121,11 @@ or
 These commands should be in the beginning of the document:
 @itemize @bullet
 @item @code{@@afourpaper}
+@item @code{@@afourlatex}
 @item @code{@@afourwide}
 @item @code{@@smallbook}
 @end itemize
-@code{@@pagesizes} are not supported.
+@code{@@pagesizes} are not yet supported.
 
 @subsection Examples
 
@@ -208,11 +210,9 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
-The 'geometry' package is is not supported. The most popular
-papersizes should work.
-
 Lilypond-book know about the @code{\onecolumn} and 
-@code{\twocolumn} commands.
+@code{\twocolumn} commands, the @code{geometry} package and
+all the standard paper sizes.
 
 The music will be surrounded by @code{\preLilypondExample} and
 @code{\postLilypondExample}. The variables are 
@@ -220,26 +220,6 @@ defined to nothing by default, and the user can redefine them
 to whatever he wants.
 @strong{[UGH: THIS DOES NOT HAPPEN WHEN
 YOU USE THE SHORT FORM, \LILYPOND@{ ... @}, CHECK OUT WHY]}
-
-@subsection @code{landscape} package 
-There is some simple support for landscape paper format, and this
-can be combined with the @code{\twocolumn} command. Only a4 and
-letter paper is supported, more to come...
-
-A more complete
-support, maybe also supporting the geometry package is planned, but
-there are more work that has to be done on @command{lilypond-book}
-first.
-
-This should work:
-@example
-\documentclass@{article@}
-\usepackage@{landscape@}
-\begin@{document@}
-\twocolumn
-BLA BLA BLA
-\end@{document@}
-@end example
 
 @subsection Examples 
 
@@ -321,7 +301,7 @@ overwritten.
 If you use @code{--outdir}, you should also @code{cd} to that directory
 before running LaTeX or makeinfo.
 
-@strong{[UGH: IS THIS THE BEST WAY TO DO IT. MAYBE ADD A COMMENT LINE TO THE
+@strong{[UGH: IS THIS THE BEST WAY TO DO IT? MAYBE ADD A COMMENT LINE TO THE
 GENERATED FILE, SO LILYPOND-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
 IS GENERATED.]}
 
