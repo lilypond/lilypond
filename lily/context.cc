@@ -150,9 +150,9 @@ Context::find_create_context (SCM n, String id, SCM operations)
 	    }
 
 
-	  current = create_context (path[i],
-				    this_id,
-				    ops); 
+	  current = current->create_context (path[i],
+					     this_id,
+					     ops); 
 	}
 
       return current;

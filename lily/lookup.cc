@@ -670,14 +670,14 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
   b[a] = iv;
   b[other] = Interval (-1, 1) * thick * 0.5;
   
-  Stencil m =  round_filled_box (b, blot);
+  Stencil m = round_filled_box (b, blot);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
-  Interval oi = Interval (-thick/2, thick/2 + fabs (protude)) ;
-  oi *=  sign (protude);
+  Interval oi = Interval (-thick/2, thick/2 + fabs (protude));
+  oi *= sign (protude);
   b[other] = oi;
   m.add_stencil (round_filled_box (b, blot));
-  b[a] = Interval (iv[DOWN], iv[DOWN]  +thick);
+  b[a] = Interval (iv[DOWN], iv[DOWN] + thick);
   m.add_stencil (round_filled_box (b,blot));
 
   return m;
