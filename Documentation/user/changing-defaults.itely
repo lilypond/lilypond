@@ -1,4 +1,3 @@
-\version "2.3.16"
 @c -*-texinfo-*-
 @node Changing defaults
 @chapter Changing defaults
@@ -2250,6 +2249,15 @@ topmost of the next system.
 
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
+
+@item aftertitlespace
+Amount of space between title and the first system
+@item beforetitlespace 
+Amount of space between last system of the previous piece and  the
+title of the next
+@item betweentitlespace
+Amount of space between consecutive titles (eg. the title   of the
+book and the title of piece).
 
 @end table
 

@@ -176,8 +176,9 @@ baerPaper = \paper {
 \bookpaper {
   raggedbottom = ##t
   betweensystemspace = 25\mm 
-  betweensystempadding = 0\mm 
+  betweensystempadding = 0\mm
 }
+
 \score{
   \sarabandeCelloStaff
   \paper{

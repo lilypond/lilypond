@@ -1,5 +1,17 @@
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Page layout):
+	document them.
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): use new parameters
+	to get sane spaces for titles.
+
+	* ly/book-paper-defaults.ly: new parameters aftertitlespace,
+	beforetitlespace, betweentitlespace.
+
+	* input/regression/beam-quant-standard.ly (primeSixteenths): add
+	16th notes.
+
 	* lily/beam.cc (set_minimum_dy): new function. Round non-zero
 	small slope up to smallest quant. This prevents small slopes from
 	getting rounded to zero.

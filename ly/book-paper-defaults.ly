@@ -48,6 +48,10 @@
     %
     betweensystempadding = #(* 4 mm)
 
+    aftertitlespace = 5 \mm
+    beforetitlespace = 10 \mm
+    betweentitlespace = 2 \mm
+
 
     raggedbottom = ##f
     raggedlastbottom= ##f
