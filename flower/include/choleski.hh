@@ -24,7 +24,7 @@ struct Choleski_decomposition {
     P needs to be symmetric positive definite
     */
     
-    Choleski_decomposition(Matrix P);
+    Choleski_decomposition(Matrix const &P);
 
     /**
     solve Px = rhs
@@ -40,7 +40,9 @@ struct Choleski_decomposition {
     return P,  calc'ed from L and D
     */
     Matrix original() const;
-  
+private:
+    void full_matrix_decompose(Matrix const & P);
+    void band_matrix_decompose(Matrix const &P);
 	 
 };
 #endif
