@@ -337,7 +337,9 @@ do_chroot_jail ()
       exit (3);
     }
 }
+
 void test_pango();
+
 static void
 main_with_guile (void *, int, char **)
 {
@@ -394,7 +396,6 @@ main_with_guile (void *, int, char **)
   SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
   (void) result;
 
-
   /* Unreachable.  */
   exit (0);
 }
@@ -424,7 +425,6 @@ add_output_format (String format)
     output_format_global += ",";
   output_format_global += format;
 }
-
 
 static void
 parse_argv (int argc, char **argv)

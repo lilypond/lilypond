@@ -128,15 +128,40 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   FcPattern *fcpat = fcfont->font_pattern;
   char *filename = 0;
   FcPatternGetString(fcpat, FC_FILE, 0, (FcChar8 **) &filename);
-  char const *ps_name = FT_Get_Postscript_Name (ftface);
+  char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
+  
 
-  if (ps_name)
+  /*
+    UGH: kludge a PS name for OTF fonts.
+   */
+  String ps_name;
+  if (!ps_name_str0
+      && filename
+      && String (filename).index (".otf") >= 0)
+    {
+      String name = filename;
+      name = name.left_string (name.length () - name.index (".otf"));
+
+      int slash_idx = name.index_last ('/');	// UGh. What's happens on windows?  
+      if (slash_idx >=  0)
+	name = name.right_string (name.length() - slash_idx);
+
+      String initial = name.cut_string (0,1);
+      initial.to_upper();
+      name = name.nomid_string (0,1);
+      name.to_lower();
+      ps_name = initial + name;
+    }
+  else if (ps_name_str0)
+    ps_name = ps_name_str0;
+  
+  if (ps_name.length ())
     {
       ((Pango_font *) this)->register_font_file (filename, ps_name);
       pango_fc_font_unlock_face (fcfont);
       
       SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
-			     scm_makfrom0str (ps_name),
+			     scm_makfrom0str (ps_name.to_str0 ()),
 			     scm_from_double (size),
 			     ly_quote_scm (glyph_exprs));
 
@@ -189,11 +214,13 @@ Pango_font::text_stencil (String str) const
       /*
 	For Pango based backends, we take a shortcut.
        */
+      char *descr_string = pango_font_description_to_string (pango_description_);
       SCM exp
 	= scm_list_3 (ly_symbol2scm ("utf8-string"),
-		      scm_makfrom0str (pango_font_description_to_string (pango_description_)),
+		      scm_makfrom0str (descr_string),
 		      scm_makfrom0str (str.to_str0 ()));
 
+      g_free (descr_string);
 
       Box b (Interval (0, 0), Interval (0, 0));
       b.unite (dest.extent_box ());
@@ -224,7 +251,7 @@ Pango_font::font_file_name () const
 
 
 
-
+#if 0
 void test_pango()
 {
   int dpi = 1200;
@@ -309,3 +336,4 @@ void test_pango()
     }
 
 }
+#endif
