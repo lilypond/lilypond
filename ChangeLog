@@ -1,3 +1,7 @@
+2004-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (ext2format): Add latex as Latex.
+
 2004-10-01  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: more small fixes.
