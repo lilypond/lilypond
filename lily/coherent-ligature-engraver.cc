@@ -95,9 +95,9 @@
 	    }
 	  me->warning (_f ("distance=%f", distance));//debug
 	  Real strength = 1.0;
-	  Spaceable_grob::add_spring (lc, rc, distance, strength, false);
+	  Spaceable_grob::add_spring (lc, rc, distance, strength);
 	  if (Item *rb = r->find_prebroken_piece (LEFT))
-	    Spaceable_grob::add_spring (lc, rb, distance, strength, false);
+	    Spaceable_grob::add_spring (lc, rb, distance, strength);
 
 	  continue;
 	}

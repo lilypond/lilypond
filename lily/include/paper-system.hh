@@ -17,8 +17,8 @@
   A formatted "system" (A block of titling also is a Paper_system)
 
   To save memory, we don't keep around the System grobs, but put the
-  formatted content of the grob is put into a Paper_system. Page-breaking handles
-  Paper_system objects.
+  formatted content of the grob is put into a
+  Paper_system. Page-breaking handles Paper_system objects.
   
  */
 class Paper_system
@@ -26,8 +26,8 @@ class Paper_system
   DECLARE_SMOBS (Paper_system, );
   Stencil stencil_;
   bool is_title_;
-  
 public:
+  Interval staff_refpoints_;
   Real penalty_;
   int number_;
 

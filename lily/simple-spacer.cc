@@ -274,12 +274,6 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
       
 	  active_count_ ++;
 	}
-
-      if (spring->expand_only_b_)
-	{
-	  compression_penalty_b_ = true;
-	}
-      
     }
   
   for (int i=0; i < cols.size () - 1; i++)

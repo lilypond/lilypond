@@ -19,7 +19,6 @@ struct Spring_description
   Real ideal_;
   Real hooke_;
   bool is_active_;
-
   Real block_force_;
 
   Real length (Real force) const;
@@ -38,18 +37,17 @@ struct Simple_spacer
   Real line_len_;
   Real default_space_;
   int active_count_;
-  bool compression_penalty_b_;
   
   Simple_spacer ();
   
   void solve (Column_x_positions *, bool);
-  void add_columns (Link_array<Grob>const &);
+  void add_columns (Link_array<Grob> const &);
   void my_solve_linelen ();
   void my_solve_natural_len ();
   Real active_springs_stiffness () const;
   Real range_stiffness (int, int) const;
   void add_rod (int l, int r, Real dist);
-  Real range_ideal_len (int l, int r)const;
+  Real range_ideal_len (int l, int r) const;
   Real is_activelocking_force ()const;
   Real configuration_length ()const;
   void set_active_states ();

@@ -279,7 +279,7 @@ CURRENT-BEST is the best result sofar, or #f."
                              (node-penalty (car best-paths))))
            (page-height (page-height this-page-num last?))
            (space-used (cumulative-height current-lines))
-           (this-page-penalty (height-penalty  page-height space-used))
+           (this-page-penalty (height-penalty page-height space-used))
            (user-penalty (ly:paper-system-break-penalty (car current-lines)))
            (total-penalty (combine-penalties
                            user-penalty this-page-penalty prev-penalty))

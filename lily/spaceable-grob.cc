@@ -47,7 +47,7 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expand_only)
+Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
 {
   //  printf ("dist %lf, str %lf\n", d, strength); 
   if (d <= 0.0 || strength <= 0.0)
