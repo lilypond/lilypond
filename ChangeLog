@@ -2,6 +2,9 @@
 
 	* Documentation/user/changing-defaults.itely: fix index for set.
 
+	* Documentation/user/converters.itely: add convert-ly bugs list
+	from CVS.
+
 2004-12-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/lilylib.py (setup_environment): Set GS_FONTPATH, GS_LIB
