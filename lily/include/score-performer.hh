@@ -23,11 +23,17 @@ protected:
     virtual Translator* ancestor_l( int l );
     virtual int depth_i() const;
 
-    virtual void play_event( Midi_item* l );
+    virtual void finish();
+    virtual Moment get_mom() const;
     virtual void prepare( Moment mom );
     virtual void process();
+    virtual void set_score( Score* score_l );
+    virtual void start();
 
 private:
+    void header();
+
+    Midi_def* midi_l_;
     Midi_stream* midi_stream_p_;
     Moment prev_mom_;
     Moment now_mom_;
