@@ -5349,7 +5349,7 @@ point.
 
 If you want linebreaks at regular intervals, you can use the following:
 @example
-<  \repeat 7 unfold @{ s1 * 4 \break  @}
+<  \repeat unfold 7 @{ s1 * 4 \break  @}
    @emph{the real music}
 > 
 @end  example
