@@ -3,7 +3,7 @@
 #include "molecule.hh"
 #include "list.cc"
 #include "cursor.cc"
-L_instantiate(Atom);
+PL_instantiate(Atom);
 PL_instantiate(Command);
 PL_instantiate(Request);
 

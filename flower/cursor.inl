@@ -6,12 +6,11 @@
 
 template<class T>
 inline
-Cursor<T>::Cursor( List<T>& list, Link<T>* pointer ) : 
-    list_( list )
+Cursor<T>::Cursor( const List<T>& list, Link<T>* pointer ) : 
+    list_((List<T>&) list )
 {
     if ( list.size() )
         pointer_ = pointer ? pointer : list.top_;
-    //list.top().pointer_; // ARGH! recursion.
     else
         pointer_ = pointer;
 }

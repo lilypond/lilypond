@@ -1,6 +1,8 @@
 #include "staff.hh"
+#include "stcol.hh"
+#include "sccol.hh"
 #include "debug.hh"
-#include "pscore.hh"
+
 
 void
 Staff::clean_cols()
@@ -14,11 +16,6 @@ Staff::clean_cols()
     }
 }
 
-/*
-    maak een staff column, met specs in args.
-
-    (sorry wat is het vroeg vandaag..)
-    */
 Staff_column *
 Staff::get_col(Mtime w, bool mus)
 {
@@ -106,7 +103,7 @@ Staff::add_commands(PointerList<Command*> const &cl)
     }
 
     // now integrate break commands with other commands.
-    // may be do this in derived functions.
+    // maybe do this in derived functions.
 }
 
 void
@@ -146,39 +143,14 @@ Staff::last() const {
 void
 Staff::print() const
 {
+        #ifndef NPRINT
+
     mtor << "Staff {\n";
     for (PCursor<Voice*> vc(voices); vc.ok(); vc++) {
 	vc->print();
 	
     }
     mtor <<"}\n";
+    #endif
 }
 
-/****************************************************************/
-
-bool
-Staff_column::mus() const
-{
-    return score_column->musical;
-}
-
-Mtime
-Staff_column::when() const
-{
-    return score_column->when;
-}
-
-void
-Staff_column::add(Voice_element*ve)
-{
-    Mtime d= ve->duration;
-    if (d){
-	score_column->durations.add(d);
-    }
-	
-    v_elts.add(ve);
-}
-
-Staff_column::Staff_column(Score_column*s) {
-    score_column = s;
-}

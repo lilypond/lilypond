@@ -46,9 +46,7 @@ struct PCol {
     Interval width() const;
     ~PCol();
     PCol(PCol * parent);
-    /// initialize the prebreak and postbreak fields
-    setup_breaks();
-    
+
     /// which col comes first?
     static int compare(const PCol &c1, const PCol &c2);
     /**
@@ -59,7 +57,7 @@ struct PCol {
 
     void OK() const;
     void set_breakable();
-
+    void print()const;
 };
 /**
     This is a class to address items vertically. It contains the data for:
@@ -88,9 +86,10 @@ struct Idealspacing {
 
     /// the two columns
     const PCol *left, *right;
-
+    
+    void print()const;
     void OK() const ;
-    Idealspacing(const PCol *left,const PCol *right);
+    Idealspacing(const PCol *left,const PCol *right);    
 };
 
 #endif

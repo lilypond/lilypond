@@ -4,7 +4,7 @@
 void
 Voice_element::add(Request*r)
 {
-    if (r->tag == Request::NOTE ||r->tag == Request::REST) {
+    if (r->rhythmic()) {
 	assert (!duration);	    
 	duration = r->duration();
     }
@@ -32,18 +32,23 @@ Voice_element::Voice_element()
 void
 Voice::print() const
 {
+        #ifndef NPRINT
+
     mtor << "start: "<< start<<eol;
     for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
 	vec->print();
+#endif
 }
 void
 Voice_element::print() const
 {
+#ifndef NPRINT
     mtor << "voice_element { dur :"<< duration <<"\n";
     for (PCursor<Request*> rc(reqs); rc.ok(); rc++) {
-	mtor << "reqtag: " << rc->tag<<eol;
+	rc->print();
     }
     mtor << "}\n";
+#endif
 }
 
 Mtime

@@ -1,8 +1,10 @@
 #include "pstaff.hh"
 
 struct Linestaff : PStaff {
-    int nolines;
     
+    int nolines;
+
+    Symbol get_stafsym(Real width)const;
     Linestaff(int);
     
 };

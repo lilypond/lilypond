@@ -10,6 +10,13 @@ static Keyword_ent  the_key_tab[]={
     "score", SCORE,
     "bar", BAR,
     "output", OUTPUT,
+    "cm", CM,
+    "pt", PT,
+    "in", IN,
+    "mm", MM,
+    "paper", PAPER,
+    "width", WIDTH,
+    "meter", METER,
     0,0
 } ;
 

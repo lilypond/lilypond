@@ -111,7 +111,7 @@ get_note_element(String pitch, String durstr)
 }
 
 Voice_element *
-get_rest_element(String type, String durstr)
+get_rest_element(String, String durstr)
 {    
     Voice_element*v = new Voice_element;
     int i=0;

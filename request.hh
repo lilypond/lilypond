@@ -7,13 +7,16 @@
 #include "mtime.hh"
 struct Request {
     Voice_element*elt;
+#if 0
     enum {
 	UNKNOWN, NOTE, REST, LYRIC, SCRIPT, CHORD, BEAM,
 	BRACKET, STEM, SLUR, CRESC, DECRESC, ABSDYNAMIC
     } tag;
-
-    Note_req *note();
-    Rest_req *rest();
+#endif
+    virtual void print()const ;
+    virtual Note_req *note() {return 0;}
+    virtual Rest_req *rest() {return 0;}
+    virtual  Rhythmic_req*rhythmic() { return 0;}
     Request(Voice_element*);
     Request();
     virtual Real duration() const { return 0.0; }
@@ -50,18 +53,22 @@ struct Request {
     beams/stems to look up the balls it has to connect to.  */
 	
 
-    
+struct Rhythmic_req : Request {
+    int balltype;
+    int dots;
+    Real duration() const;
+    Rhythmic_req(Voice_element*);
+    Rhythmic_req*rhythmic() { return this;} 
+};
+
 /// Put a note of specified type, height, and with accidental on the staff.
-struct Note_req : Request {
+struct Note_req : Rhythmic_req {
     char name;
     int octave;
     int accidental;
     bool forceacc;
-    int balltype;
-    int dots;
-    
-    Real duration() const;
     Note_req(Voice_element*v);
+    Note_req*note() { return this;}
 };
 /**
 Staff has to decide if the ball should be hanging left or right. This
@@ -73,6 +80,19 @@ is also for the Staff to decide. The Staff can decide on positioning
 based on ottava commands and the appropriate clef.
 */
 
+
+///Put a rest on the staff.
+struct Rest_req : Rhythmic_req {
+
+    Rest_req(Voice_element*v) : Rhythmic_req(v) {  }
+    Rest_req * rest() { return this;}
+};
+/**
+Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
+*/
+
+#if 0
+
 ///Put a lyric above or below (?) this staff.
 struct Lyric_req : Request {
     String text;
@@ -82,24 +102,13 @@ struct Lyric_req : Request {
 ///Put a script above or below this ``note''    
 struct Script_req : Request {
     int orientation;
-    Symbol *sym;
+    Symbol sym;
 };
 /**
 eg upbow, downbow. Why a request? These symbols may conflict with slurs and brackets, so this
 also a request
 */
 
-
-///Put a rest on the staff.
-struct Rest_req : Request {
-    int balltype;
-    int dots;
-    Rest_req(Voice_element*);
-    Real duration() const;
-};
-/**
-Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
-*/
 
 
 
@@ -191,5 +200,5 @@ struct Decresc_req : Span_req, Dynamic {
 struct Absdynamic_req : Request, Dynamic {
         Loudness loudness;
 };
-
+#endif
 #endif

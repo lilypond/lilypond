@@ -11,10 +11,12 @@ template<class T> class Link;
 template<class T>
 class List
 {
- public:
-     /// construct empty list                
-    List(); 
+    List(List const&src);
 
+ public:
+    /// construct empty list                
+    List();
+    
     /// construct list from first item.  
     List( const T& thing );
     
@@ -28,6 +30,11 @@ class List
  protected:
     friend class Cursor<T>;
     friend class Link<T>;
+    /// make *this empty
+    void set_empty();
+    /**
+      WARNING: contents lost, and not deleted.
+      */
     
     /// add after after_me
     void add( const T& thing, Cursor<T> after_me );
@@ -67,32 +74,13 @@ class List
 */
 
 
-/// Use for list of pointers, e.g. PointerList<AbstractType*>.
-template<class T>
-class PointerList : public List<T>
-{
- public:
-    PointerList();
-    PointerList( const T& thing );
-
-    ///
-    virtual ~PointerList();
-    /**
-      This function deletes deletes the allocated pointers of all links. 
-      #\Ref{~List}# is used to delete the links themselves.
-      */ 
-
- protected:
-    virtual void remove( Cursor<T> me );
-};
-
 #include "list.inl"
 #include "cursor.hh"
 
 // instantiate a template:  explicit instantiation.
 #define L_instantiate(a)  template class List<a>; template class Cursor<a>; \
   template class Link<a>
-#define PL_instantiate(a) L_instantiate(a *); template class PointerList<a*>
+
 
 #endif // __LIST_HH //
     

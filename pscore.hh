@@ -5,7 +5,7 @@
 
 
 #include "vray.hh"
-#include "cols.hh"
+#include "pcol.hh"
 #include "pstaff.hh"
 
 /// all stuff which goes onto paper
@@ -32,6 +32,8 @@ struct PScore {
     PointerList<Spanner *> spanners;
 
     /****************************************************************/
+
+    svec<Item*> select_items(PStaff*, PCol*);
     
     void calc_breaking();
     /**
@@ -69,9 +71,10 @@ struct PScore {
 
     PCursor<PCol *> find_col(PCol *);
     void clean_cols();
-    void problem_OK() ;
-
+    void problem_OK()const ;
+    void OK()const ;
     PScore();
+    void print() const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:
     horizontally (staffwise), and vertically (columns). #PScore#

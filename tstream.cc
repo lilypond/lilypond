@@ -1,16 +1,15 @@
 #include <fstream.h>
 #include <time.h>
 #include "tex.hh"
-#include "misc.hh"
+#include "main.hh"
 #include "tstream.hh"
 #include "debug.hh"
 
 Tex_stream::Tex_stream(String filename) 
 {
-    
     os = new ofstream(filename);
     if (!*os)
-	error("can't open " + filename);
+	error("can't open `" + filename+"\'");
     nest_level = 0;
     outputting_comment=false;
     header();
@@ -18,16 +17,16 @@ Tex_stream::Tex_stream(String filename)
 void
 Tex_stream::header()
 {
-    *os << "% Creator: " << get_version() << "\n";
+    *os << "% Creator: " << get_version();
     *os << "% Automatically generated, at ";
     time_t t(time(0));
-    *os << ctime(&t)<<"\n";
+    *os << ctime(&t);
 //*os << "% from input file ..\n";    
 }
 Tex_stream::~Tex_stream()
 {
-    assert(nest_level == 0);
     delete os;
+    assert(nest_level == 0);
 }
 
 // print string. don't forget indent.

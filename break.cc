@@ -29,12 +29,12 @@ PScore::solve_line(svec<const PCol *> curline) const
 
 
 void
-PScore::problem_OK() 
+PScore::problem_OK() const
 {
     if (!cols.size())
 	error("PScore::problem_OK(): Score does not have any columns");
     PCursor<PCol *> start(cols);
-    PCursor<PCol *> end (cols.bottom());
+    PCursor<PCol *> end (((PScore*)this)->cols.bottom());
     
     assert(start->breakable);    
     assert(end->breakable);
@@ -67,6 +67,7 @@ struct Col_configuration {
 void
 PScore::calc_breaking()
 {
+    OK();
     problem_OK();
     PCursor<PCol *> curcol(cols);
 	    

@@ -4,6 +4,15 @@
 #include "list.hh"
 
 template<class T>
+List<T>::List(List const&src)
+{
+    set_empty();
+    // probably el stupido
+    for (Cursor<T> c(src); c.ok(); c++)
+	bottom().add(c);
+}
+
+template<class T>
 void
 List<T>::OK() const
 {
@@ -29,7 +38,7 @@ template<class T>
 Cursor<T>
 List<T>::top()
 {
-
+#if 0 
     // ?? waarvoor is deze if ? 
     if ( top_ )			// equivalent: if ( size_ )
 	{
@@ -42,7 +51,9 @@ List<T>::top()
 	    t = top_->previous();
 	    }
 	}
-				// list empty: Cursor not ok()
+#endif
+    
+// list empty: Cursor not ok()
     return Cursor<T>( *this, top_ );
 }
 
@@ -68,22 +79,6 @@ List<T>::bottom()
     				// list empty: Cursor not ok()
     return Cursor<T>( *this, bottom_ );
 }
-
-
-// not inlined since it assumes knowledge of destructor.
-template<class T>
-inline void
-PointerList<T>::remove( Cursor<T> me )
-{
-    if ( me.ok() )
-	{
-
-	delete *me;
-        List<T>::remove( me ); 
-	}
-}
-
-
 
 
 #endif

@@ -19,7 +19,7 @@ public:
     /**
       use a KKT method to assert optimality of sol
       */
-    /// solve the problem using a variable metric method
+    /// solve the problem using a projected gradient method
     Vector solve(Vector start) const;
     
     int dim() const{
@@ -85,5 +85,5 @@ public:
     x^T QUAD x /2 + b^T x 
 */
 
-typedef Mixed_qp Optimisation_problem;
+
 #endif

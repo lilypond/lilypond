@@ -6,11 +6,12 @@
 #define NDEBUG BLONDE
 #endif
 
+const INITIALMAX=8;
 class String_handle;
 /// Internal String struct
 class StringData {
     // GNU malloc: storage overhead is 8 bytes anyway.
-    const int INITIALMAX =8;	// how to do this in ANSI C++ ?
+
 
 friend class String_handle;
     int maxlen;	// maxlen is arraysize-1
@@ -155,6 +156,7 @@ friend class String_handle;
 /**
    the data itself. Handles simple tasks (resizing, resetting)
    */
+
 
 /****************************************************************/
 /// ref. counting for strings

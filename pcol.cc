@@ -1,5 +1,15 @@
-#include "cols.hh"
+#include "pcol.hh"
 #include "pstaff.hh"
+#include "debug.hh"
+
+void
+Idealspacing::print() const
+{
+    #ifndef NPRINT
+    mtor << "idealspacing {" ;
+    mtor << "distance "<<space<< " strength " << hooke << "}\n";
+    #endif
+}
 
 Idealspacing::Idealspacing(const PCol * l,const PCol * r)
 {
@@ -16,6 +26,8 @@ Idealspacing::OK() const
 #endif    
 }
 
+/****************************************************************/
+
 Interval
 PCol::width() const
 {
@@ -27,10 +39,21 @@ PCol::width() const
 	w.unite(Interval(0,0));
     return w;
 }
-/****************************************************************/
+
+void
+PCol::print() const
+{
+    #ifndef NPRINT
+    mtor << "PCol {";
+    mtor << "# symbols: " << its.size() ;
+    mtor << "breakable: " << breakable<<"\n";
+    mtor << "extent: " << width().min << ", " << width().max << "\n";
+    mtor << "}\n";
+    #endif 
+}
 
 int
-PCol::compare(const PCol &c1, const PCol &c2)
+PCol::compare(const PCol &, const PCol &)
 {
     assert(false);
     return 0 ;
@@ -42,6 +65,7 @@ PCol::OK () const
     if (prebreak || postbreak ) {
 	assert(breakable);
     }
+    
 }
 
 void

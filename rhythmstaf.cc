@@ -7,8 +7,8 @@
 #include "command.hh"
 #include "molecule.hh"
 #include "rhythmstaf.hh"
-#include "symbol.hh"
- 
+#include "lookupsyms.hh"
+#include "sccol.hh" 
 
 Rhythmic_column::Rhythmic_column(Score_column*s, Rhythmic_staff *rs)
     : Staff_column(s)
@@ -69,21 +69,16 @@ Rhythmic_column::process_requests()
     for (int i = 0 ; i < v_elts.sz(); i ++)
 	for (PCursor<Request *> rqc(v_elts[i]->reqs); rqc.ok(); rqc++) {
 	    Request *rq= rqc;
-	    switch(rq->tag){
-	    case Request::NOTE:
-	    case Request::REST:
+	    if (rq->rhythmic()){
 		if (the_note){
 		    WARN << "too many notes.\n";
 		    return;
 		}
 		the_note = rq;
-		break;
-		
-	    default:
-		return;
 	    }
+	    break;
+		
 	}
-    
 }
 
 
@@ -91,14 +86,30 @@ void
 Rhythmic_column::typeset_command(Command *com, int breakst)
 {
     Item *i = new Item;
-    const Symbol*s=0;
+    Symbol s;
 
     if (com -> args[0] ==  "BAR" ) {
-	s = Symbol::find_bar(com->args[1]);	
+	s = Lookup::bar(com->args[1]);	
+    } else if (com->args[0] == "METER") {
+	Parametric_symbol *p = Lookup::meter("general");
+	svec<String> arg( com->args);
+	arg.del(0);
+	s = p->eval(arg);
     } else
 	assert(false);
-    
-    i->output=new Molecule(Atom(s));
+
+    Molecule * m =new Molecule(Atom(s));
+    {
+	Interval wid;
+	svec<Item*> sv(staff_->pscore_->
+		       select_items(staff_->theline, score_column->pcol));
+	for (int j=0; j<sv.sz(); j++) {
+	    wid.unite(sv[j]->output->extent().x);
+	}
+	if (!wid.empty())
+	    m->translate(Offset(wid.max,0));
+    }
+    i->output=m;
     staff_->pscore_->typeset_item(i, score_column->pcol,
 				  staff_->theline,breakst);
 }
@@ -107,22 +118,25 @@ void
 Rhythmic_column::typeset_req(Request *rq)
 {
     Item *i = new Item;
-    const Symbol*s=0;
+    Symbol s;
+    int dots=0;
 
-    switch(rq->tag){
-    case Request::NOTE:
-	s = Symbol::find_ball(rq->note()->balltype);
-	break;
-    case Request::REST:
-	s = Symbol::find_rest(rq->rest()->balltype);
-	break;
-    default:
-	assert(false);
-	break;
-    }  
-    i->output = new Molecule(Atom(s));
+    if (rq->note())
+	s = Lookup::ball(rq->note()->balltype);
+    if (rq->rhythmic())
+	dots=rq->rhythmic()->dots;
+    if (rq->rest())
+	s = Lookup::rest(rq->rest()->balltype);
 
-    staff_->pscore_->typeset_item(i, score_column->pcol, staff_->theline,0 );	
+    Molecule *m = new Molecule(Atom(s));
+    if (dots) {
+	Symbol d = Lookup::dots(dots);
+	Molecule dm;
+	dm.add(Atom(d));
+	m->add_right(dm);
+    }
+    i->output=m;
+    staff_->pscore_->typeset_item(i, score_column->pcol, staff_->theline,0 );
 }
 
 void

@@ -3,11 +3,13 @@
 #include "glob.hh"
 #include "mtime.hh"
 #include "vray.hh"
+#include "string.hh"
+
 enum Commandcode {
 	NOP,
 	INTERPRET,
 	TYPESET,
-	BREAK_PRE,BREAK_MIDDLE, BREAK_POST, BREAK_END, 
+	BREAK_PRE,BREAK_MIDDLE, BREAK_POST, BREAK_END
 };
 /// set a nonrythmical symbol
 struct Command {
@@ -16,6 +18,10 @@ struct Command {
     Mtime when;
     /// analogous to argv[]
     svec<String> args;
+    Command();
+    Command(Real w);
+    bool isbreak()const;
+    void print() const;
 };
 
 /**

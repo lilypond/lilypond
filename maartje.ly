@@ -7,13 +7,16 @@ score {
 		voice { $ c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 $ }
 	}
 	rhythmstaff {
-		voice { $ c4 r4 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4
+		voice { $ c2.. r8 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4 c4 r4
 		r2 r4 r1
 	$ }
 	}
-bar 0.5
+	
 	bar 2  bar 3
 	bar 4.5 bar 5 bar 5.5
 	bar 6 bar 7 bar 8
+
+	meter 2 4 4 % after bars.
+
 }
 

@@ -1,3 +1,13 @@
+/*
+  rhythmstaf.hh -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef RHYTHMSTAF_HH
+#define RHYTHMSTAF_HH
+#include "stcol.hh"
+
 struct Rhythmic_staff;
 
 /// column of Rhythmic_staff
@@ -28,4 +38,8 @@ struct Rhythmic_staff : Staff {
     void grant_requests();
     Staff_column * create_col(Score_column*);
 };
+
+
+#endif // RHYTHMSTAF_HH
+
 

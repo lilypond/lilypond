@@ -1,4 +1,6 @@
 
+	* efficient copy cons for List
+
 	* change String::pos
 
 		s[s.pos('%')] == '%'

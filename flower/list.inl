@@ -5,6 +5,13 @@ template<class T>
 inline
 List<T>::List()
 {
+    set_empty();
+}
+
+template<class T>
+inline void
+List<T>::set_empty()
+{
     top_ = bottom_ = 0;
     size_ = 0;
 }
@@ -13,8 +20,7 @@ template<class T>
 inline
 List<T>::List( const T& thing )
 {
-    top_ = bottom_ = 0;
-    size_ = 0;
+    set_empty();
     add( thing, Cursor<T>( *this, bottom_ ) );
 }
 
@@ -113,40 +119,6 @@ List<T>::size() const
     return size_;
 }
 
-template<class T>
-inline
-PointerList<T>::PointerList() :
-    List<T>()
-{
-}
-
-template<class T>
-inline
-PointerList<T>::PointerList( const T& thing ) :
-    List<T>( thing )
-{
-}
-
-template<class T>
-inline
-PointerList<T>::~PointerList()
-{
-    Cursor<T> next(*this);
-    for ( Cursor<T> c( *this ); c.ok(); c = next ) {
-	next = c;
-	next++;
-	remove( c );		// PointerList::remove deletes the  real data
-    }
-}
-
-template<class T>
-inline void
-PointerList_print( PointerList<T> const & l  ) 
-{
-    List<T>& promises_to_be_const = (List<T>&) l;
-    for ( Cursor<T> c( promises_to_be_const ); c.ok(); c++ )
-        (*c)->print();  
-}
 
 
 #endif

@@ -1,23 +1,24 @@
 #include "misc.hh"
+#include "dimen.hh"
 #include "debug.hh"
 #include "real.hh"
 #include "symbol.hh"
 #include "assoc.hh"
 #include "symtable.hh"
-#include "const.hh"
-
-static Symbol unknown;
 
 
-// scary! What if Symtable resizes on the fly...?
-const Symbol *
+
+
+
+Symbol 
 Symtable::lookup(String s) const
 {
     if (elt_query(s))
-	return &(*this)[s];
+	return (*this)[s];
     else {
+	 Symbol unknown;
 	WARN<<"Unknown symbol " << s <<'\n';
-	return &unknown;
+	return unknown;
     }
 }
 
@@ -54,7 +55,7 @@ Symtables::read()
 	     String tex=r[i++];
 	     svec<Real> dims;
 	     for (int j=0; j < 4; j++)
-		 dims.add( r[i++].fvalue() *1.0/CM_TO_PT);
+		 dims.add( parse_dimen(r[i++]));
 	     
 	     Symbol s(tex, Box(dims));
 	     (*sp)[id] = s;
@@ -63,56 +64,5 @@ Symtables::read()
      }
 }
 
-Symtables the_sym_tables("symbol.ini");
 
 
-const Symbol*
-Symbol::find_ball(int j)
-{
-    if (j > 4) j = 4;
-    Symtable * st = the_sym_tables("balls");
-    return st->lookup(String(j));
-}
-
-const Symbol*
-Symbol::find_rest(int j)
-{
-    return the_sym_tables("rests")->lookup(String(j));
-}
-const Symbol*
-Symbol::find_bar(String s)
-{
-    return the_sym_tables("bars")->lookup(s);
-}
-/****************************************************************/
-// bare bones.
-
-struct Linestaf_symbol : Stretchable_symbol {
-    int lines;
-    String operator ()(Real w);
-    Linestaf_symbol(int n) { lines = n;}
-    Interval height(Real) const { return Interval(0,lines*1/CM_TO_PT); }
-};
-
-
-
-// should be done in TeX
-String
-Linestaf_symbol::operator()(Real w)
-{
-    String s;
-    s += "\\hbox to 0pt{";
-    s+= "\\vbox to 0pt{";
-    for (int i=0; i<lines; i++) {
-	if (i) s+= "\\vskip1pt";
-	s+= "\\hrule width " + String(w* HOR_TO_PT) +"pt";
-    }
-    s+="\\vss}\\hss}";
-    return s;
-}
-
-const Stretchable_symbol *
-Stretchable_symbol::get_linestaff(int n)
-{
-    return new Linestaf_symbol(n);
-}

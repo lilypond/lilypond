@@ -16,12 +16,4 @@ extern Dstream monitor; // monitor
 void error(String s);
 void warning(String s);
 
-extern int debug_flags;
-
-void
-set_debug(String s);
-const int DEBUGPARSER = 0x01;
-const int DEBUGTOKEN = 0x02;
-const int DEBUGITEMS = 0x04;
-
 #endif

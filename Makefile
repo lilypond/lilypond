@@ -1,6 +1,6 @@
 MAJVER=0
 MINVER=0
-PATCHLEVEL=3
+PATCHLEVEL=4
 
 # 
 #
@@ -19,17 +19,19 @@ VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 PACKAGENAME=lilypond
 DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
-SCRIPTS=make_version make_patch
+SCRIPTS=make_version make_patch genheader
 IFILES=dimen.tex symbol.ini suzan.ly maartje.ly  lilyponddefs.tex test.tex .dstreamrc
-OFILES=Makefile Sources.make depend 
-DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS) COPYING
+OFILES=Makefile Sources.make 
+DOC=COPYING README TODO
+DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS) $(DOC)
 
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower
 FLOWERDIR=../flower
-#DEFINES=-DNDEBUG
-CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -g
-
+#DEFINES=-DNDEBUG -DNPRINT -O2
+CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -W  -pedantic -g
+FLEX=flex
+BISON=bison
 exe=$(PACKAGENAME)
 
 ##################################################################
@@ -62,7 +64,7 @@ depend: Sources.make  .GENERATE
 include depend
 
 parser.cc: parser.y
-	bison -d $<
+	$(BISON) -d $<
 	mv parser.tab.h parser.hh
 	mv parser.tab.c parser.cc
 
@@ -74,7 +76,7 @@ version.hh: Makefile make_version
 	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > $@
 
 lexer.cc: lexer.l
-	flex -+ -t $< > $@
+	$(FLEX) -+ -t $< > $@
 
 DDIR=$(DNAME)
 dist:

@@ -1,0 +1,16 @@
+#!/bin/sh
+def=`echo $1 | sed s/\\\./_/ | tr a-z A-Z`
+cat << HERE
+/*
+  $1 -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef $def
+#define $def
+
+
+#endif // $def
+
+HERE

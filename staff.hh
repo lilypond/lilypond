@@ -5,25 +5,6 @@
 #include "voice.hh"
 #include "command.hh"
 
-struct Staff_column {
-    Score_column *score_column;
-
-    /// fields to collect data vertically.
-    svec<Voice_element *> v_elts;
-    svec<Command *> s_commands;
-    
-    Staff_column(Score_column*s); 
-    bool mus() const ;
-    Mtime when() const;
-    void add(Voice_element*ve);
-    /****************************************************************
-      VIRTUAL
-    ****************************************************************/
-    virtual void process_requests()=0;
-    virtual void process_commands()=0;
-    virtual ~Staff_column() { }
-};
-
 
 /// base class for a collection of voices.
 struct Staff {

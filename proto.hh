@@ -1,7 +1,6 @@
 #include "real.hh"
 
-class Vector;
-class Matrix;
+class Parametric_symbol;
 class Line_of_score;
 class Line_of_staff;
 class PCol;
@@ -46,6 +45,7 @@ struct Note_req;
 struct Lyric_req;
 struct Script_req;
 struct Rest_req;
+struct Rhythmic_req;
 struct Chord;
 struct Stem_req;
 struct Span_req;
@@ -73,4 +73,4 @@ struct Tex_stream;
 struct Identifier;
 struct Keyword;
 class Mixed_qp;
-typedef  Mixed_qp Optimisation_problem;
+class Paperdef;

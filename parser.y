@@ -2,20 +2,23 @@
 #include <iostream.h>
 
 #include "lexer.hh"
+#include "paper.hh"
 #include "staff.hh"
 #include "score.hh"
 #include "main.hh"
 #include "keyword.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
-#define YYDEBUG 1
+#include "dimen.hh"
 
+#ifndef NDEBUG
+#define YYDEBUG 1
+#endif
 
 %}
 
 
-%union {
-     int i;    
+%union {    
     Real real;
     Command *command;
     Identifier *id;    
@@ -24,22 +27,30 @@
     Voice_element *el;	
     Staff *staff;    
     String *string;
-    Score *score;    
+    Score *score;
+    const char *consstr;
+    Paperdef *paper;
+    int i;
 }
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
+%token CM IN PT MM PAPER WIDTH METER
 
-
+%type <consstr> unit
 %token <id> IDENTIFIER
 %token <string> PITCH DURATION RESTNAME
 %token <real> REAL
 %token <string> STRING
 
+%type <paper> paper_block paper_body
+%type <real> dim
 %type <voice> voice_block voice_body voice_elts voice_elts_dollar
 %type <el> voice_elt
 %type <command> score_command
 %type <score> score_block score_body
 %type <staff> staff_block  rhythmstaff_block rhythmstaff_body
+%type <i> int
+
 
 %%
 
@@ -56,10 +67,34 @@ score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
 score_body:		{ $$ = new Score; } 
 	| score_body staff_block	{ $$->add($2); }
 	| score_body score_command	{ $$->add($2); }
-	| score_body OUTPUT STRING	{ $$->outfile = *$3;
+	| score_body paper_block	{ delete $$->paper;
+		$$->paper = $2;
+	}
+	;
+
+paper_block:
+	PAPER '{' paper_body '}' 	{ $$ = $3; }
+	;
+
+paper_body:
+	/* empty */		 	{ $$ = new Paperdef; }
+	| paper_body WIDTH dim		{ $$->width = $3;}
+	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
 		delete $3;
 	}
 	;
+
+dim:
+	REAL unit	{ $$ = convert_dimen($1,$2); }
+	;
+
+
+unit:	CM		{ $$ = "cm"; }
+	|IN		{ $$ = "in"; }
+	|MM		{ $$ = "mm"; }
+	|PT		{ $$ = "pt"; }
+	;
+	
 
 staff_block:
 	rhythmstaff_block
@@ -110,6 +145,18 @@ score_command:
 	BAR REAL			{
 		$$ = get_bar_command($2);
 	}
+	| METER REAL int int		{
+		$$ = get_meter_command($2, $3, $4);
+	}
+	;
+
+int:
+	REAL			{
+		$$ = int($1);
+		if (ABS($1-Real(int($$))) > 1e-8)
+			yyerror("expecting integer number");
+		
+	}
 	;
 
 %%
@@ -118,7 +165,9 @@ void
 parse_file(String s)
 {
    *mlog << "Parsing ... ";
+#ifdef YYDEBUG
    yydebug = !monitor.silence("Parser");
+#endif
    new_input(s);
    yyparse();
 }

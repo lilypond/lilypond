@@ -4,7 +4,7 @@
 #include "glob.hh"
 #include "list.hh"
 #include "vray.hh"
-#include "cols.hh"
+#include "pcol.hh"
 #include "matrix.hh"
 
 /// helper struct for #Spacing_problem#
@@ -12,10 +12,7 @@ struct Colinfo {
     const PCol *col;
     bool fixed;
     Real fixpos;
-    Colinfo() {
-	fixed=false;
-	col=0;
-    }
+    Colinfo();
     void print() const;
     Real minright()const { return col->width().max; }
     Real minleft()const { return -col->width().min; }
@@ -42,7 +39,7 @@ class Spacing_problem {
     void make_matrices(Matrix &quad, Vector &lin,Real&) const;
 
     /// generate the LP constraints
-    void make_constraints(Optimisation_problem& lp) const;
+    void make_constraints(Mixed_qp& lp) const;
 
 public:
     /// solve the spacing problem
