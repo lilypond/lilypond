@@ -89,7 +89,7 @@ System::get_lines ()
 	    }
 	  g->suicide ();
 	}
-      else if (g->live ())
+      else if (g->is_live ())
 	g->do_break_processing ();
     }
 

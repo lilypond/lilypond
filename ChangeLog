@@ -1,5 +1,11 @@
 2004-05-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/staff-symbol-engraver.cc (acknowledge_grob): remove item ->
+	staffsymbol dependency.
+
+	* lily/include/grob.hh (class Grob): live () -> is_live (). Small
+	cleanups.
+
 	* lily/book.cc (process): return Paper_book
 	(to_stencil): use Book::process().
 

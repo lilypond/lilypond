@@ -250,7 +250,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 SCM
 Accidental_placement::position_accidentals (Grob * me)
 {
-  if (!me->live ())
+  if (!me->is_live ())
     return SCM_UNSPECIFIED;
   
   SCM accs = me->get_property ("accidental-grobs");

@@ -429,11 +429,11 @@ Piano_pedal_engraver::finalize ()
 	suicide?
       */
       if (p->line_spanner_
-	  && !p->line_spanner_->live ())
+	  && !p->line_spanner_->is_live ())
 	p->line_spanner_ = 0;
       
       if (p->bracket_
-	  && !p->bracket_->live ())
+	  && !p->bracket_->is_live ())
 	p->bracket_ = 0;
       
       if (p->bracket_)
@@ -500,10 +500,10 @@ Piano_pedal_engraver::typeset_all (Pedal_info * p)
     Handle suicide. 
   */
   if (p->finished_line_spanner_
-      && !p->finished_line_spanner_->live ())
+      && !p->finished_line_spanner_->is_live ())
     p->finished_line_spanner_ = 0;
   if (p->finished_bracket_
-      && !p->finished_bracket_->live ())
+      && !p->finished_bracket_->is_live ())
     p->finished_bracket_ = 0;
 
 

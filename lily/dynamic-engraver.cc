@@ -286,7 +286,7 @@ Dynamic_engraver::finalize ()
   typeset_all ();
   
   if (line_spanner_
-      && !line_spanner_->live ())
+      && !line_spanner_->is_live ())
     line_spanner_ = 0;
   if (line_spanner_)
     {
@@ -295,7 +295,7 @@ Dynamic_engraver::finalize ()
     }
 
   if (cresc_
-      && !cresc_->live ())
+      && !cresc_->is_live ())
     cresc_ = 0;
   if (cresc_)
     {
@@ -315,10 +315,10 @@ Dynamic_engraver::typeset_all ()
     Maybe just check at typeset_grob ()?
   */
   if (finished_cresc_
-      && !finished_cresc_->live ())
+      && !finished_cresc_->is_live ())
     finished_cresc_ = 0;
   if (finished_line_spanner_
-      && !finished_line_spanner_->live ())
+      && !finished_line_spanner_->is_live ())
     finished_line_spanner_ = 0;
 
   if (finished_cresc_)
@@ -382,7 +382,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
-	  && line_spanner_->live ())
+	  && line_spanner_->is_live ())
 	{
 	  Side_position_interface::add_support (line_spanner_,i.grob_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_));

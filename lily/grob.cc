@@ -196,7 +196,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 Stencil *
 Grob::get_stencil ()  const
 {
-  if (!live ())
+  if (!is_live ())
     {
       return 0;
     }
@@ -207,7 +207,7 @@ Grob::get_stencil ()  const
 
   mol = get_uncached_stencil ();
   
-  if (live ())
+  if (is_live ())
     {
       Grob *me = (Grob*)this;
       me->set_property ("stencil", mol);
@@ -306,7 +306,7 @@ Grob::handle_broken_dependencies ()
 
   System *system = get_system ();
 
-  if (live ()
+  if (is_live ()
       && system && common_refpoint (system, X_AXIS) && common_refpoint (system, Y_AXIS))
     {
       substitute_mutable_properties (system ? system->self_scm () : SCM_UNDEFINED,
@@ -339,7 +339,7 @@ Grob::handle_broken_dependencies ()
 void
 Grob::suicide ()
 {
-  if (!live ())
+  if (!is_live ())
     return; 
 
   

@@ -87,7 +87,6 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   TODO: there is too much code dup, and the interface is not
   clear. FIXME.
  */
-
 void
 Paper_book::output (String outname)
 {
@@ -101,7 +100,11 @@ Paper_book::output (String outname)
   Paper_outputter *out = get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
 
-  out->output_header (bookpaper_,   scm_list_1 (header_), page_count, false);
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
+  
+  out->output_header (bookpaper_, scopes, page_count, false);
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -169,7 +172,7 @@ Paper_book::classic_output (String outname)
     scopes = scm_cons (score_lines_[0].header_, scopes);
   //end ugh
   
-  out->output_header (p, header_, 0, true);
+  out->output_header (p, scopes, 0, true);
 
   SCM top_lines = score_lines_.top ().lines_;
   Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,

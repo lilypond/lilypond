@@ -237,7 +237,7 @@ check_meshing_chords (Grob *me,
 	    d->suicide ();
 	}
       
-      if (wipe_ball && wipe_ball->live ())
+      if (wipe_ball && wipe_ball->is_live ())
 	{
 	  wipe_ball->set_property ("transparent", SCM_BOOL_T);
 	  wipe_ball->set_property ("stencil", SCM_EOL);

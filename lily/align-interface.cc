@@ -82,7 +82,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 	  && Hara_kiri_group_spanner::has_interface (elems[j]))
 	Hara_kiri_group_spanner::consider_suicide (elems[j]);
 
-      if (!elems[j]->live ())
+      if (!elems[j]->is_live ())
 	elems.del (j);
     }
 

@@ -22,7 +22,6 @@
     */
 enum Grob_status {
   ORPHAN=0,			// not yet added to Paper_score
-  VIRGIN,	
   PRECALCING,
   PRECALCED,		// calcs before spacing done
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
@@ -52,13 +51,6 @@ public:
     0 means ORPHAN,
    */
   char status_;
-
-
-  /*
-    IDEA: make this a global variable. This is the same for all
-    elements, I think it is safe to assume that we will not have
-    scores being formatted multithreadedly.
-   */
   Paper_score *pscore_;
   Dimension_cache dim_cache_[NO_AXES];
 
@@ -77,8 +69,6 @@ public:
   void warning (String)const;
   void programming_error (String)const;
   
-  void set_elt_pointer (const char*, SCM val);
-  friend class Property_engraver; //  UGHUGHUGH.
   /*
     related classes.
    */
@@ -111,7 +101,7 @@ public:
 
   SCM get_property_alist_chain (SCM) const;
   void suicide ();
-  bool live () const;
+  bool is_live () const;
   
   DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
 
@@ -136,7 +126,6 @@ public:
   Real relative_coordinate (Grob const* refp, Axis) const;
   Grob*common_refpoint (Grob const* s, Axis a) const;
 
-
   // duh. slim down interface here. (todo)
   bool has_offset_callback (SCM callback, Axis)const;
   void add_offset_callback (SCM callback, Axis);
@@ -145,8 +134,8 @@ public:
   Real get_offset (Axis a) const;
   
   void set_parent (Grob* e, Axis);
-  
   Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_; }
+
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 

@@ -68,9 +68,6 @@ void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
   s.grob_->set_property ("staff-symbol", span_->self_scm ());
-
-  // remove this. probly not necessary?
-  s.grob_->add_dependency (span_); // UGH. UGH. UGH
 }
 
 
