@@ -165,14 +165,14 @@
 				   ,(delay  (ly:font-load "feta-alphabet26"))))
      
      (fetaMusic ,(ly:pt 20.0)
-		#(,(delay  (ly:font-load "emmentaler11"))
-		  ,(delay  (ly:font-load "emmentaler13"))		  
-		  ,(delay  (ly:font-load "emmentaler14"))
-		  ,(delay  (ly:font-load "emmentaler16"))		  
-		  ,(delay  (ly:font-load "emmentaler18"))
-		  ,(delay  (ly:font-load "emmentaler20"))		  
-		  ,(delay  (ly:font-load "emmentaler23"))		  
-		  ,(delay  (ly:font-load "emmentaler26"))))
+		#(,(delay  (ly:font-load "emmentaler-11"))
+		  ,(delay  (ly:font-load "emmentaler-13"))		  
+		  ,(delay  (ly:font-load "emmentaler-14"))
+		  ,(delay  (ly:font-load "emmentaler-16"))		  
+		  ,(delay  (ly:font-load "emmentaler-18"))
+		  ,(delay  (ly:font-load "emmentaler-20"))		  
+		  ,(delay  (ly:font-load "emmentaler-23"))		  
+		  ,(delay  (ly:font-load "emmentaler-26"))))
 
      (fetaBraces ,(ly:pt 20.0) #(,(delay
 			    (ly:font-load "aybabtu")))))))
