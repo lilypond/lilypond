@@ -76,11 +76,11 @@
      "/" command " { /" fontname " findfont "
      (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
 
-  (define (reencode-font plain encoding command)
+  (define (reencode-font fontname encoding scaling command)
     (let ((coding-vector (get-coding-command encoding)))
       (string-append
-       plain " " coding-vector " /" command " reencode-font\n"
-       "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
+       "/" fontname " findfont " coding-vector " /" command " reencode-font\n"
+       "/" command "{ /" command " findfont " (ly:number->string scaling) " output-scale div scalefont } bind def\n")))
 
   (define (standard-tex-font? x)
     (or (equal? (substring x 0 2) "ms")
@@ -121,7 +121,7 @@
        (define-font plain fontname scaling)
        (if (equal? input-encoding font-encoding)
 	   ""
-	   (reencode-font plain input-encoding command)))))
+	   (reencode-font fontname input-encoding scaling command)))))
 
   (define (font-load-encoding encoding)
     (let ((filename (get-coding-filename encoding)))
