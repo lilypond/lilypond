@@ -1,3 +1,9 @@
+2003-05-21  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el,
+	lilypond-font-lock.el,
+	lilypond-indent.el: Move all paren matching to lilypond-indent.el.
+
 2003-05-20  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Remove outdated code. Stress the difference 

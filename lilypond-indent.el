@@ -6,10 +6,11 @@
 ;;; Variables for customising indentation style
 
 ;;; TODO:
-;;;    * emulate show-paren-mode 
+;;;    * emulate show-paren-mode, i.e., highlight the matching bracket if
+;;;      - the cursor is on the matching opening bracket
+;;;      - the cursor is after the matching closing bracket
 ;;;    * separate '('- and ')'-slurs from '\('- and '\)'-slurs.
-;;;    * include '['- and ']'-slurs from syntax table 
-;;;      in order to match also '\['- and '\]'-slurs in ligatures
+;;;    * separate '['- and ']'-slurs from '\['- and '\]'-slurs.
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -22,6 +23,10 @@ Compares with other text in same context.")
   "*Extra indentation for open angled brackets .
 Compares with other text in same context.")
 
+(defcustom LilyPond-square-offset 0
+  "*Extra indentation for open square brackets .
+Compares with other text in same context.")
+
 (defcustom LilyPond-scheme-paren-offset 0
   "*Extra indentation for open scheme parens .
 Compares with other text in same context.")
@@ -31,6 +36,9 @@ Compares with other text in same context.")
 
 (defcustom LilyPond-close-angle-offset 0
   "*Extra indentation for closing angle brackets.")
+
+(defcustom LilyPond-close-square-offset 0
+  "*Extra indentation for closing square brackets.")
 
 (defcustom LilyPond-close-scheme-paren-offset 0
   "*Extra indentation for closing scheme parens.")
@@ -104,6 +112,8 @@ Returns nil if line starts inside a string"
 			    LilyPond-brace-offset)
 			   ((= (following-char) ?<) 
 			    LilyPond-angle-offset)
+			   ((= (following-char) ?[) 
+			    LilyPond-square-offset)
 			   ((= (following-char) ?\))
 			    LilyPond-scheme-paren-offset)
 			   (t
@@ -141,12 +151,16 @@ Return the amount the indentation changed by."
 	       (setq indent  (+ indent (- LilyPond-close-brace-offset LilyPond-indent-level))))
 	      ((= (following-char) ?>)
 	       (setq indent  (+ indent (- LilyPond-close-angle-offset LilyPond-indent-level))))
+	      ((= (following-char) ?])
+	       (setq indent  (+ indent (- LilyPond-close-square-offset LilyPond-indent-level))))
 	      ((and (= (following-char) ?\)) (LilyPond-inside-scheme-p))
 	       (setq indent  (+ indent (- LilyPond-close-scheme-paren-offset LilyPond-indent-level))))
 	      ((= (following-char) ?{)
 	       (setq indent  (+ indent LilyPond-brace-offset)))
 	      ((= (following-char) ?<)
 	       (setq indent  (+ indent LilyPond-angle-offset)))
+	      ((= (following-char) ?[)
+	       (setq indent  (+ indent LilyPond-square-offset)))
 	      ((and (= (following-char) ?\() (LilyPond-inside-scheme-p))
 	       (setq indent  (+ indent LilyPond-scheme-paren-offset)))
 	      ))))
@@ -256,9 +270,8 @@ Argument LIM limit."
 
 
 ;; Key:   Type of bracket (character). 
-;; Value: Pair of regexps representing the corresponding open and close bracket"
-;; () are treated specially (need to indent in Scheme but not in music), and []
-;; are handled by the syntax table
+;; Value: Pair of regexps representing the corresponding open and close bracket
+;; () are treated specially (need to indent in Scheme but not in music)
 
 (defconst LilyPond-parens-regexp-alist
   `( ( ?>  .  ("\\([^\\]\\|^\\)<" . "[^ \\n\\t_^-]\\s-*>\\|[_^-]\\s-*[-^]\\s-*>"))
@@ -266,12 +279,14 @@ Argument LIM limit."
      ;; but a b c^-> and a b c^^> are close brackets with tenuto/marcato before them
      ;; also \> and \< are hairpins
      ( ?}  .  ("{" . "}"))
+     ( ?]  .  ("[[]" . "[]]"))
      ))
 
 
 (defconst LilyPond-parens-alist
   `( ( ?<  .  ?> )    
      ( ?{  .  ?} )    
+     ( ?[  .  ?] )
      ( ?\(  .  ?\) )
      ))
 
@@ -316,14 +331,14 @@ slur-paren-p defaults to nil.
 		(setq match (char-before (match-end 0))))
       (if (not (save-excursion (goto-char (match-end 0)) 
 			       (LilyPond-inside-string-or-comment-p)))
-	  (if (memq match '(?} ?> ?\)))
+	  (if (memq match '(?} ?> ?] ?\)))
 	      (progn (setq level (1+ level))
 		     (if (and (= match ?>) 
-			      (looking-at ".\\s-+>\\|\\({\\|}\\|<\\|>\\|(\\|)\\)>"))
+			      (looking-at ".\\s-+>\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)>"))
 			 (forward-char 1)))
 	    (progn (setq level (1- level))
 		   (if (and (= match ?<)
-			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\)<"))
+			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
     (if (looking-at ".<\\|.>") (forward-char 1))
     (if (= level 0) 
@@ -378,8 +393,8 @@ the syntax table"
 	  (narrow-to-region (max (point-min)
 				 (- (point) blink-matching-paren-distance))
 			    oldpos)))
-    (if (memq bracket-type '(?> ?}))
-	;; < { need to be mutually balanced and nested, so search backwards for both of these bracket types 
+    (if (memq bracket-type '(?> ?} ?]))
+	;; < { [ need to be mutually balanced and nested, so search backwards for both of these bracket types 
 	(LilyPond-beginning-of-containing-sexp nil nil)  
       ;; whereas ( ) slurs within music don't, so only need to search for ( )
       (LilyPond-beginning-of-containing-sexp bracket-type t))
@@ -431,7 +446,7 @@ the syntax table"
 
 
 (defun LilyPond-electric-close-paren ()
-  "Blink on the matching open paren when a > or ) is inserted"
+  "Blink on the matching open paren when a >, ), } or ] is inserted"
   (interactive)
   (let ((oldpos (point)))
     (self-insert-command 1)

@@ -131,13 +131,13 @@
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
 	  '(
-	    ;; also '['- and ']'-slurs should be handled by lilypond-indent.el
-	    ;; in order to match also '\['- and '\]'-slurs in ligatures
-	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ; handled by the syntax table
-	    ;; all the other paren characters are now handled by   
+	    ;; also '['- and ']'-slurs are handled by lilypond-indent.el
+	    ;( ?\[ . "(]" ) ( ?\] . ")[" )
+	    ;; all the paren characters are now handled by   
 	    ;; lily-specific indenting/matching code in lilypond-indent.el 
+	    ( ?\[ . "." ) ( ?\] . "." )
 	    ( ?\( . "." ) ( ?\) . "." ) 
-	    ( ?\< . "." )( ?\> . ".") 
+	    ( ?\< . "." ) ( ?\> . ".") 
 	    ( ?\{  .  ". 2" )  ; also 2nd char in begin of block-comment
 	    ( ?\}  .  ". 4" )  ; also 2nd char in end of block-comment
 	    ( ?\%  .  "< 13" ) ; comment starter, 1st char in block-comments
