@@ -37,13 +37,12 @@ Rest::Rest ()
 Molecule *
 Rest::do_brew_molecule_p () const
 {
-  int staff_size_i_ = 8;
-  bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  
+  bool streepjes_b = abs(position_i_) > lines_i () / 2 &&  
     (balltype_i_ == 0 || balltype_i_ == 1);
   
   Molecule s(lookup_l ()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Molecule (s));
-  m->translate_axis (position_i_ *  paper ()->internote_f (), Y_AXIS);
+  m->translate_axis (position_i_ *  staff_line_leading_f ()/2.0, Y_AXIS);
   return m;
 }
 

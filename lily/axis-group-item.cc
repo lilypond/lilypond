@@ -38,9 +38,10 @@ Axis_group_item::do_breakable_col_processing()
       Direction  j=LEFT;
       do 
 	{
-	  Item *new_l = 
-	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_dir_);
-	  (dynamic_cast<Axis_group_item*> (broken_to_drul_[j]))->add_element (new_l);
+	  Axis_group_item * my_brok
+	    = dynamic_cast<Axis_group_item*> (find_prebroken_piece(j));
+	  Item *new_l = it_l->find_prebroken_piece (j);
+	  my_brok->add_element (new_l);
 	}
       while (flip(&j)!=LEFT);
     }

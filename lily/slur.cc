@@ -40,7 +40,7 @@ Slur::add_column (Note_column*n)
   if (!n->head_l_arr_.size ())
     warning (_ ("Putting slur over rest."));
   encompass_arr_.push (n);
-  n->stem_l_->slur_l_ = this;
+  //  n->stem_l_->slur_l_ = this;
   add_dependency (n);
 }
 
@@ -100,10 +100,11 @@ broken_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
 static bool
 normal_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
 {
+  Note_column *n = extrema[dir];
   return !broken_edge_b (s, extrema, dir)
-    && extrema[dir]->stem_l_
-    && !extrema[dir]->stem_l_->transparent_b_ 
-    && extrema[dir]->head_l_arr_.size ();
+    && n->stem_l_
+    && n->stem_l_->get_elt_property (transparent_scm_sym) == SCM_BOOL_F
+    && n->head_l_arr_.size ();
 }
 
 void
@@ -113,10 +114,10 @@ Slur::do_post_processing ()
   if (!dir_)
     set_default_dir ();
 
-  Real interline_f = paper ()->interline_f ();
+  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
   Real internote_f = interline_f / 2;
   // URG
-  Real notewidth_f = paper ()->note_width () * 0.8;
+  Real notewidth_f = paper_l ()->note_width () * 0.8;
 
   /* 
    [OSU]: slur and tie placement
@@ -129,7 +130,7 @@ Slur::do_post_processing ()
      --> height <= 5 length ?? we use <= 3 length, now...
    */
   
-  Real gap_f = paper ()->get_var ("slur_x_gap");
+  Real gap_f = paper_l ()->get_var ("slur_x_gap");
 
   Drul_array<Note_column*> extrema;
   extrema[LEFT] = encompass_arr_[0];
@@ -218,7 +219,7 @@ Slur::do_post_processing ()
       */
       if (sign (dy) != sign (note_dy))
 	{
-	  Real damp_f = paper ()->get_var ("slur_slope_follow_music_factor");
+	  Real damp_f = paper_l ()->get_var ("slur_slope_follow_music_factor");
 	  Real realdy = note_dy * damp_f;
 	  Direction adjust_dir = (Direction)(- dir_ * sign (realdy));
 	  if (!adjust_dir)
@@ -243,7 +244,7 @@ Slur::do_post_processing ()
   /*
     Avoid too steep slurs.
    */
-  Real damp_f = paper ()->get_var ("slur_slope_damping");
+  Real damp_f = paper_l ()->get_var ("slur_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   d_off[X_AXIS] += extent (X_AXIS).length ();
@@ -257,12 +258,12 @@ Slur::do_post_processing ()
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
-  Real notewidth = paper ()->note_width () * 0.8;
-  Real gap = paper ()->get_var ("slur_x_gap");
-  Real internote = paper ()->internote_f ();
+  Real notewidth = paper_l ()->note_width () * 0.8;
+  Real gap = paper_l ()->get_var ("slur_x_gap");
 
   Offset left = Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
   left[X_AXIS] += encompass_arr_[0]->stem_l_->hpos_f ();
+  Real internote = encompass_arr_[0]->stem_l_->staff_line_leading_f ()/2.0;
 
   /*
     <URG>
@@ -307,10 +308,10 @@ Slur::get_encompass_offset_arr () const
 
   for (int i = first; i < last; i++)
     {
-      Encompass_info info (encompass_arr_[i], dir_);
+      Encompass_info info (encompass_arr_[i], dir_, this);
       notes.push (info.o_ - left);
     }
-  Encompass_info info (encompass_arr_.top (), dir_);
+  Encompass_info info (encompass_arr_.top (), dir_, this);
   // [encompass_arr_.size () - 1]
   
   // urg:
@@ -322,7 +323,7 @@ Slur::get_encompass_offset_arr () const
   // prebreak
   if (interstaff_f_ && (encompass_arr_.top () != spanned_drul_[RIGHT]))
     {
-      Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
+      Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_, this);
       d[Y_AXIS] -= info.o_[Y_AXIS] - interstaff_f_;
     }
 
@@ -338,7 +339,7 @@ Slur::get_rods () const
   Array<Rod> a;
   Rod r;
   r.item_l_drul_ = spanned_drul_;
-  r.distance_f_ = paper ()->get_var ("slur_x_minimum");
+  r.distance_f_ = paper_l ()->get_var ("slur_x_minimum");
 
   a.push (r);
   return a;

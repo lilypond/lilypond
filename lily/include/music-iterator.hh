@@ -11,7 +11,6 @@
 #define MUSIC_ITERATOR_HH
 
 #include "lily-proto.hh"
-#include "plist.hh"
 #include "array.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"

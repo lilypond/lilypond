@@ -62,8 +62,6 @@ Molecule*
 Beam::do_brew_molecule_p () const
 {
   Molecule *mol_p = new Molecule;
-  Real internote_f = paper ()->internote_f ();
-
   Real x0 = stems_[0]->hpos_f ();
   for (int j=0; j <stems_.size (); j++)
     {
@@ -73,7 +71,8 @@ Beam::do_brew_molecule_p () const
 
       Molecule sb = stem_beams (i, next, prev);
       Real  x = i->hpos_f ()-x0;
-      sb.translate (Offset (x, (x * slope_f_ + left_y_) * internote_f));
+      sb.translate (Offset (x, (x * slope_f_ + left_y_) *
+			    i->staff_line_leading_f ()/2 ));
       mol_p->add_molecule (sb);
     }
   mol_p->translate_axis (x0 
@@ -81,7 +80,9 @@ Beam::do_brew_molecule_p () const
 
   // correct if last note (and therefore reference point of beam)
   // is on different staff
-  mol_p->translate_axis (- sinfo_.top ().interstaff_f_ * internote_f, Y_AXIS);
+  Stem_info si =   sinfo_.top ();
+  mol_p->translate_axis (-si.interstaff_f_ * si.stem_l_->staff_line_leading_f ()/2,
+			 Y_AXIS);
 
   return mol_p;
 }
@@ -89,8 +90,11 @@ Beam::do_brew_molecule_p () const
 Offset
 Beam::center () const
 {
-  Real w= (paper ()->note_width () + extent (X_AXIS).length ())/2.0;
-  return Offset (w, (left_y_ + w* slope_f_)*paper ()->internote_f ());
+  Stem_info si = sinfo_[0];
+  
+  Real w= (si.stem_l_->note_delta_f () + extent (X_AXIS).length ())/2.0;
+  return Offset (w, (left_y_ + w* slope_f_) *
+		 si.stem_l_->staff_line_leading_f ()/2);
 }
 
 void
@@ -115,7 +119,7 @@ Beam::do_post_processing ()
   if (stems_.size () < 2)
     {
       warning (_ ("beam with less than two stems"));
-      transparent_b_ = true;
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       return ;
     }
   calculate_slope ();
@@ -171,7 +175,7 @@ Beam::set_default_dir ()
      We have our doubts, so we simply provide all sensible alternatives.
   */
 
-  Dir_algorithm a = (Dir_algorithm)rint(paper ()->get_var ("beam_dir_algorithm"));
+  Dir_algorithm a = (Dir_algorithm)rint(paper_l ()->get_var ("beam_dir_algorithm"));
   switch (a)
     {
     case MAJORITY:
@@ -226,10 +230,10 @@ Beam::solve_slope ()
 Real
 Beam::check_stemlengths_f (bool set_b)
 {
-  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
-  Real internote_f = paper ()->internote_f (); 
-  Real beam_f = paper ()->beam_thickness_f ();
-  Real staffline_f = paper ()->rule_thickness ();
+  Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
+
+  Real beam_f = paper_l ()->beam_thickness_f ();
+  Real staffline_f = paper_l ()->rule_thickness ();
   Real epsilon_f = staffline_f / 8;
   Real dy_f = 0.0;
   for (int i=0; i < sinfo_.size (); i++)
@@ -239,10 +243,11 @@ Beam::check_stemlengths_f (bool set_b)
       // correct for knee
       if (dir_ != sinfo_[i].dir_)
 	{
+	  Real internote_f = sinfo_[i].stem_l_->staff_line_leading_f ()/2;
 	  y -= dir_ * (beam_f / 2
 		       + (sinfo_[i].mult_i_ - 1) * interbeam_f) / internote_f;
-	  if (!i && sinfo_[i].stem_l_->staff_sym_l_ !=
-	      sinfo_.top ().stem_l_->staff_sym_l_)
+	  if (!i && sinfo_[i].stem_l_->staff_symbol_l () !=
+	      sinfo_.top ().stem_l_->staff_symbol_l ())
 	    y += dir_ * (multiple_i_ - (sinfo_[i].stem_l_->flag_i_ - 2) >? 0)
 	      * interbeam_f / internote_f;
 	}
@@ -267,6 +272,9 @@ Beam::check_stemlengths_f (bool set_b)
 void
 Beam::set_steminfo ()
 {
+  if(!stems_.size ())
+    return;
+  
   assert (multiple_i_);
   int total_count_i = 0;
   int forced_count_i = 0;
@@ -282,9 +290,9 @@ Beam::set_steminfo ()
       total_count_i++;
     }
 
-  Real internote_f = paper ()->internote_f ();
-  int stem_max = (int)rint(paper ()->get_var ("stem_max"));
-  Real shorten_f = paper ()->get_var (String ("forced_stem_shorten"
+  Real internote_f = stems_[0]->staff_line_leading_f ()/2;
+  int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
+  Real shorten_f = paper_l ()->get_var (String ("forced_stem_shorten"
 					      + to_str (multiple_i_ <? stem_max)))
     / internote_f;
     
@@ -333,9 +341,10 @@ Beam::calculate_slope ()
       Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
       // urg, these y internote-y-dimensions
-      Real internote_f = paper ()->internote_f ();
-      Real lengthened = paper ()->get_var ("beam_lengthened") / internote_f;
-      Real steep = paper ()->get_var ("beam_steep_slope") / internote_f;
+      Real internote_f = stems_[0]->staff_line_leading_f ()/2;
+
+      Real lengthened = paper_l ()->get_var ("beam_lengthened") / internote_f;
+      Real steep = paper_l ()->get_var ("beam_steep_slope") / internote_f;
       if (((left_y_ - sinfo_[0].idealy_f_ > lengthened)
 	   && (slope_f_ > steep))
 	  || ((left_y_ + slope_f_ * dx_f - sinfo_.top ().idealy_f_ > lengthened)
@@ -377,10 +386,10 @@ Beam::quantise_dy ()
   if (quantisation_ <= NONE)
     return;
 
-  Real interline_f = paper ()->interline_f ();
+  Real interline_f = stems_[0]->staff_line_leading_f ();
   Real internote_f = interline_f / 2;
-  Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = paper ()->beam_thickness_f ();
+  Real staffline_f = paper_l ()->rule_thickness ();
+  Real beam_f = paper_l ()->beam_thickness_f ();
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
@@ -435,10 +444,10 @@ Beam::quantise_left_y (bool extend_b)
        hang       straddle   sit        inter      hang
    */
 
-  Real interline_f = paper ()->interline_f ();
-  Real internote_f = paper ()->internote_f ();
-  Real staffline_f = paper ()->rule_thickness ();
-  Real beam_f = paper ()->beam_thickness_f ();
+  Real space = stems_[0]->staff_line_leading_f ();
+  Real internote_f = space /2;
+  Real staffline_f = paper_l ()->rule_thickness ();
+  Real beam_f = paper_l ()->beam_thickness_f ();
 
   /*
     [TODO]
@@ -448,8 +457,8 @@ Beam::quantise_left_y (bool extend_b)
 
   Real straddle = 0;
   Real sit = beam_f / 2 - staffline_f / 2;
-  Real inter = interline_f / 2;
-  Real hang = interline_f - beam_f / 2 + staffline_f / 2;
+  Real inter = space / 2;
+  Real hang = space - beam_f / 2 + staffline_f / 2;
 
   /*
     Put all allowed positions into an array.
@@ -512,7 +521,7 @@ Beam::quantise_left_y (bool extend_b)
 	}
     }
 
-  Interval iv = quantise_iv (allowed_position, interline_f, dy_f);
+  Interval iv = quantise_iv (allowed_position, space, dy_f);
 
   Real quanty_f = dy_f - iv.min () <= iv.max () - dy_f ? iv.min () : iv.max ();
   if (extend_b)
@@ -525,7 +534,7 @@ Beam::quantise_left_y (bool extend_b)
 void
 Beam::set_stemlens ()
 {
-  Real staffline_f = paper ()->rule_thickness ();
+  Real staffline_f = paper_l ()->rule_thickness ();
   // enge floots
   Real epsilon_f = staffline_f / 8;
 
@@ -602,10 +611,11 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   assert (!next || next->hpos_f () > here->hpos_f ());
   assert (!prev || prev->hpos_f () < here->hpos_f ());
 
-  Real staffline_f = paper ()->rule_thickness ();
-  Real interbeam_f = paper ()->interbeam_f (multiple_i_);
-  Real internote_f = paper ()->internote_f (); 
-  Real beam_f = paper ()->beam_thickness_f ();
+  Real staffline_f = paper_l ()->rule_thickness ();
+  Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
+
+  Real internote_f = here->staff_line_leading_f ()/2;
+  Real beam_f = paper_l ()->beam_thickness_f ();
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
@@ -616,7 +626,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Molecule rightbeams;
 
   // UGH
-  Real nw_f = paper ()->note_width () * 0.8;
+  Real nw_f = paper_l ()->note_width () * 0.8;
 
   /* half beams extending to the left. */
   if (prev)

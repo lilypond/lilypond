@@ -52,7 +52,7 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
       if (b->type_str_ == "{")
-	b->extra_x_off_ -=  paper ()->interline_f (); // ugh
+	b->extra_x_off_ -=  paper_l ()->get_realvar (interline_scm_sym); // ugh
     }
 }
 

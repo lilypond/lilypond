@@ -93,13 +93,12 @@ Spanner::set_my_columns()
 void
 Spanner::set_bounds(Direction d, Item*i)
 {
-  if (spanned_drul_[d])
-    spanned_drul_[d]->attached_span_l_arr_.substitute(this,0);
-  
   spanned_drul_[d] =i;
   if (i)
-    i->attached_span_l_arr_.push(this);
-
+    {
+      i->used_b_ = true;
+    }
+  
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
     warning (_f ("Spanner `%s\' with equal left and right spanpoints", classname (this)));
@@ -116,7 +115,6 @@ Spanner::do_break_processing()
 
 Spanner::Spanner ()
 {
-  unbroken_original_l_ =0;
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
 }
@@ -125,14 +123,14 @@ Spanner::Spanner (Spanner const &s)
   :Score_element (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
-  unbroken_original_l_ = 0;
 }
 
 void
 Spanner::output_processing () 
 {
-  if (transparent_b_)
-    return ;
+  if (get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
+    return;
+
   output_p_ = do_brew_molecule_p ();
   Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
   Offset o = absolute_offset() + left_off;
@@ -174,7 +172,6 @@ Spanner::find_broken_piece (Line_of_score*l) const
 	  if (!info.broken_spanner_l_)
 	    {
 	      Spanner *span_p = dynamic_cast<Spanner*>(clone ());
-	      span_p -> unbroken_original_l_ =(Spanner*)this;
 	      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
 	      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
 	      pscore_l_->typeset_element (span_p);

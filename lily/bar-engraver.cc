@@ -8,7 +8,7 @@
 */
 
 #include "bar-engraver.hh"
-#include "bar.hh"
+#include "staff-bar.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
@@ -53,14 +53,19 @@ Bar_engraver::create_bar ()
 {
   if (!bar_p_)
     {
-      bar_p_ = new Bar;
-      bar_p_->break_priority_i_  = 0;
+      bar_p_ = new Staff_bar;
+      bar_p_->set_elt_property (break_priority_scm_sym, gh_int2scm (0));
+
       // urg: "" != empty...
       String default_type = get_property ("defaultBarType", 0);
       if (default_type.length_i ())
 	{
 	  bar_p_->type_str_ = default_type;
 	}
+
+      /*
+	urg.  Why did I implement this?
+       */
       Scalar prop = get_property ("barAtLineStart", 0);
       if (prop.to_bool ())
 	{

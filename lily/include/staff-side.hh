@@ -13,6 +13,7 @@
 #include "score-element.hh"
 #include "interval.hh"
 #include "direction.hh"
+#include "staff-symbol-referencer.hh"
 
 /**
 
@@ -20,7 +21,7 @@
    staff).
 
 */
-class Staff_side : virtual Score_element
+class Staff_side : public  Staff_symbol_referencer 
 {
 public:
 
@@ -49,8 +50,8 @@ protected:
   virtual void do_substitute_element_pointer (Score_element *, Score_element*);
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
+  virtual void do_add_processing ();
   Interval support_extent () const;
-
 private:
   void do_side_processing ();
   Link_array<Score_element> support_l_arr_;

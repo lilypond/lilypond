@@ -12,6 +12,7 @@
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init();
+  callback_l_ = d.callback_l_;
   empty_b_ = d.empty_b_;
   offset_ = d.offset_; //let's hope others will copy  the refpoint appropriately. 
 }
@@ -24,6 +25,7 @@ Dimension_cache::Dimension_cache ()
 void
 Dimension_cache::init()
 {
+  callback_l_ =0;
   offset_ =0.0;
   elt_l_ = 0;
   dim_.set_empty ();
@@ -145,7 +147,12 @@ Dimension_cache::get_dim () const
       return r;
     }
       
-  assert (valid_b_);
+  if (!valid_b_)
+    {
+      Dimension_cache *nc = ((Dimension_cache*)this);
+      nc->dim_= (*callback_l_ ) (nc);
+      nc->valid_b_ = true;
+    }
 
   r=dim_;
   if (!r.empty_b()) // float exception on DEC Alpha
@@ -154,4 +161,8 @@ Dimension_cache::get_dim () const
   return r;
 }
 
-
+void
+Dimension_cache::set_callback (Dim_cache_callback c)
+{
+  callback_l_ =c;
+}

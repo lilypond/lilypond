@@ -63,12 +63,12 @@ Span_bar::evaluate_empty ()
 { 
   if (spanning_l_arr_.size () < 1) 
     {
-      transparent_b_ = true;
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       set_empty (true);   
     }
   if (type_str_.empty_b ()) 
     {
-      transparent_b_=true;
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       set_empty (true);
     }
   else if (type_str_ == "|:") 

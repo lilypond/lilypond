@@ -10,13 +10,13 @@
 #include "lily-proto.hh"
 #include "directional-spanner.hh"
 #include "stem-info.hh"
-#include "plist.hh"
+
 
 /** a beam connects multiple stems.
 
   Beam adjusts the stems its owns to make sure that they reach the
   beam and that point in the correct direction */
-class Beam:  public Directional_spanner {
+class Beam : public Directional_spanner  {
 public:
   /** 
     The beams should be prevented to conflict with the stafflines, 

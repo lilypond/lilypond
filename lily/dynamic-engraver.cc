@@ -12,7 +12,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "score-column.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "note-column.hh"
 #include "g-text-item.hh"
 #include "g-staff-side.hh"
@@ -158,7 +158,7 @@ Dynamic_engraver::do_process_requests()
 	}
       
       cresc_p_ = new_cresc_p;
-      cresc_p_->set_bounds(LEFT,get_staff_info().musical_l ());
+      cresc_p_->set_bounds(LEFT,get_staff_info().musical_pcol_l ());
       if (text_p_)
 	{
 	  cresc_p_->dyn_b_drul_[LEFT] = true;
@@ -171,15 +171,6 @@ Dynamic_engraver::do_process_requests()
 void
 Dynamic_engraver::do_pre_move_processing()
 {
-  Staff_symbol* s_l = get_staff_info().staff_sym_l_;
-  if (to_end_cresc_p_)
-    to_end_cresc_p_->add_support (s_l);
-  if (staff_side_p_)
-    {
-      staff_side_p_->add_support (s_l);
-      //      staff_side_p_->dim_cache_[Y_AXIS].parent_l_ =  &s_l->dim_cache_[Y_AXIS];
-    }
-
   typeset_all ();
 }
 
@@ -205,7 +196,7 @@ Dynamic_engraver::typeset_all ()
 {  
   if (to_end_cresc_p_)
     {
-      to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_l ());
+      to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_pcol_l ());
       typeset_element (to_end_cresc_p_);
       to_end_cresc_p_ =0;
     }

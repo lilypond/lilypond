@@ -319,7 +319,7 @@ class TeXOutput:
             outfile = os.path.join(Props.get('output'), outfile )
             
         this.write("""\
-\\vfill\\hfill{\\LilyIdString}
+\\vfill\\hfill{\\mudelatagline}
 \\end{document}
 """)
         this.__fd.close()

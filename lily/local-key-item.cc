@@ -51,9 +51,10 @@ Molecule*
 Local_key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
-
+  Real note_distance = staff_line_leading_f ()/2;
   Molecule *octave_mol_p = 0;
   int lastoct = -100;
+  
   for  (int i = 0; i <  accidental_arr_.size(); i++) 
     {
       Musical_pitch p (accidental_arr_[i].pitch_);
@@ -62,7 +63,7 @@ Local_key_item::do_brew_molecule_p() const
 	{
 	  if (octave_mol_p)
 	    {
-	      Real dy =lastoct*7*paper()->internote_f ();
+	      Real dy =lastoct*7* note_distance;
 	      octave_mol_p->translate_axis (dy, Y_AXIS);
 	      output->add_molecule (*octave_mol_p);
 	      delete octave_mol_p;
@@ -73,7 +74,7 @@ Local_key_item::do_brew_molecule_p() const
       lastoct = p.octave_i_;
       Real dy =
 	(c0_position_i_ + p.notename_i_)
-	* paper()->internote_f ();
+	* note_distance;
       Molecule m (lookup_l ()->accidental (p.accidental_i_, 
 					   accidental_arr_[i].cautionary_b_));
 
@@ -83,7 +84,7 @@ Local_key_item::do_brew_molecule_p() const
 
   if (octave_mol_p)
     {
-      Real dy =lastoct*7*paper()->internote_f ();
+      Real dy =lastoct*7*note_distance;
       octave_mol_p->translate_axis (dy, Y_AXIS);
       output->add_molecule (*octave_mol_p);
       delete octave_mol_p;
@@ -91,7 +92,7 @@ Local_key_item::do_brew_molecule_p() const
   
  if (accidental_arr_.size()) 
     {
-      Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
+      Box b(Interval (0, note_distance), Interval (0,0));
       Molecule m (lookup_l ()->fill (b));
       output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }

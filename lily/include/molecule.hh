@@ -9,7 +9,6 @@
 #define MOLECULE_HH
 
 #include "lily-proto.hh"
-#include "plist.hh"
 #include "box.hh"
 #include "axes.hh"
 #include "direction.hh"

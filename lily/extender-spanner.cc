@@ -51,7 +51,7 @@ Extender_spanner::do_brew_molecule_p () const
   Real w = extent (X_AXIS).length ();
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  Real h = paper ()->get_realvar (ly_symbol ("extender_height"));
+  Real h = paper_l ()->get_realvar (extender_height_scm_sym);
   Molecule a = lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h)));
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
@@ -84,7 +84,7 @@ Extender_spanner::do_post_processing ()
   assert (item_l_drul_[LEFT] || item_l_drul_[RIGHT]);
 
   // UGH
-  Real nw_f = paper ()->note_width () * 0.8;
+  Real nw_f = paper_l ()->note_width () * 0.8;
 
   Direction d = LEFT;
   do

@@ -27,10 +27,13 @@ class Graphical_element
 public:
   Dimension_cache dim_cache_[NO_AXES];
 
+  /**
+     Set this if anyone points to me, or if I point to anyone.
+   */
+  bool used_b_;
+  
   char const * name () const;
   void set_empty (bool);
-  bool empty_b () const;
-  
   Graphical_element ();
   Graphical_element (Graphical_element const&);
   virtual ~Graphical_element ();
@@ -60,9 +63,6 @@ public:
   Graphical_element *parent_l (Axis a) const;
   
   virtual void do_print () const;
-protected:
-  virtual Interval do_height () const=0;
-  virtual Interval do_width () const=0;
 };
 
 #endif // GRAPHICAL_ELEMENT_HH

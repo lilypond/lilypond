@@ -9,6 +9,7 @@
 #include "item.hh"
 #include "array.hh"
 #include "musical-pitch.hh"
+#include "staff-symbol-referencer.hh"
 
 struct Local_key_cautionary_tuple
 {
@@ -36,7 +37,7 @@ struct Local_key_cautionary_tuple
   figure out private/public
   
  */
-class Local_key_item : public Item {
+class Local_key_item : public Item, public Staff_symbol_referencer {
   Array<Local_key_cautionary_tuple> accidental_arr_;
   Link_array<Item> support_items_;
 public:

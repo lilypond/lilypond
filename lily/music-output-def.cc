@@ -51,6 +51,10 @@ void
 Music_output_def::assign_translator (Translator*tp)
 {
   String s =tp->type_str_;
+  if (s.empty_b ())
+    {
+      tp->warning (_("Interpretation context with empty type"));
+    }
   if (translator_p_dict_p_->elem_b (s))
     delete translator_p_dict_p_->elem (s);
   
@@ -98,7 +102,7 @@ Music_output_def::get_default_output () const
 {
   static SCM output_sym;
   if (!output_sym)
-    output_sym = scm_protect_object (ly_symbol ("output"));
+    output_sym = scm_protect_object (output_scm_sym);
   if (safe_global_b || !scope_p_->elem_b (output_sym))
     return "";
   Identifier * id = scope_p_->elem (output_sym);

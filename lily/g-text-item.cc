@@ -16,7 +16,8 @@
 Molecule*
 G_text_item::do_brew_molecule_p () const
 {
-  Molecule a= paper ()->lookup_l(0)->text (style_str_,text_str_); 
+  Molecule a= paper_l ()->lookup_l(0)->text (style_str_,text_str_); 
+
   return new Molecule (a);
 }
 

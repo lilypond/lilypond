@@ -22,7 +22,6 @@ Note_column::rest_b () const
 Note_column::Note_column()
 {
   stem_l_ = 0;
-  h_shift_b_ = false;
   dir_ =CENTER;
 }
 

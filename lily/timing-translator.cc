@@ -106,6 +106,17 @@ Timing_translator::do_process_requests()
 
 	}
     }
+
+  Translator_group * tr=0;
+
+  Scalar barn = get_property ("currentBarNumber", &tr);
+  if (!barn.empty_b () && barn.isnum_b ())
+    {
+      time_.bars_i_ = int(barn);
+      tr->set_property ("currentBarNumber", "");
+    }
+  
+
 }
 
 
@@ -138,6 +149,8 @@ void
 Timing_translator::do_post_move_processing()
 {
   time_.add (now_mom ()  - time_.when_);
+
+
 }
 
 void

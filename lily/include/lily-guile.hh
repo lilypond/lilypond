@@ -31,5 +31,7 @@ void ly_display_scm (SCM s);
 
 
 void read_lily_scm_file (String);
+void init_symbols ();
+#include "ly-symbols.hh"
 
 #endif // LILY_GUILE_HH

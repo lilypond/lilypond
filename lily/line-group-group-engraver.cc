@@ -6,7 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "vertical-group-spanner.hh"
 #include "command-request.hh"
 #include "bar.hh"

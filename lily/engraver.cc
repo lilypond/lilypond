@@ -35,7 +35,7 @@ Engraver::typeset_element (Score_element*p)
 
 
 Paper_def*
-Engraver::paper() const
+Engraver::paper_l () const
 {
   return dynamic_cast<Paper_def*>(output_def_l_);
 }

@@ -9,10 +9,12 @@
 
 #include "item.hh"
 #include "array.hh"
-
+#include "staff-symbol-referencer.hh"
 
 /// An item which places accidentals at the start of the line
-struct Key_item : Item {
+class Key_item :public  Item, public Staff_symbol_referencer {
+public:
+  
   Array<int> pitch_arr_;
   Array<int> acc_arr_;
   Array<int> old_pitch_arr_;
@@ -32,7 +34,7 @@ struct Key_item : Item {
   void add (int pitch, int acc);
   void add_old (int pitch, int acc);
   void set_c_position (int);
-  int Key_item::calculate_position(int p, int a) const;
+  int calculate_position(int p, int a) const;
 
 protected:
   virtual void do_pre_processing();

@@ -11,12 +11,12 @@
 #define DOTS_HH
 
 #include "item.hh"
-
+#include "staff-symbol-referencer.hh"
 /**
   The dots to go with a notehead/rest.  A separate class, since they
   are a party in collision resolution.
   */
-class Dots : public Item
+class Dots : public Item, public Staff_symbol_referencer
 {
 protected:
   virtual Molecule * do_brew_molecule_p () const;

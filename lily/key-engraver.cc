@@ -27,7 +27,7 @@ Key_engraver::create_key ()
   if (!kit_p_) 
     {
       kit_p_ = new Key_item;
-      kit_p_->break_priority_i_ = -1; // ugh
+      kit_p_->set_elt_property (break_priority_scm_sym, gh_int2scm(-1)); // ugh
       kit_p_->multi_octave_b_ = key_.multi_octave_b_;
       announce_element (Score_element_info (kit_p_,keyreq_l_));
       

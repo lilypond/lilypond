@@ -32,30 +32,7 @@ Abbreviation_beam::Abbreviation_beam ()
 Molecule*
 Abbreviation_beam::do_brew_molecule_p () const 
 {
-  /* 
-   todo
-   */
   return Beam::do_brew_molecule_p ();
-#if 0
-  Molecule *mol_p = new Molecule;
-  // huh? inter-what
-  //    Real inter_f = paper ()->interbeam_f ();
-  Real inter_f = paper ()->internote_f ();
-  Real x0 = stems[0]->hpos_f ();
-  for (int j=0; j <stems.size (); j++) 
-    {
-      Stem *i = stems[j];
-      Stem * prev = (j > 0)? stems[j-1] : 0;
-      Stem * next = (j < stems.size ()-1) ? stems[j+1] :0;
-
-      Molecule sb = stem_beams (i, next, prev);
-      Real  x = i->hpos_f ()-x0;
-      sb.translate (Offset (x, (x * slope_f  + left_y)* inter_f));
-      mol_p->add (sb);
-    }
-  mol_p->translate_axis (x0 - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
-  return mol_p;
-#endif
 }
 
 void

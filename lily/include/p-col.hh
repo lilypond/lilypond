@@ -11,7 +11,6 @@
 #define P_COL_HH
 
 #include "horizontal-group-item.hh"
-#include "plist.hh"
 #include "rod.hh"
 
 
@@ -29,12 +28,9 @@
   */
 
 class Paper_column : public Horizontal_group_item { 
-protected:
-  virtual bool breakable_b () const;
 public:
-  
   VIRTUAL_COPY_CONS(Score_element);
-  Drul_array< Array<Column_rod> > minimal_dists_arr_drul_;
+  Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;
 
   void preprocess ();
   /// set a minimum distance
@@ -54,17 +50,11 @@ public:
   Line_of_score *line_l_;
 
   virtual Line_of_score *line_l () const;
-  bool error_mark_b_;
-  bool used_b_ ;		// manual override.. 
-    
 
   /// which  one (left =0)
   int rank_i() const;
 
-  /// does this column have items
-  bool used_b() const;
   bool breakpoint_b() const;
-    
   void add_item (Item *i);
 
   Paper_column();

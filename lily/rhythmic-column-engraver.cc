@@ -96,9 +96,12 @@ Rhythmic_column_engraver::do_pre_move_processing()
 {
   if (ncol_p_) 
     {
-      if (! ncol_p_->h_shift_b_)
-	// egcs
-	ncol_p_->h_shift_b_  = get_property ("hshift", 0).operator bool ();
+      // egcs
+      if (get_property ("hshift", 0).operator bool ())
+	{
+	  ncol_p_->set_elt_property (horizontal_shift_scm_sym, SCM_BOOL_T);
+	}
+      
       if (! ncol_p_->dir_)
 	ncol_p_->dir_ =(Direction) int(get_property ("ydirection", 0));
 

@@ -15,6 +15,8 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 
+class Dimension_cache;
+typedef Interval (*Dim_cache_callback)(Dimension_cache *);
 
 /**
   Adminstration of offset  dimension info. 
@@ -32,10 +34,12 @@ class Dimension_cache
    */
   Real offset_;
   Graphical_element *elt_l_;
+  Dim_cache_callback callback_l_;
   friend class Graphical_element;
 
   void init ();
 public:
+  void set_callback (Dim_cache_callback);
   /** The #offset_# is defined with regard to this graphical_element/
     dimension_cache.  */
   

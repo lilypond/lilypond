@@ -10,11 +10,11 @@
 #include "text-def.hh"
 #include "direction.hh"
 #include "pointer.hh"
-
+#include "staff-symbol-referencer.hh"
 /**
   Set a clef in a staff.
  */
-class Clef_item : public Item {
+class Clef_item : public Item, public Staff_symbol_referencer {
 protected:
   virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;

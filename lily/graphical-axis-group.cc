@@ -37,6 +37,8 @@ Graphical_axis_group::extent (Axis axis) const
 void
 Graphical_axis_group::add_element (Graphical_element*e)
 {
+  used_b_ =true;
+  e->used_b_ = true;
   for (int i = 0; i < 2; i++)
     {
       Axis a = axes_[i];

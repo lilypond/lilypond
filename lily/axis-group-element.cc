@@ -56,13 +56,13 @@ Axis_group_element::do_print() const
 Axis_group_element::Axis_group_element(Axis a1, Axis a2)
   : Graphical_axis_group (a1,a2)
 {
-  transparent_b_ = true;
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 }
 
 Axis_group_element::Axis_group_element ()
   : Graphical_axis_group (X_AXIS, Y_AXIS)
 {
-  transparent_b_ = true;
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 }
 
 

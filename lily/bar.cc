@@ -16,7 +16,7 @@
 
 Bar::Bar ()
 {
-  breakable_b_ = true;
+  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   type_str_ = "|";
   at_line_start_b_ = false;
 }
@@ -29,18 +29,24 @@ Bar::do_print () const
 #endif
 }
 
+Real
+Bar::get_bar_size () const
+{
+  return paper_l ()->get_var ("barsize");
+}
+
+
 Molecule*
 Bar::do_brew_molecule_p () const
 {    
-  Paper_def *p = paper ();
-  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, p->get_var ("barsize")));
+  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, get_bar_size ()));
   
   return output;
 }
 
 /**
   Prescriptions for splitting bars.
-  TODO: parametrise this (input-settable)
+  TODO: put this in SCM.
  */
 static char const *bar_breaks[][3] ={
   {":|", ":|:", "|:"},
@@ -65,18 +71,11 @@ Bar::do_pre_processing ()
       if (bar_breaks[i][1] == type_str_)
 	{
 	  type_str_ = bar_breaks[i][break_status_dir ()+1];
-	  if (at_line_start_b_ && (break_status_dir_ == 1) && (type_str_ == ""))
+	  if (at_line_start_b_ && (break_status_dir () == RIGHT) && (type_str_ == ""))
 	    {
 	      type_str_ = "|";
 	    }
 	}
     }
-  
-  /*
-    span_score_bar needs dims, so don't do
-  
-    transparent_b_ = empty_b_ = (!type_str_);
-    
-    */
 }
   

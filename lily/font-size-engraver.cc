@@ -30,7 +30,7 @@ Font_size_engraver::do_process_requests ()
 void
 Font_size_engraver::acknowledge_element (Score_element_info e)
 {
-  e.elem_l_->set_elt_property (ly_symbol ("fontsize"),
+  e.elem_l_->set_elt_property (fontsize_scm_sym,
 			       gh_int2scm (size_i_));
 }
 

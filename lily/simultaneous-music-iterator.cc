@@ -26,10 +26,10 @@ Simultaneous_music_iterator::construct_children()
 {
   int j = 0;
   Simultaneous_music const *sim = dynamic_cast<Simultaneous_music const*> (music_l_);
-  for (PCursor<Music*> i (sim->music_p_list_p_->top());  
-       i.ok(); j++, i++) 
+
+  for (Cons<Music> *i = sim->music_p_list_p_->head_; i;  i = i->next_, j++)
     {
-      Music_iterator * mi = get_iterator_p (i.ptr());
+      Music_iterator * mi = get_iterator_p (i->car_);
       if (mi->ok()) 
 	{
 	  if  (sim->translator_type_str_.empty_b ())

@@ -31,7 +31,7 @@ protected:
     
 
   /// utility
-  Paper_def * paper() const;
+  Paper_def * paper_l() const;
   /**
     Invoke walker method to typeset element. Default: pass on to daddy.
     */

@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
@@ -17,11 +17,8 @@
 Staff_symbol::Staff_symbol ()
 {
   no_lines_i_ = 5;
-  interline_f_ =  0 PT;
+  staff_line_leading_f_ = 5.0 PT;
 }
-
-
-
 
 void
 Staff_symbol::do_print() const
@@ -35,38 +32,30 @@ Staff_symbol::do_print() const
 Interval
 Staff_symbol::do_height() const
 {
-  int n = no_lines_i_ -1;
-//  return 2* inter_note_f () * Interval (-n, n);
-  return inter_note_f () * Interval (-n, n);
+  Interval i =Interval (0, staff_line_leading_f_ * (no_lines_i_-1));
+  i += - i.center ();
+  return i;
 }
 
 Molecule*
 Staff_symbol::do_brew_molecule_p() const
 {
   Real w = extent (X_AXIS).length ();
-  Paper_def * p = paper();
+  Paper_def * p = paper_l ();
   Molecule rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),
 					     w);
-  Real height = (no_lines_i_-1) * inter_note_f();
+  Real height = (no_lines_i_-1) * staff_line_leading_f_ /2;
   Molecule * m = new Molecule;
   for (int i=0; i < no_lines_i_; i++)
     {
       Molecule a (rule);
-      a.translate_axis (height - i * inter_note_f()*2, Y_AXIS);
+      a.translate_axis (height - i * staff_line_leading_f_, Y_AXIS);
       m->add_molecule (a);
     }
 
   return m;
 }
 
-Real
-Staff_symbol::inter_note_f() const
-{
-  if (interline_f_)
-    return interline_f_/2;
-
-  return paper()->internote_f ();
-}
 
 int
 Staff_symbol::steps_i() const

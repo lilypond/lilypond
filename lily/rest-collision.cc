@@ -77,7 +77,9 @@ Rest_collision::do_pre_processing()
       // UGH Should get dims from table!
       int size_i = 6;
 	
-      Real internote_f = paper ()->internote_f ();
+
+      // staff ref'd?
+      Real internote_f = paper_l ()->get_realvar (interline_scm_sym)/2.0;
       int sep_i = 3 + size_i / 2;
       for (int i = 0; i < ncol_l_arr_.size(); i++) 
 	{
@@ -116,6 +118,6 @@ Rest_collision::do_substitute_element_pointer (Score_element*o,Score_element*n)
 
 Rest_collision::Rest_collision()
 {
-  transparent_b_ = true;
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
   set_empty (true);
 }

@@ -7,6 +7,7 @@
 #ifndef BAR_HH
 #define BAR_HH
 #include "item.hh"
+
 /**
   A vertical bar.
  */
@@ -22,7 +23,7 @@ public:
 protected:
   virtual void do_pre_processing ();
   virtual Molecule* do_brew_molecule_p () const;
-
+  virtual Real get_bar_size () const;
 private:
   void do_print () const;
 };

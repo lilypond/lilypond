@@ -137,7 +137,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
       if (Note_head * h = dynamic_cast<Note_head*>(it_l))
 	{
 	  //	  h->position_i_ += c0_position_i_;
-	  h->position_i_ = h->steps_i_ + c0_position_i_;
+	  h->position_i_ += c0_position_i_;
 	}
       else if (Local_key_item *i = dynamic_cast<Local_key_item*> (it_l))
 	{
@@ -187,11 +187,10 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       Clef_item *c= new Clef_item;
-      c->break_priority_i_ = -2; // ugh
+      c->set_elt_property (break_priority_scm_sym, gh_int2scm (-2)); // ugh
       announce_element (Score_element_info (c, clef_req_l_));
       clef_p_ = c;
     }
-
   
   clef_p_->symbol_ = clef_type_str_;
   clef_p_->y_position_i_ = clef_position_i_;

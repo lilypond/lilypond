@@ -40,7 +40,6 @@ Stem::Stem ()
   beam_dir_ = CENTER;
   dir_forced_b_ = false;
   stem_xdir_ = LEFT;
-  staff_size_i_ = 8;
 
   beam_gap_i_ = 0;
   beam_l_ = 0;
@@ -94,7 +93,7 @@ Stem::stem_begin_f () const
 Real
 Stem::chord_start_f () const
 {
-  return head_positions()[dir_] * paper ()->internote_f ();
+  return head_positions()[dir_] * staff_line_leading_f ()/2.0;
 }
 
 Real
@@ -174,9 +173,9 @@ Stem::set_default_dir ()
 void
 Stem::set_default_stemlen ()
 {
-  Real internote_f = paper ()->internote_f ();
-  Real length_f = paper ()->get_var ("stem_length0") / internote_f;
-  Real shorten_f = paper ()->get_var ("forced_stem_shorten0") / internote_f;
+  Real internote_f = staff_line_leading_f ()/2.0;
+  Real length_f = paper_l ()->get_var ("stem_length0") / internote_f;
+  Real shorten_f = paper_l ()->get_var ("forced_stem_shorten0") / internote_f;
 
   if (!dir_)
     set_default_dir ();
@@ -256,7 +255,10 @@ Stem::do_pre_processing ()
     set_default_extents ();
   set_noteheads ();
   flag_i_ = flag_i_;
-  transparent_b_ = invisible_b ();
+  if (invisible_b ())
+    {
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+    }
   set_empty (invisible_b ());
 }
 
@@ -285,7 +287,7 @@ Stem::do_brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
   Drul_array<Real> stem_y = yextent_drul_;
-  Real dy = paper ()->internote_f ();
+  Real dy = staff_line_leading_f ()/2.0;
 
   Real head_wid = 0;
   if (head_l_arr_.size ())
@@ -320,7 +322,7 @@ Stem::note_delta_f () const
   if (head_l_arr_.size())
     {
       Interval head_wid(0,  head_l_arr_[0]->extent (X_AXIS).length ());
-      Real rule_thick(paper ()->rule_thickness ());
+      Real rule_thick(paper_l ()->rule_thickness ());
       Interval stem_wid(-rule_thick/2, rule_thick/2);
       if (stem_xdir_ == CENTER)
 	r = head_wid.center ();
@@ -359,4 +361,6 @@ Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
 	    }
 	}
     }
+  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
+      
 }

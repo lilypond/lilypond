@@ -10,7 +10,6 @@
 
 #include "lily-proto.hh"
 #include "parray.hh"
-#include "plist.hh"
 #include "performer.hh"
 #include "translator-group.hh"
 

@@ -11,8 +11,9 @@
 #define RHYTHMIC_HEAD_HH
 
 #include "item.hh"
+#include "staff-symbol-referencer.hh"
 
-class Rhythmic_head : public Item
+class Rhythmic_head : public Item, public Staff_symbol_referencer
 {
 public:
   

@@ -55,7 +55,7 @@ Multi_measure_rest::do_brew_molecule_p () const
       s = (lookup_l ()->rest (-4, 0));
     }
   mol_p->add_molecule (s);
-  Real interline_f = paper ()->interline_f ();
+  Real interline_f = staff_line_leading_f ();
   if (measures_i_ == 1)
     {
       mol_p->translate_axis (interline_f, Y_AXIS);
@@ -67,7 +67,7 @@ Multi_measure_rest::do_brew_molecule_p () const
       text.text_str_ = to_str (measures_i_);
       text.style_str_ = "number";
       text.align_dir_ = CENTER;
-      Molecule s = text.get_molecule (paper (), UP);
+      Molecule s = text.get_molecule (paper_l (), UP);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_molecule (s);
     }
@@ -95,6 +95,7 @@ Multi_measure_rest::do_post_processing ()
 void
 Multi_measure_rest::do_substitute_element_pointer (Score_element* o, Score_element* n)
 {
+  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
   if (Item* c = dynamic_cast <Item*> (o))
     column_arr_.substitute (c, dynamic_cast<Item*> (n));
 }
@@ -113,7 +114,7 @@ Multi_measure_rest::get_rods () const
   Array<Rod> a;
   Rod r;
   r.item_l_drul_ = spanned_drul_;
-  r.distance_f_ = paper ()->get_var ("mmrest_x_minimum");
+  r.distance_f_ = paper_l ()->get_var ("mmrest_x_minimum");
   a.push (r);
   return a;
 }

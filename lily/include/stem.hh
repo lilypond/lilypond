@@ -10,7 +10,7 @@
 #include "array.hh"
 #include "moment.hh"
 #include "molecule.hh"
-
+#include "staff-symbol-referencer.hh"
 
 /**the rule attached to the ball.
   takes care of:
@@ -27,11 +27,8 @@
   
   Stem size depends on flag.
   */
-class Stem : public Item {
+class Stem : public Item, public Staff_symbol_referencer {
   Drul_array<Real> yextent_drul_;
-    
-  /// needed for determining direction/length
-  int staff_size_i_;
 
   /**extent of the stem (positions).
     fractional, since Beam has to adapt them.
@@ -60,9 +57,6 @@ public:
    */
   Beam* beam_l_;
 
-  /// our slur (urg)
-  Slur* slur_l_;
-
   Drul_array<int> beams_i_drul_;
 
   /// maximum number of beams
@@ -76,10 +70,6 @@ public:
 
   /// direction of the beam
   Direction beam_dir_;
-
-  /// what staff am i on?
-  Staff_symbol* staff_sym_l_;    
-
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#

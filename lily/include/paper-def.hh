@@ -30,9 +30,19 @@
   
   add support for multiple fontsizes 
 
+
+  
+
   add support for other len->wid conversions.
 
   Input_engraver should be in here.
+
+
+  Interesting variables:
+  
+  /// The distance between lines
+  interline
+  
  */
 class Paper_def : public Music_output_def 
 {
@@ -49,6 +59,9 @@ public:
   Array<Interval> shape_int_a_;
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
+
+  SCM get_scm_var (SCM sym) const;
+  
   void reinit ();
   Paper_def ();
   void set_lookup (int, Lookup*);
@@ -59,11 +72,6 @@ public:
 
   /// The thickness of a beam
   Real beam_thickness_f () const;
-
-  /// The distance between lines
-  Real interline_f () const;
-  /// half the distance between lines
-  Real internote_f () const;
 
   /// thickness of the standard line 
   Real rule_thickness () const;

@@ -39,23 +39,17 @@
 class Item : public virtual Score_element {
   void do_break ();
   void try_visibility_lambda ();
+  Drul_array<Item*> broken_to_drul_;
+
 
 public:
-  Link_array<Spanner> attached_span_l_arr_;
-  Drul_array<Item*> broken_to_drul_;
-  Item *unbroken_original_l_;
-
-  /// should be put in a breakable col.
-  bool breakable_b_;
 
   /// I am really to be broken?
-  virtual bool breakable_b () const;
+  bool breakable_b () const;
+  bool broken_original_b () const;
   
-  Direction break_status_dir_;
-  int break_priority_i_;
+  Direction break_status_dir () const;
   
-  /// nobreak = 0, pre = -1, post = 1
-  Direction break_status_dir() const;
   Item * find_prebroken_piece (Direction) const;
   Item * find_prebroken_piece (Line_of_score*) const;    
 
@@ -72,8 +66,6 @@ protected:
   virtual void do_breakable_col_processing();
   virtual void handle_prebroken_dependencies();
   virtual void do_print() const;
-  virtual bool linked_b() const;
-
   virtual void handle_prebroken_dependents ();
 
   void copy_breakable_items();

@@ -69,8 +69,6 @@ protected:
   Array<Breaking_information> broken_info_;
   friend Axis_group_spanner; // UGH
 
-  Spanner * unbroken_original_l_;
-
   virtual void output_processing ();
   virtual void do_space_processing ();
   virtual void do_break_processing ();

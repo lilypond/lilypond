@@ -24,7 +24,7 @@ Dots::do_post_processing ()
     position_i_ ++;
   if (!no_dots_i_)
     {
-      transparent_b_ = true;
+      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       set_empty (true);
     }
 }
@@ -46,8 +46,7 @@ Dots::do_brew_molecule_p () const
       d.translate_axis (2*dw,X_AXIS);
       out->add_molecule (d);
     }
-  Real inter_f = paper ()->internote_f ();
-  out->translate_axis (inter_f * position_i_, Y_AXIS);
+  out->translate_axis (staff_line_leading_f () * position_i_ /2., Y_AXIS);
   return out;
 }
 

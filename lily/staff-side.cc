@@ -9,7 +9,7 @@
 #include "interval.hh"
 #include "paper-def.hh"
 #include "staff-side.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "debug.hh"
 #include "dimensions.hh"
 
@@ -65,7 +65,7 @@ Staff_side::get_position_f () const
 
 
   Real y = 0;
-  Real inter_f = paper()-> internote_f ();
+  Real inter_f = staff_line_leading_f () /2;
 
   Interval v = support_extent();
 
@@ -73,8 +73,7 @@ Staff_side::get_position_f () const
   y = v[dir_] + 1 * dir_ * inter_f;
 
   int coordinate_offset_f_i = (int)rint (y / inter_f);
-  // ugh: 5 -> staff_lines
-  if (axis_ == Y_AXIS && abs (coordinate_offset_f_i) < 5)
+  if (axis_ == Y_AXIS && abs (coordinate_offset_f_i) < lines_i ())
     {
       if (!(abs (coordinate_offset_f_i) % 2))
 	y += (Real)dir_ * inter_f;
@@ -131,8 +130,14 @@ Staff_side::do_post_processing()
 void
 Staff_side::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
+  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
   support_l_arr_.unordered_substitute (o,n);
 }
 
-
+void
+Staff_side::do_add_processing ()
+{
+  if (axis_ == Y_AXIS && staff_symbol_l ())
+    add_support (staff_symbol_l ());
+}
 
