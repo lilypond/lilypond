@@ -53,7 +53,7 @@ do appreciate criticism, comments, bugreports, patches, etc.
 Please send your e-mail to one of the MAILING LISTS and  not
 to us personally.  See Documentation/links.yo for more info.
 
-6: DOZE
+6: WINDOWS 32
 
      If you have received this file as part  of  a  DOS/Win-
 dow32 distribution (lilypond-*.zip), then it is advisable to

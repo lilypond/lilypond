@@ -22,6 +22,7 @@
 #include "main.hh"
 #include "lily-guile.hh"
 
+
 Lookup::Lookup ()
 {
   paper_l_ = 0;

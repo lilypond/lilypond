@@ -131,12 +131,7 @@ Rhythmic_req::do_equal_b (Request*r) const
 {
   Rhythmic_req* rh = dynamic_cast <Rhythmic_req *> (r);
 
-  return rh&& !compare (*this, *rh);
-}
-
-
-Rhythmic_req::Rhythmic_req ()
-{
+  return rh && !compare (*this, *rh);
 }
 
 
@@ -231,9 +226,6 @@ Multi_measure_rest_req::do_print () const
 
 IMPLEMENT_IS_TYPE_B1 (Beam_req,Span_req);
 
-Beam_req::Beam_req ()
-{
-}
 
 void
 Beam_req::do_print () const
@@ -273,10 +265,10 @@ Plet_req::do_print () const
 
 
 bool
-Span_req:: do_equal_b (Request*r) const
+Span_req::do_equal_b (Request*r) const
 {
   Span_req * s = dynamic_cast <Span_req *> (r);
-  return s&& spantype == s->spantype;
+  return s && spantype == s->spantype;
 }
 
 Span_req::Span_req ()

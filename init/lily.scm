@@ -9,9 +9,6 @@
 ;   - ready ps code (draw_bracket) vs tex/ps macros/calls (pianobrace),
 ;     all preparations from ps,tex to scm
 
-;;; graphical lisp element
-(define (add-column p) (display "adding column (in guile): ") (display p) (newline))
-
 ;;; library funtions
 (define
   (numbers->string l)

@@ -38,7 +38,6 @@ public:
   bool do_equal_b (Request*) const;
   void compress (Moment);
   virtual Moment duration() const;
-  Rhythmic_req();
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
   REQUESTMETHODS(Rhythmic_req);
 };
@@ -146,8 +145,6 @@ public:
 class Beam_req  : public Musical_span_req  {
 public:
   REQUESTMETHODS(Beam_req);
-
-  Beam_req();
 };
 
 /** 
