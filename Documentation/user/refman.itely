@@ -3071,6 +3071,9 @@ For entering quotes in Lyrics mode, use the following
 "\"God\"" is "`King'"
 @end example
 
+You can use empty syllables, e.g. @code{_4} or @code{" "4} to enter
+lyrics. This can confuse the LilyPond -- for example, this might put
+(empty) lyrics under rests. To remedy this, use @code{\skip}.
 
 
 @menu
@@ -3445,6 +3448,12 @@ add the note, then you can use @code{/+}@var{pitch}.
 @lilypond[fragment,verbatim,center]
    \chords { c1 c/+g c/+f }
 @end lilypond 
+
+The chords mode is a mode similar to @code{\lyrics}, @code{\notes}
+etc.  Most of the commands continue to work, for example, @code{r} and
+@code{\skip} can be used to insert spaces, and @code{\property}  to
+change various settings.
+
 
 
 @refbugs
@@ -5286,6 +5295,16 @@ and once with exaggerated corrections.
     \paper { linewidth = -1. } }
 @end lilypond
 
+@cindex SpacingSpanner, overriding properties
+
+The @internalsref{SpacingSpanner}, is score wide, so its properties
+must be overriden from the @code{\paper} block, e.g.
+@example
+\paper @{ \translator  @{
+  \ScoreContext
+  SpacingSpanner \override #'spacing-increment = #3.0
+@} @}
+@end example
 
 
 @refbugs

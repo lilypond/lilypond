@@ -1091,6 +1091,8 @@ The complete file is listed here:
 @node A melody with chords 
 @section A melody with chords
 
+[TODO: show how to do fixed 4 measures to the line]
+
 In this section we show how to typeset a melody with chord
 accompaniment. This file is included as @file{input/tutorial/flowing.ly}.
 

@@ -300,6 +300,7 @@ ChordNamesContext = \translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
 
+	\consists "Rest_swallow_translator" 
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
 	\consists "New_chord_name_engraver"
@@ -479,7 +480,9 @@ GraceContext = \translator {
 FiguredBassContext = \translator {
 	\type "Engraver_group_engraver"
 	\name FiguredBass 
-	\consists "Figured_bass_engraver"	
+	\consists "Figured_bass_engraver"
+	\consists "Rest_swallow_translator"
+	\consists "Note_swallow_translator"
 	\consistsend "Axis_group_engraver"
 }
 
