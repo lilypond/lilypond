@@ -34,16 +34,11 @@
 	\hbox to 50pt{\qquad\twhrul\mb{#1}\hss}\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
 
 \newcount\n
-\def\charn{\n=0
+\def\charn{\n=-1
 	\loop\ifnum\n<255\advance\n by1
 	\doitem{\number\n}\endgraf\repeat}
 
 
 	\charn
-
-
-
-
-
 
 \bye
