@@ -11,6 +11,7 @@
 #define VERTICAL_ALIGN_ITEM_HH
 
 #include "elem-group.hh"
+
 /**
   Order elements top to bottom.
  */
