@@ -20,7 +20,7 @@ $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
 $(outdir)/latin1.enc: GNUmakefile
 	echo '/ISOLatin1Encoding' > $@.orig
 	echo 'ISOLatin1Encoding pstack' \
-	  | gs -sDEVICE=nullpage  -quiet - 2>> $@.orig
+	  | gs -sDEVICE=nullpage  -quiet - >> $@.orig 2>&1
 	echo 'def' >> $@.orig
 	sed 's|/minus|/hyphen|' < $@.orig > $@
 
