@@ -35,6 +35,11 @@ Lookup::rest(int j)
 {
     return (*symtables_)("rests")->lookup(String(j));
 }
+Symbol
+Lookup::accidental(int j)
+{
+    return (*symtables_)("accidentals")->lookup(String(j));
+}
 
 
 Symbol
@@ -42,6 +47,13 @@ Lookup::bar(String s)
 {
     return (*symtables_)("bars")->lookup(s);
 }
+
+Symbol
+Lookup::clef(String s)
+{
+    return (*symtables_)("clefs")->lookup(s);
+}
+ 
  Symbol
 Lookup::dots(int j)
 {
@@ -114,9 +126,9 @@ struct Meter_sym:Parametric_symbol {
     Meter_sym(Symtables*s) : Parametric_symbol(s){  }
     Symbol eval(svec<String> a) const{
 	Symbol s;
-	s.dim.x = Interval( convert_dimen(-5,"pt"),
-			    convert_dimen(5,"pt"));
-	s.dim.y = Interval(0, convert_dimen(10,"pt") );	// todo
+	s.dim.x = Interval( convert_dimen(0,"pt"),
+			    convert_dimen(10,"pt"));
+	s.dim.y = Interval(0, convert_dimen(20,"pt") );	// todo
 	String src = (*symtables_)("param")->lookup("meter").tex;
 	s.tex = substitute_args(src,a);
 	return s;
