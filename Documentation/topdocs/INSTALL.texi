@@ -97,12 +97,6 @@ may need to install tetex-devel, tetex-dev or libkpathsea-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
 
-@item The
-@uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/geometry,geometry
-package for LaTeX}.
-
- This package is normally included with the @TeX{} distribution.
-
 @item kpathsea, a library for searching (@TeX{}) files.
 
 @item
