@@ -329,8 +329,8 @@ def i18n (file_name, page):
 			    LANGUAGES)
 
 	# Strip .html, .png suffix for auto language selection.
-	page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html(#[^"]*)|.png)[\'"]''',
-		       '\\1="\\2"', page)
+#	page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html(#[^"]*)|.png)[\'"]''',
+#		       '\\1="\\2"', page)
 
 	# Create language menu.
 	language_menu = ''
