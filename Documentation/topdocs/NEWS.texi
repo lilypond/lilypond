@@ -9,6 +9,12 @@
 
 @itemize
 @item
+Spacing following barlines was improved for widely stretched lines.
+
+@item
+Lyric hyphens now conform to standard typesetting practice.
+
+@item
 Lyrics are now aligned under note heads conforming engraving
 standards. The responsible code has been rewritten, and is drastically
 simpler from the previous version. To aid this rewrite, the syntactic

@@ -785,7 +785,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
     }
 
   assert (!isinf (compound_space));
-
+  compound_space = compound_space >? compound_fixed;
 
   
   /*
