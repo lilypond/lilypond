@@ -99,9 +99,8 @@ Context::Context ()
 
 
 
-Context*
-Context::find_create_context (SCM n, String id,
-			      SCM operations)
+Context *
+Context::find_create_context (SCM n, String id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
@@ -109,10 +108,8 @@ Context::find_create_context (SCM n, String id,
   if (dynamic_cast<Global_context*> (this)
       && dynamic_cast<Global_context*> (this)->get_score_context ())
     return get_score_context ()->find_create_context (n, id, operations);
-    
-  
-  Context * existing = find_context_below (this, n,id);
-  if (existing)
+
+  if (Context *existing = find_context_below (this, n, id))
     return existing;
 
   if (n == ly_symbol2scm ("Bottom"))
