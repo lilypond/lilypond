@@ -12,13 +12,13 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 #include "pcursor.hh"
-
+#include "audio-element.hh"
 
 /**
     generic audio grouped vertically.
  */
 
-class Audio_column { 
+class Audio_column : public Audio_element  { 
 public:
     Audio_column (Moment at_mom);
 

@@ -19,8 +19,6 @@ class Vertical_group_spanner : public Axis_group_spanner, public Vertical_group_
 {
 protected:
   VIRTUAL_COPY_CONS(Score_element);
-  virtual void do_junk_links () { Axis_group_spanner::do_junk_links (); }
-  virtual void do_unlink () { Axis_group_spanner::do_unlink (); }
 public:
   
   Vertical_group_spanner ();

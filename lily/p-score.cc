@@ -145,10 +145,6 @@ void delete_array_contents (Link_array<Score_element> const&to_remove, Dictionar
 	 else if (dynamic_cast<Spanner*>(e))
 	   type_stats["Spanner"] ++;
 	 type_stats["Total"] ++;
-	 
-	 e->unlink ();
-	 assert (!e->linked_b ());
-	 delete e;
        }
 
 }

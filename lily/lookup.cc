@@ -26,6 +26,7 @@
 #include "scope.hh"
 #include "molecule.hh"
 #include "atom.hh"
+#include "lily-guile.hh"
 
 SCM
 array_to_list (SCM *a , int l)
@@ -379,27 +380,13 @@ Lookup::stem (Real y1, Real y2) const
 }
 
 
-static Dict_initialiser<char const*> cmr_init[] = {
-  {"bold", "cmbx"},
-  {"dynamic", "feta-din"},
-  {"finger", "feta-nummer"},
-  {"typewriter", "cmtt"},
-  {"italic", "cmti"},
-  {"roman", "cmr"},
-  {"large", "cmbx"},
-  {"Large", "cmbx"},
-  {"mark", "feta-nummer"},
-  {"number", "feta-nummer"},
-  {"volta", "feta-nummer"},
-  {0,0}
-};
 
 /**
    Magnification steps.  These are powers of 1.2. The numbers are
  taken from Knuth's plain.tex: */
 static Real mag_steps[] = {1, 1, 1.200, 1.440, 1.7280,  2.074, 2.488};
 
-static Dictionary<char const *> cmr_dict (cmr_init);
+
 
 Molecule
 Lookup::text (String style, String text) const
@@ -418,9 +405,13 @@ Lookup::text (String style, String text) const
       font_mag = (int)paper_l_->get_var ("magnification_" + style);
     }
 
-  if (cmr_dict.elem_b (style))
+  SCM l = gh_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
+  if (l != SCM_BOOL_F)
     {
-      style = String (cmr_dict [style]) + to_str  ((int)font_h); // ugh
+      int len ;
+      char * s = gh_scm2newstr(SCM_CDR (l), &len);
+      style = String (s) + to_str  ((int)font_h);
+      delete s;
     }
 
   Real w = 0;
@@ -436,7 +427,8 @@ Lookup::text (String style, String text) const
 	  ;
       else
 	{
-	  Character_metric *c = afm_l->get_char (text[i],false);
+          Character_metric *c = afm_l->get_char ((unsigned char)text[i],false);
+
 	  w += c->dimensions()[X_AXIS].length ();
 	  ydims.unite (c->dimensions()[Y_AXIS]);
 	}
@@ -444,6 +436,7 @@ Lookup::text (String style, String text) const
 
   if (font_mag > 1 && font_mag < 7 )
     {
+      /* UGH  */ 
       style = style + String(" scaled \\magstep ") + to_str (font_mag);
       w *= mag_steps[font_mag];
       ydims *= mag_steps[font_mag];
@@ -452,6 +445,8 @@ Lookup::text (String style, String text) const
   DOUT << "\n" << to_str (w) << "\n";
   m.dim_.x () = Interval (0, w);
   m.dim_.y () = ydims;
+
+  
   Atom at  (gh_list (ly_symbol ("text"),
 		     gh_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));

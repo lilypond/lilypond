@@ -138,8 +138,11 @@ Bar_script_engraver::create_items (Request *rq)
       staff_side_p_->padding_f_ = Real(padding);
     }
 
-  staff_side_p_->visibility_lambda_  = visibility_lambda_;
-  text_p_->visibility_lambda_ = visibility_lambda_;  
+  
+  staff_side_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+				   visibility_lambda_);
+  text_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+			     visibility_lambda_);
   
   announce_element (Score_element_info (text_p_, rq));
   announce_element (Score_element_info (staff_side_p_, rq));

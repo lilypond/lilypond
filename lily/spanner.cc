@@ -203,28 +203,8 @@ Spanner::broken_b() const
   return broken_info_.size();
 }
 
-void
-Spanner::do_unlink() 
-{
-  set_bounds (LEFT, 0);
-  set_bounds (RIGHT, 0);
 
-  if (unbroken_original_l_)
-    {
-      for (int i=0; i < unbroken_original_l_->broken_info_.size (); i++)
-	{
-	  if (unbroken_original_l_->broken_info_[i].broken_spanner_l_ == this)
-	    unbroken_original_l_->broken_info_[i].broken_spanner_l_ = 0;
-	}
-      
-    }
-}
 
-void
-Spanner::do_junk_links()
-{
-  spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
-}
 
 Array<Rod>
 Spanner::get_rods () const

@@ -19,18 +19,7 @@
 #include "midi-stream.hh"
 #include "audio-item.hh"
 
-
-
-
-
-
-
-
-
-
-
-
-
+#include "killing-cons.tcc"
 
 Midi_chunk::Midi_chunk ()
   : Midi_item (0)
@@ -122,13 +111,14 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
   set ("MThd", str, "");
 }
 
+/* why doesn't this start at 0 ?
+ */
 char const* const instrument_name_sz_a_[ ] = {
-
   /* default is usually piano */
   /* 0 "piano", */
 
-	  /* (1-8 piano) */
-	  /* 1 */ "acoustic grand",
+  /* (1-8 piano) */
+  /* 1 */ "acoustic grand",
 	  /* 2 */ "bright acoustic",
 	  /* 3 */ "electric grand",
 	  /* 4 */ "honky-tonk",
@@ -435,9 +425,11 @@ Midi_note::str () const
   String str = to_str ((char)status_byte);
   str += to_str ((char) (pitch_i () + c0_pitch_i_c_));
 
+#if 0
   // poor man's staff dynamics:
   str += to_str ((char) (dynamic_byte_ - 0x10 * channel_i_));
-
+#endif
+  
   return str;
 }
 
@@ -556,7 +548,8 @@ Midi_track::add (Moment delta_time_mom, Midi_item* mitem_p)
 {
   assert (delta_time_mom >= Moment (0));
 
-  event_p_list_.bottom ().add (new Midi_event (delta_time_mom, mitem_p));
+  Midi_event * e = new Midi_event (delta_time_mom, mitem_p);
+  event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
 }
 
 String
@@ -565,9 +558,9 @@ Midi_track::data_str () const
   String str = Midi_chunk::data_str ();
   if (check_debug && !monitor->silent_b ("Midistrings"))
     str += "\n";
-  for (PCursor<Midi_event*> i (event_p_list_); i.ok (); i++) 
+  for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
-      str += i->str ();
+      str += i->car_->str ();
       if (check_debug && !monitor->silent_b ("Midistrings"))
         str += "\n";
     }

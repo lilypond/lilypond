@@ -12,17 +12,17 @@
 
 /// Midi outputfile
 struct Midi_stream {
-    Midi_stream (String filename_str);
-    ~Midi_stream();
+  Midi_stream (String filename_str);
+  ~Midi_stream();
 
-    Midi_stream& operator <<( String str);
-    Midi_stream& operator <<( Midi_item const& mitem_c_r);
-    Midi_stream& operator <<( int i);
+  Midi_stream& operator <<( String str);
+  Midi_stream& operator <<( Midi_item const& mitem_c_r);
+  Midi_stream& operator <<( int i);
 
-    void open();
+  void open();
 
-    ostream* os_p_;
-    String filename_str_;
+  ostream* os_p_;
+  String filename_str_;
 };
 
 #endif // MIDI_STREAM_HH

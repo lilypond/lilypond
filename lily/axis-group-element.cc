@@ -9,17 +9,6 @@
 #include "axis-group-element.hh"
 #include "graphical-axis-group.hh"
 
-void
-Axis_group_element::do_unlink()
-{
-  remove_all();
-}
-
-void
-Axis_group_element::do_junk_links()
-{
-  elem_l_arr_.set_size (0);
-}
 
 
 Link_array<Score_element>

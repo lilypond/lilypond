@@ -7,8 +7,9 @@
 #ifndef PERFORMANCE_HH
 #define PERFORMANCE_HH
 
+#include "parray.hh"
 #include "lily-proto.hh"
-#include "plist.hh"
+#include "cons.hh"
 #include "music-output.hh"
 
 /** all stuff which goes onto midi. notes, signs, symbols in a score
@@ -18,7 +19,7 @@
 class Performance : public Music_output {
 public:
   Performance ();
-  ~Performance () {}
+  ~Performance ();
 
   void add_column (Audio_column*);
   void add_staff (Audio_staff* l);
@@ -31,9 +32,9 @@ public:
   void print() const;
   void process();
 
-  Pointer_list<Audio_column*> audio_column_p_list_;
-  Link_list<Audio_staff*> audio_staff_l_list_;
-  Pointer_list<Audio_element*> audio_elem_p_list_;
+
+  Link_array<Audio_staff> audio_staff_l_arr_;
+  Cons<Audio_element> *audio_elem_p_list_;
   Midi_def  * midi_l_;
 };
 

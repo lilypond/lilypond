@@ -21,33 +21,53 @@
 #include "file-results.hh"
 #include "lily-version.hh"
 
+#include "killing-cons.tcc"
+
 Performance::Performance ()
 {
   midi_l_ =0;
+  audio_elem_p_list_ = 0;
 }
 
 void
 Performance::add_column (Audio_column* p)
 {
   p->performance_l_ = this;
-  audio_column_p_list_.bottom().add (p);
+  add_element (p);
+}
+
+Performance::~Performance()
+{
+  delete audio_elem_p_list_;
 }
 
 void
-Performance::output (Midi_stream& midi_stream_r)
+Performance::output (Midi_stream& midi_stream)
 {
-  int tracks_i = audio_staff_l_list_.size() + 1;
+  int tracks_i = audio_staff_l_arr_.size() + 1;
+
   // ugh
   int clocks_per_4_i = 384;
-  midi_stream_r << Midi_header (1, tracks_i, clocks_per_4_i);
-  output_header_track (midi_stream_r);
+
+  midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
+  output_header_track (midi_stream);
   int n = 1;
-  for (PCursor<Audio_staff*> i (audio_staff_l_list_); i.ok(); i++)
-    i->output (midi_stream_r, n++);
+  for (int i =0; i < audio_staff_l_arr_.size (); i++)
+    {
+      Audio_staff *s = audio_staff_l_arr_[i];
+      /*
+	Aargh, let's hear it for the MIDI standard.
+	MIDI players tend to ignore instrument settings on
+	channel 10, the percussion channel by default.
+       */
+      if (n == 10)
+	n++;
+      s->output (midi_stream, n++);
+    }
 }
 
 void
-Performance::output_header_track (Midi_stream& midi_stream_r)
+Performance::output_header_track (Midi_stream& midi_stream)
 {
   Midi_track midi_track;
 
@@ -87,19 +107,19 @@ Performance::output_header_track (Midi_stream& midi_stream_r)
   Midi_tempo tempo (midi_l_->get_tempo_i (Moment (1, 4)));
   midi_track.add (Moment (0), &tempo);
 
-  midi_stream_r  << midi_track;
+  midi_stream << midi_track;
 }
 
 void
 Performance::add_staff (Audio_staff* l)
 {
-  audio_staff_l_list_.bottom().add (l);
+  audio_staff_l_arr_.push (l);
 }
 
 void
 Performance::add_element (Audio_element *p)
 {
-  audio_elem_p_list_.bottom().add (p);
+  audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
 }
 
 void
@@ -108,13 +128,9 @@ Performance::print() const
 #ifndef NPRINT
   DOUT << "Performance { ";
   DOUT << "Items: ";
-  for (PCursor<Audio_element*> i (audio_elem_p_list_.top ()); i.ok (); i++)
-    i->print ();
-
-  DOUT << "\ncolumns: ";
-  for (PCursor<Audio_column*> i (audio_column_p_list_); i.ok(); i++)
-    i->print();
-  DOUT << "}\n";
+  for (Cons<Audio_element>* i =audio_elem_p_list_; i; i = i->next_)
+    i->car_->print ();
+  DOUT << "}";
 #endif
 }
 

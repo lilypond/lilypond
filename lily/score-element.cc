@@ -28,29 +28,29 @@ Score_element::Score_element()
   output_p_ =0;
   break_helper_only_b_ = false;
   transparent_b_ = false;
-  size_i_ = 0;
   pscore_l_=0;
   status_i_ = 0;
+  element_property_alist_ = SCM_EOL;
 }
 
 Score_element::Score_element (Score_element const&s)
-  :  Directed_graph_node (s), Graphical_element (s)
+  :   Graphical_element (s)
 {
   /* called from derived ctor, so most info points to the same deps
      as (Directed_graph_node&)s. Nobody points to us, so don't copy
      dependents.      
    */
-  copy_edges_out (s);
+  
+
+  // deep copy ?
+  element_property_alist_ = s.element_property_alist_;
+  dependency_arr_ = s.dependency_arr_;
   output_p_ =0;
   break_helper_only_b_ = s.break_helper_only_b_;
   transparent_b_ = s.transparent_b_;
   status_i_ = s.status_i_;
   pscore_l_ = s.pscore_l_;
-  size_i_ = s.size_i_;
 }
-
-
-  
 
 Score_element::~Score_element()
 {
@@ -62,28 +62,28 @@ Score_element::~Score_element()
 Score_element*
 Score_element::dependency (int i) const
 {
-  return (Score_element*) (get_out_edge_arr ()[i]);
+  return dependency_arr_ [i];
 }
 
 int
 Score_element::dependency_size () const
 {
-  return get_out_edge_arr ().size ();
+  return dependency_arr_.size ();
 }
 
-Score_element*
-Score_element::dependent (int i) const
+
+
+SCM
+Score_element::get_elt_property (SCM s)
 {
-  return (Score_element *)( get_in_edge_arr()[i]);
+  return scm_assq(s, element_property_alist_);
 }
-
-int
-Score_element::dependent_size() const
+void
+Score_element::set_elt_property (SCM s, SCM v)
 {
-  return get_in_edge_arr().size ();
+  element_property_alist_ =
+    scm_assoc_set_x (element_property_alist_, s, v);
 }
-
-
 
 Interval
 Score_element::do_width() const 
@@ -120,8 +120,7 @@ Score_element::print() const
 {
 #ifndef NPRINT
   DOUT << classname(this) << "{\n";
-  DOUT << "dets: " << dependent_size() << "dependencies: " << 
-    dependency_size();
+  DOUT << "dependencies: " << dependency_size();
  
   Graphical_element::do_print ();
   do_print();
@@ -141,7 +140,11 @@ Score_element::paper()  const
 Lookup const *
 Score_element::lookup_l () const
 {
-  return pscore_l_->paper_l_->lookup_l (size_i_);
+  SCM sz = scm_assq (ly_symbol ("fontsize"), element_property_alist_);
+  if (sz != SCM_BOOL_F)
+    return pscore_l_->paper_l_->lookup_l (gh_scm2int (SCM_CDR (sz)));
+  else
+    return pscore_l_->paper_l_->lookup_l (0);
 }
 
 void
@@ -237,17 +240,6 @@ Score_element::do_substitute_element_pointer (Score_element*,Score_element*)
 {
 }
 
-void
-Score_element::do_unlink()
-{
-}
-
-void
-Score_element::do_junk_links()
-{
-}
-
-
 
 Molecule*
 Score_element::do_brew_molecule_p() const
@@ -272,14 +264,21 @@ Score_element::line_l() const
 void
 Score_element::remove_dependency (Score_element*e)
 {
-  remove_edge_out (e);
+  int i;
+  while ((i = dependency_arr_.find_i (e)) >=0 )
+    dependency_arr_.unordered_del (i);
+
   substitute_dependency (e, 0);
 }
 
 void
 Score_element::add_dependency (Score_element*e)
 {
-  Directed_graph_node::add_edge (e);
+  if (e)
+    dependency_arr_.push (e);
+  else
+    warning("Null dependency added");
+      
 }
 void
 Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
@@ -378,30 +377,6 @@ Score_element::handle_prebroken_dependents()
 }
 
 
-void
-Score_element::junk_links ()
-{
-  Directed_graph_node::junk_links();
-  Graphical_element::junk_links ();
-  do_junk_links();
-}
-
-void
-Score_element::unlink()
-{
-  do_unlink();
-  while (dependency_size()) 
-    {
-      do_substitute_element_pointer (dependency (0),0);
-      remove_edge_out_idx (0);
-    }
-  while  (dependent_size()) 
-    {
-      dependent (0)->remove_dependency (this);
-    }
-  Graphical_element::unlink ();
-}
-
 
 Link_array<Score_element>
 Score_element::get_extra_dependencies() const
@@ -415,4 +390,8 @@ Score_element::linked_b() const
 {
   return get_extra_dependencies().size() || 
     dependency_size();
+}
+void
+Score_element::do_print () const
+{
 }

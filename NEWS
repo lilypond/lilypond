@@ -1,3 +1,29 @@
+pl 33.uu2
+	- some performance cleanups: junked PointerList instance, plugged some leaks.
+	- style -> fontname now in scheme.
+	- minor Score_element brainsurgery:
+		* generic element properties.
+		* junked Score_element::junk_links, Score_element::unlink
+		* junked Directed_graph_node as superclass of
+Score_element, this should reduce mem usage a bit.
+
+pl 33.jcn2
+	- fixed autobeamer's beam->unlink ()
+
+pl 33.jcn1
+	- allow autobeaming according to duration iso (crude) multiplicity
+
+pl 33.jbr1
+         - change my email address
+         - Windows platform does a cp -r instead of a ln -s
+
+pl 33.uu1
+	- bf: ^ and _
+	- junked poor man's dynamics.
+
+*********
+pl 33
+
 pl 32.mb1
 	- bf: \> and \< were interchanged!!
 	- Added property: textScriptPadding

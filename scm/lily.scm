@@ -63,14 +63,37 @@
 
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
-(define Span_score_bar_visibility postbreak_only_visibility)
-(define Piano_bar_visibility postbreak_only_visibility)
-(define Staff_group_bar_visibility postbreak_only_visibility)
+(define Span_score_bar_engraver_visibility postbreak_only_visibility)
+(define Span_bar_engraver_visibility non_postbreak_visibility)
+(define Piano_bar_engraver_visibility postbreak_only_visibility)
+(define Staff_group_bar_engraver_visibility postbreak_only_visibility)
 
 
 
 
 ;;;;;;;; TeX
+
+(define cmr-alist 
+  '(("bold" . "cmbx") 
+    ("dynamic" . "feta-din") 
+    ("finger" . "feta-nummer") 
+    ("typewriter" . "cmtt") 
+    ("italic" . "cmti") 
+    ("roman" . "cmr") 
+    ("large" . "cmbx") 
+    ("Large" . "cmbx") 
+    ("mark" . "feta-nummer") 
+    ("number" . "feta-nummer") 
+    ("volta" . "feta-nummer"))
+)
+
+
+;; Map style names to TeX font names.  Return false if 
+;; no font name found. 
+(define (style-to-cmr s)
+  (assoc s cmr-alist )
+  )
+
 
 (define (tex-scm action-name)
 
@@ -295,6 +318,8 @@
 ;;;;;;;;;;;; PS
 (define (ps-scm action-name)
 
+
+  ;; alist containing fontname -> fontcommand assoc (both strings)
   (define font-alist '())
   (define font-count 0)
   (define current-font "")
@@ -321,10 +346,11 @@
 		  (set! font-count (+ 1 font-count))
 		  (string-append "\n/" font-cmd " {/"
 				 font-name
-				 " findfont 12 scalefont setfont} bind def\n"
-				 font-cmd "\n"))
-		(cdr font-cmd)))
-	  ""				;no switch needed
+				 " findfont 12 scalefont setfont} bind def \n"
+				 font-cmd " \n"))
+		(string-append (cdr font-cmd) " ")))
+	  ; font-name == current-font no switch needed
+	  ""				
 	  ))
 		  
   (define (beam width slope thick)
@@ -371,7 +397,7 @@
     (string-append
      "\n/" (font i) " {/" 
      (substring s 0 (- (string-length s) 4))
-     " findfont 12 scalefont setfont} bind def\n"))
+     " findfont 12 scalefont setfont} bind def \n"))
 
   (define (font-switch i)
     (string-append (font i) " "))
@@ -400,6 +426,9 @@
   (define (placebox x y s) 
     (string-append 
      (number->string x) " " (number->string y) " {" s "} placebox "))
+  (define (pianobrace y)
+    ""
+    )
 
   (define (rulesym x y) 
     (string-append 
@@ -424,8 +453,8 @@
   (define (stop-line)
       "}\nstop_line\n")
 
-  (define (text f s)
-    (string-append "(" s ") set" f " "))
+  (define (text s)
+    (string-append "(" s ") show  "))
 
 
   (define (volta w thick last)
@@ -461,6 +490,7 @@
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define generalmeter ,generalmeter)
+	    (define pianobrace ,pianobrace)
 	    (define header-end ,header-end)
 	    (define lily-def ,lily-def)
 	    (define header ,header) 

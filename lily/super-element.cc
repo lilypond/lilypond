@@ -18,8 +18,6 @@ Super_element::Super_element()
 }
 
 
-
-
 /**
     for administration of what was done already
     */
@@ -37,8 +35,6 @@ enum Score_element_status {
   POSTCALCED,		// after spacing calcs done
   BREWING,
   BREWED,
-  UNLINKING,
-  UNLINKED,
 };
 
 void
@@ -85,9 +81,4 @@ Super_element::output_all ()
 
 
 
-void
-Super_element::unlink_all ()
-{
-  calculate_dependencies (UNLINKING, UNLINKED, &Score_element::junk_links);
-}
 

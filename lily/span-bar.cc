@@ -36,11 +36,6 @@ Span_bar::set_align (Align_element *a)
 Interval
 Span_bar::do_width () const
 {
-  if (no_width_b_)
-    {
-      return Interval (0,0);
-    }
-  
   Molecule m = lookup_l ()->bar (type_str_, 40 PT);
   
   return m.extent (X_AXIS);
@@ -136,5 +131,4 @@ Span_bar::Span_bar ()
 {
   type_str_ = "";
   extra_x_off_ = 0.0;
-  no_width_b_ = false;
 }

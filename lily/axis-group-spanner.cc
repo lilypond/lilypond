@@ -102,8 +102,6 @@ Axis_group_spanner::do_break_processing()
 		    {
 		      my_item->transparent_b_ = true;
 		      my_item->set_empty (true);
-		      /*my_item->unlink ();
-		      delete my_item;*/
 		    }
 
 		}
