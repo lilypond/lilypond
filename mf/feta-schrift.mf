@@ -328,12 +328,12 @@ fet_endchar;
 
 
 %
-% FIXME: rounded endings
-%
 % `\accent' is TeX reserved.
 %
 
 def draw_accent (expr bottom_left, top_right, thickness, diminish) =
+	save thinning_start;
+	thinning_start = 0.4;
 	pickup pencircle scaled thickness;
 
 	lft x1 = xpart bottom_left;
@@ -342,7 +342,7 @@ def draw_accent (expr bottom_left, top_right, thickness, diminish) =
 	bot y6 = ypart bottom_left;
 
 	rt z4 = (xpart top_right, (ypart top_right + ypart bottom_left) / 2);
-	x5 = x3 = (xpart top_right + xpart bottom_left) / 2
+	x5 = x3 = thinning_start [xpart top_right, xpart bottom_left]
 		  - linethickness + 0.1 staff_space;
 	z3 = whatever [z1, z4];
 	z5 = whatever [z6, z4];
@@ -379,7 +379,7 @@ fet_beginchar ("> accent", "sforzato");
 		      .5 staff_space#, .5 staff_space#);
 
 	draw_accent ((-w, -d), (w, h),
-		     0.05 staff_space + linethickness, 0.6);
+		     0.05 staff_space + linethickness, 0.7);
 	penlabels (1, 3, 4, 5, 6);
 	labels (7);
 fet_endchar;

@@ -121,11 +121,12 @@ Dynamic_text_spanner::print (SCM smob)
   do
     {
       Interval ext = edge[d].extent (X_AXIS);
+      Real pad = robust_scm2double (me->get_property ("bound-padding"), 0.0);      
       if (!ext.is_empty ())
 	{
 	  edge[d].translate_axis (span_points[d], X_AXIS);
 	  m.add_stencil (edge[d]);
-	  span_points[d] += -d *  ext[-d];
+	  span_points[d] += -d *  (ext[-d] + pad);
 	}
     }
   while (flip (&d) != LEFT);
