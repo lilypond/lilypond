@@ -1,5 +1,7 @@
 2002-07-17  Han-Wen  <hanwen@cs.uu.nl>
 
+	* GNUmakefile.in: distribute lexer-gcc-3.1.sh  as well
+	
 	* lily/music.cc (LY_DEFINE): change ly-set-mus-property to
 	ly-set-mus-property!
 
@@ -25,9 +27,6 @@
 
 	* lily/rest.cc (after_line_breaking): only translate the whole
 	rest if we have more than 1 staff line
-
-	* lily/parser.yy (property_def): only allow #Scheme as \property
-	argument.
 
 2002-07-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
