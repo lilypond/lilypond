@@ -56,7 +56,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir) const
     s.tex = f;
     Atom a(s);
     a.translate(Offset(dx/2,0));
-    s.tex = a.TeXstring();
+    s.tex = a.TeX_string();
 
     return s;
 }
@@ -171,7 +171,7 @@ Lookup::slur (int dy , Real &dx, int dir) const
     Atom a(s);
     a.translate(Offset(dx/2,0));
     s.dim = a.extent();
-    s.tex = a.TeXstring();
+    s.tex = a.TeX_string();
     return s;    
 }
 
@@ -195,12 +195,12 @@ Lookup::big_slur(int dy , Real &dx, int dir) const
     Molecule mol;
     mol.add(l);
     Atom a(m);
-    a.translate(Offset(0,slur_extra * internote()));
+    a.translate(Offset(0,slur_extra * internote_f()));
     mol.add_right(m);
     mol.add_right(r);
-    mol.translate(Offset(0, l_dy * internote()));
+    mol.translate(Offset(0, l_dy * internote_f()));
     Symbol s;
-    s.tex = mol.TeXstring();
+    s.tex = mol.TeX_string();
     s.dim = mol.extent();
     return s;
 }
