@@ -36,7 +36,7 @@ Melisma_translator::try_music (Music *m)
 {
   if (m->is_mus_type ("melisma-playing-event"))
     {
-      return melisma_busy (this);
+      return melisma_busy (daddy_context_);
     }
   else if (m->is_mus_type ("melisma-span-event"))
     {

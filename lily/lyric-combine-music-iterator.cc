@@ -39,12 +39,10 @@ private:
 };
 
 
-#include "translator.hh"
-
 bool
-melisma_busy (Translator* tr)
+melisma_busy (Context* tr)
 {
-  SCM melisma_properties = tr->daddy_context_->get_property ("melismaBusyProperties");
+  SCM melisma_properties = tr->get_property ("melismaBusyProperties");
   bool busy = false;
 
   for (; gh_pair_p (melisma_properties);

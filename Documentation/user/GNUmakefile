@@ -68,7 +68,7 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --html $<
 	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
-	sed -i 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
+	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
 	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly 
 	-ln -f $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
 

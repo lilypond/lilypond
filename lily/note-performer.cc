@@ -37,11 +37,11 @@ Note_performer::create_audio_elements ()
 {
   if (note_evs_.size ())
     {
-      int transposing_i = 0;
-      //urg
-      SCM prop = get_property ("transposing");
-      if (gh_number_p (prop)) 
-	transposing_i = gh_scm2int (prop);
+      int transposing = 0;
+
+      SCM prop = get_property ("instrumentTransposition");
+      if (unsmob_pitch (prop)) 
+	transposing = unsmob_pitch (prop)->semitone_pitch ();
 
       while (note_evs_.size ())
 	{
@@ -50,7 +50,7 @@ Note_performer::create_audio_elements ()
 
 	  if (Pitch * pitp = unsmob_pitch (pit))
 	    {
-	      Audio_note* p = new Audio_note (*pitp,  n->get_length (), transposing_i);
+	      Audio_note* p = new Audio_note (*pitp,  n->get_length (), transposing);
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push (p);

@@ -15,7 +15,6 @@
 #include "ly-smobs.icc"
 
 
-SCM ly_deep_mus_copy (SCM);
 
 bool
 Music::internal_is_music_type (SCM k)const

@@ -4065,12 +4065,12 @@ some common problems in orchestral music.
 * Bar numbers::                 
 * Instrument names::            
 * Transpose::                   
+* Instrument transpositions::   
 * Multi measure rests::         
 * Automatic part combining::    
 * Hiding staves::               
 * Different editions from one source::  
 * Quoting other voices::        
-* Sound output for transposing instruments::  
 @end menu
 
 @node Multiple staff contexts
@@ -4325,7 +4325,27 @@ you must put @code{\transpose} outside of @code{\relative}, since
 @code{\relative} will have no effect music that appears inside a
 @code{\transpose}.
 
+@node Instrument transpositions
+@subsection Instrument transpositions
 
+The key of a transposing instrument can also be specified.  This
+applies to many wind instruments, for example, clarinets (B-flat, A and
+E-flat), horn (F) and trumpet (B-flat, C, D and E-flat).
+
+@syntax
+
+The transposition is entered after the keyword @code{\transposition}:
+
+@example
+  \transposition bes   %%  B-flat clarinet
+@end example
+
+This command sets the property @code{instrumentTuning}. The value of
+this property is used for MIDI output and quotations.  It does not
+affect how notes are printed in the current staff.
+
+@cindex transposition, MIDI
+@cindex transposition, instrument
 
 
 @node Multi measure rests
@@ -4606,27 +4626,70 @@ Examples: @inputfileref{input/regression,tag-filter.ly}.
 @node Quoting other voices
 @subsection Quoting other voices
 
-TODO: document!
-
-
-
-
-
-@node Sound output for transposing instruments
-@subsection Sound output for transposing instruments
-
-When you want to make a MIDI file from a score containing transposed
-and untransposed instruments, you have to instruct LilyPond the pitch
-offset (in semitones) for the transposed instruments. This is done
-using the @code{transposing} property. It does not affect printed
-output:
-
-@cindex @code{transposing}
+With quotations, fragments of other parts can be inserted into a part
+directly. Before a part can be quoted, it must be marked especially as
+quotable. This is done with code @code{\addquote} command. The
+quotation may then be done with @code{\quote}
 
 @example
-        \set Staff.instrument = #"Cl. in B-flat"
-        \set Staff.transposing = #-2
+  \addquote @var{name} @var{music}
+  \quote @var{name} @var{duration}  
 @end example
+
+@noindent
+
+Here, @var{name} is an identifying string. The @var{music} is any kind
+of music.  This is an example of @code{\addquote}:
+
+@verbatim
+\addquote clarinet \notes\relative c' {
+  f4 fis g gis
+}
+@end verbatim
+
+During a part, a piece of music can be quoted with the @code{\quote}
+command. 
+  
+@verbatim
+  \quote clarinet 2.
+@end verbatim
+
+This would cite 3 quarter notes (a dotted half note) of the previously
+added clarinet voice.
+
+Quotations take into account the transposition both source and target
+instruments, if they are specified using the @code{\transposition} command.
+
+@lilypond[verbatim fragment] 
+\addquote clarinet \notes\relative c' {
+  \transposition bes
+  f4 fis g gis
+}
+\score {
+  \notes {
+  e'8 f'8 \quote clarinet 2
+} }
+@end lilypond
+
+@refbugs
+
+Only the contents of the first @internalsref{Voice} occurring in an
+@code{\addquote} command will be considered for quotation, so
+@var{music} can not contain @code{\new} and @code{\context Voice}
+statements that would switch to a different Voice.
+
+
+@seealso
+
+In this manual: @ref{Instrument transpositions}.
+
+Examples: @inputfileref{input/regression,quote.ly}
+@inputfileref{input/regression,quote-transposition.ly}
+
+Internals: @internalsref{QuoteMusic}.
+
+
+
 
 
 @node Ancient notation

@@ -27,14 +27,23 @@ public:
   int event_idx_;
   int end_idx_ ;
 
+  SCM transposed_musics_;
+  
   DECLARE_SCHEME_CALLBACK(constructor, ()); 
 
 protected:
+  virtual void derived_mark ();
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual void process (Moment);
   virtual bool ok () const;
 };
+
+void
+Quote_iterator::derived_mark ()
+{
+  scm_gc_mark (transposed_musics_ );
+}
 
 Quote_iterator::Quote_iterator ()
 {
@@ -63,7 +72,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
   {
     int cmp = (lo + hi) / 2;
 
-      SCM when = gh_car (SCM_VECTOR_REF(vec, cmp));
+      SCM when = gh_caar (SCM_VECTOR_REF(vec, cmp));
       bool result =  (*is_less) (key, when);
       if (result)
           hi = cmp;
@@ -91,7 +100,7 @@ Quote_iterator::construct_children ()
   start_moment_ = now;
   event_vector_ = get_music ()->get_property ("quoted-events");
 
-  if (scm_vector_p (event_vector_) == SCM_BOOL_T)
+  if (gh_vector_p (event_vector_))
     {
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
       end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
@@ -110,7 +119,7 @@ Moment
 Quote_iterator::pending_moment () const
 {
   SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
-  return *unsmob_moment (gh_car (entry)) - start_moment_;
+  return *unsmob_moment (gh_caar (entry)) - start_moment_;
 }
 
 
@@ -124,7 +133,7 @@ Quote_iterator::process (Moment m)
     {
       entry = SCM_VECTOR_REF (event_vector_, event_idx_);
 
-      Moment em = *unsmob_moment (gh_car (entry));
+      Moment em = *unsmob_moment (gh_caar (entry));
 
       if (em > m)
 	return ;
@@ -137,6 +146,9 @@ Quote_iterator::process (Moment m)
 
   if (gh_pair_p (entry))
     {
+      Pitch * quote_pitch = unsmob_pitch (gh_cdar (entry));
+      Pitch * me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+      
       for (SCM s = gh_cdr (entry); gh_pair_p (s); s = gh_cdr (s))
 	{
 	  SCM ev_acc = gh_car (s);
@@ -145,6 +157,24 @@ Quote_iterator::process (Moment m)
 	  Music * mus = unsmob_music (gh_car (ev_acc));
 	  if (mus)
 	    {
+	      if (quote_pitch || me_pitch)
+		{
+		  Pitch qp, mp;
+		  if (quote_pitch)
+		    qp = *quote_pitch;
+		  if (me_pitch)
+		    mp = *me_pitch;
+
+		  Pitch diff = interval (mp, qp);
+
+		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
+		  mus = unsmob_music (copy);
+		  transposed_musics_ = gh_cons (copy, transposed_musics_);
+		  
+		  mus->transpose (diff);
+		}
+
+	      
 	      bool b = get_outlet ()->try_music (mus);
       
 	      if (!b)

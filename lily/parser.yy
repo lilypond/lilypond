@@ -301,6 +301,7 @@ yylex (YYSTYPE *s,  void * v)
 %token TIME_T
 %token TRANSLATOR
 %token TRANSPOSE
+%token TRANSPOSITION
 %token TYPE
 %token UNSET
 %token WITH
@@ -1363,19 +1364,19 @@ command_element:
 
 		$$ = skip;
 	}
-	| QUOTE duration_length STRING {
+	| QUOTE STRING duration_length {
 		SCM tab = THIS->lexer_->lookup_identifier ("musicQuotes");
 		SCM evs =  SCM_EOL;
 		if (scm_hash_table_p (tab) == SCM_BOOL_T)
 		{ 
-			SCM key = $3; // use symbol? 
+			SCM key = $2; // use symbol? 
 			evs = scm_hash_ref (tab, key, SCM_BOOL_F);
 		}
 		Music * quote = 0;
-		if (scm_vector_p (evs) == SCM_BOOL_T)
+		if (gh_vector_p (evs))
 		{
 			quote = MY_MAKE_MUSIC("QuoteMusic");
-			quote->set_property ("duration", $2);
+			quote->set_property ("duration", $3);
 			quote->set_property ("quoted-events", evs);
 		} else {
 			THIS->here_input ().warning (_f ("Can\'t find music")); 
@@ -1419,6 +1420,13 @@ command_element:
 
 		$$ = MY_MAKE_MUSIC("BarCheck");
 		$$->set_spot (THIS->here_input ());
+	}
+	| TRANSPOSITION pitch {
+		$$ = set_property_music (ly_symbol2scm ("instrumentTransposition"),
+					$2);
+		$$->set_spot (THIS-> here_input ());
+		$$ = context_spec_music (ly_symbol2scm ("Staff"), SCM_UNDEFINED,
+			$$ , SCM_EOL);
 	}
 	| BAR STRING  			{
 		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);

@@ -13,6 +13,7 @@
 
 class Recording_group_engraver : public Engraver_group_engraver
 {
+  void start ();
 public:
   TRANSLATOR_DECLARATIONS(Recording_group_engraver);
   virtual bool try_music (Music *m);
@@ -27,8 +28,7 @@ void
 Recording_group_engraver::initialize ()
 {
   Engraver_group_engraver::initialize ();
-  accumulator_ = gh_cons (gh_cons (now_mom (). smobbed_copy (), SCM_EOL),
-			  SCM_EOL);
+  start ();
 }
 
 Recording_group_engraver::Recording_group_engraver()
@@ -46,8 +46,23 @@ Recording_group_engraver::start_translation_timestep ()
     start_translation_timestep(), since start_translation_timestep()
     isn't called on the first time-step.
    */
+  start () ;
+}
+
+void
+Recording_group_engraver::start ()
+{
+  if (!gh_pair_p (accumulator_))
+    accumulator_ = gh_cons (SCM_EOL, SCM_EOL);
   if (!gh_pair_p (gh_car (accumulator_)))
-    scm_set_car_x (accumulator_, gh_cons (now_mom ().smobbed_copy (), SCM_EOL));
+    {
+      /*
+	Need to store transposition for every moment; transposition changes during pieces.
+       */
+      scm_set_car_x (accumulator_, gh_cons (gh_cons (now_mom ().smobbed_copy (),
+						     get_property ("instrumentTransposition")),
+						     SCM_EOL));
+    }
 }
 
 void

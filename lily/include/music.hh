@@ -72,5 +72,6 @@ protected:
 DECLARE_UNSMOB(Music,music);
 
 Music* make_music_by_name (SCM sym);
+SCM ly_deep_mus_copy (SCM);
 
 #endif // MUSIC_HH

@@ -187,6 +187,7 @@ selector for tab notation.")
 @code{instrument} property labels the staff in the first system, and
 the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "[DOCUMENT-ME]")
+     (instrumentTransposition ,ly:pitch? "Define the transposition of the instrument. This is used to transpose the MIDI output, and @code{\\quote}s.")
 
      (instrumentSupport ,list? "list of grobs to attach instrument name
 to.")
@@ -315,7 +316,6 @@ is a 4/4 time signature.")
 Switch off for cadenzas.")
      (tonic ,ly:pitch?
 	    "The tonic of the current scale")
-     (transposing ,integer? "Transpose the MIDI output.  Set this property to the number of half-steps to transpose by.")
 
      (tremoloFlags ,integer? "Number of tremolo flags to add if none is specified.")
 

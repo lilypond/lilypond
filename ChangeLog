@@ -17,6 +17,37 @@
 
 2004-02-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/lyric-phrasing-engraver.cc: remove
+	
+	* lily/lyric-engraver.cc: rewrite so lyric-phrasing-engraver no
+	longer necessary. 
+
+	* lily/extender-engraver.cc (stop_translation_timestep): rewrite
+	so lyric-phrasing-engraver is no longer necessary.
+
+	* ly/engraver-init.ly: move Break_forbid_engraver to Voice, remove
+	Grob_pq_engraver from Staff.
+
+	* lily/grob-pq-engraver.cc: remove current_grobs array, read/write
+	busyGrobs directly.
+
+	* input/regression/quote-transposition.ly: new file.
+
+	* lily/recording-group-engraver.cc (stop_translation_timestep):
+	store instrumentTuning too. 
+
+	* lily/quote-iterator.cc (process): transpose events using
+	instrumentTuning.
+
+	* scripts/convert-ly.py (FatalConversionError.subst): \set transposing
+	-> \tuning <pitch>
+
+	* lily/parser.yy (command_req): add \tuning command for setting
+	instrument tuning of staff.
+
+	* Documentation/user/GNUmakefile
+	($(outdir)/lilypond/lilypond.html): ugh: use perl iso. sed.
+
 	* Documentation/user/refman.itely (Customized accidental rules):
 	typo.
 
