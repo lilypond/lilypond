@@ -1,3 +1,39 @@
+pl 9
+	- fixed \relative
+
+pl8.tca1
+        - changes to mudela-book. Junked fragment and floating options,
+          added eps option. Options should not stay as long that you get
+          comfortable with them. ;)
+        - Also possible to define your own commands with
+          a syntax like \mudela{c d e}
+        - updated mudela-book-doc.doc
+
+pl 8.jcn3
+	- website: gnuisation of footers
+
+pl 8.jcn2
+	- input/test/vertical-text.ly: urg ydim of text chords
+	- bf: one set of |: :| volta per staff
+	- bf: init/table* braces + more braces
+	- try at score-volta-bracket
+
+pl 8.jcn1
+	- bf: lyric-engraver: handle multiple requests (don't overwrite)
+	- bf: guile-config
+	- music-list-iterator
+
+pl 8.hwn3
+	- coriolan corno 1
+
+pl 8.hwn2
+	- more output revamping.
+
+pl 8.hwn1
+	- Scheme output stuff
+	- tutorial fixes.
+
+*****************
 pl 8
 
 pl7.jcn3
