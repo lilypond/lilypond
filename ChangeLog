@@ -1,3 +1,13 @@
+2004-01-28  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond.py (ly_paper_to_latexpaper): Regain
+	compatibility with old versions of geometry.sty (compat2
+	already implied includehead).
+	Change the page layout slightly so bottom + footskip = top +
+	headheight + headsep = 16mm, the remaining paperheight-32mm
+	are used for the music. Increase footskip to 5mm, so the top of
+	the footer text doesn't touch the music.
+
 2004-01-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/music-functions.scm (determine-split-list): bugfix: only use
