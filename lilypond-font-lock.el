@@ -38,7 +38,7 @@
 "override" "set" "revert" "partial" "paper" "penalty" "property" "pt"
 "relative" "remove" "repeat" "addlyrics" "partcombine" "score"
 "script" "stylesheet" "skip" "textscript" "tempo" "translator"
-"transpose" "type" 
+"transpose" "type" "unset" 
 		      ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 
