@@ -66,6 +66,8 @@ The website also contains the complete documentation
 
 	http://www.stack.nl/~hanwen/lilypond/index.html
 
+If you decide to build LilyPond from source, please read the INSTALL
+document first, esp. the Windows NT/95 section.
 
 7. CAVEATS
 
