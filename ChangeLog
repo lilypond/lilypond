@@ -1,5 +1,8 @@
 2002-04-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/accidental-placement.cc (position_accidentals): use all
+	note heads for note head-skyline. 
+
 	* scripts/lilypond-book.py (re_dict): remove all *? regexps.
 
 2002-04-22  Jan Nieuwenhuizen  <janneke@gnu.org>

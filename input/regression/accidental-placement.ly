@@ -10,6 +10,7 @@ Accidentals in corresponding octaves are aligned."
     <bes'! fis!>     
     <bes! cis!>
     <c! es ges beses>
+    <bes! c d f >    
 }
 \paper { linewidth = -1. }
      }

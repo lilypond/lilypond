@@ -15,7 +15,8 @@ source file of the GNU LilyPond music typesetter
 #include "pitch.hh"
 #include "warn.hh"
 #include "accidental-placement.hh"
-
+#include "note-column.hh"
+#include "group-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Accidental_placement,extent_callback, 2);
 SCM
@@ -160,7 +161,7 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i= apes.size (); i--;)
     commony = common_refpoint_of_array  (apes[i]->grobs_, commony, Y_AXIS);
 
-  Link_array<Grob> heads;
+  Link_array<Grob> note_cols, heads;
   for (int i= apes.size (); i--;)
     {
       Accidental_placement_entry * ape = apes[i];
@@ -175,11 +176,14 @@ Accidental_placement::position_accidentals (Grob * me)
 	  b[Y_AXIS] = a->extent (commony, Y_AXIS);
 
 	  Grob *head = a->get_parent (Y_AXIS);
-	  heads.push (head);
-	  commony = commony->common_refpoint (head, Y_AXIS);
+
+	  Grob * col = head->get_parent (X_AXIS);
+	  if (Note_column::has_interface (col))
+	    note_cols.push (col);
+	  else
+	    heads.push (head);
 	  
 	  ape->extents_.push (b);
-
 	  
 	  /*
 	    TODO: replace the extents of a flat by combination of two
@@ -190,6 +194,18 @@ Accidental_placement::position_accidentals (Grob * me)
 	}
     }
 
+  
+  for (int i = note_cols.size() ; i--;)
+    {
+      heads.concat (Pointer_group_interface__extract_grobs (note_cols[i],
+							    (Grob*)0,
+							    "note-heads"));
+      
+    }
+  heads.default_sort();
+  heads.uniq();
+  commony = common_refpoint_of_array (heads, commony, Y_AXIS);
+  
   for (int i = apes.size(); i--;)
     {
       Interval y ;
