@@ -41,7 +41,7 @@ table_sixteen=
 	}
 
      "style" = \table {
-		"roman"	"\settext{%}"	0.0\pt	6.0\pt	0.0\pt	8.0\pt
+		"roman"	"\settext{%}"	0.0\pt	7.50\pt	0.0\pt	8.0\pt
 		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
 		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
      }

@@ -228,6 +228,8 @@ yylex(YYSTYPE *s,  void * v_l)
 
 mudela:	/* empty */
 	| mudela mudela_header {
+		delete THIS->default_header_p_ ;
+		THIS->default_header_p_ = $2;
 	}
 	| mudela score_block {
 		add_score($2);		
@@ -415,6 +417,8 @@ score_block:
 		/* handle error levels. */
 		$$->errorlevel_i_ = THIS->error_level_i_;
 		THIS->error_level_i_ = 0;
+		if (!$$->header_p_ && THIS->default_header_p_)
+			$$->header_p_ = new Header(*THIS->default_header_p_);
 	}
 	;
 
@@ -460,6 +464,9 @@ paper_block:
 paper_body:
 	/* empty */		 	{
 		$$ = THIS->default_paper(); // paper / video / engrave
+	}
+	| PAPER_IDENTIFIER	{
+		$$ = $1->paperdef();
 	}
 	| paper_body OUTPUT STRING ';'	{ $$->outfile_str_ = *$3;
 		delete $3;

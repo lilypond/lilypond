@@ -1,14 +1,12 @@
-%{MudelaHeader
+\header{
+filename	multi.ly
+description	stupid testfile for pl68 features.
+enteredby	HWN
+copyright	public domain
+}
+%{
+Tested Features: \multi
 
- filename:multi.ly
- title: 
- description:  stupid testfile for pl68 features.
- composers:
- entered-by:HWN
- copyright: public domain
-
- Tested Features: \multi
-EndMudelaHeader
 %}
 
 

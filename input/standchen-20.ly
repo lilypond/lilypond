@@ -1,26 +1,20 @@
-% standchen-20.ly
-% process using:
-% 	lilypond -i symbol20.ly standchen-20
+%{
+20-point version of "leise flehen meine lieder"
+%}
 
 \include "standchen-part.ly"
 
 \score{
-	<	
-		< 	\id "Lyric" "1";
-			\tekstI
-			 \tekstII
-		>
-		< \id "Piano" "";
-			\multi 2;
-			\melodic < \melodie \commands >
-			\melodic < \begeleiding \commands >
-		>
-	>
+	\themusic
 	\paper{
+		\paper_twenty
 		% 20pt music uses whole pagewidth
 		linewidth= 195.\mm;
-		% 20pt music needs some space
-		unitspace= 13.\mm;
+
+		% we want gourlay, don't set geometric
+		% geometric= 1.4;
+		gourlay_maxmeasures = 9.;
+		\output "standchen.out";
 	}
 	\midi{
 		\tempo 4 = 54;

@@ -2,10 +2,8 @@
 
 \include "table16.ly"
 
-Gourlay = 1.0
-Wordwrap = 0.0
 
-default_paper = \paper {
+paper_sixteen = \paper {
 	linewidth = 15.0 \cm;
 	rule_thickness = 0.4\pt;
 	bar_size = 16.0 \pt;

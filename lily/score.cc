@@ -119,7 +119,6 @@ Score::midi()
     {
 	// should we? hampers debugging. 
 	warning ("Errors found, /*not processing score*/");
-//	return;
     }
   *mlog << endl;
 
@@ -143,7 +142,6 @@ Score::paper()
     {
 	// should we? hampers debugging. 
 	warning ("Errors found, /*not processing score*/");
-//	return;
     }
   
   *mlog << endl;
@@ -185,6 +183,9 @@ Score::paper_output()
   
   the_output << "% outputting Score, defined at: " <<
 	location_str() << "\n";
+  if (header_p_) {
+    the_output << header_p_->TeX_string();
+  }
   pscore_p_->output (the_output);
 }
 

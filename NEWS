@@ -1,6 +1,7 @@
-pl 9.jcn3
-	- bf: standchen
-	- update 20pt table
+pl 10
+	- bf: init pending_indent_i_
+	- output header to TeX file. Who wants to write TeX to make it work?
+
 	- mi2mu: bf's, --key option
 	- removed Duration(int,int)
 	- bf: Duration_convert::dur2_str
@@ -10,6 +11,10 @@ pl 9.jcn2
 	- bf: String_convert::bin2_i; added bin2_u
 	- bf's: Binary_source_file
 	- bf: constr. Tempo/Timing_req
+pl 0.1.8.jcn3
+	- table20, standchen-{16,20}*
+*******
+aug 18
 
 pl 9	
 	- declare rhythic_request
@@ -24,8 +29,6 @@ pl 8.mb:
 	- use log of duration-name
 
 *******
-pl 0.1.8.jcn3
-	- table20, standchen-{16,20}*
 aug 15
 pl 8
 

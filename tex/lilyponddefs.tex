@@ -149,6 +149,7 @@
 \def\thinbar#1{\vrule height #1 width 1.6\staffrulethickness} % TODO parametric.
 \def\thickbar#1{\vrule height #1 width 2\smallspace}
 \def\maatstreep#1{\thinbar{#1}}
+\def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
 
 \def\pianobrace#1{{\musicdraw\char#1}}
@@ -222,3 +223,5 @@
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
 \def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
 \def\unknown{{\bf u}}
+
+\def\postheader{}

@@ -76,7 +76,7 @@ table_twenty =
     }
 
     "balls" = \table {
-	"-1"	"\breveball"	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
+	"-1"	"\breveball" 	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
 	"0"	"\wholeball"	0.0\pt	7.5\pt	-2.5\pt	2.5\pt
 	"1"	"\halfball"	0.0\pt	6.0\pt	-2.5\pt	2.5\pt
 	"2"	"\quartball"	0.0\pt	6.0\pt	-2.5\pt	2.5\pt
@@ -100,11 +100,10 @@ table_twenty =
 	"botlines"	"\botlines{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
     }
 
-%	"|"	"\maatstreep{%}"	0.0\pt	5.0\pt 	0.0\pt	20.0\pt
     "bars" = \table {
 	"empty"	"\emptybar"
 	""	""			0.0\pt	0.0\pt	0.0\pt	16.0\pt
-	"|"	"\maatstreep{%}"	0.0\pt	.64\pt 	0.0\pt	20.0\pt
+	"|"	"\maatstreep{%}"	0.0\pt	0.64\pt 	0.0\pt	20.0\pt
 	"||"	"\doublebar{%}"		0.0\pt	4.0\pt	0.0\pt	20.0\pt
 	"|."	"\finishbar{%}"		0.0\pt	2.0\pt	0.0\pt	20.0\pt
 	".|"	"\startbar{%}"		0.0\pt	4.0\pt	0.0\pt	20.0\pt

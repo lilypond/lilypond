@@ -19,6 +19,7 @@ static int const INDENT_i = 8;
 Mudela_stream::Mudela_stream (String filename_str)
 {
   filename_str_ = filename_str;
+  pending_indent_i_ = 0;
   os_p_ = 0;
   indent_i_ = 0;
   comment_mode_b_ = false;

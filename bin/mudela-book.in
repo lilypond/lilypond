@@ -6,6 +6,29 @@ my $outname = "-";
 my $outdir;
 use Getopt::Long;
 
+
+# do something, check return status
+sub my_system
+{
+    my (@cmds) = @_;
+    foreach $cmd (@cmds) {
+	my ($ignoreret)=0;
+	if ( $cmd  =~ /^-/ ) {
+	    $ignoreret = 1;
+	    $cmd = substr ($cmd, 1);
+	}
+	
+	my $ret =  ( system ($cmd));
+	if ($ret) {
+	    if ($ignoreret) {
+		print STDERR "ignoring failed command \`$cmd\' (status $ret)\n";
+	    }else {
+		print STDERR "\nmudela-book: failed on command \`$cmd\' (status $ret)\n";
+		exit 2;
+	    }
+	}
+    }
+}
 sub gen_mufile
 {
     return "$outdir/$outname$mudcount.ly";
@@ -40,7 +63,7 @@ sub close_mudela
     }
     
     if ( ! -f gen_texfile) {
-	system "lilypond ". gen_mufile;
+	my_system "lilypond ". gen_mufile;
 	rename "lelie.tex", gen_texfile;
     }
     print BOOK "\\preexample\\input " . gen_texfile . "\n\\postexample\n";

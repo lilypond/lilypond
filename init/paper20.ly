@@ -2,30 +2,29 @@
 
 \include "table20.ly"
 
-Gourlay = 1.0
-Wordwrap = 0.0
-
-default_paper = \paper {
+paper_twenty = \paper {
 	linewidth = 15.0 \cm;
 	rule_thickness = 0.4\pt;
 	bar_size = 20.0 \pt;
 	interline = 5.\pt;
 	notewidth = 6.0\pt;
-	wholewidth = 4.8\pt;
+	wholewidth = 7.5\pt;
 	unitspace = 22.\pt;
 %	basicspace = 4.\pt;
 %	geometric = 1.414;
 	geometric = 0.;
-	
-     	arithmetic_basicspace = 2.5;
-        arithmetic_multiplier = 4.8\pt;
+	basicspace = 8.\pt;
 
+	arithmetic_basicspace = 2.;
+        arithmetic_multiplier = 6.\pt;
+	
 	%
 	interbeam = 2.667\pt;
 	gourlay_energybound = 100000.;
-	gourlay_maxmeasures = 8.;
+	gourlay_maxmeasures = 12.;
 	
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_twenty }
 	\requesttranslator { \orchestral_score_translator }
 }
+
