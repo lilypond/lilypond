@@ -1,5 +1,8 @@
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/paper-outputter.cc (output_version): change "Lily was here"
+	into  "Engraved by LilyPond"
+
 	* lily/my-lily-lexer.cc (My_lily_lexer): don't crash
 	on unquoted strings before \notenames.
 
