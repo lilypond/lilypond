@@ -166,7 +166,7 @@
 (define (make-articulation-script x) 
      (let* (  (m (ly-make-music "Articulation_req"))
            )
-     (ly-set-mus-property m 'articulation-type x)
+     (ly-set-mus-property! m 'articulation-type x)
      m
      )
  )
@@ -175,7 +175,7 @@
 (define (add-articulation-script m x)
   (if x
    (if (and x (equal? (ly-music-name m) "Request_chord"))
-     (ly-set-mus-property m 'elements
+     (ly-set-mus-property! m 'elements
        (cons (make-articulation-script x) (ly-get-mus-property m 'elements))
      )
      (let* ( (es (ly-get-mus-property m 'elements))
@@ -192,10 +192,10 @@
 (define (make-head-type-elem t)
    (let* ( (m (ly-make-music "Music"))
          )
-     (ly-set-mus-property m 'iterator-ctor Push_property_iterator::constructor)
-     (ly-set-mus-property m 'symbol 'NoteHead)
-     (ly-set-mus-property m 'grob-property 'style)
-     (ly-set-mus-property m 'grob-value t)
+     (ly-set-mus-property! m 'iterator-ctor Push_property_iterator::constructor)
+     (ly-set-mus-property! m 'symbol 'NoteHead)
+     (ly-set-mus-property! m 'grob-property 'style)
+     (ly-set-mus-property! m 'grob-value t)
      m
    )
  )
@@ -204,17 +204,17 @@
    (let* ( (m (ly-make-music "Context_specced_music"))
            (e (make-head-type-elem t))
          )
-     (ly-set-mus-property m 'element e)
-     (ly-set-mus-property m 'context-type "Thread")
+     (ly-set-mus-property! m 'element e)
+     (ly-set-mus-property! m 'context-type "Thread")
      m
    )
  )
 
 (define (make-thread-context thread-name element)
    (let* ( (m (ly-make-music "Context_specced_music")))
-     (ly-set-mus-property m 'element element)
-     (ly-set-mus-property m 'context-type "Thread")
-     (ly-set-mus-property m 'context-id (symbol->string thread-name))
+     (ly-set-mus-property! m 'element element)
+     (ly-set-mus-property! m 'context-type "Thread")
+     (ly-set-mus-property! m 'context-id (symbol->string thread-name))
      m
    )
  )
@@ -237,7 +237,7 @@
 	      (seq (make-sequential-music (list ht req-ch)))
              )
          (add-articulation-script req-ch script)
-         (ly-set-mus-property fe 'pitch pitch)
+         (ly-set-mus-property! fe 'pitch pitch)
          (set! req-ch (make-thread-context style seq))
 	 req-ch
        )
@@ -288,22 +288,22 @@
            (alts (ly-get-mus-property music 'alternatives)))
 
       (if (pair? es)
-	(ly-set-mus-property music 'elements (map (drums->paper kit) es) )
+	(ly-set-mus-property! music 'elements (map (drums->paper kit) es) )
       )
 
       (if (music? alts)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'alternatives
          ((drums->paper kit) alts)))
 
       (if (music? body)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'body
          ((drums->paper kit) body)))
 
       (if (music? e)
         (begin
-          (ly-set-mus-property
+          (ly-set-mus-property!
            music 'element
            ((drums->paper kit) e))
         )

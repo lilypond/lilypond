@@ -4,7 +4,7 @@
 #include "item.hh"
 #include "paper-def.hh"
 
-LY_DEFINE(ly_set_grob_property,"ly-set-grob-property", 3, 0, 0,
+LY_DEFINE(ly_set_grob_property,"ly-set-grob-property!", 3, 0, 0,
   (SCM grob, SCM sym, SCM val),
   "Set @var{sym} in grob @var{grob} to value @var{val}")
 {

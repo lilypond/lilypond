@@ -1,5 +1,10 @@
 2002-07-17  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/music.cc (LY_DEFINE): change ly-set-mus-property to
+	ly-set-mus-property!
+
+	* lily/grob.cc (LY_DEFINE): change ly-set-grob-property to ly-set-grob-property!
+
 	* lily/parser.yy (Repeated_music): shift duration log for tremolo
 	repeats, instead of klutzing around.
 

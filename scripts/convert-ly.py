@@ -892,6 +892,14 @@ if 1:
 
 	conversions.append (((1,5,62), conv,
 	'visibility-lambda -> break-visibility'))
+	
+if 1:
+	def conv (str):
+		str = re.sub ('ly-set-grob-property', 'ly-set-grob-property!', str)
+		str = re.sub ('ly-set-mus-property', 'ly-set-mus-property!', str)		
+		return str
+	
+	conversions.append (((1,3,138), conv, 'ly-set-X-property -> ly-set-X-property!'))
 
 
 ################################
