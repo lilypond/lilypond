@@ -39,16 +39,23 @@ Score::Score (Score const &s)
   : Input (s)
 {
   music_ = SCM_EOL;
-
+  header_p_ = 0;
   smobify_self ();
   
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone()->self_scm () : SCM_EOL;
+  scm_unprotect_object (music_);
   
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push(s.def_p_arr_[i]->clone());
   errorlevel_i_ = s.errorlevel_i_;
-  header_p_ =  (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
+  if (s.header_p_)
+ 	{
+	  header_p_ =  (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
+
+	  scm_unprotect_object(header_p_->self_scm ());
+	}
+ 
 }
 
 Score::~Score()
