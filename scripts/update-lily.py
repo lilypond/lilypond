@@ -38,6 +38,7 @@ program_name = 'build-lily'
 package_name = 'lilypond'
 help_summary = _("Fetch and rebuild from latest source package")
 build_root = os.environ ['HOME'] + '/usr/src'
+build_command = './configure; make web'
 release_dir = build_root + '/releases'
 patch_dir = build_root + '/patches'
 
@@ -226,6 +227,9 @@ def list_file (user, passwd, host, dir, file):
 
 list_ = list_file
 
+#
+# ugh: use ftp module.
+#
 def list_ftp (user, passwd, host, dir, file):
 	if user == 'None':
 		user = 'anonymous'
@@ -325,11 +329,11 @@ def build (p):
 	os.chdir (build_root)
 	system ('tar xzf %s/%s.tar.gz' % (release_dir, p))
 	os.chdir (p)
-	return system ('./configure; make web')
+	return system (build_command)
 
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
-	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+	(options, files) = getopt.getopt (sys.argv[1:], sh, long)
 except:
 	help ()
 	sys.exit (2)
@@ -363,29 +367,36 @@ if 1:
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
 
-	get_base = url[:string.rindex (url, '/')] + '/' + latest
+	get_base = url[:string.rindex (url, '/')] + '/'
 	if os.path.isdir (patch_dir):
 		os.chdir (patch_dir)
-		get = get_base + '.diff.tar.gz'
-		progress (_ ("fetching %s...") % get)
-		copy_url (get, '.')
+		if not os.path.isfile (latest + '.diff.gz'):
+			get = get_base + latest + '.diff.gz'
+			progress (_ ("fetching %s...") % get)
+			copy_url (get, '.')
 
-	if not os.path.isdir (build_dir):
-		build_dir = temp_dir
+	if not os.path.isdir (build_root):
+		build_root = temp_dir
 	if not os.path.isdir (release_dir):
 		release_dir = temp_dir
 		setup_temp ()
 		
-	os.chdir (temp_dir)
-	get = get_base +  '.tar.gz'
-	progress (_ ("fetching %s...") % get)
-	copy_url (get, '.')
-	
+	os.chdir (release_dir)
+	if not os.path.isfile (latest + '.tar.gz'):
+		get = get_base + latest + '.tar.gz'
+		progress (_ ("fetching %s...") % get)
+		copy_url (get, '.')
+
+	build_command = 'echo hi'
 	if not build (latest):
-		os.link ('%s/%s package_name' % (package_name, build_root, latest))
-		previous = 'hairy'
-		if os.path.isdir ('%s/%s' % (build_root, previous)):
-			system ('rm -rf %s/%s' % (build_root, previous))
+		if os.path.isdir ('%s/%s' % (build_root, package_name)):
+			os.chdir ('%s/%s' % (build_root, package_name))
+			previous = os.getcwd ()
+			os.chdir (build_root)
+			system ('rm -f %s' % package_name)
+			system ('echo rm -rf %s/%s' % (build_root, previous))
+			
+		os.symlink ('%s/%s' % (build_root, latest),  package_name)
 		
 	os.chdir (original_dir)
 	if release_dir != temp_dir:

@@ -563,7 +563,10 @@ def scan_latex_preamble(chunks):
 			idx = idx + 1
 			continue
 		m = get_re ('header').match(chunks[idx][1])
-		options = re.split (',[\n \t]*', m.group(1)[1:-1])
+		if m.group (1):
+			options = re.split (',[\n \t]*', m.group(1)[1:-1])
+		else:
+			options = []
 		for o in options:
 			if o == 'landscape':
 				paperguru.m_landscape = 1
