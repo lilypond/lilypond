@@ -90,7 +90,9 @@
     ((-2 medium italic roman 7) . "cmti7")
     ((-3 medium italic roman 7) . "cmti7")    
 
-    ((2 bold upright roman 12) . "cmbx12")
+    ((4 bold upright roman 17) . "cmbx17")
+    ((3 bold upright roman 17) . "cmbx17")
+    ((2 bold upright roman 14) . "cmbx14")
     ((1 bold upright roman 12) . "cmbx12")
     ((0 bold upright roman 10) . "cmbx10")
     ((-1 bold upright roman 8) . "cmbx8")
@@ -218,7 +220,12 @@
 	(mmrest . ((font-family . number) ))
 	(mmrest-symbol . ((font-family . music) ))
 
-	(mark . ((font-family . number) (font-relative-size . 1)))
+	(mark-number . ((font-family . number) (font-relative-size . 1)))
+	(mark-letter . ((font-family . roman)
+			(font-series . bold)
+			(font-shape . upright)
+			(font-relative-size . 2)))
+	
 	(script . ((font-family . roman) (font-relative-size . -1)))
 	(large . ((font-family . roman) (font-relative-size . 1)))
 	(Large . ((font-series . bold) (font-family . roman)

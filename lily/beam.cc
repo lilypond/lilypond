@@ -74,12 +74,21 @@ Beam::add_stem (Grob *me, Grob *s)
 Real
 Beam::get_interbeam (Grob *me)
 {
-  Real slt = me->paper_l ()->get_var ("linethickness");
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
-    * ss;
-
   int multiplicity = get_multiplicity (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  
+  SCM s = me->get_grob_property ("beam-space");
+  if (gh_number_p (s))
+    return gh_scm2double (s) * ss;
+  else if (gh_list_p (s))
+    return gh_scm2double (scm_list_ref (s,
+					gh_int2scm (multiplicity - 1
+						    <? scm_ilength (s) - 1)))
+      * ss;
+  
+  Real slt = me->paper_l ()->get_var ("linethickness");
+  Real thickness = gh_scm2double (me->get_grob_property ("thickness")) * ss;
+
   Real interbeam = multiplicity < 4
     ? (2*ss + slt - thickness) / 2.0
     : (3*ss + slt - thickness) / 3.0;
@@ -1382,5 +1391,5 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
+  "beam-space concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
 

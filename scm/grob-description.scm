@@ -418,9 +418,6 @@
 
 	(direction . 1)
 	(breakable . #t)
-	(font-family . roman)
-	(font-shape . upright)
-	(font-relative-size . 1)
 	(visibility-lambda . ,end-of-line-invisible)
 	(padding . 0.8)
 	(meta . ((interfaces . (text-interface font-interface mark-interface side-position-interface))))
@@ -433,8 +430,11 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
+	(number-threshold . 0)
+	(padding . 1)
 	(thickness . 6.6)
 	(font-family . number)
+	(padding . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
 

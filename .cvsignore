@@ -25,6 +25,7 @@ configure
 *.tex
 *.txt
 *[0-9]pk
+ly2dvi.dir
 out
 out-www
 afm
