@@ -330,7 +330,8 @@ def configure (target, source, env):
 	else:
 		env.Append (CPPPATH = PYTHON_INCLUDE)
 
-	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
+	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'libio.h',
+		   'Python.h')
 	for i in headers:
 		if conf.CheckCHeader (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
@@ -342,7 +343,8 @@ def configure (target, source, env):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
 			conf.env['DEFINES'][key] = 1
 
-	functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
+	functions = ('fopencookie', 'funopen',
+		     'gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
 	for i in functions:
 		if 0 or conf.CheckFunc (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
@@ -659,7 +661,8 @@ def symlink_tree (target, source, env):
 		os.symlink (frm, os.path.basename (dst))
 	shutil.rmtree (run_prefix)
 	prefix = os.path.join (env['out'], 'usr')
-	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
+	map (lambda x: symlink (x[0], os.path.join (prefix,
+						    x[1] % {'ver' : version})),
 	     # ^# := source dir
 	     # @  := out
 	     # /$ := add dst file_name
@@ -667,25 +670,25 @@ def symlink_tree (target, source, env):
 	      ('lily/',      'bin/lilypond-bin'),
 	      ('scripts/',   'bin/lilypond'),
 	      ('scripts/',   'bin/lilypond-book'),
-	      ('mf',         'share/lilypond/dvips/mf-out'),
-	      ('#ps',        'share/lilypond/dvips/ps'),
-	      ('#ps',        'share/lilypond/tex/music-drawing-routines.ps'),
-	      ('mf',         'share/lilypond/otf'),
-	      ('mf',         'share/lilypond/tfm'),
-	      ('tex',        'share/lilypond/tex/enc'),
-	      ('#mf',        'share/lilypond/fonts/mf'),
-	      ('mf',         'share/lilypond/fonts/map'),
-	      ('mf',         'share/lilypond/fonts/otf'),
-	      ('mf',         'share/lilypond/fonts/tfm'),
-	      ('mf',         'share/lilypond/fonts/type1'),
-	      ('#tex',       'share/lilypond/tex/source'),
-	      ('tex',        'share/lilypond/tex/tex-out'),
-	      ('mf',         'share/lilypond/tex/mf-out'),
-	      ('#ly',        'share/lilypond/ly'),
-	      ('#scm',       'share/lilypond/scm'),
-	      ('#ps',        'share/lilypond/ps'),
+	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
+	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
+	      ('#ps',        'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
+	      ('mf',         'share/lilypond/%(ver)s/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/tfm'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
+	      ('#mf',        'share/lilypond/%(ver)s/fonts/mf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/map'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/tfm'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/type1'),
+	      ('#tex',       'share/lilypond/%(ver)s/tex/source'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/tex-out'),
+	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
+	      ('#ly',        'share/lilypond/%(ver)s/ly'),
+	      ('#scm',       'share/lilypond/%(ver)s/scm'),
+	      ('#ps',        'share/lilypond/%(ver)s/ps'),
 	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
-	      ('elisp',      'share/lilypond/elisp')))
+	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
 	os.chdir (srcdir)
 
 if env['debugging']:
