@@ -1,6 +1,6 @@
 \header {
     title = "Sängers Morgenlied"
-    composer = "Franz Schubert"
+    composer = "Franz Schubert (1797-1828)"
     date = "27. Februar 1815"
     source = "Edition Peters"
     editor = "Paul Losse"

@@ -10,7 +10,7 @@
 \header {
   title = "Romanzen"
   opus = "op. 28/2"
-  composer = "R. Schumann (1810-1856)"
+  composer = "Robert Schumann (1810-1856)"
   enteredby="Rune Zedeler"
   maintainer="rune@zedeler.dk"
   mutopiatitle = "Romanzen - op. 28/2"
