@@ -491,21 +491,21 @@ find and correct mistakes.
 @cindex NoteEdit
 @cindex MIDI
 
-One way to avoid entering notes using the keyboard, is to use  a
+One way to avoid entering notes using the keyboard is to use a
 graphical user interface.  The following programs are known to have
 a lilypond export option:
 
 @itemize @bullet
 @item
-@uref{http://denemo.sourceforge.net/, Denemo}, was once intended as
-LilyPond graphical user interface.  It run on Gnome/GTK.
+@uref{http://denemo.sourceforge.net/, Denemo} was once intended as
+a LilyPond graphical user interface.  It run on Gnome/GTK.
 @item
-@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html,noteedit}
-NoteEdit is a graphical score editor that runs under KDE/Qt.
+@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html, Noteedit}
+ is a graphical score editor that runs under KDE/Qt.
 @item
-@uref{http://rosegarden.sf.net/,RoseGarden}
-once was an inspiration for naming LilyPond. Nowadays, it has been
-rewritten from scratch, and supports LilyPond export as of version
+@uref{http://rosegarden.sf.net/, RoseGarden}
+ was the inspiration for naming LilyPond.  Nowadays it has been
+rewritten from scratch and supports LilyPond export as of version
 0.1.6.
 @end itemize
 
