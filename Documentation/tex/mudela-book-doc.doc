@@ -1,0 +1,209 @@
+\documentclass[a4paper, 12pt, oneside]{article}
+
+\usepackage{t1enc,isolatin1}
+\usepackage{graphics}
+%\usepackage{showframe}
+\sloppy
+\def\postMudelaExample{\normalsize}
+\begin{document}
+%\printparam
+
+Mudela-book is a script that process your \LaTeX ~file and
+translates blocks of mudela code it finds inside \verb|mudela|
+environment to tex or eps graphics. It then creates a new
+file that can be sent through \LaTeX~ to create a document with
+lines of music integrated with text.
+
+So what does this look like? Well, here is a really
+simple example:
+
+\begin{mudela}[fragment, verbatim]
+    \relative c'{c4 d e f | g2 g}
+\end{mudela}
+
+As you can see the mudela code is put inside a environment
+called \verb|mudela|, shouldn't be too difficult to remember.
+If you have never heard about \LaTeX, Mudela or that stuff 
+about environment, you should probably read some other manuals
+before this.
+
+The code above produces this music:
+
+\begin{mudela}[fragment, floating]
+    \relative c' {c4 d e f | g2 g}
+\end{mudela}
+
+
+The parameter \verb|fragment| means that mudela-book will insert
+some red tape for you. There are one thing to remember. Currently
+\verb|fragment|s don't know about margins and line width, so if 
+you type more than a few bars and want a line break, you can not
+use \verb|fragment|. The \verb|verbatim| parameter is used to
+make mudela-book print the mudela source instead of the
+music. The parameter will probably not be visible in later versions
+of mudela-book.
+
+If you use \verb|\default_paper| as your paper, mudela-book will
+(I hope) adjust the music to reach from the left to the right margin.
+The following code
+\begin{mudela}[verbatim]
+\score{
+    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
+         f4 f f f | e2 e | d4 d d d | c1}
+    \paper{\default_paper}
+}
+\end{mudela}
+gives this music:
+\begin{mudela}
+\score{
+    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
+         f4 f f f | e2 e | d4 d d d | c1}
+    \paper{\default_paper}
+}
+\end{mudela}
+
+On my Debian 2.0 with LilyPond 1.0.17, teTex 0.9,
+a4 paper and default line widht, the music is printet with
+7 bars on the first line and 1 bars on the second.
+
+This does not look to well, but you can fix it by setting
+the \verb|linewidth| variable to, let's say 8 cm. The paper
+definition
+\begin{verbatim}
+\paper{\default_paper
+linewidth=8.\cm;}
+\end{verbatim}
+makes this score:
+
+\begin{mudela}
+\score{
+    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
+         f4 f f f | e2 e | d4 d d d | c1}
+    \paper{\default_paper
+           linewidth=8.\cm;}
+}
+\end{mudela}
+
+The \verb|linewidth| variable is a LilyPond paper variable.
+It is not spesific to mudela-book. See LilyPond tutorial and
+reference manual for other variables.
+
+You can also,
+\begin{mudela}[fragment, floating]
+  \relative c'{c c g' g | a a g2}
+\end{mudela}
+~include music in the middle of your text. Just give the option
+\verb|floating| to \verb|\begin{mudela}|
+
+Oh, you think the notes are to big to be in the middle of all those
+small characters, that something like this,
+\begin{mudela}[fragment, floating, 11pt]
+  \relative c'{c c g' g | a a g2}
+\end{mudela}
+~is better? If you have a lot of small music examples like this
+in the middle of your text, you might get a nicer look by using
+``double'' line spacing. Put the \verb|\linespread{1.6}| command
+into the preamble of your document. Then the line spacing will not
+be increased between the lines where you have music printed with the
+smalles font size.
+
+
+To change font size is easy, just give the fontsize as a parameter to
+\verb|\begin{mudela}|. The last piece of music was created with this
+code:
+\begin{mudela}[fragment, floating, 11pt, verbatim]
+  \relative c'{c c g' g | a a g2}
+\end{mudela}
+
+You can use the following font sizes:
+\begin{itemize}
+\item 11 pt
+\begin{mudela}[11pt, fragment, floating]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+\end{mudela}
+\item 13 pt
+\begin{mudela}[13pt, fragment, floating]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+\end{mudela}
+\item 16 pt
+\begin{mudela}[16pt, fragment, floating]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+\end{mudela}
+\item 20 pt
+\begin{mudela}[20pt, fragment, floating]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+\end{mudela}
+\item 26 pt
+\begin{mudela}[26pt, fragment, floating]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+\end{mudela}
+\end{itemize}
+
+As\marginpar{
+marginpar!
+\begin{mudela}[11pt, fragment, floating]
+	\relative c''{\key es; r8 [g g g] es2}
+\end{mudela}
+}
+you can see, \verb|floating| mudela don't know about margins.
+Remember that to place the music anywhere\footnote{
+footnote!
+\begin{mudela}[11pt, fragment, floating]
+	\relative c''{\key es; r8 [g g g] es2}
+\end{mudela}
+}
+ else than at the left margin you must use the option \verb|floating|.
+
+\twocolumn[\Large The following is written in two columns \normalsize]
+Sinse the version number is quite low, 0.4.0 last I checked, you
+should be careful not to mix braces that belongs to mudela-book and
+\LaTeX ~on the same line. The following code will probably break:
+
+\verb|\footnote{\be|\verb|gin{mudela}|
+
+\verb|\relative c''{ \key es; r8 [g g g] es2} |
+
+\verb|\e|\verb|nd{mudela}}|
+
+Mudela-book does know about \verb|\onecolumn| and \verb|\twocolumn|. 
+So the music will be adjusted to the new linewith:
+\begin{mudela}[verbatim]
+\score{
+    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
+         f4 f f f | e2 e | d4 d d d | c1}
+    \paper{\default_paper}
+}
+\end{mudela}
+produces
+\begin{mudela}
+\score{
+    \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
+         f4 f f f | e2 e | d4 d d d | c1}
+    \paper{\default_paper}
+}
+\end{mudela}
+
+As in one column mode, \verb|fragment|s don't know about 
+the line width:
+\begin{mudela}[fragment]
+  \relative c'{[c8 e][d f][e g][f a] | [g b][a c][b d] c4 |
+	[e8 c][d b][c a][b g] | [a f][g e][f d] c4 }
+\end{mudela}
+Verbatim environments will also ignore the page margins. That is
+a feature of \LaTeX.
+\end{document}

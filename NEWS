@@ -1,3 +1,8 @@
+pl 3.tca1
+	- accordion symbols in mf/feta-accordion.mf and
+	  init/accordion-defs.ly.
+	- small changes to mudela-book and Documentation/man/mudela-book.yo
+	- mudela-book example file in Documentation/tex/mudela-book-doc.doc
 pl 2.jcn2
 
 pl 2.uu1
