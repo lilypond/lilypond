@@ -24,7 +24,7 @@
 * End of tutorial::             The end
 @end menu
 
-Operating lilypond is done through text files: to print a piece of
+Operating lilypond is done through text files: To print a piece of
 music, you enter the music in a file.  When you run lilypond (normally
 using the program @code{ly2dvi}) on that file, the program produces
 another file which contains sheet music that you can print or view.
@@ -32,112 +32,82 @@ another file which contains sheet music that you can print or view.
 This tutorial starts with a small introduction to the LilyPond music
 language.  After this first contact, we will show you how to run
 LilyPond to produce printed output; you should then be able to create
-your first sheets of music. The tutorial continues with more and more
+your first sheets of music.  The tutorial continues with more and more
 complex examples.
+
 
 @node First steps
 @section First steps
 
 We start off by showing how very simple music is entered in
-LilyPond:  you get a note simply by typing its note name, from
-@code{a} through @code{g}. So if you enter
-@quotation
+LilyPond: You get a note simply by typing its note name, from
+@samp{a} through @samp{g}.  So if you enter
+
 @example
 c d e f g a b
 @end example
-@end quotation
+
+@noindent
 then the result looks like this:
-@quotation
-@lilypond[fragment]
+
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \transpose c'' { c d e f g a b }
 @end lilypond
-@end quotation
-@separate
 
-We will continue with this format: first we show a snippet of input,
+We will continue with this format: First we show a snippet of input,
 then the resulting output.
 
-The length of a note is specified by adding a number, ``@code{1}'' for a
-whole note, ``@code{2}'' for a half note, and so on:
+The length of a note is specified by adding a number, @samp{1} for a
+whole note, @samp{2} for a half note, and so on:
 
-@quotation
 @example
 a1 a2 a4 a16 a32
 @end example
 
-@c missing clef seems to raise more questions than actual pitch of notes,
-@c as these are snippets anyway
-@lilypond[fragment]
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-%\property Staff.Clef = \turnOff
-\transpose c'' { a1 a2 a4 a16 a32 }
-s16_" "
+\transpose c'' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
-@end quotation
-@separate
 
 If you don't specify a duration, the previous one is used: 
-@quotation
+
 @example
 a4 a a2 a
 @end example
 
-@c missing clef seems to raise more questions than actual pitch of notes,
-@c as these are snippets anyway
-@lilypond[fragment]
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-%\property Staff.Clef = \turnOff
-\transpose c'' { a a a2 a }
-s16_" "
+\transpose c'' { a a a2 a s16_" " }
 @end lilypond
-@end quotation
-@separate
 
-A sharp (@texisharp{}) is made by adding ``@code{is}'', a flat
-(@texiflat{}) by adding ``@code{es}''.  As you would expect, a
-double-sharp or double-flat is made by adding ``@code{isis}'' or
-``@code{eses}'':
+A sharp (@texisharp{}) is made by adding @samp{is}, a flat
+(@texiflat{}) by adding @samp{es}.  As you would expect, a
+double-sharp or double-flat is made by adding @samp{isis} or
+@samp{eses}:
 
-@quotation
 @example
 cis1 ees fisis aeses
 @end example
 
-@lilypond[fragment]
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\transpose c'' { cis1 ees fisis aeses }
-s16_" "
+\transpose c'' { cis1 ees fisis aeses s16_" " }
 @end lilypond
-@end quotation
-@separate
 
-Add a dot ``@code{.}'' after the duration to get a dotted note:
-@quotation
+Add a dot @samp{.} after the duration to get a dotted note:
 @example
 a2. a4 a8. a16
 @end example
 
-@c missing clef seems to raise more questions than actual pitch of notes,
-@c as these are snippets anyway
-@lilypond[fragment]
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature \set #'transparent = ##t
-%\property Staff.Clef = \turnOff
-\transpose c'' { a2. a4 a8. a16 }
-s16_" "
+\transpose c'' { a2. a4 a8. a16 s16_" " }
 @end lilypond
-@end quotation
-@separate
 
 The meter (or time signature) can be set with the @code{\time} command:
 
-@quotation
 @example
 \time 3/4
 \time 6/8
@@ -145,7 +115,7 @@ The meter (or time signature) can be set with the @code{\time} command:
 @end example
 
 @c a clef here may lead to confusion
-@lilypond[fragment]
+@lilypond
 \property Staff.Clef \set #'transparent = ##t 
 \time 3/4
 s4_" "
@@ -154,15 +124,12 @@ s4_" "
 \time 4/4
 s16_" "
 @end lilypond
-@end quotation
-@separate
 
-The clef can be set using the ``@code{\clef}'' command:
+The clef can be set using the @code{\clef} command:
 
 @c what is more common name treble or violin?
 @c in Dutch, its violin.
 @c in English its definitely treble.
-@quotation
 @example
 \clef treble
 \clef bass
@@ -170,9 +137,8 @@ The clef can be set using the ``@code{\clef}'' command:
 \clef tenor
 @end example
 
-@lilypond[fragment]
+@lilypond[notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \clef violin
 s4_" "
 \clef bass
@@ -182,51 +148,42 @@ s4_" "
 \clef tenor
 s16_" "
 @end lilypond
-@end quotation
-@separate
 
-@c From these commands and notes, a piece of music can be formed.  A piece
-@c of music is made by enclosing it in ``@code{\notes @{ ... @}}''.
-@c     rephrased:
 When you enter these commands in a file, you must to enclose them in
-``@code{\notes @{ .. @}}''.  This lets LilyPond know that music (and
+@code{\notes @{@dots{}@}}.  This lets LilyPond know that music (and
 not lyrics, for example) follows:
 
-@quotation
 @example
 \notes @{
-   \time 3/4
-   \clef bass
-   c2 e4 g2.
-   f4 e d c2.
+  \time 3/4
+  \clef bass
+  c2 e4 g2.
+  f4 e d c2.
 @}
 @end example
-@end quotation
-@separate
 
 Now the piece of music is almost ready to be printed.  The final step is to
 combine the music with a printing command.
 
-The printing command is the so-called ``@code{\paper}'' block.  Later on
+The printing command is the so-called @code{\paper} block.  Later on
 you will see that the @code{\paper} block is used to customize
 printing specifics.  The music and the @code{\paper} block are combined by
-enclosing them in ``@code{\score @{ ... @}}''.  This is what a full
+enclosing them in @code{\score @{ ... @}}.  This is what a full
 LilyPond source file looks like:
 
-@quotation
 @example
 \score @{
   \notes @{
-     \time 3/4
-     \clef bass
-     c2 e4 g2.
-     f4 e d c2.
+    \time 3/4
+    \clef bass
+    c2 e4 g2.
+    f4 e d c2.
   @}
   \paper @{ @}
 @}
 @end example
 
-@lilypond
+@lilypond[noindent]
 \score {
   \notes {
      \time 3/4
@@ -234,11 +191,11 @@ LilyPond source file looks like:
      c2 e4 g2.
      f4 e d c2.
   }
-  \paper { linewidth = 60 * \staffspace }
+  \paper {
+    linewidth = 55 * \staffspace
+  }
 }
 @end lilypond
-@end quotation
-@separate
 
 
 @node Running LilyPond
@@ -395,8 +352,7 @@ discussed in the previous two sections.
 @item @code{1 2 8 16}
 @tab durations 
 @tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
+@lilypond[relative 1, noquote, notime]
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c1 c2 c8 c16
@@ -405,8 +361,7 @@ c1 c2 c8 c16
 @item @code{. ..}
 @tab augmentation dots
 @tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
+@lilypond[relative 1, noquote, notime]
 \property Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
@@ -414,8 +369,7 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scale 
 @tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
+@lilypond[relative 1, noquote, notime]
 \property Staff.Clef = \turnOff
 c d e f g a b
 @end lilypond
@@ -423,8 +377,7 @@ c d e f g a b
 @item @code{\clef treble \clef bass }
 @tab clefs
 @tab
-@lilypond[fragment]
-\property Staff.TimeSignature \set #'transparent = ##t 
+@lilypond[noquote, notime]
 \clef treble
 s4_" "
 \clef bass
@@ -434,7 +387,7 @@ s4_" "
 @item @code{\time 3/4 \time 4/4 }
 @tab time signature
 @tab
-@lilypond[fragment]
+@lilypond[noquote]
 \property Staff.Clef \set #'transparent = ##t 
 \time 3/4
 s4_" "
@@ -681,30 +634,25 @@ The following table summarizes the syntax learned so far in this section.
 @item @code{r4 r8}
 @tab rest 
 @tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
+@lilypond[relative 1, noquote, notime]
 \property Staff.Clef = \turnOff
 r4 r8
 @end lilypond
 
-
 @item @code{~}
 @tab tie
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[relative 1, noquote, notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 d ~ d
 @end lilypond
 
-
 @item @code{\key es \major }
 @tab key signature
 @tab
-@lilypond[fragment]
-\property Staff.TimeSignature \set #'transparent = ##t
+@lilypond[noquote, notime]
 \clef treble
 \key es \major
 s4 
@@ -713,9 +661,8 @@ s4
 @item @var{note}@code{'}
 @tab raise octave
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[relative 1, noquote, notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 a a'
@@ -724,9 +671,8 @@ a a'
 @item @var{note}@code{,}
 @tab lower octave
 @tab
-@lilypond[fragment, relative 1]
+@lilypond[relative 1, noquote, notime]
 \property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c c,
@@ -1762,7 +1708,7 @@ input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini, composed around 1740.  It's in the source
 package under the name @file{input/tutorial/sammartini.ly}.
 
-@lilypondfile[smallverbatim]{sammartini.ly}
+@lilypondfile[smallverbatim,noquote]{sammartini.ly}
 
 As you can see, this example features multiple voices on one staff.  To
 make room for those voices, their notes should be stemmed in opposite
@@ -1948,12 +1894,12 @@ getting the motive in a wrong octave.
 @cindex @code{\translator}
 
 @example
-	\translator Staff = down
-	\stemUp
-	c8
-	\translator Staff = up
-	\stemDown
-	c'8 @}
+\translator Staff = down
+\stemUp
+c8
+\translator Staff = up
+\stemDown
+c'8 @}
 @end example
 Voices can switch between staves.  Here you see two staff switching
 commands.  The first one moves to the lower staff, the second one to
@@ -2190,7 +2136,7 @@ The following command manually adds an offset to the object.  We move
 it a little to the left, and 1.8 staff space downwards.
 @example
  \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
-@end example	   
+@end example   
 The @code{extra-offset} is a low-level feature: it moves around
 objects in the printout; the formatting engine is completely oblivious
 to these offsets.  The unit of these offsets are staff-spaces.  The
@@ -2270,7 +2216,7 @@ Between the object and its support (in this case the notes in the voice
 going down), there should be more space.  This space is controlled by
 @code{padding}, so we increase it.
 @example
-	    \property Voice.DynamicLineSpanner \override #'padding = #5.0
+\property Voice.DynamicLineSpanner \override #'padding = #5.0
 @end example
 
 This command is almost like the command for setting slur attachments,
@@ -2293,8 +2239,8 @@ different voice, and blank the stem.  This is done in the following
 snippet of code.
 
 @example
-	 \property Voice.Stem \set #'transparent = ##t
-	  d'
+\property Voice.Stem \set #'transparent = ##t
+d'
 @end example
 Blanking the stem should be done for only one object. One of the ways
 to achieve that, is by setting the property before a note. Reverting
@@ -2452,7 +2398,7 @@ conductor's score.
     >
     \context StaffGroup = brass <
       \context Staff = trombe <
-  	\property Staff.midiInstrument = #"trumpet"
+        \property Staff.midiInstrument = #"trumpet"
         \property Staff.instrument = #`(lines "2 Trombe" "(C)")
         \property Staff.instr = #`(lines "Tbe." "(C)")
         \Key
@@ -2474,7 +2420,7 @@ conductor's score.
   >
   \paper @{
     indent = 15 * \staffspace
-    linewidth = 60 * \staffspace
+    linewidth = 55 * \staffspace
     textheight = 90 * \staffspace
     \translator@{
       \HaraKiriStaffContext
@@ -2645,8 +2591,8 @@ when they're different.
 
 @separate
 @example
-      	\property Staff.instrument = #`(lines "Corno"
-          (columns "(E" ,text-flat ")"))
+\property Staff.instrument = #`(lines "Corno"
+  (columns "(E" ,text-flat ")"))
 @end example
 The french horn (``Corno'') has the most complex scheme markup name, made
 up of two lines of text.  The second line has three elements (columns) --
@@ -2675,7 +2621,7 @@ Since the horn is transposing, it's in a different key.
 @separate
 @example
     indent = 15 * \staffspace
-    linewidth = 60 * \staffspace
+    linewidth = 55 * \staffspace
 @end example
 We specify a big indent for the first line and a small linewidth for this
 tutorial.
@@ -2876,9 +2822,14 @@ The result looks more or less like this:
 In a lilypond-book document, you can freely mix music and text. For
 example:
 @lilypond
-  \score { \notes \relative c' {
-     c2 g'2 \times 2/3 { f8 e d } c'2 g4
-  } }
+\score {
+  \notes \relative c' {
+    c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  }
+  \paper {
+    linewidth = -1
+  }
+}
 @end lilypond
 Notice that the music line length matches the margin settings of the
 document.
@@ -2909,7 +2860,7 @@ the default music size, @code{fragment} adds a score block,
 If you include large examples into the text, it may be more convenient
 to put the example in a separate file:
 
-@lilypondfile[printfilename]{sammartini.ly}
+@lilypondfile[printfilename,noquote]{sammartini.ly}
 
 The @code{printfilename} option adds the file name to the output.
 @node  End of tutorial

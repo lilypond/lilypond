@@ -244,14 +244,13 @@ and dots: durations are entered as their reciprocal values.  For notes
 longer than a whole you must use identifiers.
 
 @example 
- c'\breve  
+c'\breve  
 c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
 r\longa r\breve  
 r1 r2 r4 r8 r16 r32 r64 r64 
 @end example 
 
-
-@lilypond[]
+@lilypond[noindent,noquote]
 \score {
   \notes \relative c'' {
     a\breve  \autoBeamOff
@@ -361,7 +360,7 @@ There is a facility for automatically converting long notes to tied
 notes. This is done by replacing the @code{Note_heads_engraver} by the
 @code{Completion_heads_engraver}. 
 
-@lilypond[verbatim,center]
+@lilypond[verbatim,noindent,noquote]
 \score{
   \notes\relative c'{ \time 2/4
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
@@ -1205,7 +1204,7 @@ same effect as twiddling with @code{stemLeftBeamCount} and
 \property Score.beatLength = #(make-moment 1 8)
 [c32 c c c c c c c c c c c c c c c]
 @end example
-@lilypond[]
+@lilypond[noindent,noquote]
 \score {
     \notes \relative c' {
         [c16 c c c c c c c]
@@ -1871,8 +1870,8 @@ using @code{^} and @code{_}.
       }
     >
     \paper {
-      linewidth = 5.875\in
-      indent    = 0.0
+      linewidth = 5.1\in
+      indent    = 0.0\mm
     }
   }
 @end lilypond
@@ -2465,8 +2464,9 @@ In the above example the music was transformed using the list @code{'drums}.
 Currently the following lists are defined in @file{scm/drums.scm}:
 @table @code
 @item 'drums
-To typeset a typical drum kit on a five line staff.
-@lilypond[]
+To typeset a typical drum kit on a five-line staff.
+
+@lilypond[noindent]
 \include "drumpitch-init.ly"
 nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl }
@@ -2481,6 +2481,7 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
         \context Lyrics \nam 
     >
     \paper {
+        linewidth = 100.0\mm
         \translator {
             \StaffContext
             \remove Bar_engraver
@@ -2494,6 +2495,7 @@ mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
    }   
 }
 @end lilypond
+
 Notice that the scheme supports six different toms.
 If you are using fewer toms then you simply select the toms that produce
 the desired result - i.e. to get toms on the three middle lines you
@@ -2990,7 +2992,7 @@ e8 fis gis a b cis' dis' e'
 \property TabStaff.minimumFret = #8
 e8 fis gis a b cis' dis' e'
 @end example
-@lilypond
+@lilypond[noindent,noquote]
 frag = \notes {
     \key e \major
     e8 fis gis a b cis' dis' e'
@@ -3303,7 +3305,7 @@ chord name styles:
 
 @c too long?
 @c maybe just junk verbatim option?
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,singleline,noquote]
 scheme = \chords {
   c1 c:5^3 c:4^3 c:5+
   c:m7+ c:m5-.7
@@ -3421,7 +3423,7 @@ adds a box around the bar numbers:
   #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
 \property Score.BarNumber \override #'font-relative-size = #0
 @end example
-@lilypond
+@lilypond[noindent,noquote]
 \score {
     \context Staff \notes \transpose c''' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
@@ -3938,7 +3940,7 @@ anticipates the pitch of the first note(s) of the following line and
 thus helps the player or singer to manage line breaks during
 performance, thus enhancing readability of a score.
 
-@lilypond[verbatim]
+@lilypond[verbatim,noquote]
 \score {
   \notes { c'1 \break
         \property Staff.Custos \set #'style = #'mensural

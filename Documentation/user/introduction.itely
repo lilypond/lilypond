@@ -3,16 +3,15 @@
 @node Introduction
 @chapter Introduction
 
-
-LilyPond is a program to print sheet music. If you have used notation
+LilyPond is a program to print sheet music.  If you have used notation
 programs before, then the way to use this program might be surprising
-at first sight. To print music with lilypond, you have to enter
-musical codes in a file. Then you run LilyPond on the file, and the
-music is produced without any further intervention. For example,
+at first sight.  To print music with lilypond, you have to enter
+musical codes in a file.  Then you run LilyPond on the file, and the
+music is produced without any further intervention.  For example,
 something like this:
 
 @lilypond[fragment,verbatim, relative 1, intertext="produces this"]
-\key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
+\key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
 @cindex encoding music
@@ -30,10 +29,10 @@ In this chapter, we will explain the reasoning behind this unusual
 design, and how this approach affects you as a user.
 
 @menu
-* Batch processing::            
-* Music engraving::             
-* Music representation::        
-* About this manual::           
+* Batch processing::
+* Music engraving::
+* Music representation::
+* About this manual::
 @end menu
 
 @node Batch processing
@@ -41,7 +40,7 @@ design, and how this approach affects you as a user.
 
 @cindex GUI
 @cindex Batch
-@cindex UNIX 
+@cindex UNIX
 
 When we started developing LilyPond, we were still studying at the
 university.  We were interested in music notation, not as publishers
@@ -111,22 +110,22 @@ experience, we would not have realized how ugly the fonts were that we
 admired at first.
 
 
-@lilypond
+@lilypond[noindent]
 #(define magfact 3.0)
 \score {  \notes { as'2 r4 }
-	  \paper {
-	      linewidth = -1. 
-	      \translator {
-		  \ScoreContext
-		  AccidentalPlacement \override #'right-padding = #3.0
-		  StaffSymbol \override #'transparent =   ##t
-		  Clef \override #'transparent = ##t
-		  TimeSignature \override #'transparent = ##t		  
-		  Accidental \override #'font-magnification = #magfact
-		  Rest \override #'font-magnification = #magfact
-		  NoteHead \override #'font-magnification = #magfact
-		  Stem \override #'transparent = ##t
-		  } } }
+          \paper {
+              linewidth = -1.
+              \translator {
+                  \ScoreContext
+                  AccidentalPlacement \override #'right-padding = #3.0
+                  StaffSymbol \override #'transparent =   ##t
+                  Clef \override #'transparent = ##t
+                  TimeSignature \override #'transparent = ##t
+                  Accidental \override #'font-magnification = #magfact
+                  Rest \override #'font-magnification = #magfact
+                  NoteHead \override #'font-magnification = #magfact
+                  Stem \override #'transparent = ##t
+                  } } }
 @end lilypond
 
 @cindex musical symbols
@@ -157,7 +156,7 @@ which?
 @c I can only see the motive printed two times!!! /Mats
 
 @cindex optical spacing
-@lilypond
+@lilypond[noindent]
     \score { \notes {
       \property Staff.NoteSpacing \set #'stem-spacing-correction
         = #0.6
@@ -168,7 +167,7 @@ which?
       \property Staff.StaffSpacing \override #'stem-spacing-correction
       = #0.0
       c'4 e''4 e'4 b'4 |
-      \stemDown b'4 e''4 a'4 e''4|      
+      \stemDown b'4 e''4 a'4 e''4|
     }
     \paper { linewidth = -1. } }
 @end lilypond
@@ -298,7 +297,7 @@ in the lilypond-internals manual much easier.
 @cindex variables
 @cindex properties
 @cindex lilypond-internals
-@cindex internal documentation 
+@cindex internal documentation
 
 For those who really want to get their hands dirty: it is even
 possible to add your own functionality, by extending LilyPond in the

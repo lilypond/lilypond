@@ -873,7 +873,7 @@ also the contrapunctal technique used in the @emph{fugue} which, since the
 music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
-@lilypond[11pt]
+@lilypond[11pt,noquote]
 \property Score.TimeSignature \override #'style = #'()
 \notes\context PianoStaff <
   \context Staff = SA \relative c' {
@@ -1188,7 +1188,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   }
 @end lilypond
 
-@lilypond[13pt,notime]
+@lilypond[13pt,notime,linewidth=110mm]
 \property Score.barNonAuto = ##t
 \property Score.LyricText \set #'font-style = #'large
 \property Score.TextScript \set #'font-style = #'large

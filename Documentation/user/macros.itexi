@@ -62,7 +62,7 @@ b
 @iftex
 @macro texiflat {word}
 @tex
-$\\flat$
+$\\flat$%
 @end tex
 @end macro
 @end iftex

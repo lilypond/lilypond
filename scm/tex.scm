@@ -142,7 +142,19 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "%\n\\endgroup\\EndLilyPondOutput\n"
+    (string-append
+     "%\n"
+     "\\EndLilyPondOutput\n"
+     "\\begingroup\n"
+     "\\ifx\\LilyPondDocument\\undefined\n"
+     "  \\def\\x{\\endgroup}%\n"
+     "\\else\n"
+     "  \\def\\x{%\n"
+     "    \\endgroup\n"
+     "    \\enddocument\n"
+     "  }\n"
+     "\\fi\n"
+     "\\x\n"
 					; Put GC stats here.
 		   )))
 
@@ -178,10 +190,30 @@
 				 (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
        (ly-gulp-file "music-drawing-routines.ps"))
 ;   (if (defined? 'ps-testing) "/testing true def%\n" "")
-   "}"
+   "}%\n"
+   "\\begingroup\n"
+   "\\catcode `\\@=11\n"
+   "\\expandafter\\ifx\\csname @nodocument\\endcsname \\relax\n"
+   "  \\def\\x{\\endgroup}%\n"
+   "\\else\n"
+   "  \\def\\x{%\n"
+   "    \\endgroup\n"
+   "    \\def\\LilyPondDocument{}\n"
+   "    \\documentclass{article}\n"
+   ; argh, we can't say \begin{document} because \begin is defined as
+   ; \outer in texinfo
+   "    \\begingroup\n"
+   "    \\document\n"
+   "    \\ifdim\\lilypondpaperlinewidth\\lilypondpaperunit > 0pt\n"
+   "      \\hsize\\lilypondpaperlinewidth\\lilypondpaperunit\n"
+   "    \\fi\n"
+   "    \\parindent 0pt\n"
+   "  }\n"
+   "\\fi\n"
+   "\\x\n"
    "\\input lilyponddefs\n"
    "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\turnOnPostScript\\begingroup\\parindent0pt\n"))
+   "\\turnOnPostScript\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 
