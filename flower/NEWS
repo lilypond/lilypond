@@ -1,4 +1,5 @@
-pl 41.jcn1
+pl 42
+	- interval.*: Slice (Interval of int)
 	trying to get rid of 2.8 ice:
         - moved functions with loops from varray.hh to varray.cc
 
