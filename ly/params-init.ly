@@ -52,6 +52,8 @@ interscoreline = 4. \mm
 \translator { \TabVoiceContext }
 \translator { \VaticanaStaffContext }
 \translator { \VaticanaVoiceContext }
+\translator { \GregorianTranscriptionStaffContext }
+\translator { \GregorianTranscriptionVoiceContext }
 
 
 %%

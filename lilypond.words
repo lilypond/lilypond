@@ -143,6 +143,8 @@ Grace
 \\grandstaff
 GrandStaff
 \\GrandStaffContext
+GregorianTranscriptionStaff
+GregorianTranscriptionVoice
 \\grobdescriptions
 \\groupClose
 \\groupOpen

@@ -378,6 +378,7 @@ RemoveEmptyStaffContext = \translator {
 HaraKiriStaffContext = \translator {
 	\RemoveEmptyStaffContext
 	\accepts "VaticanaVoice"
+	\accepts "GregorianTranscriptionVoice"
 }
 
 ScoreContext = \translator {
@@ -419,6 +420,7 @@ ScoreContext = \translator {
 	\accepts "Staff"
 	\accepts "TabStaff"
 	\accepts "VaticanaStaff"
+	\accepts "GregorianTranscriptionStaff"
 	\accepts "StaffContainer"
 	\accepts "StaffGroup"
 	\accepts "RhythmicStaff"
@@ -624,6 +626,12 @@ VaticanaVoiceContext = \translator {
   % As a workaround, we make the grob transparent.
   Stem \set #'transparent = ##t
 
+  % Since we do not remove stems, but only make it transparent, we have
+  % to set the length to 0.0.  Otherwise, articulation marks (such as
+  % ictus, circulus or accentus) may be vertically placed quite away from
+  % the note head.
+  Stem \set #'length = #'0.0
+
   \remove "Ligature_bracket_engraver"
   \consists "Vaticana_ligature_engraver"
 
@@ -641,6 +649,7 @@ VaticanaVoiceContext = \translator {
   TextSpanner \set #'style = #'line
   TextSpanner \set #'edge-height = #'(0 . 0)
   TextSpanner \set #'padding = #0.5
+  TextSpanner \set #'enclose-bounds = ##t
   TextSpanner \set #'edge-text = #'("" . "")
 }
 
@@ -650,12 +659,13 @@ VaticanaStaffContext = \translator {
   \alias "Staff"
   \denies "Voice"
   \accepts "VaticanaVoice"
-%  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
+  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
 
   \remove "Time_signature_engraver"
   \consists "Custos_engraver"
 
-  % We can not remove Bar_engraver, since clef and custos depend on it.
+  % We can not remove Bar_engraver; otherwise clefs and custodes will
+  % not show up any more among other line breaking issues.
   % Instead, we make the grob transparent.
   BarLine \set #'transparent = ##t
 
@@ -680,4 +690,63 @@ VaticanaStaffContext = \translator {
 
   % Score.timing = ##f
   % Score.barAlways = ##t
+}
+
+GregorianTranscriptionVoiceContext = \translator {
+  \VoiceContext
+  \name "GregorianTranscriptionVoice"
+  \alias "Voice"
+
+  % Removing ligature bracket engraver without replacing it by some
+  % other ligature engraver would cause a "Junking event: `LigatureEvent'"
+  % warning for every "\[" and "\]".  Therefore, we make the grob
+  % transparent instead.
+  LigatureBracket \set #'transparent = ##t
+
+  % We can not remove Slur_engraver, since \addlyrics depends on it.
+  % Instead, we make the grob transparent.
+  % Unfortunately, this gives us a lot of warnings ("Degenerate bow:
+  % infinite steepness reqd"), since in ligatures, all note heads are in
+  % the same paper column such that the (transparent) slurs eventually may
+  % start and end in the same column.
+  Slur \override #'transparent = ##t
+
+  % We can not remove Stem_engraver, since slurs depend on stems.  If
+  % we try anyway, lily will crash in slur.scm:16:6: "Wrong type argument
+  % in position 1 (expecting grob): ()".
+  % As a workaround, we make the grob transparent.
+  Stem \set #'transparent = ##t
+
+  % Since we do not remove stems, but only make it transparent, we have
+  % to set the length to 0.0.  Otherwise, articulation marks (such as
+  % ictus, circulus or accentus) may be vertically placed quite away from
+  % the note head.
+  Stem \set #'length = #'0.0
+
+  % Put some space before and after divisiones.
+  % FIXME: This does not seem to show any effect.
+  Script \set #'padding = #0.5
+
+  % There are no beams in Gregorian Chant notation.
+  autobeaming = ##f
+
+  % Prepare TextSpanner for \episem{Initium|Finis} use.
+  TextSpanner \set #'style = #'line
+  TextSpanner \set #'edge-height = #'(0 . 0)
+  TextSpanner \set #'padding = #0.5
+  TextSpanner \set #'enclose-bounds = ##t
+  TextSpanner \set #'edge-text = #'("" . "")
+}
+
+GregorianTranscriptionStaffContext = \translator {
+  \StaffContext
+  \name "GregorianTranscriptionStaff"
+  \alias "Staff"
+  \denies "Voice"
+  \accepts "GregorianTranscriptionVoice"
+
+  % We can not remove Bar_engraver; otherwise clefs and custodes will
+  % not show up any more among other line breaking issues.
+  % Instead, we make the grob transparent.
+  BarLine \set #'transparent = ##t
 }

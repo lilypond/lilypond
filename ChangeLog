@@ -1,3 +1,16 @@
+2003-08-18  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lilypond.words, ly/engraver-init.ly, ly/params-init.ly: added
+	GregorianTranscription contexts
+
+	* ly/engraver-init.ly: vaticana contexts: minor fixes
+
+	* Documentation/user/refman.itely (Ancient notation): added note
+	on appendix length bug
+
+	* input/puer-fragment.ly, input/test/gregorian-scripts.ly,
+	input/test/vaticana.ly: use vaticana contexts; small fixes
+
 2003-08-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/hash.cc: Remove.
