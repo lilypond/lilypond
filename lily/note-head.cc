@@ -122,7 +122,7 @@ Stencil
 internal_print (Grob *me, bool with_ledgers)
 {
   SCM style  = me->get_property ("style");
-  if (!is_symbol (style))
+  if (!ly_c_symbol_p (style))
     {
       return Stencil ();
     }
@@ -251,7 +251,7 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM idx = scm_int2num (pit->get_notename ());
   SCM names = me->get_property ("note-names");
   SCM charstr = SCM_EOL;
-  if (is_vector (names))
+  if (ly_c_vector_p (names))
     charstr = scm_vector_ref (names, idx);
   else
     {
@@ -291,7 +291,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (brewer == Note_head::print_proc)
     {
       SCM style  = me->get_property ("style");
-      if (!is_symbol (style))
+      if (!ly_c_symbol_p (style))
 	{
 	  return 0.0;
 	}
@@ -317,7 +317,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     Fallback
    */
   SCM v = me->get_property ("stem-attachment-function");
-  if (!is_procedure (v))
+  if (!ly_c_procedure_p (v))
     return 0.0;
   
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));

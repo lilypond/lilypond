@@ -28,7 +28,7 @@ String
 Music::name () const
 {
   SCM nm = get_property ("name");
-  if (is_symbol (nm))
+  if (ly_c_symbol_p (nm))
     {
       return ly_symbol2string (nm);
     }
@@ -87,7 +87,7 @@ Music::get_length () const
   SCM lst = get_property ("length");
   if (unsmob_moment (lst))
     return *unsmob_moment (lst);
-  else if (is_procedure (lst))
+  else if (ly_c_procedure_p (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);
@@ -100,7 +100,7 @@ Moment
 Music::start_mom () const
 {
   SCM lst = get_property ("start-moment-function");
-  if (is_procedure (lst))
+  if (ly_c_procedure_p (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);
@@ -130,7 +130,7 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   Music* m = unsmob_music (s);
 
   SCM nm = m->get_property ("name");
-  if (is_symbol (nm) || ly_c_string_p (nm))
+  if (ly_c_symbol_p (nm) || ly_c_string_p (nm))
     scm_display (nm, p);
   else
     scm_puts (classname (m),p);
@@ -231,7 +231,7 @@ LY_DEFINE (ly_music_property,
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }
@@ -242,7 +242,7 @@ LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)

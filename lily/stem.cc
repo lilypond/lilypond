@@ -576,7 +576,7 @@ Stem::flag (Grob*me)
   String flag_style;
   
   SCM flag_style_scm = me->get_property ("flag-style");
-  if (is_symbol (flag_style_scm))
+  if (ly_c_symbol_p (flag_style_scm))
     {
       flag_style = ly_symbol2string (flag_style_scm);
     }

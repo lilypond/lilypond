@@ -74,7 +74,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 	  Music * left_mus = heads_to_tie_[i].event_;
 
 	  if (right_mus && left_mus
-	      && is_equal (right_mus->get_property ("pitch"),
+	      && ly_c_equal_p (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
 	      an->tie_to (th);

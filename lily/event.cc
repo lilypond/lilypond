@@ -195,7 +195,7 @@ alist_equal_p (SCM a, SCM b)
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !is_equal ( ly_cdr (l), val))
+	  || !ly_c_equal_p ( ly_cdr (l), val))
 
 	return false;
     }

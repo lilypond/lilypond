@@ -60,13 +60,13 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
   if (to_boolean (a->get_property ("cautionary")))
     {
       SCM cstyle = a->get_property ("cautionary-style");
-      parens = is_equal (cstyle, ly_symbol2scm ("parentheses"));
+      parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
 
     }
 
   SCM accs = a->get_property ("accidentals");
   SCM scm_style = a->get_property ("style");
-  if (!is_symbol (scm_style)
+  if (!ly_c_symbol_p (scm_style)
       && !parens
       && scm_ilength (accs) == 1)
     {
@@ -175,13 +175,13 @@ Accidental_interface::print (SCM smob)
   if (caut)
     {
       SCM cstyle = me->get_property ("cautionary-style");
-      parens = is_equal (cstyle, ly_symbol2scm ("parentheses"));
-      smaller = is_equal (cstyle, ly_symbol2scm ("smaller"));
+      parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      smaller = ly_c_equal_p (cstyle, ly_symbol2scm ("smaller"));
     }
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (is_symbol (scm_style))
+  if (ly_c_symbol_p (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }

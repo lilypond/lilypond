@@ -113,7 +113,7 @@ Mark_engraver::process_music ()
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
       if (!Text_item::markup_p (m) &&
-	  is_procedure (proc))
+	  ly_c_procedure_p (proc))
 	{
 	  if (!is_number (m)) 
 	    m =  get_property ("rehearsalMark");

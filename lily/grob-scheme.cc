@@ -21,7 +21,7 @@ LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
@@ -40,7 +40,7 @@ LY_DEFINE (ly_get_property, "ly:grob-property",
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }

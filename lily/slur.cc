@@ -193,15 +193,15 @@ Slur::set_extremities (Grob *me)
   do 
     {
     
-      if (!is_symbol (index_get_cell (att, dir)))
+      if (!ly_c_symbol_p (index_get_cell (att, dir)))
 	{
 	  SCM p = me->get_property ("extremity-function");
 	  SCM res = ly_symbol2scm ("head");
 	  
-	  if (is_procedure (p))
+	  if (ly_c_procedure_p (p))
 	    res =  scm_call_2 (p, me->self_scm (), scm_int2num (dir));
 
-	  if (is_symbol (res))
+	  if (ly_c_symbol_p (res))
 	    index_set_cell (att, dir, res);
 	}
     }
@@ -288,7 +288,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_property ("attachment");
-  if (!ly_c_pair_p (s) || !is_symbol (index_get_cell (s, dir)))
+  if (!ly_c_pair_p (s) || !ly_c_symbol_p (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
@@ -655,8 +655,8 @@ Slur::get_curve (Grob*me)
 
   
   if (!get_grob_direction (me)
-      || ! is_symbol (index_get_cell (attach, LEFT))
-      || ! is_symbol (index_get_cell (attach, RIGHT)))
+      || ! ly_c_symbol_p (index_get_cell (attach, LEFT))
+      || ! ly_c_symbol_p (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
   if (!ly_c_pair_p (me->get_property ("control-points")))

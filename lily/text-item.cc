@@ -25,7 +25,7 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
   SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "Paper definition");
   SCM_ASSERT_TYPE(ly_c_string_p (markup), markup, SCM_ARG3, __FUNCTION__, "string");
   SCM_ASSERT_TYPE(encoding == SCM_EOL
-		  || is_symbol (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
+		  || ly_c_symbol_p (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
   String str = ly_scm2string (markup);
   Font_metric *fm = select_encoded_font (pap, props, encoding);

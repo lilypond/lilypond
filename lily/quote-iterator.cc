@@ -100,7 +100,7 @@ Quote_iterator::construct_children ()
   start_moment_ = now;
   event_vector_ = get_music ()->get_property ("quoted-events");
 
-  if (is_vector (event_vector_))
+  if (ly_c_vector_p (event_vector_))
     {
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
       end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);

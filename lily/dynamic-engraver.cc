@@ -220,7 +220,7 @@ Dynamic_engraver::process_music ()
 	    start_type = "crescendo";
 	  
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
-	  if (!is_symbol (s) || s == ly_symbol2scm ("hairpin"))
+	  if (!ly_c_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_  = make_spanner ("Hairpin");
 	      cresc_->set_property ("grow-direction",

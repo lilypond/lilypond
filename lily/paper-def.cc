@@ -129,7 +129,7 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
     {
       SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
 
-      if (!is_symbol (input_enc_name))
+      if (!ly_c_symbol_p (input_enc_name))
 	{
 	  SCM var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
 	  input_enc_name = scm_variable_ref (var);

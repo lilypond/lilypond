@@ -74,7 +74,7 @@ check_meshing_chords (Grob *me,
 
 
   /* Do not merge notes typeset in different style. */
-  if ( !is_equal (nu->get_property ("style"),
+  if ( !ly_c_equal_p (nu->get_property ("style"),
 		     nd->get_property ("style") ) )
     merge_possible = false;
   

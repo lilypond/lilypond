@@ -133,7 +133,7 @@ LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",
 {
   Music_output_def *op = unsmob_music_output_def (pap);
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
-  SCM_ASSERT_TYPE (is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   SCM var = ly_module_lookup (op->scope_, sym);
   if (SCM_VARIABLEP (var))

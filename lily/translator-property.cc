@@ -32,7 +32,7 @@ void
 execute_pushpop_property (Context * trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
-  if (is_symbol (prop) && is_symbol (eltprop))
+  if (ly_c_symbol_p (prop) && ly_c_symbol_p (eltprop))
     {
       if (val != SCM_UNDEFINED)
 	{
@@ -88,7 +88,7 @@ execute_pushpop_property (Context * trg,
 
 	  while (prev_alist != daddy)
 	    {
-	      if (is_equal (ly_caar (prev_alist), eltprop))
+	      if (ly_c_equal_p (ly_caar (prev_alist), eltprop))
 		{
 		  prev_alist = ly_cdr (prev_alist);
 		  break ;
@@ -151,7 +151,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 SCM
 updated_grob_properties (Context * tg, SCM sym)
 {
-  assert (is_symbol (sym));
+  assert (ly_c_symbol_p (sym));
   
   tg = tg->where_defined (sym);
   if (!tg)

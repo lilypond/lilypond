@@ -392,10 +392,10 @@ Part_combine_iterator::process (Moment m)
 	solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
 	solo2 ();
-      else if (is_symbol (tag))
+      else if (ly_c_symbol_p (tag))
 	{
 	  String s =  "Unknown split directive: "
-	    + (is_symbol (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
+	    + (ly_c_symbol_p (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 
 	  programming_error (s);
 	}
     }

@@ -91,7 +91,7 @@ do_break_substitution (SCM src)
  
   if (unsmob_grob (src))
     return substitute_grob (unsmob_grob (src));
-  else if (is_vector (src))
+  else if (ly_c_vector_p (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);

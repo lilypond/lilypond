@@ -163,7 +163,7 @@ number_accidentals (bool *different,
   int number = 0;
 
   *different = false;
-  if (ly_c_pair_p (accidentals) && !is_symbol (ly_car (accidentals)))
+  if (ly_c_pair_p (accidentals) && !ly_c_symbol_p (ly_car (accidentals)))
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
 		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
@@ -178,9 +178,9 @@ number_accidentals (bool *different,
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 
-	    is_eq (ly_symbol2scm ("same-octave"), type);
+	    ly_c_eq_p (ly_symbol2scm ("same-octave"), type);
 	  bool any_octave_b = 
-	    is_eq (ly_symbol2scm ("any-octave"), type);
+	    ly_c_eq_p (ly_symbol2scm ("any-octave"), type);
 
 	  if (same_octave_b || any_octave_b)
 	    {
@@ -199,7 +199,7 @@ number_accidentals (bool *different,
       /*
 	if symbol then it is a context name. Scan parent contexts to find it.
       */
-      else if (is_symbol (rule))
+      else if (ly_c_symbol_p (rule))
 	{
 	  Context * dad = origin;
 	  while (dad && !dad->is_alias (rule))
@@ -441,7 +441,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
       && Rhythmic_head::has_interface (info.grob_))
     {
       if (to_boolean ( get_property ("harmonicAccidentals"))
-	  || !is_equal (info.grob_->get_property ("style"),
+	  || !ly_c_equal_p (info.grob_->get_property ("style"),
 			  ly_symbol2scm ("harmonic")))
 	{
 	  

@@ -177,7 +177,7 @@ Context_def::get_accepted (SCM user_mod) const
 Link_array<Context_def>
 Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) const
 {
-  assert (is_symbol (type_sym));
+  assert (ly_c_symbol_p (type_sym));
   
   SCM accepted = get_accepted (SCM_EOL);
 
@@ -196,7 +196,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (is_equal (accepteds[i]->get_context_name (), type_sym))
+      if (ly_c_equal_p (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
@@ -382,7 +382,7 @@ Context_def::to_alist () const
   l = scm_cons (scm_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
   l = scm_cons (scm_cons (ly_symbol2scm ("context-name"),  context_name_), l);
 
-  if (is_symbol (translator_group_type_))
+  if (ly_c_symbol_p (translator_group_type_))
     l = scm_cons (scm_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  

@@ -112,8 +112,8 @@ Grob::Grob (SCM basicprops)
       if (is_number_pair (xt))
 	cb = xt;
       else if (cb != SCM_BOOL_F
-	  && !is_procedure (cb) && !ly_c_pair_p (cb)
-	  && is_procedure (get_property ("print-function")))
+	  && !ly_c_procedure_p (cb) && !ly_c_pair_p (cb)
+	  && ly_c_procedure_p (get_property ("print-function")))
 	cb = stencil_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -195,7 +195,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   
   SCM proc = internal_get_property (funcname);
-  if (is_procedure (proc))
+  if (ly_c_procedure_p (proc))
     scm_call_1 (proc, this->self_scm ());
  
   status_= final;
@@ -230,7 +230,7 @@ Grob::get_uncached_stencil ()const
   SCM proc = get_property ("print-function");
 
   SCM  mol = SCM_EOL;
-  if (is_procedure (proc)) 
+  if (ly_c_procedure_p (proc)) 
     mol = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
   
   Stencil *m = unsmob_stencil (mol);
@@ -476,7 +476,7 @@ bool
 Grob::is_empty (Axis a)const
 {
   return ! (ly_c_pair_p (dim_cache_[a].dimension_) ||
-	    is_procedure (dim_cache_[a].dimension_));
+	    ly_c_procedure_p (dim_cache_[a].dimension_));
 }
 
 Interval
@@ -489,7 +489,7 @@ Grob::extent (Grob * refp, Axis a) const
   Interval ext ;   
   if (ly_c_pair_p (d->dimension_))
     ;
-  else if (is_procedure (d->dimension_))
+  else if (ly_c_procedure_p (d->dimension_))
     {
       /*
 	FIXME: add doco on types, and should typecheck maybe? 
@@ -593,7 +593,7 @@ Grob::name () const
   SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
   nm = (ly_c_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
-  return  is_symbol (nm) ? ly_symbol2string (nm) :  classname (this);  
+  return  ly_c_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
 }
 
 void

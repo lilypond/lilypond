@@ -41,7 +41,7 @@ Time_signature::print (SCM smob)
     }
 
   Stencil m;
-  if (is_symbol (st))
+  if (ly_c_symbol_p (st))
     {
       String style (ly_scm2string (scm_symbol_to_string (st)));
       if (style[0]=='1')
