@@ -10,7 +10,7 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.0.21";
+\version "1.1.52";
 
 global = \notes{
 	\time 2/4;

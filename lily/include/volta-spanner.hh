@@ -19,10 +19,10 @@ public:
   Volta_spanner ();
  
   void add_column (Note_column*);
-  void add_column (Bar*);
+  void add_bar (Bar*);
  
   String number_str_;
-  Link_array<Bar> column_arr_;
+  Link_array<Bar> bar_arr_;
   Link_array<Note_column> note_column_arr_;
   bool last_b_;
 

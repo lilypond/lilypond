@@ -350,6 +350,18 @@ if 1:
 			    'hshift -> horizontalNoteShift')
 
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\\\\grouping[^;]*;','', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,1,52), conv,
+			    'deprecate \\grouping')
+
+
 
 ############################
 	

@@ -138,6 +138,7 @@ main (int argc_i, char* argv_sz_a[])
   textdomain (name.ch_C ()) ;
 #endif
 
+  bool key_override_b = false;
   Mudela_key key (0, 0);
 
   Long_option_init long_option_init_a[] =
@@ -183,7 +184,8 @@ main (int argc_i, char* argv_sz_a[])
 	    int i = str.index_i (':');
 	    i = (i >=0 ? i : str.length_i ());
 	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
-	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.cut_str (i + 1,1));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.cut_str (i + 1, str.length_i ()));
+	    key_override_b = true;
 	    break;
 	  }
 	case 'n':
@@ -250,7 +252,8 @@ main (int argc_i, char* argv_sz_a[])
 	  return 1;
 
 	// if given on command line: override
-	score_p->mudela_key_l_ = &key;
+	if (key_override_b || !score_p->mudela_key_l_)
+	  score_p->mudela_key_l_ = &key;
 	mudela_score_l_g = score_p;
 	score_p->process();
 

@@ -1,5 +1,7 @@
 
-
+%
+% Jan ->  dit is Auto_B_E bug, niet grouping bug.
+% 
 
 \score{
   \notes{ \time 13/8;

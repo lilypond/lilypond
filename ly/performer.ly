@@ -3,42 +3,56 @@
 %
 \translator {
 	\type "Staff_performer";
+	\name Staff;
 	\accepts Voice;
+
 	\accepts VoiceOne;		% ugh.
 	\accepts VoiceTwo;
 	\accepts VoiceThree;
 	\accepts VoiceFour;
 
-	\name Staff;
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
 }
 
+%% urg, why (needs praeludium-*.ly) these?
 \translator
 {
 	\type "Performer_group_performer";
 	\consists "Note_performer";
- \name VoiceFour;
+	 \name VoiceFour;
 }
 
 \translator
 {
 	\type "Performer_group_performer";
 	\consists "Note_performer";
-\name VoiceThree;
+	\name VoiceThree;
 }
 \translator
 {
 	\type "Performer_group_performer";
 	\consists "Note_performer";
- \name VoiceOne;
+	 \name VoiceOne;
 }
+
 \translator
 {
 	\type "Performer_group_performer";
+	\name Voice;
 	\consists "Note_performer";
-\name Voice;
+	\consists "Tie_performer";
+%	\accepts Grace;
 }
+
+\translator {
+	\type "Grace_performer_group";
+	\name "Grace";
+	\consists "Note_performer";
+	\consists "Tie_performer";
+	 weAreGraceContext = "1";
+}
+
 \translator
 {
 	\type "Performer_group_performer";

@@ -1,91 +1,82 @@
 
-          This is the toplevel README to LilyPond
+TITLE INFORMATION: This is the toplevel README to LilyPond 
 
-LilyPond  is the GNU Project music typesetter.  This program
-can print beautiful sheet  music  from  a  music  definition
-file.   It  can  also play mechanical performances to a MIDI
-file.  Features  include  multiple  staffs,  meters,  clefs,
-keys,  lyrics,  versatile  input  language, cadenzas, beams,
-slurs,  triplets,  named  chords,  transposing,   formatting
-scores, part extraction.  It includes a nice font of musical
-symbols.
+    LilyPond is the GNU Project music typesetter.  This program can print
+beautiful sheet music from a music definition file.  It can also play
+mechanical performances to a MIDI file.  Features include multiple
+staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,
+beams, slurs, triplets, named chords, transposing, formatting scores, 
+part extraction.  It includes a nice font of musical symbols.
 
 1: VERSIONING
 
-LilyPond uses a versioning scheme similar to the Linux  ker-
-nel.   In  a  version  "x.y.z",  an  even  second number 'y'
-denotes a stable version.  For development versions  'y'  is
-odd.  For using straightforward score production, please use
-the latest stable version.   Development  versions  may  not
-produce good or nice scores.
+LilyPond uses a versioning scheme similar to the Linux kernel.  In a
+version "x.y.z", an even second number 'y' denotes a stable version.
+For development versions 'y' is odd.  For using straightforward score
+production, please use the latest stable version.  Development versions
+may not produce good or nice scores.
 
 2: REQUIREMENTS
 
-For  the  compilation  and running of LilyPond you need some
-additional  packages.   Please  refer  to  the  installation
-instructions.
+For the compilation and running of LilyPond you need some additional
+packages.  Please refer to the installation instructions.
 
-NOTE:  If  you  downloaded  a  binary (.rpm or a W95/NT .zip
-file), then you don't have to compile LilyPond.
+NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), then
+you don't have to compile LilyPond.
 
 3: INSTALLATION
 
-For your  convenience,  a  formatted  copy  of  the  INSTALL
-instructions are in the toplevel directory, as INSTALL.txt
+For your convenience, a formatted copy of the INSTALL instructions are
+in the toplevel directory, as INSTALL.txt
 
-The  process is fairly straightforward, but chances are that
-you have to specify directories for  to configure:  this  is
-done with the options --enable-tex-dir and --enable-mf-dir
+The process is fairly straightforward, but chances are that you have
+to specify directories for TeX to configure: this is done with
+the options --enable-tex-dir and --enable-mf-dir
 
 4: DOCUMENTATION
 
 The real documentation is the directory Documentation/
 
-To generate the pretty-printed docs, you have to run config-
-ure first, and then do this:
+To generate the pretty-printed docs, you have to run configure first,
+and then do this:
 
-make doc
+	make doc
 
-You can also simply read the .yo sources.   They  are  ASCII
-text.  The complete documentation is accessible in formatted
-form at the website  http://www.cs.uu.nl/people/hanwen/lily-
-pond/index.html
+You can also simply read the .yo sources.  They are ASCII text.
+The complete documentation is accessible in formatted form at the 
+website http://www.cs.uu.nl/people/hanwen/lilypond/index.html
 
 5: COMMENTS
 
-LilyPond  is  a  long way from finished and polished.  We do
-appreciate criticism, comments, bugreports, patches, etc.
+LilyPond is a long way from finished and polished.  We do appreciate
+criticism, comments, bugreports, patches, etc.
 
-             Please send your e-mail to one of the MAILING LISTS
+	   Please send your e-mail to one of the MAILING LISTS
 
-and not to us personally.   See  Documentation/links.yo  for
-more info.
+and not to us personally.  See Documentation/links.yo for more info.
 
 6: WINDOWS 32
 
-If  you  have  received  this file as part of a DOS/Window32
-distribution (LilyPond-*.zip), then it is advisable to  also
-download  the  source  package,  since it might contain more
-documentation ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
+If you have received this file as part of a DOS/Window32 distribution
+(LilyPond-*.zip), then it is advisable to also download the source
+package, since it might contain more documentation
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
 
-If you decide to build LilyPond from source, please read the
-INSTALL.txt  document  first,  especially  the Windows NT/95
-section.
+If you decide to build LilyPond from source, please read the INSTALL.txt
+document first, especially the Windows NT/95 section.
 
 7: CAVEATS
 
-* Please read the file BUGS for some ugly bugs.
+* Please read the file BUGS for some ugly bugs.  
 
-* If you have installed  a  previous  version,  be  sure  to
-remove old font files, eg
+* If you have installed a previous version, be sure to remove old font
+files, eg
+rm `find /var/lib/texmf/fonts -name 'feta*'`
 
-     rm `find /var/lib/texmf/fonts -name 'feta*'`
-
-a  script  to  do  this  for  you  is in buildscripts/clean-
-fonts.sh
+a script to do this for you is in buildscripts/clean-fonts.sh
 
 8: CDROM DISTRIBUTIONS
 
-If you have received LilyPond on a cdrom, chances  are  that
-development  has  moved a some patchlevels up.  Please check
-the latest version of LilyPond before reporting bugs.
+If you have received LilyPond on a cdrom, chances are that development
+has moved a some patchlevels up.  Please check the latest version of
+LilyPond before reporting bugs.

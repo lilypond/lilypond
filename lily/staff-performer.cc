@@ -19,36 +19,28 @@ ADD_THIS_TRANSLATOR (Staff_performer);
 Staff_performer::Staff_performer ()
 {
   audio_staff_p_ = 0;
+  instrument_p_ = 0;
+  instrument_name_p_ = 0;
+  name_p_ = 0;
+  tempo_p_ = 0;
 }
 
 Staff_performer::~Staff_performer ()
 {
-  delete audio_staff_p_;
 }
 
 void
 Staff_performer::do_creation_processing ()
 {
   audio_staff_p_ = new Audio_staff;
+  announce_element (Audio_element_info (audio_staff_p_, 0));
 
-  play (new Audio_text (Audio_text::TRACK_NAME, id_str_));
+  name_p_ = new Audio_text (Audio_text::TRACK_NAME, id_str_);
+  announce_element (Audio_element_info (name_p_, 0));
 
-#if 1
-  String str = new_instrument_str ();
-  if (str.length_i ()) 
-    // instrument description
-    play (new Audio_text (Audio_text::INSTRUMENT_NAME, str));
-#endif
+  tempo_p_ = new Audio_tempo (get_tempo_i ());
+  announce_element (Audio_element_info (tempo_p_, 0));
 
-  // tempo
-  play (new Audio_tempo (get_tempo_i ()));
-
-#if 1
-  if (str.length_i ())
-    // instrument
-    play (new Audio_instrument (str));
-#endif
-   
   Performer_group_performer::do_creation_processing ();
 }
 
@@ -58,18 +50,45 @@ Staff_performer::do_process_requests ()
   String str = new_instrument_str ();
   if (str.length_i ())
     {
-      play (new Audio_text (Audio_text::INSTRUMENT_NAME, str));
-      play (new Audio_instrument (str));
+      instrument_name_p_ = new Audio_text (Audio_text::INSTRUMENT_NAME, str);
+      announce_element (Audio_element_info (instrument_name_p_, 0));
+      instrument_p_ = new Audio_instrument (str);
+      announce_element (Audio_element_info (instrument_p_, 0));
     }
   Performer_group_performer::do_process_requests ();
 }
 
+void
+Staff_performer::do_pre_move_processing ()
+{
+  if (name_p_)
+    {
+      play_element (name_p_);
+      name_p_ = 0;
+    }
+  if (tempo_p_)
+    {
+      play_element (tempo_p_);
+      tempo_p_ = 0;
+    }
+  if (instrument_name_p_)
+    {
+      play_element (instrument_name_p_);
+      instrument_name_p_ = 0;
+    }
+  if (instrument_p_)
+    {
+      play_element (instrument_p_);
+      instrument_p_ = 0;
+    }
+  Performer_group_performer::do_pre_move_processing ();
+}
 
 void
 Staff_performer::do_removal_processing ()
 {
   Performer_group_performer::do_removal_processing ();
-  Performer::play (audio_staff_p_);
+  Performer::play_element (audio_staff_p_);
   audio_staff_p_ = 0;
 }
 
@@ -95,12 +114,12 @@ Staff_performer::new_instrument_str ()
 }
 
 void 
-Staff_performer::play (Audio_element* p)
+Staff_performer::play_element (Audio_element* p)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (p)) 
     {
       audio_staff_p_->add_audio_item (ai);
     }
-  Performer::play (p);
+  Performer::play_element (p);
 }
 

@@ -185,6 +185,23 @@ public:
     }
 
 
+  
+  T& boundary (int dir, int idx)
+    {
+      assert (dir);
+      if (dir == 1)
+	return top (idx);
+      else
+	return elem_ref (idx);
+    }
+  T boundary (int dir, int idx) const
+    {
+      assert (dir);
+      if (dir == 1)
+	return top (idx);
+      else
+	return elem (idx);
+    }
   void swap (int i,int j) 
     {
       T t ((*this)[i]);

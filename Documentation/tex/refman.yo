@@ -883,21 +883,6 @@ mudela(verbatim)(\score{
      foo1 __  bar2. __ _4 baz1 __ }
 > })
      
-If you want to have hyphens centred between syllables (rather than attached
-to the end of the first syllable) you can use the special code(--) lyric as
-separate word between syllables. This will result in a hyphen whose length
-varies depending on the space between syllables, and centred between the
-syllables. For example: 
-mudela(verbatim)(\score{
-  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
-                              e'4 f g'2 \bar "|."; }
-     \context Lyrics \lyrics { 
-              DOEXPAND(Fr\)`e4 -- re Ja -- que DOEXPAND(Fr\)`e -- re Ja -- que
-              Dor -- mez vous?2 Dor4 -- mez vous?2  }
-  >
-})
-
- 
 
 
 sect(Time)  
@@ -1606,6 +1591,9 @@ above or below the clef instead of on the bar line.
 dit(code(barNumberScriptPadding)) Sets extra space between the bar
 number and the bar it labels.
 
+dit(code(barSize)) Specify the height of the bar lines if it should be
+different than the staff height.
+
 dit(code(markHangOnClef)) Set to 1 to cause marks to appear by clefs
 instead of by bar lines.
 
@@ -1623,6 +1611,9 @@ overridden, possibly many measures later.
 
 dit(code(staffLineLeading)) Specifies the distance (in points) between lines
 of the staff.  
+
+dit(code(numberOfStaffLines)) Specifies the number of staff lines. The
+default is 5. 
 
 dit(code(postBreakPadding)) Extra space in points to be added after
 the clef, time signature and key signature on the staff.
@@ -1952,8 +1943,6 @@ arithmetic_basicspace.  The smallest space is the one following the
 shortest note in the measure.  Typically arithmetic_basicspace is set
 to the width of a quarter note head.
 
-dit(code(barsize)) Specify height of bars.  This value may need to be
-adjusted if you change the number of lines in the staff.
 dit(code(beam_dir_algorithm)) Specify algorithm for determining
 whether beams go up or down.  It is real valued.  If set to 2.0 then
 majority selection is used.  If set to 3.0, then mean selection is

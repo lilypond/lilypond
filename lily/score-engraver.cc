@@ -237,6 +237,9 @@ Score_engraver::do_try_music (Music*r)
 
   if (!gotcha)
     {
+      /*
+	UGH! THIS IS NOT SYMMETRIC. CLEAN ME UP!
+       */
       if (Break_req* b = dynamic_cast<Break_req *> (r))
 	{
 	  gotcha = true;
@@ -247,9 +250,13 @@ Score_engraver::do_try_music (Music*r)
 	}
     }
    return gotcha;
-
 }
 
+void
+Score_engraver::forbid_breaks ()
+{
+  break_penalty_i_ = Break_req::DISALLOW;
+}
 
 ADD_THIS_TRANSLATOR(Score_engraver);
 

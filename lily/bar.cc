@@ -32,7 +32,8 @@ Bar::do_print () const
 Real
 Bar::get_bar_size () const
 {
-  return paper_l ()->get_var ("barsize");
+  // Never called!
+  return 0;
 }
 
 

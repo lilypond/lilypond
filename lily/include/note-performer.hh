@@ -21,12 +21,14 @@ public:
   Note_performer();
 
 protected:
-  virtual void do_process_requests();
+  virtual void do_process_requests ();
   virtual bool do_try_music (Music *req_l) ;
-  virtual void do_print() const;
+  virtual void do_print () const;
+  virtual void do_pre_move_processing ();
 
 private:
-  Array<Melodic_req *> note_req_l_;
+  Array<Note_req*> note_req_l_arr_;
+  Array<Audio_note*> note_p_arr_;
 };
 
 #endif // NOTE_PERFORMER_HH

@@ -11,17 +11,33 @@
 #include "misc.hh"
 #include "string.hh"
 #include "string-convert.hh"
-#include "command-request.hh"
-#include "musical-request.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "audio-item.hh"
+#include "duration.hh"
 
 #include "killing-cons.tcc"
 
-Midi_chunk::Midi_chunk ()
-  : Midi_item (0)
+Midi_item*
+Midi_item::midi_p (Audio_item* a)
 {
+  if (Audio_key* i = dynamic_cast<Audio_key*> (a))
+    return new Midi_key (i);
+  else if (Audio_instrument* i = dynamic_cast<Audio_instrument*> (a))
+    return i->str_.length_i () ? new Midi_instrument (i) : 0;
+  else if (Audio_note* i = dynamic_cast<Audio_note*> (a))
+    return new Midi_note (i);
+  else if (Audio_tempo* i = dynamic_cast<Audio_tempo*> (a))
+    return new Midi_tempo (i);
+  else if (Audio_time_signature* i = dynamic_cast<Audio_time_signature*> (a))
+    return new Midi_time_signature (i);
+  else if (Audio_text* i = dynamic_cast<Audio_text*> (a))
+    return i->text_str_.length_i () ? new Midi_text (i) : 0;
+  else
+    assert (0);
+
+  // isn't C++ grand?
+  return 0;
 }
 
 void
@@ -43,12 +59,7 @@ Midi_chunk::str () const
 {
   String str = header_str_;
   String dat = data_str ();
-#if 1 
   String length_str = String_convert::i2hex_str (dat.length_i () 
-#else
-  // huh, huh??
-  String length_str = String_convert::i2hex_str (data_str_.length_i () 
-#endif
     + footer_str_.length_i (), 8, '0');
   length_str = String_convert::hex2bin_str (length_str);
   str += length_str;
@@ -58,7 +69,6 @@ Midi_chunk::str () const
 }
 
 Midi_duration::Midi_duration (Real seconds_f)
-  : Midi_item (0)
 {
   seconds_f_ = seconds_f;
 }
@@ -69,16 +79,10 @@ Midi_duration::str () const
   return String ("<duration: ") + to_str (seconds_f_) + ">";
 }
 
-Midi_event::Midi_event (Moment delta_mom, Midi_item* mitem_p)
+Midi_event::Midi_event (Moment delta_mom, Midi_item* midi_p)
 {
   delta_mom_ = delta_mom;
-  mitem_p_ = mitem_p;
-}
-
-Midi_event::~Midi_event ()
-{
-// uhuh
-//  delete mitem_p_;
+  midi_p_ = midi_p;
 }
 
 String
@@ -86,14 +90,13 @@ Midi_event::str () const
 {
   int delta_i = delta_mom_ * Moment (Duration::division_1_i_s);
   String delta_str = Midi_item::i2varint_str (delta_i);
-  String mitem_str = mitem_p_->str ();
-  assert (mitem_str.length_i ());
-  return delta_str + mitem_str;
+  String midi_str = midi_p_->str ();
+  assert (midi_str.length_i ());
+  return delta_str + midi_str;
 }
 
 
 Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
-  : Midi_chunk ()
 {
   String str;
 	
@@ -277,16 +280,10 @@ char const* const instrument_name_sz_a_[ ] = {
 	  0
 }; 
 
-Midi_instrument::Midi_instrument (int channel_i, String instrument_str)
-  : Midi_item (0)
+Midi_instrument::Midi_instrument (Audio_instrument* a)
 {
-  instrument_str_ = instrument_str;
-  instrument_str_.to_lower ();
-  channel_i_ = channel_i;
-}
-
-Midi_item::~Midi_item ()
-{
+  audio_l_ = a;
+  audio_l_->str_.to_lower ();
 }
 
 String
@@ -295,7 +292,7 @@ Midi_instrument::str () const
   Byte program_byte = 0;
   bool found = false;
   for (int i = 0; !found && instrument_name_sz_a_[i]; i++)
-    if (instrument_str_ == String (instrument_name_sz_a_[ i ])) 
+    if (audio_l_->str_ == String (instrument_name_sz_a_[ i ])) 
       {
 	program_byte = (Byte)i;
 	found = true;
@@ -303,7 +300,7 @@ Midi_instrument::str () const
 
   if (!found)
     {
-      warning (_f("No such instrument: `%s'", instrument_str_.ch_C ()));
+      warning (_f("No such instrument: `%s'", audio_l_->str_.ch_C ()));
     }
   
   String str = to_str ((char) (0xc0 + channel_i_));
@@ -311,10 +308,13 @@ Midi_instrument::str () const
   return str;
 }
 
-Midi_item::Midi_item (Audio_item* audio_item_l)
+Midi_item::Midi_item ()
 {
-  audio_item_l_ = audio_item_l;
   channel_i_ = 0;
+}
+
+Midi_item::~Midi_item ()
+{
 }
 
 String
@@ -340,17 +340,16 @@ Midi_item::i2varint_str (int i)
   return str;
 }
 
-Midi_key::Midi_key (Audio_item* audio_item_l)
-  : Midi_item (audio_item_l)
+Midi_key::Midi_key (Audio_key*a)
 {
+  audio_l_ = a;
 }
 
 String
 Midi_key::str () const
 {
-  Key_change_req* k = dynamic_cast <Key_change_req *> (audio_item_l_->req_l_);
-  int sharps_i = k->sharps_i ();
-  int flats_i = k->flats_i ();
+  int sharps_i = audio_l_->key_.sharps_i ();
+  int flats_i = audio_l_->key_.flats_i ();
 
   // midi cannot handle non-conventional keys
   if (flats_i && sharps_i)
@@ -363,23 +362,21 @@ Midi_key::str () const
 
   String str = "ff5902";
   str += String_convert::i2hex_str (accidentals_i, 2, '0');
-  int minor_i = k->minor_b ();
-  str += String_convert::i2hex_str (minor_i, 2, '0');
+  str += String_convert::i2hex_str ((int)audio_l_->key_.minor_b (), 2, '0');
   return String_convert::hex2bin_str (str);
 }
 
-Midi_time_signature::Midi_time_signature (Audio_item* audio_item_l)
-  : Midi_item (audio_item_l)
+Midi_time_signature::Midi_time_signature (Audio_time_signature* a)
 {
+  audio_l_ = a;
   clocks_per_1_i_ = 18;
 }
 
 String
 Midi_time_signature::str () const
 {
-  Time_signature_change_req* m = dynamic_cast <Time_signature_change_req *> (audio_item_l_->req_l_);
-  int num_i = m->beats_i_;
-  int den_i = m->one_beat_i_;
+  int num_i = audio_l_->beats_i_;
+  int den_i = audio_l_->one_beat_i_;
 
   String str = "ff5804";
   str += String_convert::i2hex_str (num_i, 2, '0');
@@ -389,30 +386,30 @@ Midi_time_signature::str () const
   return String_convert::hex2bin_str (str);
 }
 
-Midi_note::Midi_note (Audio_item* audio_item_l)
-  : Midi_item (audio_item_l)
+Midi_note::Midi_note (Audio_note* a)
 {
+  audio_l_ = a;
   dynamic_byte_ = 0x7f;
-  assert (dynamic_cast<Audio_note*> (audio_item_l));
 }
 
 Moment
 Midi_note::length_mom () const
 {
-  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->length_mom ();
+  Moment m = audio_l_->length_mom_;
+#if 0
   if (m < Moment (1, 1000))
     {
       warning (_ ("silly duration"));
       m = 1;
      }
+#endif
   return m;
 }
 
 int
 Midi_note::pitch_i () const
 {
-  int p = dynamic_cast <Melodic_req*> (audio_item_l_->req_l_)->pitch_.semitone_pitch () 
-    + dynamic_cast<Audio_note*>(audio_item_l_)->transposing_i_;
+  int p = audio_l_->pitch_.semitone_pitch () + audio_l_->transposing_i_;
   if (p == INT_MAX)
     {
       warning (_ ("silly pitch"));
@@ -433,19 +430,25 @@ Midi_note::str () const
   return str;
 }
 
-Midi_note_off::Midi_note_off (Midi_note* midi_note_l)
-  : Midi_item (midi_note_l->audio_item_l_)
+Midi_note_off::Midi_note_off (Midi_note* n)
 {
+  on_l_ = n;
+  channel_i_ = n->channel_i_;
+
+  // Anybody who hears any difference, or knows how this works?
+  
   // 0x64 is supposed to be neutral, but let's try
-  aftertouch_byte_ = 0x64;
-  channel_i_ = midi_note_l->channel_i_;
+  //aftertouch_byte_ = 0x64;
+
+  static int i = 0;
+  aftertouch_byte_ = i;
+  i += 0x10;
 }
 
 int
 Midi_note_off::pitch_i () const
 {
-  return dynamic_cast <Melodic_req *> (audio_item_l_->req_l_)->pitch_.semitone_pitch ()
-    + dynamic_cast<Audio_note*>(audio_item_l_)->transposing_i_;
+  return on_l_->pitch_i ();
 }
 
 String
@@ -459,48 +462,41 @@ Midi_note_off::str () const
   return str;
 }
 
-Midi_tempo::Midi_tempo (Audio_item* audio_item_l)
-  : Midi_item (audio_item_l)
+Midi_tempo::Midi_tempo (Audio_tempo* a)
 {
-  per_minute_4_i_ = dynamic_cast<Audio_tempo*>(audio_item_l_)->per_minute_4_i_;
-}
-
-Midi_tempo::Midi_tempo (int per_minute_4_i)
-  : Midi_item (0)
-{
-  per_minute_4_i_ = per_minute_4_i;
+  audio_l_ = a;
 }
 
 String
 Midi_tempo::str () const
 {
-  int useconds_per_4_i = 60 * (int)1e6 / per_minute_4_i_;
+  int useconds_per_4_i = 60 * (int)1e6 / audio_l_->per_minute_4_i_;
   String str = "ff5103";
   str += String_convert::i2hex_str (useconds_per_4_i, 6, '0');
   return String_convert::hex2bin_str (str);
 }
 
-Midi_text::Midi_text (Audio_item* audio_item_l)
-  : Midi_item (audio_item_l)
+Midi_text::Midi_text (Audio_text* a)
 {
-  text_str_ = dynamic_cast<Audio_text*>(audio_item_l_)->text_str_;
-  type_ = (Type) dynamic_cast<Audio_text*>(audio_item_l_)->type_;
+  audio_l_ = a;
 }
 
+#if 0
 Midi_text::Midi_text (Midi_text::Type type, String text_str)
-  : Midi_item (0)
+  : Audio_text ()
 {
   text_str_ = text_str;
   type_ = type;
 }
+#endif
 
 String
 Midi_text::str () const
 {
-  String str = "ff" + String_convert::i2hex_str (type_, 2, '0');
+  String str = "ff" + String_convert::i2hex_str (audio_l_->type_, 2, '0');
   str = String_convert::hex2bin_str (str);
-  str += i2varint_str (text_str_.length_i ());
-  str += text_str_;
+  str += i2varint_str (audio_l_->text_str_.length_i ());
+  str += audio_l_->text_str_;
   return str;
 }
 
@@ -544,11 +540,11 @@ Midi_track::Midi_track ()
 }
 
 void 
-Midi_track::add (Moment delta_time_mom, Midi_item* mitem_p)
+Midi_track::add (Moment delta_time_mom, Midi_item* midi_p)
 {
   assert (delta_time_mom >= Moment (0));
 
-  Midi_event * e = new Midi_event (delta_time_mom, mitem_p);
+  Midi_event * e = new Midi_event (delta_time_mom, midi_p);
   event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
 }
 
@@ -565,8 +561,4 @@ Midi_track::data_str () const
         str += "\n";
     }
   return str;
-}
-
-Midi_track::~Midi_track ()
-{
 }

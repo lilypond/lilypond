@@ -243,7 +243,9 @@ nsect(CAVEATS)
 
 itemize(
 it()The -O2 option  triggers  bugs on various platforms (PowerPC, Alpha).
-    If you experience problems, you  should first try  turning off this.
+    If you experience problems, you  should first try  turning off
+    this.
+it() On PPC you need at least EGCS-1.1.2f.
 )
 
 nsect(EXAMPLE)

@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.0.20";
+\version "1.1.52";
 
 \include "paper16.ly";
 \include "paper13.ly";
@@ -259,13 +259,13 @@ tune=\notes  \relative c''  {
 		r1 \bar "|.";
 }
 
-fourbars=\lyrics { _1 | _1 | _1 | _1 | }
+fourbars=\lyrics { "_"1*5 }
 verseOne=\lyrics {
 		Who2. is4 | Syl- via, _2 |
-		What2. is4 | she, _ _ That |
+		What2. is4 | she,2  That4 |
 		all our swains com- |
-		mend2 her?4 _ |
-		_1 |
+		mend2 her?4 " " |
+		" "1 |
 		Ho-4 - - ly, |
 		fair,2 _4 and |
 		wise2. is4 |

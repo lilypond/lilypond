@@ -12,7 +12,6 @@
 
 #include "translator.hh"
 #include "time-description.hh"
-#include "rhythmic-grouping.hh"
 #include "parray.hh"
 
 class Timing_translator : public virtual Translator
@@ -20,10 +19,9 @@ class Timing_translator : public virtual Translator
 public:
   VIRTUAL_COPY_CONS(Translator);
   Time_signature_change_req * time_signature_req_l () const;
-  Timing_translator ();
   
   Time_description time_;
-  Rhythmic_grouping  default_grouping_;
+
   Link_array<Timing_req> timing_req_l_arr_;
 protected: 
   virtual void do_print () const;

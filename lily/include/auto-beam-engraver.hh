@@ -25,7 +25,7 @@ protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_process_requests ();
   virtual void process_acknowledged ();
-
+  virtual void do_creation_processing ();
 private:
   void begin_beam ();
   void consider_end_and_begin ();
@@ -38,12 +38,18 @@ private:
   Moment shortest_mom_;
   Beam *finished_beam_p_;
   Array<Stem*>* stem_l_arr_p_;
+  
   Moment last_add_mom_;
   Moment extend_mom_;
+
+
+  Moment beam_start_moment_;
+  Moment beam_start_location_;
   
+  Timing_translator * timer_l_;
   // We act as if beam were created, and start a grouping anyway.
-  Rhythmic_grouping*grouping_p_;
-  Rhythmic_grouping*finished_grouping_p_;
+  Beaming_info_list*grouping_p_;  
+  Beaming_info_list*finished_grouping_p_;
 };
 
 #endif /* AUTO_BEAM_ENGRAVER_HH */

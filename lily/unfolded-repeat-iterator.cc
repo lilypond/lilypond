@@ -40,7 +40,7 @@ the  alternative just set.
 void
 Unfolded_repeat_iterator::next_element () 
 {
-  New_repeated_music const* mus =dynamic_cast<New_repeated_music const*> (music_l_);
+  Repeated_music const* mus =dynamic_cast<Repeated_music const*> (music_l_);
   delete current_iter_p_;
   current_iter_p_ =0;
 
@@ -113,7 +113,7 @@ Unfolded_repeat_iterator::next_moment () const
 void
 Unfolded_repeat_iterator::construct_children ()
 {
-  New_repeated_music const* mus =dynamic_cast<New_repeated_music const*> (music_l_);
+  Repeated_music const* mus =dynamic_cast<Repeated_music const*> (music_l_);
   alternative_cons_l_ = (mus->alternatives_p_)
     ? mus->alternatives_p_->music_p_list_p_->head_
     : 0;

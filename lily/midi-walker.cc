@@ -106,27 +106,32 @@ Midi_walker::output_event (Moment now_mom, Midi_item* l)
 void
 Midi_walker::process()
 {
-  Audio_item* ptr = (*item_l_arr_l_)[index_];
-  do_stop_notes (ptr->audio_column_l_->at_mom ());
+  Audio_item* audio_p = (*item_l_arr_l_)[index_];
+  do_stop_notes (audio_p->audio_column_l_->at_mom ());
 
   /*
     THIS IS A MEMORY LEAK. FIXME.
    */
-  Midi_item* p = ptr->midi_item_p ();
-  if (!p)
-    return;
-  p->channel_i_ = track_l_->number_i_;
-  
-  if (Midi_note *mi = dynamic_cast<Midi_note*>(p))
-    do_start_note (mi);
-  else
-    output_event (ptr->audio_column_l_->at_mom (), p);
+  //Midi_item* p = ptr->midi_item_p ();
+  if (Midi_item* midi_p = Midi_item::midi_p (audio_p))
+    {
+      midi_p->channel_i_ = track_l_->number_i_;
+      if (Midi_note* note_p = dynamic_cast<Midi_note*>(midi_p))
+	{
+	  if (note_p->length_mom ())
+	    do_start_note (note_p);
+	}
+      else
+	output_event (audio_p->audio_column_l_->at_mom (), midi_p);
+    }
 }
+
 bool
 Midi_walker::ok () const
 {
   return index_ <item_l_arr_l_->size ();
 }
+
 void
 Midi_walker::operator ++(int)
 {

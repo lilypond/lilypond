@@ -16,10 +16,10 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.21";
+\version "1.1.52";
 
 vocalVerse = \notes\relative c''{
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
 	g4.-> f8 \times 2/3 { [ f( )es] d } |
@@ -35,18 +35,14 @@ vocalVerse = \notes\relative c''{
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
 	% \times 2/3 { [ as\grace( bes ] )
-%	\tiny  [as'16*1/16 bes16*1/16 ] 
-%	\normalsize \times 2/3 {  [as8 g8] as8 } c4. as8 |
-	\times 2/3 { [ as'8( )g] as } c4. as8 |
+	\grace { as'16 bes } \times 2/3 { [ )as8( )g] as } c4. as8 |
 	g2. |
-	%\times 2/3 { [ f\grace( g] )
-	\times 2/3 { [ f8( )e] f } as4. f8 |
-	%\tiny \times 2/3 {  [f`16*1/16 g16*1/16] \normalsize
+	\grace { f16( g } \times 2/3 { [ )f8( )e] f } as4. f8 |
+  
 	es!2. |
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
-	% \times 2/3 { [ a\grace( b] )
-	\times 2/3 { [ a'!8( ) gis] a } c4. a8 |
+ 	\grace { a'16( b } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
 	g!2. |
 	% \times 2/3 { [ a\grace( b] )
 	\times 2/3 { [ d'8\f cis] d } f4. b,8 |
@@ -54,7 +50,7 @@ vocalVerse = \notes\relative c''{
 }
 
 vocalThrough = \notes\relative c{
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
 	g4. b8 d8. c16 |
@@ -63,11 +59,8 @@ vocalThrough = \notes\relative c{
 	a8. b16 c4-> a8 r |
 	R2. |
 	R2. |
-	% 4 bars copied from end verse 1
-	% \times 2/3 { [ a\grace( b] )
-	\times 2/3 { [ a!8( ) gis] a } c4. a8 |
+	\grace { a16( b } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
 	g!2. |
-	% \times 2/3 { [ a\grace( b] )
 	\times 2/3 { [ d'8\f cis] d } f4. b,8 |
 	c!2. ~ |
 	c4 r c |
@@ -82,15 +75,17 @@ lyricVerse1 = \lyrics{
 	\times 2/3 {  mei-4 ne8 } Lie-4 der8 " "8 |
 	Durch4. die8 \times 2/3 {  Nacht4 zu8 } |
 	dir;2 " "4 |
-	" "4 " " " " |
-	" " " " " " |
+	" "2.*2
+%{	" "4 " " " " |
+	" " " " " " |%}
 % 11
 	\times 2/3 {  In4 den8 } stil-4. len8 |
 	\times 2/3 {  Hain4 her-8 } nie-4. der8 |
 	Lieb-4. chen,8 \times 2/3 {  komm4 zu8 } |
 	mir!2 " "4 |
-	" "4 " " " " |
-	" " " " " " |
+		" "2.*2
+%{	" "4 " " " " |
+	" " " " " " |%}
 % 17
 	Fl\"us-8. ternd16 schlan-4. ke8 |
 	Wip-8. fel16 rau-4. schen8 |
@@ -113,17 +108,19 @@ lyricVerse2 = \lyrics{
 	\times 2/3 {  gal-4 len8 } schla-4 gen?8 " "8
 	ach!4. sie8 \times 2/3 {  fleh-4 en8 } 
 	dich,2 " "4
-	" "4 " " " " 
+	" "2.*2
+%{	" "4 " " " " 
 	" "4" " " "
-
+%}
 % 11
 	\times 2/3 {  Mit4 der8 } T\"o-4. ne8
  	\times 2/3 {  s\"u-4 "\ss en"8 } Kla-4. gen8
 	Fleh-4. en8 \times 2/3 {  sie4 f\"ur8 }
 	mich2 " "4
-	" "4" " " " 
+	" "2.*2
+%{	" "4" " " " 
 	" "4" " " "
-
+%}
 % 17
 	Sie-8. ver-16 stehn4. des8
 	Bus-8. ens16 Seh-4. nen8
@@ -162,65 +159,64 @@ lyricThrough = \lyrics{
 }
 
 trebleIntro = \notes\relative c{
-	\clef violin;
-	% ugh: id like to type this!
-	r8^"\bf m\\\"assig"\pp [<g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.>] |
-	r8 [<as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.>] |
-	r8 [<as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.>] |
-	r8 [<g-. b-.> <b-. d-.> <g-. b-.> <b-. d-.> <g-. b-.>] |
+	r8^"\bf m\\\"a\\\ss ig"\pp <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
+	r8 <as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.> |
+	r8 <as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.> |
+	r8 <g-. b-.> <b-. d-.> <g-. b-.> <b-. d-.> <g-. b-.> |
 	\break
 }
 
 trebleVerse1 = \notes\relative c{
 	%5
-	r8 [<g' c> <c es> <g c> <c es> <g c>] |
-	r8 [<f c'> <c' d> <f, c'> <c' d> <f, c'>] |
-	r8 [<f g b> <g b d> <f g b> <g b d> <f g b>] |
-	r8 [<es g c> <g c es> <es g c> <g c es> <es g c>] |
+	r8 <g' c> <c es> <g c> <c es> <g c> |
+	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
+	r8 <f g b> <g b d> <f g b> <g b d> <f g b> |
+	r8 <es g c> <g c es> <es g c> <g c es> <es g c> |
 	<g''4.( b,> <)f8 d>
-	  \times 2/3 { < [ f( d> <es c> <)d b] > } |
+	\times 2/3 { < [ f( d> <es c> <)d b] > } |
 	%10
 	<c2. es> |
-	r8 [<g, c> <c es> <g c> <c es> <g c>] |
-	r8 [<f c'> <c' d> <f, c'> <c' d> <f, c'>] |
-	r8 [<f as bes> <as bes d> <f g bes> <as bes d> <f g bes>] |
-	r8 [<es g bes> <g bes es> <es g bes> <g bes es>] 
+	r8 <g, c> <c es> <g c> <c es> <g c> |
+	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
+	r8 <f as bes> <as bes d> <f g bes> <as bes d> <f g bes> |
+	r8 <es g bes> <g bes es> <es g bes> <g bes es> 
 	<{ es'( )  d4.() f8}{ c' | bes4.  as8 } > 
-	 \times 2/3 { < [f( as> <es g> <)d f] > } |
+	\times 2/3 { < [f( as> <es g> <)d f] > } |
 	%16
 	<es2. g> |
-	r8 [<f, g> <g b> <f g> <g b> <f g>] |
-	r8 [<es g> <g c> <es g> <g c> <es g>] |
-	r8\pp [<es as c> <as c es> <es as c> <as c es> <es as c>] |
+	r8 <f, g> <g b> <f g> <g b> <f g> |
+	r8 <es g> <g c> <es g> <g c> <es g> |
+	r8\pp <es as c> <as c es> <es as c> <as c es> <es as c> |
 	%20
-	r8 [<es g bes> <g bes es> <es g bes> <g bes es> <es g bes>] |
-	% \times 2/3 { [ as\grace( bes )
-	\times 2/3 { [ as'8( g as] } c4.-> ) as8 |
+	r8 <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> |
+	\grace { as'16( bes } \times 2/3 { [ )as8( g as] } c4.-> ) as8 |
 	g2. |
-	r8 [<f, g> <g b> <f g> <g b> <f g>] |
-	r8 [<e g> <g c> <e g> <g c> <e g>] |
-	r8 [<f a c> <a c f> <f a c> <a c f> <f a c>] |
-	r8 [<e g c> <g c e> <e g c> <g c e> <e g c>] |
+	r8 <f, g> <g b> <f g> <g b> <f g> |
+	r8 <e g> <g c> <e g> <g c> <e g> |
+	r8 <f a c> <a c f> <f a c> <a c f> <f a c> |
+	r8 <e g c> <g c e> <e g c> <g c e> <e g c> |
 	\times 2/3 <
 	  { [ f'8\f( e f]  }
 	  {  f' e f } >
-	< {a4.- > )f8}  { a4. f8 }  > |
+	< {a4.- > )f8}  { a'4. f8 }  > |
 }
 
 trebleEentje = \notes \relative c'{
+	\context Voice=one \property Voice.verticalDirection = 0
 	<e2 e'> <e4 g>|
-	<f2\mf as!(> [<as8.->( c> <)f16 )as>] |
-	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2\mf as!(> <as8.->( c> <)f16 )as> |
+	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
+	<f4. g> <b,8-. g'-.(> <d-. g-.> <f-. )g-.> |
 	<e2 g> <e4\pp g> |
-	<f2 a(> [<a8. c> <f16 )a>] |
-	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2 a(> <a8. c> <f16 )a> |
+	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
+	<f4. g> <b,8-. g'-.(> <d-. g-.> <f-. )g-.> |
 	%60
 	<e2. g> |
 }
 
 trebleThrough = \notes \relative c'{
+	\context Voice=one \property Voice.verticalDirection = 0
 	<e2. e'> |
 	%61
 	R2. |
@@ -232,23 +228,24 @@ trebleThrough = \notes \relative c'{
 	< { d,2.\f a'2} { e2. ~ e2 } { b'2. c,2 }> r4 |
 	\context Staff < 
 		{
-			\voiceone 
-			[a8. b16] c4-> () a8 r |
-			[a8. b16] c4-> () a8 r |
+			\context Voice=one \property Voice.verticalDirection = 1 
+			a8. b16 c4-> () a8 r |
+			a8. b16 c4-> () a8 r |
 		}
 		{ 
-			\voicetwo 
+			\context Voice=two \property Voice.verticalDirection = -1 
 			<d,4 f> <d2 f> |
 			<c!4 es> <c2 es> |
 		}
 	>
+	\context Voice=one \property Voice.verticalDirection = 0
 	% 4 bars copied from end verse1
-	r8 [<f, a c> <a c f> <f a c> <a c f> <f a c>] |
+	r8 <f, a c> <a c f> <f a c> <a c f> <f a c> |
 	%70
-	r8 [<e g c> <g c e> <e g c> <g c e> <e g c>] |
+	r8 <e g c> <g c e> <e g c> <g c e> <e g c> |
 	\times 2/3 < { [ f'8\f( e f] }
 	   {  f' e f }>
-	< { a4.-> )f8 } { a4. f8 } > |
+	< { a4.-> )f8 } { a'4. f8 } > |
 	<e2 e'> r4 |
 	<es!2 es'! > r4 |
 	\property Voice . textStyle =  "italic"
@@ -258,9 +255,9 @@ trebleThrough = \notes \relative c'{
 	<c2 c'> <e4\pp g> |
 
 	% four copied from begin eentje
-	<f2 as!(> [<as8.-> c> <f16 )as>] |
-	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2 as!(> <as8.-> c> <f16 )as> |
+	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
+	<f4. g> <b,8-. g'-.(> <d-. g-.> <f-. )g-.> |
 	%80
 	\property Voice . textStyle =  "italic"
 	<e2._"dim." g> |
@@ -269,8 +266,7 @@ trebleThrough = \notes \relative c'{
 }
 
 bassIntro = \notes\relative c{
-	\clef bass;
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 %1
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -280,7 +276,7 @@ bassIntro = \notes\relative c{
 
 bassVerse1 = \notes\relative c{
 %	\clef bass;
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 %5
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -311,7 +307,7 @@ bassVerse1 = \notes\relative c{
 }
 
 bassEentje = \notes\relative c{
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 	<c,8 c'> [<c' f as!> <f as c> <c f as> <f as c> <c f as>] |
 	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
 	<g,8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
@@ -323,7 +319,7 @@ bassEentje = \notes\relative c{
 }
 
 bassThrough = \notes\relative c{
-	\property Voice.dynamicdir=1
+	\property Voice.dynamicDir=1
 	%61
 	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
 	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
@@ -366,11 +362,12 @@ global = \notes{
 }
 
 
-lyricFour = \lyrics{ 
-	" "4 " " " "
+lyricFour = \lyrics{
+	" "2.*4
+%{	" "4 " " " "
 	" " " " " "
 	" " " " " "
-	" " " " " "
+	" " " " " "%}
 }
  
 allLyrics = {
@@ -391,7 +388,11 @@ lyricStaff = \context Lyrics = lyric<
 		
 vocals = \notes{
 	\clef treble;
-	\property Voice.dynamicdir=UP
+ 	% certainly no auto-beaming for vocals
+ 	\property Voice.beamAuto=0
+ 
+
+	\property Voice.dynamicDir = \up
 	\skip 4 * 12; 
 	\vocalVerse 
 	\skip 4 * 24; 
@@ -406,6 +407,8 @@ vocalStaff = \context Staff = vocal<
 >
 
 treble = {
+	\clef treble;
+	\property Voice.beamAutoBegin=0
 	\trebleIntro 
 	\trebleVerse1 
 	\trebleEentje
@@ -419,6 +422,7 @@ trebleStaff = \context Staff = treble<
 >
 
 bass = {
+	\clef bass;
 	\bassIntro 
 	\bassVerse1 
 	\bassEentje
@@ -431,7 +435,7 @@ bassStaff = \context Staff = bass<
 	\bass
 >
 
-grandStaff = \context GrandStaff<
+grandStaff = \context PianoStaff <
 	\trebleStaff
 	\bassStaff
 >
@@ -455,7 +459,8 @@ grandStaff = \context GrandStaff<
 %		\translator { \OrchestralPartStaffContext }
 		\translator { \HaraKiriStaffContext }
 	}
-	\midi{
-		\tempo 4 = 54;
-	}
+%broken 1.1.51
+%	\midi{
+%		\tempo 4 = 54;
+%	}
 }

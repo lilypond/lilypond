@@ -6,7 +6,7 @@
   (c)  1997, 1998, 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
-
+#include "score-engraver.hh"
 #include "bar-engraver.hh"
 #include "staff-bar.hh"
 #include "musical-request.hh"
@@ -14,6 +14,7 @@
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group-engraver.hh"
+#include "warn.hh"
 
 Bar_engraver::Bar_engraver()
 {
@@ -34,7 +35,6 @@ Bar_engraver::do_try_music (Music*r_l)
     }
   
   return false;
-
 }
 
 
@@ -62,10 +62,21 @@ Bar_engraver::create_bar ()
 	{
 	  bar_p_->set_elt_property (at_line_start_scm_sym, SCM_BOOL_T);
 	}
+      prop = get_property ("barSize", 0);
+      if (prop.isnum_b ())
+	{
+	  bar_p_->set_elt_property (bar_size_scm_sym, 
+				    gh_double2scm (Real(prop)));
+	}
       announce_element (Score_element_info (bar_p_, bar_req_l_));
     }
 }
 
+/**
+   Make a barline.  If there are both |: and :| requested, merge them
+   to :|:
+
+*/
 void
 Bar_engraver::request_bar (String type_str)
 {
@@ -77,10 +88,11 @@ Bar_engraver::request_bar (String type_str)
 	return;
     }
   create_bar ();
+
   if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
     || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
     bar_p_->type_str_ = ":|:";
-  else
+  else if (type_str_.length_i ())
     bar_p_->type_str_ = type_str;
 }
 
@@ -128,9 +140,17 @@ Bar_engraver::do_process_requests()
   
   if (!bar_p_)
     {
-      Break_req r;
-      r.penalty_i_ = Break_req::DISALLOW;
-      daddy_grav_l ()->try_music (&r);
+      Score_engraver * e = 0;
+      Translator * t  =  daddy_grav_l ();
+      for (; !e && t;  t = t->daddy_trans_l_)
+	{
+	  e = dynamic_cast<Score_engraver*> (t);
+	}
+      
+      if (!e)
+	programming_error ("No score engraver!");
+      else
+	e->forbid_breaks ();
     }
 }
 

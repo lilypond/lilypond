@@ -20,7 +20,6 @@ Simultaneous_music::length_mom () const
 }
 
 
-
 void
 Music_sequence::compress (Moment m)
 {

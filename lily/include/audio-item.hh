@@ -10,26 +10,24 @@
 #include "lily-proto.hh"
 #include "string.hh"
 #include "audio-element.hh"
+#include "key-def.hh"
+#include "musical-pitch.hh"
+#include "moment.hh"
+#include "drul-array.hh"
 
 /**
   Any piece of audio information.
-  We need virtual constructors, 
+  We need virtual conclassors, 
   let's try decentralised factory for specific audio implemenations.
 
  */
-struct Audio_item : public Audio_element {
-  Audio_item (Request* req_l);
-
-  /// Create a midi-item from myself.
-  virtual Midi_item* midi_item_p() = 0;
+class Audio_item : public Audio_element
+{
+public:
+  Audio_item ();
 
   Audio_column* audio_column_l_;
-  /*
-    THIS SUX. This ties the output system to the input system.  Bad move.
-   */
-  Request* req_l_;
 
-      
 protected:
   virtual void do_print () const;
   
@@ -38,50 +36,69 @@ private:
   Audio_item& operator=( Audio_item const&);
 };
 
-struct Audio_key : public Audio_item {
-  Audio_key (Request* req_l);
-  
-  virtual Midi_item* midi_item_p();
+class Audio_key : public Audio_item
+{
+public:
+  Audio_key (Key_def const& key);
+
+  Key_def key_;
 };
 
-struct Audio_instrument : public Audio_item {
+class Audio_instrument : public Audio_item
+{
+public:
   Audio_instrument (String instrument_str);
-  virtual Midi_item* midi_item_p();
+
   String str_;
-    
 };
                                       
-struct Audio_note : public Audio_item {
-  
-  Audio_note (Request* req_l, int transposing_i = 0);
-  virtual Midi_item* midi_item_p();
+class Audio_note : public Audio_item
+{
+public:  
+  Audio_note (Musical_pitch p, Moment m, int transposing_i = 0);
+
+  Musical_pitch pitch_;
+  Moment length_mom_;
   int transposing_i_;
 };
 
-struct Audio_text : Audio_item {
+class Audio_text : public Audio_item
+{
+public:
   enum Type { 
     TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
     MARKER, CUE_POINT
   };
   
   Audio_text (Audio_text::Type type, String text_str);
-  virtual Midi_item* midi_item_p();
 
   Type type_;
   String text_str_;
 };
 
-struct Audio_tempo : Audio_item {
+class Audio_tempo : public Audio_item
+{
+public:
   Audio_tempo (int per_minute_4_i);
-  virtual Midi_item* midi_item_p();
-  
+
   int per_minute_4_i_;
 };
 
-struct Audio_time_signature : Audio_item {
-  Audio_time_signature (Request* req_l);
-  virtual Midi_item* midi_item_p();
-  
+class Audio_tie : public Audio_item
+{
+public:
+  Audio_tie ();
+  void set_note (Direction, Audio_note*);
+  Drul_array<Audio_note*> note_l_drul_;
+};
+
+class Audio_time_signature : public Audio_item
+{
+public:
+  Audio_time_signature (int beats, int one_beat);
+
+  int beats_i_;
+  int one_beat_i_;
 };
 
 #endif // AUDIO_ITEM_HH

@@ -12,7 +12,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.0.20";
+\version "1.1.52";
 
 \include "nederlands.ly"
 
@@ -23,18 +23,18 @@ global = \notes {
   \bar ".|";
 }
   
-upper = \context Staff=treble \notes\relative c''{
+melody = \notes\relative c''{
   \clef violin;
   \property Voice.verticalDirection = 1
   r2 r r 
   r2 r r
   r4 a'8--(\< a--  a-- a-- c-- \!b-- a--\> gis f \!e 
-  es8 \grace b({ ))c r4 r2 r
+  es8 \grace b( ))c r4 r2 r
   r2 r r
   r4 a'8--(\< a--  a-- a-- c-- \!b-- a--\> gis f \!e 
-  es8 } \grace b({ ))c r4 r2 r
+  es8 \grace b( ))c r4 r2 r
   r4 g16( a bes a  g a bes a g a bes a g a bes a g fis es fis 
-  )d4 } \grace fis8()gis4 ~ gis8 r r4 r2
+  )d4 \grace fis8()gis4 ~ gis8 r r4 r2
   r4 g16( a bes a  g a bes a g a bes a g a bes a g fis es fis 
   )d4 \grace fis8()gis4 ~ gis8 r r4 r2
   \grace a8()f4 ~ f8 r r2 r
@@ -60,14 +60,11 @@ upper = \context Staff=treble \notes\relative c''{
 }
 
 basloopje = \notes\relative c{
-%  d,8( a' d f a d f d a f d )a
-  d,8( a' d f a \translator Staff=treble d f d \translator Staff=bass a f d )a
+%  d,8( a' d f a \translator Staff=treble d f d \translator Staff=bass a f d )a
+  d,8( a' d f a d f d a f d )a
 }
 
-lower = \context Voice=two \notes \relative c{
-  \stemdown
-  \property Staff.slurVerticalDirection = 1
-
+accompany = \notes \relative c{
   % snapnie, hoevaak relative c heeft ze nodig?
   \notes\relative c \basloopje
   \notes\relative c \basloopje
@@ -105,19 +102,20 @@ lower = \context Voice=two \notes \relative c{
   < e1 b' e> ~ < e b' e> 
 }
 
-\score {
-    \context PianoStaff < 
-      \context Staff = treble < 
-        \global 
-	\upper
-      >
-      \context Staff = bass <
-        \global
-	\clef bass;
-        \lower
-      >
-    >
 
+\score{
+  \notes{
+    \context AutoSwitchGrandStaff \relative c <
+      \global
+      \context Staff=upper { 
+        \context Voice=foo
+        \property Voice.verticalDirection = 1
+        \property Voice.scriptVerticalDirection = 1
+        \melody 
+	}
+      \context AutoSwitchContext \accompany
+      >
+  }
   \paper {
     gourlay_maxmeasures = 4.;
     indent = 8.\mm;
@@ -126,10 +124,6 @@ lower = \context Voice=two \notes \relative c{
     % no slur damping
     slur_slope_damping = 100.0;
 
-    \translator{
-      \VoiceContext
-      beamAutoEnd = "1/2";
-    }
     \translator{ 
       \StaffContext
       % don't auto-generate bars: not a good idea: -> no breakpoints
@@ -138,9 +132,40 @@ lower = \context Voice=two \notes \relative c{
       defaultBarType = "empty";
       \remove "Time_signature_engraver";
     }
+    \translator{ 
+      \GraceContext
+      \remove "Local_key_engraver";
+    }
+    \translator { 
+      \ScoreContext
+      \accepts AutoSwitchGrandStaff;
+      }
+    \translator{
+      \type "Engraver_group_engraver";
+      \name AutoSwitchGrandStaff;
+      \consists "Span_bar_engraver";
+      \consists "Vertical_align_engraver";
+      \consists "Piano_bar_engraver";
+      \consistsend "Axis_group_engraver";
+      minVerticalAlign = 2.*\staffheight;
+      maxVerticalAlign = 2.*\staffheight;	
+      switcherName = "Voice";
+      acceptorName = "Thread";
+      staffContextName = "Staff";
+
+      \accepts "AutoSwitchContext";
+      \accepts "Staff";
+      slurVerticalDirection = 1;
+      verticalDirection = -1;
+      beamAutoEnd = "1/2";
+      }
+    \translator {
+      \type "Engraver_group_engraver";
+      \name "AutoSwitchContext";
+      \consists "Staff_switching_translator";
+      }
+    }
+  \midi {
+    \tempo 4 = 54;
   }
-% broken 1.1.51.hwn2
-%  \midi {
-%    \tempo 4 = 54;
-%  }
 }

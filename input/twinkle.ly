@@ -19,7 +19,7 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs, repeats
 %}
 
-\version "1.0.21";
+\version "1.1.52";
 
 melody = \notes \relative c'' {
 	\clef violin;
@@ -53,11 +53,11 @@ global = \notes {
 
 tekst = \lyrics{ 
  	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 in_de week maar s,_zon- dags niet.2
-	s,_Zon-4 dags gaat ze naar de kerk,2
+	midden4 "in de" week maar "'s zon-" dags niet.2
+	"'s Zon-"4 dags gaat ze naar de kerk,2
 	met4 een boek vol zil- ver werk.2
 	Al-4 tijd is Kort- jak- je ziek,2
-	midden8 _8  in_de8 _8 week4 maar s,_zon- dags niet.2
+	mid-8 den  in de week4 maar "'s zon-" dags niet.2
 }
 
 
@@ -69,7 +69,7 @@ tekst. Mogen wij ook af en toe ergens op afgeven?
 hegedraagjetekst = \lyrics{ 
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
-	s,_Zon-4 dags gaat het door een raam,2
+	"'s Zon-"4 dags gaat het door een raam,2
 	Weet4 dat ik me er- voor schaam.2
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
@@ -78,7 +78,7 @@ hegedraagjetekst = \lyrics{
 texte = \lyrics{ 
 	\property Lyrics . textStyle" =  "italic" 
 %	\property Lyrics . textStyle" =  "roman" 
- 	Ah!4 vous dir- ai_- je ma- man2
+ 	Ah!4 vous dir- ai- je ma- man2
 	Ce4 qui cau- se mon tour- ment2
 	Pa-4 pa veut que je rai- son- ne
 	Comm' u- ne gran- de per- son- ne
@@ -109,7 +109,7 @@ textii = \lyrics{
 textiii = \lyrics{
 	Then4 the tra- veler in the dark2
 	Thanks4 you for your ti- ny spark;2
-	He_could4 not see which way to go,2
+	He4 could not see which way8 to8 go,2
 	If4 you did not twin- kle so.2
 	Twin-4 kle, twin- kle, lit- tle star,2
 	How4 I won- der what you are!2

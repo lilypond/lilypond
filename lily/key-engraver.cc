@@ -134,27 +134,11 @@ Key_engraver::read_req (Key_change_req const * r)
   
   accidental_idx_arr_.clear ();
 
-  if (r->ordinary_key_b_) 
+  if (r->key_.ordinary_key_b_) 
     {
-      int p;
-      if (r->pitch_arr_.size () < 1) 
-        {
-	  r->warning (_ ("No key name: assuming `C'"));
-	  p = 0;
-	}
-      else
-	{
-	  p = r->pitch_arr_[0].semitone_pitch ();
-	  p += r->modality_i_;
-	}
-      /* Solve the equation 7*no_of_acc mod 12 = p, -6 <= no_of_acc <= 5 */
-      int no_of_acc = (7*p) % 12;
-      no_of_acc = (no_of_acc + 18) % 12 -6;
+      int no_of_acc = r->key_.ordinary_accidentals_i ();
 
-      /* Correct from flats to sharps or vice versa */
-      if (no_of_acc * r->pitch_arr_[0].accidental_i_ < 0)
-	no_of_acc += 12 * sign (r->pitch_arr_[0].accidental_i_);
-
+      // Hmm, can't these be handled/constructed by Key_change_req?
       if (no_of_acc < 0) 
 	{
 	  int accidental = 6 ; // First accidental: bes
@@ -192,9 +176,9 @@ Key_engraver::read_req (Key_change_req const * r)
     }
   else // Special key
     {
-      for (int i = 0; i < r->pitch_arr_.size (); i ++) 
+      for (int i = 0; i < r->key_.pitch_arr_.size (); i ++) 
 	{
-	  Musical_pitch m_l =r->pitch_arr_[i];
+	  Musical_pitch m_l =r->key_.pitch_arr_[i];
 	  if (key_.multi_octave_b_)
 	    key_.set (m_l);
 	  else

@@ -20,21 +20,21 @@
 #include "audio-staff.hh"
 
 
-ADD_THIS_TRANSLATOR(Score_performer);
+ADD_THIS_TRANSLATOR (Score_performer);
 
 
-Score_performer::Score_performer()
+Score_performer::Score_performer ()
 {
-  performance_p_ =0;
+  performance_p_ = 0;
 }
 
 
-Score_performer::~Score_performer()
+Score_performer::~Score_performer ()
 {
 }
 
 void
-Score_performer::play (Audio_element * p)
+Score_performer::play_element (Audio_element * p)
 {
   if  (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
     {
@@ -43,12 +43,27 @@ Score_performer::play (Audio_element * p)
   performance_p_->add_element (p);
 }
 
+void
+Score_performer::announce_element (Audio_element_info info)
+{
+  announce_info_arr_.push (info);
+  info.origin_trans_l_arr_.push (this);
+
+  /*
+    huh?
+    copied from score-engraver, but
+    this way staff gets in list twice
+  if (Audio_item* i = dynamic_cast<Audio_item*> (info.elem_l_))
+    performance_p_->add_element (i);
+  */
+}
+
 void 
 Score_performer::prepare (Moment m)
 {
   Global_translator::prepare (m);
   audio_column_l_ = new Audio_column (m);
-  play (audio_column_l_);
+  play_element (audio_column_l_);
   post_move_processing ();
 }
 

@@ -10,25 +10,42 @@
 #include "musical-request.hh"
 #include "audio-item.hh"
 
+ADD_THIS_TRANSLATOR (Lyric_performer);
 
-
-
-ADD_THIS_TRANSLATOR(Lyric_performer);
+Lyric_performer::Lyric_performer ()
+{
+  audio_p_ = 0;
+}
 
 void 
-Lyric_performer::do_print() const
+Lyric_performer::do_print () const
 {
 #ifndef NPRINT
-  if (lreq_arr_.size())
-    lreq_arr_[0]->print();
+  if (lreq_arr_.size ())
+    lreq_arr_[0]->print ();
 #endif
 }
 
 void
-Lyric_performer::do_process_requests()
+Lyric_performer::do_process_requests ()
 {
-  if (lreq_arr_.size() && lreq_arr_[0]->text_str_.length_i())
-    play (new Audio_text (Audio_text::LYRIC, lreq_arr_[0]->text_str_));
+  if (lreq_arr_.size () && lreq_arr_[0]->text_str_.length_i ())
+    {
+      audio_p_ = new Audio_text (Audio_text::LYRIC, lreq_arr_[0]->text_str_);
+      Audio_element_info info (audio_p_, lreq_arr_[0]);
+      announce_element (info);
+    }
+  lreq_arr_.clear();
+}
+
+void
+Lyric_performer::do_pre_move_processing ()
+{
+  if (audio_p_)
+    {
+      play_element (audio_p_);
+      audio_p_ = 0;
+    }
   lreq_arr_.clear();
 }
 

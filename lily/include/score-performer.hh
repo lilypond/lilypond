@@ -30,9 +30,11 @@ protected:
   virtual void process();
   virtual void start();
   virtual void do_add_processing ();
+  virtual void announce_element (Audio_element_info);
   virtual int get_tempo_i() const;
-  virtual void play (Audio_element* p);
+  virtual void play_element (Audio_element* p);
   virtual Music_output *get_output_p ();
+
 private:
   void header (Midi_stream&);
 

@@ -1,23 +1,41 @@
---- ../lilypond-1.1.52.gp1/NEWS	Fri Jul  2 21:08:04 1999
-++ b/NEWS	Mon Jul  5 15:05:33 1999
-@@ -1,3 +1,5 @@
-pl 52.gp2
-	- hyphens between syllables of lyrics:
- pl 52.gp1
- 	- bf: make doc++ corrected to only include *.h and *.hh files.
- ************--- ../lilypond-1.1.52.mb1/NEWS	Thu Jul  1 00:53:02 1999
-++ b/NEWS	Sat Jul  3 23:11:12 1999
-@@ -1,3 +1,8 @@
+
+pl 52.jcn3
+	- bf: mi2mu: midi without key
+	- try at grace-performer-group; breaks MIDI output even when no \grace
+	- silly tie-performer
+	- performers play_element () delayed to do_pre_move_processing ()
+
+pl 52.jcn2
+	- bfs standchen + grace, gnossienne-4
+	- decoupled midi output from input
+
+pl 52.jcn1
+	- bf: moved accidental code from Key_engraver to Key_change_req
+	- bf: midi-key
+	- bfs: mi2mu: core-dumps, keys, key-names, key-changes, notenames
+
+pl 52.hwn2
+	- new-beaming.cc: new beaming code
+	  * now does [c8. c32 c32] correct by itself.
+	  * beam over barlines
+	  * non-fitting stems handled gracefully (eg. [c8 c4 c8] ) 
+	- junked rhythmic grouping, \grouping and all associated bits.
+	- bf: do try_visibility_lambda for nonbreakable items as well (fixes \nobreak on barline)
+	- bf: Cons_list::truncate() 
+
+pl 52.hwn1
+	- repeat-engraver cleanup
+pl 52.gp1
+	- bf: make doc++ corrected to only include *.h and *.hh files.
 pl 52.mb2
 	- Added \repetitions: prints symbol for repeated bars.
 	  Same syntax as multi-measure rests!
 	- Added \segno and \wheel script symbols
+pl 52.mb3
+       - Added barSize property. Junked barsize variable.
 
- pl 52.mb1
- 	- clean-fonts using kpsepath
- 	- bf: volta brackets broken over several lines get open end.pl 52.gp1
-	- bf: make doc++ corrected to only include *.h and *.hh files.
 ************
+i
 pl 51.uu2
 	- grace note flags, move Lookup::flag into Stem
 	- faq updates: doc++, Matt's page

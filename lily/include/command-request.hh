@@ -14,6 +14,7 @@
 #include "array.hh"
 #include "duration.hh"
 #include "musical-pitch.hh"
+#include "key-def.hh"
 
 class Break_req : public Request {
 public:
@@ -101,15 +102,6 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
-class Measure_grouping_req : public Timing_req  {
-public:
-  Array<int> beat_i_arr_;
-  Array<Moment> elt_length_arr_;
-protected:
-  virtual void do_print () const;
-  bool do_equal_b (Request *) const;
-  VIRTUAL_COPY_CONS(Music);
-};
 
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
   the latter should only happen at the start of a measure.  */
@@ -133,26 +125,15 @@ class Breathing_sign_req : public Request {
     Routines for sharps and flats are separated, 
     so that caller may identify non-conventional keys.
 */
-class Key_change_req  : public Request  {
+class Key_change_req  : public Request
+{
 public:
-  Array<Musical_pitch> pitch_arr_;
-  int modality_i_;
-  bool ordinary_key_b_;
-
-  Key_change_req();
-
-  /// squash the octaves to 1
-  void squash_octaves();
-  /// return number of flats in key
-  int flats_i();
-
-  /// return number of sharps in key
-  int sharps_i();
-  bool minor_b() const;
+  Key_change_req ();
+  Key_def key_;
 
 protected:
   VIRTUAL_COPY_CONS(Music);
-  void transpose (Musical_pitch  d);
+  //  void transpose (Musical_pitch  d);
   virtual void do_print () const;
 };
 

@@ -24,9 +24,6 @@
  */
 class Paper_outputter
 {
-#ifdef __powerpc__
-  Protected_scm port_;
-#endif
 public:
   Paper_outputter (Paper_stream *);
   ~Paper_outputter ();

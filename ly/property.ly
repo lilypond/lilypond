@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.0.20";
+\version "1.1.52";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco

@@ -37,27 +37,33 @@ verb(
 )
 
 the last c being an octave higher than the first.  If you have to
-enter an interval that is greater than a fourth, you must specify
+enter an interval that is greater than a fifth, you must specify
 whether the pitch goes up, using post-quotes:
 
 verb(
     c c' % octave up
-    c g' % fourth up 
+    c g' % fifth up 
 )
 
 or down, using pre-quotes:
 
 verb(
     c c, % octave down
-    c f, % fourth down
+    c f, % fifth down
 )
 
 nsect(CONVERTING)
 
+COMMENT(Old? don't understand  -- jcn
 To convert a piece of music from the old absolute-octave notation to
-relative octaves, lilypond provides the bf(-Q, --find-fourths) feature
-to locate all big intervals in your music (sorry, fully automated convert 
-is too complex).
+)
+To convert a piece of music from absolute-octave notation to
+relative octaves, lilypond provides the bf(-Q, --find-old-relative)
+COMMENT(
+urg, name was changed to 'old-relative'?  It simply helps convert
+from absolute to relative, ie handy for mi2mu output?
+)
+feature to locate all big intervals in your music.
 
 First, edit the .ly file, add "\relative c" to all melodic chunks:
   
@@ -66,18 +72,18 @@ verb(
 )
 
 and remove all "\octave " commands.  See the example file 
-file(input/test/find-fourths.ly).
+file(input/test/find-fifths.ly).
 
-Use lily to find the fourths
+Use lily to find the fifths:
 
 verb(
-    lilypond -Q find-fourths.ly 2>&1 | tee fourths
+    lilypond -Q find-fifths.ly 2>&1 | tee fifths
     ...
-    find-fourths.ly:3:18: warning: Interval greater than fourth, relative: g':
+    find-fifths.ly:3:18: warning: Interval greater than fourth, relative: g':
 		  c d c f c g
 			      c b, c g, c f, c c'' c
 
-    find-fourths.ly:3:20: warning: Interval greater than fourth, relative: c,:
+    find-fifths.ly:3:20: warning: Interval greater than fourth, relative: c,:
 		  c d c f c g c
 				b, c g, c f, c c'' c
 )

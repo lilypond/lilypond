@@ -35,7 +35,7 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Paper_score * pscore_p_;
   
-
+  void forbid_breaks ();
   Score_engraver();
   virtual Music_output *get_output_p ();  
 protected:   

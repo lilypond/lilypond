@@ -4,7 +4,7 @@ composer = "Parry";
 metre = "10 10 . 11 11";
 }
 
-\version "1.0.21";
+\version "1.1.52";
 
 sop = \notes \transpose c''{
 	f4 | d' bes c' | f2 \bar "||";

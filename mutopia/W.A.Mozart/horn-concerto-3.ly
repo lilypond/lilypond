@@ -9,7 +9,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.21";
+\version "1.1.52";
 
 allegro =
 	\notes
@@ -237,7 +237,7 @@ rondo = \notes 	\relative c'
 	\partial 8;
 	g'8 |
 	\time 6/8;
-	\grouping 8*3 8*3;
+	
 	\rondotheme
 	
 	R2.*13 |

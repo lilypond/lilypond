@@ -665,7 +665,7 @@ fet_beginchar("Segno", "segno", "segno")
 	draw (x2r,-pointheight);
 fet_endchar;
 
-fet_beginchar("Wheel", "wheel", "wheel")
+fet_beginchar("Coda", "coda", "coda")
 	save thin, thick, wheelwidth, wheelheight;
 	thin# = 1.2 stafflinethickness#;
 	thick# = 3.5 stafflinethickness#;

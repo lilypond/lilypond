@@ -11,6 +11,7 @@
 #define TIMING_GRAV_HH
 
 #include "timing-translator.hh"
+#include "engraver.hh"
 
 /**
   Do time bookkeeping

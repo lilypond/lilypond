@@ -59,6 +59,7 @@ public:
   Stem_info get_stem_info (Stem*);
 
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
+  void set_beaming (Beaming_info_list *);
   void set_stemlens ();
   VIRTUAL_COPY_CONS(Score_element);
 
@@ -72,14 +73,20 @@ protected:
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
   virtual void do_substitute_element_pointer (Score_element*, Score_element*);
+  virtual void do_add_processing ();
   virtual void do_print() const;
-  virtual void quantise_left_y (bool extend_b);
-  virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
-  virtual void calculate_slope ();
-  virtual Real check_stemlengths_f (bool set_b);
-  virtual void solve_slope ();
-  virtual void quantise_dy ();
   virtual Molecule*do_brew_molecule_p () const;
+
+  Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
+
+private:
+  void calculate_slope ();
+  Real check_stemlengths_f (bool set_b);
+  void solve_slope ();
+
+  void quantise_left_y (bool extend_b);
+  void quantise_dy ();
+
 };
 
 #endif // BEAM_HH

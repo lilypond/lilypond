@@ -24,6 +24,7 @@ needs what, and what information should be available when.
 
 #include <math.h>
 
+#include "new-beaming.hh"
 #include "proto.hh"
 #include "dimensions.hh"
 #include "beam.hh"
@@ -34,7 +35,6 @@ needs what, and what information should be available when.
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "rhythmic-grouping.hh"
 
 Beam::Beam ()
 {
@@ -573,6 +573,8 @@ Beam::set_stemlens ()
   // enge floots
   Real epsilon_f = staffline_f / 8;
 
+
+  // je bent zelf eng --hwn.
   Real dy_f = check_stemlengths_f (false);
   for (int i = 0; i < 2; i++)
     { 
@@ -589,51 +591,41 @@ Beam::set_stemlens ()
   test_pos %= 4;
 }
 
-/*
- FIXME
- ugh.  this is broken and should be rewritten.
-  - [c8. c32 c32]
- */
 void
-Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
+Beam::set_beaming (Beaming_info_list *beaming)
 {
-  def.OK ();
-  cur.OK ();
-  assert (cur.children.size () == stems_.size ());
-
-  cur.split (def);
-
-  Array<int> b;
-  {
-    Array<int> flags;
-    for (int j=0; j <stems_.size (); j++)
-      {
-	Stem *s = stems_[j];
-
-	int f = s->flag_i_ - 2;
-	assert (f>0);
-	flags.push (f);
-      }
-    int fi =0;
-    b= cur.generate_beams (flags, fi);
-    b.insert (0,0);
-    b.push (0);
-    assert (stems_.size () == b.size ()/2);
-  }
-
-  for (int j=0, i=0; i < b.size () && j <stems_.size (); j++)
+  Direction d = LEFT;
+  for (int i=0; i  < stems_.size (); i++)
     {
-      Stem *s = stems_[j];
-      Direction d = LEFT;
-      do {
-	if (s->beams_i_drul_[d] < 0)
-	  s->beams_i_drul_[d] = b[i];
-
-	multiple_i_ = multiple_i_ >? s->beams_i_drul_[d];
-	i++;
-      } while ((flip (&d)) != LEFT);
+      do
+	{
+	  if (stems_[i]->beams_i_drul_[d] < 0)
+	    stems_[i]->beams_i_drul_[d] = beaming->infos_.elem (i).beams_i_drul_[d];
+	}
+      while (flip (&d) != LEFT);
     }
 }
+
+
+void
+Beam::do_add_processing ()
+{
+  for (int i=0; i < stems_.size () ; i++) 
+    {
+      Direction d = LEFT;
+      do {
+	multiple_i_ = multiple_i_ >? stems_[i]->beams_i_drul_[d];
+      } while ((flip (&d)) != LEFT);
+    }
+
+  if (stems_.size ())
+    {
+      stems_[0]->beams_i_drul_[LEFT] =0;
+      stems_.top()->beams_i_drul_[RIGHT] =0;
+    }
+}
+
+
 
 /*
   beams to go with one stem.

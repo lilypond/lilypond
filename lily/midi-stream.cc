@@ -40,10 +40,10 @@ Midi_stream::operator << (String str)
 }
 
 Midi_stream&
-Midi_stream::operator << (Midi_item const& mitem_c_r)
+Midi_stream::operator << (Midi_item const& midi_c_r)
 {
-//    *this <<mitem_c_r.str (); 
-  String str = mitem_c_r.str ();
+//    *this <<midi_c_r.str (); 
+  String str = midi_c_r.str ();
   if (check_debug && !monitor->silent_b ("Midistrings")) 
     {
     str = String_convert::bin2hex_str (str) + "\n";

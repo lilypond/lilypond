@@ -18,6 +18,7 @@
 
 DECLARE_LY_SYMBOL(alt_symbol);
 DECLARE_LY_SYMBOL(at_line_start);
+DECLARE_LY_SYMBOL(bar_size);
 DECLARE_LY_SYMBOL(beam);
 DECLARE_LY_SYMBOL(beam_thickness);
 DECLARE_LY_SYMBOL(beam_dir);
@@ -35,9 +36,6 @@ DECLARE_LY_SYMBOL(extra_space);
 DECLARE_LY_SYMBOL(dir_forced);
 DECLARE_LY_SYMBOL(dir_list);
 DECLARE_LY_SYMBOL(extender_height);
-DECLARE_LY_SYMBOL(hyphen_thickness);
-DECLARE_LY_SYMBOL(hyphen_height);
-DECLARE_LY_SYMBOL(hyphen_minimum_length);
 DECLARE_LY_SYMBOL(filledbox);
 DECLARE_LY_SYMBOL(fontsize);
 DECLARE_LY_SYMBOL(grace);

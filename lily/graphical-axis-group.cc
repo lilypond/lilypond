@@ -104,8 +104,8 @@ Graphical_axis_group::do_print() const
 Graphical_axis_group::Graphical_axis_group ()
 {
   ordered_b_ = false;
-  axes_[0] = -1 ; 
-  axes_[1] = -1 ;
+  axes_[0] = (Axis)-1 ; 
+  axes_[1] = (Axis)-1 ;
 }
 
 void

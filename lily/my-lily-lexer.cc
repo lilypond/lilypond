@@ -36,7 +36,6 @@ static Keyword_ent the_key_tab[]={
   {"context", CONTEXT},
   {"duration", DURATION},
   {"font", FONT},
-  {"grouping", GROUPING},
   {"grace", GRACE},
   {"header", HEADER},
   {"in", IN_T},

@@ -63,6 +63,7 @@ StaffContext=\translator {
 RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	numberOfStaffLines  = "1";
+	barSize = \staffheight;
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
@@ -189,7 +190,6 @@ StaffGroupContext= \translator {
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
-	\consists "Hyphen_engraver";
 }
 
 \translator {

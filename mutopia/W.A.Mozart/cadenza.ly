@@ -11,14 +11,14 @@ copyright =	 "public domain";
 Tested Features: cadenza mode
 %}
 
-\version "1.0.21";
+\version "1.1.52";
 
 
 cad = \notes  \relative c' {
 	\property Score.instrument = "french horn"
 	\context Staff {
 	\cadenza 1;
-	\grouping 1*4;
+	
 
 	\clef "violin";
 	c'4.\mf g8
