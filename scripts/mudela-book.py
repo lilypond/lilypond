@@ -326,8 +326,9 @@ output_dict= {
 %s
 \end{mudela}""",
 		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
-		'output-default-post': r"""\def\postMudelaExample{}""",
-		'output-default-pre': r"""\def\preMudelaExample{}""",
+		'output-default-post': "\\def\postMudelaExample{}\n",
+		'output-default-pre': "\\def\preMudelaExample{}\n",
+		'usepackage-graphics': '\\usepackage{graphics}\n',
 		'output-eps': '\\noindent\\parbox{\\mudelaepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
 		'output-tex': '\\preMudelaExample \\input %(fn)s.tex \\postMudelaExample\n',
 		'pagebreak': r'\pagebreak',
@@ -391,9 +392,10 @@ re_dict = {
 		  'mudela-block': r"(?sm)^[^%\n]*?(?P<match>\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela})",
 		  'def-post-re': r"\\def\\postMudelaExample",
 		  'def-pre-re': r"\\def\\preMudelaExample",		  
+		  'usepackage-graphics': r"\usepackage{graphics}",
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': no_match,
-		  'singleline-comment': r"(?m)(?P<code>^%.*$\n+)",
+		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 	
@@ -587,25 +589,35 @@ def scan_preamble (chunks):
 		scan_latex_preamble(chunks)
 		
 
-def completize_preamble (str):
-	m = get_re ('preamble-end').search( str)
-	if not m:
-		return str
-	
-	preamble = str [:m.start (0)]
-	str = str [m.start(0):]
-	
-	if not get_re('def-post-re').search (preamble):
-		preamble = preamble + get_output('output-default-post')
-	if not get_re ('def-pre-re').search(  preamble):
-		preamble = preamble + get_output ('output-default-pre')
-
-	# UGH ! BUG!
-	#if  re.search ('\\\\includegraphics', str) and not re.search ('usepackage{graphics}',str):
-
-	preamble = preamble + '\\usepackage{graphics}\n'
-
-	return preamble + str
+def completize_preamble (chunks):
+	if __main__.format == 'texi':
+		return chunks
+	pre_b = post_b = graphics_b = None
+	for chunk in chunks:
+		if chunk[0] == 'preamble-end':
+			break
+		if chunk[0] == 'input':
+			m = get_re('def-pre-re').search(chunk[1])
+			if m:
+				pre_b = 1
+		if chunk[0] == 'input':
+			m = get_re('def-post-re').search(chunk[1])
+			if m:
+				post_b = 1
+		if chunk[0] == 'input':
+			m = get_re('usepackage-graphics').search(chunk[1])
+			if m:
+				graphics_b = 1
+	x = 0
+	while chunks[x][0] != 'preamble-end':
+		x = x + 1
+	if not pre_b:
+		chunks.insert(x, ('input', get_output ('output-default-pre')))
+	if not post_b:
+		chunks.insert(x, ('input', get_output ('output-default-post')))
+	if not graphics_b:
+		chunks.insert(x, ('input', get_output ('usepackage-graphics')))
+	return chunks
 
 
 read_files = []
@@ -1022,10 +1034,8 @@ def do_file(input_filename):
 			else:
 				newchunks.append (c)
 		chunks = newchunks
-
-	if chunks and chunks[0][0] == 'input':
-		chunks[0] = ('input', completize_preamble (chunks[0][1]))
-
+	x = 0
+	chunks = completize_preamble (chunks)
 	foutn = os.path.join(g_outdir, my_outname + '.' + format)
 	sys.stderr.write ("Writing `%s'\n" % foutn)
 	fout = open (foutn, 'w')

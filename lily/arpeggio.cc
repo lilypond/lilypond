@@ -13,6 +13,8 @@
 #include "score-element.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
+#include "warn.hh"
 
 bool
 Arpeggio::has_interface (Score_element* me)
@@ -26,25 +28,71 @@ Arpeggio::brew_molecule (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
   
-  Interval iv; 
+  Score_element * common = me;
   for (SCM s = me->get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element *stem = unsmob_element (gh_car (s));
-      iv.unite (Stem::head_positions (stem));
+      Score_element * stem =  unsmob_element (gh_car (s));
+      common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
+				 Y_AXIS);
     }
 
+  /*
+    TODO:
+    
+    Using stems here is not very convenient; should store noteheads
+    instead, and also put them into the support. Now we will mess up
+    in vicinity of a collision.
+
+  */
+  Interval heads;
+  Real my_y = me->relative_coordinate (common, Y_AXIS);
+      
+  for (SCM s = me->get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * stem = unsmob_element (gh_car (s));
+      Score_element * ss = Staff_symbol_referencer::staff_symbol_l (stem);
+      Interval iv =Stem::head_positions (stem);
+      iv *= Staff_symbol::staff_space (ss)/2.0;
+      
+      heads.unite (iv + ss->relative_coordinate (common, Y_AXIS)
+		   - my_y);
+    }
+
+  if (heads.empty_b ())
+    {
+      programming_error ("Huh? Dumb blonde encountered?");
+      /*
+	Nee Valerie, jij bent _niet_ dom. 
+       */
+      return SCM_EOL;
+    }
+  
   Molecule mol;
   Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  for (int i = (int)iv[MIN]/ 2; i < (int)(iv[MAX] - 1)/ 2; i++)
+
+  Real y = heads[LEFT];
+  while (y < heads[RIGHT])
     {
-      Molecule a (arpeggio);
-      a.translate_axis (i * staff_space, Y_AXIS);
-      mol.add_molecule (a);
+      mol.add_at_edge (Y_AXIS, UP,arpeggio, 0.0);
+      y+= arpeggio. extent (Y_AXIS).length ();
     }
-  mol.translate (Offset (-2 * staff_space, 0));
+  mol.translate_axis (heads[LEFT], Y_AXIS);
 
   return mol.create_scheme (); 
 }
 
+/*
+  We have to do a callback, because brew_molecule () triggers a
+  vertical alignment if it is cross-staff.
+*/
+MAKE_SCHEME_CALLBACK(Arpeggio, width_callback,2);
+SCM
+Arpeggio::width_callback (SCM smob, SCM axis)
+{
+  Score_element * me = unsmob_element (smob);
+  Axis a = (Axis)gh_scm2int (axis);
+  assert (a == X_AXIS);
+  Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
 
+  return ly_interval2scm (arpeggio.extent (X_AXIS));
+}

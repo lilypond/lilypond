@@ -1,5 +1,40 @@
-1.3.94.uu1
-==========
+1.3.95.jcn5
+===========
+
+* Added friendly message for the clueless dvips user.
+
+* Clef-engraver: changed c0-position, clef-position and glyph into properties,
+  enabling ottava spanners: input/test/ottava.ly.
+
+* Added option for edge lines to Text spanner.
+
+* Bugfix for early initialisation of invalid (grace->voice) slur.
+
+* Dropped text support and padding of crescendo symbol.  Horizontal
+  alignment of dynamics is handled by side-support, Text crescendos
+  use the generic Text spanner.
+
+* Added a generic Text spanner.
+
+1.3.95.hwn1
+===========
+
+* Bugfix: octavate eight.
+
+* Rewrote arpeggio.
+
+* mudela-book fixes (Tom Cato)
+
+* Cleaned up Group_interface and Pointer_group_interface
+
+* Add accidentals to arpeggio support.
+
+* Stemup + barline combination gets extra space.
+
+* Score_element::extent () now takes a reference point argument.
+
+1.3.95
+======
 
 * Use music property for setting type. This prevents accidental
 forgotten copies.
