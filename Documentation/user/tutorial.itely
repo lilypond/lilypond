@@ -25,7 +25,6 @@ package.
 yourself, to get a feel for how the program behaves.
 
 @menu
-* Introduction::                
 * Running LilyPond::            Getting started
 * The first tune::              The first tune
 * Lyrics and chords::           Lyrics and chords
@@ -35,7 +34,6 @@ yourself, to get a feel for how the program behaves.
 * Part extraction::             
 * Latex and texinfo integration::  
 * end of tutorial::             The end
-* Pre-cooked makefile::         
 @end menu
 
 
@@ -2159,11 +2157,23 @@ Music (TM), have a look at the @ref{Mutopia project}.
 
 this should be on mutopia website.
 
+Ja, inderdaad: OOK on mutopia website.
+
+This helps people to generate .ps from .ly in general, create booklets
+etc, use dependencies.  Figure out where to include this.  Refman?
+
+
+Zie makefile rm lily-* discussies op gmd.
+
+
+
 ]
 
+@c UGH UGH: emacs' texinfo-all-menus-update also parses inside @ignore
+@c blocks.
 
-@node Pre-cooked makefile
-@section Pre-cooked makefile
+@c @no de Pre-cooked makefile
+@c @s ection Pre-cooked makefile
 
 @c waar deze info?  is uiteindelijk wel handig, schat ik.
 [TODO: cut blabla]
