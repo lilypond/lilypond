@@ -60,7 +60,7 @@ get-pfa-fonts: $(outdir)/$(fontball)
 	# install by hand from $<
 
 lilypond.words:
-	cd $(builddir) && $(PYTHON) $(buildscript-dir)/lilypond.words.py $(outdir)/lilypond.words
+	cd $(builddir) && $(PYTHON) $(buildscript-dir)/lilypond.words.py $(outdir)
 
 web-install: 
 	-$(INSTALL) -m 755 -d $(webdir) 

@@ -8,6 +8,9 @@
 
 	* ly/chord-modifiers-init.ly, lilypond.vim: updates for vim.
 
+	* GNUmakefile.in, buildscripts/lilypond.words: give only path in
+	GNUmakefile.in.
+
 2003-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/help2man-rules.make: Allow manpages to fail
