@@ -13,13 +13,16 @@
 static Keyword_ent the_key_tab[]={
     "bar", BAR,
     "bass", BASS,
+    "cadenza", CADENZA,
     "clef", CLEF,
     "cm", CM,
     "commands", COMMANDS,
     "duration", DURATIONCOMMAND,
     "geometric", GEOMETRIC,
+    "goto", GOTO,
     "in", IN,
-    "key", KEY, 
+    "key", KEY,
+    "mark", MARK,
     "melodic", MELODIC,
     "meter", METER,
     "mm", MM,
@@ -92,14 +95,19 @@ My_flex_lexer::~My_flex_lexer()
     delete the_id_tab;
 }
 
+String
+My_flex_lexer::spot()const
+{
+    return include_stack.top()->name +  ": " + lineno();
+}
+
 void
 My_flex_lexer::LexerError(const char *s)
 {
     if (lexer->include_stack.empty()) {
-	*mlog << "error at EOF" << s;
+	*mlog << "error at EOF" << s << '\n';
     }else 
-	*mlog << lexer->include_stack.top()->name <<  ": " <<
-	 lexer->lineno() <<  ": error:" << s << '\n';
+	*mlog << spot() << ": error:" << s << '\n';
      exit(1);
 }
 // set the  new input to s, remember old file.
