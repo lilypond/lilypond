@@ -23,6 +23,12 @@
  )
 
 (ly:add-interface
+ 'fret-diagram-interface
+ "A fret diagram"
+ '()
+)
+
+(ly:add-interface
  'ligature-interface
  "A ligature"
  '()
