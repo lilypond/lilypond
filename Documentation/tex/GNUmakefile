@@ -54,6 +54,7 @@ local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation about LilyPond' \
 	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+	$(footify) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@

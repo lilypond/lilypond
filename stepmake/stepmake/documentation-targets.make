@@ -10,6 +10,9 @@ local-WWW: $(OUTHTML_FILES)
 doc: do-doc
 
 
+footify:
+	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
+
 # what to do here?
 ifeq (a,b) 
 

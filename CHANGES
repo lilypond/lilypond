@@ -1,3 +1,7 @@
+pl 8.jcn2
+	- scripts/mudela-book.py: use hash of full .ly contents (by default)
+	- bf: footify html doc upon creation too
+
 pl 8.jcn1
 	- Documentation/Localisation.texi: still some issues
 	- Uniformised locale strings

@@ -40,13 +40,6 @@ Copyright @copyright{} 1999 by its author(s)
 
 
 
-
-
-
-
-
-
-
 @node Typesetting music with LilyPond, Introduction, , Top
 @menu
 * Introduction::                  Introduction
@@ -58,11 +51,6 @@ Copyright @copyright{} 1999 by its author(s)
 * The end::                       The end
 @end menu
 @chapter Typesetting music with LilyPond
-
-
-
-
-
 
 @node Introduction, tutorial-introduction, Typesetting music with LilyPond, Typesetting music with LilyPond
 @section Introduction
