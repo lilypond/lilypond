@@ -1,4 +1,5 @@
 #include "qlpsolve.hh"
+#include "const.hh"
 #include "debug.hh"
 #include "choleski.hh"
 
