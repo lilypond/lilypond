@@ -1,3 +1,9 @@
+2002-06-12  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* scm/grob-description.scm: Add side-position-interface to TextSpanner
+
+	* scm/grob-property-description.scm: Document the trill line type.
+
 2002-06-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/generic-vars.make: 

@@ -930,7 +930,7 @@
 	(width-correct . -1)
 
 	(direction . 1)
-	(meta . ((interfaces . (text-spanner-interface  font-interface))))		
+	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface))))		
 	))
 
     (Tie

@@ -12,11 +12,8 @@ Summary: Create and print music notation
 URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
 
-# add lots of Buildreq: flex, bison, tetex, tetex-devel, tetex-latex, texinfo
-Prereq: tetex  tetex-latex gcc-c++ python 
-
-#
-Buildreq:  t1utils bison flex pktrace texinfo
+Buildrequires: t1utils bison flex pktrace texinfo
+Requires: tetex  tetex-latex gcc-c++ python 
 
 %description
 LilyPond lets you create music notation.  It produces
