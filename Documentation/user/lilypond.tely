@@ -189,7 +189,7 @@ this and other documentation.
 @include introduction.itely 
 @include tutorial.itely
 @include examples.itely
-@include invoking.itelyi
+@include invoking.itely
 @include notation.itely
 @include sound-output.itexi
 @include changing-defaults.itely
