@@ -174,10 +174,12 @@
   {\gdef\lilypondpaperinterscorelinefill{0}}
   {\gdef\lilypondpaperinterscorelinefill{1}}
 
-\gdef\interscoreline{
+%% Allow overriding of interscoreline, eg for ly2dvi --preview
+\lilypondifundefined{interscoreline}
+{\gdef\interscoreline{
   \vskip \lilypondpaperinterscoreline \lilypondpaperunit
     plus \lilypondpaperinterscorelinefill fill
-}
+}}{}
 
 % Are we using PDFTeX?  If so, use pdf definitions.
 % MiKTeX checks \pdfoutput the wrong way, thus we use \csname.

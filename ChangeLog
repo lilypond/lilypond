@@ -1,3 +1,8 @@
+2003-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* tex/lilyponddefs.tex: Allow overriding of interscoreline.  This
+	fixes one line --preview output of ly2dvi.
+
 2003-06-07  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: match only one type of slurs in
