@@ -261,7 +261,7 @@ e.g. @code{\\mark \"A\"}.")
 	(description . "Rests that may be compressed into Multi rests. Syntax
 @code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
 	(internal-class-name . "Event")
-	(types . (general-music event span-event multi-measure-rest-event))
+	(types . (general-music event rhythmic-event multi-measure-rest-event))
 	))
     
     (MultiMeasureTextEvent
