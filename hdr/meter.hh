@@ -1,5 +1,5 @@
 /*
-  meter.hh -- part of LilyPond
+  meter.hh -- declare Meter
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -8,11 +8,12 @@
 #define METER_HH
 #include "item.hh"
 #include "varray.hh"
+#include "scalar.hh"
 
 struct Meter: Item {
-    const char * name() const;
     Array<Scalar> args;
     /* *************** */
+    const char * name() const;
     
     Meter(Array<Scalar> args) ;
     Molecule*brew_molecule_p() const;
