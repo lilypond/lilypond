@@ -1041,7 +1041,7 @@ def make_pixmap (name):
 	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
 	status = 0
 	try:
-		status = quiet_system (cmd, 'gs')
+		status = system (cmd)
 	except:
 		status = -1
 
@@ -1056,7 +1056,7 @@ def compile_all_files (chunks):
 	png = []
 
 	for c in chunks:
-		if c[0] <> 'lilypond':
+		if c[0] != 'lilypond':
 			continue
 		base  = c[4]
 		exts = c[3]
@@ -1075,7 +1075,7 @@ def compile_all_files (chunks):
 	if tex:
 		# fixme: be sys-independent.
 		def incl_opt (x):
-			if g_outdir and x[0] <> '/' :
+			if g_outdir and x[0] != '/' :
 				x = os.path.join (g_here_dir, x)
 			return ' -I %s' % x
 
@@ -1270,7 +1270,7 @@ def check_texidoc (chunks):
 def fix_epswidth (chunks):
 	newchunks = []
 	for c in chunks:
-		if c[0] <> 'lilypond' or 'eps' not in c[2]:
+		if c[0] != 'lilypond' or 'eps' not in c[2]:
 			newchunks.append (c)
 			continue
 

@@ -20,7 +20,7 @@ $(outdir)/%.texi: %.tely
 $(outdir)/%.texi: $(outdir)/%.tely
 	rm -f $@
 	set|egrep '(TEX|LILY)'  # ugh, what's this?
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --verbose $(LILYPOND_BOOK_FLAGS) $<
 	rm -f $<
 	chmod -w $@
 
