@@ -1,10 +1,10 @@
 =head1 NAME
 
-LilyGuts - doco to the internals of LilyPond
+LilyGuts - doco to the internals of GNU LilyPond
 
 =head1 DESCRIPTION
 
-This page documents some aspects of the internals of LilyPond. Some of
+This page documents some aspects of the internals of GNU LilyPond. Some of
 this stuff comes from e-mail I wrote, some from e-mail others wrote,
 some are large comments taken away from the headers
 
@@ -14,7 +14,7 @@ You should use doc++ to take a peek at the sources.
 
 =head1 OVERVIEW
 
-LilyPond is a "5-pass" system:
+GNU LilyPond is a "5-pass" system:
 
 =over 4
 
@@ -225,7 +225,7 @@ meter sign after the clef. Using the previous notation,
 
 	\discretionary{bar meter}{clef meter}{ bar meter }
 
-In Lilypond, we have the same concepts (and the same
+In GNU Lilypond, we have the same concepts (and the same
 terminology). Each (nonrhythmic) symbol is typeset using a Command
 (code: TYPESET). At a breakpoint, TYPESET commands can be grouped
 using separators (in lower case):
@@ -276,7 +276,7 @@ have been the subject of discussion in this thread).
 as you can see, these distance are conflicting. So instead of
 satisfying all those ideals simultaneously, a compromise is sought.
 
-This is Columbus' egg: LilyPond attaches "springs" to each
+This is Columbus' egg: GNU LilyPond attaches "springs" to each
 column-pair.  each spring has an equilibrium-position which is equal to
 the above mentioned distance, so
 
@@ -291,8 +291,8 @@ with minimum potential energy, for you physicists out there.
 This algorithm for doing one line, gives a "badness" parameter for
 each line (the potential energy). Now one can use TeX's algorithm for
 making paragraphs (using this new version of "badness"): one should
-try to minimise the overall badness of a paragraph. LilyPond also uses the
-concept of pre- and post-breaks.
+try to minimise the overall badness of a paragraph. GNU LilyPond also
+uses the concept of pre- and post-breaks.
 
 (actually, it is a bit more complicated: each column also has a
 minimum distance to other columns, to prevent symbols from running
