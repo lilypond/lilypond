@@ -20,17 +20,16 @@ mf_sources = reduce (lambda x, y: x + y,
 os.chdir (here)
 
 Import ('env')
-e = env.Copy ()
 #mf_sources = ('feta16.mf',)
 #mf_sources = ('feta-braces-a.mf',)
 font_stems = map (lambda x: os.path.splitext (x)[0], mf_sources)
 
-t = map (e.TFM, font_stems)
-a = map (e.AFM, font_stems)
-p = map (e.PFA, font_stems)
+t = map (env.TFM, font_stems)
+a = map (env.AFM, font_stems)
+p = map (env.PFA, font_stems)
 
-map (lambda x: e.Depends (x + '.pfa', x + '.enc'), font_stems)
-#map (lambda x: e.Depends (x + '.pfa', x + '.log'), font_stems)
+map (lambda x: env.Depends (x + '.pfa', x + '.enc'), font_stems)
+#map (lambda x: env.Depends (x + '.pfa', x + '.log'), font_stems)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')
@@ -44,7 +43,10 @@ env.Alias ('install', afmdir)
 env.Alias ('install', pfadir)
 
 map (lambda x: env.Alias ('fonts', x), t + a + p)
-map (lambda x: env.Alias ('mf', x), t + a + p)
+outcmr = os.path.join (env['absbuild'], reldir, env['out'], 'cmr.enc')
+env.Command (outcmr, os.path.join (reldir, 'cmr.enc'), 'cp $SOURCE $TARGET')
+env.Alias ('fonts', outcmr)
+env.Alias ('mf', 'fonts')
 
 #testing
 all_sources = ['SConscript',] + sources

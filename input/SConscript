@@ -11,24 +11,22 @@ abc_sources = glob.glob ('*.abc')
 os.chdir (here)
 
 Import ('env')
-e = env.Copy ()
 #outdir = os.path.join (env['build'], reldir, env['out'])
 
 # examples = simple simple-song les-nereides puer-fragment wilhelmus paddy
 
 stems = map (lambda x: os.path.splitext (x)[0], sources)
-pdfs = map (e.LilyPond, stems)
-
 abc_stems = map (lambda x: os.path.splitext (x)[0], abc_sources)
-lys = map (e.Abc2ly, abc_stems)
-pdfs = pdfs + map (e.LilyPond, lys)
+lys = map (env.Abc2ly, abc_stems)
+examples = map (env.LilyPond, stems + abc_stems)
+env.Alias ('doc', examples)
 
 LILYPOND_BIN = env['LILYPOND_BIN']
 
 mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
-e.Depends ('doc', 'fonts')
-e.Depends ('doc', LILYPOND_BIN)
-e.Alias ('doc', pdfs)
+#e.Depends ('doc', 'fonts')
+env.Depends ('doc', mfbuild)
+env.Depends ('doc', LILYPOND_BIN)
 
 #testing
 all_sources = ['SConscript',] + sources + abc_sources
