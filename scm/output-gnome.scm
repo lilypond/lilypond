@@ -29,27 +29,41 @@
 
 ;;; Try it
 ;;;
-;;;   * Install gnome/gtk development stuff
+;;;   * Get cvs and tla
 ;;;
-;;;   * Install g-wrap and guile-gnome, see buildscripts/guile-gnome.sh
+;;;   * Install gnome/gtk and libffi development stuff
+;;;
+;;;   * Install pango, g-wrap and guile-gnome from CVS or arch: 
+;;;     see buildscripts/guile-gnome.sh
 ;;;  
+;;;   * Build LilyPond with gui support: configure --enable-gui
+;;;
+;;;   * Supposing that LilyPond was built in ~/cvs/lilypond, tell X about
+;;;     feta fonts:
+"
+ln -s ~/cvs/lilypond/mf/out ~/.fonts
+mkfontdir ~/.fonts
+xset +fp ~/.fonts
+"
+;;;
 ;;;   * Setup environment
 "
-export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$HOME/usr/pkg/g-wrap/share/guile/site/g-wrap:$HOME/usr/pkg/guile-gnome/share/guile
-export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
+export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$HOME/usr/pkg/g-wrap/share/guile/site/g-wrap:$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
+export LD_LIBRARY_PATH=$HOME/usr/pkg/pango/lib:$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
 export XEDITOR='/usr/bin/emacsclient --no-wait +%l:%c %f'
 "
 ;;;  * Also for GNOME point-and-click, you need to set XEDITOR and add
 "
 #(ly:set-point-and-click 'line-column)
 "
-;;;    to your .ly; then click an object on the canvas.
+;;;    to your .ly.
 ;;;
 ;;;  * Run lily:
 "
 lilypond-bin -fgnome input/simple-song.ly
 "
-
+;;; point-and-click: (mouse-1) click on a graphical object;
+;;; grob-property-list: (mouse-3) click on a graphical object.
 
 (debug-enable 'backtrace)
 
