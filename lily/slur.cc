@@ -22,6 +22,7 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
+#include "bezier.hh"
 
 void
 Slur::add (Note_column*n)
@@ -130,48 +131,116 @@ Slur::do_post_processing ()
   while (flip(&d) != LEFT);
 }
 
+static Real
+pos_correct (Real x, Real dx, Real dy)
+{
+  /*
+    guess how much we can safely increase 'h'
+    parameter of bow without taking too large
+    or too many steps.
+    empiric computer science
+   */
+//  return (1.0 + 2.0 * x / dx) / 4.0;
+  return 1.0;
+}
+
 Real
 Slur::height_f () const
 {
+  Real interline = paper ()->interline_f ();
+  Real notewidth = paper ()->note_width ();
+  Real internote = interline / 2;
+
   /*
-   rather braindead way that of adjusting slur height 
-   for heads/stems that extend beyond default slur
-   works quite good
+   having the correct (i.e. exactly the same as the ps stuff)
+   x,y coordinates is essential.
+   getting them is quite a mess, currently.
    */
 
-  Real interline_f = paper ()->interline_f ();
-  Real nh_f = interline_f / 2;
-  Real h = 0;
+  Stem* left_stem =encompass_arr_[0]->stem_l_; 
+  Real left_x = left_stem->hpos_f ();
+  // ugh, do bow corrections (see brew_mol)
+  left_x += dx_f_drul_[LEFT] + 0.5 * notewidth;
+
+//  Real left_y = left_stem->dir_ == dir_ ? left_stem->stem_end_f () + dir_
+//    : left_stem->stem_begin_f () + 0.5 * dir_;
+//  left_y *= internote;
+  // ugh, do bow corrections (see brew_mol)
+//  left_y = dy_f_drul_[LEFT];
+
+  // ugh, do bow corrections (see brew_mol)
+  Real left_y = dy_f_drul_[LEFT];
+
+  // ugh, where does this asymmetry come from?
+  if (dir_ == DOWN)
+    left_y -= dir_ * internote;
+
   Real dx = width ().length ();
-//  Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]) * nh_f;
   Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  Stem* stem = encompass_arr_[0]->stem_l_;
-  Real lx = stem->hpos_f ();
-  Real centre = (width ().min () + width ().max ()) / 2 + lx;
-  Real ly = stem->dir_ == dir_ ? stem->stem_end_f () : stem->stem_begin_f () 
-    + dir_ * 0.5;
-  ly *= nh_f;
-  for (int i = 0; i < encompass_arr_.size (); i++) 
+  Real centre_x = dx / 2;
+
+
+  // ugh, need staffheight for bow damping
+  Bezier_bow b (paper ());
+
+  if (check_debug && !monitor->silent_b ("Slur"))
     {
-      Stem* s = encompass_arr_[i]->stem_l_;
-      Real sx = abs (centre - s->hpos_f ());
-      Real stemy = s->dir_ == dir_ ? s->stem_end_f () : s->stem_begin_f () + dir_ * 0.5;
-      stemy *= nh_f;
-      Real sy = dir_ * (stemy - (ly + ((s->hpos_f () - lx) / dx) * dy));
-      /*
-        uhm, correct for guess bezier curve (more if further from centre)
-        forget the cos alpha...
-       */
-      if (sy > 0.5 * nh_f)
-	h = h >? (sy * (1 + 2 * sx / dx))*(1 + abs (dy)/32);
+      cout << "*****************" << endl;
+      cout << "dir: " << (int)dir_ << endl;
+      cout << "dx: " << dx << endl;
+      cout << "dy: " << dy << endl;
+      cout << "centre: " << centre_x << endl;
+      for (int i = 0; i < encompass_arr_.size (); i++)
+	cout << "i: " << i << " x: " 
+	    << encompass_arr_[i]->stem_l_->hpos_f () - left_x << endl;
     }
-    if ( h < nh_f )
-      return 0;
-  h *= h/(dx*dx*dx);
-//  h *= 32;
-//  h *= h;
-  h *= 40000;
-  return h;
+  Real height = 0;
+  Real dh = 0;
+  do
+    {
+      height += dh;
+      dh = 0;
+      b.calc (dx, dy, height, dir_);
+      
+      if (check_debug && !monitor->silent_b ("Slur"))
+        cout << "----" << endl;
+      for (int i = 1; i < encompass_arr_.size () - 1; i++) 
+	{
+	  Stem* stem = encompass_arr_[i]->stem_l_;
+	  /* 
+	    set x to middle of notehead or on exact x position of stem,
+	    according to slur direction
+	   */
+	  Real x = stem->hpos_f () - left_x + notewidth / 2;
+	  if (stem->dir_ != dir_)
+	    x += notewidth / 2;
+	  else if (stem->dir_ == UP)
+	    x += notewidth;
+	  Real y = stem->dir_ == dir_ ? stem->stem_end_f ()
+	    : stem->stem_begin_f () + 1.5 * dir_;
+
+	  /*
+	    leave a gap: slur mustn't touch head/stem
+	   */
+	  y += 2.5 * dir_;
+	  y *= internote;
+	  y -= left_y;
+
+	  Real shift = dir_ * (y - b.y (x));
+
+	  if (check_debug && !monitor->silent_b ("Slur"))
+	    {
+	      cout << "x: " << x << " (" << abs (centre_x - x) << ")" << endl;
+	      cout << "y: " << y << ", curve: " << b.y (x) << endl;
+	      cout << "shift: " << shift << endl;
+	    }
+
+	  if (shift > 0.1 * internote)
+	    dh = dh >? shift * pos_correct (abs (centre_x - x), dx, dy);
+	}
+    } while (dh);
+
+  return height;
 }
 
 IMPLEMENT_IS_TYPE_B1(Slur,Spanner);
