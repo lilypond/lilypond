@@ -2,6 +2,11 @@
 
 \include "table20.ly";
 
+ \include "table13.ly";
+ \include "table16.ly";
+
+\version "1.0.0";
+
 paper_twenty = \paper {
 	staffheight = 20.0\pt;
 	% where to get papersize (e.g. a5, letter)
@@ -14,8 +19,13 @@ paper_twenty = \paper {
 	basicspace = 8.\pt;
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 6.\pt;
+	texsetting = "\\input lilyponddefs \\musixtwentydefs ";
+
+
+	-2 = \symboltables { \table_thirteen }	
+	-1 = \symboltables { \table_sixteen }
+	0 = \symboltables { \table_twenty }
 	
-	\symboltables { \table_twenty }
 	\include "params.ly";
 }
 

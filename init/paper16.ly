@@ -1,15 +1,12 @@
 % paper16.ly
 
+\include "table13.ly";
+\include "table11.ly";
 \include "table16.ly";
 
 
-%{
 
-TODO make this somehow parametric. for example the linewidth was
-chosen to look good on A4 paper.  This probably looks less good on US
-paper sizes.
-
-%}
+\version "1.0.0";
 
 paper_sixteen = \paper {
 	staffheight = 16.0\pt;
@@ -22,7 +19,11 @@ paper_sixteen = \paper {
 	basicspace = 4.\pt;
      	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;
+	texsetting = "\\input lilyponddefs \\musixsixteendefs ";
    
-	\symboltables { \table_sixteen }
+	0 = \symboltables { \table_sixteen }
+	-1 = \symboltables { \table_thirteen }
+	-2 = \symboltables { \table_eleven }
+	
 	\include "params.ly";
 }
