@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.21"
 
 \header { texidoc= "
 
@@ -23,7 +23,7 @@ tsMarkup =
 
 \score  { \notes \relative c'
 	  {
-	   \property Staff.TimeSignature \override #'molecule-callback = #Text_item::brew_molecule
+	   \property Staff.TimeSignature \override #'print-function = #Text_item::brew_molecule
 	   \property Staff.TimeSignature \override #'text = #tsMarkup
 	   
 	   

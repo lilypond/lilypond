@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 % #(ly:set-point-and-click 'line-column)
 
@@ -168,7 +168,7 @@ baerPaper = \paper {
     interscoreline=4.0\mm
     \translator {
 	     \ScoreContext
-%	     System \override #'molecule-callback = #box-grob-molecule
+%	     System \override #'print-function = #box-grob-molecule
     }
 }
 

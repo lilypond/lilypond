@@ -26,9 +26,9 @@
 #include "font-interface.hh"
 #include "math.h" // rint
 
-MAKE_SCHEME_CALLBACK (Custos,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Custos,print,1);
 SCM
-Custos::brew_molecule (SCM smob)
+Custos::print (SCM smob)
 {
   Item *me = (Item *)unsmob_grob (smob);
 

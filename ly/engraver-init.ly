@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 
 %
@@ -578,7 +578,7 @@ OrchestralScoreContext = \translator {
 
 EasyNotation = \translator {
 	\ScoreContext
-	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
+	NoteHead \override #'print-function = #Note_head::brew_ez_molecule
 	NoteHead \override #'Y-extent-callback = #'()
 	NoteHead \override #'X-extent-callback = #'()
 }
@@ -618,7 +618,7 @@ EasyNotation = \translator {
 
       \description "Context for drawing notes in a Tab staff. "
       Slur \override #'font-family       = #'roman
-      Slur \override #'molecule-callback = #hammer-molecule-callback
+      Slur \override #'print-function = #hammer-print-function
       Slur \override #'direction    = #-1
 
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)

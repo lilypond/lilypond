@@ -22,7 +22,7 @@ struct Time_signature
   static bool has_interface (Grob*);
   static Molecule special_time_signature (Grob*,SCM,int,int) ;
   static Molecule numbered_time_signature (Grob*,int, int);
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
 };
 #endif // METER_HH
 

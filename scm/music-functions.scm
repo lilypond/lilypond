@@ -773,11 +773,11 @@ Rest can contain a list of beat groupings
   (let*
    ((meta (ly:get-grob-property grob 'meta))
     (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant"))
-    (cb (ly:get-grob-property grob 'molecule-callback)))
+    (cb (ly:get-grob-property grob 'print-function)))
     
    (if (equal? nm object-name)
     (begin
-     (ly:set-grob-property! grob 'molecule-callback Balloon_interface::brew_molecule)
+     (ly:set-grob-property! grob 'print-function Balloon_interface::brew_molecule)
      (ly:set-grob-property! grob 'balloon-original-callback cb)
      (ly:set-grob-property! grob 'balloon-text text)
      (ly:set-grob-property! grob 'balloon-text-offset off)

@@ -102,9 +102,9 @@ System_start_delimiter::after_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (System_start_delimiter,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (System_start_delimiter,print,1);
 SCM
-System_start_delimiter::brew_molecule (SCM smob)
+System_start_delimiter::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 

@@ -3,7 +3,7 @@
     texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
     }
-\version "2.1.11"
+\version "2.1.21"
 
 \score  {
  \notes {
@@ -11,7 +11,7 @@ with lines and explanatory text added."
    \relative c'  {
 
        %% by hand:
-       \once\property Voice.Stem \set #'molecule-callback = #Balloon_interface::brew_molecule
+       \once\property Voice.Stem \set #'print-function = #Balloon_interface::brew_molecule
        \once\property Voice.Stem \set #'balloon-original-callback = #Stem::brew_molecule
        \once\property Voice.Stem \set #'balloon-text = #"I'm a stem"
        \once\property Voice.Stem \set #'balloon-text-offset = #'(3 . 4)

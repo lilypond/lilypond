@@ -1,4 +1,4 @@
-\version "2.1.1"
+\version "2.1.21"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -56,7 +56,7 @@ caesura = {
   \breathe
 }
 divisioMinima = {
-  \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_minima
+  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
@@ -64,7 +64,7 @@ divisioMinima = {
   \breathe
 }
 divisioMaior = {
-  \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maior
+  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_maior
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -73,7 +73,7 @@ divisioMaior = {
   \breathe
 }
 divisioMaxima = {
-  \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maxima
+  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_maxima
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -82,7 +82,7 @@ divisioMaxima = {
   \breathe
 }
 finalis = {
-  \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::finalis
+  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::finalis
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.

@@ -16,7 +16,7 @@
   `(
     (Accidental
      . (
-	(molecule-callback . ,Accidental_interface::brew_molecule)
+	(print-function . ,Accidental_interface::print)
 	(font-family . music)
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
@@ -37,7 +37,7 @@
      . (
        (breakable . #t)
        (break-align-symbol . ambitus)
-       (molecule-callback . ,Ambitus::brew_molecule)
+       (print-function . ,Ambitus::print)
        (font-family . music)
        (note-head-style . "noteheads-2")
        (visibility-lambda . ,begin-of-line-visible)
@@ -56,7 +56,7 @@
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
 	(Y-extent-callback . #f)	       
-	(molecule-callback . ,Arpeggio::brew_molecule)
+	(print-function . ,Arpeggio::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
@@ -70,7 +70,7 @@
 	(glyph . "|")
 	(break-glyph-function . ,default-break-barline)
 	(bar-size-procedure . ,Bar_line::get_staff_bar_size)
-	(molecule-callback . ,Bar_line::brew_molecule)	   
+	(print-function . ,Bar_line::print)	   
 	(break-visibility . ,all-visible)
 	(breakable . #t)
 	(before-line-breaking-callback . ,Bar_line::before_line_breaking)
@@ -97,7 +97,7 @@
     
     (BarNumber
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -118,7 +118,7 @@
 
     (BassFigure
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
@@ -136,7 +136,7 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-	(molecule-callback . ,Beam::brew_molecule)
+	(print-function . ,Beam::print)
 	(concaveness-gap . 2.0)
 	(concaveness-threshold . 0.08)
 	(gap . 0.8)
@@ -214,7 +214,7 @@
 			(first-note . (fixed-space . 1.0)) ;huh? 
 			(right-edge . (extra-space . 0.1))
 			))
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(text . ,(make-musicglyph-markup "scripts-rcomma"))
 	(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 	(break-visibility . ,begin-of-line-invisible)
@@ -223,7 +223,7 @@
 
     (Clef
      . (
-	(molecule-callback . ,Clef::brew_molecule)
+	(print-function . ,Clef::print)
 	(before-line-breaking-callback . ,Clef::before_line_breaking)
 	(breakable . #t)
 	(font-family . music)	   
@@ -243,13 +243,13 @@
     
     (ClusterSpannerBeacon
      . (
-	(molecule-callback . #f)
+	(print-function . #f)
 	(meta . ((interfaces . (cluster-beacon-interface item-interface))))
 	))
     
     (ClusterSpanner
      . (
-	(molecule-callback . ,Cluster::brew_molecule)
+	(print-function . ,Cluster::print)
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 0.0)
 	(padding . 0.25)
@@ -259,7 +259,7 @@
 
     (ChordName
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 	(word-space . 0.0)
 	(font-family . sans)
@@ -272,7 +272,7 @@
      . (
 	(break-align-symbol . custos)
 	(breakable . #t)
-	(molecule-callback . ,Custos::brew_molecule)
+	(print-function . ,Custos::print)
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
 	(neutral-position . 0)
@@ -301,14 +301,14 @@
 
     (Dots
      . (
-	(molecule-callback . ,Dots::brew_molecule)
+	(print-function . ,Dots::print)
 	(dot-count . 1)
 	(meta . ((interfaces . (font-interface staff-symbol-referencer-interface dots-interface item-interface ))))
 	))
 
     (DoublePercentRepeat .
 			 (
-			  (molecule-callback . ,Percent_repeat_item_interface::double_percent)
+			  (print-function . ,Percent_repeat_item_interface::double_percent)
 			  (breakable . #t)
 			  (slope . 1.0)
 			  (font-family . music)
@@ -324,7 +324,7 @@
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_parent))
 	(self-alignment-X . 0)
@@ -370,7 +370,7 @@
 
     (Fingering
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(padding . 0.6)
 	(staff-padding . 0.6)
 	(self-alignment-X . 0)
@@ -394,7 +394,7 @@
 
     (Hairpin
      . (
-	(molecule-callback . ,Hairpin::brew_molecule)
+	(print-function . ,Hairpin::print)
 	(thickness . 1.0)
 	(height . 0.6666)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
@@ -409,7 +409,7 @@
     (HorizontalBracket
      . (
 	(thickness . 1.0)
-	(molecule-callback . ,Horizontal_bracket::brew_molecule)
+	(print-function . ,Horizontal_bracket::print)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.2)
 	(direction . -1)
@@ -428,7 +428,7 @@
 			))
 
 	(self-alignment-Y . 0)
-	(molecule-callback . ,Text_item::brew_molecule)		
+	(print-function . ,Text_item::print)		
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -443,7 +443,7 @@
 	(direction . 0)
 	(space-alist . ((left-edge . (extra-space . 1.0))
 			))
-	(molecule-callback . ,Text_item::brew_molecule)		
+	(print-function . ,Text_item::print)		
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -456,7 +456,7 @@
 
     (KeySignature
      . (
-	(molecule-callback . ,Key_signature_interface::brew_molecule)
+	(print-function . ,Key_signature_interface::print)
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar .  (extra-space . 1.1))
@@ -472,7 +472,7 @@
 
     (LigatureBracket
      . (
-	(ligature-primitive-callback . ,Note_head::brew_molecule)
+	(ligature-primitive-callback . ,Note_head::print)
 	(direction . 1)
 	(gap . 0.0)
 	(padding . 2.0)
@@ -481,7 +481,7 @@
 	(shorten-pair . (-0.2 . -0.2))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
-	(molecule-callback . ,Tuplet_bracket::brew_molecule)
+	(print-function . ,Tuplet_bracket::print)
 	(meta .  ((interfaces . (tuplet-bracket-interface spanner-interface))))
 	))
 
@@ -492,7 +492,7 @@
 	(dash-period . 10.0)
 	(length . 0.66)
 	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
-	(molecule-callback . ,Hyphen_spanner::brew_molecule)
+	(print-function . ,Hyphen_spanner::print)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface
 						spanner-interface))))
@@ -500,7 +500,7 @@
 
     (LyricExtender
      . (
-	(molecule-callback . ,Lyric_extender::brew_molecule)
+	(print-function . ,Lyric_extender::print)
 	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
@@ -509,7 +509,7 @@
 	))
 
     (LyricText
-     . ((molecule-callback . ,Text_item::brew_molecule)
+     . ((print-function . ,Text_item::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
@@ -525,13 +525,13 @@
 	(thickness . 1.4)
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Mensural_ligature::brew_ligature_primitive)
-	(molecule-callback . ,Mensural_ligature::brew_molecule)
+	(print-function . ,Mensural_ligature::print)
 	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
 	))
 
     (RehearsalMark
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(after-line-breaking-callback . ,shift-right-at-line-begin)
@@ -547,7 +547,7 @@
 	))
      (MetronomeMark
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
 	(breakable . #t)
@@ -559,7 +559,7 @@
     (MeasureGrouping
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(molecule-callback . ,Measure_grouping::brew_molecule)
+	(print-function . ,Measure_grouping::print)
 	(padding . 2)
 	(direction . 1)
 	(thickness . 1)
@@ -570,7 +570,7 @@
     (MultiMeasureRest
      . (
 	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
-	(molecule-callback . ,Multi_measure_rest::brew_molecule)
+	(print-function . ,Multi_measure_rest::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
@@ -582,7 +582,7 @@
     
     (MultiMeasureRestNumber
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -595,7 +595,7 @@
 	))
     (MultiMeasureRestText
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -627,8 +627,8 @@
     (NoteHead
      . (
 	(style . default)
-	(molecule-callback . ,Note_head::brew_molecule)
-	(ligature-primitive-callback . ,Note_head::brew_molecule)
+	(print-function . ,Note_head::print)
+	(ligature-primitive-callback . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(X-extent-callback . ,Note_head::extent)
 	(Y-extent-callback . ,Note_head::extent)
@@ -646,7 +646,7 @@
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)			 
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
-	(molecule-callback . ,Line_spanner::brew_molecule)
+	(print-function . ,Line_spanner::print)
 	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
 	))
 
@@ -657,14 +657,14 @@
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)			 
-	(molecule-callback . ,Line_spanner::brew_molecule)
+	(print-function . ,Line_spanner::print)
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(meta . ((interfaces . (line-spanner-interface spanner-interface))))
 	))
 
     (NoteName
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(font-family . roman)
 	(meta . ((interfaces . (note-name-interface text-interface font-interface item-interface ))))
 	))
@@ -675,7 +675,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(font-shape . italic)
 	(padding . 0.4)
 	(staff-padding . 0.2)
@@ -690,13 +690,13 @@
 	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
-;	        (molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8") (Y-extent-callback . #f)
+;	        (print-function . ,Paper_column::print) (font-name . "cmr8") (Y-extent-callback . #f)
 	(meta . ((interfaces . (paper-column-interface axis-group-interface spaceable-grob-interface item-interface ))))
 	))
 
     (PhrasingSlur
      . (
-	(molecule-callback . ,Slur::brew_molecule)
+	(print-function . ,Slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
@@ -725,7 +725,7 @@
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
 	;; debugging stuff: print column number.
-;	(molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")	(Y-extent-callback . #f)
+;	(print-function . ,Paper_column::print) (font-name . "cmr8")	(Y-extent-callback . #f)
 
 
 	(meta .  ((interfaces . (paper-column-interface axis-group-interface spaceable-grob-interface item-interface ))))
@@ -734,7 +734,7 @@
     (PercentRepeat
      . (
 	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
-	(molecule-callback . ,Multi_measure_rest::percent)
+	(print-function . ,Multi_measure_rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
 	(minimum-width . 12.5) ; staffspace
@@ -744,7 +744,7 @@
 
     (PianoPedalBracket   ;; an example of a text spanner
      . (
-	(molecule-callback . ,Piano_pedal_bracket::brew_molecule)
+	(print-function . ,Piano_pedal_bracket::print)
 	(font-family . roman)
 	(style . line)
 	(if-text-padding . 1.0)
@@ -758,7 +758,7 @@
 
     (RepeatSlash
      . (
-	(molecule-callback . ,Percent_repeat_item_interface::beat_slash)
+	(print-function . ,Percent_repeat_item_interface::beat_slash)
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((interfaces . (percent-repeat-interface item-interface ))))
@@ -768,7 +768,7 @@
 	(after-line-breaking-callback . ,Rest::after_line_breaking)
 	(X-extent-callback . ,Rest::extent_callback)
 	(Y-extent-callback . ,Rest::extent_callback)		
-	(molecule-callback . ,Rest::brew_molecule)
+	(print-function . ,Rest::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
 	(minimum-distance . 0.25)
 	(meta . (
@@ -789,7 +789,7 @@
     (Script
      . (
 	;; don't set direction here: it breaks staccato.
-	(molecule-callback . ,Script_interface::brew_molecule)
+	(print-function . ,Script_interface::print)
 
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
@@ -810,7 +810,7 @@
 
     (Slur
      . (
-	(molecule-callback . ,Slur::brew_molecule)
+	(print-function . ,Slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
@@ -847,7 +847,7 @@
      . (
 	(break-align-symbol . staff-bar)
 	(bar-size-procedure . ,Span_bar::get_bar_size) 
-	(molecule-callback . ,Span_bar::brew_molecule)
+	(print-function . ,Span_bar::print)
 	(break-visibility . ,begin-of-line-invisible)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
@@ -868,7 +868,7 @@
 	))
 
     (StanzaNumber
-     . ((molecule-callback . ,Text_item::brew_molecule)		
+     . ((print-function . ,Text_item::print)		
 	(font-family . roman)
 	(font-series . bold)
 	(padding . 1.0)
@@ -897,7 +897,7 @@
 
     (StaffSymbol
      . (
-	(molecule-callback . ,Staff_symbol::brew_molecule)
+	(print-function . ,Staff_symbol::print)
 	(line-count . 5)
 	(ledger-line-thickness  . (1.0 . 0.1))
 	(layer . 0)
@@ -906,7 +906,7 @@
 
     (SostenutoPedal
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(direction . 1)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
@@ -935,7 +935,7 @@
 
 	;; this list is rather long. Trim --hwn
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
-	(molecule-callback . ,Stem::brew_molecule)
+	(print-function . ,Stem::print)
 	(thickness . 1.3)
 
 	;; 3.5 (or 3 measured from note head) is standar length
@@ -982,7 +982,7 @@
 
     (StemTremolo
      . (
-	(molecule-callback . ,Stem_tremolo::brew_molecule)
+	(print-function . ,Stem_tremolo::print)
 	(Y-extent-callback . ,Stem_tremolo::height)
 	(X-extent-callback . #f)
 
@@ -1007,7 +1007,7 @@
     (SustainPedal
      . (
 	(no-spacing-rods . #t)
-	(molecule-callback . ,Sustain_pedal::brew_molecule)
+	(print-function . ,Sustain_pedal::print)
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
@@ -1039,7 +1039,7 @@
     (SystemStartBrace
      . (
 	(glyph . "brace")
-	(molecule-callback . ,System_start_delimiter::brew_molecule)
+	(print-function . ,System_start_delimiter::print)
 	(collapse-height . 5.0)
 	(font-family . braces)
 	(Y-extent-callback . #f)
@@ -1049,7 +1049,7 @@
     (SystemStartBracket
      . (
 	(Y-extent-callback . #f)
-	(molecule-callback . ,System_start_delimiter::brew_molecule)
+	(print-function . ,System_start_delimiter::print)
 	(glyph . "bracket")
 	(arch-height . 1.5)
 	(arch-angle . 50.0)
@@ -1063,7 +1063,7 @@
     (SystemStartBar
      . (
 	(Y-extent-callback . #f)
-	(molecule-callback . ,System_start_delimiter::brew_molecule)
+	(print-function . ,System_start_delimiter::print)
 	(glyph . "bar-line")
 	(thickness . 1.6)
 	(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
@@ -1072,7 +1072,7 @@
 
     (TextScript
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
@@ -1086,7 +1086,7 @@
 	))
     (CombineTextScript
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(no-spacing-rods . #t)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -1103,7 +1103,7 @@
 	))
     (TextSpanner
      . (
-	(molecule-callback . ,Text_spanner::brew_molecule)
+	(print-function . ,Text_spanner::print)
 	(font-family . roman)
 	(style . dashed-line)
 	(staff-padding . 0.1)
@@ -1119,7 +1119,7 @@
     (OttavaBracket
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(molecule-callback . ,Ottava_bracket::brew_molecule)
+	(print-function . ,Ottava_bracket::print)
 	(font-shape . italic)
 	(font-family . roman)
 	(text-repeat-if-broken . #t)
@@ -1139,7 +1139,7 @@
      . (
 	(font-family . roman)
 	(style . default)
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
@@ -1153,7 +1153,7 @@
 
     (Tie
      . (
-	(molecule-callback . ,Tie::brew_molecule)
+	(print-function . ,Tie::print)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(staffline-clearance . 0.35)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
@@ -1174,8 +1174,8 @@
 
     (TimeSignature
      . (
-	(molecule-callback . ,Time_signature::brew_molecule)
-;	(molecule-callback . ,Text_item::brew_molecule)	
+	(print-function . ,Time_signature::print)
+;	(print-function . ,Text_item::print)	
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1199,7 +1199,7 @@
 	(shorten-pair . (-0.2 . -0.2))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
-	(molecule-callback . ,Tuplet_bracket::brew_molecule)
+	(print-function . ,Tuplet_bracket::print)
 	(font-family . roman)
 	(font-shape . italic)
 	(font-series . bold)
@@ -1210,7 +1210,7 @@
 
     (UnaCordaPedal
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(print-function . ,Text_item::print)
 	(font-family . roman)
 	(font-shape . italic)
 	(no-spacing-rods . #t)
@@ -1238,13 +1238,13 @@
 	(thickness . 0.6)
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Vaticana_ligature::brew_ligature_primitive)
-	(molecule-callback . ,Vaticana_ligature::brew_molecule)
+	(print-function . ,Vaticana_ligature::print)
 	(meta . ((interfaces . (vaticana-ligature-interface font-interface))))
 	))
 
     (VoltaBracket
      . (
-	(molecule-callback . ,Volta_bracket_interface::brew_molecule)
+	(print-function . ,Volta_bracket_interface::print)
 	(direction . 1)
 	(padding . 1)
 	(font-family . number)

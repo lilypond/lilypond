@@ -121,9 +121,9 @@ Stem_tremolo::raw_molecule (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Stem_tremolo,print,1);
 SCM
-Stem_tremolo::brew_molecule (SCM grob) 
+Stem_tremolo::print (SCM grob) 
 {
   Grob *me = unsmob_grob (grob);
   Grob *stem = unsmob_grob (me->get_grob_property ("stem"));

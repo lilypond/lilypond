@@ -319,10 +319,10 @@ Grob at least this long.
 
 Also works as a scaling parameter for the length of hyphen. .")
      (minimum-space ,ly:dimension? "minimum distance that the victim should move (after padding).")
-     (molecule-callback ,procedure? "Function taking grob as argument,
+     (print-function ,procedure? "Function taking grob as argument,
 returning a Molecule object.")
 
-     (molecule ,ly:molecule? "Cached output of the molecule-callback.")
+     (molecule ,ly:molecule? "Cached output of the print-function.")
 
      (new-accidentals ,list? "list of (pitch, accidental) pairs.")
      (no-spacing-rods ,boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
@@ -434,7 +434,7 @@ notation manual for more information.")
 
      (threshold ,number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace.")
      (transparent ,boolean? "This is almost the
-same as setting molecule-callback to #f, but this retains the
+same as setting print-function to #f, but this retains the
 dimensions of this grob, which means that you can erase grobs
 individually. .")
      (bracket-visibility ,boolean-or-symbol? " This controls the
@@ -503,7 +503,6 @@ duration of a measure is a breve or longer.")
 (define all-internal-grob-properties
   (map
    (lambda (x)
-     (display x)
      (apply define-internal-grob-property x))
    
    `(
@@ -512,15 +511,16 @@ duration of a measure is a breve or longer.")
      (all-elements ,grob-list? "list of all grobs in this line. Needed for protecting grobs from GC.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.") 
      (beam ,ly:grob? "pointer to the beam, if applicable.")
-     (center-element ,ly:grob? "grob which will
-be at the center of the group after aligning (when using
-Align_interface::center_on_element). .")
-     (direction-source ,ly:grob? "in case side-relative-direction is set, which grob  to get the direction from .")
+     (center-element ,ly:grob? "grob which will be at the center of
+the group after aligning (when using
+Align_interface::center_on_element).")
+     (direction-source ,ly:grob? "in case side-relative-direction is
+set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      (stem ,ly:grob? "pointer to Stem object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
-     (tie ,ly:grob? "") 
+     (tie ,ly:grob? "")
      (staff-symbol ,ly:grob? "the staff symbol grob that we're in.")
      (rest ,ly:grob? "the staff symbol grob that we're in.")
      (rest-collision ,ly:grob? "rest collision that a rest is in.")

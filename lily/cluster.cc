@@ -125,16 +125,16 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Cluster,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Cluster,print,1);
 SCM
-Cluster::brew_molecule (SCM smob)
+Cluster::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   if (!spanner)
     {
-      me->programming_error ("Cluster::brew_molecule(): not a spanner");
+      me->programming_error ("Cluster::print(): not a spanner");
       return SCM_EOL;
     }
 

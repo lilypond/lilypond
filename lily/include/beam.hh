@@ -35,7 +35,7 @@ public:
 
   static void connect_beams (Grob*me);
   DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   

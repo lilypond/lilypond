@@ -25,7 +25,7 @@ Span_bar::add_bar (Grob*me, Grob*b)
   me->add_dependency (b);
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Span_bar,print,1);
 
 /* Limitations/Bugs:
 
@@ -46,7 +46,7 @@ MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
 /* This routine was originally by Juergen Reuter, but it was a on the
    bulky side. Rewritten by Han-Wen. */
 SCM
-Span_bar::brew_molecule (SCM smobbed_me) 
+Span_bar::print (SCM smobbed_me) 
 {
   Grob *me = unsmob_grob (smobbed_me);
   SCM first_elt = me->get_grob_property ("elements");
@@ -149,7 +149,7 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
-  /* Bar_line::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
+  /* Bar_line::print delivers a barline of y-extent (-h/2,h/2), so
      we have to translate ourselves to be in the center of the 
      interval that we span. */
   if (i.is_empty ())

@@ -21,10 +21,10 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK (Bar_line,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Bar_line,print,1);
 
 SCM 
-Bar_line::brew_molecule (SCM smob) 
+Bar_line::print (SCM smob) 
 {
   Grob * me = unsmob_grob (smob);
 
@@ -165,7 +165,7 @@ Bar_line::before_line_breaking (SCM smob)
   
   if (!gh_string_p (g))
     {
-      me->set_grob_property ("molecule-callback", SCM_EOL);
+      me->set_grob_property ("print-function", SCM_EOL);
       me->set_extent (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }

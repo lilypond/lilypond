@@ -60,7 +60,7 @@
  * of the ligature (to preemptively avoid collision with adjacent
  * notes); or maybe just additionally create a
  * mensural/vaticana/whatever-ligature grob (e.g. via
- * Mensural_ligature::brew_molecule(SCM)) that just consists of a
+ * Mensural_ligature::print(SCM)) that just consists of a
  * bounding box around all primitives of the ligature.
  *
  * TODO: Maybe move functions fold_up_primitives() and

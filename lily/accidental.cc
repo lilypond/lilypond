@@ -158,9 +158,9 @@ Accidental_interface::get_fontcharname (String style, int alteration)
   return style + to_string (alteration);
 }
 
-MAKE_SCHEME_CALLBACK (Accidental_interface,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Accidental_interface,print,1);
 SCM
-Accidental_interface::brew_molecule (SCM smob)
+Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   bool smaller = false;

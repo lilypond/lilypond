@@ -16,13 +16,13 @@ struct Balloon_interface
 {
   
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
 };
 
-MAKE_SCHEME_CALLBACK (Balloon_interface, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
 SCM
-Balloon_interface::brew_molecule (SCM smob) 
+Balloon_interface::print (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
 

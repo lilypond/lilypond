@@ -15,7 +15,7 @@
 class Cluster
 {
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   //  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static bool has_interface (Grob *);
   // DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));

@@ -322,9 +322,9 @@ Vaticana_ligature::brew_ligature_primitive (SCM smob)
   return primitive;
 }
 
-MAKE_SCHEME_CALLBACK (Vaticana_ligature, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Vaticana_ligature, print, 1);
 SCM
-Vaticana_ligature::brew_molecule (SCM)
+Vaticana_ligature::print (SCM)
 {
   return SCM_EOL;
 }

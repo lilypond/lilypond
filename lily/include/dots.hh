@@ -18,7 +18,7 @@
 class Dots
 {
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   bool has_interface (Grob*);
 };
 

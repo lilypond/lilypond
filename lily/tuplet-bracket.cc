@@ -96,9 +96,9 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   follow beam precisely for determining tuplet number location.
   
  */
-MAKE_SCHEME_CALLBACK (Tuplet_bracket,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket,print,1);
 SCM
-Tuplet_bracket::brew_molecule (SCM smob) 
+Tuplet_bracket::print (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
   Molecule  mol;

@@ -24,7 +24,7 @@ public:
   static Molecule get_molecule (Grob*,Direction d);
   
   static bool  has_interface (Grob*);
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
 };
 

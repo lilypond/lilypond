@@ -30,7 +30,7 @@ public:
 
   static int get_rank (Grob*);
 
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK(print, (SCM));
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM));
   
   Paper_column (SCM);

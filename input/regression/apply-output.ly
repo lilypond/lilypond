@@ -1,5 +1,5 @@
 
-\version "2.1.7" 
+\version "2.1.21" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to
@@ -20,7 +20,7 @@ position.
   (if (and (memq 'note-head-interface ifs)
 	   (memq sp '(-2 -3 -5)))
       (begin
-	(ly:set-grob-property! gr 'molecule-callback brew-new-markup-molecule)
+	(ly:set-grob-property! gr 'print-function brew-new-markup-molecule)
 	(ly:set-grob-property! gr 'font-family 'roman)
 	(ly:set-grob-property!
 	 gr 'text

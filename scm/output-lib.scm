@@ -13,7 +13,7 @@
 
 ; The TabNoteHead molecule callback.
 ; Create a text molecule
-(define-public (tablature-molecule-callback grob)
+(define-public (tablature-print-function grob)
   (let ((molecule (fontify-text
                    (ly:get-default-font grob)
                    (ly:get-grob-property grob 'text)
@@ -31,7 +31,7 @@
                 )
       ) ) ) 
 
-(define-public (hammer-molecule-callback grob)
+(define-public (hammer-print-function grob)
   (let* ((note-collums (ly:get-grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
          (note-column2 (car  note-collums))

@@ -13,7 +13,7 @@
 
 struct Ambitus
 {
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (print, (SCM smob));
   static bool has_interface (Grob*);
 };
 

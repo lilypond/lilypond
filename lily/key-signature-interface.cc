@@ -21,7 +21,7 @@
 
 struct Key_signature_interface
 {
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
 
   static bool has_interface (Grob*);
 };
@@ -94,9 +94,9 @@ alteration_pos  (SCM what, int alter, int c0p)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_CALLBACK (Key_signature_interface,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Key_signature_interface,print,1);
 SCM
-Key_signature_interface::brew_molecule (SCM smob)
+Key_signature_interface::print (SCM smob)
 {
   Grob*me =unsmob_grob (smob);
 

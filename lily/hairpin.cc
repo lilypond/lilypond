@@ -18,10 +18,10 @@
 #include "paper-column.hh"
 #include "lookup.hh"
 
-MAKE_SCHEME_CALLBACK (Hairpin, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 
 SCM
-Hairpin::brew_molecule (SCM smob) 
+Hairpin::print (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
@@ -36,7 +36,7 @@ Hairpin::brew_molecule (SCM smob)
   Direction grow_dir = to_dir (s);
 
 
-  /* Ugh, must be same as Text_spanner::brew_molecule.  */
+  /* Ugh, must be same as Text_spanner::print.  */
 
   /*
     Ugh. property name is not general.

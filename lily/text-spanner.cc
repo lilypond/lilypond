@@ -28,18 +28,18 @@
   - more texts/positions
 */
 
-MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Text_spanner, print, 1);
 
 /*
   TODO: this function is too long
 */
 SCM
-Text_spanner::brew_molecule (SCM smob) 
+Text_spanner::print (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   
-  /* Ugh, must be same as Hairpin::brew_molecule.  */
+  /* Ugh, must be same as Hairpin::print.  */
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
   Paper_def * paper = me->get_paper();

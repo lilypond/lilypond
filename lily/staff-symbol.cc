@@ -18,10 +18,10 @@
 
 
 
-MAKE_SCHEME_CALLBACK (Staff_symbol,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Staff_symbol,print,1);
 
 SCM
-Staff_symbol::brew_molecule (SCM smob)
+Staff_symbol::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Spanner* sp = dynamic_cast<Spanner*> (me);

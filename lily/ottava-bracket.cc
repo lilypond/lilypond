@@ -24,7 +24,7 @@
 
 struct Ottava_bracket
 {
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
 };
 
@@ -39,9 +39,9 @@ struct Ottava_bracket
 
 */
 
-MAKE_SCHEME_CALLBACK (Ottava_bracket, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
 SCM
-Ottava_bracket::brew_molecule (SCM smob)
+Ottava_bracket::print (SCM smob)
 {
   Spanner*me  = dynamic_cast<Spanner*> (unsmob_grob (smob));
   

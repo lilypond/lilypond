@@ -110,9 +110,9 @@ Paper_column::is_used (Grob*me)
   Print a vertical line and  the rank number, to aid debugging.  
  */
 
-MAKE_SCHEME_CALLBACK(Paper_column,brew_molecule,1);
+MAKE_SCHEME_CALLBACK(Paper_column,print,1);
 SCM
-Paper_column::brew_molecule (SCM p)
+Paper_column::print (SCM p)
 {
   Grob *me = unsmob_grob (p);
 

@@ -32,9 +32,9 @@
   
 */
 
-MAKE_SCHEME_CALLBACK (Volta_bracket_interface,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Volta_bracket_interface,print,1);
 SCM
-Volta_bracket_interface::brew_molecule (SCM smob) 
+Volta_bracket_interface::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   Link_array<Item> bars

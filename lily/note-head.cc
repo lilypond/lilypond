@@ -119,7 +119,7 @@ Note_head::brew_ledger_lines (Grob *me,
 }
 
 Molecule
-internal_brew_molecule (Grob *me, bool with_ledgers)
+internal_print (Grob *me, bool with_ledgers)
 {
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
@@ -179,16 +179,16 @@ internal_brew_molecule (Grob *me, bool with_ledgers)
 }
 
 
-MAKE_SCHEME_CALLBACK (Note_head,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Note_head,print,1);
 SCM
-Note_head::brew_molecule (SCM smob)  
+Note_head::print (SCM smob)  
 {
   Grob *me = unsmob_grob (smob);
 
   /*
     ledgers don't take space. See top of file.
    */
-  return internal_brew_molecule (me, true).smobbed_copy ();
+  return internal_print (me, true).smobbed_copy ();
 }
 
 /*
@@ -200,10 +200,10 @@ Note_head::brew_molecule (SCM smob)
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  SCM brewer = me->get_grob_property ("molecule-callback");
-  if (brewer == Note_head::brew_molecule_proc)
+  SCM brewer = me->get_grob_property ("print-function");
+  if (brewer == Note_head::print_proc)
     {
-      Molecule mol = internal_brew_molecule (me, false);
+      Molecule mol = internal_print (me, false);
   
       if (!mol.is_empty ())
 	return mol.extent (a);
@@ -276,10 +276,10 @@ Note_head::brew_ez_molecule (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  SCM brewer = me->get_grob_property ("molecule-callback");
+  SCM brewer = me->get_grob_property ("print-function");
   Font_metric * fm  = Font_interface::get_default_font (me);
   
-  if (brewer == Note_head::brew_molecule_proc)
+  if (brewer == Note_head::print_proc)
     {
       SCM style  = me->get_grob_property ("style");
       if (!gh_symbol_p (style))

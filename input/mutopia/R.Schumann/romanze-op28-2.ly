@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.1.13"
+\version "2.1.21"
 
 \header {
   title = "Romanzen"
@@ -241,7 +241,7 @@ leftb = \notes \transpose c cis {
     \pianoCautionaries
     \property PianoStaff.NoteCollision \override #'merge-differently-dotted = ##t
     \property PianoStaff.connectArpeggios = ##t
-    \property PianoStaff.Arpeggio \override #'molecule-callback = \arpeggioBracket
+    \property PianoStaff.Arpeggio \override #'print-function = \arpeggioBracket
 
     \property PianoStaff.InstrumentName \set #'font-size = #6
     \property PianoStaff.InstrumentName \set #'font-shape   = #'italic

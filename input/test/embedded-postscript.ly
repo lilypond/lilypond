@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.21"
 \header {
   texidoc = "@cindex Embedded Postscript
 By inserting the @TeX{} command \embeddedps, you can
@@ -10,7 +10,7 @@ insert postscript directly into the output.
 
 
 %
-%TODO: make molecule-callback to do this. 
+%TODO: make print-function to do this. 
 % 
 
 \score {

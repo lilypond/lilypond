@@ -319,9 +319,9 @@ Tie::get_control_points (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Tie,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Tie,print,1);
 SCM
-Tie::brew_molecule (SCM smob) 
+Tie::print (SCM smob) 
 {
   Grob*me = unsmob_grob (smob);
 
