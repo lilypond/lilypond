@@ -3944,8 +3944,8 @@ Here is an example demonstrating manual lyric durations,
 @cindex SATB
 @cindex choral score
 
-A complete example of a SATB score setup is in the file
-@inputfileref{input/template,satb.ly}.
+A complete example of a SATB score setup is in section
+@ref{Small ensembles}.
 
 
 @refcommands
@@ -3959,7 +3959,7 @@ A complete example of a SATB score setup is in the file
 Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
-Examples: @inputfileref{input/template,satb.ly},
+Examples: @ref{Small ensembles},
 @inputfileref{input/regression,lyric-combine-new.ly},
 @c TODO: make separate section for melismata 
 @inputfileref{input/test,lyrics-melisma-variants.ly}.
@@ -4791,7 +4791,7 @@ connected.  This is done with the @internalsref{GrandStaff} context.
 @internalsref{StaffGroup} context
 
 @lilypond[verbatim]
-\new GrandStaff
+\new StaffGroup
 \relative <<
   \new Staff { c1 c }
   \new Staff { c c }
@@ -6170,8 +6170,6 @@ Editio Vaticana style.
 The line @code{\override Script #'padding = #-0.1} is required to
 force the articulation signs being placed vertically tightly to the
 correpsonding note heads.
-
-episem is currently broken due to a bug related with TextSpanner.
 
 
 @node Custodes

@@ -1,3 +1,17 @@
+2004-09-23  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/examples.itely (Small ensembles): added
+	example for transcription of mensural music
+
+	* Documentation/user/notation.itely (The Lyrics context): fixed broken
+	link to SATB vocal score
+
+	* Documentation/user/notation.itely (System start delimiters):
+	fixed typo: GrandStaff->StaffGroup
+
+	* Documentation/user/notation.itely (Ancient articulations):
+	removed obsolete comment on \episem bug
+
 2004-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-tex.scm (output-preview-framework): Fix invocation
