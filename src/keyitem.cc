@@ -4,43 +4,45 @@
 #include "molecule.hh"
 #include "paperdef.hh"
 #include "lookup.hh"
-#include "clef.hh"
+//#include "clefreg.hh"
+#include "keyreg.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
-NAME_METHOD(Keyitem);
+NAME_METHOD(Key_item);
 
-Keyitem::Keyitem(int c)
+Key_item::Key_item(int c)
 {
-    c_position = c;
+    set_c_position(c);
 }
 
 void
-Keyitem::read(Array<int> s)
+Key_item::read(const Key_register& key_reg_r)
 {
-    for (int i = 0 ; i< s.size(); ) {
-	int note = s[i++];
-	int acc = s[i++];
-	    
+    const Array<int> &idx_arr =key_reg_r.accidental_idx_arr_; 
+    for (int i = 0 ; i< idx_arr.size(); i++) {
+	int note = idx_arr[i];
+	int acc = key_reg_r.key_.acc(note);
+
 	add(note, acc);
     }
 }
 
 void 
-Keyitem::read(const Clef& c)
+Key_item::set_c_position(int c0)
 {
-    int octaves =(abs(c.c0_position_i_) / 7) +1 ;
-    c_position=(c.c0_position_i_ + 7*octaves)%7;
+    int octaves =(abs(c0) / 7) +1 ;
+    c_position=(c0 + 7*octaves)%7;
 }
 
 
 void
-Keyitem::add(int p, int a)
+Key_item::add(int p, int a)
 {
     if ((a<0 && p>FLAT_TOP_PITCH) ||
         (a>0 && p>SHARP_TOP_PITCH)) {
-      p=p-7; /* Typeset below c_position */
+      p -= 7; /* Typeset below c_position */
     }
     pitch.push(p);
     acc.push(a);
@@ -48,7 +50,7 @@ Keyitem::add(int p, int a)
 
 
 Molecule*
-Keyitem::brew_molecule_p()const
+Key_item::brew_molecule_p()const
 {
     Molecule*output = new Molecule;
     Real inter = paper()->internote();

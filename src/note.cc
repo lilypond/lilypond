@@ -6,7 +6,8 @@
 #include "string.hh"
 #include "real.hh"
 #include "debug.hh"
-#include "request.hh"
+#include "musicalrequest.hh"
+#include "commandrequest.hh"
 #include "voice.hh"
 #include "notename.hh"
 #include "identparent.hh"
@@ -48,7 +49,7 @@ get_text(String s) return t;
     t= new Text_def;
     t->text_str_= s;
     t->style_str_ = textstyle;
-    t->defined_ch_c_l_m = defined_ch_c_l;
+    t->defined_ch_c_l_ = defined_ch_c_l;
     return t;
 }
 
@@ -74,40 +75,37 @@ parse_octave (const char *a, int &j, int &oct)
 }
 
 void 
-parse_pitchmod( const char *a, int &j, int &oct, bool & overide_acc)
+parse_pitch( const char *a, Melodic_req* mel_l)
 {
+    int j=0;
+
     // octave
-    oct =default_octave;
-    parse_octave(a,j,oct);
-	
+    mel_l->octave_i_ = default_octave;
+    parse_octave(a,j,mel_l->octave_i_);
+
     // accidental
-    overide_acc = false;
+    mel_l->forceacc_b_ = false;
     
-    if (a[j] == '!')
-	{	
-	overide_acc = true;
+    if (a[j] == '!'){
+	mel_l->forceacc_b_ = true;
 	j++;
-	}
-
-    mtor << "oct " << oct;
-    mtor << "override: " << overide_acc<<'\n';
+    }
 }
-
 
 Voice_element *
 get_note_element(String pitch, int * notename, int * duration )
 {
     Voice_element*v = new Voice_element;
-    v->defined_ch_c_l_m = defined_ch_c_l;
-    int i=0;
+    v->defined_ch_c_l_ = defined_ch_c_l;
+
     
     int dur = duration[0];
-    int dots=duration[1];
+    int dots = duration[1];
 
     if (dur >= 2) {
 	Stem_req * stem_req_p = new Stem_req(dur,dots);
 	stem_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
-	stem_req_p->defined_ch_c_l_m = defined_ch_c_l;
+	stem_req_p->defined_ch_c_l_ = defined_ch_c_l;
 	v->add(stem_req_p);
     }
     
@@ -115,19 +113,15 @@ get_note_element(String pitch, int * notename, int * duration )
         defined_ch_c_l = lexer->here_ch_c_l();
 
     Note_req * rq = new Note_req;
-    
-    int oct;
-    bool forceacc;
-    parse_pitchmod(pitch, i, oct, forceacc);
-    rq->notename =notename[0];
-    rq->accidental = notename[1];
-    rq->octave = oct + notename[2];
-    rq->forceacc = forceacc;
+    rq->notename_i_ =notename[0];
+    rq->accidental_i_ = notename[1];
+    parse_pitch(pitch, rq);
+    rq->octave_i_ += notename[2];
+
     rq->balltype = dur;
     rq->dots = dots;
     rq->plet_factor = Moment(default_plet_dur, default_plet_type);
-    rq->defined_ch_c_l_m = defined_ch_c_l;
-    rq->print();
+    rq->defined_ch_c_l_ = defined_ch_c_l;
 
     v->add(rq);
 
@@ -138,25 +132,20 @@ Voice_element*
 get_word_element(Text_def* tdef_p, int* duration)
 {
     Voice_element* velt_p = new Voice_element;
-    velt_p->defined_ch_c_l_m = defined_ch_c_l;
+    velt_p->defined_ch_c_l_ = defined_ch_c_l;
     
     int dur = duration[0];
     int dots=duration[1];
     
-    tdef_p->defined_ch_c_l_m = defined_ch_c_l;
-#if 0
-    char buf[ 21 ];
-    strncpy( buf, tdef_p->defined_ch_c_l_m, 20 );
-    buf[ 20 ] = 0;
-    cout << hex << (void*)tdef_p->defined_ch_c_l_m << dec << buf << endl;
-#endif
+    tdef_p->defined_ch_c_l_ = defined_ch_c_l;
+
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
     lreq_p->balltype = dur;
     lreq_p->dots = dots;
     lreq_p->plet_factor = Moment(default_plet_dur, default_plet_type);
     lreq_p->print();
-    lreq_p->defined_ch_c_l_m = defined_ch_c_l;
+    lreq_p->defined_ch_c_l_ = defined_ch_c_l;
 
     velt_p->add(lreq_p);
 
@@ -167,14 +156,14 @@ Voice_element *
 get_rest_element(String,  int * duration )
 {    
     Voice_element* velt_p = new Voice_element;
-    velt_p->defined_ch_c_l_m = defined_ch_c_l;
+    velt_p->defined_ch_c_l_ = defined_ch_c_l;
 
     Rest_req * rest_req_p = new Rest_req;
     rest_req_p->plet_factor = Moment(default_plet_dur, default_plet_type);
     rest_req_p->balltype = duration[0];
     rest_req_p->dots = duration[1];    
     rest_req_p->print();
-    rest_req_p->defined_ch_c_l_m = defined_ch_c_l;
+    rest_req_p->defined_ch_c_l_ = defined_ch_c_l;
 
     velt_p->add(rest_req_p);
 
@@ -247,7 +236,7 @@ get_request(char c)
 	break;
     }
 
-    req_p->defined_ch_c_l_m = req_defined_ch_c_l;
+    req_p->defined_ch_c_l_ = req_defined_ch_c_l;
     return req_p;
 }
 
@@ -289,8 +278,6 @@ Request*
 get_script_req(int d , Script_def*def)
 {
     Script_req* script_req_p = new Script_req(d, def);
-    // all terminal symbols, rather set directly here:
-    script_req_p->defined_ch_c_l_m = lexer->here_ch_c_l();
     return script_req_p;
 }
 
@@ -298,49 +285,24 @@ Request*
 get_text_req(int d , Text_def*def)
 {
     Text_req* text_req_p = new Text_req(d, def);
-    text_req_p->defined_ch_c_l_m = defined_ch_c_l;
     return text_req_p;
 }
 
-Voice_element*
-get_mark_element(String s)
+Request*
+get_stemdir_req(int d)
 {
-    Voice_element*v_p = new Voice_element;
-    v_p->defined_ch_c_l_m = defined_ch_c_l;
-    Mark_req* mark_req_p = new Mark_req(s);
-    mark_req_p->defined_ch_c_l_m = defined_ch_c_l;
-    v_p->add(mark_req_p); 
-    return v_p;
-}
-Voice_element*
-get_command_element(Input_command*com_p)
-{
-    Voice_element *velt_p = new Voice_element;
-    velt_p->defined_ch_c_l_m = defined_ch_c_l;
-    Staff_command_req* scommand_req_p = new Staff_command_req(com_p);
-    scommand_req_p->defined_ch_c_l_m = defined_ch_c_l;
-    velt_p->add(scommand_req_p);
-    return velt_p;
-}
-Voice_element*
-get_barcheck_element()
-{
-    Voice_element* velt_p = new Voice_element;
-    velt_p->defined_ch_c_l_m = req_defined_ch_c_l;
-    Barcheck_req* barcheck_req_p = new Barcheck_req;
-    barcheck_req_p->defined_ch_c_l_m = req_defined_ch_c_l;
-    velt_p->add(barcheck_req_p);
-    return velt_p;
-}
-
-Voice_element*
-get_stemdir_element(int d)
-{
-    Voice_element*v_p = new Voice_element;
-    v_p->defined_ch_c_l_m = req_defined_ch_c_l;
     Group_feature_req * gfreq_p = new Group_feature_req;
     gfreq_p->stemdir_i_ =d; 
-    gfreq_p->defined_ch_c_l_m = req_defined_ch_c_l;
-    v_p->add(gfreq_p);
-    return v_p;
+    return gfreq_p;
+}
+
+Request*
+get_grouping_req(Array<int> i_arr)
+{
+    Measure_grouping_req * mr_p = new Measure_grouping_req;
+    for (int i=0; i <i_arr.size(); ) {
+	mr_p->beat_i_arr_.push(i_arr[i++]);
+	mr_p->elt_length_arr_.push(Moment(1, i_arr[i++]));
+    }
+    return mr_p;
 }

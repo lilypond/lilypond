@@ -10,25 +10,21 @@
 #include "item.hh"
 #include "varray.hh"
 
-struct Clef;
 
 /// An item which places accidentals at the start of the line
-struct Keyitem : Item {
-    const char * name() const;
+struct Key_item : Item {
     Array<int> pitch;
     Array<int> acc;
     int c_position;
 
     
     /* *************** */
-    
-    Keyitem(int cposition);
+    const char * name() const;    
+    Key_item(int cposition);
     void add(int pitch, int acc);
-    void read(Array<int> k);
-    void read(const Clef& c);
-
+    void read(const Key_register&);
+    void set_c_position(int);
     void preprocess();
-
     Molecule* brew_molecule_p()const;
 };
 
