@@ -133,16 +133,16 @@ violoncello = \notes \relative c' {
     >>
   >>
   \paper {
-  	\paperSixteen
-  	indent=100.0\mm
-  	linewidth=150.0\mm
-    \translator {
-      \RemoveEmptyStaffContext
-    }
-    \translator {
-      \OrchestralScoreContext
-      TimeSignature \override #'style = #'C
-    }
+      \paperSixteen
+      indent=100.0\mm
+      linewidth=150.0\mm
+      \translator {
+	  \RemoveEmptyStaffContext
+      }
+      \translator {
+	  \OrchestralScoreContext
+	  TimeSignature \override #'style = #'C
+      }
   }
 }
 

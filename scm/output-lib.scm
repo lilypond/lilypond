@@ -144,7 +144,7 @@
 (define-public (find-notehead-symbol duration style)
   (case style
    ((xcircle) "2xcircle")
-   ((harmonic) "0neo_mensural")
+   ((harmonic) "0harmonic")
    ((baroque) 
     ;; Oops, I actually would not call this "baroque", but, for
     ;; backwards compatibility to 1.4, this is supposed to take

@@ -1145,6 +1145,7 @@ c4
 \bar ":|" c
 \bar ".|" c
 \bar ".|." c
+\bar ":|:" c
 \bar "|." c
 \bar ":" c
 @end lilypond
@@ -7498,6 +7499,7 @@ naming, and are manipulated using @code{\property}:
 @example
   \property Context.propertyName  = @var{value}
 @end example
+
 Layout properties are use Scheme style variable naming, i.e.  lower
 case words separated with dashes. They are symbols, and should always
 be quoted using @code{#'}.  For example, this could be an imaginary
@@ -7505,6 +7507,11 @@ layout property name:
 @example
   #'layout-property-name
 @end example
+
+@seealso
+
+The introduction of the @ref{Technical manual} gives a more in-depth
+treatment of the difference between translation and layout.
 
 @menu
 * Tuning objects::              
@@ -7528,7 +7535,7 @@ for @internalsref{Stem}:
 
 @example
         (thickness . 1.3)
-        (beamed-lengths . (0.0 2.5 2.0 1.5))
+	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
         (Y-extent-callback . ,Stem::height)
         @var{...}
 @end example
