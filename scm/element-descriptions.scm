@@ -11,8 +11,10 @@
 	       (staff-position . 0.0)
 	       (meta . ,(element-description "Arpeggio" arpeggio-interface side-position-interface font-interface))
 	       ))
-  
-	(BarLine . (
+
+    (autoBeamSettings . ,auto-beam-settings)
+
+    (BarLine . (
 		(break-align-symbol . Staff_bar)
 		(glyph . "|")
 		(break-glyph-function . ,default-break-barline)
@@ -89,7 +91,7 @@
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
 		(font-family . roman)
-		(meta . ,(element-description "ChordNames"  font-interface text-interface chord-name-interface))
+		(meta . ,(element-description "ChordName"  font-interface text-interface chord-name-interface))
 	))
 
        (Custos . (
@@ -122,7 +124,6 @@
 	(Dots . (
 		(molecule-callback . ,Dots::brew_molecule)
 		(dot-count . 1)
-               (font-family . music)		
 		(staff-position . 0.0)
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
 		(meta . ,(element-description "Dots"  font-interface dot-interface ))
@@ -134,6 +135,7 @@
 		(script-priority . 100)
 		(font-series . bold)
 		(font-family . dynamic)
+		(font-shape . italic)
 		(self-alignment-Y . 0)
 		(meta . ,(element-description "DynamicText" font-interface  text-interface ))
 	))
@@ -213,7 +215,7 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
-		(meta . ,(element-description "Accidentals"  accidentals-interface font-interface ))
+		(meta . ,(element-description "Accidentals"  accidentals-interface font-interface side-position-interface))
 	))
 	
 	(LineOfScore . (
@@ -237,7 +239,6 @@
 		(word-space . 0.6)
 		(font-family . roman)
 		(font-shape . upright)
-		(font-relative-size . 0)
 		(meta . ,(element-description "LyricText" lyric-syllable-interface text-interface font-interface ))
 	))
 	
@@ -286,8 +287,8 @@
 	))
 
 	(NoteName . (
-		(style . default)
 		(molecule-callback . ,Text_item::brew_molecule)
+		(font-family . roman)
 		(meta . ,(element-description  "NoteName"
 					       note-name-interface font-interface
 					       general-element-interface))
@@ -461,11 +462,15 @@
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
 		(bracket-width . 2.0)
-		(font-family . braces)
-		(font-point-size . 20)
 		(Y-extent-callback . #f)
+		(font-family . braces)
+		;; if you want to set point-size, you cannot set
+		;; relative-size, as no font will be found for other
+		;; sheets than 20
+		;;(font-point-size . 20)
+		;;(font-relative-size . #f)
 		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter font-interface))
-	))
+		))
 
 	(TextScript . (
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -473,7 +478,6 @@
 		(padding . 0.5)
 		(font-family . roman)
 		(font-shape . italic)
-		(font-relative-size . 0)
 		(meta . ,(element-description "TextScript" text-script-interface text-interface side-position-interface font-interface ))
 	))
 	(TextSpanner . (
