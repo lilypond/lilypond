@@ -7,16 +7,17 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
-void
-Slur::calculate()
+
+Slur::Slur()
 {
-    set_default_dir();
+    dir = 0;
+    open_right=open_left=false;
 }
 
 Offset
 Slur::center() const
 {
-        int pos1 = encompass.last()->position;
+    int pos1 = encompass.last()->position;
     int pos2 = encompass[0]->position;
 
     int dy =  pos1-pos2;
@@ -30,14 +31,7 @@ void
 Slur::add(Notehead*n)
 {
     encompass.add(n);
-    dir = 0;
-    open_right=open_left=false;
-}
-
-Interval
-Slur::height() const
-{
-    return Interval(0,0);	// todo
+    dependencies.add(n);
 }
 
 void
@@ -63,17 +57,18 @@ Slur::print()const
 }
 
 void
-Slur::preprocess()
+Slur::do_pre_processing()
 {
     right  = encompass.last()->pcol_;
     left = encompass[0]->pcol_;    
 }
 
 Spanner*
-Slur::broken_at(PCol*l, PCol*r) const
+Slur::do_break_at(PCol*l, PCol*r) const
 {
     assert(l->line == r->line);
     Slur*ret = new Slur(*this);
+
     ret->encompass.set_size(0);
     for (int i =0; i < encompass.sz(); i++) {
 	if (encompass[i]->pcol_->line==l->line)
@@ -84,40 +79,47 @@ Slur::broken_at(PCol*l, PCol*r) const
     if (left != l)
 	ret->open_left = true;
 
-    ret->left = l;
-    ret->right = r;
+
     return ret;
 }
 
 void
-Slur::process()
+Slur::do_post_processing()
 {
     set_default_dir();
-    brew_molecule();
 }
 
-void
-Slur::brew_molecule()
+Molecule*
+Slur::brew_molecule() const
 {
-    output = new Molecule;
+    Molecule*output = new Molecule;
     assert(left->line == right->line);
-    int minp=1000, maxp=-1000;	// todo
+    int minp=1000, maxp=-1000;	// todo    
     for (int i=0; i<encompass.sz(); i++) {
 	minp = encompass[i]->position <? minp;
-	maxp = encompass[i]->position <? maxp;
-    }    
+	maxp = encompass[i]->position >? maxp;
+    }
     assert(encompass.sz()>0);	// todo
-    int pos1 = encompass.last()->position;
-    int pos2 = encompass[0]->position;
+    
+    Notehead *lnote_p =encompass[0];
+    Notehead *rnote_p =encompass.last();
+    int pos1 = lnote_p->position;
+    int pos2 = rnote_p->position;
 
-    int dy =  pos1-pos2;
-
+    int dy =  pos2-pos1;
+    Real nw_f = paper()->note_width();
     Real w = width().length();
-    Real nw = paper()->note_width();
-    w -= nw;
-    Symbol sl = paper()->lookup_->slur(dy , w, dir);
+    w+= (-lnote_p->x_dir + rnote_p->x_dir)* nw_f ;
+    Real round_w = w;		// slur lookup rounds the slurwidth .
+    
+    Symbol sl = paper()->lookup_->slur(dy , round_w, dir);
+
+    Real error = w-round_w;
+    
     Atom a(sl);
-    a.translate(Offset(nw,pos2*paper()->internote()));
+    a.translate(Offset((lnote_p->x_dir + 0.5 )*nw_f + error/2,
+		       (pos2+2*dir) * paper()->internote()));
     output->add(a);
+    return output;
 }
 
