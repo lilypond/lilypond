@@ -243,4 +243,4 @@ EOF
 
 # simple test -- fails atm
 # guile -s ../src/libgnomecanvas/examples/canvas.scm
-
+g
