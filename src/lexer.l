@@ -39,7 +39,7 @@ DURNAME		1|2|4|8|16|32
 DURATION	{DURNAME}\.*
 FULLNOTE	{PITCH}{DURATION}?
 WORD		[a-zA-Z][a-zA-Z0-9_]+
-REAL		[0-9]+(\.[0-9]*)?
+REAL		-?[0-9]+(\.[0-9]*)?
 
 %%
 
@@ -86,7 +86,7 @@ REAL		[0-9]+(\.[0-9]*)?
 }
 <notes>[ \t\n]+		{
 }
-<notes>%.*$		{
+<notes>[%#].*$		{ 
 
 }
 <notes>\$	{
