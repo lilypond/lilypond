@@ -115,13 +115,13 @@ Ambitus_engraver::stop_translation_timestep ()
        * assumed to be 0.
        */
       SCM c0 = get_property ("centralCPosition");
-      ambitus_->set_grob_property ("centralCPosition", c0);
+      ambitus_->set_grob_property ("c0-position", c0);
 
       /*
        * Similar for keySignature.
        */
       SCM key_signature = get_property ("keySignature");
-      ambitus_->set_grob_property ("keySignature", key_signature);
+      ambitus_->set_grob_property ("accidentals", key_signature);
 
       typeset_grob (ambitus_);
       is_typeset = 1;

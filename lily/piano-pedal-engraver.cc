@@ -185,7 +185,8 @@ Piano_pedal_engraver::process_acknowledged_grobs ()
 	    {
 	      String name  = String (p->name_) + "PedalLineSpanner";
 	      p->line_spanner_ = new Spanner (get_property (name.to_str0 ()));
-	      Side_position_interface::set_axis (p->line_spanner_, Y_AXIS);
+
+	      
 	      Music * rq = (p->req_l_drul_[START]  ?  p->req_l_drul_[START]  :  p->req_l_drul_[STOP]);
 	      announce_grob (p->line_spanner_, rq->self_scm ());
 	    }

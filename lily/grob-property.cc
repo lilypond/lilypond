@@ -7,18 +7,15 @@
 
 #include "main.hh"
 #include "input-smob.hh"
-
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "grob.hh"
-
 #include "spanner.hh"
 #include "item.hh"
 #include "misc.hh"
 #include "item.hh"
-
 
 
 SCM

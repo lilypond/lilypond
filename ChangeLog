@@ -1,3 +1,15 @@
+2002-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/harmonic.ly: new file.
+
+	* lily/side-position-interface.cc (aligned_side): don't add
+	padding again.
+
+2002-08-18  Werner Lemberg  <wl@gnu.org>
+
+	* ly/engraver-init.ly:
+	s/extraverticalExtent/extraVerticalExtent/.
+	
 2002-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/score-engraver.cc: Uniformise error message.
@@ -19,6 +31,8 @@
 	@cindex entry.
 
 2002-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.74 released  
 
 	* lily/break-substitution.cc (fast_fubstitute_grob_list): use
 	realloc()

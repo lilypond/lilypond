@@ -830,6 +830,8 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	
 
 	(padding . 1.2)
 	(minimum-space . 1.0)
@@ -933,7 +935,8 @@
     (SustainPedalLineSpanner 
      . (
 	(axes . (1))
-	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
+	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	
 	(padding . 1.2)
 	(minimum-space . 1.0)
@@ -1094,6 +1097,8 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	
 	(padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . -1)
