@@ -115,14 +115,12 @@
 
     (BassFigure
      . (
-	(molecule-callback . ,brew-bass-figure)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
 	(font-relative-size . -1)
-	(padding . 0.1)
 	(kern . 0.2)
-	(thickness . 1.0)
 	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface
 												bass-figure-interface item-interface
 												self-alignment-interface font-interface))))

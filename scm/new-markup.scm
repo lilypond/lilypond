@@ -49,6 +49,7 @@ for the reader.
   (Text_item::text_to_molecule grob props (car rest))
   )
 
+
 (define-public (stack-molecule-line space molecules)
   (if (pair? molecules)
       (if (pair? (cdr molecules))
@@ -142,6 +143,18 @@ for the reader.
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
 
+(define-public (dir-column-markup grob props . rest)
+  "Make a column of args, going up or down, depending on DIRECTION."
+  (let*
+      (
+       (dir (cdr (chain-assoc 'direction props)))
+       )
+    (stack-lines
+     (if (number? dir) dir -1)
+     0.0 (cdr (chain-assoc 'baseline-skip props))
+     (map (lambda (x) (interpret-markup grob props x)) (car rest)))
+    ))
+
 (define-public (center-markup grob props . rest)
   (let*
     (
@@ -159,6 +172,7 @@ for the reader.
    (ly:get-font grob (cons '((font-family . music)) props))
    (car rest))
   )
+
 
 (define-public (lookup-markup grob props . rest)
   "Lookup a glyph by name."
@@ -429,6 +443,7 @@ for the reader.
    (cons bracket-markup  (list markup?))
    
    (cons column-markup (list markup-list?))
+   (cons dir-column-markup (list markup-list?))
    (cons center-markup (list markup-list?))
    (cons line-markup  (list markup-list?))
 

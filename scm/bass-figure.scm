@@ -1,92 +1,62 @@
 ;;;; figured bass support ...
 
-;;;; todo: make interfaces as 1st level objects in LilyPond.
-
-(define (brew-one-figure grob fig-music)
-  "Brew a single column for a music figure"
-  (let* (
-	 (chain (Font_interface::get_property_alist_chain grob))
-	 (mf (ly:get-font grob (cons  '((font-family . music) (font-magnification . 0.8))
-				      chain 
-				      )))
-	 (nf (ly:get-font grob
-			  (cons '((font-family . number))
-				chain)))
-	 (mol (ly:make-molecule  '() '(0 . 0) '(0 . 1.0)))
-	 (fig  (ly:get-mus-property fig-music 'figure))
-	 (acc  (ly:get-mus-property fig-music 'alteration))
-	 )
-    
-    (if (number? fig)
-	(begin
-	  (set! mol   (fontify-text nf (number->string fig)))
-	  (ly:molecule-align-to! mol Y CENTER)
-	))
-    
-    (if (number? acc)
-	(set! mol
-	      (ly:molecule-combine-at-edge
-	       mol X RIGHT (ly:find-glyph-by-name mf (string-append "accidentals-" (number->string acc)))
-	       0.2))
-	)
-    (if (ly:molecule? mol)
-	(ly:molecule-align-to! mol X CENTER)
-	)
-    mol))
-
-(define (brew-bass-figure grob)
-  "Make a molecule for a Figured Bass grob"
-  (let* (
-	 (figs (ly:get-grob-property grob 'causes ))
-	 (mol (ly:make-molecule '() '(0 . 0) '(0 . 0)))
-	 (padding (ly:get-grob-property grob 'padding))
-	 (kerning (ly:get-grob-property grob 'kern))
-	 (thickness (*
-		     (ly:get-paper-variable grob 'linethickness)
-		     (ly:get-grob-property grob 'thickness))
-		    )
-	 (dir (ly:get-grob-property grob 'direction))
-	 )
-
-    (define (brew-complete-figure grob figs mol)
-      "recursive function: take some stuff from FIGS, and add it to MOL." 
-      (define (end-bracket? fig)
-	(eq? (ly:get-mus-property fig 'bracket-stop) #t)
-	)
-      
-      (if (null? figs)
-	  mol
-	  (if (eq? (ly:get-mus-property (car figs) 'bracket-start) #t)
-	      (let* (
-		     (gather-todo (take-from-list-until figs '() end-bracket?))
-		     (unbr-mols
-		      (map
-		       (lambda (x) (brew-one-figure grob x))
-		       (reverse! (car gather-todo) '())))
-		     (br-mol (bracketify-molecule
-			      (stack-molecules Y dir kerning unbr-mols)
-			      Y thickness (* 2 padding) padding))
-		     )
-		(brew-complete-figure
-		 grob (cdr gather-todo)
-		 (ly:molecule-combine-at-edge mol Y dir br-mol kerning)
-		 )
-		)
-	      (brew-complete-figure
-	       grob (cdr figs)
-	       (ly:molecule-combine-at-edge mol Y dir (brew-one-figure grob (car figs))
-					    kerning))
-	      )
-	  ))
-
-    
-    (set! mol (brew-complete-figure grob (reverse figs) mol))
-    (ly:molecule-align-to! mol Y (- dir))
-    mol
-    ))
-
-
 (ly:add-interface
 'bass-figure-interface
  "A bass figure, including bracket"
- '(padding thickness direction))
+ '())
+
+(define  (recursive-split-at pred? l)
+  (if (null? l)
+      '()
+      (let*
+	  ((x (split-at pred? l)))
+	(set-cdr! x (recursive-split-at pred? (cdr x)))
+	x
+	)))
+
+(define-public (make-bass-figure-markup figures context)
+  (define (no-end-bracket? f1 f2)
+    (eq? (ly:get-mus-property f1 'bracket-stop) '())
+    )
+  (define (no-start-bracket? f1 f2)
+    (eq? (ly:get-mus-property f2 'bracket-start) '())
+    )
+
+  ;; TODO: support slashed numerals here.
+  (define (fig-to-markup fig-music)
+    (let*
+	(
+	 (fig  (ly:get-mus-property fig-music 'figure))
+	 (acc  (ly:get-mus-property fig-music 'alteration))
+	 (acc-markup #f)
+	 (fig-markup
+	  (if (number? fig)
+	      (make-number-markup (number->string fig))
+	      (make-simple-markup " ")
+	      ))
+	 )
+
+    (if (number? acc)
+	(make-line-markup (list fig-markup
+				(alteration->text-accidental-markup acc)))
+	fig-markup)
+    ))
+  
+  (define (fig-seq-to-markup figs)
+    (let*
+	(
+	 (c (make-dir-column-markup (map fig-to-markup figs)))
+	 )
+      (if (eq? (ly:get-mus-property (car figs) 'bracket-start) #t)
+	  (make-bracket-markup c)
+	  c
+	  )))
+  
+  (let*
+      (
+       (ends (recursive-split-at no-end-bracket? (reverse figures)))
+       (starts (map (lambda (x) (recursive-split-at no-start-bracket? x)) ends))
+       )
+    (make-dir-column-markup (map fig-seq-to-markup (apply append starts)))
+    ))
+

@@ -1,3 +1,14 @@
+2003-03-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chords-ignatzek.scm (alteration->text-accidental-markup):
+	new function
+
+	* scm/bass-figure.scm (make-bass-figure-markup): reimplement bass
+	figures using new markups. Much simpler, and should improve layout
+	a little.
+
+	* mf/feta-nummer-code.mf (code): insert space in location 32, not 33.
+
 2003-03-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/engraver-init.ly: use Hara kiri by default for 

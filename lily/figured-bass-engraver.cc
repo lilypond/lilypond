@@ -1,11 +1,20 @@
+/*   
+figured-bass-engraver.cc --  implement Figured_bass_engraver
+
+source file of the GNU LilyPond music typesetter
+
+(c) 2002, 2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+ */
+
 #include "engraver.hh"
 #include "text-item.hh"
 #include "event.hh"
 #include "item.hh"
+#include "translator-group.hh"
 
 class Figured_bass_engraver : public Engraver
 {
-  
   TRANSLATOR_DECLARATIONS(Figured_bass_engraver);
 protected:
   Link_array<Music> figures_;
@@ -65,14 +74,20 @@ Figured_bass_engraver::process_music ()
     }
   else if (figures_.size ())
     {
-      figure_ = new Item (get_property ("BassFigure"));
-      SCM l = SCM_EOL;
+      SCM proc = get_property ("bassFigureFormatFunction");
+      if (gh_procedure_p (proc)) 
+	{
+	  SCM l = SCM_EOL;
 
-      for (int i = 0; i <figures_.size (); i++)
-	l = gh_cons (figures_[i]->self_scm(), l);
-      figure_->set_grob_property ("causes", l);
-      
-      announce_grob(figure_, figures_[0]->self_scm()); // todo
+	  for (int i = 0; i <figures_.size (); i++)
+	    l = gh_cons (figures_[i]->self_scm(), l);
+
+	  SCM markup = scm_call_2 (proc, l, daddy_trans_->self_scm ());
+
+	  figure_ = new Item (get_property ("BassFigure"));
+	  figure_->set_grob_property ("text", markup);
+	  announce_grob(figure_, figures_[0]->self_scm()); // todo
+	}
     }
 }
 
@@ -82,5 +97,5 @@ ENTER_DESCRIPTION(Figured_bass_engraver,
 /* creats*/       "BassFigure",
 /* accepts */     "rest-event bass-figure-event",
 /* acks  */      "",
-/* reads */       "",
+/* reads */       "bassFigureFormatFunction",
 /* write */       "");

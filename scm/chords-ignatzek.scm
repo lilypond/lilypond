@@ -4,18 +4,22 @@
       -1
       0))
 
+
+(define-public (alteration->text-accidental-markup alteration)
+  (make-smaller-markup
+   (make-raise-markup
+    (if (= alteration -1)
+	0.3
+	0.6)
+    (make-musicglyph-markup
+     (string-append "accidentals-" (number->string alteration))))))
+  
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."
   (if (= alteration 0)
       (make-line-markup (list empty-markup))
       (conditional-kern-before
-       (make-smaller-markup
-	(make-raise-markup
-	(if (= alteration -1)
-	    0.3
-	    0.6)
-	(make-musicglyph-markup
-	 (string-append "accidentals-" (number->string alteration)))))
+       (alteration->text-accidental-markup alteration)
        (= alteration -1) 0.2
        )))
 
