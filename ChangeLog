@@ -1,3 +1,7 @@
+2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/clefs.ly: remove bogus docstring.
+
 2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (SUBDIRS): Add elisp.
@@ -29,6 +33,10 @@
 	regexp for DOS/Windows, we are too paranoid to fix others.
 
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm (natural-chord-alteration): no quarter tones.
+
+	* input/test/chord-names-jazz.ly (banterProperties): fix
 
 	* lily/parser.yy (bass_mod): bass figure alterations are semi
 	tones, not quarter tones

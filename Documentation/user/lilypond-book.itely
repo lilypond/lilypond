@@ -218,10 +218,10 @@ A special feature not (yet) available in other output formats, is the
 @example
   <ly2dvifile>trip.ly</ly2dvifile>
 @end example
-This runs @file{trip.ly} through @code{lilypond} (see also @ref{Invoking
-lilypond}), and substitutes a preview image in the output. The image
-links to a separate HTML file, so clicking it will take the viewer to
-a menu, with links to images, midi and printouts.
+This runs @file{trip.ly} through @code{lilypond} (see also
+@ref{Invoking lilypond}), and substitutes a preview image in the
+output. The image links to a separate HTML file, so clicking it will
+take the viewer to a menu, with links to images, midi and printouts.
 
 @cindex titling in THML
 @cindex preview image
@@ -314,6 +314,14 @@ sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
 not the text layout.  For single-line fragments the default is to
 use no indentation.
+
+For example
+@example
+  \begin[indent=5cm,raggedright]{lilypond}
+  ...
+  \end{lilypond}
+@end example
+
 
 @item noindent
 sets indentation of the first music system to zero.  This option

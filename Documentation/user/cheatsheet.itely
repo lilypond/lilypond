@@ -19,7 +19,7 @@
 c1 c2 c8 c16
 @end lilypond
 
-@item @code{. ..}
+@item @code{c4. c4..}
 @tab augmentation dots
 @tab
 @lilypond[relative 1, notime]
@@ -31,15 +31,13 @@ c4. c4..
 @tab scale 
 @tab
 @lilypond[relative 1, notime]
-\property Staff.Clef = \turnOff
 c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
 @tab alteration 
 @tab
-@lilypond[relative 1, notime]
-\property Staff.Clef = \turnOff
+@lilypond[relative 0, notime]
 fis bes
 @end lilypond
 
@@ -73,13 +71,12 @@ s16_" "
 r4 r8
 @end lilypond
 
-@item @code{~}
+@item @code{d ~ d}
 @tab tie
 @tab
 @lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 d ~ d
 @end lilypond
 
@@ -98,7 +95,6 @@ s4
 @lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 a a'
 @end lilypond
 
@@ -108,43 +104,39 @@ a a'
 @lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 c c,
 @end lilypond
 
 
-@item @code{( )}
+@item @code{c( d e)}
 @tab slur
 @tab
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 c( d e)
 @end lilypond
 
 
-@item @code{\( \)}
+@item @code{c\( c( d) e\)}
 @tab phrasing slur
 @tab
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 c\(  c( d) e\)
 @end lilypond
 
 
-@item @code{-[ -]}
+@item @code{a8[ b]}
 @tab beam
 @tab
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 a8-[ b-]
 @end lilypond
 
@@ -158,45 +150,41 @@ a8-[ b-]
 @end lilypond
 
   
-@item @code{-> -.}
+@item @code{c-> c-.}
 @tab articulations
 @tab
 @lilypond[fragment, relative 1]
 \property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
 c-> c-.
 @end lilypond
 
 
-@item @code{\mf \sfz}
+@item @code{c\mf c\sfz}
 @tab dynamics
 @tab
 @lilypond[fragment, relative 1]
 \property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
 c\mf c\sfz
 @end lilypond
 
 
-@item @code{\< \!}
+@item @code{a\< b\!}
 @tab crescendo
 @tab
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 a\< a \!a
 @end lilypond
 
-@item @code{\> \!}
+@item @code{a\> b\!}
 @tab decrescendo
 @tab
 @lilypond[fragment, relative 1]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
 a\> a a\!
 @end lilypond
 
@@ -218,7 +206,7 @@ a\> a a\!
 @end lilypond 
 
 
-@item @code{\times 2/3}
+@item @code{\times 2/3 @{f g a@}}
 @tab triplets
 @tab
 @lilypond[relative 1,fragment]
@@ -263,11 +251,11 @@ a\> a a\!
   \context ChordNames \chords { c:dim f:maj7 }
 @end lilypond 
 
-@item @code{<< @dots{} \\ @dots{} >>}
+@item @code{<<@{e f@} \\@{c d@}>>}
 @tab polyphony
 @tab
-@lilypond[fragment,relative 1]
-\context Staff << c \\ g' >>
+@lilypond[fragment,relative 2]
+\context Staff <<{e f} \\ {c d}>>
 @end lilypond
 
 

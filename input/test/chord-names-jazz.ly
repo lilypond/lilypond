@@ -138,7 +138,6 @@ banterProperties = \sequential {
 	indent = 3.\cm
 	\translator { 
 	    \ChordNamesContext
-	    ChordName \override #'word-space = #1
 	    \consists Instrument_name_engraver
 	}
     }
