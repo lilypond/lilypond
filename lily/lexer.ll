@@ -27,6 +27,7 @@
 #include <errno.h>
 
 #include <iostream>
+using namespace std;
 
 #include "parse-scm.hh"
 #include "lily-guile.hh"

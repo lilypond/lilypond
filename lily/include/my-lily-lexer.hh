@@ -9,6 +9,7 @@
 #ifndef LEXER_HH
 #define LEXER_HH
 
+using namespace std;
 #include <FlexLexer.h>
 
 #include "input.hh"
