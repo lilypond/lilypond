@@ -32,6 +32,16 @@ MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 
 /*
   TODO: this function is too long
+
+
+  TODO: the string for ottava shoudl depend on the available space, ie.
+
+  
+  Long: 15ma        Short: 15ma    Empty: 15
+         8va                8va            8
+         8va bassa          8ba            8
+
+
 */
 SCM
 Text_spanner::brew_molecule (SCM smob) 
@@ -80,8 +90,8 @@ Text_spanner::brew_molecule (SCM smob)
       Direction d = LEFT;
       do
 	{
-	  /*  Don't repeat edge text for broken end */
-	  if (broken[d])
+	  if (!to_boolean (me->get_grob_property ("text-repeat-if-broken"))
+	      && broken[d])
 	    continue;
 	  
 	  SCM text = index_get_cell (edge_text, d);
@@ -112,6 +122,7 @@ Text_spanner::brew_molecule (SCM smob)
       span_points[LEFT] += gh_scm2double (ly_car (ew));
       span_points[RIGHT] -= gh_scm2double (ly_cdr (ew));
     }
+
 
   Real thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
   SCM st = me->get_grob_property ("thickness");
@@ -147,21 +158,31 @@ Text_spanner::brew_molecule (SCM smob)
   do
     {
       Interval ext = edge[d].extent (X_AXIS);
-
-      edge[d].translate_axis (span_points[d], X_AXIS);
-      m.add_molecule (edge[d]);
-      edge_line[d].translate_axis (span_points[d], X_AXIS);
-      m.add_molecule (edge_line[d]);
       if (!ext.is_empty ())
-	span_points[d] += -d *  ext[-d];
+	{
+	  edge[d].translate_axis (span_points[d], X_AXIS);
+	  m.add_molecule (edge[d]);
+	  span_points[d] += -d *  ext[-d];
+	}
+    }
+  while (flip (&d) != LEFT);
+  do
+    {
+      if (d* span_points[d] > d * edge[-d].extent(X_AXIS)[d])
+	{
+	  edge_line[d].translate_axis (span_points[d], X_AXIS);
+	  m.add_molecule (edge_line[d]);
+	}
     }
   while (flip (&d) != LEFT);
 
-  Molecule l =Line_spanner::line_molecule (me, thick,
-					   Offset (span_points[LEFT], 0),
-					   Offset (span_points[RIGHT], 0));
-  m.add_molecule (l);
-
+  if (!span_points.is_empty ())
+    {
+      Molecule l =Line_spanner::line_molecule (me, thick,
+					       Offset (span_points[LEFT], 0),
+					       Offset (span_points[RIGHT], 0));
+      m.add_molecule (l);
+    }
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
@@ -171,5 +192,5 @@ Text_spanner::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds width-correct");
+	       "text-repeat-if-broken dash-period if-text-padding dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds width-correct");
 

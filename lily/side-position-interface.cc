@@ -239,7 +239,7 @@ Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
   Interval staff_size = st->extent (common, Y_AXIS);
   Interval me_ext = me->extent (common, a);
   Real diff =  d*staff_size[d] + padding - d*me_ext[-d];
-  return gh_double2scm (diff >? 0);
+  return gh_double2scm (d*  (diff >? 0));
 }
 
 void

@@ -52,9 +52,13 @@ Ottava_spanner_engraver::process_music ()
 	  span_  = new Spanner (get_property ("OttavaSpanner"));
 	  span_->set_grob_property ("edge-text", gh_cons (ott, SCM_EOL));
 	  announce_grob (span_, SCM_EOL);
+
+	  SCM c0 (get_property ("centralCPosition"));
+	  SCM oc0 (get_property ("originalCentralCPosition"));
+	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
+	    span_->set_grob_property ("direction", gh_int2scm (DOWN));
 	}
     }
-
   last_ottavation_ = ott;
 }
 
@@ -76,8 +80,6 @@ Ottava_spanner_engraver::typeset_all ()
 {  
   if (finished_)
     {
-      Side_position_interface::add_staff_support (finished_);
-
       Direction d = LEFT;
       do
 	{

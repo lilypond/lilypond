@@ -1077,9 +1077,13 @@
     
     (OttavaSpanner
      . (
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset-callbacks . (,Side_position_interface::out_of_staff
+			       ,Side_position_interface::aligned_side))
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
+	(text-repeat-if-broken . #t)
+	(shorten-pair . (0.0 . -0.6))
+	(staff-padding . 1.0)
 	(enclose-bounds . #t)
 	(width-correct . 0.0)
 	(style . dashed-line)
