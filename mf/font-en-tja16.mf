@@ -3,12 +3,17 @@
 
 mode_setup;
 
+
 test:=0;
 
 staffsize#:=16pt#;
 stafflines:=5;
 stafflinethickness#:=0.4pt#;
 code:=-1;
+
+input autometric;
+% fet_beginfont;
+fet_beginfont("font-en-tja", 16);
 
 input bolletjes;
 
