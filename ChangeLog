@@ -1,5 +1,9 @@
 2003-06-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/spacing-multi-tuplet.ly: move from input/test/
+
+	* input/test/{scripts,volta-start,sleur}.ly: remove
+	
 	* input/regression/span-bar.ly: smaller file.
 
 	* input/regression/spacing-{natural,tight,loose}.ly: remove
