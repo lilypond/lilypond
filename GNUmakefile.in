@@ -151,7 +151,7 @@ local-clean: builddir-setup-clean
 builddir-setup-clean:
 	cd $(builddir) && rm -rf share
 
-$(config_h): configure.in aclocal.m4
+$(config_h): config.hh.in 
 #
 # this is to prevent people from getting
 # undefined symbols  when we add them to config.h.in,
@@ -168,6 +168,9 @@ $(config_h): configure.in aclocal.m4
 # maybe move into private script?
 rsync-web:
 	cd out-www &&  mkdir web && tar  -xzf web.tar.gz -C web
-	cd out-www/web && chgrp -R lilypond . 
-	cd out-www/web &&  rsync --delete --stats --progress -rltvu -e ssh . x:/var/www/lilypond/doc/v1.9/
+	cd out-www/web && \
+	chgrp -R lilypond . && \
+	chmod -R  664 . && \
+	chmod 2775 `find -type d` . && \
+	rsync --group --delete --stats --progress -gorltvu -e ssh . x:/var/www/lilypond/doc/v1.9/
 	cd out-www && rm -rf web/
