@@ -9,10 +9,12 @@ Bar::Bar( String t)
 {
     type = t;
 }
-void
-Bar::preprocess()
+Molecule*
+Bar::brew_molecule()const
 {    
     Symbol s = paper()->lookup_->bar(type);
-    output = new Molecule(Atom(s));
+Molecule*    output = new Molecule(Atom(s));
+return output;
+    
 }
     

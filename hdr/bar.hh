@@ -12,7 +12,8 @@ struct Bar: Item {
     String type;
     
     Bar(String type);
-    void preprocess();
+
+    Molecule*brew_molecule()const;
 };
 #endif // BAR_HH
 
