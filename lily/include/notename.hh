@@ -1,5 +1,5 @@
 /*
-  notename.hh -- part of LilyPond
+  notename.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

@@ -1,7 +1,7 @@
 //
 // midi-def.cc -- implement midi output
 //
-// source file of the LilyPond music typesetter
+// source file of the GNU LilyPond music typesetter
 //
 // (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 

@@ -1,19 +1,19 @@
 /*
   request.hh -- declare Request baseclasses.
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #ifndef REQUEST_HH
 #define REQUEST_HH
-// LilyPond's second egg of columbus!
+// GNU LilyPond's second egg of columbus!
 
 #include "glob.hh"
 #include "string.hh"
 #include "moment.hh"
-#include "class-name.hh"
+#include "virtual-methods.hh"
 #include "input.hh"
 
 /**
@@ -65,7 +65,7 @@ protected:
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
 NAME_MEMBERS(T);\
-virtual Request *clone() const { return  new T(*this); } \
+VIRTUAL_COPY_CONS(T, Request)\
 virtual void do_print() const
 
 #endif

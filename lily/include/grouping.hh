@@ -1,5 +1,5 @@
 /*
-  grouping.hh -- part of LilyPond
+  grouping.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

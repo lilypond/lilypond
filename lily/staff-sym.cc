@@ -1,7 +1,7 @@
 /*
   staffsym.cc -- implement Staff_symbol
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -32,13 +32,6 @@ Staff_symbol::brew_molecule_p() const
     return new Molecule(a);
 }
 
-Spanner*
-Staff_symbol::do_break_at(PCol*p1, PCol*p2)const
-{
-    Staff_symbol *span_p=new Staff_symbol(*this);
-    return span_p;
-}
-
 void
 Staff_symbol::set_extent(PCol*p1, PCol*p2)
 {
@@ -50,7 +43,7 @@ Staff_symbol::set_extent(PCol*p1, PCol*p2)
 Real
 Staff_symbol::inter_note_f()const
 {
-    return paper()->internote();
+    return paper()->internote_f();
 }
 
 int

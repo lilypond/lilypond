@@ -1,5 +1,5 @@
 /*
-  leastsquare.hh -- part of LilyPond
+  leastsquare.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

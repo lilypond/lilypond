@@ -1,5 +1,5 @@
 /*
-  key-item.hh -- part of LilyPond
+  key-item.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */

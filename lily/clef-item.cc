@@ -1,7 +1,7 @@
 /*
   clef-item.cc -- implement Clef_item
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -48,7 +48,7 @@ Clef_item::brew_molecule_p()const
 	t += "_change";
     Symbol s = paper()->lookup_l()->clef(t);
     Molecule*output = new Molecule(Atom(s));
-    output->translate(Offset(0, paper()->internote() * y_off));
+    output->translate(Offset(0, paper()->internote_f() * y_off));
     return output;
 }
 

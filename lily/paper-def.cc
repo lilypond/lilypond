@@ -1,7 +1,7 @@
 /*
   paper-def.cc -- implement Paper_def
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -65,15 +65,15 @@ Paper_def::set(Lookup*l)
 }
 
 Real
-Paper_def::interline() const
+Paper_def::interline_f() const
 {
     return lookup_p_->ball(4).dim.y.length();
 }
 
 Real
-Paper_def::internote() const
+Paper_def::internote_f() const
 {
-    return lookup_p_->internote();
+    return lookup_p_->internote_f();
 }
 Real
 Paper_def::note_width()const
