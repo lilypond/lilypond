@@ -1,3 +1,6 @@
+pl 15.jcn4
+	- direct #... to scm parser  (Tanks to Gary Houston)
+
 pl 15.jcn3
 	- bf: smob fix?
 	- mutopia/doc target 'local-web':

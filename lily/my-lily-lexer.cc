@@ -11,6 +11,7 @@
 #include "notename-table.hh"
 #include "interval.hh"
 #include "identifier.hh"
+#include "lily-guile.hh"
 #include "parser.hh"
 #include "keyword.hh"
 #include "my-lily-lexer.hh"
@@ -64,8 +65,6 @@ static Keyword_ent the_key_tab[]={
   {"repeat", REPEAT},
   {"repetitions", REPETITIONS},
   {"addlyrics", ADDLYRICS},
-  {"scm", SCM_T},
-  {"scmfile", SCMFILE},
   {"score", SCORE},
   {"script", SCRIPT},
   {"shape", SHAPE},

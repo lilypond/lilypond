@@ -5,7 +5,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -99,6 +99,7 @@ print_mudela_versions (ostream &os)
     Real real;
     Request * request;
     Scalar *scalar;
+    SCM scm;
 
     String *string;
     Tempo_req *tempo;
@@ -170,7 +171,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REPETITIONS
 %token ADDLYRICS
 %token SCM_T
-%token SCMFILE
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -208,6 +208,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <real>	REAL
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
+%token <scm>	SCM_T
 %token <i>	UNSIGNED
 
 
@@ -239,6 +240,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration>	duration_length
 
 %type <scalar>  scalar
+%type <scm>  embedded_scm
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
 %type <music>	relative_music re_rhythmed_music
 %type <music>	property_def translator_change
@@ -300,21 +302,14 @@ toplevel_expression:
 			Midi_def_identifier ($1, MIDI_IDENTIFIER);
 		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
 	}
-	| embedded_scm { 
-	}
+	| embedded_scm {
+		// junk value
+	}	
 	;
 
 embedded_scm:
-	SCMFILE STRING semicolon {
-		read_lily_scm_file (*$2);
-		delete $2;
-	}
-	| SCM_T STRING semicolon {
-		if (THIS->lexer_p_->main_input_b_ && safe_global_b)
-			error (_("Can't evaluate Scheme in safe mode"));
-		gh_eval_str ($2->ch_l ());
-		delete $2;
-	};
+	SCM_T
+	;
 
 
 chordmodifiers_block:

@@ -24,6 +24,7 @@ SCM ly_set_scm (String name , SCM val);
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
+SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 void ly_display_scm (SCM s);
 String ly_scm2string (SCM s);

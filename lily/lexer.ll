@@ -4,7 +4,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+           Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -29,6 +30,7 @@
 #include "my-lily-lexer.hh"
 #include "array.hh"
 #include "interval.hh"
+#include "lily-guile.hh"
 #include "parser.hh"
 #include "debug.hh"
 #include "main.hh"
@@ -230,6 +232,33 @@ HYPHEN		--
 <INITIAL,chords,lyrics,notes>\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
+}
+<INITIAL,chords,lyrics,notes>#	{ //embedded scm
+	//char const* s = YYText () + 1;
+	char* s = (char*)YYText () + 1;
+	int n = 0;
+	if (!main_input_b_ && safe_global_b) {
+		error (_ ("Can't evaluate Scheme in safe mode"));
+		return SCM_EOL;
+	}
+	/*
+	  urg: replace 0 char with original value
+	 */
+	*s = (char)yyinput ();
+	yylval.scm = ly_parse_scm (s, &n);
+	
+	if (!n)
+		unput (*s);
+	else
+		n--;
+	/*
+	  urg, this
+		yyin->seekg (n, ios::cur);
+	  doesn't work, is there no other way?
+	 */
+	for (int i=0; i < n; i++)
+		yyinput ();
+	return SCM_T;
 }
 <notes>{
 	{ALPHAWORD}	{
