@@ -67,6 +67,7 @@ specify the third.  Should there be?
 
 .* TODO before 1.2
 . * Gade score
+.  * remove [] in favour of auto-beamer
 .  * In the score, the staff lines extend too far to the left. 
   This is also illustrated in the second score of span-bars.ly
   as I've pointed out earlier.

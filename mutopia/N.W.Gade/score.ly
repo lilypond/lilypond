@@ -124,9 +124,6 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textstyle = "italic";
 	textScriptPadding = 5.0;
     }
-\translator{\VoiceContext
-\remove Auto_beam_engraver; % Bug workaround!
-}
   }
 }
 

@@ -21,7 +21,7 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
-  beam_p_ = 0;
+  stem_l_arr_p_ = 0;
   shortest_mom_ = 1;
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
@@ -135,7 +135,7 @@ Auto_beam_engraver::consider_end_and_begin ()
   else
     r = Moment (1);
 
-  if (beam_p_ && !r)
+  if (stem_l_arr_p_ && !r)
     end_beam ();
      
   /*
@@ -147,7 +147,7 @@ Auto_beam_engraver::consider_end_and_begin ()
 
   if (begin_mom)
     r = time->whole_in_measure_.mod_rat (begin_mom);
-  if (!beam_p_ && (!begin_mom || !r))
+  if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
 
@@ -155,47 +155,59 @@ Auto_beam_engraver::consider_end_and_begin ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
-  assert (!beam_p_);
-  beam_p_ = new Beam;
+  //  DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
+  assert (!stem_l_arr_p_);
+  stem_l_arr_p_ = new Array<Stem*>;
+  assert (!grouping_p_);
   grouping_p_ = new Rhythmic_grouping;
+}
 
-      /* urg, copied from Beam_engraver */
+Beam*
+Auto_beam_engraver::create_beam_p ()
+{
+  Beam* beam_p = new Beam;
+
+  for (int i = 0; i < stem_l_arr_p_->size (); i++)
+    beam_p->add_stem ((*stem_l_arr_p_)[i]);
+
+  /* urg, copied from Beam_engraver */
   Scalar prop = get_property ("beamslopedamping", 0);
   if (prop.isnum_b ()) 
-    beam_p_->damping_i_ = prop;
+    beam_p->damping_i_ = prop;
 
   prop = get_property ("beamquantisation", 0);
   if (prop.isnum_b ()) 
-    beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
+    beam_p->quantisation_ = (Beam::Quantisation)(int)prop;
  
-      // must set minVerticalAlign = = maxVerticalAlign to get sane results
-      // see input/test/beam-interstaff.ly
+  // must set minVerticalAlign = = maxVerticalAlign to get sane results
+  // see input/test/beam-interstaff.ly
   prop = get_property ("minVerticalAlign", 0);
   if (prop.isnum_b ())
-    beam_p_->vertical_align_drul_[MIN] = prop;
+    beam_p->vertical_align_drul_[MIN] = prop;
 
   prop = get_property ("maxVerticalAlign", 0);
   if (prop.isnum_b ())
-    beam_p_->vertical_align_drul_[MAX] = prop;
+    beam_p->vertical_align_drul_[MAX] = prop;
 
-  announce_element (Score_element_info (beam_p_, 0));
+  announce_element (Score_element_info (beam_p, 0));
+  return beam_p;
 }
 
 void
 Auto_beam_engraver::end_beam ()
 {
   DOUT << String ("ending autobeam at: ") + now_mom ().str () + "\n";
-  if (beam_p_->stems_.size () < 2)
+  if (stem_l_arr_p_->size () < 2)
     {
       DOUT << "junking autombeam: less than two stems\n";
       junk_beam ();
     }
   else
     {
-      finished_beam_p_ = beam_p_;
+      finished_beam_p_ = create_beam_p ();
       finished_grouping_p_ = grouping_p_;
-      beam_p_ = 0;
+      delete stem_l_arr_p_;
+      stem_l_arr_p_ = 0;
       grouping_p_ = 0;
       shortest_mom_ = 1;
     }
@@ -232,7 +244,7 @@ void
 Auto_beam_engraver::do_removal_processing ()
 {
   typeset_beam ();
-  if (beam_p_)
+  if (stem_l_arr_p_ && stem_l_arr_p_->size ())
     {
       DOUT << "Unfinished beam\n";
       junk_beam ();
@@ -244,7 +256,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 {
   if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
     {
-      if (beam_p_)
+      if (stem_l_arr_p_)
 	{
 	  DOUT << "junking autobeam: beam encountered\n";
 	  junk_beam ();
@@ -252,14 +264,14 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
     }
   if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
     {
-      if (beam_p_)
+      if (stem_l_arr_p_)
 	{
 	  DOUT << "junking autobeam: bar encountered\n";
 	  junk_beam ();
 	}
     }
 
-  if (beam_p_)
+  if (stem_l_arr_p_)
     {
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
       if (!rhythmic_req)
@@ -276,7 +288,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
       if (!stem_l)
 	return;
 
-      if (stem_l->beam_l_ && (stem_l->beam_l_ != beam_p_))
+      if (stem_l->beam_l_)
 	{
 	  DOUT << "junking autobeam: beamed stem encountered\n";
 	  junk_beam ();
@@ -288,7 +300,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	now that we have last_add_mom_, perhaps we can (should) do away
 	with these individual junk_beams
        */
-      if (rhythmic_req->duration_.durlog_i_<= 2)
+      if (rhythmic_req->duration_.durlog_i_ <= 2)
 	{
 	  DOUT << "ending autobeam: stem doesn't fit in beam\n";
 	  end_beam ();
@@ -315,7 +327,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	    }
 	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
 	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
-	  beam_p_->add_stem (stem_l);
+	  stem_l_arr_p_->push (stem_l);
 	  Moment now = now_mom ();
 	  last_add_mom_ = now;
 	  extend_mom_ = extend_mom_ >? now + rhythmic_req->length_mom ();
@@ -326,9 +338,11 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 void
 Auto_beam_engraver::junk_beam () 
 {
-  assert (beam_p_);
-  beam_p_->unlink ();
-  beam_p_ = 0;
+  assert (stem_l_arr_p_);
+  for (int i = 0; i < stem_l_arr_p_->size (); i++)
+    (*stem_l_arr_p_)[i]->flag_i_ = 0;
+  delete stem_l_arr_p_;
+  stem_l_arr_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
   shortest_mom_ = 1;
@@ -337,7 +351,7 @@ Auto_beam_engraver::junk_beam ()
 void
 Auto_beam_engraver::process_acknowledged ()
 {
-  if (beam_p_)
+  if (stem_l_arr_p_)
     {
       Moment now = now_mom ();
       if ((extend_mom_ < now)
@@ -347,7 +361,7 @@ Auto_beam_engraver::process_acknowledged ()
 	    + last_add_mom_.str () + "\n";
 	  end_beam ();
 	}
-      else if (!beam_p_->stems_.size ())
+      else if (!stem_l_arr_p_->size ())
 	{
 	  DOUT << "junking started autobeam: no stems\n";
 	  junk_beam ();

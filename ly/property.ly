@@ -61,8 +61,8 @@ barAtLineStart		0/1     generate bar at beginning of line
 [Staff]
 beamAuto                0/1     auto-beam on/off
 beamAutoEnd		"num/den"    end auto-beam
-beamAutoEnd8		"num/den"    end auto-beam of 8ths
-beamAutoEnd16		"num/den"    end auto-beam of 16ths
+beamAutoEnd_8		"num/den"    end auto-beam of 8ths
+beamAutoEnd_16		"num/den"    end auto-beam of 16ths
 
 timeSignatureStyle	C	Use C and stroked C for 4/4,2/2
 timeSignatureStyle	old	Use old style mensuration marks

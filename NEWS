@@ -1,3 +1,6 @@
+pl 33.jcn2
+	- fixed autobeamer's beam->unlink ()
+
 pl 33.jcn1
 	- allow autobeaming according to duration iso (crude) multiplicity
 
