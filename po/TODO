@@ -1,5 +1,12 @@
+TODO
+	* mail .po files to gnu translation project
+	* convince xgettext my name is <janneke@gnu.org> iso 
+	  <fred@botervlieg.flower> :-)
+	* create user-friendly input format for multiple languages?
+
 ISSUES -- please read this before doing too much real translating...
 
+	* please don't run make po/po-update with gnu gettext < 0.10.35
 	* encapsulate locale strings in _( ) or _f ( )
 	* fix/standardise messages
 	  - it's silly to translate wrong strings
@@ -35,12 +42,6 @@ ISSUES -- please read this before doing too much real translating...
 	  - debug strings
 	  - output (ps) strings
 
-TODO
-	* native speakers (naïeve sprekerds) that make/take care of {it,..}.po
-	* concurrently update Documentation/tex/computer.data
-	* convince xgettext my name is <janneke@gnu.org> iso 
-	  <fred@botervlieg.flower> :-)
-	* create user-friendly input format for multiple languages?
 
 SOLVED/HOWTO
 	* because i never install LilyPond, i made these links:

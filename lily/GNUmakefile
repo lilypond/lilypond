@@ -9,7 +9,7 @@ SUBDIRS = include
 MODULE_LIBS=$(depth)/lib $(depth)/flower 
 MODULE_INCLUDES=$(depth)/lib/include $(depth)/flower/include 
 
-STEPMAKE_TEMPLATES= c++ executable
+STEPMAKE_TEMPLATES= c++ executable po
 
 include $(depth)/make/stepmake.make 
 

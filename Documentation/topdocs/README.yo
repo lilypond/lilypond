@@ -1,17 +1,22 @@
 COMMENT(-*-Text-*-)
 DEFINEMACRO(Package)(0)(LilyPond) DEFINEMACRO(package)(0)(lilypond)
-COMMENT(    ^^^^     Slaat dit ergens op?)
-
 
 redef(XXsetchapternum)(0)()
 
-This is the toplevel README to Package()
+notableofcontents()
+article(This is the toplevel README to Package())()()
 
 includefile(../BLURB.in)
 
 sect(VERSIONING)
 
-if you have downloaded a
+Package() uses a versioning scheme similar to the Linux kernel.  In a
+version "x.y.z", an even second number 'y' denotes a stable version.
+For development versions 'y' is odd.  For using straightforward score
+production, please use the latest stable version.  Development versions
+may not produce good or nice scores.
+
+If you have downloaded a
 
 	*.pre*
 
@@ -88,7 +93,7 @@ Linux-Intel unix users.
 files, eg
 verb(rm `find /var/lib/texmf/fonts -name 'feta*'`)
 
-a script to do this for you is in file(bin/cleanfonts.sh)
+a script to do this for you is in file(buildscripts/clean-fonts.sh)
 
 
 sect(CDROM DISTRIBUTIONS)

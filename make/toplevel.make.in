@@ -23,7 +23,7 @@ NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 
 # bootstrap stepmake:
 #
-STEPMAKE_TEMPLATES=toplevel yolily-toplevel
+STEPMAKE_TEMPLATES=toplevel yolily-toplevel po
 include $(depth)/make/stepmake.make 
 #
 

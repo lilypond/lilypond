@@ -15,6 +15,11 @@ clean: localclean
 	-rm -f $(outdir)/*
 	$(LOOP)
 
+ifneq ($(strip $(depth)),.)
+dist:
+	make -C $(depth) dist
+endif
+
 distclean: clean 
 	$(LOOP)
 	$(MAKE) local-distclean
@@ -48,12 +53,13 @@ help: generic-help local-help
   config      rerun configure\n\
   deb         build Debian package\n\
   default     same as the empty target\n\
-  diff        generate patch: $(package)-$(TOPLEVEL_VERSION).diff.gz\n\
+  diff        generate patch: $(depth)/$(outdir)/$(distname).diff.gz\n\
   .           Options:\n\
   .             from=0.1.74\n\
   .             help==\n\
   .             release==\n\
   .             to=0.1.74.jcn2\n\
+  dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   cleaner than clean (duh)\n\
   doc         update all documentation\n\
   doc++       make doc++ documentation\n\
@@ -63,6 +69,8 @@ help: generic-help local-help
   lib         update all libraries\n\
   release     roll tarball and generate patch\n\
   rpm         build RedHat package\n\
+  po          make new po database\n\
+  po-update   update po database\n\
   tar         same as dist\n\
   TAGS        genarate tagfiles\n\
   zip         build binary doze distribution\n\

@@ -13,7 +13,7 @@ TAGS_FILES += C_FILES H_FILES
 # C/C++
 # 
 
-ALL_C_SOURCES += $(H_FILES) $(C_FILES) $(Y_FILES)
+ALL_C_SOURCES += $(H_FILES) $(C_FILES) $(Y_FILES) $(L_FILES)
 
 # compiler:
 #

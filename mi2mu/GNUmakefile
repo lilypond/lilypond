@@ -9,7 +9,7 @@ MODULE_NAME = mi2mu
 SUBDIRS = include
 EXTRA_DIST_FILES += TODO
 MODULE_LIBS=$(depth)/lib $(depth)/flower
-STEPMAKE_TEMPLATES=c++ executable
+STEPMAKE_TEMPLATES=c++ executable po
 
 include $(depth)/make/stepmake.make 
 
