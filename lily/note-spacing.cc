@@ -164,7 +164,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 Item *
 Note_spacing::left_column (Grob *me)
 {
-  if (!me->live ())
+  if (!me->is_live ())
     return 0;
   
   return dynamic_cast<Item*> (me)->get_column ();
@@ -181,7 +181,7 @@ prune RIGHT-ITEMS.
 Item *
 Note_spacing::right_column (Grob*me)
 {
-  if (!me->live ())
+  if (!me->is_live ())
     return 0;
   
   SCM right = me->get_property ("right-items");
@@ -273,7 +273,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  
 	  Grob *stem = Note_column::get_stem (it);
 
-	  if (!stem || !stem->live ())
+	  if (!stem || !stem->is_live ())
 	    {
 	      if (d == RIGHT && Separation_item::has_interface (it))
 		{

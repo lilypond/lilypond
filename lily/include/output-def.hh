@@ -16,8 +16,26 @@
 #include "smobs.hh"
 #include "input.hh"
 
-/**
-  Definition of how to output lilypond.
+/*
+  Output settings for a block of music.
+
+  This devolved into a rather empty class. The distinction between
+  various instances is made in the parser, which creates
+  midi/paper/bookpaper blocks depending on the keyword read.
+
+  The data structure is set up as recursive: the definitions not
+  supplied in paper are looked up in bookpaper. This is done through
+  the parent_ field of Output_def. However, such nesting is limited to
+  two levels,
+
+  * first because the parser hard-codes the different types
+  of output block.
+
+  * Second, because the prime benefit of multiple levels
+  (eg. bookpaper containing paper for a score, containing paper of a
+  \score embedded in \markup) requires scaling the Stencils (eg. the
+  one coming from score at markup level)
+  
  */
 class Output_def   
 {

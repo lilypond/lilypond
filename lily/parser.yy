@@ -304,6 +304,7 @@ or
 %token TYPE
 %token UNSET
 %token WITH
+%token MARKUP
 
 /* escaped */
 /* FIXME: this sucks.  The user will get to see these names:
@@ -311,115 +312,110 @@ or
 		\
                  %%
   */
+
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
-%token <i> E_UNSIGNED
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
 
 %token <i>	DIGIT
-%token <scm>	NOTENAME_PITCH
-%token <scm>	TONICNAME_PITCH
-%token <scm>	CHORDMODIFIER_PITCH
-%token <scm>	DURATION_IDENTIFIER
-%token <scm>    FRACTION
+%token <i>	UNSIGNED
+%token <i> E_UNSIGNED
 %token <id>	IDENTIFIER
-%token DRUMS
+%token <scm>	CHORDMODIFIER_PITCH
 %token <scm>	DRUM_PITCH
-%token <scm> 	CHORD_MODIFIER
-%token <scm>	SCORE_IDENTIFIER
-%token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
-%token <scm>	NUMBER_IDENTIFIER
+%token <scm>	DURATION_IDENTIFIER
 %token <scm>	EVENT_IDENTIFIER
 %token <scm>	MUSIC_IDENTIFIER CONTEXT_DEF_IDENTIFIER
-%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER
+%token <scm>	NOTENAME_PITCH
+%token <scm>	NUMBER_IDENTIFIER
+%token <scm>	OUTPUT_DEF_IDENTIFIER
 %token <scm>	RESTNAME
-%token <scm>	STRING
 %token <scm>	SCM_T
-%token <i>	UNSIGNED
+%token <scm>	SCORE_IDENTIFIER
+%token <scm>	STRING
+%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER
+%token <scm>	TONICNAME_PITCH
+%token <scm> 	CHORD_MODIFIER
+%token <scm>    FRACTION
 %token <scm>   REAL
-
-%token MARKUP
-%token <scm> MARKUP_HEAD_MARKUP0
 %token <scm> MARKUP_HEAD_EMPTY
+%token <scm> MARKUP_HEAD_MARKUP0
 %token <scm> MARKUP_HEAD_MARKUP0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0
 %token <scm> MARKUP_HEAD_SCM0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0_SCM1
-%token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
-
-%token <scm> MUSIC_FUNCTION
-%token <scm> MUSIC_FUNCTION_SCM 
-%token <scm> MUSIC_FUNCTION_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
-
+%token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
-%type <scm> markup markup_line markup_list  markup_list_body full_markup
+%token <scm> MUSIC_FUNCTION
+%token <scm> MUSIC_FUNCTION_MUSIC 
+%token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM 
+%token <scm> MUSIC_FUNCTION_SCM_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
+%token DRUMS
+
+
 
 %type <book>	book_block book_body
-%type <outputdef> book_paper_head book_paper_block book_paper_body
-
-%type <i>	exclamations questions dots optional_rest
-%type <i>  	bass_mod
-%type <scm> 	oct_check
-%type <scm> 	context_mod_list
-%type <scm>  	lyric_element
-%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
-%type <scm>	new_lyrics
-%type <outputdef> output_def
-%type <scm>	lilypond_header lilypond_header_body
-%type <music>	open_event close_event
-%type <i>	sub_quotes sup_quotes
-%type <music>	toplevel_music
-%type <music>	simple_element event_chord command_element
-%type <music>	Composite_music Simple_music Prefix_composite_music Generic_prefix_music
-%type <scm>  	Generic_prefix_music_scm 
-%type <music>	Grouped_music_list
-%type <music>	Repeated_music
-%type <scm>     Alternative_music
-%type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
+%type <i>	exclamations questions dots optional_rest
 %type <i>	script_dir
-%type <scm>	identifier_init
-%type <scm>	simple_string
+%type <i>	sub_quotes sup_quotes
+%type <i>	tremolo_type
+%type <i>  	bass_mod
 
-%type <music>	note_chord_element chord_body chord_body_element
-%type <scm>	chord_body_elements
-%type <scm> 	steno_duration optional_notemode_duration multiplied_duration
-	
-%type <scm>	post_events
+%type <music>	Composite_music Simple_music Prefix_composite_music Generic_prefix_music
+%type <music>	Grouped_music_list
+%type <music>	Music Sequential_music Simultaneous_music
+%type <music>	Repeated_music
+%type <music>	command_req
 %type <music>	gen_text_def direction_less_event direction_reqd_event
+%type <music>	music_property_def context_change
+%type <music>	note_chord_element chord_body chord_body_element
+%type <music>	open_event close_event
+%type <music>	post_event tagged_post_event
+%type <music>	relative_music re_rhythmed_music
+%type <music>	simple_element event_chord command_element
+%type <music>	string_number_event
+%type <music>	toplevel_music
+%type <music> 	tempo_event
+
+%type <outputdef>	output_def_body output_def_head
+%type <outputdef> output_def book_paper_block 
+
+%type <scm>	Music_list
+%type <scm>	chord_body_elements
+%type <scm>	chord_item chord_items chord_separator new_chord
+%type <scm>	context_def_spec_block context_def_spec_body
+%type <scm>	context_mod context_def_mod optional_context_mod
+%type <scm>	context_prop_spec
+%type <scm>	duration_length fraction
+%type <scm>	embedded_scm scalar
+%type <scm>	identifier_init
+%type <scm>	lilypond_header lilypond_header_body
+%type <scm>	new_lyrics
+%type <scm>	post_events
+%type <scm>	property_operation
+%type <scm>	script_abbreviation
+%type <scm>	simple_string
 %type <scm>	steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>	steno_tonic_pitch
-%type <scm>	duration_length fraction
-
-%type <scm>	chord_item chord_items chord_separator new_chord
 %type <scm>	step_number step_numbers 
-
-%type <scm>	embedded_scm scalar
-%type <music>	Music Sequential_music Simultaneous_music
-%type <music>	relative_music re_rhythmed_music
-%type <music>	music_property_def context_change
-%type <scm>	context_prop_spec
-%type <scm>	Music_list
-%type <scm>	property_operation
-%type <scm>	context_mod context_def_mod optional_context_mod
-%type <outputdef>	music_output_def_body music_output_def_head
-%type <music>	post_event tagged_post_event
-%type <music>	command_req
-%type <music>	string_number_event
 %type <scm>	string bare_number number_expression number_term number_factor
+%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
+%type <scm> 	context_mod_list
+%type <scm> 	octave_check
+%type <scm> 	steno_duration optional_notemode_duration multiplied_duration
+%type <scm>  	Generic_prefix_music_scm 
+%type <scm>  	lyric_element
+%type <scm>     Alternative_music
+%type <scm>	markup markup_line markup_list markup_list_body full_markup
+
 %type <score>	score_block score_body
-
-%type <scm>	context_def_spec_block context_def_spec_body
-%type <music> 	tempo_event
-%type <scm>	script_abbreviation
-
 
 
 %left '-' '+'
@@ -483,10 +479,6 @@ toplevel_expression:
 
 		THIS->lexer_->set_identifier (id, od->self_scm ());
 		scm_gc_unprotect_object (od->self_scm ());
-	}
-	| book_paper_block {
-		THIS->lexer_->set_identifier (ly_symbol2scm ("$defaultbookpaper"), $1->self_scm ());
-		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	;
 
@@ -618,26 +610,6 @@ context_def_spec_body:
 	;
 
 
-book_paper_block:
-	book_paper_body '}' {
-		$$ = $1;
-		THIS->lexer_->remove_scope ();
-	}
-	;
-book_paper_head:
-	BOOKPAPER '{' {
-		$$ = get_bookpaper (THIS);
-		$$->input_origin_ = THIS->here_input ();
-		THIS->lexer_->add_scope ($$->scope_);
-	}
-	;
-
-book_paper_body:
-	book_paper_head
-	| book_paper_body assignment { }
-	;
-	
-
 
 book_block:
 	BOOK {
@@ -729,10 +701,23 @@ score_body:
 
 
 /*
-	MIDI
+	OUTPUT DEF
 */
+
+book_paper_block:
+	output_def {
+		$$ = $1;
+		if ($$->lookup_variable (ly_symbol2scm ("is-bookpaper")) != SCM_BOOL_T)
+		{
+			THIS->parser_error (_("Need \\bookpaper for bookpaper block."));
+			$$ = get_bookpaper (THIS);
+		}
+	}
+	;
+
+
 output_def:
-	music_output_def_body '}' {
+	output_def_body '}' {
 		$$ = $1;
 		if ($1->parent_)
 			THIS->lexer_->remove_scope ();
@@ -742,8 +727,13 @@ output_def:
 	}
 	;
 
-music_output_def_head:
-	MIDI    {
+output_def_head:
+	BOOKPAPER {
+		$$ = get_bookpaper (THIS);
+		$$->input_origin_ = THIS->here_input ();
+		THIS->lexer_->add_scope ($$->scope_);
+	}
+	| MIDI    {
 		Output_def *p = get_midi (THIS);
 		$$ = p;
 		THIS->lexer_->add_scope (p->scope_);
@@ -760,13 +750,13 @@ music_output_def_head:
 	;
 
 
-music_output_def_body:
-	music_output_def_head '{' {
+output_def_body:
+	output_def_head '{' {
 		$$ = $1;
 		$$->input_origin_.set_spot (THIS->here_input ());
 		THIS->lexer_->push_initial_state ();
 	}
-	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+	| output_def_head '{' OUTPUT_DEF_IDENTIFIER 	{
 		scm_gc_unprotect_object ($1->self_scm ());
 		Output_def *o = unsmob_output_def ($3);
 		o->input_origin_.set_spot (THIS->here_input ());
@@ -775,13 +765,13 @@ music_output_def_body:
 		THIS->lexer_->add_scope (o->scope_);
 		THIS->lexer_->push_initial_state ();
 	}
-	| music_output_def_body assignment  {
+	| output_def_body assignment  {
 
 	}
-	| music_output_def_body context_def_spec_block	{
+	| output_def_body context_def_spec_block	{
 		assign_context_def ($$, $2);
 	}
-	| music_output_def_body tempo_event  {
+	| output_def_body tempo_event  {
 		/*
 			junk this ? there already is tempo stuff in
 			music.
@@ -791,7 +781,7 @@ music_output_def_body:
 		set_tempo ($$, d->get_length (), m);
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
-	| music_output_def_body error {
+	| output_def_body error {
 
 	}
 	;
@@ -1779,7 +1769,7 @@ direction_reqd_event:
 	}
 	;
 
-oct_check:
+octave_check:
 	/**/ { $$ = SCM_EOL; }
 	| '='  { $$ = scm_int2num (0); }
 	| '=' sub_quotes { $$ = scm_int2num ($2); }
@@ -2124,7 +2114,7 @@ optional_rest:
 	;
 
 simple_element:
-	pitch exclamations questions oct_check optional_notemode_duration optional_rest {
+	pitch exclamations questions octave_check optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
 		if (!THIS->lexer_->is_note_state ())
@@ -2586,7 +2576,7 @@ My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		p = p->clone ();
 
 		*destination = p->self_scm ();
-		return MUSIC_OUTPUT_DEF_IDENTIFIER;
+		return OUTPUT_DEF_IDENTIFIER;
 	} else if (Text_item::markup_p (sid)) {
 		*destination = sid;
 		return MARKUP_IDENTIFIER;

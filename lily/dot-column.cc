@@ -255,7 +255,7 @@ Dot_column::do_shifts (Grob*me)
   
   dots.sort (compare_position);
   for (int i = dots.size (); i--;)
-    if (!dots[i]->live ())
+    if (!dots[i]->is_live ())
       dots.del (i);
   
   Dot_configuration cfg;

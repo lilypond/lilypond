@@ -151,7 +151,7 @@ Paper_column::before_line_breaking (SCM grob)
     {
       Grob * g = unsmob_grob (ly_car (*ptrptr));
 
-      if (!g || !g->live ())
+      if (!g || !g->is_live ())
 	{
 	  *ptrptr = ly_cdr (*ptrptr);
 	}

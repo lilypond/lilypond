@@ -125,7 +125,7 @@ Stem_tremolo::print (SCM grob)
     stemdir = UP;
 
   Real beam_translation
-    = (beam && beam->live ())
+    = (beam && beam->is_live ())
     ? Beam::get_beam_translation (beam)
     : 0.81;
 

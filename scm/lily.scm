@@ -100,17 +100,20 @@
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
   (let* ((score (ly:music-scorify music))
-	 (book (ly:score-bookify score)))
+	 (head  (ly:parser-lookup parser '$globalheader))
+	 (book (ly:score-bookify score head)))
     (ly:parser-print-book parser book)))
 
 (define-public (print-score-as-book parser score)
-  (let
-      ((book (ly:score-bookify score (ly:parser-lookup parser '$globalheader))))
+  (let*
+      ((head  (ly:parser-lookup parser '$globalheader))
+       (book (ly:score-bookify score head)))
     
     (ly:parser-print-book parser book)))
 
 (define-public (print-score parser score)
-  (let ((book (ly:score-bookify score)))
+  (let* ((head  (ly:parser-lookup parser '$globalheader))
+	(book (ly:score-bookify score head)))
     (ly:parser-print-score parser book)))
 		
 (define-public default-toplevel-music-handler print-music-as-book)

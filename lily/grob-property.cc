@@ -69,7 +69,7 @@ void
 Grob::internal_set_property (SCM s, SCM v)
 {
   /* Perhaps we simply do the assq_set, but what the heck. */
-  if (!live ())
+  if (!is_live ())
     return;
 
   if (internal_type_checking_global_b)
@@ -113,7 +113,7 @@ Grob::substitute_mutable_properties (SCM crit, SCM orig)
 
 
 bool
-Grob::live () const
+Grob::is_live () const
 {
   return immutable_property_alist_ != SCM_EOL;
 }
