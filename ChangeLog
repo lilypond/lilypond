@@ -1,10 +1,14 @@
 2004-06-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
+	override of Beam::position-callbacks. Why would grace beams not be
+	quantized? Fixes: weird-stem-size-grace. Backportme.
+
 	* lily/new-lyric-combine-music-iterator.cc (find_voice): issue
-	warning only once.
+	warning only once. Backportme.
 
 	* lily/accidental-engraver.cc (number_accidentals_from_sig):
-	bugfix, 2nd try.
+	bugfix, 2nd try. Backportme.
 
 	* ly/vlaams.ly: new file. (Thanks Hendrik Maryns)
 
