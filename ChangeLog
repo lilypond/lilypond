@@ -1,3 +1,7 @@
+2004-06-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/book-paper-defaults.ly: set optimal-page-breaks as default
+
 2004-06-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove

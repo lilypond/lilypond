@@ -36,8 +36,8 @@
 	(baseline-skip . 2)
 	(word-space . 0.6)))
 
-    #(define page-breaking ly:ragged-page-breaks)
-    %%#(define page-breaking ly:optimal-page-breaks)
+    % #(define page-breaking ly:ragged-page-breaks)
+    #(define page-breaking ly:optimal-page-breaks)
 
     #(define page-to-stencil ly:page-header-lines-footer-stencil)
 
