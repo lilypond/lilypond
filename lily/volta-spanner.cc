@@ -81,7 +81,8 @@ Volta_spanner::do_add_processing ()
       set_bounds (RIGHT, column_arr_.top ());  
     }
 
-  number_p_->style_str_ = "number";
+  // number_p_->style_str_ = "number-1";
+  number_p_->style_str_ = "volta";
 }
   
 Interval

@@ -9,8 +9,17 @@ paper_twenty = \paper {
 	font_large = 12.;
 	font_Large = 12.;	
 	font_normal = 10.;
+
 	font_finger = 5.;
-	"font_number-1" = 7.;
+	font_volta = 8.;
+	font_number = 10.;
+	font_mark = 12.;
+
+	% what about:
+	"font_number-1" = 8.;
+	%"font_number" = 10.;
+	"font_number+1" = 12.;
+
 	
 	% ugh see table20 for sizes
 	quartwidth =  6.61\pt;

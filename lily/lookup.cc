@@ -388,6 +388,7 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {"Large", "cmbx"},
   {"mark", "feta-nummer"},
   {"number", "feta-nummer"},
+  {"volta", "feta-nummer"},
   {0,0}
 };
 
