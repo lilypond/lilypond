@@ -280,17 +280,12 @@ Score_engraver::try_music (Music *m)
 	forbid_breaks ();
 
       SCM page_pen = command_column_->get_property ("page-penalty");
-      if (is_number (page_pen))
-	{
-	  Real total_pp = ly_scm2double (page_pen);
-	  SCM mpage_pen = m->get_property ("page-penalty");
-	  if (is_number (mpen))
-	    total_pp += ly_scm2double (mpage_pen);
-
-	  // FIXME: this never reaches a grob that System::get_line sees.
-	  command_column_->set_property ("page-penalty",
-					 scm_make_real (total_pp));
-	}
+      Real total_pp = is_number (page_pen) ? ly_scm2double (page_pen) : 0.0;
+      SCM mpage_pen = m->get_property ("page-penalty");
+      if (is_number (mpage_pen))
+	total_pp += ly_scm2double (mpage_pen);
+      
+      command_column_->set_property ("page-penalty", scm_make_real (total_pp));
       return true;
     }
   return false;

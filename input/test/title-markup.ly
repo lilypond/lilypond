@@ -85,6 +85,9 @@ spaceTest = \markup { "two space chars" }
     %% bookTitle = \markup { \fill-line < \huge\bold \title > > }
 }
 
+%% suggest harder :-)
+%% noPagebreak = #(make-event-chord (list (make-penalty-music 0 1e9)))
+
 \book {
     
     \score {
@@ -101,7 +104,12 @@ spaceTest = \markup { "two space chars" }
 	    %% stress page breaking:
 	    %% 35 keep on 3 pages
 	    %% 36 spread evenly over 4 pages
-	    \repeat unfold 36 { a b c d \break }
+	    \repeat unfold 6 { a b c d \break }
+	    
+	    %% FIXME: TODO factor \pagebreak \noPagebreak into regtest
+	    %% Without this, page breaks are better, after measure: 12
+	    \noPagebreak
+	    \repeat unfold 30 { a b c d \break }
 	    c1
 	}
 	\header {
