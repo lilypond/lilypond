@@ -135,7 +135,6 @@
 
 
 % stacked horizontal lines 
-
 \def\interscoreline{\vskip 16pt}
 \def\setdynamic#1{\dynfont #1}
 \def\setfinger#1{\fingerfont #1}
@@ -229,11 +228,12 @@
 
 %
 % macros suck. \ifundefined{nolilyfooter} gives wierd errors from time
-%        to time. 
+%        to time.
+%
 \ifx\csname nolilyfooter\endcsname\relax
-	\message{footer defined}%
+        \message{footer defined}%
         \csname lilyfooter\texsuffix\endcsname
 \else
-	\message{page empty!}
-	\csname nolilyfooter\texsuffix\endcsname
+        \message{page empty!}
+        \csname nolilyfooter\texsuffix\endcsname
 \fi
