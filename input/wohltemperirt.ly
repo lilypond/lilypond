@@ -1,12 +1,12 @@
 \header{
 filename		wohltemperirt.ly
 title		Fuga a 3
-description		Das Wohltemperirte Clavier I, Fuga II (c-minor)
-opus		BWV ?
+description		Das Wohltemperierte Clavier I, Fuga II (c-minor)
+opus		BWV 847-Fuga
 source		Henle's Urtext
 composer		Johann Sebastian Bach (1685-1750)
 enteredby		HWN and Werner Lemberg
-copyright		Public Domain"
+copyright		Public Domain
 }
 %{
  Tested Features: stem direction, multivoice, forced accidentals.
