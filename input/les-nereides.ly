@@ -69,8 +69,11 @@ treble =  \context Voice=treble \notes\relative c''{
 
     | %5
     r8 <<a' a,>>8-(-\mf <<gis gis,>> <<fis fis,>>
+    
     % \fingerUp
     \property Voice.Fingering \set #'direction = #1
+    
+    % Manual fix for collision with slur
     % padding \once does not work??
     \once \property Voice.Fingering \set #'padding = #1
     <<gis gis,>> <<fis fis,>> e-)-1-4-5 r
