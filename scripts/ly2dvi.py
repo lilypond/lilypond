@@ -478,18 +478,25 @@ class Properties:
             this.__set('include', tmp, 'environment')    
 
 
-        t= os.pathsep
+        t = os.pathsep
 	if os.environ.has_key ('TEXINPUTS'):
 		t = os.environ['TEXINPUTS'] + os.pathsep
-        os.environ['TEXINPUTS'] = t + \
-	os.path.join(this.get('root'), 'tex' ) + \
-	os.pathsep + os.path.join(this.get('root'), 'ps' )
+                
+        ly2dvi_t = t + \
+                   os.path.join(this.get('root'), 'tex' ) + \
+                   os.pathsep + os.path.join(this.get('root'), 'ps' )
+        # Don't add the magic `//' to TEXINPUTS
+        ly2dvi_t = re.sub ('//*', '/', ly2dvi_t)
+        os.environ['TEXINPUTS'] = ly2dvi_t
 
-        t=''
+        m = ''
 	if os.environ.has_key ('MFINPUTS'):
-               t = os.environ['MFINPUTS'] 
-        os.environ['MFINPUTS'] = t + os.pathsep + \
-                                 os.path.join(this.get('root'), 'mf')
+               m = os.environ['MFINPUTS'] 
+        ly2dvi_m = m + os.pathsep + \
+                   os.path.join(this.get('root'), 'mf')
+        ly2dvi_m = re.sub ('//*', '/', ly2dvi_m)
+        # Don't add the magic `//' to MFINPUTS
+        os.environ['MFINPUTS'] = ly2dvi_m
 
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')
@@ -548,9 +555,11 @@ class Properties:
         else:
             path =''
             cmd =('kpsewhich tex %s %s' % (var,errorlog))
+            sys.stderr.write ('executing: %s'% cmd)
             pipe = os.popen (cmd, 'r')
             path = pipe.readline ()[:-1] # chop off \n
             return_status =  pipe.close()
+            sys.stderr.write ('\n')
             if return_status and not path:
                 path = os.path.join(this.get('root'), 'tex', var)
 	fd = open(path, 'r')

@@ -1,3 +1,18 @@
+1.3.131.jcn1
+============
+
+* Bugfix: out-letter/%.ps generation for mutopia.
+
+* Bugfix: don't use $(message ) in makefiles; some versions of make
+choke on this.
+
+* Bugfix: ly2dvi.py: don't add magic `//' to TEXINPUTS,MFINPUTS; this
+chokes kpsewhich 3.3.1 (bug report filed).
+
+* Bugfix: file-path.cc: don't interpret relative path as system root.
+
+* Bugfix: --srcdir install.
+
 1.3.130.hwn2
 ============
 

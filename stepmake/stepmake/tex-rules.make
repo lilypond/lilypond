@@ -17,5 +17,5 @@ $(outdir)/%.ps: $(outdir)/%.dvi
 	cd $(outdir) && dvips -ta4 -o $(@F) $(<F)
 
 $(outdir)-$(PAPERSIZE)/%.ps: $(outdir)-$(PAPERSIZE)/%.dvi
-	cd $(outdir) && dvips -t$(PAPERSIZE) -o $(@F) $(<F)
+	cd $(outdir)-$(PAPERSIZE) && dvips -t$(PAPERSIZE) -o $(@F) $(<F)
 

@@ -46,7 +46,7 @@ Paper_outputter::Paper_outputter (String name)
   if (verbatim_scheme_b_)
     {
 	*stream_p_ << ""
-	  ";;; Usage: guile -s x.scm > x.lytex\n"
+	  ";;; Usage: guile -s x.scm > x.tex\n"
 	  "(primitive-load-path 'standalone.scm)\n"
 	  ";(scm-tex-output)\n"
 	  "(scm-ps-output)\n"

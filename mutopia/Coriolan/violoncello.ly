@@ -299,8 +299,10 @@ violoncello =  \notes \relative c {
 	\property Voice.crescendoSpanner = #'dashed-line
 	[a8\<( f' d f][a f d )a!~]|
 	[a( e' cis e][a e c )g]|
-	\!f2\ff e|
-	dis b'~|
+%%	\!f2\ff e|
+%%	dis b'~|
+	\!f2\ff e'|
+	dis b~|
 	[b8\p( g' e g][b g e )b!~]|
 
 	%200

@@ -401,7 +401,7 @@ dnl    fi
  	PATHSEP=':'
 	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
-	ROOTSEP='/'
+	ROOTSEP=':'
 	DIRSEP='/'
 	PATHSEP=':'
 	LN=ln

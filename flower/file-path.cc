@@ -17,8 +17,9 @@
 #define PATHSEP ':'
 #endif
 
+/* We don't have multiple roots, set this to '\0'? */
 #ifndef ROOTSEP
-#define ROOTSEP '/'
+#define ROOTSEP ':'
 #endif
 
 #ifndef DIRSEP
@@ -56,7 +57,7 @@ split_path (String path)
   if (i >= 0)
     {
       p.root = path.left_str (i);
-      path = path.right_str (path.length_i () - i); // - 1);
+      path = path.right_str (path.length_i () - i - 1);
     }
 
   i = path.index_last_i (DIRSEP);
