@@ -430,7 +430,7 @@ note splitting (see @ref{Automatic note splitting}).
 In this manual: @ref{Automatic note splitting}.
 
 Internals: @internalsref{TieEvent}, @internalsref{NewTieEvent},
-@internalsref{Tie}
+@internalsref{Tie} @c
 
 Examples: if you want less ties created for a chord, see
 @inputfileref{input/test,tie-sparse.ly}.
@@ -7505,7 +7505,7 @@ used in music aimed at beginners:
 }
 @end lilypond
 
-The @code{EasyNotation} variable overrides a @internalsref{Score} 
+The @code{EasyNotation} variable overrides a @internalsref{Score} @c
 context.  To make the letters readable, it has to be printed in a
 large font size.  To print with a larger font, see @ref{Font Size}.
 
@@ -7797,7 +7797,7 @@ f
 The context name @code{Voice} in the example above can be determined
 as follows. In the documentation for @internalsref{Fingering}, it says
 @quotation
-Fingering grobs are created by: @internalsref{Fingering_engraver}
+Fingering grobs are created by: @internalsref{Fingering_engraver} @c
 @end quotation
 
 Clicking @code{Fingering_engraver} shows the documentation of
