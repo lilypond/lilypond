@@ -259,14 +259,6 @@ Only set if not set previously.
 			       ly:pitch<?)))
 	  (cond ((> (length notes1) 1) (put 'apart))
 		((> (length notes2) 1) (put 'apart))
-		;;
-		((and (= (length notes2) 1)
-		      (= (length notes1) 0))
-		      (put 'playing2))
-		((and (= (length notes1) 1)
-		      (= (length notes2) 0))
-		      (put 'playing1))
-		;;
 		((and (= (length durs1) 1)
 		      (= (length durs2) 1)
 		      (not (equal? (car durs1) (car durs2))))

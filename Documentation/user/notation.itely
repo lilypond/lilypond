@@ -5150,14 +5150,11 @@ they should be entered as
   @}
 @end example
 
-@noindent
-in this case, @code{\transposition} does not have to be used, since
-@code{c'} is the default. 
-
-@code{\transposition} should be used when the music is entered from a
-(transposed) orchestral part.  For example, in classical horn parts,
-the tuning of the instrument is often changed during a piece. When copying
-the notes from the  part, use @code{\transposition}, e.g.
+The command @code{\transposition} should be used when the music is
+entered from a (transposed) orchestral part.  For example, in
+classical horn parts, the tuning of the instrument is often changed
+during a piece. When copying the notes from the part, use
+@code{\transposition}, e.g.
 
 @example
   \transposition d'
@@ -7671,7 +7668,8 @@ such as fermatas to notes.
 Feathered beams are not supported natively, but they can be faked by
 forcing two beams to overlap.  Here is an example,
 
-@lilypond[raggedright,relative=2,fragment,verbatim]
+@c don't change  relative setting witout changing positions!
+@lilypond[raggedright,relative=1,fragment,verbatim]
 \new Staff <<
   \new Voice
   {

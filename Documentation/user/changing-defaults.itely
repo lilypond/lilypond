@@ -2106,6 +2106,9 @@ This is a demonstration of the fields available,
     }
     { c'1 }
   }
+  \bookpaper {
+    linewidth = 8.0 \cm
+  }
 }
 @end lilypond
 
