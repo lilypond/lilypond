@@ -1,3 +1,8 @@
+2004-05-30  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* ly/music-functions-init.ly (addlyrics): set the 'origin property
+	with the location argument in music function definitions.
+
 2004-05-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/paper-book.cc (split_string): new function
