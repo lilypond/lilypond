@@ -1,5 +1,5 @@
 
-\version "2.1.30"
+\version "2.1.36"
 
 \header{
 texidoc="No auto beams will be put over (manual) repeat bars."

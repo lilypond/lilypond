@@ -5,7 +5,7 @@ and after Z, double letters are used.  The mark may be set
 with @code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
       }
 
-\version "2.1.30"
+\version "2.1.36"
 \score {  \notes \relative c'' {
   c1  \mark \default
   c1  \mark #7

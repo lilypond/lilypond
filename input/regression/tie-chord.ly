@@ -1,5 +1,5 @@
 
-\version "2.1.30"
+\version "2.1.36"
 \header{
 texidoc="
 When tying chords, the outer slurs point outwards, the inner slurs

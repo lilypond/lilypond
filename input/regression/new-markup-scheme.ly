@@ -5,7 +5,7 @@
     texts using a similar syntax as @code{\\markup}."
 
     }
-\version "2.1.30"
+\version "2.1.36"
 \score {
     \notes {
         \fatText

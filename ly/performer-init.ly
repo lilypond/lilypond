@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 
 				%
 				% setup for Request->Element conversion. Guru-only
@@ -86,7 +86,7 @@
     \type "Score_performer"
 
     \name Score
-    \alias Timing
+    
     melismaBusyProperties = #default-melisma-properties
     instrument = #"bright acoustic"
     \accepts Staff
@@ -102,7 +102,7 @@
     \accepts ChordNames
     \accepts FiguredBass
     \accepts Lyrics
-    \alias "Timing"
+    
     \consists "Timing_translator"
     \consists "Swallow_performer"
     

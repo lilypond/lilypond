@@ -9,29 +9,6 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-/* Four shift/reduce problems
-
-1.  foo = bar
-
-    "bar" -> String -> Lyric -> Music -> music-assignment
-  or
-    "bar" -> String -> string-assignment
-
-Similar problem for
-
-2.  \markup identifier
-3.  \markup { }
-
-4.  \repeat
-    \repeat .. \alternative
-    \repeat { \repeat .. \alternative }
-or
-    \repeat { \repeat } \alternative
-
---hwn
-
-*/
-
 /*
 
 TODO:
@@ -219,6 +196,41 @@ yylex (YYSTYPE *s, void *v)
 
 
 %}
+
+%expect 4
+
+/*
+  Four shift/reduce problems:
+
+1.	foo = bar.
+
+	"bar" -> String -> Lyric -> Music -> music-assignment
+
+	"bar" -> String -> string-assignment
+
+
+Similar problem for
+
+2. \markup identifier.
+
+3. \markup { }
+
+4.  \repeat
+	\repeat .. \alternative
+
+
+    \repeat { \repeat .. \alternative }
+
+or
+
+    \repeat { \repeat } \alternative 
+
+)
+
+--hwn
+
+ */
+
 
 %pure_parser
 
