@@ -68,7 +68,6 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$* --html $<
-	-cp -f $(outdir)/*.png $(outdir)/lilypond-internals
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 

@@ -1,9 +1,22 @@
+2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION (PATCH_LEVEL): release 1.6.12
+
+	* Documentation/footer.html.in: remove useless footer.
+
+	* GNUmakefile.in: add rsync-web target 
+	(top-web): add refresh index.html. Remove topdocs/index.tely
+	
+	* Documentation/header.html.in: remove outdated links.
+
 2003-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in: Fix for fonts/web target.
 
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.6.11
+	
 	* make/ly-rules.make ($(outdir)/%.pdf): backport -u +lilypond.map
 	fix
 
@@ -57,7 +70,6 @@
 	new makeinfo.  Please upgrade to texinfo CVS or pretest > 4.5.90
 	(rsn) for making binary packages; info splitting bug has been
 	fixed.
-
 2003-05-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: release 1.6.10

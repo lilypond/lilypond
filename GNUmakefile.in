@@ -79,7 +79,7 @@ final-install:
 	@echo " *** login scripts. For more information, see Invoking LilyPond in the manual."
 	@echo 
 
-TOP_HTMLS = index.html examples.html
+TOP_HTMLS =  examples.html
 
 examples: web-reqs
 	$(MAKE) out=www -C input WWW
@@ -98,8 +98,9 @@ top-web:
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
-	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
+	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
@@ -177,3 +178,7 @@ $(config_h): configure.in aclocal.m4
 	@echo '         rm config.h; ./autogen.sh'
 	@echo
 	@false
+
+rsync-web:
+	cd $(outdir) ; mkdir web ; tar  -xzf web.tar.gz -C web
+	cd $(outdir)/web ; rsync --delete --stats --progress -lavu -e ssh . x:/var/www/lilypond/doc/v1.6/
