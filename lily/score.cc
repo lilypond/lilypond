@@ -316,6 +316,13 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   SCM prot = score_def->self_scm ();
   scm_gc_unprotect_object (prot);
 
+  /*
+
+  TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
+  itself.
+  
+   */
+  
   score_def->parent_ = od;
   
   SCM context = ly_run_translator (sc->music_, score_def->self_scm ());

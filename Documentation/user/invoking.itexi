@@ -30,6 +30,8 @@ format.
 To have @code{lilypond} read from stdin, use a dash @code{-} for
 @var{file}.  The program supports the following options.
 
+@cindex stdin, reading
+
 @table @code
 @item -k,--keep
     Keep the temporary directory with all output
