@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   keyplacement by Mats Bengtsson
 */
@@ -23,26 +23,8 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 Key_item::Key_item ()
 {
   set_elt_property ("breakable", SCM_BOOL_T);
-  set_c_position (0);
+  set_elt_property ("c0-position", gh_int2scm (0));
 }
-
-int
-Key_item::get_c_position () const
-{
-  // Find the c in the range -4 through 2
-  int from_bottom_pos = c0_position_ + 4;	
-  from_bottom_pos = from_bottom_pos%7;
-  from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
-  return from_bottom_pos - 4;
-}
-
-
-void 
-Key_item::set_c_position (int c0)
-{
-  c0_position_ = c0;
-}
-
 
 void
 Key_item::add (int p, int a)
@@ -64,27 +46,35 @@ Key_item::calculate_position(int p, int a) const
 {
   if (to_boolean (get_elt_property ("multi-octave")))
     {
-      return p + c0_position_;
+      return p + gh_scm2int (get_elt_property ("c0-position"));
     }
   else {
-    if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+get_c_position ()>4)) && (p+get_c_position ()>1)) 
+    // Find the c in the range -4 through 2
+    int from_bottom_pos = gh_scm2int (get_elt_property ("c0-position")) + 4;
+    from_bottom_pos = from_bottom_pos%7;
+    from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
+    int c0 = from_bottom_pos - 4;
+
+    
+    if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1)) 
 	||
-	(a>0 && ((p>SHARP_TOP_PITCH) || (p+get_c_position ()>5)) && (p+get_c_position ()>2))) 
+	(a>0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
       {
 	p -= 7; /* Typeset below c_position */
       }
     /* Provide for the four cases in which there's a glitch */
     /* it's a hack, but probably not worth */
     /* the effort of finding a nicer solution. dl. */
-    if (get_c_position ()==2 && a>0 && p==3)
+    if (c0==2 && a>0 && p==3)
       p -= 7;
-    if (get_c_position ()==-3 && a>0 && p==-1)
+    if (c0==-3 && a>0 && p==-1)
       p += 7;
-    if (get_c_position ()==-4 && a<0 && p==-1)
+    if (c0==-4 && a<0 && p==-1)
       p += 7;
-    if (get_c_position ()==-2 && a<0 && p==-3)
+    if (c0==-2 && a<0 && p==-3)
       p += 7;
-    return p + get_c_position ();
+    
+    return p + c0;
   }
 }
 

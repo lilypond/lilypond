@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2000 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -15,6 +15,8 @@
 
 /**
   Universal key definition (Should rename class Key to 'Accidentals'?)
+
+  FIXME: merge key.hh and key-def.hh classes.
  */
 class Key_def
 {

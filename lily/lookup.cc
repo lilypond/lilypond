@@ -273,27 +273,36 @@ Lookup::text (String style, String text, Paper_def *paper_l)
   
   Array<String> lines = String_convert::split_arr (text, '\n');
   
-  Molecule mol;
-  
   Real kern = paper_l->get_var ("line_kern");
   
-  for (i = 0; i< lines.size (); i++)
+  for (int i=0; i < lines.size (); i++)
     {
-      /*
-	Huh?  This way we'll still see \foo sequences in ps output.
-       */
-      String str = lines[i];
+      String str (lines[i]);
       if (output_global_ch == "tex")
 	str = sanitise_TeX_string  (str);
       else if (output_global_ch == "ps")
 	str = sanitise_PS_string (str);
+      lines[i] = str;
+    }
 
+
+  SCM first = gh_list (ly_symbol2scm ("text"),
+			 ly_str02scm (lines[0].ch_C()),
+			 SCM_UNDEFINED);
+  first = fontify_atom (metric_l, first);
+
+  
+
+  Molecule mol (metric_l->text_dimension (lines[0]), first);
+
+  for (i = 1; i < lines.size (); i++)
+    {
       SCM line = (gh_list (ly_symbol2scm ("text"),
-			   ly_str02scm (str.ch_C ()),
+			   ly_str02scm (lines[i].ch_C ()),
 			   SCM_UNDEFINED));
       line = fontify_atom (metric_l, line);
       mol.add_at_edge (Y_AXIS, DOWN,
-		       Molecule (metric_l->text_dimension (str), line),
+		       Molecule (metric_l->text_dimension (lines[i]), line),
 		       kern);
     }
 

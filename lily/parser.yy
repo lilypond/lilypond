@@ -5,7 +5,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -1039,19 +1039,31 @@ verbose_command_req:
 		$$ = new Clef_change_req (ly_scm2string ($2));
 
 	}
+	| KEY {
+		Key_change_req *key_p= new Key_change_req;
+		key_p->key_ = 0;
+		$$ = key_p;
+	}
 /* UGH. optional.  */
+
 	| KEY NOTENAME_PITCH optional_modality	{
 		Key_change_req *key_p= new Key_change_req;
-		key_p->key_.pitch_arr_.push (*$2);
-		key_p->key_.ordinary_key_b_ = true;
-		key_p->key_.modality_i_ = $3;
+		Key_def d;
+		d.pitch_arr_.push (*$2);
+		d.ordinary_key_b_ = true;
+		d.modality_i_ = $3;
+
+		key_p->key_ = new Key_def (d);
 		$$ = key_p;
 		delete $2;
 	}
 	| KEYSIGNATURE pitch_list {
 		Key_change_req *key_p= new Key_change_req;
-		key_p->key_.pitch_arr_ = *$2;
-		key_p->key_.ordinary_key_b_ = false;
+		Key_def d;
+		d.pitch_arr_ = *$2;
+		d.ordinary_key_b_ = false;
+
+		key_p->key_ = new Key_def(d);
 		$$ = key_p;
 		delete $2;
 	}
