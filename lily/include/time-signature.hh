@@ -21,7 +21,7 @@ struct Time_signature
 {
   static Molecule special_time_signature (Score_element*,String,int,int) ;
   static Molecule time_signature (Score_element*,int, int);
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 #endif // METER_HH
 

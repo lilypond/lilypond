@@ -44,7 +44,7 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.3.59";
+\version "1.3.93";
 
 
 lowstaff = \translator "Staff" = "lower"
@@ -77,22 +77,22 @@ upper = \context Staff=upper \notes\relative c {
 	<f4 d b4>
 	r4
 	
-	\stemboth 
-	\stemup
+	\stemBoth 
+	\stemUp
 	r16 g,, b d  
-	[ f \upstaff \stemdown g16 b d ] | 
-	\stemup b
-	\lowstaff \stemdown
+	[ f \upstaff \stemDown g16 b d ] | 
+	\stemUp b
+	\lowstaff \stemDown
 	[ g b d ] f
 	\upstaff 
 	[ g16 b d ] b
 	[ g b d ]
-	\stemup
+	\stemUp
 
 	% urg, below translator change affects previous beam too!?
 	% howto separate translator command from previous beam end?
 	\upstaff f g b f |
-	\stemboth
+	\stemBoth
 	e c' g f  e c' g e 
 	d c' f, e  d b' f d |
 	c b' e, d  c a' e c 
@@ -108,10 +108,10 @@ upper = \context Staff=upper \notes\relative c {
 	b d b g  as f g d 
 	es fis a c 
 	< 
-		{ \stemup r c8 b16 }
-		\context Voice=ii { \stemdown  d,8 f }
+		{ \stemUp r c8 b16 }
+		\context Voice=ii { \stemDown  d,8 f }
 	>
-	\stemboth |
+	\stemBoth |
 	<c1 g e>
 	\bar "|.";
 }
@@ -130,8 +130,8 @@ lower = \context Staff=lower \notes\relative c{
 	g'-\mordent g, g'-\mordent g, |
 	g' r s s | s s s s \clef "bass"; |
 	<
-		{ \stemup g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		\context Voice=ii { \stemdown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		{ \stemUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		\context Voice=ii { \stemDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
 	\bar "|.";

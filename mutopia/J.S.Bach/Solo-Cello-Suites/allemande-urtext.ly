@@ -9,45 +9,45 @@ But merging melodic and scripts doen't work too well yet (see viola_scripts).
 
 allemande_a = \context Staff \notes \relative c {
 	\context Voice=i
-	\stemup
+	\stemUp
 	a'16 | 
-	a8 bes16()a \stemboth
+	a8 bes16()a \stemBoth
 	g()f e()d d()cis d()e a,8 bes16()g |
-	f( a )d f,  e8 cis' \stemup d8. e16 \stemboth f g a bes! |
+	f( a )d f,  e8 cis' \stemUp d8. e16 \stemBoth f g a bes! |
 	%3
-	\stemup c8 d16()es \stemboth d()c bes()a c()bes a()g d'8. f,16 |
+	\stemUp c8 d16()es \stemBoth d()c bes()a c()bes a()g d'8. f,16 |
 	e( g )bes d c()bes a()g bes()a g()f 
 	< f8. a> <f16 a > |
 	% urg fix
-	b f( e )d e cis' d cis \stemup d8. e16 \stemboth
+	b f( e )d e cis' d cis \stemUp d8. e16 \stemBoth
 	f( e d)e |
 	%6
 	d( c b )c b( a gis)a gis8-\prall fis16()e e' c( a )g |
-	\stemup e' a, f d  d f d b \stemboth
+	\stemUp e' a, f d  d f d b \stemBoth
 	gis( b e )gis b d c b |
 	%8
 	c( a f )e d( f e )d gis8.-\trill()a16 b d e, d |
 	% urg
-	c e a d \stemup b8.-\trill a16 a8 s4 s8 \stemboth |
+	c e a d \stemUp b8.-\trill a16 a8 s4 s8 \stemBoth |
 	%10
-	d,!16 gis( a b a gis fis )e \stemup e8 f16()e \stemboth
+	d,!16 gis( a b a gis fis )e \stemUp e8 f16()e \stemBoth
 	d()c b()a |
-	\stemup d8 e16()f \stemboth e d c b 
-	\stemup d'16()b c()a \stemboth e8 gis |
+	\stemUp d8 e16()f \stemBoth e d c b 
+	\stemUp d'16()b c()a \stemBoth e8 gis |
 	a,8. cis16 e g! f! e f a d gis, [ a8. ]
 	%13
-	e16 \stemup e8. f16 \stemboth
+	e16 \stemUp e8. f16 \stemBoth
 	g!()e f()a cis,( d )e bes a8.-\trill()g16 |
 	f a'(f)d g b,()cis a' g(f e)d fis d()es c( |
 	%15
 	)bes g'(a, )g fis a d c' bes(fis)g bes d()a bes()g |
 	es(d)es g c()a bes()g d c d g bes()fis g()es |
 	%17
-	c(bes)c bes' a(c)es g, \stemup fis8-\trill g16 a \stemboth
+	c(bes)c bes' a(c)es g, \stemUp fis8-\trill g16 a \stemBoth
 	d,8 es16 c |
-	bes d g bes, d,8 fis' \stemup g8. a16 \stemboth bes d g, f |
+	bes d g bes, d,8 fis' \stemUp g8. a16 \stemBoth bes d g, f |
 	%19
-	\stemup e8.-\trill f16 \stemboth g e c bes 
+	\stemUp e8.-\trill f16 \stemBoth g e c bes 
 	a()f' g,()f e g'( a )bes |
 	bes( a g )f
 	a()e f()d bes d(f)a d()a bes()g |
@@ -59,12 +59,12 @@ allemande_a = \context Staff \notes \relative c {
 	%23
 	cis(e g!)bes e()a, bes()g f()cis d()gis, a8 cis! |
 	% knee
-	\stemup d,16 \stemboth d''(c!)a bes!(g)e cis' d a f d d,8.
+	\stemUp d,16 \stemBoth d''(c!)a bes!(g)e cis' d a f d d,8.
 }
 
 allemande_b = \notes \relative c {
 	\context Voice=ii
-	\stemdown
+	\stemDown
 	s16 |
 	% <d'8 g' f'> s8 s2. |
 	<f8 g, d> s8 s2. |
@@ -76,9 +76,9 @@ allemande_b = \notes \relative c {
 	s1 |
 	f!16 s16*3 b, s16*3 s2 |
 	s1 |
-	\slurdown
+	\slurDown
 	s4 e [dis8 ~ dis32 e( fis gis] [a b c d! c b c )a] |
-	\slurboth
+	\slurBoth
 	%10
 	s2 <a8 c,> s8 s4 |
 	<b8 gis,> s8 s4 <e,8 a,> s8 s4 |
@@ -99,4 +99,4 @@ allemande = \context Staff \notes<
 >
 
 
-\version "1.3.59";
+\version "1.3.93";

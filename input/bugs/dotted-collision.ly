@@ -2,7 +2,7 @@
 enteredby =  "Donat Wullschleger";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 \include "paper16.ly";
 \include "deutsch.ly";
@@ -21,7 +21,7 @@ righthandfirstvoice =  \notes \relative c''
 
 lefthandfirstvoice =  \notes \relative c
    \context Voice = upper {
-  \voiceone
+  \voiceOne
   \key b \major;
   \clef bass;
 
@@ -32,7 +32,7 @@ lefthandfirstvoice =  \notes \relative c
 
 lefthandsecondvoice =  \notes \relative c
    \context Voice = lower {
-  \voicetwo
+  \voiceTwo
   r2. |
   r4. r4. |
   r8. r8. r8. r8. |

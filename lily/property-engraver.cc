@@ -116,14 +116,24 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	{
 	  e->set_elt_property (elt_prop_sym, val);
 
-	  String msg = "Property_engraver is deprecated. Use\n \\property "
-	    + origin->type_str_
-	    + ".basicXXXXProperties"
-	    + " \\push #'"
-	    + ly_symbol2string (elt_prop_sym)
-	    + " = #";
-	  warning (msg);
+	  SCM errport = scm_current_error_port ();
+	  scm_display (prop_sym, errport);
+	  scm_puts (" is deprecated. Use\n \\property ", errport);
+
+	  SCM name = e->get_elt_property ("name");
+	  scm_puts (origin->type_str_.ch_C(), errport);
+	  scm_puts (".", errport);
+	  
+	  scm_display (name, errport);
+	  scm_puts(" \\push #'",errport);
+	  scm_display (elt_prop_sym,errport);
+	  scm_puts ( " = #",errport);
+	  if (gh_string_p (val))
+	    scm_puts ("\"", errport);
 	  scm_display (val, scm_current_error_port ());
+	  if (gh_string_p (val))
+	    scm_puts ("\"", errport);
+	  scm_puts ("\n", errport);
 	}
       else
 

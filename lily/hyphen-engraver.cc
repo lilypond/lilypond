@@ -103,8 +103,8 @@ Hyphen_engraver::do_process_music ()
 	  return;
 	}
       
-      hyphen_p_ = new Spanner (get_property ("basicHyphenSpannerProperties"));
-      hyphen_p_->set_extent_callback (Score_element::point_dimension_callback,Y_AXIS);
+      hyphen_p_ = new Spanner (get_property ("LyricHyphen"));
+
       Hyphen_spanner (hyphen_p_).set_textitem  (LEFT, last_lyric_l_);
       announce_element (hyphen_p_, req_l_);
     }

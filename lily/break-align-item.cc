@@ -70,7 +70,6 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 void
 Break_align_interface::add_element (Score_element*me, Score_element *toadd)
 {
-  toadd->add_offset_callback (Break_align_interface_alignment_callback_proc, X_AXIS);
   Axis_group_interface::add_element (me, toadd);
 }
 
@@ -225,5 +224,5 @@ Break_align_interface::set_interface (Score_element*me)
   Align_interface::set_interface (me); 
   Align_interface::set_axis (me,X_AXIS);
 
-  me->add_offset_callback (Break_align_interface_self_align_callback_proc, X_AXIS);
+
 }

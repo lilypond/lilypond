@@ -91,13 +91,17 @@ typedef SCM(*Scheme_function_1)(...);
 typedef SCM(*Scheme_function_2)(...);
 #endif
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGS) \
-SCM TYPE ## _ ## FUNC ## _proc;\
+#define DECLARE_SCHEME_CALLBACK(NAME,ARGS) \
+	static SCM NAME ARGS; \
+	static SCM NAME ## _proc
+
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT) \
+SCM TYPE :: FUNC ## _proc;\
 void								\
 TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
-  TYPE ## _ ## FUNC ## _proc = gh_new_procedure ## ARGS  ## _0 (#TYPE "::" #FUNC, \
-  ((Scheme_function_ ## ARGS)TYPE :: FUNC)); 				\
+  TYPE :: FUNC ## _proc = gh_new_procedure ## ARGCOUNT  ## _0 (#TYPE "::" #FUNC, \
+  ((Scheme_function_ ## ARGCOUNT)TYPE :: FUNC)); 				\
 }								\
 								\
 ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\

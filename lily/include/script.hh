@@ -24,8 +24,8 @@ public:
   static Molecule get_molecule (Score_element*,Direction d);
   static void set_interface (Score_element*);
   static bool  has_interface (Score_element*);
-  static SCM brew_molecule (SCM);
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
 };
 
 #endif /* Stem_SCRIPT_HH */

@@ -1,15 +1,15 @@
 \score{
 	\notes\relative c''{
-%		\stemup
+%		\stemUp
 %		[a16 b b c]
 %		[c b b a]
-%		\stemdown
+%		\stemDown
 %		[c b b a]
 %		[a b b c]
-		\stemup
+		\stemUp
 		[g16 a b c]
 		[c b a g]
-		\stemdown
+		\stemDown
 		[d' c b a]
 		[a b c d]
 	}
@@ -17,3 +17,4 @@
 		linewidth=-1.;
 	}
 }
+\version "1.3.93";

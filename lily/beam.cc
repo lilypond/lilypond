@@ -891,7 +891,7 @@ Beam::last_visible_stem(Score_element*me)
     
     rest -> stem -> beam -> interpolate_y_position ()
 */
-MAKE_SCHEME_CALLBACK(Beam,rest_collision_callback,1);
+MAKE_SCHEME_CALLBACK(Beam,rest_collision_callback,2);
 SCM
 Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
@@ -947,7 +947,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   if (discrete_dist < stafflines+1)
     discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
 
-  return  (-d *  discrete_dist);
+  return gh_double2scm  (-d *  discrete_dist);
 }
 
 
@@ -960,9 +960,6 @@ Beam::has_interface (Score_element*me)
 void
 Beam::set_interface (Score_element*me)
 {
-  Pointer_group_interface g (me, "stems");
-  g.set_interface ();
-
   /*
     why the init? No way to tell difference between default and user
     override.  */

@@ -11,7 +11,7 @@
 #include "lily-guile.hh"
 
 
-extern SCM Beam_rest_collision_callback_proc;
+
 /** a beam connects multiple stems.
 
   Beam adjusts the stems its owns to make sure that they reach the
@@ -62,15 +62,15 @@ public:
   static  Item* last_visible_stem (Score_element*);
   static bool has_interface (Score_element*);
   static void set_interface (Score_element*);  
-  static SCM rest_collision_callback (SCM element, SCM axis);
+  DECLARE_SCHEME_CALLBACK(rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
   static void add_stem (Score_element*,Score_element*);
   static void set_beaming (Score_element*,Beaming_info_list *);
   static void set_stemlens (Score_element*);
   static int get_multiplicity (Score_element*me);
-  static SCM brew_molecule (SCM);
-  static SCM before_line_breaking (SCM);
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
   static Molecule stem_beams (Score_element*,Item *here, Item *next, Item *prev);
 
 private:

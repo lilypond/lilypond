@@ -1,5 +1,5 @@
 
-\version "1.3.59";
+\version "1.3.93";
 
 \score{
 	\notes\transpose c'{
@@ -17,8 +17,8 @@
 		  { e ~ f }
 		>
 %	\context Staff <
-%	{ \stemup c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
-%	{ \stemdown c (e g )c'~( [b a g )d]   	r2 } 
+%	{ \stemUp c'8 ~g ~e( ~c~ [c'~ g' e' )c'] c'' ~ c'' c~c }
+%	{ \stemDown c (e g )c'~( [b a g )d]   	r2 } 
 %	>
 
 	{

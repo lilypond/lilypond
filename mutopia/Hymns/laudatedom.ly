@@ -4,7 +4,7 @@ composer = "Parry";
 metre = "10 10 . 11 11";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 sop = \notes \transpose c''{
 	f4 | d' bes c' | f2 \bar "||";
@@ -61,15 +61,15 @@ global = \notes {
 	  \context Staff=top { 
 		\global \clef "G";
 		\context Staff <
-			\notes{\voiceone \sop }
-			\notes{\voicetwo \alto }
+			\notes{\voiceOne \sop }
+			\notes{\voiceTwo \alto }
 			>
 	  }
 	  \context Staff=bottom { 
 		\global \clef "F";
 		\context Staff <
-		      \notes{\voiceone \tenor}
-		      \notes{\voicetwo \bass }
+		      \notes{\voiceOne \tenor}
+		      \notes{\voiceTwo \bass }
 		>
 	  }
 	>

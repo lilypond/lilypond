@@ -33,7 +33,7 @@ public:
   int count ();
   void add_thing (SCM);
   bool has_interface ();
-  void set_interface ();
+
 };
 
 struct Pointer_group_interface {
@@ -43,7 +43,7 @@ public:
   Pointer_group_interface (Score_element*);
   Pointer_group_interface (Score_element*, String);
   int count ();
-  void set_interface ();
+
   static bool has_interface (Score_element*);
   bool has_interface ();
   void add_element (Score_element*);

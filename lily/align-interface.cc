@@ -140,7 +140,7 @@ Align_interface::get_count (Score_element*me,Score_element*s)
 void
 Align_interface::add_element (Score_element*me,Score_element* s)
 {
-  s->add_offset_callback (Align_interface_alignment_callback_proc, Align_interface::axis (me));
+  s->add_offset_callback (Align_interface::alignment_callback_proc, Align_interface::axis (me));
   Axis_group_interface::add_element (me, s);
 }
 

@@ -89,10 +89,10 @@ Staff_symbol_referencer::position_f (Score_element*me)
  */
 MAKE_SCHEME_CALLBACK(Staff_symbol_referencer,callback,2);
 SCM
-Staff_symbol_referencer::callback (SCM element_smob, SCM axis)
+Staff_symbol_referencer::callback (SCM element_smob, SCM )
 {
   Score_element *me = unsmob_element (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+
   
   SCM pos = me->get_elt_property ("staff-position");
   Real off =0.0;
@@ -134,14 +134,14 @@ Staff_symbol_referencer::set_position (Score_element*me,Real p)
   else
     {
       me->set_elt_property ("staff-position",
-				gh_double2scm (p));
+			    gh_double2scm (p));
 
     }
 
-  if (me->has_offset_callback_b (Staff_symbol_referencer_callback_proc, Y_AXIS))
+  if (me->has_offset_callback_b (Staff_symbol_referencer::callback_proc, Y_AXIS))
     return ; 
 
-  me->add_offset_callback (Staff_symbol_referencer_callback_proc, Y_AXIS);
+  me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }
 
 /*
@@ -167,6 +167,7 @@ Staff_symbol_referencer::set_interface (Score_element * e)
 {
   if (!gh_number_p (e->get_elt_property ("staff-position")))
       e->set_elt_property ("staff-position", gh_double2scm (0.0));
-      
-  e->add_offset_callback (Staff_symbol_referencer_callback_proc, Y_AXIS);
+
+  e->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }
+

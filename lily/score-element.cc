@@ -48,8 +48,8 @@ Score_element::Score_element(SCM basicprops)
   /*
     fixme: default should be no callback.
    */
-  set_extent_callback (molecule_extent, X_AXIS);
-  set_extent_callback (molecule_extent, Y_AXIS);    
+  set_extent_callback (molecule_extent_proc, X_AXIS);
+  set_extent_callback (molecule_extent_proc, Y_AXIS) ;   
 
   pscore_l_=0;
   lookup_l_ =0;
@@ -67,6 +67,14 @@ Score_element::Score_element(SCM basicprops)
 
   dim_cache_[X_AXIS].offsets_left_ = scm_ilength (dim_cache_[X_AXIS].offset_callbacks_);
   dim_cache_[Y_AXIS].offsets_left_ = scm_ilength (dim_cache_[Y_AXIS].offset_callbacks_);  
+
+  SCM cb = get_elt_property ("X-extent-callback");
+  if (cb !=  SCM_EOL)
+    dim_cache_[X_AXIS].dimension_ = cb;
+
+  cb = get_elt_property ("Y-extent-callback");  
+  if (cb != SCM_EOL)
+    dim_cache_[Y_AXIS].dimension_ = cb;
 }
 
 
@@ -156,16 +164,25 @@ Score_element::set_elt_property (SCM s, SCM v)
 }
 
 
-Interval
-Score_element::molecule_extent (Score_element *s, Axis a)
+MAKE_SCHEME_CALLBACK(Score_element,molecule_extent,2);
+SCM
+Score_element::molecule_extent (SCM element_smob, SCM scm_axis)
 {
+  Score_element *s = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+
   Molecule m = s->get_molecule ();
-  return m.extent(a);
+  return ly_interval2scm ( m.extent(a));
 }
 
-Interval
-Score_element::preset_extent (Score_element  *s , Axis a)
+MAKE_SCHEME_CALLBACK(Score_element,preset_extent,2);
+
+SCM
+Score_element::preset_extent (SCM element_smob, SCM scm_axis)
 {
+  Score_element *s = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+
   SCM ext = s->get_elt_property ((a == X_AXIS)
 				 ? "extent-X"
 				 : "extent-Y");
@@ -176,10 +193,10 @@ Score_element::preset_extent (Score_element  *s , Axis a)
       Real r = gh_scm2double (gh_cdr (ext));
       l *= s->paper_l ()->get_var ("staffspace");
       r *= s->paper_l ()->get_var ("staffspace");
-      return Interval (l, r);
+      return ly_interval2scm (Interval (l, r));
     }
   
-  return Interval ();
+  return ly_interval2scm ( Interval ());
 }
 
 
@@ -207,17 +224,6 @@ Score_element::lookup_l () const
       urg->lookup_l_ =  (Lookup*)pscore_l_->paper_l_->lookup_l (i);
     }
   return lookup_l_;
-}
-
-void
-Score_element::add_processing()
-{
-  assert (status_i_ >=0);
-  if (status_i_)
-    return;
-  status_i_ ++;
-
-  do_add_processing();
 }
 
 void
@@ -297,10 +303,7 @@ Score_element::do_break_processing()
 }
 
 
-void
-Score_element::do_add_processing()
-{
-}
+
 
 
 MAKE_SCHEME_CALLBACK(Score_element,brew_molecule,1)
@@ -480,8 +483,9 @@ Score_element::suicide ()
 {
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
-  set_extent_callback (0, Y_AXIS);
-  set_extent_callback (0, X_AXIS);
+
+  set_extent_callback (SCM_EOL, Y_AXIS);
+  set_extent_callback (SCM_EOL, X_AXIS);
 
   for (int a= X_AXIS; a <= Y_AXIS; a++)
     {
@@ -551,36 +555,38 @@ Score_element::get_offset (Axis a) const
 }
 
 
-Interval
-Score_element::point_dimension_callback (Score_element* , Axis)
+MAKE_SCHEME_CALLBACK(Score_element,point_dimension_callback,2);
+SCM
+Score_element::point_dimension_callback (SCM , SCM )
 {
-  return Interval (0,0);
+  return ly_interval2scm ( Interval (0,0));
 }
 
 bool
 Score_element::empty_b (Axis a)const
 {
-  return !dim_cache_[a].extent_callback_l_;
+  return ! (gh_pair_p (dim_cache_[a].dimension_ ) ||
+	    gh_procedure_p (dim_cache_[a].dimension_ ));
 }
 
 Interval
 Score_element::extent (Axis a) const
 {
   Dimension_cache * d = (Dimension_cache *)&dim_cache_[a];
-  if (!d->extent_callback_l_)
+  Interval ext ;   
+  if (gh_pair_p (d->dimension_))
+    ;
+  else if (gh_procedure_p (d->dimension_))
     {
-      d->dim_.set_empty ();
+      /*
+	FIXME: add doco on types, and should typecheck maybe? 
+       */
+      d->dimension_= gh_call2 (d->dimension_, self_scm(), gh_int2scm (a));
     }
-  else if (!d->valid_b_)
-    {
-      d->dim_= (*d->extent_callback_l_ ) ((Score_element*)this, a);
-      d->valid_b_ = true;
-    }
-
-  Interval ext = d->dim_;
-  
-  if (empty_b (a)) 
+  else
     return ext;
+
+  ext = ly_scm2interval (d->dimension_);
 
   SCM extra = get_elt_property (a == X_AXIS
 				? "extra-extent-X"
@@ -656,21 +662,24 @@ Score_element::name () const
 void
 Score_element::add_offset_callback (SCM cb, Axis a)
 {
-  dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_ );
-  dim_cache_[a].offsets_left_ ++;
+  if (!has_offset_callback_b (cb, a))
+  {
+    dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_ );
+    dim_cache_[a].offsets_left_ ++;
+  }
 }
 
 bool
-Score_element::has_extent_callback_b (Extent_callback cb, Axis a)const
+Score_element::has_extent_callback_b (SCM cb, Axis a)const
 {
-  return cb == dim_cache_[a].extent_callback_l_;
+  return scm_equal_p (cb, dim_cache_[a].dimension_);
 }
 
 
 bool
 Score_element::has_extent_callback_b (Axis a) const
 {
-  return dim_cache_[a].extent_callback_l_;
+  return gh_procedure_p (dim_cache_[a].dimension_);
 }
 
 bool
@@ -680,12 +689,11 @@ Score_element::has_offset_callback_b (SCM cb, Axis a)const
 }
 
 void
-Score_element::set_extent_callback (Dim_cache_callback dc, Axis a)
+Score_element::set_extent_callback (SCM dc, Axis a)
 {
-  dim_cache_[a].extent_callback_l_ = dc ;
+  dim_cache_[a].dimension_ =dc;
 }
 
-				    
 void
 Score_element::set_parent (Score_element *g, Axis a)
 {
@@ -746,8 +754,12 @@ Score_element::mark_smob (SCM ses)
   Score_element * s = (Score_element*) SCM_CELL_WORD_1(ses);
   scm_gc_mark (s->immutable_property_alist_);
   scm_gc_mark (s->mutable_property_alist_);
-  scm_gc_mark (s->dim_cache_[X_AXIS].offset_callbacks_);
-  scm_gc_mark (s->dim_cache_[Y_AXIS].offset_callbacks_);  
+
+  for (int a =0 ; a < 2; a++)
+    {
+      scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
+      scm_gc_mark (s->dim_cache_[a].dimension_);
+    }
   
   if (s->parent_l (Y_AXIS))
     scm_gc_mark (s->parent_l (Y_AXIS)->self_scm ());
@@ -854,9 +866,6 @@ init_functions ()
 bool
 Score_element::has_interface (SCM k)
 {
-  //  if (mutable_property_alist_ == SCM_EOL)
-  //  return false;
-  
   SCM ifs = get_elt_property (interfaces_sym);
 
   return scm_memq (k, ifs) != SCM_BOOL_F;

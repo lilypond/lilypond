@@ -20,9 +20,9 @@ public:
   static void set_interface (Score_element*);
   static Molecule compound_barline (Score_element*, String, Real height) ;
   static Molecule simple_barline (Score_element*, Real wid, Real height) ;      
-  static SCM get_staff_bar_size (SCM);
-  static SCM brew_molecule (SCM);
-  static SCM before_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(get_staff_bar_size, (SCM ));
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
 };
 #endif // BAR_HH
 

@@ -26,7 +26,7 @@ properties:
 class Tuplet_spanner
 {
 public:
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static void set_interface (Score_element*);  
   static bool has_interface (Score_element*);
 
@@ -36,7 +36,7 @@ public:
   static void calc_dy (Score_element*,Real *) ;
   static void calc_position_and_height (Score_element*,Real*,Real *dy);
   
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
 
   static Direction get_default_dir (Score_element*);
 };

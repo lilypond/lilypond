@@ -26,7 +26,7 @@ struct Key_item
   static int calculate_position(Score_element*,SCM pair) ;
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 
 #endif // KEYITEM_HH

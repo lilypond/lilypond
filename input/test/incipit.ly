@@ -6,7 +6,7 @@
    /Mats B
 %}
 
-\version "1.3.59";
+\version "1.3.93";
 
 incipit = \notes\relative c'{
   <b1 fis' b d>
@@ -23,7 +23,7 @@ violin = \notes\relative c''{
 
   \key;
   a4. b8 c4 fis |
-  gis~ gis8 fis16^\trill ()e b8 c \context Staff<{\voiceone a d}{\voicetwo es,4}>|
+  gis~ gis8 fis16^\trill ()e b8 c \context Staff<{\voiceOne a d}{\voiceTwo es,4}>|
 }
 
 BC  = \notes\relative c{

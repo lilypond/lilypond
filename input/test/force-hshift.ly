@@ -1,16 +1,17 @@
+\version "1.3.93";
 \score { 
   \context Voice \notes\relative c {
     
 	\context Staff <
 		\context Voice = VA {
 			\property Voice.forceHorizontalShift = #0.1
-			\stemup
+			\stemUp
 	       		\property Voice.horizontalNoteShift=1
 			<g' d'>
 		}	
 	
 		\context Voice = VB {
-			\stemdown
+			\stemDown
 	       		\property Voice.horizontalNoteShift=1
 			\property Voice.forceHorizontalShift = #-0.1
 			<bes f'>

@@ -11,13 +11,13 @@ courante_a = \context Staff \notes \relative c {
 	\context Voice=i
 	d'16 |
 	d a f a d, f g a bes a bes g |
-	\stemup <g4 a> s4 \stemboth g16 f g e |
+	\stemUp <g4 a> s4 \stemBoth g16 f g e |
 	% urg, a good case for mean-distance-beam-dir-algorithm!
 	f d e c! bes(a)bes a' g f e d |
 	%4
 	cis e a,(b cis d e f )g bes-- a e |
 	f a d,( e f g a bes )c bes-- d c |
-	\stemup <c4 f,> ~ < c16 f,> bes a g \stemboth f()es d()es |
+	\stemUp <c4 f,> ~ < c16 f,> bes a g \stemBoth f()es d()es |
 	%7
 	d bes(a)bes d bes e! bes f' bes, g' bes, |
 	e, g c d e f g a bes a bes g |
@@ -34,12 +34,12 @@ courante_a = \context Staff \notes \relative c {
 	e'16
 	%17
 	e cis a cis e, f g a bes()g cis()g |
-	\stemup d'4 ~ d16 a d e f d a c! \stemboth |
+	\stemUp d'4 ~ d16 a d e f d a c! \stemBoth |
 	b16 f(d)f g, d' f g b f d' f, |
 	%20
 	e g c, d e f g a bes! d c g |
-	\stemup a s16*3 s4 s4
-	d, ~ d16 e! f g \stemboth a bes c d |
+	\stemUp a s16*3 s4 s4
+	d, ~ d16 e! f g \stemBoth a bes c d |
 	%23
 	e, bes a g a f' g,()f c g' f' e |
 	f a bes a g f e f g e f d |
@@ -58,7 +58,7 @@ courante_a = \context Staff \notes \relative c {
 
 courante_b = \notes \relative c {
 	\context Voice=ii
-	\stemdown
+	\stemDown
 	s16 |
 	s2. |
 	%2
@@ -75,9 +75,9 @@ courante_b = \notes \relative c {
 	f'4 s s |
 	s2.*2
 	%21
-	\slurup
+	\slurUp
 	f16 c'(bes a g f es d )es c' f, es |
-	\slurboth
+	\slurBoth
 	bes4 s s
 	s2.*9
 	s2 s8.
@@ -88,4 +88,4 @@ courante = \context Staff \notes<
  \$courante_b
 >
 
-\version "1.3.59";
+\version "1.3.93";

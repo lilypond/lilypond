@@ -19,8 +19,8 @@
 class Breathing_sign
 {
 public:
-  static SCM brew_molecule (SCM);
-  static SCM offset_callback (SCM element, SCM axis);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK(offset_callback, (SCM element, SCM axis));
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
 };

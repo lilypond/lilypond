@@ -56,7 +56,7 @@ A2_engraver::do_process_music ()
 	      || (unison == SCM_BOOL_T && state_ != UNISON
 		  && daddy_trans_l_->id_str_ == "one")))
 	{
-	  text_p_ = new Item (get_property ("basicTextScriptProperties"));
+	  text_p_ = new Item (get_property ("TextScript"));
 	  Side_position::set_axis (text_p_, Y_AXIS);
 	  announce_element (text_p_, 0);
       

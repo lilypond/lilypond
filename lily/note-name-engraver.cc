@@ -46,7 +46,7 @@ Note_name_engraver::do_process_music ()
     }
   if (s.length_i())
     {
-      Item * t = new Item (get_property ("basicNoteNameProperties"));
+      Item * t = new Item (get_property ("NoteName"));
       t->set_elt_property ("text", ly_str02scm ( s.ch_C()));
       announce_element (t, req_l_arr_[0]);
       texts_.push (t);

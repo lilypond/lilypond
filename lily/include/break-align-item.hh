@@ -11,7 +11,7 @@
 #define BREAK_ALIGN_ITEM_HH
 
 #include "item.hh"
-extern SCM Break_align_interface_alignment_callback_proc;
+
 /**
    align breakable items (clef, bar, etc.)
 
@@ -24,12 +24,12 @@ extern SCM Break_align_interface_alignment_callback_proc;
 class Break_align_interface
 {
 public:
-  static SCM before_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
   static void do_alignment (Score_element*);
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
   static void add_element (Score_element*me, Score_element*add);
-  static SCM alignment_callback (SCM element, SCM axis);
-  static SCM self_align_callback (SCM element, SCM axis);
+  DECLARE_SCHEME_CALLBACK(alignment_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(self_align_callback, (SCM element, SCM axis));
 };
 #endif // BREAK_ALIGN_ITEM_HH

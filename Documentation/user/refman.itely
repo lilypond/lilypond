@@ -2973,24 +2973,24 @@ provide shorthands for some settings.  Most of them are in
   @item @code{\right}@keyindex{right}  
     Used for setting text alignment property.  Is set to 1.
 
-  @item @code{\shiftoff}@keyindex{shiftoff}  
+  @item @code{\shiftoff}@keyindex{shiftOff}  
     Disable horizontal shifting of note heads that collide.  Sets the
     @code{Voice.horizontalNoteShift} property.
 
-  @item @code{\shifton}@keyindex{shifton}  
+  @item @code{\shiftOn}@keyindex{shiftOn}  
     Enable note heads that collide with other note heads to be
     shifted horiztonally.  Sets the @code{Voice.horizontalNoteShift}
     property.
 
-  @item @code{\slurboth}@keyindex{slurboth}  
+  @item @code{\slurBoth}@keyindex{slurBoth}  
     Allow slurs to be above or below notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
-  @item @code{\slurdown}@keyindex{slurdown}  
+  @item @code{\slurDown}@keyindex{slurDown}  
     Force slurs to be below notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
-  @item @code{\slurup}@keyindex{slurup}  
+  @item @code{\slurUp}@keyindex{slurUp}  
     Force slurs to be above notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
@@ -2998,7 +2998,7 @@ provide shorthands for some settings.  Most of them are in
     Allow key signatures do differ in different octaves.  This sets
     the @code{Staff.keyoctaviation} property.
 
-  @item @code{\stemboth}@keyindex{stemboth}  
+  @item @code{\stemBoth}@keyindex{stemBoth}  
     Allow stems, beams, and slurs to point either upwards or
     downwards, decided automatically by LilyPond.  This sets the
     @code{Voice.verticalDirection} property.
@@ -3007,7 +3007,7 @@ provide shorthands for some settings.  Most of them are in
     Force stems, beams, and slurs to point down.  This sets the
     @code{Voice.verticalDirection} property.
 
-  @item @code{\stemup}@keyindex{stemup}  
+  @item @code{\stemUp}@keyindex{stemUp}  
     Force stems, beams and slurs to point up.  This sets the
     @code{Voice.verticalDirection} property.
 

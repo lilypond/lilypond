@@ -168,7 +168,7 @@ Tie_engraver::process_acknowledged ()
 	    }
 	}
 
-      SCM basic = get_property ("basicTieProperties");
+      SCM basic = get_property ("Tie");
       SCM sparse = get_property ("sparseTies");
       if (to_boolean (sparse))
 	{
@@ -204,7 +204,7 @@ Tie_engraver::process_acknowledged ()
 	}
       else if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
-	  tie_column_p_ = new Spanner (get_property ("basicTieColumnProperties"));
+	  tie_column_p_ = new Spanner (get_property ("TieColumn"));
 	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--; )
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);

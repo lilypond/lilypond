@@ -429,9 +429,11 @@ Stem::flag (Score_element*me)
   return m;
 }
 
-Interval
-Stem::dim_callback (Score_element *se, Axis ) 
+MAKE_SCHEME_CALLBACK(Stem,dim_callback,2);
+SCM
+Stem::dim_callback (SCM e, SCM )
 {
+   Score_element *se = unsmob_element (e);
   Interval r (0, 0);
   if (unsmob_element (se->get_elt_property ("beam")) || abs (flag_i (se)) <= 2)
     ;	// TODO!
@@ -439,7 +441,7 @@ Stem::dim_callback (Score_element *se, Axis )
     {
       r = flag (se).extent (X_AXIS);
     }
-  return r;
+  return ly_interval2scm ( r);
 }
 
 
@@ -491,7 +493,7 @@ SCM
 Stem::off_callback (SCM element_smob, SCM axis)
 {
   Score_element *me = unsmob_element (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
+
   Real r=0;
   if (Score_element * f = first_head (me))
     {
@@ -640,7 +642,5 @@ Stem::has_interface (Score_element*m)
 void
 Stem::set_interface (Score_element*me)
 {    
-  me->set_elt_property ("heads", SCM_EOL);
-  me->add_offset_callback ( Stem_off_callback_proc, X_AXIS);
   me->set_interface (ly_symbol2scm ("stem-interface"));
 }

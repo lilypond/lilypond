@@ -19,8 +19,8 @@
 void
 Spacing_spanner::set_interface (Score_element*me)
 {
-  me->set_extent_callback (0, X_AXIS);
-  me->set_extent_callback (0, Y_AXIS);  
+  me->set_extent_callback (SCM_EOL, X_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
 
 /*

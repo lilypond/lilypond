@@ -5,7 +5,7 @@ TestedFeatures =	 "This file tests Feta embedded slurs" +
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 shortlong = \notes{
 	c4()c( c c  |
@@ -34,17 +34,17 @@ over = \notes\transpose c'{
 	e( a' a' )e
 	e( b' b' )e
 	e( c'' c'' )e
-	\stemup
+	\stemUp
 	e( c' c' )e
 	e( d' d' )e
 	e( e' e' )e
 	e( c'' c'' )e
-	\stemboth
+	\stemBoth
 	e( f' b' )e
 	e( b' f' )e
 	e( e'' g' )e
 	e( g' e'' )e
-	\stemup
+	\stemUp
 	e( d' b )e
 	e( b d' )e
 	e( f' c'' )e
@@ -52,23 +52,23 @@ over = \notes\transpose c'{
 }
 
 under = \notes\transpose c'{
-	\stemdown 
-	f'( \stemboth d d \stemdown )f'
-	f'( \stemboth c c \stemdown )f'
-	f'( \stemboth b, b, \stemdown )f'
-	f'( \stemboth a, a, \stemdown )f'
-	\stemdown
+	\stemDown 
+	f'( \stemBoth d d \stemDown )f'
+	f'( \stemBoth c c \stemDown )f'
+	f'( \stemBoth b, b, \stemDown )f'
+	f'( \stemBoth a, a, \stemDown )f'
+	\stemDown
 	f'( a a )f'
 	f'( g g )f'
 	f'( f f )f'
 	f'( a, a, )f'
 
-	\stemdown 
-	f'( \stemboth d b, \stemdown )f'
-	f'( \stemboth b, d \stemdown )f'
-	f'( \stemboth d, b, \stemdown )f'
-	f'( \stemboth b, d, \stemdown )f'
-	\stemdown
+	\stemDown 
+	f'( \stemBoth d b, \stemDown )f'
+	f'( \stemBoth b, d \stemDown )f'
+	f'( \stemBoth d, b, \stemDown )f'
+	f'( \stemBoth b, d, \stemDown )f'
+	\stemDown
 	f'( f a )f'
 	f'( a f )f'
 	f'( f e, )f'
@@ -76,39 +76,39 @@ under = \notes\transpose c'{
 }
 
 eccentric = \notes\transpose c'{
-	\stemup
+	\stemUp
 	\times 4/7 { f( a' f f f f )f } |
 	\times 4/7 { f( f f f f a' )f } |
-	\stemdown
+	\stemDown
 	\times 4/7 { e'( c e' e' e' e' )e' } |
 	\times 4/7 { e'( e' e' e' e' c )e' } |
 }
 
 tiltup = \notes\transpose c'{
 	e( c'' c'' )e'
-	\stemup
+	\stemUp
 	e( c'' c'' )e'
-	\stemboth
+	\stemBoth
 	e( g' e'' )e'
-	\stemup
+	\stemUp
 	e( c'' f )e'
-	\stemdown 
-	f'( \stemboth a, a, \stemdown )f''
-	\stemdown
+	\stemDown 
+	f'( \stemBoth a, a, \stemDown )f''
+	\stemDown
 	f'( a, a, )f''
 }
 
 tiltdown = \notes\transpose c'{
 	e'( c'' c'' )e
-	\stemup
+	\stemUp
 	e'( c'' c'' )e
-	\stemboth
+	\stemBoth
 	e'( g' e'' )e
-	\stemup
+	\stemUp
 	e'( c'' f )e
-	\stemdown 
-	f''( \stemboth a, a, \stemdown )f'
-	\stemdown
+	\stemDown 
+	f''( \stemBoth a, a, \stemDown )f'
+	\stemDown
 	f''( a, a, )f'
 }
 
@@ -127,19 +127,19 @@ broken = \notes\transpose c''{
 
 blend =	\notes\transpose c'{
 	e( c'' c'' )e
-	\stemup
+	\stemUp
 	f'( c'' c'' )f'
 	e( c'' c'' )e
-	\stemdown
-	f'( \stemboth a, a, \stemdown )f'
+	\stemDown
+	f'( \stemBoth a, a, \stemDown )f'
 	f'( a, a, )f'
 
-	\stemboth
+	\stemBoth
 	e( c'' c'' )e'
 	e'( c'' c'' )e
 	d( d d )d
 
-	\stemdown
+	\stemDown
 	e( c'' c'' )e'
 	e'( c'' c'' )e
 	d( d d )d
@@ -156,14 +156,14 @@ bug = \notes\transpose c'{
 }
 
 clipping = \notes\transpose c'{
-	\stemboth
+	\stemBoth
 	c( c''' c''')c
 	c( c''' c )c''
 	c''( c c''' )c
-	\stemdown
-	c( \stemup c,,, c,,, \stemdown )c
-	c( \stemup c,,, c \stemdown )c,,
-	c,,( \stemup c c,,, \stemdown )c
+	\stemDown
+	c( \stemUp c,,, c,,, \stemDown )c
+	c( \stemUp c,,, c \stemDown )c,,
+	c,,( \stemUp c c,,, \stemDown )c
 }
 
 \score{

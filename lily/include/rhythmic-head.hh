@@ -29,7 +29,7 @@ public:
   static Item * stem_l (Score_element*) ;
   static Item * dots_l (Score_element*) ;
   static int dot_count (Score_element*) ;
-  static SCM after_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
   static bool has_interface (Score_element*);
   static void set_interface (Score_element*);
 };

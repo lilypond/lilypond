@@ -22,7 +22,7 @@
    * organ staff...
 %}
 
-\version "1.3.59";
+\version "1.3.93";
 
 
 
@@ -37,26 +37,26 @@ praeludium_right =  \notes {
 
   % 13 -- how to type -- where to split -- this more neatly?
   \context Staff <
-    \context Voice = I \relative c'' { \stemup r4 dis4 e4. e8 ~ |
-      \shifton e4 [d8 fis8] \shiftoff gis4 ~ [gis8 fis16 e ] |
+    \context Voice = I \relative c'' { \stemUp r4 dis4 e4. e8 ~ |
+      \shiftOn e4 [d8 fis8] \shiftOff gis4 ~ [gis8 fis16 e ] |
       fis4 ~ [fis8 e16 dis] e4 r8 e8 }
-    \context Voice = III \relative c'' { \stemup \shifton r4 bis cis \shiftoff cis |
-      a' ~ [a16 gis a b] \shifton dis,4 cis ~ |
+    \context Voice = III \relative c'' { \stemUp \shiftOn r4 bis cis \shiftOff cis |
+      a' ~ [a16 gis a b] \shiftOn dis,4 cis ~ |
       [cis8 dis16 ais] bis4 cis r8 b }
     \context Voice = IV \relative c'' {
 
-      %\stemup
+      %\stemUp
       %{
       this is a diversion from the Griepenkerl/Keller
        edition; a hack to avoid collisions
       %}
-      \stemdown
-      \shifton s4 gis }
+      \stemDown
+      \shiftOn s4 gis }
       
-    \context Voice =  II \relative c' { \stemdown
-%      \shifton       % idem
+    \context Voice =  II \relative c' { \stemDown
+%      \shiftOn       % idem
 
-      r4 fis \shiftoff gis gis |
+      r4 fis \shiftOff gis gis |
       a4. cis8 gis2 |
       fis4 gis gis r8 e8 }
   > |
@@ -70,17 +70,17 @@ praeludium_left = \notes \relative c {
   % 13
   \context Staff <
     \context Voice = two { r4 }
-    \context Voice = one { \stemup s4 dis' cis cis ~ |
+    \context Voice = one { \stemUp s4 dis' cis cis ~ |
       [cis8 a d cis] [bis gis] cis4 |
       dis2 cis4 r8 cis }
-    \context Voice = one { \stemup bis2 }
-    \context Voice = three { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
+    \context Voice = one { \stemUp bis2 }
+    \context Voice = three { \stemUp \shiftOn r4 gis ~ [gis8 gis] ~ \stemDown \shiftOff gis4 |
       a4. fis8 gis4. a8 ~ |
       a4 gis4 gis r8 gis }
-%    { \stemup \shifton s4 fis4 e}
+%    { \stemUp \shiftOn s4 fis4 e}
 % a quick hack to avoid some collisons
-    \context Voice = four { \stemdown \shifton s4 fis4 e}
-    \context Voice = two { \stemdown s4 dis4 cis4 }
+    \context Voice = four { \stemDown \shiftOn s4 fis4 e}
+    \context Voice = two { \stemDown s4 dis4 cis4 }
   > |
   %16
 }
@@ -108,8 +108,8 @@ fugaII_right = \notes   \relative c''   {
 
   %15
   \context Staff <
-    \context Voice = VA { \stemup [b8 fis8] b4 }
-    \context Voice = VB {  \stemdown fis2 }
+    \context Voice = VA { \stemUp [b8 fis8] b4 }
+    \context Voice = VB {  \stemDown fis2 }
   >
 
   \context Staff \notes\relative c''<
@@ -140,10 +140,10 @@ fugaII_right = \notes   \relative c''   {
       \context Voice = one {  dis2 dis4 |
       cis2 cis4 |
       b4. [cis8 dis e] }
-    \context Voice = three {  \stemup \shifton [b8 fis] b2 ~ |
+    \context Voice = three {  \stemUp \shiftOn [b8 fis] b2 ~ |
       [b8 a!16 gis] a2 ~ |
       a4 gis2 }
-    \context Voice = two {  \stemdown fis2. ~ |
+    \context Voice = two {  \stemDown fis2. ~ |
       fis ~ |
       fis4 e2 }
   > |
@@ -156,12 +156,12 @@ fugaII_left = \notes {
 
   %15
   \context Staff < 
-    \context Voice = two { \stemdown b2 \stemup ais4 |
+    \context Voice = two { \stemDown b2 \stemUp ais4 |
       b2 b4 }
-    \context Voice = two { \stemdown s2 e4 |
+    \context Voice = two { \stemDown s2 e4 |
       fis2 fis4 }
   >
-  \stemdown cis2 e4 |
+  \stemDown cis2 e4 |
   b4. b8 b4 |
   %19
 }

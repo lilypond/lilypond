@@ -182,16 +182,10 @@ Piano_pedal_engraver::do_process_music ()
 
       if (gh_string_p (s))
 	{
-	  String propname = String ("basic")+  p->name_ + "PedalProperties";
+	  String propname = String (p->name_) + "Pedal";
 	  p->item_p_ = new Item (get_property (propname.ch_C()));
 	  p->item_p_->set_elt_property ("text", s);
-	  // guh
 
-	  Side_position::set_axis (p->item_p_,Y_AXIS);
-
-	  // todo: init with basic props.
-	  p->item_p_->add_offset_callback (Side_position_aligned_on_self_proc, X_AXIS);
-	  p->item_p_->add_offset_callback (Side_position_centered_on_parent_proc, X_AXIS);
 	  announce_element (p->item_p_,
 			    p->req_l_drul_[START]
 			    ? p->req_l_drul_[START]

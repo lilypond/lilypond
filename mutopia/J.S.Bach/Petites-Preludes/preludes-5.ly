@@ -31,7 +31,7 @@
   
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 upper = \context Staff \notes\relative c
 	\context Voice=i {
@@ -52,15 +52,15 @@ upper = \context Staff \notes\relative c
 	a gis fis e d' b |
 	< 
 		{
-			\stemup 
+			\stemUp 
 			\property Voice . textStyle = "roman"
 			c4-\mordent^"(\\textsharp)" r r |
 			c4-\mordent^"(\\textsharp)" r r
 			\property Voice . textStyle = "italic"
 		}
-		\context Voice=ii { \stemdown a4 r r | a4 r r }
+		\context Voice=ii { \stemDown a4 r r | a4 r r }
 	> |
-	\stemboth 
+	\stemBoth 
 	a'8 es d c bes a |
 	g fis e! d c' a |
 	%15
@@ -73,14 +73,14 @@ upper = \context Staff \notes\relative c
 	f d f a d g, |
 	< 
 		{ 
-			\stemup 
+			\stemUp 
 			% ... textnatural
 %			cis8-\prall e8-"poco cresc." cis a e' cis 
 			cis8-\prall e8 cis a e' cis 
 		}
-		\context Voice=ii { \stemdown a4 }
+		\context Voice=ii { \stemDown a4 }
 	>
-	\stemboth 
+	\stemBoth 
 	a8 e' cis a bes! a |
 	g e' cis g e' cis |
 	g e' cis g a g |
@@ -103,25 +103,25 @@ upper = \context Staff \notes\relative c
 	d a' f d cis d |
 	e g e bes g' e |
 	bes g' e cis a g' |
-	f16 d c bes \stemup a s16 s8 s4 |
+	f16 d c bes \stemUp a s16 s8 s4 |
 % ugh
 %	s1 |
 	s4 s4 s4 |
 	%40
-	s4 s16 [d16 f a] \stemdown [d, f a] \stemup d |
-	\stemboth
+	s4 s16 [d16 f a] \stemDown [d, f a] \stemUp d |
+	\stemBoth
 	f a f d  f d b d  gis, b a gis |
 
 	% arpeggio
 	<g'!4. e a,> a8 
 	< f4  d a > ~ 
 	[f8 e]
-	< { \stemup 
+	< { \stemUp 
 		e4.^\prall d8
 		}
-		\context Voice=ii { \stemdown cis2 }
+		\context Voice=ii { \stemDown cis2 }
 	> 
-	\stemboth 
+	\stemBoth 
 	d8 c! a d bes g |
 	%45
 	c a fis bes g e  |
@@ -178,16 +178,16 @@ lower = \context Staff \notes\relative c{
 	cis, r r |
 	cis cis' cis, |
 	d s16
-	\stemdown
+	\stemDown
 	[g'16 f e] f a d, f | 
-	a, \stemup [d c bes] 
-	a \stemdown [ g f e] d f a d |
-	\stemup
+	a, \stemUp [d c bes] 
+	a \stemDown [ g f e] d f a d |
+	\stemUp
 
 	[f a]
-	\stemdown
+	\stemDown
 	[d, f] a s s8 s4-"*" |
-	\stemboth
+	\stemBoth
 % ugh whole rest has duration of one bar
 	R2. |
 %	r4 r r |

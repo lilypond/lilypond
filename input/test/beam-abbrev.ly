@@ -1,9 +1,10 @@
+\version "1.3.93";
 \score { 
   \context Voice \notes\relative c {
     c'1:16 
-	\stemup
+	\stemUp
 	c4:8 c4:16 [c8:16 c:] [c,8:16 c'':]
-	\stemboth
+	\stemBoth
 	[c,,8:16 c'':]
 	
   }

@@ -13,9 +13,9 @@
 #include "spanner.hh"
 #include "item.hh"
 
-extern SCM Side_position_aligned_on_self_proc;
-extern SCM Side_position_centered_on_parent_proc;
-extern SCM Side_position_quantised_position_proc;
+
+
+
 
 /**
    Position victim object (ELT_L_) next to other objects (the support).
@@ -49,11 +49,11 @@ extern SCM Side_position_quantised_position_proc;
 struct Side_position
 {
 public:
-  static SCM side_position (SCM element, SCM axis);
-  static SCM aligned_on_self (SCM element, SCM axis);
-  static SCM aligned_side (SCM element, SCM axis);  
-  static SCM quantised_position (SCM element, SCM axis);
-  static SCM centered_on_parent (SCM element, SCM axis);
+  DECLARE_SCHEME_CALLBACK(side_position, (SCM  element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(aligned_on_self, (SCM  element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(aligned_side, (SCM element, SCM axis));  
+  DECLARE_SCHEME_CALLBACK(quantised_position, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK(centered_on_parent, (SCM element, SCM axis));
   static void set_axis (Score_element*,Axis);
   static void set_minimum_space (Score_element*,Real);
   static void set_padding (Score_element*,Real);

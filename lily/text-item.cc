@@ -15,7 +15,7 @@
 
 struct Text_item
 {
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK( brew_molecule, (SCM));
 };
 
 

@@ -1,6 +1,6 @@
-\version "1.3.59";
+\version "1.3.93";
 
-voice_one = \notes\transpose c''{  \stemup
+voice_one = \notes\transpose c''{  \stemUp
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
@@ -11,7 +11,7 @@ voice_one = \notes\transpose c''{  \stemup
 	}
 
 voice_two = \notes
-	{ \transpose c' { \stemdown
+	{ \transpose c' { \stemDown
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |

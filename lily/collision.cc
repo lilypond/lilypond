@@ -228,7 +228,7 @@ Collision::forced_shift (Score_element *me)
 void
 Collision::add_column (Score_element*me,Score_element* ncol_l)
 {
-  ncol_l->add_offset_callback (Collision_force_shift_callback_proc, X_AXIS);
+  ncol_l->add_offset_callback (Collision::force_shift_callback_proc, X_AXIS);
   Axis_group_interface::add_element (me, ncol_l);
   me->add_dependency (ncol_l);
 }

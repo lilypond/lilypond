@@ -8,7 +8,7 @@
 }
 
 
-\version "1.3.59";
+\version "1.3.93";
 
 %{
 	Note:  there are other verses, but the three here seem to be
@@ -178,8 +178,8 @@ upper= \notes {
 		\clef "treble"; 
 		\context Staff <
 			\global
-			{ \voiceone \sop }
-			{ \voicetwo \alt }
+			{ \voiceOne \sop }
+			{ \voiceTwo \alt }
 		>
 	}
 }
@@ -189,8 +189,8 @@ lower = \notes {
 		\clef "bass";
 		\context Staff <
 			\global
-			{ \voicethree \ten }
-			{ \voicefour \bass }
+			{ \voiceThree \ten }
+			{ \voiceFour \bass }
 		>
 	}
 }

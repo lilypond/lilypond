@@ -113,6 +113,6 @@
    (de-uglify-parameters . ( 1.5  0.8  -2.0))
    (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
    (y-free . 0.75)
-   (name . "slur")
+   (name . "Slur")
    )
   )

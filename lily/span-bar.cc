@@ -26,9 +26,13 @@ Span_bar::add_bar (Score_element*me, Score_element*b)
   me->add_dependency (b);
 }
 
-Interval
-Span_bar::width_callback (Score_element *se, Axis )
+MAKE_SCHEME_CALLBACK(Span_bar,width_callback,2);
+SCM
+Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
+  Score_element *se = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+  assert (a == X_AXIS);
   String gl = ly_scm2string (se->get_elt_property ("glyph"));
 
   /*
@@ -36,7 +40,7 @@ Span_bar::width_callback (Score_element *se, Axis )
    */
   Molecule m = Bar::compound_barline (se, gl, 40 PT);
   
-  return m.extent (X_AXIS);
+  return ly_interval2scm ( m.extent (X_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking,1);
@@ -121,7 +125,7 @@ Span_bar::evaluate_glyph (Score_element*me)
 Interval
 Span_bar::get_spanned_interval (Score_element*me) 
 {
-  return Axis_group_interface::group_extent_callback (me, Y_AXIS);  
+  return ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS))); 
 }
 
 
@@ -141,17 +145,13 @@ Span_bar::get_bar_size (SCM smob)
     }
   return gh_double2scm (iv.length ());
 }
-
 void
 Span_bar::set_interface (Score_element *me)
 {
   Bar::set_interface (me);
   
-  Pointer_group_interface(me).set_interface ();
-  me->set_extent_callback (width_callback, X_AXIS);
-  me->add_offset_callback (Span_bar_center_on_spanned_callback_proc, Y_AXIS);
   me->set_interface (ly_symbol2scm ("span-bar-interface"));
-  me->set_extent_callback (0, Y_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS);
 }
 
 bool

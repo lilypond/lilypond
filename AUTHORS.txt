@@ -6,8 +6,8 @@ AUTHORS - who did what on GNU LilyPond?
    This file lists authors of GNU LilyPond, and what they wrote.  This
 list is alphabetically ordered.
 
-   * Tom Cato Amundsen <tomcato@xoommail.com>,     cembalo-partita in
-     mudela, accordion symbols, some mudela-book.py
+   * Tom Cato Amundsen <tca@gnu.org>,     cembalo-partita in mudela,
+     accordion symbols, some mudela-book.py
 
    * Mats Bengtsson <matsb@s3.kth.se>,
      `http://www.s3.kth.se/~matsb/'     lots of testing, fixes, general

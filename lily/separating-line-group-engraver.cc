@@ -39,7 +39,7 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 void
 Separating_line_group_engraver::do_creation_processing ()
 {
-  sep_span_p_ = new Spanner (get_property ("basicSeparatingGroupSpannerProperties"));
+  sep_span_p_ = new Spanner (get_property ("SeparatingGroupSpanner"));
   Separating_group_spanner::set_interface (sep_span_p_);
   announce_element (sep_span_p_, 0);
   sep_span_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
@@ -66,7 +66,7 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
       if (!p_ref_)
 	{
 	  p_ref_ = new Item
-	    (get_property ("basicSeparationItemProperties"));
+	    (get_property ("SeparationItem"));
 	  
 	  if (ib)
 	    p_ref_->set_elt_property ("breakable", SCM_BOOL_T);

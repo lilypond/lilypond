@@ -8,17 +8,17 @@ of beams";
 	
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 beamintervals = \notes{
 		\time 7/4;
-		\stemup
+		\stemUp
 \transpose c'{
 		[ c8 d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
 		}\transpose c''{
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
-		\stemdown}
+		\stemDown}
 		\transpose c'''{
 		[ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
 }		\transpose c''{
@@ -28,10 +28,10 @@ beamintervals = \notes{
 
 \score{
 	\notes\transpose c'{ 
-		\stemup
+		\stemUp
 		\time 17/4;
 		g,4 a, b, c d e f g a b c' d' e' f' g' a' b' |
-		\stemdown
+		\stemDown
 		b' a' g' f' e' d' c' b a g f e d c b, a, g, |
 		\beamintervals
 		\transpose d \beamintervals

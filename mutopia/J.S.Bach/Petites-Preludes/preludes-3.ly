@@ -45,7 +45,7 @@ note, some have dotted half notes.
 
 
 %}
-\version "1.3.59";
+\version "1.3.93";
 
 
 upper =  \notes \transpose c'' {

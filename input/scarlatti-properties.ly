@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.70";
+\version "1.3.93";
 
 rh=\property Thread.noteHeadStyle=##f 
 lh=\property Thread.noteHeadStyle = #'diamond
@@ -10,8 +10,8 @@ sm=\property Thread.fontSize=#-1
 % su=\property Voice.verticalDirection=#1  
 % sd=\property Voice.verticalDirection=#-1
 
-su=\property Voice.basicStemProperties \push #'direction = #1
-sd=\property Voice.basicStemProperties \push #'direction = #-1  
+su=\property Voice.Stem \push #'direction = #1
+sd=\property Voice.Stem \push #'direction = #-1  
 
 zs=\property Voice.forceHorizontalShift=#0.0
 ls=\property Voice.forceHorizontalShift=#-0.6

@@ -65,7 +65,7 @@ System_start_delimiter_engraver::System_start_delimiter_engraver()
 void
 System_start_delimiter_engraver::do_creation_processing()
 {
-  delim_ = new Spanner (get_property ("basicSystemStartDelimiterProperties"));
+  delim_ = new Spanner (get_property ("SystemStartDelimiter"));
   System_start_delimiter::set_interface (delim_);
   delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 

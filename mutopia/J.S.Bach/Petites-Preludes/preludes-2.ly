@@ -42,7 +42,7 @@ Old versions of LilyPond include this prelude with dynamics and fingerings.
 
 
 
-\version "1.3.59";
+\version "1.3.93";
 upper = \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "italic"
@@ -55,8 +55,8 @@ upper = \context Staff \notes\relative c{
 	<d2 c a>
 	r4
 	<d c a>
-	< { \stemup [d8 g, 8 b d] }
-	  \context Voice = ii < \stemdown b g >
+	< { \stemUp [d8 g, 8 b d] }
+	  \context Voice = ii < \stemDown b g >
 	>
 	
 	<b4 g>
@@ -64,10 +64,10 @@ upper = \context Staff \notes\relative c{
 	c2
 	r4
 	<
-		{ \stemup c ~ c8} 
-		\context Voice=ii { \stemdown <e,4 a> ~ <e8 a> }
+		{ \stemUp c ~ c8} 
+		\context Voice=ii { \stemDown <e,4 a> ~ <e8 a> }
 	>
-	\stemboth 
+	\stemBoth 
 	d, fis a  fis d c' a |
 	b g b d  b g f'! d |
 	e g, c e  c g g' e |
@@ -87,10 +87,10 @@ upper = \context Staff \notes\relative c{
 lower = \context Staff \notes\relative c{
 	\context Voice=i
 	<
-		{ \stemup c1 ~ | c ~ | c }
-		\context Voice=ii { \stemdown c,1 ~ | c ~ | c }
+		{ \stemUp c1 ~ | c ~ | c }
+		\context Voice=ii { \stemDown c,1 ~ | c ~ | c }
 	>
-	\stemboth |
+	\stemBoth |
 	r8 c e g  e c c' e, |
 	fis d fis a  fis d d' fis, |
 	g2 r4 g |

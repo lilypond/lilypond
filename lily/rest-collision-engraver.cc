@@ -40,7 +40,7 @@ Rest_collision_engraver::process_acknowledged ()
   if (rest_collision_p_ || note_column_l_arr_.size () < 2)
     return;
 
-  rest_collision_p_ = new Item (get_property ("basicRestCollisionProperties"));
+  rest_collision_p_ = new Item (get_property ("RestCollision"));
   Rest_collision::set_interface (rest_collision_p_);
   announce_element (rest_collision_p_, 0);
   for (int i=0; i< note_column_l_arr_.size (); i++)

@@ -1,6 +1,7 @@
+\version "1.3.93";
 \score{
 	\notes\relative c'{
-		\stemup
+		\stemUp
 		[f8 a' g f]
 	}
 	\paper{

@@ -1,14 +1,14 @@
-\version "1.3.59";
+\version "1.3.93";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
 		\time 4/4;
-		\context Staff  < \context Voice = VB { \stemup e'\longa a\breve | }
-		\context Voice = VA { \stemdown
+		\context Staff  < \context Voice = VB { \stemUp e'\longa a\breve | }
+		\context Voice = VA { \stemDown
 		c1 \clef "bass"; b,, \clef "violin"; c' a'
 		c2 \clef "alto"; g c' \clef "violin"; a'
 		} >
-		\stemboth
+		\stemBoth
 		c4 g c' a' \bar ":|";
 		a\ppp-\upbow a\pp-\downbow a\p^\turn a\mp^\fermata |
 		a\mf_\fermata a\f-\stopped a\ff-\open a\fff^\trill|
@@ -20,9 +20,9 @@ FontBody=	\notes\transpose c''{
 		\clef "bass";
 		  r\longa * 1/4 r\breve *1/2
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\context Staff < \context Voice = VA { \stemup r2 c'2 c,,,1 }
-				\context Voice = VB {\stemdown r2 c2  r1 }>
-			\stemboth
+		\context Staff < \context Voice = VA { \stemUp r2 c'2 c,,,1 }
+				\context Voice = VB {\stemDown r2 c2  r1 }>
+			\stemBoth
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel

@@ -15,8 +15,8 @@
 void
 Separation_item::set_interface (Score_element*s)
 {
-  s->set_extent_callback (0, X_AXIS);
-  s->set_extent_callback (0,  Y_AXIS);
+  s->set_extent_callback (SCM_EOL, X_AXIS);
+  s->set_extent_callback (SCM_EOL, Y_AXIS);
 }
 
 void

@@ -48,12 +48,5 @@ Group_interface::count ()
   return scm_ilength (elt_l_->get_elt_property (name_.ch_C()));
 }
 
-void
-Group_interface::set_interface ()
-{
-  if (!has_interface ())
-    {
 
-    }
-}
 

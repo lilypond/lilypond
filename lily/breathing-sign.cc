@@ -20,10 +20,7 @@
 #include "dimensions.hh"
 #include "direction.hh"
 
-
-
 MAKE_SCHEME_CALLBACK(Breathing_sign,brew_molecule,1);
-
 SCM 
 Breathing_sign::brew_molecule (SCM smob)
 {
@@ -42,8 +39,6 @@ SCM
 Breathing_sign::offset_callback (SCM element_smob, SCM axis)
 {
   Score_element *me = unsmob_element (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
-
   
   Direction d = Directional_element_interface::get (me);
   if (!d)
@@ -61,5 +56,5 @@ void
 Breathing_sign::set_interface (Score_element *b)
 {
   Staff_symbol_referencer::set_interface  (b);
-  b->add_offset_callback (Breathing_sign_offset_callback_proc,Y_AXIS); 
+
 }

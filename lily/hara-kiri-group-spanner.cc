@@ -14,27 +14,18 @@
 #include "item.hh"
 
 
-Interval
-Hara_kiri_group_spanner::y_extent(Score_element*me, Axis a)
+MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,y_extent,2);
+SCM
+Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+
   assert (a == Y_AXIS);
   consider_suicide (me);
-  return  Axis_group_interface::group_extent_callback (me, a);
+  return  Axis_group_interface::group_extent_callback (me->self_scm (), scm_axis);
 }
 
-
-bool
-Hara_kiri_group_spanner::has_interface (Score_element*me)
-{
-  return me->has_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
-}
-
-void 
-Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
-{
-  me->add_dependency (n);
-  Pointer_group_interface (me, "items-worth-living").add_element (n);
-}
 
 void
 Hara_kiri_group_spanner::consider_suicide(Score_element*me)
@@ -79,7 +70,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
   Score_element *daughter = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), Y_AXIS);
+  force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);
   return gh_double2scm ( 0.0);
 }
 
@@ -94,7 +85,19 @@ Hara_kiri_group_spanner::add_element (Score_element * me, Score_element *e)
 void
 Hara_kiri_group_spanner::set_interface (Score_element*me)
 {
-  me->add_offset_callback (Hara_kiri_group_spanner_force_hara_kiri_callback_proc, Y_AXIS);
-  me->set_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
-  me->set_extent_callback (Hara_kiri_group_spanner::y_extent, Y_AXIS);
+  me->set_interface (ly_symbol2scm ("hara-kiri-group-interface"));
+}
+
+
+bool
+Hara_kiri_group_spanner::has_interface (Score_element*me)
+{
+  return me->has_interface (ly_symbol2scm ("hara-kiri-group-interface"));
+}
+
+void 
+Hara_kiri_group_spanner::add_interesting_item (Score_element* me,Score_element* n)
+{
+  me->add_dependency (n);
+  Pointer_group_interface (me, "items-worth-living").add_element (n);
 }

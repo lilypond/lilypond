@@ -25,10 +25,10 @@ public:
   static bool has_interface (Score_element*);
   static Score_element * head (Score_element*,Direction) ;
   static Real position_f (Score_element*) ;
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static Direction get_default_dir(Score_element*) ;
   static SCM get_control_points (SCM);
-  static SCM set_spacing_rods (SCM);
+  DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM ));
 };
 
 #endif // TIE_HH

@@ -3,7 +3,7 @@
 % * Stanza_number_engraver
 % * Automatic melismata on beamed notes
 
-\version "1.3.59";
+\version "1.3.93";
 \include "english.ly"
 
 \header{

@@ -77,7 +77,7 @@ Stanza_number_engraver::create_text (SCM txt)
 {
   if(!text_)
     {
-      text_ = new Item (get_property ("basicStanzaNumberProperties"));
+      text_ = new Item (get_property ("StanzaNumber"));
       text_->set_elt_property ("text", txt);
       announce_element (text_,0);
     }

@@ -6,7 +6,7 @@ enteredby =	"hwn and jcn";
 copyright =	"public domain";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 \include "paper-as5.ly"
 

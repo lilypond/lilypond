@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.88";
+\version "1.3.93";
 
 \include "fagotto-1.ly"
 \include "fagotto-2.ly"

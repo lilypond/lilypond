@@ -7,7 +7,7 @@
   metre = "6 6. 8 6. D";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 sop=\notes \transpose c''{
 	ees2  ees4 ees4 g2 g2 |  c'1.
@@ -70,8 +70,8 @@ $upper_staff = \context Staff = upper {
 	\clef "treble";
 	\context Staff <
 		\global
-		{ \voiceone \sop }
-		{ \voicetwo \alt }
+		{ \voiceOne \sop }
+		{ \voiceTwo \alt }
 	>
 }
 
@@ -79,8 +79,8 @@ $lower_staff = \context Staff = lower {
 	\clef "bass";
 	\context Staff <
 		\global
-		{ \voiceone \ten }
-		{ \voicetwo \bass }
+		{ \voiceOne \ten }
+		{ \voiceTwo \bass }
 	>
 }
 

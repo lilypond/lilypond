@@ -129,7 +129,7 @@ Dot_column::add_head (Score_element * me, Score_element *rh)
       Pointer_group_interface gi (me, "dots");
       gi.add_element (d);
       
-      d->add_offset_callback (Dot_column_force_shift_callback_proc , Y_AXIS);
+      d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);
       Axis_group_interface::add_element (me, d);
     }
 }

@@ -30,7 +30,7 @@
    
    control-points --
 
-
+   
    
    Read-only
    =========
@@ -41,19 +41,20 @@
 
    thickness --
 
+   dash -- number representing the length of the dashes.
 */
 class Slur
 {
 public:
   static void add_column (Score_element*me,Score_element*col);
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static void set_interface (Score_element*);
   static bool  has_interface (Score_element*);
   static Array<Offset> get_encompass_offset_arr (Score_element*me) ;
   static Bezier get_curve (Score_element*me) ;
   static Direction get_default_dir (Score_element*me) ;
-  static SCM after_line_breaking (SCM);
-  static SCM set_spacing_rods (SCM);
+  DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM ));
 private:  
   static Real get_first_notecolumn_y (Score_element *me, Direction dir);
   static Offset broken_trend_offset (Score_element *me, Direction dir);

@@ -1,23 +1,23 @@
 % property.ly
 
-\version "1.3.59";
+\version "1.3.93";
 
-stemup = \property Voice.basicStemProperties \push #'direction = #1
-stemdown = \property Voice.basicStemProperties \push #'direction = #-1 
-stemboth= \property basicStemProperties \pop #'direction
+stemUp = \property Voice.Stem \push #'direction = #1
+stemDown = \property Voice.Stem \push #'direction = #-1 
+stemBoth= \property Voice.Stem \pop #'direction
 
-slurup   = \property Voice.basicSlurProperties \push #'direction = #1
-slurboth = \property basicSlurProperties \pop #'direction 
-slurdown = \property Voice.basicSlurProperties \push #'direction = #-1
-shifton  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #1
-shiftonn  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #2
-shiftonnn  = \property Voice.basicNoteColumnProperties \push #'horizontal-shift = #3
-shiftoff  = \property basicNoteColumnProperties \pop #'horizontal-shift 
+slurUp   = \property Voice.Slur \push #'direction = #1
+slurBoth = \property Voice.Slur \pop #'direction 
+slurDown = \property Voice.Slur \push #'direction = #-1
+shiftOn  = \property Voice.NoteColumn \push #'horizontal-shift = #1
+shiftOnn  = \property Voice.NoteColumn \push #'horizontal-shift = #2
+shiftOnnn  = \property Voice.NoteColumn \push #'horizontal-shift = #3
+shiftOff  = \property Voice.NoteColumn \pop #'horizontal-shift 
 
 
-tieUp = \property Voice.basicTieProperties \push #'direction = #1
-tieDown = \property Voice.basicTieProperties \push #'direction = #-1
-tieBoth = \property basicTieProperties \pop #'direction 
+tieUp = \property Voice.Tie \push #'direction = #1
+tieDown = \property Voice.Tie \push #'direction = #-1
+tieBoth = \property Voice.Tie \pop #'direction 
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = { \property Score.timing = ##t
@@ -25,48 +25,31 @@ cadenzaOff = { \property Score.timing = ##t
 	}
 
 	
-onevoice = { 	
-	\stemboth
+oneVoice = { 	
+	\stemBoth
 	\tieBoth
+	\shiftOff
 }
 
-voiceone = { \stemup
+voiceOne = { \stemUp
    \tieUp
 }
-voicetwo = { \stemdown
+voiceTwo = { \stemDown
    \tieDown
    }
    
-voicethree = {
-	\stemup
-	\shifton
+voiceThree = {
+	\stemUp
+	\shiftOn
 }
 
-voicefour = {
-	\stemdown
-	\shifton
+voiceFour = {
+	\stemDown
+	\shiftOn
 }
 
-% ugh, cluttering global namespace...
-
-% ugh2. 
-infinity=10000
-%{
-
-slurnormal = 
-	\property Voice.slurDash = ##f
-
-
-slurdotted =				
-	\property Voice.slurDash = 1
-
-
-tupletoff =
-	\property Voice.tupletVisibility = 0
-
-tupleton = 
-	\property Voice.tupletVisibility = 3
-%}
+slurDotted = \property Voice.Slur \push #'dash = #1
+slurNoDots = \property Voice.Slur \pop #'dash
 
 	
 tiny  = 

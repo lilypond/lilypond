@@ -1,10 +1,10 @@
-\version "1.3.59";
+\version "1.3.93";
 
 toeter_i = \notes\relative c <{
 		\property Staff.instrument = #"Toeters"
 		\property Staff.instr = #"Ttr." }
-	\context Voice = lower { \stemdown s1*6 }
-	\context Voice = upper { \stemup s1*6 }
+	\context Voice = lower { \stemDown s1*6 }
+	\context Voice = upper { \stemUp s1*6 }
 	\context Voice = together  { 
 
 	c'''4^"toet I" c c c 
@@ -21,7 +21,7 @@ toeter_ii = \notes \relative c \context Voice = together {
 	d d d d 
 	R1 
 	\context Voice = lower {
-		\stemdown 
+		\stemDown 
 		e4 e e e 
         }
 	f f f f 
@@ -42,7 +42,7 @@ zager = \context Staff = zager \notes \relative c'' {
 	f e d c 
 	c d e f 
 	\property Staff.instr = #"Zag."
-	\stemup
+	\stemUp
 	f e d c 
 	c d e f 
 	f e d c
@@ -56,7 +56,7 @@ zoger = \context Staff = zoger \notes \relative c'' {
 	\skip 1*2;
 
 	\translator Staff=zager
-	\stemdown 
+	\stemDown 
 	c2 g2
 	
 	a4 b c d 

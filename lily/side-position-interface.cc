@@ -12,7 +12,6 @@
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
-
 #include "staff-symbol-referencer.hh"
 #include "group-interface.hh"
 
@@ -241,8 +240,7 @@ Side_position::add_staff_support (Score_element*me)
 void
 Side_position::set_axis (Score_element*me, Axis a)
 {
-  if (!me->has_offset_callback_b (Side_position_aligned_side_proc, a))
-    me->add_offset_callback (Side_position_aligned_side_proc, a);
+  me->add_offset_callback (Side_position::aligned_side_proc, a);
 }
 
 
@@ -251,8 +249,8 @@ Side_position::set_axis (Score_element*me, Axis a)
 Axis
 Side_position::get_axis (Score_element*me)
 {
-  if (me->has_offset_callback_b (Side_position_aligned_side_proc, X_AXIS)
-      || me->has_offset_callback_b (Side_position_aligned_side_proc , X_AXIS))
+  if (me->has_offset_callback_b (Side_position::aligned_side_proc, X_AXIS)
+      || me->has_offset_callback_b (Side_position::aligned_side_proc , X_AXIS))
     return X_AXIS;
 
   

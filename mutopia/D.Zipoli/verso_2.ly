@@ -17,7 +17,7 @@ title = "Verso II";
 	under the Gnu Public Licence.
 %}
 	
-\version "1.3.59";
+\version "1.3.93";
 
 $voice_one = \notes \relative c' {
 	a'2 bes4. [c16 bes] | a4 d ~ d c ~ | c b ~ [b8 a] a4 ~|
@@ -86,8 +86,8 @@ organ={
 		      \clef "G";
 		      \global
 		      \context Staff <
-		        { \voiceone \$voice_one }
-		        { \voicetwo \$voice_two }
+		        { \voiceOne \$voice_one }
+		        { \voiceTwo \$voice_two }
 		      >
 		}
 		\context Staff = bass {

@@ -482,13 +482,62 @@ if 1:
 
 if 1:
 	def conv (str):
-#		if re.search ('latexheaders *= *"\\\\input ',str):
-#			sys.stderr.write ('\nHello???')
 		str = re.sub (r'latexheaders *= *"\\\\input ',
 			      'latexheaders = "',
 			      str)
 		return str
 	conversions.append ((1,3,68), conv, 'latexheaders = "\\input global" -> latexheaders = "global"')
+
+
+
+################ TODO: lots of other syntax change should be done here as well
+
+
+
+if 1:
+	def conv (str):
+		str = re.sub ('basicCollisionProperties', 'NoteCollision', str)
+		str = re.sub ('basicVoltaSpannerProperties' , "VoltaBracket", str)
+		str = re.sub ('basicKeyProperties' , "KeySignature", str)
+
+		str = re.sub ('basicClefItemProperties' ,"Clef", str)
+
+
+		str = re.sub ('basicLocalKeyProperties' ,"Accidentals", str)
+		str = re.sub ('basicMarkProperties' ,"Accidentals", str) 				
+		str = re.sub ('basic([A-Za-z_]+)Properties', '\\1', str)
+		return str
+	
+	conversions.append ((1,3,92), conv, 'basicXXXProperties -> XXX')
+
+if 1:
+	def conv (str):
+		str = re.sub ('\\\\stemup', '\\\\stemUp', str)
+		str = re.sub ('\\\\stemdown', '\\\\stemDown', str)
+		str = re.sub ('\\\\stemboth', '\\\\stemBoth', str)
+		str = re.sub ('\\\\slurup', '\\\\slurUp', str)
+		str = re.sub ('\\\\slurboth', '\\\\slurBoth', str)
+		str = re.sub ('\\\\slurdown', '\\\\slurDown', str)
+		str = re.sub ('\\\\slurdotted', '\\\\slurDotted', str)
+		str = re.sub ('\\\\slurnormal', '\\\\slurNoDots', str)		
+		
+		str = re.sub ('\\\\shiftoff', '\\\\shiftOff', str)
+		str = re.sub ('\\\\shifton', '\\\\shiftOn', str)
+		str = re.sub ('\\\\shiftonn', '\\\\shiftOnn', str)
+		str = re.sub ('\\\\shiftonnn', '\\\\shiftOnnn', str)
+
+		str = re.sub ('\\\\onevoice', '\\\\oneVoice', str)
+		str = re.sub ('\\\\voiceone', '\\\\voiceOne', str)
+		str = re.sub ('\\\\voicetwo', '\\\\voiceTwo', str)
+		str = re.sub ('\\\\voicethree', '\\\\voiceThree', str)
+		str = re.sub ('\\\\voicefour', '\\\\voiceFour', str)
+		
+		return str
+	
+	conversions.append ((1,3,93), conv,
+			    'property definiton case (eg. onevoice -> oneVoice)')
+
+
 
 
 ############################

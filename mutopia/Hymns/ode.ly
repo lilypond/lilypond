@@ -7,7 +7,7 @@
   metre = "8 7 8 7 D";
 }
 
-\version "1.3.59";
+\version "1.3.93";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 |
@@ -52,8 +52,8 @@ $upper_staff = \context Staff = upper \notes {
 	\clef "G";
 	\context Staff <
 	    \global
-	    {\voiceone \sop}
-	    {\voicetwo \alto}
+	    {\voiceOne \sop}
+	    {\voiceTwo \alto}
 	>
 }
 
@@ -61,8 +61,8 @@ $lower_staff = \context Staff = lower \notes {
 	\clef "F";
 	\context Staff <
 	    \global
-	    {\voiceone \tenor}
-	    {\voicetwo \bass }
+	    {\voiceOne \tenor}
+	    {\voiceTwo \bass }
 	>
 }
 

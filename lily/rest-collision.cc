@@ -50,7 +50,7 @@ Rest_collision::add_column (Score_element*me,Score_element *p)
   Pointer_group_interface gi (me);  
   gi.add_element (p);
 
-  p->add_offset_callback (Rest_collision_force_shift_callback_proc, Y_AXIS);
+  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_elt_property ("rest-collision", me->self_scm ());
 }
 
@@ -234,7 +234,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 void
 Rest_collision::set_interface (Score_element*me)
 {
-  me->set_extent_callback (0, X_AXIS);
-  me->set_extent_callback (0, Y_AXIS);
+  me->set_extent_callback (SCM_EOL, X_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS);
 }
 

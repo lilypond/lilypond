@@ -23,7 +23,7 @@
 class Note_head 
 {
 public:
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   static Molecule ledger_line (Interval, Score_element*) ;
   static bool has_interface (Score_element*);
 };

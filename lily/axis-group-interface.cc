@@ -33,8 +33,8 @@ Axis_group_interface::axis_b (Score_element*me,Axis a )
 
     
    */
-  return me->has_extent_callback_b (group_extent_callback, a) ||
-    (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent, a));
+  return me->has_extent_callback_b (group_extent_callback_proc, a) ||
+    (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent_proc, a));
 }
 
 Interval
@@ -51,9 +51,13 @@ Axis_group_interface::relative_group_extent (Axis a, Score_element *common, SCM 
   return r;
 }
 
-Interval
-Axis_group_interface::group_extent_callback (Score_element *me, Axis a)
+MAKE_SCHEME_CALLBACK(Axis_group_interface,group_extent_callback,2);
+SCM
+Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (scm_axis);
+
   Score_element * common =(Score_element*) me;
 
   for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
@@ -65,7 +69,7 @@ Axis_group_interface::group_extent_callback (Score_element *me, Axis a)
   Real my_coord = me->relative_coordinate (common, a);
   Interval r (relative_group_extent (a, common, me->get_elt_property ("elements")));
 
-  return r - my_coord;
+  return ly_interval2scm (r - my_coord);
 }
 
 
@@ -90,15 +94,17 @@ Axis_group_interface::set_axes (Score_element*me,Axis a1, Axis a2)
     }
 
   if (a1 != X_AXIS && a2 != X_AXIS)
-    me->set_extent_callback (0, X_AXIS);
+    me->set_extent_callback (SCM_EOL, X_AXIS);
   if (a1 != Y_AXIS && a2 != Y_AXIS)
-    me->set_extent_callback (0, Y_AXIS);
-  
-  //  if (!me->has_extent_callback_b (a1))
-  if (me->has_extent_callback_b (Score_element::molecule_extent, a1))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
-  if (me->has_extent_callback_b (Score_element::molecule_extent, a2))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
+    me->set_extent_callback (SCM_EOL, Y_AXIS);
+
+  /*
+    why so convoluted ? (fixme/documentme?) 
+   */
+  if (me->has_extent_callback_b (Score_element::molecule_extent_proc, a1))
+    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc,a1);
+  if (me->has_extent_callback_b (Score_element::molecule_extent_proc, a2))
+    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc,a2);
 }
 
 Link_array<Score_element> 

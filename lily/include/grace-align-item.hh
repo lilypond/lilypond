@@ -23,7 +23,7 @@ class Grace_align_item
 public:
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
-  static SCM before_line_breaking (SCM);
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
 };
 #endif /* GRACE_ALIGN_ITEM_HH */
 

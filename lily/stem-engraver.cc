@@ -77,7 +77,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
 	{
-	  stem_p_ = new Item (get_property ("basicStemProperties"));
+	  stem_p_ = new Item (get_property ("Stem"));
 	  Stem::set_interface (stem_p_);
 	  Staff_symbol_referencer::set_interface(stem_p_);
 
@@ -103,7 +103,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
 	      if (requested_type)
 		{
-		  tremolo_p_ = new Item (get_property ("basicStemTremoloProperties"));
+		  tremolo_p_ = new Item (get_property ("StemTremolo"));
 		  Stem_tremolo::set_interface (tremolo_p_);
 
 		  announce_element (tremolo_p_, tremolo_req_l_);
