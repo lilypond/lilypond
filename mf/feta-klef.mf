@@ -10,6 +10,7 @@
 
 
 fet_begingroup("clefs");
+test_staff = 0;
 
 
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
@@ -32,9 +33,13 @@ def draw_c_clef (expr reduction) =
 	draw_block ((0,-d), (3/4norm+1/2hair,h));
 	draw_block ((3/4norm+2hair,-d), 
 		(3/4norm+7/2hair,h));
+
 	
 	save xoff;
 	xoff=3/4norm+7/2hair;
+	z5l = (xoff - 3/4 hair, 0);
+	z5r = (x4, 0);
+
 	penpos1(hair,-90);
 	z1l=(xoff+norm+hair,h);
 	penpos2(norm-3/2hair,180);
@@ -44,9 +49,6 @@ def draw_c_clef (expr reduction) =
 
 	penpos4(hair,0);
 	z4=(xoff+1/2norm+1/2hair, reduced_ss - stafflinethickness - .2 hair);
-	
-	penpos5(4hair,0);
-	z5=(xoff+5/4hair,0);
 
 	penpos6(norm-hair,90);
 	z6=(xoff+3/4norm,0);
@@ -68,14 +70,14 @@ def draw_c_clef (expr reduction) =
 	enddef;
 
 fet_beginchar ("C clef", "C", "altoclef")
-	if test = 1:
+	if test_staff = 1:
 		draw_staff (-2,2, 0.0);
 	fi;
 	draw_c_clef (1.0);
 fet_endchar;
 
 fet_beginchar ("C clef", "C_change", "caltoclef")
-	if test = 1:
+	if test_staff = 1:
 		draw_staff (-2,2, 0.0);
 	fi;
 	draw_c_clef (.8);
@@ -240,7 +242,7 @@ enddef;
 
 
 fet_beginchar("F clef ", "F", "bassclef")
-	if test = 1:
+	if test_staff = 1:
 		draw_staff(-3,1, 0.0);
 	fi;
 	draw_bass_clef((0, 0), 1.0);
@@ -445,7 +447,7 @@ enddef;
 
 
 fet_beginchar("G clef", "G", "trebleclef")
-	if test = 1:
+	if test_staff = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_gclef(1.0);

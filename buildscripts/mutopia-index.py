@@ -58,13 +58,13 @@ are also included in the distribution. The output is completely
 generated from the <tt>.ly</tt> source file, without any further touch
 up.
 
-<p>The PostScript files were generated using TeX and dvips at 600 dpi.
-The pictures are 90 dpi anti-aliased snapshots of the printed output.
-The images are in PNG format, and should be viewable with any current
-browser.
+<p>
 
-<p>If you want a better impression of the appearance, do print out one of
-the postscript files.
+The pictures are 90 dpi anti-aliased snapshots of the printed output.
+If you want a better impression of the appearance, do print out one of
+the PDF or PostScript files; they use scalable fonts, and should look
+good at any resolution.
+
 """
 
 headertext_nopics= r"""

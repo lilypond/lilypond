@@ -38,7 +38,7 @@ def draw_meta_sharp (expr width) =
 	interbeam := 1.05 staff_space;
 	beamheight := 0.3 staff_space + stafflinethickness;
 	beamwidth := width;
-	stemwidth := 1.5 stafflinethickness;
+	stemwidth := 1.0 stafflinethickness + .05 staff_space;
 	roundness := 2 blot_diameter;
 
 	center := (.5 w, 0);
@@ -133,20 +133,18 @@ fet_beginchar( "Natural", "0", "natural")
 	stemwidth;
 	save top_stem_thick;
 
-	beamheight# = 0.3 staff_space# + stafflinethickness#;
+	beamheight# = 0.35 staff_space# + .5 stafflinethickness#;
 	height# = 1.5 staff_space#;
 	set_char_box(0, 2/3 staff_space#, height#, height#);
 
 	define_pixels(height);
 	define_blacker_pixels(beamheight);
 
-	% The +0.4  is a lowres fix to ensure that
-	% the brush doesn't turn into a knob on 600dpi or lower.
-	top_stem_thick = round (1.9 stafflinethickness) + 0.4;
+	top_stem_thick = round (1 stafflinethickness + .09staff_space ) + 0.4;
+	stemwidth = 0.08 staff_space + .5 stafflinethickness;
 	
 
 	interstem + stemwidth =  w;
-	stemwidth = 0.03 staff_space + stafflinethickness;
 
 	z2 -z1 = (interstem, slope * interstem);
 	xpart .5 [z2,z1] = xcenter ;
@@ -223,15 +221,15 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	else:
 		smaller_hole = 0.0 stafflinethickness;
 	fi
-	crook_thinness = 1.3 stafflinethickness;
-	top_crook_thinness = 1.65 stafflinethickness;
+	crook_thinness = .7 stafflinethickness + .06 staff_space;
+	top_crook_thinness = 1 stafflinethickness + .065 staff_space ;
 
 	% this is a somewhat heuristic.  We should  probably make it
 	% straight for low resolution (300 dpi and less).
 	top_stem_thick = round (0.1 staff_space + 1.2 stafflinethickness) + 0.74;
 
 	bottom_overshoot = stafflinethickness;
-	bottom_stem_thick =0.06 staff_space +  0.6 stafflinethickness;
+	bottom_stem_thick = 0.06 staff_space +  0.6 stafflinethickness;
 
 	z1 = (0, 2 staff_space) + center - (0, stafflinethickness/2
 		+ clearing);
@@ -256,12 +254,12 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 
 	y4l - y4r =  top_crook_thinness ;
 
-	y5r = .20 staff_space + ypart center;
+	y5r = .15 staff_space + ypart center;
 	x5l = w + xpart center;
 	y4 = ypart center + staff_space/2;
 	x4r = .45 [x5r, x3r];
 
-	penpos5(crook_fatness, -185);
+	penpos5(crook_fatness, -175);
 
 	save bot_crook_dir ;
 	pair bot_crook_dir ;
@@ -277,10 +275,9 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 
 	y10 = -1/10 staff_space;
 %	draw_staff (-2, 2, 0.5);
-	draw_staff (-2, 2, 0.0);
+%	draw_staff (-2, 2, 0.0);
 
 	unfill z3r{z3r-z10} .. z4r{right} .. z5r{down}
-
 		..  z7{- bot_crook_dir}
 		& z7 % .. tension 1.3
 		.. z10{z3r-z10}
@@ -348,7 +345,7 @@ fet_beginchar("Double Sharp", "4", "sharpsharp")
 	save klaverblad, klaversteel;
 
 	klaversteel = 1/15 staff_space;
-	klaverblad = .35 staff_space;
+	klaverblad = .40 staff_space - .5 stafflinethickness;
 
 	z1 = (klaversteel, 0);
 	z2 = (w/2 - klaverblad / 10, h - klaverblad);
@@ -385,7 +382,7 @@ def draw_paren =
 	z3 = (leftindent,-d);
 
 	penpos1(stafflinethickness, 35);
-	penpos2(2 stafflinethickness, 0);
+	penpos2(.1 staff_space + stafflinethickness, 0);
 	penpos3(stafflinethickness, -35);
 
 	penlabels(1,2,3);

@@ -34,7 +34,8 @@ fet_begingroup ("noteheads")
 %   collision handling.
 %
 
-noteheight#:=staff_space# + (1 + overdone_heads)*stafflinethickness#;
+overdone_heads = 0;
+noteheight# := staff_space# + (1 + overdone_heads)*stafflinethickness#;
 define_pixels(noteheight);
 
 
@@ -46,7 +47,6 @@ define_pixels(noteheight);
 %
 %
 %
-brevis_wid# := 2 staff_space#;
 
 def draw_neo_brevis(expr brevwid) =
 	save beamheight, head_width;
@@ -94,13 +94,13 @@ def draw_neo_left_stemmed_head (expr wid) =
 
 	x6 = x7 = head_width - stem_width/2;
 	y6 = y5;
-	y7 = y5 - 2.25staff_space;
+	y7 = y5 - 2.25 staff_space;
 	pickup pencircle scaled stem_width;
 	draw z6 .. z7;
 enddef;
 
 fet_beginchar("Left stemmed notehead", "lneo_mensural", "mensuralleftstemmedhead");
-	draw_neo_left_stemmed_head (brevis_wid#)
+	draw_neo_left_stemmed_head (2 staff_space#);
 fet_endchar;
 
 %
@@ -129,15 +129,15 @@ enddef;
 % (ze is wel breed)
 % 
 fet_beginchar("Maxima notehead", "-3neo_mensural", "mensuralmaximahead");
-	draw_neo_longa (1.3 brevis_wid#)
+	draw_neo_longa (2.6 staff_space#)
 fet_endchar;
 
 fet_beginchar("Longa notehead", "-2neo_mensural", "mensurallongahead");
-	draw_neo_longa (brevis_wid#)
+	draw_neo_longa (2 staff_space#)
 fet_endchar;
 
 fet_beginchar("Brevis notehead", "-1neo_mensural", "mensuralbrevishead")
-	draw_neo_brevis(brevis_wid#);
+	draw_neo_brevis(2 staff_space#);
 fet_endchar;
 
 def draw_neo_mensural_black_head (expr wid) =
@@ -192,7 +192,6 @@ fet_beginchar("Neo-mensural black head","2neo_mensural","neomensuralsemiminimahe
 fet_endchar;
 
 
-brevis_wid# := 1 staff_space#;
 
 def draw_brevis (expr wid) =
 	% TODO.  For the moment, fall back to draw_neo_brevis.
@@ -211,7 +210,7 @@ def draw_left_stemmed_head (expr wid) =
 enddef;
 
 fet_beginchar("Left stemmed notehead", "lmensural", "mensuralleftstemmedhead");
-	draw_left_stemmed_head (brevis_wid#)
+	draw_left_stemmed_head (staff_space#)
 fet_endchar;
 
 def draw_longa (expr wid) =
@@ -225,15 +224,15 @@ def draw_longa (expr wid) =
 enddef;
 
 fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
-	draw_longa (2.0 brevis_wid#)
+	draw_longa (2.0 staff_space#)
 fet_endchar;
 
 fet_beginchar("Longa notehead", "-2mensural", "mensurallongahead");
-	draw_longa (brevis_wid#)
+	draw_longa (staff_space#)
 fet_endchar;
 
 fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
-	draw_brevis(brevis_wid#);
+	draw_brevis(staff_space#);
 fet_endchar;
 
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
