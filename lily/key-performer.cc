@@ -11,6 +11,7 @@
 #include "audio-item.hh"
 #include "performer.hh"
 
+
 class Key_performer : public Performer
 {
 public:
@@ -46,7 +47,24 @@ Key_performer::create_audio_elements ()
       SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
       SCM acc = gh_call1 (proc, pitchlist);
       proc = scm_primitive_eval (ly_symbol2scm ("major-key"));
-      SCM major = gh_call1 (proc, pitchlist);
+ 
+      Pitch my_do (0, 
+		   gh_scm2int (ly_caar (pitchlist)),
+		   gh_scm2int (ly_cdar (pitchlist)));
+		  
+      Pitch to_c (-1,
+		   (7 - gh_scm2int (ly_caar (pitchlist))) % 7,
+		   -gh_scm2int (ly_cdar (pitchlist)));
+
+      my_do.transpose (to_c);
+      to_c.alteration_i_ -= my_do.alteration_i_;
+
+      Key_change_req *key = new Key_change_req;
+      key->set_mus_property ("pitch-alist", scm_list_copy (pitchlist));
+      ((Music*)key)->transpose (to_c);
+      SCM c_pitchlist = key->get_mus_property ("pitch-alist");
+      SCM major = gh_call1 (proc, c_pitchlist);
+
       audio_p_ = new Audio_key (gh_scm2int (acc), major == SCM_BOOL_T); 
       Audio_element_info info (audio_p_, key_req_l_);
       announce_element (info);
