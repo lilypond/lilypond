@@ -76,7 +76,7 @@ Staff_symbol::print (SCM smob)
 			     t);
 
   Stencil m;
-  for (int i=0; i < l; i++)
+  for (int i= 0; i < l; i++)
     {
       Stencil b(a);
       b.translate_axis (height - i * staff_space (me), Y_AXIS);

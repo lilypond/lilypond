@@ -80,7 +80,7 @@ Paper_column::Paper_column (Paper_column const& src, int count)
   : Item (src, count)
 {
   system_ = 0;
-  rank_ = count;
+  rank_ = src.rank_;
 }
 
 

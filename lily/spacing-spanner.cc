@@ -163,7 +163,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 {
   Link_array<Grob> newcols;
   Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
-  for (int i=0; i < cols->size ();  i++)
+  for (int i= 0; i < cols->size ();  i++)
     {
       if (Item::is_breakable (cols->elem (i)) || Paper_column::is_musical (cols->elem (i)))
 	{
@@ -264,7 +264,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 void
 Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 {
-  for (int i=0; i < cols.size (); i++)
+  for (int i= 0; i < cols.size (); i++)
     {
       SCM right_neighbors = SCM_EOL;
       int min_rank = 100000;	// inf.
@@ -427,7 +427,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   Rational shortest_in_measure;
   shortest_in_measure.set_infinite (1);
   
-  for (int i =0 ; i < cols.size (); i++)  
+  for (int i = 0 ; i < cols.size (); i++)  
     {
       if (Paper_column::is_musical (cols[i]))
 	{
@@ -583,8 +583,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 	music.  */
       if (Note_spacing::has_interface (wish))
 	{
-	  Real space =0.0;
-	  Real fixed =0.0;
+	  Real space = 0.0;
+	  Real fixed = 0.0;
 	  
 	  Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
 

@@ -169,7 +169,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
       accepteds.push (t);
 
   Link_array<Context_def> best_result;
-  for (int i=0; i < accepteds.size (); i++)
+  for (int i= 0; i < accepteds.size (); i++)
     {
       /* do not check aliases, because \context Staff should not
 	 create RhythmicStaff. */
@@ -181,7 +181,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
     }
 
   int best_depth= INT_MAX;
-  for (int i=0; i < accepteds.size (); i++)
+  for (int i= 0; i < accepteds.size (); i++)
     {
       Context_def * g = accepteds[i];
 

@@ -64,8 +64,8 @@ Repeated_music::alternatives_get_length (bool fold) const
   if (fold)
     return Music_sequence::maximum_length (alternatives ());
 
-  Moment m =0;
-  int done =0;
+  Moment m = 0;
+  int done = 0;
 
   SCM p = alternatives ();
   while (scm_is_pair (p) && done < repeat_count ())

@@ -212,8 +212,8 @@ Spanner::Spanner (SCM s, Object_key const*key)
   : Grob (s, key)
 {
   break_index_ = 0;
-  spanned_drul_[LEFT]=0;
-  spanned_drul_[RIGHT]=0;
+  spanned_drul_[LEFT]= 0;
+  spanned_drul_[RIGHT]= 0;
 
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));
 }
@@ -221,7 +221,7 @@ Spanner::Spanner (SCM s, Object_key const*key)
 Spanner::Spanner (Spanner const &s, int count)
   : Grob (s, count)
 {
-  spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
+  spanned_drul_[LEFT] = spanned_drul_[RIGHT] = 0;
 }
 
 Real

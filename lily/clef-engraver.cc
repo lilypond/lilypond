@@ -178,7 +178,7 @@ Clef_engraver::stop_translation_timestep ()
 	    }
 	}
       
-      clef_ =0;
+      clef_ = 0;
 
       octavate_ = 0;
     }

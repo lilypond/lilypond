@@ -29,7 +29,7 @@ private:
 void 
 Drum_note_performer::create_audio_elements ()
 {
-  SCM tab =0;
+  SCM tab = 0;
   if (!tab) tab = get_property ("drumPitchTable");
   
   while (note_evs_.size ())
@@ -60,7 +60,7 @@ Drum_note_performer::stop_translation_timestep ()
   // why don't grace notes show up here?
   // --> grace notes effectively do not get delayed
   Global_context * global = get_global_context ();
-  for (int i=0; i < notes_.size (); i++)
+  for (int i= 0; i < notes_.size (); i++)
     {
       Audio_note* n = notes_[i];
       Moment m= n->delayed_until_mom_;
@@ -75,13 +75,13 @@ Drum_note_performer::stop_translation_timestep ()
     }
 
   Moment now = now_mom ();
-  for (int i=0; i < notes_.size (); i++)
+  for (int i= 0; i < notes_.size (); i++)
     {
       play_element (notes_[i]);
     }
   notes_.clear ();
   note_evs_.clear ();
-  for (int i=0; i < delayeds_.size (); i++)
+  for (int i= 0; i < delayeds_.size (); i++)
     {
       Audio_note* n = delayeds_[i];
       if (n->delayed_until_mom_ <= now)

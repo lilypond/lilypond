@@ -66,7 +66,7 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
 {
   perc_  = 0;
   finished_perc_ = 0;
-  repeat_ =0;
+  repeat_ = 0;
 
   double_percent_ = 0;
 }

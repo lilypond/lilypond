@@ -79,7 +79,7 @@ Glissando_engraver::stop_translation_timestep ()
 {
   if (last_line_ && last_line_->get_bound (RIGHT))
     {
-      last_line_ =0;
+      last_line_ = 0;
     }
   if (line_)
     {
@@ -104,7 +104,7 @@ Glissando_engraver::finalize ()
 	warning (msg);
       
       line_->suicide ();
-      line_ =0;
+      line_ = 0;
     }
 }
 

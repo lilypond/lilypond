@@ -60,7 +60,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
 
-  Real where_f=0;
+  Real where_f= 0;
 
   Interval v;
   v.set_empty ();
@@ -85,7 +85,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 	elems.del (j);
     }
 
-  for (int j =0; j < elems.size (); j++)
+  for (int j = 0; j < elems.size (); j++)
     {
       where_f += stacking_dir * dy;
       translates.push (where_f);
@@ -135,7 +135,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   Link_array<Grob> elems;
   Link_array<Grob> all_grobs
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
-  for (int i=0; i < all_grobs.size (); i++) 
+  for (int i= 0; i < all_grobs.size (); i++) 
     {
       Interval y = all_grobs[i]->extent (me, a);
       if (!y.is_empty ())
@@ -166,9 +166,9 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   
   Array<Real> translates ;
   Interval total;
-  Real where_f=0;
+  Real where_f= 0;
   
-  for (int j=0 ;  j < elems.size (); j++) 
+  for (int j= 0 ;  j < elems.size (); j++) 
     {
       Real dy = -  dims[j][-stacking_dir];
       if (j)
@@ -198,8 +198,8 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   Array<Real> all_translates;
   if (translates.size ())
     {
-      int i =0;
-      int j =0;
+      int i = 0;
+      int j = 0;
       Real w = translates[0];
       while (j  < all_grobs.size ())
 	{

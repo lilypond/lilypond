@@ -213,7 +213,7 @@ Ledger_line_spanner::print (SCM smob)
 	  Interval max_size = reqs[Paper_column::get_rank (h->get_column ())][Direction (sign(pos))].ledger_extent_;
 
 	  ledger_size.intersect (max_size);
-	  Real left_shorten =0.0;
+	  Real left_shorten = 0.0;
 	  if (Grob * g = unsmob_grob (h->get_property ("accidental-grob")))
 	    {
 	      Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);

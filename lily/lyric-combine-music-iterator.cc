@@ -62,8 +62,8 @@ Music *melisma_playing_req;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
-  music_iter_ =0;
-  lyric_iter_ =0;
+  music_iter_ = 0;
+  lyric_iter_ = 0;
 
   if (!busy_req)
     {

@@ -42,7 +42,7 @@ Stem_engraver::Stem_engraver ()
   tremolo_ev_ = 0;
   stem_ = 0;
   tremolo_ = 0;
-  rhythmic_ev_ =0;
+  rhythmic_ev_ = 0;
 }
 
 void

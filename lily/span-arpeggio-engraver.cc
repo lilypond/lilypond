@@ -76,7 +76,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	we do this very late, to make sure we also catch `extra'
 	side-pos support like accidentals.
        */
-      for (int i=0; i < arpeggios_.size (); i ++)
+      for (int i= 0; i < arpeggios_.size (); i ++)
 	{
 	  for (SCM s = arpeggios_[i]->get_property ("stems");
 	       scm_is_pair (s); s = scm_cdr (s))

@@ -68,7 +68,7 @@ void
 Tab_note_heads_engraver::process_music ()
 {
   int j = 0; 
-  for (int i=0; i < note_events_.size (); i++)
+  for (int i= 0; i < note_events_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");
       int number_of_strings = ((int) ly_length (stringTunings));
@@ -79,7 +79,7 @@ Tab_note_heads_engraver::process_music ()
       Item * note  = make_item ("TabNoteHead", event->self_scm ());
 
       
-      Music * tabstring_event=0;
+      Music * tabstring_event= 0;
 
       for (SCM s =event->get_property ("articulations");
 	   !tabstring_event && scm_is_pair (s); s = scm_cdr (s))

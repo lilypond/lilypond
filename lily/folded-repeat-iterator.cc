@@ -84,7 +84,7 @@ Folded_repeat_iterator::process (Moment m)
       if (!alternative_iter_->ok ())
 	{
 	  alternative_iter_->quit ();
-	  alternative_iter_ =0;
+	  alternative_iter_ = 0;
 	}
     }
 }

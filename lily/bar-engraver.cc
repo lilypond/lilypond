@@ -36,7 +36,7 @@ private:
 
 Bar_engraver::Bar_engraver ()
 {
-  bar_ =0;
+  bar_ = 0;
 }
 
 void

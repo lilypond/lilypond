@@ -25,7 +25,7 @@ Item::clone (int count) const
 Item::Item (SCM s, Object_key const *key)
   : Grob (s, key)
 {
-  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
+  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]= 0;
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("item-interface"));
 }
 
@@ -35,7 +35,7 @@ Item::Item (SCM s, Object_key const *key)
 Item::Item (Item const &s, int copy_count)
   : Grob (s, copy_count)
 {
-  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
+  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
 }
 
 

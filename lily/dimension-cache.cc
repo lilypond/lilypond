@@ -36,9 +36,9 @@ Dimension_cache::init ()
 
   offsets_left_ = 0;
   offset_callbacks_ = SCM_EOL;
-  offset_ =0.0;
+  offset_ = 0.0;
   
-  parent_ =0;
+  parent_ = 0;
 }
 
 

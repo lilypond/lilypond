@@ -197,7 +197,7 @@ Tuplet_bracket::print (SCM smob)
   if (bracket_visibility)      
     {
       Real ss =   Staff_symbol_referencer::staff_space (me);
-      Real gap=0.;
+      Real gap= 0.;
 
       if (!num.extent (X_AXIS).is_empty ())
 	gap = num.extent (X_AXIS).length () + 1.0;

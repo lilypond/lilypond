@@ -36,7 +36,7 @@ protected:
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
 {
-  text_ =0;
+  text_ = 0;
   mark_ev_ = 0;
 }
 
@@ -49,7 +49,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
       text_->set_parent (mc, X_AXIS);
       text_->set_property ("side-support-elements" , get_property ("stavesFound"));
       
-      text_ =0;
+      text_ = 0;
     }
   mark_ev_ = 0;
 }

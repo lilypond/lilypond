@@ -294,7 +294,7 @@ HYPHEN		--
 		error_level_ = 1;
  	}
 
-	for (int i=0; i < n; i++)
+	for (int i= 0; i < n; i++)
 	{
 		yyinput ();
 	}
@@ -772,7 +772,7 @@ Lily_lexer::is_figure_state () const
 void
 strip_leading_white (String&s)
 {
-	int i=0;
+	int i= 0;
 	for (;  i < s.length (); i++) 
 		if (!isspace (s[i]))
 			break;
@@ -829,7 +829,7 @@ lyric_fudge (String s)
   s = String (chars);
   delete[] chars;
 
-  int i =0;	
+  int i = 0;	
   if ((i=s.index ("\\,")) != -1)   // change "\," to TeX's "\c "
     {
       * (s.get_str0 () + i + 1) = 'c';

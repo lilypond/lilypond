@@ -12,9 +12,6 @@
 #include "engraver.hh"
 #include "axis-group-interface.hh"
 
-/*
-  collect Note_column, and as soon as there are 2 or more, put them in
-  a collision object.  */
 class Collision_engraver : public Engraver
 {
   Item * col_;
@@ -40,7 +37,7 @@ Collision_engraver::process_acknowledged_grobs ()
       
     }
   
-  for (int i=0; i< note_columns_.size (); i++)
+  for (int i= 0; i< note_columns_.size (); i++)
     Note_collision_interface::add_column (col_,note_columns_[i]);
 }
 
@@ -60,20 +57,20 @@ Collision_engraver::acknowledge_grob (Grob_info i)
 void
 Collision_engraver::stop_translation_timestep ()
 {
-  col_ =0;
+  col_ = 0;
   note_columns_.clear ();
 }
 
 Collision_engraver::Collision_engraver ()
 {
-  col_ =0;
+  col_ = 0;
 }
 
 
 
 
 ENTER_DESCRIPTION (Collision_engraver,
-/* descr */       "",
+/* descr */       "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
 /* creats*/       "NoteCollision",
 /* accepts */     "",
 /* acks  */      "note-column-interface",

@@ -32,7 +32,7 @@ protected:
 
   Simple_spacer_wrapper* generate_spacing_problem (Link_array<Grob> const &, Interval) const;
 
-  virtual Array<Column_x_positions> do_solve () const=0;
+  virtual Array<Column_x_positions> do_solve () const= 0;
 
 public:
   Simple_spacer* (*get_line_spacer) ();

@@ -13,7 +13,7 @@
 
 Spring_smob::Spring_smob ()
 {
-  distance_ =0.;
+  distance_ = 0.;
   strength_ =1.0;
   expand_only_b_ = false;
   other_ = 0;

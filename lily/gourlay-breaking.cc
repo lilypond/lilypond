@@ -56,7 +56,7 @@ struct Break_node {
 void
 print_break_nodes (Array<Break_node> const & arr)
 {
-  for (int i =0; i < arr.size (); i++)
+  for (int i = 0; i < arr.size (); i++)
     {
       printf ( "node %d: ", i); 
       arr[i].print ();

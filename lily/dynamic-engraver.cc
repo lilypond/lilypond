@@ -76,7 +76,7 @@ Dynamic_engraver::Dynamic_engraver ()
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
   current_cresc_ev_ = 0;
-  cresc_ =0;
+  cresc_ = 0;
 
   script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
@@ -333,7 +333,7 @@ Dynamic_engraver::typeset_all ()
 	    add_bound_item (finished_line_spanner_,
 			    finished_cresc_->get_bound (RIGHT));
 	}
-      finished_cresc_ =0;
+      finished_cresc_ = 0;
     }
   
   script_ = 0;

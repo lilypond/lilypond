@@ -49,7 +49,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   bar_seen_ = false;
   start_measure_ = 0;
   mmrest_ = 0;
-  last_rest_ =0;
+  last_rest_ = 0;
   rest_ev_ = 0;
 }
 
@@ -105,8 +105,8 @@ Multi_measure_rest_engraver::process_music ()
 	   */
 	  Direction d = DOWN; 
 	  do {
-	    Grob *last =0;
-	    for (int i=0; i <numbers_.size (); i++)
+	    Grob *last = 0;
+	    for (int i= 0; i <numbers_.size (); i++)
 	      {
 		if (scm_int2num (d) == numbers_[i]->get_property ("direction"))
 		  {
@@ -118,7 +118,7 @@ Multi_measure_rest_engraver::process_music ()
 	  } while (flip (&d) != DOWN);
 	}
 
-      for (int i =0 ; i < numbers_.size (); i++)
+      for (int i = 0 ; i < numbers_.size (); i++)
 	{
 	  Side_position_interface::add_support (numbers_[i], mmrest_);
 	  numbers_[i]->set_parent (mmrest_, Y_AXIS);

@@ -127,7 +127,7 @@ Context::create_unique_context (SCM n, SCM operations)
       Context * current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i=0; i < path.size (); i++)
+      for (int i= 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
@@ -150,7 +150,7 @@ Context::create_unique_context (SCM n, SCM operations)
     {
       warning (_f ("Cannot find or create new `%s'",
 		   ly_symbol2string (n).to_str0 ()));
-      ret =0;
+      ret = 0;
     }
   return ret;
 }
@@ -186,7 +186,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
       Context * current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i=0; i < path.size (); i++)
+      for (int i= 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
@@ -216,7 +216,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
     {
       warning (_f ("Cannot find or create `%s' called `%s'",
 		   ly_symbol2string (n).to_str0 (), id));
-      ret =0;
+      ret = 0;
     }
   return ret;
 }

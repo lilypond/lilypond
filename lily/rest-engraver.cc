@@ -33,22 +33,22 @@ public:
  */
 Rest_engraver::Rest_engraver ()
 {
-  rest_req_ =0;
-  rest_ =0;
-  dot_ =0;
+  rest_req_ = 0;
+  rest_ = 0;
+  dot_ = 0;
 }
 
 void
 Rest_engraver::start_translation_timestep ()
 {
-  rest_req_ =0;
+  rest_req_ = 0;
 }
 
 void
 Rest_engraver::stop_translation_timestep ()
 {
-  rest_ =0;
-  dot_ =0;
+  rest_ = 0;
+  dot_ = 0;
 }
 
 void

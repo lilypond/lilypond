@@ -171,7 +171,7 @@ Sequential_iterator::next_element (bool)
   else if (len.grace_part_ && !len.main_part_)
     {
       last_mom_ = here_mom_;
-      here_mom_.grace_part_ =0;
+      here_mom_.grace_part_ = 0;
     }
   else
     {

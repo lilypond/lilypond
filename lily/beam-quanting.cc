@@ -213,8 +213,8 @@ Beam::quanting (SCM smob)
 
   Array<Quant_score> qscores;
   
-  for (int l =0; l < quantsl.size (); l++)  
-    for (int r =0; r < quantsr.size (); r++)
+  for (int l = 0; l < quantsl.size (); l++)  
+    for (int r = 0; r < quantsr.size (); r++)
       {
 	Quant_score qs;
 	qs.yl = quantsl[l];
@@ -336,7 +336,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
   
-  for (int i=0; i < stems.size (); i++)
+  for (int i= 0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
       if (Stem::is_invisible (s))

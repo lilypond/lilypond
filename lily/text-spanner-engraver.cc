@@ -34,7 +34,7 @@ Text_spanner_engraver::Text_spanner_engraver ()
 {
   finished_ = 0;
   current_req_ = 0;
-  span_ =0;
+  span_ = 0;
   req_drul_[START] = 0;
   req_drul_[STOP] = 0;
 }

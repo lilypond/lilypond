@@ -285,7 +285,7 @@ struct Substitution_entry
   }
   Substitution_entry ()
   {
-    grob_ =0;
+    grob_ = 0;
     left_ = right_ = -2;
   }
   

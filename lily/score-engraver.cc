@@ -26,10 +26,10 @@
  */
 Score_engraver::Score_engraver ()
 {
-  system_ =0;
-  command_column_ =0;
-  musical_column_ =0;
-  breaks_ =0;
+  system_ = 0;
+  command_column_ = 0;
+  musical_column_ = 0;
+  breaks_ = 0;
   pscore_ = 0;
 }
 
@@ -170,7 +170,7 @@ Score_engraver::announce_grob (Grob_info info)
 void
 Score_engraver::typeset_all ()
 {
-  for (int i =0; i < elems_.size (); i++) 
+  for (int i = 0; i < elems_.size (); i++) 
     {
       Grob * elem = elems_[i];
 

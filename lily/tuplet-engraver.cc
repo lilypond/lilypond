@@ -92,7 +92,7 @@ Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.grob_))
     {
-      for (int j =0; j < tuplets_.size (); j++)
+      for (int j = 0; j < tuplets_.size (); j++)
 	if (tuplets_[j].spanner_) 
 	  Tuplet_bracket::add_column (tuplets_[j].spanner_,
 				      dynamic_cast<Item*> (i.grob_));

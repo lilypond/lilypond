@@ -61,7 +61,7 @@ Staff_symbol_engraver::finalize ()
     {
       span_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
     }
-  span_ =0;
+  span_ = 0;
 }
 
 void
@@ -101,7 +101,7 @@ Tab_staff_symbol_engraver::process_music ()
   if (init)
     {
       int k = scm_ilength (get_property ("stringTunings"));
-      if (k>=0)
+      if (k>= 0)
 	span_->set_property ("line-count", scm_int2num (k));
     }
 }

@@ -61,12 +61,12 @@ protected:
 
 Rhythmic_column_engraver::Rhythmic_column_engraver ()
 {
-  spacing_ =0 ;
+  spacing_ = 0 ;
   last_spacing_ = 0;
   
-  stem_ =0;
-  note_column_=0;
-  dotcol_ =0;
+  stem_ = 0;
+  note_column_= 0;
+  dotcol_ = 0;
 }
 
 
@@ -94,7 +94,7 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 
 	}
 
-      for (int i=0; i < rheads_.size (); i++)
+      for (int i= 0; i < rheads_.size (); i++)
 	{
 	  if (!rheads_[i]->get_parent (X_AXIS))
 	    Note_column::add_head (note_column_, rheads_[i]);
@@ -144,16 +144,16 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
-      note_column_ =0;
+      note_column_ = 0;
 
   if (spacing_)
     {
       last_spacing_ = spacing_;
-      spacing_ =0;
+      spacing_ = 0;
     }
   
-  dotcol_ =0;
-  stem_ =0;
+  dotcol_ = 0;
+  stem_ = 0;
 }
 
 

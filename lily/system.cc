@@ -113,7 +113,7 @@ System::get_lines ()
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
   int count = 0;
-  for (int i=0; i < broken_intos_.size (); i++)
+  for (int i= 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
       SCM all = se->get_property ("all-elements");

@@ -69,7 +69,7 @@ protected:
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
   beam_  = finished_beam_ = 0;
-  repeat_ =0;
+  repeat_ = 0;
   flags_ = 0;
   stem_tremolo_ = 0;
   sequential_body_b_ = false;

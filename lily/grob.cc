@@ -90,7 +90,7 @@ Grob::Grob (SCM basicprops,
     {
       SCM l = get_property (onames[a]);
 
-      if (scm_ilength (l) >=0)
+      if (scm_ilength (l) >= 0)
 	{
 	  dim_cache_[a].offset_callbacks_ = l;
 	  dim_cache_[a].offsets_left_ = scm_ilength (l);

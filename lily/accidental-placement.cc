@@ -142,7 +142,7 @@ struct Accidental_placement_entry
   int notename_;
   Accidental_placement_entry ()
   {
-    offset_ =0.0;
+    offset_ = 0.0;
     notename_ = -1;
   }
 };
@@ -188,7 +188,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 
   apes->clear ();
 
-  int i =0;
+  int i = 0;
   int parity = 1;
   while (i < asc.size ())
     {

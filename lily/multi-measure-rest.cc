@@ -319,7 +319,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
-  for (int i=0; i < 4; i++)
+  for (int i= 0; i < 4; i++)
     {
       Item *li = combinations[i][0];
       Item *ri = combinations[i][1];

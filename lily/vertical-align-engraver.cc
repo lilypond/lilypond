@@ -27,7 +27,7 @@ protected:
 
 Vertical_align_engraver::Vertical_align_engraver ()
 {
-  valign_ =0;
+  valign_ = 0;
 }
 
 void

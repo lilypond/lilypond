@@ -37,7 +37,7 @@ Performer_group_performer::announce_element (Audio_element_info info)
 void
 Performer_group_performer::acknowledge_audio_elements ()
 {
-  for (int j =0; j < announce_infos_.size (); j++)
+  for (int j = 0; j < announce_infos_.size (); j++)
     {
       Audio_element_info info = announce_infos_[j];
 
