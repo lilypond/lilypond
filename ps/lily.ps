@@ -1,11 +1,10 @@
 %!PS-Adobe-1.0: lily.ps 
-% 
-% 2 setlanguagelevel %  hmm. auto_resize_dicts doesn't help either.  
-% round cappings 
-1 setlinecap 
-% 
-% scm/lily.scm should allow blank lines, now
 %
+%
+
+% round cappings 
+1 setlinecap
+
 /draw_beam % width slope thick 
 { 
         2 div /beam_thick exch def 
@@ -18,14 +17,14 @@
         0 beam_thick lineto 
         closepath fill 
 } bind def 
-% 
+
 /draw_decrescendo %  width height cons thick 
 { 
 	setlinewidth 
 	/cresc_cont exch def 
 	/cresc_ht exch def 
 	/cresc_wd exch def 
-% 
+
 	cresc_wd cresc_cont moveto 
 	0 cresc_ht lineto 
 	stroke 
@@ -33,14 +32,14 @@
 	0 cresc_ht neg lineto 
 	stroke 
 } bind def 
-% 
+
 /draw_crescendo % width height cons thick 
 { 
 	setlinewidth 
 	/cresc_cont exch def 
 	/cresc_ht exch def 
 	/cresc_wd exch def 
-% 
+
 	0 cresc_cont moveto 
 	cresc_wd cresc_ht lineto 
 	stroke 
@@ -48,16 +47,14 @@
 	cresc_wd cresc_ht neg lineto 
 	stroke 
 } bind def 
-% 
+
 /lily_distance  
 { 
 	1 copy mul exch 1 copy mul add sqrt 
 } bind def 
-% 
+
 /draw_tuplet % height gap dx dy thick dir 
 { 
-% urg: the only Level-2 PS, check effect in print 
-%	true setstrokeadjust 
 	/dir exch def 
 	setlinewidth 
 	1 setlinecap 
@@ -67,8 +64,8 @@
 	/tuplet_gapx exch def 
 	/tuplet_h exch def 
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def 
-% 
-% 
+
+
 	0 0 moveto 
 	0 tuplet_h dir mul lineto  
 	tuplet_dx tuplet_gapx sub 2 div  
@@ -79,7 +76,7 @@
 	tuplet_dx tuplet_dy lineto 
 	stroke 
 } bind def 
-% 
+
 /draw_volta % h w thick vert_start vert_end 
 { 
 	/vert_end exch def 
@@ -87,8 +84,6 @@
 	setlinewidth 
 	/volta_w exch def 
  	/volta_h exch def 
-% urg: the only Level-2 PS, check effect in print 
-%	true setstrokeadjust 
 	1 setlinecap 
 	1 setlinejoin 
 	vert_start 0 eq { 
@@ -102,7 +97,7 @@
 	} if 
 	stroke 
 } bind def 
-% 
+
 % this is for drawing slurs. 
 /draw_bezier_sandwich  % thickness controls 
 { 
@@ -116,7 +111,7 @@
 	grestore 
 	stroke 
 } bind def 
-% 
+
 /draw_dashed_line % dash thickness dx dy
 { 
 	1 setlinecap 
@@ -127,22 +122,7 @@
 	lineto
 	stroke 
 } bind def 
-%
-/xdraw_dashed_line % dash thickness dx dy
-{ 
-	1 setlinecap 
-	1 setlinejoin 
-	setdash 
-	dup
-	setlinewidth 
-	2 div
-	dup
-	0 moveto
-	neg add
-	lineto
-	stroke 
-} bind def 
-%
+
 /draw_dashed_slur % dash thickness controls
 { 
 	1 setlinecap 
@@ -154,21 +134,21 @@
 	curveto 
 	stroke 
 } bind def 
-% 
-% 
-% 
+
+
+
 /bracket_traject 
 { 
-  /traject_ds exch def 
-  /traject_alpha exch def 
-  traject_ds traject_alpha sin mul add 
-  exch 
-  traject_ds traject_alpha cos mul add 
-  exch 
+	/traject_ds exch def 
+	/traject_alpha exch def 
+	traject_ds traject_alpha sin mul add 
+	exch 
+	traject_ds traject_alpha cos mul add 
+	exch 
 } bind def 
-% 
-% 
-% 
+
+
+
 /half_bracket
 { 
 %6 
@@ -177,7 +157,7 @@
 	bracket_thick arch_height add half_height arch_thick sub arch_width add 
 	arch_angle arch_height -0.15 mul bracket_traject 
 %5b 
-	1 half_height 
+	bracket_thick 0.5 mul half_height 
 	0 arch_height 0.5 mul bracket_traject 
 %5c 
 	0 half_height 
@@ -196,7 +176,7 @@
 %1 
 	0 0 
 } bind def 
-% 
+
 /draw_half_bracket { 
 	moveto 
 	lineto 
@@ -208,10 +188,11 @@
 	fill 
 	grestore 
 } bind def 
-% 
+
 /draw_bracket % arch_angle arch_width arch_height bracket_width bracket_height arch_thick bracket_thick
 { 
 	% urg
+
 	/bracket_thick exch def
 	/arch_thick exch def
 	/bracket_height exch def
@@ -219,10 +200,9 @@
 	/arch_height exch def
 	/arch_width exch def
 	/arch_angle exch def
-%
+
 	bracket_height 2 div bracket_thick add /half_height exch def 
-% urg: the only Level-2 PS, check effect in print 
-%	true setstrokeadjust 
+	bracket_thick 0.5 mul setlinewidth
 	1 setlinecap 
 	1 setlinejoin 
 	half_bracket 
@@ -231,9 +211,7 @@
 	draw_half_bracket 
 	stroke 
 	1 -1 scale 
-% ugh, ugh: 
-	0.05 0 translate 
 	draw_half_bracket 
 	stroke 
 } bind def 
-% 
+
