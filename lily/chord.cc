@@ -218,17 +218,10 @@ Chord::Chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musica
     }
 }
 
-String
-Chord::banter_str (Musical_pitch* inversion) const
+void
+Chord::find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p)
 {
   Musical_pitch tonic = pitch_arr_[0];
-
-  //urg, should do translation in scheme.
-  char const *acc[] = {"\\textflat\\textflat ", "\\textflat ", "", "\\textsharp " , "\\textsharp\\textsharp "};
-  String tonic_str = tonic.str ();
-  tonic_str = tonic_str.left_str (1).upper_str ()
-    + acc[tonic.accidental_i_ + 2];
-
   /*
     all the triads that should be there
    */
@@ -238,8 +231,6 @@ Chord::banter_str (Musical_pitch* inversion) const
   all_arr.concat (missing_triads_pitch_arr (&all_arr));
   all_arr.sort (Musical_pitch::compare);
   
-  Array<Musical_pitch> add_arr;
-  Array<Musical_pitch> sub_arr;
   int i = 0;
   int j = 0;
   while ((i < all_arr.size ()) || (j < pitch_arr_.size ()))
@@ -255,12 +246,12 @@ Chord::banter_str (Musical_pitch* inversion) const
 	}
       else if ((p < a) || (p.notename_i_ == a.notename_i_))
 	{
-	  add_arr.push (p);
+	  add_arr_p->push (p);
 	  j++;
 	}
       else
 	{
-	  sub_arr.push (a);
+	  sub_arr_p->push (a);
 	  i++;
 	}
     }
@@ -269,7 +260,23 @@ Chord::banter_str (Musical_pitch* inversion) const
     add highest addition, because it names chord
    */
   if (trap_i (tonic, pitch_arr_.top () > 5))
-    add_arr.push (pitch_arr_.top ());
+    add_arr_p->push (pitch_arr_.top ());
+}
+
+String
+Chord::banter_str (Musical_pitch* inversion) const
+{
+  Musical_pitch tonic = pitch_arr_[0];
+
+  //urg, should do translation in scheme.
+  char const *acc[] = {"\\textflat\\textflat ", "\\textflat ", "", "\\textsharp " , "\\textsharp\\textsharp "};
+  String tonic_str = tonic.str ();
+  tonic_str = tonic_str.left_str (1).upper_str ()
+    + acc[tonic.accidental_i_ + 2];
+
+  Array<Musical_pitch> add_arr;
+  Array<Musical_pitch> sub_arr;
+  find_additions_and_subtractions (&add_arr, &sub_arr);
 			   
   Array<Musical_pitch> scale;
   scale.push (Musical_pitch (0)); // c
@@ -278,8 +285,11 @@ Chord::banter_str (Musical_pitch* inversion) const
   scale.push (Musical_pitch (3)); // f
   scale.push (Musical_pitch (4)); // g
   scale.push (Musical_pitch (5)); // a
+  scale.push (Musical_pitch (6)); // b
   // 7 always means 7-...
-  scale.push (Musical_pitch (6, -1)); // b
+  //  scale.push (Musical_pitch (6, -1)); // b
+
+  rebuild_transpose (tonic, &scale);
   
   bool has3m_b = false;
   bool has4_b = false;
@@ -333,7 +343,7 @@ Chord::banter_str (Musical_pitch* inversion) const
     {
       inversion_str = inversion->str ();
       inversion_str = "/" + inversion_str.left_str (1).upper_str ()
-	+ acc[tonic.accidental_i_ + 2];
+	+ acc[inversion->accidental_i_ + 2];
 
     }
 

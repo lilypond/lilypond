@@ -114,13 +114,6 @@ global = \notes {
 		\translator {
 			\BarNumberingStaffContext
 		}
-		\translator{
-			\VoiceContext
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
-			beamAutoEnd8 = "1/4";
-			beamAutoEnd16 = "1/4";
-		}
 	}
 }
 

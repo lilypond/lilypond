@@ -1,3 +1,16 @@
+pl 27.jcn3
+	- bf's: zero-length repeats
+	- Auto beamer:
+	  * turned on by default
+	  * input/test/auto-beam*.ly
+	  * support for time-defaults
+	- Chords:
+	  * input/just-friends.ly
+	  * ChordNameContext
+	  * bf's: chord mode: accept STRINGS, rests
+	  * bf's: banter_str
+	- new bool \property Score.barAtLineStart
+
 pl 27.jcn2
 	- grand renaming: Duration vs Moment / Rational
 

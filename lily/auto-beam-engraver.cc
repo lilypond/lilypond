@@ -22,6 +22,7 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   beam_p_ = 0;
+  mult_i_ = 0;
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
@@ -37,22 +38,92 @@ void
 Auto_beam_engraver::consider_end_and_begin ()
 {
   Time_description const *time = get_staff_info().time_C_;
+  int num = time->whole_per_measure_ / time->one_beat_;
+  int den = time->one_beat_.den_i ();
+  String time_str = String ("time") + to_str (num) + "_" + to_str (den);
+  int type = 1 << (mult_i_ + 2);
+  String type_str = to_str (type);
 
-  Scalar begin = get_property ("beamAutoBegin", 0);
-  Moment begin_mom = begin.to_rat ();
+  /*
+    Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
+    In order of increasing priority:
+
+    i.   every beat <den>
+    ii.  time<num>_<den>beamAutoEnd
+    iii. time<num>_<den>beamAutoEnd<type>
+    iv.  beamAutoEnd
+    v.   beamAutoEnd<type>
+
+
+    Rationale:
+
+    [to be defined in config file]
+    i.   easy catch-all rule
+    ii.  exceptions for time signature
+    iii. exceptions for time signature, for specific duration type
+
+    [user override]
+    iv.  generic override
+    v.   override for specific duration type
+
+    The user overrides should be required for common cases.
+   */
   
-  Scalar end = get_property ("beamAutoEnd", 0);
-  Moment end_mom = end.to_rat ();
+  /*
+    first guess: begin beam at any position
+  */
+  Moment begin_mom (0);
+  /*
+    first guess: end beam at end of beat
+  */
+  Moment end_mom = time->one_beat_;
 
+  /*
+    second guess: property generic time exception
+  */
+  Scalar begin = get_property (time_str + "beamAutoBegin", 0);
+  if (begin.length_i ())
+    begin_mom = begin.to_rat ();
+
+  Scalar end = get_property (time_str + "beamAutoEnd", 0);
+  if (end.length_i ())
+    end_mom = end.to_rat ();
+
+  /*
+    third guess: property time exception, specific for duration type
+  */
   if (mult_i_)
     {
-      int type = 1 << (mult_i_ + 2);
-      Scalar end_mult = get_property (String ("beamAutoEnd")
-				      + to_str (type), 0);
+      Scalar end_mult = get_property (time_str + "beamAutoEnd" + type_str, 0);
       if (end_mult.length_i ())
 	end_mom = end_mult.to_rat ();
-      else if (Moment (type, 4) / end_mom > Moment (4))
-	end_mom /= Moment (type, 8);
+      Scalar begin_mult = get_property (time_str + "beamAutoBegin" + type_str, 0);
+      if (begin_mult.length_i ())
+	begin_mom = begin_mult.to_rat ();
+    }
+
+  /*
+    fourth guess [user override]: property plain generic
+  */
+  begin = get_property ("beamAutoBegin", 0);
+  if (begin.length_i ())
+    begin_mom = begin.to_rat ();
+  
+  end = get_property ("beamAutoEnd", 0);
+  if (end.length_i ())
+    end_mom = end.to_rat ();
+
+  /*
+    fifth guess [user override]: property plain, specific for duration type
+  */
+  if (mult_i_)
+    {
+      Scalar end_mult = get_property (String ("beamAutoEnd") + type_str, 0);
+      if (end_mult.length_i ())
+	end_mom = end_mult.to_rat ();
+      Scalar begin_mult = get_property (String ("beamAutoBegin") + type_str, 0);
+      if (begin_mult.length_i ())
+	begin_mom = begin_mult.to_rat ();
     }
 
   Real f;

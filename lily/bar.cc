@@ -18,6 +18,7 @@ Bar::Bar ()
 {
   breakable_b_ = true;
   type_str_ = "|";
+  at_line_start_b_ = false;
 }
 
 void
@@ -59,7 +60,13 @@ Bar::do_pre_processing ()
   for (int i=0; bar_breaks[i][0]; i++) 
     {
       if (bar_breaks[i][1] == type_str_)
-	type_str_ = bar_breaks[i][break_status_dir ()+1];
+	{
+	  type_str_ = bar_breaks[i][break_status_dir ()+1];
+	  if (at_line_start_b_ && (break_status_dir_ == 1) && (type_str_ == ""))
+	    {
+	      type_str_ = "|";
+	    }
+	}
     }
   
   /*

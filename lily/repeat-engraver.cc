@@ -36,29 +36,34 @@ Repeat_engraver::do_try_music (Music* m)
         return true;
  
       Music_sequence* alt = r->alternative_p_;
-      Moment stop_mom = now_mom () + r->repeat_p_->length_mom ();
-      for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok () && (i != alt->music_p_list_p_->bottom ()); i++)
+      Moment repeat_length_mom = r->repeat_p_->length_mom ();
+      Moment stop_mom = now_mom () + repeat_length_mom;
+      Moment alt_mom = now_mom () + repeat_length_mom;
+      if (repeat_length_mom)
 	{
-	  stop_mom += i->length_mom ();
-	  if (dynamic_cast<Simultaneous_music *> (alt))
-	    break;
+	  for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok () && (i != alt->music_p_list_p_->bottom ()); i++)
+	    {
+	      stop_mom += i->length_mom ();
+	      if (dynamic_cast<Simultaneous_music *> (alt))
+		break;
+	    }
+	  repeated_music_arr_.push (r);
+	  stop_mom_arr_.push (stop_mom);
+	  /*
+	    TODO: 
+	    figure out what we don't want.
+	    
+	    we don't want to print more than one set of
+	    |: :| and volta brackets on one staff.
+	    
+	    counting nested repeats, it seems safest to forbid
+	    two pieces of alternative music to start at the same time.
+	  */
 	}
-      Moment alt_mom = now_mom () + r->repeat_p_->length_mom ();
-      /*
-        TODO: 
-	  figure out what we don't want.
-
-	  we don't want to print more than one set of
-	  |: :| and volta brackets on one staff.
-
-	  counting nested repeats, it seems safest to forbid
-	  two pieces of alternative music to start at the same time.
-       */
       for (int i = 0; i < alternative_start_mom_arr_.size (); i++)
         if (alternative_start_mom_arr_[i] == alt_mom)
 	  return false;
-      repeated_music_arr_.push (r);
-      stop_mom_arr_.push (stop_mom);
+      // moved stop_mom_arr_.push (stop_mom);
       for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok (); i++)
         {
 	  alternative_music_arr_.push (i.ptr ());
@@ -106,7 +111,7 @@ Repeat_engraver::do_process_requests ()
     (daddy_grav_l ()->get_simple_translator ("Bar_engraver"));
   for (int i = bar_b_arr_.size (); i < repeated_music_arr_.size (); i++)
     {
-      if (bar_engraver_l && (now > Moment (0)))
+      if (bar_engraver_l)
 	bar_engraver_l->request_bar ("|:");
       bar_b_arr_.push (true);
     }
@@ -168,22 +173,5 @@ Repeat_engraver::do_pre_move_processing ()
 void 
 Repeat_engraver::do_post_move_processing ()
 {
-#if 0
-  Time_description const *time = get_staff_info().time_C_;
-  Moment now = now_mom ();
-  for (int i = volta_p_arr_.size (); i--; )
-    {
-      if ((now > alternative_stop_mom_arr_[i])
-	  && !time->whole_in_measure_)
-        {
-	  volta_p_arr_[i] = 0;
-	  volta_p_arr_.del (i);
-	  alternative_music_arr_[i] = 0;
-	  alternative_music_arr_.del (i);
-	  alternative_start_mom_arr_.del (i);
-	  alternative_stop_mom_arr_.del (i);
-	}
-    }
-#endif
 }
 

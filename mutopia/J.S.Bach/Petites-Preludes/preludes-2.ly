@@ -114,13 +114,6 @@ global = \notes{
 	\paper{
 		\include "preludes-paper.ly";
 		gourlay_maxmeasures = 4.0;
-		\translator{
-			\VoiceContext
-			\consists Auto_beam_engraver;
-			beamAuto = "1";
-			beamAutoEnd8 = "1/2";
-			beamAutoEnd16 = "1/4";
-		}
 	}
 	\midi{ \tempo 4 = 100; }
 	\header {

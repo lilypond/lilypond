@@ -56,6 +56,7 @@ barAlways		1	generate bar at every moment
 [Staff]
 barAuto			0	none
 barAuto			1	auto-generate bar every measure
+barAtLineStart		0/1     generate bar at beginning of line
 
 [Staff]
 beamAuto                0/1     auto-beam on/off
