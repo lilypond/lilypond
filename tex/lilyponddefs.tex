@@ -73,6 +73,10 @@
         nolilyfooter\texsuffix\endcsname
 \fi
 
+% If we must make titles, do so
+\ifx\mustmakelilypondtitle\undefined\else\makelilypondtitle\fi
+\ifx\mustmakelilypondpiecetitle\undefined\else\makelilypondpiecetitle\fi
+
 % fix chord.cc::banter_str before removing these
 \input fetdefs
 

@@ -63,13 +63,13 @@ timpani = \notes \relative c' {
   c1 c
 }
 
-violinoB = \notes \relative c' {
+violinoI = \notes \relative c' {
   \property Staff.instrument	= #"Violino I  "
   \property Staff.instr		= #"Vl. I  "
   c1 c
 }
 
-violinoC = \notes \relative c' {
+violinoII = \notes \relative c' {
   \property Staff.instrument	= #"Violino II  "
   \property Staff.instr		= #"Vl. II  "
   c1 c
@@ -112,8 +112,8 @@ violoncello = \notes \relative c' {
     >
     \context StaffGroup ="archi" <
       \context GrandStaff ="violini" <
-        \context Staff ="violino1" \violino1
-        \context Staff ="violino2" \violino2
+        \context Staff ="violinoI" \violinoI
+        \context Staff ="violinoII" \violinoII
       >
       \context Staff ="viola" \viola
       \context Staff ="violoncello" \violoncello

@@ -69,7 +69,7 @@ option_definitions = [
 
 
 def identify():
-	sys.stdout.write ('lilypond-book (GNU LilyPond) %s\n' % program_version)
+	sys.stdout.write ('ly2dvi (GNU LilyPond) %s\n' % program_version)
 
 def print_version ():
 	identify()
@@ -81,7 +81,7 @@ NO WARRANTY.""")
 
 def progress (s):
 	"""Make the progress messages stand out between lilypond stuff"""
-	sys.stderr.write (' *** ' + s+ '\n')
+	sys.stderr.write ('*** ' + s+ '\n')
 	
 def error (s):
 	sys.stderr.write (s)
@@ -311,9 +311,9 @@ def one_latex_definition (defn, first):
 		s = r"""\def\the%s{%s}""" % (k,open (v).read ())
 
 	if first:
-		s = s + '\\makelilytitle\n'
+		s = s + '\\def\\mustmakelilypondtitle{}\n'
 	else:
-		s = s + '\\makelilypiecetitle\n'
+		s = s + '\\def\\mustmakelilypondpiecetitle{}\n'
 		
 	s = s + '\\input %s' % defn[0]
 	return s
@@ -505,14 +505,16 @@ if files:
 	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
 	system ('cp *.midi %s' % outdir, ignore_error = 1)
 
-	progress ("%s file left in `%s'\n" % (type, dest))
-
 	depfile = os.path.join (outdir, base + '.dep')
 
 	if track_dependencies_p:
 		generate_dependency_file (depfile, dest)
-	progress ("Dependency file left in `%s'\n" % depfile)
 
 	cleanup_temp ()
+
+	# most insteresting info last
+	progress ("Dependency file left in `%s'" % depfile)
+	progress ("%s file left in `%s'" % (type, dest))
+
 
 
