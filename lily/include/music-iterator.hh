@@ -22,11 +22,11 @@ protected:
 public:
     Music_iterator *daddy_iter_l_;
     NAME_MEMBERS();
-    Acceptor *report_to_l_;
+    Translator *report_to_l_;
     
-    static Music_iterator* static_get_iterator_p(Music*,Acceptor*);
+    static Music_iterator* static_get_iterator_p(Music*,Translator*);
     Music_iterator* get_iterator_p(Music*)const;
-    void set_acceptor(Acceptor*);
+    void set_translator(Translator*);
     Music_iterator();
     virtual void next(Moment until);
     virtual Moment next_moment()const;
@@ -34,7 +34,7 @@ public:
     virtual ~Music_iterator();
     virtual void construct_children();
     void print()const;
-    virtual Acceptor * get_req_acceptor_l();
+    virtual Translator * get_req_translator_l();
 };
 
 // duh.

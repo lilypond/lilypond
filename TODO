@@ -71,7 +71,7 @@ PROJECTS
 	- separate visual from rhythmic info even more
 	- beams over bars
 
-	* Redo MIDI output to use Registers: (Difficult)
+	* Redo MIDI output to use Translators
 	- remember more horizontal info than melodics:
 	- tempo change
 	- repeat
@@ -88,7 +88,7 @@ PROJECTS
 	read AFM/TFM directly, for text too)
 
 	* lines:
-	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines_reg
+	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
 	- set different line sizes / thicknesses
 	- stem down too far right
 	- beam stem showthrough, inter beam sizes (french vs german style)
@@ -323,7 +323,8 @@ IDEAS
 	* use an embedded language: Python
 	for: 
 		- Score_elems
-		- Registers
+		- Engraver
+		- Translators
 		- Complex mudela?
 
 	* y -dims in internote?
@@ -361,3 +362,5 @@ IDEAS
 
 	* move towards incremental algorithms.
 
+
+	* design meta-language like TeX and Metafont

@@ -12,7 +12,7 @@
 
 #include "lily-proto.hh"
 
-/// struct to pass staff info along a Request_register hierarchy.
+/// struct to pass staff info along a Request_engraver hierarchy.
 struct Staff_info {
     int *c0_position_i_l_;
     Staff_symbol*staff_sym_l_;

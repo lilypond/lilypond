@@ -17,11 +17,11 @@
 #include "midi-output.hh"
 #include "midi-def.hh"
 #include "p-col.hh"
-#include "score-reg.hh"
+#include "score-grav.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "music-list.hh"
-#include "input-register.hh"
+#include "input-engraver.hh"
 
 extern String default_out_fn;
 
@@ -34,7 +34,7 @@ Score::Score(Score const &s)
 }
 
 void
-Score::run_acceptor(Global_acceptor * acc_l)
+Score::run_translator(Global_translator * acc_l)
 {
     acc_l->set_score (this);
     Music_iterator * iter = Music_iterator::static_get_iterator_p(music_p_, 
@@ -72,10 +72,10 @@ Score::paper()
     *mlog << "\nCreating elements ..." << flush;
     pscore_p_ = new PScore(paper_p_);
     
-    Score_register * score_reg =  
-	(Score_register*)lookup_reg("Score_register")->get_group_register_p();
-    run_acceptor( score_reg );
-    delete score_reg;
+    Score_engraver * score_grav=  
+	(Score_engraver*)lookup_grav("Score_engraver")->get_group_engraver_p();
+    run_translator( score_grav );
+    delete score_grav;
     
     if( errorlevel_i_){
 	// should we? hampers debugging. 
@@ -136,14 +136,6 @@ Score::do_cols()
     for (; i.ok(); i++) {
 	pscore_p_->add(i->pcol_l_);
     }
-}
-
-Moment
-Score::last() const
-{    
-    Moment l = 0;
-    // TODO
-    return l;
 }
 
 void
@@ -209,18 +201,18 @@ Score::~Score()
 void
 Score::paper_output()
 {
-    if (paper_p_->outfile=="")
-	paper_p_->outfile = default_out_fn + ".out";
+    if (paper_p_->outfile_str_=="")
+	paper_p_->outfile_str_ = default_out_fn + ".out";
 
     if ( errorlevel_i_ ) { 
-	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile 
+	*mlog << "lilypond: warning: no output to: " << paper_p_->outfile_str_ 
 	<< " (errorlevel=" << errorlevel_i_ << ")" << endl;
         return;
     }
 
-    *mlog << "TeX output to " << paper_p_->outfile << " ...\n";
+    *mlog << "TeX output to " << paper_p_->outfile_str_ << " ...\n";
     
-    Tex_stream the_output(paper_p_->outfile);
+    Tex_stream the_output(paper_p_->outfile_str_);
     
     the_output << "% outputting Score, defined at: " <<
 	location_str() << "\n";

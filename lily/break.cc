@@ -74,7 +74,7 @@ Break_algorithm::solve_line(Line_of_cols curline) const
 Break_algorithm::Break_algorithm(PScore&s)
     :pscore_(s)
 {
-    linelength = s.paper_l_->linewidth;
+    linelength = s.paper_l_->linewidth_f();
 }
 
 bool

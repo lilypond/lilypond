@@ -31,9 +31,10 @@ struct Identifier : public Input {
     NAME_MEMBERS();
     void error(String);
     IDACCESSOR(Music, music)
-    IDACCESSOR(Input_register, iregs)	
+    IDACCESSOR(Input_engraver, igravs)	
     IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
+    IDACCESSOR(Paper_def, paperdef)
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
     IDACCESSOR(Request, request)
@@ -65,6 +66,6 @@ declare_id_class(Music_id, Music, music);
 declare_id_class(Int_id, int, intid);
 declare_id_class(Score_id, Score, score);
 declare_id_class(Request_id, Request, request);
-declare_id_class(Input_regs_id, Input_register, iregs);
-
+declare_id_class(Input_gravs_id, Input_engraver, igravs);
+declare_id_class(Paper_def_id,Paper_def, paperdef);
 #endif // IDENTIFIER_

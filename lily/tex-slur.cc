@@ -1,9 +1,20 @@
+/*
+  tex-slur.cc -- implement Lookup::*slur
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <math.h>
 #include "misc.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "dimen.hh"
 #include "debug.hh"
+#include "paper-def.hh"
+
+
 
 static
 char direction_char(int y_sign)
@@ -182,7 +193,8 @@ Lookup::big_slur(int dy , Real &dx, int dir) const
     Real slur_extra =abs(dy)  /2.0 + 2; 
     int l_dy = int(Real (dy)/2 + slur_extra*dir);
     int r_dy =  dy - l_dy;
-    
+
+    Real internote_f = paper_l_->internote_f();
     Real left_wid = dx/4.0;
     Real right_wid = left_wid;
 
@@ -195,10 +207,10 @@ Lookup::big_slur(int dy , Real &dx, int dir) const
     Molecule mol;
     mol.add(l);
     Atom a(m);
-    a.translate_y(slur_extra * internote_f());
+    a.translate_y(slur_extra * internote_f);
     mol.add_right(m);
     mol.add_right(r);
-    mol.translate_y( l_dy * internote_f());
+    mol.translate_y( l_dy * internote_f);
     Symbol s;
     s.tex = mol.TeX_string();
     s.dim = mol.extent();

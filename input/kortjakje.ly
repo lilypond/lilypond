@@ -10,7 +10,7 @@
  Tested Features: example file with comments
 EndMudelaHeader
 %}
-\version "0.0.60";
+\version "0.0.61";
 
 
 % the % is a comment.
@@ -63,8 +63,5 @@ begeleiding = \melodic{
 	 \melodie
 	 \begeleiding 
 	>
-	\paper{
-		\unitspace 2.5\cm;	% a whole note takes 2.5 \cm ideally.
-	}
 }
 

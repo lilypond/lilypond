@@ -11,7 +11,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "clef-reg.hh"
+#include "clef-grav.hh"
 
 
 void
@@ -46,7 +46,7 @@ Clef_item::read(String t)
 	y_off = 6;
 }
 void
-Clef_item::read(Clef_register const &k)
+Clef_item::read(Clef_engraver const &k)
 {
     read(k.clef_type_str_);
 }

@@ -14,7 +14,7 @@
  Tested Features: lyrics
 EndMudelaHeader
 %}
-\version "0.0.60";
+\version "0.0.61";
 
 melody = \melodic{
 	\clef\violin;
@@ -124,7 +124,7 @@ textiii = \lyric{
 		\melodic < \global \accompany >
 	>
 	\paper{
-		\unitspace 2.5\cm;
+		unitspace= 2.5\cm;
 	}
 	\midi{ 
 		\tempo 4:120 ;

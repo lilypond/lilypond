@@ -1,7 +1,7 @@
 %{
  title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
  description: following Henle's Urtext
- composer(s): JS Bach
+ composer(s): J.S. Bach
  entered-by: HWN and Werner Lemberg
  copyright: Public Domain 
 
@@ -9,7 +9,7 @@
 
 %}
 
-\version "0.0.60";
+\version "0.0.61";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names

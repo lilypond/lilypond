@@ -13,7 +13,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.60";
+\version "0.0.61";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -29,7 +29,7 @@ commands = \melodic{
 
 melodie = \melodic{ 
 	\meter 3/4;
-	\clef\violin;
+	\clef "violin";
 	\key bes;
 	\octave c';
 	\duration 8;
@@ -184,7 +184,7 @@ melodie = \melodic{
 
 begeleiding = \melodic{ 
 	\meter 3/4;
-	\clef\bass;
+	\clef"bass";
 	\key bes;
 	\octave c';
 	\duration 2;
@@ -466,19 +466,19 @@ tekstII = \lyric{
 
 \score{
 	<	\multi 3; 
-		{ \id "Lyric" "1"; tekstI } % ugh
-		{ \id "Lyric" "2"; tekstII }
+		{ \id "Lyric" "1"; \tekstI } % ugh
+		{ \id "Lyric" "2"; \tekstII }
 
 		\melodic < \melodie \commands >
 		\melodic <\begeleiding \commands >
 	
 	>
 	\paper{
-		\width 195.\mm;
+		width= 195.\mm;
 
 		% on two pages...
-		\unitspace 9.\mm;
-		\geometric 1.2;
+		unitspace= 9.\mm;
+		geometric= 1.2;
 		\output "standchen.out";
 	}
 	\midi{

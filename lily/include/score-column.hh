@@ -27,7 +27,7 @@
 
 class Score_column {
     friend class Score;
-    friend class Score_register;
+    friend class Score_engraver;
 
     bool musical_b_;
     Moment when_;

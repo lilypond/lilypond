@@ -4,6 +4,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  this is musixgen.mf (c)
 %
+%  Version T.70 [March 97]
+%               - double shap corrected by Julian Gilbey (strange paths)
+%
 %  Version T.59 [September 96]
 %               - added one more gregorian symbol (126)
 %
@@ -431,12 +434,12 @@ def doublesharp (expr mw, xshift)=
   penpos2(max(1,thin),45);
 %%% a 'nicer' look for 'high'res-printers gives
 if pixels_per_inch > 500:
-  fill z1..{dir-125}z3'{dir35}..{se}z2l--z2r--z1--cycle;
-  fill z1..{dir35}z4'{dir-125}..{se}z2r--z2l--z1--cycle;   % ***
+  fill z1..{dir-125}z3'{dir35}..{se}z2l--z2r--(z1+(eps,0))--cycle;
+  fill z1..{dir35}z4'{dir-125}..{se}z2r--z2l--(z1-(eps,0))--cycle;   % ***
 else :
 %%% but this causes 'strange path' on lower resolutions
-  fill z1..{dir-110}z3'{dir30}..{se}z2l--z2r--z1--cycle;
-  fill z1..{dir20}z4'{dir-120}..{se}z2r--z2l--z1--cycle;   % ***
+  fill z1..{dir-110}z3'{dir30}..{se}z2l--z2r--(z1+(eps,0))--cycle;
+  fill z1..{dir20}z4'{dir-120}..{se}z2r--z2l--(z1-(eps,0))--cycle;   % ***
 fi
 %{{{
   currentpen:= pencircle; draw z1--(x2+1,y2-1);% draw (x3'+1,y3'+1)--z5';

@@ -11,12 +11,13 @@ fi
 
 function setversion() {
 eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' .version`
+
 MJ=$TOPLEVEL_MAJOR_VERSION
 MI=$TOPLEVEL_MINOR_VERSION
 PA=$TOPLEVEL_PATCH_LEVEL 
 MP=$TOPLEVEL_MY_PATCH_LEVEL
 NEWVER=$MJ.$MI.$PA$MP
-if [ -z $MP -o x$MP = xpre ]
+if [ x$MP = x -o x$MP = xpre ]
 then
     LASTVER=$MJ.$MI.`expr $PA - 1`
 
@@ -35,7 +36,11 @@ echo
 heredir=`pwd`
 releasedir=`pwd`/../releases
 patchdir=`pwd`/../patches
-make dist; 
+MAKE=${MAKE:-"make"}
+TAR=${TAR:-"tar"}
+
+
+$MAKE dist; 
 setversion
 LILYVER=$NEWVER
 
@@ -63,6 +68,6 @@ ln $patchdir//$patch .
 if [ ! -z "$RPMS" ]; then
     RPMS="lilypond-$LILYVER-1.i386.rpm lilypond-$LILYVER-1.src.rpm"
 fi    
-tar cf updeet $tarball $patch $RPMS
-tar tfv updeet
+$TAR cf updeet $tarball $patch $RPMS
+$TAR tfv updeet
 

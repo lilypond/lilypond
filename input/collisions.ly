@@ -10,7 +10,7 @@
  Tested Features:test the Collision resolution 
 EndMudelaHeader
 %}
-\version "0.0.60";
+\version "0.0.61";
 
 
 
@@ -52,7 +52,7 @@ rests = \melodic
 	} 
 	{ \stem -1;
 		[c8 d e f] [g a b c']
-		r r r r r r r r r 
+		r r r r r r r r 
 	}
 	>
 
@@ -66,7 +66,7 @@ restsII = \melodic {
 				{ \stem 1;  r r r r r r r r  r  r  r  r }
 				{ \stem -1; c d e f g a b c' d' e' f' g' }
 			>
-			r8
+			r8 r4
 			< \multi2;  r8 r8 >
 			< \multi2;  r8 r8 r8 >
 			< \multi2;  r8 r8 r8 r8 >

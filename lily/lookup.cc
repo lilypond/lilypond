@@ -18,16 +18,18 @@
 #include "dimen.hh"
 #include "tex.hh"
 #include "scalar.hh"
-
+#include "paper-def.hh"
 
 Lookup::Lookup()
 {
+    paper_l_ = 0;
     texsetting = "\\unknowntexsetting";
     symtables_ = new Symtables;
 }
 
 Lookup::Lookup(Lookup const &s)
 {
+    paper_l_ = s.paper_l_;
     texsetting = s.texsetting;
     symtables_ = new Symtables(*s.symtables_);
 }
@@ -66,28 +68,6 @@ Lookup::text(String style, String text, int dir) const
 }
 
 
-Real
-Lookup::internote_f() const
-{
-    return ball(4).dim.y.length()/2;
-}
-
-Real
-Lookup::interbeam_f() const
-{
-    /* 
-      [todo]
-         * runtime
-
-      "french" style: interbeam = intenote;
-      "german" style: interbeam = 2/3 * interline
-
-      as lily's style is currently german, we'll hardcode german style
-     */
-     // it seems that "interline" means _between_ lines
-//   return  ball(4).dim.y.length() * 2 / 3; 
-     return  ball(4).dim.y.length() * 2 / 3 + 0.4;  //ugh
-}
 
 Symbol
 Lookup::ball(int j) const
@@ -203,9 +183,10 @@ Lookup::hairpin(Real &wid, bool decresc) const
 Symbol
 Lookup::linestaff(int lines, Real wid) const
 {
+    Real internote_f = paper_l_ ->internote_f();
     Symbol s;
     s.dim.x = Interval(0,wid);
-    Real dy = (lines >0) ? (lines-1)*internote_f()*2 : 0;
+    Real dy = (lines >0) ? (lines-1)*internote_f : 0;
     s.dim.y = Interval(0,dy);
 
     Array<String> a;

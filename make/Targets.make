@@ -140,7 +140,8 @@ dist:
 	$(MAKE) localdist
 	chmod -Rf a+rX $(distdir)
 
-	(cd ./$(depth); tar cfz $(DIST_NAME).tar.gz $(DIST_NAME))
+	(cd ./$(depth); $(TAR) cf $(DIST_NAME).tar $(DIST_NAME);)
+	(cd $(depth); gzip -9 $(DIST_NAME).tar)
 # should be trapped
 	rm -rf $(distdir)/
 
@@ -155,7 +156,7 @@ endif
 moduledist:
 	-mkdir $(module-distdir)
 	$(MAKE) localmoduledist
-	(cd ./$(depth); tar cfz $(MODULE_DIST_NAME).tar.gz $(MODULE_DIST_NAME))
+	(cd ./$(depth); $(TAR) cfz $(MODULE_DIST_NAME).tar.gz $(MODULE_DIST_NAME))
 	rm -rf $(module-distdir)/ 
 
 localmoduledist:

@@ -7,17 +7,17 @@
 */
 
 #include <assert.h>
-
+#include "paper-def.hh"
 #include "score.hh"
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-#include "input-register.hh"
+#include "input-engraver.hh"
 #include "symtable.hh"
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
-#include "input-register.hh"
+#include "input-engraver.hh"
 
 IMPLEMENT_STATIC_NAME(Identifier);
 IMPLEMENT_IS_TYPE_B(Identifier);
@@ -65,8 +65,8 @@ DEFAULT_PRINT(Symtables_id, Symtables, symtables);
 DEFAULT_PRINT(Music_id,Music , music);
 DEFAULT_PRINT(Request_id, Request, request);
 DEFAULT_PRINT(Score_id, Score, score);
-DEFAULT_PRINT(Input_regs_id, Input_register, iregs);
-
+DEFAULT_PRINT(Input_gravs_id, Input_engraver, igravs);
+DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 void
 Real_id::do_print() const
 {
@@ -110,7 +110,8 @@ implement_id_class(Symtables_id, Symtables, symtables);
 implement_id_class(Music_id, Music, music);
 implement_id_class(Score_id, Score, score);
 implement_id_class(Request_id, Request, request);
-implement_id_class(Input_regs_id, Input_register, iregs);
+implement_id_class(Input_gravs_id, Input_engraver, igravs);
+implement_id_class(Paper_def_id, Paper_def, paperdef);
 
 Identifier::Identifier(Identifier const&)
 {
@@ -125,4 +126,5 @@ default_accessor(Symtables_id, Symtables, symtables);
 virtual_accessor(Music_id, Music, music);
 default_accessor(Score_id, Score, score);
 virtual_accessor(Request_id, Request, request);
-default_accessor(Input_regs_id, Input_register, iregs);
+default_accessor(Input_gravs_id, Input_engraver, igravs);
+default_accessor(Paper_def_id, Paper_def, paperdef);

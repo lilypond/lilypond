@@ -4,8 +4,8 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-//#include "clef-reg.hh"
-#include "key-reg.hh"
+//#include "clef-grav.hh"
+#include "key-grav.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
@@ -17,13 +17,13 @@ Key_item::Key_item(int c)
 }
 
 void
-Key_item::read(Key_register const & key_reg_r)
+Key_item::read(Key_engraver const & key_grav_r)
 {
-    assert(!key_reg_r.key_.multi_octave_b_);
-    const Array<int> &idx_arr =key_reg_r.accidental_idx_arr_; 
+    assert(!key_grav_r.key_.multi_octave_b_);
+    const Array<int> &idx_arr =key_grav_r.accidental_idx_arr_; 
     for (int i = 0 ; i< idx_arr.size(); i++) {
 	int note = idx_arr[i];
-	int acc = ((Key &) key_reg_r.key_).oct(0).acc(note);
+	int acc = ((Key &) key_grav_r.key_).oct(0).acc(note);
 
 	add(note, acc);
     }

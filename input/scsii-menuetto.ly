@@ -13,7 +13,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.60";
+\version "0.0.61";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
@@ -103,9 +103,9 @@ IImenuetto = \melodic{
 \score{
 	\melodic { \IImenuetto }
 	\paper{
-		\width 195.0\mm;
-		\unitspace 9.0\mm  ;% to get lily to use only three lines
-		\geometric 1.40;
+		width= 195.0\mm;
+		unitspace= 9.0\mm  ;% to get lily to use only three lines
+		geometric= 1.40;
 		\output "scsii-menuetto.out";
 	}
 	\midi{ 

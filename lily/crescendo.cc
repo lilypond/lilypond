@@ -18,6 +18,7 @@ Crescendo::Crescendo()
     grow_dir_i_ =0;
     dir_i_ = -1 ;
     left_dyn_b_ = right_dyn_b_ =false;
+    inside_staff_b_ = false;
 }
 
 Molecule*

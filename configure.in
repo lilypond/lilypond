@@ -158,6 +158,7 @@ CXXFLAGS=${CXXFLAGS:-""}	# we don't want -g -O junk
 AC_PROG_CXX
 AC_PROG_RANLIB
 AC_PROG_INSTALL
+AC_CHECK_PROGS(TAR, tar, error)
 AC_CHECK_PROGS(FIND, find, error)
 
 dnl should check out -print

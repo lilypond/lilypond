@@ -1,5 +1,5 @@
 /*
-  acceptor.hh -- declare Acceptor
+  acceptor.hh -- declare Translator
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,7 +15,7 @@
 #include "interpreter.hh"
 #include "virtual-methods.hh"
 
-class Acceptor {
+class Translator {
 public:
     String id_str_;
     
@@ -23,17 +23,17 @@ public:
     
     virtual Interpreter * interpreter_l() { return 0; }
 
-    /// Score_register = 0, Staff_registers = 1, etc)
+    /// Score_engraver = 0, Staff_engravers = 1, etc)
     virtual int depth_i()const=0;
-    virtual Acceptor *find_get_acceptor_l(String name, String id)=0;
-    virtual Acceptor *ancestor_l(int l=1)=0;
-    virtual ~Acceptor(){}
+    virtual Translator *find_get_translator_l(String name, String id)=0;
+    virtual Translator *ancestor_l(int l=1)=0;
+    virtual ~Translator(){}
     NAME_MEMBERS();
-    Acceptor();
-    virtual Acceptor *get_default_interpreter()=0;
+    Translator();
+    virtual Translator *get_default_interpreter()=0;
 };
 
-class Interpreter : public virtual Acceptor {
+class Interpreter : public virtual Translator {
 public:
     virtual bool interpret_request_b(Request*) { return false;}
 };

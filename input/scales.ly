@@ -2,7 +2,7 @@
 % scales with accents.
 %
 
-\version "0.0.60";
+\version "0.0.61";
 blah = 	\melodic {
 		\meter 6/8;	
 		\octave  'c ;
@@ -14,21 +14,31 @@ blah = 	\melodic {
 		\octave  c' ;
 		\transpose  d { e f } 
 		\octave  c'' ;
-		c d 
-		\duration  8 ;
+		c4. d 
 	%ugr
-		 |[6/9 a \< a a a a a a  \! a a \ff \> ]1/1 
+		 |[6/9 a8 \< a a a a a a  \! a a \ff \> ]1/1 |
 		\octave  c' ;
-		 |[6/9 a  a a a a a a a \! a ]1/1 
+		 |[6/9 a  a a a a a a a \! a ]1/1 |
 		\octave  c'' ; 
+	
+		 [6/9'c->-.-\fermata \< 'g->-.-\fermata 
+			d->-.-\fermata a->-.-\fermata
+			e'->-.-\fermata b'-. f''-. c'''->-.-\fermata 
+			\! g'''->-.-\fermata \> ]1/1
 
-		 ['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
-		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
-		 [6/9 g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]1/1
+		[6/9 g'''->-.-\fermata c'''->-.-\fermata
+			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
+			a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 
+			'c->-.-\fermata ]1/1
 		 \octave c;
-		['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
-		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
-		 [6/9 g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]1/1
+		[6/9'c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata 
+		a->-.-\fermata
+			e'->-.-\fermata b'-. f''-. 
+			c'''->-.-\fermata \! g'''->-.-\fermata \> ]1/1
+		 [6/9 g'''->-.-\fermata c'''->-.-\fermata
+			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
+			a->-.-\fermata d->-.-\fermata 
+			'g->-.-\fermata \! 'c->-.-\fermata ]1/1
 		\octave  c' ;
 		\octave  c' ;   
 		 [2/3 c g d' ]1/1 
@@ -42,7 +52,7 @@ blah = 	\melodic {
 		 [2/3 g' c' f ]1/1 
 		 [2/3 g' c' f ]1/1 
   \meter 4/4;
-	
+
 c1
 	\duration  8;
 		r8-"text" r8^. r8_. r8 r8 r8 r8 r8
@@ -66,7 +76,7 @@ c1
 \score{
 	\melodic {\blah}
 	\paper{
-		\unitspace 1.5 \cm;
-		\geometric 1.4;
+		unitspace= 1.5 \cm;
+		geometric= 1.4;
 	}
 }

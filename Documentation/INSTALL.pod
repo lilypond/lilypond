@@ -209,7 +209,7 @@ TeX
 =item *
 
 The MusixTeX fonts. (I use those found in MusixTeX T.59). Beware, the
-clef symbol has changed position in recent versions of MusixTeX)
+clef symbol has changed position in the Egler version, aka. OpusTeX)
 
 =back
 
@@ -222,11 +222,13 @@ quality. If you're not discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	hw:~/musix/spacer$ GNU LilyPond 0.0.60 #8/FlowerLib 1.1.14 #2
-	Parsing ... [./input/kortjakje.ly[lots of stuff]]
-	Setting up requests...Processing requests ...[8][16][24][25]
+	hw:~/musix/spacer$ lilypond input/kortjakje.ly
+	GNU LilyPond 0.0.71 #20/FlowerLib 1.1.20 #0
+	Parsing ... [/home/hw/share/lilypond/init//symbol.ini  <..snip..>
+	..	.ini]][input/kortjakje.ly]
+	Creating elements ...
 	Preprocessing elements... 
-	Calculating column positions ... [3][7][12][16][20][25]
+	Calculating column positions ... [3][8][13][17][21][25]
 	Postprocessing elements...
 	TeX output to lelie.tex ...
 
