@@ -524,7 +524,7 @@ Note:  There is no limit to the number of fret indications per string.
 
 Example
 @example
- \\markup \\fret-diagram #\"x;x;o;2;3;2;\" 
+ \\markup \\fret-diagram-terse #\"x;x;o;2;3;2;\" 
 @end example
 for a D chord diagram.
 
