@@ -146,5 +146,6 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 void
 Paper_outputter::close ()
 {
-  scm_close_port (file_);
+  if (scm_port_p (file_) == SCM_BOOL_T)
+    scm_close_port (file_);
 }

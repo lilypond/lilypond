@@ -19,9 +19,9 @@ struct Object_key_undumper
 {
   DECLARE_SMOBS(Object_key_undumper,);
   Int_to_key_map keys_;
-  void parse_contents (SCM);
 public:
-  Object_key_undumper (SCM s);
+  void parse_contents (SCM);
+  Object_key_undumper ();
   Object_key const *get_key (int k);
 };
 DECLARE_UNSMOB(Object_key_undumper, key_undumper);

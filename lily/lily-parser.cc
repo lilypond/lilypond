@@ -105,19 +105,10 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   lexer_->new_input (init, sources_);
 
-#ifdef TWEAK
   File_name f (name);
   String s = global_path.find (f.base_ + ".twy");
-  if (1 || s == "")
-    Grob_selector::set_tweaks (SCM_EOL);
-  else
-    {
-      s = gulp_file_to_string (s, false);
-      SCM tweaks = scm_eval_string (scm_makfrom0str (s.to_str0 ()));
-      Grob_selector::set_tweaks (tweaks);
-    }
-  Context_selector::set_tweaks (SCM_EOL);
-#endif  
+  s = gulp_file_to_string (s, false);
+  scm_eval_string (scm_makfrom0str (s.to_str0 ()));
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */

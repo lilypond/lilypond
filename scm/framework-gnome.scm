@@ -329,7 +329,15 @@
     
     (if (not (null? tweaks))
 	(let ((file (open-file (string-append (name go) ".twy") "w")))
-	  (format file ";;; KEYS\n`~S\n;;; TWEAKS \n`~S\n"
+	  (format file
+		  ";;;tweaks. Generated file. Do not edit. 
+;;; KEYS
+(ly:clear-keys)
+(ly:define-keys `~S)
+;;; TWEAKS \n
+(ly:clear-tweaks)
+(ly:define-tweaks `~S)"
+
 		  (ly:dumper-definitions dumper)
 		  tweaks)))))
 
