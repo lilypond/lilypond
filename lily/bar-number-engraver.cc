@@ -18,7 +18,7 @@ Bar_number_engraver::Bar_number_engraver()
   axis_ = Y_AXIS;
   type_ = "barNumber";
   visibility_lambda_
-    = ly_ch_C_eval_scm ("postbreak-only-visibility");
+    = ly_eval_str ("postbreak-only-visibility");
 }
 
 void

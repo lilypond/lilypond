@@ -113,7 +113,8 @@ Key_item::do_brew_molecule_p() const
 	      || (old_pitch_arr_[i] == pitch_arr_[j]
 		  && old_acc_arr_[i] != acc_arr_[j]))
             {
-              Molecule m =lookup_l ()->accidental (0,false);
+              Molecule m =lookup_l ()->afm_find ("accidentals-0");
+
               m.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
               output->add_at_edge (X_AXIS, RIGHT, m,0);	
             }
@@ -132,7 +133,7 @@ Key_item::do_brew_molecule_p() const
  
   for (int i =0; i < pitch_arr_.size(); i++) 
     {
-      Molecule m =lookup_l ()->accidental (acc_arr_[i],false);
+      Molecule m = lookup_l ()->afm_find ("accidentals-" + to_str (acc_arr_[i]));
       m.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
       output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }

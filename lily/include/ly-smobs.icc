@@ -54,6 +54,7 @@ CL::smobify_self ()							\
   SCM_SETCDR(s,me_p);							\
   scm_protect_object (s);						\
 									\
+/* no scm_done_malloc() !  */ \
   do_smobify_self();							\
   return s;					\
 }						\
@@ -66,7 +67,7 @@ CL::free_smob (SCM ses)				\
      return 0; \
   SCM_CAR(ses) = SCM_EOL;\
   					\
-  return sizeof(CL);				\
+  return 0;\
 }						\
 ADD_SCM_INIT_FUNC(CL, CL::init_smobs)\
 

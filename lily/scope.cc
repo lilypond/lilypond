@@ -58,14 +58,14 @@ Scope::Scope ()
 bool
 Scope::elem_b (String s) const
 {
-  return elem_b (ly_symbol (s.ch_C()));
+  return elem_b (ly_symbol2scm (s.ch_C()));
 }
 
 
 Identifier *&
 Scope::elem (String s) 
 {
-  return elem (ly_symbol (s.ch_C()));
+  return elem (ly_symbol2scm (s.ch_C()));
 }
 
 
@@ -78,7 +78,7 @@ String
 Scope_iter::key () const
 {
   SCM s= Hash_table_iter<Protected_scm,Identifier*>::key ();
-  return symbol_to_string (s);
+  return ly_symbol2string (s);
 }
 
 bool

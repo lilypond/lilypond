@@ -41,7 +41,7 @@ Script_engraver::do_process_requests()
     {
       Articulation_req* l=script_req_l_arr_[i];
 
-      SCM list = ly_ch_C_eval_scm (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
+      SCM list = ly_eval_str (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
       
       if (list == SCM_BOOL_F)
 	{

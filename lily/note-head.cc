@@ -29,11 +29,23 @@ void
 Note_head::do_pre_processing ()
 {
   Rhythmic_head::do_pre_processing ();
+
   // 8 ball looks the same as 4 ball:
-  if (balltype_i_ > 2)
+  String type; 
+  SCM style  = get_elt_property ("style");
+  if (style != SCM_UNDEFINED)
+    {
+      type = ly_scm2string (style);
+    }
+  
+  
+  if (balltype_i_ > 2 || type == "harmonic" || type == "cross")
     balltype_i_ = 2;
+
   if (dots_l_)			// move into Rhythmic_head?
     dots_l_->set_position(int (position_f ()));
+
+ 
 }
 
 
@@ -50,9 +62,21 @@ Note_head::compare (Note_head *const  &a, Note_head * const &b)
 Interval
 Note_head::do_width () const
 {
-  Molecule a =  lookup_l ()->notehead (balltype_i_, ""); // UGH
-  Interval i = a.dim_[X_AXIS];
-  return i;
+  return make_molecule ().dim_[X_AXIS];
+}
+
+Molecule
+Note_head::make_molecule () const
+{
+  String type; 
+  SCM style  = get_elt_property ("style");
+  if (style != SCM_UNDEFINED)
+    {
+      type = ly_scm2string (style);
+    }
+  
+  return lookup_l()->afm_find (String ("noteheads-")
+			       + to_str (balltype_i_) + type);
 }
 
 Molecule*
@@ -63,17 +87,9 @@ Note_head::do_brew_molecule_p() const
 
   int streepjes_i = abs (position_f ()) < sz 
     ? 0
-    : (abs(position_f ()) - sz) /2;
+    : (abs((int)position_f ()) - sz) /2;
 
-
-  String type; 
-  SCM style  = get_elt_property ("style");
-  if (style != SCM_UNDEFINED)
-    {
-      type = ly_scm2string (style);
-    }
-  
-  Molecule*  out = new Molecule (lookup_l()->notehead (balltype_i_, type));
+  Molecule*  out =  new Molecule (make_molecule ());
 
   Box b = out->dim_;
 

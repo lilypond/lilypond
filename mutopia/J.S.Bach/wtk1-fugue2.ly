@@ -13,8 +13,7 @@
   copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
   maintainer = "hanwen@cs.uu.nl";
   lastupdated = "1999/Oct/14";
-  
-  }
+}
 
 
 % It would be nice to squeeze this onto two pages, but I am not sure

@@ -25,7 +25,7 @@ Bar_script_engraver::Bar_script_engraver ()
   text_p_ =0;
   hang_on_clef_b_ = false;
   visibility_lambda_ 
-    = ly_ch_C_eval_scm ("non-postbreak-visibility");
+    = ly_eval_str ("non-postbreak-visibility");
 }
 
 void

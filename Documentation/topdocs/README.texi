@@ -38,9 +38,11 @@ The real documentation is the directory Documentation/
 
 If you want to read the documentation online, these are options:
 @itemize @bullet
-@item  use @file{.html}. Refer to INSTALL.txt for info on how to make the
-.html documentation.
-@item  use @file{.html}. Point your browser to
+
+@item  use HTML. Refer to INSTALL.txt for information
+on how to make the HTML documentation.
+
+@item  use HTML. Point your browser to
 @uref{http://www.cs.uu.nl/~hanwen/lilypond/index.html}.
 @item use @file{.dvi},  for the tutorial and reference manual. Do
 
@@ -48,7 +50,9 @@ If you want to read the documentation online, these are options:
   make -C Documentation/user/ dvi 
 @end example 
 
-  
+You need a working LilyPond binary to create the DVI sources  .
+ 
+
 @item  use ASCII. Do
 using @example 
 	make -C doc

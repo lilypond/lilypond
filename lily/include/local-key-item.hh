@@ -30,17 +30,18 @@ struct Local_key_cautionary_tuple
 /**
   Accidentals which can be different for each octave.
 
-  TODO:
-  update item if Items are removed
-
-  TODO
   
-  figure out private/public
+  TODO
+
+  Make an item for each accidental separately, and make a
+  Accidental_column to group them.
   
  */
+
 class Local_key_item : public Note_head_side, public Staff_symbol_referencer {
   Array<Local_key_cautionary_tuple> accidental_arr_;
 
+  Molecule accidental (int,bool) const;
 public:
   int c0_position_i_;
   Local_key_item ();

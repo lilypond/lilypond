@@ -13,6 +13,10 @@ stafflinethickness = \interline / 10.0;
 
 % urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\interline - \stafflinethickness);
+
+#'beam-thickness = \beam_thickness;  %% UGR
+
+
 interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
@@ -94,6 +98,8 @@ grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 
 #'slope-quantisation = #'normal
 #'beam-dir-algorithm = #'majority	%urg.
+#'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
+
 
 
 #'Clef_item::visibility-lambda = #postbreak-only-visibility
@@ -298,4 +304,5 @@ Wordwrap =0.0;
 \include "engraver.ly";
 
 
+#'margin-shape = #'()
 

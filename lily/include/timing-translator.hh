@@ -30,9 +30,6 @@ protected:
   virtual void do_post_move_processing();
 
 public:
-  /// how long is one beat?
-  Moment one_beat_;
-
   /// JUNKME
   int bars_i () const;
 

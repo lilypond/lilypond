@@ -99,3 +99,5 @@ echo Starting configuration
 echo
 (set -x; TEX_TFMDIR=$TEX_TFMDIR ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise)
 
+echo "making tags in background"
+make TAGS >& log &

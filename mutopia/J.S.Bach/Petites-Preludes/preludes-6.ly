@@ -1,103 +1,125 @@
+%{
+
+ Six Petits Preludes,
+ Collection Johann Peter Kellner
+ ca 1703 - 1707
+
+ Kellner was a student of Bach's that copied some 90 works of his master.
+ 
+%}
+
 \header{
-filename =	"preludes-6.ly";
-%
-% page 11
-%
-% Six Petits Preludes
-% Collection Johann Peter Kellner
-% ca 1703 - 1707
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"public domain";
+  copyright =	 "public domain";
+  source = "Ed. Henry Lemoine Urtext";
+  title =	 "Pr\\\"aludum";
+  opus = "BWV 940";
+  composer =	 "Johann Sebastian Bach (1685-1750)";
+  enteredby =	 "jcn,hwn";
+
+  % mutopia headers.
+  mutopiatitle = "Prelude";
+  mutopiacomposer = "J.S.Bach";
+  mutopiaopus = "BWV940";
+  mutopiainstrument = "Piano";
+  style = "baroque";
+  copyright = "Public Domain";
+  maintainer = "Jan Nieuwenhuizen";
+  maintainer_email = "janneke@gnu.org";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer = "janneke@gnu.org";
+  lastupdated = "1999/Nov/14";
+  
 }
+
 \version "1.3.4";
+
 
 
 one = \context Staff \notes\relative c{
 	\context Voice=i
 	\skip 1; |
 	\stemup
-	r4 d''2-5( cis4-4 |
+	r4 d''2 cis4 |
 	\stemboth
-	)d16-5\mf a'-4( g f  e f-4 cis-2 d-1 
-	e8.-\mordent f16  d8.-\prall-1 cis16-3 |
+	d16 a' g f  e f cis d 
+	e8.-\mordent f16  d8.-\prall cis16 |
 	\stemup
-	)cis4\> ~ cis16 a \!d8 ~ d4 a( |
+	cis4 ~ cis16 a d8 ~ d4 a |
 	%5
-	)b2-4 ~ b4 a-5 ~ |
-	a16 a-5 \stemup g! f g4-4\< ~ g f-3 ~ |
-	\!f16 a g f  e16 g8.-5 ~  g16 g-5 f-4 e-3  d-1 f8.-4 ~ |
-	f16 f-3 e d b'4 a-5 g-5 |
-%	fis4-4 g r8\<-"rall." g16-1( bes-2 \!e4-5 |
-	fis4-4 g r8\< g16-1( bes-2 \!e4-5 |
+	b2 ~ b4 a ~ |
+	a16 a \stemup g! f g4 ~ g f ~ |
+	f16 a g f  e16 g8. ~  g16 g f e  d f8. ~ |
+	f16 f e d b'4 a g |
+
+	fis4 g r8 g16 bes e4 |
 	%10
-	)d1-5
+	d1
 	\bar "|.";
 }
 
 two = \context Staff \notes\relative c{
 	\context Voice=ii
-	r16\p d''-5( c-4 bes-3  a-2 bes-3 f-1 g-2 
-	a8.-\mordent bes16-1  g8.-\prall f16-1 |
+	r16 d'' c bes  a bes f g 
+	a8.-\mordent bes16  g8.-\prall f16 |
 	\stemdown
-	)f2 e2 |
+	f2 e2 |
 	\translator Staff=lower \stemup
-	r4 a,-1 bes-2 b-1 |
+	r4 a, bes b |
 	\translator Staff=upper \stemdown
-	r16 b'-3 a-1 g-2  f8. f16-2 e2 ~ |
+	r16 b' a g  f8. f16 e2 ~ |
 	%5
-	e2 ~ e4 ~ e16 e-2 f! d-1 |
+	e2 ~ e4 ~ e16 e f! d |
 	s4 e32 d e8.~ e4 d4 ~ |
-	d4. cis16-2 d-1 cis4 d-1 ~ |
-	d8 r r16 e-2 f d r16 e-2 f d r d-1 e-3 cis |
-	r16 e-3 d-1 c!-2  bes! d8. s4 r16\> bes'-2 a-2 \!g-1 |
+	d4. cis16 d cis4 d ~ |
+	d8 r r16 e f d r16 e f d r d e cis |
+	r16 e d c!  bes! d8. s4 r16 bes' a g |
 	%10
-	fis1-2
+	fis1
 }
 
 three = \context Staff \notes\relative c{
 	\context Voice=iii
 	\stemup
-	f2-1( e-2 |
+	f2 e |
 	\stemboth
-	)d16 d'( c bes  a-4 bes-2 f-5 g-4 
-	a8.-\mordent bes16-2 
-	g8.-\prall-4 f16-5 |
-	)f2-5 g4-4 gis |
-	a2-2 ~ a16 a-1( g f  e-4 f-2 c-5 d |
+	d16 d' c bes  a bes f g 
+	a8.-\mordent bes16 
+	g8.-\prall f16 |
+	f2 g4 gis |
+	a2 ~ a16 a g f  e f c d |
 	%5
-	e8.-\mordent f16  d8.-\prall-4 c16-5 \stemboth )c4.-5 d8-4 |
+	e8.-\mordent f16  d8.-\prall c16 \stemboth c4. d8 |
 	\stemdown
-	e4 ~ e16 f-2( e-3 d-4  cis a b cis-3  d-4 e-3 f-2 d-4 |
+	e4 ~ e16 f e d  cis a b cis  d e f d |
 	\property Voice . textStyle = "finger"
-	)bes!2-"5\\_4" a ~ |
+	bes!2 a ~ |
 	a a |
-	d, cis'-5 |
+	d, cis' |
 	%10
-	a'1-2
+	a'1
 	\bar "|.";
 }
 
 four = \context Staff \notes\relative c{
 	\context Voice=iv
 	\stemdown 
-	d2-3 cis-4 |
+	d2 cis |
 	\skip 1*2; |
 	\skip 4*3;
 	\translator Staff=upper \stemup \property Voice.horizontalNoteShift = 1 
-	c''4-5 |
+	c''4 |
 	%5
-	a gis-2 ~ gis16 gis-3 fis e 
+	a gis ~ gis16 gis fis e 
 	\skip 4*1;
 	\translator Staff=lower \stemdown \property Voice.horizontalNoteShift = 0 
 	\stemup
-	b2-1 a-1 |
+	b2 a |
 	g a4. gis16 a |
-	gis2 < g8 cis,> <f-3 d-1> e4-2 |
-	d4. fis16-3 g-2 r16 bes8.-1 ~ bes4 |
+	gis2 < g8 cis,> <f d> e4 |
+	d4. fis16 g r16 bes8. ~ bes4 |
 	%10
 	\stemdown
-	d,1-5
+	d,1
 }
 
 global = \notes{
@@ -121,10 +143,11 @@ global = \notes{
 		>
 	>
 	\paper{
+		linewidth = 18.0 \cm;  
+
 	}
 	\midi{ \tempo 4 = 40; }
 	\header{
-		piece = "6";
 		opus = "BWV 940";
 	}
 }

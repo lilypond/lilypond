@@ -15,9 +15,25 @@
 #include "lookup.hh"
 #include "main.hh"
 #include "global-ctor.hh"
+#include "font-metric.hh"
 
 Atom::Atom(SCM s)
 {
   func_ = s;
-  magn_ = gh_int2scm (0);
+}
+
+void
+Atom::fontify (Font_metric * met)
+{
+
+  SCM desc = ly_quote_scm (met->description ());
+  SCM font_switch = gh_list (ly_symbol2scm ("select-font"),
+			     desc,
+			     SCM_UNDEFINED);
+
+  SCM f =func_;
+  func_ = gh_list (ly_symbol2scm ("string-append"),
+		   font_switch , f,
+		   SCM_UNDEFINED);
+
 }

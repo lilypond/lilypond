@@ -91,6 +91,7 @@ struct Engraver_group_engraver;
 struct Extender;
 struct Extender_req;
 struct Folded_repeat_iterator;
+struct Font_metric;
 struct General_script_def;
 struct Global_translator;
 struct Grace_align_item;

@@ -82,13 +82,15 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   else if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
     {
-      s = lookup_l ()->rest (- intlog2(measures_i_), 0, "");
+      s = lookup_l ()->afm_find ("rests-" + to_str (- intlog2(measures_i_)));
       s.translate_axis (-s.extent ()[X_AXIS].length () / 2, X_AXIS);
     }
   else 
     {
-      s = lookup_l ()->rest (-4, 0, "");
+      String idx =  ("rests-") + to_str (-4);
+      s = lookup_l ()->afm_find (idx);
     }
+  
   mol_p->add_molecule (s);
   Real interline_f = staff_line_leading_f ();
   if (measures_i_ == 1 && rest_symbol)

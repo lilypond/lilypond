@@ -27,7 +27,7 @@ ly_str02scm (char const*c)
 }
 
 SCM
-ly_ch_C_eval_scm (char const*c)
+ly_eval_str (char const*c)
 {
   // this all really sucks, guile should take char const* arguments!
   return gh_eval_str ((char*)c);
@@ -92,38 +92,34 @@ ly_parse_scm (char const* s, int* n)
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
 */
-
+// apparently env arg is ignored.
 SCM
 ly_quote_scm (SCM s)
 {
-  return scm_m_quote (scm_cons2 (SCM_EOL, s, SCM_EOL) ,SCM_EOL); // apparently env arg is ignored.
+  return scm_m_quote (scm_cons2 (SCM_EOL, s, SCM_EOL) ,SCM_EOL);
 }
 
-/*
-  See: libguile/symbols.c
 
-  SCM
-  scm_string_to_symbol(s)
-  
-*/
 SCM
-ly_symbol (String name)
+ly_symbol2scm(const char *s)
 {
-  return gh_symbol2scm ((char*)name.ch_C());
+  return gh_symbol2scm ((char *)s);
 }
 
 String
-symbol_to_string (SCM s)
+ly_symbol2string (SCM s)
 {
   return String((Byte*)SCM_CHARS (s), (int) SCM_LENGTH(s));
 }
 
+#if 0
 SCM
-ly_set_scm (String name, SCM val)
+ly_set_x (String name, SCM val)
 {
   return scm_sysintern ((char*)name.ch_C(), val);
   
 }
+#endif
 
 /**
    Read a file, and shove it down GUILE.  GUILE also has file read
@@ -146,7 +142,7 @@ read_lily_scm_file (String fn)
 
   Simple_file_storage f(s);
   
-  ly_ch_C_eval_scm ((char *) f.ch_C());
+  ly_eval_str ((char *) f.ch_C());
   *mlog << "]" << flush;  
 }
 
@@ -168,7 +164,9 @@ ly_gulp_file (SCM name)
 
 
   Simple_file_storage f(s);
-  return ly_str02scm (f.ch_C());
+  SCM result = ly_str02scm (f.ch_C());
+  *mlog << "]";
+  return result;
 }
 
 void

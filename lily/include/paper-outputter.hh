@@ -14,6 +14,7 @@
 #include "array.hh"
 #include "string.hh"
 #include "lily-guile.hh"
+#include "protected-scm.hh"
 
 #ifdef __powerpc__
 #include "protected-scm.hh"
@@ -25,8 +26,12 @@
 class Paper_outputter
 {
 public:
-  Paper_outputter (Paper_stream *);
-  ~Paper_outputter ();
+  Protected_scm molecules_;
+  SCM last_cons_;
+  Paper_outputter ();
+
+  void dump_onto (Paper_stream *);
+
 
   void output_int_def (String k, int v);
   void output_Real_def (String k, Real v);
@@ -39,12 +44,10 @@ public:
   void output_molecule (Molecule const *, Offset, char const *);
   void output_comment (String s);
   void output_scheme (SCM scm);
+
   void start_line (Real height);
   void stop_line ();
   void stop_last_line ();
-  void switch_to_font (String fontname);
-
-  Paper_stream* outstream_l_;
 };
 
 #endif // PAPER_OUTPUTTER_HH

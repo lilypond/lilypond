@@ -219,7 +219,6 @@ alphabetic characters.  These are all the keywords.
   \score
   \script
   \sequential
-  \shape
   \simultaneous
   \skip
   \spanrequest
@@ -673,15 +672,11 @@ c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
     a1 a2 a4 a8 a16 a32 a64 a64 
   }
   \paper {
-    loose_column_distance = 2.5 * \interline;
-    linewidth = -1.0;
-    \translator {
-      \type "Score_engraver";
-      \name "Score";
-      \consists "Note_heads_engraver";
-      \consists "Stem_engraver";
-      \consists "Rhythmic_column_engraver";
-    }
+%{    \translator {
+      \StaffContext
+	\remove "Clef_engraver";
+	\remove "Staff_symbol_engraver";
+    } %}
   }
 }
 @end mudela
@@ -2372,7 +2367,10 @@ where each of the items is one of
   @item  A context definition.  See section XREF-contextdefs [FIXME] for
        more information on context definitions.
 
-  @item  A margin shape declaration.  The syntax is
+  @item
+	FIXME now in SCM
+
+	A margin shape declaration.  The syntax is
 
        @example
 

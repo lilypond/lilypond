@@ -485,7 +485,7 @@ Chord::ly_text2molecule (SCM scm) const
 Molecule
 Chord::pitch2molecule (Musical_pitch p) const
 {
-  SCM name = scm_eval (gh_list (gh_symbol2scm ("user-pitch-name"), ly_quote_scm (pitch2scm (p)), SCM_UNDEFINED));
+  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"), ly_quote_scm (pitch2scm (p)), SCM_UNDEFINED));
 
   if (name != SCM_UNSPECIFIED)
     {
@@ -493,9 +493,14 @@ Chord::pitch2molecule (Musical_pitch p) const
     }
 
   Molecule mol = lookup_l ()->text ("", p.str ().left_str (1).upper_str (), paper_l ());
+
+  /*
+    We want the smaller size, even if we're big ourselves.
+   */
   if (p.accidental_i_)
     mol.add_at_edge (X_AXIS, RIGHT, 
-		     paper_l ()->lookup_l (-2)->accidental (p.accidental_i_, 0), 0);
+		     
+		     paper_l ()->lookup_l (-2)->afm_find (String ("accidentals-") + to_str (p.accidental_i_)), 0.0);
   return mol;
 }
 
@@ -533,7 +538,7 @@ Chord::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_name* name_p) cons
   for (int i= chord_type.size (); i--; )
     chord = gh_cons (pitch2scm (chord_type[i]), chord);
 
-  SCM name = scm_eval (gh_list (gh_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
+  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
   if (name != SCM_UNSPECIFIED)
     {
       name_p->modifier_mol = ly_text2molecule (gh_car (name));

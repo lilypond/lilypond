@@ -10,6 +10,7 @@
 #include "grace-align-item.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
+#include "paper-def.hh"
 
 Grace_align_item::Grace_align_item ()
 {
@@ -20,7 +21,9 @@ Grace_align_item::Grace_align_item ()
 void
 Grace_align_item::do_pre_processing ()
 {
-  Real nhw = lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
+  Real nhw = // lookup_l ()->notehead (2, "").dim_[X_AXIS].length();
+    paper_l ()->get_var ("quartwidth");
+  
   threshold_interval_[MIN] = nhw* 1.5;
   column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 

@@ -21,7 +21,7 @@
 #include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
-#include "all-fonts.hh"
+#include "all-font-metrics.hh"
 #include "afm.hh"
 #include "scope.hh"
 #include "molecule.hh"
@@ -75,20 +75,6 @@ Lookup::ledger_line (Interval xwid) const
 }
 
 
-Molecule
-Lookup::accidental (int j, bool cautionary) const
-{
-  Molecule m(afm_find (String ("accidentals-") + to_str (j)));
-  if (cautionary) 
-    {
-      Molecule open = afm_find (String ("accidentals-("));
-      Molecule close = afm_find (String ("accidentals-)"));
-      m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
-      m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
-    }
-  return m;
-}
-
 
 
 Molecule
@@ -116,32 +102,20 @@ Lookup::afm_find (String s, bool warn) const
       return m;
     }
   
-  Atom at (gh_list (gh_symbol2scm ("char"),
+  Atom at (gh_list (ly_symbol2scm ("char"),
 		    gh_int2scm (cm.code ()),
 		    SCM_UNDEFINED));
-  at.font_ = ly_symbol (font_name_.ch_C());
-  at.magn_ = gh_int2scm (0);
-  
+
+  at.fontify (afm_l_);
   m.dim_ = cm.dimensions();
   m.add_atom (&at);
   return m;
 }
 
 Molecule
-Lookup::notehead (int j, String type) const
-{
-  if (j > 2)
-    j = 2;
-  if (type == "harmonic" || type == "cross")
-    j = 2;
-
-  return afm_find (String ("noteheads-") + to_str (j) + type);
-}
-
-Molecule
 Lookup::simple_bar (String type, Real h, Paper_def* paper_l) const
 {
-  SCM thick = ly_symbol ("barthick_" + type);
+  SCM thick = ly_symbol2scm (("barthick_" + type).ch_C());
   Real w = 0.0;
   
   if (paper_l->scope_p_->elem_b (thick))
@@ -241,7 +215,7 @@ Lookup::beam (Real slope, Real width, Real thick) const
   
   Molecule m;
   Atom at
-    (gh_list (gh_symbol2scm ("beam"),
+    (gh_list (ly_symbol2scm ("beam"),
 	      gh_double2scm (width),
 	      gh_double2scm (slope),
 	      gh_double2scm (thick),
@@ -251,12 +225,6 @@ Lookup::beam (Real slope, Real width, Real thick) const
   m.dim_[Y_AXIS] = Interval (min_y, max_y);
   m.add_atom (&at);
   return m;
-}
-
-Molecule
-Lookup::clef (String st) const
-{
-  return afm_find (String ("clefs-" + st));
 }
 
 SCM
@@ -288,7 +256,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
     }
 
   Atom at
-    (gh_list (gh_symbol2scm ("dashed-slur"),
+    (gh_list (ly_symbol2scm ("dashed-slur"),
 	      gh_double2scm (thick), 
 	      gh_double2scm (dash),
 	      ly_quote_scm (array_to_list (sc, 4)),
@@ -299,11 +267,6 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   return m;
 }
 
-Molecule
-Lookup::dots () const
-{
-  return afm_find (String ("dots-dot"));
-}
 
 
 
@@ -315,11 +278,6 @@ Lookup::fill (Box b) const
   return m;
 }
 
-Molecule
-Lookup::rest (int j, bool o, String style) const
-{
-  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : "") + style);
-}
 
 
 Molecule
@@ -346,7 +304,7 @@ Lookup::filledbox (Box b ) const
 {
   Molecule m;
   
-  Atom at  (gh_list (gh_symbol2scm ("filledbox"),
+  Atom at  (gh_list (ly_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
 		     gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -358,16 +316,52 @@ Lookup::filledbox (Box b ) const
   return m;
 }
 
-
-
-/**
-   Magnification steps.  These are powers of 1.2. The numbers are
- taken from Knuth's plain.tex: */
-
-
-/**
+/*
    TODO: THIS IS UGLY.  Since the user has direct access to TeX
    strings, we try some halfbaked attempt to detect TeX trickery.
+ */
+String
+sanitise_TeX_string (String text)
+{
+  int brace_count =0;
+  for (int i= 0; i < text.length_i (); i++)
+    {
+      if (text[i] == '\\')
+	continue;
+      
+      if (text[i] == '{')
+	brace_count ++;
+      else if (text[i] == '}')
+	brace_count --;
+    }
+  
+  if(brace_count)
+    {
+      warning (_f ("Non-matching braces in text `%s', adding braces", text.ch_C()));
+
+      if (brace_count < 0)
+	{
+	  text = to_str ('{', -brace_count) + text;
+	}
+      else 
+	{
+	  text = text + to_str ('}', brace_count);
+	}
+    }
+    
+  return text;
+}
+
+/**
+   TODO!
+ */
+String
+sanitise_PS_string (String t)
+{
+  return t;
+}
+
+/**
 
 */
 Molecule
@@ -385,85 +379,48 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
     }
 
 
-  Real realmag = 1.0;
   if (paper_l->scope_p_->elem_b ("magnification_" + style))
     {
       font_mag = (int)paper_l->get_var ("magnification_" + style);
-      realmag = pow (1.2, font_mag);
     }
 
   /*
     UGH.
   */
-  SCM l = ly_ch_C_eval_scm (("(style-to-cmr \"" + style + "\")").ch_C());
+  SCM l = ly_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {
       style = ly_scm2string (gh_cdr(l)) +to_str  ((int)font_h);
     }
 
-  Real w = 0;
-  Interval ydims (0,0);
-
-  Font_metric* afm_l = all_fonts_global_p->find_font (style);
-  DEBUG_OUT << "\nChars: ";
-
-
-  int brace_count =0;
-  for (int i = 0; i < text.length_i (); i++) 
-    {
-      
-      if (text[i]=='\\') 
-	{
-	  for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
-	    ;
-	  i--; // Compensate for the increment in the outer loop!
-	}
-      else
-	{
-	  if (text[i] == '{')
-	    brace_count ++;
-	  else if (text[i] == '}')
-	    brace_count --;
-          Character_metric *c = (Character_metric*)afm_l->
-	    get_char ((unsigned char)text[i],false);
-
-	  // Ugh, use the width of 'x' for unknown characters
-	  if (c->dimensions()[X_AXIS].length () == 0) 
-	    c = (Character_metric*)afm_l->get_char ((unsigned char)'x',false);
-	  w += c->dimensions()[X_AXIS].length ();
-	  ydims.unite (c->dimensions()[Y_AXIS]);
-	}
-    }
-
-  if(brace_count)
-    {
-      warning (_f ("Non-matching braces in text `%s', adding braces", text.ch_C()));
-
-      if (brace_count < 0)
-	{
-	  text = to_str ('{', -brace_count) + text;
-	}
-      else 
-	{
-	  text = text + to_str ('}', brace_count);
-	}
-    }
-
-  ydims *= realmag;
-  m.dim_.x () = Interval (0, w*realmag);
-  m.dim_.y () = ydims;
-
   
-  Atom at  (gh_list (gh_symbol2scm ("text"),
+
+  Font_metric* metric_l = 0;
+
+  if (font_mag)
+    metric_l = all_fonts_global_p->find_scaled (style, font_mag);
+  else
+    metric_l = all_fonts_global_p->find_font (style);
+  
+  
+  if (output_global_ch == "tex")
+    text = sanitise_TeX_string  (text);
+  else if (output_global_ch == "ps")
+    text = sanitise_PS_string (text);
+    
+  m.dim_ = metric_l->text_dimension (text);
+  
+  Atom at  (gh_list (ly_symbol2scm ("text"),
 		     ly_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));
-  at.font_ = ly_symbol (style);
-  at.magn_ = gh_int2scm (font_mag);
+  at.fontify (metric_l);
   
   m.add_atom (&at);
   return m;
 }
   
+
+
 
 Molecule
 Lookup::time_signature (int num, int den, Paper_def *paper_l) const
@@ -509,11 +466,13 @@ Lookup::staff_brace (Real y, int staff_size) const
   int maxht = 7 *  minht;
   int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
-  
-  SCM f =  ly_symbol (String ("feta-braces" + to_str (staff_size)));
-  SCM e =gh_list (gh_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
+
+
+  String nm = String ("feta-braces" + to_str (staff_size));
+  SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
   Atom at  (e);
-  at.font_ = f;
+
+  at.fontify (all_fonts_global_p->find_font (nm));
   
   m.dim_[Y_AXIS] = Interval (-y/2,y/2);
   m.dim_[X_AXIS] = Interval (0,0);
@@ -526,8 +485,8 @@ Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continu
 {
   Molecule m;   
 
-  String hairpin = String (decresc ? "de" : "") + "crescendo";
-  Atom at  (gh_list (ly_symbol (hairpin),
+  const char* hairpin = decresc ? "decrescendo" :  "crescendo";
+  Atom at  (gh_list (ly_symbol2scm (hairpin),
 		     gh_double2scm (thick),
 		     gh_double2scm (width),
 		     gh_double2scm (height),
@@ -546,7 +505,7 @@ Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap,
 {
   Molecule m;
 
-  Atom at  (gh_list(gh_symbol2scm ("tuplet"),
+  Atom at  (gh_list(ly_symbol2scm ("tuplet"),
 		    gh_double2scm (height),
 		    gh_double2scm (gap),
 		    gh_double2scm (dx),
@@ -575,7 +534,7 @@ Lookup::slur (Array<Offset> controls, Real linethick) const
     scontrols[i] = offset2scm (controls[indices[i]]);
 
 
-  Atom at  (gh_list (ly_symbol ("bezier-sandwich"),
+  Atom at  (gh_list (ly_symbol2scm ("bezier-sandwich"),
 		     ly_quote_scm (array_to_list (scontrols, 8)),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
@@ -590,7 +549,7 @@ Molecule
 Lookup::staff_bracket (Real height, Paper_def* paper_l) const
 {
   Molecule m;
-  Atom at  ( gh_list (gh_symbol2scm ("bracket"),
+  Atom at  ( gh_list (ly_symbol2scm ("bracket"),
 		      gh_double2scm (paper_l->get_var("bracket_arch_angle")),
 		      gh_double2scm (paper_l->get_var("bracket_arch_width")),
 		      gh_double2scm (paper_l->get_var("bracket_arch_height")),
@@ -613,7 +572,7 @@ Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
 {
   Molecule m; 
 
-  Atom at  (gh_list (gh_symbol2scm ("volta"),
+  Atom at  (gh_list (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (thick),

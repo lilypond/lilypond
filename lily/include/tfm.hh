@@ -149,7 +149,7 @@ public:
   void clear (int n);
   Character_metric const *get_char (int, bool) const;
   Tex_font_char_metric const &find_ascii (int ascii, bool warn=true) const;
-  void read_file (String name);
+
   String str () const;
 
   Tfm_info info_;

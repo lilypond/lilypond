@@ -38,7 +38,7 @@ Separating_line_group_engraver::do_removal_processing ()
     }
   else
     {
-      sep_span_p_->padding_f_ = paper_l ()->get_realvar (ly_symbol ("postBreakPadding"));
+      sep_span_p_->padding_f_ = paper_l ()->get_realvar (ly_symbol2scm ("postBreakPadding"));
     }
 
   sep_span_p_->set_bounds (RIGHT, get_staff_info ().command_pcol_l ());

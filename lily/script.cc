@@ -40,12 +40,12 @@ Script::get_molecule(Direction d) const
   assert (s != SCM_UNDEFINED);
 
   SCM key = SCM_CAR (s);
-  if (key == ly_symbol ("feta"))
+  if (key == ly_symbol2scm ("feta"))
     {
       return lookup_l ()->afm_find ("scripts-" +
 				    ly_scm2string (index_cell (gh_cdr (s), d)));
     }
-  else if (key == ly_symbol ("accordion"))
+  else if (key == ly_symbol2scm ("accordion"))
     {
       return lookup_l ()->accordion (s, paper_l()->get_var("interline"));
     }

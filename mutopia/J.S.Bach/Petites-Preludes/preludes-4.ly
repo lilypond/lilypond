@@ -1,73 +1,96 @@
+%{
+
+ Six Petits Preludes,
+ Collection Johann Peter Kellner
+ ca 1703 - 1707
+
+ Kellner was a student of Bach's that copied some 90 works of his master.
+ 
+%}
 \header{
-filename =	"preludes-4.ly";
-%
-% page 8
-%
-% Clavierb"uchlein f"ur W. Fr. Bach
-% Clav. W. Fr. Bach: 27-Praeludium ex d neutral
-% ca 1720
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"public domain";
+  copyright =	 "public domain";
+  source = "Ed. Henry Lemoine Urtext";
+  title =	 "Pr\\\"aludum";
+  opus = "BWV 925";
+  composer =	 "Johann Sebastian Bach (1685-1750)";
+  enteredby =	 "jcn,hwn";
+
+  % mutopia headers.
+  mutopiatitle = "Prelude";
+  mutopiacomposer = "J.S.Bach";
+  mutopiaopus = "BWV925";
+  mutopiainstrument = "Piano";
+  style = "baroque";
+  copyright = "Public Domain";
+  maintainer = "Jan Nieuwenhuizen";
+  maintainer_email = "janneke@gnu.org";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  maintainer = "janneke@gnu.org";
+  lastupdated = "1999/Nov/14";
 }
-\version "1.3.4";
+
+%{
+
+This stretches LilyPond capabilities a little.
+
+%}
 
 one = \context Staff \notes\relative c {
 	\context Voice=i
 	\property Voice . textStyle = "italic"
-%	r16\p_"legato" 
-	r16\p
+%	r16_"legato" 
+	r16
 	\property Voice . textStyle = "finger"
-	d'-1( fis-3 d-1  a'-2 b-3 cis-4 a-3 
-	d-3 cis-2 d-1 e-2  d-1 fis-3 e-2 d-1 |
+	d'( fis d  a' b cis a 
+	d cis d e  d fis e d |
 	\property Voice . textStyle = "finger"
 	\stemup 
-	)cis4-2 fis-5 ~ fis8 fis-4 e4-3 ~ | 
-	e16\< \stemboth a,16( cis a  d-2 e fis d-1 
-	g-3 fis g a-4  g-3 b a \!g |
+	)cis4 fis ~ fis8 fis e4 ~ | 
+	e16 \stemboth a,16( cis a  d e fis d 
+	g fis g a  g b a g |
 	\stemup
-%	)fis4-"2\\_3" e8-2 a-5 <fis4-4 d-2> <gis-5 e-3> |
-	)fis4 e8-2 a-5 <fis4-4 d-2> <gis-5 e-3> |
+
+	)fis4 e8 a <fis4 d> <gis e> |
 	%5
-	<a4-5( e> <fis-4 d-2> < )g!16-5 d> fis-2 g-3 a-4 
+	<a4( e> <fis d> < )g!16 d> fis g a 
 	\stemboth
-	g-3 b a g |
+	g b a g |
 	\property Voice . textStyle = "italic"
-%	fis_"dim." e fis-3 g  fis-3 a-5 g fis 
-	fis e fis-3 g  fis-3 a-5 g fis 
+
+	fis e fis g  fis a g fis 
 	\property Voice . textStyle = "finger"
 %	e4-"2\\_5" ~ e16 e,( fis g  |
 	e4 ~ e16 e,( fis g  |
 	\property Voice . textStyle = "italic"
-%	a-4_"dim." g-1 a b  a-2 c-4 b a 
-	a-4 g-1 a b  a-2 c-4 b a 
-	g-1 fis-2 g-3 a  g-3 b a g |
+
+	a g a b  a c b a 
+	g fis g a  g b a g |
 	\stemup
-	)fis4\p 
+	)fis4 
 	\skip 4*7; |
 	%10
 	\property Voice . textStyle = "finger"
-%	d'4.\mf cis8-"4\\_5" ~ cis b4-5 a8-"4\\_5" ~ |
-	d'4.\mf cis8 ~ cis b4-5 a8 ~ |
+%	d'4. cis8-"4\\_5" ~ cis b4 a8-"4\\_5" ~ |
+	d'4. cis8 ~ cis b4 a8 ~ |
 	\property Voice . textStyle = "italic"
-%	a g4-5 fis8-4 ~ fis16 fis-4-"dim." e-3 d-2 
-	a g4-5 fis8-4 ~ fis16 fis-4 e-3 d-2 
+
+	a g4 fis8 ~ fis16 fis e d 
 	\property Voice . textStyle = "finger"
 %	e4-"3\\_5" ~ |
 	e4 ~ |
-	e16 e-5 d cis d4-5 ~ d16 d-5 cis b cis4-5 |
+	e16 e d cis d4 ~ d16 d cis b cis4 |
 	\stemboth
-	fis,16-1\p a-2 d-5\< c-4  b-1 d-2 g-5 fis-4 
-	d-1 b'-5 a g  fis-2 e-1 d-4 \!c!-3 |
-	b-2 d-1 g a  fis8-\prall e16-4 d-3 
+	fis,16 a d c  b d g fis 
+	d b' a g  fis e d c! |
+	b d g a  fis8-\prall e16 d 
 	d8. e16~  e d8 cis16 |
 	%15
 	\stemup
-	r16 d-1\< fis d  g a b g-1  c-3 b c d  c e d-4 \!c |
-	b4-5 a ~ a8 g-5 ~  g16 fis8-4 e16-3 |
-	fis8-4 e-5~  e d-5~ d4 cis-4 |
-%	d2\p-"rall." ~ d16 a-2( b-3 cis-4 )d4-5 |
-	d2\p ~ d16 a-2( b-3 cis-4 )d4-5 |
+	r16 d fis d  g a b g  c b c d  c e d c |
+	b4 a ~ a8 g ~  g16 fis8 e16 |
+	fis8 e~  e d~ d4 cis |
+
+	d2 ~ d16 a( b cis )d4 |
 	\bar "|.";
 }
 
@@ -75,92 +98,92 @@ two = \context Staff \notes\relative c{
 	\context Voice=ii
 	\stemup
 	\property Voice . textStyle = "finger"
-	fis4-1( e8-2 a4 a4 gis8-2 | 
+	fis4( e8 a4 a4 gis8 | 
 	) a8
 	\translator Staff=upper \stemdown
-%	a'4 a8 b4.-"2\\_1" cis8 ~ | 
+
 	a'4 a8 b4. cis8 ~ | 
 	cis8
 	\translator Staff=lower \stemup
 	a,8 ~ a d ~ d d4-> cis8 | 
 	d8
 	\translator Staff=upper \stemdown
-	d'4-> cis8-1 ~ cis b4-1 b8 |
+	d'4-> cis8 ~ cis b4 b8 |
 	%5
 	r8 a4 a8
 	\translator Staff=lower \stemup
-	g8-1( fis-2 )e4-1 ~ | 
-	e4 d ~ d16 d-1 cis-2 b-1 cis4-2 ~ |
-	cis8 a-3 d4.-1 d4^> cis8-2 |
+	g8( fis )e4 ~ | 
+	e4 d ~ d16 d cis b cis4 ~ |
+	cis8 a d4. d4^> cis8 |
 	\translator Staff=upper \stemdown
-	d4 \stemboth r16 b-1\< d-2 b~ <g'4-5 e-3 b> 
-	r16 cis,-1 e-2 \!cis~ |
-	<a'4-5 fis-3 cis> r16 d,-1 fis-2 d~ <b'4-5 g-3 d>
-	r16 fis-1 a fis~ |
+	d4 \stemboth r16 b d b~ <g'4 e b> 
+	r16 cis, e cis~ |
+	<a'4 fis cis> r16 d, fis d~ <b'4 g d>
+	r16 fis a fis~ |
 	%10
 	\stemdown
 	fis4 e d cis |
 	b a b4. b8 |
 	a4
 	\translator Staff=lower \stemup
-	r16 b-3 fis-1 a-2 g4-1 r16 a-3 e-1 g-2 |
+	r16 b fis a g4 r16 a e g |
 	\skip 1*1; 
 	s16
 	\translator Staff=upper \stemdown
-	d'8.-1 ~ d8 c d4 a8 g |
+	d'8. ~ d8 c d4 a8 g |
 	%15
-	fis8 \translator Staff=lower \stemup c'-1 b4-1 \stemdown <a
+	fis8 \translator Staff=lower \stemup c' b4 \stemdown <a
 	\translator Staff=upper \stemdown
-	a'4.-2>
+	a'4.>
 	\stemdown
 	a'8~ |
-	a g-3~  g16 e fis8~  fis16 d8.~  d8. cis!16 |
+	a g~  g16 e fis8~  fis16 d8.~  d8. cis!16 |
 	\translator Staff=lower \stemup
 	\context Staff <
-		\context Voice=i { \stemup  d8-2 a~ a4 }
-		\context Voice=ii { \stemdown  a8-1 g  fis16-2 e-1 fis-2 d-1 }
+		\context Voice=i { \stemup  d8 a~ a4 }
+		\context Voice=ii { \stemdown  a8 g  fis16 e fis d }
 	>
 	\stemup 
-	g-1 fis-2 g-1 a-2  g-1 b-3 a-2 g-1 ~ |
-	g g-1 fis-2 e-1 fis4-2 ~ fis2
+	g fis g a  g b a g ~ |
+	g g fis e fis4 ~ fis2
 	\bar "|.";
 }
 
 three = \notes\relative c{
    	\context Voice=iii
 	\stemdown 
-	d4-3 cis-4 b e-3 |
-	a16 a,-5\mf( cis-3 a-5  d-2 e-1 fis-2 d-4 
-	g-1 fis-3 g a  g b a g |
-	)fis4 fis e a-4 |
-	d16 \stemboth d,-5\f( fis-3 d-5  a'-2 b-1 cis-2 a-4 
-	d-1 cis-3 d e  d-4 fis-2 e-1 ) d |
+	d4 cis b e |
+	a16 a,( cis a  d e fis d 
+	g fis g a  g b a g |
+	)fis4 fis e a |
+	d16 \stemboth d,( fis d  a' b cis a 
+	d cis d e  d fis e ) d |
 	%5
-	cis-3 b-4 cis-3 d-2  c-4 e-2 d-3 c-4 
-	\stemdown b4-5 cis8-4 b-3( |
-	a-4 )fis-5 b-2 a-3  gis-4 e-5 a-3 g-4 |
-	fis4. d8-5 e4-5 a4-3 |
+	cis b cis d  c e d c 
+	\stemdown b4 cis8 b( |
+	a )fis b a  gis e a g |
+	fis4. d8 e4 a4 |
 	\stemboth
-	r16 d,-4( fis-2 d-4  )g8-.-1 g,-.-5 
-	r16 e'-4( g-2 e-4  )a8-. a,-.-5 |
-	r16 fis'-4( a fis  )b8-. b,-. r16 g'-4( b g  )d'8-. d,-. |
+	r16 d,( fis d  )g8-. g,-. 
+	r16 e'( g e  )a8-. a,-. |
+	r16 fis'( a fis  )b8-. b,-. r16 g'( b g  )d'8-. d,-. |
 	%10
-	r16 d,16-5( fis-3 d  a'-2 b-1 cis-2 a-4  d b-5 d-3 b 
-	fis'-2 g a-2 fis-4 |
-	)fis16 g,( b g  d'-2 e fis-2 d-4  )g8-. g,-. r16 cis-4( e cis |
-	)fis8-. fis,-. \stemdown r16 b-4( d b  )e8-. e,-. 
-	r16 a-4 cis a |
+	r16 d,16( fis d  a' b cis a  d b d b 
+	fis' g a fis |
+	)fis16 g,( b g  d' e fis d  )g8-. g,-. r16 cis( e cis |
+	)fis8-. fis,-. \stemdown r16 b( d b  )e8-. e,-. 
+	r16 a cis a |
 	\stemboth
-	d-1 e-3 fis-2 d-4  g-1 fis-2 e-3 d-1  cis!-3 a-5 b cis 
-	d-2 e fis-2 d-4 |
-	g8 e-3 \stemdown a a,  b8.-4 g16-5 a4-4 |
+	d e fis d  g fis e d  cis! a b cis 
+	d e fis d |
+	g8 e \stemdown a a,  b8. g16 a4 |
 	%15
-	d8-5 a'-2~  a g-3~  g g-3 fis4-4 |
+	d8 a'~  a g~  g g fis4 |
 	\stemup
-	r16 g-2 b-1 g-3  d'8.-1 c16-1  b8.-2 bes16-3  a8-1 g |
+	r16 g b g  d'8. c16  b8. bes16  a8 g |
 	\stemdown
-	r16 a,-2 cis!-1 a'-2  d,-1 e fis d  e8-1 d-2  e-1 a,-2 |
-	d a-2~  a16 a-2 b cis-2 d2 |
+	r16 a, cis! a'  d, e fis d  e8 d  e a, |
+	d a~  a16 a b cis d2 |
 }
 
 four = \context Staff \notes\relative c{
@@ -175,7 +198,7 @@ four = \context Staff \notes\relative c{
 	\skip 1*2; |
 	s4
 	\translator Staff=lower \stemup
-	a4 ~ a16 d,-2 g8-1  fis e-1 |
+	a4 ~ a16 d, g8  fis e |
 	%15
 	\stemdown
 	d1 ~ | 
@@ -205,6 +228,7 @@ global = \notes{
 		>
 	>
 	\paper{
+		linewidth = 18.0 \cm;  
 	}
 	\midi{ \tempo 4 = 70; }
 	\header{

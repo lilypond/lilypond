@@ -15,7 +15,7 @@ copyright =	 "public domain";
   mutopiainstrument = "Piano";
   style = "baroque";
   copyright = "Public Domain";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Jan Nieuwenhuizen.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
   maintainer = "janneke@gnu.org";
   lastupdated = "1999/Oct/16";
   

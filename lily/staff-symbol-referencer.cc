@@ -50,7 +50,12 @@ Staff_symbol_referencer::staff_symbol_l () const
 Real
 Staff_symbol_referencer::staff_line_leading_f () const
 {
-  return (staff_sym_l_) ? staff_sym_l_->staff_line_leading_f_ : paper_l ()->get_var ("interline");
+  if (staff_sym_l_)
+    return  staff_sym_l_->staff_line_leading_f_;
+  else if (pscore_l_ && paper_l ())
+    paper_l ()->get_var ("interline");
+ 
+  return 0.0;
 }
 
 Real
@@ -80,9 +85,11 @@ Staff_symbol_referencer::do_pre_processing ()
 void
 Staff_symbol_referencer::set_position (int p)
 {
-  /*
-    UGH. Use position_f() as well. 
-   */
-  position_i_ =   p;
+  Real halfspace =  staff_line_leading_f ()* 0.5;
   
+  translate_axis (- halfspace * position_f (), Y_AXIS);
+  if (staff_sym_l_)
+    translate_axis (halfspace * p, Y_AXIS);
+  else
+    position_i_ =   p;
 }

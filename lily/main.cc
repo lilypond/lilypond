@@ -13,7 +13,7 @@
 #include "lily-guile.hh"
 #include "lily-version.hh"
 
-#include "all-fonts.hh"
+#include "all-font-metrics.hh"
 #include "proto.hh"
 #include "dimensions.hh"
 #include "getopt-long.hh"

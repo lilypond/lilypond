@@ -18,7 +18,7 @@ void
 Rest::do_add_processing ()
 {
   if (balltype_i_ == 0)
-    position_i_ += 2;		// guh.
+    set_position (position_f () + 2);
 
   Rhythmic_head::do_add_processing ();
 }
@@ -56,11 +56,10 @@ Rest::do_brew_molecule_p () const
     {
       style = ly_scm2string (style_sym);
     }
-  
-  Molecule s(lookup_l ()->rest (balltype_i_, ledger_b, style));
-  Molecule * m = new Molecule ( Molecule (s));
 
-  return m;
+  String idx =  ("rests-") + to_str (balltype_i_) + (ledger_b ? "o" : "") + style;
+
+  return new Molecule(lookup_l ()->afm_find (idx));
 }
 
 

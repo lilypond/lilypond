@@ -11,25 +11,33 @@
 #define FONT_METRIC_HH
 
 #include "box.hh"
-/*
-  sigh.  
-
-  signature -> Internal compiler error
-*/
+#include "lily-guile.hh"
 
 struct Character_metric
 {
-  virtual Box dimensions () const=0;
-  virtual ~Character_metric () {}
+  virtual Box dimensions () const;
+  virtual ~Character_metric ();
 };
 
 struct Font_metric
 {
-  virtual Character_metric const *get_char (int ascii, bool warn) const=0;
-  virtual ~Font_metric () {}
+  String name_str_;
+  virtual SCM description () const;
+  virtual Character_metric const *get_char (int ascii, bool warn) const; 
+  virtual ~Font_metric ();
+  virtual Box text_dimension (String) const;
 };
 
 
+struct Scaled_font_metric : public Font_metric
+{
+  Font_metric *orig_l_;
+  int magstep_i_;
+  
+  Scaled_font_metric (Font_metric*, int);
+  virtual SCM description () const;
+  virtual Box text_dimension (String) const;
+};
 
 
 #endif /* FONT_METRIC_HH */

@@ -23,6 +23,13 @@
 	 ))
   )
 
+(define generic-dot-properties
+  (cons "Dots" (list
+		(list 'dotDirection dir? 'direction)
+		(list 'verticalDirection dir? 'direction)
+		)
+	))
+  
 (define generic-text-properties
   (cons "Text_item" (list
 		     (list 'textStyle string? 'style)
@@ -84,6 +91,7 @@
 (define generic-voice-properties
   (list
    generic-stem-properties
+   generic-tie-properties
    generic-rest-properties
    generic-slur-properties
    generic-beam-properties
@@ -103,5 +111,10 @@
   )
 
 (define generic-thread-properties
-  (list generic-All-properties))
+  (list generic-All-properties
+	generic-dot-properties
+
+	)
+
+  )
    

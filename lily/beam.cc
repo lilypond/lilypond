@@ -283,14 +283,14 @@ Beam::get_default_dir () const
 
   SCM a = get_elt_property ("beam-dir-algorithm");
   
-  if (a == gh_symbol2scm ("majority")) // should get default from paper.
+  if (a == ly_symbol2scm ("majority")) // should get default from paper.
     beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
       : (count[UP] > count[DOWN]) ? UP : DOWN;
-  else if (a == gh_symbol2scm ("mean"))
+  else if (a == ly_symbol2scm ("mean"))
     // mean center distance
     beam_dir = (total[UP] == total[DOWN]) ? neutral_dir
       : (total[UP] > total[DOWN]) ? UP : DOWN;
-  else if (a == gh_symbol2scm ("median"))
+  else if (a == ly_symbol2scm ("median"))
     {
       // median center distance
       if (count[DOWN] && count[UP])
@@ -350,7 +350,7 @@ Beam::check_stemlengths_f (bool set_b)
 {
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
-  Real beam_f = paper_l ()->get_var ("beam_thickness");;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
   Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
   Real epsilon_f = staffline_f / 8;
   Real dy_f = 0.0;
@@ -515,13 +515,13 @@ Beam::quantise_dy ()
 
   SCM q = get_elt_property ("slope-quantisation");
   
-  if (q == gh_symbol2scm ("none"))
+  if (q == ly_symbol2scm ("none"))
     return;
 
   Real interline_f = stems_[0]->staff_line_leading_f ();
   Real internote_f = interline_f / 2;
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real beam_f = paper_l ()->get_var ("beam_thickness");;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
@@ -574,7 +574,7 @@ Beam::quantise_left_y (bool extend_b)
   Real space = stems_[0]->staff_line_leading_f ();
   Real internote_f = space /2;
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real beam_f = paper_l ()->get_var ("beam_thickness");;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   /*
     [TODO]
@@ -603,7 +603,7 @@ Beam::quantise_left_y (bool extend_b)
   Real beamdy_f = beamdx_f * slope_f_ * internote_f;
 
   Array<Real> allowed_position;
-  if (q == gh_symbol2scm ("normal"))
+  if (q == ly_symbol2scm ("normal"))
     {
       if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
@@ -611,7 +611,7 @@ Beam::quantise_left_y (bool extend_b)
 	allowed_position.push (sit);
       allowed_position.push (hang);
     }
-  else if (q == gh_symbol2scm ("traditional"))
+  else if (q == ly_symbol2scm ("traditional"))
     {
       // TODO: check and fix TRADITIONAL
       if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
@@ -707,7 +707,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
   Real internote_f = here->staff_line_leading_f ()/2;
-  Real beam_f = paper_l ()->get_var ("beam_thickness");;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;

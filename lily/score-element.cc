@@ -91,7 +91,7 @@ Score_element::dependency_size () const
 SCM
 Score_element::get_elt_property (String nm) const
 {
-  SCM sym =  ly_symbol (nm);
+  SCM sym =  ly_symbol2scm (nm.ch_C());
   SCM s = scm_assq(sym, element_property_alist_);
 
   if (s != SCM_BOOL_F)
@@ -99,7 +99,7 @@ Score_element::get_elt_property (String nm) const
   
   if (pscore_l_)
     {
-      SCM sym2 = ly_symbol (name () + ("::" + nm));
+      SCM sym2 = ly_symbol2scm ((name () + ("::" + nm)).ch_C());
       SCM val;
       
       // should probably check for Type::sym as well.
@@ -117,7 +117,7 @@ SCM
 Score_element::remove_elt_property (String key)
 {
   SCM s = get_elt_property (key); 
-  SCM sym = ly_symbol (key);	
+  SCM sym = ly_symbol2scm (key.ch_C());
   element_property_alist_ =  scm_assq_remove_x (element_property_alist_, sym);
   return s;
 }
@@ -128,7 +128,7 @@ Score_element::remove_elt_property (String key)
 void
 Score_element::set_elt_property (String k, SCM v)
 {
-  SCM s = ly_symbol (k);
+  SCM s = ly_symbol2scm (k.ch_C( ));
   element_property_alist_ = scm_assoc_set_x (element_property_alist_, s, v);
 }
 

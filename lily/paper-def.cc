@@ -7,6 +7,7 @@
 */
 
 #include <math.h>
+#include "all-font-metrics.hh"
 #include "string.hh"
 #include "misc.hh"
 #include "paper-def.hh"
@@ -58,14 +59,14 @@ Paper_def::Paper_def (Paper_def const&s)
 Real
 Paper_def::get_var (String s) const
 {
-  return get_realvar (ly_symbol (s));
+  return get_realvar (ly_symbol2scm (s.ch_C()));
 }
 
 Real
 Paper_def::get_realvar (SCM s) const
 {
   if (!scope_p_->elem_b (s))
-    error (_f ("unknown paper variable: `%s'", symbol_to_string (s)));
+    error (_f ("unknown paper variable: `%s'", ly_symbol2string (s)));
   Real * p = scope_p_->elem (s)->access_content_Real (false);
   if (!p)
     {
@@ -76,23 +77,37 @@ Paper_def::get_realvar (SCM s) const
   return *p;
 }
 
+
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  if (!shape_int_a_.size ())
+  SCM s = default_properties_ [ly_symbol2scm ("margin-shape")];
+  if (!gh_pair_p (s))
     {
       Real lw =  get_var ("linewidth");
       Real ind = n? 0.0:get_var ("indent");
 
       return Interval (ind, lw);
     }
+
+ 
+  SCM last = SCM_EOL;
+  while (gh_pair_p (s) && n --)
+    {
+      last = s;
+      s = gh_cdr (s);
+    }
+
+  if (s == SCM_EOL)
+    {
+      s = last;
+    }
+
+  SCM pair = gh_car (s);
   
-  if (n >= shape_int_a_.size ())
-    n = shape_int_a_.size () -1;
-
-  return shape_int_a_[n];
+  return Interval (gh_scm2double (gh_car (pair)),
+		   gh_scm2double (gh_cdr (pair)));
 }
-
 
 Real
 Paper_def::length_mom_to_dist (Moment d,Real k) const
@@ -181,33 +196,6 @@ Paper_def::reset_default_count()
   default_count_i_ = 0;
 }
 
-Paper_outputter*
-Paper_def::paper_outputter_p (Paper_stream* os_p, Scope* header_l, String origin_str) const
-{
-  Paper_outputter* p = new Paper_outputter (os_p);
-
-  // for now; breaks -fscm output
-  p->output_comment (_ ("Outputting Score, defined at: "));
-  p->output_comment (origin_str);
-
-  p->output_version();
-  if (header_global_p)
-    p->output_scope (header_global_p, "mudela");
-  if (header_l)
-    p->output_scope (header_l, "mudela");
-  if (scope_p_)
-    p->output_scope (scope_p_, "mudelapaper");
-  
-
-  //  *p->outstream_l_  << *scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false);
-
-  SCM scm = gh_list (ly_symbol ("experimental-on"), SCM_UNDEFINED);
-  p->output_scheme (scm);
-  scm = gh_list (ly_symbol ("header-end"), SCM_UNDEFINED);
-  p->output_scheme (scm);
-
-  return p;
-}
 
 Paper_stream*
 Paper_def::paper_stream_p () const

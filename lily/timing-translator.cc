@@ -72,12 +72,9 @@ Timing_translator::do_process_requests()
 	      daddy_trans_l_->set_property("measurePosition",
 					   (new Moment)->smobify_self ());
 
-
 	    }
 	}
     }
-
-
 }
 
 
@@ -100,9 +97,7 @@ Timing_translator::do_pre_move_processing()
 
   // urg: multi bar rests: should always process whole of first bar?
   SCM tim = get_property ("timing", 0);
-  bool timb = gh_boolean_p (tim) && gh_scm2bool ( tim);
-
-
+  bool timb = gh_boolean_p (tim) && gh_scm2bool (tim);
   if (timb && allbars)
     {
       Moment barleft = (measure_length () - measure_position ());
@@ -124,9 +119,10 @@ Timing_translator::do_creation_processing()
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
   daddy_trans_l_->set_property("measurePosition",
 			       (new Moment)->smobify_self());
+  daddy_trans_l_->set_property ("oneBeat",
+				(new Moment (1,4))->smobify_self ());
   daddy_trans_l_->set_property("measureLength",
 			       (new Moment (1))->smobify_self());
-  
 }
 
 Moment
@@ -143,23 +139,28 @@ Timing_translator::measure_length () const
 void
 Timing_translator::get_time_signature (int *n, int *d) const
 {
-  *n = measure_length () / one_beat_;
-  *d = one_beat_.den_i ();
+  Moment one_beat (1,4);
+  SCM one = get_property ("beatLength",0);
+  if (SMOB_IS_TYPE_B (Moment, one))
+    one_beat = *SMOB_TO_TYPE (Moment, one);
+  *n = measure_length () / one_beat;
+  *d = one_beat.den_i ();
 }
 
 
 void
 Timing_translator::set_time_signature (int l, int o)
 {
-  one_beat_ = Moment (1)/Moment (o);
-  Moment len = Moment (l) * one_beat_;
+  Moment one_beat = Moment (1)/Moment (o);
+  Moment len = Moment (l) * one_beat;
   daddy_trans_l_->set_property ("measureLength",
 				(new Moment (len))->smobify_self ());
+  daddy_trans_l_->set_property ("beatength",
+				(new Moment (one_beat))->smobify_self ());
 }
 
 Timing_translator::Timing_translator()
 {
-  one_beat_ = Moment( 1,4);
 }
 
 
@@ -237,8 +238,6 @@ Timing_translator::do_post_move_processing()
 
   tr->set_property ("currentBarNumber", gh_int2scm (b));
 }
-
-
 
 int 
 Timing_translator::bars_i () const

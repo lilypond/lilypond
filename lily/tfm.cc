@@ -62,7 +62,6 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
 
     {
       warning (_f ("Can't find ascii character: `%d'", ascii));
-
     }
   return dummy_static_char_metric;  
 }
@@ -91,10 +90,4 @@ Tex_font_metric::clear (int n)
     ascii_to_metric_idx_.push (-1);
 }
 
-void
-Tex_font_metric::read_file (String name)
-{
-  Tex_font_metric_reader tfm_reader (name);
-  *this = tfm_reader.read_tfm ();
-}
 

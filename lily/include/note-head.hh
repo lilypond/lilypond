@@ -22,6 +22,9 @@ public:
   void flip_around_stem (Direction);
   static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
+  Molecule make_molecule () const;
+
+  
   virtual Interval do_width () const;
   virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;

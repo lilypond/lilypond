@@ -67,7 +67,6 @@ static Keyword_ent the_key_tab[]={
   {"addlyrics", ADDLYRICS},
   {"score", SCORE},
   {"script", SCRIPT},
-  {"shape", SHAPE},
   {"skip", SKIP},
   {"textscript", TEXTSCRIPT},
   {"tempo", TEMPO},
@@ -97,7 +96,7 @@ My_lily_lexer::lookup_keyword (String s)
 Identifier*
 My_lily_lexer::lookup_identifier (String s)
 {
-  SCM sym = ly_symbol (s.ch_C());
+  SCM sym = ly_symbol2scm (s.ch_C());
   
   for (int i = scope_l_arr_.size (); i--; )
     if (scope_l_arr_[i]->elem_b (sym))

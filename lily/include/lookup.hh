@@ -27,20 +27,15 @@ public:
   Lookup (Lookup const&);
 
   Molecule simple_bar (String s, Real w, Paper_def*) const;
-  Molecule accidental (int, bool cautionary) const;
   Molecule afm_find (String, bool warn=true) const;
-  Molecule notehead  (int, String) const;
   Molecule bar (String, Real height, Paper_def*) const;
   Molecule beam (Real, Real, Real) const;
-  Molecule clef (String) const;
   Molecule dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
-  Molecule dots () const;
   Molecule ledger_line (Interval) const;
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
   Molecule hairpin (Real width, Real height, Real thick, bool decresc, bool continued) const;
   Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real height, Direction dir) const;
-  Molecule rest (int, bool outside, String) const;
   Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Array<Offset> controls, Real thick) const;
   Molecule text (String style, String text, Paper_def*) const;

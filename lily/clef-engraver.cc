@@ -116,7 +116,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
       create_clef();
       if(!default_clef)
 	clef_p_->set_elt_property("visibility-lambda",
-				  ly_ch_C_eval_scm ("all-visibility"));
+				  ly_eval_str ("all-visibility"));
     }
 
   /* ugh; should make Clef_referenced baseclass */

@@ -21,6 +21,7 @@
 #include "paper-outputter.hh"
 #include "file-results.hh"
 #include "misc.hh"
+#include "all-font-metrics.hh"
 
 Paper_score::Paper_score ()
 {
@@ -109,10 +110,6 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-  Dictionary<int> type_stats;
-  type_stats["Item"] =0;
-  type_stats["Spanner"] =0;
-  type_stats["Total"]=0;
 
   print ();
   *mlog << _ ("Preprocessing elements...") << " " << flush;
@@ -125,9 +122,38 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
 
 
-  Paper_stream* paper_stream_p = paper_l_->paper_stream_p ();
-  outputter_l_ = paper_l_->paper_outputter_p (paper_stream_p, header_l_, origin_str_);
+  outputter_l_ = new Paper_outputter ;
+  outputter_l_->output_header ();
 
+  outputter_l_->output_version();
+  
+  if (header_global_p)
+    outputter_l_->output_scope (header_global_p, "mudela");
+  if (header_l_)
+    outputter_l_->output_scope (header_l_, "mudela");
+
+  outputter_l_->output_comment (_ ("Outputting Score, defined at: "));
+  outputter_l_->output_comment (origin_str_);
+
+  if (paper_l_->scope_p_)
+    outputter_l_->output_scope (paper_l_->scope_p_, "mudelapaper");
+  
+  SCM scm = gh_list (ly_symbol2scm ("experimental-on"), SCM_UNDEFINED);
+  outputter_l_->output_scheme (scm);
+  scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
+  outputter_l_->output_scheme (scm);
+
+
+  /*
+    This is tricky: we have to put the font definitions before the
+    actual output, but we don't know all fonts in advanced: generating
+    the output might trigger loading of a new font.  So we store the
+    place to insert the font definitions, generate the output and then
+    insert the definitions
+    
+   */
+  SCM before_output = outputter_l_->last_cons_;
+  
   Link_array<Line_of_score> lines;
   for (int i=0; i < breaking.size (); i++)
     {
@@ -149,28 +175,25 @@ Paper_score::process ()
 
       line_l->post_processing ();
       *mlog << i << flush;
-      line_l->output_all (i + 1 == lines.size());
+      line_l->output_all (i + 1 == lines.size ());
       *mlog << ']' << flush;
-     }
+    }
+
+  SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());
+  gh_set_cdr_x (before_output,
+		gh_cons  (gh_list (ly_symbol2scm ("define-fonts"),
+				   font_names,
+				   SCM_UNDEFINED),
+			  gh_cdr (before_output)));
   
+  Paper_stream* psp = paper_l_->paper_stream_p ();
+  outputter_l_->dump_onto (psp);
   // huh?
   delete outputter_l_;
-  delete paper_stream_p;
+  
   outputter_l_ = 0;
-
-
-  /*
-    todo: sort output
-   */
-  if (experimental_features_global_b)
-    {
-      for (Dictionary_iter<int> i(type_stats); i.ok(); i++)
-	{
-	  *mlog << i.key () << ": " << i.val () << " objects\n";
-	}
-    }
-  *mlog << '\n' << flush;
-      
+  delete psp;
+  
 }
 
 Link_array<Item>

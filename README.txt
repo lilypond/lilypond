@@ -37,15 +37,17 @@ Documentation
    The real documentation is the directory Documentation/
 
    If you want to read the documentation online, these are options:
-   * use `.html'. Refer to INSTALL.txt for info on how to make the
-     .html documentation.
+   * use HTML. Refer to INSTALL.txt for information on how to make the
+     HTML documentation.
 
-   * use `.html'. Point your browser to
+   * use HTML. Point your browser to
      `http://www.cs.uu.nl/~hanwen/lilypond/index.html'.
 
    * use `.dvi',  for the tutorial and reference manual. Do
 
             make -C Documentation/user/ dvi
+
+     You need a working LilyPond binary to create the DVI sources  .
 
    * use ASCII. Do using
           	make -C doc
