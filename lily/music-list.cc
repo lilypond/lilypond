@@ -146,5 +146,6 @@ Request_chord::to_relative_octave (Musical_pitch last)
 
 
 Music_list::Music_list ()
+  : Pointer_list<Music*> ()
 {
 }

@@ -1,3 +1,7 @@
+pl 8.jcn2
+	- more doco in texinfo (with yodl pl3)
+	- bf's: package-diff
+
 pl 8.jcn1
 	- removed tutorial from texinfo, yodl2texinfo is still rather broken
 	- bf: setlocale NUMERIC to 'C'

@@ -8,7 +8,7 @@ chapter(Programs)
 
 COMMENT(prepare for texinfoing manpages)
 redef(manpage)(5)()
-redef(manpagename)(2)(nodeprefix()nodetext(ARG2)chapter(ARG1)nodeprefix(ARG1))
+redef(manpagename)(2)(nodeprefix()nodetext(ARG2)chapter(ARG1)nodeprefix(ARG1 ))
 redef(manpageauthor)(0)(sect(Authors))
 redef(manpagesection)(1)(sect(ARG1))
 

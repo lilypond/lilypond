@@ -79,8 +79,8 @@ def remove_configure (dir):
 
 	# should do 'make distclean ?'
 	os.system ('rm -rf debian/out')
-	os.system ('rm -f Makefile config.cache config.h config.hh config.log config.make config.status')
-	os.system ('rm -f stepmake/Makefile stepmake/config.hh stepmake/config.log stepmake/config.make')
+	os.system ('rm -f GNUmakefile config.cache config.h config.hh config.log config.make config.status configure')
+	os.system ('rm -f stepmake/GNUmakefile stepmake/config.hh stepmake/config.log stepmake/config.status stepmake/config.make')
 
 	# ugh: symlinks
 	os.system ('rm -f stepmake/stepmake/stepmake')
@@ -140,9 +140,10 @@ def makediff (fromdir, todir, patch_name):
 	if i == -1:
 		f.write (to_str + '\n')
 	else:
-		i = i + len (version_tuple_to_str (flags.to_version)) + 1
+		i = i + len (version_tuple_to_str (flags.to_version))
 		state_vec = state_vec[:i]
 		f.write (state_vec)
+		f.write ('\n')
 	f.write ('++state\n')
 	f.close ()
 			

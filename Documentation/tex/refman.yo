@@ -1,6 +1,6 @@
 COMMENT(-*-text-*-)
 
-DEFINEMACRO(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
+redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
 
 
