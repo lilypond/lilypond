@@ -10,6 +10,7 @@
 #include "bar.hh"
 #include "command-request.hh"
 #include "time-description.hh"
+#include "engraver-group.hh"
 
 Bar_engraver::Bar_engraver()
 {
@@ -43,6 +44,9 @@ Bar_engraver::do_process_requests()
     
     if (bar_p_){
 	announce_element(Score_elem_info(bar_p_, bar_req_l_) );
+    } else {
+	Disallow_break_req r;
+	daddy_grav_l_->try_request(&r);
     }
 }
 
