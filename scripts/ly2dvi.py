@@ -66,6 +66,7 @@ import __main__
 import operator
 import tempfile
 import traceback
+import resource
 
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
