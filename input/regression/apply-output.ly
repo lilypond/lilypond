@@ -20,7 +20,7 @@ position.
   (if (and (memq 'note-head-interface ifs)
 	   (memq sp '(-2 -3 -5)))
       (begin
-	(ly:grob-set-property! gr 'print-function brew-new-markup-stencil)
+	(ly:grob-set-property! gr 'print-function Text_interface::print)
 	(ly:grob-set-property! gr 'font-family 'roman)
 	(ly:grob-set-property!
 	 gr 'text
