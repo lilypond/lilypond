@@ -37,114 +37,12 @@ rules.
 @node American Chords 
 @section American Chords
 
-
-@lilypond[verbatim, noquote, noindent, notime]
-\include "english.ly"
-
-scheme = \chords {
-  c         % Major triad
-  cs:m      % Minor triad
-  df:m5-    % Diminished triad
-  c:5^3     % Root-fifth chord
-  c:4^3     % Suspended fourth triad
-  c:5+      % Augmented triad
-  c:2^3     % "2" chord
-  c:m5-.7-  % Diminished seventh
-  c:7+      % Major seventh
-  c:7.4^3   % Dominant seventh suspended fourth
-  c:5+.7    % Augmented dominant seventh
-  c:m5-.7   % "Half" diminished seventh
-  c:5-.7    % Dominant seventh flat fifth
-  c:5-.7+   % Major seventh flat fifth
-  c:m7+     % Minor-major seventh
-  c:m7      % Minor seventh
-  c:7       % Dominant seventh
-  c:6       % Major sixth
-  c:m6      % Minor sixth
-  c:9^7     % Major triad w/added ninth
-  c:6.9^7   % Six/Nine chord
-  c:9       % Dominant ninth 
-  c:7+.9    % Major ninth
-  c:m7.9    % Minor ninth
-}
-
-\score {
-  \notes <
-    \context ChordNames {
-	#(set-chord-name-style 'american)
-	\scheme }
-    \context Staff \transpose c c' \scheme
-  >
-  \paper {
-    linewidth = 5.7\in
-  }
-}
-@end lilypond
+[TODO]
 
 @node Jazz chords
 @section Jazz chords
 
-Similarly, Jazz style chord names are implemented as a variation on
-American style names:
-
-@lilypond[verbatim, noquote, noindent, notime]
-scheme = \chords {
-  % major chords
-  c
-  c:6		% 6 = major triad with added sixth
-  c:maj		% triangle = maj
-  c:6.9^7	% 6/9 
-  c:9^7		% add9
-
-  % minor chords
-  c:m		% m = minor triad
-  c:m.6		% m6 = minor triad with added sixth
-  c:m.7+	% m triangle = minor major seventh chord
-  c:3-.6.9^7	% m6/9 
-  c:m.7		% m7
-  c:3-.9	% m9
-  c:3-.9^7	% madd9
-
-  % dominant chords
-  c:7		% 7 = dominant
-  c:7.5+	% +7 = augmented dominant
-  c:7.5-	% 7b5 = hard diminished dominant
-  c:9		% 7(9)
-  c:9-		% 7(b9)
-  c:9+		% 7(#9)
-  c:13^9.11 	% 7(13)
-  c:13-^9.11 	% 7(b13)
-  c:13^11	% 7(9,13)
-  c:13.9-^11	% 7(b9,13)
-  c:13.9+^11	% 7(#9,13)
-  c:13-^11	% 7(9,b13)
-  c:13-.9-^11	% 7(b9,b13)
-  c:13-.9+^11	% 7(#9,b13)
-
-  % half diminished chords
-  c:m5-.7		% slashed o = m7b5
-  c:9.3-.5-	% o/7(pure 9)
-
-  % diminished chords
-  c:m5-.7-	% o = diminished seventh chord
-}
-
-\score {
-  \notes <
-    \context ChordNames {
-	#(set-chord-name-style 'jazz)
-	\scheme }
-    \context Staff \transpose c c' \scheme
-  >
-  \paper {
-    linewidth = 5.7\in
-  }
-}
-@end lilypond
-
-@c [barnumbers look silly, fixme.]
-
-
+@lilypondfile{chords-ignatzek.ly}
 
 @node MIDI instruments
 @section MIDI instruments

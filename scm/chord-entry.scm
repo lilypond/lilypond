@@ -81,12 +81,13 @@ Entry point for the parser.
 	 (cdr mods)))
        (else (interpret-removals  chord mods))
       ))
-    (define (pitch-octavated-below p root)
+
+    (define (pitch-octavated-strictly-below p root)
       "return P, but octavated, so it is below  ROOT"
       (ly:make-pitch
        (+
 	(ly:pitch-octave root)
-	(if (>= (ly:pitch-notename root)
+	(if (> (ly:pitch-notename root)
 		(ly:pitch-notename p))
 	    0 -1))
        (ly:pitch-notename p)
@@ -113,7 +114,7 @@ the bass specified.
 		 
 	   (rest-of-chord (filter-out-list inv? complete-chord))
 	   (inversion-candidates (filter-list inv? complete-chord))
-	   (down-inversion (pitch-octavated-below inversion root))
+	   (down-inversion (pitch-octavated-strictly-below inversion root))
 	   )
 
 	(if (pair? inversion-candidates)
@@ -133,13 +134,6 @@ the bass specified.
     ; something weird happens when this is removed,
     ; every other chord is octavated. --hwn... hmmm. 
     (set! root (ly:pitch-transpose root (ly:make-pitch 1 0 0)))
-    
-    (if #f
-	(begin
-	  (write-me "\n*******\n" flat-mods)
-	  (write-me "root: " root)
-	  (write-me "base: " base-chord)
-	  (write-me "bass: " bass)))
 
     ;; skip the leading : , we need some of the stuff following it.
     (if (pair? flat-mods)
@@ -165,8 +159,7 @@ the bass specified.
 	  (if (=  (pitch-step (car flat-mods)) 11)
 	      (set! explicit-11  #t))
 	  (set! base-chord
-		(map (lambda (y) (ly:pitch-transpose y root))
-		     (stack-thirds (car flat-mods) the-canonical-chord)))
+		(stack-thirds (car flat-mods) the-canonical-chord))
 	  (set! flat-mods (cdr flat-mods))
 	))
 
@@ -200,7 +193,19 @@ the bass specified.
     (if inversion
 	(set! complete-chord (process-inversion complete-chord)))
     (if bass
-	(set! bass (pitch-octavated-below bass root)))
+	(set! bass (pitch-octavated-strictly-below bass root)))
+    
+    (if #f
+	(begin
+	  (write-me "\n*******\n" flat-mods)
+	  (write-me "root: " root)
+	  (write-me "base chord: " base-chord)
+	  (write-me "complete  chord: " complete-chord)
+	  (write-me "inversion: " inversion)
+	  (write-me "bass: " bass)))
+
+
+    
     (if inversion
 	(make-chord (cdr complete-chord) bass duration (car complete-chord)
 		    inversion)
