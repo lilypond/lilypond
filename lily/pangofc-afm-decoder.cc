@@ -176,13 +176,16 @@ pango_fc_afm_get_glyph (PangoFcDecoder *decoder, PangoFcFont *fcfont,
   PangoGlyph g = XftCharIndex (0, xft_font, wc);
   dprintf ("get glyph! 0x%x --> 0x%x\n", wc, (unsigned)g);
 #else
+  (void) fcfont;
   /* TODO:
        - PUA mapping?
        
      Shortcut PUA mapping/AFM reading: The Feta charsets are encoded
-     without any gaps, starting at 0x21.  *grin*  */
-  (void) fcfont;
-  return wc - 0x21;
+     without any gaps, starting at 0x21.  *grin*
+
+     FIXME: +1 what has changed? -- jcn
+  */
+  return wc - 0x21 + 1;
 #endif  
 }
 
