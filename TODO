@@ -8,16 +8,15 @@ grep for TODO and ugh/ugr
 
 0.2:
 
+	* bf: abbrevbeam? 
+
 	* add full coriolan to website.
 
-	* collisions for local_key.
-
-	* robustify Beam in case of no stems
-
-	* latex quirk?
+	* robustify Beam (in case of no stems, 32nd notes)
 
 	* check for groff / troff/ nroff et
 
+	* latex quirk?
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
@@ -31,8 +30,6 @@ grep for TODO and ugh/ugr
 	* --metafont
 
 	* disable spaces in TeX stuff
-
-	* height of dyns.
 	
 	* handle ^C for tmp/file creation.
 
@@ -52,8 +49,6 @@ grep for TODO and ugh/ugr
 
 	* versioning for Feta
 
-	* bf: abbrevs over whole note
-
 	* the warning about the negative slur/tie length appears twice
 	which is irritating.
 
@@ -61,8 +56,6 @@ grep for TODO and ugh/ugr
 	in the middle:
 
 	* better hshift (dots, distance, head dependent)
-
-	* tie/slur dir & curvature
 
 	* stem len adjustable
 
@@ -128,7 +121,6 @@ PROJECTS
 
 	* Makefile stuff:
 	- shared lib on Solaris too.
-	- check libtool
 
 	* Add mudela-output to Rosegarden.
 
@@ -171,8 +163,6 @@ languages:
 	- make separate class for Grace_*_engravers 
 	(which is at Voice_gravs level)
 	- make encapsulated spacing problems.
-
-	* On-demand loading of simple-engravers?
 
 	* accidentals per Voice_group
 
@@ -370,8 +360,7 @@ SMALLISH PROJECTS
 
 IDEAS
 
-	* Output abstract data structures associated with
-Mudela.
+	* Output data structures of Mudela in XML/SGML.
 
 	* create libmudela, or liblily_frontend
 
@@ -409,8 +398,6 @@ Mudela.
 		if ( t <= get_type( q ))
 			..
 
-	* naming of Voice_group/Voice
-
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* a real convert-mudela
@@ -423,12 +410,6 @@ Mudela.
 
 	* lyrics in chords still fuck up.
 
-	* rewire acknowledge_element() logic with a process_acknowledged()
-
 	* pushgroup/popgroup
-
-	* multi threading?
-	  - 1 thread per element/ 1 thread per line
-	  - 1 thread per Translator
 
 	* Use hooks/dependency graphs for properties
