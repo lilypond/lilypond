@@ -85,8 +85,6 @@ Score_element::Score_element (Score_element const&s)
   pscore_l_ = s.pscore_l_;
 
   smobify_self ();
-
-  
 }
 
 Score_element::~Score_element()
@@ -324,10 +322,6 @@ Score_element::do_add_processing()
 {
 }
 
-void
-Score_element::do_substitute_element_pointer (Score_element*,Score_element*)
-{
-}
 
 
 Molecule*
@@ -358,12 +352,7 @@ Score_element::add_dependency (Score_element*e)
     programming_error ("Null dependency added");
 }
 
-void
-Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
-{
-  do_substitute_element_pointer (old,new_l);
-  old->do_substitute_element_pointer (this, 0);
-}
+
 
 
 /**
@@ -373,10 +362,9 @@ Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
 SCM
 Score_element::handle_broken_smobs (SCM s, SCM criterion)
 {
-  if (SMOB_IS_TYPE_B (Score_element, s))
+  Score_element *sc = unsmob_element ( s);
+  if (sc)
     {
-      Score_element *sc = SMOB_TO_TYPE (Score_element, s);
-
       if (criterion == SCM_UNDEFINED)
 	return SCM_UNDEFINED;
       else if (gh_number_p (criterion))
@@ -391,7 +379,7 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
 	}
       else
 	{
-	  Score_element * ln = SMOB_TO_TYPE (Score_element, criterion);
+	  Score_element * ln = unsmob_element ( criterion);
 	  Line_of_score * line = dynamic_cast<Line_of_score*> (ln);
 	  Score_element * br =0;
 	  Line_of_score * dep_line = sc->line_l ();
@@ -412,18 +400,44 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
       gh_set_car_x (s, handle_broken_smobs (gh_car (s), criterion));
       gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), criterion));
 
-      if (gh_car (s) == SCM_UNDEFINED)
+      if (gh_car (s) == SCM_UNDEFINED && gh_list_p (gh_cdr(s)))
 	return gh_cdr (s);
     }
   return s;
 }
 
 void
+Score_element::recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)())
+{
+  Score_element * sc = unsmob_element ( s);
+  if (sc)
+    {
+      (sc->*meth_ptr) ();
+    }
+  else if (gh_pair_p (s))
+    {
+      recurse_into_smobs (gh_car (s), meth_ptr);
+      recurse_into_smobs (gh_cdr (s), meth_ptr);      
+    }
+}
+
+void
 Score_element::handle_broken_dependencies()
 {
   Line_of_score *line  = line_l();
+  
+  SCM rec = get_elt_property ("handle-broken-deps");
+  if (gh_boolean_p (rec) && gh_scm2bool (rec))
+    return;
+  
+  set_elt_property ("handle-broken-deps", SCM_BOOL_T);
   element_property_alist_ = handle_broken_smobs (element_property_alist_,
 						 line ? line->self_scm_ : SCM_UNDEFINED);
+
+
+  recurse_into_smobs (element_property_alist_,
+		      &Score_element::handle_broken_dependencies);
+  
   if (!line)
     return;
 
@@ -436,7 +450,6 @@ Score_element::handle_broken_dependencies()
       if (elt->line_l() != line)
 	{
 	  Score_element * broken = elt->find_broken_piece (line);
-	  substitute_dependency (elt, broken);
 	  elt  = broken ;
 	}
       if (elt)
@@ -458,49 +471,9 @@ Score_element::handle_prebroken_dependencies()
 	= handle_broken_smobs (element_property_alist_,
 			       gh_int2scm (i->break_status_dir ()));
     }
-
-  Link_array<Score_element> old_arr, new_arr;
-  
-  for (int i=0; i < dependency_size(); i++) 
-    {
-      Score_element * elt = dependency (i);
-      Item *it_l = dynamic_cast <Item *> (elt);
-      if (it_l && it_l->broken_original_b ())
-	if (Item *me = dynamic_cast<Item*> (this) )
-	  {
-	    Score_element *new_l = it_l->find_broken_piece (me->break_status_dir ());
-	    if (new_l != elt) 
-	      {
-		new_arr.push (new_l);
-		old_arr.push (elt);
-	      }
-	  }
-	else 
-	  {
-	    Direction d = LEFT;
-	    do {
-	      old_arr.push (0);
-	      new_arr.push (it_l->find_broken_piece (d));
-	    } while (flip(&d)!= LEFT);
-	  }
-    }
-  
-  for (int i=0;  i < old_arr.size(); i++)
-    if (old_arr[i])
-      substitute_dependency (old_arr[i], new_arr[i]);
 }
 
-#if 0
-void
-Score_element::handle_prebroken_dependents()
-{
-}
 
-void
-Score_element::handle_broken_dependents()
-{
-}
-#endif
 
 
 
@@ -546,21 +519,7 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
      
   scm_puts ("#<Score_element ", port);
   scm_puts ((char *)sc->name (), port);
-#if 0
-  for (SCM s = sc->element_property_alist_; gh_pair_p (s); s = gh_cdr (s))
-    {
-      scm_display (gh_caar(s), port);
-      SCM val = gh_cdar(s);
-      if (SMOB_IS_TYPE_B (Score_element, val))
-	{
-	  scm_puts ("#<:", port);
-	  scm_puts ((SMOB_TO_TYPE(Score_element,val))->name(), port);
-	  scm_puts (">", port);
-	}
-      else
-	scm_display (val, port);      
-    }
-#endif
+
   // scm_puts (" properties = ", port);
   // scm_display (sc->element_property_alist_, port);
   scm_puts (" >", port);
@@ -622,7 +581,14 @@ Score_element::extent (Axis a) const
   return d->get_dim ();
 }
 
-
+Score_element*
+unsmob_element (SCM s)
+{
+  if (SMOB_IS_TYPE_B (Score_element, s))
+    return SMOB_TO_TYPE(Score_element,s);
+  else
+    return 0;
+}
 
 
 /*

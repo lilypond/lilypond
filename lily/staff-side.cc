@@ -45,10 +45,9 @@ Side_position_interface::get_direction () const
     }
   
   SCM other_elt = elt_l_->get_elt_property ("direction-source");
-  if (SMOB_IS_TYPE_B (Score_element, other_elt))
+  Score_element * e = unsmob_element(other_elt);
+  if (e)
     {
-      Score_element * e = SMOB_TO_TYPE(Score_element,other_elt);
-
       return relative_dir * Side_position_interface (e).get_direction ();
     }
   
@@ -69,24 +68,22 @@ Side_position_interface::side_position (Dimension_cache const * c)
   SCM support = me->get_elt_property ("side-support");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      if (!SMOB_IS_TYPE_B (Score_element, gh_car (s)))
-	continue;
-      
-      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
-      common = common->common_refpoint (e, axis);
+      Score_element * e  = unsmob_element ( gh_car (s));
+      if (e)
+	common = common->common_refpoint (e, axis);
     }
   
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      if (!SMOB_IS_TYPE_B (Score_element, gh_car (s)))
-	continue;
 
-      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
-      Real coord = e->relative_coordinate (common, axis);
+      Score_element * e  = unsmob_element ( gh_car (s));
+      if (e)
+	{
+	  Real coord = e->relative_coordinate (common, axis);
 
-      dim.unite (coord + e->extent (axis));
+	  dim.unite (coord + e->extent (axis));
+	}
     }
-
 
   if (dim.empty_b ())
     {

@@ -15,6 +15,7 @@
 #include "paper-outputter.hh"
 #include "score-column.hh"
 #include "line-of-score.hh"
+#include "break-align-item.hh"
 
 void
 Spanner::break_into_pieces ()
@@ -201,30 +202,6 @@ Spanner::do_space_processing ()
     }
 }
 
-#if 0
-/*
-  UGH.
- */
-void
-Spanner::handle_broken_dependents ()
-{
-  Spanner *unbrok = dynamic_cast<Spanner*> (original_l_);
-  if (!unbrok || parent_l(Y_AXIS))
-    return;
-  
-  Spanner *refpoint = dynamic_cast<Spanner*> (unbrok->parent_l (Y_AXIS));
-  
-  if (refpoint)
-    {
-      Score_element * broken_refpoint = refpoint->find_broken_piece (line_l ());
-      if (broken_refpoint)
-	set_parent (broken_refpoint,Y_AXIS);
-      else
-	programming_error ("Spanner y -refpoint lost.");
-    }
-}
-#endif
-
 /*
   If this is a broken spanner, return the amount the left end is to be
   shifted horizontally so that the spanner starts after the initial
@@ -234,8 +211,6 @@ Spanner::handle_broken_dependents ()
 Real
 Spanner::get_broken_left_end_align () const
 {
-  int i;
-
   Score_column *sc = dynamic_cast<Score_column*> (spanned_drul_[LEFT]->column_l());
 
   // Relevant only if left span point is first column in line
@@ -244,13 +219,23 @@ Spanner::get_broken_left_end_align () const
     {
       // We could possibly return the right edge of the whole Score_column here,
       // but we do a full search for the Break_align_item.
-      for(i = 0; i < sc->elem_l_arr_.size (); i++)
+
+      /*
+	In fact that doesn't make a difference, since the Score_column
+	is likely to contain only a Break_align_item.
+      */
+#if 0
+      for(SCM s = sc->get_elt_property ("elements"); gh_pair_p (s);
+	  s = gh_cdr (s))
 	{
-	  if(0 == strcmp (classname (sc->elem_l_arr_[i]), "Break_align_item"))
+	  Score_element *e = SMOB_TO_TYPE (Score_element, gh_car (s));
+	  if(dynamic_cast<Break_align_item*> (e))
 	    {
-	      return sc->elem_l_arr_[i]->extent (X_AXIS) [RIGHT];
+	      return e->extent (X_AXIS) [RIGHT];
 	    }
 	}
+#endif
+      return sc->extent (X_AXIS)[RIGHT];
     }
 
   return 0.0;

@@ -52,7 +52,7 @@ Rest_engraver::do_process_requests ()
       if (rest_req_l_->duration_.dots_i_)
 	{
 	  dot_p_ = new Dots;
-	  rest_p_->dots_l_  =dot_p_;
+	  rest_p_->add_dots (dot_p_);
 	  dot_p_->dots_i_ = rest_req_l_->duration_.dots_i_;	  
 	  announce_element (Score_element_info (dot_p_,0));
 	}

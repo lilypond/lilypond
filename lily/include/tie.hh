@@ -23,12 +23,12 @@ public:
   void set_head (Direction, Note_head*head_l);
   VIRTUAL_COPY_CONS(Score_element);
 
-  Drul_array<Note_head *> head_l_drul_;
+  Note_head* head (Direction) const;
 protected:
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual Direction get_default_dir() const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
+
   virtual Array<Rod> get_rods () const;
 
   Array<Offset> get_controls () const;

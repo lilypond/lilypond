@@ -327,7 +327,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
       /*
 	Don't (start) auto-beam over empty stems; skips or rests
 	*/
-      if (!stem_l->head_l_arr_.size ())
+      if (!stem_l->first_head ())
 	{
 	  if (stem_l_arr_p_)
 	    end_beam ();

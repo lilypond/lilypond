@@ -31,10 +31,7 @@ Staff_symbol*
 Staff_symbol_referencer::staff_symbol_l () const
 {
   SCM st = get_elt_property ("staff-symbol");
-  if (SMOB_IS_TYPE_B (Score_element, st))
-    return dynamic_cast<Staff_symbol* > (SMOB_TO_TYPE (Score_element,st));
-  else
-    return 0;
+  return dynamic_cast<Staff_symbol* > (unsmob_element(st));
 }
 
 Real

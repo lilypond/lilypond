@@ -14,15 +14,12 @@
 #include "item.hh"
 
 class Rest_collision : public Item {
-    Link_array<Note_column> rest_l_arr_;
-    Link_array<Note_column> ncol_l_arr_;
 public:
-    void add_column (Note_column*);
+  void add_column (Note_column*);
+  Interval rest_dim () const;
     
-    Rest_collision();
+  Rest_collision();
 protected:
-    virtual void do_pre_processing();
-    virtual void do_print() const;
-    virtual void do_substitute_element_pointer (Score_element*,Score_element*);
+  virtual void do_pre_processing();
 };
 #endif // REST_COLLISION_HH

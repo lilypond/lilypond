@@ -32,12 +32,8 @@ Stem *
 Stem_tremolo::stem_l ()const
 {
   SCM s =   get_elt_property ("stem");
-  if (SMOB_IS_TYPE_B (Score_element, s))
-    {
-      return dynamic_cast<Stem*> (SMOB_TO_TYPE (Score_element,s));
-    }
-  else
-    return 0;
+
+  return dynamic_cast<Stem*> (  unsmob_element (s));
 }
 
 Interval

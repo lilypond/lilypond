@@ -16,11 +16,13 @@
 #include "rest.hh"
 #include "molecule.hh"
 #include "misc.hh"
-
+#include "group-interface.hh"
+#include "stem.hh"
 
 Multi_measure_rest::Multi_measure_rest ()
 {
   measures_i_ = 0;
+  set_elt_property ("columns", SCM_EOL);
 }
 
 void
@@ -99,7 +101,7 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   else if (measures_i_ > 1)
     {
-      Molecule s ( lookup_l ()->text ("number", to_str (measures_i_), paper_l ()));
+      Molecule s (lookup_l ()->text ("number", to_str (measures_i_), paper_l ()));
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_molecule (s);
@@ -108,36 +110,38 @@ Multi_measure_rest::do_brew_molecule_p () const
   return mol_p;
 }
 
+/*
+  UGH. JUNKME elt prop "columns" isn't really needed. 
+ */
+
 void
 Multi_measure_rest::do_add_processing ()
 {
-  if (column_arr_.size ())
+  if (gh_pair_p (get_elt_property ("columns")))
     {
-      set_bounds (LEFT, column_arr_[0 >? column_arr_.size () - 2]);
-      set_bounds (RIGHT, column_arr_[column_arr_.size () - 1]);
+      Link_array<Item> column_arr (Group_interface__extract_elements (this, (Item*)0, "columns"));
+				    
+      set_bounds (LEFT, column_arr[0 >? column_arr.size () - 2]);
+      set_bounds (RIGHT, column_arr.top ());
     }
 }
   
 void
 Multi_measure_rest::do_post_processing ()
 {
-  if (!column_arr_.size ())
+  if (!gh_pair_p (get_elt_property ("columns")))
     set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 
-void
-Multi_measure_rest::do_substitute_element_pointer (Score_element* o, Score_element* n)
-{
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-  if (Item* c = dynamic_cast <Item*> (o))
-    column_arr_.substitute (c, dynamic_cast<Item*> (n));
-}
-  
+ 
 void
 Multi_measure_rest::add_column (Item* c)
 {
-  column_arr_.push (c);
+  Group_interface gi (this, "columns");
+  gi.add_element (c);
+
+  
   add_dependency (c);
 }
 

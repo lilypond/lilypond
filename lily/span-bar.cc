@@ -13,18 +13,16 @@
 #include "molecule.hh"
 #include "align-element.hh"
 #include "warn.hh"
+#include "group-interface.hh"
+
 
 void
 Span_bar::add_bar (Score_element*b)
 {
-  spanning_l_arr_.push (b);
-  add_dependency (b);
-}
+  Group_interface gi (this);
+  gi.add_element (b);
 
-void
-Span_bar::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  spanning_l_arr_.unordered_substitute (o, n);
+  add_dependency (b);
 }
 
 
@@ -59,7 +57,7 @@ Span_bar::do_post_processing ()
 void
 Span_bar::evaluate_empty ()
 { 
-  if (spanning_l_arr_.size () < 1) 
+  if (!gh_pair_p (get_elt_property ("elements"))) 
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS);
@@ -90,13 +88,23 @@ Span_bar::get_spanned_interval () const
 {
   Interval y_int;
 
-  for (int i=0; i < spanning_l_arr_.size (); i++) 
+  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element*common = common_refpoint (spanning_l_arr_[i], Y_AXIS);
-      Real y = spanning_l_arr_[i]->relative_coordinate (common, Y_AXIS)  
-	- relative_coordinate (common, Y_AXIS);
+      Score_element *bar = unsmob_element ( gh_car (s));
 
-      y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
+      if (!bar)
+	continue;
+      
+      Score_element*common = common_refpoint (bar, Y_AXIS);
+
+      Interval iv (bar->extent(Y_AXIS));
+      if (!iv.empty_b ())
+	{
+	  Real y = bar->relative_coordinate (common, Y_AXIS)  
+	    - relative_coordinate (common, Y_AXIS);
+
+	  y_int.unite (y + iv);
+	}
     }
   return y_int;
 }

@@ -23,8 +23,6 @@ public:
 
   void add_column (Note_column*);
 
-  Link_array<Note_column> encompass_arr_;
-
 protected:
   virtual Array<Offset> get_encompass_offset_arr () const;
 
@@ -32,7 +30,6 @@ protected:
   virtual void do_post_processing ();
   virtual void do_add_processing ();
   virtual void do_pre_processing ();
-  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
   Array<Rod> get_rods () const;
 };
 

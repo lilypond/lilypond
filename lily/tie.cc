@@ -11,14 +11,20 @@
 #include "note-head.hh"
 #include "paper-column.hh"
 #include "debug.hh"
+#include "group-interface.hh"
+
 
 
 
 void
 Tie::set_head (Direction d, Note_head * head_l)
 {
-  assert (!head_l_drul_[d]);
-  head_l_drul_[d] = head_l;
+  assert (!head (d));
+  if (d == LEFT)
+    gh_set_car_x (get_elt_property ("heads"), head_l->self_scm_ );
+  else if (d == LEFT)
+    gh_set_cdr_x (get_elt_property ("heads"), head_l->self_scm_ );
+  
   set_bounds (d, head_l);
 
   add_dependency (head_l);
@@ -26,8 +32,16 @@ Tie::set_head (Direction d, Note_head * head_l)
 
 Tie::Tie()
 {
-  head_l_drul_[RIGHT] =0;
-  head_l_drul_[LEFT] =0;
+  set_elt_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
+}
+
+Note_head* 
+Tie::head (Direction d) const
+{
+  SCM c = get_elt_property ("heads");
+  c = index_cell (c, d);
+
+  return dynamic_cast<Note_head*> (unsmob_element (c));  
 }
 
 
@@ -37,8 +51,8 @@ Tie::Tie()
 Direction
 Tie::get_default_dir () const
 {
-  int m = int (head_l_drul_[LEFT]->position_f () 
-	       + head_l_drul_[RIGHT]->position_f ()) /2;
+  int m = int (head (LEFT)->position_f () 
+	       + head (RIGHT)->position_f ()) /2;
 
   /*
     If dir is not determined: inverse of stem: down
@@ -51,22 +65,26 @@ Tie::get_default_dir () const
 void
 Tie::do_add_processing()
 {
-  if (!(head_l_drul_[LEFT] && head_l_drul_[RIGHT]))
+  if (!(head (LEFT) && head (RIGHT)))
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
-  Drul_array<Note_head *> new_head_drul = head_l_drul_;
+  Drul_array<Note_head *> new_head_drul;
+  new_head_drul[LEFT] = head(LEFT);
+  new_head_drul[RIGHT] = head(RIGHT);  
   do {
-    if (!head_l_drul_[d])
-      new_head_drul[d] = head_l_drul_[(Direction)-d];
+    if (!head (d))
+      new_head_drul[d] = head((Direction)-d);
   } while (flip(&d) != LEFT);
-  head_l_drul_ = new_head_drul;
+
+  gh_set_car_x (get_elt_property ("heads"), new_head_drul[LEFT]->self_scm_ );
+  gh_set_cdr_x (get_elt_property ("heads"), new_head_drul[RIGHT]->self_scm_ );
 }
 
 void
 Tie::do_post_processing()
 {
-  assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
+  assert (head (LEFT) || head (RIGHT));
 
   Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f / 2;
@@ -91,13 +109,13 @@ Tie::do_post_processing()
   Direction d = LEFT;
   do
     {
-      Real head_width_f = head_l_drul_[d]
-	? head_l_drul_[d]->extent (X_AXIS).length ()
+      Real head_width_f = head (d)
+	? head (d)->extent (X_AXIS).length ()
 	: 0;
       /*
 	side attached to outer (upper or lower) notehead of chord
       */
-      if (head_l_drul_[d]
+      if (head (d)
 	  /*
 
 	        a~a~a;
@@ -107,7 +125,7 @@ Tie::do_post_processing()
 	    Getting scared a bit by score-element's comment:
 	    // is this a good idea?
 	  */
-	  && (head_l_drul_[d]->get_elt_property ("extremal")
+	  && (head (d)->get_elt_property ("extremal")
 	      != SCM_UNDEFINED))
 	{
 	if (d == LEFT)
@@ -125,8 +143,8 @@ Tie::do_post_processing()
 
 #else
 
-  if (head_l_drul_[LEFT])
-    dx_f_drul_[LEFT] = head_l_drul_[LEFT]->extent (X_AXIS).length ();
+  if (head (LEFT))
+    dx_f_drul_[LEFT] = head (LEFT)->extent (X_AXIS).length ();
   else
     dx_f_drul_[LEFT] = get_broken_left_end_align ();
   dx_f_drul_[LEFT] += x_gap_f;
@@ -149,8 +167,8 @@ Tie::do_post_processing()
 	 for smal slurs
    */
 
-  Real ypos = head_l_drul_[LEFT] ? head_l_drul_[LEFT]->position_f ()
-    : head_l_drul_[RIGHT]->position_f ();
+  Real ypos = head (LEFT) ? head (LEFT)->position_f ()
+    : head (RIGHT)->position_f ();
 
   Real y_f = internote_f * ypos; 
   int ypos_i = int (ypos);
@@ -173,15 +191,6 @@ Tie::do_post_processing()
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;
 }
 
-void
-Tie::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  Note_head *new_l = n ? dynamic_cast<Note_head *> (n) : 0;
-  if (dynamic_cast <Item *> (o) == head_l_drul_[LEFT])
-    head_l_drul_[LEFT] = new_l;
-  else if (dynamic_cast <Item *> (o) == head_l_drul_[RIGHT])
-    head_l_drul_[RIGHT] = new_l;
-}
 
 
 Array<Rod>

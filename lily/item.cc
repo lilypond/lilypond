@@ -188,47 +188,6 @@ Item::Item (Item const &s)
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
 }
 
-#if 0
-void
-Item::handle_prebroken_dependents ()
-{
-  Item * parent =  dynamic_cast<Item*> (parent_l (X_AXIS));
-  if (breakable_b () && parent)
-    {
-       if(!(broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]))
-	do_break ();
-
-      Direction d = LEFT;
-      do
-	{
-	  Item * broken_self = find_broken_piece (d);
-	  Item * broken_parent = parent->find_broken_piece (d);
-
-	  broken_self->set_parent (broken_parent, X_AXIS);
-
-	  /*
-	    ugh. Should do this is after breaking?
-	   */
-	  if (!broken_self->parent_l (Y_AXIS))
-	    {
-	      Score_element * yparent =dynamic_cast<Score_element*>(parent_l (Y_AXIS));
-	      Item *yparenti = dynamic_cast<Item*> (yparent);
-	      Item *broken_yparent = yparenti ?
-		yparenti->find_broken_piece (d) : 0;
-	      
-	      if (!yparent)
-		programming_error ("Vertical refpoint lost!");
-	      else if (yparenti)
-		{
-		  broken_self->set_parent (broken_yparent, Y_AXIS);
-		}
-	    }
-	}
-      while ((flip (&d))!=LEFT);
-    }
-}
-#endif
-
 Direction
 Item::break_status_dir () const
 {

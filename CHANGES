@@ -5,15 +5,8 @@ pl 9.hwn1
 	- junk Score_element::do_{width,height}: set callbacks directly.
 	- merge Score_element, Graphical_element
 	- merge Axis_group_element, Graphical_axis_group
-	- junk pointer fields from
-	  * Single_malt_grouping_item
-	  * Separating_group_spanner
-	  * Stem_tremolo
-	  * Hara_kiri_vertical_group_spanner
-	  * Stem
-	  * Axis_group_element
-	  * Align_element
-	  * Beam
+	- junk pointer fields fromScore_element derived classes
+	- junk obsolete do_substitute_dependency code.
 
 **********
 

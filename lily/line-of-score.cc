@@ -17,6 +17,7 @@
 
 Line_of_score::Line_of_score()
 {
+  set_elt_property ("columns", SCM_EOL);
   set_axes (Y_AXIS,X_AXIS);
 }
 
@@ -51,8 +52,8 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       line_l->set_bounds(RIGHT,c.top ());
       for (int j=0; j < c.size(); j++)
 	{
-	  c[i]->translate_axis (breaking[i].config_[j],X_AXIS);
-	  c[i]->line_l_ = line_l;
+	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
+	  c[j]->line_l_ = line_l;
 	}
       
       broken_into_l_arr_.push (line_l);

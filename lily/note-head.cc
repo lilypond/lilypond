@@ -13,7 +13,6 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
-#include "stem.hh"
 #include "dimension-cache.hh"
 
 void
@@ -52,8 +51,8 @@ Note_head::do_pre_processing ()
   if (balltype_i_ > 2 || type == "harmonic" || type == "cross")
     balltype_i_ = 2;
 
-  if (dots_l_)			// move into Rhythmic_head?
-    dots_l_->set_position(int (position_f ()));
+  if (dots_l ())			// move into Rhythmic_head?
+    dots_l ()->set_position(int (position_f ()));
 
  
 }

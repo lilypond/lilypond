@@ -20,8 +20,8 @@ struct Group_interface
   Score_element * elt_l_;
   String name_;
 public:
-  Group_interface (Score_element*);
-  Group_interface (Score_element*, String);
+  Group_interface (Score_element const*);
+  Group_interface (Score_element const*, String);
   int count ();
   bool supports_interface_b ();
   void set_interface ();
@@ -34,7 +34,7 @@ public:
 */
 template<class T>
 Link_array<T>
-Group_interface__extract_elements (Score_element *elt, T *, String name)
+Group_interface__extract_elements (Score_element const *elt, T *, String name)
 {
   Link_array<T> arr;
 

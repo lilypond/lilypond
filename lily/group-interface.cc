@@ -9,16 +9,16 @@
 #include "group-interface.hh"
 #include "score-element.hh"
 
-Group_interface::Group_interface (Score_element* e)
+Group_interface::Group_interface (Score_element const* e)
 {
-  elt_l_ = e;
+  elt_l_ = (Score_element*)e;
   name_ = "elements";
 }
 
 
-Group_interface::Group_interface (Score_element *e, String s)
+Group_interface::Group_interface (Score_element const *e, String s)
 {
-  elt_l_ =e;
+  elt_l_ =(Score_element*)e;
   name_ = s;
 } 
 bool
@@ -40,7 +40,7 @@ Group_interface::add_element (Score_element*p)
 int
 Group_interface::count ()
 {
-  return scm_ilength (elt_l_->get_elt_property ("name"));
+  return scm_ilength (elt_l_->get_elt_property (name_));
 }
 
 void

@@ -68,7 +68,7 @@ Note_heads_engraver::do_process_requests()
       if (note_req_l->duration_.dots_i_)
 	{
 	  Dots * d = new Dots;
-	  note_p->dots_l_ = d;
+	  note_p->add_dots (d);
 	  d->dots_i_ = note_req_l->duration_.dots_i_;
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);

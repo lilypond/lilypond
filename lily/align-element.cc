@@ -64,8 +64,7 @@ Align_element::do_side_processing ()
   Real where_f=0;
   Real center_f = 0.0;
   SCM scenter = get_elt_property ("center-element");
-  Score_element *center_elt = (SMOB_IS_TYPE_B(Score_element,scenter))
-    ? SMOB_TO_TYPE(Score_element,scenter) : 0;
+  Score_element *center_elt = unsmob_element (scenter);
   
   for (int i=0 ;  i < elems.size(); i++) 
     {

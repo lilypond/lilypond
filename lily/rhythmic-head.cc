@@ -18,19 +18,32 @@
 #include "stem.hh"
 
 
+Dots*
+Rhythmic_head::dots_l () const
+{
+  SCM s = get_elt_property ("dot");
+  return dynamic_cast<Dots*> (unsmob_element (s));
+}
+
+Stem*
+Rhythmic_head::stem_l () const
+{
+  SCM s = get_elt_property ("stem");
+  return dynamic_cast<Stem*> (unsmob_element (s));
+}
 
 int
 Rhythmic_head::dots_i () const
 {
-  return dots_l_ ? dots_l_->dots_i_ : 0;
+  return dots_l () ? dots_l ()->dots_i_ : 0;
 }
   
 void
 Rhythmic_head::do_post_processing ()
 {
-  if (dots_l_)
+  if (dots_l ())
     {
-      dots_l_->set_position(int (position_f ()));
+      dots_l ()->set_position(int (position_f ()));
     }
 }
 
@@ -38,26 +51,15 @@ Rhythmic_head::do_post_processing ()
 void
 Rhythmic_head::add_dots (Dots *dot_l)
 {
-  dots_l_ = dot_l;  
+  set_elt_property ("dot", dot_l->self_scm_);
   dot_l->add_dependency (this);  
 }
 
 Rhythmic_head::Rhythmic_head ()
 {
-  dots_l_ =0;
   balltype_i_ =0;
-  stem_l_ =0;
 }
 
-void
-Rhythmic_head::do_substitute_element_pointer (Score_element*o,Score_element*n)
-{
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-  if (o == dots_l_)
-    dots_l_ = dynamic_cast<Dots *> (n) ;
-  else if (o == stem_l_)
-    stem_l_ = dynamic_cast<Stem*>(n);
-}
 
 
 void

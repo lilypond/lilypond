@@ -213,7 +213,7 @@ Paper_score::fixup_refpoints ()
       SCM e = gh_car (s);
       if (SMOB_IS_TYPE_B(Score_element, e))
 	{
-	  Score_element * se = SMOB_TO_TYPE (Score_element,e );
+	  Score_element * se = unsmob_element (e);
 	  se->fixup_refpoint ();
 	}
     }

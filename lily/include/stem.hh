@@ -53,8 +53,6 @@ class Stem : public Item, public Staff_symbol_referencer,
 
 public:
 
-  Link_array<Note_head> head_l_arr_;
-  Link_array<Rest> rest_l_arr_;
     
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i_;
@@ -64,6 +62,7 @@ public:
     our beam, for aligning abbrev flags
    */
   Beam* beam_l () const;
+  Note_head * first_head () const;
 
   Drul_array<int> beams_i_drul_;
   Stem ();
@@ -98,7 +97,7 @@ public:
 
 protected:
   Molecule flag () const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
+
   virtual void do_pre_processing();
   static Interval dim_callback (Dimension_cache const*);
   virtual Molecule* do_brew_molecule_p() const;

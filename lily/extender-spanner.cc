@@ -35,7 +35,7 @@ Extender_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
-  Real w = extent (X_AXIS).length ();
+  Real w = spanner_length ();
   
   w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   Real h = paper_l ()->get_var ("extender_height");

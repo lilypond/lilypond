@@ -59,7 +59,7 @@ Beam::stem (int i)const
 int
 Beam::stem_count ()const
 {
-  Group_interface gi (this);
+  Group_interface gi (this, "stems");
   return gi.count ();
 }
 
@@ -67,7 +67,7 @@ Beam::stem_count ()const
 void
 Beam::add_stem (Stem*s)
 {
-  Group_interface gi (this);
+  Group_interface gi (this, "stems");
   gi.add_element (s);
   
   s->add_dependency (this);
@@ -728,7 +728,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   // UGH
   Real nw_f;
-  if (!here->head_l_arr_.size ())
+  if (!here->first_head ())
     nw_f = 0;
   else if (here->type_i ()== 1)
     nw_f = paper_l ()->get_var ("wholewidth");

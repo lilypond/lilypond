@@ -19,8 +19,6 @@
   */
 class Axis_group_element : public virtual Score_element
 {
-  Link_array<Score_element> extra_elems_;
-
   /// modify fields of E for removal.
   void do_remove (Score_element*e);
   void purge_extra ();
@@ -38,7 +36,6 @@ protected:
 public:
   // keep array in order.
   bool ordered_b_;		
-  Link_array<Score_element> elem_l_arr_;
   Axis axes_[2];
     
   Interval my_extent (Axis) const;

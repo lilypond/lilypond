@@ -22,8 +22,6 @@ public:
   void add_bar (Bar*);
  
   String number_str_;
-  Link_array<Bar> bar_arr_;
-  Link_array<Note_column> note_column_arr_;
   bool last_b_;
 
  
@@ -34,7 +32,6 @@ protected:
   virtual void do_add_processing ();
   static  Interval dim_callback (Dimension_cache const*);
   virtual void do_post_processing ();
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif // VOLTA_SPANNER_HH

@@ -59,7 +59,7 @@ Spacing_spanner::do_measure (Link_array<Score_column> cols) const
   Array<Spring> meas_springs;
 
   Real non_musical_space_strength = paper_l ()->get_var ("breakable_column_space_strength");
-  for (int i= 0; i < cols.size (); i++)
+  for (int i= 0; i < cols.size () - 1; i++)
     {
       Item * l = cols[i];
       Item * r = cols[i+1];
@@ -291,8 +291,8 @@ Spacing_spanner::get_springs () const
   Link_array<Score_column> measure;
   for (SCM s = last_col; gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM elt = gh_car (s);
-      Score_column* sc = dynamic_cast<Score_column*> (SMOB_TO_TYPE (Score_column, elt));
+      Score_element * elt = unsmob_element (gh_car (s));
+      Score_column* sc = dynamic_cast<Score_column*> (elt);
       measure.push (sc);
       if (sc->breakable_b ())
         {

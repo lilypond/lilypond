@@ -40,7 +40,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 {
   if (Rhythmic_head * h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
-      if (h->stem_l_)
+      if (h->stem_l ())
 	return;
       
       Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);

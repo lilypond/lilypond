@@ -14,7 +14,7 @@
 #include "tuple.hh"
 
 
-typedef Tuple<Note_column*, Real> Shift_tup;
+typedef Tuple<Score_element*, Real> Shift_tup;
 
 /**
   Resolve conflicts between various Note_columns (chords).
@@ -29,10 +29,8 @@ protected:
   Array<Shift_tup> automatic_shift ();
   Array<Shift_tup> forced_shift ();
   
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing();
 public:
-  Link_array<Note_column> clash_l_arr_;
     
   void add_column (Note_column*ncol_l);
   Collision();

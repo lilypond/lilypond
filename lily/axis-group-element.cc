@@ -27,7 +27,7 @@ Axis_group_element::elem_l_arr () const
   for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e=gh_car (s); 
-      r.push (dynamic_cast<Score_element*>(SMOB_TO_TYPE (Score_element, e)));
+      r.push (unsmob_element (e));
     }
       
   return r;
@@ -85,7 +85,7 @@ Axis_group_element::extent_callback (Dimension_cache const *c)
   for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e=gh_car (s); 
-      Score_element * se = dynamic_cast<Score_element*>(SMOB_TO_TYPE (Score_element, e));
+      Score_element * se = SMOB_TO_TYPE (Score_element, e);
 
       Interval dims = se->extent (a);
       if (!dims.empty_b ())

@@ -11,8 +11,6 @@
 #include "note-head.hh"
 #include "paper-def.hh"
 
-#include "tuple.hh"
-
 Collision::Collision()
 {
   set_axes (X_AXIS, Y_AXIS);
@@ -21,17 +19,20 @@ Collision::Collision()
 void
 Collision::add_column (Note_column* ncol_l)
 {
-  clash_l_arr_.push (ncol_l);
   add_element (ncol_l);
   add_dependency (ncol_l);
 }
+
+/*
+  UGH.  junk Shift_tup .
+ */
 
 void
 Collision::do_pre_processing()
 {
   Array<Shift_tup> autos (automatic_shift ());
   Array<Shift_tup> hand (forced_shift ());
-  Link_array<Note_column> done;
+  Link_array<Score_element> done;
   
   Real wid = paper_l ()->get_var ("collision_note_width");
   for (int i=0; i < hand.size (); i++)
@@ -60,10 +61,15 @@ Collision::automatic_shift ()
   Drul_array<Array<int> > shifts;
   Array<Shift_tup>  tups;
 
-  
-  for (int i=0; i < clash_l_arr_.size(); i++)
+
+  SCM s = get_elt_property ("elements");
+  for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      clash_groups[clash_l_arr_[i]->dir ()].push (clash_l_arr_[i]);
+      SCM car = gh_car (s);
+
+      Score_element * se = unsmob_element (car);
+      if (Note_column * col = dynamic_cast<Note_column*> (se))
+	clash_groups[col->dir ()].push (col);
     }
 
   
@@ -134,8 +140,16 @@ Collision::automatic_shift ()
     {
       Note_column *cu_l =clash_groups[UP][0];
       Note_column *cd_l =clash_groups[DOWN][0];
-      Note_head * nu_l= cu_l->head_l_arr_[0];
-      Note_head * nd_l = cd_l->head_l_arr_.top();
+
+
+      /*
+	TODO.
+       */
+      Note_head * nu_l= cu_l->first_head();  // cu_l->head_l_arr_[0];
+      Note_head * nd_l = cd_l->first_head(); // cd_l->head_l_arr_.top();
+
+
+      
       int downpos = 	cd_l->head_positions_interval ()[BIGGER];
       int uppos = 	cu_l->head_positions_interval ()[SMALLER];      
       
@@ -174,26 +188,19 @@ Collision::forced_shift ()
 {
   Array<Shift_tup> tups;
   
-  for (int i=0; i < clash_l_arr_.size (); i++)
+  SCM s = get_elt_property ("elements");
+  for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM force =  clash_l_arr_[i]->remove_elt_property ("force-hshift");
+      Score_element * se = unsmob_element ( gh_car (s));
+
+      SCM force =  se->remove_elt_property ("force-hshift");
       if (force != SCM_UNDEFINED)
 	{
-	  tups. push (Shift_tup (clash_l_arr_[i], gh_scm2double (force)));
+	  tups. push (Shift_tup (se, gh_scm2double (force)));
 	}
     }
   return tups;
 }
 
 
-void
-Collision::do_substitute_element_pointer (Score_element*o_l,Score_element*n_l)
-{
-  if (o_l)
-    {
-      clash_l_arr_.substitute (dynamic_cast<Note_column *> (o_l),
-			       dynamic_cast <Note_column *> (n_l));
-
-    }
-}
 

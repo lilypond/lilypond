@@ -40,17 +40,17 @@ Separating_group_spanner::get_rods () const
   for (SCM s = get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
-      if (!SMOB_IS_TYPE_B(Score_element, elt))
-	continue;
-
       SCM next_elt = gh_cadr (s);
-      if (!SMOB_IS_TYPE_B(Score_element, next_elt))
-      	continue;
 
-      Single_malt_grouping_item *l = dynamic_cast<Single_malt_grouping_item*> (SMOB_TO_TYPE(Score_element, elt));
+      Single_malt_grouping_item *l = dynamic_cast<Single_malt_grouping_item*> (unsmob_element (elt));
+      Single_malt_grouping_item *r = dynamic_cast<Single_malt_grouping_item*> (unsmob_element ( next_elt));
+
+      if (!r || !l)
+	continue;
+      
       Single_malt_grouping_item *lb
 	= dynamic_cast<Single_malt_grouping_item*>(l->find_broken_piece (RIGHT));
-      Single_malt_grouping_item *r = dynamic_cast<Single_malt_grouping_item*> (SMOB_TO_TYPE(Score_element, next_elt));
+
       Single_malt_grouping_item *rb
 	= dynamic_cast<Single_malt_grouping_item*>(r->find_broken_piece (LEFT));
       
