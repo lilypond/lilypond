@@ -119,7 +119,7 @@ Slur::encompass_offset (Note_column const* col) const
    leave a gap: slur mustn't touch head/stem
    */
   o[Y_AXIS] += dir * paper_l ()->get_var ("slur_y_free");
-  o[Y_AXIS] += calc_interstaff_dist (stem_l, this);
+  o[Y_AXIS] -= calc_interstaff_dist (stem_l, this);
   return o;
 }
 
@@ -134,6 +134,13 @@ Slur::do_post_processing ()
   Link_array<Note_column> encompass_arr =
     Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
+  if (!encompass_arr.size ())
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);
+      return;
+    }
 
   if (!directional_element (this).get ())
     directional_element (this).set (get_default_dir ());
@@ -252,7 +259,7 @@ Slur::do_post_processing ()
   do
     {
       info_drul[d] = encompass_offset (encompass_arr.boundary (d, 0));
-      interstaff_interval[d] = calc_interstaff_dist (encompass_arr.boundary (d,0),
+      interstaff_interval[d] = - calc_interstaff_dist (encompass_arr.boundary (d,0),
 						     this);
     }
   while (flip (&d) != LEFT);

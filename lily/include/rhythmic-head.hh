@@ -19,9 +19,9 @@ public:
   int balltype_i () const;
 
   void add_dots (Dots *);
-  Stem * stem_l ()const;
-  Dots * dots_l ()const;
-  int dots_i ()const;
+  Stem * stem_l () const;
+  Dots * dots_l () const;
+  int dot_count () const;
 protected:
   virtual void do_post_processing ();
 };

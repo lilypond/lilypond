@@ -1,18 +1,44 @@
+1.3.16.hwn1
+===========
+
+* \property stemCentered (boolean): centers stem on note head. See
+input/test/stem-centered.ly
+
+* input/trip.ly, small test of lots of features.
+
+* \property Staff.collisionMergeDotted: merge equal noteheads
+with different dot count. See input/test/collision-merge-dotted.fly
+
+* Dotted rest bugfix 
+
+* Don't crash if a slur does not span any notes.
+
+* Volta repeats fixed.
+
+* cleanup of Note_heads_engraver
+
+* removed dots_i_ member of Dots
+
+1.3.16.jcn1
+===========
+	* Fixed cross staff slurs.  It seems that cross-staff sign
+	  was swapped.
+
 1.3.15.hwn1
 ===========
 
-	* Fixed bug in stem code.  Stem in chords works again.  Small
+* Fixed bug in stem code.  Stem in chords works again.  Small
 stem cleanups.
 
-	* Use element properties for Staff_symbol.
+* Use element properties for Staff_symbol.
 
-	* \property sparseTies (boolean).  Only make one tie in the
+* \property sparseTies (boolean).  Only make one tie in the
 middle for tied chords.
 
-	* Junked Directional_spanner, Column_info.
+* Junked Directional_spanner, Column_info.
 Directional_element now is element interface `Directional_element_interface'
 
-	* cleanup: use to_boolean () iso. gh_boolean_p && gh_bool2scm
+* cleanup: use to_boolean () iso. gh_boolean_p && gh_bool2scm
 
 pl 15.jcn4
 	- removed old notename2scm conversion

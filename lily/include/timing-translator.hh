@@ -22,6 +22,7 @@ public:
   Time_signature_change_req * time_signature_req_l () const;
   Timing_translator ();
   Link_array<Timing_req> timing_req_l_arr_;
+
 protected: 
   virtual void do_creation_processing ();
   virtual bool do_try_music (Music *req_l);
@@ -30,8 +31,6 @@ protected:
   virtual void do_post_move_processing();
 
 public:
-  /// JUNKME
-  int bars_i () const;
 
   Moment measure_position () const;
   Moment measure_length () const;  

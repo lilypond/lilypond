@@ -15,13 +15,14 @@
 
 Dots::Dots ()
 {
-  dots_i_ =0;
+  set_elt_property ("dot-count", gh_int2scm (0));
 }
 
 void
 Dots::do_post_processing ()
 {
-  if (!dots_i_)
+  SCM d= get_elt_property ("dot-count");
+  if (!gh_number_p (d) || !gh_scm2int (d))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS);
@@ -50,7 +51,9 @@ Dots::do_brew_molecule_p () const
 
   Real dw = d.dim_[X_AXIS].length ();
   d.translate_axis (-dw, X_AXIS);
-  for (int i=dots_i_; i--; )
+
+
+  for (int i = gh_scm2int (get_elt_property ("dot-count")); i--; )
     {
       d.translate_axis (2*dw,X_AXIS);
       out->add_molecule (d);

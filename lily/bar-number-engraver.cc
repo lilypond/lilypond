@@ -28,11 +28,13 @@ Bar_number_engraver::do_process_requests ()
   Timing_translator *time = dynamic_cast<Timing_translator*>(tr);
 
   // todo include (&&!time->cadenza_b_ )
-  if (!time->measure_position () && now_mom () > Moment (0))
+  SCM bn = get_property("currentBarNumber",0);
+
+  if (gh_number_p (bn) &&
+      !time->measure_position () && now_mom () > Moment (0))
     {
       create_items (0);
-	
-      text_p_->text_str_ = to_str (time->bars_i ());
+      text_p_->text_str_ = to_str (gh_scm2int (bn));
     }
 }
 

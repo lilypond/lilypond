@@ -19,7 +19,8 @@
 	 (list 'stemVerticalDirection dir? 'direction)
 	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'stemLength number? 'length)
-	 (list 'stemStyle string? 'style)
+	 (list 'flagStyle string? 'flag-style)
+	 (list 'stemCentered boolean? 'stem-centered)
 	 (list 'noStemExtend boolean? 'no-stem-extend)
 	 (list 'stemShorten number? 'shorten)
 	 ))
@@ -106,6 +107,14 @@
 	 (list 'forceHorizontalShift number? 'force-hshift)
 	 )))
 
+(define generic-collision-properties
+  (cons "Collision"
+	(list
+	 (list 'collisionMergeDotted boolean? 'merge-differently-dotted)
+	 )
+	)
+  )
+  
 (define generic-slur-properties
   (cons "Slur"
 	(list
@@ -139,6 +148,7 @@
    generic-bar-properties
    generic-timesig-properties
    generic-clef-properties
+   generic-collision-properties
    generic-All-properties      
    )
   )
@@ -148,11 +158,9 @@
    generic-bar-properties
    ))
 
-
 (define generic-thread-properties
   (list generic-All-properties
 	generic-dot-properties
-
 	)
 
   )

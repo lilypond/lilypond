@@ -22,7 +22,7 @@ Note_heads_engraver::do_try_music (Music *m)
   if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
       note_req_l_arr_.push (n);
-      notes_end_pq_.insert (now_mom () + m->length_mom ());
+      note_end_mom_  = note_end_mom_ >? now_mom () + m->length_mom ();
       
       return true;
     }
@@ -40,7 +40,7 @@ Note_heads_engraver::do_try_music (Music *m)
     }
   else if (Busy_playing_req * p = dynamic_cast<Busy_playing_req*> (m))
     {
-      return notes_end_pq_.size ();
+      return now_mom () < note_end_mom_;
     }
   else if (Pitch_interrogate_req *p = dynamic_cast<Pitch_interrogate_req*> (m))
     {
@@ -80,7 +80,7 @@ Note_heads_engraver::do_process_requests()
 	  sd.set_interface ();
 	  
 	  note_p->add_dots (d);
-	  d->dots_i_ = note_req_l->duration_.dots_i_;
+	  d->set_elt_property ("dot-count", gh_int2scm (note_req_l->duration_.dots_i_));
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}
@@ -118,13 +118,6 @@ Note_heads_engraver::do_pre_move_processing()
   note_req_l_arr_.clear ();
 }
 
-void
-Note_heads_engraver::do_post_move_processing()
-{
-  Moment n (now_mom ());
-  while (notes_end_pq_.size () && notes_end_pq_.front () <=n)
-    notes_end_pq_.get ();
-}
 
 
 

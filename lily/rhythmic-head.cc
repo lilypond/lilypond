@@ -42,9 +42,10 @@ Rhythmic_head::stem_l () const
 }
 
 int
-Rhythmic_head::dots_i () const
+Rhythmic_head::dot_count () const
 {
-  return dots_l () ? dots_l ()->dots_i_ : 0;
+  return dots_l ()
+    ? gh_scm2int (dots_l ()->get_elt_property ("dot-count")) : 0;
 }
   
 void

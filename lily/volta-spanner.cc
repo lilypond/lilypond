@@ -39,9 +39,8 @@ Volta_spanner::do_brew_molecule_p () const
   if (!bar_arr.size ())
     return mol_p;
 
-  Link_array<Bar> note_column_arr
-    = Group_interface__extract_elements (this, (Bar*)0, "note-columns");
-
+  Link_array<Score_element> note_column_arr
+    = Group_interface__extract_elements (this, (Score_element*)0, "note-columns");
   
   bool no_vertical_start = false;
   bool no_vertical_end = last_b_;

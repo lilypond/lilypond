@@ -39,10 +39,7 @@ Music::print() const
   if (! flower_dstream)
     return ;
   DEBUG_OUT << classname(this) << "{";
-  /*
-  if  (translator_type_str_.length_i ())
-    DEBUG_OUT << translator_type_str_ << " = " << translator_id_str_;
-  */
+  
   do_print();
   DEBUG_OUT << "}\n";
 #endif

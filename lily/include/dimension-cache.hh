@@ -48,9 +48,6 @@ public:
   Axis axis () const;
   Real get_offset () const;
   void set_callback (Dim_cache_callback);
-  /** The #offset_# is defined with regard to this graphical_element/
-    dimension_cache.  */
-  void set_offset_callback (Offset_cache_callback);
   Dimension_cache * parent_l_;
 
   Score_element *element_l () const { return elt_l_; }

@@ -62,7 +62,6 @@ public:
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 
-  Real hpos_f () const;
   Stem_info calc_stem_info () const;
 
   Real chord_start_f () const;
@@ -86,8 +85,7 @@ protected:
 
 
   Real stem_end_position () const;
-  // todo: cleanup, naming
-  Real note_delta_f () const;
+  static Real off_callback (Dimension_cache const*);
 protected:
   Molecule flag () const;
 
