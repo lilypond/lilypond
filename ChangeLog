@@ -1,3 +1,10 @@
+2002-07-21  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/lyric-extender.cc (brew_molecule): don't add
+	right-trim-amount if extender is broken.
+
+	* scripts/ly2dvi.py (global_latex_preamble): bugfix (thanks Werner).
+
 2002-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/index.texi: Add pointers to new regression and

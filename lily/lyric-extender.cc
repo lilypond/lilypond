@@ -21,17 +21,27 @@ SCM
 Lyric_extender::brew_molecule (SCM smob) 
 {
   Spanner *sp = unsmob_spanner (smob);
-
-  // ugh: refp
-  Real leftext = sp->get_bound (LEFT)->extent (sp->get_bound (LEFT),
-					       X_AXIS).length ();
+  Item* l = sp->get_bound (LEFT);
+  Item*r = sp->get_bound (RIGHT);
+  
+  Real leftext = l->extent (l, X_AXIS).length ();
 
   Real sl = sp->paper_l ()->get_var ("linethickness");  
   Real righttrim = 0.5; // default to half a space gap on the right
-  SCM righttrim_scm = sp->get_grob_property ("right-trim-amount");
-  if (gh_number_p (righttrim_scm)) {
-    righttrim = gh_scm2double (righttrim_scm);
-  }
+
+
+  /*
+    If we're broken, we shouldn't extend past the end of the line.
+   */
+  if (r->break_status_dir () == CENTER)
+    {
+      SCM righttrim_scm = sp->get_grob_property ("right-trim-amount");
+      if (gh_number_p (righttrim_scm))
+	{
+	  righttrim = gh_scm2double (righttrim_scm);
+	}
+    }
+  
   // The extender can exist in the word space of the left lyric ...
   SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
   if (gh_number_p (space))
