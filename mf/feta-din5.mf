@@ -1,0 +1,10 @@
+% feta-din5.mf
+% part of LilyPond's pretty-but-neat music font
+
+% size:=5;
+design_size:=20*4/15;
+
+input feta-din.mf;
+
+end.
+

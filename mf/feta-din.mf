@@ -1,0 +1,17 @@
+% feta-din.mf
+% part of LilyPond's pretty-but-neat music font
+
+test:=0;
+
+input feta-autometric;
+input feta-macros;
+input feta-params;
+
+fet_beginfont("feta-din", design_size);
+%mode_setup;
+
+input feta-din-code;
+
+fet_endfont("feta-nummer");
+
+end.

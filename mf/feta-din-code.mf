@@ -1,0 +1,179 @@
+% feta-din.mf
+%
+% from cmbxti10.mf
+%
+% feta dynamics
+% too easy now to use this copy from cm, but we might want to do ourselves
+%
+% 16pt staff: \font\dynfont=feta-din10 scaled \magstep1
+% 20pt staff: \font\dynfont=feta-din10 scaled \magstep2
+
+%
+% Computer Modern Bold Extended Text Italic 10 point
+%
+% font_identifier:="CMBXTI"; font_size 10pt#;
+%
+
+input cmbase;
+
+
+%
+% We bluntly multiply by font-size / 10pt#,
+% before we did plain scaling anyway.
+%
+
+M:=design_size/10;
+
+
+u#:=M*21.2/36pt#;      % unit width
+width_adj#:=M*11/36pt#;    % width adjustment for certain characters
+serif_fit#:=M*0pt#;    % extra sidebar near lowercase serifs
+cap_serif_fit#:=M*7/36pt#;  % extra sidebar near uppercase serifs
+letter_fit#:=M*11/36pt#;    % extra space added to all sidebars
+
+body_height#:=M*270/36pt#;  % height of tallest characters
+asc_height#:=M*250/36pt#;    % height of lowercase ascenders
+cap_height#:=M*247/36pt#;    % height of caps
+fig_height#:=M*232/36pt#;    % height of numerals
+x_height#:=M*160/36pt#;    % height of lowercase without ascenders
+math_axis#:=M*90/36pt#;    % axis of symmetry for math symbols
+bar_height#:=M*85/36pt#;    % height of crossbar in lowercase e
+comma_depth#:=M*70/36pt#;    % depth of comma below baseline
+desc_depth#:=M*70/36pt#;    % depth of lowercase descenders
+
+crisp#:=M*13/36pt#;    % diameter of serif corners
+tiny#:=M*13/36pt#;    % diameter of rounded corners
+fine#:=M*10/36pt#;    % diameter of sharply rounded corners
+thin_join#:=M*10/36pt#;    % width of extrafine details
+hair#:=M*20/36pt#;    % lowercase hairline breadth
+stem#:=M*38/36pt#;    % lowercase stem breadth
+curve#:=M*43/36pt#;    % lowercase curve breadth
+ess#:=M*35/36pt#;      % breadth in middle of lowercase s
+flare#:=M*42/36pt#;    % diameter of bulbs or breadth of terminals
+dot_size#:=M*53/36pt#;    % diameter of dots
+cap_hair#:=M*22/36pt#;    % uppercase hairline breadth
+cap_stem#:=M*49/36pt#;    % uppercase stem breadth
+cap_curve#:=M*52/36pt#;    % uppercase curve breadth
+cap_ess#:=M*50/36pt#;    % breadth in middle of uppercase s
+rule_thickness#:=M*.6pt#;    % thickness of lines in math symbols
+
+dish#:=M*1/36pt#;      % amount erased at top or bottom of serifs
+bracket#:=M*10/36pt#;    % vertical distance from serif base to tangent
+jut#:=M*27/36pt#;      % protrusion of lowercase serifs
+cap_jut#:=M*39/36pt#;    % protrusion of uppercase serifs
+beak_jut#:=M*10/36pt#;    % horizontal protrusion of beak serifs
+beak#:=M*70/36pt#;    % vertical protrusion of beak serifs
+vair#:=M*13/36pt#;    % vertical diameter of hairlines
+notch_cut#:=M*10pt#;    % maximum breadth above or below notches
+bar#:=M*17/36pt#;      % lowercase bar thickness
+slab#:=M*17/36pt#;    % serif and arm thickness
+cap_bar#:=M*17/36pt#;    % uppercase bar thickness
+cap_band#:=M*17/36pt#;    % uppercase thickness above/below lobes
+cap_notch_cut#:=M*10pt#;    % max breadth above/below uppercase notches
+serif_drop#:=M*3/36pt#;    % vertical drop of sloped serifs
+stem_corr#:=M*2/36pt#;    % for small refinements of stem breadth
+vair_corr#:=M*1.5/36pt#;    % for small refinements of hairline height
+apex_corr#:=M*0pt#;    % extra width at diagonal junctions
+
+o#:=M*6/36pt#;      % amount of overshoot for curves
+apex_o#:=M*6/36pt#;    % amount of overshoot for diagonal junctions
+
+slant:=.25;      % tilt ratio $(\Delta x/\Delta y)$
+fudge:=1;      % factor applied to weights of heavy characters
+math_spread:=.5;    % extra openness of math symbols
+superness:=8/11;    % parameter for superellipses
+superpull:=1/8;      % extra openness inside bowls
+beak_darkness:=.4;    % fraction of triangle inside beak serifs
+ligs:=2;      % level of ligatures to be included
+
+square_dots:=false;    % should dots be square?
+hefty:=false;      % should we try hard not to be overweight?
+serifs:=true;      % should serifs and bulbs be attached?
+monospace:=false;    % should all characters have the same width?
+variant_g:=true;    % should an italic-style g be used?
+low_asterisk:=false;    % should the asterisk be centered at the axis?
+math_fitting:=false;    % should math-mode spacing be used?
+
+
+
+
+% "f" obviously has a _lot_ bigger slant than "p" (see Wanske p.239)
+% however; perhaps we need two f symbols:
+%  - a super-slanted one used in "f" "mf" "sfz" "sf", and
+%  - a more normal-slanted in "ff" "fff" "fp" "fp" (see Wanske p.241)
+%
+% looking at professionally typeset music reveals that typesetters 
+% are somewhat unsure about slanting in "mf", "fp", "sfz"
+
+% "f" and "p" (in any combination) are a lot (factor two) fatter than
+% "s", "m", and "z".  sometimes the "m" and "z" are a bit fatter than
+% "s".
+
+slant:=.68;      % tilt ratio $(\Delta x/\Delta y)$
+crisp#:=M*19/36pt#;    % diameter of serif corners
+tiny#:=M*19/36pt#;    % diameter of rounded corners
+fine#:=M*20/36pt#;    % diameter of sharply rounded corners
+thin_join#:=M*20/36pt#;    % width of extrafine details
+stem#:=M*72/36pt#;    % lowercase stem breadth
+flare#:=M*52/36pt#;    % diameter of bulbs or breadth of terminals
+
+mode_setup;
+font_setup;
+
+num=-1;
+xbar:=M*u;
+
+save fcode;
+
+fcode = 101;
+input feta-ital-f;
+
+bar#:=M*17/36pt#;      % lowercase bar thickness
+slant:=.38;      % tilt ratio $(\Delta x/\Delta y)$
+stem#:=M*58/36pt#;    % lowercase stem breadth
+font_setup;
+xbar:=M*.4u;
+
+save fcode;
+
+fcode = 102;
+
+input feta-ital-f;
+stem#:=M*54/36pt#;    % lowercase stem breadth
+hair#:=M*12/36pt#;    % lowercase hairline breadth
+vair#:=M*7/36pt#;    % vertical diameter of hairlines
+
+font_setup;
+
+input feta-ital-p;
+
+slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
+stem#:=M*32/36pt#;    % lowercase stem breadth
+ess#:=M*28/36pt#;      % breadth in middle of lowercase s
+hair#:=M*14/36pt#;    % lowercase hairline breadth
+vair#:=M*9/36pt#;    % vertical diameter of hairlines
+flare#:=M*36/36pt#;    % diameter of bulbs or breadth of terminals
+
+crisp#:=M*13/36pt#;    % diameter of serif corners
+tiny#:=M*13/36pt#;    % diameter of rounded corners
+fine#:=M*10/36pt#;    % diameter of sharply rounded corners
+thin_join#:=M*10/36pt#;    % width of extrafine details
+curve#:=M*43/36pt#;    % lowercase curve breadth
+
+% Chester, Breitkopf suggest smaller sizes of these other chars,
+% using the x-height as reference point.
+x_height#:=M*135/36pt#;    % height of lowercase without ascenders
+
+font_setup;
+
+input feta-ital-m;
+input feta-ital-r;
+input feta-ital-s;
+input feta-ital-z;
+
+font_slant slant;
+font_x_height x_height#;
+font_quad 18u#;             % to have a working em unit
+
+%%fet_endfont("feta-din");
+
