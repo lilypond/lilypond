@@ -3237,7 +3237,7 @@ arpeggiate the chord
 @cindex @code{\arpeggioUp}
 @code{\arpeggioUp},
 @cindex @code{\arpeggioDown}
-@code{\arpeggioUp},
+@code{\arpeggioDown},
 @cindex @code{\arpeggioBoth}
 @code{\arpeggioBoth},
 @cindex @code{\arpeggioBracket}
