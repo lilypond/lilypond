@@ -3,6 +3,8 @@
 	* emacs-mode.el: Added spanish-note-replacements 
         (<carlos.betancourt@chello.be>).
 
+	* vimrc: (Un)commenting with <(S-)F12>, tidy.
+
 2002-11-08  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond.vim: Do not fontify cises, desis, etc.
