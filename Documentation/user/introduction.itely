@@ -47,7 +47,7 @@ affects you as a user.
 
 When we started with developing LilyPond, we were interested in music
 notation, not as publishers or musicians, but as students and
-scientists. We wanted tried to figure to what extent formatting sheet
+scientists. We wanted to figure to what extent formatting sheet
 music could be automated.  This was when we were still studying at the
 university. Back then GUIs were not as ubiquitous as they are today,
 and we were immersed in the UNIX operating system, where it is very
@@ -61,7 +61,7 @@ compiler.
 One other decision was also motivated by our academic background. In
 the scientific community it has always been a tradition to share
 knowledge, and, to a lesser extent, the software you wrote. One of the
-most visible groups that stimulated this philosopy, was the Free
+most visible groups that stimulated this philosophy, was the Free
 Software Foundation, whose GNU project aimed to replace closed and
 proprietary computing solutions with free (as in ``Libre'')
 variants. We jumped on that bandwagon, and that is the reason that you
@@ -89,10 +89,10 @@ corrections was cumbersome, so engraving had to be correct in one
 go. As you can imagine this was a highly specialized skill, much more
 so than the traditional process of printing books.
 
-@cindex craftmanship
+@cindex craftsmanship
 @cindex master
 
-In fact, in the traditional German craftmanship six years of full-time
+In fact, in the traditional German craftsmanship six years of full-time
 training were required, before a student could call himself a master
 of the art. After that many more years of practical experience were
 needed to become an established music engraver.  Even today, in the
@@ -152,6 +152,8 @@ example of a motive, printed four times. It is printed using both
 exact, mathematical spacing, and with some corrections. Can you spot
 which is which?
 
+@c I can only see the motive printed two times!!! /Mats
+
 @cindex optical spacing
 @lilypond
     \score { \notes {
@@ -209,7 +211,7 @@ opens a can of worms. What really @emph{is} music? Many philosophical
 treatises must have been written on the subject. Even if you are more
 practically inclined, you will notice that an enormous number of
 different ways to represent music in a computer exist, and they are
-much more incompatible than the formats for wordprocessors and
+much more incompatible than the formats for word processors and
 spreadsheets.  Anyone who has tried to exchange data files from
 between different notation programs can attest to this.
 
@@ -258,7 +260,7 @@ file.
 
 
 As you will notice in the coming pages, and the examples, in a lot of
-case, the program makes good decisions, and what comes out of lilypond
+cases, the program makes good decisions, and what comes out of lilypond
 generally looks good. For some specific examples, the default layout
 of lilypond even is suitable for publication. However, some aspects of
 the formatting are not yet very good. This gives us programmers
@@ -285,7 +287,7 @@ used to determine formatting of the sheet music are available directly
 to the user. These are variables to control thicknesses, distances,
 and other formatting options: there are a huge number of them, and it
 would be impossible to describe them all in a hand-written
-manual. There is no need to despair, there is `automatic' manual, that
+manual. There is no need to despair, there is an `automatic' manual, that
 lists all of the variables, symbol types, etc. that are available.  It
 is directly generated from the definitions that LilyPond itself uses,
 so it is always up to date. If you are reading this from a screen: it
@@ -314,13 +316,13 @@ and shows popular input idioms.  The rest of the manual is structured
 as follows: it starts with a tutorial that explains how to use
 lilypond. In the tutorial, a number of fragments of increasing
 complexity are shown and explained.  Then comes the reference manual,
-which gives more detailed information on all features of If you're new
+which gives more detailed information on all features. If you're new
 to lilypond, then you should start reading the tutorial, and
 experiment for yourself.  If you already have some experience, then
 you can simply use the manual as reference: there is an extensive
-index@footnote{If you are looking something, and you can't find it by
+index@footnote{If you are looking for something, and you can't find it by
 using the index, that is considered a bug.  In that case, please file
-a bugreport}
+a bug report}.
 
 @cindex bugreport
 @cindex index

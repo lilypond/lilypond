@@ -25,9 +25,9 @@
 @end menu
 
 Operating lilypond is done through text files: to print a piece of
-music, you enter the music in a file.  When you run lilypond on that
-file, the program produces another file which contains sheet music that
-you can print or view.
+music, you enter the music in a file.  When you run lilypond (normally
+using the program @code{ly2dvi}) on that file, the program produces
+another file which contains sheet music that you can print or view.
 
 This tutorial starts with a small introduction to the LilyPond music
 language.  After this first contact, we will show you how to run
@@ -161,7 +161,7 @@ The clef can be set using the ``@code{\clef}'' command:
 
 @c what is more common name treble or violin?
 @c in Dutch, its violin.
-@c in English its definately treble.
+@c in English its definitely treble.
 @quotation
 @example
 \clef treble
@@ -607,7 +607,7 @@ quotes or commas do not determine the absolute height of a note;
 the height of a note is relative to the previous one.
 @c don't use commas or quotes in this sentence
 For example: @code{c f,} goes down; @code{f, f} are both the same;
-@code{c c'} are the same; and @code{c g'} goes up:
+@code{c' c} are the same; and @code{c g'} goes up:
 
 @quotation
 @example
@@ -667,6 +667,9 @@ Here's an example of the difference between relative mode and
 @strong{SUMMARY}
 
 The following table summarizes the syntax learned so far in this section.
+
+@c Is it possible to avoid page breaks directly after the 
+@c table head?   /Mats
 
 @multitable @columnfractions .3 .3 .4  
 
@@ -772,7 +775,7 @@ and @code{]}:
 
 To print more than one staff, each piece of music that makes up a staff
 is marked by adding @code{\context Staff} before it.  These
-@code{Staff}'s can be grouped inside @code{<} and @code{>}, as is
+@code{Staff}'s are then grouped inside @code{<} and @code{>}, as is
 demonstrated here:
 
 @quotation
@@ -790,7 +793,7 @@ as each staff has a unique name.
 
 @separate
 
-We can typeset a melody with two staves now:
+We can now typeset a melody with two staves:
 
 @quotation
 @lilypond[verbatim,singleline]
@@ -1077,8 +1080,8 @@ the hyphen has no special meaning for lyrics, and does not introduce
 special symbols.
 
 Spaces can be introduced into a lyric either by using quotes:
-@code{"He could"4 not4} or by using an underscore without quotes:
-@code{He_could4 not4}.  All unquoted underscores are converted to
+@code{"He could" not} or by using an underscore without quotes:
+@code{He_could not}.  All unquoted underscores are converted to
 spaces.
 
 These are the lyrics for the free software song:
@@ -1096,17 +1099,16 @@ of the next lyric, so you may want to shorten it by using a blank
 lyric (using @code{_}).
 
 
-If you can use have hyphens at the end of a syllable, i.e.
+You can use ordinary hyphens at the end of a syllable, i.e.
 @example
         soft- ware
 @end example
-but then the hyphen will be attached to the to the end of the first
-syllable.
+but then the hyphen will be attached to the end of the first syllable.
  
 If you want them centered between syllables you can use the special
 `@code{-}@code{-}' lyric as a separate word between syllables.  The
 hyphen will have variable length depending on the space between
-syllables. It will be centered between the syllables.  
+the syllables and it will be centered between the syllables.
  
 Normally the notes that you enter are transformed into note heads.
 Note heads alone make no sense, so they need surrounding information: a
@@ -1247,8 +1249,8 @@ Smaller size (suitable for inclusion in a book).
 @end example 
 The structure of the file will be the same as the previous one: a
 @code{\score} block with music in it.  To keep things readable, we will
-give names to the different parts of music, and use the names to
-construct the music within the score block.
+give different names to the different parts of music, and use the names
+to construct the music within the score block.
 
 @separate
 @example 
@@ -1259,10 +1261,6 @@ construct the music within the score block.
 @cindex anacrusis
 The piece starts with an anacrusis (or ``pickup'') of one eighth.
 @separate
-@example
-        \key c \minor
-@end example
-The key is C minor: we have three flats.
 
 @separate
 @example 
@@ -1294,6 +1292,7 @@ This ends the definition of @code{melody}.
 @cindex lyrics
 @cindex identifier assignment
 @cindex syllables, entering
+This defines the lyrics, similar to what we have seen before.
 
 @separate
 @example 
@@ -1324,10 +1323,10 @@ There is no accompaniment during the anacrusis.
 @cindex tonic
 @cindex chord modifier
 @cindex modifier, chord 
-This is a c minor chord, lasting for a half note.  Chord are entered using
+This is a c minor chord, lasting for a half note. Chords are entered using
 the tonic.  Notes can be changed to create different chords.  In this case,
 a lowered third is used (making a C major chord into a C minor chord).
-  The code for this is @code{3-}. 
+The code for this is @code{3-}. 
 
 @separate
 @example
@@ -2076,7 +2075,7 @@ object in the current @code{Voice}.  The variable @code{attachment} is
 set to the pair of symbols @code{'(stem . stem)}. 
 
 Although this is useful information, it is not very helpful: the
-lilypond backend supports approximately 240 variables like
+lilypond back-end supports approximately 240 variables like
 @code{attachment}, each with their own meaning and own type
 (eg. number, symbol, list, etc). Besides slur, LilyPond has 80
 different types of Grobs, that may be created in 14 different context
@@ -2084,7 +2083,7 @@ types besides Voice.
 
 @cindex internal documentation
 @cindex finding grobs
-@cindex grob descriptiosn 
+@cindex grob descriptions 
 
 The interesting information is how you can figure out which properties
 to tune for your own scores. To discover this, you must have a copy of
@@ -2621,7 +2620,7 @@ beginning of the Scheme expression to be able to access the
 @example
         \property Staff.transposing = #3
 @end example
-The french horn is to be tuned in E-flat, so we tell the MIDI backend to
+The french horn is to be tuned in E-flat, so we tell the MIDI back-end to
 transpose this staff by three steps.
 
 Note how we can choose different tuning for entering, printing and
@@ -2741,7 +2740,7 @@ true.
 Sometimes, you might want to use music examples in a text that you are
 writing. For example, if you are writing a musicological treatise, a
 songbook, or (like us) the LilyPond manual.  You can make such texts by
-hand, simply by importing a PostScript figure into your wordprocessor.
+hand, simply by importing a PostScript figure into your word processor.
 However, there is a also an automated procedure:
 
 If you use HTML, La@TeX{} or texinfo, you can mix text and LilyPond
