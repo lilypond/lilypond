@@ -7,8 +7,8 @@
 */
 
 
-#ifndef P_COL_HH
-#define P_COL_HH
+#ifndef PAPER_COLUMN_HH
+#define PAPER_COLUMN_HH
 
 #include "item.hh"
 #include "rod.hh"
@@ -34,12 +34,12 @@ public:
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM));
   
   Paper_column (SCM);
-  static bool musical_b (Grob *);
+  static bool is_musical (Grob *);
   static Moment when_mom (Grob*);
 
-  static bool used_b (Grob*) ;
+  static bool is_used (Grob*) ;
   void set_rank (int);
 };
      
-#endif // P_COL_HH
+#endif // PAPER_COLUMN_HH
 

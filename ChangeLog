@@ -1,3 +1,36 @@
+2004-02-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Lilypond_snippet.notice_include):
+	write .dep file.
+
+2004-02-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/refman.itely (Markup command definition): Doc
+	by Nicolas Sceaux. Rewrite by Han-Wen
+
+	* lily/lyric-hyphen.cc (brew_molecule): remove if hyphen is first
+	thing of the line.
+	(brew_molecule): only remove if hyphen is not at the end of line.
+	(set_spacing_rods): new function: minimum-length specifies
+	distance between syllables.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	Hyphen_spanner::set_spacing_rods to LyricHyphen
+
+	* input/regression/lyric-hyphen-break.ly: new file.
+
+	* input/test/lyric-hyphen-retain.ly: new file.
+
+	* lily/new-part-combine-iterator.cc (construct_children):
+	add Rest direction.
+
+2004-02-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Snippet.replacement_text): add method.
+
+	* Documentation/bibliography/engraving.bib (donemus1982):
+	update entry.
+
 2004-02-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond.py (option_definitions): Fix typo.

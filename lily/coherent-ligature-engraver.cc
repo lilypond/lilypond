@@ -79,7 +79,7 @@
  */
 #if 0 // experimental code to collapse spacing after ligature
       SCM incr_scm = lc->get_grob_property ("forced-spacing");
-      if (incr_scm != SCM_EOL) /* (Paper_column::musical_b (l)) */
+      if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
 	{
 	  me->warning (_f ("gotcha: ptr=%ul", lc));//debug
 	  ly_display_scm (lc->self_scm ());

@@ -343,7 +343,7 @@ printing of a single line of lyrics.  "
     \consists "Stanza_number_engraver"
     \consists "Vocal_name_engraver"
     \consists "Skip_event_swallow_translator"
-    SeparationItem \set #'padding = #0.5
+    SeparationItem \set #'padding = #0.2
 }
 
 \translator {

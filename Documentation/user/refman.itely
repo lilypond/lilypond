@@ -2030,7 +2030,7 @@ different characteristics of the performance. They are added to a note
 by adding a dash and  the character signifying the
 articulation. They are demonstrated here:
 
-@lilypondfile[notexidoc]{script-abbreviations.ly}
+@lilypondfile[]{script-abbreviations.ly}
 
 The meanings of these shorthands can be changed: see
 @file{ly/script-init.ly} for examples.
@@ -2083,7 +2083,7 @@ eg.
 @cindex coda
 @cindex varcoda
 
-@lilypondfile[notexidoc]{script-chart.ly}
+@lilypondfile[]{script-chart.ly}
 
 
 @refcommands
@@ -3335,6 +3335,8 @@ next one. Such a line is called an extender line, and it is entered as
 Internals: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
 @internalsref{ExtenderEvent}.
 
+Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}
+
 @refbugs
 
 The definition of lyrics mode is too complex.
@@ -3431,6 +3433,7 @@ in @inputfileref{input/regression,lyric-combine-new.ly}.
 
 A complete example of a SATB score setup is in the file
 @inputfileref{input/template,satb.ly}.
+
 
 @refcommands
 
@@ -4191,7 +4194,7 @@ beginning of each line. This is illustrated in the following example,
 whose source is available as
 @inputfileref{input/test,bar-number-regular-interval.ly}:
 
-@lilypondfile[notexidoc]{bar-number-regular-interval.ly}
+@lilypondfile[]{bar-number-regular-interval.ly}
 
 
 @seealso
@@ -4569,7 +4572,7 @@ filtered. For example,
 @end example
 would yield
 
-@lilypondfile[notexidoc]{tag-filter.ly}
+@lilypondfile[]{tag-filter.ly}
 
 The argument of the @code{\tag} command should be a symbol, or a list
 of symbols, for example,
@@ -5344,7 +5347,7 @@ and @code{\finalis} at proper places in the input.  Some editions use
 Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 @code{\caesura}:
 
-@lilypondfile[notexidoc]{divisiones.ly}
+@lilypondfile[]{divisiones.ly}
 
 @refcommands
 
@@ -7347,7 +7350,7 @@ The following example (from
 @inputfileref{input/regression,cluster.ly}) shows what the result
 looks like:
 
-@lilypondfile[notexidoc]{cluster.ly}
+@lilypondfile[]{cluster.ly}
 
 By default, @internalsref{Cluster_spanner_engraver} is in the
 @internalsref{Voice} context.  This allows putting ordinary notes and
@@ -7530,6 +7533,7 @@ treatment of the difference between translation and layout.
 * Applyoutput::                 
 * Font selection::              
 * Text markup::                 
+* Common text markup commands::  
 @end menu
 
 
@@ -8063,6 +8067,14 @@ For clarity, you can also do this for single arguments, e.g.
 
 @cindex font size, texts
 
+
+
+
+
+@node Common text markup commands
+@subsection Common text markup commands
+
+
 The following size commands set absolute sizes:
 
 @cindex @code{\teeny}
@@ -8232,9 +8244,6 @@ allegro = \markup { \bold \large { Allegro } }
 \notes { a^\allegro b c d }
 @end verbatim
 
-The markup mechanism is extensible.  Refer to
-@file{scm/new-markup.scm} for more information.
-
 
 Some objects have alignment procedures of their own, which cancel out
 any effects of alignments applied to their markup arguments as a
@@ -8250,6 +8259,7 @@ Internals: @internalsref{Markup-functions} contains a complete list of
 all markup commands.
 
 Init files:  @file{scm/new-markup.scm}.
+
 
 @refbugs
 
@@ -8267,7 +8277,211 @@ field. Titles are made by La@TeX{}, so La@TeX{} commands should be used
 for formatting.
 
 
+@menu
+* Markup construction in scheme::  
+* Markup command definition::   
+@end menu
 
+@node Markup construction in scheme
+@subsubsection Markup construction in scheme
+
+@cindex defining markup commands 
+
+The @code{markup} macro builds markup expressions in Scheme while
+providing a LilyPond-like syntax. For example,
+@example
+(markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
+                  #:bigger #:line ("foo" "bar" "baz")))
+@end example
+
+@noindent
+is equivalent to:
+@example
+\markup \column < @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \bigger @{ foo bar baz @} >
+@end example
+
+@noindent
+This example exposes the main translation rules between regular
+LilyPond markup syntax and scheme markup syntax, which are summed up
+is this table:
+@multitable @columnfractions .5 .5
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\command} @tab @code{#:command}
+@item @code{\variable} @tab @code{variable}
+@item @code{@{ ... @}} @tab @code{#:line ( ... )}
+@item @code{\center < ... >} @tab @code{#:center ( ... )}
+@item @code{string} @tab @code{"string"}
+@item @code{#scheme-arg} @tab @code{scheme-arg}
+@end multitable
+
+Besides, the whole scheme language is accessible inside the
+@code{markup} macro: thus, one may use function calls inside
+@code{markup} in order to manipulate character strings for
+instance. This proves useful when defining new markup commands (see
+@ref{Markup command definition}).
+
+@refbugs
+
+One can not feed the @code{#:line} (resp @code{#:center},
+@code{#:column}) command with a variable or the result of a function
+call. Eg:
+@lisp
+(markup #:line (fun-that-returns-markups))
+@end lisp
+is illegal. One should use the @code{make-line-markup} (resp
+@code{make-center-markup}, @code{make-column-markup}) function
+instead:
+@lisp
+(markup (make-line-markup (fun-that-returns-markups)))
+@end lisp
+
+@node Markup command definition
+@subsubsection Markup command definition
+
+New markup commands can be defined thanks to the @code{def-markup-command} scheme macro.
+@lisp
+(def-markup-command (@emph{command-name} @emph{paper} @emph{props} @emph{arg1} @emph{arg2} ...) (@emph{arg1-type?} @emph{arg2-type?} ...)
+  ..command body..)
+
+    @emph{argi}: i@emph{th} command argument
+    @emph{argi-type?}: a type predicate for the i@emph{th} argument
+    @emph{paper}: the `paper' definition
+    @emph{props}: a list of alists, containing all active properties. 
+@end lisp
+
+As a simple example, we show how to add a @code{\smallcaps} command,
+which selects @TeX{}'s small caps font.  Normally, we could select the
+small caps font as follows:
+
+@verbatim
+  \markup { \override #'(font-shape . caps)  Text-in-caps }
+@end verbatim
+
+This selects the caps font by setting the @code{font-shape} property to
+@code{#'caps} for interpreting @code{Text-in-caps}.
+
+To make the above available as @code{\smallcaps} command, we have to
+define a function using @code{def-markup-command}. The command should
+take a single argument, of markup type. Therefore, the start of the
+definition should read
+@example
+  (def-markup-command (smallcaps paper props argument) (markup?)
+@end example
+
+@noindent
+
+What follows is the content of the command: we should interpret
+the @code{argument} as a markup, i.e.
+
+@example
+    (interpret-markup paper  @dots{} argument)
+@end example
+
+@noindent
+This interpretation should add @code{'(font-shape . caps)} to the active
+properties, so we substitute the the following for the @dots{} in the
+above example:
+
+@example
+ (cons (list '(font-shape . caps) ) props)
+@end example
+
+@noindent
+The variable @code{props} is a list of alists, and we prepend to it by
+consing a list with the extra setting.
+
+However, suppose that we are using a font that does not have a
+small-caps variant. In that case, we have to fake the small caps font,
+by setting a string in upcase, with the first letter a little larger.
+
+The @code{smallcaps} command first splits its string argument into
+tokens separated by spaces (@code{(string-split str #\Space)}); for
+each token, a markup is built with the first letter made large and
+upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
+second markup built with the following letters made tiny and upcased
+(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
+introduces a space between markups on a line, the second markup is
+translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
+the markups built for each token are put in a line
+(@code{(make-line-markup ...)}). Finally, the resulting markup is
+passed to the @code{interpret-markup} function, with the @code{paper}
+and @code{props} arguments.
+
+@example
+#(def-markup-command (smallcaps paper props str) (string?)
+   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   (interpret-markup paper props
+    (make-line-markup
+     (map (lambda (s)
+            (if (= (string-length s) 0)
+                s
+                (markup #:large (string-upcase (substring s 0 1))
+                        #:translate (cons -0.6 0)
+                        #:tiny (string-upcase (substring s 1)))))
+          (string-split str #\Space)))))
+@end example
+
+Finally, suppose that we are typesetting a recitative in an opera, and
+we would like to define a command that will show character names in a
+custom manner. Names should be printed with small caps and translated a
+bit to the left and top.  We will define a @code{\character} command
+that takes into account the needed translation, and uses the newly
+defined @code{\smallcaps} command:
+
+@verbatim
+#(def-markup-command (character paper props name) (string?)
+   "Print the character name in small caps, translated to the left and
+   top. Syntax: \\character #\"name\""
+   (interpret-markup paper props 
+    (markup "" #:translate (cons -4 2) #:smallcaps name)))
+@end verbatim
+
+There is one complication that needs explanation: texts above and below
+the staff are moved vertically to be at a certain distance (the
+@code{padding} property) from the staff and the notes. To make sure
+that this mechanism does not annihilate the vertical effect of our
+@code{#:translate}, we add an empty string (@code{""}) before the
+translated text.  Now the @code{""} will be put above the notes, and the
+@code{name} is moved in relation to that empty string. The net effect is
+that the text is moved to the upper left.
+
+The final result is as follows:
+@verbatim
+\score {
+    \notes { \fatText
+        c''^\markup \character #"Cleopatra"
+        e'^\markup \character #"Giulio Cesare"
+    }
+}
+@end verbatim
+
+@lilypond[raggedright]
+#(def-markup-command (smallcaps paper props str) (string?)
+   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   (interpret-markup paper props
+    (make-line-markup
+     (map (lambda (s)
+            (if (= (string-length s) 0)
+                s
+                (markup #:large (string-upcase (substring s 0 1))
+                        #:translate (cons -0.6 0)
+                        #:tiny (string-upcase (substring s 1)))))
+          (string-split str #\Space)))))
+
+#(def-markup-command (character paper props name) (string?)
+   "Print the character name in small caps, translated to the left and
+   top. Syntax: \\character #\"name\""
+   (interpret-markup paper props 
+    (markup "" #:translate (cons -4 0) #:smallcaps name)))
+
+\score {
+    \notes { \fatText
+        c''^\markup \character #"Cleopatra"
+        e'^\markup \character #"Giulio Cesare"
+    }
+}
+@end lilypond
 
 
 

@@ -86,7 +86,7 @@ Paper_column::when_mom (Grob*me)
 }
 
 bool
-Paper_column::musical_b (Grob *me)
+Paper_column::is_musical (Grob *me)
 {
   SCM m = me->get_grob_property ("shortest-starter-duration");
   Moment s (0);
@@ -100,7 +100,7 @@ Paper_column::musical_b (Grob *me)
   
 
 bool
-Paper_column::used_b (Grob*me)
+Paper_column::is_used (Grob*me)
 {
   return gh_pair_p (me->get_grob_property ("elements")) ||  Item::breakable_b (me)
     || gh_pair_p (me->get_grob_property ("bounded-by-me"))

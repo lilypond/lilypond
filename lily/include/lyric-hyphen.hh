@@ -13,7 +13,6 @@ struct Hyphen_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK(set_spacing_rods, (SCM));
-  void set_textitem (Direction, Grob*);
   bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
