@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "p-score.hh"
@@ -13,22 +13,22 @@
 // #include "elem-group.hh"
 #include "spanner.hh"
 
-Item::Item()
+Item::Item ()
 {
   break_priority_i_ = 0;
   breakable_b_ = false;
-  break_status_i_ = CENTER;
+  break_status_dir_ = CENTER;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Item, Score_elem);
+IMPLEMENT_IS_TYPE_B1(Item, Score_element);
 
 void
 Item::do_print() const
 {
 #ifndef NPRINT
   DOUT << "breakable_b_: " << breakable_b_ << 
-    " break_status_i_: " <<break_status_i_;
+    " break_status_dir_: " << break_status_dir_;
 #endif
 }
 
@@ -42,13 +42,19 @@ Item::hpos_f() const
 Line_of_score *
 Item::line_l() const
 {
-  return  (axis_group_l_a_[X_AXIS])? axis_group_l_a_[X_AXIS]->line_l() : 0;
+  Graphical_axis_group *ga = axis_group_l_a_[X_AXIS];
+  
+  if (!ga)
+    return 0;
+  
+  assert (ga->access_Score_element());
+  return ga->access_Score_element ()-> line_l ();
 }
 
-int
-Item::break_status_i() const
+Direction
+Item::break_status_dir() const
 {
-  return break_status_i_;
+  return break_status_dir_;
 }
 
 void
@@ -60,9 +66,9 @@ Item::copy_breakable_items()
   Direction  i=LEFT;
   do 
     {
-      Item * item_p = clone()->item ();
+      Item * item_p = clone()->access_Item ();
 
-      item_p->break_status_i_ =  i;
+      item_p->break_status_dir_ =  i;
       pscore_l_->typeset_element (item_p);
       item_p->handle_prebroken_dependencies();
       new_copies[i] =item_p;
@@ -85,7 +91,7 @@ Item::do_breakable_col_processing()
 
   /*
     Otherwise the broken items won't be pre_process()'ed.
-    */
+  */
   add_dependency (broken_to_drul_[LEFT]);
   add_dependency (broken_to_drul_[RIGHT]);    
 }
@@ -116,16 +122,16 @@ void
 Item::handle_prebroken_dependencies()
 {
   if (breakable_b_)
-    Score_elem::handle_prebroken_dependencies();
+    Score_element::handle_prebroken_dependencies();
 }
 
 int
 Item::left_right_compare(Item const *l, Item const *r)
 {
   while (!l->is_type_b (Paper_column::static_name ()))
-    l = l->axis_group_l_a_[X_AXIS]->item();
+    l = l->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
   while (!r->is_type_b (Paper_column::static_name ()))
-    r = r->axis_group_l_a_[X_AXIS]->item();
+    r = r->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
 
   Paper_column *p1 = (Paper_column*)l;
   Paper_column* p2 = (Paper_column*)r;
@@ -136,7 +142,7 @@ Item::left_right_compare(Item const *l, Item const *r)
 bool
 Item::linked_b() const
 {
-  return Score_elem::linked_b() || attached_span_l_arr_.size();
+  return Score_element::linked_b() || attached_span_l_arr_.size();
 }
 
 void
@@ -148,21 +154,38 @@ Item::do_junk_links()
 void
 Item::do_unlink()
 {
-  Link_array<Spanner> attached = attached_span_l_arr_;
+  for (int i=0; i < attached_span_l_arr_.size (); i++)
+    {
+      Spanner *&s= attached_span_l_arr_[i];
 
-  for (int i=0; i < attached_span_l_arr_.size (); i++) {
-    Spanner *&s= attached_span_l_arr_[i];
-    if (s->spanned_drul_[LEFT] == this)
-      s->set_bounds (LEFT, 0);
-    if  (s->spanned_drul_[RIGHT] == this)
-      s->set_bounds (RIGHT,0);
-    s =0;
-  }
+      Direction d= LEFT;
+      do {
+	if (s->spanned_drul_[d] == this)
+	  s->set_bounds (d, 0);
+
+      } while ( flip (&d) != LEFT);
+    }
   attached_span_l_arr_.set_size (0);
 }
 
 Paper_column *
 Item::column_l () const
 {
-  return axis_group_l_a_[X_AXIS]->item ()->column_l ();
+  return axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ()->column_l ();
+}
+
+Item::Item (Item const &s)
+  : Score_element (s)
+{
+  /* do not copy attached_span_l_arr_ */
+  breakable_b_ = s.breakable_b_;
+  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
+  break_status_dir_ = s.break_status_dir_;
+  break_priority_i_ = s.break_priority_i_;
+}
+
+Item *
+Item::access_Item ()
+{
+  return this; 
 }
