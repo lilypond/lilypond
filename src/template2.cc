@@ -10,6 +10,7 @@
 #include "plist.cc"
 
 
+IPL_instantiate(Request);
 IPL_instantiate(Score_column);
 IPL_instantiate(Staff_column);
 IPL_instantiate(Staff);
