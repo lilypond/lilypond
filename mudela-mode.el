@@ -38,6 +38,7 @@
 		     "musical_pitch" "time" "midi" "mm" "header"
 		     "notenames" "octave" "output" "partial" "paper" "plet"
 		     "property" "pt" "shape" "relative" "include" "score"
+		     "scm" "scmfile"
 		     "script" "skip"  "table" "spandynamic" "symboltables"
 		     "tempo" "texid" "textstyle" "transpose" "version" "grouping"
 		     ))

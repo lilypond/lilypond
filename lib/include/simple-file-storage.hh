@@ -22,11 +22,10 @@ class Simple_file_storage  : public File_storage
 
   void load_stdin ();
   void load_file (String);
-protected:    
+public:
   virtual char const*ch_C () const;
   virtual int length_i () const;
   virtual ~Simple_file_storage ();
-public:
   Simple_file_storage (String);
 };
 

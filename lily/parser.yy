@@ -193,7 +193,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PT_T
 %token RELATIVE
 %token REMOVE
-%token SCHEME /* token vs typedef;  can't be named SCM */
+%token SCM_T
+%token SCMFILE
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -326,10 +327,12 @@ toplevel_expression:
 	;
 
 embedded_scm:
-	SCHEME STRING ';' {
-	#ifdef HAVE_LIBGUILE
+	SCMFILE STRING ';' {
+		read_lily_scm_file (*$2);
+		delete $2;
+	}
+	| SCM_T STRING ';' {
 		gh_eval_str ($2->ch_l ());
-	#endif
 		delete $2;
 	};
 

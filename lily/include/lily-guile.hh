@@ -31,6 +31,6 @@ SCM lambda_scm (String str, Array<Real> args_arr);
 SCM lambda_scm (String str, Array<Scalar> args_arr);
 
 
-
+void read_lily_scm_file (String);
 
 #endif // LILY_GUILE_HH
