@@ -41,7 +41,7 @@ The dots go along as rests are shifted to avoid collisions.
 @mudelafile{dots.fly}
 
 Multiple measure rests do not collide with barlines and clefs.  They
-are not expanded when you set @code{Score.SkipBars}.  Although the
+are not expanded when you set @code{Score.skipBars}.  Although the
 multi-measure-rest is a Spanner, minimum distances are set to keep it
 colliding from barlines. 
 
@@ -128,6 +128,15 @@ Ties are strictly horizontal.  They are placed in between note heads.
 The horizontal middle should not overlap with a staffline.
 
 @mudelafile{tie.ly}
+
+When tieing notes with accidentals across a bar boundary, the
+accidental must not be drawn on the note in the new bar.
+Instead, the next note of the same pitch in this bar should always show the
+accidental (even if it's natural).
+Well, and slurring a accidentaled note to a natural one across bar
+boundaries should be explicit...
+
+@mudelafile{tie-accidental.ly}
 
 Beams can be typeset over fixed distance aligned staffs, beam
 beautification doesn't really work, but knees do. Beams should be

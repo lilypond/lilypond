@@ -65,14 +65,9 @@ Local_key_engraver::process_acknowledged ()
 	  Item * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
-	  if (tied_l_arr_.find_l (support_l) && 
-	      !note_l->forceacc_b_)
-	    {
-	      if (!forget)
-		local_key_.set (note_l->pitch_);
-	      continue;
-	    }
-	    
+          if (tied_l_arr_.find_l (support_l) && !forget)
+            local_key_.set (note_l->pitch_);
+
 	  if (!note_l->forceacc_b_
 	      && local_key_.different_acc (note_l->pitch_))
 	    continue;
@@ -82,9 +77,8 @@ Local_key_engraver::process_acknowledged ()
 	      announce_element (Score_element_info (key_item_p_, 0));	      
 	    }
 
-
 	  key_item_p_->add_pitch (note_l->pitch_,
-				  note_l->cautionary_b_);
+	  			  note_l->cautionary_b_);
 	  key_item_p_->add_support (support_l);
 	  
 	  if (!forget)
@@ -130,7 +124,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   SCM wg= get_property ("weAreGraceContext", 0);
   
   bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
-  bool he_gr = info.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool he_gr = info.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED;
 
   Grace_align_item * gai = dynamic_cast<Grace_align_item*> (info.elem_l_);  
   if (he_gr && !selfgr && gai)
@@ -176,3 +170,4 @@ Local_key_engraver::do_process_requests()
 
 
 ADD_THIS_TRANSLATOR(Local_key_engraver);
+

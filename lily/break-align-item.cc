@@ -32,7 +32,7 @@ Break_align_item::do_pre_processing()
   
   flip (&align_dir_);
   sort_elements ();
-  Real interline= paper_l ()->get_realvar (interline_scm_sym);	
+  Real interline= paper_l ()->get_var ("interline");	
   
   Link_array<Score_element> elems;
   for (int i=0; i < elem_l_arr_.size(); i++) 
@@ -47,7 +47,7 @@ Break_align_item::do_pre_processing()
 
   SCM symbol_list = SCM_EOL;
   Array<Real> dists;
-  SCM current_origin = ly_ch_C_to_scm ("");
+  SCM current_origin = ly_str02scm ("");
   for (int i=0; i <= elems.size (); i++)
     {
       Score_element *next_elt  = i < elems.size ()
@@ -58,14 +58,14 @@ Break_align_item::do_pre_processing()
 
       if (next_elt)
 	{
-	  next_origin = next_elt->get_elt_property (origin_scm_sym);
+	  next_origin = next_elt->get_elt_property ("origin");
 	  next_origin =
-	    (next_origin == SCM_BOOL_F)
-	    ? ly_ch_C_to_scm ("")
-	    : SCM_CDR (next_origin);
+	    (next_origin == SCM_UNDEFINED)
+	    ? ly_str02scm ("")
+	    : next_origin;
 	}
       else
-	next_origin = ly_ch_C_to_scm ("begin-of-note");
+	next_origin = ly_str02scm ("begin-of-note");
       
       SCM extra_space
 	= scm_eval (scm_listify (ly_symbol ("break-align-spacer"),
@@ -84,7 +84,8 @@ Break_align_item::do_pre_processing()
   symbol_list  = SCM_CDR (scm_reverse (symbol_list));
   for (int i=0; i <elems.size()-1; i++)
     {
-      elems[i]->set_elt_property (SCM_CAR (symbol_list),
+      String sym_str = ly_scm2string (SCM_CAR (symbol_list));
+      elems[i]->set_elt_property (sym_str,
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
@@ -93,14 +94,14 @@ Break_align_item::do_pre_processing()
 
 
   // urg
-  SCM first_pair = elems[0]->get_elt_property (minimum_space_scm_sym);
-  if (first_pair == SCM_BOOL_F)
+  SCM first_pair = elems[0]->get_elt_property ("minimum-space");
+  if (first_pair == SCM_UNDEFINED)
     first_pair = gh_cons (gh_double2scm (0.0), gh_double2scm (0.0));
   else
-    first_pair = SCM_CDR (first_pair);
+    first_pair = first_pair;
   
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
-  elems[0]->set_elt_property (minimum_space_scm_sym, first_pair);
+  elems[0]->set_elt_property ("minimum-space", first_pair);
   
   Axis_align_item::do_pre_processing();
 
@@ -112,12 +113,12 @@ Break_align_item::do_pre_processing()
   
   Real stretch_distance =0.;
   
-  if (SCM_CAR (symbol_list) == extra_space_scm_sym)
+  if (SCM_CAR (symbol_list) == gh_symbol2scm ("extra-space"))
     {
       spring_len += dists.top ();
       stretch_distance = dists.top ();
     }
-  else if (SCM_CAR (symbol_list) == minimum_space_scm_sym)
+  else if (SCM_CAR (symbol_list) == gh_symbol2scm ("minimum-space"))
     {
       spring_len = spring_len >? dists.top ();
       stretch_distance = spring_len;
@@ -129,11 +130,11 @@ Break_align_item::do_pre_processing()
 
     The pairs are in the format of an interval (ie. CAR <  CDR).
   */
-  column_l ()->set_elt_property (extra_space_scm_sym,
+  column_l ()->set_elt_property ("extra-space",
 				 scm_cons (gh_double2scm (pre_space),
 					   gh_double2scm (spring_len)));
 
-  column_l ()->set_elt_property (stretch_distance_scm_sym,
+  column_l ()->set_elt_property ("stretch-distance",
 				 gh_cons (gh_double2scm (-dists[0]),
 					  gh_double2scm (stretch_distance)));
 				 
@@ -148,12 +149,12 @@ Break_align_item::Break_align_item ()
 void
 Break_align_item::add_breakable_item (Item *it)
 {
-  SCM pr = it->remove_elt_property (break_priority_scm_sym); 
+  SCM pr = it->remove_elt_property ("break-priority"); 
 
-  if (pr == SCM_BOOL_F)
+  if (pr == SCM_UNDEFINED)
     return;
 
-  int priority = gh_scm2int (SCM_CDR (pr));
+  int priority = gh_scm2int (pr);
 
   Score_element * column_l = get_elt_by_priority (priority);
   Axis_group_item * hg=0;
@@ -171,7 +172,7 @@ Break_align_item::add_breakable_item (Item *it)
 	warning bells about missing Y refpoints go off later on.
       */
       hg->set_parent (this, Y_AXIS);
-      hg->set_elt_property (ly_symbol ("origin"), ly_ch_C_to_scm (it->name ()));
+      hg->set_elt_property ("origin", ly_str02scm (it->name ()));
 
       pscore_l_->typeset_element (hg);
       add_element_priority (hg, priority);
@@ -182,3 +183,4 @@ Break_align_item::add_breakable_item (Item *it)
   
   hg->add_element (it);
 }
+

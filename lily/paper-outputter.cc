@@ -80,8 +80,8 @@ Paper_outputter::output_header ()
     }
 
   SCM args_scm = 
-    gh_list (ly_ch_C_to_scm (creator.ch_l ()),
-	     ly_ch_C_to_scm (generate.ch_l ()), SCM_UNDEFINED);
+    gh_list (ly_str02scm (creator.ch_l ()),
+	     ly_str02scm (generate.ch_l ()), SCM_UNDEFINED);
 
 #ifndef NPRINT
   DEBUG_OUT << "output_header\n";
@@ -91,7 +91,7 @@ Paper_outputter::output_header ()
     }
 #endif
 
-  SCM scm = gh_cons (header_scm_sym, args_scm);
+  SCM scm = gh_cons (gh_symbol2scm ("header"), args_scm);
   output_scheme (scm);
 }
 
@@ -140,13 +140,13 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (i->font_)
 	{
 	  output_scheme (gh_list (ly_symbol ("select-font"),
-				  ly_ch_C_to_scm (symbol_to_string (i->font_).ch_C()),
+				  ly_str02scm (symbol_to_string (i->font_).ch_C()),
 				  SCM (i->magn_),
 				  SCM_UNDEFINED));
 	}
 
       SCM box_scm
-	= gh_list (placebox_scm_sym,
+	= gh_list (gh_symbol2scm ("placebox"),
 		   gh_double2scm (a_off.x ()),
 		   gh_double2scm (a_off.y ()),
 		   SCM(i->func_),
@@ -241,7 +241,7 @@ Paper_outputter::output_font_def (int i, String str)
 {
   SCM scm = gh_list (ly_symbol ("font-def"),
 		     gh_int2scm (i),
-		     ly_ch_C_to_scm (str.ch_l ()),
+		     ly_str02scm (str.ch_l ()),
 		     SCM_UNDEFINED);
 
   output_scheme (scm);
@@ -252,8 +252,8 @@ Paper_outputter::output_Real_def (String k, Real v)
 {
   
   SCM scm = gh_list (ly_symbol ("lily-def"),
-		     ly_ch_C_to_scm (k.ch_l ()),
-		     ly_ch_C_to_scm (to_str(v).ch_l ()),
+		     ly_str02scm (k.ch_l ()),
+		     ly_str02scm (to_str(v).ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
@@ -265,20 +265,20 @@ Paper_outputter::output_String_def (String k, String v)
 {
   
   SCM scm = gh_list (ly_symbol ("lily-def"),
-		     ly_ch_C_to_scm (k.ch_l ()),
-		     ly_ch_C_to_scm (v.ch_l ()),
+		     ly_str02scm (k.ch_l ()),
+		     ly_str02scm (v.ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
-  gh_define (k.ch_l (), ly_ch_C_to_scm (v.ch_l ()));
+  gh_define (k.ch_l (), ly_str02scm (v.ch_l ()));
 }
 
 void
 Paper_outputter::output_int_def (String k, int v)
 {
   SCM scm = gh_list (ly_symbol ("lily-def"),
-		     ly_ch_C_to_scm (k.ch_l ()),
-		     ly_ch_C_to_scm (to_str (v).ch_l ()),
+		     ly_str02scm (k.ch_l ()),
+		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 
@@ -300,3 +300,4 @@ Paper_outputter::stop_last_line ()
   SCM scm = gh_list (ly_symbol ("stop-last-line"), SCM_UNDEFINED);
   output_scheme (scm);
 }
+

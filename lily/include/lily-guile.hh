@@ -15,7 +15,7 @@
 #include <libguile.h>
 #include "direction.hh"
 
-SCM ly_ch_C_to_scm (char const*c);
+SCM ly_str02scm (char const*c);
 SCM ly_ch_C_eval_scm (char const*c);
 SCM ly_symbol (String name);
 String symbol_to_string (SCM);
@@ -36,7 +36,7 @@ SCM array_to_list (SCM *a , int l);
 void read_lily_scm_file (String);
 void init_lily_guile ();
 
-#include "ly-symbols.hh"
+
 
 void init_ly_protection ();
 unsigned int ly_scm_hash (SCM s);

@@ -22,7 +22,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 Key_item::Key_item ()
 {
   multi_octave_b_ = false;
-  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  set_elt_property ("breakable", SCM_BOOL_T);
   set_c_position (0);
 }
 
@@ -73,6 +73,17 @@ Key_item::calculate_position(int p, int a) const
       {
 	p -= 7; /* Typeset below c_position */
       }
+    /* Provide for the four cases in which there's a glitch */
+    /* it's a hack, but probably not worth */
+    /* the effort of finding a nicer solution. dl. */
+    if (get_c_position ()==2 && a>0 && p==3)
+      p -= 7;
+    if (get_c_position ()==-3 && a>0 && p==-1)
+      p += 7;
+    if (get_c_position ()==-4 && a<0 && p==-1)
+      p += 7;
+    if (get_c_position ()==-2 && a<0 && p==-3)
+      p += 7;
     return p + get_c_position ();
   }
 }
@@ -128,6 +139,7 @@ Key_item::do_brew_molecule_p() const
 
   return output;
 }
+
 
 
 

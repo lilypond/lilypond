@@ -91,7 +91,7 @@ Text_engraver::do_process_requests ()
 			       
 	}
       ss->set_victim (text);
-      ss->set_elt_property (script_priority_scm_sym,
+      ss->set_elt_property ("script-priority",
 			    gh_int2scm (200));
 
       ss->dir_ = r->dir_;
@@ -99,7 +99,7 @@ Text_engraver::do_process_requests ()
       text->text_str_ = r->text_str_;
       
       if (r->style_str_.length_i ())
-	text->set_elt_property (style_scm_sym, ly_ch_C_to_scm (r->style_str_.ch_C()));
+	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
       
       SCM empty = get_property ("textEmptyDimension", 0);
       if (gh_boolean_p (empty) && gh_scm2bool (empty))
@@ -134,3 +134,4 @@ Text_engraver::do_post_move_processing ()
 }
 
 ADD_THIS_TRANSLATOR(Text_engraver);
+
