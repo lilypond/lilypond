@@ -27,7 +27,7 @@ Grace_iterator::construct_children ()
 }
 
 void
-Grace_iterator::process (Moment m)
+Grace_iterator::process (Moment)
 {
   Global_translator * t = dynamic_cast<Global_translator*>(report_to_l ());
   if (t)

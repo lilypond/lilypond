@@ -1,4 +1,5 @@
 \paper{
+	\paper_sixteen
 
 	textheight = 295.0\mm;
 	linewidth = 180.0\mm;
@@ -50,6 +51,7 @@
 		soloIIText = #""
 		aDueText = #""
 		splitInterval = #'(1 . 0)
+		changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
 	}
 	\translator {
 		\StaffGroupContext

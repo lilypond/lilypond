@@ -1,26 +1,16 @@
 \score{
 	\context PianoStaff <
-		\context StaffCombineStaff=one \skip 1*7;
-		\context StaffCombineStaff=two \skip 1*7;
+		\context StaffCombineStaff=one \skip 1*2;
+		\context StaffCombineStaff=two \skip 1*2;
 		\context StaffCombineStaff=one \partcombine StaffCombineStaff
 			\context StaffCombineVoice=one \notes\relative c''
 				{
 					c4 d e f\break
-					c d e f\break
-					c d e f
-					c4 d e f\break
-					a8 a a a b b b b
-					a,4 a a a\break
 					c2 e4 f\break
 				}
 			\context StaffCombineVoice=two \notes\relative c''
 				{
-					c2 e2
 					c4 d e f
-					c2 e2
-					c,4 d e f
-					a8 a a a b b b b
-					a4 a a a
 					c2 e2
 				}
 		>

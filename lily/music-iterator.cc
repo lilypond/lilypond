@@ -51,6 +51,7 @@ Music_iterator::Music_iterator (Music_iterator const& src)
   //  clone_i_ = src.clone_i_ + 1;
   handle_ = *src.handle_.clone ();
   music_l_ = src.music_l_;
+  music_length_ = src.music_length_;
 }
 
 Music_iterator::~Music_iterator ()
@@ -94,6 +95,11 @@ bool
 Music_iterator::ok () const
 {
   return false;
+}
+
+void
+Music_iterator::skip (Moment )
+{
 }
 
 SCM
@@ -150,7 +156,16 @@ Music_iterator::static_get_iterator_p (Music *m)
     }
 
   p->music_l_ = m;
+  p->music_length_ = m->length_mom ();
+  
   return p;
+}
+
+
+Moment
+Music_iterator::music_length_mom() const
+{
+  return music_length_;
 }
 
 void

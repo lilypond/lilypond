@@ -35,19 +35,28 @@
     thus changing the state of the interpretation context.
 
   get_music (M) -- return all events starting at M (pre: no events
-    before M).  Side effects:
+    before M). No side-effects
 
-    * This removes all events at M from the pending queue.
+  skip (M) -- remove all events starting before M (leave the ones that
+    start M).  no side-effects on interpretation context
 
-  Because next (M) is rolled into process () as a side effect,
-  we need to roll next (M) into get_music too.  Urg.
-    
+
+  TODO:
+
+  merge pending_moment and process.
+  
 */
 class Music_iterator
 {
+protected:
+  Moment music_length_;
+
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
 
+  Moment music_length_mom () const;
+
+  
   Music_iterator ();
   Music_iterator (Music_iterator const&);
   virtual ~Music_iterator ();
@@ -57,7 +66,7 @@ public:
      then its children. Returns the iterator that succeeded
   */
   Music_iterator *  try_music (Music  *) const;
-
+  
   /**
     The translation unit that we this iterator is reporting  to now.
    */
@@ -75,6 +84,7 @@ public:
   virtual bool ok () const;
   virtual SCM get_music (Moment until)const;
   virtual void process (Moment until);
+  virtual void skip (Moment until);
 
   /**
     Construct sub-iterators, and set the translator to 
