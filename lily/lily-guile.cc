@@ -699,8 +699,6 @@ int_list_to_slice (SCM l)
 }
 
 
-
-
 /*
   Return I-th element, or last elt L. If I < 0, then we take the first
   element.

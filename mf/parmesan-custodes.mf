@@ -34,9 +34,6 @@ fet_begingroup ("custodes")
 %   collision handling.
 %
 
-noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
-define_pixels(noteheight);
-
 save between_staff_lines, on_staff_line, anywhere;
 between_staff_lines = 0;
 on_staff_line = 1;

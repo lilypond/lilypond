@@ -1,5 +1,20 @@
 2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* input/mutopia/F.Schubert/GNUmakefile: add morgenlied.ly
+
+	* mf/feta19.mf: remove.
+	
+	* mf/feta-klef.mf (test_staff): more tweaks
+
+	* mf/feta-toevallig.mf: more small size tweaks.
+
+	* mf/feta-eindelijk.mf (lower_brush): adjust quarter and shorter
+	rests for smaller sizes.
+
+	* mf/feta-bolletjes.mf: fix cross heads.
+
+	* VERSION: release 2.1.4
+	
 	* scripts/convert-ly.py (FatalConversionError.func): add rule for
 	deprecated #'ancient font family
 

@@ -258,7 +258,6 @@ L1 is copied, L2 not.
    (cons (- (car iv) amount)
          (+ (cdr iv) amount)))
 
-
 (define-public (interval-union i1 i2)
    (cons (min (car i1) (car i2))
 	 (max (cdr i1) (cdr i2))))

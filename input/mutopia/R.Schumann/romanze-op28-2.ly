@@ -3,9 +3,7 @@
 
 \include "deutsch.ly"
 
-%% 19 is broken --hwn.
-%\include "paper19.ly"
-\include "paper16.ly"
+\include "paper19.ly"
 \version "2.1.1"
 
 \header {

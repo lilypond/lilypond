@@ -8,22 +8,45 @@
 % & Juergen Reuter <reuter@ipd.uka.de>
 % 
 
+test_outlines := 0;
+
 
 % most beautiful noteheads are pronounced, not circular, 
 % and not even symmetric.
 % These examples are inspired by [Wanske], see literature list
 
 
-save black_notehead_width;
-numeric black_notehead_width;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTE HEAD VARIABLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+save black_notehead_width, noteheight,
+	slash_thick, slash_slope, overdone_heads;
+numeric black_notehead_width, noteheight, slash_thick;
 
 fet_begingroup("noteheads");
 
-test_outlines := 0;
 
+
+% slope of slash. From scm/grob-description.scm. How to auto-copy?
+slash_slope := 1.7; 
+
+% thickness of slash lines. quarter notes get 1.5slt width.
+slash_thick# := 2/3*0.48staff_space#;
+
+
+%
+% Hand-engraved music often has balls extending above and below
+% the lines.  If you like that, modify overdone heads (unit:
+% stafflinethickness)
+%
+overdone_heads = 0.0;
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 
+define_pixels(slash_thick, noteheight);
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % SLANT moves both extremes on the long axis (by SLANT * ELLIPSIDITY,
 % so SLANT = -1, puts the extreme on the long axis next to the short axis one.)
@@ -137,8 +160,6 @@ fet_endchar;
 
 
 
-% whole note
-% Wanske, p.38
 fet_beginchar("Whole notehead", "0", "wholehead")
 	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125 - puff_up_factor *10,
@@ -150,8 +171,6 @@ fet_beginchar("Whole notehead", "0", "wholehead")
 fet_endchar;
 
 
-% half note
-% Wanske, p.39
 fet_beginchar("Half notehead", "1", "halfhead")
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
 	undraw_inside_ellipse (3.25, 33, 0.81,
@@ -159,14 +178,12 @@ fet_beginchar("Half notehead", "1", "halfhead")
 
 fet_endchar;
 	
-% quarter note
-% Wanske p.38
 fet_beginchar("Quart notehead", "2", "quarthead")
 	draw_outside_ellipse (1.54 - puff_up_factor / 2.0, 32, 0.707, 0);
 	black_notehead_width# := charwd;
 fet_endchar;
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 fet_beginchar("Whole diamondhead", "0diamond", "wholediamondhead")
@@ -177,8 +194,6 @@ fet_beginchar("Whole diamondhead", "0diamond", "wholediamondhead")
 
 fet_endchar;
 
-% half note
-% Wanske, p.39
 fet_beginchar("Half diamondhead", "1diamond", 
 	"halfdiamondhead")
 
@@ -188,45 +203,23 @@ fet_beginchar("Half diamondhead", "1diamond",
 
 fet_endchar;
 
-% quarter note
-% Wanske p.38
 fet_beginchar("Quart diamondheadh", "2diamondh", "diamondheadh")
 	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 fet_endchar;
 
-
-save pen_thick;
-pen_thick# = stafflinethickness#  + .1 staff_space#;
-define_pixels(pen_thick);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-begingroup;
 
-
-def def_triangle_old =
-        save triangle,kern; path triangle;
-        kern = 1/3(x2-x1);
-        z2 = z1 rotated 120;
-        z3 = z1 rotated 240;
-        z12 = caveness[.5[z1,z2],z3];
-        z23 = z12 rotated 120;
-        z31 = z12 rotated 240;
-        triangle = z1 .. z12 .. z2 ..
-                    z2 .. z23 .. z3 ..
-                    z3 .. z31 .. z1 ..
-                    cycle;
-        triangle := triangle shifted (-x1+pent/2-kern,0) xscaled xs;
-        pickup pencircle scaled pent xscaled xs;
-        hei = max(y1,-y2)+pent/2; 
-        %set_char_box(-kern*xs*fac, ((x3-x1)*fac+pent#)*xs,hei*fac,hei*fac);
-        set_char_box(0, ((x3-x1-kern)*fac+pent#)*xs,hei*fac,hei*fac);
-enddef;
 
 
 def def_triangle =
 	save triangle,kern; path triangle;
 	save left_point, height, width;
 	pair exact_left_point;
+	save pen_thick;
+	pen_thick# = stafflinethickness#  + .1 staff_space#;
+	define_pixels(pen_thick);
 
 	exact_left_point := llap# * dir (90 + tilt);
 	height# = max (ypart exact_left_point,
@@ -291,20 +284,11 @@ fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
 	filldraw triangle;
 fet_endchar;
 
-endgroup;
-
-%%% Editable values:
-
-
-% slope of slash. From scm/grob-description.scm. How to auto-copy?
-slash_slope := 1.7; 
-
-% thickness of lines. quarter notes get 1.5slt width.
-slash_thick# := 2/3*0.48staff_space#;
-
-define_pixels(slash_thick);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 def draw_slash(expr hwid_hash) =
+
+
 	set_char_box (0, staff_space# / slash_slope + hwid_hash,
 			staff_space#/2 + stafflinethickness#/2,
 			staff_space#/2 + stafflinethickness#/2);
@@ -345,12 +329,7 @@ def draw_slash(expr hwid_hash) =
 			z5 -- z6 -- z7 -- z8 -- cycle;
 	fi
 	labels (range 1 thru 10);
-
-
 enddef;
-
-
-
 
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
 	draw_slash(2 slash_thick# + 0.5 staff_space#);
@@ -364,7 +343,12 @@ fet_beginchar("Quart slashhead","2slash","quartslashhead")
 	draw_slash(slash_thick#);
 fet_endchar;
 
-% thick is the distance between the two parallel lines in the cross (distance between centres of lines)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% thick is the distance between the NE/SW parallel lines in the cross
+% (distance between centres of lines)
+% in stafflinethickness def
+%
 def draw_cross(expr thick) =
 	save pent, slant, ne_dir;
 	pair ne_dir;
@@ -375,7 +359,7 @@ def draw_cross(expr thick) =
 	pickup pencircle scaled pent;
 
 	top y3 = h;
-	ne_dir := (1, (2 h -pent)/(w - pent));
+	ne_dir := unitvector ((1, (2 h -pent)/(w - pent)));
 	rt x4 = w/2;
 	y5 = 0;
 	z4 - z5 = whatever * ne_dir;
@@ -383,24 +367,23 @@ def draw_cross(expr thick) =
 	z6 - z3 = whatever * ne_dir;
 	z3 - z4 = whatever * (ne_dir yscaled -1);
 
-	z1 = (0, charht - 1.5 pent#);
-	y2 = 0;
-	z2 = z1 + whatever * (ne_dir yscaled -1);
-	z7 = z2 + whatever * ne_dir;
-	x7 = charwd/2 - .5 pent#;
-	top y6 = h - pent;
+	z4 - z3 = whatever * (ne_dir) + (ne_dir rotated -90) * thick * stafflinethickness;
+
+ 	x1 = charwd/2 - .5 pent#;
+	z1 = whatever * ne_dir + thick * stafflinethickness * (ne_dir rotated -90);
 
 	
 	labels (1,2,3,4,5,6);
 
 	crz = (z6 -- z3 -- z4 -- z5) ;
+
 	draw crz shifted(w/2,0);
 	draw crz xscaled -1 shifted(w/2,0);
 	draw crz yscaled -1 shifted(w/2,0);
 	draw crz scaled -1 shifted(w/2,0);
 
 	charwx := charwd;
-	charwy := y7;
+	charwy := y1;
 enddef;
 
 fet_beginchar("Whole Crossed notehead", "0cross", "wholecrossedhead")
@@ -408,21 +391,21 @@ fet_beginchar("Whole Crossed notehead", "0cross", "wholecrossedhead")
 	hei# := noteheight#+stafflinethickness#;
 	set_char_box(0, wid#,hei#/2,hei#/2);
 	
-	draw_cross(3.75stafflinethickness);
+	draw_cross (3.75);
 fet_endchar;
 
 fet_beginchar("Half Crossed notehead", "1cross", "halfcrossedhead")
 	wid# := black_notehead_width#+2stafflinethickness#;
 	hei# := noteheight#+stafflinethickness#/2;
 	set_char_box(0, wid#,hei#/2,hei#/2);
-	draw_cross(3stafflinethickness);
+	draw_cross(3.0);
 fet_endchar;
 
 fet_beginchar("Crossed notehead", "2cross", "crossedhead")
 	wid# := black_notehead_width#;
 	hei# := noteheight#;
 	set_char_box(0, wid#,hei#/2,hei#/2);
-	draw_cross(stafflinethickness/4);
+	draw_cross(1.0);
 fet_endchar;
 
 fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
@@ -446,4 +429,5 @@ fet_endchar;
 
 
 fet_endgroup("noteheads");
+
 define_pixels(black_notehead_width);
