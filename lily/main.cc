@@ -114,7 +114,7 @@ static Long_option_init options_static[] = {
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
-  {_i ("EXPR"), "evaluate", 'e',_i ("evalute  EXPR as Scheme after .scm init is read")},
+  {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   {0,0,0,0}
 };
 
@@ -328,7 +328,7 @@ main_prog (int, char**)
   all_fonts_global_p = new All_font_metrics (global_path.str ());
 
   init_scheme_code_string += ")";
-  gh_eval_str (init_scheme_code_string.ch_C());
+  gh_eval_str ((char *)init_scheme_code_string.ch_C());
   
   int p=0;
   const char *arg ;

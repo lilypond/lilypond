@@ -7,7 +7,9 @@ export LILYINCLUDE:=$(topdir)/ps:$(topdir)/scm:$(topdir)/ly:$(topdir)/mf/out::$(
 export TFMFONTS=$(topdir)/mf/out:
 
 export LILYPONDPREFIX:=$(depth)/
+export PYTHONPATH:=$(buildscript-dir)/$(outdir):$(PYTHONPATH)
 
+# guile load path?
 
 the-script-dir=$(wildcard $(script-dir))
 

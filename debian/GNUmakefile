@@ -14,6 +14,6 @@ EXTRA_DIST_FILES = README.Debian TODO $(CONF_FILES)  \
 OUTCONF_FILES = $(OUTIN_FILES)
 OUT_DIST_FILES = $(OUTIN_FILES)
 
-STEPMAKE_TEMPLATES = yolily-debian
+STEPMAKE_TEMPLATES = debian
 include $(depth)/make/stepmake.make 
 

@@ -13,7 +13,7 @@ default: local-doc
 
 #urg default local-WWW target uses footify before its time; 
 # must add footify with txt-to-html target
-local-WWW:  $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS))) $(OUT_HTMLFILES) txt-to-html
+local-WWW: $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS))) $(OUT_HTMLFILES) txt-to-html
 
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true

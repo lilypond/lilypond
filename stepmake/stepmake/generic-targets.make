@@ -50,42 +50,20 @@ help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
   clean       remove all genated stuff in $(outdir)\n\
-  config      rerun configure\n\
-  deb         build Debian package\n\
   default     same as the empty target\n\
-  diff        generate patch: $(depth)/$(outdir)/$(distname).diff.gz\n\
-  .           Options:\n\
-  .             from=0.1.74\n\
-  .             help==\n\
-  .             release==\n\
-  .             to=0.1.74.jcn2\n\
-  dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
-  distclean   cleaner than clean (duh)\n\
-  doc         update all documentation\n\
   exe         update all executables\n\
   help        this help\n\
   install     install programs and data (prefix=$(prefix))\n\
   lib         update all libraries\n\
-  release     roll tarball and generate patch\n\
-  rpm         build RedHat package\n\
-  po          make new translation Portable Object database\n\
-  po-replace  do po-update and replace catalogs with msgmerged versions\n\
-  po-update   update translation Portable Object database\n\
-  tar         same as dist\n\
   TAGS        genarate tagfiles\n\
-  zip         build binary doze distribution\n\
 \n\
 Make may be invoked from any subdirectory\n\
-Note that all commands recurse into SUBSDIRS\n\
+Note that all commands recurse into SUBDIRS;\n\
+prepend \`local-' to do only cwd, eg: local-clean\n\
 "\
 #
 
 local-help:
-
-doc: local-doc
-	$(LOOP)
-
-local-doc:
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	mkdir -p $(distdir)/$(localdir)
@@ -154,11 +132,6 @@ installextradoc:
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 
-WWW: local-WWW
-	$(LOOP)
-
-local-WWW:
-
 include $(stepdir)/package.make
 
 include $(outdir)/dummy.dep $(DEP_FILES)
@@ -175,8 +148,8 @@ local-check:
 
 # ugh.  ugh ugh ugh
 $(depth)/$(configuration).make: $(depth)/configure
-	@echo "**************************************"
+	@echo "************************************************************"
 	@echo "configure changed! You should probably reconfigure manually."
-	@echo "**************************************"
+	@echo "************************************************************"
 	(cd $(depth); ./config.status)
 	touch $@		# do something for multiple simultaneous configs.

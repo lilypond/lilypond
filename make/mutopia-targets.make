@@ -1,21 +1,22 @@
 
+include $(stepdir)/www-targets.make
+
+
 .PHONY: download mutopia png ps scores tar
 
 .PRECIOUS: $(outdir)/%.ps $(outdir)/%-book.ps
 .PRECIOUS: $(outdir)-letter/%.dvi $(outdir)-letter/%.ps
 
+
 all: $(OUT_FILES)
 
 local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(png_examples)
-
-local-web:
-	$(MAKE) conf=www local-WWW
 
 convert-ly: local-convert-ly
 	$(LOOP)
 
 local-convert-ly:
-	$(PYTHON) $(CONVERT_LY) -e *ly
+	$(PYTHON) $(CONVERT_LY) --edit --assume-old *ly
 
 tar:
 	mkdir -p $(outdir)/$(tarball)
@@ -29,30 +30,6 @@ ps: $(ps_examples)
 
 scores: $(score_ps)
 	$(MAKE) ps_examples="$<" ps
-
-#
-# <NAME> and -book targets only available through ly.make template makefile;
-# too scary to install in LilyPonds make yet.
-#
-#
-
-ifeq (0,1)
-#
-# Timothy's booklet
-#
-$(outdir)/%-book.ps: $(outdir)/%.ps
-	psbook $< $<.1
-	pstops '2:0L(11.45in,0.25in)+1L(11.45in,5.6in)' $<.1 $@
-	rm -f $<.1
-
-#
-# Catch-all target: type `make foo' to make out/foo.ps,
-# or make `foo-book' to make out/foo-book.ps
-#
-%: $(outdir)/%.ps
-	@echo Making $@ from $<
-endif
-
 
 local-mutopia:
 	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
@@ -68,7 +45,9 @@ local-letter-clean:
 	rm -f $(outdir)-letter/*
 
 
-local-help:
+local-help: local-mutopia-help
+
+local-mutopia-help:
 	@echo -e "\
   <NAME>      update $(outdir)/<NAME>.ps\n\
   <NAME>-book update booklet $(outdir)/<NAME>-book.ps\n\
@@ -79,43 +58,5 @@ local-help:
   scores      update PostScript of all scores\n\
 "\
 #
-
-
-
-#
-# mutopia-archive playground
-#
-
-
-# -> mutopia-vars.make
-MUTOPIA_MIRROR = http://www.mutopiaproject.org/ftp
-# ugh: doesn't work
-# mutopia-dir = $(pwd:%/mutopia/%=mutopia)
-mutopia-dir = $(shell pwd | sed 's@.*mutopia@@')
-wget-list = $(mutopia-examples:%=$(mutopia-dir)/%)
-
-local-remove-ly:
-	-mv -f $(wildcard *.ly) $(outdir)
-
-remove-ly: local-remove-ly
-	$(LOOP)
-
-local-download: $(mutopia-examples:%=%.ly)
-	@echo downloading $<
-
-download: local-download
-	$(LOOP)
-
-# -> mutopia-rules.make
-ifeq ($(zipped),)
-%.ly:
-	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
-else
-%.zip:
-	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
-
-%.ly:	%-lys.zip
-	unzip $<
-endif
 
 
