@@ -21,5 +21,9 @@ int sgn(Real x) {
     if (!x)return 0;
     return (x > 0) ?1: -1;
 }
-
+inline Real
+distance(Real x,Real y)
+{
+    return ABS(x-y);
+}
 #endif
