@@ -60,7 +60,7 @@
   build a ledger line for small pieces.
  */
 Molecule
-Note_head::ledger_line (Interval xwid, Grob *me) 
+Note_head::ledger_line (Grob *me, Interval xwid) 
 {
   Drul_array<Molecule> endings;
   endings[LEFT] = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
@@ -105,7 +105,7 @@ Note_head::ledger_lines (Grob*me,
 
     --hwn 
    */
-  Molecule ledger (ledger_line (idw, me));
+  Molecule ledger (ledger_line (me, idw));
 
   if (!take_space)
     ledger.set_empty (true);
@@ -157,10 +157,26 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
     {
       Direction dir = (Direction)sign (p);
       Interval hd = out.extent (X_AXIS);
-      Real hw = hd.length ()/4;
-      out.add_molecule (Note_head::ledger_lines (me, ledger_take_space, streepjes_i, dir,
-				      Interval (hd[LEFT] - hw,
-						hd[RIGHT] + hw)));
+      Real left_ledger_protusion = hd.length ()/4;
+      Real right_ledger_protusion = left_ledger_protusion;
+
+      if (unsmob_grob(me->get_grob_property ("accidentals-grob")))
+	{
+	  /*
+	    make a little room for accidentals.
+	  
+	    TODO: this will look silly if a chord has ledger lines,
+	    and only the bottom note has an accidental.
+	  */
+      	  
+	  left_ledger_protusion *= 0.66;
+	  right_ledger_protusion *= 0.8; 
+	}
+
+      Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
+				     hd[RIGHT] + right_ledger_protusion);
+      out.add_molecule (Note_head::ledger_lines (me, ledger_take_space,
+						 streepjes_i, dir, l_extents));
     }
   return out;
 }

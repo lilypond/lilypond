@@ -1,3 +1,52 @@
+2002-03-15  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+ 
+ 	* buildscripts/lilypond-profile.sh: 
+ 
+ 	* mf/GNUmakefile (INSTALLATION_OUT_DIR*),
+ 	buildscripts/lilypond-login.sh, buildscripts/lilypond-profile.sh:
+ 	Implement new font installation strategy
+ 
+ 	* Documentation/misc/fontinstallation (TEXMF): Documentation of
+ 	the new font installation strategy.
+ 
+ 	* lilypond-mode.el (LilyPond-mode-map): Add shortcut "CTRL-c ;"
+ 	for comment-region.
+ 
+ 	* input/test/staff-size.ly: Simplified using StaffContainer
+ 
+ 	* mf/GNUmakefile (ALL_GEN_FILES): Actually generate the
+ 	lilypond.map file
+ 
+2002-03-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-schrift.mf: endless twiddling of Tr.
+
+	* mf/feta-eindelijk.mf: 8th rest: make darker, top of brush lower, and
+	endless twiddling with the bulb shape.
+
+	* lily/note-head.cc (internal_brew_molecule): make ledger lines a
+	little smaller if there is an accidental.
+
+2002-03-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/ps.scm (bezier-sandwich): Draw circles at slur ends.
+
+	* lily/beam.cc (score_stem_lengths): new quanting stuff
+	(score_forbidden_quants): Second and third beam quant stuff.
+
+2002-03-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (least_squares): Remember least-squares-dy for
+	later use.
+	(quantise_interval): Don't quant to dy steeper that
+	least-squares-dy.  Return empty interval if no sane quants found.
+	(quantise_position): Try quantise_interval until we have
+	acceptable solution.
+
+2002-03-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/interface-description.scm (beam-interface): Update.
+
 2002-03-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.41 released

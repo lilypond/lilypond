@@ -410,19 +410,21 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	ascender_extra# = 1/2 ex#;
 	ascender# = ascender_extra# + ex#;
 	ex# = 1.4 staff_space#;
-	kerning# = .60 ex#;
+	kerning# = .550 ex#;
 	start_nib_angle = 20;
-	bulb_size = 0.47;
+	bulb_size = 0.55;
 	define_pixels(ex, ascender_extra, ascender, kerning);
 
 	t_overshoot = 0.03 ex;
 	fatness = 12/40 ex;
-	t_fatness = 8/10 fatness;
-	r_fatness = .75 fatness;
-	uitschieter = 21/40 ex;
+	t_fatness = 0.780 fatness;
+	t_width =  1.8 t_fatness;
+	r_fatness = 0.75 fatness;
+	uitschieter = 0.43 ex;
 	hair_thick =  blot_diameter;
 
 	slant = .2;
+%	slant = .0;
 
 	local_copy(transform)(currenttransform);
 	currenttransform := currenttransform slanted slant shifted (- staff_space, 0)  ;
@@ -435,30 +437,36 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	z2 = (x1, 7/18 ex);
 	penpos2(start_nib_wid, start_nib_angle);
 
-	z3l = (11/10 t_fatness, - t_overshoot);
+	z3l = (0.5 t_width, - t_overshoot);
 
-	z4l = (13/6 t_fatness, 5/16 ex);
-	penpos4(hair_thick, 180);
+	z4l = (t_width, 0.23 ex);
+	penpos4(whatever, 200);
+	x4l - x4r = hair_thick;
 
-	1.9 [z3l, z3r] = z4r;
-	z3 = .5 [z3l, z3r];
+	x3r = 0.5 [x4r, x2r];
+%	1.7 [x3l, x3r] = x4r;
+	y3r - y3l = 0.6 t_fatness;
+
 	
 	save t_p, krul_p;
 	path t_p, krul_p, r_p;
 
+	z5 = (t_fatness/2, 2/3 ex);
+%	penpos5(hair_thick, ); 
 
-	t_p := simple_serif (z1r, z1l, -30) -- z2l {down} .. tension (1 + .5 slant)
+	t_p := simple_serif (z1r, z1l, -40) -- z2l {down}
+		.. tension (1 + .5 slant)
 		.. z3l{right} 
 		
 		.. z4l{up} -- z4r{down} 
-		.. z3r{left} .. z2r{up} .. z1r -- cycle;
+		.. z3r{left}
+		.. tension (1.5 + .7 slant)
+		.. z2r{up} .. z1r -- cycle;
 	fill t_p ;
 
 	krul_ang = 32;
 
 	pickup pencircle scaled hair_thick;
-
-	z5 = (t_fatness/2, 2/3 ex);
 	
 	lft x6 = - uitschieter;
 	y6 =  y5 ; % - 1/20 ex;
@@ -471,10 +479,6 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	penpos7(hair_thick, up_angle + 90);
 
 	
-	x8l = .7 [x9r, x7r];
-	y8l = y7l;
-	penpos8(2 hair_thick, (up_angle +90)/2);
-
 	y9 = 3/4 ex;
 	x9 = x1 + kerning;
 	penpos9(r_fatness, 0);
@@ -483,27 +487,41 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	y10 =  -0.3 stafflinethickness;
 	penpos10(r_fatness, 0);
 
-	krul_p := z4{up} .. tension 1.1  .. z5 
-		.. tension 1 and .75 .. z6
-		.. tension .85 and 1.1 .. z5 --- z7;
+	krul_p := z4{up}
+		.. tension 0.98
+		.. z5
+		.. z6
+		.. z5 --- z7;
 	draw krul_p;
 	r_p := z7l{z7-z5} .. z9l{down} --- simple_serif (z10l, z10r, -30)
 		--- z9r{up} 
-		..  z8r{left} ..  z7r{z5-z7} -- cycle;
+		 ..  z7r{z5-z7} -- cycle;
 	fill r_p;
-	set_char_box(staff_space# , staff_space#, 0,ascender#);
+
+	set_char_box(.85 staff_space# , .85 staff_space#, 0,ascender#);
 
 
 	penpos11(1/4 r_fatness, -20);
 	z11r = z9r;
 	
-	z13 = (x9 + 2 r_fatness, y11 );
-	penpos13(r_fatness, 180);
-	fill z11r{dir 70} .. z13r{down} -- z13l{up} .. z11l{dir 250} -- cycle;
+	z13 = (x9 + 1.9 r_fatness, y11 -  stafflinethickness );
+	penpos13(0.45  r_fatness, 170);
+
+	z15 = z13r  - (bulb_size * r_fatness,0);
+	z14 = 0.5 [z13l, z15] - (0,bulb_size* r_fatness);
+	z16 = 0.5 [z13l, z15] + (0,bulb_size* r_fatness);
+
+
+	fill z11r{dir 70} .. tension 0.94 .. z13r{down} -- z15{down}
+		.. tension 0.97 .. z13l{up}
+		.. z11l{dir 250} -- cycle;
+
+	fill z15{up} .. tension 1.1 .. z13l{down} .. z14 .. cycle;
+
+
+
 	penlabels(range 1 thru 15);
 
-
-	draw_bulb(-1, z13r, z13l, bulb_size * r_fatness, 1.5);
 fet_endchar;
 
 
