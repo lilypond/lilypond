@@ -138,7 +138,7 @@ Bar_script_engraver::create_items (Request *rq)
   Scalar padding = get_property (type_ + "ScriptPadding", 0);
   if (padding.length_i() && padding.isnum_b ())
     {
-      staff_side_p_->padding_f_ = Real(padding);
+      staff_side_p_->set_elt_property (padding_scm_sym, gh_double2scm(Real(padding)));
     }
 
   

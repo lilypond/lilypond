@@ -89,13 +89,9 @@ struct Graphical_element;
 struct Graphical_axis_group;
 struct Global_translator;
 struct Hara_kiri_line_group_engraver;
-struct Hara_kiri_vertical_group_spanner;
+struct Hara_kiri_group_spanner;
 struct Head_column;
 
-struct Horizontal_align_item;
-struct Horizontal_group_element;
-struct Horizontal_group_item;
-struct Horizontal_vertical_group;
 struct Idealspacing;
 struct Identifier;
 struct Input_file;
@@ -257,10 +253,7 @@ struct Translator_group;
 struct Timing_req;
 struct Vertical_brace;
 struct Vertical_spanner;
-struct Vertical_group_element;
-struct Vertical_group_spanner;
-struct Vertical_align_spanner;
-struct Vertical_align_engraver;
+
 struct Volta_spanner;
 struct Align_element;
 struct Sequential_music;

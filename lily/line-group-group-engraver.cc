@@ -7,7 +7,7 @@
 */
 
 #include "staff-symbol.hh"
-#include "vertical-group-spanner.hh"
+#include "axis-group-spanner.hh"
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
@@ -51,7 +51,8 @@ Line_group_engraver_group::do_creation_processing()
 void
 Line_group_engraver_group::create_line_spanner ()
 {
-  staffline_p_ = new Vertical_group_spanner ;
+  staffline_p_ = new Axis_group_spanner ;
+  staffline_p_->set_axes (Y_AXIS,Y_AXIS);
 }
 
 void

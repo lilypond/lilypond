@@ -11,9 +11,9 @@
 #define VERTICAL_ALIGN_GRAV_HH
 
 #include "engraver.hh"
-
+class Axis_align_spanner;
 class Vertical_align_engraver : public Engraver {
-  Vertical_align_spanner * valign_p_;
+  Axis_align_spanner * valign_p_;
     
 public:
   VIRTUAL_COPY_CONS(Translator);

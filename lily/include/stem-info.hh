@@ -23,8 +23,9 @@ struct Stem_info {
   Real interstaff_f_;
   Stem* stem_l_;
 
+
   Stem_info ();
-  Stem_info (Stem *);
+  Stem_info (Stem *, int);
 };
 
 #endif // STEM_INFO_HH

@@ -5,9 +5,9 @@
 
 #ifndef SOURCE_HH
 #define SOURCE_HH
-
+#include "cons.hh"
 #include "proto.hh"
-#include "plist.hh"
+
 
 class Sources 
 {
@@ -22,7 +22,7 @@ public:
 
 private:
   const File_path * path_C_;
-  Pointer_list<Source_file*> sourcefile_p_list_;
+  Cons<Source_file> *sourcefile_p_list_;
   bool binary_b_ ;
 };
 

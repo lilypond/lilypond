@@ -104,6 +104,8 @@ Paper_column::breakpoint_b() const
 
 Paper_column::Paper_column()
 {
+  set_axes (X_AXIS, X_AXIS);
+
   line_l_=0;
   rank_i_ = -1;
 }

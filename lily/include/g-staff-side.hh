@@ -20,7 +20,6 @@ public:
   Score_element * to_position_l_;
   Direction dir_;
   Link_array<Score_element> support_l_arr_;
-  Real padding_f_;
   Axis axis_;
   
   G_staff_side_item ();

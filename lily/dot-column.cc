@@ -54,3 +54,8 @@ Dot_column::do_pre_processing ()
 }
 
 
+
+Dot_column::Dot_column ()
+{
+  set_axes(X_AXIS,X_AXIS);
+}

@@ -13,19 +13,17 @@
 
 /// An item which places accidentals at the start of the line
 class Key_item :public  Item, public Staff_symbol_referencer {
-public:
-  
   Array<int> pitch_arr_;
   Array<int> acc_arr_;
   Array<int> old_pitch_arr_;
   Array<int> old_acc_arr_;
+  int c0_position_;
 
-  // ugh.  Naming 
-  int c_position;
-  // see above.
-  int c0_position;
-  bool default_b_;
-  bool multi_octave_b_;
+
+public:
+  bool multi_octave_b_;  
+
+  int get_c_position () const;
     
   
   VIRTUAL_COPY_CONS(Score_element);
@@ -37,7 +35,6 @@ public:
   int calculate_position(int p, int a) const;
 
 protected:
-  virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;
 };
 

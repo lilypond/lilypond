@@ -93,7 +93,8 @@ Tie::do_post_processing()
   do
     {
       // tie attached to outer notehead
-      if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
+      if (head_l_drul_[d]
+	  && head_l_drul_[d]->remove_elt_property (extremal_scm_sym) != SCM_BOOL_F)
 	{
 	  if (d == LEFT)
 	    dx_f_drul_[d] += notewidth;

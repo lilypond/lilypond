@@ -24,7 +24,6 @@ public:
   void request_bar (String type_str);
     
 protected:
-  virtual void acknowledge_element (Score_element_info i);
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
   virtual bool do_try_music (Music *req_l);

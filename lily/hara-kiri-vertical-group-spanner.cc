@@ -12,19 +12,20 @@
 #include "debug.hh"
 #include "item.hh"
 
-Hara_kiri_vertical_group_spanner::Hara_kiri_vertical_group_spanner()
+Hara_kiri_group_spanner::Hara_kiri_group_spanner()
 {
+  set_axes(Y_AXIS,Y_AXIS);
 }
 
 void 
-Hara_kiri_vertical_group_spanner::add_interesting_item (Item* n)
+Hara_kiri_group_spanner::add_interesting_item (Item* n)
 {
   add_dependency (n);
   interesting_items_.push (n);
 }
 
 void 
-Hara_kiri_vertical_group_spanner::do_post_processing ()
+Hara_kiri_group_spanner::do_post_processing ()
 {
   if (!interesting_items_.empty ())
     return;
@@ -39,7 +40,7 @@ Hara_kiri_vertical_group_spanner::do_post_processing ()
 }
 
 void
-Hara_kiri_vertical_group_spanner::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Hara_kiri_group_spanner::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (Item *it = dynamic_cast<Item *> (o))
     interesting_items_.substitute (it, dynamic_cast<Item *> (n));
@@ -47,7 +48,7 @@ Hara_kiri_vertical_group_spanner::do_substitute_element_pointer (Score_element*o
 
 
 void
-Hara_kiri_vertical_group_spanner::do_print () const
+Hara_kiri_group_spanner::do_print () const
 {
   Axis_group_spanner::do_print ();
 }

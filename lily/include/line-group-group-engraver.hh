@@ -18,7 +18,7 @@
   */
 class Line_group_engraver_group : public Engraver_group_engraver {
 protected:
-  Vertical_group_spanner *staffline_p_;   
+  Axis_group_spanner *staffline_p_;   
 
   virtual void create_line_spanner ();
   virtual void do_creation_processing();

@@ -14,9 +14,6 @@
 class Bar:public Item {
 public:
   String type_str_;
-  bool at_line_start_b_;
-
-  
   VIRTUAL_COPY_CONS(Score_element);
   Bar ();
 
@@ -24,6 +21,7 @@ protected:
   virtual void do_pre_processing ();
   virtual Molecule* do_brew_molecule_p () const;
   virtual Real get_bar_size () const;
+
 private:
   void do_print () const;
 };

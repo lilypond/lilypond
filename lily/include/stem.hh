@@ -33,6 +33,11 @@
 
   dir_force: is direction explicitely specified? (bool)
 
+  /// how many abbrev beam don't reach stem?
+  int beam_gap_i_;
+
+
+  
   */
 // todo: remove baseclass Staff_symbol_referencer, since stem
 // can be across a staff.
@@ -43,19 +48,10 @@ class Stem : public Item, public Staff_symbol_referencer {
     */
   Drul_array<Real> yextent_drul_;
 
-  /**
-    geen gedonder, jij gaat onder.
-    -1 stem points down, +1: stem points up
-    */
-  Direction  stem_xdir_;
-
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
     
 public:
-  /// how many abbrev beam don't reach stem?
-  int beam_gap_i_;
-
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i_;
 
@@ -67,9 +63,6 @@ public:
 
   Drul_array<int> beams_i_drul_;
 
-  /// maximum number of beams
-  int mult_i_;
-
   /// direction stem (that's me)
   Direction dir_;
 
@@ -78,8 +71,6 @@ public:
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
-
-  
 
   Real hpos_f () const;
   Real chord_start_f () const;
