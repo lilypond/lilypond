@@ -444,7 +444,8 @@ or
 %type <scm>  	Generic_prefix_music_scm 
 %type <scm>  	lyric_element
 %type <scm>     Alternative_music
-%type <scm>	full_markup markup_composed_list markup_braced_list markup_braced_list_body markup_head_1_item markup_head_1_list markup simple_markup markup_top
+%type <scm>	full_markup markup_list markup_composed_list markup_braced_list markup_braced_list_body 
+%type <scm>	markup_head_1_item markup_head_1_list markup simple_markup markup_top
 %type <scm> 	mode_changing_head
 %type <scm> 	mode_changing_head_with_context
 %type <scm>     object_id_setting 
@@ -2480,7 +2481,7 @@ full_markup:
 	;
 
 markup_top:
-	markup_composed_list { 
+	markup_list { 
 		$$ = scm_list_2 (ly_scheme_function ("line-markup"),  $1); 
 	}
 	| markup_head_1_list simple_markup	{
@@ -2489,8 +2490,14 @@ markup_top:
 	| simple_markup	{
 		$$ = $1;
 	}
-	| markup_braced_list	{
-		$$ = scm_list_2 (ly_scheme_function ("line-markup"), $1);
+	;
+
+markup_list:
+	markup_composed_list {
+		$$ = $1;
+	}
+	| markup_braced_list {
+		$$ = $1;
 	}
 	;
 
@@ -2512,7 +2519,7 @@ markup_braced_list_body:
 	| markup_braced_list_body markup {
 		$$ = scm_cons ($2, $1);
 	}
-	| markup_braced_list_body markup_composed_list {
+	| markup_braced_list_body markup_list {
 		$$ = scm_append_x (scm_list_2 (scm_reverse_x ($2, SCM_EOL), $1));
 	}
 	;
@@ -2569,7 +2576,7 @@ simple_markup:
 	| MARKUP_HEAD_EMPTY {
 		$$ = scm_list_1 ($1);
 	}
-	| MARKUP_HEAD_LIST0 markup_braced_list {
+	| MARKUP_HEAD_LIST0 markup_list {
 		$$ = scm_list_2 ($1,$2);
 	}
 	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
@@ -2583,9 +2590,6 @@ markup:
 	}
 	| simple_markup	{
 		$$ = $1;
-	}
-	| markup_braced_list {
-		$$ = scm_list_2 (ly_scheme_function ("line-markup"), $1);
 	}
 	;
 

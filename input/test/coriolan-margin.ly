@@ -42,7 +42,7 @@ oboi =  \relative c' {
 }
 
 clarinetti =  \relative c' {
-    \set Staff.instrument = \markup { \column { "Clarinetti" { "in B" \raisedFlat } } }
+    \set Staff.instrument = \markup { \column { "Clarinetti" \line { "in B" \raisedFlat } } }
     \set Staff.instr = \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
@@ -55,7 +55,7 @@ fagotti =  \relative c' {
 }
 
 corni =  \relative c' {
-    \set Staff.instrument = \markup { \column { "Corni" { "in E" \raisedFlat } } }
+    \set Staff.instrument = \markup { \column { "Corni" \line { "in E" \raisedFlat } } }
     \set Staff.instr = \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c

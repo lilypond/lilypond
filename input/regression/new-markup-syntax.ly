@@ -26,7 +26,7 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 		\combine "X" "+"   
 		\combine "o" "/"
 %		\char-number #"abc1234abc"
-		\box \column { { "string 1" } { "string 2" } }
+		\box \column { \line { "string 1" } \line { "string 2" } }
 		"$\\emptyset$"
 		\italic Norsk
 		\super "2"

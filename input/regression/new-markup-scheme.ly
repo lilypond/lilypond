@@ -23,7 +23,7 @@
             \musicglyph #"accidentals--1"
             \combine "X" "+"   
             \combine "o" "/"
-            \box \column { { "string 1" } { "string 2" } }
+            \box \column { \line { "string 1" } \line { "string 2" } }
             "$\\emptyset$"
             \italic Norsk
             \super "2"
