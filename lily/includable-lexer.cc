@@ -40,10 +40,9 @@ Includable_lexer::Includable_lexer ()
   allow_includes_b_ = true;
 }
 
-/** set the  new input to s, remember old file.
-*/
+/** Set the new input file to NAME, remember old file.  */
 void
-Includable_lexer::new_input (String s, Sources  * global_sources)
+Includable_lexer::new_input (String name, Sources *sources)
 {
   if (!allow_includes_b_)
     {
@@ -51,45 +50,39 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
       return;
     }
   
-  Source_file *sl = global_sources->get_file (s);
-  if (!sl)
+  Source_file *file = sources->get_file (name);
+  if (!file)
     {
-      String msg = _f ("can't find file: `%s'", s);
+      String msg = _f ("can't find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-		 global_sources->path_->to_string ().to_str0 ());
+		 sources->path_->to_string ().to_str0 ());
       msg += "\n";
       LexerError (msg.to_str0 ());
       return;
     }
-  filename_strings_.push (sl->name_string ());
+  filename_strings_.push (file->name_string ());
 
   char_count_stack_.push (0);
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
 
   if (verbose_global_b)
-    progress_indication (String ("[") + s);
+    progress_indication (String ("[") + name);
 	
-  include_stack_.push (sl);
+  include_stack_.push (file);
 
-  /*
-    ugh. We'd want to create a buffer from the bytes directly.
+  /* Ugh. We'd want to create a buffer from the bytes directly.
 
-    Whoops. The size argument to yy_create_buffer is not the
-    filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
-
-  */
-  yy_switch_to_buffer (yy_create_buffer (sl->get_istream (), YY_BUF_SIZE));
+    Whoops.  The size argument to yy_create_buffer is not the
+    filelength but a BUFFERSIZE.  Maybe this is why reading stdin fucks up.  */
+  yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
 
-/*
-  Unused.
- */
 void
-Includable_lexer::new_input (String name, String data, Sources* sources)
+Includable_lexer::new_input (String name, String data, Sources *sources)
 {
-  Source_file* file = new Source_file (name, data);
+  Source_file *file = new Source_file (name, data);
   sources->add (file);
   filename_strings_.push (name);
 

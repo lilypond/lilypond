@@ -81,7 +81,13 @@ tag_music (Music *m, SCM tag, Input ip)
 	m->set_property ("tags", tags);
 }
 
-
+Music_output_def*
+get_paper (My_lily_parser *parser)
+{
+	SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
+	Music_output_def *paper = unsmob_music_output_def (id);
+	return paper ? paper->clone () : new Paper_def;
+}
 
 bool
 is_regular_identifier (SCM id)
@@ -376,7 +382,7 @@ or
 %type <music>	Composite_music Simple_music
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
-%type <scm>     Composite_music_list
+//%type <scm>     Composite_music_list
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
@@ -426,8 +432,10 @@ prec levels in different prods */
 
 lilypond:	/* empty */
 	| lilypond EOI
-	| lilypond toplevel_expression {}
-	| lilypond assignment  { }
+	| lilypond toplevel_expression {
+	}
+	| lilypond assignment {
+	}
 	| lilypond error {
 		THIS->error_level_ = 1;
 	}
@@ -441,33 +449,12 @@ toplevel_expression:
 		THIS->header_ = $1;
 	}
 	| toplevel_music EOI {
-		Score *score = new Score;
-		SCM s = $1->self_scm ();
-
-		/* URG? */
-		SCM check_funcs
-			= ly_scheme_function ("toplevel-music-functions");
-		for (; ly_c_pair_p (check_funcs);
-		       check_funcs = ly_cdr (check_funcs))
-			s = scm_call_1 (ly_car (check_funcs), s);
-		score->music_ = s;
-
-		Book *book = new Book;
-		book->scores_.push (score);
-
- 		scm_gc_unprotect_object (score->self_scm ());
-		
-		SCM header = THIS->header_;
-		Path outname = split_path (THIS->output_basename_);
-		int *c = &THIS->book_count_;
-		if (*c)
- 			outname.base += "-" + to_string (*c);
-		(*c)++;
- 		Music_output_def *dp = unsmob_music_output_def
-			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
- 		book->process (outname.to_string (),
-			dp ? dp->clone () : new Paper_def, header);
- 		scm_gc_unprotect_object (book->self_scm ());
+		Music_output_def *paper = get_paper (THIS);
+		// delay?
+		// SCM proc = paper->get_scmvar ("toplevel-music-handler");
+ 		SCM proc = ly_scheme_function ("ly:parser-add-book-and-score");
+		scm_call_2 (proc, THIS->self_scm (), $1->self_scm ());
+ 		scm_gc_unprotect_object (paper->self_scm ());
 	}
 	| add_quote {
 	
@@ -480,11 +467,10 @@ toplevel_expression:
 		if (*c)
  			outname.base += "-" + to_string (*c);
 		(*c)++;
- 		Music_output_def *dp = unsmob_music_output_def
-			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
- 		book->process (outname.to_string (),
-			dp ? dp->clone () : new Paper_def, header);
+ 		Music_output_def *paper = get_paper (THIS);
+ 		book->process (outname.to_string (), paper, header);
  		scm_gc_unprotect_object (book->self_scm ());
+ 		scm_gc_unprotect_object (paper->self_scm ());
 	}
 	| score_block {
 	  	/* TODO: implicit book, depending on --no-book/--no-page-layout
@@ -508,12 +494,10 @@ toplevel_expression:
 
 		if (score->defs_.is_empty ())
 		{
-		   Music_output_def *id = unsmob_music_output_def
-			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
-		   id = id ? id->clone () : new Paper_def;
-		   default_rendering (score->music_, id->self_scm (), head,
+		   Music_output_def *paper = get_paper (THIS);
+		   default_rendering (score->music_, paper->self_scm (), head,
  			outname);
- 		   scm_gc_unprotect_object (id->self_scm ());
+ 		   scm_gc_unprotect_object (paper->self_scm ());
 		}
  		scm_gc_unprotect_object (score->self_scm ());
 	}
@@ -847,8 +831,9 @@ Alternative_music:
 	}
 	;
 
+/*
 Composite_music_list: {};
-/* Too many s/r r/r problems
+ Too many s/r r/r problems
 	Composite_music {
 		$$ = scm_cons ($1, SCM_EOL);
 	}
@@ -1864,7 +1849,8 @@ open_event:
 	| E_CLOSE	{
 		Music *s= MY_MAKE_MUSIC ("PhrasingSlurEvent");
 		$$ = s;
-		s->set_property ("span-type", scm_makfrom0str ( "phrasing-slur"));
+		s->set_property ("span-type",
+			scm_makfrom0str ("phrasing-slur"));
 		s->set_spot (THIS->here_input ());
 	}
 	;
@@ -1878,7 +1864,8 @@ gen_text_def:
 	}
 	| string {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent");
-		t->set_property ("text", make_simple_markup (THIS->lexer_->encoding (), $1));
+		t->set_property ("text",
+			make_simple_markup (THIS->lexer_->encoding (), $1));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	

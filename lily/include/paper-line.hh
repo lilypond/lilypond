@@ -14,7 +14,7 @@
 
 class Paper_line
 {
-  DECLARE_SMOBS (Paper_line,);
+  DECLARE_SMOBS (Paper_line, );
   SCM stencils_;
   Offset dim_;
   bool is_title_;

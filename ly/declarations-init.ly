@@ -74,7 +74,10 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 	))
 
     #(define page-breaking ly:ragged-page-breaks)
-    %#(define page-breaking ly:optimal-page-breaks)
+    %%#(define page-breaking ly:optimal-page-breaks)
+
+    %% FIXME: too late?
+    #(define toplevel-music-handler ly:parser-add-book-and-score)
     
     \include "engraver-init.ly"
 }
