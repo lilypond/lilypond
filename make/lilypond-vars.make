@@ -10,6 +10,8 @@ export LILYPONDPREFIX:=$(build_lilypond_datadir)
 
 export PYTHONPATH:=$(builddir)/python/$(outconfbase):$(PYTHONPATH)
 
+export GUILE_LOAD_PATH:=$(builddir):$(GUILE_LOAD_PATH)
+
 ## arg, TEXINPUTS, TFMFONTS, MFINPUTS may still override and thus break this
 export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}
 
@@ -27,8 +29,6 @@ export MT_DESTROOT := $(topdir)/mf/out
 export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
 endif
 
-
-# guile load path?
 
 the-script-dir=$(wildcard $(script-dir))
 
