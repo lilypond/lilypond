@@ -572,6 +572,7 @@
 	(thick-thickness . 6.6)
 	(hair-thickness . 2.0)
 	(padding . 1)
+	(font-encoding . music)
 	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
     
@@ -1164,7 +1165,6 @@
 	(breakable . #t)
 	(style . C)
 ;	(text . (,time-signature-glue-markup)) 
-	(font-encoding . number)
 	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface item-interface ))))
 	))
 

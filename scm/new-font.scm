@@ -229,7 +229,5 @@
        ))
     n))
 
-(display-font-node (make-font-tree 1.0))
-
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))
