@@ -38,52 +38,47 @@ which substitutes some @AT_VARIABLES@ as well.
     <table align=left>
   
       <tr><td bgcolor="#e8e8ff">
-      <b>Documentation</b>
+      <b>What is LilyPond</b>
       </td></tr>
       <tr><td><font size="-1">
-    	<a href="@TOP@Documentation/out-www/index.html#everyone">General information</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#newbies">For new users</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#users">For users</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#developers">For developers</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#background">Background information</a><br>
+    	<a href="@TOP@index.html#everyone">General information</a><br>
+	<a href="@TOP@short-examples.html">Simple examples</a><br>
+	<a href="@TOP@long-examples.html">Complex examples</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<b>Download </b>
       </td></tr>
       <tr><td><font size="-1">
-	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source</a><br>
-	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Binary</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Linux</a><br>
+	<a href="@TOP@Documentation/windows/out-www/installing.html">Windows</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source code</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
-	<b>Music</b>
+	<b>Documentation</b>
       </td></tr>
       <tr><td><font size="-1">
-	<a href="@TOP@short-examples.html">Short examples</a><br>
-	<a href="@TOP@long-examples.html">Longer examples</a><br>
-	<a href="http://www.mutopiaproject.org/">Mutopia Project</a><br>
-
-	<a href="http://www.lilypond.org/wiki?DownloadLilyPondScores">Other URLs</a><br>
+	<a href="@TOP@Documentation/user/out-www/lilypond/Tutorial.html">Tutorial</a><br>
+	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">Manual</a><br>
+	<a href="@TOP@Documentation/user/out-www/glossary.html">Glossary</a><br>
+	<a href="@TOP@Documentation/out-www/index.html">other ...</a><br>
 	<br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
-	<b>Mailing Lists</b>
+	<b>Support</b>
       </td></tr>
       <tr><td><font size="-1">
-	<a href="@TOP@Documentation/out-www/index.html#mailing-lists">About the lists</a><br>
-	<a href="http://mail.gnu.org/mailman/listinfo/lilypond-user/">Using LilyPond</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/lilypond-devel/">Developing LilyPond</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/bug-lilypond/">Reporting bugs</a><br>
-        <a href="http://mail.gnu.org/mailman/listinfo/info-lilypond/">Announcements</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/README.html#mailing-lists">Mailing lists</a><br>
+        <a href="http://www.lilypond.org/wiki/">WikiWiki</a><br>
+	<a href="http://www.lilypond.org/wiki?LilyPondFaqs">FAQs</a><br>	
 	<br>
       </font></td></tr>
     <tr><td bgcolor="#e8e8ff"><b>External sites</b></td></tr>
       <tr><td><font size="-1">
-        <a href="http://www.lilypond.org/development">Development version</a><br>
-        <a href="http://www.lilypond.org/stable">Stable version</a><br>
-        <a href="http://www.lilypond.org/wiki/">WikiWiki</a><br>
-        <a href="ftp://ftp.lilypond.org/pub">FTP site</a><br>
-        <a href="http://www.mutopiaproject.org/">Mutopia archive</a><br>
-
+        <a href="http://www.lilypond.org/development">lilypond.org/development</a><br>
+        <a href="http://www.lilypond.org/stable">lilypond.org/stable</a><br>
+        <a href="ftp://ftp.lilypond.org/pub">ftp.lilypond.org</a><br>
+        <a href="http://www.mutopiaproject.org/">Mutopia</a><br>
+	<a href="http://www.lilypond.org/wiki?DownloadLilyPondScores">Other music online</a><br>
 	<br>
       </font></td></tr>
     </table>
