@@ -93,7 +93,11 @@ top-web:
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
-#WWW: local-WWW
+src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
+ALL-TAGS:
+	etags $(shell find . $(src-ext:%=-name '*.%' -or) -false | grep -v '/out')
+
+local-WWW:
 
 web: local-web
 html-doc: web
