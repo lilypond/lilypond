@@ -23,6 +23,13 @@ Features: cadenza mode.
 
 Copyright: public domain
 
+=head2 F<collisions.ly>
+
+Random counterpoint to demonstrate features.
+
+Features: \multivoice, collision resolution.
+
+
 =head2 F<coriolan-alto.ly>
 
 Ludwig van Beethoven (1770-1792), Opus 62 Ouverture zu Collins
