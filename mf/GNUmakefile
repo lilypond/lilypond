@@ -26,6 +26,8 @@ TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
+PFB_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfb))
+
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice

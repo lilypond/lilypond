@@ -27,6 +27,7 @@ INSTALL - compiling and installing GNU LilyPond
     Debian GNU/Linux
   Problems
     Debian GNU/Linux unstable gcc-3.0
+    Linux-2.4.0, Guile-1.4 -with-threads
     NetBSD
     Solaris:
     AIX
@@ -467,12 +468,25 @@ Debian GNU/Linux unstable gcc-3.0
 ---------------------------------
 
    Flex (2.5.4a-11) in unstable does not produce g++-3.0 compliant C++
-code.  To compile LilyPond with gcc-3.0 you may do:
+code.  To compile LilyPond with gcc-3.0, please first upgrade to
+flex_2.5.4a-13 or newer.  Otherwise, you may do:
 
+             rm -f config.cache
              CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
              make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
              patch -p1 < lexer-gcc-3.0.patch
              make conf=gcc-3.0 -C lily
+
+Linux-2.4.0, Guile-1.4 -with-threads
+------------------------------------
+
+   There's a bug in certain kernels around version 2.4.0, that is
+triggered when using Guile 1.4 compiled with pthreads.  You'll see
+random segmentation fault craches of LilyPond.  Upgrade to a newer
+version of Linux.  If you can't do that, you may try to recompiling
+Guile without threads (YMMV):
+
+              guile-1.4$ ./configure --without-threads; make all install
 
 NetBSD
 ------

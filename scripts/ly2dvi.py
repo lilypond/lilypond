@@ -55,6 +55,9 @@ TODO:
 '''
 
 
+
+
+
 import os
 import stat
 import string
@@ -67,111 +70,24 @@ import operator
 import tempfile
 import traceback
 
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
 
+################################################################
+# lilylib.py -- options and stuff
+# 
+# source file of the GNU LilyPond music typesetter
 
-datadir = '@datadir@'
-sys.path.append (datadir + '/python')
 try:
 	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
-	gettext.textdomain('lilypond')
+	gettext.bindtextdomain ('lilypond', localedir)
+	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:
 	def _ (s):
 		return s
 
-
-layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
-	  'footer', 'head', 'composer', 'arranger', 'instrument',
-	  'opus', 'piece', 'metre', 'meter', 'poet', 'texttranslator']
-
-
-# init to empty; values here take precedence over values in the file
-
-## TODO: change name.
-extra_init = {
-	'language' : [],
-	'latexheaders' : [],
-	'latexpackages' :  ['geometry'],
-	'latexoptions' : [],
-	'papersize' : [],
-	'pagenumber' : [1],
-	'textheight' : [], 
-	'linewidth' : [],
-	'orientation' : []
-}
-
-extra_fields = extra_init.keys ()
-
-fields = layout_fields + extra_fields
-program_name = 'ly2dvi'
-help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
-
-include_path = ['.']
-lily_p = 1
-paper_p = 1
-cache_pks_p = 1
-
-PK_PATTERN='feta.*\.[0-9]+pk'
-
-output_name = ''
-targets = {
-	'DVI' : 0,
-	'LATEX' : 0,
-	'MIDI' : 0,
-	'TEX' : 0,
-	}
-
-track_dependencies_p = 0
-dependency_files = []
-
-
-# lily_py.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
-
-# BEGIN Library for these?
-# cut-n-paste from ly2dvi
-
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.148'
-
-
-original_dir = os.getcwd ()
-temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-
-keep_temp_dir_p = 0
-verbose_p = 0
-
-#
-# Try to cater for bad installations of LilyPond, that have
-# broken TeX setup.  Just hope this doesn't hurt good TeX
-# setups.  Maybe we should check if kpsewhich can find
-# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
-#
-environment = {
-	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps' + ':',
-	'TFMFONTS' : datadir + '/tfm' + ':',
-	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
-	'GS_LIB' : datadir + '/ps',
-}
-
-def setup_environment ():
-	for key in environment.keys ():
-		val = environment[key]
-		if os.environ.has_key (key):
-			val = os.environ[key] + os.pathsep + val 
-		os.environ[key] = val
+	program_version = '1.5.17'
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
@@ -188,8 +104,6 @@ def warranty ():
 Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.'''))
 	sys.stdout.write ('\n')
-
-errorport=sys.stderr
 
 def progress (s):
 	errorport.write (s + '\n')
@@ -303,10 +217,6 @@ def system (cmd, ignore_error = 0):
 
 	Exit status of CMD
 	"""
-
-        # Attempt to fix problems with limited stack size set by Python!
-        # Sets unlimited stack size.
-        resource.setrlimit(resource.RLIMIT_STACK, (-1,-1))
 	
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -329,28 +239,63 @@ def cleanup_temp ():
 		shutil.rmtree (temp_dir)
 
 
-#what a name.
-def set_setting (dict, key, val):
-	try:
-		val = string.atof (val)
-	except ValueError:
-		#warning (_ ("invalid value: %s") % `val`)
-		pass
-
-	try:
-		dict[key].append (val)
-	except KeyError:
-		warning (_ ("no such setting: %s") % `key`)
-		dict[key] = [val]
-
-
 def strip_extension (f, ext):
 	(p, e) = os.path.splitext (f)
 	if e == ext:
 		e = ''
 	return p + e
 
+################################################################
 # END Library
+
+
+
+
+
+
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+
+
+if os.environ.has_key ('LILYPONDPREFIX') :
+# huh ? this always leads to exception.
+# or '@datadir@' == '@' + 'datadir' + '@':   
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+
+while datadir[-1] == os.sep:
+	datadir= datadir[:-1]
+
+program_name = 'ly2dvi'
+
+original_dir = os.getcwd ()
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+errorport = sys.stderr
+keep_temp_dir_p = 0
+verbose_p = 0
+
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.textdomain ('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
+
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
+
+help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
 option_definitions = [
 	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
@@ -368,6 +313,90 @@ option_definitions = [
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
+
+layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
+	  'footer', 'head', 'composer', 'arranger', 'instrument',
+	  'opus', 'piece', 'metre', 'meter', 'poet', 'texttranslator']
+
+
+# init to empty; values here take precedence over values in the file
+
+## TODO: change name.
+extra_init = {
+	'language' : [],
+	'latexheaders' : [],
+	'latexpackages' :  ['geometry'],
+	'latexoptions' : [],
+	'papersize' : [],
+	'pagenumber' : [1],
+	'textheight' : [], 
+	'linewidth' : [],
+	'orientation' : []
+}
+
+extra_fields = extra_init.keys ()
+fields = layout_fields + extra_fields
+
+include_path = ['.']
+lily_p = 1
+paper_p = 1
+cache_pks_p = 1
+
+PK_PATTERN='feta.*\.[0-9]+pk'
+
+output_name = ''
+targets = {
+	'DVI' : 0,
+	'LATEX' : 0,
+	'MIDI' : 0,
+	'TEX' : 0,
+	}
+
+track_dependencies_p = 0
+dependency_files = []
+
+
+#
+# Try to cater for bad installations of LilyPond, that have
+# broken TeX setup.  Just hope this doesn't hurt good TeX
+# setups.  Maybe we should check if kpsewhich can find
+# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
+#
+environment = {
+	'MFINPUTS' : datadir + '/mf' + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + '.:'
+		+ os.getcwd() + ':',
+	'TFMFONTS' : datadir + '/tfm' + ':',
+	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
+	'GS_LIB' : datadir + '/ps',
+}
+
+
+def setup_environment ():
+	for key in environment.keys ():
+		val = environment[key]
+		if os.environ.has_key (key):
+			val = os.environ[key] + os.pathsep + val 
+		os.environ[key] = val
+
+#what a name.
+def set_setting (dict, key, val):
+	try:
+		val = string.atof (val)
+	except ValueError:
+		#warning (_ ("invalid value: %s") % `val`)
+		pass
+
+	try:
+		dict[key].append (val)
+	except KeyError:
+		warning (_ ("no such setting: %s") % `key`)
+		dict[key] = [val]
+
+
+def print_environment ():
+	for (k,v) in os.environ.items ():
+		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
 def run_lilypond (files, outbase, dep_prefix):
 	opts = ''
@@ -388,11 +417,14 @@ def run_lilypond (files, outbase, dep_prefix):
 	fs = string.join (files)
 
 	if not verbose_p:
-		progress ( _("Running %s...") % 'LilyPond')
 		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
+		progress ( _("Running %s...") % 'LilyPond')
 	else:
 		opts = opts + ' --verbose'
-	
+
+		# for better debugging!
+		print_environment ()
+	print opts, fs	
 	system ('lilypond %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):
@@ -544,7 +576,8 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
-		s = s + '\\pagestyle{plain}\n'
+		s = s + '\setcounter{page}{%s}\n' % (extra['pagenumber'][-1])
+                s = s + '\\pagestyle{plain}\n'
 	else:
 		s = s + '\\pagestyle{empty}\n'
 
@@ -655,12 +688,12 @@ def find_pfa_fonts (name):
 	return pfa
 
 	
-(sh, long) = getopt_args (__main__.option_definitions)
+(sh, long) = getopt_args (option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:
 	errorport.write ('\n')
-	errorport.write (_( "error: ") + _ ("getopt says: `%s\'" % s))
+	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
 	errorport.write ('\n')
 	errorport.write ('\n')
 	help ()
@@ -751,6 +784,9 @@ if files and files[0] != '-':
 	# Ugh, maybe make a setup () function
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
+	# hmmm. Wish I'd 've written comments when I wrote this.
+	# now it looks complicated.
+	
 	(outdir, outbase) = ('','')
 	if not output_name:
 		outbase = os.path.basename (files[0])
@@ -763,8 +799,8 @@ if files and files[0] != '-':
 
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output_name = strip_extension (output_name, i)
-
-	files = map (abspath, files) 
+		outbase = strip_extension (outbase, i)
+	files = map (abspath, files)
 
 	if os.path.dirname (output_name) != '.':
 		dep_prefix = os.path.dirname (output_name)
@@ -781,6 +817,8 @@ if files and files[0] != '-':
 		os.chdir (outdir)
 		cp_to_dir (PK_PATTERN, tmpdir)
 
+	# to be sure, add tmpdir *in front* of inclusion path.
+	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
 	os.chdir (tmpdir)
 	
 	if lily_p:
@@ -851,7 +889,7 @@ if files and files[0] != '-':
 else:
 	# FIXME: read from stdin when files[0] = '-'
 	help ()
-	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
+	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
 
 

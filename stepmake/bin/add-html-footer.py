@@ -38,9 +38,10 @@ default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
+
 built = r"""<hr>
 <p><font size="-1">
-This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ by<br>
+This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@) by<br>
 </font>
 <address><font size="-1">@GCOS@ &lt;<a href="mailto:%s">@MAILADDRESS@</a>&gt;,
 @LOCALTIME@.</font></address>"""
@@ -188,6 +189,12 @@ def do_file (f):
 		#	index = "./index.html"
 		#	top = "./"
 
+
+	versiontup = string.split(package_version, '.')
+	branch_str = 'stable-branch' 
+	if string.atoi ( versiontup[1]) %  2:
+		branch_str = 'development-branch'
+		
 	s = re.sub ('@INDEX@', index, s)
 	s = re.sub ('@TOP@', top, s)
 	s = re.sub ('@PACKAGE_NAME@', package_name, s)
@@ -196,6 +203,7 @@ def do_file (f):
 	s = re.sub ('@GCOS@', gcos, s)
 	s = re.sub ('@LOCALTIME@', localtime, s)
 	s = re.sub ('@MAILADDRESS@', mail_address, s)
+	s = re.sub ('@BRANCH@', branch_str, s)	
 
 	open (f, 'w').write (s)
 

@@ -49,8 +49,8 @@ which substitutes some @AT_VARIABLES@ as well.
 	<b>Download </b>
       </td></tr>
       <tr><td><font size="-1">
-	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Linux</a><br>
-	<a href="@TOP@Documentation/windows/out-www/installing.html">Windows</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">GNU/Linux binaries</a><br>
+	<a href="@TOP@Documentation/windows/out-www/installing.html">Windows binaries</a><br>
 	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source code</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
@@ -68,6 +68,7 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size="-1">
 	<a href="@TOP@Documentation/topdocs/out-www/README.html#mailing-lists">Mailing lists</a><br>
+        <a href="http://www.lilypond.org/search/">Search</a><br>
         <a href="http://www.lilypond.org/wiki/">WikiWiki</a><br>
 	<a href="http://www.lilypond.org/wiki?LilyPondFaqs">FAQs</a><br>	
 	<br>

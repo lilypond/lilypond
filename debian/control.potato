@@ -12,7 +12,7 @@ Replaces: lilypond1.3
 Provides: lilypond1.3
 Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), python-base (>= 1.5.2-4), guile
 Recommends: lilypond-doc, tetex-extra (>= 1.0-1)
-Conflicts: lilypond, lilypond1.3 (<= 1.3.132-1), musixtex-fonts
+Conflicts: lilypond1.3 (<= 1.3.132-1), musixtex-fonts
 Description: A program for printing sheet music.
  LilyPond is a music typesetter.  It produces beautiful sheet music
  using a high level description file as input.  LilyPond is part of 
@@ -28,18 +28,7 @@ Description: A program for printing sheet music.
 Package: lilypond-doc
 Section: doc
 Architecture: all
-Suggests: lilypond (>= 1.4.1-1)
-Suggests: postscript-viewer, www-browser
+Suggests: lilypond (>= 1.4.8-1), postscript-viewer, www-browser
 Description: LilyPond Documentation in HTML, PS and DVI formats
  This package contains the HTML, PostScript and DVI documentation for the
  LilyPond music typestting software.
-
-Package: lilypond1.3
-Architecture: all
-Depends: lilypond (>= 1.3.150-1)
-Description: Dummy package for transition to new stable lilypond.
- This dummy package provides a transition from the previous lilypond1.3
- package back to a newer lilypond because the stable 1.4 series has arrived.
- .
- Please feel free to remove this dummy package after you have upgraded
- to the latest lilypond.

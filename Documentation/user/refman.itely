@@ -14,6 +14,26 @@
 
 @end macro
 
+@ifhtml
+@macro internalsref{NAME}
+@uref{../lilypond-internals/\NAME\.html,\NAME\}
+@cindex \NAME\
+@end macro
+@macro seeinternals{NAME}
+See @internalsref{\NAME\}
+@end macro
+@end ifhtml
+
+
+@ifnothtml
+@macro seeinternals{NAME}
+@end macro
+@macro internalsref{NAME}
+\NAME\
+@cindex \NAME\
+
+@end macro
+@end ifnothtml
 
 @c .{Reference Manual}
 
@@ -151,6 +171,8 @@ question mark `@code{?}' after the pitch.
   cis' d' e' cis'  c'? d' e' c'!
 @end lilypond
 
+The grob for a note head is called @internalsref{NoteHead}.
+
 
 @c .  {Pitches}
 @node Pitches
@@ -219,26 +241,51 @@ octave; each @code{,} lowers the pitch by an octave.
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with note name `@code{r}'. The grob is
-@code{Rest}. Whole bar rests centered in the bar are specified using
-@code{R}, see @ref{Multi measure rests}.
+A rest is entered like a note, with note name `@code{r}':
 
+@lilypond[singleline,verbatim]
+r1 r2 r4 r8
+@end lilypond
+
+The grob is @internalsref{Rest}. Whole bar rests centered in the bar are
+specified using @code{R}, see @ref{Multi measure rests}.
 
 @c .  {Skips}
 @node Skips
 @subsection Skips
 @cindex Skip
 
+An invisible rest, or skip, can be entered like a note with note name
+`@code{s}':
 
-@example
-  \skip @var{duration} 
-  s@var{duration}
-@end example
-@cindex @code{\skip}
+@lilypond[singleline,verbatim]
+a2 s4 a4 s1 a4
+@end lilypond
 
-Skips the amount of time specified by @var{duration}.  If no other music
-is played, a gap will be left for the skipped time without any notes
-printed.  The shorthand is only available in Note and Chord mode.
+Actually, this is a shorthand for the @code{\skip} command, and it is
+only available in Note mode and Chord mode.
+
+@c FIXME: in lyrics mode, we have " " and _
+
+In Lyrics mode, you can use `@code{" "}' and `@code{_}':
+@lilypond[singleline,verbatim]
+<
+  \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
+  \notes\relative c'' { a2 a4 a a2 a4 a }
+>
+@end lilypond
+
+The unabbreviated `@code{\skip} @var{duration}' also works outside of
+note mode:
+
+@lilypond[singleline,verbatim]
+\score {
+  \context Staff <
+    { \time 4/8 \skip 2 \time 4/4 } 
+    \notes\relative c'' { a2 a1 }
+  >
+}
+@end lilypond
 
 @c .  {Durations}
 @node Durations
@@ -271,7 +318,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[]
 \score {
   \notes \relative c'' {
-        a\breve  \autoBeamOff
+    a\breve  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa r\breve  
     r1 r2 r4 r8 r16 r32 r64 r64 
@@ -351,7 +398,8 @@ exactly the same concept.
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
 
-The name of the tie grob is  @code{Voice.Tie}.
+The name of the tie grob is  @internalsref{Tie}. It is usually created
+in the @internalsref{Voice} context.
 
 @refbugs
 
@@ -423,7 +471,7 @@ The typesetting of brackets and numbers is controlled by the properties
 @cindex @code{tupletNumberFormatFunction}
 @cindex tuplet formatting 
 
-Tuplet brackets are printed as @code{TupletBracket} grobs
+Tuplet brackets are printed as @internalsref{TupletBracket} grobs
 
 @c .  {Defining pitch names}
 @node Defining pitch names
@@ -459,12 +507,12 @@ Hal-Leonard Inc.  music publishers.
 @lilypond[singleline,verbatim]
 \include "paper23.ly"
 \score {
-        \notes { c'2 e'4 f' | g'1 }
-        \paper { \translator { \EasyNotation } } 
+  \notes { c'2 e'4 f' | g'1 }
+  \paper { \translator { \EasyNotation } } 
 }
 @end lilypond
 
-Note that @code{EasyNotation} overrides a @code{Score} context.  You
+Note that @code{EasyNotation} overrides a @internalsref{Score} context.  You
 probably will want to print it with magnification to make it more
 readable, see @ref{Output scaling}.
 
@@ -525,7 +573,7 @@ This command sets the context property @code{Staff.keySignature}.
 Non-standard key signatures can be specified by setting this property
 directly, see the generated documentation for @rgrob{KeySignature}.
 
-The printed signature is a @code{KeySignature} grob.
+The printed signature is a @internalsref{KeySignature} grob.
 
 @cindex @code{keySignature}
 
@@ -547,7 +595,7 @@ Shortcut for
   \property Staff.clefOctavation = @var{extra transposition of clefname}
 @end example
 
-Any change in these properties creates a clef (a @code{Clef} grob).
+Any change in these properties creates a clef (a @internalsref{Clef} grob).
 
 Supported clef-names include 
 
@@ -653,7 +701,7 @@ should be inserted, and how automatic beams should be
 generated.
 
 Changing the value of @code{timeSignatureFraction} also causes a
-fraction to be printed. This grob is @code{TimeSignature}.
+fraction to be printed. This grob is @internalsref{TimeSignature}.
 
 The actual symbol that's printed can be customized with the style
 property.
@@ -771,7 +819,7 @@ a measure it is set to @code{defaultBarType}. The contents of
 @code{\bar  }.  These settings take precedence over the automatic
 @code{whichBar} settings. 
 
-@code{BarLine} grobs are created by the @code{Bar_engraver}.
+@internalsref{BarLine} grobs are created by the @internalsref{Bar_engraver}.
 
 @c .   {Polyphony}
 @node Polyphony
@@ -791,7 +839,7 @@ When there are more than two voices on a staff, you must also indicate
 which voice should moved horizontally in case of a collision. This can
 be done with the identifiers @code{\shiftOff}, @code{\shiftOn},
 @code{\shiftOnn}, etc. (which sets the grob property @code{horizontal-shift}
-in @code{NoteColumn}).
+in @internalsref{NoteColumn}).
 
 @lilypond[fragment, verbatim]
   \context Staff \notes\relative c''<
@@ -845,11 +893,9 @@ LilyPond also vertically shifts rests that are opposite of a stem.
 @end lilypond
 
 Note head collisions (horizontal shifting of note heads) are handled by
-the @code{NoteCollision} grob. @code{RestCollision} handles vertical
-shifting of rests.
+the @internalsref{NoteCollision} grob. @internalsref{RestCollision}
+handles vertical shifting of rests.
 
-@cindex @code{NoteCollision}
-@cindex @code{RestCollision}
 
 
 @refbugs
@@ -996,7 +1042,7 @@ property, it's value will be used only once, and then it is erased.
 @end lilypond
 @cindex @code{stemRightBeamCount}
 
-The beam symbol (grob @code{Voice.Beam}, both for automatic and manual
+The beam symbol (grob @internalsref{Beam}, both for automatic and manual
 beams) can be tweaked through grob-properties @code{height} and
 @code{staff-position}. These specify vertical location and vertical
 span. Both are measured in half staff-spaces, @code{staff-position=0}
@@ -1048,8 +1094,9 @@ They are entered using parentheses:
 Slurs avoid crossing stems, and are generally attached to note heads.
 However, in some situations with beams, slurs may be attached to stem
 ends.  If you want to override this layout you can do this through the
-@code{Voice.Slur}'s grob-property @code{attachment}. It's value is a
-pair of symbols, specifying the attachment type of the left and right end points.
+@internalsref{Slur}'s grob-property @code{attachment}. It's value is a
+pair of symbols, specifying the attachment type of the left and right
+end points.
 
 @lilypond[fragment,relative,verbatim]
   \property Voice.Slur \set #'direction = #1
@@ -1075,11 +1122,12 @@ stems might look better:
 Similarly, the curvature of a slur is adjusted to stay clear of note
 heads and stems.  When that would increase the curvature too much, the
 slur is reverted to its default shape.  The threshold for this decision
-is in @code{Voice.Slur}'s grob-property @code{beautiful}.  It is loosely
-related to the enclosed area between the slur and the notes.  Usually,
-the default setting works well, but in some cases you may prefer a
-curved slur when LilyPond decides for a vertically moved one.  You can
-indicate this preference by increasing the @code{beautiful} value:
+is in @internalsref{Slur}'s grob-property @code{beautiful}.  It is
+loosely related to the enclosed area between the slur and the notes.
+Usually, the default setting works well, but in some cases you may
+prefer a curved slur when LilyPond decides for a vertically moved one.
+You can indicate this preference by increasing the @code{beautiful}
+value:
 
 @lilypond[verbatim,singleline,relative]
   \property Voice.Beam \override #'direction = #-1
@@ -1112,18 +1160,19 @@ respectively.
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
-slur. The grob associated with it is @code{Voice.PhrasingSlur}.
+slur. The grob associated with it is @internalsref{PhrasingSlur}.
 
 @node Breath marks
 @subsection Breath marks
 
 Breath marks are entered using @code{\breathe}.  The result is a
-@code{Voice.BreathingSign} grob.
+@internalsref{BreathingSign} grob.
 
 @lilypond[fragment,relative]
 c'4 \breathe d4
 @end lilypond
 
+Note that the skip does not produce any output, not even transparent output.
 
 
 
@@ -1169,9 +1218,9 @@ is as follows:
 \spanrequest \start "text"
 \spanrequest \stop "text"
 @end example
-LilyPond will respond by creating a @code{Voice.TextSpanner} grob.  The
-string to be printed, as well as the style is set through grob
-properties.
+LilyPond will respond by creating a @internalsref{TextSpanner} grob (typically
+in @internalsref{Voice} context).  The string to be printed, as well as the
+style is set through grob properties.
 
 An application---or rather, a hack---is to fake octavation indications.
 @lilypond[fragment,relative,verbatim]
@@ -1287,7 +1336,7 @@ accesses a script definition from the table:
 Usually the @code{\script} keyword is not used directly.  Various
 helpful identifier definitions appear in @file{script.ly}.
 
-Grobs for these objects are @code{Script} and @code{Fingering}.
+Grobs for these objects are @internalsref{Script} and @internalsref{Fingering}.
 
 @refbugs
 
@@ -1316,7 +1365,8 @@ includes.
 \relative c' { c4^"longtext" \fatText c4_"longlongtext" c4 }
 @end lilypond
 
-Text scripts are created in form of @code{Voice.TextScript} grobs.
+Text scripts are created in form of @internalsref{TextScript} grobs, in
+@internalsref{Voice} context.
 
 @ref{Text markup} describes how to change the font or access
 special symbols in text scripts.
@@ -1395,8 +1445,8 @@ also be implemented.
 
 @cindex @code{\glissando}
 
-A glissando line (grob @code{Voice.Glissando}) can be requested by attaching a
-@code{\glissando} to a note:
+A glissando line (grob @internalsref{Glissando}) can be requested by
+attaching a @code{\glissando} to a notte:
 
 @lilypond[fragment,relative,verbatim]
   c'-\glissando c'
@@ -1488,9 +1538,9 @@ For everyday use, we recommend the identifiers @code{\cresc},
 
 @cindex diminuendo
 
-Dynamics are grobs of @code{Voice.DynamicText} and
-@code{Voice.Hairpin}. They are put together on
-@code{Voice.DynamicLineSpanner} to align them vertically.
+Dynamics are grobs of @internalsref{DynamicText} and
+@internalsref{Hairpin}. They are put together on
+@internalsref{DynamicLineSpanner} to align them vertically.
 
 
 @c .  {Repeats}
@@ -1642,7 +1692,7 @@ command can be
 @end lilypond
 
 
-Repeats brackets are @code{Staff.VoltaBracket} grobs.
+Repeats brackets are @internalsref{VoltaBracket} grobs.
 
 @node Tremolo repeats
 @subsection Tremolo repeats
@@ -1661,8 +1711,8 @@ style.
 }
 @end lilypond
 
-Tremolo beams are @code{Voice.Beam} grobs. Single stem tremolos are
-@code{Voice.StemTremolo}.
+Tremolo beams are @internalsref{Beam} grobs. Single stem tremolos are
+@internalsref{StemTremolo}.
 
 @refbugs
 
@@ -1708,8 +1758,8 @@ patterns that divide the measure length are replaced by slashes.
 }
 @end lilypond
 
-The signs are represented by these grobs: @code{Voice.RepeatSlash} and
-@code{Voice.PercentRepeat} and @code{Voice.DoublePercentRepeat}.
+The signs are represented by these grobs: @internalsref{RepeatSlash} and
+@internalsref{PercentRepeat} and @internalsref{DoublePercentRepeat}.
 
 @refbugs
 
@@ -1746,8 +1796,8 @@ are squashed, and the  staff itself  looks has  a single staff line:
 Piano music is an odd type of notation. Piano staffs are two normal
 staffs coupled with a brace.  The staffs are largely independent, but
 sometimes voices can cross between the two staffs.  The
-@code{PianoStaff} is especially built to handle this cross-staffing
-behavior.  In this section we discuss the @code{PianoStaff} and some
+@internalsref{PianoStaff} is especially built to handle this cross-staffing
+behavior.  In this section we discuss the @internalsref{PianoStaff} and some
 other pianistic peculiarities.
 
 @menu
@@ -1771,7 +1821,7 @@ staff. The syntax for this is
 @end example
 This will switch the interpretation context of @var{musicexp} between a
 @var{contexttype} named @code{up} and @code{down}. Typically, you use
-@code{Staff} for @var{contexttype}.  The autochanger switches on basis
+@internalsref{Staff} for @var{contexttype}.  The autochanger switches on basis
 of pitch (central C is the turning point), and it looks ahead skipping
 over rests to switch rests in advance.
         
@@ -1827,7 +1877,7 @@ Piano pedal instruction can be expressed using
 @code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp}.
 
 These identifiers are shorthands for spanner commands of the types
-@code{Sustain}, @code{UnaCorda} and @code{Sostenuto}:
+@internalsref{Sustain}, @internalsref{UnaCorda} and @internalsref{Sostenuto}:
 
 @lilypond[fragment,verbatim]
 c''4 \spanrequest \start "Sustain" c''4
@@ -1874,8 +1924,8 @@ to the chords in both staffs, and set
   >  
 @end lilypond
 
-This command creates @code{Voice.Arpeggio} grobs.  Cross staff arpeggios
-are @code{PianoStaff.Arpeggio}.
+This command creates @internalsref{Arpeggio} grobs.  Cross staff arpeggios
+are @code{PianoStaff.Arpeggio}. @internalsref{Arpeggio}
 
 @refbugs
 
@@ -1909,7 +1959,7 @@ can be printed automatically. This is enabled if the property
   >  
 @end lilypond
 
-The associated grob is @code{Voice.VoiceFollower}.
+The associated grob is @internalsref{VoiceFollower}.
 
 
 @node Lyrics
@@ -1958,7 +2008,7 @@ definition}.
 @subsection Printing lyrics
 @cindex lyrics
 
-Lyrics are printed by interpreting them in the @code{Lyrics}  context.
+Lyrics are printed by interpreting them in the @internalsref{Lyrics}  context.
 
 @c Maybe more pedagogical to avoid \addlyrics in this first example? /MB
 
@@ -2263,10 +2313,8 @@ adds a fourth, but also removes the third.
 @cindex printing chord names
 @cindex chord names
 @cindex chords
-@cindex @code{ChordNames}
 
-
-For displaying printed chord names, use the @code{ChordNames} context.
+For displaying printed chord names, use the @internalsref{ChordNames} context.
 The chords may be entered either using the notation described above, or
 directly using simultaneous music.
 
@@ -2383,7 +2431,7 @@ problems in orchestral music.
 @cindex Rehearsal marks
 @cindex mark
 @cindex @code{\mark}
-@cindex @code{Mark_engraver}
+
 
 @example
   \mark @var{unsigned}
@@ -2407,13 +2455,13 @@ automatically incremented.
 }
 @end lilypond
 
-The grob is @code{Score.RehearsalMark}. See
+The grob is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @code{input/test/boxed-molecule.ly} if you need boxes around the marks.
 
 @node Bar numbers
 @subsection Bar numbers
 
-Bar numbers (grob: @code{BarNumber}) are printed at the start of the
+Bar numbers (grob: @internalsref{BarNumber}) are printed at the start of the
 line. See @code{input/test/boxed-molecule.ly} for boxed bar numbers.
 
 @refbugs
@@ -2529,6 +2577,8 @@ measure.
 
 @cindex whole rests for a full measure 
 
+The grob for this object is @internalsref{MultiMeasureRest}.
+
 @refbugs
 
 Currently, there is no way to automatically condense multiple rests into
@@ -2601,8 +2651,8 @@ There are a number of other properties that you can use to tweak the
 behavior of part combining, refer to the automatically generated
 documentation of @reng{Thread_devnull_engraver} and
 @reng{Voice_devnull_engraver}. Look at the documentation of the
-responsible engravers, @code{Thread_devnull_engraver},
-@code{Voice_devnull_engraver} and @code{A2_engraver}.
+responsible engravers, @internalsref{Thread_devnull_engraver},
+@internalsref{Voice_devnull_engraver} and @internalsref{A2_engraver}.
 
 @refbugs
 
@@ -2622,9 +2672,6 @@ measure.
   >
 @end lilypond
 
-@cindex @code{Thread_devnull_engraver}
-@cindex @code{Voice_engraver}
-@cindex @code{A2_engraver}
 
 @node Hara kiri staffs
 @subsection Hara kiri staffs
@@ -2637,10 +2684,10 @@ it finds itself to be empty after the line-breaking process.  It will
 not disappear when it contains normal rests, you must use multi measure
 rests.
 
-The hara kiri staff is specialized version of the Staff context. It is
-available as the context identifier @code{\HaraKiriStaffContext}.
-Observe how the second staff in this example disappears in the second
-line.
+The hara kiri staff is specialized version of the @internalsref{Staff}
+context. It is available as the context identifier
+@code{\HaraKiriStaffContext}.  Observe how the second staff in this
+example disappears in the second line.
 
 @lilypond[verbatim]
 \score  {
@@ -2689,8 +2736,8 @@ Nowadays, they have survived only in special forms of musical notation
 such as via the @emph{editio vaticana} dating back to the beginning of
 the 20th century.
 
-For typesetting custodes, just put a @code{Custos_engraver} into the
-@code{StaffContext} when declaring the @code{\paper} block.  In this
+For typesetting custodes, just put a @internalsref{Custos_engraver} into the
+@internalsref{Staff} context when declaring the @code{\paper} block.  In this
 block, you can also globally control the appearance of the custos symbol
 by setting the custos @code{style} property.  Currently supported styles
 are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
@@ -2782,7 +2829,7 @@ mechanism.
 The definition of a grob is actually a list of default grob
 properties. For example, the definition of the Stem grob (available in
 @file{scm/grob-description.scm}), defines the following values for
-@code{Stem}
+@internalsref{Stem}
 
 @example
         (thickness . 0.8)
@@ -2888,7 +2935,7 @@ feature.  The syntax is as follows:
 @end example
 Here @code{predicate} is a Scheme function taking a grob argument, and
 returning a boolean.  This statement is processed by the
-@code{Output_property_engraver}.  It instructs the engraver to feed all
+@internalsref{Output_property_engraver}.  It instructs the engraver to feed all
 grobs that it sees to @var{predicate}. Whenever the predicate returns
 true, the grob property @var{symbol} will be set to @var{value}.
 
@@ -3035,8 +3082,8 @@ There are also pre-cooked font selection qualifiers. These are selected
 through the grob property @code{font-style}.  For example, the style
 @code{finger} selects family @code{number} and relative size @code{-3}.
 Styles available include @code{volta}, @code{finger}, @code{tuplet},
-@code{timesig}, @code{mmrest}, @code{script}, @code{large}, @code{Large}
-and @code{dynamic}.
+@code{timesig}, @code{mmrest}, @code{script}, @code{large},
+@code{Large} and @code{dynamic}.
 
 The style sheets and tables for selecting fonts are located in
 @file{scm/font.scm}. Refer to this file for more information.
@@ -4003,10 +4050,10 @@ like
        the measure, etc.?
 @end itemize
 
-Contexts are grouped hierarchically: A @code{Voice} context is
-contained in a @code{Staff} context (because a staff can contain
-multiple voices at any point), a @code{Staff} context is contained in
-@code{Score}, @code{StaffGroup}, or @code{ChoirStaff} context.
+Contexts are grouped hierarchically: A @internalsref{Voice} context is
+contained in a @internalsref{Staff} context (because a staff can contain
+multiple voices at any point), a @internalsref{Staff} context is contained in
+@internalsref{Score}, @internalsref{StaffGroup}, or @internalsref{ChoirStaff} context.
 
 Contexts associated with sheet music output are called @emph{notation
 contexts}, those for sound output are called @emph{performance
@@ -4093,6 +4140,10 @@ This is a convenient mechanism, but do not expect opening chords to work
 without @code{\context}. For every note, a separate staff is
 instantiated.
 
+@cindex explicit context
+@cindex starting with chords
+@cindex chords, starting with
+
 @lilypond[verbatim, singleline]
 \score { \notes <c'4 es'> } 
 @end lilypond
@@ -4122,8 +4173,8 @@ specified Scheme expression @var{value}.  All @var{propname} and
 
 Properties that are set in one context are inherited by all of the
 contained contexts.  This means that a property valid for the
-@code{Voice} context can be set in the @code{Score} context (for
-example) and thus take effect in all @code{Voice} contexts.
+@internalsref{Voice} context can be set in the @internalsref{Score} context (for
+example) and thus take effect in all @internalsref{Voice} contexts.
 
 Properties can be unset using the following expression:
 @example
@@ -4235,25 +4286,20 @@ This is an example:
 
 The argument of @code{\type} is the name for a special engraver that
 handles cooperation between simple engravers such as
-@code{Note_head_engraver} and @code{Staff_symbol_engraver}. Alternatives
+@internalsref{Note_head_engraver} and @internalsref{Staff_symbol_engraver}. Alternatives
 for this engraver are the following:
 @table @code
-@cindex @code{Engraver_group_engraver}
-  @item @code{Engraver_group_engraver}  
+  @item @internalsref{Engraver_group_engraver}  
     The standard cooperation engraver.
 
-@cindex @code{Score_engraver}
+  @item @internalsref{Score_engraver}
 
-  @item @code{Score_engraver}  
-    This is cooperation module that should be in the top level context,
+  This is cooperation module that should be in the top level context,
 and only the top level context.
 
-@cindex @code{Grace_engraver_group}
-
-  @item @code{Grace_engraver_group}  
-    This is a special cooperation module (resembling
-    @code{Score_engraver}) that is used to create an embedded
-    `miniscore'.
+  @item @internalsref{Grace_engraver_group} This is a special
+cooperation module (resembling @internalsref{Score_engraver}) that is
+used to create an embedded `miniscore'.
 @end table 
 
 Other modifiers   are
@@ -4282,8 +4328,8 @@ completeness, but is never used in practice.
  
   
   @item  @code{\name} @var{contextname} 
-    This sets the type name of the context, e.g. @code{Staff},
-    @code{Voice}.  If the name is not specified, the translator won't do
+    This sets the type name of the context, e.g. @internalsref{Staff},
+    @internalsref{Voice}.  If the name is not specified, the translator won't do
     anything. 
 @end itemize
 

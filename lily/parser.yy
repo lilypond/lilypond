@@ -1567,9 +1567,11 @@ optional_notemode_duration:
 	}
 	| multiplied_duration	{
 		$$ = $1;
+		THIS->default_duration_ = *unsmob_duration ($$);
 	}
 	| explicit_duration {
 		$$ = $1;
+		THIS->default_duration_ = *unsmob_duration ($$);
 	}	
 	;
 
@@ -1582,15 +1584,11 @@ steno_duration:
 			l =  intlog2 ($1);
 
 		$$ = Duration (l, $2).smobbed_copy ();
-
-		THIS->set_last_duration (unsmob_duration ($$));
 	}
 	| DURATION_IDENTIFIER dots	{
 		Duration *d =unsmob_duration ($1);
 		Duration k (d->duration_log (),d->dot_count () + $2);
 		$$ = k.smobbed_copy ();
-
-		THIS->set_last_duration (unsmob_duration ($$));
 	}
 	;
 

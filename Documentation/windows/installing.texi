@@ -11,10 +11,10 @@ This document explains how to install the binary release for windows
 on a Microsoft Windows 95, 98, NT or 2000 machine.
 
 This release is a free extra service of the developers to assist windows
-users.  Please remember that we (the developers) rather dislike windows,
-and none of us use it.  Don't complain to us that installing LilyPond is
-too difficult; rather, if you know something about your Windows, send us
-code that works better (see @uref{compiling.html,compiling}).
+users.  When reporting problems,  please keep in mind that we (the developers)
+do not use Windows.  In fact,  if you know something about Windows, and
+are able to write code, please send us code that works better (see
+@uref{compiling.html,compiling}).
 
 @section Windows binary setup 
 

@@ -52,8 +52,13 @@ Rhythmic_req::do_equal_b (Request const* r) const
 Moment
 Rhythmic_req::length_mom () const
 {
-  return  unsmob_duration (get_mus_property ("duration"))->length_mom ();
-
+  Duration *d = unsmob_duration (get_mus_property ("duration"));
+  if (!d){
+    Moment m ;
+    programming_error("Rhythmic_req has no duration");
+    return m;
+  }
+  return d->length_mom ();
 }
 
 void

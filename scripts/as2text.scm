@@ -162,12 +162,14 @@ Options:
 
 ;;; Helper functions
 
+
+
 (define (af-gulp-file name)
   ;; urg
   (let ((old-load-path %load-path))
        (set! %load-path 
 	     (cons (string-append 
-		    (or (getenv 'LILYPONDPREFIX) ".") "/mf")
+		    (or (getenv "LILYPONDPREFIX") ".") "/mf")
 		   (cons (string-append lily-home "/mf") %load-path)))
        (let* ((path (%search-load-path name)) 
 	      (text (if path

@@ -55,11 +55,17 @@
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
 
 % Are we using PDFTeX?  If so, use pdf definitions.
+% MiKTeX checks \pdfoutput the wrong way, makes our
+% check more complicated.
 \ifx\pdfoutput\undefined  
   \input lily-ps-defs
 \else
-  \pdfoutput=1
-  \input lily-pdf-defs
+  \ifx\pdfoutput\relax
+    \input lily-ps-defs
+  \else
+    \pdfoutput=1
+    \input lily-pdf-defs
+  \fi
 \fi
 
 \def\EndLilyPondOutput{%

@@ -125,11 +125,14 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 {
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
   Bezier back = curve;
-
+  Offset perp = curvethick * complex_exp (Offset (0, alpha + M_PI/2)) * 0.5;
   back.reverse ();
-  back.control_[1] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));
-  back.control_[2] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));  
+  back.control_[1] += perp;
+  back.control_[2] += perp;
 
+  curve.control_[1] -= perp;
+  curve.control_[2] -= perp;
+  
   SCM scontrols[8];
 
   for (int i=4; i--;)
@@ -152,8 +155,12 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
+  Box b(curve.extent (X_AXIS),
+	curve.extent (Y_AXIS));
 
-  Box b (curve.extent (X_AXIS), curve.extent (Y_AXIS));
+  b[X_AXIS].unite (back.extent (X_AXIS));
+  b[Y_AXIS].unite (back.extent (Y_AXIS));
+
   return Molecule (b, at);
 }
 

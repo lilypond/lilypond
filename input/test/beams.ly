@@ -12,7 +12,8 @@ TestedFeatures = 	 "beams and beamflags"
 \score{
 	<
 %		\property Score.beamQuantisation = #'none
-		\context GrandStaff < 
+		\context GrandStaff <
+		\context Staff = SA
 		\notes\transpose c' { 
 
 			\time 8/4
@@ -39,6 +40,7 @@ TestedFeatures = 	 "beams and beamflags"
 		}
 	>
 	<	
+		\context Staff = SB
 		\notes { 
 \transpose c' {
 			\time 8/4

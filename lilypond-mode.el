@@ -4,11 +4,16 @@
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; 
+;;; Changed 2001 Heikki Junes <heikki.junes@hut.fi>
+;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
+;;;    * Keyboard shortcuts (12th Sep 2001)
+;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
 
 ;;; Inspired on auctex
 
 ;;;
-;;; Add this to your .emacs.el
+;;; Add this to your ~/.emacs or ~/.emacs.el
 ;;;     (load-library "lilypond-mode.el")
 ;;;     (setq auto-mode-alist
 ;;;      (append '(("\\.ly$" . LilyPond-mode) auto-mode-alist)))
@@ -31,6 +36,9 @@
 (defvar LilyPond-kick-xdvi nil
   "If true, no simultaneous xdvi's are started, but reload signal is sent.")
 
+(defvar LilyPond-command-history nil
+  "Command history list.")
+	
 (defvar LilyPond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
@@ -129,6 +137,18 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
+(defcustom LilyPond-gv-command "gv -watch"
+  "Command used to display PS files."
+
+  :group 'LilyPond
+  :type 'string)
+
+(defcustom LilyPond-midi-command "timidity"
+  "Command used to play MIDI files."
+
+  :group 'LilyPond
+  :type 'string)
+
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
   `(
@@ -136,6 +156,7 @@ in LilyPond-include-path."
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
 
     ("2Dvi" . ("ly2dvi %s" . "View"))
+    ("2PS" . ("ly2dvi -P %s" . "View"))
 
     ("Book" . ("lilypond-book %x" . "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
@@ -145,6 +166,10 @@ in LilyPond-include-path."
     
     ;; refreshes when kicked USR1
     ("View" . (,(concat LilyPond-xdvi-command " %d") . "LilyPond"))
+
+    ("ViewPS" . (,(concat LilyPond-gv-command " %p") . "LilyPond"))
+
+    ("Midi" . (,(concat LilyPond-midi-command " %m") . "LilyPond"))
     )
 
   "AList of commands to execute on the current document.
@@ -177,6 +202,7 @@ LilyPond-expand-list.
     ("%p" . ".ps")
     ("%l" . ".latex")
     ("%x" . ".tely")
+    ("%m" . ".midi")
     )
     
   "Alist of expansion strings for LilyPond command names."
@@ -228,7 +254,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	 (answer (or LilyPond-command-force
 		     (completing-read
 		      (concat "Command: (default " default ") ")
-		      LilyPond-command-alist nil t))))
+		      LilyPond-command-alist nil t nil 'LilyPond-command-history))))
 
     ;; If the answer is "LilyPond" it will not be expanded to "LilyPond"
     (let ((answer (car-safe (assoc answer LilyPond-command-alist))))
@@ -248,6 +274,42 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (interactive)
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
+
+(defun LilyPond-command-formatdvi ()
+  "Format the dvi output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-formatps ()
+  "Format the ps output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-smartview ()
+  "View the dvi output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-view ()
+  "View the dvi output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-viewps ()
+  "View the ps output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-midi ()
+  "View the ps output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
+)
 
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
@@ -358,9 +420,45 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
   (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
+  (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
+  (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
+  (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
+  (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
+  (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
+  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-midi)
+  (define-key LilyPond-mode-map "\C-cn" 'lilypond-notes)
+  (define-key LilyPond-mode-map "\C-cs" 'lilypond-score)
   )
 
 ;;; Menu Support
+
+(define-skeleton lilypond-notes
+  "Lilypond notes tag."
+  nil
+;  (if (bolp) nil ?\n)
+  "\\notes"
+  (if (y-or-n-p "Set \"\\relative\" attribute? ")
+      (concat " \\relative " (skeleton-read "Relative: " "" str)))
+  " { " _ " }")
+
+(define-skeleton lilypond-score
+  "Lilypond score tag."
+  nil
+  (if (bolp) nil ?\n)
+  "\\score {\n"
+  "   " _ "\n"
+  "   \\paper {  }\n"
+  (if (y-or-n-p "Insert \"\\header\" field? ")
+      (concat "   \\header {\n      " 
+	      (skeleton-read "Piece: " "piece = " str) "\n"
+	      (if (y-or-n-p "Insert \"opus\" field? ")
+		  (concat "      " (skeleton-read "Opus: " "opus = " str) "\n"))
+	      "   }\n"))
+  (if (y-or-n-p "Insert \"\\midi\" field? ")
+      (concat "   \\midi { " 
+	      (skeleton-read "Midi: " "\\tempo 4 = " str)  
+	      " }\n"))
+  "}\n")
 
 (defun LilyPond-command-menu-entry (entry)
   ;; Return LilyPond-command-alist ENTRY as a menu item.
@@ -390,9 +488,26 @@ command."
 	     [ "Region" LilyPond-command-select-region
 	       :keys "C-c C-r" :style radio
 	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
-	  (let ((file 'LilyPond-command-on-current))
-	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))))
-
+	  '(("Insert"
+	     [ "\\notes..."  lilypond-notes
+	       :keys "C-c n" ]
+	     [ "\\score..."  lilypond-score
+	       :keys "C-c s" ]
+	     ))
+;	  (let ((file 'LilyPond-command-on-current))
+;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
+;;; Some kind of mapping which includes :keys might be more elegant
+	  '([ "LilyPond" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) ])
+	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
+	  '([ "2Dvi" (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file) :keys "C-c C-d"])
+	  '([ "2PS" (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file) :keys "C-c C-f"])
+	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
+	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
+	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
+	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
+	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
+	  '([ "Midi" (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file) :keys "C-c C-m"])
+	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
   "Regexp matching Identifier definitions.")
@@ -414,7 +529,7 @@ command."
 (defun LilyPond-command-select-region ()
   (interactive)
   (message "Next command will be on the region")
-  (setq LilyPond-command-current 'LilPond-command-region))
+  (setq LilyPond-command-current 'LilyPond-command-region))
 
 (defun LilyPond-command-menu (name)
   ;; Execute LilyPond-command-alist NAME from a menu.
@@ -454,7 +569,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (setq comment-start-skip "%{? *")
 
   (make-local-variable 'comment-end)
-  (setq comment-end "\n")
+  (setq comment-end "")
 
   (make-local-variable 'block-comment-start)
   (setq block-comment-start "%{")

@@ -481,7 +481,7 @@ interfere with your build, you may want to do this before the build too:
 @end example
 
 
-
+@c Why isn't this in BUGS (where it belongs?)
 @section Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Please
@@ -493,14 +493,30 @@ Bugs that are not fault of LilyPond are documented here.
 @unnumberedsubsec Debian GNU/Linux unstable gcc-3.0
 
 Flex (2.5.4a-11) in unstable does not produce g++-3.0 compliant C++
-code.  To compile LilyPond with gcc-3.0 you may do:
+code.  To compile LilyPond with gcc-3.0, please first upgrade to
+flex_2.5.4a-13 or newer.  Otherwise, you may do:
 
 @example
+        rm -f config.cache
         CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
         make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
         patch -p1 < lexer-gcc-3.0.patch
         make conf=gcc-3.0 -C lily
 @end example
+
+ 
+@unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
+
+There's a bug in certain kernels around version 2.4.0, that is
+triggered when using Guile 1.4 compiled with pthreads.  You'll see
+random segmentation fault craches of LilyPond.  Upgrade to a newer
+version of Linux.  If you can't do that, you may try to recompiling
+Guile without threads (YMMV):
+
+@example
+         guile-1.4$ ./configure --without-threads; make all install
+@end example
+
 
 @unnumberedsubsec NetBSD
 

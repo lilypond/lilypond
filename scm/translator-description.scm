@@ -449,6 +449,13 @@ to any Graphic objects that satisfies the predicate."
      '(SostenutoPedal SustainPedal UnaCordaPedal)
      '(pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings
       )))
+   (cons
+    'Percent_repeat_engraver
+    (engraver-description
+     "Percent_repeat_engraver"
+     "Engrave percent repeats."
+     '(PercentRepeat DoublePercentRepeat RepeatSlash)
+     '(      )))
 
    (cons 
     'Pitch_squash_engraver

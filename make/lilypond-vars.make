@@ -12,11 +12,12 @@ export MT_DESTROOT := $(topdir)/mf/out
 export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
 endif
 
-export LILYPONDPREFIX:=$(depth)/
+# LilyPond is often run from within $(outdir), making a relative
+# PREFIX incorrect.
+export LILYPONDPREFIX:=$(shell cd $(depth)/ ; pwd)
 export PYTHONPATH:=$(buildscript-dir)/$(outdir):$(PYTHONPATH)
 
 # guile load path?
-
 the-script-dir=$(wildcard $(script-dir))
 
 ifneq ($(the-script-dir),)

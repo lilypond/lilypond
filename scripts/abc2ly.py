@@ -32,7 +32,8 @@
 # the default placement for text in abc is above the staff.
 # %%LY now supported.
 # \breve and \longa supported.
-			
+# M:none doesn't crash lily.
+
 # Limitations
 #
 # Multiple tunes in single file not supported
@@ -67,6 +68,7 @@ import os
 
 UNDEF = 255
 state = UNDEF
+strict = 0
 voice_idx_dict = {}
 header = {}
 header['footnotes'] = ''
@@ -88,6 +90,13 @@ DIGITS='0123456789'
 alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"	
 HSPACE=' \t'
 midi_specs = ''
+
+
+def error (msg):
+	sys.stderr.write (msg)
+	if strict:
+		sys.exit (1)
+	
 	
 def check_clef(s):
       if not s:
@@ -155,6 +164,7 @@ def dump_header (outf,hdr):
 	ks = hdr.keys ()
 	ks.sort ()
 	for k in ks:
+ 		hdr[k] = re.sub('"', '\\"', hdr[k])		
 		outf.write ('\t%s = "%s"\n'% (k,hdr[k]))
  	outf.write ('}')
 
@@ -217,7 +227,7 @@ def try_parse_q(a):
 		array2=string.split(array[1],'=')
 		denominator=array2[0]
 		perminute=array2[1]
-		duration=str(string.atof(denominator)/string.atoi(numerator))
+		duration=str(string.atoi(denominator)/string.atoi(numerator))
 		midi_specs=string.join(["\\tempo", duration, "=", perminute])
 	else:
 		sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
@@ -457,6 +467,7 @@ def compute_key (k):
 		key_count = flat_key_seq.index (keytup)
 		accseq = map (lambda x: (3*x + 3 ) % 7, range (1, key_count + 1))
 	else:
+		error ("Huh?")
 		raise "Huh"
 	
 	key_table = [0] * 7
@@ -480,8 +491,10 @@ def try_parse_tuplet_begin (str, state):
 	if re.match ('\([2-9]', str):
 		dig = str[1]
 		str = str[2:]
-		state.parsing_tuplet = string.atoi (dig[0])
-		
+ 		prev_tuplet_state = state.parsing_tuplet
+  		state.parsing_tuplet = string.atoi (dig[0])
+ 		if prev_tuplet_state:
+ 			voices_append ("}")		
 		voices_append ("\\times %s {" % tup_lookup[dig])
 	return str
 
@@ -576,7 +589,10 @@ def try_parse_header_line (ln, state):
 			a = re.sub('[ \t]*$','', a)	#strip trailing blanks
 			if header.has_key('title'):
 				if a:
-					header['title'] = header['title'] + '\\\\\\\\' + a
+ 					if len(header['title']):
+ 						header['title'] = header['title'] + '\\\\\\\\' + a
+ 					else:
+ 						header['subtitle'] = a
 			else:
 				header['title'] =  a
 		if g == 'M':	# Meter
@@ -594,7 +610,8 @@ def try_parse_header_line (ln, state):
 				set_default_len_from_time_sig (a)
 			else:
 				length_specified = 0
-			voices_append ('\\time %s' % a)
+			if not a == 'none':
+				voices_append ('\\time %s' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
 			a = check_clef(a)
@@ -703,6 +720,9 @@ def duration_to_lilypond_duration  (multiply_tup, defaultlen, dots):
 	if base == 1:
 		if (multiply_tup[0] / multiply_tup[1])  == 2:
 			base = '\\breve'
+ 		if (multiply_tup[0] / multiply_tup[1]) == 3:
+ 			base = '\\breve'
+ 			dots = 1
 		if (multiply_tup[0] / multiply_tup[1]) == 4:
 			base = '\longa'
 	return '%s%s' % ( base, '.'* dots)
@@ -1226,8 +1246,7 @@ def parse_file (fn):
 			ln = junk_space (ln)
 
 		if ln:
-			msg = "%s: %d: Huh?  Don't understand\n" % (fn, lineno)
-			sys.stderr.write (msg)
+			error ("%s: %d: Huh?  Don't understand\n" % (fn, lineno))
 			left = orig_ln[0:-len (ln)]
 			sys.stderr.write (left + '\n')
 			sys.stderr.write (' ' *  len (left) + ln + '\n')	
@@ -1246,9 +1265,16 @@ Options:
   -h, --help          this help
   -o, --output=FILE   set output filename to FILE
   -v, --version       version information
-
+  -s, --strict        be strict about succes.
+  
 This program converts ABC music files (see
 http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.
+
+
+Report bugs to bug-gnu-music@gnu.org
+
+Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>, Laura Conrad
+<lconrad@laymusic.org>, Roy Rankin <Roy.Rankin@@alcatel.com.au>
 """
 
 def print_version ():
@@ -1256,7 +1282,7 @@ def print_version ():
 
 
 
-(options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
+(options, files) = getopt.getopt (sys.argv[1:], 'vo:hs', ['help','version', 'output=', 'strict'])
 out_filename = ''
 
 for opt in options:
@@ -1265,11 +1291,12 @@ for opt in options:
 	if o== '--help' or o == '-h':
 		help ()
 		sys.exit (0)
-	if o == '--version' or o == '-v':
+	elif o == '--version' or o == '-v':
 		print_version ()
 		sys.exit(0)
-		
-	if o == '--output' or o == '-o':
+	elif o == '--strict' or o == '-s':
+		strict = 1
+	elif o == '--output' or o == '-o':
 		out_filename = a
 	else:
 		print o
