@@ -1,12 +1,10 @@
 //
-// midi-main.cc -- implement silly main() entry point
+// main.cc -- implement silly main() entry point
 // should have Root class.
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
-#include "fversion.hh"
-#include "version.hh"
+#include "mi2mu.hh"
 
 Source source;
 Source* source_l_g = &source;
@@ -30,7 +28,7 @@ find_file( String str )
 void
 message( String message_str, char const* context_ch_c_l )
 {
-    String str = "m2m: ";
+    String str = "mi2mu: ";
     Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_c_l );
     if ( sourcefile_l ) {
 	str += sourcefile_l->file_line_no_str(context_ch_c_l) + String(": ");
@@ -41,7 +39,7 @@ message( String message_str, char const* context_ch_c_l )
 	str += sourcefile_l->error_str( context_ch_c_l );
     }
 //    if ( busy_parsing() )
-//    	cerr << endl;
+    cerr << endl; // until we have fine output manager...
     cerr << str << endl;
 }
 
@@ -88,7 +86,7 @@ notice()
 {
     mtor <<
 	"\n"
-	"M2m, translate midi to mudela.\n"
+	"Mi2mu, translate midi to mudela.\n"
 	"Copyright (C) 1997 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 //	"Contributors\n"
@@ -108,15 +106,6 @@ notice()
 	"GNU General Public License along with this program; if not, write to\n"
 	"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
 	"USA.\n";
-}
-
-// should simply have Root class...
-String
-version_str()
-{
-	return String ( "This is m2m " ) + VERSIONSTR 
-		+ "/FlowerLib " + FVERSIONSTR
-		+ " of " +  __DATE__ + " " + __TIME__;
 }
 
 int

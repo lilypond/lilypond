@@ -82,6 +82,7 @@ public:
 	Duration i2_dur( int time_i, int division_1_i );
 	int clocks_1_i();
 	virtual String mudela_str( bool command_mode_bo );
+	Moment bar_mom();
 
 private:
 	Real sync_f_;

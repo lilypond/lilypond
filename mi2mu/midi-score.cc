@@ -3,7 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 Midi_score::Midi_score( int format_i, int tracks_i, int tempo_i )
 {
@@ -27,18 +27,21 @@ Midi_score::output_mudela( String filename_str )
 {
 	mtor << "Lily output to " << filename_str << " ..." << endl;
 
+	int track_i = 0;
 	Lily_stream lily_stream( filename_str );
-	for ( PCursor<Midi_track*> midi_track_l_pcur( midi_track_p_list_.top() ); midi_track_l_pcur.ok(); midi_track_l_pcur++ ) {
-		midi_track_l_pcur->output_mudela( lily_stream );
+	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
+		mtor << "track " << track_i++ << ": " << flush;
+		i->output_mudela( lily_stream );
 		lily_stream.newline();
+		mtor << endl;
 	}
 
 	lily_stream << "score {";
 	lily_stream.newline();
 
-	for ( PCursor<Midi_track*> midi_track_l_pcur( midi_track_p_list_.top() ); midi_track_l_pcur.ok(); midi_track_l_pcur++ ) {
+	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
 		lily_stream << "\tstaff { melodic music { ";
-		lily_stream << midi_track_l_pcur->name_str();
+		lily_stream << i->name_str();
 		lily_stream << " } }";
 		lily_stream.newline();
 	}
@@ -66,7 +69,11 @@ Midi_score::output_mudela( String filename_str )
 void
 Midi_score::process()
 {
-	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) 
+	int track_i = 0;
+	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ )  {
+		mtor << "track " << track_i++ << ": " << flush;
 		i->process();
+		mtor << endl;
+	}
 }
 

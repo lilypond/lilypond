@@ -1,5 +1,5 @@
 //
-// midi-template.cc -- implementemplate
+// template.cc -- implementemplate
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
@@ -13,7 +13,7 @@ L_instantiate(void *);
 class istream;
 class ostream;
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 #include "plist.hh"
 #include "plist.tcc"
 

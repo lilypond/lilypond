@@ -3,7 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 void
 yyerror(char const* sz_l )
@@ -26,6 +26,7 @@ My_midi_parser::My_midi_parser( String filename_str )
 	midi_tempo_p_ = 0;
 	midi_time_p_ = 0;
 	track_i_ = 0;
+	bar_i_ = 1;
 	reset();
 }
 
@@ -50,6 +51,7 @@ My_midi_parser::reset()
 	delete midi_time_p_;
 	midi_time_p_ = new Midi_time( 4, 4, 384, 8 );
 	now_i64_ = 0;
+	bar_i_ = 1;
 
 	copyright_str_ = "";
 	track_name_str_ = "";
@@ -67,6 +69,7 @@ My_midi_parser::add_score( Midi_score* midi_score_p )
 	assert( !midi_score_p_ );
 	midi_score_p_ = midi_score_p;
 	track_i_ = 0;
+	bar_i_ = 1;
 }
 
 void
@@ -102,7 +105,7 @@ My_midi_parser::note_begin( int channel_i, int pitch_i, int dyn_i )
 Midi_event*
 My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
 {
-	Int64 start_i64 = running_i64_i64_a_[ channel_i ][ pitch_i ];
+	I64 start_i64 = running_i64_i64_a_[ channel_i ][ pitch_i ];
 
 //	running_i64_i64_a_[ channel_i ][ pitch_i ] = -1;
 //	assert( start_i64 != -1 ); // did we start?
@@ -114,6 +117,7 @@ int
 My_midi_parser::output_mudela( String filename_str )
 {
 	assert( midi_score_p_ );
+	mtor << "\nProcessing..." << endl;
 	midi_score_p_->process();
 	return midi_score_p_->output_mudela( filename_str );
 }
@@ -121,6 +125,7 @@ My_midi_parser::output_mudela( String filename_str )
 int
 My_midi_parser::parse()
 {
+	mtor << "\nParsing..." << flush;
 	return ::yyparse();
 }
 

@@ -3,7 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 Midi_event::Midi_event()
 {
@@ -25,10 +25,10 @@ Midi_key::Midi_key( int accidentals_i, int minor_i )
 {
 	accidentals_i_ = accidentals_i;
 	minor_i_ = minor_i;
-	if ( !minor_i_ )
-		key_i_ = ( ( accidentals_i % 7 )[ "cgdaebf" ] - 'a' + 2 ) % 7;
+	if ( accidentals_i >= 0 )
+		key_i_ = ( ( accidentals_i % 7 )[ "cgdaebf" ] - 'a' - 2 ) % 7;
 	else
-		key_i_ = ( ( -accidentals_i % 7 )[ "fbeadg" ] - 'a' + 2 ) % 7;
+		key_i_ = ( ( -accidentals_i % 7 )[ "cfbeadg" ] - 'a' - 2 ) % 7;
 }
 
 String
@@ -36,11 +36,12 @@ Midi_key::mudela_str( bool command_mode_bo )
 {
 	String str = "key\\";
 	if ( !minor_i_ ) 
-		str += String( (char)( key_i_ - 2 + 'A'  ) );
-	else
-		str += String( (char)( key_i_ - 2 + 'a'  ) );
+		str += String( (char)( ( key_i_ + 2 ) % 7 + 'A'  ) );
+	else // heu, -2: should be - 1 1/2: A -> fis
+		str += String( (char)( ( key_i_ + 2 - 2 ) % 7 + 'a'  ) );
 	if ( !command_mode_bo )
 	    str =  String( '\\' ) + str;
+	str = String( "%" ) + str + "\n"; // "\key\F" not supported yet...
 	return str;
 }
 
@@ -57,12 +58,12 @@ Midi_key::notename_str( int pitch_i )
 	
 	static int accidentals_i_a[ 12 ] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
 	int accidental_i = accidentals_i_a[ minor_i_ * 5 + pitch_i % 12 ];
-	if ( accidentals_i_ < 0 ) {
+	if ( accidental_i && ( accidentals_i_ < 0 ) ) {
 		accidental_i = - accidental_i;
 		notename_i = ( notename_i + 1 ) % 7;
 	}
 
-	String notename_str = (char)( ( ( notename_i + key_i_ - 2 ) % 7 ) + 'a' );
+	String notename_str = (char)( ( ( notename_i + 2 ) % 7 ) + 'a' );
 	while ( accidental_i-- > 0 )
 		notename_str += "is";
 	accidental_i++;
@@ -75,7 +76,7 @@ Midi_key::notename_str( int pitch_i )
 	String octave_str;
 
 	octave_str += String( '\'', ( pitch_i - Midi_note::c0_pitch_i_c_ ) / 12 );
-	octave_str += String( '`', ( Midi_note::c0_pitch_i_c_ - pitch_i ) / 12 );
+	octave_str += String( '`', ( Midi_note::c0_pitch_i_c_ + 11 - pitch_i ) / 12 );
 	return octave_str + notename_str;
 }
 
@@ -124,7 +125,9 @@ Midi_note::mom()
 Midi_tempo::Midi_tempo( int useconds_per_4_i )
 {
 	useconds_per_4_i_ = useconds_per_4_i;
-	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 4 / 1e6;
+// huh, is it not per 4?
+//	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 4 / 1e6;
+	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 8 / 1e6;
 }
 
 String
@@ -170,6 +173,12 @@ Midi_time::Midi_time( int num_i, int den_i, int clocks_4_i, int count_32_i )
 	num_i_ = num_i;
 	den_i_ = 2 << den_i;
 	clocks_1_i_ = clocks_4_i * 4; 
+}
+
+Moment
+Midi_time::bar_mom()
+{
+	return Moment( num_i_ ) * Duration_convert::dur2_mom( Duration( den_i_ ) );
 }
 
 int

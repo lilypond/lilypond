@@ -3,7 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 Midi_track::Midi_track( int number_i, String copyright_str, String track_name_str, String instrument_str )
 {
@@ -21,8 +21,10 @@ void
 Midi_track::add_begin_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( midi_voice_p_list_.top() ); i.ok(); i++ )
-		if ( i->begin_mom() == mom )
+		if ( i->begin_mom() == mom ) {
+			dtor << "open_voices (" << open_voices_r.size() << "): +1\n";
 			open_voices_r.bottom().add( *i );
+		}
 }
 
 void
@@ -53,9 +55,9 @@ Midi_track::end_mom()
 Midi_voice*
 Midi_track::get_free_midi_voice_l( Moment mom )
 {
-	for ( PCursor<Midi_voice*> midi_voice_l_pcur( midi_voice_p_list_.top() ); midi_voice_l_pcur.ok(); midi_voice_l_pcur++ )
-		if ( midi_voice_l_pcur->end_mom() == mom )
-			return *midi_voice_l_pcur;
+	for ( PCursor<Midi_voice*> i( midi_voice_p_list_.top() ); i.ok(); i++ )
+		if ( i->end_mom() == mom )
+			return *i;
 
 	Midi_voice* midi_voice_p = new Midi_voice( mom );
 	Midi_voice* midi_voice_l = midi_voice_p;
@@ -88,13 +90,24 @@ Midi_track::next_end_mom( Moment now_mom )
 void
 Midi_track::process()
 {
-	for ( PCursor<Track_column*> tcol_l_pcur( tcol_p_list_.top() ); tcol_l_pcur.ok(); tcol_l_pcur++ )
-		while ( tcol_l_pcur->midi_event_p_list_.size() ) 
+	int bar_i = 1;
+	Moment bar_mom = midi_parser_l_g->midi_time_p_->bar_mom();
+
+	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
+		int bars_i = (int)( i->mom() / bar_mom );
+		if ( bars_i > bar_i )
+			mtor << '[' << bar_i << flush; 
+		while ( i->midi_event_p_list_.size() ) 
 			// shit, where has the T* PCursor::remove() gone??
 			// i don-t want to get and delete, 
 			// i want to (re)move!
 			// is it renamed: get vs add/insert ?? (put/remove :-)	
-			get_free_midi_voice_l( tcol_l_pcur->mom() )->add_event( tcol_l_pcur->midi_event_p_list_.top().remove_p() );
+			get_free_midi_voice_l( i->mom() )->add_event( i->midi_event_p_list_.top().remove_p() );
+		if ( bars_i > bar_i ) {
+			bar_i++;
+			mtor << ']' << flush; 
+		}
+	}
 
 	dtor << "ends: " << endl;
 	int n = 0;
@@ -114,10 +127,16 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 	lily_stream_r << "% instrument:" << instrument_str_;
 	lily_stream_r.newline();
 
+	int bar_i = 1;
+	Moment bar_mom = midi_parser_l_g->midi_time_p_->bar_mom();
+
 	PointerList<Midi_voice*> open_voices;
 	Moment now_mom = 0.0;
 	Moment then_mom = 0.0;
 	while ( now_mom < end_mom() ) {
+		int bars_i = (int)( now_mom / bar_mom );
+		if ( bars_i > bar_i )
+			mtor << '[' << bar_i << flush; 
 		add_begin_at( open_voices, now_mom );
 
 		Moment begin_mom = next_begin_mom( now_mom ); 
@@ -139,6 +158,10 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 		now_mom = then_mom;
 
 		remove_end_at( open_voices, now_mom );
+		if ( bars_i > bar_i ) {
+			bar_i++;
+			mtor << ']' << flush; 
+		}
 	}
 	lily_stream_r.tnedni();
 	lily_stream_r << "$} % " << name_str_;
@@ -149,31 +172,23 @@ void
 Midi_track::remove_end_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( open_voices_r.top() ); i.ok(); i++ )
-		if ( i->end_mom() == mom ) {
+		if ( i->end_mom() <= mom ) {
+			dtor << "open_voices (" << open_voices_r.size() << "): -1\n";
 			i.remove_p();  // remove? // no delete; only a copy
 			if ( !i.ok() )
 				break;
 		}
-//			i.del();  // remove? // no delete; only a copy
-// plist is breendet
-// duh, del and get will do a ++, but will fail if they render list empty
-//		if ( i->end_mom() == mom ) {
-//			if ( i->size() > 1 )
-//				i.del();
-//			else
-//				i.junk(); // what-s in a name? (sic)
-//		}
 }
 
 Track_column*
 Midi_track::tcol_l( Moment mom )
 {
-	for ( PCursor<Track_column*> tcol_l_pcur( tcol_p_list_.top() ); tcol_l_pcur.ok(); tcol_l_pcur++ ) {
-    		if ( tcol_l_pcur->mom() == mom )
-			return *tcol_l_pcur;
-		if ( tcol_l_pcur->mom() > mom ) {
+	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
+    		if ( i->mom() == mom )
+			return *i;
+		if ( i->mom() > mom ) {
 			Track_column* tcol_p = new Track_column( mom );
-			tcol_l_pcur.insert( tcol_p );
+			i.insert( tcol_p );
 			return tcol_p;
 		}
 	}

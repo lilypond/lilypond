@@ -31,6 +31,7 @@ public:
 	void set_tempo( int useconds_i );
 	void set_time( int num_i, int den_i, int clocks_i, int count_32_i );
 
+	int bar_i_;
 	int track_i_;
 	String filename_str_;
 	String copyright_str_;
@@ -42,11 +43,11 @@ public:
 	Midi_time* midi_time_p_;
 
 private:
-	Int64 now_i64_;	// 31 bits yields tipically about 1000 bars
+	I64 now_i64_;	// 31 bits yields tipically about 1000 bars
 
 	static int const CHANNELS_i = 16;
 	static int const PITCHES_i = 128;
-	Int64 running_i64_i64_a_[ CHANNELS_i ][ PITCHES_i ];
+	I64 running_i64_i64_a_[ CHANNELS_i ][ PITCHES_i ];
 
 	Midi_score* midi_score_p_;
 	int division_1_i_;

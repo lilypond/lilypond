@@ -3,7 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
-#include "m2m.hh"
+#include "mi2mu.hh"
 
 Midi_voice::Midi_voice( Moment begin_mom )
 {

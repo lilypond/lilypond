@@ -1,5 +1,5 @@
 //
-// m2m.hh -- generic m2m include file
+// mi2mu.hh -- generic mi2mu include file
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
@@ -45,7 +45,6 @@
 
 #include "lily-stream.hh"
 #include "midi-event.hh"
-#include "midi-main.hh"
 #include "midi-score.hh"
 #include "midi-track.hh"
 #include "midi-voice.hh"

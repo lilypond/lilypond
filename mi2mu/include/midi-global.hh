@@ -1,5 +1,5 @@
 //
-// midi-global.hh -- declare global (sic) stuff for m2m
+// midi-global.hh -- declare global (sic) stuff for mi2mu
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
