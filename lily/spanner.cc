@@ -19,14 +19,11 @@ Spanner::do_print()const
 {
 #ifndef NPRINT
     mtor << "Between col ";
-// huh? this does not work 
-//    mtor << ( left_col_l_ ? left_col_l_->rank_i() : "nop" );
     if ( left_col_l_ )
     	mtor << left_col_l_->rank_i();
     else 
 	mtor << "nop";
     mtor << ", ";
-//    mtor << ( right_col_l_ ? right_col_l_->rank_i() : "nop" );
     if ( right_col_l_ )
     	mtor << right_col_l_->rank_i();
     else 
@@ -37,7 +34,7 @@ Spanner::do_print()const
 }
 
 void
-Spanner::break_into_pieces()
+Spanner::break_into_pieces(bool copy_deps_b)
 {
     PCol * left = left_col_l_;
     PCol * right = right_col_l_;
@@ -53,6 +50,8 @@ Spanner::break_into_pieces()
 
     for (int i=1; i < break_cols.size(); i++) {
 	Spanner* span_p = clone()->spanner();
+	if (copy_deps_b)
+	    span_p->copy_dependencies( *this );
 	left = break_cols[i-1];
 	right = break_cols[i];
 	if (!right->line_l_)
@@ -68,21 +67,26 @@ Spanner::break_into_pieces()
 	pscore_l_->typeset_broken_spanner(span_p);
 	broken_into_l_arr.push( span_p );
     }
-    
+     
     broken_into_l_arr_ = broken_into_l_arr;
 }
 
 void
-Spanner::do_break_processing()
+Spanner::set_my_columns()
 {
-    if (!left_col_l_->line_l_)
+  if (!left_col_l_->line_l_)
 	left_col_l_ = left_col_l_->postbreak_p_;
     if (!right_col_l_->line_l_)
 	right_col_l_ = right_col_l_->prebreak_p_;
-     
+}       
+
+void
+Spanner::do_break_processing()
+{
+    set_my_columns();
     
     if (!line_l()) {
-	break_into_pieces();
+	break_into_pieces(true);
 	for (int i=0; i < broken_into_l_arr_.size(); i++)
 	    broken_into_l_arr_[i]->handle_broken_dependencies();
     } else { 
