@@ -71,6 +71,9 @@ New_lyric_combine_music_iterator::start_new_syllable ()
   if (!b)
     return false;
 
+  if (!lyrics_context_)
+    construct_children ();
+  
   if (!to_boolean (lyrics_context_->get_property ("ignoreMelismata")))
     {
       bool m = music_context_->try_music (melisma_playing_ev);
@@ -159,12 +162,15 @@ New_lyric_combine_music_iterator::construct_children ()
   Music *m = unsmob_music (get_music ()->get_mus_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
 
-  if (lyric_iter_)
-    {
-      lyrics_context_ = find_context_below (lyric_iter_->report_to (), "LyricsVoice", "");
-    }
-
   find_thread ();
+  
+  if (lyric_iter_)
+    lyrics_context_ = find_context_below (lyric_iter_->report_to (),
+					  "LyricsVoice", "");
+  
+  if (music_context_ && !lyrics_context_)
+    lyrics_context_ = music_context_
+      ->find_create_translator (ly_symbol2scm ("LyricsVoice"), "", SCM_EOL);
 }
 
 void
@@ -180,19 +186,21 @@ New_lyric_combine_music_iterator::find_thread ()
 	  while (t && t->daddy_trans_)
 	    t = t->daddy_trans_;
 
-	  String name =  ly_scm2string (voice_name);
-	  Translator_group* voice = find_context_below (t, "Voice", name);
+	  String name = ly_scm2string (voice_name);
+	  Translator_group *voice = find_context_below (t, "Voice", name);
 	  Translator_group *thread = 0;
 	  if (voice)
 	    thread = find_context_below (voice, "Thread", "");
 	  else
-	    get_music ()->origin ()->warning (_f("Cannot find Voice: %s\n", name.to_str0())); 
+	    get_music ()->origin ()->warning (_f ("Cannot find Voice: %s\n",
+						  name.to_str0 ())); 
 
 	  if (thread)
 	    music_context_ = thread;
 	    
 	  if (lyrics_context_ && voice)
-	    lyrics_context_->set_property ("associatedVoiceContext",  voice->self_scm ());
+	    lyrics_context_->set_property ("associatedVoiceContext",
+					   voice->self_scm ());
 	}
     }
 }

@@ -1,3 +1,12 @@
+2004-02-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/new-lyric-combine-music-iterator.cc (start_new_syllable):
+	Construct children before accessing property from emtpy
+	lyrics_context_.
+	(construct_children): Find thread before finding LyricsVoice.
+	Create LyricsVoice one if none found, fixes crash (thanks Erik
+	Sandberg).
+
 2004-01-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/: Forward port.
