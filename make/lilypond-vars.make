@@ -2,7 +2,7 @@
 ## settings to run LilyPond
 
 
-export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfbase):$(PATH)
+export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfbase):$(builddir)/scripts/$(outconfbase):$(PATH):
 
 # LilyPond is often run from within $(outdir), making a relative
 # PREFIX incorrect.
