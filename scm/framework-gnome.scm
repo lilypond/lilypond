@@ -227,13 +227,13 @@
   (let* ((grob (hashq-ref (item-grobs go) item #f))
 	 (extra-offset (ly:grob-property grob 'extra-offset))
 	 (origin (if (null? extra-offset) '(0 . 0)
-		     (cons (car extra-offset)
-			   (- 0 (cdr extra-offset))))))
+		     (offset-flip-y extra-offset))))
     
     (if grob
-	(ly:insert-tweak grob  (list tweak-grob-property
-				     'extra-offset
-				     (offset-add origin offset))))))
+	(ly:insert-tweak
+	 grob (list tweak-grob-property
+		    'extra-offset
+		    (offset-flip-y (offset-add origin offset)))))))
 
 (define-method (save-tweaks (go <gnome-outputter>))
   (let* ((dumper (ly:make-dumper))
