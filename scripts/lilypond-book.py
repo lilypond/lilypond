@@ -805,8 +805,6 @@ def schedule_lilypond_block (chunk):
 		else:
 			s = 'output-tex'
 	else: # format == 'texi'
-		if os.path.isfile (pathbase + '.texidoc'):
-			newbody = newbody + '\n@include %s.texidoc' % basename
  		s = 'output-all'
 	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
@@ -999,6 +997,30 @@ Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.
 """)
 
+
+def check_texidoc (chunks):
+	n = []
+        for c in chunks:
+	        if c[0] == 'lilypond':
+			(type, body, opts, todo, basename) = c;
+			pathbase = os.path.join (g_outdir, basename)
+			if os.path.isfile (pathbase + '.texidoc'):
+				body = '\n@include %s.texidoc' % basename + body
+				c = (type, body, opts, todo, basename)
+		n.append (c)
+	return n
+
+def fix_epswidth (chunks):
+	newchunks = []
+	for c in chunks:
+		if c[0] == 'lilypond' and 'eps' in c[2]:
+			body = re.sub (r"""\\lilypondepswidth{(.*?)}""", find_eps_dims, c[1])
+			# why do we junk opts, todo, basename?
+			new_chunk = (('lilypond', body))
+		newchunks.append (c)
+	return newchunks
+
+
 def do_file(input_filename):
 	file_settings = {}
 	if outname:
@@ -1019,18 +1041,15 @@ def do_file(input_filename):
 	#sys.exit()
 	scan_preamble(chunks)
 	chunks = process_lilypond_blocks(my_outname, chunks)
+
 	# Do It.
 	if __main__.g_run_lilypond:
 		compile_all_files (chunks)
-		newchunks = []
-		# finishing touch.
-		for c in chunks:
-			if c[0] == 'lilypond' and 'eps' in c[2]:
-				body = re.sub (r"""\\lilypondepswidth{(.*?)}""", find_eps_dims, c[1])
-				newchunks.append (('lilypond', body))
-			else:
-				newchunks.append (c)
-		chunks = newchunks
+		chunks = fix_epswidth (chunks)
+
+	if __main__.format == 'texi':
+		chunks = check_texidoc (chunks)
+
 	x = 0
 	chunks = completize_preamble (chunks)
 	foutn = os.path.join(g_outdir, my_outname + '.' + format)
