@@ -65,36 +65,6 @@ b
 
 
 
-
-@iftex
-@macro separate 
-@c I want some space over here,  not silly characters.
-@tex
-@end tex
-@end macro
-@end iftex
-
-@c \heartsf was supposed to be filled?
-
-@c center*** is broken?
-
-@ifinfo
-@macro separate
-
-@quotation
-@end quotation
-@end macro
-@end ifinfo
-
-@ifhtml
-@macro separate
-@html
-<p></p><br><br>
-@end html
-@end macro
-@end ifhtml
-
-
 @c dup?
 @ifhtml
 @macro internalsref{NAME}
