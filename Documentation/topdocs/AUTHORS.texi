@@ -55,10 +55,9 @@ list is alphabetically ordered.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
     Main author (initials: JCN).
-@item @email{pinard@@iro.umontreal.ca, Francois Pinard},
+@item @email{pinard@@iro.umontreal.ca, Fran@,{c}ois Pinard},
     @uref{http://www.iro.umontreal.ca/~pinard/},
     parts of Documentation/user/glossary*, started internationalization stuff.
-@c urg: @c,{} in @email{} barfs.
 @item @email{gperciva@@sfu.ca, Graham Percival},
     @uref{http://www.sfu.ca/~gperciva/},
     minor documentation fixes.

@@ -10,8 +10,21 @@ PostScript} and @uref{music-glossary.pdf,PDF}.
 
 @titlepage
 @title Music Glossary
-@author Christian Mondrup
-@c License PD, BSD-ish, GNU GPL, GNU FDL?
+@author Christian Mondrup   @c Original author of LilyPond glossary
+@c                             Danish glossary
+@author Fran@,{c}ois Pinard @c Original glossary of GNU music project,
+@c                             French glossary
+@author Han-Wen Nienhuys    @c Dutch glossary
+@author Jan Nieuwenhuizen   @c Dutch glossary
+@author Dadiv Gonzalez      @c Spanish glossary
+@author Bjoern Jacke        @c German glossary
+@author Neil Jerram         @c English glossary translations
+@author Mats Bengtsson      @c Swedish glossary
+@author Adrian Mariano      @c Italian glossary
+
+@c Fixes by  Jean-Pierre Coulon and `Dirk'
+@c Norwegian?
+
 
 Copyright @copyright{} 1999--2004 by the authors
 
@@ -24,7 +37,7 @@ Copyright @copyright{} 1999--2004 by the authors
 @end titlepage
 
 
-
+@c FIXME: multiple omfcreators?
 @ignore
 @omfcreator Christian Mondrup
 @omfdescription Glossary of musical terms with translations
@@ -42,7 +55,26 @@ Copyright @copyright{} 1999--2004 by the authors
 @end ifnottex
 
 @ifnottex
-Christian Mondrup
+@table @code
+@item Adrian Mariano
+Italian glossary,
+@item Bjoern Jacke
+German glossary,
+@item Christian Mondrup
+Original author of LilyPond glossary, Danish glossary,
+@item Dadiv Gonzalez
+Spanish glossary,
+@item Fran@,{c}ois Pinard
+Original glossary of GNU music project, French glossary,
+@item Han-Wen Nienhuys
+Dutch glossary,
+@item Jan Nieuwenhuizen
+Dutch glossary,
+@item Mats Bengtsson
+Swedish glossary,
+@item Neil Jerram
+English glossary translations.
+@end table
 @*
 Copyright 1999--2004 by the authors
 
