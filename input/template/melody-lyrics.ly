@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 \header {
   texidoc = "Melody and lyrics."
@@ -18,7 +18,7 @@ text = \lyrics {
 	  \property Staff.autoBeaming = ##f
 	  \melody
       }
-      \lyricsto "one" \new LyricsVoice \text
+      \lyricsto "one" \new Lyrics \text
   >>
   \paper { }
   \midi  { }

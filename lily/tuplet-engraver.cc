@@ -65,10 +65,6 @@ Tuplet_engraver::try_music (Music *c)
 void
 Tuplet_engraver::process_acknowledged_grobs ()
 {
-  SCM v = get_property ("tupletInvisible");
-  if (to_boolean (v))
-    return;
-
   for (int i= 0; i < time_scaled_musics_.size (); i++)
     {
       if (i < started_spanners_.size () && started_spanners_[i])
@@ -161,5 +157,5 @@ ENTER_DESCRIPTION(Tuplet_engraver,
 /* creats*/       "TupletBracket",
 /* accepts */     "time-scaled-music",
 /* acks  */      "note-column-interface",
-/* reads */       "tupletNumberFormatFunction tupletSpannerDuration tupletInvisible",
+/* reads */       "tupletNumberFormatFunction tupletSpannerDuration",
 /* write */       "");

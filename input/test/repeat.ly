@@ -1,8 +1,8 @@
-\version "2.1.19"
+\version "2.1.21"
 
 % possible rename to lyric-repeat or repeat-lyric.
 
-\header{ texidoc = "@cindex Repeat LyricsVoice
+\header{ texidoc = "@cindex Repeat Lyrics
 You can use alternate lyrics as well as alternate notes for repeats. "
 }
 
@@ -13,7 +13,7 @@ You can use alternate lyrics as well as alternate notes for repeats. "
 			  \repeat "volta" 2 { g a b c }
 			  \alternative { { c b a g } { f e d c } }
 		  }
-		  \context LyricsVoice \lyrics {
+		  \context Lyrics \lyrics {
 			  De eer- ste << { maat } { moet } >>
 			  \repeat fold 2 { }
 			  \alternative {

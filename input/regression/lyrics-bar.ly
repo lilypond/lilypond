@@ -1,8 +1,8 @@
-\version "2.1.19"
+\version "2.1.21"
 
 \header{
 texidoc="
-Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
+Adding a @code{Bar_engraver} to the Lyrics context makes sure that
 lyrics don't collide with barlines.
 "
 }
@@ -13,11 +13,11 @@ lyrics don't collide with barlines.
 	        b1 \bar "|:" b1 \bar ":|"
 	}
 	\lyrics <<
-	 	\context LyricsVoiceWithBars {
+	 	\context LyricsWithBars {
 %		        thisContextHasBarEngraver1  added
 		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  Here.
 		}
-		\context LyricsVoice {
+		\context Lyrics {
 		        this4 one has no BarEngraverAddedToContext1
 		}
 	>>
@@ -27,12 +27,12 @@ lyrics don't collide with barlines.
 		raggedright = ##t
 		\translator {
 			\ScoreContext
-			\accepts "LyricsVoiceWithBars"
+			\accepts "LyricsWithBars"
 		}
 		\translator {
-			\LyricsVoiceContext
+			\LyricsContext
 			\consists "Bar_engraver"
-			\name "LyricsVoiceWithBars"
+			\name "LyricsWithBars"
 		}
 	}
 }

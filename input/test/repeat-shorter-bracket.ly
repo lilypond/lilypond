@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 \header{
     texidoc="
 
@@ -22,7 +22,7 @@ can be shortened.
 	    \alternative { { e e e e f f f f }
 			   { g g g g } }
 	}
-	\context LyricsVoice \lyrics{
+	\context Lyrics \lyrics{
 	    intro1
 	    \repeat fold 5 { }
 	    \alternative {

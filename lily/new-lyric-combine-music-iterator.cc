@@ -170,10 +170,10 @@ New_lyric_combine_music_iterator::construct_children ()
   
   if (lyric_iter_)
     lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
-					  "LyricsVoice", "");
+					  "Lyrics", "");
 
   /*
-    We do not create a LyricsVoice context, because the user might
+    We do not create a Lyrics context, because the user might
     create one with a different name, and then we will not find that
     one.
    */
