@@ -4,55 +4,18 @@
 #include "string.hh"
 
 
-const Real INFTY = HUGE;
 
-void
-Interval::set_empty() {
-    min = INFTY;
-    max = -INFTY;
-}
-
-Real
-Interval::length() const {
-    assert(max >= min);
-    return max-min;
-}
-
-void
-Interval::unite(Interval h)
-{
-    compare(h, *this );
-    if (h.min<min)
-	min = h.min;
-    if (h.max>max)
-	max = h.max;
-}
-
-void
-Interval::intersect(Interval h)
-{
-    min = MAX(h.min, min);
-    max = MIN(h.max, max);
-}
-
-Interval
-intersection(Interval a, Interval const&b)
-{
-    a.intersect(b);
-    return a;
-    
-}
-
+template<class T>
 int
-Interval::compare(const Interval&a,Interval const&b)
+Interval__compare(const Interval_t<T>&a,Interval_t<T> const&b)
 {
-    if (a.min == b.min && a.max == b.max)
+    if (a.left == b.left && a.right == b.right)
 	return 0;
     
-    if (a.min <= b.min && a.max >= b.max)
+    if (a.left <= b.left && a.right >= b.right)
 	return 1;
 
-    if (a.min >= b.min && a.max <= b.max)
+    if (a.left >= b.left && a.right <= b.right)
 	return -1;
 
     assert(false);		// not comparable
@@ -60,24 +23,71 @@ Interval::compare(const Interval&a,Interval const&b)
     return 0;
 }
 
-Interval
-intersect(Interval x, Interval const &y)
+const Real INFTY = HUGE;
+
+template<class T>
+void
+Interval_t<T>::set_empty() {
+    left = INFTY;
+    right = -INFTY;
+}
+
+template<class T>
+T
+Interval_t<T>::length() const {
+    assert(right >= left);
+    return right-left;
+}
+
+template<class T>
+void
+Interval_t<T>::unite(Interval_t<T> h)
+{
+    if (h.left<left)
+	left = h.left;
+    if (h.right>right)
+	right = h.right;
+}
+
+/**
+  smallest Interval which includes *this and #h#
+ */
+
+template<class T>
+void
+Interval_t<T>::intersect(Interval_t<T> h)
+{
+#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
+    left = h.left >? left;
+    right = h.right <?right;
+#else
+    left = max(h.left, left);
+    right = min(h.right, right);
+#endif
+}
+
+template<class T>
+Interval_t<T>
+intersect(Interval_t<T> x, Interval_t<T> const &y)
 {
     x.intersect(y);
     return x;
 }
-    
+
+template<class T>
 String
-Interval::str() const
+Interval_t<T>::str() const
 {
     if (empty())
 	return "[empty]";
     String s("[");
  
-    return s + min + "," + max +"]";
+    return s + left + "," + right +"]";
 }
+
+template<class T>
 bool
-Interval::elt_q(Real r)
+Interval_t<T>::elt_q(T r)
 {
-    return r >= min && r <= max;
+    return r >= left && r <= right;
 }
