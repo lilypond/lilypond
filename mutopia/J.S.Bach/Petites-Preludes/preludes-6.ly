@@ -31,11 +31,11 @@
   
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 
 
-one = \context Staff \notes\relative c{
+one =  \context Staff \notes\relative c{
 	\context Voice=i
 	\skip 1; |
 	\stemUp
@@ -57,7 +57,7 @@ one = \context Staff \notes\relative c{
 	\bar "|.";
 }
 
-two = \context Staff \notes\relative c{
+two =  \context Staff \notes\relative c{
 	\context Voice=ii
 	r16 d'' c bes  a bes f g 
 	a8.-\mordent bes16  g8.-\prall f16 |
@@ -77,7 +77,7 @@ two = \context Staff \notes\relative c{
 	fis1
 }
 
-three = \context Staff \notes\relative c{
+three =  \context Staff \notes\relative c{
 	\context Voice=iii
 	\stemUp
 	f2 e |
@@ -100,7 +100,7 @@ three = \context Staff \notes\relative c{
 	\bar "|.";
 }
 
-four = \context Staff \notes\relative c{
+four =  \context Staff \notes\relative c{
 	\context Voice=iv
 	\stemDown 
 	d2 cis |
@@ -122,7 +122,7 @@ four = \context Staff \notes\relative c{
 	d,1
 }
 
-global = \notes{
+global =  \notes{
 	\time 4/4;
 	\key f \major;
 }

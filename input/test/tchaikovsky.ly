@@ -1,13 +1,13 @@
 \header{
-filename =	"tchaikovsky.ly";
-title =		"Extracts from 6th symphony";
-subtitle =	"Ist movement";
+filename = 	"tchaikovsky.ly";
+title = 		"Extracts from 6th symphony";
+subtitle = 	"Ist movement";
 composer=	"Pjotr Iljitsj Tchaikovsky";
-enteredby = 	"Maarten Storm";
+enteredby =  	"Maarten Storm";
 instrument=	"Violoncello";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 % this is an example of extreme dynamics
 

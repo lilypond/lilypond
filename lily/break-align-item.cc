@@ -219,6 +219,4 @@ Break_align_interface::set_interface (Grob*me)
 {
   Align_interface::set_interface (me); 
   Align_interface::set_axis (me,X_AXIS);
-
-
 }

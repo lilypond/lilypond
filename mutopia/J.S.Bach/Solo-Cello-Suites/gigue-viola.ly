@@ -1,10 +1,10 @@
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "gigue-urtext.ly";
 
-gigue_viola_global = \notes{
+gigueViolaGlobal =  \notes{
 	\time 3/8;
 	\key f \major;
 	\clef alto;
@@ -23,17 +23,17 @@ gigue_viola_global = \notes{
 	}
 }
 
-gigue_viola_scripts = \notes{
+gigueViolaScripts =  \notes{
 }
 
-gigue_viola_staff = \context Staff <
-	\notes \transpose c' \$gigue
-	\$gigue_viola_global
-	\$gigue_viola_scripts
+gigueViolaStaff =  \context Staff <
+	\notes \transpose c' \gigue
+	\gigueViolaGlobal
+	\gigueViolaScripts
 >
 
 \score{
-	\$gigue_viola_staff
+	\gigueViolaStaff
 	\paper{
 		\translator{
 			\VoiceContext

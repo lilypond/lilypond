@@ -17,12 +17,10 @@
 #include "main.hh"
 #include "scope.hh"
 #include "file-results.hh" // urg? header_global_p
-#include "paper-stream.hh"
+#include "paper-outputter.hh"
 
 Paper_def::Paper_def ()
 {
-  style_sheet_ = SCM_EOL;
-  scaled_fonts_ = SCM_EOL;
 }
 
 Paper_def::~Paper_def ()
@@ -32,8 +30,6 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&src)
   : Music_output_def (src)
 {
-  scaled_fonts_ = SCM_EOL;
-  style_sheet_ = src.style_sheet_;
 }
 
 
@@ -106,45 +102,22 @@ Paper_def::reset_default_count()
 }
 
 
-Paper_stream*
-Paper_def::paper_stream_p () const
+Paper_outputter*
+Paper_def::paper_outputter_p () 
 {
-  String outname = base_output_str ();
-
+  String basename = base_output_str (); 
+  String outname = basename;
   if (outname != "-")
     outname += String (".") + output_global_ch;
   progress_indication (_f ("paper output to %s...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
   target_str_global_array.push (outname);
-  return new Paper_stream (outname);
+  Paper_outputter * po = new Paper_outputter (outname);
+  po->basename_ = basename;
+  return po;
 }
 
-
-/* URGURGUGUUGH
-
-   not const.
-
-   Wat een puinhoop is dit. */
-String
-Paper_def::base_output_str () const
-{
-  String str = get_default_output ();
-
-  if (str.empty_b ())
-    {
-      str = default_outname_base_global;
-      int def = get_next_default_count ();
-      if (def)
-	str += "-" + to_str (def);
-    }
-
-  /* Must store value, as this function can be called only once */
-  Paper_def *urg = (Paper_def*)this;
-  urg->current_output_base_ = str;
-
-  return str;
-}
 
 /*
   todo: use symbols and hashtable idx?

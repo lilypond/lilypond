@@ -24,7 +24,7 @@ protected:
   virtual bool try_music (Music *req_l) ;
 
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
   Global_translator* global_translator_l ();
 
 private:
@@ -36,7 +36,7 @@ private:
 ADD_THIS_TRANSLATOR (Note_performer);
 
 void 
-Note_performer::create_grobs ()
+Note_performer::create_audio_elements ()
 {
   if (note_req_l_arr_.size ())
     {

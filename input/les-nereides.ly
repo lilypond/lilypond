@@ -3,7 +3,7 @@ cpp -P -traditional -o l.ly les-nereides.ly
 cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
 \header{
     composer =   "ARTHUR GRAY";
@@ -30,7 +30,7 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
     ))
 
 
-global = \notes{
+global =  \notes{
     \partial 2;
     \key a \major;
     \skip 2;
@@ -46,7 +46,7 @@ global = \notes{
     \bar "||";
 }
 
-treble = \context Voice=treble \notes\relative c''{
+treble =  \context Voice=treble \notes\relative c''{
     % Broken?
     \property Voice.NoteColumn \override #'horizontal-shift = #0
     \outputproperty #(make-type-checker 'text-item-interface) 
@@ -174,7 +174,7 @@ treble = \context Voice=treble \notes\relative c''{
     r<a8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e r|
 }
 
-trebleTwo = \context Voice=trebleTwo \notes\relative c''{
+trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     \property Voice.NoteColumn \override #'horizontal-shift = #1
     s2
     s1*2
@@ -201,7 +201,7 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
     <)a cis,>]
 }
 
-bass = \context Voice=bass \notes\relative c{
+bass =  \context Voice=bass \notes\relative c{
     % Allow ugly slurs
     \property Voice.Slur \override #'beautiful = #5.0
     \property Voice.Slur \override #'attachment-offset = #'((0 . -3) . (0 . -6))
@@ -308,7 +308,7 @@ bass = \context Voice=bass \notes\relative c{
     )a]
 }
 
-bassTwo = \context Voice=bassTwo \notes\relative c{
+bassTwo =  \context Voice=bassTwo \notes\relative c{
     \skip 2;
     \skip 1*2;
     \skip 2;
@@ -325,7 +325,7 @@ bassTwo = \context Voice=bassTwo \notes\relative c{
     cis'4()bis
 }
 
-middleDynamics = \context Dynamics=middle \notes{
+middleDynamics =  \context Dynamics=middle \notes{
     s8 s16 s\f s4
     s1*2
     %4
@@ -355,7 +355,7 @@ middleDynamics = \context Dynamics=middle \notes{
     s8\mf s4 s4 s8\> s32 s s \!s
 }
 
-lowerDynamics = \context Dynamics=lower \notes{
+lowerDynamics =  \context Dynamics=lower \notes{
     s2
     %2
     s2\sustaindown s8. s16\sustainup s4

@@ -1,13 +1,13 @@
 \header {
-filename = "maccabaeus.ly";
-enteredby = "Peter Chubb";
-composer = "G. F. Handel";
-date = "1680";
-title = "Maccabaeus";
-metre = "10 11. 11 11. and refrain";
+filename =  "maccabaeus.ly";
+enteredby =  "Peter Chubb";
+composer =  "G. F. Handel";
+date =  "1680";
+title =  "Maccabaeus";
+metre =  "10 11. 11 11. and refrain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 sop=\notes \relative c'' {
 	b2 gis4. a8  |b2 e,2 |
@@ -75,13 +75,13 @@ bass=\notes \relative c {
 	fis4 [gis8 a] b4. e,8 | e1 \bar "|.";
 }
 
-global = \notes {
+global =  \notes {
 	\time 2/2;
 	\property Staff.timeSignatureStyle = "C"
 	\key e \major;
 }
 
-$upper_staff = \context Staff = upper {
+upperStaff =  \context Staff = upper {
 	\global
 	\clef "treble";
 	\context Staff <
@@ -90,7 +90,7 @@ $upper_staff = \context Staff = upper {
 	>
 }
 
-$lower_staff = \context Staff = lower {
+lowerStaff =  \context Staff = lower {
 	\global
 	\clef "bass";
 	\context Staff <
@@ -101,8 +101,8 @@ $lower_staff = \context Staff = lower {
 
 \score {
 	<
-		\$upper_staff
-		\$lower_staff
+		\upperStaff
+		\lowerStaff
 	>
 	\paper {
 	}

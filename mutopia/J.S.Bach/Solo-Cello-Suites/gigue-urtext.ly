@@ -13,7 +13,7 @@ But merging melodic and scripts doen't work too well yet (see viola_scripts).
 % * slurs/ties in two different threads (like beams): urtext, and additionals
 % 
 
-gigue_notes = \context Staff \notes \relative c {
+gigueNotes =  \context Staff \notes \relative c {
 	\context Voice=i
 	a'8 |
 	d,4 bes'8 | cis,4 g'8 | f16 e f g a8 |
@@ -69,7 +69,7 @@ gigue_notes = \context Staff \notes \relative c {
 	\bar "|.";		
 }
 
-gigue_b = \context Staff \notes \relative c {
+gigueB =  \context Staff \notes \relative c {
 	\context Voice=ii
 	\stemDown
 	s8
@@ -94,13 +94,13 @@ gigue_b = \context Staff \notes \relative c {
 	<g4 e'>
 }
 
-gigue_a = \context Voice \notes<
-	\$gigue_notes
+gigueA =  \context Voice \notes<
+	\gigueNotes
 >
 
-gigue = \notes<
-	\$gigue_a
-	\$gigue_b
+gigue =  \notes<
+	\gigueA
+	\gigueB
 >
 
-\version "1.3.110";
+\version "1.3.117";

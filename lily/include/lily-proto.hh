@@ -66,7 +66,7 @@ class Grace_performer_group;
 class Hara_kiri_engraver;
 class Hara_kiri_line_group_engraver;
 class Hyphen_req;
-class Identifier;
+
 class Includable_lexer;
 class Input;
 class Item;

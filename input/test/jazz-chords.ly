@@ -1,5 +1,5 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
 %% This should only be necessary if your kpathsea setup is broken
 %
@@ -8,11 +8,11 @@
 %
 % For normal (20pt) paper, do
 %
-%   cp locate `msam9.tfm` $LILYPONDPREFIX/tfm
+%   cp locate `msam9.tfm` LILYPONDPREFIXxtfm
 %
 
-chord = \notes\transpose c''\chords{
-\property ChordNames.ChordName \override #'style = #'jazz
+chord =  \notes\transpose c''\chords{
+\property Chordnames.Chordname \override #'style = #'jazz
 % major chords
 c
 c:6		% 6 = major triad with added sixth

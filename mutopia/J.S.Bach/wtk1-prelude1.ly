@@ -1,8 +1,8 @@
 \header{
-title =	 "Preludium";
-opus =	 "BWV 846";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "Shay Rojansky";
+title = 	 "Preludium";
+opus = 	 "BWV 846";
+composer = 	 "Johann Sebastian Bach (1685-1750)";
+enteredby = 	 "Shay Rojansky";
 
 
   % mutopia headers.
@@ -15,10 +15,10 @@ enteredby =	 "Shay Rojansky";
   lastupdated = "1999/Oct/14";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 % should do programmable input.
-soprane =
+soprane = 
     \notes \transpose c'' {
 	\context Staff <
 	% Real soprane
@@ -79,7 +79,7 @@ soprane =
 	<e1 g c'> \bar "|.";
     }
 
-bass =
+bass = 
     \notes {
         \clef "bass";
 

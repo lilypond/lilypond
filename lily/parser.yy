@@ -21,7 +21,6 @@
 #include "file-path.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "identifier.hh"
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
@@ -42,6 +41,7 @@
 #include "grace-music.hh"
 #include "auto-change-music.hh"
 #include "part-combine-music.hh"
+#include "scm-hash.hh"
 
 #include "chord.hh"
 
@@ -95,12 +95,11 @@ print_lilypond_versions (ostream &os)
 %union {
 
     Link_array<Request> *reqvec;
-    Identifier *id;
     String * string;
     Music *music;
     Score *score;
     Scope *scope;
-
+    Scheme_hash_table *scmhash;
     Musical_req* musreq;
     Music_output_def * outputdef;
 
@@ -215,8 +214,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	IDENTIFIER
 
 
-%token <id>	SCORE_IDENTIFIER
-%token <id>	MUSIC_OUTPUT_DEF_IDENTIFIER
+%token <scm>	SCORE_IDENTIFIER
+%token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
 
 %token <scm>	NUMBER_IDENTIFIER
 %token <scm>	REQUEST_IDENTIFIER
@@ -229,7 +228,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <real>   REAL
 
 %type <outputdef> output_def
-%type <scope> 	lilypond_header lilypond_header_body
+%type <scmhash> 	lilypond_header lilypond_header_body
 %type <request>	open_request_parens close_request_parens open_request close_request
 %type <request> request_with_dir request_that_take_dir verbose_request
 %type <i>	sub_quotes sup_quotes
@@ -302,19 +301,19 @@ toplevel_expression:
 		THIS->lexer_p_->chordmodifier_tab_  = $1;
 	}
 	| lilypond_header {
-		delete header_global_p;
-		header_global_p = $1;
+		if (global_header_p)
+			scm_unprotect_object (global_header_p->self_scm ());
+		global_header_p = $1;
 	}
 	| score_block {
 		score_global_array.push ($1);
+		
 	}
 	| output_def {
-		Identifier * id = new
-			Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER);
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultpaper", id->self_scm ());
+			THIS->lexer_p_->set_identifier ("$defaultpaper", $1->self_scm ());
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultmidi", id->self_scm ());
+			THIS->lexer_p_->set_identifier ("$defaultmidi", $1->self_scm ());
 	}
 	| embedded_scm {
 		// junk value
@@ -357,8 +356,10 @@ notenames_body:
 
 lilypond_header_body:
 	{
-		$$ = new Scope;
-		THIS->lexer_p_-> scope_l_arr_.push ($$);
+		$$ = new Scheme_hash_table;
+		
+		Scope *sc = new Scope ($$);
+		THIS->lexer_p_-> scope_l_arr_.push (sc);
 	}
 	| lilypond_header_body assignment semicolon { 
 
@@ -368,7 +369,7 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
-		THIS->lexer_p_-> scope_l_arr_.pop ();
+		delete THIS->lexer_p_-> scope_l_arr_.pop ();
 	}
 	;
 
@@ -390,9 +391,10 @@ assignment:
 all objects can be unprotected as soon as they're here.
 
 */
-		Identifier * id =unsmob_identifier ($4);
-		Input spot = THIS->pop_spot ();
-		if (id) id->set_spot (spot);
+	/*
+		Should find generic way of associating input with objects.
+	*/
+		THIS->pop_spot ();
 	}
 	;
 
@@ -400,10 +402,12 @@ all objects can be unprotected as soon as they're here.
 
 identifier_init:
 	score_block {
-		$$ = (new Score_identifier ($1, SCORE_IDENTIFIER))->self_scm();
+		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| output_def {
-		$$ = (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER))->self_scm();
+		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| translator_spec_block {
 		$$ = $1;
@@ -507,35 +511,28 @@ score_block:
 		$$ = $4;
 		if (!$$->def_p_arr_.size ())
 		{
-		  Identifier *id =
-			unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
-		  $$->add_output (id ? id->access_content_Music_output_def (true) : new Paper_def );
+		  Music_output_def *id =
+			unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
+		  $$->add_output (id ? id->clone () :  new Paper_def );
 		}
 	}
-/*
-	| SCORE '{' score_body error {
-		$$ = $3
-		$$->set_spot (THIS->here_input ());
-		// THIS->here_input ().error ("SCORE INVALID");
-		$$->error ("SCORE INVALID");
-		THIS->parser_error (_f ("SCORE ERROR"));
-	}
-*/
 	;
 
 score_body:
 	Music	{
 		$$ = new Score;
-
+	
 		$$->set_spot (THIS->here_input ());
 		SCM m = $1->self_scm ();
 		scm_unprotect_object (m);
 		$$->music_ = m;
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->access_content_Score (true);
+		$$ = new Score (*unsmob_score ($1));
+		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
+		scm_unprotect_object ( $1->self_scm ()); 
 		$$->header_p_ = $2;
 	}
 	| score_body output_def {
@@ -559,12 +556,12 @@ output_def:
 
 music_output_def_body:
 	MIDI '{'    {
-	 Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultmidi"));
+	   Music_output_def *id = unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultmidi"));
 
 		
 	 Midi_def* p =0;
 	if (id)
-		p = dynamic_cast<Midi_def*> (id->access_content_Music_output_def (true));
+		p = dynamic_cast<Midi_def*> (id->clone ());
 	else
 		p = new Midi_def;
 
@@ -572,22 +569,25 @@ music_output_def_body:
 	 THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
 	| PAPER '{' 	{
-		  Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
+		Music_output_def *id = unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
 		  Paper_def *p = 0;
 		if (id)
-			p = dynamic_cast<Paper_def*> (id->access_content_Music_output_def (true));
+			p = dynamic_cast<Paper_def*> (id->clone ());
 		else
 			p = new Paper_def;
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
 	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
-		Music_output_def *p = $3->access_content_Music_output_def (true);
+		Music_output_def *p = unsmob_music_output_def ($3);
+		p = p->clone();
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
 	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
-		Music_output_def *p = $3->access_content_Music_output_def (true);
+		Music_output_def *p = unsmob_music_output_def ($3);
+		p = p->clone();
+
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}

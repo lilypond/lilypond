@@ -1,18 +1,18 @@
 \header{
-filename =	 "oboi.ly";
+filename = 	 "oboi.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "oboe-1.ly"
 \include "oboe-2.ly"
 
-oboiStaff = \context VoiceCombineStaff = oboi <
+oboiStaff =  \context VoiceCombineStaff = oboi <
 	\property VoiceCombineStaff.midiInstrument = #"oboe"
 	\property VoiceCombineStaff.instrument = #"2 Oboi"
 	\property VoiceCombineStaff.instr = #"Ob."

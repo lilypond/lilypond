@@ -7,7 +7,7 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-menuetto_i_a = \context Staff \notes \relative c {
+menuettoIA =  \context Staff \notes \relative c {
 	\context Voice=i
 	<d2\f f a> bes'4 |
 	bes8 a bes g a4 |
@@ -40,7 +40,7 @@ menuetto_i_a = \context Staff \notes \relative c {
 	<d2. a d,> |
 }
 
-menuetto_i_b = \context Staff \notes \relative c {
+menuettoIB =  \context Staff \notes \relative c {
 	\context Voice = ii
 	\stemDown
 	\skip 2.*1; |
@@ -70,7 +70,7 @@ menuetto_i_b = \context Staff \notes \relative c {
 }
 
 % UGH, fix this like in sarabande
-menuetto_i_a_voice_urg = \notes{
+menuettoIAVoiceUrg =  \notes{
 	\context Voice = i
 	\skip 2.*1; \stemUp
 	\skip 2.*1; \stemBoth
@@ -93,29 +93,29 @@ menuetto_i_a_voice_urg = \notes{
 	\skip 2.*1;
 }
 
-menuetto_i_a_voice_urg_urg = \notes<
-	\$menuetto_i_a_voice_urg
-	\$menuetto_i_a
+menuettoIAVoiceUrgUrg =  \notes<
+	\menuettoIAVoiceUrg
+	\menuettoIA
 >
 
-menuetto_i_b_voice_urg = \notes{
+menuettoIBVoiceUrg =  \notes{
 	\context Voice=ii
 	\stemDown
 	% urg urg, huh?
 	\skip 2.*8; \stemDown
 }
 
-menuetto_i_b_voice_urg_urg = \notes<
-	\$menuetto_i_b_voice_urg
-	\$menuetto_i_b
+menuettoIBVoiceUrgUrg =  \notes<
+	\menuettoIBVoiceUrg
+	\menuettoIB
 >
 
-menuetto_i = \context Staff \notes<
-	\repeat "volta" 2 { \$menuetto_i_a_voice_urg_urg }
-	\repeat "volta" 2 { \$menuetto_i_b_voice_urg_urg }
+menuettoI =  \context Staff \notes<
+	\repeat "volta" 2 { \menuettoIAVoiceUrgUrg }
+	\repeat "volta" 2 { \menuettoIBVoiceUrgUrg }
 >
 
-menuetto_ii = \context Staff\notes \relative c {
+menuettoIi =  \context Staff\notes \relative c {
 	\context Voice=i
 	fis4^\trill d8 e fis g |
 	a4 fis, a' |
@@ -150,4 +150,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	\bar "|.";	
 }
 
-\version "1.3.110";
+\version "1.3.117";

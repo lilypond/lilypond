@@ -1,5 +1,5 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
 %{
 
@@ -8,7 +8,7 @@ yourself.)
 
 %}
 
-bla = \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> } 
+bla =  \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> } 
 
 \score { \notes
 <

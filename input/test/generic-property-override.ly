@@ -4,7 +4,7 @@ More specific settings take precendence over less specific settings. The
 second slur has slurDirection set to down, overriding the stemup  setting.
 ";
 }
-\version "1.3.110";
+\version "1.3.117";
 
 \score {
  \notes \relative c'' \context Voice {

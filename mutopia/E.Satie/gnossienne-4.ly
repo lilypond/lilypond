@@ -11,16 +11,16 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
-global = \notes {
+global =  \notes {
 	\key a \minor;
 	\time 6/4;
 	\skip 1.*34;
 	\bar "|.";
 }
 
-melody = \notes\relative c''{
+melody =  \notes\relative c''{
   \clef violin;
   \property Voice.verticalDirection = #1
   \property Voice.graceFraction = #(make-moment 1 4)
@@ -57,11 +57,11 @@ melody = \notes\relative c''{
   <e1*6/4 g b e> ~ <e g b e>
 }
 
-basloopje = \notes\relative c{
+basloopje =  \notes\relative c{
   d,8( a' d f a d f d a f d )a
 }
 
-accompany = \notes \relative c {
+accompany =  \notes \relative c {
   % snapnie, hoevaak relative c heeft ze nodig?
  \basloopje
  \basloopje

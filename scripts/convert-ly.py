@@ -581,6 +581,37 @@ if 1:
 	
 	conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
 
+def regularize_id (str):
+	s = ''
+	lastx = ''
+	for x in str:
+		if x == '_':
+			lastx = x
+			continue
+		elif x in string.digits:
+			x = chr(ord (x) - ord ('0')  +ord ('A'))
+		elif x not in string.letters:
+			x = 'x'
+		elif x in string.lowercase and lastx == '_':
+			x = string.upper (x)
+		s = s + x
+		lastx = x
+	return s
+
+if 1:
+	def conv (str):
+		
+		def regularize_dollar_reference (match):
+			return regularize_id (match.group (1))
+		def regularize_assignment (match):
+			return '\n' + regularize_id (match.group (1)) + ' = '
+		str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
+		str = re.sub ('\n([^ \t\n]+) = ', regularize_assignment, str)
+		return str
+	
+	conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
+
+
 
 ############################
 	

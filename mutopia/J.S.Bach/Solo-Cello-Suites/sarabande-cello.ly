@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "sarabande-urtext.ly";
 
-sarabande_cello_global = \notes{
+sarabandeCelloGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef bass;
@@ -16,17 +16,17 @@ sarabande_cello_global = \notes{
 	}
 }
 
-sarabande_cello_scripts = \notes{
+sarabandeCelloScripts =  \notes{
 }
 
-sarabande_cello_staff = \context Staff <
-	\$sarabande
-	\$sarabande_cello_global
-	\$sarabande_cello_scripts
+sarabandeCelloStaff =  \context Staff <
+	\sarabande
+	\sarabandeCelloGlobal
+	\sarabandeCelloScripts
 >
 
 \score{
-	\$sarabande_cello_staff
+	\sarabandeCelloStaff
 	\paper{ }
 	\midi{ \tempo 4 = 40; }
 	\header{

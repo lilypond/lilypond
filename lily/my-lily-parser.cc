@@ -102,7 +102,6 @@ My_lily_parser::here_input() const
 
 // move me?
 #include "paper-def.hh"
-#include "identifier.hh"
 #include "translator-def.hh"
 
 My_lily_parser * current_parser;
@@ -114,8 +113,8 @@ My_lily_parser::paper_description ()
 {
   My_lily_parser * me = current_parser;
 
-  Identifier *id = unsmob_identifier (me->lexer_p_->lookup_identifier ("$defaultpaper"));
-  Paper_def *p = dynamic_cast<Paper_def*> (id->access_content_Music_output_def (false));
+  Music_output_def *id = unsmob_music_output_def (me->lexer_p_->lookup_identifier ("$defaultpaper"));
+  Paper_def *p = dynamic_cast<Paper_def*> (id->clone ());
 
   SCM al = p->translator_p_dict_p_->to_alist ();
   SCM l = SCM_EOL;

@@ -1,15 +1,15 @@
 \header{
-filename =	 "violino-1.ly";
-%title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+filename = 	 "violino-1.ly";
+xtitle = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-violinoI = \notes \relative c {
+violinoI =  \notes \relative c {
 	c'1\ff ~ |
 	c |
 	<f4-. c'-. as'-.> r r2 |
@@ -454,7 +454,7 @@ violinoI = \notes \relative c {
 	c4 r r2 |
 }
 
-violinoIStaff = \context Staff = violino1 <
+violinoIStaff =  \context Staff = violino1 <
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino I"
 	\property Staff.instr = #"Vl. I"

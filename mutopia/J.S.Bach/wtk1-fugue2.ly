@@ -21,10 +21,10 @@
 % It would be nice to squeeze this onto two pages, but I am not sure
 % if it would work with US paper.
 
-\version "1.3.110";
+\version "1.3.117";
 
   
-dux = \context Voice=two \notes \relative c''{
+dux =  \context Voice=two \notes \relative c''{
   \voiceTwo
   \clef violin;
 
@@ -81,7 +81,7 @@ dux = \context Voice=two \notes \relative c''{
 }
 
 
-comes = \context Voice=one \notes \relative c'' {
+comes =  \context Voice=one \notes \relative c'' {
   \voiceOne
   R1 |
   R1 |
@@ -122,7 +122,7 @@ comes = \context Voice=one \notes \relative c'' {
   f,16 g as4 g16 f e2 |
 }
 
-bassdux = \context Voice=three \notes \relative c' {
+bassdux =  \context Voice=three \notes \relative c' {
   \clef bass;
   R1 |
   R |

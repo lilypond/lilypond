@@ -242,8 +242,8 @@ report a programming_error and try to carry on.q
 
 @unnumberedsubsec Languages
 
-C++ and Python are preferred.  Perl is forbidden.  Python code should
-use an indent of 8, using TAB characters.
+C++ and Python are preferred.  Python code should use an indent of 8,
+using TAB characters.
 
 @unnumberedsubsec Filenames
 

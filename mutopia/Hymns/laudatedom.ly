@@ -1,12 +1,12 @@
 \header {
-title = "Laudate Dominum";
-composer = "Parry";
-metre = "10 10 . 11 11";
+title =  "Laudate Dominum";
+composer =  "Parry";
+metre =  "10 10 . 11 11";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-sop = \notes \transpose c''{
+sop =  \notes \transpose c''{
 	f4 | d' bes c' | f2 \bar "||";
 	bes4 | g f ees | d2 \bar "||";
 	f4 | d' c' f | bes2 \bar "||";
@@ -17,7 +17,7 @@ sop = \notes \transpose c''{
 	ees'4 | d' bes c' | bes2 \bar "||";
 }
 
-alto = \notes \transpose c'' {
+alto =  \notes \transpose c'' {
 	f4 | f f g | f2 \bar "||";
 	f4 | bes, d c | bes,2 \bar "||";
 	f4 | bes a f | f ~ g \bar "||"; 
@@ -28,7 +28,7 @@ alto = \notes \transpose c'' {
 	g | f4. g8 a4 | bes2 \bar "||";
 }
 
-tenor = \notes \transpose c' {
+tenor =  \notes \transpose c' {
 	f4 | bes d' [c'8 ~ bes] | a2 \bar "||";
 	f4 | g g a | bes2 \bar "||";
 	d'4 | e' f' c' | d' ~ c' \bar "||";
@@ -39,7 +39,7 @@ tenor = \notes \transpose c' {
 	bes4 | bes d' ees' | d'2 \bar "||";
 }
 
-bass = \notes \transpose c'{
+bass =  \notes \transpose c'{
 	f4 | bes d ees | f2 \bar "||";
 	d4 | ees c f | bes,2 \bar "||";
 	bes4 | g a a, | d ~ e \bar "||";
@@ -50,7 +50,7 @@ bass = \notes \transpose c'{
 	c4 | f f f | bes,2 \bar "||";
 }
 
-global = \notes {
+global =  \notes {
 	\time 3/4;
 	\partial 4;
 	\key bes \major;

@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_viola_global = \notes{
+menuettoIViolaGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef alto;
@@ -23,7 +23,7 @@ menuetto_i_viola_global = \notes{
 	}
 }
 
-menuetto_i_viola_scripts = \notes{
+menuettoIViolaScripts =  \notes{
 	\context Voice=i
 	s2.
 	s8^"~"^1_2_4 s8*5
@@ -39,14 +39,14 @@ menuetto_i_viola_scripts = \notes{
 	s4-\downbow s4-\upbow
 }
 
-menuetto_i_viola_staff = \context Staff <
-	\notes \transpose c' \$menuetto_i
-	\$menuetto_i_viola_global
-%	\$menuetto_i_viola_scripts
+menuettoIViolaStaff =  \context Staff <
+	\notes \transpose c' \menuettoI
+	\menuettoIViolaGlobal
+%	\menuettoIViolaScripts
 >
 
 \score{
-	\$menuetto_i_viola_staff
+	\menuettoIViolaStaff
 	\paper{
 		\include "scs-paper.ly";
 		gourlay_maxmeasures = 7.0;
@@ -63,7 +63,7 @@ menuetto_i_viola_staff = \context Staff <
 	}
 }
 
-menuetto_ii_viola_global = \notes{
+menuettoIiViolaGlobal =  \notes{
 	\time 3/4;
 	\key d \major;
 	\clef alto;
@@ -78,14 +78,14 @@ menuetto_ii_viola_global = \notes{
 	}
 }
 
-menuetto_ii_viola_staff = \context Staff <
-	\notes \transpose c' \$menuetto_ii
-	\$menuetto_ii_viola_global
-%	\$menuetto_ii_viola_scripts
+menuettoIiViolaStaff =  \context Staff <
+	\notes \transpose c' \menuettoIi
+	\menuettoIiViolaGlobal
+%	\menuettoIiViolaScripts
 >
 
 \score{
-	\$menuetto_ii_viola_staff
+	\menuettoIiViolaStaff
 	\paper{
 		\translator{
 			\VoiceContext

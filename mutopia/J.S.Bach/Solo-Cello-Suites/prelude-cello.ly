@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "prelude-urtext.ly";
 
-prelude_cello_global = \notes{
+preludeCelloGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef bass;
@@ -13,17 +13,17 @@ prelude_cello_global = \notes{
 	\bar "|.";
 }
 
-prelude_cello_scripts = \notes{
+preludeCelloScripts =  \notes{
 }
 
-prelude_cello_staff = \context Staff <
-	\$prelude
-	\$prelude_cello_global
-	\$prelude_cello_scripts
+preludeCelloStaff =  \context Staff <
+	\prelude
+	\preludeCelloGlobal
+	\preludeCelloScripts
 >
 
 \score{
-	\$prelude_cello_staff
+	\preludeCelloStaff
 	\paper{ }
 	\midi{ \tempo 4 = 40; }
 	\header{

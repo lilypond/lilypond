@@ -25,6 +25,13 @@
 
   * direction of text-dynamic-request if not equal to direction of
   line-spanner
+
+  - TODO: this engraver is too complicated. We should split it into
+  the handling of the basic grobs and the  linespanner
+
+  - TODO: the line-spanner is not killed after the (de)crescs are
+  finished.
+
 */
 
 /**
@@ -58,7 +65,8 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req_l);
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+
+  virtual void create_grobs ();  
   virtual void start_translation_timestep ();
 };
 
@@ -124,7 +132,6 @@ void
 Dynamic_engraver::create_grobs ()
 {
   if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
-    
     {
       if (!line_spanner_)
 	{
@@ -142,22 +149,7 @@ Dynamic_engraver::create_grobs ()
 
 	}
     }
-
-  /*
-    finish side position alignment if the (de)cresc ends here, and
-    there are no new dynamics.
-    
-   */
-  else if (accepted_spanreqs_drul_[STOP]
-	   && !accepted_spanreqs_drul_[START] && !script_req_l_)
-    {
-      finished_line_spanner_ = line_spanner_;
-      line_spanner_ = 0;
-    }
-
-	/*
-	todo: resurrect  dynamic{direction, padding,minimumspace}
-	*/
+  
 	/*
 	During a (de)crescendo, pending request will not be cleared,
 	and a line-spanner will always be created, as \< \! are already
@@ -192,25 +184,31 @@ Dynamic_engraver::create_grobs ()
 
   if (accepted_spanreqs_drul_[STOP])
     {
-      if (!cresc_p_)
+      /*
+	finish side position alignment if the (de)cresc ends here, and
+	there are no new dynamics.
+    
+   */
+ 
+      if ( !cresc_p_)
 	{
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning
 	    (_ ("can't find start of (de)crescendo"));
+	  accepted_spanreqs_drul_[STOP] = 0;
 	}
       else
 	{
-	  assert (!finished_cresc_p_);
+	  assert (!finished_cresc_p_ && cresc_p_);
 
 	  cresc_p_->set_bound (RIGHT, script_p_
-			   ? script_p_
-			   : unsmob_grob (get_property ("currentMusicalColumn")));
+			       ? script_p_
+			       : unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  current_cresc_req_ = 0;
 	}
     }
-
   if (accepted_spanreqs_drul_[START])
     {
       if (current_cresc_req_)

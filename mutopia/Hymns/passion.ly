@@ -1,11 +1,11 @@
 \header {
-filename = "passion.ly";
-title = "Passion Chorale";
-composer = "J. S. Bach";
-enteredby = "Peter Chubb";
+filename =  "passion.ly";
+title =  "Passion Chorale";
+composer =  "J. S. Bach";
+enteredby =  "Peter Chubb";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 sop=\notes \transpose c'' {
 	\repeat "volta" 2 {

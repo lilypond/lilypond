@@ -1,9 +1,9 @@
-\version "1.3.110";
+\version "1.3.117";
 
 \header{
-enteredby =	 "jcn";
-copyright =	 "public domain";
-TestedFeatures =	 "Banter named chords";
+enteredby = 	 "jcn";
+copyright = 	 "public domain";
+TestedFeatures = 	 "Banter named chords";
 }
 
 % test German (Banter) naming
@@ -46,7 +46,7 @@ TestedFeatures =	 "Banter named chords";
 
 % }
 
-chord = \notes\transpose c''\chords{
+chord =  \notes\transpose c''\chords{
 	% dim modifier means: lower all implicit additions
 	c:dim9
 	c:dim

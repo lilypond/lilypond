@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "courante-urtext.ly";
 
-courante_viola_global = \notes{
+couranteViolaGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef alto;
@@ -21,17 +21,17 @@ courante_viola_global = \notes{
 	}
 }
 
-courante_viola_scripts = \notes{
+couranteViolaScripts =  \notes{
 }
 
-courante_viola_staff = \context Staff <
-	\notes \transpose c' \$courante
-	\$courante_viola_global
-	\$courante_viola_scripts
+couranteViolaStaff =  \context Staff <
+	\notes \transpose c' \courante
+	\couranteViolaGlobal
+	\couranteViolaScripts
 >
 
 \score{
-	\$courante_viola_staff
+	\couranteViolaStaff
 	\paper{ }
 	\midi{ \tempo 4 = 55; }
 	\header{

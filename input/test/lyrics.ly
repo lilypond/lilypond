@@ -1,6 +1,6 @@
-\version "1.3.110";
+\version "1.3.117";
 
-$somewhat_long = \lyrics{
+somewhatLong =  \lyrics{
 	\property Lyrics . textStyle = "roman" 
 	AaaaaaA2
 	BbbbbbB2
@@ -10,7 +10,7 @@ $somewhat_long = \lyrics{
 	FfffffF2
 }
 
-$rather_long = \lyrics{
+ratherLong =  \lyrics{
 	\property Lyrics . textStyle = "roman" 
 	LLLLoooonggggg2 
 	Syyllllaaabbble2 
@@ -20,7 +20,7 @@ $rather_long = \lyrics{
 	Syyyylllaaabbble2
 }
 
-$quite_long = \lyrics{
+quiteLong =  \lyrics{
 	\property Lyrics . textStyle = "roman"
 	LLLLLLLLLooooongggggggg2 
 	Syyyyyyyyyyyyylllllllaaaaaabbble2 
@@ -30,35 +30,35 @@ $quite_long = \lyrics{
 	Syyyyyyyyyyyyylllllllaaaaaabbble2
 }
 
-$somewhat_long_lyrics_staff = \context Lyrics = somewhat <
-	\$somewhat_long
+somewhatLongLyricsStaff =  \context Lyrics = somewhat <
+	\somewhatLong
 >
 
-$rather_long_lyrics_staff = \context Lyrics = rather <
-	\$rather_long
+ratherLongLyricsStaff =  \context Lyrics = rather <
+	\ratherLong
 >
 
-$quite_long_lyrics_staff = \context Lyrics = quite <
-	\$quite_long
+quiteLongLyricsStaff =  \context Lyrics = quite <
+	\quiteLong
 >
 
-melody = \notes
+melody =  \notes
 \transpose c'{
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 }
 
-$melodic_staff = \context Staff = mel <
+melodicStaff =  \context Staff = mel <
 	\melody
 >
 
 \score
 {
 	<
-		\$melodic_staff
-		\$somewhat_long_lyrics_staff	
-%		\$rather_long_lyrics_staff	
-		\$quite_long_lyrics_staff	
+		\melodicStaff
+		\somewhatLongLyricsStaff	
+%		\ratherLongLyricsStaff	
+		\quiteLongLyricsStaff	
 	>
 	\paper{
 

@@ -92,16 +92,23 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
   line_l_->break_into_pieces (breaking);
   
-  outputter_l_ = new Paper_outputter (paper_l_->paper_stream_p ());
+  outputter_l_ = paper_l_->paper_outputter_p ();
 ;
   outputter_l_->output_header ();
   outputter_l_->output_version ();
-  
-  if (header_global_p)
-    outputter_l_->output_scope (header_global_p, "lilypond");
-  if (header_l_)
-    outputter_l_->output_scope (header_l_, "lilypond");
 
+
+  if (global_header_p)
+    {
+    Scope gh (global_header_p);
+    outputter_l_->output_scope (&gh, "lilypond");
+    }
+  if (header_l_)
+    {
+      if (header_l_)
+	outputter_l_->output_scope (header_l_, "lilypond");
+    }
+  
   outputter_l_->output_comment (_ ("Outputting Score, defined at: "));
   outputter_l_->output_comment (origin_str_);
 
@@ -124,8 +131,12 @@ Paper_score::process ()
 
   progress_indication ("\n");
 
-  outputter_l_->output_score_header_fields (paper_l_);
-    
+  if (global_header_p)
+    {
+      Scope gh (global_header_p); 
+      outputter_l_->write_header_fields_to_file (&gh);
+    }
+  
   // huh?
   delete outputter_l_;
   outputter_l_ = 0;

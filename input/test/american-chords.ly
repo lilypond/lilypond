@@ -1,4 +1,4 @@
-\version "1.3.110"
+\version "1.3.117"
 %{
   See scm/chord-names.scm: chord::names-alist-american
   James Hammons <jlhamm@pacificnet.net>
@@ -13,8 +13,8 @@
 	)
       chord::names-alist-american))
 
-chord = \notes\transpose c''\chords{
-	\property ChordNames.ChordName \override #'style = #'american
+chord =  \notes\transpose c''\chords{
+	\property Chordnames.Chordname \override #'style = #'american
 c         % Major triad
 cs:m      % Minor triad
 df:m5-    % Diminished triad

@@ -31,9 +31,9 @@
   
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-upper = \context Staff \notes\relative c
+upper =  \context Staff \notes\relative c
 	\context Voice=i {
 	\property Voice . textStyle = "italic"
 
@@ -133,7 +133,7 @@ upper = \context Staff \notes\relative c
 }
 
 
-lower = \context Staff \notes\relative c{
+lower =  \context Staff \notes\relative c{
 	\context Voice=i
 
 	d4-\mordent r r |
@@ -199,7 +199,7 @@ lower = \context Staff \notes\relative c{
 	d2. |
 }
 
-global = \notes{
+global =  \notes{
 	\time 3/4;
 	\key f \major;
 }

@@ -18,12 +18,13 @@
 #include "my-lily-parser.hh"
 #include "source.hh"
 #include "lily-version.hh"
+#include "scm-hash.hh"
 
 Sources* source_global_l = 0;
 Array<String> inclusion_global_array;
 Array<String> target_str_global_array;
 Link_array<Score> score_global_array;
-Scope * header_global_p;
+Scheme_hash_table * global_header_p;
 
 
 void write_dependency_file (String fn, Array<String> targets,
@@ -68,8 +69,8 @@ do_deps()
 void
 do_scores()
 {
-  if (!header_global_p)
-    header_global_p = new Scope;
+  if (!global_header_p)
+    global_header_p = new Scheme_hash_table;
   for (int i=0; i < score_global_array.size(); i++)
     {
       Score* is_p = score_global_array[i];
@@ -90,11 +91,13 @@ do_scores()
 void
 clear_scores ()
 {
-  junk_pointer_array (score_global_array);
-
+  for (int i=0; i < score_global_array.size (); i++)
+    scm_unprotect_object (score_global_array[i]->self_scm ());
+  score_global_array.clear();
+  
   inclusion_global_array.clear ();
-  delete  header_global_p ;
-  header_global_p =0; 
+  scm_unprotect_object (global_header_p ->self_scm ());
+  global_header_p =0; 
 }
 
 

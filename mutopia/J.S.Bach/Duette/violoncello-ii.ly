@@ -1,16 +1,16 @@
 \header{
-filename =	"violoncello-ii.ly";
-title =		"Vier Duette";
-description =	"Four duets for Violino and Violoncello (Viola)";
-opus = 		"BWV";
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"Public Domain";
+filename = 	"violoncello-ii.ly";
+title = 		"Vier Duette";
+description = 	"Four duets for Violino and Violoncello (Viola)";
+opus =  		"BWV";
+composer = 	"Johann Sebastian Bach (1685-1750)";
+enteredby = 	"jcn";
+copyright = 	"Public Domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-$violoncello_ii = \notes\relative c{
+violoncelloIi =  \notes\relative c{
   r2 a'2|c e,| f8(e)d2 e8()fis| g a bes2 a8()gis|
 %5
   a(e)a b a(e)a c|b(e,b')c b(e,b')d|c(e,c')d c(e,c')e|b(e,b')c b(e,b')d|
@@ -70,9 +70,9 @@ $violoncello_ii = \notes\relative c{
 
 \include "global-ii.ly"
 
-$violoncello_ii_staff = \context Staff = violoncello <
+violoncelloIiStaff =  \context Staff = violoncello <
   \property Staff.instrument = "cello"
-  \$violoncello_ii
+  \violoncelloIi
   \clef bass;
-  \$global_ii
+  \globalIi
 >

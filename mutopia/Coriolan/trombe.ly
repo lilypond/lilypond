@@ -1,18 +1,18 @@
 \header{
-filename =	 "trombe.ly";
+filename = 	 "trombe.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "trombo-1.ly"
 \include "trombo-2.ly"
 
-trombeStaff = \context VoiceCombineStaff = trombe <
+trombeStaff =  \context VoiceCombineStaff = trombe <
 	\context VoiceCombineStaff=trombe {
 		\property VoiceCombineStaff.midiInstrument = #"trumpet"
 		\property VoiceCombineStaff.instrument = #"2 Trombe\n(C)"

@@ -7,7 +7,7 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-sarabande_a = \context Staff \notes \relative c {
+sarabandeA =  \context Staff \notes \relative c {
 	\context Voice=i
 	\stemUp d8. e16 e4.-\trill d16 e |
 	f4. \stemBoth e8 d c |
@@ -46,7 +46,7 @@ sarabande_a = \context Staff \notes \relative c {
 	d4 d,,2 |
 }
 
-sarabande_b = \context Staff \notes \relative c {
+sarabandeB =  \context Staff \notes \relative c {
 	\context Voice=ii
 	\stemDown
 % dispute
@@ -85,9 +85,9 @@ sarabande_b = \context Staff \notes \relative c {
 }
 
 
-sarabande = \context Staff \notes<
-	\$sarabande_a
-	\$sarabande_b
+sarabande =  \context Staff \notes<
+	\sarabandeA
+	\sarabandeB
 >
 
-\version "1.3.110";
+\version "1.3.117";

@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_cello_global = \notes{
+menuettoICelloGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef bass;
@@ -21,7 +21,7 @@ menuetto_i_cello_global = \notes{
 	}
 }
 
-menuetto_i_cello_scripts = \notes{
+menuettoICelloScripts =  \notes{
 	\context Voice=i
 	s2.
 	s8^"~"^1_2_4 s8 s4 s^4
@@ -42,14 +42,14 @@ menuetto_i_cello_scripts = \notes{
 	s8^2_3 s s s^1 s4^1
 }
 
-menuetto_i_cello_staff = \context Staff <
-	\$menuetto_i
-	\$menuetto_i_cello_global
-%	\$menuetto_i_cello_scripts
+menuettoICelloStaff =  \context Staff <
+	\menuettoI
+	\menuettoICelloGlobal
+%	\menuettoICelloScripts
 >
 
 \score{
-	\$menuetto_i_cello_staff
+	\menuettoICelloStaff
 	\paper{
 		\translator{
 			\VoiceContext
@@ -62,7 +62,7 @@ menuetto_i_cello_staff = \context Staff <
 	piece ="Menuetto I"; }
 }
 
-menuetto_ii_cello_global = \notes{
+menuettoIiCelloGlobal =  \notes{
 	\time 3/4;
 	\key d \major;
 	\clef bass;
@@ -79,14 +79,14 @@ menuetto_ii_cello_global = \notes{
 
 }
 
-menuetto_ii_cello_staff = \context Staff <
-	\$menuetto_ii
-	\$menuetto_ii_cello_global
-%	\$menuetto_ii_cello_scripts
+menuettoIiCelloStaff =  \context Staff <
+	\menuettoIi
+	\menuettoIiCelloGlobal
+%	\menuettoIiCelloScripts
 >
 
 \score{
-	\$menuetto_ii_cello_staff
+	\menuettoIiCelloStaff
 	\paper{
 		\translator{
 			\VoiceContext

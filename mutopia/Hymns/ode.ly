@@ -7,7 +7,7 @@
   metre = "8 7 8 7 D";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 |
@@ -48,7 +48,7 @@ global=\notes{
 	\skip 1*4; \bar "|.";
 }
 
-$upper_staff = \context Staff = upper \notes {
+upperStaff =  \context Staff = upper \notes {
 	\clef "G";
 	\context Staff <
 	    \global
@@ -57,7 +57,7 @@ $upper_staff = \context Staff = upper \notes {
 	>
 }
 
-$lower_staff = \context Staff = lower \notes {
+lowerStaff =  \context Staff = lower \notes {
 	\clef "F";
 	\context Staff <
 	    \global
@@ -68,8 +68,8 @@ $lower_staff = \context Staff = lower \notes {
 
 \score{
 	<
-		\$upper_staff
-		\$lower_staff
+		\upperStaff
+		\lowerStaff
 	>
 	\paper {
 	}

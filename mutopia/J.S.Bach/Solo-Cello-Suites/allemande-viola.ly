@@ -1,9 +1,9 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "allemande-urtext.ly";
 
-allemande_viola_global = \notes{
+allemandeViolaGlobal =  \notes{
 	\time 4/4;
 	\key f \major;
 	\clef alto;
@@ -19,17 +19,17 @@ allemande_viola_global = \notes{
 	}
 }
 
-allemande_viola_scripts = \notes{
+allemandeViolaScripts =  \notes{
 }
 
-allemande_viola_staff = \context Staff <
-	\notes \transpose c'' \$allemande
-	\$allemande_viola_global
-	\$allemande_viola_scripts
+allemandeViolaStaff =  \context Staff <
+	\notes \transpose c'' \allemande
+	\allemandeViolaGlobal
+	\allemandeViolaScripts
 >
 
 \score{
-	\$allemande_viola_staff
+	\allemandeViolaStaff
 	\paper{ }
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande";

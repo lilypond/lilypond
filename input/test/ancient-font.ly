@@ -3,17 +3,17 @@
     date	= "2000";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "paper26.ly"
 
-global = \notes {
+global =  \notes {
     \property Score.timing = 1
     \property Staff.TimeSignature \override #'style = #"old"
     \time 2/2;
 }
 
-upperVoice = \context Staff = upperVoice <
+upperVoice =  \context Staff = upperVoice <
     \global
     \property Staff.numberOfStaffLines = 4
     \notes \transpose c' {
@@ -46,7 +46,7 @@ upperVoice = \context Staff = upperVoice <
     }
 >
 
-lowerVoice = \context Staff = lowerNotes <
+lowerVoice =  \context Staff = lowerNotes <
     \global
     \property Staff.numberOfStaffLines = 5
     \notes \transpose c'' {

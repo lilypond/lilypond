@@ -8,7 +8,7 @@
 }
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 %{
 	Note:  there are other verses, but the three here seem to be
@@ -118,7 +118,7 @@ harm=\chords{
 	bes1.
 }
 
-v1 = \lyrics {
+vB =  \lyrics {
        Stil2 -- le4 Nacht,2. hei4. -- li8 -- ge4 Nacht,2. 
        Al2 -- les4 schl\"aft,2. ein2 -- sam4 wacht2.
        Nur2 das4 trau2 -- te,4 hoch4. -- heil8 ige4 Paar,2.
@@ -127,7 +127,7 @@ v1 = \lyrics {
        Schlaf2 in4 himm4. -- li8 -- scher4 Ruh'!1 __ ""2
 }
 
-v2 = \lyrics {
+vC =  \lyrics {
        Stil2 -- le4 Nacht,2. hei4. -- li8 -- ge4 Nacht,2. 
        Hir2 -- ten4 erst2. kund2 ge4 -- macht2.
        Durch2 der4 En2 -- gel4 Ha4. -- lle8 -- lu4 ja2.
@@ -136,7 +136,7 @@ v2 = \lyrics {
        "``Christ,"2 der4 Ret4. -- ter,8 ist4 "da!''"1 __ ""2
 }
 
-v3 = \lyrics {
+vD =  \lyrics {
        Stil2 -- le4 Nacht,2. hei4. -- li8 -- ge4 Nacht,2. 
        Go2 -- ttes4 Sohn,2. o2 -- wie4 lacht2.
        Lieb'2 aus4 dei2 -- nem4 g\"ott4. -- li8 -- chen4 Mund,2.
@@ -145,7 +145,7 @@ v3 = \lyrics {
        Christ,2 in4 Dei4. -- ner8 Ge4 -- burt!1 __ ""2
 }
 
-v1e = \lyrics {
+vBe =  \lyrics {
 	Si2 -- lent4 night,2. Ho2 -- ly4 night,2.
 	All2 is4 calm,2. all2 is4 bright,2.
 	'Round2 yon4 Vir2 -- gin4 Mo4. -- ther8 and4 Child2.
@@ -154,7 +154,7 @@ v1e = \lyrics {
 	Sleep4. __ ""8 in4 hea4. -- ven-8 ly4 peace.1 __ ""2
 }
 
-v2e = \lyrics {
+vCe =  \lyrics {
 	Si2 -- lent4 night,2. Ho2 -- ly4 night,2.
 	Shep2 -- herds4 quake2. at2 the4 sight,2.
 	Glo2 -- ries4 stream4. __ ""8 from4 hea4. -- ven8 a4 -- far,2.
@@ -163,7 +163,7 @@ v2e = \lyrics {
 	Christ4. __ ""8 the4 Sa4. -- viour8 is4 "born.''"1 __ ""2
 }
 
-v3e = \lyrics {
+vDe =  \lyrics {
 	Si2 -- lent4 night,2. Ho2  -- ly4 night,2.
 	Son2 of4 God,2. love's2 pure4 light2.
 	Ra2 -- diant4 beams4. from8 Thy4 ho2 -- ly4 face,2.
@@ -184,7 +184,7 @@ upper= \notes {
 	}
 }
 
-lower = \notes {
+lower =  \notes {
 	\context Staff = lower {
 		\clef "bass";
 		\context Staff <

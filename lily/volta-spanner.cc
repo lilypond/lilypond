@@ -49,25 +49,36 @@ Volta_spanner::brew_molecule (SCM smob)
   bool no_vertical_start = false;
   bool no_vertical_end = to_boolean (me->get_grob_property ("last-volta"));
   Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_l_);
-  if (orig_span && (orig_span->broken_into_l_arr_[0] != (Spanner*)me))
-    no_vertical_start = true;
-  if (orig_span && (orig_span->broken_into_l_arr_.top () != (Spanner*)me))
-    no_vertical_end = true;
 
-#if 0
-  // FIXME
-  if (bar_arr.top ()->me->get_grob_property (type_str_.length_i () > 1)
-    no_vertical_end = false;
-#endif
+  bool first_bracket = orig_span && (orig_span->broken_into_l_arr_[0] == (Spanner*)me);
+  
+  bool last_bracket = orig_span && (orig_span->broken_into_l_arr_.top () == (Spanner*)me);
+
+  no_vertical_start = orig_span && !first_bracket;
+  no_vertical_end = orig_span && !last_bracket;
 
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = 0.5;
 
+  Item * bound = dynamic_cast<Spanner*>(me)->get_bound (LEFT);
+
   /*
-    the volta spanner is attached to the bar-line, which is moved
-    to the right. We don't need to compensate for the left edge.
+    not a start, but really broken in two
    */
-  Real left = 0.0;
+  Real left =0.;  
+  if (bound->break_status_dir () == RIGHT)
+  {
+    Paper_column *pc = bound->column_l ();
+    left = pc->extent (pc, X_AXIS)[RIGHT]   - bound->relative_coordinate (pc, X_AXIS);
+  }
+  else
+  {
+    /*
+      the volta spanner is attached to the bar-line, which is moved
+      to the right. We don't need to compensate for the left edge.
+    */
+  }
+
   Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
   Real h =  gh_scm2double (me->get_grob_property ("height"));
   Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));

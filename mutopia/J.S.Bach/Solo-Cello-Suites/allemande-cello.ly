@@ -1,10 +1,10 @@
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "allemande-urtext.ly";
 
-allemande_cello_global = \notes{
+allemandeCelloGlobal =  \notes{
 	\time 4/4;
 	\key f \major;
 	\clef bass;
@@ -20,17 +20,17 @@ allemande_cello_global = \notes{
 	}
 }
 
-allemande_cello_scripts = \notes{
+allemandeCelloScripts =  \notes{
 }
 
-allemande_cello_staff = \context Staff <
-	\$allemande
-	\$allemande_cello_global
-	\$allemande_cello_scripts
+allemandeCelloStaff =  \context Staff <
+	\allemande
+	\allemandeCelloGlobal
+	\allemandeCelloScripts
 >
 
 \score{
-   	\$allemande_cello_staff
+   	\allemandeCelloStaff
 	\paper{ }
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande";

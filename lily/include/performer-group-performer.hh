@@ -27,8 +27,8 @@ protected:
   Array<Audio_element_info> announce_info_arr_;
 
 private:
-  void create_grobs ();
-  void acknowledge_grobs ();
+  void create_audio_elements ();
+  void acknowledge_audio_elements ();
 };
 
 #endif // PERFORMER_GROUP_PERFORMER_HH

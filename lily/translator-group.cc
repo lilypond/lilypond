@@ -414,15 +414,29 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	  && gh_call1 (type_p, val) == SCM_BOOL_F)
 	{
 	  ok = false;
+	  scm_puts (_("Failed typecheck for `").ch_C (),errport);
+	  scm_display (sym,errport);
+	  scm_puts ( _("', value `").ch_C (), errport);
+	  scm_write (val, errport);
+	  scm_puts (_("' must be of type ").ch_C (), errport);
+	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	  scm_display (gh_call1 (typefunc, type_p), errport);
+	  scm_puts ("\n", errport);	
+#if 0
+	  ok = false;
 	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
 	  SCM type_name = gh_call1 (typefunc, type_p);
 	  /* warning () ? */
+
 	  scm_puts (_f ("Failed typecheck for `%s', value `%s' must be of type `%s'",
 			ly_symbol2string (sym).ch_C (),
-			ly_scm2string (ly_write2scm( val)).ch_C (),
-			ly_scm2string (type_name).ch_C ()).ch_C (),
+			ly_symbol2string (val).ch_C (),
+			ly_scm2string (ly_write2scm (val)).ch_C (),
+			ly_symbol2string (type_name).ch_C ()).ch_C (),
 		    errport);
 	  scm_puts ("\n", errport);		      
+#endif
+
 	}
     }
   return ok;

@@ -51,7 +51,7 @@ String init_str_global;
 int default_count_global;
 File_path global_path;
 
-Array<String> global_score_header_fields;
+Array<String> global_dumped_header_fieldnames;
 
 bool safe_global_b = false;
 bool experimental_features_global_b = false;
@@ -351,7 +351,7 @@ main (int argc, char **argv)
 	  find_old_relative_b= true;
 	  break;
 	case 'H':
-	  global_score_header_fields.push (oparser_global_p->optional_argument_ch_C_);
+	  global_dumped_header_fieldnames.push (oparser_global_p->optional_argument_ch_C_);
 	  break;
 	case 'I':
 	  global_path.push (oparser_global_p->optional_argument_ch_C_);

@@ -19,8 +19,8 @@ TODO:
 
 %}
 
-\version "1.3.110";
-praeludiumRight =  \notes {
+\version "1.3.117";
+praeludiumRight =   \notes {
    \key e \major;
   \clef violin;
 
@@ -46,7 +46,7 @@ praeludiumRight =  \notes {
   % 16
 }
 
-praeludiumLeft = \notes \relative c {
+praeludiumLeft =  \notes \relative c {
    \key e \major;
   \clef bass;
 
@@ -85,7 +85,7 @@ praeludiumLeft = \notes \relative c {
 
 
 
-fugaIIRight = \notes   \relative c''   {
+fugaIIRight =  \notes   \relative c''   {
   \key e \major;              % E-major
   \clef violin;
   \time3/4;
@@ -134,9 +134,9 @@ fugaIIRight = \notes   \relative c''   {
   %19
 }
 
-gracetest = \notes \grace { [c16 ( cis dis] }
+gracetest =  \notes \grace { [c16 ( cis dis] }
 
-fugaIILeft = \notes {
+fugaIILeft =  \notes {
   \key e \major;
   \clef bass;
 
@@ -154,7 +154,7 @@ fugaIILeft = \notes {
   %19
 }
 
-fugaIIPedal = \notes \relative c {
+fugaIIPedal =  \notes \relative c {
   \key e \major;
   \clef bass;
 

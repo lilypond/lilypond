@@ -5,8 +5,8 @@ from guile.  For some unlogical names, guile customisation is used
 by default.
 ";
 }
-\version "1.3.110"
-chord = \notes\transpose c''\chords{
+\version "1.3.117"
+chord =  \notes\transpose c''\chords{
    c1
    c:m
    c:m5-

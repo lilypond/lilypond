@@ -15,16 +15,16 @@ Eric
 %}
 
 \header{
-title =	 "Test it";
-description =	 "Transposition Test file";
-enteredby =	 "Eric Bullinger";
-copyright =	 "public domain";
+title = 	 "Test it";
+description = 	 "Transposition Test file";
+enteredby = 	 "Eric Bullinger";
+copyright = 	 "public domain";
 }
 
 
-\version "1.3.110";
+\version "1.3.117";
 
-vOne = \notes \relative c''{
+vOne =  \notes \relative c''{
         \clef"violin";
         \key d \major;
         \time 2/4 ;
@@ -35,9 +35,9 @@ vOne = \notes \relative c''{
         c4 c |
 }
 
-vTwo = \notes \transpose d' { \vOne }
+vTwo =  \notes \transpose d' { \vOne }
 
-vThree = \notes \relative c''{
+vThree =  \notes \relative c''{
         \clef"violin";
         \keysignature fis cis;
         \time 2/4 ;
@@ -48,7 +48,7 @@ vThree = \notes \relative c''{
         cis4 ais4 |
 }
 
-vFour = \notes \transpose d' \vThree
+vFour =  \notes \transpose d' \vThree
 
 \score {
   \context StaffGroup <

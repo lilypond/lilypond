@@ -1,6 +1,6 @@
-\version "1.3.110";
+\version "1.3.117";
 
-voice_one = \notes\transpose c''{  \stemUp
+voiceOne =  \notes\transpose c''{  \stemUp
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
@@ -10,7 +10,7 @@ voice_one = \notes\transpose c''{  \stemUp
 	r2 r4 g4-. |
 	}
 
-voice_two = \notes
+voiceTwo =  \notes
 	{ \transpose c' { \stemDown
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
@@ -24,8 +24,8 @@ voice_two = \notes
 
 \score {  \notes
 	\context Staff <
-		\$voice_two
-		\$voice_one
+		\voiceTwo
+		\voiceOne
 		>
 
  }

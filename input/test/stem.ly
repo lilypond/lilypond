@@ -1,16 +1,16 @@
 \header{
 title= "Stems and Beams";
-subtitle = "proofsheet"; 
-enteredby =	 "jcn";
-copyright =	 "public domain";
-TestedFeatures =	 "This file tests the length of stems and placement 
+subtitle =  "proofsheet"; 
+enteredby = 	 "jcn";
+copyright = 	 "public domain";
+TestedFeatures = 	 "This file tests the length of stems and placement 
 of beams";
 	
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-beamintervals = \notes{
+beamintervals =  \notes{
 		\time 7/4;
 		\stemUp
 \transpose c'{

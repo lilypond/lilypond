@@ -6,15 +6,18 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "scm-hash.hh"
+
 #include "dictionary.hh"
 #include "scope.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
 #include "translator-def.hh"
-#include "identifier.hh"
 #include "main.hh"
 #include "lily-guile.hh"
+
+#include "ly-smobs.icc"
 
 int
 Music_output_def::get_next_default_count () const
@@ -22,24 +25,58 @@ Music_output_def::get_next_default_count () const
   return 0;
 }
 
-
-
 Music_output_def::Music_output_def ()
 {
-  scope_p_ = new Scope;
-  translator_p_dict_p_ = new Scope;
+  style_sheet_ = SCM_EOL;
+  scaled_fonts_ = SCM_EOL;
+
+  variable_tab_ = new Scheme_hash_table;
+  translator_tab_ = new Scheme_hash_table;
+  scope_p_ = new Scope (variable_tab_);
+  translator_p_dict_p_ = new Scope (translator_tab_);
+
+  smobify_self ();
+  scm_unprotect_object (variable_tab_->self_scm ());
+  scm_unprotect_object (translator_tab_->self_scm ());  
 }
 
 Music_output_def::~Music_output_def ()
 {
-  delete scope_p_;
-  delete translator_p_dict_p_;
 }
 
 Music_output_def::Music_output_def (Music_output_def const &s)
 {
-  scope_p_ = new Scope (*s.scope_p_);
-  translator_p_dict_p_ = new Scope (*s.translator_p_dict_p_);
+  variable_tab_ = new Scheme_hash_table (*s.variable_tab_);
+  translator_tab_ = new Scheme_hash_table (*s.translator_tab_);
+
+  style_sheet_ = SCM_EOL;
+  scaled_fonts_ = SCM_EOL;
+  smobify_self ();
+  scm_unprotect_object (variable_tab_->self_scm ());
+  scm_unprotect_object (translator_tab_->self_scm ());  
+
+  
+  scope_p_ = new Scope (variable_tab_);
+  translator_p_dict_p_ = new Scope (translator_tab_);
+  
+  style_sheet_ = scm_list_copy (s.style_sheet_);
+  scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
+}
+
+
+IMPLEMENT_SMOBS(Music_output_def);
+IMPLEMENT_UNSMOB(Music_output_def,music_output_def);
+IMPLEMENT_DEFAULT_EQUAL_P(Music_output_def);
+
+SCM
+Music_output_def::mark_smob (SCM m)
+{
+  Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
+  scm_gc_mark (mo->style_sheet_);
+  scm_gc_mark (mo->translator_tab_->self_scm());
+  scm_gc_mark (mo->variable_tab_->self_scm());
+
+  return mo->scaled_fonts_;
 }
 
 void
@@ -52,14 +89,17 @@ Music_output_def::assign_translator (SCM transdef)
   translator_p_dict_p_->set (s, transdef);
 }
 
+/*
+  find the translator for NAME. NAME may be a string or a symbol.
+ */
 SCM
 Music_output_def::find_translator_l (SCM name) const
-{
-  String s = ly_scm2string (name);
+{  
+  if (gh_string_p (name))
+    name = scm_string_to_symbol (name);
   
   SCM val  =SCM_EOL;
-  if (translator_p_dict_p_->elem_b (s))
-    return translator_p_dict_p_->scm_elem (s);
+  translator_tab_->try_retrieve (name, &val);
   return val;
 }
 
@@ -67,7 +107,9 @@ Music_output_def::find_translator_l (SCM name) const
 Global_translator *
 Music_output_def::get_global_translator_p () 
 {
-  Translator_def * t = unsmob_translator_def (find_translator_l (ly_str02scm ("Score")));
+  SCM key = ly_symbol2scm ("Score");
+  Translator_def * t = unsmob_translator_def (find_translator_l (key));
+
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
 
@@ -92,3 +134,28 @@ Music_output_def::get_default_output () const
 
 
 
+int
+Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
+{
+  scm_puts ("#<Music_output_def>", p);
+  return 1;
+}
+
+/*
+  ugh: should move into Music_output_def (complication: .midi and .tex
+  need separate counts.)  */
+String
+Music_output_def::base_output_str () 
+{
+  String str = get_default_output ();
+
+  if (str.empty_b ())
+    {
+      str = default_outname_base_global;
+      int def = get_next_default_count ();
+      if (def)
+	str += "-" + to_str (def);
+    }
+  
+  return str;
+}

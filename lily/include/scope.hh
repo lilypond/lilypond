@@ -16,6 +16,7 @@
 class Scheme_hash_table;
 class Scope {
   Scheme_hash_table *id_dict_;
+  Scope (Scope const &);
 public:
   SCM to_alist () const; 
   bool elem_b (String ) const;
@@ -23,18 +24,13 @@ public:
 
   bool try_retrieve (SCM key, SCM *val) const;
   
-  Identifier *elem (String) const;
-  Identifier *elem (SCM) const;
-
   SCM scm_elem (String) const;
   SCM scm_elem (SCM) const;
 
-  void set (String, Identifier *);
+
   void set (String, SCM);  
-  Scope ();
+  Scope (Scheme_hash_table*);
   
-  Scope (Scope const &);
-  ~Scope ();
   friend class Scope_iter;
 };
 #endif /* SCOPE_HH */

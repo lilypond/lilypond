@@ -12,11 +12,11 @@
  Tested Features:
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "nederlands.ly"
 
-global = \notes {
+global =  \notes {
   \key a \minor;
   \time 2/4;
   s2*10
@@ -37,7 +37,7 @@ global = \notes {
   \bar "|.";
 }
   
-i = \context Staff \notes\relative c''{
+i =  \context Staff \notes\relative c''{
   \context Voice=i
   \stemUp
 
@@ -65,7 +65,7 @@ i = \context Staff \notes\relative c''{
   
 }
 
-ii = \context Staff \notes\relative c'{
+ii =  \context Staff \notes\relative c'{
   \context Voice=ii
   \stemDown
 
@@ -103,7 +103,7 @@ ii = \context Staff \notes\relative c'{
  
 }
 
-lower = \context Staff \notes \relative c{
+lower =  \context Staff \notes \relative c{
   \context Voice=iii
 
   <as4 as'> <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |

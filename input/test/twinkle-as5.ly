@@ -1,16 +1,16 @@
 \header{
-filename =	"twinkle.ly";
-title =		"Twinkle Twinkle Little Star";
-composer =	"Traditional";
-enteredby =	"hwn and jcn";
-copyright =	"public domain";
+filename = 	"twinkle.ly";
+title = 		"Twinkle Twinkle Little Star";
+composer = 	"Traditional";
+enteredby = 	"hwn and jcn";
+copyright = 	"public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "paper-as5.ly"
 
-melody = \notes \relative c'' {
+melody =  \notes \relative c'' {
 	\time 2/4;
 	c4 c | g' g | a a | g g |
 %{
@@ -24,7 +24,7 @@ melody = \notes \relative c'' {
 %}
 }
 
-accompany = \notes \relative c {
+accompany =  \notes \relative c {
 	\clef "bass";
 	\time 2/4;
 	c4 c' | e c | f c | e c | 
@@ -40,7 +40,7 @@ accompany = \notes \relative c {
 }
 
 
-text = \lyrics{
+text =  \lyrics{
 	Twin -- kle, twin -- kle, lit -- tle star, " "
 %{
 	How I won -- der what you  " " are.

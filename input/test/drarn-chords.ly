@@ -1,4 +1,4 @@
-\version "1.3.110";
+\version "1.3.117";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -16,7 +16,7 @@ Would this be acceptable/good enough/convenient for entry?
 
 %}
 
-scales = \notes \transpose c'' \chords{
+scales =  \notes \transpose c'' \chords{
 	\property ChordNames.drarnChords=##t
 		%c1:m \break c1:m
 		c1:m c1:m

@@ -12,24 +12,25 @@
 class Paper_stream
 {
 public:
-    bool outputting_comment_b_;
-    ostream *os_;
-    int nest_level;
-    /// to check linelen in output. TeX has limits.
-    int line_len_i_;
+  String basename_;
+  bool outputting_comment_b_;
+  ostream *os_;
+  int nest_level;
+  /// to check linelen in output. TeX has limits.
+  int line_len_i_;
     
-    /// open a file for writing
-    Paper_stream (String filename);
+  /// open a file for writing
+  Paper_stream (String filename);
 
-    /// delegate conversion to scalar class
-    Paper_stream &operator <<(String);
+  /// delegate conversion to scalar class
+  Paper_stream &operator <<(String);
 
-    /// close the file
-    ~Paper_stream();
+  /// close the file
+  ~Paper_stream();
 
 private:
-    Paper_stream (Paper_stream const&);
-    void break_line();
+  Paper_stream (Paper_stream const&);
+  void break_line();
 };
 
 class ostream;

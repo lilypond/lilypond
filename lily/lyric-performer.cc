@@ -21,7 +21,7 @@ protected:
 
   virtual bool try_music (Music* req_l);
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
 
 private:
   Link_array<Lyric_req> lreq_arr_;
@@ -37,7 +37,7 @@ Lyric_performer::Lyric_performer ()
 
 
 void
-Lyric_performer::create_grobs ()
+Lyric_performer::create_audio_elements ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreq_arr_.size ()

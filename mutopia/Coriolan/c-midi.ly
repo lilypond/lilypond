@@ -1,11 +1,11 @@
 \header{
-filename =	 "c-midi.ly";
-title =	 "Ouverture"; 
-subtitle = "Coriolan";
-opus = "Op. 62";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+filename = 	 "c-midi.ly";
+title = 	 "Ouverture"; 
+subtitle =  "Coriolan";
+opus =  "Op. 62";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
 
@@ -13,7 +13,7 @@ copyright =	 "public domain";
 %% Hopefully, this can be junked when part-combiner+midi+dynamics work ok.
 %%
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "global.ly"
 

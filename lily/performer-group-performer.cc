@@ -26,19 +26,19 @@ Performer_group_performer::announce_element (Audio_element_info info)
 
 
 void
-Performer_group_performer::create_grobs ()
+Performer_group_performer::create_audio_elements ()
 {
   for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
     {
       Translator * t = unsmob_translator (gh_car (p));
       Performer * eng = dynamic_cast<Performer*> (t);
       if (eng)
-	eng->create_grobs ();
+	eng->create_audio_elements ();
     }
 }
 
 void
-Performer_group_performer::acknowledge_grobs ()
+Performer_group_performer::acknowledge_audio_elements ()
 {
   for (int j =0; j < announce_info_arr_.size(); j++)
     {
@@ -49,7 +49,7 @@ Performer_group_performer::acknowledge_grobs ()
 	  Translator * t = unsmob_translator (gh_car (p));
 	  Performer * eng = dynamic_cast<Performer*> (t);
 	  if (eng && eng!= info.origin_trans_l_)
-	    eng->acknowledge_grob (info);
+	    eng->acknowledge_audio_element (info);
 	}
     }
 }
@@ -64,15 +64,13 @@ Performer_group_performer::do_announces()
     }
 
   
-  create_grobs ();
+  create_audio_elements ();
     
-  // debug
-  int i = 0;
-  while (announce_info_arr_.size () && i++ < 5)
+  while (announce_info_arr_.size ())
     {
-      acknowledge_grobs ();
+      acknowledge_audio_elements ();
       announce_info_arr_.clear ();
-      create_grobs ();
+      create_audio_elements ();
     }
 
   if (announce_info_arr_.size ())

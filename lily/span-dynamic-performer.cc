@@ -29,8 +29,8 @@ public:
 
 protected:
   virtual bool try_music (Music*);
-  virtual void acknowledge_grob (Audio_element_info);
-  virtual void create_grobs ();
+  virtual void acknowledge_audio_element (Audio_element_info);
+  virtual void process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 
@@ -57,7 +57,7 @@ Span_dynamic_performer::Span_dynamic_performer ()
 }
 
 void
-Span_dynamic_performer::acknowledge_grob (Audio_element_info i)
+Span_dynamic_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_dynamic * d = dynamic_cast <Audio_dynamic*> (i.elem_l_))
     {
@@ -66,7 +66,7 @@ Span_dynamic_performer::acknowledge_grob (Audio_element_info i)
 }
 
 void
-Span_dynamic_performer::create_grobs ()
+Span_dynamic_performer::process_music ()
 {
   if (span_start_req_l_ || span_req_l_drul_[START])
     {

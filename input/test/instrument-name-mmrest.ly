@@ -6,7 +6,7 @@ interesting bug in 1.3.98)
 
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 \score{
 	\context Staff <
 	      \property Staff.instrument = "instrument"

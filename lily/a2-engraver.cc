@@ -20,13 +20,10 @@ class A2_engraver : public Engraver
 public:
   A2_engraver ();
   VIRTUAL_COPY_CONS (Translator);
-  
 protected:
   virtual void acknowledge_grob (Grob_info);
-
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
-
 private:
   Item* text_p_;
   enum State { SOLO, SPLIT_INTERVAL, UNIRHYTHM, UNISILENCE, UNISON } state_;
@@ -39,7 +36,6 @@ A2_engraver::A2_engraver ()
   text_p_ = 0;
   state_ = UNISILENCE;
 }
-
 
 void
 A2_engraver::create_grobs ()

@@ -4,7 +4,7 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
 % TODO: 
 %
@@ -33,13 +33,13 @@ http://www.Arkkra.com/doc/star.ps
 	copyright="public domain";
 }
 
-global = \notes {
+global =  \notes {
   \time 3/4; 
   \key d \major;
   \partial 4;
 }
 
-$staff1_voice_1 = \notes {
+staffBVoiceB =  \notes {
   a8.()fis16 
   \repeat volta 2 { 
     d4 fis4 a4 d'2 fis'8. e'16 d'4 fis4 gis4 a2 a8 a8 
@@ -56,7 +56,7 @@ $staff1_voice_1 = \notes {
   e'4 d'2 s4 
 }
 
-$staff1_voice_2 = \notes { 
+staffBVoiceC =  \notes { 
   a8.()fis16 
   \repeat volta 2 { 
     a,4 d4 e4 d4 () fis4 fis8. fis16 fis4 d4 d4 cis2
@@ -71,7 +71,7 @@ $staff1_voice_2 = \notes {
   e8. e16 d4.()a8 a8 a8 a2 g8 g8 a4. a8 g4 fis2 s4 
 }
 
-$staff2_voice_1 = \notes { 
+staffCVoiceB =  \notes { 
   r4 
   \repeat volta 2 { 
     fis4 a4 a4 b2 cis'8. cis'16 b4 b4 b4 a2 cis'8 cis'8 
@@ -87,7 +87,7 @@ $staff2_voice_1 = \notes {
   a2 s4 
 }
 
-$staff2_voice_2 = \notes { 
+staffCVoiceC =  \notes { 
   r4 
   \repeat volta 2 { 
     d4 d4 cis4 b,2 ais,8. ais,16 b,4 b,4 e4 a,2 a8 a8 
@@ -102,7 +102,7 @@ $staff2_voice_2 = \notes {
   g8. g16 fis4.()a,8 d8 e8 fis2 b8 b8 a4. a8 a,4 d2 s4 
 }
 
-text = \lyrics {  
+text =  \lyrics {  
   Oh __ \repeat "fold" 2 { }
   \alternative {
     { 
@@ -140,12 +140,12 @@ text = \lyrics {
 			\property Staff.automaticMelismata = ##t
 			\context Voice = one \transpose c'' {
 				\stemUp
-				\$staff1_voice_1
+				\staffBVoiceB
 				\bar "|.";
 			} 
 			\context Voice = two \transpose c'' {
 				\stemDown
-				\$staff1_voice_2
+				\staffBVoiceC
 			}
 		>
 		\context LyricsVoice = "one-1" \text
@@ -155,11 +155,11 @@ text = \lyrics {
 			\property Staff.noVoltaBraces = ##t
 			\context Voice = three {
 				\stemUp
-				\$staff2_voice_1
+				\staffCVoiceB
 			} 
 			\context Voice = four {
 				\stemDown
-				\$staff2_voice_2
+				\staffCVoiceC
 			} 
 		>
 	>

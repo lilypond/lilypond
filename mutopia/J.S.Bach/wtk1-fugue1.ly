@@ -1,8 +1,8 @@
 \header{
-title =	 	 "Fuga a 4";
-opus =           "BWV 846";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "Shay Rojansky";
+title = 	 	 "Fuga a 4";
+opus =            "BWV 846";
+composer = 	 "Johann Sebastian Bach (1685-1750)";
+enteredby = 	 "Shay Rojansky";
 
 
   % mutopia headers.
@@ -19,10 +19,10 @@ enteredby =	 "Shay Rojansky";
 %{
 TODO: use autobeaming.	
 %}
-\version "1.3.110";
+\version "1.3.117";
 
 
-tenor =
+tenor = 
 	\context Voice  = tenor  \notes \relative c' {
 	\clef "violin";
 
@@ -63,7 +63,7 @@ tenor =
 	}
 
 
-soprane =
+soprane = 
 	\context Voice = sop \notes \relative c' {
 
 	\stemUp
@@ -101,7 +101,7 @@ soprane =
 	[f32 c d e f16 g] [a8. b16] <g2 c 2> |
 	}
 
-alt =
+alt = 
 \context Voice = alt	\notes \relative   c {
 	\clef "bass";
 
@@ -141,7 +141,7 @@ alt =
 	c 1 |
 	}
 
-bass =\context Voice = bassvoice
+bass = \context Voice = bassvoice
 	\notes \relative c {
 	\clef "bass";
 

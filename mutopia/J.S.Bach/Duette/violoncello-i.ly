@@ -1,16 +1,16 @@
 \header{
-filename =	"violoncello-i.ly";
-title =		"Vier Duette";
-description =	"Four duets for Violino and Violoncello (Viola)";
-opus = 		"BWV";
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"Public Domain";
+filename = 	"violoncello-i.ly";
+title = 		"Vier Duette";
+description = 	"Four duets for Violino and Violoncello (Viola)";
+opus =  		"BWV";
+composer = 	"Johann Sebastian Bach (1685-1750)";
+enteredby = 	"jcn";
+copyright = 	"Public Domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-$violoncello_i = \notes\relative c{
+violoncelloI =  \notes\relative c{
   \property Voice.beamAutoEnd = "3/8"
   g8()a d, g b()g d()fis a d a()fis |
   g()d b' g b()c b()e fis g d()d, |
@@ -63,9 +63,9 @@ $violoncello_i = \notes\relative c{
 
 \include "global-i.ly"
 
-$violoncello_i_staff = \context Staff = violoncello <
+violoncelloIStaff =  \context Staff = violoncello <
   \property Staff.instrument = "cello"
-  \$violoncello_i
+  \violoncelloI
   \clef bass;
-  \$global_i
+  \globalI
 >

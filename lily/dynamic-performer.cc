@@ -29,7 +29,7 @@ public:
 protected:
   virtual bool try_music (Music* req_l);
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
 
 private:
   Music* script_req_l_;
@@ -45,7 +45,7 @@ Dynamic_performer::Dynamic_performer ()
 }
 
 void
-Dynamic_performer::create_grobs ()
+Dynamic_performer::create_audio_elements ()
 {
   if (script_req_l_)
     {

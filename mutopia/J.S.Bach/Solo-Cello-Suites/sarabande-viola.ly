@@ -1,8 +1,8 @@
-\version "1.3.110";
+\version "1.3.117";
 
 \include "sarabande-urtext.ly";
 
-sarabande_viola_global = \notes{
+sarabandeViolaGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef alto;
@@ -13,17 +13,17 @@ sarabande_viola_global = \notes{
 	}
 }
 
-sarabande_viola_scripts = \notes{
+sarabandeViolaScripts =  \notes{
 }
 
-sarabande_viola_staff = \context Staff <
-	\notes \transpose c' \$sarabande
-	\$sarabande_viola_global
-	\$sarabande_viola_scripts
+sarabandeViolaStaff =  \context Staff <
+	\notes \transpose c' \sarabande
+	\sarabandeViolaGlobal
+	\sarabandeViolaScripts
 >
 
 \score{
-	\$sarabande_viola_staff
+	\sarabandeViolaStaff
 	\paper{	}
 	\midi{ \tempo 4 = 40; }
 	\header{
