@@ -142,13 +142,15 @@
 
 "
 
-  "This is the program reference for LilyPond version " (lilypond-version)
 
   ) out-port)
 
 (define top-node
   (make <texi-node>
     #:name "Top"
+    #:text 
+    (string-append  "This is the program reference for LilyPond version " (lilypond-version))
+
     #:children
     (list
      (music-doc-node)

@@ -143,6 +143,11 @@
 		     
       (head (page-headfoot paper scopes number 'make-header 'headsep UP last?))
       (foot (page-headfoot paper scopes number 'make-footer 'footsep DOWN last?))
+
+      (head-height (if (ly:stencil? head)
+		       (interval-length (ly:stencil-extent head Y))
+		       0.0))
+
       (line-stencils (map ly:paper-system-stencil lines))
       (height-proc (ly:output-def-lookup paper 'page-music-height))
 
@@ -156,12 +161,16 @@
 			   (ly:stencil-translate-axis
 			    (car stencil-position)
 			    (- 0
+			       head-height
 			       (cadr stencil-position)
 			       topmargin)
 			       Y)
 			   page-stencil))))
       )
 
+
+    (set! page-stencil (ly:stencil-combine-at-edge
+	  page-stencil Y DOWN head 0. 0.))
 
     (map add-system (zip line-stencils offsets))
     (if (ly:stencil? foot)
