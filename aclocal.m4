@@ -1,5 +1,9 @@
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -145,13 +149,13 @@ AC_DEFUN(AC_STEPMAKE_END, [
 AC_DEFUN(AC_STEPMAKE_GXX, [
     # ugh autoconf
     changequote(<<, >>)dnl
-    if $CXX --version | grep '2\.[78]' > /dev/null ||
+    if $CXX --version | grep '2\.8' > /dev/null ||
 	$CXX --version | grep 'egcs' > /dev/null
     changequote([, ])dnl
     then
 	    true
     else
-	    AC_STEPMAKE_WARN(can\'t find g++ 2.7, 2.8 or egcs)
+	    AC_STEPMAKE_WARN(can\'t find g++ 2.8 or egcs)
     fi
 ])
 
@@ -160,17 +164,19 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
     # others need readline, dl (or even more)
     # urg, must check for different functions in libguile
     # to force new check iso reading from cache
-    AC_CHECK_LIB(guile, scm_shell, \
+
+    # gh_scm2doubles,gh_doubles2scm are new in 1.3
+    AC_CHECK_LIB(guile, gh_scm2doubles, \
       LIBS="-lguile $LIBS"; AC_DEFINE(HAVE_LIBGUILE), \
       AC_CHECK_LIB(readline, readline) \
       AC_CHECK_LIB(dl, dlopen) \
       AC_CHECK_LIB(socket, socket)\
       AC_CHECK_LIB(termcap,tgetent)\
       AC_CHECK_LIB(m, fabs)\
-      AC_CHECK_LIB(guile, scm_boot_guile)\
+      AC_CHECK_LIB(guile, gh_doubles2scm)\
     )
-    if test "$ac_cv_lib_guile_scm_shell" != yes -a \
-      "$ac_cv_lib_guile_scm_boot_guile" != yes ; then
+    if test "$ac_cv_lib_guile_gh_scm2doubles" != yes -a \
+      "$ac_cv_lib_guile_gh_doubles2scm" != yes ; then
 	    AC_STEPMAKE_WARN(You should install guile 1.3 or newer)
     fi
 ])

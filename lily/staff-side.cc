@@ -30,7 +30,7 @@ Staff_side::support_extent() const
   Interval y_int;
   for (int i=0; i < support_l_arr_.size(); i++) 
     {
-    Graphical_axis_group *common = 
+      Dimension_cache *common = 
 	common_group (support_l_arr_[i], axis_);
 	
       Real y = support_l_arr_[i]->relative_coordinate (common, axis_)  

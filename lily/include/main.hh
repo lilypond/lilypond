@@ -40,4 +40,7 @@ extern File_path global_path;
 extern String default_outname_base_global;
 extern String default_outname_suffix_global;
 extern int default_count_global;
+extern All_font_metrics *all_fonts_global_p;
+
+
 #endif

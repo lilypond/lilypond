@@ -1,4 +1,5 @@
-Features you cannot find in the doco as working, should be mentioned here.
+Features you cannot find in the doco as working, should be mentioned
+here.
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -6,7 +7,22 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+	* scm-ify \property values.
+
+	* move class Lookup {} into scm
+
+	* read tfms too.
+
+	* update mi2mu for lilypond 1.1
+
 BUGS:
+
+	* fix braces
+
+	* ly2dvi barfs on linewidth = -1.
+
+	* fix midi output.
+
 	* c4 \! \> c4
 
 	* tremolo stuff
@@ -26,10 +42,6 @@ BUGS:
 	* msgfmt -o check?
 
 	* \breathmark TeX macro 
-
-	* configure error if GUILE 1.3 not found
-
-	* configure error if no rtti (gcc 2.8 or egcs-1.1)
 
 	* catch GUILE errors?
 
@@ -127,8 +139,6 @@ STUFF
 	* stable make/config stuff
 
 	* $DEPENDENCIES_OUTPUT support
-
-	* fix BUGs
 
 	* fix weird behaviour when .AFMs/.SCMs not found.
 
@@ -544,9 +554,6 @@ SMALLISH PROJECTS
 	* declare notenametab?
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
-
-	* Flower types:
-	- A decent scalar type
 
 	* stafftypes: voice names/ instrument names.
 

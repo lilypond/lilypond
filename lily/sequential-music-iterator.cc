@@ -11,7 +11,6 @@
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
 
-
 void
 Sequential_music_iterator::do_print() const
 {
@@ -26,16 +25,10 @@ Sequential_music_iterator::Sequential_music_iterator ()
   iter_p_ =0;
 }
 
-Sequential_music*
-Sequential_music_iterator::sequential_music_l () const
-{
-  return (Sequential_music *)music_l_;
-}
-
 void
 Sequential_music_iterator::construct_children()
 {
-  cursor_p_ = new PCursor<Music*> (sequential_music_l ()->music_p_list_p_->top ());
+  cursor_p_ = new PCursor<Music*> (dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->top ());
   
   while (cursor_p_->ok()) 
     {

@@ -63,7 +63,7 @@ Text_item::symbol_height () const
 }
   
 Molecule*
-Text_item::brew_molecule_p () const
+Text_item::do_brew_molecule_p () const
 {
   Atom a (tdef_p_->get_atom (paper (), dir_));
 

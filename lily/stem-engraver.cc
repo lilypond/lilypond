@@ -20,13 +20,12 @@ Stem_engraver::Stem_engraver()
   stem_p_ = 0;
   abbrev_p_ = 0;
   default_abbrev_i_ = 16;
-  dir_ = CENTER;
 }
 
 void
 Stem_engraver::do_creation_processing ()
 {
-  Scalar prop = get_property ("abbrev");
+  Scalar prop = get_property ("abbrev", 0);
   if (prop.isnum_b ()) 
     {
       default_abbrev_i_  = prop;
@@ -84,15 +83,31 @@ Stem_engraver::do_pre_move_processing()
       typeset_element (abbrev_p_);
       abbrev_p_ = 0;
     }
+
   if (stem_p_)
     {
-      Scalar prop = get_property ("ydirection");
-      dir_ = prop.isnum_b () ? (Direction)int(prop) : CENTER;
-      if (dir_)
+      Scalar prop = get_property ("ydirection", 0);
+      Direction dir = prop.isnum_b () ? (Direction)int(prop) : CENTER;
+      if (dir)
 	{
-	  stem_p_->dir_ = dir_;
+	  stem_p_->dir_ = dir;
 	  stem_p_->dir_forced_b_ = true;
 	}
+
+      Translator const *which;
+      prop = get_property ("stemLeftBeamCount", &which);
+      if (prop.isnum_b ())
+	{
+	  stem_p_->beams_i_drul_[LEFT] = prop;
+	  ((Translator*)which)->set_property ("stemLeftBeamCount", "");
+	}
+      prop = get_property ("stemRightBeamCount", &which);
+      if (prop.isnum_b ())
+	{
+	  stem_p_->beams_i_drul_[RIGHT] = prop;
+	  ((Translator*)which)->set_property ("stemRightBeamCount", "");
+	}
+
 
       typeset_element(stem_p_);
       stem_p_ = 0;
@@ -103,17 +118,12 @@ Stem_engraver::do_pre_move_processing()
 bool
 Stem_engraver::do_try_music (Music* r)
 {
-  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
-  if (!mus_l)
-    return false;
-  
-  Abbreviation_req* a = dynamic_cast <Abbreviation_req *> (mus_l);
-  if (!a)
-    return false;
-
-  abbrev_req_l_ = a;
-
-  return true;
+  if (Abbreviation_req* a = dynamic_cast <Abbreviation_req *> (r))
+    {
+      abbrev_req_l_ = a;
+      return true;
+    }
+  return false;
 }
 
 

@@ -55,12 +55,12 @@ Mark_engraver::do_process_requests ()
   script_p_->specs_p_ = td_p->clone ();
   script_p_->postbreak_only_b_ = true;
   
-  Scalar padding = get_property ("markScriptPadding");
+  Scalar padding = get_property ("markScriptPadding", 0);
   if (padding.length_i() && padding.isnum_b ())
     {
       script_p_->padding_f_ = Real(padding);
     }
-  Scalar break_priority = get_property ("markBreakPriority");
+  Scalar break_priority = get_property ("markBreakPriority", 0);
   if (break_priority.length_i() && break_priority.isnum_b ())
     {
       script_p_->break_priority_i_ = int(break_priority);

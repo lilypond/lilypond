@@ -1,7 +1,9 @@
 /*
    path.cc - manipulation of paths and filenames.
 */
+
 #include <stdio.h>
+
 #include "config.hh"
 #include "file-path.hh"
 #include "flower-debug.hh"
@@ -72,7 +74,7 @@ File_path::parse_path (String p)
 
 
 
-/** find a file.
+/** Find a file.
   It will search in the current dir, in the construction-arg, and
   in any other added path, in this order.
 

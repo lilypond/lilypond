@@ -6,7 +6,7 @@
 
 table_twentysix  = \symboltables {
 
-   \font 	"feta26.afm"
+   \font 	"feta26"
 
     % index symbol #parameters  	xmin xmax ymin ymax
 

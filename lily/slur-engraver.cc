@@ -75,7 +75,7 @@ Slur_engraver::do_process_requests()
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
 	  Slur * s_p =new Slur;
-	  Scalar prop = get_property ("slurdash");
+	  Scalar prop = get_property ("slurdash", 0);
 	  if (prop.isnum_b ()) 
 	    s_p->dash_i_ = prop;
 	  requests_arr_.push (slur_req_l);
@@ -90,8 +90,8 @@ Slur_engraver::do_process_requests()
 void
 Slur_engraver::do_pre_move_processing()
 {
-  Scalar dir (get_property ("slurydirection"));
-  Scalar dir2 (get_property ("ydirection"));
+  Scalar dir (get_property ("slurydirection", 0));
+  Scalar dir2 (get_property ("ydirection", 0));
 
   Direction slurdir = CENTER;
   if (dir.length_i () && dir.isnum_b ())

@@ -32,7 +32,7 @@ static Real absdyn_dim = 10 PT;	// ugh
 Atom
 Crescendo::get_symbol() const
 {
-  Real w_dim = width().length ();
+  Real w_dim = extent(X_AXIS).length ();
   if (dyn_b_drul_[LEFT])
     {
       w_dim -= absdyn_dim;
@@ -61,7 +61,7 @@ Crescendo::get_symbol() const
 }
 
 Molecule*
-Crescendo::brew_molecule_p() const
+Crescendo::do_brew_molecule_p() const
 {
   Molecule* m_p =0;
   Real x_off_dim=0.0;

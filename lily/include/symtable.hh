@@ -15,10 +15,10 @@
 #include "atom.hh"
 
 struct  Symtable : public Dictionary<Atom> {
-    String id_str;
+  String id_str;
     
-    Atom lookup (String) const;
-    void print() const;
+  Atom lookup (String) const;
+  void print() const;
 };
 
 
@@ -32,8 +32,7 @@ struct Symtables : private Dictionary<Symtable*>
   void add (String, Symtable*);
   void print() const;
 
-  String font_;
-  String font_path_;  
+  String font_name_;
 };
 
 

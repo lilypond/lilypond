@@ -30,7 +30,7 @@ protected:
     virtual void do_post_processing();
     
     virtual void do_substitute_dependency (Score_element*,Score_element*);
-    virtual Molecule * brew_molecule_p() const;
+    virtual Molecule * do_brew_molecule_p() const;
     virtual Atom get_bar_sym (Real dy) const;
 };
 

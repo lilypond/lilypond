@@ -27,7 +27,7 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
 class Score_element : private Directed_graph_node, public virtual Graphical_element {
 public:
   Paper_score *pscore_l_;    
-
+  Molecule * output_p_;
   Score_element ();
   Score_element (Score_element const&);
   virtual void print () const;
@@ -80,7 +80,7 @@ protected:
   int dependent_size () const;
   int dependency_size () const;
   
-  virtual void do_brew_molecule ();
+  virtual void output_processing ();
   void junk_links ();
   virtual Interval do_height () const;
   virtual Interval do_width () const;
@@ -88,7 +88,7 @@ protected:
   /// do printing of derived info.
   virtual void do_print () const {}
   /// generate the molecule    
-  virtual Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
   /// do calculations before determining horizontal spacing

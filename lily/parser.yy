@@ -906,7 +906,7 @@ abbrev_command_req:
 		$$ = $1->access_content_Request (true);
 	}
 	| '~'	{
-		$$ = new Command_tie_req;
+		$$ = new Tie_req;
 	}
 	| '['		{
 		Beam_req*b= new Beam_req;
@@ -1555,11 +1555,7 @@ symtables_body:
 		$$ = $1->access_content_Symtables (true);
 	}
 	| symtables_body FONT STRING 		{
-		$$->font_ = *$3;
-		$$->font_path_ = global_path.find (*$3);
-		if  (!$$->font_path_.length_i ())
-			THIS->here_input ().error (_f("can't open file: `%s'", $3->ch_C()));
-
+		$$->font_name_ = *$3;
 		delete $3;
 	}
 	| symtables_body STRING '=' symtable		{

@@ -29,7 +29,7 @@ public:
 
 private:
   Array<Musical_pitch> pitch_arr_;
-  Link_array<Text_item> text_p_arr_;
+  Link_array<Item> text_p_arr_;
 };
 
 #endif // CHORD_NAME_ENGRAVER_HH

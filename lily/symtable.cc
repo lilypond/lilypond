@@ -21,8 +21,8 @@ Symtables::Symtables()
 Symtables::Symtables (Symtables const &s)
   : Dictionary<Symtable*> (s)
 {
-  font_ = s.font_;
-  font_path_ = s.font_path_;
+  font_name_ = s.font_name_;
+
   for (Dictionary_iter< Symtable*>  i (s); i.ok(); i++)
     {
       add (i.key(), new Symtable (*i.val ()));

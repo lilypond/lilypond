@@ -119,7 +119,7 @@ Timing_translator::do_pre_move_processing()
 
 
   /* allbars == ! skipbars */
-  bool allbars = ! get_property ("SkipBars").to_bool ();
+  bool allbars = ! get_property ("SkipBars", 0).to_bool ();
 
 
   if (!time_.cadenza_b_ && allbars)

@@ -29,7 +29,7 @@ Repeat_engraver::do_try_music (Music* m)
 {
   if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
     {
-      r->unfold_b_ = get_property ("unfoldRepeats").to_bool ();
+      r->unfold_b_ = get_property ("unfoldRepeats", 0).to_bool ();
       if (r->unfold_b_)
         return true;
  

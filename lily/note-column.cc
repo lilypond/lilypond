@@ -38,37 +38,38 @@ Interval_t<int>
 Note_column::head_positions_interval() const
 {
   ((Note_column*)this)->sort();
- Interval_t<int>  iv;
+  Interval_t<int>  iv;
 
- iv.set_empty ();
+  iv.set_empty ();
 
- if (head_l_arr_.size ())
-   iv = Interval_t<int>(head_l_arr_[0]->position_i_, 
-			  head_l_arr_.top()->position_i_);
+  if (head_l_arr_.size ())
+    iv = Interval_t<int>(head_l_arr_[0]->position_i_, 
+			 head_l_arr_.top()->position_i_);
   
   return iv;
 }
 
+/*
 Interval 
-Note_column::width () const
+Note_column::do_width () const
 {
   if (head_l_arr_.size ())
-    return head_l_arr_[0]->width ();
+    return head_l_arr_[0]->extent (X_AXIS);
   else
     return Interval (0,0);
 }
-
+*/
 void
 Note_column::do_pre_processing()
 {
-
   if (!dir_)
     {
       if (stem_l_)
 	dir_ = stem_l_->dir_;
       else if (head_l_arr_.size ())
 	{
-	  dir_ = (head_positions_interval().center () >=  5) ? DOWN:UP;
+	  assert (false);	// looks obsolete?
+	  dir_ = sign (head_positions_interval().center ());
 	}
     }
   Script_column::do_pre_processing();
@@ -83,7 +84,7 @@ Note_column::set_stem (Stem * stem_l)
   stem_l_ = stem_l;
   /* 
      don't add stem to support; mostly invisible for rest-columns (and possibly taken . .)
-   */
+  */
   Score_element::add_dependency (stem_l);
   for (int i=0; i < script_l_arr_.size(); i++)
     script_l_arr_[i]->set_stem (stem_l);

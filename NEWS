@@ -1,9 +1,48 @@
+pl 17.jbr2
+        - Documentation/README-W32: Brought my stuff up to date
+        - Documentation/ntweb: updated for realease
+        - stepmake/bin/package-zip32.sh: cygwin-b20 changes
+        - scripts/ly2dvi.py: LILYPONDPREFIX fixes
+
+pl 17.jbr1
+        - scripts/ly2dvi.py root is now the shared directory path not the
+          root of the lily installation.  Environment variable LILYPONDPREFIX
+          is also the path to shared directory.
+        - lily/main.cc WINNT conditional added to avoid a casting of 
+          main_prog
+
+pl 17.hwn1
+	- bfs wtk1-fugue1
+	- spacing tweak: very widely and tightly spaced lines look
+better.
+	- allow Beam settings to be overriden: property
+	stemLeftBeamCount, stemRightBeamCount
+	- junked Assoc, Assoc_iter
+	- junked Graphical_element::{width,height}
+	- junked Plet_swallow_engraver, Plet_engraver
+	- Command_tie_engraver -> Tie_engraver, Command_beam_engraver -> Beam_engraver
+	- naming  brew_molecule_p / do_brew_molecule -> output_processing,  do_brew_molecule_p 
+	- experimental Text_item, Staff_side
+	- junked old Beam_engraver and old Tie_engraver.
+	- AFM administration cleanup.
+	- cache brewed molecules.  Speed up ?
+ 	- rehacked Graphical_element, introduced Dimension_cache
+
+********
+
+pl 17
 pl 16.jcn2
 	- fix: TEMPO 4., well urg, "TEMPO 4 ."
 	- beginning of violino/violoncello (viola) duet
 
 pl 16.jcn1
 	- resurrected po-stuff
+
+********
+pl 16
+
+*********
+pl 16
 
 pl 15.uu1
 	- dynamic fix.	

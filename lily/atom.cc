@@ -91,6 +91,7 @@ Atom::str () const
 Offset
 Atom::offset () const
 {
+  check_infinity_b ();
   return off_;
 }
 

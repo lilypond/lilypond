@@ -6,7 +6,7 @@
 
 table_eleven  = \symboltables {
 
-   \font 	"feta11.afm"
+   \font 	"feta11"
 
     % index symbol #parameters  	xmin xmax ymin ymax
 

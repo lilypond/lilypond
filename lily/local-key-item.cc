@@ -45,7 +45,7 @@ Local_key_item::do_pre_processing()
 }
 
 Molecule*
-Local_key_item::brew_molecule_p() const
+Local_key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
 
@@ -95,13 +95,13 @@ Local_key_item::brew_molecule_p() const
   Interval x_int;
   for (int i=0; i < support_items_.size(); i++) 
     {
-      Graphical_axis_group *common = 
+      Dimension_cache *common = 
 	common_group (support_items_[i], X_AXIS);
 
-      Real x = support_items_[i]->relative_coordinate (common, X_AXIS)  
-	-relative_coordinate (common, X_AXIS);
+      Real x = support_items_[i]->relative_coordinate (common, X_AXIS)
+	- relative_coordinate (common, X_AXIS);
 
-      x_int.unite (x + support_items_[i]->width());
+      x_int.unite (x + support_items_[i]->extent (X_AXIS));
     }
   if (x_int.empty_b ())
     x_int = Interval(0,0);

@@ -30,7 +30,7 @@ Bar::do_print () const
 }
 
 Molecule*
-Bar::brew_molecule_p () const
+Bar::do_brew_molecule_p () const
 {    
   Paper_def *p = paper ();
   Atom s = lookup_l ()->bar (type_str_, p->get_var ("barsize"));

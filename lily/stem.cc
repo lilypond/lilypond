@@ -31,7 +31,7 @@ Stem::Stem ()
   /*
     TODO: staff-size
     */
-  beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = 0;
+  beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
   mult_i_ = 0;
 
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
@@ -280,7 +280,7 @@ Stem::do_width () const
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh!
 
 Molecule*
-Stem::brew_molecule_p () const
+Stem::do_brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
   Drul_array<Real> stem_y = yextent_drul_;
@@ -288,7 +288,7 @@ Stem::brew_molecule_p () const
 
   Real head_wid = 0;
   if (head_l_arr_.size ())
-    head_wid = head_l_arr_[0]->width ().length ();
+    head_wid = head_l_arr_[0]->extent (X_AXIS).length ();
   stem_y[Direction(-dir_)] += dir_ * head_wid * tan(ANGLE)/(2*dy);
   
   if (!invisible_b ())
@@ -318,7 +318,7 @@ Stem::note_delta_f () const
   Real r=0;
   if (head_l_arr_.size())
     {
-      Interval head_wid(0,  head_l_arr_[0]->width ().length ());
+      Interval head_wid(0,  head_l_arr_[0]->extent (X_AXIS).length ());
       Real rule_thick(paper ()->rule_thickness ());
       Interval stem_wid(-rule_thick/2, rule_thick/2);
       if (stem_xdir_ == CENTER)
@@ -339,10 +339,10 @@ Stem::hpos_f () const
   TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
  */
 void
- Stem::do_substitute_dependency (Score_element*o,Score_element*n)
+Stem::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item * o_l = dynamic_cast <Item *> (o);
-  Item * n_l = n? dynamic_cast <Item *> (n) : 0;
-  head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
-  rest_l_arr_.substitute ((Rest*)o_l, (Rest*)n_l);
+  if (Note_head*h=dynamic_cast<Note_head*> (o))
+  head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
+  if (Rest *r=dynamic_cast<Rest*> (o))
+    rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
 }

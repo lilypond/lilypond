@@ -77,9 +77,9 @@ String
 Staff_performer::new_instrument_str () 
 { 
   // mustn't ask Score for instrument: it will return piano!
-  String str = get_property ("midi_instrument");
+  String str = get_property ("midi_instrument", 0);
   if (!str.length_i ())
-    str = get_property ("instrument");
+    str = get_property ("instrument", 0);
   if (str == instrument_str_)
     return "";
 

@@ -50,9 +50,6 @@ Bar_req::do_equal_b (Request*r) const
   return b && type_str_ == b->type_str_;
 }
 
-void
-Command_tie_req::do_print () const
-{}
 
 
 

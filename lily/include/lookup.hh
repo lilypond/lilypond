@@ -16,7 +16,6 @@
 #include "scalar.hh"
 #include "direction.hh"
 #include "curve.hh"
-#include "afm.hh"
 #include "symtable.hh"
 #include "box.hh"
 
@@ -61,9 +60,9 @@ public:
 
   Paper_def * paper_l_;
   Symtables *symtables_p_;
-  String font_;
-  String font_path_;  
-  Adobe_font_metric * afm_p_;
+
+  String font_name_;
+  Adobe_font_metric * afm_l_;
 };
 
 #endif // LOOKUP_HH

@@ -316,7 +316,7 @@ msgstr "  -D, --debug            toon ontluis berichten\n"
 #: main.cc:94
 msgid ""
 "  -d, --dependencies     write Makefile dependencies for every input file\n"
-msstr ""
+msgstr ""
 "  -d, --dependencies     schrijf Makefile afhankelijkheden voor elk\n"
 "                           invoerbestand\n"
 

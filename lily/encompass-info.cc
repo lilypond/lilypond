@@ -45,7 +45,7 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir)
   if (stem->dir_ != dir)
     o_.x () -= 0.5 * notewidth * stem->dir_;
 
-  o_.y () = stem->height ()[dir];
+  o_.y () = stem->extent (Y_AXIS)[dir];
   /*
    leave a gap: slur mustn't touch head/stem
    */

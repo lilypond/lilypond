@@ -17,28 +17,18 @@
 class Text_item : public Item ,public Staff_side
 {
 public:
-
     /// do I have width?
     bool fat_b_;
-    
 
-    Text_item (General_script_def* ,Direction dir=CENTER);
-    virtual ~Text_item ();
-    
-
-//protected:
-    // ugh: so, are we a text-def, or can this vary?
+  Text_item (General_script_def* ,Direction dir=CENTER);
     General_script_def* tdef_p_;
+
 protected:
-
+    virtual ~Text_item ();
     virtual Interval symbol_height () const;
-
-    virtual Molecule* brew_molecule_p () const;
+    virtual Molecule* do_brew_molecule_p () const;
     virtual void do_pre_processing ();
     virtual Real get_position_f () const;
-
-private:
-//    void init (Text_def* tdef_l); 
 };
 
 

@@ -22,6 +22,6 @@ public:
   void add_dots (Dots*);
 protected:
   virtual void do_add_processing ();
-  virtual Molecule * brew_molecule_p () const;
+  virtual Molecule * do_brew_molecule_p () const;
 };
 #endif // REST_HH

@@ -50,7 +50,7 @@ Clef_item::Clef_item()
 
 
 Molecule*
-Clef_item::brew_molecule_p() const
+Clef_item::do_brew_molecule_p() const
 {
   String t = symbol_;
   if  (change_b_)

@@ -14,7 +14,24 @@
 
 #include "matrix.hh"
 
-/// inequality constrained quadratic program
+/** inequality constrained quadratic program
+
+    It takes the form of
+
+    optimise for x : x*quad_ *x + lin_* x + const_term_
+
+    subject to for all i:  cons_[i] * x >= consrhs_[i]
+
+
+    @usage:
+    instantiate Ineq_constrained_qp.
+    
+    Modify quad_, lin_ and const_term_ directly. Use
+    add_inequality_cons () to add constraints.  Call solve () with a
+    feasible solution
+
+    
+ */
 class Ineq_constrained_qp {
     friend class Active_constraints;
 

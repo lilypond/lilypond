@@ -36,7 +36,7 @@
  */
 class Paper_def : public Music_output_def 
 {
-  Assoc<int, Lookup *> *lookup_p_assoc_p_;
+  Hash_table<int, Lookup *> *lookup_p_tab_p_;
   static int default_count_i_;
 
 protected:

@@ -10,7 +10,7 @@
 #include "horizontal-group-item.hh"
 #include "score-priority-engraver.hh"
 #include "item.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 #include "break-align-item.hh"
 
 
@@ -21,15 +21,16 @@ Score_priority_engraver::Score_priority_engraver()
 void
 Score_priority_engraver::do_pre_move_processing()
 {
-  for (Assoc_iter<int, Horizontal_group_item*> i(align_p_assoc_); i.ok() ; i++)
+  for (Hash_table_iter<int, Horizontal_group_item*> i(align_p_tab_);
+       i.ok() ; i++)
     {
       if (i.val ())
 	{
 	  typeset_element (i.val ());
-	  i.val () = 0;
+	  i.val_ref () = 0;
 	}
     }
-  align_p_assoc_.clear ();
+  align_p_tab_.clear ();
 }
 
 void
@@ -48,27 +49,31 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       
       int priority =item_l->break_priority_i_;
       Horizontal_group_item * hg =0;
-      if (!align_p_assoc_.elem_b(priority))
+      if (!align_p_tab_.elem_b(priority))
 	{
 	  hg = new Horizontal_group_item;
 	  announce_element (Score_element_info (hg,0));
-	  align_p_assoc_[priority] = hg;
+	  align_p_tab_[priority] = hg;
 	  hg->break_priority_i_ = priority;
 	  hg->breakable_b_ = true;
 	}
       else
-	hg = align_p_assoc_[priority];
+	hg = align_p_tab_[priority];
       
       Score_element * unbound_elem = inf.elem_l_;
 
-      while (unbound_elem->axis_group_l_a_[X_AXIS])
+      /*
+	ugh
+       */
+      while (unbound_elem->parent_l (X_AXIS))
 	{
 	  /* We might have added inf.elem_l_ earlier because we added one
 	     of its children.  We don't want to add ourselves to ourself
 	  */
-	  if (unbound_elem->axis_group_l_a_[X_AXIS] == hg)
+	  Graphical_element * e = unbound_elem->parent_l (X_AXIS);
+	  if (e == hg)
 	    return;
-	  unbound_elem = dynamic_cast<Score_element*> (unbound_elem->axis_group_l_a_[X_AXIS]);
+	  unbound_elem = dynamic_cast<Score_element*> (e);
 	}
 
       hg->add_element (unbound_elem);

@@ -25,7 +25,7 @@ Bow::Bow ()
 }
 
 Molecule*
-Bow::brew_molecule_p () const
+Bow::do_brew_molecule_p () const
 {
   Real thick = paper ()->get_var ("slur_thickness");
   Array<Offset> c = get_controls ();
@@ -63,7 +63,7 @@ Bow::center () const
 {
   Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
 
-  Real dx = width ().length ();
+  Real dx =  extent(X_AXIS).length ();
 
   return Offset (dx / 2, dy);
 }
@@ -115,7 +115,7 @@ Bow::get_encompass_offset_arr () const
 {
   Offset d (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d.x() += width (). length ();
+  d.x() += extent (X_AXIS). length ();
 
   Array<Offset> notes;
   notes.push (Offset (0, 0));

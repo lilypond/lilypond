@@ -145,17 +145,17 @@ lurl(http://www.cygnus.com/misc/gnu-win32/)
 
 Please follow the documentation Cygnus has on there web site for
 downloading and installing.  The important part is that you down load
-the entire development kit.  I believe it is file(cdk.exe).  The
+the entire development kit.  I believe it is file(full.exe).  The
 installation will ask you where you want to install it.  I will refer
-to Cygnus installation directory as file(/gnuwin32/b19).  There should be a
-file(README) file that contains installation instructions.  After the
-installation is complete you should have a em(Cygnus) shortcut in your
-em(Program) section of your em(Start Menu).  This shortcut is your
-door to the tt(UNIX) world and I will refer to the resulting window
-as a file(bash) shell.
+to Cygnus installation directory as file(/gnuwin32/cygwin-b20).  There
+should be a file(README) file that contains installation instructions.
+After the installation is complete you should have a em(Cygnus)
+shortcut in your em(Program) section of your em(Start Menu).  This
+shortcut is your door to the tt(UNIX) world and I will refer to the
+resulting window as a file(bash) shell.
 
-The shortcut points to file(/gnuwin32/b19/cygnus.bat).  The following
-is my file(cygnus.bat) file.  
+The shortcut points to file(/gnuwin32/cygwin-b20/cygnus.bat).  The
+following is my file(cygnus.bat) file.
 
 verb(
 @ECHO OFF
@@ -167,25 +167,25 @@ SET CYGREL=B19.1
 SET MAKE_MODE=unix
 SET LOCAL_ROOT=d:\gnuwin32
 SET LOCAL_FS=d:/gnuwin32
-SET LOCAL_DIR=/gnuwin32
-SET CYGROOT=%LOCAL_ROOT%\b19
-SET CYGFS=%LOCAL_FS%/b19
-SET GCC_EXEC_PREFIX=%CYGROOT%\H-i386-cygwin32\lib\gcc-lib\
+SET LOCAL_DIR=d:/gnuwin32/cygwin-b20
+SET CYGROOT=%LOCAL_ROOT%\cygwin-b20
+SET CYGFS=%LOCAL_FS%/cygwin-b20
 SET TCL_LIBRARY=%CYGROOT%\share\tcl8.0\
-SET GDBTK_LIBRARY=%CYGFS%/share/gdbtcl
 
+rem
 rem This was not in the original but is needed by lots of packages
+rem
 SET BISON_SIMPLE=%CYGFS%/share/bison.simple
 
+rem
 rem I place the cygnus stuff in front of /WINNT 
-SET PATH=d:\bin;%CYGROOT%\H-i386-cygwin32\bin;%PATH%
-SET MANPATH=%LOCAL_ROOT%\man;%LOCAL_ROOT%\b19\man;%LOCAL_ROOT%\b19\cdk-man\man;%LOCAL_ROOT%\a2ps-4.10\man
-SET INFOPATH=%LOCAL_FS%/b19/cdk-man/info;%LOCAL_FS%/b19/info;%LOCAL_DIR%/info
-SET PATH=%PATH%;%LOCAL_ROOT%\bin
+rem
 
+SET PATH=d:\bin;%LOCAL_ROOT%\bin;%CYGROOT%\H-i586-cygwin32\bin;%PATH%
+SET MANPATH=%LOCAL_ROOT%\man;%LOCAL_ROOT%\cygwin-b20\full-man\man
+SET INFOPATH=%LOCAL_FS%/cygwin-b20/full-man/info;%LOCAL_FS%/cygwin-b20/info;%LOCAL_DIR%/info
 
 rem General tools not included with Cygnus Development Kit
-
 
 rem CVS
 
@@ -238,31 +238,21 @@ that the generic file(cygnus.bat) you will be looking at does not
 include alot of the packages listed.  We will be installing some of
 these.
 
-There is also some discussion of how you want to em(mount) the Cygnus
-development kit.  em(mount) is a tt(UNIX) term that refers to the
-mechanism used to provide a disk resource to the filesystem.  Cygnus
-supplies a mechinism for em(mounting) a filesystem as a tt(DOS) like
-resource or a tt(UNIX) like resource.  Among other things this
-attempts to deal with the text file carriage return line feed on
-tt(DOS) versus the line feed on tt(UNIX) and the issue that tt(DOS)
-has two file types, text and binary.  Where tt(UNIX) deals with a
-single streams type.  I have used the default out of the box
-configuration with no problems.  We will however later discuss
-mounting a directory as a binary resource ref(binary).
 
 The installation also suggests that you create a directory file(/bin)
-and copy file(/gnuwin32/b19/H-i386-cygwin32/bin/sh.exe) to file(/bin).
-The file(sh.exe) shell provided by Cygnus is a descendant of the
-file(ash) shell and I have found that some of the tt(GNU) products
-configure/installations work better with the file(bash) shell.  So
-this is my recommendation for post installation steps.  From a
+and copy file(/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/sh.exe) to
+file(/bin).  The file(sh.exe) shell provided by Cygnus is a descendant
+of the file(ash) shell.  The file(sh.exe) shell has improved greatly
+and is much faster than the file(bash) shell for script invocations.
+So this is my recommendation for post installation steps.  From a
 file(bash) shell:
 
 itemize(
 it()code(cd /)
 it()code(mkdir bin)
 it()code(cd /bin)
-it()code(cp /gnuwin32/b19/H-i386-cygwin32/bin/bash.exe sh.exe)
+it()code(cp /gnuwin32/cygwin-b20/H-i586-cygwin32/bin/sh.exe sh.exe)
+it()code(cp /gnuwin32/cygwin-b20/H-i586-cygwin32/bin/bash.exe bash.exe)
 it()code(cd /)
 it()code(mkdir /tmp)
 it()code(chmod a+rwx tmp)
@@ -272,42 +262,33 @@ it()code(mkpasswd -l > passwd)
 it()code(mkgroup -l > group)
 )
 
+subsubsubsect(Binary Mounts) label(binary)
+
+There is also some discussion of how you want to em(mount) the Cygnus
+development kit.  em(mount) is a tt(UNIX) term that refers to the
+mechanism used to provide a disk resource to the filesystem.  Cygnus
+supplies a mechinism for em(mounting) a filesystem as a tt(DOS) like
+resource or a tt(UNIX) like resource.  Among other things this
+attempts to deal with the text file carriage return line feed on
+tt(DOS) versus the line feed on tt(UNIX) and the issue that tt(DOS)
+has two file types, text and binary.  Where tt(UNIX) deals with a
+single streams type.  My opinion on this matter currently is to use
+binary mounts only.  This can be accomplished by:
+
+itemize(
+it() From a bash shell, umount /
+it() mount -b d: /
+)
+
+If you have other disks that you intend to use for data generated by
+cygnus tools you will have to mount those devices with the em(-b)
+switch. 
+
+
 subsubsect(Ecgs Compiler, assembler, and linker)
 lurl(http://www.xraylith.wisc.edu/~khan/software/gnu-win32/egcs.html)
 
-
-Cygnus recommends using the ecgs compiler.  I do too.  Follow the
-instructions from the above site to install ecgs compiler/linker and
-the gas assembler.  We have attempted to compile lilypond with the
-Cygnus default compiler/linker with poor results.  So for lilypond
-anyway this step is a requirement.
-
-I took the following steps to download and install the ecgs suite.
-Keep in mind that it is better to follow the instructions from the
-indicated website.
-
-itemize(
-it()download
-url(egcs-1.0.2-cygb19.tar.gz)(ftp://ftp.xraylith.wisc.edu/pub/khan/gnu-win32/cygwin32/b19-releases/egcs-1.0.2-cygb19.tar.gz)
-to /tmp
-it()download
-url(gas-980303-cygb19.tar.gz)(ftp://ftp.xraylith.wisc.edu/pub/khan/gnu-win32/cygwin32/b19-releases/gas-980303-cygb19.tar.gz)
-to /tmp
-it() read
-url(INSTALL)(http://www.xraylith.wisc.edu/~khan/software/gnu-win32/egcs-cygb19-install.html)
-)
-
-In a bash shell
-itemize(
-it() cd $CYGFS/include
-it() mv g++ g++-b19
-it() cd $CYGFS
-it() tar zxf /tmp/gas-980303-cygb19.tar.gz
-it() tar zxf /tmp/egcs-1.0.2-cygb19.tar.gz
-)
-
-You now have a compiler, assembler, linker combination capable of
-compiling lilypond.  
+Cygnus now distributes the ecgs compiler with cygwin-b20.
 
 subsubsect(bf(GNU)'s Internationalization Package) 
 lurl(http://www.gnu.org/order/ftp.html)
@@ -323,7 +304,7 @@ used to help alleviate this problem.
 verb(
 #!/bin/sh
 
-realinstall=/gnuwin32/b19/H-i386-cygwin32/bin/install.exe
+realinstall=/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/install.exe
 args=''
 while [ $# -ne 0 ] 
 do
@@ -355,7 +336,7 @@ it() download the package from one of the ftp sites.
 it() From a bash shell, cd ~/usr/src.
 it() tar zxf gettext-0.10.tar.gz
 it() cd gettext-0.10
-it() ./configure --prefix=$CYGFS/H-i386-cygwin32
+it() ./configure --prefix=$CYGFS/H-i586-cygwin32
 it() make
 it() make install
 )
@@ -402,12 +383,10 @@ $HOME/usr/src/
 description(
 
 dit(releases/) Downloaded and generated releases live here.  For
-example file(yodl-1.30.0.pre12.tar.gz) and
-file(lilypond-0.1.81.tar.gz).
+example file(yodl-1.31.7.tar.gz) and file(lilypond-1.1.17.tar.gz).
 
 dit(patches/) Downloaded and generated patches live here.  For
-example file(yodl-1.30.0.pre12.diff.gz) and
-file(lilypond-0.1.81.diff.gz).
+example file(yodl-1.31.7.diff.gz) and file(lilypond-1.1.17.diff.gz).
 
 dit(test/) This directory is used to generate releases and patches.
 
@@ -434,17 +413,37 @@ For example:
 verb(\
 rem yodl
 
-SET PATH=%PATH%;%LOCAL_ROOT%\yodl-1.30.0.pre12\bin
+SET PATH=%PATH%;%LOCAL_ROOT%\yodl-1.31.7\bin
 
 )
 )
 
-subsubsubsect(Yodl build CAVEAT)
+subsubsect(guile) 
 
-em(yodl) uses the em(stepmake) package for it's build methodology.
-The build of em(stepmake) documentation will fail due to the fact
-that em(yodl) is not yet installed.  This is normal and shouldn't be a
-problem.
+GUILE, GNU's Ubiquitous Intelligent Language for Extension, is a
+library that implements the Scheme language plus various convenient
+facilities. It's designed so that you can link it into an application
+or utility to make it extensible. GNU's plan is to link this library
+into all GNU programs that call for extensibility.
+
+itemize(
+it() download guile-1.3 patch from
+lurl(http://www.realtime.net/~daboys/lilypond/guile.patch) and save it
+to file(/tmp/guile.patch).
+it() download guile-1.3 from one of GNU's ftp sites.  
+it() From a bash shell, tar zxf guile-1.3.tar.gz
+it() cd guile-1.3
+it() patch -p2 < /tmp/guile.patch
+it() LD=/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/ld \ nl() 
+	./configure --prefix=$CYGFS/H-i586-cygwin32
+it() make sure bin_PROGRAMS macro in libguile/Makefile does em(not) have the
+.exe extension during the build
+it() make
+it() make sure bin_PROGRAMS in libguile/Makefile em(does) have the
+.exe extension during the install. Yuck. 
+it() make install
+)
+
 
 subsubsect(LilyPond) label(lilybuild)
 itemize(
@@ -455,10 +454,7 @@ it() From a bash shell, cd file($HOME/usr/src).
 it() tar zxf releases/lilypond-em(<version>).tar.gz 
 it() cd lilypond-em(<version>)
 it() ./configure --prefix=/gnuwin32/lilypond-em(<version>) \ nl()
-        --srcdir=. \ nl()
-        --enable-tex-prefix=/gnuwin32/lilypond-em(<version>)/texmf \ nl()
-        --enable-tex-dir=/gnuwin32/lilypond-em(<version>)/texmf/tex \ nl()
-        --enable-mf-dir=/gnuwin32/lilypond-em(<version>)/texmf/mf nl()
+        --srcdir=. nl()
 Since em(lilypond) is under development I choose to install it in a
 version rooted directory.  This allows me to test newly released
 versions without losing a known working version.
@@ -469,7 +465,7 @@ For example:
 verb(\
 rem lilypond
 
-SET PATH=%PATH%;%LOCAL_ROOT%\lilypond-0.1.80\bin
+SET PATH=%PATH%;%LOCAL_ROOT%\lilypond-1.1.17\bin
 
 )
 )
@@ -489,7 +485,7 @@ itemize(
 it() obtain python source from lurl(http://www.python.org)
 it() tar zxf /tmp/python-em(<version>).tar.gz 
 it() cd python-em(<version>)
-it() configure --prefix=/gnuwin32/python-em(<version>)
+it() configure --prefix=/gnuwin32/Python-em(<version>)
 it() edit toplevel file(Makefile) code(EXE) macro so it reads code(EXE=.exe)
 it() make
 it() make install

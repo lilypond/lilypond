@@ -60,7 +60,7 @@ public:
   /**
     ask daddy for a feature
     */
-  Scalar get_property (String type_str);
+  Scalar get_property (String type_str, Translator const **where_found_l) const;
   void set_property (String var_name, Scalar value);
   Music_output_def *output_def_l () const;
   

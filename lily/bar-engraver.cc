@@ -45,7 +45,7 @@ Bar_engraver::create_bar ()
     {
       bar_p_ = new Bar;
       bar_p_->break_priority_i_  = 0;
-      String default_type = get_property ("defaultBarType");
+      String default_type = get_property ("defaultBarType", 0);
       if (default_type.length_i ())
 	{
 	  bar_p_->type_str_ = default_type;
@@ -85,7 +85,7 @@ Bar_engraver::do_process_requests()
   else 
     {
       Time_description const *time = get_staff_info().time_C_;
-      String always = get_property ("barAlways");
+      String always = get_property ("barAlways", 0);
       if ((time && !time->whole_in_measure_) || always.length_i ()) 
  	create_bar ();
     }

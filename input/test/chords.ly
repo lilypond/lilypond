@@ -15,7 +15,7 @@ Would this be acceptable/good enough/convenient for entry?
    Csus; Csus4            c-4; c-sus
 %}
 
-scales = \notes\transpose c''\chords{
+scales = \notes \transpose c'' \chords{
 		%<c1 e g>
 		c1-m c-min c4-dim c-aug c-sus c-maj
                 c1-6 c4-7 c-9 c-11 c-13

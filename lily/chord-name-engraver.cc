@@ -14,6 +14,7 @@
 #include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"
+#include "g-text-item.hh"
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
 
@@ -39,6 +40,11 @@ Chord_name_engraver::do_try_music (Music* m)
   return false;
 }
 
+/*
+  UGH.
+
+  Split this routine into neat packets
+ */
 void
 Chord_name_engraver::do_process_requests ()
 {
@@ -53,28 +59,19 @@ Chord_name_engraver::do_process_requests ()
      - move this stuff to new Item class Chord_name
      - switch on property, add american (?) chordNameStyle
 
-  Scalar chordNameStyle = get_property ("chordNameStyle");
+  Scalar chordNameStyle = get_property ("chordNameStyle", 0);
   if (chordNameStyle == "Banter")
      chord = pitches_to_banter (pitch_arr_));
 
    */
 
-  Scalar style = get_property ("textstyle");
-  Scalar alignment = get_property ("textalignment");
-  Text_def* text_p = new Text_def;
-  text_p->align_dir_ = LEFT;
-  if (style.length_i ())
-    text_p->style_str_ = style;
-  if (alignment.isnum_b())
-    text_p->align_dir_= (Direction)(int)alignment;
-
-
+  
   /*
     find tonic: after longest line of triads
    */
 
   int tonic_i = 0;
-  Scalar chord_inversions = get_property ("chordInversion");
+  Scalar chord_inversions = get_property ("chordInversion", 0);
   if (chord_inversions.to_bool ())
     {
       int longest_i = 0;
@@ -190,10 +187,15 @@ Chord_name_engraver::do_process_requests ()
 	+ acc[tonic.accidental_i_ + 2];
 
     }
-  text_p->text_str_ = tonic_str + "$^{" + add_str + "}$" + inversion_str;
-  Text_item* item_p =  new Text_item (text_p);
-  item_p->dir_ = DOWN;
-  item_p->fat_b_ = true;
+  
+  G_text_item* item_p =  new G_text_item;
+
+
+  item_p->text_str_ = tonic_str + "$^{" + add_str + "}$" + inversion_str;
+  Scalar style = get_property ("textstyle", 0);
+  if (style.length_i ())
+    item_p->style_str_ = style;
+  
   text_p_arr_.push (item_p);
   announce_element (Score_element_info (item_p, 0));
 }

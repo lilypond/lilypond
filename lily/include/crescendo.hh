@@ -25,7 +25,7 @@ public:
   Crescendo();
 protected:
   VIRTUAL_COPY_CONS(Score_element);
-  virtual Molecule*brew_molecule_p() const;
+  virtual Molecule*do_brew_molecule_p() const;
   virtual Interval symbol_height() const;
   
     

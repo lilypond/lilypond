@@ -234,15 +234,7 @@ Slur_req::do_print () const
 
 
 
-Plet_req::Plet_req ()
-{
-  plet_i_ = 0;
-}
 
-void
-Plet_req::do_print () const
-{
-}
 
 Extender_req::Extender_req ()
 {

@@ -16,6 +16,18 @@ includefile(../BLURB.in)
 link(Back to top)(contents)
 clearpage()
 
+I'm back from the dead!  There have been many changes since my last
+update.  Please read information on batch files and update as needed.
+The fonts have changed so you will also need to remove any cached
+fonts. In addition please bring music sources up to date by using
+convert-mudela utility.  I used:
+
+verb(
+% bf(convert-mudela.py -e angels.ly)
+)
+
+Also please refer to LilyPond documentation for new and changed
+features.
 
 subsect(NEWS) label(news)
 This is what the version @TOPLEVEL_VERSION@ brings:
@@ -52,6 +64,8 @@ clearpage()
 subsect(Download) label(download)
 
 itemize(
+    it() pre-guile version lurl(lilypond-1.0.17.jbr1.bin.zip) nl()
+	NOTE: LILYPONDPREFIX=em(LilyPond-dir) for this version
     it()lurl(lilypond-@TOPLEVEL_VERSION@.bin.zip)
 )
 
@@ -68,10 +82,11 @@ itemize(
   description(
     dit(batch file)
       In a batch file you can add the following entries: nl()
-      bf(set LILYPONDPREFIX=em(LilyPond-dir)) nl()
-      bf(set path=%path%;%LILYPONDPREFIX%\bin;em(MiKTeX-dir)\miktex\bin) nl()
-      bf(set TEXINPUTS=%LILYPONDPREFIX%\share\lilypond\tex;;) nl()
-      bf(set MFINPUTS=%LILYPONDPREFIX%\share\lilypond\mf;;) nl()
+      bf(set LILYPONDHOME=em(LilyPond-dir)) nl()
+      bf(set LILYPONDPREFIX=%LILYPONDHOME%\share\lilypond) nl()
+      bf(set path=%path%;%LILYPONDHOME%\bin;em(MiKTeX-dir)\miktex\bin) nl()
+      bf(set TEXINPUTS=%LILYPONDPREFIX%\tex;%LILYPONDPREFIX%\ps;;) nl()
+      bf(set MFINPUTS=%LILYPONDPREFIX%\mf;;) nl()
 COMMENT(    dit(Windows Environment)
       In the Windows environment you can select
       properties menu of the My Computer icon. Click on

@@ -27,7 +27,7 @@ protected:
   Beam *beam_l_;
   Link_array<Note_column> column_arr_;
 
-  virtual Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);
 
   virtual void do_add_processing ();

@@ -30,7 +30,7 @@ Multi_measure_rest::do_print () const
 }
 
 Molecule*
-Multi_measure_rest::brew_molecule_p () const
+Multi_measure_rest::do_brew_molecule_p () const
 {
   /*
    [TODO]                                     3

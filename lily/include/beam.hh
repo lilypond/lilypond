@@ -61,7 +61,7 @@ protected:
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
   virtual void solve_slope ();
   virtual void quantise_dy ();
-  virtual Molecule*brew_molecule_p () const;
+  virtual Molecule*do_brew_molecule_p () const;
 };
 
 #endif // BEAM_HH

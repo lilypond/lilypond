@@ -8,7 +8,6 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO
-      Read spacing info from AFMs
       Glissando
 */
 
@@ -23,6 +22,8 @@
 #include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
+#include "all-fonts.hh"
+#include "afm.hh"
 
 SCM
 array_to_list (SCM *a , int l)
@@ -40,30 +41,27 @@ Lookup::Lookup ()
 {
   paper_l_ = 0;
   symtables_p_ = new Symtables;
-  afm_p_ =0;
+  afm_l_ = 0;  
 }
 
 Lookup::Lookup (Lookup const& s)
 {
-  font_ = s.font_;
-  font_path_ = s.font_path_;
+  font_name_ = s.font_name_;
   paper_l_ = s.paper_l_;
   symtables_p_ = new Symtables (*s.symtables_p_);
-  afm_p_ = 0;
+  afm_l_ = 0;  
 }
 
 Lookup::Lookup (Symtables const& s)
 {
-  font_ = s.font_;
-  font_path_ = s.font_path_;
+  font_name_ = s.font_name_;
   paper_l_ = 0;
   symtables_p_ = new Symtables (s);
-  afm_p_ = 0;
+  afm_l_ = 0;
 }
 
 Lookup::~Lookup ()
 {
-  delete afm_p_;
   delete symtables_p_;
 }
 
@@ -89,17 +87,14 @@ Lookup::add (String s, Symtable*p)
   symtables_p_->add (s, p);
 }
 
+
 Atom
 Lookup::afm_find (String s, bool warn) const
 {
-  if (!afm_p_)
-    {
-      *mlog << "[" << font_path_;
-      ( (Lookup*)this)->afm_p_ = new Adobe_font_metric (read_afm (font_path_));
-      *mlog << "]" << flush ;
-      DOUT << this->afm_p_->str ();
-    }
-  Adobe_font_char_metric m = afm_p_->find_char (s, warn);
+  if (!afm_l_)      
+    ((Lookup*)this)->afm_l_ = all_fonts_global_p->find_font (font_name_);
+  
+  Adobe_font_char_metric m = afm_l_->find_char (s, warn);
 
   Atom a;
   if (m.code () < 0)
@@ -114,7 +109,7 @@ Lookup::afm_find (String s, bool warn) const
 		       gh_int2scm (m.code ()),
 		       SCM_UNDEFINED);
   a.str_ = "afm_find: " + s;
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -140,7 +135,7 @@ Lookup::bar (String str, Real h) const
 
 
   a.dim_.y () = Interval (-h/2, h/2);
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -186,7 +181,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   Real dy = d[Y_AXIS];
 
   Atom a;
-  a.font_ = font_;
+  a.font_ = font_name_;
   a.dim_[X_AXIS] = Interval (0, dx);
   a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
 
@@ -227,7 +222,7 @@ Lookup::extender (Real width) const
 		       gh_double2scm (width),
 		       SCM_UNDEFINED);
   a.str_ = "extender";
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -326,7 +321,7 @@ Lookup::stem (Real y1, Real y2) const
 		       gh_double2scm(-y1),
 		       SCM_UNDEFINED);
 
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -339,8 +334,16 @@ Lookup::streepje (int type) const
   return  afm_find ("balls" + String ("-") +to_str (type) + "l");
 }
 
-Dictionary<String> cmr_dict;
-Dictionary<Adobe_font_metric*> afm_p_dict;
+static Dict_initialiser<char const*> cmr_init[] = {
+  {"bold", "cmbx"},
+  {"dynamic", "feta-din"},
+  {"finger", "feta-nummer"},
+  {"italic", "cmti"},
+  {"roman", "cmr"},
+  {0,0}
+};
+
+static Dictionary<char const *> cmr_dict (cmr_init);
 
 Atom
 Lookup::text (String style, String text) const
@@ -354,38 +357,14 @@ Lookup::text (String style, String text) const
   Real font_w = a.dim_.x ().length ();
   Real font_h = a.dim_.y ().length ();
 
-  if (!cmr_dict.elem_b ("roman"))
+  if (cmr_dict.elem_b (style))
     {
-      //brrrr
-      cmr_dict.elem ("bold") = "cmbx";
-      cmr_dict.elem ("dynamic") = "feta-din";
-      cmr_dict.elem ("finger") = "feta-nummer";
-      cmr_dict.elem ("italic") = "cmti";
-      cmr_dict.elem ("roman") = "cmr";
-    }
-
-  if (!afm_p_dict.elem_b (style))
-    {
-      Adobe_font_metric* afm_p = 0;
-      String cmr_str = cmr_dict.elem (style) + to_str ((int) font_h) + ".afm";
-      String font_path = global_path.find (cmr_str);
-      if (!font_path.length_i ())
-        {
-	  warning (_f("can't open file: `%s'", cmr_str.ch_C ()));
-	  warning (_f("guessing dimensions for font style: `%s'", style.ch_C ()));
-	}
-      else
-        {
-	  *mlog << "[" << font_path;
-	  afm_p = new Adobe_font_metric (read_afm (font_path));
-	  DOUT << afm_p->str ();
-	  *mlog << "]" << flush ;
-	}
-      afm_p_dict.elem (style) = afm_p;
+      style = String (cmr_dict [style]) + to_str  ((int)font_h); // ugh
     }
   Real w = 0;
-  Adobe_font_metric* afm_p = afm_p_dict.elem (style);
+  Adobe_font_metric* afm_l = all_fonts_global_p->find_font (style);
   DOUT << "\nChars: ";
+  
   for (int i = 0; i < text.length_i (); i++) 
     {
       if (text[i]=='\\')
@@ -394,19 +373,18 @@ Lookup::text (String style, String text) const
       else
 	{
 	  int c = text[i];
-	  if (afm_p && ((c >= 0) && (c < afm_p->char_metrics_.size ())))
+	  int code = afm_l->ascii_to_metric_idx_[c];
+	  if (code >=0)
 	    {
-	      Adobe_font_char_metric m = afm_p->char_metrics_[c];
+	      Adobe_font_char_metric m = afm_l->char_metrics_[code];
 	      w += m.B_.x ().length ();
 	      DOUT << to_str (m.B_.x ().length ()) << " ";
 	    }
-	  else
-	      w += font_w;
 	}
     }
   DOUT << "\n" << to_str (w) << "\n";
   a.dim_.x () = Interval (0, w);
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
   
@@ -431,7 +409,7 @@ Lookup::vbrace (Real &y) const
 		       SCM_UNDEFINED
 		       );
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -449,7 +427,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 		       SCM_UNDEFINED);
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (-2*height, 2*height);
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -486,7 +464,7 @@ Lookup::slur (Array<Offset> controls) const
 
   a.dim_[X_AXIS] = Interval (0, dx);
   a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
-  a.font_ = font_;
+  a.font_ = font_name_;
   return a;
 }
 
@@ -494,14 +472,6 @@ Atom
 Lookup::vbracket (Real &y) const
 {
   Atom a;
-  Real min_y = paper_l_->staffheight_f ();
-  if (y < min_y)
-    {
-      warning (_ ("bracket")
-	       + " " + _ ("too small") +  " (" + print_dimen (y) + ")");
-      //      y = min_y;
-    }
-
   a.lambda_ =  gh_list (ly_symbol ("bracket"),
 			gh_double2scm (y),
 			SCM_UNDEFINED);
@@ -521,7 +491,7 @@ Lookup::volta (Real w, bool last_b) const
 		       SCM_UNDEFINED);
   a.str_ = "volta";
   Real interline_f = paper_l_->interline_f ();
-//  a.dim_[Y_AXIS] = Interval (0, 2 * interline_f);
+
   a.dim_[Y_AXIS] = Interval (-interline_f, interline_f);
   a.dim_[X_AXIS] = Interval (0, w);
   return a;

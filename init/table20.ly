@@ -7,7 +7,7 @@
 table_twenty = 
 \symboltables {
 
-   \font 	"feta20.afm"
+   \font 	"feta20"
 
     % index symbol #parameters  	xmin xmax ymin ymax
 

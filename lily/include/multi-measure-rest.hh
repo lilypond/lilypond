@@ -22,7 +22,7 @@ public:
 
 protected:
   virtual void do_print () const;
-  virtual Molecule *brew_molecule_p () const;
+  virtual Molecule *do_brew_molecule_p () const;
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

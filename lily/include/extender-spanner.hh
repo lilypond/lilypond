@@ -40,7 +40,7 @@ public:
   Drul_array<Text_item *> textitem_l_drul_;
  
 protected:
-  virtual Molecule* brew_molecule_p () const;
+  virtual Molecule* do_brew_molecule_p () const;
   void do_add_processing ();
   Interval do_height () const;
   void do_substitute_dependency (Score_element* o, Score_element* n);

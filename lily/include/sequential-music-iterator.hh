@@ -26,8 +26,6 @@ public:
   virtual bool ok () const;
 
 protected:
-  Sequential_music* sequential_music_l () const;
-
   virtual void do_print() const;
   virtual void do_process_and_next (Moment);
 

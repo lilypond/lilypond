@@ -6,7 +6,7 @@
 
 table_thirteen  = \symboltables {
 
-   \font 	"feta13.afm"
+   \font 	"feta13"
 
     % index symbol #parameters  	xmin xmax ymin ymax
 

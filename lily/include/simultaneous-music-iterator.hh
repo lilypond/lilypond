@@ -23,8 +23,6 @@ public:
   virtual bool ok () const;
 
 protected:
-  Simultaneous_music* simultaneous_music_l () const;
-
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
 

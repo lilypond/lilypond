@@ -58,7 +58,7 @@ read_char_metric (String s)
 }
 
 void
-read_char_metrics (Array<Adobe_font_char_metric> &mets, Data_file &input)
+Adobe_font_metric::read_char_metrics (Data_file &input)
 {
   while (!input.eof_b ())
     {
@@ -66,7 +66,11 @@ read_char_metrics (Array<Adobe_font_char_metric> &mets, Data_file &input)
       String s= input.get_line ();
       if (s == "EndCharMetrics")
 	return ;
-      mets.push (read_char_metric (s));
+      Adobe_font_char_metric afm_char =read_char_metric (s);
+      char_metrics_.push (afm_char);
+      int i = char_metrics_.size ()-1;
+      ascii_to_metric_idx_ [afm_char.C_] = i;
+      name_to_metric_dict_ [afm_char.N_] = i;
     }
 }
 
@@ -98,14 +102,19 @@ read_box ( Data_file &d)
 }
 
 Adobe_font_metric
-read_afm (String fn)
+read_afm_file (String fn)
 {
   Data_file input (fn);
 
   assert (!input.eof_b ());
   
   Adobe_font_metric afm;
-  
+
+  for (int i=0; i < 256; i++)
+    {
+      afm.ascii_to_metric_idx_.push (-1);
+    }
+
   while (!input.eof_b ())
     {
       input.gobble_leading_white ();
@@ -136,7 +145,7 @@ read_afm (String fn)
       if (key == "StartCharMetrics")
 	{
 	  input.get_line ();
-  	  read_char_metrics (afm.char_metrics_, input);
+  	  afm.read_char_metrics (input);
 	}
       if (key == "EndFontMetrics")
 	break;

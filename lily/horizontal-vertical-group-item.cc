@@ -20,6 +20,6 @@ Horizontal_vertical_group_item::do_print() const
 
 Horizontal_vertical_group_item::Horizontal_vertical_group_item ()
 {
-  axis1_ = X_AXIS;
-  axis2_ = Y_AXIS;    
+  axes_[0] = X_AXIS;
+  axes_[1] = Y_AXIS;    
 }

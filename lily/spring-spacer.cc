@@ -546,11 +546,12 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 
 /*
   TODO: take out the refs to width
+
  */
 /**
   generate springs between columns.
 
-  TODO: This needs rethinking.
+  TODO: This needs rethinking....... 
 
   *  Spacing should take optical
   effects into account
@@ -574,11 +575,11 @@ Spring_spacer::calc_idealspacing()
   Real interline_f = paper_l ()->interline_f ();
 
 
-  Array<Real> ideal_arr_;
-  Array<Real> hooke_arr_;
+  Array<Real> ideal_arr;
+  Array<Real> hooke_arr;
   for (int i=0; i < cols_.size() - 1; i++){
-    ideal_arr_.push (-1.0);
-    hooke_arr_.push (1.0);
+    ideal_arr.push (-1.0);
+    hooke_arr.push (1.0);
   }
 
   /* 
@@ -590,10 +591,7 @@ Spring_spacer::calc_idealspacing()
 	{
 	  Real symbol_distance =cols_[i].width_[RIGHT] + 2 PT;
 	  Real durational_distance = 0;
-
-	  
 	  Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
-
 
 	  /*
 	    ugh should use shortest_playing distance
@@ -606,8 +604,8 @@ Spring_spacer::calc_idealspacing()
 	  symbol_distance += -cols_[i+1].width_[LEFT];
  
 
-	  ideal_arr_[i] = symbol_distance >? durational_distance;
-	  hooke_arr_[i] = 1; //2.0;
+	  ideal_arr[i] = symbol_distance >? durational_distance;
+	  hooke_arr[i] = 1; //2.0;
 	}
     }
 
@@ -642,6 +640,7 @@ Spring_spacer::calc_idealspacing()
 	     
 	    * whitespace at the begin of the bar should be fixed at 
 	    (about) one interline.
+
 	    [Ross]:
 	    when spacing gets real tight, a smaller fixed value may be 
 	    used, so that there are two discrete amounts of whitespace 
@@ -651,13 +650,16 @@ Spring_spacer::calc_idealspacing()
 	    * whitespace at the end of the bar is the normal amount of 
 	    "hinterfleish" that would have been used, had there been
 	    yet another note in the bar.  
+
 	    [Ross]:
 	    some editors argue that the bar line should not take any 
 	    space, not to hinder the flow of music spaced around a bar 
 	    line.  
+
 	    [Ross] and [Wanske] do not suggest this, however.  Further, 
-	    it introduces some spacing problems and think that it is ugly 
+	    it introduces some spacing problems and I think that it is ugly 
 	    too.
+	    
 	    [jcn]
 	  */
 
@@ -669,7 +671,7 @@ Spring_spacer::calc_idealspacing()
 	      // fixed: probably should set minimum (rod/spring)?
 	      cols_[i-1].width_[RIGHT] += interline_f;
 	      // should adjust dist too?
-	      ideal_arr_[i-1] = ideal_arr_[i-1] >? (2 * interline_f);
+	      ideal_arr[i-1] = ideal_arr[i-1] >? (2 * interline_f);
 	    }
 
 	  /* 
@@ -697,13 +699,25 @@ Spring_spacer::calc_idealspacing()
 		+ interline_f / 2;
 	      dist = dist >? minimum;
 	    }
-	  ideal_arr_[i] = dist;
+	  ideal_arr[i] = dist;
 	}
     }
 
-  for (int i=0; i < ideal_arr_.size(); i++)
+  /*
+    shorter distances should stretch less.
+
+    (and how bout
+
+      hooke[i] = 2 * max_ideal_space - ideal[i]
+
+    ?)
+  */
+  for (int i=0; i < ideal_arr.size(); i++)
+    hooke_arr[i] = 1/ideal_arr[i];
+
+  for (int i=0; i < ideal_arr.size(); i++)
     {
-      assert (ideal_arr_[i] >=0 && hooke_arr_[i] >=0);
-      connect (i, i+1, ideal_arr_[i], hooke_arr_[i]);
+      assert (ideal_arr[i] >=0 && hooke_arr[i] >=0);
+      connect (i, i+1, ideal_arr[i], hooke_arr[i]);
     }
 }

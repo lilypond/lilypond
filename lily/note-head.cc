@@ -53,7 +53,7 @@ Note_head::do_width () const
 }
 
 Molecule*
-Note_head::brew_molecule_p() const 
+Note_head::do_brew_molecule_p() const 
 {
   Molecule*out = 0;
   Paper_def *p = paper();

@@ -21,8 +21,4 @@
 #include "pcursor.tcc"
 #include "plist.tcc"
 
-POINTERLIST_INSTANTIATE(Audio_item);
-POINTERLIST_INSTANTIATE(Audio_staff);
-POINTERLIST_INSTANTIATE(Paper_column);
-POINTERLIST_INSTANTIATE(Paper_score);
 #endif

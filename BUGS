@@ -3,12 +3,6 @@ This documents serious bugs
 
 ********
 
-[Linux Intel, EGCS-1.1b]
-
-Compiling with -O2 -finline-functions will cause crashes during
-parsing stage.
-
-
 [Linux ppc, egcs-1.0.2]
 
 All compiling with -O2 is suspect, in particular guile-1.3, and

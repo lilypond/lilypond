@@ -57,7 +57,7 @@ protected:
 
   virtual void do_unlink ();
   virtual void do_junk_links ();
-  virtual void do_brew_molecule ();
+  virtual void output_processing ();
   virtual void do_space_processing ();
   virtual void do_break_processing ();
   virtual Interval do_width () const;

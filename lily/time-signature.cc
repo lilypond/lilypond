@@ -19,7 +19,7 @@ Time_signature::Time_signature ()
 }
 
 Molecule*
-Time_signature::brew_molecule_p () const
+Time_signature::do_brew_molecule_p () const
 {
   Atom s;
   if (time_sig_type_str_.length_i ())

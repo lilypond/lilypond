@@ -1,135 +1,164 @@
-/*
-  beam-grav.cc -- implement Beam_engraver
-
+/*   
+  beam-engraver.cc --  implement Beam_engraver
+  
   source file of the GNU LilyPond music typesetter
+  
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  
+ */
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-*/
-#include "duration-convert.hh"
-#include "time-description.hh"
 #include "beam-engraver.hh"
-#include "stem.hh"
-#include "beam.hh"
 #include "musical-request.hh"
+#include "beam.hh"
 #include "grouping.hh"
-#include "p-col.hh"
+#include "stem.hh"
 #include "warn.hh"
+#include "time-description.hh"
 
-Beam_engraver::Beam_engraver()
+Beam_engraver::Beam_engraver ()
 {
-  span_reqs_drul_[LEFT] = span_reqs_drul_[RIGHT] =0;
-  beam_p_ =0;
-  current_grouping_p_ =0;
+  beam_p_ = 0;
+  finished_beam_p_ =0;
+  finished_grouping_p_ = 0;
+  grouping_p_ =0;
+  reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
 }
 
 bool
-Beam_engraver::do_try_music (Music*r)
+Beam_engraver::do_try_music (Music *m)
 {
-  Beam_req* b = dynamic_cast <Beam_req *> (r);
-  if (!b)
-    return false;
-
-  if (bool (beam_p_) == bool (b->spantype_ == START))
-    return false;
-
-  Direction d = (!beam_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (b))
-    return false;
-
-  span_reqs_drul_[d] = b;
-  return true;
+  if (Beam_req * c = dynamic_cast<Beam_req*>(m))
+    {
+      reqs_drul_[c->spantype_] = c;
+      return true;
+    }
+  return false;
 }
 
+
 void
-Beam_engraver::do_process_requests()
+Beam_engraver::do_process_requests ()
 {
-  if (beam_p_ || !span_reqs_drul_[LEFT])
-    return;
+  if (reqs_drul_[STOP])
+    {
+      if (!beam_p_)
+	reqs_drul_[STOP]->warning (_("No beam to stop"));
+      finished_beam_p_ = beam_p_;
+      finished_grouping_p_ = grouping_p_;
 
-  current_grouping_p_ = new Rhythmic_grouping;
-  beam_p_ = new Beam;
+      beam_p_ = 0;
+      grouping_p_ = 0;
+    }
+  
+  if (reqs_drul_[START])
+    {
+      beam_p_ = new Beam;
+      grouping_p_ = new Rhythmic_grouping;
 
-  Scalar prop = get_property ("beamslopedamping");
-  if (prop.isnum_b ()) 
-    beam_p_->damping_i_ = prop;
+      Scalar prop = get_property ("beamslopedamping", 0);
+      if (prop.isnum_b ()) 
+	beam_p_->damping_i_ = prop;
 
-  prop = get_property ("beamquantisation");
-  if (prop.isnum_b ()) 
-    beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
+      prop = get_property ("beamquantisation", 0);
+      if (prop.isnum_b ()) 
+	beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
  
-  announce_element (Score_element_info (beam_p_, span_reqs_drul_[LEFT]));
+      announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
+    }
 }
 
 void
-Beam_engraver::do_pre_move_processing()
+Beam_engraver::typeset_beam ()
 {
-  if (!beam_p_ || !span_reqs_drul_[RIGHT]) 
-    return;
-
-  Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-  rg_C->extend (current_grouping_p_->interval());
-  beam_p_->set_grouping (*rg_C, *current_grouping_p_);
-  typeset_element (beam_p_);
-  beam_p_ = 0;
-
-  delete current_grouping_p_;
-  current_grouping_p_ = 0;
-
-  span_reqs_drul_[RIGHT] = span_reqs_drul_[LEFT] = 0;
+  if (finished_beam_p_)
+    {
+      Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
+      rg_C->extend (finished_grouping_p_->interval());
+      finished_beam_p_->set_grouping (*rg_C, *finished_grouping_p_);
+      typeset_element (finished_beam_p_);
+      finished_beam_p_ = 0;
+    
+      delete finished_grouping_p_;
+      finished_grouping_p_= 0;
+    
+      reqs_drul_[STOP] = 0;
+    }
 }
 
 void
-Beam_engraver::do_removal_processing()
+Beam_engraver::do_post_move_processing ()
 {
-  if (beam_p_)
-    {
-      span_reqs_drul_[LEFT]->warning (_("unterminated beam"));
-      typeset_element (beam_p_);
-      beam_p_ =0;
-    }
+  reqs_drul_ [START] =0;
 }
-
 
 void
-Beam_engraver::acknowledge_element (Score_element_info i)
+Beam_engraver::do_pre_move_processing ()
 {
-  Stem* s = dynamic_cast<Stem *> (i.elem_l_);
-  if (!beam_p_ || !s)
-    return;
-
-  if (!dynamic_cast <Rhythmic_req *> (i.req_l_))
-    {
-      ::warning ( _("Stem must have Rhythmic structure."));
-      return;
-    }
-
-  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (i.req_l_);
-  if (rhythmic_req->duration_.durlog_i_<= 2)
-    {
-      rhythmic_req->warning (_ ("stem doesn't fit in beam"));
-      return;
-    }
-
-  /*
-    TODO: do something sensible if it doesn't fit in the beam.
-   */
-  Moment start = get_staff_info().time_C_->whole_in_measure_;
-
-  if (!current_grouping_p_->child_fit_b (start))
-    {
-      String s (_("please fix me") + ": " 
-	+ _f ("stem at %s doesn't fit in beam", now_moment ().str ()));
-      if (i.req_l_)
-	i.req_l_->warning(s);
-      else 
-	warning (s);
-    }
-  else
-    {
-      current_grouping_p_->add_child (start, rhythmic_req->duration ());
-      s->flag_i_ = rhythmic_req->duration_.durlog_i_;
-      beam_p_->add_stem (s);
-    }
+  typeset_beam ();
 }
+
+void
+Beam_engraver::do_removal_processing ()
+{
+  typeset_beam ();
+  finished_beam_p_ = beam_p_;
+  finished_grouping_p_ = grouping_p_;
+  typeset_beam ();
+}
+
+void
+Beam_engraver::acknowledge_element (Score_element_info info)
+{
+    if (beam_p_)
+      {
+	Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_);
+	if (!stem_l)
+	  return;
+
+
+	Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+	if (!rhythmic_req)
+	  {
+	    String s=_("Stem must have Rhythmic structure.");
+	    if (info.req_l_)
+	      info.req_l_->warning(s);
+	    else
+	      ::warning (s);
+	  
+	    return;
+	  }
+      
+
+	if (rhythmic_req->duration_.durlog_i_<= 2)
+	  {
+	    rhythmic_req->warning (_ ("stem doesn't fit in beam"));
+	    return;
+	  }
+
+	/*
+	  TODO: do something sensible if it doesn't fit in the beam.
+	*/
+	Moment start = get_staff_info().time_C_->whole_in_measure_;
+
+	if (!grouping_p_->child_fit_b (start))
+	  {
+	    String s (_("please fix me") + ": " 
+		      + _f ("stem at %s doesn't fit in beam", now_moment ().str ()));
+
+	    if (info.req_l_)
+	      info.req_l_->warning(s);
+	    else 
+	      warning (s);
+	  }
+	else
+	  {
+	    grouping_p_->add_child (start, rhythmic_req->duration ());
+	    stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+	    beam_p_->add_stem (stem_l);
+	  }
+      }
+}
+
+
 
 ADD_THIS_TRANSLATOR(Beam_engraver);

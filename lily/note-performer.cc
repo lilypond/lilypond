@@ -35,7 +35,7 @@ Note_performer::do_process_requests ()
     {
       int transposing_i = 0;
       //urg
-      Scalar prop = get_property ("transposing");
+      Scalar prop = get_property ("transposing", 0);
       if (!prop.empty_b () && prop.isnum_b ()) 
 	transposing_i = prop;
 

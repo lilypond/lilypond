@@ -7,12 +7,11 @@
 */
 
 #include <fstream.h>
-#include "assoc.hh"
+#include "dictionary-iter.hh"
 #include "dstream.hh"
 #include "scalar.hh"
 #include "text-db.hh"
 #include "string-convert.hh"
-#include "assoc-iter.hh"
 #include "rational.hh"
 
 /// indent of each level
@@ -53,19 +52,19 @@ Dstream::identify_as (String name)
   String cl (strip_member (mem));
   String idx = cl;
 
-  if (silent_assoc_p_->elem_b (mem))
+  if (silent_dict_p_->elem_b (mem))
     idx  = mem;
-  else if (silent_assoc_p_->elem_b (cl))
+  else if (silent_dict_p_->elem_b (cl))
     idx = cl;
   else
     {
-      (*silent_assoc_p_)[idx] = default_silence_b_;
+      (*silent_dict_p_)[idx] = default_silence_b_;
     }
-  local_silence_b_ = (*silent_assoc_p_)[idx];
+  local_silence_b_ = (*silent_dict_p_)[idx];
   if (current_classname_str_ != idx && !local_silence_b_)
     {
       current_classname_str_=idx;
-      if (!(*silent_assoc_p_)["Dstream"])
+      if (!(*silent_dict_p_)["Dstream"])
 	*os_l_ << "[" << current_classname_str_ << ":]"; // messy.
     }
   return *this;
@@ -74,9 +73,9 @@ Dstream::identify_as (String name)
 bool
 Dstream::silent_b (String s) const
 {
-  if (!silent_assoc_p_->elem_b (s))
+  if (!silent_dict_p_->elem_b (s))
     return false;
-  return (*silent_assoc_p_)[s];
+  return (*silent_dict_p_)[s];
 }
 
 Dstream &
@@ -138,7 +137,7 @@ Dstream::output (String s)
 Dstream::Dstream (ostream *r, char const * cfg_nm)
 {
   os_l_ = r;
-  silent_assoc_p_ = new Assoc<String,bool>;
+  silent_dict_p_ = new Dictionary<bool>;
   default_silence_b_ = false;
   indent_level_i_ = 0;
   if (!os_l_)
@@ -159,26 +158,26 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 	r.message (_ ("Not enough fields in Dstream init."));
 	continue;
       }
-    (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
+    (*silent_dict_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
   }
 
-  if ((*silent_assoc_p_).elem_b ("Dstream_default_silence"))
-    default_silence_b_ = (*silent_assoc_p_)["Dstream_default_silence"];
+  if ((*silent_dict_p_).elem_b ("Dstream_default_silence"))
+    default_silence_b_ = (*silent_dict_p_)["Dstream_default_silence"];
 }
 
 
 Dstream::~Dstream()
 {
-  delete silent_assoc_p_;
+  delete silent_dict_p_;
   assert (!indent_level_i_) ;
 }
 
 void
 Dstream::clear_silence()
 {
-  for (Assoc_iter<String, bool> i (*silent_assoc_p_); i.ok(); i++)
+  for (Dictionary_iter<bool> i (*silent_dict_p_); i.ok(); i++)
     {
-      i.val() = false;
+      i.val_ref() = false;
     }
 }
 

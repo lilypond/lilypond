@@ -8,12 +8,10 @@
 
 #include <math.h>
 #include "string.hh"
-#include "assoc.hh"
 #include "misc.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "lookup.hh"
-#include "assoc-iter.hh"
 #include "score-engraver.hh"
 #include "p-score.hh"
 #include "identifier.hh"
@@ -26,25 +24,25 @@
 
 Paper_def::Paper_def ()
 {
-  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
+  lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
 }
 
 
 Paper_def::~Paper_def ()
 {
-  for (Assoc_iter<int, Lookup*> ai(*lookup_p_assoc_p_); ai.ok (); ai++)
+  for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
     {
       delete ai.val ();
     }
   
-  delete lookup_p_assoc_p_;
+  delete lookup_p_tab_p_;
 }
 
 Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
-  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
-  for (Assoc_iter<int, Lookup*> ai(*s.lookup_p_assoc_p_); ai.ok (); ai++)
+  lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
+  for (Hash_table_iter<int, Lookup*> ai(*s.lookup_p_tab_p_); ai.ok (); ai++)
     {
       Lookup * l = new Lookup (*ai.val ());
       l->paper_l_ = this;
@@ -125,12 +123,12 @@ Paper_def::arithmetic_spacing (Moment d ,Real k) const
 void
 Paper_def::set_lookup (int i, Lookup*l)
 {
-  if (lookup_p_assoc_p_->elem_b (i))
+  if (lookup_p_tab_p_->elem_b (i))
     {
-      delete lookup_p_assoc_p_->elem (i);
+      delete lookup_p_tab_p_->elem (i);
     }
   l ->paper_l_ = this;
-  (*lookup_p_assoc_p_)[i] = l;
+  (*lookup_p_tab_p_)[i] = l;
 }
 
 Real
@@ -185,7 +183,7 @@ Paper_def::print () const
   Music_output_def::print ();
   DOUT << "Paper {";
 
-  for (Assoc_iter<int, Lookup*> ai(*lookup_p_assoc_p_); ai.ok (); ai++)
+  for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
     {
       DOUT << "Lookup: " << ai.key () ;
       ai.val ()->print ();
@@ -198,7 +196,7 @@ Paper_def::print () const
 Lookup const *
 Paper_def::lookup_l (int i) const
 {
-  return (*lookup_p_assoc_p_)[i];
+  return (*lookup_p_tab_p_)[i];
 }
 
 

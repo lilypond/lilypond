@@ -135,7 +135,7 @@ $(outdir)/version.hh: $(outdir)/VERSION
 
 # should this be in Rules?
 configure: configure.in aclocal.m4
-	autoconf - < $<> $@
+	autoconf 
 	chmod +x configure
 
 localclean:

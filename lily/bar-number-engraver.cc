@@ -50,7 +50,7 @@ Bar_number_engraver::acknowledge_element (Score_element_info i)
   script_p_->specs_p_ = td_p->clone ();
   script_p_->breakable_b_ = true;
 
-  Scalar pri = get_property ("barNumberBreakPriority");
+  Scalar pri = get_property ("barNumberBreakPriority", 0);
   if (pri.length_i () && pri.isnum_b ())
     {
       script_p_->break_priority_i_ = int (pri);
@@ -58,7 +58,7 @@ Bar_number_engraver::acknowledge_element (Score_element_info i)
   else
     script_p_->break_priority_i_ = b->break_priority_i_;
 
-  Scalar padding = get_property ("barScriptPadding");
+  Scalar padding = get_property ("barScriptPadding", 0);
   if (padding.length_i() && padding.isnum_b ())
     {
       script_p_->padding_f_ = Real(padding);

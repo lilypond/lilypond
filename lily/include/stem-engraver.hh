@@ -17,7 +17,6 @@
  */
 class Stem_engraver : public Engraver
 {
-  Direction dir_;
   int default_abbrev_i_;
   Stem *stem_p_;
   Abbreviation *abbrev_p_;

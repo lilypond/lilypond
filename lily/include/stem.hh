@@ -114,6 +114,6 @@ protected:
   virtual void do_substitute_dependency (Score_element*,Score_element*);
   virtual void do_pre_processing();
   virtual Interval do_width() const;
-  Molecule* brew_molecule_p() const;
+  virtual Molecule* do_brew_molecule_p() const;
 };
 #endif

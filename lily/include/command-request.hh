@@ -47,10 +47,6 @@ public:
   REQUESTMETHODS(Command_script_req);
 };
 
-class Command_tie_req : public Command_req {
-public:
-  REQUESTMETHODS(Command_tie_req);
-};
 
 /** Baseclass for time_signature/partial req. It has to be handled by
   Staff_{walker,column} baseclass.  */

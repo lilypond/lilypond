@@ -32,12 +32,6 @@ Music_list_iterator::do_process_and_next (Moment)
 {
 }
 
-Music_list*
-Music_list_iterator::music_list_l () const
-{
-  return (Music_list *) music_l_;
-}
-
 Moment
 Music_list_iterator::next_moment () const
 {

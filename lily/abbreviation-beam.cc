@@ -30,12 +30,12 @@ Abbreviation_beam::Abbreviation_beam ()
 }
 
 Molecule*
-Abbreviation_beam::brew_molecule_p () const 
+Abbreviation_beam::do_brew_molecule_p () const 
 {
   /* 
    todo
    */
-  return Beam::brew_molecule_p ();
+  return Beam::do_brew_molecule_p ();
 #if 0
   Molecule *mol_p = new Molecule;
   // huh? inter-what
