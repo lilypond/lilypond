@@ -261,8 +261,8 @@ files. The temporary directory is created in the current directory as @code{ly2d
 @item -P,--postscript
     Also generate PostScript output, using dvips.  The postscript uses
 the standard @TeX{} bitmap fonts for your printer.
-@item --pdf
-    Also generate Portable Document Format (PDF). This option will
+@item -p,--pdf
+    Also generate Portable Document Format (PDF).  This option will
 generate a PS file using scalable fonts, and will run the PS file
 through @code{ps2pdf} producing a PDF file.
 

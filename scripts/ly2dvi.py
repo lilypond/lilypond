@@ -338,7 +338,7 @@ option_definitions = [
 	('', '', 'preview', _("Make a picture of the first system.")),
 	(_ ('RES'), '', 'preview-resolution', _("Set the resolution of the preview to RES.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', '', 'pdf', _ ("generate PDF output")),	
+	('', 'p', 'pdf', _ ("generate PDF output")),	
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
@@ -454,6 +454,7 @@ def quiet_system (cmd, name, ignore_error = 0):
 
 
 def run_lilypond (files, outbase, dep_prefix):
+
 	opts = ''
 #	opts = opts + '--output=%s.tex' % outbase
 	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x,
@@ -869,7 +870,7 @@ for opt in options:
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
 		targets.append ('PS')
-	elif o == '--pdf':
+	elif o == '--pdf' or o == '-p':
 		targets.append ('PDF')
 		targets.append ('PS')
 	elif o == '--keep' or o == '-k':
@@ -903,10 +904,22 @@ for opt in options:
 
 		sys.exit (0)
 
+# Don't convert input files to abspath, rather prepend '.' to include
+# path.
+include_path.insert (0, '.')
+
+# As a neat trick, add directory part of first input file
+# to include path.  That way you can do without the clumsy -I in:
+
+#    ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
+if files and files[0] != '-' and os.path.dirname (files[0]) != '.':
+	include_path.append (os.path.dirname (files[0]))
+	
 include_path = map (abspath, include_path)
 
-original_output = output_name
 
+
+original_output = output_name
 
 if files and files[0] != '-':
 	
@@ -929,7 +942,6 @@ if files and files[0] != '-':
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output_name = strip_extension (output_name, i)
 		outbase = strip_extension (outbase, i)
-	files = map (abspath, files)
 
 	for i in files[:] + [output_name]:
 		if string.find (i, ' ') >= 0:
