@@ -302,13 +302,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 	}
     }
 
-  /*
-    TODO: should support natural length on only the last line.
-   */
-  if (line_len_ < 0)
-    my_solve_natural_len ();
-  else
-    my_solve_linelen ();
+
 }
 
 /*
@@ -327,8 +321,18 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
   
  */
 void
-Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
+Simple_spacer::solve (Column_x_positions *positions, bool ragged) 
 {
+  /*
+    TODO: should support natural length on only the last line.
+   */
+  ragged = ragged || (line_len_ < 0) ;
+  if (ragged)
+    my_solve_natural_len ();
+  else
+    my_solve_linelen ();
+
+  
   positions->force_ = force_;
   if ((force_ < 0))
     {
