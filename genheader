@@ -1,10 +1,11 @@
 #!/bin/sh
 def=`echo $1 | sed s/\\\./_/ | tr a-z A-Z`
+
 cat << HERE
 /*
   $1 -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #ifndef $def
