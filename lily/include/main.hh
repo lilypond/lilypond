@@ -54,6 +54,8 @@ extern File_path global_path;
   Debugging options
  */
 
+#ifndef NDEBUG
 #define DEBUG_SLUR_SCORING 1
+#endif
 
 #endif /* MAIN_HH */
