@@ -1,7 +1,3 @@
-
-% Generated automatically by: lilypond-book.py
-% options are filename=/var/fred/cvs/savannah/lilypond/input/test/trills.ly printfilename  
-
 \paper  {
   linewidth = 433.619940\pt
   

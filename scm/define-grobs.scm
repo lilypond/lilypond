@@ -132,6 +132,7 @@
 	(molecule-callback . ,Beam::brew_molecule)
 	(concaveness-gap . 2.0)
 	(concaveness-threshold . 0.08)
+	
 	(positions . (#f . #f))
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
@@ -168,7 +169,10 @@
 	(flag-width-function . ,beam-flag-width-function)
 	(damping . 1)
 	(auto-knee-gap . 5.5)
-	(font-name . "cmr10")
+
+	;; only for debugging.
+;	(font-name . "cmr10")
+	
 	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface spanner-interface))))
 	))
@@ -894,6 +898,8 @@
 	
     (Stem
      . (
+
+	;; this list is rather long. Trim --hwn
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
 	(molecule-callback . ,Stem::brew_molecule)
 	(thickness . 1.3)
