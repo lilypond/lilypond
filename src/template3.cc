@@ -10,7 +10,7 @@
 
 
 #include "plist.tcc"
-
+#include "pcursor.tcc"
 IPL_instantiate(Atom);
 IPL_instantiate(Command);
 IPL_instantiate(Atom);
