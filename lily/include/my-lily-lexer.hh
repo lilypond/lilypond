@@ -1,5 +1,5 @@
 /*
-  lexer.hh -- declare My_lily_lexer
+  lexer.hh -- declare Lily_lexer
 
   source file of the GNU LilyPond music typesetter
 
@@ -18,7 +18,7 @@
 #include "string.hh"
 #include "duration.hh"
 #include "pitch.hh"
-#include "protected-scm.hh"
+#include "smobs.hh"
 
 bool busy_parsing ();
 void kill_lexer ();
@@ -27,11 +27,12 @@ void set_lexer ();
 /*
   TODO: this has a lot of SCM objects. Smobify me.
  */
-class My_lily_lexer : public Includable_lexer 
+class Lily_lexer : public Includable_lexer 
 {
+  DECLARE_SMOBS(Lily_lexer,);
 public:
-  Protected_scm scopes_;
-  Protected_scm encoding_;
+  SCM scopes_;
+  SCM encoding_;
   
 private:
   int lookup_keyword (String);
@@ -49,16 +50,16 @@ public:
   Sources *sources_; 
 
   /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
-  Protected_scm chordmodifier_tab_;
-  Protected_scm pitchname_tab_stack_;
+  SCM chordmodifier_tab_;
+  SCM pitchname_tab_stack_;
 
   Keyword_table *keytable_;
   int error_level_;
   Input last_input_;
 
-  My_lily_lexer (Sources*);
-  My_lily_lexer (My_lily_lexer const&);
-  ~My_lily_lexer ();
+  Lily_lexer (Sources*);
+  Lily_lexer (Lily_lexer const&);
+  ~Lily_lexer ();
 
   int yylex ();
 

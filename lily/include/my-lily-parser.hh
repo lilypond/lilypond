@@ -1,5 +1,5 @@
 /*
-  my-lily-parser.hh -- declare My_lily_parser
+  my-lily-parser.hh -- declare Lily_parser
 
   source file of the GNU LilyPond music typesetter
 
@@ -23,9 +23,9 @@
 
    TODO: interface is too complicated
 */
-class My_lily_parser 
+class Lily_parser 
 {
-  DECLARE_SMOBS (My_lily_parser, );
+  DECLARE_SMOBS (Lily_parser, );
   friend int yyparse (void*);
 
   Array<Input> define_spots_;
@@ -39,7 +39,7 @@ class My_lily_parser
   void set_last_pitch (Pitch const *);
 
 public:
-  My_lily_lexer *lexer_;
+  Lily_lexer *lexer_;
   Sources *sources_;
   Duration default_duration_;
   String output_basename_;
@@ -52,8 +52,8 @@ public:
   bool ignore_version_b_;
   SCM last_beam_start_;
 
-  My_lily_parser (Sources *sources);
-  My_lily_parser (My_lily_parser const&);
+  Lily_parser (Sources *sources);
+  Lily_parser (Lily_parser const&);
 
   DECLARE_SCHEME_CALLBACK (paper_description, ());
 
@@ -69,7 +69,7 @@ public:
   void set_yydebug (bool);
 };
 
-DECLARE_UNSMOB (My_lily_parser, my_lily_parser);
+DECLARE_UNSMOB (Lily_parser, my_lily_parser);
 
 SCM ly_parse_file (SCM);
 SCM ly_parse_string (SCM);
@@ -79,8 +79,8 @@ SCM ly_parser_print_score (SCM, SCM);
 SCM ly_parser_bookify (SCM, SCM);
 SCM ly_parser_scorify (SCM, SCM);
 
-Output_def *get_paper (My_lily_parser *parser);
-Output_def *get_midi (My_lily_parser *parser);
-Output_def *get_bookpaper (My_lily_parser *parser);
+Output_def *get_paper (Lily_parser *parser);
+Output_def *get_midi (Lily_parser *parser);
+Output_def *get_bookpaper (Lily_parser *parser);
 
 #endif /* MY_LILY_PARSER_HH */

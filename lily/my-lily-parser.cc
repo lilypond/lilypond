@@ -1,5 +1,5 @@
 /*
-  my-lily-parser.cc -- implement My_lily_parser
+  my-lily-parser.cc -- implement Lily_parser
 
   source file of the GNU LilyPond music typesetter
 
@@ -23,7 +23,7 @@
 #include "warn.hh"
 
 
-My_lily_parser::My_lily_parser (Sources *sources)
+Lily_parser::Lily_parser (Sources *sources)
 {
   book_count_ = 0;
   score_count_ = 0;
@@ -36,7 +36,7 @@ My_lily_parser::My_lily_parser (Sources *sources)
   smobify_self ();
 }
 
-My_lily_parser::My_lily_parser (My_lily_parser const &src)
+Lily_parser::Lily_parser (Lily_parser const &src)
 {
   book_count_ = src.book_count_;
   score_count_ = src.score_count_;
@@ -48,33 +48,33 @@ My_lily_parser::My_lily_parser (My_lily_parser const &src)
 
   smobify_self ();
   if (src.lexer_)
-    lexer_ = new My_lily_lexer (*src.lexer_);
+    lexer_ = new Lily_lexer (*src.lexer_);
+
+  scm_gc_unprotect_object (lexer_->self_scm ());
 }
 
-My_lily_parser::~My_lily_parser ()
+Lily_parser::~Lily_parser ()
 {
-  // FIXME: Memleak: del lexer
 }
 
 #include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (My_lily_parser);
-IMPLEMENT_TYPE_P (My_lily_parser, "ly:my-lily-parser?");
-IMPLEMENT_DEFAULT_EQUAL_P (My_lily_parser);
+IMPLEMENT_SMOBS (Lily_parser);
+IMPLEMENT_TYPE_P (Lily_parser, "ly:my-lily-parser?");
+IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
 
 SCM
-My_lily_parser::mark_smob (SCM s)
+Lily_parser::mark_smob (SCM s)
 {
-  My_lily_parser *parser = (My_lily_parser*) ly_cdr (s);
-  (void) parser;
-  return SCM_EOL;
+  Lily_parser *parser = (Lily_parser*) ly_cdr (s);
+  return (parser->lexer_) ? parser->lexer_->self_scm () : SCM_EOL;
 }
 
 int
-My_lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
+Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
   scm_puts ("#<my_lily_parser ", port);
-  My_lily_parser *parser = (My_lily_parser*) ly_cdr (s);
+  Lily_parser *parser = (Lily_parser*) ly_cdr (s);
   (void) parser;
   scm_puts (" >", port);
   return 1;
@@ -83,9 +83,9 @@ My_lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 
 /* Process one .ly file, or book.  */
 void
-My_lily_parser::parse_file (String init, String name, String out_name)
+Lily_parser::parse_file (String init, String name, String out_name)
 {
-  lexer_ = new My_lily_lexer (sources_);
+  lexer_ = new Lily_lexer (sources_);
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
@@ -111,16 +111,17 @@ My_lily_parser::parse_file (String init, String name, String out_name)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
-  delete lexer_;
+
+  scm_gc_unprotect_object (lexer_->self_scm ());
   lexer_ = 0;
 }
 
 void
-My_lily_parser::parse_string (String ly_code)
+Lily_parser::parse_string (String ly_code)
 {
-  My_lily_lexer *parent = lexer_;
-  lexer_ = (parent == 0 ? new My_lily_lexer (sources_)
-	    : new My_lily_lexer (*parent));
+  Lily_lexer *parent = lexer_;
+  lexer_ = (parent == 0 ? new Lily_lexer (sources_)
+	    : new Lily_lexer (*parent));
 
 
   SCM oldmod = scm_current_module ();
@@ -158,37 +159,37 @@ My_lily_parser::parse_string (String ly_code)
     }
 
   scm_set_current_module (oldmod);
-  delete lexer_;
+  scm_gc_unprotect_object (lexer_->self_scm ());
   lexer_ = 0;
 }
 
 void
-My_lily_parser::push_spot ()
+Lily_parser::push_spot ()
 {
   define_spots_.push (here_input ());
 }
 
 char const *
-My_lily_parser::here_str0 () const
+Lily_parser::here_str0 () const
 {
   return lexer_->here_str0 ();
 }
 
 void
-My_lily_parser::parser_error (String s)
+Lily_parser::parser_error (String s)
 {
   here_input ().error (s);
   error_level_ = 1;
 }
 
 Input
-My_lily_parser::pop_spot ()
+Lily_parser::pop_spot ()
 {
   return define_spots_.pop ();
 }
 
 Input
-My_lily_parser::here_input () const
+Lily_parser::here_input () const
 {
   /*
     Parsing looks ahead , so we really want the previous location of the
@@ -296,7 +297,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       progress_indication (_f ("Now processing `%s'", file_name.to_str0 ()));
       progress_indication ("\n");
 
-      My_lily_parser *parser = new My_lily_parser (&sources);
+      Lily_parser *parser = new Lily_parser (&sources);
 
       parser->parse_file (init, file_name, out_file);
 
@@ -319,7 +320,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   
   Sources sources;
   sources.set_path (&global_path);
-  My_lily_parser *parser = new My_lily_parser (&sources);
+  Lily_parser *parser = new Lily_parser (&sources);
   scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
 		     parser->self_scm ());
   parser->parse_string (ly_scm2string (ly_code));
@@ -332,8 +333,8 @@ LY_DEFINE (ly_clone_parser, "ly:clone-parser",
            1, 0, 0, (SCM parser_smob),
            "Return a clone of PARSER_SMOB.")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
-  My_lily_parser *clone = new My_lily_parser (*parser);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *clone = new Lily_parser (*parser);
 
   /* FIXME: should copy scopes too. */
   return scm_gc_unprotect_object (clone->self_scm ());
@@ -343,7 +344,7 @@ LY_DEFINE (ly_parser_define, "ly:parser-define",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
 	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
 
@@ -356,7 +357,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 	   "Lookup @var{symbol} in @var{parser_smob}'s module.  "
 	   "Undefined is '().")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
   SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
@@ -373,7 +374,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   "Parse the string LY_CODE with PARSER_SMOB."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG2, __FUNCTION__, "string");
@@ -384,7 +385,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 }
 
 Output_def*
-get_paper (My_lily_parser *parser)
+get_paper (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
   Output_def *paper = unsmob_output_def (id);
@@ -397,7 +398,7 @@ get_paper (My_lily_parser *parser)
 
 
 Output_def*
-get_midi (My_lily_parser *parser)
+get_midi (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultmidi");
   Output_def *paper = unsmob_output_def (id);
@@ -408,7 +409,7 @@ get_midi (My_lily_parser *parser)
 
 
 Output_def*
-get_bookpaper (My_lily_parser *parser)
+get_bookpaper (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultbookpaper");
   Output_def *paper = unsmob_output_def (id);
@@ -426,7 +427,7 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 	   (SCM parser_smob, SCM score_smob),
 	   "Print score, i.e., the classic way.")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Score *score = unsmob_score (score_smob);
 
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
@@ -466,7 +467,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   "@var{names} is an alist of symbols.  "
 	   "This only has effect if the current mode is notes.")
 {
-  My_lily_parser *p = unsmob_my_lily_parser (parser);
+  Lily_parser *p = unsmob_my_lily_parser (parser);
   SCM_ASSERT_TYPE(p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
   if (p->lexer_->is_note_state ())
@@ -482,7 +483,7 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 	   2, 0, 0, (SCM parser_smob, SCM book_smob),
 	   "Print book.")
 {
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
   Output_def *bp = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   

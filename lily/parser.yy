@@ -61,7 +61,7 @@ SCM get_next_unique_context ();
 #define YYPARSE_PARAM my_lily_parser
 #define YYLEX_PARAM my_lily_parser
 #define THIS\
-	((My_lily_parser *) my_lily_parser)
+	((Lily_parser *) my_lily_parser)
 
 #define yyerror THIS->parser_error
 
@@ -205,8 +205,8 @@ of the parse stack onto the heap. */
 int
 yylex (YYSTYPE *s, void *v)
 {
-	My_lily_parser *pars = (My_lily_parser*) v;
-	My_lily_lexer *lex = pars->lexer_;
+	Lily_parser *pars = (Lily_parser*) v;
+	Lily_lexer *lex = pars->lexer_;
 
 	lex->lexval = (void*) s;
 	lex->prepare_for_next_token ();
@@ -2515,7 +2515,7 @@ markup_list_body:
 %%
 
 void
-My_lily_parser::set_yydebug (bool )
+Lily_parser::set_yydebug (bool )
 {
 #if 0
 	yydebug = 1;
@@ -2523,7 +2523,7 @@ My_lily_parser::set_yydebug (bool )
 }
 
 void
-My_lily_parser::do_yyparse ()
+Lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
 }
@@ -2541,7 +2541,7 @@ skipTypesetting speeds it up a lot.
 */
 
 void
-My_lily_parser::beam_check (SCM dur)
+Lily_parser::beam_check (SCM dur)
 {
   Duration *d = unsmob_duration (dur);
   if (unsmob_music (last_beam_start_) && d->duration_log () <= 2)
@@ -2562,7 +2562,7 @@ otherwise, we have to import music classes into the lexer.
 
 */
 int
-My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
+Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
 	if (ly_c_string_p (sid)) {
 		*destination = sid;

@@ -1,5 +1,5 @@
 /*
-  my-lily-lexer.cc -- implement My_lily_lexer
+  my-lily-lexer.cc -- implement Lily_lexer
 
   source file of the GNU LilyPond music typesetter
 
@@ -83,24 +83,25 @@ static Keyword_ent the_key_tab[] = {
 };
 
 
-My_lily_lexer::My_lily_lexer (Sources *sources)
+Lily_lexer::Lily_lexer (Sources *sources)
 {
   keytable_ = new Keyword_table (the_key_tab);
   encoding_ = SCM_EOL;
-  chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
+  chordmodifier_tab_ = SCM_EOL;
   pitchname_tab_stack_ = SCM_EOL; 
   sources_ = sources;
   scopes_ = SCM_EOL;
   error_level_ = 0; 
   main_input_b_ = false;
+
+  smobify_self ();
   
   add_scope (ly_make_anonymous_module (false));
-
   push_note_state (scm_c_make_hash_table (0));
-
+  chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
 }
 
-My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
+Lily_lexer::Lily_lexer (Lily_lexer const &src)
   : Includable_lexer ()
 {
   keytable_ =  (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
@@ -112,6 +113,10 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   error_level_ = src.error_level_; 
   main_input_b_ = src.main_input_b_;
 
+  scopes_ = SCM_EOL;
+  
+  smobify_self ();
+  
   SCM scopes = SCM_EOL;
   SCM* tail = &scopes;
   for (SCM s = src.scopes_; ly_c_pair_p (s); s = ly_cdr (s))
@@ -126,20 +131,20 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   push_note_state (scm_c_make_hash_table (0));
 }
 
-My_lily_lexer::~My_lily_lexer ()
+Lily_lexer::~Lily_lexer ()
 {
   delete keytable_;
 }
 
 SCM
-My_lily_lexer::encoding () const
+Lily_lexer::encoding () const
 {
   return encoding_ ;
 }
 
 
 void
-My_lily_lexer::add_scope (SCM module)
+Lily_lexer::add_scope (SCM module)
 {
   ly_reexport_module (scm_current_module ());
   scm_set_current_module (module);
@@ -151,7 +156,7 @@ My_lily_lexer::add_scope (SCM module)
 }
 
 SCM
-My_lily_lexer::remove_scope ()
+Lily_lexer::remove_scope ()
 {
   SCM sc = ly_car (scopes_);
   scopes_ = ly_cdr (scopes_);
@@ -162,13 +167,13 @@ My_lily_lexer::remove_scope ()
 
 
 int
-My_lily_lexer::lookup_keyword (String s)
+Lily_lexer::lookup_keyword (String s)
 {
   return keytable_->lookup (s.to_str0 ());
 }
 
 SCM
-My_lily_lexer::lookup_identifier_symbol (SCM sym)
+Lily_lexer::lookup_identifier_symbol (SCM sym)
 {
   for (SCM s = scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
@@ -181,13 +186,13 @@ My_lily_lexer::lookup_identifier_symbol (SCM sym)
 }
 
 SCM
-My_lily_lexer::lookup_identifier (String name)
+Lily_lexer::lookup_identifier (String name)
 {
   return lookup_identifier_symbol (ly_symbol2scm (name.to_str0 ()));
 }
 
 void
-My_lily_lexer::start_main_input ()
+Lily_lexer::start_main_input ()
 {
   // yy_flex_debug = 1;
   new_input (main_input_name_, sources_);
@@ -201,7 +206,7 @@ My_lily_lexer::start_main_input ()
 }
 
 void
-My_lily_lexer::set_identifier (SCM name, SCM s)
+Lily_lexer::set_identifier (SCM name, SCM s)
 {
   SCM sym = name;
   if (ly_c_string_p (name))
@@ -225,7 +230,7 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
 }
 
 void
-My_lily_lexer::LexerError (char const *s)
+Lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.is_empty ())
     progress_indication (_f ("error at EOF: %s", s) + String ("\n"));
@@ -238,7 +243,7 @@ My_lily_lexer::LexerError (char const *s)
 }
 
 char
-My_lily_lexer::escaped_char (char c) const
+Lily_lexer::escaped_char (char c) const
 {
   switch (c)
     {
@@ -255,23 +260,49 @@ My_lily_lexer::escaped_char (char c) const
 }
 
 Input
-My_lily_lexer::here_input () const
+Lily_lexer::here_input () const
 {
   Source_file * f= get_source_file ();
   return Input (f, (char*)here_str0 ());
 }
 
 void
-My_lily_lexer::prepare_for_next_token ()
+Lily_lexer::prepare_for_next_token ()
 {
   last_input_ = here_input ();
 }
 
 void
-My_lily_lexer::set_encoding (String s)
+Lily_lexer::set_encoding (String s)
 {
   if (s.length ())
     encoding_ = ly_symbol2scm (s.to_str0 ());
   else
     encoding_ = SCM_EOL;
+}
+
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_SMOBS (Lily_lexer);
+IMPLEMENT_TYPE_P (Lily_lexer, "ly:my-lily-lexer?");
+IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
+
+SCM
+Lily_lexer::mark_smob (SCM s)
+{
+  Lily_lexer *lexer = (Lily_lexer*) ly_cdr (s);
+
+  scm_gc_mark (lexer->chordmodifier_tab_);
+  scm_gc_mark (lexer->pitchname_tab_stack_);
+  scm_gc_mark (lexer->scopes_);
+  return lexer->encoding_;
+}
+
+int
+Lily_lexer::print_smob (SCM, SCM port, scm_print_state*)
+{
+  scm_puts ("#<Lily_lexer ", port);
+  scm_puts (" >", port);
+  return 1;
 }
