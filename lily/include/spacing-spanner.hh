@@ -16,10 +16,10 @@ class Spacing_spanner : public Spanner
 {
 public:
   Spacing_spanner ();
+
   VIRTUAL_COPY_CONS(Score_element);
-  Score_column *scol (int) const;
-  Array<Spring> do_measure (int,int) const;
-  int col_count () const;
+  Array<Spring> do_measure (Link_array<Score_column>) const;
+
 protected:
   virtual  Array<Spring> get_springs () const;
 

@@ -24,12 +24,6 @@
   document usage of this.
  */
 class Align_element : public virtual Axis_group_element {
-
-  /*
-   ugh. JUNKME
-
-  */
-  Hash_table<Score_element*,int> priority_i_hash_;
 public:
   Interval threshold_interval_ ;
 
@@ -49,20 +43,11 @@ public:
   Direction align_dir_;
   
   Axis axis () const;
-  Score_element * center_l_;
   
   Align_element ();
   void set_axis (Axis);
-  void add_element (Score_element*);
-  void add_element_priority (Score_element*, int);
-  bool contains_b (Score_element const*) const;
-
-  Score_element *get_elt_by_priority (int) const;
-  int get_priority (Score_element const*) const;
+  int get_count (Score_element*)const;
 protected:
-  void sort_elements ();
-  virtual void do_print() const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_post_processing() ;
   virtual void do_pre_processing ();
   virtual void do_side_processing ();

@@ -15,25 +15,14 @@
 #include "paper-outputter.hh"
 #include "score-column.hh"
 #include "line-of-score.hh"
-
-void
-Spanner::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "Between " << classname (spanned_drul_[LEFT])
-       << " and " << classname (spanned_drul_[RIGHT]) << '\n';
-
-  if (broken_b ())
-    DEBUG_OUT << "Broken in " << to_str (broken_into_l_arr_.size ()) << " pieces";
-#endif
-}
+#include "break-align-item.hh"
 
 void
 Spanner::break_into_pieces ()
 {
-  if (broken_b ())
-    return; 
-	 
+  if (line_l () || broken_b ())
+    return;
+  
   Item * left = spanned_drul_[LEFT];
   Item * right = spanned_drul_[RIGHT];
 
@@ -80,13 +69,13 @@ Spanner::break_into_pieces ()
 void
 Spanner::set_my_columns()
 {
-  Direction i = (Direction)1;
+  Direction i = (Direction) LEFT;
   do 
     {
       if (!spanned_drul_[i]->line_l())
-	set_bounds(i,spanned_drul_[i]->find_broken_piece((Direction)-i));
+	set_bounds(i,spanned_drul_[i]->find_broken_piece((Direction) -i));
     } 
-  while (flip(&i) != 1);
+  while (flip(&i) != LEFT);
 }       
 
 void
@@ -106,18 +95,18 @@ Spanner::set_bounds(Direction d, Item*i)
       set_parent (i, X_AXIS);
     }
   
-  if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
+  if (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
     warning (_f ("Spanner `%s' has equal left and right spanpoints", classname (this)));
 }
 
+
+
 void
 Spanner::do_break_processing()
 {
-  if (!line_l())
-    break_into_pieces ();
-  else 
-    handle_broken_dependencies();
+  break_into_pieces ();
+  handle_broken_dependencies();
 }
 
 Spanner::Spanner ()
@@ -133,8 +122,8 @@ Spanner::Spanner (Spanner const &s)
 }
 
 
-Interval
-Spanner::do_width() const
+Real
+Spanner::spanner_length() const
 {  
   Real l = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
@@ -142,7 +131,7 @@ Spanner::do_width() const
   if (r< l)
     warning (_ ("spanner with negative length"));
 	
-  return Interval (0, r-l);
+  return r-l;
 }
 
 Line_of_score *
@@ -159,21 +148,16 @@ Spanner::line_l() const
 Score_element*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
+  Spanner* me = (Spanner*) this;
+  break_into_pieces ();
+  
   int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
+  
   if (idx < 0)
     return 0;
   else
     return broken_into_l_arr_ [idx];
 }
-
-/*
-  for (int i=0; i < broken_into_l_arr_.size (); i++)
-    {
-      if (broken_into_l_arr_[i]->line_l () == l)
-	return broken_into_l_arr_[i];
-    }
-  return 0;
-*/
 
 
 int
@@ -219,28 +203,6 @@ Spanner::do_space_processing ()
 }
 
 /*
-  UGH.
- */
-void
-Spanner::handle_broken_dependents ()
-{
-  Spanner *unbrok = dynamic_cast<Spanner*> (original_l_);
-  if (!unbrok || parent_l(Y_AXIS))
-    return;
-  
-  Spanner *refpoint = dynamic_cast<Spanner*> (unbrok->parent_l (Y_AXIS));
-  
-  if (refpoint)
-    {
-      Score_element * broken_refpoint = refpoint->find_broken_piece (line_l ());
-      if (broken_refpoint)
-	set_parent (broken_refpoint,Y_AXIS);
-      else
-	programming_error ("Spanner y -refpoint lost.");
-    }
-}
-
-/*
   If this is a broken spanner, return the amount the left end is to be
   shifted horizontally so that the spanner starts after the initial
   clef and key on the staves. This is necessary for ties, slurs,
@@ -249,22 +211,31 @@ Spanner::handle_broken_dependents ()
 Real
 Spanner::get_broken_left_end_align () const
 {
-  int i;
-
   Score_column *sc = dynamic_cast<Score_column*> (spanned_drul_[LEFT]->column_l());
 
   // Relevant only if left span point is first column in line
-  if(sc != NULL && sc->line_l ()->cols_.find_i (sc) == 0)
+  if(sc != NULL &&
+     sc->break_status_dir () == RIGHT)
     {
       // We could possibly return the right edge of the whole Score_column here,
       // but we do a full search for the Break_align_item.
-      for(i = 0; i < sc->elem_l_arr_.size (); i++)
+
+      /*
+	In fact that doesn't make a difference, since the Score_column
+	is likely to contain only a Break_align_item.
+      */
+#if 0
+      for(SCM s = sc->get_elt_property ("elements"); gh_pair_p (s);
+	  s = gh_cdr (s))
 	{
-	  if(0 == strcmp (classname (sc->elem_l_arr_[i]), "Break_align_item"))
+	  Score_element *e = SMOB_TO_TYPE (Score_element, gh_car (s));
+	  if(dynamic_cast<Break_align_item*> (e))
 	    {
-	      return sc->elem_l_arr_[i]->extent (X_AXIS) [RIGHT];
+	      return e->extent (X_AXIS) [RIGHT];
 	    }
 	}
+#endif
+      return sc->extent (X_AXIS)[RIGHT];
     }
 
   return 0.0;

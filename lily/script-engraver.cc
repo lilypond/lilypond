@@ -84,6 +84,9 @@ Script_engraver::do_process_requests()
       if (!follow_staff && ! xaxis)
 	p->set_elt_property ("staff-support", SCM_BOOL_T);
 
+      if (!xaxis && follow_staff)
+	stafy.set_quantised (Y_AXIS);
+      
       p->set_elt_property ("script-priority", priority);
   
       script_p_arr_.push (p);

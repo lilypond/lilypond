@@ -24,8 +24,9 @@ public:
   static Real side_position (Dimension_cache const *);
   static Real self_alignment (Dimension_cache const *);
   static Real aligned_side (Dimension_cache const *);  
-  
+  static Real quantised_position (Dimension_cache const*);
   void set_axis (Axis);
+  void set_quantised (Axis);
   Axis get_axis () const;
   
   bool supported_b () const;

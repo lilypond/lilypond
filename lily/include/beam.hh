@@ -28,14 +28,10 @@ slope_quantisation: 'none, 'normal or 'traditional
 */
 class Beam : public Directional_spanner  {
 public:
-  /** 
-    The beams should be prevented to conflict with the stafflines, 
-    especially at small slopes.
-    */
-  enum Quantisation { NONE, NORMAL, TRADITIONAL };
-  enum Dir_algorithm { /* DOWN=-1, UP=1, */ MAJORITY=2, MEAN, MEDIAN };
 
-  Link_array<Stem> stems_;
+  int stem_count ()const;
+  Stem * stem (int )const;
+
   /**
      the slope of the beam in (staffpositions) per (X-dimension, in PT).
      UGH. standardise this for once and for all.
@@ -61,7 +57,6 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
 
 protected:
-  virtual Interval do_width () const;    
   Offset center () const;
   Direction get_default_dir () const;
   void set_direction (Direction);
@@ -71,7 +66,6 @@ protected:
   
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
   virtual void do_add_processing ();
   virtual void do_print() const;
   virtual Molecule*do_brew_molecule_p () const;

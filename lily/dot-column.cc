@@ -9,11 +9,14 @@
 #include "dots.hh"
 #include "dot-column.hh"
 #include "rhythmic-head.hh"
+#include "group-interface.hh"
 
 void
 Dot_column::add_dots (Dots *d)
 {
-  dot_l_arr_.push (d);
+  Group_interface gi (this, "dots");
+  gi.add_element (d);
+
   add_dependency (d);
   add_element (d);
 }
@@ -21,20 +24,13 @@ Dot_column::add_dots (Dots *d)
 void
 Dot_column::add_head (Rhythmic_head *r)
 {
-  if (!r->dots_l_)
+  if (!r->dots_l ())
     return ;
 
   add_support (r);
-  add_dots (r->dots_l_);
+  add_dots (r->dots_l ());
 }
 
-void
-Dot_column::do_substitute_element_pointer (Score_element*o,Score_element*n)
-{
-  Note_head_side::do_substitute_element_pointer (o,n);
-  if (Dots * d = dynamic_cast<Dots*> (o))
-    dot_l_arr_.substitute (d, dynamic_cast<Dots*> (n));
-}
 
 int
 Dot_column::compare (Dots * const &d1, Dots * const &d2)
@@ -42,15 +38,12 @@ Dot_column::compare (Dots * const &d1, Dots * const &d2)
   return int (d1->position_f () - d2->position_f ());
 }
 
-void
-Dot_column::do_pre_processing ()
-{
-  dot_l_arr_.sort (Dot_column::compare);
-  Note_head_side::do_pre_processing ();
-}
 
 Dot_column::Dot_column ()
 {
+  Group_interface gi (this, "dots");
+  gi.set_interface ();
+  
   set_direction (RIGHT);
   set_axes(X_AXIS,X_AXIS);
 }
@@ -73,21 +66,24 @@ Dot_column::Dot_column ()
 void
 Dot_column::do_post_processing ()
 {
-  if (dot_l_arr_.size () < 2)
+  Link_array<Dots> dots = Group_interface__extract_elements (this, (Dots*)0 , "dots"); 
+  dots.sort (Dot_column::compare);
+  
+  if (dots.size () < 2)
     return;
   Slice s;
   s.set_empty ();
 
   Array<int> taken_posns;
   int conflicts = 0;
-  for (int i=0; i < dot_l_arr_.size (); i++)
+  for (int i=0; i < dots.size (); i++)
     {
       for (int j=0; j < taken_posns.size (); j++)
-	if (taken_posns[j] == (int) dot_l_arr_[i]->position_f ())
+	if (taken_posns[j] == (int) dots[i]->position_f ())
 	  conflicts++;
-      taken_posns.push ((int)dot_l_arr_[i]->position_f ());
-      s.unite (Slice ((int)dot_l_arr_[i]->position_f (),
-		      (int)dot_l_arr_[i]->position_f ()));      
+      taken_posns.push ((int)dots[i]->position_f ());
+      s.unite (Slice ((int)dots[i]->position_f (),
+		      (int)dots[i]->position_f ()));      
     }
 
   if (!conflicts)
@@ -97,12 +93,12 @@ Dot_column::do_post_processing ()
   /*
     +1 -> off by one 
    */
-  int pos = middle - dot_l_arr_.size () + 1;
+  int pos = middle - dots.size () + 1;
   if (!(pos % 2))
     pos ++;			// center () rounds down.
 
-  for (int i=0; i  <dot_l_arr_.size (); pos += 2, i++)
+  for (int i=0; i  <dots.size (); pos += 2, i++)
     {
-      dot_l_arr_[i]->set_position(pos);
+      dots[i]->set_position(pos);
     }
 }

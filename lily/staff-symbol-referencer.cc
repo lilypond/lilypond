@@ -15,58 +15,52 @@
 
 Staff_symbol_referencer::Staff_symbol_referencer ()
 {
-  staff_symbol_l_ =0;
-  position_f_ =0;
+  set_elt_property ("staff-position", gh_double2scm (0.0));
+  dim_cache_[Y_AXIS]->off_callbacks_.push (callback);
 }
 
-void
-Staff_symbol_referencer::do_substitute_element_pointer (Score_element *o,
-							Score_element*n)
-{
-  if (staff_symbol_l_ == o)
-    {
-      staff_symbol_l_ = dynamic_cast<Staff_symbol*> (n);
-    }
-}
 
 int
 Staff_symbol_referencer::lines_i () const
 {
-  return (staff_symbol_l_) ?  staff_symbol_l_->no_lines_i_ : 5;
-}
-
-void
-Staff_symbol_referencer::set_staff_symbol (Staff_symbol*s)
-{
-  staff_symbol_l_ =s;
-  add_dependency (s);
+  Staff_symbol *st = staff_symbol_l ();
+  return st  ?  st->no_lines_i_ : 5;
 }
 
 Staff_symbol*
 Staff_symbol_referencer::staff_symbol_l () const
 {
-  return staff_symbol_l_;
+  SCM st = get_elt_property ("staff-symbol");
+  return dynamic_cast<Staff_symbol* > (unsmob_element(st));
 }
 
 Real
 Staff_symbol_referencer::staff_line_leading_f () const
 {
-  if (staff_symbol_l_)
-    return  staff_symbol_l_->staff_line_leading_f_;
+  Staff_symbol * st = staff_symbol_l ();
+  if (st)
+    return st->staff_line_leading_f_;
   else if (pscore_l_ && paper_l ())
     paper_l ()->get_var ("interline");
  
   return 0.0;
 }
 
+
 Real
 Staff_symbol_referencer::position_f () const
 {
-  Real p = position_f_;
-  if (staff_symbol_l_ )
+  Real p =0.0;
+  SCM pos = get_elt_property ("staff-position");
+  if (gh_number_p (pos))
+    p = gh_scm2double (pos);
+
+  Staff_symbol * st = staff_symbol_l ();
+  if (st)
     {
-      Graphical_element * c = common_refpoint (staff_symbol_l_, Y_AXIS);
-      Real y = relative_coordinate (c, Y_AXIS) - staff_symbol_l_->relative_coordinate (c, Y_AXIS);
+      Score_element * c = common_refpoint (st, Y_AXIS);
+      Real y = relative_coordinate (c, Y_AXIS)
+	- st->relative_coordinate (c, Y_AXIS);
 
       p += 2.0 * y / staff_line_leading_f ();
     }
@@ -78,23 +72,38 @@ Staff_symbol_referencer::position_f () const
 /*
   should use offset callback!
  */
-void
-Staff_symbol_referencer::do_pre_processing ()
+Real
+Staff_symbol_referencer::callback (Dimension_cache const * c)
 {
-  translate_axis (position_f_ * staff_line_leading_f () /2.0, Y_AXIS);
-  position_f_ =0;
+  Score_element * sc = dynamic_cast<Score_element*> (c->element_l ());
+  Staff_symbol_referencer * ref = dynamic_cast<Staff_symbol_referencer*> (sc);
+  SCM pos = sc->get_elt_property ("staff-position");
+  Real off =0.0;
+  if (gh_number_p (pos))
+    {
+      off = gh_scm2double (pos) * ref->staff_line_leading_f () /2.0;
+    }
+  sc->set_elt_property ("staff-position", gh_double2scm (0.0));
+
+  return off;
 }
 
 
 void
 Staff_symbol_referencer::set_position (Real p)
 {
-  Real halfspace =  staff_line_leading_f ()* 0.5;
+  Real halfspace = staff_line_leading_f ()* 0.5;
   
   translate_axis (- halfspace * position_f (), Y_AXIS);
-  if (staff_symbol_l_)
+  Staff_symbol *st = staff_symbol_l ();
+  if (st)
     translate_axis (halfspace * p, Y_AXIS);
   else
-    position_f_ =   p;
+    {
+      //      SCM pos = get_elt_property ("staff-position");
+      set_elt_property ("staff-position",
+			gh_double2scm (p));
+			//			gh_double2scm (p + gh_scm2double (pos)));
+    }
 }
 

@@ -95,8 +95,6 @@ struct Font_metric;
 struct General_script_def;
 struct Global_translator;
 struct Grace_align_item;
-struct Graphical_axis_group;
-struct Graphical_element;
 struct Hara_kiri_group_spanner;
 struct Hara_kiri_line_group_engraver;
 struct Head_column;

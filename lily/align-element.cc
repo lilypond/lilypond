@@ -13,63 +13,6 @@
 #include "hash-table-iter.hh"
 #include "dimension-cache.hh"
 
-struct Align_element_content {
-  Graphical_element * elem_l_;
-  int priority_i_;
-  
-  static int compare (Align_element_content const &h1, 
-		      Align_element_content const &h2) 
-    {
-      return h1.priority_i_ - h2.priority_i_;
-    }
-  Align_element_content (Graphical_element *elem_l, int p) 
-    {
-      priority_i_ = p;
-      elem_l_ = elem_l;
-    }
-  Align_element_content () {
-    elem_l_ = 0;
-    priority_i_ = 0;
-  }
-};
-
-
-
-void
-Align_element::add_element (Score_element*el_l)
-{
-  int p = elem_l_arr_.size ();
-  add_element_priority (el_l, p);
-}
-
-void
-Align_element::add_element_priority (Score_element *el, int p)
-{
-  assert (! contains_b (el));
-  Axis_group_element::add_element (el);
-  priority_i_hash_[el] = p;
-  add_dependency (el);
-}
-
-void
-Align_element::do_substitute_element_pointer (Score_element*o,
-					      Score_element*n)
-{
-  Axis_group_element :: do_substitute_element_pointer (o,n);
-  if (o == center_l_)
-    {
-      center_l_ = n;
-    }
-  if (priority_i_hash_.elem_b (o))
-    {
-      priority_i_hash_[n] = priority_i_hash_[o];
-      /*
-	Huh? It seems the old pointers are still used.  Why?
-       */
-      // priority_i_hash_.remove (o);
-    }
-}
-
 void
 Align_element::do_post_processing()
 {
@@ -90,12 +33,13 @@ Align_element::do_side_processing ()
   Array<Interval> dims;
 
   Link_array<Score_element> elems;
-  for (int i=0; i < elem_l_arr_.size(); i++) 
+  Link_array<Score_element> all_elts (elem_l_arr ());
+  for (int i=0; i < elem_l_arr ().size(); i++) 
     {
-      Interval y = elem_l_arr_[i]->extent(axis ()) + elem_l_arr_[i]->relative_coordinate (this, axis ());
+      Interval y = all_elts[i]->extent(axis ()) + all_elts[i]->relative_coordinate (this, axis ());
       if (!y.empty_b())
 	{
-	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
+	  Score_element *e =dynamic_cast<Score_element*>(all_elts[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
 	  SCM min_dims = e->remove_elt_property ("minimum-space");
@@ -119,6 +63,9 @@ Align_element::do_side_processing ()
 
   Real where_f=0;
   Real center_f = 0.0;
+  SCM scenter = get_elt_property ("center-element");
+  Score_element *center_elt = unsmob_element (scenter);
+  
   for (int i=0 ;  i < elems.size(); i++) 
     {
       Real dy = - stacking_dir_ * dims[i][-stacking_dir_];
@@ -133,7 +80,7 @@ Align_element::do_side_processing ()
 
       if (!i && align_dir_ == LEFT)
 	center_f = where_f;
-      else if (align_dir_ == CENTER && elems[i] == center_l_)
+      else if (align_dir_ == CENTER && elems[i] == center_elt)
 	center_f = where_f;
 
       where_f += stacking_dir_ * dy;
@@ -144,7 +91,7 @@ Align_element::do_side_processing ()
     where_f += dims.top ()[stacking_dir_];
   if (align_dir_ == RIGHT)
     center_f = where_f;
-  else if (align_dir_ == CENTER && !center_l_)
+  else if (align_dir_ == CENTER && !center_elt)
     center_f = where_f / 2;
     
   if (center_f)
@@ -159,8 +106,21 @@ Align_element::Align_element()
   threshold_interval_ = Interval (0, Interval::infinity ());
   stacking_dir_ = DOWN;
   align_dir_ = CENTER;
-  center_l_ =0;
-  priority_i_hash_.hash_func_ = pointer_hash;
+}
+
+int
+Align_element::get_count (Score_element*s)const
+{
+  SCM e = get_elt_property ("elements");
+  int c =0;
+  while (gh_pair_p (e))
+    {
+      if (gh_car (e) == s->self_scm_)
+	break;
+      c++;
+      e = gh_cdr (e);
+    }
+  return c;
 }
 
 Axis
@@ -176,62 +136,7 @@ Align_element::set_axis (Axis a)
 }
 
 
-bool
-Align_element::contains_b (Score_element const *e) const
-{
-  return elem_l_arr_.find_l (e);
-}
 
-void
-Align_element::sort_elements ()
-{
-  Array<Align_element_content> content;
-  for  (int i =0; i < elem_l_arr_.size(); i++)
-    {
-      Score_element * e = dynamic_cast<Score_element*> (elem_l_arr_[i]);
-      assert (priority_i_hash_.elem_b (e));
-      int p = priority_i_hash_[e];
-      content.push (Align_element_content (e, p));
-    }
-  content.sort (Align_element_content::compare);
-  
-  elem_l_arr_.clear();
-  priority_i_hash_.clear();
 
-  for  (int i =0; i < content.size(); i++) 
-    {
-      elem_l_arr_.push (content[i].elem_l_);
-    }
-}
 
-void
-Align_element::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "contains: ";
-  for (int i=0 ;  i < elem_l_arr_.size(); i++) 
-    DEBUG_OUT << classname (elem_l_arr_[i]) << ", ";
-#endif
-}
-
-Score_element*
-Align_element::get_elt_by_priority (int p) const
-{
-  for (Hash_table_iter<Score_element*, int>  i(priority_i_hash_); i.ok (); i++)
-    {
-      if (i.val () == p)
-	return i.key();
-    }
-  return 0;
-}
-
-int
-Align_element::get_priority (Score_element const * e) const
-{
-  Score_element * nonconst = (Score_element*) e;
-  if ( priority_i_hash_.elem_b (nonconst))
-    return priority_i_hash_[nonconst];
-  else
-    return elem_l_arr_.find_i (nonconst);
-}
 

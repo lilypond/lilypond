@@ -53,7 +53,7 @@ void
 Super_element::breakable_col_processing ()
 {
   calculate_dependencies (PREBROKEN, PREBROKEN, &Score_element::do_breakable_col_processing);
-  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
+  //  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
 }
 
 void
@@ -65,8 +65,8 @@ Super_element::break_processing ()
 void
 Super_element::post_processing ()
 {
-  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
-			  &Score_element::handle_broken_dependents);
+  //  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
+  //		  &Score_element::handle_broken_dependents);
   calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::do_post_processing);
 }
 

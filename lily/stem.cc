@@ -7,7 +7,7 @@
 
   TODO: This is way too hairy
 */
-
+#include "dimension-cache.hh"
 #include "stem.hh"
 #include "debug.hh"
 #include "paper-def.hh"
@@ -18,13 +18,13 @@
 #include "misc.hh"
 #include "beam.hh"
 #include "rest.hh"
+#include "group-interface.hh"
 
 Stem::Stem ()
 {
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
-  beam_l_ = 0;
 }
 
 Interval_t<int>
@@ -35,15 +35,18 @@ Stem::head_positions () const
     trigger FP exceptions on FreeBSD.  Fix: do not return infinity 
 
    */
-  if (!head_l_arr_.size ())
+  if (!first_head ())
     {
       return Interval_t<int> (100,-100);	
     }
 
+  Link_array<Note_head> head_l_arr =
+    Group_interface__extract_elements (this, (Note_head*)0, "heads");
+  
   Interval_t<int> r;
-  for (int i =0; i < head_l_arr_.size (); i++)
+  for (int i =0; i < head_l_arr.size (); i++)
     {
-      int p = (int)head_l_arr_[i]->position_f ();
+      int p = (int)head_l_arr[i]->position_f ();
       r[BIGGER] = r[BIGGER] >? p;
       r[SMALLER] = r[SMALLER] <? p;
     }
@@ -55,8 +58,6 @@ Stem::do_print () const
 {
 #ifndef NPRINT
   DEBUG_OUT << "flag "<< flag_i_;
-  if (beam_l_)
-    DEBUG_OUT << "beamed";
 #endif
 }
 
@@ -99,29 +100,42 @@ Stem::set_stemend (Real se)
 int
 Stem::type_i () const
 {
-  return head_l_arr_[0]->balltype_i_;
+  
+  return first_head ()->balltype_i_;
+}
+
+Note_head*
+Stem::first_head () const
+{
+  SCM h =get_elt_property ("heads");
+  if (!gh_pair_p (h))
+    return 0;
+
+  Score_element * sc = unsmob_element (gh_car (h));
+
+  return dynamic_cast<Note_head*> (sc);
 }
 
 void
 Stem::add_head (Rhythmic_head *n)
 {
-  n->stem_l_ = this;
+  n->set_elt_property ("stem", this->self_scm_);
   n->add_dependency (this);	// ?
+  
+
+  Group_interface gi (this);
   if (Note_head *nh = dynamic_cast<Note_head *> (n))
-    {
-      head_l_arr_.push (nh);
-    }
-  else if (Rest *r = dynamic_cast<Rest *> (n))
-    {
-      rest_l_arr_.push (r);
-    }
+    gi.name_ = "heads";
+  else
+    gi.name_ = "rests";
+
+  gi.add_element (n);
 }
 
 bool
 Stem::invisible_b () const
 {
-  return (!head_l_arr_.size () ||
-    head_l_arr_[0]->balltype_i_ <= 0);
+  return !(first_head () && first_head()->balltype_i_ >= 1);
 }
 
 int
@@ -199,32 +213,37 @@ Stem::set_default_extents ()
 void
 Stem::set_noteheads ()
 {
-  if (!head_l_arr_.size ())
+  if (!first_head ())
     return;
-  head_l_arr_.sort (Note_head::compare);
-  if (get_direction () < 0)
-    head_l_arr_.reverse ();
 
-  Note_head * beginhead =   head_l_arr_[0];
+  
+  Link_array<Note_head> head_l_arr =
+    Group_interface__extract_elements (this, (Note_head*)0, "heads");
+
+  head_l_arr.sort (Note_head::compare);
+  if (get_direction () < 0)
+    head_l_arr.reverse ();
+
+  Note_head * beginhead =   first_head ();
   beginhead->set_elt_property ("extremal", SCM_BOOL_T);
-  if  (beginhead !=   head_l_arr_.top ())
-    head_l_arr_.top ()->set_elt_property ("extremal", SCM_BOOL_T);
+  if  (beginhead !=   head_l_arr.top ())
+    head_l_arr.top ()->set_elt_property ("extremal", SCM_BOOL_T);
   
   int parity=1;
   int lastpos = int (beginhead->position_f ());
-  for (int i=1; i < head_l_arr_.size (); i ++)
+  for (int i=1; i < head_l_arr.size (); i ++)
     {
-      int dy =abs (lastpos- (int)head_l_arr_[i]->position_f ());
+      int dy =abs (lastpos- (int)head_l_arr[i]->position_f ());
 
       if (dy <= 1)
 	{
 	  if (parity)
-	    head_l_arr_[i]->flip_around_stem (get_direction ());
+	    head_l_arr[i]->flip_around_stem (get_direction ());
 	  parity = !parity;
 	}
       else
 	parity = 1;
-      lastpos = int (head_l_arr_[i]->position_f ());
+      lastpos = int (head_l_arr[i]->position_f ());
     }
 }
 
@@ -238,8 +257,11 @@ Stem::do_pre_processing ()
   if (invisible_b ())
     {
       set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (Y_AXIS);      
+      set_empty (X_AXIS);      
     }
-  set_empty (invisible_b (), X_AXIS, Y_AXIS);
+
+
   set_spacing_hints ();
 }
 
@@ -290,15 +312,17 @@ Stem::flag () const
 }
 
 Interval
-Stem::do_width () const
+Stem::dim_callback (Dimension_cache const* c) 
 {
+  Stem * s = dynamic_cast<Stem*> (c->element_l ());
+  
   Interval r (0, 0);
-  if (beam_l_ || abs (flag_i_) <= 2)
+  if (s->get_elt_property ("beam") != SCM_UNDEFINED || abs (s->flag_i_) <= 2)
     ;	// TODO!
   else
     {
-      r = flag ().dim_.x ();
-      r += note_delta_f ();
+      r = s->flag ().dim_.x ();
+      r += s->note_delta_f ();
     }
   return r;
 }
@@ -316,8 +340,8 @@ Stem::do_brew_molecule_p () const
   Real dy = staff_line_leading_f ()/2.0;
 
   Real head_wid = 0;
-  if (head_l_arr_.size ())
-    head_wid = head_l_arr_[0]->extent (X_AXIS).length ();
+  if (first_head ())
+    head_wid = first_head ()->extent (X_AXIS).length ();
   stem_y[Direction(-get_direction ())] += get_direction () * head_wid * tan(ANGLE)/(2*dy);
   
   if (!invisible_b ())
@@ -328,14 +352,15 @@ Stem::do_brew_molecule_p () const
       mol_p->add_molecule (ss);
     }
 
-  if (!beam_l_ && abs (flag_i_) > 2)
+  if (get_elt_property ("beam") == SCM_UNDEFINED
+      && abs (flag_i_) > 2)
     {
       Molecule fl = flag ();
       fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
       mol_p->add_molecule (fl);
     }
 
-  if (head_l_arr_.size())
+  if (first_head ())
     {
       mol_p->translate_axis (note_delta_f (), X_AXIS);
     }
@@ -346,9 +371,9 @@ Real
 Stem::note_delta_f () const
 {
   Real r=0;
-  if (head_l_arr_.size())
+  if (first_head ())
     {
-      Interval head_wid(0,  head_l_arr_[0]->extent (X_AXIS).length ());
+      Interval head_wid(0,  first_head()->extent (X_AXIS).length ());
          Real rule_thick = paper_l ()->get_var ("stemthickness");
 
       Interval stem_wid(-rule_thick/2, rule_thick/2);
@@ -366,18 +391,10 @@ Stem::hpos_f () const
   return note_delta_f () + Item::hpos_f ();
 }
 
-void
-Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
-{
-  if (Note_head*h=dynamic_cast<Note_head*> (o))
-    head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
-  if (Rest *r=dynamic_cast<Rest*> (o))
-    rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
-  if (Beam* b = dynamic_cast<Beam*> (o))
-    {
-      if (b == beam_l_) 
-	beam_l_ = dynamic_cast<Beam*> (n);
-    }
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-}
 
+Beam*
+Stem::beam_l ()const
+{
+  SCM b=  get_elt_property ("beam");
+  return dynamic_cast<Beam*> (unsmob_element (b));
+}

@@ -7,7 +7,7 @@
 */
 
 #include "axis-group-element.hh"
-#include "graphical-axis-group.hh"
+#include "axis-group-element.hh"
 #include "dimension-cache.hh"
 
 Link_array<Score_element>
@@ -24,8 +24,11 @@ Axis_group_element::elem_l_arr () const
     ugh. I know
   */
   Link_array<Score_element> r;
-  for (int i=0; i < elem_l_arr_.size (); i++)
-    r.push (dynamic_cast<Score_element*>(elem_l_arr_[i]));
+  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM e=gh_car (s); 
+      r.push (unsmob_element (e));
+    }
       
   return r;
 }
@@ -36,7 +39,6 @@ Axis_group_element::get_children ()
   Link_array<Score_element> childs;
   Link_array<Score_element> elems = elem_l_arr ();
 
-  elems.concat (extra_elems_ );
   for (int i=0; i < elems.size (); i++) 
     {
       Score_element* e = elems[i];
@@ -49,69 +51,48 @@ Axis_group_element::get_children ()
   return childs;
 }
 
-void
-Axis_group_element::do_print() const
-{
-  Graphical_axis_group::do_print();
-}
-
 Axis_group_element::Axis_group_element()
 {
+  axes_[0] = (Axis)-1 ; 
+  axes_[1] = (Axis)-1 ;
+
+  set_elt_property ("elements", SCM_EOL);
   set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 void
 Axis_group_element::set_axes (Axis a1, Axis a2)
 {
-  Graphical_axis_group::set_axes (a1,a2);
-  set_empty (a1 != X_AXIS && a2 != X_AXIS, X_AXIS);
-  set_empty (a1 != Y_AXIS && a2 != Y_AXIS, Y_AXIS);
-}
-
-
-void
-Axis_group_element::do_substitute_element_pointer (Score_element*o,
-						   Score_element*n)
-{
-  int i;
-  Graphical_element * go = o;
-  Graphical_element * gn = n;  
+  axes_[0] = a1 ; 
+  axes_[1] = a2 ;
+  if (a1 != X_AXIS && a2 != X_AXIS)
+    set_empty (X_AXIS);
+  if (a1 != Y_AXIS && a2 != Y_AXIS)
+    set_empty (Y_AXIS);
   
-  while ((i = elem_l_arr_.find_i (go))>=0)
-    elem_l_arr_.substitute (go,gn);
-
-  extra_elems_.substitute (o, n);
+  dim_cache_[a1]->set_callback(extent_callback);
+  dim_cache_[a2]->set_callback (extent_callback);
 }
 
 Interval
-Axis_group_element::extra_extent (Axis a )const
+Axis_group_element::extent_callback (Dimension_cache const *c) 
 {
-  Interval g;
-  Axis_group_element* urg = (Axis_group_element*)this;
-  urg->purge_extra ();		// Yeah yeah,  const correctness.
-  for (int i=0;  i < extra_elems_.size (); i++)
+  Axis a = c->axis ();
+  Axis_group_element * me
+    = dynamic_cast<Axis_group_element*> (c->element_l ()); 
+
+  Interval r;
+  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Interval ge = extra_elems_[i]->relative_coordinate (this, a)
-	+ extra_elems_[i]->extent (a);
-      g.unite (ge);
+      SCM e=gh_car (s); 
+      Score_element * se = SMOB_TO_TYPE (Score_element, e);
+
+      Interval dims = se->extent (a);
+      if (!dims.empty_b ())
+	r.unite (dims + se->relative_coordinate (me, a));
     }
-  return g;
-}
 
-Interval
-Axis_group_element::do_height () const
-{
-  Interval gag = Graphical_axis_group::extent (Y_AXIS);
-  gag.unite (extra_extent (Y_AXIS));
-  return gag;
-}
-
-Interval
-Axis_group_element::do_width () const
-{
-  Interval gag = Graphical_axis_group::extent (X_AXIS);
-  gag.unite (extra_extent (X_AXIS));
-  return gag;
+  return r;
 }
 
 
@@ -121,49 +102,31 @@ Axis_group_element::do_width () const
 void
 Axis_group_element::add_extra_element (Score_element *e)
 {
-  Link_array<Score_element> se;
-  while (e && e != this)
-    {
-      se.push (e);
-      e = dynamic_cast<Score_element*> (e->parent_l (Y_AXIS));
-    }
-
-  if (1)			// e == this)
-    {
-      for (int i=0; i < se.size( ); i++) 
-	{
-	  extra_elems_.push (se[i]);
-	  add_dependency (se[i]);
-	  se[i]->set_elt_property (("Axis_group_element::add_extra_element"), SCM_BOOL_T); // UGH GUH.
-	}
-      
-    }
+  add_element (e);
 }
 
-/*
-  UGH GUH
- */
+
 void
-Axis_group_element::purge_extra ()
+Axis_group_element::add_element (Score_element *e)
 {
-  for (int i=0; i < extra_elems_.size ();)
+  used_b_ =true;
+  e->used_b_ = true;
+  
+  for (int i = 0; i < 2; i++)
     {
-      Score_element *e = extra_elems_[i];
-      while (e && e != this)
-	{
-	  e = dynamic_cast<Score_element*> (e->parent_l (Y_AXIS));
-	}
-      if (e != this)
-	extra_elems_.del (i);
-      else
-	i++;
+      if (!e->parent_l (axes_[i]))
+	e->set_parent (this, axes_[i]);
     }
+  set_elt_property ("elements",
+		    gh_cons (e->self_scm_,
+			     get_elt_property ("elements")));
+			     
+  assert (e->parent_l(Y_AXIS) == this || e->parent_l (X_AXIS) == this);
 }
 
-Interval
-Axis_group_element::extent (Axis a) const
-{
-  return Graphical_element::extent (a);
-}
-  
+
+
+
+
+
 

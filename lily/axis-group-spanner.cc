@@ -18,6 +18,7 @@
 void
 Axis_group_spanner::do_break_processing_if_unbroken()
 {
+#if 0
   Link_array<Score_element> elems = elem_l_arr ();
   Line_of_score *my_line = line_l();
   for (int i=0; i < elems.size(); i++) 
@@ -46,11 +47,13 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 	}
       
     }
+#endif
 }
 
 void
 Axis_group_spanner::do_break_processing()
 {
+  Spanner::do_break_processing ();
 
   bool breaking_self_b = ! Spanner::line_l();
   if (!breaking_self_b)  
@@ -60,6 +63,7 @@ Axis_group_spanner::do_break_processing()
       return;
     }
 
+#if 0
   break_into_pieces ();
   Link_array<Score_element> loose_elems = elem_l_arr ();
 
@@ -134,7 +138,8 @@ Axis_group_spanner::do_break_processing()
 		  else
 		    {
 		      broken_item->set_elt_property ("transparent", SCM_BOOL_T);
-		      broken_item->set_empty (true);
+		      broken_item->set_empty (X_AXIS); // UGH.
+		      broken_item->set_empty (Y_AXIS);		      
 		    }
 
 		}
@@ -153,20 +158,9 @@ Axis_group_spanner::do_break_processing()
     }
   
   Spanner::do_break_processing();
-}
-
-void
-Axis_group_spanner::do_print() const
-{
-  Axis_group_element::do_print();
-
-  Spanner::do_print ();
+#endif
 }
 
 
-Interval
-Axis_group_spanner::do_width () const
-{
-  return Spanner::do_width ();
-}
+
 

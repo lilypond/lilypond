@@ -13,8 +13,8 @@
     * broken slur should have uniform trend
  */
 
+#include "group-interface.hh"
 #include "slur.hh"
-
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "note-column.hh"
@@ -26,19 +26,22 @@
 #include "bezier.hh"
 #include "main.hh"
 #include "cross-staff.hh"
+#include "group-interface.hh"
 
 Slur::Slur ()
 {
+  set_elt_property ("note-columns", SCM_EOL);
 }
 
 void
 Slur::add_column (Note_column*n)
 {
-  if (!n->head_l_arr_.size ())
+  if (!gh_pair_p (n->get_elt_property ("note-heads")))
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      encompass_arr_.push (n);
+      Group_interface gi (this, "note-columns");
+      gi.add_element (n);
       add_dependency (n);
     }
 }
@@ -46,10 +49,13 @@ Slur::add_column (Note_column*n)
 Direction
 Slur::get_default_dir () const
 {
+  Link_array<Note_column> encompass_arr =
+    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+  
   Direction d = DOWN;
-  for (int i=0; i < encompass_arr_.size (); i ++) 
+  for (int i=0; i < encompass_arr.size (); i ++) 
     {
-      if (encompass_arr_[i]->dir () < 0) 
+      if (encompass_arr[i]->dir () < 0) 
 	{
 	  d = UP;
 	  break;
@@ -61,9 +67,11 @@ Slur::get_default_dir () const
 void
 Slur::do_add_processing ()
 {
-  set_bounds (LEFT, encompass_arr_[0]);    
-  if (encompass_arr_.size () > 1)
-    set_bounds (RIGHT, encompass_arr_.top ());
+  Link_array<Note_column> encompass_arr =
+    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+  set_bounds (LEFT, encompass_arr[0]);    
+  if (encompass_arr.size () > 1)
+    set_bounds (RIGHT, encompass_arr.top ());
 }
 
 void
@@ -72,18 +80,6 @@ Slur::do_pre_processing ()
   // don't set directions
 }
 
-void
-Slur::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  int i;
-  while ((i = encompass_arr_.find_i (dynamic_cast<Note_column *> (o))) >=0) 
-    {
-      if (n)
-	encompass_arr_[i] = dynamic_cast<Note_column *> (n);
-      else
-	encompass_arr_.del (i);
-    }
-}
 
 static int 
 Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
@@ -96,7 +92,7 @@ Offset
 Slur::encompass_offset (Note_column const* col) const
 {
   Offset o;
-  Stem* stem_l = col->stem_l_;
+  Stem* stem_l = col->stem_l ();
   if (!stem_l)
     {
       warning (_ ("Slur over rest?"));
@@ -139,7 +135,10 @@ Slur::encompass_offset (Note_column const* col) const
 void
 Slur::do_post_processing ()
 {
-  encompass_arr_.sort (Note_column_compare);
+    Link_array<Note_column> encompass_arr =
+    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+
+  encompass_arr.sort (Note_column_compare);
   if (!get_direction ())
     set_direction (get_default_dir ());
 
@@ -161,8 +160,8 @@ Slur::do_post_processing ()
   Real y_gap_f = paper_l ()->get_var ("slur_y_gap");
 
   Drul_array<Note_column*> note_column_drul;
-  note_column_drul[LEFT] = encompass_arr_[0];
-  note_column_drul[RIGHT] = encompass_arr_.top ();
+  note_column_drul[LEFT] = encompass_arr[0];
+  note_column_drul[RIGHT] = encompass_arr.top ();
 
   bool fix_broken_b = false;
   Direction d = LEFT;
@@ -170,10 +169,10 @@ Slur::do_post_processing ()
     {
       dx_f_drul_[d] = dy_f_drul_[d] = 0;
       if ((note_column_drul[d] == spanned_drul_[d])
-	  && note_column_drul[d]->head_l_arr_.size ()
-	  && (note_column_drul[d]->stem_l_))
+	  && note_column_drul[d]->first_head ()
+	  && (note_column_drul[d]->stem_l ()))
 	{
-	  Stem* stem_l = note_column_drul[d]->stem_l_;
+	  Stem* stem_l = note_column_drul[d]->stem_l ();
 	  /*
 	    side directly attached to note head;
 	    no beam getting in the way
@@ -181,7 +180,7 @@ Slur::do_post_processing ()
 	  if ((stem_l->extent (Y_AXIS).empty_b ()
 	       || !((stem_l->get_direction () == get_direction ()) && (get_direction () != d)))
 	      && !((get_direction () == stem_l->get_direction ())
-		   && stem_l->beam_l_ && (stem_l->beams_i_drul_[-d] >= 1)))
+		   && stem_l->beam_l () && (stem_l->beams_i_drul_[-d] >= 1)))
 	    {
 	      dx_f_drul_[d] = spanned_drul_[d]->extent (X_AXIS).length () / 2;
 	      dx_f_drul_[d] -= d * x_gap_f;
@@ -207,7 +206,7 @@ Slur::do_post_processing ()
 	      /*
 		side attached to beamed stem
 	       */
-	      if (stem_l->beam_l_ && (stem_l->beams_i_drul_[-d] >= 1))
+	      if (stem_l->beam_l () && (stem_l->beams_i_drul_[-d] >= 1))
 		{
 		  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[get_direction ()];
 		  dy_f_drul_[d] += get_direction () * 2 * y_gap_f;
@@ -244,15 +243,15 @@ Slur::do_post_processing ()
   while (flip (&d) != LEFT);
 
   int cross_count =  cross_staff_count ();
-  bool interstaff_b = (0 < cross_count) && (cross_count < encompass_arr_.size ());
+  bool interstaff_b = (0 < cross_count) && (cross_count < encompass_arr.size ());
 
   Drul_array<Offset> info_drul;
   Drul_array<Real> interstaff_interval;
 
   do
     {
-      info_drul[d] = encompass_offset (encompass_arr_.boundary (d, 0));
-      interstaff_interval[d] = calc_interstaff_dist (encompass_arr_.boundary (d,0),
+      info_drul[d] = encompass_offset (encompass_arr.boundary (d, 0));
+      interstaff_interval[d] = calc_interstaff_dist (encompass_arr.boundary (d,0),
 						     this);
     }
   while (flip (&d) != LEFT);
@@ -261,7 +260,7 @@ Slur::do_post_processing ()
 
   if (fix_broken_b)
     {
-      Direction d = (encompass_arr_.top () != spanned_drul_[RIGHT]) ?
+      Direction d = (encompass_arr.top () != spanned_drul_[RIGHT]) ?
 	RIGHT : LEFT;
       dy_f_drul_[d] = info_drul[d][Y_AXIS];
       if (!interstaff_b)
@@ -292,7 +291,7 @@ Slur::do_post_processing ()
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
   if (!fix_broken_b)
     dy_f -= interstaff_f;
-  Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
+  Real dx_f = spanner_length ()+ dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
 
   /*
     Avoid too steep slurs.
@@ -368,19 +367,19 @@ Slur::do_post_processing ()
     {
       Note_column * nc = note_column_drul[d];
       if (nc == spanned_drul_[d]
-	  && nc->stem_l_
-	  && nc->stem_l_->get_direction () == get_direction ()
-	  && abs (nc->stem_l_->extent (Y_AXIS)[get_direction ()]
+	  && nc->stem_l ()
+	  && nc->stem_l ()->get_direction () == get_direction ()
+	  && abs (nc->stem_l ()->extent (Y_AXIS)[get_direction ()]
 		  - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
 	      <= snap_f)
 	{
 	  /*
 	    prepare to attach to stem-end
 	  */
-	  snapx_f_drul[d] = nc->stem_l_->hpos_f ()
+	  snapx_f_drul[d] = nc->stem_l ()->hpos_f ()
 	    - spanned_drul_[d]->relative_coordinate (0, X_AXIS);
 
-	  snapy_f_drul[d] = nc->stem_l_->extent (Y_AXIS)[get_direction ()]
+	  snapy_f_drul[d] = nc->stem_l ()->extent (Y_AXIS)[get_direction ()]
 	    + interstaff_interval[d]
 	    + get_direction () * 2 * y_gap_f;
 	  
@@ -431,11 +430,14 @@ Slur::do_post_processing ()
 int
 Slur::cross_staff_count ()const
 {
+  Link_array<Note_column> encompass_arr =
+    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+
   int k=0;
 
-  for (int i = 0; i < encompass_arr_.size (); i++)
+  for (int i = 0; i < encompass_arr.size (); i++)
     {
-      if (calc_interstaff_dist (encompass_arr_[i], this))
+      if (calc_interstaff_dist (encompass_arr[i], this))
 	k++;
     }
   return k;
@@ -445,6 +447,9 @@ Slur::cross_staff_count ()const
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
+  Link_array<Note_column> encompass_arr =
+    Group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+  
   Array<Offset> offset_arr;
 #if 0
   /*
@@ -459,7 +464,7 @@ Slur::get_encompass_offset_arr () const
   Offset origin (relative_coordinate (0, X_AXIS), 0);
 
   int first = 1;
-  int last = encompass_arr_.size () - 2;
+  int last = encompass_arr.size () - 2;
 
   offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
@@ -468,11 +473,11 @@ Slur::get_encompass_offset_arr () const
   */
 
   int cross_count  = cross_staff_count ();
-  bool cross_b = cross_count && cross_count < encompass_arr_.size ();
-  if (encompass_arr_[0] != spanned_drul_[LEFT])
+  bool cross_b = cross_count && cross_count < encompass_arr.size ();
+  if (encompass_arr[0] != spanned_drul_[LEFT])
     {
       first--;
-      Real is   = calc_interstaff_dist (encompass_arr_[0], this);
+      Real is   = calc_interstaff_dist (encompass_arr[0], this);
       if (cross_b)
 	offset_arr[0][Y_AXIS] += is;
     }
@@ -480,18 +485,18 @@ Slur::get_encompass_offset_arr () const
   /*
     right is broken edge
   */
-  if (encompass_arr_.top () != spanned_drul_[RIGHT])
+  if (encompass_arr.top () != spanned_drul_[RIGHT])
     {
       last++;
     }
 
   for (int i = first; i <= last; i++)
     {
-      Offset o (encompass_offset (encompass_arr_[i]));
+      Offset o (encompass_offset (encompass_arr[i]));
       offset_arr.push (o - origin);
     }
 
-  offset_arr.push (Offset (do_width ().length () + dx_f_drul_[RIGHT],
+  offset_arr.push (Offset (spanner_length ()+  dx_f_drul_[RIGHT],
 			   dy_f_drul_[RIGHT]));
 
   return offset_arr;

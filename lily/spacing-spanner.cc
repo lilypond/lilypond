@@ -17,19 +17,9 @@
 
 Spacing_spanner::Spacing_spanner ()
 {
+  set_empty (X_AXIS);
+  set_empty (Y_AXIS);  
   set_elt_property ("transparent", SCM_BOOL_T);
-}
-
-int
-Spacing_spanner::col_count () const
-{
-  return pscore_l_->line_l_->cols_.size ();
-}
-
-Score_column *
-Spacing_spanner::scol (int i)const
-{
-  return dynamic_cast<Score_column*> (pscore_l_->line_l_->cols_[i]);
 }
 
 /*
@@ -48,31 +38,31 @@ Spacing_spanner::scol (int i)const
   
  */
 Array<Spring>
-Spacing_spanner::do_measure (int col1, int col2) const
+Spacing_spanner::do_measure (Link_array<Score_column> cols) const
 {
-  for (int i =col1; i < col2; i++)
+  for (int i =0 ; i < cols.size (); i++)
     {
-      scol (i)->preprocess ();
-      scol (i)->print ();
+      cols[i]->preprocess ();
+      cols[i]->print ();
     }
 
   Moment shortest;
   shortest.set_infinite (1);
-  for (int i =col1; i < col2; i++)
+  for (int i =0 ; i < cols.size (); i++)  
     {
-      if (scol(i)->musical_b ())
+      if (cols[i]->musical_b ())
 	{
-	  shortest = shortest <? scol(i)->shortest_starter_mom_;
+	  shortest = shortest <? cols[i]->shortest_starter_mom_;
 	}
     }
 
   Array<Spring> meas_springs;
 
   Real non_musical_space_strength = paper_l ()->get_var ("breakable_column_space_strength");
-  for (int i= col1; i < col2; i++)
+  for (int i= 0; i < cols.size () - 1; i++)
     {
-      Item * l = scol(i);
-      Item * r = scol(i+1);
+      Item * l = cols[i];
+      Item * r = cols[i+1];
       Item * lb = l->find_broken_piece (RIGHT);
       Item * rb = r->find_broken_piece (LEFT);      
 
@@ -99,7 +89,8 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	    {
 	      left_distance = gh_scm2double (gh_cdr (hint)); 
 	    }
-	  else if (!lc->musical_b() && i+1 < col_count())
+	   // 2nd condition should be (i+1 < col_count()), ie. not the last column in score.  FIXME
+	  else if (!lc->musical_b() && i+1 < cols.size ()) 
 	    {
 	      left_distance= default_bar_spacing (lc,rc,shortest);
 	    }
@@ -295,13 +286,20 @@ Array<Spring>
 Spacing_spanner::get_springs () const
 {
   Array<Spring> springs;
-  int last_break =0;
-  for (int i=1; i < col_count (); i++)
+  
+  SCM last_col = pscore_l_->line_l_->get_elt_property ("columns");
+  Link_array<Score_column> measure;
+  for (SCM s = last_col; gh_pair_p (s); s = gh_cdr (s))
     {
-      if (scol (i)->breakable_b ())
+      Score_element * elt = unsmob_element (gh_car (s));
+      Score_column* sc = dynamic_cast<Score_column*> (elt);
+      measure.push (sc);
+      if (sc->breakable_b ())
         {
-          springs.concat (do_measure (last_break, i));
-          last_break  = i;
+	  measure.reverse ();
+          springs.concat (do_measure (measure));
+	  measure.clear ();
+	  measure.push (sc);
         }
     }
   return springs;

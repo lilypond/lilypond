@@ -93,19 +93,10 @@ ly_parse_scm (char const* s, int* n)
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
 */
-// apparently env arg is ignored.
 SCM
 ly_quote_scm (SCM s)
 {
-#if 0
-  /*
-    This internal quote symbol breaks list->string and display,
-    and thus scm output.
-   */
-  return scm_m_quote (scm_cons2 (SCM_EOL, s, SCM_EOL) ,SCM_EOL);
-#else
   return gh_list (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
-#endif
 }
 
 
@@ -121,14 +112,6 @@ ly_symbol2string (SCM s)
   return String((Byte*)SCM_CHARS (s), (int) SCM_LENGTH(s));
 }
 
-#if 0
-SCM
-ly_set_x (String name, SCM val)
-{
-  return scm_sysintern ((char*)name.ch_C(), val);
-  
-}
-#endif
 
 /**
    Read a file, and shove it down GUILE.  GUILE also has file read
@@ -288,3 +271,5 @@ to_dir (SCM s)
 {
   return (Direction) gh_scm2int (s);
 }
+
+

@@ -33,7 +33,7 @@ protected:
   //  virtual Interval do_width () const;    
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
-  virtual Interval do_height () const;
+  static Interval dim_callback (Dimension_cache const*);
   Drul_array<Interval> curve_extent_drul () const;
 
   Drul_array<Real> dy_f_drul_;

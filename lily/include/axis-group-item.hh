@@ -21,8 +21,6 @@ class Axis_group_item : public virtual Axis_group_element,
 			public virtual Item {
 protected:
   virtual void do_breakable_col_processing();
-  void OK() const;
-  virtual void do_print() const;
 public:
   VIRTUAL_COPY_CONS(Score_element);
 };

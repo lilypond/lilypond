@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
       Jan Nieuwenhuizen <janneke@gnu.org>
 */
+#include "dimension-cache.hh"
 
 #include "bow.hh"
 #include "debug.hh"
@@ -51,13 +52,14 @@ Bow::center () const
    Ugh.  Control points are too crude measures.
  */
 Interval
-Bow::do_height () const
+Bow::dim_callback (Dimension_cache const* c) 
 {
   Interval iv;
-  Array<Offset> c (get_controls());
-  for (int i=0; i < c.size (); i++)
+  Bow * b = dynamic_cast<Bow*> (c->element_l ());
+  Array<Offset> p (b->get_controls());
+  for (int i=0; i < p.size (); i++)
     {
-      Real y = c[i][Y_AXIS];
+      Real y = p[i][Y_AXIS];
       iv.unite (Interval (y,y));
     }
   return iv;
@@ -92,7 +94,7 @@ Bow::get_encompass_offset_arr () const
 {
   Array<Offset> offset_arr;
   offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
-  offset_arr.push (Offset (do_width ().length () + dx_f_drul_[RIGHT],
+  offset_arr.push (Offset (spanner_length () + dx_f_drul_[RIGHT],
 		      dy_f_drul_[RIGHT]));
 		      
   return offset_arr;

@@ -12,47 +12,66 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "warn.hh"
+#include "main.hh"
+#include "debug.hh"
 
 Line_of_score::Line_of_score()
 {
+  set_elt_property ("columns", SCM_EOL);
   set_axes (Y_AXIS,X_AXIS);
 }
 
-bool
-Line_of_score::contains_b (Paper_column const* c) const
+
+
+void
+Line_of_score::output_lines ()
 {
-  return cols_.find_l ((Paper_column*)(c));
+  for (int i=0; i < broken_into_l_arr_.size (); i++)
+    {
+      Line_of_score *line_l = dynamic_cast<Line_of_score*> (broken_into_l_arr_[i]);
+
+      *mlog << '[' << flush;
+      line_l->post_processing ();
+      *mlog << i << flush;
+      line_l->output_line (i + 1 == broken_into_l_arr_.size ());
+      *mlog << ']' << flush;
+    }
 }
 
 // const?
-Line_of_score*
-Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) 
+void
+Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
-  const Link_array<Paper_column> &curline (breaking[j].cols_);
-  const Array<Real> &config (breaking[j].config_);
-  Line_of_score *line_l=0;
-
-  line_l = dynamic_cast <Line_of_score*> (clone());
-  line_l->rank_i_ = j;
-  
-  line_l->cols_ = curline;
-  line_l->set_bounds(LEFT,curline[0]);
-  line_l->set_bounds(RIGHT,curline.top());
-	
-  for (int i=0; i < curline.size(); i++)
+  for (int i=0; i < breaking.size (); i++)
     {
-      curline[i]->translate_axis (config[i],X_AXIS);
-      curline[i]->line_l_ = dynamic_cast<Line_of_score*> (line_l);
+      Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone());
+      line_l->rank_i_ = i;
+      Link_array<Paper_column> c (breaking[i].cols_);
+      pscore_l_->typeset_element (line_l);
+      line_l->set_bounds(LEFT,c[0]);
+      line_l->set_bounds(RIGHT,c.top ());
+      for (int j=0; j < c.size(); j++)
+	{
+	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
+	  c[j]->line_l_ = line_l;
+	}
+      
+      broken_into_l_arr_.push (line_l);
     }
 
-  broken_into_l_arr_.push (line_l);
-  return line_l;
+  for (int i=0; i < broken_into_l_arr_.size (); i++)
+    {
+      broken_into_l_arr_[i]->handle_broken_dependencies ();
+    }
+
+  handle_broken_dependencies ();
 }
 
 void
 Line_of_score::add_column (Paper_column*p)
 {
-  cols_.push (p);
+  set_elt_property ("columns",
+		    gh_cons (p->self_scm_, get_elt_property ("columns")));
   add_element (p);
 }
 
@@ -63,28 +82,12 @@ Line_of_score::do_print() const
   Axis_group_spanner::do_print ();
 }
 
-Link_array<Score_element>
-Line_of_score::get_extra_dependencies () const
-{
-  Link_array<Score_element> r (Axis_group_spanner::get_extra_dependencies ());
-  for (int i=0; i < cols_.size (); i++)
-    r.push (cols_[i]);
-  return r;
-}
-
 void
-Line_of_score::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  if (Paper_column *p = dynamic_cast<Paper_column*>(o))
-    cols_.substitute (p, dynamic_cast<Paper_column*>(n));
-}
-
-void
-Line_of_score::output_all (bool last_line)
+Line_of_score::output_line (bool last_line)
 {
   Interval i(extent(Y_AXIS));
   if (i.empty_b())
-    warning (_ ("Huh?  Empty Line_of_score?"));
+    programming_error ("Huh?  Empty Line_of_score?");
   else
     translate_axis (- i[MAX], Y_AXIS);
   

@@ -29,15 +29,17 @@ Break_align_item::do_pre_processing()
     align_dir_ = RIGHT;
   
   flip (&align_dir_);
-  sort_elements ();
+
   Real interline= paper_l ()->get_var ("interline");	
   
   Link_array<Score_element> elems;
-  for (int i=0; i < elem_l_arr_.size(); i++) 
+  Link_array<Score_element> all_elems (elem_l_arr ());
+  
+  for (int i=0; i < all_elems.size(); i++) 
     {
-      Interval y = elem_l_arr_[i]->extent(axis ());
+      Interval y = all_elems[i]->extent(axis ());
       if (!y.empty_b())
-	elems.push (dynamic_cast<Score_element*> (elem_l_arr_[i]));
+	elems.push (dynamic_cast<Score_element*> (all_elems[i]));
     }
   
   if (!elems.size ())

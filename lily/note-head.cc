@@ -13,16 +13,25 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
-#include "stem.hh"
+#include "dimension-cache.hh"
 
 void
 Note_head::flip_around_stem (Direction d)
 {
-  translate_axis (do_width ().length () * d, X_AXIS);
+  Real l= make_molecule ().dim_[X_AXIS].length ();
+  translate_axis (l * d, X_AXIS);
+}
+
+Interval
+Note_head::dim_callback (Dimension_cache const * c)
+{
+  Note_head* n = dynamic_cast<Note_head*> (c->element_l ());
+  return n->make_molecule ().dim_[X_AXIS];
 }
 
 Note_head::Note_head ()
 {
+  dim_cache_[X_AXIS]->callback_l_ = dim_callback;
 }
 
 void
@@ -42,8 +51,8 @@ Note_head::do_pre_processing ()
   if (balltype_i_ > 2 || type == "harmonic" || type == "cross")
     balltype_i_ = 2;
 
-  if (dots_l_)			// move into Rhythmic_head?
-    dots_l_->set_position(int (position_f ()));
+  if (dots_l ())			// move into Rhythmic_head?
+    dots_l ()->set_position(int (position_f ()));
 
  
 }
@@ -56,14 +65,7 @@ Note_head::compare (Note_head *const  &a, Note_head * const &b)
   return sign(a->position_f () - b->position_f ());
 }
 
-/**
- Don't account for ledgerlines in the width.
- */
-Interval
-Note_head::do_width () const
-{
-  return make_molecule ().dim_[X_AXIS];
-}
+
 
 Molecule
 Note_head::make_molecule () const

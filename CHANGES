@@ -1,3 +1,15 @@
+pl 9.hwn1
+	- abstracting Staff_symbol_referencer to an interface.
+	- quantised_position for staccato dots.
+	- standchen fixes
+	- junk Score_element::do_{width,height}: set callbacks directly.
+	- merge Score_element, Graphical_element
+	- merge Axis_group_element, Graphical_axis_group
+	- junk pointer fields fromScore_element derived classes
+	- junk obsolete do_substitute_dependency code.
+
+**********
+
 pl 8.hwn2
 	- staff-support for Crescendi.
 	- padding for accidentals.
@@ -7,10 +19,9 @@ pl 8.hwn1
 	- note-head-side 
 	- naming Staff_sidify -> Side_position_interface
 
-
-
 ***********
-pl7.mb1
+
+pl 7.mb1
 	- bf: timeSignatureStyle works again
 
 pl 7.hwn1

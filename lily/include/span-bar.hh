@@ -23,7 +23,6 @@
 */
 class Span_bar : public Bar
 {
-  Link_array<Score_element> spanning_l_arr_;
   Interval get_spanned_interval () const;
 public:
   Span_bar();
@@ -34,11 +33,11 @@ public:
 protected:
   void evaluate_empty ();
 
-  virtual Interval do_width() const;
+  static Interval width_callback(Dimension_cache const*) ;
+  static Interval height_callback(Dimension_cache const*) ;  
+  
   virtual void do_pre_processing();
   virtual void do_post_processing();
-  virtual Interval do_height () const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Molecule * do_brew_molecule_p() const;
 };
 

@@ -1,5 +1,5 @@
 /*
-  rest.cc -- implement Rest
+ rest.cc -- implement Rest
 
   source file of the GNU LilyPond music typesetter
 
@@ -27,16 +27,16 @@ void
 Rest::do_post_processing ()
 {
   Rhythmic_head::do_post_processing ();
-  if (dots_l_
+  if (dots_l ()
       && balltype_i_ > 4) // UGH.
     {
       /*
 	UGH. 
        */
       if (balltype_i_ == 7)
-	dots_l_->set_position (4);
+	dots_l ()->set_position (4);
       else
-	dots_l_->set_position (3);
+	dots_l ()->set_position (3);
     }
 }
 

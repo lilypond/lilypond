@@ -31,15 +31,11 @@ public:
   bool parallel_beam_b_;
   
 protected:
-  Link_array<Beam> beam_l_arr_;
-  Link_array<Note_column> column_arr_;
-
   virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual Direction get_default_dir () const;
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif // Tuplet_spanner_HH

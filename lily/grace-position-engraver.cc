@@ -82,15 +82,15 @@ Grace_position_engraver::do_pre_move_processing ()
   */
   if (align_l_ && !align_l_->supported_b ())
     {
-      Graphical_element * elt = align_l_->parent_l (X_AXIS);
+      Score_element * elt = align_l_->parent_l (X_AXIS);
       if (elt)
 	return;
 
       warning (_("Unattached grace notes.  Attaching to last musical column."));
       Axis_group_element * ae = dynamic_cast<Axis_group_element*> (elt);
-      if (ae)
+      /*      if (ae)
 	ae->remove_element (align_l_);
-      else if (elt)
+	else if (elt)*/
 	align_l_->set_parent (0, X_AXIS);
       last_musical_col_l_->add_element (align_l_);
     }

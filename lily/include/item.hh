@@ -46,6 +46,7 @@ public:
 
   /// I am really to be broken?
   bool breakable_b () const;
+  bool broken_b () const;
   bool broken_original_b () const;
   
   Direction break_status_dir () const;
@@ -65,8 +66,7 @@ public:
 protected:
   virtual void do_breakable_col_processing();
   virtual void handle_prebroken_dependencies();
-  virtual void do_print() const;
-  virtual void handle_prebroken_dependents ();
+  //virtual void handle_prebroken_dependents ();
 
   void copy_breakable_items();
 };

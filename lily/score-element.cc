@@ -25,23 +25,20 @@
 #include "paper-outputter.hh"
 #include "dimension-cache.hh"
 #include "staff-side.hh"
-
-Interval
-Score_element::dim_cache_callback (Dimension_cache const*c)
-{
-  Score_element *  e =dynamic_cast<Score_element*> (c->element_l());
-  if(e->dim_cache_[X_AXIS] == c)
-    return e->do_width ();
-  else
-    return e->do_height ();
-}
+#include "item.hh"
 
 
 Score_element::Score_element()
 {
   output_p_ =0;
-  dim_cache_[X_AXIS]->set_callback (dim_cache_callback);
-  dim_cache_[Y_AXIS]->set_callback (dim_cache_callback); 
+  dim_cache_[X_AXIS] = new Dimension_cache;
+  dim_cache_[Y_AXIS] = new Dimension_cache;
+  dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
+  
+  used_b_ = false;
+
+  dim_cache_[X_AXIS]->set_callback (molecule_extent);
+  dim_cache_[Y_AXIS]->set_callback (molecule_extent); 
   used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
@@ -53,9 +50,25 @@ Score_element::Score_element()
   smobify_self ();
 }
 
-Score_element::Score_element (Score_element const&s)
-  : Graphical_element (s)
+SCM ly_deep_copy (SCM);
+
+SCM
+ly_deep_copy (SCM l)
 {
+  if (gh_pair_p (l))
+    {
+      return gh_cons (ly_deep_copy (gh_car (l)), ly_deep_copy (gh_cdr (l)));
+    }
+  else
+    return l;
+}
+
+
+Score_element::Score_element (Score_element const&s)
+{
+  dim_cache_[X_AXIS] = new Dimension_cache (*s.dim_cache_[X_AXIS]);
+  dim_cache_[Y_AXIS] = new Dimension_cache (*s.dim_cache_[Y_AXIS]);
+  dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
   
   self_scm_ = SCM_EOL;
   used_b_ = true;
@@ -64,7 +77,7 @@ Score_element::Score_element (Score_element const&s)
   /*
     should protect because smobify_self () might trigger GC.
    */
-  element_property_alist_ = scm_protect_object (scm_list_copy (s.element_property_alist_));
+  element_property_alist_ = scm_protect_object (ly_deep_copy (s.element_property_alist_));
   dependency_arr_ = s.dependency_arr_;
   output_p_ =0;
   status_i_ = s.status_i_;
@@ -79,6 +92,9 @@ Score_element::~Score_element()
   assert (!output_p_);
   assert (status_i_ >=0);
   status_i_  = -1;
+
+  delete dim_cache_[X_AXIS];
+  delete dim_cache_[Y_AXIS];  
 }
 
 Score_element*
@@ -139,42 +155,27 @@ Score_element::set_elt_property (String k, SCM v)
 }
 
 Interval
-Score_element::do_width() const 
+Score_element::molecule_extent(Dimension_cache const *c)
 {
-  Interval r;
-
-  Molecule*m = output_p_ ?  output_p_ : do_brew_molecule_p();
-  r = m->extent().x ();
-
-  if (!output_p_)
-    delete m;
-  
-  return r;
+  Score_element *s = dynamic_cast<Score_element*>(c->element_l());
+  Molecule*m = s->do_brew_molecule_p();
+  return  m->extent()[c->axis ()];
 }
 
-Interval
-Score_element::do_height() const 
-{
-  Interval r;
-  Molecule*m = output_p_ ?  output_p_ : do_brew_molecule_p();
-  r = m->extent().y ();
-  if (!output_p_)
-    delete m;
-
-  return r;
-}
 
 void
 Score_element::print() const
 {
 #ifndef NPRINT
   DEBUG_OUT << classname(this) << "{\n";
+  
+  
   if (flower_dstream && !flower_dstream->silent_b ("Score_element"))
     ly_display_scm (element_property_alist_);
+
   DEBUG_OUT << "dependencies: " << dependency_size();
   if (original_l_)
     DEBUG_OUT << "Copy ";
-  Graphical_element::do_print ();
   do_print();
   
   DEBUG_OUT <<  "}\n";
@@ -321,16 +322,14 @@ Score_element::do_add_processing()
 {
 }
 
-void
-Score_element::do_substitute_element_pointer (Score_element*,Score_element*)
-{
-}
 
 
 Molecule*
 Score_element::do_brew_molecule_p() const
 {
-  Molecule a (lookup_l ()->fill (Box (Interval (0,0), Interval (0,0))));
+  Interval emp;
+  emp.set_empty ();
+  Molecule a (lookup_l ()->fill (Box (emp,emp)));
   return new Molecule (a);
 }
 
@@ -353,12 +352,7 @@ Score_element::add_dependency (Score_element*e)
     programming_error ("Null dependency added");
 }
 
-void
-Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
-{
-  do_substitute_element_pointer (old,new_l);
-  old->do_substitute_element_pointer (this, 0);
-}
+
 
 
 /**
@@ -368,11 +362,12 @@ Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
 SCM
 Score_element::handle_broken_smobs (SCM s, SCM criterion)
 {
-  if (SMOB_IS_TYPE_B (Score_element, s))
+  Score_element *sc = unsmob_element ( s);
+  if (sc)
     {
-      Score_element *sc = SMOB_TO_TYPE (Score_element, s);
-
-      if (gh_number_p (criterion))
+      if (criterion == SCM_UNDEFINED)
+	return SCM_UNDEFINED;
+      else if (gh_number_p (criterion))
 	{
 	  Item * i = dynamic_cast<Item*> (sc);
 	  Direction d = to_dir (criterion);
@@ -384,15 +379,17 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
 	}
       else
 	{
-	  Score_element * ln = SMOB_TO_TYPE (Score_element, criterion);
+	  Score_element * ln = unsmob_element ( criterion);
 	  Line_of_score * line = dynamic_cast<Line_of_score*> (ln);
 	  Score_element * br =0;
-	  if (sc->line_l () != line)
+	  Line_of_score * dep_line = sc->line_l ();
+	  if (dep_line != line)
 	    {
 	      br = sc->find_broken_piece (line);
 	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
 	    }
-
+	  if (!dep_line)
+	    return SCM_UNDEFINED;
 	}
     }
   else if (gh_pair_p (s))
@@ -402,19 +399,48 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
       */
       gh_set_car_x (s, handle_broken_smobs (gh_car (s), criterion));
       gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), criterion));
+
+      if (gh_car (s) == SCM_UNDEFINED && gh_list_p (gh_cdr(s)))
+	return gh_cdr (s);
     }
   return s;
+}
+
+void
+Score_element::recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)())
+{
+  Score_element * sc = unsmob_element ( s);
+  if (sc)
+    {
+      (sc->*meth_ptr) ();
+    }
+  else if (gh_pair_p (s))
+    {
+      recurse_into_smobs (gh_car (s), meth_ptr);
+      recurse_into_smobs (gh_cdr (s), meth_ptr);      
+    }
 }
 
 void
 Score_element::handle_broken_dependencies()
 {
   Line_of_score *line  = line_l();
+  
+  SCM rec = get_elt_property ("handle-broken-deps");
+  if (gh_boolean_p (rec) && gh_scm2bool (rec))
+    return;
+  
+  set_elt_property ("handle-broken-deps", SCM_BOOL_T);
+  element_property_alist_ = handle_broken_smobs (element_property_alist_,
+						 line ? line->self_scm_ : SCM_UNDEFINED);
+
+
+  recurse_into_smobs (element_property_alist_,
+		      &Score_element::handle_broken_dependencies);
+  
   if (!line)
     return;
 
-  element_property_alist_ = handle_broken_smobs (element_property_alist_,
-						 line->self_scm_);
 
   Link_array<Score_element> new_deps;
 
@@ -424,14 +450,12 @@ Score_element::handle_broken_dependencies()
       if (elt->line_l() != line)
 	{
 	  Score_element * broken = elt->find_broken_piece (line);
-	  substitute_dependency (elt, broken);
 	  elt  = broken ;
 	}
       if (elt)
 	new_deps.push (elt);
     }
   dependency_arr_ = new_deps;
-
 }
 
 
@@ -447,47 +471,9 @@ Score_element::handle_prebroken_dependencies()
 	= handle_broken_smobs (element_property_alist_,
 			       gh_int2scm (i->break_status_dir ()));
     }
-
-  Link_array<Score_element> old_arr, new_arr;
-  
-  for (int i=0; i < dependency_size(); i++) 
-    {
-      Score_element * elt = dependency (i);
-      Item *it_l = dynamic_cast <Item *> (elt);
-      if (it_l && it_l->broken_original_b ())
-	if (Item *me = dynamic_cast<Item*> (this) )
-	  {
-	    Score_element *new_l = it_l->find_broken_piece (me->break_status_dir ());
-	    if (new_l != elt) 
-	      {
-		new_arr.push (new_l);
-		old_arr.push (elt);
-	      }
-	  }
-	else 
-	  {
-	    Direction d = LEFT;
-	    do {
-	      old_arr.push (0);
-	      new_arr.push (it_l->find_broken_piece (d));
-	    } while (flip(&d)!= LEFT);
-	  }
-    }
-  
-  for (int i=0;  i < old_arr.size(); i++)
-    if (old_arr[i])
-      substitute_dependency (old_arr[i], new_arr[i]);
 }
 
-void
-Score_element::handle_prebroken_dependents()
-{
-}
 
-void
-Score_element::handle_broken_dependents()
-{
-}
 
 
 
@@ -508,8 +494,6 @@ void
 Score_element::do_print () const
 {
 }
-
-
 
 Score_element*
 Score_element::find_broken_piece (Line_of_score*) const
@@ -535,8 +519,9 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
      
   scm_puts ("#<Score_element ", port);
   scm_puts ((char *)sc->name (), port);
-  scm_puts ("properties = ", port);
-  scm_display (sc->element_property_alist_, port);
+
+  // scm_puts (" properties = ", port);
+  // scm_display (sc->element_property_alist_, port);
   scm_puts (" >", port);
   return 1;
 }
@@ -555,3 +540,128 @@ Score_element::equal_p (SCM a, SCM b)
   return SCM_CDR(a) == SCM_CDR(b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
+void
+Score_element::translate_axis (Real y, Axis a)
+{
+  dim_cache_[a]->translate (y);
+}  
+
+Real
+Score_element::relative_coordinate (Score_element const*e, Axis a) const
+{
+  return dim_cache_[a]->relative_coordinate (e ? e->dim_cache_[a] : 0);
+}
+
+Score_element * 
+Score_element::common_refpoint (Score_element const* s, Axis a) const
+{
+  Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
+  if (!dim)
+    programming_error ("No  common reference point");
+  return  dim ? dim->element_l () : 0;
+}
+
+void
+Score_element::set_empty (Axis a)
+{
+  dim_cache_[a]->callback_l_ =0;
+}
+
+bool
+Score_element::empty_b (Axis a)const
+{
+  return !dim_cache_[a]->callback_l_;
+}
+
+Interval
+Score_element::extent (Axis a) const
+{
+  Dimension_cache const * d = dim_cache_[a];
+
+  return d->get_dim ();
+}
+
+Score_element*
+unsmob_element (SCM s)
+{
+  if (SMOB_IS_TYPE_B (Score_element, s))
+    return SMOB_TO_TYPE(Score_element,s);
+  else
+    return 0;
+}
+
+
+/*
+  JUNKME
+ */
+void
+Score_element::invalidate_cache (Axis a)
+{
+  dim_cache_[a]->invalidate ();
+}
+
+Score_element*
+Score_element::parent_l (Axis a) const
+{
+  Dimension_cache*d= dim_cache_[a]->parent_l_;
+  return d ? d->elt_l_ : 0;
+}
+
+Score_element *
+Score_element::common_refpoint (Link_array<Score_element> gs, Axis a) const
+{
+  Dimension_cache * common = dim_cache_[a];
+  for (int i=0; i < gs.size (); i++)
+    {
+      common = common->common_refpoint (gs[i]->dim_cache_[a]);
+    }
+
+  return common->element_l ();
+}
+
+char const *
+Score_element::name () const
+{
+  return classname (this);
+}
+
+
+void
+Score_element::set_parent (Score_element *g, Axis a)
+{
+  dim_cache_[a]->parent_l_ = g ? g->dim_cache_[a]: 0;
+}
+
+void
+Score_element::fixup_refpoint ()
+{
+  for (int a = X_AXIS; a < NO_AXES; a ++)
+    {
+      Axis ax = (Axis)a;
+      Score_element * par = parent_l (ax);
+
+      if (!par)
+	continue;
+      
+      if (par->line_l () != line_l ())
+	{
+	  Score_element * newpar = par->find_broken_piece (line_l ());
+	  set_parent (newpar, ax);
+	}
+
+      if (Item * i  = dynamic_cast<Item*> (this))
+	{
+	  Item *pari = dynamic_cast<Item*> (par);
+
+	  if (pari && i)
+	    {
+	      Direction  my_dir = i->break_status_dir () ;
+	      if (my_dir!= pari->break_status_dir())
+		{
+		  Item *newpar =  pari->find_broken_piece (my_dir);
+		  set_parent (newpar, ax);
+		}
+	    }
+	}
+    }
+}

@@ -1,4 +1,5 @@
 #include "directional-spanner.hh"
+#include "offset.hh"
 
 Direction
 Directional_spanner::get_default_dir() const
@@ -13,7 +14,7 @@ Directional_spanner::do_pre_processing()
     set_direction (get_default_dir());
 }
 
-
+#if 0
 Offset
 Directional_spanner::center () const
 {
@@ -21,3 +22,4 @@ Directional_spanner::center () const
   Offset o (w/2, 0);  
   return o;
 }
+#endif

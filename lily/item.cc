@@ -5,8 +5,8 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "dimension-cache.hh"
 
+#include "dimension-cache.hh"
 #include "paper-score.hh"
 #include "debug.hh"
 #include "item.hh"
@@ -29,12 +29,6 @@ Item::breakable_b () const
   return (i) ?  i->breakable_b () : get_elt_property( "breakable") != SCM_UNDEFINED;
 }
 
-void
-Item::do_print() const
-{
-}
-
-
 Real 
 Item::hpos_f() const
 {
@@ -44,7 +38,7 @@ Item::hpos_f() const
 Line_of_score *
 Item::line_l() const
 {
-  Graphical_element *g = parent_l (X_AXIS);
+  Score_element *g = parent_l (X_AXIS);
   if (!g)
     return 0;
   return dynamic_cast<Score_element *> (g)-> line_l ();
@@ -54,10 +48,6 @@ Item::line_l() const
 void
 Item::copy_breakable_items()
 {
-  if (broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]
-      || !breakable_b ())
-    return ;
-
   Drul_array<Item *> new_copies;
   Direction  i=LEFT;
   do 
@@ -76,7 +66,6 @@ Item::copy_breakable_items()
        broken_to_drul_[i]->try_visibility_lambda();
     }
   while (flip(&i) != LEFT);
-  try_visibility_lambda ();
 }
 
 void
@@ -91,32 +80,49 @@ Item::try_visibility_lambda ()
       int empty = gh_scm2bool (gh_cdr (result));
 
       if (empty)
-	set_empty (true, X_AXIS, Y_AXIS);
+	{
+	  set_empty (X_AXIS);
+	  set_empty ( Y_AXIS);
+	}
       if (trans)
 	set_elt_property ("transparent", SCM_BOOL_T);
     }
 }
 
+bool
+Item::broken_b () const
+{
+  return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
+}
+
 void
 Item::do_break ()
 {
-  copy_breakable_items();
-  handle_prebroken_dependencies();
+  if (broken_b ())
+    return;
+
+  if (breakable_b ())
+    {
+      copy_breakable_items();
+      handle_prebroken_dependencies();
   
-  /*
+      /*
     Otherwise the broken items won't be pre_process()'ed.
   */
-  add_dependency (broken_to_drul_[LEFT]);
-  add_dependency (broken_to_drul_[RIGHT]);
+  
+      if (broken_to_drul_[LEFT])
+	{
+	  add_dependency (broken_to_drul_[LEFT]);
+	  add_dependency (broken_to_drul_[RIGHT]);
+	}
+    }
+  try_visibility_lambda ();	// ugh.
 }
 
 void
 Item::do_breakable_col_processing()
 {
-  if (breakable_b ())
-    do_break ();
-  else
-    try_visibility_lambda ();
+  do_break ();
 }
 
 Score_element*
@@ -124,10 +130,14 @@ Item::find_broken_piece (Line_of_score*l) const
 {
   if (line_l() == l) 
     return (Item*)(this);
-  else if (broken_to_drul_[LEFT] && broken_to_drul_[LEFT]->line_l() == l)
-    return broken_to_drul_[LEFT];
-  else if (broken_to_drul_[RIGHT] && broken_to_drul_[RIGHT]->line_l() == l)
-    return broken_to_drul_[RIGHT];
+
+  Direction d = LEFT;
+  do {
+    Score_element *s = find_broken_piece (d);
+    if (s && s->line_l () == l)
+      return s;
+  }
+  while (flip (&d) != LEFT);
 
   return 0;
 }
@@ -135,10 +145,14 @@ Item::find_broken_piece (Line_of_score*l) const
 Item*
 Item::find_broken_piece (Direction d) const
 {
+  Item * me = (Item *) (this);	
   if (!d)
-    return (Item *) (this);	// ugh
-  else
-    return dynamic_cast<Item*> (broken_to_drul_[d]);
+    return me;
+  else 
+    {
+      me->do_break ();
+      return dynamic_cast<Item*> (broken_to_drul_[d]);
+    }
 }
 
 void
@@ -172,46 +186,6 @@ Item::Item (Item const &s)
   : Score_element (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
-}
-
-
-void
-Item::handle_prebroken_dependents ()
-{
-  Item * parent =  dynamic_cast<Item*> (parent_l (X_AXIS));
-  if (breakable_b () && parent)
-    {
-       if(!(broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]))
-	do_break ();
-
-      Direction d = LEFT;
-      do
-	{
-	  Item * broken_self = find_broken_piece (d);
-	  Item * broken_parent = parent->find_broken_piece (d);
-
-	  broken_self->set_parent (broken_parent, X_AXIS);
-
-	  /*
-	    ugh. Should do this is after breaking?
-	   */
-	  if (!broken_self->parent_l (Y_AXIS))
-	    {
-	      Score_element * yparent =dynamic_cast<Score_element*>(parent_l (Y_AXIS));
-	      Item *yparenti = dynamic_cast<Item*> (yparent);
-	      Item *broken_yparent = yparenti ?
-		yparenti->find_broken_piece (d) : 0;
-	      
-	      if (!yparent)
-		programming_error ("Vertical refpoint lost!");
-	      else if (yparenti)
-		{
-		  broken_self->set_parent (broken_yparent, Y_AXIS);
-		}
-	    }
-	}
-      while ((flip (&d))!=LEFT);
-    }
 }
 
 Direction

@@ -114,13 +114,14 @@ Paper_score::process ()
   print ();
   *mlog << _ ("Preprocessing elements...") << " " << flush;
   line_l_->breakable_col_processing ();
+  fixup_refpoints ();
   line_l_->pre_processing ();
   
   *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
   line_l_->space_processing ();
 
   Array<Column_x_positions> breaking = calc_breaking ();
-
+  line_l_->break_into_pieces (breaking);
 
   outputter_l_ = new Paper_outputter ;
   outputter_l_->output_header ();
@@ -154,30 +155,10 @@ Paper_score::process ()
    */
   SCM before_output = outputter_l_->last_cons_;
   
-  Link_array<Line_of_score> lines;
-  for (int i=0; i < breaking.size (); i++)
-    {
-      Line_of_score *line_l = line_l_->set_breaking (breaking, i);
-      lines.push (line_l);
-      if (line_l != line_l_)
-	typeset_element (line_l);
-    }
 
+  fixup_refpoints ();
+  line_l_->output_lines ();
 
-  *mlog << "\n";
-  *mlog << _ ("Line ... ");
-  line_l_->break_processing ();
-  for (int i=0; i < lines.size (); i++)
-    {
-      *mlog << '[' << flush;
-      
-      Line_of_score *line_l = lines[i];
-
-      line_l->post_processing ();
-      *mlog << i << flush;
-      line_l->output_all (i + 1 == lines.size ());
-      *mlog << ']' << flush;
-    }
 
   SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());
   gh_set_cdr_x (before_output,
@@ -221,4 +202,19 @@ Paper_score::broken_col_range (Item const*l, Item const*r) const
     }
 
   return ret;
+}
+
+
+void
+Paper_score::fixup_refpoints ()
+{
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM e = gh_car (s);
+      if (SMOB_IS_TYPE_B(Score_element, e))
+	{
+	  Score_element * se = unsmob_element (e);
+	  se->fixup_refpoint ();
+	}
+    }
 }

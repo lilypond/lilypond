@@ -15,6 +15,7 @@
 #include "text-item.hh"
 #include "paper-score.hh"
 #include "dimension-cache.hh"
+#include "staff-side.hh"
 
 void
 Clef_item::do_pre_processing()
@@ -30,7 +31,7 @@ Clef_item::do_pre_processing()
   if (style == "transparent")
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (true, X_AXIS);
+      set_empty (X_AXIS);
     }
 }
 
@@ -53,22 +54,21 @@ Clef_item::do_add_processing ()
       Text_item *g =0;
 
       SCM octave_dir = remove_elt_property ("octave-dir");
-      if (octave_dir != SCM_UNDEFINED)
+      if (isdir_b (octave_dir))
 	{
-	  Direction d = Direction (gh_scm2int (octave_dir));
 	  g = new Text_item;
+	  Side_position_interface spi (g);
+	  spi.set_axis (Y_AXIS);
+	  
 	  pscore_l_->typeset_element (g);
       
 	  g->text_str_ = "8";
 	  g->set_elt_property ("style", gh_str02scm ("italic"));
 	  g->set_parent (this, Y_AXIS);
 	  g->set_parent (this, X_AXIS);	  
-
+	  g->set_elt_property ("direction", octave_dir);
+	  
 	  add_dependency (g);	// just to be sure.
-
-	  Real r = do_height ()[d] - g->extent (Y_AXIS)[-d];
-	  g->dim_cache_[Y_AXIS]->set_offset (r);
-
 	  SCM my_vis = get_elt_property ("visibility-lambda");
 	  if (my_vis != SCM_UNDEFINED)
 	    g->set_elt_property ("visibility-lambda", my_vis);

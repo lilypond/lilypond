@@ -32,7 +32,7 @@ ADD_THIS_TRANSLATOR(Break_align_engraver);
 void
 Break_align_engraver::add_column (SCM smob)
 {
-  Score_element * e = SMOB_TO_TYPE (Score_element, smob);
+  Score_element * e = unsmob_element (smob);
   align_l_->add_element (e);
   typeset_element (e);
 }
@@ -105,7 +105,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       Axis_group_item * group = 0;
       if (s != SCM_BOOL_F)
 	{
-	  Score_element *e =  SMOB_TO_TYPE(Score_element, gh_cdr(s));
+	  Score_element *e =  unsmob_element (gh_cdr(s));
 	  group = dynamic_cast<Axis_group_item*> (e);
 	}
       else

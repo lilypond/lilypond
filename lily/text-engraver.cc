@@ -104,7 +104,7 @@ Text_engraver::do_process_requests ()
       SCM empty = get_property ("textEmptyDimension", 0);
       if (gh_boolean_p (empty) && gh_scm2bool (empty))
 	{
-	  text->set_empty (true, X_AXIS);
+	  text->set_empty (X_AXIS);
 	}
 
       announce_element (Score_element_info (text, r));

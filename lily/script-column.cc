@@ -9,7 +9,7 @@
 #include "script-column.hh"
 #include "staff-side.hh"
 #include "dimension-cache.hh"
-
+#include "group-interface.hh"
 
 void
 Script_column::add_staff_sided (Item *i)
@@ -18,8 +18,16 @@ Script_column::add_staff_sided (Item *i)
   if (p == SCM_UNDEFINED)
     return;
   
-  staff_sided_item_l_arr_.push (i);
+
+  Group_interface gi (this, "scripts");
+  gi.add_element (i);
+  
   add_dependency (i);
+}
+
+Script_column::Script_column ()
+{
+  set_elt_property ("scripts", SCM_EOL);  
 }
 
 static int
@@ -36,11 +44,14 @@ void
 Script_column::do_pre_processing ()
 {
   Drul_array<Link_array<Item> > arrs;
-
-  for (int i=0; i < staff_sided_item_l_arr_.size (); i++)
+  Link_array<Item> staff_sided 
+    = Group_interface__extract_elements (this, (Item*)0, "scripts");
+				     
+				     
+  for (int i=0; i < staff_sided.size (); i++)
     {
-      Side_position_interface st (staff_sided_item_l_arr_[i]);
-      arrs[st.get_direction ()].push (staff_sided_item_l_arr_[i]);
+      Side_position_interface st (staff_sided[i]);
+      arrs[st.get_direction ()].push (staff_sided[i]);
     }
 
   Direction d = DOWN;

@@ -11,37 +11,39 @@
 #define AXIS_GROUP_ELEMENT_HH
 
 #include "score-element.hh"
-#include "graphical-axis-group.hh"
+
 
 /** 
   Treat a group of elements a unity in either or both axis sense .
   This is a wrapper around Axis_group_administration
   */
-class Axis_group_element : public virtual Score_element,
-			   public virtual Graphical_axis_group
+class Axis_group_element : public virtual Score_element
 {
-  Link_array<Score_element> extra_elems_;
-
-protected:
-  virtual void do_print() const;
-  virtual Link_array<Score_element> get_extra_dependencies() const;
+  /// modify fields of E for removal.
+  void do_remove (Score_element*e);
   void purge_extra ();
 
-  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
+
+
+protected:
+  virtual Link_array<Score_element> get_extra_dependencies() const;
   virtual Link_array<Score_element> elem_l_arr() const;
+  static Interval extent_callback (Dimension_cache const*);
   
-  virtual Interval do_height () const;
-  virtual Interval do_width () const;
 
 
   Interval extra_extent (Axis a) const;
-
- 
 public:
-  /**
-    Override Graphical_axis_group::extent: make sure that
-    Graphical_element::extent() is used as the public entry point.  */
-  Interval extent (Axis a) const;
+  // keep array in order.
+  bool ordered_b_;		
+  Axis axes_[2];
+    
+  Interval my_extent (Axis) const;
+
+
+
+  bool contains_b (Score_element const *) const;
+  void add_element (Score_element*);
 
   /**
      add an element that only influences size, but does not have  X/Y parent
@@ -51,9 +53,9 @@ public:
 
 
   Axis_group_element ();
-  virtual void set_axes (Axis,Axis);
+  void set_axes (Axis,Axis);
 
-  virtual Link_array<Score_element> get_children ();
+  Link_array<Score_element> get_children ();
 };
 
 #endif // AXIS_GROUP_ELEMENT_HH

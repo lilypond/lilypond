@@ -36,7 +36,6 @@ protected:
   virtual Direction get_default_direction ()const;
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  virtual void do_substitute_element_pointer (Score_element*o,Score_element*e);
 };
 
 #endif /* Stem_STAFF_SIDE_HH */

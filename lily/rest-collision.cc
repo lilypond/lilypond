@@ -14,20 +14,30 @@
 #include "collision.hh"
 #include "paper-def.hh"
 #include "rest.hh"
+#include "group-interface.hh"
 
 void
 Rest_collision::add_column (Note_column *nc_l)
 {
   add_dependency (nc_l);
+  Group_interface gi (this);  
   if (nc_l->rest_b ())
-    rest_l_arr_.push (nc_l);
+    gi.name_ = "rests";
   else
-    ncol_l_arr_.push (nc_l);
+    gi.name_ = "notes";
+  
+  gi.add_element (nc_l);
 }
 
 void
 Rest_collision::do_pre_processing()
 {
+  Link_array<Note_column> rest_l_arr =
+    Group_interface__extract_elements (this, (Note_column*) 0, "rests");
+  Link_array<Note_column> ncol_l_arr =
+    Group_interface__extract_elements (this, (Note_column*) 0, "notes");
+				      
+  
   /* 
      handle rest-rest and rest-note collisions
 
@@ -38,49 +48,50 @@ Rest_collision::do_pre_processing()
    */
 
   // no rests to collide
-  if (!rest_l_arr_.size())
+  if (!rest_l_arr.size())
     return;
 
   // no partners to collide with
-  if (rest_l_arr_.size() + ncol_l_arr_.size () < 2)
+  if (rest_l_arr.size() + ncol_l_arr.size () < 2)
     return;
 
   // meisjes met meisjes
-  if (!ncol_l_arr_.size()) 
+  if (!ncol_l_arr.size()) 
     {
       /*
 	UGH.  Should get dims from table.  Should have minimum dist.
        */
-      int dy = rest_l_arr_.size() > 2 ? 6 : 4;
+      int dy = rest_l_arr.size() > 2 ? 6 : 4;
 	
-      rest_l_arr_[0]->translate_rests (rest_l_arr_[0]->dir () *dy);	
-      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir ()* dy);
+      rest_l_arr[0]->translate_rests (rest_l_arr[0]->dir () *dy);	
+      rest_l_arr.top()->translate_rests (rest_l_arr.top ()->dir ()* dy);
     }
   // meisjes met jongetjes
   else 
     {
-      if (rest_l_arr_.size () > 1)
+      if (rest_l_arr.size () > 1)
 	{
 	  warning (_("too many colliding rests"));
 	}
-      if (ncol_l_arr_.size () > 1)
+      if (ncol_l_arr.size () > 1)
 	{
 	  warning (_("too many notes for rest collision"));
 	}
-      Note_column * rcol = rest_l_arr_[0];
+      Note_column * rcol = rest_l_arr[0];
 
       // try to be opposite of noteheads. 
-      Direction dir = - ncol_l_arr_[0]->dir();
+      Direction dir = - ncol_l_arr[0]->dir();
 
-      Interval restdim;
-      for (int i=0; i < rcol->rest_l_arr_.size(); i++)
-	restdim.unite (rcol->rest_l_arr_[i]->extent (Y_AXIS));
-
+      Interval restdim = rcol->rest_dim ();
       if (restdim.empty_b ())
 	return;
       
       // staff ref'd?
-      Real staff_space = rcol->rest_l_arr_[0]->staff_line_leading_f ();      
+      Real staff_space = paper_l()->get_var ("interline");
+
+	/* FIXME
+	  staff_space =  rcol->rest_l_arr[0]->staff_line_leading_f ();
+	*/
       Real internote_f = staff_space/2;
       Real minimum_dist = paper_l ()->get_var ("restcollision_minimum_dist")
 	* internote_f;
@@ -89,9 +100,9 @@ Rest_collision::do_pre_processing()
 	assumption: ref points are the same. 
        */
       Interval notedim;
-      for (int i = 0; i < ncol_l_arr_.size(); i++) 
+      for (int i = 0; i < ncol_l_arr.size(); i++) 
 	{
-	  notedim.unite (ncol_l_arr_[i]->extent (Y_AXIS));
+	  notedim.unite (ncol_l_arr[i]->extent (Y_AXIS));
 	}
 
       Interval inter (notedim);
@@ -101,7 +112,8 @@ Rest_collision::do_pre_processing()
 	minimum_dist +  dir * (notedim[dir] - restdim[-dir]) >? 0;
 
 
-      int stafflines = rcol->rest_l_arr_[0]->lines_i ();
+      // FIXME
+      int stafflines = 5; // rcol->rest_l_arr[0]->lines_i ();
 
       
       // move discretely by half spaces.
@@ -115,29 +127,13 @@ Rest_collision::do_pre_processing()
     }
 }
 
-void
-Rest_collision::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "rests: " << rest_l_arr_.size() << ", ";
-  DEBUG_OUT << "cols: " << ncol_l_arr_.size();
-#endif
-}
-
-void
-Rest_collision::do_substitute_element_pointer (Score_element*o,Score_element*n)
-{
-  if (Note_column *onl = dynamic_cast<Note_column *> (o))
-    {
-      Note_column *n_l = n?dynamic_cast<Note_column *> (n):0;
-      rest_l_arr_.substitute (onl, n_l);
-      ncol_l_arr_.substitute (onl, n_l);
-    }
-}
 
 Rest_collision::Rest_collision()
 {
+  set_elt_property ("rests", SCM_EOL);
+  set_elt_property ("notes", SCM_EOL);
   set_elt_property ("transparent", SCM_BOOL_T);
-  set_empty (true, X_AXIS, Y_AXIS);
+  set_empty (X_AXIS);
+  set_empty (Y_AXIS);
 }
 

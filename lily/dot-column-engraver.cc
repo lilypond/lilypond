@@ -34,7 +34,7 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
   if (!h)
       return;
 
-  if (!h->dots_l_)
+  if (!h->dots_l ())
     return;
 
   if (!dotcol_p_)

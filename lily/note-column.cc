@@ -13,11 +13,14 @@
 #include "rest.hh"
 #include "debug.hh"
 #include "paper-def.hh"
+#include "group-interface.hh"
 
 bool
 Note_column::rest_b () const
 {
-  return rest_l_arr_.size ();
+  SCM r = get_elt_property ("rests");
+
+  return gh_pair_p (r);
 }
 
 int
@@ -33,15 +36,19 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
 
 Note_column::Note_column()
 {
+  set_elt_property ("rests", SCM_EOL);
+  set_elt_property ("note-heads", SCM_EOL);  
   set_axes (X_AXIS, Y_AXIS);
-  stem_l_ = 0;
 }
 
-void
-Note_column::sort()
+Stem *
+Note_column::stem_l () const
 {
-  head_l_arr_.sort (Note_head::compare);
+  SCM s = get_elt_property ("stem");
+  return dynamic_cast<Stem*> (unsmob_element (s));
+
 }
+
   
 Slice
 Note_column::head_positions_interval() const
@@ -49,9 +56,13 @@ Note_column::head_positions_interval() const
   Slice  iv;
 
   iv.set_empty ();
-  for (int i=0; i <head_l_arr_.size ();i ++)
+
+  SCM h = get_elt_property ("note-heads");
+  for (; gh_pair_p (h); h = gh_cdr (h))
     {
-      int j = int (head_l_arr_[i]->position_f ());
+      Score_element *se = unsmob_element (gh_car (h));
+      
+      int j = int (dynamic_cast<Staff_symbol_referencer*> (se)->position_f ());
       iv.unite (Slice (j,j));
     }
   return iv;
@@ -60,9 +71,9 @@ Note_column::head_positions_interval() const
 Direction
 Note_column::dir () const
 {
-  if (stem_l_)
-    return stem_l_->get_direction ();
-  else if (head_l_arr_.size ())
+  if (stem_l ())
+    return stem_l ()->get_direction ();
+  else if (gh_pair_p (get_elt_property ("note-heads")))
     return (Direction)sign (head_positions_interval().center ());
 
   programming_error ("Note column without heads and stem!");
@@ -73,42 +84,26 @@ Note_column::dir () const
 void
 Note_column::set_stem (Stem * stem_l)
 {
-  stem_l_ = stem_l;
+  set_elt_property ("stem", stem_l->self_scm_);
+
   add_dependency (stem_l);
   add_element (stem_l);
 }
 
 
-void
-Note_column::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  if (stem_l_ == o) 
-    {
-      stem_l_ = n ? dynamic_cast<Stem *> (n):0;
-    }
-  if (dynamic_cast<Note_head *> (o))
-    {
-      head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
-			      (n)? dynamic_cast<Note_head *> (n) : 0);
-    }
-
-  if (dynamic_cast<Rest *> (o)) 
-    {
-      rest_l_arr_.substitute (dynamic_cast<Rest *> (o), 
-			      (n)? dynamic_cast<Rest *> (n) : 0);
-    }
-}
 
 void
 Note_column::add_head (Rhythmic_head *h)
 {
   if (Rest*r=dynamic_cast<Rest *> (h))
     {
-      rest_l_arr_.push (r);
+      Group_interface gi (this, "rests");
+      gi.add_element (h);
     }
   if (Note_head *nh=dynamic_cast<Note_head *> (h))
     {
-      head_l_arr_.push (nh);
+      Group_interface gi (this, "note-heads");
+      gi.add_element (nh);
     }
   add_element (h);
 }
@@ -120,19 +115,16 @@ void
 Note_column::translate_rests (int dy_i)
 {
   invalidate_cache (Y_AXIS);
-  for (int i=0; i < rest_l_arr_.size(); i++)
-    rest_l_arr_[i]->translate_axis (dy_i  * rest_l_arr_[i]->staff_line_leading_f ()/2.0,
-				    Y_AXIS);
+
+  SCM s = get_elt_property ("rests");
+  for (; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * se = unsmob_element ( gh_car (s));
+      Staff_symbol_referencer *str = dynamic_cast<Staff_symbol_referencer*> (se);
+      se->translate_axis (dy_i * str->staff_line_leading_f ()/2.0, Y_AXIS);
+    }
 }
 
-void
-Note_column::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "rests: " << rest_l_arr_.size() << ", ";
-  DEBUG_OUT << "heads: " << head_l_arr_.size();
-#endif
-}
 
 void
 Note_column::set_dotcol (Dot_column *d)
@@ -154,18 +146,22 @@ Note_column::set_dotcol (Dot_column *d)
 void
 Note_column::do_post_processing ()
 {
-  if (!stem_l_ || !rest_b ())
+  if (!stem_l () || !rest_b ())
     return;
 
-  Beam * b = stem_l_->beam_l_;
-  if (!b || !b->stems_.size ())
+  Beam * b = stem_l ()->beam_l ();
+  if (!b || !b->stem_count ())
     return;
   
   /* ugh. Should be done by beam. */
-  Direction d = stem_l_->get_direction ();
-  Real beamy = (stem_l_->hpos_f () - b->stems_[0]->hpos_f ()) * b->slope_f_ + b->left_y_;
+  Direction d = stem_l ()->get_direction ();
+  Real beamy = (stem_l ()->hpos_f () - b->stem(0)->hpos_f ()) * b->slope_f_ + b->left_y_;
 
-  Real staff_space = rest_l_arr_[0]->staff_line_leading_f ();      
+  SCM s = get_elt_property ("rests");
+  Score_element * se = unsmob_element (gh_car (s));
+  Staff_symbol_referencer *str = dynamic_cast<Staff_symbol_referencer*> (se);
+
+  Real staff_space = str->staff_line_leading_f ();      
   Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;
 
   Real minimum_dist
@@ -173,7 +169,7 @@ Note_column::do_post_processing ()
   Real dist =
     minimum_dist +  -d  * (beamy - rest_dim) >? 0;
 
-  int stafflines = rest_l_arr_[0]->lines_i ();
+  int stafflines = str->lines_i ();
 
   // move discretely by half spaces.
   int discrete_dist = int (ceil (dist ));
@@ -185,3 +181,25 @@ Note_column::do_post_processing ()
   translate_rests (-d *  discrete_dist);
 }
 
+
+Interval
+Note_column::rest_dim () const
+{
+  Interval restdim;
+  SCM s = get_elt_property ("rests");
+  for (; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * sc = unsmob_element ( gh_car (s));
+      restdim.unite (sc->extent (Y_AXIS));
+    }
+  
+  return restdim;
+}
+
+Note_head*
+Note_column::first_head () const
+{
+  Stem * st = stem_l ();
+  return st?  st->first_head (): 0; 
+
+}

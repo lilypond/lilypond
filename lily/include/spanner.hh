@@ -44,6 +44,7 @@ public:
   Spanner ();
   Spanner (Spanner const &);
   bool broken_b () const;
+  void do_break ();
 
   static int compare (Spanner * const &,Spanner * const &);
   virtual Array<Rod> get_rods () const;
@@ -62,10 +63,9 @@ protected:
   friend Axis_group_spanner; // UGH
 
   virtual void do_space_processing ();
-  void handle_broken_dependents ();
+  //  void handle_broken_dependents ();
   virtual void do_break_processing ();
-  virtual Interval do_width () const;
-  virtual void do_print () const;
+  Real spanner_length () const;
   virtual Line_of_score*line_l () const;
 };
 #endif

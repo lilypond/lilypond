@@ -166,7 +166,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     }
  else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
-      tied_l_arr_.push (tie_l-> head_l_drul_[RIGHT]);
+      tied_l_arr_.push (tie_l->head (RIGHT));
     }
 }
 

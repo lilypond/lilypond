@@ -37,20 +37,27 @@ Separating_group_spanner::get_rods () const
 {
   Array<Rod> a;
   
-  for (int i=0; i < spacing_unit_l_arr_.size () -1; i++)
+  for (SCM s = get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
-      Single_malt_grouping_item *l =spacing_unit_l_arr_[i];
+      SCM elt = gh_car (s);
+      SCM next_elt = gh_cadr (s);
+
+      Single_malt_grouping_item *l = dynamic_cast<Single_malt_grouping_item*> (unsmob_element (elt));
+      Single_malt_grouping_item *r = dynamic_cast<Single_malt_grouping_item*> (unsmob_element ( next_elt));
+
+      if (!r || !l)
+	continue;
+      
       Single_malt_grouping_item *lb
 	= dynamic_cast<Single_malt_grouping_item*>(l->find_broken_piece (RIGHT));
-      Single_malt_grouping_item *r = spacing_unit_l_arr_[i+1];
+
       Single_malt_grouping_item *rb
 	= dynamic_cast<Single_malt_grouping_item*>(r->find_broken_piece (LEFT));
       
-      a.push (make_rod(spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
+      a.push (make_rod(l,  r));
       if (lb)
 	{
 	  Rod rod(make_rod (lb, r));
-	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
       
@@ -62,7 +69,6 @@ Separating_group_spanner::get_rods () const
       if (lb && rb)
 	{
 	  Rod rod(make_rod (lb, rb));
-	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
     }
@@ -73,22 +79,14 @@ Separating_group_spanner::get_rods () const
 void
 Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 {
-  spacing_unit_l_arr_.push (i);
+  set_elt_property ("elements",
+		    gh_cons (i->self_scm_,
+			     get_elt_property ("elements")));
   add_dependency (i);
 }
 
-void
-Separating_group_spanner::do_substitute_element_pointer (Score_element*o,
-							 Score_element*n)
-{
-  if (dynamic_cast<Single_malt_grouping_item *> (o))
-    {
-      Single_malt_grouping_item*ns = dynamic_cast<Single_malt_grouping_item *> (n);
-      spacing_unit_l_arr_.substitute (dynamic_cast<Single_malt_grouping_item *> (o), ns);
-    }
-}
 
-Separating_group_spanner::Separating_group_spanner()
+Separating_group_spanner::Separating_group_spanner ()
 {
-  padding_f_ =0.0;
+  set_elt_property ("elements", SCM_EOL);
 }

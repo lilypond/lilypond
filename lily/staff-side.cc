@@ -39,16 +39,15 @@ Side_position_interface::get_direction () const
 
   Direction relative_dir = UP;
   SCM reldir = elt_l_->get_elt_property ("side-relative-direction");	// should use a lambda.
-  if (isdir_b (d))
+  if (isdir_b (reldir))
     {
       relative_dir = to_dir (reldir);
     }
   
   SCM other_elt = elt_l_->get_elt_property ("direction-source");
-  if (SMOB_IS_TYPE_B (Score_element, other_elt))
+  Score_element * e = unsmob_element(other_elt);
+  if (e)
     {
-      Score_element * e = SMOB_TO_TYPE(Score_element,other_elt);
-
       return relative_dir * Side_position_interface (e).get_direction ();
     }
   
@@ -65,28 +64,26 @@ Side_position_interface::side_position (Dimension_cache const * c)
 
   Interval dim;
   Axis  axis = c->axis ();
-  Graphical_element *common = me->parent_l (axis);
+  Score_element *common = me->parent_l (axis);
   SCM support = me->get_elt_property ("side-support");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      if (!SMOB_IS_TYPE_B (Score_element, gh_car (s)))
-	continue;
-      
-      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
-      common = common->common_refpoint (e, axis);
+      Score_element * e  = unsmob_element ( gh_car (s));
+      if (e)
+	common = common->common_refpoint (e, axis);
     }
   
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      if (!SMOB_IS_TYPE_B (Score_element, gh_car (s)))
-	continue;
 
-      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
-      Real coord = e->relative_coordinate (common, axis);
+      Score_element * e  = unsmob_element ( gh_car (s));
+      if (e)
+	{
+	  Real coord = e->relative_coordinate (common, axis);
 
-      dim.unite (coord + e->extent (axis));
+	  dim.unite (coord + e->extent (axis));
+	}
     }
-
 
   if (dim.empty_b ())
     {
@@ -135,6 +132,40 @@ Side_position_interface::self_alignment (Dimension_cache const *c)
 
 
 Real
+directed_round (Real f, Direction d )
+{
+  if (d < 0)
+    return floor (f);
+  else
+    return ceil (f);
+}
+
+Real
+Side_position_interface::quantised_position (Dimension_cache const *c)
+{
+  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+  Side_position_interface s(me);
+  Direction d = s.get_direction ();
+
+  Staff_symbol_referencer *ref = dynamic_cast<Staff_symbol_referencer*> (me);
+  if (ref)
+    {
+      Real p = ref->position_f ();
+      Real rp = directed_round (d, p);
+
+      int ip = int  (p);
+      if (!(ip % 2))
+	{
+	  ip += d;
+	  rp += d;
+	}
+
+      return (rp - p) * ref->staff_line_leading_f ();
+    }
+  return 0.0;
+}
+
+Real
 Side_position_interface::aligned_side (Dimension_cache const *c)
 {
   Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
@@ -156,34 +187,7 @@ Side_position_interface::aligned_side (Dimension_cache const *c)
   return o;
 }
 
-#if 0
 
-/*
-  need cascading off callbacks for this.
- */
-Side_position_interface::quantised_side (Dimension_cache const *c)
-{
-  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
-  Side_position_interface s(me);
-  Direction d = s.get_direction ();
-  Axis ax = c->axis ();
-  Real o = side_position (c);
-  Staff_symbol_referencer * st = dynamic_cast (me);
-
-  if (st && ax == Y_AXIS)
-    {
-      st->translate_axis (o, Y_AXIS);
-      st->set_position ();
-
-      st->lines_i ();
-      st->quantise_to_next_line (d);
-      st->translate_axis (o, -Y_AXIS);
-    }
-
-  return o;
-}
-#endif
-  
 
 
 void
@@ -193,10 +197,19 @@ Side_position_interface::set_axis (Axis a)
   if (elt_l_->get_elt_property ("side-support") == SCM_UNDEFINED)
     elt_l_->set_elt_property ("side-support" ,SCM_EOL);
 
-  Axis other = Axis ((a +1)%2);
   elt_l_->dim_cache_[a]->off_callbacks_.push (aligned_side);
 }
 
+
+void
+Side_position_interface::set_quantised (Axis a)
+{
+  Dimension_cache * c = elt_l_->dim_cache_[a];
+  for (int i=0; i <  c->off_callbacks_.size (); i++)
+    if (c->off_callbacks_[i] == aligned_side)
+      c->off_callbacks_[i] = side_position ;
+  c->off_callbacks_.push (quantised_position);
+}
 
 Axis
 Side_position_interface::get_axis () const

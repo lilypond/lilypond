@@ -30,14 +30,11 @@
 class Extender_spanner : public Directional_spanner
 {
 public:
-Extender_spanner ();
-  Offset center () const;  
+  Extender_spanner ();
   void set_textitem (Direction, Item*);
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;
-  Interval do_height () const;
-
   void do_post_processing ();
  
   VIRTUAL_COPY_CONS (Score_element);

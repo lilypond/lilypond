@@ -14,11 +14,8 @@
 
 class Script_column : public Item
 {
-  /**
-     Array of objects that are placed by staffsides
-   */
-  Link_array<Item> staff_sided_item_l_arr_;
 public:
+  Script_column();
   void add_staff_sided (Item*);
 protected:
   virtual void do_pre_processing ();
