@@ -58,6 +58,8 @@ TODO: consider making type into symbol ")
 (music-property-description 'name symbol? "Name of this music object")
 (music-property-description 'numerator integer? "numerator of a time signature")
 (music-property-description 'once boolean? "Apply this operation only during one time step?")
+(music-property-description 'original-pitch  ly:pitch?
+			    "Pitch before inversion. Needed to reconstruct chord name.")
 (music-property-description 'origin ly:input-location? "where was this piece of music defined?")
 (music-property-description 'penalty number? "Penalty for break hint.")
 (music-property-description 'pitch ly:pitch? "the pitch of this note")
