@@ -51,7 +51,8 @@ Molecule::translate (Offset o)
     {
       UNBOX_ATOM(UNBOX_PTR(ptr))->off_ += o;
     }
-  dim_.translate (o);
+  if (!empty_b ())
+    dim_.translate (o);
 }
 
 void
@@ -60,7 +61,8 @@ Molecule::translate_axis (Real x,Axis a)
   for (CELLTYPE  ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
     UNBOX_ATOM (UNBOX_PTR(ptr))->off_[a] += x;
 
-  dim_[a] += x;
+  if (!empty_b ())
+    dim_[a] += x;
 }
 
 void
@@ -80,16 +82,10 @@ Molecule::add_atom (Atom const *al)
   atom_list_ = NEWCELL(BOX_ATOM(a), atom_list_);
 }
 
-
-
-
 void
 Molecule::operator=(Molecule const & src)
 {
-  if (&src == this)
-  return;
-
-
+  if (&src == this) return;
 
 #ifndef ATOM_SMOB
   delete atom_list_;
@@ -100,9 +96,25 @@ Molecule::operator=(Molecule const & src)
   add_molecule (src);
 }
 
+void
+Molecule::set_empty (bool e)
+{
+  if (e)
+    {
+      dim_[X_AXIS].set_empty ();
+      dim_[Y_AXIS].set_empty ();
+    }
+  else
+    {
+      dim_[X_AXIS] = Interval(0,0);
+      dim_[Y_AXIS] = Interval (0,0);
+    }
+}
+
 Molecule::Molecule (Molecule const &s)
 {
   atom_list_ = MOL_EOL;
+  set_empty (true);
   add_molecule (s);
 }
 
@@ -126,15 +138,23 @@ Molecule::print() const
 }
 
 void
-Molecule::do_center (Axis a)
+Molecule::align_to (Axis a, Direction d)
 {
-  Interval i (extent (a));
-  translate_axis (-i.center (), a);
+  if (d == CENTER)
+    {
+      Interval i (extent (a));
+      translate_axis (-i.center (), a);
+    }
+  else
+    {
+      translate_axis (-extent (a)[d], a);
+    }
 }
 
 Molecule::Molecule ()
 {
-  dim_ = Box (Interval(0,0),Interval( 0,0  ));
+  dim_[X_AXIS].set_empty ();
+  dim_[Y_AXIS].set_empty ();
   atom_list_ = MOL_EOL;
 }
 
@@ -142,16 +162,20 @@ Molecule::Molecule ()
 void
 Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 {
-  Real my_extent= dim_[a][d];
+  Real my_extent= empty_b () ? 0.0 : dim_[a][d];
+  Interval i (m.extent ()[a]);
+  if (i.empty_b ())
+    warning ("Molecule::add_at_edge: adding empty molecule. [PROGRAMMING ERROR]");
   
-  Real offset = my_extent -  m.extent ()[a][-d];
+  Real his_extent = i[-d];
+  Real offset = my_extent -  his_extent;
   Molecule toadd (m);
   toadd.translate_axis (offset + d * padding, a);
   add_molecule (toadd);
 }
 
 bool
-Molecule::empty_b() const
+Molecule::empty_b () const
 {
   return atom_list_ == MOL_EOL;
 }
