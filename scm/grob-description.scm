@@ -427,8 +427,8 @@
 	))
 
 	(Script . (
+		;; don't set direction here: it breaks staccato.
 		(molecule-callback . ,Script::brew_molecule)
-		(direction . -1)
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(after-line-breaking-callback . ,Script::after_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
