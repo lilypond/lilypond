@@ -64,7 +64,7 @@ InnerChoirStaffContext = \translator {
 	\name InnerChoirStaff
 	alignmentReference = #0
 	\consists "System_start_delimiter_engraver"
-	SystemStartDelimiter \override #'glyph = #'bracket
+	SystemStartDelimiter = #'SystemStartBracket
 
 	\accepts "Staff"
 	\accepts "RhythmicStaff"
@@ -176,8 +176,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "System_start_delimiter_engraver"
-	SystemStartDelimiter \override #'glyph = #'brace
-	
+	SystemStartDelimiter = #'SystemStartBrace
 	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff"
 }
@@ -205,7 +204,7 @@ InnerStaffGroupContext= \translator {
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "Output_property_engraver"	
-	SystemStartDelimiter \override #'glyph = #'bracket
+	SystemStartDelimiter = #'SystemStartBracket
 
 	\consists "System_start_delimiter_engraver"
 	\accepts "Staff"
@@ -354,7 +353,7 @@ ScoreContext = \translator {
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
-
+	SystemStartDelimiter =#'SystemStartBar
 	barAuto = ##t
 	voltaVisibility = ##t
 	%  name, glyph id, clef position 

@@ -215,7 +215,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PAPER
 %token PARTIAL
 %token PENALTY
-%token PORRECTUS
 %token PROPERTY
 %token OVERRIDE SET REVERT 
 %token PT_T
@@ -242,7 +241,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CONTEXT
 
 /* escaped */
-%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
+%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE E_TILDE
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
 %type <i>	exclamations questions dots
@@ -1236,11 +1235,10 @@ shorthand_command_req:
 	| BREATHE {
 		$$ = new Breathing_sign_req;
 	}
-	| PORRECTUS {
+	| E_TILDE {
 		$$ = new Porrectus_req;
 	}
 	;
-
 
 verbose_command_req:
 	COMMANDSPANREQUEST bare_int STRING { /*TODO: junkme */

@@ -29,7 +29,7 @@ System_start_delimiter::staff_bracket (Grob*me,Real height)
 		    gh_double2scm (arc_height),
 		    gh_double2scm (height),
 		    me->get_grob_property ("arch-thick"),
-		    me->get_grob_property ("bracket-thick"),
+		    me->get_grob_property ("thickness"),
 		    SCM_UNDEFINED);
 
 /*
@@ -82,25 +82,19 @@ MAKE_SCHEME_CALLBACK (System_start_delimiter,after_line_breaking,1);
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
-  try_collapse (unsmob_grob (smob));
-  return SCM_UNSPECIFIED;
-}
-
-void
-System_start_delimiter::try_collapse (Grob*me)
-{
+  Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_grob_property ("glyph");
   
   if (scm_ilength (me->get_grob_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
     {
       me->suicide ();
     }
-  
+
+  return SCM_UNSPECIFIED;
 }
 
 
 MAKE_SCHEME_CALLBACK (System_start_delimiter,brew_molecule,1);
-
 SCM
 System_start_delimiter::brew_molecule (SCM smob)
 {
@@ -110,8 +104,7 @@ System_start_delimiter::brew_molecule (SCM smob)
   if (!gh_symbol_p (s))
     return SCM_EOL;
   
-  SCM c = me->get_grob_property ((ly_symbol2string (s) + "-collapse-height")
-				 .ch_C ());
+  SCM c = me->get_grob_property ("collapse-height");
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback

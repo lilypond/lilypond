@@ -630,8 +630,8 @@ bar lines, and draws a single span-bar across them."
     'System_start_delimiter_engraver
     (engraver-description
      "System_start_delimiter_engraver"
-     "creates a SystemStartDelimiter spanner"
-     '(SystemStartDelimiter)
+     "creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner"
+     '(SystemStartBar SystemStartBrace SystemStartBracket)
      '(
       )))
 

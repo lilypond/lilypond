@@ -168,8 +168,8 @@ bassdux =  \context Voice=three \notes \relative c' {
   d c g' g, 
 %%30
   \context Staff=bass <
-    {\stemUp c2 ~ | c1 ~ | c1 }
-    \context Voice=four {\stemDown c,2 ~ | c1 ~ | c1 }
+    { \voiceOne c2 ~ | c1 ~ | c1 }
+    \context Voice=four { \voiceTwo  c,2 ~ | c1 ~ | c1 }
   >
 }
 

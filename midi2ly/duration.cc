@@ -19,7 +19,6 @@
 #include "rational.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
-#include "duration-iter.hh"
 
 // statics Duration
 int Duration::division_1_i_s = 384 * 4;
