@@ -145,7 +145,9 @@
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
 \def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
 \def\errormark{{\bf E!}}
-\def\unknown{{\bf u}}
+\def\unknown{%
+  %{\bf u} %FIXME
+}
 
 \input dyndefs
 \input fetdefs
@@ -230,10 +232,20 @@
 % macros suck. \ifundefined{nolilyfooter} gives wierd errors from time
 %        to time.
 %
+
+%
+% Warning: the order is conceptually weird.  It says:
+
+% if not defined (``nolilyfooter''):
+%    do_footer ()
+% else 
+%    dont_do_footer ()
+%
 \ifx\csname nolilyfooter\endcsname\relax
-        \message{[footer empty]}
-        \csname nolilyfooter\texsuffix\endcsname
-\else
         \message{[footer defined]}%
         \csname lilyfooter\texsuffix\endcsname%
+\else
+        \message{[footer empty]}
+        \csname%
+        nolilyfooter\texsuffix\endcsname
 \fi
