@@ -1,3 +1,7 @@
+2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* kpath-guile/kpath.c (open_library): dlopen libkpathsea.so
+
 2005-03-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	Drop run-time dependency on teTeX.
@@ -40,8 +44,6 @@
 
 	* lily/font-config.cc (init_fontconfig): add cff/ too.
 
-	* mf/GNUmakefile: generate .commonff to not confuse fontconfig.
-
 	* ly/generate-embedded-cff.ly: capitalize.
 
 	* lily/pango-select.cc (select_pango_font): use ::find_pango_font,
@@ -52,9 +54,6 @@
 
 	* lily/main.cc: only look at one prefix directory, LILYPONDPREFIX
 	overrides all. 
-
-	* config.make (package_suffix): use lilypond/MAJOR.MINOR as install
-	directory.
 
 	* configure.in (gui_b): remove ec mftrace check
 
