@@ -284,26 +284,26 @@
   (roundfilledbox breapth width depth height line-thickness))
 
 (define font-cruft
-  "fill:black;stroke:none;font-style:normal;font-weight:normal;text-anchor:start;writing-mode:lr;")
+  "fill:black;stroke:none;text-anchor:start;writing-mode:lr;font-weight:normal;")
 
 ;; FIXME
 (define font-alist
   `(  
     ("cmr8" . ,(string-append
 		  font-cruft
-		  "font-family:cmr;font-size:8;"))
+		  "font-family:cmr;font-style:normal;font-size:8;"))
     ("feta13" . ,(string-append
 		  font-cruft
-		  "font-family:LilyPond-Feta;font-size:13;"))
+		  "font-family:LilyPond-Feta;font-style:-Feta;font-size:13;"))
     ("feta-nummer10" . ,(string-append
 			 font-cruft
-			 "font-family:LilyPond-Feta-nummer;font-size:10;"))
+			 "font-family:LilyPond-feta-nummer;font-style:-feta-nummer;font-size:10;"))
     ("feta20" . ,(string-append
 		  font-cruft
-		  "font-family:LilyPond-Feta;font-size:20;"))
+		  "font-family:LilyPond-feta;font-style:-feta;font-size:20;"))
     ("parmesan20" . ,(string-append
 		      font-cruft
-		      "font-family:LilyPond-Parmesan;font-size:20;"))))
+		      "font-family:LilyPond-Parmesan;font-style:-Parmesan;font-size:20;"))))
 
 (define (get-font name-mag-pair)
   ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))

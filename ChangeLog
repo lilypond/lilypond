@@ -1,3 +1,8 @@
+2002-11-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/ly2dvi.py (run_dvips): Use ly.read_pipe () instead of
+	os.popen.read ().
+
 2002-11-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/ly2dvi.py (include_path): print warning if failing anything.
