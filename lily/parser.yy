@@ -1349,9 +1349,23 @@ command_element:
 		$$ = skip;
 	}
 	| QUOTE duration_length STRING {
-		Music * quote = MY_MAKE_MUSIC("QuoteMusic");
-		quote->set_mus_property ("duration", $2);
-		quote->set_mus_property ("quoted-name", $3);
+		SCM tab = THIS->lexer_->lookup_identifier ("musicQuotes");
+		SCM evs =  SCM_EOL;
+		if (scm_hash_table_p (tab) == SCM_BOOL_T)
+		{ 
+			SCM key = $3; // use symbol? 
+			evs = scm_hash_ref (tab, key, SCM_BOOL_F);
+		}
+		Music * quote = 0;
+		if (scm_vector_p (evs) == SCM_BOOL_T)
+		{
+			quote = MY_MAKE_MUSIC("QuoteMusic");
+			quote->set_mus_property ("duration", $2);
+			quote->set_mus_property ("quoted-events", evs);
+		} else {
+			THIS->here_input ().warning (_f ("Can\'t find music.")); 
+			quote = MY_MAKE_MUSIC ("Event");
+		}
 		quote->set_spot (THIS->here_input ());
 		$$ = quote; 
 	}

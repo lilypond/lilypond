@@ -79,16 +79,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
 void
 Quote_iterator::construct_children ()
 {
-  SCM tab = get_outlet()->get_property ("quotes");
-  if (scm_hash_table_p (tab) != SCM_BOOL_T)
-    {
-      get_music ()->origin ()->warning ("Context property `quotes' unset; cannot process quote.");
-      return ;
-    }
-
-  SCM name = get_music ()->get_mus_property ("quoted-name");
   SCM dur = get_music ()->get_mus_property ("duration");
-
   if (!unsmob_duration (dur))
     return ;
 
@@ -98,16 +89,13 @@ Quote_iterator::construct_children ()
   Moment stop = now + unsmob_duration (dur)->get_length ();
 
   start_moment_ = now;
-  
-  event_vector_ = scm_hash_ref (tab, name, SCM_BOOL_F);
+  event_vector_ = get_music ()->get_mus_property ("quoted-events");
 
   if (scm_vector_p (event_vector_) == SCM_BOOL_T)
     {
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
       end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
     }
-  else
-    get_music ()->origin ()->warning ("Can't find requested source");
 }
 
 
