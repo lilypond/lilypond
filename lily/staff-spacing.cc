@@ -15,3 +15,4 @@ Staff_spacing::has_interface (Grob* g)
 {
   return g && g->has_interface (ly_symbol2scm ("staff-spacing-interface"));
 }
+

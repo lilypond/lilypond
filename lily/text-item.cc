@@ -122,9 +122,18 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
   return Molecule (fm->text_dimension (ly_scm2string (text)), list);
 }
 
+/*
+  TODO:
+
+  DOCME.
+
+
+  MARKUP_TEXT must be compound (may not be simple string.)
+  
+ */
 Molecule
 Text_item::markup_text2molecule (Grob *me, SCM markup_text,
-			       SCM alist_chain)
+				 SCM alist_chain)
 {
   SCM sheet = me->paper_l ()->style_sheet_;
   SCM f = ly_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));

@@ -5,12 +5,32 @@
 
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "debug.hh"
 #include "axis-group-interface.hh"
 #include "spaceable-grob.hh"
+#include "molecule.hh"
+#include "text-item.hh"
+#include "lookup.hh"
+#include "font-interface.hh"
+
+
+/*
+  Paper_columns form the top-most item parent. (The Paper_columns X
+  parent is Line_of_score, which is a spanner.)
+
+  Paper_columns form the units for the spacing engine. They are
+  numbered, the first (leftmost) is column 0. Numbering happens before
+  line-breaking, and columns are not renumbered after line breaking.
+
+  Since many columns go unused, you should only use the rank field to
+  get ordering information.  Two adjacent columns may have
+  non-adjacent numbers.
+  
+ */
 
 void
 Paper_column::do_break_processing ()
@@ -73,6 +93,7 @@ Paper_column::musical_b (Grob *me)
   
 }
   
+
 bool
 Paper_column::used_b (Grob*me)
 {
@@ -80,3 +101,29 @@ Paper_column::used_b (Grob*me)
     || gh_pair_p (me->get_grob_property ("bounded-by-me"))
     ;
 }
+
+/*
+  Print a vertical line and  the rank number, to aid debugging.  
+ */
+
+MAKE_SCHEME_CALLBACK(Paper_column,brew_molecule,1);
+SCM
+Paper_column::brew_molecule (SCM p)
+{
+  Grob *me = unsmob_grob (p);
+
+  String r = to_str (Paper_column::rank_i (me));
+  SCM properties = Font_interface::font_alist_chain (me);
+  
+  Molecule t = Text_item::text2molecule (me, ly_str02scm (r.ch_C()),
+					 properties);
+  t.align_to (X_AXIS, CENTER);
+  t.align_to (Y_AXIS, DOWN);
+  
+  Molecule l = Lookup::filledbox (Box (Interval (-0.01, 0.01),
+				       Interval (-2, -1)));
+
+  t.add_molecule (l);
+  return t.smobbed_copy ();						
+}
+

@@ -122,6 +122,7 @@
  'note-column-interface
  "Stem and noteheads combined"
  '(
+   note-heads
    horizontal-shift 
    force-hshift 
    ))

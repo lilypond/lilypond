@@ -16,9 +16,22 @@
 #include "score-engraver.hh"
 #include "warn.hh"
 
-/**
-  make balls and rests
+/*
+
+  How does this work?
+
+  When we catch the note, we predict the end of the note. We keep the
+  requests living until we reach the predicted end-time.
+
+  Every time process_music() is called and there are note requests, we
+  figure out how long the note to typeset should be. It should be no
+  longer than what's specified, than what is left to do and it should
+  not cross barlines.
+  
+  We copy the reqs into scratch note reqs, to make sure that we get
+  all durations exactly right.
  */
+
 class Completion_heads_engraver : public Engraver
 {
   Link_array<Item> note_p_arr_;
@@ -72,8 +85,9 @@ Completion_heads_engraver::try_music (Music *m)
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
     {
-      return now_mom () < note_end_mom_;
+      return note_req_l_arr_.size ();
     }
+  
   return false;
   
 }

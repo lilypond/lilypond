@@ -92,7 +92,15 @@ SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM l );
 
+
+#if (__GNUC__ > 2)
+/*
+  todo: should add check for x86 as well
+ */
 #define CACHE_SYMBOLS
+#endif
+
+
 #ifdef CACHE_SYMBOLS
 
 
@@ -102,8 +110,6 @@ SCM ly_truncate_list (int k, SCM l );
   
  */
 SCM my_gh_symbol2scm (const char* x);
-
-// #warning: CACHE_SYMBOLS
 
 /*
   Using this trick we cache the value of gh_symbol2scm ("fooo") where

@@ -54,7 +54,7 @@ public:
   Link_array<Grob> arpeggios_;
   
   Link_array<Note_req> mel_l_arr_;
-  Link_array<Grob> support_l_arr_;
+  Link_array<Grob> head_l_arr_;
   Link_array<Item> forced_l_arr_;
   Link_array<Grob> tie_l_arr_;
 
@@ -155,19 +155,20 @@ Accidental_engraver::create_grobs ()
       SCM barnum = get_property ("currentBarNumber");
 
       bool extra_natural_b = get_property ("extraNatural")==SCM_BOOL_T;
-
       for (int i=0; i  < mel_l_arr_.size (); i++) 
 	{
-	  Grob * support_l = support_l_arr_[i];
+	  Grob * support_l = head_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
 	  int num = number_accidentals(localsig,note_l,accidentals_l,barnum);
 	  int num_caut = number_accidentals(localsig,note_l,cautionaries_l,barnum);
 	  bool cautionary = to_boolean (note_l->get_mus_property ("cautionary"));
-	  if (abs(num_caut)>abs(num)) {
-	    num=num_caut;
-	    cautionary=true;
-	  }
+	  if (abs(num_caut)>abs(num))
+	    {
+	      num=num_caut;
+	      cautionary=true;
+	    }
+	  
 	  bool different=num<0;
 	  num=abs(num);
 
@@ -200,7 +201,6 @@ Accidental_engraver::create_grobs ()
 		  key_item_p_ = new Item (get_property ("Accidentals"));
 		  Local_key_item::set_interface (key_item_p_);
 
-		  
 		  Staff_symbol_referencer::set_interface (key_item_p_);
 		  SCM c0 = get_property ("centralCPosition");
 		  if (gh_number_p (c0))
@@ -215,6 +215,8 @@ Accidental_engraver::create_grobs ()
 					 num==2 && extra_natural_b,
 					 tie_break_reminder);
 	      Side_position_interface::add_support (key_item_p_,support_l);
+	      
+	      support_l->set_grob_property ("accidentals", key_item_p_->self_scm ());
 	    }
 	  
 
@@ -258,11 +260,9 @@ Accidental_engraver::create_grobs ()
   if (key_item_p_)
     {
       /*
-	Hmm. Which one has to be on the left?
-
-	On which left, code or paper?
-
- (Arpeggios are engraved left of accidentals, of course.)
+	We add the accidentals to the support of the arpeggio, so it is put left of the
+	accidentals. 
+	
        */
       for (int i=0;  i < arpeggios_.size ();  i++)
 	Side_position_interface::add_support (arpeggios_[i], key_item_p_);
@@ -282,8 +282,8 @@ Accidental_engraver::stop_translation_timestep ()
 {
   if (key_item_p_)
     {
-      for (int i=0; i < support_l_arr_.size (); i++)
-	Side_position_interface::add_support (key_item_p_,support_l_arr_[i]);
+      for (int i=0; i < head_l_arr_.size (); i++)
+	Side_position_interface::add_support (key_item_p_,head_l_arr_[i]);
 
       typeset_grob (key_item_p_);
       key_item_p_ =0;
@@ -293,7 +293,7 @@ Accidental_engraver::stop_translation_timestep ()
   mel_l_arr_.clear ();
   arpeggios_.clear ();
   tie_l_arr_.clear ();
-  support_l_arr_.clear ();
+  head_l_arr_.clear ();
   forced_l_arr_.clear ();	
 }
 
@@ -305,7 +305,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
   if (note_l && Rhythmic_head::has_interface (info.grob_l_))
     {
       mel_l_arr_.push (note_l);
-      support_l_arr_.push (info.grob_l_);
+      head_l_arr_.push (info.grob_l_);
     }
   else if (Tie::has_interface (info.grob_l_))
     {

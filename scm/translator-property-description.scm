@@ -141,6 +141,10 @@ key signatures after the bar lines:
 	)
 @end example
 ")
+(translator-property-description 'busyGrobs list? "
+a queue of (END-MOMENT . GROB) conses. This is for internal (C++) use only.
+Use at your own risk. 
+")
 (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
 (translator-property-description 'changeMoment moment-pair? "duration that voices are examined for differences, when part-combining.  Usually unset or zero when combining threads into one voice, and 1 (or the duration of one measure) when combining voices into one staff.")
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")

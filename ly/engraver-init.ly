@@ -31,7 +31,8 @@ StaffContext=\translator {
 	\consists "Accidental_engraver"
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
-
+	\consists "Grob_pq_engraver"
+	
 	\consistsend "Axis_group_engraver"
 	
 	MinimumVerticalExtent = #'(-4 . 4)

@@ -27,11 +27,6 @@ Chord_name::after_line_breaking (SCM smob)
   if (to_boolean (s))
     {
       if (Paper_column::rank_i (me->column_l ()) -
-	  /*
-	    hmm, what's my column number in this line?
-	    why doesn't this work?
-	    me->line_l ()->rank_i_ > 2)
-	  */
 	  me->line_l ()->spanned_rank_iv ()[LEFT] > 1)
 	me->suicide ();
     }
