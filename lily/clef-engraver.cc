@@ -169,9 +169,9 @@ Clef_engraver::stop_translation_timestep ()
 
       if (vis)
 	{
-	  clef_p_->set_grob_property ("visibility-lambda", vis);
+	  clef_p_->set_grob_property ("break-visibility", vis);
 	  if (octavate_p_)
-	    octavate_p_->set_grob_property ("visibility-lambda", vis);
+	    octavate_p_->set_grob_property ("break-visibility", vis);
 	}
       
       typeset_grob (clef_p_);

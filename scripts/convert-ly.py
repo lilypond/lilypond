@@ -885,6 +885,14 @@ if 1:
 	conversions.append (((1,5,59), conv,
 	'XxxxVerticalExtent -> xxxVerticalExtent'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('visibility-lambda', 'break-visibility', str)
+		return str
+
+	conversions.append (((1,5,62), conv,
+	'visibility-lambda -> break-visibility'))
+
 
 ################################
 #	END OF CONVERSIONS	

@@ -1,3 +1,8 @@
+2002-06-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py, lily/*.cc, scm/*.scm: change
+	visibility-lambda to break-visibility
+
 2002-06-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/bugs/part-combiner.ly: New file.

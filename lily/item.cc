@@ -156,11 +156,11 @@ Item::handle_prebroken_dependencies ()
 
     TODO:
 
-    handle visibility-lambda the item itself iso. breakstatusdir, so
+    handle break-visibility the item itself iso. breakstatusdir, so
     the function can do more complicated things.
     
   */
-  SCM vis = get_grob_property ("visibility-lambda");
+  SCM vis = get_grob_property ("break-visibility");
   if (gh_procedure_p (vis))
     {
       SCM args = scm_list_n (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
@@ -201,4 +201,4 @@ unsmob_item (SCM s )
 ADD_INTERFACE(Item,
 	      "item-interface",
 	      "",
-	      "no-spacing-rods visibility-lambda breakable")
+	      "no-spacing-rods break-visibility breakable")
