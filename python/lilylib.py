@@ -241,10 +241,10 @@ def read_pipe (cmd, mode = 'r'):
 		progress ('\n')
 	return output
 
-def system (cmd, ignore_error = 0):
+def system (cmd, ignore_error = 0, progress_p = 0):
 	
-	''' Run CMD.  If IGNORE_ERROR is set, do not complain when CMD
-returns non zero.
+	'''System CMD.  If IGNORE_ERROR, do not complain when CMD
+returns non zero.  If PROGRESS_P, always show progress.
 
 RETURN VALUE
 
@@ -252,27 +252,30 @@ Exit status of CMD '''
 
 	name = command_name (cmd)
 
-	redirect = ''
 	if __main__.verbose_p:
+		progress_p = 1
 		progress (_ ("Invoking `%s\'") % cmd)
-		if __main__.pseudo_filter_p:
-			redirect = ' 1> /dev/null'
 	else:
 		progress ( _("Running %s...") % name)
-		redirect = ' 1> /dev/null 2>%s' % error_log (name)
 
+	redirect = ''
+	if not progress_p:
+		redirect = ' 1>/dev/null 2>' + error_log (name)
+	elif __main__.pseudo_filter_p:
+		redirect = ' 1>/dev/null'
+			
 	status = os.system (cmd + redirect)
 	signal = 0x0f & status
 	exit_status = status >> 8
 	
 	if status:
-		msg = _ ("`%s\' failed (%d)") % (name, status / exit_status)
+		msg = _ ("`%s\' failed (%d)") % (name, exit_status)
 		if ignore_error:
 			if __main__.verbose_p:
 				warning (msg + ' ' + _ ("(ignored)"))
 		else:
 			error (msg)
-			if not __main__.verbose_p:
+			if not progress_p:
 				error (_ ("The error log is as follows:"))
 				sys.stderr.write (open (error_log (name)).read ())
 			exit (status)
