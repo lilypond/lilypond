@@ -1,3 +1,16 @@
+2004-09-16  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/notation.itely (Ancient flags): Removed
+	documentation on adjust-if-on-staffline (this property was removed
+	by Han-Wen).
+
+	* Documentation/user/notation.itely (Ancient notation): Minor
+	cleanups and fixes.  Renamed "Vaticana style contexts" ->
+	"Gregorian Chant contexts".  Added section "Mensural contexts".
+	Added section "Ancient articulations".
+
+	* ly/engraver-init.ly: Added "MensuralVoice" and "MensuralStaff".
+
 2004-09-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/guile-gnome.sh: Add missing bit.
