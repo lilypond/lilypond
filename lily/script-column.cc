@@ -20,6 +20,7 @@ void
 Script_column::add(Script*s_l)
 {
     script_l_arr_.push(s_l);
+    add_dependency(s_l);
     add_element(s_l);
 }
 
@@ -89,13 +90,13 @@ void
 Script_column::add_support(Item*i_l)
 {
     support_l_arr_.push(i_l);
+    add_dependency( i_l);
     add_element(i_l);
 }
 
 void
 Script_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
-    Horizontal_vertical_group::do_substitute_dependency(o,n);
     if (o->item()) {
 	script_l_arr_.substitute((Script*)o->item(),(Script*) (n?n->item():0));
 	support_l_arr_.substitute(o->item(), (n?n->item():0));
