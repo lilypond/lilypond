@@ -29,11 +29,11 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
-$(outdir)/%.pfa: %.mf $(outdir)/%.afm
+$(outdir)/%.pfa: %.mf
 	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
-$(outdir)/%.pfb: %.mf $(outdir)/%.afm
+$(outdir)/%.pfb: %.mf
 	$(MFTRACE) -I $(outdir)/ --pfa --pfb --simplify --keep-trying  $(basename $(@F))
 	-mv $(basename $(@F)).pfa $(outdir)
 	mv $(basename $(@F)).pfb $(outdir)
