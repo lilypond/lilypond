@@ -72,10 +72,10 @@ help_summary = _ ("Convert mup to LilyPond source")
 option_definitions = [
 	('', 'd', 'debug', _ ("debug")),
 	('NAME[=EXP]', 'D', 'define', _ ("define macro NAME [optional expansion EXP]")),
-	('', 'h', 'help', _ ("this help")),
+	('', 'h', 'help', _ ("print this help")),
 	('FILE', 'o', 'output', _ ("write output to FILE")),
 	('', 'E', 'pre-process', _ ("only pre-process")),
-	('', 'V', 'verbose', _ ("verbose")),
+	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]

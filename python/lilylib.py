@@ -60,7 +60,7 @@ if __name__ == '__main__':
 	help_summary = _ ("lilylib module")
 
 	option_definitions = [
-		('', 'h', 'help', _ ("this help")),
+		('', 'h', 'help', _ ("print this help")),
 		]
 
 	from lilylib import *
