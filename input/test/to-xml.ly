@@ -8,9 +8,8 @@ fooBar = \notes { < c''4 \\ g'4 > }
 #(music-to-xml fooBar (current-output-port))
 
 \header {
-    texidoc =
-
-    #(string-append
+    texidoc = "@cindex To XML"
+	texidoc = #(string-append
       "The input representation is very generic. It
       should not be hard to convert it to XML or a similar format:\n\n"
 

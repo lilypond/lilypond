@@ -1,4 +1,6 @@
 \version "1.7.18"
+% TODO: huh?  This text isn't vertical...?
+
 \score{
 	<
 		\context Staff = o \notes\relative c,,, { 

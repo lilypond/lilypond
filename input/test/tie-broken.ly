@@ -1,4 +1,5 @@
 \version "1.7.18"
+% regression stuff.  -gp
 
 \score{
 	\notes \relative c''{

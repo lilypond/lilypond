@@ -1,4 +1,5 @@
 \version "1.7.18"
+% regression.  -gp
 
 \header { 
 texidoc = "The standard function unfold-repeats will recursively unfold

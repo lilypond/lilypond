@@ -1,6 +1,7 @@
 \version "1.7.18"
-\header {
-texidoc = "Test font selection and scm text markup"
+
+\header { texidoc = "@cindex Textscript
+Test font selection and scm text markup. "
 }
 
 \score{
@@ -12,5 +13,6 @@ texidoc = "Test font selection and scm text markup"
     c^\markup { \bold "Dal" " " \raise #0.8 \musicglyph #"scripts-segno" }
     c^\markup \huge "ABCD"
   }
+	\paper{ }
 }
 %% new-chords-done %%

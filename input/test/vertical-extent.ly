@@ -1,11 +1,12 @@
-
-\header { texidoc = "vertical extents may be overriden by
-verticalExtent, verticalExtent, verticalExtent. These are
-normal property values, and are written itno the grob when the
-associated context finishes, so using it in \property works.
-
- " }
 \version "1.7.18"
+% TODO: huh?  what's this file about?  -gp
+
+\header { texidoc = "
+Vertical extents may be overriden by
+verticalExtent, verticalExtent, verticalExtent. These are
+normal property values, and are written into the grob when the
+associated context finishes, so using it in \property works.
+" }
 
 \score {
   \notes  <

@@ -1,4 +1,5 @@
 \version "1.7.18"
+% MERGE with ly2dvi-
 \header {
   filename =  "title.ly"
   dedication = "dedication"
