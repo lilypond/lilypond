@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 % possible rename to lyric-repeat or repeat-lyric.
 \header{ texidoc = "@cindex Repeat Lyrics

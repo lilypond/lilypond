@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 % pretty much a duplicate of extra-staff.ly. candidate for merge or delete. -gp
 

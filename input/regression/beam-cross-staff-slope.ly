@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 \header {
     texidoc = "Cross staff  (kneed) beams don't cause extreme slopes."

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 
 %% I don't know what this example is supposed to do.  delete it?
@@ -27,7 +26,7 @@ basloopje = \notes\relative c{
     d,8( a' d f a d f d a f d a)
 }
 
-accompany = \repeat unfold 4 \notes \relative c \basloopje
+accompany = \repeat unfold 4  \basloopje
 
 \score{
     \notes \context PianoStaff<<
