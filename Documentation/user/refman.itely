@@ -4435,10 +4435,11 @@ that case @code{interscoreline} specifies the minimum spacing.
 
 If the variable @code{lastpagefill} is defined (that is, it gets any
 value assigned in the @code{\paper} block), systems are evenly
-distributed vertically on the last page.  This might produce ugly results
-in case there are not enough systems on the last page.  Note that
-@command{lilypond-book} ignores @code{lastpagefill}.  See
-@ref{Merging text and music with lilypond-book} for more information.
+distributed vertically on the last page.  This might produce ugly
+results in case there are not enough systems on the last page.  Note
+that @command{lilypond-book} ignores @code{lastpagefill}.  See
+@ref{Insert music snippets into your texts using lilypond-book} for
+more information.
 
 @cindex @code{lastpagefill}
 
