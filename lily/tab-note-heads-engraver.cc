@@ -114,7 +114,10 @@ Tab_note_heads_engraver::process_music ()
       SCM c0 = get_property ("centralCPosition");
       if (gh_number_p (c0)) pos += gh_scm2int (c0);
       
-      note_p->set_grob_property ("tab-string", gh_int2scm (tab_string));
+      SCM scm_pitch = req->get_mus_property ("pitch");
+      SCM proc      = get_property ("tablatureFormat");
+      SCM text      = gh_call3 (proc, gh_int2scm (tab_string), get_property ("stringTunings"), scm_pitch);
+      note_p->set_grob_property ("text", text);
       
       note_p->set_grob_property ("staff-position", gh_int2scm (pos));
       announce_grob (note_p, req->self_scm());
