@@ -1009,7 +1009,7 @@ Generic_prefix_music:
 		}
 		SCM m = SCM_EOL;
 		if (ok)
-			m = scm_apply_0 (func, ly_cdr  ($1));
+			m = scm_apply_0 (func, ly_cdr ($1));
 		if (unsmob_music (m))
 			{
 			$$ = unsmob_music (m);
@@ -1020,7 +1020,7 @@ Generic_prefix_music:
 			loc->error (_ ("Music head function should return Music object.")); 
 			$$ = MY_MAKE_MUSIC ("Music");
 			}
-
+		$$->set_spot (*loc);
 	}
 	;
 
