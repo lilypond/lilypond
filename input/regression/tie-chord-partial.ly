@@ -5,7 +5,7 @@ putting the Tie engraver at Thread level, and redirecting untied notes
 to a different thread."
 
 }
-\version "1.7.16"
+\version "1.7.18"
 
 \score {
 

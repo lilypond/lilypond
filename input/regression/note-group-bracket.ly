@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 \header {
 
@@ -19,12 +19,12 @@ brackets for analysis start and end.
 \score {
     \notes
     {
-	c4-\groupOpen-\groupOpen-\groupOpen
-	c4-\groupClose
-	c4-\groupOpen
-	c4-\groupClose-\groupClose
-	c4-\groupOpen
-	c4-\groupClose-\groupClose
+	c4-\startGroup-\startGroup-\startGroup
+	c4-\stopGroup
+	c4-\startGroup
+	c4-\stopGroup-\stopGroup
+	c4-\startGroup
+	c4-\stopGroup-\stopGroup
     }
 
     \paper {

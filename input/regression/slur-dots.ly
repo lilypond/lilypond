@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header{
 texidoc="Slurs should not get confused by augmentation dots.  We use a lot
 of dots here, to make problems more visible."

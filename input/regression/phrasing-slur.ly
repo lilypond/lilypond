@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 \header {
 texidoc="Slurs play well with phrasing slur."

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 % text spanners should not repeat start text when broken
 

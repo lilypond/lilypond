@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is

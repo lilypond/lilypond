@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 texidoc = "The staff is a grob, and may be adjusted as well: this one
  shows a staff with 6 thick line, and a slightly large staffspace.
