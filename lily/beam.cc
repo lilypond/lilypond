@@ -25,6 +25,8 @@
   */
 
 
+
+
 #include <math.h> // tanh.
 
 #include "molecule.hh" 
@@ -46,6 +48,14 @@
 
 
 #define DEBUG_QUANTING 0
+
+const int INTER_QUANT_PENALTY = 1000; 
+const int SECONDARY_BEAM_DEMERIT  = 15;
+const int STEM_LENGTH_DEMERIT_FACTOR = 5;
+const int STEM_LENGTH_LIMIT_PENALTY = 500;
+const int DAMPING_DIRECTIION_PENALTY = 800;
+const int MUSICAL_DIRECTION_FACTOR = 400;
+const int IDEAL_SLOPE_FACTOR = 10;
 
 
 static Real
@@ -551,10 +561,10 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Stem_info info = stem_infos[i];
       Direction d = Direction (directions[i]);
       
-      demerit_score += 500 * ( 0 >? (info.min_y - d * current_y));
-      demerit_score += 500 * ( 0 >? (d * current_y  - info.max_y));
+      demerit_score += STEM_LENGTH_LIMIT_PENALTY * ( 0 >? (info.min_y - d * current_y));
+      demerit_score += STEM_LENGTH_LIMIT_PENALTY * ( 0 >? (d * current_y  - info.max_y));
 
-      demerit_score += 5 * shrink_extra_weight (d * current_y  - info.ideal_y);
+      demerit_score += STEM_LENGTH_DEMERIT_FACTOR * shrink_extra_weight (d * current_y  - info.ideal_y);
     }
 
   demerit_score *= 2.0 / stems.size (); 
@@ -571,13 +581,13 @@ Beam::score_slopes_dy (Grob *me, Real yl, Real yr,
   Real dem = 0.0;
   if (sign (dy_damp) != sign (dy))
     {
-      dem += 800;
+      dem += DAMPING_DIRECTIION_PENALTY;
     }
-  
-   dem += 400* (0 >? (fabs (dy) - fabs (dy_mus)));
+
+   dem += MUSICAL_DIRECTION_FACTOR * (0 >? (fabs (dy) - fabs (dy_mus)));
   
 
-   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* 10;
+   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* IDEAL_SLOPE_FACTOR;
    return dem;
 }
 
@@ -599,9 +609,9 @@ Beam::score_forbidden_quants (Grob*me,
 
   Real dem = 0.0;
   if (fabs (yl) < rad && fabs ( my_modf (yl) - 0.5) < 1e-3)
-    dem += 1000;
+    dem += INTER_QUANT_PENALTY;
   if (fabs (yr) < rad && fabs ( my_modf (yr) - 0.5) < 1e-3)
-    dem += 1000;
+    dem += INTER_QUANT_PENALTY;
 
   // todo: use multiplicity of outer stems.
   if (multiplicity >= 2)
@@ -615,10 +625,10 @@ Beam::score_forbidden_quants (Grob*me,
       Direction dir = Directional_element_interface::get (me);
       if (fabs (yl - dir * interbeam) < rad
 	  && fabs (my_modf (yl) - inter) < 1e-3)
-	dem += 15;
+	dem += SECONDARY_BEAM_DEMERIT;
       if (fabs (yr - dir * interbeam) < rad
 	  && fabs (my_modf (yr) - inter) < 1e-3)
-	dem += 15;
+	dem += SECONDARY_BEAM_DEMERIT;
 
       Real eps = 1e-3;
 
@@ -630,28 +640,29 @@ Beam::score_forbidden_quants (Grob*me,
 
 	--hwn
        */
-      
+
+
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
       if (fabs (yl - dir * interbeam) < rad + inter)
 	{
 	  if (dir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
-	    dem += 15;
+	    dem += SECONDARY_BEAM_DEMERIT;
 	  
 	  if (dir == DOWN && dy >= eps
 	      && fabs (my_modf (yl) - hang) < eps)
-	    dem += 15;
+	    dem += SECONDARY_BEAM_DEMERIT;
 	}
 
       if (fabs (yr - dir * interbeam) < rad + inter)
 	{
 	  if (dir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
-	    dem += 15;
+	    dem += SECONDARY_BEAM_DEMERIT;
 	  
 	  if (dir == DOWN && dy <= eps
 	      && fabs (my_modf (yr) - hang) < eps)
-	    dem += 15;
+	    dem += SECONDARY_BEAM_DEMERIT;
 	}
       
       if (multiplicity >= 3)
@@ -660,22 +671,22 @@ Beam::score_forbidden_quants (Grob*me,
 	    {
 	      if (dir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
-		dem += 15;
+		dem += SECONDARY_BEAM_DEMERIT;
 	      
 	      if (dir == DOWN && dy >= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
-		dem += 15;
+		dem += SECONDARY_BEAM_DEMERIT;
 	}
 	  
 	  if (fabs (yr - 2 * dir * interbeam) < rad + inter)
 	    {
 	      if (dir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
-		dem += 15;
+		dem += SECONDARY_BEAM_DEMERIT;
 	      
 	      if (dir == DOWN && dy <= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
-		dem += 15;
+		dem += SECONDARY_BEAM_DEMERIT;
 	    }
 	}
     }
@@ -1176,7 +1187,15 @@ Beam::brew_molecule (SCM smob)
       dx = stems.top ()->relative_coordinate (0, X_AXIS) - x0;
     }
 
-  Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
+  SCM posns = me->get_grob_property ("positions");
+  Interval pos;
+  if (!ly_number_pair_p (posns))
+    {
+      programming_error ("No beam posns");
+      pos = Interval (0,0);
+    }
+  else
+    pos= ly_scm2interval (posns);
   Real dy = pos.delta ();
   Real dydx = dy && dx ? dy/dx : 0;
 

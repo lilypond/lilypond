@@ -25,6 +25,10 @@ Font_size_engraver::Font_size_engraver ()
 
 }
 
+/*
+  TODO: use fontSize = NUMBER as a scaling constant: find the closest
+  integer design size, and use magnification to do the fractional bit.
+*/
 void
 Font_size_engraver::acknowledge_grob (Grob_info gi)
 {

@@ -22,6 +22,8 @@ struct Box
   Interval y () const{return interval_a_[Y_AXIS]; }
   Interval operator[] (Axis a) const;
   Interval &operator[] (Axis a);
+
+  Offset center () const;
     
   void translate (Offset o);
   /// smallest box enclosing #b#

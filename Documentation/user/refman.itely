@@ -3597,19 +3597,25 @@ You may enter these dimension using units (@code{cm}, @code{in},
 @c .  {Font size}
 @node Font Size
 @subsection Font size
-@cindex font size
+@cindex font size, setting
+@cindex staff size, setting
+@cindex @code{paper} file
 
 The Feta font provides musical symbols at six different sizes.  These
-fonts are 11 point, 13 point, 16 point, 20 point,
-23 point, and 26 point.  The point size of a font is the
-height of the five lines in a staff when displayed in the font.
+fonts are 11 point, 13 point, 16 point, 20 point, 23 point, and 26
+point.  The point size of a font is the height of the five lines in a
+staff when displayed in the font.
 
 Definitions for these sizes are the files @file{paperSZ.ly}, where
 @code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include any of
 these files, the identifiers @code{paperEleven}, @code{paperThirteen},
 @code{paperSixteen}, @code{paperTwenty}, @code{paperTwentythree}, and
 @code{paperTwentysix} are defined respectively.  The default
-@code{\paper} block is also set.
+@code{\paper} block is also set. These files should be imported at toplevel, i.e.
+@example
+	\include "paper26.ly"
+	\score @{  ... @}
+@end example
 
 The font definitions are generated using a Scheme function. For more
 details, see the file @file{scm/font.scm}.

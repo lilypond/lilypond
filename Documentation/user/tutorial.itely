@@ -925,7 +925,9 @@ can also make longer comments by enclosing text in @code{%@{} and
 @end example
 @cindex @code{\include}
 @cindex point, printer's
-@cindex staff size setting 
+@cindex staff size, setting
+@cindex font size, setting
+
 By default, LilyPond will typeset the music in a size such that each
 staff is 20 point (0.7 cm, or 0.27 inch) high.  We want smaller output
 (16 point staff height), so we must import the settings for that size,

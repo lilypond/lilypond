@@ -38,6 +38,22 @@ public:
 /** 
   Put all score elements of ELT's property called NAME into an array,
   and return it.  */
+
+inline Link_array<Grob>
+list_to_grob_array (SCM l)
+{
+  Link_array<Grob> arr;
+
+  for (SCM s = l; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM e = gh_car (s);
+      arr.push (unsmob_grob (e));
+    }
+
+  arr.reverse ();
+  return arr;
+}
+
 template<class T>
 Link_array<T>
 Pointer_group_interface__extract_grobs (Grob const *elt, T *, const char* name)
