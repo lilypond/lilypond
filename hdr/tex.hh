@@ -3,6 +3,7 @@
 
 #include "string.hh"
 #include "boxes.hh"
+#include "scalar.hh"
 
 /// parameter substitution in TeXstrings
 String
@@ -13,6 +14,10 @@ substitute_args(String source, svec<String> args);
   if source == "tex%bla%", then
   eval({"X","Y"})  == "texXblaY"
   */
+
+/// parameter substitution in TeXstrings
+String
+substitute_args(String source, svec<Scalar> args);
 
 /// #h# is in points
 String vstrut(Real h);

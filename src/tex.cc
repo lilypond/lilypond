@@ -31,3 +31,12 @@ substitute_args(String source, svec<String> args)
         substitute_arg(retval, "");
     return retval;
 }
+String
+substitute_args(String source, svec<Scalar> args)    
+{
+    svec<String> sv;
+    for (int i = 0 ; i < args.sz(); i++)
+	sv.add(args[i]);
+    
+    return substitute_args(source, sv);
+}
