@@ -235,7 +235,7 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     AC_SUBST(DIR_DATADIR)
 
     # we used to set DIR_SHAREDSTATEDIR here,
-    but apparently that broke something
+    # but apparently that broke something
     
     AC_DEFINE_UNQUOTED(DIR_DATADIR, "${DIR_DATADIR}")
 ])
