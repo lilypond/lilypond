@@ -25,7 +25,6 @@ Script_engraver::do_try_request (Request *r_l)
     {
       if (r_l->equal_b (script_req_l_arr_[i]))
 	return true;
-	
     }
   script_req_l_arr_.push (r_l->script());
   
@@ -35,6 +34,9 @@ Script_engraver::do_try_request (Request *r_l)
 void
 Script_engraver::do_process_requests()
 {
+  if (script_p_arr_.size ())
+    return ;
+  
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {
       Script_req* l=script_req_l_arr_[i];
