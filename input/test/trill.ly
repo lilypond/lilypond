@@ -6,9 +6,10 @@ spanner style.
 "
 }
 
+\paper { raggedright = ##t} 
 
-\score {
-  \context RhythmicStaff  {
+
+{
     \stemDown
     \override Stem  #'transparent = ##t
     \override TextSpanner  #'dash-fraction = #0.0
@@ -24,8 +25,6 @@ spanner style.
     \override TextSpanner  #'edge-text
   = #(cons (make-musicglyph-markup "scripts-trill")  "")
     a\startTextSpan b c a\stopTextSpan
-  }
-	\paper { raggedright = ##t} 
 }
 
 

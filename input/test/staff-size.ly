@@ -7,20 +7,17 @@ must be scaled."
 
 }
 
-\score {
-   \relative c' <<
-      \new Staff \relative c'' {
-	  \dynamicDown c,,4 \ff c c c
-      }
-      \new Staff \with {
-	  fontSize = #-1
-	  \override StaffSymbol #'staff-space = #(magstep -1)
-      } {
-	  \clef bass
-	  c8 c c c  c c c c
-      }
-  >>
-  \paper { raggedright = ##t}
-}
+\paper { raggedright = ##t}
+
+\relative c' <<
+%    \new Staff \relative c'' { \dynamicDown c4 \ff c c c }
+    \new Staff \with {
+	fontSize = #-3
+	\override StaffSymbol #'staff-space = #(magstep -3)
+    } {
+	\clef bass
+	c8 c c c  c c c c
+    }
+>>
 
 

@@ -1,5 +1,25 @@
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/trills.ly: remove.
+
+	* input/test/transposition.ly: remove.
+
+	* input/test/to-xml.ly: move to no-notation.
+
+	* buildscripts/lilypond-profile.sh: change zsh bomb to warning.
+
+	* lily/ledger-line-spanner.cc (print): use staff variable, not
+	me. Fixes ledger lines on differently sized staves.
+
+	* input/test/rhythm-excercise.ly: remove file.
+
+	* lily/stem.cc (dim_callback): only do something if visible. Fixes
+	spurious flag not found warning for 128th rest.
+
+	* input/regression/rest-dot-position.ly: new file.
+	
+	* input/test/rest-dot-positions.ly: remove
+
 	* lily/staff-symbol-referencer.cc (get_position): emergency
 	fallback: use coordinate * 2.
 
