@@ -618,8 +618,9 @@ My_lily_lexer::push_figuredbass_state()
 	yy_push_state (figures);
 }
 void
-My_lily_lexer::push_chord_state ()
+My_lily_lexer::push_chord_state (SCM tab)
 {
+	pitchname_tab_stack_ = gh_cons (tab, pitchname_tab_stack_);
 	yy_push_state (chords);
 }
 
@@ -638,7 +639,7 @@ My_lily_lexer::push_markup_state ()
 void
 My_lily_lexer::pop_state ()
 {
-	if (YYSTATE == notes)
+	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = gh_cdr (pitchname_tab_stack_);
 	yy_pop_state ();
 }
@@ -682,7 +683,9 @@ My_lily_lexer::scan_bare_word (String str)
 {
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
-		SCM handle = scm_hashq_get_handle (gh_car (pitchname_tab_stack_), sym);
+		SCM handle = SCM_BOOL_F;
+		if (gh_pair_p (pitchname_tab_stack_))
+			handle = scm_hashq_get_handle (gh_car (pitchname_tab_stack_), sym);
 		
 		if (gh_pair_p (handle)) {
 			yylval.scm = ly_cdr (handle);
