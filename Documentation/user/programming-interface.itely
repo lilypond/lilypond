@@ -83,7 +83,7 @@ of defining @code{\twice}, the example above could also have been
 written as
 @example
 @dots{}
-@{ #(ly:export (make-sequential-music newLa)) @}
+@{ #(ly:export (make-sequential-music (list newLa))) @}
 @end example
 
 @refbugs

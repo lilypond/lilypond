@@ -420,6 +420,26 @@ layout output, a metronome marking is printed
 \tempo 8.=120 c''1
 @end lilypond
 
+To change the tempo in the MIDI output without printing anything, make
+the metronome marking invisible
+@example
+\once \override Score.MetronomeMark #'transparent = ##t
+@end example
+
+To print other metronome markings, use these markup commands
+@lilypond[quote,raggedright,verbatim,relative,fragment]
+c4^\markup {
+  "("
+  \smaller \general-align #Y #DOWN \note #"16." #1
+  "="
+  \smaller \general-align #Y #DOWN \note #"8" #1"
+  ")" }
+@end lilypond
+
+@noindent
+See @ref{Text markup} for more details.
+
+
 @seealso
 
 Program reference: @internalsref{MetronomeChangeEvent}.
