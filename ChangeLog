@@ -1,3 +1,7 @@
+2003-05-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/tutorial.itely: updates.
+
 2003-05-14  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Show messages in one line only, as in XEmacs.

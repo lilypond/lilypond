@@ -27,14 +27,14 @@
 * Integrating text and music::  Integrating text and music
 @end menu
 
-Operating lilypond is done through text files: To print a piece of
-music, you enter the music in a file.  When you run lilypond (normally
-using the program @code{ly2dvi}) on that file, the program produces
-another file which contains sheet music that you can print or view.
+Operating is done through text files: To print a piece of music, you
+enter the music in a file.  When LilyPond is run (normally using the
+program @code{ly2dvi}) on that file, another file containing formatted
+sheet music, is produced. That file may be printed or viewed.
 
 This tutorial starts with a small introduction to the LilyPond music
-language.  After this first contact, we will show you how to run
-LilyPond to produce printed output; you should then be able to create
+language.  After this first contact, we will show which commands to
+run to produce printed output, so you should then be able to create
 your first sheets of music.  The tutorial continues with more and more
 complex examples.
 
@@ -89,9 +89,11 @@ a4 a a2 a
 @end lilypond
 
 A @rglos{sharp} (@texisharp{}) is made by adding @samp{is}, a
-@rglos{flat} (@texiflat{}) by adding @samp{es}.  As you would expect,
+@rglos{flat} (@texiflat{}) by adding @samp{es}.  As you might expect,
 a @rglos{double sharp} or @rglos{double flat} is made by adding
-@samp{isis} or @samp{eses}:
+@samp{isis} or @samp{eses}:@footnote{This syntax derived from note
+naming conventions in Nordic and Germanic languages, like German and
+Dutch}
 
 @example
 cis1 ees fisis aeses
@@ -113,6 +115,10 @@ a2. a4 a8. a16
 \transpose c c' { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
+Entering pitches and durations is fully explained in @ref{Pitches} and
+@ref{Durations}.
+
+
 The @rglos{meter} (or @rglos{time signature}) can be set with the
 @code{\time} command:
 
@@ -132,6 +138,10 @@ s4_" "
 \time 4/4
 s16_" "
 @end lilypond
+
+Time signatures and other timing commands are described in @ref{Time
+signature}.
+
 
 The @rglos{clef} can be set using the @code{\clef} command:
 
@@ -157,6 +167,9 @@ s4_" "
 s16_" "
 @end lilypond
 
+Clefs are fully explained in @ref{Clef}.
+
+
 When you enter these commands in a file, you must to enclose them in
 @code{\notes @{@dots{}@}}.  This lets LilyPond know that music (as
 opposed to @rglos{lyrics}) follows:
@@ -175,8 +188,7 @@ combine the music with a printing command.
 The printing command is the so-called @code{\paper} block.  Later on
 you will see that the @code{\paper} block is used to customize
 printing specifics.  The music and the @code{\paper} block are combined by
-enclosing them in @code{\score @{ ... @}}.  This is what a full
-LilyPond source file looks like:
+enclosing them in @code{\score @{ ... @}}.  This is what a full source file looks like:
 
 @example
 \score @{
@@ -209,13 +221,12 @@ LilyPond source file looks like:
 @section Running LilyPond
 
 In the last section we explained what kind of things you could enter
-in a lilypond file.  In this section we explain how to run LilyPond 
+in a LilyPond file.  In this section we explain what commands to run
 and how to view or print the output.  If you have not used LilyPond
-before, want to test your setup of LilyPond, or want to run an example
-file yourself, read this section.   The instructions that follow
-are for running LilyPond on Unix-like systems.  Some additional
-instructions for running LilyPond on Windows are given at the end of
-this section.
+before, want to test your setup, or want to run an example file
+yourself, read this section.  The instructions that follow are for
+Unix-like systems.  Some additional instructions for MS Windows are given
+at the end of this section.
 
 Begin by opening a terminal window and starting a text editor.
 For example, you could open an xterm and execute @code{joe}.  In your
@@ -238,7 +249,7 @@ text editor, enter the following input and save the file as
 LilyPond is the program that computes the sheet music. All other
 things, such as adding titles, page breaking and other page layout,
 are done by a small wrapper program called
-@code{ly2dvi}. @code{ly2dvi} calls lilypond to render the music, and
+@code{ly2dvi}. @code{ly2dvi} calls LilyPond to render the music, and
 then adds the titling and page layout instructions.  To process
 @file{test.ly} with @code{ly2dvi}, proceed as follows:
 
@@ -278,6 +289,8 @@ screen:
   ghostview test.pdf
   ggv test.pdf
   kghostview test.pdf
+  xpdf test.pdf
+  gpdf test.pdf
 @end example
 @end quotation
 If the music on your screen looks good, you can print it by clicking
@@ -285,8 +298,12 @@ File/Print inside ghostview.
 
 The DVI file (@file{test.dvi}) contains the same sheet music in a
 different format. DVI files are more easily processed by the computer,
-so viewing them usually is quicker.  You can run @code{xdvi test.dvi} or
-@code{kdvi test.dvi} to view the DVI file. In Xdvi, the mouse burtons
+so viewing them usually is quicker.  You can run @code{xdvi test.dvi}
+@c KDVI doesn't grok the PS specials.
+@c or
+@c @code{kdvi test.dvi}
+@c
+to view the DVI file. In Xdvi, the mouse buttons
 activate magnifying glasses.  Unfortunately, variable symbols (such as
 beams and slurs) are not displayed in the magnifying glasses.
 
@@ -298,21 +315,27 @@ beams and slurs) are not displayed in the magnifying glasses.
 @cindex PDF
 
 If you are familiar with @TeX{}, be warned: do not use other DVI
-drivers like @code{dvilj}. The @TeX{} coming out of LilyPond uses
-embedded PostScript code and will not render correctly if you use
-anything other than @code{dvips}.
+drivers like @code{dvilj}.  LilyPond DVI use embedded PostScript code
+and will not render correctly with other DVI drivers besides
+@code{dvips}.
 
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
 
+
+Various commands for formatting and printing music are detailed in
+@ref{Invoking LilyPond}.
+
+
 @unnumberedsubsec Windows users
+
 Windows users can start the terminal by clicking on the LilyPond or
-Cygwin icon.  You can use any text editor (such as NotePad, Emacs or
-Vim) to edit the LilyPond file.  If you install the Cygwin's
-@code{XFree86} X11 window system, @code{tetex-x11} and
-@code{ghostscript-x11} packages too, you can view the @code{dvi}
-output doing @code{xdvi test.dvi} as described above.  If you have
+Cygwin icon.  Any text editor (such as NotePad, Emacs or Vim) may be
+used to edit the LilyPond file.  When Cygwin's @code{XFree86} X11
+window system is installed along with @code{tetex-x11} and
+@code{ghostscript-x11} packages, then the @code{dvi} output may be
+viewed with @code{xdvi test.dvi} as described above.  If you have
 installed a PostScript/PDF viewer, such as @code{GSView} from
 @uref{http://www.cs.wisc.edu/~ghost}, viewing the PDF file can be done
 with:
@@ -321,7 +344,7 @@ with:
 @code{gsview32 test.pdf}
 @end example
 @end quotation
-You can also print from the command line by executing:
+Printing may be done by executing
 @quotation
 @example
 @code{gsview32 /s test.pdf}
@@ -329,74 +352,11 @@ You can also print from the command line by executing:
 @end quotation
 
 
-@strong{SUMMARY}
-
-To run LilyPond, input a text file, then run the command @code{ly2dvi} on
-that file.  The resulting files are either DVI or PostScript, and can
-be viewed with @code{xdvi} (Unix) and ghostview (Unix and Windows)
-respectively.  The following table summarizes the constructs that were
-discussed in the previous two sections.
-
-@multitable @columnfractions  .3 .3 .4  
-
-@item @b{Syntax}
-@tab @b{Description}
-@tab @b{Example}
-
-@item @code{1 2 8 16}
-@tab durations 
-@tab
-@lilypond[relative 1, notime]
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-c1 c2 c8 c16
-@end lilypond
-
-@item @code{. ..}
-@tab augmentation dots
-@tab
-@lilypond[relative 1, notime]
-\property Staff.Clef = \turnOff
-c4. c4..  
-@end lilypond
-
-@item @code{c d e f g a b }
-@tab scale 
-@tab
-@lilypond[relative 1, notime]
-\property Staff.Clef = \turnOff
-c d e f g a b
-@end lilypond
-
-@item @code{\clef treble \clef bass }
-@tab clefs
-@tab
-@lilypond[notime]
-\clef treble
-s4_" "
-\clef bass
-s4_" "
-@end lilypond
-
-@item @code{\time 3/4 \time 4/4 }
-@tab time signature
-@tab
-@lilypond
-\property Staff.Clef \set #'transparent = ##t 
-\time 3/4
-s4_" "
-\time 4/4
-s16_" "
-@end lilypond
-
-@end multitable
-
-
 @node More basics
 @section More basics 
 
-We continue with the introduction of the remaining musical constructs.
-Normal rests are entered just like notes with the name ``@code{r}'':
+We continue with the introduction of more musical constructs.  Normal
+rests are entered just like notes with the name ``@code{r}'':
 
 @quotation
 @example
@@ -412,6 +372,9 @@ s16_" "
 @end lilypond
 @end quotation
 @separate
+
+Rests are described in full detail in @ref{Rests}. 
+
 
 @c Tim wants to move this quotes example just before the: quotes-do not-work
 @c score, but we'd need to remove quotes from the other two (key and
@@ -452,10 +415,10 @@ larger groups of notes. Slurs and ties are also nested in practice:
 c2-~-( c8 fis fis4 ~ fis2 g2-)
 @end lilypond
 
+The notation manual discusses ties in @ref{Ties}.
 
-The key signature is set with the command ``@code{\key}''.  One
-caution word of caution: you need to specify whether the key is
-@code{\major} or @code{\minor}.
+The key signature is set with the command ``@code{\key}'', followed by
+a pitch and  @code{\major} or @code{\minor}:
 @quotation
 @example
 \key d \major
@@ -472,6 +435,7 @@ g'1
 g'
 @end lilypond
 @end quotation
+
 
 
 @c bit on the long/complex/scary taste
@@ -512,13 +476,13 @@ This example shows notes, ties, octave marks, and rests in action.
 
 @c accidentals...
 There are some interesting points to note in this example.
-Accidentals (sharps and flats) do not have to be marked explicitly: you
-just enter the note name, and LilyPond determines whether or not to
-print an accidental.  Bar lines and beams are drawn automatically.
-LilyPond calculates line breaks for you; it does not matter where you
-make new lines in the source file. Finally, the order of time, key and
-clef changes is not relevant: lilypond will use standard notation
-conventions for ordering these items.
+Accidentals (sharps and flats) do not have to be marked explicitly:
+you just enter the note name, and an accidental is printed
+automatically, only when necessary.  Bar lines and beams are drawn
+automatically.  Line breaks are calculated automatically; it does not
+matter where the lines breaks are in the source file. Finally, the
+order of time, key and clef changes is not relevant: in the printout,
+these are ordered using standard notation conventions.
 
 The example also indicates that a piece of music written in a high
 register needs lots of quotes.  This makes the input less readable,
@@ -527,11 +491,9 @@ and is also a potential source of errors.
 The solution is to use ``relative octave'' mode.  In practice, this is
 the most convenient way to copy existing music.  To use relative mode,
 add @code{\relative} before the piece of music.  You must also give a
-note from which relative starts, in this case @code{c''}.  If you do not
-use octavation quotes (ie do not add ' or , after a note), relative mode
-chooses the note that is closest to the previous one.  Since most music
-has small intervals, you can write quite a lot in relative mode without
-using octavation quotes.
+note from which relative starts, in this case @code{c''}.  If you do
+not use octavation quotes (i.e. do not add ' or , after a note),
+relative mode chooses the note that is closest to the previous one.
 @c do not use commas or quotes in this sentence
 For example: @code{c f} goes up; @code{c g} goes down:
 
@@ -553,13 +515,16 @@ For example: @code{c f} goes up; @code{c g} goes down:
 @separate
 
 
+Since most music has small intervals, in relative mode pieces can be
+written almost without using octavation quotes.
+
 @c needed better, maybe even redundant explanation
 @c   added another example below.
 @c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
 @c in eerste instantie drong het `relative' niet door zonder extra uitleg.
-You can make larger intervals by adding octavation quotes.  Note that
-quotes or commas do not determine the absolute height of a note;
-the height of a note is relative to the previous one.
+Larger intervals are made by adding octavation quotes.  Quotes or
+commas do not determine the absolute height of a note; the height of a
+note is relative to the previous one.
 @c do not use commas or quotes in this sentence
 For example: @code{c f,} goes down; @code{f, f} are both the same;
 @code{c' c} are the same; and @code{c g'} goes up:
@@ -582,7 +547,7 @@ For example: @code{c f,} goes down; @code{f, f} are both the same;
 @separate
 
 
-Here's an example of the difference between relative mode and
+Here is an example of the difference between relative mode and
 ``normal'' (non-relative) mode:
 
 @quotation
@@ -618,68 +583,6 @@ Here's an example of the difference between relative mode and
 @end lilypond
 @end quotation
 @separate
-
-@strong{SUMMARY}
-
-The following table summarizes the syntax in this section.
-
-@c Is it possible to avoid page breaks directly after the 
-@c table head?   /Mats
-
-@multitable @columnfractions .3 .3 .4  
-
-@item @b{Syntax}
-@tab @b{Description}
-@tab @b{Example}
-
-@item @code{r4 r8}
-@tab rest 
-@tab
-@lilypond[relative 1, notime]
-\property Staff.Clef = \turnOff
-r4 r8
-@end lilypond
-
-@item @code{~}
-@tab tie
-@tab
-@lilypond[relative 1, notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-d ~ d
-@end lilypond
-
-@item @code{\key es \major }
-@tab key signature
-@tab
-@lilypond[notime]
-\clef treble
-\key es \major
-s4 
-@end lilypond
-
-@item @var{note}@code{'}
-@tab raise octave
-@tab
-@lilypond[relative 1, notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-a a'
-@end lilypond
-
-@item @var{note}@code{,}
-@tab lower octave
-@tab
-@lilypond[relative 1, notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-c c,
-@end lilypond
-
-@end multitable
 
 A slur is drawn across many notes, and indicates bound articulation
 (legato).  The starting note and ending note are marked with a
@@ -738,9 +641,8 @@ demonstrated here:
 In this example, @code{staffA} and @code{staffB} are names that are
 given to the staves.  It does not matter what names you give, as long
 as each staff has a different name. If you give them the same name,
-LilyPond will assume that you only want one staff, and will but both
-pieces of music on the same staff.
-
+they are assumed to belong on the same staff, and will be printed like
+that.
 
 @separate
 
@@ -800,7 +702,8 @@ c2-\<  c2-\!-\ff  c2-\>  c2-\!
 @end quotation
 @separate
 
-Chords can be made by surrounding notes with @code{<<} and @code{>>}:
+Chords can be made by
+surrounding pitches with @code{<<} and @code{>}>:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
 r4 <<c e g>>4 <<c f a>>8
@@ -817,130 +720,19 @@ r4 <<c e g>>8-[ <<c f a>>-]-~ <<c f a>>
 @end lilypond
 @end quotation
 
-@ignore
-When you want to combine chords with slurs and dynamics, technical
-detail crops up: you have type these commands next to the notes, which
-means that they have to be inside the @code{< >}.  Do Not get confused
-by the chord @code{< >} and the dynamic @code{\< \>}!
-@end ignore
-
 @quotation
 @example
-r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-\)
+r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @end example
 @lilypond[relative 0, fragment]
 \slurUp
-r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-\)
+r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @end lilypond
 @end quotation
 @separate
 
 
-@strong{SUMMARY}
-
-@multitable @columnfractions .3 .3 .4  
-
-@item @b{Syntax}
-@tab @b{Description}
-@tab @b{Example}
-
-
-@item @code{( )}
-@tab slur
-@tab
-@lilypond[fragment, relative 1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-c-( d e-)
-@end lilypond
-
-
-@item @code{\( \)}
-@tab phrasing slur
-@tab
-@lilypond[fragment, relative 1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-c-\(  c-( d-) e-\)
-@end lilypond
-
-
-@item @code{[ ]}
-@tab beam
-@tab
-@lilypond[fragment, relative 1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-a8-[ b-]
-@end lilypond
-
-
-@item @code{< \context Staff ... >}
-@tab more staffs
-@tab
-@lilypond[fragment]
-< \context Staff = SA { c'1 }
-  \context Staff = SB { c'1 } >
-@end lilypond
-
-  
-@item @code{-> -.}
-@tab articulations
-@tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
-c-> c-.
-@end lilypond
-
-
-@item @code{-\mf -\sfz}
-@tab dynamics
-@tab
-@lilypond[fragment, relative 1]
-\property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
-c-\mf c-\sfz
-@end lilypond
-
-
-@item @code{\< \!}
-@tab crescendo
-@tab
-@lilypond[fragment, relative 1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-a\< a \!a
-@end lilypond
-
-@item @code{\> \!}
-@tab decrescendo
-@tab
-@lilypond[fragment, relative 1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
-a-\> a a-\!
-@end lilypond
-
-
-@item @code{<< >>}
-@tab chord
-@tab
-@lilypond[fragment, relative 1]
-<<c e>> 
-@end lilypond
-
-@end multitable
+TODO: triplets, partial 
 
 Now you know the basic ingredients of a music file, so this is the
 right moment to experiment and try your at hand typing some simple
@@ -958,144 +750,89 @@ music, and integrating text and music.
 @section Printing lyrics
 @cindex lyrics
 
-In this section we shall explain how to typeset the following
-fragment of The Free Software Song: 
+Lyrics are entered by separating each syllable with a space, and
+surrounding them with @code{\lyrics @{ @dots{} @}}, for example
+@example
+  \lyrics @{ I want to break free @}
+@end example
 
-@lilypond[singleline]
-\score  { \notes { \addlyrics
-  \notes \relative c' {
-    \time 7/4
-    d'2 c4 b16-( a g a b a b c-) a2
-    b2 c4 b8-( a16 g a4-) g2 }
-  \context Lyrics \lyrics { 
-    Join us now __ and
-    share the soft -- ware; }
-}
-\paper { raggedright = ##t }
+Like notes, lyrics are also a form of music, but they must not be
+printed on a staff, which is the default way to print music. To print
+them as lyrics, they must be marked with @code{ \context Lyrics}:
+@example
+  \context Lyrics  \lyrics @{ I want to break free @}
+@end example
+The melody for this song is as follows
+@lilypond[fragment,relative=1]
+   \partial 8
+     c8
+   \times 2/3 {  f g g } \times 2/3 { g4-( a2-) }
+@end lilypond
+
+The lyrics can be set to these notes, combining both with the
+@code{\addlyrics} keyword:
+@example
+ \addlyrics
+    \notes @{ @dots{} @}
+    \context Lyrics @dots{}
+@end example
+
+The final result is 
+@lilypond[singleline,verbatim]
+\score  {
+ \notes {
+  \addlyrics
+   \relative c' {
+     \partial 8
+     c8
+     \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
+   }
+   \context Lyrics  \lyrics { I want to break free }
+ }
+ \paper{ }
 }
 @end lilypond
 
-
-@cindex lyric mode
-@cindex @code{\lyrics}
-
-
-Lyrics are a form of music. To get them printed, you must do two
-things: indicate that lyrics   are entered with @code{\lyrics}, and
-indicate that this type of music must be interpreted as texts (and not
-notes). This is done with @code{\context Lyrics}. 
-
-You can enter lyrics in a special input mode of LilyPond. This mode is
-called Lyrics mode, and it is introduced by the keyword
-@code{\lyrics}.  In this mode you can enter lyrics, with punctuation
-and accents without any hassle.  Syllables are entered like notes, but
-with pitches replaced by text.  For example,
+This melody ends on a @rglos{melisma}, a single syllable (``free'')
+sung to more than one note. This is indicated with a @emph{extender
+line}. It is entered as two  underscores, i.e.,
 @example
-  Twin- kle twin- kle
-@end example
-enters four syllables.  Spaces can be introduced into a lyric either
-by using quotes: @code{"He could" not} or by using an underscore
-without quotes: @code{He_could not}. 
+  \lyrics @{ I want to break free __ @}
+@end example 
+@lilypond[singleline]
+\score  {
+ \notes {
+  \addlyrics
+   \relative c' {
+   \partial 8
+     c8
+     \times 2/3 { f g g } \times 2/3 { g4-( a2-) }
+   }
+   \context Lyrics  \lyrics { I want to break free __ }
+ }
+ \paper{ }
+}
+@end lilypond
 
-These are the lyrics for the free software song:
-
-@example 
- \lyrics @{ 
-    Join us now __ and
-    share the soft -- ware; @}
-@end example
-
- Extender lines are entered as @code{__}.  This will create an
-extender, which is a line that extends over the entire duration of the
-lyric.  This line will run all the way to the start of the next lyric,
-so you may want to shorten it by using a blank lyric (using @code{_}).
-
-
-You can use ordinary hyphens at the end of a syllable, i.e.
+Similarly, hyphens between words can be entered as two dashes,
+resulting in a centered hyphen between two syllables.
 @example
-        soft- ware
+  Twin -- kle twin -- kle
 @end example
-but then the hyphen will be attached to the end of the first syllable.
- 
-If you want them centered between syllables you can use the special
-`@code{-}@code{-}' lyric as a separate word between syllables.  The
-hyphen will have variable length depending on the space between
-the syllables and it will be centered between the syllables.
- 
-Normally the notes that you enter are transformed into note heads.
-Note heads alone make no sense. They need surrounding information: a
-key signature, a clef, staff lines, etc.  They need @emph{context}.
-In LilyPond, these symbols are created by objects called
-`interpretation contexts'.  Interpretation contexts exist for
-generating notation (`notation context') and for generating sound
-(`performance context').  These objects only exist while LilyPond is
-executing.  For lyrics, the command
-@example
-  \context Lyrics
-@end example
-must be used to interpret a set of syllables as lyrics.
-
-
-@cindex context
-@cindex interpretation context
-@cindex notation context
-
-
-
-The melody and the lyrics can be combined with the @code{\addlyrics}:
-@example
-\addlyrics
-  \notes \relative c' @dots{}
-  \context Lyrics \lyrics @dots{} 
-@end example
-
-The lyrics are also music expressions, similar to notes. Each lyric
-syllable is put under a note of the melody.  The complete file is
-listed here:
-
-@example
-\score  @{ \notes @{ \addlyrics
-  \notes \relative c' @{
-    \time 7/4
-    d'2 c4 b16 ( a g a b a b ) c a2
-    b2 c4 b8 ( a16 g ) a4 g2 @}
-  \context Lyrics \lyrics @{ 
-    Join us now __ and
-    share the soft -- ware; @}
-@}
-\paper @{ raggedright = ##t @}
-@}
-@end example
-
+@lilypond[singleline]
+\score {
+  \addlyrics \notes \relative f' { \time 2/4
+    f4 f c' c' }
+    \lyrics { Twin -- kle twin -- kle
+ }}
+@end lilypond
 
 
 @node A melody with chords 
 @section A melody with chords
 
-In this section we show how to typeset a melody with chord
-accompaniment. This file is included in 
-@inputfileref{input/tutorial,flowing.ly}.
 
-@lilypondfile[verbatim,intertext="the result looks like"]{flowing.ly}
-
-
-@separate
-@example 
-
-        \include "paper16.ly"
- 
-@end example
-Smaller size (suitable for inclusion in a book).
-@separate
-@example 
-
-        melody = \notes \relative c' @{
- 
-@end example 
-The structure of the file will be the same as the previous one: a
-@code{\score} block with music in it.  To keep things readable, we will
-give different names to the different parts of music, and use the names
-to construct the music within the score block.
+@ignore
 
 @separate
 @example 
@@ -1255,7 +992,7 @@ boolean value @var{false}, turns it off.
         @}
  
 @end example 
-Finally, we put the melody on the current staff.  Note that the
+Finally, we put the melody on the current staff.   The
 @code{\property} directives and @code{\melody} are grouped in sequential
 music,  so the property settings are done before the melody is
 processed.
@@ -1285,6 +1022,9 @@ to 72 beats per minute.
 @end example 
 We also want notation output.  The linewidth is short so that the piece
 will be set in two lines.
+
+@end ignore 
+
 
 @node More stanzas
 @section More stanzas
@@ -1336,7 +1076,7 @@ also be used to get melismata on rests correct.
 
 We add the names of the singers.  This can be done by setting
 @code{LyricsVoice.Stanza} (for the first system) and
-@code{LyricsVoice.stz} for the following systems.  Note that you must
+@code{LyricsVoice.stz} for the following systems.   You must
 surround dots with spaces in @code{\lyrics} mode.
 
 @example
@@ -1547,7 +1287,7 @@ scoreB = \score @{ \deelA  @}
 @end example 
 Lilypond and its language are still under development, and
 occasionally details of the syntax are changed.  The @code{version}
-fragment indicates which version of lilypond the input file was written
+fragment indicates which version of LilyPond the input file was written
 for.  When you compile this file, the version number will be checked
 and you will get a warning when the file is too old.  This version
 number is also used by the @code{convert-ly} program (See
@@ -1863,7 +1603,7 @@ your own scores. To discover this, you must have a copy of the
 internals document. This is a set of HTML pages which should be
 included if you installed a binary distribution.  [TODO: revise for
 new site.]  These HTML pages are also available on the web: go to the
-lilypond website, click ``Documentation: Index'' on the side bar, look
+LilyPond website, click ``Documentation: Index'' on the side bar, look
 in the ``Information for uses'' section, and click on ``Documentation
 of internals''.
 
@@ -1878,7 +1618,7 @@ have matching version numbers.
 @c  TODO: the quote is incorrect, although that shouldn't be a big
 @c    problem for the reader.
 Suppose that you wanted to tune the behavior of the slur.  The first
-step is to get some general information on slurs in lilypond.  Turn to
+step is to get some general information on slurs in LilyPond.  Turn to
 the index, and look up ``slur''. The section on slurs says
 @quotation
 The grob for this object is @internalsref{Slur}, generally in
@@ -2062,7 +1802,7 @@ Finally, the last tie is forced up using @code{\tieUp}.
 
 @separate
 
-Here's the complete ``fine tuned'' version, which includes all the
+Here is the complete ``fine tuned'' version, which includes all the
 modifications we discussed in this section:
 
 @lilypondfile[verbatim]{brahms-tweaked.ly}
@@ -2331,7 +2071,7 @@ the online documentation or in the previous section of the tutorial.
       \context Staff = flauti <
 @end example
 A new notation context: the @code{StaffGroup}.  @code{StaffGroup} can
-hold one or more @code{Staff}'s, and will print a big bracket at the
+hold one or more @code{Staff}s, and will print a big bracket at the
 left of the score.  This starts a new staff group for the woodwind
 section (just the flutes in this case).  Immediately after that, we
 start the staff for the two flutes, who also play simultaneously.
@@ -2390,7 +2130,7 @@ lines of text.
           \context Thread=one \tromboI
           \context Thread=two \tromboII
 @end example
-You have seen the notation contexts Staff and Voice, but here's a new
+You have seen the notation contexts Staff and Voice, but here is a new
 one: Thread.  One or more Threads can be part of a Voice.  Thread
 takes care of note heads and rests; Voice combine note heads onto a
 stem.
@@ -2410,7 +2150,7 @@ when they are different.
 The french horn (``Corno'') has the most complex scheme markup name, made
 up of two lines of text.  The second line has three elements (columns) --
 the @code{(E}, the flat sign @code{text-flat} that we defined previously,
-and a final @code{")"}.  Note that we use a backquote instead of an
+and a final @code{")"}.  We use a backquote instead of an
 ordinary quote at the beginning of the Scheme expression to be able to
 access the @code{text-flat} identifier, `unquoting' it with a ``@code{,}''.
 
@@ -2441,9 +2181,9 @@ tutorial.
 
 @separate
 
-Usually LilyPond's default setup of notation contexts (Thread,
-Voice, Staff, Staffgroup, Score) is just fine.  But in this case we
-want a different type of Staff context.
+Usually the default setup of notation contexts (Thread, Voice, Staff,
+Staffgroup, Score) is just fine.  But in this case we want a different
+type of Staff context.
 
 @example
     \translator@{
@@ -2553,8 +2293,9 @@ there is an automated procedure to reduce the amount of work.
 If you use HTML, La@TeX{}, or Texinfo, you can mix text and LilyPond
 code.  A script called @code{lilypond-book} will extract the music
 fragments, run LilyPond on them, and put back the resulting notation.
-This program is fully described in @ref{lilypond-book manual}.  Here we show a small example.  Since the example
-also contains explanatory text, we will not comment it further.
+This program is fully described in @ref{lilypond-book manual}.  Here
+we show a small example.  Since the example also contains explanatory
+text, we will not comment it further.
 
 @example
 \documentclass[a4paper]@{article@}
