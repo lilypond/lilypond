@@ -50,7 +50,7 @@ class Completion_heads_engraver : public Engraver
   Link_array<Music> scratch_note_reqs_;
 
   Moment note_end_mom_;
-  bool first_b_;
+  bool is_first_;
   Rational left_to_do_;
   Rational do_nothing_until_;
   
@@ -71,7 +71,7 @@ protected:
 void
 Completion_heads_engraver::initialize ()
 {
-  first_b_ = false;
+  is_first_ = false;
 }
 
 bool
@@ -81,7 +81,7 @@ Completion_heads_engraver::try_music (Music *m)
     {
       note_reqs_.push (m);
 
-      first_b_ = true;
+      is_first_ = true;
       Moment musiclen = m->get_length ();
       Moment now = now_mom ();
 
@@ -159,10 +159,10 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
 void
 Completion_heads_engraver::process_music ()
 {
-  if (!first_b_ && !left_to_do_)
+  if (!is_first_ && !left_to_do_)
     return ;
   
-  first_b_ = false;
+  is_first_ = false;
 
   Moment now =  now_mom ();
   if (do_nothing_until_ > now.main_part_)
