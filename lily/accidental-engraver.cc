@@ -141,7 +141,7 @@ Accidental_engraver::initialize ()
 */
 static int
 number_accidentals_from_sig (bool *different,
-			     SCM sig, Pitch *pitch, int curbarnum, SCM lazyness, 
+			     SCM sig, Pitch *pitch, int curbarnum, SCM laziness, 
 			     bool ignore_octave)
 {
   int n = pitch->get_notename ();
@@ -158,13 +158,13 @@ number_accidentals_from_sig (bool *different,
       if (ly_c_pair_p (prev_local))
 	{
 	  if (ly_c_pair_p (ly_cdr (prev_local))
-	      && ly_c_number_p (lazyness)
+	      && ly_c_number_p (laziness)
 	      )
 	    {
 	      int barnum = ly_scm2int (ly_cddr (prev_local));
 
 	      prev_local = scm_cons (ly_car (prev_local), ly_cadr (prev_local));
-	      if (curbarnum <= barnum + ly_scm2int (lazyness))
+	      if (curbarnum <= barnum + ly_scm2int (laziness))
 		prev_alt = prev_local;
 	    }
 	}
@@ -213,7 +213,7 @@ number_accidentals (bool *different,
       if (ly_c_pair_p (rule))
 	{
 	  SCM type = ly_car (rule);
-	  SCM lazyness = ly_cdr (rule);
+	  SCM laziness = ly_cdr (rule);
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 
@@ -225,7 +225,7 @@ number_accidentals (bool *different,
 	    {
 	      bool d = false;
 	      int n = number_accidentals_from_sig
-		(&d, localsig, pitch, curbarnum, lazyness, any_octave_b);
+		(&d, localsig, pitch, curbarnum, laziness, any_octave_b);
 	      *different = *different || d;
 	      number = max (number, n);     
 	    }
