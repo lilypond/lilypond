@@ -57,9 +57,6 @@ rossBeams = \relative c'' {
    \new Voice {
      \override Beam #'position-callbacks = #(check-slope-callbacks =)
      \rossBeams
-     \override Beam #'position-callbacks = #(check-slope-callbacks <>)
-  \resetMeasure
-     \nonHorizBeams
      
    }
   \paper{
