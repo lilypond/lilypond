@@ -1,3 +1,4 @@
+#if 0
 /*
   abbreviation-beam.cc -- implement Abbreviation_beam
 
@@ -58,3 +59,4 @@ Abbreviation_beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
    */
   return Beam::stem_beams (here, next, prev);
 }
+#endif

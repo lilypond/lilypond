@@ -503,12 +503,16 @@ Lookup::staff_brace (Real y, int staff_size) const
     )
   */
 
+  Real step  = 1.0;
+  int minht  = 2 * staff_size;
+  int maxht = 7 *  minht;
+  int idx = ((maxht - step) <? y - minht) / step;
+  idx = idx >? 0;
   
-  Atom at  (gh_list (pianobrace_scm_sym,
-		     gh_double2scm (y),
-		     gh_int2scm (staff_size),
-		     SCM_UNDEFINED
-		     ));
+  SCM f =  ly_symbol (String ("feta-braces" + to_str (staff_size)));
+  SCM e =gh_list (char_scm_sym, gh_int2scm (idx), SCM_UNDEFINED);
+  Atom at  (e);
+  at.font_ = f;
   
   m.dim_[Y_AXIS] = Interval (-y/2,y/2);
   m.dim_[X_AXIS] = Interval (0,0);

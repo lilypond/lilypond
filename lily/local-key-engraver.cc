@@ -1,5 +1,5 @@
 /*
-  local-key-reg.cc -- implement Local_key_engraver
+  local-key-engraver.cc -- implement Local_key_engraver
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -15,13 +15,13 @@
 #include "note-head.hh"
 #include "time-description.hh"
 #include "engraver-group-engraver.hh"
-
+#include "grace-align-item.hh"
 
 Local_key_engraver::Local_key_engraver()
 {
   key_grav_l_ = 0;
   key_item_p_ =0;
-  self_grace_b_ = false;
+  grace_align_l_ =0;
 }
 
 void
@@ -45,8 +45,6 @@ Local_key_engraver::do_creation_processing ()
     {
       local_key_ = key_grav_l_->key_;
     }
-
-  self_grace_b_ = get_property ("weAreGraceContext",0 ).to_bool ();
 
   /*
     TODO
@@ -91,6 +89,12 @@ Local_key_engraver::process_acknowledged ()
 	    local_key_.set (note_l->pitch_);
 	}
     }
+  if (key_item_p_ && grace_align_l_)
+    {
+      grace_align_l_->add_support (key_item_p_);
+      grace_align_l_ =0;
+    }
+  
 }
 
 void
@@ -110,7 +114,8 @@ Local_key_engraver::do_pre_move_processing()
       typeset_element (key_item_p_);
       key_item_p_ =0;
     }
-  
+
+  grace_align_l_ = 0;
   mel_l_arr_.clear();
   tied_l_arr_.clear();
   support_l_arr_.clear();
@@ -119,12 +124,21 @@ Local_key_engraver::do_pre_move_processing()
 
 void
 Local_key_engraver::acknowledge_element (Score_element_info info)
-{    
+{
+  bool selfgr = get_property ("weAreGraceContext", 0).to_bool ();
+  bool he_gr = info.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+
+  Grace_align_item * gai = dynamic_cast<Grace_align_item*> (info.elem_l_);  
+  if (he_gr && !selfgr && gai)
+    {
+      grace_align_l_ = gai;
+    }
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
   Note_head * note_head = dynamic_cast<Note_head *> (info.elem_l_);
 
-  bool gr = (info.elem_l_->get_elt_property (grace_scm_sym)!=SCM_BOOL_F);
-  if (gr != self_grace_b_)
+
+  
+  if (he_gr != selfgr)
     return;
   
   if (note_l && note_head)

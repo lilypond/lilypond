@@ -11,7 +11,12 @@
 #include "engraver.hh"
 #include "key.hh"
 #include "parray.hh"
-
+/**
+   Make accidentals.  Catches note heads, ties and notices key-change
+   events.  Due to interaction with ties (which don't come together
+   with note heads), this needs to be in a context higher than Tie_engraver.
+   (FIXME).
+ */
 struct Local_key_engraver : Engraver {
   Local_key_item *key_item_p_;
 protected:
@@ -32,7 +37,7 @@ public:
   Link_array<Item > tied_l_arr_;
   Local_key_engraver();
   bool self_grace_b_;
-  
+  Grace_align_item * grace_align_l_;
 };
 
 #endif // LOCALKEYGRAV_HH

@@ -31,6 +31,7 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
     {
       warning (_ ("Slur over rest?"));
       o_[X_AXIS] = note_column->hpos_f ();
+      o_[Y_AXIS] = note_column->extent (Y_AXIS)[dir];
       return; 
     }
   
@@ -42,9 +43,14 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
 
   o_[X_AXIS] -= 0.5 * stem_l->dir_ * note_column->extent (X_AXIS).length ();
 
-  if (stem_l->dir_ == dir)
+  if ((stem_l->dir_ == dir)
+      && !stem_l->extent (Y_AXIS).empty_b ())
     {
       o_[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
+      // URG URG.
+      // some slur in choral.ly returns -inf here
+      if (abs (o_[Y_AXIS]) > 1000)
+	o_[Y_AXIS] = 0;
     }
   else
     {

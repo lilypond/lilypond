@@ -24,6 +24,10 @@ public:
 representing a musical notation symbol.  */
   Protected_scm func_;
   Protected_scm font_;
+
+  /*
+    TODO: move this into the font_ field.
+   */
   Protected_scm magn_;
 };
 

@@ -102,9 +102,6 @@ slurdotted =
 	\property Voice.slurdash = 1
 
 
-%{
- for grace note hack, see input/test/grace.ly
-%}
 tupletoff = {
 	\property Voice.tupletVisibility = 0
 }
@@ -113,7 +110,6 @@ tupleton = {
 }
 tiny  = {
 	\property Voice.fontSize= "-2"
-	\tupletoff %urg
 }
 
 small  = {
@@ -122,37 +118,7 @@ small  = {
 
 normalsize = {
 	\property Voice.fontSize= "0"
-	\tupleton %urg
 }
-
-%{
-  [urg: try at] temporary grace note hack
-  the total visible duration of the grace notes must be half
-  the duration of the 'at' note: e.g.:
-
-  \grace b8 \graceat c4 \ecarg
-  \grace c16 b16 \graceat c4 \ecarg
-
-grace = {
-	\tiny
-% it would be so cool not to have to specify these factors each time...
-% :-(
-	\property Voice.tupletVisibility = 0
-	\[1/16
-}
-
-graceat = \melodic {
-	\normalsize
-	\property Voice.tupletVisibility = 0
-	\] \[31/32
-}
-
-ecarg =  \melodic {
-	\property Voice.tupletVisibility = 0
-	\]
-	\property Voice.tupletVisibility = 3
-}
-%}
 
 normalkey = {
 	\property Staff.keyoctaviation = 1

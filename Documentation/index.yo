@@ -39,11 +39,10 @@ nsubsect(Documentation: manuals)
 
 
 itemize(
-it()url(Mudela)(../tex/DOEXPAND(outdir)/tutorial.html)
 it()url(User documentation)(../tex/DOEXPAND(outdir)/index.html)
 it()url(Hacker documentation)(../metadoc/DOEXPAND(outdir)/index.html)
 it()url(Manual pages)(../man/DOEXPAND(outdir)/index.html)
-it()url(Bibliography)(../bibliography/DOEXPAND(outdir)/vocabulary.html)
+it()url(Bibliography)(../bibliography/DOEXPAND(outdir)/)
 it()url(Musical vocabulary)(../tex/DOEXPAND(outdir)/vocabulary.html)
 )
 

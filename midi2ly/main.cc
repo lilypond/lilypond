@@ -1,6 +1,5 @@
 //
-// main.cc -- implement silly main () entry point
-// should have Root class.
+// main.cc -- implement  main () entry point
 //
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 

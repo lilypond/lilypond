@@ -9,12 +9,11 @@
 #include "axis-group-element.hh"
 #include "graphical-axis-group.hh"
 
-
-
 Link_array<Score_element>
 Axis_group_element::get_extra_dependencies() const
 {
-  return elem_l_arr ();
+  Link_array<Score_element> e(elem_l_arr ());
+  return e;
 }
 
 Link_array<Score_element>
@@ -35,6 +34,7 @@ Axis_group_element::get_children ()
 {
   Link_array<Score_element> childs;
   Link_array<Score_element> elems = elem_l_arr ();
+  elems.concat (extra_elems_ );
   for (int i=0; i < elems.size (); i++) 
     {
       Score_element* e = elems[i];
@@ -72,21 +72,71 @@ Axis_group_element::do_substitute_element_pointer (Score_element*o,
 						   Score_element*n)
 {
   int i;
-  while ((i = elem_l_arr_.find_i (o))>=0) 
-    if (n) 
+  Graphical_element * go = o;
+  Graphical_element * gn = n;  
+  
+  while ((i = elem_l_arr_.find_i (go))>=0)
+    elem_l_arr_.substitute (go,gn);
+#if 0
+  if (n) 
       elem_l_arr_[i] = n;
     else
       elem_l_arr_.del (i);
+#endif
+  extra_elems_.substitute (o, n);
+}
+
+Interval
+Axis_group_element::extra_extent (Axis a )const
+{
+  Interval g;
+  for (int i=0;  i < extra_elems_.size (); i++)
+    {
+      Interval ge = extra_elems_[i]->extent (a);
+      ge += extra_elems_[i]->relative_coordinate (dim_cache_[a], a);
+      g.unite (ge);
+    }
+  return g;
 }
 
 Interval
 Axis_group_element::do_height () const
 {
-  return Graphical_axis_group::extent (Y_AXIS);
+  Interval gag = Graphical_axis_group::extent (Y_AXIS);
+  gag.unite (extra_extent (Y_AXIS));
+  return gag;
 }
 
 Interval
 Axis_group_element::do_width () const
 {
-  return Graphical_axis_group::extent (X_AXIS);
+  Interval gag = Graphical_axis_group::extent (X_AXIS);
+  gag.unite (extra_extent (X_AXIS));
+  return gag;
+}
+
+
+/*
+  UGH.
+ */
+void
+Axis_group_element::add_extra_element (Score_element *e)
+{
+  Link_array<Score_element> se;
+  while (e && e != this)
+    {
+      se.push (e);
+      e = dynamic_cast<Score_element*> (e->dim_cache_[Y_AXIS]->parent_l_ ? e->dim_cache_[Y_AXIS]->parent_l_->element_l() : 0);
+    }
+
+  if (1)			// e == this)
+    {
+      for (int i=0; i < se.size( ); i++) 
+	{
+	  extra_elems_.push (se[i]);
+	  add_dependency (se[i]);
+	  se[i]->set_elt_property (ly_symbol ("Axis_group_element::add_extra_element"), SCM_BOOL_T); // UGH GUH.
+	}
+      
+    }
 }

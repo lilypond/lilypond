@@ -1,3 +1,30 @@
+pl 59.uu1
+	- papervar loose_column_distance
+	- scripts don't collide.
+	- midi2ly outputs \context iso \type
+
+pl 59.jbr1
+        - lily/colhpos.cc: fixed typo
+        - Documentation/ntweb: Updated News and added all the files 
+          associated with Windows Distribution web page.
+        - stepmake/bin/package-zip32.sh: added the ntweb page to formated
+          distribution.
+
+pl 59.jcn1
+ 	- bfs: slur damping
+	- papervar slur_interstaff_snap_to_stem
+
+pl 59.hwn1
+	- \property graceAlignPosition : put grace notes after main note.
+	- moved pianobrace stuff into Lookup
+	- moved Local_key_engraver out of Voice context, and
+acknowledge Grace_align_items.  Solves tie + accidental problem.
+
+pl 59.mb1
+	- Some small clean-ups and bug fixes
+
+***********
+
 pl 58.uu1
 	- experimental pdftex support, courtesy Stephen Peters.
 	- --version support
@@ -5,7 +32,7 @@ pl 58.uu1
 	- only stretch the extra space after prefatory matter, not the
 entire width of prefatory matter.
 	- standardise(d) switches:-d for debug, -M for Make deps, -m for midi-only.
-	- bf: non_musical_space_strength  now works. Set to 8 (-> Strong! )
+	- bf: papervar non_musical_space_strength  now works. Set to 8 (-> Strong! )
 	- bf: space after time_sig.
 	- bf: decrescendi.
 	- bf: barlines on voltas

@@ -38,9 +38,12 @@ fi
 
 distdir=/tmp/${name}
 
-rm -f ${srcdir}/config.cache
-PYTHON=${PYTHON:-python} ${srcdir}/configure --prefix=${distdir} \
-    --srcdir=${srcdir}
+#
+# Maybe we can get away without reconfiguring
+#
+# rm -f ${srcdir}/config.cache
+# PYTHON=${PYTHON:-python} ${srcdir}/configure --prefix=${distdir} \
+#     --srcdir=${srcdir}
 
 if ! make ; then
     echo "make failed"
@@ -109,6 +112,19 @@ mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 #
 mkdir $distdir/doc
 cp Documentation/man/out/*.html $distdir/doc
+
+#
+# copy web documentation to web directory
+#
+mkdir $distdir/web
+for i in index.html guile.patch angels.ly
+do
+  cp Documentation/ntweb/out/$i $distdir/web || exit 1
+done
+
+#
+# Zip it up
+#
 cd $distdir/..
 $ZIP_CMD $ZIP_FILE $name
 echo "Wrote $ZIP_FILE"

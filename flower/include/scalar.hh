@@ -26,6 +26,8 @@ struct Scalar : public String
   operator Rational();
   Scalar() {}
   bool isnum_b() const;
+  bool isdir_b() const;
+  bool isint_b() const;
   operator Real();
   operator int();
   bool to_bool () const;

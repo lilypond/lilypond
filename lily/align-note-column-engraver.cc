@@ -18,7 +18,7 @@
  */
 class Align_note_column_engraver: public Engraver
 {
-  Axis_align_item * align_item_p_;
+  Grace_align_item * align_item_p_;
   Note_column * now_column_l_;
   Local_key_item * accidental_l_;
 
@@ -50,6 +50,12 @@ Align_note_column_engraver::do_creation_processing ()
 void
 Align_note_column_engraver::do_removal_processing ()
 {
+  Scalar al = get_property ("graceAlignPosition", 0);
+  if (al.isdir_b ())
+    {
+      align_item_p_->notehead_align_dir_ = int (al);
+    }
+  
   typeset_element (align_item_p_);
   align_item_p_ =0;
 }

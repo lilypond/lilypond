@@ -40,10 +40,7 @@ Axis_group_engraver::do_removal_processing ()
 void
 Axis_group_engraver::acknowledge_element (Score_element_info i)
 {
-  if (!i.elem_l_->parent_l (Y_AXIS))
-    {
-      elts_.push (i.elem_l_);
-    }
+  elts_.push (i.elem_l_);
 }
 
 void
@@ -53,6 +50,12 @@ Axis_group_engraver::process_acknowledged ()
     {
       if (!elts_[i]->parent_l (Y_AXIS))
 	staffline_p_->add_element (elts_[i]);
+
+      /* UGH UGH UGH */
+      else if (elts_[i]->get_elt_property (ly_symbol ("Axis_group_element::add_extra_element")) == SCM_BOOL_F)
+	{
+	  staffline_p_->add_extra_element (elts_[i]);
+	}
     }
   elts_.clear ();
 }

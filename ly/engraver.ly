@@ -19,6 +19,8 @@ StaffContext=\translator {
 	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
+	\consists "Local_key_engraver";
+
 	\consistsend "Axis_group_engraver";
 
 
@@ -82,8 +84,8 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
-	\consists "Local_key_engraver";
-	
+
+	\consists "Tie_engraver";
 	\consists "Breathing_sign_engraver";
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
@@ -102,7 +104,6 @@ VoiceContext = \translator {
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
-	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";
 	\consists "Grace_position_engraver";
 	\consists "Skip_req_swallow_translator";
