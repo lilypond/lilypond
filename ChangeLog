@@ -1,3 +1,23 @@
+
+2003-03-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/breathing-sign.cc, lily/include/breathing-sign.hh,
+	scm/grob-description.scm: moved Michael's original breathing sign
+	code in brew_molecule() to divisio_minima(); provided new
+	brew_molecule() that effectively replaces the
+	Text_item::brew_molecule callback (with additional fallback to
+	Michael's original code); added callbacks for brewing divisio
+	maior/maxima and finalis
+
+	* gregorian-init.ly: added breathing sign shortcuts for virgula,
+	caesura, divisiominima, divisiomaior, divisiomaxima, and finalis
+
+	* script-init.ly: added shortfermata, longfermata,
+	verylongfermata, varcoda
+
+	* scm/script.scm, mf/feta-schrift.mf: added shortfermata,
+	longfermata, verylongfermata, varcomma, varcoda
+
 2003-03-19  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* Documentation/user/{tutorial.itely,refman.itely,internals.itely}: 
