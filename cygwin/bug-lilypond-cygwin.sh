@@ -30,12 +30,14 @@ echo Availability of executables
 echo ===========================
 type -p tex
 type -p latex
+type -p kpsewhich
 type -p lilypond
 type -p python
 type -p ly2dvi
 
 type -p tex.exe
 type -p latex.exe
+type -p kpsewhich.exe
 type -p lilypond.exe
 type -p python.exe
 
@@ -51,6 +53,8 @@ cd /tmp/lily
 rm -f example-1.* sample2e.*
 ls -l
 latex \\nonstopmode \\input sample2e
+kpsewhich feta20.mf
+kpsewhich feta20.pk
 cp $docdir/input/example-1.ly .
 cp $docdir/input/example-2.ly .
 lilypond example-1.ly
@@ -63,6 +67,7 @@ ls -l
 echo
 echo Environment settings
 echo ====================
+# If python is ok and ly2dvi runs, this all is not really necessary.
 echo HOME="<$HOME>"
 echo SHELL="<$SHELL>"
 echo LILYPONDPREFIX="<$LILYPONDPREFIX>"
@@ -70,7 +75,8 @@ echo TEXMF="<$TEXMF>"
 echo MFINPUTS="<$MFINPUTS>"
 echo TFMFONTS="<$TFMFONTS>"
 echo TEXINPUTS="<$TEXINPUTS>"
-
+# do we want to know all?
+#set
 
 echo
 echo System information
