@@ -1,3 +1,19 @@
+2002-11-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (include_path): print warning if failing anything.
+
+	* python/lilylib.py (error): add space
+
+2002-11-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in (EXTRA_DIST_FILES): add lilypond.words for
+	distribution.
+
+2002-11-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/paper-outputter.cc (Paper_outputter): close port when
+	finishing score.
+
 2002-11-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/sodipodi.scm: Fixes.
@@ -93,7 +109,8 @@
 
 2002-11-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/beam-engraver.cc (stop_translation_timestep): reset now_stop_ev_
+	* lily/beam-engraver.cc (stop_translation_timestep): reset
+	now_stop_ev_
 
 	* lily/scm-option.cc: add parse-protect to ly:set-option
 
@@ -104,15 +121,16 @@
 	* lily/include/ligature-bracket.hh: removed
 	* lily/ligature-bracket.cc: removed
 
-	* lilypond-mode.el (LilyPond-expand-alist): set LaTeX extension to .tex
+	* lilypond-mode.el (LilyPond-expand-alist): set LaTeX extension to
+	.tex
 
 	* lily/beam.cc (set_beaming): don't change beam count on rests.
 	(brew_molecule): always set flag-width > 0.
 
 2002-11-19  Heikki Junes <hjunes@cc.hut.fi>
 
-	* lilypond-mode.el: LilyPond-imenu-generic-re: only alphabetic chars,
-	remove instructions; instead, refer to lilypond-init.el and
+	* lilypond-mode.el: LilyPond-imenu-generic-re: only alphabetic
+	chars, remove instructions; instead, refer to lilypond-init.el and
 	Documentation/topdocs/INSTALL.texi.
 
 	* lilypond.words: add identifiers and reserved words.

@@ -52,7 +52,8 @@ Paper_outputter::Paper_outputter (String name)
 
 Paper_outputter::~Paper_outputter ()
 {
-  
+  scm_close_port (file_);
+  file_ = SCM_EOL;
 }
 
 

@@ -121,18 +121,14 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
 
 	
       */
-
       ;
     }
   else
     {
       warning (_("Unknown internal option!"));
     }
-  
 
   return SCM_UNSPECIFIED;
 }
-
-
 
 

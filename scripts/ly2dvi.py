@@ -530,8 +530,22 @@ None.
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -tlandscape'
 
+
 	if 'PDF' in targets:
-		opts = opts + ' -Ppdf -G0 -u lilypond.map'
+		where = os.popen ('kpsewhich feta20.pfa').read()
+
+		pfa_file  = None
+		if where:
+			try: 
+				pfa_file = open (where, 'r')
+			except IOError:
+				pass
+
+		if pfa_file:
+			opts = opts + ' -Ppdf -G0 -u lilypond.map'
+		else:
+			ly.warning (_ ('''Trying create PDF, but no PFA fonts found.
+Using bitmap fonts instead. This will look poorly.'''))
 		
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	ly.system (cmd)
@@ -737,19 +751,19 @@ if 1:
 		try:
 			run_lilypond (files, dep_prefix)
 		except:
+			### ARGH. This also catches python programming errors.
+			### this should only catch lilypond nonzero exit  status
+			### --hwn
+
+			
  			# TODO: friendly message about LilyPond setup/failing?
  			#
- 			# TODO: lilypond should fail with different
- 			# error codes for:
- 			#   - guile setup/startup failure
- 			#   - font setup failure
- 			#   - init.ly setup failure
- 			#   - parse error in .ly
- 			#   - unexpected: assert/core dump
 			targets = []
 			if verbose_p:
 				traceback.print_exc ()
-
+			else:
+				ly.warning (_("Running LilyPond failed. Rerun with --verbose for a trace."))
+				
 	# Our LilyPond pseudo filter always outputs to 'lelie'
 	# have subsequent stages and use 'lelie' output.
 	if pseudo_filter_p:
@@ -779,11 +793,14 @@ if 1:
 	if 'PS' in targets:
 		try:
 			run_dvips (outbase, extra_init)
+			
 		except: 
 			if 'PS' in targets:
 				targets.remove ('PS')
 			if verbose_p:
 				traceback.print_exc ()
+			else:
+				ly.warning (_("Failed to make PS file. Rerun with --verbose for a trace."))
 
 	if 'PNG' in  targets:
 		ly.make_preview (outbase)
@@ -808,6 +825,9 @@ if 1:
 				targets.remove ('PS')
 			if verbose_p:
 				traceback.print_exc ()
+			else:
+				ly.warning (_("Running LaTeX falied. Rerun with --verbose for a trace."))
+				
 
 	# add DEP to targets?
 	if track_dependencies_p:

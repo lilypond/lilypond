@@ -120,10 +120,10 @@ def progress (s):
 	sys.stderr.write (s)
 
 def warning (s):
-	sys.stderr.write (__main__.program_name + ":" + _ ("warning: ") + s + '\n')
+	sys.stderr.write (__main__.program_name + ": " + _ ("warning: ") + s + '\n')
 
 def error (s):
-	sys.stderr.write (__main__.program_name + ":" + _ ("error: ") + s + '\n')
+	sys.stderr.write (__main__.program_name + ": " + _ ("error: ") + s + '\n')
 	
 def exit (i):
 	if __main__.verbose_p:
