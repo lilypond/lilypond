@@ -11,7 +11,7 @@ basic faults in lily, this file will not run correctly.
 
 TODO:
 
-* repeats.
+* autochange.
 
 * tremolo
 
