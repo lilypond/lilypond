@@ -541,6 +541,22 @@ Rest can contain a list of beat groupings
   (if (func grob)
       (ly:set-grob-property! grob sym val)))
 
+
+(define-public ((set-output-property grob-name symbol val)  grob grob-c context)
+   "Usage:
+
+\\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))
+
+"
+   
+   (let*
+       ((meta (ly:get-grob-property grob 'meta)))
+
+     (if (equal?  (cdr (assoc 'name meta)) grob-name)
+	 (ly:set-grob-property! grob symbol val)
+	 )))
+
+
 ;;
 (define-public (smart-bar-check n)
   "Make  a bar check that checks for a specific bar number. 

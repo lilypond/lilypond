@@ -234,8 +234,8 @@ def set_setting (dict, key, val):
 
 
 def escape_shell (x):
-	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
-	# help emacs'" broken python mode
+	return re.sub ("(\s|[`'\"\\\\])", r'\\\1',x)
+
 
 def run_lilypond (files, dep_prefix):
 	def make_include_option (x):
