@@ -5,7 +5,7 @@ Example usage:
 
 test:
      lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
-	  
+
 convert-ly on book:
      lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
 
@@ -17,7 +17,7 @@ TODO:
     *  --linewidth?
     *  eps in latex / eps by lilypond -fps ?
     *  check latex parameters, twocolumn, multicolumn?
-      
+
     *  Converting from lilypond-book source, substitute:
        @mbinclude foo.itely -> @include foo.itely
        \mbinput -> \input
@@ -32,7 +32,7 @@ import string
 #
 # TODO:
 #
-#  * use --png --ps --pdf for making images? 
+#  * use --png --ps --pdf for making images?
 #
 
 ################################################################
@@ -50,7 +50,7 @@ import getopt, os, sys
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
-if os.environ.has_key ('LILYPONDPREFIX') :
+if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
@@ -100,7 +100,7 @@ option_definitions = [
 include_path = [ly.abspath (os.getcwd ())]
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 
-# only use installed binary  when we're installed too.
+# only use installed binary when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
@@ -142,92 +142,222 @@ TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
 
-# Recognize special sequences in the input 
+# Recognize special sequences in the input;
 #
 # (?P<name>regex) -- assign result of REGEX to NAME
 # *? -- match non-greedily.
 # (?m) -- multiline regex: make ^ and $ match at each line
 # (?s) -- make the dot match all characters including newline
+# (?x) -- ignore whitespace in patterns
 no_match = 'a\ba'
 snippet_res = {
 	HTML: {
-	'include':  no_match,
-	'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
-	'lilypond_block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
-	'lilypond_file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
-	'multiline_comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
-	'singleline_comment': no_match,
-	'verb': r'''(?P<code><pre>.*?</pre>)''',
-	'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
+	'include':
+	  no_match,
+	'lilypond':
+	  r'''(?mx)
+	    (?P<match>
+	    <lilypond
+	      ((?P<options>[^:]*):)
+	      (?P<code>.*?)
+	    />)''',
+	'lilypond_block':
+	  r'''(?msx)
+	    (?P<match>
+	    <lilypond
+	      (?P<options>[^>]+)?
+	    >
+	    (?P<code>.*?)
+	    </lilypond>)''',
+	'lilypond_file':
+	  r'''(?mx)
+	    (?P<match>
+	    <lilypondfile
+	      (?P<options>[^>]+)?
+	    >\s*
+	      (?P<filename>[^<]+)\s*
+	    </lilypondfile>)''',
+	'multiline_comment':
+	  r'''(?smx)
+	    \s*(?!@c\s+)
+	    (?P<code><!--\s.*?!-->)
+	    \s''',
+	'singleline_comment':
+	  no_match,
+	'verb':
+	  r'''(?x)
+	    (?P<code><pre>.*?</pre>)''',
+	'verbatim':
+	  r'''(?x)
+	    (?s)
+	    (?P<code><pre>\s.*?</pre>\s)''',
 	},
 
 	LATEX: {
-	'include': r'(?m)^[^%\n]*?(?P<match>\\input{(?P<filename>[^}]+)})',
-	'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
-	'lilypond_block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
-	'lilypond_file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
-	'multiline_comment': no_match,
-	'singleline_comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
-	'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-	'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
+	'include':
+	  r'''(?mx)
+	    ^[^%\n]*?
+	    (?P<match>
+	    \\input{
+	      (?P<filename>[^}]+)
+	    })''',
+	'lilypond':
+	  r'''(?smx)
+	    ^[^%\n]*?
+	    (?P<match>
+	    \\lilypond\s*(
+	    \[
+	      (?P<options>.*?)
+	    \])?\s*{
+	      (?P<code>.*?)
+	    })''',
+	'lilypond_block':
+	  r'''(?smx)
+	    ^[^%\n]*?
+	    (?P<match>
+	    \\begin\s*(
+	    \[
+	      (?P<options>.*?)
+	    \])?\s*{lilypond}
+	      (?P<code>.*?)
+	    ^[^%\n]*?
+	    \\end{lilypond})''',
+	'lilypond_file':
+	  r'''(?mx)
+	    ^[^%\n]*?
+	    (?P<match>
+	    \\lilypondfile\s*(
+	    \[
+	      (?P<options>.*?)
+	    \])?\s*\{
+	      (?P<filename>.+)
+	    })''',
+	'multiline_comment':
+	  no_match,
+	'singleline_comment':
+	  r'''(?mx)
+	    ^.*?
+	    (?P<match>
+	      (?P<code>
+	      ^%.*$\n+))''',
+	'verb':
+	  r'''(?x)
+	    (?P<code>
+	    \\verb(?P<del>.)
+	      .*?
+	    (?P=del))''',
+	'verbatim':
+	  r'''(?sx)
+	    (?P<code>
+	    \\begin\s*{verbatim}
+	      .*?
+	    \\end{verbatim})''',
 	},
 
 	TEXINFO: {
-	'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S+))',
-	'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
-	'lilypond_block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
-	'lilypond_file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
-	'multiline_comment': r'(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end\s+ignore)\s',
-	'singleline_comment': r'(?m)^.*(?P<match>(?P<code>@c([ \t][^\n]*|)\n))',
+	'include':
+	  r'''(?mx)
+	    ^[^%\n]*?
+	    (?P<match>
+	    @include\s+
+	      (?P<filename>\S+))''',
+	'lilypond':
+	  r'''(?mx)
+	    ^
+	    (?P<match>
+	    @lilypond(
+	    \[
+	      (?P<options>[^]]*)
+	    \])?{
+	      (?P<code>.*?)
+	    })''',
+	'lilypond_block':
+	  r'''(?msx)
+	    ^
+	    (?P<match>
+	    @lilypond(
+	    \[
+	      (?P<options>[^]]*)
+	    \])?\s
+	    (?P<code>.*?)
+	    @end lilypond)\s''',
+	'lilypond_file':
+	  r'''(?mx)
+	    ^
+	    (?P<match>
+	    @lilypondfile(
+	    \[
+	      (?P<options>[^]]*)
+	    \])?{
+	      (?P<filename>[^}]+)
+	    })''',
+	'multiline_comment':
+	  r'''(?smx)
+	    ^\s*(?!@c\s+)
+	    (?P<code>
+	    @ignore
+	      \s.*?
+	    @end\s+ignore)\s''',
+	'singleline_comment':
+	  r'''(?mx)
+	    ^.*
+	    (?P<match>
+	      (?P<code>
+	      @c([ \t][^\n]*|)\n))''',
 
 # don't do this: fucks up with @code{@{}
 #	'verb': r'''(?P<code>@code{.*?})''',
-	'verbatim': r'''(?s)(?P<code>@example\s.*?@end\s+example\s)''',
+	'verbatim':
+	  r'''(?sx)
+	    (?P<code>
+	    @example
+	      \s.*?
+	    @end\s+example\s)''',
 	},
-	}
+}
 
 format_res = {
 	HTML: {
-	'option-sep' : '\s*',
+	'option-sep': '\s*',
 	'intertext': r',?\s*intertext=\".*?\"',
 	},
 	LATEX: {
 	'intertext': r',?\s*intertext=\".*?\"',
-	'option-sep' : ',\s*',
+	'option-sep': ',\s*',
 	},
 	TEXINFO: {
 	'intertext': r',?\s*intertext=\".*?\"',
-	'option-sep' : ',\s*',
+	'option-sep': ',\s*',
 	},
-	}
+}
 
 ly_options = {
 	NOTES: {
 		RELATIVE: r'''\relative c%(relative_quotes)s''',
 	},
 	PAPER: {
-		INDENT : r'''
+		INDENT: r'''
     indent = %(indent)s''',
-	'linewidth' : r'''
+	'linewidth': r'''
     linewidth = %(linewidth)s''',
-		NOINDENT : r'''
-    indent = 0.0\mm''',	
-		QUOTE : r'''
+		NOINDENT: r'''
+    indent = 0.0\mm''',
+		QUOTE: r'''
     linewidth = %(linewidth)s - 2.0 * %(exampleindent)s
-''',	
-		RAGGEDRIGHT : r'''
+''',
+		RAGGEDRIGHT: r'''
     indent = 0.0\mm
     raggedright = ##t''',
 	},
 
 	##
 	LAYOUT: {
-		EXAMPLEINDENT : '',
+		EXAMPLEINDENT: '',
 
-		NOTIME : r'''
+		NOTIME: r'''
     \context {
-        \Staff
-        \remove Time_signature_engraver
+	\Staff
+	\remove Time_signature_engraver
     }''',
 	},
 
@@ -235,16 +365,16 @@ ly_options = {
 	PREAMBLE: {
 		STAFFSIZE: r'''
 #(set-global-staff-size %(staffsize)s)''',
-		},
-	}
+	},
+}
 
 output = {
-	HTML : {
+	HTML: {
 	FILTER: r'''<lilypond %(options)s>
 %(code)s
 </lilypond>
 ''',
-	
+
 	AFTER: r'''
   </a>
 </p>''',
@@ -253,17 +383,17 @@ output = {
   <a href="%(base)s.ly">''',
 	OUTPUT: r'''
     <img align="center" valign="center"
-         border="0" src="%(image)s" alt="[image of music]">''',
+	 border="0" src="%(image)s" alt="[image of music]">''',
 	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
 	QUOTE: r'''<blockquote>
 %(str)s
 </blockquote>
-''',	
+''',
 	VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 	},
 
-	LATEX :	{
+	LATEX:	{
 	AFTER: '',
 	BEFORE: '',
 	OUTPUT: r'''{\parindent 0pt
@@ -279,7 +409,7 @@ output = {
 	QUOTE: r'''\begin{quotation}
 %(str)s
 \end{quotation}
-''',	
+''',
 	VERBATIM: r'''\noindent
 \begin{verbatim}
 %(verb)s\end{verbatim}
@@ -289,7 +419,7 @@ output = {
 \end{lilypond}''',
 	},
 
-	TEXINFO : {
+	TEXINFO: {
 	FILTER: r'''@lilypond[%(options)s]
 %(code)s
 @lilypond''',
@@ -297,7 +427,7 @@ output = {
 	BEFORE: '',
 	OUTPUT: r'''@noindent
 @image{%(base)s,,,[image of music],%(ext)s}
-''',	
+''',
 	PRINTFILENAME: '''@file{%(filename)s}
 
 	''',
@@ -312,7 +442,7 @@ output = {
 @exampleindent 5
 ''',
 	},
-	}
+}
 
 PREAMBLE_LY = r"""%%%% Generated by %(program_name)s
 %%%% Options: [%(option_string)s]
@@ -333,7 +463,7 @@ PREAMBLE_LY = r"""%%%% Generated by %(program_name)s
 
 FRAGMENT_LY = r'''
     %(notes_string)s{
-        %(code)s    }
+	%(code)s    }
 '''
 FULL_LY = '%(code)s'
 
@@ -343,7 +473,7 @@ texinfo_linewidths = {
 	'@afourlatex': '150 \\mm',
 	'@smallbook': '5 \\in' ,
 	'@letterpaper': '6\\in',
-	}
+}
 
 def classic_lilypond_book_compatibility (o):
 	if o == 'singleline':
@@ -369,7 +499,7 @@ def compose_ly (code, options):
 	for i in default_ly_options.keys ():
 		if i not in options:
 			options.append (i)
-	
+
 	#Hmm
 	if QUOTE in options and LINEWIDTH in options:
 		options.remove (LINEWIDTH)
@@ -396,7 +526,7 @@ def compose_ly (code, options):
 	option_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
 	for a in option_types:
 		options_dict[a] = []
-		
+
 	for i in options:
 		c = classic_lilypond_book_compatibility (i)
 		if c:
@@ -404,7 +534,7 @@ def compose_ly (code, options):
 			ly.warning (_ ("compatibility mode translation: %s" \
 				       % c))
 			i = c
-		
+
 		if string.find (i, '=') > 0:
 			key, value = string.split (i, '=')
 			override[key] = value
@@ -416,7 +546,7 @@ def compose_ly (code, options):
 		found = 0
 		for type in option_types:
 			if ly_options[type].has_key (key):
-				
+
 				options_dict[type].append (ly_options[type][key])
 				found = 1
 				break
@@ -436,7 +566,7 @@ def compose_ly (code, options):
 		relative_quotes += ',' * (- relative)
 	elif relative > 0:
 		relative_quotes += "'" * relative
-		
+
 	program_name = __main__.program_name
 
 	paper_string = string.join (options_dict[PAPER], '\n    ') % override
@@ -453,7 +583,7 @@ def to_eps (file):
 	cmd = r'latex "\nonstopmode \input %s"' % file
 	# Ugh.  (La)TeX writes progress and error messages on stdout
 	# Redirect to stderr
-	cmd = '(( %s  >&2 ) >&- )' % cmd
+	cmd = '(( %s >&2 ) >&- )' % cmd
 	ly.system (cmd)
 	ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -E -o %s.eps %s' \
 		   % (file, file))
@@ -464,16 +594,16 @@ def to_eps (file):
 
 	# TODO: should run dvips -pp -E per page, then we get proper
 	# cropping as well.
-	
+
 	f = open ('%s.eps' % file)
-	for x in range(0,10) :
+	for x in range(0,10):
 		if re.search ("^%%Pages: ", f.readline ()):
 
 			# make non EPS.
 			ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -o %s.eps %s' \
 				   % (file, file))
 			break
-	
+
 
 def find_file (name):
 	for i in include_path:
@@ -483,7 +613,7 @@ def find_file (name):
 	ly.error (_ ('file not found: %s') % name + '\n')
 	ly.exit (1)
 	return ''
-	
+
 def verbatim_html (s):
 	return re.sub ('>', '&gt;',
 		       re.sub ('<', '&lt;',
@@ -501,7 +631,7 @@ def split_options (option_string):
 class Chunk:
 	def replacement_text (self):
 		return ''
-	
+
 	def filter_text (self):
 		return self.replacement_text ()
 
@@ -520,7 +650,7 @@ class Substring (Chunk):
 
 	def replacement_text (self):
 		return self.source [self.start:self.end]
-	
+
 class Snippet (Chunk):
 	def __init__ (self, type, match, format):
 		self.type = type
@@ -531,12 +661,12 @@ class Snippet (Chunk):
 
 	def replacement_text (self):
 		return self.match.group (0)
-	
+
 	def substring (self, s):
 		return self.match.group (s)
 
 	def __repr__ (self):
-		return `self.__class__`  +  " type =  " + self.type
+		return `self.__class__` + " type = " + self.type
 
 class Include_snippet (Snippet):
 	def processed_filename (self):
@@ -546,7 +676,7 @@ class Include_snippet (Snippet):
 	def replacement_text (self):
 		s = self.match.group (0)
 		f = self.substring ('filename')
-	
+
 		return re.sub (f, self.processed_filename (), s)
 
 class Lilypond_snippet (Snippet):
@@ -558,7 +688,7 @@ class Lilypond_snippet (Snippet):
 
 	def ly (self):
 		return self.substring ('code')
-		
+
 	def full_ly (self):
 		s = self.ly ()
 		if s:
@@ -579,9 +709,9 @@ class Lilypond_snippet (Snippet):
 	def write_ly (self):
 		outf = open (self.basename () + '.ly', 'w')
 		outf.write (self.full_ly ())
-		
+
 		open (self.basename() + '.txt', 'w').write("image of music")
-		
+
 
 	def ly_is_outdated (self):
 		base = self.basename ()
@@ -592,13 +722,13 @@ class Lilypond_snippet (Snippet):
 		     and os.stat (tex_file)[stat.ST_SIZE] \
 		     and open (tex_file).readlines ()[-1][1:-1] \
 		     == 'lilypondend'
-			
+
 		if ok and (use_hash_p or self.ly () == open (ly_file).read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
 			return None
 		return self
-	
+
 	def png_is_outdated (self):
 		base = self.basename ()
 		ok = self.ly_is_outdated ()
@@ -606,20 +736,21 @@ class Lilypond_snippet (Snippet):
 			ok = ok and (os.path.exists (base + '.png')
 				     or glob.glob (base + '-page*.png'))
 		return not ok
-	
+
 	def filter_text (self):
-		code  = self.substring ('code')
+		code = self.substring ('code')
 		s = run_filter (code)
-		d = {'code' : s,
-		     'options': self.match.group ('options')
-		     }
+		d = {
+		  'code': s,
+		  'options': self.match.group ('options')
+		}
 		# TODO
 		return output[self.format][FILTER] % d
-	
+
 	def replacement_text (self):
 		func = Lilypond_snippet.__dict__ ['output_' + self.format]
 		return func (self)
-	
+
 	def get_images (self):
 		base = self.basename ()
 		# URGUGHUGHUGUGHU
@@ -632,7 +763,7 @@ class Lilypond_snippet (Snippet):
 			    > os.stat (single)[stat.ST_MTIME])):
 			images = glob.glob ('%(base)s-page*.png' % vars ())
 		return images
-		
+
 	def output_html (self):
 		str = ''
 		base = self.basename ()
@@ -656,7 +787,7 @@ class Lilypond_snippet (Snippet):
 		str = output[TEXINFO][BEFORE] % vars ()
 		for image in self.get_images ():
 			base, ext = os.path.splitext (image)
-			
+
 			# URG, makeinfo implicitely prepends dot to ext
 			# specifying no extension is most robust
 			ext = ''
@@ -669,20 +800,20 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 		if format == LATEX:
 			str += self.output_print_filename (LATEX)
-			if  VERBATIM in self.options:
+			if VERBATIM in self.options:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
 			if QUOTE in self.options:
 				str = output[LATEX][QUOTE] % vars ()
 
-		str +=  (output[LATEX][BEFORE]
-			 + (output[LATEX][OUTPUT] % vars ())
-			 + output[LATEX][AFTER])
+		str += (output[LATEX][BEFORE]
+			+ (output[LATEX][OUTPUT] % vars ())
+			+ output[LATEX][AFTER])
 		return str
 
 	def output_print_filename (self,format):
 		str = ''
-		if  PRINTFILENAME in self.options:
+		if PRINTFILENAME in self.options:
 			base = self.basename ()
 			filename = self.substring ('filename')
 			str = output[format][PRINTFILENAME] % vars ()
@@ -703,7 +834,7 @@ class Lilypond_snippet (Snippet):
 
 		if VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
-			str +=  (output[TEXINFO][VERBATIM] % vars ())
+			str += (output[TEXINFO][VERBATIM] % vars ())
 
 		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
@@ -721,24 +852,24 @@ class Lilypond_file_snippet (Lilypond_snippet):
 	def ly (self):
 		name = self.substring ('filename')
 		return '\\renameinput \"%s\"\n%s' % (name, open (find_file (name)).read ())
-			
+
 snippet_type_to_class = {
-	'lilypond_file' : Lilypond_file_snippet,
-	'lilypond_block' : Lilypond_snippet,
-	'lilypond' : Lilypond_snippet,
-	'include' : Include_snippet,
-	}
+	'lilypond_file': Lilypond_file_snippet,
+	'lilypond_block': Lilypond_snippet,
+	'lilypond': Lilypond_snippet,
+	'include': Include_snippet,
+}
 
 def find_toplevel_snippets (s, types):
-        res = {}
-        for i in types:
-                res[i] = ly.re.compile (snippet_res[format][i])
+	res = {}
+	for i in types:
+		res[i] = ly.re.compile (snippet_res[format][i])
 
-        snippets = []
-        index = 0
-        ##  found = dict (map (lambda x: (x, None), types))
+	snippets = []
+	index = 0
+	## found = dict (map (lambda x: (x, None), types))
 	## urg python2.1
-        found = {}
+	found = {}
 	map (lambda x, f=found: f.setdefault (x, None), types)
 
 	# We want to search for multiple regexes, without searching
@@ -748,13 +879,13 @@ def find_toplevel_snippets (s, types):
 	# Since every part of the string is traversed at most once for
 	# every type of snippet, this is linear.
 
-        while 1:
-                first = None
-                endex = 1 << 30
-                for type in types:
-                        if not found[type] or found[type][0] < index:
-                                found[type] = None
-                                m = res[type].search (s[index:endex])
+	while 1:
+		first = None
+		endex = 1 << 30
+		for type in types:
+			if not found[type] or found[type][0] < index:
+				found[type] = None
+				m = res[type].search (s[index:endex])
 				if not m:
 					continue
 
@@ -762,41 +893,41 @@ def find_toplevel_snippets (s, types):
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
 				snip = cl (type, m, format)
-				start = index + m.start (0)
+				start = index + m.start (1)
 				found[type] = (start, snip)
 
-                        if found[type] \
+			if found[type] \
 			   and (not first or found[type][0] < found[first][0]):
-                                first = type
+				first = type
 
 				# FIXME.
 
 				# Limiting the search space is a cute
 				# idea, but this *requires* to search
 				# for possible containing blocks
-				# first, at least long as we do not
+				# first, at least as long as we do not
 				# search for the start of blocks, but
 				# always/directly for the entire
 				# @block ... @end block.
-				
-                                endex = found[first][0]
 
-                if not first:
+				endex = found[first][0]
+
+		if not first:
 			snippets.append (Substring (s, index, len (s)))
 			break
 
-		(start , snip) = found[first]
+		(start, snip) = found[first]
 		snippets.append (Substring (s, index, start))
 		snippets.append (snip)
 		found[first] = None
-                index = start + len (snip.match.group (0))
+		index = start + len (snip.match.group (1))
 
-        return snippets
+	return snippets
 
 def filter_pipe (input, cmd):
 	if verbose_p:
 		ly.progress (_ ("Opening filter `%s\'") % cmd)
-		
+
 	stdin, stdout, stderr = os.popen3 (cmd)
 	stdin.write (input)
 	status = stdin.close ()
@@ -806,7 +937,7 @@ def filter_pipe (input, cmd):
 		output = stdout.read ()
 		status = stdout.close ()
 		error = stderr.read ()
-		
+
 	if not status:
 		status = 0
 	signal = 0x0f & status
@@ -817,16 +948,16 @@ def filter_pipe (input, cmd):
 		sys.stderr.write (error)
 		sys.stderr.write (stderr.read ())
 		ly.exit (status)
-	
+
 	if verbose_p:
 		ly.progress ('\n')
 
 	return output
-	
+
 def run_filter (s):
 	return filter_pipe (s, filter_cmd)
 
-def is_derived_class (cl,  baseclass):
+def is_derived_class (cl, baseclass):
 	if cl == baseclass:
 		return 1
 	for b in cl.__bases__:
@@ -839,7 +970,7 @@ def process_snippets (cmd, ly_snippets, png_snippets):
 	ly_names = filter (lambda x: x, map (Lilypond_snippet.basename, ly_snippets))
 	png_names = filter (lambda x: x, map (Lilypond_snippet.basename, png_snippets))
 
-	
+
 	status = 0
 	if ly_names:
 		status = ly.system (string.join ([cmd] + ly_names),
@@ -849,13 +980,13 @@ def process_snippets (cmd, ly_snippets, png_snippets):
 	if status:
 		ly.error( 'Process %s exited unsuccessfully.' % cmd )
 		raise Compile_error
-		
+
 	if format == HTML or format == TEXINFO:
 		for i in png_names:
 			if not os.path.exists (i + '.eps') and os.path.exists (i + '.tex'):
 				to_eps (i)
 				ly.make_ps_images (i + '.eps', resolution=110)
-				
+
 #			elif os.path.exists (i + '.ps'):
 #				ly.make_ps_images (i + '.ps', resolution=110)
 
@@ -873,7 +1004,7 @@ def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_DOCUMENT % vars ()
-        parameter_string = filter_pipe (latex_document, latex_filter_cmd)
+	parameter_string = filter_pipe (latex_document, latex_filter_cmd)
 
 	columns = 0
 	m = re.search ('columns=([0-9.]*)', parameter_string)
@@ -895,32 +1026,32 @@ def get_latex_textwidth (source):
 	return textwidth
 
 ext2format = {
-	'.html' : HTML,
-	'.itely' : TEXINFO,
-	'.latex' : LATEX,
-	'.lytex' : LATEX,
-	'.tely' : TEXINFO,
+	'.html': HTML,
+	'.itely': TEXINFO,
+	'.latex': LATEX,
+	'.lytex': LATEX,
+	'.tely': TEXINFO,
 	'.tex': LATEX,
-	'.texi' : TEXINFO,
-	'.texinfo' : TEXINFO,
-	'.xml' : HTML,
-	}
-			       
+	'.texi': TEXINFO,
+	'.texinfo': TEXINFO,
+	'.xml': HTML,
+}
+
 format2ext = {
 	HTML: '.html',
 	#TEXINFO: '.texinfo',
 	TEXINFO: '.texi',
 	LATEX: '.tex',
-	}
-	
+}
+
 class Compile_error:
 	pass
 
 def do_process_cmd (chunks):
 	ly_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
-			   and x.ly_is_outdated (), chunks)
+			and x.ly_is_outdated (), chunks)
 	png_outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
-			   and x.png_is_outdated (), chunks)
+			 and x.png_is_outdated (), chunks)
 
 	ly.progress (_ ("Writing snippets..."))
 	map (Lilypond_snippet.write_ly, ly_outdated)
@@ -945,8 +1076,8 @@ def do_file (input_filename):
 		else:
 			ly.error (_ ("cannot determine format for: %s" \
 				     % input_filename))
-			ly.exit (1) 
-		
+			ly.exit (1)
+
 	if not input_filename or input_filename == '-':
 		in_handle = sys.stdin
 		input_fullname = '<stdin>'
@@ -960,14 +1091,14 @@ def do_file (input_filename):
 		else:
 			input_fullname = find_file (input_filename)
 		in_handle = open (input_fullname)
-		
+
 	if input_filename == '-':
 		input_base = 'stdin'
 	else:
 		input_base = os.path.basename \
 			     (os.path.splitext (input_filename)[0])
 
-	# only default to stdout when filtering 
+	# only default to stdout when filtering
 	if output_name == '-' or (not output_name and filter_cmd):
 		output_filename = '-'
 		output_file = sys.stdout
@@ -982,8 +1113,8 @@ def do_file (input_filename):
 					   + format2ext[format])
 
 
-		if (os.path.exists (input_filename) and 
-		    os.path.exists (output_filename) and 
+		if (os.path.exists (input_filename) and
+		    os.path.exists (output_filename) and
 		    os.path.samefile (output_filename, input_fullname)):
 			ly.error (_("Output would overwrite input file; use --output."))
 			ly.exit (2)
@@ -1051,15 +1182,15 @@ def do_file (input_filename):
 		os.chdir (original_dir)
 		ly.progress (_('Removing `%s\'') % output_filename)
 		ly.progress ('\n')
-		
+
 		os.unlink (output_filename)
 		raise Compile_error
-	
+
 
 def do_options ():
 	global format, output_name
 	global filter_cmd, process_cmd, verbose_p
-	
+
 	(sh, long) = ly.getopt_args (option_definitions)
 	try:
 		(options, files) = getopt.getopt (sys.argv[1:], sh, long)
@@ -1112,7 +1243,7 @@ def main ():
 	global process_cmd
 	if process_cmd == '':
 		process_cmd = lilypond_binary + " -f tex "
-	
+
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)
 					     for p in include_path])
@@ -1124,6 +1255,6 @@ def main ():
 			do_file (files[0])
 		except Compile_error:
 			ly.exit (1)
-			
+
 if __name__ == '__main__':
 	main ()
