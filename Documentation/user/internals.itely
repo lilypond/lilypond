@@ -660,11 +660,11 @@ about how music is stored.
 
 @lilypond[verbatim,singleline]
 #(define (testfunc x)
-  (if (equal? (ly-get-mus-property x 'text) "foo")
-      (ly-set-mus-property! x 'text "bar"))
+  (if (equal? (ly:get-mus-property x 'text) "foo")
+      (ly:set-mus-property! x 'text "bar"))
   ;; recurse
-  (ly-set-mus-property! x 'elements
-    (map testfunc (ly-get-mus-property x 'elements)))
+  (ly:set-mus-property! x 'elements
+    (map testfunc (ly:get-mus-property x 'elements)))
   (display x)
   x)
 
@@ -685,12 +685,12 @@ A final example is a function that reverses a piece of music in time:
 
 @lilypond[verbatim,singleline]
 #(define (reverse-music music)
-  (let* ((elements (ly-get-mus-property music 'elements))
+  (let* ((elements (ly:get-mus-property music 'elements))
          (reversed (reverse elements))
-         (span-dir (ly-get-mus-property music 'span-direction)))
-    (ly-set-mus-property! music 'elements reversed)
+         (span-dir (ly:get-mus-property music 'span-direction)))
+    (ly:set-mus-property! music 'elements reversed)
     (if (dir? span-dir)
-        (ly-set-mus-property! music 'span-direction (- span-dir)))
+        (ly:set-mus-property! music 'span-direction (- span-dir)))
     (map reverse-music reversed)
     music))
 

@@ -1,4 +1,4 @@
-\version "1.5.72"
+\version "1.7.3"
 
 \include "os-music.ly"
 \include "paper16.ly"
@@ -26,4 +26,4 @@
 
 % switch off settings of -score file, so the rest of the
 % tutorial isn't \special
-#(set-point-and-click! 'none)
+#(ly:set-point-and-click 'none)

@@ -1,10 +1,10 @@
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 
 opus= "BWV 939"
 piece = "2"
 
 
-\version "1.5.72"
+\version "1.7.3"
 upper =  \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'italic

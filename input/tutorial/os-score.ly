@@ -1,10 +1,10 @@
 
-\version "1.5.72"
+\version "1.7.3"
 
 \include "os-music.ly"
 \include "paper13.ly"
 
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 
 \score {

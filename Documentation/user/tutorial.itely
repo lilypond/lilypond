@@ -2387,7 +2387,7 @@ conductor's score.
 \include "os-music.ly"
 \include "paper13.ly"
 
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 #(define text-flat '((font-relative-size . -2)
          (music "accidentals--1")))
 
@@ -2472,11 +2472,11 @@ First we need to include the music definitions we made in
 
 @separate
 @example
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 @end example
 
 This piece of Scheme code executes the function
-@code{set-point-and-click!} with the argument
+@code{ly:set-point-and-click} with the argument
 @code{line-column}.  Editing input files can be complicated if you're
 working with large files: if you're digitizing existing music, you have
 to synchronize the .ly file, the sheet music on your lap and the sheet

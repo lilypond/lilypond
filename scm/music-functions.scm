@@ -67,7 +67,7 @@ written by Rune Zedeler. "
 	  (if (equal?
 	       (ly:get-mus-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-ly:duration-log music  (ly:intlog2 (ly:get-mus-property music 'repeat-count)) 0)
+	      (shift-duration-log music  (ly:intlog2 (ly:get-mus-property music 'repeat-count)) 0)
 	      )
           (ly:set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
@@ -250,6 +250,13 @@ this is not an override
       m
   ))
 
+(define-public (make-span-event type spandir)
+  (let* (
+	 (m (make-music-by-name  type))
+	 )
+    (ly:set-mus-property! m 'span-direction spandir)
+    m
+    ))
 
 (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M." 

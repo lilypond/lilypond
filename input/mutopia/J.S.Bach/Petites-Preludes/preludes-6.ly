@@ -1,9 +1,9 @@
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 
 opus = "BWV 940"
 piece = "6"
 
-\version "1.5.72"
+\version "1.7.3"
 
 
 
