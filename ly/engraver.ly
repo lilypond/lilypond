@@ -31,10 +31,8 @@ StaffContext=\translator {
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
 	\consists "Local_key_engraver";
-
 	\consists "Piano_pedal_engraver";
-
-%	\consists "Arpeggio_engraver";
+	\consists "Arpeggio_engraver";
 
 	\consistsend "Axis_group_engraver";
 
@@ -202,15 +200,16 @@ GrandStaffContext=\translator{
 	\accepts "Staff";
 }
 
-PianoStaffContext = \translator{\GrandStaffContext
-	alignmentReference = \center;
+PianoStaffContext = \translator{
+	\GrandStaffContext
+	\name "PianoStaff";
 
 	\consists "Vertical_align_engraver";
 
+	alignmentReference = \center;
 	VerticalAlignment \push #'threshold = #'(12 . 12) 
 
 %	\consistsend "Axis_group_engraver";
-	\name "PianoStaff";
 }
 
 StaffGroupContext= \translator {

@@ -127,6 +127,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 %token AUTOCHANGE
+%token ARPEGGIO
 %token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
@@ -1067,6 +1068,11 @@ verbose_request:
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
 		a->articulation_str_ = ly_scm2string ($2);
+		a->set_spot (THIS->here_input ());
+		$$ = a;
+	}
+	| ARPEGGIO {
+		Arpeggio_req *a = new Arpeggio_req;
 		a->set_spot (THIS->here_input ());
 		$$ = a;
 	}

@@ -11,7 +11,6 @@
 
 fet_begingroup("scripts")
 
-
 def draw_fermata =
   save alpha, radius, crook_thinness, crook_fatness, dot_diam;
   
@@ -698,6 +697,70 @@ fet_beginchar("Coda", "coda", "coda")
 
 fet_endchar;
 
+thick#:=1/24designsize;
+define_blacker_pixels(thick);
+
+rthin:=1/8*staff_space;
+rthick:=2thick+rthin;
+
+def draw_arpeggio =
+	save alpha;
+	alpha:=-40;
+	save ne,nw,se,sw; pair ne,nw,se,sw;
+	save x,y;
+	
+	se=dir alpha; nw=dir (alpha+180);
+	ne=dir (alpha+90); sw=dir (alpha-90);
+	penpos1(rthin,alpha+90);
+	penpos2(5/4rthick,alpha);
+	penpos4(5/4rthick,alpha);
+	penpos5(rthin,alpha+90);
+	penpos3(3/4rthick,alpha);
+
+	z1=(width/2, height) - overshoot*se;
+	z2=2[z4,(width/2,height/2)];
+	z3=1/2[z2,z4];
+	x4=2/8staff_space;
+	y4=rthin;
+
+	z5=2[z1,(width/2,height/2)];
+	z6=z2l+1/2rthin*sw;
+	z7=z4l+1/2rthin*sw+1/2rthin*se;
+	z8=2[z6,(width/2,height/2)];
+	z9=2[z7,(width/2,height/2)];
+	
+	fill z1l{se}..{se}z6..z3l..z7{se}..{se}z5l..z5r{nw}..{nw}z8..z3r..z9{nw}..{nw}z1r.. cycle;
+	penlabels(1,2,3,4,5,6,7,8,9);
+	enddef;
+
+fet_beginchar("Arpeggio","arpeggio","arpeggio");
+	%draw_staff (-2, 2, 0.0);	
+	save height, overshoot, width;
+	height# = staff_space#;
+	width# = 0.8height#;
+        overshoot# = 0.25 staff_space#;
+	define_pixels (height,overshoot,width);
+	set_char_box(0, width#, 0, height#);
+	draw_arpeggio;
+	fet_endchar;
+
+% Extendable Trill symbol.
+% Not yet used
+% Rename me to Trill, rename Trill to Tr?
+fet_beginchar("Trill-element","trill-element","trill-element");
+	save height, overshoot;
+	height# = staff_space#;
+	width# = 0.8height#;
+        overshoot# = 0.25 staff_space#;
+	define_pixels (height,overshoot,width);
+	set_char_box(0, height#, 0, width#);
+	draw_arpeggio;
+	currentpicture := currentpicture shifted -(width/2, height/2);
+	currentpicture := currentpicture rotated 90;
+	currentpicture := currentpicture shifted (height/2, width/2);
+	fet_endchar;
+
+% Hmm
 input feta-slag;
 
 fet_endgroup("scripts");

@@ -8,7 +8,7 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
     title =      "LES N\\'ER\\'EIDES";
     subtitle =   "THE NEREIDS";
     enteredby =  "JCN";
-    piece =      "Allegretto scherzando";
+    %piece =      "Allegretto scherzando";
     copyright =  "public domain";
     description = "Natiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf";
     comment =     "LilyPond (1.3.93) can't really do this yet, I guess";
@@ -38,13 +38,15 @@ global = \notes{
 treble = \context Voice=treble \notes\relative c''{
     % Broken?
     \property Voice.NoteColumn \push #'horizontal-shift = #0
-    r2
+    \outputproperty #(make-type-checker 'text-item-interface) 
+	    #'extra-offset = #'(-6 . 2)
+    r2^"Allegretto scherzando"
     %2
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #1
-    r4 <cis eis a cis> r2
+    r4 <cis\arpeggio eis a cis> r2
     %3
-    r4 <cis fis a cis> r8.
+    r4 <cis\arpeggio fis a cis> r8.
     \translator Staff=bass
     cis,16^2^"m.d."( <fis8 fis,> <e! e,!>
     %4
@@ -53,7 +55,8 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
     %% 8va
-    cis''''4^"m.g." (
+    \property PianoStaff.connectArpeggios = ##t
+    cis''''4^"m.g."\arpeggio (
 
 #ifndef FAKE_GRACE
 
@@ -115,7 +118,7 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
     s4
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
-    <cis4 a fis dis>
+    <cis4\arpeggio a fis dis>
 
 #ifdef FAKE_GRACE
     s32*16
@@ -152,7 +155,7 @@ bass = \context Voice=bass \notes\relative c{
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     \property Voice.slurEndAttachment = #'stem
-    <)a''4 eis cis> 
+    <)a''4\arpeggio eis cis> 
     %\stemboth
     \property Voice.slurEndAttachment = ##f
     \translator Staff=bass
@@ -168,7 +171,7 @@ bass = \context Voice=bass \notes\relative c{
     \property Voice.Stem \pop #'length
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
-    <)a' fis cis>
+    <)a'\arpeggio fis cis>
     \translator Staff=bass
     \property Voice.Stem \pop #'direction
     r2
@@ -184,7 +187,7 @@ bass = \context Voice=bass \notes\relative c{
     \property Voice.Stem \push #'direction = #0
     <
         %urg: staff-change: ! on dis
-        <cis'' a fis dis!>
+        <cis''\arpeggio a fis dis!>
 %	{ s8. \clef bass;}
     >
 
@@ -242,16 +245,23 @@ middleDynamics = \context Dynamics=middle \notes{
 
 #ifdef FAKE_GRACE
     s32*12
+    \outputproperty #(make-type-checker 'dynamic-interface) 
+	    #'extra-offset = #'(0 . 1.5)
     s32\> s s \!s
 #endif
-
-    s32 s-"rall." s s
+    s32 
+    \outputproperty #(make-type-checker 'text-item-interface) 
+	    #'extra-offset = #'(0 . 1.5)
+    s-"rall." s s
     s8 s4
 
     \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(0 . 10)
+	    #'extra-offset = #'(0 . 3.5)
     s1\mf-"a tempo"
-    s8 s8\mf s4 s4 s8\> s32 s s \!s
+    s8
+    \outputproperty #(make-type-checker 'dynamic-interface) 
+	    #'extra-offset = #'(-1 . 3.5)
+    s8\mf s4 s4 s8\> s32 s s \!s
 }
 
 lowerDynamics = \context Dynamics=lower \notes{
@@ -299,11 +309,10 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \treble
 	    \trebleTwo
         >
-	%\context Dynamics=middle <
-	%    \global
-	%    \middleDynamics
-	%>
-	\middleDynamics
+	\context Dynamics=middle <
+	    \global
+	    \middleDynamics
+	>
         \context Staff=bass <
 	    \clef bass;
 	    \global
@@ -328,7 +337,9 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    %Generic_property_list = #generic-lyrics-properties
 	    \consists "Property_engraver";
 	    DynamicsMinimumVerticalExtent = #(cons -3 -3)
-	    VerticalAlignment \push #'threshold = #'(8 . 8) 
+	    %VerticalAlignment \push #'threshold = #'(8 . 8) 
+	    %VerticalAlignment \push #'threshold = #'(10 . 10) 
+	    VerticalAlignment \push #'threshold = #'(9 . 9) 
 
 	    startSustain = #"Ped."
 	    stopSustain = #"*"
@@ -352,12 +363,17 @@ lowerDynamics = \context Dynamics=lower \notes{
 
 	\translator {
 	    \VoiceContext
-	    TextScript \push #'style = #"italic"
+	    %TextScript \push #'style = #"italic"
+	    %TextScript \push #'font-size = #3
+	    TextScript \push #'size = #"Large"
+	    TextScript \push #'font-size = #"Large"
         }
 	\translator {
 	    \PianoStaffContext
 	    \accepts Dynamics;
-	    VerticalAlignment \push #'threshold = #'(8 . 8) 
+	    %VerticalAlignment \push #'threshold = #'(8 . 8) 
+	    %VerticalAlignment \push #'threshold = #'(6 . 6)
+	    VerticalAlignment \push #'threshold = #'(7 . 7)
         }
 	\translator {
 	    \GraceContext

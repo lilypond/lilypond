@@ -7,10 +7,13 @@
 */
 
 #include "engraver.hh"
+#include "lily-guile.hh"
 #include "item.hh"
 #include "arpeggio.hh"
 #include "span-arpeggio.hh"
 #include "group-interface.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 
 /** 
@@ -53,18 +56,18 @@ Span_arpeggio_engraver::acknowledge_element (Score_element_info info)
 void
 Span_arpeggio_engraver::process_acknowledged ()
 {
-  if (arpeggios_.size () > 1 && !span_arpeggio_) 
+  if (!span_arpeggio_ && arpeggios_.size () > 1
+      && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = new Item (get_property ("SpanArpeggio"));
+      span_arpeggio_->set_parent (arpeggios_[0], Y_AXIS);
+      Side_position::set_axis (span_arpeggio_, X_AXIS);
       Pointer_group_interface pgi (span_arpeggio_, "arpeggios");
       for (int i = 0; i < arpeggios_.size () ; i++)
 	{
 	  pgi.add_element (arpeggios_[i]);
 	  span_arpeggio_->add_dependency (arpeggios_[i]);
 	}
-      
-      span_arpeggio_->set_parent (arpeggios_[0], Y_AXIS);
-      span_arpeggio_->set_parent (arpeggios_[0], X_AXIS);
       
       announce_element (span_arpeggio_, 0);
     }

@@ -40,7 +40,7 @@ Span_arpeggio::brew_molecule (SCM smob)
       common = arpeggio->common_refpoint (common, Y_AXIS);
     }
   // Hmm, nothing in common?
-  if (0) //(common)
+  if (0) //common)
     for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
       {
 	Score_element *arpeggio = unsmob_element (gh_car (s));
@@ -52,17 +52,16 @@ Span_arpeggio::brew_molecule (SCM smob)
     iv = Interval (-23, 5);
 
   Molecule mol;
-  Molecule dot = me->paper_l ()->lookup_l (0)->afm_find ("dots-dot");
-  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
-  for (Real i = iv[MIN]; i < iv[MAX]; i++)
+  Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  for (int i = (int)iv[MIN]/ 2; i < (int)(iv[MAX] - 1)/ 2; i++)
     {
-      Molecule d (dot);
-      d.translate_axis (i * half_space, Y_AXIS);
-      mol.add_molecule (d);
+      Molecule a (arpeggio);
+      a.translate_axis (i * staff_space, Y_AXIS);
+      mol.add_molecule (a);
     }
-  mol.translate (Offset (-6, 0));
+  mol.translate (Offset (-2 * staff_space, 0);
 
   return mol.create_scheme (); 
 }
-
 
