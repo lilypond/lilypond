@@ -41,4 +41,4 @@
 (ly-add-interface
  'tablature-interface
  "tablature notes"
- '(string-tunings tab-string))
+ '())
