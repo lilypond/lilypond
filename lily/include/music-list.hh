@@ -40,6 +40,10 @@ public:
   virtual void transpose (Musical_pitch );
   virtual void compress (Moment);
   void add_music (Music *music_p);
+
+
+  Moment cumulative_length () const;
+  Moment maximum_length () const;
 protected:
   virtual void do_print() const;
 };

@@ -25,6 +25,7 @@ public:
 protected:
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
+
 private:
   void start_next_element ();
 

@@ -1,5 +1,5 @@
 \header{
-title =         "Imellan Fjeldene. Ouverture";
+title =         "Imellem Fjeldene. Ouverture";
 composer =      "Niels W Gade";
 enteredby =     "Mats Bengtsson";
 latexheaders =  "\\input global";
@@ -21,9 +21,6 @@ my_paper = \paper {
     \OrchestralPartStaffContext
     textScriptPadding = 5.0;
   }
-\translator{\VoiceContext
-\remove Auto_beam_engraver;
-}
   \translator { 
     \ScoreContext
     SkipBars = 1;
@@ -32,24 +29,10 @@ my_paper = \paper {
     textEmptyDimension = 1;
     oldTieBehavior = 1;
   }
-}
-
-\score{
-  \context Staff <
-    \global
-    \marks
-    \oboe
-    \oboehelp
-  >
-  \header{
-    instrument = "Oboe";
-  }
-  \paper{
-    \my_paper
-    output = "oboe";
-  }
-  \midi {
-    \tempo 4=120;
+  \translator { \VoiceContext
+    oldTieBehavior = 1;
+    textstyle = "italic";
+    textEmptyDimension = 1;
   }
 }
 
@@ -66,6 +49,25 @@ my_paper = \paper {
   \paper{
     \my_paper
     output = "flauto";
+  }
+  \midi {
+    \tempo 4=120;
+  }
+}
+
+\score{
+  \context Staff <
+    \global
+    \marks
+    \oboe
+    \oboehelp
+  >
+  \header{
+    instrument = "Oboe";
+  }
+  \paper{
+    \my_paper
+    output = "oboe";
   }
   \midi {
     \tempo 4=120;
@@ -210,7 +212,7 @@ my_paper = \paper {
     \timphelp
   >
   \header{
-    instrument = "Timpani";
+    instrument = "Timpani \& Triangolo";
   }
   \paper{
     \my_paper

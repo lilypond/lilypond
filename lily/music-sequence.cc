@@ -45,3 +45,24 @@ Music_sequence::add_music (Music *m_p)
 {
   music_p_list_p_->add_music (m_p);
 }
+
+Moment
+Music_sequence::cumulative_length () const
+{
+  Moment last=0;
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    {
+      last += i->car_->length_mom ();
+    }
+  return  last;
+}
+
+Moment
+Music_sequence::maximum_length () const
+{
+  Moment dur = 0;
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    dur = dur >? i->car_->length_mom ();
+
+  return dur;
+}

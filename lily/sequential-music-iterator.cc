@@ -28,7 +28,7 @@ Sequential_music_iterator::Sequential_music_iterator ()
 void
 Sequential_music_iterator::construct_children()
 {
-  cursor_ = dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->head_;
+  cursor_ = dynamic_cast<Music_sequence const*> (music_l_)->music_p_list_p_->head_;
   
   while (cursor_)
     {
@@ -39,7 +39,7 @@ Sequential_music_iterator::construct_children()
 	}
       else 
 	{
-	  set_Sequential_music_translator();
+	  set_sequential_music_translator();
 	  break;
 	}
     }
@@ -63,7 +63,7 @@ Sequential_music_iterator::start_next_element()
 }
 
 void
-Sequential_music_iterator::set_Sequential_music_translator()
+Sequential_music_iterator::set_sequential_music_translator()
 {
   if (iter_p_->report_to_l()->depth_i () > report_to_l ()->depth_i ())
     set_translator (iter_p_->report_to_l());
@@ -99,7 +99,7 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	  if (cursor_)
 	    {
 	      start_next_element();
-	      set_Sequential_music_translator();
+	      set_sequential_music_translator();
 	    }
 	  else 
 	    {

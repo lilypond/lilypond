@@ -39,7 +39,7 @@ private:
    */
   void start_next_element();
   void leave_element();
-  void set_Sequential_music_translator();
+  void set_sequential_music_translator();
 };
 
 #endif // SEQUENTIAL_MUSIC_ITERATOR_HH

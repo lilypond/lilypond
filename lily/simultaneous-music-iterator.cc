@@ -25,7 +25,7 @@ void
 Simultaneous_music_iterator::construct_children()
 {
   int j = 0;
-  Simultaneous_music const *sim = dynamic_cast<Simultaneous_music const*> (music_l_);
+  Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l_);
 
   for (Cons<Music> *i = sim->music_p_list_p_->head_; i;  i = i->next_, j++)
     {
