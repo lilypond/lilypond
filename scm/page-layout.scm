@@ -311,7 +311,7 @@ is what have collected so far, and has ascending page numbers."
 	       (cdr  result)))
 	 )
 
-     (if #f ;; debug.
+     (if #t ;; debug.
 	 (begin
 	   (display (list "\n# systems: " no-systems
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
