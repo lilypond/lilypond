@@ -25,23 +25,18 @@ ADD_THIS_TRANSLATOR (Thread_devnull_engraver);
 void
 Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
-  /*
-    FIXME: coriolan-fix hack -- ff  geen inspiratie
-    
-    We should have at least three modes:
-    
-      1. Never -- do nothing
-      2. Allways -- junk everythingallways
-      3. Regular: junk according to two/unison/unisilence/soloADue
+  SCM s = get_property ("devNullThread");
+#if 0
+  /* No need */
+  if (gh_equal_p (s, ly_symbol2scm ("never")))
+    return;
+#endif
 
-    but how shall we do that?
-
-    Hmm, maybe just: threadDevNull = 'never|'allways|...
-   */
-  if (!to_boolean (get_property ("disableDevNullThread"))
-      && daddy_trans_l_->id_str_.left_str (3) == "two"
-      && (to_boolean (get_property ("unison"))
-	  || to_boolean (get_property ("unisilence")))
-      && to_boolean (get_property ("soloADue")))
+  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+      || (s == SCM_EOL
+	  && daddy_trans_l_->id_str_.left_str (3) == "two"
+	  && (to_boolean (get_property ("unison"))
+	      || to_boolean (get_property ("unisilence")))
+	  && to_boolean (get_property ("soloADue"))))
     i.elem_l_->suicide ();
 }
