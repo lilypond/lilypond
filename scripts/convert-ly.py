@@ -1079,6 +1079,22 @@ if 1:
 		str = re.sub (r'<<', '< <', str)
 		str = re.sub (r'>>', '> >', str)
 
+		kws =   ['arpeggio',
+			 'sustainDown',
+			 'sustainUp',
+			 'f',
+			 'p',
+			 'pp',
+			 'ppp',
+			 'fp',
+			 'ff',
+			 'mf',
+			 'mp',
+			 'sfz',
+			 ]
+
+		origstr = string.join (kws, '|')
+		str = re.sub (r'([^-])\\(%s)\b' % origstr, r'\1-\\\2', str)
 		return str
 	
 	conversions.append (((1,7,4), conv, '<< >> -> < <  > >'))

@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.4"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -10,22 +10,13 @@
     description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
 }
 
-#(ly:set-point-and-click! 'line-column)
-#(set! point-and-click line-column-location)
-
+#(ly:set-point-and-click 'line-column)
 #(define (make-text-checker text)
   (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 
-global =  \notes{
-    \partial 2
-    \key a \major
-    \skip 2
-    \skip 1*2
-    \skip 1
-    \bar "||"
-}
 
 treble =  \context Voice=treble \notes\relative c''{
+\key a \major
     % Broken?
     \property Voice.NoteColumn \override #'horizontal-shift = #0
     \outputproperty #(make-type-checker 'text-interface) 
@@ -34,9 +25,9 @@ treble =  \context Voice=treble \notes\relative c''{
     %2
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #1
-    r4 <cis\arpeggio eis a cis> r2
+    r4 <cis-\arpeggio eis a cis> r2
     %3
-    r4 <cis\arpeggio fis a cis> r8.
+    r4 <cis-\arpeggio fis a cis> r8.
 
     % Urg, this lifts us up to staff context
     \translator Staff=bass
@@ -85,7 +76,7 @@ treble =  \context Voice=treble \notes\relative c''{
 	    
     % currently, this can't be (small) italic, because in the paperblock
     % we set italic_magnifictation to get large italics.
-    cis''''4^"m.g."\arpeggio #(ly:export (make-span-event 'TextSpanEvent START)) (
+    cis''''4^"m.g."-\arpeggio #(ly:export (make-span-event 'TextSpanEvent START)) (
 
     \property Voice.Stem \revert #'direction
 
@@ -104,7 +95,10 @@ treble =  \context Voice=treble \notes\relative c''{
     cis'4()bis
     r8
     <a'8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e^" "^1^4^5 r|
-    r<a8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e r|
+    r <a8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e r|
+
+    \bar "||"
+
 }
 
 trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
@@ -114,7 +108,7 @@ trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     s4
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
-    <cis'4\arpeggio a fis dis>
+    <cis'4-\arpeggio a fis dis>
 
     \property Voice.NoteColumn \override #'force-hshift = #-0.2
     <e,2 gis, e d!>
@@ -132,6 +126,9 @@ trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
 
 bass =  \context Voice=bass \notes\relative c{
     % Allow ugly slurs
+    \partial 2
+    \key a \major
+    
     \property Voice.Slur \override #'beautiful = #5.0
     \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . -4))
     \property Voice.Stem \revert #'direction
@@ -147,7 +144,7 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
     \property Voice.Slur \override #'attachment = #'(stem . stem)
-    <)a''4\arpeggio eis cis> 
+    <)a''4-\arpeggio eis cis> 
     %\stemBoth
     \property Voice.Slur \revert #'attachment
     % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
@@ -171,7 +168,7 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \revert #'length
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
-    <)a'\arpeggio fis cis>
+    <)a'-\arpeggio fis cis>
     % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
     % Get back
@@ -189,7 +186,7 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \override #'direction = #0
     <
         %urg: staff-change: ! on dis
-        <cis''\arpeggio a fis dis!>
+        <cis''-\arpeggio a fis dis!>
 %	{ s8. \clef bass}
     >
 
@@ -258,52 +255,48 @@ middleDynamics =  \context Dynamics=middle \notes{
 lowerDynamics =  \context Dynamics=lower \notes{
     s2
     %2
-    s2\sustainDown s8. s16\sustainUp s4
+    s2-\sustainDown s8. s16-\sustainUp s4
     %3
-    s2\sustainDown s8. s16\sustainUp s4
+    s2-\sustainDown s8. s16-\sustainUp s4
     %3
 
-    s4\sustainDown s16
-    s32 s s\sustainUp s
-    s32\sustainDown s s s
+    s4-\sustainDown s16
+    s32 s s-\sustainUp s
+    s32-\sustainDown s s s
     s8
 
     \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "")
-    s4 s16. s32\sustainUp
+    s4 s16. s32--\sustainUp
 
     %5
-    s8\sustainDown s s
+    s8-\sustainDown s s
     \property Dynamics.pedalSustainStrings = #'("Ped." "-P" "*")
-    s s\sustainUp\sustainDown s s
-    s\sustainUp
+    s s-\sustainUp-\sustainDown s s
+    s-\sustainUp
 
     %6
     \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "")
-    s8\sustainDown s s
+    s8-\sustainDown s s
     \property Dynamics.pedalSustainStrings = #'("Ped." "-P" "*")
-    s s\sustainUp\sustainDown s s
-    s\sustainUp
+    s s-\sustainUp-\sustainDown s s
+    s-\sustainUp
 }
 
 \score{
     \context PianoStaff <
         \context Staff=treble <
-	    \global
 	    \treble
 	    \trebleTwo
         >
 	\context Dynamics=middle <
-	    \global
 	    \middleDynamics
 	>
         \context Staff=bass <
 	    \clef bass
-	    \global
 	    \bass
 	    \bassTwo
         >
 	\context Dynamics=lower <
-	    \global
 	    \lowerDynamics
 	>
     >

@@ -421,7 +421,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	(internal-class-name . "Event")
 	(types . (general-music event))
 	)) 
-    (SustainPedalEvent
+    (SustainEvent
      . (
 	(description . "")
 	(internal-class-name . "Event")

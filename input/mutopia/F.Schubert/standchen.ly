@@ -152,20 +152,14 @@ trebleVerseOne =  \notes\relative c{
 	r8 <f g b> <g b d> <f g b> <g b d> <f g b> |
 	r8 <es g c> <g c es> <es g c> <g c es> <es g c> |
 	<g''4.( b,> <)f8 d>
-	% manual beam override bug
-	%\times 2/3 { < [f( d> <es c> <)d b] > } |
 	\times 2/3 < { [ f( es )d ] } { d c b } > |
 	%10
 	<c2. es> |
 	r8 <g, c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
 	r8 <f as bes> <as bes d> <f as bes> <as bes d> <f as bes> |
-	% manual beam override bug
-	% r8 < [ es g bes> <g bes es> <es g bes> <g bes es ] > 
 	r8 < { [ es g es g ] } { g bes g bes } { bes es bes es } >
 	<{ es'( )  d4.() f8}{ c' | bes4.  as8 } >
-	% manual beam override bug
-	% \times 2/3 { < [f( as> <es g> <)d f] > } |
 	\times 2/3 < { [ f( es )d ] } { as' g f } > |
 	%16
 	<es2. g> |

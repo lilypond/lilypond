@@ -49,8 +49,8 @@ endcresc = \spanevent \stop "crescendo"
 %}
 
 % better name sustainstart/stop? 
-sustainUp = #(make-span-event 'SustainPedalEvent STOP)
-sustainDown = #(make-span-event 'SustainPedalEvent START)
+sustainUp = #(make-span-event 'SustainEvent STOP)
+sustainDown = #(make-span-event 'SustainEvent START)
 
 unaCorda = #(make-span-event 'UnaCordaEvent START)
 treCorde = #(make-span-event 'UnaCordaEvent STOP)
