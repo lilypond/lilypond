@@ -28,6 +28,14 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
 		  || ly_c_symbol_p (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
   String str = ly_scm2string (markup);
+  if (!ly_c_symbol_p (encoding))
+    {
+      SCM var = ly_module_lookup (pap->scope_,
+				  ly_symbol2scm ("inputencoding"));
+      if (var != SCM_BOOL_F) 
+	input_enc_name = scm_variable_ref (var);
+    }
+  
   Font_metric *fm = select_encoded_font (pap, props, encoding);
 
   SCM lst = SCM_EOL;      

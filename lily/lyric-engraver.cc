@@ -36,8 +36,8 @@ private:
 
 Lyric_engraver::Lyric_engraver ()
 {
-  text_ =0;
-  event_ =0;
+  text_ = 0;
+  event_ = 0;
 }
 
 bool

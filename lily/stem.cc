@@ -787,8 +787,10 @@ Stem::calc_stem_info (Grob *me)
     ly_scm2double (robust_list_ref (beam_count - 1,lengths))
 		
     * staff_space
-    /* stem only extends to center of beam */
-    - 0.5 * beam_thickness;
+    /* stem only extends to center of beam
+    */
+    - 0.5 * beam_thickness
+    ;
 
   /* Condition: sane minimum free stem length (chord to beams) */
   lengths = me->get_property ("beamed-minimum-free-lengths");

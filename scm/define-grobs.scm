@@ -977,7 +977,6 @@
 	;; FIXME this should come from 'lengths
 
 	(beamed-lengths . (3.26 3.26 1.5))
-;	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
 	
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.

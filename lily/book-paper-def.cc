@@ -78,16 +78,6 @@ find_scaled_font (Output_def *mod,
     }
   else
     {
-      if (!ly_c_symbol_p (input_enc_name))
-	{
-	  SCM var = ly_module_lookup (mod->scope_,
-				      ly_symbol2scm ("inputencoding"));
-	  if (var != SCM_BOOL_F) 
-	    input_enc_name = scm_variable_ref (var);
-	  if (!ly_c_symbol_p (input_enc_name))
-	    input_enc_name = ly_symbol2scm ("latin1"); 
-	}
-
       val = Modified_font_metric::make_scaled_font_metric (input_enc_name,
 							   f, lookup_mag);
     }

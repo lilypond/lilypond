@@ -1,3 +1,17 @@
+2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Text encoding): node
+	on encoding.
+
+	* lily/lyric-engraver.cc (try_music): remove superfluous check.
+
+	* lily/book-paper-def.cc (find_scaled_font): remove default
+	encoding. This messes up font loading for feta and
+	parmesan. Encoding should only be specified for running texts.
+
+	* lily/modified-font-metric.cc (text_dimension): support coding
+	scheme ""
+	
 2004-07-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/tie-engraver.cc (stop_translation_timestep): remember tie

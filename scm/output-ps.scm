@@ -222,11 +222,10 @@
 (define (text font s)
   (let*
       
-      (
-       ;; ugh, we should find a better way to
-       ;; extract the hsbw for /space from the font.
-       
-       (space-length (cdar (ly:text-dimension font "t"))) 
+      ;; ugh, we should find a better way to
+      ;; extract the hsbw for /space from the font.
+      
+      ((space-length (cdar (ly:text-dimension font "t"))) 
        (commands '())
        (add-command (lambda (x) (set! commands (cons x commands)))) )
 
@@ -238,20 +237,20 @@
 	   (add-command 
 	    (string-append "(" (ps-encoding word) ") show\n")))
 
-       (if (equal? #\space  chr)
+       (if (equal? #\space chr)
 	   (add-command  (string-append (number->string space-length) " 0.0 rmoveto ")) )
        
-       (if (equal? #\space  chr)
+       (if (equal? #\space chr)
 	   ""
 	   (string-append word (make-string 1 chr))))
      ""
-     (string-append  s " "))
+     (string-append s " "))
 
     (string-append
      (ps-font-command font) " setfont "
      (string-join (reverse commands)))
     ))
-  
+
 
 (define (white-text scale s)
    (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-bold "
