@@ -1,5 +1,5 @@
 /*
-  directional-spanner.hh -- part of LilyPond
+  directional-spanner.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -10,17 +10,18 @@
 #include "spanner.hh"
 
 /// a spanner which can be pointing "up" or "down"
-struct Directional_spanner : Spanner{
+class Directional_spanner : public Spanner{
+public:
     
     /// -1 below heads, +1 above heads.
     int dir_i_;
-
+    Directional_spanner();
+    
     /// offset of "center" relative to left-column/0-pos of staff
     virtual Offset center() const=0;
     virtual void set_default_dir();
+protected:
     virtual void do_pre_processing();
-    Directional_spanner();
-    
 };
 
 #endif // DIRECTIONALSPANNER_HH
