@@ -104,7 +104,9 @@ Copyright 1999--2004 by the authors
 @tex $\\Rightarrow$ @end tex@c
 @end iftex
 @ifhtml
--->
+@html
+&rarr;
+@end html
 @end ifhtml
 @ifinfo
 -->
