@@ -21,11 +21,11 @@ void
 Score_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << " at " <<  when_ << '\n';
+  DEBUG_OUT << " at " <<  when_ << '\n';
   if (break_penalty_i_ >= Break_req::FORCE)
-    DOUT << "Break forced";
+    DEBUG_OUT << "Break forced";
 
-  DOUT << "Shortest playing: " <<  shortest_playing_mom_ << " shortest starter: " << shortest_starter_mom_;
+  DEBUG_OUT << "Shortest playing: " <<  shortest_playing_mom_ << " shortest starter: " << shortest_starter_mom_;
   Paper_column::do_print();
 #endif
 }

@@ -35,11 +35,11 @@ void
 Audio_column::print() const
 {
 #ifndef NPRINT
-  DOUT << "Audio_column {";
-  DOUT << "at: " << at_mom_ << ". Contains:";
+  DEBUG_OUT << "Audio_column {";
+  DEBUG_OUT << "at: " << at_mom_ << ". Contains:";
   for (int i =0; i < audio_item_l_arr_.size (); i++)
-    DOUT << classname (audio_item_l_arr_[i]) << ", ";
-  DOUT << "\n}\n";
+    DEBUG_OUT << classname (audio_item_l_arr_[i]) << ", ";
+  DEBUG_OUT << "\n}\n";
 #endif 
 }
 

@@ -110,9 +110,9 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  if (!lily_monitor->silent_b ("InitDeclarations") && check_debug)
+  if (flower_dstream && !flower_dstream->silent_b ("InitDeclarations") && flower_dstream)
     print_declarations (true);
-  if (!lily_monitor->silent_b ("InitLexer") && check_debug)
+  if (flower_dstream && !flower_dstream->silent_b ("InitLexer") && flower_dstream)
     set_debug (1);
 
 
@@ -160,7 +160,7 @@ My_lily_lexer::print_declarations (bool ) const
 {
   for (int i=scope_l_arr_.size (); i--; )
     {
-      DOUT << "Scope no. " << i << '\n';
+      DEBUG_OUT << "Scope no. " << i << '\n';
       scope_l_arr_[i]->print ();
     }
 }

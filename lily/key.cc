@@ -21,7 +21,7 @@ void
 Octave_key::print () const
 {
   for (int i= 0; i < 7 ; i++)
-    DOUT << "note " << i << " acc: " << accidental_i_arr_[i] << '\n';
+    DEBUG_OUT << "note " << i << " acc: " << accidental_i_arr_[i] << '\n';
 }
 
 
@@ -109,9 +109,9 @@ Key::print () const
 {
   for (int i= 0; i < NUMBER_OF_OCTAVES ; i++)
     {
-      DOUT << "octave " << i - ZEROOCTAVE << " Octave_key { ";
+      DEBUG_OUT << "octave " << i - ZEROOCTAVE << " Octave_key { ";
       octaves_[i].print ();
-      DOUT << "}\n";
+      DEBUG_OUT << "}\n";
     }
 }
 

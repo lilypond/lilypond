@@ -55,7 +55,7 @@ void
 Request_chord_iterator::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "duration: " << elt_length_mom_;
+  DEBUG_OUT << "duration: " << elt_length_mom_;
 #endif
 }
 

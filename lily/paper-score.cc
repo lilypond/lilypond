@@ -92,16 +92,16 @@ void
 Paper_score::print () const
 {
 #ifndef NPRINT
-  if (!check_debug)
+  if (!flower_dstream)
     return ;
-  DOUT << "Paper_score { ";
-  DOUT << "\n elements: ";
+  DEBUG_OUT << "Paper_score { ";
+  DEBUG_OUT << "\n elements: ";
   for (int i=0; i < span_p_arr_.size (); i++)
     span_p_arr_[i]->print ();
   for (int i=0; i < elem_p_arr_.size (); i++)
     elem_p_arr_[i]->print();
   
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }
 

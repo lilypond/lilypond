@@ -15,6 +15,6 @@ void
 Translation_property::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "." << var_str_ << " = " << value_;
+  DEBUG_OUT << "." << var_str_ << " = " << value_;
 #endif
 }

@@ -51,7 +51,7 @@ void
 Column_spring::print () const
 {
 #ifndef NPRINT
-  DOUT << "Column_spring { rank = "
+  DEBUG_OUT << "Column_spring { rank = "
        << other_l_->rank_i () << ", dist = " << distance_f_ << "}\n";   
 
 #endif

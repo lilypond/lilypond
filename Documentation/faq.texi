@@ -31,8 +31,8 @@
 
 @subsubsection HELP! I'm stuck!
 
-Please read this document carefully.  If you are still at loss,
-send your subsubsections to the @strong{mailing list}, and not to authors
+Please read this document carefully.  If you are still at loss, send
+your questions to the @strong{mailing list}, and not to authors
 directly.
 
 Note: relative paths are meant to be relative to the source directory
@@ -45,7 +45,6 @@ Note: relative paths are meant to be relative to the source directory
 
 The NT port is done with the Cygnus GNU/Windows32 port of the GNU utils.
 It does @emph{not} work with windows 3.x; you need Windows-NT (95/98?).
-
 
 @subsubsection Where is guile-config
 
@@ -595,6 +594,30 @@ restrictions imposed on you.
 References - best one I know is the UK-based Performing Right Society,
 @uref{http://www.prs.co.uk/} (especially "membership") and their links to other
 international equivalents.  
+
+@email{wl@@gnu.org} writes:
+
+@quotation
+   I realise that typesetting can be copyright - this is the reason I
+   can't buy a book of Bach's Urtexts (for example), photocopy parts
+   of it and give them away.
+@end quotation
+
+Sorry, but you can (at least in Austria or Germany, but not in
+France)!  Typesetting an Urtext edition isn't copyrighted --
+typesetting is a handcraft, not an art.  What's copyrighted in an
+Urtext edition is the editor's comment or the revision remarks,
+cadenzas added by the editor, etc.
+
+Glen Prideaux, @email{glenprideaux@@MailAndNews.com}:
+
+One has to be careful. In Australia typesetting IS covered by copyright, but
+only for 25 years (as opposed to 50 years from the death of the
+author/composer/artist for virtually any other copyright). If the
+typesetting originates in a country that does not protect typesetting then
+there may indeed be no copyright protection available to control the use of
+mudela files.
+
 
 
 Juergen Reuter <reuterj@@ira.uka.de>:

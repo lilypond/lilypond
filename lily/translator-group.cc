@@ -277,7 +277,7 @@ Translator_group::nongroup_l_arr () const
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  DOUT << "Removing " << classname (r_l) << " at " << now_mom () << '\n';
+  DEBUG_OUT << "Removing " << classname (r_l) << " at " << now_mom () << '\n';
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
 
@@ -371,26 +371,26 @@ void
 Translator_group::do_print() const
 {
 #ifndef NPRINT
-  if (!check_debug)
+  if (!flower_dstream)
     return ;
   for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
     {
-      DOUT << i.key () << "=" << i.val () << '\n';
+      DEBUG_OUT << i.key () << "=" << i.val () << '\n';
     }
   if (status == ORPHAN)
     {
-      DOUT << "consists of: ";
+      DEBUG_OUT << "consists of: ";
       for (int i=0; i < consists_str_arr_.size (); i++)
-	DOUT << consists_str_arr_[i] << ", ";
-      DOUT << "\naccepts: ";
+	DEBUG_OUT << consists_str_arr_[i] << ", ";
+      DEBUG_OUT << "\naccepts: ";
       for (int i=0; i < accepts_str_arr_.size (); i++)
-	DOUT << accepts_str_arr_[i] << ", ";
+	DEBUG_OUT << accepts_str_arr_[i] << ", ";
     }
   else
     {
       if (id_str_.length_i ())
-	DOUT << "ID: " << id_str_ ;
-      DOUT << " iterators: " << iterator_count_<< '\n';
+	DEBUG_OUT << "ID: " << id_str_ ;
+      DEBUG_OUT << " iterators: " << iterator_count_<< '\n';
     }
   each (&Translator::print);
 #endif

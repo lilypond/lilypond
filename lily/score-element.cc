@@ -137,16 +137,16 @@ void
 Score_element::print() const
 {
 #ifndef NPRINT
-  DOUT << classname(this) << "{\n";
-  if (check_debug && !lily_monitor->silent_b ("Score_element"))
+  DEBUG_OUT << classname(this) << "{\n";
+  if (flower_dstream && !flower_dstream->silent_b ("Score_element"))
     ly_display_scm (element_property_alist_);
-  DOUT << "dependencies: " << dependency_size();
+  DEBUG_OUT << "dependencies: " << dependency_size();
   if (original_l_)
-    DOUT << "Copy ";
+    DEBUG_OUT << "Copy ";
   Graphical_element::do_print ();
   do_print();
   
-  DOUT <<  "}\n";
+  DEBUG_OUT <<  "}\n";
 #endif
 }
 

@@ -36,15 +36,15 @@ void
 Music::print() const
 {
 #ifndef NPRINT
-  if (! check_debug)
+  if (! flower_dstream)
     return ;
-  DOUT << classname(this) << "{";
+  DEBUG_OUT << classname(this) << "{";
   /*
   if  (translator_type_str_.length_i ())
-    DOUT << translator_type_str_ << " = " << translator_id_str_;
+    DEBUG_OUT << translator_type_str_ << " = " << translator_id_str_;
   */
   do_print();
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }
 

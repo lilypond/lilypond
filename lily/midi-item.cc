@@ -112,7 +112,10 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
   set ("MThd", str, "");
 }
 
+
 /* why doesn't this start at 0 ?
+
+   TODO: -> IN GUILE!
  */
 char const* const instrument_name_sz_a_[ ] = {
   /* default is usually piano */
@@ -544,12 +547,12 @@ String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
-  if (check_debug && !lily_monitor->silent_b ("Midistrings"))
+  if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->str ();
-      if (check_debug && !lily_monitor->silent_b ("Midistrings"))
+      if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
         str += "\n";
     }
   return str;

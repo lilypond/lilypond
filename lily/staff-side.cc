@@ -164,9 +164,9 @@ Staff_side_element::do_print () const
 {
 #ifndef NPRINT
   if (to_position_l_)
-    DOUT << "positioning " << to_position_l_->name();
+    DEBUG_OUT << "positioning " << to_position_l_->name();
 
-  DOUT << "axis == " << axis_name_str (axis_)
+  DEBUG_OUT << "axis == " << axis_name_str (axis_)
        << ", dir == " << to_str ((int)dir_ );
 #endif
 }

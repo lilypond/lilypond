@@ -16,9 +16,9 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"
-#define BEZIER_BOW_DOUT if (check_debug && !lily_monitor->silent_b ("Bezier_bow")) cout
+#define BEZIER_BOW_DEBUG_OUT if (flower_dstream && !flower_dstream->silent_b ("Bezier_bow")) cout
 #else
-#define BEZIER_BOW_DOUT cerr
+#define BEZIER_BOW_DEBUG_OUT cerr
 #endif
 
 
@@ -105,7 +105,7 @@ void
 Bezier::print () const
 {
 #ifndef NPRINT
-  if (check_debug && !lily_monitor->silent_b ("Bezier_controls"))
+  if (flower_dstream && !flower_dstream->silent_b ("Bezier_controls"))
     {
       if (control_[1].length ())
         {
@@ -246,9 +246,9 @@ void
 Bezier_bow::calc ()
 {
 #ifndef NPRINT
-//  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
-  if (check_debug && !(lily_monitor->silent_b ("Bezier_controls")
-    && lily_monitor->silent_b ("Bezier_bow_controls")))
+//  if (flower_dstream && !flower_dstream->silent_b ("Bezier_bow_controls"))
+  if (flower_dstream && !(flower_dstream->silent_b ("Bezier_controls")
+    && flower_dstream->silent_b ("Bezier_bow_controls")))
     {
       cout << "Before transform*********\n";
       print ();
@@ -275,9 +275,9 @@ Bezier_bow::calc ()
   print ();
   transform_back ();
 #ifndef NPRINT
-//  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
-  if (check_debug && !(lily_monitor->silent_b ("Bezier_controls")
-    && lily_monitor->silent_b ("Bezier_bow_controls")))
+//  if (flower_dstream && !flower_dstream->silent_b ("Bezier_bow_controls"))
+  if (flower_dstream && !(flower_dstream->silent_b ("Bezier_controls")
+    && flower_dstream->silent_b ("Bezier_bow_controls")))
     {
       cout << "After transform*********\n";
       print ();
@@ -431,7 +431,7 @@ void
 Bezier_bow::calc_tangent_controls ()
 {
   Offset ijk_p (control_[3][X_AXIS] / 2, control_[1][Y_AXIS]);
-  BEZIER_BOW_DOUT << "ijk: " << ijk_p[X_AXIS] << ", " << ijk_p[Y_AXIS] << endl;
+  BEZIER_BOW_DEBUG_OUT << "ijk: " << ijk_p[X_AXIS] << ", " << ijk_p[Y_AXIS] << endl;
 
   Real default_rc = ijk_p[Y_AXIS] / ijk_p[X_AXIS];
 
@@ -467,8 +467,8 @@ Bezier_bow::calc_tangent_controls ()
       end_p = ijk_p;
       end_rc = default_rc;
     }
-  BEZIER_BOW_DOUT << "begin " << begin_p[X_AXIS] << ", " << begin_p[Y_AXIS] << endl;
-  BEZIER_BOW_DOUT << "end " << end_p[X_AXIS] << ", " << end_p[Y_AXIS] << endl;
+  BEZIER_BOW_DEBUG_OUT << "begin " << begin_p[X_AXIS] << ", " << begin_p[Y_AXIS] << endl;
+  BEZIER_BOW_DEBUG_OUT << "end " << end_p[X_AXIS] << ", " << end_p[Y_AXIS] << endl;
 
   Real height =control_[1][Y_AXIS]; 
   for (int i = 0; i < encompass_.size (); i++ )
@@ -508,17 +508,17 @@ Bezier_bow::calc_tangent_controls ()
   Real c3 = begin_p[Y_AXIS] > end_p[Y_AXIS] ? begin_p[Y_AXIS] 
     - rc3 * begin_p[X_AXIS] : end_p[Y_AXIS] - rc3 * end_p[X_AXIS];
 
-  BEZIER_BOW_DOUT << "y1 = " << rc1 << " x + 0" << endl;
-  BEZIER_BOW_DOUT << "y2 = " << rc2 << " x + " << c2 << endl;
-  BEZIER_BOW_DOUT << "y3 = " << rc3 << " x + " << c3 << endl;
+  BEZIER_BOW_DEBUG_OUT << "y1 = " << rc1 << " x + 0" << endl;
+  BEZIER_BOW_DEBUG_OUT << "y2 = " << rc2 << " x + " << c2 << endl;
+  BEZIER_BOW_DEBUG_OUT << "y3 = " << rc3 << " x + " << c3 << endl;
   control_[1][X_AXIS] = c3 / (rc1 - rc3);
   control_[1][Y_AXIS] = rc1 * control_[1][X_AXIS];
   control_[2][X_AXIS] = (c3 - c2) / (rc2 - rc3);
-  BEZIER_BOW_DOUT << "c2[X_AXIS] = " << control_[2][X_AXIS] << endl;
-  BEZIER_BOW_DOUT << "(c3 - c2) = " << (c3 - c2) << endl;
-  BEZIER_BOW_DOUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
+  BEZIER_BOW_DEBUG_OUT << "c2[X_AXIS] = " << control_[2][X_AXIS] << endl;
+  BEZIER_BOW_DEBUG_OUT << "(c3 - c2) = " << (c3 - c2) << endl;
+  BEZIER_BOW_DEBUG_OUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
   control_[2][Y_AXIS] = rc2 * control_[2][X_AXIS] + c2;
-  BEZIER_BOW_DOUT << "c2[Y_AXIS]" << control_[2][Y_AXIS] << endl;
+  BEZIER_BOW_DEBUG_OUT << "c2[Y_AXIS]" << control_[2][Y_AXIS] << endl;
 
   calc_return (begin_alpha, end_alpha);
 }
@@ -550,7 +550,7 @@ Bezier_bow::print () const
 {
 #ifndef NPRINT
   Bezier::print ();
-  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
+  if (flower_dstream && !flower_dstream->silent_b ("Bezier_bow_controls"))
     {
       cout << "Bezier_bow\n";
       cout << "Encompass: ";

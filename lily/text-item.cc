@@ -29,5 +29,5 @@ Text_item::Text_item ()
 void
 Text_item::do_print () const
 {
-  DOUT <<  "text= " << text_str_;
+  DEBUG_OUT <<  "text= " << text_str_;
 }

@@ -26,7 +26,7 @@ Bar::do_print () const
 {
 #ifndef NPRINT
   String s = type_str_;
-  DOUT << "type = " << s;
+  DEBUG_OUT << "type = " << s;
 #endif
 }
 

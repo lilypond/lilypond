@@ -15,7 +15,7 @@ void
 Span_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << span_dir_;
+  DEBUG_OUT << span_dir_;
 #endif
 }
 
@@ -28,7 +28,7 @@ void
 Tremolo_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "type " << type_i_ << '\n';
+  DEBUG_OUT << "type " << type_i_ << '\n';
 #endif
 }
 
@@ -86,7 +86,7 @@ void
 Rhythmic_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "duration { " <<duration_.str () << "}";
+  DEBUG_OUT << "duration { " <<duration_.str () << "}";
 #endif
 }
 
@@ -108,7 +108,7 @@ Lyric_req::do_print () const
 {
 #ifndef NPRINT
   Rhythmic_req::do_print ();
-  DOUT <<  "text = " << text_str_;
+  DEBUG_OUT <<  "text = " << text_str_;
 #endif
 }
 
@@ -136,11 +136,11 @@ Note_req::do_print () const
   Melodic_req::do_print ();
   if (cautionary_b_)
     {
-	DOUT << " force cautionary accidental\n";
+	DEBUG_OUT << " force cautionary accidental\n";
     }
   else if (forceacc_b_)
     {
-	DOUT << " force accidental\n";
+	DEBUG_OUT << " force accidental\n";
     }
   Rhythmic_req::do_print ();
 #endif
@@ -168,14 +168,14 @@ void
 Chord_tremolo_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << type_i_;
+  DEBUG_OUT << type_i_;
 #endif
 }
 
 void
 Text_script_req::do_print () const
 {
-  DOUT << "text" << text_str_
+  DEBUG_OUT << "text" << text_str_
        << ", style = " << style_str_;
 }
 
@@ -189,7 +189,7 @@ Text_script_req::do_equal_b (Request const* r) const
 void
 Articulation_req::do_print () const
 {
-  DOUT << articulation_str_;
+  DEBUG_OUT << articulation_str_;
 }
 
 bool

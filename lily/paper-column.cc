@@ -83,7 +83,7 @@ void
 Paper_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "rank: " << rank_i_ << '\n';
+  DEBUG_OUT << "rank: " << rank_i_ << '\n';
   Direction d = LEFT;
   do
     {

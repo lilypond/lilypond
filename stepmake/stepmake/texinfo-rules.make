@@ -15,7 +15,7 @@ $(outdir)/%.dvi:	$(outdir)/%.texi
 	cd $(outdir); texi2dvi ../$< 
 
 $(outdir)/%.txt: $(outdir)/%.texi
-	$(MAKEINFO) --no-split --no-headers --output $@ $<
+	$(MAKEINFO) -I../  --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
 	cp $< $@

@@ -116,7 +116,7 @@ Tex_font_metric_reader::read_header ()
   tfm_.info_.coding_scheme = header_length > 2
     ? get_bcpl_str () : "unspecified";
 
-  DOUT << format_str ("TFM checksum = %u, design_size = %fpt, coding scheme = `%s'.\n",
+  DEBUG_OUT << format_str ("TFM checksum = %u, design_size = %fpt, coding scheme = `%s'.\n",
 		      tfm_.info_.checksum,
 		      tfm_.info_.design_size,
 		      tfm_.info_.coding_scheme.ch_C ());
@@ -159,7 +159,7 @@ Tex_font_metric_reader::read_params ()
 
 #ifdef PRINT
   for (Char_code i = 1; i <= tfm_.header_.param_word_count; i++)
-    DOUT << format_str ("TFM parameter %d: %.3f", i, tfm_.info_.parameters[i - 1]);
+    DEBUG_OUT << format_str ("TFM parameter %d: %.3f", i, tfm_.info_.parameters[i - 1]);
 #endif
 }
 
@@ -250,9 +250,9 @@ Tex_font_metric_reader::read_char ()
   tfm_char.exists_b_ = width_index != 0;
 
 #ifdef PRINT
-  DOUT << format_str ("   width = %f, height = %f, ",
+  DEBUG_OUT << format_str ("   width = %f, height = %f, ",
 		      tfm_char.width_, tfm_char.height_);
-  DOUT << format_str ("depth = %f, ic = %f.\n",
+  DEBUG_OUT << format_str ("depth = %f, ic = %f.\n",
 		      tfm_char.depth, tfm_char.italic_correction); 
 #endif
 
@@ -287,7 +287,7 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
       U8 remainder = input_.get_U8 ();
 
 #ifdef PRINT
-      DOUT << format_str ("   if next = %u (%c), ", next_char, next_char);
+      DEBUG_OUT << format_str ("   if next = %u (%c), ", next_char, next_char);
 #endif
 
       if (kern_step_b)
@@ -303,7 +303,7 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  kern_arr_p->push (kern_element);
 
 #ifdef PRINT
-	  DOUT << format_str ("kern %f.\n", kern_element.kern);
+	  DEBUG_OUT << format_str ("kern %f.\n", kern_element.kern);
 #endif
 	}
       else
@@ -314,7 +314,7 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  ligature_arr_p->push (ligature_element);
 
 #ifdef PRINT
-	  DOUT format_str ("ligature %d (hex %x).\n",
+	  DEBUG_OUT format_str ("ligature %d (hex %x).\n",
 			   ligature_element.ligature,
 			   ligature_element.ligature);
 #endif

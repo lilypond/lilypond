@@ -410,20 +410,20 @@
 		      )))
   
   (define (select-font font-name magnification)
-      (if (not (equal? font-name current-font))
-	  (begin
-	    (set! current-font font-name)
-	    (define font-cmd (assoc font-name font-alist))
-	    (if (eq? font-cmd #f)
-		(begin
-		  (set! font-cmd (cached-fontname font-count))
-		  (set! font-alist (acons font-name font-cmd font-alist))
-		  (set! font-count (+ 1 font-count))
-		  (string-append "\n/" font-cmd " {/"
-				 font-name " findfont " 
-				 (mag-to-size magnification)
-				 " scalefont setfont} bind def \n"
-				 font-cmd " \n"))
+    (define font-cmd (assoc font-name font-alist))
+    (if (not (equal? font-name current-font))
+	(begin
+	  (set! current-font font-name)
+	  (if (eq? font-cmd #f)
+	      (begin
+		(set! font-cmd (cached-fontname font-count))
+		(set! font-alist (acons font-name font-cmd font-alist))
+		(set! font-count (+ 1 font-count))
+		(string-append "\n/" font-cmd " {/"
+			       font-name " findfont " 
+			       (mag-to-size magnification)
+			       " scalefont setfont} bind def \n"
+			       font-cmd " \n"))
 		(string-append (cdr font-cmd) " ")))
 	  ; font-name == current-font no switch needed
 	  ""				

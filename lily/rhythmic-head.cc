@@ -78,7 +78,7 @@ void
 Rhythmic_head::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "balltype = "<< balltype_i_ << "dots = " << dots_i ();
+  DEBUG_OUT << "balltype = "<< balltype_i_ << "dots = " << dots_i ();
 #endif
 }
 

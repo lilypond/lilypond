@@ -68,9 +68,9 @@ void
 Stem::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "flag "<< flag_i_;
+  DEBUG_OUT << "flag "<< flag_i_;
   if (beam_l_)
-    DOUT << "beamed";
+    DEBUG_OUT << "beamed";
 #endif
 }
 

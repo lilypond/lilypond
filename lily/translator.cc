@@ -78,11 +78,11 @@ void
 Translator::print () const
 {
 #ifndef NPRINT
-  DOUT << classname (this) << " {";
+  DEBUG_OUT << classname (this) << " {";
   if (classname (this) != type_str_)
-    DOUT << "type = " << type_str_;
+    DEBUG_OUT << "type = " << type_str_;
   do_print ();
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }
 
@@ -169,3 +169,15 @@ Translator::get_property (String id, Translator_group **where_l) const
   return daddy_trans_l_->get_property (id, where_l);
 }
 
+
+
+void
+Translator:: do_pre_move_processing(){}
+void
+Translator::do_post_move_processing(){}
+void
+Translator::do_process_requests () {}
+void
+Translator::do_creation_processing() {}
+void
+Translator::do_removal_processing(){}

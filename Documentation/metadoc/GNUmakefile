@@ -19,7 +19,7 @@ EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES)  $(TEX_FIL
 HTML_FILES = $(addprefix $(outdir)/,  $(TELY_FILES:.tely=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
-STEPMAKE_TEMPLATES=tex documentation
+STEPMAKE_TEMPLATES=tex documentation texinfo
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
 export BIBINPUTS:=$(shell pwd)//$(PATHSEP)$(BIBINPUTS)

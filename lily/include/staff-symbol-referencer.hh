@@ -25,6 +25,11 @@ protected:
 public:
   Staff_symbol_referencer ();
   void set_staff_symbol (Staff_symbol*);
+  /**
+     Leading are the lead strips between the sticks (lines) of
+     typeface. ie. leading is vertical space.
+
+   */
   Real staff_line_leading_f () const;
   Staff_symbol * staff_symbol_l () const;
   int lines_i () const;

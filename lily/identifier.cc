@@ -61,7 +61,7 @@ Identifier::do_str () const
 void
 Identifier::print () const
 {
-  DOUT << "identifier ";
+  DEBUG_OUT << "identifier ";
   do_print ();
 }
 void
@@ -107,7 +107,7 @@ DUMMY_STR(Duration);
 void \
 Class ## _identifier::do_print () const\
 {\
-  DOUT << do_str () << '\n';\
+  DEBUG_OUT << do_str () << '\n';\
 }\
 
 

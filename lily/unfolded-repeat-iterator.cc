@@ -165,8 +165,8 @@ void
 Unfolded_repeat_iterator::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "count " << done_count_ << "done time " << done_mom_ << '\n';
-  DOUT << "current: ";
+  DEBUG_OUT << "count " << done_count_ << "done time " << done_mom_ << '\n';
+  DEBUG_OUT << "current: ";
   current_iter_p_->print();
 #endif
 }
