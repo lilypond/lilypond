@@ -1,4 +1,4 @@
-
+@c -*-texinfo-*-
 @node Sound
 @chapter Sound
 @cindex Sound
@@ -52,9 +52,8 @@ to a score, for example,
 @end example 
 
 Here, the tempo is specified using the @code{\tempo} command.  In this
-case the tempo of quarter notes is set to 72 beats per minute.  More
-information on auditory output in the notation manual can be found in
-@ref{sound}.
+case the tempo of quarter notes is set to 72 beats per minute.
+
 
 If there is a @code{\midi} command in a @code{\score}, only MIDI will
 be produced.  When notation is needed too, a @code{\paper} block must

@@ -36,6 +36,7 @@ Short Introduction to LaTeX} provides a introduction to using La@TeX{}.
 
 
 @menu
+* An example of a musicological document::  
 * Integrating Texinfo and music::  
 * Integrating LaTeX and music::  
 * Integrating HTML and music::  
@@ -89,7 +90,7 @@ Larger examples can be put in a separate file, and introduced with
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
 \end{document}
-@end verb+
+@end verbatim
 
 Under Unix, you can view the results as follows
 
@@ -100,7 +101,7 @@ lilypond-book --output=out/ lilybook.tex
 @emph{lilypond-book (GNU LilyPond) 2.3.11}
 @emph{Reading `input/tutorial/lilybook.tex'}
 @emph{..lots of stuff deleted..}
-@emph{Compiling `out//lilybook.tex'
+@emph{Compiling `out//lilybook.tex'}
 cd out
 latex lilybook
 @emph{lots of stuff deleted}

@@ -28,7 +28,7 @@ import time
 
 # Did we ever have \mudela-version?  I doubt it.
 # lilypond_version_re_str = '\\\\version *\"(.*)\"'
-lilypond_version_re_str = '\\\\(mudela-)?version *\"(.*)\"'
+lilypond_version_re_str = '\\\\(mudela-)?version *\"([^"]+)\"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
 add_version = 1
 

@@ -31,11 +31,8 @@ Measure_grouping::print (SCM grob)
 						       X_AXIS);
 
   Interval rext = me->get_bound (RIGHT)->extent (common, X_AXIS);
-  
-  
-  Real w =(rext.is_empty ()
-	   ? me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS)
-	   : rext[RIGHT])
+  Real w =robust_relative_extent (me->get_bound (RIGHT),
+				  common, X_AXIS).linear_combination (CENTER);
     - me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
   Interval iv (0,w);
