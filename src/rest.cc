@@ -11,12 +11,15 @@ Rest::Rest(int t, int d)
     balltype = t;
     dots = d;
 }
+NAME_METHOD(Rest);
 
 void
-Rest::print()const
+Rest::do_print()const
 {
+#ifndef NPRINT
     mtor << "Rest "<<balltype<< "dots " << dots;
     Item::print();
+#endif
 }
 
 Molecule*
