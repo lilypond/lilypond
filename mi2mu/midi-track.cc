@@ -14,7 +14,15 @@ Midi_track::Midi_track( int number_i, String copyright_str, String track_name_st
 		name_str_ = track_name_str;
 	else
 		name_str_ = String( "track" ) + String( number_i_ );
+	midi_time_p_ = new Midi_time( 4, 2, 24, 8 );
+	midi_tempo_p_ = new Midi_tempo( 1000000 );
 	tcol_p_list_.bottom().add( new Track_column( Moment( 0 ) ) );
+}
+
+Midi_track::~Midi_track()
+{
+	delete midi_time_p_;
+	delete midi_tempo_p_;
 }
 
 void
@@ -91,7 +99,7 @@ void
 Midi_track::process()
 {
 	int bar_i = 1;
-	Moment bar_mom = midi_parser_l_g->midi_time_p_->bar_mom();
+	Moment bar_mom = midi_time_p_->bar_mom();
 
 	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
 		int bars_i = (int)( i->mom() / bar_mom );
@@ -128,7 +136,7 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 	lily_stream_r.newline();
 
 	int bar_i = 1;
-	Moment bar_mom = midi_parser_l_g->midi_time_p_->bar_mom();
+	Moment bar_mom = midi_time_p_->bar_mom();
 
 	PointerList<Midi_voice*> open_voices;
 	Moment now_mom = 0.0;
@@ -172,12 +180,27 @@ void
 Midi_track::remove_end_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( open_voices_r.top() ); i.ok(); i++ )
+//		if ( i->end_mom() == mom ) {
 		if ( i->end_mom() <= mom ) {
 			dtor << "open_voices (" << open_voices_r.size() << "): -1\n";
 			i.remove_p();  // remove? // no delete; only a copy
 			if ( !i.ok() )
 				break;
 		}
+}
+
+void
+Midi_track::set_tempo( int useconds_per_4_i )
+{
+	delete midi_tempo_p_;
+	midi_tempo_p_ = new Midi_tempo( useconds_per_4_i );
+}
+
+void
+Midi_track::set_time( int num_i, int den_i, int clocks_i, int count_32_i )
+{
+	delete midi_time_p_;
+	midi_time_p_ = new Midi_time( num_i, den_i, clocks_i, count_32_i );
 }
 
 Track_column*
