@@ -53,6 +53,8 @@ extern "C" {
 #include <libio.h>
 #else
 
+#ifdef ALIAS_FILE_TO_FILECOOKIE
+  
 #define cookie_io_functions_t le_cookie_io_functions_t 
   typedef struct
   {
@@ -81,7 +83,8 @@ extern "C" {
 #undef putc
 #endif
 #define putc handle_cookie_io_putc
-
+#endif /* ALIAS_FILE_TO_FILECOOKIE */
+  
 #endif /* ! HAVE_FUNOPEN */
 
 #endif /* ! HAVE_FOPENCOOKIE */
