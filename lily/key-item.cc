@@ -54,7 +54,7 @@ Molecule*
 Key_item::brew_molecule_p()const
 {
     Molecule*output = new Molecule;
-    Real inter = paper()->internote();
+    Real inter = paper()->internote_f();
     
     for (int i =0; i < pitch.size(); i++) {
 	Symbol s= paper()->lookup_l()->accidental(acc[i]);
