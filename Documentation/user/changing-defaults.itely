@@ -1657,14 +1657,13 @@ sfzp = #(make-dynamic-script "sfzp")
 It is also possible to print dynamics in round parenthesis or square
 brackets.  These are often used for adding editorial dynamics.
 
-@ignore
-@li lypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,raggedright]
 \version "2.4.2"
-rndf = \markup{ \center-align <{ \bold{\italic (} \dynamic f \bold{\italic )} }> }
+rndf = \markup{ \center-align {\line { \bold{\italic (}
+  \dynamic f \bold{\italic )} }} }
 boxf = \markup{ \bracket { \dynamic f } }
 { c'1_\rndf c'1_\boxf }
 @end lilypond
-@end ignore
 
 
 @node Global layout
