@@ -33,6 +33,8 @@ public:
  
   static Real staff_space (Score_element*);
   static Score_element * staff_symbol_l (Score_element*);
+  static bool on_staffline (Score_element*);
+  static bool on_staffline (Score_element*,int);
   static int line_count (Score_element*);
   static Real position_f (Score_element*);
   static Real staff_radius (Score_element*);
