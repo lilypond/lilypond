@@ -1,3 +1,11 @@
+2003-09-13  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-clefs.mf: still more set_char_box() fixes and code
+	cleanup; bugfix: exact_center
+
+	* Documentation/user/refman.itely: added more documentation on
+	ambitus according to recent questions on lilypond-user list
+
 2003-09-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/ottava.ly (texidoc): demo 15ma too.
