@@ -304,8 +304,8 @@ Beam::quanting (SCM smob)
 #endif
   
   me->set_property ("positions",
-			 ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
-					  qscores[best_idx].yr)));
+		    ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
+						       qscores[best_idx].yr)));
 #if DEBUG_QUANTING
   if (debug_beam_quanting_flag)
     {

@@ -283,6 +283,9 @@ slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
+     (inspect-quants ,number-pair? "If debugging is set,
+set beam quant to this position, and print the respective scores.")
+     
      (kern ,ly:dimension? "Amount of extra white space to add. For
 bar line, this is the amount of space after a thick line.")
      (knee ,boolean? "Is this beam kneed?")
