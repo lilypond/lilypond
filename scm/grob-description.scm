@@ -696,7 +696,6 @@
     (NoteSpacing
      . (
 	(stem-spacing-correction . 0.5)
-	(space-factor . 1.0)
 	(meta . ((interfaces . (note-spacing-interface))))
 	))
 

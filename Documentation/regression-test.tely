@@ -41,7 +41,6 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{rest-pitch.ly}
 
-
 @section Dots
 
 @lilypondfile[printfilename]{dots.ly}

@@ -311,7 +311,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
   
   if (correct &&stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
     {
-      if (beams_drul[LEFT] == beams_drul[RIGHT])
+      if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
 	  /*
 	    this is a knee: maximal correction.
