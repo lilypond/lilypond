@@ -23,6 +23,7 @@ extern void set_inclusion_names (Array<String>);
 
 /* options */
 extern bool dependency_global_b;
+extern String dependency_prefix_global;
 extern Array<String> dump_header_fieldnames_global;
 extern bool no_paper_global_b;
 extern bool no_timestamps_global_b;

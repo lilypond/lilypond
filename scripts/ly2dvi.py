@@ -923,14 +923,10 @@ def getLilyopts():
     inc = ''	
     if len(Props.get('include')) > 0: 
         inc = string.join (map (lambda x: '-I "%s"' % x, Props.get('include')))
-    else:
-
-        if Props.get('dependencies'):
-            dep=' --dependencies'
-        else:
-            dep=''
-	return inc + dep
-    return inc
+    dep=''
+    if Props.get('dependencies'):
+        dep=' --dependencies'
+    return inc + dep
 
 def writeLilylog(file,contents):
     if Props.get('keeplilypond'):
@@ -1159,8 +1155,8 @@ def main():
             outdir=Props.get ('output')
             for i in depFiles:
                 text=open (i).read ()
-                # brr
-                # text=re.sub ('\n([^:]*:)', '\n' + outdir + '/\\1', text)
+                # ugh, should use lilypond -o DIR/foo.tex
+                # or --dep-prefix to fix dependencies
                 text=re.sub ('\n([^:]*).tex', '\n' + outdir + '/\\1.dvi', text)
                 text=re.sub (' ([^:]*).tex', ' ' + outdir + '/\\1.dvi', text)
                 open (os.path.join (outdir, i), 'w').write (text)

@@ -15,5 +15,11 @@ Stems may be short, but noteheads should never touch the beam.
 	}
 	\paper{
 		linewidth=-1.;
+		\translator {
+		        \VoiceContext
+			% If we want to test extreme beams,
+			% we should not have them auto-kneed
+			Beam \override #'auto-knee-gap = ##f
+		}
 	}
 }

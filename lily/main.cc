@@ -41,6 +41,9 @@
 /* Write dependencies file? */
 bool dependency_global_b = false;
 
+/* Prepend to dependencies */
+String dependency_prefix_global;
+
 /* Names of header fields to be dumped to a separate file. */
 Array<String> dump_header_fieldnames_global;
 
@@ -105,6 +108,7 @@ static Long_option_init options_static[] = {
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
+  {_i ("DIR"), "dep-prefix", 'P',  _i ("prepend DIR to dependencies")},
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
   {_i ("NAME"), "output", 'o',  _i ("write output to NAME")},
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
@@ -112,7 +116,7 @@ static Long_option_init options_static[] = {
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
-  {0,0,0, 0}
+  {0,0,0,0}
 };
 
 void
@@ -304,7 +308,7 @@ String
 format_to_ext (String format)
 {
   if (format == "tex")
-    /* .lytex change in separate (revertable) patch: 1.3.130.jcn4 */
+    /* .lytex change put off */
     return "tex"; // "lytex";
   return format;
 }
@@ -420,6 +424,9 @@ main (int argc, char **argv)
 	  break;
 	case 'f':
 	    output_format_global = oparser_p_static->optional_argument_ch_C_;
+	  break;
+	case 'P':
+	    dependency_prefix_global = oparser_p_static->optional_argument_ch_C_;
 	  break;
 	case 'H':
 	  dump_header_fieldnames_global.push (oparser_p_static->optional_argument_ch_C_);

@@ -5,6 +5,15 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include "config.h"
+
+#include <errno.h>
+#include <sys/types.h>
+#if HAVE_SYS_STAT_H 
+#include <sys/stat.h>
+#endif
+#include <unistd.h>
+
 #include <fstream.h>
 #include "main.hh"
 #include "score.hh"
@@ -41,8 +50,11 @@ void write_dependency_file (String fn, Array<String> targets,
   f << "# Generated automatically by: " << gnu_lilypond_version_str ()  << '\n';
   String out;
   for (int i=0; i < targets.size (); i ++)
-     out += targets[i] + " ";
+     out += dependency_prefix_global + targets[i] + " ";
   out +=  ": ";
+#if 0
+  struct stat stat_buf;
+#endif
   for (int i=0; i < deps.size (); i ++)
     {
       if (out.length_i() > WRAPWIDTH)
@@ -50,7 +62,18 @@ void write_dependency_file (String fn, Array<String> targets,
 	  f << out << "\\\n";
 	  out = "  ";
 	}
-      out  += " " +  deps[i];
+      String dep = deps[i];
+      if (!dependency_prefix_global.empty_b ())
+	{
+#if 0//thinko?
+	  if (stat (dep.ch_C (), &stat_buf) == -1 && errno == ENOENT)
+	    ; //make emacs happy
+#else
+	  if (dep.index_i ('/') < 0)
+#endif
+	    dep = dependency_prefix_global + dep;
+	}
+      out  += " " +  dep;
     }
   f << out << endl; 
 }

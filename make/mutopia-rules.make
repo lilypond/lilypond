@@ -1,12 +1,12 @@
 
 
 $(outdir)/%.gif: $(outdir)/%.ps
-	sh $(buildscript-dir)/ps-to-gifs.sh $<
+	sh $(PS_TO_GIFS) $<
 	-mv $(name-stem)-page*.gif $(outdir)/
 	touch $@
 
 $(outdir)/%.png: $(outdir)/%.ps
-	sh $(buildscript-dir)/ps-to-pngs.sh $<
+	sh $(PS_TO_PNGS) $<
 	-mv $(name-stem)-page*.png $(outdir)/
 	touch $@
 
@@ -18,10 +18,10 @@ $(outdir)/%.ly.txt: %.abc
 	ln -f $< $@
 
 $(outdir)/%.ly: %.abc
-	$(PYTHON) $(script-dir)/abc2ly.py -o $@ $< 
+	$(PYTHON) $(ABC2LY) -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir) --dependencies $< 
+	$(PYTHON) $(LY2DVI) --outdir=$(outdir) --dependencies $< 
 	-mv $(basename $(<F))*.midi $(outdir)
 
 # don't junk intermediate .dvi files.  They're easier to view than
@@ -29,13 +29,13 @@ $(outdir)/%.dvi: $(outdir)/%.ly
 .PRECIOUS: $(outdir)/%.dvi
 
 $(outdir)/%.dvi: %.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir) --dependencies $< 
+	$(PYTHON) $(LY2DVI) --outdir=$(outdir) --dependencies $< 
 	-mv $(basename $<)*.midi $(outdir)
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir)-$(PAPERSIZE) --dependencies --papersize=$(PAPERSIZE) $< 
+	$(PYTHON) $(LY2DVI) --outdir=$(outdir)-$(PAPERSIZE) --dependencies --papersize=$(PAPERSIZE) $< 
 	-mv $(basename $<)*.midi $(outdir)-$(PAPERSIZE)
 
 $(outdir)/%.dvi: %.fly
-	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)  $< 
+	$(PYTHON) $(LY2DVI) -o $(outdir)  $< 
 	-mv $(basename $<)*.midi $(outdir)

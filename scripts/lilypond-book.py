@@ -896,6 +896,7 @@ def system (cmd):
 	return st
 
 def compile_all_files (chunks):
+	global foutn
 	eps = []
 	tex = []
 	png = []
@@ -924,23 +925,23 @@ def compile_all_files (chunks):
 				x = os.path.join (g_here_dir, x)
 			return ' -I %s' % x
 
-		incs =  map (incl_opt, include_path)
+		incs = map (incl_opt, include_path)
 		lilyopts = string.join (incs, ' ' )
-		texfiles = string.join (tex, ' ')
 		if do_deps:
 			lilyopts = lilyopts + ' --dependencies '
-			#system ('touch %s' % texfiles)
+			if g_outdir:
+				lilyopts = lilyopts + '--dep-prefix=' + g_outdir + '/'
+		texfiles = string.join (tex, ' ')
 		system ('lilypond --header=texidoc %s %s' % (lilyopts, texfiles))
 
 		#
-		# Ugh, fixing up dependencies for outdir/ and .tex generation
+		# Ugh, fixing up dependencies for .tex generation
 		#
 		if do_deps:
 			depfiles=map (lambda x: re.sub ('(.*)\.ly', '\\1.dep', x), tex)
 			for i in depfiles:
 				text=open (i).read ()
-				text=re.sub ('\n([^:\n]*):', '\n' + g_outdir + '/' + foutn + ':', text)
-				text=re.sub (' ([^ /\n]*).ly', ' ' + g_outdir + '/\\1.ly', text)
+				text=re.sub ('\n([^:\n]*):', '\n' + foutn + ':', text)
 				open (i, 'w').write (text)
 
 	for e in eps:
@@ -950,8 +951,7 @@ def compile_all_files (chunks):
 		cmd = r"""gs -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r90 -dNOPAUSE %s -c quit | pnmcrop | pnmtopng > %s"""
 		cmd = cmd % (g + '.eps', g + '.png')
 		system (cmd)
-	if g_outdir:
-		os.chdir(d)
+	os.chdir (d)
 
 
 def update_file (body, name):
@@ -1050,7 +1050,7 @@ Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 def write_deps (fn, target, chunks):
 	global read_files
-	sys.stdout.write('writing `%s\'\n' % os.path.join(g_outdir, fn))
+	sys.stdout.write('Writing `%s\'\n' % os.path.join(g_outdir, fn))
 	f = open (os.path.join(g_outdir, fn), 'w')
 	f.write ('%s%s: ' % (g_dep_prefix, target))
 	for d in read_files:
@@ -1063,6 +1063,10 @@ def write_deps (fn, target, chunks):
 	for d in basenames:
 		if g_outdir:
 			d=g_outdir + '/' + d
+		if g_dep_prefix:
+			#if not os.isfile (d): # thinko?
+			if not re.search ('/', d):
+				d = g_dep_prefix + d
 		f.write ('%s.tex ' %  d)
 	f.write ('\n')
 	#if len (basenames):
@@ -1107,6 +1111,7 @@ def fix_epswidth (chunks):
 	return newchunks
 
 
+foutn=""
 def do_file(input_filename):
 	global foutn
 	file_settings = {}
@@ -1129,6 +1134,8 @@ def do_file(input_filename):
 	scan_preamble(chunks)
 	chunks = process_lilypond_blocks(my_outname, chunks)
 
+	foutn = os.path.join (g_outdir, my_outname + '.' + format)
+
 	# Do It.
 	if __main__.g_run_lilypond:
 		compile_all_files (chunks)
@@ -1139,7 +1146,6 @@ def do_file(input_filename):
 
 	x = 0
 	chunks = completize_preamble (chunks)
-	foutn = os.path.join(g_outdir, my_outname + '.' + format)
 	sys.stderr.write ("Writing `%s'\n" % foutn)
 	fout = open (foutn, 'w')
 	for c in chunks:

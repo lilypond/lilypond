@@ -1,3 +1,11 @@
+1.3.130.jcn4
+============
+
+* Makefile template using dependencies: make/ly.make.  Needs some
+simple examples.
+
+* Depencies fixes for lilypond, ly2dvi and lilypond-book.
+
 1.3.130.jcn3
 ============
 
