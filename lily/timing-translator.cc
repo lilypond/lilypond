@@ -12,7 +12,7 @@
 #include "translator-group.hh"
 #include "global-translator.hh"
 
-Timing_translator::Timing_translator()
+Timing_translator::Timing_translator ()
 {
   default_grouping_ = Rhythmic_grouping (MInterval (0,4),4); // ugh
 }
