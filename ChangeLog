@@ -1,3 +1,9 @@
+2005-01-28  Graham Percival  <gperlist@shaw.ca>
+
+	* Docuemntation/user/invoking.itely: fix info about -o=FILE.
+
+	* scripts/lilypond-latex.py: fix info about -o=FILE.
+
 2005-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/generate-embedded-cff.ly: write .cff.ps files.
