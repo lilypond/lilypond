@@ -1,0 +1,14 @@
+# tex/Makefile.am.wild
+
+TEXFILES = $(wildcard *.tex)
+EXTRA_DIST = Makefile.am.wild $(TEXFILES)
+
+CLEANFILES = $(wildcard feta*.tex)
+
+install-data:
+	$(INSTALL) -d $(TEXDIR)/lilypond
+	$(INSTALL) -m 644 $(TEXFILES) $(TEXDIR)/lilypond/
+
+uninstall-data:
+	for i in $(TEXFILES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
+	-rmdir $(TEXDIR)/lilypond/
