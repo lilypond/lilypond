@@ -36,37 +36,37 @@ Input::set_spot(Input const &i)
 }
 
 void
-Input::message(String message_str)const
+Input::message(String message_str) const
 {
     String str = "";
     
-    if ( source_file_l_ ) 
+    if (source_file_l_) 
       {
 	str += location_str() + String(": ");
       }
     
     str += message_str;
-    if ( source_file_l_ ) 
+    if (source_file_l_) 
       {
 	str += ":\n";
-	str += source_file_l_->error_str( defined_ch_C_);
+	str += source_file_l_->error_str(defined_ch_C_);
       }
     cerr << str << endl;
 }
 
 void
-Input::warning( String message_str)const
+Input::warning(String message_str) const
 {
-    message( "warning: " + message_str);
+    message("warning: " + message_str);
 }
 void
-Input::error(String s)const
+Input::error(String s) const
 {
     message("error: "+ s);
 }
 
 String
-Input::location_str()const
+Input::location_str() const
 {
     if (source_file_l_) 
 	return source_file_l_->file_line_no_str(defined_ch_C_);

@@ -18,7 +18,7 @@ HANDLE CreateFileMapping(
     DWORD dwMaximumSizeHigh,	// high-order 32 bits of object size  
     DWORD dwMaximumSizeLow,	// low-order 32 bits of object size  
     LPCTSTR lpName 	// name of file-mapping object 
-   );	
+);	
  
 
 LPVOID MapViewOfFile(
@@ -27,11 +27,11 @@ LPVOID MapViewOfFile(
     DWORD dwFileOffsetHigh,	// high-order 32 bits of file offset 
     DWORD dwFileOffsetLow,	// low-order 32 bits of file offset 
     DWORD dwNumberOfBytesToMap 	// number of bytes to map 
-   );	
+);	
  
 
 io.h:
-long _get_osfhandle( int filehandle );
+long _get_osfhandle(int filehandle);
 */
 
 // cygnus's gnu-win32-b17.1 does not have _get_osfhandle
@@ -46,9 +46,9 @@ static const int OSF_FACTOR_i = 8;
 
 // #define HAVE_GET_OSFHANDLE  // no we still cannot; works only with cl.exe
 long
-_get_osfhandle( int filedes_i )
+_get_osfhandle(int filedes_i)
 {
-    return (long)( OSF_OFFSET_i + ( filedes_i + OSF_BASE_i ) * OSF_FACTOR_i );
+    return (long)(OSF_OFFSET_i + (filedes_i + OSF_BASE_i) * OSF_FACTOR_i);
 }
 
 #ifdef HAVE_GET_OSFHANDLE
@@ -61,10 +61,10 @@ mmap(caddr_t addr, size_t len, int prot, int flags, int fd, off_t offset)
     (void)flags;
     (void)prot;
     (void)addr;
-    HANDLE osf = (HANDLE)_get_osfhandle( fd );
-    HANDLE file_handle = CreateFileMapping( osf, (void*)0, PAGE_READONLY,
-	0, len, 0 ); 
-    return (caddr_t)MapViewOfFile( file_handle, FILE_MAP_READ, 0, offset, len );
+    HANDLE osf = (HANDLE)_get_osfhandle(fd);
+    HANDLE file_handle = CreateFileMapping(osf, (void*)0, PAGE_READONLY,
+	0, len, 0); 
+    return (caddr_t)MapViewOfFile(file_handle, FILE_MAP_READ, 0, offset, len);
 }
 
 
@@ -72,7 +72,7 @@ int
 munmap(caddr_t addr, size_t len)
 {
     (void)len;
-    return UnmapViewOfFile( addr );
+    return UnmapViewOfFile(addr);
 }
 
 #else // ! HAVE_GET_OSFHANDLE //
@@ -85,8 +85,8 @@ mmap(caddr_t addr, size_t len, int prot, int flags, int fd, off_t offset)
     (void)addr;
     (void)offset;
     char* ch_p = new char[ len ];
-    if ( ch_p )
-        read( fd, (void*)ch_p, len );
+    if (ch_p)
+        read(fd, (void*)ch_p, len);
     return ch_p;
 }
 
