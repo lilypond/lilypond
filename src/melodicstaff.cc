@@ -5,7 +5,7 @@
 #include "notehead.hh"
 #include "paper.hh"
 #include "molecule.hh"
-#include "linestaff.hh"
+#include "linepstaff.hh"
 #include "rhythmstaff.hh"
 #include "sccol.hh" 
 #include "localkeyitem.hh"
@@ -17,7 +17,7 @@ const int NO_LINES=5;
 void
 Melodic_staff::set_output(PScore*ps)
 {
-    theline = new Linestaff(NO_LINES,ps);
+    theline_l_ = new Linestaff(NO_LINES,ps); // theline_l_ is added to pscore later.
     Simple_staff::set_output(ps);
 }
 

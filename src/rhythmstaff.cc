@@ -3,7 +3,7 @@
 #include "request.hh"
 #include "notehead.hh"
 #include "stem.hh"
-#include "linestaff.hh"
+#include "linepstaff.hh"
 #include "rhythmstaff.hh"
 #include "paper.hh"
 #include "sccol.hh" 
@@ -12,7 +12,7 @@
 void
 Rhythmic_staff::set_output(PScore*ps)
 {
-    theline = new Linestaff(1,ps);
+    theline_l_ = new Linestaff(1,ps);
     Simple_staff::set_output(ps);
 }
 
