@@ -2,6 +2,8 @@
 % ideally, we should create a LaTeX/TeX class
 % for setting music in different sizes.
 %
+% Version 0.1
+%
 \input lilyponddefs
 \def\EndLilyPondOutput{\endinput}
 %
@@ -11,21 +13,24 @@
 \def\thearranger{}
 \def\theinstrument{}
 %
-\def\title#1{\def\thetitle{#1\\}}
-\def\subtitle#1{\def\thesubtitle{#1}}
-\def\composer#1{\def\thecomposer{#1}}
-\def\composers#1{\def\thecomposer{#1}}
-\def\arranger#1{\def\thearranger{#1}}
-\def\arrangers#1{\def\thearranger{#1}}
-\def\instrument#1{\def\theinstrument{#1}}
+\newcommand*{\title}[1]{\def\thetitle{#1\\}}
+\newcommand*{\subtitle}[1]{\def\thesubtitle{#1\\}}
+\newcommand*{\composer}[1]{\def\thecomposer{#1\\}}
+\newcommand*{\arranger}[1]{\def\thearranger{#1}}
+\newcommand*{\instrument}[1]{\def\theinstrument{#1}}
 %
-\def\makelilytitle{
-  \begin{center}
-    {\huge\bfseries\thetitle}{\large\bfseries\thesubtitle}
-  \end{center}
-  {\flushleft\theinstrument\hfill\scshape\thecomposer\\}
-  {\hfill\thearranger}
-  }
-
-
+\newcommand*{\mudelatitle}[1]{\def\thetitle{#1\\}}
+\newcommand*{\mudelasubtitle}[1]{\def\thesubtitle{#1\\}}
+\newcommand*{\mudelacomposer}[1]{\def\thecomposer{#1\\}}
+\newcommand*{\mudelaarranger}[1]{\def\thearranger{#1}}
+\newcommand*{\mudelainstrument}[1]{\def\theinstrument{#1}}
+%
+\def\makelilytitle
+{
+  {\center\bfseries\huge\center\thetitle}
+        \par
+       {\center\bfseries\large\thesubtitle}
+  %\bigskip
+  {\flushleft\theinstrument\hfill\scshape\thecomposer}{\hfill\thearranger}
+}
 \endinput
