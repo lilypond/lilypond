@@ -1,8 +1,15 @@
 #!/bin/sh
 
+case  $# in
+0) 
+    WHAT="" ;;
+1)
+    WHAT=$1;;
+esac
+    
 # remove possibly stale .pk/.tfm files 
-echo> /tmp/cleaning-font
-FILES=`find /var/lib/texmf/ -name 'font-en-tja*' -o -name 'feta*'`
-# FILES=`find /var/lib/texmf/ -name 'font-en-tja*' -o name 'feta-*" -o -name 'vette-beam*' -o -name 'dyn10*'`
+echo> /tmp/cleaning-font-dummy
+FILES=`find /var/lib/texmf/ -name "feta*$WHAT*"`
+
 echo removing $FILES
-rm  $FILES /tmp/cleaning-font
+rm  $FILES /tmp/cleaning-font-dummy

@@ -56,7 +56,7 @@ the mailing lists.  See Documentation/links.pod for more info
 6. DOZE
 
 If you have received this file as part of a DOS/Window32 distribution
-(lilypond-*.zip ), then it is advisable to also download the source
+(lilypond-*.zip), then it is advisable to also download the source
 package, since it might contain more documentation
 
 	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
@@ -67,7 +67,7 @@ The website also contains the complete documentation
 	http://www.stack.nl/~hanwen/lilypond/index.html
 
 If you decide to build LilyPond from source, please read the INSTALL
-document first, esp. the Windows NT/95 section.
+document first, especially the Windows NT/95 section.
 
 7. CAVEATS
 
@@ -78,3 +78,5 @@ Linux-Intel unix users.
 files, eg
 
 	rm `find /var/lib/texmf/fonts -name 'feta*'`
+
+a script to do this for you is in bin/cleanfonts.sh

@@ -1,0 +1,44 @@
+input feta-macros;
+input feta-params;
+
+save code;
+code :=0;
+
+
+def draw_brace( expr height_sharp, width_sharp) = 
+	save pendir, height, width, thin, thick;
+	save penangle;
+	height# := height_sharp;
+	width#  := width_sharp;
+
+	beginchar(incr code, width#, height#/2, height#/2);
+ 
+	define_pixels (height, width);
+	thin = 2 stafflinethickness;
+	thick = .5 interline;
+	
+	z2 = .5 [z1, z3];
+	y3 = y1 + height/2;
+	x3 = x1 + width;
+	y1 =0;
+	x3 = - width / 2;
+
+	pair pendir;
+	pendir = unitvector(x3 - x1, y3/6 - y1);
+	penangle = angle pendir - 90;
+	penpos3(thin, penangle);
+	penpos2(thick, angle(z3 -z1) -90 );
+	penpos1(2/3 thin, penangle);
+	
+	penlabels(1,2,3);
+	fill z2r ..  simple_serif (z3r, z3l, 90)
+		.. z2l .. simple_serif (z1l, z1r, 90) ..cycle;
+
+	addto currentpicture also currentpicture yscaled -1;
+endchar;
+enddef;
+
+
+for h :=  2 staffsize#  step 2 pt# until (6 * staffsize#):
+	draw_brace(h, interline# );
+endfor
