@@ -270,6 +270,17 @@ Piano_pedal_engraver::do_pre_move_processing ()
       if (p.item_p_)
 	{
 	  side_position (p.item_p_).add_staff_support ();
+	  /*
+	    Hmm.
+	  */
+	  if (i.key () != "Sustain")
+	    {
+	      if (Item* sustain = info_dict_["Sustain"].item_p_)
+		{
+		  Side_position_interface st (p.item_p_);
+		  st.add_support (sustain);
+		}
+	    }
 	  typeset_element (p.item_p_);
 	}
       p.item_p_ = 0;

@@ -26,10 +26,12 @@ paper_sixteen = \paper {
 	0 = \font "feta16" 
 	-1 = \font "feta13"
 	-2 = \font "feta11"
+	-3 = \font "feta11"
 	
-	"font_feta-2" = 11.;
-	"font_feta-1" = 13.;
 	"font_feta" = 16.;
+	"font_feta-1" = 13.;
+	"font_feta-2" = 11.;
+	"font_feta-3" = 11.;
 
 	\include "params.ly";
 }

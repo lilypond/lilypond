@@ -78,9 +78,17 @@ Chord_name::pitch2molecule (Musical_pitch p) const
     We want the smaller size, even if we're big ourselves.
    */
   if (p.accidental_i_)
-    mol.add_at_edge (X_AXIS, RIGHT, 
+    {
+      Molecule acc = paper_l ()->lookup_l (-3)->afm_find
+	(String ("accidentals-") + to_str (p.accidental_i_));
+      // urg, howto get a good superscript_y?
+      Real super_y = lookup_l ()->text ("", "x", paper_l ()).extent
+	()[Y_AXIS].length () / 2;
+      super_y += -acc.extent ()[Y_AXIS][MIN];
+      acc.translate_axis (super_y, Y_AXIS);
+      mol.add_at_edge (X_AXIS, RIGHT, acc, 0.0);
+    }
 		     
-		     paper_l ()->lookup_l (-2)->afm_find (String ("accidentals-") + to_str (p.accidental_i_)), 0.0);
   return mol;
 }
 
@@ -282,7 +290,8 @@ Chord_name::do_brew_molecule () const
     }
 
   // urg, howto get a good superscript_y?
-  Real super_y = lookup_l ()->text ("", "x", paper_l ()).dim_.y ().length ()/2;
+  Real super_y = lookup_l ()->text ("", "x", paper_l ()).extent
+    ()[Y_AXIS].length () / 2;
   if (!name.addition_mol.empty_b ())
     name.addition_mol.translate (Offset (0, super_y));
 

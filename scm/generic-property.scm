@@ -223,6 +223,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
+   generic-sustain-pedal-properties
    generic-rest-collision-properties
    generic-volta-spanner-properties
 ;   generic-staff-symbol-properties
