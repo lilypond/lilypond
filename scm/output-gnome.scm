@@ -7,6 +7,12 @@
 
 ;;; HIP -- hack in progress
 
+;;; Note: this install information is volatile
+;;;       you'll probably want to pull all from
+;;;       from guile-gnome-devel@gnu.org--2004 soon
+;;;   
+;;; move this into workbook?
+
 "
 ## install gnome-devel
 
@@ -14,7 +20,7 @@
 PATH=/usr/bin:$PATH
 
 ## get g-wrap 2.0
-tla register-archive http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/4 || true
+tla register-archive a.rottmann@gmx.at--2004-main http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true
 
 rm -rf gw-pristine
 tla get a.rottmann@gmx.at--2004-main/g-wrap--tng gw-pristine
@@ -29,11 +35,19 @@ make install
 cd ../..
 
 ## get guile-gnome
-rm -rf gg-pristine
-tla get a.rottmann@gmx.at--2004-main/guile-gnome-dists--dev gg-pristine
-cd gg-pristine
+tla register-archive guile-gnome-devel@gnu.org--2004 http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
+rm -rf guile-gnome
+tla guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
+cd guile-gnome
 tla build-config -r configs/gnu.org/dev
 cd src
+## ugh: get janneke's stuff -- should make build-config, I guess?
+tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
+rm -rf defs
+rm -rf libgnomecanvas
+tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 libgnomecanvas
+tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 defs
+
 AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
 mkdir ../=build
 cd ../=build
@@ -45,7 +59,7 @@ export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
 G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
-#fixup
+#FIXME: fixup
 (cd $HOME/usr/pkg/guile-gnome/share/guile/gnome && mv gtk/g[dt]k.scm gw)
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
@@ -68,7 +82,8 @@ lilypond-bin -fgnome input/simple-song.ly
 (use-modules
  (guile)
  (lily)
- (gnome gtk))
+ (gnome gtk)
+ (gnome gw libgnomecanvas))
 
 
 ;;; Lily output interface --- fix silly names and docme
@@ -143,7 +158,7 @@ lilypond-bin -fgnome input/simple-song.ly
 
 ;;; Global vars
 (define main-window #f)
-(define the-canvas #f)
+(define canvas-root #f)
 
 (define output-scale (* 2 2.83464566929134))
 (define system-y 0)
@@ -151,7 +166,10 @@ lilypond-bin -fgnome input/simple-song.ly
 
 
 (define (char font i)
-  #f)
+  (let ((item (make <gnome-canvas-text> #:x 0 #:y 0
+		    #:font "new century schoolbook, i bold 20"
+		    #:text (char->string i))))
+    (add canvas-root txt)))
 
 (define (placebox x y expr)
   #f)
@@ -168,16 +186,17 @@ lilypond-bin -fgnome input/simple-song.ly
 ;;  NULL);
   
 (define (round-filled-box breapth width depth height blot-diameter)
-  (let* ((x . ,(number->string (* output-scale (- 0 breapth))))
-	 (y . ,(number->string (* output-scale (- 0 height))))
-	 (width . ,(number->string (* output-scale (+ breapth width))))
-	 (height . ,(number->string (* output-scale (+ depth height))))
-	 (ry . ,(number->string (/ blot-diameter 2)))
-	 ;;(item (make <canvas-item>
-	 ;;	 #:type 'GnomeCanvasLine
-	 ;;	 #:points '(x y width height))
-	 )
-  #f))
+  (let* ((x1 . ,(number->string (* output-scale (- 0 breapth))))
+	 (y1 . ,(number->string (* output-scale (- 0 height))))
+	 (x2 . ,(number->string (* output-scale width)))
+	 (y2 . ,(number->string (* output-scale height)))
+	 ;;(ry . ,(number->string (/ blot-diameter 2)))
+	 ;; FIXME: no rounded corners on rectangle
+	 (item (make <gnome-canvas-rect>
+		 #:x1 x1 #:y1 y1 #:x2 x2.0 #:y2 y2
+		 ;;#:width-unit blot-diameter
+		 )))
+    (add canvas-root item)))
 
 (define (fontify font expr)
   #f)
@@ -187,23 +206,32 @@ lilypond-bin -fgnome input/simple-song.ly
 
 (define (header . rest)
   (let* ((window (make <gtk-window> #:type 'toplevel))
-	 ;;(canvas (make <canvas>))
-	 ;;(canvas (make <gnome-canvas>))
-	 (button (make <gtk-button> #:label "Hello, World!")))
+	 (button (make <gtk-button> #:label "Exit"))
+	 (canvas (make <gnome-canvas> ))
+	 (vbox (make <gtk-vbox>)))
 
-    (gtk-container-set-border-width window 10)
-    (gtk-container-add window button)
+    (gtk-container-add window vbox)
+    (gtk-widget-show vbox)
     
+    (set-size-request canvas 300 300)
+    (gtk-container-add vbox canvas)
+
+    (gtk-container-add vbox button)
     (gtype-instance-signal-connect button 'clicked
 				   (lambda (b) (gtk-main-quit)))
+    
+    (gtk-widget-show canvas)
+    (gtk-widget-show button)
+    (gtk-widget-show window)
+    
+    (set! canvas-root (root canvas))
+    (set! main-window window)))
 
-    (gtk-widget-show-all window)
-    (set! main-window window)
-    ;;(set! the-canvas canvas))
-    ))
-
-(define (text . rest)
-  #f)
+(define (text font string)
+  (let ((item (make <gnome-canvas-text> #:x 0 #:y 0
+		    #:font "new century schoolbook, i bold 20"
+		    #:text string)))
+    (add canvas-root txt)))
 
 (define (filledbox a b c d)
   (round-filled-box a b c d 0.001))
