@@ -120,7 +120,7 @@ Break_align_interface::do_alignment (Grob *grob)
   Array<Interval> extents;
 
   int last_nonempty = -1; 
-  for (int i=0; i < elems.size (); i++) 
+  for (int i= 0; i < elems.size (); i++) 
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push (y);
@@ -246,8 +246,8 @@ Break_align_interface::do_alignment (Grob *grob)
   Real here = 0.0;
   Interval total_extent;
 
-  Real alignment_off =0.0;  
-  for (int i =0 ; i < offsets.size (); i++)
+  Real alignment_off = 0.0;  
+  for (int i = 0 ; i < offsets.size (); i++)
     {
       here += offsets[i];
       if (i == edge_idx)
@@ -264,7 +264,7 @@ Break_align_interface::do_alignment (Grob *grob)
     alignment_off = -total_extent[LEFT];
 
   here = alignment_off;
-  for (int i =0 ; i < offsets.size (); i++)
+  for (int i = 0 ; i < offsets.size (); i++)
     {
       here += offsets[i];
       elems[i]->translate_axis (here, X_AXIS);

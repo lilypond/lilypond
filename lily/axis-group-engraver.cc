@@ -102,7 +102,7 @@ Axis_group_engraver::process_acknowledged_grobs ()
   if (!staffline_) 
     return ;
   
-  for (int i=0; i < elts_.size (); i++)
+  for (int i= 0; i < elts_.size (); i++)
     {
       if  (!unsmob_grob (elts_[i]->get_property ("axis-group-parent-Y")))
 	{

@@ -17,7 +17,7 @@
 Rod::Rod ()
 {
   distance_ = 0.0;
-  item_l_drul_[LEFT] = item_l_drul_[RIGHT] =0;
+  item_l_drul_[LEFT] = item_l_drul_[RIGHT] = 0;
 }
 
 

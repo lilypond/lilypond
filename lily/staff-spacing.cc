@@ -125,7 +125,7 @@ Real
 Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
-  Real max_corr =0.0;
+  Real max_corr = 0.0;
 
   for (SCM s = me->get_property ("right-items");
        scm_is_pair (s);  s = scm_cdr (s))
@@ -148,7 +148,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   *space = 1.0;
   *fixed = 1.0;
 
-  Grob * separation_item=0;
+  Grob * separation_item= 0;
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");

@@ -30,13 +30,13 @@ protected:
 
 Script_column_engraver::Script_column_engraver ()
 {
-  scol_ =0;
+  scol_ = 0;
 }
 
 void
 Script_column_engraver::stop_translation_timestep ()
 {
-  scol_ =0;
+  scol_ = 0;
   scripts_.clear ();
 }
 
@@ -65,7 +65,7 @@ Script_column_engraver::process_acknowledged_grobs ()
 
   if (scol_)
     {
-      for (int i=0; i < scripts_.size (); i++)
+      for (int i= 0; i < scripts_.size (); i++)
 	Script_column::add_staff_sided (scol_, scripts_[i]);
       scripts_.clear ();
     }

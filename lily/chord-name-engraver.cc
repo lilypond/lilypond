@@ -71,7 +71,7 @@ Chord_name_engraver::process_music ()
   SCM pitches = SCM_EOL;
 
   Music* inversion_event = 0;
-  for (int i =0 ; i < notes_.size (); i++)
+  for (int i = 0 ; i < notes_.size (); i++)
     {
       Music *n = notes_[i];
       SCM p = n->get_property ("pitch");

@@ -24,7 +24,7 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info *fi)
   for (int i = 256 >? fi->numOfChars; i--;)
     ascii_to_metric_idx_.push (-1);
   
-  for (int i=0; i < fi->numOfChars; i++)
+  for (int i= 0; i < fi->numOfChars; i++)
     {
       AFM_CharMetricInfo * c = fi->cmi + i;
 
@@ -55,7 +55,7 @@ Adobe_font_metric::make_afm (AFM_Font_info *fi,
 AFM_CharMetricInfo const*
 Adobe_font_metric::find_ascii_metric (int a) const
 {
-  if (ascii_to_metric_idx_[a] >=0)
+  if (ascii_to_metric_idx_[a] >= 0)
     {
       int code = ascii_to_metric_idx_[a];
       if (code >= 0)

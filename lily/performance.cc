@@ -25,7 +25,7 @@
 
 Performance::Performance ()
 {
-  midi_ =0;
+  midi_ = 0;
   audio_elem_p_list_ = 0;
 }
 

@@ -65,7 +65,7 @@ Bar_number_engraver::process_music ()
 
 Bar_number_engraver::Bar_number_engraver ()
 {
-  text_ =0;
+  text_ = 0;
 }
 
 					       
@@ -91,7 +91,7 @@ Bar_number_engraver::stop_translation_timestep ()
     {
       text_->set_property ("side-support-elements", get_property ("stavesFound"));
       
-      text_ =0;
+      text_ = 0;
     }
 }
 

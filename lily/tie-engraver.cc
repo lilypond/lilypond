@@ -144,14 +144,14 @@ Tie_engraver::stop_translation_timestep ()
   if (ties_.size ())
     {
       heads_to_tie_.clear ();
-      for (int i=0; i<  ties_.size (); i++)
+      for (int i= 0; i<  ties_.size (); i++)
 	{
 	  typeset_tie (ties_[i]);
 	}
 
       ties_.clear ();
       last_event_ = 0;
-      tie_column_ =0;
+      tie_column_ = 0;
     }
   
   if (event_)

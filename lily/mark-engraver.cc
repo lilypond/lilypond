@@ -42,7 +42,7 @@ private:
 
 Mark_engraver::Mark_engraver ()
 {
-  text_ =0;
+  text_ = 0;
   mark_ev_ = 0;
 }
 
@@ -68,7 +68,7 @@ Mark_engraver::stop_translation_timestep ()
     {
       SCM lst = get_property ("stavesFound");
       text_->set_property ("side-support-elements" , lst);
-      text_ =0;
+      text_ = 0;
     }
   mark_ev_ = 0;
 }

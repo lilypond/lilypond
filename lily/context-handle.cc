@@ -11,12 +11,12 @@
 
 Interpretation_context_handle::Interpretation_context_handle ()
 {
-  outlet_ =0;
+  outlet_ = 0;
 }
 
 Interpretation_context_handle::Interpretation_context_handle (Interpretation_context_handle const&s)
 {
-  outlet_ =0;
+  outlet_ = 0;
   if (s.outlet_)
     up (s.outlet_);
 }

@@ -21,7 +21,7 @@ int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 
 Grob_pitch_tuple::Grob_pitch_tuple ()
 {
-  head_ =0;
+  head_ = 0;
   end_ = 0;
 }
 

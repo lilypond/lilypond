@@ -53,7 +53,7 @@ Note_heads_engraver::try_music (Music *m)
 void
 Note_heads_engraver::process_music ()
 {
-  for (int i=0; i < note_evs_.size (); i++)
+  for (int i= 0; i < note_evs_.size (); i++)
     {
 
       Music * ev = note_evs_[i];

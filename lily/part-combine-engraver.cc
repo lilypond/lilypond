@@ -40,7 +40,7 @@ Part_combine_engraver::try_music (Music*m)
 Part_combine_engraver::Part_combine_engraver ()
 {
   text_ = 0;
-  event_  =0;
+  event_  = 0;
 }
 
 void

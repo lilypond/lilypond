@@ -109,7 +109,7 @@ Hyphen_engraver::finalize ()
 	  finished_hyphen_->warning (_("unterminated hyphen; removing"));
 	  finished_hyphen_->suicide ();
 	}
-      finished_hyphen_ =0;
+      finished_hyphen_ = 0;
     }
 }
 
@@ -135,7 +135,7 @@ Hyphen_engraver::stop_translation_timestep ()
   if (finished_hyphen_ && hyphen_)
     {
       programming_error ("Haven't finished hyphen yet.");
-      finished_hyphen_ =0;
+      finished_hyphen_ = 0;
     }
   
   if (hyphen_)

@@ -57,7 +57,7 @@ translate (Array<Offset>* array, Offset o)
 
   Formula of the bezier 3-spline
 
-  sum_{j=0}^3 (3 over j) z_j (1-t)^ (3-j)  t^j
+  sum_{j= 0}^3 (3 over j) z_j (1-t)^ (3-j)  t^j
 
 
   A is the axis of X coordinate.
@@ -91,7 +91,7 @@ Bezier::curve_point (Real t)const
   Real one_min_tj = (1-t)* (1-t)* (1-t);
 
   Offset o;
-  for (int j=0 ; j < 4; j++)
+  for (int j= 0 ; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient (3, j)
 	* pow (t,j) * pow (1-t, 3-j);
@@ -114,7 +114,7 @@ Polynomial
 Bezier::polynomial (Axis a)const
 {
   Polynomial p (0.0);
-  for (int j=0; j <= 3; j++)
+  for (int j= 0; j <= 3; j++)
     {
       p +=
 	(control_[j][a] * binomial_coefficient (3, j))
@@ -219,7 +219,7 @@ Bezier::translate (Offset o)
 void
 Bezier::assert_sanity () const
 {
-  for (int i=0; i < CONTROL_COUNT; i++)
+  for (int i= 0; i < CONTROL_COUNT; i++)
     assert (!isnan (control_[i].length ())
 	    && !isinf (control_[i].length ()));
 }
@@ -228,7 +228,7 @@ void
 Bezier::reverse ()
 {
   Bezier b2;
-  for (int i =0; i < CONTROL_COUNT; i++)
+  for (int i = 0; i < CONTROL_COUNT; i++)
     b2.control_[CONTROL_COUNT-i-1] = control_[i];
   *this = b2;
 }

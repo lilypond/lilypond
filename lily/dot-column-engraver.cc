@@ -44,9 +44,9 @@ Dot_column_engraver::stop_translation_timestep ()
   if (stem_ && dotcol_)
     dotcol_->set_property ("stem", stem_->self_scm ());
       
-  dotcol_ =0;
+  dotcol_ = 0;
   heads_.clear ();
-  stem_ =0;
+  stem_ = 0;
 }
 
 void

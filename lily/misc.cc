@@ -18,7 +18,7 @@ int
 intlog2 (int d)
 {
   assert (d);
-  int i=0;
+  int i= 0;
   while ((d != 1)) 
     {
       d /= 2;

@@ -82,7 +82,7 @@ Timing_translator::measure_position () const
 {
   SCM sm = get_property ("measurePosition");
   
-  Moment m   =0;
+  Moment m   = 0;
   if (unsmob_moment (sm))
     {
       m = *unsmob_moment (sm);

@@ -80,7 +80,7 @@ struct Dot_position
   Dot_position ()
   {
     dot_ = 0;
-    pos_ =0;
+    pos_ = 0;
     dir_ = CENTER;
   }
 };
@@ -165,7 +165,7 @@ shift_one (Dot_configuration const &cfg,
 	    {
 	      if (new_cfg.find (p) == new_cfg.end ())
 		{
-		  offset =0;
+		  offset = 0;
 		}
 	      new_cfg[p + offset] = i->second;
 	    }
@@ -194,7 +194,7 @@ shift_one (Dot_configuration const &cfg,
 	    {
 	      if (new_cfg.find (p) == new_cfg.end ())
 		{
-		  offset =0;
+		  offset = 0;
 		}
 
 	      new_cfg[p + offset] = i->second;
@@ -259,7 +259,7 @@ Dot_column::do_shifts (Grob*me)
       dots.del (i);
   
   Dot_configuration cfg;
-  for (int i =0;i < dots.size (); i++)
+  for (int i = 0;i < dots.size (); i++)
     {
       Dot_position dp;
       dp.dot_ = dots[i];

@@ -224,7 +224,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     {
       Real x = state.encompass_infos_[j].x_;
 
-      bool l_edge = j==0;
+      bool l_edge = j== 0;
       bool r_edge = j==state.encompass_infos_.size ()-1;
       bool edge =  l_edge || r_edge;
 

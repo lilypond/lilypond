@@ -39,7 +39,7 @@ Ottava_spanner_engraver::derived_mark () const
 Ottava_spanner_engraver::Ottava_spanner_engraver ()
 {
   finished_ = 0;
-  span_ =0;
+  span_ = 0;
   last_ottavation_ = SCM_EOL;
 }
 

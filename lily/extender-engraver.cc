@@ -147,7 +147,7 @@ Extender_engraver::finalize ()
 
       if (!pending_extender_->get_bound (RIGHT))
 	pending_extender_->warning (_ ("unterminated extender"));
-      pending_extender_ =0;
+      pending_extender_ = 0;
     }
 }
 

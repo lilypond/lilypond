@@ -83,12 +83,12 @@ Beam_engraver::valid_end_point ()
 Beam_engraver::Beam_engraver ()
 {
   beam_ = 0;
-  finished_beam_ =0;
-  finished_beam_info_=0;
-  beam_info_ =0;
+  finished_beam_ = 0;
+  finished_beam_info_= 0;
+  beam_info_ = 0;
   now_stop_ev_ = 0;
   start_ev_ = 0;
-  prev_start_ev_ =0;
+  prev_start_ev_ = 0;
 }
 
 bool
@@ -164,7 +164,7 @@ Beam_engraver::typeset_beam ()
       Beam::set_beaming (finished_beam_, finished_beam_info_);
       
       delete finished_beam_info_;
-      finished_beam_info_ =0;
+      finished_beam_info_ = 0;
       finished_beam_ = 0;
     }
 }

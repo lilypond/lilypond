@@ -37,7 +37,7 @@ void
 Note_name_engraver::process_music ()
 {
   String s ;
-  for (int i=0; i < events_.size (); i++)
+  for (int i= 0; i < events_.size (); i++)
     {
       if (i)
 	s += " ";

@@ -142,7 +142,7 @@ Volta_engraver::process_music ()
   else if (end)
     {
       end_volta_span_ = volta_span_;
-      volta_span_ =0;
+      volta_span_ = 0;
     }
 
   if (volta_span_ && 
@@ -234,7 +234,7 @@ Volta_engraver::stop_translation_timestep ()
       end_volta_span_->set_bound (RIGHT, ci);
     }
 
-  end_volta_span_ =0;
+  end_volta_span_ = 0;
 
   if (volta_span_ && !volta_span_->get_bound (LEFT))
     {

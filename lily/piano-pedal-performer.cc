@@ -105,7 +105,7 @@ Piano_pedal_performer::create_audio_elements ()
 void
 Piano_pedal_performer::stop_translation_timestep ()
 {
-  for (int i=0; i< audios_.size (); i++)
+  for (int i= 0; i< audios_.size (); i++)
     play_element (audios_[i]);
   audios_.clear ();
 }

@@ -55,7 +55,7 @@ protected:
 
 Slash_repeat_engraver::Slash_repeat_engraver ()
 {
-  repeat_ =0;
+  repeat_ = 0;
   beat_slash_ = 0;
 }
 

@@ -52,8 +52,8 @@ New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 {
   music_found_ = false;
   made_association_ = false;
-  lyric_iter_ =0;
-  music_context_ =0;
+  lyric_iter_ = 0;
+  music_context_ = 0;
   lyrics_context_ = 0;
 
   /*

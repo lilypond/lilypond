@@ -283,7 +283,7 @@ binsearch_links (Link_array<T> const &arr, T *t,
   {
       cmp = (lo + hi) / 2;
 
-      result = compare (t, arr[cmp]);
+      result = (*compare) (t, arr[cmp]);
 
       if (result < 0)
           hi = cmp;

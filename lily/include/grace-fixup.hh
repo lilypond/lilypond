@@ -28,7 +28,7 @@
   voiceA = \notes { \grace b16 c'2 }
   voiceB = \notes { c'2 \voiceA }
 
-  the iterator for voiceB will contain a fixup entry with (START=0/1,
+  the iterator for voiceB will contain a fixup entry with (START= 0/1,
   LENGTH=2/1, GRACE_START=(0G-1/16) ) 
    
   Graces at the start of a sequential music iterator are handled

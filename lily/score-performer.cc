@@ -85,7 +85,7 @@ Music_output *
 Score_performer::get_output ()
 {
   Music_output * o = performance_;
-  performance_ =0;
+  performance_ = 0;
   return o;
 }
 

@@ -46,7 +46,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Rhythmic_head::has_interface (inf.grob_))
     {
-      for (int i=0; i < texts_.size (); i++)
+      for (int i= 0; i < texts_.size (); i++)
 	{
 	  Grob*t = texts_[i];
 	  Side_position_interface::add_support (t,inf.grob_);
@@ -65,7 +65,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
   
   if (Stem::has_interface (inf.grob_))
     {
-      for (int i=0; i < texts_.size (); i++)
+      for (int i= 0; i < texts_.size (); i++)
 	{
 	  Side_position_interface::add_support (texts_[i],inf.grob_);
 	}
@@ -77,7 +77,7 @@ Text_engraver::process_acknowledged_grobs ()
 {
   if (texts_.size ())
     return;
-  for (int i=0; i < evs_.size (); i++)
+  for (int i= 0; i < evs_.size (); i++)
     {
       Music * r = evs_[i];
       

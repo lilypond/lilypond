@@ -76,7 +76,7 @@ Music_iterator::ok () const
 SCM
 Music_iterator::get_static_get_iterator (Music *m)
 {
-  Music_iterator * p =0;
+  Music_iterator * p = 0;
 
   SCM ctor = m->get_property ("iterator-ctor") ;
   SCM iter = SCM_EOL;

@@ -24,7 +24,7 @@ Translator::init ()
 {
   must_be_last_ = false;
   self_scm_ = SCM_EOL;
-  daddy_context_ =0;
+  daddy_context_ = 0;
   smobify_self ();
 }
 

@@ -34,7 +34,7 @@ protected:
 
 Span_bar_engraver::Span_bar_engraver ()
 {
-  spanbar_ =0;
+  spanbar_ = 0;
 }
 
 void
@@ -61,7 +61,7 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_) 
     {
-      for (int i=0; i < bars_.size () ; i++)
+      for (int i= 0; i < bars_.size () ; i++)
 	Span_bar::add_bar (spanbar_,bars_[i]);
 
       SCM vissym =ly_symbol2scm ("break-visibility");
@@ -70,7 +70,7 @@ Span_bar_engraver::stop_translation_timestep ()
 	spanbar_->internal_set_property (vissym, vis);
 
       
-      spanbar_ =0;
+      spanbar_ = 0;
     }
   bars_.set_size (0);
 }

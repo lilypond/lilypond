@@ -36,7 +36,7 @@ Engraver_group_engraver::acknowledge_grobs ()
   SCM meta_sym = ly_symbol2scm ("meta");  
 
   
-  for (int j =0; j < announce_infos_.size (); j++)
+  for (int j = 0; j < announce_infos_.size (); j++)
     {
       Grob_info info = announce_infos_[j];
       

@@ -140,7 +140,7 @@ check_meshing_chords (Grob *me,
   bool distant_half_collide = false;  
   bool full_collide = false;  
 
-  int i = 0, j=0;
+  int i = 0, j= 0;
   while (i < ups.size () && j < dps.size ())
   {
     if (abs (ups[i] - dps[j]) == 1)
@@ -288,7 +288,7 @@ check_meshing_chords (Grob *me,
   Direction d = UP;
   do
     {
-      for (int i=0; i < clash_groups[d].size (); i++)
+      for (int i= 0; i < clash_groups[d].size (); i++)
 	(*offsets)[d][i] += d * shift_amount;
     }
   while ((flip (&d))!= UP);
@@ -395,7 +395,7 @@ Note_collision_interface::automatic_shift (Grob *me,
       Array<int> & shift (shifts[d]);
       Link_array<Grob> & clashes (clash_groups[d]);
 
-      for (int i=0; i < clashes.size (); i++)
+      for (int i= 0; i < clashes.size (); i++)
 	{
 	  SCM sh
 	    = clashes[i]->get_property ("horizontal-shift");
@@ -422,7 +422,7 @@ Note_collision_interface::automatic_shift (Grob *me,
   d = UP;
   do
     {
-      for (int i=0; i < clash_groups[d].size (); i++)
+      for (int i= 0; i < clash_groups[d].size (); i++)
 	{
 	  Slice s (Note_column::head_positions_interval (clash_groups[d][i]));
 	  s[LEFT] --;
@@ -465,7 +465,7 @@ Note_collision_interface::automatic_shift (Grob *me,
   
   do
     {
-      for (int i=0; i < clash_groups[d].size (); i++)
+      for (int i= 0; i < clash_groups[d].size (); i++)
 	tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
 				 scm_make_real (offsets[d][i])),
 			tups);
