@@ -1,15 +1,11 @@
 \version "1.7.18"
-\header {
-
-texidoc = "@cindex Bar Line Lyric Only
-
+\header { texidoc = "@cindex Bar line lyric only
 You can move around @code{Bar_engraver} and
-@code{Span_bar_engraver} if you want bar lines on lyrics.
-"  }
-
+@code{Span_bar_engraver} if you want bar lines on lyrics. "
+}
 
 \score {
-\notes \relative c' \context StaffGroup = groupie <
+\notes \relative c' \context ChoirStaff = groupie <
  \context Staff = SA { c1 c1 c1}
  \context Lyrics \lyrics <
   { bla1 die bla }
@@ -29,18 +25,17 @@ You can move around @code{Bar_engraver} and
   % need procedure, since lyrics doesn't have a staff_sym engraver.
   BarLine \override #'bar-size-procedure = #(lambda (x) 3.0)
 }
-
 \translator {
   \LyricsContext
   \consists "Span_bar_engraver"
 }
 \translator{
-  \StaffGroupContext
+  \ChoirStaffContext
   \remove "Span_bar_engraver"
 }
-	\translator {
-	    \StaffContext
-	    \remove "Bar_engraver"
-	    }
+\translator {
+  \StaffContext
+  \remove "Bar_engraver"
+}
 }}
 
