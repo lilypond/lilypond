@@ -146,7 +146,7 @@
 	(slope-limit . 0.2)
 	(flag-width-function . ,default-beam-flag-width-function)
 	(damping . 1)
-	(auto-knee-gap . 7)
+	(auto-knee-gap . 5.5)
 	(font-name . "cmr10")
 	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface spanner-interface))))
@@ -441,7 +441,8 @@
     (LyricText
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
+			       ,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
 	(ignore-length-mismatch . #f)
@@ -449,6 +450,7 @@
 	(end-alignment . 2)
 	(font-family . roman)
 	(font-shape . upright)
+	
 	;; duh, side-position-interface?
 	(meta . ((interfaces . (lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
 	))

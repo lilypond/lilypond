@@ -1,3 +1,11 @@
+2002-08-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (consider_auto_knees): rewrite function; now only
+	consider horizontal knees. Fixes input/bugs/bizzarre-beam.ly
+
+	* lily/syllable-group.cc (set_lyric_align): fix centering on note
+	head for `normal' lyrics. This fixes input/bugs/lyrics-spacing.ly.
+
 2002-08-02  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (connect_beams): fix quarter note beams.

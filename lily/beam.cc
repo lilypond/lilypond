@@ -559,76 +559,169 @@ Beam::set_stem_directions (Grob *me, Direction d)
     }
 } 
 
-/* Simplistic auto-knees; only consider vertical gap between two
-   adjacent chords.
+/*
+  A union of intervals in the real line.
 
-   This may decide for a knee that's impossible to fit sane scoring
-   criteria (eg, stem lengths).  We may need something smarter. */
+  Abysmal performance (quadratic) for large N, hopefully we don't have
+  that large N. In any case, this should probably be rewritten to use
+  a balanced tree.
+ */
+struct Int_set
+{
+  Array<Interval> allowed_regions_;
+
+  Int_set()
+  {
+    set_full();
+  }
+
+  void set_full()
+  {
+    allowed_regions_.clear();
+    Interval s;
+    s.set_full ();
+    allowed_regions_.push (s);
+  }
+
+  void remove_interval (Interval rm)
+  {
+    for (int i = 0; i < allowed_regions_.size(); )
+      {
+	Interval s = rm;
+
+	s.intersect (allowed_regions_[i]);
+
+	if (!s.empty_b ())
+	  {
+	    Interval before = allowed_regions_[i];
+	    Interval after = allowed_regions_[i];
+
+	    before[RIGHT] = s[LEFT];
+	    after[LEFT] = s[RIGHT];
+
+	    if (!before.empty_b())
+	      {
+		allowed_regions_.insert (before, i);
+		i++;
+	      }
+	    allowed_regions_.del (i);
+	    if (!after.empty_b ())
+	      {
+		allowed_regions_.insert (after, i);
+		i++;
+	      }
+	  }
+	else
+	  i++;
+      }
+  }
+};
+
+
+/*
+  Only try horizontal beams for knees.  No reliable detection of
+  anything else is possible here, since we don't know funky-beaming
+  settings, or X-distances (slopes!)  People that want sloped
+  knee-beams, should set the directions manually.
+ */
 void
-Beam::consider_auto_knees (Grob *me, Direction d)
+Beam::consider_auto_knees (Grob* me, Direction d)
 {
   SCM scm = me->get_grob_property ("auto-knee-gap");
-
   if (!gh_number_p (scm))
-    return;
+    return ;
+
+  Real threshold = gh_scm2double (scm);
   
-  bool knee_b = false;
+  Int_set gaps;
+
+  gaps.set_full ();
   
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real gap = gh_scm2double (scm) / staff_space;
 
   Link_array<Grob> stems=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
       
   Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
-
-  int l = 0;
-  for (int r=1; r < stems.size (); r++)
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  
+  Array<Interval> hps_array;  
+  for (int i=0; i < stems.size (); i++)
     {
-      if (!Stem::invisible_b (stems[r-1]))
-	l = r - 1;
-      Grob *right = stems[r];
-      Grob *left = stems[l];
-      if (Stem::invisible_b (left))
+      Grob* stem = stems[i];
+      if (Stem::invisible_b (stem))
 	continue;
-      if (Stem::invisible_b (right))
-	continue;
-	  
-      Real left_y = Stem::extremal_heads (left)[d]
-	->relative_coordinate (common, Y_AXIS);
-      Real right_y = Stem::extremal_heads (right)[-d]
-	->relative_coordinate (common, Y_AXIS);
+      
 
-      Real dy = right_y - left_y;
+      Interval hps = Stem::head_positions (stem);
 
-      if (abs (dy) >= gap)
+      if(!hps.empty_b())
 	{
-	  knee_b = true;
-	  Direction knee_dir = (right_y > left_y ? UP : DOWN);
-	  if (!Stem::invisible_b (left)
-	      && left->get_grob_property ("dir-forced") != SCM_BOOL_T)
+	  hps[LEFT] += -1;
+	  hps[RIGHT] += 1; 
+	  hps *= staff_space * 0.5 ;
+	  hps += stem->relative_coordinate (common, Y_AXIS);
+      
+	  if (to_boolean (stem->get_grob_property ("dir-forced")))
 	    {
-	      Directional_element_interface::set (left, knee_dir);
-	      left->set_grob_property ("dir-forced", SCM_BOOL_T);
+	      Direction stemdir =Directional_element_interface::get (stem);
+	      hps[-stemdir] = - stemdir * infinity_f;
+	    }
+	}
+      hps_array.push (hps);
 
-	    }
-	  if (!Stem::invisible_b (right)
-	      && stems[r]->get_grob_property ("dir-forced") != SCM_BOOL_T)
-	    {
-	      Directional_element_interface::set (right, -knee_dir);
-	      right->set_grob_property ("dir-forced", SCM_BOOL_T);
-	    }
+      gaps.remove_interval (hps);
+    }
+
+  Interval max_gap;
+  Real max_gap_len =0.0;
+
+  for (int i  = gaps.allowed_regions_.size() -1;  i >=  0 ; i--)
+    {
+      Interval gap = gaps.allowed_regions_[i];
+
+      /*
+	the outer gaps are not knees.
+       */
+      if (isinf (gap[LEFT]) || isinf(gap[RIGHT]))
+	continue;
+      
+      if (gap.length () >= max_gap_len)
+	{
+	  max_gap_len = gap.length();
+	  max_gap = gap;
 	}
     }
 
-  if (knee_b)
+  if (max_gap_len > threshold)
     {
-      me->set_grob_property ("knee", SCM_BOOL_T);
-       
-      for (int i=0; i < stems.size (); i++)
-	stems[i]->set_grob_property ("stem-info", SCM_EOL);
+      int j = 0;
+      for (int i = 0; i < stems.size(); i++)
+	{
+	  Grob* stem = stems[i];
+	  if (Stem::invisible_b (stem))
+	    continue;
+
+	  Interval hps = hps_array[j++];
+
+
+	  Direction d =  (hps.center () < max_gap.center()) ?
+	    UP : DOWN ;
+	  
+	  stem->set_grob_property ("direction", gh_int2scm (d));
+
+	  /*
+	    UGH. Check why we still need dir-forced; I think we can
+	    junk it.
+	   */
+	  stem->set_grob_property ("dir-forced", SCM_BOOL_T);
+	  
+	  hps.intersect (max_gap);
+	  assert (hps.empty_b () || hps.length () < 1e-6 );
+	}
     }
 }
+
+
 
 /* Set stem's shorten property if unset.
 
