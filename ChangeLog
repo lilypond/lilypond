@@ -1,5 +1,8 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/lilypond.map): add -Regular to Aybabtu
+	for the .map file.
+
 	* Documentation/topdocs/INSTALL.texi (Top): add running
 	requirement as compilation requirement.
 
