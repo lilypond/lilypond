@@ -96,6 +96,10 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 	find_rods (rb, gh_cdr (s));
     }
 
+#if 0
+  /*
+    TODO; restore this.
+   */
   /*
     We've done our job, so we get lost. 
    */
@@ -110,6 +114,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       it->suicide ();
     }
   me->suicide ();
+#endif
   return SCM_UNSPECIFIED ;
 }
 

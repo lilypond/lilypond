@@ -127,7 +127,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
-      && !mp
+      && !mp.to_bool ()
       && mmrest_p_->get_bound (LEFT) && mmrest_p_->get_bound (RIGHT))
     {
       typeset_grob (mmrest_p_);
@@ -160,7 +160,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
-  if (mmrest_p_ && !mp)
+  if (mmrest_p_ && !mp.to_bool ())
     {
       lastrest_p_ = mmrest_p_;
       int cur = gh_scm2int (get_property ("currentBarNumber"));

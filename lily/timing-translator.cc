@@ -67,9 +67,15 @@ Timing_translator::stop_translation_timestep ()
   if (timb && allbars)
     {
       Moment barleft = (measure_length () - measure_position ());
+      Moment now = now_mom ();
 
-      if (barleft > Moment (0))
-	global_l->add_moment_to_process (now_mom () + barleft);
+      if (barleft > Moment (0)
+	  /*
+	    Hmm. We insert the bar moment every time we process a
+	    moment.  A waste of cpu?
+	   */
+	  && !now.grace_part_)
+	global_l->add_moment_to_process (now + barleft);
     }
 }
 
@@ -79,13 +85,12 @@ ADD_THIS_TRANSLATOR (Timing_translator);
 void
 Timing_translator::initialize ()
 {
-  Moment m;
   daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
-  daddy_trans_l_->set_property ("measurePosition", m.smobbed_copy ());
+
   daddy_trans_l_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
-
+  daddy_trans_l_->set_property ("measurePosition", Moment (0).smobbed_copy ());
   daddy_trans_l_->set_property ("measureLength", Moment (1).smobbed_copy ());
   daddy_trans_l_->set_property ("beatLength", Moment (1,4).smobbed_copy ());
 }
@@ -134,14 +139,15 @@ Timing_translator::start_translation_timestep ()
     }
   while (!global_l);
 
-  Moment dt = global_l->now_mom_  - global_l -> prev_mom_;
+  Moment now = global_l->now_mom_;
+  Moment dt = now  - global_l -> prev_mom_;
   if (dt < Moment (0))
     {
       programming_error ("Moving backwards in time");
       dt = 0;
     }
   
-  if (!dt)
+  if (!dt.to_bool ())
     return;
 
   Moment measposp;
@@ -153,6 +159,7 @@ Timing_translator::start_translation_timestep ()
     }
   else
     {
+      measposp = now;
       daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
     }
   

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2001  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--20.301  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ; distances are given in stafflinethickness (thicknesses) and
@@ -80,7 +80,7 @@
 		 (thickness . 0.48) ; in staff-space
 		 (before-line-breaking-callback . ,Beam::before_line_breaking)
 		 (after-line-breaking-callback . ,Beam::after_line_breaking)
-		 (neutral-direction . 1)
+		 (neutral-direction . -1)
 		 (dir-function . ,beam-dir-majority)
 		 (height-quants .  ,default-beam-dy-quants)
 		 (vertical-position-quant-function . ,default-beam-y-quants)
@@ -466,7 +466,7 @@
 	(Script . (
 		;; don't set direction here: it breaks staccato.
 		(molecule-callback . ,Script::brew_molecule)
-		(padding . 0.3) 
+		(padding . 0.29) 
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(before-line-breaking-callback . ,Script::before_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
@@ -502,6 +502,9 @@
 	(SpacingSpanner . (
 		(spacing-procedure . ,Spacing_spanner::set_springs)
 		(stem-spacing-correction . 0.5)
+
+
+		;; TODO: change naming -- unintuitive
 		(arithmetic-basicspace . 2.0)
 		(arithmetic-multiplier . ,(* 0.9 1.32))
 		;; assume that notes at least this long are present.
@@ -572,7 +575,7 @@
 		(lengths . (3.5 3.5 3.5 4.5 5.0))
 		(stem-shorten . (0.5))
 		; if stem is on middle line, choose this direction.
-		(neutral-direction . 1)
+		(neutral-direction . -1)
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
 		(Y-extent-callback . ,Stem::height)

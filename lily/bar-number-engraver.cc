@@ -49,7 +49,7 @@ Bar_number_engraver::create_grobs ()
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
   if (gh_number_p (bn) &&
-      !mp && now_mom () > Moment (0))
+      !mp.to_bool () && now_mom () > Moment (0))
     {
       create_items ();
 
@@ -72,7 +72,7 @@ Bar_number_engraver::initialize ()
   /*
     ugh: need to share code with mark_engraver
    */
-  daddy_trans_l_->set_property ("staffsFound", SCM_EOL); 
+  daddy_trans_l_->set_property ("stavesFound", SCM_EOL); 
 }
 
 
@@ -83,10 +83,10 @@ Bar_number_engraver::acknowledge_grob (Grob_info inf)
   Grob * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s))
     {
-      SCM sts = get_property ("staffsFound");
+      SCM sts = get_property ("stavesFound");
       SCM thisstaff = inf.elem_l_->self_scm ();
       if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
-	daddy_trans_l_->set_property ("staffsFound", gh_cons (thisstaff, sts));
+	daddy_trans_l_->set_property ("stavesFound", gh_cons (thisstaff, sts));
     }
   else if (text_p_
 	   && dynamic_cast<Item*> (s)
@@ -104,7 +104,7 @@ Bar_number_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      text_p_->set_grob_property ("side-support-elements", get_property ("staffsFound"));
+      text_p_->set_grob_property ("side-support-elements", get_property ("stavesFound"));
       typeset_grob (text_p_);
       text_p_ =0;
     }

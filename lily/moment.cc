@@ -171,8 +171,8 @@ Moment::den () const { return main_part_.den (); }
 int
 Moment::num () const { return main_part_.num (); }
 
-
-Moment::operator bool ()
+bool
+Moment::to_bool () const
 {
   return main_part_ || grace_part_;
 }
@@ -196,10 +196,17 @@ Moment::str () const
 }
 
 Moment
-Moment::operator - ( ) const
+Moment::operator - () const
 {
   Moment m;
   m.grace_part_ = -grace_part_;
   m.main_part_ = -main_part_;
   return m;
+}
+
+ostream &
+operator << (ostream &os, Moment const &m)
+{
+  os << m.str ();
+  return os;
 }

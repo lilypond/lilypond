@@ -277,7 +277,7 @@ Local_key_engraver::process_music ()
       daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
       last_keysig_ = sig;
     }
-  else if (!mp)
+  else if (!mp.to_bool () )
     {
       if (!to_boolean (get_property ("noResetKey")))
 	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));

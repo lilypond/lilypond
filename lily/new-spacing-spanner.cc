@@ -7,7 +7,7 @@
   
  */
 
-#include "spacing-spanner.hh"
+#include "new-spacing-spanner.hh"
 #include "paper-column.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
@@ -15,80 +15,15 @@
 #include "paper-score.hh"
 #include "line-of-score.hh"
 #include "misc.hh"
+#include "separation-item.hh"
+
 
 void
-Spacing_spanner::set_interface (Grob*me)
+New_spacing_spanner::set_interface (Grob*me)
 {
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
-
-#if 0  
-struct Note_run
-{
-  Array<int> idxes;
-  int start, end;
-  Moment duration;
-  int count;
-};
-
-int
-column_compare (Grob  *const &t1, Grob *const &t2)
-{
-  return Moment::compare (Paper_column::when_mom (t1),
-			  Paper_column::when_mom (t2));
-}
-
-
-Note_run
-run_length (Moment dt, int i, Array<Moment> const &moms,
-	    Link_array<Note_run> runs)
-{
-  int k = 0;
-  Array<int> idxes;
-
-  idxes.push (i);
-  while (1)
-    {
-      Moment next = moms[i] + dt;
-      while (i < moms.size () && moms[i] < next)
-	i++;
-      if (i == moms.size () || moms[i] != next)
-	break;
-
-      idxes.push (i);
-      k++;
-    }
-
-  Moment dur = idxes.size ()
-}
-
-void
-find_runs (Grob*me, Link_array<Grob> cols) 
-{
-  Link_array<Grob> filter_cols;
-  Array<Moment> col_moments;
-  for (int i = 0; i < cols.size (); i++)
-    {
-      Moment w =  Paper_column::when_mom (cols[i]);
-      
-      if (!w.grace_part_ && Paper_column::musical_b (cols[i]))
-	{
-	  filter_cols.push (cols[i]);
-	  col_moments.push (w);
-	}
-    }
-
-  Moment end_mom = col_moments.top ();
-  for (int i = 0; i < col_moments.size () ; i++)
-    {
-      for (int j = i+1; j < col_moments.size (); j++)
-	{
-	  Moment dt = Paper_column::col_momentsfilter_cols 
-	}
-    }
-}
-#endif  
 
 /*
 
@@ -104,7 +39,7 @@ find_runs (Grob*me, Link_array<Grob> cols)
   
  */
 void
-Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
+New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -138,141 +73,133 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	    }
 	}
     }
-  mean_shortest /= n;
-
+  
   Array<Spring> springs;
+
+  Item * first_col = 0;
   for (int i= 0; i < cols.size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols[i]);
-      Item * r =  dynamic_cast<Item*> (cols[i+1]);
-      Item * lb = dynamic_cast<Item*> (l->find_prebroken_piece (RIGHT));
-      Item * rb = dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
 
-      Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
+      if (!first_col && Paper_column::musical_b (l))
+	first_col = l;
 
-
-      /*
-	left refers to the space that is associated with items of the left column, so you have
-
-	  LC  <- left_space -><- right_space -> RC
-              <-    total space              ->
-	      
-
-        typically, right_space is non-zero when there are
-        accidentals in RC
-	  
-       */
-      for (int j=0; j < 4; j++)
+      SCM between = cols[i]->get_grob_property ("between-cols"); 
+      if (gh_pair_p (between)
+	  && i > 0
+	  && i < cols.size ()-1
+	  && (gh_cdr (between) != cols[i+1]->self_scm ()
+	   || gh_car (between) != cols[i-1]->self_scm ()) 
+	  )
+	continue ;
+      
+      int j = i+1;
+      for (; j < cols.size () - 1; j++)
 	{
-	  Paper_column * lc = dynamic_cast<Paper_column*> (combinations[j][0]);
-	  Paper_column *rc = dynamic_cast<Paper_column*> (combinations[j][1]);
-	  if (!lc || !rc)
+	  if  (Paper_column::musical_b (cols[j]))
+	    break;
+
+	  SCM between = cols[j]->get_grob_property ("between-cols");
+	  if (!gh_pair_p (between))
 	    continue;
 
-	  Spring s;
-	  s.item_l_drul_[LEFT] = lc;
-	  s.item_l_drul_[RIGHT] = rc;
-	  
-	  SCM hint = lc->get_grob_property ("extra-space");
-	  SCM next_hint = rc->get_grob_property ("extra-space");
-	  SCM stretch_hint = lc->get_grob_property ("stretch-distance");
-	  SCM next_stretch_hint = rc->get_grob_property ("stretch-distance");	  
+	  if (gh_car (between) == cols[i]->self_scm () )
+	    break ;
+	}
 
-	  Real left_distance = 0;
-	  if (gh_pair_p (hint))
-	    {
-	      left_distance = gh_scm2double (gh_cdr (hint)); 
-	    }
-	   // 2nd condition should be (i+1 < col_count ()), ie. not the last column in score.  FIXME
-	  else if (!Paper_column::musical_b (lc) && i+1 < cols.size ()) 
-	    {
-	      left_distance= default_bar_spacing (me,lc,rc,shortest <? base_shortest_duration);
-	    }
-	  else if (Paper_column::musical_b ( lc))
-	    {
-	      left_distance  = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
-	    }
-	  else
-	      programming_error ("uninitialised left_distance");
-	  
-	  s.distance_f_ = left_distance;
+      Item * r =  dynamic_cast<Item*> (cols[j]);
+      Paper_column * lc = dynamic_cast<Paper_column*> (l);
+      Paper_column *rc = dynamic_cast<Paper_column*> (r);
 
-	  /*
-	    Only do tight spaces *after* barlines (breakable columns),
-	    not before.
 
-	    We want the space before barline to be like the note
-	    spacing in the measure.
-	  */
-	  SCM sfac =lc->get_grob_property ("space-factor");
-	  if (gh_number_p (lc->get_grob_property ("column-space-strength"))
-	      && (Item::breakable_b (lc) || lc->original_l_))
-	    {
-	      s.strength_f_ =
-		gh_scm2double (lc->get_grob_property ("column-space-strength"));
-	    }
-	  else if (gh_number_p (sfac))
-	    left_distance *= gh_scm2double (sfac);
+#if 0
+cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::rank_i (r) << endl;
+      cout << " musical: " << Paper_column::musical_b (l) << " " << Paper_column::musical_b (r) << endl;
+#endif
+      
+      if (!Paper_column::musical_b (l))
+	{
+	  breakable_column_spacing (l, r);
 
-	  
-	  Real right_dist = 0.0;
-	  if (gh_pair_p (next_hint))
-	    {
-	      right_dist += - gh_scm2double (gh_car (next_hint));
-	    }
-	  else
-	    {
-	      Interval ext (rc->extent (rc, X_AXIS));
-	      right_dist =  ext.empty_b () ? 0.0 : - ext [LEFT];
-	    }
+	  l = l->find_prebroken_piece (RIGHT);
+	  if (l)
+	    breakable_column_spacing (l,r);
+
+	  continue ; 
+	}
+      
+      Real note_space = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
+      Real hinterfleisch = note_space;
+      Real headwid = gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
+      
+      for (SCM s = lc->get_grob_property ("spacing-sequence"); gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Grob *lm = unsmob_grob (gh_caar (s));
+	  Grob *rm = unsmob_grob (gh_cdar (s));
+
+	  // TODO; configgable.
+	  hinterfleisch += -headwid + Separation_item::my_width (lm)[RIGHT] -
+	    0.5 * Separation_item::my_width (rm)[LEFT];
+
 
 	  /*
-	    don't want to create too much extra space for accidentals
+	    UGH: KLUDGE!
 	  */
-	  if (Paper_column::musical_b (rc))
-	   {
-	      if (to_boolean (rc->get_grob_property ("contains-grace")))
-		right_dist *= gh_scm2double (rc->get_grob_property ("before-grace-spacing-factor")); // fixme.
-	      else
-		right_dist *= gh_scm2double (lc->get_grob_property ("before-musical-spacing-factor"));
-	   }
-
- 	  s.distance_f_ = left_distance + right_dist;
-	    
-	  Real stretch_dist = 0.;
-	  if (gh_number_p (stretch_hint))
-	    stretch_dist += gh_scm2double (stretch_hint);
-	  else
-	    stretch_dist += left_distance;
 	  
-	  if (gh_pair_p (next_stretch_hint))
-	    // see regtest spacing-tight
-	    stretch_dist += - gh_scm2double (gh_car (next_stretch_hint));
-	  else
-	    stretch_dist += right_dist;
+	  //	  if (delta_t > Moment (1,32))
+	  hinterfleisch += stem_dir_correction (me, l, r);
+	}
 
-	  if (s.distance_f_ <0)
-	    {
-	      programming_error ("Negative dist, setting to 1.0 PT");
-	      s.distance_f_ = 1.0;
-	    }
-	  if (stretch_dist == 0.0)
-	    {
-	      /*
-		\bar "".  We give it 0 space, with high strength. 
-	       */
-	      s.strength_f_ = 20.0; 
-	    }
-	  else
-	    s.strength_f_ /= stretch_dist;
-	  
-	  springs.push (s);
+      Real stretch_distance = note_space - headwid;
+      Spring s;
+      s.distance_f_ = hinterfleisch;
+      s.strength_f_ = 1 / stretch_distance;
+
+      s.item_l_drul_[LEFT] = l;
+      s.item_l_drul_[RIGHT] = r;
+
+      s.add_to_cols();
+      if (r->find_prebroken_piece (LEFT))
+	{
+	  s.item_l_drul_[RIGHT] = r->find_prebroken_piece(LEFT);
+	  s.add_to_cols();
 	}
     }
 
-  Spacing_spanner::stretch_to_regularity (me, &springs, cols);
-  for (int i=springs.size (); i --;)
-    springs[i].add_to_cols ();
+}
+
+/*
+  Read hints from L (todo: R) and generate springs.
+ */
+void
+New_spacing_spanner::breakable_column_spacing (Item* l, Item *r)
+{
+  Spring s;
+
+  Real break_dist = 0.0;
+  SCM espace = l->get_grob_property ("extra-space");
+  if (gh_pair_p (espace))
+    break_dist += gh_scm2double (gh_cdr (espace));
+
+  if (!break_dist)
+    break_dist = 1.0;
+
+  Real break_stretch = 0.0;
+
+  // todo: naming of "distance"
+  espace = l->get_grob_property ("stretch-distance");
+  if (gh_pair_p (espace))
+    break_stretch += gh_scm2double (gh_cdr (espace));
+
+  if (!break_stretch)
+    break_stretch = 1.0;
+  
+  s.distance_f_ = break_dist;
+  s.strength_f_ = 1/break_stretch;
+  s.item_l_drul_[LEFT] = l;
+  s.item_l_drul_[RIGHT] = r;
+
+  s.add_to_cols ();
 }
 
 /*
@@ -311,9 +238,9 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 */
 
 void
-Spacing_spanner::stretch_to_regularity (Grob *me,
-					Array<Spring> * springs,
-					Link_array<Grob> const & cols)
+New_spacing_spanner::stretch_to_regularity (Grob *me,
+					    Array<Spring> * springs,
+					    Link_array<Grob> const & cols)
 {
   /*
     Find the starting column of the run. REGULAR-DISTANCE-TO points
@@ -325,7 +252,7 @@ Spacing_spanner::stretch_to_regularity (Grob *me,
   for (int i = 0 ;  i <  cols.size () && !first_regular_spaced_col; i++)
     {
       SCM rdt = cols[i]->get_grob_property ("regular-distance-to");
-      if (cols.find_l (unsmob_grob (rdt)))
+      if (cols.find_l (dynamic_cast<Item*> (unsmob_grob (rdt))))
 	first_regular_spaced_col = unsmob_grob (rdt);
     }
   for (int i = springs->size ();  i-- ;)
@@ -400,7 +327,7 @@ Spacing_spanner::stretch_to_regularity (Grob *me,
    Do something if breakable column has no spacing hints set.
  */
 Real
-Spacing_spanner::default_bar_spacing (Grob*me, Grob *lc, Grob *rc,
+New_spacing_spanner::default_bar_spacing (Grob*me, Grob *lc, Grob *rc,
 				      Moment shortest) 
 {
   Real symbol_distance = lc->extent (lc,X_AXIS)[RIGHT] ;
@@ -429,19 +356,20 @@ Spacing_spanner::default_bar_spacing (Grob*me, Grob *lc, Grob *rc,
 
   */
 Real
-Spacing_spanner::get_duration_space (Grob*me, Moment d, Moment shortest) 
+New_spacing_spanner::get_duration_space (Grob*me, Moment d, Moment shortest) 
 {
   Real log =  log_2 (shortest.main_part_);
   Real k = gh_scm2double (me->get_grob_property ("arithmetic-basicspace"))
     - log;
 
-  Rational compdur = d.main_part_  + d.grace_part_ / Rational (3);
+  Rational compdur = d.main_part_ + d.grace_part_ /Rational (3);
+  
   return (log_2 (compdur) + k) * gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
 }
 
 
 Real
-Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
+New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 			       Moment shortest) 
 {
   Moment shortest_playing_len = 0;
@@ -472,14 +400,6 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_)
     + 0.1 * (double) (delta_t.grace_part_ / shortest_playing_len.main_part_);
 
-
-
-  /*
-    UGH: KLUDGE!
-  */
-  
-  if (delta_t > Moment (1,32))
-    dist += stem_dir_correction (me, lc,rc);
 
 
   Moment *lm = unsmob_moment (lc->get_grob_property ("when"));
@@ -516,7 +436,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
    This routine reads the DIR-LIST property of both its L and R arguments.  */
 Real
-Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r) 
+New_spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r) 
 {
   SCM dl = l->get_grob_property ("dir-list");
   SCM dr = r->get_grob_property ("dir-list");
@@ -548,9 +468,9 @@ Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
 }
   
 
-MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,1);
+MAKE_SCHEME_CALLBACK (New_spacing_spanner, set_springs,1);
 SCM
-Spacing_spanner::set_springs (SCM smob)
+New_spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;

@@ -101,7 +101,13 @@ Align_interface::center_on_element). .")
 (grob-property-description 'dash-period number? "the length of one dash + white space.")
 (grob-property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
 (grob-property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
-(grob-property-description 'neutral-direction dir? "Where to go if we're in the middle of the staff.")
+(grob-property-description 'neutral-direction dir? "Where to go if
+we're in the middle of the staff.  [Ross] has the following to say
+about this: Some engravers consider the middle line neutral, and take
+the option of using either up- or down-stems for notes that fall on
+it. However, more up-to-date engraving no longer permits an option;
+now a down-stem is always appropriate.")
+
 (grob-property-description 'delta-y number? "amount of ascension.")
 (grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
@@ -273,7 +279,7 @@ itself.  Return value is ignored.")
 (grob-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head.")
 (grob-property-description 'stem-length number? "length of stem.")
 (grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity.")
-(grob-property-description 'stem-spacing-correction number? "optical correction amount.")
+(grob-property-description 'stem-spacing-correction number? "optical correction amount.  [TODO: doco] ")
 (grob-property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
 (grob-property-description 'stretch-distance number-pair? "pair of distances.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")

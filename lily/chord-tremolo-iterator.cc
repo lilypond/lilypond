@@ -39,7 +39,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &sr
 void
 Chord_tremolo_iterator::process (Moment m)
 {
-  if (!m)
+  if (!m.to_bool () )
     {
       Music_iterator *yeah = try_music (music_l ());
       if (yeah)

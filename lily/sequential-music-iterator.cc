@@ -12,6 +12,14 @@
 #include "music-list.hh"
 #include "request-chord-iterator.hh"
 
+
+/*
+  
+  TODO: handling of grace notes is excuisite pain.  This handling
+  should be formally specified and then the implementation verified.
+
+*/
+
 /*
   Invariant for the data structure.
 
@@ -53,10 +61,21 @@ Sequential_music_iterator::~Sequential_music_iterator ()
 }
 
 
+/*
+
+
+  if (start_music.grace)
+    here.grace -= start_music.grace
+
+  last
+  if (len
+  
+ */
+
 Grace_skip *
 get_grace_skips (SCM cursor)
 {
-  Moment here (0);
+  Moment here (0);  
   Moment last (-1);
   Grace_skip *head = 0;
   Grace_skip **tail = &head;
@@ -67,20 +86,24 @@ get_grace_skips (SCM cursor)
       Moment l =mus->length_mom ();
       Moment s = mus->start_mom ();
 
-      if (s.grace_part_ && last >= Moment (0))
+      if (s.grace_part_)
 	{
-	  Grace_skip *p =new Grace_skip;
-	  p->start_ = last;
-	  p->length_ = (here - last).main_part_;
-	  p->grace_start_ = s.grace_part_;
-	  p->next_ = 0;
-	  *tail = p;
-	  tail = &(*tail)->next_; 
+	  if (last != Moment (-1))
+	    {
+	      Grace_skip *p =new Grace_skip;
+	      p->start_ = last;
+	      p->length_ = (here - last).main_part_;
+	      p->grace_start_ = s.grace_part_;
+	      p->next_ = 0;
+	      *tail = p;
+	      tail = &(*tail)->next_; 
+	    }
+
+	  here.grace_part_ = s.grace_part_;
 	}
       
-      if (l.main_part_)
+      if (l.to_bool())
 	{
-	  l.grace_part_ = Rational (0);
 	  last = here;
 	  here += l;
 	}
@@ -122,7 +145,8 @@ Sequential_music_iterator::next_element ()
   Moment start  = iter_p_->music_start_mom ();
   assert (!grace_skips_  || grace_skips_->start_ >= here_mom_);
   
-  if (len.main_part_ && grace_skips_ && grace_skips_->start_ == here_mom_)
+  if (len.main_part_ && grace_skips_ &&
+      grace_skips_->start_.main_part_ == here_mom_.main_part_)
     {
       Moment sk;
       sk.main_part_ = grace_skips_->length_;
@@ -289,15 +313,15 @@ Sequential_music_iterator::pending_moment () const
   if (grace_skips_ && here_mom_ == grace_skips_->start_
       && cp.main_part_ >=  grace_skips_->length_)
     {
-	  cp += here_mom_ ;
-	  cp.grace_part_ = grace_skips_->grace_start_;
-	  return cp;
+      cp += here_mom_ ;
+      cp.grace_part_ = grace_skips_->grace_start_;
+      return cp;
 
     }
 
-    /*
-      Fix-up a grace note at  the start of the music.
-     */
+  /*
+    Fix-up a grace note at  the start of the music.
+  */
   return cp + here_mom_ - iter_p_->music_start_mom ();
 }
 

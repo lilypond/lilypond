@@ -16,7 +16,7 @@
 void
 Time_scaled_music_iterator::process (Moment m)
 {
-  if (!m)
+  if (!m.to_bool ())
     {
       Music_iterator *yeah = try_music (music_l ());
       if (yeah)

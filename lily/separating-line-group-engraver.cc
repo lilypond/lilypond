@@ -18,7 +18,14 @@ class Separating_line_group_engraver : public Engraver
 {
 protected:
   Item * break_malt_p_;
-  Item * nobreak_malt_p_;
+  Item * musical_malt_p_;
+
+  /*
+    malt_p_ : we used to have a Single_malt_grouping_item
+    
+   */
+  Item * last_step_musical_malt_p_;
+  
   Spanner * sep_span_p_;
   
   virtual void acknowledge_grob (Grob_info);
@@ -32,9 +39,10 @@ public:
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
+  last_step_musical_malt_p_ = 0;
   sep_span_p_ = 0;
   break_malt_p_ = 0;
-  nobreak_malt_p_ =0;
+  musical_malt_p_ =0;
 }
 
 void
@@ -68,7 +76,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
   
   bool ib =Item::breakable_b (it);
   Item *&p_ref_ (ib ? break_malt_p_
-		 : nobreak_malt_p_);
+		 : musical_malt_p_);
 
   if (!p_ref_)
     {
@@ -92,12 +100,28 @@ Separating_line_group_engraver::stop_translation_timestep ()
       typeset_grob (break_malt_p_);
       break_malt_p_ =0;
     }
-  if (nobreak_malt_p_)
-    {
-      Separating_group_spanner::add_spacing_unit (sep_span_p_, nobreak_malt_p_);
-      typeset_grob (nobreak_malt_p_);
-      nobreak_malt_p_ =0;
-    }
+
+  if (musical_malt_p_)
+      {
+      Separating_group_spanner::add_spacing_unit (sep_span_p_, musical_malt_p_);
+
+      if (last_step_musical_malt_p_)
+	{
+	  Paper_column *col = 
+	    last_step_musical_malt_p_->column_l();
+	  SCM newtup = gh_cons (last_step_musical_malt_p_->self_scm (),
+				musical_malt_p_->self_scm ());
+	  col->set_grob_property ("spacing-sequence",
+				  gh_cons (newtup,
+					   col->get_grob_property ("spacing-sequence")));
+	}
+      
+      typeset_grob (musical_malt_p_);
+      }
+  last_step_musical_malt_p_ = musical_malt_p_;
+  musical_malt_p_ =0;
+
+
 }
 
 

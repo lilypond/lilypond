@@ -39,8 +39,8 @@ public:
   Rational grace_part_;
 
   void set_infinite (int k);
-  
-  operator bool ();
+
+  bool to_bool () const;
   int den () const;
   int num () const;
   /*
@@ -49,12 +49,14 @@ public:
   SCM smobbed_copy () const;
   String str () const;
   static int compare (Moment const&, Moment const&);
+  
 };
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
+ostream & operator << ( ostream &,Moment const &);
 
 Moment * unsmob_moment (SCM);
 int compare (Moment const&,Moment const&);

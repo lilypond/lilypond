@@ -153,8 +153,8 @@ Span_dynamic_performer::stop_translation_timestep ()
       for (int i=0; i < finished_dynamic_tuple_arr_.size (); i++)
 	{
 	  Audio_dynamic_tuple* a = &finished_dynamic_tuple_arr_[i];
-	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom)
-	    / (Real)dt;
+	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom).main_part_
+	    / (Real)dt.main_part_;
 	  a->audio_l_->volume_ = volume;
 	}
       finished_dynamic_tuple_arr_.clear ();
