@@ -16,6 +16,8 @@
 %   cp $(locate msam9.tfm) $LILYPONDPREFIX/fonts/tfm
 %
 
+%{
+
 scheme = \chords {
   % major chords
   c
@@ -105,3 +107,5 @@ epartial = \chordnames {
   >
 }
 %% new-chords-done %%
+
+%}
