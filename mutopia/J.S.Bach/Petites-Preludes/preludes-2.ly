@@ -1,9 +1,5 @@
 \header{
 filename =	 "preludes-2.ly";
-title =	 "2";
-opus = "BWV 939";
-% urg?? piece = "\\numfont 2";
-piece = "2";
 % blz 10
 % 
 % Six Petits Pr eludes
@@ -126,5 +122,9 @@ a4 = \paper{
 	\grandStaff
 	\paper{ \a4 }
 	\midi{ \tempo 4 = 100; }
+	\header {
+		opus = "BWV 939";
+		piece = "2";
+	}
 }
 

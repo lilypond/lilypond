@@ -1,9 +1,5 @@
 \header{
 filename =	 "preludes-4.ly";
-title =	 "4";
-opus = "BWV 925";
-% piece = "\\numfont 4";
-piece = "4";
 % blz 8
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 27-Praeludium ex d neutral
@@ -204,4 +200,8 @@ grand_staff = \type GrandStaff <
 	\grand_staff	
 	\include "preludes-paper.ly";
 	\midi{ \tempo 4 = 70; }
+	\header{
+		opus = "BWV 925";
+		piece = "4";
+	}
 }

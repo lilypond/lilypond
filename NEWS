@@ -1,3 +1,42 @@
+pl4.jcn4
+	- fixes; preludes, finger
+
+pl4.jcn3
+	- bf: text staff vertical align; see input/test/vertical-text.ly
+	- urg, scaled cmr8 by factor 4/5
+	- apart from end/begin of measure spacing urgs, stars-and-stripes.ly 
+	  is rather cool
+
+pl4.jcn2
+ 	- read (cmrxx)afm for text char widths
+ 	- tfmtoafm.sh (quite urg)
+ 	- alphabet.ly
+ 
+pl 4.uu1
+	- read .scm files. No need for GUILE_LOAD_PATH
+	- .ps hack.  No need for lily.ps on the printer
+	
+	(&$^@M&@^$@^&$@ Damn TeX)
+
+
+	- bf: mudela-book -> \default_paper is obsolete.
+
+pl 3.ms1
+         - thumb-upgrade
+ 
+pl4.jcn1
+	- bf: dotted slur
+	- bf: text ssb
+	- bf: empty/unknown in ps
+
+pl 4.tca1
+ 	- 40% speedup executing mudela-book on mudela-book-doc.doc
+ 	- change of lilypond's output filenames. Given multiple input
+ 	  files, eg. 'm.ly y.ly', output names will now be 'm.tex y.tex'
+ 	  not 'm.tex y-1.tex', but if m.ly containts two paper definitions
+ 	  output will be 'm.tex m-1.tex y.tex' 
+
+*******
 1.1.4
 
 pl 3.tca1

@@ -12,6 +12,7 @@
       Glissando
 */
 
+#include <ctype.h>
 #include "lookup.hh"
 #include "debug.hh"
 #include "dimensions.hh"
@@ -19,6 +20,7 @@
 #include "scalar.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
+#include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
 
@@ -180,10 +182,10 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   // (lambda (o) (dashed-slur o thick dash '(stuff))
   a.lambda_ = 
     ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("dashed-slur"),
+    gh_list (ly_append (ly_func_o ("dashed-slur"),
     gh_cons (gh_double2scm (thick), 
     gh_cons (gh_double2scm (dash),
-    ly_list1 (ly_quote_scm (gh_list (sc[0], sc[1], sc[2], sc[3], SCM_UNDEFINED))))))));
+    gh_list (ly_quote_scm (gh_list (sc[1], sc[2], sc[3], sc[0], SCM_UNDEFINED)), SCM_UNDEFINED)))), SCM_UNDEFINED));
 
   a.str_ = "dashed_slur";
   return a;
@@ -311,6 +313,9 @@ Lookup::streepje (int type) const
   return  afm_find ("balls" + String ("-") +to_str (type) + "l");
 }
 
+Dictionary<String> cmr_dict;
+Dictionary<Adobe_font_metric*> afm_p_dict;
+
 Atom
 Lookup::text (String style, String text) const
 {
@@ -319,10 +324,65 @@ Lookup::text (String style, String text) const
   arr.push (text);
   Atom a =  (*symtables_p_) ("style")->lookup (style);
   a.lambda_ = lambda_scm (a.str_, arr);
+  Real font_w = a.dim_.x ().length ();
+  Real font_h = a.dim_.y ().length ();
+
+// urg
+//  if (!cmr_dict.length_i ())
+  if (!cmr_dict.elem_b ("roman"))
+    {
+      //brrrr
+      cmr_dict.elem ("bold") = "cmbx";
+      cmr_dict.elem ("dynamic") = "feta-din";
+      cmr_dict.elem ("finger") = "feta-nummer";
+      cmr_dict.elem ("italic") = "cmti";
+      cmr_dict.elem ("roman") = "cmr";
+    }
+
+  if (!afm_p_dict.elem_b (style))
+    {
+      Adobe_font_metric* afm_p = 0;
+      String cmr_str = cmr_dict.elem (style) + to_str ((int) font_h) + ".afm";
+      String font_path = global_path.find (cmr_str);
+      if (!font_path.length_i ())
+        {
+	  warning (_f("can't open file: `%s'", cmr_str.ch_C ()));
+	  warning (_f("guessing dimensions for font style: `%s'", style.ch_C ()));
+	}
+      else
+        {
+	  *mlog << "[" << font_path;
+	  afm_p = new Adobe_font_metric (read_afm (font_path));
+	  DOUT << afm_p->str ();
+	  *mlog << "]" << flush ;
+	}
+      afm_p_dict.elem (style) = afm_p;
+    }
+  Real w = 0;
+  Adobe_font_metric* afm_p = afm_p_dict.elem (style);
+  DOUT << "\nChars: ";
+  for (int i = 0; i < text.length_i (); i++) 
+    {
+      if (text[i]=='\\')
+	for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
+	  ;
+      else
+	{
+	  if (afm_p)
+	    {
+	      Adobe_font_char_metric m = afm_p->char_metrics_[(int)text[i]];
+	      w += m.B_.x ().length ();
+	      DOUT << to_str (m.B_.x ().length ()) << " ";
+	    }
+	  else
+	      w += font_w;
+	}
+    }
+  DOUT << "\n" << to_str (w) << "\n";
+  a.dim_.x () = Interval (0, w);
   a.str_ = "text";
   a.font_ = font_;
   return a;
-   
 }
   
 

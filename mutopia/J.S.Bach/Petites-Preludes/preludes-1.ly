@@ -1,10 +1,8 @@
 \header{
 filename =	 "preludes-1.ly";
-% mmm
-% title =	 "DOUZE PETITES PR\\'ELUDES";
-opus = "BWV 924";
-% piece = "\\numfont 1";
-piece = "1";
+% urg?
+%opus = "BWV 924";
+% piece = "1";
 % blz 1
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 2-Praeambulum I
@@ -116,4 +114,8 @@ grand_staff = \type GrandStaff <
 	\grand_staff
 	\include "preludes-paper.ly";
 	\midi{ \tempo 4 = 80; }
+	\header {
+		opus = "BWV 924";
+		piece = "1";
+	}
 }

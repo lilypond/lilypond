@@ -7,10 +7,6 @@ define(t, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 
 \header{
 filename =	 "preludes-3.ly";
-title =	 "3";
-opus = 	"BWV 999";
-% piece = "\\numfont 3";
-piece = "3";
 % Pr"aludum in C Moll f"ur Laute
 % blz 16
 % Six Petits Preludes`
@@ -179,4 +175,8 @@ a4 = \paper{
 	\grand_staff
 	\paper{ \a4 }
 	\midi{ \tempo 4 = 100; }
+	\header{
+		opus = 	"BWV 999";
+		piece = "3";
+	}
 }

@@ -1,9 +1,5 @@
 \header{
 filename =	 "preludes-6.ly";
-title =	 "6";
-% piece = "\\numfont 6";
-piece = "6";
-opus = "BWV 940";
 % blz 11
 % Six Petits Preludes
 % Collection Johann Peter Kellner
@@ -129,5 +125,9 @@ a4 = \paper{
 	\grand_staff
 	\paper{ \a4 }
 	\midi{ \tempo 4 = 40; }
+	\header{
+		piece = "6";
+		opus = "BWV 940";
+	}
 }
 

@@ -64,11 +64,13 @@ Script_engraver::do_pre_move_processing()
       if (dynamic_cast<Text_def *> (script_p->specs_p_)) // UGH
 	{
 	  Text_def * td_l = (Text_def*)script_p->specs_p_;
-	  Scalar style = get_property ("textstyle");
-	  if (style.to_bool ())
+	  if (!td_l->style_str_.length_i ())
 	    {
-	      td_l->style_str_= style;
+	      Scalar style = get_property ("textstyle");
+	      if (style.to_bool ())
+		td_l->style_str_= style;
 	    }
+	  // urg, what if this is already set? in-band signaling...
 	  Scalar alignment = get_property ("textalignment");
 	  if (alignment.isnum_b())
 	    {
