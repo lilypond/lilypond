@@ -1,3 +1,9 @@
+2003-10-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/install-info-html.sh: Use Bash.
+
+	* cygwin/mknetrel: Patch from Bert.
+
 2003-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/lily-wins.py: Check whether to run ly2dvi or lilypond.

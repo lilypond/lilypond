@@ -142,12 +142,11 @@ postinstall () {
     cd $src || exit 1
     install -d -m755 $inst/$packagedocdir
 
-    ## Generic READMEs -- too crude!
-    ## find . -maxdepth 1 -type f -exec install -m644 \{\} \
-    ##   $inst/$packagedocdir \;
-    
-    install -m644 AUTHORS.txt COPYING ChangeLog DEDICATION INSTALL.txt \
-	NEWS.txt README.txt THANKS VERSION $inst/$packagedocdir
+    install -m644  COPYING ChangeLog DEDICATION THANKS VERSION $inst/$packagedocdir
+
+    # txt files reside elsewhere
+    cd $build/Documentation/topdocs/out
+    install -m644 AUTHORS.txt INSTALL.txt NEWS.txt README.txt $inst/$packagedocdir
 
     ## Cygwin readmes
     cygwin=cygwin
@@ -162,7 +161,9 @@ postinstall () {
     ## copy examples
     cd $src || exit 1
     cp -prv input $inst/$packagedocdir
+       cd $inst/$packagedocdir
+       rm -rf $(find -name 'CVS')
 
-    cd $inst-doc/$packagedocdir &&
-    ln -s $(find html/Documentation -name '*.ps.gz') .
+    #cd $inst-doc/$packagedocdir &&
+    #ln -s $(find html/Documentation -name '*.ps.gz') .
 }
