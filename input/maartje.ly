@@ -65,7 +65,7 @@ score {
 		geometric 1.4
 		unitspace 3.0 cm
 	}
-	staff { ritme }
+%	staff { ritme }%broken for now
 	staff { melody }
 	commands {
 		meter 4* 4
