@@ -76,15 +76,6 @@ foo:
 ## use separate package sauter-fonts-mftraced.
 SAUTER_FONTS = 
 
-#cmbxti8 ecbm14 ecrm12
-MORE_SAUTER_FONTS = cmbx14 cmbx17 \
-	 cmbxti12 cmbxti14 \
-	 cmbxti6 cmbxti7 cmbxti8 \
-	 cmcsc12 cmcsc7 cmcsc8 \
-	 cmss5 cmss6 cmss7 \
-	 cmti5 cmti6 \
-	 cmtt17 cmtt5 cmtt6 cmtt7
-
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
@@ -183,7 +174,6 @@ $(outdir)/lilypond.xmap: $(AFM_FILES)
 # using shell for loop seems most robust
 $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(FETA_FONTS); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
-	for i in $(SAUTER_FONTS); do echo "$$i $$i <$$i.pfa"; done >> $@
 
 $(outdir)/Fontmap:
 	echo '%!' > $@
@@ -197,7 +187,6 @@ $(outdir)/Fontmap:
 $(outdir)/Fontmap.lily: $(AFM_FILES) $(outdir)/Fontmap
 	echo '%!' > $@
 	for i in $(FETA_FONTS); do echo "/$$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $@
-	for i in $(SAUTER_FONTS); do echo "$$i ($$i.pfa);"; done >> $@
 
 
 $(outdir)/fonts.scale: $(PFA_FILES)
@@ -228,8 +217,7 @@ pfb: afm $(PFB_FILES) fontdir
 
 # stupid trick to have separate rules for each PFA font ;
 # otherwise building PFAs is all-or-nothing.
-$(SAUTER_FONTS:%=$(outdir)/%.bla):
-	$(foreach i, $@, touch $i && ) true
+
 
 $(outdir)/%.pfa: $(outdir)/%.bla
 	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/

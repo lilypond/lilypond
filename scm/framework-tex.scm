@@ -53,8 +53,7 @@
 (define-public (tex-font-command-raw name magnification)
   (string-append
    "magfont"
-   (string-encode-integer
-    (hash name 1000000))
+   (digits->letters (format "~a" name))
    "m"
    (string-encode-integer
     (inexact->exact (round (* 1000 magnification))))))

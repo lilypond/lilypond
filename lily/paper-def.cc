@@ -25,7 +25,8 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
   if (mod->parent_)
     return find_scaled_font (mod->parent_, f, m, font_encoding, input_encoding);
   
-  Real lookup_mag = m;
+  Real lookup_mag = m / output_scale (mod);
+
 
   SCM font_table = mod->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   if (scm_hash_table_p (font_table) != SCM_BOOL_T)
@@ -45,8 +46,8 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
     sizes = SCM_EOL;
   
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag,
-							 font_encoding,
-							 input_encoding);
+							   font_encoding,
+							   input_encoding);
 
   sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
   scm_gc_unprotect_object (val);
