@@ -22,10 +22,11 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  virtual void do_process_music ();
-  virtual void acknowledge_element (Score_element_info);
+  void deprecated_process_music ();
+  virtual void acknowledge_grob (Grob_info);
 
-  virtual void do_pre_move_processing ();
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
 
 private:
   Item* text_p_;
@@ -40,8 +41,9 @@ A2_engraver::A2_engraver ()
   state_ = UNISILENCE;
 }
 
+
 void
-A2_engraver::do_process_music ()
+A2_engraver::deprecated_process_music ()
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;
@@ -58,7 +60,7 @@ A2_engraver::do_process_music ()
 	{
 	  text_p_ = new Item (get_property ("TextScript"));
 	  Side_position::set_axis (text_p_, Y_AXIS);
-	  announce_element (text_p_, 0);
+	  announce_grob (text_p_, 0);
       
 	  Direction dir = UP;
 	  SCM text;
@@ -83,13 +85,13 @@ A2_engraver::do_process_music ()
 	    }
 	  
 	  Side_position::set_direction (text_p_, dir);
-	  text_p_->set_elt_property ("text", text);
+	  text_p_->set_grob_property ("text", text);
 	}
     }
 }
 
 void
-A2_engraver::acknowledge_element (Score_element_info i)
+A2_engraver::acknowledge_grob (Grob_info i)
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;
@@ -98,7 +100,7 @@ A2_engraver::acknowledge_element (Score_element_info i)
     {
       if (Note_head::has_interface (i.elem_l_))
 	{
-	  Score_element*t = text_p_;
+	  Grob*t = text_p_;
 	  Side_position::add_support (t, i.elem_l_);
 	  if (Side_position::get_axis (t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
@@ -149,23 +151,29 @@ A2_engraver::acknowledge_element (Score_element_info i)
 	{
 	  if (daddy_trans_l_->id_str_ == "one")
 	    {
-	      i.elem_l_->set_elt_property ("direction", gh_int2scm (1));
+	      i.elem_l_->set_grob_property ("direction", gh_int2scm (1));
 	    }
 	  else if (daddy_trans_l_->id_str_ == "two")
 	    {
-	      i.elem_l_->set_elt_property ("direction", gh_int2scm (-1));
+	      i.elem_l_->set_grob_property ("direction", gh_int2scm (-1));
 	    }
 	}
     }
 }
 
+void
+A2_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
 void 
-A2_engraver::do_pre_move_processing ()
+A2_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
       Side_position::add_staff_support (text_p_);
-      typeset_element (text_p_);
+      typeset_grob (text_p_);
       text_p_ = 0;
     }
 }

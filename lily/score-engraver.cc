@@ -18,6 +18,7 @@
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
 
+
 Score_engraver::Score_engraver()
 {
   scoreline_l_ =0;
@@ -26,26 +27,38 @@ Score_engraver::Score_engraver()
   breaks_i_ =0;
   pscore_p_ = 0;
 }
- 
+
+void
+Score_engraver::make_columns (Moment w)
+{
+  /*
+    ugh.
+   */
+  if (!command_column_l_
+      || *unsmob_moment (command_column_l_->get_grob_property ("when")) != w)
+    {
+      set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
+		   new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
+  
+      command_column_l_->set_grob_property ("when", w.smobbed_copy());
+      musical_column_l_->set_grob_property ("when", w.smobbed_copy());
+      command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
+
+      Grob_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
+
+      i1.origin_trans_l_ = this;
+      i2.origin_trans_l_ = this;
+      announce_grob (i1);
+      announce_grob (i2);
+    }
+}
+
 void
 Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
+  make_columns (w);
 
-  set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
-	       new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
-  
-  command_column_l_->set_elt_property ("when", w.smobbed_copy());
-  musical_column_l_->set_elt_property ("when", w.smobbed_copy());
-  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
-  
-  Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
-
-  i1.origin_trans_l_ = this;
-  i2.origin_trans_l_ = this;
-  announce_element (i1);
-  announce_element (i2);
-  
   post_move_processing();
 }
 
@@ -65,11 +78,12 @@ Score_engraver::finish()
 void
 Score_engraver::do_creation_processing ()
 {
+  make_columns (Moment (0));
   scoreline_l_ = pscore_p_->line_l_;
 
   scoreline_l_->set_bound(LEFT, command_column_l_);
   
-  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
+  command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::do_creation_processing();
 }
@@ -80,7 +94,7 @@ Score_engraver::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing();
   scoreline_l_->set_bound(RIGHT,command_column_l_);
-  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
+  command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
   
   typeset_all ();
 
@@ -91,16 +105,17 @@ void
 Score_engraver::process()
 {
   process_music();
-  do_announces();
+  
+  announces();
   pre_move_processing();
   check_removal();
 }
 
 void
-Score_engraver::announce_element (Score_element_info info)
+Score_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
-  pscore_p_->line_l_->typeset_element (info.elem_l_);
+  pscore_p_->line_l_->typeset_grob (info.elem_l_);
 }
 
 /* All elements are propagated to the top upon announcement. If
@@ -114,15 +129,20 @@ Score_engraver::announce_element (Score_element_info info)
 void
 Score_engraver::do_announces()
 {
-  while (announce_info_arr_.size()) 
+  //////  do
     Engraver_group_engraver::do_announces();
+    //////while (announce_info_arr_.size());
 }
 
 
 void
-Score_engraver::typeset_element (Score_element *elem_p)
+Score_engraver::typeset_grob (Grob *elem_p)
 {
-  elem_p_arr_.push (elem_p);
+  if (!elem_p)
+    programming_error ("Score_engraver: empty elt\n");
+  else
+
+    elem_p_arr_.push (elem_p);
 }
 
 
@@ -131,7 +151,7 @@ Score_engraver::typeset_all()
 {
   for  (int i =0; i < elem_p_arr_.size(); i++) 
     {
-      Score_element * elem_p = elem_p_arr_[i];
+      Grob * elem_p = elem_p_arr_[i];
       
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
@@ -152,7 +172,7 @@ Score_engraver::typeset_all()
 	{
 	  if (!elem_p->parent_l (X_AXIS))
 	    {
-	      bool br = to_boolean (elem_p->get_elt_property ("breakable"));
+	      bool br = to_boolean (elem_p->get_grob_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_l_ : musical_column_l_, elem_p);
 
 	    }
@@ -164,13 +184,13 @@ Score_engraver::typeset_all()
 }
 
 void
-Score_engraver::do_pre_move_processing()
+Score_engraver::stop_translation_timestep()
 {
   // this generates all items.
-  Engraver_group_engraver::do_pre_move_processing();
+  Engraver_group_engraver::stop_translation_timestep();
   
   typeset_all();
-  if (to_boolean (command_column_l_->get_elt_property ("breakable")))
+  if (to_boolean (command_column_l_->get_grob_property ("breakable")))
     {
       breaks_i_ ++;
       if (! (breaks_i_%8))
@@ -220,9 +240,9 @@ Score_engraver::get_output_p ()
 }
 
 bool
-Score_engraver::do_try_music (Music*r)
+Score_engraver::try_music (Music*r)
 {
-  bool gotcha = Engraver_group_engraver::do_try_music (r);  
+  bool gotcha = Engraver_group_engraver::try_music (r);  
 
   if (!gotcha)
     {
@@ -231,7 +251,7 @@ Score_engraver::do_try_music (Music*r)
 	  gotcha = true;
 
 
-	  SCM pen = command_column_l_->get_elt_property  ("penalty");
+	  SCM pen = command_column_l_->get_grob_property  ("penalty");
 	  Real total_penalty = gh_number_p (pen)
 	    ? gh_scm2double(pen)
 	    : 0.0;
@@ -243,12 +263,16 @@ Score_engraver::do_try_music (Music*r)
 	  if (total_penalty > 10000.0) //  ugh. arbitrary.
 	    forbid_breaks ();
 
-	  command_column_l_->set_elt_property ("penalty",
+	  command_column_l_->set_grob_property ("penalty",
 					       gh_double2scm (total_penalty));
 	}
     }
    return gotcha;
 }
+
+/*
+  TODO:  use property Score.breakForbidden = #t
+ */
 
 void
 Score_engraver::forbid_breaks ()
@@ -256,7 +280,7 @@ Score_engraver::forbid_breaks ()
   /*
     result is junked.
    */
-  command_column_l_->remove_elt_property ("breakable");
+  command_column_l_->remove_grob_property ("breakable");
 }
 
 ADD_THIS_TRANSLATOR(Score_engraver);

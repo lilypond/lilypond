@@ -9,7 +9,7 @@
 #include "warn.hh"
 #include "dimension-cache.hh"
 #include "parray.hh"
-#include "score-element.hh"
+#include "grob.hh"
 
 
 Dimension_cache::Dimension_cache (Dimension_cache const &d)

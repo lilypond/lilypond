@@ -53,7 +53,7 @@ Syllable_group::set_first_in_phrase(bool f)
 }
 
 void 
-Syllable_group::set_notehead(Score_element * notehead)
+Syllable_group::set_notehead(Grob * notehead)
 {
   if(!notehead_l_) {
     /* there should only be a single notehead, so silently ignore any extras */
@@ -62,7 +62,7 @@ Syllable_group::set_notehead(Score_element * notehead)
 }
 
 void 
-Syllable_group::add_lyric(Score_element * lyric)
+Syllable_group::add_lyric(Grob * lyric)
 {
   lyric_list_.push(lyric);
   /* record longest and shortest lyrics */
@@ -77,7 +77,7 @@ Syllable_group::add_lyric(Score_element * lyric)
 }
 
 void 
-Syllable_group::add_extender(Score_element * extender)
+Syllable_group::add_extender(Grob * extender)
 {
   if(notehead_l_ && melisma_b_) {
     dynamic_cast<Spanner*>(extender)->set_bound (RIGHT, notehead_l_);
@@ -85,24 +85,24 @@ Syllable_group::add_extender(Score_element * extender)
     // Comments in lyric-extender.hh say left, but right looks better to me. GP.
 
     // Left:
-//     extender->set_elt_property("right-trim-amount", gh_double2scm(0.0));
+//     extender->set_grob_property("right-trim-amount", gh_double2scm(0.0));
 
     // Right:
     Real ss = 1.0;
-    extender->set_elt_property("right-trim-amount", 
+    extender->set_grob_property("right-trim-amount", 
 			       gh_double2scm(-notehead_l_->extent(notehead_l_, X_AXIS).length()/ss));
   }
 }
 
 bool 
-Syllable_group::set_lyric_align(const char *punc, Score_element *default_notehead_l)
+Syllable_group::set_lyric_align(const char *punc, Grob *default_notehead_l)
 {
   if(lyric_list_.size()==0) {
     // No lyrics: nothing to do.
     return true;
   }
 
-  Score_element * lyric;
+  Grob * lyric;
   alignment_i_ = appropriate_alignment(punc);
 
   // If there was no notehead in the matching voice context, use the first 
@@ -116,7 +116,7 @@ Syllable_group::set_lyric_align(const char *punc, Score_element *default_notehea
   // set the x alignment of each lyric
   for(int l = 0; l < lyric_list_.size(); l++) {
     lyric = lyric_list_[l];
-    lyric->set_elt_property("self-alignment-X", gh_int2scm(alignment_i_));
+    lyric->set_grob_property("self-alignment-X", gh_int2scm(alignment_i_));
     // centre on notehead ... if we have one. 
     if(notehead_l_) {
       lyric->set_parent(notehead_l_, X_AXIS);
@@ -163,12 +163,12 @@ Syllable_group::appropriate_alignment(const char *punc)
   if(first_in_phrase_b_)
     return LEFT;
 
-  Score_element * lyric;
+  Grob * lyric;
   bool end_phrase = true;
 
   for(int l = 0; l < lyric_list_.size() && end_phrase; l++) {
     lyric = lyric_list_[l];
-    SCM lyric_scm = lyric->get_elt_property("text");
+    SCM lyric_scm = lyric->get_grob_property("text");
     String lyric_str = gh_string_p(lyric_scm)?ly_scm2string(lyric_scm):"";
     char lastchar;
     if(lyric_str.length_i()>0) {

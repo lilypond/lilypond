@@ -10,7 +10,7 @@
 
 
 #include "box.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "drul-array.hh"
 #include "protected-scm.hh"
 
@@ -21,22 +21,22 @@
   before the spacing is calculated
 
 */
-class Item : public Score_element
+class Item : public Grob
 {
   Drul_array<Item*> broken_to_drul_;
 
 public:
-  VIRTUAL_COPY_CONS(Score_element);
+  VIRTUAL_COPY_CONS(Grob);
   Item (SCM);
   Item (Item const &);
 
-  static bool breakable_b (Score_element*me);
+  static bool breakable_b (Grob*me);
   bool broken_b () const;
   
   Direction break_status_dir () const;
   
   Item * find_prebroken_piece (Direction) const;
-  Score_element * find_broken_piece (Line_of_score*) const;    
+  Grob * find_broken_piece (Line_of_score*) const;    
 
   virtual Line_of_score * line_l() const;
   virtual Paper_column * column_l () const;

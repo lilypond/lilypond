@@ -21,7 +21,7 @@
 class Note_column
 {
 public:
-  static int shift_compare (Score_element *const &, Score_element*const&);
+  static int shift_compare (Grob *const &, Grob*const&);
   
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,
@@ -29,18 +29,18 @@ public:
     JUNKME.
     */
 
-  static Direction dir (Score_element*me);
-  static Slice head_positions_interval(Score_element* me);
-  static Direction static_dir (Score_element*);
-  static void translate_rests(Score_element*me,int dy);
-  static Score_element * first_head (Score_element*me);
-  static void set_stem (Score_element*me,Score_element*);
-  static void set_dotcol (Score_element*me,Score_element*);
-  static void add_head (Score_element*me,Score_element*);
-  static bool rest_b (Score_element*me);
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);
-  static Item *stem_l(Score_element*);
+  static Direction dir (Grob*me);
+  static Slice head_positions_interval(Grob* me);
+  static Direction static_dir (Grob*);
+  static void translate_rests(Grob*me,int dy);
+  static Grob * first_head (Grob*me);
+  static void set_stem (Grob*me,Grob*);
+  static void set_dotcol (Grob*me,Grob*);
+  static void add_head (Grob*me,Grob*);
+  static bool rest_b (Grob*me);
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);
+  static Item *stem_l(Grob*);
 };
 
 #endif // NOTE_COLUMN_HH

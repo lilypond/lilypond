@@ -48,7 +48,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
   virtual Span_bar * get_span_bar_p () const;
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
 };
 
 #endif // SPAN_SCORE_BAR_GRAV_HH

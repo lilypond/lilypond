@@ -9,6 +9,7 @@
 
 #include "performer-group-performer.hh"
 
+#include "audio-element.hh"
 #include "debug.hh"
 
 
@@ -25,6 +26,35 @@ Performer_group_performer::announce_element (Audio_element_info info)
 
 
 void
+Performer_group_performer::create_grobs ()
+{
+  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
+    {
+      Translator * t = unsmob_translator (gh_car (p));
+      Performer * eng = dynamic_cast<Performer*> (t);
+      if (eng)
+	eng->create_grobs ();
+    }
+}
+
+void
+Performer_group_performer::acknowledge_grobs ()
+{
+  for (int j =0; j < announce_info_arr_.size(); j++)
+    {
+      Audio_element_info info = announce_info_arr_[j];
+
+      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
+	{
+	  Translator * t = unsmob_translator (gh_car (p));
+	  Performer * eng = dynamic_cast<Performer*> (t);
+	  if (eng && eng!= info.origin_trans_l_)
+	    eng->acknowledge_grob (info);
+	}
+    }
+}
+
+void
 Performer_group_performer::do_announces()
 {
   for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
@@ -32,29 +62,24 @@ Performer_group_performer::do_announces()
       Translator * t = unsmob_translator (gh_car (p));
       dynamic_cast<Performer_group_performer*> (t)->do_announces ();
     }
+
   
-  while (announce_info_arr_.size ())
+  create_grobs ();
+    
+  // debug
+  int i = 0;
+  while (announce_info_arr_.size () && i++ < 5)
     {
-      for (int j =0; j < announce_info_arr_.size(); j++)
-	{
-	  Audio_element_info info = announce_info_arr_[j];
-	  
-	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
-	    {
-	      Translator * t = unsmob_translator (gh_car (p));
-	      Performer * eng = dynamic_cast<Performer*> (t);
-	      if (eng && eng!= info.origin_trans_l_)
-		eng->acknowledge_element (info);
-	    }
-	}
+      acknowledge_grobs ();
       announce_info_arr_.clear ();
-      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
-	{
-	  Translator * t = unsmob_translator (gh_car (p));
-	  Performer * eng = dynamic_cast<Performer*> (t);
-	  if (eng)
-	    eng->process_acknowledged ();
-	}
+      create_grobs ();
+    }
+
+  if (announce_info_arr_.size ())
+    {
+      printf ("do_announces: elt: %s\n",
+	      classname (announce_info_arr_[0].elem_l_));
+      announce_info_arr_.clear ();
     }
 }
 

@@ -16,10 +16,10 @@
 class Bar
 {
 public:
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);
-  static Molecule compound_barline (Score_element*, String, Real height) ;
-  static Molecule simple_barline (Score_element*, Real wid, Real height) ;      
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);
+  static Molecule compound_barline (Grob*, String, Real height) ;
+  static Molecule simple_barline (Grob*, Real wid, Real height) ;      
   DECLARE_SCHEME_CALLBACK(get_staff_bar_size, (SCM ));
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));

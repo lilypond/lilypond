@@ -16,7 +16,7 @@ class Text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  static bool has_interface (Score_element*);
+  static bool has_interface (Grob*);
 };
 
 #endif /* TEXT_SPANNER_HH */

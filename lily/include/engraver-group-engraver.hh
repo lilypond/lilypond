@@ -13,7 +13,7 @@
 
 #include "lily-proto.hh"
 #include "parray.hh"
-#include "score-element-info.hh"
+#include "grob-info.hh"
 #include "engraver.hh"
 #include "translator-group.hh"
 
@@ -26,15 +26,19 @@ class Engraver_group_engraver : public Engraver,
 				public virtual Translator_group
 {
 protected:
-  Array<Score_element_info> announce_info_arr_;
+  Array<Grob_info> announce_info_arr_;
 
   
   
 public:
   VIRTUAL_COPY_CONS(Translator);
-    
+
   virtual void do_announces();
-  virtual void announce_element (Score_element_info);
+  virtual void announce_grob (Grob_info);
+  virtual void process_music ();
+private:
+  void create_grobs ();
+  void acknowledge_grobs ();
 };
 
 #endif // ENGRAVERGROUP_HH

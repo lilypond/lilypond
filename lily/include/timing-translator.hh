@@ -26,10 +26,10 @@ public:
 
 protected: 
   virtual void do_creation_processing ();
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music();
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+  virtual bool try_music (Music *req_l);
+  void deprecated_process_music();
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
 
 public:
   Moment measure_position () const;

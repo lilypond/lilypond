@@ -66,15 +66,14 @@ public:
 
   Translator_group*get_default_interpreter();
   
-protected:
+public:
   bool try_music_on_nongroup_children (Music *m);
   
-
-  virtual void do_process_music ();
+  virtual void do_announces ();
   virtual void do_add_processing ();
-  virtual bool do_try_music (Music* req_l);       
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();   
+  virtual bool try_music (Music* req_l);       
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();   
   virtual void do_creation_processing();
   virtual void do_removal_processing();
   virtual void each (Method_pointer);

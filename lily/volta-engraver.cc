@@ -26,27 +26,44 @@ public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
 
-  virtual void acknowledge_element (Score_element_info);
+  virtual void start_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_removal_processing ();
-  virtual void do_pre_move_processing ();
-  virtual void do_process_music ();
-
+  virtual void stop_translation_timestep ();
+  void deprecated_process_music ();
+  virtual void create_grobs ();
+  
   Moment started_mom_;
-  Spanner * volta_span_p_;
-  Spanner* end_volta_span_p_;
+  Spanner *volta_span_p_;
+  Spanner *end_volta_span_p_;
+
+  bool first_b_;
 };
 
 ADD_THIS_TRANSLATOR(Volta_engraver);
 
 Volta_engraver::Volta_engraver ()
 {
+  first_b_ = true;
   volta_span_p_ = 0;
   end_volta_span_p_ = 0;
 }
 
 void
-Volta_engraver::do_process_music ()
+Volta_engraver::create_grobs ()
 {
+  if (first_b_)
+    {
+      deprecated_process_music ();
+      first_b_ = false;
+    }
+}
+  
+void
+Volta_engraver::deprecated_process_music ()
+{
+  if (volta_span_p_)
+    return;
   SCM cs = get_property ("repeatCommands");
 
   SCM str = SCM_EOL; 
@@ -82,11 +99,11 @@ Volta_engraver::do_process_music ()
       volta_span_p_ =0;
 
       /*
-	maybe do typeset_element () directly?
+	maybe do typeset_grob () directly?
       */
 
       if (!gh_string_p (str))
-	end_volta_span_p_->set_elt_property ("last-volta", SCM_BOOL_T);
+	end_volta_span_p_->set_grob_property ("last-volta", SCM_BOOL_T);
     }
 
   if (gh_string_p (str))
@@ -110,13 +127,13 @@ Volta_engraver::do_process_music ()
 
       volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
       Volta_spanner::set_interface (volta_span_p_);
-      announce_element (volta_span_p_,0);
-      volta_span_p_->set_elt_property ("text", str);
+      announce_grob (volta_span_p_,0);
+      volta_span_p_->set_grob_property ("text", str);
     }
 }
 
 void
-Volta_engraver::acknowledge_element (Score_element_info i)
+Volta_engraver::acknowledge_grob (Grob_info i)
 {
   if (Item* item = dynamic_cast<Item*> (i.elem_l_))
     {
@@ -142,22 +159,28 @@ Volta_engraver::do_removal_processing ()
 {
   if (volta_span_p_)
     {
-      typeset_element(volta_span_p_);
+      typeset_grob(volta_span_p_);
     }
   if (end_volta_span_p_)
     {
-      typeset_element (end_volta_span_p_);
+      typeset_grob (end_volta_span_p_);
     }
 }
 
+void
+Volta_engraver::start_translation_timestep ()
+{
+  first_b_ = true;
+}
+
 void 
-Volta_engraver::do_pre_move_processing ()
+Volta_engraver::stop_translation_timestep ()
 {
   if (end_volta_span_p_)
     {
       Side_position::add_staff_support (end_volta_span_p_);
       
-      typeset_element (end_volta_span_p_ );
+      typeset_grob (end_volta_span_p_ );
       end_volta_span_p_ =0;
     }
 }

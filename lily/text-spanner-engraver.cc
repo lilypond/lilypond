@@ -27,11 +27,12 @@ public:
   
 protected:
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music *);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music *);
+  void deprecated_process_music ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
 
 private:
   Spanner *span_;
@@ -54,14 +55,14 @@ Text_spanner_engraver::Text_spanner_engraver ()
 }
 
 void
-Text_spanner_engraver::do_post_move_processing ()
+Text_spanner_engraver::start_translation_timestep ()
 {
   req_drul_[START] = 0;
   req_drul_[STOP] = 0;
 }
 
 bool
-Text_spanner_engraver::do_try_music (Music *m)
+Text_spanner_engraver::try_music (Music *m)
 {
   if (Span_req *s =  dynamic_cast <Span_req*> (m))
     {
@@ -84,8 +85,15 @@ Text_spanner_engraver::do_try_music (Music *m)
 }
 
 void
-Text_spanner_engraver::do_process_music ()
+Text_spanner_engraver::create_grobs ()
 {
+  deprecated_process_music ();
+}
+
+void
+Text_spanner_engraver::deprecated_process_music ()
+{
+  /////
   if (req_drul_[STOP])
     {
       if (!span_)
@@ -96,7 +104,7 @@ Text_spanner_engraver::do_process_music ()
       else
 	{
 	  assert (!finished_);
-	  Score_element* e = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob* e = unsmob_element (get_property ("currentMusicalColumn"));
 	  span_->set_bound (RIGHT, e);
 
 	  finished_ = span_;
@@ -117,15 +125,15 @@ Text_spanner_engraver::do_process_music ()
 	  current_req_ = req_drul_[START];
 	  span_  = new Spanner (get_property ("TextSpanner"));
 	  Side_position::set_axis (span_, Y_AXIS);
-	  Score_element *e = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob *e = unsmob_element (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
-	  announce_element (span_, req_drul_[START]);
+	  announce_grob (span_, req_drul_[START]);
 	}
     }
 }
 
 void
-Text_spanner_engraver::acknowledge_element (Score_element_info info)
+Text_spanner_engraver::acknowledge_grob (Grob_info info)
 {
   if (span_ && Note_column::has_interface (info.elem_l_))
     {
@@ -140,13 +148,13 @@ Text_spanner_engraver::typeset_all ()
   if (finished_)
     {
       Side_position::add_staff_support (finished_);
-      typeset_element (finished_);
+      typeset_grob (finished_);
       finished_ = 0;
     }
 }
 
 void
-Text_spanner_engraver::do_pre_move_processing ()
+Text_spanner_engraver::stop_translation_timestep ()
 {
   typeset_all ();
 }

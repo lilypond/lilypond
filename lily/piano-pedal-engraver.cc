@@ -8,7 +8,7 @@
 
 #include "engraver.hh"
 #include "musical-request.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "item.hh"
 #include "lily-guile.hh"
 #include "rhythmic-head.hh"
@@ -32,11 +32,11 @@ public:
   ~Piano_pedal_engraver ();
 protected:
   virtual void do_creation_processing ();
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual bool try_music (Music*);
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
 
 private:
   struct Pedal_info
@@ -85,13 +85,13 @@ Piano_pedal_engraver::~Piano_pedal_engraver()
 }
 
 /*
-  Urg: Code dup
-  I'm a script
- */
+   Urg: Code dup
+   I'm a script
+  */
 void
-Piano_pedal_engraver::acknowledge_element (Score_element_info info)
+Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 {
-  for (Pedal_info*p = info_list_; p->name_; p ++)
+  for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
       if (p->item_p_)
 	{
@@ -112,7 +112,7 @@ Piano_pedal_engraver::acknowledge_element (Score_element_info info)
 }
 
 bool
-Piano_pedal_engraver::do_try_music (Music *m)
+Piano_pedal_engraver::try_music (Music *m)
 {
   if (Span_req * s = dynamic_cast<Span_req*>(m))
     {
@@ -130,10 +130,12 @@ Piano_pedal_engraver::do_try_music (Music *m)
 }
 
 void
-Piano_pedal_engraver::do_process_music ()
+Piano_pedal_engraver::create_grobs ()
 {
-  for (Pedal_info*p = info_list_; p->name_; p ++)
+  for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
+      if (p->item_p_)
+	continue;
       SCM s = SCM_EOL;
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START])
 	{
@@ -169,18 +171,20 @@ Piano_pedal_engraver::do_process_music ()
 	{
 	  String propname = String (p->name_) + "Pedal";
 	  p->item_p_ = new Item (get_property (propname.ch_C()));
-	  p->item_p_->set_elt_property ("text", s);
+	  p->item_p_->set_grob_property ("text", s);
 
-	  announce_element (p->item_p_,
+	  announce_grob (p->item_p_,
 			    p->req_l_drul_[START]
 			    ? p->req_l_drul_[START]
 			    : p->req_l_drul_[STOP]);
 	}
+      p->req_l_drul_[START] = 0;
+      p->req_l_drul_[STOP] = 0;
     }
 }
 
 void
-Piano_pedal_engraver::do_pre_move_processing ()
+Piano_pedal_engraver::stop_translation_timestep ()
 {
   Item * sustain = 0;
   for (Pedal_info*p = info_list_; p->name_; p ++)
@@ -204,14 +208,14 @@ Piano_pedal_engraver::do_pre_move_processing ()
 		  Side_position::add_support (p->item_p_,sustain);
 		}
 	    }
-	  typeset_element (p->item_p_);
+	  typeset_grob (p->item_p_);
 	}
       p->item_p_ = 0;
     }
 }
 
 void
-Piano_pedal_engraver::do_post_move_processing ()
+Piano_pedal_engraver::start_translation_timestep ()
 {
   for (Pedal_info*p = info_list_; p->name_; p ++)
     {

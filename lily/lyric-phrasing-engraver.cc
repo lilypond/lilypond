@@ -101,7 +101,7 @@ Lyric_phrasing_engraver::lookup_context_id(const String &context_id)
 
 void 
 Lyric_phrasing_engraver::record_notehead(const String &context_id, 
-					 Score_element * notehead)
+					 Grob * notehead)
 {
   Syllable_group * v = lookup_context_id(context_id);
   v->set_notehead(notehead);
@@ -110,14 +110,14 @@ Lyric_phrasing_engraver::record_notehead(const String &context_id,
 }
   
 void 
-Lyric_phrasing_engraver::record_lyric(const String &context_id, Score_element * lyric)
+Lyric_phrasing_engraver::record_lyric(const String &context_id, Grob * lyric)
 {
   Syllable_group * v = lookup_context_id(context_id);
   v->add_lyric(lyric);
 }
 
 void 
-Lyric_phrasing_engraver::record_extender(const String &context_id, Score_element * extender)
+Lyric_phrasing_engraver::record_extender(const String &context_id, Grob * extender)
 {
   SCM key = ly_str02scm(context_id.ch_C());
   if( ! gh_null_p(voice_alist_) ) {
@@ -142,19 +142,19 @@ Lyric_phrasing_engraver::record_melisma(const String &context_id)
 }
   
 void
-Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
+Lyric_phrasing_engraver::acknowledge_grob(Grob_info i)
 {
   SCM p = get_property("automaticPhrasing");
   if(!to_boolean(p))
     return;
 
 
-  Score_element *h = i.elem_l_;
+  Grob *h = i.elem_l_;
 
   if (Note_head::has_interface(h)) {
     /* caught a note head ... do something with it */
     /* ... but not if it's a grace note ... */
-    bool grace= to_boolean (i.elem_l_->get_elt_property ("grace"));
+    bool grace= to_boolean (i.elem_l_->get_grob_property ("grace"));
     SCM wg = get_property ("weAreGraceContext");
     bool wgb = to_boolean (wg);
     if (grace != wgb)
@@ -233,7 +233,7 @@ trim_suffix(String &id)
 }
 
 
-void Lyric_phrasing_engraver::process_acknowledged () 
+void Lyric_phrasing_engraver::create_grobs () 
 {
   /* iterate through entries in voice_alist_
      for each, call set_lyric_align(alignment). Issue a warning if this returns false.
@@ -271,7 +271,7 @@ void Lyric_phrasing_engraver::process_acknowledged ()
 
 
 void
-Lyric_phrasing_engraver::do_pre_move_processing ()
+Lyric_phrasing_engraver::stop_translation_timestep ()
 {
   for(SCM v=voice_alist_; gh_pair_p(v); v = gh_cdr(v)) {
     SCM entry_scm = gh_cdar(v);

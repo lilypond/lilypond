@@ -6,9 +6,27 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "lyric-performer.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
+#include "lily-proto.hh"
+#include "performer.hh"
+#include "array.hh"
+
+class Lyric_performer : public Performer {
+public:
+  VIRTUAL_COPY_CONS(Translator);
+ Lyric_performer ();
+
+protected:
+
+  virtual bool try_music (Music* req_l);
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
+
+private:
+  Link_array<Lyric_req> lreq_arr_;
+  Audio_text* audio_p_;
+};
 
 ADD_THIS_TRANSLATOR (Lyric_performer);
 
@@ -19,7 +37,7 @@ Lyric_performer::Lyric_performer ()
 
 
 void
-Lyric_performer::do_process_music ()
+Lyric_performer::create_grobs ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreq_arr_.size ()
@@ -35,7 +53,7 @@ Lyric_performer::do_process_music ()
 }
 
 void
-Lyric_performer::do_pre_move_processing ()
+Lyric_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -46,7 +64,7 @@ Lyric_performer::do_pre_move_processing ()
 }
 
 bool
-Lyric_performer::do_try_music (Music* req_l)
+Lyric_performer::try_music (Music* req_l)
 {
   if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req_l))
     {

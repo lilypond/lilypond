@@ -27,10 +27,10 @@ public:
   void request_bar (String type_str);
     
 protected:
-  virtual void do_creation_processing ();
   virtual void do_removal_processing ();
-  virtual void do_process_music();
-  virtual void do_pre_move_processing();
+  void deprecated_process_music();
+  virtual void stop_translation_timestep();
+  virtual void create_grobs ();
 
 private:
   void typeset_bar ();
@@ -42,7 +42,6 @@ private:
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
-  do_post_move_processing();
 }
 
 void
@@ -53,16 +52,11 @@ Bar_engraver::create_bar ()
       bar_p_ = new Item (get_property ("BarLine"));
 
       SCM gl = get_property ("whichBar");
-      if (scm_equal_p (gl, bar_p_->get_elt_property ("glyph")) != SCM_BOOL_T)
-	  bar_p_->set_elt_property ("glyph", gl);
+      if (scm_equal_p (gl, bar_p_->get_grob_property ("glyph")) != SCM_BOOL_T)
+	  bar_p_->set_grob_property ("glyph", gl);
       
-      announce_element (bar_p_, 0);
+      announce_grob (bar_p_, 0);
     }
-}
-
-void 
-Bar_engraver::do_creation_processing ()
-{
 }
 
 void
@@ -73,16 +67,21 @@ Bar_engraver::do_removal_processing ()
 
 /*
   Bar_engraver should come *after* any engravers that expect bars to
-  modify whichBar in do_process_music () be typeset
+  modify whichBar in  deprecated_process_music () be typeset
 */
 void
-Bar_engraver::do_process_music()
+Bar_engraver::deprecated_process_music()
 {
-  SCM b =get_property ("whichBar");
-  if (gh_string_p (b))
+  if (!bar_p_ && gh_string_p (get_property ("whichBar")))
     {
       create_bar ();
     }
+}
+
+void
+Bar_engraver::create_grobs ()
+{
+  deprecated_process_music ();
 }
 
 void
@@ -90,7 +89,7 @@ Bar_engraver::typeset_bar ()
 {
   if (bar_p_) 
     {
-      typeset_element (bar_p_);
+      typeset_grob (bar_p_);
       bar_p_ =0;
     }
 }
@@ -99,7 +98,7 @@ Bar_engraver::typeset_bar ()
   lines may only be broken if there is a barline in all staffs 
 */
 void 
-Bar_engraver::do_pre_move_processing()
+Bar_engraver::stop_translation_timestep()
 {
   if (!bar_p_)
     {

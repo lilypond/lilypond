@@ -11,7 +11,7 @@
 #include "audio-element-info.hh"
 #include "array.hh"
 #include "request.hh"
-#include "score-element-info.hh"
+#include "grob-info.hh"
 #include "translator.hh"
 
 /**
@@ -27,8 +27,8 @@ public:
 
 protected:
   virtual void announce_element (Audio_element_info);
-  virtual void acknowledge_element (Audio_element_info);
-  virtual void process_acknowledged ();
+  virtual void acknowledge_grob (Audio_element_info);
+  virtual void create_grobs ();
   virtual int get_tempo_i() const;
   virtual void play_element (Audio_element * elem_p );
 };

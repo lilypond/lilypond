@@ -21,6 +21,8 @@
 
 /*
   TODO: figure what to do in grace?
+
+  TODO: documentme.
  */
 class Auto_beam_engraver : public Engraver
 {
@@ -29,27 +31,35 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
-  virtual bool do_try_music (Music*);
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_process_music ();
-  virtual void process_acknowledged ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+
 private:
   void begin_beam ();
   void consider_end_and_begin (Moment test_mom);
   Spanner* create_beam_p ();
   void end_beam ();
   void junk_beam ();
-  bool same_grace_state_b (Score_element* e);
+  bool same_grace_state_b (Grob* e);
   void typeset_beam ();
 
+  /*
+    shortest_mom is the shortest note in the beam.
+   */
   Moment shortest_mom_;
   Spanner *finished_beam_p_;
   Link_array<Item>* stem_l_arr_p_;
-  
+
+
+  bool first_b_;
   Moment last_add_mom_;
+
+  /*
+    Projected ending of the  beam we're working on.
+   */
   Moment extend_mom_;
   Moment beam_start_moment_;
   Moment beam_start_location_;
@@ -63,6 +73,7 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
+  first_b_ = true;
   stem_l_arr_p_ = 0;
   shortest_mom_ = Moment (1, 8);
   finished_beam_p_ = 0;
@@ -70,18 +81,9 @@ Auto_beam_engraver::Auto_beam_engraver ()
   grouping_p_ = 0;
 }
 
-bool
-Auto_beam_engraver::do_try_music (Music*) 
-{
-  return false;
-} 
-
-void
-Auto_beam_engraver::do_process_music ()
-{
-  consider_end_and_begin (shortest_mom_);
-}
-
+/*
+  rename me: consider_end_or_begin () ? 
+ */
 void
 Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 {
@@ -189,9 +191,9 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   else
     r = Moment (1);
 
-  if (stem_l_arr_p_ && !r)
+  if (stem_l_arr_p_ && stem_l_arr_p_->size () > 1 && !r)
     end_beam ();
-     
+
   /*
     Allow already started autobeam to end
    */
@@ -204,19 +206,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
-
       
-void
-Auto_beam_engraver::begin_beam ()
-{
-  assert (!stem_l_arr_p_);
-  stem_l_arr_p_ = new Link_array<Item>;
-  assert (!grouping_p_);
-  grouping_p_ = new Beaming_info_list;
-  beam_start_moment_ = now_mom ();
-  beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
-}
-
 Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
@@ -230,14 +220,39 @@ Auto_beam_engraver::create_beam_p ()
        */
       if (Stem::beam_l ((*stem_l_arr_p_)[i]))
 	{
+	  scm_unprotect_object (beam_p->self_scm ());
 	  return 0;
 	}
       Beam::add_stem (beam_p,(*stem_l_arr_p_)[i]);
     }
   
-  announce_element (beam_p, 0);
+  announce_grob (beam_p, 0);
 
   return beam_p;
+}
+
+void
+Auto_beam_engraver::begin_beam ()
+{
+  assert (!stem_l_arr_p_);
+  stem_l_arr_p_ = new Link_array<Item>;
+  assert (!grouping_p_);
+  grouping_p_ = new Beaming_info_list;
+  beam_start_moment_ = now_mom ();
+  beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
+}
+
+
+void
+Auto_beam_engraver::junk_beam () 
+{
+  assert (stem_l_arr_p_);
+  
+  delete stem_l_arr_p_;
+  stem_l_arr_p_ = 0;
+  delete grouping_p_;
+  grouping_p_ = 0;
+  shortest_mom_ = Moment (1, 8);
 }
 
 void
@@ -266,7 +281,7 @@ Auto_beam_engraver::typeset_beam ()
     {
       finished_grouping_p_->beamify ();
       Beam::set_beaming (finished_beam_p_, finished_grouping_p_);
-      typeset_element (finished_beam_p_);
+      typeset_grob (finished_beam_p_);
       finished_beam_p_ = 0;
     
       delete finished_grouping_p_;
@@ -275,8 +290,9 @@ Auto_beam_engraver::typeset_beam ()
 }
 
 void
-Auto_beam_engraver::do_post_move_processing ()
+Auto_beam_engraver::start_translation_timestep ()
 {
+  first_b_ =true;
   /*
     don't beam over skips
    */
@@ -291,8 +307,9 @@ Auto_beam_engraver::do_post_move_processing ()
 }
 
 void
-Auto_beam_engraver::do_pre_move_processing ()
+Auto_beam_engraver::stop_translation_timestep ()
 {
+  
   typeset_beam ();
 }
 
@@ -307,15 +324,15 @@ Auto_beam_engraver::do_removal_processing ()
 }
 
 bool
-Auto_beam_engraver::same_grace_state_b (Score_element* e)
+Auto_beam_engraver::same_grace_state_b (Grob* e)
 {
-  bool gr = e->get_elt_property ("grace") == SCM_BOOL_T;
+  bool gr = e->get_grob_property ("grace") == SCM_BOOL_T;
   SCM wg =get_property ("weAreGraceContext");
   return (to_boolean (wg)) == gr;
 }
 
 void
-Auto_beam_engraver::acknowledge_element (Score_element_info info)
+Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
   if (!same_grace_state_b (info.elem_l_))
     return;
@@ -377,21 +394,23 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	if shortest duration would change
 	reconsider ending/starting beam first.
       */
-      Moment mom = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
-      consider_end_and_begin (mom);
+      Moment dur = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
+      consider_end_and_begin (dur);
       if (!stem_l_arr_p_)
 	return;
-      if (mom < shortest_mom_)
+      
+      if (dur < shortest_mom_)
 	{
+	  shortest_mom_ = dur;
 	  if (stem_l_arr_p_->size ())
 	    {
-	      shortest_mom_ = mom;
+	      shortest_mom_ = dur;
 	      consider_end_and_begin (shortest_mom_);
 	      if (!stem_l_arr_p_)
 		return;
 	    }
-	  shortest_mom_ = mom;
 	}
+      
       Moment now = now_mom ();
       
       grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_,
@@ -403,31 +422,27 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Auto_beam_engraver::junk_beam () 
+Auto_beam_engraver::create_grobs ()
 {
-  assert (stem_l_arr_p_);
-  
-  delete stem_l_arr_p_;
-  stem_l_arr_p_ = 0;
-  delete grouping_p_;
-  grouping_p_ = 0;
-  shortest_mom_ = Moment (1, 8);
-}
-
-void
-Auto_beam_engraver::process_acknowledged ()
-{
-  if (stem_l_arr_p_)
+  if (first_b_)
     {
-      Moment now = now_mom ();
-      if ((extend_mom_ < now)
-	  || ((extend_mom_ == now) && (last_add_mom_ != now )))
-	{
-	  end_beam ();
-	}
-      else if (!stem_l_arr_p_->size ())
-	{
-	  junk_beam ();
-	}
+      first_b_ = false;
+      consider_end_and_begin (shortest_mom_);
     }
+  else
+    {
+      if (stem_l_arr_p_)
+	{
+	  Moment now = now_mom ();
+	  if ((extend_mom_ < now)
+	      || ((extend_mom_ == now) && (last_add_mom_ != now )))
+	    {
+	      end_beam ();
+	    }
+	  else if (!stem_l_arr_p_->size ())
+	    {
+	      junk_beam ();
+	    }
+	}    
+    }  
 }

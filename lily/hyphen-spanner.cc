@@ -26,7 +26,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
 {
   Spanner * sp = dynamic_cast<Spanner*> (unsmob_element (smob));
 
-  Score_element * common = sp;
+  Grob * common = sp;
   Direction d = LEFT;
   do
     {
@@ -42,11 +42,11 @@ Hyphen_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
   
   Real lt = sp->paper_l ()->get_var ("stafflinethickness");
-  Real th = gh_scm2double (sp->get_elt_property ("thickness")) * lt ;
-  Real h = gh_scm2double (sp->get_elt_property ("height"));
-  Real l = gh_scm2double (sp->get_elt_property ("minimum-length"));  
+  Real th = gh_scm2double (sp->get_grob_property ("thickness")) * lt ;
+  Real h = gh_scm2double (sp->get_grob_property ("height"));
+  Real l = gh_scm2double (sp->get_grob_property ("minimum-length"));  
   // The hyphen can exist in the word space of the left lyric ...
-  SCM space =  sp->get_bound (LEFT)->get_elt_property ("word-space");
+  SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
   if (gh_number_p (space))
     {
       bounds[LEFT] -=  gh_scm2double (space);
@@ -87,7 +87,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
 }
   
 void
-Hyphen_spanner::set_textitem (Direction d, Score_element* b)
+Hyphen_spanner::set_textitem (Direction d, Grob* b)
 {
   elt_l_->set_bound (d, b);
   elt_l_->add_dependency (b);

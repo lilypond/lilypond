@@ -1,5 +1,5 @@
 /*   
-  score-element-callback.hh -- declare Score_element callbacks
+  grob-callback.hh -- declare Grob callbacks
   
   source file of the GNU LilyPond music typesetter
   

@@ -71,7 +71,7 @@ Translator_group::add_translator (SCM list, Translator *t)
   t->daddy_trans_l_ = this;
   t->output_def_l_ = output_def_l_;
   t->add_processing ();
-
+  t->do_creation_processing ();
   return list;
 }
 void
@@ -149,7 +149,6 @@ bool
 Translator_group::try_music_on_nongroup_children (Music *m)
 {
   bool hebbes_b =false;
-
   
   for (SCM p = simple_trans_list_; !hebbes_b && gh_pair_p (p); p = gh_cdr (p))
     {
@@ -159,7 +158,7 @@ Translator_group::try_music_on_nongroup_children (Music *m)
 }
 
 bool
-Translator_group::do_try_music (Music* m)
+Translator_group::try_music (Music* m)
 {
   bool hebbes_b = try_music_on_nongroup_children (m);
   
@@ -324,48 +323,10 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 
 	  if (gh_pair_p (prev) || prev == SCM_EOL)
 	    {
-	      bool ok = true;
+	      bool ok = type_check_assignment (val, eltprop, ly_symbol2scm ("backend-type?"));
 	      
-	      SCM errport = scm_current_error_port ();
+
 	      
-	      SCM meta = scm_assoc (ly_symbol2scm ("meta"), prev);
-
-	      /*
-		We're probably in a performer.
-	       */
-	      if (!gh_pair_p (meta))
-		return;
-	      
-	      SCM props = scm_assoc (ly_symbol2scm ("properties"), gh_cdr (meta));
-	      SCM type_p = scm_assoc (eltprop, gh_cdr (props));
-	      if (!gh_pair_p (type_p))
-		{
-		  scm_puts (_("Couldn't find property description for #'").ch_C(),errport);
-		  scm_display (eltprop, errport);
-
-		  scm_puts (_(" in element description ").ch_C(),errport);
-		  scm_display (prop, errport);
-
-		  scm_puts (_(". Perhaps you made a typing error?\n").ch_C(),errport);		  
-		}
-	      else
-		{
-		  type_p = gh_cdr (type_p);
-		  if (val != SCM_EOL
-		      && gh_call1 (type_p, val) == SCM_BOOL_F)
-		    {
-		      ok = false;
-		      scm_puts (_("Failed typecheck for #'").ch_C (),errport);
-		      scm_display (eltprop,errport);
-		      scm_puts ( _(", value ").ch_C (), errport);
-		      scm_write (val, errport);
-		      scm_puts (_(" must be of type ").ch_C (), errport);
-		      SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
-		      scm_display (gh_call1 (typefunc, type_p), errport);
-		      scm_puts ("\n", errport);		      
-		    }
-		}
-
 	      if (ok)
 		{
 		  prev = gh_cons (gh_cons (eltprop, val), prev);
@@ -406,31 +367,70 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
   STUBS
 */
 void
-Translator_group::do_pre_move_processing ()
+Translator_group::stop_translation_timestep ()
 {
   each (&Translator::pre_move_processing);
 }
 
 void
-Translator_group::do_post_move_processing ()
+Translator_group::start_translation_timestep ()
 {
   each (&Translator::post_move_processing);
 }
 
 void
-Translator_group::do_process_music ()
+Translator_group::do_announces ()
 {
-  each (&Translator::process_music);
+  each (&Translator::announces);
 }
 
 void
 Translator_group::do_creation_processing ()
 {
-  each (&Translator::creation_processing);
+  each (&Translator::do_creation_processing);
 }
 
 void
 Translator_group::do_removal_processing ()
 {
   each (&Translator::removal_processing);
+}
+
+
+bool
+type_check_assignment (SCM val, SCM sym,  SCM type_symbol) 
+{
+  bool ok = true;
+  SCM type_p = SCM_EOL;
+  SCM errport = scm_current_error_port ();
+
+  if (SCM_IMP(sym))
+    type_p = scm_object_property (sym, type_symbol);
+
+  if (type_p != SCM_EOL && !gh_procedure_p (type_p))
+      {
+	scm_puts (_("Couldn't find property type-check for `").ch_C(),errport);
+	scm_puts (String ("'").ch_C(), errport);
+	scm_display (sym, errport);
+
+	scm_puts (_(". Perhaps you made a typing error?\n").ch_C(),errport);
+      }
+  else
+    {
+      if (val != SCM_EOL
+	  && gh_procedure_p (type_p)
+	  && gh_call1 (type_p, val) == SCM_BOOL_F)
+	{
+	  ok = false;
+	  scm_puts (_("Failed typecheck for `").ch_C (),errport);
+	  scm_display (sym,errport);
+	  scm_puts ( _("', value `").ch_C (), errport);
+	  scm_write (val, errport);
+	  scm_puts (_("' must be of type ").ch_C (), errport);
+	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	  scm_display (gh_call1 (typefunc, type_p), errport);
+	  scm_puts ("\n", errport);		      
+	}
+    }
+  return ok;
 }

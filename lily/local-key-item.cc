@@ -33,9 +33,9 @@ ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
 
 
 void
-Local_key_item::add_pitch (Score_element*me, Pitch p, bool cautionary, bool natural)
+Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural)
 {
-  SCM acs = me->get_elt_property ("accidentals");
+  SCM acs = me->get_grob_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
   SCM opts = SCM_EOL;
   if (cautionary)
@@ -46,11 +46,11 @@ Local_key_item::add_pitch (Score_element*me, Pitch p, bool cautionary, bool natu
   pitch = gh_cons (pitch, opts);
   acs = scm_merge_x (acs, gh_cons (pitch, SCM_EOL), pitch_less_proc);
 
-  me->set_elt_property ("accidentals", acs);
+  me->set_grob_property ("accidentals", acs);
 }
 
 Molecule
-Local_key_item::parenthesize (Score_element*me, Molecule m)
+Local_key_item::parenthesize (Grob*me, Molecule m)
 {
   Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-("));
   Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-)"));
@@ -69,7 +69,7 @@ MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule,1);
 SCM
 Local_key_item::brew_molecule (SCM smob)
 {
-  Score_element* me = unsmob_element (smob);
+  Grob* me = unsmob_element (smob);
   
   Molecule mol;
 
@@ -78,7 +78,7 @@ Local_key_item::brew_molecule (SCM smob)
   bool oct_b = false;
   int lastoct = -100;
 
-  SCM accs = me->get_elt_property ("accidentals");
+  SCM accs = me->get_grob_property ("accidentals");
   for  (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
     {
@@ -100,7 +100,7 @@ Local_key_item::brew_molecule (SCM smob)
       
       lastoct = p.octave_i () ;
 
-      SCM c0 =  me->get_elt_property ("c0-position");
+      SCM c0 =  me->get_grob_property ("c0-position");
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
       
@@ -135,8 +135,8 @@ Local_key_item::brew_molecule (SCM smob)
       /*
 	Use a cons?
        */
-      pads[RIGHT] = me->get_elt_property ("right-padding");
-      pads[LEFT] = me->get_elt_property ("left-padding");
+      pads[RIGHT] = me->get_grob_property ("right-padding");
+      pads[LEFT] = me->get_grob_property ("left-padding");
 
 
       // unused ?
@@ -156,12 +156,12 @@ Local_key_item::brew_molecule (SCM smob)
 }
 
 bool
-Local_key_item::has_interface (Score_element*m)
+Local_key_item::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("accidentals-interface"));
 }
 void
-Local_key_item::set_interface (Score_element*m)
+Local_key_item::set_interface (Grob*m)
 {
   m->set_interface (ly_symbol2scm ("accidentals-interface"));
 }

@@ -20,14 +20,14 @@ MAKE_SCHEME_CALLBACK (Hairpin, brew_molecule, 1);
 SCM
 Hairpin::brew_molecule (SCM smob) 
 {
-  Score_element *me= unsmob_element (smob);
+  Grob *me= unsmob_element (smob);
   Spanner *span = dynamic_cast<Spanner*>(me);
 
   Real line = me->paper_l ()->get_var ("stafflinethickness");  
   
   Real broken_left =  span->get_broken_left_end_align ();
 
-  SCM s = me->get_elt_property("grow-direction");
+  SCM s = me->get_grob_property("grow-direction");
   if (!isdir_b (s))
     {
       me->suicide ();
@@ -35,7 +35,7 @@ Hairpin::brew_molecule (SCM smob)
     }
   
   Direction grow_dir = to_dir (s);
-  Real padding = gh_scm2double (me->get_elt_property ("padding"));
+  Real padding = gh_scm2double (me->get_grob_property ("padding"));
   Real width = span->spanner_length ();
   width -= span->get_broken_left_end_align ();
 
@@ -56,7 +56,11 @@ Hairpin::brew_molecule (SCM smob)
 
       if (!broken [d])
 	{
-	  Real r = b->extent (b, X_AXIS)[-d] + padding;
+
+	  Interval e =b->extent (b, X_AXIS);
+	  Real r = 0.0;
+	  if (!e.empty_b ())
+	    r = e[-d] + padding;
 	  width += d * r;
 	  extra_off[d] = r;
 	}
@@ -64,8 +68,8 @@ Hairpin::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
   
   bool continued = broken[Direction (-grow_dir)];
-  Real height = gh_scm2double (me->get_elt_property ("height"));
-  Real thick = line * gh_scm2double (me->get_elt_property ("thickness"));
+  Real height = gh_scm2double (me->get_grob_property ("height"));
+  Real thick = line * gh_scm2double (me->get_grob_property ("thickness"));
   
   const char* type = (grow_dir < 0) ? "decrescendo" :  "crescendo";
   SCM hairpin = gh_list (ly_symbol2scm (type),

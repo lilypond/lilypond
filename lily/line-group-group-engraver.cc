@@ -22,11 +22,11 @@ Line_group_engraver_group::Line_group_engraver_group()
 
 
 void
-Line_group_engraver_group::typeset_element (Score_element *elem)
+Line_group_engraver_group::typeset_grob (Grob *elem)
 {
   if (!elem->parent_l (Y_AXIS))      
     Axis_group_interface::add_element (staffline_p_, elem);
-  Engraver_group_engraver::typeset_element (elem);
+  Engraver_group_engraver::typeset_grob (elem);
 }
 
 
@@ -34,11 +34,11 @@ void
 Line_group_engraver_group::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing ();
-  Score_element *  it
+  Grob *  it
     = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn")));
 
   staffline_p_->set_bound(RIGHT,it);
-  Engraver_group_engraver::typeset_element (staffline_p_);
+  Engraver_group_engraver::typeset_grob (staffline_p_);
   staffline_p_ = 0;
 }
 
@@ -46,11 +46,11 @@ void
 Line_group_engraver_group::do_creation_processing()
 {
   create_line_spanner ();
-  Score_element *  it
+  Grob *  it
     = unsmob_element (get_property (ly_symbol2scm ("currentCommandColumn"))); 
   staffline_p_->set_bound(LEFT,it);
   
-  Engraver::announce_element (staffline_p_,0);
+  Engraver::announce_grob (staffline_p_,0);
 }
 
 void

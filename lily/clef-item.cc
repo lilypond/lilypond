@@ -22,23 +22,18 @@ Clef::before_line_breaking (SCM smob)
 {
   Item * s = dynamic_cast<Item*> (unsmob_element (smob));
 
-  SCM style_sym =s->get_elt_property ("style");
-  String style;
-  if (gh_string_p (style_sym))
-    style = ly_scm2string (style_sym);
-
-  SCM glyph = s->get_elt_property ("glyph");
+  SCM glyph = s->get_grob_property ("glyph");
   
   if (gh_string_p (glyph))
     {
       String str = ly_scm2string (glyph);
 
-      if (to_boolean (s->get_elt_property ("non-default")) &&
+      if (to_boolean (s->get_grob_property ("non-default")) &&
 	  s->break_status_dir() != RIGHT &&
-	  to_boolean (s->get_elt_property ("full-size-change")))
+	  to_boolean (s->get_grob_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_elt_property ("glyph", ly_str02scm (str.ch_C()));	  
+	  s->set_grob_property ("glyph", ly_str02scm (str.ch_C()));	  
 	}
     }
   else
@@ -51,14 +46,14 @@ Clef::before_line_breaking (SCM smob)
 }
 
 bool
-Clef::has_interface (Score_element* me)
+Clef::has_interface (Grob* me)
 {
   return me->has_interface (ly_symbol2scm ("clef-interface"));
 }
 
 
 void
-Clef::set_interface (Score_element* me)
+Clef::set_interface (Grob* me)
 {
   me->set_interface (ly_symbol2scm ("clef-interface"));
 }
@@ -67,8 +62,8 @@ MAKE_SCHEME_CALLBACK(Clef,brew_molecule,1)
 SCM
 Clef::brew_molecule (SCM smob) 
 {
-  Score_element * sc = unsmob_element (smob);
-  SCM glyph = sc->get_elt_property ("glyph");
+  Grob * sc = unsmob_element (smob);
+  SCM glyph = sc->get_grob_property ("glyph");
   if (gh_string_p (glyph))
     {
       return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).smobbed_copy ();

@@ -30,7 +30,7 @@ public:
 
 protected:
   virtual void create_line_spanner ();
-  void typeset_element (Score_element*);
+  void typeset_grob (Grob*);
 };
 
 

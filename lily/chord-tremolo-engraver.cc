@@ -58,11 +58,12 @@ protected:
   
 protected:
   virtual void do_removal_processing();
-  virtual void do_process_music();
-  virtual bool do_try_music (Music*);
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+  void deprecated_process_music();
+  virtual bool try_music (Music*);
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
+  virtual void create_grobs ();
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver()
@@ -73,7 +74,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver()
 }
 
 bool
-Chord_tremolo_engraver::do_try_music (Music * m)
+Chord_tremolo_engraver::try_music (Music * m)
 {
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
   if (rp
@@ -93,19 +94,25 @@ Chord_tremolo_engraver::do_try_music (Music * m)
 }
 
 void
-Chord_tremolo_engraver::do_process_music ()
+Chord_tremolo_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Chord_tremolo_engraver::deprecated_process_music ()
 {
   if (repeat_ && !beam_p_)
     {
       beam_p_ = new Spanner (get_property ("Beam"));
       Beam::set_interface (beam_p_);
-      beam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
+      beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
 
       SCM smp = get_property ("measurePosition");
       Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
       beam_start_location_ = mp;
-      announce_element (beam_p_, repeat_);
+      announce_grob (beam_p_, repeat_);
     }
 }
 
@@ -131,20 +138,20 @@ Chord_tremolo_engraver::typeset_beam ()
 {
   if (finished_beam_p_)
     {
-      typeset_element (finished_beam_p_);
+      typeset_grob (finished_beam_p_);
       finished_beam_p_ = 0;
     }
 }
 
 
 void
-Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
+Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_p_)
     {
       if (Stem::has_interface (info.elem_l_))
 	{
-	  Score_element * s = info.elem_l_;
+	  Grob * s = info.elem_l_;
 	  int f = Stem::flag_i (s);
 	  f = (f > 2) ? f - 2 : 1;
 	  Stem::set_beaming (s, f, LEFT);
@@ -161,13 +168,13 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	      don't understand this comment.
 		      --hwn.
 	   */
-	  SCM d = s->get_elt_property ("direction");
+	  SCM d = s->get_grob_property ("direction");
 	  if (Stem::type_i (s ) != 1)
 	    {
 	      int gap_i =Stem::flag_i (s ) - ((Stem::type_i (s ) >? 2) - 2);
-	      beam_p_->set_elt_property ("beam-gap", gh_int2scm(gap_i));
+	      beam_p_->set_grob_property ("beam-gap", gh_int2scm(gap_i));
 	    }
-	  s->set_elt_property ("direction", d);
+	  s->set_grob_property ("direction", d);
 
 	  if (dynamic_cast <Rhythmic_req *> (info.req_l_))
 	    {
@@ -184,14 +191,14 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	}
       if (Note_head::has_interface (info.elem_l_))
 	{
-	  info.elem_l_->set_elt_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+	  info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
 	}
     }
 }
 
 
 void
-Chord_tremolo_engraver::do_post_move_processing ()
+Chord_tremolo_engraver::start_translation_timestep ()
 {
   if (beam_p_ && stop_mom_ == now_mom ())
     {
@@ -204,7 +211,7 @@ Chord_tremolo_engraver::do_post_move_processing ()
 
 
 void
-Chord_tremolo_engraver::do_pre_move_processing ()
+Chord_tremolo_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
 }

@@ -25,7 +25,7 @@ public:
   
 protected:
   virtual ~Staff_symbol_engraver();
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_removal_processing();
   virtual void do_creation_processing();
 };
@@ -48,22 +48,24 @@ Staff_symbol_engraver::do_creation_processing()
   
   span_p_->set_bound(LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
-  announce_element (span_p_, 0);
+  announce_grob (span_p_, 0);
 }
 
 void
 Staff_symbol_engraver::do_removal_processing()
 {
   span_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
-  typeset_element (span_p_);
+  typeset_grob (span_p_);
   span_p_ =0;
 }
 
 void
-Staff_symbol_engraver::acknowledge_element (Score_element_info s)
+Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm ());
-  s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
+  s.elem_l_->set_grob_property ("staff-symbol", span_p_->self_scm ());
+
+  // remove this. probly not necessary?
+  s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH
 }
 
 

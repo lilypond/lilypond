@@ -6,13 +6,43 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "staff-performer.hh"
 #include "translator-group.hh"
 #include "debug.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
+#include "performer-group-performer.hh"
 
+/** Perform a staff. Individual notes should have their instrument
+  (staff-wide) set, so we override play_element()
+
+  */
+class Staff_performer : public Performer_group_performer 
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+
+  Staff_performer ();
+  ~Staff_performer ();
+
+  String new_instrument_str ();
+  String instrument_str_;
+
+protected:
+  virtual void play_element (Audio_element* p);
+  virtual void do_removal_processing ();
+  virtual void do_creation_processing ();
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
+
+private:
+  Audio_staff* audio_staff_p_;
+  Audio_instrument* instrument_p_;
+  Audio_text* instrument_name_p_;
+  Audio_text* name_p_;
+  Audio_tempo* tempo_p_;
+};
 
 ADD_THIS_TRANSLATOR (Staff_performer);
 
@@ -45,7 +75,7 @@ Staff_performer::do_creation_processing ()
 }
 
 void
-Staff_performer::do_process_music ()
+Staff_performer::create_grobs ()
 {
   String str = new_instrument_str ();
   if (str.length_i ())
@@ -55,11 +85,11 @@ Staff_performer::do_process_music ()
       instrument_p_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_p_, 0));
     }
-  Performer_group_performer::do_process_music ();
+  //Performer_group_performer::deprecated_process_music ();
 }
 
 void
-Staff_performer::do_pre_move_processing ()
+Staff_performer::stop_translation_timestep ()
 {
   if (name_p_)
     {
@@ -81,7 +111,7 @@ Staff_performer::do_pre_move_processing ()
       play_element (instrument_p_);
       instrument_p_ = 0;
     }
-  Performer_group_performer::do_pre_move_processing ();
+  Performer_group_performer::stop_translation_timestep ();
 }
 
 void

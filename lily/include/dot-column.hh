@@ -18,10 +18,10 @@
 class Dot_column		// interface
 {
 public:
-  static int compare (Score_element * const&,Score_element * const&);
-  static void add_head (Score_element * dotcol, Score_element* rh );
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
+  static int compare (Grob * const&,Grob * const&);
+  static void add_head (Grob * dotcol, Grob* rh );
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(force_shift_callback, (SCM ,SCM));
   static SCM do_shifts (SCM dotlist);
 };

@@ -9,7 +9,7 @@
 
 #include "translator-group.hh"
 #include "command-request.hh"
-#include "score-element-info.hh"
+#include "grob-info.hh"
 #include "multi-measure-rest.hh"
 #include "timing-translator.hh"
 #include "engraver.hh"
@@ -20,8 +20,8 @@
 class Timing_engraver : public Timing_translator, public Engraver
 {   
 protected:
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
+  virtual void start_translation_timestep ();
+  virtual void stop_translation_timestep ();
 public:
   VIRTUAL_COPY_CONS(Translator);
 };
@@ -29,15 +29,16 @@ public:
 ADD_THIS_TRANSLATOR(Timing_engraver);
 
 void
-Timing_engraver::do_post_move_processing( )
+Timing_engraver::start_translation_timestep( )
 {
-  Timing_translator::do_post_move_processing ();
+  Timing_translator::start_translation_timestep ();
 
   SCM nonauto = get_property ("barNonAuto");
 
   SCM which = get_property ("whichBar");
   if (!gh_string_p (which))
-    which = now_mom () ? SCM_EOL : ly_str02scm ("|");
+    which = now_mom ()
+      ? SCM_EOL : ly_str02scm ("|");
   
   if (!gh_string_p (which) && !to_boolean (nonauto))
     {
@@ -53,9 +54,9 @@ Timing_engraver::do_post_move_processing( )
 }
 
 void
-Timing_engraver::do_pre_move_processing ()
+Timing_engraver::stop_translation_timestep ()
 {
-  Timing_translator::do_pre_move_processing ();
+  Timing_translator::stop_translation_timestep ();
   daddy_trans_l_->set_property ("whichBar", SCM_EOL);  
 }
 

@@ -21,8 +21,8 @@ public:
 
 protected:
 
-  virtual void do_process_music();
-  virtual void do_pre_move_processing ();
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
 
   SCM prev_fraction_;
 private:
@@ -43,7 +43,7 @@ Time_signature_performer::~Time_signature_performer ()
 
 
 void
-Time_signature_performer::do_process_music ()
+Time_signature_performer::create_grobs ()
 {
   SCM fr = get_property ("timeSignatureFraction");
   if (gh_pair_p (fr)
@@ -60,7 +60,7 @@ Time_signature_performer::do_process_music ()
 }
 
 void
-Time_signature_performer::do_pre_move_processing ()
+Time_signature_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {

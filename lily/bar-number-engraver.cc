@@ -24,18 +24,19 @@ protected:
   Item* text_p_;
 
 protected:
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_creation_processing ();
+  virtual void create_grobs ();
   void create_items();
-  void do_process_music ();
+  void  deprecated_process_music ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
 };
 
 void
-Bar_number_engraver::do_process_music ()
+Bar_number_engraver::deprecated_process_music ()
 {
   // todo include (&&!time->cadenza_b_ )
   SCM bn = get_property("currentBarNumber");
@@ -48,10 +49,17 @@ Bar_number_engraver::do_process_music ()
       create_items ();
 
       // guh.
-      text_p_->set_elt_property ("text",
+      text_p_->set_grob_property ("text",
 				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C()));
     }
 }
+
+void
+Bar_number_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
 
 ADD_THIS_TRANSLATOR(Bar_number_engraver);
 
@@ -72,9 +80,9 @@ Bar_number_engraver::do_creation_processing ()
 
 					       
 void
-Bar_number_engraver::acknowledge_element (Score_element_info inf)
+Bar_number_engraver::acknowledge_grob (Grob_info inf)
 {
-  Score_element * s = inf.elem_l_;
+  Grob * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s))
     {
       SCM sts = get_property ("staffsFound");
@@ -84,7 +92,7 @@ Bar_number_engraver::acknowledge_element (Score_element_info inf)
     }
   else if (text_p_
 	   && dynamic_cast<Item*> (s)
-	   && s->get_elt_property ("break-align-symbol") == ly_symbol2scm ("Left_edge_item"))
+	   && s->get_grob_property ("break-align-symbol") == ly_symbol2scm ("Left_edge_item"))
     {
       /*
 	By default this would land on the Paper_column -- so why
@@ -94,12 +102,12 @@ Bar_number_engraver::acknowledge_element (Score_element_info inf)
 }
 
 void 
-Bar_number_engraver::do_pre_move_processing ()
+Bar_number_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property ("side-support-elements", get_property ("staffsFound"));
-      typeset_element (text_p_);
+      text_p_->set_grob_property ("side-support-elements", get_property ("staffsFound"));
+      typeset_grob (text_p_);
       text_p_ =0;
     }
 }
@@ -115,6 +123,6 @@ Bar_number_engraver::create_items ()
   text_p_ = new Item (b);
   Side_position::set_axis(text_p_,Y_AXIS);
 
-  announce_element (text_p_, 0);
+  announce_grob (text_p_, 0);
 }
 

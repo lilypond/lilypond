@@ -44,7 +44,7 @@ struct Dimension_cache
   /**
      What to call to find extent.  Nil means empty. 
    */
-  Score_element * parent_l_;
+  Grob * parent_l_;
 
   Dimension_cache(Dimension_cache const&);
   Dimension_cache ();

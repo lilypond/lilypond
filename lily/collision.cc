@@ -18,7 +18,7 @@ MAKE_SCHEME_CALLBACK(Collision,force_shift_callback,2);
 SCM
 Collision::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   
@@ -26,9 +26,9 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   /*
     ugh. the way DONE is done is not clean
    */
-  if (!unsmob_element (me->get_elt_property ("done")))
+  if (!unsmob_element (me->get_grob_property ("done")))
     {
-      me->set_elt_property ("done", me->self_scm ());
+      me->set_grob_property ("done", me->self_scm ());
       do_shifts (me);
     }
   
@@ -39,19 +39,19 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   TODO: make callback of this.
  */
 void
-Collision::do_shifts(Score_element* me)
+Collision::do_shifts(Grob* me)
 {
   SCM autos (automatic_shift (me));
   SCM hand (forced_shift (me));
   
-  Link_array<Score_element> done;
+  Link_array<Grob> done;
   
   Real wid
-    = gh_scm2double (me->get_elt_property ("note-width"));
+    = gh_scm2double (me->get_grob_property ("note-width"));
   
   for (; gh_pair_p (hand); hand =gh_cdr (hand))
     {
-      Score_element * s = unsmob_element (gh_caar (hand));
+      Grob * s = unsmob_element (gh_caar (hand));
       Real amount = gh_scm2double (gh_cdar (hand));
       
       s->translate_axis (amount *wid, X_AXIS);
@@ -59,7 +59,7 @@ Collision::do_shifts(Score_element* me)
     }
   for (; gh_pair_p (autos); autos =gh_cdr (autos))
     {
-      Score_element * s = unsmob_element (gh_caar (autos));
+      Grob * s = unsmob_element (gh_caar (autos));
       Real amount = gh_scm2double (gh_cdar (autos));
       
       if (!done.find_l (s))
@@ -73,18 +73,18 @@ Collision::do_shifts(Score_element* me)
   This should be put into Scheme.  
   */
 SCM
-Collision::automatic_shift (Score_element *me)
+Collision::automatic_shift (Grob *me)
 {
-  Drul_array<Link_array<Score_element> > clash_groups;
+  Drul_array<Link_array<Grob> > clash_groups;
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
-  SCM s = me->get_elt_property ("elements");
+  SCM s = me->get_grob_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM car = gh_car (s);
 
-      Score_element * se = unsmob_element (car);
+      Grob * se = unsmob_element (car);
       if (Note_column::has_interface (se))
 	clash_groups[Note_column::dir (se)].push (se);
     }
@@ -94,14 +94,14 @@ Collision::automatic_shift (Score_element *me)
   do
     {
       Array<int> & shift (shifts[d]);
-      Link_array<Score_element> & clashes (clash_groups[d]);
+      Link_array<Grob> & clashes (clash_groups[d]);
 
       clashes.sort (Note_column::shift_compare);
 
       for (int i=0; i < clashes.size (); i++)
 	{
 	  SCM sh
-	    = clashes[i]->get_elt_property ("horizontal-shift");
+	    = clashes[i]->get_grob_property ("horizontal-shift");
 
 	  if (gh_number_p (sh))
 	    shift.push (gh_scm2int (sh));
@@ -155,15 +155,15 @@ Collision::automatic_shift (Score_element *me)
     all of them again. */
   if (extents[UP].size () && extents[DOWN].size ())
     {
-      Score_element *cu_l =clash_groups[UP][0];
-      Score_element *cd_l =clash_groups[DOWN][0];
+      Grob *cu_l =clash_groups[UP][0];
+      Grob *cd_l =clash_groups[DOWN][0];
 
 
       /*
 	TODO.
        */
-      Score_element * nu_l= Note_column::first_head(cu_l);
-      Score_element * nd_l = Note_column::first_head(cd_l);
+      Grob * nu_l= Note_column::first_head(cu_l);
+      Grob * nd_l = Note_column::first_head(cd_l);
       
       int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
       int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      
@@ -173,7 +173,7 @@ Collision::automatic_shift (Score_element *me)
 	&& Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
 
 
-      if (!to_boolean (me->get_elt_property ("merge-differently-dotted")))
+      if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
 	merge = merge && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
 
       /*
@@ -202,16 +202,16 @@ Collision::automatic_shift (Score_element *me)
 
 
 SCM
-Collision::forced_shift (Score_element *me)
+Collision::forced_shift (Grob *me)
 {
   SCM tups = SCM_EOL;
   
-  SCM s = me->get_elt_property ("elements");
+  SCM s = me->get_grob_property ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * se = unsmob_element (gh_car (s));
+      Grob * se = unsmob_element (gh_car (s));
 
-      SCM force =  se->remove_elt_property ("force-hshift");
+      SCM force =  se->remove_grob_property ("force-hshift");
       if (gh_number_p (force))
 	{
 	  tups = gh_cons (gh_cons (se->self_scm (), force),
@@ -225,7 +225,7 @@ Collision::forced_shift (Score_element *me)
 
 
 void
-Collision::add_column (Score_element*me,Score_element* ncol_l)
+Collision::add_column (Grob*me,Grob* ncol_l)
 {
   ncol_l->add_offset_callback (Collision::force_shift_callback_proc, X_AXIS);
   Axis_group_interface::add_element (me, ncol_l);

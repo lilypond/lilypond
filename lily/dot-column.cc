@@ -20,7 +20,7 @@
 
 
 void
-Dot_column::set_interface (Score_element* me)
+Dot_column::set_interface (Grob* me)
 {
 
   Directional_element_interface::set (me, RIGHT);
@@ -50,11 +50,11 @@ MAKE_SCHEME_CALLBACK(Dot_column,force_shift_callback,2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
  me = me->parent_l (X_AXIS);
-  SCM dots = me->get_elt_property ("dots");
+  SCM dots = me->get_grob_property ("dots");
   do_shifts (dots);
   return gh_double2scm (0.0);
 }
@@ -62,7 +62,7 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 SCM
 Dot_column::do_shifts (SCM l)
 {
-  Link_array<Score_element> dots;
+  Link_array<Grob> dots;
   while (gh_pair_p (l))
     {
       dots.push (unsmob_element (gh_car (l)));
@@ -104,7 +104,7 @@ Dot_column::do_shifts (SCM l)
 
   for (int i=0; i < dots.size (); pos += 2, i++)
     {
-      Score_element * d = dots[i];
+      Grob * d = dots[i];
       Staff_symbol_referencer::set_position (d,pos);
     }
 
@@ -112,16 +112,16 @@ Dot_column::do_shifts (SCM l)
 }
 
 bool
-Dot_column::has_interface (Score_element*m)
+Dot_column::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("dot-column-interface"));
 }
 
 
 void
-Dot_column::add_head (Score_element * me, Score_element *rh)
+Dot_column::add_head (Grob * me, Grob *rh)
 {
-  Score_element * d = unsmob_element (rh->get_elt_property ("dot"));
+  Grob * d = unsmob_element (rh->get_grob_property ("dot"));
   if (d)
     {
       Side_position::add_support (me,rh);

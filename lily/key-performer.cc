@@ -6,10 +6,27 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "key-performer.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
+#include "performer.hh"
 
+class Key_performer : public Performer
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Key_performer();
+  ~Key_performer();
+
+protected:
+  virtual bool try_music (Music* req_l);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
+
+private:
+  Key_change_req* key_req_l_;
+  Audio_key* audio_p_;
+};
 
 ADD_THIS_TRANSLATOR (Key_performer);
 
@@ -24,7 +41,7 @@ Key_performer::~Key_performer ()
 }
 
 void
-Key_performer::do_process_music ()
+Key_performer::create_grobs ()
 {
   if (key_req_l_ &&
       gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))
@@ -37,7 +54,7 @@ Key_performer::do_process_music ()
 }
 
 void
-Key_performer::do_pre_move_processing ()
+Key_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -47,7 +64,7 @@ Key_performer::do_pre_move_processing ()
 }
 
 bool
-Key_performer::do_try_music (Music* req_l)
+Key_performer::try_music (Music* req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {

@@ -34,13 +34,14 @@ protected:
   Item* text_p_;
   
 protected:
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
   void create_items(Request*);
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music ();
-  virtual void do_post_move_processing ();
+  virtual bool try_music (Music *req_l);
+  void deprecated_process_music ();
+  virtual void start_translation_timestep ();
   virtual void do_creation_processing ();
+  virtual void create_grobs ();
   
 private:
   Mark_req * mark_req_l_;
@@ -64,11 +65,11 @@ Mark_engraver::do_creation_processing ()
 
 
 void
-Mark_engraver::acknowledge_element (Score_element_info inf)
+Mark_engraver::acknowledge_grob (Grob_info inf)
 {
-  Score_element * s = inf.elem_l_;
+  Grob * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s)
-      || to_boolean (s->get_elt_property ("invisible-staff")))
+      || to_boolean (s->get_grob_property ("invisible-staff")))
     {
       SCM sts = get_property ("staffsFound");
       SCM thisstaff = inf.elem_l_->self_scm ();
@@ -86,12 +87,12 @@ Mark_engraver::acknowledge_element (Score_element_info inf)
 }
 
 void 
-Mark_engraver::do_pre_move_processing ()
+Mark_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property("side-support-elements" , get_property ("staffsFound"));
-      typeset_element (text_p_);
+      text_p_->set_grob_property("side-support-elements" , get_property ("staffsFound"));
+      typeset_grob (text_p_);
       text_p_ =0;
     }
 }
@@ -109,19 +110,19 @@ Mark_engraver::create_items (Request *rq)
 
   Side_position::set_axis (text_p_, Y_AXIS);
 
-  announce_element (text_p_, rq);
+  announce_grob (text_p_, rq);
 }
 
 
 void
-Mark_engraver::do_post_move_processing ()
+Mark_engraver::start_translation_timestep ()
 {
   mark_req_l_ = 0;
 }
 
 
 bool
-Mark_engraver::do_try_music (Music* r_l)
+Mark_engraver::try_music (Music* r_l)
 {
   if (Mark_req *mr = dynamic_cast <Mark_req *> (r_l))
     {
@@ -136,7 +137,13 @@ Mark_engraver::do_try_music (Music* r_l)
 }
 
 void
-Mark_engraver::do_process_music ()
+Mark_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Mark_engraver::deprecated_process_music ()
 {
   if (mark_req_l_)
     {
@@ -180,7 +187,7 @@ Mark_engraver::do_process_music ()
       daddy_trans_l_->set_property ("rehearsalMark", m);
 
       
-      text_p_->set_elt_property ("text",
+      text_p_->set_grob_property ("text",
 				 ly_str02scm ( t.ch_C()));
 
       String style = "mark";
@@ -192,8 +199,8 @@ Mark_engraver::do_process_music ()
 	      break;
 	    }
 	}
-      SCM st = ly_str02scm (style.ch_C());
-      text_p_->set_elt_property ("style",  st);
+      SCM st = ly_symbol2scm (style.ch_C());
+      text_p_->set_grob_property ("style",  st);
     }
 }
 

@@ -15,49 +15,49 @@
 
 
 Item*
-Rhythmic_head::dots_l (Score_element*me) 
+Rhythmic_head::dots_l (Grob*me) 
 {
-  SCM s = me->get_elt_property ("dot");
+  SCM s = me->get_grob_property ("dot");
   return dynamic_cast<Item*> (unsmob_element (s));
 }
 
 int
-Rhythmic_head::balltype_i (Score_element*me) 
+Rhythmic_head::balltype_i (Grob*me) 
 {
-  SCM s = me->get_elt_property ("duration-log");
+  SCM s = me->get_grob_property ("duration-log");
   
   return gh_number_p (s) ? gh_scm2int (s) : 0;
 }
 
 Item*
-Rhythmic_head::stem_l (Score_element*me) 
+Rhythmic_head::stem_l (Grob*me) 
 {
-  SCM s = me->get_elt_property ("stem");
+  SCM s = me->get_grob_property ("stem");
   return dynamic_cast<Item*> (unsmob_element (s));
 }
 
 int
-Rhythmic_head::dot_count (Score_element*me) 
+Rhythmic_head::dot_count (Grob*me) 
 {
   return dots_l (me)
-    ? gh_scm2int (dots_l (me)->get_elt_property ("dot-count")) : 0;
+    ? gh_scm2int (dots_l (me)->get_grob_property ("dot-count")) : 0;
 }
 
 void
-Rhythmic_head::set_dots (Score_element*me,Item *dot_l)
+Rhythmic_head::set_dots (Grob*me,Item *dot_l)
 {
-  me->set_elt_property ("dot", dot_l->self_scm ());
+  me->set_grob_property ("dot", dot_l->self_scm ());
 }
 
 
 void
-Rhythmic_head::set_interface (Score_element*me)
+Rhythmic_head::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("rhythmic-head-interface"));
 }
 
 bool
-Rhythmic_head::has_interface (Score_element*me)
+Rhythmic_head::has_interface (Grob*me)
 {
   return me &&  me->has_interface (ly_symbol2scm ("rhythmic-head-interface"));
 }

@@ -11,30 +11,37 @@
 ;; alist of property descriptions
 
 
-(define (document-element-property property-def element-description only-doc-if-set)
-  "
-"
+(define (backend-property->texi sym)
   (let* (
-	(handle (assoc (car property-def) element-description))
-	(def-val-str (if (eq? handle #f)
-			 "not set"
-			 (scm->texi (cdr handle))))
-				
-	(name (symbol->string (car property-def)))
-	(type (type-name (cadr property-def)))
-	(desc (caddr property-def))
+	(name (symbol->string sym))
+	(type (object-property sym 'backend-type?))
+	(typename (type-name type))
+	(desc (object-property sym 'backend-doc))
 	)
 
-    (if (and  (eq? handle #f) only-doc-if-set)
-	'("" . "")
-	(cons (string-append "@code{" name "} "
-		       "(" type ")"
+    (cons (string-append "@code{" name "} "
+		       "(" typename ")"
 		       ":" )
-	      (string-append desc
-			     "\nDefault value: "
-			     def-val-str))
+	  desc)
     ))
-  )
+
+(define (document-element-property sym element-description only-doc-if-set)
+  (let*
+      (
+       (handle (assoc sym element-description))
+       (defval (if (eq? handle #f)
+		   ""
+		   (scm->texi (cdr handle))
+		   ))
+       (propdoc (backend-property->texi sym))
+       )
+
+    (if (and only-doc-if-set  (eq? handle #f) )
+	'("" . "")
+	(cons (car propdoc) (string-append (cdr propdoc)
+					   "\nDefault value: "
+					   defval)))
+    ))
 
 (define (document-interface where interface element-description)
   "
@@ -44,10 +51,10 @@
 	 (name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
-	 (docfun  (lambda (x)
+	 (docfunc  (lambda (x)
 		    (document-element-property
 		     x element-description (eq? where 'element))))
-	 (docs (map docfun props))
+	 (docs (map docfunc props))
 	 )
 
     (string-append
@@ -133,7 +140,7 @@
 	(and (pair? x) (number? (car x)) (number? (cdr x))))
       
       (define (ly-gulp-file x) "")
-      (define (ly-element? x) #f)
+      (define (ly-grob? x) #f)
       (define (ly-input-location? x) #f)
       (define (dir? x) #f)
       (define (moment? x) #f)
@@ -142,6 +149,7 @@
 (use-modules (ice-9 string-fun))
 
 (define interface-file-str (string-append (ly-gulp-file "interface.scm") "\n(define "))
+
 (define (list-interface-names)
   (let* ((text interface-file-str)
 	 (r (make-regexp 
@@ -151,11 +159,16 @@
 	 (l (separate-fields-discarding-char #\  ugh list)))
     (reverse (cdr (reverse l)))))
 
+
+
+
 (eval (ly-gulp-file "interface.scm"))
 
 (define interface-description-alist
   (map (lambda (x) (cons (string->symbol x) (eval-string x)))
 	     (list-interface-names)))
+
+(set! interface-description-alist (sort interface-description-alist alist<?))
 
 (define (document-all-interfaces name)
   (string-append
@@ -165,4 +178,20 @@
 	  (map document-separate-interface
 	       (map cdr interface-description-alist)))))
 
-
+(define (document-all-backend-properties name)
+  (let*
+      (
+       (ps (sort (map symbol->string all-backend-properties) string<?))
+       (descs (map (lambda (prop)
+		     (backend-property->texi (string->symbol prop)))
+		   ps))
+       (texi (description-list->texi descs))
+       )
+    
+    (string-append
+     (node name)
+     (texi-section 1 name #f)
+     texi)
+  )
+  )
+  

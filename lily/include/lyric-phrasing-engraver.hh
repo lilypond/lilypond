@@ -62,15 +62,15 @@ for melismas as well.
 class Lyric_phrasing_engraver : public Engraver 
 {
 protected:
-  virtual void acknowledge_element(Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing();
+  virtual void acknowledge_grob(Grob_info);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep();
   virtual void do_removal_processing ();  
 private:
-  void record_notehead(const String &context_id, Score_element * notehead);
-  void record_lyric(const String &context_id, Score_element * lyric);
+  void record_notehead(const String &context_id, Grob * notehead);
+  void record_lyric(const String &context_id, Grob * lyric);
   void record_melisma(const String &context_id);
-  void record_extender(const String &context_id, Score_element * extender);
+  void record_extender(const String &context_id, Grob * extender);
   Syllable_group * lookup_context_id(const String &context_id);
 
 public:
@@ -82,32 +82,32 @@ private:
   /** association list of Syllable_group smobs
   */
   Protected_scm voice_alist_;
-  Score_element * any_notehead_l_;
+  Grob * any_notehead_l_;
 };
 
 
 class Syllable_group
 {
   bool first_in_phrase_b_;
-  Score_element * notehead_l_;
-  Link_array<Score_element> lyric_list_;
-  Score_element * longest_lyric_l_;
-  Score_element * shortest_lyric_l_;
+  Grob * notehead_l_;
+  Link_array<Grob> lyric_list_;
+  Grob * longest_lyric_l_;
+  Grob * shortest_lyric_l_;
   int alignment_i_;
   bool melisma_b_;
   Real group_translation_f_;
 public:
   static SCM make_entry();
   void set_first_in_phrase(bool f);
-  void set_notehead(Score_element * notehead);
-  void add_lyric(Score_element * lyric);
-  void add_extender(Score_element * extender);
+  void set_notehead(Grob * notehead);
+  void add_lyric(Grob * lyric);
+  void add_extender(Grob * extender);
   void set_melisma() { melisma_b_ = true; }
   bool get_melisma() { return melisma_b_; }
   int lyric_count() { return lyric_list_.size(); }
   void clear();
   bool is_empty();
-  bool set_lyric_align(const char *punc, Score_element *default_notehead_l);
+  bool set_lyric_align(const char *punc, Grob *default_notehead_l);
   void adjust_melisma_align();
   int appropriate_alignment(const char *punc);
   Real amount_to_translate();

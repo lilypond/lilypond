@@ -26,15 +26,16 @@ class Text_engraver : public Engraver
 public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
-  virtual bool do_try_music (Music* m);
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
-  virtual void do_process_music ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual bool try_music (Music* m);
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
+  void deprecated_process_music ();
+  virtual void acknowledge_grob (Grob_info);
 };
 
 bool
-Text_engraver::do_try_music (Music *m)
+Text_engraver::try_music (Music *m)
 {
   if (dynamic_cast<Text_script_req*> (m)
       && m->get_mus_property ("text-type") != ly_symbol2scm ("dynamic"))
@@ -46,13 +47,13 @@ Text_engraver::do_try_music (Music *m)
 }
 
 void
-Text_engraver::acknowledge_element (Score_element_info inf)
+Text_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Rhythmic_head::has_interface (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Score_element*t = texts_[i];
+	  Grob*t = texts_[i];
 	  Side_position::add_support (t,inf.elem_l_);
 
 	  /*
@@ -77,8 +78,16 @@ Text_engraver::acknowledge_element (Score_element_info inf)
 }
 
 void
-Text_engraver::do_process_music ()
+Text_engraver::create_grobs ()
 {
+  deprecated_process_music ();
+}
+
+void
+Text_engraver::deprecated_process_music ()
+{
+  if (texts_.size ())
+    return;
   for (int i=0; i < reqs_.size (); i++)
     {
       Text_script_req * r = reqs_[i];
@@ -117,40 +126,40 @@ Text_engraver::do_process_music ()
       /*
 	make sure they're in order by adding i to the priority field.
 	*/
-      text->set_elt_property ("script-priority",
+      text->set_grob_property ("script-priority",
 			      gh_int2scm (200 + i));
 
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
       
-      text->set_elt_property ("text", r->get_mus_property ("text"));
+      text->set_grob_property ("text", r->get_mus_property ("text"));
       
       SCM nonempty = get_property ("textNonEmpty");
       if (to_boolean (nonempty))
 	/*
 	  empty text: signal that no rods should be applied.  
 	 */
-	text->set_elt_property ("no-spacing-rods" , SCM_BOOL_F);
+	text->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
 		
-      announce_element (text, r);
+      announce_grob (text, r);
       texts_.push (text);
     }
 }
 
 void
-Text_engraver::do_pre_move_processing ()
+Text_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < texts_.size (); i++)
     {
       Item *ti = texts_[i];
       Side_position::add_staff_support (ti);
-      typeset_element (ti);
+      typeset_grob (ti);
     }
   texts_.clear ();
 }
 
 void
-Text_engraver::do_post_move_processing ()
+Text_engraver::start_translation_timestep ()
 {
   reqs_.clear ();
 }

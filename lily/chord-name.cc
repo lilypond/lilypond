@@ -10,7 +10,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
 #include "staff-symbol-referencer.hh"
@@ -23,7 +23,7 @@ Chord_name::after_line_breaking (SCM smob)
   Item* me = dynamic_cast<Item*> (unsmob_element (smob));
   assert (me);
     
-  SCM s = me->get_elt_property ("begin-of-line-visible");
+  SCM s = me->get_grob_property ("begin-of-line-visible");
   if (to_boolean (s))
     {
       if (Paper_column::rank_i (me->column_l ()) -
@@ -42,28 +42,20 @@ MAKE_SCHEME_CALLBACK (Chord_name,brew_molecule,1);
 SCM
 Chord_name::brew_molecule (SCM smob) 
 {
-  Score_element *me = unsmob_element (smob);
-  SCM style = me->get_elt_property ("style");
+  Grob *me = unsmob_element (smob);
+  SCM style = me->get_grob_property ("style");
 
-  if (!gh_string_p (style))
-    style = ly_str02scm ("banter");
+  if (!gh_symbol_p (style))
+    style = ly_symbol2scm ("banter");
 
-  SCM inversion = me-> get_elt_property ("inversion");
-  if (inversion == SCM_EOL)
-    inversion = SCM_BOOL_F;
-
-  SCM bass =  me->get_elt_property ("bass");
-  if (bass == SCM_EOL)
-    bass = SCM_BOOL_F;
-
-  SCM pitches =  me->get_elt_property ("pitches");
-  SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
-  SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
+  SCM chord = me-> get_grob_property ("chord");
+  SCM func = me->get_grob_property (ly_symbol2scm ("chord-name-function"));
+  SCM text = gh_call2 (func, style, chord);
 
   SCM properties = Font_interface::font_alist_chain (me);
   Molecule mol = Text_item::text2molecule (me, text, properties);
 
-  SCM space =  me->get_elt_property ("word-space");
+  SCM space =  me->get_grob_property ("word-space");
   if (gh_number_p (space))
     {
       Molecule m;

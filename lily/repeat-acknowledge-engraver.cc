@@ -27,15 +27,18 @@ class Repeat_acknowledge_engraver : public Engraver
 public:
   VIRTUAL_COPY_CONS (Translator);
   Repeat_acknowledge_engraver();
-  
-  virtual void do_post_move_processing ();
-  virtual void do_process_music ();
+
+  virtual void start_translation_timestep ();
+  virtual void process_music ();
   virtual void do_creation_processing ();
+
+  bool first_b_;
 };
 
 void
 Repeat_acknowledge_engraver::do_creation_processing ()
 {
+  first_b_ = true;
   daddy_trans_l_->set_property ("repeatCommands", SCM_EOL);
 }
 
@@ -45,8 +48,9 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver()
 }
 
 void
-Repeat_acknowledge_engraver::do_post_move_processing ()
+Repeat_acknowledge_engraver::start_translation_timestep ()
 {
+  first_b_ = true;
   Translator_group * tr = daddy_trans_l_->where_defined (ly_symbol2scm ("repeatCommands"));
   if (!tr)
     tr = daddy_trans_l_;
@@ -55,7 +59,7 @@ Repeat_acknowledge_engraver::do_post_move_processing ()
 }
 
 void
-Repeat_acknowledge_engraver::do_process_music ()
+Repeat_acknowledge_engraver::process_music ()
 {
   /*
     At the start of a piece, we don't print any repeat bars.
@@ -81,7 +85,7 @@ Repeat_acknowledge_engraver::do_process_music ()
       cs = gh_cdr (cs);      
     }
 
-  if ( start && end )
+  if (start && end )
     s = ":|:";
   else if (start)
     s = "|:";
@@ -96,6 +100,5 @@ Repeat_acknowledge_engraver::do_process_music ()
       daddy_trans_l_->set_property ("whichBar", ly_str02scm(s.ch_C()));
     }
 }
-
 
 ADD_THIS_TRANSLATOR(Repeat_acknowledge_engraver);

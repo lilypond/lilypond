@@ -165,7 +165,7 @@ Simple_spacer::my_solve_natural_len ()
 }
 
 void
-Simple_spacer::add_columns (Link_array<Score_element> cols)
+Simple_spacer::add_columns (Link_array<Grob> cols)
 {
   for (int i=0; i < cols.size () - 1; i++)
     {
@@ -174,7 +174,7 @@ Simple_spacer::add_columns (Link_array<Score_element> cols)
 	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
 	   s = gh_cdr (s))
 	{
-	  Score_element *other = unsmob_element (gh_caar (s));
+	  Grob *other = unsmob_element (gh_caar (s));
 	  if (other != cols[i+1])
 	    continue;
 
@@ -210,7 +210,7 @@ Simple_spacer::add_columns (Link_array<Score_element> cols)
       for (SCM s = Spaceable_element::get_minimum_distances (cols[i]);
 	   gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Score_element * other = unsmob_element (gh_caar (s));
+	  Grob * other = unsmob_element (gh_caar (s));
 	  int oi = cols.find_i (other);
 	  if (oi >= 0)
 	    {

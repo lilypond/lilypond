@@ -17,8 +17,8 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  virtual bool do_try_music (Music *m);
-  virtual void acknowledge_element (Score_element_info);
+  virtual bool try_music (Music *m);
+  virtual void acknowledge_grob (Grob_info);
 };
 
 ADD_THIS_TRANSLATOR (Voice_devnull_engraver);
@@ -32,7 +32,7 @@ static char const *eat_spanners[] = {
 };
 
 bool
-Voice_devnull_engraver::do_try_music (Music *m)
+Voice_devnull_engraver::try_music (Music *m)
 {
   if (daddy_trans_l_->id_str_ == "two"
       && (to_boolean (get_property ("unison"))
@@ -67,7 +67,7 @@ static char const *junk_interfaces[] = {
 };
 
 void
-Voice_devnull_engraver::acknowledge_element (Score_element_info i)
+Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   if (daddy_trans_l_->id_str_ == "two"
       && (to_boolean (get_property ("unison"))

@@ -19,8 +19,8 @@
   */
 class Time_signature_engraver : public Engraver {
 protected:
-  virtual void do_process_music();
-  virtual void do_pre_move_processing();
+  virtual void stop_translation_timestep();
+  virtual void create_grobs ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Item * time_signature_p_;
@@ -36,7 +36,7 @@ Time_signature_engraver::Time_signature_engraver()
 }
 
 void
-Time_signature_engraver::do_process_music()
+Time_signature_engraver::create_grobs()
 {
   /*
     not rigorously safe, since the value might get GC'd and
@@ -46,19 +46,22 @@ Time_signature_engraver::do_process_music()
     {
       last_time_fraction_ = fr; 
       time_signature_p_ = new Item (get_property ("TimeSignature"));
-      time_signature_p_->set_elt_property ("fraction",fr);
+      time_signature_p_->set_grob_property ("fraction",fr);
+
+      if (time_signature_p_)
+	announce_grob (time_signature_p_, 0);
     }
   
-  if (time_signature_p_)
-    announce_element (time_signature_p_, 0);
 }
 
+
+
 void
-Time_signature_engraver::do_pre_move_processing()
+Time_signature_engraver::stop_translation_timestep()
 {
   if (time_signature_p_) 
     {
-      typeset_element (time_signature_p_);
+      typeset_grob (time_signature_p_);
       time_signature_p_ =0;
     }
 }

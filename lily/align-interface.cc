@@ -8,7 +8,7 @@
  */
 
 #include "align-interface.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
 #include "paper-def.hh"
@@ -21,10 +21,10 @@ MAKE_SCHEME_CALLBACK(Align_interface,alignment_callback,2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
-  Score_element * me = unsmob_element (element_smob);
+  Grob * me = unsmob_element (element_smob);
   Axis ax = (Axis )gh_scm2int (axis);
-  Score_element * par = me->parent_l (ax);
-  if (par && !to_boolean (par->get_elt_property ("alignment-done")))
+  Grob * par = me->parent_l (ax);
+  if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
       Align_interface::do_side_processing (par, ax);
     }
@@ -37,11 +37,11 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   from the outside by setting minimum-space and extra-space in its
   children */
 void
-Align_interface::do_side_processing (Score_element * me, Axis a)
+Align_interface::do_side_processing (Grob * me, Axis a)
 {
-  me->set_elt_property ("alignment-done", SCM_BOOL_T);
+  me->set_grob_property ("alignment-done", SCM_BOOL_T);
   
-  SCM d =   me->get_elt_property ("stacking-dir");
+  SCM d =   me->get_grob_property ("stacking-dir");
   Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
@@ -49,18 +49,18 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
   
   Array<Interval> dims;
 
-  Link_array<Score_element> elems;
-  Link_array<Score_element> all_elts
-    = Pointer_group_interface__extract_elements (  me, (Score_element*) 0, "elements");
+  Link_array<Grob> elems;
+  Link_array<Grob> all_elts
+    = Pointer_group_interface__extract_elements (  me, (Grob*) 0, "elements");
   for (int i=0; i < all_elts.size(); i++) 
     {
       Interval y = all_elts[i]->extent(me, a);
       if (!y.empty_b())
 	{
-	  Score_element *e =dynamic_cast<Score_element*>(all_elts[i]);
+	  Grob *e =dynamic_cast<Grob*>(all_elts[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
-	  SCM min_dims = e->remove_elt_property ("minimum-space");
+	  SCM min_dims = e->remove_grob_property ("minimum-space");
 	  if (gh_pair_p (min_dims) &&
 	      gh_number_p (gh_car (min_dims))
 	      && gh_number_p (gh_cdr (min_dims)))
@@ -69,7 +69,7 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
 	      
 	    }
 	  
-	  SCM extra_dims = e->remove_elt_property ("extra-space");
+	  SCM extra_dims = e->remove_grob_property ("extra-space");
 	  if (gh_pair_p (extra_dims) &&
 	      gh_number_p (gh_car (extra_dims))
 	      && gh_number_p (gh_cdr (extra_dims)))
@@ -85,7 +85,7 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
 
   
   Interval threshold = Interval (0, Interval::infinity ());
-  SCM thr = me->get_elt_property ("threshold");
+  SCM thr = me->get_grob_property ("threshold");
   if (gh_pair_p (thr))
     {
       Real ss = 1.0;
@@ -113,9 +113,9 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
 
 
 Axis
-Align_interface::axis (Score_element*me)
+Align_interface::axis (Grob*me)
 {
-  return  Axis (gh_scm2int (gh_car (me->get_elt_property ("axes"))));
+  return  Axis (gh_scm2int (gh_car (me->get_grob_property ("axes"))));
 }
 
 
@@ -123,9 +123,9 @@ Align_interface::axis (Score_element*me)
   should  use generic Scm funcs.
  */
 int
-Align_interface::get_count (Score_element*me,Score_element*s)
+Align_interface::get_count (Grob*me,Grob*s)
 {
-  SCM e = me->get_elt_property ("elements");
+  SCM e = me->get_grob_property ("elements");
   int c =0;
   while (gh_pair_p (e))
     {
@@ -138,7 +138,7 @@ Align_interface::get_count (Score_element*me,Score_element*s)
 }
 
 void
-Align_interface::add_element (Score_element*me,Score_element* s)
+Align_interface::add_element (Grob*me,Grob* s)
 {
   s->add_offset_callback (Align_interface::alignment_callback_proc, Align_interface::axis (me));
   Axis_group_interface::add_element (me, s);
@@ -146,7 +146,7 @@ Align_interface::add_element (Score_element*me,Score_element* s)
 
 
 void
-Align_interface::set_interface (Score_element*me)
+Align_interface::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("align-interface"));
 
@@ -154,13 +154,13 @@ Align_interface::set_interface (Score_element*me)
 }
 
 void
-Align_interface::set_axis (Score_element*me,Axis a)
+Align_interface::set_axis (Grob*me,Axis a)
 {
   Axis_group_interface::set_axes (me, a,a );
 }
 
 bool
-Align_interface::has_interface (Score_element*me)
+Align_interface::has_interface (Grob*me)
 {
   return me && me->has_interface (ly_symbol2scm ("align-interface"));
 }

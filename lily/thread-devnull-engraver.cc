@@ -17,13 +17,13 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
 };
 
 ADD_THIS_TRANSLATOR (Thread_devnull_engraver);
 
 void
-Thread_devnull_engraver::acknowledge_element (Score_element_info i)
+Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   if (daddy_trans_l_->id_str_ == "two"
       && (to_boolean (get_property ("unison"))

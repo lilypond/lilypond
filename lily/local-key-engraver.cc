@@ -31,11 +31,11 @@ struct Local_key_engraver : Engraver {
   Item *key_item_p_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void do_process_music();
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing();
+  void deprecated_process_music();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep();
   virtual void do_creation_processing ();
-  virtual void process_acknowledged ();
+  virtual void create_grobs ();
   virtual void do_removal_processing ();
 public:
 
@@ -46,12 +46,12 @@ public:
     Urgh. Since the accidentals depend on lots of variables, we have to
     store all information before we can really create the accidentals.
    */
-  Link_array<Score_element> arpeggios_;
+  Link_array<Grob> arpeggios_;
   
   Link_array<Note_req> mel_l_arr_;
-  Link_array<Score_element> support_l_arr_;
+  Link_array<Grob> support_l_arr_;
   Link_array<Item> forced_l_arr_;
-  Link_array<Score_element> tied_l_arr_;
+  Link_array<Grob> tied_l_arr_;
   Local_key_engraver();
 
   Item * grace_align_l_;
@@ -72,15 +72,17 @@ Local_key_engraver::do_creation_processing ()
 }
 
 void
-Local_key_engraver::process_acknowledged ()
+Local_key_engraver::create_grobs ()
 {
+  deprecated_process_music ();
+
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
       SCM localsig = get_property ("localKeySignature");
   
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
-	  Score_element * support_l = support_l_arr_[i];
+	  Grob * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
 	  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
@@ -109,7 +111,7 @@ Local_key_engraver::process_acknowledged ()
 
 		  Staff_symbol_referencer::set_interface (key_item_p_);
 			 
-		  announce_element (key_item_p_, 0);
+		  announce_grob (key_item_p_, 0);
 		}
 
 	      
@@ -180,14 +182,14 @@ Local_key_engraver::do_removal_processing ()
 }
 
 void
-Local_key_engraver::do_pre_move_processing()
+Local_key_engraver::stop_translation_timestep()
 {
   if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
 	Side_position::add_support (key_item_p_,support_l_arr_[i]);
 
-      typeset_element (key_item_p_);
+      typeset_grob (key_item_p_);
       key_item_p_ =0;
     }
 
@@ -200,12 +202,12 @@ Local_key_engraver::do_pre_move_processing()
 }
 
 void
-Local_key_engraver::acknowledge_element (Score_element_info info)
+Local_key_engraver::acknowledge_grob (Grob_info info)
 {
   SCM wg= get_property ("weAreGraceContext");
   
   bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
-  bool he_gr = to_boolean (info.elem_l_->get_elt_property ("grace"));
+  bool he_gr = to_boolean (info.elem_l_->get_grob_property ("grace"));
 
   Item * item = dynamic_cast<Item*> (info.elem_l_);  
   if (he_gr && !selfgr && item && Grace_align_item::has_interface (item))
@@ -237,7 +239,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   ugh. repeated deep_copy generates lots of garbage.
  */
 void
-Local_key_engraver::do_process_music()
+Local_key_engraver::deprecated_process_music()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);

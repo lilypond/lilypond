@@ -37,39 +37,39 @@
 
 
 void
-Tie::set_head (Score_element*me,Direction d, Item * head_l)
+Tie::set_head (Grob*me,Direction d, Item * head_l)
 {
   assert (!head (me,d));
-  index_set_cell (me->get_elt_property ("heads"), d, head_l->self_scm ());
+  index_set_cell (me->get_grob_property ("heads"), d, head_l->self_scm ());
   
   dynamic_cast<Spanner*> (me)->set_bound (d, head_l);
   me->add_dependency (head_l);
 }
 
 void
-Tie::set_interface (Score_element*me)
+Tie::set_interface (Grob*me)
 {
-  me->set_elt_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
+  me->set_grob_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
   me->set_interface (ly_symbol2scm ("tie-interface"));
 }
 
 bool
-Tie::has_interface (Score_element*me)
+Tie::has_interface (Grob*me)
 {
   return me->has_interface (ly_symbol2scm ("tie-interface"));
 }
 
-Score_element*
-Tie::head (Score_element*me, Direction d) 
+Grob*
+Tie::head (Grob*me, Direction d) 
 {
-  SCM c = me->get_elt_property ("heads");
+  SCM c = me->get_grob_property ("heads");
   c = index_cell (c, d);
 
   return unsmob_element (c);
 }
 
 Real
-Tie::position_f (Score_element*me) 
+Tie::position_f (Grob*me) 
 {
   Direction d = head (me,LEFT) ? LEFT:RIGHT;
   return Staff_symbol_referencer::position_f (head (me,d));
@@ -85,7 +85,7 @@ Tie::position_f (Score_element*me)
   further).
 */
 Direction
-Tie::get_default_dir (Score_element*me) 
+Tie::get_default_dir (Grob*me) 
 {
   Item * sl =  head(me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
   Item * sr =  head(me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
@@ -128,12 +128,12 @@ Tie::get_control_points (SCM smob)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real x_gap_f = gh_scm2double (me->get_elt_property ("x-gap"));
+  Real x_gap_f = gh_scm2double (me->get_grob_property ("x-gap"));
 
-  Score_element* l = me->get_bound (LEFT);
-  Score_element* r = me->get_bound (RIGHT);  
+  Grob* l = me->get_bound (LEFT);
+  Grob* r = me->get_bound (RIGHT);  
 
-  Score_element* commonx = me->common_refpoint (l, X_AXIS);
+  Grob* commonx = me->common_refpoint (l, X_AXIS);
   commonx = me->common_refpoint (r, X_AXIS);
   
   Real left_x;
@@ -176,7 +176,7 @@ Tie::get_control_points (SCM smob)
   
   Direction dir = Directional_element_interface::get(me);
 
-  SCM details = me->get_elt_property ("details");
+  SCM details = me->get_grob_property ("details");
 
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
@@ -188,7 +188,7 @@ Tie::get_control_points (SCM smob)
   
   Offset leave_dir = b.control_[1] - b.control_[0];
 
-  Score_element *hed =head (me, headdir);
+  Grob *hed =head (me, headdir);
   Real dx = (hed->extent (hed, X_AXIS).length () + x_gap_f)/2.0;
   Real max_gap = leave_dir[Y_AXIS] * dx / leave_dir[X_AXIS];
 
@@ -241,7 +241,7 @@ Tie::get_control_points (SCM smob)
       Real diff = ry - y;
       Real newy = y;
 
-      Real clear = staff_space * gh_scm2double (me->get_elt_property ("staffline-clearance"));
+      Real clear = staff_space * gh_scm2double (me->get_grob_property ("staffline-clearance"));
 
 	if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
 	  && fabs (diff) < clear)
@@ -286,7 +286,7 @@ MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods,1);
 SCM
 Tie::set_spacing_rods (SCM smob)  
 {
-  Score_element*me = unsmob_element (smob);
+  Grob*me = unsmob_element (smob);
   Spanner*sp = dynamic_cast<Spanner*> (me);
   Rod r;
 
@@ -294,7 +294,7 @@ Tie::set_spacing_rods (SCM smob)
   r.item_l_drul_ [RIGHT]=sp->get_bound (RIGHT);  
   
   r.distance_f_
-    = gh_scm2double (me->get_elt_property ("minimum-length"))
+    = gh_scm2double (me->get_grob_property ("minimum-length"))
     * 1.0;
   r.add_to_cols ();
   return SCM_UNSPECIFIED;
@@ -304,17 +304,17 @@ MAKE_SCHEME_CALLBACK(Tie,brew_molecule,1);
 SCM
 Tie::brew_molecule (SCM smob) 
 {
-  Score_element*me = unsmob_element (smob);
+  Grob*me = unsmob_element (smob);
 
-  SCM cp = me->get_elt_property ("control-points");
+  SCM cp = me->get_grob_property ("control-points");
   if (cp == SCM_EOL)
     {
       cp = get_control_points (smob);
-      me->set_elt_property ("control-points", cp);
+      me->set_grob_property ("control-points", cp);
     }
   
   Real thick =
-    gh_scm2double (me->get_elt_property ("thickness"))
+    gh_scm2double (me->get_grob_property ("thickness"))
     * me->paper_l ()->get_var ("stafflinethickness");
 
   Bezier b;

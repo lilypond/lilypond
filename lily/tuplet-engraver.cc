@@ -33,14 +33,15 @@ protected:
   Link_array<Spanner> started_span_p_arr_;
 
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music*r);
-  virtual void do_process_music ();
-  virtual void do_post_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music*r);
+  void deprecated_process_music ();
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
 };
 
 bool
-Tuplet_engraver::do_try_music (Music *r)
+Tuplet_engraver::try_music (Music *r)
 {
   if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
     {
@@ -63,7 +64,13 @@ Tuplet_engraver::do_try_music (Music *r)
 }
 
 void
-Tuplet_engraver::do_process_music ()
+Tuplet_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Tuplet_engraver::deprecated_process_music ()
 {
   SCM v = get_property ("tupletInvisible");
   if (to_boolean (v))
@@ -81,17 +88,17 @@ Tuplet_engraver::do_process_music ()
       else
 	started_span_p_arr_[i] = glep;
       
-      glep->set_elt_property ("text",
+      glep->set_grob_property ("text",
 			      ly_str02scm (to_str (time_scaled_music_arr_[i]->den_i_).ch_C()));
       
-      announce_element (glep, time_scaled_music_arr_ [i]);
+      announce_grob (glep, time_scaled_music_arr_ [i]);
     }
 }
 
 void
-Tuplet_engraver::acknowledge_element (Score_element_info i)
+Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
-  bool grace= to_boolean (i.elem_l_->get_elt_property ("grace"));
+  bool grace= to_boolean (i.elem_l_->get_grob_property ("grace"));
   SCM wg = get_property ("weAreGraceContext");
   bool wgb = to_boolean (wg);
   if (grace != wgb)
@@ -112,7 +119,7 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Tuplet_engraver::do_post_move_processing ()
+Tuplet_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
 
@@ -127,7 +134,7 @@ Tuplet_engraver::do_post_move_processing ()
 	{
 	  if (started_span_p_arr_[i])
 	    {
-	      typeset_element (started_span_p_arr_[i]);
+	      typeset_grob (started_span_p_arr_[i]);
 	      started_span_p_arr_[i] =0;
 	    }
 	  
@@ -151,7 +158,7 @@ Tuplet_engraver::do_removal_processing ()
   for (int i=0; i < started_span_p_arr_.size (); i++)
     {
       if (started_span_p_arr_[i])
-	typeset_element (started_span_p_arr_[i]);
+	typeset_grob (started_span_p_arr_[i]);
     }  
 }
 

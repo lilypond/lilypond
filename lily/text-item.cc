@@ -54,7 +54,7 @@
  */
 
 Molecule
-Text_item::text2molecule (Score_element *me, SCM text, SCM alist_chain) 
+Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain) 
 {
   if (gh_string_p (text))
     return string2molecule (me, text, alist_chain);
@@ -69,7 +69,7 @@ Text_item::text2molecule (Score_element *me, SCM text, SCM alist_chain)
 }
 	     
 Molecule
-Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
+Text_item::string2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   SCM style = ly_assoc_chain (ly_symbol2scm ("font-style"),
 			      alist_chain);
@@ -90,21 +90,21 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
 }
 
 Molecule
-Text_item::lookup_character (Score_element *, Font_metric*fm, SCM char_name)
+Text_item::lookup_character (Grob *, Font_metric*fm, SCM char_name)
 {
   return fm->find_by_name (ly_scm2string (char_name));
 }
 
 
 Molecule
-Text_item::lookup_text (Score_element *me, Font_metric*fm, SCM text)
+Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 {
 #if 0
   /*
     Fixme; should be done differently, move to font-interface?
    */
 
-  SCM magnification = me->get_elt_property ("font-magnification");
+  SCM magnification = me->get_grob_property ("font-magnification");
 
   Font_metric* metric = 0;
   if (gh_number_p (magnification))
@@ -125,7 +125,7 @@ Text_item::lookup_text (Score_element *me, Font_metric*fm, SCM text)
 }
 
 Molecule
-Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
+Text_item::markup_sentence2molecule (Grob *me, SCM markup_sentence,
 				     SCM alist_chain)
 {
   /*
@@ -180,14 +180,14 @@ MAKE_SCHEME_CALLBACK (Text_item, brew_molecule, 1);
 SCM 
 Text_item::brew_molecule (SCM smob)
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
   
-  SCM text = me->get_elt_property ("text");
+  SCM text = me->get_grob_property ("text");
 
   SCM properties = Font_interface::font_alist_chain (me);
   Molecule mol = Text_item::text2molecule (me, text, properties);
 
-  SCM space = me->get_elt_property ("word-space");
+  SCM space = me->get_grob_property ("word-space");
   if (gh_number_p (space))
     {
       Molecule m;

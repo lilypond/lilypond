@@ -51,7 +51,7 @@ Grace_performer_group::announce_element (Audio_element_info info)
   // do not propagate to top
   announce_to_top_.push (info);
 
-  //inf.elem_l_->set_elt_property ("grace", SCM_BOOL_T);
+  //inf.elem_l_->set_grob_property ("grace", SCM_BOOL_T);
   info.elem_l_->grace_b_ = true;
 }
 
@@ -71,8 +71,8 @@ void
 Grace_performer_group::process ()
 {
   calling_self_b_  = true;
-  process_music ();
-  do_announces();
+  //process_music ();
+  announces();
   pre_move_processing();
   check_removal();
   calling_self_b_ = false;
@@ -93,7 +93,7 @@ Grace_performer_group::each (Method_pointer method)
   don't let the commands trickle up.
  */
 bool
-Grace_performer_group::do_try_music (Music *m)
+Grace_performer_group::try_music (Music *m)
 {
   return try_music_on_nongroup_children (m);
 }

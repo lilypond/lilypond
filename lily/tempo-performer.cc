@@ -6,9 +6,28 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "tempo-performer.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
+#include "performer.hh"
+
+class Tempo_performer : public Performer
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Tempo_performer();
+  ~Tempo_performer();
+
+protected:
+
+  virtual bool try_music (Music* req_l);
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
+
+private:
+  Tempo_req* tempo_req_l_;
+  Audio_tempo* audio_p_;
+};
 
 ADD_THIS_TRANSLATOR (Tempo_performer);
 
@@ -24,7 +43,7 @@ Tempo_performer::~Tempo_performer ()
 
 
 void
-Tempo_performer::do_process_music ()
+Tempo_performer::create_grobs ()
 {
   if (tempo_req_l_)
     {
@@ -41,7 +60,7 @@ Tempo_performer::do_process_music ()
 }
 
 void
-Tempo_performer::do_pre_move_processing ()
+Tempo_performer::stop_translation_timestep ()
 {
   if (audio_p_)
     {
@@ -51,7 +70,7 @@ Tempo_performer::do_pre_move_processing ()
 }
 
 bool
-Tempo_performer::do_try_music (Music* req_l)
+Tempo_performer::try_music (Music* req_l)
 {
   if (tempo_req_l_)
     return false;

@@ -20,7 +20,7 @@
   class declaration can go here.  */
 
 bool
-Timing_translator::do_try_music (Music*r)
+Timing_translator::try_music (Music*r)
 {
   if (dynamic_cast<Barcheck_req*> (r))
     {
@@ -31,7 +31,7 @@ Timing_translator::do_try_music (Music*r)
 }
 
 void
-Timing_translator::do_process_music()
+Timing_translator::deprecated_process_music()
 {
   if (check_ && measure_position ())
     {
@@ -54,7 +54,7 @@ Timing_translator::do_process_music()
 
 
 void
-Timing_translator::do_pre_move_processing()
+Timing_translator::stop_translation_timestep()
 {
   check_ = 0;
   
@@ -149,7 +149,7 @@ Timing_translator::measure_position () const
 }
 
 void
-Timing_translator::do_post_move_processing()
+Timing_translator::start_translation_timestep()
 {
 	check_ =00;
   Translator *t = this;

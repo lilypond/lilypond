@@ -13,9 +13,9 @@
 
 struct Key_item
 {
-  static int calculate_position(Score_element*,SCM pair) ;
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
+  static int calculate_position(Grob*,SCM pair) ;
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 };
 

@@ -21,7 +21,7 @@
 
 
 void
-Volta_spanner::set_interface (Score_element*)
+Volta_spanner::set_interface (Grob*)
 {
 }
 
@@ -39,7 +39,7 @@ MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule,1);
 SCM
 Volta_spanner::brew_molecule (SCM smob) 
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
   Link_array<Item> bar_arr
     = Pointer_group_interface__extract_elements (me, (Item*)0, "bars");
 
@@ -47,7 +47,7 @@ Volta_spanner::brew_molecule (SCM smob)
     return SCM_EOL;
 
   bool no_vertical_start = false;
-  bool no_vertical_end = to_boolean (me->get_elt_property ("last-volta"));
+  bool no_vertical_end = to_boolean (me->get_grob_property ("last-volta"));
   Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_l_);
   if (orig_span && (orig_span->broken_into_l_arr_[0] != (Spanner*)me))
     no_vertical_start = true;
@@ -56,7 +56,7 @@ Volta_spanner::brew_molecule (SCM smob)
 
 #if 0
   // FIXME
-  if (bar_arr.top ()->me->get_elt_property (type_str_.length_i () > 1)
+  if (bar_arr.top ()->me->get_grob_property (type_str_.length_i () > 1)
     no_vertical_end = false;
 #endif
 
@@ -69,8 +69,8 @@ Volta_spanner::brew_molecule (SCM smob)
    */
   Real left = 0.0;
   Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
-  Real h =  gh_scm2double (me->get_elt_property ("height"));
-  Real t =  staff_thick * gh_scm2double (me->get_elt_property ("thickness"));
+  Real h =  gh_scm2double (me->get_grob_property ("height"));
+  Real t =  staff_thick * gh_scm2double (me->get_grob_property ("thickness"));
 
   /*
     ugh: should build from line segments.
@@ -85,7 +85,7 @@ Volta_spanner::brew_molecule (SCM smob)
 
   Box b (Interval (0, w), Interval (0, h));
   Molecule mol (b, at);
-  SCM text = me->get_elt_property("text");
+  SCM text = me->get_grob_property("text");
   SCM properties = gh_list (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
   Molecule num = Text_item::text2molecule (me, text, properties);
 
@@ -97,7 +97,7 @@ Volta_spanner::brew_molecule (SCM smob)
 
 
 void
-Volta_spanner::add_bar  (Score_element *me, Item* b)
+Volta_spanner::add_bar  (Grob *me, Item* b)
 {
   Pointer_group_interface::add_element(me, "bars",b);
   Side_position::add_support (me,b);
@@ -105,7 +105,7 @@ Volta_spanner::add_bar  (Score_element *me, Item* b)
 }
 
 void
-Volta_spanner::add_column (Score_element*me, Score_element* c)
+Volta_spanner::add_column (Grob*me, Grob* c)
 {
   Side_position::add_support (me,c);
 }

@@ -18,7 +18,7 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   
 protected:
-  virtual bool do_try_music (Music*) { return true; }
+  virtual bool try_music (Music*) { return true; }
 };
 
 #endif // SWALLOW_PERF_HH

@@ -22,13 +22,20 @@
 
 (define (number-pair?  x)
   (and (pair? x) (number? (car x)) (number? (cdr x))))
+(define (boolean-or-symbol? x) (or boolean? x) (or symbol? x))
+(define (number-or-string? x) (or (number? x) (string? x)))
+(define markup?
+  (lambda (x) (or (string? x) (list? x))))
 
+
+
+;; ugh: code dup ; merge.
 (define (object-type obj)
   (cond
    ((dir? obj) "direction")
    ((number-pair? obj) "pair of numbers")
    ((ly-input-location? obj) "input location")   
-   ((ly-element? obj) "graphic element")
+   ((ly-grob? obj) "graphic element")
    ((pair? obj) "pair")
    ((integer? obj) "integer")
    ((list? obj) "list")
@@ -51,7 +58,7 @@
    ((eq? predicate dir?) "direction")
    ((eq? predicate number-pair?) "pair of numbers")
    ((eq? predicate ly-input-location?) "input location")   
-   ((eq? predicate ly-element?) "graphic element")
+   ((eq? predicate ly-grob?) "graphic element")
    ((eq? predicate pair?) "pair")
    ((eq? predicate integer?) "integer")
    ((eq? predicate list?) "list")
@@ -67,6 +74,14 @@
    ((eq? predicate procedure?) "procedure") 
    (else "unknown type")
   ))
+
+
+(define (uniqued-alist  alist acc)
+  (if (null? alist) acc
+      (if (assoc (caar alist) acc)
+	  (uniqued-alist (cdr alist) acc)
+	  (uniqued-alist (cdr alist) (cons (car alist) acc)
+  ))))
 
 
 ;; The regex module may not be available, or may be broken.
@@ -756,17 +771,6 @@
     )
   )
 
-(begin
-  (eval-string (ly-gulp-file "interface.scm"))
-  (eval-string (ly-gulp-file "beam.scm"))
-  (eval-string (ly-gulp-file "slur.scm"))
-  (eval-string (ly-gulp-file "font.scm"))
-  (eval-string (ly-gulp-file "auto-beam.scm"))  
-  (eval-string (ly-gulp-file "generic-property.scm"))
-  (eval-string (ly-gulp-file "basic-properties.scm"))
-  (eval-string (ly-gulp-file "chord-names.scm"))
-  (eval-string (ly-gulp-file "element-descriptions.scm"))
- )
 
 
 ;;
@@ -877,3 +881,17 @@
 	)
   ))
 
+
+(begin
+  (eval-string (ly-gulp-file "backend-property.scm"))
+  (eval-string (ly-gulp-file "translator-properties.scm"))  
+  (eval-string (ly-gulp-file "interface.scm"))
+  (eval-string (ly-gulp-file "beam.scm"))
+  (eval-string (ly-gulp-file "slur.scm"))
+  (eval-string (ly-gulp-file "font.scm"))
+  (eval-string (ly-gulp-file "auto-beam.scm"))  
+  (eval-string (ly-gulp-file "generic-property.scm"))
+  (eval-string (ly-gulp-file "basic-properties.scm"))
+  (eval-string (ly-gulp-file "chord-name.scm"))
+  (eval-string (ly-gulp-file "element-descriptions.scm"))
+ )

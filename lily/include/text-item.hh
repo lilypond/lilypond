@@ -19,13 +19,13 @@ class Text_item
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  static Molecule text2molecule (Score_element *me, SCM text, SCM properties);
-  static Molecule string2molecule (Score_element *me, SCM text, SCM properties);
-  static Molecule markup_sentence2molecule (Score_element *me, SCM markup_sentence, SCM properties);
+  static Molecule text2molecule (Grob *me, SCM text, SCM properties);
+  static Molecule string2molecule (Grob *me, SCM text, SCM properties);
+  static Molecule markup_sentence2molecule (Grob *me, SCM markup_sentence, SCM properties);
 
 private:
-  static Molecule lookup_character (Score_element *me, Font_metric*, SCM char_name);
-  static Molecule lookup_text (Score_element *me, Font_metric*, SCM text);
+  static Molecule lookup_character (Grob *me, Font_metric*, SCM char_name);
+  static Molecule lookup_text (Grob *me, Font_metric*, SCM text);
 };
 
 #endif /* TEXT_ITEM */

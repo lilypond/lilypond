@@ -28,10 +28,10 @@
 class Collision			// interface
 {
 public:
-  static SCM automatic_shift (Score_element*);
-  static SCM forced_shift (Score_element*);
+  static SCM automatic_shift (Grob*);
+  static SCM forced_shift (Grob*);
   DECLARE_SCHEME_CALLBACK(force_shift_callback, (SCM element, SCM axis));
-  static void do_shifts (Score_element*);
-  static void add_column (Score_element*me,Score_element*ncol_l);
+  static void do_shifts (Grob*);
+  static void add_column (Grob*me,Grob*ncol_l);
 };
 #endif // COLLISION_HH

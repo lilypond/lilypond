@@ -38,21 +38,9 @@ public:
   Translator_group * daddy_trans_l_ ;
  
 
-  
-  /**
-    try to fit the request in this engraver
-
-    @return
-    false: not noted,  not taken.
-
-    true: request swallowed. Don't try to put the request elsewhere.
-
-    */
-  bool try_music (Music*);
   void pre_move_processing();
   void add_processing ();
-  void creation_processing ();
-  void process_music();
+  void announces();
   void post_move_processing();
   void removal_processing();
   /**
@@ -75,30 +63,21 @@ public:
   SCM properties_scm_;
   DECLARE_SMOBS(Translator, dummy);
 public:
-  /*
-    UGH. Clean this up.
-   */
-   enum { 
-    ORPHAN,
-    VIRGIN,
-    CREATION_INITED,
-    MOVE_INITED,
-    ACCEPTED_REQS,
-    PROCESSED_REQS,
-    ACKED_REQS,
-    MOVE_DONE
-  } status_;			// junkme
-protected:
 
-  /*    
-	@see{try_request}
-	Default: always return false
-	*/
   virtual void do_add_processing ();
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
-  virtual void do_process_music () ;
+    /**
+    try to fit the request in this engraver
+
+    @return
+    false: not noted,  not taken.
+
+    true: request swallowed. Don't try to put the request elsewhere.
+
+    */
+  virtual bool try_music (Music *req_l);
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
+  virtual void do_announces () ;
   virtual void do_creation_processing() ;
   virtual void do_removal_processing();
 };

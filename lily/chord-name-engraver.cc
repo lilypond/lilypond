@@ -26,23 +26,17 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 protected:
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info i);
-  virtual void do_process_music ();
-  virtual bool do_try_music (Music* m);
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info i);
+  void deprecated_process_music ();
+  virtual bool try_music (Music *);
 
 private:
-  void create_chord_name ();
+  void add_note (Note_req *);
   
   Item* chord_name_p_;
-  Protected_scm pitches_;
-
   Protected_scm chord_;
   Protected_scm last_chord_;
-
-  Protected_scm tonic_req_;
-  Protected_scm inversion_req_;
-  Protected_scm bass_req_;
 };
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
@@ -50,101 +44,102 @@ ADD_THIS_TRANSLATOR (Chord_name_engraver);
 Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_p_ = 0;
-  pitches_ = SCM_EOL;
-  tonic_req_ = SCM_EOL;
-  inversion_req_ = SCM_EOL;
-  bass_req_ = SCM_EOL;
-  chord_ = SCM_EOL;
-  last_chord_ = SCM_EOL;
+  chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
+  last_chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
 }
 
 void
-Chord_name_engraver::acknowledge_element (Score_element_info i)
+Chord_name_engraver::add_note (Note_req* n)
 {
-  if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
-    pitches_ = gh_cons (n->get_mus_property ("pitch"), pitches_);
+  SCM pitches = gh_car (chord_);
+  SCM modifiers = gh_cdr (chord_);
+  SCM inversion = modifiers == SCM_EOL ? SCM_EOL : gh_car (modifiers);
+  SCM bass = modifiers == SCM_EOL ? SCM_EOL : gh_cdr (modifiers);
+  
+  if (n->get_mus_property ("inversion") == SCM_BOOL_T)
+    inversion = n->get_mus_property ("pitch");
+  else if (n->get_mus_property ("bass") == SCM_BOOL_T)
+    bass = n->get_mus_property ("pitch");
+  else
+    pitches = scm_sort_list (gh_cons (n->get_mus_property ("pitch"), pitches),
+			     Pitch::less_p_proc);
+  chord_ = gh_cons (pitches, gh_cons (inversion, bass));
 }
 
 bool
-Chord_name_engraver::do_try_music (Music* m)
+Chord_name_engraver::try_music (Music* m)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (m))
     {
-      pitches_ = gh_cons (n->get_mus_property ("pitch"), pitches_);
-      return true;
-    }
-  if (Tonic_req* t = dynamic_cast<Tonic_req*> (m))
-    {
-      tonic_req_ = t->get_mus_property ("pitch");
-      return true;
-    }
-  if (Inversion_req* i = dynamic_cast<Inversion_req*> (m))
-    {
-      inversion_req_ = i->get_mus_property ("pitch");
-      return true;
-    }
-  if (Bass_req* b = dynamic_cast<Bass_req*> (m))
-    {
-      bass_req_ = b->get_mus_property ("pitch");
+      add_note (n);
       return true;
     }
   return false;
 }
 
+/* Uh, if we do acknowledge_grob, shouldn't we postpone
+  deprecated_process_music until do_process_acknowlegded?
+
+   Sigh, I can *never* remember how this works, can't we
+   possibly-please just number these functions:
+
+     do_creation0
+     
+     post_move1
+     try_music2
+  deprecated_process_music3 (or is it acknowledge_grob3 ?)
+     acknowledge_grob4
+  
+     do_pre_move9
+     
+     do_removal99
+
+  and what was the deal with this ``do'' prefix again? */
 void
-Chord_name_engraver::do_process_music ()
+Chord_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (!chord_name_p_ && pitches_ != SCM_EOL)
+  if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
+    add_note (n);
+}
+
+void
+Chord_name_engraver::deprecated_process_music ()
+{
+  if (!chord_name_p_ && gh_car (chord_) != SCM_EOL)
     {
+#if 0
       bool find_inversion_b = false;
       SCM chord_inversion = get_property ("chordInversion");
       if (gh_boolean_p (chord_inversion))
 	find_inversion_b = gh_scm2bool (chord_inversion);
 
       chord_ = Chord::pitches_and_requests_to_chord (pitches_,
-						     tonic_req_,
-						     inversion_req_,
-						     bass_req_,
+						     inversion_,
+						     bass_,
 						     find_inversion_b);
+
+#endif
       
-      create_chord_name ();
-      announce_element (chord_name_p_, 0);
+      chord_name_p_ = new Item (get_property ("ChordName"));
+      chord_name_p_->set_grob_property ("chord", chord_);
+      announce_grob (chord_name_p_, 0);
       SCM s = get_property ("drarnChords"); //FIXME!
       if (to_boolean (s) && last_chord_ != SCM_EOL &&
 	  gh_equal_p (chord_, last_chord_))
-	chord_name_p_->set_elt_property ("begin-of-line-visible", SCM_BOOL_T);
+	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
 }
 
 void
-Chord_name_engraver::create_chord_name ()
-{
-  chord_name_p_ = new Item (get_property ("ChordName"));
-
-  SCM pitches = gh_car (chord_);
-  SCM modifiers = gh_cdr (chord_);
-  SCM inversion = gh_car (modifiers);
-  SCM bass = gh_cdr (modifiers);
-  /* Hmm, maybe chord-name should use (pitches (inversion . base)) too? */
-  chord_name_p_->set_elt_property ("pitches", pitches);
-  chord_name_p_->set_elt_property ("inversion", inversion);
-  chord_name_p_->set_elt_property ("inversion", bass);
-}
-
-void
-Chord_name_engraver::do_pre_move_processing ()
+Chord_name_engraver::stop_translation_timestep ()
 {
   if (chord_name_p_)
     {
-      typeset_element (chord_name_p_);
+      typeset_grob (chord_name_p_);
     }
   chord_name_p_ = 0;
 
-  pitches_ = SCM_EOL;
-  tonic_req_ = SCM_EOL;
-  inversion_req_ = SCM_EOL;
-  bass_req_ = SCM_EOL;
   last_chord_ = chord_;
-  chord_ = SCM_EOL;
+  chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
 }
 

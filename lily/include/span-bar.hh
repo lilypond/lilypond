@@ -21,12 +21,12 @@
 class Span_bar
 {
 public:
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);  
-  static Interval get_spanned_interval (Score_element*);
-  static void add_bar (Score_element*,Score_element*);
-  static void evaluate_glyph (Score_element*);
-  static void evaluate_empty (Score_element*);
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);  
+  static Interval get_spanned_interval (Grob*);
+  static void add_bar (Grob*,Grob*);
+  static void evaluate_glyph (Grob*);
+  static void evaluate_empty (Grob*);
   DECLARE_SCHEME_CALLBACK(width_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK(get_bar_size, (SCM ));
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));

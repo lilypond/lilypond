@@ -26,13 +26,13 @@ public:
   Span_arpeggio_engraver ();
 
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void do_pre_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
 
 private:
   Item *span_arpeggio_;
-  Link_array<Score_element> arpeggios_;
+  Link_array<Grob> arpeggios_;
 };
 
 
@@ -42,7 +42,7 @@ Span_arpeggio_engraver::Span_arpeggio_engraver ()
 }
 
 void
-Span_arpeggio_engraver::acknowledge_element (Score_element_info info)
+Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
     if (info.origin_trans_l_arr (this).size ()
         && Arpeggio::has_interface (info.elem_l_))
@@ -52,7 +52,7 @@ Span_arpeggio_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Span_arpeggio_engraver::process_acknowledged ()
+Span_arpeggio_engraver::create_grobs ()
 {
   /*
     connectArpeggios is slightly brusque; we should really read a elt
@@ -66,12 +66,12 @@ Span_arpeggio_engraver::process_acknowledged ()
       && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = new Item (get_property ("Arpeggio"));
-      announce_element (span_arpeggio_, 0);      
+      announce_grob (span_arpeggio_, 0);      
     }
 }
 
 void
-Span_arpeggio_engraver::do_pre_move_processing ()
+Span_arpeggio_engraver::stop_translation_timestep ()
 {
   if (span_arpeggio_) 
     {
@@ -81,10 +81,10 @@ Span_arpeggio_engraver::do_pre_move_processing ()
        */
       for (int i=0; i < arpeggios_.size (); i ++)
 	{
-	  for (SCM s = arpeggios_[i]->get_elt_property ("stems");
+	  for (SCM s = arpeggios_[i]->get_grob_property ("stems");
 	       gh_pair_p (s); s = gh_cdr (s))
 	    Group_interface::add_thing (span_arpeggio_, "stems", gh_car (s));
-	  for (SCM s = arpeggios_[i]->get_elt_property ("side-support-elements");
+	  for (SCM s = arpeggios_[i]->get_grob_property ("side-support-elements");
 	       gh_pair_p (s); s = gh_cdr (s))
 	    Group_interface::add_thing (span_arpeggio_, "side-support-elements", gh_car (s));
 
@@ -92,10 +92,10 @@ Span_arpeggio_engraver::do_pre_move_processing ()
 	    we can't kill the children, since we don't want to the
 	    previous note to bump into the span arpeggio; so we make
 	    it transparent.  */
-	  arpeggios_[i]->set_elt_property ("molecule-callback", SCM_BOOL_T);
+	  arpeggios_[i]->set_grob_property ("molecule-callback", SCM_BOOL_T);
 	}
       
-      typeset_element (span_arpeggio_);
+      typeset_grob (span_arpeggio_);
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();

@@ -13,7 +13,7 @@
 #include "engraver.hh"
 
 class Script_engraver : public Engraver {
-  Link_array<Score_element> script_p_arr_;
+  Link_array<Grob> script_p_arr_;
   Link_array<Articulation_req> script_req_l_arr_;
 
 public:
@@ -21,21 +21,22 @@ public:
   
   Script_engraver();
 protected:
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual bool try_music (Music*);
+  void deprecated_process_music ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
+  virtual void acknowledge_grob (Grob_info);
 };
 
 
 Script_engraver::Script_engraver()
 {
-  do_post_move_processing();
+  start_translation_timestep();
 }
 
 bool
-Script_engraver::do_try_music (Music *r_l)
+Script_engraver::try_music (Music *r_l)
 {
   if (Articulation_req *mr = dynamic_cast <Articulation_req *> (r_l))
     {
@@ -51,7 +52,13 @@ Script_engraver::do_try_music (Music *r_l)
 }
 
 void
-Script_engraver::do_process_music()
+Script_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Script_engraver::deprecated_process_music()
 {
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {
@@ -68,9 +75,9 @@ Script_engraver::do_process_music()
 	  continue;
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
-      Score_element *p =new Item (get_property ("Script"));
+      Grob *p =new Item (get_property ("Script"));
       list = gh_cdr (list);
-      p->set_elt_property ("molecule",
+      p->set_grob_property ("molecule",
 			   gh_car (list));
 
       list = gh_cdr(list);
@@ -88,9 +95,9 @@ Script_engraver::do_process_music()
       
       if (!isdir_b (force_dir)
 	  && to_dir (relative_stem_dir))
-	p->set_elt_property ("side-relative-direction", relative_stem_dir);
+	p->set_grob_property ("side-relative-direction", relative_stem_dir);
       else
-	p->set_elt_property ("direction", force_dir);
+	p->set_grob_property ("direction", force_dir);
 
       /*
 	FIXME: should figure this out in relation with basic props! 
@@ -100,24 +107,25 @@ Script_engraver::do_process_music()
       Side_position::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
       
       if (!follow_staff && ! xaxis)
-	p->set_elt_property ("staff-support", SCM_BOOL_T);
+	p->set_grob_property ("staff-support", SCM_BOOL_T);
 
       if (!xaxis && follow_staff)
 	p->add_offset_callback (Side_position::quantised_position_proc, Y_AXIS);
       
       
-      p->set_elt_property ("script-priority", priority);
+      p->set_grob_property ("script-priority", priority);
   
       script_p_arr_.push (p);
       
-      announce_element (p, l);
+      announce_grob (p, l);
     }
+  script_req_l_arr_.clear ();
 }
 
 void
-Script_engraver::acknowledge_element (Score_element_info inf)
+Script_engraver::acknowledge_grob (Grob_info inf)
 {
-  bool them_grace = to_boolean (inf.elem_l_->get_elt_property ("grace"));
+  bool them_grace = to_boolean (inf.elem_l_->get_grob_property ("grace"));
   bool us_grace = to_boolean (get_property ("weAreGraceContext"));
 
   if (us_grace != them_grace)
@@ -127,9 +135,9 @@ Script_engraver::acknowledge_element (Score_element_info inf)
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Score_element*e = script_p_arr_[i];
+	  Grob*e = script_p_arr_[i];
 
-	  e->set_elt_property ("direction-source", inf.elem_l_->self_scm ());
+	  e->set_grob_property ("direction-source", inf.elem_l_->self_scm ());
 	  Side_position::add_support (e, inf.elem_l_);
 	}
     }
@@ -137,7 +145,7 @@ Script_engraver::acknowledge_element (Score_element_info inf)
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Score_element *e = script_p_arr_[i];
+	  Grob *e = script_p_arr_[i];
 	  
 	  if (!e->parent_l (X_AXIS))
 	    {
@@ -153,22 +161,22 @@ Script_engraver::acknowledge_element (Score_element_info inf)
 }
 
 void
-Script_engraver::do_pre_move_processing()
+Script_engraver::stop_translation_timestep()
 {
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
-      Score_element * sc = script_p_arr_[i];
-      if (to_boolean (sc->get_elt_property ("staff-support")))
+      Grob * sc = script_p_arr_[i];
+      if (to_boolean (sc->get_grob_property ("staff-support")))
 	{
 	  Side_position::add_staff_support (sc);
 	}
-      typeset_element (sc);
+      typeset_grob (sc);
     }
   script_p_arr_.clear();
 }
 
 void
-Script_engraver::do_post_move_processing()
+Script_engraver::start_translation_timestep()
 {
   script_req_l_arr_.clear();
 }

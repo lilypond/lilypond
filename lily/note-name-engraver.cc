@@ -17,13 +17,13 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Link_array<Note_req> req_l_arr_;
   Link_array<Item> texts_;
-  virtual bool  do_try_music (Music*m);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
+  virtual bool  try_music (Music*m);
+  void deprecated_process_music ();
+  virtual void stop_translation_timestep ();
 };
 
 bool
-Note_name_engraver::do_try_music (Music *m)
+Note_name_engraver::try_music (Music *m)
 {
   if (Note_req *r = dynamic_cast<Note_req* > (m))
     {
@@ -35,8 +35,10 @@ Note_name_engraver::do_try_music (Music *m)
 
 
 void
-Note_name_engraver::do_process_music ()
+Note_name_engraver::deprecated_process_music ()
 {
+  if (texts_.size ())
+    return;
   String s ;
   for (int i=0; i < req_l_arr_.size (); i++)
     {
@@ -47,18 +49,18 @@ Note_name_engraver::do_process_music ()
   if (s.length_i())
     {
       Item * t = new Item (get_property ("NoteName"));
-      t->set_elt_property ("text", ly_str02scm ( s.ch_C()));
-      announce_element (t, req_l_arr_[0]);
+      t->set_grob_property ("text", ly_str02scm ( s.ch_C()));
+      announce_grob (t, req_l_arr_[0]);
       texts_.push (t);
     }
 }
 
 void
-Note_name_engraver::do_pre_move_processing ()
+Note_name_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < texts_.size (); i++)
     {
-      typeset_element (texts_[i]);
+      typeset_grob (texts_[i]);
     }
   texts_.clear() ;
   req_l_arr_.clear ();

@@ -29,12 +29,14 @@ public:
   Multi_measure_rest_engraver ();
 
 protected:
-  virtual void acknowledge_element (Score_element_info i);
-  virtual void do_process_music ();
-  virtual bool do_try_music (Music*);
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual void acknowledge_grob (Grob_info i);
+  void deprecated_process_music ();
+  virtual bool try_music (Music*);
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void do_removal_processing ();
+  virtual void create_grobs ();
+
 private:
   Span_req * new_req_l_;
   Span_req * busy_span_req_l_;
@@ -56,7 +58,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 }
 
 void
-Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
+Multi_measure_rest_engraver::acknowledge_grob (Grob_info i)
 {
   Item * item = dynamic_cast<Item*> (i.elem_l_); 
   if (item && Bar::has_interface (item))
@@ -69,7 +71,7 @@ Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
 }
 
 bool
-Multi_measure_rest_engraver::do_try_music (Music* req_l)
+Multi_measure_rest_engraver::try_music (Music* req_l)
 {
   if (Span_req * sp = dynamic_cast<Span_req*> (req_l))
     {
@@ -91,10 +93,15 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
   return false;
 }
 
+void
+Multi_measure_rest_engraver::create_grobs ()
+{  
+  deprecated_process_music ();
+}
 
 
 void
-Multi_measure_rest_engraver::do_process_music ()
+Multi_measure_rest_engraver::deprecated_process_music ()
 {
   if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
@@ -121,30 +128,30 @@ Multi_measure_rest_engraver::do_process_music ()
       Multi_measure_rest::set_interface (mmrest_p_);
       Staff_symbol_referencer::set_interface (mmrest_p_);
 
-      announce_element (mmrest_p_, busy_span_req_l_);
+      announce_grob (mmrest_p_, busy_span_req_l_);
       start_measure_i_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
 }
 
 void
-Multi_measure_rest_engraver::do_pre_move_processing ()
+Multi_measure_rest_engraver::stop_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
     && !mp
-    && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
+    && (scm_ilength (mmrest_p_->get_grob_property ("columns")) >= 2))
     {
-      typeset_element (mmrest_p_);
+      typeset_grob (mmrest_p_);
       /*
 	must keep mmrest_p_ around to set measures_i_
        */
     }
   if (lastrest_p_)
     {
-      typeset_element (lastrest_p_);
+      typeset_grob (lastrest_p_);
       lastrest_p_ = 0;
     }
 
@@ -157,7 +164,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 }
 
 void
-Multi_measure_rest_engraver::do_post_move_processing ()
+Multi_measure_rest_engraver::start_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
@@ -166,7 +173,7 @@ Multi_measure_rest_engraver::do_post_move_processing ()
     {
       lastrest_p_ = mmrest_p_;
       int cur = gh_scm2int (get_property ("currentBarNumber"));
-      lastrest_p_->set_elt_property ("measure-count",
+      lastrest_p_->set_grob_property ("measure-count",
 				     gh_int2scm (cur - start_measure_i_));
       mmrest_p_ = 0;
     }
@@ -177,7 +184,7 @@ void
 Multi_measure_rest_engraver::do_removal_processing ()
 {
   if (mmrest_p_)
-    typeset_element (mmrest_p_);
+    typeset_grob (mmrest_p_);
   if (lastrest_p_)
-    typeset_element (lastrest_p_);
+    typeset_grob (lastrest_p_);
 }

@@ -38,9 +38,9 @@ MAKE_SCHEME_CALLBACK(Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {
-  Score_element*me = unsmob_element (smob);
+  Grob*me = unsmob_element (smob);
   
-  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
       /*
 	Order of elements is reversed!
@@ -81,7 +81,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   /*
     We've done our job, so we get lost. 
    */
-  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Item * it =dynamic_cast<Item*>(unsmob_element (gh_car (s)));
       if (it && it->broken_b ())
@@ -96,7 +96,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 }
 
 void
-Separating_group_spanner::add_spacing_unit (Score_element* me ,Item*i)
+Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 {
   Pointer_group_interface::add_element (me, "elements",i);
   me->add_dependency (i);
@@ -104,7 +104,7 @@ Separating_group_spanner::add_spacing_unit (Score_element* me ,Item*i)
 
 
 void
-Separating_group_spanner::set_interface (Score_element*)
+Separating_group_spanner::set_interface (Grob*)
 {
 
 }

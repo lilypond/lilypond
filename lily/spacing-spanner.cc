@@ -17,7 +17,7 @@
 #include "misc.hh"
 
 void
-Spacing_spanner::set_interface (Score_element*me)
+Spacing_spanner::set_interface (Grob*me)
 {
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
@@ -37,7 +37,7 @@ Spacing_spanner::set_interface (Score_element*me)
   
  */
 void
-Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols) 
+Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -45,7 +45,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
   /*
     space as if this duration  is present. 
    */
-  Moment base_shortest_duration = *unsmob_moment (me->get_elt_property ("maximum-duration-for-spacing"));
+  Moment base_shortest_duration = *unsmob_moment (me->get_grob_property ("maximum-duration-for-spacing"));
   shortest.set_infinite (1);
 
   int n = 0;
@@ -53,7 +53,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
     {
       if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
 	{
-	  SCM  st = cols[i]->get_elt_property ("shortest-starter-duration");
+	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment(st);
 	  shortest = shortest <? this_shortest;
 	  if (!mean_shortest.infty_b ())
@@ -98,10 +98,10 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	  s.item_l_drul_[LEFT] = lc;
 	  s.item_l_drul_[RIGHT] = rc;
 	  
-	  SCM hint = lc->get_elt_property ("extra-space");
-	  SCM next_hint = rc->get_elt_property ("extra-space");
-	  SCM stretch_hint = lc->get_elt_property ("stretch-distance");
-	  SCM next_stretch_hint = rc->get_elt_property ("stretch-distance");	  
+	  SCM hint = lc->get_grob_property ("extra-space");
+	  SCM next_hint = rc->get_grob_property ("extra-space");
+	  SCM stretch_hint = lc->get_grob_property ("stretch-distance");
+	  SCM next_stretch_hint = rc->get_grob_property ("stretch-distance");	  
 
 	  Real left_distance;
 	  if (gh_pair_p (hint))
@@ -127,11 +127,11 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	    We want the space before barline to be like the note
 	    spacing in the measure.
 	  */
-	  SCM sfac =lc->get_elt_property ("space-factor");
+	  SCM sfac =lc->get_grob_property ("space-factor");
 	  if (Item::breakable_b (lc) || lc->original_l_)
 	    {
 	      s.strength_f_ =
-		gh_scm2double (lc->get_elt_property ("column-space-strength"));
+		gh_scm2double (lc->get_grob_property ("column-space-strength"));
 	    }
 	  else if (gh_number_p (sfac))
 	    left_distance *= gh_scm2double (sfac);
@@ -153,10 +153,10 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	  */
 	  if (rc->musical_b ())
 	   {
-	      if (to_boolean (rc->get_elt_property ("contains-grace")))
-		right_dist *= gh_scm2double (rc->get_elt_property ("before-grace-spacing-factor")); // fixme.
+	      if (to_boolean (rc->get_grob_property ("contains-grace")))
+		right_dist *= gh_scm2double (rc->get_grob_property ("before-grace-spacing-factor")); // fixme.
 	      else
-		right_dist *= gh_scm2double (lc->get_elt_property ("before-musical-spacing-factor"));
+		right_dist *= gh_scm2double (lc->get_grob_property ("before-musical-spacing-factor"));
 	   }
 
  	  s.distance_f_ = left_distance + right_dist;
@@ -198,7 +198,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
    Do something if breakable column has no spacing hints set.
  */
 Real
-Spacing_spanner::default_bar_spacing (Score_element*me, Score_element *lc, Score_element *rc,
+Spacing_spanner::default_bar_spacing (Grob*me, Grob *lc, Grob *rc,
 				      Moment shortest) 
 {
   Real symbol_distance = lc->extent (lc,X_AXIS)[RIGHT] ;
@@ -227,24 +227,24 @@ Spacing_spanner::default_bar_spacing (Score_element*me, Score_element *lc, Score
 
   */
 Real
-Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest) 
+Spacing_spanner::get_duration_space (Grob*me, Moment d, Moment shortest) 
 {
   Real log =  log_2 (shortest);
-  Real k = gh_scm2double (me->get_elt_property  ("arithmetic-basicspace"))
+  Real k = gh_scm2double (me->get_grob_property  ("arithmetic-basicspace"))
     - log;
   
-  return (log_2 (d) + k) * gh_scm2double (me->get_elt_property ("arithmetic-multiplier"));
+  return (log_2 (d) + k) * gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
 }
 
 
 Real
-Spacing_spanner::note_spacing (Score_element*me, Score_element *lc, Score_element *rc,
+Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 			       Moment shortest) 
 {
   Moment shortest_playing_len = 0;
-  SCM s = lc->get_elt_property ("shortest-playing-duration");
+  SCM s = lc->get_grob_property ("shortest-playing-duration");
 
-  //  SCM s = lc->get_elt_property ("mean-playing-duration");  
+  //  SCM s = lc->get_grob_property ("mean-playing-duration");  
   if (unsmob_moment (s))
     shortest_playing_len = *unsmob_moment(s);
   
@@ -291,10 +291,10 @@ Spacing_spanner::note_spacing (Score_element*me, Score_element *lc, Score_elemen
 
    This routine reads the DIR-LIST property of both its L and R arguments.  */
 Real
-Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_element*r) 
+Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r) 
 {
-  SCM dl = l->get_elt_property ("dir-list");
-  SCM dr = r->get_elt_property ("dir-list");
+  SCM dl = l->get_grob_property ("dir-list");
+  SCM dr = r->get_grob_property ("dir-list");
   
   if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
     return 0.;
@@ -311,7 +311,7 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
 
 
   Real correction = 0.0;
-  Real ssc = gh_scm2double (me->get_elt_property("stem-spacing-correction"));
+  Real ssc = gh_scm2double (me->get_grob_property("stem-spacing-correction"));
 
   if (d1 && d2 && d1 * d2 == -1)
     {
@@ -327,17 +327,17 @@ MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs,1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Score_element *me = unsmob_element (smob);
-  Link_array<Score_element> all (me->pscore_l_->line_l_->column_l_arr ()) ;
+  Grob *me = unsmob_element (smob);
+  Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;
 
   for (int i = 1; i < all.size (); i++)
     {
-      Score_element *sc = all[i];
+      Grob *sc = all[i];
       if (Item::breakable_b (sc))
         {
-	  Link_array<Score_element> measure (all.slice (j, i+1));	  
+	  Link_array<Grob> measure (all.slice (j, i+1));	  
           do_measure (me, measure);
 	  j = i;
         }

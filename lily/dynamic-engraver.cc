@@ -45,7 +45,7 @@ class Dynamic_engraver : public Engraver
   Spanner* finished_line_spanner_;
 
   Link_array<Note_column> pending_column_arr_;
-  Link_array<Score_element> pending_element_arr_;
+  Link_array<Grob> pending_element_arr_;
   
   void typeset_all ();
 
@@ -55,11 +55,12 @@ public:
   
 protected:
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music *req_l);
+  void deprecated_process_music ();
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
+  virtual void start_translation_timestep ();
 };
 
 ADD_THIS_TRANSLATOR (Dynamic_engraver);
@@ -80,7 +81,7 @@ Dynamic_engraver::Dynamic_engraver ()
 }
 
 void
-Dynamic_engraver::do_post_move_processing ()
+Dynamic_engraver::start_translation_timestep ()
 {
   script_req_l_ = 0;
   accepted_spanreqs_drul_[START] = 0;
@@ -88,7 +89,7 @@ Dynamic_engraver::do_post_move_processing ()
 }
 
 bool
-Dynamic_engraver::do_try_music (Music * m)
+Dynamic_engraver::try_music (Music * m)
 {
   if (dynamic_cast <Text_script_req*> (m)
       && m->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
@@ -121,7 +122,7 @@ Dynamic_engraver::do_try_music (Music * m)
 }
 
 void
-Dynamic_engraver::do_process_music ()
+Dynamic_engraver::deprecated_process_music ()
 {
   if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
     
@@ -137,7 +138,7 @@ Dynamic_engraver::do_process_music ()
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_req_l_)
 	    rq =  script_req_l_ ;
-	  announce_element (line_spanner_, rq);
+	  announce_grob (line_spanner_, rq);
 			 
 
 	}
@@ -185,14 +186,14 @@ Dynamic_engraver::do_process_music ()
   if (script_req_l_)
     {
       script_p_ = new Item (get_property ("DynamicText"));
-      script_p_->set_elt_property ("text",
+      script_p_->set_grob_property ("text",
 				   script_req_l_->get_mus_property ("text"));
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_p_);
 
-      announce_element (script_p_, script_req_l_);
+      announce_grob (script_p_, script_req_l_);
     }
 
   if (accepted_spanreqs_drul_[STOP])
@@ -205,7 +206,7 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  Score_element* cc = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob* cc = unsmob_element (get_property ("currentMusicalColumn"));
 	  
 	  cresc_p_->set_bound (RIGHT, cc);
 
@@ -241,7 +242,7 @@ Dynamic_engraver::do_process_music ()
 	  if (!gh_string_p (s) || ly_scm2string (s) == "hairpin")
 	    {
 	      cresc_p_  = new Spanner (get_property ("Crescendo"));
-	      cresc_p_->set_elt_property ("grow-direction",
+	      cresc_p_->set_grob_property ("grow-direction",
 					  gh_int2scm ((start_type == "crescendo")
 						      ? BIGGER : SMALLER));
 	      
@@ -254,13 +255,13 @@ Dynamic_engraver::do_process_music ()
 	  else
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
-	      cresc_p_->set_elt_property ("type", s);
+	      cresc_p_->set_grob_property ("type", s);
 	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C());
 	      if (gh_string_p (s))
 		{
-		  cresc_p_->set_elt_property ("edge-text",
+		  cresc_p_->set_grob_property ("edge-text",
 					      gh_cons (s, ly_str02scm ("")));
 		  daddy_trans_l_->set_property (start_type + "Text",
 						SCM_UNDEFINED);
@@ -271,15 +272,24 @@ Dynamic_engraver::do_process_music ()
 			       : unsmob_element (get_property ("currentMusicalColumn")));
 	  
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
-	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
+	  announce_grob (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }
+  script_req_l_ = 0;
+  accepted_spanreqs_drul_[START] = 0;
+  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 void
-Dynamic_engraver::do_pre_move_processing ()
+Dynamic_engraver::stop_translation_timestep ()
 {
   typeset_all ();
+}
+
+void
+Dynamic_engraver::create_grobs ()
+{
+  deprecated_process_music ();
 }
 
 void
@@ -309,26 +319,26 @@ Dynamic_engraver::typeset_all ()
 			   ? script_p_
 			   : unsmob_element (get_property ("currentMusicalColumn")));
 	        
-      typeset_element (finished_cresc_p_);
+      typeset_grob (finished_cresc_p_);
       finished_cresc_p_ =0;
     }
   
   if (script_p_)
     {
-      typeset_element (script_p_);
+      typeset_grob (script_p_);
       script_p_ = 0;
     }
   if (finished_line_spanner_)
     {
       Side_position::add_staff_support (finished_line_spanner_);
       extend_spanner_over_elements (finished_line_spanner_);
-      typeset_element (finished_line_spanner_);
+      typeset_grob (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }
 }
 
 void
-Dynamic_engraver::acknowledge_element (Score_element_info i)
+Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
   if (Note_column::has_interface (i.elem_l_))
     {

@@ -6,7 +6,7 @@
   (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "score-element.hh"
+#include "grob.hh"
 #include "molecule.hh"
 #include "font-interface.hh"
 #include "string.hh"
@@ -38,10 +38,10 @@ MAKE_SCHEME_CALLBACK(Sustain_pedal,brew_molecule,1);
 SCM
 Sustain_pedal::brew_molecule (SCM smob) 
 {
-  Score_element * e = unsmob_element (smob);
+  Grob * e = unsmob_element (smob);
   
   Molecule mol;
-  SCM glyph = e->get_elt_property ("text");
+  SCM glyph = e->get_grob_property ("text");
   if (!gh_string_p (glyph))
     return mol.smobbed_copy ();
   String text = ly_scm2string (glyph);

@@ -12,9 +12,9 @@
 #include "group-interface.hh"
 
 void
-Script_column::add_staff_sided (Score_element *me, Item *i)
+Script_column::add_staff_sided (Grob *me, Item *i)
 {
-  SCM p = i->get_elt_property ("script-priority");
+  SCM p = i->get_grob_property ("script-priority");
   if (!gh_number_p (p))
     return;
 
@@ -24,11 +24,11 @@ Script_column::add_staff_sided (Score_element *me, Item *i)
 }
 
 static int
-staff_side_compare (Score_element * const &i1,
-		    Score_element * const &i2)
+staff_side_compare (Grob * const &i1,
+		    Grob * const &i2)
 {
-  SCM p1 = i1->get_elt_property ("script-priority");
-  SCM p2 = i2->get_elt_property ("script-priority");
+  SCM p1 = i1->get_grob_property ("script-priority");
+  SCM p2 = i2->get_grob_property ("script-priority");
 
   return gh_scm2int (p1) - gh_scm2int (p2);
 }
@@ -38,10 +38,10 @@ MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking,1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
-  Score_element* me = unsmob_element (smob);
-  Drul_array<Link_array<Score_element> > arrs;
-  Link_array<Score_element> staff_sided 
-    = Pointer_group_interface__extract_elements (me, (Score_element*)0, "scripts");
+  Grob* me = unsmob_element (smob);
+  Drul_array<Link_array<Grob> > arrs;
+  Link_array<Grob> staff_sided 
+    = Pointer_group_interface__extract_elements (me, (Grob*)0, "scripts");
 				     
 				     
   for (int i=0; i < staff_sided.size (); i++)
@@ -52,18 +52,18 @@ Script_column::before_line_breaking (SCM smob)
 
   Direction d = DOWN;
   do {
-    Link_array<Score_element> &arr(arrs[d]);
+    Link_array<Grob> &arr(arrs[d]);
     
     arr.sort (staff_side_compare);
 
-    Score_element * last = 0;
+    Grob * last = 0;
     for (int i=0; i < arr.size (); i++)
       {
 
 	if (last)
 	  Side_position::add_support( arr[i],last);
 	    
-	arr[i]->remove_elt_property ("script-priority");
+	arr[i]->remove_grob_property ("script-priority");
 	last = arr[i];
       }
     

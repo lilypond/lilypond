@@ -23,19 +23,19 @@ MAKE_SCHEME_CALLBACK(Rest_collision,force_shift_callback,2);
 SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
-  Score_element *them = unsmob_element (element_smob);
+  Grob *them = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
 
-  Score_element * rc = unsmob_element (them->get_elt_property ("rest-collision"));
+  Grob * rc = unsmob_element (them->get_grob_property ("rest-collision"));
 
   if (rc)
     {
       /*
 	Done: destruct pointers, so we do the shift only once.
       */
-      SCM elts = rc->get_elt_property ("elements");
-      rc->set_elt_property ("elements", SCM_EOL);
+      SCM elts = rc->get_grob_property ("elements");
+      rc->set_grob_property ("elements", SCM_EOL);
 
       do_shift (rc, elts);
     }
@@ -44,13 +44,18 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 }
 
 void
-Rest_collision::add_column (Score_element*me,Score_element *p)
+Rest_collision::add_column (Grob*me,Grob *p)
 {
   me->add_dependency (p);
   Pointer_group_interface::add_element (me, "elements", p);
 
-  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
-  p->set_elt_property ("rest-collision", me->self_scm ());
+  /*
+    only add callback for the rests, since we don't move anything else.
+
+    (not?)
+  */
+      p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
+      p->set_grob_property ("rest-collision", me->self_scm ());
 }
 
 
@@ -58,14 +63,14 @@ Rest_collision::add_column (Score_element*me,Score_element *p)
   Combination of dot-count and duration-log.
  */
 static SCM
-head_characteristic (Score_element * col)
+head_characteristic (Grob * col)
 {
-  Score_element * s = unsmob_element (col->get_elt_property ("rest"));
+  Grob * s = unsmob_element (col->get_grob_property ("rest"));
 
   if (!s)
     return SCM_BOOL_F;
   else
-    return gh_cons (s->get_elt_property ("duration-log"),
+    return gh_cons (s->get_grob_property ("duration-log"),
 		    gh_int2scm (Rhythmic_head::dot_count (s)));
 }
 
@@ -73,18 +78,18 @@ head_characteristic (Score_element * col)
   TODO: fixme, fucks up if called twice on the same set of rests.
  */
 SCM
-Rest_collision::do_shift (Score_element *me, SCM elts)
+Rest_collision::do_shift (Grob *me, SCM elts)
 {
   /*
     ugh. -> score  elt type
    */
-  Link_array<Score_element> rests;
-  Link_array<Score_element> notes;
-  Score_element * commony = 0;
+  Link_array<Grob> rests;
+  Link_array<Grob> notes;
+  Grob * commony = 0;
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
       
-      Score_element * e = unsmob_element (gh_car (s));
+      Grob * e = unsmob_element (gh_car (s));
       if (!e)
 	continue;
       
@@ -93,7 +98,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       else
 	commony= commony->common_refpoint  (e, Y_AXIS);
       
-      if (unsmob_element (e->get_elt_property ("rest")))
+      if (unsmob_element (e->get_grob_property ("rest")))
 	rests.push (e);
       else
 	notes.push (e);
@@ -135,14 +140,14 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	(urg: all 3 of them, currently).
        */
       int display_count;
-      SCM s = me->get_elt_property ("maximum-rest-count");
+      SCM s = me->get_grob_property ("maximum-rest-count");
       if (i == rests.size ()
 	  && gh_number_p (s) && gh_scm2int (s) < rests.size ())
 	{
 	  display_count = gh_scm2int (s);
 	  for (; i > display_count; i--)
 	    {
-	      Score_element* r = unsmob_element (rests[i-1]->get_elt_property ("rest"));
+	      Grob* r = unsmob_element (rests[i-1]->get_grob_property ("rest"));
 	      if (r)
 		r->suicide ();
 	      rests[i-1]->suicide ();
@@ -188,12 +193,12 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	{
 	  warning (_("too many notes for rest collision"));
 	}
-      Score_element * rcol = rests[0];
+      Grob * rcol = rests[0];
 
       // try to be opposite of noteheads. 
       Direction dir = - Note_column::dir (notes[0]);
 
-      Score_element * r = unsmob_element (rcol->get_elt_property ("rest"));
+      Grob * r = unsmob_element (rcol->get_grob_property ("rest"));
       Interval restdim = r->extent (r, Y_AXIS);	// ??
 
       if (restdim.empty_b ())
@@ -202,7 +207,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       // FIXME: staff ref'd?
       Real staff_space = 1.0;
 
-      Real minimum_dist = gh_scm2double (me->get_elt_property ("minimum-distance")) * staff_space;
+      Real minimum_dist = gh_scm2double (me->get_grob_property ("minimum-distance")) * staff_space;
       
       /*
 	assumption: ref points are the same. 
@@ -210,8 +215,8 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       Interval notedim;
       for (int i = 0; i < notes.size(); i++) 
 	{
-	  Score_element * stem = Note_column::stem_l (notes[i]);
-	  Score_element * head = Stem::first_head (stem);
+	  Grob * stem = Note_column::stem_l (notes[i]);
+	  Grob * head = Stem::first_head (stem);
 	  notedim.unite (head->extent (commony, Y_AXIS));
 	}
 
@@ -241,7 +246,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 }
 
 void
-Rest_collision::set_interface (Score_element*me)
+Rest_collision::set_interface (Grob*me)
 {
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS);

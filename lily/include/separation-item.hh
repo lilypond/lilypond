@@ -16,10 +16,10 @@
 */
 struct Separation_item
 {
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
-  static Interval my_width (Score_element*) ;
-  static void add_item (Score_element*,Item*);
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
+  static Interval my_width (Grob*) ;
+  static void add_item (Grob*,Item*);
 };
 
 #endif /* SINGLE_MALT_GROUPING_ITEM_HH */

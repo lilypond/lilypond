@@ -21,10 +21,10 @@
 class Lyric_engraver : public Engraver 
 {
 protected:
-  virtual void do_pre_move_processing();
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music();
-  virtual void do_post_move_processing ();
+  virtual void stop_translation_timestep();
+  virtual bool try_music (Music*);
+  void deprecated_process_music();
+  virtual void start_translation_timestep ();
 public:
   Lyric_engraver ();
   VIRTUAL_COPY_CONS (Translator);

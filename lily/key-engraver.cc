@@ -39,11 +39,12 @@ public:
 protected:
   virtual void do_creation_processing();
   virtual void do_removal_processing ();
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music();
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
-  virtual void acknowledge_element (Score_element_info);
+  virtual bool try_music (Music *req_l);
+  void deprecated_process_music();
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
+  virtual void create_grobs ();
+  virtual void acknowledge_grob (Grob_info);
 };
 
 
@@ -66,11 +67,11 @@ Key_engraver::create_key (bool def)
     {
       item_p_ = new Item (get_property ("KeySignature"));
 
-      item_p_->set_elt_property ("c0-position", gh_int2scm (0));
+      item_p_->set_grob_property ("c0-position", gh_int2scm (0));
 
       // todo: put this in basic props.
-      item_p_->set_elt_property ("old-accidentals", old_accs_);
-      item_p_->set_elt_property ("new-accidentals", get_property ("keySignature"));
+      item_p_->set_grob_property ("old-accidentals", old_accs_);
+      item_p_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
       Staff_symbol_referencer::set_interface (item_p_);
       Key_item::set_interface (item_p_);
@@ -79,9 +80,9 @@ Key_engraver::create_key (bool def)
       bool multi = to_boolean (prop);
       
       if (multi)
-	item_p_->set_elt_property ("multi-octave", gh_bool2scm (multi));
+	item_p_->set_grob_property ("multi-octave", gh_bool2scm (multi));
       
-      announce_element (item_p_,keyreq_l_);
+      announce_grob (item_p_,keyreq_l_);
     }
 
 
@@ -89,13 +90,13 @@ Key_engraver::create_key (bool def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
       if (gh_procedure_p (vis))
-	item_p_->set_elt_property ("visibility-lambda",vis);
+	item_p_->set_grob_property ("visibility-lambda",vis);
     }
 }      
 
 
 bool
-Key_engraver::do_try_music (Music * req_l)
+Key_engraver::try_music (Music * req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
@@ -109,7 +110,7 @@ Key_engraver::do_try_music (Music * req_l)
 }
 
 void
-Key_engraver::acknowledge_element (Score_element_info info)
+Key_engraver::acknowledge_grob (Grob_info info)
 {
   if (Clef::has_interface (info.elem_l_))
     {
@@ -128,7 +129,13 @@ Key_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Key_engraver::do_process_music ()
+Key_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Key_engraver::deprecated_process_music ()
 {
   if (keyreq_l_ || old_accs_ != get_property ("keySignature"))
     {
@@ -137,11 +144,11 @@ Key_engraver::do_process_music ()
 }
 
 void
-Key_engraver::do_pre_move_processing ()
+Key_engraver::stop_translation_timestep ()
 { 
   if (item_p_) 
     {
-      typeset_element (item_p_);
+      typeset_grob (item_p_);
       item_p_ = 0;
     }
 }
@@ -173,7 +180,7 @@ Key_engraver::read_req (Key_change_req const * r)
 }
 
 void
-Key_engraver::do_post_move_processing ()
+Key_engraver::start_translation_timestep ()
 {
   keyreq_l_ = 0;
   old_accs_ = get_property ("keySignature");

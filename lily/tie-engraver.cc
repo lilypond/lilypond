@@ -21,10 +21,10 @@
 
 struct CHead_melodic_tuple {
   Melodic_req *req_l_ ;
-  Score_element *head_l_;
+  Grob *head_l_;
   Moment end_;
   CHead_melodic_tuple ();
-  CHead_melodic_tuple (Score_element*, Melodic_req*, Moment);
+  CHead_melodic_tuple (Grob*, Melodic_req*, Moment);
   static int pitch_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);
   static int time_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);  
 };
@@ -44,6 +44,7 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
  */
 class Tie_engraver : public Engraver
 {
+  bool done_;
   PQueue<CHead_melodic_tuple> past_notes_pq_;
   Moment end_mom_;
   Moment next_end_mom_;
@@ -51,20 +52,19 @@ class Tie_engraver : public Engraver
   Tie_req *req_l_;
   Array<CHead_melodic_tuple> now_heads_;
   Array<CHead_melodic_tuple> stopped_heads_;
-  Link_array<Score_element> tie_p_arr_;
+  Link_array<Grob> tie_p_arr_;
 
   Spanner * tie_column_p_;
   
   void set_melisma (bool);
   
 protected:
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
-  virtual void process_acknowledged ();
-  void typeset_tie (Score_element*);
+  virtual void start_translation_timestep ();
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music*);
+  virtual void create_grobs ();
+  void typeset_tie (Grob*);
 public:
   VIRTUAL_COPY_CONS(Translator);
   Tie_engraver();
@@ -80,7 +80,7 @@ Tie_engraver::Tie_engraver()
 
 
 bool
-Tie_engraver::do_try_music (Music *m)
+Tie_engraver::try_music (Music *m)
 {
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
@@ -106,7 +106,7 @@ Tie_engraver::set_melisma (bool m)
 }
 
 void
-Tie_engraver::acknowledge_element (Score_element_info i)
+Tie_engraver::acknowledge_grob (Grob_info i)
 {
   if (Rhythmic_head::has_interface (i.elem_l_))
     {
@@ -118,21 +118,19 @@ Tie_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Tie_engraver::do_process_music ()
+Tie_engraver::create_grobs ()
 {
-  if (req_l_)
+  if (req_l_ && !done_)
     {
       Moment now = now_mom ();
       stopped_heads_.clear ();
       while (past_notes_pq_.size ()
 	     && past_notes_pq_.front ().end_ == now)
 	stopped_heads_.push (past_notes_pq_.get ());
+      done_ = true;
+      return;
     }
-}
 
-void
-Tie_engraver::process_acknowledged ()
-{
   if (req_l_)
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);
@@ -184,18 +182,18 @@ Tie_engraver::process_acknowledged ()
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_element (p, req_l_);
+	  announce_grob (p, req_l_);
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Score_element * p = new Spanner (basic);
+	  Grob * p = new Spanner (basic);
 	  Tie::set_interface (p);
 	  
 	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_element (p, req_l_);
+	  announce_grob (p, req_l_);
 	}
 
       if (!tie_p_arr_.size ())
@@ -208,14 +206,14 @@ Tie_engraver::process_acknowledged ()
 	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--; )
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
-	  announce_element (tie_column_p_, 0);
+	  announce_grob (tie_column_p_, 0);
 	}
     }
 }
 
 
 void
-Tie_engraver::do_pre_move_processing ()
+Tie_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < now_heads_.size (); i++)
     {
@@ -230,19 +228,19 @@ Tie_engraver::do_pre_move_processing ()
   tie_p_arr_.clear ();
   if (tie_column_p_)
     {
-      typeset_element (tie_column_p_);
+      typeset_grob (tie_column_p_);
       tie_column_p_ =0;
     }
 }
 
 void
-Tie_engraver::typeset_tie (Score_element *her)
+Tie_engraver::typeset_tie (Grob *her)
 {
   if (!(Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
-  Drul_array<Score_element *> new_head_drul;
+  Drul_array<Grob *> new_head_drul;
   new_head_drul[LEFT] = Tie::head(her,LEFT);
   new_head_drul[RIGHT] = Tie::head (her,RIGHT);  
   do {
@@ -250,14 +248,14 @@ Tie_engraver::typeset_tie (Score_element *her)
       new_head_drul[d] = Tie::head(her,(Direction)-d);
   } while (flip(&d) != LEFT);
 
-  index_set_cell (her->get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm () );
-  index_set_cell (her->get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm () );
+  index_set_cell (her->get_grob_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm () );
+  index_set_cell (her->get_grob_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm () );
 
-  typeset_element (her);
+  typeset_grob (her);
 }
 
 void
-Tie_engraver::do_post_move_processing ()
+Tie_engraver::start_translation_timestep ()
 {
   SCM m = get_property ("automaticMelismata");
   if (to_boolean (m))
@@ -265,6 +263,7 @@ Tie_engraver::do_post_move_processing ()
       set_melisma (false);
     }
   req_l_ = 0;
+  done_ = false;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
@@ -280,7 +279,7 @@ CHead_melodic_tuple::CHead_melodic_tuple ()
   end_ = 0;
 }
 
-CHead_melodic_tuple::CHead_melodic_tuple (Score_element *h, Melodic_req*m, Moment mom)
+CHead_melodic_tuple::CHead_melodic_tuple (Grob *h, Melodic_req*m, Moment mom)
 {
   head_l_ = h;
   req_l_ = m;

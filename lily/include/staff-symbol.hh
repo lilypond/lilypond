@@ -18,11 +18,11 @@
 class Staff_symbol 
 {
 public:
-  static Real staff_space (Score_element*) ;
-  static int steps_i(Score_element*) ;
-  static int line_count (Score_element*);
+  static Real staff_space (Grob*) ;
+  static int steps_i(Grob*) ;
+  static int line_count (Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static bool has_interface (Score_element*);
-  static void set_interface (Score_element*);
+  static bool has_interface (Grob*);
+  static void set_interface (Grob*);
 };
 #endif // STAFFSYM_HH

@@ -10,13 +10,13 @@
 #include "all-font-metrics.hh"
 #include "font-metric.hh"
 #include "font-interface.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "paper-def.hh"
 #include "warn.hh"
 
 
 SCM
-Font_interface::font_alist_chain (Score_element *me)
+Font_interface::font_alist_chain (Grob *me)
 {
   SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
 				    me->paper_l ()->style_sheet_ ));
@@ -33,19 +33,19 @@ Font_interface::font_alist_chain (Score_element *me)
   todo: split up this func, reuse in text_item? 
  */
 Font_metric *
-Font_interface::get_default_font (Score_element*me)
+Font_interface::get_default_font (Grob*me)
 {
-  Font_metric * fm =  unsmob_metrics (me->get_elt_property ("font"));
+  Font_metric * fm =  unsmob_metrics (me->get_grob_property ("font"));
   if (fm)
     return fm;
 
   fm = get_font (me,  font_alist_chain (me));
-  me->set_elt_property ("font", fm->self_scm ());
+  me->set_grob_property ("font", fm->self_scm ());
   return fm;
 }
 
 Font_metric *
-Font_interface::get_font (Score_element *me, SCM chain)
+Font_interface::get_font (Grob *me, SCM chain)
 {
   
   SCM ss = me->paper_l ()->style_sheet_;
@@ -64,7 +64,7 @@ Font_interface::get_font (Score_element *me, SCM chain)
 }
 
 SCM
-Font_interface::add_style (Score_element* me, SCM style, SCM chain)
+Font_interface::add_style (Grob* me, SCM style, SCM chain)
 {
   assert (gh_symbol_p (style));
   

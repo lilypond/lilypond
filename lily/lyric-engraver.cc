@@ -24,7 +24,7 @@ Lyric_engraver::Lyric_engraver()
 }
 
 bool
-Lyric_engraver::do_try_music (Music*r)
+Lyric_engraver::try_music (Music*r)
 {
   if (Lyric_req* l = dynamic_cast <Lyric_req *> (r))
     {
@@ -37,13 +37,13 @@ Lyric_engraver::do_try_music (Music*r)
 }
 
 void
-Lyric_engraver::do_process_music()
+Lyric_engraver::deprecated_process_music()
 {
   if (req_l_)
     {
       text_p_=  new Item (get_property ("LyricText"));
       
-      text_p_->set_elt_property ("text", req_l_->get_mus_property ("text"));
+      text_p_->set_grob_property ("text", req_l_->get_mus_property ("text"));
 
       /*
 	We can't reach the notehead where we're centered from here. So
@@ -54,22 +54,23 @@ Lyric_engraver::do_process_music()
       
       text_p_->translate_axis (0.66, X_AXIS);
       
-      announce_element (text_p_, req_l_);
+      announce_grob (text_p_, req_l_);
+      req_l_ = 0;
     }
 }
 
 void
-Lyric_engraver::do_pre_move_processing()
+Lyric_engraver::stop_translation_timestep()
 {
   if (text_p_)
     {
-      typeset_element (text_p_);
+      typeset_grob (text_p_);
       text_p_ =0;
     }
 }
 
 void
-Lyric_engraver::do_post_move_processing ()
+Lyric_engraver::start_translation_timestep ()
 {
   req_l_ =0;
 }

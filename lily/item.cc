@@ -16,7 +16,7 @@
 #include "line-of-score.hh"
 
 Item::Item (SCM s)
-  : Score_element (s)
+  : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
@@ -25,14 +25,14 @@ Item::Item (SCM s)
    Item copy ctor.  Copy nothing: everything should be a elt property
    or a special purpose pointer (such as broken_to_drul_[]) */
 Item::Item (Item const &s)
-  : Score_element (s)
+  : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
 }
 
 
 bool
-Item::breakable_b (Score_element*me) 
+Item::breakable_b (Grob*me) 
 {
   if (me->original_l_)
     return false;
@@ -41,7 +41,7 @@ Item::breakable_b (Score_element*me)
     programming_error ("only items can be breakable.");
   
   Item * i  =dynamic_cast<Item*> (me->parent_l (X_AXIS));
-  return (i) ?  Item::breakable_b (i) : to_boolean (me->get_elt_property ("breakable"));
+  return (i) ?  Item::breakable_b (i) : to_boolean (me->get_grob_property ("breakable"));
 }
 
 Paper_column *
@@ -53,7 +53,7 @@ Item::column_l () const
 Line_of_score *
 Item::line_l() const
 {
-  Score_element *g = parent_l (X_AXIS);
+  Grob *g = parent_l (X_AXIS);
   return g ?  g->line_l () : 0;
 }
 
@@ -65,9 +65,9 @@ Item::copy_breakable_items()
   Direction  i=LEFT;
   do 
     {
-      Score_element * dolly = clone();
+      Grob * dolly = clone();
       Item * item_p = dynamic_cast<Item*>(dolly);
-      pscore_l_->line_l_->typeset_element (item_p);
+      pscore_l_->line_l_->typeset_grob (item_p);
       new_copies[i] =item_p;
     }
   while (flip(&i) != LEFT);
@@ -95,7 +95,7 @@ Item::discretionary_processing()
     copy_breakable_items();
 }
 
-Score_element*
+Grob*
 Item::find_broken_piece (Line_of_score*l) const
 {
   if (line_l() == l) 
@@ -103,7 +103,7 @@ Item::find_broken_piece (Line_of_score*l) const
 
   Direction d = LEFT;
   do {
-    Score_element *s = broken_to_drul_[d];
+    Grob *s = broken_to_drul_[d];
     if (s && s->line_l () == l)
       return s;
   }
@@ -156,7 +156,7 @@ Item::handle_prebroken_dependencies ()
     the function can do more complicated things.
     
   */
-  SCM vis = get_elt_property ("visibility-lambda");
+  SCM vis = get_grob_property ("visibility-lambda");
   if (gh_procedure_p (vis))
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
@@ -172,7 +172,7 @@ Item::handle_prebroken_dependencies ()
 	  set_extent_callback (SCM_EOL, Y_AXIS);
 	}
       else if (trans)
-	set_elt_property ("molecule-callback", SCM_BOOL_T);
+	set_grob_property ("molecule-callback", SCM_BOOL_T);
     }
 }
 

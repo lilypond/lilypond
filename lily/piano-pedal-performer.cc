@@ -32,10 +32,10 @@ public:
   
 protected:
   virtual void do_creation_processing ();
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual bool try_music (Music*);
+  virtual void create_grobs ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
 
 private:
   Link_array<Audio_piano_pedal> audio_p_arr_;
@@ -75,9 +75,9 @@ Piano_pedal_performer::do_creation_processing ()
 }
 
 void
-Piano_pedal_performer::do_process_music ()
+Piano_pedal_performer::create_grobs ()
 {
-  for (Pedal_info*p = info_alist_; p->name_; p ++)
+  for (Pedal_info*p = info_alist_; p && p->name_; p ++)
  
     {
       if (p->req_l_drul_[STOP])
@@ -104,11 +104,13 @@ Piano_pedal_performer::do_process_music ()
 	  a->dir_ = START;
 	  audio_p_arr_.push (a);
 	}
+      p->req_l_drul_[START] = 0;
+      p->req_l_drul_[STOP] = 0;
     }
 }
 
 void
-Piano_pedal_performer::do_pre_move_processing ()
+Piano_pedal_performer::stop_translation_timestep ()
 {
   for (int i=0; i< audio_p_arr_.size (); i++)
     play_element (audio_p_arr_[i]);
@@ -116,9 +118,9 @@ Piano_pedal_performer::do_pre_move_processing ()
 }
 
 void
-Piano_pedal_performer::do_post_move_processing ()
+Piano_pedal_performer::start_translation_timestep ()
 {
-  for (Pedal_info*p = info_alist_; p->name_; p ++)
+  for (Pedal_info*p = info_alist_; p && p->name_; p ++)
     {
       p->req_l_drul_[STOP] = 0;
       p->req_l_drul_[START] = 0;
@@ -126,7 +128,7 @@ Piano_pedal_performer::do_post_move_processing ()
 }
 
 bool
-Piano_pedal_performer::do_try_music (Music* r)
+Piano_pedal_performer::try_music (Music* r)
 {
   if (Span_req * s = dynamic_cast<Span_req*>(r))
     {

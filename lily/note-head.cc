@@ -20,7 +20,7 @@
   build a ledger line for small pieces.
  */
 Molecule
-Note_head::ledger_line (Interval xwid, Score_element *me) 
+Note_head::ledger_line (Interval xwid, Grob *me) 
 {
   Drul_array<Molecule> endings;
   endings[LEFT] = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK(Note_head,brew_molecule,1);
 SCM
 Note_head::brew_molecule (SCM smob)  
 {
-  Score_element *me = unsmob_element (smob);
+  Grob *me = unsmob_element (smob);
 
   
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
@@ -65,7 +65,7 @@ Note_head::brew_molecule (SCM smob)
     ? 0
     : (abs(p) - sz) /2;
 
-  SCM style  = me->get_elt_property ("style");
+  SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
     {
       return SCM_EOL;
@@ -74,7 +74,7 @@ Note_head::brew_molecule (SCM smob)
   // ugh: use gh_call ()
   Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
 		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm("find-notehead-symbol"),
-						  me->get_elt_property ("duration-log"),
+						  me->get_grob_property ("duration-log"),
 						  ly_quote_scm(style),
 						  SCM_UNDEFINED),
 					  SCM_EOL)));
@@ -105,7 +105,7 @@ Note_head::brew_molecule (SCM smob)
 }
 
 bool
-Note_head::has_interface (Score_element*m)
+Note_head::has_interface (Grob*m)
 {
   return m&& m->has_interface (ly_symbol2scm ("note-head-interface"));
 }

@@ -45,6 +45,7 @@ SCM ly_interval2scm (Interval);
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 SCM ly_type (SCM);
+bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;
 
 /*
   display and print newline.

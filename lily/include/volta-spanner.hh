@@ -16,11 +16,11 @@
 class Volta_spanner
 {
 public:
-  static void set_interface (Score_element*);
-  static bool has_interface (Score_element*);
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void add_column (Score_element*, Score_element*col);
-  static void add_bar (Score_element*me, Item*bar);
+  static void add_column (Grob*, Grob*col);
+  static void add_bar (Grob*me, Item*bar);
 };
 
 #endif // VOLTA_SPANNER_HH

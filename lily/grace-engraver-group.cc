@@ -9,7 +9,7 @@
 
 #include "grace-engraver-group.hh"
 #include "lily-guile.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "musical-request.hh"
 
 void
@@ -26,12 +26,12 @@ Grace_engraver_group::finish ()
   removal_processing ();	// ugr. We'd want to have this done by our parents.
   for (int i=0; i < announce_to_top_.size (); i++)
     {
-      Engraver::announce_element (announce_to_top_[i]);
+      Engraver::announce_grob (announce_to_top_[i]);
     }
 
   for (int i=0; i < typeset_us_.size (); i++)
     {
-      Engraver::typeset_element (typeset_us_[i]);
+      Engraver::typeset_grob (typeset_us_[i]);
     }
   typeset_us_.clear ();
   calling_self_b_ = false;
@@ -44,17 +44,17 @@ Grace_engraver_group::do_removal_processing ()
 }
 
 void
-Grace_engraver_group::announce_element (Score_element_info inf)
+Grace_engraver_group::announce_grob (Grob_info inf)
 {
   announce_info_arr_.push (inf);
   // do not propagate to top
   announce_to_top_.push (inf);
 
-  inf.elem_l_->set_elt_property ("grace", SCM_BOOL_T);
+  inf.elem_l_->set_grob_property ("grace", SCM_BOOL_T);
 }
 
 void
-Grace_engraver_group::typeset_element (Score_element*e)
+Grace_engraver_group::typeset_grob (Grob*e)
 {
   typeset_us_.push (e);
 }
@@ -69,8 +69,8 @@ void
 Grace_engraver_group::process ()
 {
   calling_self_b_  = true;
-  process_music ();
-  do_announces();
+  //process_music ();
+  announces();
   pre_move_processing();
   check_removal();
   calling_self_b_ = false;
@@ -92,7 +92,7 @@ ADD_THIS_TRANSLATOR(Grace_engraver_group);
   don't let the commands trickle up.
  */
 bool
-Grace_engraver_group::do_try_music (Music *m)
+Grace_engraver_group::try_music (Music *m)
 {
   bool hebbes_b = try_music_on_nongroup_children (m);
 
@@ -117,3 +117,10 @@ Grace_engraver_group::pass_to_top_b (Music *m) const
   return false;
 }
 
+void
+Grace_engraver_group::do_creation_processing ()
+{
+  calling_self_b_ = true;
+  Engraver_group_engraver::do_creation_processing ();
+  calling_self_b_ = false;  
+}

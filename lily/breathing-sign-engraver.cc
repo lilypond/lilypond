@@ -28,15 +28,15 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   
 protected:
-  virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music();
+  virtual bool try_music (Music *req_l);
+  void deprecated_process_music();
 
-  virtual void do_pre_move_processing();
-  virtual void do_post_move_processing();
+  virtual void stop_translation_timestep();
+  virtual void start_translation_timestep();
 
 private:
   Breathing_sign_req * breathing_sign_req_l_;
-  Score_element * breathing_sign_p_;
+  Grob * breathing_sign_p_;
 };
 
 Breathing_sign_engraver::Breathing_sign_engraver()
@@ -46,7 +46,7 @@ Breathing_sign_engraver::Breathing_sign_engraver()
 }
 
 bool
-Breathing_sign_engraver::do_try_music (Music*r_l)
+Breathing_sign_engraver::try_music (Music*r_l)
 {
   if (Breathing_sign_req  * b= dynamic_cast <Breathing_sign_req *> (r_l))
     {
@@ -58,31 +58,31 @@ Breathing_sign_engraver::do_try_music (Music*r_l)
 }
 
 void
-Breathing_sign_engraver::do_process_music()
+Breathing_sign_engraver::deprecated_process_music()
 {
-  if(breathing_sign_req_l_)
+  if(breathing_sign_req_l_ && ! breathing_sign_p_)
     {
       SCM b = get_property ("BreathingSign");
       breathing_sign_p_ = new Item (b);
 
       Breathing_sign::set_interface (breathing_sign_p_);
 
-      announce_element (breathing_sign_p_, breathing_sign_req_l_);
+      announce_grob (breathing_sign_p_, breathing_sign_req_l_);
     }
 }
 
 void 
-Breathing_sign_engraver::do_pre_move_processing()
+Breathing_sign_engraver::stop_translation_timestep()
 {
   if(breathing_sign_p_)
     {
-      typeset_element(breathing_sign_p_);
+      typeset_grob(breathing_sign_p_);
       breathing_sign_p_ = 0;
     }
 }
 
 void
-Breathing_sign_engraver::do_post_move_processing()
+Breathing_sign_engraver::start_translation_timestep()
 {
   breathing_sign_req_l_ = 0;
 }

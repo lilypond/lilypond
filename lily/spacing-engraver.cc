@@ -16,13 +16,13 @@
 
 struct Rhythmic_tuple
 {
-  Score_element_info info_;
+  Grob_info info_;
   Moment end_;
   
   Rhythmic_tuple ()
     {
     }
-  Rhythmic_tuple (Score_element_info i, Moment m )
+  Rhythmic_tuple (Grob_info i, Moment m )
     {
       info_ = i;
       end_ = m;
@@ -45,9 +45,9 @@ class Spacing_engraver : public Engraver
   Spanner * spacing_p_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void start_translation_timestep ();
+  virtual void stop_translation_timestep ();
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
 public:
@@ -78,25 +78,25 @@ Spacing_engraver::do_creation_processing ()
   spacing_p_  =new Spanner (get_property ("SpacingSpanner"));
   Spacing_spanner::set_interface (spacing_p_);
   spacing_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));  
-  announce_element (spacing_p_, 0);
+  announce_grob (spacing_p_, 0);
 }
 
 void
 Spacing_engraver::do_removal_processing ()
 {
-  Score_element * p = unsmob_element (get_property ("currentCommandColumn"));
+  Grob * p = unsmob_element (get_property ("currentCommandColumn"));
   spacing_p_->set_bound (RIGHT, p);
-  typeset_element (spacing_p_);
+  typeset_grob (spacing_p_);
   spacing_p_ =0;
 }
 
 void
-Spacing_engraver::acknowledge_element (Score_element_info i)
+Spacing_engraver::acknowledge_grob (Grob_info i)
 {
-  if (to_boolean (i.elem_l_->get_elt_property ("grace")))
+  if (to_boolean (i.elem_l_->get_grob_property ("grace")))
     return;
 
-  if (to_boolean (i.elem_l_->get_elt_property ("non-rhythmic")))
+  if (to_boolean (i.elem_l_->get_grob_property ("non-rhythmic")))
     return;
   
   if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*>(i.req_l_))
@@ -107,7 +107,7 @@ Spacing_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Spacing_engraver::do_pre_move_processing ()
+Spacing_engraver::stop_translation_timestep ()
 {
   Moment shortest_playing;
   shortest_playing.set_infinite (1);
@@ -141,12 +141,12 @@ Spacing_engraver::do_pre_move_processing ()
   SCM sh = shortest_playing.smobbed_copy( );
   SCM st = starter.smobbed_copy();
 
-  sc->set_elt_property ("shortest-playing-duration", sh);  
-  sc->set_elt_property ("shortest-starter-duration", st);
+  sc->set_grob_property ("shortest-playing-duration", sh);  
+  sc->set_grob_property ("shortest-starter-duration", st);
 }
 
 void
-Spacing_engraver::do_post_move_processing ()
+Spacing_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
   stopped_durations_.clear ();

@@ -21,9 +21,9 @@ MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
 SCM
 Time_signature::brew_molecule (SCM smob) 
 {
-  Score_element * me = unsmob_element (smob);
-  SCM st = me->get_elt_property ("style");
-  SCM frac = me->get_elt_property ("fraction");
+  Grob * me = unsmob_element (smob);
+  SCM st = me->get_grob_property ("style");
+  SCM frac = me->get_grob_property ("fraction");
   int n = 4;
   int d = 4;
   if (gh_pair_p (frac))
@@ -33,9 +33,9 @@ Time_signature::brew_molecule (SCM smob)
     }
 
   
-  if (gh_string_p (st))
+  if (gh_symbol_p (st))
     {
-      String style (ly_scm2string (st));
+      String style (ly_scm2string (scm_symbol_to_string (st)));
       if (style[0]=='1')
 	{
 	  return time_signature (me, n, 0).smobbed_copy ();
@@ -50,7 +50,7 @@ Time_signature::brew_molecule (SCM smob)
 }
 
 Molecule
-Time_signature::special_time_signature (Score_element*me, String s, int n, int d)
+Time_signature::special_time_signature (Grob*me, String s, int n, int d)
 {
   /*
     Randomly probing the font sucks?
@@ -86,7 +86,7 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
 
 
 Molecule
-Time_signature::time_signature (Score_element*me,int num, int den)
+Time_signature::time_signature (Grob*me,int num, int den)
 {
   SCM chain = Font_interface::font_alist_chain (me);
 

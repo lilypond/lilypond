@@ -28,10 +28,12 @@ public:
   Note_heads_engraver();
   
 protected:
-  virtual void do_post_move_processing ();
-  virtual bool do_try_music (Music *req_l) ;
-  virtual void do_process_music();
-  virtual void do_pre_move_processing();
+  virtual void start_translation_timestep ();
+  virtual bool try_music (Music *req_l) ;
+  virtual void create_grobs ();
+  virtual void acknowledge_grob (Grob_info) ;
+  void deprecated_process_music();
+  virtual void stop_translation_timestep();
 };
 
 
@@ -43,25 +45,13 @@ Note_heads_engraver::Note_heads_engraver()
 }
 
 bool
-Note_heads_engraver::do_try_music (Music *m) 
+Note_heads_engraver::try_music (Music *m) 
 {
   if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
       note_req_l_arr_.push (n);
       note_end_mom_  = note_end_mom_ >? now_mom () + m->length_mom ();
       
-      return true;
-    }
-  else if ( dynamic_cast<Tonic_req*> (m))
-    {
-      return true;
-    }
-  else if ( dynamic_cast<Inversion_req*> (m))
-    {
-      return true;
-    }
-  else if (dynamic_cast<Bass_req*> (m))
-    {
       return true;
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
@@ -73,7 +63,19 @@ Note_heads_engraver::do_try_music (Music *m)
 }
 
 void
-Note_heads_engraver::do_process_music()
+Note_heads_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Note_heads_engraver::acknowledge_grob (Grob_info)
+{
+  //deprecated_process_music ();
+}
+
+void
+Note_heads_engraver::deprecated_process_music()
 {
   if (note_p_arr_.size ())
     return ;
@@ -89,7 +91,7 @@ Note_heads_engraver::do_process_music()
       Music * req = note_req_l_arr_[i];
       
       Duration dur   = *unsmob_duration (req->get_mus_property ("duration"));
-      note_p->set_elt_property ("duration-log",
+      note_p->set_grob_property ("duration-log",
 				gh_int2scm (dur.duration_log () <? 2));
 
       if (dur.dot_count ())
@@ -98,32 +100,32 @@ Note_heads_engraver::do_process_music()
 	  Rhythmic_head::set_dots (note_p, d);
 	  
 	  if (dur.dot_count ()
-	      != gh_scm2int (d->get_elt_property ("dot-count")))
-	    d->set_elt_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	      != gh_scm2int (d->get_grob_property ("dot-count")))
+	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note_p, Y_AXIS);
-	  announce_element (d,0);
+	  announce_grob (d,0);
 	  dot_p_arr_.push (d);
 	}
 
-      note_p->set_elt_property("staff-position",  gh_int2scm (unsmob_pitch (req->get_mus_property ("pitch"))->steps ()));
+      note_p->set_grob_property("staff-position",  gh_int2scm (unsmob_pitch (req->get_mus_property ("pitch"))->steps ()));
 
-      announce_element (note_p,req);
+      announce_grob (note_p,req);
       note_p_arr_.push (note_p);
     }
 }
  
 void
-Note_heads_engraver::do_pre_move_processing()
+Note_heads_engraver::stop_translation_timestep()
 {
   for (int i=0; i < note_p_arr_.size (); i++)
     {
-      typeset_element (note_p_arr_[i]);
+      typeset_grob (note_p_arr_[i]);
     }
   note_p_arr_.clear ();
   for (int i=0; i < dot_p_arr_.size (); i++)
     {
-      typeset_element (dot_p_arr_[i]);
+      typeset_grob (dot_p_arr_[i]);
     }
   dot_p_arr_.clear ();
   
@@ -131,7 +133,7 @@ Note_heads_engraver::do_pre_move_processing()
 }
 
 void
-Note_heads_engraver::do_post_move_processing ()
+Note_heads_engraver::start_translation_timestep ()
 {
   /* TODO:make this settable?
    */

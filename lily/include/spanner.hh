@@ -8,7 +8,7 @@
 #define SPANNER_HH
 
 #include "lily-proto.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "drul-array.hh"
 #include "rod.hh"
 
@@ -29,7 +29,7 @@
   length of stems of notes they encompass.
 
   */
-class Spanner : public  Score_element {
+class Spanner : public  Grob {
   Drul_array<Item*> spanned_drul_;
 
 public:
@@ -40,7 +40,7 @@ public:
   
   // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
-  void set_bound (Direction d, Score_element*);
+  void set_bound (Direction d, Grob*);
   Item *get_bound (Direction d) const;
   
   Spanner (SCM);
@@ -50,18 +50,18 @@ public:
   Real spanner_length () const;
 
   static int compare (Spanner * const &,Spanner * const &);
-  virtual Score_element* find_broken_piece (Line_of_score*) const;
+  virtual Grob* find_broken_piece (Line_of_score*) const;
   virtual SCM do_derived_mark ();
 protected:
   void set_my_columns ();
-  VIRTUAL_COPY_CONS(Score_element);
+  VIRTUAL_COPY_CONS(Grob);
   virtual void do_break_processing ();
   virtual Line_of_score*line_l () const;
 };
 
 
 void add_bound_item (Spanner*, Item* n);
-void extend_spanner_over_elements (Score_element*  span);
+void extend_spanner_over_elements (Grob*  span);
 
 
 #endif

@@ -24,8 +24,8 @@ public:				// fixme
   /*
     TODO: use SCM -- (make private?)
    */
-  
-  /// 0 is c, 6 is b
+
+    /// 0 is c, 6 is b
   int notename_i_;
   
   /// 0 natural, 1 sharp, etc

@@ -6,24 +6,37 @@
   (c) 1996--2000 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "note-performer.hh"
+#include "performer.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-translator.hh"
 #include "debug.hh"
 
+/**
+Convert reqs to audio notes.
+*/
+class Note_performer : public Performer {
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+protected:
+  virtual bool try_music (Music *req_l) ;
+
+  virtual void stop_translation_timestep ();
+  virtual void create_grobs ();
+  Global_translator* global_translator_l ();
+
+private:
+  Array<Note_req*> note_req_l_arr_;
+  Array<Audio_note*> note_p_arr_;
+  Array<Audio_note*> delayed_p_arr_;
+};
 
 ADD_THIS_TRANSLATOR (Note_performer);
 
-Note_performer::Note_performer ()
-{
-}
-
-
-
 void 
-Note_performer::do_process_music () 
+Note_performer::create_grobs ()
 {
   if (note_req_l_arr_.size ())
     {
@@ -42,12 +55,8 @@ Note_performer::do_process_music ()
 	  announce_element (info);
 	  note_p_arr_.push (p);
 	}
+      note_req_l_arr_.clear ();
     }
-}
-
-void
-Note_performer::process_acknowledged ()
-{
 }
 
 Global_translator*
@@ -67,7 +76,7 @@ Note_performer::global_translator_l ()
 
 
 void
-Note_performer::do_pre_move_processing ()
+Note_performer::stop_translation_timestep ()
 {
 
   // why don't grace notes show up here?
@@ -107,7 +116,7 @@ Note_performer::do_pre_move_processing ()
 }
  
 bool
-Note_performer::do_try_music (Music* req_l)
+Note_performer::try_music (Music* req_l)
 {
   if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
     {

@@ -8,7 +8,7 @@
  */
 
 #include "engraver.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "output-property-music-iterator.hh"
 
 class Output_property_engraver : public Engraver
@@ -24,21 +24,21 @@ protected:
       \property Voice.outputProperties \push #pred = #modifier
 
       where both MODIFIER and PRED are functions taking a
-      score-element.
+      grob.
       
    */
 
   
   Link_array<Music> props_;
 
-  virtual void do_pre_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music*);
+  virtual void stop_translation_timestep ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music*);
 };
 
 
 bool
-Output_property_engraver::do_try_music (Music* m)
+Output_property_engraver::try_music (Music* m)
 {
   if (m->get_mus_property ("type") ==
       Output_property_music_iterator::constructor_cxx_function)
@@ -50,7 +50,7 @@ Output_property_engraver::do_try_music (Music* m)
 }
 
 void
-Output_property_engraver::acknowledge_element (Score_element_info inf)
+Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
   for (int i=props_.size (); i--; )
     {
@@ -66,13 +66,13 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  SCM sym = o->get_mus_property ("symbol");
 	  SCM val = o->get_mus_property ("value");
-	  inf.elem_l_->set_elt_property (sym, val);
+	  inf.elem_l_->set_grob_property (sym, val);
 	}
     }
 }
 
 void
-Output_property_engraver::do_pre_move_processing ()
+Output_property_engraver::stop_translation_timestep ()
 {
   props_.clear ();
 }

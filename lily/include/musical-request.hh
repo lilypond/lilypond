@@ -21,9 +21,12 @@
  */
 class Rhythmic_req  : public virtual Request  {
 public:
+  Duration duration_;
+
   bool do_equal_b (Request const*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
+  static int compare (Rhythmic_req const&,Rhythmic_req const&);
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -73,6 +76,10 @@ protected:
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request
 {
+  Pitch pitch_;
+
+  static int compare (Melodic_req const&,Melodic_req const&);
+  
 protected:
   /// transpose. #delta# is relative to central c.
   virtual void transpose (Pitch delta);
@@ -81,42 +88,12 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-
 /*
-  TODO: junk these, and set
-
-    (tonic . #t)
-
-  or maybe
-
-    (chord-type . tonic/inversion/bass) 
-
-  
- */
-/// specify tonic of a chord
-struct Tonic_req : public Melodic_req
-{
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/// specify inversion of a chord
-struct Inversion_req : public Melodic_req
-{
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/// specify bass of a chord
-struct Bass_req : public Melodic_req
-{
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/*
-  Put a note of specified type, height, and with accidental on the staff.
-
-  force-accidental -- force/supress printing of accidental.
-     
-  cautionary --  Cautionary, i.e. parenthesized accidental.
+   Put a note of specified type, height, and with accidental on the staff.
+    /// force/supress printing of accidental.
+  bool forceacc_b_;
+  /// Cautionary, i.e. parenthesized accidental.
+  bool cautionary_b_;
 
  */
 class Note_req  : public Rhythmic_req, virtual public Melodic_req  {

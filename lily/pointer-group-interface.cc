@@ -7,7 +7,7 @@
   
  */
 #include "group-interface.hh"
-#include "score-element.hh"
+#include "grob.hh"
 
 
 

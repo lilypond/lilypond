@@ -11,8 +11,8 @@
 #define DIMENSION_CACHE_CALLBACK_HH
 
 
-typedef Interval (*Dim_cache_callback)(Score_element *,Axis);
-typedef Real (*Offset_callback)(Score_element *,Axis);
+typedef Interval (*Dim_cache_callback)(Grob *,Axis);
+typedef Real (*Offset_callback)(Grob *,Axis);
 
 #endif /* DIMENSION_CACHE_CALLBACK_HH */
 

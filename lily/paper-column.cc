@@ -20,7 +20,7 @@ Paper_column::do_break_processing ()
 }
 
 int
-Paper_column::rank_i(Score_element*me) 
+Paper_column::rank_i(Grob*me) 
 {
   return dynamic_cast<Paper_column*> (me)->rank_i_;
 }
@@ -49,9 +49,9 @@ Paper_column::Paper_column (SCM l)
 }
 
 Moment
-Paper_column::when_mom (Score_element*me)
+Paper_column::when_mom (Grob*me)
 {
-  SCM m = me->get_elt_property ("when");
+  SCM m = me->get_grob_property ("when");
   Moment s (0);
   if (unsmob_moment (m))
     {
@@ -63,7 +63,7 @@ Paper_column::when_mom (Score_element*me)
 bool
 Paper_column::musical_b () const
 {
-  SCM m = get_elt_property ("shortest-starter-duration");
+  SCM m = get_grob_property ("shortest-starter-duration");
   Moment s (0);
   if (unsmob_moment (m))
     {
@@ -73,9 +73,9 @@ Paper_column::musical_b () const
 }
 
 bool
-Paper_column::used_b (Score_element*me )
+Paper_column::used_b (Grob*me )
 {
-  return gh_pair_p (me->get_elt_property ("elements")) ||  Item::breakable_b (me)
-    || gh_pair_p (me->get_elt_property ("bounded-by-me"))
+  return gh_pair_p (me->get_grob_property ("elements")) ||  Item::breakable_b (me)
+    || gh_pair_p (me->get_grob_property ("bounded-by-me"))
     ;
 }

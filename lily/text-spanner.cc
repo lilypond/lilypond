@@ -31,7 +31,7 @@ MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
 SCM
 Text_spanner::brew_molecule (SCM smob) 
 {
-  Score_element *me= unsmob_element (smob);
+  Grob *me= unsmob_element (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -48,7 +48,7 @@ Text_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
   
 #if 0
-  SCM s = me->get_elt_property ("text-style");
+  SCM s = me->get_grob_property ("text-style");
 
   String text_style = "italic";
   if (gh_string_p (s))
@@ -57,7 +57,7 @@ Text_spanner::brew_molecule (SCM smob)
 
   SCM properties = Font_interface::font_alist_chain (me);
 
-  SCM edge_text = me->get_elt_property ("edge-text");
+  SCM edge_text = me->get_grob_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
     {
@@ -76,7 +76,7 @@ Text_spanner::brew_molecule (SCM smob)
   shorten[LEFT] = 0;
   shorten[RIGHT] = 0;
 
-  SCM s = me->get_elt_property ("shorten");
+  SCM s = me->get_grob_property ("shorten");
   if (gh_pair_p (s))
     {
       shorten[LEFT] = gh_scm2double (gh_car (s)) * staff_space;
@@ -85,7 +85,7 @@ Text_spanner::brew_molecule (SCM smob)
 
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
-  Score_element *bnd = spanner->get_bound (RIGHT);
+  Grob *bnd = spanner->get_bound (RIGHT);
   width += bnd->extent (bnd, X_AXIS).length ();
   width -= broken_left;
   width -= shorten[LEFT] + shorten[RIGHT];
@@ -100,7 +100,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 
   String type = "dashed-line";
-  s = me->get_elt_property ("type");
+  s = me->get_grob_property ("type");
   if (gh_string_p (s))
     type = ly_scm2string (s);
 
@@ -111,18 +111,18 @@ Text_spanner::brew_molecule (SCM smob)
       || type == "dotted-line")
     {
       Real thick = thickness;
-      s = me->get_elt_property ("line-thickness");
+      s = me->get_grob_property ("line-thickness");
       if (gh_number_p (s))
 	thick *= gh_scm2double (s);
   
       // maybe these should be in line-thickness?
       Real length = staff_space;
-      s = me->get_elt_property ("dash-length");
+      s = me->get_grob_property ("dash-length");
       if (gh_number_p (s))
 	length = gh_scm2double (s) * staff_space;
 
       Real period = 2 * length + thick;
-      s = me->get_elt_property ("dash-period");
+      s = me->get_grob_property ("dash-period");
       if (gh_number_p (s))
 	period = gh_scm2double (s) * staff_space;
       
@@ -146,11 +146,11 @@ Text_spanner::brew_molecule (SCM smob)
       Box b (Interval (0, width), Interval (-thick / 2, thick / 2));
       line = Molecule (b, list);
 
-      s = me->get_elt_property ("edge-height");
+      s = me->get_grob_property ("edge-height");
       if (gh_pair_p (s))
 	{
 	  Direction d = LEFT;
-	  int dir = to_dir (me->get_elt_property ("direction"));
+	  int dir = to_dir (me->get_grob_property ("direction"));
 	  do
 	    {
 	      Real dy = gh_scm2double (index_cell (s, d)) * - dir;

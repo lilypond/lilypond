@@ -17,19 +17,20 @@ class Slur_engraver : public Engraver
 {
   Link_array<Span_req> requests_arr_;
   Link_array<Span_req> new_slur_req_l_arr_;
-  Link_array<Score_element> slur_l_stack_;
-  Link_array<Score_element> end_slur_l_arr_;
+  Link_array<Grob> slur_l_stack_;
+  Link_array<Grob> end_slur_l_arr_;
   Moment last_start_;
 
   void set_melisma (bool);
 
 protected:
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual bool try_music (Music*);
+  void deprecated_process_music ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void do_removal_processing ();
+  virtual void create_grobs ();
 
 public:
   VIRTUAL_COPY_CONS (Translator);
@@ -42,7 +43,7 @@ Slur_engraver::Slur_engraver ()
 }
 
 bool
-Slur_engraver::do_try_music (Music *req_l)
+Slur_engraver::try_music (Music *req_l)
 {
   if (Span_req *sl = dynamic_cast <Span_req *> (req_l))
     {
@@ -87,17 +88,23 @@ Slur_engraver::do_try_music (Music *req_l)
 }
 
 void
+Slur_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
 Slur_engraver::set_melisma (bool m)
 {
   daddy_trans_l_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
-Slur_engraver::acknowledge_element (Score_element_info info)
+Slur_engraver::acknowledge_grob (Grob_info info)
 {
   if (Note_column::has_interface (info.elem_l_))
     {
-      Score_element *e =info.elem_l_;
+      Grob *e =info.elem_l_;
       for (int i = 0; i < slur_l_stack_.size (); i++)
 	Slur::add_column (slur_l_stack_[i], e);
       for (int i = 0; i < end_slur_l_arr_.size (); i++)
@@ -111,7 +118,7 @@ Slur_engraver::do_removal_processing ()
   for (int i = 0; i < slur_l_stack_.size (); i++)
     {
 #if 0
-      typeset_element (slur_l_stack_[i]);
+      typeset_grob (slur_l_stack_[i]);
 #else
       /*
 	Let's not typeset unterminated stuff
@@ -130,9 +137,9 @@ Slur_engraver::do_removal_processing ()
 }
 
 void
-Slur_engraver::do_process_music ()
+Slur_engraver::deprecated_process_music ()
 {
-  Link_array<Score_element> start_slur_l_arr;
+  Link_array<Grob> start_slur_l_arr;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)
     {
       Span_req* slur_req_l = new_slur_req_l_arr_[i];
@@ -143,11 +150,11 @@ Slur_engraver::do_process_music ()
 	    slur_req_l->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
-	      Score_element* slur = slur_l_stack_.pop ();
+	      Grob* slur = slur_l_stack_.pop ();
 	      SCM s = get_property ("slurEndAttachment");
 	      if (gh_symbol_p (s))
 		{
-		  index_set_cell (slur->get_elt_property ("attachment"), STOP, s);
+		  index_set_cell (slur->get_grob_property ("attachment"), STOP, s);
 		}
 	      end_slur_l_arr_.push (slur);
 	      requests_arr_.pop ();
@@ -157,34 +164,35 @@ Slur_engraver::do_process_music ()
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
-	  Score_element* slur = new Spanner (get_property ("Slur"));
+	  Grob* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur);
 	  SCM s = get_property ("slurBeginAttachment");
 	  if (gh_symbol_p (s))
 	    {
-	      index_set_cell (slur->get_elt_property ("attachment"), START, s);
+	      index_set_cell (slur->get_grob_property ("attachment"), START, s);
 	    }
 	  start_slur_l_arr.push (slur);
 	  requests_arr_.push (slur_req_l);
-	  announce_element (slur, slur_req_l);
+	  announce_grob (slur, slur_req_l);
 	}
     }
   for (int i=0; i < start_slur_l_arr.size (); i++)
     slur_l_stack_.push (start_slur_l_arr[i]);
+  new_slur_req_l_arr_.clear ();
 }
 
 void
-Slur_engraver::do_pre_move_processing ()
+Slur_engraver::stop_translation_timestep ()
 {
   for (int i = 0; i < end_slur_l_arr_.size (); i++)
     {
-      typeset_element (end_slur_l_arr_[i]);
+      typeset_grob (end_slur_l_arr_[i]);
     }
   end_slur_l_arr_.clear ();
 }
 
 void
-Slur_engraver::do_post_move_processing ()
+Slur_engraver::start_translation_timestep ()
 {
   new_slur_req_l_arr_.clear ();
   SCM m = get_property ("automaticMelismata");

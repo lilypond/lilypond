@@ -17,17 +17,17 @@
    Script_column, that will fix the collisions.  */
 class Script_column_engraver : public Engraver
 {
-  Score_element *scol_p_;
+  Grob *scol_p_;
   Link_array<Item> script_l_arr_;
 
 public:
   Script_column_engraver ();
   VIRTUAL_COPY_CONS(Translator);
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void process_acknowledged ();
-  virtual void  do_pre_move_processing ();
-  virtual void  do_post_move_processing ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void create_grobs ();
+  virtual void  stop_translation_timestep ();
+  virtual void  start_translation_timestep ();
 };
 
 
@@ -37,24 +37,24 @@ Script_column_engraver::Script_column_engraver()
 }
 
 void
-Script_column_engraver::do_pre_move_processing ()
+Script_column_engraver::stop_translation_timestep ()
 {
   if (scol_p_)
     {
-      typeset_element (scol_p_);
+      typeset_grob (scol_p_);
       scol_p_ =0;
     }
 }
 
 void
-Script_column_engraver::do_post_move_processing ()
+Script_column_engraver::start_translation_timestep ()
 {
   script_l_arr_.clear ();
 
 }
 
 void
-Script_column_engraver::acknowledge_element(Score_element_info inf) 
+Script_column_engraver::acknowledge_grob(Grob_info inf) 
 {
   Item *thing = dynamic_cast<Item*> (inf.elem_l_);
   if (thing && Side_position::has_interface (inf.elem_l_)) // ugh FIXME
@@ -68,14 +68,14 @@ Script_column_engraver::acknowledge_element(Score_element_info inf)
 }
 
 void
-Script_column_engraver::process_acknowledged ()
+Script_column_engraver::create_grobs ()
 {
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
       scol_p_ = new Item (get_property ("ScriptColumn"));
 
 
-      announce_element (scol_p_, 0);
+      announce_grob (scol_p_, 0);
     }
 
   if (scol_p_)

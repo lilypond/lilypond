@@ -16,12 +16,12 @@
 struct Spaceable_element
 {
   /// set a minimum distance
-  static void add_rod (Score_element*me, Score_element * to, Real distance);
-  static void add_spring (Score_element*me,Score_element * to, Real dist, Real strength);
-  static void set_interface (Score_element*);
-  static void remove_interface (Score_element*);
-  static SCM get_minimum_distances (Score_element*);
-  static SCM get_ideal_distances (Score_element*);
+  static void add_rod (Grob*me, Grob * to, Real distance);
+  static void add_spring (Grob*me,Grob * to, Real dist, Real strength);
+  static void set_interface (Grob*);
+  static void remove_interface (Grob*);
+  static SCM get_minimum_distances (Grob*);
+  static SCM get_ideal_distances (Grob*);
 };
 
 #endif /* SPACEABLE_ELEMENT_HH */

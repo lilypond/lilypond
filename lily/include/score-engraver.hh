@@ -22,11 +22,11 @@ class Score_engraver :
   Line_of_score * scoreline_l_;
   int breaks_i_;
 
-  Link_array<Score_element> elem_p_arr_;
+  Link_array<Grob> elem_p_arr_;
     
   Paper_column* command_column_l_;
   Paper_column* musical_column_l_;
-    
+  void make_columns (Moment);
   void set_columns (Paper_column*,Paper_column*);
   void typeset_all();
     
@@ -46,14 +46,14 @@ protected:
 protected:
   /* Engraver_group_engraver interface */
 
-  virtual bool do_try_music (Music*);
+  virtual bool try_music (Music*);
   virtual void do_creation_processing();
   virtual void do_removal_processing();
-  virtual void announce_element (Score_element_info);
+  virtual void announce_grob (Grob_info);
   virtual void do_announces();
-  virtual void typeset_element (Score_element*elem_p);
+  virtual void typeset_grob (Grob*elem_p);
 
-  virtual void do_pre_move_processing();
+  virtual void stop_translation_timestep();
   virtual void do_add_processing ();
 };
 

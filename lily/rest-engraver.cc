@@ -17,12 +17,12 @@ class Rest_engraver : public Engraver
 {
   Rest_req *rest_req_l_;
   Item * dot_p_;
-  Score_element* rest_p_;
+  Grob* rest_p_;
 protected:
-  virtual bool do_try_music (Music *);
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
-  virtual void do_process_music ();
+  virtual bool try_music (Music *);
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
+  void deprecated_process_music ();
 public:
   
   VIRTUAL_COPY_CONS(Translator);
@@ -41,28 +41,28 @@ Rest_engraver::Rest_engraver ()
 }
 
 void
-Rest_engraver::do_post_move_processing ()
+Rest_engraver::start_translation_timestep ()
 {
   rest_req_l_ =0;
 }
 
 void
-Rest_engraver::do_pre_move_processing ()
+Rest_engraver::stop_translation_timestep ()
 {
   if (rest_p_)
     {
-      typeset_element (rest_p_);
+      typeset_grob (rest_p_);
       rest_p_ =0;
     }
   if (dot_p_)
     {
-      typeset_element (dot_p_);
+      typeset_grob (dot_p_);
       dot_p_ =0;
     }    
 }
 
 void
-Rest_engraver::do_process_music ()
+Rest_engraver::deprecated_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
@@ -73,7 +73,7 @@ Rest_engraver::do_process_music ()
       
       int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();
       
-      rest_p_->set_elt_property ("duration-log",
+      rest_p_->set_grob_property ("duration-log",
 				 gh_int2scm (durlog));
 
       int dots =unsmob_duration (rest_req_l_->get_mus_property ("duration"))->dot_count ();
@@ -84,16 +84,16 @@ Rest_engraver::do_process_music ()
 
 	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
-	  dot_p_->set_elt_property ("dot-count", gh_int2scm (dots));
-	  announce_element (dot_p_,0);
+	  dot_p_->set_grob_property ("dot-count", gh_int2scm (dots));
+	  announce_grob (dot_p_,0);
 	}
 
-      announce_element (rest_p_, rest_req_l_);
+      announce_grob (rest_p_, rest_req_l_);
     }
 }
 
 bool
-Rest_engraver::do_try_music (Music *m)
+Rest_engraver::try_music (Music *m)
 {
   if (Rest_req *r = dynamic_cast <Rest_req *> (m))
     {

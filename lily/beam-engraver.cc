@@ -23,6 +23,9 @@ class Beam_engraver : public Engraver
 {
   Drul_array<Span_req*> reqs_drul_;
 
+  Link_array<Stem> stems_;
+  
+  
   Spanner *finished_beam_p_;
   Spanner *beam_p_;
   Span_req * prev_start_req_;
@@ -39,12 +42,13 @@ class Beam_engraver : public Engraver
   void typeset_beam ();
   void set_melisma (bool);
 protected:
-  virtual void do_pre_move_processing ();
-  virtual void do_post_move_processing ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
   virtual void do_removal_processing ();
-  virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  virtual void create_grobs ();
+  virtual void acknowledge_grob (Grob_info);
+  virtual bool try_music (Music*);
+  void deprecated_process_music ();
 public:
   Beam_engraver ();
   VIRTUAL_COPY_CONS (Translator);
@@ -62,7 +66,7 @@ Beam_engraver::Beam_engraver ()
 }
 
 bool
-Beam_engraver::do_try_music (Music *m)
+Beam_engraver::try_music (Music *m)
 {
   if (Span_req * c = dynamic_cast<Span_req*>(m))
     {
@@ -112,7 +116,7 @@ Beam_engraver::set_melisma (bool m)
 
 
 void
-Beam_engraver::do_process_music ()
+Beam_engraver::deprecated_process_music ()
 {
   if (reqs_drul_[STOP])
     {
@@ -127,7 +131,7 @@ Beam_engraver::do_process_music ()
     }
 
 
-  if (beam_p_  &&  !to_boolean (get_property ("weAreGraceContext")))
+  if (beam_p_ && !to_boolean (get_property ("weAreGraceContext")))
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();
@@ -164,8 +168,10 @@ Beam_engraver::do_process_music ()
       
       /* urg, must copy to Auto_beam_engraver too */
  
-      announce_element (beam_p_, reqs_drul_[START]);
+      announce_grob (beam_p_, reqs_drul_[START]);
     }
+  reqs_drul_[STOP] = 0;
+  reqs_drul_[START] = 0;
 }
 
 void
@@ -176,7 +182,7 @@ Beam_engraver::typeset_beam ()
       finished_beam_info_p_->beamify ();
       
       Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
-      typeset_element (finished_beam_p_);
+      typeset_grob (finished_beam_p_);
       delete finished_beam_info_p_;
       finished_beam_info_p_ =0;
       finished_beam_p_ = 0;
@@ -186,7 +192,7 @@ Beam_engraver::typeset_beam ()
 }
 
 void
-Beam_engraver::do_post_move_processing ()
+Beam_engraver::start_translation_timestep ()
 {
   reqs_drul_ [START] =0;
   if(beam_p_) {
@@ -199,7 +205,7 @@ Beam_engraver::do_post_move_processing ()
 }
 
 void
-Beam_engraver::do_pre_move_processing ()
+Beam_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
 }
@@ -223,7 +229,14 @@ Beam_engraver::do_removal_processing ()
 }
 
 void
-Beam_engraver::acknowledge_element (Score_element_info info)
+Beam_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+
+void
+Beam_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_p_)
     {
@@ -237,7 +250,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  if (Stem::beam_l (stem_l))
 	    return;
 
-	  bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
+	  bool stem_grace = stem_l->get_grob_property ("grace") == SCM_BOOL_T;
 
 	  SCM wg =get_property ("weAreGraceContext");
 	  bool wgb= to_boolean (wg);
@@ -269,7 +282,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	      */
 	    }
 
-	  stem_l->set_elt_property ("duration-log",
+	  stem_l->set_grob_property ("duration-log",
 				    gh_int2scm (durlog));
 	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
 	  beam_info_p_->add_stem (stem_location,

@@ -19,7 +19,7 @@ class Type_swallow_translator : public virtual Translator
 {
 protected:
   String swallow_str_;
-  bool do_try_music (Music*);
+  bool try_music (Music*);
 public:  
   VIRTUAL_COPY_CONS(Translator);
 };

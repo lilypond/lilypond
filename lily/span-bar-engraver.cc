@@ -32,8 +32,8 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Span_bar_engraver();
 protected:
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing();
+  virtual void acknowledge_grob (Grob_info);
+  virtual void stop_translation_timestep();
 
 };
 
@@ -46,7 +46,7 @@ Span_bar_engraver::Span_bar_engraver()
 
 
 void
-Span_bar_engraver::acknowledge_element (Score_element_info i)
+Span_bar_engraver::acknowledge_grob (Grob_info i)
 {
   int depth = i.origin_trans_l_arr (this).size();
   if (depth > 1
@@ -63,12 +63,12 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
-	  announce_element (spanbar_p_,0);
+	  announce_grob (spanbar_p_,0);
 	}
     }
 }
 void
-Span_bar_engraver::do_pre_move_processing()
+Span_bar_engraver::stop_translation_timestep()
 {
   if (spanbar_p_) 
     {
@@ -76,11 +76,11 @@ Span_bar_engraver::do_pre_move_processing()
 	Span_bar::add_bar( spanbar_p_,bar_l_arr_[i]);
 
       SCM vissym =ly_symbol2scm ("visibility-lambda");
-      SCM vis = bar_l_arr_[0]->get_elt_property (vissym);	  
-      if (scm_equal_p (spanbar_p_->get_elt_property (vissym), vis) != SCM_BOOL_T)
-	spanbar_p_->set_elt_property (vissym, vis);
+      SCM vis = bar_l_arr_[0]->get_grob_property (vissym);	  
+      if (scm_equal_p (spanbar_p_->get_grob_property (vissym), vis) != SCM_BOOL_T)
+	spanbar_p_->set_grob_property (vissym, vis);
 
-      typeset_element (spanbar_p_);
+      typeset_grob (spanbar_p_);
       spanbar_p_ =0;
     }
   bar_l_arr_.set_size (0);

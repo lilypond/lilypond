@@ -13,43 +13,43 @@
 #include "paper-def.hh"
 
 bool
-Staff_symbol_referencer::has_interface (Score_element*e)
+Staff_symbol_referencer::has_interface (Grob*e)
 {
-  return unsmob_element (e->get_elt_property ("staff-symbol"))
-    || gh_number_p (e->get_elt_property ("staff-position"));
+  return unsmob_element (e->get_grob_property ("staff-symbol"))
+    || gh_number_p (e->get_grob_property ("staff-position"));
 }
 
 int
-Staff_symbol_referencer::line_count (Score_element*me) 
+Staff_symbol_referencer::line_count (Grob*me) 
 {
-  Score_element *st = staff_symbol_l (me);
+  Grob *st = staff_symbol_l (me);
   return st  ?  Staff_symbol::line_count (st) : 0;
 }
 
 bool
-Staff_symbol_referencer::on_staffline (Score_element*me)
+Staff_symbol_referencer::on_staffline (Grob*me)
 {
   return on_staffline (me, (int) position_f (me));
 }
 
 bool
-Staff_symbol_referencer::on_staffline (Score_element*me, int pos)
+Staff_symbol_referencer::on_staffline (Grob*me, int pos)
 {
   int sz = line_count (me)-1;
   return ((pos + sz) % 2) == 0;
 }
 
-Score_element*
-Staff_symbol_referencer::staff_symbol_l (Score_element*me) 
+Grob*
+Staff_symbol_referencer::staff_symbol_l (Grob*me) 
 {
-  SCM st = me->get_elt_property ("staff-symbol");
+  SCM st = me->get_grob_property ("staff-symbol");
   return unsmob_element(st);
 }
 
 Real
-Staff_symbol_referencer::staff_space (Score_element*me) 
+Staff_symbol_referencer::staff_space (Grob*me) 
 {
-  Score_element * st = staff_symbol_l (me);
+  Grob * st = staff_symbol_l (me);
   if (st)
     return Staff_symbol::staff_space (st);
 
@@ -59,11 +59,11 @@ Staff_symbol_referencer::staff_space (Score_element*me)
 
 
 Real
-Staff_symbol_referencer::position_f (Score_element*me) 
+Staff_symbol_referencer::position_f (Grob*me) 
 {
   Real p =0.0;
-  Score_element * st = staff_symbol_l (me);
-  Score_element * c = st ? me->common_refpoint (st, Y_AXIS) : 0;
+  Grob * st = staff_symbol_l (me);
+  Grob * c = st ? me->common_refpoint (st, Y_AXIS) : 0;
   if (st && c)
     {
       Real y = me->relative_coordinate (c, Y_AXIS)
@@ -73,7 +73,7 @@ Staff_symbol_referencer::position_f (Score_element*me)
     }
   else
     {
-      SCM pos = me->get_elt_property ("staff-position");
+      SCM pos = me->get_grob_property ("staff-position");
       if (gh_number_p (pos))
 	return gh_scm2double (pos);
     }
@@ -90,10 +90,10 @@ MAKE_SCHEME_CALLBACK(Staff_symbol_referencer,callback,2);
 SCM
 Staff_symbol_referencer::callback (SCM element_smob, SCM )
 {
-  Score_element *me = unsmob_element (element_smob);
+  Grob *me = unsmob_element (element_smob);
 
   
-  SCM pos = me->get_elt_property ("staff-position");
+  SCM pos = me->get_grob_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
     {
@@ -101,7 +101,7 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM )
       off = gh_scm2double (pos) * space/2.0;
     }
 
-  me->set_elt_property ("staff-position", gh_double2scm (0.0));
+  me->set_grob_property ("staff-position", gh_double2scm (0.0));
 
   return gh_double2scm (off);
 }
@@ -122,17 +122,17 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM )
   
  */
 void
-Staff_symbol_referencer::set_position (Score_element*me,Real p)
+Staff_symbol_referencer::set_position (Grob*me,Real p)
 {
-  Score_element * st = staff_symbol_l (me);
+  Grob * st = staff_symbol_l (me);
   if (st && me->common_refpoint(st, Y_AXIS))
     {
       Real oldpos = position_f (me);
-      me->set_elt_property ("staff-position", gh_double2scm (p - oldpos));
+      me->set_grob_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else
     {
-      me->set_elt_property ("staff-position",
+      me->set_grob_property ("staff-position",
 			    gh_double2scm (p));
 
     }
@@ -147,25 +147,25 @@ Staff_symbol_referencer::set_position (Score_element*me,Real p)
   half  of the height, in staff space.
  */
 Real
-Staff_symbol_referencer::staff_radius (Score_element*me)
+Staff_symbol_referencer::staff_radius (Grob*me)
 {
   return  (line_count (me) -1) / 2;
 }
 
 
 int
-compare_position (Score_element *const  &a, Score_element * const &b)
+compare_position (Grob *const  &a, Grob * const &b)
 {
-  return sign (Staff_symbol_referencer::position_f((Score_element*)a) - 
-    Staff_symbol_referencer::position_f((Score_element*)b));
+  return sign (Staff_symbol_referencer::position_f((Grob*)a) - 
+    Staff_symbol_referencer::position_f((Grob*)b));
 }
 
 
 void
-Staff_symbol_referencer::set_interface (Score_element * e)
+Staff_symbol_referencer::set_interface (Grob * e)
 {
-  if (!gh_number_p (e->get_elt_property ("staff-position")))
-      e->set_elt_property ("staff-position", gh_double2scm (0.0));
+  if (!gh_number_p (e->get_grob_property ("staff-position")))
+      e->set_grob_property ("staff-position", gh_double2scm (0.0));
 
   e->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }

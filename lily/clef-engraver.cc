@@ -33,11 +33,12 @@ public:
   Direction octave_dir_;
 
 protected:
-  virtual void do_process_music ();
-  virtual void do_pre_move_processing ();
+  void deprecated_process_music ();
+  virtual void stop_translation_timestep ();
   virtual void do_creation_processing ();
-  virtual void do_post_move_processing ();
-  virtual void acknowledge_element (Score_element_info);
+  virtual void start_translation_timestep ();
+  virtual void create_grobs ();
+  virtual void acknowledge_grob (Grob_info);
 
 private:
   Item * clef_p_;
@@ -111,8 +112,9 @@ Clef_engraver::set_glyph ()
   ie. a breakpoint) 
   */
 void
-Clef_engraver::acknowledge_element (Score_element_info info)
+Clef_engraver::acknowledge_grob (Grob_info info)
 {
+  deprecated_process_music ();
   Item * item =dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
@@ -138,7 +140,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 	    to know c0-pos for this.  (?)
 	  */
 
-	  item->set_elt_property ("c0-position", get_property ("centralCPosition"));
+	  item->set_grob_property ("c0-position", get_property ("centralCPosition"));
 	}
     } 
 }
@@ -156,7 +158,7 @@ Clef_engraver::create_clef ()
   if (!clef_p_)
     {
       Item *c= new Item (get_property ("Clef"));
-      announce_element (c, 0);
+      announce_grob (c, 0);
 
       Staff_symbol_referencer::set_interface (c);
       
@@ -175,20 +177,27 @@ Clef_engraver::create_clef ()
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);
 
-      g->set_elt_property ("direction", gh_int2scm (sign (gh_scm2int (oct))));
+      g->set_grob_property ("direction", gh_int2scm (sign (gh_scm2int (oct))));
       octavate_p_ = g;
-      announce_element (octavate_p_, 0);
+      announce_grob (octavate_p_, 0);
     }
 }
 
 void
-Clef_engraver::do_process_music ()
+Clef_engraver::create_grobs ()
+{
+  deprecated_process_music ();
+}
+
+void
+Clef_engraver::deprecated_process_music ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");
   SCM octavation = get_property ("clefOctavation");
-  
-  if (scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
+
+  if (clefpos == SCM_EOL
+      || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F)    
     {
@@ -197,40 +206,40 @@ Clef_engraver::do_process_music ()
 	
       create_clef ();
 
-      clef_p_->set_elt_property ("non-default", SCM_BOOL_T);
+      clef_p_->set_grob_property ("non-default", SCM_BOOL_T);
     }
 }
 
 void
-Clef_engraver::do_pre_move_processing ()
+Clef_engraver::stop_translation_timestep ()
 {
   if (clef_p_)
     {
       SCM vis = 0; 
-      if (to_boolean (clef_p_->get_elt_property ("non-default")))
+      if (to_boolean (clef_p_->get_grob_property ("non-default")))
 	{
 	  vis = get_property ("explicitClefVisibility");
 	}
 
       if (vis)
 	{
-	  clef_p_->set_elt_property ("visibility-lambda", vis);
+	  clef_p_->set_grob_property ("visibility-lambda", vis);
 	  if (octavate_p_)
-	    octavate_p_->set_elt_property ("visibility-lambda", vis);
+	    octavate_p_->set_grob_property ("visibility-lambda", vis);
 	}
       
-      typeset_element (clef_p_);
+      typeset_grob (clef_p_);
       clef_p_ =0;
 
       if (octavate_p_)
-	typeset_element (octavate_p_);
+	typeset_grob (octavate_p_);
 
       octavate_p_ = 0;
     }
 }
 
 void
-Clef_engraver::do_post_move_processing ()
+Clef_engraver::start_translation_timestep ()
 {
 }
 

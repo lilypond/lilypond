@@ -10,7 +10,7 @@
 #include "lily-guile.hh"
 #include "engraver.hh"
 #include "dictionary.hh"
-#include "score-element.hh"
+#include "grob.hh"
 #include "scm-hash.hh"
 #include "translator-group.hh"
 
@@ -24,10 +24,10 @@ class Property_engraver : public Engraver
     UGH. Junk Dictionary
   */
   Scheme_hash_table *prop_dict_;	// junkme
-  void apply_properties (SCM, Score_element*, Translator_group *origin);
+  void apply_properties (SCM, Grob*, Translator_group *origin);
 
 protected:
-  virtual void acknowledge_element (Score_element_info ei);
+  virtual void acknowledge_grob (Grob_info ei);
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
 public:
@@ -68,9 +68,11 @@ Property_engraver::do_creation_processing ()
 }
 
 void
-Property_engraver::acknowledge_element (Score_element_info i)
+Property_engraver::acknowledge_grob (Grob_info i)
 {
-  SCM ifs = i.elem_l_->get_elt_property ("interfaces");
+  /////////
+  return;
+  SCM ifs = i.elem_l_->get_grob_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
     {      
@@ -88,7 +90,7 @@ Property_engraver::acknowledge_element (Score_element_info i)
 
 
 void
-Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*origin)
+Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 {
   for (; gh_pair_p (p); p = gh_cdr (p))
     {
@@ -114,7 +116,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
 	{
-	  e->set_elt_property (elt_prop_sym, val);
+	  e->set_grob_property (elt_prop_sym, val);
 
 	  SCM errport = scm_current_error_port ();
 	  scm_display (prop_sym, errport);
@@ -123,7 +125,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	  scm_puts (origin->type_str_.ch_C(), errport);
 	  scm_puts (".", errport);
 	  
-	  SCM name = e->get_elt_property ("meta");
+	  SCM name = e->get_grob_property ("meta");
 	  name = scm_assoc (ly_symbol2scm ("name"), name);
 	  scm_display (gh_cdr(name), errport);
 	  scm_puts(" \\push #'",errport);

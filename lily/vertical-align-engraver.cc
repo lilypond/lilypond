@@ -16,12 +16,12 @@
 class Vertical_align_engraver : public Engraver
 {
   Spanner * valign_p_;
-  bool qualifies_b (Score_element_info) const;  
+  bool qualifies_b (Grob_info) const;  
 public:
   VIRTUAL_COPY_CONS(Translator);
   Vertical_align_engraver();
 protected:
-  virtual void acknowledge_element (Score_element_info);
+  virtual void acknowledge_grob (Grob_info);
   virtual void do_creation_processing();
   virtual void do_removal_processing();
 };
@@ -36,20 +36,20 @@ Vertical_align_engraver::do_creation_processing()
 {
   valign_p_ =new Spanner (get_property ("VerticalAlignment"));
   valign_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
-  announce_element (valign_p_ , 0);
+  announce_grob (valign_p_ , 0);
 }
 
 void
 Vertical_align_engraver::do_removal_processing()
 {
   valign_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
-  typeset_element (valign_p_);
+  typeset_grob (valign_p_);
   valign_p_ =0;
 }
 
 
 bool
-Vertical_align_engraver::qualifies_b (Score_element_info i) const
+Vertical_align_engraver::qualifies_b (Grob_info i) const
 {
   int sz = i.origin_trans_l_arr ((Translator*)this).size()  ;
 
@@ -58,7 +58,7 @@ Vertical_align_engraver::qualifies_b (Score_element_info i) const
 }
 
 void
-Vertical_align_engraver::acknowledge_element (Score_element_info i)
+Vertical_align_engraver::acknowledge_grob (Grob_info i)
 {
   if (qualifies_b (i))
     {
