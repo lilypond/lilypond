@@ -11,8 +11,9 @@ is produced without any further intervention.  For example, something
 like this:
 
 
-@c newlines in intertext choke on lilypond.org? 
-@lilypond[fragment,verbatim, relative 1, intertext="produces this:"]
+@lilypond[fragment,verbatim, relative 1, intertext="produces this:
+
+"]
 \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 

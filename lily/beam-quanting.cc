@@ -221,7 +221,7 @@ Beam::quanting (SCM smob)
 				     beam_count, ldir, rdir); 
       }
 
-  ; /* silly gdb thinks best_idx is inside for loop. */
+  //  ; /* silly gdb thinks best_idx is inside for loop. */
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
@@ -233,7 +233,7 @@ Beam::quanting (SCM smob)
 				 qscores[i].yl, qscores[i].yr);
       }
 
-  ; /* silly gdb thinks best_idx is inside for loop. */
+  //  ; /* silly gdb thinks best_idx is inside for loop. */
   int best_idx = best_quant_score_idx (qscores);
   me->set_grob_property ("positions",
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
@@ -252,10 +252,10 @@ Beam::quanting (SCM smob)
 }
 
 Real
-Beam::score_stem_lengths (Link_array<Grob>stems,
-			  Array<Stem_info> stem_infos,
-			  Array<Real> base_stem_ys,
-			  Array<Real> stem_xs,
+Beam::score_stem_lengths (Link_array<Grob> const &stems,
+			  Array<Stem_info> const &stem_infos,
+			  Array<Real> const &base_stem_ys,
+			  Array<Real> const &stem_xs,
 			  Real xl, Real xr, 
 			  bool knee, 
 			  Real yl, Real yr)
@@ -294,11 +294,14 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 
       count[d] ++;
     }
-  
-  if(count[LEFT])
-    score[LEFT] /= count[LEFT];
-  if(count[RIGHT])
-    score[RIGHT] /= count[RIGHT];
+
+  Direction d = DOWN;
+  do
+    { 
+      if(count[d])
+	score[d] /= count[d];
+    }
+  while (flip (&d) != DOWN);
 
   return score[LEFT]+score[RIGHT];
 }

@@ -1,5 +1,11 @@
 2003-06-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/beam-quanting-horizontal.ly: update texidoc
+
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	beamed-extreme-minimum-free-lengths to 1.25 for 32nd beams.
+	This fixes 32nd beams for noteheads in spaces quants.
+
 	* scripts/lilypond-book.py (process_lilypond_blocks): opps.
 
 2003-06-15  Heikki Junes  <hjunes@cc.hut.fi>

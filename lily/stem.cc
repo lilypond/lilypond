@@ -834,20 +834,18 @@ Stem::calc_stem_info (Grob *me)
 
 
   /* Simple standard stem length */
+  SCM lengths = me->get_grob_property ("beamed-lengths");
   Real ideal_length =
-    gh_scm2double (robust_list_ref
-		   (beam_count - 1,
-		    me->get_grob_property ("beamed-lengths")))
+    gh_scm2double (robust_list_ref (beam_count - 1,lengths))
+		
     * staff_space
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
-
   
   /* Condition: sane minimum free stem length (chord to beams) */
+  lengths = me->get_grob_property ("beamed-minimum-free-lengths");
   Real ideal_minimum_free =
-    gh_scm2double (robust_list_ref
-		   (beam_count - 1,
-		    me->get_grob_property ("beamed-minimum-free-lengths")))
+    gh_scm2double (robust_list_ref (beam_count - 1, lengths))
     * staff_space;
   
 

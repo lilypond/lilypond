@@ -46,10 +46,14 @@ public:
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));  
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
   static Real score_slopes_dy (Real, Real, Real, Real, bool);
-  static Real score_stem_lengths (Link_array<Grob>,
-				  Array<Stem_info>,
-				  Array<Real>, Array<Real>,
-				  Real, Real, bool, Real, Real);
+
+  static Real score_stem_lengths (Link_array<Grob> const &stems,
+				  Array<Stem_info> const &stem_infos,
+				  Array<Real> const &base_stem_ys,
+				  Array<Real> const &stem_xs,
+				  Real xl, Real xr, 
+				  bool knee, 
+				  Real yl, Real yr);
   static Real score_forbidden_quants (Real, Real,
 				      Real, Real, Real, Real,
 				      int, Direction, Direction);
