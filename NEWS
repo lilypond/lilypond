@@ -1,18 +1,55 @@
-pl 2.uu1
-       - solaris 2.6 compile/make website fixes.
-       - rm'd WWW.make
-       - stepmake .43
-       - pcnov095.win.tue.nl -> ftp.cs.uu.nl
- 
-pl 2.hwn1
-      - mi2mu naming of track output
-      - bf: do key restore sign only once
-      - ly2dvi32 preliminary version (JBR)
- 
+pl 4
+pl 3.mb2
+	- Changed text script alignment: center -> left
+ 	- TeX commands counts as one character when calculating
+	  the length of a Text_def
+
+pl 3.jbr2
+         - Documentation/topdocs/index.yo: Added link to NT dist page
+         - Documentation/ntweb/: Added Makefile and index.yo to build the
+           NT dist page
+
+pl 3.hwn1
+	- stepmake hacking
+
+pl 3.uu1
+	- stepmake MAKEFILES -> STEPMAKE_TEMPLATES
+	- count \texcommands in tex string
+
+
+pl 3.jcn1
+       - bf: website: empty toplevel readme's
+       - bf: xs4all (again?)
+       - can't administer ftp site now: put patch into website
+
+
+pl 3.jbr1
+	- stepmake/stepmake/Executable_targets: UNIX cross-compile doesn't
+	  work with $(DOTEXE) on source of install command.
+	- stepmake/Generic_targets: creating multiple dirs with mkdir 
+	  requires -p option
+	- scripts/ly2dvi32.py: General and Winnt specific fixes
+
+
 *********
-pl 2
+pl 3
+
+pl 2.uu1
+        - solaris 2.6 compile/make website fixes.
+        - rm'd WWW.make
+        - stepmake .43
+        - pcnov095.win.tue.nl -> ftp.cs.uu.nl
+  
+pl 2.hwn1
+	- mi2mu naming of track output
+	- bf: do key restore sign only once
+	- ly2dvi32 preliminary version (JBR)
 	- bf index.html link
 	- bf mudela-book.py
+
+
+**********
+pl 2
 	- scalar compile stuff
 	- bf install directory
 	- YODL note
@@ -22,11 +59,6 @@ pl 2
 	- make check target
 	- dist AFMs and manpages
 	- split up mudela.yo in glossary.yo, tutorial.yo and refman.yo
-
-pl 1.jcn2
-	- renamed -alto -> viola
-	- bf: avant-gardish six preludes
-	- bf: ly2dvi warnings
 
 pl 1.jcn1
 	- www.digicash.com www.xs4all.nl
