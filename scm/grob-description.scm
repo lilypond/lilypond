@@ -178,7 +178,8 @@
 	))
 	
 	(DynamicLineSpanner . (
-		(axes . ( 1))
+		(axes . (1))
+		(direction . -1)
 		(padding . 0.6)
 		(minimum-space . 1.2)
 		(meta . ,(grob-description "DynamicLineSpanner" dynamic-interface axis-group-interface side-position-interface))
