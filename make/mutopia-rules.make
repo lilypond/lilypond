@@ -13,9 +13,10 @@ $(outdir)/%.ly.txt: %.abc
 $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
-$(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps: $(outdir)/%.ly
 # hmm. notdir builds srcdir builds? 
-	cd $(outdir); $(LILYPOND) --pdf --ps --png $(notdir $<)
+$(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps: $(outdir)/%.ly
+	cd $(outdir); $(LILYPOND) --pdf --ps --png -I $(shell pwd)/ $(notdir $<)
+	touch $(outdir)/$(basename $(notdir $<)).png
 
 $(outdir)/%.ly: %.ly
 	cp $< $@ 

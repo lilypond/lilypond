@@ -104,7 +104,7 @@ Staff_symbol::line_count (Grob*me)
 Real
 Staff_symbol::staff_space (Grob*me)
 {
-  return robust_scm2double ( me->get_property ("staff-space"), 1.0);
+  return robust_scm2double (me->get_property ("staff-space"), 1.0);
 }
 
 Real

@@ -248,5 +248,5 @@ Ledger_line_spanner::print (SCM smob)
 
 ADD_INTERFACE (Ledger_line_spanner,
 	       "ledger-line-interface",
-	       "This spanner draws the ledger lines of a staff on note heads. ",
+	       "This spanner draws the ledger lines of a staff, for note heads that stick out. ",
 	       "note-heads thickness gap length minimum-length")

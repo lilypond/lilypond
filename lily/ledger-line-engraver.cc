@@ -56,7 +56,7 @@ Ledger_line_engraver::acknowledge_grob (Grob_info s)
 				     s.grob_);
 }
 ENTER_DESCRIPTION (Ledger_line_engraver,
-		   "Creates spanner to draw ledger lines",
+		   "Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		   /* creats*/       "LedgerLineSpanner",
 		   /* accepts */     "",
 		   /* acks  */      "custos-interface note-head-interface", // ledgered-interface? 
