@@ -235,7 +235,7 @@ Pitch::down_to (int notename)
 LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
 	   2, 0, 0, (SCM p, SCM delta),
 	   "Transpose @var{p} by the amount @var{delta}, "
-	   "where @var{delta} is the pitch that middle C is transposed to.")
+	   "where @var{delta} is relative to middle C.")
 {
   Pitch* t = unsmob_pitch (p);
   Pitch *d = unsmob_pitch (delta);
@@ -318,7 +318,7 @@ LY_DEFINE (pitch_steps, "ly:pitch-steps", 1, 0, 0,
 
 LY_DEFINE (pitch_octave, "ly:pitch-octave",
 	   1, 0, 0, (SCM pp),
-	   "extract the octave from pitch @var{p}.")
+	   "Extract the octave from pitch @var{p}.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -328,7 +328,7 @@ LY_DEFINE (pitch_octave, "ly:pitch-octave",
 
 LY_DEFINE (pitch_alteration, "ly:pitch-alteration",
 	   1, 0, 0, (SCM pp),
-	   "extract the alteration from pitch  @var{p}.")
+	   "Extract the alteration from pitch  @var{p}.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -339,7 +339,7 @@ LY_DEFINE (pitch_alteration, "ly:pitch-alteration",
 
 LY_DEFINE (pitch_notename, "ly:pitch-notename",
 	   1, 0, 0, (SCM pp),
-	   "extract the note name from pitch  @var{pp}.")
+	   "Extract the note name from pitch  @var{pp}.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -349,7 +349,7 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
 
 LY_DEFINE (ly_pitch_quartertones,  "ly:pitch-quartertones",
 	   1, 0, 0, (SCM pp),
-	   "calculate the number of semitones of @var{p} from middle C.")
+	   "Calculate the number of quarter tones of @var{p} from middle C.")
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
@@ -369,8 +369,7 @@ LY_DEFINE (ly_pitch_semitones,  "ly:pitch-semitones",
 
 LY_DEFINE (pitch_less, "ly:pitch<?",
 	   2, 0, 0, (SCM p1, SCM p2),
-	   "Is @var{p1} lower than @var{p2}? "
-	   "This uses lexicographic ordening.")
+	   "Is @var{p1} lexicographically smaller than @var{p2}?")
 {
   Pitch *a = unsmob_pitch (p1);
   Pitch *b = unsmob_pitch (p2);

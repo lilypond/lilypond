@@ -80,7 +80,7 @@ Staff_symbol_referencer::get_position (Grob *me)
 
 LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 	   1, 0,0, (SCM sg),
-	   "Return the Y-position of this grob relative to the staff.")
+	   "Return the Y-position of @var{sg} relative to the staff.")
 {
   Grob *g = unsmob_grob (sg);
 

@@ -107,7 +107,7 @@ Custos_engraver::process_acknowledged_grobs ()
 	  Item *c = create_custos ();
 
 	  int p = pitches_[i].steps ();
-	  SCM c0 = get_property ("centralCPosition");
+	  SCM c0 = get_property ("middleCPosition");
 	  if (gh_number_p (c0))
 	    p += gh_scm2int (c0);
 

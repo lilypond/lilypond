@@ -63,7 +63,7 @@
     ("petrucci_f" . ("clefs-petrucci_f" 2 0))
     ("petrucci_g" . ("clefs-petrucci_g" -2 0))))
 
-;; "an alist mapping GLYPHNAME to the position of the central C for
+;; "an alist mapping GLYPHNAME to the position of the middle C for
 ;; that symbol"
 (define c0-pitch-alist
   '(("clefs-G" . -4)

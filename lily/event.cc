@@ -90,6 +90,7 @@ Event::Event ()
 }
 
 ADD_MUSIC (Event);
+
 LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
 	  (SCM mus),
 	  "Extract the duration field from @var{mus}, and return the length.")
@@ -113,13 +114,13 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
 
 
 LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
-	  (SCM mus, SCM factor),
-	  "Extract the duration field from @var{mus}, and compress it.")
+	  (SCM mus, SCM fact),
+	  "Compress @var{mus} by factor @var{fact}, which is a @code{Moment}.")
 {
   Music* m =   unsmob_music (mus);
-  Moment * f = unsmob_moment (factor);
+  Moment * f = unsmob_moment (fact);
   SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
-  SCM_ASSERT_TYPE (f, factor, SCM_ARG2, __FUNCTION__, "Moment");
+  SCM_ASSERT_TYPE (f, fact, SCM_ARG2, __FUNCTION__, "Moment");
   
   Duration *d = unsmob_duration (m->get_property ("duration"));
   if (d)
@@ -137,11 +138,11 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
   TODO: this should use ly:pitch. 
  */
 LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
-	  2, 0,0, (SCM l, SCM pitch),
-	  "Make a new key alist of @var{l} transposed by pitch @var{pitch}")
+	  2, 0, 0, (SCM l, SCM pit),
+	  "Make a new key alist of @var{l} transposed by pitch @var{pit}")
 {
   SCM newlist = SCM_EOL;
-  Pitch *p = unsmob_pitch (pitch);
+  Pitch *p = unsmob_pitch (pit);
   
   for (SCM s = l; gh_pair_p (s); s = ly_cdr (s))
     {

@@ -35,7 +35,7 @@ Grob_pq_engraver::initialize ()
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
 	  2, 0 ,0, (SCM a, SCM b), 
-	  "Compare 2 Grob PQ entries. Internal")
+	  "Compare 2 grob priority queue entries. Internal")
 {
   if (Moment::compare (*unsmob_moment (gh_car (a)),
 		       *unsmob_moment (gh_car (b))) < 0)
@@ -101,19 +101,14 @@ Grob_pq_engraver::start_translation_timestep ()
   while (gh_pair_p (busy) && *unsmob_moment (gh_caar (busy)) < now)
     {
       /*
-	Todo: do something sensible. The grob-pq-engraver is not water
-	tight, and stuff like tupletSpannerDuration confuses it.
+	The grob-pq-engraver is not water tight, and stuff like
+	tupletSpannerDuration confuses it.
        */
-      programming_error (_f ("Skipped something?\nGrob %s ended before "
-			    "I expected it to end.",
-			    unsmob_grob (gh_cdar (busy))->name ().to_str0()));
-      
       busy = gh_cdr (busy);
     }
 
   if (start_busy != busy)
     daddy_context_->set_property ("busyGrobs", busy);
-
 }
 
 

@@ -1,7 +1,11 @@
 \version "2.1.29"
-\header { texidoc = "There are both long and short intstrument names.
+\header {
+
+    texidoc = "There are both long and short intstrument names.
 Engraving instrument names should not be confused by the
-multimeasure rests. " }
+multimeasure rests. "
+
+      }
 % (there was an interesting bug in 1.3.98)
 \score{
 	\context Staff <<

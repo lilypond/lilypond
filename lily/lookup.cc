@@ -729,7 +729,7 @@ LY_DEFINE (ly_filled_box ,"ly:round-filled-box",
 	  3, 0, 0,
 	  (SCM xext, SCM yext, SCM blot),
 	  "Make a @code{Stencil} "
-	  " that prints a filled-box of dimensions @var{xext}, "
+	  "that prints a black box of dimensions @var{xext}, "
 	  "@var{yext} and roundness @var{blot}."
 	  )
 {

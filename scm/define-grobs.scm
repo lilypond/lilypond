@@ -276,9 +276,7 @@
 	(print-function . ,Custos::print)
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
-	(neutral-position . 0)
 	(neutral-direction . -1)
-	(adjust-if-on-staffline . #t)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(space-alist . (
 			(first-note . (minimum-fixed-space . 0.0))

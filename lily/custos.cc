@@ -48,16 +48,9 @@ Custos::print (SCM smob)
    * staffline or not, or shall we use individual font characters
    * for both cases?
    */
-  bool adjust
-    = to_boolean (me->get_property ("adjust-if-on-staffline"));
+  bool adjust = true; 
 
-  int neutral_pos;
-  SCM ntr_pos = me->get_property ("neutral-position");
-  if (gh_number_p (ntr_pos))
-    neutral_pos = gh_scm2int (ntr_pos);
-  else
-    neutral_pos = 0;
-
+  int neutral_pos = 0;
   Direction neutral_direction =
     to_dir (me->get_property ("neutral-direction"));
 
@@ -110,4 +103,4 @@ Custos::print (SCM smob)
 
 ADD_INTERFACE (Custos, "custos-interface",
   "A custos object.",
-  "style adjust-if-on-staffline neutral-direction neutral-position");
+  "style neutral-direction");

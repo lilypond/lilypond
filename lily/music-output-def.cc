@@ -126,7 +126,7 @@ Music_output_def::lookup_variable (SCM sym) const
 LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",
 	   2, 0,0, (SCM pap, SCM sym),
 	   "Lookup @var{sym} in @var{pap}. "
-	   "Return the value or ' () if undefined.")
+	   "Return the value or @code{'()} if undefined.")
 {
   Music_output_def *op = unsmob_music_output_def (pap);
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
@@ -141,7 +141,7 @@ LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 	   1, 0,0, (SCM def),
-	   "Get the scope inside @var{def}.")
+	   "Get the variable scope inside @var{def}.")
 {
   Music_output_def *op = unsmob_music_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");

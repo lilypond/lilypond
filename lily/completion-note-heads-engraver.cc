@@ -240,7 +240,7 @@ Completion_heads_engraver::process_music ()
       Pitch *pit =unsmob_pitch (req->get_property ("pitch"));
 
       int pos = pit->steps ();
-      SCM c0 = get_property ("centralCPosition");
+      SCM c0 = get_property ("middleCPosition");
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
 
@@ -327,5 +327,5 @@ ENTER_DESCRIPTION (Completion_heads_engraver,
 /* creats*/       "NoteHead Dots Tie",
 /* accepts */     "busy-playing-event note-event",
 /* acks  */      "",
-/* reads */       "centralCPosition measurePosition measureLength",
+/* reads */       "middleCPosition measurePosition measureLength",
 /* write */       "");

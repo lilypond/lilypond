@@ -104,8 +104,8 @@ gulp_file_to_string (String fn)
 
 LY_DEFINE (ly_gulp_file, "ly:gulp-file", 1,0, 0,
 	  (SCM name),
-	  "Read the file named @var{name}, and return its contents in a string. The "
-" file is looked up using the lilypond search path.")
+	  "Read the file @var{name}, and return its contents in a string. The "
+" file is looked up using the search path.")
 {
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
@@ -158,8 +158,9 @@ LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
 }
 
 LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
-	  "type predicate. A direction is a -1, 0 or 1, where -1 represents "
-	  "left or down and 1 represents right or up. ")
+	  "type predicate. A direction is @code{-1}, @code{0} or "
+	   "@code{1}, where @code{-1} represents "
+	  "left or down and @code{1} represents right or up.")
 {
   if (gh_number_p (s))
     {

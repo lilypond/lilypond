@@ -67,7 +67,7 @@ Key_engraver::create_key (bool def)
       item_ = make_item ("KeySignature");
 
       item_->set_property ("c0-position",
-				get_property ("centralCPosition"));
+			   get_property ("middleCPosition"));
       
       // todo: put this in basic props.
       item_->set_property ("old-accidentals", get_property ("lastKeySignature"));

@@ -195,5 +195,5 @@ ENTER_DESCRIPTION (Clef_engraver,
 /* creats*/       "Clef OctavateEight",
 /* accepts */     "",
 /* acks  */      "bar-line-interface",
-/* reads */       "clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility",
+/* reads */       "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility",
 /* write */       "");

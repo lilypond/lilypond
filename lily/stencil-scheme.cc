@@ -10,6 +10,10 @@
 #include "stencil.hh"
 
 
+/*
+  UMGH. junkme!
+  
+ */
 LY_DEFINE (ly_stencil_set_extent_x,"ly:stencil-set-extent!",
 	   3, 0, 0, (SCM stil, SCM axis, SCM np),
 	   "Set the extent of @var{stil} "
@@ -68,7 +72,7 @@ LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
 }
 
 LY_DEFINE (ly_stencil_get_extent,
-	   "ly:stencil-get-extent", 2 , 0, 0,  (SCM stil, SCM axis),
+	   "ly:stencil-extent", 2 , 0, 0,  (SCM stil, SCM axis),
 	   "Return a pair of numbers signifying the extent of @var{stil} in "
 	   "@var{axis} direction (0 or 1 for x and y axis respectively).")
 {
