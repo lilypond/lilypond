@@ -16,7 +16,7 @@ struct Score {
     IPointerList<Score_column*> cols_;
     PScore *pscore_p_;
 
-    String define_spot_str_;
+    const char *defined_ch_c_l_;
     int errorlevel_i_;
     
     Assoc<String, Moment> markers_assoc_;
