@@ -3527,11 +3527,40 @@ adds a box around the bar numbers:
 }
 @end lilypond
 
-By replacing @code{#(every-nth-bar-number-visible 5)} with
-@code{#(modulo-bar-number-visible 4 1)} in the example above, 
-every fourth bar counting from the first bar will be numbered. 
-To number all bars use @code{#(default-bar-number-visibility)}.  
-The first bar, however, is not numbered.
+If you would like the bar numbers to appear at regular intervals, but
+not starting from measure zero, you can use the context function,
+@code{set-bar-number-visibility}, to automatically set
+@code{barNumberVisibility} so that the bar numbers appear at regular
+intervals, starting from the @code{\applycontext}:
+
+@example
+resetBarnum = \context Score \applycontext
+  #(set-bar-number-visibility 4)
+...
+\property Score.BarNumber \override #'break-visibility =
+  #end-of-line-invisible
+\mark "A" \resetBarnum
+\repeat unfold 10 c1
+\mark \default \resetBarnum
+\repeat unfold 8 c
+@end example
+@lilypond[noindent,noquote]
+resetBarnum = \context Score \applycontext
+  #(set-bar-number-visibility 4)
+\score {
+    <
+        \notes \transpose c c'' {
+	    \property Score.BarNumber \override #'break-visibility =#end-of-line-invisible
+	    \property Score.RehearsalMark \override #'padding = #2.5
+	    \mark "A" \resetBarnum
+	    \repeat unfold 10 c1
+	    \mark \default \resetBarnum
+	    \repeat unfold 8 c
+            \bar "|."
+        }
+    >
+}
+@end lilypond
 
 See also @seeinternals{BarNumber}.
 

@@ -209,6 +209,11 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public ((modulo-bar-number-visible n m) barnum) (and (> barnum 1) (= m (modulo barnum n))))
 
+(define-public ((set-bar-number-visibility n) tr)
+  (let* ((bn (ly:get-context-property tr 'currentBarNumber)))
+   (ly:set-context-property tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n))))
+)
+
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 
 ;; See documentation of Item::visibility_lambda_
