@@ -111,6 +111,8 @@ Mark_engraver::try_music (Music* r)
 
   TODO: make the increment function in Scheme.
 
+
+  TODO: junk the number type for rehearsalMark
 */
 void
 Mark_engraver::process_music ()
@@ -186,7 +188,8 @@ Mark_engraver::process_music ()
 	    text_->set_grob_property ("font-family",  family);
 	}
 
-      daddy_trans_->set_property ("rehearsalMark", m);
+      if (gh_number_p (m) || gh_string_p (m))
+	daddy_trans_->set_property ("rehearsalMark", m);
     }
 }
 

@@ -1,5 +1,8 @@
 2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* lily/mark-engraver.cc (process_music): only set rehearsalMark if
+	it is a string or number.
+
 	* scm/output-lib.scm (note-head-style->attachment-coordinates):
 	change calling convention of stem-attachment function. 
 
