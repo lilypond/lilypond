@@ -143,11 +143,12 @@ Sequential_music_iterator::next ()
 void
 Sequential_music_iterator::do_process (Moment until)
 {
+#if 1
   return;
-#if 0
+#else
   if (ok ())
     {
-      while (1) 
+      //      while (1) 
 	{
 	  Moment local_until = until - here_mom_;
 	  while (iter_p_->ok ()) 

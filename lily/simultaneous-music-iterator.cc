@@ -55,10 +55,9 @@ SCM
 Simultaneous_music_iterator::get_music ()
 {
   SCM s = SCM_EOL;
-  //  SCM t = report_to_l ()-self_scm ();
   for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
     {
-      scm_cons (p->car_->get_music (), s);
+      s = gh_append2 (p->car_->get_music (), s);
     }
   return s;
 }
