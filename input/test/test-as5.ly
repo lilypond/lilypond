@@ -3,7 +3,9 @@
 \score {
 	\notes\relative c''{
 		\time 4/4;
-		g1 g2 g4. g8 |
+		g1 a b c 
+		g2 a b c
+		g4 a b c
 	}
 	\paper {
 		\paper_as_five

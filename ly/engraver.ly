@@ -170,7 +170,7 @@ GraceContext=\translator {
 	
 	stemLength = #6.0
 	verticalDirection = \up ;
-	graceAccidentalSpace= 1.5 * \interline;
+	graceAccidentalSpace= 1.5 * \staffspace;
 };
 
 \translator{\GraceContext}

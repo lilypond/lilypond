@@ -137,6 +137,9 @@ Options:
 ;; 
 (define line-char "-")
 
+;; 
+(define half-char-kludge #f)
+
 ;; the plotting fields
 (define canvas 0)
 ;; urg: 
@@ -263,9 +266,13 @@ Options:
 
 (define (char n)
   (let* ((font (get-font cur-font))
-	 (c (get-char font n)))
-	(if c
-	    (plot-char c))))
+	 (c
+	  (if (and half-char-kludge
+		   (assoc (+ n 0.5) font))
+	      (get-char font (+ n 0.5))
+	      (get-char font n))))
+	 (if c
+	     (plot-char c))))
 
 (define (end-output) 
   (display (string-append 
@@ -339,9 +346,16 @@ Options:
 		     (if (< 0 (length font))
 			 (set! fonts (cons (cons name font) fonts))))))))
 
+(define (number->rounded-exact x)
+  (* (sign x) (inexact->exact (abs x))))
+  
 (define (move-to x y)
   (set! cur-x x)
-  (set! cur-y y))
+  (let ((ey (number->rounded-exact y)))
+    (if (= 0.5 (- (abs ey) (abs y)))
+	(set! half-char-kludge #t)
+	(set! half-char-kludge #f))
+    (set! cur-y ey)))
 
 (define (put c)
   (plot cur-x cur-y c))

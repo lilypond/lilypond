@@ -752,13 +752,19 @@
 
   (define (lily-def key val)
 	  (if 
-	   (equal? key "mudelapaperlinewidth")
+	   (or (equal? key "mudelapaperlinewidth")
+	       (equal? key "mudelapaperstaffheight"))
 	   (string-append "(define " key " " (arg->string val) ")\n")
 	   ""))
 
   (define (placebox x y s) 
-    (string-append (func "move-to" x y) s))
-
+    (let ((ey (inexact->exact y)))
+	  (string-append "(move-to " (number->string (inexact->exact x)) " "
+			 (if (= 0.5 (- (abs y) (abs ey)))
+			     (number->string y)
+			     (number->string ey))
+			 ")\n" s)))
+		       
   (define (select-font font-name-symbol)
     (let* ((c (assoc font-name-symbol font-name-alist)))
       (if (eq? c #f)

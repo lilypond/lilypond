@@ -14,6 +14,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
   lilypond --paper=paper16 foo.ly
   lilypond --paper=paper20 foo.ly
   lilypond --paper=paper-as9 foo.ly
+. * entangle ly/* paper-params papersize stuff
 . * fix tremolos.
 . * change ) c4  to c4-)
 . * internationalize GUILE msgs.
