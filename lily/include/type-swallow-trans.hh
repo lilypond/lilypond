@@ -12,22 +12,22 @@
 
 #include "translator.hh"
 
-/// eat a certain type of request
+/** eat a certain type of request.
+    (Duh, it's good for your skin)
+ */
 class Type_swallow_translator : public virtual Translator
 {
 protected:
-  const type_info * type_;
+  String swallow_str_;
   bool do_try_music (Music*);
-public:
-  
+public:  
   VIRTUAL_COPY_CONS(Translator);
-  Type_swallow_translator ();
 };
 
 #define DECLARE_REQUEST_SWALLOWER(TYPE)  \
 struct TYPE ## _swallow_translator : public Type_swallow_translator {\
   TYPE ## _swallow_translator() { \
-    type_ = &typeid (TYPE);\
+      swallow_str_ =  #TYPE;\
   }\
   \
   VIRTUAL_COPY_CONS(Translator);\

@@ -28,8 +28,8 @@ Paper_outputter::Paper_outputter (Paper_stream *s)
 Paper_outputter::~Paper_outputter ()
 {
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("end-output"), SCM_EOL)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("end-output"), SCM_EOL)));
 
   output_scheme (scm);
 }
@@ -66,8 +66,8 @@ Paper_outputter::output_header ()
 #endif
 
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("header"), args_scm)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("header"), args_scm)));
 
   output_scheme (scm);
 }
@@ -86,7 +86,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (!i->lambda_)
         {
 	  // urg
-	  i->lambda_ = ly_append (ly_lambda_o (), 
+	  i->lambda_ = gh_append2 (ly_lambda_o (), 
 	    ly_list1 (ly_func_o ("empty")));
 	}
 
@@ -113,8 +113,8 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 #endif
 
       SCM box_scm =
-	ly_append (ly_lambda_o (),
-	ly_list1 (ly_append (ly_func_o ("placebox"), args_scm)));
+	gh_append2 (ly_lambda_o (),
+	ly_list1 (gh_append2 (ly_func_o ("placebox"), args_scm)));
 
       output_scheme (box_scm);
     }
@@ -214,8 +214,8 @@ Paper_outputter::output_font_def (int i, String str)
   //urg, broken with guile-1.3
   //return;
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("font-def"), 
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("font-def"), 
     gh_cons (gh_int2scm (i), gh_cons (gh_str02scm (str.ch_l ()), SCM_EOL)))));
 
   output_scheme (scm);
@@ -227,8 +227,8 @@ Paper_outputter::output_font_switch (int i)
   //urg, broken with guile-1.2, 1.3
   //return;
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("font-switch"), 
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("font-switch"), 
     gh_cons (gh_int2scm (i), SCM_EOL))));
 
   output_scheme (scm);
@@ -238,8 +238,8 @@ void
 Paper_outputter::stop_line ()
 {
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("stop-line"), SCM_EOL)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("stop-line"), SCM_EOL)));
 
   output_scheme (scm);
 
