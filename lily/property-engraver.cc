@@ -28,7 +28,7 @@ protected:
 void
 Property_engraver::do_creation_processing ()
 {
-  SCM plist = get_property ("Generic_property_list", 0);
+  SCM plist = get_property ("Generic_property_list");
   for (; SCM_NIMP (plist); plist = gh_cdr (plist))
     {
       SCM elt_props = gh_car (plist);
@@ -64,11 +64,26 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       if (preset != SCM_BOOL_F)
 	continue;
   
-      SCM val = get_property (prop_sym, 0);
-      if (val != SCM_UNDEFINED
-	  && gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
-	  == SCM_BOOL_T)
+      SCM val = get_property (prop_sym);
+      if (val == SCM_UNDEFINED)
+	;
+      else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
+	       == SCM_BOOL_T)
 	e->set_elt_property (ly_symbol2string (elt_prop_name), val);
+      else
+	{
+	  SCM errport = scm_current_error_port ();
+	  warning (_("Wrong type for property"));
+	  
+	  scm_puts ("type predicate: ", errport);
+	  scm_display (type_p, errport);
+	  scm_puts (", value found: ", errport);
+	  scm_display (val, errport);
+	  scm_puts (" type: ", errport);
+	  scm_display (ly_type (val), errport);
+	  scm_puts ("\n", errport);
+	    
+	}
     }
 }
 
