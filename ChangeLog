@@ -1,5 +1,14 @@
 2004-03-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* configure.in: check for C language.
+
+	* lily/source-file.cc: include strstream without h.
+
+	* scm/documentation-generate.scm (string-append): use name without
+	.texi.
+
+	* autogen.sh (srcdir): suse fix.
+
 	* Documentation/user/notation.itely (Ancient clefs): idem.
 
 	* Documentation/user/lilypond-book.itely (Integrating HTML and music): idem.
