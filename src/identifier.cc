@@ -5,8 +5,9 @@
 #include "debug.hh"
 
 void
-Identifier::error()
+Identifier::error(String expect)
 {
     String e("Wrong identifier type: ");
-    ::error(e + classname());
+    e += String(classname()) + "(expected " + expect + ")";
+    ::error(e);
 }
