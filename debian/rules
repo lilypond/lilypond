@@ -15,10 +15,16 @@ r = debian/$(package)
 r_doc = debian/$(package)-doc
 d = usr/share/doc/$(package)
 
+include VERSION
+VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
+
 # "main_memory = 263000" in /etc/texmf/texmf.cnf isn't large enough
 # for latex to process standchen.dvi.latex, so adding extra_mem_* ...
-export extra_mem_top = 100000
-export extra_mem_bot = 100000
+# export extra_mem_top = 100000
+# export extra_mem_bot = 100000
+# But now, building lilypond.dvi requires increased pool_size (2002-02-18)
+# export pool_size = 500000
+# But now, it seems that none of the above is needed in 1.4.11  (2002-02-24)
 export MODE = ljfour
 export BDPI = 600
 export USER_CFLAGS = -DDEBIAN
@@ -64,6 +70,7 @@ clean:
 
 	# Still not clean enough?  Let's use... BRUTE STRENGTH!  :-)
 	find . -type d -name 'out' -o -name 'out-www' | xargs rm -rf
+	rm -f debian/lilypond.links
 
 	dh_clean
 
@@ -75,13 +82,13 @@ install: build
 
 	# Add here commands to install the package into debian/tmp.
 	dh_installdirs
-	$(MAKE) prefix=$(PWD)/$(r)/usr  MAKE_PFA_FILES=1 install
+	$(MAKE) prefix=$(PWD)/$(r)/usr MAKE_PFA_FILES=1 install
 
-	# Change from an absolute symlink to a relative symlink (Lintian)
-	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \
-		rm -f $(r)/usr/share/lilypond/cmtfm; \
-		ln -s ../texmf/fonts/tfm/public/cm $(r)/usr/share/lilypond/cmtfm; \
-	fi
+#	# Change from an absolute symlink to a relative symlink (Lintian)
+#	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \
+#		rm -f $(r)/usr/share/lilypond/cmtfm; \
+#		ln -s ../texmf/fonts/tfm/public/cm $(r)/usr/share/lilypond/cmtfm; \
+#	fi
 
 # Build architecture-independent files here.
 binary-indep: DH_OPTIONS=-i
@@ -124,8 +131,8 @@ binary-arch: build install
 #	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
 
 #	dh_installexamples input
-	cp -aP `find input  \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \)` \
-		$(r)/$(d)/examples
+	find input \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \) \
+		-exec cp -a --parents '{}' $(r)/$(d)/examples ';'
 	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
 		mv -fv $$i/* $$i/..; rmdir $$i; done
 #	dh_installmenu
@@ -134,7 +141,16 @@ binary-arch: build install
 #	dh_installman
 #	dh_undocumented
 	dh_installchangelogs -k CHANGES
-	dh_link
+	dh_link	usr/share/lilypond/$(VERSION)/tex \
+			usr/share/texmf/tex/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/source \
+			usr/share/texmf/fonts/source/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/afm \
+			usr/share/texmf/fonts/afm/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/tfm \
+			usr/share/texmf/fonts/tfm/public/lilypond \
+		usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
+			usr/share/texmf/dvips/config/lilypond.map
 	dh_strip
 	dh_compress
 	dh_fixperms
