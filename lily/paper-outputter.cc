@@ -64,6 +64,7 @@ Paper_outputter::mark_smob (SCM x)
 int
 Paper_outputter::print_smob (SCM x, SCM p, scm_print_state*)
 {
+  (void) x;
   scm_puts ("#<Paper_outputter>", p);
   return 1;
 }
@@ -86,18 +87,23 @@ Paper_outputter::output_scheme (SCM scm)
   dump_string (scheme_to_string (scm));
 }
 
-void
-paper_outputter_dump (void *po, SCM x)
+LY_DEFINE (ly_paper_outputter_dump, "ly:paper-outputter-dump",
+	   2, 0, 0, (SCM outputter, SCM arg),
+	   "Dump ARG on OUTPUTTER\n.")
 {
-  Paper_outputter *me = (Paper_outputter*) po;
-  me->output_scheme (x);
+  Paper_outputter *po = unsmob_outputter (outputter);
+  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+  po->output_scheme (arg);
+  return SCM_UNSPECIFIED;
 }
 
 void
 Paper_outputter::output_stencil (Stencil stil)
 {
-  interpret_stencil_expression (stil.expr (), paper_outputter_dump,
-				(void*) this, Offset (0,0));
+  ly_interpret_stencil (stil.expr (),
+			ly_scheme_function ("ly:paper-outputter-dump"),
+			smobify_self (),
+			ly_offset2scm (Offset (0, 0)));
 }
 
 Paper_outputter *
@@ -114,14 +120,11 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 	   2, 0, 0, (SCM outputter, SCM stencil),
 	   "Dump stencil @var{expr} onto @var{outputter}.")
 {
-  Paper_outputter *po = unsmob_outputter  (outputter);
+  Paper_outputter *po = unsmob_outputter (outputter);
   Stencil *st = unsmob_stencil (stencil);
-  
   SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
   SCM_ASSERT_TYPE (st, stencil, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-
   po->output_stencil (*st);
-
   return SCM_UNSPECIFIED;
 }
 
@@ -129,7 +132,7 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 	   2, 0, 0, (SCM outputter, SCM str),
 	   "Dump @var{str} onto @var{outputter}.")
 {
-  Paper_outputter *po = unsmob_outputter  (outputter);
+  Paper_outputter *po = unsmob_outputter (outputter);
   SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
   SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
   

@@ -91,12 +91,8 @@ public:
 DECLARE_UNSMOB(Stencil,stencil);
 SCM fontify_atom (Font_metric const*, SCM atom);
 
-void interpret_stencil_expression (SCM expr,
-			void (*func) (void*, SCM),
-			void *func_arg,
-			Offset o);
-
+SCM ly_interpret_stencil (SCM expr, SCM func, SCM arg1, SCM offset);
 Stencil create_stencil (SCM print);
 SCM find_expression_fonts (SCM expr);
 
-#endif
+#endif /* STENCIL_HH */
