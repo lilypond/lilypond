@@ -109,7 +109,7 @@ exact mathematical spacing, and once with corrections.  Can you
 spot which fragment is which?
 
 @cindex optical spacing
-@c @lily pondfile[quote,noindent]{spacing-optical.ly}
+@lilypondfile[quote,noindent]{spacing-optical.ly}
 
 @cindex regular rhythms
 @cindex regular spacing

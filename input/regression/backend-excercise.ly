@@ -10,6 +10,8 @@
       {
 	#(set-octavation 1)
 	\times 2/3 {  c'8[\< f]( f''\!)  }
+	#(set-octavation 0)
+	<f \5>
       }
       \skip 1 >>
     \new Staff \relative c'' {
