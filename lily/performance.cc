@@ -57,7 +57,6 @@ Performance::output (Midi_stream& midi_stream)
 	progress_indication ("[" + to_str (i)) ;
 
       /*
-	Aargh, let's hear it for the MIDI standard.
 	MIDI players tend to ignore instrument settings on
 	channel 10, the percussion channel by default.
        */
@@ -70,6 +69,7 @@ Performance::output (Midi_stream& midi_stream)
 	progress_indication ("]");
     }
 }
+
 
 void
 Performance::output_header_track (Midi_stream& midi_stream)

@@ -91,10 +91,15 @@ Midi_event::Midi_event (Moment delta_mom, Midi_item* midi_p)
   midi_p_ = midi_p;
 }
 
+/*
+  ugh. midi output badly broken since grace note hackage.
+ */
 String
 Midi_event::str () const
 {
-  int delta_i = delta_mom_ * Moment (384 * 4); // ugh.
+  Rational rat_dt = (delta_mom_.main_part_ * Rational (384) +
+    delta_mom_.grace_mom_ * Rational (100))*Rational (4);
+  int delta_i = int (rat_dt);
 
   String delta_str = Midi_item::i2varint_str (delta_i);
   String midi_str = midi_p_->str ();

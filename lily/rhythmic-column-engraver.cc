@@ -19,7 +19,6 @@
 class Rhythmic_column_engraver :public Engraver
 {
   Link_array<Grob> rhead_l_arr_;
-  Link_array<Grob> grace_slur_endings_;
   Grob * stem_l_;
   Grob *ncol_p_;
   Grob *dotcol_l_;
@@ -81,25 +80,12 @@ Rhythmic_column_engraver::create_grobs ()
 	  stem_l_ = 0;
 	}
 
-      SCM wg = get_property ("weAreGraceContext");
-      bool wegrace = to_boolean (wg);
-
-      if (!wegrace)
-	for (int i=0; i < grace_slur_endings_.size (); i++)
-	  Slur::add_column (grace_slur_endings_[i], ncol_p_);
-      grace_slur_endings_.clear ();
     }
 }
 
 void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
-  SCM wg = get_property ("weAreGraceContext");
-  bool wegrace = to_boolean (wg);
-  if (wegrace != to_boolean (i.elem_l_->get_grob_property ("grace"))
-    && !Slur::has_interface (i.elem_l_))
-    return ;
-  
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
   if (item && Stem::has_interface (item))
     {
@@ -113,15 +99,6 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
     {
       dotcol_l_ = item;
     }
-  else if (Slur::has_interface (i.elem_l_))
-    {
-      /*
-	end slurs starting on grace notes
-       */
-      
-      if (to_boolean (i.elem_l_->get_grob_property ("grace")))
-	grace_slur_endings_.push (i.elem_l_);
-   }
 }
 
 void
@@ -137,7 +114,6 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 void
 Rhythmic_column_engraver::start_translation_timestep ()
 {
-  grace_slur_endings_.clear ();
   dotcol_l_ =0;
   stem_l_ =0;
 }

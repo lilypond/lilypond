@@ -834,11 +834,11 @@ Composite_music:
 		Music* seq = new Sequential_music (SCM_EOL);
 		seq->set_mus_property ("elements", ms);
 
-		$$ = new New_grace_music (SCM_EOL);
+		$$ = new Grace_music (SCM_EOL);
 		$$->set_mus_property ("element", seq->self_scm ());
 		scm_unprotect_object (seq->self_scm ());
 #else
-		$$ = new New_grace_music (SCM_EOL);
+		$$ = new Grace_music (SCM_EOL);
 		$$->set_mus_property ("element", $2->self_scm ());
 		scm_unprotect_object ($2->self_scm ());
 #endif

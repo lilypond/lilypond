@@ -31,6 +31,7 @@ Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
   track_l_ = track_l;
   index_= 0;
   item_l_arr_l_ = &audio_staff_l->audio_item_l_arr_;
+
   last_mom_ = 0;
 }
 
@@ -116,7 +117,18 @@ void
 Midi_walker::output_event (Moment now_mom, Midi_item* l)
 {
   Moment delta_t = now_mom - last_mom_ ;
-  last_mom_ += delta_t;
+  last_mom_ = now_mom;
+
+  /*
+    this is not correct, but at least it doesn't crash when you
+    start with graces
+   */
+  if (delta_t < Moment(0))
+    {
+      delta_t = Moment (0);
+    }
+
+  
   track_l_->add (delta_t, l);
 }
 
@@ -126,10 +138,6 @@ Midi_walker::process ()
   Audio_item* audio_p = (*item_l_arr_l_)[index_];
   do_stop_notes (audio_p->audio_column_l_->at_mom ());
 
-  /*
-    THIS IS A MEMORY LEAK. FIXME.
-    where's the leak?  Everything goet to Midi_track, in a killing_cons.
- */
   if (Midi_item* midi_p = Midi_item::midi_p (audio_p))
     {
       midi_p->channel_i_ = track_l_->channel_i_;

@@ -12,7 +12,7 @@
 #include "rhythmic-head.hh"
 #include "timing-translator.hh"
 #include "engraver-group-engraver.hh"
-#include "grace-align-item.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
@@ -56,14 +56,12 @@ public:
   Link_array<Item> forced_l_arr_;
   Link_array<Grob> tie_l_arr_;
   Local_key_engraver ();
-
-  Item * grace_align_l_;
 };
 
 Local_key_engraver::Local_key_engraver ()
 {
   key_item_p_ =0;
-  grace_align_l_ =0;
+
   last_keysig_ = SCM_EOL;
 }
 
@@ -196,11 +194,6 @@ Local_key_engraver::create_grobs ()
       daddy_trans_l_->set_property ("localKeySignature",  localsig);
     }
   
-  if (key_item_p_ && grace_align_l_)
-    {
-      Side_position_interface::add_support (grace_align_l_,key_item_p_);
-      grace_align_l_ =0;
-    }
 
   if (key_item_p_)
     {
@@ -221,7 +214,7 @@ Local_key_engraver::create_grobs ()
 void
 Local_key_engraver::finalize ()
 {
-  // TODO: if grace ? signal accidentals to Local_key_engraver the 
+
 }
 
 void
@@ -236,7 +229,7 @@ Local_key_engraver::stop_translation_timestep ()
       key_item_p_ =0;
     }
 
-  grace_align_l_ = 0;
+
   mel_l_arr_.clear ();
   arpeggios_.clear ();
   tie_l_arr_.clear ();
@@ -247,19 +240,6 @@ Local_key_engraver::stop_translation_timestep ()
 void
 Local_key_engraver::acknowledge_grob (Grob_info info)
 {
-  SCM wg= get_property ("weAreGraceContext");
-  
-  bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
-  bool he_gr = to_boolean (info.elem_l_->get_grob_property ("grace"));
-
-  Item * item = dynamic_cast<Item*> (info.elem_l_);  
-  if (he_gr && !selfgr && item && Grace_align_item::has_interface (item))
-    {
-      grace_align_l_ = item;
-    }
-  if (he_gr != selfgr)
-    return;
-  
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
 
   if (note_l && Rhythmic_head::has_interface (info.elem_l_))

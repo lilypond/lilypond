@@ -182,12 +182,6 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 
   if (Note_head::has_interface (h)) {
     /* caught a note head ... do something with it */
-    /* ... but not if it's a grace note ... */
-    bool grace= to_boolean (i.elem_l_->get_grob_property ("grace"));
-    SCM wg = get_property ("weAreGraceContext");
-    bool wgb = to_boolean (wg);
-    if (grace != wgb)
-      return;
 
     /* what's its Voice context name? */
     String voice_context_id = get_context_id (i.origin_trans_l_->daddy_trans_l_, "Voice");

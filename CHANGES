@@ -1,3 +1,32 @@
+1.5.0.jcn1
+==========
+
+* Added feature to ly2dvi to find feta pfa font files used in a
+postscript file to make printing of direct postscript a bit easier:
+
+    lilypond -fps input/trip.ly
+    cat $(ly2dvi -f trip.ps) trip.ps | lpr
+
+* Reincluded 1.4.3.jcn2.
+
+* Website fixes.
+
+* Ly2dvi now leaves .tex and .latex output if latex fails, and cleans
+the temp dir if anything fails.
+
+* Fixes for windows scripts.
+
+1.5.0.uu1
+=========
+
+* Hara kiri and span-bar.
+
+* Junk old grace stuff.
+
+* Don't crash on grace notes in MIDI output.
+
+
+
 1.5.0
 =====
 

@@ -11,15 +11,25 @@
 #include "grace-iterator.hh"
 
 void
-Grace_music::compress (Moment)
+Grace_music::compress (Moment m) 
 {
-  
+  Music_wrapper::compress (m); 
 }
 
 Moment
 Grace_music::length_mom () const
 {
-  return 0;
+  Moment l = Music_wrapper::length_mom ();
+  Moment gl;
+  gl.grace_mom_ = l.main_part_ + l.grace_mom_ ;
+  return gl;
+}
+
+
+Moment
+Grace_music::start_mom () const
+{
+  return Music::start_mom ();
 }
 
 Grace_music::Grace_music ()

@@ -29,7 +29,6 @@ public:
   void print () const;
   void process ();
 
-
   Link_array<Audio_staff> audio_staff_l_arr_;
   Cons<Audio_element> *audio_elem_p_list_;
   Midi_def  * midi_l_;

@@ -25,28 +25,20 @@ VoiceContext = \translator {
 	\consists "Dynamic_performer"
 	\consists "Span_dynamic_performer"
 	\consists "Piano_pedal_performer"
-	\consists "Grace_position_performer"
-	\accepts Thread
-	\accepts Grace
+	\consists "Note_performer"
+	\consists "Tie_performer"
 }
 \translator { \VoiceContext }
 
 ThreadContext = \translator {
 	\type "Performer_group_performer"
 	\name Thread
-	\consists "Note_performer"
-	\consists "Tie_performer"
 }
 \translator { \ThreadContext }
 
 \translator {
-	\type "Grace_performer_group"
+	\type "Performer_group_performer"
 	\name Grace
-	\consists "Note_performer"
-	\consists "Tie_performer"
-	 \consists "Swallow_performer"
-
-	 weAreGraceContext = #t
 }
 
 \translator
