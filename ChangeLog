@@ -1,3 +1,9 @@
+2003-04-12  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: sensible error if lilypond.words not found.
+
+	* lilypond.words: add few words.
+
 2003-04-11  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-clefs.mf: bugfix: char boxes corrected

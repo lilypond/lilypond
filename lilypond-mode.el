@@ -20,7 +20,6 @@
 ;;; for installing instructions.
 
 ;;; TODO:
-;;;    * sensible error if lilypond.words not found. 
 ;;;    * XEmacs, broken ?
 ;;;    * parenthesis matching
 
@@ -66,17 +65,20 @@ Finds file lilypond-words from load-path."
       (setq fn (concat (car lp) "/" words-file))
       (if (not (file-readable-p fn)) 
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
+    (if (not fn)
+	(progn (message "Error (shown for 12 seconds; press a key to skip):\n\n File `lilypond.words' containing keywords to be autocompleted and fontified,\n was not found. Place it to your `load-path' (see `lilypond-init.el').\n")
+	       (sit-for 12 0 1)))
     fn))
 
 (defun LilyPond-add-dictionary-word (x)
-  "Contains all words: keywords, identifiers, reserved words."
+  "Contains all words: \keywords \Identifiers and ReservedWords."
   (nconc '(("" . 1)) x))
 
 ;; creates dictionary if empty
-(if (eq (length (LilyPond-add-dictionary-word ())) 1)
+(if (and (eq (length (LilyPond-add-dictionary-word ())) 1)
+	 (not (eq (LilyPond-words-filename) nil)))
     (progn
-      (setq fn (LilyPond-words-filename))
-      (setq b (find-file-noselect fn t t))
+      (setq b (find-file-noselect (LilyPond-words-filename) t t))
       (setq m (set-marker (make-marker) 1 (get-buffer b)))
       (setq i 1)
       (while (> (buffer-size b) (marker-position m))
@@ -96,6 +98,8 @@ Finds file lilypond-words from load-path."
 		     (string-equal (downcase (car co)) (car co)))
 		(add-to-list 'wordlist (car co))))
 	(setq co (cdr co)))
+      (if (eq (length wordlist) 0)
+	  (setq wordlist '("\\score"))) ; add \keywords to lilypond.words
       wordlist))
   "LilyPond \\keywords")
 
@@ -109,6 +113,8 @@ Finds file lilypond-words from load-path."
 		     (not (string-equal (downcase (car co)) (car co))))
 		(add-to-list 'wordlist (car co))))
 	(setq co (cdr co)))
+      (if (eq (length wordlist) 0)
+	  (setq wordlist '("\\voiceOne"))) ; add \Identifiers to lilypond.words
       wordlist))
   "LilyPond \\Identifiers")
 
@@ -121,6 +127,8 @@ Finds file lilypond-words from load-path."
 	    (if (not (string-equal "\\" (substring (car co) 0 1)))
 		(add-to-list 'wordlist (car co))))
 	(setq co (cdr co)))
+      (if (eq (length wordlist) 0)
+	  (setq wordlist '("Staff"))) ; add ReservedWords to lilypond.words
       wordlist))
   "LilyPond ReservedWords")
 
