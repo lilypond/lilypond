@@ -182,7 +182,8 @@ i.e.  this is not an override"
 	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
-  '(Tie Rest Slur Script TextScript Stem Dots DotColumn))
+  '(Stem Tie Rest Slur Script TextScript Dots DotColumn
+	 ))
 
 (define-public (make-voice-props-set n)
   (make-sequential-music
@@ -190,9 +191,12 @@ i.e.  this is not an override"
     (map (lambda (x) (make-grob-property-set x 'direction
 					     (if (odd? n) -1 1)))
 	 direction-polyphonic-grobs)
-    (list (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
-	  (make-grob-property-set 'MultiMeasureRest 'staff-position
-				  (if (odd? n) -4 4))))))
+    (list
+     (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
+     (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4))
+     
+     )))) 
+
 
 (define-public (make-voice-props-revert)
   (make-sequential-music
