@@ -1,5 +1,5 @@
 /*
-  global-translator.cc -- implement global_context
+  global-context.cc -- implement Global_context
 
   source file of the GNU LilyPond music typesetter
 
