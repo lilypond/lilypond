@@ -1625,26 +1625,21 @@ d4
 @cindex metronome marking
 
 Metronome settings can be entered as follows:
-
-@cindex @code{\tempo}
-@example
+@example 
   \tempo @var{duration} = @var{perminute} 
 @end example
 
-For example, @code{\tempo 4 = 76} requests output with 76 quarter notes
-per minute.
+In the MIDI output, they are interpreted as a tempo change, and in the
+paper output, a metronome marking is printed
+@cindex @code{\tempo}
+@lilypond[fragment,verbatim]
+  \tempo 8.=120 c''1
+@end lilypond
 
 @seealso
 
 @internalsref{TempoEvent}
   
-@refbugs
-  
-The tempo setting is not printed, but is only used in the MIDI
-output. You can trick lily into producing a metronome mark,
-though. Details are in @ref{Text markup}.
-
-[TODO: make note markup.]
 
 
 @node Text spanners
@@ -5285,26 +5280,7 @@ The markup mechanism is very flexible and extensible.  Refer to
 @file{scm/new-markup.scm} for more information on extending the markup
 mode.
 
-@cindex metronome mark
 
-One practical application of complicated markup is to fake a metronome
-marking:
-
-@lilypond[verbatim]
-eighthStem = \markup \combine
-	\musicglyph #"flags-stem"
-	\translate #'(0.0 . 3.5) \musicglyph #"flags-u3"
-eighthNote = \markup
-	\override #'(word-space . 0.0)
-	{ \musicglyph #"noteheads-2"
-	  \translate #'(-0.05 . 0.1) \eighthStem }
-
-\score {
-  \notes\relative c'' {
-    a1^\markup { \magnify #0.9 \eighthNote " = 64" }
-  }
-}
-@end lilypond
 
 @seealso
 

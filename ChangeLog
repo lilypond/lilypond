@@ -1,5 +1,7 @@
 2003-05-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Metronome marks): update doco.
+
 	* input/regression/markup-note.ly: new file
 
 	* input/regression/metronome-marking.ly: new file
