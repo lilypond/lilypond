@@ -36,19 +36,28 @@ texidoc = "
  		  (font-size . 0))
     
     title = "Title String"
-    subtitle = "and the subtitle"
+    subtitle = "(and (the) subtitle)"
     poet = "poetstring"
     composer = "compozeur"
     instrument = "instrum"
     piece = "stukkie"
-    
+
     makeTitle = \markup {
 	\column <
-	    { \large \bold \title } " " { \large \bold \subtitle }
-	    { " " }
-            % FIXME: 60: linewidth / flushleft/flushright (hfill?))
-	    { { \smaller \upright \instrument } \hspace #60 \upright \composer }
-	    { { \smaller \caps \piece } \hspace #60 \upright \poet }
+	    { "<-LEFT" \hspace #30 "centre" \hspace #30 "RIGHT->" }
+            " "
+	    \center < { \huge \bold \title } >
+            " "
+            \center <
+                \center < { \large \bold \subtitle } >
+            >
+            " "
+            " "
+	    { \left-align { \smaller \upright \instrument }
+              \right-align { \upright \composer } }
+            " "
+	    { \left-align { \smaller \caps \piece }
+              \right-align { \upright \poet } }
 	 >
     }
 }
