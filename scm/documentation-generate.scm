@@ -75,7 +75,7 @@
 
 @ifinfo
 @macro usermanref{NAME}
-@inforef{\\NAME\\,,lilypond}
+@ref{\\NAME\\,,,lilypond/lilypond}
 @cindex \\NAME\\
 @end macro
 @end ifinfo
@@ -95,7 +95,7 @@
 
 @ifinfo
 @macro glossaryref{NAME}
-@inforef{\\NAME\\,,music-glossary}
+@inforef{\\NAME\\,,lilypond/music-glossary}
 @cindex \\NAME\\
 @end macro
 @end ifinfo

@@ -1,3 +1,13 @@
+2004-03-30  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/macros.itexi (@internalsref) [info]: Prepend
+	`lilypond/' to info file name.
+	(@usermanref) [info]: New variant.
+
+	* scm/documentation-generate.scm: Fix definition of @usermanref
+	and @glossaryref (in the `ifinfo' branch) by prepending `lilypond/'
+	to info file name.
+
 2004-03-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Interpretation
