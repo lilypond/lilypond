@@ -1,0 +1,21 @@
+pl 17:
+	- robust Input_commands
+	- merged Vertical_/Horizontal music
+	- PARTIALs with duration
+	- modularized lexer: multiple runs
+
+pl 16
+	- notenames configurable
+
+pl 15
+	- grouping code
+	- multibeams (simple)
+
+pl 14
+	- symtables from .ly
+	- Input_command
+	- Input_{score/staff}
+
+pl 13
+	- Horizontal/Vertical music
+	- Input_commands
