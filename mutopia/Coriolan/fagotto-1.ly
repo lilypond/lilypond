@@ -22,14 +22,14 @@ fagottoI =  \notes \relative c {
 	R1*5 |
 	r2 r4 g4-.\f |
 	R1*5 |
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	ges'2\p\< f2 ~ |
 	f4 \!e-.\f r2 |
 	R1 |
 	f2\p()es |
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	d1\< |
 	d |
 	d2 d |
@@ -51,12 +51,22 @@ fagottoI =  \notes \relative c {
 	)d2. es4\sf(|
 	)d4 r r2|
 	R1*9|
-	\clef "tenor";
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	
+	%\clef "tenor";
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-C"
+	\property VoiceCombineStaff.clefPosition = #2
+
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	g'2.(as4 \p\<|
 	g f d)bes
-	\clef "bass";
+
+	%\clef "bass";
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-F"
+	\property VoiceCombineStaff.clefPosition = #2
+	
 	|
 	\!bes2\ff as|
 	g c~|
@@ -64,8 +74,8 @@ fagottoI =  \notes \relative c {
 	c~|
 	c~|
 	c~|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c\<~|
 	c|
 	\!c2\ff bes|
@@ -78,8 +88,8 @@ fagottoI =  \notes \relative c {
 	bes(a bes)g|
 	fis r8 a\pp a4. a8|
 	r4 r8 a a4. a8|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r4 r8 bes\< bes4. bes8|
 	r4 r8 bes bes4. bes8|
 	r4 r8 c8 c4. c8|
@@ -127,8 +137,8 @@ fagottoI =  \notes \relative c {
 	e4 r r2|
 	R1*3|
 	r4 r8 f' es4 r8 bes|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c4\< r4 r2|
 	R1*2|
 	r4 r8 ges' f4 r8 c|
@@ -147,8 +157,8 @@ fagottoI =  \notes \relative c {
 	[g,: bes: c: des:][f,: bes: c: des:]||
 	[e,: g: bes: des:][c: e: g: c:]||
 
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	c1\p\< ~|
 	c1~|
 	c1~|
@@ -215,15 +225,27 @@ fagottoI =  \notes \relative c {
 	es(d es)c|
 	b r8 d\p d4. d8|
 	r4 r8 d d4. d8|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r4 r8 es\< es4. es8|
 	r4 r8 es es4. es8|
 	r4 r8 %
-	\clef "tenor"; %
+
+	%\clef "tenor"; %
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-C"
+	\property VoiceCombineStaff.clefPosition = #2
+
+	
 	f f4. f8|
 	r4 r8 g g4. g8 %
-	\clef "bass"; %
+	
+	%\clef "bass"; %
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-F"
+	\property VoiceCombineStaff.clefPosition = #2
+
+	
 	|
 	\!f2.\ff()es4|
 	d(c d)c|
@@ -257,8 +279,8 @@ fagottoI =  \notes \relative c {
 	es d b)g|
 	g'2.(as4|
 	g2)f|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	es2.\<( f4|
 	es d b)g|
 	R1|
@@ -267,8 +289,8 @@ fagottoI =  \notes \relative c {
 	d\f|
 	es\p|
 	e\f|
-	\property VoiceCombineVoice.crescendoText = "cresc."
-	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = #"cresc."
+	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	as,4.\p\< as8 g4. g8|
 	f4. f8 es4. es8|
 	as4. as8 g4. g8|
@@ -304,8 +326,8 @@ fagottoI =  \notes \relative c {
 	R1|
 	g,4-. g-. r2|
 	as4-. bes-. r2|
-	\property VoiceCombineVoice.decrescendoText = "dim."
-	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = #"dim."
+	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
 	c4\> r d r|
 	R1|
 	\!c,4\p r r2|
@@ -313,10 +335,10 @@ fagottoI =  \notes \relative c {
 	g4 r r2|
 	R1|
 	c4\pp r r2|
-	\property VoiceCombineVoice.decrescendoText = "sempre pi\\`u piano"
+	\property VoiceCombineVoice.decrescendoText = #"sempre pi\\`u piano"
 	% urg, "" is assumed to be hairpin...
-	%\property VoiceCombineVoice.decrescendoSpanner = ""
-	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
+	%\property VoiceCombineVoice.decrescendoSpanner = #""
+	\property VoiceCombineVoice.decrescendoSpanner = #'dashed-line
 	r r4 g\p\>~|
 	g1~|
 	g~|

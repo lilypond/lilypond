@@ -28,8 +28,8 @@ violinoI =  \notes \relative c {
 	[c,8-. es-.] [es()d] [d-. g-.] g4-"ten." |
 	[c,8-. es-.] [es()d] [d-. as'-.] [as()g] |
 	[g8-. c-.] [c()b] [b-. f'-.] [f()es] |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[es8-.\< as-.] as4. g8-. g4 ~ |
 	%20
 	[g8 fis] fis4 ~ fis \!g-.\f |
@@ -39,15 +39,15 @@ violinoI =  \notes \relative c {
 	[bes,!8\p-. des-.][des()c][c-. ges'-.][ges()f] |
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des]|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[des-.\< ges-.] ges4. f8-. f4~ |
 	[f8 e-.]\!e4-.\f r2 |
 	R1 |
 	%29
 	r8 f-.\p f4. es8-. es4~ |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[es8\< d-.]d2.~ |
 	[d8 d-.]d2.~ |
 	[d8 d-.] d4. d8-. d4~ |
@@ -82,8 +82,8 @@ violinoI =  \notes \relative c {
 	
 	%55
 	bes2 )as |
-	\property Voice.crescendoText = "cresc." % poco a poco
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc." % poco a poco
+	\property Voice.crescendoSpanner = #'dashed-line
 	g4 <bes2\< bes'> <bes4 bes' > ~ |
 	<bes bes'> <bes2 bes'> <bes4 bes' > ~ |
 	<bes bes'> <bes2 bes'> <bes4 bes' > ~  |
@@ -100,16 +100,16 @@ violinoI =  \notes \relative c {
 	c'2.( des4 |
 	c2 ) bes |
 	
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[as16\< c c c][c c c c] c2:16 |
 	c: c: |
 	
 	%70
 	\!c:\ff es: |
 	d: c: |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	bes2.\p\<( c4 |
 	bes a fis ) d |
 	\!d'\sf\>( as g )f |
@@ -195,8 +195,8 @@ violinoI =  \notes \relative c {
 	
 	bes4 r r2 |
 	%130
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	r4 r8 f'8\< es4 r8 c |
 	bes4 r8 f' es4 r8 bes |
 	c4 r8 f es4 r8 c |
@@ -213,8 +213,8 @@ violinoI =  \notes \relative c {
 	des4 r8 ges f4 r8 c |
 	bes4 r8 e f4 r8 bes, |
 	bes4 r8 g'! e4 r8 bes' |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	as4\p r8 des\< c4 r8 g |
 	
 	%145
@@ -266,8 +266,8 @@ violinoI =  \notes \relative c {
 	%180
 	g'2.( a4 |
 	g2 )f |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	e4 g2\< g4 ~ |
 	
 	g g2 g4 ~ |
@@ -283,8 +283,8 @@ violinoI =  \notes \relative c {
 	f e cis ) a |
 	a'2.( bes4 |
 	a2 ) g |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[f16\< a a a][a a a a]a2:16 |
 	
 	%195
@@ -303,8 +303,8 @@ violinoI =  \notes \relative c {
 	r[c(as)c]r[c(a)c] |
 	[b-. d-.]d4. d8-. d4 ~ |
 	[d8-. d-.]d4. d8-. d4 ~ |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[d8-. es-.]es4.\< es8-. es4 ~ |
 	[es8-. es-.]es4. es8-. es4 ~ |
 	%210
@@ -364,8 +364,8 @@ violinoI =  \notes \relative c {
 	%250
 	g4 g2 g4 ~ |
 	g4 g2 g4 ~ |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	[g16\< g g g][g g g g]g2:16 |
 	g: g: |
 	g: g: |
@@ -375,8 +375,8 @@ violinoI =  \notes \relative c {
 	bes:\p bes: |
 	c:\f c: |
 	%260
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoSpanner = #'dashed-line
 	r8 c\< c4. c8 c4 ~ |
 	[c8 c] c4. c8 c4 ~ |
 	[c8 c] c4. c8 c4 ~ |
@@ -412,8 +412,8 @@ violinoI =  \notes \relative c {
 	as4-. e-. r2 |
 	
 	%290
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
 	f4\> r d r |
 	R1 |
 	\!es!4\p r r2 |
@@ -423,10 +423,10 @@ violinoI =  \notes \relative c {
 	%295
 	R1 |
 	
-	\property Voice.decrescendoText = "sempre pi\\`u piano"
+	\property Voice.decrescendoText = #"sempre pi\\`u piano"
 	% urg, "" is assumed to be hairpin...
-	%\property Voice.decrescendoSpanner = ""
-	\property Voice.decrescendoSpanner = "dashed-line"
+	%\property Voice.decrescendoSpanner = #""
+	\property Voice.decrescendoSpanner = #'dashed-line
 	c1^"arco"\> ~ |
 	c2 b2 |
 	c1 ~ |

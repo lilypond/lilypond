@@ -1,5 +1,10 @@
-%% run this through ly2dvi (afterwards -- urg ly2dvi should tee lily output)
-%% on my printer, I use dvips -O 5mm,0mm -o x.ps coriolan
+%{
+ run this through:
+ ly2dvi -K coriolan.tex
+ dvips -O 5mm,0mm -o coriolan.ps coriolan
+%}
+
+#(set point-and-click #t)
 
 \header{
 filename = 	 "coriolan.ly";

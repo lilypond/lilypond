@@ -29,8 +29,8 @@ contrabasso =  \notes \relative c {
 	c4 r4 r2 |
 	c4 r4 r2 |
 	R1 |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	c'4.\< c8 bes4. bes8 |
 
 	%20
@@ -45,8 +45,8 @@ contrabasso =  \notes \relative c {
 
 	% copied 14 from cello
 
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	bes'4.\< bes8 as4. as8 |
 	g4 \!g4-.\f r2 |
 	R1
@@ -81,8 +81,8 @@ contrabasso =  \notes \relative c {
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
 	)d'4 r r r8 d(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)es4\< r r r8 es(|
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
@@ -97,15 +97,15 @@ contrabasso =  \notes \relative c {
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
 	)e4 r r r8 e(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)f4\< r r r8 f(|
 	)bes4 r r r8 bes(|
 	%70
 	\!)as2\ff g |
 	fis d' |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	g,4\p\< r r r8 g(|
 	)c4 r r r8 c(|
 	% )<b1\sf\> { s2 s4 \!s8}> |
@@ -118,8 +118,8 @@ contrabasso =  \notes \relative c {
 	d4\pp r d r |
 	d r d r |
 	%80
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	d r d\< r |
 	d r d r |
 	d r d r |
@@ -216,8 +216,8 @@ contrabasso =  \notes \relative c {
 	%180
 	)e4 r r r8 e(|
 	)b'4 r r r8 b(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f,4 r r r8 f(|
 	)e4 r r r8 e'(|
@@ -232,8 +232,8 @@ contrabasso =  \notes \relative c {
 	)g,4 r r r8 g(|
 	)f4 r r r8 f(|
 	)cis'4 r r r8 cis(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)d4\< r r r8 d(|
 
 	%195
@@ -255,8 +255,8 @@ contrabasso =  \notes \relative c {
 	%205
 	g r g r |
 	g r g r |
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	g r g\< r |
 	g r g r |
 	
@@ -315,8 +315,8 @@ contrabasso =  \notes \relative c {
 	%250
 	)es4 r r r8 es(|
 	)b4 r r r8 b(|
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f4 r r r8 f,(|
 	)es1 |
@@ -329,8 +329,8 @@ contrabasso =  \notes \relative c {
 	bes\f |
 
 	%260
-	\property StaffCombineVoice.crescendoText = "cresc."
-	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.crescendoText = #"cresc."
+	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	as4.\p\< as'8 g4. g8 |
 	f4. f8 es4. es8 |
 	as4. as8 g4. g8 |
@@ -373,8 +373,8 @@ contrabasso =  \notes \relative c {
 	f,4-. g-. r2 |
 
 	%290
-	\property StaffCombineVoice.decrescendoText = "dim."
-	\property StaffCombineVoice.decrescendoSpanner = "dashed-line"
+	\property StaffCombineVoice.decrescendoText = #"dim."
+	\property StaffCombineVoice.decrescendoSpanner = #'dashed-line
 	as4\> r b r |
 	R1 |
 	\!c4\p r r2|
