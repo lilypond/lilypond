@@ -122,6 +122,11 @@ Slur::do_post_processing ()
 
   Direction d=LEFT;
  
+#define NORMAL_SLUR_b(dir) \
+  (extrema[dir]->stem_l_ \
+   && !extrema[dir]->stem_l_->transparent_b_  \
+   && extrema[dir]->head_l_arr_.size ()) 
+
   do 
     {
       /*
@@ -146,8 +151,7 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_ 
-	       && extrema[d]->head_l_arr_.size ()) 
+      else if (NORMAL_SLUR_b (d))
         {
 	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
@@ -188,24 +192,61 @@ Slur::do_post_processing ()
 	  if (d == LEFT)
 	    dy_f_drul_[u] += dir_ * internote_f;
 
-	  dy_f_drul_[d] = dy_f_drul_[(Direction)-d];
+	  dy_f_drul_[d] = dy_f_drul_[u];
 	}
      }
   while (flip(&d) != LEFT);
 
   /*
+    Slur should follow line of music
+   */
+  if (NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
+      && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
+    {
+      Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]
+	- extrema[LEFT]->stem_l_->head_positions ()[dir_];
+      Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+      /*
+	Should we always follow note-heads, (like a tie)?
+	For now, only if the note_dy != slur_dy, we'll do
+	slur_dy := note_dy * factor.
+      */
+      if (sign (dy) != sign (note_dy))
+	{
+	  Real damp_f = paper ()->get_var ("slur_slope_follow_music_factor");
+	  Real realdy = note_dy * damp_f;
+	  Direction adjust_dir = (Direction)(- dir_ * sign (realdy));
+	  if (!adjust_dir)
+	    adjust_dir = -dir_;
+	  /*
+	    adjust only if no beam gets in the way
+	   */
+	  if (!extrema[adjust_dir]->stem_l_->beam_l_
+	      || (adjust_dir == extrema[adjust_dir]->stem_l_->dir_)
+	      || (extrema[adjust_dir]->stem_l_->beams_i_drul_[-adjust_dir] < 1))
+	    {
+	      dy_f_drul_[adjust_dir] = dy_f_drul_[-adjust_dir]
+		+ 2 * adjust_dir * realdy;
+	      Real dx = notewidth_f / 2;
+	      if (adjust_dir != extrema[adjust_dir]->stem_l_->dir_)
+		dx /= 2;
+	      dx_f_drul_[adjust_dir] -= adjust_dir * dx;
+	    }
+	}
+    }
+
+  /*
     Avoid too steep slurs.
-      * slur from notehead to stemend: c''()b''
    */
   Real damp_f = paper ()->get_var ("slur_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d_off.x () += extent (X_AXIS).length ();
+  d_off[X_AXIS] += extent (X_AXIS).length ();
 
-  Real ratio_f = abs (d_off.y () / d_off.x ());
+  Real ratio_f = abs (d_off[Y_AXIS] / d_off[X_AXIS]);
   if (ratio_f > damp_f)
-    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] +=
-      dir_ * (ratio_f - damp_f) * d_off.x ();
+    dy_f_drul_[(Direction)(- dir_ * sign (d_off[Y_AXIS]))] +=
+      dir_ * (ratio_f - damp_f) * d_off[X_AXIS];
 }
 
 Array<Offset>
@@ -216,7 +257,7 @@ Slur::get_encompass_offset_arr () const
   Real internote = paper ()->internote_f ();
 
   Offset left = Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
-  left.x () += encompass_arr_[0]->stem_l_->hpos_f ();
+  left[X_AXIS] += encompass_arr_[0]->stem_l_->hpos_f ();
 
   /*
     <URG>
@@ -231,19 +272,19 @@ Slur::get_encompass_offset_arr () const
    */
 
   if (dir_ != encompass_arr_[0]->stem_l_->dir_)
-    left.x () += - 0.5 * notewidth * encompass_arr_[0]->stem_l_->dir_
+    left[X_AXIS] += - 0.5 * notewidth * encompass_arr_[0]->stem_l_->dir_
       + gap;
   else if (encompass_arr_[0]->stem_l_->dir_ == UP)
-    left.x () -= notewidth;
+    left[X_AXIS] -= notewidth;
 
   if ((dir_ == encompass_arr_[0]->stem_l_->dir_) 
     && (encompass_arr_[0]->stem_l_->dir_ == DOWN))
-    left.y () -= internote * encompass_arr_[0]->stem_l_->dir_;
+    left[Y_AXIS] -= internote * encompass_arr_[0]->stem_l_->dir_;
   /* </URG> */
 
   Offset d = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d.x () += extent (X_AXIS).length ();
+  d[X_AXIS] += extent (X_AXIS).length ();
 
   int first = 1;
   int last = encompass_arr_.size () - 1;
@@ -264,19 +305,20 @@ Slur::get_encompass_offset_arr () const
       Encompass_info info (encompass_arr_[i], dir_);
       notes.push (info.o_ - left);
     }
-  Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
-
+  Encompass_info info (encompass_arr_.top (), dir_);
+  // [encompass_arr_.size () - 1]
+  
   // urg:
   Slur* urg = (Slur*)this;
   urg->interstaff_f_ = info.interstaff_f_;
   
-  d.y () += interstaff_f_;
+  d[Y_AXIS] += interstaff_f_;
 
   // prebreak
   if (interstaff_f_ && (encompass_arr_.top () != spanned_drul_[RIGHT]))
     {
       Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
-      d.y () -= info.o_.y () - interstaff_f_;
+      d[Y_AXIS] -= info.o_[Y_AXIS] - interstaff_f_;
     }
 
   notes.push (d);
@@ -284,13 +326,6 @@ Slur::get_encompass_offset_arr () const
   return notes;
 }
 
-Interval
-Slur::do_width () const
-{
-  Real min_f = paper ()->get_var ("slur_x_minimum");
-  Interval width_int = Bow::do_width ();
-  return width_int.length () < min_f ? Interval (0, min_f) : width_int;
-}
 
 Array<Rod>
 Slur::get_rods () const
@@ -298,7 +333,9 @@ Slur::get_rods () const
   Array<Rod> a;
   Rod r;
   r.item_l_drul_ = spanned_drul_;
-  r.distance_f_ = do_width ().length ();
+  r.distance_f_ = paper ()->get_var ("slur_x_minimum");
+
   a.push (r);
   return a;
 }
+
