@@ -12,6 +12,8 @@
 
 #include "horizontal-group-item.hh"
 #include "plist.hh"
+#include "rod.hh"
+
 
 /**
    stuff grouped vertically.
@@ -30,6 +32,11 @@ class Paper_column : public Horizontal_group_item {
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEM_CLONE(Paper_column);
+  Drul_array< Array<Column_rod> > minimal_dists_arr_drul_;
+
+  void preprocess ();
+  /// set a minimum distance
+  void add_rod (Paper_column * to, Real distance, Direction d);
   
   /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
@@ -39,7 +46,8 @@ public:
 
   /// postbreak at beginning of the new line
   Paper_column *postbreak_l() const;
-    
+
+  virtual Paper_column * column_l () const;
   /// if lines are broken then this column is in #line#
   Line_of_score *line_l_;
 
