@@ -99,6 +99,7 @@ for the Y-axis.")
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
-  return sc->get_parent (Axis (gh_scm2int (axis)))->self_scm();
+  Grob * par = sc->get_parent (Axis (gh_scm2int (axis)));
+  return par ? par->self_scm() : SCM_EOL;
 }
 
