@@ -744,3 +744,29 @@ use GrandStaff as a context. "
       (else
        (ly:warn "Unknown accidental style: ~S" (symbol->string style))
        (make-sequential-music '()))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (skip-of-length mus)
+  "Create a skip of exactly the same length as MUS."
+  (let*
+   ((skip
+     (make-music
+      'SkipEvent
+      'duration (ly:make-duration 0 0))))
+
+   (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))
+))
+
+
+(define-public (mmrest-of-length mus)
+  "Create a mmrest of exactly the same length as MUS."
+  
+  (let*
+   ((skip
+     (make-multi-measure-rest
+      (ly:make-duration 0 0) '() )))
+   (ly:music-compress skip (ly:music-length mus))
+   skip
+))
+
