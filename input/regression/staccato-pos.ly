@@ -7,14 +7,10 @@ not be on staff lines.
 "
 }
 \score { 
-  \context Voice \notes\relative c {
-    
-	e''4-. f-. d-.
-	c,-. b-. c'''-. d-.
-	
+  \context Voice \notes\relative c' {
+	e'4-. f-. d-. c-. b-. 
   }
   \paper {
     linewidth=-1.0
   }  
-  \midi { }
 }

@@ -25,12 +25,10 @@ Collision::force_shift_callback (SCM element_smob, SCM axis)
   assert (a == X_AXIS);
   
    me = me->get_parent (a);
-  /*
-    ugh. the way DONE is done is not clean
-   */
-  if (!unsmob_grob (me->get_grob_property ("done")))
+
+   if (! to_boolean (me->get_grob_property ("collision-done")))
     {
-      me->set_grob_property ("done", me->self_scm ());
+      me->set_grob_property ("collision-done", SCM_BOOL_T);
       do_shifts (me);
     }
   

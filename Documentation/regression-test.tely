@@ -39,6 +39,7 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{mm-rests2.ly}
 
+@lilypondfile[printfilename]{rest-pitch.ly}
 
 @section Accidentals
 
@@ -62,7 +63,6 @@ Accidentals are currently in a development stage.
 @lilypondfile[printfilename]{stem-direction.ly}
 
 @lilypondfile[printfilename]{stem-direction-down.ly}
-
 
 
 @section Scripts
@@ -113,6 +113,8 @@ Grace note do weird things with timing. Fragile.
 @lilypondfile[printfilename]{grace-start.ly}
 
 @lilypondfile[printfilename]{grace-sync.ly}
+
+@lilypondfile[printfilename]{grace-bar-number.ly}
 
 
 @section Beams
@@ -280,6 +282,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{part-combine.ly}
 
+@lilypondfile[printfilename]{font-magnification.ly}
 
 @lilypondfile[printfilename,nofragment]{size11.ly}
 
