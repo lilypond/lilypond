@@ -69,6 +69,9 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 
 set -ex
 
+# no CVS guile.
+export PATH=/usr/bin/:$PATH
+
 if  [ -d $HOME/usr/pkg/libffi/ ] ; then
  export LDFLAGS=-L$HOME/usr/pkg/libffi/lib/
  export CPPFLAGS=-I$HOME/usr/pkg/libffi/include

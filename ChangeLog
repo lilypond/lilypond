@@ -1,5 +1,7 @@
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/output-gnome.scm: set PATH in script.
+
 	* scm/page-layout.scm (default-page-make-stencil): don't stretch
 	if there is too few systems on a page.
 

@@ -3316,7 +3316,7 @@ The easiest way to add lyrics to a melody, is by appending
 
 to a melody. Here is an example,
 
-@lilypond[raggedright]
+@lilypond[raggedright,verbatim]
   \relative { \time 3/4 c2 e4 g2. }
   \newlyrics { play the game } 
 @end lilypond
@@ -3324,7 +3324,7 @@ to a melody. Here is an example,
 More stanzas can be added by adding more
 @code{\newlyrics} sections 
 
-@lilypond[raggedright]
+@lilypond[raggedright,verbatim]
   \relative { \time 3/4 c2 e4 g2. }
   \newlyrics { play the game } 
   \newlyrics { speel het spel } 
@@ -3334,7 +3334,7 @@ More stanzas can be added by adding more
 The @code{\newlyrics} keyword has three functions: it interprets the
 following words as texts instead of notes, it sets up a context for
 printing texts (the @code{Lyrics} context), and it couples the melody
-with the lyrics, so that the durations of both are aligned.
+with the lyrics, so the durations of both are aligned.
 
 These three functions can be controlled separately, and that is what
 the following sections are about.
