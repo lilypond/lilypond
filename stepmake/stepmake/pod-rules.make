@@ -16,7 +16,6 @@ do_pod2html=$($(POD2HTML_VERSION))
 
 $(outdir)/%.html: $(outdir)/%.pod $(depth)/VERSION
 	$(do_pod2html) 
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index $(depth)/../index.html $@
 
 $(outdir)/%.pod: %.pod
 	cp $< $@

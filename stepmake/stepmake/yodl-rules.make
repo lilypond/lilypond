@@ -13,7 +13,6 @@ $(outdir)/%.7: %.yo
 
 $(outdir)/%.html: %.yo
 	$(YODL2HTML) -doutdir=$(outdir) --live-data=3 -o $@ $<
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=$(depth)/../index.html $@ $(wildcard $(basename $@)[0-9][0-9].html)
 
 $(outdir)/%.latex: %.yo
 	$(YODL2LATEX) -doutdir=$(outdir) --live-data=3 -o $@ $<
