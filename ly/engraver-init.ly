@@ -669,7 +669,7 @@ EasyNotation = \context {	% TODO: why \context override?
   \override Script #'padding = #0.5
 
   % There are no beams in Gregorian Chant notation.
-  autobeaming = ##f
+  autoBeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
   \override TextSpanner #'style = #'line
@@ -734,7 +734,7 @@ EasyNotation = \context {	% TODO: why \context override?
   \override Script #'padding = #0.5
 
   % There are no beams in Gregorian Chant notation.
-  autobeaming = ##f
+  autoBeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
   \override TextSpanner #'style = #'line
