@@ -19,23 +19,30 @@
 	/Rect [ llx lly urx ury ]
 	/Border [ 0 0 0 0 ]
 
-	%% following for xpdf
-%	/Action /Launch
-%	/File command
-
-	%% following for acroread
-	/Action <<
-	    /Subtype /URI
-	    /URI command
-	>>
-    
+	pdf-viewer (acroread) eq
+	{
+	    /Action
+	    <<
+		/Subtype /URI
+		/URI command
+	    >>
+	}
+	{
+	    % xpdf.  FIXME: gpdf, kpdf etc?
+	    /Action
+	    <<
+		/Launch
+		/File command
+	    >>
+	} ifelse
         /Subtype /Link
     /ANN
     pdfmark
 }
 bind def
 
-/set_tex_dimen {
+/set_tex_dimen
+{
 	cvr def
 } bind def
 
