@@ -1084,7 +1084,7 @@ aligned. In this case, there is only one melody, so we can leave it
 empty.
 
 The final result is 
-@lilypond[verbatim,linewidth=6.0\cm]
+@lilypond[verbatim,fragment]
 \score  {
  \notes <<
    \relative c' \new Voice {
@@ -1107,7 +1107,7 @@ line}. It is entered as two underscores, i.e.
 @example
   \lyrics @{ I want to break free __ @}
 @end example 
-@lilypond[]
+@lilypond[raggedright]
 \score  {
  \notes <<
    \relative c' \new Voice {
@@ -1773,8 +1773,8 @@ If you use HTML, La@TeX{}, or Texinfo, you can mix text and LilyPond
 code.  A script called @code{lilypond-book} will extract the music
 fragments, run LilyPond on them, and put back the resulting notation.
 This program is fully described in @ref{lilypond-book manual}.  Here
-we show a small example;  since the example contains also explanatory
-text, we will not comment it further:
+we show a small example. The example contains also explanatory text,
+so we will not comment it further:
 
 @example
 \documentclass[a4paper]@{article@}
@@ -1818,7 +1818,7 @@ $ mkdir -p out/
 $ lilypond-book --output=out/ lilybook.tex
 lilypond-book (GNU LilyPond) 2.1.19
 Reading `input/tutorial/lilybook.tex'
-Reading `input/screech-boink6.ly'
+Reading `input/screech-boink.ly'
 @var{lots of stuff deleted}
 Writing `out/lilybook.latex'
 $ cd out
