@@ -15,9 +15,9 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"
-#define SLUR_DOUT if (check_debug && !monitor->silent_b ("Slur")) cout
+#define BEZIER_BOW_DOUT if (check_debug && !monitor->silent_b ("Bezier_bow")) cout
 #else
-#define SLUR_DOUT cerr
+#define BEZIER_BOW_DOUT cerr
 #endif
 
 void
@@ -101,7 +101,7 @@ Bezier::y (Real x)
 	  Offset z1 = curve_[i-1];
 	  Offset z2 = curve_[i];
 	  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
-	  Real y = z1.y () * multiplier + (1.0 - multiplier) * z2.y();
+	  Real y = z1.y () * multiplier + (1.0 - multiplier) *z2.y();
 
 	  return y;
         }
@@ -243,8 +243,6 @@ Bezier_bow::calc ()
 bool
 Bezier_bow::calc_clipping ()
 {
-  if (!experimental_features_global_b)
-    return false;
 #ifndef STANDALONE
   Real staffsize_f = paper_l_->get_var ("barsize");
 #else
@@ -288,13 +286,23 @@ Bezier_bow::calc_clipping ()
 	begin_dy = c * begin_alpha / max_alpha * begin_h;
       if (end_alpha >= max_alpha)
 	end_dy = c * end_alpha / max_alpha * end_h;
-      encompass_[0].y () += begin_dy;
-      encompass_[encompass_.size () - 1].y () += end_dy;
 
-      Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
-      alpha_ = delta.arg ();
-      alpha_ *= dir_;
-//      again = false;
+      Real dy = end_dy >? begin_dy;
+
+      if (!experimental_features_global_b)
+        {
+	  encompass_[0].y () += dy;
+	  encompass_[encompass_.size () - 1].y () += dy;
+	}
+      else
+	{
+	  encompass_[0].y () += begin_dy;
+	  encompass_[encompass_.size () - 1].y () += end_dy;
+
+	  Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
+	  alpha_ = delta.arg ();
+	  alpha_ *= dir_;
+	}
     }
 
   origin_ = encompass_[0];
@@ -309,8 +317,12 @@ Bezier_bow::calc_clipping ()
 void
 Bezier_bow::calc_controls ()
 {
+  // try clipping twice
   for (int i = 0; i < 3; i++)
     {
+      if (i && !calc_clipping ())
+	return;
+
       calc_default (0);
       calc_bezier ();
       
@@ -320,13 +332,10 @@ Bezier_bow::calc_controls ()
 	  return;
 	}
       calc_tangent_controls ();
-      blow_fit ();
 
+      blow_fit ();
       // ugh
       blow_fit ();
-
-      if (!calc_clipping ())
-	return;
     }
 }
 
@@ -354,7 +363,7 @@ void
 Bezier_bow::calc_tangent_controls ()
 {
   Offset ijk_p (control_[3].x () / 2, control_[1].y ());
-  SLUR_DOUT << "ijk: " << ijk_p.x () << ", " << ijk_p.y () << endl;
+  BEZIER_BOW_DOUT << "ijk: " << ijk_p.x () << ", " << ijk_p.y () << endl;
 
   Real default_rc = ijk_p.y () / ijk_p.x ();
 
@@ -390,8 +399,8 @@ Bezier_bow::calc_tangent_controls ()
       end_p = ijk_p;
       end_rc = default_rc;
     }
-  SLUR_DOUT << "begin " << begin_p.x () << ", " << begin_p.y () << endl;
-  SLUR_DOUT << "end " << end_p.x () << ", " << end_p.y () << endl;
+  BEZIER_BOW_DOUT << "begin " << begin_p.x () << ", " << begin_p.y () << endl;
+  BEZIER_BOW_DOUT << "end " << end_p.x () << ", " << end_p.y () << endl;
 
   Real height =control_[1].y (); 
   for (int i = 0; i < encompass_.size (); i++ )
@@ -430,17 +439,17 @@ Bezier_bow::calc_tangent_controls ()
   Real c3 = begin_p.y () > end_p.y () ? begin_p.y () 
     - rc3 * begin_p.x () : end_p.y () - rc3 * end_p.x ();
 
-  SLUR_DOUT << "y1 = " << rc1 << " x + 0" << endl;
-  SLUR_DOUT << "y2 = " << rc2 << " x + " << c2 << endl;
-  SLUR_DOUT << "y3 = " << rc3 << " x + " << c3 << endl;
+  BEZIER_BOW_DOUT << "y1 = " << rc1 << " x + 0" << endl;
+  BEZIER_BOW_DOUT << "y2 = " << rc2 << " x + " << c2 << endl;
+  BEZIER_BOW_DOUT << "y3 = " << rc3 << " x + " << c3 << endl;
   control_[1].x () = c3 / (rc1 - rc3);
   control_[1].y () = rc1 * control_[1].x ();
   control_[2].x () = (c3 - c2) / (rc2 - rc3);
-  SLUR_DOUT << "c2.x () = " << control_[2].x () << endl;
-  SLUR_DOUT << "(c3 - c2) = " << (c3 - c2) << endl;
-  SLUR_DOUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
+  BEZIER_BOW_DOUT << "c2.x () = " << control_[2].x () << endl;
+  BEZIER_BOW_DOUT << "(c3 - c2) = " << (c3 - c2) << endl;
+  BEZIER_BOW_DOUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
   control_[2].y () = rc2 * control_[2].x () + c2;
-  SLUR_DOUT << "c2.y ()" << control_[2].y () << endl;
+  BEZIER_BOW_DOUT << "c2.y ()" << control_[2].y () << endl;
 
   calc_return (begin_alpha, end_alpha);
 }

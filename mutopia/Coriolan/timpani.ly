@@ -13,12 +13,12 @@ copyright =	 "public domain";
 
 timpani = \melodic{
 	\octave c;	
-	r1 | r1 | c4-.\ff r r2 | r1 |
-	r1 | r1 | c4-. r r2 | r1 |
-	r1 | r1 | c4-. r r2 | r1 |
+	r1*2 | c4-.\ff r r2 | r1*3 |
+	c4-. r r2 | r1*3 |
+	c4-. r r2 | r1 |
 	'g4-. r r2 | 'g4-. r r2 |
-	r1 | r1 | r1 | r1 |
-	r1 | r2 r4 'g4-. |
+	r1*5 |
+	r2 r4 'g4-. |
 }
 
 $timpani_staff = \type Staff = timpani <

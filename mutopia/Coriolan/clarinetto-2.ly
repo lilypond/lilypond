@@ -17,11 +17,11 @@ clarinetto2 = \melodic{
 % lilypond: ../../current/lily/dynamic-grav.cc:58: void Dynamic_engraver::do_process_requests(): Assertion `!dynamic_p_' failed.
 % Aborted (core dumped)
 %	r1 | r1 | as4-.\ff r r2 | r1 |
-	r1 | r1 | as4-. r r2 | r1 |
-	r1 | r1 | b4-. r r2 | r1 |
-	r1 | r1 | c'4-. r r2 | r1 |
+	r1*2 | as4-. r r2 | r1*3 |
+	b4-. r r2 | r1*3 |
+	c'4-. r r2 | r1 |
 	c'4-. r r2 | b4-. r r2 |
-	r1 | r1 | r1 | r1 |
-	r1 | r2 r4 'b4-. |
+	r1*5 |
+	r2 r4 'b4-. |
 }
 

@@ -15,6 +15,7 @@ copyright =	 "public domain";
 \include "corni.ly"
 
 \score{
+%	\property Score.part = 1
 	\$corni_staff
 	\paper{}
 }

@@ -13,6 +13,7 @@ copyright =	 "public domain";
 \include "clarinetti.ly"
 
 \score{
+%	\property Score.part = 1
 	\$clarinetti_staff
 	\paper{}
 }

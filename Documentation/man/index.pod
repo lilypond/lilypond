@@ -1,0 +1,50 @@
+=head1 NAME
+
+The Manuals of LilyPond -- the GNU Project music typesetter
+
+=head1 DESCRIPTION
+
+These are the manpages that document LilyPond.
+
+
+=head2 Documentation: manpages, manuals
+
+
+=over 4
+
+=item *
+<a href=mi2mu.html
+>
+manual page for mi2mu, the MIDI convertor.
+</a
+>
+
+=item *
+<a href=lilypond.html
+>
+The manual page
+</a
+>
+
+=item *
+<a href=ly2dvi.html
+>
+Easy titling for LilyPond
+</a
+>
+
+=item *
+<a href=convert-mudela.html
+>
+The mudela convertor: convert-mudela
+</a
+>
+
+=item *
+<a href=mudela-book.html
+>
+mudela in TeX: mudela-book
+</a
+>
+
+=back

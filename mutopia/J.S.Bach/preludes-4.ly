@@ -1,6 +1,11 @@
 \header{
 filename =	 "preludes-4.ly";
 title =	 "4";
+opus = "BWV 925";
+% blz 8
+% Clavierb"uchlein f"ur W. Fr. Bach
+% Clav. W. Fr. Bach: 27-Praeludium ex d neutral
+% ca 1720
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";

@@ -21,6 +21,8 @@ EXTRA_SOURCE_FILES = $(wildcard *.yy *.ll)
 
 #
 PODFILES = $(wildcard *.pod)
+OUTPODFILES = $(addprefix $(outdir)/,$(PODFILES))
+
 
 CCFILES = $(wildcard *.cc)
 MAKEFILES = $(wildcard *.make)

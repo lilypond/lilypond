@@ -1,6 +1,12 @@
 \header{
 filename =	 "preludes-3.ly";
 title =	 "3";
+opus = 	"BWV 999";
+% Pr"aludum in C Moll f"ur Laute
+% blz 16
+% Six Petits Pr'eludes
+% Collection Johann Peter Kellner
+% ca 1703 - 1707
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";

@@ -55,6 +55,7 @@ include_path=[ 'input', 'mutopia' , 'mutopia/J.S.Bach', 'mutopia/Coriolan',
 def set_vars():
     __main__.lilyversion =  version_tuple_to_str(lilydirs.version_tuple())
     os.environ["TEXINPUTS"] = os.environ["TEXINPUTS"] + ":%s/input/:" % depth;
+    os.environ["CONFIGSUFFIX"] = 'www';
     
     os.environ["LILYINCLUDE"] = join (':', __main__.include_path) +':'+ os.environ["LILYINCLUDE"];
     os.environ["LILYTOP"] = depth;

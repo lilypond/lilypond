@@ -33,6 +33,7 @@ exe: $(EXECUTABLE)
 #
 $(LIBRARY): $(configheader) $(OFILES)
 	$(AR_COMMAND) $(OFILES)
+	$(AR) ts $@		#silly irix
 	$(RANLIB_COMMAND)
 
 $(SHAREDLIBRARY):  $(configheader) $(OFILES) $(MODULE_LIBDEPS)
@@ -230,6 +231,10 @@ check-mf-deps:
 $(configheader): $(depth)/$(configuration).hh
 	cp $< $@
 
+WWW: local-WWW
+	$(LOOP)
+
+local-WWW:
 
 
 ifneq ($(DEPFILES),)

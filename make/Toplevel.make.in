@@ -64,3 +64,14 @@ Makefile: make/Toplevel.make.in
 	cat $< >> $@
 	chmod -w $@
 
+
+website:
+
+
+examples:
+	$(MAKE) CONFIGSUFFIX='www' -C input WWW
+	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
+	tar cfz $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
+
+
+

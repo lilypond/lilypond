@@ -152,8 +152,8 @@ CFLAGS = $(ICFLAGS) $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
 # huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
 
 # -pipe makes it go faster, but is not supported on all platforms. 
-# EXTRA_CXXFLAGS= -fno-rtti -fno-exceptions -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
-EXTRA_CXXFLAGS= -Wall -Winline -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
+# EXTRA_CXXFLAGS= -Wall -Winline -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
+EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES =  -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 

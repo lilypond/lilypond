@@ -15,6 +15,7 @@ copyright =	 "public domain";
 \include "oboi.ly"
 
 \score{
+%	\property Score.part = 1
 	\$oboi_staff
 	\paper{}
 }

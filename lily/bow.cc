@@ -8,10 +8,12 @@
 */
 
 #include "bow.hh"
+#include "debug.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "lookup.hh"
 #include "bezier.hh"
+#include "main.hh"
 
 IMPLEMENT_IS_TYPE_B1(Bow,Directional_spanner);
 
@@ -28,8 +30,21 @@ Bow::brew_molecule_p () const
   
   Array<Offset> c = get_controls ();
   Atom a = paper ()->lookup_l ()->slur (c);
-//  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
-  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT] - c[0].y ()));
+  Real dy = c[3].y () - c[0].y ();
+  if (check_debug && !monitor->silent_b ("Bow"))
+    {
+      static int i = 1;
+      cout << "******" << i++ << "******" << endl;
+      // gcc 2.7.2: ices
+//      cout << "c0.y: " << c[0].y << endl;
+      cout << "c0.y: " << c[0].y () << endl;
+      cout << "c3.y: " << c[3].y () << endl;
+      cout << "dy: " << dy << endl;
+      cout << "dy_f_l: " << dy_f_drul_[LEFT] << endl;
+      cout << "dy_f_r: " << dy_f_drul_[RIGHT] << endl;
+      cout << "dy_f: " << dy_f_drul_[RIGHT] - dy_f_drul_[LEFT] << endl;
+    }
+  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
   mol_p->add (a);
 
@@ -74,11 +89,25 @@ Bow::get_encompass_offset_arr () const
 {
   Real dx = width (). length ();
   dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+  Real left_x = 0;
+  Real interline = paper ()->interline_f ();
+  if (dx < 2.0 * interline)
+    {
+      left_x = - 3.0 * interline;
+      dx = 2.0 * interline;
+    }
   Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
 
+#define RESIZE_ICE
+#ifndef RESIZE_ICE
   Array<Offset> notes;
-  notes.push (Offset (0,0));
-  notes.push (Offset (dx, dy));
+  notes.push (Offset (left_x, 0));
+  notes.push (Offset (left_x + dx, dy));
+#else
+  Array<Offset> notes (2);
+  notes[0] = Offset (left_x, 0);
+  notes[1] = Offset (left_x + dx, dy);
+#endif
 
   return notes;
 }

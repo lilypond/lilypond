@@ -196,7 +196,7 @@ the precise working of Mudela is coupled to the innards of LilyPond.
 If you really want to know all the details, your best bet would be to
 get the sources to LilyPond and read the parser and scanner source.
 They are in \file{lilypond-x.y.z/lily/parser.y},
-\file{lilypond-x.y.z/lily/lexer.l\footnote{Of course, it would be even
+\file{lilypond-x.y.z/lily/lexer.l}\footnote{Of course, it would be even
 better if you would improve LilyPond and send the resulting diffs to
 us.  But that would a really different ballpark (And we haven't
 started with the programming guide yet.)}

@@ -1,6 +1,10 @@
 \header{
 filename =	 "preludes-5.ly";
 title =	 "5";
+% blz 2
+% Clavierb"uchlein f"ur W. Fr. Bach
+% Clav. W. Fr. Bach: 4-Praeludium 2
+% ca 1720
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
@@ -102,7 +106,7 @@ two = \melodic{
 	d-\mordent r r |
 	'd4 r r |
 	d-\mordent r r |
-	d r r |
+%	d r r |
 	'd4 r r |
 	[d8-2 'a-5 d-2 f-1 d-4 f-2] |
 	[a-1 f-4 a-2 d'-1 a-2 d'-1] |

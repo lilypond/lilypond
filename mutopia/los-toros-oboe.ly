@@ -184,7 +184,8 @@ hoboonelast = \melodic{
 	% eiht measures rest..
 	\textstyle "bold";
 %	r2^"Un peu plus lent et \\'el\\'egant"
-	r2^"\\fetanummer8"
+%	r2^"\\fetanummer8"
+	r2*8
 	r4 r8\p bes |
 	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
 	\textstyle "italic";
@@ -274,7 +275,7 @@ global = \melodic{
 	\skip 4*58;
 	\key bes es as; |
 	\bar "||";
-	\skip 4*206;
+	\skip 4*220;
 	\bar "|.";
 }
 
@@ -301,9 +302,8 @@ a4 = \paper{
 		\consists "Staff_sym_engraver";
 		\consists "Collision_engraver";
 		\consists "Rest_collision_engraver";
-% not yet: multibar rest
-%		\consists "Bar_column_engraver";
-%		\consists "Bar_number_engraver";
+		\consists "Bar_column_engraver";
+		\consists "Bar_number_engraver";
 		\consists "Separating_line_group_engraver";
 		\consists "Line_group_engraver";
 		  
@@ -325,9 +325,8 @@ a4sixteen = \paper{
 		\consists "Staff_sym_engraver";
 		\consists "Collision_engraver";
 		\consists "Rest_collision_engraver";
-% not yet: multibar rest
-%		\consists "Bar_column_engraver";
-%		\consists "Bar_number_engraver";
+		\consists "Bar_column_engraver";
+		\consists "Bar_number_engraver";
 		\consists "Separating_line_group_engraver";
 		\consists "Line_group_engraver";
 		  
@@ -341,6 +340,6 @@ a4sixteen = \paper{
 	\midi{
 		\tempo 4 = 80;
 	}
-	\paper{ \a4sixteen }
+%	\paper{ \a4sixteen }
 }
 

@@ -25,8 +25,8 @@
 #include "debug.hh"
 #include "boxes.hh"
 #include "bezier.hh"
+// #include "main.hh"
 
-//IMPLEMENT_IS_TYPE_B1(Slur,Spanner);
 IMPLEMENT_IS_TYPE_B1(Slur,Bow);
 
 Slur::Slur ()
@@ -170,24 +170,51 @@ Slur::get_encompass_offset_arr () const
   Real dx = width ().length ();
   dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   dx = dx <? 1000;
-  dx = dx >? 2 * interline;
+  dx = dx >? 2.0 * interline;
 
   Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   if (abs (dy) > 1000)
     dy = sign (dy) * 1000;
 
+  Real start_x = 0;
+  Real start_y = left_y - dy_f_drul_[LEFT];
   int first = 1;
   int last = encompass_arr_.size () - 1;
+
+  // broken slur first part
   if (encompass_arr_[0] != spanned_drul_[LEFT])
     {
       first = 0;
       left_x = spanned_drul_[LEFT]->width ().length ();
       left_x -= 2 * notewidth;
-      left_y = encompass_arr_[last]->stem_l_->height ()[dir_];
+      // urg
+      start_x = left_x - 2 * notewidth;
+
+      // urg
+      if (encompass_arr_.size () > 1)
+	dx += notewidth;
+
+      if (dx < 2.0 * interline)
+	{
+	  left_x -= 2.0 * interline - dx;
+	  dx = 2.0 * interline;
+	  start_x = left_x;
+	}
+
+      if (dir_ == UP)
+	left_y = left_y >? dy_f_drul_[LEFT];
+      else
+	left_y = left_y <? dy_f_drul_[LEFT];
+      start_y = left_y - dy_f_drul_[LEFT];
+
       dy = 0;
     }
+
+  // broken slur second part
   if (encompass_arr_.top () != spanned_drul_[RIGHT])
     {
+      left_y += 2.0 * dir_ * internote;
+      start_y = left_y - dy_f_drul_[LEFT];
       last += 1;
       dy = 0;
     }
@@ -195,11 +222,11 @@ Slur::get_encompass_offset_arr () const
 #define RESIZE_ICE
 #ifndef RESIZE_ICE
   Array<Offset> notes;
-  notes.push (Offset (0,0));
+  notes.push (Offset (start_x, start_y));
 #else
   int n = last - first + 2;
   Array<Offset> notes (n);
-  notes[0] = Offset (0,0);
+  notes[0] = Offset (start_x, start_y);
 #endif
   for (int i = first; i < last; i++)
     {
@@ -211,7 +238,14 @@ Slur::get_encompass_offset_arr () const
       Real x = stem->hpos_f ();
 
       if (stem->dir_ != dir_)
-	x += 0.5 * notewidth;
+        {
+	  x += 0.5 * notewidth;
+	  // ugh
+	  if (dir_ == DOWN)
+	    x -= 0.5 * notewidth;
+	  else
+	    x += 0.5 * notewidth;
+	}
       else if (stem->dir_ == UP)
 	x += 1.0 * notewidth;
 
@@ -224,6 +258,7 @@ Slur::get_encompass_offset_arr () const
        */
       y += 2.5 * internote * dir_;
 
+      // ugh
       if (dir_ == DOWN)
 	y += 1.5 * internote * dir_;
 
@@ -232,11 +267,11 @@ Slur::get_encompass_offset_arr () const
 #ifndef RESIZE_ICE
       notes.push (Offset (x, y));
     }
-  notes.push (Offset (dx, dy));
+  notes.push (Offset (start_x + dx, start_y + dy));
 #else
       notes[i - first + 1] = Offset (x, y);
     }
-  notes[n - 1] = Offset (dx, dy);
+  notes[n - 1] = Offset (start_x + dx, start_y + dy);
 #endif
 
   return notes;

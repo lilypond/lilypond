@@ -15,6 +15,7 @@ copyright =	 "public domain";
 \include "flauti.ly"
 
 \score{
+%	\property Score.part = 1
 	\$flauti_staff
 	\paper{}
 }

@@ -15,6 +15,7 @@ copyright =	 "public domain";
 \include "fagotti.ly"
 
 \score{
+%	\property Score.part = 1
 	\$fagotti_staff
 	\paper{}
 }

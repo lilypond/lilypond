@@ -13,11 +13,11 @@ copyright =	 "public domain";
 
 fagotto1 = \melodic{
 	\octave c;	
-	r1 | r1 | as4-.\ff r r2 | r1 |
-	r1 | r1 | as4-. r r2 | r1 |
-	r1 | r1 | a4-. r r2 | r1 |
+	r1*2 | as4-.\ff r r2 | r1*3 |
+	as4-. r r2 | r1*3 |
+	a4-. r r2 | r1 |
 	c'4-. r r2 | b4-. r r2 |
-	r1 | r1 | r1 | r1 |
-	r1 | r2 r4 g4-.\f |
+	r1*5 |
+	r2 r4 g4-.\f |
 }
 

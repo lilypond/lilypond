@@ -27,8 +27,6 @@ except KeyError:
 	except KeyError:
 	    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
 
-	    sys.exit(1)
-
 lilypath = lilypath + '/bin/'
 sys.path.append(lilypath)
  
@@ -178,7 +176,6 @@ class Log_reader:
 	    raise 'unknown label: ' + label
 
     def writedeps (self, deps):
-	
 	filename = deps[0]
 	split = os.path.splitext(filename)	
 	basename=split[0];
