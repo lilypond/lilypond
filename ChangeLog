@@ -1,6 +1,9 @@
 2003-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* flower/libc-extension.cc (lrint)[!HAVE_LRINT]: Add casting #define.
+	* NEWS: Typo and fill-paragraph fixes.
+
+	* flower/libc-extension.cc (lrint)[!HAVE_LRINT]: Use round () and
+	cast #define.
 
 	* configure.in: 
 	* config.hh.in: Check for lrint.

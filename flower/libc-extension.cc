@@ -13,9 +13,6 @@
 #include <ctype.h>
 #include "libc-extension.hh"
 
-/*
-  urg: why soo wierd?
- */
 char* 
 strnlwr (char* start ,int n)
 {
@@ -37,6 +34,20 @@ strnupr (char* start, int n)
     }
   return start;
 }
+
+
+#if ! HAVE_LRINT
+#define lrint(__x) ((long) (round (__x)
+#endif
+
+
+#if !HAVE_ISINF
+int
+isinf (double x)
+{
+  return x && ( x == x/ 2) ;
+}
+#endif
 
 
 #if !HAVE_MEMMEM
@@ -64,7 +75,7 @@ _memmem (Byte const *haystack, int haystack_len,
         if (*subneedle++ != *subhaystack++)
 	  goto next;
 	
-      // completed the needle. Gotcha.
+      /* Completed the needle.  Gotcha.  */
       return (Byte *) haystack;
       next:
 	haystack++;
@@ -120,10 +131,6 @@ strrev (Byte* byte, int length_i)
   return byte;
 }
 
-#if ! HAVE_LRINT
-#define lrint(__x) ((long)(double) __x)
-#endif
-
 #if ! HAVE_SNPRINTF
 int 
 snprintf (char *str, size_t, char const *format, ...)
@@ -143,14 +150,4 @@ vsnprintf (char *str, size_t, char const *format, va_list args)
   int i = vsprintf (str, format, args);
   return i;
 }
-#endif
-
-
-#if !HAVE_ISINF
-int
-isinf (double x)
-{
-  return x && ( x == x/ 2) ;
-}
-
 #endif
