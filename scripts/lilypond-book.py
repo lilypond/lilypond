@@ -1072,7 +1072,13 @@ def schedule_lilypond_block (chunk):
 		for o in opts:
 			m= re.match ("filename=(.*)", o)
 			if m:
-				newbody = newbody + get_output ("output-filename") % (m.group (1), basename + '.ly', m.group (1))
+				template = get_output ("output-filename")
+				b =  basename + '.ly'
+				human_base = os.path.basename (m.group (1))
+						  
+				## todo: include path, but strip 
+				## first part of the path.
+				newbody = newbody + template % (human_base, b,human_base)
 				break
 
 

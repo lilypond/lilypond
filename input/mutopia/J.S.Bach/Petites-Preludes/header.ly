@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.17"
 %{
  Header for Petites Preludes.
 
@@ -12,7 +12,7 @@
 instrument = "Piano"
 
 \header{
-  title =	 "Petites Pr\'eludes"
+  title =	 "Petites Pr\\'eludes"
   subtitle =	 "Clavierbuechlein"
   composer =	 "Johann Sebastian Bach (1685-1750)"
   enteredby =	 "JCN,HWN"
@@ -28,7 +28,7 @@ instrument = "Piano"
   style = "Baroque"
   copyright = "Public Domain"
   maintainer = "Jan Nieuwenhuizen"
-  maintainer_email = "janneke@gnu.org"
+  maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Feb/25"
   mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,

@@ -3,7 +3,7 @@
 opus = "BWV 940"
 piece = "6"
 
-\version "1.7.6"
+\version "1.7.17"
 
 
 
