@@ -147,25 +147,27 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-;; FIXME -- now that we can have ENCODING == #f, this can be
-;; simplified, esp OVERRIDE-CODING-COMMAND
-(define (font-command font . override-coding-command)
+(define (font-command font . override-coding)
   (let* ((name (ly:font-filename font))
 	 (magnify (ly:font-magnification font))
 	 (coding-alist (ly:font-encoding-alist font))
 	 (input-encoding (assoc-get 'input-name coding-alist))
 	 (font-encoding (assoc-get 'output-name coding-alist))
-	 (coding-command (if (not (null? override-coding-command))
-			     (car override-coding-command)
-			     (if font-encoding
-				 (get-coding-command font-encoding)
-				 #f))))
+	 (coding-command (if (null? override-coding)
+			     (if (equal? input-encoding font-encoding)
+				 #f font-encoding)
+			     (car override-coding))))
+
+    ;; FIXME:  now feta stuff has feta* input-encoding (again?)
+    ;;(format (current-error-port) "FONT: ~S, ~S\n" name font-encoding)
+    ;;(format (current-error-port) "INPUT: ~S\n" input-encoding)
+    (if (and coding-command (equal? (substring coding-command 0 4) "feta"))
+	(set! coding-command #f))
 
     (string-append
      "magfont" (string-encode-integer (hashq  name 1000000))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
-     (if (or (not font-encoding) (equal? input-encoding font-encoding)) ""
-	 (string-append "e" coding-command)))))
+     (if (not coding-command) "" (string-append "e" coding-command)))))
 
 (define (define-fonts paper font-list)
   
@@ -201,9 +203,7 @@
 	   (font-encoding (assoc-get 'output-name coding-alist))
 	   (command (font-command font))
 	   ;; FIXME -- see (font-command )
-	   (plain (if font-encoding
-		      (font-command font . (get-coding-command font-encoding))
-		      command))
+	   (plain (font-command font #f))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:paper-lookup paper 'outputscale))
