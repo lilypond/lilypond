@@ -3,6 +3,7 @@
     texidoc = "Scoring based slur formatting."
 }
 
+\version "2.3.7"
 \paper {
     raggedright = ##t
 }
