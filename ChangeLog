@@ -1,3 +1,11 @@
+2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/template/GNUmakefile (TITLE): add lysdoc target for the
+	templates
+
+	* Documentation/user/introduction.itely (Introduction): finish
+	introduction 
+
 2002-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/include/music-iterator.hh (class Music_iterator): change
@@ -20,6 +28,8 @@
 	* input/test/move-accidentals.ly: New file. (Han-Wen)
 
 2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/grob-scheme.cc (ly_get_parent): don't crash if no parent.
 
 	* lily/slur.cc (get_first_notecolumn_y): robustness: don't crash
 	if no note-columns.

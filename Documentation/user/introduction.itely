@@ -14,7 +14,9 @@ like this:
 \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
 @end lilypond
 
- Encoding music using letters and digits may appear strange,
+@cindex encoding music
+
+Encoding music using letters and digits may appear strange,
 intimidating or even clumsy at first. Nevertheless, when you take the
 effort to learn the codes and the program you will find that it is
 easier than it seems.  Entering music can be done quickly, and you
@@ -22,6 +24,10 @@ never have to remember how you made the program do something
 complicated: it's all in the input code, and you only have to read the
 file to see how it works. Moreover, when you use LilyPond, you are
 rewarded with very nicely looking output.
+
+@cindex GUI
+@cindex Batch
+@cindex UNIX 
 
 When we started with developing LilyPond, we were interested in music
 notation, not as publishers or musicians, but as students and
@@ -33,6 +39,9 @@ common to use compilers to achieve computing tasks, so our
 computerized music engraving experiment took on the form of a
 compiler.
 
+@cindex free software
+@cindex sharing software
+
 One other decision was also motivated by our academic background. In
 the scientific community it has always been a tradition to share
 knowledge, and, to a lesser extent, the software you wrote. One of the
@@ -42,6 +51,8 @@ proprietary computing solutions with free (as in ``Libre'')
 variants. We jumped on that bandwagon, and that is the reason that you
 can still get LilyPond at no cost without any strings attached.
 
+@cindex engraving
+@cindex typography
 
 Making sheet music may seem trivial at first (``you print 5 lines, and
 then put in the notes at different heights''), @emph{music engraving},
@@ -55,6 +66,9 @@ plate. Stamping and cutting was completely done by hand, and making
 corrections was cumbersome, so engraving had to be correct in one
 go. As you can imagine this was a highly specialized skill, much more
 so than the traditional process of printing books.
+
+@cindex craftmanship
+@cindex master
 
 In fact, in the traditional German craftmanship six years of full-time
 training were required, before a student could call himself a master
@@ -93,6 +107,11 @@ first.
 		  } } }
 @end lilypond
 
+@cindex musical symbols
+@cindex font
+@cindex blackness
+@cindex balance
+
 The figure above shows a few notable glyphs. For example, the
 half-notehead is not elliptic but slightly diamond shaped.  The stem
 of a flat symbol should be slightly brushed, i.e. becoming wider at
@@ -111,6 +130,7 @@ example of a motive, printed four times. It is printed using both
 exact, mathematical spacing, and with some corrections. Can you spot
 which is which?
 
+@cindex optical spacing
 @lilypond
     \score { \notes {
       \property Staff.NoteSpacing \set #'stem-spacing-correction
@@ -126,6 +146,9 @@ which is which?
     }
     \paper { linewidth = -1. } }
 @end lilypond
+
+@cindex regular rhythms
+@cindex regular spacing
 
 The fragment that was printed uses only quarter notes: notes that are
 played in a constant regular rhythm. The spacing should reflect
@@ -163,6 +186,10 @@ much more incompatible than the formats for wordprocessors and
 spreadsheets.  Anyone who has tried to exchange data files from
 between different notation programs can attest to this.
 
+@cindex music representation
+@cindex music expressions
+@cindex input format
+
 The cause of this problem is that music is inherently two-dimensional:
 in polyphonic music, notes have time and pitch as their two
 coordinates, and they often are related in both directions. Computer
@@ -189,23 +216,87 @@ present to be able to produce a printed score.
 These ideas shaped our music representation which elegantly builds
 complex musical constructs from simple entities like notes and rests,
 in much the same way that one builds complex formulae from simple
-expressions such as numbers and mathematical operators.
+expressions such as numbers and mathematical operators.  The strict
+separation between musical information and typesetting also gives a
+blueprint of the program: first it reads the music representation,
+then it interprets the music---reading it `left-to-right', and
+translating the musical information to a layout specification. When
+the layout is computed, the resulting symbols are written to an output
+file.
 
-The strict separation between musical information and typesetting also
-gives a blueprint of the program: first it reads the music
-representation, then it interprets the music---reading it
-`left-to-right', and translating the musical information to a layout
-specification. When the layout is computed, the resulting symbols are
-written to an output file.
+As you will notice in the coming pages, and the examples, in a lot of
+case, the program makes good decisions, and what comes out of lilypond
+generally looks good. For some specific examples, the default layout
+of lilypond even is suitable for publication. However, some aspects of
+the formatting are not yet very good. This gives us programmers
+inspiration for improving the program. However, most users are more
+interested in making their printouts look good, and then they have to
+make manual adjustments to the output.  Another aspect of our system
+of encoding through ASCII then shows: it can be complicated to fine
+tune the layout of a piece. There is no graphical user interface,
+where you can simply click and drag a symbol. On the other hand, if
+you have written the code for tuning one specific aspect of the
+layout, then you can simply store the file on disk, retrieve it when
+you need it: there is no need to remember how you did it.  It's all in
+the input file. Lilypond also comes with a huge collection of snippets
+that show all kinds of tricks.
 
-Much more could be said about the inner working of the program, but we
-will leave it at this. Those who are interested can inspect the source
-code, which is available freely, or inquire on the development mailing
-list.
+@cindex snippets
+@cindex adjusting output
 
-We hope that you understand where LilyPond came from, and what we
-tried to achieve. The rest of this manual less philosophical: it
-instructs you how use the input language to print beautiful music.
+
+This collection is much needed, because of the way LilyPond is
+structured. It is a large program, but almost all of the internal
+functionality is exported: that is, the variables that are internally
+used to determine formatting of the sheet music are available directly
+to the user. These are variables to control thicknesses, distances,
+and other formatting options: there are a huge number of them, and it
+would be impossible to describe them all in a hand-written
+manual. There is no need to despair, there is `automatic' manual, that
+lists all of the variables, symbol types, etc. that are available.  It
+is directly generated from the definitions that LilyPond itself uses,
+so it is always up to date. If you are reading this from a screen: it
+is available from the web, and is included with most binary
+distributions.  If you're reading this from paper, then we advise you
+to use the digital version anyway: the hyperlinks make finding topics
+in the lilypond-internals manual much easier.
+
+@cindex variables
+@cindex properties
+@cindex lilypond-internals
+@cindex internal documentation 
+
+For those who really want to get their hands dirty: it is even
+possible to add your own functionality, by extending LilyPond in the
+built-in scripting language, a dialect of the powerful programming
+language Scheme. There is no real distinction between what a user can
+do and what a programmer is allowed to do.
+
+@cindex Scheme
+@cindex extending lilypond
+
+In short, this manual does not pretend to be exhaustive, but it is
+merely a guide that tries to explain the most important principles,
+and shows popular input idioms.  The rest of the manual is structured
+as follows: it starts with a tutorial that explains how to use
+lilypond. In the tutorial, a number of fragments of increasing
+complexity are shown and explained.  Then comes the reference manual,
+which gives more detailed information on all features of If you're new
+to lilypond, then you should start reading the tutorial, and
+experiment for yourself.  If you already have some experience, then
+you can simply use the manual as reference: there is an extensive
+index@footnote{If you are looking something, and you can't find it by
+using the index, that is considered a bug.  In that case, please file
+a bugreport}
+
+@cindex bugreport
+@cindex index
+@cindex tutorial
+@cindex overview of manual
+@cindex idiom
+
+
+
 
 
 
