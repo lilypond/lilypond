@@ -399,8 +399,12 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   bool equally_long = false;
   Grob * par_beam = parallel_beam (me, column_arr, &equally_long);
 
+  /*
+    We follow the beam only if there is one, and we are next to it.
+   */
   Real dy, offset;
-  if (!par_beam)
+  if (!par_beam
+      || Directional_element_interface::get (par_beam) != dir)
     {
       calc_position_and_height (me,&offset,&dy);
     }

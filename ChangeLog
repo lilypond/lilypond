@@ -1,3 +1,8 @@
+2002-04-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/tuplet-bracket.cc (after_line_breaking): bugfix for forced
+	direction tuplets on beams.
+
 2002-04-08  Chris Jackson <chris@fluffhouse.org.uk>
 
 	* lilypond-indent.el: Bugfix of indentation of final point in buffer
