@@ -1115,16 +1115,23 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn
 	(make-local-variable 'show-paren-mode)
-	(setq show-paren-mode t)))
+	(setq show-paren-mode t))
+    (paren-set-mode 'paren))
 
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn
-	(make-local-variable 'show-paren-function)
-	;;(setq show-paren-function 'LilyPond-show-paren-function) ; possible ?
+	;; (make-local-variable 'show-paren-function) ; possible?
+	;; (setq show-paren-function 'LilyPond-show-paren-function) ; possible?
+	;;  don't redefine emacs functions. It breaks other modes.
+	;;  should have an own idle-timer instead
+	;; (defun show-paren-function () (LilyPond-show-paren-function)) ; for testing
 	)
     (progn
-      (make-local-variable 'paren-highlight)
-      ;;(setq paren-highlight 'LilyPond-paren-highlight) ; possible ?
+      ;; (make-local-variable 'paren-highlight) ; possible?
+      ;; (setq paren-highlight 'LilyPond-paren-highlight) ; possible?
+      ;;  don't redefine Xemacs functions. It breaks other modes.
+      ;;  should have an own idle-timer instead
+      ;; (defun paren-highlight () (LilyPond-paren-highlight)) ; for testing
       ))
 
   ;; In XEmacs imenu was synched up with: FSF 20.4

@@ -1,7 +1,8 @@
 ;;; lilypond-indent.el --- Auto-indentation for lilypond code
 ;;;
 ;;; Heikki Junes <hjunes@cc.hut.fi>
-;;; * redefine Emacs' show-paren-function and XEmacs' paren-highlight
+;;; * introduce Lilypond-show-paren-function for Emacs and 
+;;;             Lilypond-paren-highlight for XEmacs
 ;;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
 ;;; * adopt Emacs' f90-comment-region
 
@@ -16,7 +17,7 @@
 ;;;    * in syntax-highlighting slurs are not always highlighted the right way
 ;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
 ;;;      opening slurs
-;;;    * is locality of show-paren-function and paren-highlight possible?
+;;;    * should make Lilypond-show-paren-mode instead of using show-paren-mode
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -569,17 +570,10 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 in XEmacs' paren-highlight."
   (LilyPond-blink-matching-paren dir))
 
-;;; REDEFINITIONS: in future make show-paren-mode and paren-highlight local?
-
 ;;; From Emacs' paren.el, with minimal changes (see "LilyPond"-lines)
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
-; (defun show-paren-function ()
-
-
-;;  don't redefine emacs functions. It breaks other modes.
-
-(defun LilyPond-show-paren-function () ; make show-paren-function local ??
+(defun LilyPond-show-paren-function ()
   (if show-paren-mode
       (let (pos dir mismatch face (oldpos (point)))
 	(cond ((eq (char-syntax (preceding-char)) ?\))
@@ -684,10 +678,7 @@ in XEmacs' paren-highlight."
 ;;; From XEmacs' paren.el, with minimal changes (see "LilyPond"-lines)
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
-(if (string-match "XEmacs\\|Lucid" emacs-version)
-    (paren-set-mode 'paren)) ; works if this is set here (, right place?)
-;(defun paren-highlight ()
-(defun LilyPond-paren-highlight () ; make paren-highlight local ??
+(defun LilyPond-paren-highlight ()
   "This highlights matching parentheses.
 
 See the variables:
