@@ -42,6 +42,7 @@ private:
   int identifier_type (SCM);
   char escaped_char (char) const;
 
+  Keyword_table *keytable_;
 public:
   String main_input_name_;
   void *lexval;
@@ -53,7 +54,6 @@ public:
   SCM chordmodifier_tab_;
   SCM pitchname_tab_stack_;
 
-  Keyword_table *keytable_;
   int error_level_;
   Input last_input_;
 

@@ -104,7 +104,7 @@ Lily_lexer::Lily_lexer (Sources *sources)
 Lily_lexer::Lily_lexer (Lily_lexer const &src)
   : Includable_lexer ()
 {
-  keytable_ =  (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
+  keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   encoding_ = src.encoding_;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
@@ -118,7 +118,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   smobify_self ();
   
   SCM scopes = SCM_EOL;
-  SCM* tail = &scopes;
+  SCM *tail = &scopes;
   for (SCM s = src.scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM newmod = ly_make_anonymous_module (false);
@@ -280,7 +280,6 @@ Lily_lexer::set_encoding (String s)
   else
     encoding_ = SCM_EOL;
 }
-
 
 #include "ly-smobs.icc"
 
