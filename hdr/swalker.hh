@@ -2,7 +2,7 @@
 /*
   swalker.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef SWALKER_HH

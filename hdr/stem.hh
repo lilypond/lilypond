@@ -1,7 +1,7 @@
 /*
   stem.hh -- 
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef STEM_HH
