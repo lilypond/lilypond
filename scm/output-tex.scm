@@ -182,7 +182,7 @@
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
 (define (char i)
-  (string-append "\\char" (inexact->string i 10) " "))
+  (string-append "\\char" (ly:inexact->string i 10) " "))
 
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))
@@ -198,7 +198,7 @@
    "\\font\\" command "="
    (car name-mag)
    " scaled "
-   (ly:number->string (inexact->exact (round (* 1000  (cdr name-mag)))))
+   (ly:number->string (inexact->exact (round (* 1000 (cdr name-mag)))))
    "\n"))
 
 (define (ez-ball c l b)
@@ -274,7 +274,7 @@
 
 (define (invoke-char s i)
   (string-append 
-   "\n\\" s "{" (inexact->string i 10) "}" ))
+   "\n\\" s "{" (ly:inexact->string i 10) "}" ))
 
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define-public (output-tex-string s)
@@ -327,7 +327,7 @@
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))
       (embedded-ps
-       (string-append (numbers->string (list breapth width depth height))
+       (string-append (ly:numbers->string (list breapth width depth height))
 		      " draw_box" ))
       (string-append "\\lyvrule{"
 		     (ly:number->string (- breapth)) "}{"

@@ -130,12 +130,12 @@
 (define (control-flip-y c)
   (cons (car c) (* -1 (cdr c))))
 
-(define (numbers->string l)
+(define (ly:numbers->string l)
   (string-append
    (number->string (car l))
    (if (null? (cdr l))
        ""
-       (string-append ","  (numbers->string (cdr l))))))
+       (string-append ","  (ly:numbers->string (cdr l))))))
 
 (define (svg-bezier l close)
   (let* ((c0 (car (list-tail l 3)))

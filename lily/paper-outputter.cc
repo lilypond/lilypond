@@ -67,11 +67,11 @@ Paper_outputter::Paper_outputter (String name)
 	"ly:gulp-file",
 	"ly:number->string",
 	
-	"number-pair->string",       /* output-lib.scm */
-	"numbers->string",
+	"ly:number-pair->string",    /* output-lib.scm */
+	"ly:numbers->string",
+	"ly:inexact->string",
 	
 	"assoc-get",
-	"inexact->string",           /* insecure guile? */
 #if IMPORT_LESS	
 	"string-index",              /* from srfi srfi-13 */
 	"regexp-substitute/global",  /* from (ice9 regex) */

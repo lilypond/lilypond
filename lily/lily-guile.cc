@@ -314,10 +314,9 @@ ly_scm2offset (SCM s)
 }
 
    
-LY_DEFINE (ly_number2string,  "ly:number->string", 1, 0,0,
-	  (SCM s),
-	  " converts @var{num} to a string without generating many decimals. It "
-"leaves a space at the end.")
+LY_DEFINE (ly_number2string, "ly:number->string",
+	   1, 0, 0, (SCM s),
+	   "Convert @var{num} to a string without generating many decimals.")
 {
   SCM_ASSERT_TYPE (gh_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
 
@@ -333,12 +332,10 @@ LY_DEFINE (ly_number2string,  "ly:number->string", 1, 0,0,
 	  r = 0.0;
 	}
 
-      sprintf (str, "%8.4f ", r);
+      sprintf (str, "%08.4f", r);
     }
   else
-    {
-      sprintf (str, "%d ", gh_scm2int (s));
-    }
+    sprintf (str, "%d", gh_scm2int (s));
 
   return scm_makfrom0str (str);
 }

@@ -99,7 +99,7 @@
 ;;; urg.
 (define (sketch-numbers->string l)
   (string-append
-   (number->string (car l))
+   (ly:number->string (car l))
    (if (null? (cdr l))
        ""
        (string-append ","  (sketch-numbers->string (cdr l))))))
@@ -206,7 +206,7 @@
 
 (define (bracket arch_angle arch_width arch_height  height arch_thick thick)
   (string-append
-   (numbers->string (list arch_angle arch_width arch_height height arch_thick thick)) " draw_bracket" ))
+   (ly:numbers->string (list arch_angle arch_width arch_height height arch_thick thick)) " draw_bracket" ))
 
 (define (char x y i)
   (string-append
@@ -227,7 +227,7 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map number-pair->string l)) 
+   (apply string-append (map ly:number-pair->string l)) 
    (ly:number->string thick) 
    " [ "
    (ly:number->string dash)
@@ -249,7 +249,7 @@
    " ] 0 draw_dashed_line"))
 
 (define (repeat-slash wid slope thick)
- (string-append (numbers->string (list wid slope thick))
+ (string-append (ly:numbers->string (list wid slope thick))
   " draw_repeat_slash"))
 
 (define (end-output)
@@ -327,7 +327,7 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
-   (numbers->string (list letter-col ball-col))
+   (ly:numbers->string (list letter-col ball-col))
    " /Helvetica-Bold " ;; ugh
    " draw_ez_ball"))
 

@@ -88,7 +88,7 @@
  )
 
 (define-public (arg->string arg)
-  (cond ((number? arg) (inexact->string arg 10))
+  (cond ((number? arg) (ly:inexact->string arg 10))
 	((string? arg) (string-append "\"" arg "\""))
 	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
 
@@ -107,8 +107,9 @@
 ;; do nothing in .scm output
 (define-public (comment s) "")
 
-(define-public (numbers->string lst)
-  (apply string-append (map ly:number->string lst)))
+(define-public (ly:numbers->string lst)
+  (apply string-append
+	 (map (lambda (x) (string-append (ly:number->string x) " "))  lst)))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
@@ -119,12 +120,11 @@
      (number->string n8)
      (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
 
-(define-public (inexact->string x radix)
+(define-public (ly:inexact->string x radix)
   (let ((n (inexact->exact x)))
     (number->string n radix)))
 
-
-(define-public (number-pair->string c)
+(define-public (ly:number-pair->string c)
   (string-append (ly:number->string (car c)) " "
 		 (ly:number->string (cdr c)) " "))
 

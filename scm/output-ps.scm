@@ -105,8 +105,8 @@
 
 (define (ps-number-def prefix key val)
   (let ((s (if (integer? val)
-	       (number->string val)
-	       (number->string (exact->inexact val)))))
+	       (ly:number->string val)
+	       (ly:number->string (exact->inexact val)))))
     (string-append "/" prefix (symbol->string key) " " s " def\n")))
 
 (define (tex-font? fontname)
@@ -120,24 +120,24 @@
 ;;; Output-interface functions
 (define (beam width slope thick blot)
   (string-append
-   (numbers->string (list slope width thick blot)) " draw_beam" ))
+   (ly:numbers->string (list slope width thick blot)) " draw_beam" ))
 
 ;; two beziers
 (define (bezier-sandwich l thick)
   (string-append 
-   (apply string-append (map number-pair->string l))
+   (apply string-append (map ly:number-pair->string l))
    (ly:number->string thick)
    " draw_bezier_sandwich "))
 
 (define (bracket arch_angle arch_width arch_height  height arch_thick thick)
   (string-append
-   (numbers->string
+   (ly:numbers->string
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
 (define (char i)
   (string-append 
-   "(\\" (inexact->string i 8) ") show " ))
+   "(\\" (ly:inexact->string i 8) ") show " ))
 
 (define (comment s)
   (string-append "% " s "\n"))
@@ -158,7 +158,7 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map number-pair->string l)) 
+   (apply string-append (map ly:number-pair->string l)) 
    (ly:number->string thick) 
    " [ "
    (ly:number->string dash)
@@ -240,7 +240,7 @@
 	   (scaling (cdr value)))
       (cons key (cons value
 		      (string-append
-		       "lilyfont" fontname "-" (number->string scaling))))))
+		       "lilyfont" fontname "-" (ly:number->string scaling))))))
 
   (set! font-name-alist
 	(map ps-encoded-fontswitch internal-external-name-mag-pairs))
@@ -251,7 +251,7 @@
 (define (dot x y radius)
   (string-append
    " "
-   (numbers->string
+   (ly:numbers->string
     (list x y radius)) " draw_dot"))
 
 (define (draw-line thick x1 y1 x2 y2)
@@ -275,12 +275,12 @@
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
-   (numbers->string (list letter-col ball-col))
+   (ly:numbers->string (list letter-col ball-col))
    " /Helvetica-Bold " ;; ugh
    " draw_ez_ball"))
 
 (define (filledbox breapth width depth height) 
-  (string-append (numbers->string (list breapth width depth height))
+  (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
 (define (fontify name-mag-pair exp)
@@ -398,31 +398,31 @@
 (define (polygon points blotdiameter)
   (string-append
    " "
-   (numbers->string points)
+   (ly:numbers->string points)
    (ly:number->string (/ (length points) 2))
    (ly:number->string blotdiameter)
    " draw_polygon"))
 
 (define (repeat-slash wid slope thick)
   (string-append
-   (numbers->string (list wid slope thick))
+   (ly:numbers->string (list wid slope thick))
    " draw_repeat_slash"))
 
 (define (round-filled-box x y width height blotdiam)
    (string-append
     " "
-    (numbers->string
+    (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
 (define (new-start-system origin dim)
   (string-append
-   "\n" (number-pair->string origin) " start-system\n"
+   "\n" (ly:number-pair->string origin) " start-system\n"
    "{\n"
    "set-ps-scale-to-lily-scale\n"))
 
 (define (stem breapth width depth height) 
   (string-append
-   (numbers->string (list breapth width depth height))
+   (ly:numbers->string (list breapth width depth height))
    " draw_box" ))
 
 (define (stop-system)
@@ -432,7 +432,7 @@
 
 (define (symmetric-x-triangle thick w h)
   (string-append
-   (numbers->string (list h w thick))
+   (ly:numbers->string (list h w thick))
    " draw_symmetric_x_triangle"))
 
 (define (text s)
