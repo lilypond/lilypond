@@ -21,7 +21,7 @@
 	0.3
 	0.6)
     (make-musicglyph-markup
-     (string-append "accidentals-" (number->string alteration))))))
+     (string-append "accidentals." (number->string alteration))))))
   
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."
