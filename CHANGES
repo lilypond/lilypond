@@ -1,3 +1,13 @@
+pl 2.jcn3
+	- chords:
+	  * Chord is item
+	  * junked TeX hacking
+	  * configurable with styled strings from scm
+	  * fixes: dim, /no X, tonic != C
+
+pl 2.jcn2
+	- chords from  scm 
+
 pl 2.jcn1
 	- chord fixes: 
 	   * inversion request: no inversion guessing for chord entry

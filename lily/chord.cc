@@ -9,7 +9,16 @@
 #include "chord.hh"
 #include "musical-request.hh"
 #include "warn.hh"
+#include "debug.hh"
+#include "molecule.hh"
+#include "paper-def.hh"
+#include "lookup.hh"
 
+SCM
+pitch2scm (Musical_pitch p)
+{
+  return gh_cons (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_));
+}
 
 /*
   construct from parser output
@@ -17,7 +26,7 @@
 Chord
 to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p)
 {
-  // urg: catch dim modifier: 5th and 7th should be lowered
+  // urg: catch dim modifier: 3rd, 5th, 7th, .. should be lowered
   bool dim_b = false;
   for (int i=0; i < add_arr_p->size (); i++)
     {
@@ -28,12 +37,10 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
 	  dim_b = true;
 	}
     }
-  Chord::rebuild_transpose (add_arr_p, tonic);
-  Chord::rebuild_transpose (sub_arr_p, tonic);
+  Chord::rebuild_transpose (add_arr_p, tonic, true);
+  Chord::rebuild_transpose (sub_arr_p, tonic, true);
 
-  Musical_pitch fifth = tonic;
-  fifth.transpose (Musical_pitch (2));
-  fifth.transpose (Musical_pitch (2, -1));
+  Musical_pitch fifth = Chord::base_arr (tonic).top ();
 
   /*
     remove double adds (urg: sus4)
@@ -68,19 +75,21 @@ to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pi
   if (highest_step < 5)
     missing_arr.push (fifth);
 
+  /*
+    if dim modifier is given: lower all missing
+   */
   if (dim_b)
     {
       for (int i=0; i < missing_arr.size (); i++)
         {
-          missing_arr[i].accidental_i_--;
+	  missing_arr[i].accidental_i_--;
 	}
     }
 
   /*
     if additions include some 3, don't add third
    */
-  Musical_pitch third = tonic;
-  third.transpose (Musical_pitch (2));
+  Musical_pitch third = Chord::base_arr (tonic)[1];
   if (Chord::find_notename_i (add_arr_p, third) != -1)
     {
       int i = Chord::find_pitch_i (&missing_arr, third);
@@ -200,6 +209,7 @@ Chord::Chord (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion_p, Musica
 }
 
 Chord::Chord (Chord const& chord)
+  : Item (chord)
 {
   pitch_arr_ = chord.pitch_arr_;
   inversion_p_ = chord.inversion_p_ ? new Musical_pitch (*chord.inversion_p_) : 0;
@@ -210,19 +220,33 @@ Chord::~Chord ()
 {
   delete inversion_p_;
   delete bass_p_;
+  // AAARGH, why doesn't Score_elt do this?
+  unsmobify_self ();
+}
+
+Array<Musical_pitch>
+Chord::base_arr (Musical_pitch p)
+{
+  Array<Musical_pitch> base;
+  base.push (p);
+  p.transpose (Musical_pitch (2));
+  base.push (p);
+  p.transpose (Musical_pitch (2, -1));
+  base.push (p);
+  return base;
 }
 
 void
-Chord::rebuild_transpose (Array<Musical_pitch>* pitch_arr_p, Musical_pitch tonic)
+Chord::rebuild_transpose (Array<Musical_pitch>* pitch_arr_p, Musical_pitch tonic, bool fix7_b)
 {
   for (int i = 0; i < pitch_arr_p->size (); i++)
     {
       Musical_pitch p = tonic;
       Musical_pitch q = (*pitch_arr_p)[i];
-      // duh, c7 should mean <c bes>
-      if (q.notename_i_ == 6)
-        q.accidental_i_--;
       p.transpose (q);
+      // duh, c7 should mean <c bes>
+      if (fix7_b && (step_i (tonic, p) == 7))
+        p.accidental_i_--;
       (*pitch_arr_p)[i] = p;
     }
   pitch_arr_p->sort (Musical_pitch::compare);
@@ -347,24 +371,28 @@ Chord::to_pitch_arr () const
 }
 
 void
-Chord::find_additions_and_subtractions (Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p) const
+Chord::find_additions_and_subtractions (Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p) const
 {
-  Musical_pitch tonic = pitch_arr_[0];
+  Musical_pitch tonic = pitch_arr[0];
   /*
     construct an array of thirds for a normal chord
    */
   Array<Musical_pitch> all_arr;
   all_arr.push (tonic);
-  all_arr.push (pitch_arr_.top ());
+  if (step_i (tonic, pitch_arr.top ()) >= 5)
+    all_arr.push (pitch_arr.top ());
+  else
+    all_arr.push (base_arr (tonic).top ());
   all_arr.concat (missing_thirds_pitch_arr (&all_arr));
   all_arr.sort (Musical_pitch::compare);
   
   int i = 0;
   int j = 0;
-  while ((i < all_arr.size ()) || (j < pitch_arr_.size ()))
+  Musical_pitch last_extra = tonic;
+  while ((i < all_arr.size ()) || (j < pitch_arr.size ()))
     {
       Musical_pitch a = all_arr [i <? all_arr.size () - 1];
-      Musical_pitch p = pitch_arr_ [j <? pitch_arr_.size () - 1];
+      Musical_pitch p = pitch_arr[j <? pitch_arr.size () - 1];
       /*
         this pitch is present: do nothing, check next
        */
@@ -372,6 +400,7 @@ Chord::find_additions_and_subtractions (Array<Musical_pitch>* add_arr_p, Array<M
 	{
 	  i++;
 	  j++;
+	  last_extra = tonic;
 	}
       /*
         found an extra pitch: chord addition
@@ -379,115 +408,221 @@ Chord::find_additions_and_subtractions (Array<Musical_pitch>* add_arr_p, Array<M
       else if ((p < a) || (p.notename_i_ == a.notename_i_))
 	{
 	  add_arr_p->push (p);
-	  (j < pitch_arr_.size ()) ? j++ : i++;
+	  last_extra = p;
+	  (j < pitch_arr.size ()) ? j++ : i++;
 	}
       /*
         a third is missing: chord subtraction
        */
       else
 	{
-	  sub_arr_p->push (a);
+	  if (last_extra.notename_i_ != a.notename_i_)
+	    sub_arr_p->push (a);
 	  (i < all_arr.size ()) ? i++ : j++;
+	  last_extra = tonic;
 	}
     }
       
+  /* add missing basic steps */
+  if (step_i (tonic, pitch_arr.top ()) < 3)
+    sub_arr_p->push (base_arr (tonic)[1]);
+  if (step_i (tonic, pitch_arr.top ()) < 5)
+    sub_arr_p->push (base_arr (tonic).top ());
+
   /*
-    add highest addition, because it names chord
-    (1, 3 and) 5 not an addition: part of normal chord
+    add highest addition, because it names chord, if greater than 5
+    or non-standard
+    (1, 3 and) 5 not additions: part of normal chord
    */
-  if (step_i (tonic, pitch_arr_.top () > 5))
-    add_arr_p->push (pitch_arr_.top ());
+  if ((step_i (tonic, pitch_arr.top ()) > 5)
+       || pitch_arr.top ().accidental_i_)
+    add_arr_p->push (pitch_arr.top ());
+}
+
+
+/*
+  word is roman text or styled text:
+   "text"
+   ("style" . "text")
+ */
+Molecule
+Chord::ly_word2molecule (SCM scm) const
+{
+  String style;
+  if (gh_pair_p (scm))
+    {
+      style = ly_scm2string (gh_car (scm));
+      scm = gh_cdr (scm);
+    }
+  String text = ly_scm2string (scm);
+  return lookup_l ()->text (style, text, paper_l ());
 }
 
 /*
-  TODO:
-   reduce guess work: dim chord
-   other naming conventions `American'?
-   don't use TeX constructs
-   user defined chords-names for specific chords:
-      tonic, additions, subtractions, inversion, bass -> "my-chord-name"
+ scm is word or list of words:
+   word
+   (word word)
  */
-String
-Chord::banter_str () const
+Molecule
+Chord::ly_text2molecule (SCM scm) const
 {
-  Musical_pitch tonic = pitch_arr_[0];
+  Molecule mol;
+  if (gh_list_p (scm))
+    {
+      while (gh_cdr (scm) != SCM_EOL)
+        {
+	  mol.add_at_edge (X_AXIS, RIGHT, 
+            ly_word2molecule (gh_car (scm)), 0);
+	  scm = gh_cdr (scm);
+	}
+      scm = gh_car (scm);
+    }  
+  mol.add_at_edge (X_AXIS, RIGHT, 
+    ly_word2molecule (scm), 0);
+  return mol;
+}
 
-  //urg, should do translation in scheme.
-  char const *acc[] = {"\\textflat\\textflat ", "\\textflat ", "", "\\textsharp " , "\\textsharp\\textsharp "};
-  String tonic_str = tonic.str ();
-  tonic_str = tonic_str.left_str (1).upper_str ()
-    + acc[tonic.accidental_i_ + 2];
+Molecule
+Chord::pitch2molecule (Musical_pitch p) const
+{
+  SCM name = scm_eval (gh_list (gh_symbol2scm ("user-pitch-name"), ly_quote_scm (pitch2scm (p)), SCM_UNDEFINED));
 
+  if (name != SCM_UNSPECIFIED)
+    {
+      return ly_text2molecule (name);
+    }
+
+  Molecule mol = lookup_l ()->text ("", p.str ().left_str (1).upper_str (), paper_l ());
+  if (p.accidental_i_)
+    // urg, how to select the feta-1 font?
+    mol.add_at_edge (X_AXIS, RIGHT, 
+		     lookup_l ()->accidental (p.accidental_i_, 0), 0);
+  return mol;
+}
+
+Musical_pitch
+diff_pitch (Musical_pitch tonic, Musical_pitch  p)
+{
+  Musical_pitch diff (p.notename_i_ - tonic.notename_i_, 
+    p.accidental_i_ - tonic.accidental_i_, 
+    p.octave_i_ - tonic.octave_i_);
+
+  while  (diff.notename_i_ >= 7)
+    {
+      diff.notename_i_ -= 7;
+      diff.octave_i_ ++;
+    }
+  while  (diff.notename_i_ < 0)
+    {
+      diff.notename_i_ += 7;
+      diff.octave_i_ --;
+    }
+
+  diff.accidental_i_ -= (tonic.semitone_pitch () + diff.semitone_pitch ())
+    - p.semitone_pitch ();
+
+  return diff;
+}
+
+bool
+Chord::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
+{
+  SCM chord = SCM_EOL;
+  Array<Musical_pitch> chord_type = pitch_arr;
+  rebuild_transpose (&chord_type, diff_pitch (pitch_arr[0], Musical_pitch (0)), false);
+
+  for (int i= chord_type.size (); i--; )
+    chord = gh_cons (pitch2scm (chord_type[i]), chord);
+
+  SCM name = scm_eval (gh_list (gh_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
+  if (name != SCM_UNSPECIFIED)
+    {
+      name_p->modifier_mol = ly_text2molecule (gh_car (name));
+      name_p->addition_mol = ly_text2molecule (gh_cdr (name));
+      return true;
+    }
+  return false;
+}
+
+void
+Chord::banter (Array<Musical_pitch> pitch_arr, Chord_name* name_p) const
+{
   Array<Musical_pitch> add_arr;
   Array<Musical_pitch> sub_arr;
-  find_additions_and_subtractions (&add_arr, &sub_arr);
+  find_additions_and_subtractions (pitch_arr, &add_arr, &sub_arr);
 			   
-
   Array<Musical_pitch> scale;
   for (int i=0; i < 7; i++)
     scale.push (Musical_pitch (i));
 
-  // 7 always means 7-...
-  //  scale.push (Musical_pitch (6, -1)); // b
-
-  rebuild_transpose (&scale, tonic);
+  Musical_pitch tonic = pitch_arr[0];
+  rebuild_transpose (&scale, tonic, true);
   
-  bool has3m_b = false;
-  bool has4_b = false;
-  bool has5m_b = false;
-  String str;
-  String minor_str;
+  /*
+    Does chord include this step?  -1 if flat
+   */
+  int has[16];
+  for (int i=0; i<16; i++)
+    has[i] = 0;
+
+  String mod_str;
+  String add_str;
   String sep_str;
   for (int i = 0; i < add_arr.size (); i++)
     {
       Musical_pitch p = add_arr[i];
       int step = step_i (tonic, p);
-      if (step == 4)
-	has4_b = true;
       int accidental = p.accidental_i_ - scale[(step - 1) % 7].accidental_i_;
+      if ((step < 16) && (has[step] != -1))
+        has[step] = accidental == -1 ? -1 : 1;
       if ((step == 3) && (accidental == -1))
 	{
-	  minor_str = "m";
-	  has3m_b = true;
+	  mod_str = "m";
 	}
       /*
-	have Cdim rather than Cm5-, even if it's a prefix
+        urg.
+	This routine gets a lot simpler, if we don't try to be catch
+	the 'dim' chords.  However, we'll have to list every exceptional
+	'dim' chord in scm: otherwise we'll get stuff like Cdim7-, iso
+	Cdim7, etc
        */
-      else if ((step == 5) && (accidental == -1) && has3m_b)
+#ifdef SMART_DIM
+      else if ((step == 5) && (accidental == -1) && (has[3] == -1))
 	{
-	  minor_str = "dim";
-	  has5m_b = true;
+	  mod_str = "dim";
 	}
+#endif
       else if (accidental
-	       || (!(step % 2) || ((i + 1 == add_arr.size ()) && (step > 5))))
+	       || (!(step % 2) 
+	       || ((i == add_arr.size () - 1) && (step > 5))))
         {
-	  str += sep_str;
+	  add_str += sep_str;
 	  sep_str = "/";
           if ((step == 7) && (accidental == 1))
 	    {
-              str += "maj7";
+              add_str += "maj7";
 	    }
 	  else
-            {
-	      /* 
-	        if has3m_b and has5m_b, assume dim
-		don't mention dim-addition, except for chord-namer
-	       */
-              if (((step/2) && (accidental == -1))
-	          && has3m_b && has5m_b)
-		{
-		  if (i == add_arr.size () - 1)
-                    str += to_str (step);
-		  else
+#ifdef SMART_DIM
+	    {
+	      if ((step % 2) && (accidental == -1) 
+	         && (has[3] == -1) && (has[5] == -1))
+		{		
+	          if (i != add_arr.size () - 1)
 		    sep_str = "";
+		  else
+		    add_str += to_str (step);
 		}
 	      else
+#endif
 	        {
-                  str += to_str (step);
-                  if (accidental)
-                    str += accidental < 0 ? "-" : "+";
+		  add_str += to_str (step);
+		  if (accidental)
+		    add_str += accidental < 0 ? "-" : "+";
 		}
-            }
+#ifdef SMART_DIM
+	    }
+#endif
 	}
     }
 
@@ -496,48 +631,27 @@ Chord::banter_str () const
       Musical_pitch p = sub_arr[i];
       int step = step_i (tonic, p);
       /*
-	if chord has 3-, assume minor and don't display 'no3'
-	if additions include 4, assume sus4 and don't display 'no3'
-	if has3m_b and has5m_b, assume 'dim' chord
+	if additions include 2 or 4, assume sus2/4 and don't display 'no3'
       */
-      if (!((step == 3) && (has3m_b || has4_b))
-         && !((step/2) && (step !=3) && (step !=7 ) && (p.accidental_i_ == 0) && has3m_b && has5m_b)
-         && !((step == 7) && (p.accidental_i_ == -1) && has3m_b && has5m_b))
+      if (!((step == 3) && (has[2] || has[4])))
 	{
-	  str += sep_str + "no" + to_str (step);
+	  add_str += sep_str + "no" + to_str (step);
 	  sep_str = "/";
 	}
     }
 
-  /*
-   have Co rather than Cdim7
-   */
-  if (minor_str + str == "dim7")
+  if (mod_str.length_i ())
+    name_p->modifier_mol.add_at_edge (X_AXIS, RIGHT, 
+      lookup_l ()->text ("roman", mod_str, paper_l ()), 0);
+  if (add_str.length_i ())
     {
-      minor_str = "";
-      str = "o";
+      if (!name_p->addition_mol.empty_b ())
+        add_str = "/" + add_str;
+      name_p->addition_mol.add_at_edge (X_AXIS, RIGHT,
+       lookup_l ()->text ("script", add_str, paper_l ()), 0);
     }
-    
-
-  String inversion_str;
-  if (inversion_p_)
-    {
-      inversion_str = inversion_p_->str ();
-      inversion_str = "/" + inversion_str.left_str (1).upper_str ()
-	+ acc[inversion_p_->accidental_i_ + 2];
-    }
-
-  String bass_str;
-  if (bass_p_)
-    {
-      bass_str = bass_p_->str ();
-      bass_str = "/" + bass_str.left_str (1).upper_str ()
-	+ acc[bass_p_->accidental_i_ + 2];
-
-    }
-
-  return tonic_str + minor_str + "$^{" + str + "}$" + inversion_str + bass_str;
 }
+
 
 int
 Chord::find_tonic_i (Array<Musical_pitch> const* pitch_arr_p)
@@ -647,4 +761,84 @@ Chord::rebuild_with_bass (Array<Musical_pitch>* pitch_arr_p, int bass_i)
     while (bass > (*pitch_arr_p)[0])
       bass.octave_i_--;
   pitch_arr_p->insert (bass, 0);
+}
+
+Molecule*
+Chord::do_brew_molecule_p () const
+{
+  Musical_pitch tonic = pitch_arr_[0];
+  
+  Chord_name name;
+  name.tonic_mol = pitch2molecule (tonic);
+
+  /*
+    if user has explicitely listed chord name, use that
+    
+    TODO
+    urg
+    maybe we should check all sub-lists of pitches, not
+    just full list and base triad?
+   */
+  if (!user_chord_name (pitch_arr_, &name))
+    {
+      /*
+        else, check if user has listed base triad
+	use user base name and add banter for remaining part
+       */
+      if ((pitch_arr_.size () > 2)
+	  && user_chord_name (pitch_arr_.slice (0, 3), &name))
+        {
+	  Array<Musical_pitch> base = base_arr (tonic);
+	  base.concat (pitch_arr_.slice (3, pitch_arr_.size ()));
+	  banter (base, &name);
+	}
+      /*
+        else, use pure banter
+       */
+      else
+	{
+	  banter (pitch_arr_, &name);
+	}
+    }
+
+  if (inversion_p_)
+    {
+      name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
+      // zucht  const&
+      Molecule mol = pitch2molecule (*inversion_p_);
+      name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
+    }
+
+  if (bass_p_)
+    {
+      name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
+      Molecule mol = pitch2molecule (*bass_p_);
+      name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
+    }
+
+  // urg, howto get a good superscript_y?
+  Real super_y = lookup_l ()->text ("", "x", paper_l ()).dim_.y ().length ()/2;
+  if (!name.addition_mol.empty_b ())
+    name.addition_mol.translate (Offset (0, super_y));
+
+  Molecule* mol_p = new Molecule;
+  mol_p->add_at_edge (X_AXIS, RIGHT, name.tonic_mol, 0);
+  // huh?
+  if (!name.modifier_mol.empty_b ())
+    mol_p->add_at_edge (X_AXIS, RIGHT, name.modifier_mol, 0);
+  if (!name.addition_mol.empty_b ())
+    mol_p->add_at_edge (X_AXIS, RIGHT, name.addition_mol, 0);
+  if (!name.inversion_mol.empty_b ())
+    mol_p->add_at_edge (X_AXIS, RIGHT, name.inversion_mol, 0);
+  if (!name.bass_mol.empty_b ())
+    mol_p->add_at_edge (X_AXIS, RIGHT, name.bass_mol, 0);
+  return mol_p;
+}
+
+void
+Chord::do_print () const
+{
+#ifndef NPRINT
+  //DEBUG_OUT <<  "chord = " ...
+#endif
 }

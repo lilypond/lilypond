@@ -28,8 +28,7 @@ protected:
 
 private:
   Array<Musical_pitch> pitch_arr_;
-  Link_array<Item> text_p_arr_;
-  Array<Musical_pitch> rebuild_pitch_arr (int tonic_i) const;
+  Chord* chord_p_;
   Tonic_req* tonic_req_;
   Inversion_req* inversion_req_;
   Bass_req* bass_req_;
