@@ -30,9 +30,9 @@
 class Hara_kiri_group_spanner 
 {
 public:
-  static Real force_hara_kiri_callback (Score_element * , Axis);
-  static Interval y_extent (Score_element * , Axis);
-  static Real force_hara_kiri_in_parent_callback (Score_element * , Axis);
+  DECLARE_SCHEME_CALLBACK(force_hara_kiri_callback, (SCM ,SCM));
+  DECLARE_SCHEME_CALLBACK(y_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK(force_hara_kiri_in_parent_callback, (SCM ,SCM));
   static void add_element (Score_element *me, Score_element *e);
   static void set_interface (Score_element*me);
   static bool has_interface (Score_element*);

@@ -28,7 +28,7 @@
 */
 struct Axis_group_interface 
 {
-  static Interval group_extent_callback (Score_element *,Axis);
+  DECLARE_SCHEME_CALLBACK(group_extent_callback, (SCM smob, SCM axis));
   static Interval relative_group_extent (Axis, Score_element * common, SCM list);
 
   static void add_element (Score_element* me, Score_element*);

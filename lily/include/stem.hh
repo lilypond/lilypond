@@ -39,7 +39,7 @@
 class Stem 
 {
 public:
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
 
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   static  int flag_i (Score_element*) ;
@@ -71,10 +71,10 @@ public:
   static Real get_default_stem_end_position (Score_element*me) ;
   static void position_noteheads(Score_element*);
   static Real stem_end_position (Score_element*) ;
-  static Real off_callback (Score_element *, Axis);
+  DECLARE_SCHEME_CALLBACK(off_callback, (SCM element, SCM axis));
   static Molecule flag (Score_element*);
-  static SCM before_line_breaking (SCM);
-  static Interval dim_callback (Score_element *,Axis);
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK(dim_callback, (SCM smob, SCM axis));
   static bool has_interface (Score_element*);
   static void set_interface (Score_element*);
 
