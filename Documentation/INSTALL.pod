@@ -95,8 +95,8 @@ Although not strictly necessary, these are recommended to have.
 
 =item *
 
-Perl-5.  Most scripts are written in Perl. Most  documentation was created
-with the perl's Plain Old Documentation. (I use 5.003)
+Perl-5.  Most documentation was created with the perl's Plain Old
+Documentation. (I use 5.003)
 
 =item *
 
@@ -109,9 +109,9 @@ GNU find
 
 =item *
 
-A fast computer (a full page of music typically takes 1 minute
-on my 486/133, using the B<--enable-checking> compile. It's lot slower
-than most MusiXTeX preprocessors)
+A fast computer (a full page of music typically takes 1 minute on my
+486/133, using the B<--enable-checking> compile. It's lot slower than
+most MusiXTeX preprocessors)
 
 =back
 
