@@ -204,7 +204,8 @@ yylex (YYSTYPE *s,  void * v)
 /* tokens which are not keywords */
 %token AUTOCHANGE
 %token ALIAS
-%token APPLYCONTEXT 
+%token APPLYCONTEXT
+%token APPLYOUTPUT
 %token APPLY
 %token ACCEPTS
 %token ALTERNATIVE
@@ -828,6 +829,13 @@ Simultaneous_music:
 
 Simple_music:
 	event_chord		{ $$ = $1; }
+	| APPLYOUTPUT embedded_scm {
+		if (!gh_procedure_p ($2))
+			THIS->parser_error (_ ("\applycontext takes function argument"));
+		$$ = MY_MAKE_MUSIC ("ApplyOutputEvent");
+		$$->set_mus_property ("procedure", $2);
+		$$->set_spot (THIS->here_input());
+	}
 	| APPLYCONTEXT embedded_scm {
 		if (!gh_procedure_p ($2))
 			THIS->parser_error (_ ("\applycontext takes function argument"));

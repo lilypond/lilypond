@@ -10,24 +10,12 @@
 #include "engraver.hh"
 #include "grob.hh"
 #include "output-property-music-iterator.hh"
+#include "translator-group.hh"
 
 class Output_property_engraver : public Engraver
 {
 TRANSLATOR_DECLARATIONS(Output_property_engraver);
 protected:
-
-  /*
-    should do this with \once and \push ?
-
-
-      \property Voice.outputProperties \push #pred = #modifier
-
-      where both MODIFIER and PRED are functions taking a
-      grob.
-      
-   */
-
-  
   Link_array<Music> props_;
 
   virtual void stop_translation_timestep ();
@@ -54,17 +42,35 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
     {
       Music * o = props_[i];
       SCM pred = o->get_mus_property ("predicate");
-      
-      /*
-	should typecheck pred. 
-       */
-      SCM result=gh_apply (pred,
-			   scm_list_n (inf.grob_->self_scm (), SCM_UNDEFINED));
-      if (to_boolean (result))
+
+
+
+      if (gh_procedure_p (pred))
 	{
-	  SCM sym = o->get_mus_property ("grob-property");
-	  SCM val = o->get_mus_property ("grob-value");
-	  inf.grob_->internal_set_grob_property (sym, val);
+	  /*
+	    should typecheck pred. 
+	  */
+	  SCM result=scm_call_1 (pred, inf.grob_->self_scm ());
+	  if (to_boolean (result))
+	    {
+	      SCM sym = o->get_mus_property ("grob-property");
+	      SCM val = o->get_mus_property ("grob-value");
+	      inf.grob_->internal_set_grob_property (sym, val);
+	    }
+	}
+      else
+	{
+	  Translator_group * d =
+	    dynamic_cast<Translator_group*> (inf.origin_trans_);
+
+	  if (!d)
+	    d = dynamic_cast<Translator_group*> (inf.origin_trans_->daddy_trans_);
+	  
+	  SCM proc = o->get_mus_property ("procedure");
+	  scm_call_3 (proc,
+		      inf.grob_->self_scm(),
+		      d->self_scm(), 
+		      daddy_trans_->self_scm());
 	}
     }
 }

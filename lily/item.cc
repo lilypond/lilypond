@@ -193,12 +193,25 @@ unsmob_item (SCM s )
 
 ADD_INTERFACE(Item,
 	      "item-interface",
-	      "
-
-Grobs can be distinguished in their role in the horizontal spacing.
-Many grobs define constraints on the spacing by their sizes. For
-example, note heads, clefs, stems, and all other symbols with a fixed
-shape.  These grobs form a subtype called @code{Item}.
-
-",
+	      "\n"
+	      "\n"
+	      "Grobs can be distinguished in their role in the horizontal spacing.\n"
+	      "Many grobs define constraints on the spacing by their sizes. For\n"
+	      "example, note heads, clefs, stems, and all other symbols with a fixed\n"
+	      "shape.  These grobs form a subtype called @code{Item}.\n"
+	      "\n"
+	      "\n"
+	      "Some items need special treatment for line breaking. For example, a\n"
+	      "clef is normally only printed at the start of a line (i.e. after a\n"
+	      "line break).  To model this, `breakable' items (clef, key signature,\n"
+	      "bar lines, etc.) are copied twice. Then we have three versions of each\n"
+	      "breakable item: one version if there is no line break, one version\n"
+	      "that is printed before the line break (at the end of a system), one\n"
+	      "version that is printed after the line break.\n"
+	      "\n"
+	      "Whether these versions are visible and take up space, is determined by\n"
+	      "the outcome of the @code{break-visibility}. This grob property is a\n"
+	      "function taking a direction (-1, 0 or 1) as argument. It returns a\n"
+	      "cons of booleans, signifying whether this grob should be transparent\n"
+	      "and have no extent.\n",
 	      "no-spacing-rods break-visibility breakable")

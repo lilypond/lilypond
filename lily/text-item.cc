@@ -249,8 +249,8 @@ Text_item::brew_molecule (SCM smob)
 
 
 ADD_INTERFACE (Text_item,"text-interface",
-  "A scheme markup text",
-  "text axis baseline-skip extent lookup raise kern word-space");
+  "A scheme markup text, see @ref{Markup functions}.",
+  "text baseline-skip word-space");
 
 
 /*

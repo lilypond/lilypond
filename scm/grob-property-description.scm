@@ -65,7 +65,6 @@ the grob to the nearest open space.
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
-(grob-property-description 'axis number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
 (grob-property-description 'align-dir ly:dir? "Which side to align? -1: left side, 0: around center of width, 1: right side.")
 (grob-property-description 'alignment-done boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once).")
 (grob-property-description 'all-elements grob-list? "list of all grobs in this line. Needed for protecting grobs from GC.")
@@ -183,7 +182,6 @@ mean centre distance weighted per note
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
 (grob-property-description 'extra-X-extent number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-Y-extent number-pair? "see @code{extra-Y-extent}.")
-(grob-property-description 'extent number-pair? "the extent of the text: (WIDTH . HEIGHT)")
 (grob-property-description 'X-extent number-pair? "Store extent. internal use only. ")
 (grob-property-description 'Y-extent number-pair? "Store extent. internal use only. ")
 (grob-property-description 'extra-offset number-pair? "pair of reals
@@ -277,11 +275,8 @@ name of character within font.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
 (grob-property-description 'items-worth-living grob-list? "list of interesting items. If empty in a particular system, clear that system.")
 (grob-property-description 'join-heads boolean? "Whether to join the noteheads of an ambitus grob with a vertical line.")
-(grob-property-description 'kern ly:dimension? "amount of extra white space to add.
-
-For text,  this is `relative'(?) to the current alignment.
-
-For barline, space after a thick line.")
+(grob-property-description 'kern ly:dimension? "amount of extra white
+space to add. For barline, space after a thick line.")
 (grob-property-description 'knee boolean? "Is this beam a knee?")
 (grob-property-description 'knee-spacing-correction number? "optical correction amount for knees. 0: no correction; 1: full correction.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
@@ -303,7 +298,6 @@ use @code{\outputproperty}. @code{\property .. \override} will not
 work: @code{\override} is processed after the StaffSymbol is created,
 and will have no effect.
 ")
-(grob-property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name.")
 (grob-property-description 'maximum-length ly:dimension? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
 (grob-property-description 'measure-length ly:moment? "Length of a
@@ -378,8 +372,6 @@ as a real penalty.")
 (grob-property-description 'quilisma boolean? "is this neume a quilisma?.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'prefix-set number? "DOCME")
-
-(grob-property-description 'raise ly:dimension? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'right-padding ly:dimension? "space right of accs.")
 (grob-property-description 'right-trim-amount ly:dimension? "shortening of the lyric extender on the right.")
@@ -466,21 +458,10 @@ Like @code{bracket-visibility}, but for the number.")
 
 ")
 
-(grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).
-
-Some items need special treatment for line breaking. For example, a
-clef is normally only printed at the start of a line (i.e. after a
-line break).  To model this, `breakable' items (clef, key signature,
-bar lines, etc.) are copied twice. Then we have three versions of each
-breakable item: one version if there is no line break, one version
-that is printed before the line break (at the end of a system), one
-version that is printed after the line break.
-
-Whether these versions are visible and take up space, is determined by
-the outcome of the @code{break-visibility}. This grob property is a
-function taking a direction (-1, 0 or 1) as argument. It returns a
-cons of booleans, signifying whether this grob should be transparent
-and have no extent.")
+(grob-property-description 'break-visibility procedure? "a function
+that takes the break direction and returns a cons of booleans
+containing (TRANSPARENT . EMPTY).
+")
 
 (grob-property-description 'virga boolean? "is this neume a virga?.")
 (grob-property-description 'when ly:moment? "when does this column happen?.")

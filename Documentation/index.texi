@@ -63,7 +63,7 @@ Windows}.  (Or just @uref{http://cygwin.com/setup.exe, Install Lily Now}).
 @itemize @bullet
 @item @uref{../user/out-www/lilypond/Tutorial.html,Learn} how to use LilyPond.
 @item
- @uref{../../input/template/out-www/template.html, Templates}, for
+ @uref{../../input/template/out-www/collated-files.html, Templates}, for
 different music styles.  Add notes, and done!
 @end itemize
 
@@ -100,10 +100,10 @@ you want to fine-tune output, you need the information in this
 document.
 
 @item
- @uref{../../input/template/out-www/template.html, Templates}, for
+ @uref{../../input/template/out-www/collated-files.html, Templates}, for
 different music styles. Add notes, and done!
 
-@item All of the @uref{../../input/test/out-www/test.html,tips-and-tricks}
+@item All of the @uref{../../input/test/out-www/collated-files.html,tips-and-tricks}
  input snippets, with the corresponding
 output shown.  Also available in
 @uref{../../input/test/out-www/test.ps.gz,PostScript} and
@@ -124,7 +124,7 @@ output shown.  Also available in
 @itemize @bullet
 @item The @uref{ChangeLog.html, ChangeLog} lists things recently done.
 @item The
-@uref{../../input/regression/out-www/regression.html,Regression Tests}
+@uref{../../input/regression/out-www/collated-files.html,Regression Tests}
 are lot of snippets that test all basic features.  Also available in
 @uref{../../input/regression/out-www/regression.ps.gz,PostScript} and
 @uref{../../input/regression/out-www/regression.pdf,PDF} formats.
